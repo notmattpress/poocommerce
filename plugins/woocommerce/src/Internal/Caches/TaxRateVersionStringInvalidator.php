@@ -2,7 +2,7 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Caches;
+namespace Automattic\PooCommerce\Internal\Caches;
 
 /**
  * Tax rate version string invalidation handler.
@@ -31,12 +31,12 @@ class TaxRateVersionStringInvalidator {
 	final public function init(): void {
 		// We can't use FeaturesController::feature_is_enabled at this point
 		// (before the 'init' action is triggered) because that would cause
-		// "Translation loading for the woocommerce domain was triggered too early" warnings.
-		if ( 'yes' !== get_option( 'woocommerce_feature_rest_api_caching_enabled' ) ) {
+		// "Translation loading for the poocommerce domain was triggered too early" warnings.
+		if ( 'yes' !== get_option( 'poocommerce_feature_rest_api_caching_enabled' ) ) {
 			return;
 		}
 
-		if ( 'yes' === get_option( 'woocommerce_rest_api_enable_backend_caching', 'no' ) ) {
+		if ( 'yes' === get_option( 'poocommerce_rest_api_enable_backend_caching', 'no' ) ) {
 			$this->register_hooks();
 		}
 	}
@@ -49,13 +49,13 @@ class TaxRateVersionStringInvalidator {
 	 * @return void
 	 */
 	private function register_hooks(): void {
-		add_action( 'woocommerce_tax_rate_added', array( $this, 'handle_woocommerce_tax_rate_added' ), 10, 1 );
-		add_action( 'woocommerce_tax_rate_updated', array( $this, 'handle_woocommerce_tax_rate_updated' ), 10, 1 );
-		add_action( 'woocommerce_tax_rate_deleted', array( $this, 'handle_woocommerce_tax_rate_deleted' ), 10, 1 );
+		add_action( 'poocommerce_tax_rate_added', array( $this, 'handle_poocommerce_tax_rate_added' ), 10, 1 );
+		add_action( 'poocommerce_tax_rate_updated', array( $this, 'handle_poocommerce_tax_rate_updated' ), 10, 1 );
+		add_action( 'poocommerce_tax_rate_deleted', array( $this, 'handle_poocommerce_tax_rate_deleted' ), 10, 1 );
 	}
 
 	/**
-	 * Handle the woocommerce_tax_rate_added hook.
+	 * Handle the poocommerce_tax_rate_added hook.
 	 *
 	 * @param int $tax_rate_id The tax rate ID.
 	 *
@@ -65,13 +65,13 @@ class TaxRateVersionStringInvalidator {
 	 *
 	 * @internal
 	 */
-	public function handle_woocommerce_tax_rate_added( $tax_rate_id ): void {
+	public function handle_poocommerce_tax_rate_added( $tax_rate_id ): void {
 		$this->invalidate( (int) $tax_rate_id );
 		$this->invalidate_tax_rates_list();
 	}
 
 	/**
-	 * Handle the woocommerce_tax_rate_updated hook.
+	 * Handle the poocommerce_tax_rate_updated hook.
 	 *
 	 * @param int $tax_rate_id The tax rate ID.
 	 *
@@ -81,13 +81,13 @@ class TaxRateVersionStringInvalidator {
 	 *
 	 * @internal
 	 */
-	public function handle_woocommerce_tax_rate_updated( $tax_rate_id ): void {
+	public function handle_poocommerce_tax_rate_updated( $tax_rate_id ): void {
 		$this->invalidate( (int) $tax_rate_id );
 		$this->invalidate_tax_rates_list();
 	}
 
 	/**
-	 * Handle the woocommerce_tax_rate_deleted hook.
+	 * Handle the poocommerce_tax_rate_deleted hook.
 	 *
 	 * @param int $tax_rate_id The tax rate ID.
 	 *
@@ -97,7 +97,7 @@ class TaxRateVersionStringInvalidator {
 	 *
 	 * @internal
 	 */
-	public function handle_woocommerce_tax_rate_deleted( $tax_rate_id ): void {
+	public function handle_poocommerce_tax_rate_deleted( $tax_rate_id ): void {
 		$this->invalidate( (int) $tax_rate_id );
 		$this->invalidate_tax_rates_list();
 	}

@@ -2,12 +2,12 @@
 /**
  * Default settings for Point of Sale.
  *
- * @package WooCommerce\Internal\Settings
+ * @package PooCommerce\Internal\Settings
  */
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Internal\Settings;
+namespace Automattic\PooCommerce\Internal\Settings;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.

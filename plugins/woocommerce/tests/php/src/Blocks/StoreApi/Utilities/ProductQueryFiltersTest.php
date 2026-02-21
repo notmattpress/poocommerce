@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\StoreApi\Utilities;
+namespace Automattic\PooCommerce\Tests\Blocks\StoreApi\Utilities;
 
-use Automattic\WooCommerce\StoreApi\Utilities\ProductQueryFilters;
-use Automattic\WooCommerce\Tests\Blocks\Helpers\FixtureData;
+use Automattic\PooCommerce\StoreApi\Utilities\ProductQueryFilters;
+use Automattic\PooCommerce\Tests\Blocks\Helpers\FixtureData;
 use Yoast\PHPUnitPolyfills\TestCases\TestCase;
 
 /**
@@ -20,7 +20,7 @@ class ProductQueryFiltersTest extends TestCase {
 		$fixtures = new FixtureData();
 
 		add_filter(
-			'woocommerce_product_stock_status_options',
+			'poocommerce_product_stock_status_options',
 			function ( $status ) {
 				$status['custom1'] = 'Custom status 1';
 				$status['custom2'] = 'Custom status 2';

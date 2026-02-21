@@ -2,13 +2,13 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Gateways\PayPal;
+namespace Automattic\PooCommerce\Gateways\PayPal;
 
 use Exception;
 use WC_Order;
-use Automattic\WooCommerce\Gateways\PayPal\Constants as PayPalConstants;
-use Automattic\WooCommerce\Gateways\PayPal\AddressRequirements as PayPalAddressRequirements;
-use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Gateways\PayPal\Constants as PayPalConstants;
+use Automattic\PooCommerce\Gateways\PayPal\AddressRequirements as PayPalAddressRequirements;
+use Automattic\PooCommerce\Enums\OrderStatus;
 use Automattic\Jetpack\Connection\Client as Jetpack_Connection_Client;
 
 defined( 'ABSPATH' ) || exit;
@@ -127,9 +127,9 @@ class Request {
 			 *
 			 * @param int|string $http_code     The HTTP status code from the PayPal API response.
 			 * @param array      $response_data The decoded response data from the PayPal API
-			 * @param WC_Order   $order         The WooCommerce order object.
+			 * @param WC_Order   $order         The PooCommerce order object.
 			 */
-			do_action( 'woocommerce_paypal_standard_order_created_response', $http_code, $response_array, $order );
+			do_action( 'poocommerce_paypal_standard_order_created_response', $http_code, $response_array, $order );
 
 			if ( ! in_array( $http_code, array( 200, 201 ), true ) ) {
 				$paypal_debug_id = isset( $response_data['debug_id'] ) ? $response_data['debug_id'] : null;
@@ -166,7 +166,7 @@ class Request {
 				$order->add_order_note(
 					sprintf(
 						/* translators: %1$s: PayPal debug ID */
-						__( 'PayPal order creation failed. PayPal debug ID: %1$s', 'woocommerce' ),
+						__( 'PayPal order creation failed. PayPal debug ID: %1$s', 'poocommerce' ),
 						$paypal_debug_id
 					)
 				);
@@ -275,7 +275,7 @@ class Request {
 			\WC_Gateway_Paypal::log( $e->getMessage() );
 			$note_message = sprintf(
 				/* translators: %1$s: Action, %2$s: PayPal order ID */
-				__( 'PayPal %1$s payment failed. PayPal Order ID: %2$s', 'woocommerce' ),
+				__( 'PayPal %1$s payment failed. PayPal Order ID: %2$s', 'poocommerce' ),
 				$action,
 				$paypal_order_id
 			);
@@ -284,7 +284,7 @@ class Request {
 			if ( $paypal_debug_id ) {
 				$note_message .= sprintf(
 					/* translators: %s: PayPal debug ID */
-					__( '. PayPal debug ID: %s', 'woocommerce' ),
+					__( '. PayPal debug ID: %s', 'poocommerce' ),
 					$paypal_debug_id
 				);
 			}
@@ -381,7 +381,7 @@ class Request {
 			\WC_Gateway_Paypal::log( $e->getMessage() );
 
 			$note_message = sprintf(
-				__( 'PayPal capture authorized payment failed', 'woocommerce' ),
+				__( 'PayPal capture authorized payment failed', 'poocommerce' ),
 			);
 
 			// Scenario 1: Capture auth API call returned 404 (authorization object does not exist).
@@ -395,7 +395,7 @@ class Request {
 
 				$note_message .= sprintf(
 					/* translators: %1$s: Authorization ID, %2$s: open link tag, %3$s: close link tag */
-					__( '. Authorization ID: %1$s not found. Please log into your %2$sPayPal account%3$s to capture the payment', 'woocommerce' ),
+					__( '. Authorization ID: %1$s not found. Please log into your %2$sPayPal account%3$s to capture the payment', 'poocommerce' ),
 					esc_html( $authorization_id ),
 					'<a href="' . esc_url( $paypal_dashboard_url ) . '" target="_blank">',
 					'</a>'
@@ -406,7 +406,7 @@ class Request {
 			if ( $paypal_debug_id ) {
 				$note_message .= sprintf(
 					/* translators: %s: PayPal debug ID */
-					__( '. PayPal debug ID: %s', 'woocommerce' ),
+					__( '. PayPal debug ID: %s', 'poocommerce' ),
 					$paypal_debug_id
 				);
 			}
@@ -570,7 +570,7 @@ class Request {
 		 * @return array
 		 */
 		$supported_currencies = apply_filters(
-			'woocommerce_paypal_supported_currencies',
+			'poocommerce_paypal_supported_currencies',
 			PayPalConstants::SUPPORTED_CURRENCIES
 		);
 		if ( ! in_array( strtoupper( $order->get_currency() ), $supported_currencies, true ) ) {
@@ -1062,7 +1062,7 @@ class Request {
 			array(
 				'headers' => array(
 					'Content-Type' => 'application/json',
-					'User-Agent'   => 'TransactGateway/woocommerce/' . WC()->version,
+					'User-Agent'   => 'TransactGateway/poocommerce/' . WC()->version,
 				),
 				'method'  => $method,
 				'timeout' => PayPalConstants::WPCOM_PROXY_REQUEST_TIMEOUT,

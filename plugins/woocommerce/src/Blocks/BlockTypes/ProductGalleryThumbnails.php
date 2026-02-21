@@ -1,10 +1,10 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\Utils\StyleAttributesUtils;
-use Automattic\WooCommerce\Blocks\Utils\ProductGalleryUtils;
+use Automattic\PooCommerce\Blocks\Utils\StyleAttributesUtils;
+use Automattic\PooCommerce\Blocks\Utils\ProductGalleryUtils;
 
 /**
  * ProductGalleryThumbnails class.
@@ -57,7 +57,7 @@ class ProductGalleryThumbnails extends AbstractBlock {
 
 		// We crop the images to square only if the aspect ratio is 1:1.
 		// Otherwise, we show the uncropped and use object-fit to crop them.
-		$image_size             = '1' === $attributes['aspectRatio'] ? 'woocommerce_thumbnail' : 'woocommerce_single';
+		$image_size             = '1' === $attributes['aspectRatio'] ? 'poocommerce_thumbnail' : 'poocommerce_single';
 		$product_gallery_images = ProductGalleryUtils::get_product_gallery_image_data( $product, $image_size );
 
 		// Don't show the thumbnails block if there is only one image.
@@ -75,7 +75,7 @@ class ProductGalleryThumbnails extends AbstractBlock {
 		<div
 			class="wc-block-product-gallery-thumbnails wc-block-product-gallery-thumbnails--active-<?php echo esc_attr( $active_thumbnail_style ); ?> <?php echo esc_attr( $classes_and_styles['classes'] ); ?>"
 			style="<?php echo '--wc-block-product-gallery-thumbnails-size:' . absint( $thumbnail_size ) . ';' . esc_attr( $classes_and_styles['styles'] ); ?>"
-			data-wp-interactive="woocommerce/product-gallery"
+			data-wp-interactive="poocommerce/product-gallery"
 			data-wp-class--wc-block-product-gallery-thumbnails--overflow-top="context.thumbnailsOverflow.top"
 			data-wp-class--wc-block-product-gallery-thumbnails--overflow-bottom="context.thumbnailsOverflow.bottom"
 			data-wp-class--wc-block-product-gallery-thumbnails--overflow-left="context.thumbnailsOverflow.left"

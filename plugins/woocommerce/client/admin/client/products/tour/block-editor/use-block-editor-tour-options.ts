@@ -1,11 +1,11 @@
 /**
  * External dependencies
  */
-import { optionsStore } from '@woocommerce/data';
+import { optionsStore } from '@poocommerce/data';
 import { useSelect, useDispatch } from '@wordpress/data';
 
 export const BLOCK_EDITOR_TOUR_SHOWN_OPTION =
-	'woocommerce_block_product_tour_shown';
+	'poocommerce_block_product_tour_shown';
 
 export const useBlockEditorTourOptions = () => {
 	const { updateOptions } = useDispatch( optionsStore );

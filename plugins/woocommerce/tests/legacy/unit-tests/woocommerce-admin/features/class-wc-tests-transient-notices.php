@@ -2,10 +2,10 @@
 /**
  * Task Lists Tests.
  *
- * @package Automattic\WooCommerce\Admin\Features
+ * @package Automattic\PooCommerce\Admin\Features
  */
 
-use Automattic\WooCommerce\Admin\Features\TransientNotices;
+use Automattic\PooCommerce\Admin\Features\TransientNotices;
 
 /**
  * Class WC_Admin_Tests_Transient_Notices

@@ -1,11 +1,11 @@
 <?php
 declare( strict_types = 1 );
-namespace Automattic\WooCommerce\Tests\Blocks\Shipping;
+namespace Automattic\PooCommerce\Tests\Blocks\Shipping;
 
-use Automattic\WooCommerce\Blocks\Assets\Api;
-use Automattic\WooCommerce\Blocks\Assets\AssetDataRegistry;
-use Automattic\WooCommerce\Blocks\Package;
-use Automattic\WooCommerce\Blocks\Shipping\ShippingController;
+use Automattic\PooCommerce\Blocks\Assets\Api;
+use Automattic\PooCommerce\Blocks\Assets\AssetDataRegistry;
+use Automattic\PooCommerce\Blocks\Package;
+use Automattic\PooCommerce\Blocks\Shipping\ShippingController;
 
 /**
  * Unit tests for the PatternRegistry class.
@@ -58,7 +58,7 @@ class ShippingControllerTest extends \WP_UnitTestCase {
 		// Setup mock logger.
 		$this->mock_logger = $this->getMockBuilder( \WC_Logger_Interface::class )->getMock();
 		add_filter(
-			'woocommerce_logging_class',
+			'poocommerce_logging_class',
 			array( $this, 'override_wc_logger' )
 		);
 
@@ -66,16 +66,16 @@ class ShippingControllerTest extends \WP_UnitTestCase {
 		$this->backup_wc = WC();
 
 		// Local pickup only works with the checkout block.
-		$this->original_checkout_page_id = get_option( 'woocommerce_checkout_page_id' );
+		$this->original_checkout_page_id = get_option( 'poocommerce_checkout_page_id' );
 		$this->block_checkout_page_id    = $this->factory->post->create(
 			array(
 				'post_type'    => 'page',
 				'post_title'   => 'Checkout',
-				'post_content' => '<!-- wp:woocommerce/checkout /-->',
+				'post_content' => '<!-- wp:poocommerce/checkout /-->',
 				'post_status'  => 'publish',
 			)
 		);
-		update_option( 'woocommerce_checkout_page_id', $this->block_checkout_page_id );
+		update_option( 'poocommerce_checkout_page_id', $this->block_checkout_page_id );
 
 		$this->shipping_controller = new ShippingController(
 			Package::container()->get( Api::class ),
@@ -93,12 +93,12 @@ class ShippingControllerTest extends \WP_UnitTestCase {
 	 * @return void
 	 */
 	protected function tearDown(): void {
-		global $woocommerce;
+		global $poocommerce;
 
-		update_option( 'woocommerce_checkout_page_id', $this->original_checkout_page_id );
+		update_option( 'poocommerce_checkout_page_id', $this->original_checkout_page_id );
 		wp_delete_post( $this->block_checkout_page_id );
-		remove_filter( 'woocommerce_logging_class', array( $this, 'override_wc_logger' ) );
-		$woocommerce = $this->backup_wc;
+		remove_filter( 'poocommerce_logging_class', array( $this, 'override_wc_logger' ) );
+		$poocommerce = $this->backup_wc;
 		parent::tearDown();
 	}
 
@@ -128,7 +128,7 @@ class ShippingControllerTest extends \WP_UnitTestCase {
 
 		// Now add a filter to set US state to optional, and UK state to required.
 		add_filter(
-			'woocommerce_get_country_locale',
+			'poocommerce_get_country_locale',
 			function ( $locale ) {
 				$locale['US']['state']['required']      = false;
 				$locale['GB']['state']['required']      = true;
@@ -155,7 +155,7 @@ class ShippingControllerTest extends \WP_UnitTestCase {
 		$this->assertTrue( WC()->customer->has_full_shipping_address() );
 
 		// Remove filter.
-		remove_all_filters( 'woocommerce_get_country_locale' );
+		remove_all_filters( 'poocommerce_get_country_locale' );
 	}
 
 	/**
@@ -180,9 +180,9 @@ class ShippingControllerTest extends \WP_UnitTestCase {
 					);
 
 		// Test that the method does not throw exceptions with missing WC object.
-		global $woocommerce;
+		global $poocommerce;
 		$incomplete_wc = new \stdClass(); // Object without shipping property.
-		$woocommerce   = $incomplete_wc;
+		$poocommerce   = $incomplete_wc;
 
 		$this->shipping_controller->register_local_pickup();
 		$this->assertTrue( true, 'Method did not throw exceptions with missing WC object' );

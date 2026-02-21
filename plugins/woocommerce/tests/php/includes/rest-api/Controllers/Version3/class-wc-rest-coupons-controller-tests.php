@@ -65,7 +65,7 @@ class WC_REST_Coupons_Controller_Tests extends WC_REST_Unit_Test_Case {
 		wp_set_current_user( $this->user );
 		$expected_response_fields = $this->get_expected_response_fields();
 
-		$coupon   = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\CouponHelper::create_coupon();
+		$coupon   = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\CouponHelper::create_coupon();
 		$response = $this->server->dispatch( new WP_REST_Request( 'GET', '/wc/v3/coupons/' . $coupon->get_id() ) );
 
 		$this->assertEquals( 200, $response->get_status() );
@@ -83,7 +83,7 @@ class WC_REST_Coupons_Controller_Tests extends WC_REST_Unit_Test_Case {
 	public function test_coupons_get_each_field_one_by_one() {
 		wp_set_current_user( $this->user );
 		$expected_response_fields = $this->get_expected_response_fields();
-		$coupon                   = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\CouponHelper::create_coupon();
+		$coupon                   = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\CouponHelper::create_coupon();
 
 		foreach ( $expected_response_fields as $field ) {
 			$request = new WP_REST_Request( 'GET', '/wc/v3/coupons/' . $coupon->get_id() );
@@ -102,9 +102,9 @@ class WC_REST_Coupons_Controller_Tests extends WC_REST_Unit_Test_Case {
 	public function test_filter_coupons_by_status() {
 		wp_set_current_user( $this->user );
 
-		$coupon_1 = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\CouponHelper::create_coupon( 'dummycoupon-1', 'draft' );
+		$coupon_1 = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\CouponHelper::create_coupon( 'dummycoupon-1', 'draft' );
 		$post_1   = get_post( $coupon_1->get_id() );
-		$coupon_2 = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\CouponHelper::create_coupon( 'dummycoupon-2' );
+		$coupon_2 = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\CouponHelper::create_coupon( 'dummycoupon-2' );
 
 		$request = new WP_REST_Request( 'GET', '/wc/v3/coupons' );
 		$request->set_query_params(
@@ -260,7 +260,7 @@ class WC_REST_Coupons_Controller_Tests extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_update_coupon_status() {
 		wp_set_current_user( $this->user );
-		$coupon = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\CouponHelper::create_coupon( 'test-coupon', 'draft' );
+		$coupon = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\CouponHelper::create_coupon( 'test-coupon', 'draft' );
 		$coupon->save();
 
 		$request = new WP_REST_Request( 'PUT', '/wc/v3/coupons/' . $coupon->get_id() );
@@ -280,7 +280,7 @@ class WC_REST_Coupons_Controller_Tests extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_update_coupon_status_publish_to_draft() {
 		wp_set_current_user( $this->user );
-		$coupon = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\CouponHelper::create_coupon( 'test-coupon', 'publish' );
+		$coupon = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\CouponHelper::create_coupon( 'test-coupon', 'publish' );
 		$coupon->save();
 
 		$request = new WP_REST_Request( 'PUT', '/wc/v3/coupons/' . $coupon->get_id() );

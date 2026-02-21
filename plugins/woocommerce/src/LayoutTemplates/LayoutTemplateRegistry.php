@@ -1,10 +1,10 @@
 <?php
 
-namespace Automattic\WooCommerce\LayoutTemplates;
+namespace Automattic\PooCommerce\LayoutTemplates;
 
-use Automattic\WooCommerce\Admin\BlockTemplates\BlockTemplateInterface;
+use Automattic\PooCommerce\Admin\BlockTemplates\BlockTemplateInterface;
 
-use Automattic\WooCommerce\Internal\Admin\BlockTemplates\BlockTemplateLogger;
+use Automattic\PooCommerce\Internal\Admin\BlockTemplates\BlockTemplateLogger;
 
 /**
  * Layout template registry.
@@ -156,10 +156,10 @@ final class LayoutTemplateRegistry {
 		 *
 		 * @since 8.6.0
 		 */
-		do_action( 'woocommerce_layout_template_after_instantiation', $layout_template_info['id'], $layout_template_info['area'], $layout_template_instance );
+		do_action( 'poocommerce_layout_template_after_instantiation', $layout_template_info['id'], $layout_template_info['area'], $layout_template_instance );
 
 		// Call the old, deprecated, register hook.
-		wc_do_deprecated_action( 'woocommerce_block_template_register', array( $layout_template_instance ), '8.6.0', 'woocommerce_layout_template_after_instantiation' );
+		wc_do_deprecated_action( 'poocommerce_block_template_register', array( $layout_template_instance ), '8.6.0', 'poocommerce_layout_template_after_instantiation' );
 
 		return $layout_template_instance;
 	}

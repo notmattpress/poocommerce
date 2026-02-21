@@ -3,7 +3,7 @@
  */
 import { __ } from '@wordpress/i18n';
 import { useEffect, useState } from '@wordpress/element';
-import ProductAttributeTermControl from '@woocommerce/editor-components/product-attribute-term-control';
+import ProductAttributeTermControl from '@poocommerce/editor-components/product-attribute-term-control';
 import {
 	ExternalLink,
 	// eslint-disable-next-line @wordpress/no-unsafe-wp-apis
@@ -22,27 +22,27 @@ export const AttributesFilter = ( props: ProductQueryBlock ) => {
 	const [ selected, setSelected ] = useState< { id: number }[] >( [] );
 
 	useEffect( () => {
-		if ( query.__woocommerceAttributes ) {
+		if ( query.__poocommerceAttributes ) {
 			setSelected(
-				query.__woocommerceAttributes.map( ( { termId: id } ) => ( {
+				query.__poocommerceAttributes.map( ( { termId: id } ) => ( {
 					id,
 				} ) )
 			);
 		}
-	}, [ query.__woocommerceAttributes ] );
+	}, [ query.__poocommerceAttributes ] );
 
 	return (
 		<ToolsPanelItem
-			label={ __( 'Product Attributes', 'woocommerce' ) }
-			hasValue={ () => query.__woocommerceAttributes?.length }
+			label={ __( 'Product Attributes', 'poocommerce' ) }
+			hasValue={ () => query.__poocommerceAttributes?.length }
 		>
 			<ProductAttributeTermControl
 				messages={ {
-					search: __( 'Attributes', 'woocommerce' ),
+					search: __( 'Attributes', 'poocommerce' ),
 				} }
 				selected={ selected }
 				onChange={ ( attributes ) => {
-					const __woocommerceAttributes = attributes.map(
+					const __poocommerceAttributes = attributes.map(
 						// eslint-disable-next-line @typescript-eslint/naming-convention
 						( { id, value } ) => ( {
 							termId: id,
@@ -51,7 +51,7 @@ export const AttributesFilter = ( props: ProductQueryBlock ) => {
 					);
 
 					setQueryAttribute( props, {
-						__woocommerceAttributes,
+						__poocommerceAttributes,
 					} );
 				} }
 				operator={ 'any' }
@@ -59,10 +59,10 @@ export const AttributesFilter = ( props: ProductQueryBlock ) => {
 				type={ 'token' }
 			/>
 			<ExternalLink
-				className="woocommerce-product-query-panel__external-link"
+				className="poocommerce-product-query-panel__external-link"
 				href={ EDIT_ATTRIBUTES_URL }
 			>
-				{ __( 'Manage attributes', 'woocommerce' ) }
+				{ __( 'Manage attributes', 'poocommerce' ) }
 			</ExternalLink>
 		</ToolsPanelItem>
 	);

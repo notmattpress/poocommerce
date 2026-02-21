@@ -2,7 +2,7 @@
 /**
  * Unit tests for validation.
  *
- * @package WooCommerce\Tests\Util
+ * @package PooCommerce\Tests\Util
  */
 
 /**

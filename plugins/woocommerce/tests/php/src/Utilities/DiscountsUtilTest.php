@@ -1,8 +1,8 @@
 <?php
 
-namespace Automattic\WooCommerce\Tests\Utilities;
+namespace Automattic\PooCommerce\Tests\Utilities;
 
-use Automattic\WooCommerce\Utilities\DiscountsUtil;
+use Automattic\PooCommerce\Utilities\DiscountsUtil;
 
 /**
  * Tests for the discounts utility class.

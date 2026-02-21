@@ -4,18 +4,18 @@
  *
  * Handles route registration, permissions, CRUD operations, and schema definition.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\RestApi\Routes\V4\Orders;
+namespace Automattic\PooCommerce\Internal\RestApi\Routes\V4\Orders;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\AbstractController;
-use Automattic\WooCommerce\StoreApi\Utilities\Pagination;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Orders\Schema\OrderSchema;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\AbstractController;
+use Automattic\PooCommerce\StoreApi\Utilities\Pagination;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Orders\Schema\OrderSchema;
 use WP_Http;
 use WP_Error;
 use WC_Order;
@@ -111,7 +111,7 @@ class Controller extends AbstractController {
 		return array(
 			'num_decimals' => array(
 				'default'           => wc_get_price_decimals(),
-				'description'       => __( 'Number of decimal points to use in each resource.', 'woocommerce' ),
+				'description'       => __( 'Number of decimal points to use in each resource.', 'poocommerce' ),
 				'type'              => 'integer',
 				'sanitize_callback' => 'absint',
 				'validate_callback' => 'rest_validate_request_arg',
@@ -153,7 +153,7 @@ class Controller extends AbstractController {
 					$this->get_endpoint_args(),
 					array(
 						'id' => array(
-							'description' => __( 'Unique identifier for the resource.', 'woocommerce' ),
+							'description' => __( 'Unique identifier for the resource.', 'poocommerce' ),
 							'type'        => 'integer',
 						),
 					),
@@ -183,7 +183,7 @@ class Controller extends AbstractController {
 						'force' => array(
 							'default'     => false,
 							'type'        => 'boolean',
-							'description' => __( 'Whether to bypass trash and force deletion.', 'woocommerce' ),
+							'description' => __( 'Whether to bypass trash and force deletion.', 'poocommerce' ),
 						),
 					),
 				),
@@ -331,7 +331,7 @@ class Controller extends AbstractController {
 		try {
 			$order = new WC_Order();
 			$order->set_created_via( ! empty( $request['created_via'] ) ? sanitize_text_field( wp_unslash( $request['created_via'] ) ) : 'rest-api' );
-			$order->set_prices_include_tax( 'yes' === get_option( 'woocommerce_prices_include_tax' ) );
+			$order->set_prices_include_tax( 'yes' === get_option( 'poocommerce_prices_include_tax' ) );
 
 			$this->update_utils->update_order_from_request( $order, $request );
 			$this->update_additional_fields_for_object( $order, $request );

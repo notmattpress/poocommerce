@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { PartialProduct } from '@woocommerce/data';
+import { PartialProduct } from '@poocommerce/data';
 
 /**
  * Labels for product statuses.
@@ -18,10 +18,10 @@ export enum PRODUCT_STATUS_KEYS {
  * Labels for product statuses.
  */
 export const PRODUCT_STATUS_LABELS = {
-	[ PRODUCT_STATUS_KEYS.unsaved ]: __( 'Unsaved', 'woocommerce' ),
-	[ PRODUCT_STATUS_KEYS.draft ]: __( 'Draft', 'woocommerce' ),
-	[ PRODUCT_STATUS_KEYS.instock ]: __( 'In stock', 'woocommerce' ),
-	[ PRODUCT_STATUS_KEYS.outofstock ]: __( 'Out of stock', 'woocommerce' ),
+	[ PRODUCT_STATUS_KEYS.unsaved ]: __( 'Unsaved', 'poocommerce' ),
+	[ PRODUCT_STATUS_KEYS.draft ]: __( 'Draft', 'poocommerce' ),
+	[ PRODUCT_STATUS_KEYS.instock ]: __( 'In stock', 'poocommerce' ),
+	[ PRODUCT_STATUS_KEYS.outofstock ]: __( 'Out of stock', 'poocommerce' ),
 };
 
 /**

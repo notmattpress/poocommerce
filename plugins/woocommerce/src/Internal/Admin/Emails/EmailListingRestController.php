@@ -1,11 +1,11 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Admin\Emails;
+namespace Automattic\PooCommerce\Internal\Admin\Emails;
 
-use Automattic\WooCommerce\Internal\RestApiControllerBase;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmails;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsGenerator;
+use Automattic\PooCommerce\Internal\RestApiControllerBase;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmails;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsGenerator;
 use WP_Error;
 use WP_REST_Request;
 
@@ -43,7 +43,7 @@ class EmailListingRestController extends RestApiControllerBase {
 	private $email_template_generator;
 
 	/**
-	 * Get the WooCommerce REST API namespace for the class.
+	 * Get the PooCommerce REST API namespace for the class.
 	 *
 	 * @return string
 	 */
@@ -94,7 +94,7 @@ class EmailListingRestController extends RestApiControllerBase {
 	private function get_args_for_recreate_email_post() {
 		return array(
 			'email_id' => array(
-				'description'       => __( 'The email ID to recreate the post for.', 'woocommerce' ),
+				'description'       => __( 'The email ID to recreate the post for.', 'poocommerce' ),
 				'type'              => 'string',
 				'required'          => true,
 				'validate_callback' => fn( $email_id ) => $this->validate_email_id( $email_id ),
@@ -115,13 +115,13 @@ class EmailListingRestController extends RestApiControllerBase {
 			'type'       => 'object',
 			'properties' => array(
 				'message' => array(
-					'description' => __( 'A message indicating that the action completed successfully.', 'woocommerce' ),
+					'description' => __( 'A message indicating that the action completed successfully.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'post_id' => array(
-					'description' => __( 'The post ID of the generated email post.', 'woocommerce' ),
+					'description' => __( 'The post ID of the generated email post.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
@@ -139,7 +139,7 @@ class EmailListingRestController extends RestApiControllerBase {
 	private function validate_email_id( string $email_id ) {
 		if ( ! in_array( $email_id, WCTransactionalEmails::get_transactional_emails(), true ) ) {
 			return new \WP_Error(
-				'woocommerce_rest_not_allowed_email_id',
+				'poocommerce_rest_not_allowed_email_id',
 				sprintf( 'The provided email ID "%s" is not allowed.', $email_id ),
 				array( 'status' => 400 ),
 			);
@@ -158,11 +158,11 @@ class EmailListingRestController extends RestApiControllerBase {
 		if ( ! wp_verify_nonce( $nonce, self::NONCE_KEY ) ) {
 			return new WP_Error(
 				'invalid_nonce',
-				__( 'Invalid nonce.', 'woocommerce' ),
+				__( 'Invalid nonce.', 'poocommerce' ),
 				array( 'status' => 403 ),
 			);
 		}
-		return $this->check_permission( $request, 'manage_woocommerce' );
+		return $this->check_permission( $request, 'manage_poocommerce' );
 	}
 
 	/**
@@ -180,23 +180,23 @@ class EmailListingRestController extends RestApiControllerBase {
 			$generated_post_id = $this->email_template_generator->generate_email_template_if_not_exists( $email_id );
 		} catch ( \Exception $e ) {
 			return new WP_Error(
-				'woocommerce_rest_email_post_generation_failed',
+				'poocommerce_rest_email_post_generation_failed',
 				// translators: %s: Error message.
-				sprintf( __( 'Error generating email post. Error: %s.', 'woocommerce' ), $e->getMessage() ),
+				sprintf( __( 'Error generating email post. Error: %s.', 'poocommerce' ), $e->getMessage() ),
 				array( 'status' => 500 )
 			);
 		}
 
 		if ( $generated_post_id ) {
 			return array(
-				// translators: %s: WooCommerce transactional email ID.
-				'message' => sprintf( __( 'Email post generated for %s.', 'woocommerce' ), $email_id ),
+				// translators: %s: PooCommerce transactional email ID.
+				'message' => sprintf( __( 'Email post generated for %s.', 'poocommerce' ), $email_id ),
 				'post_id' => (string) $generated_post_id,
 			);
 		}
 		return new WP_Error(
-			'woocommerce_rest_email_post_generation_error',
-			__( 'Error unable to generate email post.', 'woocommerce' ),
+			'poocommerce_rest_email_post_generation_error',
+			__( 'Error unable to generate email post.', 'poocommerce' ),
 			array( 'status' => 500 )
 		);
 	}

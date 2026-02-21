@@ -2,7 +2,7 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\RestApi\Routes\V4\ShippingZones;
+namespace Automattic\PooCommerce\Internal\RestApi\Routes\V4\ShippingZones;
 
 use WC_Shipping_Zones;
 use WC_Shipping_Zone;
@@ -89,8 +89,8 @@ class ShippingZoneService {
 		if ( ! is_null( $params['name'] ) ) {
 			if ( $is_rest_of_world ) {
 				return new WP_Error(
-					'woocommerce_rest_cannot_edit_zone',
-					__( 'Cannot change name of "Rest of the World" zone.', 'woocommerce' ),
+					'poocommerce_rest_cannot_edit_zone',
+					__( 'Cannot change name of "Rest of the World" zone.', 'poocommerce' ),
 					array( 'status' => WP_Http::BAD_REQUEST )
 				);
 			}
@@ -98,8 +98,8 @@ class ShippingZoneService {
 			$name = trim( $params['name'] );
 			if ( '' === $name ) {
 				return new WP_Error(
-					'woocommerce_rest_invalid_zone_name',
-					__( 'Zone name cannot be empty.', 'woocommerce' ),
+					'poocommerce_rest_invalid_zone_name',
+					__( 'Zone name cannot be empty.', 'poocommerce' ),
 					array( 'status' => WP_Http::BAD_REQUEST )
 				);
 			}
@@ -109,8 +109,8 @@ class ShippingZoneService {
 		if ( ! is_null( $params['order'] ) ) {
 			if ( $is_rest_of_world ) {
 				return new WP_Error(
-					'woocommerce_rest_cannot_edit_zone',
-					__( 'Cannot change order of "Rest of the World" zone.', 'woocommerce' ),
+					'poocommerce_rest_cannot_edit_zone',
+					__( 'Cannot change order of "Rest of the World" zone.', 'poocommerce' ),
 					array( 'status' => WP_Http::BAD_REQUEST )
 				);
 			}
@@ -121,8 +121,8 @@ class ShippingZoneService {
 		if ( ! is_null( $params['locations'] ) ) {
 			if ( $is_rest_of_world ) {
 				return new WP_Error(
-					'woocommerce_rest_cannot_edit_zone',
-					__( 'Cannot change locations of "Rest of the World" zone.', 'woocommerce' ),
+					'poocommerce_rest_cannot_edit_zone',
+					__( 'Cannot change locations of "Rest of the World" zone.', 'poocommerce' ),
 					array( 'status' => WP_Http::BAD_REQUEST )
 				);
 			}

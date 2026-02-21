@@ -6,7 +6,7 @@ import { createElement } from '@wordpress/element';
 import {
 	createOrderedChildren,
 	sortFillsByOrder,
-} from '@woocommerce/components';
+} from '@poocommerce/components';
 
 export const WC_PRODUCT_MORE_MENU_SLOT_NAME = 'WooProductMenuMenuItem';
 

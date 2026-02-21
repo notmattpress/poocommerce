@@ -1,11 +1,11 @@
 /**
  * External dependencies
  */
-import { useStoreProducts } from '@woocommerce/base-context/hooks';
+import { useStoreProducts } from '@poocommerce/base-context/hooks';
 import {
 	ProductDataContextProvider,
 	useProductDataContext,
-} from '@woocommerce/shared-context';
+} from '@poocommerce/shared-context';
 
 const getProductById = ( products, id ) =>
 	products.find( ( product ) => product.id === id );

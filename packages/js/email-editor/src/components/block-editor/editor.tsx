@@ -7,7 +7,7 @@ import { SlotFillProvider, ProgressBar } from '@wordpress/components';
 import { store as coreStore, Post } from '@wordpress/core-data';
 import { CommandMenu, store as commandsStore } from '@wordpress/commands';
 import { PluginArea } from '@wordpress/plugins';
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import {
 	AutosaveMonitor,
 	// @ts-expect-error Type is missing in @types/wordpress__editor
@@ -194,7 +194,7 @@ export function InnerEditor( {
 					{ displaySendEmailButton && <PublishSave /> }
 					<EditorNotices />
 					<BlockCompatibilityWarnings />
-					<PluginArea scope="woocommerce-email-editor" />
+					<PluginArea scope="poocommerce-email-editor" />
 				</Editor>
 			</ErrorBoundary>
 		</SlotFillProvider>

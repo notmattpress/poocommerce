@@ -296,7 +296,7 @@ async function runPerformanceTests( branches, options ) {
 	// TODO: change this to tools/compare-perf/node_modules/.bin/wp-env
 	const wpEnvPath = path.join(
 		testRunnerDir,
-		'plugins/woocommerce/node_modules/.bin/wp-env'
+		'plugins/poocommerce/node_modules/.bin/wp-env'
 	);
 
 	for ( const testSuite of testSuites ) {

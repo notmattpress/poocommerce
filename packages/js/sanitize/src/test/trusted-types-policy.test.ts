@@ -19,7 +19,7 @@ describe( 'getTrustedTypesPolicy', () => {
 
 	test( 'should create trusted types policy when window.trustedTypes is available', async () => {
 		const mockPolicy = {
-			name: 'woocommerce-sanitize',
+			name: 'poocommerce-sanitize',
 			createHTML: jest.fn( ( str: string ) => str ),
 		};
 		mockCreatePolicy.mockReturnValue( mockPolicy );
@@ -31,7 +31,7 @@ describe( 'getTrustedTypesPolicy', () => {
 
 		expect( policy ).toBe( mockPolicy );
 		expect( mockCreatePolicy ).toHaveBeenCalledWith(
-			'woocommerce-sanitize',
+			'poocommerce-sanitize',
 			{
 				createHTML: expect.any( Function ),
 			}
@@ -40,7 +40,7 @@ describe( 'getTrustedTypesPolicy', () => {
 
 	test( 'should cache the policy instance and not create it multiple times', async () => {
 		const mockPolicy = {
-			name: 'woocommerce-sanitize',
+			name: 'poocommerce-sanitize',
 			createHTML: jest.fn( ( str: string ) => str ),
 		};
 		mockCreatePolicy.mockReturnValue( mockPolicy );
@@ -87,7 +87,7 @@ describe( 'getTrustedTypesPolicy', () => {
 
 		// Setup trusted types mock
 		const mockPolicy = {
-			name: 'woocommerce-sanitize',
+			name: 'poocommerce-sanitize',
 			createHTML: jest.fn(),
 		};
 

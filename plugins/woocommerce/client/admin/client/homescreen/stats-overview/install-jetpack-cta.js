@@ -4,18 +4,18 @@
 import { __ } from '@wordpress/i18n';
 import { Button } from '@wordpress/components';
 import { useSelect, useDispatch } from '@wordpress/data';
-import { pluginsStore, useUser, useUserPreferences } from '@woocommerce/data';
-import { H } from '@woocommerce/components';
-import { recordEvent } from '@woocommerce/tracks';
-import { getAdminLink } from '@woocommerce/settings';
-import { createErrorNotice } from '@woocommerce/data/src/plugins/actions';
+import { pluginsStore, useUser, useUserPreferences } from '@poocommerce/data';
+import { H } from '@poocommerce/components';
+import { recordEvent } from '@poocommerce/tracks';
+import { getAdminLink } from '@poocommerce/settings';
+import { createErrorNotice } from '@poocommerce/data/src/plugins/actions';
 
 const getJetpackInstallText = ( jetpackInstallState ) => {
 	return (
 		{
-			unavailable: __( 'Get Jetpack', 'woocommerce' ),
-			installed: __( 'Activate Jetpack', 'woocommerce' ),
-			activated: __( 'Connect Jetpack', 'woocommerce' ),
+			unavailable: __( 'Get Jetpack', 'poocommerce' ),
+			installed: __( 'Activate Jetpack', 'poocommerce' ),
+			activated: __( 'Connect Jetpack', 'poocommerce' ),
 		}[ jetpackInstallState ] || ''
 	);
 };
@@ -27,15 +27,15 @@ export const JetpackCTA = ( {
 	jetpackInstallState,
 } ) => {
 	return (
-		<article className="woocommerce-stats-overview__install-jetpack-promo">
-			<div className="woocommerce-stats-overview__install-jetpack-promo__content">
-				<H>{ __( 'Get traffic stats with Jetpack', 'woocommerce' ) }</H>
+		<article className="poocommerce-stats-overview__install-jetpack-promo">
+			<div className="poocommerce-stats-overview__install-jetpack-promo__content">
+				<H>{ __( 'Get traffic stats with Jetpack', 'poocommerce' ) }</H>
 				<p>
 					{ __(
 						'Keep an eye on your views and visitors metrics with ' +
 							'Jetpack. Requires Jetpack plugin and a WordPress.com ' +
 							'account.',
-						'woocommerce'
+						'poocommerce'
 					) }
 				</p>
 			</div>
@@ -60,7 +60,7 @@ export const JetpackCTA = ( {
 					disabled={ isBusy }
 					isBusy={ isBusy }
 				>
-					{ __( 'No thanks', 'woocommerce' ) }
+					{ __( 'No thanks', 'poocommerce' ) }
 				</Button>
 			</footer>
 		</article>

@@ -18,8 +18,8 @@ import { registerPlugin, getPlugin } from '@wordpress/plugins';
 import { __ } from '@wordpress/i18n';
 import clsx from 'clsx';
 import { useCopyToClipboard } from '@wordpress/compose';
-import { recordEvent } from '@woocommerce/tracks';
-import { getSetting, getAdminLink } from '@woocommerce/settings';
+import { recordEvent } from '@poocommerce/tracks';
+import { getSetting, getAdminLink } from '@poocommerce/settings';
 import { useSelect } from '@wordpress/data';
 import { store as coreStore } from '@wordpress/core-data';
 
@@ -32,20 +32,20 @@ import { SITE_VISIBILITY_DOC_LINK } from '../constants';
 import { ConfirmationModal } from './components/confirmation-modal';
 
 const { Fill } = createSlotFill( SETTINGS_SLOT_FILL_CONSTANT );
-const PLUGIN_ID = 'woocommerce-admin-site-visibility-settings-slotfill';
+const PLUGIN_ID = 'poocommerce-admin-site-visibility-settings-slotfill';
 
 const SiteVisibility = () => {
 	const setting = window?.wcSettings?.admin?.siteVisibilitySettings || {};
-	const shareKey = setting?.woocommerce_share_key;
+	const shareKey = setting?.poocommerce_share_key;
 
 	const [ comingSoon, setComingSoon ] = useState(
-		setting?.woocommerce_coming_soon || 'no'
+		setting?.poocommerce_coming_soon || 'no'
 	);
 	const [ storePagesOnly, setStorePagesOnly ] = useState(
-		setting?.woocommerce_store_pages_only || 'no'
+		setting?.poocommerce_store_pages_only || 'no'
 	);
 	const [ privateLink, setPrivateLink ] = useState(
-		setting?.woocommerce_private_link || 'no'
+		setting?.poocommerce_private_link || 'no'
 	);
 	const formRef = useRef( null );
 	const saveButtonRef = useRef( null );
@@ -58,7 +58,7 @@ const SiteVisibility = () => {
 
 	useEffect( () => {
 		const saveButton = document.getElementsByClassName(
-			'woocommerce-save-button'
+			'poocommerce-save-button'
 		)[ 0 ];
 		if ( saveButton ) {
 			saveButtonRef.current = saveButton;
@@ -71,14 +71,14 @@ const SiteVisibility = () => {
 
 	useEffect( () => {
 		const initValues = {
-			comingSoon: setting.woocommerce_coming_soon,
-			storePagesOnly: setting.woocommerce_store_pages_only,
-			privateLink: setting.woocommerce_private_link || 'no',
+			comingSoon: setting.poocommerce_coming_soon,
+			storePagesOnly: setting.poocommerce_store_pages_only,
+			privateLink: setting.poocommerce_private_link || 'no',
 		};
 
 		const currentValues = { comingSoon, storePagesOnly, privateLink };
 		const saveButton = document.getElementsByClassName(
-			'woocommerce-save-button'
+			'poocommerce-save-button'
 		)[ 0 ];
 		if ( saveButton ) {
 			saveButton.disabled =
@@ -88,8 +88,8 @@ const SiteVisibility = () => {
 		}
 	}, [ comingSoon, storePagesOnly, privateLink ] );
 
-	const copyLink = __( 'Copy link', 'woocommerce' );
-	const copied = __( 'Copied!', 'woocommerce' );
+	const copyLink = __( 'Copy link', 'poocommerce' );
+	const copied = __( 'Copied!', 'poocommerce' );
 	const [ copyLinkText, setCopyLinkText ] = useState( copyLink );
 
 	const getPrivateLink = () => {
@@ -124,24 +124,24 @@ const SiteVisibility = () => {
 			<input
 				type="hidden"
 				value={ comingSoon }
-				name="woocommerce_coming_soon"
+				name="poocommerce_coming_soon"
 			/>
 			<input
 				type="hidden"
 				value={ storePagesOnly }
-				name="woocommerce_store_pages_only"
+				name="poocommerce_store_pages_only"
 			/>
 			<input
 				type="hidden"
 				value={ privateLink }
-				name="woocommerce_private_link"
+				name="poocommerce_private_link"
 			/>
-			<h2>{ __( 'Site visibility', 'woocommerce' ) }</h2>
+			<h2>{ __( 'Site visibility', 'poocommerce' ) }</h2>
 			<p className="site-visibility-settings-slotfill-description">
 				{ createInterpolateElement(
 					__(
 						'Manage how your site appears to visitors. <a>Learn more</a>',
-						'woocommerce'
+						'poocommerce'
 					),
 					{
 						a: createElement( 'a', {
@@ -162,7 +162,7 @@ const SiteVisibility = () => {
 					} }
 					options={ [
 						{
-							label: __( 'Coming soon', 'woocommerce' ),
+							label: __( 'Coming soon', 'poocommerce' ),
 							value: 'yes',
 						},
 					] }
@@ -173,7 +173,7 @@ const SiteVisibility = () => {
 						? createInterpolateElement(
 								__(
 									'Your site is hidden from visitors behind a “Coming soon” landing page until it’s ready for viewing. You can customize your “Coming soon” landing page via the <a>Editor</a>.',
-									'woocommerce'
+									'poocommerce'
 								),
 								{
 									a: createElement( 'a', {
@@ -188,7 +188,7 @@ const SiteVisibility = () => {
 						  )
 						: __(
 								'Your site is hidden from visitors behind a “Coming soon” landing page until it’s ready for viewing.',
-								'woocommerce'
+								'poocommerce'
 						  ) }
 				</p>
 				<div
@@ -205,12 +205,12 @@ const SiteVisibility = () => {
 							<>
 								{ __(
 									'Apply to store pages only',
-									'woocommerce'
+									'poocommerce'
 								) }
 								<p>
 									{ __(
 										'Display a “coming soon” message on your store pages — the rest of your site will remain visible.',
-										'woocommerce'
+										'poocommerce'
 									) }
 								</p>
 							</>
@@ -234,12 +234,12 @@ const SiteVisibility = () => {
 							<>
 								{ __(
 									'Share your site with a private link',
-									'woocommerce'
+									'poocommerce'
 								) }
 								<p>
 									{ __(
 										'Share your site with anyone using a private link.',
-										'woocommerce'
+										'poocommerce'
 									) }
 								</p>
 							</>
@@ -285,7 +285,7 @@ const SiteVisibility = () => {
 					} }
 					options={ [
 						{
-							label: __( 'Live', 'woocommerce' ),
+							label: __( 'Live', 'poocommerce' ),
 							value: 'no',
 						},
 					] }
@@ -294,7 +294,7 @@ const SiteVisibility = () => {
 				<p className="site-visibility-settings-slotfill-section-description">
 					{ __(
 						'Your entire site is visible to everyone.',
-						'woocommerce'
+						'poocommerce'
 					) }
 				</p>
 			</div>
@@ -323,7 +323,7 @@ export const registerSiteVisibilitySlotFill = () => {
 	}
 
 	registerPlugin( PLUGIN_ID, {
-		scope: 'woocommerce-site-visibility-settings',
+		scope: 'poocommerce-site-visibility-settings',
 		render: SiteVisibilitySlotFill,
 	} );
 };

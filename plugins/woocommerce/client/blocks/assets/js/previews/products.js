@@ -2,11 +2,11 @@
  * External dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { WC_BLOCKS_IMAGE_URL } from '@woocommerce/block-settings';
+import { WC_BLOCKS_IMAGE_URL } from '@poocommerce/block-settings';
 
 const shortDescription = __(
 	'Fly your WordPress banner with this beauty! Deck out your office space or add it to your kids walls. This banner will spruce up any space it’s hung!',
-	'woocommerce'
+	'poocommerce'
 );
 
 export const previewProducts = [
@@ -21,7 +21,7 @@ export const previewProducts = [
 			'Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.',
 		price: '7.99',
 		price_html:
-			'<span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>7.99</span>',
+			'<span class="poocommerce-Price-amount amount"><span class="poocommerce-Price-currencySymbol">$</span>7.99</span>',
 		images: [
 			{
 				id: 1,
@@ -56,8 +56,8 @@ export const previewProducts = [
 			price_range: null,
 		},
 		add_to_cart: {
-			text: __( 'Add to cart', 'woocommerce' ),
-			description: __( 'Add to cart', 'woocommerce' ),
+			text: __( 'Add to cart', 'poocommerce' ),
+			description: __( 'Add to cart', 'poocommerce' ),
 		},
 		has_options: false,
 		is_purchasable: true,

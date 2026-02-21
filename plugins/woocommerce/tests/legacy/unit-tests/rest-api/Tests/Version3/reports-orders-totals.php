@@ -2,13 +2,13 @@
 /**
  * Tests for the reports orders totals REST API.
  *
- * @package WooCommerce\Tests\API
+ * @package PooCommerce\Tests\API
  * @since 3.5.0
  */
 
-use Automattic\WooCommerce\Enums\OrderInternalStatus;
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
-use Automattic\WooCommerce\RestApi\UnitTests\HPOSToggleTrait;
+use Automattic\PooCommerce\Enums\OrderInternalStatus;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
+use Automattic\PooCommerce\RestApi\UnitTests\HPOSToggleTrait;
 
 /**
  * WC_Tests_API_Reports_Orders_Totals.
@@ -126,7 +126,7 @@ class WC_Tests_API_Reports_Orders_Totals extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_product_review_schema() {
 		wp_set_current_user( $this->user );
-		$product    = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
+		$product    = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
 		$request    = new WP_REST_Request( 'OPTIONS', '/wc/v3/reports/orders/totals' );
 		$response   = $this->server->dispatch( $request );
 		$data       = $response->get_data();

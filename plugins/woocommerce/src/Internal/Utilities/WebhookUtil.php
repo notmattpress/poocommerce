@@ -3,7 +3,7 @@
  * WebhookUtil class file.
  */
 
-namespace Automattic\WooCommerce\Internal\Utilities;
+namespace Automattic\PooCommerce\Internal\Utilities;
 
 use WC_Cache_Helper;
 
@@ -32,7 +32,7 @@ class WebhookUtil {
 	 * @return void
 	 * @since 7.8.0
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 */
 	public function reassign_webhooks_to_new_user_id( int $old_user_id, ?int $new_user_id ): void {
 		$webhook_ids = $this->get_webhook_ids_for_user( $old_user_id );
@@ -52,7 +52,7 @@ class WebhookUtil {
 	 * @return void
 	 * @since 7.8.0
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 */
 	public function maybe_render_user_with_webhooks_warning( \WP_User $current_user, array $userids ): void {
 		global $wpdb;
@@ -74,11 +74,11 @@ class WebhookUtil {
 			$text = sprintf(
 				/* translators: 1 = user id, 2 = user login, 3 = webhooks count */
 				_nx(
-					'User #%1$s %2$s has created %3$d WooCommerce webhook.',
-					'User #%1$s %2$s has created %3$d WooCommerce webhooks.',
+					'User #%1$s %2$s has created %3$d PooCommerce webhook.',
+					'User #%1$s %2$s has created %3$d PooCommerce webhooks.',
 					$webhooks_count,
 					'user webhook count',
-					'woocommerce'
+					'poocommerce'
 				),
 				$user_id,
 				$user_login,
@@ -95,7 +95,7 @@ class WebhookUtil {
 		$webhooks_settings_url = esc_url_raw( admin_url( 'admin.php?page=wc-settings&tab=advanced&section=webhooks' ) );
 
 		// This block of code is copied from WordPress' users.php.
-		// phpcs:disable WooCommerce.Commenting.CommentHooks, WordPress.DB.PreparedSQL.NotPrepared
+		// phpcs:disable PooCommerce.Commenting.CommentHooks, WordPress.DB.PreparedSQL.NotPrepared
 		$users_have_content = (bool) apply_filters( 'users_have_additional_content', false, $userids );
 		if ( ! $users_have_content ) {
 			if ( $wpdb->get_var( "SELECT ID FROM {$wpdb->posts} WHERE post_author IN( " . implode( ',', $userids ) . ' ) LIMIT 1' ) ) {
@@ -104,17 +104,17 @@ class WebhookUtil {
 				$users_have_content = true;
 			}
 		}
-		// phpcs:enable WooCommerce.Commenting.CommentHooks, WordPress.DB.PreparedSQL.NotPrepared
+		// phpcs:enable PooCommerce.Commenting.CommentHooks, WordPress.DB.PreparedSQL.NotPrepared
 
 		if ( $users_have_content ) {
-			$text = __( 'If the "Delete all content" option is selected, the affected WooCommerce webhooks will <b>not</b> be deleted and will be attributed to user id 0.<br/>', 'woocommerce' );
+			$text = __( 'If the "Delete all content" option is selected, the affected PooCommerce webhooks will <b>not</b> be deleted and will be attributed to user id 0.<br/>', 'poocommerce' );
 		} else {
-			$text = __( 'The affected WooCommerce webhooks will <b>not</b> be deleted and will be attributed to user id 0.<br/>', 'woocommerce' );
+			$text = __( 'The affected PooCommerce webhooks will <b>not</b> be deleted and will be attributed to user id 0.<br/>', 'poocommerce' );
 		}
 
 		$text .= sprintf(
-			/* translators: 1 = url of the WooCommerce webhooks settings page */
-			__( 'After that they can be reassigned to the logged-in user by going to the <a href="%1$s">WooCommerce webhooks settings page</a> and re-saving them.', 'woocommerce' ),
+			/* translators: 1 = url of the PooCommerce webhooks settings page */
+			__( 'After that they can be reassigned to the logged-in user by going to the <a href="%1$s">PooCommerce webhooks settings page</a> and re-saving them.', 'poocommerce' ),
 			$webhooks_settings_url
 		);
 

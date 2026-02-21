@@ -2,7 +2,7 @@
 /**
  * Displays the attributes tab in the product data meta box.
  *
- * @package WooCommerce\Admin
+ * @package PooCommerce\Admin
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -17,23 +17,23 @@ $product_attributes = $product_object->get_attributes( 'edit' );
 ?>
 <div id="product_attributes" class="panel wc-metaboxes-wrapper hidden">
 	<div class="toolbar toolbar-top">
-		<div id="message" class="inline notice woocommerce-message is-dismissible">
+		<div id="message" class="inline notice poocommerce-message is-dismissible">
 			<p class="help">
 				<?php
 				esc_html_e(
 					'Add descriptive pieces of information that customers can use to search for this product on your store, such as “Material” or “Size”.',
-					'woocommerce'
+					'poocommerce'
 				);
 				?>
-				<button type="button" class="notice-dismiss"><span class="screen-reader-text"><?php esc_html_e( 'Dismiss this notice.', 'woocommerce' ); ?></span></button>
+				<button type="button" class="notice-dismiss"><span class="screen-reader-text"><?php esc_html_e( 'Dismiss this notice.', 'poocommerce' ); ?></span></button>
 			</p>
 		</div>
 		<span class="expand-close">
-			<a href="#" class="expand_all"><?php esc_html_e( 'Expand', 'woocommerce' ); ?></a> / <a href="#" class="close_all"><?php esc_html_e( 'Close', 'woocommerce' ); ?></a>
+			<a href="#" class="expand_all"><?php esc_html_e( 'Expand', 'poocommerce' ); ?></a> / <a href="#" class="close_all"><?php esc_html_e( 'Close', 'poocommerce' ); ?></a>
 		</span>
 		<div class="actions">
-			<button type="button" class="button add_custom_attribute"><?php esc_html_e( 'Add new', 'woocommerce' ); ?></button>
-			<select class="wc-attribute-search" data-placeholder="<?php esc_attr_e( 'Add existing', 'woocommerce' ); ?>" data-minimum-input-length="0">
+			<button type="button" class="button add_custom_attribute"><?php esc_html_e( 'Add new', 'poocommerce' ); ?></button>
+			<select class="wc-attribute-search" data-placeholder="<?php esc_attr_e( 'Add existing', 'poocommerce' ); ?>" data-minimum-input-length="0">
 			</select>
 		</div>
 	</div>
@@ -56,9 +56,9 @@ $product_attributes = $product_object->get_attributes( 'edit' );
 	</div>
 	<div class="toolbar toolbar-buttons">
 		<span class="expand-close">
-			<a href="#" class="expand_all"><?php esc_html_e( 'Expand', 'woocommerce' ); ?></a> / <a href="#" class="close_all"><?php esc_html_e( 'Close', 'woocommerce' ); ?></a>
+			<a href="#" class="expand_all"><?php esc_html_e( 'Expand', 'poocommerce' ); ?></a> / <a href="#" class="close_all"><?php esc_html_e( 'Close', 'poocommerce' ); ?></a>
 		</span>
-		<button type="button" aria-disabled="true" class="button save_attributes button-primary disabled"><?php esc_html_e( 'Save attributes', 'woocommerce' ); ?></button>
+		<button type="button" aria-disabled="true" class="button save_attributes button-primary disabled"><?php esc_html_e( 'Save attributes', 'poocommerce' ); ?></button>
 	</div>
-	<?php do_action( 'woocommerce_product_options_attributes' ); ?>
+	<?php do_action( 'poocommerce_product_options_attributes' ); ?>
 </div>

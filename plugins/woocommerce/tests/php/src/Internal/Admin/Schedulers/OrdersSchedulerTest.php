@@ -1,11 +1,11 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\Schedulers;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\Schedulers;
 
-use Automattic\WooCommerce\Internal\Admin\Schedulers\OrdersScheduler;
+use Automattic\PooCommerce\Internal\Admin\Schedulers\OrdersScheduler;
 use WC_Unit_Test_Case;
-use Automattic\WooCommerce\Admin\Features\Features;
+use Automattic\PooCommerce\Admin\Features\Features;
 
 /**
  * OrdersScheduler Test.
@@ -95,7 +95,7 @@ class OrdersSchedulerTest extends WC_Unit_Test_Case {
 		$custom_interval = 6 * HOUR_IN_SECONDS;
 		$filter_called   = false;
 		add_filter(
-			'woocommerce_analytics_import_interval',
+			'poocommerce_analytics_import_interval',
 			function () use ( $custom_interval, &$filter_called ) {
 				$filter_called = true;
 				return $custom_interval;

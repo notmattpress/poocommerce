@@ -1,7 +1,7 @@
-.woocommerce-search.woocommerce-select-control {
+.poocommerce-search.poocommerce-select-control {
 	position: relative;
 
-	.woocommerce-select-control__control-icon {
+	.poocommerce-select-control__control-icon {
 		position: absolute;
 		top: 50%;
 		left: 10px;
@@ -11,12 +11,12 @@
 	}
 
 	&:not(.has-inline-tags) {
-		.woocommerce-tag {
+		.poocommerce-tag {
 			margin: 8px 6px 0 0;
 		}
 	}
 
-	.woocommerce-select-control__control {
+	.poocommerce-select-control__control {
 		height: auto;
 		border: 1px solid $gray-400;
 		font-size: 13px;
@@ -31,7 +31,7 @@
 		}
 	}
 
-	.components-base-control .woocommerce-select-control__control-input {
+	.components-base-control .poocommerce-select-control__control-input {
 		margin: 0;
 		font-size: 13px;
 		min-height: auto;
@@ -60,25 +60,25 @@
 		display: none;
 	}
 
-	.components-base-control .woocommerce-select-control__tags {
+	.components-base-control .poocommerce-select-control__tags {
 		margin: 0;
 	}
 
-	.components-base-control .woocommerce-tag {
+	.components-base-control .poocommerce-tag {
 		max-height: 24px;
 	}
 
-	.woocommerce-select-control__listbox {
+	.poocommerce-select-control__listbox {
 		border: 1px solid $gray-400;
 		top: 38px;
 	}
 
-	&.is-static-results .woocommerce-select-control__listbox {
+	&.is-static-results .poocommerce-select-control__listbox {
 		position: static;
 	}
 
 	// This a single `button` in the autocomplete popover
-	.woocommerce-select-control__option {
+	.poocommerce-select-control__option {
 		margin-bottom: 0;
 		display: flex;
 		flex-direction: row;
@@ -86,7 +86,7 @@
 		flex-shrink: 0;
 		align-items: center;
 		padding: $gap-small;
-		color: $studio-woocommerce-purple;
+		color: $studio-poocommerce-purple;
 		text-align: left;
 		background: $gray-100;
 		border-bottom: 1px solid $gray-100;
@@ -100,25 +100,25 @@
 
 		&:hover {
 			box-shadow: none;
-			color: $studio-woocommerce-purple;
+			color: $studio-poocommerce-purple;
 			background: $gray-200;
 		}
 
 		&.is-selected,
 		&:focus,
 		&:active {
-			color: $studio-woocommerce-purple;
+			color: $studio-poocommerce-purple;
 			background: $studio-white;
 			box-shadow: inset 0 0 0 1px $gray-200,
 				inset 0 0 0 2px $wp-admin-sidebar;
 		}
 
-		.woocommerce-search__result-thumbnail {
+		.poocommerce-search__result-thumbnail {
 			margin-right: $gap-small;
 		}
 	}
 }
 
-.woocommerce-search__result-name {
+.poocommerce-search__result-name {
 	text-decoration: underline; // @todo Not actually a link, should underline?
 }

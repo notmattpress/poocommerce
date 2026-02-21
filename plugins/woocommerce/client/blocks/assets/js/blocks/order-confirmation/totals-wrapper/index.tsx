@@ -4,7 +4,7 @@
 import { registerBlockType, type BlockConfiguration } from '@wordpress/blocks';
 import { InnerBlocks } from '@wordpress/block-editor';
 import { Icon } from '@wordpress/icons';
-import { totals } from '@woocommerce/icons';
+import { totals } from '@poocommerce/icons';
 
 /**
  * Internal dependencies

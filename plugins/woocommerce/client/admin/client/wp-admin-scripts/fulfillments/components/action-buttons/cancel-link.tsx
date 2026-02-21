@@ -16,7 +16,7 @@ export default function CancelLink( { onClick }: { onClick: () => void } ) {
 			style={ { flex: 1 } }
 			__next40pxDefaultSize
 		>
-			{ __( 'Cancel', 'woocommerce' ) }
+			{ __( 'Cancel', 'poocommerce' ) }
 		</Button>
 	);
 }

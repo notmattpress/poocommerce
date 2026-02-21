@@ -3,7 +3,7 @@
  */
 import { render, screen, fireEvent } from '@testing-library/react';
 import { useSelect } from '@wordpress/data';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -18,7 +18,7 @@ jest.mock( '../../settings-recommendations/dismissable-list', () => ( {
 	DismissableList: ( ( { children } ) => children ) as React.FC,
 	DismissableListHeading: ( ( { children } ) => children ) as React.FC,
 } ) );
-jest.mock( '@woocommerce/admin-layout', () => {
+jest.mock( '@poocommerce/admin-layout', () => {
 	const mockContext = {
 		layoutPath: [ 'home' ],
 		layoutString: 'home',
@@ -26,12 +26,12 @@ jest.mock( '@woocommerce/admin-layout', () => {
 		isDescendantOf: () => false,
 	};
 	return {
-		...jest.requireActual( '@woocommerce/admin-layout' ),
+		...jest.requireActual( '@poocommerce/admin-layout' ),
 		useLayoutContext: jest.fn().mockReturnValue( mockContext ),
 		useExtendLayout: jest.fn().mockReturnValue( mockContext ),
 	};
 } );
-jest.mock( '@woocommerce/tracks', () => ( {
+jest.mock( '@poocommerce/tracks', () => ( {
 	recordEvent: jest.fn(),
 } ) );
 jest.mock( '~/utils/features', () => ( {
@@ -43,7 +43,7 @@ const defaultSelectReturn = {
 	getInstalledPlugins: () => [],
 	getSettings: () => ( {
 		general: {
-			woocommerce_default_country: 'US',
+			poocommerce_default_country: 'US',
 		},
 	} ),
 	getProfileItems: () => ( {} ),
@@ -58,18 +58,18 @@ describe( 'ShippingRecommendations', () => {
 		);
 	} );
 
-	it( `should not render if the following plugins are active: woocommerce-shipping`, () => {
+	it( `should not render if the following plugins are active: poocommerce-shipping`, () => {
 		( useSelect as jest.Mock ).mockImplementation( ( fn ) =>
 			fn( () => ( {
 				...defaultSelectReturn,
-				getActivePlugins: () => 'woocommerce-shipping',
+				getActivePlugins: () => 'poocommerce-shipping',
 			} ) )
 		);
 
 		render( <ShippingRecommendations /> );
 
 		expect(
-			screen.queryByText( 'WooCommerce Shipping' )
+			screen.queryByText( 'PooCommerce Shipping' )
 		).not.toBeInTheDocument();
 	} );
 
@@ -79,7 +79,7 @@ describe( 'ShippingRecommendations', () => {
 				...defaultSelectReturn,
 				getSettings: () => ( {
 					general: {
-						woocommerce_default_country: 'JP',
+						poocommerce_default_country: 'JP',
 					},
 				} ),
 			} ) )
@@ -87,7 +87,7 @@ describe( 'ShippingRecommendations', () => {
 		render( <ShippingRecommendations /> );
 
 		expect(
-			screen.queryByText( 'WooCommerce Shipping' )
+			screen.queryByText( 'PooCommerce Shipping' )
 		).not.toBeInTheDocument();
 	} );
 
@@ -103,7 +103,7 @@ describe( 'ShippingRecommendations', () => {
 		render( <ShippingRecommendations /> );
 
 		expect(
-			screen.queryByText( 'WooCommerce Shipping' )
+			screen.queryByText( 'PooCommerce Shipping' )
 		).not.toBeInTheDocument();
 	} );
 
@@ -111,14 +111,14 @@ describe( 'ShippingRecommendations', () => {
 		render( <ShippingRecommendations /> );
 
 		expect(
-			screen.queryByText( 'WooCommerce Shipping' )
+			screen.queryByText( 'PooCommerce Shipping' )
 		).toBeInTheDocument();
 	} );
 
-	it( 'should trigger event settings_shipping_recommendation_visit_marketplace_click when clicking the WooCommerce Marketplace link', () => {
+	it( 'should trigger event settings_shipping_recommendation_visit_marketplace_click when clicking the PooCommerce Marketplace link', () => {
 		render( <ShippingRecommendations /> );
 
-		fireEvent.click( screen.getByText( 'the WooCommerce Marketplace' ) );
+		fireEvent.click( screen.getByText( 'the PooCommerce Marketplace' ) );
 
 		expect( recordEvent ).toHaveBeenCalledWith(
 			'settings_shipping_recommendation_visit_marketplace_click',
@@ -126,7 +126,7 @@ describe( 'ShippingRecommendations', () => {
 		);
 	} );
 
-	it( 'should navigate to the marketplace when clicking the WooCommerce Marketplace link', async () => {
+	it( 'should navigate to the marketplace when clicking the PooCommerce Marketplace link', async () => {
 		const { isFeatureEnabled } = jest.requireMock( '~/utils/features' );
 		( isFeatureEnabled as jest.Mock ).mockReturnValue( true );
 
@@ -141,7 +141,7 @@ describe( 'ShippingRecommendations', () => {
 
 		render( <ShippingRecommendations /> );
 
-		fireEvent.click( screen.getByText( 'the WooCommerce Marketplace' ) );
+		fireEvent.click( screen.getByText( 'the PooCommerce Marketplace' ) );
 
 		expect( mockLocation.href ).toContain(
 			'admin.php?page=wc-admin&tab=extensions&path=/extensions&category=shipping'

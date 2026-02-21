@@ -12,7 +12,7 @@ import attributes from './attributes';
 import metadata from './block.json';
 import './style.scss';
 
-registerBlockType( 'woocommerce/checkout-shipping-method-block', {
+registerBlockType( 'poocommerce/checkout-shipping-method-block', {
 	apiVersion: metadata.apiVersion,
 	title: metadata.title,
 	icon: {

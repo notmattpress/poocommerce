@@ -10,9 +10,9 @@ import {
 	useId,
 } from '@wordpress/element';
 import clsx from 'clsx';
-import { isObject } from '@woocommerce/types';
+import { isObject } from '@poocommerce/types';
 import { useDispatch, useSelect } from '@wordpress/data';
-import { validationStore } from '@woocommerce/block-data';
+import { validationStore } from '@poocommerce/block-data';
 import type { InputHTMLAttributes } from 'react';
 
 /**

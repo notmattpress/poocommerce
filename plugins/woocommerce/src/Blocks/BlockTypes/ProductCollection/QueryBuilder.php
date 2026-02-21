@@ -1,15 +1,15 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes\ProductCollection;
+namespace Automattic\PooCommerce\Blocks\BlockTypes\ProductCollection;
 
-use Automattic\WooCommerce\Blocks\BlockTypes\AttributeFilter;
-use Automattic\WooCommerce\Blocks\BlockTypes\PriceFilter;
-use Automattic\WooCommerce\Blocks\BlockTypes\RatingFilter;
-use Automattic\WooCommerce\Blocks\BlockTypes\StockFilter;
+use Automattic\PooCommerce\Blocks\BlockTypes\AttributeFilter;
+use Automattic\PooCommerce\Blocks\BlockTypes\PriceFilter;
+use Automattic\PooCommerce\Blocks\BlockTypes\RatingFilter;
+use Automattic\PooCommerce\Blocks\BlockTypes\StockFilter;
 use WP_Query;
 use WC_Tax;
-use Automattic\WooCommerce\Enums\ProductStockStatus;
+use Automattic\PooCommerce\Enums\ProductStockStatus;
 
 /**
  * QueryBuilder class.
@@ -161,12 +161,12 @@ class QueryBuilder {
 			's'              => $search,
 		);
 
-		$is_on_sale          = $query['woocommerceOnSale'] ?? false;
+		$is_on_sale          = $query['poocommerceOnSale'] ?? false;
 		$order_by            = $query['orderBy'] ?? '';
-		$stock_status        = $query['woocommerceStockStatus'] ?? array_keys( wc_get_product_stock_status_options() );
-		$product_attributes  = $query['woocommerceAttributes'] ?? array();
+		$stock_status        = $query['poocommerceStockStatus'] ?? array_keys( wc_get_product_stock_status_options() );
+		$product_attributes  = $query['poocommerceAttributes'] ?? array();
 		$taxonomies_query    = $this->get_filter_by_taxonomies_query( $query['tax_query'] ?? array() );
-		$handpicked_products = $query['woocommerceHandPickedProducts'] ?? array();
+		$handpicked_products = $query['poocommerceHandPickedProducts'] ?? array();
 		$time_frame          = $query['timeFrame'] ?? null;
 		$price_range         = $query['priceRange'] ?? null;
 		$featured            = $query['featured'] ?? false;
@@ -661,7 +661,7 @@ class QueryBuilder {
 	private function get_filter_by_taxonomy_query() {
 
 		$container       = wc_get_container();
-		$params_handler  = $container->get( \Automattic\WooCommerce\Internal\ProductFilters\Params::class );
+		$params_handler  = $container->get( \Automattic\PooCommerce\Internal\ProductFilters\Params::class );
 		$taxonomy_params = $params_handler->get_param( 'taxonomy' );
 
 		if ( empty( $taxonomy_params ) ) {
@@ -972,7 +972,7 @@ class QueryBuilder {
 	 * @return float
 	 */
 	protected function adjust_price_filter_for_tax_class( $price_filter, $tax_class ) {
-		$tax_display    = get_option( 'woocommerce_tax_display_shop' );
+		$tax_display    = get_option( 'poocommerce_tax_display_shop' );
 		$tax_rates      = WC_Tax::get_rates( $tax_class );
 		$base_tax_rates = WC_Tax::get_base_tax_rates( $tax_class );
 
@@ -981,18 +981,18 @@ class QueryBuilder {
 			/**
 			 * Filters if taxes should be removed from locations outside the store base location.
 			 *
-			 * The woocommerce_adjust_non_base_location_prices filter can stop base taxes being taken off when dealing
+			 * The poocommerce_adjust_non_base_location_prices filter can stop base taxes being taken off when dealing
 			 * with out of base locations. e.g. If a product costs 10 including tax, all users will pay 10
 			 * regardless of location and taxes.
 			 *
 			 * @since 2.6.0
 			 *
-			 * @internal Matches filter name in WooCommerce core.
+			 * @internal Matches filter name in PooCommerce core.
 			 *
 			 * @param boolean $adjust_non_base_location_prices True by default.
 			 * @return boolean
 			 */
-			$taxes = apply_filters( 'woocommerce_adjust_non_base_location_prices', true ) ? WC_Tax::calc_tax( $price_filter, $base_tax_rates, true ) : WC_Tax::calc_tax( $price_filter, $tax_rates, true );
+			$taxes = apply_filters( 'poocommerce_adjust_non_base_location_prices', true ) ? WC_Tax::calc_tax( $price_filter, $base_tax_rates, true ) : WC_Tax::calc_tax( $price_filter, $tax_rates, true );
 			return $price_filter - array_sum( $taxes );
 		}
 
@@ -1013,7 +1013,7 @@ class QueryBuilder {
 	 * @return bool True if the price filters need to be adjusted for tax display settings, false otherwise.
 	 */
 	private function should_adjust_price_range_for_taxes() {
-		$display_setting      = get_option( 'woocommerce_tax_display_shop' ); // Tax display setting ('incl' or 'excl').
+		$display_setting      = get_option( 'poocommerce_tax_display_shop' ); // Tax display setting ('incl' or 'excl').
 		$price_storage_method = wc_prices_include_tax() ? 'incl' : 'excl';
 
 		return $display_setting !== $price_storage_method;

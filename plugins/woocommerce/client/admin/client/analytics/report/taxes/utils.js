@@ -7,7 +7,7 @@ export function getTaxCode( tax ) {
 	return [
 		tax.country,
 		tax.state,
-		tax.name || __( 'TAX', 'woocommerce' ),
+		tax.name || __( 'TAX', 'poocommerce' ),
 		tax.priority,
 	]
 		.map( ( item ) => item.toString().toUpperCase().trim() )

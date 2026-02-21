@@ -1,9 +1,9 @@
 {
-	"name": "woocommerce/cart-totals-block",
+	"name": "poocommerce/cart-totals-block",
 	"version": "1.0.0",
 	"title": "Cart Totals",
 	"description": "Column containing the cart totals.",
-	"category": "woocommerce",
+	"category": "poocommerce",
 	"supports": {
 		"align": false,
 		"html": false,
@@ -29,9 +29,9 @@
 		}
 	},
 	"parent": [
-		"woocommerce/filled-cart-block"
+		"poocommerce/filled-cart-block"
 	],
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3
 }

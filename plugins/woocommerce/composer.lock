@@ -1069,16 +1069,16 @@
             "time": "2021-05-22T15:57:08+00:00"
         },
         {
-            "name": "woocommerce/action-scheduler",
+            "name": "poocommerce/action-scheduler",
             "version": "3.9.3",
             "source": {
                 "type": "git",
-                "url": "https://github.com/woocommerce/action-scheduler.git",
+                "url": "https://github.com/poocommerce/action-scheduler.git",
                 "reference": "c58cdbab17651303d406cd3b22cf9d75c71c986c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/woocommerce/action-scheduler/zipball/c58cdbab17651303d406cd3b22cf9d75c71c986c",
+                "url": "https://api.github.com/repos/poocommerce/action-scheduler/zipball/c58cdbab17651303d406cd3b22cf9d75c71c986c",
                 "reference": "c58cdbab17651303d406cd3b22cf9d75c71c986c",
                 "shasum": ""
             },
@@ -1087,7 +1087,7 @@
             },
             "require-dev": {
                 "phpunit/phpunit": "^8.5",
-                "woocommerce/woocommerce-sniffs": "0.1.0",
+                "poocommerce/poocommerce-sniffs": "0.1.0",
                 "wp-cli/wp-cli": "~2.5.0",
                 "yoast/phpunit-polyfills": "^2.0"
             },
@@ -1103,16 +1103,16 @@
             "license": [
                 "GPL-3.0-or-later"
             ],
-            "description": "Action Scheduler for WordPress and WooCommerce",
+            "description": "Action Scheduler for WordPress and PooCommerce",
             "homepage": "https://actionscheduler.org/",
             "support": {
-                "issues": "https://github.com/woocommerce/action-scheduler/issues",
-                "source": "https://github.com/woocommerce/action-scheduler/tree/3.9.3"
+                "issues": "https://github.com/poocommerce/action-scheduler/issues",
+                "source": "https://github.com/poocommerce/action-scheduler/tree/3.9.3"
             },
             "time": "2025-07-15T09:32:30+00:00"
         },
         {
-            "name": "woocommerce/blueprint",
+            "name": "poocommerce/blueprint",
             "version": "0.0.1",
             "dist": {
                 "type": "path",
@@ -1126,7 +1126,7 @@
                 "automattic/jetpack-changelogger": "3.3.0",
                 "mockery/mockery": "^1.6",
                 "phpunit/phpunit": "^9",
-                "woocommerce/woocommerce-sniffs": "^1.0.0",
+                "poocommerce/poocommerce-sniffs": "^1.0.0",
                 "yoast/phpunit-polyfills": "^2.0"
             },
             "type": "wordpress-plugin",
@@ -1149,12 +1149,12 @@
             },
             "autoload": {
                 "psr-4": {
-                    "Automattic\\WooCommerce\\Blueprint\\": "src/"
+                    "Automattic\\PooCommerce\\Blueprint\\": "src/"
                 }
             },
             "autoload-dev": {
                 "psr-4": {
-                    "Automattic\\WooCommerce\\Blueprint\\Tests\\": "tests/"
+                    "Automattic\\PooCommerce\\Blueprint\\Tests\\": "tests/"
                 }
             },
             "scripts": {
@@ -1177,7 +1177,7 @@
             }
         },
         {
-            "name": "woocommerce/email-editor",
+            "name": "poocommerce/email-editor",
             "version": "2.8.1",
             "dist": {
                 "type": "path",
@@ -1190,7 +1190,7 @@
             "require-dev": {
                 "automattic/jetpack-changelogger": "3.3.0",
                 "phpunit/phpunit": "^9.6",
-                "woocommerce/woocommerce-sniffs": "1.0.0",
+                "poocommerce/poocommerce-sniffs": "1.0.0",
                 "yoast/phpunit-polyfills": "^4.0"
             },
             "type": "wordpress-plugin",
@@ -5435,7 +5435,7 @@
             "time": "2021-02-27T15:53:37+00:00"
         },
         {
-            "name": "woocommerce/monorepo-plugin",
+            "name": "poocommerce/monorepo-plugin",
             "version": "dev-add/phpstan",
             "dist": {
                 "type": "path",
@@ -5451,11 +5451,11 @@
             },
             "type": "composer-plugin",
             "extra": {
-                "class": "Automattic\\WooCommerce\\Monorepo\\Composer\\Plugin"
+                "class": "Automattic\\PooCommerce\\Monorepo\\Composer\\Plugin"
             },
             "autoload": {
                 "psr-4": {
-                    "Automattic\\WooCommerce\\Monorepo\\Composer\\": "src/"
+                    "Automattic\\PooCommerce\\Monorepo\\Composer\\": "src/"
                 }
             },
             "transport-options": {

@@ -2,12 +2,12 @@
 /**
  * Shows a shipping line
  *
- * @package WooCommerce\Admin
+ * @package PooCommerce\Admin
  *
  * @var object $item The item being displayed
  * @var int $item_id The id of the item being displayed
  *
- * @package WooCommerce\Admin\Views
+ * @package PooCommerce\Admin\Views
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -19,14 +19,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<td class="name">
 		<div class="view">
-			<?php echo esc_html( $item->get_name() ? $item->get_name() : __( 'Shipping', 'woocommerce' ) ); ?>
+			<?php echo esc_html( $item->get_name() ? $item->get_name() : __( 'Shipping', 'poocommerce' ) ); ?>
 		</div>
 		<div class="edit" style="display: none;">
 			<input type="hidden" name="shipping_method_id[]" value="<?php echo esc_attr( $item_id ); ?>" />
-			<input type="text" class="shipping_method_name" placeholder="<?php esc_attr_e( 'Shipping name', 'woocommerce' ); ?>" name="shipping_method_title[<?php echo esc_attr( $item_id ); ?>]" value="<?php echo esc_attr( $item->get_name() ); ?>" />
+			<input type="text" class="shipping_method_name" placeholder="<?php esc_attr_e( 'Shipping name', 'poocommerce' ); ?>" name="shipping_method_title[<?php echo esc_attr( $item_id ); ?>]" value="<?php echo esc_attr( $item->get_name() ); ?>" />
 			<select class="shipping_method" name="shipping_method[<?php echo esc_attr( $item_id ); ?>]">
-				<optgroup label="<?php esc_attr_e( 'Shipping method', 'woocommerce' ); ?>">
-					<option value=""><?php esc_html_e( 'N/A', 'woocommerce' ); ?></option>
+				<optgroup label="<?php esc_attr_e( 'Shipping method', 'poocommerce' ); ?>">
+					<option value=""><?php esc_html_e( 'N/A', 'poocommerce' ); ?></option>
 					<?php
 					$found_method = false;
 
@@ -41,21 +41,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 					}
 
 					if ( ! $found_method && $item->get_method_id() ) {
-						echo '<option value="' . esc_attr( $item->get_method_id() ) . '" selected="selected">' . esc_html__( 'Other', 'woocommerce' ) . '</option>';
+						echo '<option value="' . esc_attr( $item->get_method_id() ) . '" selected="selected">' . esc_html__( 'Other', 'poocommerce' ) . '</option>';
 					} else {
-						echo '<option value="other">' . esc_html__( 'Other', 'woocommerce' ) . '</option>';
+						echo '<option value="other">' . esc_html__( 'Other', 'poocommerce' ) . '</option>';
 					}
 					?>
 				</optgroup>
 			</select>
 		</div>
 
-		<?php do_action( 'woocommerce_before_order_itemmeta', $item_id, $item, null ); ?>
+		<?php do_action( 'poocommerce_before_order_itemmeta', $item_id, $item, null ); ?>
 		<?php require __DIR__ . '/html-order-item-meta.php'; ?>
-		<?php do_action( 'woocommerce_after_order_itemmeta', $item_id, $item, null ); ?>
+		<?php do_action( 'poocommerce_after_order_itemmeta', $item_id, $item, null ); ?>
 	</td>
 
-	<?php do_action( 'woocommerce_admin_order_item_values', null, $item, absint( $item_id ) ); ?>
+	<?php do_action( 'poocommerce_admin_order_item_values', null, $item, absint( $item_id ) ); ?>
 
 	<td class="item_cost" width="1%">&nbsp;</td>
 	<td class="quantity" width="1%">&nbsp;</td>
@@ -109,7 +109,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<td class="wc-order-edit-line-item">
 		<?php if ( $order->is_editable() ) : ?>
 			<div class="wc-order-edit-line-item-actions">
-				<a class="edit-order-item tips" href="#" data-tip="<?php esc_attr_e( 'Edit shipping', 'woocommerce' ); ?>" aria-label="<?php esc_attr_e( 'Edit shipping', 'woocommerce' ); ?>"></a><a class="delete-order-item tips" href="#" data-tip="<?php esc_attr_e( 'Delete shipping', 'woocommerce' ); ?>" aria-label="<?php esc_attr_e( 'Delete shipping', 'woocommerce' ); ?>"></a>
+				<a class="edit-order-item tips" href="#" data-tip="<?php esc_attr_e( 'Edit shipping', 'poocommerce' ); ?>" aria-label="<?php esc_attr_e( 'Edit shipping', 'poocommerce' ); ?>"></a><a class="delete-order-item tips" href="#" data-tip="<?php esc_attr_e( 'Delete shipping', 'poocommerce' ); ?>" aria-label="<?php esc_attr_e( 'Delete shipping', 'poocommerce' ); ?>"></a>
 			</div>
 		<?php endif; ?>
 	</td>

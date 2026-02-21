@@ -2,11 +2,11 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\EmailEditor\PersonalizationTags;
+namespace Automattic\PooCommerce\Internal\EmailEditor\PersonalizationTags;
 
-use Automattic\WooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tag;
-use Automattic\WooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tags_Registry;
-use Automattic\WooCommerce\Internal\EmailEditor\Integration;
+use Automattic\PooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tag;
+use Automattic\PooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tags_Registry;
+use Automattic\PooCommerce\Internal\EmailEditor\Integration;
 
 /**
  * Provider for store-related personalization tags.
@@ -23,9 +23,9 @@ class StoreTagsProvider extends AbstractTagProvider {
 	public function register_tags( Personalization_Tags_Registry $registry ): void {
 		$registry->register(
 			new Personalization_Tag(
-				__( 'Store Email', 'woocommerce' ),
-				'woocommerce/store-email',
-				__( 'Store', 'woocommerce' ),
+				__( 'Store Email', 'poocommerce' ),
+				'poocommerce/store-email',
+				__( 'Store', 'poocommerce' ),
 				function ( array $context ): string {
 					if ( isset( $context['wc_email'], $context['wc_email']->get_from_address ) ) {
 						return $context['wc_email']->get_from_address();
@@ -40,9 +40,9 @@ class StoreTagsProvider extends AbstractTagProvider {
 
 		$registry->register(
 			new Personalization_Tag(
-				__( 'Store URL', 'woocommerce' ),
-				'woocommerce/store-url',
-				__( 'Store', 'woocommerce' ),
+				__( 'Store URL', 'poocommerce' ),
+				'poocommerce/store-url',
+				__( 'Store', 'poocommerce' ),
 				function (): string {
 					return esc_attr( wc_get_page_permalink( 'shop' ) );
 				},
@@ -54,9 +54,9 @@ class StoreTagsProvider extends AbstractTagProvider {
 
 		$registry->register(
 			new Personalization_Tag(
-				__( 'Store Name', 'woocommerce' ),
-				'woocommerce/store-name',
-				__( 'Store', 'woocommerce' ),
+				__( 'Store Name', 'poocommerce' ),
+				'poocommerce/store-name',
+				__( 'Store', 'poocommerce' ),
 				function ( array $context ): string {
 					if ( isset( $context['wc_email'] ) && ! empty( $context['wc_email']->get_from_name() ) ) {
 						return $context['wc_email']->get_from_name();
@@ -72,9 +72,9 @@ class StoreTagsProvider extends AbstractTagProvider {
 
 		$registry->register(
 			new Personalization_Tag(
-				__( 'Store Address', 'woocommerce' ),
-				'woocommerce/store-address',
-				__( 'Store', 'woocommerce' ),
+				__( 'Store Address', 'poocommerce' ),
+				'poocommerce/store-address',
+				__( 'Store', 'poocommerce' ),
 				function (): string {
 					return WC()->mailer->get_store_address() ?? '';
 				},
@@ -86,9 +86,9 @@ class StoreTagsProvider extends AbstractTagProvider {
 
 		$registry->register(
 			new Personalization_Tag(
-				__( 'My Account URL', 'woocommerce' ),
-				'woocommerce/my-account-url',
-				__( 'Store', 'woocommerce' ),
+				__( 'My Account URL', 'poocommerce' ),
+				'poocommerce/my-account-url',
+				__( 'Store', 'poocommerce' ),
 				function (): string {
 					return esc_attr( wc_get_page_permalink( 'myaccount' ) );
 				},
@@ -100,9 +100,9 @@ class StoreTagsProvider extends AbstractTagProvider {
 
 		$registry->register(
 			new Personalization_Tag(
-				__( 'Admin Order Note', 'woocommerce' ),
-				'woocommerce/admin-order-note',
-				__( 'Store', 'woocommerce' ),
+				__( 'Admin Order Note', 'poocommerce' ),
+				'poocommerce/admin-order-note',
+				__( 'Store', 'poocommerce' ),
 				function ( array $context ): string {
 					if ( isset( $context['wc_email'], $context['wc_email']->customer_note ) ) {
 						return wptexturize( $context['wc_email']->customer_note );

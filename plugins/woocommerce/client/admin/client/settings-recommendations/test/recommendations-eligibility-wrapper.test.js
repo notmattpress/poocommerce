@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { render, screen } from '@testing-library/react';
-import { useUser } from '@woocommerce/data';
+import { useUser } from '@poocommerce/data';
 import { useSelect } from '@wordpress/data';
 
 /**
@@ -14,8 +14,8 @@ jest.mock( '@wordpress/data', () => ( {
 	...jest.requireActual( '@wordpress/data' ),
 	useSelect: jest.fn(),
 } ) );
-jest.mock( '@woocommerce/data', () => ( {
-	...jest.requireActual( '@woocommerce/data' ),
+jest.mock( '@poocommerce/data', () => ( {
+	...jest.requireActual( '@poocommerce/data' ),
 	useUser: jest.fn(),
 } ) );
 

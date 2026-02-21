@@ -118,7 +118,7 @@ export function* requestSendingNewsletterPreview( email: string ) {
 		const postId = select( storeName ).getEmailPostId();
 
 		yield apiFetch( {
-			path: '/woocommerce-email-editor/v1/send_preview_email',
+			path: '/poocommerce-email-editor/v1/send_preview_email',
 			method: 'POST',
 			data: {
 				email,

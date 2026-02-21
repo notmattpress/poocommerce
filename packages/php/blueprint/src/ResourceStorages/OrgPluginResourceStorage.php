@@ -1,15 +1,15 @@
 <?php
 
-namespace Automattic\WooCommerce\Blueprint\ResourceStorages;
+namespace Automattic\PooCommerce\Blueprint\ResourceStorages;
 
-use Automattic\WooCommerce\Blueprint\UseWPFunctions;
+use Automattic\PooCommerce\Blueprint\UseWPFunctions;
 
 /**
  * Class OrgPluginResourceStorage
  *
  * This class handles the storage and downloading of plugins from wordpress.org.
  *
- * @package Automattic\WooCommerce\Blueprint\ResourceStorages
+ * @package Automattic\PooCommerce\Blueprint\ResourceStorages
  */
 class OrgPluginResourceStorage implements ResourceStorage {
 	use UseWPFunctions;

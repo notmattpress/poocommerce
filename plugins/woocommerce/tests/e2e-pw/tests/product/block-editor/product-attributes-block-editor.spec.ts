@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { WC_API_PATH } from '@woocommerce/e2e-utils-playwright';
+import { WC_API_PATH } from '@poocommerce/e2e-utils-playwright';
 import type { Page } from '@playwright/test';
 
 /**
@@ -128,7 +128,7 @@ test(
 
 			await page
 				// Using a selector because there are many "Add new" buttons on the page
-				.locator( '.woocommerce-add-attribute-list-item__add-button' )
+				.locator( '.poocommerce-add-attribute-list-item__add-button' )
 				.click();
 
 			await page
@@ -149,7 +149,7 @@ test(
 			 * the Attribute combobox and the Term FormTokenField.
 			 */
 			const attributeRowsLocator = page.locator(
-				'.woocommerce-new-attribute-modal__table-row'
+				'.poocommerce-new-attribute-modal__table-row'
 			);
 
 			// First, check the app loads the attributes,
@@ -171,7 +171,7 @@ test(
 					.click();
 
 				const FormTokenFieldLocator = attributeRowLocator.locator(
-					'td.woocommerce-new-attribute-modal__table-attribute-value-column'
+					'td.poocommerce-new-attribute-modal__table-attribute-value-column'
 				);
 
 				// Term FormTokenField input locator
@@ -303,14 +303,14 @@ test(
 			await page.waitForLoadState( 'domcontentloaded' );
 
 			await page
-				.locator( '.woocommerce-attributes-combobox input' )
+				.locator( '.poocommerce-attributes-combobox input' )
 				.click();
 
 			// Unless we wait for the list to be visible, the attribute name will be filled too soon and the test will fail.
 			await waitForAttributeList( page );
 
 			await page
-				.locator( '.woocommerce-attributes-combobox input' )
+				.locator( '.poocommerce-attributes-combobox input' )
 				.fill( attributes.attribute.name );
 			await page
 				.getByRole( 'option', { name: attributes.attribute.name } )
@@ -382,7 +382,7 @@ test(
 			await page.getByRole( 'tab', { name: 'Organization' } ).click();
 
 			// Sometimes the attribute's terms take a while to load, and we need to reload and retry.
-			// See https://github.com/woocommerce/woocommerce/issues/44925
+			// See https://github.com/poocommerce/poocommerce/issues/44925
 			await expect(
 				async () => {
 					await page.getByRole( 'button', { name: 'Edit' } ).click();

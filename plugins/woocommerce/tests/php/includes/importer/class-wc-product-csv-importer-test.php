@@ -2,11 +2,11 @@
 /**
  * Unit tests for the WC_Product_CSV_Importer_Test class.
  *
- * @package WooCommerce\Tests\Importer.
+ * @package PooCommerce\Tests\Importer.
  */
 
-use Automattic\WooCommerce\Enums\ProductStatus;
-use Automattic\WooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Enums\ProductStatus;
+use Automattic\PooCommerce\Enums\ProductType;
 
 /**
  * Class WC_Product_CSV_Importer_Test

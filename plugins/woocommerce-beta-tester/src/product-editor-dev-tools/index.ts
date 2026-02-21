@@ -10,8 +10,8 @@ import { ProductEditorDevTools } from './product-editor-dev-tools';
 import './index.scss';
 
 function registerProductEditorDevTools() {
-	registerPlugin( 'woocommerce-product-editor-dev-tools', {
-		scope: 'woocommerce-product-block-editor',
+	registerPlugin( 'poocommerce-product-editor-dev-tools', {
+		scope: 'poocommerce-product-block-editor',
 		render: ProductEditorDevTools,
 	} );
 }

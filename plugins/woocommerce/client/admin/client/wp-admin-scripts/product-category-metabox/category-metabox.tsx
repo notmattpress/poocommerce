@@ -59,7 +59,7 @@ const CategoryMetabox = ( {
 							}
 						} }
 					>
-						{ __( 'All items', 'woocommerce' ) }
+						{ __( 'All items', 'poocommerce' ) }
 					</a>
 				</li>
 				<li
@@ -85,7 +85,7 @@ const CategoryMetabox = ( {
 							}
 						} }
 					>
-						{ __( 'Most used', 'woocommerce' ) }
+						{ __( 'Most used', 'poocommerce' ) }
 					</a>
 				</li>
 			</ul>

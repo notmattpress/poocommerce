@@ -55,7 +55,7 @@ const ErrorPlaceholder = ( {
 }: ErrorPlaceholderProps ): JSX.Element => (
 	<Placeholder
 		icon={ <Icon icon={ warning } /> }
-		label={ __( 'Sorry, an error occurred', 'woocommerce' ) }
+		label={ __( 'Sorry, an error occurred', 'poocommerce' ) }
 		className={ clsx( 'wc-block-api-error', className ) }
 	>
 		<ErrorMessage error={ error } />
@@ -65,7 +65,7 @@ const ErrorPlaceholder = ( {
 					<Spinner />
 				) : (
 					<Button variant="secondary" onClick={ onRetry }>
-						{ __( 'Retry', 'woocommerce' ) }
+						{ __( 'Retry', 'poocommerce' ) }
 					</Button>
 				) }
 			</>

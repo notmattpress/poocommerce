@@ -1,12 +1,12 @@
 <?php
 
-namespace Automattic\WooCommerce\Admin\Features\OnboardingTasks\Tasks;
+namespace Automattic\PooCommerce\Admin\Features\OnboardingTasks\Tasks;
 
-use Automattic\WooCommerce\Admin\PageController;
-use Automattic\WooCommerce\Internal\Admin\Loader;
-use Automattic\WooCommerce\Admin\Features\OnboardingTasks\Task;
-use Automattic\WooCommerce\Admin\Features\OnboardingTasks\Tasks\Products;
-use Automattic\WooCommerce\Internal\Admin\WCAdminAssets;
+use Automattic\PooCommerce\Admin\PageController;
+use Automattic\PooCommerce\Internal\Admin\Loader;
+use Automattic\PooCommerce\Admin\Features\OnboardingTasks\Task;
+use Automattic\PooCommerce\Admin\Features\OnboardingTasks\Tasks\Products;
+use Automattic\PooCommerce\Internal\Admin\WCAdminAssets;
 
 /**
  * Appearance Task
@@ -37,7 +37,7 @@ class Appearance extends Task {
 	 * @return string
 	 */
 	public function get_title() {
-		return __( 'Choose your theme', 'woocommerce' );
+		return __( 'Choose your theme', 'poocommerce' );
 	}
 
 	/**
@@ -48,7 +48,7 @@ class Appearance extends Task {
 	public function get_content() {
 		return __(
 			"Choose a theme that best fits your brand's look and feel, then make it your own. Change the colors, add your logo, and create pages.",
-			'woocommerce'
+			'poocommerce'
 		);
 	}
 
@@ -58,7 +58,7 @@ class Appearance extends Task {
 	 * @return string
 	 */
 	public function get_time() {
-		return __( '2 minutes', 'woocommerce' );
+		return __( '2 minutes', 'poocommerce' );
 	}
 
 	/**
@@ -67,6 +67,6 @@ class Appearance extends Task {
 	 * @return string
 	 */
 	public function get_action_label() {
-		return __( 'Choose theme', 'woocommerce' );
+		return __( 'Choose theme', 'poocommerce' );
 	}
 }

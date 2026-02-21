@@ -5,10 +5,10 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Admin\EmailPreview;
+namespace Automattic\PooCommerce\Internal\Admin\EmailPreview;
 
-use Automattic\WooCommerce\Internal\EmailEditor\WooContentProcessor;
-use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Internal\EmailEditor\WooContentProcessor;
+use Automattic\PooCommerce\Enums\OrderStatus;
 use Throwable;
 use WC_Email;
 use WC_Order;
@@ -32,7 +32,7 @@ class EmailPreview {
 		'WC_Email_Customer_Reset_Password',
 	);
 
-	const TRANSIENT_PREVIEW_EMAIL_IMPROVEMENTS = 'woocommerce_preview_email_improvements';
+	const TRANSIENT_PREVIEW_EMAIL_IMPROVEMENTS = 'poocommerce_preview_email_improvements';
 
 	/**
 	 * All fields IDs that can customize email styles in Settings.
@@ -40,16 +40,16 @@ class EmailPreview {
 	 * @var array
 	 */
 	private static array $email_style_setting_ids = array(
-		'woocommerce_email_background_color',
-		'woocommerce_email_base_color',
-		'woocommerce_email_body_background_color',
-		'woocommerce_email_font_family',
-		'woocommerce_email_footer_text',
-		'woocommerce_email_footer_text_color',
-		'woocommerce_email_header_alignment',
-		'woocommerce_email_header_image',
-		'woocommerce_email_header_image_width',
-		'woocommerce_email_text_color',
+		'poocommerce_email_background_color',
+		'poocommerce_email_base_color',
+		'poocommerce_email_body_background_color',
+		'poocommerce_email_font_family',
+		'poocommerce_email_footer_text',
+		'poocommerce_email_footer_text_color',
+		'poocommerce_email_header_alignment',
+		'poocommerce_email_header_image',
+		'poocommerce_email_header_image_width',
+		'poocommerce_email_text_color',
 	);
 
 	/**
@@ -139,7 +139,7 @@ class EmailPreview {
 		 *
 		 * @since 9.8.0
 		 */
-		return apply_filters( 'woocommerce_email_preview_email_style_setting_ids', self::$email_style_setting_ids );
+		return apply_filters( 'poocommerce_email_preview_email_style_setting_ids', self::$email_style_setting_ids );
 	}
 
 	/**
@@ -152,10 +152,10 @@ class EmailPreview {
 			return array();
 		}
 		$setting_ids = array(
-			"woocommerce_{$email_id}_subject",
-			"woocommerce_{$email_id}_heading",
-			"woocommerce_{$email_id}_additional_content",
-			"woocommerce_{$email_id}_email_type",
+			"poocommerce_{$email_id}_subject",
+			"poocommerce_{$email_id}_heading",
+			"poocommerce_{$email_id}_additional_content",
+			"poocommerce_{$email_id}_email_type",
 		);
 
 		/**
@@ -166,7 +166,7 @@ class EmailPreview {
 		 *
 		 * @since 9.8.0
 		 */
-		return apply_filters( 'woocommerce_email_preview_email_content_setting_ids', $setting_ids, $email_id );
+		return apply_filters( 'poocommerce_email_preview_email_content_setting_ids', $setting_ids, $email_id );
 	}
 
 	/**
@@ -235,7 +235,7 @@ class EmailPreview {
 		 *
 		 * @since 9.6.0
 		 */
-		$this->email = apply_filters( 'woocommerce_prepare_email_for_preview', $this->email );
+		$this->email = apply_filters( 'poocommerce_prepare_email_for_preview', $this->email );
 
 		$this->restore_locale();
 	}
@@ -259,7 +259,7 @@ class EmailPreview {
 	}
 
 	/**
-	 * Ensure links open in new tab. User in WooCommerce Settings,
+	 * Ensure links open in new tab. User in PooCommerce Settings,
 	 * so the links don't open inside the iframe.
 	 *
 	 * @param string $content Email content HTML.
@@ -359,7 +359,7 @@ class EmailPreview {
 		$this->clean_up_filters();
 
 		/** This filter is documented in src/Internal/Admin/EmailPreview/EmailPreview.php */
-		return apply_filters( 'woocommerce_mail_content', $inlined ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingSinceComment
+		return apply_filters( 'poocommerce_mail_content', $inlined ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingSinceComment
 	}
 
 	/**
@@ -429,9 +429,9 @@ class EmailPreview {
 		$order->set_discount_total( 10 );
 		$order->set_shipping_total( 5 );
 		$order->set_total( 80 );
-		$order->set_payment_method_title( __( 'Direct bank transfer', 'woocommerce' ) );
+		$order->set_payment_method_title( __( 'Direct bank transfer', 'poocommerce' ) );
 		$order->set_transaction_id( '999999999' );
-		$order->set_customer_note( __( "This is a customer note. Customers can add a note to their order on checkout.\n\nIt can be multiple lines. If there's no note, this section is hidden.", 'woocommerce' ) );
+		$order->set_customer_note( __( "This is a customer note. Customers can add a note to their order on checkout.\n\nIt can be multiple lines. If there's no note, this section is hidden.", 'poocommerce' ) );
 
 		$order = $this->apply_dummy_order_status( $order );
 
@@ -439,7 +439,7 @@ class EmailPreview {
 		$shipping_item = new WC_Order_Item_Shipping();
 		$shipping_item->set_props(
 			array(
-				'method_title' => __( 'Flat rate', 'woocommerce' ),
+				'method_title' => __( 'Flat rate', 'poocommerce' ),
 				'method_id'    => 'flat_rate',
 				'total'        => '5.00',
 			)
@@ -458,7 +458,7 @@ class EmailPreview {
 		 *
 		 * @since 9.6.0
 		 */
-		return apply_filters( 'woocommerce_email_preview_dummy_order', $order, $this->email_type );
+		return apply_filters( 'poocommerce_email_preview_dummy_order', $order, $this->email_type );
 	}
 
 	/**
@@ -486,14 +486,14 @@ class EmailPreview {
 	}
 
 	/**
-	 * Get a dummy product. Also used with `woocommerce_order_item_product` filter
+	 * Get a dummy product. Also used with `poocommerce_order_item_product` filter
 	 * when email templates tries to get the product from the database.
 	 *
 	 * @return WC_Product
 	 */
 	private function get_dummy_product() {
 		$product = new WC_Product();
-		$product->set_name( __( 'Dummy Product', 'woocommerce' ) );
+		$product->set_name( __( 'Dummy Product', 'poocommerce' ) );
 		$product->set_price( 25 );
 
 		/**
@@ -504,7 +504,7 @@ class EmailPreview {
 		 *
 		 * @since 9.6.0
 		 */
-		return apply_filters( 'woocommerce_email_preview_dummy_product', $product, $this->email_type );
+		return apply_filters( 'poocommerce_email_preview_dummy_product', $product, $this->email_type );
 	}
 
 	/**
@@ -514,12 +514,12 @@ class EmailPreview {
 	 */
 	private function get_dummy_product_variation() {
 		$variation = new WC_Product_Variation();
-		$variation->set_name( __( 'Dummy Product Variation', 'woocommerce' ) );
+		$variation->set_name( __( 'Dummy Product Variation', 'poocommerce' ) );
 		$variation->set_price( 20 );
 		$variation->set_attributes(
 			array(
-				__( 'Color', 'woocommerce' ) => __( 'Red', 'woocommerce' ),
-				__( 'Size', 'woocommerce' )  => __( 'Small', 'woocommerce' ),
+				__( 'Color', 'poocommerce' ) => __( 'Red', 'poocommerce' ),
+				__( 'Size', 'poocommerce' )  => __( 'Small', 'poocommerce' ),
 			)
 		);
 
@@ -531,7 +531,7 @@ class EmailPreview {
 		 *
 		 * @since 9.7.0
 		 */
-		return apply_filters( 'woocommerce_email_preview_dummy_product_variation', $variation, $this->email_type );
+		return apply_filters( 'poocommerce_email_preview_dummy_product_variation', $variation, $this->email_type );
 	}
 
 	/**
@@ -541,7 +541,7 @@ class EmailPreview {
 	 */
 	private function get_dummy_downloadable_product() {
 		$product = new WC_Product();
-		$product->set_name( __( 'Dummy Downloadable Product', 'woocommerce' ) );
+		$product->set_name( __( 'Dummy Downloadable Product', 'poocommerce' ) );
 		$product->set_price( 15 );
 		$product->set_virtual( true );
 		$product->set_downloadable( true );
@@ -554,7 +554,7 @@ class EmailPreview {
 		 *
 		 * @since 10.3.0
 		 */
-		return apply_filters( 'woocommerce_email_preview_dummy_downloadable_product', $product, $this->email_type );
+		return apply_filters( 'poocommerce_email_preview_dummy_downloadable_product', $product, $this->email_type );
 	}
 
 	/**
@@ -584,7 +584,7 @@ class EmailPreview {
 		 *
 		 * @since 9.6.0
 		 */
-		return apply_filters( 'woocommerce_email_preview_dummy_address', $address, $this->email_type );
+		return apply_filters( 'poocommerce_email_preview_dummy_address', $address, $this->email_type );
 	}
 
 	/**
@@ -611,7 +611,7 @@ class EmailPreview {
 		 *
 		 * @since 9.6.0
 		 */
-		return apply_filters( 'woocommerce_email_preview_placeholders', $placeholders, $this->email_type, $email_object );
+		return apply_filters( 'poocommerce_email_preview_placeholders', $placeholders, $this->email_type, $email_object );
 	}
 
 	/**
@@ -620,32 +620,32 @@ class EmailPreview {
 	public function set_up_filters() {
 		$this->switch_to_site_locale();
 		// Always show shipping address in the preview email.
-		add_filter( 'woocommerce_order_needs_shipping_address', array( $this, 'enable_shipping_address' ) );
+		add_filter( 'poocommerce_order_needs_shipping_address', array( $this, 'enable_shipping_address' ) );
 		// Email templates fetch product from the database to show additional information, which are not
 		// saved in WC_Order_Item_Product. This filter enables fetching that data also in email preview.
-		add_filter( 'woocommerce_order_item_product', array( $this, 'get_dummy_product_when_not_set' ), 10, 1 );
+		add_filter( 'poocommerce_order_item_product', array( $this, 'get_dummy_product_when_not_set' ), 10, 1 );
 		// Enable email preview mode - this way transient values are fetched for live preview.
-		add_filter( 'woocommerce_is_email_preview', array( $this, 'enable_preview_mode' ) );
-		// Use placeholder image included in WooCommerce files.
-		add_filter( 'woocommerce_order_item_thumbnail', array( $this, 'get_placeholder_image' ) );
+		add_filter( 'poocommerce_is_email_preview', array( $this, 'enable_preview_mode' ) );
+		// Use placeholder image included in PooCommerce files.
+		add_filter( 'poocommerce_order_item_thumbnail', array( $this, 'get_placeholder_image' ) );
 		// Make products in preview considered downloadable and provide dummy file so WC core shows downloads.
-		add_filter( 'woocommerce_is_downloadable', array( $this, 'force_product_downloadable' ), 10, 1 );
-		add_filter( 'woocommerce_product_file', array( $this, 'provide_dummy_product_file' ), 10, 1 );
+		add_filter( 'poocommerce_is_downloadable', array( $this, 'force_product_downloadable' ), 10, 1 );
+		add_filter( 'poocommerce_product_file', array( $this, 'provide_dummy_product_file' ), 10, 1 );
 		// Provide dummy downloadable items for email preview.
-		add_filter( 'woocommerce_order_get_downloadable_items', array( $this, 'get_dummy_downloadable_items' ), 10, 1 );
+		add_filter( 'poocommerce_order_get_downloadable_items', array( $this, 'get_dummy_downloadable_items' ), 10, 1 );
 	}
 
 	/**
 	 * Clean up filters after email preview.
 	 */
 	public function clean_up_filters() {
-		remove_filter( 'woocommerce_order_needs_shipping_address', array( $this, 'enable_shipping_address' ) );
-		remove_filter( 'woocommerce_order_item_product', array( $this, 'get_dummy_product_when_not_set' ), 10 );
-		remove_filter( 'woocommerce_is_email_preview', array( $this, 'enable_preview_mode' ) );
-		remove_filter( 'woocommerce_order_item_thumbnail', array( $this, 'get_placeholder_image' ) );
-		remove_filter( 'woocommerce_is_downloadable', array( $this, 'force_product_downloadable' ), 10 );
-		remove_filter( 'woocommerce_product_file', array( $this, 'provide_dummy_product_file' ), 10 );
-		remove_filter( 'woocommerce_order_get_downloadable_items', array( $this, 'get_dummy_downloadable_items' ), 10 );
+		remove_filter( 'poocommerce_order_needs_shipping_address', array( $this, 'enable_shipping_address' ) );
+		remove_filter( 'poocommerce_order_item_product', array( $this, 'get_dummy_product_when_not_set' ), 10 );
+		remove_filter( 'poocommerce_is_email_preview', array( $this, 'enable_preview_mode' ) );
+		remove_filter( 'poocommerce_order_item_thumbnail', array( $this, 'get_placeholder_image' ) );
+		remove_filter( 'poocommerce_is_downloadable', array( $this, 'force_product_downloadable' ), 10 );
+		remove_filter( 'poocommerce_product_file', array( $this, 'provide_dummy_product_file' ), 10 );
+		remove_filter( 'poocommerce_order_get_downloadable_items', array( $this, 'get_dummy_downloadable_items' ), 10 );
 		$this->restore_locale();
 	}
 
@@ -695,7 +695,7 @@ class EmailPreview {
 		 *
 		 * @param bool $is_email_preview Whether preview mode is active.
 		 */
-		if ( apply_filters( 'woocommerce_is_email_preview', false ) ) {
+		if ( apply_filters( 'poocommerce_is_email_preview', false ) ) {
 			return true;
 		}
 		return $is_downloadable;
@@ -718,9 +718,9 @@ class EmailPreview {
 		 *
 		 * @param bool $is_email_preview Whether preview mode is active.
 		 */
-		if ( apply_filters( 'woocommerce_is_email_preview', false ) ) {
+		if ( apply_filters( 'poocommerce_is_email_preview', false ) ) {
 			return array(
-				'name' => __( 'Sample Download File.pdf', 'woocommerce' ),
+				'name' => __( 'Sample Download File.pdf', 'poocommerce' ),
 				'file' => 'sample-download.pdf',
 			);
 		}
@@ -739,7 +739,7 @@ class EmailPreview {
 				'product_name'   => $this->get_dummy_downloadable_product()->get_name(),
 				'product_id'     => $this->get_dummy_downloadable_product()->get_id(),
 				'download_url'   => 'https://example.com/download',
-				'download_name'  => __( 'Sample Download File.pdf', 'woocommerce' ),
+				'download_name'  => __( 'Sample Download File.pdf', 'poocommerce' ),
 				'access_expires' => time() + ( 30 * DAY_IN_SECONDS ),
 			),
 		);
@@ -764,10 +764,10 @@ class EmailPreview {
 		$woo_content_processor = wc_get_container()->get( WooContentProcessor::class );
 
 		$generate_content_closure = function () use ( $woo_content_processor ) {
-			// Note: If 'woocommerce_email_styles' filter was intentional and `prepare_css` isn't
+			// Note: If 'poocommerce_email_styles' filter was intentional and `prepare_css` isn't
 			// the intended callback, adjust accordingly. This assumes `prepare_css` applies styles
 			// needed for the Woo content block.
-			add_filter( 'woocommerce_email_styles', array( $woo_content_processor, 'prepare_css' ), 10, 2 );
+			add_filter( 'poocommerce_email_styles', array( $woo_content_processor, 'prepare_css' ), 10, 2 );
 			$content = $woo_content_processor->get_woo_content( $this->get_email() );
 			$content = $this->get_email()->style_inline( $content );
 			$content = $this->ensure_links_open_in_new_tab( $content );
@@ -788,7 +788,7 @@ class EmailPreview {
 				} catch ( Throwable $e ) {
 					ob_end_clean();
 					// Let the caller handle the exception.
-					throw new \RuntimeException( esc_html__( 'There was an error rendering the email editor placeholder content.', 'woocommerce' ), 0, $e );
+					throw new \RuntimeException( esc_html__( 'There was an error rendering the email editor placeholder content.', 'poocommerce' ), 0, $e );
 				}
 				ob_end_clean();
 			}

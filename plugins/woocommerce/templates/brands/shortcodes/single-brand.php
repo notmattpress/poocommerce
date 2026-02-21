@@ -2,9 +2,9 @@
 /**
  * Single Brand
  *
- * This template can be overridden by copying it to yourtheme/woocommerce/brands/shortcodes/single-brand.php.
+ * This template can be overridden by copying it to yourtheme/poocommerce/brands/shortcodes/single-brand.php.
  *
- * HOWEVER, on occasion WooCommerce will need to update template files and you
+ * HOWEVER, on occasion PooCommerce will need to update template files and you
  * (the theme developer) will need to copy the new files to your theme to
  * maintain compatibility. We try to do this as little as possible, but it does
  * happen. When this occurs the version of the template file will be bumped and
@@ -22,8 +22,8 @@
  * Ignore space indent sniff for this file, as it is used for alignment rather than actual indents.
  * phpcs:ignoreFile Generic.WhiteSpace.DisallowSpaceIndent
  *
- * @see     https://woocommerce.com/document/template-structure/
- * @package WooCommerce\Templates
+ * @see     https://poocommerce.com/document/template-structure/
+ * @package PooCommerce\Templates
  * @usedby  [product_brand]
  * @version 9.4.0
  */

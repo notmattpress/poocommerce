@@ -1,11 +1,11 @@
 <?php
 
-use Automattic\WooCommerce\LayoutTemplates\LayoutTemplateRegistry;
+use Automattic\PooCommerce\LayoutTemplates\LayoutTemplateRegistry;
 
-use Automattic\WooCommerce\Internal\Features\ProductBlockEditor\ProductTemplates\SimpleProductTemplate;
-use Automattic\WooCommerce\Internal\Features\ProductBlockEditor\ProductTemplates\ProductVariationTemplate;
+use Automattic\PooCommerce\Internal\Features\ProductBlockEditor\ProductTemplates\SimpleProductTemplate;
+use Automattic\PooCommerce\Internal\Features\ProductBlockEditor\ProductTemplates\ProductVariationTemplate;
 
-use Automattic\WooCommerce\Tests\LayoutTemplates\TestLayoutTemplate;
+use Automattic\PooCommerce\Tests\LayoutTemplates\TestLayoutTemplate;
 
 /**
  * class WC_REST_Layout_Templates_Controller_Tests.

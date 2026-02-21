@@ -22,35 +22,35 @@ const ProductOrderbyControl = ( {
 }: ProductOrderbyControlProps ) => {
 	return (
 		<SelectControl
-			label={ __( 'Order products by', 'woocommerce' ) }
+			label={ __( 'Order products by', 'poocommerce' ) }
 			value={ value }
 			options={ [
 				{
-					label: __( 'Newness - newest first', 'woocommerce' ),
+					label: __( 'Newness - newest first', 'poocommerce' ),
 					value: 'date',
 				},
 				{
-					label: __( 'Price - low to high', 'woocommerce' ),
+					label: __( 'Price - low to high', 'poocommerce' ),
 					value: 'price_asc',
 				},
 				{
-					label: __( 'Price - high to low', 'woocommerce' ),
+					label: __( 'Price - high to low', 'poocommerce' ),
 					value: 'price_desc',
 				},
 				{
-					label: __( 'Rating - highest first', 'woocommerce' ),
+					label: __( 'Rating - highest first', 'poocommerce' ),
 					value: 'rating',
 				},
 				{
-					label: __( 'Sales - most first', 'woocommerce' ),
+					label: __( 'Sales - most first', 'poocommerce' ),
 					value: 'popularity',
 				},
 				{
-					label: __( 'Title - alphabetical', 'woocommerce' ),
+					label: __( 'Title - alphabetical', 'poocommerce' ),
 					value: 'title',
 				},
 				{
-					label: __( 'Menu Order', 'woocommerce' ),
+					label: __( 'Menu Order', 'poocommerce' ),
 					value: 'menu_order',
 				},
 			] }

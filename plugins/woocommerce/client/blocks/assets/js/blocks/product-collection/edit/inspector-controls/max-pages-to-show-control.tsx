@@ -29,14 +29,14 @@ const MaxPagesToShowControl = ( {
 
 	return (
 		<ToolsPanelItem
-			label={ __( 'Max pages to show', 'woocommerce' ) }
+			label={ __( 'Max pages to show', 'poocommerce' ) }
 			hasValue={ () => query.pages !== DEFAULT_QUERY.pages }
 			onDeselect={ deselectCallback }
 			resetAllFilter={ deselectCallback }
 		>
 			<NumberControl
 				__next40pxDefaultSize
-				label={ __( 'Max pages to show', 'woocommerce' ) }
+				label={ __( 'Max pages to show', 'poocommerce' ) }
 				value={ query.pages }
 				min={ 0 }
 				onChange={ ( newPages: number ) => {
@@ -48,7 +48,7 @@ const MaxPagesToShowControl = ( {
 				} }
 				help={ __(
 					'Limit the pages you want to show, even if the query has more results. To show all pages use 0 (zero).',
-					'woocommerce'
+					'poocommerce'
 				) }
 			/>
 		</ToolsPanelItem>

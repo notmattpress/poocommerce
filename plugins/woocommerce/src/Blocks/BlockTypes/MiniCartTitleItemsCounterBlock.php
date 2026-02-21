@@ -1,7 +1,7 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Admin\Features\Features;
+use Automattic\PooCommerce\Admin\Features\Features;
 
 /**
  * MiniCartTitleItemsCounterBlock class.
@@ -43,7 +43,7 @@ class MiniCartTitleItemsCounterBlock extends AbstractInnerBlock {
 		// `@wordpress/i18n` package is available as a script module.
 
 		// translators: %d number of items in the cart.
-		$cart_item_text = __( '(items: %d)', 'woocommerce' );
+		$cart_item_text = __( '(items: %d)', 'poocommerce' );
 
 		wp_interactivity_config(
 			$this->get_full_block_name(),
@@ -62,7 +62,7 @@ class MiniCartTitleItemsCounterBlock extends AbstractInnerBlock {
 		$wrapper_attributes = get_block_wrapper_attributes(
 			array(
 				'data-wp-text'        => 'state.itemsInCartText',
-				'data-wp-interactive' => 'woocommerce/mini-cart-title-items-counter-block',
+				'data-wp-interactive' => 'poocommerce/mini-cart-title-items-counter-block',
 			)
 		);
 

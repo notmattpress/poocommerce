@@ -1,4 +1,4 @@
-.woocommerce-publish-panel-visibility {
+.poocommerce-publish-panel-visibility {
 	&__fieldset {
 		legend {
 			padding-bottom: $gap-large;
@@ -6,7 +6,7 @@
 		> div {
 			padding-bottom: $gap-smaller;
 		}
-		.wp-block-woocommerce-product-password-fields__field {
+		.wp-block-poocommerce-product-password-fields__field {
 			margin-bottom: 0;
 		}
 	}

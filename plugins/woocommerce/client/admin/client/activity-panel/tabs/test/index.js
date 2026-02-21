@@ -2,14 +2,14 @@
  * External dependencies
  */
 import { render, fireEvent } from '@testing-library/react';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
  */
 import { Tabs } from '../';
 
-jest.mock( '@woocommerce/tracks', () => ( { recordEvent: jest.fn() } ) );
+jest.mock( '@poocommerce/tracks', () => ( { recordEvent: jest.fn() } ) );
 const generateTabs = () => {
 	return [ '0', '1', '2', '3' ].map( ( name ) => ( {
 		name,

@@ -1,17 +1,17 @@
 <?php
 /**
- * WooCommerce Coupons Functions
+ * PooCommerce Coupons Functions
  *
  * Functions for coupon specific things.
  *
- * @package WooCommerce\Functions
+ * @package PooCommerce\Functions
  * @version 3.0.0
  */
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Utilities\StringUtil;
-use Automattic\WooCommerce\Admin\API\Reports\Coupons\DataStore as CouponsDataStore;
+use Automattic\PooCommerce\Utilities\StringUtil;
+use Automattic\PooCommerce\Admin\API\Reports\Coupons\DataStore as CouponsDataStore;
 
 /**
  * Get coupon types.
@@ -20,11 +20,11 @@ use Automattic\WooCommerce\Admin\API\Reports\Coupons\DataStore as CouponsDataSto
  */
 function wc_get_coupon_types() {
 	return (array) apply_filters(
-		'woocommerce_coupon_discount_types',
+		'poocommerce_coupon_discount_types',
 		array(
-			'percent'       => __( 'Percentage discount', 'woocommerce' ),
-			'fixed_cart'    => __( 'Fixed cart discount', 'woocommerce' ),
-			'fixed_product' => __( 'Fixed product discount', 'woocommerce' ),
+			'percent'       => __( 'Percentage discount', 'poocommerce' ),
+			'fixed_cart'    => __( 'Fixed cart discount', 'poocommerce' ),
+			'fixed_product' => __( 'Fixed product discount', 'poocommerce' ),
 		)
 	);
 }
@@ -47,7 +47,7 @@ function wc_get_coupon_type( $type = '' ) {
  * @return array
  */
 function wc_get_product_coupon_types() {
-	return (array) apply_filters( 'woocommerce_product_coupon_types', array( 'fixed_product', 'percent' ) );
+	return (array) apply_filters( 'poocommerce_product_coupon_types', array( 'fixed_product', 'percent' ) );
 }
 
 /**
@@ -57,7 +57,7 @@ function wc_get_product_coupon_types() {
  * @return array
  */
 function wc_get_cart_coupon_types() {
-	return (array) apply_filters( 'woocommerce_cart_coupon_types', array( 'fixed_cart' ) );
+	return (array) apply_filters( 'poocommerce_cart_coupon_types', array( 'fixed_cart' ) );
 }
 
 /**
@@ -69,7 +69,7 @@ function wc_get_cart_coupon_types() {
  * @return bool
  */
 function wc_coupons_enabled() {
-	return apply_filters( 'woocommerce_coupons_enabled', 'yes' === get_option( 'woocommerce_enable_coupons' ) );
+	return apply_filters( 'poocommerce_coupons_enabled', 'yes' === get_option( 'poocommerce_enable_coupons' ) );
 }
 
 /**
@@ -128,7 +128,7 @@ function wc_get_coupon_id_by_code( $code, $exclude = 0 ) {
 
 	$ids = array_diff( array_filter( array_map( 'absint', (array) $ids ) ), array( $exclude ) );
 
-	return apply_filters( 'woocommerce_get_coupon_id_from_code', absint( current( $ids ) ), $code, $exclude );
+	return apply_filters( 'poocommerce_get_coupon_id_from_code', absint( current( $ids ) ), $code, $exclude );
 }
 
 /**
@@ -149,7 +149,7 @@ function wc_repair_zero_discount_coupons_lookup_table() {
 	if ( $wpdb->get_var( "SHOW TABLES LIKE '$table_name'" ) !== $table_name ) {
 		return array(
 			'success' => false,
-			'message' => __( 'Coupons lookup table does not exist.', 'woocommerce' ),
+			'message' => __( 'Coupons lookup table does not exist.', 'poocommerce' ),
 		);
 	}
 
@@ -166,7 +166,7 @@ function wc_repair_zero_discount_coupons_lookup_table() {
 	if ( empty( $zero_discount_entries ) ) {
 		return array(
 			'success' => true,
-			'message' => __( 'No entries with zero discount amount found. Coupons lookup table is up to date.', 'woocommerce' ),
+			'message' => __( 'No entries with zero discount amount found. Coupons lookup table is up to date.', 'poocommerce' ),
 		);
 	}
 
@@ -201,11 +201,11 @@ function wc_repair_zero_discount_coupons_lookup_table() {
 
 	// Clear any related caches.
 	wp_cache_flush_group( 'coupons' );
-	WC_Cache_Helper::get_transient_version( 'woocommerce_reports', true );
+	WC_Cache_Helper::get_transient_version( 'poocommerce_reports', true );
 
 	$message = sprintf(
 		/* translators: %1$d: number of entries processed, %2$d: number of errors */
-		__( 'Coupons lookup table entries with zero discount amount repaired successfully. Processed %1$d entries with %2$d errors.', 'woocommerce' ),
+		__( 'Coupons lookup table entries with zero discount amount repaired successfully. Processed %1$d entries with %2$d errors.', 'poocommerce' ),
 		$processed_count,
 		$error_count
 	);

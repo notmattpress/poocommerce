@@ -5,7 +5,7 @@ import { MenuItem, VisuallyHidden } from '@wordpress/components';
 import { createElement } from '@wordpress/element';
 import { external } from '@wordpress/icons';
 import { __ } from '@wordpress/i18n';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 export const HelpMenuItem = () => {
 	const recordClick = () => {
@@ -20,17 +20,17 @@ export const HelpMenuItem = () => {
 			// @ts-ignore href is okay here
 			href={ __(
 				'https://wordpress.org/documentation/article/wordpress-block-editor/',
-				'woocommerce'
+				'poocommerce'
 			) }
 			onClick={ recordClick }
 			target="_blank"
 			rel="noopener noreferrer"
 		>
-			{ __( 'Help', 'woocommerce' ) }
+			{ __( 'Help', 'poocommerce' ) }
 			<VisuallyHidden as="span">
 				{
 					/* translators: accessibility text */
-					__( '(opens in a new tab)', 'woocommerce' )
+					__( '(opens in a new tab)', 'poocommerce' )
 				}
 			</VisuallyHidden>
 		</MenuItem>

@@ -1,9 +1,9 @@
 export const EXCLUDED_BLOCKS = [
-	'woocommerce/product-filters',
-	'woocommerce/product-filter-attribute',
-	'woocommerce/product-filter-active',
-	'woocommerce/product-filter-price',
-	'woocommerce/product-filter-status',
-	'woocommerce/product-collection',
+	'poocommerce/product-filters',
+	'poocommerce/product-filter-attribute',
+	'poocommerce/product-filter-active',
+	'poocommerce/product-filter-price',
+	'poocommerce/product-filter-status',
+	'poocommerce/product-collection',
 	'core/query',
 ];

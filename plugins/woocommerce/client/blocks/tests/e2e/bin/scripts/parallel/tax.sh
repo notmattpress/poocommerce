@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-wp option set woocommerce_calc_taxes yes
+wp option set poocommerce_calc_taxes yes
 
 wp wc tax create \
     --user=1 \

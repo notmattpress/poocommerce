@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Automattic\WooCommerce\Vendor\Symfony\Component\CssSelector\Node;
+namespace Automattic\PooCommerce\Vendor\Symfony\Component\CssSelector\Node;
 
 /**
  * Represents a combined node.

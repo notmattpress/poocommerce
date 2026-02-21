@@ -1,10 +1,10 @@
 <?php
 
-namespace Automattic\WooCommerce\Internal\Admin\BlockTemplates;
+namespace Automattic\PooCommerce\Internal\Admin\BlockTemplates;
 
-use Automattic\WooCommerce\Admin\BlockTemplates\ContainerInterface;
-use Automattic\WooCommerce\Admin\BlockTemplates\BlockInterface;
-use Automattic\WooCommerce\Admin\BlockTemplates\BlockTemplateInterface;
+use Automattic\PooCommerce\Admin\BlockTemplates\ContainerInterface;
+use Automattic\PooCommerce\Admin\BlockTemplates\BlockInterface;
+use Automattic\PooCommerce\Admin\BlockTemplates\BlockTemplateInterface;
 
 /**
  * Block template class.
@@ -14,7 +14,7 @@ class BlockTemplate extends AbstractBlockTemplate {
 	 * Get the template ID.
 	 */
 	public function get_id(): string {
-		return 'woocommerce-block-template';
+		return 'poocommerce-block-template';
 	}
 
 	/**

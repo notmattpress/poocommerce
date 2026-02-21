@@ -1,4 +1,4 @@
-.woocommerce-product-empty-state {
+.poocommerce-product-empty-state {
 	@mixin skeleton {
 		background-color: $gray-200;
 		border-radius: $grid-unit-05;
@@ -22,31 +22,31 @@
 		}
 
 		&:nth-of-type( 3n + 1 ) {
-			.woocommerce-product-empty-state__name {
+			.poocommerce-product-empty-state__name {
 				width: 85px;
 			}
 
-			.woocommerce-product-empty-state__value {
+			.poocommerce-product-empty-state__value {
 				width: 140px;
 			}
 		}
 
 		&:nth-of-type( 3n + 2 ) {
-			.woocommerce-product-empty-state__name {
+			.poocommerce-product-empty-state__name {
 				width: 120px;
 			}
 
-			.woocommerce-product-empty-state__value {
+			.poocommerce-product-empty-state__value {
 				width: 75px;
 			}
 		}
 
 		&:nth-of-type( 3n + 3 ) {
-			.woocommerce-product-empty-state__name {
+			.poocommerce-product-empty-state__name {
 				width: 100px;
 			}
 
-			.woocommerce-product-empty-state__value {
+			.poocommerce-product-empty-state__value {
 				width: 114px;
 			}
 		}

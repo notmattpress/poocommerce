@@ -64,12 +64,12 @@ const prepareIsInGenericTemplate =
 	( entitySlug: string ): boolean =>
 		templateSlug === entitySlug;
 
-interface WooCommerceBaseLocation {
+interface PooCommerceBaseLocation {
 	type: LocationType;
 	sourceData?: object | undefined;
 }
 
-interface ProductLocation extends WooCommerceBaseLocation {
+interface ProductLocation extends PooCommerceBaseLocation {
 	type: LocationType.Product;
 	sourceData?:
 		| {
@@ -78,7 +78,7 @@ interface ProductLocation extends WooCommerceBaseLocation {
 		| undefined;
 }
 
-interface ArchiveLocation extends WooCommerceBaseLocation {
+interface ArchiveLocation extends PooCommerceBaseLocation {
 	type: LocationType.Archive;
 	sourceData?:
 		| {
@@ -88,7 +88,7 @@ interface ArchiveLocation extends WooCommerceBaseLocation {
 		| undefined;
 }
 
-interface CartLocation extends WooCommerceBaseLocation {
+interface CartLocation extends PooCommerceBaseLocation {
 	type: LocationType.Cart;
 	sourceData?:
 		| {
@@ -97,7 +97,7 @@ interface CartLocation extends WooCommerceBaseLocation {
 		| undefined;
 }
 
-interface OrderLocation extends WooCommerceBaseLocation {
+interface OrderLocation extends PooCommerceBaseLocation {
 	type: LocationType.Order;
 	sourceData?:
 		| {
@@ -106,12 +106,12 @@ interface OrderLocation extends WooCommerceBaseLocation {
 		| undefined;
 }
 
-interface SiteLocation extends WooCommerceBaseLocation {
+interface SiteLocation extends PooCommerceBaseLocation {
 	type: LocationType.Site;
 	sourceData?: object | undefined;
 }
 
-export type WooCommerceBlockLocation =
+export type PooCommerceBlockLocation =
 	| ProductLocation
 	| ArchiveLocation
 	| CartLocation
@@ -122,7 +122,7 @@ const createLocationObject = ( type: LocationType, sourceData: object = {} ) =>
 	( {
 		type,
 		sourceData,
-	} as WooCommerceBlockLocation );
+	} as PooCommerceBlockLocation );
 
 type ContextProperties = {
 	templateSlug: string;
@@ -132,7 +132,7 @@ type ContextProperties = {
 export const useGetLocation = < T, >(
 	context: Context< T & ContextProperties >,
 	clientId: string
-): WooCommerceBlockLocation => {
+): PooCommerceBlockLocation => {
 	const templateSlug = context.templateSlug || '';
 	const postId = context.postId || null;
 
@@ -197,12 +197,12 @@ export const useGetLocation = < T, >(
 
 			return {
 				isInSingleProductBlock: isInBlocks( [
-					'woocommerce/single-product',
+					'poocommerce/single-product',
 				] ),
 				isInSomeCartCheckoutBlock: isInBlocks( [
-					'woocommerce/cart',
-					'woocommerce/checkout',
-					'woocommerce/mini-cart-contents',
+					'poocommerce/cart',
+					'poocommerce/checkout',
+					'poocommerce/mini-cart-contents',
 				] ),
 			};
 		},
@@ -389,7 +389,7 @@ export const useGetLocation = < T, >(
  *
  * The hook will return the following query context object:
  * {
- *  collection: 'woocommerce/product-collection/featured'
+ *  collection: 'poocommerce/product-collection/featured'
  * }
  *
  * @param args                      Arguments for the hook.
@@ -412,7 +412,7 @@ export const useProductCollectionQueryContext = ( {
 
 			const parentBlocksClientIds = getBlockParentsByBlockName(
 				clientId,
-				'woocommerce/product-collection',
+				'poocommerce/product-collection',
 				true
 			);
 

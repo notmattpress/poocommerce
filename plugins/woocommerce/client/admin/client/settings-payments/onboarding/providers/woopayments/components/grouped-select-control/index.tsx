@@ -203,7 +203,7 @@ const GroupedSelectControl = < ItemType extends ListItem >( {
 								value={ searchText }
 								onChange={ handleSearch }
 								tabIndex={ -1 }
-								placeholder={ __( 'Search…', 'woocommerce' ) }
+								placeholder={ __( 'Search…', 'poocommerce' ) }
 							/>
 						) }
 						<ul className="components-grouped-select-control__list-container">

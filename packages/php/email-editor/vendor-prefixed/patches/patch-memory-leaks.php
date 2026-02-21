@@ -11,7 +11,7 @@
  * - https://github.com/symfony/symfony/pull/63400
  * - https://github.com/MyIntervals/emogrifier/pull/1567
  *
- * @package WooCommerce\EmailEditor
+ * @package PooCommerce\EmailEditor
  */
 
 $base = __DIR__ . '/../packages';

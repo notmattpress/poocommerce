@@ -52,7 +52,7 @@ export const closeChoosePatternModal = async ( {
 export const disableWelcomeModal = async ( {
 	page,
 }: PageContext ): Promise< void > => {
-	// Further info: https://github.com/woocommerce/woocommerce/pull/45856/
+	// Further info: https://github.com/poocommerce/poocommerce/pull/45856/
 	await page.waitForLoadState( 'domcontentloaded' );
 
 	const isWelcomeGuideActive = await page.evaluate( () =>
@@ -250,7 +250,7 @@ export const publishPage = async (
 		.click();
 
 	// Validating that page was published via UI elements is not reliable,
-	// installed plugins (e.g. WooCommerce PayPal Payments) can interfere and add flakiness to the flow.
+	// installed plugins (e.g. PooCommerce PayPal Payments) can interfere and add flakiness to the flow.
 	// In WC context, checking the API response is possibly the most reliable way to ensure the page was published.
 	await createPageResponse;
 };

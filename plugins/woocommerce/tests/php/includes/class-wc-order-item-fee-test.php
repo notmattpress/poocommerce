@@ -2,7 +2,7 @@
 /**
  * Unit tests for the WC_Order_Item_Fee class functionalities.
  *
- * @package WooCommerce\Tests
+ * @package PooCommerce\Tests
  */
 
 declare( strict_types=1 );
@@ -74,7 +74,7 @@ class WC_Order_Item_Fee_Test extends WC_Unit_Test_Case {
 	 * as floats instead of arrays, causing:
 	 * "TypeError: array_map(): Argument #2 ($array) must be of type array, float given"
 	 *
-	 * @see https://github.com/woocommerce/woocommerce/issues/60233
+	 * @see https://github.com/poocommerce/poocommerce/issues/60233
 	 */
 	public function test_set_taxes_with_legacy_float_values_does_not_throw_error() {
 		$order = WC_Helper_Order::create_order();
@@ -118,7 +118,7 @@ class WC_Order_Item_Fee_Test extends WC_Unit_Test_Case {
 		$item = new WC_Order_Item_Fee();
 		$item->set_order_id( $order->get_id() );
 
-		// Serialized legacy data with float (as stored in wp_woocommerce_order_itemmeta).
+		// Serialized legacy data with float (as stored in wp_poocommerce_order_itemmeta).
 		// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_serialize -- Testing legacy serialized data format.
 		$serialized_legacy_data = serialize(
 			array(
@@ -252,7 +252,7 @@ class WC_Order_Item_Fee_Test extends WC_Unit_Test_Case {
 			unset( $converted );
 			return array( 999 => $value );
 		};
-		add_filter( 'woocommerce_order_item_legacy_tax_conversion', $filter_callback, 10, 2 );
+		add_filter( 'poocommerce_order_item_legacy_tax_conversion', $filter_callback, 10, 2 );
 
 		// Legacy tax data as float.
 		$legacy_tax_data = array(
@@ -268,7 +268,7 @@ class WC_Order_Item_Fee_Test extends WC_Unit_Test_Case {
 		$this->assertEquals( 50.00, (float) $taxes['total'][999] );
 
 		// Clean up filter.
-		remove_filter( 'woocommerce_order_item_legacy_tax_conversion', $filter_callback );
+		remove_filter( 'poocommerce_order_item_legacy_tax_conversion', $filter_callback );
 
 		// Clean up order.
 		$order->delete( true );

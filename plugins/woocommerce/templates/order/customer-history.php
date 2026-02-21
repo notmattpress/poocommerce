@@ -4,8 +4,8 @@
  *
  * This template is used to display the customer history metabox on the edit order screen.
  *
- * @see     Automattic\WooCommerce\Internal\Admin\Orders\MetaBoxes\CustomerHistory
- * @package WooCommerce\Templates
+ * @see     Automattic\PooCommerce\Internal\Admin\Orders\MetaBoxes\CustomerHistory
+ * @package PooCommerce\Templates
  * @version 8.7.0
  */
 
@@ -25,10 +25,10 @@ defined( 'ABSPATH' ) || exit;
 <div class="customer-history order-attribution-metabox">
 	<h4>
 		<?php
-		esc_html_e( 'Total orders', 'woocommerce' );
+		esc_html_e( 'Total orders', 'poocommerce' );
 		echo wp_kses_post(
 			wc_help_tip(
-				__( 'Total number of non-cancelled, non-failed orders for this customer, including the current one.', 'woocommerce' )
+				__( 'Total number of non-cancelled, non-failed orders for this customer, including the current one.', 'poocommerce' )
 			)
 		);
 		?>
@@ -40,10 +40,10 @@ defined( 'ABSPATH' ) || exit;
 
 	<h4>
 		<?php
-		esc_html_e( 'Total revenue', 'woocommerce' );
+		esc_html_e( 'Total revenue', 'poocommerce' );
 		echo wp_kses_post(
 			wc_help_tip(
-				__( "This is the Customer Lifetime Value, or the total amount you have earned from this customer's orders.", 'woocommerce' )
+				__( "This is the Customer Lifetime Value, or the total amount you have earned from this customer's orders.", 'poocommerce' )
 			)
 		);
 		?>
@@ -52,7 +52,7 @@ defined( 'ABSPATH' ) || exit;
 		<?php echo wp_kses_post( wc_price( $total_spend ) ); ?>
 	</span>
 
-	<h4><?php esc_html_e( 'Average order value', 'woocommerce' ); ?></h4>
+	<h4><?php esc_html_e( 'Average order value', 'poocommerce' ); ?></h4>
 	<span class="order-attribution-average-order-value">
 		<?php echo wp_kses_post( wc_price( $avg_order_value ) ); ?>
 	</span>

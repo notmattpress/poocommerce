@@ -28,8 +28,8 @@ class WC_Shipping_Flat_Rate_Test extends WC_Unit_Test_Case {
 		$this->call_evaluate_cost = function ( $sum, $args ) {
 			return $this->evaluate_cost( $sum, $args );
 		};
-		update_option( 'woocommerce_price_decimal_sep', ',' );
-		update_option( 'woocommerce_price_thousand_sep', '.' );
+		update_option( 'poocommerce_price_decimal_sep', ',' );
+		update_option( 'poocommerce_price_thousand_sep', '.' );
 	}
 
 	/**
@@ -38,8 +38,8 @@ class WC_Shipping_Flat_Rate_Test extends WC_Unit_Test_Case {
 	 * @return void
 	 */
 	public function tearDown(): void {
-		update_option( 'woocommerce_price_decimal_sep', '.' );
-		update_option( 'woocommerce_price_thousand_sep', ',' );
+		update_option( 'poocommerce_price_decimal_sep', '.' );
+		update_option( 'poocommerce_price_thousand_sep', ',' );
 		parent::tearDown();
 	}
 

@@ -1,12 +1,12 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Tests\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Tests\Blocks\Mocks\CouponCodeMock;
-use Automattic\WooCommerce\EmailEditor\Email_Editor_Container;
-use Automattic\WooCommerce\EmailEditor\Engine\Theme_Controller;
-use Automattic\WooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Rendering_Context;
+use Automattic\PooCommerce\Tests\Blocks\Mocks\CouponCodeMock;
+use Automattic\PooCommerce\EmailEditor\Email_Editor_Container;
+use Automattic\PooCommerce\EmailEditor\Engine\Theme_Controller;
+use Automattic\PooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Rendering_Context;
 
 /**
  * Tests for the CouponCode block type.
@@ -43,9 +43,9 @@ class CouponCodeTest extends \WP_UnitTestCase {
 		$registry = \WP_Block_Type_Registry::get_instance();
 
 		$this->original_block_type = null;
-		if ( $registry->is_registered( 'woocommerce/coupon-code' ) ) {
-			$this->original_block_type = $registry->get_registered( 'woocommerce/coupon-code' );
-			$registry->unregister( 'woocommerce/coupon-code' );
+		if ( $registry->is_registered( 'poocommerce/coupon-code' ) ) {
+			$this->original_block_type = $registry->get_registered( 'poocommerce/coupon-code' );
+			$registry->unregister( 'poocommerce/coupon-code' );
 		}
 
 		$this->mock = new CouponCodeMock();
@@ -60,8 +60,8 @@ class CouponCodeTest extends \WP_UnitTestCase {
 	public function tearDown(): void {
 		$registry = \WP_Block_Type_Registry::get_instance();
 
-		if ( $registry->is_registered( 'woocommerce/coupon-code' ) ) {
-			$registry->unregister( 'woocommerce/coupon-code' );
+		if ( $registry->is_registered( 'poocommerce/coupon-code' ) ) {
+			$registry->unregister( 'poocommerce/coupon-code' );
 		}
 
 		if ( $this->original_block_type ) {
@@ -89,7 +89,7 @@ class CouponCodeTest extends \WP_UnitTestCase {
 		$result = $this->mock->call_render( array( 'couponCode' => 'TESTCODE' ) );
 
 		$this->assertStringContainsString( 'TESTCODE', $result );
-		$this->assertStringContainsString( 'woocommerce-coupon-code', $result );
+		$this->assertStringContainsString( 'poocommerce-coupon-code', $result );
 		$this->assertStringContainsString( '<table', $result );
 	}
 
@@ -285,7 +285,7 @@ class CouponCodeTest extends \WP_UnitTestCase {
 			$this->rendering_context
 		);
 
-		$this->assertStringContainsString( 'class="woocommerce-coupon-code"', $result );
+		$this->assertStringContainsString( 'class="poocommerce-coupon-code"', $result );
 	}
 
 	/**

@@ -1,9 +1,9 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Orders;
+namespace Automattic\PooCommerce\Tests\Internal\Orders;
 
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
 use WC_Unit_Test_Case;
 
 /**
@@ -22,7 +22,7 @@ class PaymentInfoTest extends WC_Unit_Test_Case {
 	public function test_get_card_info_wcpay_online(): void {
 		$order = OrderHelper::create_order();
 
-		$order->set_payment_method( 'woocommerce_payments' );
+		$order->set_payment_method( 'poocommerce_payments' );
 		$order->add_meta_data(
 			'_wcpay_raw_payment_method_details',
 			'{"card":{"amount_authorized":4500,"authorization_code":null,"brand":"visa","checks":{"address_line1_check":"pass","address_postal_code_check":"pass","cvc_check":"pass"},"country":"US","description":"Visa Classic","exp_month":12,"exp_year":2034,"extended_authorization":{"status":"disabled"},"fingerprint":"redacted","funding":"credit","iin":"424242","incremental_authorization":{"status":"unavailable"},"installments":null,"issuer":"Unit Test","last4":"4242","mandate":null,"multicapture":{"status":"unavailable"},"network":"visa","network_token":{"used":false},"overcapture":{"maximum_amount_capturable":4500,"status":"unavailable"},"three_d_secure":null,"wallet":null},"type":"card"}',
@@ -33,7 +33,7 @@ class PaymentInfoTest extends WC_Unit_Test_Case {
 		$result = $order->get_payment_card_info();
 
 		$this->assertArrayHasKey( 'payment_method', $result );
-		$this->assertEquals( 'woocommerce_payments', $result['payment_method'] );
+		$this->assertEquals( 'poocommerce_payments', $result['payment_method'] );
 		$this->assertArrayHasKey( 'brand', $result );
 		$this->assertEquals( 'visa', $result['brand'] );
 		$this->assertArrayHasKey( 'icon', $result );
@@ -49,7 +49,7 @@ class PaymentInfoTest extends WC_Unit_Test_Case {
 		$order = OrderHelper::create_order();
 
 		// Prepare the fallback data in case the filter was not triggered.
-		$order->set_payment_method( 'woocommerce_payments' );
+		$order->set_payment_method( 'poocommerce_payments' );
 		$order->add_meta_data(
 			'_wcpay_raw_payment_method_details',
 			'{"card":{"amount_authorized":4500,"authorization_code":null,"brand":"visa","checks":{"address_line1_check":"pass","address_postal_code_check":"pass","cvc_check":"pass"},"country":"US","description":"Visa Classic","exp_month":12,"exp_year":2034,"extended_authorization":{"status":"disabled"},"fingerprint":"redacted","funding":"credit","iin":"424242","incremental_authorization":{"status":"unavailable"},"installments":null,"issuer":"Unit Test","last4":"4242","mandate":null,"multicapture":{"status":"unavailable"},"network":"visa","network_token":{"used":false},"overcapture":{"maximum_amount_capturable":4500,"status":"unavailable"},"three_d_secure":null,"wallet":null},"type":"card"}',

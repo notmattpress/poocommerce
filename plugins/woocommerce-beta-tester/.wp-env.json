@@ -2,6 +2,6 @@
 	"phpVersion": "8.1",
 	"plugins": [ 
         ".",
-        "https://downloads.wordpress.org/plugin/woocommerce.zip"
+        "https://downloads.wordpress.org/plugin/poocommerce.zip"
      ]
 }

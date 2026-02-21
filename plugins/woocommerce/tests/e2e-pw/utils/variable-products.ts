@@ -28,7 +28,7 @@ const productIds: number[] = [];
 /**
  * The `attributes` property to be used in the request payload for creating a variable product through the REST API.
  *
- * @see {@link [Product - Attributes properties](https://woocommerce.github.io/woocommerce-rest-api-docs/#product-attributes-properties)}
+ * @see {@link [Product - Attributes properties](https://poocommerce.github.io/poocommerce-rest-api-docs/#product-attributes-properties)}
  */
 const productAttributes = [
 	{
@@ -54,7 +54,7 @@ const productAttributes = [
 /**
  * Request payload for creating variations.
  *
- * @see {@link [Product variation properties](https://woocommerce.github.io/woocommerce-rest-api-docs/#product-variation-properties)}
+ * @see {@link [Product variation properties](https://poocommerce.github.io/poocommerce-rest-api-docs/#product-variation-properties)}
  */
 const sampleVariations = [
 	{
@@ -111,9 +111,9 @@ const sampleVariations = [
 ];
 
 /**
- * Create a variable product using the WooCommerce REST API.
+ * Create a variable product using the PooCommerce REST API.
  *
- * @param {{ name: string, visible: boolean, variation: boolean, options: string[] }[]} attributes List of attributes. See [Product - Attributes properties](https://woocommerce.github.io/woocommerce-rest-api-docs/#product-attributes-properties).
+ * @param {{ name: string, visible: boolean, variation: boolean, options: string[] }[]} attributes List of attributes. See [Product - Attributes properties](https://poocommerce.github.io/poocommerce-rest-api-docs/#product-attributes-properties).
  * @return {Promise<number>} ID of the created variable product
  */
 async function createVariableProduct( attributes: ProductAttribute[] = [] ) {
@@ -152,28 +152,28 @@ async function showVariableProductTour( browser: Browser, show: boolean ) {
 	await addProductPage.goto( productPageURL );
 
 	// Get the current user's ID and user preferences
-	const { id: userId, woocommerce_meta } = await addProductPage.evaluate(
+	const { id: userId, poocommerce_meta } = await addProductPage.evaluate(
 		() => {
 			return window.wp.data.select( 'core' ).getCurrentUser();
 		}
 	);
 
 	// Turn off the variable product tour
-	const updatedWooCommerceMeta = {
-		...woocommerce_meta,
+	const updatedPooCommerceMeta = {
+		...poocommerce_meta,
 		variable_product_tour_shown: show ? '' : '"yes"',
 	};
 
 	// Save the updated user preferences
 	await addProductPage.evaluate(
 		// eslint-disable-next-line @typescript-eslint/no-shadow
-		async ( { userId, updatedWooCommerceMeta } ) => {
+		async ( { userId, updatedPooCommerceMeta } ) => {
 			await window.wp.data.dispatch( 'core' ).saveUser( {
 				id: userId,
-				woocommerce_meta: updatedWooCommerceMeta,
+				poocommerce_meta: updatedPooCommerceMeta,
 			} );
 		},
-		{ userId, updatedWooCommerceMeta }
+		{ userId, updatedPooCommerceMeta }
 	);
 
 	// Close the page
@@ -229,7 +229,7 @@ function generateVariationsFromAttributes( attributes: ProductAttribute[] ) {
 }
 
 /**
- * Create variations through the WooCommerce REST API.
+ * Create variations through the PooCommerce REST API.
  *
  * @param {number}                                                                  productId  Product ID to add variations to.
  * @param {{regular_price: string, attributes: {name: string, option: string}[]}[]} variations List of variations to create.

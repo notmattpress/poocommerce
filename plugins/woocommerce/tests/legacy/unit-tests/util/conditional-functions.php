@@ -1,7 +1,7 @@
 <?php
 /**
  * File for class Conditional_Functions tests.
- * @package WooCommerce\Tests\Util
+ * @package PooCommerce\Tests\Util
  */
 
 /**

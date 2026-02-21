@@ -21,7 +21,7 @@ import {
 	updateQueryString,
 	getQuery,
 	getNewPath,
-} from '@woocommerce/navigation';
+} from '@poocommerce/navigation';
 import {
 	ExtensionList,
 	COUNTRIES_STORE_NAME,
@@ -36,11 +36,11 @@ import {
 	CoreProfilerStep,
 	CoreProfilerCompletedSteps,
 	experimentalSettingOptionsStore as settingOptionsStore,
-} from '@woocommerce/data';
-import { initializeExPlat } from '@woocommerce/explat';
-import { CountryStateOption } from '@woocommerce/onboarding';
-import { getAdminLink } from '@woocommerce/settings';
-import { recordEvent } from '@woocommerce/tracks';
+} from '@poocommerce/data';
+import { initializeExPlat } from '@poocommerce/explat';
+import { CountryStateOption } from '@poocommerce/onboarding';
+import { getAdminLink } from '@poocommerce/settings';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -136,7 +136,7 @@ export type CoreProfilerStateMachineContext = {
 const getAllowTrackingOption = fromPromise( async () =>
 	resolveSelect( settingOptionsStore ).getSettingValue(
 		'advanced',
-		'woocommerce_allow_tracking'
+		'poocommerce_allow_tracking'
 	)
 );
 
@@ -175,7 +175,7 @@ const handleStoreNameOption = assign( {
 const getStoreCountryOption = fromPromise( async () =>
 	resolveSelect( settingOptionsStore ).getSettingValue(
 		'general',
-		'woocommerce_default_country'
+		'poocommerce_default_country'
 	)
 );
 
@@ -369,7 +369,7 @@ const recordUpdateTrackingOption = (
 	newValue: 'yes' | 'no'
 ) => {
 	if ( prevValue !== newValue ) {
-		recordEvent( 'woocommerce_allow_tracking_toggled', {
+		recordEvent( 'poocommerce_allow_tracking_toggled', {
 			previous_value: prevValue,
 			new_value: newValue,
 			context: 'core-profiler',
@@ -382,7 +382,7 @@ const updateTrackingOption = fromPromise(
 		const prevValue =
 			( await resolveSelect( settingOptionsStore ).getSettingValue(
 				'advanced',
-				'woocommerce_allow_tracking'
+				'poocommerce_allow_tracking'
 			) ) === 'yes'
 				? 'yes'
 				: 'no';
@@ -411,7 +411,7 @@ const updateTrackingOption = fromPromise(
 		const trackingValue = input.optInDataSharing ? 'yes' : 'no';
 		dispatch( settingOptionsStore ).saveSetting(
 			'advanced',
-			'woocommerce_allow_tracking',
+			'poocommerce_allow_tracking',
 			trackingValue
 		);
 	}
@@ -434,7 +434,7 @@ const updateOnboardingProfileOption = fromPromise(
 const updateBusinessLocation = ( countryAndState: string ) => {
 	return dispatch( settingOptionsStore ).saveSetting(
 		'general',
-		'woocommerce_default_country',
+		'poocommerce_default_country',
 		countryAndState
 	);
 };
@@ -499,7 +499,7 @@ const updateBusinessInfo = fromPromise(
 			} ),
 			dispatch( settingOptionsStore ).saveSetting(
 				'general',
-				'woocommerce_default_country',
+				'poocommerce_default_country',
 				input.payload.storeLocation
 			),
 		] );
@@ -532,7 +532,7 @@ const preFetchJetpackAuthUrl = assign( {
 			fromPromise( async () =>
 				resolveSelect( onboardingStore ).getJetpackAuthUrl( {
 					redirectUrl: getAdminLink( 'admin.php?page=wc-admin' ),
-					from: 'woocommerce-core-profiler',
+					from: 'poocommerce-core-profiler',
 				} )
 			)
 		),
@@ -1661,7 +1661,7 @@ export const coreProfilerStateMachineDefinition = createMachine( {
 								redirectUrl: getAdminLink(
 									'admin.php?page=wc-admin'
 								),
-								from: 'woocommerce-core-profiler',
+								from: 'poocommerce-core-profiler',
 							} );
 						} ),
 						onDone: {
@@ -1843,7 +1843,7 @@ export const CoreProfilerController = ( {
 			? Object.keys( state.value )[ 0 ]
 			: state.value;
 
-	useFullScreen( [ 'woocommerce-profile-wizard__body' ] );
+	useFullScreen( [ 'poocommerce-profile-wizard__body' ] );
 
 	const [ CurrentComponent ] =
 		useComponentFromXStateService< CoreProfilerPageComponent >( service );
@@ -1851,7 +1851,7 @@ export const CoreProfilerController = ( {
 	return (
 		<>
 			<div
-				className={ `woocommerce-profile-wizard__container woocommerce-profile-wizard__step-${ currentNodeCssLabel }` }
+				className={ `poocommerce-profile-wizard__container poocommerce-profile-wizard__step-${ currentNodeCssLabel }` }
 			>
 				{ CurrentComponent ? (
 					<CurrentComponent

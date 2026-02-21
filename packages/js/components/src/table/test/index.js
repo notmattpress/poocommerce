@@ -223,7 +223,7 @@ describe( 'TableCard', () => {
 		expect(
 			screen
 				.getByText( prefaceContent )
-				.closest( '.woocommerce-table__preface' )
+				.closest( '.poocommerce-table__preface' )
 		).toBeInTheDocument();
 	} );
 } );

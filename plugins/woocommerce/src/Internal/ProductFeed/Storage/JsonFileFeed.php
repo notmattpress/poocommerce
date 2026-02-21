@@ -2,15 +2,15 @@
 /**
  * JSON File Feed class.
  *
- * @package Automattic\WooCommerce\Internal\ProductFeed
+ * @package Automattic\PooCommerce\Internal\ProductFeed
  */
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Internal\ProductFeed\Storage;
+namespace Automattic\PooCommerce\Internal\ProductFeed\Storage;
 
-use Automattic\WooCommerce\Internal\Utilities\FilesystemUtil;
-use Automattic\WooCommerce\Internal\ProductFeed\Feed\FeedInterface;
+use Automattic\PooCommerce\Internal\Utilities\FilesystemUtil;
+use Automattic\PooCommerce\Internal\ProductFeed\Feed\FeedInterface;
 use Exception;
 
 // This file works directly with local files. That's fine.
@@ -106,7 +106,7 @@ class JsonFileFeed implements FeedInterface {
 		 * @return int The current time.
 		 * @since 10.5.0
 		 */
-		$current_time    = apply_filters( 'woocommerce_product_feed_time', time(), $this );
+		$current_time    = apply_filters( 'poocommerce_product_feed_time', time(), $this );
 		$hash_data       = $this->base_name . gmdate( 'r', $current_time );
 		$this->file_name = sprintf(
 			'%s-%s-%s.json',
@@ -132,7 +132,7 @@ class JsonFileFeed implements FeedInterface {
 				esc_html(
 					sprintf(
 						/* translators: %s: directory path */
-						__( 'Unable to open feed file for writing: %s', 'woocommerce' ),
+						__( 'Unable to open feed file for writing: %s', 'poocommerce' ),
 						$this->file_path
 					)
 				)
@@ -219,7 +219,7 @@ class JsonFileFeed implements FeedInterface {
 					esc_html(
 						sprintf(
 							/* translators: %1$s: file path, %2$s: error message */
-							__( 'Unable to move feed file %1$s to upload directory: %2$s', 'woocommerce' ),
+							__( 'Unable to move feed file %1$s to upload directory: %2$s', 'poocommerce' ),
 							$this->file_path,
 							$error_message
 						)
@@ -270,7 +270,7 @@ class JsonFileFeed implements FeedInterface {
 				esc_html(
 					sprintf(
 						/* translators: %s: directory path */
-						__( 'Unable to create feed directory: %s', 'woocommerce' ),
+						__( 'Unable to create feed directory: %s', 'poocommerce' ),
 						$directory_path
 					)
 				)

@@ -1,6 +1,6 @@
 /**
  * External dependencies
  */
-import Button from '@woocommerce/base-components/button';
+import Button from '@poocommerce/base-components/button';
 
 export default Button;

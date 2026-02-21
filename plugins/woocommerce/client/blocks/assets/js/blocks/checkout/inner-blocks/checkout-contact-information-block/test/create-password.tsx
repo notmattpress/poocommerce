@@ -3,7 +3,7 @@
  */
 import { render, screen, waitFor, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { checkoutStore } from '@woocommerce/block-data';
+import { checkoutStore } from '@poocommerce/block-data';
 import { dispatch } from '@wordpress/data';
 
 /**

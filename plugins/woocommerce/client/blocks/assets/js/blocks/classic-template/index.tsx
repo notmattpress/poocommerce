@@ -7,7 +7,7 @@ import {
 	registerBlockType,
 } from '@wordpress/blocks';
 import type { BlockEditProps } from '@wordpress/blocks';
-import { WC_BLOCKS_IMAGE_URL } from '@woocommerce/block-settings';
+import { WC_BLOCKS_IMAGE_URL } from '@poocommerce/block-settings';
 import {
 	useBlockProps,
 	BlockPreview,
@@ -20,7 +20,7 @@ import { useDispatch, useSelect } from '@wordpress/data';
 import { useEffect, useState } from '@wordpress/element';
 import { store as noticesStore } from '@wordpress/notices';
 import { useEntityRecord } from '@wordpress/core-data';
-import { CORE_EDITOR_STORE } from '@woocommerce/utils';
+import { CORE_EDITOR_STORE } from '@poocommerce/utils';
 
 /**
  * Internal dependencies
@@ -85,7 +85,7 @@ const ConvertTemplate = ( { blockifyConfig, clientId, attributes } ) => {
 	const { createInfoNotice } = useDispatch( noticesStore );
 
 	return (
-		<div className="wp-block-woocommerce-classic-template__placeholder-migration-button-container">
+		<div className="wp-block-poocommerce-classic-template__placeholder-migration-button-container">
 			<Button
 				variant="primary"
 				onClick={ () => {
@@ -99,12 +99,12 @@ const ConvertTemplate = ( { blockifyConfig, clientId, attributes } ) => {
 					createInfoNotice(
 						__(
 							'Template transformed into blocks!',
-							'woocommerce'
+							'poocommerce'
 						),
 						{
 							actions: [
 								{
-									label: __( 'Undo', 'woocommerce' ),
+									label: __( 'Undo', 'poocommerce' ),
 									onClick: () => {
 										const clientIds = pickBlockClientIds(
 											getBlocks()
@@ -122,7 +122,7 @@ const ConvertTemplate = ( { blockifyConfig, clientId, attributes } ) => {
 												},
 												[
 													createBlock(
-														'woocommerce/legacy-template',
+														'poocommerce/legacy-template',
 														{
 															template:
 																attributes.template,
@@ -219,7 +219,7 @@ const Edit = ( {
 		getSkeleton()
 	) : (
 		<img
-			className="wp-block-woocommerce-classic-template__placeholder-image"
+			className="wp-block-poocommerce-classic-template__placeholder-image"
 			src={ `${ WC_BLOCKS_IMAGE_URL }template-placeholders/${ templatePlaceholder }.svg` }
 			alt={ templateTitle }
 		/>
@@ -230,17 +230,17 @@ const Edit = ( {
 
 	return (
 		<div { ...blockProps }>
-			<Placeholder className="wp-block-woocommerce-classic-template__placeholder">
-				<div className="wp-block-woocommerce-classic-template__placeholder-wireframe">
+			<Placeholder className="wp-block-poocommerce-classic-template__placeholder">
+				<div className="wp-block-poocommerce-classic-template__placeholder-wireframe">
 					{ skeleton }
 				</div>
-				<div className="wp-block-woocommerce-classic-template__placeholder-copy">
-					<div className="wp-block-woocommerce-classic-template__placeholder-copy__icon-container">
-						<h1>{ __( 'WooCommerce', 'woocommerce' ) }</h1>
+				<div className="wp-block-poocommerce-classic-template__placeholder-copy">
+					<div className="wp-block-poocommerce-classic-template__placeholder-copy__icon-container">
+						<h1>{ __( 'PooCommerce', 'poocommerce' ) }</h1>
 						<span>
 							{ __(
 								'Classic Template Placeholder',
-								'woocommerce'
+								'poocommerce'
 							) }
 						</span>
 					</div>
@@ -254,7 +254,7 @@ const Edit = ( {
 					<p>
 						{ __(
 							'You cannot edit the content of this block. However, you can move it and place other blocks around it.',
-							'woocommerce'
+							'poocommerce'
 						) }
 					</p>
 					{ canConvert && blockifyConfig && (
@@ -271,16 +271,16 @@ const Edit = ( {
 };
 
 registerBlockType( BLOCK_SLUG, {
-	title: __( 'WooCommerce Classic Template', 'woocommerce' ),
+	title: __( 'PooCommerce Classic Template', 'poocommerce' ),
 	icon: (
 		<Icon icon={ box } className="wc-block-editor-components-block-icon" />
 	),
-	category: 'woocommerce',
+	category: 'poocommerce',
 	apiVersion: 3,
-	keywords: [ __( 'WooCommerce', 'woocommerce' ) ],
+	keywords: [ __( 'PooCommerce', 'poocommerce' ) ],
 	description: __(
-		'Renders classic WooCommerce PHP template.',
-		'woocommerce'
+		'Renders classic PooCommerce PHP template.',
+		'poocommerce'
 	),
 	supports: {
 		interactivity: {

@@ -1,8 +1,8 @@
 <?php
 /**
- * WooCommerce Admin Setup Wizard Tracking
+ * PooCommerce Admin Setup Wizard Tracking
  *
- * @package WooCommerce\Tracks
+ * @package PooCommerce\Tracks
  *
  * @deprecated 4.6.0
  */
@@ -10,7 +10,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * This class adds actions to track usage of the WooCommerce Onboarding Wizard.
+ * This class adds actions to track usage of the PooCommerce Onboarding Wizard.
  */
 class WC_Admin_Setup_Wizard_Tracking {
 	/**
@@ -26,7 +26,7 @@ class WC_Admin_Setup_Wizard_Tracking {
 	 * @deprecated 4.6.0
 	 */
 	public function init() {
-		_deprecated_function( __CLASS__ . '::' . __FUNCTION__, '4.6.0', __( 'Onboarding is maintained in WooCommerce Admin.', 'woocommerce' ) );
+		_deprecated_function( __CLASS__ . '::' . __FUNCTION__, '4.6.0', __( 'Onboarding is maintained in PooCommerce Admin.', 'poocommerce' ) );
 	}
 
 	/**
@@ -36,17 +36,17 @@ class WC_Admin_Setup_Wizard_Tracking {
 	 * @return string
 	 */
 	public function get_current_step() {
-		_deprecated_function( __CLASS__ . '::' . __FUNCTION__, '4.6.0', __( 'Onboarding is maintained in WooCommerce Admin.', 'woocommerce' ) );
+		_deprecated_function( __CLASS__ . '::' . __FUNCTION__, '4.6.0', __( 'Onboarding is maintained in PooCommerce Admin.', 'poocommerce' ) );
 		return isset( $_GET['step'] ) ? sanitize_key( $_GET['step'] ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 	}
 
 	/**
-	 * Add footer scripts to OBW via woocommerce_setup_footer
+	 * Add footer scripts to OBW via poocommerce_setup_footer
 	 *
 	 * @deprecated 4.6.0
 	 */
 	public function add_footer_scripts() {
-		_deprecated_function( __CLASS__ . '::' . __FUNCTION__, '4.6.0', __( 'Onboarding is maintained in WooCommerce Admin.', 'woocommerce' ) );
+		_deprecated_function( __CLASS__ . '::' . __FUNCTION__, '4.6.0', __( 'Onboarding is maintained in PooCommerce Admin.', 'poocommerce' ) );
 	}
 
 	/**
@@ -55,7 +55,7 @@ class WC_Admin_Setup_Wizard_Tracking {
 	 * @deprecated 4.6.0
 	 */
 	public function dequeue_non_allowed_scripts() {
-		_deprecated_function( __CLASS__ . '::' . __FUNCTION__, '4.6.0', __( 'Onboarding is maintained in WooCommerce Admin.', 'woocommerce' ) );
+		_deprecated_function( __CLASS__ . '::' . __FUNCTION__, '4.6.0', __( 'Onboarding is maintained in PooCommerce Admin.', 'poocommerce' ) );
 		global $wp_scripts;
 		$allowed = array( 'woo-tracks' );
 
@@ -76,7 +76,7 @@ class WC_Admin_Setup_Wizard_Tracking {
 	 * @deprecated 4.6.0
 	 */
 	public function track_start( $option, $value ) {
-		_deprecated_function( __CLASS__ . '::' . __FUNCTION__, '4.6.0', __( 'Onboarding is maintained in WooCommerce Admin.', 'woocommerce' ) );
+		_deprecated_function( __CLASS__ . '::' . __FUNCTION__, '4.6.0', __( 'Onboarding is maintained in PooCommerce Admin.', 'poocommerce' ) );
 	}
 
 	/**
@@ -85,7 +85,7 @@ class WC_Admin_Setup_Wizard_Tracking {
 	 * @deprecated 4.6.0
 	 */
 	public function track_ready_next_steps() {
-		_deprecated_function( __CLASS__ . '::' . __FUNCTION__, '4.6.0', __( 'Onboarding is maintained in WooCommerce Admin.', 'woocommerce' ) );
+		_deprecated_function( __CLASS__ . '::' . __FUNCTION__, '4.6.0', __( 'Onboarding is maintained in PooCommerce Admin.', 'poocommerce' ) );
 	}
 
 	/**
@@ -94,7 +94,7 @@ class WC_Admin_Setup_Wizard_Tracking {
 	 * @deprecated 4.6.0
 	 */
 	public function add_step_save_events() {
-		_deprecated_function( __CLASS__ . '::' . __FUNCTION__, '4.6.0', __( 'Onboarding is maintained in WooCommerce Admin.', 'woocommerce' ) );
+		_deprecated_function( __CLASS__ . '::' . __FUNCTION__, '4.6.0', __( 'Onboarding is maintained in PooCommerce Admin.', 'poocommerce' ) );
 	}
 
 	/**
@@ -103,7 +103,7 @@ class WC_Admin_Setup_Wizard_Tracking {
 	 * @deprecated 4.6.0
 	 */
 	public function track_store_setup() {
-		_deprecated_function( __CLASS__ . '::' . __FUNCTION__, '4.6.0', __( 'Onboarding is maintained in WooCommerce Admin.', 'woocommerce' ) );
+		_deprecated_function( __CLASS__ . '::' . __FUNCTION__, '4.6.0', __( 'Onboarding is maintained in PooCommerce Admin.', 'poocommerce' ) );
 	}
 
 	/**
@@ -112,7 +112,7 @@ class WC_Admin_Setup_Wizard_Tracking {
 	 * @deprecated 4.6.0
 	 */
 	public function track_payments() {
-		_deprecated_function( __CLASS__ . '::' . __FUNCTION__, '4.6.0', __( 'Onboarding is maintained in WooCommerce Admin.', 'woocommerce' ) );
+		_deprecated_function( __CLASS__ . '::' . __FUNCTION__, '4.6.0', __( 'Onboarding is maintained in PooCommerce Admin.', 'poocommerce' ) );
 	}
 
 	/**
@@ -121,7 +121,7 @@ class WC_Admin_Setup_Wizard_Tracking {
 	 * @deprecated 4.6.0
 	 */
 	public function track_shipping() {
-		_deprecated_function( __CLASS__ . '::' . __FUNCTION__, '4.6.0', __( 'Onboarding is maintained in WooCommerce Admin.', 'woocommerce' ) );
+		_deprecated_function( __CLASS__ . '::' . __FUNCTION__, '4.6.0', __( 'Onboarding is maintained in PooCommerce Admin.', 'poocommerce' ) );
 	}
 
 	/**
@@ -130,7 +130,7 @@ class WC_Admin_Setup_Wizard_Tracking {
 	 * @deprecated 4.6.0
 	 */
 	public function track_recommended() {
-		_deprecated_function( __CLASS__ . '::' . __FUNCTION__, '4.6.0', __( 'Onboarding is maintained in WooCommerce Admin.', 'woocommerce' ) );
+		_deprecated_function( __CLASS__ . '::' . __FUNCTION__, '4.6.0', __( 'Onboarding is maintained in PooCommerce Admin.', 'poocommerce' ) );
 	}
 
 	/**
@@ -139,7 +139,7 @@ class WC_Admin_Setup_Wizard_Tracking {
 	 * @deprecated 4.6.0
 	 */
 	public function track_jetpack_activate() {
-		_deprecated_function( __CLASS__ . '::' . __FUNCTION__, '4.6.0', __( 'Onboarding is maintained in WooCommerce Admin.', 'woocommerce' ) );
+		_deprecated_function( __CLASS__ . '::' . __FUNCTION__, '4.6.0', __( 'Onboarding is maintained in PooCommerce Admin.', 'poocommerce' ) );
 	}
 
 	/**
@@ -148,7 +148,7 @@ class WC_Admin_Setup_Wizard_Tracking {
 	 * @deprecated 4.6.0
 	 */
 	public function track_next_steps() {
-		_deprecated_function( __CLASS__ . '::' . __FUNCTION__, '4.6.0', __( 'Onboarding is maintained in WooCommerce Admin.', 'woocommerce' ) );
+		_deprecated_function( __CLASS__ . '::' . __FUNCTION__, '4.6.0', __( 'Onboarding is maintained in PooCommerce Admin.', 'poocommerce' ) );
 	}
 
 	/**
@@ -157,7 +157,7 @@ class WC_Admin_Setup_Wizard_Tracking {
 	 * @deprecated 4.6.0
 	 */
 	public function track_skip_step() {
-		_deprecated_function( __CLASS__ . '::' . __FUNCTION__, '4.6.0', __( 'Onboarding is maintained in WooCommerce Admin.', 'woocommerce' ) );
+		_deprecated_function( __CLASS__ . '::' . __FUNCTION__, '4.6.0', __( 'Onboarding is maintained in PooCommerce Admin.', 'poocommerce' ) );
 	}
 
 	/**
@@ -168,7 +168,7 @@ class WC_Admin_Setup_Wizard_Tracking {
 	 * @deprecated 4.6.0
 	 */
 	public function set_obw_steps( $steps ) {
-		_deprecated_function( __CLASS__ . '::' . __FUNCTION__, '4.6.0', __( 'Onboarding is maintained in WooCommerce Admin.', 'woocommerce' ) );
+		_deprecated_function( __CLASS__ . '::' . __FUNCTION__, '4.6.0', __( 'Onboarding is maintained in PooCommerce Admin.', 'poocommerce' ) );
 		$this->steps = $steps;
 
 		return $steps;

@@ -5,7 +5,7 @@ import { renderHook, cleanup } from '@testing-library/react-hooks';
 import type {
 	ProductProductAttribute,
 	ProductAttributeTerm,
-} from '@woocommerce/data';
+} from '@poocommerce/data';
 import { resolveSelect } from '@wordpress/data';
 
 /**

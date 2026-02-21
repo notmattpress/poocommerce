@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\StoreApi\Routes;
+namespace Automattic\PooCommerce\Tests\Blocks\StoreApi\Routes;
 
-use Automattic\WooCommerce\Blocks\Patterns\PTKPatternsStore;
+use Automattic\PooCommerce\Blocks\Patterns\PTKPatternsStore;
 
 /**
  * Patterns Controller Tests.
@@ -25,7 +25,7 @@ class Patterns extends ControllerTestCase {
 	 * @return void
 	 */
 	public function test_post_endpoint_when_tracking_is_not_allowed() {
-		update_option( 'woocommerce_allow_tracking', 'no' );
+		update_option( 'poocommerce_allow_tracking', 'no' );
 
 		$response = rest_get_server()->dispatch( new \WP_REST_Request( 'POST', '/wc/private/patterns' ) );
 		$data     = $response->get_data();
@@ -43,7 +43,7 @@ class Patterns extends ControllerTestCase {
 	 * @return void
 	 */
 	public function test_post_endpoint_when_tracking_is_allowed() {
-		update_option( 'woocommerce_allow_tracking', 'yes' );
+		update_option( 'poocommerce_allow_tracking', 'yes' );
 
 		$response = rest_get_server()->dispatch( new \WP_REST_Request( 'POST', '/wc/private/patterns' ) );
 		$data     = $response->get_data();

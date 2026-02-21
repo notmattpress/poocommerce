@@ -20,13 +20,13 @@ const AbbreviatedCard = ( {
 	type,
 } ) => {
 	return (
-		<Card className={ clsx( 'woocommerce-abbreviated-card', className ) }>
+		<Card className={ clsx( 'poocommerce-abbreviated-card', className ) }>
 			<CardBody size={ null }>
 				<Link href={ href } onClick={ onClick } type={ type }>
-					<div className="woocommerce-abbreviated-card__icon">
+					<div className="poocommerce-abbreviated-card__icon">
 						<Icon icon={ icon } />
 					</div>
-					<div className="woocommerce-abbreviated-card__content">
+					<div className="poocommerce-abbreviated-card__content">
 						{ children }
 					</div>
 				</Link>

@@ -6,11 +6,11 @@ import { InspectorControls } from '@wordpress/block-editor';
 import { useSelect } from '@wordpress/data';
 import { addFilter } from '@wordpress/hooks';
 import { type ElementType } from '@wordpress/element';
-import { EditorBlock, isNumber } from '@woocommerce/types';
-import { usePrevious } from '@woocommerce/base-hooks';
-import { manualUpdate } from '@woocommerce/blocks/migration-products-to-product-collection';
-import { getSettingWithCoercion } from '@woocommerce/settings';
-import { ProductQueryBlockQuery } from '@woocommerce/blocks/product-query/types';
+import { EditorBlock, isNumber } from '@poocommerce/types';
+import { usePrevious } from '@poocommerce/base-hooks';
+import { manualUpdate } from '@poocommerce/blocks/migration-products-to-product-collection';
+import { getSettingWithCoercion } from '@poocommerce/settings';
+import { ProductQueryBlockQuery } from '@poocommerce/blocks/product-query/types';
 import {
 	FormTokenField,
 	ToggleControl,
@@ -50,7 +50,7 @@ import './editor.scss';
 
 const NAMESPACED_CONTROLS = ALL_PRODUCT_QUERY_CONTROLS.map(
 	( id ) =>
-		`__woocommerce${ id[ 0 ].toUpperCase() }${ id.slice(
+		`__poocommerce${ id[ 0 ].toUpperCase() }${ id.slice(
 			1
 		) }` as keyof ProductQueryArguments
 );
@@ -110,14 +110,14 @@ export const WooInheritToggleControl = (
 	return (
 		<ToggleControl
 			className="woo-inherit-query-toggle"
-			label={ __( 'Inherit query from template', 'woocommerce' ) }
+			label={ __( 'Inherit query from template', 'poocommerce' ) }
 			help={ __(
 				'Toggle to use the global query context that is set with the current template, such as variations of the product catalog or search. Disable to customize the filtering independently.',
-				'woocommerce'
+				'poocommerce'
 			) }
 			checked={
 				isCustomInheritGlobalQueryImplementationEnabled
-					? props.attributes.query.__woocommerceInherit || false
+					? props.attributes.query.__poocommerceInherit || false
 					: props.attributes.query.inherit || false
 			}
 			onChange={ ( inherit ) => {
@@ -136,7 +136,7 @@ export const WooInheritToggleControl = (
 				if ( isCustomInheritGlobalQueryImplementationEnabled ) {
 					return setQueryAttribute( props, {
 						...QUERY_DEFAULT_ATTRIBUTES.query,
-						__woocommerceInherit: inherit,
+						__poocommerceInherit: inherit,
 						// Restore the query object value before inherit was enabled.
 						...( inherit === false && {
 							...queryObjectBeforeInheritEnabled,
@@ -164,15 +164,15 @@ export const TOOLS_PANEL_CONTROLS = {
 
 		return (
 			<ToolsPanelItem
-				label={ __( 'Sale status', 'woocommerce' ) }
-				hasValue={ () => query.__woocommerceOnSale }
+				label={ __( 'Sale status', 'poocommerce' ) }
+				hasValue={ () => query.__poocommerceOnSale }
 			>
 				<ToggleControl
-					label={ __( 'Show only products on sale', 'woocommerce' ) }
-					checked={ query.__woocommerceOnSale || false }
-					onChange={ ( __woocommerceOnSale ) => {
+					label={ __( 'Show only products on sale', 'poocommerce' ) }
+					checked={ query.__poocommerceOnSale || false }
+					onChange={ ( __poocommerceOnSale ) => {
 						setQueryAttribute( props, {
-							__woocommerceOnSale,
+							__poocommerceOnSale,
 						} );
 					} }
 				/>
@@ -185,18 +185,18 @@ export const TOOLS_PANEL_CONTROLS = {
 
 		return (
 			<ToolsPanelItem
-				label={ __( 'Stock status', 'woocommerce' ) }
-				hasValue={ () => query.__woocommerceStockStatus }
+				label={ __( 'Stock status', 'poocommerce' ) }
+				hasValue={ () => query.__poocommerceStockStatus }
 			>
 				<FormTokenField
-					label={ __( 'Stock status', 'woocommerce' ) }
+					label={ __( 'Stock status', 'poocommerce' ) }
 					onChange={ ( statusLabels ) => {
-						const __woocommerceStockStatus = statusLabels
+						const __poocommerceStockStatus = statusLabels
 							.map( getStockStatusIdByLabel )
 							.filter( Boolean ) as string[];
 
 						setQueryAttribute( props, {
-							__woocommerceStockStatus,
+							__poocommerceStockStatus,
 						} );
 					} }
 					suggestions={ Object.values( STOCK_STATUS_OPTIONS ) }
@@ -204,7 +204,7 @@ export const TOOLS_PANEL_CONTROLS = {
 						Object.values( STOCK_STATUS_OPTIONS ).includes( value )
 					}
 					value={
-						query?.__woocommerceStockStatus?.map(
+						query?.__poocommerceStockStatus?.map(
 							( key ) => STOCK_STATUS_OPTIONS[ key ]
 						) || []
 					}
@@ -235,8 +235,8 @@ const ProductQueryControls = ( props: ProductQueryBlock ) => {
 				) }
 				{ isProductsBlock && (
 					<ToolsPanel
-						className="woocommerce-product-query-toolspanel"
-						label={ __( 'Advanced Filters', 'woocommerce' ) }
+						className="poocommerce-product-query-toolspanel"
+						label={ __( 'Advanced Filters', 'poocommerce' ) }
 						resetAll={ () => {
 							setQueryAttribute( props, defaultWooQueryParams );
 						} }

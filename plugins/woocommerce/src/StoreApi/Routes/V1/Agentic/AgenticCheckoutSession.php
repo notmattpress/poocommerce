@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
-namespace Automattic\WooCommerce\StoreApi\Routes\V1\Agentic;
+namespace Automattic\PooCommerce\StoreApi\Routes\V1\Agentic;
 
-use Automattic\WooCommerce\StoreApi\Routes\V1\Agentic\Messages\Messages;
-use Automattic\WooCommerce\StoreApi\Routes\V1\Agentic\Enums\SessionKey;
-use Automattic\WooCommerce\StoreApi\Utilities\CartTokenUtils;
+use Automattic\PooCommerce\StoreApi\Routes\V1\Agentic\Messages\Messages;
+use Automattic\PooCommerce\StoreApi\Routes\V1\Agentic\Enums\SessionKey;
+use Automattic\PooCommerce\StoreApi\Utilities\CartTokenUtils;
 use WC_Cart;
 
 /**
@@ -15,7 +15,7 @@ use WC_Cart;
  */
 final class AgenticCheckoutSession {
 	/**
-	 * The WooCommerce cart instance.
+	 * The PooCommerce cart instance.
 	 *
 	 * @var WC_Cart
 	 */
@@ -38,7 +38,7 @@ final class AgenticCheckoutSession {
 	/**
 	 * Constructor.
 	 *
-	 * @param WC_Cart $cart The WooCommerce cart instance.
+	 * @param WC_Cart $cart The PooCommerce cart instance.
 	 */
 	public function __construct( WC_Cart $cart ) {
 		$this->cart     = $cart;
@@ -49,7 +49,7 @@ final class AgenticCheckoutSession {
 	/**
 	 * Gets the cart instance.
 	 *
-	 * @return WC_Cart The WooCommerce cart instance.
+	 * @return WC_Cart The PooCommerce cart instance.
 	 */
 	public function get_cart(): WC_Cart {
 		return $this->cart;

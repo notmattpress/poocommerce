@@ -4,7 +4,7 @@
  *
  * Handles requests to the /reports/coupons/count endpoint.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @since   3.5.0
  */
 
@@ -13,7 +13,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * REST API Reports Coupons Totals controller class.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @extends WC_REST_Reports_Controller
  */
 class WC_REST_Report_Coupons_Totals_Controller extends WC_REST_Reports_Controller {
@@ -103,7 +103,7 @@ class WC_REST_Report_Coupons_Totals_Controller extends WC_REST_Reports_Controlle
 		 * @param object           $report   The original report object.
 		 * @param WP_REST_Request  $request  Request used to generate the response.
 		 */
-		return apply_filters( 'woocommerce_rest_prepare_report_coupons_count', $response, $report, $request );
+		return apply_filters( 'poocommerce_rest_prepare_report_coupons_count', $response, $report, $request );
 	}
 
 	/**
@@ -118,19 +118,19 @@ class WC_REST_Report_Coupons_Totals_Controller extends WC_REST_Reports_Controlle
 			'type'       => 'object',
 			'properties' => array(
 				'slug'  => array(
-					'description' => __( 'An alphanumeric identifier for the resource.', 'woocommerce' ),
+					'description' => __( 'An alphanumeric identifier for the resource.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
 				'name'  => array(
-					'description' => __( 'Coupon type name.', 'woocommerce' ),
+					'description' => __( 'Coupon type name.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
 				'total' => array(
-					'description' => __( 'Amount of coupons.', 'woocommerce' ),
+					'description' => __( 'Amount of coupons.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view' ),
 					'readonly'    => true,

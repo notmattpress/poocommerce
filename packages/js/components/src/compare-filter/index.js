@@ -12,7 +12,7 @@ import {
 } from '@wordpress/components';
 import { isEqual, isFunction } from 'lodash';
 import PropTypes from 'prop-types';
-import { getIdsFromQuery, updateQueryString } from '@woocommerce/navigation';
+import { getIdsFromQuery, updateQueryString } from '@poocommerce/navigation';
 
 /**
  * Internal dependencies
@@ -94,7 +94,7 @@ export class CompareFilter extends Component {
 		const { labels, type, autocompleter } = this.props;
 		const { selected } = this.state;
 		return (
-			<Card className="woocommerce-filters__compare">
+			<Card className="poocommerce-filters__compare">
 				<CardHeader>
 					<Text
 						variant="subtitle.small"
@@ -126,7 +126,7 @@ export class CompareFilter extends Component {
 					</CompareButton>
 					{ selected.length > 0 && (
 						<Button isLink={ true } onClick={ this.clearQuery }>
-							{ __( 'Clear all', 'woocommerce' ) }
+							{ __( 'Clear all', 'poocommerce' ) }
 						</Button>
 					) }
 				</CardFooter>

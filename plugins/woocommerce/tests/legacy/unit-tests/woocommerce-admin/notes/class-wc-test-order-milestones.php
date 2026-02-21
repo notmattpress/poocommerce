@@ -2,11 +2,11 @@
 /**
  * OrderMilestones note tests
  *
- * @package WooCommerce\Admin\Tests\Notes
+ * @package PooCommerce\Admin\Tests\Notes
  */
 
-use Automattic\WooCommerce\Internal\Admin\Notes\OrderMilestones;
-use Automattic\WooCommerce\Admin\Notes\Notes;
+use Automattic\PooCommerce\Internal\Admin\Notes\OrderMilestones;
+use Automattic\PooCommerce\Admin\Notes\Notes;
 
 /**
  * Class WC_Admin_Tests_Order_Milestones
@@ -27,11 +27,11 @@ class WC_Admin_Tests_Order_Milestones extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Tests can_be_added method return false when woocommerce_admin_order_milestones_enabled is false.
+	 * Tests can_be_added method return false when poocommerce_admin_order_milestones_enabled is false.
 	 */
 	public function test_can_be_added_when_milestones_disabled() {
 		add_filter(
-			'woocommerce_admin_order_milestones_enabled',
+			'poocommerce_admin_order_milestones_enabled',
 			function ( $enabled ) {
 				return false;
 			}
@@ -70,7 +70,7 @@ class WC_Admin_Tests_Order_Milestones extends WC_Unit_Test_Case {
 	public function test_get_note_by_milestone_when_milestone_is_10() {
 		$note = $this->instance->get_note_by_milestone( 10 );
 		$this->assertEquals( $note->get_title(), 'Congratulations on processing 10 orders!' );
-		$this->assertEquals( $note->get_content(), "You've hit the 10 orders milestone! Look at you go. Browse some WooCommerce success stories for inspiration." );
+		$this->assertEquals( $note->get_content(), "You've hit the 10 orders milestone! Look at you go. Browse some PooCommerce success stories for inspiration." );
 		$this->assertEquals( $note->get_actions()[0]->label, 'Browse' );
 	}
 
@@ -111,7 +111,7 @@ class WC_Admin_Tests_Order_Milestones extends WC_Unit_Test_Case {
 		}
 		$this->instance->possibly_add_note();
 		$note = Notes::get_note_by_name( OrderMilestones::NOTE_NAME );
-		$this->assertEquals( $note->get_content(), "You've hit the 10 orders milestone! Look at you go. Browse some WooCommerce success stories for inspiration." );
+		$this->assertEquals( $note->get_content(), "You've hit the 10 orders milestone! Look at you go. Browse some PooCommerce success stories for inspiration." );
 	}
 
 

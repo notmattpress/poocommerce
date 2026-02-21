@@ -16,7 +16,7 @@
 -   [ ] Try entering an address that does not have rates for, you should:
     -   [ ] See an error saying "No options were found".
     -   [ ] See the default shipping option if you have it setup.
--   [ ] The countries in the shipping rates form should reflect the countries you have in WooCommerce -> Settings -> General -> Shipping location(s).
+-   [ ] The countries in the shipping rates form should reflect the countries you have in PooCommerce -> Settings -> General -> Shipping location(s).
 -   [ ] If your cart has only digital products, the Cart and Checkout blocks should act like shipping is disabled.
 -   [ ] Your free shipping method should show up when you increase the cart quantity to above that limit.
     -   [ ] Once you decrease it, the shipping rate will disappear, the next rate will be selected.

@@ -2,10 +2,10 @@
 /**
  * Class WC_Tests_Report_Sales_By_Date file.
  *
- * @package WooCommerce\Tests\Admin\Reports
+ * @package PooCommerce\Tests\Admin\Reports
  */
 
-use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Enums\OrderStatus;
 
 /**
  * Tests for the WC_Report_Sales_By_Date class.
@@ -13,7 +13,7 @@ use Automattic\WooCommerce\Enums\OrderStatus;
 class WC_Tests_Report_Sales_By_Date extends WC_Unit_Test_Case {
 
 	/**
-	 * Load the necessary files, as they're not automatically loaded by WooCommerce.
+	 * Load the necessary files, as they're not automatically loaded by PooCommerce.
 	 */
 	public static function setUpBeforeClass(): void {
 		include_once WC_Unit_Tests_Bootstrap::instance()->plugin_dir . '/includes/admin/reports/class-wc-admin-report.php';
@@ -25,7 +25,7 @@ class WC_Tests_Report_Sales_By_Date extends WC_Unit_Test_Case {
 	 */
 	public function setUp(): void {
 		parent::setUp();
-		if ( \Automattic\WooCommerce\Utilities\OrderUtil::custom_orders_table_usage_is_enabled() ) {
+		if ( \Automattic\PooCommerce\Utilities\OrderUtil::custom_orders_table_usage_is_enabled() ) {
 			$this->markTestSkipped( 'This test is not compatible with the custom orders table.' );
 		}
 	}
@@ -43,9 +43,9 @@ class WC_Tests_Report_Sales_By_Date extends WC_Unit_Test_Case {
 	 * Test: get_report_data
 	 */
 	public function test_get_report_data() {
-		update_option( 'woocommerce_default_customer_address', 'base' );
-		update_option( 'woocommerce_tax_based_on', 'base' );
-		update_option( 'woocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_default_customer_address', 'base' );
+		update_option( 'poocommerce_tax_based_on', 'base' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
 
 		$product = WC_Helper_Product::create_simple_product();
 		$coupon  = WC_Helper_Coupon::create_coupon();

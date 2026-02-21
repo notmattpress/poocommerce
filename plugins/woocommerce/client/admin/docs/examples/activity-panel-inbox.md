@@ -1,8 +1,8 @@
 # Activity Panel Inbox
 
-Right now, installing and activating WooCommerce and a few extensions quickly results in a cascade of notices vying for the store administrator’s attention (and pushing whatever wp-admin content they were trying to get to on a page down, way down.)
+Right now, installing and activating PooCommerce and a few extensions quickly results in a cascade of notices vying for the store administrator’s attention (and pushing whatever wp-admin content they were trying to get to on a page down, way down.)
 
-As part of the Dashboard and Analytics improvements coming to WooCommerce, we’re going to do something a bit dramatic to try and clean up this notice-palooza.
+As part of the Dashboard and Analytics improvements coming to PooCommerce, we’re going to do something a bit dramatic to try and clean up this notice-palooza.
 
 First, we’re splitting up notices into two broad categories.
 
@@ -20,7 +20,7 @@ The second category is what we’re focusing on in this example - and what we ex
 
 ![Activity Panel Inbox](images/activity-panel-inbox.png)
 
-This section is dedicated to informational content coming from multiple sources such as WooCommerce core, WooCommerce.com Subscription management, extensions activity and store achievements. This section was also envisioned to display more insightful content in the future, e.g. content that could help with the day to day tasks of managing and optimizing a store.
+This section is dedicated to informational content coming from multiple sources such as PooCommerce core, PooCommerce.com Subscription management, extensions activity and store achievements. This section was also envisioned to display more insightful content in the future, e.g. content that could help with the day to day tasks of managing and optimizing a store.
 
 Each notice or “note” has a type represented by an icon (Gridicon), a title, content, a timestamp and one or two actions (action title + link).
 
@@ -37,7 +37,7 @@ There are some constraints extensions should follow when working with the inbox:
 1. Be aware that notes are stored in the database using the locale in effect when the note was added to the inbox. Also be aware that you can use content_data property of a note in a hook context to “re-localize” notes on the fly into new locales.
 1. Feel free to use the content_data property to store other things too - it isn’t just limited to things needed for “re-localization” - and it is backed by a longtext column in the database.
 1. Notes can have 0, 1, or 2 action buttons. Action buttons have URLs. They can either be complete URLs (like in the case of an external link) or partial URLs (like in the case of an admin page on the site) - in the case of partial URLs you’ll want to give a string that is the same as what you’d supply to WordPress core’s admin_url function. You can even include query parameters in that string.
-1. You should store your extension’s name (slug) in the source property of the note. WooCommerce will store ‘woocommerce’ there. For example, the “Panda Payments” extension could use a name like “panda-payments” - this makes it easier to use built in functions to get (or delete) all notes with a certain name.
+1. You should store your extension’s name (slug) in the source property of the note. PooCommerce will store ‘poocommerce’ there. For example, the “Panda Payments” extension could use a name like “panda-payments” - this makes it easier to use built in functions to get (or delete) all notes with a certain name.
 1. You can use the name property of a note to store a sub-type of note. For example, if the Panda Payments extension generates notes for both connection problems AND for new features, they might both have ‘panda-payments’ in the source property but then use ‘connection-problem’ and ‘new-feature’ in the name property to distinguish between the two types of notes.
 1. Icons are Gridicons. You can find a gallery [here](https://automattic.github.io/gridicons/)
 1. As a best practice, have your extension remove its notes on deactivation or at least uninstall.
@@ -51,26 +51,26 @@ Here’s a short example plugin that adds a new activity panel inbox note on plu
 ```php
 <?php
 /**
- * Plugin Name: WooCommerce Activity Panel Inbox Example Plugin One
- * Plugin URI: https://woocommerce.com/
+ * Plugin Name: PooCommerce Activity Panel Inbox Example Plugin One
+ * Plugin URI: https://poocommerce.com/
  * Description: An example plugin.
  * Author: Automattic
- * Author URI: https://woocommerce.com/
+ * Author URI: https://poocommerce.com/
  * Text Domain: wapi-example-one
  * Version: 1.0.1
  */
 
-use Automattic\WooCommerce\Admin\Notes\Notes as Notes;
-use Automattic\WooCommerce\Admin\Notes\Note as Note;
+use Automattic\PooCommerce\Admin\Notes\Notes as Notes;
+use Automattic\PooCommerce\Admin\Notes\Note as Note;
 
-class WooCommerce_Activity_Panel_Inbox_Example_Plugin_One {
+class PooCommerce_Activity_Panel_Inbox_Example_Plugin_One {
 	const NOTE_NAME = 'wapi-example-plugin-one';
 
 	/**
 	 * Adds a note to the merchant' inbox.
 	 */
 	public static function add_activity_panel_inbox_welcome_note() {
-		if ( ! class_exists( 'Automattic\WooCommerce\Admin\Notes\Notes' ) ) {
+		if ( ! class_exists( 'Automattic\PooCommerce\Admin\Notes\Notes' ) ) {
 			return;
 		}
 
@@ -121,7 +121,7 @@ class WooCommerce_Activity_Panel_Inbox_Example_Plugin_One {
 		$note->add_action(
 			'settings',
 			__( 'Learn More', 'wapi-example-plugin-one' ),
-			'https://github.com/woocommerce/woocommerce-admin/tree/main/docs'
+			'https://github.com/poocommerce/poocommerce-admin/tree/main/docs'
 		);
 		$note->save();
 	}
@@ -130,7 +130,7 @@ class WooCommerce_Activity_Panel_Inbox_Example_Plugin_One {
 	 * Removes any notes this plugin created.
 	 */
 	public static function remove_activity_panel_inbox_notes() {
-		if ( ! class_exists( 'Automattic\WooCommerce\Admin\Notes\Notes' ) ) {
+		if ( ! class_exists( 'Automattic\PooCommerce\Admin\Notes\Notes' ) ) {
 			return;
 		}
 
@@ -139,12 +139,12 @@ class WooCommerce_Activity_Panel_Inbox_Example_Plugin_One {
 }
 
 function wapi_example_one_activate() {
-	WooCommerce_Activity_Panel_Inbox_Example_Plugin_One::add_activity_panel_inbox_welcome_note();
+	PooCommerce_Activity_Panel_Inbox_Example_Plugin_One::add_activity_panel_inbox_welcome_note();
 }
 register_activation_hook( __FILE__, 'wapi_example_one_activate' );
 
 function wapi_example_one_deactivate() {
-	WooCommerce_Activity_Panel_Inbox_Example_Plugin_One::remove_activity_panel_inbox_notes();
+	PooCommerce_Activity_Panel_Inbox_Example_Plugin_One::remove_activity_panel_inbox_notes();
 }
 register_deactivation_hook( __FILE__, 'wapi_example_one_deactivate' );
 
@@ -157,26 +157,26 @@ Here’s a short example plugin that updates an activity panel inbox note:
 ```php
 <?php
 /**
- * Plugin Name: WooCommerce Activity Panel Inbox Example Plugin Two
- * Plugin URI: https://woocommerce.com/
+ * Plugin Name: PooCommerce Activity Panel Inbox Example Plugin Two
+ * Plugin URI: https://poocommerce.com/
  * Description: An example plugin.
  * Author: Automattic
- * Author URI: https://woocommerce.com/
+ * Author URI: https://poocommerce.com/
  * Text Domain: wapi-example-plugin-two
  * Version: 1.0.0
  */
  
-use Automattic\WooCommerce\Admin\Notes\Notes as Notes;
-use Automattic\WooCommerce\Admin\Notes\Note as Note;
+use Automattic\PooCommerce\Admin\Notes\Notes as Notes;
+use Automattic\PooCommerce\Admin\Notes\Note as Note;
 
-class WooCommerce_Activity_Panel_Inbox_Example_Plugin_Two {
+class PooCommerce_Activity_Panel_Inbox_Example_Plugin_Two {
 	const NOTE_NAME = 'wapi-example-plugin-two';
 
 	/**
 	 * Adds a note to the merchant' inbox.
 	 */
 	public static function add_or_update_activity_panel_inbox_note() {
-		if ( ! class_exists( 'Automattic\WooCommerce\Admin\Notes\Notes' ) ) {
+		if ( ! class_exists( 'Automattic\PooCommerce\Admin\Notes\Notes' ) ) {
 			return;
 		}
 
@@ -220,7 +220,7 @@ class WooCommerce_Activity_Panel_Inbox_Example_Plugin_Two {
 	 * Removes any notes this plugin created.
 	 */
 	public static function remove_activity_panel_inbox_notes() {
-		if ( ! class_exists( 'Automattic\WooCommerce\Admin\Notes\Notes' ) ) {
+		if ( ! class_exists( 'Automattic\PooCommerce\Admin\Notes\Notes' ) ) {
 			return;
 		}
 
@@ -229,12 +229,12 @@ class WooCommerce_Activity_Panel_Inbox_Example_Plugin_Two {
 }
 
 function admin_init() {
-	WooCommerce_Activity_Panel_Inbox_Example_Plugin_Two::add_or_update_activity_panel_inbox_note();
+	PooCommerce_Activity_Panel_Inbox_Example_Plugin_Two::add_or_update_activity_panel_inbox_note();
 }
 add_action( 'admin_init', 'admin_init' );
 
 function wapi_example_two_deactivate() {
-	WooCommerce_Activity_Panel_Inbox_Example_Plugin_Two::remove_activity_panel_inbox_notes();
+	PooCommerce_Activity_Panel_Inbox_Example_Plugin_Two::remove_activity_panel_inbox_notes();
 }
 register_deactivation_hook( __FILE__, 'wapi_example_two_deactivate' );
 
@@ -246,5 +246,5 @@ A limited set of note fields can be updated over the REST API: `status` and `dat
 
 ## Questions?
 
-This is just the tip of the iceberg for possibilities for your own extensions to WooCommerce. Check
-out the new [sales record notes](https://github.com/woocommerce/woocommerce-admin/blob/main/includes/notes/class-wc-admin-notes-new-sales-record.php) and the [settings notes](https://github.com/woocommerce/woocommerce-admin/blob/main/includes/notes/class-wc-admin-notes-settings-notes.php) in the woocommerce-admin code itself for other examples of working with this fun new feature.
+This is just the tip of the iceberg for possibilities for your own extensions to PooCommerce. Check
+out the new [sales record notes](https://github.com/poocommerce/poocommerce-admin/blob/main/includes/notes/class-wc-admin-notes-new-sales-record.php) and the [settings notes](https://github.com/poocommerce/poocommerce-admin/blob/main/includes/notes/class-wc-admin-notes-settings-notes.php) in the poocommerce-admin code itself for other examples of working with this fun new feature.

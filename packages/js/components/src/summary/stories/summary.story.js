@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { SummaryList, SummaryNumber } from '@woocommerce/components';
+import { SummaryList, SummaryNumber } from '@poocommerce/components';
 
 export const Basic = () => (
 	<SummaryList>

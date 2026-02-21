@@ -1,11 +1,11 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\CostOfGoodsSold;
+namespace Automattic\PooCommerce\Internal\CostOfGoodsSold;
 
-use Automattic\WooCommerce\Enums\FeaturePluginCompatibility;
-use Automattic\WooCommerce\Internal\Features\FeaturesController;
-use Automattic\WooCommerce\Internal\RegisterHooksInterface;
+use Automattic\PooCommerce\Enums\FeaturePluginCompatibility;
+use Automattic\PooCommerce\Internal\Features\FeaturesController;
+use Automattic\PooCommerce\Internal\RegisterHooksInterface;
 
 /**
  * Main controller for the Cost of Goods Sold feature.
@@ -23,7 +23,7 @@ class CostOfGoodsSoldController implements RegisterHooksInterface {
 	 * Register hooks.
 	 */
 	public function register() {
-		add_filter( 'woocommerce_debug_tools', array( $this, 'add_debug_tools_entry' ), 999, 1 );
+		add_filter( 'poocommerce_debug_tools', array( $this, 'add_debug_tools_entry' ), 999, 1 );
 	}
 
 	/**
@@ -50,11 +50,11 @@ class CostOfGoodsSoldController implements RegisterHooksInterface {
 	 *
 	 * @param FeaturesController $features_controller The instance of FeaturesController to use.
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 */
 	public function add_feature_definition( $features_controller ) {
 		$definition = array(
-			'description'                  => __( 'Allows entering cost of goods sold information for products.', 'woocommerce' ),
+			'description'                  => __( 'Allows entering cost of goods sold information for products.', 'poocommerce' ),
 			'is_experimental'              => false,
 			'enabled_by_default'           => false,
 			'default_plugin_compatibility' => FeaturePluginCompatibility::COMPATIBLE,
@@ -62,13 +62,13 @@ class CostOfGoodsSoldController implements RegisterHooksInterface {
 
 		$features_controller->add_feature_definition(
 			'cost_of_goods_sold',
-			__( 'Cost of Goods Sold', 'woocommerce' ),
+			__( 'Cost of Goods Sold', 'poocommerce' ),
 			$definition
 		);
 	}
 
 	/**
-	 * Add the entry for "add/remove COGS value column to/from the product meta lookup table" to the WooCommerce admin tools.
+	 * Add the entry for "add/remove COGS value column to/from the product meta lookup table" to the PooCommerce admin tools.
 	 *
 	 * @internal Hook handler, not to be explicitly used from outside the class.
 	 *
@@ -84,15 +84,15 @@ class CostOfGoodsSoldController implements RegisterHooksInterface {
 
 		$tools_array['generate_cogs_value_meta_column'] = array(
 			'name'     => $column_exists ?
-				__( 'Remove COGS columns from the product meta lookup table', 'woocommerce' ) :
-				__( 'Create COGS columns in the product meta lookup table', 'woocommerce' ),
+				__( 'Remove COGS columns from the product meta lookup table', 'poocommerce' ) :
+				__( 'Create COGS columns in the product meta lookup table', 'poocommerce' ),
 			'button'   => $column_exists ?
-				__( 'Remove columns', 'woocommerce' ) :
-				__( 'Create columns', 'woocommerce' ),
+				__( 'Remove columns', 'poocommerce' ) :
+				__( 'Create columns', 'poocommerce' ),
 			'desc'     =>
 				$column_exists ?
-				__( 'This tool will remove the Cost of Goods Sold (COGS) related columns from the product meta lookup table. COGS will continue working (if the feature is enabled) but some functionality will not be available.', 'woocommerce' ) :
-				__( 'This tool will generate the necessary Cost of Goods Sold (COGS) related columns in the product meta lookup table, and populate them from existing product data.', 'woocommerce' ),
+				__( 'This tool will remove the Cost of Goods Sold (COGS) related columns from the product meta lookup table. COGS will continue working (if the feature is enabled) but some functionality will not be available.', 'poocommerce' ) :
+				__( 'This tool will generate the necessary Cost of Goods Sold (COGS) related columns in the product meta lookup table, and populate them from existing product data.', 'poocommerce' ),
 			'callback' =>
 				$column_exists ? array( $this, 'remove_lookup_cogs_columns' ) : array( $this, 'generate_lookup_cogs_columns' ),
 		);
@@ -156,7 +156,7 @@ class CostOfGoodsSoldController implements RegisterHooksInterface {
 	 */
 	public function get_general_cost_edit_field_tooltip( bool $for_variable_products ) {
 		return $for_variable_products ?
-			__( 'Add the amount it costs you to buy or make this product. This will be applied as the default value for variations.', 'woocommerce' ) :
-			__( 'Add the amount it costs you to buy or make this product.', 'woocommerce' );
+			__( 'Add the amount it costs you to buy or make this product. This will be applied as the default value for variations.', 'poocommerce' ) :
+			__( 'Add the amount it costs you to buy or make this product.', 'poocommerce' );
 	}
 }

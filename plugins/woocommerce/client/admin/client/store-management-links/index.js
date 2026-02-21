@@ -14,8 +14,8 @@ import {
 	payment,
 	pencil,
 } from '@wordpress/icons';
-import { recordEvent } from '@woocommerce/tracks';
-import { Text } from '@woocommerce/experimental';
+import { recordEvent } from '@poocommerce/tracks';
+import { Text } from '@poocommerce/experimental';
 
 /**
  * Internal dependencies
@@ -50,10 +50,10 @@ export function getLinkTypeAndHref( { path, tab = null, type, href = null } ) {
 export function getItemsByCategory( shopUrl ) {
 	return [
 		{
-			title: __( 'Marketing & Merchandising', 'woocommerce' ),
+			title: __( 'Marketing & Merchandising', 'poocommerce' ),
 			items: [
 				{
-					title: __( 'Marketing', 'woocommerce' ),
+					title: __( 'Marketing', 'poocommerce' ),
 					link: getLinkTypeAndHref( {
 						type: 'wc-admin',
 						path: 'marketing',
@@ -62,7 +62,7 @@ export function getItemsByCategory( shopUrl ) {
 					listItemTag: 'marketing',
 				},
 				{
-					title: __( 'Add products', 'woocommerce' ),
+					title: __( 'Add products', 'poocommerce' ),
 					link: getLinkTypeAndHref( {
 						type: 'wp-admin',
 						path: 'post-new.php?post_type=product',
@@ -71,7 +71,7 @@ export function getItemsByCategory( shopUrl ) {
 					listItemTag: 'add-products',
 				},
 				{
-					title: __( 'Personalize my store', 'woocommerce' ),
+					title: __( 'Personalize my store', 'poocommerce' ),
 					link: getLinkTypeAndHref( {
 						type: 'wp-admin',
 						path: 'customize.php',
@@ -80,7 +80,7 @@ export function getItemsByCategory( shopUrl ) {
 					listItemTag: 'personalize-store',
 				},
 				{
-					title: __( 'View my store', 'woocommerce' ),
+					title: __( 'View my store', 'poocommerce' ),
 					link: getLinkTypeAndHref( {
 						type: 'external',
 						href: shopUrl,
@@ -91,10 +91,10 @@ export function getItemsByCategory( shopUrl ) {
 			],
 		},
 		{
-			title: __( 'Settings', 'woocommerce' ),
+			title: __( 'Settings', 'poocommerce' ),
 			items: [
 				{
-					title: __( 'Store details', 'woocommerce' ),
+					title: __( 'Store details', 'poocommerce' ),
 					link: getLinkTypeAndHref( {
 						type: 'wc-settings',
 						tab: 'general',
@@ -103,7 +103,7 @@ export function getItemsByCategory( shopUrl ) {
 					listItemTag: 'edit-store-details',
 				},
 				{
-					title: __( 'Payments', 'woocommerce' ),
+					title: __( 'Payments', 'poocommerce' ),
 					link: getLinkTypeAndHref( {
 						type: 'wc-settings',
 						tab: 'checkout',
@@ -112,7 +112,7 @@ export function getItemsByCategory( shopUrl ) {
 					listItemTag: 'payment-settings',
 				},
 				{
-					title: __( 'Tax', 'woocommerce' ),
+					title: __( 'Tax', 'poocommerce' ),
 					link: getLinkTypeAndHref( {
 						type: 'wc-settings',
 						tab: 'tax',
@@ -121,7 +121,7 @@ export function getItemsByCategory( shopUrl ) {
 					listItemTag: 'tax-settings',
 				},
 				{
-					title: __( 'Shipping', 'woocommerce' ),
+					title: __( 'Shipping', 'poocommerce' ),
 					link: getLinkTypeAndHref( {
 						type: 'wc-settings',
 						tab: 'shipping',
@@ -171,16 +171,16 @@ export const StoreManagementLinks = () => {
 		/**
 		 * Store Management extensions links
 		 *
-		 * @filter woocommerce_admin_homescreen_quicklinks
+		 * @filter poocommerce_admin_homescreen_quicklinks
 		 * @param {Array.<link>} links Array of links.
 		 */
-		applyFilters( 'woocommerce_admin_homescreen_quicklinks', [] )
+		applyFilters( 'poocommerce_admin_homescreen_quicklinks', [] )
 	);
 
 	const itemCategories = getItemsByCategory( shopUrl );
 
 	const extensionCategory = {
-		title: __( 'Extensions', 'woocommerce' ),
+		title: __( 'Extensions', 'poocommerce' ),
 		items: extensionQuickLinks,
 	};
 
@@ -192,12 +192,12 @@ export const StoreManagementLinks = () => {
 		<Card size="medium">
 			<CardHeader size="medium">
 				<Text variant="title.small" size="20" lineHeight="28px">
-					{ __( 'Store management', 'woocommerce' ) }
+					{ __( 'Store management', 'poocommerce' ) }
 				</Text>
 			</CardHeader>
 			<CardBody
 				size="custom"
-				className="woocommerce-store-management-links__card-body"
+				className="poocommerce-store-management-links__card-body"
 			>
 				{ categories.map( ( category ) => {
 					return (

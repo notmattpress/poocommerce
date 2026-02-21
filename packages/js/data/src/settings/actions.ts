@@ -112,7 +112,7 @@ export function* persistSettingsForGroup( group: string ) {
 			throw new Error(
 				__(
 					'There was a problem updating your settings.',
-					'woocommerce'
+					'poocommerce'
 				)
 			);
 		}

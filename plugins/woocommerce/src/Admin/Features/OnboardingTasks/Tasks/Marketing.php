@@ -1,9 +1,9 @@
 <?php
 
-namespace Automattic\WooCommerce\Admin\Features\OnboardingTasks\Tasks;
+namespace Automattic\PooCommerce\Admin\Features\OnboardingTasks\Tasks;
 
-use Automattic\WooCommerce\Admin\Features\Features;
-use Automattic\WooCommerce\Admin\Features\OnboardingTasks\Task;
+use Automattic\PooCommerce\Admin\Features\Features;
+use Automattic\PooCommerce\Admin\Features\OnboardingTasks\Task;
 
 /**
  * Marketing Task
@@ -62,7 +62,7 @@ class Marketing extends Task {
 	 * @return string
 	 */
 	public function get_title() {
-		return __( 'Grow your business', 'woocommerce' );
+		return __( 'Grow your business', 'poocommerce' );
 	}
 
 	/**
@@ -73,7 +73,7 @@ class Marketing extends Task {
 	public function get_content() {
 		return __(
 			'Add recommended marketing tools to reach new customers and grow your business',
-			'woocommerce'
+			'poocommerce'
 		);
 	}
 
@@ -83,7 +83,7 @@ class Marketing extends Task {
 	 * @return string
 	 */
 	public function get_time() {
-		return __( '2 minutes', 'woocommerce' );
+		return __( '2 minutes', 'poocommerce' );
 	}
 
 	/**

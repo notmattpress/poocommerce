@@ -2,11 +2,11 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\StockNotifications;
+namespace Automattic\PooCommerce\Internal\StockNotifications;
 
-use Automattic\WooCommerce\Enums\ProductType;
-use Automattic\WooCommerce\Enums\ProductStockStatus;
-use Automattic\WooCommerce\Enums\ProductStatus;
+use Automattic\PooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Enums\ProductStockStatus;
+use Automattic\PooCommerce\Enums\ProductStatus;
 
 /**
  * Configuration class for stock notifications.
@@ -52,14 +52,14 @@ class Config {
 		}
 
 		/**
-		 * Filter: woocommerce_customer_stock_notifications_supported_product_types
+		 * Filter: poocommerce_customer_stock_notifications_supported_product_types
 		 *
 		 * @since 10.2.0
 		 *
 		 * @param array $product_types Product types.
 		 */
 		self::$supported_product_types = (array) apply_filters(
-			'woocommerce_customer_stock_notifications_supported_product_types',
+			'poocommerce_customer_stock_notifications_supported_product_types',
 			array(
 				ProductType::SIMPLE,
 				ProductType::VARIABLE,
@@ -81,14 +81,14 @@ class Config {
 		}
 
 		/**
-		 * Filter: woocommerce_customer_stock_notifications_supported_product_stock_statuses
+		 * Filter: poocommerce_customer_stock_notifications_supported_product_stock_statuses
 		 *
 		 * @since 10.2.0
 		 *
 		 * @param array $product_stock_statuses Product stock statuses.
 		 */
 		self::$supported_product_statuses = (array) apply_filters(
-			'woocommerce_customer_stock_notifications_supported_product_stock_statuses',
+			'poocommerce_customer_stock_notifications_supported_product_stock_statuses',
 			array(
 				ProductStatus::PUBLISH,
 			)
@@ -108,14 +108,14 @@ class Config {
 		}
 
 		/**
-		 * Filter: woocommerce_customer_stock_notifications_supported_stock_statuses
+		 * Filter: poocommerce_customer_stock_notifications_supported_stock_statuses
 		 *
 		 * @since 10.2.0
 		 *
 		 * @param array $stock_statuses Stock statuses.
 		 */
 		self::$eligible_stock_statuses = (array) apply_filters(
-			'woocommerce_customer_stock_notifications_supported_stock_statuses',
+			'poocommerce_customer_stock_notifications_supported_stock_statuses',
 			array(
 				ProductStockStatus::IN_STOCK,
 				ProductStockStatus::ON_BACKORDER,
@@ -140,7 +140,7 @@ class Config {
 	 * @return bool
 	 */
 	public static function allows_signups(): bool {
-		return 'yes' === get_option( 'woocommerce_customer_stock_notifications_allow_signups', 'no' );
+		return 'yes' === get_option( 'poocommerce_customer_stock_notifications_allow_signups', 'no' );
 	}
 
 	/**
@@ -149,7 +149,7 @@ class Config {
 	 * @return bool
 	 */
 	public static function requires_double_opt_in(): bool {
-		return 'yes' === get_option( 'woocommerce_customer_stock_notifications_require_double_opt_in', 'no' );
+		return 'yes' === get_option( 'poocommerce_customer_stock_notifications_require_double_opt_in', 'no' );
 	}
 
 	/**
@@ -158,7 +158,7 @@ class Config {
 	 * @return bool
 	 */
 	public static function requires_account(): bool {
-		return 'yes' === get_option( 'woocommerce_customer_stock_notifications_require_account', 'no' );
+		return 'yes' === get_option( 'poocommerce_customer_stock_notifications_require_account', 'no' );
 	}
 
 	/**
@@ -167,7 +167,7 @@ class Config {
 	 * @return bool
 	 */
 	public static function creates_account_on_signup(): bool {
-		return 'yes' === get_option( 'woocommerce_customer_stock_notifications_create_account_on_signup', 'no' );
+		return 'yes' === get_option( 'poocommerce_customer_stock_notifications_create_account_on_signup', 'no' );
 	}
 
 	/**
@@ -178,7 +178,7 @@ class Config {
 	public static function get_unverified_deletion_days_threshold(): int {
 		return absint(
 			get_option(
-				'woocommerce_customer_stock_notifications_unverified_deletions_days_threshold',
+				'poocommerce_customer_stock_notifications_unverified_deletions_days_threshold',
 				0
 			)
 		);
@@ -201,7 +201,7 @@ class Config {
 		 * @since 10.2.0
 		 */
 		self::$verification_expiration_time_threshold = (int) apply_filters(
-			'woocommerce_customer_stock_notifications_verification_expiration_time_threshold',
+			'poocommerce_customer_stock_notifications_verification_expiration_time_threshold',
 			HOUR_IN_SECONDS
 		);
 

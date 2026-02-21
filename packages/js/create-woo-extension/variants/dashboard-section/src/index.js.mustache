@@ -8,14 +8,14 @@ import { wordpress } from '@wordpress/icons';
 import { __ } from '@wordpress/i18n';
 
 /**
- * WooCommerce dependencies
+ * PooCommerce dependencies
  */
 import {
 	EllipsisMenu,
 	MenuTitle,
 	MenuItem,
 	SectionHeader,
-} from '@woocommerce/components';
+} from '@poocommerce/components';
 
 /**
  * Internal dependencies
@@ -116,7 +116,7 @@ class Section extends Component {
 		return (
 			<Fragment>
 				<SectionHeader title={ title } menu={ this.renderMenu() } />
-				<div className="woocommerce-dashboard__columns">
+				<div className="poocommerce-dashboard__columns">
 					{ dashboardItems.map( ( item ) => {
 						return hiddenBlocks.includes( item.key ) ? null : (
 							<item.component
@@ -132,7 +132,7 @@ class Section extends Component {
 }
 
 addFilter(
-	'woocommerce_dashboard_default_sections',
+	'poocommerce_dashboard_default_sections',
 	'{{textdomain}}',
 	( sections ) => {
 		return [

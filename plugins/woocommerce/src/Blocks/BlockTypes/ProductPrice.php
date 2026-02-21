@@ -1,8 +1,8 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\Utils\StyleAttributesUtils;
-use Automattic\WooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Blocks\Utils\StyleAttributesUtils;
+use Automattic\PooCommerce\Enums\ProductType;
 
 /**
  * ProductPrice class.
@@ -102,7 +102,7 @@ class ProductPrice extends AbstractBlock {
 						 * @param \WC_Product_Variation $variation  The variation.
 						 */
 						$show_variation_price = apply_filters(
-							'woocommerce_show_variation_price',
+							'poocommerce_show_variation_price',
 							true,
 							$product,
 							$variation
@@ -122,7 +122,7 @@ class ProductPrice extends AbstractBlock {
 					$is_interactive = false;
 				} else {
 					wp_interactivity_config(
-						'woocommerce',
+						'poocommerce',
 						array(
 							'products' => array(
 								$product->get_id() => array(
@@ -133,8 +133,8 @@ class ProductPrice extends AbstractBlock {
 						)
 					);
 
-					wp_enqueue_script_module( 'woocommerce/product-elements' );
-					$wrapper_attributes['data-wp-interactive'] = 'woocommerce/product-elements';
+					wp_enqueue_script_module( 'poocommerce/product-elements' );
+					$wrapper_attributes['data-wp-interactive'] = 'poocommerce/product-elements';
 					$context_directive                         = wp_interactivity_data_wp_context(
 						array(
 							'productElementKey' => 'price_html',

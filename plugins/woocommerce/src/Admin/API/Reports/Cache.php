@@ -5,7 +5,7 @@
  * Handles report data object caching.
  */
 
-namespace Automattic\WooCommerce\Admin\API\Reports;
+namespace Automattic\PooCommerce\Admin\API\Reports;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -16,7 +16,7 @@ class Cache {
 	/**
 	 * Cache version. Used to invalidate all cached values.
 	 */
-	const VERSION_OPTION = 'woocommerce_reports';
+	const VERSION_OPTION = 'poocommerce_reports';
 
 	/**
 	 * Invalidate cache.

@@ -1,8 +1,8 @@
 <?php
 
-namespace Automattic\WooCommerce\Tests\Blocks\Patterns;
+namespace Automattic\PooCommerce\Tests\Blocks\Patterns;
 
-use Automattic\WooCommerce\Blocks\Patterns\PatternRegistry;
+use Automattic\PooCommerce\Blocks\Patterns\PatternRegistry;
 
 /**
  * Unit tests for the PatternRegistry class.
@@ -80,7 +80,7 @@ class PatternRegistryTest extends \WP_UnitTestCase {
 	 * Test that a pattern should be registered with an enabled feature flag.
 	 */
 	public function test_register_a_pattern_with_an_enabled_feature_flag() {
-		add_filter( 'woocommerce_admin_features', array( $this, 'enable_feature_flag' ) );
+		add_filter( 'poocommerce_admin_features', array( $this, 'enable_feature_flag' ) );
 
 		$pattern = [
 			'title'       => 'My Pattern',
@@ -95,7 +95,7 @@ class PatternRegistryTest extends \WP_UnitTestCase {
 			\WP_Block_Patterns_Registry::get_instance()->is_registered( $pattern['slug'] )
 		);
 
-		remove_filter( 'woocommerce_admin_features', array( $this, 'enable_feature_flag' ) );
+		remove_filter( 'poocommerce_admin_features', array( $this, 'enable_feature_flag' ) );
 	}
 
 	/**

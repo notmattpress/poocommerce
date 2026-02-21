@@ -1,12 +1,12 @@
-.woocommerce-review-activity-card {
-	.woocommerce-rating {
+.poocommerce-review-activity-card {
+	.poocommerce-rating {
 		margin-top: $gap-smallest;
 		.gridicon {
 			fill: $notice-yellow;
 		}
 	}
 
-	.woocommerce-activity-card__body > span > p {
+	.poocommerce-activity-card__body > span > p {
 		&:first-child {
 			margin-top: 0;
 		}
@@ -17,7 +17,7 @@
 	}
 
 	$icon-size: 18px;
-	.woocommerce-review-activity-card__verified {
+	.poocommerce-review-activity-card__verified {
 		display: inline-flex;
 		margin-left: $gap-smallest;
 		position: relative;
@@ -33,15 +33,15 @@
 	}
 
 	@include breakpoint( "<782px" ) {
-		.woocommerce-review-activity-card__image-overlay {
+		.poocommerce-review-activity-card__image-overlay {
 			margin-top: $gap-smallest;
 		}
 	}
 
-	&.woocommerce-activity-card {
+	&.poocommerce-activity-card {
 		padding: $gap $gap-large;
 	}
-	.woocommerce-activity-card__header .woocommerce-activity-card__title {
+	.poocommerce-activity-card__header .poocommerce-activity-card__title {
 		line-height: 20px;
 	}
 }

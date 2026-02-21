@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { Product } from '@woocommerce/data';
+import { Product } from '@poocommerce/data';
 
 /**
  * Internal dependencies
@@ -21,8 +21,8 @@ export function ProductTabPanel( {
 } ) {
 	return (
 		<TabPanel isSelected={ isSelected }>
-			<div className="woocommerce-product-editor-dev-tools-product">
-				<div className="woocommerce-product-editor-dev-tools-product-entity">
+			<div className="poocommerce-product-editor-dev-tools-product">
+				<div className="poocommerce-product-editor-dev-tools-product-entity">
 					{ JSON.stringify(
 						evaluationContext.editedProduct,
 						null,

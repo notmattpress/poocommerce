@@ -3,10 +3,10 @@
  * Controller Tests.
  */
 
-namespace Automattic\WooCommerce\Tests\Blocks\StoreApi\Routes;
+namespace Automattic\PooCommerce\Tests\Blocks\StoreApi\Routes;
 
-use Automattic\WooCommerce\Tests\Blocks\StoreApi\Routes\ControllerTestCase;
-use Automattic\WooCommerce\Tests\Blocks\Helpers\FixtureData;
+use Automattic\PooCommerce\Tests\Blocks\StoreApi\Routes\ControllerTestCase;
+use Automattic\PooCommerce\Tests\Blocks\Helpers\FixtureData;
 
 /**
  * Batch Controller Tests.
@@ -18,7 +18,7 @@ class Batch extends ControllerTestCase {
 	 */
 	protected function setUp(): void {
 		add_filter(
-			'__experimental_woocommerce_store_api_batch_request_methods',
+			'__experimental_poocommerce_store_api_batch_request_methods',
 			function ( $methods ) {
 				$methods[] = 'GET';
 				return $methods;

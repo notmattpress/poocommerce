@@ -3,7 +3,7 @@
  */
 import { useEffect, useState } from '@wordpress/element';
 import { addQueryArgs } from '@wordpress/url';
-import { getSetting } from '@woocommerce/settings';
+import { getSetting } from '@poocommerce/settings';
 import apiFetch from '@wordpress/api-fetch';
 
 /**
@@ -40,7 +40,7 @@ export const PopularCategoryList = ( {
 					getSetting( 'adminUrl' )
 				).toString(),
 				{
-					action: 'woocommerce_json_search_taxonomy_terms',
+					action: 'poocommerce_json_search_taxonomy_terms',
 					taxonomy: CATEGORY_TERM_NAME,
 					limit: 10,
 					orderby: 'count',

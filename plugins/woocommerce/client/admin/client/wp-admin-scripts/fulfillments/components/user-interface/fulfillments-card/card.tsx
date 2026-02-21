@@ -27,9 +27,9 @@ export default function FulfillmentCard( {
 
 	return (
 		<div
-			className={ `woocommerce-fulfillment-card woocommerce-fulfillment-card__size-${ size }` }
+			className={ `poocommerce-fulfillment-card poocommerce-fulfillment-card__size-${ size }` }
 		>
-			<div className="woocommerce-fulfillment-card__header">
+			<div className="poocommerce-fulfillment-card__header">
 				{ header }
 				{ isCollapsable && (
 					<Button
@@ -49,7 +49,7 @@ export default function FulfillmentCard( {
 			{ isOpen && hasChildren && (
 				<div
 					className={ [
-						'woocommerce-fulfillment-card__body',
+						'poocommerce-fulfillment-card__body',
 						isCollapsable ? '' : 'no-collapse',
 					].join( ' ' ) }
 				>

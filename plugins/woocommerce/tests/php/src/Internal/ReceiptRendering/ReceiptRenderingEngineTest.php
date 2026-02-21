@@ -1,11 +1,11 @@
 <?php
 
-namespace Automattic\WooCommerce\Tests\Internal\ReceiptRendering;
+namespace Automattic\PooCommerce\Tests\Internal\ReceiptRendering;
 
-use Automattic\WooCommerce\Internal\ReceiptRendering\ReceiptRenderingEngine;
-use Automattic\WooCommerce\Internal\TransientFiles\TransientFilesEngine;
-use Automattic\WooCommerce\Proxies\LegacyProxy;
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
+use Automattic\PooCommerce\Internal\ReceiptRendering\ReceiptRenderingEngine;
+use Automattic\PooCommerce\Internal\TransientFiles\TransientFilesEngine;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
 
 /**
  * Tests for the ReceiptRenderingEngine class.

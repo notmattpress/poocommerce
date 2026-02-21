@@ -4,7 +4,7 @@
 import {
 	addAProductToCart,
 	WC_API_PATH,
-} from '@woocommerce/e2e-utils-playwright';
+} from '@poocommerce/e2e-utils-playwright';
 
 /**
  * Internal dependencies
@@ -52,11 +52,11 @@ test.describe(
 			await createClassicCartPage();
 			await createClassicCheckoutPage();
 
-			await updateIfNeeded( 'general/woocommerce_calc_taxes', 'no' );
+			await updateIfNeeded( 'general/poocommerce_calc_taxes', 'no' );
 
 			// make sure the currency is USD
 			await restApi.put(
-				`${ WC_API_PATH }/settings/general/woocommerce_currency`,
+				`${ WC_API_PATH }/settings/general/poocommerce_currency`,
 				{
 					value: 'USD',
 				}
@@ -409,7 +409,7 @@ test.describe(
 							.filter( { hasText: totals[ 0 ] } )
 					).toBeVisible();
 
-					await page.locator( 'a.woocommerce-remove-coupon' ).click();
+					await page.locator( 'a.poocommerce-remove-coupon' ).click();
 
 					await expect(
 						page
@@ -444,7 +444,7 @@ test.describe(
 							.filter( { hasText: totals[ 0 ] } )
 					).toBeVisible();
 
-					await page.locator( 'a.woocommerce-remove-coupon' ).click();
+					await page.locator( 'a.poocommerce-remove-coupon' ).click();
 
 					await expect(
 						page

@@ -1,6 +1,6 @@
 <?php
 
-namespace Automattic\WooCommerce\Internal\Admin\ProductReviews;
+namespace Automattic\PooCommerce\Internal\Admin\ProductReviews;
 
 use WP_Comment_Query;
 use WP_Screen;
@@ -17,14 +17,14 @@ class ReviewsCommentsOverrides {
 	 */
 	public function __construct() {
 		add_action( 'admin_notices', array( $this, 'display_notices' ) );
-		add_filter( 'woocommerce_dismiss_admin_notice_capability', array( $this, 'get_dismiss_capability' ), 10, 2 );
+		add_filter( 'poocommerce_dismiss_admin_notice_capability', array( $this, 'get_dismiss_capability' ), 10, 2 );
 		add_filter( 'comments_list_table_query_args', array( $this, 'exclude_reviews_from_comments' ) );
 	}
 
 	/**
 	 * Renders admin notices.
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 */
 	public function display_notices(): void {
 		$screen = get_current_screen();
@@ -74,10 +74,10 @@ class ReviewsCommentsOverrides {
 	protected function display_reviews_moved_notice() : void {
 		?>
 		<div class="notice notice-info is-dismissible">
-			<p><strong><?php esc_html_e( 'Product reviews have moved!', 'woocommerce' ); ?></strong></p>
-			<p><?php esc_html_e( 'Product reviews can now be managed from Products > Reviews.', 'woocommerce' ); ?></p>
+			<p><strong><?php esc_html_e( 'Product reviews have moved!', 'poocommerce' ); ?></strong></p>
+			<p><?php esc_html_e( 'Product reviews can now be managed from Products > Reviews.', 'poocommerce' ); ?></p>
 			<p class="submit">
-				<a href="<?php echo esc_url( admin_url( 'edit.php?post_type=product&page=product-reviews' ) ); ?>" class="button-primary"><?php esc_html_e( 'Visit new location', 'woocommerce' ); ?></a>
+				<a href="<?php echo esc_url( admin_url( 'edit.php?post_type=product&page=product-reviews' ) ); ?>" class="button-primary"><?php esc_html_e( 'Visit new location', 'poocommerce' ); ?></a>
 			</p>
 
 			<form action="<?php echo esc_url( admin_url( 'edit-comments.php' ) ); ?>" method="get">
@@ -91,10 +91,10 @@ class ReviewsCommentsOverrides {
 					<input type="hidden" name="paged" value="<?php echo esc_attr( $_GET['paged'] ); ?>" />
 				<?php endif; ?>
 
-				<?php wp_nonce_field( 'woocommerce_hide_notices_nonce', '_wc_notice_nonce' ); ?>
+				<?php wp_nonce_field( 'poocommerce_hide_notices_nonce', '_wc_notice_nonce' ); ?>
 
 				<button type="submit" class="notice-dismiss">
-					<span class="screen-reader-text"><?php esc_html_e( 'Dismiss this notice.', 'woocommerce' ); ?></span>
+					<span class="screen-reader-text"><?php esc_html_e( 'Dismiss this notice.', 'poocommerce' ); ?></span>
 				</button>
 			</form>
 		</div>
@@ -104,14 +104,14 @@ class ReviewsCommentsOverrides {
 	/**
 	 * Gets the capability required to dismiss the notice.
 	 *
-	 * This is required so that users who do not have the manage_woocommerce capability (e.g. Editors) can still dismiss
+	 * This is required so that users who do not have the manage_poocommerce capability (e.g. Editors) can still dismiss
 	 * the notice displayed in the Comments page.
 	 *
 	 * @param string|mixed $default_capability The default required capability.
 	 * @param string|mixed $notice_name The notice name.
 	 * @return string
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 */
 	public function get_dismiss_capability( $default_capability, $notice_name ) {
 		return $notice_name === self::REVIEWS_MOVED_NOTICE_ID ? Reviews::get_capability() : $default_capability;
@@ -123,7 +123,7 @@ class ReviewsCommentsOverrides {
 	 * @param array|mixed $args {@see WP_Comment_Query} query args.
 	 * @return array
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 */
 	public function exclude_reviews_from_comments( $args ): array {
 		$screen = get_current_screen();

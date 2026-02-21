@@ -18,7 +18,7 @@ import { PageItem } from './types';
 export const formatPageToItem = ( page: Page ): PageItem => ( {
 	label: sprintf(
 		/* translators: 1: page name 2: page ID */
-		__( '%1$s (ID: %2$s)', 'woocommerce' ),
+		__( '%1$s (ID: %2$s)', 'poocommerce' ),
 		page.title.rendered,
 		page.id
 	),

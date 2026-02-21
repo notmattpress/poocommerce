@@ -2,12 +2,12 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Caches;
+namespace Automattic\PooCommerce\Caches;
 
-use Automattic\WooCommerce\Caching\ObjectCache;
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Caching\ObjectCache;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 
 /**
  * A class to cache counts for various order statuses.
@@ -32,7 +32,7 @@ class OrderCountCache {
 	/**
 	 * Retrieves the list of known statuses by order type. A cached array of statuses is saved per order type for
 	 * improved backward compatibility with some of the extensions that don't register all statuses they use with
-	 * WooCommerce.
+	 * PooCommerce.
 	 *
 	 * @param string $order_type The type of order.
 	 *

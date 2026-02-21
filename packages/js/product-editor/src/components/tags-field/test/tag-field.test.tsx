@@ -3,7 +3,7 @@
  */
 import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { Form } from '@woocommerce/components';
+import { Form } from '@poocommerce/components';
 import { createElement } from '@wordpress/element';
 
 /**
@@ -12,7 +12,7 @@ import { createElement } from '@wordpress/element';
 import { TagField } from '../tag-field';
 import { ProductTagNodeProps } from '../types';
 
-jest.mock( '@woocommerce/tracks', () => ( { recordEvent: jest.fn() } ) );
+jest.mock( '@poocommerce/tracks', () => ( { recordEvent: jest.fn() } ) );
 
 jest.mock( '../use-tag-search', () => {
 	return {

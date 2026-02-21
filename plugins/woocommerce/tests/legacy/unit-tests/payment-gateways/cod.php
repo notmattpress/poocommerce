@@ -2,7 +2,7 @@
 /**
  * Contains tests for the COD Payment Gateway.
  *
- * @package WooCommerce\Tests\PaymentGateways
+ * @package PooCommerce\Tests\PaymentGateways
  */
 
 use Automattic\Jetpack\Constants;
@@ -36,7 +36,7 @@ class WC_Tests_Payment_Gateway_COD extends WC_Unit_Test_Case {
 	 * Make sure that the options for the "enable_for_methods" setting are loaded on the admin page.
 	 */
 	public function test_method_options_loaded_for_admin_page() {
-		set_current_screen( 'woocommerce_page_wc-settings' );
+		set_current_screen( 'poocommerce_page_wc-settings' );
 		$_REQUEST['page']    = 'wc-settings';
 		$_REQUEST['tab']     = 'checkout';
 		$_REQUEST['section'] = WC_Gateway_COD::ID;

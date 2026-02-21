@@ -1,10 +1,10 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "woocommerce/accordion-group",
+	"name": "poocommerce/accordion-group",
 	"title": "Accordion Group",
-	"category": "woocommerce",
-	"keywords": [ "WooCommerce" ],
+	"category": "poocommerce",
+	"keywords": [ "PooCommerce" ],
 	"description": "A group of headers and associated expandable content.",
 	"example": {},
 	"__experimental": true,
@@ -56,8 +56,8 @@
 			"type": "array"
 		}
 	},
-	"allowedBlocks": [ "woocommerce/accordion-item" ],
-	"textdomain": "woocommerce",
-	"viewScriptModule": "woocommerce/accordion-group",
-	"style": "file:../woocommerce/accordion-group-style.css"
+	"allowedBlocks": [ "poocommerce/accordion-item" ],
+	"textdomain": "poocommerce",
+	"viewScriptModule": "poocommerce/accordion-group",
+	"style": "file:../poocommerce/accordion-group-style.css"
 }

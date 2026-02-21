@@ -1,4 +1,4 @@
-# woocommerce/product-text-area-field
+# poocommerce/product-text-area-field
 
 A reusable text area field for the product editor, enhancing product data input with a multiline text area suitable for detailed information, descriptions, and more.
 
@@ -94,7 +94,7 @@ Here's a snippet that adds a text area field to the product editor, similar to t
 $section->add_block(
   array(
     'id'         => 'example-text-area-meta',
-    'blockName'  => 'woocommerce/product-text-area-field',
+    'blockName'  => 'poocommerce/product-text-area-field',
     'order'      => 15,
     'attributes' => array(
       'label'       => 'Detailed Description',

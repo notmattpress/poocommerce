@@ -1,10 +1,10 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\Utils;
+namespace Automattic\PooCommerce\Blocks\Utils;
 
 /**
  * BlockHooksTrait
  *
- * Shared functionality for using the Block Hooks API with WooCommerce Blocks.
+ * Shared functionality for using the Block Hooks API with PooCommerce Blocks.
  */
 trait BlockHooksTrait {
 	/**
@@ -26,7 +26,7 @@ trait BlockHooksTrait {
 		// Cache the block hooks version.
 		static $block_hooks_version = null;
 		if ( defined( 'WP_RUN_CORE_TESTS' ) || is_null( $block_hooks_version ) ) {
-			$block_hooks_version = get_option( 'woocommerce_hooked_blocks_version' );
+			$block_hooks_version = get_option( 'poocommerce_hooked_blocks_version' );
 		}
 
 		// If block hooks are disabled or the version is not set, return early.
@@ -35,7 +35,7 @@ trait BlockHooksTrait {
 		}
 
 		// Valid placements are those that have no version specified,
-		// or have a version that is less than or equal to version specified in the woocommerce_hooked_blocks_version option.
+		// or have a version that is less than or equal to version specified in the poocommerce_hooked_blocks_version option.
 		$valid_placements = array_filter(
 			$this->hooked_block_placements,
 			function ( $placement ) use ( $block_hooks_version ) {
@@ -154,7 +154,7 @@ trait BlockHooksTrait {
 		 * @since 8.5.0
 		 */
 		$pattern_exclude_list = apply_filters(
-			'woocommerce_hooked_blocks_pattern_exclude_list',
+			'poocommerce_hooked_blocks_pattern_exclude_list',
 			array_unique( array_merge( isset( $this->hooked_block_excluded_patterns ) ? $this->hooked_block_excluded_patterns : array(), array( 'twentytwentytwo/header-centered-logo', 'twentytwentytwo/header-stacked' ) ) )
 		);
 

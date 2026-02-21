@@ -1,13 +1,13 @@
 /**
  * External dependencies
  */
-import { useSchemaParser } from '@woocommerce/base-hooks';
+import { useSchemaParser } from '@poocommerce/base-hooks';
 import {
 	CURRENT_USER_IS_ADMIN,
 	FormFields,
 	FormType,
 	KeyedParsedFormFields,
-} from '@woocommerce/settings';
+} from '@poocommerce/settings';
 import { useRef } from '@wordpress/element';
 import fastDeepEqual from 'fast-deep-equal/es6';
 

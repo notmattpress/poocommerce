@@ -2,11 +2,11 @@
 /**
  * NewSalesRecord note tests
  *
- * @package WooCommerce\Admin\Tests\Notes
+ * @package PooCommerce\Admin\Tests\Notes
  */
 
-use Automattic\WooCommerce\Admin\Notes\Notes;
-use Automattic\WooCommerce\Internal\Admin\Notes\NewSalesRecord;
+use Automattic\PooCommerce\Admin\Notes\Notes;
+use Automattic\PooCommerce\Internal\Admin\Notes\NewSalesRecord;
 
 /**
  * Class WC_Admin_Tests_NewSalesRecord_Note

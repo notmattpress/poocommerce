@@ -24,7 +24,7 @@ export function useValidations< T = unknown >() {
 			return;
 		}
 		const tab = field.closest(
-			'.wp-block-woocommerce-product-tab__content'
+			'.wp-block-poocommerce-product-tab__content'
 		);
 		const observer = new MutationObserver( () => {
 			if ( tab && getComputedStyle( tab ).display !== 'none' ) {

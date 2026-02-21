@@ -1,12 +1,12 @@
 <?php
 /**
- * WooCommerce Coupon Tracking
+ * PooCommerce Coupon Tracking
  *
- * @package WooCommerce\Tracks
+ * @package PooCommerce\Tracks
  */
 
 /**
- * This class adds actions to track usage of a WooCommerce Coupon.
+ * This class adds actions to track usage of a PooCommerce Coupon.
  */
 class WC_Coupon_Tracking {
 
@@ -14,7 +14,7 @@ class WC_Coupon_Tracking {
 	 * Init tracking.
 	 */
 	public function init() {
-		add_action( 'woocommerce_coupon_object_updated_props', array( $this, 'track_coupon_updated' ), 10, 2 );
+		add_action( 'poocommerce_coupon_object_updated_props', array( $this, 'track_coupon_updated' ), 10, 2 );
 	}
 
 	/**

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Gateways\PayPal;
+namespace Automattic\PooCommerce\Gateways\PayPal;
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Gateways\PayPal\Constants as PayPalConstants;
-use Automattic\WooCommerce\Gateways\PayPal\Helper as PayPalHelper;
-use Automattic\WooCommerce\Gateways\PayPal\Request as PayPalRequest;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Gateways\PayPal\Constants as PayPalConstants;
+use Automattic\PooCommerce\Gateways\PayPal\Helper as PayPalHelper;
+use Automattic\PooCommerce\Gateways\PayPal\Request as PayPalRequest;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -93,7 +93,7 @@ class WebhookHandler {
 			$order->add_order_note(
 				sprintf(
 					/* translators: %1$s: PayPal order ID */
-					__( 'PayPal payment approved. PayPal Order ID: %1$s', 'woocommerce' ),
+					__( 'PayPal payment approved. PayPal Order ID: %1$s', 'poocommerce' ),
 					$paypal_order_id
 				)
 			);
@@ -113,7 +113,7 @@ class WebhookHandler {
 			$order->add_order_note(
 				sprintf(
 					/* translators: %1$s: PayPal order ID, %2$s: Status */
-					__( 'PayPal payment approval failed. PayPal Order ID: %1$s. Status: %2$s', 'woocommerce' ),
+					__( 'PayPal payment approval failed. PayPal Order ID: %1$s. Status: %2$s', 'poocommerce' ),
 					$paypal_order_id,
 					$status
 				)
@@ -151,7 +151,7 @@ class WebhookHandler {
 		$order->add_order_note(
 			sprintf(
 				/* translators: %1$s: Transaction ID */
-				__( 'PayPal payment captured. Transaction ID: %1$s.', 'woocommerce' ),
+				__( 'PayPal payment captured. Transaction ID: %1$s.', 'poocommerce' ),
 				$transaction_id
 			)
 		);
@@ -186,7 +186,7 @@ class WebhookHandler {
 		$order->update_meta_data( PayPalConstants::PAYPAL_ORDER_META_CAPTURE_ID, $transaction_id );
 		$order->update_meta_data( PayPalConstants::PAYPAL_ORDER_META_STATUS, $status );
 		/* translators: %s: reason */
-		$order->update_status( OrderStatus::ON_HOLD, sprintf( __( 'Payment pending (reason: %s).', 'woocommerce' ), $reason ) );
+		$order->update_status( OrderStatus::ON_HOLD, sprintf( __( 'Payment pending (reason: %s).', 'poocommerce' ), $reason ) );
 		$order->save();
 	}
 
@@ -218,7 +218,7 @@ class WebhookHandler {
 		$order->add_order_note(
 			sprintf(
 				/* translators: %1$s: Transaction ID */
-				__( 'PayPal payment authorized. Transaction ID: %1$s. Change payment status to processing or complete to capture funds.', 'woocommerce' ),
+				__( 'PayPal payment authorized. Transaction ID: %1$s. Change payment status to processing or complete to capture funds.', 'poocommerce' ),
 				$transaction_id
 			)
 		);

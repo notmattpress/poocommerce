@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Internal\ProductFilters;
+namespace Automattic\PooCommerce\Internal\ProductFilters;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
  * Class for managing taxonomy hierarchy data with performance optimization.
  *
- * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+ * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
  */
 class TaxonomyHierarchyData {
 
@@ -168,7 +168,7 @@ class TaxonomyHierarchyData {
 
 			$temp_children[ $parent_id ][] = $term_id;
 
-			// Get the menu_order from term meta (WooCommerce stores category order in 'order' meta).
+			// Get the menu_order from term meta (PooCommerce stores category order in 'order' meta).
 			$menu_order = get_term_meta( $term_id, 'order', true );
 
 			$temp_terms[ $term_id ] = array(

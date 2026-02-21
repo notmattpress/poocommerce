@@ -12,7 +12,7 @@ const { sharedOptimizationConfig } = require( './webpack-shared-config' );
 
 const { NODE_ENV: mode = 'development' } = process.env;
 
-// Config to build and incubate the interactivity API within WooCommerce.
+// Config to build and incubate the interactivity API within PooCommerce.
 module.exports = {
 	entry: {
 		'@wordpress/interactivity': path.resolve(

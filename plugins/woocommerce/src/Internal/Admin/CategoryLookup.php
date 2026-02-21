@@ -3,12 +3,12 @@
  * Keeps the product category lookup table in sync with live data.
  */
 
-namespace Automattic\WooCommerce\Internal\Admin;
+namespace Automattic\PooCommerce\Internal\Admin;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * \Automattic\WooCommerce\Internal\Admin\CategoryLookup class.
+ * \Automattic\PooCommerce\Internal\Admin\CategoryLookup class.
  */
 class CategoryLookup {
 
@@ -136,7 +136,7 @@ class CategoryLookup {
 	 * @param int $category_id Term ID being created.
 	 */
 	public function on_create( $category_id ) {
-		// If WooCommerce is being installed on a multisite, lookup tables haven't been created yet.
+		// If PooCommerce is being installed on a multisite, lookup tables haven't been created yet.
 		if ( 'yes' === get_transient( 'wc_installing' ) ) {
 			return;
 		}

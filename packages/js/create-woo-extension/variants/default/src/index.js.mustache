@@ -4,7 +4,7 @@
 import { addFilter } from '@wordpress/hooks';
 import { __ } from '@wordpress/i18n';
 import { Dropdown } from '@wordpress/components';
-import * as Woo from '@woocommerce/components';
+import * as Woo from '@poocommerce/components';
 import { Fragment } from '@wordpress/element';
 
 /**
@@ -62,7 +62,7 @@ const MyExamplePage = () => (
 	</Fragment>
 );
 
-addFilter( 'woocommerce_admin_pages_list', '{{slug}}', ( pages ) => {
+addFilter( 'poocommerce_admin_pages_list', '{{slug}}', ( pages ) => {
 	pages.push( {
 		container: MyExamplePage,
 		path: '/{{slug}}',

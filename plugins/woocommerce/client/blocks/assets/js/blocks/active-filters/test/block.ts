@@ -15,7 +15,7 @@ import {
 import '../';
 
 async function setup( attributes: BlockAttributes ) {
-	const testBlock = [ { name: 'woocommerce/active-filters', attributes } ];
+	const testBlock = [ { name: 'poocommerce/active-filters', attributes } ];
 	return initializeEditor( testBlock );
 }
 

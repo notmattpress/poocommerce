@@ -389,14 +389,14 @@ export class SelectControl extends Component< Props, State > {
 						'%d result found, use up and down arrow keys to navigate.',
 						'%d results found, use up and down arrow keys to navigate.',
 						searchOptions.length,
-						'woocommerce'
+						'poocommerce'
 					),
 					searchOptions.length
 				),
 				'assertive'
 			);
 		} else {
-			debouncedSpeak( __( 'No results.', 'woocommerce' ), 'assertive' );
+			debouncedSpeak( __( 'No results.', 'poocommerce' ), 'assertive' );
 		}
 	}
 
@@ -568,15 +568,15 @@ export class SelectControl extends Component< Props, State > {
 		const { key: selectedKey = '' } =
 			( isNumber( selectedIndex ) && options[ selectedIndex ] ) || {};
 		const listboxId = isExpanded
-			? `woocommerce-select-control__listbox-${ instanceId }`
+			? `poocommerce-select-control__listbox-${ instanceId }`
 			: undefined;
 		const activeId = isExpanded
-			? `woocommerce-select-control__option-${ instanceId }-${ selectedKey }`
+			? `poocommerce-select-control__option-${ instanceId }-${ selectedKey }`
 			: undefined;
 
 		return (
 			<div
-				className={ clsx( 'woocommerce-select-control', className, {
+				className={ clsx( 'poocommerce-select-control', className, {
 					'has-inline-tags': hasMultiple && inlineTags,
 					'is-focused': isFocused,
 					'is-searchable': isSearchable,
@@ -588,7 +588,7 @@ export class SelectControl extends Component< Props, State > {
 						onChange={ this.onAutofillChange }
 						name={ autofill }
 						type="text"
-						className="woocommerce-select-control__autofill-input"
+						className="poocommerce-select-control__autofill-input"
 						tabIndex={ -1 }
 					/>
 				) }

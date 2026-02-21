@@ -1,11 +1,11 @@
-.woocommerce-layout__activity-panel {
+.poocommerce-layout__activity-panel {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
 	height: $header-height;
 }
 
-.woocommerce-layout__activity-panel-tabs {
+.poocommerce-layout__activity-panel-tabs {
 	width: 100%;
 	display: flex;
 	height: $header-height;
@@ -20,7 +20,7 @@
 		width: 24px;
 		height: 24px;
 
-		&.woocommerce-layout__activity-panel-tab-icon {
+		&.poocommerce-layout__activity-panel-tab-icon {
 			fill: none;
 
 			rect,
@@ -38,13 +38,13 @@
 		}
 	}
 
-	.woocommerce-layout__homescreen-display-options {
-		svg.woocommerce-layout__activity-panel-tab-icon {
+	.poocommerce-layout__homescreen-display-options {
+		svg.poocommerce-layout__activity-panel-tab-icon {
 			height: 14px;
 		}
 	}
 
-	.woocommerce-layout__homescreen-extension-tasklist-toggle {
+	.poocommerce-layout__homescreen-extension-tasklist-toggle {
 		min-width: 205px;
 	}
 
@@ -60,7 +60,7 @@
 		}
 	}
 
-	.woocommerce-layout__activity-panel-tab {
+	.poocommerce-layout__activity-panel-tab {
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
@@ -101,7 +101,7 @@
 		}
 
 		&.has-unread::after,
-		&.woocommerce-layout__activity-panel-tab-wordpress-notices::after {
+		&.poocommerce-layout__activity-panel-tab-wordpress-notices::after {
 			content: " ";
 			position: absolute;
 			padding: 1px;
@@ -132,7 +132,7 @@
 			box-shadow: none;
 
 			&.has-unread::after,
-			&.woocommerce-layout__activity-panel-tab-wordpress-notices::after {
+			&.poocommerce-layout__activity-panel-tab-wordpress-notices::after {
 				border-color: $gray-200;
 			}
 		}
@@ -150,7 +150,7 @@
 		}
 	}
 
-	.woocommerce-layout__activity-panel-popover {
+	.poocommerce-layout__activity-panel-popover {
 		margin-top: 0;
 		z-index: 1001; // One higher than the other activity panels.
 
@@ -160,9 +160,9 @@
 	}
 }
 
-.woocommerce-layout:has(.woocommerce-homescreen) {
-	.woocommerce-layout__activity-panel-tabs {
-		.woocommerce-layout__activity-panel-tab {
+.poocommerce-layout:has(.poocommerce-homescreen) {
+	.poocommerce-layout__activity-panel-tabs {
+		.poocommerce-layout__activity-panel-tab {
 			color: var(--wp-admin-theme-color) !important;
 			font-size: 13px;
 			font-style: normal;
@@ -182,7 +182,7 @@
 }
 
 
-.woocommerce-layout__activity-panel-toggle-bubble.has-unread::after {
+.poocommerce-layout__activity-panel-toggle-bubble.has-unread::after {
 	content: " ";
 	position: absolute;
 	padding: 1px;
@@ -215,7 +215,7 @@
 	}
 }
 
-.woocommerce-layout__activity-panel-wrapper {
+.poocommerce-layout__activity-panel-wrapper {
 	height: calc(100vh - #{$header-height + $adminbar-height-mobile});
 	background: $gray-100;
 	width: 430px;
@@ -234,7 +234,7 @@
 	@include breakpoint( ">782px" ) {
 		height: calc(100vh - #{$header-height + $adminbar-height});
 	}
-	.has-woocommerce-navigation & {
+	.has-poocommerce-navigation & {
 		height: calc(100vh - #{$header-height});
 		top: #{$header-height};
 	}
@@ -253,23 +253,23 @@
 		}
 	}
 
-	.woocommerce-empty-content {
+	.poocommerce-empty-content {
 		padding-left: $gap-large;
 		padding-right: $gap-large;
 	}
 }
 
-.woocommerce-layout__activity-panel-avatar-flag-overlay {
+.poocommerce-layout__activity-panel-avatar-flag-overlay {
 	position: relative;
 	top: -$gap-small;
 
-	.woocommerce-flag {
+	.poocommerce-flag {
 		position: relative;
 		top: 16px;
 		border: 2px solid $studio-white;
 	}
 }
 
-.woocommerce-layout__notice-list-hide {
+.poocommerce-layout__notice-list-hide {
 	display: none;
 }

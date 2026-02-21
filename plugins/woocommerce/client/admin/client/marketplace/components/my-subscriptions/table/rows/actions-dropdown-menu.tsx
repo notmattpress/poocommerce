@@ -16,7 +16,7 @@ export default function ActionsDropdownMenu( props: {
 } ) {
 	const controls = [
 		{
-			title: __( 'Manage in Plugins', 'woocommerce' ),
+			title: __( 'Manage in Plugins', 'poocommerce' ),
 			onClick: () => {
 				window.location.href = ADMIN_URL + 'plugins.php';
 			},
@@ -25,10 +25,10 @@ export default function ActionsDropdownMenu( props: {
 
 	if ( ! props.subscription.is_shared ) {
 		controls.unshift( {
-			title: __( 'Manage on WooCommerce.com', 'woocommerce' ),
+			title: __( 'Manage on PooCommerce.com', 'poocommerce' ),
 			onClick: () => {
 				window.open(
-					'https://woocommerce.com/my-account/my-subscriptions',
+					'https://poocommerce.com/my-account/my-subscriptions',
 					'_blank'
 				);
 			},
@@ -37,7 +37,7 @@ export default function ActionsDropdownMenu( props: {
 
 	if ( props.subscription.documentation_url ) {
 		controls.unshift( {
-			title: __( 'View documentation', 'woocommerce' ),
+			title: __( 'View documentation', 'poocommerce' ),
 			onClick: () => {
 				window.open( props.subscription.documentation_url, '_blank' );
 			},
@@ -47,7 +47,7 @@ export default function ActionsDropdownMenu( props: {
 	return (
 		<DropdownMenu
 			icon={ moreVertical }
-			label={ __( 'Actions', 'woocommerce' ) }
+			label={ __( 'Actions', 'poocommerce' ) }
 			controls={ controls }
 		/>
 	);

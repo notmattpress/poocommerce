@@ -1,5 +1,5 @@
 export {
-	WooCommerceSanitizePolicyType,
+	PooCommerceSanitizePolicyType,
 	getTrustedTypesPolicy,
 } from './trusted-types-policy';
 export {

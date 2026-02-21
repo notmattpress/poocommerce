@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 const initTracks = () => {
 	const actionButtons = document.querySelectorAll( '.row-actions span' );

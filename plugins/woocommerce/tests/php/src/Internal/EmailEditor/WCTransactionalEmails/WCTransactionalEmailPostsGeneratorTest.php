@@ -2,10 +2,10 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\EmailEditor\WCTransactionalEmails;
+namespace Automattic\PooCommerce\Tests\Internal\EmailEditor\WCTransactionalEmails;
 
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsGenerator;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsManager;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsGenerator;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsManager;
 
 /**
  * Tests for the WCTransactionalEmailPostsGenerator class.
@@ -26,7 +26,7 @@ class WCTransactionalEmailPostsGeneratorTest extends \WC_Unit_Test_Case {
 	 */
 	public function setUp(): void {
 		parent::setUp();
-		add_option( 'woocommerce_feature_block_email_editor_enabled', 'yes' );
+		add_option( 'poocommerce_feature_block_email_editor_enabled', 'yes' );
 		$this->email_generator  = new WCTransactionalEmailPostsGenerator();
 		$this->template_manager = WCTransactionalEmailPostsManager::get_instance();
 	}
@@ -122,7 +122,7 @@ class WCTransactionalEmailPostsGeneratorTest extends \WC_Unit_Test_Case {
 
 		$this->assertTrue( $result );
 		foreach ( $templates_to_generate as $email_type ) {
-			$this->assertNotFalse( get_option( 'woocommerce_email_templates_' . $email_type . '_post_id' ) );
+			$this->assertNotFalse( get_option( 'poocommerce_email_templates_' . $email_type . '_post_id' ) );
 		}
 	}
 
@@ -143,7 +143,7 @@ class WCTransactionalEmailPostsGeneratorTest extends \WC_Unit_Test_Case {
 	 */
 	public function tearDown(): void {
 		parent::tearDown();
-		update_option( 'woocommerce_feature_block_email_editor_enabled', 'no' );
+		update_option( 'poocommerce_feature_block_email_editor_enabled', 'no' );
 		delete_transient( 'wc_email_editor_initial_templates_generated' );
 	}
 }

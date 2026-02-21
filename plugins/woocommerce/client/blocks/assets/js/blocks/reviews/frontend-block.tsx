@@ -2,15 +2,15 @@
  * External dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { getSetting } from '@woocommerce/settings';
-import LoadMoreButton from '@woocommerce/base-components/load-more-button';
+import { getSetting } from '@poocommerce/settings';
+import LoadMoreButton from '@poocommerce/base-components/load-more-button';
 import {
 	ReviewList,
 	ReviewSortSelect,
-} from '@woocommerce/base-components/reviews';
-import withReviews from '@woocommerce/base-hocs/with-reviews';
+} from '@poocommerce/base-components/reviews';
+import withReviews from '@poocommerce/base-hocs/with-reviews';
 import type { ChangeEventHandler, MouseEventHandler } from 'react';
-import { Review } from '@woocommerce/base-components/reviews/types';
+import { Review } from '@poocommerce/base-components/reviews/types';
 
 /**
  * Internal dependencies
@@ -57,7 +57,7 @@ const FrontendBlock = ( {
 					onClick={ onAppendReviews }
 					screenReaderLabel={ __(
 						'Load more reviews',
-						'woocommerce'
+						'poocommerce'
 					) }
 				/>
 			) }

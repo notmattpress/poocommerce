@@ -2,16 +2,16 @@
 /**
  * AbstractPaymentGatewaySettingsSchema class.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\RestApi\Routes\V4\Settings\PaymentGateways\Schema;
+namespace Automattic\PooCommerce\Internal\RestApi\Routes\V4\Settings\PaymentGateways\Schema;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\AbstractSchema;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\AbstractSchema;
 use WC_Payment_Gateway;
 use WP_Error;
 use WP_REST_Request;
@@ -54,23 +54,23 @@ abstract class AbstractPaymentGatewaySettingsSchema extends AbstractSchema {
 	public function get_item_schema_properties(): array {
 		return array(
 			'id'                 => array(
-				'description' => __( 'Payment gateway ID.', 'woocommerce' ),
+				'description' => __( 'Payment gateway ID.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_CONTEXT,
 				'readonly'    => true,
 			),
 			'title'              => array(
-				'description' => __( 'Payment gateway title on checkout.', 'woocommerce' ),
+				'description' => __( 'Payment gateway title on checkout.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_CONTEXT,
 			),
 			'description'        => array(
-				'description' => __( 'Payment gateway description on checkout.', 'woocommerce' ),
+				'description' => __( 'Payment gateway description on checkout.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_CONTEXT,
 			),
 			'order'              => array(
-				'description' => __( 'Payment gateway sort order.', 'woocommerce' ),
+				'description' => __( 'Payment gateway sort order.', 'poocommerce' ),
 				'type'        => 'integer',
 				'context'     => self::VIEW_EDIT_CONTEXT,
 				'arg_options' => array(
@@ -78,24 +78,24 @@ abstract class AbstractPaymentGatewaySettingsSchema extends AbstractSchema {
 				),
 			),
 			'enabled'            => array(
-				'description' => __( 'Payment gateway enabled status.', 'woocommerce' ),
+				'description' => __( 'Payment gateway enabled status.', 'poocommerce' ),
 				'type'        => 'boolean',
 				'context'     => self::VIEW_EDIT_CONTEXT,
 			),
 			'method_title'       => array(
-				'description' => __( 'Payment gateway method title.', 'woocommerce' ),
+				'description' => __( 'Payment gateway method title.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_CONTEXT,
 				'readonly'    => true,
 			),
 			'method_description' => array(
-				'description' => __( 'Payment gateway method description.', 'woocommerce' ),
+				'description' => __( 'Payment gateway method description.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_CONTEXT,
 				'readonly'    => true,
 			),
 			'method_supports'    => array(
-				'description' => __( 'Supported features for this payment gateway.', 'woocommerce' ),
+				'description' => __( 'Supported features for this payment gateway.', 'poocommerce' ),
 				'type'        => 'array',
 				'context'     => self::VIEW_EDIT_CONTEXT,
 				'readonly'    => true,
@@ -104,40 +104,40 @@ abstract class AbstractPaymentGatewaySettingsSchema extends AbstractSchema {
 				),
 			),
 			'values'             => array(
-				'description'          => __( 'Flat key-value mapping of all setting field values.', 'woocommerce' ),
+				'description'          => __( 'Flat key-value mapping of all setting field values.', 'poocommerce' ),
 				'type'                 => 'object',
 				'context'              => array( 'view', 'edit' ),
 				'additionalProperties' => array(
-					'description' => __( 'Setting field value.', 'woocommerce' ),
+					'description' => __( 'Setting field value.', 'poocommerce' ),
 					'type'        => array( 'string', 'number', 'array', 'boolean' ),
 				),
 			),
 			'groups'             => array(
-				'description'          => __( 'Collection of setting groups.', 'woocommerce' ),
+				'description'          => __( 'Collection of setting groups.', 'poocommerce' ),
 				'type'                 => 'object',
 				'context'              => array( 'view', 'edit' ),
 				'additionalProperties' => array(
 					'type'        => 'object',
-					'description' => __( 'Settings group.', 'woocommerce' ),
+					'description' => __( 'Settings group.', 'poocommerce' ),
 					'properties'  => array(
 						'title'       => array(
-							'description' => __( 'Group title.', 'woocommerce' ),
+							'description' => __( 'Group title.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => array( 'view', 'edit' ),
 						),
 						'description' => array(
-							'description' => __( 'Group description.', 'woocommerce' ),
+							'description' => __( 'Group description.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => array( 'view', 'edit' ),
 						),
 						'order'       => array(
-							'description' => __( 'Display order for the group.', 'woocommerce' ),
+							'description' => __( 'Display order for the group.', 'poocommerce' ),
 							'type'        => 'integer',
 							'context'     => array( 'view', 'edit' ),
 							'readonly'    => true,
 						),
 						'fields'      => array(
-							'description' => __( 'Settings fields.', 'woocommerce' ),
+							'description' => __( 'Settings fields.', 'poocommerce' ),
 							'type'        => 'array',
 							'context'     => array( 'view', 'edit' ),
 							'items'       => $this->get_field_schema(),
@@ -158,28 +158,28 @@ abstract class AbstractPaymentGatewaySettingsSchema extends AbstractSchema {
 			'type'       => 'object',
 			'properties' => array(
 				'id'      => array(
-					'description' => __( 'Setting field ID.', 'woocommerce' ),
+					'description' => __( 'Setting field ID.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 				),
 				'label'   => array(
-					'description' => __( 'Setting field label.', 'woocommerce' ),
+					'description' => __( 'Setting field label.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 				),
 				'type'    => array(
-					'description' => __( 'Setting field type.', 'woocommerce' ),
+					'description' => __( 'Setting field type.', 'poocommerce' ),
 					'type'        => 'string',
 					'enum'        => array( 'text', 'number', 'select', 'multiselect', 'checkbox' ),
 					'context'     => array( 'view', 'edit' ),
 				),
 				'options' => array(
-					'description' => __( 'Available options for select/multiselect fields.', 'woocommerce' ),
+					'description' => __( 'Available options for select/multiselect fields.', 'poocommerce' ),
 					'type'        => 'object',
 					'context'     => array( 'view', 'edit' ),
 				),
 				'desc'    => array(
-					'description' => __( 'Description for the setting field.', 'woocommerce' ),
+					'description' => __( 'Description for the setting field.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 				),
@@ -267,7 +267,7 @@ abstract class AbstractPaymentGatewaySettingsSchema extends AbstractSchema {
 		$gateway->init_form_fields();
 
 		$group = array(
-			'title'       => __( 'Settings', 'woocommerce' ),
+			'title'       => __( 'Settings', 'poocommerce' ),
 			'description' => '',
 			'order'       => 1,
 			'fields'      => array(),
@@ -276,30 +276,30 @@ abstract class AbstractPaymentGatewaySettingsSchema extends AbstractSchema {
 		// Add standard top-level fields first.
 		$group['fields'][] = array(
 			'id'    => 'enabled',
-			'label' => __( 'Enable/Disable', 'woocommerce' ),
+			'label' => __( 'Enable/Disable', 'poocommerce' ),
 			'type'  => 'checkbox',
-			'desc'  => __( 'Enable this payment gateway', 'woocommerce' ),
+			'desc'  => __( 'Enable this payment gateway', 'poocommerce' ),
 		);
 
 		$group['fields'][] = array(
 			'id'    => 'title',
-			'label' => __( 'Title', 'woocommerce' ),
+			'label' => __( 'Title', 'poocommerce' ),
 			'type'  => 'text',
-			'desc'  => __( 'This controls the title which the user sees during checkout.', 'woocommerce' ),
+			'desc'  => __( 'This controls the title which the user sees during checkout.', 'poocommerce' ),
 		);
 
 		$group['fields'][] = array(
 			'id'    => 'description',
-			'label' => __( 'Description', 'woocommerce' ),
+			'label' => __( 'Description', 'poocommerce' ),
 			'type'  => 'text',
-			'desc'  => __( 'This controls the description which the user sees during checkout.', 'woocommerce' ),
+			'desc'  => __( 'This controls the description which the user sees during checkout.', 'poocommerce' ),
 		);
 
 		$group['fields'][] = array(
 			'id'    => 'order',
-			'label' => __( 'Order', 'woocommerce' ),
+			'label' => __( 'Order', 'poocommerce' ),
 			'type'  => 'number',
-			'desc'  => __( 'Determines the display order of payment gateways during checkout.', 'woocommerce' ),
+			'desc'  => __( 'Determines the display order of payment gateways during checkout.', 'poocommerce' ),
 		);
 
 		foreach ( $gateway->form_fields as $id => $field ) {
@@ -339,7 +339,7 @@ abstract class AbstractPaymentGatewaySettingsSchema extends AbstractSchema {
 	}
 
 	/**
-	 * Transform WooCommerce field definition to API field schema.
+	 * Transform PooCommerce field definition to API field schema.
 	 *
 	 * @param string             $id      Field ID.
 	 * @param array              $field   Field definition.
@@ -388,9 +388,9 @@ abstract class AbstractPaymentGatewaySettingsSchema extends AbstractSchema {
 	}
 
 	/**
-	 * Normalize WooCommerce field types to standard REST API types.
+	 * Normalize PooCommerce field types to standard REST API types.
 	 *
-	 * @param string $wc_type WooCommerce field type.
+	 * @param string $wc_type PooCommerce field type.
 	 * @return string
 	 */
 	private function normalize_field_type( string $wc_type ): string {
@@ -461,7 +461,7 @@ abstract class AbstractPaymentGatewaySettingsSchema extends AbstractSchema {
 	 * @return array The item response.
 	 */
 	public function get_item_response( $gateway, WP_REST_Request $request, array $include_fields = array() ): array {
-		$order = (array) get_option( 'woocommerce_gateway_order' );
+		$order = (array) get_option( 'poocommerce_gateway_order' );
 		return array(
 			'id'                 => $gateway->id,
 			'title'              => $gateway->title,
@@ -587,7 +587,7 @@ abstract class AbstractPaymentGatewaySettingsSchema extends AbstractSchema {
 					'rest_invalid_param',
 					sprintf(
 						/* translators: 1: field key, 2: valid options */
-						__( 'Invalid value for %1$s. Valid options: %2$s', 'woocommerce' ),
+						__( 'Invalid value for %1$s. Valid options: %2$s', 'poocommerce' ),
 						$key,
 						implode( ', ', array_keys( $field['options'] ) )
 					),
@@ -605,7 +605,7 @@ abstract class AbstractPaymentGatewaySettingsSchema extends AbstractSchema {
 							'rest_invalid_param',
 							sprintf(
 								/* translators: 1: field key, 2: invalid value */
-								__( 'Invalid option "%2$s" for %1$s.', 'woocommerce' ),
+								__( 'Invalid option "%2$s" for %1$s.', 'poocommerce' ),
 								$key,
 								$v
 							),

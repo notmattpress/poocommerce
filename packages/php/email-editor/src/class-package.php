@@ -2,11 +2,11 @@
 /**
  * Email Editor Container class file.
  *
- * @package Automattic\WooCommerce\EmailEditor
+ * @package Automattic\PooCommerce\EmailEditor
  */
 
 declare( strict_types = 1 );
-namespace Automattic\WooCommerce\EmailEditor;
+namespace Automattic\PooCommerce\EmailEditor;
 
 defined( 'ABSPATH' ) || exit;
 

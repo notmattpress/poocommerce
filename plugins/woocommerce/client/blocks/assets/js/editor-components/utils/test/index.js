@@ -2,7 +2,7 @@
  * External dependencies
  */
 import apiFetch from '@wordpress/api-fetch';
-import { blocksConfig } from '@woocommerce/block-settings';
+import { blocksConfig } from '@poocommerce/block-settings';
 
 /**
  * Internal dependencies
@@ -10,7 +10,7 @@ import { blocksConfig } from '@woocommerce/block-settings';
 import { getProducts } from '../';
 
 jest.mock( '@wordpress/api-fetch' );
-jest.mock( '@woocommerce/block-settings', () => ( {
+jest.mock( '@poocommerce/block-settings', () => ( {
 	blocksConfig: {
 		productCount: 0,
 	},

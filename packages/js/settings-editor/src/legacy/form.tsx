@@ -10,7 +10,7 @@ import {
 import { Button } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { DataForm } from '@wordpress/dataviews';
-import { getNewPath } from '@woocommerce/navigation';
+import { getNewPath } from '@poocommerce/navigation';
 import { useDispatch } from '@wordpress/data';
 import apiFetch from '@wordpress/api-fetch';
 import { addQueryArgs } from '@wordpress/url';
@@ -106,19 +106,19 @@ export const Form = ( {
 					setSettingsData( responseSettingsData );
 					createNotice(
 						'success',
-						__( 'Settings saved successfully', 'woocommerce' )
+						__( 'Settings saved successfully', 'poocommerce' )
 					);
 				} else {
 					createNotice(
 						'error',
-						__( 'Failed to save settings', 'woocommerce' )
+						__( 'Failed to save settings', 'poocommerce' )
 					);
 				}
 			} )
 			.catch( ( error ) => {
 				createNotice(
 					'error',
-					__( 'Failed to save settings: ', 'woocommerce' ) +
+					__( 'Failed to save settings: ', 'poocommerce' ) +
 						error.message
 				);
 			} )
@@ -135,7 +135,7 @@ export const Form = ( {
 			{ settingsPage.start && (
 				<CustomView html={ settingsPage.start.content } />
 			) }
-			<div className="woocommerce-settings-content">
+			<div className="poocommerce-settings-content">
 				<DataForm
 					fields={ fields }
 					form={ form }
@@ -143,14 +143,14 @@ export const Form = ( {
 					onChange={ updateField }
 				/>
 			</div>
-			<div className="woocommerce-settings-content-footer">
+			<div className="poocommerce-settings-content-footer">
 				<Button
 					variant="primary"
 					type="submit"
 					isBusy={ isBusy }
 					disabled={ isBusy }
 				>
-					{ __( 'Save', 'woocommerce' ) }
+					{ __( 'Save', 'poocommerce' ) }
 				</Button>
 			</div>
 			{ settingsPage.end && (

@@ -2,7 +2,7 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
 /**
  * Product Filter: Active Block.
@@ -35,7 +35,7 @@ final class ProductFilterActive extends AbstractBlock {
 		);
 
 		$wrapper_attributes = array(
-			'data-wp-interactive'  => 'woocommerce/product-filters',
+			'data-wp-interactive'  => 'poocommerce/product-filters',
 			'data-wp-key'          => wp_unique_prefixed_id( $this->get_full_block_name() ),
 			'data-wp-context'      => wp_json_encode(
 				array(
@@ -48,17 +48,17 @@ final class ProductFilterActive extends AbstractBlock {
 		);
 
 		wp_interactivity_state(
-			'woocommerce/product-filters',
+			'poocommerce/product-filters',
 			array(
 				'hasActiveFilters' => ! empty( $active_filters ),
 			),
 		);
 
 		wp_interactivity_config(
-			'woocommerce/product-filters',
+			'poocommerce/product-filters',
 			array(
 				/* translators:  {{label}} is the label of the active filter item. */
-				'removeLabelTemplate' => __( 'Remove filter: {{label}}', 'woocommerce' ),
+				'removeLabelTemplate' => __( 'Remove filter: {{label}}', 'poocommerce' ),
 			)
 		);
 

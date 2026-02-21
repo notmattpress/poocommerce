@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { Product } from '@woocommerce/data';
+import { Product } from '@poocommerce/data';
 
 export type FormattedPriceProps = React.DetailedHTMLProps<
 	React.HTMLAttributes< HTMLSpanElement >,

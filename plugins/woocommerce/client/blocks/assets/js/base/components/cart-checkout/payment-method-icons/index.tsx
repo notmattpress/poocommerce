@@ -2,7 +2,7 @@
  * External dependencies
  */
 import clsx from 'clsx';
-import type { PaymentMethodIcons as PaymentMethodIconsType } from '@woocommerce/types';
+import type { PaymentMethodIcons as PaymentMethodIconsType } from '@poocommerce/types';
 
 /**
  * Internal dependencies

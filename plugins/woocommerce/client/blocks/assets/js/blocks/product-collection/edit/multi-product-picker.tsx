@@ -3,7 +3,7 @@
  */
 import { __ } from '@wordpress/i18n';
 import { Icon, info } from '@wordpress/icons';
-import ProductsControl from '@woocommerce/editor-components/products-control';
+import ProductsControl from '@poocommerce/editor-components/products-control';
 import { Placeholder, Button } from '@wordpress/components';
 import { useBlockProps } from '@wordpress/block-editor';
 
@@ -26,7 +26,7 @@ const MultiProductPicker = ( props: MultiProductPickerProps ) => {
 
 	// Convert string IDs to numbers for ProductsControl.
 	const selectedProductIds = (
-		attributes.query?.woocommerceHandPickedProducts || []
+		attributes.query?.poocommerceHandPickedProducts || []
 	).map( Number );
 
 	const hasSelectedProducts = selectedProductIds.length > 0;
@@ -47,7 +47,7 @@ const MultiProductPicker = ( props: MultiProductPickerProps ) => {
 					<span>
 						{ __(
 							'Select products to display in this collection.',
-							'woocommerce'
+							'poocommerce'
 						) }
 					</span>
 				</div>
@@ -60,7 +60,7 @@ const MultiProductPicker = ( props: MultiProductPickerProps ) => {
 								String( id )
 							);
 							setQueryAttribute( props, {
-								woocommerceHandPickedProducts: ids,
+								poocommerceHandPickedProducts: ids,
 							} );
 						} }
 					/>
@@ -69,7 +69,7 @@ const MultiProductPicker = ( props: MultiProductPickerProps ) => {
 						onClick={ onDone }
 						disabled={ ! hasSelectedProducts }
 					>
-						{ __( 'Done', 'woocommerce' ) }
+						{ __( 'Done', 'poocommerce' ) }
 					</Button>
 				</div>
 			</Placeholder>

@@ -7,9 +7,9 @@ declare( strict_types = 1);
  *
  * When viewing a brand archive, show the current brands description + image
  *
- * Important: For internal use only by the Automattic\WooCommerce\Internal\Brands package.
+ * Important: For internal use only by the Automattic\PooCommerce\Internal\Brands package.
  *
- * @package WooCommerce\Widgets
+ * @package PooCommerce\Widgets
  * @version 9.4.0
  */
 class WC_Widget_Brand_Description extends WP_Widget {
@@ -46,8 +46,8 @@ class WC_Widget_Brand_Description extends WP_Widget {
 	public function __construct() {
 
 		/* Widget variable settings. */
-		$this->woo_widget_name        = __( 'WooCommerce Brand Description', 'woocommerce' );
-		$this->woo_widget_description = __( 'When viewing a brand archive, show the current brands description.', 'woocommerce' );
+		$this->woo_widget_name        = __( 'PooCommerce Brand Description', 'poocommerce' );
+		$this->woo_widget_description = __( 'When viewing a brand archive, show the current brands description.', 'poocommerce' );
 		$this->woo_widget_idbase      = 'wc_brands_brand_description';
 		$this->woo_widget_cssclass    = 'widget_brand_description';
 
@@ -94,7 +94,7 @@ class WC_Widget_Brand_Description extends WP_Widget {
 				'thumbnail' => $thumbnail,
 				'brand'     => $term,
 			),
-			'woocommerce',
+			'poocommerce',
 			WC()->plugin_path() . '/templates/brands/'
 		);
 
@@ -122,7 +122,7 @@ class WC_Widget_Brand_Description extends WP_Widget {
 	public function form( $instance ) {
 		?>
 			<p>
-				<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_html_e( 'Title:', 'woocommerce' ); ?></label>
+				<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_html_e( 'Title:', 'poocommerce' ); ?></label>
 				<input type="text" class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" value="<?php echo isset( $instance['title'] ) ? esc_attr( $instance['title'] ) : ''; ?>" />
 			</p>
 		<?php

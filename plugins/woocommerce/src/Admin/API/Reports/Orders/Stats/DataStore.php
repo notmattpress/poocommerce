@@ -3,20 +3,20 @@
  * API\Reports\Orders\Stats\DataStore class file.
  */
 
-namespace Automattic\WooCommerce\Admin\API\Reports\Orders\Stats;
+namespace Automattic\PooCommerce\Admin\API\Reports\Orders\Stats;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\API\Reports\DataStore as ReportsDataStore;
-use Automattic\WooCommerce\Admin\API\Reports\DataStoreInterface;
-use Automattic\WooCommerce\Internal\Fulfillments\FulfillmentUtils;
-use Automattic\WooCommerce\Admin\API\Reports\TimeInterval;
-use Automattic\WooCommerce\Admin\API\Reports\SqlQuery;
-use Automattic\WooCommerce\Admin\API\Reports\Cache as ReportsCache;
-use Automattic\WooCommerce\Admin\API\Reports\Customers\DataStore as CustomersDataStore;
-use Automattic\WooCommerce\Utilities\OrderUtil;
-use Automattic\WooCommerce\Admin\API\Reports\StatsDataStoreTrait;
-use Automattic\WooCommerce\Utilities\FeaturesUtil;
+use Automattic\PooCommerce\Admin\API\Reports\DataStore as ReportsDataStore;
+use Automattic\PooCommerce\Admin\API\Reports\DataStoreInterface;
+use Automattic\PooCommerce\Internal\Fulfillments\FulfillmentUtils;
+use Automattic\PooCommerce\Admin\API\Reports\TimeInterval;
+use Automattic\PooCommerce\Admin\API\Reports\SqlQuery;
+use Automattic\PooCommerce\Admin\API\Reports\Cache as ReportsCache;
+use Automattic\PooCommerce\Admin\API\Reports\Customers\DataStore as CustomersDataStore;
+use Automattic\PooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Admin\API\Reports\StatsDataStoreTrait;
+use Automattic\PooCommerce\Utilities\FeaturesUtil;
 use WC_Order;
 
 /**
@@ -30,7 +30,7 @@ class DataStore extends ReportsDataStore implements DataStoreInterface {
 	 *
 	 * @var string
 	 */
-	const OPTION_ORDER_STATS_TABLE_HAS_COLUMN_ORDER_FULFILLMENT_STATUS = 'woocommerce_order_stats_has_fulfillment_column';
+	const OPTION_ORDER_STATS_TABLE_HAS_COLUMN_ORDER_FULFILLMENT_STATUS = 'poocommerce_order_stats_has_fulfillment_column';
 
 	/**
 	 * Table used to get the data.
@@ -95,7 +95,7 @@ class DataStore extends ReportsDataStore implements DataStoreInterface {
 	 * @override ReportsDataStore::__construct()
 	 */
 	public function __construct() {
-		$this->date_column_name = get_option( 'woocommerce_date_type', 'date_paid' );
+		$this->date_column_name = get_option( 'poocommerce_date_type', 'date_paid' );
 		parent::__construct();
 	}
 
@@ -135,7 +135,7 @@ class DataStore extends ReportsDataStore implements DataStoreInterface {
 	 * Set up all the hooks for maintaining and populating table data.
 	 */
 	public static function init() {
-		add_action( 'woocommerce_before_delete_order', array( __CLASS__, 'delete_order' ) );
+		add_action( 'poocommerce_before_delete_order', array( __CLASS__, 'delete_order' ) );
 		add_action( 'delete_post', array( __CLASS__, 'delete_order' ) );
 	}
 
@@ -367,7 +367,7 @@ class DataStore extends ReportsDataStore implements DataStoreInterface {
 			ARRAY_A
 		);
 		if ( null === $totals ) {
-			return new \WP_Error( 'woocommerce_analytics_revenue_result_failed', __( 'Sorry, fetching revenue data failed.', 'woocommerce' ) );
+			return new \WP_Error( 'poocommerce_analytics_revenue_result_failed', __( 'Sorry, fetching revenue data failed.', 'poocommerce' ) );
 		}
 
 		// phpcs:ignore Generic.Commenting.Todo.TaskFound
@@ -417,7 +417,7 @@ class DataStore extends ReportsDataStore implements DataStoreInterface {
 		);
 
 		if ( null === $intervals ) {
-			return new \WP_Error( 'woocommerce_analytics_revenue_result_failed', __( 'Sorry, fetching revenue data failed.', 'woocommerce' ) );
+			return new \WP_Error( 'poocommerce_analytics_revenue_result_failed', __( 'Sorry, fetching revenue data failed.', 'poocommerce' ) );
 		}
 
 		if ( isset( $intervals[0] ) ) {
@@ -572,7 +572,7 @@ class DataStore extends ReportsDataStore implements DataStoreInterface {
 		 *
 		 * @since 4.0.0
 		 */
-		$data = apply_filters( 'woocommerce_analytics_update_order_stats_data', $data, $order );
+		$data = apply_filters( 'poocommerce_analytics_update_order_stats_data', $data, $order );
 
 		if ( 'shop_order_refund' === $order->get_type() ) {
 			$parent_order = wc_get_order( $order->get_parent_id() );
@@ -607,7 +607,7 @@ class DataStore extends ReportsDataStore implements DataStoreInterface {
 		 *
 		 * @since 4.0.0.
 		 */
-		do_action( 'woocommerce_analytics_update_order_stats', $order->get_id() );
+		do_action( 'poocommerce_analytics_update_order_stats', $order->get_id() );
 
 		// Check the rows affected for success. Using REPLACE can affect 2 rows if the row already exists.
 		return ( 1 === $result || 2 === $result );
@@ -640,7 +640,7 @@ class DataStore extends ReportsDataStore implements DataStoreInterface {
 		 *
 		 * @since 4.0.0
 		 */
-		do_action( 'woocommerce_analytics_delete_order_stats', $order_id, $customer_id );
+		do_action( 'poocommerce_analytics_delete_order_stats', $order_id, $customer_id );
 
 		ReportsCache::invalidate();
 	}
@@ -735,14 +735,14 @@ class DataStore extends ReportsDataStore implements DataStoreInterface {
 	 */
 	public static function is_returning_customer( $order, $customer_id = null ) {
 		if ( is_null( $customer_id ) ) {
-			$customer_id = \Automattic\WooCommerce\Admin\API\Reports\Customers\DataStore::get_existing_customer_id_from_order( $order );
+			$customer_id = \Automattic\PooCommerce\Admin\API\Reports\Customers\DataStore::get_existing_customer_id_from_order( $order );
 		}
 
 		if ( ! $customer_id ) {
 			return false;
 		}
 
-		$oldest_orders = \Automattic\WooCommerce\Admin\API\Reports\Customers\DataStore::get_oldest_orders( $customer_id );
+		$oldest_orders = \Automattic\PooCommerce\Admin\API\Reports\Customers\DataStore::get_oldest_orders( $customer_id );
 
 		if ( empty( $oldest_orders ) ) {
 			return false;
@@ -819,7 +819,7 @@ class DataStore extends ReportsDataStore implements DataStoreInterface {
 		);
 
 		if ( false === $result ) {
-			return $wpdb->last_error ? $wpdb->last_error : __( 'Unknown database error occurred while adding fulfillment_status column.', 'woocommerce' );
+			return $wpdb->last_error ? $wpdb->last_error : __( 'Unknown database error occurred while adding fulfillment_status column.', 'poocommerce' );
 		}
 
 		// Update the option to indicate that the column has been added.

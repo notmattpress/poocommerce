@@ -13,7 +13,7 @@ To get started, it is recommended to first read the [Block Development Environme
 
 ## Example block template package
 
-There is an example block template in the WooCommerce repository. Having this template set up while reading this document may help to understand some of the concepts discussed. See the [`@woocommerce/extend-cart-checkout-block` package documentation](https://github.com/woocommerce/woocommerce/tree/trunk/packages/js/extend-cart-checkout-block/README.md) for how to install and run the example block.
+There is an example block template in the PooCommerce repository. Having this template set up while reading this document may help to understand some of the concepts discussed. See the [`@poocommerce/extend-cart-checkout-block` package documentation](https://github.com/poocommerce/poocommerce/tree/trunk/packages/js/extend-cart-checkout-block/README.md) for how to install and run the example block.
 
 (Note: the code in the repository linked above will not be very useful alone; the code there is templating code. It will be transformed into regular JS and PHP after following the README instructions.)
 
@@ -29,20 +29,20 @@ To set up the build system, the recommended approach is to align with WordPress 
 
 The base configuration of the `build` script in  `@wordpress/scripts` can be overridden by creating a `webpack.config.js` file in the root of your plugin. The example block shows how the base config can be extended.
 
-#### `WooCommerceDependencyExtractionWebpackPlugin`
+#### `PooCommerceDependencyExtractionWebpackPlugin`
 
 See [`WordPress Dependency Extraction Webpack Plugin`](https://github.com/WordPress/gutenberg/tree/trunk/packages/dependency-extraction-webpack-plugin) and 
-[`WooCommerce Dependency Extraction Webpack Plugin`](https://github.com/woocommerce/woocommerce/tree/trunk/packages/js/dependency-extraction-webpack-plugin#dependency-extraction-webpack-plugin).
+[`PooCommerce Dependency Extraction Webpack Plugin`](https://github.com/poocommerce/poocommerce/tree/trunk/packages/js/dependency-extraction-webpack-plugin#dependency-extraction-webpack-plugin).
 
 This Webpack plugin is used to:
 
 - Externalize dependencies that are available as shared scripts or modules on WordPress sites.
-    - This means when you import something from `@woocommerce/blocks-checkout` it resolves that path to `window.wc.wcBlocksCheckout` without you needing to change your code. It makes your code easier to read and allows these packages to be loaded onto the page once.
+    - This means when you import something from `@poocommerce/blocks-checkout` it resolves that path to `window.wc.wcBlocksCheckout` without you needing to change your code. It makes your code easier to read and allows these packages to be loaded onto the page once.
 - Add an asset file for each entry point that declares an object with the list of WordPress script or module dependencies for the entry point. The asset file also contains the current version calculated for the current source code.
 
 The PHP "asset file" that this plugin outputs contains information your script needs to register itself, such as dependencies and paths.
 
-If you have written code that is built by Webpack and using the WooCommerce Dependency Extraction Webpack Plugin, there will be an asset file output for each entry point. This asset file is a PHP file that contains information about your script, specifically dependencies and version, here's an example:
+If you have written code that is built by Webpack and using the PooCommerce Dependency Extraction Webpack Plugin, there will be an asset file output for each entry point. This asset file is a PHP file that contains information about your script, specifically dependencies and version, here's an example:
 
 ```php
 <?php
@@ -100,16 +100,16 @@ You may not need to create a block to get your extension working the way you wan
 
 In this case, you could remove the block folder from the example block, modify the Webpack config file so it no longer reads from that directory, and include the code you need in the entry JavaScript file.
 
-More information about how to use filters can be found in the [Filter Registry](https://github.com/woocommerce/woocommerce/blob/trunk/plugins/woocommerce/client/blocks/packages/checkout/filter-registry/README.md) and [Available Filters](/docs/block-development/extensible-blocks/cart-and-checkout-blocks/filters-in-cart-and-checkout/) documents.
+More information about how to use filters can be found in the [Filter Registry](https://github.com/poocommerce/poocommerce/blob/trunk/plugins/poocommerce/client/blocks/packages/checkout/filter-registry/README.md) and [Available Filters](/docs/block-development/extensible-blocks/cart-and-checkout-blocks/filters-in-cart-and-checkout/) documents.
 
-### Importing WooCommerce components into your extension
+### Importing PooCommerce components into your extension
 
-Components can be imported from `@woocommerce/blocks-components` (externalized to `window.wc.blocksComponents` by `@woocommerce/dependency-extraction-webpack-plugin`). The list of available components can be seen in [the WooCommerce Storybook](https://woocommerce.github.io/woocommerce/?path=/docs/woocommerce-blocks_external-components-button--docs), listed under "WooCommerce Blocks -> External components".
+Components can be imported from `@poocommerce/blocks-components` (externalized to `window.wc.blocksComponents` by `@poocommerce/dependency-extraction-webpack-plugin`). The list of available components can be seen in [the PooCommerce Storybook](https://poocommerce.github.io/poocommerce/?path=/docs/poocommerce-blocks_external-components-button--docs), listed under "PooCommerce Blocks -> External components".
 
 An example of importing the `Button` component is:
 
 ```js
-import { Button } from '@woocommerce/blocks-components';
+import { Button } from '@poocommerce/blocks-components';
 
 const MyComponent = () => {
   return <div class="my-wrapper">
@@ -118,17 +118,17 @@ const MyComponent = () => {
 }
 ```
 
-### Importing WooCommerce utilities and React hooks
+### Importing PooCommerce utilities and React hooks
 
-Some checkout utilities and React hooks are available for external use from `@woocommerce/blocks-checkout`. See the [Checkout Utilities](/docs/block-development/extensible-blocks/cart-and-checkout-blocks/checkout-utilities/) documentation for available utilities.
+Some checkout utilities and React hooks are available for external use from `@poocommerce/blocks-checkout`. See the [Checkout Utilities](/docs/block-development/extensible-blocks/cart-and-checkout-blocks/checkout-utilities/) documentation for available utilities.
 
-For accessing store data, using the [`wc/store/...`](https://github.com/woocommerce/woocommerce/blob/trunk/plugins/woocommerce/client/blocks/docs/third-party-developers/extensibility/data-store/) data stores is preferred over importing internal hooks like `useStoreCart`.
+For accessing store data, using the [`wc/store/...`](https://github.com/poocommerce/poocommerce/blob/trunk/plugins/poocommerce/client/blocks/docs/third-party-developers/extensibility/data-store/) data stores is preferred over importing internal hooks like `useStoreCart`.
 
 ## Back-end extensibility
 
 ### Modifying information during the Checkout process
 
-Modifying the server-side part of the Cart and Checkout blocks is possible using PHP. Some actions and filters from the shortcode cart/checkout experience will work too, but not all of them. We have a working document ([Hook alternatives document](https://github.com/woocommerce/woocommerce/blob/trunk/plugins/woocommerce/client/blocks/docs/third-party-developers/extensibility/hooks/hook-alternatives.md)) that outlines which hooks are supported as well as alternatives.
+Modifying the server-side part of the Cart and Checkout blocks is possible using PHP. Some actions and filters from the shortcode cart/checkout experience will work too, but not all of them. We have a working document ([Hook alternatives document](https://github.com/poocommerce/poocommerce/blob/trunk/plugins/poocommerce/client/blocks/docs/third-party-developers/extensibility/hooks/hook-alternatives.md)) that outlines which hooks are supported as well as alternatives.
 
 ### Extending Store API
 

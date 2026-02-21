@@ -170,7 +170,7 @@ export function usePreviewTemplates(
 	const allEmailPosts = useMemo( () => {
 		return emailPosts?.map( ( post: EmailEditorPostType ) => {
 			const preferredTitle = applyFilters(
-				'woocommerce_email_editor_preferred_template_title',
+				'poocommerce_email_editor_preferred_template_title',
 				'',
 				post
 			);

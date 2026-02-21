@@ -22,7 +22,7 @@
 		],
 		"baseUrl": "./",
 		"paths": {
-			"@woocommerce/*": [ "packages/*/src" ],
+			"@poocommerce/*": [ "packages/*/src" ],
 			"~/*": [ "client/*" ]
 		}
 	},

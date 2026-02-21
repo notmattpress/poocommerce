@@ -5,7 +5,7 @@
  * This interface will be implemented by third-party extensions to register themselves as marketing channels.
  */
 
-namespace Automattic\WooCommerce\Admin\Marketing;
+namespace Automattic\PooCommerce\Admin\Marketing;
 
 /**
  * MarketingChannelInterface interface

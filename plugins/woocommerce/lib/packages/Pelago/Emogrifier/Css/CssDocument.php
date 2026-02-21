@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\Pelago\Emogrifier\Css;
+namespace Automattic\PooCommerce\Vendor\Pelago\Emogrifier\Css;
 
-use Automattic\WooCommerce\Vendor\Pelago\Emogrifier\Utilities\Preg;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\CSSList\AtRuleBlockList as CssAtRuleBlockList;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\CSSList\Document as SabberwormCssDocument;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\Parser as CssParser;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\Property\AtRule as CssAtRule;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\Property\Charset as CssCharset;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\Property\Import as CssImport;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\Renderable as CssRenderable;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\RuleSet\DeclarationBlock as CssDeclarationBlock;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\RuleSet\RuleSet as CssRuleSet;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\Settings as ParserSettings;
+use Automattic\PooCommerce\Vendor\Pelago\Emogrifier\Utilities\Preg;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\CSSList\AtRuleBlockList as CssAtRuleBlockList;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\CSSList\Document as SabberwormCssDocument;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\Parser as CssParser;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\Property\AtRule as CssAtRule;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\Property\Charset as CssCharset;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\Property\Import as CssImport;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\Renderable as CssRenderable;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\RuleSet\DeclarationBlock as CssDeclarationBlock;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\RuleSet\RuleSet as CssRuleSet;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\Settings as ParserSettings;
 
 /**
  * Parses and stores a CSS document from a string of CSS, and provides methods to obtain the CSS in parts or as data

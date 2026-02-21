@@ -1,8 +1,8 @@
 <?php // phpcs:ignore Generic.PHP.RequireStrictTypes.MissingDeclaration
-namespace Automattic\WooCommerce\StoreApi\Routes\V1;
+namespace Automattic\PooCommerce\StoreApi\Routes\V1;
 
-use Automattic\WooCommerce\StoreApi\Exceptions\RouteException;
-use Automattic\WooCommerce\StoreApi\Utilities\ProductLinksTrait;
+use Automattic\PooCommerce\StoreApi\Exceptions\RouteException;
+use Automattic\PooCommerce\StoreApi\Utilities\ProductLinksTrait;
 
 /**
  * ProductsBySlug class.
@@ -51,7 +51,7 @@ class ProductsBySlug extends AbstractRoute {
 		return [
 			'args'   => array(
 				'slug' => array(
-					'description' => __( 'Slug of the resource.', 'woocommerce' ),
+					'description' => __( 'Slug of the resource.', 'poocommerce' ),
 					'type'        => 'string',
 				),
 			),
@@ -88,7 +88,7 @@ class ProductsBySlug extends AbstractRoute {
 		}
 
 		if ( ! $object || 0 === $object->get_id() ) {
-			throw new RouteException( 'woocommerce_rest_product_invalid_slug', __( 'Invalid product slug.', 'woocommerce' ), 404 );
+			throw new RouteException( 'poocommerce_rest_product_invalid_slug', __( 'Invalid product slug.', 'poocommerce' ), 404 );
 		}
 
 		return $this->prepare_item_for_response( $object, $request );

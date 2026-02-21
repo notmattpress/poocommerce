@@ -1,6 +1,6 @@
 <?php
 
-namespace Automattic\WooCommerce\Blueprint;
+namespace Automattic\PooCommerce\Blueprint;
 
 use WP_Error;
 use WP_Theme;

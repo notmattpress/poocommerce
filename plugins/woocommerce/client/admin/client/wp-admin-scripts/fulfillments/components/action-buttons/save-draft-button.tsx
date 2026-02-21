@@ -33,7 +33,7 @@ export default function SaveAsDraftButton( {
 			return;
 		}
 		if ( getFulfillmentItems( fulfillment ).length === 0 ) {
-			setError( __( 'Select items to be fulfilled.', 'woocommerce' ) );
+			setError( __( 'Select items to be fulfilled.', 'poocommerce' ) );
 			return;
 		}
 		setIsExecuting( true );
@@ -55,7 +55,7 @@ export default function SaveAsDraftButton( {
 			__next40pxDefaultSize
 			isBusy={ isExecuting }
 		>
-			{ __( 'Save as draft', 'woocommerce' ) }
+			{ __( 'Save as draft', 'poocommerce' ) }
 		</Button>
 	);
 }
