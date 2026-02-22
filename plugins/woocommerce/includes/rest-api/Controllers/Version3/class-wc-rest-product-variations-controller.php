@@ -4,15 +4,15 @@
  *
  * Handles requests to the /products/<product_id>/variations endpoints.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @since   3.0.0
  */
 
-use Automattic\WooCommerce\Enums\ProductTaxStatus;
-use Automattic\WooCommerce\Enums\ProductStatus;
-use Automattic\WooCommerce\Enums\ProductStockStatus;
-use Automattic\WooCommerce\Internal\CostOfGoodsSold\CogsAwareRestControllerTrait;
-use Automattic\WooCommerce\Utilities\I18nUtil;
+use Automattic\PooCommerce\Enums\ProductTaxStatus;
+use Automattic\PooCommerce\Enums\ProductStatus;
+use Automattic\PooCommerce\Enums\ProductStockStatus;
+use Automattic\PooCommerce\Internal\CostOfGoodsSold\CogsAwareRestControllerTrait;
+use Automattic\PooCommerce\Utilities\I18nUtil;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -21,7 +21,7 @@ use Automattic\Jetpack\Constants;
 /**
  * REST API variations controller class.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @extends WC_REST_Product_Variations_V2_Controller
  */
 class WC_REST_Product_Variations_Controller extends WC_REST_Product_Variations_V2_Controller {
@@ -53,15 +53,15 @@ class WC_REST_Product_Variations_Controller extends WC_REST_Product_Variations_V
 			array(
 				'args'   => array(
 					'product_id'     => array(
-						'description' => __( 'Unique identifier for the variable product.', 'woocommerce' ),
+						'description' => __( 'Unique identifier for the variable product.', 'poocommerce' ),
 						'type'        => 'integer',
 					),
 					'delete'         => array(
-						'description' => __( 'Deletes unused variations.', 'woocommerce' ),
+						'description' => __( 'Deletes unused variations.', 'poocommerce' ),
 						'type'        => 'boolean',
 					),
 					'default_values' => array(
-						'description' => __( 'Default values for generated variations.', 'woocommerce' ),
+						'description' => __( 'Default values for generated variations.', 'poocommerce' ),
 						'type'        => 'object',
 						'properties'  => $this->get_endpoint_args_for_item_schema( WP_REST_Server::EDITABLE ),
 					),
@@ -182,7 +182,7 @@ class WC_REST_Product_Variations_Controller extends WC_REST_Product_Variations_V
 		 * @param WC_Data          $object   Object data.
 		 * @param WP_REST_Request  $request  Request object.
 		 */
-		return apply_filters( "woocommerce_rest_prepare_{$this->post_type}_object", $response, $object, $request );
+		return apply_filters( "poocommerce_rest_prepare_{$this->post_type}_object", $response, $object, $request );
 	}
 
 	/**
@@ -335,8 +335,8 @@ class WC_REST_Product_Variations_Controller extends WC_REST_Product_Variations_V
 			if ( ! $parent ) {
 				return new WP_Error(
 					// Translators: %d parent ID.
-					"woocommerce_rest_{$this->post_type}_invalid_parent",
-					__( 'Cannot set attributes due to invalid parent product.', 'woocommerce' ),
+					"poocommerce_rest_{$this->post_type}_invalid_parent",
+					__( 'Cannot set attributes due to invalid parent product.', 'poocommerce' ),
 					array( 'status' => 404 )
 				);
 			}
@@ -410,7 +410,7 @@ class WC_REST_Product_Variations_Controller extends WC_REST_Product_Variations_V
 		 * @param WP_REST_Request $request   Request object.
 		 * @param bool            $creating  If is creating a new object.
 		 */
-		return apply_filters( "woocommerce_rest_pre_insert_{$this->post_type}_object", $variation, $request, $creating );
+		return apply_filters( "poocommerce_rest_pre_insert_{$this->post_type}_object", $variation, $request, $creating );
 	}
 
 	/**
@@ -475,8 +475,8 @@ class WC_REST_Product_Variations_Controller extends WC_REST_Product_Variations_V
 					 * @param int id   Variation id.
 					 * @param array    Array of image to set.
 					 */
-					if ( ! apply_filters( 'woocommerce_rest_suppress_image_upload_error', false, $upload, $variation->get_id(), array( $image ) ) ) {
-						throw new WC_REST_Exception( 'woocommerce_variation_image_upload_error', $upload->get_error_message(), 400 );
+					if ( ! apply_filters( 'poocommerce_rest_suppress_image_upload_error', false, $upload, $variation->get_id(), array( $image ) ) ) {
+						throw new WC_REST_Exception( 'poocommerce_variation_image_upload_error', $upload->get_error_message(), 400 );
 					}
 				}
 
@@ -489,7 +489,7 @@ class WC_REST_Product_Variations_Controller extends WC_REST_Product_Variations_V
 
 		if ( ! wp_attachment_is_image( $attachment_id ) ) {
 			/* translators: %s: attachment ID */
-			throw new WC_REST_Exception( 'woocommerce_variation_invalid_image_id', sprintf( __( '#%s is an invalid image ID.', 'woocommerce' ), $attachment_id ), 400 );
+			throw new WC_REST_Exception( 'poocommerce_variation_invalid_image_id', sprintf( __( '#%s is an invalid image ID.', 'poocommerce' ), $attachment_id ), 400 );
 		}
 
 		$variation->set_image_id( $attachment_id );
@@ -518,147 +518,147 @@ class WC_REST_Product_Variations_Controller extends WC_REST_Product_Variations_V
 	 * @return array
 	 */
 	public function get_item_schema() {
-		$weight_unit_label    = I18nUtil::get_weight_unit_label( get_option( 'woocommerce_weight_unit', 'kg' ) );
-		$dimension_unit_label = I18nUtil::get_dimensions_unit_label( get_option( 'woocommerce_dimension_unit', 'cm' ) );
+		$weight_unit_label    = I18nUtil::get_weight_unit_label( get_option( 'poocommerce_weight_unit', 'kg' ) );
+		$dimension_unit_label = I18nUtil::get_dimensions_unit_label( get_option( 'poocommerce_dimension_unit', 'cm' ) );
 		$schema               = array(
 			'$schema'    => 'http://json-schema.org/draft-04/schema#',
 			'title'      => $this->post_type,
 			'type'       => 'object',
 			'properties' => array(
 				'id'                    => array(
-					'description' => __( 'Unique identifier for the resource.', 'woocommerce' ),
+					'description' => __( 'Unique identifier for the resource.', 'poocommerce' ),
 					'type'        => 'integer',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'type'                  => array(
-					'description' => __( 'Product type.', 'woocommerce' ),
+					'description' => __( 'Product type.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'date_created'          => array(
-					'description' => __( "The date the variation was created, in the site's timezone.", 'woocommerce' ),
+					'description' => __( "The date the variation was created, in the site's timezone.", 'poocommerce' ),
 					'type'        => 'date-time',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'date_modified'         => array(
-					'description' => __( "The date the variation was last modified, in the site's timezone.", 'woocommerce' ),
+					'description' => __( "The date the variation was last modified, in the site's timezone.", 'poocommerce' ),
 					'type'        => 'date-time',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'description'           => array(
-					'description' => __( 'Variation description.', 'woocommerce' ),
+					'description' => __( 'Variation description.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 				),
 				'permalink'             => array(
-					'description' => __( 'Variation URL.', 'woocommerce' ),
+					'description' => __( 'Variation URL.', 'poocommerce' ),
 					'type'        => 'string',
 					'format'      => 'uri',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'sku'                   => array(
-					'description' => __( 'Stock Keeping Unit.', 'woocommerce' ),
+					'description' => __( 'Stock Keeping Unit.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 				),
 				'global_unique_id'      => array(
-					'description' => __( 'GTIN, UPC, EAN or ISBN.', 'woocommerce' ),
+					'description' => __( 'GTIN, UPC, EAN or ISBN.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 				),
 				'price'                 => array(
-					'description' => __( 'Current variation price.', 'woocommerce' ),
+					'description' => __( 'Current variation price.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'regular_price'         => array(
-					'description' => __( 'Variation regular price.', 'woocommerce' ),
+					'description' => __( 'Variation regular price.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 				),
 				'sale_price'            => array(
-					'description' => __( 'Variation sale price.', 'woocommerce' ),
+					'description' => __( 'Variation sale price.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 				),
 				'date_on_sale_from'     => array(
-					'description' => __( "Start date of sale price, in the site's timezone.", 'woocommerce' ),
+					'description' => __( "Start date of sale price, in the site's timezone.", 'poocommerce' ),
 					'type'        => 'date-time',
 					'context'     => array( 'view', 'edit' ),
 				),
 				'date_on_sale_from_gmt' => array(
-					'description' => __( 'Start date of sale price, as GMT.', 'woocommerce' ),
+					'description' => __( 'Start date of sale price, as GMT.', 'poocommerce' ),
 					'type'        => 'date-time',
 					'context'     => array( 'view', 'edit' ),
 				),
 				'date_on_sale_to'       => array(
-					'description' => __( "End date of sale price, in the site's timezone.", 'woocommerce' ),
+					'description' => __( "End date of sale price, in the site's timezone.", 'poocommerce' ),
 					'type'        => 'date-time',
 					'context'     => array( 'view', 'edit' ),
 				),
 				'date_on_sale_to_gmt'   => array(
-					'description' => __( "End date of sale price, in the site's timezone.", 'woocommerce' ),
+					'description' => __( "End date of sale price, in the site's timezone.", 'poocommerce' ),
 					'type'        => 'date-time',
 					'context'     => array( 'view', 'edit' ),
 				),
 				'on_sale'               => array(
-					'description' => __( 'Shows if the variation is on sale.', 'woocommerce' ),
+					'description' => __( 'Shows if the variation is on sale.', 'poocommerce' ),
 					'type'        => 'boolean',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'status'                => array(
-					'description' => __( 'Variation status.', 'woocommerce' ),
+					'description' => __( 'Variation status.', 'poocommerce' ),
 					'type'        => 'string',
 					// Not using ProductStatus constants here due the class not being loaded upon installation.
-					// See: https://github.com/woocommerce/woocommerce/issues/37464.
+					// See: https://github.com/poocommerce/poocommerce/issues/37464.
 					'default'     => 'publish',
 					'enum'        => array_keys( get_post_statuses() ),
 					'context'     => array( 'view', 'edit' ),
 				),
 				'purchasable'           => array(
-					'description' => __( 'Shows if the variation can be bought.', 'woocommerce' ),
+					'description' => __( 'Shows if the variation can be bought.', 'poocommerce' ),
 					'type'        => 'boolean',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'virtual'               => array(
-					'description' => __( 'If the variation is virtual.', 'woocommerce' ),
+					'description' => __( 'If the variation is virtual.', 'poocommerce' ),
 					'type'        => 'boolean',
 					'default'     => false,
 					'context'     => array( 'view', 'edit' ),
 				),
 				'downloadable'          => array(
-					'description' => __( 'If the variation is downloadable.', 'woocommerce' ),
+					'description' => __( 'If the variation is downloadable.', 'poocommerce' ),
 					'type'        => 'boolean',
 					'default'     => false,
 					'context'     => array( 'view', 'edit' ),
 				),
 				'downloads'             => array(
-					'description' => __( 'List of downloadable files.', 'woocommerce' ),
+					'description' => __( 'List of downloadable files.', 'poocommerce' ),
 					'type'        => 'array',
 					'context'     => array( 'view', 'edit' ),
 					'items'       => array(
 						'type'       => 'object',
 						'properties' => array(
 							'id'   => array(
-								'description' => __( 'File ID.', 'woocommerce' ),
+								'description' => __( 'File ID.', 'poocommerce' ),
 								'type'        => 'string',
 								'context'     => array( 'view', 'edit' ),
 							),
 							'name' => array(
-								'description' => __( 'File name.', 'woocommerce' ),
+								'description' => __( 'File name.', 'poocommerce' ),
 								'type'        => 'string',
 								'context'     => array( 'view', 'edit' ),
 							),
 							'file' => array(
-								'description' => __( 'File URL.', 'woocommerce' ),
+								'description' => __( 'File URL.', 'poocommerce' ),
 								'type'        => 'string',
 								'context'     => array( 'view', 'edit' ),
 							),
@@ -666,184 +666,184 @@ class WC_REST_Product_Variations_Controller extends WC_REST_Product_Variations_V
 					),
 				),
 				'download_limit'        => array(
-					'description' => __( 'Number of times downloadable files can be downloaded after purchase.', 'woocommerce' ),
+					'description' => __( 'Number of times downloadable files can be downloaded after purchase.', 'poocommerce' ),
 					'type'        => 'integer',
 					'default'     => -1,
 					'context'     => array( 'view', 'edit' ),
 				),
 				'download_expiry'       => array(
-					'description' => __( 'Number of days until access to downloadable files expires.', 'woocommerce' ),
+					'description' => __( 'Number of days until access to downloadable files expires.', 'poocommerce' ),
 					'type'        => 'integer',
 					'default'     => -1,
 					'context'     => array( 'view', 'edit' ),
 				),
 				'tax_status'            => array(
-					'description' => __( 'Tax status.', 'woocommerce' ),
+					'description' => __( 'Tax status.', 'poocommerce' ),
 					'type'        => 'string',
 					'default'     => ProductTaxStatus::TAXABLE,
 					'enum'        => array( ProductTaxStatus::TAXABLE, ProductTaxStatus::SHIPPING, ProductTaxStatus::NONE ),
 					'context'     => array( 'view', 'edit' ),
 				),
 				'tax_class'             => array(
-					'description' => __( 'Tax class.', 'woocommerce' ),
+					'description' => __( 'Tax class.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 				),
 				'manage_stock'          => array(
-					'description' => __( 'Stock management at variation level.', 'woocommerce' ),
+					'description' => __( 'Stock management at variation level.', 'poocommerce' ),
 					'type'        => array( 'boolean', 'string' ),
 					'default'     => false,
 					'context'     => array( 'view', 'edit' ),
 				),
 				'stock_quantity'        => array(
-					'description' => __( 'Stock quantity.', 'woocommerce' ),
+					'description' => __( 'Stock quantity.', 'poocommerce' ),
 					'type'        => 'integer',
 					'context'     => array( 'view', 'edit' ),
 				),
 				'stock_status'          => array(
-					'description' => __( 'Controls the stock status of the product.', 'woocommerce' ),
+					'description' => __( 'Controls the stock status of the product.', 'poocommerce' ),
 					'type'        => 'string',
 					'default'     => ProductStockStatus::IN_STOCK,
 					'enum'        => array_keys( wc_get_product_stock_status_options() ),
 					'context'     => array( 'view', 'edit' ),
 				),
 				'backorders'            => array(
-					'description' => __( 'If managing stock, this controls if backorders are allowed.', 'woocommerce' ),
+					'description' => __( 'If managing stock, this controls if backorders are allowed.', 'poocommerce' ),
 					'type'        => 'string',
 					'default'     => 'no',
 					'enum'        => array( 'no', 'notify', 'yes' ),
 					'context'     => array( 'view', 'edit' ),
 				),
 				'backorders_allowed'    => array(
-					'description' => __( 'Shows if backorders are allowed.', 'woocommerce' ),
+					'description' => __( 'Shows if backorders are allowed.', 'poocommerce' ),
 					'type'        => 'boolean',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'backordered'           => array(
-					'description' => __( 'Shows if the variation is on backordered.', 'woocommerce' ),
+					'description' => __( 'Shows if the variation is on backordered.', 'poocommerce' ),
 					'type'        => 'boolean',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'low_stock_amount'      => array(
-					'description' => __( 'Low Stock amount for the variation.', 'woocommerce' ),
+					'description' => __( 'Low Stock amount for the variation.', 'poocommerce' ),
 					'type'        => array( 'integer', 'null' ),
 					'context'     => array( 'view', 'edit' ),
 				),
 				'weight'                => array(
 					/* translators: %s: weight unit */
-					'description' => sprintf( __( 'Variation weight (%s).', 'woocommerce' ), $weight_unit_label ),
+					'description' => sprintf( __( 'Variation weight (%s).', 'poocommerce' ), $weight_unit_label ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 				),
 				'dimensions'            => array(
-					'description' => __( 'Variation dimensions.', 'woocommerce' ),
+					'description' => __( 'Variation dimensions.', 'poocommerce' ),
 					'type'        => 'object',
 					'context'     => array( 'view', 'edit' ),
 					'properties'  => array(
 						'length' => array(
 							/* translators: %s: dimension unit */
-							'description' => sprintf( __( 'Variation length (%s).', 'woocommerce' ), $dimension_unit_label ),
+							'description' => sprintf( __( 'Variation length (%s).', 'poocommerce' ), $dimension_unit_label ),
 							'type'        => 'string',
 							'context'     => array( 'view', 'edit' ),
 						),
 						'width'  => array(
 							/* translators: %s: dimension unit */
-							'description' => sprintf( __( 'Variation width (%s).', 'woocommerce' ), $dimension_unit_label ),
+							'description' => sprintf( __( 'Variation width (%s).', 'poocommerce' ), $dimension_unit_label ),
 							'type'        => 'string',
 							'context'     => array( 'view', 'edit' ),
 						),
 						'height' => array(
 							/* translators: %s: dimension unit */
-							'description' => sprintf( __( 'Variation height (%s).', 'woocommerce' ), $dimension_unit_label ),
+							'description' => sprintf( __( 'Variation height (%s).', 'poocommerce' ), $dimension_unit_label ),
 							'type'        => 'string',
 							'context'     => array( 'view', 'edit' ),
 						),
 					),
 				),
 				'shipping_class'        => array(
-					'description' => __( 'Shipping class slug.', 'woocommerce' ),
+					'description' => __( 'Shipping class slug.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 				),
 				'shipping_class_id'     => array(
-					'description' => __( 'Shipping class ID.', 'woocommerce' ),
+					'description' => __( 'Shipping class ID.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'image'                 => array(
-					'description' => __( 'Variation image data.', 'woocommerce' ),
+					'description' => __( 'Variation image data.', 'poocommerce' ),
 					'type'        => 'object',
 					'context'     => array( 'view', 'edit' ),
 					'properties'  => array(
 						'id'                => array(
-							'description' => __( 'Image ID.', 'woocommerce' ),
+							'description' => __( 'Image ID.', 'poocommerce' ),
 							'type'        => 'integer',
 							'context'     => array( 'view', 'edit' ),
 						),
 						'date_created'      => array(
-							'description' => __( "The date the image was created, in the site's timezone.", 'woocommerce' ),
+							'description' => __( "The date the image was created, in the site's timezone.", 'poocommerce' ),
 							'type'        => 'date-time',
 							'context'     => array( 'view', 'edit' ),
 							'readonly'    => true,
 						),
 						'date_created_gmt'  => array(
-							'description' => __( 'The date the image was created, as GMT.', 'woocommerce' ),
+							'description' => __( 'The date the image was created, as GMT.', 'poocommerce' ),
 							'type'        => 'date-time',
 							'context'     => array( 'view', 'edit' ),
 							'readonly'    => true,
 						),
 						'date_modified'     => array(
-							'description' => __( "The date the image was last modified, in the site's timezone.", 'woocommerce' ),
+							'description' => __( "The date the image was last modified, in the site's timezone.", 'poocommerce' ),
 							'type'        => 'date-time',
 							'context'     => array( 'view', 'edit' ),
 							'readonly'    => true,
 						),
 						'date_modified_gmt' => array(
-							'description' => __( 'The date the image was last modified, as GMT.', 'woocommerce' ),
+							'description' => __( 'The date the image was last modified, as GMT.', 'poocommerce' ),
 							'type'        => 'date-time',
 							'context'     => array( 'view', 'edit' ),
 							'readonly'    => true,
 						),
 						'src'               => array(
-							'description' => __( 'Image URL.', 'woocommerce' ),
+							'description' => __( 'Image URL.', 'poocommerce' ),
 							'type'        => 'string',
 							'format'      => 'uri',
 							'context'     => array( 'view', 'edit' ),
 						),
 						'name'              => array(
-							'description' => __( 'Image name.', 'woocommerce' ),
+							'description' => __( 'Image name.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => array( 'view', 'edit' ),
 						),
 						'alt'               => array(
-							'description' => __( 'Image alternative text.', 'woocommerce' ),
+							'description' => __( 'Image alternative text.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => array( 'view', 'edit' ),
 						),
 					),
 				),
 				'attributes'            => array(
-					'description' => __( 'List of attributes.', 'woocommerce' ),
+					'description' => __( 'List of attributes.', 'poocommerce' ),
 					'type'        => 'array',
 					'context'     => array( 'view', 'edit' ),
 					'items'       => array(
 						'type'       => 'object',
 						'properties' => array(
 							'id'     => array(
-								'description' => __( 'Attribute ID.', 'woocommerce' ),
+								'description' => __( 'Attribute ID.', 'poocommerce' ),
 								'type'        => 'integer',
 								'context'     => array( 'view', 'edit' ),
 							),
 							'name'   => array(
-								'description' => __( 'Attribute name.', 'woocommerce' ),
+								'description' => __( 'Attribute name.', 'poocommerce' ),
 								'type'        => 'string',
 								'context'     => array( 'view', 'edit' ),
 							),
 							'option' => array(
-								'description' => __( 'Selected attribute term name.', 'woocommerce' ),
+								'description' => __( 'Selected attribute term name.', 'poocommerce' ),
 								'type'        => 'string',
 								'context'     => array( 'view', 'edit' ),
 							),
@@ -851,30 +851,30 @@ class WC_REST_Product_Variations_Controller extends WC_REST_Product_Variations_V
 					),
 				),
 				'menu_order'            => array(
-					'description' => __( 'Menu order, used to custom sort products.', 'woocommerce' ),
+					'description' => __( 'Menu order, used to custom sort products.', 'poocommerce' ),
 					'type'        => 'integer',
 					'context'     => array( 'view', 'edit' ),
 				),
 				'meta_data'             => array(
-					'description' => __( 'Meta data.', 'woocommerce' ),
+					'description' => __( 'Meta data.', 'poocommerce' ),
 					'type'        => 'array',
 					'context'     => array( 'view', 'edit' ),
 					'items'       => array(
 						'type'       => 'object',
 						'properties' => array(
 							'id'    => array(
-								'description' => __( 'Meta ID.', 'woocommerce' ),
+								'description' => __( 'Meta ID.', 'poocommerce' ),
 								'type'        => 'integer',
 								'context'     => array( 'view', 'edit' ),
 								'readonly'    => true,
 							),
 							'key'   => array(
-								'description' => __( 'Meta key.', 'woocommerce' ),
+								'description' => __( 'Meta key.', 'poocommerce' ),
 								'type'        => 'string',
 								'context'     => array( 'view', 'edit' ),
 							),
 							'value' => array(
-								'description' => __( 'Meta value.', 'woocommerce' ),
+								'description' => __( 'Meta value.', 'poocommerce' ),
 								'type'        => 'mixed',
 								'context'     => array( 'view', 'edit' ),
 							),
@@ -882,7 +882,7 @@ class WC_REST_Product_Variations_Controller extends WC_REST_Product_Variations_V
 					),
 				),
 				'parent_id'             => array(
-					'description' => __( 'Product parent ID.', 'woocommerce' ),
+					'description' => __( 'Product parent ID.', 'poocommerce' ),
 					'type'        => 'integer',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
@@ -1161,7 +1161,7 @@ class WC_REST_Product_Variations_Controller extends WC_REST_Product_Variations_V
 		);
 
 		$params['stock_status'] = array(
-			'description'       => __( 'Limit result set to products with specified stock status.', 'woocommerce' ),
+			'description'       => __( 'Limit result set to products with specified stock status.', 'poocommerce' ),
 			'type'              => 'string',
 			'enum'              => array_keys( wc_get_product_stock_status_options() ),
 			'sanitize_callback' => 'sanitize_text_field',
@@ -1169,50 +1169,50 @@ class WC_REST_Product_Variations_Controller extends WC_REST_Product_Variations_V
 		);
 
 		$params['has_price'] = array(
-			'description'       => __( 'Limit result set to products with or without price.', 'woocommerce' ),
+			'description'       => __( 'Limit result set to products with or without price.', 'poocommerce' ),
 			'type'              => 'boolean',
 			'sanitize_callback' => 'wc_string_to_bool',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 
 		$params['attributes'] = array(
-			'description' => __( 'Limit result set to products with specified attributes.', 'woocommerce' ),
+			'description' => __( 'Limit result set to products with specified attributes.', 'poocommerce' ),
 			'type'        => 'array',
 			'items'       => array(
 				'type'       => 'object',
 				'properties' => array(
 					'attribute' => array(
 						'type'        => 'string',
-						'description' => __( 'Attribute slug.', 'woocommerce' ),
+						'description' => __( 'Attribute slug.', 'poocommerce' ),
 					),
 					'term'      => array(
 						'type'        => 'string',
-						'description' => __( 'Attribute term.', 'woocommerce' ),
+						'description' => __( 'Attribute term.', 'poocommerce' ),
 					),
 					'terms'     => array(
 						'type'        => 'array',
-						'description' => __( 'Attribute terms.', 'woocommerce' ),
+						'description' => __( 'Attribute terms.', 'poocommerce' ),
 					),
 				),
 			),
 		);
 
 		$params['virtual'] = array(
-			'description'       => __( 'Limit result set to virtual product variations.', 'woocommerce' ),
+			'description'       => __( 'Limit result set to virtual product variations.', 'poocommerce' ),
 			'type'              => 'boolean',
 			'sanitize_callback' => 'rest_sanitize_boolean',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 
 		$params['downloadable'] = array(
-			'description'       => __( 'Limit result set to downloadable product variations.', 'woocommerce' ),
+			'description'       => __( 'Limit result set to downloadable product variations.', 'poocommerce' ),
 			'type'              => 'boolean',
 			'sanitize_callback' => 'rest_sanitize_boolean',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 
 		$params['include_status'] = array(
-			'description'       => __( 'Limit result set to product variations with any of the statuses.', 'woocommerce' ),
+			'description'       => __( 'Limit result set to product variations with any of the statuses.', 'poocommerce' ),
 			'type'              => 'array',
 			'items'             => array(
 				'type' => 'string',
@@ -1223,7 +1223,7 @@ class WC_REST_Product_Variations_Controller extends WC_REST_Product_Variations_V
 		);
 
 		$params['exclude_status'] = array(
-			'description'       => __( 'Exclude product variations with any of the statuses from result set.', 'woocommerce' ),
+			'description'       => __( 'Exclude product variations with any of the statuses from result set.', 'poocommerce' ),
 			'type'              => 'array',
 			'items'             => array(
 				'type' => 'string',
@@ -1234,7 +1234,7 @@ class WC_REST_Product_Variations_Controller extends WC_REST_Product_Variations_V
 		);
 
 		$params['pos_products_only'] = array(
-			'description'       => __( 'Limit result set to variations visible in Point of Sale.', 'woocommerce' ),
+			'description'       => __( 'Limit result set to variations visible in Point of Sale.', 'poocommerce' ),
 			'type'              => 'boolean',
 			'sanitize_callback' => 'wc_string_to_bool',
 			'validate_callback' => 'rest_validate_request_arg',
@@ -1287,7 +1287,7 @@ class WC_REST_Product_Variations_Controller extends WC_REST_Product_Variations_V
 		$product_id = (int) $request['product_id'];
 
 		if ( 'product' !== get_post_type( $product_id ) ) {
-			return new WP_Error( 'woocommerce_rest_product_invalid_id', __( 'Invalid product ID.', 'woocommerce' ), array( 'status' => 404 ) );
+			return new WP_Error( 'poocommerce_rest_product_invalid_id', __( 'Invalid product ID.', 'poocommerce' ), array( 'status' => 404 ) );
 		}
 
 		wc_maybe_define_constant( 'WC_MAX_LINKED_VARIATIONS', 99 );

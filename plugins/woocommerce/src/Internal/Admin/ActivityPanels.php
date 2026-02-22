@@ -1,11 +1,11 @@
 <?php
 /**
- * WooCommerce Activity Panel.
+ * PooCommerce Activity Panel.
  */
 
-namespace Automattic\WooCommerce\Internal\Admin;
+namespace Automattic\PooCommerce\Internal\Admin;
 
-use Automattic\WooCommerce\Admin\Notes\Notes;
+use Automattic\PooCommerce\Admin\Notes\Notes;
 
 /**
  * Contains backend logic for the activity panel feature.
@@ -29,14 +29,14 @@ class ActivityPanels {
 	}
 
 	/**
-	 * Hook into WooCommerce.
+	 * Hook into PooCommerce.
 	 */
 	public function __construct() {
-		add_filter( 'woocommerce_admin_get_user_data_fields', array( $this, 'add_user_data_fields' ) );
-		// Run after Automattic\WooCommerce\Internal\Admin\Loader.
-		add_filter( 'woocommerce_components_settings', array( $this, 'component_settings' ), 20 );
+		add_filter( 'poocommerce_admin_get_user_data_fields', array( $this, 'add_user_data_fields' ) );
+		// Run after Automattic\PooCommerce\Internal\Admin\Loader.
+		add_filter( 'poocommerce_components_settings', array( $this, 'component_settings' ), 20 );
 		// New settings injection.
-		add_filter( 'woocommerce_admin_shared_settings', array( $this, 'component_settings' ), 20 );
+		add_filter( 'poocommerce_admin_shared_settings', array( $this, 'component_settings' ), 20 );
 	}
 
 	/**

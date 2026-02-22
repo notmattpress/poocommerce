@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { dispatch } from '@wordpress/data';
-import { addHistoryListener } from '@woocommerce/navigation';
+import { addHistoryListener } from '@poocommerce/navigation';
 
 /**
  * Internal dependencies

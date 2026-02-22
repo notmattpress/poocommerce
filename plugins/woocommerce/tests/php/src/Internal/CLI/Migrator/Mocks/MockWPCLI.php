@@ -2,12 +2,12 @@
 /**
  * Mock WP_CLI class for testing.
  *
- * @package WooCommerce\Tests\Internal\CLI\Migrator\Mocks
+ * @package PooCommerce\Tests\Internal\CLI\Migrator\Mocks
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\CLI\Migrator\Mocks;
+namespace Automattic\PooCommerce\Tests\Internal\CLI\Migrator\Mocks;
 
 /**
  * Mock WP_CLI class for testing purposes.

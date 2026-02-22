@@ -1,8 +1,8 @@
 {
-	"name": "woocommerce/filter-wrapper",
+	"name": "poocommerce/filter-wrapper",
 	"title": "Filter Block",
-	"category": "woocommerce",
-	"keywords": [ "WooCommerce" ],
+	"category": "poocommerce",
+	"keywords": [ "PooCommerce" ],
 	"supports": {
 		"interactivity": {
 			"clientNavigation": false
@@ -17,7 +17,7 @@
 			"type": "string"
 		}
 	},
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"apiVersion": 3,
 	"$schema": "https://schemas.wp.org/trunk/block.json"
 }

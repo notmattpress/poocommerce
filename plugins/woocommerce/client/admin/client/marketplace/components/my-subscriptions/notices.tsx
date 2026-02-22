@@ -38,7 +38,7 @@ export default function Notices() {
 	for ( const notice of notices ) {
 		errorNotices.push(
 			<Notice
-				className="woocommerce-marketplace__notice--error"
+				className="poocommerce-marketplace__notice--error"
 				status={ notice.status }
 				onRemove={ () => removeNotice( notice.productKey ) }
 				key={ notice.productKey }

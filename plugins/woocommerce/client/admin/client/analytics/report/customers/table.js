@@ -5,12 +5,12 @@ import { __, _n } from '@wordpress/i18n';
 import { Fragment, useContext } from '@wordpress/element';
 import { useSelect } from '@wordpress/data';
 import { Tooltip } from '@wordpress/components';
-import { Date, Link, Pill } from '@woocommerce/components';
-import { formatValue } from '@woocommerce/number';
-import { getAdminLink } from '@woocommerce/settings';
-import { defaultTableDateFormat } from '@woocommerce/date';
-import { COUNTRIES_STORE_NAME } from '@woocommerce/data';
-import { CurrencyContext } from '@woocommerce/currency';
+import { Date, Link, Pill } from '@poocommerce/components';
+import { formatValue } from '@poocommerce/number';
+import { getAdminLink } from '@poocommerce/settings';
+import { defaultTableDateFormat } from '@poocommerce/date';
+import { COUNTRIES_STORE_NAME } from '@poocommerce/data';
+import { CurrencyContext } from '@poocommerce/currency';
 
 /**
  * Internal dependencies
@@ -37,69 +37,69 @@ function CustomersReportTable( {
 	const getHeadersContent = () => {
 		return [
 			{
-				label: __( 'Name', 'woocommerce' ),
+				label: __( 'Name', 'poocommerce' ),
 				key: 'name',
 				required: true,
 				isLeftAligned: true,
 				isSortable: true,
 			},
 			{
-				label: __( 'Username', 'woocommerce' ),
+				label: __( 'Username', 'poocommerce' ),
 				key: 'username',
 				hiddenByDefault: true,
 			},
 			{
-				label: __( 'Last active', 'woocommerce' ),
+				label: __( 'Last active', 'poocommerce' ),
 				key: 'date_last_active',
 				defaultSort: true,
 				isSortable: true,
 			},
 			{
-				label: __( 'Date registered', 'woocommerce' ),
+				label: __( 'Date registered', 'poocommerce' ),
 				key: 'date_registered',
 				isSortable: true,
 			},
 			{
-				label: __( 'Email', 'woocommerce' ),
+				label: __( 'Email', 'poocommerce' ),
 				key: 'email',
 			},
 			{
-				label: __( 'Orders', 'woocommerce' ),
+				label: __( 'Orders', 'poocommerce' ),
 				key: 'orders_count',
 				isSortable: true,
 				isNumeric: true,
 			},
 			{
-				label: __( 'Total spend', 'woocommerce' ),
+				label: __( 'Total spend', 'poocommerce' ),
 				key: 'total_spend',
 				isSortable: true,
 				isNumeric: true,
 			},
 			{
-				label: __( 'AOV', 'woocommerce' ),
-				screenReaderLabel: __( 'Average order value', 'woocommerce' ),
+				label: __( 'AOV', 'poocommerce' ),
+				screenReaderLabel: __( 'Average order value', 'poocommerce' ),
 				key: 'avg_order_value',
 				isNumeric: true,
 			},
 			{
-				label: __( 'Country / Region', 'woocommerce' ),
+				label: __( 'Country / Region', 'poocommerce' ),
 				key: 'country',
 				isSortable: true,
 			},
 			{
-				label: __( 'City', 'woocommerce' ),
+				label: __( 'City', 'poocommerce' ),
 				key: 'city',
 				hiddenByDefault: true,
 				isSortable: true,
 			},
 			{
-				label: __( 'Region', 'woocommerce' ),
+				label: __( 'Region', 'poocommerce' ),
 				key: 'state',
 				hiddenByDefault: true,
 				isSortable: true,
 			},
 			{
-				label: __( 'Postal code', 'woocommerce' ),
+				label: __( 'Postal code', 'poocommerce' ),
 				key: 'postcode',
 				hiddenByDefault: true,
 				isSortable: true,
@@ -145,7 +145,7 @@ function CustomersReportTable( {
 				name?.trim() !== '' ? (
 					name
 				) : (
-					<Pill>{ __( 'Guest', 'woocommerce' ) }</Pill>
+					<Pill>{ __( 'Guest', 'poocommerce' ) }</Pill>
 				);
 
 			const customerNameLink = userId ? (
@@ -252,7 +252,7 @@ function CustomersReportTable( {
 					'customer',
 					'customers',
 					customersCount,
-					'woocommerce'
+					'poocommerce'
 				),
 				value: formatValue( currency, 'number', customersCount ),
 			},
@@ -261,16 +261,16 @@ function CustomersReportTable( {
 					'Average order',
 					'Average orders',
 					avgOrdersCount,
-					'woocommerce'
+					'poocommerce'
 				),
 				value: formatValue( currency, 'number', avgOrdersCount ),
 			},
 			{
-				label: __( 'Average lifetime spend', 'woocommerce' ),
+				label: __( 'Average lifetime spend', 'poocommerce' ),
 				value: formatAmount( avgTotalSpend ),
 			},
 			{
-				label: __( 'Average order value', 'woocommerce' ),
+				label: __( 'Average order value', 'poocommerce' ),
 				value: formatAmount( avgAvgOrderValue ),
 			},
 		];
@@ -292,10 +292,10 @@ function CustomersReportTable( {
 			itemIdField="id"
 			query={ query }
 			labels={ {
-				placeholder: __( 'Search by customer name', 'woocommerce' ),
+				placeholder: __( 'Search by customer name', 'poocommerce' ),
 			} }
 			searchBy="customers"
-			title={ __( 'Customers', 'woocommerce' ) }
+			title={ __( 'Customers', 'poocommerce' ) }
 			columnPrefsKey="customers_report_columns"
 			filters={ filters }
 			advancedFilters={ advancedFilters }

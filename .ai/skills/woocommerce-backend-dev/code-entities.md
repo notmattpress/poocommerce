@@ -92,13 +92,13 @@ Add concise docblocks to all hooks and methods. One line is ideal.
 
 ### Public, Protected Methods, and Hooks
 
-Must include a `@since` annotation with the next WooCommerce version number.
+Must include a `@since` annotation with the next PooCommerce version number.
 
 The `@since` annotation must be:
 
 - The last line in the docblock
 - Preceded by a blank comment line
-- Use the version from `includes/class-woocommerce.php` on trunk, removing the `-dev` suffix
+- Use the version from `includes/class-poocommerce.php` on trunk, removing the `-dev` suffix
   (e.g., if trunk shows `10.4.0-dev`, use `@since 10.4.0`)
 
 **Good - Concise:**
@@ -121,7 +121,7 @@ public function process_order( int $order_id ) { }
  *
  * @since 9.5.0
  */
-do_action( 'woocommerce_order_processed', $order_id );
+do_action( 'poocommerce_order_processed', $order_id );
 ```
 
 **Avoid - Over-explained:**
@@ -172,13 +172,13 @@ When an `@internal` annotation is added, it must be:
 
 ```php
 /**
- * Handle the woocommerce_init hook.
+ * Handle the poocommerce_init hook.
  *
  * @internal
  *
  * @param array $args Hook arguments.
  */
-public function handle_woocommerce_init( array $args ) { }
+public function handle_poocommerce_init( array $args ) { }
 ```
 
 ## Hook Docblocks

@@ -2,7 +2,7 @@
 /**
  * Attribute functions tests
  *
- * @package WooCommerce\Tests\Functions.
+ * @package PooCommerce\Tests\Functions.
  */
 
 use PHPUnit\Framework\MockObject\Matcher\InvokedRecorder;
@@ -35,7 +35,7 @@ class WC_Attribute_Functions_Test extends \WC_Unit_Test_Case {
 			->method( '__invoke' )
 			->will( $this->returnArgument( 0 ) );
 
-		add_filter( 'woocommerce_attribute_taxonomies', $filter_mock );
+		add_filter( 'poocommerce_attribute_taxonomies', $filter_mock );
 		add_filter( 'sanitize_taxonomy_name', $filter_mock );
 	}
 
@@ -43,7 +43,7 @@ class WC_Attribute_Functions_Test extends \WC_Unit_Test_Case {
 	 * Tear down.
 	 */
 	public function tearDown(): void {
-		remove_all_filters( 'woocommerce_attribute_taxonomies' );
+		remove_all_filters( 'poocommerce_attribute_taxonomies' );
 		remove_all_filters( 'sanitize_taxonomy_name' );
 
 		parent::tearDown();
@@ -59,14 +59,14 @@ class WC_Attribute_Functions_Test extends \WC_Unit_Test_Case {
 		$this->assertEquals(
 			1,
 			$this->filter_recorder->getInvocationCount(),
-			'Filter `woocommerce_attribute_taxonomies` should have been triggered once after fetching all attribute taxonomies.'
+			'Filter `poocommerce_attribute_taxonomies` should have been triggered once after fetching all attribute taxonomies.'
 		);
 		$ids = wc_get_attribute_taxonomy_ids();
 		$this->assertEquals( [], $ids );
 		$this->assertEquals(
 			1,
 			$this->filter_recorder->getInvocationCount(),
-			'Filter `woocommerce_attribute_taxonomies` should not be triggered a second time because the results should be loaded from the cache.'
+			'Filter `poocommerce_attribute_taxonomies` should not be triggered a second time because the results should be loaded from the cache.'
 		);
 	}
 
@@ -80,14 +80,14 @@ class WC_Attribute_Functions_Test extends \WC_Unit_Test_Case {
 		$this->assertEquals(
 			1,
 			$this->filter_recorder->getInvocationCount(),
-			'Filter `woocommerce_attribute_taxonomies` should have been triggered once after fetching all attribute taxonomies.'
+			'Filter `poocommerce_attribute_taxonomies` should have been triggered once after fetching all attribute taxonomies.'
 		);
 		$labels = wc_get_attribute_taxonomy_labels();
 		$this->assertEquals( [], $labels );
 		$this->assertEquals(
 			1,
 			$this->filter_recorder->getInvocationCount(),
-			'Filter `woocommerce_attribute_taxonomies` should not be triggered a second time because the results should be loaded from the cache.'
+			'Filter `poocommerce_attribute_taxonomies` should not be triggered a second time because the results should be loaded from the cache.'
 		);
 	}
 

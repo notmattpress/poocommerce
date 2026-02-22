@@ -1,9 +1,9 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "woocommerce/product-schedule-sale-fields",
+	"name": "poocommerce/product-schedule-sale-fields",
 	"title": "Product schedule sale fields",
-	"category": "woocommerce",
+	"category": "poocommerce",
 	"description": "The product schedule sale fields.",
 	"keywords": [
 		"products",

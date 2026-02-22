@@ -1,7 +1,7 @@
 <?php
-namespace Automattic\WooCommerce\StoreApi\Schemas\V1;
+namespace Automattic\PooCommerce\StoreApi\Schemas\V1;
 
-use Automattic\WooCommerce\StoreApi\Utilities\ProductItemTrait;
+use Automattic\PooCommerce\StoreApi\Utilities\ProductItemTrait;
 
 /**
  * OrderItemSchema class.
@@ -78,7 +78,7 @@ class OrderItemSchema extends ItemSchema {
 			$product_properties['sku']                = $product->get_sku();
 			$product_properties['permalink']          = $product->get_permalink();
 			$product_properties['catalog_visibility'] = $product->get_catalog_visibility();
-			$product_properties['prices']             = $this->prepare_product_price_response( $product, get_option( 'woocommerce_tax_display_cart' ) );
+			$product_properties['prices']             = $this->prepare_product_price_response( $product, get_option( 'poocommerce_tax_display_cart' ) );
 			$product_properties['sold_individually']  = $product->is_sold_individually();
 			$product_properties['images']             = $this->get_images( $product );
 

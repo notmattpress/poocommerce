@@ -1,11 +1,11 @@
-.woocommerce-wcpay-benefits {
+.poocommerce-wcpay-benefits {
 	background-color: #fff;
 	border-radius: 2px;
 	padding: 36px 24px;
 	width: 680px;
 	min-height: 200px;
 
-	.woocommerce-wcpay-benefits-benefit {
+	.poocommerce-wcpay-benefits-benefit {
 		flex-direction: column;
 		justify-content: start;
 		margin-left: 0;
@@ -13,7 +13,7 @@
 		align-items: start;
 		gap: $gap;
 
-		.woocommerce-wcpay-benefits-benefit-icon-container {
+		.poocommerce-wcpay-benefits-benefit-icon-container {
 			width: 48px;
 			height: 48px;
 			background-color: #F2EDFF;

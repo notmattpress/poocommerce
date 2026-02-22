@@ -2,8 +2,8 @@
 	"phpVersion": "8.2",
 	"core": "https://wordpress.org/wordpress-6.2.1.zip",
 	"plugins": [
-		"https://github.com/woocommerce/woocommerce/releases/download/nightly/woocommerce-trunk-nightly.zip",
-		"https://github.com/woocommerce/woocommerce/releases/download/wc-beta-tester-2.3.0/woocommerce-beta-tester.zip",
+		"https://github.com/poocommerce/poocommerce/releases/download/nightly/poocommerce-trunk-nightly.zip",
+		"https://github.com/poocommerce/poocommerce/releases/download/wc-beta-tester-2.3.0/poocommerce-beta-tester.zip",
 		"."
 	],
 	"config": {
@@ -15,6 +15,6 @@
 		"ALTERNATE_WP_CRON": true,
 	},
 	"lifecycleScripts": {
-		"afterStart": "npx wp-env run cli wp option update woocommerce_feature_product_block_editor_enabled 'yes'"
+		"afterStart": "npx wp-env run cli wp option update poocommerce_feature_product_block_editor_enabled 'yes'"
 	}
 }

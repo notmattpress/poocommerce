@@ -36,23 +36,23 @@ export function RemoveConfirmationModal( {
 					onCancel();
 				}
 			} }
-			className="woocommerce-remove-confirmation-modal"
+			className="poocommerce-remove-confirmation-modal"
 		>
-			<div className="woocommerce-remove-confirmation-modal__content">
+			<div className="poocommerce-remove-confirmation-modal__content">
 				{ description }
 			</div>
 
-			<div className="woocommerce-remove-confirmation-modal__buttons">
+			<div className="poocommerce-remove-confirmation-modal__buttons">
 				<Button
 					isDestructive
 					variant="primary"
 					isBusy={ isRemoving }
 					onClick={ handleRemoveClick }
 				>
-					{ __( 'Delete', 'woocommerce' ) }
+					{ __( 'Delete', 'poocommerce' ) }
 				</Button>
 				<Button variant="tertiary" onClick={ onCancel }>
-					{ __( 'Cancel', 'woocommerce' ) }
+					{ __( 'Cancel', 'poocommerce' ) }
 				</Button>
 			</div>
 		</Modal>

@@ -2,7 +2,7 @@
  * External dependencies
  */
 import type { Page } from '@playwright/test';
-import { WC_API_PATH } from '@woocommerce/e2e-utils-playwright';
+import { WC_API_PATH } from '@poocommerce/e2e-utils-playwright';
 
 /**
  * Internal dependencies
@@ -179,7 +179,7 @@ test.describe(
 
 		test.beforeAll( async ( { restApi } ) => {
 			calcTaxesState = await updateIfNeeded(
-				`general/woocommerce_calc_taxes`,
+				`general/poocommerce_calc_taxes`,
 				'no'
 			);
 
@@ -222,7 +222,7 @@ test.describe(
 			);
 
 			await resetValue(
-				`general/woocommerce_calc_taxes`,
+				`general/poocommerce_calc_taxes`,
 				calcTaxesState
 			);
 		} );
@@ -314,7 +314,7 @@ test.describe(
 
 		test.beforeAll( async ( { restApi } ) => {
 			calcTaxesState = await updateIfNeeded(
-				`general/woocommerce_calc_taxes`,
+				`general/poocommerce_calc_taxes`,
 				'no'
 			);
 
@@ -363,7 +363,7 @@ test.describe(
 			);
 
 			await resetValue(
-				`general/woocommerce_calc_taxes`,
+				`general/poocommerce_calc_taxes`,
 				calcTaxesState
 			);
 		} );
@@ -378,7 +378,7 @@ test.describe(
 				await page.locator( '#colour' ).selectOption( 'Red' );
 
 				let totalPrice = await page
-					.locator( '.woocommerce-variation-price' )
+					.locator( '.poocommerce-variation-price' )
 					.last()
 					.locator( 'bdi' )
 					.textContent();
@@ -394,7 +394,7 @@ test.describe(
 
 				// handling assertion this way because taxes may or may not be enabled
 				totalPrice = await page
-					.locator( '.woocommerce-variation-price' )
+					.locator( '.poocommerce-variation-price' )
 					.last()
 					.locator( 'bdi' )
 					.textContent();
@@ -410,7 +410,7 @@ test.describe(
 
 				// handling assertion this way because taxes may or may not be enabled
 				totalPrice = await page
-					.locator( '.woocommerce-variation-price' )
+					.locator( '.poocommerce-variation-price' )
 					.last()
 					.locator( 'bdi' )
 					.textContent();
@@ -449,12 +449,12 @@ test.describe(
 
 				await expect(
 					page.locator(
-						'.woocommerce-product-attributes-item--weight'
+						'.poocommerce-product-attributes-item--weight'
 					)
 				).toContainText( '100 lbs' );
 				await expect(
 					page.locator(
-						'.woocommerce-product-attributes-item--dimensions'
+						'.poocommerce-product-attributes-item--dimensions'
 					)
 				).toContainText( '5 × 10 × 10 in' );
 
@@ -473,12 +473,12 @@ test.describe(
 
 				await expect(
 					page.locator(
-						'.woocommerce-product-attributes-item--weight'
+						'.poocommerce-product-attributes-item--weight'
 					)
 				).toContainText( '400 lbs' );
 				await expect(
 					page.locator(
-						'.woocommerce-product-attributes-item--dimensions'
+						'.poocommerce-product-attributes-item--dimensions'
 					)
 				).toContainText( '20 × 40 × 30 in' );
 			}
@@ -522,12 +522,12 @@ test.describe(
 
 				await expect(
 					page.locator(
-						'.woocommerce-product-attributes-item--weight'
+						'.poocommerce-product-attributes-item--weight'
 					)
 				).toContainText( '100 lbs' );
 				await expect(
 					page.locator(
-						'.woocommerce-product-attributes-item--dimensions'
+						'.poocommerce-product-attributes-item--dimensions'
 					)
 				).toContainText( '5 × 10 × 10 in' );
 
@@ -556,7 +556,7 @@ test.describe(
 				await page.locator( '#size' ).selectOption( 'Small' );
 
 				let totalPrice = await page
-					.locator( '.woocommerce-variation-price' )
+					.locator( '.poocommerce-variation-price' )
 					.last()
 					.locator( 'bdi' )
 					.textContent();

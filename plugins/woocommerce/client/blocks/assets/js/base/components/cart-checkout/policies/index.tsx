@@ -7,7 +7,7 @@ import {
 	TERMS_URL,
 	PRIVACY_PAGE_NAME,
 	TERMS_PAGE_NAME,
-} from '@woocommerce/block-settings';
+} from '@poocommerce/block-settings';
 import { decodeEntities } from '@wordpress/html-entities';
 
 /**
@@ -27,7 +27,7 @@ const Policies = (): JSX.Element => {
 					>
 						{ PRIVACY_PAGE_NAME
 							? decodeEntities( PRIVACY_PAGE_NAME )
-							: __( 'Privacy Policy', 'woocommerce' ) }
+							: __( 'Privacy Policy', 'poocommerce' ) }
 					</a>
 				</li>
 			) }
@@ -40,7 +40,7 @@ const Policies = (): JSX.Element => {
 					>
 						{ TERMS_PAGE_NAME
 							? decodeEntities( TERMS_PAGE_NAME )
-							: __( 'Terms and Conditions', 'woocommerce' ) }
+							: __( 'Terms and Conditions', 'poocommerce' ) }
 					</a>
 				</li>
 			) }

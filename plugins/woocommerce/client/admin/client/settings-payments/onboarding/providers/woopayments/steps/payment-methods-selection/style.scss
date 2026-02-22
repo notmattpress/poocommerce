@@ -23,8 +23,8 @@
 			}
 		}
 
-		// Override styles for woocommerce list items.
-		.woocommerce-list {
+		// Override styles for poocommerce list items.
+		.poocommerce-list {
 			&__item {
 				padding: 2 * $gap-smaller 4 * $gap-smaller;
 				border-color: $gray-100;
@@ -32,7 +32,7 @@
 				&:hover {
 					background-color: $white;
 
-					.woocommerce-list__item-title {
+					.poocommerce-list__item-title {
 						color: $gray-900;
 					}
 				}
@@ -75,7 +75,7 @@
 				line-height: 20px;
 				color: $gray-700;
 
-				.woocommerce-woopayments-payment-methods-logos {
+				.poocommerce-woopayments-payment-methods-logos {
 					flex-wrap: wrap;
 				}
 			}
@@ -123,7 +123,7 @@
 		}
 	}
 
-	.woocommerce-recommended-payment-methods {
+	.poocommerce-recommended-payment-methods {
 		display: flex;
 		flex-direction: column;
 		height: 100%;
@@ -175,14 +175,14 @@
 				padding: $gap;
 			}
 
-			.woocommerce-settings-payments-header__title {
+			.poocommerce-settings-payments-header__title {
 				@media screen and (max-width: $break-medium) {
 					padding: 0 !important;
 				}
 			}
 		}
 
-		.woocommerce-recommended-payment-methods__error.components-notice {
+		.poocommerce-recommended-payment-methods__error.components-notice {
 			margin: $gap-small $gap-larger;
 
 			@media screen and (max-width: 1024px) {
@@ -198,7 +198,7 @@
 			}
 		}
 
-		.woocommerce-recommended-payment-methods__list {
+		.poocommerce-recommended-payment-methods__list {
 			flex: 1;
 			min-height: 0;
 			position: relative;
@@ -225,7 +225,7 @@
 			}
 		}
 
-		.woocommerce-recommended-payment-methods__list_footer {
+		.poocommerce-recommended-payment-methods__list_footer {
 			display: flex;
 			justify-content: flex-end;
 			padding: $gap-large calc($gap * 2);

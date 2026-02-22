@@ -1,26 +1,26 @@
 <?php
 /**
- * WooCommerce Admin Jetpack Marketing Note Provider.
+ * PooCommerce Admin Jetpack Marketing Note Provider.
  *
  * Adds notes to the merchant's inbox concerning Jetpack Backup.
  */
 
-namespace Automattic\WooCommerce\Internal\Admin\Notes;
+namespace Automattic\PooCommerce\Internal\Admin\Notes;
 
 defined( 'ABSPATH' ) || exit;
 
 use Automattic\Jetpack\Constants;
-use Automattic\WooCommerce\Admin\Notes\Note;
-use Automattic\WooCommerce\Admin\Notes\Notes;
-use Automattic\WooCommerce\Admin\Notes\NoteTraits;
-use Automattic\WooCommerce\Admin\PluginsHelper;
+use Automattic\PooCommerce\Admin\Notes\Note;
+use Automattic\PooCommerce\Admin\Notes\Notes;
+use Automattic\PooCommerce\Admin\Notes\NoteTraits;
+use Automattic\PooCommerce\Admin\PluginsHelper;
 
 /**
  * Suggest Jetpack Backup to Woo users.
  *
  * Note: This should probably live in the Jetpack plugin in the future.
  *
- * @see  https://developer.woocommerce.com/2020/10/16/using-the-admin-notes-inbox-in-woocommerce/
+ * @see  https://developer.poocommerce.com/2020/10/16/using-the-admin-notes-inbox-in-poocommerce/
  */
 class MarketingJetpack {
 	// Shared Note Traits.
@@ -101,8 +101,8 @@ class MarketingJetpack {
 	 */
 	public static function get_note() {
 		$note = new Note();
-		$note->set_title( __( 'Protect your WooCommerce Store with Jetpack Backup.', 'woocommerce' ) );
-		$note->set_content( __( 'Store downtime means lost sales. One-click restores get you back online quickly if something goes wrong.', 'woocommerce' ) );
+		$note->set_title( __( 'Protect your PooCommerce Store with Jetpack Backup.', 'poocommerce' ) );
+		$note->set_content( __( 'Store downtime means lost sales. One-click restores get you back online quickly if something goes wrong.', 'poocommerce' ) );
 		$note->set_type( Note::E_WC_ADMIN_NOTE_MARKETING );
 		$note->set_name( self::NOTE_NAME );
 		$note->set_layout( 'thumbnail' );
@@ -110,11 +110,11 @@ class MarketingJetpack {
 			WC_ADMIN_IMAGES_FOLDER_URL . '/admin_notes/marketing-jetpack-2x.png'
 		);
 		$note->set_content_data( (object) array() );
-		$note->set_source( 'woocommerce-admin-notes' );
+		$note->set_source( 'poocommerce-admin-notes' );
 		$note->add_action(
-			'jetpack-backup-woocommerce',
-			__( 'Get backups', 'woocommerce' ),
-			esc_url( 'https://jetpack.com/upgrade/backup-woocommerce/?utm_source=inbox&utm_medium=automattic_referred&utm_campaign=jp_backup_to_woo' ),
+			'jetpack-backup-poocommerce',
+			__( 'Get backups', 'poocommerce' ),
+			esc_url( 'https://jetpack.com/upgrade/backup-poocommerce/?utm_source=inbox&utm_medium=automattic_referred&utm_campaign=jp_backup_to_woo' ),
 			Note::E_WC_ADMIN_NOTE_ACTIONED
 		);
 		return $note;

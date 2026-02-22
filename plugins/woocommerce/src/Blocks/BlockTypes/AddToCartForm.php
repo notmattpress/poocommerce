@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Admin\Features\Features;
-use Automattic\WooCommerce\Blocks\Utils\StyleAttributesUtils;
-use Automattic\WooCommerce\Blocks\BlockTypes\AddToCartWithOptions\Utils;
-use Automattic\WooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Admin\Features\Features;
+use Automattic\PooCommerce\Blocks\Utils\StyleAttributesUtils;
+use Automattic\PooCommerce\Blocks\BlockTypes\AddToCartWithOptions\Utils;
+use Automattic\PooCommerce\Enums\ProductType;
 
 /**
  * AddToCartForm class.
@@ -78,10 +78,10 @@ class AddToCartForm extends AbstractBlock {
 		$pattern = '/(<input[^>]*id="quantity_[^"]*"[^>]*\/>)/';
 		// Replacement string to add button AFTER the matched <input> element.
 		/* translators: %s refers to the item name in the cart. */
-		$minus_button = '$1<button aria-label="' . esc_attr( sprintf( __( 'Reduce quantity of %s', 'woocommerce' ), $product_name ) ) . '" type="button" data-wp-on--click="actions.removeQuantity" class="wc-block-components-quantity-selector__button wc-block-components-quantity-selector__button--minus">−</button>';
+		$minus_button = '$1<button aria-label="' . esc_attr( sprintf( __( 'Reduce quantity of %s', 'poocommerce' ), $product_name ) ) . '" type="button" data-wp-on--click="actions.removeQuantity" class="wc-block-components-quantity-selector__button wc-block-components-quantity-selector__button--minus">−</button>';
 		// Replacement string to add button AFTER the matched <input> element.
 		/* translators: %s refers to the item name in the cart. */
-		$plus_button = '$1<button aria-label="' . esc_attr( sprintf( __( 'Increase quantity of %s', 'woocommerce' ), $product_name ) ) . '" type="button" data-wp-on--click="actions.addQuantity" class="wc-block-components-quantity-selector__button wc-block-components-quantity-selector__button--plus">+</button>';
+		$plus_button = '$1<button aria-label="' . esc_attr( sprintf( __( 'Increase quantity of %s', 'poocommerce' ), $product_name ) ) . '" type="button" data-wp-on--click="actions.addQuantity" class="wc-block-components-quantity-selector__button wc-block-components-quantity-selector__button--plus">+</button>';
 		$new_html    = preg_replace( $pattern, $plus_button, $product_html );
 		$new_html    = preg_replace( $pattern, $minus_button, $new_html );
 		return $new_html;
@@ -188,7 +188,7 @@ class AddToCartForm extends AbstractBlock {
 		$is_stepper_style = 'stepper' === $attributes['quantitySelectorStyle'] && ! $should_hide_quantity_selector;
 
 		if ( $is_descendent_of_single_product_block ) {
-			add_filter( 'woocommerce_add_to_cart_form_action', array( $this, 'add_to_cart_form_action' ), 10 );
+			add_filter( 'poocommerce_add_to_cart_form_action', array( $this, 'add_to_cart_form_action' ), 10 );
 		}
 
 		ob_start();
@@ -196,24 +196,24 @@ class AddToCartForm extends AbstractBlock {
 		/**
 		 * Manage variations in the same way as simple products.
 		 */
-		add_action( 'woocommerce_variation_add_to_cart', 'woocommerce_simple_add_to_cart', 10 );
+		add_action( 'poocommerce_variation_add_to_cart', 'poocommerce_simple_add_to_cart', 10 );
 
 		/**
 		 * Trigger the single product add to cart action for each product type.
 		 *
 		 * @since 9.7.0
 		 */
-		do_action( 'woocommerce_' . $product->get_type() . '_add_to_cart' );
+		do_action( 'poocommerce_' . $product->get_type() . '_add_to_cart' );
 
 		/**
 		 * Remove the hook to prevent potential conflicts with existing code and extensions.
 		 */
-		remove_action( 'woocommerce_variation_add_to_cart', 'woocommerce_simple_add_to_cart', 10 );
+		remove_action( 'poocommerce_variation_add_to_cart', 'poocommerce_simple_add_to_cart', 10 );
 
 		$product_html = ob_get_clean();
 
 		if ( $is_descendent_of_single_product_block ) {
-			remove_filter( 'woocommerce_add_to_cart_form_action', array( $this, 'add_to_cart_form_action' ), 10 );
+			remove_filter( 'poocommerce_add_to_cart_form_action', array( $this, 'add_to_cart_form_action' ), 10 );
 		}
 
 		if ( ! $product_html ) {
@@ -259,7 +259,7 @@ class AddToCartForm extends AbstractBlock {
 		$form = sprintf(
 			'<div %1$s %2$s>%3$s</div>',
 			$wrapper_attributes,
-			$is_stepper_style ? 'data-wp-interactive="woocommerce/add-to-cart-form"' : '',
+			$is_stepper_style ? 'data-wp-interactive="poocommerce/add-to-cart-form"' : '',
 			$product_html
 		);
 

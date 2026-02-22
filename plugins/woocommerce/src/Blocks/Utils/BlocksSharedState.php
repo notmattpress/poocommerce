@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Blocks\Utils;
+namespace Automattic\PooCommerce\Blocks\Utils;
 
 use InvalidArgumentException;
-use Automattic\WooCommerce\Blocks\Package;
-use Automattic\WooCommerce\Blocks\Domain\Services\Hydration;
+use Automattic\PooCommerce\Blocks\Package;
+use Automattic\PooCommerce\Blocks\Domain\Services\Hydration;
 
 /**
- * Manages the registration of interactivity config and state that is commonly shared by WooCommerce blocks.
+ * Manages the registration of interactivity config and state that is commonly shared by PooCommerce blocks.
  * Initialization only happens on the first call to load_store_config.
  *
  * This is a private API and may change in future versions.
@@ -21,14 +21,14 @@ class BlocksSharedState {
 	 *
 	 * @var string
 	 */
-	private static string $consent_statement = 'I acknowledge that using private APIs means my theme or plugin will inevitably break in the next version of WooCommerce';
+	private static string $consent_statement = 'I acknowledge that using private APIs means my theme or plugin will inevitably break in the next version of PooCommerce';
 
 	/**
 	 * The namespace for interactivity config and state.
 	 *
 	 * @var string
 	 */
-	private static string $settings_namespace = 'woocommerce';
+	private static string $settings_namespace = 'poocommerce';
 
 	/**
 	 * Whether the core config has been registered.
@@ -136,17 +136,17 @@ class BlocksSharedState {
 	 * @return array
 	 */
 	private static function get_currency_data(): array {
-		$currency = get_woocommerce_currency();
+		$currency = get_poocommerce_currency();
 
 		return array(
 			'currency' => array(
 				'code'              => $currency,
 				'precision'         => wc_get_price_decimals(),
-				'symbol'            => html_entity_decode( get_woocommerce_currency_symbol( $currency ) ),
-				'symbolPosition'    => get_option( 'woocommerce_currency_pos' ),
+				'symbol'            => html_entity_decode( get_poocommerce_currency_symbol( $currency ) ),
+				'symbolPosition'    => get_option( 'poocommerce_currency_pos' ),
 				'decimalSeparator'  => wc_get_price_decimal_separator(),
 				'thousandSeparator' => wc_get_price_thousand_separator(),
-				'priceFormat'       => html_entity_decode( get_woocommerce_price_format() ),
+				'priceFormat'       => html_entity_decode( get_poocommerce_price_format() ),
 			),
 		);
 	}
@@ -183,7 +183,7 @@ class BlocksSharedState {
 	private static function get_non_optimistic_properties(): array {
 		$properties = array();
 
-		if ( has_filter( 'woocommerce_cart_contents_count' ) ) {
+		if ( has_filter( 'poocommerce_cart_contents_count' ) ) {
 			$properties[] = 'cart.items_count';
 		}
 

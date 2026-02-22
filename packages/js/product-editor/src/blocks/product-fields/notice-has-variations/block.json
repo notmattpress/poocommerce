@@ -1,9 +1,9 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "woocommerce/product-has-variations-notice",
+	"name": "poocommerce/product-has-variations-notice",
 	"title": "Notice",
-	"category": "woocommerce",
+	"category": "poocommerce",
 	"description": "Notice description",
 	"keywords": [
 		"products",

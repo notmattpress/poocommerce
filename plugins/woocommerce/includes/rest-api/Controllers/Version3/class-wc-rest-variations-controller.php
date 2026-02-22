@@ -4,7 +4,7 @@
  *
  * Handles requests to the /variations endpoint.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @since   10.3.0
  */
 
@@ -15,7 +15,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * REST API variations controller class.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @extends WC_REST_Product_Variations_Controller
  */
 class WC_REST_Variations_Controller extends WC_REST_Product_Variations_Controller {

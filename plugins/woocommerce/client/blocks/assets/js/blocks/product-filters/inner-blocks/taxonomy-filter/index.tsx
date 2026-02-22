@@ -1,8 +1,8 @@
 /**
  * External dependencies
  */
-import { productFilterAttribute } from '@woocommerce/icons';
-import { getSetting } from '@woocommerce/settings';
+import { productFilterAttribute } from '@poocommerce/icons';
+import { getSetting } from '@poocommerce/settings';
 import { registerBlockType } from '@wordpress/blocks';
 import { __, sprintf } from '@wordpress/i18n';
 import { useBlockProps, useInnerBlocksProps } from '@wordpress/block-editor';
@@ -35,14 +35,14 @@ registerBlockType( metadata, {
 			name: `product-filter-taxonomy-${ item.name }`,
 			title: sprintf(
 				// translators: %s is the taxonomy label.
-				__( '%s Filter', 'woocommerce' ),
+				__( '%s Filter', 'poocommerce' ),
 				item.label
 			),
 			description: sprintf(
 				// translators: %s is the taxonomy label.
 				__(
 					`Enable customers to filter the product collection by selecting one or more %s terms.`,
-					'woocommerce'
+					'poocommerce'
 				),
 				item.label
 			),

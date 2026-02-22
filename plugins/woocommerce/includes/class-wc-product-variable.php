@@ -2,14 +2,14 @@
 /**
  * Variable Product
  *
- * The WooCommerce product class handles individual product data.
+ * The PooCommerce product class handles individual product data.
  *
  * @version 3.0.0
- * @package WooCommerce\Classes\Products
+ * @package PooCommerce\Classes\Products
  */
 
-use Automattic\WooCommerce\Enums\ProductType;
-use Automattic\WooCommerce\Enums\ProductStockStatus;
+use Automattic\PooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Enums\ProductStockStatus;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -67,7 +67,7 @@ class WC_Product_Variable extends WC_Product {
 		 *
 		 * @since 7.8.0
 		 */
-		return apply_filters( 'woocommerce_product_add_to_cart_aria_describedby', $this->is_purchasable() ? __( 'This product has multiple variants. The options may be chosen on the product page', 'woocommerce' ) : '', $this );
+		return apply_filters( 'poocommerce_product_add_to_cart_aria_describedby', $this->is_purchasable() ? __( 'This product has multiple variants. The options may be chosen on the product page', 'poocommerce' ) : '', $this );
 	}
 
 	/**
@@ -76,7 +76,7 @@ class WC_Product_Variable extends WC_Product {
 	 * @return string
 	 */
 	public function add_to_cart_text() {
-		return apply_filters( 'woocommerce_product_add_to_cart_text', $this->is_purchasable() ? __( 'Select options', 'woocommerce' ) : __( 'Read more', 'woocommerce' ), $this );
+		return apply_filters( 'poocommerce_product_add_to_cart_text', $this->is_purchasable() ? __( 'Select options', 'poocommerce' ) : __( 'Read more', 'poocommerce' ), $this );
 	}
 
 	/**
@@ -87,13 +87,13 @@ class WC_Product_Variable extends WC_Product {
 	 */
 	public function add_to_cart_description() {
 		/* translators: %s: Product title */
-		return apply_filters( 'woocommerce_product_add_to_cart_description', sprintf( __( 'Select options for &ldquo;%s&rdquo;', 'woocommerce' ), $this->get_name() ), $this );
+		return apply_filters( 'poocommerce_product_add_to_cart_description', sprintf( __( 'Select options for &ldquo;%s&rdquo;', 'poocommerce' ), $this->get_name() ), $this );
 	}
 
 	/**
 	 * Get an array of all sale and regular prices from all variations. This is used for example when displaying the price range at variable product level or seeing if the variable product is on sale.
 	 *
-	 * @param  bool $for_display If true, prices will be adapted for display based on the `woocommerce_tax_display_shop` setting (including or excluding taxes).
+	 * @param  bool $for_display If true, prices will be adapted for display based on the `poocommerce_tax_display_shop` setting (including or excluding taxes).
 	 * @return array Array of RAW prices, regular prices, and sale prices with keys set to variation ID.
 	 */
 	public function get_variation_prices( $for_display = false ) {
@@ -110,42 +110,42 @@ class WC_Product_Variable extends WC_Product {
 	 * Get the min or max variation regular price.
 	 *
 	 * @param  string  $min_or_max Min or max price.
-	 * @param  boolean $for_display If true, prices will be adapted for display based on the `woocommerce_tax_display_shop` setting (including or excluding taxes).
+	 * @param  boolean $for_display If true, prices will be adapted for display based on the `poocommerce_tax_display_shop` setting (including or excluding taxes).
 	 * @return string
 	 */
 	public function get_variation_regular_price( $min_or_max = 'min', $for_display = false ) {
 		$prices = $this->get_variation_prices( $for_display );
 		$price  = 'min' === $min_or_max ? current( $prices['regular_price'] ) : end( $prices['regular_price'] );
 
-		return apply_filters( 'woocommerce_get_variation_regular_price', $price, $this, $min_or_max, $for_display );
+		return apply_filters( 'poocommerce_get_variation_regular_price', $price, $this, $min_or_max, $for_display );
 	}
 
 	/**
 	 * Get the min or max variation sale price.
 	 *
 	 * @param  string  $min_or_max Min or max price.
-	 * @param  boolean $for_display If true, prices will be adapted for display based on the `woocommerce_tax_display_shop` setting (including or excluding taxes).
+	 * @param  boolean $for_display If true, prices will be adapted for display based on the `poocommerce_tax_display_shop` setting (including or excluding taxes).
 	 * @return string
 	 */
 	public function get_variation_sale_price( $min_or_max = 'min', $for_display = false ) {
 		$prices = $this->get_variation_prices( $for_display );
 		$price  = 'min' === $min_or_max ? current( $prices['sale_price'] ) : end( $prices['sale_price'] );
 
-		return apply_filters( 'woocommerce_get_variation_sale_price', $price, $this, $min_or_max, $for_display );
+		return apply_filters( 'poocommerce_get_variation_sale_price', $price, $this, $min_or_max, $for_display );
 	}
 
 	/**
 	 * Get the min or max variation (active) price.
 	 *
 	 * @param  string  $min_or_max Min or max price.
-	 * @param  boolean $for_display If true, prices will be adapted for display based on the `woocommerce_tax_display_shop` setting (including or excluding taxes).
+	 * @param  boolean $for_display If true, prices will be adapted for display based on the `poocommerce_tax_display_shop` setting (including or excluding taxes).
 	 * @return string
 	 */
 	public function get_variation_price( $min_or_max = 'min', $for_display = false ) {
 		$prices = $this->get_variation_prices( $for_display );
 		$price  = 'min' === $min_or_max ? current( $prices['price'] ) : end( $prices['price'] );
 
-		return apply_filters( 'woocommerce_get_variation_price', $price, $this, $min_or_max, $for_display );
+		return apply_filters( 'poocommerce_get_variation_price', $price, $this, $min_or_max, $for_display );
 	}
 
 	/**
@@ -168,7 +168,7 @@ class WC_Product_Variable extends WC_Product {
 		$prices = $this->get_variation_prices( true );
 
 		if ( empty( $prices['price'] ) ) {
-			$price = apply_filters( 'woocommerce_variable_empty_price_html', '', $this );
+			$price = apply_filters( 'poocommerce_variable_empty_price_html', '', $this );
 		} else {
 			$min_price     = current( $prices['price'] );
 			$max_price     = end( $prices['price'] );
@@ -183,10 +183,10 @@ class WC_Product_Variable extends WC_Product {
 				$price = wc_price( $min_price );
 			}
 
-			$price = apply_filters( 'woocommerce_variable_price_html', $price . $this->get_price_suffix(), $this );
+			$price = apply_filters( 'poocommerce_variable_price_html', $price . $this->get_price_suffix(), $this );
 		}
 
-		return apply_filters( 'woocommerce_get_price_html', $price, $this );
+		return apply_filters( 'poocommerce_get_price_html', $price, $this );
 	}
 
 	/**
@@ -201,10 +201,10 @@ class WC_Product_Variable extends WC_Product {
 	 * @return string
 	 */
 	public function get_price_suffix( $price = '', $qty = 1 ) {
-		$suffix = get_option( 'woocommerce_price_display_suffix' );
+		$suffix = get_option( 'poocommerce_price_display_suffix' );
 
 		if ( strstr( $suffix, '{' ) ) {
-			return apply_filters( 'woocommerce_get_price_suffix', '', $this, $price, $qty );
+			return apply_filters( 'poocommerce_get_price_suffix', '', $this, $price, $qty );
 		} else {
 			return parent::get_price_suffix( $price, $qty );
 		}
@@ -231,7 +231,7 @@ class WC_Product_Variable extends WC_Product {
 			$this->set_visible_children( $children['visible'] );
 		}
 
-		return apply_filters( 'woocommerce_get_children', $this->children, $this, false );
+		return apply_filters( 'poocommerce_get_children', $this->children, $this, false );
 	}
 
 	/**
@@ -248,7 +248,7 @@ class WC_Product_Variable extends WC_Product {
 			$this->set_children( $children['all'] );
 			$this->set_visible_children( $children['visible'] );
 		}
-		return apply_filters( 'woocommerce_get_children', $this->visible_children, $this, true );
+		return apply_filters( 'poocommerce_get_children', $this->visible_children, $this, true );
 	}
 
 	/**
@@ -326,7 +326,7 @@ class WC_Product_Variable extends WC_Product {
 	 */
 	public function get_available_variations( $return = 'array' ) {
 		$variation_ids           = $this->get_children();
-		$hide_out_of_stock_items = ( 'yes' === get_option( 'woocommerce_hide_out_of_stock_items' ) );
+		$hide_out_of_stock_items = ( 'yes' === get_option( 'poocommerce_hide_out_of_stock_items' ) );
 		$available_variations    = array();
 
 		if ( is_callable( '_prime_post_caches' ) ) {
@@ -343,7 +343,7 @@ class WC_Product_Variable extends WC_Product {
 			}
 
 			/**
-			 * Filter 'woocommerce_hide_invisible_variations' to optionally hide invisible variations (disabled variations and variations with empty price).
+			 * Filter 'poocommerce_hide_invisible_variations' to optionally hide invisible variations (disabled variations and variations with empty price).
 			 *
 			 * @since 2.6.8
 			 *
@@ -351,7 +351,7 @@ class WC_Product_Variable extends WC_Product {
 			 * @param  int                   $product_id  The ID of the variation.
 			 * @param  WC_Product_Variation  $variation   The variation object.
 			 */
-			if ( apply_filters( 'woocommerce_hide_invisible_variations', true, $this->get_id(), $variation ) && ! $variation->variation_is_visible() ) {
+			if ( apply_filters( 'poocommerce_hide_invisible_variations', true, $this->get_id(), $variation ) && ! $variation->variation_is_visible() ) {
 				continue;
 			}
 
@@ -415,10 +415,10 @@ class WC_Product_Variable extends WC_Product {
 			return false;
 		}
 		// See if prices should be shown for each variation after selection.
-		$show_variation_price = apply_filters( 'woocommerce_show_variation_price', $variation->get_price() === '' || $this->get_variation_sale_price( 'min' ) !== $this->get_variation_sale_price( 'max' ) || $this->get_variation_regular_price( 'min' ) !== $this->get_variation_regular_price( 'max' ), $this, $variation );
+		$show_variation_price = apply_filters( 'poocommerce_show_variation_price', $variation->get_price() === '' || $this->get_variation_sale_price( 'min' ) !== $this->get_variation_sale_price( 'max' ) || $this->get_variation_regular_price( 'min' ) !== $this->get_variation_regular_price( 'max' ), $this, $variation );
 
 		return apply_filters(
-			'woocommerce_available_variation',
+			'poocommerce_available_variation',
 			array(
 				'attributes'            => $variation->get_variation_attributes(),
 				'availability_html'     => wc_get_stock_html( $variation ),
@@ -507,7 +507,7 @@ class WC_Product_Variable extends WC_Product {
 
 	/**
 	 * Do any extra processing needed before the actual product save
-	 * (but after triggering the 'woocommerce_before_..._object_save' action)
+	 * (but after triggering the 'poocommerce_before_..._object_save' action)
 	 *
 	 * @return mixed A state value that will be passed to after_data_store_save_or_update.
 	 */
@@ -524,7 +524,7 @@ class WC_Product_Variable extends WC_Product {
 
 	/**
 	 * Do any extra processing needed after the actual product save
-	 * (but before triggering the 'woocommerce_after_..._object_save' action)
+	 * (but before triggering the 'poocommerce_after_..._object_save' action)
 	 *
 	 * @param mixed $state The state object that was returned by before_data_store_save_or_update.
 	 */
@@ -549,7 +549,7 @@ class WC_Product_Variable extends WC_Product {
 		$prices  = $this->get_variation_prices();
 		$on_sale = $prices['regular_price'] !== $prices['sale_price'] && $prices['sale_price'] === $prices['price'];
 
-		return 'view' === $context ? apply_filters( 'woocommerce_product_is_on_sale', $on_sale, $this ) : $on_sale;
+		return 'view' === $context ? apply_filters( 'poocommerce_product_is_on_sale', $on_sale, $this ) : $on_sale;
 	}
 
 	/**
@@ -631,7 +631,7 @@ class WC_Product_Variable extends WC_Product {
 	 * @return boolean
 	 */
 	public function has_options() {
-		return apply_filters( 'woocommerce_product_has_options', true, $this );
+		return apply_filters( 'poocommerce_product_has_options', true, $this );
 	}
 
 
@@ -659,20 +659,20 @@ class WC_Product_Variable extends WC_Product {
 			$data_store->sync_stock_status( $product );
 			self::sync_attributes( $product ); // Legacy update of attributes.
 
-			do_action( 'woocommerce_variable_product_sync_data', $product );
+			do_action( 'poocommerce_variable_product_sync_data', $product );
 
 			if ( $save ) {
 				$product->save();
 			}
 
 			wc_do_deprecated_action(
-				'woocommerce_variable_product_sync',
+				'poocommerce_variable_product_sync',
 				array(
 					$product->get_id(),
 					$product->get_visible_children(),
 				),
 				'3.0',
-				'woocommerce_variable_product_sync_data, woocommerce_new_product or woocommerce_update_product'
+				'poocommerce_variable_product_sync_data, poocommerce_new_product or poocommerce_update_product'
 			);
 		}
 

@@ -33,4 +33,4 @@ By default, the report shows stock ordered by stock quantity ascending.
 Two of the report columns contain clickable entries:
 
 - `Product` link opens the Products report for that coupon code
-- `Status` link opens the WooCommerce Edit Product screen for that product
+- `Status` link opens the PooCommerce Edit Product screen for that product

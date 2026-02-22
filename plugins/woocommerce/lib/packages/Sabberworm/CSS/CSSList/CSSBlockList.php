@@ -1,15 +1,15 @@
 <?php
 
-namespace Automattic\WooCommerce\Vendor\Sabberworm\CSS\CSSList;
+namespace Automattic\PooCommerce\Vendor\Sabberworm\CSS\CSSList;
 
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\CSSElement;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\Property\Selector;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\Rule\Rule;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\RuleSet\DeclarationBlock;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\RuleSet\RuleSet;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\Value\CSSFunction;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\Value\Value;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\Value\ValueList;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\CSSElement;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\Property\Selector;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\Rule\Rule;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\RuleSet\DeclarationBlock;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\RuleSet\RuleSet;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\Value\CSSFunction;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\Value\Value;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\Value\ValueList;
 
 /**
  * A `CSSBlockList` is a `CSSList` whose `DeclarationBlock`s are guaranteed to contain valid declaration blocks or

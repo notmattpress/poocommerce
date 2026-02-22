@@ -3,7 +3,7 @@
  * Handles storage and retrieval of admin notes
  */
 
-namespace Automattic\WooCommerce\Admin\Notes;
+namespace Automattic\PooCommerce\Admin\Notes;
 
 use WC_Site_Tracking;
 
@@ -25,7 +25,7 @@ class Notes {
 	public static function init() {
 		add_action( 'admin_init', array( __CLASS__, 'schedule_unsnooze_notes' ) );
 		add_action( 'admin_init', array( __CLASS__, 'possibly_delete_survey_notes' ) );
-		add_action( 'update_option_woocommerce_show_marketplace_suggestions', array( __CLASS__, 'possibly_delete_marketing_notes' ), 10, 2 );
+		add_action( 'update_option_poocommerce_show_marketplace_suggestions', array( __CLASS__, 'possibly_delete_marketing_notes' ), 10, 2 );
 		add_action( self::UNSNOOZE_HOOK, array( __CLASS__, 'unsnooze_notes' ) );
 	}
 
@@ -49,7 +49,7 @@ class Notes {
 				 * @since 6.9.0
 				 * @param Note $note The note object from the database.
 				 */
-				$note                               = apply_filters( 'woocommerce_get_note_from_db', $note );
+				$note                               = apply_filters( 'poocommerce_get_note_from_db', $note );
 				$note_id                            = $note->get_id();
 				$notes[ $note_id ]                  = $note->get_data();
 				$notes[ $note_id ]['name']          = $note->get_name( $context );
@@ -359,7 +359,7 @@ class Notes {
 		 * @param string $name The triggered action name.
 		 * @param Note   $note The corresponding Note.
 		 */
-		do_action( 'woocommerce_note_action', $triggered_action->name, $note );
+		do_action( 'poocommerce_note_action', $triggered_action->name, $note );
 
 		/**
 		 * Fires when an admin note action is taken.
@@ -367,7 +367,7 @@ class Notes {
 		 *
 		 * @param Note $note The corresponding Note.
 		 */
-		do_action( 'woocommerce_note_action_' . $triggered_action->name, $note );
+		do_action( 'poocommerce_note_action_' . $triggered_action->name, $note );
 
 		// Update the note with the status for this action.
 		if ( ! empty( $triggered_action->status ) ) {
@@ -473,8 +473,8 @@ class Notes {
 			return \WC_Data_Store::load( 'admin-note' );
 		} catch ( \Exception $e ) {
 			throw new NotesUnavailableException(
-				'woocommerce_admin_notes_unavailable',
-				__( 'Notes are unavailable because the "admin-note" data store cannot be loaded.', 'woocommerce' )
+				'poocommerce_admin_notes_unavailable',
+				__( 'Notes are unavailable because the "admin-note" data store cannot be loaded.', 'poocommerce' )
 			);
 		}
 	}

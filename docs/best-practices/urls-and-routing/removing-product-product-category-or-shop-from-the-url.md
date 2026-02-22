@@ -1,10 +1,10 @@
 ---
-post_title: Understanding the risks of removing URL bases in WooCommerce
+post_title: Understanding the risks of removing URL bases in PooCommerce
 sidebar_label: Risks of removing URL bases
 
 ---
 
-# Understanding the risks of removing URL bases in WooCommerce
+# Understanding the risks of removing URL bases in PooCommerce
 
 ## In sum
 

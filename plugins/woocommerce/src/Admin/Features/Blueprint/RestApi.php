@@ -2,21 +2,21 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Admin\Features\Blueprint;
+namespace Automattic\PooCommerce\Admin\Features\Blueprint;
 
-use Automattic\WooCommerce\Blueprint\Exporters\ExportInstallPluginSteps;
-use Automattic\WooCommerce\Blueprint\Exporters\ExportInstallThemeSteps;
-use Automattic\WooCommerce\Blueprint\ExportSchema;
-use Automattic\WooCommerce\Blueprint\ImportStep;
-use Automattic\WooCommerce\Internal\ComingSoon\ComingSoonHelper;
+use Automattic\PooCommerce\Blueprint\Exporters\ExportInstallPluginSteps;
+use Automattic\PooCommerce\Blueprint\Exporters\ExportInstallThemeSteps;
+use Automattic\PooCommerce\Blueprint\ExportSchema;
+use Automattic\PooCommerce\Blueprint\ImportStep;
+use Automattic\PooCommerce\Internal\ComingSoon\ComingSoonHelper;
 use WP_Error;
 
 /**
  * Class RestApi
  *
- * This class handles the REST API endpoints for importing and exporting WooCommerce Blueprints.
+ * This class handles the REST API endpoints for importing and exporting PooCommerce Blueprints.
  *
- * @package Automattic\WooCommerce\Admin\Features\Blueprint
+ * @package Automattic\PooCommerce\Admin\Features\Blueprint
  */
 class RestApi {
 	/**
@@ -57,7 +57,7 @@ class RestApi {
 		 * @since 9.3.0
 		 * @param int $max_size Maximum file size in bytes.
 		 */
-		return apply_filters( 'woocommerce_blueprint_upload_max_file_size', self::MAX_FILE_SIZE );
+		return apply_filters( 'poocommerce_blueprint_upload_max_file_size', self::MAX_FILE_SIZE );
 	}
 
 	/**
@@ -76,7 +76,7 @@ class RestApi {
 					'permission_callback' => array( $this, 'check_export_permission' ),
 					'args'                => array(
 						'steps' => array(
-							'description' => __( 'A list of plugins to install', 'woocommerce' ),
+							'description' => __( 'A list of plugins to install', 'poocommerce' ),
 							'type'        => 'object',
 							'properties'  => array(
 								'settings' => array(
@@ -116,7 +116,7 @@ class RestApi {
 					'permission_callback' => array( $this, 'check_import_permission' ),
 					'args'                => array(
 						'step_definition' => array(
-							'description' => __( 'The step definition to import', 'woocommerce' ),
+							'description' => __( 'The step definition to import', 'poocommerce' ),
 							'type'        => 'object',
 							'required'    => true,
 						),
@@ -134,7 +134,7 @@ class RestApi {
 					'methods'             => \WP_REST_Server::READABLE,
 					'callback'            => array( $this, 'get_import_allowed' ),
 					'permission_callback' => function () {
-						return current_user_can( 'manage_woocommerce' );
+						return current_user_can( 'manage_poocommerce' );
 					},
 				),
 				'schema' => array( $this, 'get_import_allowed_schema' ),
@@ -148,8 +148,8 @@ class RestApi {
 	 * @return bool|\WP_Error
 	 */
 	public function check_export_permission() {
-		if ( ! current_user_can( 'manage_woocommerce' ) ) {
-			return new \WP_Error( 'woocommerce_rest_cannot_view', __( 'Sorry, you cannot export WooCommerce Blueprints.', 'woocommerce' ), array( 'status' => rest_authorization_required_code() ) );
+		if ( ! current_user_can( 'manage_poocommerce' ) ) {
+			return new \WP_Error( 'poocommerce_rest_cannot_view', __( 'Sorry, you cannot export PooCommerce Blueprints.', 'poocommerce' ), array( 'status' => rest_authorization_required_code() ) );
 		}
 		return true;
 	}
@@ -161,10 +161,10 @@ class RestApi {
 	 */
 	public function check_import_permission() {
 		if (
-			! current_user_can( 'manage_woocommerce' ) ||
+			! current_user_can( 'manage_poocommerce' ) ||
 			! current_user_can( 'manage_options' )
 		) {
-			return new \WP_Error( 'woocommerce_rest_cannot_view', __( 'Sorry, you cannot import WooCommerce Blueprints.', 'woocommerce' ), array( 'status' => rest_authorization_required_code() ) );
+			return new \WP_Error( 'poocommerce_rest_cannot_view', __( 'Sorry, you cannot import PooCommerce Blueprints.', 'poocommerce' ), array( 'status' => rest_authorization_required_code() ) );
 		}
 		return true;
 	}
@@ -277,7 +277,7 @@ class RestApi {
 				'success'  => false,
 				'messages' => array(
 					array(
-						'message' => __( 'Blueprint imports are disabled', 'woocommerce' ),
+						'message' => __( 'Blueprint imports are disabled', 'poocommerce' ),
 						'type'    => 'error',
 					),
 				),
@@ -297,7 +297,7 @@ class RestApi {
 					array(
 						'message' => sprintf(
 							// Translators: %s is the maximum file size in megabytes.
-							__( 'Blueprint step definition size exceeds maximum limit of %s MB', 'woocommerce' ),
+							__( 'Blueprint step definition size exceeds maximum limit of %s MB', 'poocommerce' ),
 							( $this->get_max_file_size() / ( 1024 * 1024 ) )
 						),
 						'type'    => 'error',
@@ -373,7 +373,7 @@ class RestApi {
 			'type'       => 'object',
 			'properties' => array(
 				'import_allowed' => array(
-					'description' => __( 'Whether blueprint imports are currently allowed', 'woocommerce' ),
+					'description' => __( 'Whether blueprint imports are currently allowed', 'poocommerce' ),
 					'type'        => 'boolean',
 					'context'     => array( 'view' ),
 					'readonly'    => true,

@@ -28,24 +28,24 @@ export function Notice( {
 }: NoticeProps ) {
 	return (
 		<div
-			className={ clsx( className, type, 'woocommerce-product-notice', {
+			className={ clsx( className, type, 'poocommerce-product-notice', {
 				'is-dismissible': isDismissible,
 			} ) }
 		>
 			{ title && (
-				<h3 className="woocommerce-product-notice__title">{ title }</h3>
+				<h3 className="poocommerce-product-notice__title">{ title }</h3>
 			) }
 			{ content && (
-				<p className="woocommerce-product-notice__content">
+				<p className="poocommerce-product-notice__content">
 					{ content }
 				</p>
 			) }
-			<div className="woocommerce-product-notice__content">
+			<div className="poocommerce-product-notice__content">
 				{ children }
 			</div>
 			{ isDismissible && (
 				<Button
-					className="woocommerce-product-notice__dismiss"
+					className="poocommerce-product-notice__dismiss"
 					icon={ closeSmall }
 					onClick={ handleDismiss }
 				/>

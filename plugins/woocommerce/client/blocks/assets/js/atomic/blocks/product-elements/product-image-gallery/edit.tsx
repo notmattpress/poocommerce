@@ -3,7 +3,7 @@
  */
 import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
 import { Disabled } from '@wordpress/components';
-import { PLACEHOLDER_IMG_SRC } from '@woocommerce/settings';
+import { PLACEHOLDER_IMG_SRC } from '@poocommerce/settings';
 import { BlockEditProps } from '@wordpress/blocks';
 
 /**

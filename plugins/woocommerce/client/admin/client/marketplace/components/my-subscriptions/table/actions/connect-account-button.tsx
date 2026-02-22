@@ -24,7 +24,7 @@ export default function ConnectAccountButton( props: RenewProps ) {
 	}
 	return (
 		<Button href={ url.href } variant={ props.variant ?? 'secondary' }>
-			{ __( 'Connect Account', 'woocommerce' ) }
+			{ __( 'Connect Account', 'poocommerce' ) }
 		</Button>
 	);
 }

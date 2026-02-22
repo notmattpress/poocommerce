@@ -1,13 +1,13 @@
 <?php
 /**
- * WooCommerce Settings.
+ * PooCommerce Settings.
  */
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Admin\Features\Settings;
+namespace Automattic\PooCommerce\Admin\Features\Settings;
 
-use Automattic\WooCommerce\Internal\Admin\WCAdminAssets;
+use Automattic\PooCommerce\Internal\Admin\WCAdminAssets;
 
 /**
  * Contains backend logic for the Settings feature.
@@ -31,26 +31,26 @@ class Init {
 	}
 
 	/**
-	 * Hook into WooCommerce.
+	 * Hook into PooCommerce.
 	 */
 	public function __construct() {
 		if ( ! is_admin() ) {
 			return;
 		}
 
-		add_filter( 'woocommerce_admin_shared_settings', array( __CLASS__, 'add_component_settings' ) );
+		add_filter( 'poocommerce_admin_shared_settings', array( __CLASS__, 'add_component_settings' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_settings_editor_scripts' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_settings_editor_styles' ) );
 	}
 
 	/**
-	 * Check if the current screen is the WooCommerce settings page.
+	 * Check if the current screen is the PooCommerce settings page.
 	 *
 	 * @return bool
 	 */
 	public function is_settings_page() {
 		$screen = get_current_screen();
-		return $screen && 'woocommerce_page_wc-settings' === $screen->id;
+		return $screen && 'poocommerce_page_wc-settings' === $screen->id;
 	}
 
 	/**
@@ -71,7 +71,7 @@ class Init {
 			$style_name,
 			WCAdminAssets::get_url( $style_path_name . '/style', 'css' ),
 			// Manually set dependencies for now, because the asset file is not being generated correctly.
-			// See plugins/woocommerce/assets/client/admin/settings-editor/style.asset.php. Should be: `isset( $style_assets['dependencies'] ) ? $style_assets['dependencies'] : array(),`.
+			// See plugins/poocommerce/assets/client/admin/settings-editor/style.asset.php. Should be: `isset( $style_assets['dependencies'] ) ? $style_assets['dependencies'] : array(),`.
 			array( 'wp-components', 'wc-components' ),
 			WCAdminAssets::get_file_version( 'css', $style_assets['version'] ),
 		);
@@ -109,11 +109,11 @@ class Init {
 			true
 		);
 
-		wp_set_script_translations( 'wc-admin-' . $script_name, 'woocommerce' );
+		wp_set_script_translations( 'wc-admin-' . $script_name, 'poocommerce' );
 	}
 
 	/**
-	 * Add the necessary data to initially load the WooCommerce Settings pages.
+	 * Add the necessary data to initially load the PooCommerce Settings pages.
 	 *
 	 * @param array $settings Array of component settings.
 	 * @return array Array of component settings.
@@ -128,12 +128,12 @@ class Init {
 		// Set the scripts that all settings pages should have.
 		$ignored_settings_scripts                = array(
 			'wc-admin-app',
-			'woocommerce_admin',
+			'poocommerce_admin',
 			'wc-settings-editor',
 			'wc-admin-edit-settings',
 			'woo-tracks',
-			'woocommerce-admin-test-helper',
-			'woocommerce-beta-tester-live-branches',
+			'poocommerce-admin-test-helper',
+			'poocommerce-beta-tester-live-branches',
 			'WCPAY_DASH_APP',
 		);
 		$default_scripts_handles                 = array_diff(
@@ -165,7 +165,7 @@ class Init {
 		 *
 		 * @param array $available_pages The available pages.
 		 */
-		$available_pages = apply_filters( 'woocommerce_settings_tabs_array', array() );
+		$available_pages = apply_filters( 'poocommerce_settings_tabs_array', array() );
 		$pages           = array();
 
 		foreach ( $setting_pages as $setting_page ) {
@@ -182,7 +182,7 @@ class Init {
 
 		$transformer                          = new Transformer();
 		$settings['settingsData']['pages']    = $transformer->transform( $pages );
-		$settings['settingsData']['start']    = $setting_pages[0]->get_custom_view( 'woocommerce_settings_start' );
+		$settings['settingsData']['start']    = $setting_pages[0]->get_custom_view( 'poocommerce_settings_start' );
 		$settings['settingsData']['_wpnonce'] = wp_create_nonce( 'wp_rest' );
 
 		return $settings;

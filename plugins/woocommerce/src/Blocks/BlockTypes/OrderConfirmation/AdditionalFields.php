@@ -1,9 +1,9 @@
 <?php
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes\OrderConfirmation;
+namespace Automattic\PooCommerce\Blocks\BlockTypes\OrderConfirmation;
 
-use Automattic\WooCommerce\Blocks\Package;
-use Automattic\WooCommerce\Blocks\Domain\Services\CheckoutFields;
+use Automattic\PooCommerce\Blocks\Package;
+use Automattic\PooCommerce\Blocks\Domain\Services\CheckoutFields;
 
 /**
  * AdditionalFields class.

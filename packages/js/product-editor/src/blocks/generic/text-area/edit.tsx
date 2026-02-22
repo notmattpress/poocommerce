@@ -3,7 +3,7 @@
  */
 import { LegacyRef } from 'react';
 import { __ } from '@wordpress/i18n';
-import { useWooBlockProps } from '@woocommerce/block-templates';
+import { useWooBlockProps } from '@poocommerce/block-templates';
 import { createElement, useRef } from '@wordpress/element';
 import { BaseControl, TextareaControl } from '@wordpress/components';
 import { useInstanceId } from '@wordpress/compose';
@@ -43,13 +43,13 @@ export function TextAreaBlockEdit( {
 		mode = 'rich-text',
 	} = attributes;
 	const blockProps = useWooBlockProps( attributes, {
-		className: 'wp-block-woocommerce-product-text-area-field',
+		className: 'wp-block-poocommerce-product-text-area-field',
 		style: { direction },
 	} );
 
 	const contentId = useInstanceId(
 		TextAreaBlockEdit,
-		'wp-block-woocommerce-product-content-field__content'
+		'wp-block-poocommerce-product-content-field__content'
 	);
 
 	const labelId = contentId.toString() + '__label';
@@ -57,7 +57,7 @@ export function TextAreaBlockEdit( {
 	// `property` attribute is required.
 	if ( ! property ) {
 		throw new Error(
-			__( 'Property attribute is required.', 'woocommerce' )
+			__( 'Property attribute is required.', 'poocommerce' )
 		);
 	}
 

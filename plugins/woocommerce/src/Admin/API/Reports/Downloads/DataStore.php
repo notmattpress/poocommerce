@@ -3,14 +3,14 @@
  * API\Reports\Downloads\DataStore class file.
  */
 
-namespace Automattic\WooCommerce\Admin\API\Reports\Downloads;
+namespace Automattic\PooCommerce\Admin\API\Reports\Downloads;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\API\Reports\DataStore as ReportsDataStore;
-use Automattic\WooCommerce\Admin\API\Reports\DataStoreInterface;
-use Automattic\WooCommerce\Admin\API\Reports\TimeInterval;
-use Automattic\WooCommerce\Admin\API\Reports\SqlQuery;
+use Automattic\PooCommerce\Admin\API\Reports\DataStore as ReportsDataStore;
+use Automattic\PooCommerce\Admin\API\Reports\DataStoreInterface;
+use Automattic\PooCommerce\Admin\API\Reports\TimeInterval;
+use Automattic\PooCommerce\Admin\API\Reports\SqlQuery;
 
 /**
  * API\Reports\Downloads\DataStore.
@@ -89,7 +89,7 @@ class DataStore extends ReportsDataStore implements DataStoreInterface {
 		global $wpdb;
 
 		$lookup_table     = self::get_db_table_name();
-		$permission_table = $wpdb->prefix . 'woocommerce_downloadable_product_permissions';
+		$permission_table = $wpdb->prefix . 'poocommerce_downloadable_product_permissions';
 		$operator         = $this->get_match_operator( $query_args );
 		$where_filters    = array();
 		$join             = "JOIN {$permission_table} as product_permissions ON {$lookup_table}.permission_id = product_permissions.permission_id";
@@ -232,7 +232,7 @@ class DataStore extends ReportsDataStore implements DataStoreInterface {
 			 * @param string $field      The object type.
 			 * @param string $context    The data store context.
 			 */
-			$ip_addresses = apply_filters( 'woocommerce_analytics_' . $field, $ip_addresses, $query_args, $field, $this->context );
+			$ip_addresses = apply_filters( 'poocommerce_analytics_' . $field, $ip_addresses, $query_args, $field, $this->context );
 
 			return implode( "','", $ip_addresses );
 		}

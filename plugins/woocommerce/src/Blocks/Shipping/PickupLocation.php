@@ -1,5 +1,5 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\Shipping;
+namespace Automattic\PooCommerce\Blocks\Shipping;
 
 use WC_Shipping_Method;
 
@@ -28,8 +28,8 @@ class PickupLocation extends WC_Shipping_Method {
 	public function __construct() {
 		parent::__construct();
 		$this->id                 = 'pickup_location';
-		$this->method_title       = __( 'Local pickup', 'woocommerce' );
-		$this->method_description = __( 'Allow customers to choose a local pickup location during checkout.', 'woocommerce' );
+		$this->method_title       = __( 'Local pickup', 'poocommerce' );
+		$this->method_description = __( 'Allow customers to choose a local pickup location during checkout.', 'poocommerce' );
 		$this->init();
 	}
 
@@ -38,12 +38,12 @@ class PickupLocation extends WC_Shipping_Method {
 	 */
 	public function init() {
 		$this->enabled          = $this->get_option( 'enabled' );
-		$this->title            = $this->get_option( 'title', __( 'Pickup', 'woocommerce' ) );
+		$this->title            = $this->get_option( 'title', __( 'Pickup', 'poocommerce' ) );
 		$this->tax_status       = $this->get_option( 'tax_status' );
 		$this->cost             = $this->get_option( 'cost' );
 		$this->supports         = [ 'settings', 'local-pickup' ];
 		$this->pickup_locations = get_option( $this->id . '_pickup_locations', [] );
-		add_filter( 'woocommerce_attribute_label', array( $this, 'translate_meta_data' ), 10, 3 );
+		add_filter( 'poocommerce_attribute_label', array( $this, 'translate_meta_data' ), 10, 3 );
 	}
 
 	/**
@@ -124,8 +124,8 @@ class PickupLocation extends WC_Shipping_Method {
 	 * @return bool
 	 */
 	public function is_available( $package ) {
-		// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
-		return apply_filters( 'woocommerce_shipping_' . $this->id . '_is_available', 'yes' === $this->enabled, $package, $this );
+		// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
+		return apply_filters( 'poocommerce_shipping_' . $this->id . '_is_available', 'yes' === $this->enabled, $package, $this );
 	}
 
 	/**
@@ -142,11 +142,11 @@ class PickupLocation extends WC_Shipping_Method {
 		}
 		switch ( $name ) {
 			case 'pickup_location':
-				return __( 'Pickup location', 'woocommerce' );
+				return __( 'Pickup location', 'poocommerce' );
 			case 'pickup_address':
-				return __( 'Pickup address', 'woocommerce' );
+				return __( 'Pickup address', 'poocommerce' );
 			case 'pickup_details':
-				return __( 'Pickup details', 'woocommerce' );
+				return __( 'Pickup details', 'poocommerce' );
 		}
 		return $label;
 	}
@@ -162,7 +162,7 @@ class PickupLocation extends WC_Shipping_Method {
 
 		wp_enqueue_script( 'wc-shipping-method-pickup-location' );
 
-		echo '<h2>' . esc_html__( 'Local pickup', 'woocommerce' ) . '</h2>';
+		echo '<h2>' . esc_html__( 'Local pickup', 'poocommerce' ) . '</h2>';
 		echo '<div class="wrap"><div id="wc-shipping-method-pickup-location-settings-container"></div></div>';
 	}
 }

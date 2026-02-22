@@ -1,1 +1,1 @@
-export const STORE_NAME = 'woocommerce-navigation' as const;
+export const STORE_NAME = 'poocommerce-navigation' as const;

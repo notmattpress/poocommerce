@@ -45,7 +45,7 @@ const getResetEmailTemplateAction = () => {
 	 */
 	const resetEmailTemplate = {
 		id: 'reset-email-template',
-		label: __( 'Reset', 'woocommerce' ),
+		label: __( 'Reset', 'poocommerce' ),
 		supportsBulk: false,
 		icon: backup,
 		isEligible( item: PostWithPermissions ) {
@@ -83,7 +83,7 @@ const getResetEmailTemplateAction = () => {
 				// translators: %s: The template's title
 				__(
 					'Are you sure you want to reset "%s" to default?',
-					'woocommerce'
+					'poocommerce'
 				),
 				getItemTitle( item )
 			);
@@ -103,7 +103,7 @@ const getResetEmailTemplateAction = () => {
 							disabled={ isBusy }
 							__next40pxDefaultSize
 						>
-							{ __( 'Cancel', 'woocommerce' ) }
+							{ __( 'Cancel', 'poocommerce' ) }
 						</Button>
 						<Button
 							variant="primary"
@@ -163,7 +163,7 @@ const getResetEmailTemplateAction = () => {
 										/* translators: The template's title. */
 										__(
 											'"%s" reset to default.',
-											'woocommerce'
+											'poocommerce'
 										),
 										getItemTitle( item )
 									);
@@ -179,7 +179,7 @@ const getResetEmailTemplateAction = () => {
 								} catch ( error ) {
 									let errorMessage = __(
 										'An error occurred while resetting the template.',
-										'woocommerce'
+										'poocommerce'
 									);
 
 									if (
@@ -206,7 +206,7 @@ const getResetEmailTemplateAction = () => {
 							disabled={ isBusy }
 							__next40pxDefaultSize
 						>
-							{ __( 'Reset', 'woocommerce' ) }
+							{ __( 'Reset', 'poocommerce' ) }
 						</Button>
 					</HStack>
 				</VStack>

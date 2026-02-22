@@ -1,11 +1,11 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\Settings;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\Settings;
 
-use Automattic\WooCommerce\Internal\Admin\Settings\PaymentsProviders;
-use Automattic\WooCommerce\Internal\Admin\Settings\Payments;
-use Automattic\WooCommerce\Internal\Admin\Settings\PaymentsRestController;
+use Automattic\PooCommerce\Internal\Admin\Settings\PaymentsProviders;
+use Automattic\PooCommerce\Internal\Admin\Settings\Payments;
+use Automattic\PooCommerce\Internal\Admin\Settings\PaymentsRestController;
 use PHPUnit\Framework\MockObject\MockObject;
 use WC_REST_Unit_Test_Case;
 use WP_REST_Request;
@@ -67,7 +67,7 @@ class PaymentsRestControllerTest extends WC_REST_Unit_Test_Case {
 		// Arrange.
 		// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
 		$filter_callback = fn( $caps ) => array(
-			'manage_woocommerce' => false,
+			'manage_poocommerce' => false,
 			'install_plugins'    => false,
 		);
 		add_filter( 'user_has_cap', $filter_callback );
@@ -92,7 +92,7 @@ class PaymentsRestControllerTest extends WC_REST_Unit_Test_Case {
 		// Arrange.
 		// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
 		$filter_callback = fn( $caps ) => array(
-			'manage_woocommerce' => true,
+			'manage_poocommerce' => true,
 			'install_plugins'    => false,
 		);
 		add_filter( 'user_has_cap', $filter_callback );
@@ -184,7 +184,7 @@ class PaymentsRestControllerTest extends WC_REST_Unit_Test_Case {
 
 		// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
 		$filter_callback = fn( $caps ) => array(
-			'manage_woocommerce' => true,
+			'manage_poocommerce' => true,
 			'install_plugins'    => true,
 		);
 		add_filter( 'user_has_cap', $filter_callback );
@@ -452,7 +452,7 @@ class PaymentsRestControllerTest extends WC_REST_Unit_Test_Case {
 		$this->mock_extension_suggestions( 'LI' );
 		$this->mock_extension_suggestions_categories();
 
-		update_option( 'woocommerce_default_country', 'LI' ); // Liechtenstein.
+		update_option( 'poocommerce_default_country', 'LI' ); // Liechtenstein.
 
 		// Act.
 		$request  = new WP_REST_Request( 'POST', self::ENDPOINT . '/providers' );
@@ -480,7 +480,7 @@ class PaymentsRestControllerTest extends WC_REST_Unit_Test_Case {
 		$this->assertCount( 3, $data['suggestion_categories'] );
 
 		// Clean up.
-		delete_option( 'woocommerce_default_country' );
+		delete_option( 'poocommerce_default_country' );
 	}
 
 	/**
@@ -865,31 +865,31 @@ class PaymentsRestControllerTest extends WC_REST_Unit_Test_Case {
 				'short_description' => 'Credit/debit cards, Apple Pay, Google Pay and more.',
 				'plugin'            => array(
 					'_type'  => 'wporg',
-					'slug'   => 'woocommerce-payments',
+					'slug'   => 'poocommerce-payments',
 					'status' => 'not_installed',
 				),
-				'image'             => 'http://localhost:8888/wp-content/plugins/woocommerce/assets/images/onboarding/woopayments.svg',
-				'icon'              => 'http://localhost:8888/wp-content/plugins/woocommerce/assets/images/onboarding/woopayments.svg',
+				'image'             => 'http://localhost:8888/wp-content/plugins/poocommerce/assets/images/onboarding/woopayments.svg',
+				'icon'              => 'http://localhost:8888/wp-content/plugins/poocommerce/assets/images/onboarding/woopayments.svg',
 				'links'             => array(
 					array(
 						'_type' => 'pricing',
-						'url'   => 'https://woocommerce.com/document/woopayments/fees-and-debits/',
+						'url'   => 'https://poocommerce.com/document/woopayments/fees-and-debits/',
 					),
 					array(
 						'_type' => 'about',
-						'url'   => 'https://woocommerce.com/payments/',
+						'url'   => 'https://poocommerce.com/payments/',
 					),
 					array(
 						'_type' => 'terms',
-						'url'   => 'https://woocommerce.com/document/woopayments/our-policies/',
+						'url'   => 'https://poocommerce.com/document/woopayments/our-policies/',
 					),
 					array(
 						'_type' => 'documentation',
-						'url'   => 'https://woocommerce.com/document/woopayments/',
+						'url'   => 'https://poocommerce.com/document/woopayments/',
 					),
 					array(
 						'_type' => 'support',
-						'url'   => 'https://woocommerce.com/my-account/contact-support/?select=woopayments',
+						'url'   => 'https://poocommerce.com/my-account/contact-support/?select=woopayments',
 					),
 				),
 				'tags'              => array(
@@ -912,15 +912,15 @@ class PaymentsRestControllerTest extends WC_REST_Unit_Test_Case {
 				'short_description' => '',
 				'plugin'            => array(
 					'_type'  => 'wporg',
-					'slug'   => 'woocommerce-paypal-payments',
+					'slug'   => 'poocommerce-paypal-payments',
 					'status' => 'not_installed',
 				),
-				'image'             => 'http://localhost:8888/wp-content/plugins/woocommerce/assets/images/onboarding/paypal.png',
-				'icon'              => 'http://localhost:8888/wp-content/plugins/woocommerce/assets/images/payment_methods/72x72/paypal.png',
+				'image'             => 'http://localhost:8888/wp-content/plugins/poocommerce/assets/images/onboarding/paypal.png',
+				'icon'              => 'http://localhost:8888/wp-content/plugins/poocommerce/assets/images/payment_methods/72x72/paypal.png',
 				'links'             => array(
 					array(
 						'_type' => 'about',
-						'url'   => 'https://woocommerce.com/products/woocommerce-paypal-payments/',
+						'url'   => 'https://poocommerce.com/products/poocommerce-paypal-payments/',
 					),
 					array(
 						'_type' => 'terms',
@@ -928,7 +928,7 @@ class PaymentsRestControllerTest extends WC_REST_Unit_Test_Case {
 					),
 					array(
 						'_type' => 'support',
-						'url'   => 'https://woocommerce.com/my-account/contact-support/?select=woocommerce-paypal-payments',
+						'url'   => 'https://poocommerce.com/my-account/contact-support/?select=poocommerce-paypal-payments',
 					),
 				),
 				'tags'              => array(
@@ -950,7 +950,7 @@ class PaymentsRestControllerTest extends WC_REST_Unit_Test_Case {
 				'_type'       => PaymentsProviders::TYPE_OFFLINE_PMS_GROUP,
 				'title'       => 'Offline Payment Methods',
 				'description' => 'Allow shoppers to pay offline.',
-				'icon'        => 'http://localhost:8888/wp-content/plugins/woocommerce/assets/images/payment_methods/cod.svg',
+				'icon'        => 'http://localhost:8888/wp-content/plugins/poocommerce/assets/images/payment_methods/cod.svg',
 			);
 			$mock_providers[] = array(
 				'id'          => WC_Gateway_BACS::ID,
@@ -963,15 +963,15 @@ class PaymentsRestControllerTest extends WC_REST_Unit_Test_Case {
 				),
 				'plugin'      => array(
 					'_type'  => 'wporg',
-					'slug'   => 'woocommerce',
-					'file'   => 'woocommerce/woocommerce',
+					'slug'   => 'poocommerce',
+					'file'   => 'poocommerce/poocommerce',
 					'status' => 'active',
 				),
-				'icon'        => 'http://localhost:8888/wp-content/plugins/woocommerce/assets/images/payment_methods/bacs.svg',
+				'icon'        => 'http://localhost:8888/wp-content/plugins/poocommerce/assets/images/payment_methods/bacs.svg',
 				'links'       => array(
 					array(
 						'_type' => 'about',
-						'url'   => 'https://woocommerce.com/',
+						'url'   => 'https://poocommerce.com/',
 					),
 				),
 				'state'       => array(
@@ -999,15 +999,15 @@ class PaymentsRestControllerTest extends WC_REST_Unit_Test_Case {
 				),
 				'plugin'      => array(
 					'_type'  => 'wporg',
-					'slug'   => 'woocommerce',
-					'file'   => 'woocommerce/woocommerce',
+					'slug'   => 'poocommerce',
+					'file'   => 'poocommerce/poocommerce',
 					'status' => 'active',
 				),
-				'icon'        => 'http://localhost:8888/wp-content/plugins/woocommerce/assets/images/payment_methods/cheque.svg',
+				'icon'        => 'http://localhost:8888/wp-content/plugins/poocommerce/assets/images/payment_methods/cheque.svg',
 				'links'       => array(
 					array(
 						'_type' => 'about',
-						'url'   => 'https://woocommerce.com/',
+						'url'   => 'https://poocommerce.com/',
 					),
 				),
 				'state'       => array(
@@ -1035,15 +1035,15 @@ class PaymentsRestControllerTest extends WC_REST_Unit_Test_Case {
 				),
 				'plugin'      => array(
 					'_type'  => 'wporg',
-					'slug'   => 'woocommerce',
-					'file'   => 'woocommerce/woocommerce',
+					'slug'   => 'poocommerce',
+					'file'   => 'poocommerce/poocommerce',
 					'status' => 'active',
 				),
-				'icon'        => 'http://localhost:8888/wp-content/plugins/woocommerce/assets/images/payment_methods/cod.svg',
+				'icon'        => 'http://localhost:8888/wp-content/plugins/poocommerce/assets/images/payment_methods/cod.svg',
 				'links'       => array(
 					array(
 						'_type' => 'about',
-						'url'   => 'https://woocommerce.com/',
+						'url'   => 'https://poocommerce.com/',
 					),
 				),
 				'state'       => array(
@@ -1088,13 +1088,13 @@ class PaymentsRestControllerTest extends WC_REST_Unit_Test_Case {
 				'links'       => array(
 					array(
 						'_type' => 'about',
-						'url'   => 'https://woocommerce.com/paypal',
+						'url'   => 'https://poocommerce.com/paypal',
 					),
 				),
 				'plugin'      => array(
 					'_type'  => 'wporg',
-					'slug'   => 'woocommerce',
-					'file'   => 'woocommerce/woocommerce',
+					'slug'   => 'poocommerce',
+					'file'   => 'poocommerce/poocommerce',
 					'status' => 'active',
 				),
 			);
@@ -1138,7 +1138,7 @@ class PaymentsRestControllerTest extends WC_REST_Unit_Test_Case {
 						'description' => 'WooPayments',
 						'plugin'      => array(
 							'_type'  => 'wporg',
-							'slug'   => 'woocommerce-payments',
+							'slug'   => 'poocommerce-payments',
 							'status' => 'not_installed',
 						),
 						'image'       => 'https://example.com/image.png',
@@ -1146,7 +1146,7 @@ class PaymentsRestControllerTest extends WC_REST_Unit_Test_Case {
 						'links'       => array(
 							array(
 								'_type' => 'link',
-								'url'   => 'https://woocommerce.com/payments',
+								'url'   => 'https://poocommerce.com/payments',
 							),
 						),
 						'tags'        => array( 'preferred' ),
@@ -1168,7 +1168,7 @@ class PaymentsRestControllerTest extends WC_REST_Unit_Test_Case {
 						'links'       => array(
 							array(
 								'_type' => 'link',
-								'url'   => 'https://woocommerce.com/payments',
+								'url'   => 'https://poocommerce.com/payments',
 							),
 						),
 						'tags'        => array( 'preferred' ),
@@ -1192,7 +1192,7 @@ class PaymentsRestControllerTest extends WC_REST_Unit_Test_Case {
 						'links'       => array(
 							array(
 								'_type' => 'link',
-								'url'   => 'https://woocommerce.com/stripe',
+								'url'   => 'https://poocommerce.com/stripe',
 							),
 						),
 						'tags'        => array(),
@@ -1214,7 +1214,7 @@ class PaymentsRestControllerTest extends WC_REST_Unit_Test_Case {
 						'links'       => array(
 							array(
 								'_type' => 'link',
-								'url'   => 'https://woocommerce.com/affirm',
+								'url'   => 'https://poocommerce.com/affirm',
 							),
 						),
 						'tags'        => array(),
@@ -1237,20 +1237,20 @@ class PaymentsRestControllerTest extends WC_REST_Unit_Test_Case {
 					array(
 						'id'          => 'category1',
 						'_priority'   => 10,
-						'title'       => esc_html__( 'Category1', 'woocommerce' ),
-						'description' => esc_html__( 'Description.', 'woocommerce' ),
+						'title'       => esc_html__( 'Category1', 'poocommerce' ),
+						'description' => esc_html__( 'Description.', 'poocommerce' ),
 					),
 					array(
 						'id'          => 'category2',
 						'_priority'   => 20,
-						'title'       => esc_html__( 'Category2', 'woocommerce' ),
-						'description' => esc_html__( 'Description.', 'woocommerce' ),
+						'title'       => esc_html__( 'Category2', 'poocommerce' ),
+						'description' => esc_html__( 'Description.', 'poocommerce' ),
 					),
 					array(
 						'id'          => 'category3',
 						'_priority'   => 30,
-						'title'       => esc_html__( 'Category3', 'woocommerce' ),
-						'description' => esc_html__( 'Description.', 'woocommerce' ),
+						'title'       => esc_html__( 'Category3', 'poocommerce' ),
+						'description' => esc_html__( 'Description.', 'poocommerce' ),
 					),
 				)
 			);

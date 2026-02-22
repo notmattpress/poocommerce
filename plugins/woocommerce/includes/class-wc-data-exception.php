@@ -1,10 +1,10 @@
 <?php
 /**
- * WooCommerce Data Exception Class
+ * PooCommerce Data Exception Class
  *
  * Extends Exception to provide additional data.
  *
- * @package WooCommerce\Classes
+ * @package PooCommerce\Classes
  * @since   3.0.0
  */
 
@@ -32,7 +32,7 @@ class WC_Data_Exception extends Exception {
 	/**
 	 * Setup exception.
 	 *
-	 * @param string $code             Machine-readable error code, e.g `woocommerce_invalid_product_id`.
+	 * @param string $code             Machine-readable error code, e.g `poocommerce_invalid_product_id`.
 	 * @param string $message          User-friendly translated error message, e.g. 'Product ID is invalid'.
 	 * @param int    $http_status_code Proper HTTP status code to respond with, e.g. 400.
 	 * @param array  $data             Extra error data.

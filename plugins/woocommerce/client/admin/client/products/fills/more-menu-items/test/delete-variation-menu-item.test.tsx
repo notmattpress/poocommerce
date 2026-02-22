@@ -3,7 +3,7 @@
  */
 import { render, fireEvent } from '@testing-library/react';
 import { useSelect, useDispatch } from '@wordpress/data';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 import { useParams } from 'react-router-dom';
 
 /**
@@ -16,7 +16,7 @@ jest.mock( '@wordpress/data', () => ( {
 	useDispatch: jest.fn(),
 	useSelect: jest.fn(),
 } ) );
-jest.mock( '@woocommerce/tracks', () => ( { recordEvent: jest.fn() } ) );
+jest.mock( '@poocommerce/tracks', () => ( { recordEvent: jest.fn() } ) );
 
 jest.mock( 'react-router-dom', () => ( { useParams: jest.fn() } ) );
 
@@ -27,7 +27,7 @@ jest.mock( '@wordpress/core-data', () => ( {
 		.mockImplementation( ( _1, _2, propType ) => [ propType ] ),
 } ) );
 
-jest.mock( '@woocommerce/product-editor', () => ( {
+jest.mock( '@poocommerce/product-editor', () => ( {
 	RemoveConfirmationModal: jest.fn(),
 	__experimentalUseVariationSwitcher: jest.fn().mockReturnValue( {
 		invalidateVariationList: jest.fn(),

@@ -2,7 +2,7 @@
 /**
  * Payment_Tokens class file.
  *
- * @package WooCommerce\Tests\Payment_Tokens
+ * @package PooCommerce\Tests\Payment_Tokens
  */
 
 /**

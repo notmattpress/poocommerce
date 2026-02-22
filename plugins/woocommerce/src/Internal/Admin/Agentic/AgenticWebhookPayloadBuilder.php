@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Internal\Admin\Agentic;
+namespace Automattic\PooCommerce\Internal\Admin\Agentic;
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\StoreApi\Formatters\MoneyFormatter;
-use Automattic\WooCommerce\StoreApi\Routes\V1\Agentic\Enums\OrderMetaKey;
-use Automattic\WooCommerce\Internal\Agentic\Enums\Specs\OrderStatus as ACPOrderStatus;
-use Automattic\WooCommerce\Internal\Agentic\Enums\Specs\RefundType;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\StoreApi\Formatters\MoneyFormatter;
+use Automattic\PooCommerce\StoreApi\Routes\V1\Agentic\Enums\OrderMetaKey;
+use Automattic\PooCommerce\Internal\Agentic\Enums\Specs\OrderStatus as ACPOrderStatus;
+use Automattic\PooCommerce\Internal\Agentic\Enums\Specs\RefundType;
 use WC_Logger_Interface;
 use WC_Order;
 use WC_Order_Refund;
@@ -68,16 +68,16 @@ class AgenticWebhookPayloadBuilder {
 	}
 
 	/**
-	 * Map WooCommerce order status to ACP status.
+	 * Map PooCommerce order status to ACP status.
 	 *
 	 * ACP statuses: created, manual_review, confirmed, canceled, shipped, fulfilled
 	 *
-	 * @param string $wc_status WooCommerce order status.
+	 * @param string $wc_status PooCommerce order status.
 	 * @return string ACP status.
 	 */
 	private function map_order_status( string $wc_status ): string {
 		$status_map = array(
-			// WooCommerce status => ACP status.
+			// PooCommerce status => ACP status.
 			OrderStatus::PENDING    => ACPOrderStatus::CREATED,
 			OrderStatus::PROCESSING => ACPOrderStatus::CONFIRMED,
 			OrderStatus::ON_HOLD    => ACPOrderStatus::MANUAL_REVIEW,
@@ -88,19 +88,19 @@ class AgenticWebhookPayloadBuilder {
 		);
 
 		/**
-		 * Filter the WooCommerce to ACP order status mapping.
+		 * Filter the PooCommerce to ACP order status mapping.
 		 *
-		 * Allows extensions to map custom WooCommerce order statuses to ACP order statuses.
+		 * Allows extensions to map custom PooCommerce order statuses to ACP order statuses.
 		 * The mapped status must be one of: created, manual_review, confirmed, canceled, shipped, fulfilled.
 		 *
-		 * @see Automattic\WooCommerce\Internal\Agentic\Enums\Specs\OrderStatus
+		 * @see Automattic\PooCommerce\Internal\Agentic\Enums\Specs\OrderStatus
 		 *
 		 * @since 10.3.0
 		 *
-		 * @param array  $status_map Associative array of WooCommerce status => ACP status.
-		 * @param string $wc_status  The WooCommerce order status being mapped.
+		 * @param array  $status_map Associative array of PooCommerce status => ACP status.
+		 * @param string $wc_status  The PooCommerce order status being mapped.
 		 */
-		$status_map = apply_filters( 'woocommerce_agentic_webhook_order_status_map', $status_map, $wc_status );
+		$status_map = apply_filters( 'poocommerce_agentic_webhook_order_status_map', $status_map, $wc_status );
 
 		// Get mapped status or default to 'created'.
 		$mapped_status = isset( $status_map[ $wc_status ] ) ? $status_map[ $wc_status ] : ACPOrderStatus::CREATED;
@@ -110,7 +110,7 @@ class AgenticWebhookPayloadBuilder {
 			// Log a warning for invalid status but continue with fallback.
 			wc_get_logger()->warning(
 				sprintf(
-					'Invalid ACP order status "%s" returned by woocommerce_agentic_webhook_order_status_map filter for WooCommerce status "%s". Using "created" as fallback.',
+					'Invalid ACP order status "%s" returned by poocommerce_agentic_webhook_order_status_map filter for PooCommerce status "%s". Using "created" as fallback.',
 					$mapped_status,
 					$wc_status
 				),
@@ -174,6 +174,6 @@ class AgenticWebhookPayloadBuilder {
 		 * @param string          $refund_type The refund type ('store_credit' or 'original_payment').
 		 * @param WC_Order_Refund $refund      The refund object.
 		 */
-		return apply_filters( 'woocommerce_agentic_webhook_refund_type', $refund_type, $refund );
+		return apply_filters( 'poocommerce_agentic_webhook_refund_type', $refund_type, $refund );
 	}
 }

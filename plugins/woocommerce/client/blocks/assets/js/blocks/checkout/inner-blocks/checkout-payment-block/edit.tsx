@@ -6,15 +6,15 @@ import { __ } from '@wordpress/i18n';
 import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
 import { PanelBody, ExternalLink } from '@wordpress/components';
 import { payment } from '@wordpress/icons';
-import { ADMIN_URL, getSetting } from '@woocommerce/settings';
-import ExternalLinkCard from '@woocommerce/editor-components/external-link-card';
-import { innerBlockAreas } from '@woocommerce/blocks-checkout';
-import Noninteractive from '@woocommerce/base-components/noninteractive';
-import { GlobalPaymentMethod } from '@woocommerce/types';
+import { ADMIN_URL, getSetting } from '@poocommerce/settings';
+import ExternalLinkCard from '@poocommerce/editor-components/external-link-card';
+import { innerBlockAreas } from '@poocommerce/blocks-checkout';
+import Noninteractive from '@poocommerce/base-components/noninteractive';
+import { GlobalPaymentMethod } from '@poocommerce/types';
 import { select } from '@wordpress/data';
-import { paymentStore } from '@woocommerce/block-data';
-import { blocksConfig } from '@woocommerce/block-settings';
-import { trimCharacters, trimWords } from '@woocommerce/utils';
+import { paymentStore } from '@poocommerce/block-data';
+import { blocksConfig } from '@poocommerce/block-settings';
+import { trimCharacters, trimWords } from '@poocommerce/utils';
 
 /**
  * Internal dependencies
@@ -47,7 +47,7 @@ export const Edit = ( {
 
 	const incompatiblePaymentMethodMessage = __(
 		'Incompatible with block-based checkout',
-		'woocommerce'
+		'poocommerce'
 	);
 	const wordCountType = blocksConfig.wordCountType;
 
@@ -62,11 +62,11 @@ export const Edit = ( {
 		>
 			<InspectorControls>
 				{ globalPaymentMethods.length > 0 && (
-					<PanelBody title={ __( 'Methods', 'woocommerce' ) }>
+					<PanelBody title={ __( 'Methods', 'poocommerce' ) }>
 						<p className="wc-block-checkout__controls-text">
 							{ __(
 								'You currently have the following payment integrations active.',
-								'woocommerce'
+								'poocommerce'
 							) }
 						</p>
 						{ globalPaymentMethods.map( ( method ) => {
@@ -111,7 +111,7 @@ export const Edit = ( {
 						<ExternalLink
 							href={ `${ ADMIN_URL }admin.php?page=wc-settings&tab=checkout` }
 						>
-							{ __( 'Manage payment methods', 'woocommerce' ) }
+							{ __( 'Manage payment methods', 'poocommerce' ) }
 						</ExternalLink>
 					</PanelBody>
 				) }
@@ -121,14 +121,14 @@ export const Edit = ( {
 					noPaymentMethods={
 						<ConfigurePlaceholder
 							icon={ payment }
-							label={ __( 'Payment options', 'woocommerce' ) }
+							label={ __( 'Payment options', 'poocommerce' ) }
 							description={ __(
 								'Your store does not have any payment methods that support the Checkout block. Once you have configured a compatible payment method it will be displayed here.',
-								'woocommerce'
+								'poocommerce'
 							) }
 							buttonLabel={ __(
 								'Configure Payment Options',
-								'woocommerce'
+								'poocommerce'
 							) }
 							buttonHref={ `${ ADMIN_URL }admin.php?page=wc-settings&tab=checkout` }
 						/>

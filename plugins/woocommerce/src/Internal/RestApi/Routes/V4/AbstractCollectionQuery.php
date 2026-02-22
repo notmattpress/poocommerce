@@ -2,13 +2,13 @@
 /**
  * AbstractCollectionQuery class.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @internal This file is for internal use only and should not be used by external code.
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\RestApi\Routes\V4;
+namespace Automattic\PooCommerce\Internal\RestApi\Routes\V4;
 
 defined( 'ABSPATH' ) || exit;
 

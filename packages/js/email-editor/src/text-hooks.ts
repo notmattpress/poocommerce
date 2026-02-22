@@ -19,14 +19,14 @@ export const initTextHooks = (): void => {
 				domain: 'default',
 				replacementText: __(
 					'You’ve tried to select a block that is part of a template that may be used in other emails. Would you like to edit the template?',
-					'woocommerce'
+					'poocommerce'
 				),
 			},
 	};
 
 	addFilterForEmail(
 		'i18n.gettext',
-		'woocommerce/email-editor/override-text',
+		'poocommerce/email-editor/override-text',
 		( translation, text, domain ) => {
 			if (
 				replaceTextMatrix[ text ] &&

@@ -3,7 +3,7 @@
  */
 import { useEntityProp } from '@wordpress/core-data';
 import { getDate, isInTheFuture, date as parseDate } from '@wordpress/date';
-import type { ProductStatus } from '@woocommerce/data';
+import type { ProductStatus } from '@poocommerce/data';
 
 /**
  * Internal dependencies

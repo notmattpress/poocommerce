@@ -1,5 +1,5 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
 /**
  * CartOrderSummaryBlock class.
@@ -33,7 +33,7 @@ class CartOrderSummaryBlock extends AbstractInnerBlock {
 	 * @return string Regex pattern.
 	 */
 	private function inner_block_regex( $block_name ) {
-		return '/<div data-block-name="woocommerce\/cart-order-summary-' . $block_name . '-block"(.+?)>(.*?)<\/div>/si';
+		return '/<div data-block-name="poocommerce\/cart-order-summary-' . $block_name . '-block"(.+?)>(.*?)<\/div>/si';
 	}
 
 	/**
@@ -47,8 +47,8 @@ class CartOrderSummaryBlock extends AbstractInnerBlock {
 	protected function render( $attributes, $content, $block ) {
 		// The order-summary-totals block was introduced as a new parent block for the totals
 		// (subtotal, discount, fees, shipping and taxes) blocks.
-		$regex_for_cart_order_summary_totals = '/<div data-block-name="woocommerce\/cart-order-summary-totals-block"(.+?)>/';
-		$order_summary_totals_content        = '<div data-block-name="woocommerce/cart-order-summary-totals-block" class="wp-block-woocommerce-cart-order-summary-totals-block">';
+		$regex_for_cart_order_summary_totals = '/<div data-block-name="poocommerce\/cart-order-summary-totals-block"(.+?)>/';
+		$order_summary_totals_content        = '<div data-block-name="poocommerce/cart-order-summary-totals-block" class="wp-block-poocommerce-cart-order-summary-totals-block">';
 
 		$totals_inner_blocks = array( 'subtotal', 'discount', 'fee', 'shipping', 'taxes' ); // We want to move these blocks inside a parent 'totals' block.
 

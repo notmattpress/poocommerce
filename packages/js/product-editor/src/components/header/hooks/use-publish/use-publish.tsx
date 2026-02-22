@@ -4,7 +4,7 @@
 import { MouseEvent } from 'react';
 import { useEntityProp } from '@wordpress/core-data';
 import { __ } from '@wordpress/i18n';
-import type { Product } from '@woocommerce/data';
+import type { Product } from '@poocommerce/data';
 import { useShortcut } from '@wordpress/keyboard-shortcuts';
 
 /**
@@ -59,14 +59,14 @@ export function usePublish< T = Product >( {
 
 	function getButtonText() {
 		if ( isScheduled ) {
-			return __( 'Schedule', 'woocommerce' );
+			return __( 'Schedule', 'poocommerce' );
 		}
 
 		if ( prevStatus === 'publish' || prevStatus === 'future' ) {
-			return __( 'Update', 'woocommerce' );
+			return __( 'Update', 'poocommerce' );
 		}
 
-		return __( 'Publish', 'woocommerce' );
+		return __( 'Publish', 'poocommerce' );
 	}
 
 	useShortcut( 'core/editor/save', ( event ) => {

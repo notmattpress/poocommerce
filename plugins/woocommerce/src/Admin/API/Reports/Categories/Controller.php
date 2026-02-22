@@ -5,20 +5,20 @@
  * Handles requests to the /reports/categories endpoint.
  */
 
-namespace Automattic\WooCommerce\Admin\API\Reports\Categories;
+namespace Automattic\PooCommerce\Admin\API\Reports\Categories;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\API\Reports\ExportableInterface;
-use Automattic\WooCommerce\Admin\API\Reports\GenericController;
-use Automattic\WooCommerce\Admin\API\Reports\GenericQuery;
-use Automattic\WooCommerce\Admin\API\Reports\OrderAwareControllerTrait;
+use Automattic\PooCommerce\Admin\API\Reports\ExportableInterface;
+use Automattic\PooCommerce\Admin\API\Reports\GenericController;
+use Automattic\PooCommerce\Admin\API\Reports\GenericQuery;
+use Automattic\PooCommerce\Admin\API\Reports\OrderAwareControllerTrait;
 
 /**
  * REST API Reports categories controller class.
  *
  * @internal
- * @extends \Automattic\WooCommerce\Admin\API\Reports\GenericController
+ * @extends \Automattic\PooCommerce\Admin\API\Reports\GenericController
  */
 class Controller extends GenericController implements ExportableInterface {
 
@@ -89,13 +89,13 @@ class Controller extends GenericController implements ExportableInterface {
 		 * @param object           $report   The original report object.
 		 * @param WP_REST_Request  $request  Request used to generate the response.
 		 */
-		return apply_filters( 'woocommerce_rest_prepare_report_categories', $response, $report, $request );
+		return apply_filters( 'poocommerce_rest_prepare_report_categories', $response, $report, $request );
 	}
 
 	/**
 	 * Prepare links for the request.
 	 *
-	 * @param \Automattic\WooCommerce\Admin\API\Reports\GenericQuery $object Object data.
+	 * @param \Automattic\PooCommerce\Admin\API\Reports\GenericQuery $object Object data.
 	 * @return array
 	 */
 	protected function prepare_links( $object ) {
@@ -120,31 +120,31 @@ class Controller extends GenericController implements ExportableInterface {
 			'type'       => 'object',
 			'properties' => array(
 				'category_id'    => array(
-					'description' => __( 'Category ID.', 'woocommerce' ),
+					'description' => __( 'Category ID.', 'poocommerce' ),
 					'type'        => 'integer',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'items_sold'     => array(
-					'description' => __( 'Amount of items sold.', 'woocommerce' ),
+					'description' => __( 'Amount of items sold.', 'poocommerce' ),
 					'type'        => 'integer',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'net_revenue'    => array(
-					'description' => __( 'Total sales.', 'woocommerce' ),
+					'description' => __( 'Total sales.', 'poocommerce' ),
 					'type'        => 'number',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'orders_count'   => array(
-					'description' => __( 'Number of orders.', 'woocommerce' ),
+					'description' => __( 'Number of orders.', 'poocommerce' ),
 					'type'        => 'integer',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'products_count' => array(
-					'description' => __( 'Amount of products.', 'woocommerce' ),
+					'description' => __( 'Amount of products.', 'poocommerce' ),
 					'type'        => 'integer',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
@@ -154,7 +154,7 @@ class Controller extends GenericController implements ExportableInterface {
 						'type'        => 'string',
 						'readonly'    => true,
 						'context'     => array( 'view', 'edit' ),
-						'description' => __( 'Category name.', 'woocommerce' ),
+						'description' => __( 'Category name.', 'poocommerce' ),
 					),
 				),
 			),
@@ -182,7 +182,7 @@ class Controller extends GenericController implements ExportableInterface {
 			)
 		);
 		$params['interval']           = array(
-			'description'       => __( 'Time interval to use for buckets in the returned data.', 'woocommerce' ),
+			'description'       => __( 'Time interval to use for buckets in the returned data.', 'poocommerce' ),
 			'type'              => 'string',
 			'default'           => 'week',
 			'enum'              => array(
@@ -196,7 +196,7 @@ class Controller extends GenericController implements ExportableInterface {
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 		$params['status_is']          = array(
-			'description'       => __( 'Limit result set to items that have the specified order status.', 'woocommerce' ),
+			'description'       => __( 'Limit result set to items that have the specified order status.', 'poocommerce' ),
 			'type'              => 'array',
 			'sanitize_callback' => 'wp_parse_slug_list',
 			'validate_callback' => 'rest_validate_request_arg',
@@ -206,7 +206,7 @@ class Controller extends GenericController implements ExportableInterface {
 			),
 		);
 		$params['status_is_not']      = array(
-			'description'       => __( 'Limit result set to items that don\'t have the specified order status.', 'woocommerce' ),
+			'description'       => __( 'Limit result set to items that don\'t have the specified order status.', 'poocommerce' ),
 			'type'              => 'array',
 			'sanitize_callback' => 'wp_parse_slug_list',
 			'validate_callback' => 'rest_validate_request_arg',
@@ -216,7 +216,7 @@ class Controller extends GenericController implements ExportableInterface {
 			),
 		);
 		$params['categories']         = array(
-			'description'       => __( 'Limit result set to all items that have the specified term assigned in the categories taxonomy.', 'woocommerce' ),
+			'description'       => __( 'Limit result set to all items that have the specified term assigned in the categories taxonomy.', 'poocommerce' ),
 			'type'              => 'array',
 			'sanitize_callback' => 'wp_parse_id_list',
 			'validate_callback' => 'rest_validate_request_arg',
@@ -225,7 +225,7 @@ class Controller extends GenericController implements ExportableInterface {
 			),
 		);
 		$params['extended_info']      = array(
-			'description'       => __( 'Add additional piece of info about each category to the report.', 'woocommerce' ),
+			'description'       => __( 'Add additional piece of info about each category to the report.', 'poocommerce' ),
 			'type'              => 'boolean',
 			'default'           => false,
 			'sanitize_callback' => 'wc_string_to_bool',
@@ -242,11 +242,11 @@ class Controller extends GenericController implements ExportableInterface {
 	 */
 	public function get_export_columns() {
 		$export_columns = array(
-			'category'       => __( 'Category', 'woocommerce' ),
-			'items_sold'     => __( 'Items sold', 'woocommerce' ),
-			'net_revenue'    => __( 'Net Revenue', 'woocommerce' ),
-			'products_count' => __( 'Products', 'woocommerce' ),
-			'orders_count'   => __( 'Orders', 'woocommerce' ),
+			'category'       => __( 'Category', 'poocommerce' ),
+			'items_sold'     => __( 'Items sold', 'poocommerce' ),
+			'net_revenue'    => __( 'Net Revenue', 'poocommerce' ),
+			'products_count' => __( 'Products', 'poocommerce' ),
+			'orders_count'   => __( 'Orders', 'poocommerce' ),
 		);
 
 		/**
@@ -256,7 +256,7 @@ class Controller extends GenericController implements ExportableInterface {
 		 * @since 1.6.0
 		 */
 		return apply_filters(
-			'woocommerce_report_categories_export_columns',
+			'poocommerce_report_categories_export_columns',
 			$export_columns
 		);
 	}
@@ -283,7 +283,7 @@ class Controller extends GenericController implements ExportableInterface {
 		 * @since 1.6.0
 		 */
 		return apply_filters(
-			'woocommerce_report_categories_prepare_export_item',
+			'poocommerce_report_categories_prepare_export_item',
 			$export_item,
 			$item
 		);

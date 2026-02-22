@@ -2,14 +2,14 @@
 /**
  * OfflinePaymentMethodSchema class.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\RestApi\Routes\V4\Settings\OfflinePaymentMethods\Schema;
+namespace Automattic\PooCommerce\Internal\RestApi\Routes\V4\Settings\OfflinePaymentMethods\Schema;
 
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\AbstractSchema;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\AbstractSchema;
 use WP_REST_Request;
 
 defined( 'ABSPATH' ) || exit;
@@ -33,25 +33,25 @@ class OfflinePaymentMethodSchema extends AbstractSchema {
 	public function get_item_schema_properties(): array {
 		return array(
 			'id'          => array(
-				'description' => __( 'Unique identifier for the settings group.', 'woocommerce' ),
+				'description' => __( 'Unique identifier for the settings group.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_CONTEXT,
 				'readonly'    => true,
 			),
 			'title'       => array(
-				'description' => __( 'Title of the settings group.', 'woocommerce' ),
+				'description' => __( 'Title of the settings group.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_CONTEXT,
 				'readonly'    => true,
 			),
 			'description' => array(
-				'description' => __( 'Description of the settings group.', 'woocommerce' ),
+				'description' => __( 'Description of the settings group.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_CONTEXT,
 				'readonly'    => true,
 			),
 			'values'      => array(
-				'description'          => __( 'Current enabled state for all payment methods.', 'woocommerce' ),
+				'description'          => __( 'Current enabled state for all payment methods.', 'poocommerce' ),
 				'type'                 => 'object',
 				'context'              => self::VIEW_EDIT_CONTEXT,
 				'readonly'             => true,
@@ -60,13 +60,13 @@ class OfflinePaymentMethodSchema extends AbstractSchema {
 				),
 			),
 			'groups'      => array(
-				'description' => __( 'Grouped settings for offline payment methods.', 'woocommerce' ),
+				'description' => __( 'Grouped settings for offline payment methods.', 'poocommerce' ),
 				'type'        => 'object',
 				'context'     => self::VIEW_EDIT_CONTEXT,
 				'readonly'    => true,
 				'properties'  => array(
 					'payment_methods' => array(
-						'description'          => __( 'Available offline payment methods.', 'woocommerce' ),
+						'description'          => __( 'Available offline payment methods.', 'poocommerce' ),
 						'type'                 => 'object',
 						'context'              => self::VIEW_EDIT_CONTEXT,
 						'readonly'             => true,
@@ -74,33 +74,33 @@ class OfflinePaymentMethodSchema extends AbstractSchema {
 							'type'       => 'object',
 							'properties' => array(
 								'id'          => array(
-									'description' => __( 'Unique identifier for the payment method.', 'woocommerce' ),
+									'description' => __( 'Unique identifier for the payment method.', 'poocommerce' ),
 									'type'        => 'string',
 									'context'     => self::VIEW_EDIT_CONTEXT,
 								),
 								'_order'      => array(
-									'description' => __( 'Sort order for the payment method.', 'woocommerce' ),
+									'description' => __( 'Sort order for the payment method.', 'poocommerce' ),
 									'type'        => 'integer',
 									'context'     => self::VIEW_EDIT_CONTEXT,
 								),
 								'title'       => array(
-									'description' => __( 'Title of the payment method.', 'woocommerce' ),
+									'description' => __( 'Title of the payment method.', 'poocommerce' ),
 									'type'        => 'string',
 									'context'     => self::VIEW_EDIT_CONTEXT,
 								),
 								'description' => array(
-									'description' => __( 'Description of the payment method.', 'woocommerce' ),
+									'description' => __( 'Description of the payment method.', 'poocommerce' ),
 									'type'        => 'string',
 									'context'     => self::VIEW_EDIT_CONTEXT,
 								),
 								'icon'        => array(
-									'description' => __( 'Icon URL for the payment method.', 'woocommerce' ),
+									'description' => __( 'Icon URL for the payment method.', 'poocommerce' ),
 									'type'        => 'string',
 									'format'      => 'uri',
 									'context'     => self::VIEW_EDIT_CONTEXT,
 								),
 								'state'       => array(
-									'description'          => __( 'Current state configuration of the payment method.', 'woocommerce' ),
+									'description'          => __( 'Current state configuration of the payment method.', 'poocommerce' ),
 									'type'                 => 'object',
 									'context'              => self::VIEW_EDIT_CONTEXT,
 									'additionalProperties' => array(
@@ -108,19 +108,19 @@ class OfflinePaymentMethodSchema extends AbstractSchema {
 									),
 								),
 								'management'  => array(
-									'description'          => __( 'Management options for the payment method.', 'woocommerce' ),
+									'description'          => __( 'Management options for the payment method.', 'poocommerce' ),
 									'type'                 => 'object',
 									'context'              => self::VIEW_EDIT_CONTEXT,
 									'properties'           => array(
 										'_links' => array(
-											'description' => __( 'Management links for the payment method.', 'woocommerce' ),
+											'description' => __( 'Management links for the payment method.', 'poocommerce' ),
 											'type'        => 'object',
 											'context'     => self::VIEW_EDIT_CONTEXT,
 											'additionalProperties' => array(
 												'type' => 'object',
 												'properties' => array(
 													'href' => array(
-														'description' => __( 'URL for the management link.', 'woocommerce' ),
+														'description' => __( 'URL for the management link.', 'poocommerce' ),
 														'type'        => 'string',
 														'format'      => 'uri',
 														'context'     => self::VIEW_EDIT_CONTEXT,

@@ -1,33 +1,33 @@
 <?php
 /**
- * WooCommerce Fulfillment Hooks
+ * PooCommerce Fulfillment Hooks
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Fulfillments;
+namespace Automattic\PooCommerce\Internal\Fulfillments;
 
-use Automattic\WooCommerce\Internal\DataStores\Fulfillments\FulfillmentsDataStore;
-use Automattic\WooCommerce\Internal\Fulfillments\Providers\AbstractShippingProvider;
+use Automattic\PooCommerce\Internal\DataStores\Fulfillments\FulfillmentsDataStore;
+use Automattic\PooCommerce\Internal\Fulfillments\Providers\AbstractShippingProvider;
 use WC_Order;
 use WC_Order_Refund;
 
 /**
  * FulfillmentsManager class.
  *
- * This class is responsible for adding hooks related to fulfillments in WooCommerce.
+ * This class is responsible for adding hooks related to fulfillments in PooCommerce.
  *
  * @since 10.1.0
- * @package WooCommerce\Internal\Fulfillments
+ * @package PooCommerce\Internal\Fulfillments
  */
 class FulfillmentsManager {
 	/**
 	 * This method registers the hooks related to fulfillments.
 	 */
 	public function register() {
-		add_filter( 'woocommerce_fulfillment_shipping_providers', array( $this, 'get_initial_shipping_providers' ), 10, 1 );
-		add_filter( 'woocommerce_fulfillment_translate_meta_key', array( $this, 'translate_fulfillment_meta_key' ), 10, 1 );
-		add_filter( 'woocommerce_fulfillment_parse_tracking_number', array( $this, 'try_parse_tracking_number' ), 10, 3 );
+		add_filter( 'poocommerce_fulfillment_shipping_providers', array( $this, 'get_initial_shipping_providers' ), 10, 1 );
+		add_filter( 'poocommerce_fulfillment_translate_meta_key', array( $this, 'translate_fulfillment_meta_key' ), 10, 1 );
+		add_filter( 'poocommerce_fulfillment_parse_tracking_number', array( $this, 'try_parse_tracking_number' ), 10, 3 );
 
 		$this->init_fulfillment_status_hooks();
 		$this->init_refund_hooks();
@@ -41,9 +41,9 @@ class FulfillmentsManager {
 	 */
 	private function init_fulfillment_status_hooks() {
 		// Update order fulfillment status when a fulfillment is created, updated, or deleted.
-		add_action( 'woocommerce_fulfillment_after_create', array( $this, 'update_order_fulfillment_status_on_fulfillment_update' ), 10, 1 );
-		add_action( 'woocommerce_fulfillment_after_update', array( $this, 'update_order_fulfillment_status_on_fulfillment_update' ), 10, 1 );
-		add_action( 'woocommerce_fulfillment_after_delete', array( $this, 'update_order_fulfillment_status_on_fulfillment_update' ), 10, 1 );
+		add_action( 'poocommerce_fulfillment_after_create', array( $this, 'update_order_fulfillment_status_on_fulfillment_update' ), 10, 1 );
+		add_action( 'poocommerce_fulfillment_after_update', array( $this, 'update_order_fulfillment_status_on_fulfillment_update' ), 10, 1 );
+		add_action( 'poocommerce_fulfillment_after_delete', array( $this, 'update_order_fulfillment_status_on_fulfillment_update' ), 10, 1 );
 	}
 
 	/**
@@ -52,8 +52,8 @@ class FulfillmentsManager {
 	 * This method initializes the hooks related to refunds, such as updating fulfillments after a refund is created
 	 */
 	private function init_refund_hooks() {
-		add_action( 'woocommerce_refund_created', array( $this, 'update_fulfillments_after_refund' ), 10, 1 );
-		add_action( 'woocommerce_delete_order_refund', array( $this, 'update_fulfillment_status_after_refund_deleted' ), 10, 1 );
+		add_action( 'poocommerce_refund_created', array( $this, 'update_fulfillments_after_refund' ), 10, 1 );
+		add_action( 'poocommerce_delete_order_refund', array( $this, 'update_fulfillment_status_after_refund_deleted' ), 10, 1 );
 	}
 
 	/**
@@ -72,11 +72,11 @@ class FulfillmentsManager {
 		 * @since 10.1.0
 		 */
 		$meta_key_translations = apply_filters(
-			'woocommerce_fulfillment_meta_key_translations',
+			'poocommerce_fulfillment_meta_key_translations',
 			array(
-				'fulfillment_status' => __( 'Fulfillment Status', 'woocommerce' ),
-				'shipment_tracking'  => __( 'Shipment Tracking', 'woocommerce' ),
-				'shipment_provider'  => __( 'Shipment Provider', 'woocommerce' ),
+				'fulfillment_status' => __( 'Fulfillment Status', 'poocommerce' ),
+				'shipment_tracking'  => __( 'Shipment Tracking', 'poocommerce' ),
+				'shipment_provider'  => __( 'Shipment Provider', 'poocommerce' ),
 			)
 		);
 		return isset( $meta_key_translations[ $meta_key ] ) ? $meta_key_translations[ $meta_key ] : $meta_key;
@@ -85,7 +85,7 @@ class FulfillmentsManager {
 	/**
 	 * Get initial shipping providers.
 	 *
-	 * This method provides the initial shipping providers that feeds the `woocommerce_fulfillment_shipping_providers` filter,
+	 * This method provides the initial shipping providers that feeds the `poocommerce_fulfillment_shipping_providers` filter,
 	 * which is used to populate the list of available shipping providers on the fulfillment UI.
 	 *
 	 * @param array $shipping_providers The current list of shipping providers.
@@ -365,7 +365,7 @@ class FulfillmentsManager {
 							$provider,
 							$e->getMessage()
 						),
-						array( 'source' => 'woocommerce-fulfillments' )
+						array( 'source' => 'poocommerce-fulfillments' )
 					);
 					continue; // Skip if the provider class cannot be instantiated.
 				}

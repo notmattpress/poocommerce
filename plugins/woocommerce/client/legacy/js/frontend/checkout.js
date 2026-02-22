@@ -24,7 +24,7 @@ jQuery( function ( $ ) {
 			 * Validation is done:
 			 *  - Field-by-field via `validate_field` on blur/change
 			 *  - Server-side on form submission (errors are returned in AJAX response).
-			 * This function tries to mimic client-side validation, but WooCommerce's real validation happens server-side.
+			 * This function tries to mimic client-side validation, but PooCommerce's real validation happens server-side.
 			 *
 			 * @return {Promise<{hasError: boolean}>} Promise resolving to validation result
 			 */
@@ -37,18 +37,18 @@ jQuery( function ( $ ) {
 					// Clearing any stale invalid state before re-validating, to ensure a clean slate.
 					var $termsCheckbox = $form.find( 'input[name="terms"]:visible' );
 					if ( $termsCheckbox.length ) {
-						$termsCheckbox.closest( '.form-row' ).removeClass( 'woocommerce-invalid' );
+						$termsCheckbox.closest( '.form-row' ).removeClass( 'poocommerce-invalid' );
 					}
 
-					// Trigger field-level validation (which adds `.woocommerce-invalid` to invalid fields)
+					// Trigger field-level validation (which adds `.poocommerce-invalid` to invalid fields)
 					$form.find( '.input-text, select, input:checkbox' ).trigger( 'validate' );
 
 					// Check for validation errors (from validate_field handler)
-					if ( $form.find( '.woocommerce-invalid' ).length > 0 ) {
+					if ( $form.find( '.poocommerce-invalid' ).length > 0 ) {
 						hasError = true;
 					}
 
-					// Check required fields (adds .woocommerce-invalid if not already set)
+					// Check required fields (adds .poocommerce-invalid if not already set)
 					$form.find( '.validate-required:visible' ).each( function () {
 						var $field = $( this );
 						var $input = $field.find( 'input.input-text, select, input:checkbox' );
@@ -66,7 +66,7 @@ jQuery( function ( $ ) {
 
 						if ( isEmpty ) {
 							hasError = true;
-							$field.addClass( 'woocommerce-invalid woocommerce-invalid-required-field' );
+							$field.addClass( 'poocommerce-invalid poocommerce-invalid-required-field' );
 						}
 					} );
 
@@ -74,12 +74,12 @@ jQuery( function ( $ ) {
 					// (WC Core only validates terms server-side)
 					if ( $termsCheckbox.length && ! $termsCheckbox.is( ':checked' ) ) {
 						hasError = true;
-						$termsCheckbox.closest( '.form-row' ).addClass( 'woocommerce-invalid' );
+						$termsCheckbox.closest( '.form-row' ).addClass( 'poocommerce-invalid' );
 					}
 
 					// Scroll to the first invalid field in DOM order
 					if ( hasError ) {
-						var $firstInvalidField = $form.find( '.woocommerce-invalid' ).first();
+						var $firstInvalidField = $form.find( '.poocommerce-invalid' ).first();
 						if ( $firstInvalidField.length ) {
 							$( 'html, body' ).animate(
 								{
@@ -134,7 +134,7 @@ jQuery( function ( $ ) {
 				this.payment_method_selected
 			);
 
-			if ( $( document.body ).hasClass( 'woocommerce-order-pay' ) ) {
+			if ( $( document.body ).hasClass( 'poocommerce-order-pay' ) ) {
 				this.$order_review.on(
 					'click',
 					'input[name="payment_method"]',
@@ -221,7 +221,7 @@ jQuery( function ( $ ) {
 			}
 		},
 		init_payment_methods: function () {
-			var $payment_methods = $( '.woocommerce-checkout' ).find(
+			var $payment_methods = $( '.poocommerce-checkout' ).find(
 				'input[name="payment_method"]'
 			);
 
@@ -300,7 +300,7 @@ jQuery( function ( $ ) {
 			}
 
 			var selectedPaymentMethod = $(
-				'.woocommerce-checkout input[name="payment_method"]:checked'
+				'.poocommerce-checkout input[name="payment_method"]:checked'
 			).attr( 'id' );
 
 			if (
@@ -528,7 +528,7 @@ jQuery( function ( $ ) {
 				$parent.find( '.checkout-inline-error-message' ).remove();
 				$parent.removeClass(
 					// eslint-disable-next-line max-len
-					'woocommerce-invalid woocommerce-invalid-required-field woocommerce-invalid-email woocommerce-invalid-phone woocommerce-validated'
+					'poocommerce-invalid poocommerce-invalid-required-field poocommerce-invalid-email poocommerce-invalid-phone poocommerce-validated'
 				);
 			}
 
@@ -545,9 +545,9 @@ jQuery( function ( $ ) {
 					) {
 						$this.attr( 'aria-invalid', 'true' );
 						$parent
-							.removeClass( 'woocommerce-validated' )
+							.removeClass( 'poocommerce-validated' )
 							.addClass(
-								'woocommerce-invalid woocommerce-invalid-required-field'
+								'poocommerce-invalid poocommerce-invalid-required-field'
 							);
 						validated = false;
 					}
@@ -564,9 +564,9 @@ jQuery( function ( $ ) {
 						if ( ! pattern.test( $this.val() ) ) {
 							$this.attr( 'aria-invalid', 'true' );
 							$parent
-								.removeClass( 'woocommerce-validated' )
+								.removeClass( 'poocommerce-validated' )
 								.addClass(
-									'woocommerce-invalid woocommerce-invalid-email'
+									'poocommerce-invalid poocommerce-invalid-email'
 								); // eslint-disable-line max-len
 							validated = false;
 						}
@@ -579,9 +579,9 @@ jQuery( function ( $ ) {
 					if ( 0 < $this.val().replace( pattern, '' ).length ) {
 						$this.attr( 'aria-invalid', 'true' );
 						$parent
-							.removeClass( 'woocommerce-validated' )
+							.removeClass( 'poocommerce-validated' )
 							.addClass(
-								'woocommerce-invalid woocommerce-invalid-phone'
+								'poocommerce-invalid poocommerce-invalid-phone'
 							);
 						validated = false;
 					}
@@ -594,9 +594,9 @@ jQuery( function ( $ ) {
 					$parent.find( '.checkout-inline-error-message' ).remove();
 					$parent
 						.removeClass(
-							'woocommerce-invalid woocommerce-invalid-required-field woocommerce-invalid-email woocommerce-invalid-phone'
+							'poocommerce-invalid poocommerce-invalid-required-field poocommerce-invalid-email poocommerce-invalid-phone'
 						)
-						.addClass( 'woocommerce-validated' ); // eslint-disable-line max-len
+						.addClass( 'poocommerce-validated' ); // eslint-disable-line max-len
 				}
 			}
 		},
@@ -697,7 +697,7 @@ jQuery( function ( $ ) {
 			}
 
 			$(
-				'.woocommerce-checkout-payment, .woocommerce-checkout-review-order-table'
+				'.poocommerce-checkout-payment, .poocommerce-checkout-review-order-table'
 			).block( {
 				message: null,
 				overlayCSS: {
@@ -720,7 +720,7 @@ jQuery( function ( $ ) {
 					}
 
 					// Remove any notices added previously
-					$( '.woocommerce-NoticeGroup-updateOrderReview' ).remove();
+					$( '.poocommerce-NoticeGroup-updateOrderReview' ).remove();
 
 					var termsCheckBoxChecked = $( '#terms' ).prop( 'checked' );
 
@@ -803,13 +803,13 @@ jQuery( function ( $ ) {
 
 						// Remove notices from all sources
 						$(
-							'.woocommerce-error, .woocommerce-message, .is-error, .is-success'
+							'.poocommerce-error, .poocommerce-message, .is-error, .is-success'
 						).remove();
 
 						// Add new errors returned by this event
 						if ( data.messages ) {
 							$form.prepend(
-								'<div class="woocommerce-NoticeGroup woocommerce-NoticeGroup-updateOrderReview">' +
+								'<div class="poocommerce-NoticeGroup poocommerce-NoticeGroup-updateOrderReview">' +
 									data.messages +
 									'</div>'
 							); // eslint-disable-line max-len
@@ -1002,7 +1002,7 @@ jQuery( function ( $ ) {
 							// Add new errors
 							if ( result.messages ) {
 								var $msgs = $( result.messages )
-									// The error notice template (plugins/woocommerce/templates/notices/error.php)
+									// The error notice template (plugins/poocommerce/templates/notices/error.php)
 									// adds the role="alert" to a list HTML element. This becomes a problem in this context
 									// because screen readers won't read the list content correctly if its role is not "list".
 									.removeAttr( 'role' )
@@ -1021,7 +1021,7 @@ jQuery( function ( $ ) {
 								wc_checkout_form.show_inline_errors( $msgs );
 							} else {
 								wc_checkout_form.submit_error(
-									'<div class="woocommerce-error">' +
+									'<div class="poocommerce-error">' +
 										wc_checkout_params.i18n_checkout_error +
 										'</div>'
 								); // eslint-disable-line max-len
@@ -1050,7 +1050,7 @@ jQuery( function ( $ ) {
 						}
 
 						wc_checkout_form.submit_error(
-							'<div class="woocommerce-error">' +
+							'<div class="poocommerce-error">' +
 								errorMessage +
 								'</div>'
 						);
@@ -1062,10 +1062,10 @@ jQuery( function ( $ ) {
 		},
 		submit_error: function ( error_message ) {
 			$(
-				'.woocommerce-NoticeGroup-checkout, .woocommerce-error, .woocommerce-message, .is-error, .is-success'
+				'.poocommerce-NoticeGroup-checkout, .poocommerce-error, .poocommerce-message, .is-error, .is-success'
 			).remove();
 			wc_checkout_form.$checkout_form.prepend(
-				'<div class="woocommerce-NoticeGroup woocommerce-NoticeGroup-checkout">' +
+				'<div class="poocommerce-NoticeGroup poocommerce-NoticeGroup-checkout">' +
 					error_message +
 					'</div>'
 			); // eslint-disable-line max-len
@@ -1079,7 +1079,7 @@ jQuery( function ( $ ) {
 			wc_checkout_form.scroll_to_notices();
 			wc_checkout_form.$checkout_form
 				.find(
-					'.woocommerce-error[tabindex="-1"], .wc-block-components-notice-banner.is-error[tabindex="-1"]'
+					'.poocommerce-error[tabindex="-1"], .wc-block-components-notice-banner.is-error[tabindex="-1"]'
 				)
 				.focus();
 			$( document.body ).trigger( 'checkout_error', [ error_message ] );
@@ -1126,7 +1126,7 @@ jQuery( function ( $ ) {
 		},
 		scroll_to_notices: function () {
 			var scrollElement = $(
-				'.woocommerce-NoticeGroup-updateOrderReview, .woocommerce-NoticeGroup-checkout'
+				'.poocommerce-NoticeGroup-updateOrderReview, .poocommerce-NoticeGroup-checkout'
 			);
 
 			if ( ! scrollElement.length ) {
@@ -1145,12 +1145,12 @@ jQuery( function ( $ ) {
 			);
 			$( document.body ).on(
 				'click',
-				'.woocommerce-remove-coupon',
+				'.poocommerce-remove-coupon',
 				this.remove_coupon
 			);
 			$( document.body ).on(
 				'keydown',
-				'.woocommerce-remove-coupon',
+				'.poocommerce-remove-coupon',
 				this.on_keydown_remove_coupon
 			);
 			$( document.body ).on(
@@ -1264,7 +1264,7 @@ jQuery( function ( $ ) {
 				data: data,
 				success: function ( response ) {
 					$(
-						'.woocommerce-error, .woocommerce-message, .is-error, .is-success, .checkout-inline-error-message'
+						'.poocommerce-error, .poocommerce-message, .is-error, .is-success, .checkout-inline-error-message'
 					).remove();
 					$form.removeClass( 'processing' ).unblock();
 
@@ -1272,7 +1272,7 @@ jQuery( function ( $ ) {
 						// We only want to show coupon notices if they are no errors.
 						// Coupon errors are shown under the input.
 						if (
-							response.indexOf( 'woocommerce-error' ) === -1 &&
+							response.indexOf( 'poocommerce-error' ) === -1 &&
 							response.indexOf( 'is-error' ) === -1
 						) {
 							$form.slideUp( 400, function () {
@@ -1308,7 +1308,7 @@ jQuery( function ( $ ) {
 			e.preventDefault();
 
 			var container = $( this ).parents(
-					'.woocommerce-checkout-review-order'
+					'.poocommerce-checkout-review-order'
 				),
 				coupon = $( this ).data( 'coupon' );
 
@@ -1333,12 +1333,12 @@ jQuery( function ( $ ) {
 				data: data,
 				success: function ( code ) {
 					$(
-						'.woocommerce-error, .woocommerce-message, .is-error, .is-success'
+						'.poocommerce-error, .poocommerce-message, .is-error, .is-success'
 					).remove();
 					container.removeClass( 'processing' ).unblock();
 
 					if ( code ) {
-						$( 'form.woocommerce-checkout' ).before( code );
+						$( 'form.poocommerce-checkout' ).before( code );
 
 						$( document.body ).trigger(
 							'removed_coupon_in_checkout',
@@ -1391,7 +1391,7 @@ jQuery( function ( $ ) {
 			);
 		},
 		show_login_form: function () {
-			var $form = $( 'form.login, form.woocommerce-form--login' );
+			var $form = $( 'form.login, form.poocommerce-form--login' );
 			if ( $form.is( ':visible' ) ) {
 				// If already visible, hide it.
 				$form.slideToggle( {
@@ -1421,36 +1421,36 @@ jQuery( function ( $ ) {
 		init: function () {
 			$( document.body ).on(
 				'click',
-				'a.woocommerce-terms-and-conditions-link',
+				'a.poocommerce-terms-and-conditions-link',
 				this.toggle_terms
 			);
 		},
 
 		toggle_terms: function () {
-			if ( $( '.woocommerce-terms-and-conditions' ).length ) {
-				$( '.woocommerce-terms-and-conditions' ).slideToggle(
+			if ( $( '.poocommerce-terms-and-conditions' ).length ) {
+				$( '.poocommerce-terms-and-conditions' ).slideToggle(
 					function () {
 						var link_toggle = $(
-							'.woocommerce-terms-and-conditions-link'
+							'.poocommerce-terms-and-conditions-link'
 						);
 
 						if (
-							$( '.woocommerce-terms-and-conditions' ).is(
+							$( '.poocommerce-terms-and-conditions' ).is(
 								':visible'
 							)
 						) {
 							link_toggle.addClass(
-								'woocommerce-terms-and-conditions-link--open'
+								'poocommerce-terms-and-conditions-link--open'
 							);
 							link_toggle.removeClass(
-								'woocommerce-terms-and-conditions-link--closed'
+								'poocommerce-terms-and-conditions-link--closed'
 							);
 						} else {
 							link_toggle.removeClass(
-								'woocommerce-terms-and-conditions-link--open'
+								'poocommerce-terms-and-conditions-link--open'
 							);
 							link_toggle.addClass(
-								'woocommerce-terms-and-conditions-link--closed'
+								'poocommerce-terms-and-conditions-link--closed'
 							);
 						}
 					}

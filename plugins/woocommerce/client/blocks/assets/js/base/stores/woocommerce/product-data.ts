@@ -24,12 +24,12 @@ const productDataStore = store< {
 		setVariationId: ( variationId: number | null ) => void;
 	};
 } >(
-	'woocommerce/product-data',
+	'poocommerce/product-data',
 	{
 		state: {
 			get productId(): number {
 				const context = getContext< Context >(
-					'woocommerce/single-product'
+					'poocommerce/single-product'
 				);
 
 				return (
@@ -39,7 +39,7 @@ const productDataStore = store< {
 			},
 			get variationId(): number | null {
 				const context = getContext< Context >(
-					'woocommerce/single-product'
+					'poocommerce/single-product'
 				);
 
 				return (
@@ -51,7 +51,7 @@ const productDataStore = store< {
 		actions: {
 			setVariationId: ( variationId: number | null ) => {
 				const context = getContext< Context >(
-					'woocommerce/single-product'
+					'poocommerce/single-product'
 				);
 
 				if ( context?.variationId !== undefined ) {

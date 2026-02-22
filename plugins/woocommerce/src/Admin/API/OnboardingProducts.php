@@ -5,9 +5,9 @@
  * Handles requests to install and activate themes.
  */
 
-namespace Automattic\WooCommerce\Admin\API;
+namespace Automattic\PooCommerce\Admin\API;
 
-use Automattic\WooCommerce\Blocks\AIContent\UpdateProducts;
+use Automattic\PooCommerce\Blocks\AIContent\UpdateProducts;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -77,7 +77,7 @@ class OnboardingProducts extends \WC_REST_Data_Controller {
 	 */
 	public function update_item_permissions_check( $request ) {
 		if ( ! current_user_can( 'manage_options' ) ) {
-			return new \WP_Error( 'woocommerce_rest_cannot_update', __( 'Sorry, you cannot create dummy products.', 'woocommerce' ), array( 'status' => rest_authorization_required_code() ) );
+			return new \WP_Error( 'poocommerce_rest_cannot_update', __( 'Sorry, you cannot create dummy products.', 'poocommerce' ), array( 'status' => rest_authorization_required_code() ) );
 		}
 		return true;
 	}

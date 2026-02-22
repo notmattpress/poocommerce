@@ -4,10 +4,10 @@
 import { BlockAttributes, InnerBlockTemplate } from '@wordpress/blocks';
 import { Icon } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
-import { stacks } from '@woocommerce/icons';
-import { registerProductBlockType } from '@woocommerce/atomic-utils';
-import { getSettingWithCoercion } from '@woocommerce/settings';
-import { isBoolean } from '@woocommerce/types';
+import { stacks } from '@poocommerce/icons';
+import { registerProductBlockType } from '@poocommerce/atomic-utils';
+import { getSettingWithCoercion } from '@poocommerce/settings';
+import { isBoolean } from '@poocommerce/types';
 
 /**
  * Internal dependencies
@@ -17,7 +17,7 @@ import { QUERY_LOOP_ID } from '../constants';
 import { VARIATION_NAME as PRODUCT_TEMPLATE_ID } from './elements/product-template';
 import { VARIATION_NAME as PRODUCT_TITLE_ID } from './elements/product-title';
 
-const VARIATION_NAME = 'woocommerce/related-products';
+const VARIATION_NAME = 'poocommerce/related-products';
 
 export const BLOCK_ATTRIBUTES = {
 	namespace: VARIATION_NAME,
@@ -56,21 +56,21 @@ export const INNER_BLOCKS_TEMPLATE: InnerBlockTemplate[] = [
 		'core/heading',
 		{
 			level: 2,
-			content: __( 'Related products', 'woocommerce' ),
+			content: __( 'Related products', 'poocommerce' ),
 			style: { spacing: { margin: { top: '1rem', bottom: '1rem' } } },
 		},
 	],
 	[
 		'core/post-template',
 		{
-			__woocommerceNamespace: PRODUCT_TEMPLATE_ID,
+			__poocommerceNamespace: PRODUCT_TEMPLATE_ID,
 			...( postTemplateHasSupportForGridView && {
 				layout: { type: 'grid', columnCount: 5 },
 			} ),
 		},
 		[
 			[
-				'woocommerce/product-image',
+				'poocommerce/product-image',
 				{
 					productId: 0,
 					imageSizing: 'cropped',
@@ -83,12 +83,12 @@ export const INNER_BLOCKS_TEMPLATE: InnerBlockTemplate[] = [
 					level: 3,
 					fontSize: 'medium',
 					isLink: true,
-					__woocommerceNamespace: PRODUCT_TITLE_ID,
+					__poocommerceNamespace: PRODUCT_TITLE_ID,
 				},
 				[],
 			],
 			[
-				'woocommerce/product-price',
+				'poocommerce/product-price',
 				{
 					textAlign: 'center',
 					fontSize: 'small',
@@ -101,7 +101,7 @@ export const INNER_BLOCKS_TEMPLATE: InnerBlockTemplate[] = [
 				[],
 			],
 			[
-				'woocommerce/product-button',
+				'poocommerce/product-button',
 				{
 					textAlign: 'center',
 					fontSize: 'small',
@@ -119,8 +119,8 @@ export const INNER_BLOCKS_TEMPLATE: InnerBlockTemplate[] = [
 
 const blockConfig = {
 	name: QUERY_LOOP_ID,
-	description: __( 'Display related products.', 'woocommerce' ),
-	title: __( 'Related Products Controls', 'woocommerce' ),
+	description: __( 'Display related products.', 'poocommerce' ),
+	title: __( 'Related Products Controls', 'poocommerce' ),
 	isActive: ( blockAttributes: BlockAttributes ) =>
 		blockAttributes.namespace === VARIATION_NAME,
 	icon: (

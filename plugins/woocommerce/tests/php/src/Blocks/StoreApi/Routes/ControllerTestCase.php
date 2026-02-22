@@ -3,13 +3,13 @@
  * ControllerTestCase Tests.
  */
 
-namespace Automattic\WooCommerce\Tests\Blocks\StoreApi\Routes;
+namespace Automattic\PooCommerce\Tests\Blocks\StoreApi\Routes;
 
-use Automattic\WooCommerce\StoreApi\Schemas\ExtendSchema;
-use Automattic\WooCommerce\StoreApi\Formatters;
-use Automattic\WooCommerce\StoreApi\Formatters\MoneyFormatter;
-use Automattic\WooCommerce\StoreApi\Formatters\HtmlFormatter;
-use Automattic\WooCommerce\StoreApi\Formatters\CurrencyFormatter;
+use Automattic\PooCommerce\StoreApi\Schemas\ExtendSchema;
+use Automattic\PooCommerce\StoreApi\Formatters;
+use Automattic\PooCommerce\StoreApi\Formatters\MoneyFormatter;
+use Automattic\PooCommerce\StoreApi\Formatters\HtmlFormatter;
+use Automattic\PooCommerce\StoreApi\Formatters\CurrencyFormatter;
 
 /**
  * ControllerTestCase class.
@@ -31,11 +31,11 @@ abstract class ControllerTestCase extends \WP_Test_REST_TestCase {
 		/** @var \WP_REST_Server $wp_rest_server */
 		global $wp_rest_server;
 		$wp_rest_server = new \Spy_REST_Server();
-		// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
+		// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
 		do_action( 'rest_api_init', $wp_rest_server );
 
 		wp_set_current_user( 0 );
-		update_option( 'woocommerce_weight_unit', 'g' );
+		update_option( 'poocommerce_weight_unit', 'g' );
 
 		$formatters = new Formatters();
 		$formatters->register( 'money', MoneyFormatter::class );

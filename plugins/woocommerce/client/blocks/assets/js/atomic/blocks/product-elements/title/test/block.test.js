@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { render } from '@testing-library/react';
-import { ProductDataContextProvider } from '@woocommerce/shared-context';
+import { ProductDataContextProvider } from '@poocommerce/shared-context';
 
 /**
  * Internal dependencies

@@ -37,8 +37,8 @@ export function SendButton() {
 	const isDisabled = hasEmptyContent || isEmailSent || isDirty;
 
 	const label = applyFilters(
-		'woocommerce_email_editor_send_button_label',
-		__( 'Send', 'woocommerce' )
+		'poocommerce_email_editor_send_button_label',
+		__( 'Send', 'poocommerce' )
 	) as string;
 
 	return (
@@ -48,7 +48,7 @@ export function SendButton() {
 			onClick={ () => {
 				recordEvent( 'header_send_button_clicked' );
 				const action = applyFilters(
-					'woocommerce_email_editor_send_action_callback',
+					'poocommerce_email_editor_send_action_callback',
 					sendAction
 				) as () => void;
 				action();

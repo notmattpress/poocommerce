@@ -2,16 +2,16 @@
 /**
  * CustomerSchema class.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\RestApi\Routes\V4\Customers;
+namespace Automattic\PooCommerce\Internal\RestApi\Routes\V4\Customers;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\AbstractSchema;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\AbstractSchema;
 use WC_Customer;
 use WP_REST_Request;
 
@@ -34,43 +34,43 @@ class CustomerSchema extends AbstractSchema {
 	public function get_item_schema_properties(): array {
 		$schema = array(
 			'id'                 => array(
-				'description' => __( 'Unique identifier for the resource.', 'woocommerce' ),
+				'description' => __( 'Unique identifier for the resource.', 'poocommerce' ),
 				'type'        => 'integer',
 				'context'     => self::VIEW_EDIT_CONTEXT,
 				'readonly'    => true,
 			),
 			'date_created'       => array(
-				'description' => __( "The date the customer was created, in the site's timezone.", 'woocommerce' ),
+				'description' => __( "The date the customer was created, in the site's timezone.", 'poocommerce' ),
 				'type'        => 'date-time',
 				'context'     => self::VIEW_EDIT_CONTEXT,
 				'readonly'    => true,
 			),
 			'date_created_gmt'   => array(
-				'description' => __( 'The date the customer was created, as GMT.', 'woocommerce' ),
+				'description' => __( 'The date the customer was created, as GMT.', 'poocommerce' ),
 				'type'        => 'date-time',
 				'context'     => self::VIEW_EDIT_CONTEXT,
 				'readonly'    => true,
 			),
 			'date_modified'      => array(
-				'description' => __( "The date the customer was last modified, in the site's timezone.", 'woocommerce' ),
+				'description' => __( "The date the customer was last modified, in the site's timezone.", 'poocommerce' ),
 				'type'        => 'date-time',
 				'context'     => self::VIEW_EDIT_CONTEXT,
 				'readonly'    => true,
 			),
 			'date_modified_gmt'  => array(
-				'description' => __( 'The date the customer was last modified, as GMT.', 'woocommerce' ),
+				'description' => __( 'The date the customer was last modified, as GMT.', 'poocommerce' ),
 				'type'        => 'date-time',
 				'context'     => self::VIEW_EDIT_CONTEXT,
 				'readonly'    => true,
 			),
 			'email'              => array(
-				'description' => __( 'The email address for the customer.', 'woocommerce' ),
+				'description' => __( 'The email address for the customer.', 'poocommerce' ),
 				'type'        => 'string',
 				'format'      => 'email',
 				'context'     => self::VIEW_EDIT_CONTEXT,
 			),
 			'first_name'         => array(
-				'description' => __( 'Customer first name.', 'woocommerce' ),
+				'description' => __( 'Customer first name.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_CONTEXT,
 				'arg_options' => array(
@@ -78,7 +78,7 @@ class CustomerSchema extends AbstractSchema {
 				),
 			),
 			'last_name'          => array(
-				'description' => __( 'Customer last name.', 'woocommerce' ),
+				'description' => __( 'Customer last name.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_CONTEXT,
 				'arg_options' => array(
@@ -86,13 +86,13 @@ class CustomerSchema extends AbstractSchema {
 				),
 			),
 			'role'               => array(
-				'description' => __( 'Customer role.', 'woocommerce' ),
+				'description' => __( 'Customer role.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_CONTEXT,
 				'readonly'    => true,
 			),
 			'username'           => array(
-				'description' => __( 'Customer login name.', 'woocommerce' ),
+				'description' => __( 'Customer login name.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_CONTEXT,
 				'arg_options' => array(
@@ -100,158 +100,158 @@ class CustomerSchema extends AbstractSchema {
 				),
 			),
 			'billing'            => array(
-				'description' => __( 'List of billing address data.', 'woocommerce' ),
+				'description' => __( 'List of billing address data.', 'poocommerce' ),
 				'type'        => 'object',
 				'context'     => self::VIEW_EDIT_CONTEXT,
 				'properties'  => array(
 					'first_name' => array(
-						'description' => __( 'First name.', 'woocommerce' ),
+						'description' => __( 'First name.', 'poocommerce' ),
 						'type'        => 'string',
 						'context'     => self::VIEW_EDIT_CONTEXT,
 					),
 					'last_name'  => array(
-						'description' => __( 'Last name.', 'woocommerce' ),
+						'description' => __( 'Last name.', 'poocommerce' ),
 						'type'        => 'string',
 						'context'     => self::VIEW_EDIT_CONTEXT,
 					),
 					'company'    => array(
-						'description' => __( 'Company name.', 'woocommerce' ),
+						'description' => __( 'Company name.', 'poocommerce' ),
 						'type'        => 'string',
 						'context'     => self::VIEW_EDIT_CONTEXT,
 					),
 					'address_1'  => array(
-						'description' => __( 'Address line 1', 'woocommerce' ),
+						'description' => __( 'Address line 1', 'poocommerce' ),
 						'type'        => 'string',
 						'context'     => self::VIEW_EDIT_CONTEXT,
 					),
 					'address_2'  => array(
-						'description' => __( 'Address line 2', 'woocommerce' ),
+						'description' => __( 'Address line 2', 'poocommerce' ),
 						'type'        => 'string',
 						'context'     => self::VIEW_EDIT_CONTEXT,
 					),
 					'city'       => array(
-						'description' => __( 'City name.', 'woocommerce' ),
+						'description' => __( 'City name.', 'poocommerce' ),
 						'type'        => 'string',
 						'context'     => self::VIEW_EDIT_CONTEXT,
 					),
 					'state'      => array(
-						'description' => __( 'ISO code or name of the state, province or district.', 'woocommerce' ),
+						'description' => __( 'ISO code or name of the state, province or district.', 'poocommerce' ),
 						'type'        => 'string',
 						'context'     => self::VIEW_EDIT_CONTEXT,
 					),
 					'postcode'   => array(
-						'description' => __( 'Postal code.', 'woocommerce' ),
+						'description' => __( 'Postal code.', 'poocommerce' ),
 						'type'        => 'string',
 						'context'     => self::VIEW_EDIT_CONTEXT,
 					),
 					'country'    => array(
-						'description' => __( 'ISO code of the country.', 'woocommerce' ),
+						'description' => __( 'ISO code of the country.', 'poocommerce' ),
 						'type'        => 'string',
 						'context'     => self::VIEW_EDIT_CONTEXT,
 					),
 					'email'      => array(
-						'description' => __( 'Email address.', 'woocommerce' ),
+						'description' => __( 'Email address.', 'poocommerce' ),
 						'type'        => 'string',
 						'format'      => 'email',
 						'context'     => self::VIEW_EDIT_CONTEXT,
 					),
 					'phone'      => array(
-						'description' => __( 'Phone number.', 'woocommerce' ),
+						'description' => __( 'Phone number.', 'poocommerce' ),
 						'type'        => 'string',
 						'context'     => self::VIEW_EDIT_CONTEXT,
 					),
 				),
 			),
 			'shipping'           => array(
-				'description' => __( 'List of shipping address data.', 'woocommerce' ),
+				'description' => __( 'List of shipping address data.', 'poocommerce' ),
 				'type'        => 'object',
 				'context'     => self::VIEW_EDIT_CONTEXT,
 				'properties'  => array(
 					'first_name' => array(
-						'description' => __( 'First name.', 'woocommerce' ),
+						'description' => __( 'First name.', 'poocommerce' ),
 						'type'        => 'string',
 						'context'     => self::VIEW_EDIT_CONTEXT,
 					),
 					'last_name'  => array(
-						'description' => __( 'Last name.', 'woocommerce' ),
+						'description' => __( 'Last name.', 'poocommerce' ),
 						'type'        => 'string',
 						'context'     => self::VIEW_EDIT_CONTEXT,
 					),
 					'company'    => array(
-						'description' => __( 'Company name.', 'woocommerce' ),
+						'description' => __( 'Company name.', 'poocommerce' ),
 						'type'        => 'string',
 						'context'     => self::VIEW_EDIT_CONTEXT,
 					),
 					'address_1'  => array(
-						'description' => __( 'Address line 1', 'woocommerce' ),
+						'description' => __( 'Address line 1', 'poocommerce' ),
 						'type'        => 'string',
 						'context'     => self::VIEW_EDIT_CONTEXT,
 					),
 					'address_2'  => array(
-						'description' => __( 'Address line 2', 'woocommerce' ),
+						'description' => __( 'Address line 2', 'poocommerce' ),
 						'type'        => 'string',
 						'context'     => self::VIEW_EDIT_CONTEXT,
 					),
 					'city'       => array(
-						'description' => __( 'City name.', 'woocommerce' ),
+						'description' => __( 'City name.', 'poocommerce' ),
 						'type'        => 'string',
 						'context'     => self::VIEW_EDIT_CONTEXT,
 					),
 					'state'      => array(
-						'description' => __( 'ISO code or name of the state, province or district.', 'woocommerce' ),
+						'description' => __( 'ISO code or name of the state, province or district.', 'poocommerce' ),
 						'type'        => 'string',
 						'context'     => self::VIEW_EDIT_CONTEXT,
 					),
 					'postcode'   => array(
-						'description' => __( 'Postal code.', 'woocommerce' ),
+						'description' => __( 'Postal code.', 'poocommerce' ),
 						'type'        => 'string',
 						'context'     => self::VIEW_EDIT_CONTEXT,
 					),
 					'country'    => array(
-						'description' => __( 'ISO code of the country.', 'woocommerce' ),
+						'description' => __( 'ISO code of the country.', 'poocommerce' ),
 						'type'        => 'string',
 						'context'     => self::VIEW_EDIT_CONTEXT,
 					),
 					'phone'      => array(
-						'description' => __( 'Phone number.', 'woocommerce' ),
+						'description' => __( 'Phone number.', 'poocommerce' ),
 						'type'        => 'string',
 						'context'     => self::VIEW_EDIT_CONTEXT,
 					),
 				),
 			),
 			'is_paying_customer' => array(
-				'description' => __( 'Is the customer a paying customer?', 'woocommerce' ),
+				'description' => __( 'Is the customer a paying customer?', 'poocommerce' ),
 				'type'        => 'boolean',
 				'context'     => self::VIEW_EDIT_CONTEXT,
 				'readonly'    => true,
 			),
 			'orders_count'       => array(
-				'description' => __( 'Quantity of orders made by the customer.', 'woocommerce' ),
+				'description' => __( 'Quantity of orders made by the customer.', 'poocommerce' ),
 				'type'        => 'integer',
 				'context'     => self::VIEW_EDIT_CONTEXT,
 				'readonly'    => true,
 			),
 			'total_spent'        => array(
-				'description' => __( 'Total amount spent.', 'woocommerce' ),
+				'description' => __( 'Total amount spent.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_CONTEXT,
 				'readonly'    => true,
 			),
 			'avatar_url'         => array(
-				'description' => __( 'Avatar URL.', 'woocommerce' ),
+				'description' => __( 'Avatar URL.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_CONTEXT,
 				'readonly'    => true,
 			),
 			'last_active'        => array(
-				'description' => __( "When the customer was last active in the site's timezone.", 'woocommerce' ),
+				'description' => __( "When the customer was last active in the site's timezone.", 'poocommerce' ),
 				'type'        => array( 'null', 'string' ),
 				'format'      => 'date-time',
 				'context'     => self::VIEW_EDIT_CONTEXT,
 				'readonly'    => true,
 			),
 			'last_active_gmt'    => array(
-				'description' => __( 'When the customer was last active, as GMT.', 'woocommerce' ),
+				'description' => __( 'When the customer was last active, as GMT.', 'poocommerce' ),
 				'type'        => array( 'null', 'string' ),
 				'format'      => 'date-time',
 				'context'     => self::VIEW_EDIT_CONTEXT,

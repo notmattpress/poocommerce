@@ -2,14 +2,14 @@
 /**
  * Offline Payment Methods V4 Controller tests.
  *
- * @package WooCommerce\Tests\API
+ * @package PooCommerce\Tests\API
  */
 
 declare( strict_types=1 );
 
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Settings\OfflinePaymentMethods\Controller as OfflinePaymentMethodsController;
-use Automattic\WooCommerce\Internal\Admin\Settings\Payments;
-use Automattic\WooCommerce\Internal\Admin\Settings\PaymentsProviders;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Settings\OfflinePaymentMethods\Controller as OfflinePaymentMethodsController;
+use Automattic\PooCommerce\Internal\Admin\Settings\Payments;
+use Automattic\PooCommerce\Internal\Admin\Settings\PaymentsProviders;
 
 /**
  * Offline Payment Methods V4 Controller tests class.
@@ -56,7 +56,7 @@ class WC_REST_Offline_Payment_Methods_V4_Controller_Tests extends WC_REST_Unit_T
 				return $features;
 			};
 		}
-		add_filter( 'woocommerce_admin_features', self::$feature_enabler );
+		add_filter( 'poocommerce_admin_features', self::$feature_enabler );
 	}
 
 	/**
@@ -64,7 +64,7 @@ class WC_REST_Offline_Payment_Methods_V4_Controller_Tests extends WC_REST_Unit_T
 	 */
 	public function disable_rest_api_v4_feature() {
 		if ( self::$feature_enabler ) {
-			remove_filter( 'woocommerce_admin_features', self::$feature_enabler );
+			remove_filter( 'poocommerce_admin_features', self::$feature_enabler );
 		}
 	}
 
@@ -80,7 +80,7 @@ class WC_REST_Offline_Payment_Methods_V4_Controller_Tests extends WC_REST_Unit_T
 		$this->payments->method( 'get_country' )->willReturn( 'US' );
 		$this->payments->method( 'get_payment_providers' )->willReturn( $this->get_mock_payment_providers() );
 
-		$schema = new Automattic\WooCommerce\Internal\RestApi\Routes\V4\Settings\OfflinePaymentMethods\Schema\OfflinePaymentMethodSchema();
+		$schema = new Automattic\PooCommerce\Internal\RestApi\Routes\V4\Settings\OfflinePaymentMethods\Schema\OfflinePaymentMethodSchema();
 
 		$this->endpoint = new OfflinePaymentMethodsController();
 		$this->endpoint->init( $this->payments, $schema );
@@ -112,8 +112,8 @@ class WC_REST_Offline_Payment_Methods_V4_Controller_Tests extends WC_REST_Unit_T
 				'supports'    => array( 'products' ),
 				'plugin'      => array(
 					'_type'  => 'core',
-					'slug'   => 'woocommerce',
-					'file'   => 'woocommerce/woocommerce.php',
+					'slug'   => 'poocommerce',
+					'file'   => 'poocommerce/poocommerce.php',
 					'status' => 'active',
 				),
 				'image'       => '',
@@ -148,8 +148,8 @@ class WC_REST_Offline_Payment_Methods_V4_Controller_Tests extends WC_REST_Unit_T
 				'supports'    => array( 'products' ),
 				'plugin'      => array(
 					'_type'  => 'core',
-					'slug'   => 'woocommerce',
-					'file'   => 'woocommerce/woocommerce.php',
+					'slug'   => 'poocommerce',
+					'file'   => 'poocommerce/poocommerce.php',
 					'status' => 'active',
 				),
 				'image'       => '',
@@ -296,7 +296,7 @@ class WC_REST_Offline_Payment_Methods_V4_Controller_Tests extends WC_REST_Unit_T
 	}
 
 	/**
-	 * Test permissions for user without manage_woocommerce capability.
+	 * Test permissions for user without manage_poocommerce capability.
 	 */
 	public function test_get_offline_payment_methods_with_insufficient_permission() {
 		$user = $this->factory->user->create(

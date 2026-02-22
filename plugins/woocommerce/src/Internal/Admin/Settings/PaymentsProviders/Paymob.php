@@ -1,9 +1,9 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Admin\Settings\PaymentsProviders;
+namespace Automattic\PooCommerce\Internal\Admin\Settings\PaymentsProviders;
 
-use Automattic\WooCommerce\Internal\Logging\SafeGlobalFunctionProxy;
+use Automattic\PooCommerce\Internal\Logging\SafeGlobalFunctionProxy;
 use Throwable;
 use WC_Payment_Gateway;
 
@@ -88,7 +88,7 @@ class Paymob extends PaymentGateway {
 	private function is_paymob_in_sandbox_mode( WC_Payment_Gateway $payment_gateway ): ?bool {
 		try {
 			// Unfortunately, Paymob does not provide a standard way to determine if the gateway is in sandbox mode.
-			$options = get_option( 'woocommerce_paymob-main_settings', array() );
+			$options = get_option( 'poocommerce_paymob-main_settings', array() );
 			return 'test' === ( $options['mode'] ?? 'test' );
 		} catch ( \Throwable $e ) {
 			// Do nothing but log so we can investigate.

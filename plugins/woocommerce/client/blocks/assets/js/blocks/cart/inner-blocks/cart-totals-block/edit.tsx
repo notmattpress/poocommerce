@@ -2,8 +2,8 @@
  * External dependencies
  */
 import { useBlockProps, InnerBlocks } from '@wordpress/block-editor';
-import { Sidebar } from '@woocommerce/base-components/sidebar-layout';
-import { innerBlockAreas } from '@woocommerce/blocks-checkout';
+import { Sidebar } from '@poocommerce/base-components/sidebar-layout';
+import { innerBlockAreas } from '@poocommerce/blocks-checkout';
 import type { TemplateArray } from '@wordpress/blocks';
 
 /**
@@ -18,10 +18,10 @@ export const Edit = ( { clientId }: { clientId: string } ): JSX.Element => {
 	const blockProps = useBlockProps( { className: 'wc-block-cart__sidebar' } );
 	const allowedBlocks = getAllowedBlocks( innerBlockAreas.CART_TOTALS );
 	const defaultTemplate = [
-		[ 'woocommerce/cart-order-summary-block', {}, [] ],
-		[ 'woocommerce/cart-express-payment-block', {}, [] ],
-		[ 'woocommerce/proceed-to-checkout-block', {}, [] ],
-		[ 'woocommerce/cart-accepted-payment-methods-block', {}, [] ],
+		[ 'poocommerce/cart-order-summary-block', {}, [] ],
+		[ 'poocommerce/cart-express-payment-block', {}, [] ],
+		[ 'poocommerce/proceed-to-checkout-block', {}, [] ],
+		[ 'poocommerce/cart-accepted-payment-methods-block', {}, [] ],
 	] as TemplateArray;
 
 	useForcedLayout( {

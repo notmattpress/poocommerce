@@ -7,5 +7,5 @@ function my_function_callback( $order ) {
   $order->save();
 }
 
-add_action( 'woocommerce_blocks_checkout_order_processed', 'my_function_callback', 10 );
+add_action( 'poocommerce_blocks_checkout_order_processed', 'my_function_callback', 10 );
 ```

@@ -4,8 +4,8 @@
 import { __ } from '@wordpress/i18n';
 import { PanelBody, RangeControl } from '@wordpress/components';
 import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
-import { getSetting } from '@woocommerce/settings';
-import Noninteractive from '@woocommerce/base-components/noninteractive';
+import { getSetting } from '@poocommerce/settings';
+import Noninteractive from '@poocommerce/base-components/noninteractive';
 
 /**
  * Internal dependencies
@@ -30,11 +30,11 @@ export const Edit = ( { attributes, setAttributes }: Props ): JSX.Element => {
 	return (
 		<div { ...blockProps }>
 			<InspectorControls>
-				<PanelBody title={ __( 'Settings', 'woocommerce' ) }>
+				<PanelBody title={ __( 'Settings', 'poocommerce' ) }>
 					<RangeControl
 						label={ __(
 							'Cross-Sells products to show',
-							'woocommerce'
+							'poocommerce'
 						) }
 						value={ columns }
 						onChange={ ( value ) =>

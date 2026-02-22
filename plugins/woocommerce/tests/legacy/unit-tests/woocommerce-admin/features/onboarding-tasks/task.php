@@ -2,11 +2,11 @@
 /**
  * Class for testing the Task class.
  *
- * @package WooCommerce\Admin\Tests\OnboardingTasks
+ * @package PooCommerce\Admin\Tests\OnboardingTasks
  */
 
-use Automattic\WooCommerce\Admin\Features\OnboardingTasks\Task;
-use Automattic\WooCommerce\Admin\Features\OnboardingTasks\TaskList;
+use Automattic\PooCommerce\Admin\Features\OnboardingTasks\Task;
+use Automattic\PooCommerce\Admin\Features\OnboardingTasks\TaskList;
 
 require_once __DIR__ . '/test-task.php';
 

@@ -2,18 +2,18 @@
  * External dependencies
  */
 import { compose } from '@wordpress/compose';
-import { withPluginsHydration, withOptionsHydration } from '@woocommerce/data';
-import '@woocommerce/notices';
+import { withPluginsHydration, withOptionsHydration } from '@poocommerce/data';
+import '@poocommerce/notices';
 import { identity, isFunction } from 'lodash';
 import { SlotFillProvider } from '@wordpress/components';
 import { useEffect } from '@wordpress/element';
-import { CustomerEffortScoreModalContainer } from '@woocommerce/customer-effort-score';
-import { getQuery } from '@woocommerce/navigation';
-import { recordPageView } from '@woocommerce/tracks';
+import { CustomerEffortScoreModalContainer } from '@poocommerce/customer-effort-score';
+import { getQuery } from '@poocommerce/navigation';
+import { recordPageView } from '@poocommerce/tracks';
 import {
 	LayoutContextProvider,
 	getLayoutContextValue,
-} from '@woocommerce/admin-layout';
+} from '@poocommerce/admin-layout';
 import { PluginArea } from '@wordpress/plugins';
 
 /**
@@ -48,7 +48,7 @@ export const _EmbedLayout = () => {
 	return (
 		<LayoutContextProvider value={ getLayoutContextValue( [ 'page' ] ) }>
 			<SlotFillProvider>
-				<div className="woocommerce-layout">
+				<div className="poocommerce-layout">
 					<EmbedHeader
 						sections={
 							isFunction( breadcrumbs )
@@ -62,7 +62,7 @@ export const _EmbedLayout = () => {
 					<CustomerEffortScoreModalContainer />
 				</div>
 
-				<PluginArea scope="woocommerce-admin" />
+				<PluginArea scope="poocommerce-admin" />
 			</SlotFillProvider>
 		</LayoutContextProvider>
 	);

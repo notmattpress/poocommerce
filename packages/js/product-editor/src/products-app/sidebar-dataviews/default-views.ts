@@ -84,7 +84,7 @@ export function useDefaultViews( { postType }: { postType: string } ): Array< {
 		( select ) => {
 			const { getPostType } = select( coreStore );
 			const postTypeData: { labels?: Record< string, string > } =
-				// @ts-expect-error getPostType is not typed correctly because we are overriding the type definition. https://github.com/woocommerce/woocommerce/blob/eeaf58e20064d837412d6c455e69cc5a5e2678b4/packages/js/product-editor/typings/index.d.ts#L15-L35
+				// @ts-expect-error getPostType is not typed correctly because we are overriding the type definition. https://github.com/poocommerce/poocommerce/blob/eeaf58e20064d837412d6c455e69cc5a5e2678b4/packages/js/product-editor/typings/index.d.ts#L15-L35
 				getPostType( postType );
 			return postTypeData?.labels;
 		},
@@ -93,13 +93,13 @@ export function useDefaultViews( { postType }: { postType: string } ): Array< {
 	return useMemo( () => {
 		return [
 			{
-				title: labels?.all_items || __( 'All items', 'woocommerce' ),
+				title: labels?.all_items || __( 'All items', 'poocommerce' ),
 				slug: 'all',
 				icon: pages,
 				view: { ...DEFAULT_POST_BASE },
 			},
 			{
-				title: __( 'Published', 'woocommerce' ),
+				title: __( 'Published', 'poocommerce' ),
 				slug: 'published',
 				icon: published,
 				view: {
@@ -114,7 +114,7 @@ export function useDefaultViews( { postType }: { postType: string } ): Array< {
 				},
 			},
 			{
-				title: __( 'Scheduled', 'woocommerce' ),
+				title: __( 'Scheduled', 'poocommerce' ),
 				slug: 'future',
 				icon: scheduled,
 				view: {
@@ -129,7 +129,7 @@ export function useDefaultViews( { postType }: { postType: string } ): Array< {
 				},
 			},
 			{
-				title: __( 'Drafts', 'woocommerce' ),
+				title: __( 'Drafts', 'poocommerce' ),
 				slug: 'drafts',
 				icon: drafts,
 				view: {
@@ -144,7 +144,7 @@ export function useDefaultViews( { postType }: { postType: string } ): Array< {
 				},
 			},
 			{
-				title: __( 'Private', 'woocommerce' ),
+				title: __( 'Private', 'poocommerce' ),
 				slug: 'private',
 				icon: notAllowed,
 				view: {
@@ -159,7 +159,7 @@ export function useDefaultViews( { postType }: { postType: string } ): Array< {
 				},
 			},
 			{
-				title: __( 'Trash', 'woocommerce' ),
+				title: __( 'Trash', 'poocommerce' ),
 				slug: 'trash',
 				icon: trash,
 				view: {

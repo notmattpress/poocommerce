@@ -1,15 +1,15 @@
 /**
  * External dependencies
  */
-import { test, expect, BLOCK_THEME_SLUG } from '@woocommerce/e2e-utils';
-import type { Editor, Admin } from '@woocommerce/e2e-utils';
+import { test, expect, BLOCK_THEME_SLUG } from '@poocommerce/e2e-utils';
+import type { Editor, Admin } from '@poocommerce/e2e-utils';
 
 const insertSingleProductBlock = async ( editor: Editor ) => {
-	await editor.insertBlock( { name: 'woocommerce/single-product' } );
+	await editor.insertBlock( { name: 'poocommerce/single-product' } );
 	await editor.canvas.getByText( 'Album' ).click();
 	await editor.canvas.getByText( 'Done' ).click();
 	const singleProductBlock = await editor.getBlockByName(
-		'woocommerce/single-product'
+		'poocommerce/single-product'
 	);
 	const singleProductClientId =
 		( await singleProductBlock.getAttribute( 'data-block' ) ) ?? '';
@@ -35,7 +35,7 @@ test.describe( 'registerProductBlockType registers', () => {
 		admin,
 		editor,
 	} ) => {
-		const blockName = 'woocommerce/product-price';
+		const blockName = 'poocommerce/product-price';
 
 		await test.step( 'Unavailable in post globally', async () => {
 			await admin.createNewPost();
@@ -72,7 +72,7 @@ test.describe( 'registerProductBlockType registers', () => {
 		editor,
 		page,
 	} ) => {
-		const blockName = 'woocommerce/product-price';
+		const blockName = 'poocommerce/product-price';
 		const blockTitle = 'Product Price';
 		await test.step( 'Blocks not available in non-product template', async () => {
 			// Visit site editor with a non-product template
@@ -132,12 +132,12 @@ test.describe( 'registerProductBlockType registers', () => {
 		wpCoreVersion,
 	} ) => {
 		const productBlockTypes = [
-			'woocommerce/product-price',
-			'woocommerce/product-rating',
+			'poocommerce/product-price',
+			'poocommerce/product-rating',
 		];
 
 		await admin.visitAdminPage(
-			'site-editor.php?postType=wp_template&activeView=WooCommerce'
+			'site-editor.php?postType=wp_template&activeView=PooCommerce'
 		);
 
 		const singleProductTemplate =
@@ -168,7 +168,7 @@ test.describe( 'registerProductBlockType registers', () => {
 		admin,
 		editor,
 	} ) => {
-		const blockName = 'woocommerce/product-image-gallery';
+		const blockName = 'poocommerce/product-image-gallery';
 
 		await test.step( 'Unavailable in post, also within Single Product block', async () => {
 			await admin.createNewPost();

@@ -17,8 +17,8 @@ import {
 	ResponsiveWrapper,
 } from '@wordpress/components';
 import { commentContent, people, reusableBlock } from '@wordpress/icons';
-import { Text } from '@woocommerce/experimental';
-import { recordEvent } from '@woocommerce/tracks';
+import { Text } from '@poocommerce/experimental';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -103,54 +103,54 @@ export default function ProductUsageNoticeModal( {
 		const subtitle = isExpired
 			? __(
 					'Reactivate your subscription and benefit from:',
-					'woocommerce'
+					'poocommerce'
 			  )
-			: __( 'Purchase a subscription to benefit from:', 'woocommerce' );
+			: __( 'Purchase a subscription to benefit from:', 'poocommerce' );
 
 		const benefits = [
 			{
 				key: 'get-updates',
 				icon: reusableBlock,
-				title: __( 'Improvements and security updates', 'woocommerce' ),
+				title: __( 'Improvements and security updates', 'poocommerce' ),
 				content: __(
 					'Access the latest features and product updates.',
-					'woocommerce'
+					'poocommerce'
 				),
 			},
 			{
 				key: 'get-supports',
 				icon: commentContent,
-				title: __( 'Help when you need it', 'woocommerce' ),
+				title: __( 'Help when you need it', 'poocommerce' ),
 				content: __(
 					'Get streamlined support from our global support team.',
-					'woocommerce'
+					'poocommerce'
 				),
 			},
 			{
 				key: 'supporting-ecosystem',
 				icon: people,
-				title: __( 'Supporting the ecosystem', 'woocommerce' ),
+				title: __( 'Supporting the ecosystem', 'poocommerce' ),
 				content: __(
-					'A subscription helps us to continuously improve your extensions, themes, and WooCommerce experience.',
-					'woocommerce'
+					'A subscription helps us to continuously improve your extensions, themes, and PooCommerce experience.',
+					'poocommerce'
 				),
 			},
 		];
 
 		return (
-			<div className="woocommerce-subscription-benefits">
+			<div className="poocommerce-subscription-benefits">
 				<h3>{ subtitle }</h3>
 
 				{ benefits.map( ( { key, icon, title, content } ) => (
 					<div
-						className="woocommerce-subscription-benefits__item"
+						className="poocommerce-subscription-benefits__item"
 						key={ key }
 					>
-						<div className="woocommerce-subscription-benefits__icon">
+						<div className="poocommerce-subscription-benefits__icon">
 							<Icon icon={ icon } />
 						</div>
 
-						<div className="woocommerce-subscription-benefits__content">
+						<div className="poocommerce-subscription-benefits__content">
 							<Text as="h4" lineHeight={ '20px' }>
 								{ title }
 							</Text>
@@ -164,30 +164,30 @@ export default function ProductUsageNoticeModal( {
 
 	const renderPrimaryCard = () => {
 		const status = isExpired
-			? __( 'Expired', 'woocommerce' )
-			: __( 'Unregistered', 'woocommerce' );
+			? __( 'Expired', 'poocommerce' )
+			: __( 'Unregistered', 'poocommerce' );
 
 		const title = isExpired
 			? sprintf(
 					/* translators: %s is product name */
-					__( 'Renew %s', 'woocommerce' ),
+					__( 'Renew %s', 'poocommerce' ),
 					productName
 			  )
 			: sprintf(
 					/* translators: %s is product name */
-					__( 'Subscribe to %s', 'woocommerce' ),
+					__( 'Subscribe to %s', 'poocommerce' ),
 					productName
 			  );
 
 		const buttonLabel = isExpired
 			? sprintf(
 					/* translators: %s is product price */
-					__( 'Renew for $%s', 'woocommerce' ),
+					__( 'Renew for $%s', 'poocommerce' ),
 					productRegularPrice
 			  )
 			: sprintf(
 					/* translators: %s is product price */
-					__( 'Subscribe for $%s', 'woocommerce' ),
+					__( 'Subscribe for $%s', 'poocommerce' ),
 					productRegularPrice
 			  );
 
@@ -204,7 +204,7 @@ export default function ProductUsageNoticeModal( {
 				<CardBody>{ renderBenefits() }</CardBody>
 				<CardFooter>
 					<Button onClick={ remindLater } variant="secondary">
-						{ __( 'Maybe later', 'woocommerce' ) }
+						{ __( 'Maybe later', 'poocommerce' ) }
 					</Button>
 
 					<Button
@@ -243,7 +243,7 @@ export default function ProductUsageNoticeModal( {
 		<Modal
 			style={ { borderRadius: '2px' } }
 			onRequestClose={ dismiss }
-			className="woocommerce-product-usage-notice"
+			className="poocommerce-product-usage-notice"
 		>
 			<Flex
 				gap={ 0 }

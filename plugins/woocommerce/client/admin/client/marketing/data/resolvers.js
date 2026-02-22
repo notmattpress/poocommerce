@@ -33,7 +33,7 @@ export function* getRecommendedPlugins( category ) {
 			error,
 			__(
 				'There was an error loading recommended extensions.',
-				'woocommerce'
+				'poocommerce'
 			)
 		);
 	}
@@ -55,7 +55,7 @@ export function* getMiscRecommendations() {
 			error,
 			__(
 				'There was an error loading misc recommendations',
-				'woocommerce'
+				'poocommerce'
 			)
 		);
 	}

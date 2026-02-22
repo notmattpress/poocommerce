@@ -12,7 +12,7 @@ export default function VariationDescriptionEdit() {
 			<p>
 				{ __(
 					'This block displays the variation description. When the shopper selects a variation, the description content will automatically appear here.',
-					'woocommerce'
+					'poocommerce'
 				) }
 			</p>
 		</div>

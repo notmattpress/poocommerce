@@ -11,7 +11,7 @@
 
 ## Overview
 
-WooCommerce uses PHPStan for static analysis. Beyond standard PHPDoc annotations (`@param`, `@return`, `@var`), use PHPStan-specific annotations to provide richer type information that enables better type inference.
+PooCommerce uses PHPStan for static analysis. Beyond standard PHPDoc annotations (`@param`, `@return`, `@var`), use PHPStan-specific annotations to provide richer type information that enables better type inference.
 
 ## When to Use PHPStan Annotations
 

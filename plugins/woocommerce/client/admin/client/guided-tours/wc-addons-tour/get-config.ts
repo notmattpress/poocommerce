@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { TourKitTypes } from '@woocommerce/components';
+import { TourKitTypes } from '@poocommerce/components';
 
 /**
  * Internal dependencies
@@ -30,7 +30,7 @@ export const getTourConfig = ( {
 				spotlight: {
 					interactivity: {
 						enabled: true,
-						rootElementSelector: '.woocommerce-marketplace',
+						rootElementSelector: '.poocommerce-marketplace',
 					},
 				},
 				autoScroll: {

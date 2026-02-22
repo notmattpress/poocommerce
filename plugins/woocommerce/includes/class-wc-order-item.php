@@ -5,14 +5,14 @@
  * A class which represents an item within an order and handles CRUD.
  * Uses ArrayAccess to be BW compatible with WC_Orders::get_items().
  *
- * @package WooCommerce\Classes
+ * @package PooCommerce\Classes
  * @version 3.0.0
  * @since   3.0.0
  */
 
-use Automattic\WooCommerce\Enums\ProductTaxStatus;
-use Automattic\WooCommerce\Enums\ProductType;
-use Automattic\WooCommerce\Internal\CostOfGoodsSold\CogsAwareTrait;
+use Automattic\PooCommerce\Enums\ProductTaxStatus;
+use Automattic\PooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Internal\CostOfGoodsSold\CogsAwareTrait;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -268,7 +268,7 @@ class WC_Order_Item extends WC_Data implements ArrayAccess {
 			$this->set_taxes( false );
 		}
 
-		do_action( 'woocommerce_order_item_after_calculate_taxes', $this, $calculate_tax_for );
+		do_action( 'poocommerce_order_item_after_calculate_taxes', $this, $calculate_tax_for );
 
 		return true;
 	}
@@ -280,7 +280,7 @@ class WC_Order_Item extends WC_Data implements ArrayAccess {
 	*/
 
 	/**
-	 * Wrapper for get_formatted_meta_data that includes all metadata by default. See https://github.com/woocommerce/woocommerce/pull/30948
+	 * Wrapper for get_formatted_meta_data that includes all metadata by default. See https://github.com/poocommerce/poocommerce/pull/30948
 	 *
 	 * @param string $hideprefix  Meta data prefix, (default: _).
 	 * @param bool   $include_all Include all meta data, this stop skip items with values already in the product name.
@@ -330,12 +330,12 @@ class WC_Order_Item extends WC_Data implements ArrayAccess {
 			$formatted_meta[ $meta->id ] = (object) array(
 				'key'           => $meta->key,
 				'value'         => $meta->value,
-				'display_key'   => apply_filters( 'woocommerce_order_item_display_meta_key', $display_key, $meta, $this ),
-				'display_value' => wpautop( make_clickable( apply_filters( 'woocommerce_order_item_display_meta_value', $display_value, $meta, $this ) ) ),
+				'display_key'   => apply_filters( 'poocommerce_order_item_display_meta_key', $display_key, $meta, $this ),
+				'display_value' => wpautop( make_clickable( apply_filters( 'poocommerce_order_item_display_meta_value', $display_value, $meta, $this ) ) ),
 			);
 		}
 
-		return apply_filters( 'woocommerce_order_item_get_formatted_meta_data', $formatted_meta, $this );
+		return apply_filters( 'poocommerce_order_item_get_formatted_meta_data', $formatted_meta, $this );
 	}
 
 	/*
@@ -491,7 +491,7 @@ class WC_Order_Item extends WC_Data implements ArrayAccess {
 		 * @param float|null $value The value originally calculated, null if it was not possible to calculate it.
 		 * @param WC_Order_Item $line_item The order item for which the value is calculated.
 		 */
-		$value = apply_filters( 'woocommerce_calculated_order_item_cogs_value', $value, $this );
+		$value = apply_filters( 'poocommerce_calculated_order_item_cogs_value', $value, $this );
 
 		if ( is_null( $value ) ) {
 			return false;
@@ -515,7 +515,7 @@ class WC_Order_Item extends WC_Data implements ArrayAccess {
 		throw new Exception(
 			sprintf(
 				// translators: %1$s = class and method name.
-				__( 'Method %1$s is not implemented. Classes overriding has_cogs must override this method too.', 'woocommerce' ),
+				__( 'Method %1$s is not implemented. Classes overriding has_cogs must override this method too.', 'poocommerce' ),
 				__METHOD__
 			)
 		);
@@ -571,7 +571,7 @@ class WC_Order_Item extends WC_Data implements ArrayAccess {
 			 *
 			 * @since 9.9.0
 			 */
-			return apply_filters( 'woocommerce_order_item_no_cogs_html', "<span class='na'>&ndash;</span>", $this );
+			return apply_filters( 'poocommerce_order_item_no_cogs_html', "<span class='na'>&ndash;</span>", $this );
 		}
 
 		$cogs_value      = $this->get_cogs_value();
@@ -586,7 +586,7 @@ class WC_Order_Item extends WC_Data implements ArrayAccess {
 		 *
 		 * @since 9.9.0
 		 */
-		return apply_filters( 'woocommerce_order_item_cogs_html', $cogs_value_html, $cogs_value, $this );
+		return apply_filters( 'poocommerce_order_item_cogs_html', $cogs_value_html, $cogs_value, $this );
 	}
 
 	/**
@@ -615,7 +615,7 @@ class WC_Order_Item extends WC_Data implements ArrayAccess {
 				)
 			);
 			/* translators: %s = formatted cost with currency symbol. */
-			$tooltip_text = sprintf( __( 'Cost per unit: %s', 'woocommerce' ), $formatted_cost_per_item );
+			$tooltip_text = sprintf( __( 'Cost per unit: %s', 'poocommerce' ), $formatted_cost_per_item );
 		}
 
 		/**
@@ -629,7 +629,7 @@ class WC_Order_Item extends WC_Data implements ArrayAccess {
 		 *
 		 * @since 9.9.0
 		 */
-		return apply_filters( 'woocommerce_order_item_cogs_per_item_tooltip', $tooltip_text, $cost_per_item, $formatted_cost_per_item, $this );
+		return apply_filters( 'poocommerce_order_item_cogs_per_item_tooltip', $tooltip_text, $cost_per_item, $formatted_cost_per_item, $this );
 	}
 
 	/**
@@ -662,7 +662,7 @@ class WC_Order_Item extends WC_Data implements ArrayAccess {
 		 * @param WC_Order_Item $item   The order item object.
 		 * @param WC_Order $order       The order object.
 		 */
-		return apply_filters( 'woocommerce_order_item_cogs_refunded_html', $html, $refunded_cost, $this, $order );
+		return apply_filters( 'poocommerce_order_item_cogs_refunded_html', $html, $refunded_cost, $this, $order );
 	}
 
 	/**
@@ -705,6 +705,6 @@ class WC_Order_Item extends WC_Data implements ArrayAccess {
 		 * @param float|string $value     The original legacy scalar value.
 		 * @param WC_Order_Item $item     The order item being processed.
 		 */
-		return apply_filters( 'woocommerce_order_item_legacy_tax_conversion', $converted, $value, $this );
+		return apply_filters( 'poocommerce_order_item_legacy_tax_conversion', $converted, $value, $this );
 	}
 }

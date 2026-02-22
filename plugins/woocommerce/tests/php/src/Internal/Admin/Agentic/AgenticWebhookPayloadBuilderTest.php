@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\Agentic;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\Agentic;
 
-use Automattic\WooCommerce\Internal\Admin\Agentic\AgenticWebhookPayloadBuilder;
+use Automattic\PooCommerce\Internal\Admin\Agentic\AgenticWebhookPayloadBuilder;
 
 /**
  * Tests for AgenticWebhookPayloadBuilder class.
@@ -31,8 +31,8 @@ class AgenticWebhookPayloadBuilderTest extends \WC_Unit_Test_Case {
 	 * Clean up after each test.
 	 */
 	public function tearDown(): void {
-		remove_all_filters( 'woocommerce_agentic_webhook_order_status_map' );
-		remove_all_filters( 'woocommerce_agentic_webhook_refund_type' );
+		remove_all_filters( 'poocommerce_agentic_webhook_order_status_map' );
+		remove_all_filters( 'poocommerce_agentic_webhook_refund_type' );
 		parent::tearDown();
 	}
 
@@ -42,7 +42,7 @@ class AgenticWebhookPayloadBuilderTest extends \WC_Unit_Test_Case {
 	 * @dataProvider event_type_provider
 	 *
 	 * @param string $event               Event type.
-	 * @param string $status              WooCommerce order status.
+	 * @param string $status              PooCommerce order status.
 	 * @param string $expected_acp_status Expected ACP status.
 	 */
 	public function test_build_payload_for_event_type( $event, $status, $expected_acp_status ) {
@@ -66,11 +66,11 @@ class AgenticWebhookPayloadBuilderTest extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Test status mapping from WooCommerce to ACP.
+	 * Test status mapping from PooCommerce to ACP.
 	 *
 	 * @dataProvider status_mapping_provider
 	 *
-	 * @param string $wc_status           WooCommerce order status.
+	 * @param string $wc_status           PooCommerce order status.
 	 * @param string $expected_acp_status Expected ACP status.
 	 */
 	public function test_status_mapping( $wc_status, $expected_acp_status ) {
@@ -139,18 +139,18 @@ class AgenticWebhookPayloadBuilderTest extends \WC_Unit_Test_Case {
 	 * @dataProvider status_filter_provider
 	 *
 	 * @param callable $filter_callback  Filter callback function.
-	 * @param string   $wc_status        WooCommerce order status.
+	 * @param string   $wc_status        PooCommerce order status.
 	 * @param string   $expected_status  Expected ACP status.
 	 */
 	public function test_status_mapping_filter( $filter_callback, $wc_status, $expected_status ) {
-		add_filter( 'woocommerce_agentic_webhook_order_status_map', $filter_callback, 10, 2 );
+		add_filter( 'poocommerce_agentic_webhook_order_status_map', $filter_callback, 10, 2 );
 
 		$order   = $this->create_agentic_order( 'test_session', $wc_status );
 		$payload = $this->payload_builder->build_payload( 'order_update', $order );
 
 		$this->assertEquals( $expected_status, $payload['data']['status'] );
 
-		remove_all_filters( 'woocommerce_agentic_webhook_order_status_map' );
+		remove_all_filters( 'poocommerce_agentic_webhook_order_status_map' );
 	}
 
 	/**
@@ -202,7 +202,7 @@ class AgenticWebhookPayloadBuilderTest extends \WC_Unit_Test_Case {
 
 		// Hook into the filter to change refund type based on reason.
 		add_filter(
-			'woocommerce_agentic_webhook_refund_type',
+			'poocommerce_agentic_webhook_refund_type',
 			function ( $type, $refund_obj ) {
 				if ( stripos( $refund_obj->get_reason(), 'store credit' ) !== false ) {
 					return 'store_credit';
@@ -220,6 +220,6 @@ class AgenticWebhookPayloadBuilderTest extends \WC_Unit_Test_Case {
 		$this->assertEquals( 'store_credit', $payload['data']['refunds'][0]['type'] );
 
 		// Clean up filter.
-		remove_all_filters( 'woocommerce_agentic_webhook_refund_type' );
+		remove_all_filters( 'poocommerce_agentic_webhook_refund_type' );
 	}
 }

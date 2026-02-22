@@ -7,5 +7,5 @@ A collection of onboarding related components and utilities.
 Install the module
 
 ```bash
-pnpm install @woocommerce/onboarding --save
+pnpm install @poocommerce/onboarding --save
 ```

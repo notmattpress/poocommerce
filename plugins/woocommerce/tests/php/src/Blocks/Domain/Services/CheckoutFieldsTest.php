@@ -1,11 +1,11 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\Domain\Services;
+namespace Automattic\PooCommerce\Tests\Blocks\Domain\Services;
 
-use Automattic\WooCommerce\Blocks\Package;
-use Automattic\WooCommerce\Blocks\Domain\Services\CheckoutFields;
-use Automattic\WooCommerce\Blocks\Domain\Services\CheckoutFieldsSchema\DocumentObject;
+use Automattic\PooCommerce\Blocks\Package;
+use Automattic\PooCommerce\Blocks\Domain\Services\CheckoutFields;
+use Automattic\PooCommerce\Blocks\Domain\Services\CheckoutFieldsSchema\DocumentObject;
 use WP_UnitTestCase;
 
 /**
@@ -87,7 +87,7 @@ class CheckoutFieldsTest extends WP_UnitTestCase {
 			),
 			array(
 				'id'       => 'plugin-namespace/leave-on-porch',
-				'label'    => __( 'Please leave my package on the porch if I\'m not home', 'woocommerce' ),
+				'label'    => __( 'Please leave my package on the porch if I\'m not home', 'poocommerce' ),
 				'location' => 'order',
 				'type'     => 'checkbox',
 			),
@@ -118,7 +118,7 @@ class CheckoutFieldsTest extends WP_UnitTestCase {
 				),
 			),
 		);
-		array_map( 'woocommerce_register_additional_checkout_field', $this->fields );
+		array_map( 'poocommerce_register_additional_checkout_field', $this->fields );
 	}
 
 	/**
@@ -126,7 +126,7 @@ class CheckoutFieldsTest extends WP_UnitTestCase {
 	 */
 	private function unregister_fields() {
 		$fields = $this->controller->get_additional_fields();
-		array_map( '__internal_woocommerce_blocks_deregister_checkout_field', array_keys( $fields ) );
+		array_map( '__internal_poocommerce_blocks_deregister_checkout_field', array_keys( $fields ) );
 	}
 
 	/**

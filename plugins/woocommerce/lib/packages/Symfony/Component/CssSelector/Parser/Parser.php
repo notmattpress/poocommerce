@@ -9,11 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Automattic\WooCommerce\Vendor\Symfony\Component\CssSelector\Parser;
+namespace Automattic\PooCommerce\Vendor\Symfony\Component\CssSelector\Parser;
 
-use Automattic\WooCommerce\Vendor\Symfony\Component\CssSelector\Exception\SyntaxErrorException;
-use Automattic\WooCommerce\Vendor\Symfony\Component\CssSelector\Node;
-use Automattic\WooCommerce\Vendor\Symfony\Component\CssSelector\Parser\Tokenizer\Tokenizer;
+use Automattic\PooCommerce\Vendor\Symfony\Component\CssSelector\Exception\SyntaxErrorException;
+use Automattic\PooCommerce\Vendor\Symfony\Component\CssSelector\Node;
+use Automattic\PooCommerce\Vendor\Symfony\Component\CssSelector\Parser\Tokenizer\Tokenizer;
 
 /**
  * CSS selector parser.

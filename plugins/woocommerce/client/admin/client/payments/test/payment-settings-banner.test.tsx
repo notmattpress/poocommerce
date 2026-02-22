@@ -3,7 +3,7 @@
  */
 import { waitFor, render, fireEvent } from '@testing-library/react';
 import { useSelect } from '@wordpress/data';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -14,18 +14,18 @@ jest.mock( '@wordpress/data', () => ( {
 	...jest.requireActual( '@wordpress/data' ),
 	useSelect: jest.fn(),
 } ) );
-jest.mock( '@woocommerce/explat' );
-jest.mock( '@woocommerce/tracks', () => ( { recordEvent: jest.fn() } ) );
+jest.mock( '@poocommerce/explat' );
+jest.mock( '@poocommerce/tracks', () => ( { recordEvent: jest.fn() } ) );
 
 const paymentsBannerShouldBe = async ( status: 'hidden' | 'visible' ) => {
 	const { container } = render( <PaymentsBannerWrapper /> );
 
 	await waitFor( () => {
-		container.querySelector( '.woocommerce-recommended-payments-banner' );
+		container.querySelector( '.poocommerce-recommended-payments-banner' );
 	} );
 
 	const banner = expect(
-		container.querySelector( '.woocommerce-recommended-payments-banner' )
+		container.querySelector( '.poocommerce-recommended-payments-banner' )
 	);
 
 	return status === 'visible'
@@ -44,17 +44,17 @@ const whenWcPay = ( {
 } ) => {
 	( useSelect as jest.Mock ).mockReturnValue( {
 		installedPaymentGateways: [
-			installed ? { id: 'woocommerce_payments', enabled: activated } : {},
+			installed ? { id: 'poocommerce_payments', enabled: activated } : {},
 		],
 		paymentGatewaySuggestions: supported
-			? [ { id: 'woocommerce_payments:us' } ]
+			? [ { id: 'poocommerce_payments:us' } ]
 			: [],
 		hasFinishedResolution: true,
 	} );
 };
 
 describe( 'Payment Settings Banner', () => {
-	it( 'should render the banner if woocommerce payments is supported but setup not completed', async () => {
+	it( 'should render the banner if poocommerce payments is supported but setup not completed', async () => {
 		expect.assertions( 1 );
 
 		whenWcPay( { supported: true, activated: false, installed: true } );
@@ -62,7 +62,7 @@ describe( 'Payment Settings Banner', () => {
 		await paymentsBannerShouldBe( 'visible' );
 	} );
 
-	it( 'should not render anything if woocommerce payments is not supported', async () => {
+	it( 'should not render anything if poocommerce payments is not supported', async () => {
 		expect.assertions( 1 );
 
 		whenWcPay( { supported: false, activated: false, installed: false } );
@@ -70,7 +70,7 @@ describe( 'Payment Settings Banner', () => {
 		await paymentsBannerShouldBe( 'hidden' );
 	} );
 
-	it( 'should not render anything if woocommerce payments is setup', async () => {
+	it( 'should not render anything if poocommerce payments is setup', async () => {
 		expect.assertions( 1 );
 
 		whenWcPay( { supported: true, activated: true, installed: true } );

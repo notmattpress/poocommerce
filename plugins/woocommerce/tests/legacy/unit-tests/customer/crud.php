@@ -1,10 +1,10 @@
 <?php
 
-use Automattic\WooCommerce\Enums\OrderInternalStatus;
+use Automattic\PooCommerce\Enums\OrderInternalStatus;
 
 /**
  * Class CustomerCRUD.
- * @package WooCommerce\Tests\Customer
+ * @package PooCommerce\Tests\Customer
  */
 class WC_Tests_CustomerCRUD extends WC_Unit_Test_Case {
 
@@ -330,21 +330,21 @@ class WC_Tests_CustomerCRUD extends WC_Unit_Test_Case {
 		$customer->save();
 		$customer = new WC_Customer( $customer_id );
 
-		update_option( 'woocommerce_tax_based_on', 'shipping' );
+		update_option( 'poocommerce_tax_based_on', 'shipping' );
 		$taxable = $customer->get_taxable_address();
 		$this->assertEquals( 'US', $taxable[0] );
 		$this->assertEquals( 'CA', $taxable[1] );
 		$this->assertEquals( '11111', $taxable[2] );
 		$this->assertEquals( 'Test', $taxable[3] );
 
-		update_option( 'woocommerce_tax_based_on', 'billing' );
+		update_option( 'poocommerce_tax_based_on', 'billing' );
 		$taxable = $customer->get_taxable_address();
 		$this->assertEquals( 'US', $taxable[0] );
 		$this->assertEquals( 'CA', $taxable[1] );
 		$this->assertEquals( '94110', $taxable[2] );
 		$this->assertEquals( 'San Francisco', $taxable[3] );
 
-		update_option( 'woocommerce_tax_based_on', 'base' );
+		update_option( 'poocommerce_tax_based_on', 'base' );
 		$taxable = $customer->get_taxable_address();
 		$this->assertEquals( WC()->countries->get_base_country(), $taxable[0] );
 		$this->assertEquals( WC()->countries->get_base_state(), $taxable[1] );
@@ -441,7 +441,7 @@ class WC_Tests_CustomerCRUD extends WC_Unit_Test_Case {
 	public function test_customer_is_customer_outside_base() {
 		$customer = WC_Helper_Customer::create_customer();
 		$this->assertFalse( $customer->is_customer_outside_base() );
-		update_option( 'woocommerce_tax_based_on', 'base' );
+		update_option( 'poocommerce_tax_based_on', 'base' );
 		$customer->set_billing_address_to_base();
 		$this->assertFalse( $customer->is_customer_outside_base() );
 	}

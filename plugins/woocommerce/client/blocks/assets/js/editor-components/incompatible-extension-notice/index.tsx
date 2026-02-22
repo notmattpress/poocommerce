@@ -4,7 +4,7 @@
 import { __, _n, sprintf } from '@wordpress/i18n';
 import { Notice, ExternalLink } from '@wordpress/components';
 import { createInterpolateElement } from '@wordpress/element';
-import { Alert } from '@woocommerce/icons';
+import { Alert } from '@poocommerce/icons';
 import { Icon, chevronDown } from '@wordpress/icons';
 
 /**
@@ -15,7 +15,7 @@ import { SwitchToClassicShortcodeButton } from '../switch-to-classic-shortcode-b
 import './editor.scss';
 
 interface ExtensionNoticeProps {
-	block: 'woocommerce/cart' | 'woocommerce/checkout';
+	block: 'poocommerce/cart' | 'poocommerce/checkout';
 	clientId: string;
 }
 
@@ -49,11 +49,11 @@ export function IncompatibleExtensionsNotice( {
 				? createInterpolateElement(
 						__(
 							'Some active extensions do not yet support this block. This may impact the shopper experience. <a>Learn more</a>',
-							'woocommerce'
+							'poocommerce'
 						),
 						{
 							a: (
-								<ExternalLink href="https://woocommerce.com/document/woocommerce-store-editing/customizing-cart-and-checkout/#incompatible-extensions/" />
+								<ExternalLink href="https://poocommerce.com/document/poocommerce-store-editing/customizing-cart-and-checkout/#incompatible-extensions/" />
 							),
 						}
 				  )
@@ -62,14 +62,14 @@ export function IncompatibleExtensionsNotice( {
 							// translators: %s is the name of the extension.
 							__(
 								'<strong>%s</strong> does not yet support this block. This may impact the shopper experience. <a>Learn more</a>',
-								'woocommerce'
+								'poocommerce'
 							),
 							Object.values( incompatibleExtensions )[ 0 ]
 						),
 						{
 							strong: <strong />,
 							a: (
-								<ExternalLink href="https://woocommerce.com/document/woocommerce-store-editing/customizing-cart-and-checkout/#incompatible-extensions/" />
+								<ExternalLink href="https://poocommerce.com/document/poocommerce-store-editing/customizing-cart-and-checkout/#incompatible-extensions/" />
 							),
 						}
 				  ) }
@@ -116,7 +116,7 @@ export function IncompatibleExtensionsNotice( {
 											'%s more incompatibility',
 											'%s more incompatibilities',
 											remainingEntries,
-											'woocommerce'
+											'poocommerce'
 										),
 										remainingEntries
 									) }

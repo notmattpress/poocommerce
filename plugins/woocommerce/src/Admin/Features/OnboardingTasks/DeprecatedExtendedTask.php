@@ -3,7 +3,7 @@
  * A temporary class for creating tasks on the fly from deprecated tasks.
  */
 
-namespace Automattic\WooCommerce\Admin\Features\OnboardingTasks;
+namespace Automattic\PooCommerce\Admin\Features\OnboardingTasks;
 
 /**
  * DeprecatedExtendedTask class.

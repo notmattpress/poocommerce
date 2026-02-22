@@ -3,12 +3,12 @@
  * Handles polling and storage of specs
  */
 
-namespace Automattic\WooCommerce\Admin\RemoteInboxNotifications;
+namespace Automattic\PooCommerce\Admin\RemoteInboxNotifications;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\RemoteSpecs\DataSourcePoller;
-use Automattic\WooCommerce\Admin\RemoteSpecs\RuleProcessors\GetRuleProcessor;
+use Automattic\PooCommerce\Admin\RemoteSpecs\DataSourcePoller;
+use Automattic\PooCommerce\Admin\RemoteSpecs\RuleProcessors\GetRuleProcessor;
 use WC_Helper;
 
 /**
@@ -232,7 +232,7 @@ class RemoteInboxNotificationsDataSourcePoller extends DataSourcePoller {
 	 */
 	public static function get_data_sources() {
 		return array(
-			WC_Helper::get_woocommerce_com_base_url() . 'wp-json/wccom/inbox-notifications/2.0/notifications.json',
+			WC_Helper::get_poocommerce_com_base_url() . 'wp-json/wccom/inbox-notifications/2.0/notifications.json',
 		);
 	}
 }

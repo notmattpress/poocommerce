@@ -1,13 +1,13 @@
 /**
  * External dependencies
  */
-import { BLOCK_THEME_SLUG, expect, test } from '@woocommerce/e2e-utils';
+import { BLOCK_THEME_SLUG, expect, test } from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
  */
 
-const BLOCK_NAME = 'woocommerce/all-products';
+const BLOCK_NAME = 'poocommerce/all-products';
 
 test.describe( `${ BLOCK_NAME } Block`, () => {
 	test( 'block can be inserted and it is rendered on the frontend', async ( {
@@ -30,7 +30,7 @@ test.describe( `${ BLOCK_NAME } Block`, () => {
 		).toHaveCount( 9 );
 	} );
 
-	// Check this regression: hhttps://github.com/woocommerce/woocommerce/pull/58741.
+	// Check this regression: hhttps://github.com/poocommerce/poocommerce/pull/58741.
 	// The block has a dependency on the Mini Cart block/Checkout/Cart blocks.
 	// This test checks that the block can be inserted and it is rendered on the frontend without the mini cart block.
 	test( 'block can be inserted and it is rendered on the frontend without the mini cart block', async ( {

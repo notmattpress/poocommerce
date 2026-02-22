@@ -2,12 +2,12 @@
 /**
  * Class WC_Abstract_Order file.
  *
- * @package WooCommerce\Tests\Abstracts
+ * @package PooCommerce\Tests\Abstracts
  */
 
-use Automattic\WooCommerce\Internal\CostOfGoodsSold\CogsAwareUnitTestSuiteTrait;
-use Automattic\WooCommerce\Testing\Tools\CodeHacking\Hacks\FunctionsMockerHack;
-use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Internal\CostOfGoodsSold\CogsAwareUnitTestSuiteTrait;
+use Automattic\PooCommerce\Testing\Tools\CodeHacking\Hacks\FunctionsMockerHack;
+use Automattic\PooCommerce\Enums\OrderStatus;
 
 // phpcs:disable Squiz.Classes.ClassFileName.NoMatch, Squiz.Classes.ValidClassName.NotCamelCaps -- Backward compatibility.
 /**
@@ -29,8 +29,8 @@ class WC_Abstract_Order_Test extends WC_Unit_Test_Case {
 	 * Test when rounding is different when doing per line and in subtotal.
 	 */
 	public function test_order_calculate_26582() {
-		update_option( 'woocommerce_prices_include_tax', 'yes' );
-		update_option( 'woocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_prices_include_tax', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
 		$tax_rate = array(
 			'tax_rate_country'  => '',
 			'tax_rate_state'    => '',
@@ -64,7 +64,7 @@ class WC_Abstract_Order_Test extends WC_Unit_Test_Case {
 	 * @param WC_Order $order Order object.
 	 */
 	private function order_calculate_rounding_line( $order ) {
-		update_option( 'woocommerce_tax_round_at_subtotal', 'no' );
+		update_option( 'poocommerce_tax_round_at_subtotal', 'no' );
 
 		$order->calculate_totals( true );
 
@@ -79,7 +79,7 @@ class WC_Abstract_Order_Test extends WC_Unit_Test_Case {
 	 * @param WC_Order $order Order object.
 	 */
 	private function order_calculate_rounding_subtotal( $order ) {
-		update_option( 'woocommerce_tax_round_at_subtotal', 'yes' );
+		update_option( 'poocommerce_tax_round_at_subtotal', 'yes' );
 
 		$order->calculate_totals( true );
 
@@ -92,10 +92,10 @@ class WC_Abstract_Order_Test extends WC_Unit_Test_Case {
 	 * Test that coupon taxes are not affected by logged in admin user.
 	 */
 	public function test_apply_coupon_for_correct_location_taxes() {
-		update_option( 'woocommerce_tax_round_at_subtotal', 'yes' );
-		update_option( 'woocommerce_prices_include_tax', 'yes' );
-		update_option( 'woocommerce_tax_based_on', 'billing' );
-		update_option( 'woocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_tax_round_at_subtotal', 'yes' );
+		update_option( 'poocommerce_prices_include_tax', 'yes' );
+		update_option( 'poocommerce_tax_based_on', 'billing' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
 
 		$password = wp_generate_password( 8, false, false );
 		$admin_id = wp_insert_user(
@@ -112,7 +112,7 @@ class WC_Abstract_Order_Test extends WC_Unit_Test_Case {
 		WC()->customer = null;
 		WC()->initialize_cart();
 
-		update_option( 'woocommerce_default_country', 'IN:AP' );
+		update_option( 'poocommerce_default_country', 'IN:AP' );
 
 		$tax_rate = array(
 			'tax_rate_country' => 'IN',
@@ -285,7 +285,7 @@ class WC_Abstract_Order_Test extends WC_Unit_Test_Case {
 
 	/**
 	 * Test apply_coupon() stores coupon meta data.
-	 * See: https://github.com/woocommerce/woocommerce/issues/28166.
+	 * See: https://github.com/poocommerce/poocommerce/issues/28166.
 	 */
 	public function test_apply_coupon_stores_meta_data() {
 		$coupon_code = 'coupon_test_meta_data';
@@ -309,13 +309,13 @@ class WC_Abstract_Order_Test extends WC_Unit_Test_Case {
 	 * Test for get_discount_to_display which must return a value
 	 * with and without tax whatever the setting of the options.
 	 *
-	 * Issue :https://github.com/woocommerce/woocommerce/issues/36794
+	 * Issue :https://github.com/poocommerce/poocommerce/issues/36794
 	 */
 	public function test_get_discount_to_display() {
-		update_option( 'woocommerce_calc_taxes', 'yes' );
-		update_option( 'woocommerce_prices_include_tax', 'no' );
-		update_option( 'woocommerce_currency', 'USD' );
-		update_option( 'woocommerce_tax_display_cart', 'incl' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_prices_include_tax', 'no' );
+		update_option( 'poocommerce_currency', 'USD' );
+		update_option( 'poocommerce_tax_display_cart', 'incl' );
 
 		// Set dummy data.
 		$tax_rate = array(
@@ -346,7 +346,7 @@ class WC_Abstract_Order_Test extends WC_Unit_Test_Case {
 	 */
 	public function test_cache_does_not_interferes_with_order_object() {
 		add_action(
-			'woocommerce_new_order',
+			'poocommerce_new_order',
 			function ( $order_id ) {
 				// this makes the cache store a specific order class instance, but it's quickly replaced by a generic one
 				// as we're in the middle of a save and this gets executed before the logic in WC_Abstract_Order.
@@ -357,7 +357,7 @@ class WC_Abstract_Order_Test extends WC_Unit_Test_Case {
 		$order->save();
 
 		$order = wc_get_order( $order->get_id() );
-		$this->assertInstanceOf( Automattic\WooCommerce\Admin\Overrides\Order::class, $order );
+		$this->assertInstanceOf( Automattic\PooCommerce\Admin\Overrides\Order::class, $order );
 	}
 
 	/**
@@ -512,7 +512,7 @@ class WC_Abstract_Order_Test extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox The calculated value for Cost of Goods Sold can be modified using the 'woocommerce_calculated_order_cogs_value' filter.
+	 * @testdox The calculated value for Cost of Goods Sold can be modified using the 'poocommerce_calculated_order_cogs_value' filter.
 	 */
 	public function test_filter_can_be_used_to_alter_calculated_cogs_value() {
 		$filter_received_value = null;
@@ -525,7 +525,7 @@ class WC_Abstract_Order_Test extends WC_Unit_Test_Case {
 		$this->add_product_with_cogs_to_order( $order, 56.78, 3 );
 
 		add_filter(
-			'woocommerce_calculated_order_cogs_value',
+			'poocommerce_calculated_order_cogs_value',
 			function ( $value, $order ) use ( &$filter_received_value, &$filter_received_order ) {
 				$filter_received_value = $value;
 				$filter_received_order = $order;
@@ -599,7 +599,7 @@ class WC_Abstract_Order_Test extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Test the woocommerce_order_cogs_total_value_html filter invoked by get_cogs_total_value_html.
+	 * @testdox Test the poocommerce_order_cogs_total_value_html filter invoked by get_cogs_total_value_html.
 	 */
 	public function test_get_cogs_total_value_html_with_filter() {
 		$this->enable_cogs_feature();
@@ -607,7 +607,7 @@ class WC_Abstract_Order_Test extends WC_Unit_Test_Case {
 		$order = $this->get_order_with_fixed_cogs_total_value();
 
 		add_filter(
-			'woocommerce_order_cogs_total_value_html',
+			'poocommerce_order_cogs_total_value_html',
 			function ( $html, $amount, $the_order ) {
 				return sprintf( 'amount: %s, order: %s', $amount, $the_order->get_id() );
 			},
@@ -616,7 +616,7 @@ class WC_Abstract_Order_Test extends WC_Unit_Test_Case {
 		);
 
 		$actual = $order->get_cogs_total_value_html();
-		remove_all_filters( 'woocommerce_order_cogs_total_value_html' );
+		remove_all_filters( 'poocommerce_order_cogs_total_value_html' );
 		$expected = sprintf( 'amount: %s, order: %s', 12.34, $order->get_id() );
 		$this->assertEquals( $expected, $actual );
 	}

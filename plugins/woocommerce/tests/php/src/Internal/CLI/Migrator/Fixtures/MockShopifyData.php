@@ -2,12 +2,12 @@
 /**
  * Mock Shopify Data for Testing
  *
- * @package Automattic\WooCommerce\Tests\Internal\CLI\Migrator\Fixtures
+ * @package Automattic\PooCommerce\Tests\Internal\CLI\Migrator\Fixtures
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\CLI\Migrator\Fixtures;
+namespace Automattic\PooCommerce\Tests\Internal\CLI\Migrator\Fixtures;
 
 /**
  * MockShopifyData class.
@@ -242,10 +242,10 @@ class MockShopifyData {
 	}
 
 	/**
-	 * Get mock WooCommerce product data (mapped from Shopify).
+	 * Get mock PooCommerce product data (mapped from Shopify).
 	 *
 	 * @param int $product_id The source product ID.
-	 * @return array Mapped WooCommerce product data.
+	 * @return array Mapped PooCommerce product data.
 	 */
 	public static function get_mock_wc_product_data( int $product_id = 1 ): array {
 		return array(

@@ -2,12 +2,12 @@
  * External dependencies
  */
 import { __ } from '@wordpress/i18n';
-import ProductControl from '@woocommerce/editor-components/product-control';
-import { SelectedOption } from '@woocommerce/block-hocs';
-import { WC_BLOCKS_IMAGE_URL } from '@woocommerce/block-settings';
+import ProductControl from '@poocommerce/editor-components/product-control';
+import { SelectedOption } from '@poocommerce/block-hocs';
+import { WC_BLOCKS_IMAGE_URL } from '@poocommerce/block-settings';
 import { useState, useRef } from '@wordpress/element';
-import type { WooCommerceBlockLocation } from '@woocommerce/blocks/product-template/utils';
-import { type ProductResponseItem, isEmpty } from '@woocommerce/types';
+import type { PooCommerceBlockLocation } from '@poocommerce/blocks/product-template/utils';
+import { type ProductResponseItem, isEmpty } from '@poocommerce/types';
 import { decodeEntities } from '@wordpress/html-entities';
 import {
 	PanelBody,
@@ -74,7 +74,7 @@ const ProductButton: React.FC< {
 					{ showPlaceholder ? (
 						<FlexItem>
 							<Text color="inherit" lineHeight={ 1 }>
-								{ __( 'Select product', 'woocommerce' ) }
+								{ __( 'Select product', 'poocommerce' ) }
 							</Text>
 						</FlexItem>
 					) : (
@@ -119,7 +119,7 @@ const LinkedProductPopoverContent: React.FC< {
 			}
 		} }
 		messages={ {
-			search: __( 'Select a product', 'woocommerce' ),
+			search: __( 'Select a product', 'poocommerce' ),
 		} }
 	/>
 );
@@ -135,14 +135,14 @@ const getFromCurrentProductRadioLabel = (
 	hasOrderReference: boolean
 ): string => {
 	if ( currentLocation === REFERENCE_TYPE_CART && hasCartReference ) {
-		return __( 'From products in the cart', 'woocommerce' );
+		return __( 'From products in the cart', 'poocommerce' );
 	}
 
 	if ( currentLocation === REFERENCE_TYPE_ORDER && hasOrderReference ) {
-		return __( 'From products in the order', 'woocommerce' );
+		return __( 'From products in the order', 'poocommerce' );
 	}
 
-	return __( 'From the current product', 'woocommerce' );
+	return __( 'From the current product', 'poocommerce' );
 };
 
 const LinkedProductControl = ( {
@@ -153,7 +153,7 @@ const LinkedProductControl = ( {
 }: {
 	query: ProductCollectionQuery;
 	setAttributes: ProductCollectionSetAttributes;
-	location: WooCommerceBlockLocation;
+	location: PooCommerceBlockLocation;
 	usesReference: string[] | undefined;
 } ) => {
 	const isProductLocation = location.type === REFERENCE_TYPE_PRODUCT;
@@ -200,11 +200,11 @@ const LinkedProductControl = ( {
 		radioControlState === PRODUCT_REFERENCE_TYPE.CURRENT_PRODUCT
 			? __(
 					'Linked products will be pulled from the product a shopper is currently viewing',
-					'woocommerce'
+					'poocommerce'
 			  )
 			: __(
 					'Select a product to pull the linked products from',
-					'woocommerce'
+					'poocommerce'
 			  );
 
 	const handleRadioControlChange = ( newValue: PRODUCT_REFERENCE_TYPE ) => {
@@ -232,12 +232,12 @@ const LinkedProductControl = ( {
 	);
 
 	return (
-		<PanelBody title={ __( 'Linked Product', 'woocommerce' ) }>
+		<PanelBody title={ __( 'Linked Product', 'poocommerce' ) }>
 			{ showRadioControl && (
 				<PanelRow>
 					<RadioControl
 						className="wc-block-product-collection-product-reference-radio"
-						label={ __( 'Products to show', 'woocommerce' ) }
+						label={ __( 'Products to show', 'poocommerce' ) }
 						help={ radioControlHelp }
 						selected={ radioControlState }
 						options={ [
@@ -248,7 +248,7 @@ const LinkedProductControl = ( {
 							{
 								label: __(
 									'From a specific product',
-									'woocommerce'
+									'poocommerce'
 								),
 								value: PRODUCT_REFERENCE_TYPE.SPECIFIC_PRODUCT,
 							},

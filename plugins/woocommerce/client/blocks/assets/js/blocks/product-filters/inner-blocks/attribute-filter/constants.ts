@@ -5,11 +5,11 @@ import { __ } from '@wordpress/i18n';
 
 export const attributeOptionsPreview = [
 	{
-		label: __( 'Blue', 'woocommerce' ),
+		label: __( 'Blue', 'poocommerce' ),
 		value: 'blue',
 		rawData: {
 			id: 23,
-			name: __( 'Blue', 'woocommerce' ),
+			name: __( 'Blue', 'poocommerce' ),
 			slug: 'blue',
 			attr_slug: 'blue',
 			description: '',
@@ -18,12 +18,12 @@ export const attributeOptionsPreview = [
 		},
 	},
 	{
-		label: __( 'Gray', 'woocommerce' ),
+		label: __( 'Gray', 'poocommerce' ),
 		value: 'gray',
 		selected: true,
 		rawData: {
 			id: 29,
-			name: __( 'Gray', 'woocommerce' ),
+			name: __( 'Gray', 'poocommerce' ),
 			slug: 'gray',
 			attr_slug: 'gray',
 			description: '',
@@ -32,11 +32,11 @@ export const attributeOptionsPreview = [
 		},
 	},
 	{
-		label: __( 'Green', 'woocommerce' ),
+		label: __( 'Green', 'poocommerce' ),
 		value: 'green',
 		rawData: {
 			id: 24,
-			name: __( 'Green', 'woocommerce' ),
+			name: __( 'Green', 'poocommerce' ),
 			slug: 'green',
 			attr_slug: 'green',
 			description: '',
@@ -45,12 +45,12 @@ export const attributeOptionsPreview = [
 		},
 	},
 	{
-		label: __( 'Red', 'woocommerce' ),
+		label: __( 'Red', 'poocommerce' ),
 		value: 'red',
 		selected: true,
 		rawData: {
 			id: 25,
-			name: __( 'Red', 'woocommerce' ),
+			name: __( 'Red', 'poocommerce' ),
 			slug: 'red',
 			attr_slug: 'red',
 			description: '',
@@ -59,11 +59,11 @@ export const attributeOptionsPreview = [
 		},
 	},
 	{
-		label: __( 'Yellow', 'woocommerce' ),
+		label: __( 'Yellow', 'poocommerce' ),
 		value: 'yellow',
 		rawData: {
 			id: 30,
-			name: __( 'Yellow', 'woocommerce' ),
+			name: __( 'Yellow', 'poocommerce' ),
 			slug: 'yellow',
 			attr_slug: 'yellow',
 			description: '',
@@ -74,10 +74,10 @@ export const attributeOptionsPreview = [
 ];
 
 export const sortOrders = {
-	'name-asc': __( 'Name, A to Z', 'woocommerce' ),
-	'name-desc': __( 'Name, Z to A', 'woocommerce' ),
-	'count-desc': __( 'Most results first', 'woocommerce' ),
-	'count-asc': __( 'Least results first', 'woocommerce' ),
+	'name-asc': __( 'Name, A to Z', 'poocommerce' ),
+	'name-desc': __( 'Name, Z to A', 'poocommerce' ),
+	'count-desc': __( 'Most results first', 'poocommerce' ),
+	'count-asc': __( 'Least results first', 'poocommerce' ),
 };
 
 export const sortOrderOptions = Object.entries( sortOrders ).map(

@@ -9,15 +9,15 @@
  *      'page'         => 2,
  *      'products'     => array(1,2,3)
  * );
- * $report = new \Automattic\WooCommerce\Admin\API\Reports\Downloads\Query( $args );
+ * $report = new \Automattic\PooCommerce\Admin\API\Reports\Downloads\Query( $args );
  * $mydata = $report->get_data();
  */
 
-namespace Automattic\WooCommerce\Admin\API\Reports\Downloads;
+namespace Automattic\PooCommerce\Admin\API\Reports\Downloads;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\API\Reports\Query as ReportsQuery;
+use Automattic\PooCommerce\Admin\API\Reports\Query as ReportsQuery;
 
 /**
  * API\Reports\Downloads\Query
@@ -49,10 +49,10 @@ class Query extends ReportsQuery {
 	public function get_data() {
 		wc_deprecated_function( __CLASS__ . '::' . __FUNCTION__, '9.3.0', '`GenericQuery`, `\WC_Object_Query`, or direct `DataStore` use' );
 
-		$args = apply_filters( 'woocommerce_analytics_downloads_query_args', $this->get_query_vars() );
+		$args = apply_filters( 'poocommerce_analytics_downloads_query_args', $this->get_query_vars() );
 
 		$data_store = \WC_Data_Store::load( 'report-downloads' );
 		$results    = $data_store->get_data( $args );
-		return apply_filters( 'woocommerce_analytics_downloads_select_query', $results, $args );
+		return apply_filters( 'poocommerce_analytics_downloads_select_query', $results, $args );
 	}
 }

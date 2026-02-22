@@ -4,7 +4,7 @@
 import {
 	ProductProductAttribute,
 	ProductAttributeTerm,
-} from '@woocommerce/data';
+} from '@poocommerce/data';
 
 export type VariationsFilterProps = {
 	initialValues: ProductAttributeTerm[ 'slug' ][];

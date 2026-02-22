@@ -43,14 +43,14 @@ export function ScreenHeader( { title, description, onBack }: Props ) {
 							size="small"
 							aria-label={ __(
 								'Navigate to the previous view',
-								'woocommerce'
+								'poocommerce'
 							) }
 							onClick={ onBack }
 						/>
 						<Spacer>
 							{ /* @ts-expect-error Heading component it's not typed properly in the current components version. */ }
 							<Heading
-								className="woocommerce-email-editor-styles-header"
+								className="poocommerce-email-editor-styles-header"
 								level={ 2 }
 								size={ 13 }
 							>
@@ -61,7 +61,7 @@ export function ScreenHeader( { title, description, onBack }: Props ) {
 				</Spacer>
 			</View>
 			{ description && (
-				<p className="woocommerce-email-editor-styles-header-description">
+				<p className="poocommerce-email-editor-styles-header-description">
 					{ description }
 				</p>
 			) }

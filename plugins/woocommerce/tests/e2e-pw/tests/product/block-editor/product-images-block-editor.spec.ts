@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { WC_API_PATH } from '@woocommerce/e2e-utils-playwright';
+import { WC_API_PATH } from '@poocommerce/e2e-utils-playwright';
 import type { Page } from '@playwright/test';
 
 /**
@@ -66,13 +66,13 @@ const test = baseTest.extend( {
 			.put( `${ WC_API_PATH }/products/${ product.id }`, {
 				images: [
 					{
-						src: 'http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/T_2_front.jpg',
+						src: 'http://demo.woothemes.com/poocommerce/wp-content/uploads/sites/56/2013/06/T_2_front.jpg',
 					},
 					{
-						src: 'http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/T_2_back.jpg',
+						src: 'http://demo.woothemes.com/poocommerce/wp-content/uploads/sites/56/2013/06/T_2_back.jpg',
 					},
 					{
-						src: 'http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/T_3_front.jpg',
+						src: 'http://demo.woothemes.com/poocommerce/wp-content/uploads/sites/56/2013/06/T_3_front.jpg',
 					},
 				],
 			} )
@@ -238,7 +238,7 @@ test(
 			// Verify image in store frontend
 			await page.goto( productWithGallery.permalink );
 			await expect(
-				page.locator( '.woocommerce-product-gallery ol img' )
+				page.locator( '.poocommerce-product-gallery ol img' )
 			).toHaveCount( initialImagesCount - 1 );
 		} );
 	}

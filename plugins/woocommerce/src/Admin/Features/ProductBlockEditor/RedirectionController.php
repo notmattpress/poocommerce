@@ -1,13 +1,13 @@
 <?php
 /**
- * WooCommerce Product Editor Redirection Controller
+ * PooCommerce Product Editor Redirection Controller
  */
 
-namespace Automattic\WooCommerce\Admin\Features\ProductBlockEditor;
+namespace Automattic\PooCommerce\Admin\Features\ProductBlockEditor;
 
-use Automattic\WooCommerce\Admin\Features\Features;
-use Automattic\WooCommerce\Enums\ProductType;
-use Automattic\WooCommerce\Internal\Admin\WCAdminAssets;
+use Automattic\PooCommerce\Admin\Features\Features;
+use Automattic\PooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Internal\Admin\WCAdminAssets;
 
 /**
  * Handle redirecting to the old or new editor based on features and support.
@@ -24,7 +24,7 @@ class RedirectionController {
 	 * Set up the hooks used for redirection.
 	 */
 	public function __construct() {
-		if ( \Automattic\WooCommerce\Utilities\FeaturesUtil::feature_is_enabled( 'product_block_editor' ) ) {
+		if ( \Automattic\PooCommerce\Utilities\FeaturesUtil::feature_is_enabled( 'product_block_editor' ) ) {
 			add_action( 'current_screen', array( $this, 'maybe_redirect_to_new_editor' ), 30, 0 );
 			add_action( 'current_screen', array( $this, 'redirect_non_supported_product_types' ), 30, 0 );
 		} else {
@@ -142,10 +142,10 @@ class RedirectionController {
 	}
 
 	/**
-	 * Get the parsed WooCommerce Admin path.
+	 * Get the parsed PooCommerce Admin path.
 	 */
 	protected function get_parsed_route(): array {
-		if ( ! \Automattic\WooCommerce\Admin\PageController::is_admin_page() || ! isset( $_GET['path'] ) ) {
+		if ( ! \Automattic\PooCommerce\Admin\PageController::is_admin_page() || ! isset( $_GET['path'] ) ) {
 			return array(
 				'page'       => null,
 				'product_id' => null,

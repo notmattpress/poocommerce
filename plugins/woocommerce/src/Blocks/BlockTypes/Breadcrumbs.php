@@ -1,8 +1,8 @@
 <?php
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\Utils\StyleAttributesUtils;
+use Automattic\PooCommerce\Blocks\Utils\StyleAttributesUtils;
 
 /**
  * Breadcrumbs class.
@@ -27,7 +27,7 @@ class Breadcrumbs extends AbstractBlock {
 	 */
 	protected function render( $attributes, $content, $block ) {
 		ob_start();
-		woocommerce_breadcrumb();
+		poocommerce_breadcrumb();
 		$breadcrumb = ob_get_clean();
 
 		if ( ! $breadcrumb ) {
@@ -41,7 +41,7 @@ class Breadcrumbs extends AbstractBlock {
 		$classes_and_styles['styles']  = $classes_and_styles['styles'] . ' ' . $font_size_classes_and_styles['style'] . ' ';
 
 		return sprintf(
-			'<div class="woocommerce wp-block-breadcrumbs wc-block-breadcrumbs %1$s" style="%2$s">%3$s</div>',
+			'<div class="poocommerce wp-block-breadcrumbs wc-block-breadcrumbs %1$s" style="%2$s">%3$s</div>',
 			esc_attr( $classes_and_styles['classes'] ),
 			esc_attr( $classes_and_styles['styles'] ),
 			$breadcrumb

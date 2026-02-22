@@ -2,7 +2,7 @@
 /**
  * Interface for installation steps.
  *
- * @package WooCommerce\WCCom
+ * @package PooCommerce\WCCom
  * @since   7.7.0
  */
 

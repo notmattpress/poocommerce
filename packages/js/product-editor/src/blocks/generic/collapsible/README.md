@@ -1,8 +1,8 @@
-# woocommerce/product-collapsible
+# poocommerce/product-collapsible
 
 Container with collapsible inner blocks.
 
-![Collapsible](https://woocommerce.files.wordpress.com/2023/09/woocommerceproduct-collapsible.png)
+![Collapsible](https://poocommerce.files.wordpress.com/2023/09/poocommerceproduct-collapsible.png)
 
 ## Attributes
 
@@ -35,9 +35,9 @@ Here's the code that was used to create the example in the screenshot above:
 $product_inventory_advanced = $product_inventory_section->add_block(
   [
     'id'         => 'product-inventory-advanced',
-    'blockName'  => 'woocommerce/product-collapsible',
+    'blockName'  => 'poocommerce/product-collapsible',
     'attributes' => [
-      'toggleText'       => __( 'Advanced', 'woocommerce' ),
+      'toggleText'       => __( 'Advanced', 'poocommerce' ),
       'initialCollapsed' => true,
       'persistRender'    => true,
     ],

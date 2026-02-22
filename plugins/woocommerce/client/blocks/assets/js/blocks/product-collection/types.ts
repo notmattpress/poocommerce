@@ -2,12 +2,12 @@
  * External dependencies
  */
 import type { BlockEditProps } from '@wordpress/blocks';
-import type { AttributeMetadata } from '@woocommerce/types';
+import type { AttributeMetadata } from '@poocommerce/types';
 
 /**
  * Internal dependencies
  */
-import { WooCommerceBlockLocation } from '../product-template/utils';
+import { PooCommerceBlockLocation } from '../product-template/utils';
 
 export enum ProductCollectionUIStatesInEditor {
 	COLLECTION_PICKER = 'collection_chooser',
@@ -99,7 +99,7 @@ export interface ProductCollectionQuery {
 	 */
 	featured: boolean;
 	timeFrame: TimeFrame | undefined;
-	woocommerceOnSale: boolean;
+	poocommerceOnSale: boolean;
 	/**
 	 * Filter products by their stock status.
 	 *
@@ -113,10 +113,10 @@ export interface ProductCollectionQuery {
 	 * ),
 	 * ```
 	 */
-	woocommerceStockStatus: string[];
-	woocommerceAttributes: AttributeMetadata[];
+	poocommerceStockStatus: string[];
+	poocommerceAttributes: AttributeMetadata[];
 	isProductCollectionBlock: boolean;
-	woocommerceHandPickedProducts: string[];
+	poocommerceHandPickedProducts: string[];
 	priceRange: undefined | PriceRange;
 	filterable: boolean;
 	productReference?: number;
@@ -144,7 +144,7 @@ export type ProductCollectionEditComponentProps =
 
 export type ProductCollectionContentProps =
 	ProductCollectionEditComponentProps & {
-		location: WooCommerceBlockLocation;
+		location: PooCommerceBlockLocation;
 		isUsingReferencePreviewMode: boolean;
 		openCollectionSelectionModal: () => void;
 	};
@@ -180,20 +180,20 @@ export type QueryControlProps = {
 };
 
 export enum CoreCollectionNames {
-	PRODUCT_CATALOG = 'woocommerce/product-collection/product-catalog',
-	BEST_SELLERS = 'woocommerce/product-collection/best-sellers',
-	FEATURED = 'woocommerce/product-collection/featured',
-	NEW_ARRIVALS = 'woocommerce/product-collection/new-arrivals',
-	ON_SALE = 'woocommerce/product-collection/on-sale',
-	TOP_RATED = 'woocommerce/product-collection/top-rated',
-	HAND_PICKED = 'woocommerce/product-collection/hand-picked',
-	RELATED = 'woocommerce/product-collection/related',
-	UPSELLS = 'woocommerce/product-collection/upsells',
-	CROSS_SELLS = 'woocommerce/product-collection/cross-sells',
-	BY_CATEGORY = 'woocommerce/product-collection/by-category',
-	BY_TAG = 'woocommerce/product-collection/by-tag',
-	BY_BRAND = 'woocommerce/product-collection/by-brand',
-	CART_CONTENTS = 'woocommerce/product-collection/cart-contents',
+	PRODUCT_CATALOG = 'poocommerce/product-collection/product-catalog',
+	BEST_SELLERS = 'poocommerce/product-collection/best-sellers',
+	FEATURED = 'poocommerce/product-collection/featured',
+	NEW_ARRIVALS = 'poocommerce/product-collection/new-arrivals',
+	ON_SALE = 'poocommerce/product-collection/on-sale',
+	TOP_RATED = 'poocommerce/product-collection/top-rated',
+	HAND_PICKED = 'poocommerce/product-collection/hand-picked',
+	RELATED = 'poocommerce/product-collection/related',
+	UPSELLS = 'poocommerce/product-collection/upsells',
+	CROSS_SELLS = 'poocommerce/product-collection/cross-sells',
+	BY_CATEGORY = 'poocommerce/product-collection/by-category',
+	BY_TAG = 'poocommerce/product-collection/by-tag',
+	BY_BRAND = 'poocommerce/product-collection/by-brand',
+	CART_CONTENTS = 'poocommerce/product-collection/cart-contents',
 }
 
 export enum CoreFilterNames {
@@ -226,6 +226,6 @@ export interface PreviewState {
 
 export type SetPreviewState = ( args: {
 	setState: ( previewState: PreviewState ) => void;
-	location: WooCommerceBlockLocation;
+	location: PooCommerceBlockLocation;
 	attributes: ProductCollectionAttributes;
 } ) => void | ( () => void );

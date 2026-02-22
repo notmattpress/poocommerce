@@ -2,7 +2,7 @@
  * External dependencies
  */
 
-import Rating from '@woocommerce/base-components/product-rating';
+import Rating from '@poocommerce/base-components/product-rating';
 
 export const previewOptions = [
 	{

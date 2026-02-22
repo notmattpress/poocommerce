@@ -18,14 +18,14 @@ The email rendering system includes **Core Blocks Integration** that provides de
 
 ## Retrieving Services via DI Container
 
-The easiest way to access the rendering services is via DI container. The `Automattic\WooCommerce\EmailEditor\Email_Editor_Container` class provides a dependency injection container that can be used to easily obtain renderer services.
+The easiest way to access the rendering services is via DI container. The `Automattic\PooCommerce\EmailEditor\Email_Editor_Container` class provides a dependency injection container that can be used to easily obtain renderer services.
 
 Here's how to obtain a renderer service:
 
 ```php
-use Automattic\WooCommerce\EmailEditor\Email_Editor_Container;
-use Automattic\WooCommerce\EmailEditor\Engine\Renderer\Renderer;
-use Automattic\WooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Content_Renderer;
+use Automattic\PooCommerce\EmailEditor\Email_Editor_Container;
+use Automattic\PooCommerce\EmailEditor\Engine\Renderer\Renderer;
+use Automattic\PooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Content_Renderer;
 
 // Get the container instance
 $container = Email_Editor_Container::container();
@@ -37,15 +37,15 @@ $content_renderer = $container->get( Content_Renderer::class );
 
 ## Bootstrapping
 
-The rendering engine requires bootstrapping using the `Automattic\WooCommerce\EmailEditor\Bootstrap` class and its `init` method.
+The rendering engine requires bootstrapping using the `Automattic\PooCommerce\EmailEditor\Bootstrap` class and its `init` method.
 
 This bootstrap process registers necessary action callbacks. It must be called before the WordPress `init` action is triggered at or before the `plugins_loaded` action. This early initialization is required because the bootstrap hooks into core blocks registration, which occurs before the `init` hook.
 
 **Example:**
 
 ```php
-use Automattic\WooCommerce\EmailEditor\Email_Editor_Container;
-use Automattic\WooCommerce\EmailEditor\Bootstrap;
+use Automattic\PooCommerce\EmailEditor\Email_Editor_Container;
+use Automattic\PooCommerce\EmailEditor\Bootstrap;
 
 // Get the container instance
 $container = Email_Editor_Container::container();
@@ -59,7 +59,7 @@ $bootstrap->init();
 
 ### Renderer
 
-The `Automattic\WooCommerce\EmailEditor\Engine\Renderer\Renderer` class is responsible for rendering full HTML documents, including meta information in the head section and content in the body tags. This class provides a complete email template structure.
+The `Automattic\PooCommerce\EmailEditor\Engine\Renderer\Renderer` class is responsible for rendering full HTML documents, including meta information in the head section and content in the body tags. This class provides a complete email template structure.
 
 **Main Method:**
 
@@ -119,7 +119,7 @@ $text_content = $rendered_email['text'];
 
 ### Content_Renderer
 
-The `Automattic\WooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Content_Renderer` class is responsible for rendering only the HTML of block template content and a post. The block template has to contain a `core/post-content` block.
+The `Automattic\PooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Content_Renderer` class is responsible for rendering only the HTML of block template content and a post. The block template has to contain a `core/post-content` block.
 
 **Main Method:**
 
@@ -150,16 +150,16 @@ $content     = $content_renderer->render( $post, $template );
 
 ## Core Blocks Integration
 
-The package provides specialized renderers for the most commonly used WordPress core blocks, with plans to eventually cover all core blocks. These individual block renderers are located in the [packages/php/email-editor/src/Integrations/Core/Renderer/Blocks](https://github.com/woocommerce/woocommerce/tree/trunk/packages/php/email-editor/src/Integrations/Core/Renderer/Blocks) directory.
+The package provides specialized renderers for the most commonly used WordPress core blocks, with plans to eventually cover all core blocks. These individual block renderers are located in the [packages/php/email-editor/src/Integrations/Core/Renderer/Blocks](https://github.com/poocommerce/poocommerce/tree/trunk/packages/php/email-editor/src/Integrations/Core/Renderer/Blocks) directory.
 
 **Usage:**
 The block renderers for core blocks are linked to the core blocks when they are registered, which happens very early (e.g. from a `plugins_loaded` callback), so the Core Blocks integration needs to be initialized early.
 
-If you use the `Automattic\WooCommerce\EmailEditor\Bootstrap` class, the core integration is set up for you. In case you want to set manually, see the `Automattic\WooCommerce\EmailEditor\Bootstrap` init method.
+If you use the `Automattic\PooCommerce\EmailEditor\Bootstrap` class, the core integration is set up for you. In case you want to set manually, see the `Automattic\PooCommerce\EmailEditor\Bootstrap` init method.
 
 ## Table Wrapper Helper
 
-The `Automattic\WooCommerce\EmailEditor\Integrations\Utils\Table_Wrapper_Helper` class provides utility methods for generating email-compatible table structures. Email clients have varying levels of CSS support, so using table-based layouts is often necessary for consistent rendering across different email clients.
+The `Automattic\PooCommerce\EmailEditor\Integrations\Utils\Table_Wrapper_Helper` class provides utility methods for generating email-compatible table structures. Email clients have varying levels of CSS support, so using table-based layouts is often necessary for consistent rendering across different email clients.
 
 ### Default Table Attributes
 
@@ -303,7 +303,7 @@ public static function render_table_cell(
 **Example Usage:**
 
 ```php
-use Automattic\WooCommerce\EmailEditor\Integrations\Utils\Table_Wrapper_Helper;
+use Automattic\PooCommerce\EmailEditor\Integrations\Utils\Table_Wrapper_Helper;
 
 $cell_html = Table_Wrapper_Helper::render_table_cell(
     '<p>Hello World</p>',
@@ -378,7 +378,7 @@ public static function parse_value( string $value ): float
 **Example Usage:**
 
 ```php
-use Automattic\WooCommerce\EmailEditor\Integrations\Utils\Styles_Helper;
+use Automattic\PooCommerce\EmailEditor\Integrations\Utils\Styles_Helper;
 
 $width = Styles_Helper::parse_value( '12.5px' );  // Returns 12.5
 $height = Styles_Helper::parse_value( '100%' );   // Returns 100.0
@@ -595,9 +595,9 @@ array(
 Here's how these classes work together in a typical email rendering workflow:
 
 ```php
-use Automattic\WooCommerce\EmailEditor\Email_Editor_Container;
-use Automattic\WooCommerce\EmailEditor\Bootstrap;
-use Automattic\WooCommerce\EmailEditor\Engine\Renderer\Renderer;
+use Automattic\PooCommerce\EmailEditor\Email_Editor_Container;
+use Automattic\PooCommerce\EmailEditor\Bootstrap;
+use Automattic\PooCommerce\EmailEditor\Engine\Renderer\Renderer;
 
 // Get services from container
 $container = Email_Editor_Container::container();

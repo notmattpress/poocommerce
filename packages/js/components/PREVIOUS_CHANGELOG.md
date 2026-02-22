@@ -13,8 +13,8 @@
 # 9.0.0
 
 -   Update line-height of SelectControl label to avoid truncated descenders in some typefaces and zoom levels. #8186
--   Made @woocommerce/components/Stepper a Typescript file. #8286
--   Added Typescript type declarations to build for @woocommerce/components #8282
+-   Made @poocommerce/components/Stepper a Typescript file. #8286
+-   Added Typescript type declarations to build for @poocommerce/components #8282
 
 ## Breaking changes
 
@@ -28,9 +28,9 @@
 -   Fix clicking the error message opens the dropdown. #8094
 -   Fix misaligned "Rows per page" dropdown. #8113
 -   Add `labelPositionToLeft` prop to the `OrderStatus` component. #8121
--   Remove dev dependency `@woocommerce/wc-admin-settings`. #8057
+-   Remove dev dependency `@poocommerce/wc-admin-settings`. #8057
 -   Fix incorrect screen reader text generated for data points on charts table. #8181
--   Grow and center buttons in all WooCommerce ellipsis menu popover containers. #8168
+-   Grow and center buttons in all PooCommerce ellipsis menu popover containers. #8168
 -   Added random IDs to SVG checkmarks in stepper component #8222
 
 # 8.1.1
@@ -89,7 +89,7 @@
 -   Add `controlId` and `name` props to `<SearchListItem>`. #6871
 -   Minor styling tweaks and fixes to `<SearchListcontrol>`. #6871
 -   Fix `autocompleter` for custom Search in `FilterPicker` #6880
--   Remove `woocommerce/experimental` dependency. #6986
+-   Remove `poocommerce/experimental` dependency. #6986
 
 # 6.1.2
 
@@ -103,7 +103,7 @@
 
 -   Make pagination buttons height and width consistent. #6725
 -   Add optional `children` prop to `<SummaryNumber>`. #6748
--   Add `@woocommerce/experimental`, `md5` and `dompurify` as dependencies. #6804
+-   Add `@poocommerce/experimental`, `md5` and `dompurify` as dependencies. #6804
 
 # 6.0.0
 
@@ -177,7 +177,7 @@
 -   `AdvancedFilters` component now receives `siteLocale` as a prop.
 -   `ReportsFilters` component now receives `siteLocale` as a prop.
 -   `NumberFilter` component now receives `currencySymbol` and `symbolPosition` as props.
--   `AdvancedFilters` and `ReportsFilters` receive `currency` as a prop, it is required and must be an instance of the new `Currency` object exported by `@woocommerce/currency`
+-   `AdvancedFilters` and `ReportsFilters` receive `currency` as a prop, it is required and must be an instance of the new `Currency` object exported by `@poocommerce/currency`
 -   `Chart` receives `currency` as a prop.
 -   Add `storeDate` prop to `<ReportFilters />` and `<DateRangeFilterPicker />` components.
 -   `AdvancedFilters` and `ReportFilters` now receive a required `storeDate` prop as a means to pass down date initialization values from client.
@@ -258,7 +258,7 @@
 -   New `<Search>` prop named `showClearButton`, that will display a 'Clear' button when the search box contains one or more tags.
 -   Number of selectable chart elements is now limited to 5.
 -   Color scale logic for charts with lots of items has been fixed.
--   Update `@woocommerce/navigation` to v2.0.0
+-   Update `@poocommerce/navigation` to v2.0.0
 -   Bug fix for `<StockReportTable />` returning N/A instead of zero.
 -   In `<Search>` use backspace key to remove tags from the search box.
 

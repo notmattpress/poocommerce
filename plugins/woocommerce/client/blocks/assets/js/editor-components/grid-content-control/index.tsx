@@ -34,29 +34,29 @@ const GridContentControl = ( {
 	return (
 		<>
 			<ToggleControl
-				label={ __( 'Product image', 'woocommerce' ) }
+				label={ __( 'Product image', 'poocommerce' ) }
 				checked={ imageIsVisible }
 				onChange={ () =>
 					onChange( { ...settings, image: ! imageIsVisible } )
 				}
 			/>
 			<ToggleControl
-				label={ __( 'Product title', 'woocommerce' ) }
+				label={ __( 'Product title', 'poocommerce' ) }
 				checked={ title }
 				onChange={ () => onChange( { ...settings, title: ! title } ) }
 			/>
 			<ToggleControl
-				label={ __( 'Product price', 'woocommerce' ) }
+				label={ __( 'Product price', 'poocommerce' ) }
 				checked={ price }
 				onChange={ () => onChange( { ...settings, price: ! price } ) }
 			/>
 			<ToggleControl
-				label={ __( 'Product rating', 'woocommerce' ) }
+				label={ __( 'Product rating', 'poocommerce' ) }
 				checked={ rating }
 				onChange={ () => onChange( { ...settings, rating: ! rating } ) }
 			/>
 			<ToggleControl
-				label={ __( 'Add to Cart button', 'woocommerce' ) }
+				label={ __( 'Add to Cart button', 'poocommerce' ) }
 				checked={ button }
 				onChange={ () => onChange( { ...settings, button: ! button } ) }
 			/>

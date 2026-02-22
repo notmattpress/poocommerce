@@ -18,13 +18,13 @@ const wooBlockwithFullEditorToolbarButton = createHigherOrderComponent(
 	( BlockEdit: DescriptionBlockEditComponent ) => {
 		return ( props: DescriptionBlockEditProps ) => {
 			// Only extend summary field block instances
-			if ( props?.name !== 'woocommerce/product-summary-field' ) {
+			if ( props?.name !== 'poocommerce/product-summary-field' ) {
 				return <BlockEdit { ...props } />;
 			}
 
 			/*
 			 * Extend the toolbar only to the summary field block instance
-			 * that has the `woocommerce/product-description-field__content` template block ID.
+			 * that has the `poocommerce/product-description-field__content` template block ID.
 			 */
 			if (
 				props?.attributes?._templateBlockId !==

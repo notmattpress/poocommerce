@@ -9,8 +9,8 @@ import {
 	__experimentalGetSpacingClassesAndStyles as useSpacingProps,
 	useSettings,
 } from '@wordpress/block-editor';
-import { useCustomDataContext } from '@woocommerce/shared-context';
-import type { ProductResponseAttributeItem } from '@woocommerce/types';
+import { useCustomDataContext } from '@poocommerce/shared-context';
+import type { ProductResponseAttributeItem } from '@poocommerce/types';
 import clsx from 'clsx';
 
 interface Attributes {

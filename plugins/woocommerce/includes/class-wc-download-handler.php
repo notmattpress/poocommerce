@@ -4,7 +4,7 @@
  *
  * Handle digital downloads.
  *
- * @package WooCommerce\Classes
+ * @package PooCommerce\Classes
  * @version 2.2.0
  */
 
@@ -26,9 +26,9 @@ class WC_Download_Handler {
 		if ( isset( $_GET['download_file'], $_GET['order'] ) && ( isset( $_GET['email'] ) || isset( $_GET['uid'] ) ) ) { // WPCS: input var ok, CSRF ok.
 			add_action( 'init', array( __CLASS__, 'download_product' ) );
 		}
-		add_action( 'woocommerce_download_file_redirect', array( __CLASS__, 'download_file_redirect' ), 10, 2 );
-		add_action( 'woocommerce_download_file_xsendfile', array( __CLASS__, 'download_file_xsendfile' ), 10, 2 );
-		add_action( 'woocommerce_download_file_force', array( __CLASS__, 'download_file_force' ), 10, 2 );
+		add_action( 'poocommerce_download_file_redirect', array( __CLASS__, 'download_file_redirect' ), 10, 2 );
+		add_action( 'poocommerce_download_file_xsendfile', array( __CLASS__, 'download_file_xsendfile' ), 10, 2 );
+		add_action( 'poocommerce_download_file_force', array( __CLASS__, 'download_file_force' ), 10, 2 );
 		add_action( self::TRACK_DOWNLOAD_CALLBACK, array( __CLASS__, 'track_download' ), 10, 3 );
 	}
 
@@ -51,12 +51,12 @@ class WC_Download_Handler {
 			|| ! isset( $downloads[ $key ] )
 			|| ! $downloads[ $key ]->get_enabled()
 		) {
-			self::download_error( __( 'Invalid download link.', 'woocommerce' ) );
+			self::download_error( __( 'Invalid download link.', 'poocommerce' ) );
 		}
 
 		// Fallback, accept email address if it's passed.
 		if ( empty( $_GET['email'] ) && empty( $_GET['uid'] ) ) { // WPCS: input var ok, CSRF ok.
-			self::download_error( __( 'Invalid download link.', 'woocommerce' ) );
+			self::download_error( __( 'Invalid download link.', 'poocommerce' ) );
 		}
 		// phpcs:enable WordPress.Security.NonceVerification.Recommended
 
@@ -73,7 +73,7 @@ class WC_Download_Handler {
 			$email_hash = function_exists( 'hash' ) ? hash( 'sha256', $email_address ) : sha1( $email_address );
 
 			if ( is_null( $email_address ) || ! hash_equals( wp_unslash( $_GET['uid'] ), $email_hash ) ) { // WPCS: input var ok, CSRF ok, sanitization ok.
-				self::download_error( __( 'Invalid download link.', 'woocommerce' ) );
+				self::download_error( __( 'Invalid download link.', 'poocommerce' ) );
 			}
 		}
 
@@ -91,7 +91,7 @@ class WC_Download_Handler {
 		);
 
 		if ( empty( $download_ids ) ) {
-			self::download_error( __( 'Invalid download link.', 'woocommerce' ) );
+			self::download_error( __( 'Invalid download link.', 'poocommerce' ) );
 		}
 
 		$download = new WC_Customer_Download( current( $download_ids ) );
@@ -107,7 +107,7 @@ class WC_Download_Handler {
 		 * @param WC_Customer_Download $download Download data.
 		 */
 		$file_path = apply_filters(
-			'woocommerce_download_product_filepath',
+			'poocommerce_download_product_filepath',
 			$product->get_file_download_path( $download->get_download_id() ),
 			$email_address,
 			$order,
@@ -127,7 +127,7 @@ class WC_Download_Handler {
 		self::check_download_login_required( $download );
 
 		do_action(
-			'woocommerce_download_product',
+			'poocommerce_download_product',
 			$download->get_user_email(),
 			$download->get_order_key(),
 			$download->get_product_id(),
@@ -161,7 +161,7 @@ class WC_Download_Handler {
 			$order = wc_get_order( $download->get_order_id() );
 
 			if ( $order && ! $order->is_download_permitted() ) {
-				self::download_error( __( 'Invalid order.', 'woocommerce' ), '', 403 );
+				self::download_error( __( 'Invalid order.', 'poocommerce' ), '', 403 );
 			}
 		}
 	}
@@ -173,7 +173,7 @@ class WC_Download_Handler {
 	 */
 	private static function check_downloads_remaining( $download ) {
 		if ( '' !== $download->get_downloads_remaining() && 0 >= $download->get_downloads_remaining() ) {
-			self::download_error( __( 'Sorry, you have reached your download limit for this file', 'woocommerce' ), '', 403 );
+			self::download_error( __( 'Sorry, you have reached your download limit for this file', 'poocommerce' ), '', 403 );
 		}
 	}
 
@@ -184,7 +184,7 @@ class WC_Download_Handler {
 	 */
 	private static function check_download_expiry( $download ) {
 		if ( ! is_null( $download->get_access_expires() ) && $download->get_access_expires()->getTimestamp() < strtotime( 'midnight', time() ) ) {
-			self::download_error( __( 'Sorry, this download has expired', 'woocommerce' ), '', 403 );
+			self::download_error( __( 'Sorry, this download has expired', 'poocommerce' ), '', 403 );
 		}
 	}
 
@@ -194,16 +194,16 @@ class WC_Download_Handler {
 	 * @param WC_Customer_Download $download Download instance.
 	 */
 	private static function check_download_login_required( $download ) {
-		if ( $download->get_user_id() && 'yes' === get_option( 'woocommerce_downloads_require_login' ) ) {
+		if ( $download->get_user_id() && 'yes' === get_option( 'poocommerce_downloads_require_login' ) ) {
 			if ( ! is_user_logged_in() ) {
 				if ( wc_get_page_id( 'myaccount' ) ) {
-					wp_safe_redirect( add_query_arg( 'wc_error', rawurlencode( __( 'You must be logged in to download files.', 'woocommerce' ) ), wc_get_page_permalink( 'myaccount' ) ) );
+					wp_safe_redirect( add_query_arg( 'wc_error', rawurlencode( __( 'You must be logged in to download files.', 'poocommerce' ) ), wc_get_page_permalink( 'myaccount' ) ) );
 					exit;
 				} else {
-					self::download_error( __( 'You must be logged in to download files.', 'woocommerce' ) . ' <a href="' . esc_url( wp_login_url( wc_get_page_permalink( 'myaccount' ) ) ) . '" class="wc-forward">' . __( 'Login', 'woocommerce' ) . '</a>', __( 'Log in to Download Files', 'woocommerce' ), 403 );
+					self::download_error( __( 'You must be logged in to download files.', 'poocommerce' ) . ' <a href="' . esc_url( wp_login_url( wc_get_page_permalink( 'myaccount' ) ) ) . '" class="wc-forward">' . __( 'Login', 'poocommerce' ) . '</a>', __( 'Log in to Download Files', 'poocommerce' ), 403 );
 				}
 			} elseif ( ! current_user_can( 'download_file', $download ) ) {
-				self::download_error( __( 'This is not your download link.', 'woocommerce' ), '', 403 );
+				self::download_error( __( 'This is not your download link.', 'poocommerce' ), '', 403 );
 			}
 		}
 	}
@@ -226,7 +226,7 @@ class WC_Download_Handler {
 	 */
 	public static function download( $file_path, $product_id ) {
 		if ( ! $file_path ) {
-			self::download_error( __( 'No file defined', 'woocommerce' ) );
+			self::download_error( __( 'No file defined', 'poocommerce' ) );
 		}
 
 		$filename = basename( $file_path );
@@ -235,7 +235,7 @@ class WC_Download_Handler {
 			$filename = current( explode( '?', $filename ) );
 		}
 
-		$filename = apply_filters( 'woocommerce_file_download_filename', $filename, $product_id );
+		$filename = apply_filters( 'poocommerce_file_download_filename', $filename, $product_id );
 
 		/**
 		 * Filter download method.
@@ -245,13 +245,13 @@ class WC_Download_Handler {
 		 * @param int    $product_id Product ID.
 		 * @param string $file_path  URL to file.
 		 */
-		$file_download_method = apply_filters( 'woocommerce_file_download_method', get_option( 'woocommerce_file_download_method', 'force' ), $product_id, $file_path );
+		$file_download_method = apply_filters( 'poocommerce_file_download_method', get_option( 'poocommerce_file_download_method', 'force' ), $product_id, $file_path );
 
 		// Add action to prevent issues in IE.
 		add_action( 'nocache_headers', array( __CLASS__, 'ie_nocache_headers_fix' ) );
 
 		// Trigger download via one of the methods.
-		do_action( 'woocommerce_download_file_' . $file_download_method, $file_path, $filename );
+		do_action( 'poocommerce_download_file_' . $file_download_method, $file_path, $filename );
 	}
 
 	/**
@@ -306,7 +306,7 @@ class WC_Download_Handler {
 			 */
 			return array(
 				'remote_file' => true,
-				'file_path'   => apply_filters( 'woocommerce_download_parse_remote_file_path', $file_path ),
+				'file_path'   => apply_filters( 'poocommerce_download_parse_remote_file_path', $file_path ),
 			);
 		}
 
@@ -334,7 +334,7 @@ class WC_Download_Handler {
 		*/
 		return array(
 			'remote_file' => $remote_file,
-			'file_path'   => apply_filters( 'woocommerce_download_parse_file_path', $file_path, $remote_file ),
+			'file_path'   => apply_filters( 'poocommerce_download_parse_file_path', $file_path, $remote_file ),
 		);
 	}
 
@@ -352,25 +352,25 @@ class WC_Download_Handler {
 		 * 1. xsendfile needs proxy configuration to work for remote files, which cannot be assumed to be available on most hosts.
 		 * 2. Force download method is more secure than redirect method if `allow_url_fopen` is enabled in `php.ini`.
 		 */
-		if ( $parsed_file_path['remote_file'] && ! apply_filters( 'woocommerce_use_xsendfile_for_remote', false ) ) {
-			do_action( 'woocommerce_download_file_force', $file_path, $filename );
+		if ( $parsed_file_path['remote_file'] && ! apply_filters( 'poocommerce_use_xsendfile_for_remote', false ) ) {
+			do_action( 'poocommerce_download_file_force', $file_path, $filename );
 			return;
 		}
 
 		if ( function_exists( 'apache_get_modules' ) && in_array( 'mod_xsendfile', apache_get_modules(), true ) ) {
 			self::download_headers( $parsed_file_path['file_path'], $filename );
-			$filepath = apply_filters( 'woocommerce_download_file_xsendfile_file_path', $parsed_file_path['file_path'], $file_path, $filename, $parsed_file_path );
+			$filepath = apply_filters( 'poocommerce_download_file_xsendfile_file_path', $parsed_file_path['file_path'], $file_path, $filename, $parsed_file_path );
 			header( 'X-Sendfile: ' . $filepath );
 			exit;
 		} elseif ( stristr( getenv( 'SERVER_SOFTWARE' ), 'lighttpd' ) ) {
 			self::download_headers( $parsed_file_path['file_path'], $filename );
-			$filepath = apply_filters( 'woocommerce_download_file_xsendfile_lighttpd_file_path', $parsed_file_path['file_path'], $file_path, $filename, $parsed_file_path );
+			$filepath = apply_filters( 'poocommerce_download_file_xsendfile_lighttpd_file_path', $parsed_file_path['file_path'], $file_path, $filename, $parsed_file_path );
 			header( 'X-Lighttpd-Sendfile: ' . $filepath );
 			exit;
 		} elseif ( stristr( getenv( 'SERVER_SOFTWARE' ), 'nginx' ) || stristr( getenv( 'SERVER_SOFTWARE' ), 'cherokee' ) ) {
 			self::download_headers( $parsed_file_path['file_path'], $filename );
 			$xsendfile_path = trim( preg_replace( '`^' . str_replace( '\\', '/', getcwd() ) . '`', '', $parsed_file_path['file_path'] ), '/' );
-			$xsendfile_path = apply_filters( 'woocommerce_download_file_xsendfile_x_accel_redirect_file_path', $xsendfile_path, $file_path, $filename, $parsed_file_path );
+			$xsendfile_path = apply_filters( 'poocommerce_download_file_xsendfile_x_accel_redirect_file_path', $xsendfile_path, $file_path, $filename, $parsed_file_path );
 			header( "X-Accel-Redirect: /$xsendfile_path" );
 			exit;
 		}
@@ -379,7 +379,7 @@ class WC_Download_Handler {
 		wc_get_logger()->warning(
 			sprintf(
 				/* translators: %1$s contains the filepath of the digital asset. */
-				__( '%1$s could not be served using the X-Accel-Redirect/X-Sendfile method. A Force Download will be used instead.', 'woocommerce' ),
+				__( '%1$s could not be served using the X-Accel-Redirect/X-Sendfile method. A Force Download will be used instead.', 'poocommerce' ),
 				$file_path
 			)
 		);
@@ -478,17 +478,17 @@ class WC_Download_Handler {
 		$start  = isset( $download_range['start'] ) ? $download_range['start'] : 0;
 		$length = isset( $download_range['length'] ) ? $download_range['length'] : 0;
 		if ( ! self::readfile_chunked( $parsed_file_path['file_path'], $start, $length ) ) {
-			if ( $parsed_file_path['remote_file'] && 'yes' === get_option( 'woocommerce_downloads_redirect_fallback_allowed' ) ) {
+			if ( $parsed_file_path['remote_file'] && 'yes' === get_option( 'poocommerce_downloads_redirect_fallback_allowed' ) ) {
 				wc_get_logger()->warning(
 					sprintf(
 						/* translators: %1$s contains the filepath of the digital asset. */
-						__( '%1$s could not be served using the Force Download method. A redirect will be used instead.', 'woocommerce' ),
+						__( '%1$s could not be served using the Force Download method. A redirect will be used instead.', 'poocommerce' ),
 						$file_path
 					)
 				);
 				self::download_file_redirect( $file_path );
 			} else {
-				self::download_error( __( 'File not found', 'woocommerce' ) );
+				self::download_error( __( 'File not found', 'poocommerce' ) );
 			}
 		}
 
@@ -591,13 +591,13 @@ class WC_Download_Handler {
 	 *
 	 * Get selected content disposition
 	 *
-	 * Defaults to attachment if `woocommerce_downloads_deliver_inline` setting is not selected.
+	 * Defaults to attachment if `poocommerce_downloads_deliver_inline` setting is not selected.
 	 *
 	 * @return string Content disposition value.
 	 */
 	private static function get_content_disposition() : string {
 		$disposition = 'attachment';
-		if ( 'yes' === get_option( 'woocommerce_downloads_deliver_inline' ) ) {
+		if ( 'yes' === get_option( 'poocommerce_downloads_deliver_inline' ) ) {
 			$disposition = 'inline';
 		}
 		return $disposition;
@@ -691,7 +691,7 @@ class WC_Download_Handler {
 		 * headers.
 		 */
 		if ( headers_sent() ) {
-			wc_get_logger()->log( 'warning', __( 'Headers already sent when generating download error message.', 'woocommerce' ) );
+			wc_get_logger()->log( 'warning', __( 'Headers already sent when generating download error message.', 'poocommerce' ) );
 		} else {
 			header( 'Content-Type: ' . get_option( 'html_type' ) . '; charset=' . get_option( 'blog_charset' ) );
 			header_remove( 'Content-Description;' );
@@ -700,7 +700,7 @@ class WC_Download_Handler {
 		}
 
 		if ( ! strstr( $message, '<a ' ) ) {
-			$message .= ' <a href="' . esc_url( wc_get_page_permalink( 'shop' ) ) . '" class="wc-forward">' . esc_html__( 'Go to shop', 'woocommerce' ) . '</a>';
+			$message .= ' <a href="' . esc_url( wc_get_page_permalink( 'shop' ) ) . '" class="wc-forward">' . esc_html__( 'Go to shop', 'poocommerce' ) . '</a>';
 		}
 		wp_die( $message, $title, array( 'response' => $status ) ); // WPCS: XSS ok.
 	}
@@ -717,7 +717,7 @@ class WC_Download_Handler {
 	 * @return void
 	 * @throws Exception If the active version of Action Scheduler is less than 3.6.0.
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 */
 	public static function track_download( $download, $user_id = null, $user_ip_address = null, bool $defer = false ): void {
 		try {
@@ -731,7 +731,7 @@ class WC_Download_Handler {
 			}
 
 			// Counting of partial downloads may be disabled by the site operator.
-			if ( get_option( 'woocommerce_downloads_count_partial', 'yes' ) !== 'yes' ) {
+			if ( get_option( 'poocommerce_downloads_count_partial', 'yes' ) !== 'yes' ) {
 				return;
 			}
 
@@ -744,7 +744,7 @@ class WC_Download_Handler {
 			 * @param int $window_in_seconds      Non-negative number of seconds. Defaults to 1800 (30 minutes).
 			 * @param int $download_permission_id References the download permission being tracked.
 			 */
-			$window = absint( apply_filters( 'woocommerce_partial_download_tracking_window', 30 * MINUTE_IN_SECONDS, $download->get_id() ) );
+			$window = absint( apply_filters( 'poocommerce_partial_download_tracking_window', 30 * MINUTE_IN_SECONDS, $download->get_id() ) );
 
 			// If we do not have Action Scheduler 3.6.0+ (this would be an unexpected scenario) then we cannot
 			// track partial downloads, because we require support for unique actions.
@@ -760,7 +760,7 @@ class WC_Download_Handler {
 					$user_id,
 					$user_ip_address,
 				),
-				'woocommerce',
+				'poocommerce',
 				true
 			);
 		} catch ( Exception $e ) {

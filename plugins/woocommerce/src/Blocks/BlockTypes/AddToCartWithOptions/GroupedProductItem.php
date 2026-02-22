@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes\AddToCartWithOptions;
+namespace Automattic\PooCommerce\Blocks\BlockTypes\AddToCartWithOptions;
 
-use Automattic\WooCommerce\Blocks\BlockTypes\AbstractBlock;
-use Automattic\WooCommerce\Blocks\BlockTypes\EnableBlockJsonAssetsTrait;
-use Automattic\WooCommerce\Blocks\BlockTypes\AddToCartWithOptions\Utils as AddToCartWithOptionsUtils;
+use Automattic\PooCommerce\Blocks\BlockTypes\AbstractBlock;
+use Automattic\PooCommerce\Blocks\BlockTypes\EnableBlockJsonAssetsTrait;
+use Automattic\PooCommerce\Blocks\BlockTypes\AddToCartWithOptions\Utils as AddToCartWithOptionsUtils;
 use WP_Block;
 
 /**
@@ -32,8 +32,8 @@ class GroupedProductItem extends AbstractBlock {
 	 */
 	public function set_is_descendant_of_grouped_product_selector_context( $context, $block ) {
 		if (
-			'woocommerce/product-price' === $block['blockName'] ||
-			'woocommerce/product-stock-indicator' === $block['blockName']
+			'poocommerce/product-price' === $block['blockName'] ||
+			'poocommerce/product-stock-indicator' === $block['blockName']
 		) {
 			$context['isDescendantOfGroupedProductSelector'] = true;
 		}

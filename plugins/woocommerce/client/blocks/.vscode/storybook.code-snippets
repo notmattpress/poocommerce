@@ -13,7 +13,7 @@
 			"import ${1:${TM_DIRECTORY/.*\\/(.*)\\/.*$/${1:/pascalcase}/}}, { ${2:${TM_DIRECTORY/.*\\/(.*)\\/.*$/${1:/pascalcase}/}Props} } from '..';",
 			"",
 			"export default {",
-			"\ttitle: 'WooCommerce Blocks/${3|@base-components,editor-components,woocommerce,Checkout Blocks|}/${1}',",
+			"\ttitle: 'PooCommerce Blocks/${3|@base-components,editor-components,poocommerce,Checkout Blocks|}/${1}',",
 			"\tcomponent: ${1},",
 			"} as Meta< ${2} >;",
 			"",

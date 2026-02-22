@@ -3,9 +3,9 @@
  */
 import { createElement } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import { Product } from '@woocommerce/data';
+import { Product } from '@poocommerce/data';
 import { useEntityProp } from '@wordpress/core-data';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 import { CheckboxControl, PanelBody } from '@wordpress/components';
 
 /**
@@ -33,12 +33,12 @@ export function VisibilitySection( { productType }: VisibilitySectionProps ) {
 
 	function getVisibilityLabel() {
 		if ( postPassword !== '' ) {
-			return __( 'Password protected', 'woocommerce' );
+			return __( 'Password protected', 'poocommerce' );
 		}
 		if ( catalogVisibility === 'hidden' ) {
-			return __( 'Hidden', 'woocommerce' );
+			return __( 'Hidden', 'poocommerce' );
 		}
-		return __( 'Public', 'woocommerce' );
+		return __( 'Public', 'poocommerce' );
 	}
 
 	return (
@@ -47,23 +47,23 @@ export function VisibilitySection( { productType }: VisibilitySectionProps ) {
 			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 			// @ts-ignore We need to send an Element.
 			title={ [
-				__( 'Visibility: ', 'woocommerce' ),
+				__( 'Visibility: ', 'poocommerce' ),
 				<span className="editor-post-publish-panel__link" key="label">
 					{ getVisibilityLabel() }
 				</span>,
 			] }
 		>
-			<div className="woocommerce-publish-panel-visibility">
-				<fieldset className="woocommerce-publish-panel-visibility__fieldset">
-					<legend className="woocommerce-publish-panel-visibility__legend">
+			<div className="poocommerce-publish-panel-visibility">
+				<fieldset className="poocommerce-publish-panel-visibility__fieldset">
+					<legend className="poocommerce-publish-panel-visibility__legend">
 						{ __(
 							'Control how this product is viewed by customers and other site users.',
-							'woocommerce'
+							'poocommerce'
 						) }
 					</legend>
 					<CatalogVisibility
 						catalogVisibility={ catalogVisibility }
-						label={ __( 'Hide in product catalog', 'woocommerce' ) }
+						label={ __( 'Hide in product catalog', 'poocommerce' ) }
 						visibility={ 'search' }
 						onCheckboxChange={ setCatalogVisibility }
 					/>
@@ -71,13 +71,13 @@ export function VisibilitySection( { productType }: VisibilitySectionProps ) {
 						catalogVisibility={ catalogVisibility }
 						label={ __(
 							'Hide from search results',
-							'woocommerce'
+							'poocommerce'
 						) }
 						visibility={ 'catalog' }
 						onCheckboxChange={ setCatalogVisibility }
 					/>
 					<CheckboxControl
-						label={ __( 'Enable product reviews', 'woocommerce' ) }
+						label={ __( 'Enable product reviews', 'poocommerce' ) }
 						checked={ reviewsAllowed }
 						onChange={ ( selected: boolean ) => {
 							setReviewsAllowed( selected );
@@ -89,7 +89,7 @@ export function VisibilitySection( { productType }: VisibilitySectionProps ) {
 						} }
 					/>
 					<RequirePassword
-						label={ __( 'Require a password', 'woocommerce' ) }
+						label={ __( 'Require a password', 'poocommerce' ) }
 						postPassword={ postPassword }
 						onInputChange={ setPostPassword }
 					/>

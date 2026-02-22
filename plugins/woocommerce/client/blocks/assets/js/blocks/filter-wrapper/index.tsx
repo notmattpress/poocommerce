@@ -4,7 +4,7 @@
 import { __ } from '@wordpress/i18n';
 import { createBlock, registerBlockType } from '@wordpress/blocks';
 import type { BlockInstance } from '@wordpress/blocks';
-import { toggle } from '@woocommerce/icons';
+import { toggle } from '@poocommerce/icons';
 import { useBlockProps, InnerBlocks } from '@wordpress/block-editor';
 import {
 	Icon,
@@ -22,24 +22,24 @@ import metadata from './block.json';
 
 const filterBlocksWidgets = [
 	{
-		widgetId: 'woocommerce_layered_nav_filters',
+		widgetId: 'poocommerce_layered_nav_filters',
 		name: 'active-filters',
-		heading: __( 'Active filters', 'woocommerce' ),
+		heading: __( 'Active filters', 'poocommerce' ),
 	},
 	{
-		widgetId: 'woocommerce_price_filter',
+		widgetId: 'poocommerce_price_filter',
 		name: 'price-filter',
-		heading: __( 'Filter by price', 'woocommerce' ),
+		heading: __( 'Filter by price', 'poocommerce' ),
 	},
 	{
-		widgetId: 'woocommerce_layered_nav',
+		widgetId: 'poocommerce_layered_nav',
 		name: 'attribute-filter',
-		heading: __( 'Filter by attribute', 'woocommerce' ),
+		heading: __( 'Filter by attribute', 'poocommerce' ),
 	},
 	{
-		widgetId: 'woocommerce_rating_filter',
+		widgetId: 'poocommerce_rating_filter',
 		name: 'rating-filter',
-		heading: __( 'Filter by rating', 'woocommerce' ),
+		heading: __( 'Filter by rating', 'poocommerce' ),
 	},
 ];
 
@@ -89,7 +89,7 @@ const transformFilterBlock = (
 	title: string
 ) => {
 	const filterWrapperInnerBlocks: BlockInstance[] = [
-		createBlock( `woocommerce/${ filterType }`, attributes ),
+		createBlock( `poocommerce/${ filterType }`, attributes ),
 	];
 
 	filterWrapperInnerBlocks.unshift(
@@ -100,7 +100,7 @@ const transformFilterBlock = (
 	);
 
 	return createBlock(
-		'woocommerce/filter-wrapper',
+		'poocommerce/filter-wrapper',
 		{
 			filterType,
 		},
@@ -120,10 +120,10 @@ registerBlockType( metadata, {
 	variations: [
 		{
 			name: 'active-filters',
-			title: __( 'Active Filters', 'woocommerce' ),
+			title: __( 'Active Filters', 'poocommerce' ),
 			description: __(
 				'Display the currently active filters.',
-				'woocommerce'
+				'poocommerce'
 			),
 			/**
 			 * We need to handle the isActive function differently for this
@@ -134,7 +134,7 @@ registerBlockType( metadata, {
 				attributes.filterType === 'active-filters' ||
 				! attributes.filterType,
 			attributes: {
-				heading: __( 'Active filters', 'woocommerce' ),
+				heading: __( 'Active filters', 'poocommerce' ),
 				filterType: 'active-filters',
 			},
 			icon: {
@@ -149,16 +149,16 @@ registerBlockType( metadata, {
 		},
 		{
 			name: 'price-filter',
-			title: __( 'Filter by Price', 'woocommerce' ),
+			title: __( 'Filter by Price', 'poocommerce' ),
 			description: __(
 				'Enable customers to filter the product grid by choosing a price range.',
-				'woocommerce'
+				'poocommerce'
 			),
 			isActive: ( attributes ) =>
 				attributes.filterType === 'price-filter',
 			attributes: {
 				filterType: 'price-filter',
-				heading: __( 'Filter by price', 'woocommerce' ),
+				heading: __( 'Filter by price', 'poocommerce' ),
 			},
 			icon: {
 				src: (
@@ -171,16 +171,16 @@ registerBlockType( metadata, {
 		},
 		{
 			name: 'stock-filter',
-			title: __( 'Filter by Stock', 'woocommerce' ),
+			title: __( 'Filter by Stock', 'poocommerce' ),
 			description: __(
 				'Enable customers to filter the product grid by stock status.',
-				'woocommerce'
+				'poocommerce'
 			),
 			isActive: ( attributes ) =>
 				attributes.filterType === 'stock-filter',
 			attributes: {
 				filterType: 'stock-filter',
-				heading: __( 'Filter by stock status', 'woocommerce' ),
+				heading: __( 'Filter by stock status', 'poocommerce' ),
 			},
 			icon: {
 				src: (
@@ -193,16 +193,16 @@ registerBlockType( metadata, {
 		},
 		{
 			name: 'attribute-filter',
-			title: __( 'Filter by Attribute', 'woocommerce' ),
+			title: __( 'Filter by Attribute', 'poocommerce' ),
 			description: __(
 				'Enable customers to filter the product grid by selecting one or more attributes, such as color.',
-				'woocommerce'
+				'poocommerce'
 			),
 			isActive: ( attributes ) =>
 				attributes.filterType === 'attribute-filter',
 			attributes: {
 				filterType: 'attribute-filter',
-				heading: __( 'Filter by attribute', 'woocommerce' ),
+				heading: __( 'Filter by attribute', 'poocommerce' ),
 			},
 			icon: {
 				src: (
@@ -215,16 +215,16 @@ registerBlockType( metadata, {
 		},
 		{
 			name: 'rating-filter',
-			title: __( 'Filter by Rating', 'woocommerce' ),
+			title: __( 'Filter by Rating', 'poocommerce' ),
 			description: __(
 				'Enable customers to filter the product grid by rating.',
-				'woocommerce'
+				'poocommerce'
 			),
 			isActive: ( attributes ) =>
 				attributes.filterType === 'rating-filter',
 			attributes: {
 				filterType: 'rating-filter',
-				heading: __( 'Filter by rating', 'woocommerce' ),
+				heading: __( 'Filter by rating', 'poocommerce' ),
 			},
 			icon: {
 				src: (

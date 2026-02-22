@@ -22,7 +22,7 @@ export function RTLToolbarButton( {
 	return (
 		<ToolbarButton
 			icon={ formatLtr }
-			title={ _x( 'Left to right', 'editor button', 'woocommerce' ) }
+			title={ _x( 'Left to right', 'editor button', 'poocommerce' ) }
 			isActive={ direction === 'ltr' }
 			onClick={ () =>
 				onChange?.( direction === 'ltr' ? undefined : 'ltr' )

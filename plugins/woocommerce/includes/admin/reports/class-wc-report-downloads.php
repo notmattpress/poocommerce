@@ -4,7 +4,7 @@
  *
  * @author      WooThemes
  * @category    Admin
- * @package     WooCommerce\Admin\Reports
+ * @package     PooCommerce\Admin\Reports
  * @version     3.3.0
  */
 
@@ -72,21 +72,21 @@ class WC_Report_Downloads extends WP_List_Table {
 				$permission = new WC_Customer_Download( $permission_id );
 				$product    = wc_get_product( $permission->product_id );
 			} catch ( Exception $e ) {
-				wp_die( sprintf( esc_html__( 'Permission #%d not found.', 'woocommerce' ), esc_html( $permission_id ) ) );
+				wp_die( sprintf( esc_html__( 'Permission #%d not found.', 'poocommerce' ), esc_html( $permission_id ) ) );
 			}
 		}
 
-		echo '<h1>' . esc_html__( 'Customer downloads', 'woocommerce' );
+		echo '<h1>' . esc_html__( 'Customer downloads', 'poocommerce' );
 
 		$filters      = $this->get_filter_vars();
 		$filter_list  = array();
 		$filter_names = array(
-			'product_id'      => __( 'Product', 'woocommerce' ),
-			'download_id'     => __( 'File ID', 'woocommerce' ),
-			'permission_id'   => __( 'Permission ID', 'woocommerce' ),
-			'order_id'        => __( 'Order', 'woocommerce' ),
-			'user_id'         => __( 'User', 'woocommerce' ),
-			'user_ip_address' => __( 'IP address', 'woocommerce' ),
+			'product_id'      => __( 'Product', 'poocommerce' ),
+			'download_id'     => __( 'File ID', 'poocommerce' ),
+			'permission_id'   => __( 'Permission ID', 'poocommerce' ),
+			'order_id'        => __( 'Order', 'poocommerce' ),
+			'user_id'         => __( 'User', 'poocommerce' ),
+			'user_ip_address' => __( 'IP address', 'poocommerce' ),
 		);
 
 		foreach ( $filters as $key => $value ) {
@@ -97,7 +97,7 @@ class WC_Report_Downloads extends WP_List_Table {
 				case 'order_id':
 					$order = wc_get_order( $value );
 					if ( $order ) {
-						$display_value = _x( '#', 'hash before order number', 'woocommerce' ) . $order->get_order_number();
+						$display_value = _x( '#', 'hash before order number', 'poocommerce' ) . $order->get_order_number();
 					} else {
 						break 2;
 					}
@@ -114,17 +114,17 @@ class WC_Report_Downloads extends WP_List_Table {
 					$display_value = $value;
 					break;
 			}
-			$filter_list[] = $filter_names[ $key ] . ' ' . $display_value . ' <a href="' . esc_url( remove_query_arg( $key ) ) . '" class="woocommerce-reports-remove-filter">&times;</a>';
+			$filter_list[] = $filter_names[ $key ] . ' ' . $display_value . ' <a href="' . esc_url( remove_query_arg( $key ) ) . '" class="poocommerce-reports-remove-filter">&times;</a>';
 		}
 
 		echo '</h1>';
 
-		echo '<div id="active-filters" class="woocommerce-reports-wide"><h2>';
-		echo esc_html__( 'Active filters', 'woocommerce' ) . ': ';
+		echo '<div id="active-filters" class="poocommerce-reports-wide"><h2>';
+		echo esc_html__( 'Active filters', 'poocommerce' ) . ': ';
 		echo $filter_list ? wp_kses_post( implode( ', ', $filter_list ) ) : '';
 		echo '</h2></div>';
 
-		echo '<div id="poststuff" class="woocommerce-reports-wide">';
+		echo '<div id="poststuff" class="poocommerce-reports-wide">';
 		$this->display();
 		echo '</div>';
 	}
@@ -155,7 +155,7 @@ class WC_Report_Downloads extends WP_List_Table {
 					edit_post_link( esc_html( $product->get_formatted_name() ), '', '', $product->get_id(), 'view-link' );
 
 					echo '<div class="row-actions">';
-					echo '<a href="' . esc_url( add_query_arg( 'product_id', $product->get_id() ) ) . '">' . esc_html__( 'Filter by product', 'woocommerce' ) . '</a>';
+					echo '<a href="' . esc_url( add_query_arg( 'product_id', $product->get_id() ) ) . '">' . esc_html__( 'Filter by product', 'poocommerce' ) . '</a>';
 					echo '</div>';
 				}
 				break;
@@ -165,22 +165,22 @@ class WC_Report_Downloads extends WP_List_Table {
 					$file = $product->get_file( $permission->get_download_id() );
 
 					if ( false === $file ) {
-						echo esc_html__( 'File does not exist', 'woocommerce' );
+						echo esc_html__( 'File does not exist', 'poocommerce' );
 					} else {
 						echo esc_html( $file->get_name() . ' - ' . basename( $file->get_file() ) );
 
 						echo '<div class="row-actions">';
-						echo '<a href="' . esc_url( add_query_arg( 'download_id', $permission->get_download_id() ) ) . '">' . esc_html__( 'Filter by file', 'woocommerce' ) . '</a>';
+						echo '<a href="' . esc_url( add_query_arg( 'download_id', $permission->get_download_id() ) ) . '">' . esc_html__( 'Filter by file', 'poocommerce' ) . '</a>';
 						echo '</div>';
 					}
 				}
 				break;
 			case 'order':
 				if ( ! empty( $permission ) && ( $order = wc_get_order( $permission->order_id ) ) ) {
-					edit_post_link( esc_html( _x( '#', 'hash before order number', 'woocommerce' ) . $order->get_order_number() ), '', '', $permission->order_id, 'view-link' );
+					edit_post_link( esc_html( _x( '#', 'hash before order number', 'poocommerce' ) . $order->get_order_number() ), '', '', $permission->order_id, 'view-link' );
 
 					echo '<div class="row-actions">';
-					echo '<a href="' . esc_url( add_query_arg( 'order_id', $order->get_id() ) ) . '">' . esc_html__( 'Filter by order', 'woocommerce' ) . '</a>';
+					echo '<a href="' . esc_url( add_query_arg( 'order_id', $order->get_id() ) ) . '">' . esc_html__( 'Filter by order', 'poocommerce' ) . '</a>';
 					echo '</div>';
 				}
 				break;
@@ -191,18 +191,18 @@ class WC_Report_Downloads extends WP_List_Table {
 					if ( ! empty( $user ) ) {
 						echo '<a href="' . esc_url( get_edit_user_link( $item->user_id ) ) . '">' . esc_html( $user->display_name ) . '</a>';
 						echo '<div class="row-actions">';
-						echo '<a href="' . esc_url( add_query_arg( 'user_id', $item->user_id ) ) . '">' . esc_html__( 'Filter by user', 'woocommerce' ) . '</a>';
+						echo '<a href="' . esc_url( add_query_arg( 'user_id', $item->user_id ) ) . '">' . esc_html__( 'Filter by user', 'poocommerce' ) . '</a>';
 						echo '</div>';
 					}
 				} else {
-					esc_html_e( 'Guest', 'woocommerce' );
+					esc_html_e( 'Guest', 'poocommerce' );
 				}
 				break;
 			case 'user_ip_address':
 				echo esc_html( $item->user_ip_address );
 
 				echo '<div class="row-actions">';
-				echo '<a href="' . esc_url( add_query_arg( 'user_ip_address', $item->user_ip_address ) ) . '">' . esc_html__( 'Filter by IP address', 'woocommerce' ) . '</a>';
+				echo '<a href="' . esc_url( add_query_arg( 'user_ip_address', $item->user_ip_address ) ) . '">' . esc_html__( 'Filter by IP address', 'poocommerce' ) . '</a>';
 				echo '</div>';
 				break;
 		}
@@ -215,12 +215,12 @@ class WC_Report_Downloads extends WP_List_Table {
 	 */
 	public function get_columns() {
 		$columns = array(
-			'timestamp'       => __( 'Timestamp', 'woocommerce' ),
-			'product'         => __( 'Product', 'woocommerce' ),
-			'file'            => __( 'File', 'woocommerce' ),
-			'order'           => __( 'Order', 'woocommerce' ),
-			'user'            => __( 'User', 'woocommerce' ),
-			'user_ip_address' => __( 'IP address', 'woocommerce' ),
+			'timestamp'       => __( 'Timestamp', 'poocommerce' ),
+			'product'         => __( 'Product', 'poocommerce' ),
+			'file'            => __( 'File', 'poocommerce' ),
+			'order'           => __( 'Order', 'poocommerce' ),
+			'user'            => __( 'User', 'poocommerce' ),
+			'user_ip_address' => __( 'IP address', 'poocommerce' ),
 		);
 
 		return $columns;
@@ -234,7 +234,7 @@ class WC_Report_Downloads extends WP_List_Table {
 		$this->_column_headers = array( $this->get_columns(), array(), $this->get_sortable_columns() );
 		$current_page          = absint( $this->get_pagenum() );
 		// Allow filtering per_page value, but ensure it's at least 1.
-		$per_page = max( 1, apply_filters( 'woocommerce_admin_downloads_report_downloads_per_page', 20 ) );
+		$per_page = max( 1, apply_filters( 'poocommerce_admin_downloads_report_downloads_per_page', 20 ) );
 
 		$this->get_items( $current_page, $per_page );
 
@@ -254,7 +254,7 @@ class WC_Report_Downloads extends WP_List_Table {
 	 * No items found text.
 	 */
 	public function no_items() {
-		esc_html_e( 'No customer downloads found.', 'woocommerce' );
+		esc_html_e( 'No customer downloads found.', 'poocommerce' );
 	}
 
 	/**
@@ -298,7 +298,7 @@ class WC_Report_Downloads extends WP_List_Table {
 		$query_from = " FROM {$table} as downloads ";
 
 		if ( ! is_null( $filters->product_id ) || ! is_null( $filters->download_id ) || ! is_null( $filters->order_id ) ) {
-			$query_from .= " LEFT JOIN {$wpdb->prefix}woocommerce_downloadable_product_permissions as permissions on downloads.permission_id = permissions.permission_id ";
+			$query_from .= " LEFT JOIN {$wpdb->prefix}poocommerce_downloadable_product_permissions as permissions on downloads.permission_id = permissions.permission_id ";
 		}
 
 		$query_from .= ' WHERE 1=1 ';
@@ -327,7 +327,7 @@ class WC_Report_Downloads extends WP_List_Table {
 			$query_from .= $wpdb->prepare( ' AND user_ip_address = %s ', $filters->user_ip_address );
 		}
 
-		$query_from  = apply_filters( 'woocommerce_report_downloads_query_from', $query_from );
+		$query_from  = apply_filters( 'poocommerce_report_downloads_query_from', $query_from );
 		$query_order = $wpdb->prepare( 'ORDER BY timestamp DESC LIMIT %d, %d;', ( $current_page - 1 ) * $per_page, $per_page );
 
 		$this->items     = $wpdb->get_results( "SELECT * {$query_from} {$query_order}" ); // WPCS: cache ok, db call ok, unprepared SQL ok.

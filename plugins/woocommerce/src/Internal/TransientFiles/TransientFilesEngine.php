@@ -1,13 +1,13 @@
 <?php
 
-namespace Automattic\WooCommerce\Internal\TransientFiles;
+namespace Automattic\PooCommerce\Internal\TransientFiles;
 
 use \DateTime;
 use \Exception;
 use \InvalidArgumentException;
-use Automattic\WooCommerce\Internal\RegisterHooksInterface;
-use Automattic\WooCommerce\Proxies\LegacyProxy;
-use Automattic\WooCommerce\Utilities\TimeUtil;
+use Automattic\PooCommerce\Internal\RegisterHooksInterface;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\Utilities\TimeUtil;
 
 /**
  * Transient files engine class.
@@ -20,7 +20,7 @@ use Automattic\WooCommerce\Utilities\TimeUtil;
  * of hexadecimal digits.
  *
  * Transient files are stored in a directory whose default route is
- * wp-content/uploads/woocommerce_transient_files/yyyy-mm-dd, where "yyyy-mm-dd" is the expiration date
+ * wp-content/uploads/poocommerce_transient_files/yyyy-mm-dd, where "yyyy-mm-dd" is the expiration date
  * (year, month and day). The base route (minus the expiration date part) can be changed via a dedicated hook.
  *
  * Transient files that haven't expired (the expiration date is today or in the future) can be obtained remotely
@@ -29,12 +29,12 @@ use Automattic\WooCommerce\Utilities\TimeUtil;
  *
  * Cleanup of expired files is handled by the delete_expired_files method, which can be invoked manually
  * but there's a dedicated scheduled action that will invoke it that can be started and stopped via a dedicated tool
- * available in the WooCommerce tools page. The action runs once per day but this can be customized
+ * available in the PooCommerce tools page. The action runs once per day but this can be customized
  * via a dedicated hook.
  */
 class TransientFilesEngine implements RegisterHooksInterface {
 
-	private const CLEANUP_ACTION_NAME  = 'woocommerce_expired_transient_files_cleanup';
+	private const CLEANUP_ACTION_NAME  = 'poocommerce_expired_transient_files_cleanup';
 	private const CLEANUP_ACTION_GROUP = 'wc_batch_processes';
 
 	/**
@@ -49,7 +49,7 @@ class TransientFilesEngine implements RegisterHooksInterface {
 	 */
 	public function register() {
 		add_action( self::CLEANUP_ACTION_NAME, array( $this, 'handle_expired_files_cleanup_action' ) );
-		add_filter( 'woocommerce_debug_tools', array( $this, 'add_debug_tools_entries' ), 999, 1 );
+		add_filter( 'poocommerce_debug_tools', array( $this, 'add_debug_tools_entries' ), 999, 1 );
 
 		add_action( 'init', array( $this, 'add_endpoint' ), 0 );
 		add_filter( 'query_vars', array( $this, 'handle_query_vars' ), 0 );
@@ -70,10 +70,10 @@ class TransientFilesEngine implements RegisterHooksInterface {
 	/**
 	 * Get the base directory where transient files are stored.
 	 *
-	 * The default base directory is the WordPress uploads directory plus "woocommerce_transient_files". This can
-	 * be changed by using the woocommerce_transient_files_directory filter.
+	 * The default base directory is the WordPress uploads directory plus "poocommerce_transient_files". This can
+	 * be changed by using the poocommerce_transient_files_directory filter.
 	 *
-	 * If the woocommerce_transient_files_directory filter is not used and the default base directory
+	 * If the poocommerce_transient_files_directory filter is not used and the default base directory
 	 * doesn't exist, it will be created. If the filter is used it's the responsibility of the caller
 	 * to ensure that the custom directory exists, otherwise an exception will be thrown.
 	 *
@@ -85,7 +85,7 @@ class TransientFilesEngine implements RegisterHooksInterface {
 	 */
 	public function get_transient_files_directory(): string {
 		$upload_dir_info                   = $this->legacy_proxy->call_function( 'wp_upload_dir' );
-		$default_transient_files_directory = untrailingslashit( $upload_dir_info['basedir'] ) . '/woocommerce_transient_files';
+		$default_transient_files_directory = untrailingslashit( $upload_dir_info['basedir'] ) . '/poocommerce_transient_files';
 
 		/**
 		 * Filters the directory where transient files are stored.
@@ -98,7 +98,7 @@ class TransientFilesEngine implements RegisterHooksInterface {
 		 *
 		 * @since 8.5.0
 		 */
-		$transient_files_directory = apply_filters( 'woocommerce_transient_files_directory', $default_transient_files_directory );
+		$transient_files_directory = apply_filters( 'poocommerce_transient_files_directory', $default_transient_files_directory );
 
 		$realpathed_transient_files_directory = $this->legacy_proxy->call_function( 'realpath', $transient_files_directory );
 		if ( false === $realpathed_transient_files_directory ) {
@@ -337,7 +337,7 @@ class TransientFilesEngine implements RegisterHooksInterface {
 	 *
 	 * If files are actually deleted then we assume that more files are pending deletion and schedule the next
 	 * action to run immediately. Otherwise (nothing was deleted) we schedule the next action for one day later
-	 * (but this can be changed via the 'woocommerce_delete_expired_transient_files_interval' filter).
+	 * (but this can be changed via the 'poocommerce_delete_expired_transient_files_interval' filter).
 	 *
 	 * If the actual deletion process fails the next action is scheduled anyway for one day later
 	 * or for the interval given by the filter.
@@ -345,7 +345,7 @@ class TransientFilesEngine implements RegisterHooksInterface {
 	 * NOTE: If the default interval is changed to something different from DAY_IN_SECONDS, please adjust the
 	 * "every 24h" text in add_debug_tools_entries too.
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 */
 	public function handle_expired_files_cleanup_action(): void {
 		$new_interval = null;
@@ -366,7 +366,7 @@ class TransientFilesEngine implements RegisterHooksInterface {
 				 *
 				 * @since 8.5.0
 				 */
-				$new_interval = apply_filters( 'woocommerce_delete_expired_transient_files_interval', DAY_IN_SECONDS );
+				$new_interval = apply_filters( 'poocommerce_delete_expired_transient_files_interval', DAY_IN_SECONDS );
 			}
 
 			$next_time = $this->legacy_proxy->call_function( 'time' ) + $new_interval;
@@ -375,35 +375,35 @@ class TransientFilesEngine implements RegisterHooksInterface {
 	}
 
 	/**
-	 * Add the tools to (re)schedule and un-schedule the expired files cleanup actions in the WooCommerce debug tools page.
+	 * Add the tools to (re)schedule and un-schedule the expired files cleanup actions in the PooCommerce debug tools page.
 	 *
 	 * @param array $tools_array Original debug tools array.
 	 * @return array Updated debug tools array
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 */
 	public function add_debug_tools_entries( array $tools_array ): array {
 		$cleanup_is_scheduled = $this->expired_files_cleanup_is_scheduled();
 
 		$tools_array['schedule_expired_transient_files_cleanup'] = array(
 			'name'             => $cleanup_is_scheduled ?
-				__( 'Re-schedule expired transient files cleanup', 'woocommerce' ) :
-				__( 'Schedule expired transient files cleanup', 'woocommerce' ),
+				__( 'Re-schedule expired transient files cleanup', 'poocommerce' ) :
+				__( 'Schedule expired transient files cleanup', 'poocommerce' ),
 			'desc'             => $cleanup_is_scheduled ?
-				__( 'Remove the currently scheduled action to delete expired transient files, then schedule it again for running immediately. Subsequent actions will run once every 24h.', 'woocommerce' ) :
-				__( 'Schedule the action to delete expired transient files for running immediately. Subsequent actions will run once every 24h.', 'woocommerce' ),
+				__( 'Remove the currently scheduled action to delete expired transient files, then schedule it again for running immediately. Subsequent actions will run once every 24h.', 'poocommerce' ) :
+				__( 'Schedule the action to delete expired transient files for running immediately. Subsequent actions will run once every 24h.', 'poocommerce' ),
 			'button'           => $cleanup_is_scheduled ?
-				__( 'Re-schedule', 'woocommerce' ) :
-				__( 'Schedule', 'woocommerce' ),
+				__( 'Re-schedule', 'poocommerce' ) :
+				__( 'Schedule', 'poocommerce' ),
 			'requires_refresh' => true,
 			'callback'         => array( $this, 'schedule_expired_files_cleanup' ),
 		);
 
 		if ( $cleanup_is_scheduled ) {
 			$tools_array['unschedule_expired_transient_files_cleanup'] = array(
-				'name'             => __( 'Un-schedule expired transient files cleanup', 'woocommerce' ),
-				'desc'             => __( "Remove the currently scheduled action to delete expired transient files. Expired files won't be automatically deleted until the 'Schedule expired transient files cleanup' tool is run again.", 'woocommerce' ),
-				'button'           => __( 'Un-schedule', 'woocommerce' ),
+				'name'             => __( 'Un-schedule expired transient files cleanup', 'poocommerce' ),
+				'desc'             => __( "Remove the currently scheduled action to delete expired transient files. Expired files won't be automatically deleted until the 'Schedule expired transient files cleanup' tool is run again.", 'poocommerce' ),
+				'button'           => __( 'Un-schedule', 'poocommerce' ),
 				'requires_refresh' => true,
 				'callback'         => array( $this, 'unschedule_expired_files_cleanup' ),
 			);
@@ -426,7 +426,7 @@ class TransientFilesEngine implements RegisterHooksInterface {
 	/**
 	 * Handle the "init" action, add rewrite rules for the "wc/file" endpoint.
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 */
 	public static function add_endpoint() {
 		add_rewrite_rule( '^wc/file/transient/?$', 'index.php?wc-transient-file-name=', 'top' );
@@ -440,7 +440,7 @@ class TransientFilesEngine implements RegisterHooksInterface {
 	 * @param array $vars The original query variables.
 	 * @return array The updated query variables.
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 */
 	public function handle_query_vars( $vars ) {
 		$vars[] = 'wc-transient-file-name';
@@ -458,7 +458,7 @@ class TransientFilesEngine implements RegisterHooksInterface {
 	 *
 	 * The file will be served with a content type header of "text/html".
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 */
 	public function handle_parse_request() {
 		global $wp;
@@ -534,7 +534,7 @@ class TransientFilesEngine implements RegisterHooksInterface {
 			 *
 			 * @since 8.5.0
 			 */
-			do_action( 'woocommerce_transient_file_contents_served', $file_name );
+			do_action( 'poocommerce_transient_file_contents_served', $file_name );
 		} catch ( Exception $e ) {
 			wc_get_logger()->error( "Error serving transient file $file_name: {$e->getMessage()}" );
 			// We can't change the response status code at this point.

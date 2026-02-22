@@ -5,8 +5,8 @@ import { MenuItem } from '@wordpress/components';
 import { createElement, useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { MediaUpload } from '@wordpress/media-utils';
-import { recordEvent } from '@woocommerce/tracks';
-import { ProductVariationImage } from '@woocommerce/data';
+import { recordEvent } from '@poocommerce/tracks';
+import { ProductVariationImage } from '@poocommerce/data';
 
 /**
  * Internal dependencies
@@ -16,9 +16,9 @@ import { TRACKS_SOURCE } from '../../../constants';
 import { mapUploadImageToImage } from '../../../utils/map-upload-image-to-image';
 
 const DEFAULT_ALLOWED_MEDIA_TYPES = [ 'image' ];
-const MODAL_CLASS_NAME = 'woocommerce-add-image-menu-item__upload_image_modal';
+const MODAL_CLASS_NAME = 'poocommerce-add-image-menu-item__upload_image_modal';
 const MODAL_WRAPPER_CLASS_NAME =
-	'woocommerce-add-image-menu-item__upload_image_modal_wrapper';
+	'poocommerce-add-image-menu-item__upload_image_modal_wrapper';
 
 export function AddImageMenuItem( {
 	selection,
@@ -90,7 +90,7 @@ export function AddImageMenuItem( {
 			multiple={ false }
 			render={ ( { open } ) => (
 				<MenuItem onClick={ uploadFilesClickHandler( open ) }>
-					{ __( 'Add image', 'woocommerce' ) }
+					{ __( 'Add image', 'poocommerce' ) }
 				</MenuItem>
 			) }
 		/>

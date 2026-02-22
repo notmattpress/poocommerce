@@ -8,8 +8,8 @@ import {
 } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { Icon, help as helpIcon } from '@wordpress/icons';
-import { __experimentalTooltip as Tooltip } from '@woocommerce/components';
-import { sanitizeHTML } from '@woocommerce/sanitize';
+import { __experimentalTooltip as Tooltip } from '@poocommerce/components';
+import { sanitizeHTML } from '@poocommerce/sanitize';
 
 /**
  * Internal dependencies
@@ -37,7 +37,7 @@ export const Label = ( {
 	if ( required ) {
 		if ( note?.length ) {
 			labelElement = createInterpolateElement(
-				__( '<label/> <note /> <required/>', 'woocommerce' ),
+				__( '<label/> <note /> <required/>', 'poocommerce' ),
 				{
 					label: (
 						<span
@@ -47,33 +47,33 @@ export const Label = ( {
 						></span>
 					),
 					note: (
-						<span className="woocommerce-product-form-label__note">
+						<span className="poocommerce-product-form-label__note">
 							{ note }
 						</span>
 					),
 					required: (
 						<span
 							aria-hidden="true"
-							className="woocommerce-product-form-label__required"
+							className="poocommerce-product-form-label__required"
 						>
 							{ /* translators: field 'required' indicator */ }
-							{ __( '*', 'woocommerce' ) }
+							{ __( '*', 'poocommerce' ) }
 						</span>
 					),
 				}
 			);
 		} else {
 			labelElement = createInterpolateElement(
-				__( '<label/> <required/>', 'woocommerce' ),
+				__( '<label/> <required/>', 'poocommerce' ),
 				{
 					label: <span>{ label }</span>,
 					required: (
 						<span
 							aria-hidden="true"
-							className="woocommerce-product-form-label__required"
+							className="poocommerce-product-form-label__required"
 						>
 							{ /* translators: field 'required' indicator */ }
-							{ __( '*', 'woocommerce' ) }
+							{ __( '*', 'poocommerce' ) }
 						</span>
 					),
 				}
@@ -81,11 +81,11 @@ export const Label = ( {
 		}
 	} else if ( note?.length ) {
 		labelElement = createInterpolateElement(
-			__( '<label/> <note />', 'woocommerce' ),
+			__( '<label/> <note />', 'poocommerce' ),
 			{
 				label: <span>{ label }</span>,
 				note: (
-					<span className="woocommerce-product-form-label__note">
+					<span className="poocommerce-product-form-label__note">
 						{ note }
 					</span>
 				),
@@ -99,7 +99,7 @@ export const Label = ( {
 			: {};
 
 	return (
-		<div className="woocommerce-product-form-label__label">
+		<div className="poocommerce-product-form-label__label">
 			{ /* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */ }
 			<span id={ labelId } onClick={ onClick } { ...spanAdditionalProps }>
 				{ isValidElement( labelElement ) ? labelElement : null }
@@ -115,9 +115,9 @@ export const Label = ( {
 						></span>
 					}
 					position="top center"
-					className="woocommerce-product-form-label__tooltip"
+					className="poocommerce-product-form-label__tooltip"
 				>
-					<span className="woocommerce-product-form-label__icon">
+					<span className="poocommerce-product-form-label__icon">
 						<Icon icon={ helpIcon } size={ 18 } fill="#949494" />
 					</span>
 				</Tooltip>

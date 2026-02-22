@@ -1,12 +1,12 @@
 <?php
-namespace Automattic\WooCommerce\StoreApi\Schemas\V1;
+namespace Automattic\PooCommerce\StoreApi\Schemas\V1;
 
-use Automattic\WooCommerce\Enums\ProductType;
-use Automattic\WooCommerce\StoreApi\SchemaController;
-use Automattic\WooCommerce\StoreApi\Schemas\ExtendSchema;
-use Automattic\WooCommerce\StoreApi\Utilities\QuantityLimits;
-use Automattic\WooCommerce\Blocks\Utils\ProductAvailabilityUtils;
-use Automattic\WooCommerce\Enums\ProductStockStatus;
+use Automattic\PooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\StoreApi\SchemaController;
+use Automattic\PooCommerce\StoreApi\Schemas\ExtendSchema;
+use Automattic\PooCommerce\StoreApi\Utilities\QuantityLimits;
+use Automattic\PooCommerce\Blocks\Utils\ProductAvailabilityUtils;
+use Automattic\PooCommerce\Enums\ProductStockStatus;
 
 /**
  * ProductSchema class.
@@ -52,68 +52,68 @@ class ProductSchema extends AbstractSchema {
 	public function get_properties() {
 		return [
 			'id'                  => [
-				'description' => __( 'Unique identifier for the resource.', 'woocommerce' ),
+				'description' => __( 'Unique identifier for the resource.', 'poocommerce' ),
 				'type'        => 'integer',
 				'context'     => [ 'view', 'edit', 'embed' ],
 				'readonly'    => true,
 			],
 			'name'                => [
-				'description' => __( 'Product name.', 'woocommerce' ),
+				'description' => __( 'Product name.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => [ 'view', 'edit', 'embed' ],
 			],
 			'slug'                => [
-				'description' => __( 'Product slug.', 'woocommerce' ),
+				'description' => __( 'Product slug.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => [ 'view', 'edit', 'embed' ],
 			],
 			'parent'              => [
-				'description' => __( 'ID of the parent product, if applicable.', 'woocommerce' ),
+				'description' => __( 'ID of the parent product, if applicable.', 'poocommerce' ),
 				'type'        => 'integer',
 				'context'     => [ 'view', 'edit', 'embed' ],
 				'readonly'    => true,
 			],
 			'type'                => [
-				'description' => __( 'Product type.', 'woocommerce' ),
+				'description' => __( 'Product type.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => [ 'view', 'edit', 'embed' ],
 				'readonly'    => true,
 			],
 			'variation'           => [
-				'description' => __( 'Product variation attributes, if applicable.', 'woocommerce' ),
+				'description' => __( 'Product variation attributes, if applicable.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => [ 'view', 'edit', 'embed' ],
 			],
 			'permalink'           => [
-				'description' => __( 'Product URL.', 'woocommerce' ),
+				'description' => __( 'Product URL.', 'poocommerce' ),
 				'type'        => 'string',
 				'format'      => 'uri',
 				'context'     => [ 'view', 'edit', 'embed' ],
 				'readonly'    => true,
 			],
 			'short_description'   => [
-				'description' => __( 'Product short description in HTML format.', 'woocommerce' ),
+				'description' => __( 'Product short description in HTML format.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => [ 'view', 'edit', 'embed' ],
 			],
 			'description'         => [
-				'description' => __( 'Product full description in HTML format.', 'woocommerce' ),
+				'description' => __( 'Product full description in HTML format.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => [ 'view', 'edit', 'embed' ],
 			],
 			'on_sale'             => [
-				'description' => __( 'Is the product on sale?', 'woocommerce' ),
+				'description' => __( 'Is the product on sale?', 'poocommerce' ),
 				'type'        => 'boolean',
 				'context'     => [ 'view', 'edit', 'embed' ],
 				'readonly'    => true,
 			],
 			'sku'                 => [
-				'description' => __( 'Unique identifier.', 'woocommerce' ),
+				'description' => __( 'Unique identifier.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => [ 'view', 'edit', 'embed' ],
 			],
 			'prices'              => [
-				'description' => __( 'Price data provided using the smallest unit of the currency.', 'woocommerce' ),
+				'description' => __( 'Price data provided using the smallest unit of the currency.', 'poocommerce' ),
 				'type'        => 'object',
 				'context'     => [ 'view', 'edit', 'embed' ],
 				'readonly'    => true,
@@ -121,37 +121,37 @@ class ProductSchema extends AbstractSchema {
 					$this->get_store_currency_properties(),
 					[
 						'price'         => [
-							'description' => __( 'Current product price.', 'woocommerce' ),
+							'description' => __( 'Current product price.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => [ 'view', 'edit', 'embed' ],
 							'readonly'    => true,
 						],
 						'regular_price' => [
-							'description' => __( 'Regular product price.', 'woocommerce' ),
+							'description' => __( 'Regular product price.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => [ 'view', 'edit', 'embed' ],
 							'readonly'    => true,
 						],
 						'sale_price'    => [
-							'description' => __( 'Sale product price, if applicable.', 'woocommerce' ),
+							'description' => __( 'Sale product price, if applicable.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => [ 'view', 'edit', 'embed' ],
 							'readonly'    => true,
 						],
 						'price_range'   => [
-							'description' => __( 'Price range, if applicable.', 'woocommerce' ),
+							'description' => __( 'Price range, if applicable.', 'poocommerce' ),
 							'type'        => [ 'object', 'null' ],
 							'context'     => [ 'view', 'edit', 'embed' ],
 							'readonly'    => true,
 							'properties'  => [
 								'min_amount' => [
-									'description' => __( 'Price amount.', 'woocommerce' ),
+									'description' => __( 'Price amount.', 'poocommerce' ),
 									'type'        => 'string',
 									'context'     => [ 'view', 'edit', 'embed' ],
 									'readonly'    => true,
 								],
 								'max_amount' => [
-									'description' => __( 'Price amount.', 'woocommerce' ),
+									'description' => __( 'Price amount.', 'poocommerce' ),
 									'type'        => 'string',
 									'context'     => [ 'view', 'edit', 'embed' ],
 									'readonly'    => true,
@@ -162,25 +162,25 @@ class ProductSchema extends AbstractSchema {
 				),
 			],
 			'price_html'          => array(
-				'description' => __( 'Price string formatted as HTML.', 'woocommerce' ),
+				'description' => __( 'Price string formatted as HTML.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => array( 'view', 'edit', 'embed' ),
 				'readonly'    => true,
 			),
 			'average_rating'      => [
-				'description' => __( 'Reviews average rating.', 'woocommerce' ),
+				'description' => __( 'Reviews average rating.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => [ 'view', 'edit', 'embed' ],
 				'readonly'    => true,
 			],
 			'review_count'        => [
-				'description' => __( 'Amount of reviews that the product has.', 'woocommerce' ),
+				'description' => __( 'Amount of reviews that the product has.', 'poocommerce' ),
 				'type'        => 'integer',
 				'context'     => [ 'view', 'edit', 'embed' ],
 				'readonly'    => true,
 			],
 			'images'              => [
-				'description' => __( 'List of images.', 'woocommerce' ),
+				'description' => __( 'List of images.', 'poocommerce' ),
 				'type'        => 'array',
 				'context'     => [ 'view', 'edit', 'embed' ],
 				'items'       => [
@@ -189,32 +189,32 @@ class ProductSchema extends AbstractSchema {
 				],
 			],
 			'categories'          => [
-				'description' => __( 'List of categories, if applicable.', 'woocommerce' ),
+				'description' => __( 'List of categories, if applicable.', 'poocommerce' ),
 				'type'        => 'array',
 				'context'     => [ 'view', 'edit', 'embed' ],
 				'items'       => [
 					'type'       => 'object',
 					'properties' => [
 						'id'   => [
-							'description' => __( 'Category ID', 'woocommerce' ),
+							'description' => __( 'Category ID', 'poocommerce' ),
 							'type'        => 'number',
 							'context'     => [ 'view', 'edit', 'embed' ],
 							'readonly'    => true,
 						],
 						'name' => [
-							'description' => __( 'Category name', 'woocommerce' ),
+							'description' => __( 'Category name', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => [ 'view', 'edit', 'embed' ],
 							'readonly'    => true,
 						],
 						'slug' => [
-							'description' => __( 'Category slug', 'woocommerce' ),
+							'description' => __( 'Category slug', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => [ 'view', 'edit', 'embed' ],
 							'readonly'    => true,
 						],
 						'link' => [
-							'description' => __( 'Category link', 'woocommerce' ),
+							'description' => __( 'Category link', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => [ 'view', 'edit', 'embed' ],
 							'readonly'    => true,
@@ -223,32 +223,32 @@ class ProductSchema extends AbstractSchema {
 				],
 			],
 			'tags'                => [
-				'description' => __( 'List of tags, if applicable.', 'woocommerce' ),
+				'description' => __( 'List of tags, if applicable.', 'poocommerce' ),
 				'type'        => 'array',
 				'context'     => [ 'view', 'edit', 'embed' ],
 				'items'       => [
 					'type'       => 'object',
 					'properties' => [
 						'id'   => [
-							'description' => __( 'Tag ID', 'woocommerce' ),
+							'description' => __( 'Tag ID', 'poocommerce' ),
 							'type'        => 'number',
 							'context'     => [ 'view', 'edit', 'embed' ],
 							'readonly'    => true,
 						],
 						'name' => [
-							'description' => __( 'Tag name', 'woocommerce' ),
+							'description' => __( 'Tag name', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => [ 'view', 'edit', 'embed' ],
 							'readonly'    => true,
 						],
 						'slug' => [
-							'description' => __( 'Tag slug', 'woocommerce' ),
+							'description' => __( 'Tag slug', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => [ 'view', 'edit', 'embed' ],
 							'readonly'    => true,
 						],
 						'link' => [
-							'description' => __( 'Tag link.', 'woocommerce' ),
+							'description' => __( 'Tag link.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => [ 'view', 'edit', 'embed' ],
 							'readonly'    => true,
@@ -257,32 +257,32 @@ class ProductSchema extends AbstractSchema {
 				],
 			],
 			'brands'              => [
-				'description' => __( 'List of brands, if applicable.', 'woocommerce' ),
+				'description' => __( 'List of brands, if applicable.', 'poocommerce' ),
 				'type'        => 'array',
 				'context'     => [ 'view', 'edit', 'embed' ],
 				'items'       => [
 					'type'       => 'object',
 					'properties' => [
 						'id'   => [
-							'description' => __( 'Brand ID', 'woocommerce' ),
+							'description' => __( 'Brand ID', 'poocommerce' ),
 							'type'        => 'number',
 							'context'     => [ 'view', 'edit', 'embed' ],
 							'readonly'    => true,
 						],
 						'name' => [
-							'description' => __( 'Brand name', 'woocommerce' ),
+							'description' => __( 'Brand name', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => [ 'view', 'edit', 'embed' ],
 							'readonly'    => true,
 						],
 						'slug' => [
-							'description' => __( 'Brand slug', 'woocommerce' ),
+							'description' => __( 'Brand slug', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => [ 'view', 'edit', 'embed' ],
 							'readonly'    => true,
 						],
 						'link' => [
-							'description' => __( 'Brand link', 'woocommerce' ),
+							'description' => __( 'Brand link', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => [ 'view', 'edit', 'embed' ],
 							'readonly'    => true,
@@ -291,63 +291,63 @@ class ProductSchema extends AbstractSchema {
 				],
 			],
 			'attributes'          => [
-				'description' => __( 'List of attributes (taxonomy terms) assigned to the product. For variable products, these are mapped to variations (see the `variations` field).', 'woocommerce' ),
+				'description' => __( 'List of attributes (taxonomy terms) assigned to the product. For variable products, these are mapped to variations (see the `variations` field).', 'poocommerce' ),
 				'type'        => 'array',
 				'context'     => [ 'view', 'edit', 'embed' ],
 				'items'       => [
 					'type'       => 'object',
 					'properties' => [
 						'id'             => [
-							'description' => __( 'The attribute ID, or 0 if the attribute is not taxonomy based.', 'woocommerce' ),
+							'description' => __( 'The attribute ID, or 0 if the attribute is not taxonomy based.', 'poocommerce' ),
 							'type'        => 'integer',
 							'context'     => [ 'view', 'edit', 'embed' ],
 							'readonly'    => true,
 						],
 						'name'           => [
-							'description' => __( 'The attribute name.', 'woocommerce' ),
+							'description' => __( 'The attribute name.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => [ 'view', 'edit', 'embed' ],
 							'readonly'    => true,
 						],
 						'taxonomy'       => [
-							'description' => __( 'The attribute taxonomy, or null if the attribute is not taxonomy based.', 'woocommerce' ),
+							'description' => __( 'The attribute taxonomy, or null if the attribute is not taxonomy based.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => [ 'view', 'edit', 'embed' ],
 							'readonly'    => true,
 						],
 						'has_variations' => [
-							'description' => __( 'True if this attribute is used by product variations.', 'woocommerce' ),
+							'description' => __( 'True if this attribute is used by product variations.', 'poocommerce' ),
 							'type'        => 'boolean',
 							'context'     => [ 'view', 'edit', 'embed' ],
 							'readonly'    => true,
 						],
 						'terms'          => [
-							'description' => __( 'List of assigned attribute terms.', 'woocommerce' ),
+							'description' => __( 'List of assigned attribute terms.', 'poocommerce' ),
 							'type'        => 'array',
 							'context'     => [ 'view', 'edit', 'embed' ],
 							'items'       => [
 								'type'       => 'object',
 								'properties' => [
 									'id'      => [
-										'description' => __( 'The term ID, or 0 if the attribute is not a global attribute.', 'woocommerce' ),
+										'description' => __( 'The term ID, or 0 if the attribute is not a global attribute.', 'poocommerce' ),
 										'type'        => 'integer',
 										'context'     => [ 'view', 'edit', 'embed' ],
 										'readonly'    => true,
 									],
 									'name'    => [
-										'description' => __( 'The term name.', 'woocommerce' ),
+										'description' => __( 'The term name.', 'poocommerce' ),
 										'type'        => 'string',
 										'context'     => [ 'view', 'edit', 'embed' ],
 										'readonly'    => true,
 									],
 									'slug'    => [
-										'description' => __( 'The term slug.', 'woocommerce' ),
+										'description' => __( 'The term slug.', 'poocommerce' ),
 										'type'        => 'string',
 										'context'     => [ 'view', 'edit', 'embed' ],
 										'readonly'    => true,
 									],
 									'default' => [
-										'description' => __( 'If this is a default attribute', 'woocommerce' ),
+										'description' => __( 'If this is a default attribute', 'poocommerce' ),
 										'type'        => 'boolean',
 										'context'     => [ 'view', 'edit', 'embed' ],
 										'readonly'    => true,
@@ -359,33 +359,33 @@ class ProductSchema extends AbstractSchema {
 				],
 			],
 			'variations'          => [
-				'description' => __( 'List of variation IDs, if applicable.', 'woocommerce' ),
+				'description' => __( 'List of variation IDs, if applicable.', 'poocommerce' ),
 				'type'        => 'array',
 				'context'     => [ 'view', 'edit', 'embed' ],
 				'items'       => [
 					'type'       => 'object',
 					'properties' => [
 						'id'         => [
-							'description' => __( 'The attribute ID, or 0 if the attribute is not taxonomy based.', 'woocommerce' ),
+							'description' => __( 'The attribute ID, or 0 if the attribute is not taxonomy based.', 'poocommerce' ),
 							'type'        => 'integer',
 							'context'     => [ 'view', 'edit', 'embed' ],
 							'readonly'    => true,
 						],
 						'attributes' => [
-							'description' => __( 'List of variation attributes.', 'woocommerce' ),
+							'description' => __( 'List of variation attributes.', 'poocommerce' ),
 							'type'        => 'array',
 							'context'     => [ 'view', 'edit', 'embed' ],
 							'items'       => [
 								'type'       => 'object',
 								'properties' => [
 									'name'  => [
-										'description' => __( 'The attribute name.', 'woocommerce' ),
+										'description' => __( 'The attribute name.', 'poocommerce' ),
 										'type'        => 'string',
 										'context'     => [ 'view', 'edit', 'embed' ],
 										'readonly'    => true,
 									],
 									'value' => [
-										'description' => __( 'The assigned attribute.', 'woocommerce' ),
+										'description' => __( 'The assigned attribute.', 'poocommerce' ),
 										'type'        => 'string',
 										'context'     => [ 'view', 'edit', 'embed' ],
 										'readonly'    => true,
@@ -397,54 +397,54 @@ class ProductSchema extends AbstractSchema {
 				],
 			],
 			'grouped_products'    => [
-				'description' => __( 'List of grouped product IDs, if applicable.', 'woocommerce' ),
+				'description' => __( 'List of grouped product IDs, if applicable.', 'poocommerce' ),
 				'type'        => 'array',
 				'context'     => [ 'view', 'edit', 'embed' ],
 				'items'       => [
-					'description' => __( 'List of grouped product ids.', 'woocommerce' ),
+					'description' => __( 'List of grouped product ids.', 'poocommerce' ),
 					'type'        => 'integer',
 					'context'     => [ 'view', 'edit', 'embed' ],
 					'readonly'    => true,
 				],
 			],
 			'has_options'         => [
-				'description' => __( 'Does the product have additional options before it can be added to the cart?', 'woocommerce' ),
+				'description' => __( 'Does the product have additional options before it can be added to the cart?', 'poocommerce' ),
 				'type'        => 'boolean',
 				'context'     => [ 'view', 'edit', 'embed' ],
 				'readonly'    => true,
 			],
 			'is_purchasable'      => [
-				'description' => __( 'Is the product purchasable?', 'woocommerce' ),
+				'description' => __( 'Is the product purchasable?', 'poocommerce' ),
 				'type'        => 'boolean',
 				'context'     => [ 'view', 'edit', 'embed' ],
 				'readonly'    => true,
 			],
 			'is_in_stock'         => [
-				'description' => __( 'Is the product in stock?', 'woocommerce' ),
+				'description' => __( 'Is the product in stock?', 'poocommerce' ),
 				'type'        => 'boolean',
 				'context'     => [ 'view', 'edit', 'embed' ],
 				'readonly'    => true,
 			],
 			'is_on_backorder'     => [
-				'description' => __( 'Is the product stock backordered? This will also return false if backorder notifications are turned off.', 'woocommerce' ),
+				'description' => __( 'Is the product stock backordered? This will also return false if backorder notifications are turned off.', 'poocommerce' ),
 				'type'        => 'boolean',
 				'context'     => [ 'view', 'edit', 'embed' ],
 				'readonly'    => true,
 			],
 			'stock_availability'  => [
-				'description' => __( 'Information about the product\'s availability.', 'woocommerce' ),
+				'description' => __( 'Information about the product\'s availability.', 'poocommerce' ),
 				'type'        => 'object',
 				'context'     => [ 'view', 'edit', 'embed' ],
 				'readonly'    => true,
 				'properties'  => [
 					'text'  => [
-						'description' => __( 'Stock availability text.', 'woocommerce' ),
+						'description' => __( 'Stock availability text.', 'poocommerce' ),
 						'type'        => 'string',
 						'context'     => [ 'view', 'edit', 'embed' ],
 						'readonly'    => true,
 					],
 					'class' => [
-						'description' => __( 'Stock availability class.', 'woocommerce' ),
+						'description' => __( 'Stock availability class.', 'poocommerce' ),
 						'type'        => 'string',
 						'context'     => [ 'view', 'edit', 'embed' ],
 						'readonly'    => true,
@@ -452,62 +452,62 @@ class ProductSchema extends AbstractSchema {
 				],
 			],
 			'low_stock_remaining' => [
-				'description' => __( 'Quantity left in stock if stock is low, or null if not applicable.', 'woocommerce' ),
+				'description' => __( 'Quantity left in stock if stock is low, or null if not applicable.', 'poocommerce' ),
 				'type'        => [ 'number', 'null' ],
 				'context'     => [ 'view', 'edit', 'embed' ],
 				'readonly'    => true,
 			],
 			'sold_individually'   => [
-				'description' => __( 'If true, only one item of this product is allowed for purchase in a single order.', 'woocommerce' ),
+				'description' => __( 'If true, only one item of this product is allowed for purchase in a single order.', 'poocommerce' ),
 				'type'        => 'boolean',
 				'context'     => [ 'view', 'edit', 'embed' ],
 				'readonly'    => true,
 			],
 			'add_to_cart'         => [
-				'description' => __( 'Add to cart button parameters.', 'woocommerce' ),
+				'description' => __( 'Add to cart button parameters.', 'poocommerce' ),
 				'type'        => 'object',
 				'context'     => [ 'view', 'edit', 'embed' ],
 				'readonly'    => true,
 				'properties'  => [
 					'text'        => [
-						'description' => __( 'Button text.', 'woocommerce' ),
+						'description' => __( 'Button text.', 'poocommerce' ),
 						'type'        => 'string',
 						'context'     => [ 'view', 'edit', 'embed' ],
 						'readonly'    => true,
 					],
 					'description' => [
-						'description' => __( 'Button description.', 'woocommerce' ),
+						'description' => __( 'Button description.', 'poocommerce' ),
 						'type'        => 'string',
 						'context'     => [ 'view', 'edit', 'embed' ],
 						'readonly'    => true,
 					],
 					'url'         => [
-						'description' => __( 'Add to cart URL.', 'woocommerce' ),
+						'description' => __( 'Add to cart URL.', 'poocommerce' ),
 						'type'        => 'string',
 						'context'     => [ 'view', 'edit', 'embed' ],
 						'readonly'    => true,
 					],
 					'minimum'     => [
-						'description' => __( 'The minimum quantity that can be added to the cart.', 'woocommerce' ),
+						'description' => __( 'The minimum quantity that can be added to the cart.', 'poocommerce' ),
 						'type'        => 'number',
 						'context'     => [ 'view', 'edit', 'embed' ],
 						'readonly'    => true,
 					],
 					'maximum'     => [
-						'description' => __( 'The maximum quantity that can be added to the cart.', 'woocommerce' ),
+						'description' => __( 'The maximum quantity that can be added to the cart.', 'poocommerce' ),
 						'type'        => 'number',
 						'context'     => [ 'view', 'edit', 'embed' ],
 						'readonly'    => true,
 					],
 					'multiple_of' => [
-						'description' => __( 'The amount that quantities increment by. Quantity must be an multiple of this value.', 'woocommerce' ),
+						'description' => __( 'The amount that quantities increment by. Quantity must be an multiple of this value.', 'poocommerce' ),
 						'type'        => 'number',
 						'context'     => [ 'view', 'edit', 'embed' ],
 						'readonly'    => true,
 						'default'     => 1,
 					],
 					'single_text' => [
-						'description' => __( 'Button text in the single product page.', 'woocommerce' ),
+						'description' => __( 'Button text in the single product page.', 'poocommerce' ),
 						'type'        => 'string',
 						'context'     => [ 'view', 'edit', 'embed' ],
 						'readonly'    => true,
@@ -519,7 +519,7 @@ class ProductSchema extends AbstractSchema {
 	}
 
 	/**
-	 * Convert a WooCommerce product into an object suitable for the response.
+	 * Convert a PooCommerce product into an object suitable for the response.
 	 *
 	 * @param \WC_Product $product Product instance.
 	 * @return array
@@ -606,7 +606,7 @@ class ProductSchema extends AbstractSchema {
 	 */
 	protected function get_low_stock_remaining( \WC_Product $product ) {
 		$remaining_stock = $this->get_remaining_stock( $product );
-		$stock_format    = get_option( 'woocommerce_stock_format' );
+		$stock_format    = get_option( 'poocommerce_stock_format' );
 
 		// Don't show the low stock badge if the settings doesn't allow it.
 		if ( 'no_amount' === $stock_format ) {
@@ -857,17 +857,17 @@ class ProductSchema extends AbstractSchema {
 	}
 
 	/**
-	 * WooCommerce can return prices including or excluding tax; choose the correct method based on tax display mode.
+	 * PooCommerce can return prices including or excluding tax; choose the correct method based on tax display mode.
 	 *
 	 * @param string $tax_display_mode Provided tax display mode.
 	 * @return string Valid tax display mode.
 	 */
 	protected function get_tax_display_mode( $tax_display_mode = '' ) {
-		return in_array( $tax_display_mode, [ 'incl', 'excl' ], true ) ? $tax_display_mode : get_option( 'woocommerce_tax_display_shop' );
+		return in_array( $tax_display_mode, [ 'incl', 'excl' ], true ) ? $tax_display_mode : get_option( 'poocommerce_tax_display_shop' );
 	}
 
 	/**
-	 * WooCommerce can return prices including or excluding tax; choose the correct method based on tax display mode.
+	 * PooCommerce can return prices including or excluding tax; choose the correct method based on tax display mode.
 	 *
 	 * @param string $tax_display_mode If returned prices are incl or excl of tax.
 	 * @return string Function name.

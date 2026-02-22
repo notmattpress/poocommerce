@@ -2,7 +2,7 @@
  * External dependencies
  */
 import type { Page } from '@playwright/test';
-import { createClient, WP_API_PATH } from '@woocommerce/e2e-utils-playwright';
+import { createClient, WP_API_PATH } from '@poocommerce/e2e-utils-playwright';
 
 /**
  * Internal dependencies
@@ -93,7 +93,7 @@ export async function getWooEmails( params: any ) {
 }
 
 /**
- * Access the email editor and using the WooCommerce settings page.
+ * Access the email editor and using the PooCommerce settings page.
  * Note: Ensure the block email editor feature flag is already enabled.
  *
  * @param {import('@playwright/test').Page } page       The Playwright page.
@@ -111,20 +111,20 @@ export async function accessTheEmailEditor(
 		.getByRole( 'button', { name: 'Actions', exact: true } )
 		.click();
 	await page.getByRole( 'menuitem', { name: 'Edit', exact: true } ).click();
-	await expect( page.locator( '#woocommerce-email-editor' ) ).toBeVisible();
+	await expect( page.locator( '#poocommerce-email-editor' ) ).toBeVisible();
 }
 
 export async function ensureEmailEditorSettingsPanelIsOpened( page: Page ) {
 	const status = await page.evaluate( async () => {
 		const elem = document.querySelector(
-			'.woocommerce-email-editor__settings-panel'
+			'.poocommerce-email-editor__settings-panel'
 		);
 		return elem?.classList?.contains( 'is-opened' ) || false;
 	} );
 
 	if ( ! status ) {
 		await page
-			.locator( '.woocommerce-email-editor__settings-panel' )
+			.locator( '.poocommerce-email-editor__settings-panel' )
 			.click();
 	}
 }

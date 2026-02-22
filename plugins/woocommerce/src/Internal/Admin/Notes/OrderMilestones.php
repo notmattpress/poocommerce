@@ -1,16 +1,16 @@
 <?php
 /**
- * WooCommerce Admin (Dashboard) Order Milestones Note Provider.
+ * PooCommerce Admin (Dashboard) Order Milestones Note Provider.
  *
  * Adds a note to the merchant's inbox when certain order milestones are reached.
  */
 
-namespace Automattic\WooCommerce\Internal\Admin\Notes;
+namespace Automattic\PooCommerce\Internal\Admin\Notes;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\Notes\Note;
-use Automattic\WooCommerce\Admin\Notes\Notes;
+use Automattic\PooCommerce\Admin\Notes\Note;
+use Automattic\PooCommerce\Admin\Notes\Notes;
 /**
  * Order_Milestones
  */
@@ -23,7 +23,7 @@ class OrderMilestones {
 	/**
 	 * Option key name to store last order milestone.
 	 */
-	const LAST_ORDER_MILESTONE_OPTION_KEY = 'woocommerce_admin_last_orders_milestone';
+	const LAST_ORDER_MILESTONE_OPTION_KEY = 'poocommerce_admin_last_orders_milestone';
 
 	/**
 	 * Hook to process order milestones.
@@ -79,9 +79,9 @@ class OrderMilestones {
 		 *
 		 * @param array $allowed_statuses Order statuses that will count towards milestones.
 		 */
-		$this->allowed_statuses = apply_filters( 'woocommerce_admin_order_milestone_statuses', $this->allowed_statuses );
+		$this->allowed_statuses = apply_filters( 'poocommerce_admin_order_milestone_statuses', $this->allowed_statuses );
 
-		add_action( 'woocommerce_after_register_post_type', array( $this, 'init' ) );
+		add_action( 'poocommerce_after_register_post_type', array( $this, 'init' ) );
 		register_deactivation_hook( WC_PLUGIN_FILE, array( $this, 'clear_scheduled_event' ) );
 	}
 
@@ -181,7 +181,7 @@ class OrderMilestones {
 	public static function get_note_title_for_milestone( $milestone ) {
 		switch ( $milestone ) {
 			case 1:
-				return __( 'First order received', 'woocommerce' );
+				return __( 'First order received', 'poocommerce' );
 			case 10:
 			case 100:
 			case 250:
@@ -193,7 +193,7 @@ class OrderMilestones {
 			case 1000000:
 				return sprintf(
 					/* translators: Number of orders processed. */
-					__( 'Congratulations on processing %s orders!', 'woocommerce' ),
+					__( 'Congratulations on processing %s orders!', 'poocommerce' ),
 					wc_format_decimal( $milestone )
 				);
 			default:
@@ -210,9 +210,9 @@ class OrderMilestones {
 	public static function get_note_content_for_milestone( $milestone ) {
 		switch ( $milestone ) {
 			case 1:
-				return __( 'Congratulations on getting your first order! Now is a great time to learn how to manage your orders.', 'woocommerce' );
+				return __( 'Congratulations on getting your first order! Now is a great time to learn how to manage your orders.', 'poocommerce' );
 			case 10:
-				return __( "You've hit the 10 orders milestone! Look at you go. Browse some WooCommerce success stories for inspiration.", 'woocommerce' );
+				return __( "You've hit the 10 orders milestone! Look at you go. Browse some PooCommerce success stories for inspiration.", 'poocommerce' );
 			case 100:
 			case 250:
 			case 500:
@@ -221,7 +221,7 @@ class OrderMilestones {
 			case 10000:
 			case 500000:
 			case 1000000:
-				return __( 'Another order milestone! Take a look at your Orders Report to review your orders to date.', 'woocommerce' );
+				return __( 'Another order milestone! Take a look at your Orders Report to review your orders to date.', 'poocommerce' );
 			default:
 				return '';
 		}
@@ -238,14 +238,14 @@ class OrderMilestones {
 			case 1:
 				return array(
 					'name'  => 'learn-more',
-					'label' => __( 'Learn more', 'woocommerce' ),
-					'query' => 'https://woocommerce.com/document/managing-orders/?utm_source=inbox&utm_medium=product',
+					'label' => __( 'Learn more', 'poocommerce' ),
+					'query' => 'https://poocommerce.com/document/managing-orders/?utm_source=inbox&utm_medium=product',
 				);
 			case 10:
 				return array(
 					'name'  => 'browse',
-					'label' => __( 'Browse', 'woocommerce' ),
-					'query' => 'https://woocommerce.com/success-stories/?utm_source=inbox&utm_medium=product',
+					'label' => __( 'Browse', 'poocommerce' ),
+					'query' => 'https://poocommerce.com/success-stories/?utm_source=inbox&utm_medium=product',
 				);
 			case 100:
 			case 250:
@@ -257,7 +257,7 @@ class OrderMilestones {
 			case 1000000:
 				return array(
 					'name'  => 'review-orders',
-					'label' => __( 'Review your orders', 'woocommerce' ),
+					'label' => __( 'Review your orders', 'poocommerce' ),
 					'query' => '?page=wc-admin&path=/analytics/orders',
 				);
 			default:
@@ -282,7 +282,7 @@ class OrderMilestones {
 		 *
 		 * @param boolean default true
 		 */
-		$milestone_notes_enabled = apply_filters( 'woocommerce_admin_order_milestones_enabled', true );
+		$milestone_notes_enabled = apply_filters( 'poocommerce_admin_order_milestones_enabled', true );
 
 		return $milestone_notes_enabled;
 	}
@@ -324,7 +324,7 @@ class OrderMilestones {
 		$note->set_content_data( $content_data );
 		$note->set_type( Note::E_WC_ADMIN_NOTE_INFORMATIONAL );
 		$note->set_name( self::NOTE_NAME );
-		$note->set_source( 'woocommerce-admin' );
+		$note->set_source( 'poocommerce-admin' );
 		$note_action = self::get_note_action_for_milestone( $current_milestone );
 		$note->add_action( $note_action['name'], $note_action['label'], $note_action['query'] );
 		return $note;

@@ -2,7 +2,7 @@
 
 ## Overview
 
-The WooCommerce Address Autocomplete system allows third-party services to provide address suggestions as customers type in their billing and shipping addresses during checkout. This guide explains how to create and register custom address providers to integrate with any address validation service.
+The PooCommerce Address Autocomplete system allows third-party services to provide address suggestions as customers type in their billing and shipping addresses during checkout. This guide explains how to create and register custom address providers to integrate with any address validation service.
 
 Please note, this implementation will register the provider for both the shortcode and block-based checkouts.
 
@@ -12,7 +12,7 @@ The address autocomplete system consists of three main components:
 
 1. **Server-side Provider (PHP)** - Handles provider registration and configuration
 2. **Client-side Provider (JavaScript)** - Implements the search and selection logic
-3. **UI Components** - Displays suggestions and handles user interactions (this is implemented by WooCommerce, plugins do not have to provide this)
+3. **UI Components** - Displays suggestions and handles user interactions (this is implemented by PooCommerce, plugins do not have to provide this)
 
 ## Registering the server-side provider
 
@@ -69,7 +69,7 @@ class Custom_Address_Provider extends WC_Address_Provider {
 
 ### Step 2: Register the provider
 
-Register your provider with WooCommerce using the `woocommerce_address_providers` filter:
+Register your provider with PooCommerce using the `poocommerce_address_providers` filter:
 
 ```php
 /**
@@ -86,7 +86,7 @@ function register_custom_address_provider( $providers ) {
     
     return $providers;
 }
-add_filter( 'woocommerce_address_providers', 'register_custom_address_provider', 10, 1 );
+add_filter( 'poocommerce_address_providers', 'register_custom_address_provider', 10, 1 );
 ```
 
 ## Registering the client-side provider
@@ -127,7 +127,7 @@ The `search` function must return suggestion objects with the following structur
 
 ### Address Object Format
 
-The `select` function must return address objects with these WooCommerce field names:
+The `select` function must return address objects with these PooCommerce field names:
 
 - _address_1_ `string` - Primary address line.
 - _address_2_ `string` - Secondary address line (optional, can be empty string).
@@ -244,7 +244,7 @@ function enqueue_custom_provider_scripts() {
     // Only load on checkout pages
     if ( is_checkout() ) {
         // Check if address autocomplete is enabled
-        $is_enabled = get_option( 'woocommerce_address_autocomplete_enabled' ) === 'yes';
+        $is_enabled = get_option( 'poocommerce_address_autocomplete_enabled' ) === 'yes';
         
         if ( $is_enabled ) {
             wp_enqueue_script(
@@ -302,4 +302,4 @@ For implementation details, refer to the [WordPress REST API Handbook](https://d
 
 3. **Fields not populating on selection**
    - Verify `select` method returns correct field names
-   - Check that address data matches WooCommerce field structure
+   - Check that address data matches PooCommerce field structure

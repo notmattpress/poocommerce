@@ -1,9 +1,9 @@
 <?php
 /**
- * WooCommerce Product Block Editor
+ * PooCommerce Product Block Editor
  */
 
-namespace Automattic\WooCommerce\Admin\Features\ProductBlockEditor;
+namespace Automattic\PooCommerce\Admin\Features\ProductBlockEditor;
 
 /**
  * The Product Template that represents the relation between the Product and

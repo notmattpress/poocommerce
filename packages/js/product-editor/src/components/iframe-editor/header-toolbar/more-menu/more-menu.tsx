@@ -22,7 +22,7 @@ export const MoreMenu = () => {
 					<WritingMenu />
 					<ActionItem.Slot
 						name={ MORE_MENU_ACTION_ITEM_SLOT_NAME }
-						label={ __( 'Plugins', 'woocommerce' ) }
+						label={ __( 'Plugins', 'poocommerce' ) }
 						as={ MenuGroup }
 						fillProps={ { onClick: onClose } }
 					/>

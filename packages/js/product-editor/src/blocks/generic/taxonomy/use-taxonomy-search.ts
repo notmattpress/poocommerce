@@ -3,7 +3,7 @@
  */
 import { useState } from '@wordpress/element';
 import { resolveSelect } from '@wordpress/data';
-import { escapeHTML } from '@woocommerce/components';
+import { escapeHTML } from '@poocommerce/components';
 /**
  * Internal dependencies
  */

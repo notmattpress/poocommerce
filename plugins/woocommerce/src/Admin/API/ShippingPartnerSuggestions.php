@@ -3,10 +3,10 @@
  * Handles requests for shipping partner suggestions.
  */
 
-namespace Automattic\WooCommerce\Admin\API;
+namespace Automattic\PooCommerce\Admin\API;
 
-use Automattic\WooCommerce\Admin\Features\ShippingPartnerSuggestions\DefaultShippingPartners;
-use Automattic\WooCommerce\Admin\Features\ShippingPartnerSuggestions\ShippingPartnerSuggestions as Suggestions;
+use Automattic\PooCommerce\Admin\Features\ShippingPartnerSuggestions\DefaultShippingPartners;
+use Automattic\PooCommerce\Admin\Features\ShippingPartnerSuggestions\ShippingPartnerSuggestions as Suggestions;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -47,7 +47,7 @@ class ShippingPartnerSuggestions extends \WC_REST_Data_Controller {
 					'args'                => array(
 						'force_default_suggestions' => array(
 							'type'        => 'boolean',
-							'description' => __( 'Return the default shipping partner suggestions when woocommerce_show_marketplace_suggestions option is set to no', 'woocommerce' ),
+							'description' => __( 'Return the default shipping partner suggestions when poocommerce_show_marketplace_suggestions option is set to no', 'poocommerce' ),
 						),
 					),
 				),
@@ -65,7 +65,7 @@ class ShippingPartnerSuggestions extends \WC_REST_Data_Controller {
 	 */
 	public function get_permission_check( $request ) {
 		if ( ! current_user_can( 'install_plugins' ) ) {
-			return new \WP_Error( 'woocommerce_rest_cannot_update', __( 'Sorry, you cannot manage plugins.', 'woocommerce' ), array( 'status' => rest_authorization_required_code() ) );
+			return new \WP_Error( 'poocommerce_rest_cannot_update', __( 'Sorry, you cannot manage plugins.', 'poocommerce' ), array( 'status' => rest_authorization_required_code() ) );
 		}
 		return true;
 	}
@@ -76,16 +76,16 @@ class ShippingPartnerSuggestions extends \WC_REST_Data_Controller {
 	 * @return bool
 	 */
 	private function should_display() {
-		if ( 'no' === get_option( 'woocommerce_show_marketplace_suggestions', 'yes' ) ) {
+		if ( 'no' === get_option( 'poocommerce_show_marketplace_suggestions', 'yes' ) ) {
 			return false;
 		}
 
 		/**
-		 * The return value can be controlled via woocommerce_allow_shipping_partner_suggestions filter.
+		 * The return value can be controlled via poocommerce_allow_shipping_partner_suggestions filter.
 		 *
 		 * @since 7.4.1
 		 */
-		return apply_filters( 'woocommerce_allow_shipping_partner_suggestions', true );
+		return apply_filters( 'poocommerce_allow_shipping_partner_suggestions', true );
 	}
 
 	/**
@@ -155,14 +155,14 @@ class ShippingPartnerSuggestions extends \WC_REST_Data_Controller {
 			),
 			'properties' => array(
 				'name'              => array(
-					'description' => __( 'Plugin name.', 'woocommerce' ),
+					'description' => __( 'Plugin name.', 'poocommerce' ),
 					'type'        => 'string',
 					'required'    => true,
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'slug'              => array(
-					'description' => __( 'Plugin slug used in https://wordpress.org/plugins/{slug}.', 'woocommerce' ),
+					'description' => __( 'Plugin slug used in https://wordpress.org/plugins/{slug}.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
@@ -170,25 +170,25 @@ class ShippingPartnerSuggestions extends \WC_REST_Data_Controller {
 				'layout_row'        => $layout_def,
 				'layout_column'     => $layout_def,
 				'description'       => array(
-					'description' => __( 'Description', 'woocommerce' ),
+					'description' => __( 'Description', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'learn_more_link'   => array(
-					'description' => __( 'Learn more link .', 'woocommerce' ),
+					'description' => __( 'Learn more link .', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'is_visible'        => array(
-					'description' => __( 'Suggestion visibility.', 'woocommerce' ),
+					'description' => __( 'Suggestion visibility.', 'poocommerce' ),
 					'type'        => 'boolean',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'available_layouts' => array(
-					'description' => __( 'Available layouts -- single, dual, or both', 'woocommerce' ),
+					'description' => __( 'Available layouts -- single, dual, or both', 'poocommerce' ),
 					'type'        => 'array',
 					'items'       => array(
 						'type' => 'string',

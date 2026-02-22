@@ -4,9 +4,9 @@
 import { createElement } from '@wordpress/element';
 import type { BlockAttributes } from '@wordpress/blocks';
 import { Button } from '@wordpress/components';
-import { useWooBlockProps } from '@woocommerce/block-templates';
-import { getNewPath, navigateTo } from '@woocommerce/navigation';
-import { Product } from '@woocommerce/data';
+import { useWooBlockProps } from '@poocommerce/block-templates';
+import { getNewPath, navigateTo } from '@poocommerce/navigation';
+import { Product } from '@poocommerce/data';
 import { useEntityProp } from '@wordpress/core-data';
 
 /**

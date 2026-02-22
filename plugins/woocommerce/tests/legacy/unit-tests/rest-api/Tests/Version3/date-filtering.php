@@ -7,11 +7,11 @@
  * object get_item_for_date_filtering_tests() --> create (in db) and return an object for testing (with get_id method).
  * string get_endpoint_for_date_filtering_tests() --> get the REST API endpoint for querying items.
  *
- * @package WooCommerce\Tests\API
+ * @package PooCommerce\Tests\API
  */
 
-use Automattic\WooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 
 /**
  * Trait for testing the date filtering on controllers that inherit from WC_REST_CRUD_Controller.

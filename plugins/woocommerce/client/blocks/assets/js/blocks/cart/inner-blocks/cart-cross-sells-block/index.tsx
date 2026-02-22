@@ -18,7 +18,7 @@ import crossSells from '../../../product-collection/collections/cross-sells';
 
 export const createCrossSellsProductCollection = () => {
 	return createBlock(
-		'woocommerce/product-collection',
+		'poocommerce/product-collection',
 		{
 			...crossSells.attributes,
 			displayLayout: {
@@ -29,14 +29,14 @@ export const createCrossSellsProductCollection = () => {
 				...crossSells.attributes.query,
 				perPage: 3,
 			},
-			collection: 'woocommerce/product-collection/cross-sells',
+			collection: 'poocommerce/product-collection/cross-sells',
 		},
 		createBlocksFromInnerBlocksTemplate( crossSells.innerBlocks )
 	);
 };
 
 // @ts-expect-error - blockName can be either string or object
-registerBlockType( 'woocommerce/cart-cross-sells-block', {
+registerBlockType( 'poocommerce/cart-cross-sells-block', {
 	apiVersion: metadata.apiVersion,
 	title: metadata.title,
 	icon: {
@@ -53,7 +53,7 @@ registerBlockType( 'woocommerce/cart-cross-sells-block', {
 		to: [
 			{
 				type: 'block',
-				blocks: [ 'woocommerce/product-collection' ],
+				blocks: [ 'poocommerce/product-collection' ],
 				transform: createCrossSellsProductCollection,
 			},
 		],

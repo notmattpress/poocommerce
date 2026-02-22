@@ -1,12 +1,12 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\Domain\Services;
+namespace Automattic\PooCommerce\Blocks\Domain\Services;
 
-use Automattic\WooCommerce\Blocks\Domain\Package;
+use Automattic\PooCommerce\Blocks\Domain\Package;
 use Exception;
 use WC_Order;
 
 /**
- * Service class for adding DraftOrder functionality to WooCommerce core.
+ * Service class for adding DraftOrder functionality to PooCommerce core.
  *
  * Sets up all logic related to the Checkout Draft Orders service
  *
@@ -17,7 +17,7 @@ class DraftOrders {
 	const DB_STATUS = 'wc-checkout-draft';
 	const STATUS    = 'checkout-draft';
 
-	const DRAFT_CLEANUP_EVENT_HOOK = 'woocommerce_cleanup_draft_orders';
+	const DRAFT_CLEANUP_EVENT_HOOK = 'poocommerce_cleanup_draft_orders';
 
 	/**
 	 * Holds the Package instance
@@ -40,12 +40,12 @@ class DraftOrders {
 	 */
 	public function init() {
 		add_filter( 'wc_order_statuses', [ $this, 'register_draft_order_status' ] );
-		add_filter( 'woocommerce_register_shop_order_post_statuses', [ $this, 'register_draft_order_post_status' ] );
-		add_filter( 'woocommerce_analytics_excluded_order_statuses', [ $this, 'append_draft_order_post_status' ] );
-		add_filter( 'woocommerce_valid_order_statuses_for_payment', [ $this, 'append_draft_order_post_status' ], 999 );
-		add_filter( 'woocommerce_valid_order_statuses_for_payment_complete', [ $this, 'append_draft_order_post_status' ], 999 );
+		add_filter( 'poocommerce_register_shop_order_post_statuses', [ $this, 'register_draft_order_post_status' ] );
+		add_filter( 'poocommerce_analytics_excluded_order_statuses', [ $this, 'append_draft_order_post_status' ] );
+		add_filter( 'poocommerce_valid_order_statuses_for_payment', [ $this, 'append_draft_order_post_status' ], 999 );
+		add_filter( 'poocommerce_valid_order_statuses_for_payment_complete', [ $this, 'append_draft_order_post_status' ], 999 );
 		// Hook into the query to retrieve My Account orders so draft status is excluded.
-		add_action( 'woocommerce_my_account_my_orders_query', [ $this, 'delete_draft_order_post_status_from_args' ] );
+		add_action( 'poocommerce_my_account_my_orders_query', [ $this, 'delete_draft_order_post_status_from_args' ] );
 		add_action( self::DRAFT_CLEANUP_EVENT_HOOK, [ $this, 'delete_expired_draft_orders' ] );
 		add_action( 'admin_init', [ $this, 'install' ] );
 
@@ -96,7 +96,7 @@ class DraftOrders {
 	 * @return array
 	 */
 	public function register_draft_order_status( array $statuses ) {
-		$statuses[ self::DB_STATUS ] = _x( 'Draft', 'Order status', 'woocommerce' );
+		$statuses[ self::DB_STATUS ] = _x( 'Draft', 'Order status', 'poocommerce' );
 		return $statuses;
 	}
 
@@ -120,13 +120,13 @@ class DraftOrders {
 	 */
 	private function get_post_status_properties() {
 		return [
-			'label'                     => _x( 'Draft', 'Order status', 'woocommerce' ),
+			'label'                     => _x( 'Draft', 'Order status', 'poocommerce' ),
 			'public'                    => false,
 			'exclude_from_search'       => false,
 			'show_in_admin_all_list'    => false,
 			'show_in_admin_status_list' => true,
 			/* translators: %s: number of orders */
-			'label_count'               => _n_noop( 'Drafts <span class="count">(%s)</span>', 'Drafts <span class="count">(%s)</span>', 'woocommerce' ),
+			'label_count'               => _n_noop( 'Drafts <span class="count">(%s)</span>', 'Drafts <span class="count">(%s)</span>', 'poocommerce' ),
 		];
 	}
 
@@ -236,7 +236,7 @@ class DraftOrders {
 			return;
 		}
 
-		$suffix = ' This is an indicator that something is filtering WooCommerce or WordPress queries and modifying the query parameters.';
+		$suffix = ' This is an indicator that something is filtering PooCommerce or WordPress queries and modifying the query parameters.';
 
 		// if count is greater than our expected batch size, then that's a problem.
 		if ( count( $order_results ) > 20 ) {

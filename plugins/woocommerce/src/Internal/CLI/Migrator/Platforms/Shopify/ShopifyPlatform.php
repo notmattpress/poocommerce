@@ -2,12 +2,12 @@
 /**
  * Shopify Platform Registration
  *
- * @package Automattic\WooCommerce\Internal\CLI\Migrator\Platforms\Shopify
+ * @package Automattic\PooCommerce\Internal\CLI\Migrator\Platforms\Shopify
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\CLI\Migrator\Platforms\Shopify;
+namespace Automattic\PooCommerce\Internal\CLI\Migrator\Platforms\Shopify;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -15,7 +15,7 @@ defined( 'ABSPATH' ) || exit;
  * ShopifyPlatform class.
  *
  * This class handles the registration of the Shopify platform with the
- * WooCommerce Migrator's platform registry system.
+ * PooCommerce Migrator's platform registry system.
  */
 class ShopifyPlatform {
 
@@ -25,7 +25,7 @@ class ShopifyPlatform {
 	 * @internal
 	 */
 	final public static function init(): void {
-		add_filter( 'woocommerce_migrator_platforms', array( self::class, 'register_platform' ) );
+		add_filter( 'poocommerce_migrator_platforms', array( self::class, 'register_platform' ) );
 	}
 
 	/**

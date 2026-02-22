@@ -4,9 +4,9 @@
 import clsx from 'clsx';
 import { __ } from '@wordpress/i18n';
 import { Icon, Disabled } from '@wordpress/components';
-import { checkMark } from '@woocommerce/icons';
+import { checkMark } from '@poocommerce/icons';
 import { useMemo } from '@wordpress/element';
-import { decodeHtmlEntities } from '@woocommerce/utils';
+import { decodeHtmlEntities } from '@poocommerce/utils';
 import {
 	useBlockProps,
 	withColors,
@@ -142,7 +142,7 @@ const CheckboxListEdit = ( props: EditProps ): JSX.Element => {
 					</div>
 					{ ! isLoading && isLongList && (
 						<button className="wc-block-product-filter-checkbox-list__show-more">
-							{ __( 'Show more…', 'woocommerce' ) }
+							{ __( 'Show more…', 'poocommerce' ) }
 						</button>
 					) }
 				</Disabled>
@@ -153,7 +153,7 @@ const CheckboxListEdit = ( props: EditProps ): JSX.Element => {
 						__experimentalIsRenderedInSidebar
 						settings={ [
 							{
-								label: __( 'Label', 'woocommerce' ),
+								label: __( 'Label', 'poocommerce' ),
 								colorValue:
 									labelElement.color || customLabelElement,
 								isShownByDefault: true,
@@ -174,7 +174,7 @@ const CheckboxListEdit = ( props: EditProps ): JSX.Element => {
 							{
 								label: __(
 									'Option Element Border',
-									'woocommerce'
+									'poocommerce'
 								),
 								colorValue:
 									optionElementBorder.color ||
@@ -197,7 +197,7 @@ const CheckboxListEdit = ( props: EditProps ): JSX.Element => {
 							{
 								label: __(
 									'Option Element (Selected)',
-									'woocommerce'
+									'poocommerce'
 								),
 								colorValue:
 									optionElementSelected.color ||
@@ -218,7 +218,7 @@ const CheckboxListEdit = ( props: EditProps ): JSX.Element => {
 								},
 							},
 							{
-								label: __( 'Option Element', 'woocommerce' ),
+								label: __( 'Option Element', 'poocommerce' ),
 								colorValue:
 									optionElement.color || customOptionElement,
 								isShownByDefault: true,

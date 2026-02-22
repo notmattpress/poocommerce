@@ -1,12 +1,12 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\Settings\PaymentsProviders\WooPayments;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\Settings\PaymentsProviders\WooPayments;
 
-use Automattic\WooCommerce\Internal\Admin\Settings\Exceptions\ApiException;
-use Automattic\WooCommerce\Internal\Admin\Settings\PaymentsProviders\WooPayments\WooPaymentsService;
-use Automattic\WooCommerce\Internal\Admin\Settings\Payments;
-use Automattic\WooCommerce\Internal\Admin\Settings\PaymentsProviders\WooPayments\WooPaymentsRestController;
+use Automattic\PooCommerce\Internal\Admin\Settings\Exceptions\ApiException;
+use Automattic\PooCommerce\Internal\Admin\Settings\PaymentsProviders\WooPayments\WooPaymentsService;
+use Automattic\PooCommerce\Internal\Admin\Settings\Payments;
+use Automattic\PooCommerce\Internal\Admin\Settings\PaymentsProviders\WooPayments\WooPaymentsRestController;
 use PHPUnit\Framework\MockObject\MockObject;
 use WC_REST_Unit_Test_Case;
 use WP_REST_Request;
@@ -70,7 +70,7 @@ class WooPaymentsRestControllerTest extends WC_REST_Unit_Test_Case {
 		// Arrange.
 		// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
 		$filter_callback = fn( $caps ) => array(
-			'manage_woocommerce' => false, // This is needed.
+			'manage_poocommerce' => false, // This is needed.
 			'install_plugins'    => true,  // This is not needed.
 		);
 		add_filter( 'user_has_cap', $filter_callback );
@@ -94,7 +94,7 @@ class WooPaymentsRestControllerTest extends WC_REST_Unit_Test_Case {
 		$country_code = 'US';
 		// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
 		$filter_callback = fn( $caps ) => array(
-			'manage_woocommerce' => true,  // This is needed.
+			'manage_poocommerce' => true,  // This is needed.
 			'install_plugins'    => false, // This is not needed.
 		);
 		add_filter( 'user_has_cap', $filter_callback );

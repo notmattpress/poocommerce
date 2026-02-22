@@ -24,7 +24,7 @@ It looks first within the block's `attributes` and if there is no icon defined t
 
     ```php
     array(
-    	'woocommerce/product-section', // Block name
+    	'poocommerce/product-section', // Block name
     	array(
     		// Block attributes
     		'icon'	=> array(
@@ -52,7 +52,7 @@ It looks first within the block's `attributes` and if there is no icon defined t
 ### Rendering the Icon
 
 ```javascript
-import { __experimentalBlockIcon as BlockIcon } from '@woocommerce/product-editor';
+import { __experimentalBlockIcon as BlockIcon } from '@poocommerce/product-editor';
 
 export function BlockEdit( { clientId } ) {
 	const blockProps = useBlockProps();

@@ -15,11 +15,11 @@ const NoCategoryReviewsPlaceholder = (): JSX.Element => {
 					className="block-editor-block-icon"
 				/>
 			}
-			label={ __( 'All Reviews', 'woocommerce' ) }
+			label={ __( 'All Reviews', 'poocommerce' ) }
 		>
 			{ __(
 				'This block shows a list of all product reviews. Your store does not have any reviews yet, but they will show up here when it does.',
-				'woocommerce'
+				'poocommerce'
 			) }
 		</Placeholder>
 	);

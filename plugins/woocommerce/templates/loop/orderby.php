@@ -2,16 +2,16 @@
 /**
  * Show options for ordering
  *
- * This template can be overridden by copying it to yourtheme/woocommerce/loop/orderby.php.
+ * This template can be overridden by copying it to yourtheme/poocommerce/loop/orderby.php.
  *
- * HOWEVER, on occasion WooCommerce will need to update template files and you
+ * HOWEVER, on occasion PooCommerce will need to update template files and you
  * (the theme developer) will need to copy the new files to your theme to
  * maintain compatibility. We try to do this as little as possible, but it does
  * happen. When this occurs the version of the template file will be bumped and
  * the readme will list any important changes.
  *
- * @see         https://woocommerce.com/document/template-structure/
- * @package     WooCommerce\Templates
+ * @see         https://poocommerce.com/document/template-structure/
+ * @package     PooCommerce\Templates
  * @version     9.7.0
  */
 
@@ -22,17 +22,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 $id_suffix = wp_unique_id();
 
 ?>
-<form class="woocommerce-ordering" method="get">
+<form class="poocommerce-ordering" method="get">
 	<?php if ( $use_label ) : ?>
-		<label for="woocommerce-orderby-<?php echo esc_attr( $id_suffix ); ?>"><?php echo esc_html__( 'Sort by', 'woocommerce' ); ?></label>
+		<label for="poocommerce-orderby-<?php echo esc_attr( $id_suffix ); ?>"><?php echo esc_html__( 'Sort by', 'poocommerce' ); ?></label>
 	<?php endif; ?>
 	<select
 		name="orderby"
 		class="orderby"
 		<?php if ( $use_label ) : ?>
-			id="woocommerce-orderby-<?php echo esc_attr( $id_suffix ); ?>"
+			id="poocommerce-orderby-<?php echo esc_attr( $id_suffix ); ?>"
 		<?php else : ?>
-			aria-label="<?php esc_attr_e( 'Shop order', 'woocommerce' ); ?>"
+			aria-label="<?php esc_attr_e( 'Shop order', 'poocommerce' ); ?>"
 		<?php endif; ?>
 	>
 		<?php foreach ( $catalog_orderby_options as $id => $name ) : ?>

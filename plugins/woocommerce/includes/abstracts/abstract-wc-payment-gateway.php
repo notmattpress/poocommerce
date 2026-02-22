@@ -6,27 +6,27 @@
  *
  * @class WC_Payment_Gateway
  * @version 2.1.0
- * @package WooCommerce\Abstracts
+ * @package PooCommerce\Abstracts
  */
 
 use Automattic\Jetpack\Constants;
-use Automattic\WooCommerce\Enums\PaymentGatewayFeature;
-use Automattic\WooCommerce\Internal\Admin\Settings\Utils as SettingsUtils;
-use Automattic\WooCommerce\Internal\Utilities\HtmlSanitizer;
+use Automattic\PooCommerce\Enums\PaymentGatewayFeature;
+use Automattic\PooCommerce\Internal\Admin\Settings\Utils as SettingsUtils;
+use Automattic\PooCommerce\Internal\Utilities\HtmlSanitizer;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
 /**
- * WooCommerce Payment Gateway class.
+ * PooCommerce Payment Gateway class.
  *
  * Extended by individual payment gateways to handle payments.
  *
  * @class       WC_Payment_Gateway
  * @extends     WC_Settings_API
  * @version     2.1.0
- * @package     WooCommerce\Abstracts
+ * @package     PooCommerce\Abstracts
  */
 abstract class WC_Payment_Gateway extends WC_Settings_API {
 
@@ -198,7 +198,7 @@ abstract class WC_Payment_Gateway extends WC_Settings_API {
 		 * @param WC_Payment_Gateway $this Payment gateway instance.
 		 * @return string
 		 */
-		return apply_filters( 'woocommerce_gateway_method_title', $this->method_title, $this );
+		return apply_filters( 'poocommerce_gateway_method_title', $this->method_title, $this );
 	}
 
 	/**
@@ -215,7 +215,7 @@ abstract class WC_Payment_Gateway extends WC_Settings_API {
 		 * @param WC_Payment_Gateway $this Payment gateway instance.
 		 * @return string
 		 */
-		return apply_filters( 'woocommerce_gateway_method_description', $this->method_description, $this );
+		return apply_filters( 'poocommerce_gateway_method_description', $this->method_description, $this );
 	}
 
 	/**
@@ -235,7 +235,7 @@ abstract class WC_Payment_Gateway extends WC_Settings_API {
 			$return_path     = '/' . $offline_section;
 		}
 
-		wc_back_header( $this->get_method_title(), esc_html__( 'Return to payments', 'woocommerce' ), SettingsUtils::wc_payments_settings_url( $return_path ) );
+		wc_back_header( $this->get_method_title(), esc_html__( 'Return to payments', 'poocommerce' ), SettingsUtils::wc_payments_settings_url( $return_path ) );
 
 		echo wp_kses_post( wpautop( $this->get_method_description() ) );
 		parent::admin_options();
@@ -283,7 +283,7 @@ abstract class WC_Payment_Gateway extends WC_Settings_API {
 		 * @param WC_Order|null $order Order object.
 		 * @return string
 		 */
-		return apply_filters( 'woocommerce_get_return_url', $return_url, $order );
+		return apply_filters( 'poocommerce_get_return_url', $return_url, $order );
 	}
 
 	/**
@@ -309,7 +309,7 @@ abstract class WC_Payment_Gateway extends WC_Settings_API {
 		 * @param WC_Order|null $order Order object.
 		 * @return string
 		 */
-		return apply_filters( 'woocommerce_get_transaction_url', $return_url, $order, $this );
+		return apply_filters( 'poocommerce_get_transaction_url', $return_url, $order, $this );
 	}
 
 	/**
@@ -377,7 +377,7 @@ abstract class WC_Payment_Gateway extends WC_Settings_API {
 		 * @param string $id Gateway ID.
 		 * @return string
 		 */
-		return apply_filters( 'woocommerce_gateway_title', $title, $this->id );
+		return apply_filters( 'poocommerce_gateway_title', $title, $this->id );
 	}
 
 	/**
@@ -389,7 +389,7 @@ abstract class WC_Payment_Gateway extends WC_Settings_API {
 		/**
 		 * Filters the gateway description.
 		 *
-		 * Descriptions can be overridden by extending this method or through the use of `woocommerce_gateway_description`
+		 * Descriptions can be overridden by extending this method or through the use of `poocommerce_gateway_description`
 		 * To avoid breaking custom HTML that may be returned we cannot enforce KSES at render time, so we run it here.
 		 *
 		 * @since 1.5.8
@@ -398,7 +398,7 @@ abstract class WC_Payment_Gateway extends WC_Settings_API {
 		 * @param string $id Gateway ID.
 		 * @return string
 		 */
-		return apply_filters( 'woocommerce_gateway_description', wp_kses_post( $this->description ), $this->id );
+		return apply_filters( 'poocommerce_gateway_description', wp_kses_post( $this->description ), $this->id );
 	}
 
 	/**
@@ -416,7 +416,7 @@ abstract class WC_Payment_Gateway extends WC_Settings_API {
 		 * @param string $id Gateway ID.
 		 * @return string
 		 */
-		return apply_filters( 'woocommerce_gateway_icon', $icon, $this->id );
+		return apply_filters( 'poocommerce_gateway_icon', $icon, $this->id );
 	}
 
 	/**
@@ -522,7 +522,7 @@ abstract class WC_Payment_Gateway extends WC_Settings_API {
 		 * @param WC_Payment_Gateway $this Payment gateway instance.
 		 * @return string
 		 */
-		return apply_filters( 'woocommerce_payment_gateway_supports', in_array( $feature, $this->supports, true ), $feature, $this );
+		return apply_filters( 'poocommerce_payment_gateway_supports', in_array( $feature, $this->supports, true ), $feature, $this );
 	}
 
 	/**
@@ -558,7 +558,7 @@ abstract class WC_Payment_Gateway extends WC_Settings_API {
 	 */
 	public function tokenization_script() {
 		wp_enqueue_script(
-			'woocommerce-tokenization-form',
+			'poocommerce-tokenization-form',
 			plugins_url( '/assets/js/frontend/tokenization-form' . ( Constants::is_true( 'SCRIPT_DEBUG' ) ? '' : '.min' ) . '.js', WC_PLUGIN_FILE ),
 			array( 'jquery' ),
 			WC()->version,
@@ -566,7 +566,7 @@ abstract class WC_Payment_Gateway extends WC_Settings_API {
 		);
 
 		wp_localize_script(
-			'woocommerce-tokenization-form',
+			'poocommerce-tokenization-form',
 			'wc_tokenization_form_params',
 			array(
 				'is_registration_required' => WC()->checkout()->is_registration_required(),
@@ -581,7 +581,7 @@ abstract class WC_Payment_Gateway extends WC_Settings_API {
 	 * @since 2.6.0
 	 */
 	public function saved_payment_methods() {
-		$html = '<ul class="woocommerce-SavedPaymentMethods wc-saved-payment-methods" data-count="' . esc_attr( count( $this->get_tokens() ) ) . '">';
+		$html = '<ul class="poocommerce-SavedPaymentMethods wc-saved-payment-methods" data-count="' . esc_attr( count( $this->get_tokens() ) ) . '">';
 
 		foreach ( $this->get_tokens() as $token ) {
 			$html .= $this->get_saved_payment_method_option_html( $token );
@@ -602,8 +602,8 @@ abstract class WC_Payment_Gateway extends WC_Settings_API {
 	 */
 	public function get_saved_payment_method_option_html( $token ) {
 		$html = sprintf(
-			'<li class="woocommerce-SavedPaymentMethods-token">
-				<input id="wc-%1$s-payment-token-%2$s" type="radio" name="wc-%1$s-payment-token" value="%2$s" style="width:auto;" class="woocommerce-SavedPaymentMethods-tokenInput" %4$s />
+			'<li class="poocommerce-SavedPaymentMethods-token">
+				<input id="wc-%1$s-payment-token-%2$s" type="radio" name="wc-%1$s-payment-token" value="%2$s" style="width:auto;" class="poocommerce-SavedPaymentMethods-tokenInput" %4$s />
 				<label for="wc-%1$s-payment-token-%2$s">%3$s</label>
 			</li>',
 			esc_attr( $this->id ),
@@ -621,7 +621,7 @@ abstract class WC_Payment_Gateway extends WC_Settings_API {
 		 * @param WC_Payment_Gateway $this Payment gateway instance.
 		 * @return string
 		 */
-		return apply_filters( 'woocommerce_payment_gateway_get_saved_payment_method_option_html', $html, $token, $this );
+		return apply_filters( 'poocommerce_payment_gateway_get_saved_payment_method_option_html', $html, $token, $this );
 	}
 
 	/**
@@ -639,10 +639,10 @@ abstract class WC_Payment_Gateway extends WC_Settings_API {
 		 * @param WC_Payment_Gateway $this Payment gateway instance.
 		 * @return string
 		 */
-		$label = apply_filters( 'woocommerce_payment_gateway_get_new_payment_method_option_html_label', $this->new_method_label ? $this->new_method_label : __( 'Use a new payment method', 'woocommerce' ), $this );
+		$label = apply_filters( 'poocommerce_payment_gateway_get_new_payment_method_option_html_label', $this->new_method_label ? $this->new_method_label : __( 'Use a new payment method', 'poocommerce' ), $this );
 		$html  = sprintf(
-			'<li class="woocommerce-SavedPaymentMethods-new">
-				<input id="wc-%1$s-payment-token-new" type="radio" name="wc-%1$s-payment-token" value="new" style="width:auto;" class="woocommerce-SavedPaymentMethods-tokenInput" />
+			'<li class="poocommerce-SavedPaymentMethods-new">
+				<input id="wc-%1$s-payment-token-new" type="radio" name="wc-%1$s-payment-token" value="new" style="width:auto;" class="poocommerce-SavedPaymentMethods-tokenInput" />
 				<label for="wc-%1$s-payment-token-new">%2$s</label>
 			</li>',
 			esc_attr( $this->id ),
@@ -656,7 +656,7 @@ abstract class WC_Payment_Gateway extends WC_Settings_API {
 		 * @param WC_Payment_Gateway $this Payment gateway instance.
 		 * @return string
 		 */
-		return apply_filters( 'woocommerce_payment_gateway_get_new_payment_method_option_html', $html, $this );
+		return apply_filters( 'poocommerce_payment_gateway_get_new_payment_method_option_html', $html, $this );
 	}
 
 	/**
@@ -666,12 +666,12 @@ abstract class WC_Payment_Gateway extends WC_Settings_API {
 	 */
 	public function save_payment_method_checkbox() {
 		$html = sprintf(
-			'<p class="form-row woocommerce-SavedPaymentMethods-saveNew">
+			'<p class="form-row poocommerce-SavedPaymentMethods-saveNew">
 				<input id="wc-%1$s-new-payment-method" name="wc-%1$s-new-payment-method" type="checkbox" value="true" style="width:auto;" />
 				<label for="wc-%1$s-new-payment-method" style="display:inline;">%2$s</label>
 			</p>',
 			esc_attr( $this->id ),
-			esc_html__( 'Save to account', 'woocommerce' )
+			esc_html__( 'Save to account', 'poocommerce' )
 		);
 		/**
 		 * Filter the saved payment method checkbox HTML
@@ -681,7 +681,7 @@ abstract class WC_Payment_Gateway extends WC_Settings_API {
 		 * @param WC_Payment_Gateway $this Payment gateway instance.
 		 * @return string
 		 */
-		echo apply_filters( 'woocommerce_payment_gateway_save_new_payment_method_option_html', $html, $this ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo apply_filters( 'poocommerce_payment_gateway_save_new_payment_method_option_html', $html, $this ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
 
 	/**
