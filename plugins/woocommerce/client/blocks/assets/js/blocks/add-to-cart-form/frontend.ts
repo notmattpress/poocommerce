@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { store } from '@wordpress/interactivity';
-import { HTMLElementEvent } from '@woocommerce/types';
+import { HTMLElementEvent } from '@poocommerce/types';
 
 const getInputElementFromEvent = (
 	event: HTMLElementEvent< HTMLButtonElement >
@@ -50,7 +50,7 @@ const getInputData = ( event: HTMLElementEvent< HTMLButtonElement > ) => {
  * rely on the change event to detect quantity changes. This function ensures
  * those extensions continue working by programmatically dispatching the event.
  *
- * @see https://github.com/woocommerce/woocommerce/issues/53031
+ * @see https://github.com/poocommerce/poocommerce/issues/53031
  *
  * @param inputElement - The quantity input element to dispatch the event on.
  */
@@ -60,7 +60,7 @@ const dispatchChangeEvent = ( inputElement: HTMLInputElement ) => {
 	inputElement.dispatchEvent( event );
 };
 
-store( 'woocommerce/add-to-cart-form', {
+store( 'poocommerce/add-to-cart-form', {
 	state: {},
 	actions: {
 		addQuantity: ( event: HTMLElementEvent< HTMLButtonElement > ) => {

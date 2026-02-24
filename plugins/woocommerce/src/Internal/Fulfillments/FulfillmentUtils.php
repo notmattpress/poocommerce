@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Internal\Fulfillments;
+namespace Automattic\PooCommerce\Internal\Fulfillments;
 
-use Automattic\WooCommerce\Internal\Fulfillments\Providers\AbstractShippingProvider;
+use Automattic\PooCommerce\Internal\Fulfillments\Providers\AbstractShippingProvider;
 use WC_Order;
 
 /**
@@ -171,7 +171,7 @@ class FulfillmentUtils {
 		 * @param array $fulfillments An array of fulfillments for the order.
 		 */
 		return apply_filters(
-			'woocommerce_fulfillment_calculate_order_fulfillment_status',
+			'poocommerce_fulfillment_calculate_order_fulfillment_status',
 			$status,
 			$order,
 			$fulfillments
@@ -218,7 +218,7 @@ class FulfillmentUtils {
 		} elseif ( ! empty( $tracking_number ) ) {
 			$tracking_html .= esc_html( $tracking_number );
 		} else {
-			$tracking_html .= '<span class="no-tracking">' . esc_html__( 'No tracking number available', 'woocommerce' ) . '</span>';
+			$tracking_html .= '<span class="no-tracking">' . esc_html__( 'No tracking number available', 'poocommerce' ) . '</span>';
 		}
 		return $tracking_html;
 	}
@@ -255,16 +255,16 @@ class FulfillmentUtils {
 		$fulfillment_status_text = '';
 		switch ( $fulfillment_status ) {
 			case 'fulfilled':
-				$fulfillment_status_text = ' ' . __( 'It has been <mark class="fulfillment-status">Fulfilled</mark>.', 'woocommerce' );
+				$fulfillment_status_text = ' ' . __( 'It has been <mark class="fulfillment-status">Fulfilled</mark>.', 'poocommerce' );
 				break;
 			case 'partially_fulfilled':
-				$fulfillment_status_text = ' ' . __( 'It has been <mark class="fulfillment-status">Partially fulfilled</mark>.', 'woocommerce' );
+				$fulfillment_status_text = ' ' . __( 'It has been <mark class="fulfillment-status">Partially fulfilled</mark>.', 'poocommerce' );
 				break;
 			case 'unfulfilled':
-				$fulfillment_status_text = ' ' . __( 'It is currently <mark class="fulfillment-status">Unfulfilled</mark>.', 'woocommerce' );
+				$fulfillment_status_text = ' ' . __( 'It is currently <mark class="fulfillment-status">Unfulfilled</mark>.', 'poocommerce' );
 				break;
 			case 'no_fulfillments':
-				$fulfillment_status_text = ' ' . __( 'It has <mark class="fulfillment-status">no fulfillments</mark> yet.', 'woocommerce' );
+				$fulfillment_status_text = ' ' . __( 'It has <mark class="fulfillment-status">no fulfillments</mark> yet.', 'poocommerce' );
 				break;
 		}
 
@@ -278,7 +278,7 @@ class FulfillmentUtils {
 		 * @param WC_Order $order The order object.
 		 */
 		return apply_filters(
-			'woocommerce_fulfillment_order_fulfillment_status_text',
+			'poocommerce_fulfillment_order_fulfillment_status_text',
 			$fulfillment_status_text,
 			$fulfillment_status,
 			$order
@@ -357,8 +357,8 @@ class FulfillmentUtils {
 	 * Get the order fulfillment statuses.
 	 *
 	 * This method provides the order fulfillment statuses that can be used
-	 * in the WooCommerce Fulfillments system. It can be filtered using the
-	 * `woocommerce_fulfillment_order_fulfillment_statuses` filter.
+	 * in the PooCommerce Fulfillments system. It can be filtered using the
+	 * `poocommerce_fulfillment_order_fulfillment_statuses` filter.
 	 *
 	 * @return array An associative array of order fulfillment statuses.
 	 */
@@ -366,14 +366,14 @@ class FulfillmentUtils {
 		/**
 		 * This filter allows plugins to modify the list of order fulfillment statuses.
 		 * It can be used to add, remove, or change the order fulfillment statuses available in the
-		 * WooCommerce Fulfillments system.
+		 * PooCommerce Fulfillments system.
 		 *
 		 * @since 10.1.0
 		 *
 		 * @param array $order_fulfillment_statuses The default list of order fulfillment statuses.
 		 */
 		return apply_filters(
-			'woocommerce_fulfillment_order_fulfillment_statuses',
+			'poocommerce_fulfillment_order_fulfillment_statuses',
 			self::get_default_order_fulfillment_statuses()
 		);
 	}
@@ -382,8 +382,8 @@ class FulfillmentUtils {
 	 * Get the fulfillment statuses.
 	 *
 	 * This method provides the fulfillment statuses that can be used
-	 * in the WooCommerce Fulfillments system. It can be filtered using the
-	 * `woocommerce_fulfillment_fulfillment_statuses` filter.
+	 * in the PooCommerce Fulfillments system. It can be filtered using the
+	 * `poocommerce_fulfillment_fulfillment_statuses` filter.
 	 *
 	 * @return array An associative array of fulfillment statuses.
 	 */
@@ -391,14 +391,14 @@ class FulfillmentUtils {
 		/**
 		 * This filter allows plugins to modify the list of fulfillment statuses.
 		 * It can be used to add, remove, or change the fulfillment statuses available in the
-		 * WooCommerce Fulfillments system.
+		 * PooCommerce Fulfillments system.
 		 *
 		 * @since 10.1.0
 		 *
 		 * @param array $fulfillment_statuses The default list of fulfillment statuses.
 		 */
 		return apply_filters(
-			'woocommerce_fulfillment_fulfillment_statuses',
+			'poocommerce_fulfillment_fulfillment_statuses',
 			self::get_default_fulfillment_statuses()
 		);
 	}
@@ -406,8 +406,8 @@ class FulfillmentUtils {
 	/**
 	 * Get the shipping providers.
 	 *
-	 * This method retrieves the shipping providers registered in the WooCommerce Fulfillments system.
-	 * It can be filtered using the `woocommerce_fulfillment_shipping_providers` filter.
+	 * This method retrieves the shipping providers registered in the PooCommerce Fulfillments system.
+	 * It can be filtered using the `poocommerce_fulfillment_shipping_providers` filter.
 	 *
 	 * @return array An associative array of shipping providers with their details.
 	 */
@@ -415,14 +415,14 @@ class FulfillmentUtils {
 		/**
 		 * This filter allows plugins to modify the list of shipping providers.
 		 * It can be used to add, remove, or change the shipping providers available in the
-		 * WooCommerce Fulfillments system.
+		 * PooCommerce Fulfillments system.
 		 *
 		 * @since 10.1.0
 		 *
 		 * @param array $shipping_providers The default list of shipping providers.
 		 */
 		return apply_filters(
-			'woocommerce_fulfillment_shipping_providers',
+			'poocommerce_fulfillment_shipping_providers',
 			array()
 		);
 	}
@@ -473,30 +473,30 @@ class FulfillmentUtils {
 	 * Get the default order fulfillment statuses.
 	 *
 	 * This method provides the default order fulfillment statuses that can be used
-	 * in the WooCommerce Fulfillments system. It can be filtered using the
-	 * `woocommerce_fulfillment_order_fulfillment_statuses` filter.
+	 * in the PooCommerce Fulfillments system. It can be filtered using the
+	 * `poocommerce_fulfillment_order_fulfillment_statuses` filter.
 	 *
 	 * @return array An associative array of default order fulfillment statuses.
 	 */
 	protected static function get_default_order_fulfillment_statuses(): array {
 		return array(
 			'fulfilled'           => array(
-				'label'            => __( 'Fulfilled', 'woocommerce' ),
+				'label'            => __( 'Fulfilled', 'poocommerce' ),
 				'background_color' => '#C6E1C6',
 				'text_color'       => '#13550F',
 			),
 			'partially_fulfilled' => array(
-				'label'            => __( 'Partially fulfilled', 'woocommerce' ),
+				'label'            => __( 'Partially fulfilled', 'poocommerce' ),
 				'background_color' => '#C8D7E1',
 				'text_color'       => '#003D66',
 			),
 			'unfulfilled'         => array(
-				'label'            => __( 'Unfulfilled', 'woocommerce' ),
+				'label'            => __( 'Unfulfilled', 'poocommerce' ),
 				'background_color' => '#FBE5E5',
 				'text_color'       => '#CC1818',
 			),
 			'no_fulfillments'     => array(
-				'label'            => __( 'No fulfillments', 'woocommerce' ),
+				'label'            => __( 'No fulfillments', 'poocommerce' ),
 				'background_color' => '#F0F0F0',
 				'text_color'       => '#2F2F2F',
 			),
@@ -507,21 +507,21 @@ class FulfillmentUtils {
 	 * Get the default fulfillment statuses.
 	 *
 	 * This method provides the default fulfillment statuses that can be used
-	 * in the WooCommerce Fulfillments system. It can be filtered using the
-	 * `woocommerce_fulfillment_fulfillment_statuses` filter.
+	 * in the PooCommerce Fulfillments system. It can be filtered using the
+	 * `poocommerce_fulfillment_fulfillment_statuses` filter.
 	 *
 	 * @return array An associative array of default fulfillment statuses.
 	 */
 	protected static function get_default_fulfillment_statuses(): array {
 		return array(
 			'fulfilled'   => array(
-				'label'            => __( 'Fulfilled', 'woocommerce' ),
+				'label'            => __( 'Fulfilled', 'poocommerce' ),
 				'is_fulfilled'     => true,
 				'background_color' => '#C6E1C6',
 				'text_color'       => '#13550F',
 			),
 			'unfulfilled' => array(
-				'label'            => __( 'Unfulfilled', 'woocommerce' ),
+				'label'            => __( 'Unfulfilled', 'poocommerce' ),
 				'is_fulfilled'     => false,
 				'background_color' => '#FBE5E5',
 				'text_color'       => '#CC1818',

@@ -4,18 +4,18 @@
  *
  * Standardises certain post data on save.
  *
- * @package WooCommerce\Classes\Data
+ * @package PooCommerce\Classes\Data
  * @version 2.2.0
  */
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Enums\OrderInternalStatus;
-use Automattic\WooCommerce\Enums\ProductStatus;
-use Automattic\WooCommerce\Enums\ProductType;
-use Automattic\WooCommerce\Internal\DataStores\Orders\DataSynchronizer;
-use Automattic\WooCommerce\Internal\ProductAttributesLookup\LookupDataStore as ProductAttributesLookupDataStore;
-use Automattic\WooCommerce\Proxies\LegacyProxy;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Enums\OrderInternalStatus;
+use Automattic\PooCommerce\Enums\ProductStatus;
+use Automattic\PooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Internal\DataStores\Orders\DataSynchronizer;
+use Automattic\PooCommerce\Internal\ProductAttributesLookup\LookupDataStore as ProductAttributesLookupDataStore;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -44,9 +44,9 @@ class WC_Post_Data {
 		add_action( 'set_object_terms', array( __CLASS__, 'delete_product_query_transients' ) );
 		add_action( 'set_object_terms', array( __CLASS__, 'recount_terms_for_product_visibility_change' ), 10, 6 );
 		add_action( 'deleted_term_relationships', array( __CLASS__, 'delete_product_query_transients' ) );
-		add_action( 'woocommerce_product_set_stock_status', array( __CLASS__, 'delete_product_query_transients' ) );
-		add_action( 'woocommerce_product_set_visibility', array( __CLASS__, 'delete_product_query_transients' ) );
-		add_action( 'woocommerce_product_type_changed', array( __CLASS__, 'product_type_changed' ), 10, 3 );
+		add_action( 'poocommerce_product_set_stock_status', array( __CLASS__, 'delete_product_query_transients' ) );
+		add_action( 'poocommerce_product_set_visibility', array( __CLASS__, 'delete_product_query_transients' ) );
+		add_action( 'poocommerce_product_type_changed', array( __CLASS__, 'product_type_changed' ), 10, 3 );
 
 		add_action( 'edit_term', array( __CLASS__, 'edit_term' ), 10, 3 );
 		add_action( 'edited_term', array( __CLASS__, 'edited_term' ), 10, 3 );
@@ -62,7 +62,7 @@ class WC_Post_Data {
 		add_action( 'wp_trash_post', array( __CLASS__, 'trash_post' ) );
 		add_action( 'untrashed_post', array( __CLASS__, 'untrash_post' ) );
 		add_action( 'before_delete_post', array( __CLASS__, 'before_delete_order' ) );
-		add_action( 'woocommerce_before_delete_order', array( __CLASS__, 'before_delete_order' ) );
+		add_action( 'poocommerce_before_delete_order', array( __CLASS__, 'before_delete_order' ) );
 
 		// Meta cache flushing.
 		add_action( 'updated_post_meta', array( __CLASS__, 'flush_object_meta_cache' ), 10, 4 );
@@ -71,14 +71,14 @@ class WC_Post_Data {
 		add_action( 'updated_order_item_meta', array( __CLASS__, 'flush_object_meta_cache' ), 10, 4 );
 
 		// Product Variations - Attributes.
-		// Priority 50 to make sure this runs after WooCommerce attribute migrations.
-		add_action( 'woocommerce_attribute_updated', array( __CLASS__, 'handle_global_attribute_updated' ), 50, 3 );
-		add_action( 'woocommerce_attribute_deleted', array( __CLASS__, 'handle_global_attribute_updated' ), 10, 3 );
+		// Priority 50 to make sure this runs after PooCommerce attribute migrations.
+		add_action( 'poocommerce_attribute_updated', array( __CLASS__, 'handle_global_attribute_updated' ), 50, 3 );
+		add_action( 'poocommerce_attribute_deleted', array( __CLASS__, 'handle_global_attribute_updated' ), 10, 3 );
 		// Product Variations - Terms.
 		add_action( 'edited_term', array( __CLASS__, 'handle_attribute_term_updated' ), 10, 3 );
 		add_action( 'delete_term', array( __CLASS__, 'handle_attribute_term_deleted' ), 10, 4 );
 		// Product Variations - Parent Product Updates Attributes.
-		add_action( 'woocommerce_product_attributes_updated', array( __CLASS__, 'on_product_attributes_updated' ), 10, 1 );
+		add_action( 'poocommerce_product_attributes_updated', array( __CLASS__, 'on_product_attributes_updated' ), 10, 1 );
 		// Product Variations - Action Scheduler.
 		add_action( 'wc_regenerate_product_variation_summaries', array( __CLASS__, 'regenerate_product_variation_summaries' ), 10, 1 );
 		add_action( 'wc_regenerate_attribute_variation_summaries', array( __CLASS__, 'regenerate_attribute_variation_summaries' ), 10, 1 );
@@ -201,7 +201,7 @@ class WC_Post_Data {
 		 * @return string    $from    Origin type.
 		 * @param string     $to      New type.
 		 */
-		if ( apply_filters( 'woocommerce_delete_variations_on_product_type_change', ProductType::VARIABLE === $from && ProductType::VARIABLE !== $to, $product, $from, $to ) ) {
+		if ( apply_filters( 'poocommerce_delete_variations_on_product_type_change', ProductType::VARIABLE === $from && ProductType::VARIABLE !== $to, $product, $from, $to ) ) {
 			// If the product is no longer variable, we should ensure all variations are removed.
 			$data_store = WC_Data_Store::load( 'product-variable' );
 			$data_store->delete_variations( $product->get_id(), true );
@@ -568,18 +568,18 @@ class WC_Post_Data {
 		global $wpdb;
 
 		if ( OrderUtil::is_order( $postid, wc_get_order_types() ) ) {
-			do_action( 'woocommerce_delete_order_items', $postid );
+			do_action( 'poocommerce_delete_order_items', $postid );
 
 			$wpdb->query(
 				"
-				DELETE {$wpdb->prefix}woocommerce_order_items, {$wpdb->prefix}woocommerce_order_itemmeta
-				FROM {$wpdb->prefix}woocommerce_order_items
-				JOIN {$wpdb->prefix}woocommerce_order_itemmeta ON {$wpdb->prefix}woocommerce_order_items.order_item_id = {$wpdb->prefix}woocommerce_order_itemmeta.order_item_id
-				WHERE {$wpdb->prefix}woocommerce_order_items.order_id = '{$postid}';
+				DELETE {$wpdb->prefix}poocommerce_order_items, {$wpdb->prefix}poocommerce_order_itemmeta
+				FROM {$wpdb->prefix}poocommerce_order_items
+				JOIN {$wpdb->prefix}poocommerce_order_itemmeta ON {$wpdb->prefix}poocommerce_order_items.order_item_id = {$wpdb->prefix}poocommerce_order_itemmeta.order_item_id
+				WHERE {$wpdb->prefix}poocommerce_order_items.order_id = '{$postid}';
 				"
 			); // WPCS: unprepared SQL ok.
 
-			do_action( 'woocommerce_deleted_order_items', $postid );
+			do_action( 'poocommerce_deleted_order_items', $postid );
 		}
 	}
 
@@ -592,12 +592,12 @@ class WC_Post_Data {
 	 */
 	public static function delete_order_downloadable_permissions( $postid ) {
 		if ( OrderUtil::is_order( $postid, wc_get_order_types() ) ) {
-			do_action( 'woocommerce_delete_order_downloadable_permissions', $postid );
+			do_action( 'poocommerce_delete_order_downloadable_permissions', $postid );
 
 			$data_store = WC_Data_Store::load( 'customer-download' );
 			$data_store->delete_by_order_id( $postid );
 
-			do_action( 'woocommerce_deleted_order_downloadable_permissions', $postid );
+			do_action( 'poocommerce_deleted_order_downloadable_permissions', $postid );
 		}
 	}
 
@@ -675,7 +675,7 @@ class WC_Post_Data {
 			$tt_ids_modifying_term_counts[] = $visibility_tt_ids['exclude-from-catalog'];
 		}
 
-		if ( ! empty( $visibility_tt_ids['outofstock'] ) && 'yes' === get_option( 'woocommerce_hide_out_of_stock_items' ) ) {
+		if ( ! empty( $visibility_tt_ids['outofstock'] ) && 'yes' === get_option( 'poocommerce_hide_out_of_stock_items' ) ) {
 			$tt_ids_modifying_term_counts[] = $visibility_tt_ids['outofstock'];
 		}
 
@@ -808,7 +808,7 @@ class WC_Post_Data {
 			* @since 10.2.0
 			* @param int $variation_id The ID of the product variation.
 			*/
-			do_action( 'woocommerce_updated_product_attribute_summary', $variation_id );
+			do_action( 'poocommerce_updated_product_attribute_summary', $variation_id );
 		}
 	}
 
@@ -828,7 +828,7 @@ class WC_Post_Data {
 		 * @param int $threshold The default threshold value (50).
 		 * @return int The filtered threshold value.
 		 */
-		return absint( apply_filters( 'woocommerce_regenerate_variation_summaries_sync_threshold', 50 ) );
+		return absint( apply_filters( 'poocommerce_regenerate_variation_summaries_sync_threshold', 50 ) );
 	}
 
 	/**
@@ -1089,7 +1089,7 @@ class WC_Post_Data {
 	/**
 	 * Schedule an asynchronous action to regenerate product variation summaries.
 	 *
-	 * This method uses the WooCommerce Action Scheduler to queue a single regeneration action
+	 * This method uses the PooCommerce Action Scheduler to queue a single regeneration action
 	 * for product variation summaries. It first checks whether an identical action with the
 	 * given arguments is already scheduled to avoid duplicate jobs. If the Action Scheduler
 	 * is not available, a warning is logged instead.
@@ -1098,11 +1098,11 @@ class WC_Post_Data {
 	 * @param array  $args            Arguments to pass to the scheduled action callback.
 	 * @param string $warning_message Message to log when the Action Scheduler is unavailable.
 	 * @param string $group           Optional. The Action Scheduler group to associate with
-	 *                                the scheduled action. Default 'woocommerce'.
+	 *                                the scheduled action. Default 'poocommerce'.
 	 *
 	 * @return void
 	 */
-	private static function schedule_variation_summary_regeneration( $action_name, $args, $warning_message, $group = 'woocommerce' ) {
+	private static function schedule_variation_summary_regeneration( $action_name, $args, $warning_message, $group = 'poocommerce' ) {
 		if ( function_exists( 'as_schedule_single_action' ) ) {
 			// Prevent duplicate scheduling of the action.
 			$when = as_next_scheduled_action( $action_name, $args, $group );
@@ -1112,7 +1112,7 @@ class WC_Post_Data {
 		} else {
 			wc_get_logger()->warning(
 				'Action Scheduler unavailable for product variation summary regeneration. ' . $warning_message,
-				array( 'source' => 'woocommerce-variations' )
+				array( 'source' => 'poocommerce-variations' )
 			);
 		}
 	}

@@ -1,6 +1,6 @@
 <?php
 
-namespace Automattic\WooCommerce\Admin\BlockTemplates;
+namespace Automattic\PooCommerce\Admin\BlockTemplates;
 
 /**
  * Interface for block configuration used to specify blocks in BlockTemplate.
@@ -104,7 +104,7 @@ interface BlockInterface {
 	 * Add a hide condition to the block.
 	 *
 	 * The hide condition is a JavaScript-like expression that will be evaluated on the client to determine if the block should be hidden.
-	 * See [@woocommerce/expression-evaluation](https://github.com/woocommerce/woocommerce/blob/trunk/packages/js/expression-evaluation/README.md) for more details.
+	 * See [@poocommerce/expression-evaluation](https://github.com/poocommerce/poocommerce/blob/trunk/packages/js/expression-evaluation/README.md) for more details.
 	 *
 	 * @param string $expression An expression, which if true, will hide the block.
 	 * @return string The key of the hide condition, which can be used to remove the hide condition.
@@ -127,7 +127,7 @@ interface BlockInterface {
 	 * Add a disable condition to the block.
 	 *
 	 * The disable condition is a JavaScript-like expression that will be evaluated on the client to determine if the block should be disabled.
-	 * See [@woocommerce/expression-evaluation](https://github.com/woocommerce/woocommerce/blob/trunk/packages/js/expression-evaluation/README.md) for more details.
+	 * See [@poocommerce/expression-evaluation](https://github.com/poocommerce/poocommerce/blob/trunk/packages/js/expression-evaluation/README.md) for more details.
 	 *
 	 * @param string $expression An expression, which if true, will disable the block.
 	 * @return string The key of the disable condition, which can be used to remove the disable condition.

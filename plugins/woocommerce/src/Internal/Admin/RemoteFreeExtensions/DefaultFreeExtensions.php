@@ -5,9 +5,9 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Admin\RemoteFreeExtensions;
+namespace Automattic\PooCommerce\Internal\Admin\RemoteFreeExtensions;
 
-use Automattic\WooCommerce\Admin\Features\PaymentGatewaySuggestions\DefaultPaymentGateways;
+use Automattic\PooCommerce\Admin\Features\PaymentGatewaySuggestions\DefaultPaymentGateways;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -35,62 +35,62 @@ class DefaultFreeExtensions {
 		$bundles = array(
 			array(
 				'key'     => 'obw/basics',
-				'title'   => __( 'Get the basics', 'woocommerce' ),
+				'title'   => __( 'Get the basics', 'poocommerce' ),
 				'plugins' => array(
-					self::get_plugin( 'woocommerce-payments' ),
-					self::get_plugin( 'woocommerce-shipping' ),
-					self::get_plugin( 'woocommerce-services:tax' ),
+					self::get_plugin( 'poocommerce-payments' ),
+					self::get_plugin( 'poocommerce-shipping' ),
+					self::get_plugin( 'poocommerce-services:tax' ),
 					self::get_plugin( 'jetpack' ),
 				),
 			),
 			array(
 				'key'     => 'obw/grow',
-				'title'   => __( 'Grow your store', 'woocommerce' ),
+				'title'   => __( 'Grow your store', 'poocommerce' ),
 				'plugins' => array(
 					self::get_plugin( 'mailpoet' ),
 					self::get_plugin( 'google-listings-and-ads' ),
-					self::get_plugin( 'pinterest-for-woocommerce' ),
-					self::get_plugin( 'facebook-for-woocommerce' ),
+					self::get_plugin( 'pinterest-for-poocommerce' ),
+					self::get_plugin( 'facebook-for-poocommerce' ),
 				),
 			),
 			array(
 				'key'     => 'task-list/reach',
-				'title'   => __( 'Reach out to customers', 'woocommerce' ),
+				'title'   => __( 'Reach out to customers', 'poocommerce' ),
 				'plugins' => array(
 					self::get_plugin( 'mailpoet:alt' ),
 					// IMPORTANT: Klaviyo needs to be above Mailchimp as per partnership agreement.
 					// P2 for context: pdibGW-3XM-p2.
 					self::get_plugin( 'klaviyo:alt' ),
-					self::get_plugin( 'mailchimp-for-woocommerce' ),
+					self::get_plugin( 'mailchimp-for-poocommerce' ),
 				),
 			),
 			array(
 				'key'     => 'task-list/grow',
-				'title'   => __( 'Grow your store', 'woocommerce' ),
+				'title'   => __( 'Grow your store', 'poocommerce' ),
 				'plugins' => array(
 					self::get_plugin( 'google-listings-and-ads:alt' ),
 					self::get_plugin( 'tiktok-for-business' ),
-					self::get_plugin( 'pinterest-for-woocommerce:alt' ),
-					self::get_plugin( 'facebook-for-woocommerce:alt' ),
+					self::get_plugin( 'pinterest-for-poocommerce:alt' ),
+					self::get_plugin( 'facebook-for-poocommerce:alt' ),
 				),
 			),
 			array(
 				'key'     => 'obw/core-profiler',
-				'title'   => __( 'Grow your store', 'woocommerce' ),
+				'title'   => __( 'Grow your store', 'poocommerce' ),
 				'plugins' => self::with_core_profiler_fields(
 					array(
-						self::get_plugin( 'woocommerce-payments' ),
-						self::get_plugin( 'woocommerce-shipping' ),
+						self::get_plugin( 'poocommerce-payments' ),
+						self::get_plugin( 'poocommerce-shipping' ),
 						self::get_plugin( 'jetpack' ),
-						self::get_plugin( 'pinterest-for-woocommerce' ),
+						self::get_plugin( 'pinterest-for-poocommerce' ),
 						self::get_plugin( 'mailpoet' ),
 						self::get_plugin( 'klaviyo' ),
 						self::get_plugin( 'google-listings-and-ads' ),
-						self::get_plugin( 'woocommerce-services:tax' ),
+						self::get_plugin( 'poocommerce-services:tax' ),
 						self::get_plugin( 'tiktok-for-business' ),
-						self::get_plugin( 'snapchat-for-woocommerce' ),
-						self::get_plugin( 'facebook-for-woocommerce' ),
-						self::get_plugin( 'reddit-for-woocommerce' ),
+						self::get_plugin( 'snapchat-for-poocommerce' ),
+						self::get_plugin( 'facebook-for-poocommerce' ),
+						self::get_plugin( 'reddit-for-poocommerce' ),
 					)
 				),
 			),
@@ -110,11 +110,11 @@ class DefaultFreeExtensions {
 		$plugins = array(
 			'google-listings-and-ads'       => array(
 				'min_php_version' => '7.4',
-				'name'            => __( 'Google for WooCommerce', 'woocommerce' ),
+				'name'            => __( 'Google for PooCommerce', 'poocommerce' ),
 				'description'     => sprintf(
 					/* translators: 1: opening product link tag. 2: closing link tag */
-					__( 'Drive sales with %1$sGoogle for WooCommerce%2$s', 'woocommerce' ),
-					'<a href="https://woocommerce.com/products/google-listings-and-ads" target="_blank">',
+					__( 'Drive sales with %1$sGoogle for PooCommerce%2$s', 'poocommerce' ),
+					'<a href="https://poocommerce.com/products/google-listings-and-ads" target="_blank">',
 					'</a>'
 				),
 				'image_url'       => plugins_url( '/assets/images/onboarding/google.svg', WC_PLUGIN_FILE ),
@@ -133,53 +133,53 @@ class DefaultFreeExtensions {
 				),
 			),
 			'google-listings-and-ads:alt'   => array(
-				'name'           => __( 'Google for WooCommerce', 'woocommerce' ),
-				'description'    => __( 'Reach more shoppers and drive sales for your store. Integrate with Google to list your products for free and launch paid ad campaigns.', 'woocommerce' ),
+				'name'           => __( 'Google for PooCommerce', 'poocommerce' ),
+				'description'    => __( 'Reach more shoppers and drive sales for your store. Integrate with Google to list your products for free and launch paid ad campaigns.', 'poocommerce' ),
 				'image_url'      => plugins_url( '/assets/images/onboarding/google.svg', WC_PLUGIN_FILE ),
 				'manage_url'     => 'admin.php?page=wc-admin&path=%2Fgoogle%2Fstart',
 				'is_built_by_wc' => true,
 			),
-			'facebook-for-woocommerce'      => array(
-				'name'           => __( 'Facebook for WooCommerce', 'woocommerce' ),
-				'description'    => __( 'List products and create ads on Facebook and Instagram with <a href="https://woocommerce.com/products/facebook/">Facebook for WooCommerce</a>', 'woocommerce' ),
+			'facebook-for-poocommerce'      => array(
+				'name'           => __( 'Facebook for PooCommerce', 'poocommerce' ),
+				'description'    => __( 'List products and create ads on Facebook and Instagram with <a href="https://poocommerce.com/products/facebook/">Facebook for PooCommerce</a>', 'poocommerce' ),
 				'image_url'      => plugins_url( '/assets/images/onboarding/facebook.png', WC_PLUGIN_FILE ),
 				'manage_url'     => 'admin.php?page=wc-facebook',
 				'is_visible'     => false,
 				'is_built_by_wc' => false,
 			),
-			'facebook-for-woocommerce:alt'  => array(
-				'name'           => __( 'Facebook for WooCommerce', 'woocommerce' ),
-				'description'    => __( 'List products and create ads on Facebook and Instagram.', 'woocommerce' ),
+			'facebook-for-poocommerce:alt'  => array(
+				'name'           => __( 'Facebook for PooCommerce', 'poocommerce' ),
+				'description'    => __( 'List products and create ads on Facebook and Instagram.', 'poocommerce' ),
 				'image_url'      => plugins_url( '/assets/images/onboarding/facebook.png', WC_PLUGIN_FILE ),
 				'manage_url'     => 'admin.php?page=wc-facebook',
 				'is_visible'     => false,
 				'is_built_by_wc' => false,
 			),
-			'pinterest-for-woocommerce'     => array(
-				'name'            => __( 'Pinterest for WooCommerce', 'woocommerce' ),
-				'description'     => __( 'Get your products in front of Pinners searching for ideas and things to buy.', 'woocommerce' ),
+			'pinterest-for-poocommerce'     => array(
+				'name'            => __( 'Pinterest for PooCommerce', 'poocommerce' ),
+				'description'     => __( 'Get your products in front of Pinners searching for ideas and things to buy.', 'poocommerce' ),
 				'image_url'       => plugins_url( '/assets/images/onboarding/pinterest.png', WC_PLUGIN_FILE ),
 				'manage_url'      => 'admin.php?page=wc-admin&path=%2Fpinterest%2Flanding',
 				'is_visible'      => true,
 				'is_built_by_wc'  => true,
 				'min_php_version' => '7.3',
 			),
-			'pinterest-for-woocommerce:alt' => array(
-				'name'           => __( 'Pinterest for WooCommerce', 'woocommerce' ),
-				'description'    => __( 'Get your products in front of Pinterest users searching for ideas and things to buy. Get started with Pinterest and make your entire product catalog browsable.', 'woocommerce' ),
+			'pinterest-for-poocommerce:alt' => array(
+				'name'           => __( 'Pinterest for PooCommerce', 'poocommerce' ),
+				'description'    => __( 'Get your products in front of Pinterest users searching for ideas and things to buy. Get started with Pinterest and make your entire product catalog browsable.', 'poocommerce' ),
 				'image_url'      => plugins_url( '/assets/images/onboarding/pinterest.png', WC_PLUGIN_FILE ),
 				'manage_url'     => 'admin.php?page=wc-admin&path=%2Fpinterest%2Flanding',
 				'is_built_by_wc' => true,
 			),
 			'mailpoet'                      => array(
-				'name'           => __( 'MailPoet', 'woocommerce' ),
-				'description'    => __( 'Create and send purchase follow-up emails, newsletters, and promotional campaigns straight from your dashboard.', 'woocommerce' ),
+				'name'           => __( 'MailPoet', 'poocommerce' ),
+				'description'    => __( 'Create and send purchase follow-up emails, newsletters, and promotional campaigns straight from your dashboard.', 'poocommerce' ),
 				'image_url'      => plugins_url( '/assets/images/onboarding/mailpoet.png', WC_PLUGIN_FILE ),
 				'manage_url'     => 'admin.php?page=mailpoet-newsletters',
 				'is_visible'     => array(
 					array(
 						'type'        => 'option',
-						'option_name' => 'woocommerce_remote_variant_assignment',
+						'option_name' => 'poocommerce_remote_variant_assignment',
 						'value'       => array( 1, 84 ), // 70% segment with klaviyo
 						'default'     => false,
 						'operation'   => 'range',
@@ -188,28 +188,28 @@ class DefaultFreeExtensions {
 				'is_built_by_wc' => true,
 			),
 			'kliken-ads-pixel-for-meta'     => array(
-				'name'        => __( 'Meta Ads & Pixel for WooCommerce', 'woocommerce' ),
-				'description' => __( 'Sync your store catalog, set up pixel tracking, and run targeted ad campaigns.', 'woocommerce' ),
+				'name'        => __( 'Meta Ads & Pixel for PooCommerce', 'poocommerce' ),
+				'description' => __( 'Sync your store catalog, set up pixel tracking, and run targeted ad campaigns.', 'poocommerce' ),
 				'image_url'   => plugins_url( '/assets/images/onboarding/kliken.svg', WC_PLUGIN_FILE ),
 				'manage_url'  => 'admin.php?page=kliken-ads-pixel-for-meta',
 				'is_visible'  => false,
 			),
-			'mailchimp-for-woocommerce'     => array(
-				'name'           => __( 'Mailchimp', 'woocommerce' ),
-				'description'    => __( 'Send targeted campaigns, recover abandoned carts and much more with Mailchimp.', 'woocommerce' ),
-				'image_url'      => plugins_url( '/assets/images/onboarding/mailchimp-for-woocommerce.png', WC_PLUGIN_FILE ),
-				'manage_url'     => 'admin.php?page=mailchimp-woocommerce',
+			'mailchimp-for-poocommerce'     => array(
+				'name'           => __( 'Mailchimp', 'poocommerce' ),
+				'description'    => __( 'Send targeted campaigns, recover abandoned carts and much more with Mailchimp.', 'poocommerce' ),
+				'image_url'      => plugins_url( '/assets/images/onboarding/mailchimp-for-poocommerce.png', WC_PLUGIN_FILE ),
+				'manage_url'     => 'admin.php?page=mailchimp-poocommerce',
 				'is_built_by_wc' => false,
 			),
 			'klaviyo'                       => array(
-				'name'           => __( 'Klaviyo', 'woocommerce' ),
-				'description'    => __( 'Grow and retain customers with email, SMS, automations, and a consolidated view of customer interactions.', 'woocommerce' ),
+				'name'           => __( 'Klaviyo', 'poocommerce' ),
+				'description'    => __( 'Grow and retain customers with email, SMS, automations, and a consolidated view of customer interactions.', 'poocommerce' ),
 				'image_url'      => plugins_url( '/assets/images/onboarding/klaviyo.png', WC_PLUGIN_FILE ),
 				'manage_url'     => 'admin.php?page=klaviyo_settings',
 				'is_visible'     => array(
 					array(
 						'type'        => 'option',
-						'option_name' => 'woocommerce_remote_variant_assignment',
+						'option_name' => 'poocommerce_remote_variant_assignment',
 						'value'       => array( 85, 120 ), // 30% segment with mailpoet
 						'default'     => false,
 						'operation'   => 'range',
@@ -218,19 +218,19 @@ class DefaultFreeExtensions {
 				'is_built_by_wc' => false,
 			),
 			'klaviyo:alt'                   => array(
-				'name'           => __( 'Klaviyo', 'woocommerce' ),
-				'description'    => __( 'Grow and retain customers with intelligent, impactful email and SMS marketing automation and a consolidated view of customer interactions.', 'woocommerce' ),
+				'name'           => __( 'Klaviyo', 'poocommerce' ),
+				'description'    => __( 'Grow and retain customers with intelligent, impactful email and SMS marketing automation and a consolidated view of customer interactions.', 'poocommerce' ),
 				'image_url'      => plugins_url( '/assets/images/onboarding/klaviyo.png', WC_PLUGIN_FILE ),
 				'manage_url'     => 'admin.php?page=klaviyo_settings',
 				'is_built_by_wc' => false,
 			),
-			'woocommerce-payments'          => array(
-				'name'           => __( 'WooPayments', 'woocommerce' ),
+			'poocommerce-payments'          => array(
+				'name'           => __( 'WooPayments', 'poocommerce' ),
 				'image_url'      => plugins_url( '/assets/images/onboarding/wcpay.svg', WC_PLUGIN_FILE ),
 				'description'    => sprintf(
 					/* translators: 1: opening product link tag. 2: closing link tag */
-					__( 'Accept credit cards and other popular payment methods with %1$sWooPayments%2$s', 'woocommerce' ),
-					'<a href="https://woocommerce.com/products/woocommerce-payments" target="_blank">',
+					__( 'Accept credit cards and other popular payment methods with %1$sWooPayments%2$s', 'poocommerce' ),
+					'<a href="https://poocommerce.com/products/poocommerce-payments" target="_blank">',
 					'</a>'
 				),
 				'is_visible'     => array(
@@ -284,13 +284,13 @@ class DefaultFreeExtensions {
 				'is_built_by_wc' => true,
 				'min_wp_version' => '5.9',
 			),
-			'woocommerce-shipping'          => array(
-				'name'           => __( 'WooCommerce Shipping', 'woocommerce' ),
+			'poocommerce-shipping'          => array(
+				'name'           => __( 'PooCommerce Shipping', 'poocommerce' ),
 				'image_url'      => self::get_woo_logo(),
 				'description'    => sprintf(
 				/* translators: 1: opening product link tag. 2: closing link tag */
-					__( 'Print shipping labels with %1$sWooCommerce Shipping%2$s', 'woocommerce' ),
-					'<a href="https://woocommerce.com/products/shipping" target="_blank">',
+					__( 'Print shipping labels with %1$sPooCommerce Shipping%2$s', 'poocommerce' ),
+					'<a href="https://poocommerce.com/products/shipping" target="_blank">',
 					'</a>'
 				),
 				'is_visible'     => array(
@@ -316,7 +316,7 @@ class DefaultFreeExtensions {
 											'use' => 'count',
 										),
 									),
-									'option_name'  => 'woocommerce_onboarding_profile',
+									'option_name'  => 'poocommerce_onboarding_profile',
 									'value'        => 1,
 									'default'      => array(),
 									'operation'    => '!=',
@@ -333,7 +333,7 @@ class DefaultFreeExtensions {
 											),
 										),
 									),
-									'option_name'  => 'woocommerce_onboarding_profile',
+									'option_name'  => 'poocommerce_onboarding_profile',
 									'value'        => 'downloads',
 									'default'      => '',
 									'operation'    => '!=',
@@ -344,13 +344,13 @@ class DefaultFreeExtensions {
 				),
 				'is_built_by_wc' => true,
 			),
-			'woocommerce-services:tax'      => array(
-				'name'           => __( 'WooCommerce Tax', 'woocommerce' ),
+			'poocommerce-services:tax'      => array(
+				'name'           => __( 'PooCommerce Tax', 'poocommerce' ),
 				'image_url'      => self::get_woo_logo(),
 				'description'    => sprintf(
 					/* translators: 1: opening product link tag. 2: closing link tag */
-					__( 'Get automated sales tax with %1$sWooCommerce Tax%2$s', 'woocommerce' ),
-					'<a href="https://woocommerce.com/products/tax" target="_blank">',
+					__( 'Get automated sales tax with %1$sPooCommerce Tax%2$s', 'poocommerce' ),
+					'<a href="https://poocommerce.com/products/tax" target="_blank">',
 					'</a>'
 				),
 				'is_visible'     => array(
@@ -359,12 +359,12 @@ class DefaultFreeExtensions {
 				'is_built_by_wc' => true,
 			),
 			'jetpack'                       => array(
-				'name'           => __( 'Jetpack', 'woocommerce' ),
+				'name'           => __( 'Jetpack', 'poocommerce' ),
 				'image_url'      => plugins_url( '/assets/images/onboarding/jetpack.svg', WC_PLUGIN_FILE ),
 				'description'    => sprintf(
 					/* translators: 1: opening product link tag. 2: closing link tag */
-					__( 'Enhance speed and security with %1$sJetpack%2$s', 'woocommerce' ),
-					'<a href="https://woocommerce.com/products/jetpack" target="_blank">',
+					__( 'Enhance speed and security with %1$sJetpack%2$s', 'poocommerce' ),
+					'<a href="https://poocommerce.com/products/jetpack" target="_blank">',
 					'</a>'
 				),
 				'is_visible'     => array(
@@ -382,17 +382,17 @@ class DefaultFreeExtensions {
 				'min_wp_version' => '6.0',
 			),
 			'mailpoet:alt'                  => array(
-				'name'           => __( 'MailPoet', 'woocommerce' ),
-				'description'    => __( 'Create and send purchase follow-up emails, newsletters, and promotional campaigns straight from your dashboard.', 'woocommerce' ),
+				'name'           => __( 'MailPoet', 'poocommerce' ),
+				'description'    => __( 'Create and send purchase follow-up emails, newsletters, and promotional campaigns straight from your dashboard.', 'poocommerce' ),
 				'image_url'      => plugins_url( '/assets/images/onboarding/mailpoet.png', WC_PLUGIN_FILE ),
 				'manage_url'     => 'admin.php?page=mailpoet-newsletters',
 				'is_built_by_wc' => true,
 			),
 			'tiktok-for-business'           => array(
-				'name'           => __( 'TikTok for WooCommerce', 'woocommerce' ),
+				'name'           => __( 'TikTok for PooCommerce', 'poocommerce' ),
 				'image_url'      => plugins_url( '/assets/images/onboarding/tiktok.svg', WC_PLUGIN_FILE ),
 				'description'    =>
-					__( 'Grow your online sales by promoting your products on TikTok to over one billion monthly active users around the world.', 'woocommerce' ),
+					__( 'Grow your online sales by promoting your products on TikTok to over one billion monthly active users around the world.', 'poocommerce' ),
 				'manage_url'     => 'admin.php?page=tiktok',
 				'is_visible'     => array(
 					array(
@@ -445,29 +445,29 @@ class DefaultFreeExtensions {
 				'is_built_by_wc' => false,
 			),
 			'tiktok-for-business:alt'       => array(
-				'name'           => __( 'TikTok for WooCommerce', 'woocommerce' ),
+				'name'           => __( 'TikTok for PooCommerce', 'poocommerce' ),
 				'image_url'      => plugins_url( '/assets/images/onboarding/tiktok.svg', WC_PLUGIN_FILE ),
 				'description'    => sprintf(
 					/* translators: 1: opening product link tag. 2: closing link tag */
-					__( 'Create ad campaigns and reach one billion global users with %1$sTikTok for WooCommerce%2$s', 'woocommerce' ),
-					'<a href="https://woocommerce.com/products/tiktok-for-woocommerce" target="_blank">',
+					__( 'Create ad campaigns and reach one billion global users with %1$sTikTok for PooCommerce%2$s', 'poocommerce' ),
+					'<a href="https://poocommerce.com/products/tiktok-for-poocommerce" target="_blank">',
 					'</a>'
 				),
 				'manage_url'     => 'admin.php?page=tiktok',
 				'is_built_by_wc' => false,
 				'is_visible'     => false,
 			),
-			'snapchat-for-woocommerce'      => array(
-				'name'           => __( 'Snapchat Ads', 'woocommerce' ),
-				'description'    => __( 'Reach an untapped audience on Snapchat and drive more sales.', 'woocommerce' ),
+			'snapchat-for-poocommerce'      => array(
+				'name'           => __( 'Snapchat Ads', 'poocommerce' ),
+				'description'    => __( 'Reach an untapped audience on Snapchat and drive more sales.', 'poocommerce' ),
 				'image_url'      => plugins_url( '/assets/images/core-profiler/logo-snapchat.svg', WC_PLUGIN_FILE ),
 				'manage_url'     => 'admin.php?page=wc-admin&path=%2Fsnapchat%2Fstart',
 				'is_built_by_wc' => true,
 				'is_visible'     => true,
 			),
-			'reddit-for-woocommerce'        => array(
-				'name'           => __( 'Reddit Ads', 'woocommerce' ),
-				'description'    => __( 'Seamlessly sync your products and start Reddit Ads.', 'woocommerce' ),
+			'reddit-for-poocommerce'        => array(
+				'name'           => __( 'Reddit Ads', 'poocommerce' ),
+				'description'    => __( 'Seamlessly sync your products and start Reddit Ads.', 'poocommerce' ),
 				'image_url'      => plugins_url( '/assets/images/core-profiler/logo-reddit.svg', WC_PLUGIN_FILE ),
 				'manage_url'     => 'admin.php?page=wc-admin&path=%2Freddit%2Fsetup',
 				'is_built_by_wc' => true,
@@ -494,103 +494,103 @@ class DefaultFreeExtensions {
 	 */
 	public static function with_core_profiler_fields( array $plugins ) {
 		$_plugins = array(
-			'woocommerce-payments'      => array(
+			'poocommerce-payments'      => array(
 				/* translators: %s: Payment provider name. */
-				'label'            => sprintf( __( 'Get paid with %s', 'woocommerce' ), 'WooPayments' ),
+				'label'            => sprintf( __( 'Get paid with %s', 'poocommerce' ), 'WooPayments' ),
 				'image_url'        => self::get_woo_logo(),
-				'description'      => __( "Securely accept payments and manage payment activity straight from your store's dashboard", 'woocommerce' ),
-				'learn_more_link'  => 'https://woocommerce.com/products/woocommerce-payments?utm_source=storeprofiler&utm_medium=product&utm_campaign=freefeatures',
+				'description'      => __( "Securely accept payments and manage payment activity straight from your store's dashboard", 'poocommerce' ),
+				'learn_more_link'  => 'https://poocommerce.com/products/poocommerce-payments?utm_source=storeprofiler&utm_medium=product&utm_campaign=freefeatures',
 				'install_priority' => 5,
 				'requires_jpc'     => true,
 			),
-			'woocommerce-shipping'      => array(
-				'label'            => __( 'Save on shipping with WooCommerce Shipping', 'woocommerce' ),
+			'poocommerce-shipping'      => array(
+				'label'            => __( 'Save on shipping with PooCommerce Shipping', 'poocommerce' ),
 				'image_url'        => self::get_woo_logo(),
-				'description'      => __( 'Print discounted USPS, UPS, and DHL labels', 'woocommerce' ),
-				'learn_more_link'  => 'https://woocommerce.com/woocommerce-shipping?utm_source=storeprofiler&utm_medium=product&utm_campaign=freefeatures',
+				'description'      => __( 'Print discounted USPS, UPS, and DHL labels', 'poocommerce' ),
+				'learn_more_link'  => 'https://poocommerce.com/poocommerce-shipping?utm_source=storeprofiler&utm_medium=product&utm_campaign=freefeatures',
 				'install_priority' => 3,
 			),
 			'jetpack'                   => array(
-				'label'            => __( 'Protect your store and your shoppers with Jetpack', 'woocommerce' ),
+				'label'            => __( 'Protect your store and your shoppers with Jetpack', 'poocommerce' ),
 				'image_url'        => plugins_url( '/assets/images/core-profiler/logo-jetpack.svg', WC_PLUGIN_FILE ),
-				'description'      => __( 'Keep your store online with full security and backups', 'woocommerce' ),
-				'learn_more_link'  => 'https://woocommerce.com/products/jetpack?utm_source=storeprofiler&utm_medium=product&utm_campaign=freefeatures',
+				'description'      => __( 'Keep your store online with full security and backups', 'poocommerce' ),
+				'learn_more_link'  => 'https://poocommerce.com/products/jetpack?utm_source=storeprofiler&utm_medium=product&utm_campaign=freefeatures',
 				'install_priority' => 8,
 				'requires_jpc'     => true,
 			),
-			'pinterest-for-woocommerce' => array(
-				'label'            => __( 'Showcase your products with Pinterest', 'woocommerce' ),
+			'pinterest-for-poocommerce' => array(
+				'label'            => __( 'Showcase your products with Pinterest', 'poocommerce' ),
 				'image_url'        => plugins_url( '/assets/images/core-profiler/logo-pinterest.svg', WC_PLUGIN_FILE ),
-				'description'      => __( 'Get your products in front of a highly engaged audience.', 'woocommerce' ),
-				'learn_more_link'  => 'https://woocommerce.com/products/pinterest-for-woocommerce?utm_source=storeprofiler&utm_medium=product&utm_campaign=freefeatures',
+				'description'      => __( 'Get your products in front of a highly engaged audience.', 'poocommerce' ),
+				'learn_more_link'  => 'https://poocommerce.com/products/pinterest-for-poocommerce?utm_source=storeprofiler&utm_medium=product&utm_campaign=freefeatures',
 				'install_priority' => 2,
 			),
 			'kliken-ads-pixel-for-meta' => array(
-				'label'            => __( 'Grow your business with Facebook and Instagram', 'woocommerce' ),
+				'label'            => __( 'Grow your business with Facebook and Instagram', 'poocommerce' ),
 				'image_url'        => plugins_url( '/assets/images/core-profiler/logo-kliken.svg', WC_PLUGIN_FILE ),
-				'description'      => __( 'Sync your store catalog, set up pixel tracking, and run targeted ad campaigns.', 'woocommerce' ),
-				'learn_more_link'  => 'https://woocommerce.com/products/meta-ads-and-pixel?utm_source=storeprofiler&utm_medium=product&utm_campaign=freefeatures',
+				'description'      => __( 'Sync your store catalog, set up pixel tracking, and run targeted ad campaigns.', 'poocommerce' ),
+				'learn_more_link'  => 'https://poocommerce.com/products/meta-ads-and-pixel?utm_source=storeprofiler&utm_medium=product&utm_campaign=freefeatures',
 				'install_priority' => 2,
 			),
 			'mailpoet'                  => array(
-				'label'            => __( 'Reach your customers with MailPoet', 'woocommerce' ),
+				'label'            => __( 'Reach your customers with MailPoet', 'poocommerce' ),
 				'image_url'        => plugins_url( '/assets/images/core-profiler/logo-mailpoet.svg', WC_PLUGIN_FILE ),
-				'description'      => __( 'Send purchase follow-up emails, newsletters, and promotional campaigns.', 'woocommerce' ),
-				'learn_more_link'  => 'https://woocommerce.com/products/mailpoet?utm_source=storeprofiler&utm_medium=product&utm_campaign=freefeatures',
+				'description'      => __( 'Send purchase follow-up emails, newsletters, and promotional campaigns.', 'poocommerce' ),
+				'learn_more_link'  => 'https://poocommerce.com/products/mailpoet?utm_source=storeprofiler&utm_medium=product&utm_campaign=freefeatures',
 				'install_priority' => 7,
 			),
 			'klaviyo'                   => array(
-				'label'            => __( 'Klaviyo', 'woocommerce' ),
+				'label'            => __( 'Klaviyo', 'poocommerce' ),
 				'image_url'        => plugins_url( '/assets/images/onboarding/klaviyo.png', WC_PLUGIN_FILE ),
-				'description'      => __( 'Grow and retain customers with email, SMS, automations, and a consolidated view of customer interactions.', 'woocommerce' ),
-				'learn_more_link'  => 'https://woocommerce.com/products/klaviyo-for-woocommerce?utm_source=storeprofiler&utm_medium=product&utm_campaign=freefeatures',
+				'description'      => __( 'Grow and retain customers with email, SMS, automations, and a consolidated view of customer interactions.', 'poocommerce' ),
+				'learn_more_link'  => 'https://poocommerce.com/products/klaviyo-for-poocommerce?utm_source=storeprofiler&utm_medium=product&utm_campaign=freefeatures',
 				'install_priority' => 7,
 			),
 			'tiktok-for-business'       => array(
-				'label'            => __( 'Create ad campaigns with TikTok', 'woocommerce' ),
+				'label'            => __( 'Create ad campaigns with TikTok', 'poocommerce' ),
 				'image_url'        => plugins_url( '/assets/images/core-profiler/logo-tiktok.png', WC_PLUGIN_FILE ),
-				'description'      => __( 'Create advertising campaigns and reach one billion global users.', 'woocommerce' ),
-				'learn_more_link'  => 'https://woocommerce.com/products/tiktok-for-woocommerce?utm_source=storeprofiler&utm_medium=product&utm_campaign=freefeatures',
+				'description'      => __( 'Create advertising campaigns and reach one billion global users.', 'poocommerce' ),
+				'learn_more_link'  => 'https://poocommerce.com/products/tiktok-for-poocommerce?utm_source=storeprofiler&utm_medium=product&utm_campaign=freefeatures',
 				'install_priority' => 1,
 			),
 			'google-listings-and-ads'   => array(
-				'label'            => __( 'Drive sales with Google for WooCommerce', 'woocommerce' ),
+				'label'            => __( 'Drive sales with Google for PooCommerce', 'poocommerce' ),
 				'image_url'        => plugins_url( '/assets/images/core-profiler/logo-google.svg', WC_PLUGIN_FILE ),
-				'description'      => __( 'Reach millions of active shoppers across Google with free product listings and ads.', 'woocommerce' ),
-				'learn_more_link'  => 'https://woocommerce.com/products/google-listings-and-ads?utm_source=storeprofiler&utm_medium=product&utm_campaign=freefeatures',
+				'description'      => __( 'Reach millions of active shoppers across Google with free product listings and ads.', 'poocommerce' ),
+				'learn_more_link'  => 'https://poocommerce.com/products/google-listings-and-ads?utm_source=storeprofiler&utm_medium=product&utm_campaign=freefeatures',
 				'install_priority' => 6,
 			),
-			'snapchat-for-woocommerce'  => array(
-				'label'            => __( 'Find New Customers with Snapchat Ads', 'woocommerce' ),
+			'snapchat-for-poocommerce'  => array(
+				'label'            => __( 'Find New Customers with Snapchat Ads', 'poocommerce' ),
 				'image_url'        => plugins_url( '/assets/images/core-profiler/logo-snapchat.svg', WC_PLUGIN_FILE ),
-				'description'      => __( 'Reach an untapped audience on Snapchat and drive more sales.', 'woocommerce' ),
-				'learn_more_link'  => 'https://woocommerce.com/products/snapchat/?utm_source=storeprofiler&utm_medium=product&utm_campaign=freefeatures',
+				'description'      => __( 'Reach an untapped audience on Snapchat and drive more sales.', 'poocommerce' ),
+				'learn_more_link'  => 'https://poocommerce.com/products/snapchat/?utm_source=storeprofiler&utm_medium=product&utm_campaign=freefeatures',
 				'install_priority' => 1,
 			),
-			'facebook-for-woocommerce'  => array(
-				'label'            => __( 'Grow your business with Facebook and Instagram', 'woocommerce' ),
+			'facebook-for-poocommerce'  => array(
+				'label'            => __( 'Grow your business with Facebook and Instagram', 'poocommerce' ),
 				'image_url'        => plugins_url( '/assets/images/core-profiler/logo-facebook.svg', WC_PLUGIN_FILE ),
-				'description'      => __( 'List products and create ads on Facebook and Instagram.', 'woocommerce' ),
-				'learn_more_link'  => 'https://woocommerce.com/products/facebook/?utm_source=storeprofiler&utm_medium=product&utm_campaign=freefeatures',
+				'description'      => __( 'List products and create ads on Facebook and Instagram.', 'poocommerce' ),
+				'learn_more_link'  => 'https://poocommerce.com/products/facebook/?utm_source=storeprofiler&utm_medium=product&utm_campaign=freefeatures',
 				'install_priority' => 2,
 			),
-			'reddit-for-woocommerce'    => array(
-				'label'            => __( 'Find New Customers with Reddit Ads', 'woocommerce' ),
+			'reddit-for-poocommerce'    => array(
+				'label'            => __( 'Find New Customers with Reddit Ads', 'poocommerce' ),
 				'image_url'        => plugins_url( '/assets/images/core-profiler/logo-reddit.svg', WC_PLUGIN_FILE ),
-				'description'      => __( 'Seamlessly sync your products and start Reddit Ads.', 'woocommerce' ),
-				'learn_more_link'  => 'https://woocommerce.com/products/reddit/?utm_source=storeprofiler&utm_medium=product&utm_campaign=freefeatures',
+				'description'      => __( 'Seamlessly sync your products and start Reddit Ads.', 'poocommerce' ),
+				'learn_more_link'  => 'https://poocommerce.com/products/reddit/?utm_source=storeprofiler&utm_medium=product&utm_campaign=freefeatures',
 				'install_priority' => 1,
 			),
-			'woocommerce-services:tax'  => array(
-				'label'            => __( 'Get automated tax rates with WooCommerce Tax', 'woocommerce' ),
+			'poocommerce-services:tax'  => array(
+				'label'            => __( 'Get automated tax rates with PooCommerce Tax', 'poocommerce' ),
 				'image_url'        => self::get_woo_logo(),
-				'description'      => __( 'Automatically calculate how much sales tax should be collected – by city, country, or state.', 'woocommerce' ),
-				'learn_more_link'  => 'https://woocommerce.com/products/tax?utm_source=storeprofiler&utm_medium=product&utm_campaign=freefeatures',
+				'description'      => __( 'Automatically calculate how much sales tax should be collected – by city, country, or state.', 'poocommerce' ),
+				'learn_more_link'  => 'https://poocommerce.com/products/tax?utm_source=storeprofiler&utm_medium=product&utm_campaign=freefeatures',
 				'install_priority' => 4,
 			),
 		);
 
-		$_plugins['woocommerce-shipping']['is_visible'] = array(
+		$_plugins['poocommerce-shipping']['is_visible'] = array(
 			array(
 				'type'      => 'base_location_country',
 				'value'     => 'US',
@@ -598,7 +598,7 @@ class DefaultFreeExtensions {
 			),
 		);
 
-		$_plugins['woocommerce-services:tax']['is_visible'] = array(
+		$_plugins['poocommerce-services:tax']['is_visible'] = array(
 			self::get_rules_for_wcservices_tax_countries(),
 		);
 
@@ -606,27 +606,27 @@ class DefaultFreeExtensions {
 		$_plugins['tiktok-for-business']['is_visible'] = array(
 			array(
 				'type'        => 'option',
-				'option_name' => 'woocommerce_remote_variant_assignment',
+				'option_name' => 'poocommerce_remote_variant_assignment',
 				'value'       => array( 1, 40 ),
 				'default'     => false,
 				'operation'   => 'range',
 			),
 		);
 
-		$_plugins['pinterest-for-woocommerce']['is_visible'] = array(
+		$_plugins['pinterest-for-poocommerce']['is_visible'] = array(
 			array(
 				'type'        => 'option',
-				'option_name' => 'woocommerce_remote_variant_assignment',
+				'option_name' => 'poocommerce_remote_variant_assignment',
 				'value'       => array( 41, 80 ),
 				'default'     => false,
 				'operation'   => 'range',
 			),
 		);
 
-		$_plugins['facebook-for-woocommerce']['is_visible'] = array(
+		$_plugins['facebook-for-poocommerce']['is_visible'] = array(
 			array(
 				'type'        => 'option',
-				'option_name' => 'woocommerce_remote_variant_assignment',
+				'option_name' => 'poocommerce_remote_variant_assignment',
 				'value'       => array( 81, 120 ),
 				'default'     => false,
 				'operation'   => 'range',
@@ -670,7 +670,7 @@ class DefaultFreeExtensions {
 
 	/**
 	 * Returns the country restrictions for use in the `is_visible` key for
-	 * recommending the tax functionality of WooCommerce Shipping & Tax.
+	 * recommending the tax functionality of PooCommerce Shipping & Tax.
 	 *
 	 * @return array
 	 */

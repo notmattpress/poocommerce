@@ -1,13 +1,13 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Fulfillments;
+namespace Automattic\PooCommerce\Tests\Internal\Fulfillments;
 
-use Automattic\WooCommerce\Internal\Fulfillments\Fulfillment;
-use Automattic\WooCommerce\Internal\DataStores\Fulfillments\FulfillmentsDataStore;
-use Automattic\WooCommerce\Internal\Fulfillments\FulfillmentsManager;
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
-use Automattic\WooCommerce\Tests\Internal\Fulfillments\Helpers\FulfillmentsHelper;
+use Automattic\PooCommerce\Internal\Fulfillments\Fulfillment;
+use Automattic\PooCommerce\Internal\DataStores\Fulfillments\FulfillmentsDataStore;
+use Automattic\PooCommerce\Internal\Fulfillments\FulfillmentsManager;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
+use Automattic\PooCommerce\Tests\Internal\Fulfillments\Helpers\FulfillmentsHelper;
 use WC_Order;
 
 /**
@@ -34,9 +34,9 @@ class FulfillmentsRefundTest extends \WC_Unit_Test_Case {
 	 */
 	public static function setUpBeforeClass(): void {
 		parent::setUpBeforeClass();
-		update_option( 'woocommerce_feature_fulfillments_enabled', 'yes' );
+		update_option( 'poocommerce_feature_fulfillments_enabled', 'yes' );
 		$container  = wc_get_container();
-		$controller = $container->get( \Automattic\WooCommerce\Internal\Fulfillments\FulfillmentsController::class );
+		$controller = $container->get( \Automattic\PooCommerce\Internal\Fulfillments\FulfillmentsController::class );
 		$controller->register();
 		$controller->initialize_fulfillments();
 	}
@@ -45,7 +45,7 @@ class FulfillmentsRefundTest extends \WC_Unit_Test_Case {
 	 * Tear down the test environment.
 	 */
 	public static function tearDownAfterClass(): void {
-		update_option( 'woocommerce_feature_fulfillments_enabled', 'no' );
+		update_option( 'poocommerce_feature_fulfillments_enabled', 'no' );
 		parent::tearDownAfterClass();
 	}
 
@@ -76,7 +76,7 @@ class FulfillmentsRefundTest extends \WC_Unit_Test_Case {
 
 		// Add specific test products.
 		for ( $i = 0; $i < $product_count; $i++ ) {
-			$product = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
+			$product = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
 			$product->set_regular_price( 10 );
 			$product->save();
 
@@ -201,7 +201,7 @@ class FulfillmentsRefundTest extends \WC_Unit_Test_Case {
 
 		$hook_called = 0;
 		add_action(
-			'woocommerce_refund_created',
+			'poocommerce_refund_created',
 			function () use ( &$hook_called ) {
 				$hook_called++;
 			},
@@ -580,7 +580,7 @@ class FulfillmentsRefundTest extends \WC_Unit_Test_Case {
 
 		$hook_called = 0;
 		add_action(
-			'woocommerce_refund_created',
+			'poocommerce_refund_created',
 			function () use ( &$hook_called ) {
 				$hook_called++;
 			},
@@ -647,7 +647,7 @@ class FulfillmentsRefundTest extends \WC_Unit_Test_Case {
 		$item_id     = array_key_first( $items );
 		$hook_called = 0;
 		add_action(
-			'woocommerce_refund_created',
+			'poocommerce_refund_created',
 			function () use ( &$hook_called ) {
 				$hook_called++;
 			},

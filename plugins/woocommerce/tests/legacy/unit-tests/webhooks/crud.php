@@ -1,7 +1,7 @@
 <?php
 /**
  * Webhook CRUD
- * @package WooCommerce\Tests\CRUD
+ * @package PooCommerce\Tests\CRUD
  */
 
 /**
@@ -98,7 +98,7 @@ class WC_Tests_CRUD_Webhooks extends WC_Unit_Test_Case {
 	 */
 	public function test_get_delivery_url() {
 		$object   = new WC_Webhook();
-		$expected = 'https://woocommerce.com';
+		$expected = 'https://poocommerce.com';
 		$object->set_delivery_url( $expected );
 		$this->assertEquals( $expected, $object->get_delivery_url() );
 	}
@@ -150,7 +150,7 @@ class WC_Tests_CRUD_Webhooks extends WC_Unit_Test_Case {
 		$object = new WC_Webhook();
 		$object->set_topic( 'order.created' );
 		$expected = array(
-			'woocommerce_new_order',
+			'poocommerce_new_order',
 		);
 		$this->assertEquals( $expected, $object->get_hooks() );
 	}

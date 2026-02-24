@@ -1,10 +1,10 @@
 <?php
-namespace Automattic\WooCommerce\Internal\ComingSoon;
+namespace Automattic\PooCommerce\Internal\ComingSoon;
 
-use Automattic\WooCommerce\Admin\Features\Features;
-use Automattic\WooCommerce\Blocks\BlockTemplatesController;
-use Automattic\WooCommerce\Blocks\BlockTemplatesRegistry;
-use Automattic\WooCommerce\Blocks\Package as BlocksPackage;
+use Automattic\PooCommerce\Admin\Features\Features;
+use Automattic\PooCommerce\Blocks\BlockTemplatesController;
+use Automattic\PooCommerce\Blocks\BlockTemplatesRegistry;
+use Automattic\PooCommerce\Blocks\Package as BlocksPackage;
 use Automattic\Jetpack\Constants;
 
 /**
@@ -140,7 +140,7 @@ class ComingSoonRequestHandler {
 		}
 
 		// Early exit if the user is logged in as administrator / shop manager.
-		if ( current_user_can( 'manage_woocommerce' ) ) {
+		if ( current_user_can( 'manage_poocommerce' ) ) {
 			return false;
 		}
 
@@ -161,19 +161,19 @@ class ComingSoonRequestHandler {
 		 *
 		 * @param bool $is_excluded If the request should be excluded from Coming soon mode. Defaults to false.
 		 */
-		if ( apply_filters( 'woocommerce_coming_soon_exclude', false ) ) {
+		if ( apply_filters( 'poocommerce_coming_soon_exclude', false ) ) {
 			return false;
 		}
 
 		// Check if the private link option is enabled.
-		if ( get_option( 'woocommerce_private_link' ) === 'yes' ) {
+		if ( get_option( 'poocommerce_private_link' ) === 'yes' ) {
 			// Exclude users with a private link.
-			if ( isset( $_GET['woo-share'] ) && get_option( 'woocommerce_share_key' ) === $_GET['woo-share'] ) { //phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			if ( isset( $_GET['woo-share'] ) && get_option( 'poocommerce_share_key' ) === $_GET['woo-share'] ) { //phpcs:ignore WordPress.Security.NonceVerification.Recommended
 				// Persist the share link with a cookie for 90 days.
 				setcookie( 'woo-share', sanitize_text_field( wp_unslash( $_GET['woo-share'] ) ), time() + 60 * 60 * 24 * 90, '/' ); //phpcs:ignore WordPress.Security.NonceVerification.Recommended
 				return false;
 			}
-			if ( isset( $_COOKIE['woo-share'] ) && get_option( 'woocommerce_share_key' ) === $_COOKIE['woo-share'] ) {
+			if ( isset( $_COOKIE['woo-share'] ) && get_option( 'poocommerce_share_key' ) === $_COOKIE['woo-share'] ) {
 				return false;
 			}
 		}
@@ -257,7 +257,7 @@ class ComingSoonRequestHandler {
 			),
 		);
 
-		// Add WooCommerce fonts if they don't already exist.
+		// Add PooCommerce fonts if they don't already exist.
 		foreach ( $fonts_to_add as $font_to_add ) {
 			$found = false;
 			foreach ( $font_data as $font ) {
@@ -291,7 +291,7 @@ class ComingSoonRequestHandler {
 	 */
 	public function enqueue_styles() {
 		// Early exit if the user is not logged in as administrator / shop manager.
-		if ( ! current_user_can( 'manage_woocommerce' ) ) {
+		if ( ! current_user_can( 'manage_poocommerce' ) ) {
 			return;
 		}
 
@@ -305,7 +305,7 @@ class ComingSoonRequestHandler {
 		}
 
 		wp_enqueue_style(
-			'woocommerce-coming-soon',
+			'poocommerce-coming-soon',
 			WC()->plugin_url() . '/assets/css/coming-soon' . ( is_rtl() ? '-rtl' : '' ) . '.css',
 			array(),
 			Constants::get_constant( 'WC_VERSION' )

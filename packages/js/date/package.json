@@ -1,24 +1,24 @@
 {
-	"name": "@woocommerce/date",
+	"name": "@poocommerce/date",
 	"version": "4.3.0",
-	"description": "WooCommerce date utilities.",
+	"description": "PooCommerce date utilities.",
 	"author": "Automattic",
 	"license": "GPL-2.0-or-later",
 	"keywords": [
 		"wordpress",
-		"woocommerce",
+		"poocommerce",
 		"date"
 	],
 	"engines": {
 		"node": "^20.11.1"
 	},
-	"homepage": "https://github.com/woocommerce/woocommerce/tree/trunk/packages/js/date/README.md",
+	"homepage": "https://github.com/poocommerce/poocommerce/tree/trunk/packages/js/date/README.md",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/woocommerce/woocommerce.git"
+		"url": "https://github.com/poocommerce/poocommerce.git"
 	},
 	"bugs": {
-		"url": "https://github.com/woocommerce/woocommerce/issues"
+		"url": "https://github.com/poocommerce/poocommerce/issues"
 	},
 	"main": "build/index.js",
 	"module": "build-module/index.js",
@@ -43,8 +43,8 @@
 		"@types/lodash": "^4.14.202",
 		"@types/node": "20.x.x",
 		"@types/qs": "^6.9.10",
-		"@woocommerce/eslint-plugin": "workspace:*",
-		"@woocommerce/internal-js-tests": "workspace:*",
+		"@poocommerce/eslint-plugin": "workspace:*",
+		"@poocommerce/internal-js-tests": "workspace:*",
 		"d3-time-format": "^2.3.0",
 		"eslint": "^8.55.0",
 		"jest": "29.5.x",
@@ -154,12 +154,12 @@
 			"allowUsuallyExcludedPaths": true,
 			"files": [
 				"package.json",
-				"node_modules/@woocommerce/eslint-plugin/configs",
-				"node_modules/@woocommerce/eslint-plugin/rules",
-				"node_modules/@woocommerce/eslint-plugin/index.js",
-				"node_modules/@woocommerce/internal-js-tests/build",
-				"node_modules/@woocommerce/internal-js-tests/build-module",
-				"node_modules/@woocommerce/internal-js-tests/jest-preset.js"
+				"node_modules/@poocommerce/eslint-plugin/configs",
+				"node_modules/@poocommerce/eslint-plugin/rules",
+				"node_modules/@poocommerce/eslint-plugin/index.js",
+				"node_modules/@poocommerce/internal-js-tests/build",
+				"node_modules/@poocommerce/internal-js-tests/build-module",
+				"node_modules/@poocommerce/internal-js-tests/jest-preset.js"
 			]
 		}
 	}

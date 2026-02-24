@@ -2,7 +2,7 @@
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2.5.0](https://www.npmjs.com/package/@woocommerce/number/v/2.5.0) - 2024-06-11 
+## [2.5.0](https://www.npmjs.com/package/@poocommerce/number/v/2.5.0) - 2024-06-11 
 
 -   Minor - Fix parseNumber to allow for emptry string thousand & decimal separators. [#41792]
 -   Patch - Add parse number function to convert a formatted string into fixed number [#34856]
@@ -23,15 +23,15 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 -   Minor - Update pnpm version constraint to 7.13.3 to avoid auto-install-peers issues [#35007]
 -   Minor - Upgrade TypeScript to 5.1.6 [#39531]
 
-## [2.4.0](https://www.npmjs.com/package/@woocommerce/number/v/2.4.0) - 2022-07-08 
+## [2.4.0](https://www.npmjs.com/package/@poocommerce/number/v/2.4.0) - 2022-07-08 
 
 -   Minor - Remove PHP and Composer dependencies for packaged JS packages
 
-## [2.3.0](https://www.npmjs.com/package/@woocommerce/number/v/2.3.0) - 2022-06-15 
+## [2.3.0](https://www.npmjs.com/package/@poocommerce/number/v/2.3.0) - 2022-06-15 
 
 -   Minor - Update readme code example.
 -   Minor - Add Jetpack Changelogger
--   Patch - Migrate @woocommerce/number to TS
+-   Patch - Migrate @poocommerce/number to TS
 -   Patch - Standardize lint scripts: add lint:fix
 
-[See legacy changelogs for previous versions](https://github.com/woocommerce/woocommerce/blob/68581955106947918d2b17607a01bdfdf22288a9/packages/js/number/CHANGELOG.md).
+[See legacy changelogs for previous versions](https://github.com/poocommerce/poocommerce/blob/68581955106947918d2b17607a01bdfdf22288a9/packages/js/number/CHANGELOG.md).

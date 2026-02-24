@@ -13,7 +13,7 @@ import attributes from './attributes';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore -- TypeScript expects some required properties which we already
 // registered in PHP.
-registerBlockType( 'woocommerce/mini-cart-checkout-button-block', {
+registerBlockType( 'poocommerce/mini-cart-checkout-button-block', {
 	icon: {
 		src: (
 			<Icon

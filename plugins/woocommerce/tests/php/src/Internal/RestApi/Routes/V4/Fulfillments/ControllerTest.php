@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Internal\RestApi\Routes\V4\Fulfillments;
+namespace Automattic\PooCommerce\Tests\Internal\RestApi\Routes\V4\Fulfillments;
 
-use Automattic\WooCommerce\Internal\Fulfillments\Fulfillment;
-use Automattic\WooCommerce\Internal\Fulfillments\OrderFulfillmentsRestController;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Fulfillments\Controller as FulfillmentsController;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Fulfillments\Schema\FulfillmentSchema;
-use Automattic\WooCommerce\Tests\Internal\Fulfillments\Helpers\FulfillmentsHelper;
+use Automattic\PooCommerce\Internal\Fulfillments\Fulfillment;
+use Automattic\PooCommerce\Internal\Fulfillments\OrderFulfillmentsRestController;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Fulfillments\Controller as FulfillmentsController;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Fulfillments\Schema\FulfillmentSchema;
+use Automattic\PooCommerce\Tests\Internal\Fulfillments\Helpers\FulfillmentsHelper;
 use WC_REST_Unit_Test_Case;
 use WC_Helper_Order;
 use WC_Order;
@@ -58,8 +58,8 @@ class ControllerTest extends WC_REST_Unit_Test_Case {
 	 */
 	public static function setUpBeforeClass(): void {
 		parent::setUpBeforeClass();
-		update_option( 'woocommerce_feature_fulfillments_enabled', 'yes' );
-		$controller = wc_get_container()->get( \Automattic\WooCommerce\Internal\Fulfillments\FulfillmentsController::class );
+		update_option( 'poocommerce_feature_fulfillments_enabled', 'yes' );
+		$controller = wc_get_container()->get( \Automattic\PooCommerce\Internal\Fulfillments\FulfillmentsController::class );
 		$controller->register();
 		$controller->initialize_fulfillments();
 	}
@@ -68,7 +68,7 @@ class ControllerTest extends WC_REST_Unit_Test_Case {
 	 * Tear down the test environment.
 	 */
 	public static function tearDownAfterClass(): void {
-		update_option( 'woocommerce_feature_fulfillments_enabled', 'no' );
+		update_option( 'poocommerce_feature_fulfillments_enabled', 'no' );
 		parent::tearDownAfterClass();
 	}
 
@@ -217,7 +217,7 @@ class ControllerTest extends WC_REST_Unit_Test_Case {
 		$response = rest_get_server()->dispatch( $request );
 		$this->assertEquals( 400, $response->get_status() );
 		$data = $response->get_data();
-		$this->assertEquals( 'woocommerce_rest_invalid_entity_type', $data['code'] );
+		$this->assertEquals( 'poocommerce_rest_invalid_entity_type', $data['code'] );
 	}
 
 	/**
@@ -245,7 +245,7 @@ class ControllerTest extends WC_REST_Unit_Test_Case {
 		$response = rest_get_server()->dispatch( $request );
 		$this->assertEquals( 400, $response->get_status() );
 		$data = $response->get_data();
-		$this->assertEquals( 'woocommerce_rest_fulfillment_invalid_id', $data['code'] );
+		$this->assertEquals( 'poocommerce_rest_fulfillment_invalid_id', $data['code'] );
 	}
 
 	/**
@@ -275,7 +275,7 @@ class ControllerTest extends WC_REST_Unit_Test_Case {
 		$response = rest_get_server()->dispatch( $request );
 		$this->assertEquals( 400, $response->get_status() );
 		$data = $response->get_data();
-		$this->assertEquals( 'woocommerce_rest_fulfillment_invalid_id', $data['code'] );
+		$this->assertEquals( 'poocommerce_rest_fulfillment_invalid_id', $data['code'] );
 	}
 
 	/**
@@ -309,7 +309,7 @@ class ControllerTest extends WC_REST_Unit_Test_Case {
 		$response = rest_get_server()->dispatch( $request );
 		$this->assertEquals( 400, $response->get_status() );
 		$data = $response->get_data();
-		$this->assertEquals( 'woocommerce_rest_fulfillment_invalid_id', $data['code'] );
+		$this->assertEquals( 'poocommerce_rest_fulfillment_invalid_id', $data['code'] );
 	}
 
 	/**

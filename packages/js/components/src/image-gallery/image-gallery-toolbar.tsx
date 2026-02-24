@@ -61,10 +61,10 @@ export const ImageGalleryToolbar = ( {
 	const isCoverItem = childIndex === 0;
 
 	return (
-		<div className="woocommerce-image-gallery__toolbar">
+		<div className="poocommerce-image-gallery__toolbar">
 			<Toolbar
 				onClick={ ( e ) => e.stopPropagation() }
-				label={ __( 'Options', 'woocommerce' ) }
+				label={ __( 'Options', 'poocommerce' ) }
 				id="options-toolbar"
 			>
 				{ ! isCoverItem && (
@@ -74,19 +74,19 @@ export const ImageGalleryToolbar = ( {
 								icon={ () => (
 									<SortableHandle itemIndex={ childIndex } />
 								) }
-								label={ __( 'Drag to reorder', 'woocommerce' ) }
+								label={ __( 'Drag to reorder', 'poocommerce' ) }
 							/>
 						) }
 						<ToolbarButton
 							disabled={ childIndex < 2 }
 							onClick={ () => movePrevious() }
 							icon={ chevronLeft }
-							label={ __( 'Move previous', 'woocommerce' ) }
+							label={ __( 'Move previous', 'poocommerce' ) }
 						/>
 						<ToolbarButton
 							onClick={ () => moveNext() }
 							icon={ chevronRight }
-							label={ __( 'Move next', 'woocommerce' ) }
+							label={ __( 'Move next', 'poocommerce' ) }
 							disabled={ lastChild }
 						/>
 					</ToolbarGroup>
@@ -95,14 +95,14 @@ export const ImageGalleryToolbar = ( {
 					<ToolbarGroup>
 						<ToolbarButton
 							onClick={ () => setAsCoverImage( childIndex ) }
-							label={ __( 'Set as cover', 'woocommerce' ) }
+							label={ __( 'Set as cover', 'poocommerce' ) }
 						>
-							{ __( 'Set as cover', 'woocommerce' ) }
+							{ __( 'Set as cover', 'poocommerce' ) }
 						</ToolbarButton>
 					</ToolbarGroup>
 				) }
 				{ isCoverItem && (
-					<ToolbarGroup className="woocommerce-image-gallery__toolbar-media">
+					<ToolbarGroup className="poocommerce-image-gallery__toolbar-media">
 						<MediaUploadComponent
 							value={ value }
 							onSelect={ ( media ) =>
@@ -111,7 +111,7 @@ export const ImageGalleryToolbar = ( {
 							allowedTypes={ [ 'image' ] }
 							render={ ( { open } ) => (
 								<ToolbarButton onClick={ open }>
-									{ __( 'Replace', 'woocommerce' ) }
+									{ __( 'Replace', 'poocommerce' ) }
 								</ToolbarButton>
 							) }
 						/>
@@ -122,7 +122,7 @@ export const ImageGalleryToolbar = ( {
 						<ToolbarButton
 							onClick={ () => removeItem( childIndex ) }
 							icon={ trash }
-							label={ __( 'Remove', 'woocommerce' ) }
+							label={ __( 'Remove', 'poocommerce' ) }
 						/>
 					</ToolbarGroup>
 				) }

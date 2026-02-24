@@ -8,7 +8,7 @@
 {{#author}}
  * Author: {{author}}
 {{/author}}
- * Author URI: https://woocommerce.com
+ * Author URI: https://poocommerce.com
  * Text Domain: {{textdomain}}
  * Domain Path: /languages
  *
@@ -31,13 +31,13 @@ use {{slugPascalCase}}\Admin\Setup;
 // phpcs:disable WordPress.Files.FileName
 
 /**
- * WooCommerce fallback notice.
+ * PooCommerce fallback notice.
  *
  * @since {{version}}
  */
 function {{slugSnakeCase}}_missing_wc_notice() {
 	/* translators: %s WC download URL link. */
-	echo '<div class="error"><p><strong>' . sprintf( esc_html__( '{{title}} requires WooCommerce to be installed and active. You can download %s here.', '{{slugSnakeCase}}' ), '<a href="https://woocommerce.com/" target="_blank">WooCommerce</a>' ) . '</strong></p></div>';
+	echo '<div class="error"><p><strong>' . sprintf( esc_html__( '{{title}} requires PooCommerce to be installed and active. You can download %s here.', '{{slugSnakeCase}}' ), '<a href="https://poocommerce.com/" target="_blank">PooCommerce</a>' ) . '</strong></p></div>';
 }
 
 register_activation_hook( __FILE__, '{{slugSnakeCase}}_activate' );
@@ -48,7 +48,7 @@ register_activation_hook( __FILE__, '{{slugSnakeCase}}_activate' );
  * @since {{version}}
  */
 function {{slugSnakeCase}}_activate() {
-	if ( ! class_exists( 'WooCommerce' ) ) {
+	if ( ! class_exists( 'PooCommerce' ) ) {
 		add_action( 'admin_notices', '{{slugSnakeCase}}_missing_wc_notice' );
 		return;
 	}
@@ -117,7 +117,7 @@ add_action( 'plugins_loaded', '{{slugSnakeCase}}_init', 10 );
 function {{slugSnakeCase}}_init() {
 	load_plugin_textdomain( '{{slugSnakeCase}}', false, plugin_basename( dirname( __FILE__ ) ) . '/languages' );
 
-	if ( ! class_exists( 'WooCommerce' ) ) {
+	if ( ! class_exists( 'PooCommerce' ) ) {
 		add_action( 'admin_notices', '{{slugSnakeCase}}_missing_wc_notice' );
 		return;
 	}

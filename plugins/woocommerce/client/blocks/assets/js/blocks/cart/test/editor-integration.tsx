@@ -2,13 +2,13 @@
  * External dependencies
  */
 import { act, screen, waitFor } from '@testing-library/react';
-import { registerCheckoutFilters } from '@woocommerce/blocks-checkout';
+import { registerCheckoutFilters } from '@poocommerce/blocks-checkout';
 import { type BlockAttributes } from '@wordpress/blocks';
 import { getAllByRole, getByLabelText } from '@testing-library/dom';
 import { userEvent } from '@testing-library/user-event';
-import { previewCart } from '@woocommerce/resource-previews';
+import { previewCart } from '@poocommerce/resource-previews';
 import { dispatch } from '@wordpress/data';
-import { CART_STORE_KEY as storeKey } from '@woocommerce/block-data';
+import { CART_STORE_KEY as storeKey } from '@poocommerce/block-data';
 
 /**
  * Internal dependencies
@@ -30,14 +30,14 @@ import '../../product-template/index.tsx';
 import '../../product-collection/index.tsx';
 
 async function setup( attributes: BlockAttributes ) {
-	const testBlock = [ { name: 'woocommerce/cart', attributes } ];
+	const testBlock = [ { name: 'poocommerce/cart', attributes } ];
 	return initializeEditor( testBlock );
 }
 
 describe( 'Cart block editor integration', () => {
 	beforeAll( () => {
 		// Register a checkout filter to allow `core/table` block in all Cart inner blocks,
-		// add `core/audio` into the woocommerce/cart-order-summary-block specifically
+		// add `core/audio` into the poocommerce/cart-order-summary-block specifically
 		registerCheckoutFilters( 'woo-test-namespace', {
 			// @ts-expect-error - The types for the checkout filters are not defined.
 			additionalCartCheckoutInnerBlockTypes: (
@@ -46,7 +46,7 @@ describe( 'Cart block editor integration', () => {
 				{ block }: { block: string }
 			) => {
 				value.push( 'core/table' );
-				if ( block === 'woocommerce/cart-order-summary-block' ) {
+				if ( block === 'poocommerce/cart-order-summary-block' ) {
 					value.push( 'core/audio' );
 				}
 				return value;

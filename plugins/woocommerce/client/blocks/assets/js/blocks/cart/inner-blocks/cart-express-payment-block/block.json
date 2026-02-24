@@ -1,9 +1,9 @@
 {
-	"name": "woocommerce/cart-express-payment-block",
+	"name": "poocommerce/cart-express-payment-block",
 	"version": "1.0.0",
 	"title": "Express Checkout",
 	"description": "Allow customers to breeze through with quick payment options.",
-	"category": "woocommerce",
+	"category": "poocommerce",
 	"supports": {
 		"align": false,
 		"html": false,
@@ -34,9 +34,9 @@
 		}
 	},
 	"parent": [
-		"woocommerce/cart-totals-block"
+		"poocommerce/cart-totals-block"
 	],
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3
 }

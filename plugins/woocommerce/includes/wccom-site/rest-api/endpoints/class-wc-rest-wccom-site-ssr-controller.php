@@ -4,7 +4,7 @@
  *
  * Handles requests to /ssr.
  *
- * @package WooCommerce\WCCom\API
+ * @package PooCommerce\WCCom\API
  * @since   7.8.0
  */
 
@@ -51,11 +51,11 @@ class WC_REST_WCCOM_Site_SSR_Controller extends WC_REST_WCCOM_Site_Controller {
 	 * @return bool
 	 */
 	public function user_has_permission( $user ) : bool {
-		return user_can( $user, 'manage_woocommerce' );
+		return user_can( $user, 'manage_poocommerce' );
 	}
 
 	/**
-	 * Generate SSR data and submit it to WooCommerce.com.
+	 * Generate SSR data and submit it to PooCommerce.com.
 	 *
 	 * @since  7.8.0
 	 * @param  WP_REST_Request $request Full details about the request.
@@ -66,7 +66,7 @@ class WC_REST_WCCOM_Site_SSR_Controller extends WC_REST_WCCOM_Site_Controller {
 		$data           = $ssr_controller->get_items( $request );
 		$data           = $data->get_data();
 
-		// Submit SSR data to WooCommerce.com.
+		// Submit SSR data to PooCommerce.com.
 		$request = WC_Helper_API::post(
 			'ssr',
 			array(

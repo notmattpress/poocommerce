@@ -3,23 +3,23 @@
  * Order Fulfillments REST Controller for API Version 4
  *
  * Handles route registration, permissions, CRUD operations, and schema definition.
- * This is a completely independent base controller for WooCommerce API v4.
+ * This is a completely independent base controller for PooCommerce API v4.
  * Unlike previous versions, this does not inherit from v3, v2, or v1 controllers.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\RestApi\Routes\V4\Fulfillments;
+namespace Automattic\PooCommerce\Internal\RestApi\Routes\V4\Fulfillments;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Internal\Admin\Settings\Exceptions\ApiException;
-use Automattic\WooCommerce\Internal\Fulfillments\Fulfillment;
-use Automattic\WooCommerce\Internal\Fulfillments\OrderFulfillmentsRestController;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\AbstractController;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Fulfillments\Schema\FulfillmentSchema;
+use Automattic\PooCommerce\Internal\Admin\Settings\Exceptions\ApiException;
+use Automattic\PooCommerce\Internal\Fulfillments\Fulfillment;
+use Automattic\PooCommerce\Internal\Fulfillments\OrderFulfillmentsRestController;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\AbstractController;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Fulfillments\Schema\FulfillmentSchema;
 use WP_Http;
 use WP_Error;
 use WC_Order;
@@ -87,7 +87,7 @@ class Controller extends AbstractController {
 					'permission_callback' => array( $this, 'check_permission_for_fulfillments' ),
 					'args'                => array(
 						'order_id' => array(
-							'description' => __( 'Unique identifier for the order.', 'woocommerce' ),
+							'description' => __( 'Unique identifier for the order.', 'poocommerce' ),
 							'type'        => 'integer',
 							'required'    => true,
 						),
@@ -110,7 +110,7 @@ class Controller extends AbstractController {
 				'schema' => array( $this, 'get_public_item_schema' ),
 				'args'   => array(
 					'fulfillment_id' => array(
-						'description' => __( 'Unique identifier for the fulfillment.', 'woocommerce' ),
+						'description' => __( 'Unique identifier for the fulfillment.', 'poocommerce' ),
 						'type'        => 'integer',
 						'required'    => true,
 					),
@@ -132,7 +132,7 @@ class Controller extends AbstractController {
 					'permission_callback' => array( $this, 'check_permission_for_fulfillments' ),
 					'args'                => array(
 						'notify_customer' => array(
-							'description' => __( 'Whether to notify the customer about the fulfillment update.', 'woocommerce' ),
+							'description' => __( 'Whether to notify the customer about the fulfillment update.', 'poocommerce' ),
 							'type'        => 'boolean',
 							'default'     => false,
 							'required'    => false,
@@ -169,8 +169,8 @@ class Controller extends AbstractController {
 		// Validate the order ID.
 		if ( ! $order_id ) {
 			return $this->prepare_error_response(
-				'woocommerce_rest_order_id_required',
-				__( 'The order ID is required.', 'woocommerce' ),
+				'poocommerce_rest_order_id_required',
+				__( 'The order ID is required.', 'poocommerce' ),
 				array( 'status' => esc_attr( WP_Http::BAD_REQUEST ) )
 			);
 		}
@@ -178,8 +178,8 @@ class Controller extends AbstractController {
 		$order = wc_get_order( $order_id );
 		if ( ! $order ) {
 			return $this->prepare_error_response(
-				'woocommerce_rest_order_invalid_id',
-				__( 'Invalid order ID.', 'woocommerce' ),
+				'poocommerce_rest_order_invalid_id',
+				__( 'Invalid order ID.', 'poocommerce' ),
 				array( 'status' => esc_attr( WP_Http::NOT_FOUND ) )
 			);
 		}
@@ -201,16 +201,16 @@ class Controller extends AbstractController {
 		// Validate the entity ID.
 		if ( ! $entity_id ) {
 			return $this->prepare_error_response(
-				'woocommerce_rest_entity_id_required',
-				__( 'The entity ID is required.', 'woocommerce' ),
+				'poocommerce_rest_entity_id_required',
+				__( 'The entity ID is required.', 'poocommerce' ),
 				array( 'status' => esc_attr( WP_Http::BAD_REQUEST ) )
 			);
 		}
 		$order = wc_get_order( (int) $entity_id );
 		if ( ! $order ) {
 			return $this->prepare_error_response(
-				'woocommerce_rest_order_invalid_id',
-				__( 'Invalid order ID.', 'woocommerce' ),
+				'poocommerce_rest_order_invalid_id',
+				__( 'Invalid order ID.', 'poocommerce' ),
 				array( 'status' => esc_attr( WP_Http::NOT_FOUND ) )
 			);
 		}
@@ -231,16 +231,16 @@ class Controller extends AbstractController {
 
 		if ( ! $fulfillment->get_id() ) {
 			return $this->prepare_error_response(
-				'woocommerce_rest_fulfillment_invalid_id',
-				__( 'Invalid fulfillment ID.', 'woocommerce' ),
+				'poocommerce_rest_fulfillment_invalid_id',
+				__( 'Invalid fulfillment ID.', 'poocommerce' ),
 				array( 'status' => esc_attr( WP_Http::NOT_FOUND ) )
 			);
 		}
 
 		if ( $fulfillment->get_entity_type() !== WC_Order::class ) {
 			return $this->prepare_error_response(
-				'woocommerce_rest_invalid_entity_type',
-				__( 'The entity type must be "order".', 'woocommerce' ),
+				'poocommerce_rest_invalid_entity_type',
+				__( 'The entity type must be "order".', 'poocommerce' ),
 				array( 'status' => esc_attr( WP_Http::BAD_REQUEST ) )
 			);
 		}
@@ -262,16 +262,16 @@ class Controller extends AbstractController {
 
 		if ( ! $fulfillment->get_id() ) {
 			return $this->prepare_error_response(
-				'woocommerce_rest_fulfillment_invalid_id',
-				__( 'Invalid fulfillment ID.', 'woocommerce' ),
+				'poocommerce_rest_fulfillment_invalid_id',
+				__( 'Invalid fulfillment ID.', 'poocommerce' ),
 				array( 'status' => esc_attr( WP_Http::NOT_FOUND ) )
 			);
 		}
 
 		if ( $fulfillment->get_entity_type() !== WC_Order::class ) {
 			return $this->prepare_error_response(
-				'woocommerce_rest_invalid_entity_type',
-				__( 'The entity type must be "order".', 'woocommerce' ),
+				'poocommerce_rest_invalid_entity_type',
+				__( 'The entity type must be "order".', 'poocommerce' ),
 				array( 'status' => esc_attr( WP_Http::BAD_REQUEST ) )
 			);
 		}
@@ -331,7 +331,7 @@ class Controller extends AbstractController {
 					);
 				} catch ( \Exception $e ) {
 					return new WP_Error(
-						'woocommerce_rest_fulfillment_invalid_id',
+						'poocommerce_rest_fulfillment_invalid_id',
 						$e->getMessage(),
 						array( 'status' => esc_attr( WP_Http::BAD_REQUEST ) )
 					);
@@ -344,8 +344,8 @@ class Controller extends AbstractController {
 		if ( ! $order && isset( $body_params['entity_id'] ) && isset( $body_params['entity_type'] ) ) {
 			if ( WC_Order::class !== $body_params['entity_type'] ) {
 				return new WP_Error(
-					'woocommerce_rest_invalid_entity_type',
-					esc_html__( 'The entity type must be "order".', 'woocommerce' ),
+					'poocommerce_rest_invalid_entity_type',
+					esc_html__( 'The entity type must be "order".', 'poocommerce' ),
 					array( 'status' => esc_attr( WP_Http::BAD_REQUEST ) )
 				);
 			}
@@ -357,15 +357,15 @@ class Controller extends AbstractController {
 		// If there's still no order, return an error.
 		if ( ! $order ) {
 			return new WP_Error(
-				'woocommerce_rest_order_id_required',
-				esc_html__( 'The order ID is required.', 'woocommerce' ),
+				'poocommerce_rest_order_id_required',
+				esc_html__( 'The order ID is required.', 'poocommerce' ),
 				array( 'status' => esc_attr( WP_Http::BAD_REQUEST ) )
 			);
 		}
 
 		// Check if the user is logged in as admin, and has the required capability.
-		// Admins who can manage WooCommerce can view all fulfillments.
-		if ( current_user_can( 'manage_woocommerce' ) ) { // phpcs:ignore WordPress.WP.Capabilities.Unknown
+		// Admins who can manage PooCommerce can view all fulfillments.
+		if ( current_user_can( 'manage_poocommerce' ) ) { // phpcs:ignore WordPress.WP.Capabilities.Unknown
 			return true;
 		}
 
@@ -436,7 +436,7 @@ class Controller extends AbstractController {
 	 * @return WP_REST_Response
 	 */
 	public function get_providers( WP_REST_Request $request ): WP_REST_Response {
-		$providers = \Automattic\WooCommerce\Internal\Fulfillments\FulfillmentUtils::get_shipping_providers_object();
+		$providers = \Automattic\PooCommerce\Internal\Fulfillments\FulfillmentUtils::get_shipping_providers_object();
 
 		/**
 		 * Filters the shipping providers response before it is returned.
@@ -452,13 +452,13 @@ class Controller extends AbstractController {
 		 *
 		 * @since 10.5.0
 		 */
-		$providers = apply_filters( 'woocommerce_rest_prepare_fulfillments_providers', $providers, $request );
+		$providers = apply_filters( 'poocommerce_rest_prepare_fulfillments_providers', $providers, $request );
 
 		// Validate filtered result to prevent extensions from returning invalid structures.
 		if ( ! is_array( $providers ) ) {
 			_doing_it_wrong(
-				'woocommerce_rest_prepare_fulfillments_providers',
-				esc_html__( 'The filter must return an array of providers.', 'woocommerce' ),
+				'poocommerce_rest_prepare_fulfillments_providers',
+				esc_html__( 'The filter must return an array of providers.', 'poocommerce' ),
 				'10.5.0'
 			);
 			$providers = array();
@@ -500,8 +500,8 @@ class Controller extends AbstractController {
 
 		if ( $has_invalid ) {
 			_doing_it_wrong(
-				'woocommerce_rest_prepare_fulfillments_providers',
-				esc_html__( 'Some providers were removed because they are missing required keys (label, icon, value, url).', 'woocommerce' ),
+				'poocommerce_rest_prepare_fulfillments_providers',
+				esc_html__( 'Some providers were removed because they are missing required keys (label, icon, value, url).', 'poocommerce' ),
 				'10.5.0'
 			);
 		}
@@ -517,7 +517,7 @@ class Controller extends AbstractController {
 	 * @return bool|WP_Error True if the current user has the capability, otherwise a WP_Error.
 	 */
 	public function check_permission_for_providers( WP_REST_Request $request ) {
-		if ( ! current_user_can( 'manage_woocommerce' ) ) {
+		if ( ! current_user_can( 'manage_poocommerce' ) ) {
 			return $this->get_authentication_error_by_method( $request->get_method() );
 		}
 
@@ -533,31 +533,31 @@ class Controller extends AbstractController {
 	public function get_schema_for_providers(): array {
 		return array(
 			'$schema'              => 'http://json-schema.org/draft-04/schema#',
-			'title'                => __( 'Shipping providers', 'woocommerce' ),
+			'title'                => __( 'Shipping providers', 'poocommerce' ),
 			'type'                 => 'object',
 			'additionalProperties' => array(
 				'type'       => 'object',
 				'properties' => array(
 					'label' => array(
-						'description' => __( 'The display name of the shipping provider.', 'woocommerce' ),
+						'description' => __( 'The display name of the shipping provider.', 'poocommerce' ),
 						'type'        => 'string',
 						'context'     => array( 'view' ),
 						'readonly'    => true,
 					),
 					'icon'  => array(
-						'description' => __( 'The icon URL for the shipping provider.', 'woocommerce' ),
+						'description' => __( 'The icon URL for the shipping provider.', 'poocommerce' ),
 						'type'        => 'string',
 						'context'     => array( 'view' ),
 						'readonly'    => true,
 					),
 					'value' => array(
-						'description' => __( 'The unique key for the shipping provider.', 'woocommerce' ),
+						'description' => __( 'The unique key for the shipping provider.', 'poocommerce' ),
 						'type'        => 'string',
 						'context'     => array( 'view' ),
 						'readonly'    => true,
 					),
 					'url'   => array(
-						'description' => __( 'The tracking URL template for the shipping provider.', 'woocommerce' ),
+						'description' => __( 'The tracking URL template for the shipping provider.', 'poocommerce' ),
 						'type'        => 'string',
 						'context'     => array( 'view' ),
 						'readonly'    => true,

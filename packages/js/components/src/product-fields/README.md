@@ -1,6 +1,6 @@
 # Product Fields
 
-Product Fields are used within the WooCommerce Admin product editor, for rendering new fields using PHP.
+Product Fields are used within the PooCommerce Admin product editor, for rendering new fields using PHP.
 
 ## Example
 
@@ -29,7 +29,7 @@ _Usage_
 
 ```js
 import { __ } from '@wordpress/i18n';
-import { registerProductField } from '@woocommerce/components';
+import { registerProductField } from '@poocommerce/components';
 
 registerProductField( 'number', {
 	name: 'number',

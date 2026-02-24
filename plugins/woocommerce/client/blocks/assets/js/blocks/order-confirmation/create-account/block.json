@@ -1,11 +1,11 @@
 {
-	"name": "woocommerce/order-confirmation-create-account",
+	"name": "poocommerce/order-confirmation-create-account",
 	"version": "1.0.0",
 	"title": "Account Creation",
 	"description": "Allow customers to create an account after their purchase.",
-	"category": "woocommerce",
+	"category": "poocommerce",
 	"keywords": [
-		"WooCommerce"
+		"PooCommerce"
 	],
 	"attributes": {
 		"customerEmail": {
@@ -58,7 +58,7 @@
 			}
 		}
 	},
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"apiVersion": 3,
 	"$schema": "https://schemas.wp.org/trunk/block.json"
 }

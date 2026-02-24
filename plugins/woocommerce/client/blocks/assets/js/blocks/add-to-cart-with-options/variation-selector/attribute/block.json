@@ -1,12 +1,12 @@
 {
-	"name": "woocommerce/add-to-cart-with-options-variation-selector-attribute",
+	"name": "poocommerce/add-to-cart-with-options-variation-selector-attribute",
 	"title": "Variation Selector: Template (Beta)",
 	"description": "A template for attribute name and options that will be applied to all variable products with attributes.",
-	"category": "woocommerce-product-elements",
-	"keywords": [ "WooCommerce" ],
+	"category": "poocommerce-product-elements",
+	"keywords": [ "PooCommerce" ],
 	"usesContext": [ "postId" ],
-	"ancestor": [ "woocommerce/add-to-cart-with-options-variation-selector" ],
-	"textdomain": "woocommerce",
+	"ancestor": [ "poocommerce/add-to-cart-with-options-variation-selector" ],
+	"textdomain": "poocommerce",
 	"apiVersion": 3,
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"supports": {

@@ -5,7 +5,7 @@ sidebar_label: 'Content Style Guide'
 
 # Marketplace Content Style Guide
 
-This guide provides formatting and writing standards for creating product pages and documentation on the WooCommerce Marketplace. Following these guidelines ensures consistency across the Marketplace and creates a professional experience for merchants browsing and purchasing extensions.
+This guide provides formatting and writing standards for creating product pages and documentation on the PooCommerce Marketplace. Following these guidelines ensures consistency across the Marketplace and creates a professional experience for merchants browsing and purchasing extensions.
 
 For product page structure, required elements, and asset specifications, refer to [Product Page Content and Assets](/docs/woo-marketplace/product-page-content-and-assets/).
 
@@ -13,13 +13,13 @@ For product page structure, required elements, and asset specifications, refer t
 
 ### Product Naming Convention
 
-Use the format "Product Name for WooCommerce" rather than "WooCommerce Product Name" throughout the product copy.
+Use the format "Product Name for PooCommerce" rather than "PooCommerce Product Name" throughout the product copy.
 
 This format ensures your product name complies with [trademark rules](https://automattic.com/trademark-policy/) and leads with its unique identifier, improving discoverability and clarity.
 
 ### Grammar and Punctuation
 
-Follow the [WooCommerce Grammar, Punctuation, and Capitalization Guide](https://woocommerce.com/document/woocommerce-grammar-punctuation-and-capitalization-guide/) for comprehensive guidance. Key points include:
+Follow the [PooCommerce Grammar, Punctuation, and Capitalization Guide](https://poocommerce.com/document/poocommerce-grammar-punctuation-and-capitalization-guide/) for comprehensive guidance. Key points include:
 
 **Use the Oxford comma** when listing three or more items:
 
@@ -35,13 +35,13 @@ Follow the [WooCommerce Grammar, Punctuation, and Capitalization Guide](https://
 
 - Use sentence case for headings (capitalize only the first word and proper nouns)
 - Do not use ALL CAPS for emphasis
-- Capitalize product names, features, and WooCommerce terminology correctly
+- Capitalize product names, features, and PooCommerce terminology correctly
 
 **Spelling and terminology:**
 
 - Use American English spelling
 - Use "ecommerce" (lowercase, no hyphen)
-- Use "WooCommerce" (not "Woocommerce" or "wooCommerce")
+- Use "PooCommerce" (not "Woocommerce" or "wooCommerce")
 
 ## Formatting Guidelines
 
@@ -118,13 +118,13 @@ Do not use emojis in product pages or documentation. Emojis can cause accessibil
 
 Do not include links to external websites. All support and documentation links should point to Marketplace URLs:
 
-- Link to your product documentation hosted on WooCommerce.com
+- Link to your product documentation hosted on PooCommerce.com
 - Link to Marketplace support resources
 - Do not link to external support portals, documentation sites, or landing pages
 
 ## Formatting Tools
 
-The WooCommerce Marketplace provides several formatting tools to create visually appealing content while maintaining consistency.
+The PooCommerce Marketplace provides several formatting tools to create visually appealing content while maintaining consistency.
 
 ### Styled List Classes
 
@@ -163,7 +163,7 @@ Use the box shortcode to highlight important information. Available styles:
 For general tips and helpful information:
 
 ```plain
-[box]This extension requires WooCommerce 8.0 or higher.[/box]
+[box]This extension requires PooCommerce 8.0 or higher.[/box]
 ```
 
 This component can be used with or without `style="info"`.
@@ -203,11 +203,11 @@ When creating documentation for your product, follow these additional guidelines
 ### Structure
 
 - Begin with a clear introduction explaining what the extension does
-- Please use the synced pattern titled "Docs – Installation." This explains how our mutual customers should install purchases from WooCommerce.com.
+- Please use the synced pattern titled "Docs – Installation." This explains how our mutual customers should install purchases from PooCommerce.com.
 - Document all your product's features and settings
 - Provide troubleshooting guidance for common issues
 
-For detailed documentation frameworks, refer to [Support and Documentation Best Practices](https://woocommerce.com/document/extension-development-best-practices/#support-and-documentation).
+For detailed documentation frameworks, refer to [Support and Documentation Best Practices](https://poocommerce.com/document/extension-development-best-practices/#support-and-documentation).
 
 ### Images and Screenshots
 

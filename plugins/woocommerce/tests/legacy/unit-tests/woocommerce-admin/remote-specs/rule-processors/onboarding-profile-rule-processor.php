@@ -2,13 +2,13 @@
 /**
  * Onboarding profile rule processor tests.
  *
- * @package WooCommerce\Admin\Tests\RemoteSpecs
+ * @package PooCommerce\Admin\Tests\RemoteSpecs
  */
 
 declare( strict_types = 1 );
 
-use Automattic\WooCommerce\Admin\RemoteSpecs\RuleProcessors\OnboardingProfileRuleProcessor;
-use Automattic\WooCommerce\Internal\Admin\Onboarding\OnboardingProfile;
+use Automattic\PooCommerce\Admin\RemoteSpecs\RuleProcessors\OnboardingProfileRuleProcessor;
+use Automattic\PooCommerce\Internal\Admin\Onboarding\OnboardingProfile;
 
 /**
  * class WC_Admin_Tests_RemoteSpecs_RuleProcessors_OnboardingProfileRuleProcessor

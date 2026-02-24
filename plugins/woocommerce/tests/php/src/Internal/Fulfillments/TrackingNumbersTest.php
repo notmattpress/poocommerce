@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Internal\Fulfillments;
+namespace Automattic\PooCommerce\Tests\Internal\Fulfillments;
 
-use Automattic\WooCommerce\Internal\Fulfillments\FulfillmentsManager;
-use Automattic\WooCommerce\Internal\Fulfillments\Providers\TrackingCombinator;
+use Automattic\PooCommerce\Internal\Fulfillments\FulfillmentsManager;
+use Automattic\PooCommerce\Internal\Fulfillments\Providers\TrackingCombinator;
 use WP_UnitTestCase;
 
 /**
@@ -21,8 +21,8 @@ class TrackingNumbersTest extends WP_UnitTestCase {
 	 */
 	protected function setUp(): void {
 		parent::setUp();
-		update_option( 'woocommerce_feature_fulfillments_enabled', 'yes' );
-		$controller = wc_get_container()->get( \Automattic\WooCommerce\Internal\Fulfillments\FulfillmentsController::class );
+		update_option( 'poocommerce_feature_fulfillments_enabled', 'yes' );
+		$controller = wc_get_container()->get( \Automattic\PooCommerce\Internal\Fulfillments\FulfillmentsController::class );
 		$controller->register();
 		$controller->initialize_fulfillments();
 		$this->combinator = wc_get_container()->get( FulfillmentsManager::class );

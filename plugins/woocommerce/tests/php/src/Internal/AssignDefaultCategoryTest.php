@@ -3,10 +3,10 @@
  * AssignDefaultCategoryTest class file.
  */
 
-namespace Automattic\WooCommerce\Tests\Internal;
+namespace Automattic\PooCommerce\Tests\Internal;
 
-use Automattic\WooCommerce\Internal\AssignDefaultCategory;
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper;
+use Automattic\PooCommerce\Internal\AssignDefaultCategory;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper;
 
 /**
  * Tests for AssignDefaultCategory.

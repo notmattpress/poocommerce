@@ -2,10 +2,10 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\StockNotifications\Emails;
+namespace Automattic\PooCommerce\Internal\StockNotifications\Emails;
 
-use Automattic\WooCommerce\Internal\StockNotifications\Notification;
-use Automattic\WooCommerce\Internal\StockNotifications\Factory;
+use Automattic\PooCommerce\Internal\StockNotifications\Notification;
+use Automattic\PooCommerce\Internal\StockNotifications\Factory;
 use WC_Email;
 
 /**
@@ -20,8 +20,8 @@ class CustomerStockNotificationVerifiedEmail extends WC_Email {
 		$this->id             = 'customer_stock_notification_verified';
 		$this->customer_email = true;
 
-		$this->title       = __( 'Back in stock sign-up confirmation', 'woocommerce' );
-		$this->description = __( 'Email sent to customers after completing the sign-up process successfully.', 'woocommerce' );
+		$this->title       = __( 'Back in stock sign-up confirmation', 'poocommerce' );
+		$this->description = __( 'Email sent to customers after completing the sign-up process successfully.', 'poocommerce' );
 
 		$this->template_html  = 'emails/customer-stock-notification-verified.php';
 		$this->template_plain = 'emails/plain/customer-stock-notification-verified.php';
@@ -30,7 +30,7 @@ class CustomerStockNotificationVerifiedEmail extends WC_Email {
 			'{site_title}'   => '',
 		);
 
-		add_action( 'woocommerce_email_stock_notification_verified_notification', array( $this, 'trigger' ), 10, 1 );
+		add_action( 'poocommerce_email_stock_notification_verified_notification', array( $this, 'trigger' ), 10, 1 );
 
 		// Call parent constructor.
 		parent::__construct();
@@ -42,7 +42,7 @@ class CustomerStockNotificationVerifiedEmail extends WC_Email {
 	 * @return string
 	 */
 	public function get_default_subject() {
-		return __( 'You have joined the "{product_name}" waitlist.', 'woocommerce' );
+		return __( 'You have joined the "{product_name}" waitlist.', 'poocommerce' );
 	}
 
 	/**
@@ -51,7 +51,7 @@ class CustomerStockNotificationVerifiedEmail extends WC_Email {
 	 * @return string
 	 */
 	public function get_default_heading() {
-		return __( 'Sign-up successful', 'woocommerce' );
+		return __( 'Sign-up successful', 'poocommerce' );
 	}
 
 	/**
@@ -60,7 +60,7 @@ class CustomerStockNotificationVerifiedEmail extends WC_Email {
 	 * @return string
 	 */
 	public function get_default_intro_content() {
-		return __( 'Thanks for joining the waitlist! You will hear from us again when "{product_name}" is back in stock.', 'woocommerce' );
+		return __( 'Thanks for joining the waitlist! You will hear from us again when "{product_name}" is back in stock.', 'poocommerce' );
 	}
 
 	/**
@@ -69,7 +69,7 @@ class CustomerStockNotificationVerifiedEmail extends WC_Email {
 	 * @return string
 	 */
 	public function get_default_additional_content() {
-		return __( 'Thanks for shopping with us.', 'woocommerce' );
+		return __( 'Thanks for shopping with us.', 'poocommerce' );
 	}
 
 	/**
@@ -85,7 +85,7 @@ class CustomerStockNotificationVerifiedEmail extends WC_Email {
 		 *
 		 * @return string
 		 */
-		return apply_filters( 'woocommerce_email_stock_notification_intro_content', $this->format_string( $this->get_option_or_transient( 'intro_content', $this->get_default_intro_content() ) ), $this->object, $this );
+		return apply_filters( 'poocommerce_email_stock_notification_intro_content', $this->format_string( $this->get_option_or_transient( 'intro_content', $this->get_default_intro_content() ) ), $this->object, $this );
 	}
 
 	/**
@@ -244,11 +244,11 @@ class CustomerStockNotificationVerifiedEmail extends WC_Email {
 		}
 
 		/* translators: %s: list of placeholders */
-		$placeholder_text = sprintf( __( 'Available placeholders: %s', 'woocommerce' ), '<code>' . esc_html( implode( '</code>, <code>', array_keys( $this->placeholders ) ) ) . '</code>' );
+		$placeholder_text = sprintf( __( 'Available placeholders: %s', 'poocommerce' ), '<code>' . esc_html( implode( '</code>, <code>', array_keys( $this->placeholders ) ) ) . '</code>' );
 
 		$intro_content_field = array(
-			'title'       => __( 'Email content', 'woocommerce' ),
-			'description' => __( 'Text to appear below the main e-mail header.', 'woocommerce' ) . ' ' . $placeholder_text,
+			'title'       => __( 'Email content', 'poocommerce' ),
+			'description' => __( 'Text to appear below the main e-mail header.', 'poocommerce' ) . ' ' . $placeholder_text,
 			'css'         => 'width: 400px; height: 75px;',
 			'placeholder' => $this->get_default_intro_content(),
 			'type'        => 'textarea',

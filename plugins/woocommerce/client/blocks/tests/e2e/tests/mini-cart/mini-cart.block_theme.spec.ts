@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { test, expect, BlockData } from '@woocommerce/e2e-utils';
+import { test, expect, BlockData } from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -11,7 +11,7 @@ import config from '../../../../../admin/config/core.json';
 
 const blockData: BlockData = {
 	name: 'Mini-Cart',
-	slug: 'woocommerce/mini-cart',
+	slug: 'poocommerce/mini-cart',
 	mainClass: '.wc-block-minicart',
 	selectors: {
 		frontend: {},
@@ -24,7 +24,7 @@ test.describe( `${ blockData.name } Block`, () => {
 		try {
 			// iAPI Mini Cart.
 			const miniCartTitleBlock = page.locator(
-				'[data-block-name="woocommerce/mini-cart-title-block"]'
+				'[data-block-name="poocommerce/mini-cart-title-block"]'
 			);
 			await expect( miniCartTitleBlock ).toBeVisible( { timeout: 1000 } );
 			const titleText = await miniCartTitleBlock.innerText();
@@ -315,7 +315,7 @@ test.describe( `${ blockData.name } Block`, () => {
 			requestUtils,
 		} ) => {
 			await requestUtils.activatePlugin(
-				'woocommerce-blocks-test-cart-contents-count-filter'
+				'poocommerce-blocks-test-cart-contents-count-filter'
 			);
 
 			try {
@@ -326,7 +326,7 @@ test.describe( `${ blockData.name } Block`, () => {
 				// The filter overrides the count to 999. The mini-cart title should
 				// display this filtered value rather than the actual number of items.
 				const miniCartTitleItemsCounterBlock = page.locator(
-					'[data-block-name="woocommerce/mini-cart-title-items-counter-block"]'
+					'[data-block-name="poocommerce/mini-cart-title-items-counter-block"]'
 				);
 				await expect( miniCartTitleItemsCounterBlock ).toBeVisible();
 				await expect( miniCartTitleItemsCounterBlock ).toContainText(
@@ -334,7 +334,7 @@ test.describe( `${ blockData.name } Block`, () => {
 				);
 			} finally {
 				await requestUtils.deactivatePlugin(
-					'woocommerce-blocks-test-cart-contents-count-filter'
+					'poocommerce-blocks-test-cart-contents-count-filter'
 				);
 			}
 		} );

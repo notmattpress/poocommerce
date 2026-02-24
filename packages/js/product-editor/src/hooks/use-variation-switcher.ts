@@ -2,8 +2,8 @@
  * External dependencies
  */
 import { useSelect, useDispatch } from '@wordpress/data';
-import { EXPERIMENTAL_PRODUCT_VARIATIONS_STORE_NAME } from '@woocommerce/data';
-import { getNewPath, navigateTo } from '@woocommerce/navigation';
+import { EXPERIMENTAL_PRODUCT_VARIATIONS_STORE_NAME } from '@poocommerce/data';
+import { getNewPath, navigateTo } from '@poocommerce/navigation';
 
 type VariationSwitcherProps = {
 	parentProductType?: string;

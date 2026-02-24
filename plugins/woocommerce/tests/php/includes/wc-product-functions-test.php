@@ -2,13 +2,13 @@
 /**
  * Unit tests for wc-product-functions.php.
  *
- * @package WooCommerce\Tests\Functions\Stock
+ * @package PooCommerce\Tests\Functions\Stock
  */
 
 declare( strict_types = 1 );
 
-use Automattic\WooCommerce\Testing\Tools\CodeHacking\Hacks\FunctionsMockerHack;
-use Automattic\WooCommerce\Testing\Tools\CodeHacking\Hacks\StaticMockerHack;
+use Automattic\PooCommerce\Testing\Tools\CodeHacking\Hacks\FunctionsMockerHack;
+use Automattic\PooCommerce\Testing\Tools\CodeHacking\Hacks\StaticMockerHack;
 
 // phpcs:disable Squiz.Classes.ClassFileName.NoMatch, Squiz.Classes.ValidClassName.NotCamelCaps -- Backward compatibility.
 /**
@@ -28,7 +28,7 @@ class WC_Product_Functions_Tests extends \WC_Unit_Test_Case {
 	 *
 	 * @param bool     $pass_order Whether an order is passed to 'wc_get_price_excluding_tax' or not.
 	 * @param int|null $customer_id Id of the customer associated to the order.
-	 * @param bool     $set_filter Whether the 'woocommerce_adjust_non_base_location_prices' filter should be set to return false.
+	 * @param bool     $set_filter Whether the 'poocommerce_adjust_non_base_location_prices' filter should be set to return false.
 	 */
 	public function test_wc_get_price_excluding_tax_passes_order_customer_to_get_rates_if_order_is_available( $pass_order, $customer_id, $set_filter ) {
 		$customer_passed_to_get_rates                  = false;
@@ -36,7 +36,7 @@ class WC_Product_Functions_Tests extends \WC_Unit_Test_Case {
 		$customer_id_passed_to_wc_customer_constructor = false;
 
 		if ( $set_filter ) {
-			add_filter( 'woocommerce_adjust_non_base_location_prices', '__return_false' );
+			add_filter( 'poocommerce_adjust_non_base_location_prices', '__return_false' );
 		}
 
 		FunctionsMockerHack::add_function_mocks(
@@ -128,7 +128,7 @@ class WC_Product_Functions_Tests extends \WC_Unit_Test_Case {
 		// phpcs:enable Squiz.Commenting
 
 		if ( $set_filter ) {
-			remove_filter( 'woocommerce_adjust_non_base_location_prices', '__return_false' );
+			remove_filter( 'poocommerce_adjust_non_base_location_prices', '__return_false' );
 		}
 	}
 
@@ -168,7 +168,7 @@ class WC_Product_Functions_Tests extends \WC_Unit_Test_Case {
 
 		$wc_tax_enabled = wc_tax_enabled();
 		if ( ! $wc_tax_enabled ) {
-			update_option( 'woocommerce_calc_taxes', 'yes' );
+			update_option( 'poocommerce_calc_taxes', 'yes' );
 		}
 
 		$product         = WC_Helper_Product::create_simple_product();
@@ -197,7 +197,7 @@ class WC_Product_Functions_Tests extends \WC_Unit_Test_Case {
 		WC_Tax::_delete_tax_rate( $tax_rate_id );
 		WC_Helper_Product::delete_product( $product->get_id() );
 		if ( ! $wc_tax_enabled ) {
-			update_option( 'woocommerce_calc_taxes', 'no' );
+			update_option( 'poocommerce_calc_taxes', 'no' );
 		}
 	}
 
@@ -262,12 +262,12 @@ class WC_Product_Functions_Tests extends \WC_Unit_Test_Case {
 		$start_action = as_next_scheduled_action(
 			'wc_product_start_scheduled_sale',
 			array( 'product_id' => $product->get_id() ),
-			'woocommerce-sales'
+			'poocommerce-sales'
 		);
 		$end_action   = as_next_scheduled_action(
 			'wc_product_end_scheduled_sale',
 			array( 'product_id' => $product->get_id() ),
-			'woocommerce-sales'
+			'poocommerce-sales'
 		);
 
 		$this->assertNotFalse( $start_action, 'Start sale action should be scheduled' );
@@ -292,7 +292,7 @@ class WC_Product_Functions_Tests extends \WC_Unit_Test_Case {
 		$original_start = as_next_scheduled_action(
 			'wc_product_start_scheduled_sale',
 			array( 'product_id' => $product->get_id() ),
-			'woocommerce-sales'
+			'poocommerce-sales'
 		);
 
 		// Update the sale dates.
@@ -303,7 +303,7 @@ class WC_Product_Functions_Tests extends \WC_Unit_Test_Case {
 		$new_start_action = as_next_scheduled_action(
 			'wc_product_start_scheduled_sale',
 			array( 'product_id' => $product->get_id() ),
-			'woocommerce-sales'
+			'poocommerce-sales'
 		);
 
 		// The timestamp should have changed.
@@ -311,22 +311,22 @@ class WC_Product_Functions_Tests extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Guest order uses billing address tax rate when woocommerce_adjust_non_base_location_prices is false.
+	 * @testdox Guest order uses billing address tax rate when poocommerce_adjust_non_base_location_prices is false.
 	 */
 	public function test_wc_get_price_excluding_tax_guest_order_uses_billing_address() {
 		// Enable taxes.
 		$wc_tax_enabled = wc_tax_enabled();
 		if ( ! $wc_tax_enabled ) {
-			update_option( 'woocommerce_calc_taxes', 'yes' );
+			update_option( 'poocommerce_calc_taxes', 'yes' );
 		}
 
 		// Set prices to include tax.
-		$original_prices_include_tax = get_option( 'woocommerce_prices_include_tax' );
-		update_option( 'woocommerce_prices_include_tax', 'yes' );
+		$original_prices_include_tax = get_option( 'poocommerce_prices_include_tax' );
+		update_option( 'poocommerce_prices_include_tax', 'yes' );
 
 		// Set base country to Germany.
-		$original_base_country = get_option( 'woocommerce_default_country' );
-		update_option( 'woocommerce_default_country', 'DE' );
+		$original_base_country = get_option( 'poocommerce_default_country' );
+		update_option( 'poocommerce_default_country', 'DE' );
 
 		// Create German tax rate (19%) - this is the base/shop rate.
 		$german_tax_rate_id = WC_Tax::_insert_tax_rate(
@@ -373,7 +373,7 @@ class WC_Product_Functions_Tests extends \WC_Unit_Test_Case {
 		$order->save();
 
 		// Enable "same price everywhere" mode.
-		add_filter( 'woocommerce_adjust_non_base_location_prices', '__return_false' );
+		add_filter( 'poocommerce_adjust_non_base_location_prices', '__return_false' );
 
 		// Calculate the price excluding tax.
 		$price_excluding_tax = wc_get_price_excluding_tax( $product, array( 'order' => $order ) );
@@ -388,15 +388,15 @@ class WC_Product_Functions_Tests extends \WC_Unit_Test_Case {
 		$this->assertEquals( 83.33, round( $price_excluding_tax, 2 ), 'Price should use French tax rate (20%) to calculate net, not German base rate (19%)' );
 
 		// Clean up.
-		remove_filter( 'woocommerce_adjust_non_base_location_prices', '__return_false' );
+		remove_filter( 'poocommerce_adjust_non_base_location_prices', '__return_false' );
 		WC_Tax::_delete_tax_rate( $german_tax_rate_id );
 		WC_Tax::_delete_tax_rate( $french_tax_rate_id );
 		WC_Helper_Product::delete_product( $product->get_id() );
 		$order->delete( true );
-		update_option( 'woocommerce_prices_include_tax', $original_prices_include_tax );
-		update_option( 'woocommerce_default_country', $original_base_country );
+		update_option( 'poocommerce_prices_include_tax', $original_prices_include_tax );
+		update_option( 'poocommerce_default_country', $original_base_country );
 		if ( ! $wc_tax_enabled ) {
-			update_option( 'woocommerce_calc_taxes', 'no' );
+			update_option( 'poocommerce_calc_taxes', 'no' );
 		}
 	}
 
@@ -493,7 +493,7 @@ class WC_Product_Functions_Tests extends \WC_Unit_Test_Case {
 		);
 
 		// Set up permalink structure to include product_cat.
-		update_option( 'woocommerce_permalinks', array( 'product_base' => '/shop/%product_cat%' ) );
+		update_option( 'poocommerce_permalinks', array( 'product_base' => '/shop/%product_cat%' ) );
 		$product_post = get_post( $product->get_id() );
 
 		// Call wc_product_post_type_link directly to test the category selection.
@@ -538,7 +538,7 @@ class WC_Product_Functions_Tests extends \WC_Unit_Test_Case {
 			'product_cat'
 		);
 
-		update_option( 'woocommerce_permalinks', array( 'product_base' => '/shop/%product_cat%' ) );
+		update_option( 'poocommerce_permalinks', array( 'product_base' => '/shop/%product_cat%' ) );
 		$product_post = get_post( $product->get_id() );
 
 		$permalink = wc_product_post_type_link( '/shop/%product_cat%/' . $product_post->post_name . '/', $product_post );
@@ -607,11 +607,11 @@ class WC_Product_Functions_Tests extends \WC_Unit_Test_Case {
 			'product_cat'
 		);
 
-		$original_permalinks = get_option( 'woocommerce_permalinks' );
+		$original_permalinks = get_option( 'poocommerce_permalinks' );
 		$filter_callback     = null;
 
 		try {
-			update_option( 'woocommerce_permalinks', array( 'product_base' => '/shop/%product_cat%' ) );
+			update_option( 'poocommerce_permalinks', array( 'product_base' => '/shop/%product_cat%' ) );
 			$product_post = get_post( $product->get_id() );
 
 			// Simulate a plugin filter that removes a term without re-indexing the array.
@@ -644,7 +644,7 @@ class WC_Product_Functions_Tests extends \WC_Unit_Test_Case {
 			if ( null !== $filter_callback ) {
 				remove_filter( 'get_the_terms', $filter_callback, 10 );
 			}
-			update_option( 'woocommerce_permalinks', $original_permalinks );
+			update_option( 'poocommerce_permalinks', $original_permalinks );
 			WC_Helper_Product::delete_product( $product->get_id() );
 			wp_delete_term( $category2_term['term_id'], 'product_cat' );
 			wp_delete_term( $category1_term['term_id'], 'product_cat' );

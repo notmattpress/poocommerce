@@ -2,10 +2,10 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\EmailEditor\WCTransactionalEmails;
+namespace Automattic\PooCommerce\Tests\Internal\EmailEditor\WCTransactionalEmails;
 
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmails;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsGenerator;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmails;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsGenerator;
 
 /**
  * Tests for the WCTransactionalEmails class.
@@ -26,7 +26,7 @@ class WCTransactionalEmailsTest extends \WC_Unit_Test_Case {
 	 */
 	public function setUp(): void {
 		parent::setUp();
-		add_option( 'woocommerce_feature_block_email_editor_enabled', 'yes' );
+		add_option( 'poocommerce_feature_block_email_editor_enabled', 'yes' );
 
 		// Create a mock for the email generator.
 		$this->mock_email_generator = $this->getMockBuilder( WCTransactionalEmailPostsGenerator::class )
@@ -61,7 +61,7 @@ class WCTransactionalEmailsTest extends \WC_Unit_Test_Case {
 	 */
 	public function testGetTransactionalEmailsCanBeFiltered(): void {
 		add_filter(
-			'woocommerce_transactional_emails_for_block_editor',
+			'poocommerce_transactional_emails_for_block_editor',
 			function ( $emails ) {
 				$emails[] = 'custom_email';
 				return $emails;
@@ -74,9 +74,9 @@ class WCTransactionalEmailsTest extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Test that init_email_templates is not called on non-WooCommerce admin pages.
+	 * Test that init_email_templates is not called on non-PooCommerce admin pages.
 	 */
-	public function testInitEmailTemplatesNotCalledOnNonWooCommercePages(): void {
+	public function testInitEmailTemplatesNotCalledOnNonPooCommercePages(): void {
 		set_current_screen( 'front' );
 
 		// Set expectation that initialize should not be called.
@@ -87,10 +87,10 @@ class WCTransactionalEmailsTest extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Test that init_email_templates is called on WooCommerce admin pages.
+	 * Test that init_email_templates is called on PooCommerce admin pages.
 	 */
-	public function testInitEmailTemplatesCalledOnWooCommercePages(): void {
-		set_current_screen( 'woocommerce_page_wc-admin' );
+	public function testInitEmailTemplatesCalledOnPooCommercePages(): void {
+		set_current_screen( 'poocommerce_page_wc-admin' );
 
 		// Set expectation that initialize should be called exactly once.
 		$this->mock_email_generator->expects( $this->once() )
@@ -104,6 +104,6 @@ class WCTransactionalEmailsTest extends \WC_Unit_Test_Case {
 	 */
 	public function tearDown(): void {
 		parent::tearDown();
-		update_option( 'woocommerce_feature_block_email_editor_enabled', 'no' );
+		update_option( 'poocommerce_feature_block_email_editor_enabled', 'no' );
 	}
 }

@@ -31,9 +31,9 @@
  * @package              {{namespace}}
  */
 
-use Automattic\WooCommerce\Admin\BlockTemplates\BlockTemplateInterface;
-use Automattic\WooCommerce\Admin\Features\ProductBlockEditor\ProductTemplates\ProductFormTemplateInterface;
-use Automattic\WooCommerce\Admin\Features\ProductBlockEditor\BlockRegistry;
+use Automattic\PooCommerce\Admin\BlockTemplates\BlockTemplateInterface;
+use Automattic\PooCommerce\Admin\Features\ProductBlockEditor\ProductTemplates\ProductFormTemplateInterface;
+use Automattic\PooCommerce\Admin\Features\ProductBlockEditor\BlockRegistry;
 
 
 /**
@@ -68,4 +68,4 @@ function {{namespaceSnakeCase}}_{{slugSnakeCase}}_add_block_to_product_editor( B
 		}
 	}
 }
-add_filter( 'woocommerce_block_template_register', '{{namespaceSnakeCase}}_{{slugSnakeCase}}_add_block_to_product_editor', 100 );
+add_filter( 'poocommerce_block_template_register', '{{namespaceSnakeCase}}_{{slugSnakeCase}}_add_block_to_product_editor', 100 );

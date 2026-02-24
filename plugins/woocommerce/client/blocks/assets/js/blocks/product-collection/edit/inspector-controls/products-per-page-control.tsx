@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { useIsEmailEditor } from '@woocommerce/email-editor';
+import { useIsEmailEditor } from '@poocommerce/email-editor';
 import { __ } from '@wordpress/i18n';
 import {
 	RangeControl,
@@ -20,9 +20,9 @@ const MIN_PRODUCTS_PER_PAGE = 1;
 const MAX_PRODUCTS_PER_PAGE = 100;
 const CAROUSEL_PERFORMANCE_WARNING_THRESHOLD = 30;
 
-const defaultLabel = __( 'Products per page', 'woocommerce' );
-const carouselLabel = __( 'Products in carousel', 'woocommerce' );
-const emailLabel = __( 'Number of products', 'woocommerce' );
+const defaultLabel = __( 'Products per page', 'poocommerce' );
+const carouselLabel = __( 'Products in carousel', 'poocommerce' );
+const emailLabel = __( 'Number of products', 'poocommerce' );
 
 const getLabel = ( carouselVariant: boolean, isEmailEditor: boolean ) => {
 	if ( isEmailEditor ) {
@@ -65,7 +65,7 @@ const ProductsPerPageControl = ( {
 					>
 						{ __(
 							'High product counts in carousel may impact performance. Consider reducing the number of products for better user experience.',
-							'woocommerce'
+							'poocommerce'
 						) }
 					</Notice>
 				</div>

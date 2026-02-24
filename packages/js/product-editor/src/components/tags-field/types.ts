@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { ProductTag } from '@woocommerce/data';
+import { ProductTag } from '@poocommerce/data';
 
 export type CreateTagModalProps = {
 	initialTagName?: string;

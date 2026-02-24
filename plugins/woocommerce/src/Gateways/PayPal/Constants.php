@@ -2,7 +2,7 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Gateways\PayPal;
+namespace Automattic\PooCommerce\Gateways\PayPal;
 
 /**
  * PayPal Gateway Constants.

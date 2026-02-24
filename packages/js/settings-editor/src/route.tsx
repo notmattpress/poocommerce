@@ -27,7 +27,7 @@ import { LegacyContent } from './legacy';
 import { SettingsDataContext } from './data';
 
 const NotFound = () => {
-	return <h1>{ __( 'Page not found', 'woocommerce' ) }</h1>;
+	return <h1>{ __( 'Page not found', 'poocommerce' ) }</h1>;
 };
 
 /**
@@ -46,7 +46,7 @@ const getNotFoundRoute = (
 			<Sidebar
 				activePage={ activePage }
 				pages={ settingsPages }
-				pageTitle={ __( 'Settings', 'woocommerce' ) }
+				pageTitle={ __( 'Settings', 'poocommerce' ) }
 			/>
 		),
 		content: <NotFound />,
@@ -99,7 +99,7 @@ const getLegacyRoute = (
 				<Sidebar
 					activePage={ activePage }
 					pages={ settingsData.pages }
-					pageTitle={ __( 'Store settings', 'woocommerce' ) }
+					pageTitle={ __( 'Store settings', 'poocommerce' ) }
 				/>
 			),
 			content: (
@@ -118,7 +118,7 @@ const getLegacyRoute = (
 	};
 };
 
-const PAGES_FILTER = 'woocommerce_admin_settings_pages';
+const PAGES_FILTER = 'poocommerce_admin_settings_pages';
 
 const getModernPages = () => {
 	/**
@@ -158,7 +158,7 @@ export function useModernRoutes(): Record< string, Route > {
 			}
 		};
 
-		const namespace = `woocommerce/woocommerce/watch_${ PAGES_FILTER }`;
+		const namespace = `poocommerce/poocommerce/watch_${ PAGES_FILTER }`;
 		addAction( 'hookAdded', namespace, handleHookAdded );
 
 		return () => {
@@ -232,12 +232,12 @@ export const useActiveRoute = (): {
 			};
 		}
 
-		// Sidebar is responsibility of WooCommerce, not extensions so add it here.
+		// Sidebar is responsibility of PooCommerce, not extensions so add it here.
 		modernRoute.areas.sidebar = (
 			<Sidebar
 				activePage={ activePage }
 				pages={ settingsData.pages }
-				pageTitle={ __( 'Store settings', 'woocommerce' ) }
+				pageTitle={ __( 'Store settings', 'poocommerce' ) }
 			/>
 		);
 		// Make sure we have a key.

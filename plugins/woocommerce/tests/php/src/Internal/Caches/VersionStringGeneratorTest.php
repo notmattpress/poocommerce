@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Internal\Caches;
+namespace Automattic\PooCommerce\Tests\Internal\Caches;
 
-use Automattic\WooCommerce\Internal\Caches\VersionStringGenerator;
+use Automattic\PooCommerce\Internal\Caches\VersionStringGenerator;
 use WC_Unit_Test_Case;
 
 /**
@@ -34,7 +34,7 @@ class VersionStringGeneratorTest extends WC_Unit_Test_Case {
 	 * Runs after each test.
 	 */
 	public function tearDown(): void {
-		remove_all_filters( 'woocommerce_version_string_generator_ttl' );
+		remove_all_filters( 'poocommerce_version_string_generator_ttl' );
 		$this->sut = null;
 		parent::tearDown();
 	}
@@ -189,14 +189,14 @@ class VersionStringGeneratorTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox woocommerce_version_string_generator_ttl filter works correctly.
+	 * @testdox poocommerce_version_string_generator_ttl filter works correctly.
 	 */
 	public function test_cached_version_ttl_filter() {
 		$custom_ttl   = 7200; // 2 hours.
 		$filter_calls = array();
 
 		add_filter(
-			'woocommerce_version_string_generator_ttl',
+			'poocommerce_version_string_generator_ttl',
 			function ( $ttl, $id ) use ( $custom_ttl, &$filter_calls ) {
 				$filter_calls[] = array(
 					'ttl' => $ttl,
@@ -396,7 +396,7 @@ class VersionStringGeneratorTest extends WC_Unit_Test_Case {
 		$captured_ttl = null;
 
 		add_filter(
-			'woocommerce_version_string_generator_ttl',
+			'poocommerce_version_string_generator_ttl',
 			function ( $ttl ) use ( &$captured_ttl ) {
 				$captured_ttl = $ttl; // Capture the default TTL passed to filter.
 				return -100; // Return negative value to test conversion.

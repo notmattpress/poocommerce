@@ -3,10 +3,10 @@
  * PageController
  */
 
-namespace Automattic\WooCommerce\Admin;
+namespace Automattic\PooCommerce\Admin;
 
-use Automattic\WooCommerce\Internal\Admin\Loader;
-use Automattic\WooCommerce\Admin\Features\Features;
+use Automattic\PooCommerce\Internal\Admin\Loader;
+use Automattic\PooCommerce\Admin\Features\Features;
 
 use WC_Gateway_BACS;
 use WC_Gateway_Cheque;
@@ -43,7 +43,7 @@ class PageController {
 
 	/**
 	 * Registered pages
-	 * Contains information (breadcrumbs, menu info) about JS powered pages and classic WooCommerce pages.
+	 * Contains information (breadcrumbs, menu info) about JS powered pages and classic PooCommerce pages.
 	 *
 	 * @var array
 	 */
@@ -68,7 +68,7 @@ class PageController {
 		add_action( 'admin_menu', array( $this, 'register_page_handler' ) );
 		add_action( 'admin_menu', array( $this, 'register_store_details_page' ) );
 
-		// priority is 20 to run after https://github.com/woocommerce/woocommerce/blob/a55ae325306fc2179149ba9b97e66f32f84fdd9c/includes/admin/class-wc-admin-menus.php#L165.
+		// priority is 20 to run after https://github.com/poocommerce/poocommerce/blob/a55ae325306fc2179149ba9b97e66f32f84fdd9c/includes/admin/class-wc-admin-menus.php#L165.
 		add_action( 'admin_head', array( $this, 'remove_app_entry_page_menu_item' ), 20 );
 		// Using low priority to run before other hooks.
 		add_action( 'admin_init', array( $this, 'maybe_redirect_payment_tasks_to_settings' ), 1 );
@@ -114,7 +114,7 @@ class PageController {
 		 *   @type boolean      js_page      If this is a JS-powered page.
 		 * }
 		 */
-		$options = apply_filters( 'woocommerce_navigation_connect_page_options', $options );
+		$options = apply_filters( 'poocommerce_navigation_connect_page_options', $options );
 
 		// In the future, we should consider check for collision, but keep in mind that the current behavior is: the later call silently overwrites the earlier one.
 		$id = $options['id'] ?? null;
@@ -165,7 +165,7 @@ class PageController {
 
 
 	/**
-	 * Get breadcrumbs for WooCommerce Admin Page navigation.
+	 * Get breadcrumbs for PooCommerce Admin Page navigation.
 	 *
 	 * @return array Navigation pieces (breadcrumbs).
 	 */
@@ -175,7 +175,7 @@ class PageController {
 		// Bail if this isn't a page registered with this controller.
 		if ( false === $current_page ) {
 			// Filter documentation below.
-			return apply_filters( 'woocommerce_navigation_get_breadcrumbs', array( '' ), $current_page );
+			return apply_filters( 'poocommerce_navigation_get_breadcrumbs', array( '' ), $current_page );
 		}
 
 		$page_title = ! empty( $current_page['page_title'] ) ? $current_page['page_title'] : $current_page['title'];
@@ -211,9 +211,9 @@ class PageController {
 			}
 		}
 
-		$woocommerce_breadcrumb = array( 'admin.php?page=' . self::PAGE_ROOT, __( 'WooCommerce', 'woocommerce' ) );
+		$poocommerce_breadcrumb = array( 'admin.php?page=' . self::PAGE_ROOT, __( 'PooCommerce', 'poocommerce' ) );
 
-		array_unshift( $breadcrumbs, $woocommerce_breadcrumb );
+		array_unshift( $breadcrumbs, $poocommerce_breadcrumb );
 
 		/**
 		 * The navigation breadcrumbs for the current page.
@@ -221,7 +221,7 @@ class PageController {
 		 * @param array         $breadcrumbs Navigation pieces (breadcrumbs).
 		 * @param array|boolean $current_page The connected page data or false if not identified.
 		 */
-		return apply_filters( 'woocommerce_navigation_get_breadcrumbs', $breadcrumbs, $current_page );
+		return apply_filters( 'poocommerce_navigation_get_breadcrumbs', $breadcrumbs, $current_page );
 	}
 
 	/**
@@ -233,7 +233,7 @@ class PageController {
 		// If 'current_screen' hasn't fired yet, the current page calculation
 		// will fail which causes `false` to be returned for all subsequent calls.
 		if ( ! did_action( 'current_screen' ) ) {
-			_doing_it_wrong( __FUNCTION__, esc_html__( 'Current page retrieval should be called on or after the `current_screen` hook.', 'woocommerce' ), '0.16.0' );
+			_doing_it_wrong( __FUNCTION__, esc_html__( 'Current page retrieval should be called on or after the `current_screen` hook.', 'poocommerce' ), '0.16.0' );
 		}
 
 		if ( is_null( $this->current_page ) ) {
@@ -270,13 +270,13 @@ class PageController {
 			 * @param string|boolean $screen_id The screen id or false if not identified.
 			 * @param WP_Screen      $current_screen The current WP_Screen.
 			 */
-			return apply_filters( 'woocommerce_navigation_current_screen_id', false, null );
+			return apply_filters( 'poocommerce_navigation_current_screen_id', false, null );
 		}
 
 		$current_screen = get_current_screen();
 		if ( ! $current_screen ) {
 			// Filter documentation below.
-			return apply_filters( 'woocommerce_navigation_current_screen_id', false, $current_screen );
+			return apply_filters( 'poocommerce_navigation_current_screen_id', false, $current_screen );
 		}
 
 		$screen_pieces = array( $current_screen->id );
@@ -303,7 +303,7 @@ class PageController {
 
 		// Pages with default tab values.
 		$pages_with_tabs = apply_filters(
-			'woocommerce_navigation_pages_with_tabs',
+			'poocommerce_navigation_pages_with_tabs',
 			array(
 				'wc-reports'  => 'orders',
 				'wc-settings' => 'general',
@@ -317,7 +317,7 @@ class PageController {
 		$wc_email_ids = array_map( 'sanitize_title', array_keys( $wc_emails->get_emails() ) );
 
 		$tabs_with_sections = apply_filters(
-			'woocommerce_navigation_page_tab_sections',
+			'poocommerce_navigation_page_tab_sections',
 			array(
 				'products'          => array( '', 'inventory', 'downloadable', 'download_urls', 'advanced' ),
 				'shipping'          => array( '', 'options', 'classes', 'pickup_location' ),
@@ -328,7 +328,7 @@ class PageController {
 					'keys',
 					'webhooks',
 					'legacy_api',
-					'woocommerce_com',
+					'poocommerce_com',
 					'features',
 					'blueprint',
 				),
@@ -367,12 +367,12 @@ class PageController {
 		/**
 		 * The current screen id.
 		 *
-		 * Used for identifying pages to render the WooCommerce Admin header.
+		 * Used for identifying pages to render the PooCommerce Admin header.
 		 *
 		 * @param string|boolean $screen_id The screen id or false if not identified.
 		 * @param WP_Screen      $current_screen The current WP_Screen.
 		 */
-		return apply_filters( 'woocommerce_navigation_current_screen_id', implode( '-', $screen_pieces ), $current_screen );
+		return apply_filters( 'poocommerce_navigation_current_screen_id', implode( '-', $screen_pieces ), $current_screen );
 	}
 
 	/**
@@ -411,12 +411,12 @@ class PageController {
 		/**
 		 * Whether or not the current page is an existing page connected to this controller.
 		 *
-		 * Used to determine if the WooCommerce Admin header should be rendered.
+		 * Used to determine if the PooCommerce Admin header should be rendered.
 		 *
 		 * @param boolean       $is_connected_page True if the current page is connected.
 		 * @param array|boolean $current_page The connected page data or false if not identified.
 		 */
-		return apply_filters( 'woocommerce_navigation_is_connected_page', $is_connected_page, $current_page );
+		return apply_filters( 'poocommerce_navigation_is_connected_page', $is_connected_page, $current_page );
 	}
 
 	/**
@@ -436,12 +436,12 @@ class PageController {
 		/**
 		 * Whether or not the current page was registered with this controller.
 		 *
-		 * Used to determine if this is a JS-powered WooCommerce Admin page.
+		 * Used to determine if this is a JS-powered PooCommerce Admin page.
 		 *
 		 * @param boolean       $is_registered_page True if the current page was registered with this controller.
 		 * @param array|boolean $current_page The registered page data or false if not identified.
 		 */
-		return apply_filters( 'woocommerce_navigation_is_registered_page', $is_registered_page, $current_page );
+		return apply_filters( 'poocommerce_navigation_is_registered_page', $is_registered_page, $current_page );
 	}
 
 	/**
@@ -466,7 +466,7 @@ class PageController {
 			'parent'     => null,
 			'title'      => '',
 			'page_title' => '',
-			'capability' => 'view_woocommerce_reports',
+			'capability' => 'view_poocommerce_reports',
 			'path'       => '',
 			'icon'       => '',
 			'position'   => null,
@@ -530,7 +530,7 @@ class PageController {
 	}
 
 	/**
-	 * Connects existing WooCommerce pages.
+	 * Connects existing PooCommerce pages.
 	 *
 	 * @todo The entry point for the embed needs moved to this class as well.
 	 */
@@ -545,7 +545,7 @@ class PageController {
 		wc_admin_register_page(
 			array(
 				'id'     => 'setup-wizard',
-				'title'  => __( 'Setup Wizard', 'woocommerce' ),
+				'title'  => __( 'Setup Wizard', 'poocommerce' ),
 				'parent' => '',
 				'path'   => '/setup-wizard',
 			)
@@ -558,12 +558,12 @@ class PageController {
 	public function remove_app_entry_page_menu_item() {
 		global $submenu;
 		// User does not have capabilities to see the submenu.
-		if ( ! current_user_can( 'manage_woocommerce' ) || empty( $submenu['woocommerce'] ) ) {
+		if ( ! current_user_can( 'manage_poocommerce' ) || empty( $submenu['poocommerce'] ) ) {
 			return;
 		}
 
 		$wc_admin_key = null;
-		foreach ( $submenu['woocommerce'] as $submenu_key => $submenu_item ) {
+		foreach ( $submenu['poocommerce'] as $submenu_key => $submenu_item ) {
 			// Our app entry page menu item has no title.
 			if ( is_null( $submenu_item[0] ) && self::APP_ENTRY_POINT === $submenu_item[2] ) {
 				$wc_admin_key = $submenu_key;
@@ -575,7 +575,7 @@ class PageController {
 			return;
 		}
 
-		unset( $submenu['woocommerce'][ $wc_admin_key ] );
+		unset( $submenu['poocommerce'][ $wc_admin_key ] );
 	}
 
 	/**
@@ -623,7 +623,7 @@ class PageController {
 	/**
 	 * Redirect payment tasks to the settings page.
 	 *
-	 * Redirects both 'payments' and 'woocommerce-payments' tasks to the Payments settings page,
+	 * Redirects both 'payments' and 'poocommerce-payments' tasks to the Payments settings page,
 	 * when it is safe to do so in terms of backwards compatibility.
 	 */
 	public function maybe_redirect_payment_tasks_to_settings() {
@@ -632,14 +632,14 @@ class PageController {
 			return;
 		}
 
-		// Bail if we are not requesting a page for a WooCommerce task.
+		// Bail if we are not requesting a page for a PooCommerce task.
 		// phpcs:ignore WordPress.Security.NonceVerification
 		if ( empty( $_GET['task'] ) ) {
 			return;
 		}
 
 		// Only sufficiently capable users should be redirected.
-		if ( ! current_user_can( 'manage_woocommerce' ) ) {
+		if ( ! current_user_can( 'manage_poocommerce' ) ) {
 			return;
 		}
 
@@ -648,14 +648,14 @@ class PageController {
 		$task_id = wc_clean( wp_unslash( $_GET['task'] ) );
 
 		// Bail if the task is not a payments task.
-		if ( ! in_array( $task_id, array( 'payments', 'woocommerce-payments' ), true ) ) {
+		if ( ! in_array( $task_id, array( 'payments', 'poocommerce-payments' ), true ) ) {
 			return;
 		}
 
 		$redirect_url = admin_url( 'admin.php?page=wc-settings&tab=checkout&from=WCADMIN_PAYMENT_TASK' );
 
 		// The WooPayments task is always redirected to the settings page.
-		if ( 'woocommerce-payments' === $task_id ) {
+		if ( 'poocommerce-payments' === $task_id ) {
 			wp_safe_redirect( $redirect_url );
 			exit;
 		}

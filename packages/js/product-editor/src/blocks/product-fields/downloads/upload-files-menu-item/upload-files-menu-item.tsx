@@ -52,10 +52,10 @@ export function UploadFilesMenuItem( {
 					onClick={ openFileDialog }
 					info={ __(
 						'Select files from your device',
-						'woocommerce'
+						'poocommerce'
 					) }
 				>
-					{ __( 'Upload', 'woocommerce' ) }
+					{ __( 'Upload', 'poocommerce' ) }
 				</MenuItem>
 			) }
 		/>

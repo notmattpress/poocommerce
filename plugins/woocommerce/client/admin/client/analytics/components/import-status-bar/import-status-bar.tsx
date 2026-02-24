@@ -5,7 +5,7 @@ import { __ } from '@wordpress/i18n';
 import { dateI18n } from '@wordpress/date';
 import { Button, Spinner } from '@wordpress/components';
 import { useDispatch } from '@wordpress/data';
-import { useSettings } from '@woocommerce/data';
+import { useSettings } from '@poocommerce/data';
 
 /**
  * Internal dependencies
@@ -33,15 +33,15 @@ export function ImportStatusBar(): JSX.Element | null {
 		'wcAdminSettings',
 	] ) as unknown as {
 		wcAdminSettings: {
-			woocommerce_analytics_scheduled_import: 'yes' | 'no';
+			poocommerce_analytics_scheduled_import: 'yes' | 'no';
 		};
 	};
 
 	// Don't render if scheduled import is disabled (immediate mode)
 	// Use the value from the settings hook rather than the status object; accessing settings is faster because they are preloaded.
 	if (
-		! wcAdminSettings?.woocommerce_analytics_scheduled_import ||
-		wcAdminSettings.woocommerce_analytics_scheduled_import === 'no'
+		! wcAdminSettings?.poocommerce_analytics_scheduled_import ||
+		wcAdminSettings.poocommerce_analytics_scheduled_import === 'no'
 	) {
 		return null;
 	}
@@ -54,14 +54,14 @@ export function ImportStatusBar(): JSX.Element | null {
 	 */
 	const formatLastProcessedDate = ( date: string | null ): string => {
 		if ( ! date ) {
-			return __( 'Never', 'woocommerce' );
+			return __( 'Never', 'poocommerce' );
 		}
 		return dateI18n( 'M j H:i', date, undefined );
 	};
 
 	const formatNextScheduledDate = ( date: string | null ): string => {
 		if ( ! date ) {
-			return __( 'Never', 'woocommerce' );
+			return __( 'Never', 'poocommerce' );
 		}
 
 		return dateI18n(
@@ -70,7 +70,7 @@ export function ImportStatusBar(): JSX.Element | null {
 			 * Used to display the next scheduled time for the Analytics import, e.g. "Nov 21 at 12:00".
 			 * "M j" shows the month and day, "at" as literal, "H:i" shows time (24-hour format).
 			 */
-			__( 'M j \\a\\t H:i', 'woocommerce' ),
+			__( 'M j \\a\\t H:i', 'poocommerce' ),
 			date,
 			undefined
 		);
@@ -86,7 +86,7 @@ export function ImportStatusBar(): JSX.Element | null {
 				'success',
 				__(
 					'Analytics import has started. Your store data will be updated soon.',
-					'woocommerce'
+					'poocommerce'
 				),
 				{
 					type: 'snackbar',
@@ -100,7 +100,7 @@ export function ImportStatusBar(): JSX.Element | null {
 					? err.message
 					: __(
 							'Failed to trigger analytics update.',
-							'woocommerce'
+							'poocommerce'
 					  ),
 				{
 					isDismissible: true,
@@ -112,23 +112,23 @@ export function ImportStatusBar(): JSX.Element | null {
 	const isBusy = status?.import_in_progress_or_due || isTriggeringImport;
 
 	return (
-		<div className="woocommerce-analytics-import-status-bar-wrapper">
-			<div className="woocommerce-analytics-import-status-bar-wrapper__label">
-				{ __( 'Data status:', 'woocommerce' ) }
+		<div className="poocommerce-analytics-import-status-bar-wrapper">
+			<div className="poocommerce-analytics-import-status-bar-wrapper__label">
+				{ __( 'Data status:', 'poocommerce' ) }
 			</div>
 			<div
-				className="woocommerce-analytics-import-status-bar"
+				className="poocommerce-analytics-import-status-bar"
 				role="status"
 				aria-live="polite"
 				aria-atomic="true"
 				aria-busy={ isLoading || isTriggeringImport }
 			>
-				<div className="woocommerce-analytics-import-status-bar__content">
-					<span className="woocommerce-analytics-import-status-bar__item">
-						<span className="woocommerce-analytics-import-status-bar__label">
-							{ __( 'Last updated', 'woocommerce' ) }
+				<div className="poocommerce-analytics-import-status-bar__content">
+					<span className="poocommerce-analytics-import-status-bar__item">
+						<span className="poocommerce-analytics-import-status-bar__label">
+							{ __( 'Last updated', 'poocommerce' ) }
 						</span>
-						<span className="woocommerce-analytics-import-status-bar__value">
+						<span className="poocommerce-analytics-import-status-bar__value">
 							{ isLoading ? (
 								<Spinner />
 							) : (
@@ -138,11 +138,11 @@ export function ImportStatusBar(): JSX.Element | null {
 							) }
 						</span>
 					</span>
-					<span className="woocommerce-analytics-import-status-bar__item">
-						<span className="woocommerce-analytics-import-status-bar__label">
-							{ __( 'Next update', 'woocommerce' ) }
+					<span className="poocommerce-analytics-import-status-bar__item">
+						<span className="poocommerce-analytics-import-status-bar__label">
+							{ __( 'Next update', 'poocommerce' ) }
 						</span>
-						<span className="woocommerce-analytics-import-status-bar__value">
+						<span className="poocommerce-analytics-import-status-bar__value">
 							{ isLoading ? (
 								<Spinner />
 							) : (
@@ -158,23 +158,23 @@ export function ImportStatusBar(): JSX.Element | null {
 						disabled={ isLoading || isBusy }
 						aria-disabled={ isLoading || isBusy }
 						aria-busy={ isBusy }
-						className="woocommerce-analytics-import-status-bar__trigger"
+						className="poocommerce-analytics-import-status-bar__trigger"
 						aria-label={
 							isBusy
 								? __(
 										'Analytics data import in progress',
-										'woocommerce'
+										'poocommerce'
 								  )
 								: __(
 										'Manually trigger analytics data import',
-										'woocommerce'
+										'poocommerce'
 								  )
 						}
 					>
 						{ isBusy ? (
 							<Spinner />
 						) : (
-							__( 'Update now', 'woocommerce' )
+							__( 'Update now', 'poocommerce' )
 						) }
 					</Button>
 				</div>

@@ -124,9 +124,9 @@ export default function ItemSelector( { editMode }: ItemSelectorProps ) {
 	};
 
 	return (
-		<ul className="woocommerce-fulfillment-item-list">
+		<ul className="poocommerce-fulfillment-item-list">
 			<li>
-				<div className="woocommerce-fulfillment-item-bulk-select">
+				<div className="poocommerce-fulfillment-item-bulk-select">
 					{ editMode && (
 						<CheckboxControl
 							onChange={ () => {
@@ -144,14 +144,14 @@ export default function ItemSelector( { editMode }: ItemSelectorProps ) {
 							__nextHasNoMarginBottom
 						/>
 					) }
-					<div className="woocommerce-fulfillment-item-bulk-select__label">
+					<div className="poocommerce-fulfillment-item-bulk-select__label">
 						{ sprintf(
 							/* translators: %s: number of selected items */
 							_n(
 								'%s selected',
 								'%s selected',
 								selectedItemsCount,
-								'woocommerce'
+								'poocommerce'
 							),
 							selectedItemsCount
 						) }

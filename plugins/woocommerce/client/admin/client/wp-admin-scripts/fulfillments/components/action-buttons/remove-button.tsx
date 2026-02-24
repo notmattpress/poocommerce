@@ -69,30 +69,30 @@ export default function RemoveButton( {
 				isBusy={ isExecuting }
 				__next40pxDefaultSize
 			>
-				{ __( 'Remove', 'woocommerce' ) }
+				{ __( 'Remove', 'poocommerce' ) }
 			</Button>
 			{ isOpen && (
 				<Modal
-					title={ __( 'Remove fulfillment', 'woocommerce' ) }
+					title={ __( 'Remove fulfillment', 'poocommerce' ) }
 					onRequestClose={ closeModal }
 					size="medium"
 					isDismissible={ false }
-					className="woocommerce-fulfillment-modal"
+					className="poocommerce-fulfillment-modal"
 				>
-					<p className="woocommerce-fulfillment-modal-text">
+					<p className="poocommerce-fulfillment-modal-text">
 						{ __(
 							'Are you sure you want to remove this fulfillment?',
-							'woocommerce'
+							'poocommerce'
 						) }
 					</p>
 					<CustomerNotificationBox type="remove" />
-					<div className="woocommerce-fulfillment-modal-actions">
+					<div className="poocommerce-fulfillment-modal-actions">
 						<Button
 							variant="link"
 							onClick={ closeModal }
 							__next40pxDefaultSize
 						>
-							{ __( 'Cancel', 'woocommerce' ) }
+							{ __( 'Cancel', 'poocommerce' ) }
 						</Button>
 						<Button
 							variant="primary"
@@ -103,7 +103,7 @@ export default function RemoveButton( {
 							isBusy={ isExecuting }
 							__next40pxDefaultSize
 						>
-							{ __( 'Remove fulfillment', 'woocommerce' ) }
+							{ __( 'Remove fulfillment', 'poocommerce' ) }
 						</Button>
 					</div>
 				</Modal>

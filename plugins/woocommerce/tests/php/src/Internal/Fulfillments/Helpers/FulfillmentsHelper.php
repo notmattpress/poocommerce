@@ -1,8 +1,8 @@
 <?php declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Fulfillments\Helpers;
+namespace Automattic\PooCommerce\Tests\Internal\Fulfillments\Helpers;
 
-use Automattic\WooCommerce\Internal\Fulfillments\Fulfillment;
+use Automattic\PooCommerce\Internal\Fulfillments\Fulfillment;
 use WC_Order;
 
 /**

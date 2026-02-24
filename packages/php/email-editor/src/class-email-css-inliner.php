@@ -2,13 +2,13 @@
 /**
  * Email CSS Inliner class file.
  *
- * @package Automattic\WooCommerce\EmailEditor
+ * @package Automattic\PooCommerce\EmailEditor
  */
 
 declare( strict_types = 1 );
-namespace Automattic\WooCommerce\EmailEditor;
+namespace Automattic\PooCommerce\EmailEditor;
 
-use Automattic\WooCommerce\EmailEditor\Engine\Renderer\Css_Inliner;
+use Automattic\PooCommerce\EmailEditor\Engine\Renderer\Css_Inliner;
 
 /**
  * Class for inlining CSS in HTML emails.
@@ -18,7 +18,7 @@ class Email_Css_Inliner implements Css_Inliner {
 	/**
 	 * The CSS inliner instance.
 	 *
-	 * Runtime type: Pelago\Emogrifier\CssInliner | Automattic\WooCommerce\Vendor\Pelago\Emogrifier\CssInliner
+	 * Runtime type: Pelago\Emogrifier\CssInliner | Automattic\PooCommerce\Vendor\Pelago\Emogrifier\CssInliner
 	 * Both classes extend AbstractHtmlProcessor and implement:
 	 * - static fromHtml(string $html): static
 	 * - inlineCss(string $css = ''): self
@@ -75,17 +75,17 @@ class Email_Css_Inliner implements Css_Inliner {
 	 * Get the inliner class.
 	 *
 	 * Returns the fully qualified class name for the available CSS inliner.
-	 * Runtime return type: 'Pelago\Emogrifier\CssInliner' | 'Automattic\WooCommerce\Vendor\Pelago\Emogrifier\CssInliner'
+	 * Runtime return type: 'Pelago\Emogrifier\CssInliner' | 'Automattic\PooCommerce\Vendor\Pelago\Emogrifier\CssInliner'
 	 *
 	 * @return string Fully qualified class name
 	 * @throws \Exception If the inliner class is not found.
 	 */
 	private function get_inliner_class(): string {
-		if ( class_exists( 'Automattic\WooCommerce\Vendor\Pelago\Emogrifier\CssInliner' ) ) {
-			return 'Automattic\WooCommerce\Vendor\Pelago\Emogrifier\CssInliner';
+		if ( class_exists( 'Automattic\PooCommerce\Vendor\Pelago\Emogrifier\CssInliner' ) ) {
+			return 'Automattic\PooCommerce\Vendor\Pelago\Emogrifier\CssInliner';
 		}
-		if ( class_exists( 'Automattic\WooCommerce\EmailEditorVendor\Pelago\Emogrifier\CssInliner' ) ) {
-			return 'Automattic\WooCommerce\EmailEditorVendor\Pelago\Emogrifier\CssInliner';
+		if ( class_exists( 'Automattic\PooCommerce\EmailEditorVendor\Pelago\Emogrifier\CssInliner' ) ) {
+			return 'Automattic\PooCommerce\EmailEditorVendor\Pelago\Emogrifier\CssInliner';
 		}
 		throw new \Exception( 'CssInliner class not found' );
 	}

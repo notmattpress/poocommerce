@@ -8,7 +8,7 @@ import { dispatch } from '@wordpress/data';
  */
 import { triggerExitPageCesSurvey } from '../customer-effort-score-exit-page';
 
-jest.mock( '@woocommerce/data', () => ( {
+jest.mock( '@poocommerce/data', () => ( {
 	optionsStore: 'options',
 } ) );
 jest.mock( '@wordpress/data', () => ( {

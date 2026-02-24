@@ -1,8 +1,8 @@
 <?php
-namespace Automattic\WooCommerce\StoreApi\Utilities;
+namespace Automattic\PooCommerce\StoreApi\Utilities;
 
-use Automattic\WooCommerce\Enums\ProductStockStatus;
-use Automattic\WooCommerce\StoreApi\Utilities\ProductQuery;
+use Automattic\PooCommerce\Enums\ProductStockStatus;
+use Automattic\PooCommerce\StoreApi\Utilities\ProductQuery;
 
 /**
  * Product Query filters class.
@@ -55,7 +55,7 @@ class ProductQueryFilters {
 		global $wpdb;
 		$product_query         = new ProductQuery();
 		$stock_status_options  = array_map( 'esc_sql', array_keys( wc_get_product_stock_status_options() ) );
-		$hide_outofstock_items = get_option( 'woocommerce_hide_out_of_stock_items' );
+		$hide_outofstock_items = get_option( 'poocommerce_hide_out_of_stock_items' );
 		if ( 'yes' === $hide_outofstock_items ) {
 			unset( $stock_status_options[ ProductStockStatus::OUT_OF_STOCK ] );
 		}
@@ -235,7 +235,7 @@ class ProductQueryFilters {
 		// Use FilterData with ProductQuery as QueryClausesGenerator.
 		$container = wc_get_container();
 
-		$filter_data_provider = $container->get( \Automattic\WooCommerce\Internal\ProductFilters\FilterDataProvider::class );
+		$filter_data_provider = $container->get( \Automattic\PooCommerce\Internal\ProductFilters\FilterDataProvider::class );
 		$filter_data          = $filter_data_provider->with( $product_query );
 
 		$all_counts = array();

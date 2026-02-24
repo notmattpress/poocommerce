@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { ProductAttribute } from '@woocommerce/data';
+import { ProductAttribute } from '@poocommerce/data';
 
 /**
  * Internal dependencies

@@ -2,18 +2,18 @@
 /**
  * Setup menus in WP admin.
  *
- * @package WooCommerce\Admin
+ * @package PooCommerce\Admin
  * @version 2.5.0
  */
 
-use Automattic\WooCommerce\Admin\Features\Features;
-use Automattic\WooCommerce\Internal\Admin\Marketplace;
-use Automattic\WooCommerce\Internal\Admin\Orders\COTRedirectionController;
-use Automattic\WooCommerce\Internal\Admin\Orders\PageController as Custom_Orders_PageController;
-use Automattic\WooCommerce\Internal\Admin\Logging\PageController as LoggingPageController;
-use Automattic\WooCommerce\Internal\Admin\Logging\FileV2\{ FileListTable, SearchListTable };
-use Automattic\WooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
-use Automattic\WooCommerce\Utilities\FeaturesUtil;
+use Automattic\PooCommerce\Admin\Features\Features;
+use Automattic\PooCommerce\Internal\Admin\Marketplace;
+use Automattic\PooCommerce\Internal\Admin\Orders\COTRedirectionController;
+use Automattic\PooCommerce\Internal\Admin\Orders\PageController as Custom_Orders_PageController;
+use Automattic\PooCommerce\Internal\Admin\Logging\PageController as LoggingPageController;
+use Automattic\PooCommerce\Internal\Admin\Logging\FileV2\{ FileListTable, SearchListTable };
+use Automattic\PooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
+use Automattic\PooCommerce\Utilities\FeaturesUtil;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -48,14 +48,14 @@ class WC_Admin_Menus {
 		add_action( 'admin_menu', array( $this, 'status_menu' ), 60 );
 
 		/**
-		 * Controls whether we add a submenu item for the WooCommerce Addons page.
+		 * Controls whether we add a submenu item for the PooCommerce Addons page.
 		 * Woo Express uses this filter.
 		 *
 		 * @since 8.2.1
 		 *
 		 * @param bool $show_addons_page If the addons page should be included.
 		 */
-		if ( apply_filters( 'woocommerce_show_addons_page', true ) ) {
+		if ( apply_filters( 'poocommerce_show_addons_page', true ) ) {
 			$container = wc_get_container();
 			$container->get( Marketplace::class );
 
@@ -70,7 +70,7 @@ class WC_Admin_Menus {
 		add_action( 'admin_head-nav-menus.php', array( $this, 'add_nav_menu_meta_boxes' ) );
 
 		// Admin bar menus.
-		if ( apply_filters( 'woocommerce_show_admin_bar_visit_store', true ) ) {
+		if ( apply_filters( 'poocommerce_show_admin_bar_visit_store', true ) ) {
 			add_action( 'admin_bar_menu', array( $this, 'admin_bar_menus' ), 31 );
 		}
 
@@ -86,19 +86,19 @@ class WC_Admin_Menus {
 	public function admin_menu() {
 		global $menu, $admin_page_hooks;
 
-		$woocommerce_icon = 'data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmlld0JveD0iMCAwIDg1LjkgNDcuNiI+CjxwYXRoIGZpbGw9IiNhMmFhYjIiIGQ9Ik03Ny40LDAuMWMtNC4zLDAtNy4xLDEuNC05LjYsNi4xTDU2LjQsMjcuN1Y4LjZjMC01LjctMi43LTguNS03LjctOC41cy03LjEsMS43LTkuNiw2LjVMMjguMywyNy43VjguOAoJYzAtNi4xLTIuNS04LjctOC42LTguN0g3LjNDMi42LDAuMSwwLDIuMywwLDYuM3MyLjUsNi40LDcuMSw2LjRoNS4xdjI0LjFjMCw2LjgsNC42LDEwLjgsMTEuMiwxMC44UzMzLDQ1LDM2LjMsMzguOWw3LjItMTMuNXYxMS40CgljMCw2LjcsNC40LDEwLjgsMTEuMSwxMC44czkuMi0yLjMsMTMtOC43bDE2LjYtMjhjMy42LTYuMSwxLjEtMTAuOC02LjktMTAuOEM3Ny4zLDAuMSw3Ny4zLDAuMSw3Ny40LDAuMXoiLz4KPC9zdmc+Cg==';
+		$poocommerce_icon = 'data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmlld0JveD0iMCAwIDg1LjkgNDcuNiI+CjxwYXRoIGZpbGw9IiNhMmFhYjIiIGQ9Ik03Ny40LDAuMWMtNC4zLDAtNy4xLDEuNC05LjYsNi4xTDU2LjQsMjcuN1Y4LjZjMC01LjctMi43LTguNS03LjctOC41cy03LjEsMS43LTkuNiw2LjVMMjguMywyNy43VjguOAoJYzAtNi4xLTIuNS04LjctOC42LTguN0g3LjNDMi42LDAuMSwwLDIuMywwLDYuM3MyLjUsNi40LDcuMSw2LjRoNS4xdjI0LjFjMCw2LjgsNC42LDEwLjgsMTEuMiwxMC44UzMzLDQ1LDM2LjMsMzguOWw3LjItMTMuNXYxMS40CgljMCw2LjcsNC40LDEwLjgsMTEuMSwxMC44czkuMi0yLjMsMTMtOC43bDE2LjYtMjhjMy42LTYuMSwxLjEtMTAuOC02LjktMTAuOEM3Ny4zLDAuMSw3Ny4zLDAuMSw3Ny40LDAuMXoiLz4KPC9zdmc+Cg==';
 
-		if ( self::can_view_woocommerce_menu_item() ) {
-			$menu[] = array( '', 'read', 'separator-woocommerce', '', 'wp-menu-separator woocommerce' ); // WPCS: override ok.
+		if ( self::can_view_poocommerce_menu_item() ) {
+			$menu[] = array( '', 'read', 'separator-poocommerce', '', 'wp-menu-separator poocommerce' ); // WPCS: override ok.
 		}
 
-		add_menu_page( __( 'WooCommerce', 'woocommerce' ), __( 'WooCommerce', 'woocommerce' ), 'edit_others_shop_orders', 'woocommerce', null, $woocommerce_icon, '55.5' );
+		add_menu_page( __( 'PooCommerce', 'poocommerce' ), __( 'PooCommerce', 'poocommerce' ), 'edit_others_shop_orders', 'poocommerce', null, $poocommerce_icon, '55.5' );
 
-		// Work around https://github.com/woocommerce/woocommerce/issues/35677 (and related https://core.trac.wordpress.org/ticket/18857).
+		// Work around https://github.com/poocommerce/poocommerce/issues/35677 (and related https://core.trac.wordpress.org/ticket/18857).
 		// Translating the menu item breaks screen IDs and page hooks, so we force the hookname to be untranslated.
-		$admin_page_hooks['woocommerce'] = 'woocommerce'; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
+		$admin_page_hooks['poocommerce'] = 'poocommerce'; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 
-		add_submenu_page( 'edit.php?post_type=product', __( 'Attributes', 'woocommerce' ), __( 'Attributes', 'woocommerce' ), 'manage_product_terms', 'product_attributes', array( $this, 'attributes_page' ) );
+		add_submenu_page( 'edit.php?post_type=product', __( 'Attributes', 'poocommerce' ), __( 'Attributes', 'poocommerce' ), 'manage_product_terms', 'product_attributes', array( $this, 'attributes_page' ) );
 	}
 
 	/**
@@ -107,10 +107,10 @@ class WC_Admin_Menus {
 	 * @return void
 	 */
 	public function reports_menu() {
-		if ( self::can_view_woocommerce_menu_item() ) {
-			add_submenu_page( 'woocommerce', __( 'Reports', 'woocommerce' ), __( 'Reports', 'woocommerce' ), 'view_woocommerce_reports', 'wc-reports', array( $this, 'reports_page' ) );
+		if ( self::can_view_poocommerce_menu_item() ) {
+			add_submenu_page( 'poocommerce', __( 'Reports', 'poocommerce' ), __( 'Reports', 'poocommerce' ), 'view_poocommerce_reports', 'wc-reports', array( $this, 'reports_page' ) );
 		} else {
-			add_menu_page( __( 'Sales reports', 'woocommerce' ), __( 'Sales reports', 'woocommerce' ), 'view_woocommerce_reports', 'wc-reports', array( $this, 'reports_page' ), 'dashicons-chart-bar', '55.6' );
+			add_menu_page( __( 'Sales reports', 'poocommerce' ), __( 'Sales reports', 'poocommerce' ), 'view_poocommerce_reports', 'wc-reports', array( $this, 'reports_page' ), 'dashicons-chart-bar', '55.6' );
 		}
 	}
 
@@ -121,10 +121,10 @@ class WC_Admin_Menus {
 	 */
 	public function settings_menu() {
 		$settings_page = add_submenu_page(
-			'woocommerce',
-			__( 'WooCommerce settings', 'woocommerce' ),
-			__( 'Settings', 'woocommerce' ),
-			'manage_woocommerce',
+			'poocommerce',
+			__( 'PooCommerce settings', 'poocommerce' ),
+			__( 'Settings', 'poocommerce' ),
+			'manage_poocommerce',
 			'wc-settings',
 			array( $this, 'settings_page' )
 		);
@@ -133,11 +133,11 @@ class WC_Admin_Menus {
 	}
 
 	/**
-	 * Check if the user can access the top-level WooCommerce item.
+	 * Check if the user can access the top-level PooCommerce item.
 	 *
 	 * @return bool
 	 */
-	public static function can_view_woocommerce_menu_item() {
+	public static function can_view_poocommerce_menu_item() {
 		return current_user_can( 'edit_others_shop_orders' );
 	}
 
@@ -162,7 +162,7 @@ class WC_Admin_Menus {
 			WC_Admin_Settings::add_message( wp_kses_post( wp_unslash( $_GET['wc_message'] ) ) ); // WPCS: input var okay, CSRF ok.
 		}
 
-		do_action( 'woocommerce_settings_page_init' );
+		do_action( 'poocommerce_settings_page_init' );
 	}
 
 	/**
@@ -186,9 +186,9 @@ class WC_Admin_Menus {
 		$current_section = empty( $_REQUEST['section'] ) ? '' : sanitize_title( wp_unslash( $_REQUEST['section'] ) ); // WPCS: input var okay, CSRF ok.
 
 		// Save settings if data has been posted.
-		if ( '' !== $current_section && apply_filters( "woocommerce_save_settings_{$current_tab}_{$current_section}", ! empty( $_POST['save'] ) ) ) { // WPCS: input var okay, CSRF ok.
+		if ( '' !== $current_section && apply_filters( "poocommerce_save_settings_{$current_tab}_{$current_section}", ! empty( $_POST['save'] ) ) ) { // WPCS: input var okay, CSRF ok.
 			WC_Admin_Settings::save();
-		} elseif ( '' === $current_section && apply_filters( "woocommerce_save_settings_{$current_tab}", ! empty( $_POST['save'] ) ) ) { // WPCS: input var okay, CSRF ok.
+		} elseif ( '' === $current_section && apply_filters( "poocommerce_save_settings_{$current_tab}", ! empty( $_POST['save'] ) ) ) { // WPCS: input var okay, CSRF ok.
 			WC_Admin_Settings::save();
 		}
 	}
@@ -199,7 +199,7 @@ class WC_Admin_Menus {
 	 * @return void
 	 */
 	public function status_menu() {
-		$status_page = add_submenu_page( 'woocommerce', __( 'WooCommerce status', 'woocommerce' ), __( 'Status', 'woocommerce' ), 'manage_woocommerce', 'wc-status', array( $this, 'status_page' ) );
+		$status_page = add_submenu_page( 'poocommerce', __( 'PooCommerce status', 'poocommerce' ), __( 'Status', 'poocommerce' ), 'manage_poocommerce', 'wc-status', array( $this, 'status_page' ) );
 
 		add_action(
 			'load-' . $status_page,
@@ -225,20 +225,20 @@ class WC_Admin_Menus {
 
 		$count_html = WC_Helper_Updater::get_updates_count_html();
 		/* translators: %s: extensions count */
-		$menu_title = sprintf( __( 'Extensions %s', 'woocommerce' ), $count_html );
-		add_submenu_page( 'woocommerce', __( 'WooCommerce extensions', 'woocommerce' ), $menu_title, 'manage_woocommerce', 'wc-addons', array( $this, 'addons_page' ) );
+		$menu_title = sprintf( __( 'Extensions %s', 'poocommerce' ), $count_html );
+		add_submenu_page( 'poocommerce', __( 'PooCommerce extensions', 'poocommerce' ), $menu_title, 'manage_poocommerce', 'wc-addons', array( $this, 'addons_page' ) );
 	}
 
 	/**
-	 * Registers the wc-addons page within the WooCommerce menu.
+	 * Registers the wc-addons page within the PooCommerce menu.
 	 * Temporary measure till we convert the whole page to React.
 	 *
 	 * @return void
 	 */
 	public function addons_my_subscriptions() {
-		add_submenu_page( 'woocommerce', __( 'WooCommerce extensions', 'woocommerce' ), null, 'manage_woocommerce', 'wc-addons', array( $this, 'addons_page' ) );
+		add_submenu_page( 'poocommerce', __( 'PooCommerce extensions', 'poocommerce' ), null, 'manage_poocommerce', 'wc-addons', array( $this, 'addons_page' ) );
 		// Temporarily hide the submenu item we've just added.
-		$this->hide_submenu_page( 'woocommerce', 'wc-addons' );
+		$this->hide_submenu_page( 'poocommerce', 'wc-addons' );
 	}
 
 	/**
@@ -252,7 +252,7 @@ class WC_Admin_Menus {
 		switch ( $post_type ) {
 			case 'shop_order':
 			case 'shop_coupon':
-				$parent_file = 'woocommerce'; // WPCS: override ok.
+				$parent_file = 'poocommerce'; // WPCS: override ok.
 				break;
 			case 'product':
 				$screen = get_current_screen();
@@ -272,18 +272,18 @@ class WC_Admin_Menus {
 	public function menu_order_count() {
 		global $submenu;
 
-		if ( isset( $submenu['woocommerce'] ) ) {
-			// Remove 'WooCommerce' sub menu item.
-			unset( $submenu['woocommerce'][0] );
+		if ( isset( $submenu['poocommerce'] ) ) {
+			// Remove 'PooCommerce' sub menu item.
+			unset( $submenu['poocommerce'][0] );
 
 			// Add count if user has access.
-			if ( apply_filters( 'woocommerce_include_processing_order_count_in_menu', true ) && current_user_can( 'edit_others_shop_orders' ) ) {
-				$order_count = apply_filters( 'woocommerce_menu_order_count', wc_processing_order_count() );
+			if ( apply_filters( 'poocommerce_include_processing_order_count_in_menu', true ) && current_user_can( 'edit_others_shop_orders' ) ) {
+				$order_count = apply_filters( 'poocommerce_menu_order_count', wc_processing_order_count() );
 
 				if ( $order_count ) {
-					foreach ( $submenu['woocommerce'] as $key => $menu_item ) {
-						if ( 0 === strpos( $menu_item[0], _x( 'Orders', 'Admin menu name', 'woocommerce' ) ) ) {
-							$submenu['woocommerce'][ $key ][0] .= ' <span class="menu-counter count-' . esc_attr( $order_count ) . '"><span class="processing-count">' . number_format_i18n( $order_count ) . '</span></span>'; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
+					foreach ( $submenu['poocommerce'] as $key => $menu_item ) {
+						if ( 0 === strpos( $menu_item[0], _x( 'Orders', 'Admin menu name', 'poocommerce' ) ) ) {
+							$submenu['poocommerce'][ $key ][0] .= ' <span class="menu-counter count-' . esc_attr( $order_count ) . '"><span class="processing-count">' . number_format_i18n( $order_count ) . '</span></span>'; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 							break;
 						}
 					}
@@ -300,30 +300,30 @@ class WC_Admin_Menus {
 	 */
 	public function menu_order( $menu_order ) {
 		// Initialize our custom order array.
-		$woocommerce_menu_order = array();
+		$poocommerce_menu_order = array();
 
 		// Get the index of our custom separator.
-		$woocommerce_separator = array_search( 'separator-woocommerce', $menu_order, true );
+		$poocommerce_separator = array_search( 'separator-poocommerce', $menu_order, true );
 
 		// Get index of product menu.
-		$woocommerce_product = array_search( 'edit.php?post_type=product', $menu_order, true );
+		$poocommerce_product = array_search( 'edit.php?post_type=product', $menu_order, true );
 
 		// Loop through menu order and do some rearranging.
 		foreach ( $menu_order as $index => $item ) {
 
-			if ( 'woocommerce' === $item ) {
-				$woocommerce_menu_order[] = 'separator-woocommerce';
-				$woocommerce_menu_order[] = $item;
-				$woocommerce_menu_order[] = 'edit.php?post_type=product';
-				unset( $menu_order[ $woocommerce_separator ] );
-				unset( $menu_order[ $woocommerce_product ] );
-			} elseif ( ! in_array( $item, array( 'separator-woocommerce' ), true ) ) {
-				$woocommerce_menu_order[] = $item;
+			if ( 'poocommerce' === $item ) {
+				$poocommerce_menu_order[] = 'separator-poocommerce';
+				$poocommerce_menu_order[] = $item;
+				$poocommerce_menu_order[] = 'edit.php?post_type=product';
+				unset( $menu_order[ $poocommerce_separator ] );
+				unset( $menu_order[ $poocommerce_product ] );
+			} elseif ( ! in_array( $item, array( 'separator-poocommerce' ), true ) ) {
+				$poocommerce_menu_order[] = $item;
 			}
 		}
 
 		// Return order.
-		return $woocommerce_menu_order;
+		return $poocommerce_menu_order;
 	}
 
 	/**
@@ -333,7 +333,7 @@ class WC_Admin_Menus {
 	 * @return bool
 	 */
 	public function custom_menu_order( $enabled ) {
-		return $enabled || self::can_view_woocommerce_menu_item();
+		return $enabled || self::can_view_poocommerce_menu_item();
 	}
 
 	/**
@@ -346,8 +346,8 @@ class WC_Admin_Menus {
 	 */
 	public function set_screen_option( $status, $option, $value ) {
 		$screen_options = array(
-			'woocommerce_keys_per_page',
-			'woocommerce_webhooks_per_page',
+			'poocommerce_keys_per_page',
+			'poocommerce_webhooks_per_page',
 			FileListTable::PER_PAGE_USER_OPTION_KEY,
 			SearchListTable::PER_PAGE_USER_OPTION_KEY,
 			WC_Admin_Log_Table_List::PER_PAGE_USER_OPTION_KEY,
@@ -410,7 +410,7 @@ class WC_Admin_Menus {
 	}
 
 	/**
-	 * Link to the order admin list table from the main WooCommerce menu.
+	 * Link to the order admin list table from the main PooCommerce menu.
 	 *
 	 * @return void
 	 */
@@ -430,7 +430,7 @@ class WC_Admin_Menus {
 	 * @return void
 	 */
 	public function add_nav_menu_meta_boxes() {
-		add_meta_box( 'woocommerce_endpoints_nav_link', __( 'WooCommerce endpoints', 'woocommerce' ), array( $this, 'nav_menu_links' ), 'nav-menus', 'side', 'low' );
+		add_meta_box( 'poocommerce_endpoints_nav_link', __( 'PooCommerce endpoints', 'poocommerce' ), array( $this, 'nav_menu_links' ), 'nav-menus', 'side', 'low' );
 	}
 
 	/**
@@ -447,17 +447,17 @@ class WC_Admin_Menus {
 			unset( $endpoints['dashboard'] );
 		}
 
-		// Include missing lost password endpoint, if set in WooCommerce > Settings > Advanced > Account endpoints.
-		if ( ! empty( get_option( 'woocommerce_myaccount_lost_password_endpoint' ) ) ) {
-			$endpoints['lost-password'] = __( 'Lost password', 'woocommerce' );
+		// Include missing lost password endpoint, if set in PooCommerce > Settings > Advanced > Account endpoints.
+		if ( ! empty( get_option( 'poocommerce_myaccount_lost_password_endpoint' ) ) ) {
+			$endpoints['lost-password'] = __( 'Lost password', 'poocommerce' );
 		}
 
-		$endpoints = apply_filters( 'woocommerce_custom_nav_menu_items', $endpoints );
+		$endpoints = apply_filters( 'poocommerce_custom_nav_menu_items', $endpoints );
 
 		?>
-		<div id="posttype-woocommerce-endpoints" class="posttypediv">
-			<div id="tabs-panel-woocommerce-endpoints" class="tabs-panel tabs-panel-active">
-				<ul id="woocommerce-endpoints-checklist" class="categorychecklist form-no-clear">
+		<div id="posttype-poocommerce-endpoints" class="posttypediv">
+			<div id="tabs-panel-poocommerce-endpoints" class="tabs-panel tabs-panel-active">
+				<ul id="poocommerce-endpoints-checklist" class="categorychecklist form-no-clear">
 					<?php
 					$i = -1;
 					foreach ( $endpoints as $key => $value ) :
@@ -477,15 +477,15 @@ class WC_Admin_Menus {
 					?>
 				</ul>
 			</div>
-			<p class="button-controls" data-items-type="posttype-woocommerce-endpoints">
+			<p class="button-controls" data-items-type="posttype-poocommerce-endpoints">
 				<span class="list-controls">
 					<label>
 						<input type="checkbox" class="select-all" />
-						<?php esc_html_e( 'Select all', 'woocommerce' ); ?>
+						<?php esc_html_e( 'Select all', 'poocommerce' ); ?>
 					</label>
 				</span>
 				<span class="add-to-menu">
-					<button type="submit" class="button-secondary submit-add-to-menu right" value="<?php esc_attr_e( 'Add to menu', 'woocommerce' ); ?>" name="add-post-type-menu-item" id="submit-posttype-woocommerce-endpoints"><?php esc_html_e( 'Add to menu', 'woocommerce' ); ?></button>
+					<button type="submit" class="button-secondary submit-add-to-menu right" value="<?php esc_attr_e( 'Add to menu', 'poocommerce' ); ?>" name="add-post-type-menu-item" id="submit-posttype-poocommerce-endpoints"><?php esc_html_e( 'Add to menu', 'poocommerce' ); ?></button>
 					<span class="spinner"></span>
 				</span>
 			</p>
@@ -520,7 +520,7 @@ class WC_Admin_Menus {
 			array(
 				'parent' => 'site-name',
 				'id'     => 'view-store',
-				'title'  => __( 'Visit Store', 'woocommerce' ),
+				'title'  => __( 'Visit Store', 'poocommerce' ),
 				'href'   => wc_get_page_permalink( 'shop' ),
 			)
 		);

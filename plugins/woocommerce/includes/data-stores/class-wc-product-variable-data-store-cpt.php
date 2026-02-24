@@ -2,13 +2,13 @@
 /**
  * File for WC Variable Product Data Store class.
  *
- * @package WooCommerce\Classes
+ * @package PooCommerce\Classes
  */
 
-use Automattic\WooCommerce\Internal\Caches\ProductVersionStringInvalidator;
-use Automattic\WooCommerce\Enums\ProductStatus;
-use Automattic\WooCommerce\Enums\ProductStockStatus;
-use Automattic\WooCommerce\Utilities\CallbackUtil;
+use Automattic\PooCommerce\Internal\Caches\ProductVersionStringInvalidator;
+use Automattic\PooCommerce\Enums\ProductStatus;
+use Automattic\PooCommerce\Enums\ProductStockStatus;
+use Automattic\PooCommerce\Utilities\CallbackUtil;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -110,7 +110,7 @@ class WC_Product_Variable_Data_Store_CPT extends WC_Product_Data_Store_CPT imple
 				 * @param array                $meta_value The meta value.
 				 * @param WC_Product           $product    The product object.
 				 */
-				$attributes[] = apply_filters( 'woocommerce_product_read_attribute', $attribute, $meta_value, $product );
+				$attributes[] = apply_filters( 'poocommerce_product_read_attribute', $attribute, $meta_value, $product );
 			}
 			$product->set_attributes( $attributes );
 
@@ -176,7 +176,7 @@ class WC_Product_Variable_Data_Store_CPT extends WC_Product_Data_Store_CPT imple
 			$visible_only_args                = $all_args;
 			$visible_only_args['post_status'] = ProductStatus::PUBLISH;
 
-			if ( 'yes' === get_option( 'woocommerce_hide_out_of_stock_items' ) ) {
+			if ( 'yes' === get_option( 'poocommerce_hide_out_of_stock_items' ) ) {
 				$visible_only_args['tax_query'][] = array(
 					'taxonomy' => 'product_visibility',
 					'field'    => 'name',
@@ -194,10 +194,10 @@ class WC_Product_Variable_Data_Store_CPT extends WC_Product_Data_Store_CPT imple
 			 * @param WC_Product $product         The variable product object.
 			 * @param bool       $visible_only    True when retrieving only visible variations, false for all variations.
 			 */
-			$children['all'] = get_posts( apply_filters( 'woocommerce_variable_children_args', $all_args, $product, false ) );
+			$children['all'] = get_posts( apply_filters( 'poocommerce_variable_children_args', $all_args, $product, false ) );
 
-			// phpcs:disable WooCommerce.Commenting.CommentHooks
-			$children['visible'] = get_posts( apply_filters( 'woocommerce_variable_children_args', $visible_only_args, $product, true ) );
+			// phpcs:disable PooCommerce.Commenting.CommentHooks
+			$children['visible'] = get_posts( apply_filters( 'poocommerce_variable_children_args', $visible_only_args, $product, true ) );
 
 			// Validate the children data before storing it in the transient.
 			if ( $this->validate_children_data( $children, $transient_version ) ) {
@@ -293,11 +293,11 @@ class WC_Product_Variable_Data_Store_CPT extends WC_Product_Data_Store_CPT imple
 	/**
 	 * Get an array of all sale and regular prices from all variations. This is used for example when displaying the price range at variable product level or seeing if the variable product is on sale.
 	 *
-	 * Can be filtered by plugins which modify costs, but otherwise will include the raw meta costs unlike get_price() which runs costs through the woocommerce_get_price filter.
+	 * Can be filtered by plugins which modify costs, but otherwise will include the raw meta costs unlike get_price() which runs costs through the poocommerce_get_price filter.
 	 * This is to ensure modified prices are not cached, unless intended.
 	 *
 	 * @param WC_Product $product Product object.
-	 * @param bool       $for_display If true, prices will be adapted for display based on the `woocommerce_tax_display_shop` setting (including or excluding taxes).
+	 * @param bool       $for_display If true, prices will be adapted for display based on the `poocommerce_tax_display_shop` setting (including or excluding taxes).
 	 *
 	 * @return array of prices
 	 * @since  3.0.0
@@ -341,7 +341,7 @@ class WC_Product_Variable_Data_Store_CPT extends WC_Product_Data_Store_CPT imple
 					_prime_post_caches( $variation_ids );
 				}
 
-				$tax_display_mode = $for_display ? get_option( 'woocommerce_tax_display_shop' ) : null;
+				$tax_display_mode = $for_display ? get_option( 'poocommerce_tax_display_shop' ) : null;
 				$price_decimals   = wc_get_price_decimals();
 				foreach ( $variation_ids as $variation_id ) {
 					$variation = wc_get_product( $variation_id );
@@ -352,15 +352,15 @@ class WC_Product_Variable_Data_Store_CPT extends WC_Product_Data_Store_CPT imple
 						 *
 						 * IMPORTANT: If your filter returns a price that varies by ANY factor (e.g., current user,
 						 * time of day, user role, cart contents, etc.), you MUST also hook into the
-						 * 'woocommerce_get_variation_prices_hash' filter to include that factor in the cache key.
+						 * 'poocommerce_get_variation_prices_hash' filter to include that factor in the cache key.
 						 * Otherwise, the wrong price may be cached and displayed to different users or contexts.
 						 *
 						 * Example: Applying a per-user discount and adapting the price hash info accordingly:
 						 *
 						 * class My_Custom_Pricing {
 						 *     public function __construct() {
-						 *         add_filter( 'woocommerce_variation_prices_price', array( $this, 'apply_user_discount' ), 10, 3 );
-						 *         add_filter( 'woocommerce_get_variation_prices_hash', array( $this, 'add_user_to_hash' ), 10, 3 );
+						 *         add_filter( 'poocommerce_variation_prices_price', array( $this, 'apply_user_discount' ), 10, 3 );
+						 *         add_filter( 'poocommerce_get_variation_prices_hash', array( $this, 'add_user_to_hash' ), 10, 3 );
 						 *     }
 						 *
 						 *     public function apply_user_discount( $price, $variation, $product ) {
@@ -379,7 +379,7 @@ class WC_Product_Variable_Data_Store_CPT extends WC_Product_Data_Store_CPT imple
 						 * @param WC_Product    $variation The variation product object.
 						 * @param WC_Product    $product   The parent variable product object.
 						 */
-						$price = apply_filters( 'woocommerce_variation_prices_price', $variation->get_price( 'edit' ), $variation, $product );
+						$price = apply_filters( 'poocommerce_variation_prices_price', $variation->get_price( 'edit' ), $variation, $product );
 
 						// Skip empty prices.
 						if ( '' === $price ) {
@@ -389,7 +389,7 @@ class WC_Product_Variable_Data_Store_CPT extends WC_Product_Data_Store_CPT imple
 						/**
 						 * Filters the regular price for a product variation before it is used in price calculations and caching.
 						 *
-						 * IMPORTANT: see the documentation for the 'woocommerce_variation_prices_price' filter.
+						 * IMPORTANT: see the documentation for the 'poocommerce_variation_prices_price' filter.
 						 *
 						 * @since 3.0.0
 						 *
@@ -397,12 +397,12 @@ class WC_Product_Variable_Data_Store_CPT extends WC_Product_Data_Store_CPT imple
 						 * @param WC_Product    $variation     The variation product object.
 						 * @param WC_Product    $product       The parent variable product object.
 						 */
-						$regular_price = apply_filters( 'woocommerce_variation_prices_regular_price', $variation->get_regular_price( 'edit' ), $variation, $product );
+						$regular_price = apply_filters( 'poocommerce_variation_prices_regular_price', $variation->get_regular_price( 'edit' ), $variation, $product );
 
 						/**
 						 * Filters the sale price for a product variation before it is used in price calculations and caching.
 						 *
-						 * IMPORTANT: see the documentation for the 'woocommerce_variation_prices_price' filter.
+						 * IMPORTANT: see the documentation for the 'poocommerce_variation_prices_price' filter.
 						 *
 						 * @since 3.0.0
 						 *
@@ -410,7 +410,7 @@ class WC_Product_Variable_Data_Store_CPT extends WC_Product_Data_Store_CPT imple
 						 * @param WC_Product    $variation  The variation product object.
 						 * @param WC_Product    $product    The parent variable product object.
 						 */
-						$sale_price = apply_filters( 'woocommerce_variation_prices_sale_price', $variation->get_sale_price( 'edit' ), $variation, $product );
+						$sale_price = apply_filters( 'poocommerce_variation_prices_sale_price', $variation->get_sale_price( 'edit' ), $variation, $product );
 
 						// If sale price does not equal price, the product is not yet on sale.
 						if ( $sale_price === $regular_price || $sale_price !== $price ) {
@@ -470,7 +470,7 @@ class WC_Product_Variable_Data_Store_CPT extends WC_Product_Data_Store_CPT imple
 						$prices_array['regular_price'][ $variation_id ] = wc_format_decimal( $regular_price, $price_decimals );
 						$prices_array['sale_price'][ $variation_id ]    = wc_format_decimal( $sale_price, $price_decimals );
 
-						if ( has_filter( 'woocommerce_variation_prices_array' ) ) {
+						if ( has_filter( 'poocommerce_variation_prices_array' ) ) {
 							$original_prices_array = $prices_array;
 
 							/**
@@ -486,14 +486,14 @@ class WC_Product_Variable_Data_Store_CPT extends WC_Product_Data_Store_CPT imple
 							 * @param WC_Product   $variation    The variation product object.
 							 * @param bool         $for_display  Whether prices are for display (with tax adjustments) or for calculations.
 							 */
-							$prices_array = apply_filters( 'woocommerce_variation_prices_array', $prices_array, $variation, $for_display );
+							$prices_array = apply_filters( 'poocommerce_variation_prices_array', $prices_array, $variation, $for_display );
 							if ( $opposite_price_hash ) {
 								// In principle, we know that prices for display and not for display are the same ones,
-								// but code hooking on woocommerce_variation_prices_array could make this different
+								// but code hooking on poocommerce_variation_prices_array could make this different
 								// so we need to check.
 								$prices_array_hash = md5( wp_json_encode( $prices_array ) );
-								// phpcs:ignore WooCommerce.Commenting.CommentHooks
-								$opposite_prices_array      = apply_filters( 'woocommerce_variation_prices_array', $original_prices_array, $variation, ! $for_display );
+								// phpcs:ignore PooCommerce.Commenting.CommentHooks
+								$opposite_prices_array      = apply_filters( 'poocommerce_variation_prices_array', $original_prices_array, $variation, ! $for_display );
 								$opposite_prices_array_hash = md5( wp_json_encode( $opposite_prices_array ) );
 								if ( $opposite_prices_array_hash !== $prices_array_hash ) {
 									$opposite_price_hash = null;
@@ -536,10 +536,10 @@ class WC_Product_Variable_Data_Store_CPT extends WC_Product_Data_Store_CPT imple
 			 * @param WC_Product $product      The variable product object.
 			 * @param bool       $for_display  Whether prices are being retrieved for display.
 			 */
-			$this->prices_array[ $price_hash ] = apply_filters( 'woocommerce_variation_prices', $transient_cached_prices_array[ $price_hash ], $product, $for_display );
+			$this->prices_array[ $price_hash ] = apply_filters( 'poocommerce_variation_prices', $transient_cached_prices_array[ $price_hash ], $product, $for_display );
 			if ( ! is_null( $opposite_price_hash ) && $opposite_price_hash !== $price_hash ) {
-				// phpcs:ignore WooCommerce.Commenting.CommentHooks
-				$this->prices_array[ $opposite_price_hash ] = apply_filters( 'woocommerce_variation_prices', $transient_cached_prices_array[ $opposite_price_hash ], $product, ! $for_display );
+				// phpcs:ignore PooCommerce.Commenting.CommentHooks
+				$this->prices_array[ $opposite_price_hash ] = apply_filters( 'poocommerce_variation_prices', $transient_cached_prices_array[ $opposite_price_hash ], $product, ! $for_display );
 			}
 		}
 		return $this->prices_array[ $price_hash ];
@@ -584,18 +584,18 @@ class WC_Product_Variable_Data_Store_CPT extends WC_Product_Data_Store_CPT imple
 
 		if ( $for_display && wc_tax_enabled() ) {
 			$price_hash = array(
-				get_option( 'woocommerce_tax_display_shop', 'excl' ),
+				get_option( 'poocommerce_tax_display_shop', 'excl' ),
 				WC_Tax::get_rates(),
 				empty( WC()->customer ) ? false : WC()->customer->is_vat_exempt(),
 			);
 		}
 
-		$filter_names = array( 'woocommerce_variation_prices_price', 'woocommerce_variation_prices_regular_price', 'woocommerce_variation_prices_sale_price' );
+		$filter_names = array( 'poocommerce_variation_prices_price', 'poocommerce_variation_prices_regular_price', 'poocommerce_variation_prices_sale_price' );
 
 		/**
 		 * Filters whether to use the legacy callback serialization algorithm.
 		 *
-		 * By default, WooCommerce will use the legacy algorithm to get the callback signatures
+		 * By default, PooCommerce will use the legacy algorithm to get the callback signatures
 		 * for variation price hash calculation. This algorithm serializes the entire callback
 		 * array as it comes from $wp_filter, which means that for callbacks that are class methods
 		 * the entire object will be serialized, including the current values of the class variables.
@@ -607,7 +607,7 @@ class WC_Product_Variable_Data_Store_CPT extends WC_Product_Data_Store_CPT imple
 		 * class names. This results in a more consistent and reliable price hash, reducing unnecessary
 		 * cache misses; but can cause compatibility issues with plugins that rely on the legacy behavior.
 		 *
-		 * IMPORTANT: see also the documentation for the 'woocommerce_variation_prices_price' filter.
+		 * IMPORTANT: see also the documentation for the 'poocommerce_variation_prices_price' filter.
 		 *
 		 * @since 10.5.0
 		 *
@@ -615,7 +615,7 @@ class WC_Product_Variable_Data_Store_CPT extends WC_Product_Data_Store_CPT imple
 		 * @param WC_Product $product     The product object.
 		 * @param bool       $for_display If taxes should be calculated or not.
 		 */
-		$use_legacy_algorithm = apply_filters( 'woocommerce_use_legacy_get_variations_price_hash', true, $product, $for_display );
+		$use_legacy_algorithm = apply_filters( 'poocommerce_use_legacy_get_variations_price_hash', true, $product, $for_display );
 
 		if ( $use_legacy_algorithm ) {
 			global $wp_filter;
@@ -641,7 +641,7 @@ class WC_Product_Variable_Data_Store_CPT extends WC_Product_Data_Store_CPT imple
 		/**
 		 * Filters the hash used for caching variation prices.
 		 *
-		 * IMPORTANT: see the documentation for the 'woocommerce_variation_prices_price' filter.
+		 * IMPORTANT: see the documentation for the 'poocommerce_variation_prices_price' filter.
 		 *
 		 * @since 2.5.0
 		 *
@@ -649,7 +649,7 @@ class WC_Product_Variable_Data_Store_CPT extends WC_Product_Data_Store_CPT imple
 		 * @param WC_Product $product     The variable product object.
 		 * @param bool       $for_display Whether prices are for display (with tax adjustments) or calculations.
 		 */
-		$price_hash = apply_filters( 'woocommerce_get_variation_prices_hash', $price_hash, $product, $for_display );
+		$price_hash = apply_filters( 'poocommerce_get_variation_prices_hash', $price_hash, $product, $for_display );
 
 		return md5( wp_json_encode( $price_hash ) );
 	}
@@ -729,7 +729,7 @@ class WC_Product_Variable_Data_Store_CPT extends WC_Product_Data_Store_CPT imple
 			$query_in   = '(' . implode( ',', $format ) . ')';
 			$query_args = array( 'stock_status' => $status ) + $children;
 			// phpcs:disable WordPress.DB.PreparedSQL.NotPrepared
-			if ( get_option( 'woocommerce_product_lookup_table_is_generating' ) ) {
+			if ( get_option( 'poocommerce_product_lookup_table_is_generating' ) ) {
 				$query = "SELECT COUNT( post_id ) FROM {$wpdb->postmeta} WHERE meta_key = '_stock_status' AND meta_value = %s AND post_id IN {$query_in}";
 			} else {
 				$query = "SELECT COUNT( product_id ) FROM {$wpdb->wc_product_meta_lookup} WHERE stock_status = %s AND product_id IN {$query_in}";
@@ -867,7 +867,7 @@ class WC_Product_Variable_Data_Store_CPT extends WC_Product_Data_Store_CPT imple
 		 * @since 3.6
 		 * @param int $product_id Product ID that was updated directly.
 		 */
-		do_action( 'woocommerce_updated_product_price', $product->get_id() );
+		do_action( 'poocommerce_updated_product_price', $product->get_id() );
 	}
 
 	/**
@@ -923,7 +923,7 @@ class WC_Product_Variable_Data_Store_CPT extends WC_Product_Data_Store_CPT imple
 					 *
 					 * @param int $variation_id The variation ID being deleted.
 					 */
-					do_action( 'woocommerce_before_delete_product_variation', $variation_id );
+					do_action( 'poocommerce_before_delete_product_variation', $variation_id );
 					wp_delete_post( $variation_id, true );
 
 					/**
@@ -933,7 +933,7 @@ class WC_Product_Variable_Data_Store_CPT extends WC_Product_Data_Store_CPT imple
 					 *
 					 * @param int $variation_id The variation ID that was deleted.
 					 */
-					do_action( 'woocommerce_delete_product_variation', $variation_id );
+					do_action( 'poocommerce_delete_product_variation', $variation_id );
 				} else {
 					wp_trash_post( $variation_id );
 
@@ -944,7 +944,7 @@ class WC_Product_Variable_Data_Store_CPT extends WC_Product_Data_Store_CPT imple
 					 *
 					 * @param int $variation_id The variation ID that was trashed.
 					 */
-					do_action( 'woocommerce_trash_product_variation', $variation_id );
+					do_action( 'poocommerce_trash_product_variation', $variation_id );
 				}
 			}
 		}

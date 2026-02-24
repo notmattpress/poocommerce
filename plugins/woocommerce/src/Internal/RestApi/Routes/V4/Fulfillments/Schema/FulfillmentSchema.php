@@ -2,17 +2,17 @@
 /**
  * FulfillmentSchema class.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\RestApi\Routes\V4\Fulfillments\Schema;
+namespace Automattic\PooCommerce\Internal\RestApi\Routes\V4\Fulfillments\Schema;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Internal\Fulfillments\Fulfillment;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\AbstractSchema;
+use Automattic\PooCommerce\Internal\Fulfillments\Fulfillment;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\AbstractSchema;
 use WP_REST_Request;
 
 /**
@@ -38,46 +38,46 @@ class FulfillmentSchema extends AbstractSchema {
 	public function get_item_schema_properties(): array {
 		return array(
 			'id'           => array(
-				'description' => __( 'Unique identifier for the fulfillment.', 'woocommerce' ),
+				'description' => __( 'Unique identifier for the fulfillment.', 'poocommerce' ),
 				'type'        => 'integer',
 				'context'     => self::VIEW_EDIT_CONTEXT,
 				'readonly'    => true,
 			),
 			'entity_type'  => array(
-				'description' => __( 'The type of entity for which the fulfillment is created.', 'woocommerce' ),
+				'description' => __( 'The type of entity for which the fulfillment is created.', 'poocommerce' ),
 				'type'        => 'string',
 				'required'    => true,
 				'context'     => self::VIEW_EDIT_CONTEXT,
 			),
 			'entity_id'    => array(
-				'description' => __( 'Unique identifier for the entity.', 'woocommerce' ),
+				'description' => __( 'Unique identifier for the entity.', 'poocommerce' ),
 				'type'        => 'string',
 				'required'    => true,
 				'context'     => self::VIEW_EDIT_CONTEXT,
 			),
 			'status'       => array(
-				'description' => __( 'The status of the fulfillment.', 'woocommerce' ),
+				'description' => __( 'The status of the fulfillment.', 'poocommerce' ),
 				'type'        => 'string',
 				'default'     => 'unfulfilled',
 				'required'    => true,
 				'context'     => self::VIEW_EDIT_CONTEXT,
 			),
 			'is_fulfilled' => array(
-				'description' => __( 'Whether the fulfillment is fulfilled.', 'woocommerce' ),
+				'description' => __( 'Whether the fulfillment is fulfilled.', 'poocommerce' ),
 				'type'        => 'boolean',
 				'default'     => false,
 				'required'    => true,
 				'context'     => self::VIEW_EDIT_CONTEXT,
 			),
 			'date_updated' => array(
-				'description' => __( 'The date the fulfillment was last updated.', 'woocommerce' ),
+				'description' => __( 'The date the fulfillment was last updated.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_CONTEXT,
 				'readonly'    => true,
 				'required'    => true,
 			),
 			'date_deleted' => array(
-				'description' => __( 'The date the fulfillment was deleted.', 'woocommerce' ),
+				'description' => __( 'The date the fulfillment was deleted.', 'poocommerce' ),
 				'anyOf'       => array(
 					array(
 						'type' => 'string',
@@ -92,26 +92,26 @@ class FulfillmentSchema extends AbstractSchema {
 				'required'    => true,
 			),
 			'meta_data'    => array(
-				'description' => __( 'Meta data for the fulfillment.', 'woocommerce' ),
+				'description' => __( 'Meta data for the fulfillment.', 'poocommerce' ),
 				'type'        => 'array',
 				'required'    => true,
 				'items'       => array(
 					'type'       => 'object',
 					'properties' => array(
 						'id'    => array(
-							'description' => __( 'The unique identifier for the meta data. Set `0` for new records.', 'woocommerce' ),
+							'description' => __( 'The unique identifier for the meta data. Set `0` for new records.', 'poocommerce' ),
 							'type'        => 'integer',
 							'context'     => self::VIEW_EDIT_CONTEXT,
 							'readonly'    => true,
 						),
 						'key'   => array(
-							'description' => __( 'The key of the meta data.', 'woocommerce' ),
+							'description' => __( 'The key of the meta data.', 'poocommerce' ),
 							'type'        => 'string',
 							'required'    => true,
 							'context'     => self::VIEW_EDIT_CONTEXT,
 						),
 						'value' => array(
-							'description' => __( 'The value of the meta data.', 'woocommerce' ),
+							'description' => __( 'The value of the meta data.', 'poocommerce' ),
 							'type'        => array( 'string', 'number', 'boolean', 'object', 'array', 'null' ),
 							'required'    => true,
 							'context'     => self::VIEW_EDIT_CONTEXT,

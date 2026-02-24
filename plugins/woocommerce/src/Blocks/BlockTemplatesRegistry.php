@@ -1,29 +1,29 @@
 <?php
 declare( strict_types=1 );
-namespace Automattic\WooCommerce\Blocks;
+namespace Automattic\PooCommerce\Blocks;
 
-use Automattic\WooCommerce\Admin\Features\Features;
-use Automattic\WooCommerce\Blocks\Utils\BlockTemplateUtils;
-use Automattic\WooCommerce\Blocks\Templates\AbstractTemplate;
-use Automattic\WooCommerce\Blocks\Templates\AbstractTemplatePart;
-use Automattic\WooCommerce\Blocks\Templates\MiniCartTemplate;
-use Automattic\WooCommerce\Blocks\Templates\CartTemplate;
-use Automattic\WooCommerce\Blocks\Templates\CheckoutTemplate;
-use Automattic\WooCommerce\Blocks\Templates\CheckoutHeaderTemplate;
-use Automattic\WooCommerce\Blocks\Templates\ComingSoonTemplate;
-use Automattic\WooCommerce\Blocks\Templates\OrderConfirmationTemplate;
-use Automattic\WooCommerce\Blocks\Templates\ProductAttributeTemplate;
-use Automattic\WooCommerce\Blocks\Templates\ProductBrandTemplate;
-use Automattic\WooCommerce\Blocks\Templates\ProductCatalogTemplate;
-use Automattic\WooCommerce\Blocks\Templates\ProductCategoryTemplate;
-use Automattic\WooCommerce\Blocks\Templates\ProductTagTemplate;
-use Automattic\WooCommerce\Blocks\Templates\ProductSearchResultsTemplate;
-use Automattic\WooCommerce\Blocks\Templates\SingleProductTemplate;
-use Automattic\WooCommerce\Blocks\Templates\SimpleProductAddToCartWithOptionsTemplate;
-use Automattic\WooCommerce\Blocks\Templates\ExternalProductAddToCartWithOptionsTemplate;
-use Automattic\WooCommerce\Blocks\Templates\VariableProductAddToCartWithOptionsTemplate;
-use Automattic\WooCommerce\Blocks\Templates\GroupedProductAddToCartWithOptionsTemplate;
-use Automattic\WooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Admin\Features\Features;
+use Automattic\PooCommerce\Blocks\Utils\BlockTemplateUtils;
+use Automattic\PooCommerce\Blocks\Templates\AbstractTemplate;
+use Automattic\PooCommerce\Blocks\Templates\AbstractTemplatePart;
+use Automattic\PooCommerce\Blocks\Templates\MiniCartTemplate;
+use Automattic\PooCommerce\Blocks\Templates\CartTemplate;
+use Automattic\PooCommerce\Blocks\Templates\CheckoutTemplate;
+use Automattic\PooCommerce\Blocks\Templates\CheckoutHeaderTemplate;
+use Automattic\PooCommerce\Blocks\Templates\ComingSoonTemplate;
+use Automattic\PooCommerce\Blocks\Templates\OrderConfirmationTemplate;
+use Automattic\PooCommerce\Blocks\Templates\ProductAttributeTemplate;
+use Automattic\PooCommerce\Blocks\Templates\ProductBrandTemplate;
+use Automattic\PooCommerce\Blocks\Templates\ProductCatalogTemplate;
+use Automattic\PooCommerce\Blocks\Templates\ProductCategoryTemplate;
+use Automattic\PooCommerce\Blocks\Templates\ProductTagTemplate;
+use Automattic\PooCommerce\Blocks\Templates\ProductSearchResultsTemplate;
+use Automattic\PooCommerce\Blocks\Templates\SingleProductTemplate;
+use Automattic\PooCommerce\Blocks\Templates\SimpleProductAddToCartWithOptionsTemplate;
+use Automattic\PooCommerce\Blocks\Templates\ExternalProductAddToCartWithOptionsTemplate;
+use Automattic\PooCommerce\Blocks\Templates\VariableProductAddToCartWithOptionsTemplate;
+use Automattic\PooCommerce\Blocks\Templates\GroupedProductAddToCartWithOptionsTemplate;
+use Automattic\PooCommerce\Enums\ProductType;
 
 /**
  * BlockTemplatesRegistry class.
@@ -99,7 +99,7 @@ class BlockTemplatesRegistry {
 				$directory          = BlockTemplateUtils::get_templates_directory( 'wp_template' );
 				$template_file_path = $directory . '/' . $template::SLUG . '.html';
 				register_block_template(
-					'woocommerce//' . $template::SLUG,
+					'poocommerce//' . $template::SLUG,
 					array(
 						'title'       => $template->get_template_title(),
 						'description' => $template->get_template_description(),
@@ -126,8 +126,8 @@ class BlockTemplatesRegistry {
 	public function register_add_to_cart_with_options_template_part_area( $default_area_definitions ) {
 		$add_to_cart_with_options_template_part_area = array(
 			'area'        => 'add-to-cart-with-options',
-			'label'       => __( 'Add to Cart + Options', 'woocommerce' ),
-			'description' => __( 'The Add to Cart + Options templates allow defining a different layout for each product type.', 'woocommerce' ),
+			'label'       => __( 'Add to Cart + Options', 'poocommerce' ),
+			'description' => __( 'The Add to Cart + Options templates allow defining a different layout for each product type.', 'poocommerce' ),
 			'icon'        => 'add-to-cart-with-options',
 			'area_tag'    => 'add-to-cart-with-options',
 		);

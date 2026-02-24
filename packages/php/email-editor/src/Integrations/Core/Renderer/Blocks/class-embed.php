@@ -1,18 +1,18 @@
 <?php
 /**
- * This file is part of the WooCommerce Email Editor package
+ * This file is part of the PooCommerce Email Editor package
  *
- * @package Automattic\WooCommerce\EmailEditor
+ * @package Automattic\PooCommerce\EmailEditor
  */
 
 declare( strict_types = 1 );
-namespace Automattic\WooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks;
+namespace Automattic\PooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks;
 
-use Automattic\WooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Rendering_Context;
-use Automattic\WooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks\Audio;
-use Automattic\WooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks\Video;
-use Automattic\WooCommerce\EmailEditor\Integrations\Utils\Dom_Document_Helper;
-use Automattic\WooCommerce\EmailEditor\Integrations\Utils\Html_Processing_Helper;
+use Automattic\PooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Rendering_Context;
+use Automattic\PooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks\Audio;
+use Automattic\PooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks\Video;
+use Automattic\PooCommerce\EmailEditor\Integrations\Utils\Dom_Document_Helper;
+use Automattic\PooCommerce\EmailEditor\Integrations\Utils\Html_Processing_Helper;
 
 /**
  * Embed block renderer.
@@ -139,7 +139,7 @@ class Embed extends Abstract_Block_Renderer {
 	public function render( string $block_content, array $parsed_block, Rendering_Context $rendering_context ): string {
 		// Validate input parameters and required dependencies.
 		if ( ! isset( $parsed_block['attrs'] ) || ! is_array( $parsed_block['attrs'] ) ||
-			! class_exists( '\Automattic\WooCommerce\EmailEditor\Integrations\Utils\Table_Wrapper_Helper' ) ) {
+			! class_exists( '\Automattic\PooCommerce\EmailEditor\Integrations\Utils\Table_Wrapper_Helper' ) ) {
 			return '';
 		}
 
@@ -315,21 +315,21 @@ class Embed extends Abstract_Block_Renderer {
 	private function get_translated_provider_label( string $provider ): string {
 		switch ( $provider ) {
 			case 'spotify':
-				return __( 'Listen on Spotify', 'woocommerce' );
+				return __( 'Listen on Spotify', 'poocommerce' );
 			case 'soundcloud':
-				return __( 'Listen on SoundCloud', 'woocommerce' );
+				return __( 'Listen on SoundCloud', 'poocommerce' );
 			case 'pocket-casts':
-				return __( 'Listen on Pocket Casts', 'woocommerce' );
+				return __( 'Listen on Pocket Casts', 'poocommerce' );
 			case 'mixcloud':
-				return __( 'Listen on Mixcloud', 'woocommerce' );
+				return __( 'Listen on Mixcloud', 'poocommerce' );
 			case 'reverbnation':
-				return __( 'Listen on ReverbNation', 'woocommerce' );
+				return __( 'Listen on ReverbNation', 'poocommerce' );
 			case 'youtube':
-				return __( 'Watch on YouTube', 'woocommerce' );
+				return __( 'Watch on YouTube', 'poocommerce' );
 			case 'videopress':
-				return __( 'Watch on VideoPress', 'woocommerce' );
+				return __( 'Watch on VideoPress', 'poocommerce' );
 			default:
-				return __( 'Listen to the audio', 'woocommerce' );
+				return __( 'Listen to the audio', 'poocommerce' );
 		}
 	}
 

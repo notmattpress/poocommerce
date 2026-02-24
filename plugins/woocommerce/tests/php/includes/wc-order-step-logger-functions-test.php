@@ -2,7 +2,7 @@
 /**
  * Unit tests for wc-order-step-logger-functions.php.
  *
- * @package WooCommerce\Tests\Functions
+ * @package PooCommerce\Tests\Functions
  */
 
 declare(strict_types=1);
@@ -45,7 +45,7 @@ class WC_Order_Step_Logger_Functions_Test extends \WC_Unit_Test_Case {
 		Constants::clear_single_constant( 'WC_LOG_THRESHOLD' );
 
 		// Reset logging settings.
-		delete_option( 'woocommerce_logs_level_threshold' );
+		delete_option( 'poocommerce_logs_level_threshold' );
 
 		// Restore the original REQUEST_METHOD.
 		if ( null === $this->original_request_method ) {
@@ -61,7 +61,7 @@ class WC_Order_Step_Logger_Functions_Test extends \WC_Unit_Test_Case {
 	 * Clean up log files created during tests.
 	 */
 	private function clean_up_log_files(): void {
-		$log_dir = \Automattic\WooCommerce\Utilities\LoggingUtil::get_log_directory();
+		$log_dir = \Automattic\PooCommerce\Utilities\LoggingUtil::get_log_directory();
 
 		if ( is_dir( $log_dir ) ) {
 			$files = glob( $log_dir . 'place-order-debug-*.log' );
@@ -81,7 +81,7 @@ class WC_Order_Step_Logger_Functions_Test extends \WC_Unit_Test_Case {
 	 * @return array Array of log file paths.
 	 */
 	private function get_log_files(): array {
-		$log_dir = \Automattic\WooCommerce\Utilities\LoggingUtil::get_log_directory();
+		$log_dir = \Automattic\PooCommerce\Utilities\LoggingUtil::get_log_directory();
 
 		$files = glob( $log_dir . 'place-order-debug-*.log' );
 		return $files ? $files : array();
@@ -185,7 +185,7 @@ class WC_Order_Step_Logger_Functions_Test extends \WC_Unit_Test_Case {
 	 */
 	public function test_wc_log_order_step_respects_option_level_threshold(): void {
 		// Set the logging level to ERROR via option (not constant).
-		update_option( 'woocommerce_logs_level_threshold', WC_Log_Levels::ERROR );
+		update_option( 'poocommerce_logs_level_threshold', WC_Log_Levels::ERROR );
 
 		// Create an order for testing.
 		$order = WC_Helper_Order::create_order();

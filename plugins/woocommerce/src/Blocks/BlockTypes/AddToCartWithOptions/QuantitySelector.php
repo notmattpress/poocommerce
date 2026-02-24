@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes\AddToCartWithOptions;
+namespace Automattic\PooCommerce\Blocks\BlockTypes\AddToCartWithOptions;
 
-use Automattic\WooCommerce\Blocks\BlockTypes\AbstractBlock;
-use Automattic\WooCommerce\Blocks\BlockTypes\EnableBlockJsonAssetsTrait;
-use Automattic\WooCommerce\Blocks\BlockTypes\AddToCartWithOptions\Utils as AddToCartWithOptionsUtils;
-use Automattic\WooCommerce\Blocks\Utils\StyleAttributesUtils;
-use Automattic\WooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Blocks\BlockTypes\AbstractBlock;
+use Automattic\PooCommerce\Blocks\BlockTypes\EnableBlockJsonAssetsTrait;
+use Automattic\PooCommerce\Blocks\BlockTypes\AddToCartWithOptions\Utils as AddToCartWithOptionsUtils;
+use Automattic\PooCommerce\Blocks\Utils\StyleAttributesUtils;
+use Automattic\PooCommerce\Enums\ProductType;
 
 /**
  * Block type for quantity selector in add to cart with options.
@@ -76,7 +76,7 @@ class QuantitySelector extends AbstractBlock {
 
 		ob_start();
 
-		woocommerce_quantity_input(
+		poocommerce_quantity_input(
 			array(
 				'min_value'   => $product->get_min_purchase_quantity(),
 				'max_value'   => $product->get_max_purchase_quantity(),
@@ -116,7 +116,7 @@ class QuantitySelector extends AbstractBlock {
 		$product_quantity_constraints = AddToCartWithOptionsUtils::get_product_quantity_constraints( $product );
 
 		wp_interactivity_config(
-			'woocommerce',
+			'poocommerce',
 			array(
 				'products' => array(
 					$product->get_id() => array(
@@ -129,7 +129,7 @@ class QuantitySelector extends AbstractBlock {
 		);
 
 		if ( $product->is_type( ProductType::VARIABLE ) ) {
-			wp_enqueue_script_module( 'woocommerce/product-elements' );
+			wp_enqueue_script_module( 'poocommerce/product-elements' );
 
 			$variations_data           = $product->get_available_variations( 'objects' );
 			$formatted_variations_data = array();
@@ -154,7 +154,7 @@ class QuantitySelector extends AbstractBlock {
 			}
 
 			wp_interactivity_config(
-				'woocommerce',
+				'poocommerce',
 				array(
 					'products' => array(
 						$product->get_id() => array(
@@ -164,11 +164,11 @@ class QuantitySelector extends AbstractBlock {
 				)
 			);
 
-			$wrapper_attributes['data-wp-bind--hidden'] = 'woocommerce/add-to-cart-with-options-quantity-selector::!state.allowsQuantityChange';
-			$input_attributes['data-wp-bind--min']      = 'woocommerce/product-elements::state.productData.min';
-			$input_attributes['data-wp-bind--max']      = 'woocommerce/product-elements::state.productData.max';
-			$input_attributes['data-wp-bind--step']     = 'woocommerce/product-elements::state.productData.step';
-			$input_attributes['data-wp-watch']          = 'woocommerce/add-to-cart-with-options::callbacks.watchQuantityConstraints';
+			$wrapper_attributes['data-wp-bind--hidden'] = 'poocommerce/add-to-cart-with-options-quantity-selector::!state.allowsQuantityChange';
+			$input_attributes['data-wp-bind--min']      = 'poocommerce/product-elements::state.productData.min';
+			$input_attributes['data-wp-bind--max']      = 'poocommerce/product-elements::state.productData.max';
+			$input_attributes['data-wp-bind--step']     = 'poocommerce/product-elements::state.productData.step';
+			$input_attributes['data-wp-watch']          = 'poocommerce/add-to-cart-with-options::callbacks.watchQuantityConstraints';
 		}
 
 		$form = AddToCartWithOptionsUtils::make_quantity_input_interactive( $product_html, $wrapper_attributes, $input_attributes );

@@ -1,18 +1,18 @@
 <?php
 /**
- * WooCommerce Cart Functions
+ * PooCommerce Cart Functions
  *
  * Functions for cart specific things.
  *
- * @package WooCommerce\Functions
+ * @package PooCommerce\Functions
  * @version 2.5.0
  */
 
 use Automattic\Jetpack\Constants;
-use Automattic\WooCommerce\Blocks\Utils\CartCheckoutUtils;
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Enums\ProductType;
-use Automattic\WooCommerce\StoreApi\Utilities\LocalPickupUtils;
+use Automattic\PooCommerce\Blocks\Utils\CartCheckoutUtils;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\StoreApi\Utilities\LocalPickupUtils;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -26,11 +26,11 @@ defined( 'ABSPATH' ) || exit;
 function wc_protected_product_add_to_cart( $passed, $product_id ) {
 	if ( post_password_required( $product_id ) ) {
 		$passed = false;
-		wc_add_notice( __( 'This product is protected and cannot be purchased.', 'woocommerce' ), 'error' );
+		wc_add_notice( __( 'This product is protected and cannot be purchased.', 'poocommerce' ), 'error' );
 	}
 	return $passed;
 }
-add_filter( 'woocommerce_add_to_cart_validation', 'wc_protected_product_add_to_cart', 10, 2 );
+add_filter( 'poocommerce_add_to_cart_validation', 'wc_protected_product_add_to_cart', 10, 2 );
 
 /**
  * Clears the cart session when called.
@@ -95,7 +95,7 @@ function wc_add_to_cart_message( $products, $show_qty = false, $return = false )
 		 * @param string $qty_html The quantity HTML.
 		 * @param int    $product_id The product ID.
 		 */
-		$title = apply_filters( 'woocommerce_add_to_cart_qty_html', ( 1 !== $qty ? wc_stock_amount( $qty ) . ' &times; ' : '' ), $product_id );
+		$title = apply_filters( 'poocommerce_add_to_cart_qty_html', ( 1 !== $qty ? wc_stock_amount( $qty ) . ' &times; ' : '' ), $product_id );
 
 		/**
 		 * Filters the item name in quotes for the add to cart message.
@@ -105,10 +105,10 @@ function wc_add_to_cart_message( $products, $show_qty = false, $return = false )
 		 * @param int    $product_id The product ID.
 		 */
 		$title .= apply_filters(
-			'woocommerce_add_to_cart_item_name_in_quotes',
+			'poocommerce_add_to_cart_item_name_in_quotes',
 			sprintf(
 				/* translators: %s: product name */
-				_x( '&ldquo;%s&rdquo;', 'Item name in quotes', 'woocommerce' ),
+				_x( '&ldquo;%s&rdquo;', 'Item name in quotes', 'poocommerce' ),
 				wp_strip_all_tags( get_the_title( $product_id ) )
 			),
 			$product_id
@@ -120,17 +120,17 @@ function wc_add_to_cart_message( $products, $show_qty = false, $return = false )
 
 	$titles = array_filter( $titles );
 	/* translators: %s: product name */
-	$added_text = sprintf( _n( '%s has been added to your cart.', '%s have been added to your cart.', $count, 'woocommerce' ), wc_format_list_of_items( $titles ) );
+	$added_text = sprintf( _n( '%s has been added to your cart.', '%s have been added to your cart.', $count, 'poocommerce' ), wc_format_list_of_items( $titles ) );
 
 	// Output success messages.
 	$wp_button_class = wc_wp_theme_get_element_class_name( 'button' ) ? ' ' . wc_wp_theme_get_element_class_name( 'button' ) : '';
-	if ( 'yes' === get_option( 'woocommerce_cart_redirect_after_add' ) ) {
-		$return_to = apply_filters( 'woocommerce_continue_shopping_redirect', wc_get_raw_referer() ? wp_validate_redirect( wc_get_raw_referer(), false ) : wc_get_page_permalink( 'shop' ) );
-		$message   = sprintf( '%s <a href="%s" class="button wc-forward%s">%s</a>', esc_html( $added_text ), esc_url( $return_to ), esc_attr( $wp_button_class ), esc_html__( 'Continue shopping', 'woocommerce' ) );
+	if ( 'yes' === get_option( 'poocommerce_cart_redirect_after_add' ) ) {
+		$return_to = apply_filters( 'poocommerce_continue_shopping_redirect', wc_get_raw_referer() ? wp_validate_redirect( wc_get_raw_referer(), false ) : wc_get_page_permalink( 'shop' ) );
+		$message   = sprintf( '%s <a href="%s" class="button wc-forward%s">%s</a>', esc_html( $added_text ), esc_url( $return_to ), esc_attr( $wp_button_class ), esc_html__( 'Continue shopping', 'poocommerce' ) );
 	} elseif ( ! CartCheckoutUtils::has_cart_page() ) {
 		$message = sprintf( '%s', esc_html( $added_text ) );
 	} else {
-		$message = sprintf( '%s <a href="%s" class="button wc-forward%s">%s</a>', esc_html( $added_text ), esc_url( wc_get_cart_url() ), esc_attr( $wp_button_class ), esc_html__( 'View cart', 'woocommerce' ) );
+		$message = sprintf( '%s <a href="%s" class="button wc-forward%s">%s</a>', esc_html( $added_text ), esc_url( wc_get_cart_url() ), esc_attr( $wp_button_class ), esc_html__( 'View cart', 'poocommerce' ) );
 	}
 
 	if ( has_filter( 'wc_add_to_cart_message' ) ) {
@@ -143,7 +143,7 @@ function wc_add_to_cart_message( $products, $show_qty = false, $return = false )
 	if ( $return ) {
 		return $message;
 	} else {
-		wc_add_notice( $message, apply_filters( 'woocommerce_add_to_cart_notice_type', 'success' ) );
+		wc_add_notice( $message, apply_filters( 'poocommerce_add_to_cart_notice_type', 'success' ) );
 	}
 }
 
@@ -160,7 +160,7 @@ function wc_format_list_of_items( $items ) {
 		$item_string .= $item;
 
 		if ( count( $items ) === $key + 2 ) {
-			$item_string .= ' ' . __( 'and', 'woocommerce' ) . ' ';
+			$item_string .= ' ' . __( 'and', 'poocommerce' ) . ' ';
 		} elseif ( count( $items ) !== $key + 1 ) {
 			$item_string .= ', ';
 		}
@@ -216,7 +216,7 @@ function wc_clear_cart_after_payment() {
 	 * @since 9.3.0
 	 * @param bool $should_clear_cart_after_payment Whether the cart should be cleared after payment.
 	 */
-	$should_clear_cart_after_payment = apply_filters( 'woocommerce_should_clear_cart_after_payment', $should_clear_cart_after_payment );
+	$should_clear_cart_after_payment = apply_filters( 'poocommerce_should_clear_cart_after_payment', $should_clear_cart_after_payment );
 
 	if ( $should_clear_cart_after_payment ) {
 		WC()->cart->empty_cart();
@@ -246,7 +246,7 @@ function wc_cart_totals_shipping_html() {
 			foreach ( $package['contents'] as $item_id => $values ) {
 				$product_names[ $item_id ] = $values['data']->get_name() . ' &times;' . $values['quantity'];
 			}
-			$product_names = apply_filters( 'woocommerce_shipping_package_details_array', $product_names, $package );
+			$product_names = apply_filters( 'poocommerce_shipping_package_details_array', $product_names, $package );
 		}
 
 		wc_get_template(
@@ -255,7 +255,7 @@ function wc_cart_totals_shipping_html() {
 				'package'                  => $package,
 				'available_methods'        => $package['rates'],
 				'show_package_details'     => count( $packages ) > 1,
-				'show_shipping_calculator' => is_cart() && apply_filters( 'woocommerce_shipping_show_shipping_calculator', $first, $i, $package ),
+				'show_shipping_calculator' => is_cart() && apply_filters( 'poocommerce_shipping_show_shipping_calculator', $first, $i, $package ),
 				'package_details'          => implode( ', ', $product_names ),
 				'package_name'             => $package['package_name'],
 				'index'                    => $i,
@@ -273,7 +273,7 @@ function wc_cart_totals_shipping_html() {
  * Get taxes total.
  */
 function wc_cart_totals_taxes_total_html() {
-	echo apply_filters( 'woocommerce_cart_totals_taxes_total_html', wc_price( WC()->cart->get_taxes_total() ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+	echo apply_filters( 'poocommerce_cart_totals_taxes_total_html', wc_price( WC()->cart->get_taxes_total() ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 }
 
 /**
@@ -290,7 +290,7 @@ function wc_cart_totals_coupon_label( $coupon, $echo = true ) {
 	}
 
 	/* translators: %s: coupon code */
-	$label = apply_filters( 'woocommerce_cart_totals_coupon_label', sprintf( esc_html__( 'Coupon: %s', 'woocommerce' ), $coupon->get_code() ), $coupon );
+	$label = apply_filters( 'poocommerce_cart_totals_coupon_label', sprintf( esc_html__( 'Coupon: %s', 'poocommerce' ), $coupon->get_code() ), $coupon );
 
 	if ( $echo ) {
 		echo $label; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -313,14 +313,14 @@ function wc_cart_totals_coupon_html( $coupon ) {
 	$discount_amount_html = '-' . wc_price( $amount );
 
 	if ( $coupon->get_free_shipping() && empty( $amount ) ) {
-		$discount_amount_html = __( 'Free shipping coupon', 'woocommerce' );
+		$discount_amount_html = __( 'Free shipping coupon', 'poocommerce' );
 	}
 
-	$discount_amount_html = apply_filters( 'woocommerce_coupon_discount_amount_html', $discount_amount_html, $coupon );
+	$discount_amount_html = apply_filters( 'poocommerce_coupon_discount_amount_html', $discount_amount_html, $coupon );
 	// translators: %s: coupon code.
-	$coupon_html = $discount_amount_html . ' <a role="button" aria-label="' . esc_attr( sprintf( __( 'Remove %s coupon', 'woocommerce' ), $coupon->get_code() ) ) . '" href="' . esc_url( add_query_arg( 'remove_coupon', rawurlencode( $coupon->get_code() ), Constants::is_defined( 'WOOCOMMERCE_CHECKOUT' ) ? wc_get_checkout_url() : wc_get_cart_url() ) ) . '" class="woocommerce-remove-coupon" data-coupon="' . esc_attr( $coupon->get_code() ) . '">' . __( '[Remove]', 'woocommerce' ) . '</a>';
+	$coupon_html = $discount_amount_html . ' <a role="button" aria-label="' . esc_attr( sprintf( __( 'Remove %s coupon', 'poocommerce' ), $coupon->get_code() ) ) . '" href="' . esc_url( add_query_arg( 'remove_coupon', rawurlencode( $coupon->get_code() ), Constants::is_defined( 'WOOCOMMERCE_CHECKOUT' ) ? wc_get_checkout_url() : wc_get_cart_url() ) ) . '" class="poocommerce-remove-coupon" data-coupon="' . esc_attr( $coupon->get_code() ) . '">' . __( '[Remove]', 'poocommerce' ) . '</a>';
 
-	echo wp_kses( apply_filters( 'woocommerce_cart_totals_coupon_html', $coupon_html, $coupon, $discount_amount_html ), array_replace_recursive( wp_kses_allowed_html( 'post' ), array( 'a' => array( 'data-coupon' => true ) ) ) ); // phpcs:ignore PHPCompatibility.PHP.NewFunctions.array_replace_recursiveFound
+	echo wp_kses( apply_filters( 'poocommerce_cart_totals_coupon_html', $coupon_html, $coupon, $discount_amount_html ), array_replace_recursive( wp_kses_allowed_html( 'post' ), array( 'a' => array( 'data-coupon' => true ) ) ) ); // phpcs:ignore PHPCompatibility.PHP.NewFunctions.array_replace_recursiveFound
 }
 
 /**
@@ -334,7 +334,7 @@ function wc_cart_totals_order_total_html() {
 		$tax_string_array = array();
 		$cart_tax_totals  = WC()->cart->get_tax_totals();
 
-		if ( get_option( 'woocommerce_tax_total_display' ) === 'itemized' ) {
+		if ( get_option( 'poocommerce_tax_total_display' ) === 'itemized' ) {
 			foreach ( $cart_tax_totals as $code => $tax ) {
 				$tax_string_array[] = sprintf( '%s %s', $tax->formatted_amount, $tax->label );
 			}
@@ -347,17 +347,17 @@ function wc_cart_totals_order_total_html() {
 			if ( WC()->customer->is_customer_outside_base() && ! WC()->customer->has_calculated_shipping() ) {
 				$country = WC()->countries->estimated_for_prefix( $taxable_address[0] ) . WC()->countries->countries[ $taxable_address[0] ];
 				/* translators: 1: tax amount 2: country name */
-				$tax_text = wp_kses_post( sprintf( __( '(includes %1$s estimated for %2$s)', 'woocommerce' ), implode( ', ', $tax_string_array ), $country ) );
+				$tax_text = wp_kses_post( sprintf( __( '(includes %1$s estimated for %2$s)', 'poocommerce' ), implode( ', ', $tax_string_array ), $country ) );
 			} else {
 				/* translators: %s: tax amount */
-				$tax_text = wp_kses_post( sprintf( __( '(includes %s)', 'woocommerce' ), implode( ', ', $tax_string_array ) ) );
+				$tax_text = wp_kses_post( sprintf( __( '(includes %s)', 'poocommerce' ), implode( ', ', $tax_string_array ) ) );
 			}
 
 			$value .= '<small class="includes_tax">' . $tax_text . '</small>';
 		}
 	}
 
-	echo apply_filters( 'woocommerce_cart_totals_order_total_html', $value ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+	echo apply_filters( 'poocommerce_cart_totals_order_total_html', $value ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 }
 
 /**
@@ -368,7 +368,7 @@ function wc_cart_totals_order_total_html() {
 function wc_cart_totals_fee_html( $fee ) {
 	$cart_totals_fee_html = WC()->cart->display_prices_including_tax() ? wc_price( $fee->total + $fee->tax ) : wc_price( $fee->total );
 
-	echo apply_filters( 'woocommerce_cart_totals_fee_html', $cart_totals_fee_html, $fee ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+	echo apply_filters( 'poocommerce_cart_totals_fee_html', $cart_totals_fee_html, $fee ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 }
 
 /**
@@ -396,7 +396,7 @@ function wc_cart_totals_shipping_method_label( $method ) {
 		}
 	}
 
-	return apply_filters( 'woocommerce_cart_shipping_method_full_label', $label, $method );
+	return apply_filters( 'poocommerce_cart_shipping_method_full_label', $label, $method );
 }
 
 /**
@@ -480,7 +480,7 @@ function wc_get_chosen_shipping_method_for_package( $key, $package ) {
 		 * @since 3.2.0
 		 * @param string $chosen_method Chosen shipping method. e.g. flat_rate:1.
 		 */
-		do_action( 'woocommerce_shipping_method_chosen', $chosen_method );
+		do_action( 'poocommerce_shipping_method_chosen', $chosen_method );
 	}
 	return $chosen_method;
 }
@@ -552,7 +552,7 @@ function wc_get_default_shipping_method_for_package( $key, $package, $chosen_met
 	 * @param array  $rates   Shipping rates.
 	 * @param string $chosen_method Chosen method id.
 	 */
-	return (string) apply_filters( 'woocommerce_shipping_chosen_method', $default, $package['rates'], $chosen_method );
+	return (string) apply_filters( 'poocommerce_shipping_chosen_method', $default, $package['rates'], $chosen_method );
 }
 
 /**
@@ -582,7 +582,7 @@ function wc_shipping_methods_have_changed( $key, $package ) {
 /**
  * Gets a hash of important product data that when changed should cause cart items to be invalidated.
  *
- * The woocommerce_cart_item_data_to_validate filter can be used to add custom properties.
+ * The poocommerce_cart_item_data_to_validate filter can be used to add custom properties.
  *
  * @param WC_Product $product Product object.
  * @return string
@@ -591,7 +591,7 @@ function wc_get_cart_item_data_hash( $product ) {
 	return md5(
 		wp_json_encode(
 			apply_filters(
-				'woocommerce_cart_item_data_to_validate',
+				'poocommerce_cart_item_data_to_validate',
 				array(
 					'type'       => $product->get_type(),
 					'attributes' => ProductType::VARIATION === $product->get_type() ? $product->get_variation_attributes() : '',

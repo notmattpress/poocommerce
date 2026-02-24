@@ -11,7 +11,7 @@ import { Edit, Save } from './edit';
 import expressIcon from '../../../cart-checkout-shared/icon';
 import metadata from './block.json';
 
-registerBlockType( 'woocommerce/cart-express-payment-block', {
+registerBlockType( 'poocommerce/cart-express-payment-block', {
 	apiVersion: metadata.apiVersion,
 	title: metadata.title,
 	icon: {

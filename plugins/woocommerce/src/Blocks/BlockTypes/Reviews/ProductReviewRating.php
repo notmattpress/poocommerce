@@ -1,7 +1,7 @@
 <?php declare( strict_types = 1 );
-namespace Automattic\WooCommerce\Blocks\BlockTypes\Reviews;
+namespace Automattic\PooCommerce\Blocks\BlockTypes\Reviews;
 
-use Automattic\WooCommerce\Blocks\BlockTypes\AbstractBlock;
+use Automattic\PooCommerce\Blocks\BlockTypes\AbstractBlock;
 
 /**
  * ProductReviewRating class.
@@ -42,7 +42,7 @@ class ProductReviewRating extends AbstractBlock {
 
 		if ( 0 < $rating ) {
 			// translators: %s: Rating.
-			$label = sprintf( __( 'Rated %s out of 5', 'woocommerce' ), $rating );
+			$label = sprintf( __( 'Rated %s out of 5', 'poocommerce' ), $rating );
 			$html  = sprintf(
 				'<div class="wc-block-product-review-rating__container">
 					<div class="wc-block-product-review-rating__stars" role="img" aria-label="%1$s">

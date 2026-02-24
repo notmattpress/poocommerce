@@ -59,7 +59,7 @@ export function ExpressionsPanel( {
 	}
 
 	return (
-		<ul className="woocommerce-product-editor-dev-tools-expressions-list">
+		<ul className="poocommerce-product-editor-dev-tools-expressions-list">
 			{ expressionItems.map( ( expressionItem, index ) => (
 				<li key={ index }>
 					<ExpressionField
@@ -80,7 +80,7 @@ export function ExpressionsPanel( {
 					evaluationContext={ evaluationContext }
 					mode={ 'edit' }
 					onUpdate={ ( expression ) => addExpression( expression ) }
-					updateLabel={ __( 'Add', 'woocommerce' ) }
+					updateLabel={ __( 'Add', 'poocommerce' ) }
 				/>
 			</li>
 		</ul>

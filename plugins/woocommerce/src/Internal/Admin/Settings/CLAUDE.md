@@ -97,7 +97,7 @@ The `onboarding.state` field has an incomplete schema definition:
 ```php
 'state' => array(
     'type'        => 'object',
-    'description' => esc_html__( 'The state of the onboarding process.', 'woocommerce' ),
+    'description' => esc_html__( 'The state of the onboarding process.', 'poocommerce' ),
     'context'     => array( 'view', 'edit' ),
     // Missing: properties, readonly
 ),

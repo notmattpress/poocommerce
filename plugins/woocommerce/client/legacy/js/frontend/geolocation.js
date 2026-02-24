@@ -9,12 +9,12 @@ jQuery( function( $ ) {
 	var geo_hash = false;
 
 	/**
-	 * Obtains the current geo hash from the `woocommerce_geo_hash` cookie, if set.
+	 * Obtains the current geo hash from the `poocommerce_geo_hash` cookie, if set.
 	 *
 	 * @returns {boolean}
 	 */
 	function get_geo_hash() {
-		var geo_hash_cookie = Cookies.get( 'woocommerce_geo_hash' );
+		var geo_hash_cookie = Cookies.get( 'poocommerce_geo_hash' );
 
 		if ( 'string' === typeof geo_hash_cookie && geo_hash_cookie.length ) {
 			geo_hash = geo_hash_cookie;
@@ -81,7 +81,7 @@ jQuery( function( $ ) {
 	 */
 	var $geolocation_redirect = function( hash ) {
 		// Updates our (cookie-based) cache of the hash value. Expires in 1 hour.
-		Cookies.set( 'woocommerce_geo_hash', hash, { expires: 1 / 24 } );
+		Cookies.set( 'poocommerce_geo_hash', hash, { expires: 1 / 24 } );
 
 		const urlQuery     = new URL( window.location ).searchParams;
 		const existingHash = urlQuery.get( 'v' );
@@ -136,7 +136,7 @@ jQuery( function( $ ) {
 	});
 
 	// Enable user to trigger manual append hashes on AJAX operations
-	$( document.body ).on( 'woocommerce_append_geo_hashes', function() {
+	$( document.body ).on( 'poocommerce_append_geo_hashes', function() {
 		$append_hashes();
 	});
 });

@@ -2,14 +2,14 @@
 /**
  * Class WC_Gateway_Paypal_Transact_Account_Manager file.
  *
- * @package WooCommerce\Gateways
+ * @package PooCommerce\Gateways
  *
- * @deprecated 10.5.0 Use Automattic\WooCommerce\Gateways\PayPal\TransactAccountManager instead. This class will be removed in 11.0.0.
+ * @deprecated 10.5.0 Use Automattic\PooCommerce\Gateways\PayPal\TransactAccountManager instead. This class will be removed in 11.0.0.
  */
 
 declare(strict_types=1);
 
-use Automattic\WooCommerce\Gateways\PayPal\TransactAccountManager as PayPalTransactAccountManager;
+use Automattic\PooCommerce\Gateways\PayPal\TransactAccountManager as PayPalTransactAccountManager;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Handles Transact account management.
  *
- * @deprecated 10.5.0 Use Automattic\WooCommerce\Gateways\PayPal\TransactAccountManager instead. This class will be removed in 11.0.0.
+ * @deprecated 10.5.0 Use Automattic\PooCommerce\Gateways\PayPal\TransactAccountManager instead. This class will be removed in 11.0.0.
  */
 final class WC_Gateway_Paypal_Transact_Account_Manager {
 	/**
@@ -42,7 +42,7 @@ final class WC_Gateway_Paypal_Transact_Account_Manager {
 	 *
 	 * @return void
 	 *
-	 * @deprecated 10.5.0 Use Automattic\WooCommerce\Gateways\PayPal\TransactAccountManager::do_onboarding() instead. This method will be removed in 11.0.0.
+	 * @deprecated 10.5.0 Use Automattic\PooCommerce\Gateways\PayPal\TransactAccountManager::do_onboarding() instead. This method will be removed in 11.0.0.
 	 */
 	public function do_onboarding() {
 		wc_deprecated_function(
@@ -61,7 +61,7 @@ final class WC_Gateway_Paypal_Transact_Account_Manager {
 	 * @param string $account_type The type of account to get (merchant or provider).
 	 * @return array|null Returns null if the transact account cannot be retrieved.
 	 *
-	 * @deprecated 10.5.0 Use Automattic\WooCommerce\Gateways\PayPal\TransactAccountManager::get_transact_account_data() instead. This method will be removed in 11.0.0.
+	 * @deprecated 10.5.0 Use Automattic\PooCommerce\Gateways\PayPal\TransactAccountManager::get_transact_account_data() instead. This method will be removed in 11.0.0.
 	 */
 	public function get_transact_account_data( $account_type ) {
 		wc_deprecated_function(

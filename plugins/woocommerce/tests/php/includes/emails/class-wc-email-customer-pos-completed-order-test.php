@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
 
 /**
  * WC_Email_Customer_POS_Completed_Order test.
@@ -184,14 +184,14 @@ class WC_Email_Customer_POS_Completed_Order_Test extends \WC_Unit_Test_Case {
 		$regular_plain_text = $regular_email->get_content_plain();
 
 		// Then POS email should include additional rows.
-		$this->assertStringContainsString( __( 'Change due:', 'woocommerce' ), $pos_plain_text );
-		$this->assertStringContainsString( __( 'Auth code:', 'woocommerce' ), $pos_plain_text );
-		$this->assertStringContainsString( __( 'Time of payment:', 'woocommerce' ), $pos_plain_text );
+		$this->assertStringContainsString( __( 'Change due:', 'poocommerce' ), $pos_plain_text );
+		$this->assertStringContainsString( __( 'Auth code:', 'poocommerce' ), $pos_plain_text );
+		$this->assertStringContainsString( __( 'Time of payment:', 'poocommerce' ), $pos_plain_text );
 
 		// And regular email should not include these rows.
-		$this->assertStringNotContainsString( __( 'Change due:', 'woocommerce' ), $regular_plain_text );
-		$this->assertStringNotContainsString( __( 'Auth code:', 'woocommerce' ), $regular_plain_text );
-		$this->assertStringNotContainsString( __( 'Time of payment:', 'woocommerce' ), $regular_plain_text );
+		$this->assertStringNotContainsString( __( 'Change due:', 'poocommerce' ), $regular_plain_text );
+		$this->assertStringNotContainsString( __( 'Auth code:', 'poocommerce' ), $regular_plain_text );
+		$this->assertStringNotContainsString( __( 'Time of payment:', 'poocommerce' ), $regular_plain_text );
 	}
 
 	/**
@@ -202,7 +202,7 @@ class WC_Email_Customer_POS_Completed_Order_Test extends \WC_Unit_Test_Case {
 		$emails = new WC_Emails();
 
 		// Given POS store name and blog name.
-		update_option( 'woocommerce_pos_store_name', 'Physical Store' );
+		update_option( 'poocommerce_pos_store_name', 'Physical Store' );
 		update_option( 'blogname', 'Online Store' );
 
 		// When getting content from both email classes.
@@ -233,16 +233,16 @@ class WC_Email_Customer_POS_Completed_Order_Test extends \WC_Unit_Test_Case {
 		$emails = new WC_Emails();
 
 		// Given POS store details.
-		update_option( 'woocommerce_pos_store_name', 'Physical Store' );
-		update_option( 'woocommerce_pos_store_email', 'pos@example.com' );
-		update_option( 'woocommerce_pos_store_address', '134 Main St, Anytown, USA' );
+		update_option( 'poocommerce_pos_store_name', 'Physical Store' );
+		update_option( 'poocommerce_pos_store_email', 'pos@example.com' );
+		update_option( 'poocommerce_pos_store_address', '134 Main St, Anytown, USA' );
 		// Placeholders that are set in the regular email.
-		update_option( 'woocommerce_store_address', '606 2nd St, Anytown, USA' );
-		update_option( 'woocommerce_email_from_address', 'online@example.com' );
+		update_option( 'poocommerce_store_address', '606 2nd St, Anytown, USA' );
+		update_option( 'poocommerce_email_from_address', 'online@example.com' );
 		update_option( 'blogname', 'Online Store' );
 
 		// Footer text that includes placeholders that can be replaced with POS store details.
-		update_option( 'woocommerce_email_footer_text', 'footer_title: {site_title}; footer_address: {store_address}; footer_email: {store_email}' );
+		update_option( 'poocommerce_email_footer_text', 'footer_title: {site_title}; footer_address: {store_address}; footer_email: {store_email}' );
 
 		// When getting content from both email classes.
 		$pos_email     = new WC_Email_Customer_POS_Completed_Order();
@@ -297,7 +297,7 @@ class WC_Email_Customer_POS_Completed_Order_Test extends \WC_Unit_Test_Case {
 	 */
 	public function test_pos_email_header_html_includes_blog_name_when_pos_store_name_is_not_set() {
 		// Given POS store name is not set.
-		delete_option( 'woocommerce_pos_store_name' );
+		delete_option( 'poocommerce_pos_store_name' );
 		update_option( 'blogname', 'Online Store' );
 
 		// When getting content from POS email.
@@ -317,7 +317,7 @@ class WC_Email_Customer_POS_Completed_Order_Test extends \WC_Unit_Test_Case {
 	 */
 	public function test_get_default_subject_includes_blog_name_when_pos_store_name_not_set() {
 		// Given POS store name is not set.
-		delete_option( 'woocommerce_pos_store_name' );
+		delete_option( 'poocommerce_pos_store_name' );
 		$blog_name = 'Test Blog Name';
 		update_option( 'blogname', $blog_name );
 
@@ -335,7 +335,7 @@ class WC_Email_Customer_POS_Completed_Order_Test extends \WC_Unit_Test_Case {
 	public function test_get_default_subject_includes_pos_store_name_when_option_is_set() {
 		// Given POS store name is set.
 		$store_name = 'POS Store';
-		update_option( 'woocommerce_pos_store_name', $store_name );
+		update_option( 'poocommerce_pos_store_name', $store_name );
 
 		// When getting default subject.
 		$email   = new WC_Email_Customer_POS_Completed_Order();
@@ -350,10 +350,10 @@ class WC_Email_Customer_POS_Completed_Order_Test extends \WC_Unit_Test_Case {
 	 */
 	public function test_email_content_includes_store_details_when_options_are_set() {
 		// Given POS store details are set.
-		update_option( 'woocommerce_pos_store_name', 'POS Store' );
-		update_option( 'woocommerce_pos_store_email', 'pos@example.com' );
-		update_option( 'woocommerce_pos_store_phone', '1234567890' );
-		update_option( 'woocommerce_pos_store_address', '134 Main St, Anytown, USA' );
+		update_option( 'poocommerce_pos_store_name', 'POS Store' );
+		update_option( 'poocommerce_pos_store_email', 'pos@example.com' );
+		update_option( 'poocommerce_pos_store_phone', '1234567890' );
+		update_option( 'poocommerce_pos_store_address', '134 Main St, Anytown, USA' );
 
 		// When getting content from both email types.
 		$email              = new WC_Email_Customer_POS_Completed_Order();
@@ -379,10 +379,10 @@ class WC_Email_Customer_POS_Completed_Order_Test extends \WC_Unit_Test_Case {
 	 */
 	public function test_email_content_does_not_include_store_details_when_options_are_not_set() {
 		// Given POS store details are not set.
-		delete_option( 'woocommerce_pos_store_name' );
-		delete_option( 'woocommerce_pos_store_email' );
-		delete_option( 'woocommerce_pos_store_phone' );
-		delete_option( 'woocommerce_pos_store_address' );
+		delete_option( 'poocommerce_pos_store_name' );
+		delete_option( 'poocommerce_pos_store_email' );
+		delete_option( 'poocommerce_pos_store_phone' );
+		delete_option( 'poocommerce_pos_store_address' );
 
 		// When getting content from both email types.
 		$email              = new WC_Email_Customer_POS_Completed_Order();
@@ -408,7 +408,7 @@ class WC_Email_Customer_POS_Completed_Order_Test extends \WC_Unit_Test_Case {
 	 */
 	public function test_email_content_includes_refund_returns_policy_when_option_is_set() {
 		// Given option is set.
-		update_option( 'woocommerce_pos_refund_returns_policy', 'Accepted within 30 days of purchase.' );
+		update_option( 'poocommerce_pos_refund_returns_policy', 'Accepted within 30 days of purchase.' );
 
 		// When getting content from both email types.
 		$email              = new WC_Email_Customer_POS_Completed_Order();
@@ -417,11 +417,11 @@ class WC_Email_Customer_POS_Completed_Order_Test extends \WC_Unit_Test_Case {
 		$plain_text_content = $email->get_content_plain();
 
 		// Then POS email should include store details.
-		$this->assertStringContainsString( esc_html__( 'Refund & Returns Policy', 'woocommerce' ), $html_content );
+		$this->assertStringContainsString( esc_html__( 'Refund & Returns Policy', 'poocommerce' ), $html_content );
 		$this->assertStringContainsString( 'Accepted within 30 days of purchase.', $html_content );
 
 		// And plain text email should include store details.
-		$this->assertStringContainsString( esc_html__( 'Refund & Returns Policy', 'woocommerce' ), $plain_text_content );
+		$this->assertStringContainsString( esc_html__( 'Refund & Returns Policy', 'poocommerce' ), $plain_text_content );
 		$this->assertStringContainsString( 'Accepted within 30 days of purchase.', $plain_text_content );
 	}
 
@@ -430,7 +430,7 @@ class WC_Email_Customer_POS_Completed_Order_Test extends \WC_Unit_Test_Case {
 	 */
 	public function test_email_content_does_not_include_refund_returns_policy_when_option_is_not_set() {
 		// Given option is not set.
-		delete_option( 'woocommerce_pos_refund_returns_policy' );
+		delete_option( 'poocommerce_pos_refund_returns_policy' );
 
 		// When getting content from both email types.
 		$email              = new WC_Email_Customer_POS_Completed_Order();
@@ -439,9 +439,9 @@ class WC_Email_Customer_POS_Completed_Order_Test extends \WC_Unit_Test_Case {
 		$plain_text_content = $email->get_content_plain();
 
 		// Then POS email should not include refund & returns policy.
-		$this->assertStringNotContainsString( esc_html__( 'Refund & Returns Policy', 'woocommerce' ), $html_content );
+		$this->assertStringNotContainsString( esc_html__( 'Refund & Returns Policy', 'poocommerce' ), $html_content );
 
 		// And plain text email should not include refund & returns policy.
-		$this->assertStringNotContainsString( esc_html__( 'Refund & Returns Policy', 'woocommerce' ), $plain_text_content );
+		$this->assertStringNotContainsString( esc_html__( 'Refund & Returns Policy', 'poocommerce' ), $plain_text_content );
 	}
 }

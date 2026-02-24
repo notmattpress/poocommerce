@@ -1,9 +1,9 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\Settings;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\Settings;
 
-use Automattic\WooCommerce\Internal\Admin\Settings\Utils;
+use Automattic\PooCommerce\Internal\Admin\Settings\Utils;
 use WC_Unit_Test_Case;
 use WP_Locale;
 

@@ -13,12 +13,12 @@ import { useSelect } from '@wordpress/data';
  */
 import { registerCommandWithTracking } from '../command-palette/register-command-with-tracking';
 
-const registerWooCommerceAnalyticsCommand = ( { label, path, origin } ) => {
+const registerPooCommerceAnalyticsCommand = ( { label, path, origin } ) => {
 	registerCommandWithTracking( {
-		name: `woocommerce${ path }`,
+		name: `poocommerce${ path }`,
 		label: sprintf(
 			// translators: %s is the title of the Analytics Page. This is used as a command in the Command Palette.
-			__( 'WooCommerce Analytics: %s', 'woocommerce' ),
+			__( 'PooCommerce Analytics: %s', 'poocommerce' ),
 			label
 		),
 		icon: chartBar,
@@ -32,7 +32,7 @@ const registerWooCommerceAnalyticsCommand = ( { label, path, origin } ) => {
 	} );
 };
 
-const WooCommerceAnalyticsCommands = () => {
+const PooCommerceAnalyticsCommands = () => {
 	const { editedPostType } = useSelect( ( select ) => {
 		const editor = select( 'core/editor' );
 		return {
@@ -50,7 +50,7 @@ const WooCommerceAnalyticsCommands = () => {
 			const analyticsReports = window.wcCommandPaletteAnalytics.reports;
 
 			analyticsReports.forEach( ( analyticsReport ) => {
-				registerWooCommerceAnalyticsCommand( {
+				registerPooCommerceAnalyticsCommand( {
 					label: analyticsReport.title,
 					path: analyticsReport.path,
 					origin,
@@ -62,6 +62,6 @@ const WooCommerceAnalyticsCommands = () => {
 	return null;
 };
 
-registerPlugin( 'woocommerce-analytics-commands-registration', {
-	render: WooCommerceAnalyticsCommands,
+registerPlugin( 'poocommerce-analytics-commands-registration', {
+	render: PooCommerceAnalyticsCommands,
 } );

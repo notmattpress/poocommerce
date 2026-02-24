@@ -1,13 +1,13 @@
 /**
  * External dependencies
  */
-import { TotalsTaxes, TotalsWrapper } from '@woocommerce/blocks-components';
-import { getCurrencyFromPriceResponse } from '@woocommerce/price-format';
+import { TotalsTaxes, TotalsWrapper } from '@poocommerce/blocks-components';
+import { getCurrencyFromPriceResponse } from '@poocommerce/price-format';
 import {
 	useStoreCart,
 	useOrderSummaryLoadingState,
-} from '@woocommerce/base-context';
-import { getSetting } from '@woocommerce/settings';
+} from '@poocommerce/base-context';
+import { getSetting } from '@poocommerce/settings';
 
 const Block = ( {
 	className,

@@ -3,11 +3,11 @@
  * Controller Tests.
  */
 
-namespace Automattic\WooCommerce\Tests\Blocks\StoreApi\Routes;
+namespace Automattic\PooCommerce\Tests\Blocks\StoreApi\Routes;
 
-use Automattic\WooCommerce\Tests\Blocks\StoreApi\Routes\ControllerTestCase;
-use Automattic\WooCommerce\Tests\Blocks\Helpers\FixtureData;
-use Automattic\WooCommerce\Tests\Blocks\Helpers\ValidateSchema;
+use Automattic\PooCommerce\Tests\Blocks\StoreApi\Routes\ControllerTestCase;
+use Automattic\PooCommerce\Tests\Blocks\Helpers\FixtureData;
+use Automattic\PooCommerce\Tests\Blocks\Helpers\ValidateSchema;
 
 /**
  * Controller Tests.
@@ -279,7 +279,7 @@ class ProductCollectionData extends ControllerTestCase {
 	 * Test collection params getter.
 	 */
 	public function test_get_collection_params() {
-		$routes     = new \Automattic\WooCommerce\StoreApi\RoutesController( new \Automattic\WooCommerce\StoreApi\SchemaController( $this->mock_extend ) );
+		$routes     = new \Automattic\PooCommerce\StoreApi\RoutesController( new \Automattic\PooCommerce\StoreApi\SchemaController( $this->mock_extend ) );
 		$controller = $routes->get( 'product-collection-data' );
 		$params     = $controller->get_collection_params();
 
@@ -305,7 +305,7 @@ class ProductCollectionData extends ControllerTestCase {
 		$category = wp_insert_term( 'Schema Test Category', 'product_cat' );
 		wp_set_post_terms( $product->get_id(), array( $category['term_id'] ), 'product_cat' );
 
-		$routes     = new \Automattic\WooCommerce\StoreApi\RoutesController( new \Automattic\WooCommerce\StoreApi\SchemaController( $this->mock_extend ) );
+		$routes     = new \Automattic\PooCommerce\StoreApi\RoutesController( new \Automattic\PooCommerce\StoreApi\SchemaController( $this->mock_extend ) );
 		$controller = $routes->get( 'product-collection-data' );
 		$schema     = $controller->get_item_schema();
 

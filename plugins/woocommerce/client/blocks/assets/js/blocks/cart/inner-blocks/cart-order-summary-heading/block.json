@@ -1,9 +1,9 @@
 {
-	"name": "woocommerce/cart-order-summary-heading-block",
+	"name": "poocommerce/cart-order-summary-heading-block",
 	"version": "1.0.0",
 	"title": "Heading",
 	"description": "Shows the heading row.",
-	"category": "woocommerce",
+	"category": "poocommerce",
 	"supports": {
 		"align": false,
 		"html": false,
@@ -28,9 +28,9 @@
 		}
 	},
 	"parent": [
-		"woocommerce/cart-order-summary-block"
+		"poocommerce/cart-order-summary-block"
 	],
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3
 }

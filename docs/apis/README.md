@@ -1,27 +1,27 @@
 ---
-post_title: 'Getting Started with WooCommerce APIs'
+post_title: 'Getting Started with PooCommerce APIs'
 sidebar_label: 'Getting started'
 ---
 
-# Getting Started with WooCommerce APIs
+# Getting Started with PooCommerce APIs
 
-WooCommerce provides a number of programmatic APIs to interact with WooCommerce store data.
+PooCommerce provides a number of programmatic APIs to interact with PooCommerce store data.
 
 ## WC REST API
 
-The WC REST API is a powerful part of WooCommerce which lets you read and write various parts of WooCommerce data such as orders, products, coupons, customers, and shipping zones. It based on the [WordPress REST API](https://developer.wordpress.org/rest-api/).
+The WC REST API is a powerful part of PooCommerce which lets you read and write various parts of PooCommerce data such as orders, products, coupons, customers, and shipping zones. It based on the [WordPress REST API](https://developer.wordpress.org/rest-api/).
 
 Explore the [WC REST API](./rest-api/README.md) documentation.
 
 ## Store API
 
-The Store API provides public REST API endpoints for the development of customer-facing cart, checkout, and product functionality. In contrast to the WooCommerce REST API, the Store API is unauthenticated and does not provide access to sensitive store data or other customer information.
+The Store API provides public REST API endpoints for the development of customer-facing cart, checkout, and product functionality. In contrast to the PooCommerce REST API, the Store API is unauthenticated and does not provide access to sensitive store data or other customer information.
 
 Explore the [Store API](./store-api/README.md) documentation.
 
 ## Other Resources
 
-Beyond the powerful REST APIs, WooCommerce offers a suite of PHP-based APIs designed for developers to deeply integrate and extend the core functionality of their store. These APIs allow for direct interaction with WooCommerce classes, enabling custom behaviors for settings, payment gateways, shipping methods, and more.
+Beyond the powerful REST APIs, PooCommerce offers a suite of PHP-based APIs designed for developers to deeply integrate and extend the core functionality of their store. These APIs allow for direct interaction with PooCommerce classes, enabling custom behaviors for settings, payment gateways, shipping methods, and more.
 
 ### Settings API
 
@@ -47,10 +47,10 @@ The Payment Token API is used for storing and managing payment tokens for gatewa
 
 Explore the [Payment Token API](/docs/features/payments/payment-token-api/) documentation.
 
-### WooCommerce Code Reference
+### PooCommerce Code Reference
 
-The WooCommerce Code Reference is a comprehensive documentation of the WooCommerce API. It is a great resource for developers to learn about the WooCommerce API and how to use it.
+The PooCommerce Code Reference is a comprehensive documentation of the PooCommerce API. It is a great resource for developers to learn about the PooCommerce API and how to use it.
 
-The WooCommerce Code Reference is a comprehensive documentation of the internal WooCommerce Classes, API, and functions. It is a great resource for developers to learn about the WooCommerce functionality and how to extend it.
+The PooCommerce Code Reference is a comprehensive documentation of the internal PooCommerce Classes, API, and functions. It is a great resource for developers to learn about the PooCommerce functionality and how to extend it.
 
-Explore the [WooCommerce Code Reference](https://developer.wordpress.org/reference/classes/woocommerce/) documentation.
+Explore the [PooCommerce Code Reference](https://developer.wordpress.org/reference/classes/poocommerce/) documentation.

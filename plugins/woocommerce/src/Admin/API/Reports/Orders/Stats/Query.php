@@ -11,13 +11,13 @@
  *          'coupons'      => array(138),
  *          'status_in'    => array('completed'),
  *         );
- * $report = new \Automattic\WooCommerce\Admin\API\Reports\Orders\Stats\Query( $args );
+ * $report = new \Automattic\PooCommerce\Admin\API\Reports\Orders\Stats\Query( $args );
  * $mydata = $report->get_data();
  */
 
-namespace Automattic\WooCommerce\Admin\API\Reports\Orders\Stats;
+namespace Automattic\PooCommerce\Admin\API\Reports\Orders\Stats;
 
-use Automattic\WooCommerce\Admin\API\Reports\GenericQuery;
+use Automattic\PooCommerce\Admin\API\Reports\GenericQuery;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -29,7 +29,7 @@ class Query extends GenericQuery {
 	/**
 	 * Specific query name.
 	 * Will be used to load the `report-{name}` data store,
-	 * and to call `woocommerce_analytics_{snake_case(name)}_*` filters.
+	 * and to call `poocommerce_analytics_{snake_case(name)}_*` filters.
 	 *
 	 * @var string
 	 */

@@ -3,7 +3,7 @@
  */
 import { registerBlockType, registerBlockVariation } from '@wordpress/blocks';
 import { Icon } from '@wordpress/icons';
-import { customerAccount } from '@woocommerce/icons';
+import { customerAccount } from '@poocommerce/icons';
 import { __ } from '@wordpress/i18n';
 
 /**
@@ -35,10 +35,10 @@ registerBlockType( metadata, {
 // This is why we are registering a new variation with a different icon class instead of changing directly the icon
 // size in the css. By giving it the same name and making it default we are making sure that new blocks will use the
 // new icon size and existing blocks will keep using the old one after updating the plugin.
-// For more context, see https://github.com/woocommerce/woocommerce-blocks/pull/8594
-registerBlockVariation( 'woocommerce/customer-account', {
-	name: 'woocommerce/customer-account',
-	title: __( 'Customer account', 'woocommerce' ),
+// For more context, see https://github.com/poocommerce/poocommerce-blocks/pull/8594
+registerBlockVariation( 'poocommerce/customer-account', {
+	name: 'poocommerce/customer-account',
+	title: __( 'Customer account', 'poocommerce' ),
 	isDefault: true,
 	attributes: {
 		...metadata.attributes,

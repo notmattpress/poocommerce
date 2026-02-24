@@ -2,14 +2,14 @@
 /**
  * POS Catalog API Controller.
  *
- * @package Automattic\WooCommerce\Internal\ProductFeed
+ * @package Automattic\PooCommerce\Internal\ProductFeed
  */
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Internal\ProductFeed\Integrations\POSCatalog;
+namespace Automattic\PooCommerce\Internal\ProductFeed\Integrations\POSCatalog;
 
-use Automattic\WooCommerce\Container;
+use Automattic\PooCommerce\Container;
 use WP_REST_Request;
 use WP_REST_Response;
 
@@ -81,7 +81,7 @@ class ApiController {
 	 */
 	public function is_authorized() {
 		return is_user_logged_in() && (
-			current_user_can( 'manage_woocommerce' ) || current_user_can( 'manage_options' )
+			current_user_can( 'manage_poocommerce' ) || current_user_can( 'manage_options' )
 		);
 	}
 
@@ -129,7 +129,7 @@ class ApiController {
 			return new WP_REST_Response(
 				array(
 					'success' => false,
-					'message' => __( 'An error occurred while generating the feed.', 'woocommerce' ),
+					'message' => __( 'An error occurred while generating the feed.', 'poocommerce' ),
 				),
 				500
 			);

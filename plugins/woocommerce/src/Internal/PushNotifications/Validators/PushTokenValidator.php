@@ -5,11 +5,11 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\PushNotifications\Validators;
+namespace Automattic\PooCommerce\Internal\PushNotifications\Validators;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Internal\PushNotifications\Entities\PushToken;
+use Automattic\PooCommerce\Internal\PushNotifications\Entities\PushToken;
 use WP_Error;
 
 // phpcs:disable Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
@@ -36,7 +36,7 @@ class PushTokenValidator {
 	 *
 	 * @since 10.6.0
 	 */
-	const ERROR_CODE = 'woocommerce_invalid_data';
+	const ERROR_CODE = 'poocommerce_invalid_data';
 
 	/**
 	 * Validates device locale format:
@@ -99,7 +99,7 @@ class PushTokenValidator {
 
 			if ( ! method_exists( self::class, $method ) ) {
 				return new WP_Error(
-					'woocommerce_invalid_data',
+					'poocommerce_invalid_data',
 					sprintf( 'Can\'t validate param \'%s\' as a validator does not exist for it.', $field )
 				);
 			}

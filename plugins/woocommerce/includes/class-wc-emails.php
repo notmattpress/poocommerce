@@ -2,20 +2,20 @@
 /**
  * Transactional Emails Controller
  *
- * WooCommerce Emails Class which handles the sending on transactional emails and email templates. This class loads in available emails.
+ * PooCommerce Emails Class which handles the sending on transactional emails and email templates. This class loads in available emails.
  *
- * @package WooCommerce\Classes\Emails
+ * @package PooCommerce\Classes\Emails
  * @version 2.3.0
  */
 
 declare( strict_types = 1 );
 
 use Automattic\Jetpack\Constants;
-use Automattic\WooCommerce\Blocks\Package;
-use Automattic\WooCommerce\Blocks\Domain\Services\CheckoutFields;
-use Automattic\WooCommerce\Enums\ProductType;
-use Automattic\WooCommerce\Internal\Fulfillments\Fulfillment;
-use Automattic\WooCommerce\Utilities\FeaturesUtil;
+use Automattic\PooCommerce\Blocks\Package;
+use Automattic\PooCommerce\Blocks\Domain\Services\CheckoutFields;
+use Automattic\PooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Internal\Fulfillments\Fulfillment;
+use Automattic\PooCommerce\Utilities\FeaturesUtil;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -68,7 +68,7 @@ class WC_Emails {
 	 * @return void
 	 */
 	public function __clone() {
-		wc_doing_it_wrong( __FUNCTION__, __( 'Cloning is forbidden.', 'woocommerce' ), '2.1' );
+		wc_doing_it_wrong( __FUNCTION__, __( 'Cloning is forbidden.', 'poocommerce' ), '2.1' );
 	}
 
 	/**
@@ -78,7 +78,7 @@ class WC_Emails {
 	 * @return void
 	 */
 	public function __wakeup() {
-		wc_doing_it_wrong( __FUNCTION__, __( 'Unserializing instances of this class is forbidden.', 'woocommerce' ), '2.1' );
+		wc_doing_it_wrong( __FUNCTION__, __( 'Unserializing instances of this class is forbidden.', 'poocommerce' ), '2.1' );
 	}
 
 	/**
@@ -94,31 +94,31 @@ class WC_Emails {
 		 * @param array $email_actions Array of actions that trigger transactional emails.
 		 */
 		$email_actions = apply_filters(
-			'woocommerce_email_actions',
+			'poocommerce_email_actions',
 			array(
-				'woocommerce_low_stock',
-				'woocommerce_no_stock',
-				'woocommerce_product_on_backorder',
-				'woocommerce_order_status_pending_to_processing',
-				'woocommerce_order_status_pending_to_completed',
-				'woocommerce_order_status_processing_to_cancelled',
-				'woocommerce_order_status_pending_to_failed',
-				'woocommerce_order_status_pending_to_on-hold',
-				'woocommerce_order_status_failed_to_processing',
-				'woocommerce_order_status_failed_to_completed',
-				'woocommerce_order_status_failed_to_on-hold',
-				'woocommerce_order_status_cancelled_to_processing',
-				'woocommerce_order_status_cancelled_to_completed',
-				'woocommerce_order_status_cancelled_to_on-hold',
-				'woocommerce_order_status_on-hold_to_processing',
-				'woocommerce_order_status_on-hold_to_cancelled',
-				'woocommerce_order_status_on-hold_to_failed',
-				'woocommerce_order_status_completed',
-				'woocommerce_order_status_failed',
-				'woocommerce_order_fully_refunded',
-				'woocommerce_order_partially_refunded',
-				'woocommerce_new_customer_note',
-				'woocommerce_created_customer',
+				'poocommerce_low_stock',
+				'poocommerce_no_stock',
+				'poocommerce_product_on_backorder',
+				'poocommerce_order_status_pending_to_processing',
+				'poocommerce_order_status_pending_to_completed',
+				'poocommerce_order_status_processing_to_cancelled',
+				'poocommerce_order_status_pending_to_failed',
+				'poocommerce_order_status_pending_to_on-hold',
+				'poocommerce_order_status_failed_to_processing',
+				'poocommerce_order_status_failed_to_completed',
+				'poocommerce_order_status_failed_to_on-hold',
+				'poocommerce_order_status_cancelled_to_processing',
+				'poocommerce_order_status_cancelled_to_completed',
+				'poocommerce_order_status_cancelled_to_on-hold',
+				'poocommerce_order_status_on-hold_to_processing',
+				'poocommerce_order_status_on-hold_to_cancelled',
+				'poocommerce_order_status_on-hold_to_failed',
+				'poocommerce_order_status_completed',
+				'poocommerce_order_status_failed',
+				'poocommerce_order_fully_refunded',
+				'poocommerce_order_partially_refunded',
+				'poocommerce_new_customer_note',
+				'poocommerce_created_customer',
 			)
 		);
 
@@ -128,7 +128,7 @@ class WC_Emails {
 		 * @since 3.0.0
 		 * @param bool $defer Whether to defer transactional emails.
 		 */
-		if ( apply_filters( 'woocommerce_defer_transactional_emails', false ) ) {
+		if ( apply_filters( 'poocommerce_defer_transactional_emails', false ) ) {
 			self::$background_emailer = new WC_Background_Emailer();
 
 			foreach ( $email_actions as $action ) {
@@ -179,14 +179,14 @@ class WC_Emails {
 		 * @param string $filter Filter name.
 		 * @param array  $args Email args.
 		 */
-		if ( apply_filters( 'woocommerce_allow_send_queued_transactional_email', true, $filter, $args ) ) {
+		if ( apply_filters( 'poocommerce_allow_send_queued_transactional_email', true, $filter, $args ) ) {
 			self::instance(); // Init self so emails exist.
 
 			// Ensure gateways are loaded in case they need to insert data into the emails.
 			WC()->payment_gateways();
 			WC()->shipping();
 
-			// phpcs:disable WooCommerce.Commenting.CommentHooks.MissingSinceComment
+			// phpcs:disable PooCommerce.Commenting.CommentHooks.MissingSinceComment
 			/** This action is documented in includes/class-wc-emails.php in the send_transactional_email method. */
 			do_action_ref_array( $filter . '_notification', $args );
 		}
@@ -238,30 +238,30 @@ class WC_Emails {
 		$this->init();
 
 		// Email Header, Footer and content hooks.
-		add_action( 'woocommerce_email_header', array( $this, 'email_header' ) );
-		add_action( 'woocommerce_email_footer', array( $this, 'email_footer' ) );
-		add_action( 'woocommerce_email_order_details', array( $this, 'order_downloads' ), 10, 4 );
-		add_action( 'woocommerce_email_order_details', array( $this, 'order_details' ), 10, 4 );
-		add_action( 'woocommerce_email_order_meta', array( $this, 'order_meta' ), 10, 3 );
-		add_action( 'woocommerce_email_customer_details', array( $this, 'customer_details' ), 10, 3 );
-		add_action( 'woocommerce_email_customer_details', array( $this, 'email_addresses' ), 20, 3 );
-		add_action( 'woocommerce_email_customer_details', array( $this, 'additional_checkout_fields' ), 30, 3 );
-		add_action( 'woocommerce_email_customer_address_section', array( $this, 'additional_address_fields' ), 30, 4 );
+		add_action( 'poocommerce_email_header', array( $this, 'email_header' ) );
+		add_action( 'poocommerce_email_footer', array( $this, 'email_footer' ) );
+		add_action( 'poocommerce_email_order_details', array( $this, 'order_downloads' ), 10, 4 );
+		add_action( 'poocommerce_email_order_details', array( $this, 'order_details' ), 10, 4 );
+		add_action( 'poocommerce_email_order_meta', array( $this, 'order_meta' ), 10, 3 );
+		add_action( 'poocommerce_email_customer_details', array( $this, 'customer_details' ), 10, 3 );
+		add_action( 'poocommerce_email_customer_details', array( $this, 'email_addresses' ), 20, 3 );
+		add_action( 'poocommerce_email_customer_details', array( $this, 'additional_checkout_fields' ), 30, 3 );
+		add_action( 'poocommerce_email_customer_address_section', array( $this, 'additional_address_fields' ), 30, 4 );
 
 		if ( FeaturesUtil::feature_is_enabled( 'fulfillments' ) ) {
 			// Fulfillment details and meta.
-			add_action( 'woocommerce_email_fulfillment_details', array( $this, 'fulfillment_details' ), 10, 5 );
-			add_action( 'woocommerce_email_fulfillment_meta', array( $this, 'fulfillment_meta' ), 30, 4 );
+			add_action( 'poocommerce_email_fulfillment_details', array( $this, 'fulfillment_details' ), 10, 5 );
+			add_action( 'poocommerce_email_fulfillment_meta', array( $this, 'fulfillment_meta' ), 30, 4 );
 		}
 
 		// Hooks for sending emails during store events.
-		add_action( 'woocommerce_low_stock_notification', array( $this, 'low_stock' ) );
-		add_action( 'woocommerce_no_stock_notification', array( $this, 'no_stock' ) );
-		add_action( 'woocommerce_product_on_backorder_notification', array( $this, 'backorder' ) );
-		add_action( 'woocommerce_created_customer_notification', array( $this, 'customer_new_account' ), 10, 3 );
+		add_action( 'poocommerce_low_stock_notification', array( $this, 'low_stock' ) );
+		add_action( 'poocommerce_no_stock_notification', array( $this, 'no_stock' ) );
+		add_action( 'poocommerce_product_on_backorder_notification', array( $this, 'backorder' ) );
+		add_action( 'poocommerce_created_customer_notification', array( $this, 'customer_new_account' ), 10, 3 );
 
 		// Hook for replacing {site_title} in email-footer.
-		add_filter( 'woocommerce_email_footer_text', array( $this, 'replace_placeholders' ) );
+		add_filter( 'poocommerce_email_footer_text', array( $this, 'replace_placeholders' ) );
 
 		/**
 		 * Action hook for email classes to hook into.
@@ -269,7 +269,7 @@ class WC_Emails {
 		 * @since 3.0.0
 		 * @param WC_Emails $this The WC_Emails instance.
 		 */
-		do_action( 'woocommerce_email', $this );
+		do_action( 'poocommerce_email', $this );
 	}
 
 	/**
@@ -309,7 +309,7 @@ class WC_Emails {
 		// Preload the options which will be used when emails are getting initialized in the loop below (reduces the number of SQL-queries).
 		wp_prime_option_caches(
 			array_map(
-				fn( string $class_name ) => sprintf( 'woocommerce_%s_settings', strtolower( str_replace( 'WC_Email_', '', $class_name ) ) ),
+				fn( string $class_name ) => sprintf( 'poocommerce_%s_settings', strtolower( str_replace( 'WC_Email_', '', $class_name ) ) ),
 				array_keys( $emails )
 			)
 		);
@@ -328,7 +328,7 @@ class WC_Emails {
 		 * @since 3.0.0
 		 * @param array $emails Email classes.
 		 */
-		$this->emails = apply_filters( 'woocommerce_email_classes', $this->emails );
+		$this->emails = apply_filters( 'poocommerce_email_classes', $this->emails );
 	}
 
 	/**
@@ -347,7 +347,7 @@ class WC_Emails {
 	 */
 	public function get_from_name() {
 		$default = get_bloginfo( 'name', 'display' );
-		return wp_specialchars_decode( get_option( 'woocommerce_email_from_name', $default ), ENT_QUOTES );
+		return wp_specialchars_decode( get_option( 'poocommerce_email_from_name', $default ), ENT_QUOTES );
 	}
 
 	/**
@@ -356,7 +356,7 @@ class WC_Emails {
 	 * @return string
 	 */
 	public function get_from_address() {
-		return sanitize_email( get_option( 'woocommerce_email_from_address' ) );
+		return sanitize_email( get_option( 'poocommerce_email_from_address' ) );
 	}
 
 	/**
@@ -399,8 +399,8 @@ class WC_Emails {
 				'{site_title}',
 				'{site_address}',
 				'{site_url}',
-				'{woocommerce}',
-				'{WooCommerce}',
+				'{poocommerce}',
+				'{PooCommerce}',
 				'{store_address}',
 				'{store_email}',
 			),
@@ -408,8 +408,8 @@ class WC_Emails {
 				$this->get_blogname(),
 				$domain,
 				$domain,
-				'<a href="https://woocommerce.com">WooCommerce</a>',
-				'<a href="https://woocommerce.com">WooCommerce</a>',
+				'<a href="https://poocommerce.com">PooCommerce</a>',
+				'<a href="https://poocommerce.com">PooCommerce</a>',
 				$this->get_store_address(),
 				$this->get_from_address(),
 			),
@@ -431,7 +431,7 @@ class WC_Emails {
 	}
 
 	/**
-	 * Wraps a message in the woocommerce mail template.
+	 * Wraps a message in the poocommerce mail template.
 	 *
 	 * @param string $email_heading Heading text.
 	 * @param string $message       Email message.
@@ -453,7 +453,7 @@ class WC_Emails {
 		 * @param string $email_heading Heading text.
 		 * @param null   $null Unused.
 		 */
-		do_action( 'woocommerce_email_header', $email_heading, null );
+		do_action( 'poocommerce_email_header', $email_heading, null );
 
 		echo wp_kses_post( wpautop( wptexturize( $message ) ) );
 
@@ -463,7 +463,7 @@ class WC_Emails {
 		 * @since 3.0.0
 		 * @param null $null Unused.
 		 */
-		do_action( 'woocommerce_email_footer', null );
+		do_action( 'poocommerce_email_footer', null );
 
 		return ob_get_clean();
 	}
@@ -576,11 +576,11 @@ class WC_Emails {
 		 * @param WC_Order $order  Order object.
 		 */
 		$columns = apply_filters(
-			'woocommerce_email_downloads_columns',
+			'poocommerce_email_downloads_columns',
 			array(
-				'download-product' => __( 'Product', 'woocommerce' ),
-				'download-expires' => __( 'Expires', 'woocommerce' ),
-				'download-file'    => __( 'Download', 'woocommerce' ),
+				'download-product' => __( 'Product', 'poocommerce' ),
+				'download-expires' => __( 'Expires', 'poocommerce' ),
+				'download-file'    => __( 'Download', 'poocommerce' ),
 			),
 			$order
 		);
@@ -629,16 +629,16 @@ class WC_Emails {
 		 * @param bool     $sent_to_admin If sent to admin.
 		 * @param WC_Order $order         Order instance.
 		 */
-		$fields = apply_filters( 'woocommerce_email_order_meta_fields', array(), $sent_to_admin, $order );
+		$fields = apply_filters( 'poocommerce_email_order_meta_fields', array(), $sent_to_admin, $order );
 
 		/**
-		 * Deprecated woocommerce_email_order_meta_keys filter.
+		 * Deprecated poocommerce_email_order_meta_keys filter.
 		 *
 		 * @since 2.3.0
 		 * @param array    $fields        Array of meta fields.
 		 * @param bool     $sent_to_admin If sent to admin.
 		 */
-		$_fields = apply_filters( 'woocommerce_email_order_meta_keys', array(), $sent_to_admin );
+		$_fields = apply_filters( 'poocommerce_email_order_meta_keys', array(), $sent_to_admin );
 
 		if ( $_fields ) {
 			foreach ( $_fields as $key => $field ) {
@@ -736,7 +736,7 @@ class WC_Emails {
 					 *
 					 * @since 10.1.0
 					 */
-					$meta_key_translation = apply_filters( 'woocommerce_fulfillment_translate_meta_key', $field->key );
+					$meta_key_translation = apply_filters( 'poocommerce_fulfillment_translate_meta_key', $field->key );
 					if ( $plain_text ) {
 						echo esc_attr( $meta_key_translation ) . ': ' . esc_attr( $field->value ) . PHP_EOL;
 					} else {
@@ -780,7 +780,7 @@ class WC_Emails {
 		 * @param bool     $sent_to_admin If sent to admin.
 		 * @param WC_Order $order         Order instance.
 		 */
-		$fields = array_filter( apply_filters( 'woocommerce_email_customer_details_fields', array(), $sent_to_admin, $order ), array( $this, 'customer_detail_field_is_valid' ) );
+		$fields = array_filter( apply_filters( 'poocommerce_email_customer_details_fields', array(), $sent_to_admin, $order ), array( $this, 'customer_detail_field_is_valid' ) );
 
 		if ( ! empty( $fields ) ) {
 			if ( $plain_text ) {
@@ -860,12 +860,12 @@ class WC_Emails {
 		}
 
 		if ( $plain_text ) {
-			echo "\n" . esc_html( wc_strtoupper( __( 'Additional information', 'woocommerce' ) ) ) . "\n\n";
+			echo "\n" . esc_html( wc_strtoupper( __( 'Additional information', 'poocommerce' ) ) ) . "\n\n";
 			foreach ( $fields as $field ) {
 				printf( "%s: %s\n", wp_kses_post( $field['label'] ), wp_kses_post( $field['value'] ) );
 			}
 		} else {
-			echo '<h2>' . esc_html__( 'Additional information', 'woocommerce' ) . '</h2>';
+			echo '<h2>' . esc_html__( 'Additional information', 'poocommerce' ) . '</h2>';
 			echo '<ul class="additional-fields" style="margin-bottom: 40px;">';
 			foreach ( $fields as $field ) {
 				printf( '<li><strong>%s</strong>: %s</li>', wp_kses_post( $field['label'] ), wp_kses_post( $field['value'] ) );
@@ -935,7 +935,7 @@ class WC_Emails {
 	 */
 	public function get_store_address() {
 		add_filter(
-			'woocommerce_formatted_address_force_country_display',
+			'poocommerce_formatted_address_force_country_display',
 			array( $this, 'get_store_address_force_country_display' ),
 			5
 		);
@@ -954,7 +954,7 @@ class WC_Emails {
 		// Replace newlines by commas.
 		$result = preg_replace( '/<br\/?>/i', ', ', $result );
 		remove_filter(
-			'woocommerce_formatted_address_force_country_display',
+			'poocommerce_formatted_address_force_country_display',
 			array( $this, 'get_store_address_force_country_display' )
 		);
 		return $result;
@@ -996,7 +996,7 @@ class WC_Emails {
 	 * @return void
 	 */
 	public function low_stock( $product ) {
-		if ( 'no' === get_option( 'woocommerce_notify_low_stock', 'yes' ) ) {
+		if ( 'no' === get_option( 'poocommerce_notify_low_stock', 'yes' ) ) {
 			return;
 		}
 
@@ -1007,7 +1007,7 @@ class WC_Emails {
 		 *
 		 * @since 4.7.0
 		 */
-		if ( false === apply_filters( 'woocommerce_should_send_low_stock_notification', true, $product->get_id() ) ) {
+		if ( false === apply_filters( 'poocommerce_should_send_low_stock_notification', true, $product->get_id() ) ) {
 			return;
 		}
 
@@ -1019,10 +1019,10 @@ class WC_Emails {
 			}
 		}
 
-		$subject = sprintf( '[%s] %s', $this->get_blogname(), __( 'Product low in stock', 'woocommerce' ) );
+		$subject = sprintf( '[%s] %s', $this->get_blogname(), __( 'Product low in stock', 'poocommerce' ) );
 		$message = sprintf(
 		/* translators: 1: product name 2: items in stock */
-			__( '%1$s is low in stock. There are %2$d left.', 'woocommerce' ),
+			__( '%1$s is low in stock. There are %2$d left.', 'poocommerce' ),
 			html_entity_decode( wp_strip_all_tags( $product->get_formatted_name() ), ENT_QUOTES, get_bloginfo( 'charset' ) ),
 			html_entity_decode( wp_strip_all_tags( $product->get_stock_quantity() ) )
 		);
@@ -1038,7 +1038,7 @@ class WC_Emails {
 		 * @param WC_Product $product Product instance.
 		 * @param null $null Unused.
 		 */
-			apply_filters( 'woocommerce_email_recipient_low_stock', get_option( 'woocommerce_stock_email_recipient' ), $product, null ),
+			apply_filters( 'poocommerce_email_recipient_low_stock', get_option( 'poocommerce_stock_email_recipient' ), $product, null ),
 			/**
 			* Filter the subject of the low stock notification email.
 			*
@@ -1047,7 +1047,7 @@ class WC_Emails {
 			* @param WC_Product $product Product instance.
 			* @param null $null Unused.
 			*/
-			apply_filters( 'woocommerce_email_subject_low_stock', $subject, $product, null ),
+			apply_filters( 'poocommerce_email_subject_low_stock', $subject, $product, null ),
 			/**
 			* Filter the content of the low stock notification email.
 			*
@@ -1056,7 +1056,7 @@ class WC_Emails {
 			* @param WC_Product $product Product instance.
 			* @param null $null Unused.
 			*/
-			apply_filters( 'woocommerce_email_content_low_stock', $message, $product ),
+			apply_filters( 'poocommerce_email_content_low_stock', $message, $product ),
 			/**
 			* Filter the headers of the low stock notification email.
 			*
@@ -1065,7 +1065,7 @@ class WC_Emails {
 			* @param WC_Product $product Product instance.
 			* @param null $null Unused.
 			*/
-			apply_filters( 'woocommerce_email_headers', '', 'low_stock', $product, null ),
+			apply_filters( 'poocommerce_email_headers', '', 'low_stock', $product, null ),
 			/**
 			* Filter the attachments of the low stock notification email.
 			*
@@ -1074,7 +1074,7 @@ class WC_Emails {
 			* @param WC_Product $product Product instance.
 			* @param null $null Unused.
 			*/
-			apply_filters( 'woocommerce_email_attachments', array(), 'low_stock', $product, null )
+			apply_filters( 'poocommerce_email_attachments', array(), 'low_stock', $product, null )
 		);
 
 		$this->remove_email_sender_filters();
@@ -1087,7 +1087,7 @@ class WC_Emails {
 	 * @return void
 	 */
 	public function no_stock( $product ) {
-		if ( 'no' === get_option( 'woocommerce_notify_no_stock', 'yes' ) ) {
+		if ( 'no' === get_option( 'poocommerce_notify_no_stock', 'yes' ) ) {
 			return;
 		}
 
@@ -1098,7 +1098,7 @@ class WC_Emails {
 		 *
 		 * @since 4.6.0
 		 */
-		if ( false === apply_filters( 'woocommerce_should_send_no_stock_notification', true, $product->get_id() ) ) {
+		if ( false === apply_filters( 'poocommerce_should_send_no_stock_notification', true, $product->get_id() ) ) {
 			return;
 		}
 
@@ -1110,9 +1110,9 @@ class WC_Emails {
 			}
 		}
 
-		$subject = sprintf( '[%s] %s', $this->get_blogname(), __( 'Product out of stock', 'woocommerce' ) );
+		$subject = sprintf( '[%s] %s', $this->get_blogname(), __( 'Product out of stock', 'poocommerce' ) );
 		/* translators: %s: product name */
-		$message = sprintf( __( '%s is out of stock.', 'woocommerce' ), html_entity_decode( wp_strip_all_tags( $product->get_formatted_name() ), ENT_QUOTES, get_bloginfo( 'charset' ) ) );
+		$message = sprintf( __( '%s is out of stock.', 'poocommerce' ), html_entity_decode( wp_strip_all_tags( $product->get_formatted_name() ), ENT_QUOTES, get_bloginfo( 'charset' ) ) );
 
 		$this->add_email_sender_filters();
 
@@ -1125,7 +1125,7 @@ class WC_Emails {
 		 * @param WC_Product $product Product instance.
 		 * @param null $null Unused.
 		 */
-			apply_filters( 'woocommerce_email_recipient_no_stock', get_option( 'woocommerce_stock_email_recipient' ), $product, null ),
+			apply_filters( 'poocommerce_email_recipient_no_stock', get_option( 'poocommerce_stock_email_recipient' ), $product, null ),
 			/**
 			* Filter the subject of the no stock notification email.
 			*
@@ -1134,7 +1134,7 @@ class WC_Emails {
 			* @param WC_Product $product Product instance.
 			* @param null $null Unused.
 			*/
-			apply_filters( 'woocommerce_email_subject_no_stock', $subject, $product, null ),
+			apply_filters( 'poocommerce_email_subject_no_stock', $subject, $product, null ),
 			/**
 			* Filter the content of the no stock notification email.
 			*
@@ -1143,7 +1143,7 @@ class WC_Emails {
 			* @param WC_Product $product Product instance.
 			* @param null $null Unused.
 			*/
-			apply_filters( 'woocommerce_email_content_no_stock', $message, $product ),
+			apply_filters( 'poocommerce_email_content_no_stock', $message, $product ),
 			/**
 			* Filter the headers of the no stock notification email.
 			*
@@ -1152,7 +1152,7 @@ class WC_Emails {
 			* @param WC_Product $product Product instance.
 			* @param null $null Unused.
 			*/
-			apply_filters( 'woocommerce_email_headers', '', 'no_stock', $product, null ),
+			apply_filters( 'poocommerce_email_headers', '', 'no_stock', $product, null ),
 			/**
 			* Filter the attachments of the no stock notification email.
 			*
@@ -1161,7 +1161,7 @@ class WC_Emails {
 			* @param WC_Product $product Product instance.
 			* @param null $null Unused.
 			*/
-			apply_filters( 'woocommerce_email_attachments', array(), 'no_stock', $product, null )
+			apply_filters( 'poocommerce_email_attachments', array(), 'no_stock', $product, null )
 		);
 
 		$this->remove_email_sender_filters();
@@ -1196,9 +1196,9 @@ class WC_Emails {
 		$stock_before         = $args['quantity'] + $args['product']->get_stock_quantity();
 		$backordered_quantity = $args['quantity'] - max( 0, $stock_before );
 
-		$subject = sprintf( '[%s] %s', $this->get_blogname(), __( 'Product backorder', 'woocommerce' ) );
+		$subject = sprintf( '[%s] %s', $this->get_blogname(), __( 'Product backorder', 'poocommerce' ) );
 		/* translators: 1: backordered quantity 2: product name 3: order number */
-		$message = sprintf( __( '%1$s units of %2$s have been backordered in order #%3$s.', 'woocommerce' ), $backordered_quantity, html_entity_decode( wp_strip_all_tags( $args['product']->get_formatted_name() ), ENT_QUOTES, get_bloginfo( 'charset' ) ), $order->get_order_number() );
+		$message = sprintf( __( '%1$s units of %2$s have been backordered in order #%3$s.', 'poocommerce' ), $backordered_quantity, html_entity_decode( wp_strip_all_tags( $args['product']->get_formatted_name() ), ENT_QUOTES, get_bloginfo( 'charset' ) ), $order->get_order_number() );
 
 		$this->add_email_sender_filters();
 
@@ -1211,7 +1211,7 @@ class WC_Emails {
 		 * @param array $args Arguments.
 		 * @param null $null Unused.
 		 */
-			apply_filters( 'woocommerce_email_recipient_backorder', get_option( 'woocommerce_stock_email_recipient' ), $args, null ),
+			apply_filters( 'poocommerce_email_recipient_backorder', get_option( 'poocommerce_stock_email_recipient' ), $args, null ),
 			/**
 			* Filter the subject of the backorder notification email.
 			*
@@ -1220,7 +1220,7 @@ class WC_Emails {
 			* @param array $args Arguments.
 			* @param null $null Unused.
 			*/
-			apply_filters( 'woocommerce_email_subject_backorder', $subject, $args, null ),
+			apply_filters( 'poocommerce_email_subject_backorder', $subject, $args, null ),
 			/**
 			* Filter the content of the backorder notification email.
 			*
@@ -1229,7 +1229,7 @@ class WC_Emails {
 			* @param array $args Arguments.
 			* @param null $null Unused.
 			*/
-			apply_filters( 'woocommerce_email_content_backorder', $message, $args ),
+			apply_filters( 'poocommerce_email_content_backorder', $message, $args ),
 			/**
 			* Filter the headers of the backorder notification email.
 			*
@@ -1238,7 +1238,7 @@ class WC_Emails {
 			* @param array $args Arguments.
 			* @param null $null Unused.
 			*/
-			apply_filters( 'woocommerce_email_headers', '', 'backorder', $args, null ),
+			apply_filters( 'poocommerce_email_headers', '', 'backorder', $args, null ),
 			/**
 			* Filter the attachments of the backorder notification email.
 			*
@@ -1247,7 +1247,7 @@ class WC_Emails {
 			* @param array $args Arguments.
 			* @param null $null Unused.
 			*/
-			apply_filters( 'woocommerce_email_attachments', array(), 'backorder', $args, null )
+			apply_filters( 'poocommerce_email_attachments', array(), 'backorder', $args, null )
 		);
 
 		$this->remove_email_sender_filters();

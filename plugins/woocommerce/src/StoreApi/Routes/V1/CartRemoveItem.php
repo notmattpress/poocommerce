@@ -1,8 +1,8 @@
 <?php
-namespace Automattic\WooCommerce\StoreApi\Routes\V1;
+namespace Automattic\PooCommerce\StoreApi\Routes\V1;
 
-use Automattic\WooCommerce\StoreApi\Utilities\DraftOrderTrait;
-use Automattic\WooCommerce\StoreApi\Exceptions\RouteException;
+use Automattic\PooCommerce\StoreApi\Utilities\DraftOrderTrait;
+use Automattic\PooCommerce\StoreApi\Exceptions\RouteException;
 
 /**
  * CartRemoveItem class.
@@ -48,7 +48,7 @@ class CartRemoveItem extends AbstractCartRoute {
 				'permission_callback' => '__return_true',
 				'args'                => [
 					'key' => [
-						'description' => __( 'Unique identifier (key) for the cart item.', 'woocommerce' ),
+						'description' => __( 'Unique identifier (key) for the cart item.', 'poocommerce' ),
 						'type'        => 'string',
 					],
 				],
@@ -70,7 +70,7 @@ class CartRemoveItem extends AbstractCartRoute {
 		$cart_item = $this->cart_controller->get_cart_item( $request['key'] );
 
 		if ( empty( $cart_item ) ) {
-			throw new RouteException( 'woocommerce_rest_cart_invalid_key', __( 'Cart item no longer exists or is invalid.', 'woocommerce' ), 409 );
+			throw new RouteException( 'poocommerce_rest_cart_invalid_key', __( 'Cart item no longer exists or is invalid.', 'poocommerce' ), 409 );
 		}
 
 		$cart->remove_cart_item( $request['key'] );

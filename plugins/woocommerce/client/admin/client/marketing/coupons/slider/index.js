@@ -18,7 +18,7 @@ const Slider = ( { children, animationKey, animate } ) => {
 	const container = useRef();
 
 	const containerClasses = clsx(
-		'woocommerce-marketing-slider',
+		'poocommerce-marketing-slider',
 		animate && `animate-${ animate }`
 	);
 
@@ -33,7 +33,7 @@ const Slider = ( { children, animationKey, animate } ) => {
 
 	const updateSliderHeight = () => {
 		const slide = container.current.querySelector(
-			'.woocommerce-marketing-slider__slide'
+			'.poocommerce-marketing-slider__slide'
 		);
 		updateHeight( slide.clientHeight );
 	};
@@ -65,7 +65,7 @@ const Slider = ( { children, animationKey, animate } ) => {
 					key={ animationKey }
 					onEnter={ onEnter }
 				>
-					<div className="woocommerce-marketing-slider__slide">
+					<div className="poocommerce-marketing-slider__slide">
 						{ children }
 					</div>
 				</CSSTransition>

@@ -1,9 +1,9 @@
 <?php
 
-namespace Automattic\WooCommerce\Admin\Features\ShippingPartnerSuggestions;
+namespace Automattic\PooCommerce\Admin\Features\ShippingPartnerSuggestions;
 
-use Automattic\WooCommerce\Admin\Features\PaymentGatewaySuggestions\EvaluateSuggestion;
-use Automattic\WooCommerce\Admin\RemoteSpecs\RemoteSpecsEngine;
+use Automattic\PooCommerce\Admin\Features\PaymentGatewaySuggestions\EvaluateSuggestion;
+use Automattic\PooCommerce\Admin\RemoteSpecs\RemoteSpecsEngine;
 
 /**
  * Class ShippingPartnerSuggestions
@@ -44,13 +44,13 @@ class ShippingPartnerSuggestions extends RemoteSpecsEngine {
 	 * Get specs or fetch remotely if they don't exist.
 	 */
 	public static function get_specs() {
-		if ( 'no' === get_option( 'woocommerce_show_marketplace_suggestions', 'yes' ) ) {
+		if ( 'no' === get_option( 'poocommerce_show_marketplace_suggestions', 'yes' ) ) {
 			/**
 			 * It can be used to modify shipping partner suggestions spec.
 			 *
 			 * @since 7.4.1
 			 */
-			return apply_filters( 'woocommerce_admin_shipping_partner_suggestions_specs', DefaultShippingPartners::get_all() );
+			return apply_filters( 'poocommerce_admin_shipping_partner_suggestions_specs', DefaultShippingPartners::get_all() );
 		}
 		$specs = ShippingPartnerSuggestionsDataSourcePoller::get_instance()->get_specs_from_data_sources();
 
@@ -61,7 +61,7 @@ class ShippingPartnerSuggestions extends RemoteSpecsEngine {
 			 *
 			 * @since 7.4.1
 			 */
-			return apply_filters( 'woocommerce_admin_shipping_partner_suggestions_specs', DefaultShippingPartners::get_all() );
+			return apply_filters( 'poocommerce_admin_shipping_partner_suggestions_specs', DefaultShippingPartners::get_all() );
 		}
 
 		/**
@@ -69,6 +69,6 @@ class ShippingPartnerSuggestions extends RemoteSpecsEngine {
 		 *
 		 * @since 7.4.1
 		 */
-		return apply_filters( 'woocommerce_admin_shipping_partner_suggestions_specs', $specs );
+		return apply_filters( 'poocommerce_admin_shipping_partner_suggestions_specs', $specs );
 	}
 }

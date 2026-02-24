@@ -31,7 +31,7 @@ type TooltipProps = {
 export const Tooltip = ( {
 	children = <Icon icon={ help } />,
 	className = '',
-	helperText = __( 'Help', 'woocommerce' ),
+	helperText = __( 'Help', 'poocommerce' ),
 	position = 'top center',
 	text,
 }: TooltipProps ) => {
@@ -44,10 +44,10 @@ export const Tooltip = ( {
 
 	return (
 		<>
-			<div className={ clsx( 'woocommerce-tooltip', uniqueIdentifier ) }>
+			<div className={ clsx( 'poocommerce-tooltip', uniqueIdentifier ) }>
 				<Button
 					className={ clsx(
-						'woocommerce-tooltip__button',
+						'poocommerce-tooltip__button',
 						className
 					) }
 					onKeyDown={ (
@@ -69,7 +69,7 @@ export const Tooltip = ( {
 						focusOnMount={ true }
 						position={ position }
 						inline
-						className="woocommerce-tooltip__text"
+						className="poocommerce-tooltip__text"
 						onFocusOutside={ ( event ) => {
 							if (
 								event.currentTarget?.classList.contains(

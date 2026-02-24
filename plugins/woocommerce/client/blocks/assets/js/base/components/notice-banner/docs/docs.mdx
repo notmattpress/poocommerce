@@ -65,7 +65,7 @@ If you provide a `summary` it will be displayed above the notice content. This c
 To display a basic notice, pass the notice message as a string:
 
 ```jsx
-import { NoticeBanner } from '@woocommerce/base-components';
+import { NoticeBanner } from '@poocommerce/base-components';
 
 <NoticeBanner status="info">Your message here</NoticeBanner>;
 ```
@@ -75,7 +75,7 @@ import { NoticeBanner } from '@woocommerce/base-components';
 For more complex markup, you can wrap any JSX element:
 
 ```jsx
-import { NoticeBanner } from '@woocommerce/base-components';
+import { NoticeBanner } from '@poocommerce/base-components';
 
 <NoticeBanner status="error">
 	<p>
@@ -89,7 +89,7 @@ import { NoticeBanner } from '@woocommerce/base-components';
 In this example, the summary prop is used to indicate to the user that there are errors in the form submission.
 
 ```typescript
-import { NoticeBanner } from '@woocommerce/base-components';
+import { NoticeBanner } from '@poocommerce/base-components';
 
 const errorMessages = [
 	'First error message',

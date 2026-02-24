@@ -2,14 +2,14 @@
 /**
  * Class WC_Gateway_Paypal_Request file.
  *
- * @package WooCommerce\Gateways
+ * @package PooCommerce\Gateways
  */
 
 declare(strict_types=1);
 
-use Automattic\WooCommerce\Gateways\PayPal\Constants as PayPalConstants;
-use Automattic\WooCommerce\Gateways\PayPal\Request as PayPalRequest;
-use Automattic\WooCommerce\Utilities\NumberUtil;
+use Automattic\PooCommerce\Gateways\PayPal\Constants as PayPalConstants;
+use Automattic\PooCommerce\Gateways\PayPal\Request as PayPalRequest;
+use Automattic\PooCommerce\Utilities\NumberUtil;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -75,7 +75,7 @@ class WC_Gateway_Paypal_Request {
 	public function get_request_url( $order, $sandbox = false ) {
 		$this->endpoint    = $sandbox ? 'https://www.sandbox.paypal.com/cgi-bin/webscr?test_ipn=1&' : 'https://www.paypal.com/cgi-bin/webscr?';
 		$paypal_args       = $this->get_paypal_args( $order );
-		$paypal_args['bn'] = 'WooThemes_Cart'; // Append WooCommerce PayPal Partner Attribution ID. This should not be overridden for this gateway.
+		$paypal_args['bn'] = 'WooThemes_Cart'; // Append PooCommerce PayPal Partner Attribution ID. This should not be overridden for this gateway.
 
 		// Mask (remove) PII from the logs.
 		$mask = array(
@@ -101,7 +101,7 @@ class WC_Gateway_Paypal_Request {
 	/**
 	 * Create a PayPal order using the Orders v2 API.
 	 *
-	 * @deprecated 10.5.0 Use Automattic\WooCommerce\Gateways\PayPal\Request::create_paypal_order() instead. This method will be removed in 11.0.0.
+	 * @deprecated 10.5.0 Use Automattic\PooCommerce\Gateways\PayPal\Request::create_paypal_order() instead. This method will be removed in 11.0.0.
 	 * @param WC_Order $order Order object.
 	 * @param string   $payment_source The payment source.
 	 * @param array    $js_sdk_params Extra parameters for a PayPal JS SDK (Buttons) request.
@@ -113,7 +113,7 @@ class WC_Gateway_Paypal_Request {
 		$payment_source = PayPalConstants::PAYMENT_SOURCE_PAYPAL,
 		$js_sdk_params = array()
 	) {
-		wc_deprecated_function( __METHOD__, '10.5.0', 'Automattic\WooCommerce\Gateways\PayPal\Request::create_paypal_order()' );
+		wc_deprecated_function( __METHOD__, '10.5.0', 'Automattic\PooCommerce\Gateways\PayPal\Request::create_paypal_order()' );
 		if ( ! $this->request ) {
 			$this->request = new PayPalRequest( $this->gateway );
 		}
@@ -123,14 +123,14 @@ class WC_Gateway_Paypal_Request {
 	/**
 	 * Get PayPal order details.
 	 *
-	 * @deprecated 10.5.0 Use Automattic\WooCommerce\Gateways\PayPal\Request::get_paypal_order_details() instead. This method will be removed in 11.0.0.
+	 * @deprecated 10.5.0 Use Automattic\PooCommerce\Gateways\PayPal\Request::get_paypal_order_details() instead. This method will be removed in 11.0.0.
 	 * @param string $paypal_order_id The ID of the PayPal order.
 	 * @return array
 	 * @throws Exception If the PayPal order details request fails.
 	 * @throws Exception If the PayPal order details are not found.
 	 */
 	public function get_paypal_order_details( $paypal_order_id ) {
-		wc_deprecated_function( __METHOD__, '10.5.0', 'Automattic\WooCommerce\Gateways\PayPal\Request::get_paypal_order_details()' );
+		wc_deprecated_function( __METHOD__, '10.5.0', 'Automattic\PooCommerce\Gateways\PayPal\Request::get_paypal_order_details()' );
 		if ( ! $this->request ) {
 			$this->request = new PayPalRequest( $this->gateway );
 		}
@@ -140,7 +140,7 @@ class WC_Gateway_Paypal_Request {
 	/**
 	 * This method authorizes or captures a PayPal payment and updates the order status.
 	 *
-	 * @deprecated 10.5.0 Use Automattic\WooCommerce\Gateways\PayPal\Request::authorize_or_capture_payment() instead.
+	 * @deprecated 10.5.0 Use Automattic\PooCommerce\Gateways\PayPal\Request::authorize_or_capture_payment() instead.
 	 * @param WC_Order    $order Order object.
 	 * @param string|null $action_url The URL to authorize or capture the payment.
 	 * @param string      $action The action to perform. Either 'authorize' or 'capture'.
@@ -148,7 +148,7 @@ class WC_Gateway_Paypal_Request {
 	 * @throws Exception If the PayPal payment authorization or capture fails.
 	 */
 	public function authorize_or_capture_payment( $order, $action_url, $action = PayPalConstants::PAYMENT_ACTION_CAPTURE ) {
-		wc_deprecated_function( __METHOD__, '10.5.0', 'Automattic\WooCommerce\Gateways\PayPal\Request::authorize_or_capture_payment()' );
+		wc_deprecated_function( __METHOD__, '10.5.0', 'Automattic\PooCommerce\Gateways\PayPal\Request::authorize_or_capture_payment()' );
 		if ( ! $this->request ) {
 			$this->request = new PayPalRequest( $this->gateway );
 		}
@@ -158,13 +158,13 @@ class WC_Gateway_Paypal_Request {
 	/**
 	 * Capture a PayPal payment that has been authorized.
 	 *
-	 * @deprecated 10.5.0 Use Automattic\WooCommerce\Gateways\PayPal\Request::capture_authorized_payment() instead. This method will be removed in 11.0.0.
+	 * @deprecated 10.5.0 Use Automattic\PooCommerce\Gateways\PayPal\Request::capture_authorized_payment() instead. This method will be removed in 11.0.0.
 	 * @param WC_Order $order Order object.
 	 * @return void
 	 * @throws Exception If the PayPal payment capture fails.
 	 */
 	public function capture_authorized_payment( $order ) {
-		wc_deprecated_function( __METHOD__, '10.5.0', 'Automattic\WooCommerce\Gateways\PayPal\Request::capture_authorized_payment()' );
+		wc_deprecated_function( __METHOD__, '10.5.0', 'Automattic\PooCommerce\Gateways\PayPal\Request::capture_authorized_payment()' );
 		if ( ! $this->request ) {
 			$this->request = new PayPalRequest( $this->gateway );
 		}
@@ -174,12 +174,12 @@ class WC_Gateway_Paypal_Request {
 	/**
 	 * Get the amount data  for the PayPal order purchase unit field.
 	 *
-	 * @deprecated 10.5.0 Use Automattic\WooCommerce\Gateways\PayPal\Request::get_paypal_order_purchase_unit_amount() instead. This method will be removed in 11.0.0.
+	 * @deprecated 10.5.0 Use Automattic\PooCommerce\Gateways\PayPal\Request::get_paypal_order_purchase_unit_amount() instead. This method will be removed in 11.0.0.
 	 * @param WC_Order $order Order object.
 	 * @return array
 	 */
 	public function get_paypal_order_purchase_unit_amount( $order ) {
-		wc_deprecated_function( __METHOD__, '10.5.0', 'Automattic\WooCommerce\Gateways\PayPal\Request::get_paypal_order_purchase_unit_amount()' );
+		wc_deprecated_function( __METHOD__, '10.5.0', 'Automattic\PooCommerce\Gateways\PayPal\Request::get_paypal_order_purchase_unit_amount()' );
 		if ( ! $this->request ) {
 			$this->request = new PayPalRequest( $this->gateway );
 		}
@@ -189,12 +189,12 @@ class WC_Gateway_Paypal_Request {
 	/**
 	 * Fetch the PayPal client-id from the Transact platform.
 	 *
-	 * @deprecated 10.5.0 Use Automattic\WooCommerce\Gateways\PayPal\Request::fetch_paypal_client_id() instead. This method will be removed in 11.0.0.
+	 * @deprecated 10.5.0 Use Automattic\PooCommerce\Gateways\PayPal\Request::fetch_paypal_client_id() instead. This method will be removed in 11.0.0.
 	 * @return string|null The PayPal client-id, or null if the request fails.
 	 * @throws Exception If the request fails.
 	 */
 	public function fetch_paypal_client_id() {
-		wc_deprecated_function( __METHOD__, '10.5.0', 'Automattic\WooCommerce\Gateways\PayPal\Request::fetch_paypal_client_id()' );
+		wc_deprecated_function( __METHOD__, '10.5.0', 'Automattic\PooCommerce\Gateways\PayPal\Request::fetch_paypal_client_id()' );
 		if ( ! $this->request ) {
 			$this->request = new PayPalRequest( $this->gateway );
 		}
@@ -232,7 +232,7 @@ class WC_Gateway_Paypal_Request {
 				'cmd'           => '_cart',
 				'business'      => $this->gateway->get_option( 'email' ),
 				'no_note'       => 1,
-				'currency_code' => get_woocommerce_currency(),
+				'currency_code' => get_poocommerce_currency(),
 				'charset'       => 'utf-8',
 				'rm'            => is_ssl() ? 2 : 1,
 				'upload'        => 1,
@@ -284,7 +284,7 @@ class WC_Gateway_Paypal_Request {
 		}
 
 		return apply_filters(
-			'woocommerce_paypal_args',
+			'poocommerce_paypal_args',
 			array_merge(
 				$this->get_transaction_args( $order ),
 				$this->get_line_item_args( $order, true )
@@ -302,14 +302,14 @@ class WC_Gateway_Paypal_Request {
 	protected function get_paypal_args( $order ) {
 		WC_Gateway_Paypal::log( 'Generating payment form for order ' . $order->get_order_number() . '. Notify URL: ' . $this->notify_url );
 
-		$force_one_line_item = apply_filters( 'woocommerce_paypal_force_one_line_item', false, $order );
+		$force_one_line_item = apply_filters( 'poocommerce_paypal_force_one_line_item', false, $order );
 
 		if ( ( wc_tax_enabled() && wc_prices_include_tax() ) || ! $this->line_items_valid( $order ) ) {
 			$force_one_line_item = true;
 		}
 
 		$paypal_args = apply_filters(
-			'woocommerce_paypal_args',
+			'poocommerce_paypal_args',
 			array_merge(
 				$this->get_transaction_args( $order ),
 				$this->get_line_item_args( $order, $force_one_line_item )
@@ -401,7 +401,7 @@ class WC_Gateway_Paypal_Request {
 			$line_item_args['shipping_1'] = $this->number_format( $shipping_total, $order );
 		} elseif ( $order->get_shipping_total() > 0 ) {
 			/* translators: %s: Order shipping method */
-			$this->add_line_item( sprintf( __( 'Shipping via %s', 'woocommerce' ), $order->get_shipping_method() ), 1, $this->number_format( $shipping_total, $order ) );
+			$this->add_line_item( sprintf( __( 'Shipping via %s', 'poocommerce' ), $order->get_shipping_method() ), 1, $this->number_format( $shipping_total, $order ) );
 		}
 
 		return $line_item_args;
@@ -417,7 +417,7 @@ class WC_Gateway_Paypal_Request {
 		$this->delete_line_items();
 
 		$all_items_name = $this->get_order_item_names( $order );
-		$this->add_line_item( $all_items_name ? $all_items_name : __( 'Order', 'woocommerce' ), 1, $this->number_format( $order->get_total() - $this->round( $order->get_shipping_total() + $order->get_shipping_tax(), $order ), $order ), $order->get_order_number() );
+		$this->add_line_item( $all_items_name ? $all_items_name : __( 'Order', 'poocommerce' ), 1, $this->number_format( $order->get_total() - $this->round( $order->get_shipping_total() + $order->get_shipping_tax(), $order ), $order ), $order->get_order_number() );
 		$line_item_args = $this->get_shipping_cost_line_item( $order, true );
 
 		return array_merge( $line_item_args, $this->get_line_items() );
@@ -490,7 +490,7 @@ class WC_Gateway_Paypal_Request {
 			$item_names[] = $item_name . ' x ' . $item->get_quantity();
 		}
 
-		return apply_filters( 'woocommerce_paypal_get_order_item_names', implode( ', ', $item_names ), $order );
+		return apply_filters( 'poocommerce_paypal_get_order_item_names', implode( ', ', $item_names ), $order );
 	}
 
 	/**
@@ -519,7 +519,7 @@ class WC_Gateway_Paypal_Request {
 			$item_name .= ' (' . $item_meta . ')';
 		}
 
-		return apply_filters( 'woocommerce_paypal_get_order_item_name', $item_name, $order, $item );
+		return apply_filters( 'poocommerce_paypal_get_order_item_name', $item_name, $order, $item );
 	}
 
 	/**
@@ -600,9 +600,9 @@ class WC_Gateway_Paypal_Request {
 		$index = ( count( $this->line_items ) / 4 ) + 1;
 
 		$item = apply_filters(
-			'woocommerce_paypal_line_item',
+			'poocommerce_paypal_line_item',
 			array(
-				'item_name'   => html_entity_decode( wc_trim_string( $item_name ? wp_strip_all_tags( $item_name ) : __( 'Item', 'woocommerce' ), 127 ), ENT_NOQUOTES, 'UTF-8' ),
+				'item_name'   => html_entity_decode( wc_trim_string( $item_name ? wp_strip_all_tags( $item_name ) : __( 'Item', 'poocommerce' ), 127 ), ENT_NOQUOTES, 'UTF-8' ),
 				'quantity'    => (int) $quantity,
 				'amount'      => wc_float_to_string( (float) $amount ),
 				'item_number' => $item_number,

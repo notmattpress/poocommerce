@@ -2,14 +2,14 @@
 /**
  * REST Controller Tests
  *
- * @package WooCommerce\Admin\Tests\API
+ * @package PooCommerce\Admin\Tests\API
  * @since 3.6.4
  */
 
 /**
  * REST Controller Tests Class
  *
- * @package WooCommerce\Admin\Tests\API
+ * @package PooCommerce\Admin\Tests\API
  * @since 3.6.4
  */
 class WC_Admin_Tests_API_Report_Controllers extends WC_REST_Unit_Test_Case {

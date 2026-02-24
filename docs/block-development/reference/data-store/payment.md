@@ -71,7 +71,7 @@ An example of data held within the Payment Data Store is shown below. This examp
 
 ## Usage
 
-To utilize this store you will import the `paymentStore` `StoreDescriptor` in any module referencing it. Assuming `@woocommerce/block-data` is registered as an external pointing to `wc.wcBlocksData` you can import the key via:
+To utilize this store you will import the `paymentStore` `StoreDescriptor` in any module referencing it. Assuming `@poocommerce/block-data` is registered as an external pointing to `wc.wcBlocksData` you can import the key via:
 
 ```js
 const { paymentStore } = window.wc.wcBlocksData;

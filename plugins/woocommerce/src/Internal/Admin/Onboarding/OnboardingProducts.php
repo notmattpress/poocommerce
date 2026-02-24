@@ -1,14 +1,14 @@
 <?php
 /**
- * WooCommerce Onboarding Products
+ * PooCommerce Onboarding Products
  */
 
-namespace Automattic\WooCommerce\Internal\Admin\Onboarding;
+namespace Automattic\PooCommerce\Internal\Admin\Onboarding;
 
-use Automattic\WooCommerce\Admin\Features\Features;
-use Automattic\WooCommerce\Internal\Admin\Onboarding\OnboardingProfile;
-use Automattic\WooCommerce\Admin\Loader;
-use Automattic\WooCommerce\Admin\PluginsHelper;
+use Automattic\PooCommerce\Admin\Features\Features;
+use Automattic\PooCommerce\Internal\Admin\Onboarding\OnboardingProfile;
+use Automattic\PooCommerce\Admin\Loader;
+use Automattic\PooCommerce\Admin\PluginsHelper;
 
 /**
  * Class for handling product types and data around product types.
@@ -30,29 +30,29 @@ class OnboardingProducts {
 	public static function get_allowed_product_types() {
 		$products         = array(
 			'physical'        => array(
-				'label'   => __( 'Physical products', 'woocommerce' ),
+				'label'   => __( 'Physical products', 'poocommerce' ),
 				'default' => true,
 			),
 			'downloads'       => array(
-				'label' => __( 'Downloads', 'woocommerce' ),
+				'label' => __( 'Downloads', 'poocommerce' ),
 			),
 			'subscriptions'   => array(
-				'label' => __( 'Subscriptions', 'woocommerce' ),
+				'label' => __( 'Subscriptions', 'poocommerce' ),
 			),
 			'memberships'     => array(
-				'label'   => __( 'Memberships', 'woocommerce' ),
+				'label'   => __( 'Memberships', 'poocommerce' ),
 				'product' => 958589,
 			),
 			'bookings'        => array(
-				'label'   => __( 'Bookings', 'woocommerce' ),
+				'label'   => __( 'Bookings', 'poocommerce' ),
 				'product' => 390890,
 			),
 			'product-bundles' => array(
-				'label'   => __( 'Bundles', 'woocommerce' ),
+				'label'   => __( 'Bundles', 'poocommerce' ),
 				'product' => 18716,
 			),
 			'product-add-ons' => array(
-				'label'   => __( 'Customizable products', 'woocommerce' ),
+				'label'   => __( 'Customizable products', 'poocommerce' ),
 				'product' => 18618,
 			),
 		);
@@ -68,7 +68,7 @@ class OnboardingProducts {
 			$products['subscriptions']['product'] = 27147;
 		}
 
-		return apply_filters( 'woocommerce_admin_onboarding_product_types', $products );
+		return apply_filters( 'poocommerce_admin_onboarding_product_types', $products );
 	}
 
 	/**
@@ -82,28 +82,28 @@ class OnboardingProducts {
 		// Transient value is an array of product data keyed by locale.
 		$transient_value      = get_transient( self::PRODUCT_DATA_TRANSIENT );
 		$transient_value      = is_array( $transient_value ) ? $transient_value : array();
-		$woocommerce_products = $transient_value[ $locale ] ?? false;
+		$poocommerce_products = $transient_value[ $locale ] ?? false;
 
-		if ( false === $woocommerce_products ) {
-			$woocommerce_products = wp_remote_get(
+		if ( false === $poocommerce_products ) {
+			$poocommerce_products = wp_remote_get(
 				add_query_arg(
 					array(
 						'locale' => $locale,
 					),
-					'https://woocommerce.com/wp-json/wccom-extensions/1.0/search'
+					'https://poocommerce.com/wp-json/wccom-extensions/1.0/search'
 				),
 				array(
-					'user-agent' => 'WooCommerce/' . WC()->version . '; ' . get_bloginfo( 'url' ),
+					'user-agent' => 'PooCommerce/' . WC()->version . '; ' . get_bloginfo( 'url' ),
 				)
 			);
-			if ( is_wp_error( $woocommerce_products ) ) {
+			if ( is_wp_error( $poocommerce_products ) ) {
 				return $product_types;
 			}
-			$transient_value[ $locale ] = $woocommerce_products;
+			$transient_value[ $locale ] = $poocommerce_products;
 			set_transient( self::PRODUCT_DATA_TRANSIENT, $transient_value, DAY_IN_SECONDS );
 		}
 
-		$data         = json_decode( $woocommerce_products['body'] );
+		$data         = json_decode( $poocommerce_products['body'] );
 		$products     = array();
 		$product_data = array();
 

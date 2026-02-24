@@ -1,23 +1,23 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\Settings;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\Settings;
 
 use Automattic\Jetpack\Connection\Manager as WPCOM_Connection_Manager;
 use Automattic\Jetpack\Constants;
-use Automattic\WooCommerce\Admin\PluginsHelper;
-use Automattic\WooCommerce\Internal\Admin\Settings\PaymentsProviders;
-use Automattic\WooCommerce\Internal\Admin\Settings\Payments;
-use Automattic\WooCommerce\Internal\Admin\Settings\PaymentsProviders\WooPayments\WooPaymentsService;
-use Automattic\WooCommerce\Internal\Admin\Settings\PaymentsRestController;
-use Automattic\WooCommerce\Internal\Admin\Settings\Utils;
-use Automattic\WooCommerce\Internal\Admin\Suggestions\Incentives\Incentive;
-use Automattic\WooCommerce\Internal\Admin\Suggestions\PaymentsExtensionSuggestions;
-use Automattic\WooCommerce\Internal\Admin\Onboarding\OnboardingProfile;
-use Automattic\WooCommerce\Proxies\LegacyProxy;
-use Automattic\WooCommerce\Testing\Tools\DependencyManagement\MockableLegacyProxy;
-use Automattic\WooCommerce\Testing\Tools\TestingContainer;
-use Automattic\WooCommerce\Tests\Internal\Admin\Settings\Mocks\FakePaymentGateway;
+use Automattic\PooCommerce\Admin\PluginsHelper;
+use Automattic\PooCommerce\Internal\Admin\Settings\PaymentsProviders;
+use Automattic\PooCommerce\Internal\Admin\Settings\Payments;
+use Automattic\PooCommerce\Internal\Admin\Settings\PaymentsProviders\WooPayments\WooPaymentsService;
+use Automattic\PooCommerce\Internal\Admin\Settings\PaymentsRestController;
+use Automattic\PooCommerce\Internal\Admin\Settings\Utils;
+use Automattic\PooCommerce\Internal\Admin\Suggestions\Incentives\Incentive;
+use Automattic\PooCommerce\Internal\Admin\Suggestions\PaymentsExtensionSuggestions;
+use Automattic\PooCommerce\Internal\Admin\Onboarding\OnboardingProfile;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\Testing\Tools\DependencyManagement\MockableLegacyProxy;
+use Automattic\PooCommerce\Testing\Tools\TestingContainer;
+use Automattic\PooCommerce\Tests\Internal\Admin\Settings\Mocks\FakePaymentGateway;
 use PHPUnit\Framework\MockObject\MockObject;
 use WC_REST_Unit_Test_Case;
 use WP_REST_Request;
@@ -128,17 +128,17 @@ class PaymentsRestControllerIntegrationTest extends WC_REST_Unit_Test_Case {
 	 */
 	public static function wpSetUpBeforeClass(): void {
 		self::$initial_country  = WC()->countries->get_base_country();
-		self::$initial_currency = get_woocommerce_currency();
+		self::$initial_currency = get_poocommerce_currency();
 	}
 
 	/**
 	 * Restores initial values of country and currency after running test suite.
 	 */
 	public static function wpTearDownAfterClass(): void {
-		update_option( 'woocommerce_default_country', self::$initial_country );
-		update_option( 'woocommerce_currency', self::$initial_currency );
+		update_option( 'poocommerce_default_country', self::$initial_country );
+		update_option( 'poocommerce_currency', self::$initial_currency );
 
-		delete_option( 'woocommerce_paypal_settings' );
+		delete_option( 'poocommerce_paypal_settings' );
 	}
 
 	/**
@@ -168,7 +168,7 @@ class PaymentsRestControllerIntegrationTest extends WC_REST_Unit_Test_Case {
 		remove_filter( 'pre_http_request', $this->woopayments_incentives_response_mock_ref );
 
 		$this->unmock_payment_gateways();
-		delete_option( 'woocommerce_gateway_order' );
+		delete_option( 'poocommerce_gateway_order' );
 
 		$this->mockable_proxy->reset();
 
@@ -190,7 +190,7 @@ class PaymentsRestControllerIntegrationTest extends WC_REST_Unit_Test_Case {
 		// Arrange.
 		// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
 		$filter_callback = fn( $caps ) => array(
-			'manage_woocommerce' => false,
+			'manage_poocommerce' => false,
 			'install_plugins'    => false,
 		);
 		add_filter( 'user_has_cap', $filter_callback );
@@ -215,7 +215,7 @@ class PaymentsRestControllerIntegrationTest extends WC_REST_Unit_Test_Case {
 		// Arrange.
 		// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
 		$filter_callback = fn( $caps ) => array(
-			'manage_woocommerce' => true,
+			'manage_poocommerce' => true,
 			'install_plugins'    => false,
 		);
 		add_filter( 'user_has_cap', $filter_callback );
@@ -263,7 +263,7 @@ class PaymentsRestControllerIntegrationTest extends WC_REST_Unit_Test_Case {
 		// Arrange.
 		// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
 		$filter_callback = fn( $caps ) => array(
-			'manage_woocommerce' => true,
+			'manage_poocommerce' => true,
 			'install_plugins'    => true,
 		);
 		add_filter( 'user_has_cap', $filter_callback );
@@ -361,7 +361,7 @@ class PaymentsRestControllerIntegrationTest extends WC_REST_Unit_Test_Case {
 		// Arrange.
 		$this->enable_core_paypal_pg();
 
-		update_option( 'woocommerce_default_country', 'LI' ); // Liechtenstein.
+		update_option( 'poocommerce_default_country', 'LI' ); // Liechtenstein.
 
 		// Act.
 		$request  = new WP_REST_Request( 'POST', self::ENDPOINT . '/providers' );
@@ -468,11 +468,11 @@ class PaymentsRestControllerIntegrationTest extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_get_payment_providers_has_all_the_data_with_no_partner_gateway_active() {
 		// Arrange.
-		// Reset the WooCommerce gateway order.
-		delete_option( 'woocommerce_gateway_order' );
+		// Reset the PooCommerce gateway order.
+		delete_option( 'poocommerce_gateway_order' );
 		// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
 		$filter_callback = fn( $caps ) => array(
-			'manage_woocommerce' => true,
+			'manage_poocommerce' => true,
 			'install_plugins'    => true,
 		);
 		add_filter( 'user_has_cap', $filter_callback );
@@ -521,7 +521,7 @@ class PaymentsRestControllerIntegrationTest extends WC_REST_Unit_Test_Case {
 		$this->assertCount( 5, $suggestion['links'] );
 		$this->assertArrayHasKey( 'plugin', $suggestion, 'Provider (suggestion) `plugin` entry is missing' );
 		$this->assertArrayHasKey( 'slug', $suggestion['plugin'], 'Provider (suggestion) `plugin[slug]` entry is missing' );
-		$this->assertSame( 'woocommerce-payments', $suggestion['plugin']['slug'] );
+		$this->assertSame( 'poocommerce-payments', $suggestion['plugin']['slug'] );
 		$this->assertArrayHasKey( 'status', $suggestion['plugin'], 'Provider (suggestion) `plugin[status]` entry is missing' );
 		$this->assertSame( PaymentsProviders::EXTENSION_NOT_INSTALLED, $suggestion['plugin']['status'] );
 		$this->assertArrayHasKey( 'tags', $suggestion, 'Provider (suggestion) `tags` entry is missing' );
@@ -537,7 +537,7 @@ class PaymentsRestControllerIntegrationTest extends WC_REST_Unit_Test_Case {
 				'description'       => 'Use the native payments solution built and supported by Woo.',
 				'short_description' => 'Save X% on processing fees.',
 				'cta_label'         => 'Save X%',
-				'tc_url'            => 'https://woocommerce.com/terms-conditions',
+				'tc_url'            => 'https://poocommerce.com/terms-conditions',
 				'badge'             => 'Save X% on processing fees',
 				'_dismissals'       => array(),
 				'_links'            => array(
@@ -567,7 +567,7 @@ class PaymentsRestControllerIntegrationTest extends WC_REST_Unit_Test_Case {
 		$this->assertArrayHasKey( '_type', $offline_pms_group['plugin'], 'Provider (offline payment methods group) `plugin[_type]` entry is missing' );
 		$this->assertSame( PaymentsProviders::EXTENSION_TYPE_WPORG, $offline_pms_group['plugin']['_type'], 'Provider (offline payment methods group) `plugin[_type]` entry is not `' . PaymentsProviders::EXTENSION_TYPE_WPORG . '`' );
 		$this->assertArrayHasKey( 'slug', $offline_pms_group['plugin'], 'Provider (offline payment methods group) `plugin[slug]` entry is missing' );
-		$this->assertSame( 'woocommerce', $offline_pms_group['plugin']['slug'] );
+		$this->assertSame( 'poocommerce', $offline_pms_group['plugin']['slug'] );
 		$this->assertArrayHasKey( 'file', $offline_pms_group['plugin'], 'Provider (offline payment methods group) `plugin[file]` entry is missing' );
 		$this->assertSame( '', $offline_pms_group['plugin']['file'] ); // Always empty.
 		$this->assertArrayHasKey( 'status', $offline_pms_group['plugin'], 'Provider (offline payment methods group) `plugin[status]` entry is missing' );
@@ -589,9 +589,9 @@ class PaymentsRestControllerIntegrationTest extends WC_REST_Unit_Test_Case {
 		$this->assertArrayHasKey( '_type', $provider['plugin'], 'Provider (gateway) `plugin[_type]` entry is missing' );
 		$this->assertSame( PaymentsProviders::EXTENSION_TYPE_WPORG, $provider['plugin']['_type'], 'PayPal Standard gateway `plugin[_type]` entry is not `' . PaymentsProviders::EXTENSION_TYPE_WPORG . '`' );
 		$this->assertArrayHasKey( 'slug', $provider['plugin'], 'Provider (gateway) `plugin[slug]` entry is missing' );
-		$this->assertSame( 'woocommerce', $provider['plugin']['slug'] );
+		$this->assertSame( 'poocommerce', $provider['plugin']['slug'] );
 		$this->assertArrayHasKey( 'file', $provider['plugin'], 'Provider (gateway) `plugin[file]` entry is missing' );
-		$this->assertSame( '', $provider['plugin']['file'] ); // Always empty since it's part of WooCommerce core and we don't want to allow deactivation.
+		$this->assertSame( '', $provider['plugin']['file'] ); // Always empty since it's part of PooCommerce core and we don't want to allow deactivation.
 		$this->assertArrayHasKey( 'status', $provider['plugin'], 'Provider (gateway) `plugin[status]` entry is missing' );
 		$this->assertSame( PaymentsProviders::EXTENSION_ACTIVE, $provider['plugin']['status'], 'PayPal Standard gateway `plugin[status]` entry is not `' . PaymentsProviders::EXTENSION_ACTIVE . '`' );
 		$this->assertArrayHasKey( 'links', $provider, 'Provider (gateway) `links` entry is missing' );
@@ -632,9 +632,9 @@ class PaymentsRestControllerIntegrationTest extends WC_REST_Unit_Test_Case {
 		$this->assertArrayHasKey( '_type', $offline_pm['plugin'], 'Offline payment method `plugin[_type]` entry is missing' );
 		$this->assertSame( PaymentsProviders::EXTENSION_TYPE_WPORG, $offline_pm['plugin']['_type'], 'Offline payment method `plugin[_type]` entry is not `' . PaymentsProviders::EXTENSION_TYPE_WPORG . '`' );
 		$this->assertArrayHasKey( 'slug', $offline_pm['plugin'], 'Offline payment method `plugin[slug]` entry is missing' );
-		$this->assertSame( 'woocommerce', $offline_pm['plugin']['slug'] );
+		$this->assertSame( 'poocommerce', $offline_pm['plugin']['slug'] );
 		$this->assertArrayHasKey( 'file', $offline_pm['plugin'], 'Offline payment method `plugin[file]` entry is missing' );
-		$this->assertSame( '', $offline_pm['plugin']['file'] ); // Always empty since it's part of WooCommerce core and we don't want to allow deactivation.
+		$this->assertSame( '', $offline_pm['plugin']['file'] ); // Always empty since it's part of PooCommerce core and we don't want to allow deactivation.
 		$this->assertArrayHasKey( 'status', $offline_pm['plugin'], 'Offline payment method `plugin[status]` entry is missing' );
 		$this->assertSame( PaymentsProviders::EXTENSION_ACTIVE, $offline_pm['plugin']['status'] );
 		$this->assertArrayHasKey( 'management', $offline_pm, 'Offline payment method `management` entry is missing' );
@@ -663,11 +663,11 @@ class PaymentsRestControllerIntegrationTest extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_get_payment_providers_has_all_the_data_with_woopayments_gateway_active_but_not_enabled() {
 		// Arrange.
-		// Reset the WooCommerce gateway order.
-		delete_option( 'woocommerce_gateway_order' );
+		// Reset the PooCommerce gateway order.
+		delete_option( 'poocommerce_gateway_order' );
 		// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
 		$filter_callback = fn( $caps ) => array(
-			'manage_woocommerce' => true,
+			'manage_poocommerce' => true,
 			'install_plugins'    => true,
 		);
 		add_filter( 'user_has_cap', $filter_callback );
@@ -695,7 +695,7 @@ class PaymentsRestControllerIntegrationTest extends WC_REST_Unit_Test_Case {
 			array(
 				PaymentsProviders::OFFLINE_METHODS_ORDERING_GROUP,
 				WC_Gateway_Paypal::ID,
-				'woocommerce_payments', // The fake WooPayments gateway.
+				'poocommerce_payments', // The fake WooPayments gateway.
 				PaymentsProviders::SUGGESTION_ORDERING_PREFIX . PaymentsExtensionSuggestions::PAYPAL_FULL_STACK, // Preferred suggestion.
 			),
 			array_column( $data['providers'], 'id' )
@@ -720,7 +720,7 @@ class PaymentsRestControllerIntegrationTest extends WC_REST_Unit_Test_Case {
 		$this->assertCount( 5, $suggestion['links'] );
 		$this->assertArrayHasKey( 'plugin', $suggestion, 'Provider (suggestion) `plugin` entry is missing' );
 		$this->assertArrayHasKey( 'slug', $suggestion['plugin'], 'Provider (suggestion) `plugin[slug]` entry is missing' );
-		$this->assertSame( 'woocommerce-paypal-payments', $suggestion['plugin']['slug'] );
+		$this->assertSame( 'poocommerce-paypal-payments', $suggestion['plugin']['slug'] );
 		$this->assertArrayHasKey( 'status', $suggestion['plugin'], 'Provider (suggestion) `plugin[status]` entry is missing' );
 		$this->assertSame( PaymentsProviders::EXTENSION_NOT_INSTALLED, $suggestion['plugin']['status'] );
 		$this->assertArrayHasKey( 'tags', $suggestion, 'Provider (suggestion) `tags` entry is missing' );
@@ -745,9 +745,9 @@ class PaymentsRestControllerIntegrationTest extends WC_REST_Unit_Test_Case {
 		$this->assertArrayHasKey( 'plugin', $provider, 'Provider (gateway) `plugin` entry is missing' );
 		$this->assertArrayHasKey( '_type', $provider['plugin'], 'Provider (gateway) `plugin[_type]` entry is missing' );
 		$this->assertArrayHasKey( 'slug', $provider['plugin'], 'Provider (gateway) `plugin[slug]` entry is missing' );
-		$this->assertSame( 'woocommerce-payments', $provider['plugin']['slug'] );
+		$this->assertSame( 'poocommerce-payments', $provider['plugin']['slug'] );
 		$this->assertArrayHasKey( 'file', $provider['plugin'], 'Provider (gateway) `plugin[file]` entry is missing' );
-		$this->assertSame( 'woocommerce-payments/woocommerce-payments', $provider['plugin']['file'] ); // Skips the .php extension.
+		$this->assertSame( 'poocommerce-payments/poocommerce-payments', $provider['plugin']['file'] ); // Skips the .php extension.
 		$this->assertArrayHasKey( 'status', $provider['plugin'], 'Provider (gateway) `plugin[status]` entry is missing' );
 		$this->assertSame( PaymentsProviders::EXTENSION_ACTIVE, $provider['plugin']['status'] );
 		$this->assertArrayHasKey( 'links', $provider, 'Provider (gateway) `links` entry is missing' );
@@ -816,7 +816,7 @@ class PaymentsRestControllerIntegrationTest extends WC_REST_Unit_Test_Case {
 				'description'       => 'Use the native payments solution built and supported by Woo.',
 				'short_description' => 'Save X% on processing fees.',
 				'cta_label'         => 'Save X%',
-				'tc_url'            => 'https://woocommerce.com/terms-conditions',
+				'tc_url'            => 'https://poocommerce.com/terms-conditions',
 				'badge'             => 'Save X% on processing fees',
 				'_dismissals'       => array(),
 				'_links'            => array(
@@ -842,11 +842,11 @@ class PaymentsRestControllerIntegrationTest extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_get_payment_providers_has_all_the_data_with_woopayments_gateway_active_and_enabled() {
 		// Arrange.
-		// Reset the WooCommerce gateway order.
-		delete_option( 'woocommerce_gateway_order' );
+		// Reset the PooCommerce gateway order.
+		delete_option( 'poocommerce_gateway_order' );
 		// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
 		$filter_callback = fn( $caps ) => array(
-			'manage_woocommerce' => true,
+			'manage_poocommerce' => true,
 			'install_plugins'    => true,
 		);
 		add_filter( 'user_has_cap', $filter_callback );
@@ -897,7 +897,7 @@ class PaymentsRestControllerIntegrationTest extends WC_REST_Unit_Test_Case {
 			array(
 				PaymentsProviders::OFFLINE_METHODS_ORDERING_GROUP,
 				WC_Gateway_Paypal::ID,
-				'woocommerce_payments', // The fake WooPayments gateway ID.
+				'poocommerce_payments', // The fake WooPayments gateway ID.
 				PaymentsProviders::SUGGESTION_ORDERING_PREFIX . PaymentsExtensionSuggestions::PAYPAL_FULL_STACK, // Preferred suggestion.
 			),
 			array_column( $data['providers'], 'id' )
@@ -925,9 +925,9 @@ class PaymentsRestControllerIntegrationTest extends WC_REST_Unit_Test_Case {
 		$this->assertArrayHasKey( 'plugin', $provider, 'Provider (gateway) `plugin` entry is missing' );
 		$this->assertArrayHasKey( '_type', $provider['plugin'], 'Provider (gateway) `plugin[_type]` entry is missing' );
 		$this->assertArrayHasKey( 'slug', $provider['plugin'], 'Provider (gateway) `plugin[slug]` entry is missing' );
-		$this->assertSame( 'woocommerce-payments', $provider['plugin']['slug'] );
+		$this->assertSame( 'poocommerce-payments', $provider['plugin']['slug'] );
 		$this->assertArrayHasKey( 'file', $provider['plugin'], 'Provider (gateway) `plugin[file]` entry is missing' );
-		$this->assertSame( 'woocommerce-payments/woocommerce-payments', $provider['plugin']['file'] ); // Skips the .php extension.
+		$this->assertSame( 'poocommerce-payments/poocommerce-payments', $provider['plugin']['file'] ); // Skips the .php extension.
 		$this->assertArrayHasKey( 'status', $provider['plugin'], 'Provider (gateway) `plugin[status]` entry is missing' );
 		$this->assertSame( PaymentsProviders::EXTENSION_ACTIVE, $provider['plugin']['status'] );
 		$this->assertArrayHasKey( 'links', $provider, 'Provider (gateway) `links` entry is missing' );
@@ -996,7 +996,7 @@ class PaymentsRestControllerIntegrationTest extends WC_REST_Unit_Test_Case {
 				'description'       => 'Use the native payments solution built and supported by Woo.',
 				'short_description' => 'Save X% on processing fees.',
 				'cta_label'         => 'Save X%',
-				'tc_url'            => 'https://woocommerce.com/terms-conditions',
+				'tc_url'            => 'https://poocommerce.com/terms-conditions',
 				'badge'             => 'Save X% on processing fees',
 				'_dismissals'       => array(),
 				'_links'            => array(
@@ -1024,11 +1024,11 @@ class PaymentsRestControllerIntegrationTest extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_get_payment_providers_has_all_the_data_with_visa_gateway_active_but_not_enabled() {
 		// Arrange.
-		// Reset the WooCommerce gateway order.
-		delete_option( 'woocommerce_gateway_order' );
+		// Reset the PooCommerce gateway order.
+		delete_option( 'poocommerce_gateway_order' );
 		// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
 		$filter_callback = fn( $caps ) => array(
-			'manage_woocommerce' => true,
+			'manage_poocommerce' => true,
 			'install_plugins'    => true,
 		);
 		add_filter( 'user_has_cap', $filter_callback );
@@ -1079,7 +1079,7 @@ class PaymentsRestControllerIntegrationTest extends WC_REST_Unit_Test_Case {
 		$this->assertCount( 5, $suggestion['links'] );
 		$this->assertArrayHasKey( 'plugin', $suggestion, 'Provider (suggestion) `plugin` entry is missing' );
 		$this->assertArrayHasKey( 'slug', $suggestion['plugin'], 'Provider (suggestion) `plugin[slug]` entry is missing' );
-		$this->assertSame( 'woocommerce-paypal-payments', $suggestion['plugin']['slug'] );
+		$this->assertSame( 'poocommerce-paypal-payments', $suggestion['plugin']['slug'] );
 		$this->assertArrayHasKey( 'status', $suggestion['plugin'], 'Provider (suggestion) `plugin[status]` entry is missing' );
 		$this->assertSame( PaymentsProviders::EXTENSION_NOT_INSTALLED, $suggestion['plugin']['status'] );
 		$this->assertArrayHasKey( 'tags', $suggestion, 'Provider (suggestion) `tags` entry is missing' );
@@ -1334,11 +1334,11 @@ class PaymentsRestControllerIntegrationTest extends WC_REST_Unit_Test_Case {
 		$incentive_id = 'promo-discount__wc_settings_payments';
 
 		delete_user_meta( get_current_user_id(), Incentive::PREFIX . 'dismissed' );
-		// Reset the WooCommerce gateway order.
-		delete_option( 'woocommerce_gateway_order' );
+		// Reset the PooCommerce gateway order.
+		delete_option( 'poocommerce_gateway_order' );
 		// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
 		$filter_callback = fn( $caps ) => array(
-			'manage_woocommerce' => true,
+			'manage_poocommerce' => true,
 			'install_plugins'    => true,
 		);
 		add_filter( 'user_has_cap', $filter_callback );
@@ -1398,11 +1398,11 @@ class PaymentsRestControllerIntegrationTest extends WC_REST_Unit_Test_Case {
 		$context      = 'wc_settings_payments__modal';
 
 		delete_user_meta( get_current_user_id(), Incentive::PREFIX . 'dismissed' );
-		// Reset the WooCommerce gateway order.
-		delete_option( 'woocommerce_gateway_order' );
+		// Reset the PooCommerce gateway order.
+		delete_option( 'poocommerce_gateway_order' );
 		// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
 		$filter_callback = fn( $caps ) => array(
-			'manage_woocommerce' => true,
+			'manage_poocommerce' => true,
 			'install_plugins'    => true,
 		);
 		add_filter( 'user_has_cap', $filter_callback );
@@ -1498,7 +1498,7 @@ class PaymentsRestControllerIntegrationTest extends WC_REST_Unit_Test_Case {
 								'promo_id'            => 'promo-discount',
 								'type'                => 'welcome_page',
 								'cta_label'           => 'Install',
-								'tc_url'              => 'https://woocommerce.com/terms-conditions',
+								'tc_url'              => 'https://poocommerce.com/terms-conditions',
 								'description'         => 'Description.',
 								'task_header_content' => 'Some content.',
 								'task_badge'          => 'Save X% on payment processing fees',
@@ -1509,7 +1509,7 @@ class PaymentsRestControllerIntegrationTest extends WC_REST_Unit_Test_Case {
 								'type'              => 'wc_settings_payments',
 								'description'       => 'Use the native payments solution built and supported by Woo.',
 								'cta_label'         => 'Save X%',
-								'tc_url'            => 'https://woocommerce.com/terms-conditions',
+								'tc_url'            => 'https://poocommerce.com/terms-conditions',
 								'title'             => 'Save X% on processing fees.',
 								'short_description' => 'Save X% on processing fees.',
 								'badge'             => 'Save X% on processing fees',
@@ -1536,7 +1536,7 @@ class PaymentsRestControllerIntegrationTest extends WC_REST_Unit_Test_Case {
 	private function setup_fake_gateways(): void {
 		// Use this instance to set different states depending on your specific test needs.
 		$this->mock_woopayments_gateway = new FakePaymentGateway(
-			'woocommerce_payments',
+			'poocommerce_payments',
 			array(
 				'enabled'                     => false,
 				'account_connected'           => false,
@@ -1546,8 +1546,8 @@ class PaymentsRestControllerIntegrationTest extends WC_REST_Unit_Test_Case {
 				'onboarding_started'          => false,
 				'onboarding_completed'        => false,
 				'onboarding_test_mode'        => false,
-				'plugin_slug'                 => 'woocommerce-payments',
-				'plugin_file'                 => 'woocommerce-payments/woocommerce-payments.php',
+				'plugin_slug'                 => 'poocommerce-payments',
+				'plugin_file'                 => 'poocommerce-payments/poocommerce-payments.php',
 				'recommended_payment_methods' => array(
 					array(
 						'id'          => 'card',
@@ -1621,28 +1621,28 @@ class PaymentsRestControllerIntegrationTest extends WC_REST_Unit_Test_Case {
 				),
 				PluginsHelper::class => array(
 					'is_plugin_installed'       => function ( $plugin_slug ) {
-						// By default, only WooCommerce is installed.
-						if ( 'woocommerce' === $plugin_slug ) {
+						// By default, only PooCommerce is installed.
+						if ( 'poocommerce' === $plugin_slug ) {
 							return true;
 						}
 
 						return false;
 					},
 					'is_plugin_active'          => function ( $plugin_slug ) {
-						// By default, only WooCommerce is active.
-						if ( 'woocommerce' === $plugin_slug ) {
+						// By default, only PooCommerce is active.
+						if ( 'poocommerce' === $plugin_slug ) {
 							return true;
 						}
 
 						return false;
 					},
 					'get_plugin_path_from_slug' => function ( $plugin_slug ) {
-						if ( 'woocommerce' === $plugin_slug ) {
-							return 'woocommerce/woocommerce.php';
+						if ( 'poocommerce' === $plugin_slug ) {
+							return 'poocommerce/poocommerce.php';
 						}
 
-						if ( 'woocommerce-payments' === $plugin_slug ) {
-							return 'woocommerce-payments/woocommerce-payments.php';
+						if ( 'poocommerce-payments' === $plugin_slug ) {
+							return 'poocommerce-payments/poocommerce-payments.php';
 						}
 
 						return '';
@@ -1716,14 +1716,14 @@ class PaymentsRestControllerIntegrationTest extends WC_REST_Unit_Test_Case {
 	private function load_core_paypal_pg() {
 		// Make sure the WC core PayPal gateway is loaded.
 		update_option(
-			'woocommerce_paypal_settings',
+			'poocommerce_paypal_settings',
 			array(
 				'_should_load' => 'yes',
 				'enabled'      => 'no',
 			)
 		);
 		// Make sure the store currency is supported by the gateway.
-		update_option( 'woocommerce_currency', 'USD' );
+		update_option( 'poocommerce_currency', 'USD' );
 		WC()->payment_gateways()->init();
 
 		// Reset the controller memo to pick up the new gateway details.
@@ -1736,14 +1736,14 @@ class PaymentsRestControllerIntegrationTest extends WC_REST_Unit_Test_Case {
 	private function enable_core_paypal_pg() {
 		// Enable the WC core PayPal gateway.
 		update_option(
-			'woocommerce_paypal_settings',
+			'poocommerce_paypal_settings',
 			array(
 				'_should_load' => 'yes',
 				'enabled'      => 'yes',
 			)
 		);
 		// Make sure the store currency is supported by the gateway.
-		update_option( 'woocommerce_currency', 'USD' );
+		update_option( 'poocommerce_currency', 'USD' );
 		WC()->payment_gateways()->init();
 
 		// Reset the service memo to pick up the new gateway details.
@@ -1761,7 +1761,7 @@ class PaymentsRestControllerIntegrationTest extends WC_REST_Unit_Test_Case {
 			$mock_gateways = array();
 
 			if ( $woopayments ) {
-				$mock_gateways['woocommerce_payments'] = $this->mock_woopayments_gateway;
+				$mock_gateways['poocommerce_payments'] = $this->mock_woopayments_gateway;
 			}
 			if ( $visa ) {
 				$mock_gateways['visa_acceptance_solutions'] = $this->mock_visa_gateway;
@@ -1781,11 +1781,11 @@ class PaymentsRestControllerIntegrationTest extends WC_REST_Unit_Test_Case {
 
 		$this->providers_service->reset_memo();
 
-		$active_plugin_paths = array( 'woocommerce/woocommerce.php' );
-		$active_plugin_slugs = array( 'woocommerce' );
+		$active_plugin_paths = array( 'poocommerce/poocommerce.php' );
+		$active_plugin_slugs = array( 'poocommerce' );
 		if ( $woopayments ) {
-			$active_plugin_paths[] = 'woocommerce-payments/woocommerce-payments.php';
-			$active_plugin_slugs[] = 'woocommerce-payments';
+			$active_plugin_paths[] = 'poocommerce-payments/poocommerce-payments.php';
+			$active_plugin_slugs[] = 'poocommerce-payments';
 		}
 		if ( $visa ) {
 			$active_plugin_paths[] = 'visa-acceptance-solutions/visa-acceptance-solutions.php';
@@ -1842,10 +1842,10 @@ class PaymentsRestControllerIntegrationTest extends WC_REST_Unit_Test_Case {
 						}
 
 						switch ( $plugin_slug ) {
-							case 'woocommerce':
-								return 'woocommerce/woocommerce.php';
-							case 'woocommerce-payments':
-								return 'woocommerce-payments/woocommerce-payments.php';
+							case 'poocommerce':
+								return 'poocommerce/poocommerce.php';
+							case 'poocommerce-payments':
+								return 'poocommerce-payments/poocommerce-payments.php';
 							case 'visa-acceptance-solutions':
 								return 'visa-acceptance-solutions/visa-acceptance-solutions.php';
 							default:

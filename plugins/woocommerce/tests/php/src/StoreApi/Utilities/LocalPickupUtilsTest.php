@@ -1,11 +1,11 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\StoreApi\Utilities;
+namespace Automattic\PooCommerce\Tests\StoreApi\Utilities;
 
-use Automattic\WooCommerce\StoreApi\Utilities\LocalPickupUtils;
-use Automattic\WooCommerce\Tests\StoreApi\Mocks\FakeLocalPickupShippingMethod;
-use Automattic\WooCommerce\Tests\StoreApi\Mocks\FakeRegularShippingMethod;
+use Automattic\PooCommerce\StoreApi\Utilities\LocalPickupUtils;
+use Automattic\PooCommerce\Tests\StoreApi\Mocks\FakeLocalPickupShippingMethod;
+use Automattic\PooCommerce\Tests\StoreApi\Mocks\FakeRegularShippingMethod;
 use WC_Shipping_Method;
 
 /**
@@ -238,7 +238,7 @@ class LocalPickupUtilsTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_uses_store_base_location_for_placeholder(): void {
 		add_filter(
-			'pre_option_woocommerce_default_country',
+			'pre_option_poocommerce_default_country',
 			function () {
 				return 'GB:LND';
 			}
@@ -256,7 +256,7 @@ class LocalPickupUtilsTest extends \WC_Unit_Test_Case {
 		$this->assertSame( 'GB', $result[0]['address']['country'] );
 		$this->assertSame( 'LND', $result[0]['address']['state'] );
 
-		remove_all_filters( 'pre_option_woocommerce_default_country' );
+		remove_all_filters( 'pre_option_poocommerce_default_country' );
 	}
 
 	/**

@@ -4,12 +4,12 @@
 import {
 	PlainPaymentMethods,
 	PlainExpressPaymentMethods,
-} from '@woocommerce/types';
+} from '@poocommerce/types';
 import type {
 	EmptyObjectType,
 	ObjectType,
 	FieldValidationStatus,
-} from '@woocommerce/types';
+} from '@poocommerce/types';
 import { DataRegistry } from '@wordpress/data';
 
 /**

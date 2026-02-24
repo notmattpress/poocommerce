@@ -9,10 +9,10 @@ A Slotfill component that will allow you to add a new section to the product edi
   { () => {
     return (
       <ProductSectionLayout
-        title={ __( 'Product test section', 'woocommerce' ) }
+        title={ __( 'Product test section', 'poocommerce' ) }
         description={ __(
           'In this area you can describe the section.',
-          'woocommerce'
+          'poocommerce'
         ) }
       >
         <Card>

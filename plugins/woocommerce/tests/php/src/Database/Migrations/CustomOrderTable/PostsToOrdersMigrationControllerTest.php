@@ -1,14 +1,14 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Database\Migrations\CustomOrderTable;
+namespace Automattic\PooCommerce\Tests\Database\Migrations\CustomOrderTable;
 
-use Automattic\WooCommerce\Database\Migrations\CustomOrderTable\PostsToOrdersMigrationController;
-use Automattic\WooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
-use Automattic\WooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
-use Automattic\WooCommerce\Testing\Tools\DynamicDecorator;
-use Automattic\WooCommerce\Utilities\StringUtil;
+use Automattic\PooCommerce\Database\Migrations\CustomOrderTable\PostsToOrdersMigrationController;
+use Automattic\PooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
+use Automattic\PooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
+use Automattic\PooCommerce\Testing\Tools\DynamicDecorator;
+use Automattic\PooCommerce\Utilities\StringUtil;
 use WC_DateTime;
 
 /**
@@ -298,7 +298,7 @@ WHERE order_id = {$order_id} AND meta_key = 'non_unique_key_1' AND meta_value in
 		// Verify order operational data.
 		$db_order_op_data = $this->get_order_operational_data_from_cot( $db_order->id );
 		$this->assertEquals( $order->get_created_via(), $db_order_op_data->created_via );
-		$this->assertEquals( $order->get_version(), $db_order_op_data->woocommerce_version );
+		$this->assertEquals( $order->get_version(), $db_order_op_data->poocommerce_version );
 		$this->assertEquals( $order->get_prices_include_tax(), $db_order_op_data->prices_include_tax );
 		$this->assertEquals(
 			wc_string_to_bool( $order->get_data_store()->get_recorded_coupon_usage_counts( $order ) ),

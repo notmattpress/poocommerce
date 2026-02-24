@@ -8,14 +8,14 @@ import {
 	withSyncEvent,
 } from '@wordpress/interactivity';
 import type {
-	Store as WooCommerce,
+	Store as PooCommerce,
 	SelectedAttributes,
-} from '@woocommerce/stores/woocommerce/cart';
-import '@woocommerce/stores/woocommerce/product-data';
-import '@woocommerce/stores/woocommerce/products';
-import type { Store as StoreNotices } from '@woocommerce/stores/store-notices';
-import type { ProductDataStore } from '@woocommerce/stores/woocommerce/product-data';
-import type { ProductsStore } from '@woocommerce/stores/woocommerce/products';
+} from '@poocommerce/stores/poocommerce/cart';
+import '@poocommerce/stores/poocommerce/product-data';
+import '@poocommerce/stores/poocommerce/products';
+import type { Store as StoreNotices } from '@poocommerce/stores/store-notices';
+import type { ProductDataStore } from '@poocommerce/stores/poocommerce/product-data';
+import type { ProductsStore } from '@poocommerce/stores/poocommerce/products';
 
 /**
  * Internal dependencies
@@ -48,7 +48,7 @@ export type AddToCartError = {
  * rely on the change event to detect quantity changes. This function ensures
  * those extensions continue working by programmatically dispatching the event.
  *
- * @see https://github.com/woocommerce/woocommerce/issues/53031
+ * @see https://github.com/poocommerce/poocommerce/issues/53031
  *
  * @param inputElement - The quantity input element to dispatch the event on.
  */
@@ -62,13 +62,13 @@ const universalLock =
 	'I acknowledge that using a private store means my plugin will inevitably break on the next store release.';
 
 const { state: productDataState } = store< ProductDataStore >(
-	'woocommerce/product-data',
+	'poocommerce/product-data',
 	{},
 	{ lock: universalLock }
 );
 
 const { state: productsState } = store< ProductsStore >(
-	'woocommerce/products',
+	'poocommerce/products',
 	{},
 	{ lock: universalLock }
 );
@@ -146,7 +146,7 @@ const { actions, state } = store<
 		Partial< GroupedProductAddToCartWithOptionsStore > &
 		Partial< VariableProductAddToCartWithOptionsStore >
 >(
-	'woocommerce/add-to-cart-with-options',
+	'poocommerce/add-to-cart-with-options',
 	{
 		state: {
 			noticeIds: [],
@@ -226,7 +226,7 @@ const { actions, state } = store<
 				const context = getContext< Context >();
 				const quantitySelectorContext =
 					getContext< QuantitySelectorContext >(
-						'woocommerce/add-to-cart-with-options-quantity-selector'
+						'poocommerce/add-to-cart-with-options-quantity-selector'
 					);
 				const inputElement = quantitySelectorContext?.inputElement;
 				const isValueNaN = Number.isNaN( inputElement?.valueAsNumber );
@@ -307,10 +307,10 @@ const { actions, state } = store<
 
 				if ( ! isFormValid ) {
 					// Dynamically import the store module first
-					yield import( '@woocommerce/stores/store-notices' );
+					yield import( '@poocommerce/stores/store-notices' );
 
 					const { actions: noticeActions } = store< StoreNotices >(
-						'woocommerce/store-notices',
+						'poocommerce/store-notices',
 						{},
 						{
 							lock: universalLock,
@@ -341,8 +341,8 @@ const { actions, state } = store<
 				}
 
 				// Todo: Use the module exports instead of `store()` once the
-				// woocommerce store is public.
-				yield import( '@woocommerce/stores/woocommerce/cart' );
+				// poocommerce store is public.
+				yield import( '@poocommerce/stores/poocommerce/cart' );
 
 				const { selectedAttributes } = getContext< Context >();
 
@@ -364,8 +364,8 @@ const { actions, state } = store<
 
 				const { quantity } = getContext< Context >();
 
-				const { actions: wooActions } = store< WooCommerce >(
-					'woocommerce',
+				const { actions: wooActions } = store< PooCommerce >(
+					'poocommerce',
 					{},
 					{ lock: universalLock }
 				);

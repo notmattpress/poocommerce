@@ -9,22 +9,22 @@ sidebar_label: 'Billing API for SaaS products'
 
 Woo Marketplace's Billing API enables you to sell subscriptions for your SaaS app on the Woo Marketplace, via our in-house billing and subscription system. Woo Marketplace's Billing API supports recurring payments, free trials, upgrades, downgrades, and one-time payments.
 
-Follow this guide to get your billing powered by WooCommerce's world-class billing system, and listed on the Woo Marketplace. You can integrate the Billing API with your existing sign-up and purchase flows, or create a different experience specifically for customers coming from WooCommerce.com.
+Follow this guide to get your billing powered by PooCommerce's world-class billing system, and listed on the Woo Marketplace. You can integrate the Billing API with your existing sign-up and purchase flows, or create a different experience specifically for customers coming from PooCommerce.com.
 
-[View API Documentation on Apiary](https://woocommercecomsaasbillingapi.docs.apiary.io/)
+[View API Documentation on Apiary](https://poocommercecomsaasbillingapi.docs.apiary.io/)
 
 ## Set up your SaaS App
 
-To complete integrating WooCommerce Billing into your SaaS app, you'll need a sandbox and the API reference. The various API flows are described below.
+To complete integrating PooCommerce Billing into your SaaS app, you'll need a sandbox and the API reference. The various API flows are described below.
 
-To get started, please [submit your product](https://woocommerce.com/document/submitting-your-product-to-the-woo-marketplace/) to the WooCommerce Marketplace. Include details about your product and upload a zip file to test whether your product utilizes a WordPress plugin to connect to your app. We will review your product to determine if it is a good fit before granting sandbox access.
+To get started, please [submit your product](https://poocommerce.com/document/submitting-your-product-to-the-woo-marketplace/) to the PooCommerce Marketplace. Include details about your product and upload a zip file to test whether your product utilizes a WordPress plugin to connect to your app. We will review your product to determine if it is a good fit before granting sandbox access.
 
 ### Sandbox for testing
 
-The integration with the SaaS Billing API should be implemented and tested inside the sandbox, before being opened up for production usage. The differences between production and sandbox are the domain (sandbox.woocommerce.com) and the API credentials. Switching from sandbox to production should just be a matter of changing the domain name, API key and secret.
+The integration with the SaaS Billing API should be implemented and tested inside the sandbox, before being opened up for production usage. The differences between production and sandbox are the domain (sandbox.poocommerce.com) and the API credentials. Switching from sandbox to production should just be a matter of changing the domain name, API key and secret.
 
-**Sandbox domain:** `https://sandbox.woocommerce.com/`
-**Base URL for API on the sandbox:** `https://sandbox.woocommerce.com/wp-json/wccom/billing/1.0/`
+**Sandbox domain:** `https://sandbox.poocommerce.com/`
+**Base URL for API on the sandbox:** `https://sandbox.poocommerce.com/wp-json/wccom/billing/1.0/`
 
 ### Local Development
 
@@ -48,11 +48,11 @@ To access the application's settings, click on the API key. On the settings page
 
 ### API reference
 
-**API reference documentation:** [https://woocommercecomsaasbillingapi.docs.apiary.io/](https://woocommercecomsaasbillingapi.docs.apiary.io/)
+**API reference documentation:** [https://poocommercecomsaasbillingapi.docs.apiary.io/](https://poocommercecomsaasbillingapi.docs.apiary.io/)
 
 You can download the OpenAPI specification file from the documentation link above and use it with any tool that supports this standard. For example, you can import it into Postman to get a ready-to-use collection of requests.
 
-Please note that all paths in the reference documentation are relative to the base URL. For example, the `/subscriptions` endpoint will be resolved into the full URL `https://woocommerce.com/wp-json/wccom/billing/1.0/subscriptions`.
+Please note that all paths in the reference documentation are relative to the base URL. For example, the `/subscriptions` endpoint will be resolved into the full URL `https://poocommerce.com/wp-json/wccom/billing/1.0/subscriptions`.
 
 ### Authentication
 
@@ -64,7 +64,7 @@ Here's an example of a POST request to the /subscriptions endpoint to initiate a
 
 ```bash
 curl --request POST \
-  --url https://sandbox.woocommerce.com/wp-json/wccom/billing/1.0/subscriptions \
+  --url https://sandbox.poocommerce.com/wp-json/wccom/billing/1.0/subscriptions \
   --header 'Authorization: Basic ENCODED_KEY_SECRET_STRING' \
   --header 'Content-Type: application/json' \
   --data '{"name": "test plan", "price": 199.99, "billing_period": "year", "billing_interval": 1, "return_url": "https://example.com"}'
@@ -72,11 +72,11 @@ curl --request POST \
 
 ### Technical review
 
-Your integration with the WooCommerce.com billing system goes through a technical review before the SaaS product can be listed in the marketplace. Once your integration with the WooCommerce.com sandbox is ready, please send us a link where we can test it so we can confirm everything's working great. It doesn't need to be your live environment, but it should be a working example that can be accessed by our technical team for review.
+Your integration with the PooCommerce.com billing system goes through a technical review before the SaaS product can be listed in the marketplace. Once your integration with the PooCommerce.com sandbox is ready, please send us a link where we can test it so we can confirm everything's working great. It doesn't need to be your live environment, but it should be a working example that can be accessed by our technical team for review.
 
 ## Creating a Subscription
 
-![The flow for completing a purchase using WooCommerce.com's Billing API](./_media/saas-billing-contract-flow.png)
+![The flow for completing a purchase using PooCommerce.com's Billing API](./_media/saas-billing-contract-flow.png)
 
 Merchants need to go through the contract sign-up flow to acquire an active subscription to your SaaS plan.
 
@@ -84,11 +84,11 @@ Merchants need to go through the contract sign-up flow to acquire an active subs
 
 Either via a link on your website, or from the Woo Marketplace, merchants follow a link to purchase your paid SaaS plan.
 
-The customer is then directed to WooCommerce.com to pay for their purchase.
+The customer is then directed to PooCommerce.com to pay for their purchase.
 
 Before purchasing, it is useful to have the customer sign up for an account. This account can then be linked in your SaaS app to the paid purchase, once confirmed.
 
-Please ensure that customers coming from WooCommerce.com are distinguished from others: the only available payment method for them is WooCommerce.com's billing system.
+Please ensure that customers coming from PooCommerce.com are distinguished from others: the only available payment method for them is PooCommerce.com's billing system.
 
 If there are several plans available in your application, you can have the merchant choose one before initiating the purchase.
 
@@ -96,9 +96,9 @@ You may also decide to not show the merchant anything and initiate the purchase 
 
 ### 2. Initiate the purchase
 
-Make an **API call to WooCommerce.com's Billing API** with the subscription plan information. You'll receive a **confirmation URL** in the response.
+Make an **API call to PooCommerce.com's Billing API** with the subscription plan information. You'll receive a **confirmation URL** in the response.
 
-Typical [subscription plan information](https://woocommercecomsaasbillingapi.docs.apiary.io/#reference/0/subscriptions/post) includes:
+Typical [subscription plan information](https://poocommercecomsaasbillingapi.docs.apiary.io/#reference/0/subscriptions/post) includes:
 
 - the plan name
 - price
@@ -108,25 +108,25 @@ Typical [subscription plan information](https://woocommercecomsaasbillingapi.doc
 - trial length (optional)
 - Return URL
 
-The return URL is a URL in your application where we'll redirect the merchant after they complete the purchase on WooCommerce.com.
+The return URL is a URL in your application where we'll redirect the merchant after they complete the purchase on PooCommerce.com.
 
-The confirmation URL is unique on WooCommerce.com. Your application needs to redirect the merchant to it to confirm and pay for the subscription.
+The confirmation URL is unique on PooCommerce.com. Your application needs to redirect the merchant to it to confirm and pay for the subscription.
 
 The response also contains a unique subscription contract ID in the form of a UUID, which you can use to associate the subscription in our systems with your application's internal customer ID.
 
-If you initiate the purchase immediately when the customer lands on the application, and then redirect to WooCommerce.com confirmation URL during the same request, the operation will take less than a few seconds to complete. The experience for the merchant is seamless, as if they never left WooCommerce.com.
+If you initiate the purchase immediately when the customer lands on the application, and then redirect to PooCommerce.com confirmation URL during the same request, the operation will take less than a few seconds to complete. The experience for the merchant is seamless, as if they never left PooCommerce.com.
 
 ### 3. Merchant confirms the purchase
 
-The application redirects the merchant to the confirmation URL on WooCommerce.com, where they'll confirm and pay for the subscription. The merchant goes through a familiar checkout experience, with all the necessary payment information pre-filled if they've purchased from WooCommerce.com before.
+The application redirects the merchant to the confirmation URL on PooCommerce.com, where they'll confirm and pay for the subscription. The merchant goes through a familiar checkout experience, with all the necessary payment information pre-filled if they've purchased from PooCommerce.com before.
 
-Note: The application must associate a successful purchase with a user only after the user has given "consent" and completed the entire checkout flow on WooCommerce.com. The application must account for interruptions during the purchase flow, e.g app crashes, connection drops, power outages, etc. This also includes if the user is redirected to WooCommerce.com checkout and then navigates back to your application instead of confirming the purchase. The application should not update with the plan information until the user confirms their purchase on WooCommerce.com.
+Note: The application must associate a successful purchase with a user only after the user has given "consent" and completed the entire checkout flow on PooCommerce.com. The application must account for interruptions during the purchase flow, e.g app crashes, connection drops, power outages, etc. This also includes if the user is redirected to PooCommerce.com checkout and then navigates back to your application instead of confirming the purchase. The application should not update with the plan information until the user confirms their purchase on PooCommerce.com.
 
 ### 4. Merchant is redirected to your application
 
 After the merchant confirms and completes the purchase, they are redirected to the return URL you provided in the initiation step. If you haven't already signed up the merchant, you can do it in this phase. The return URL passes the contract ID in a GET parameter, so you can associate it with your internal customer ID.
 
-WooCommerce.com also makes a webhook call to your webhook URL with the saas_billing_contract.activated topic. This signals that the contract was confirmed and the payment was successful.
+PooCommerce.com also makes a webhook call to your webhook URL with the saas_billing_contract.activated topic. This signals that the contract was confirmed and the payment was successful.
 
 ## Free Trials
 
@@ -144,10 +144,10 @@ The Billing API supports subscription upgrades, downgrades, and crossgrades. Use
    Initiate a subscription switch using the POST /subscriptions/\{contractID\} endpoint. Provide all of the necessary information, as described in the API documentation. There will be a confirmation_url parameter in the response. Redirect the merchant to this URL so they can confirm the switch and pay any prorated amount. Please see the API documentation for more details.
 
 2. **Merchant confirms the switch**
-   The merchant lands on WooCommerce.com to confirm the switch. If a prorated amount is due, or if one was passed in the previous step, they'll need to pay to complete the switch. If the new subscription is cheaper (a downgrade) they'll be credited for the difference by having their subscription extended.
+   The merchant lands on PooCommerce.com to confirm the switch. If a prorated amount is due, or if one was passed in the previous step, they'll need to pay to complete the switch. If the new subscription is cheaper (a downgrade) they'll be credited for the difference by having their subscription extended.
 
 3. **Merchant is redirected to your application**
-   Once the merchant confirms the switch, the subscription is updated on WooCommerce.com and they are redirected to the return URL you provided in the initiation phase. The contract id is appended to this URL as a GET parameter. This is a good time to update their subscription in your systems. WooCommerce.com also makes a server-to-server call to your webhook URL with the saas_billing_contract.updated topic. The webhook request body contains the contract object. Check out the webhook section for more details.
+   Once the merchant confirms the switch, the subscription is updated on PooCommerce.com and they are redirected to the return URL you provided in the initiation phase. The contract id is appended to this URL as a GET parameter. This is a good time to update their subscription in your systems. PooCommerce.com also makes a server-to-server call to your webhook URL with the saas_billing_contract.updated topic. The webhook request body contains the contract object. Check out the webhook section for more details.
 
 ### How proration works
 
@@ -209,21 +209,21 @@ Initiate a charge by calling the POST /charges endpoint. Provide the necessary i
 
 ### 2. Merchant confirms the charge
 
-The merchant lands on WooCommerce.com and confirms the charge details. Once they complete the payment, they're redirected to the return URL you provided in the initiation phase.
+The merchant lands on PooCommerce.com and confirms the charge details. Once they complete the payment, they're redirected to the return URL you provided in the initiation phase.
 
 ### 3. Merchant is redirected to your application
 
-The merchant is redirected back to you via the return URL. The charge contract id is appended to this URL as a GET parameter. This is a good time to add the product they paid for to their account. WooCommerce.com also makes a server-to-server call to your webhook URL with the saas_billing_contract.activated topic. The webhook request body will have the charge object. Please review the webhook section for more details.
+The merchant is redirected back to you via the return URL. The charge contract id is appended to this URL as a GET parameter. This is a good time to add the product they paid for to their account. PooCommerce.com also makes a server-to-server call to your webhook URL with the saas_billing_contract.activated topic. The webhook request body will have the charge object. Please review the webhook section for more details.
 
 ## Renewals
 
-WooCommerce.com handles renewals automatically. It provides a hands-off experience for merchants, like all other products sold through the Marketplace.
+PooCommerce.com handles renewals automatically. It provides a hands-off experience for merchants, like all other products sold through the Marketplace.
 
 Your application needs to support automatic renewals. Please make sure the merchant doesn't have to take any manual action on your end for the renewal to occur.
 
 Use the webhook system to get notifications about renewals. We'll notify you about successful and failed renewals alike. If a renewal fails, we'll place the subscription in the paused state and notify you. We'll make further attempts to renew the subscription in the following days and notify you if we succeed. We don't delete expired subscriptions. Feel free to cancel an expired subscription at your discretion.
 
-WooCommerce.com will email merchants before and on the day of the renewal. Feel free to send any renewal-related communication of your own to them as well.
+PooCommerce.com will email merchants before and on the day of the renewal. Feel free to send any renewal-related communication of your own to them as well.
 
 ## Refunds
 
@@ -242,7 +242,7 @@ You can review each request, contact the merchant if you want to discuss the rea
 
 If you approve a refund request for a SaaS billing order, the underlying SaaS contract will also be canceled.
 
-WooCommerce.com also makes server-to-server calls to your webhook URL with the saas_billing_contract.refunded and saas_billing_contract.canceled topics. The webhook request body contains the contract object. Check out the webhook section for more details.
+PooCommerce.com also makes server-to-server calls to your webhook URL with the saas_billing_contract.refunded and saas_billing_contract.canceled topics. The webhook request body contains the contract object. Check out the webhook section for more details.
 
 ## Subscription cancelations
 
@@ -286,7 +286,7 @@ Webhook calls expect a successful HTTP code in response. Otherwise, the delivery
         "completed_at":"2022-06-24 14:14:03",
         "amount":89.5,
         "amount_refunded":0,
-        "url":"https://woocommerce.com/my-account/view-order/172"
+        "url":"https://poocommerce.com/my-account/view-order/172"
       },
       {
         "id":2,
@@ -295,7 +295,7 @@ Webhook calls expect a successful HTTP code in response. Otherwise, the delivery
         "completed_at":"2022-07-24 14:14:23",
         "amount":89.5,
         "amount_refunded":0,
-        "url":"https://woocommerce.com/my-account/view-order/179"
+        "url":"https://poocommerce.com/my-account/view-order/179"
       }
     ]
   }
@@ -326,7 +326,7 @@ Webhook calls expect a successful HTTP code in response. Otherwise, the delivery
         "completed_at":"2022-07-01 10:22:39",
         "amount":89.5,
         "amount_refunded":0,
-        "url":"https://woocommerce.com/my-account/view-order/199"
+        "url":"https://poocommerce.com/my-account/view-order/199"
       }
     ]
   }
@@ -368,7 +368,7 @@ To enable webhook notifications, you need to provide a URL in your application t
 
 This tool is only available on the sandbox to help with the integration step. This is not available in production as it has side effects for payments, user communication, subscription status, etc. This tool aims to help you, the vendor, test your webhook integration in an easy, repeatable way.
 
-To use the webhook testing tool, log into your vendor dashboard on sandbox.woocommerce.com and navigate to SaaS Apps > Webhooks.
+To use the webhook testing tool, log into your vendor dashboard on sandbox.poocommerce.com and navigate to SaaS Apps > Webhooks.
 
 Input any contract UUID you'd like to test webhook calls against in the form and hit enter or click on Select for testing. The page will reload with the contract selected. You can trigger webhook calls for the selected contract by clicking on the appropriate event button on the page. Please note that the available events depend on the current contract status. The webhook call is triggered async, so it may take up to a minute to receive the call. You can read more about the available webhook events in the webhooks section of this documentation. Make sure you have a webhook URL set up in your SaaS Application settings.
 
@@ -386,19 +386,19 @@ Not at the moment. Only USD is currently supported. We're considering adding cur
 
 We add tax on top of the original price to comply with the merchant's local regulations. The tax amount will vary depending on the merchant's country of residence and will be calculated automatically. You can add a notice about this in your application to inform merchants that the total may differ due to tax.
 
-There's no reliable way to confidently calculate tax before the merchant lands on WooCommerce.com and submits their billing details. Many factors determine the tax calculation. This makes it impossible to make a correct prediction without having all the necessary data upfront (such as billing address, IP address, validated VAT ID, and others).
+There's no reliable way to confidently calculate tax before the merchant lands on PooCommerce.com and submits their billing details. Many factors determine the tax calculation. This makes it impossible to make a correct prediction without having all the necessary data upfront (such as billing address, IP address, validated VAT ID, and others).
 
 </details>
 
 <details>
-<summary>Do my application and WooCommerce.com exchange merchant personal information?</summary>
+<summary>Do my application and PooCommerce.com exchange merchant personal information?</summary>
 
 No, we don't share personal details like email, name, or address with the vendor application. And we don't expect you to either. The flows are designed to work without exchanging personal information. So, if you need any personal data from the merchant, you can request it from them during sign-up.
 
 </details>
 
 <details>
-<summary>How do I link a merchant with their subscription on WooCommerce.com?</summary>
+<summary>How do I link a merchant with their subscription on PooCommerce.com?</summary>
 
 You can map them using the unique contract ID appended to the return URL the merchant is redirected to after a successful purchase. The billing API and webhooks also use this ID to identify the subscription. There's no need to use personal information to map merchants to purchases.
 
@@ -414,9 +414,9 @@ Yes. You can offer a multi-site plan for purchase. The billing API doesn't suppo
 <details>
 <summary>Do I need to apply billing requirements to all customers?</summary>
 
-Getting listed on the WooCommerce.com Marketplace enables software vendors to offer their products to a broad audience of millions of registered users. As with any other marketplace, you must follow some guidelines and requirements to get your product listed. This improves customers' overall quality and experience, so they choose to purchase through us rather than from software vendors directly.
+Getting listed on the PooCommerce.com Marketplace enables software vendors to offer their products to a broad audience of millions of registered users. As with any other marketplace, you must follow some guidelines and requirements to get your product listed. This improves customers' overall quality and experience, so they choose to purchase through us rather than from software vendors directly.
 
-These requirements don't apply to all your customers, only those from WooCommerce.com. You can use your current billing system and flows for your existing customer base or customers from sources other than our marketplace.
+These requirements don't apply to all your customers, only those from PooCommerce.com. You can use your current billing system and flows for your existing customer base or customers from sources other than our marketplace.
 
 </details>
 
@@ -429,9 +429,9 @@ When initiating a contract sign-up via the API, you can set a price by specifyin
 
 ## Glossary
 
-- **Vendor** – SaaS service provider partnering with WooCommerce.com to sell their solution via the WooCommerce.com marketplace.
-- **Vendor application (application)** – The Vendor's application integrates with the Billing API to communicate with WooCommerce.com.
-- **Merchant** – WooCommerce.com user, purchasing the SaaS product.
+- **Vendor** – SaaS service provider partnering with PooCommerce.com to sell their solution via the PooCommerce.com marketplace.
+- **Vendor application (application)** – The Vendor's application integrates with the Billing API to communicate with PooCommerce.com.
+- **Merchant** – PooCommerce.com user, purchasing the SaaS product.
 - **Subscription plan (plan)** – A subscription product.
 - **Subscription contract (contract)** – Agreement in which merchant consents to have their payment method charged recurrently in exchange for the service the SaaS Vendor offers.
 - **One-time charge (charge)** – A one-off (non-renewable) charge.

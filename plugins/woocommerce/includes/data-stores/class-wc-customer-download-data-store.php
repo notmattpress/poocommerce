@@ -2,7 +2,7 @@
 /**
  * WC_Customer_Download_Data_Store class file.
  *
- * @package WooCommerce\Classes
+ * @package PooCommerce\Classes
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -43,7 +43,7 @@ class WC_Customer_Download_Data_Store implements WC_Customer_Download_Data_Store
 
 		$id = $this->insert_new_download_permission( $data );
 
-		do_action( 'woocommerce_grant_product_download_access', $data );
+		do_action( 'poocommerce_grant_product_download_access', $data );
 
 		return $id;
 	}
@@ -73,7 +73,7 @@ class WC_Customer_Download_Data_Store implements WC_Customer_Download_Data_Store
 			$download->apply_changes();
 		}
 
-		do_action( 'woocommerce_grant_product_download_access', $data );
+		do_action( 'poocommerce_grant_product_download_access', $data );
 	}
 
 	/**
@@ -111,9 +111,9 @@ class WC_Customer_Download_Data_Store implements WC_Customer_Download_Data_Store
 		);
 
 		$result = $wpdb->insert(
-			$wpdb->prefix . 'woocommerce_downloadable_product_permissions',
-			apply_filters( 'woocommerce_downloadable_file_permission_data', $data ),
-			apply_filters( 'woocommerce_downloadable_file_permission_format', $format, $data )
+			$wpdb->prefix . 'poocommerce_downloadable_product_permissions',
+			apply_filters( 'poocommerce_downloadable_file_permission_data', $data ),
+			apply_filters( 'poocommerce_downloadable_file_permission_format', $format, $data )
 		);
 
 		return $result ? $wpdb->insert_id : false;
@@ -137,7 +137,7 @@ class WC_Customer_Download_Data_Store implements WC_Customer_Download_Data_Store
 			return $adjusted_date;
 		}
 
-		$msg = sprintf( __( "I don't know how to get a date from a %s", 'woocommerce' ), is_object( $date ) ? get_class( $date ) : gettype( $date ) );
+		$msg = sprintf( __( "I don't know how to get a date from a %s", 'poocommerce' ), is_object( $date ) ? get_class( $date ) : gettype( $date ) );
 		throw new Exception( $msg );
 	}
 
@@ -152,19 +152,19 @@ class WC_Customer_Download_Data_Store implements WC_Customer_Download_Data_Store
 		global $wpdb;
 
 		if ( ! $download->get_id() ) {
-			throw new Exception( __( 'Invalid download.', 'woocommerce' ) );
+			throw new Exception( __( 'Invalid download.', 'poocommerce' ) );
 		}
 
 		$download->set_defaults();
 		$raw_download = $wpdb->get_row(
 			$wpdb->prepare(
-				"SELECT * FROM {$wpdb->prefix}woocommerce_downloadable_product_permissions WHERE permission_id = %d",
+				"SELECT * FROM {$wpdb->prefix}poocommerce_downloadable_product_permissions WHERE permission_id = %d",
 				$download->get_id()
 			)
 		);
 
 		if ( ! $raw_download ) {
-			throw new Exception( __( 'Invalid download.', 'woocommerce' ) );
+			throw new Exception( __( 'Invalid download.', 'poocommerce' ) );
 		}
 
 		$download->set_props(
@@ -221,7 +221,7 @@ class WC_Customer_Download_Data_Store implements WC_Customer_Download_Data_Store
 		);
 
 		$wpdb->update(
-			$wpdb->prefix . 'woocommerce_downloadable_product_permissions',
+			$wpdb->prefix . 'poocommerce_downloadable_product_permissions',
 			$data,
 			array(
 				'permission_id' => $download->get_id(),
@@ -255,7 +255,7 @@ class WC_Customer_Download_Data_Store implements WC_Customer_Download_Data_Store
 		global $wpdb;
 		$wpdb->query(
 			$wpdb->prepare(
-				"DELETE FROM {$wpdb->prefix}woocommerce_downloadable_product_permissions
+				"DELETE FROM {$wpdb->prefix}poocommerce_downloadable_product_permissions
 				WHERE permission_id = %d",
 				$id
 			)
@@ -289,7 +289,7 @@ class WC_Customer_Download_Data_Store implements WC_Customer_Download_Data_Store
 		} elseif ( is_float( $value ) ) {
 			$value_placeholder = '%f';
 		} else {
-			wc_doing_it_wrong( __METHOD__, __( 'Unsupported argument type provided as value.', 'woocommerce' ), '7.0' );
+			wc_doing_it_wrong( __METHOD__, __( 'Unsupported argument type provided as value.', 'poocommerce' ), '7.0' );
 			// The `prepare` further down would fail if the placeholder was missing, so skip download log removal.
 			return;
 		}
@@ -297,7 +297,7 @@ class WC_Customer_Download_Data_Store implements WC_Customer_Download_Data_Store
 		$query = "DELETE FROM {$wpdb->prefix}wc_download_log
 					WHERE permission_id IN (
 					    SELECT permission_id
-					    FROM {$wpdb->prefix}woocommerce_downloadable_product_permissions
+					    FROM {$wpdb->prefix}poocommerce_downloadable_product_permissions
 					    WHERE {$field} = {$value_placeholder}
 					)";
 
@@ -318,7 +318,7 @@ class WC_Customer_Download_Data_Store implements WC_Customer_Download_Data_Store
 
 		$wpdb->query(
 			$wpdb->prepare(
-				"DELETE FROM {$wpdb->prefix}woocommerce_downloadable_product_permissions
+				"DELETE FROM {$wpdb->prefix}poocommerce_downloadable_product_permissions
 				WHERE order_id = %d",
 				$id
 			)
@@ -337,7 +337,7 @@ class WC_Customer_Download_Data_Store implements WC_Customer_Download_Data_Store
 
 		$wpdb->query(
 			$wpdb->prepare(
-				"DELETE FROM {$wpdb->prefix}woocommerce_downloadable_product_permissions
+				"DELETE FROM {$wpdb->prefix}poocommerce_downloadable_product_permissions
 				WHERE download_id = %s",
 				$id
 			)
@@ -358,7 +358,7 @@ class WC_Customer_Download_Data_Store implements WC_Customer_Download_Data_Store
 
 		return (bool) $wpdb->query(
 			$wpdb->prepare(
-				"DELETE FROM {$wpdb->prefix}woocommerce_downloadable_product_permissions
+				"DELETE FROM {$wpdb->prefix}poocommerce_downloadable_product_permissions
 				WHERE user_id = %d",
 				$id
 			)
@@ -379,7 +379,7 @@ class WC_Customer_Download_Data_Store implements WC_Customer_Download_Data_Store
 
 		return (bool) $wpdb->query(
 			$wpdb->prepare(
-				"DELETE FROM {$wpdb->prefix}woocommerce_downloadable_product_permissions
+				"DELETE FROM {$wpdb->prefix}poocommerce_downloadable_product_permissions
 				WHERE user_email = %s",
 				$email
 			)
@@ -436,7 +436,7 @@ class WC_Customer_Download_Data_Store implements WC_Customer_Download_Data_Store
 		}
 
 		$query   = array();
-		$query[] = "SELECT {$fields} FROM {$wpdb->prefix}woocommerce_downloadable_product_permissions WHERE 1=1";
+		$query[] = "SELECT {$fields} FROM {$wpdb->prefix}poocommerce_downloadable_product_permissions WHERE 1=1";
 
 		if ( $args['user_email'] ) {
 			$query[] = $wpdb->prepare( 'AND user_email = %s', sanitize_email( $args['user_email'] ) );
@@ -499,7 +499,7 @@ class WC_Customer_Download_Data_Store implements WC_Customer_Download_Data_Store
 		wc_deprecated_function( __METHOD__, '3.3' );
 
 		$wpdb->update(
-			$wpdb->prefix . 'woocommerce_downloadable_product_permissions',
+			$wpdb->prefix . 'poocommerce_downloadable_product_permissions',
 			array(
 				'download_id' => $new_id,
 			),
@@ -521,7 +521,7 @@ class WC_Customer_Download_Data_Store implements WC_Customer_Download_Data_Store
 
 		return $wpdb->get_results(
 			$wpdb->prepare(
-				"SELECT * FROM {$wpdb->prefix}woocommerce_downloadable_product_permissions as permissions
+				"SELECT * FROM {$wpdb->prefix}poocommerce_downloadable_product_permissions as permissions
 				WHERE user_id = %d
 				AND permissions.order_id > 0
 				AND
@@ -552,7 +552,7 @@ class WC_Customer_Download_Data_Store implements WC_Customer_Download_Data_Store
 	public function update_user_by_order_id( $order_id, $customer_id, $email ) {
 		global $wpdb;
 		$wpdb->update(
-			$wpdb->prefix . 'woocommerce_downloadable_product_permissions',
+			$wpdb->prefix . 'poocommerce_downloadable_product_permissions',
 			array(
 				'user_id'    => $customer_id,
 				'user_email' => $email,

@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { registerStore } from '@wordpress/data';
-import { SelectFromMap, DispatchFromMap } from '@woocommerce/data';
+import { SelectFromMap, DispatchFromMap } from '@poocommerce/data';
 import { Reducer, AnyAction } from 'redux';
 
 /**

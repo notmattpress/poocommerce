@@ -2,12 +2,12 @@
 /**
  * CodGatewaySettingsSchema class.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\RestApi\Routes\V4\Settings\PaymentGateways\Schema;
+namespace Automattic\PooCommerce\Internal\RestApi\Routes\V4\Settings\PaymentGateways\Schema;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -64,7 +64,7 @@ class CodGatewaySettingsSchema extends AbstractPaymentGatewaySettingsSchema {
 			$options[ $method->get_method_title() ] = array();
 
 			// Translators: %1$s shipping method name.
-			$options[ $method->get_method_title() ][ $method->id ] = sprintf( __( 'Any &quot;%1$s&quot; method', 'woocommerce' ), $method->get_method_title() );
+			$options[ $method->get_method_title() ][ $method->id ] = sprintf( __( 'Any &quot;%1$s&quot; method', 'poocommerce' ), $method->get_method_title() );
 
 			foreach ( $zones as $zone ) {
 
@@ -79,10 +79,10 @@ class CodGatewaySettingsSchema extends AbstractPaymentGatewaySettingsSchema {
 					$option_id = $shipping_method_instance->get_rate_id();
 
 					// Translators: %1$s shipping method title, %2$s shipping method id.
-					$option_instance_title = sprintf( __( '%1$s (#%2$s)', 'woocommerce' ), $shipping_method_instance->get_title(), $shipping_method_instance_id );
+					$option_instance_title = sprintf( __( '%1$s (#%2$s)', 'poocommerce' ), $shipping_method_instance->get_title(), $shipping_method_instance_id );
 
 					// Translators: %1$s zone name, %2$s shipping method instance name.
-					$option_title = sprintf( __( '%1$s &ndash; %2$s', 'woocommerce' ), $zone->get_id() ? $zone->get_zone_name() : __( 'Other locations', 'woocommerce' ), $option_instance_title );
+					$option_title = sprintf( __( '%1$s &ndash; %2$s', 'poocommerce' ), $zone->get_id() ? $zone->get_zone_name() : __( 'Other locations', 'poocommerce' ), $option_instance_title );
 
 					$options[ $method->get_method_title() ][ $option_id ] = $option_title;
 				}
