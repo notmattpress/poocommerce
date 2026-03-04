@@ -7,7 +7,6 @@ declare( strict_types=1 );
 
 namespace Automattic\WooCommerce\Admin\Features\Fulfillments;
 
-use Automattic\WooCommerce\Admin\Features\Fulfillments\DataStore\FulfillmentsDataStore;
 use Automattic\WooCommerce\Admin\Features\Fulfillments\Providers\AbstractShippingProvider;
 use WC_Order;
 use WC_Order_Refund;
@@ -134,14 +133,21 @@ class FulfillmentsManager {
 			return;
 		}
 
-		/**
-		 * Get the FulfillmentsDataStore instance.
-		 *
-		 * @var FulfillmentsDataStore $fulfillments_data_store
-		 */
-		$fulfillments_data_store = wc_get_container()->get( FulfillmentsDataStore::class );
-		// Read all fulfillments for the order.
-		$fulfillments = $fulfillments_data_store->read_fulfillments( \WC_Order::class, (string) $order->get_id() );
+		try {
+			/**
+			 * Fulfillments data store.
+			 *
+			 * @var \Automattic\WooCommerce\Admin\Features\Fulfillments\DataStore\FulfillmentsDataStore $fulfillments_data_store
+			 */
+			$fulfillments_data_store = \WC_Data_Store::load( 'order-fulfillment' );
+			$fulfillments            = $fulfillments_data_store->read_fulfillments( \WC_Order::class, (string) $order->get_id() );
+		} catch ( \Throwable $e ) {
+			wc_get_logger()->error(
+				sprintf( 'Failed to load fulfillments for order %d: %s', $order->get_id(), $e->getMessage() ),
+				array( 'source' => 'fulfillments' )
+			);
+			return;
+		}
 
 		$this->update_fulfillment_status( $order, $fulfillments );
 	}
@@ -172,8 +178,21 @@ class FulfillmentsManager {
 			return; // If the order is not valid, do nothing.
 		}
 
-		$fulfillments_data_store = wc_get_container()->get( FulfillmentsDataStore::class );
-		$fulfillments            = $fulfillments_data_store->read_fulfillments( \WC_Order::class, (string) $order_id );
+		try {
+			/**
+			 * Fulfillments data store.
+			 *
+			 * @var \Automattic\WooCommerce\Admin\Features\Fulfillments\DataStore\FulfillmentsDataStore $fulfillments_data_store
+			 */
+			$fulfillments_data_store = \WC_Data_Store::load( 'order-fulfillment' );
+			$fulfillments            = $fulfillments_data_store->read_fulfillments( \WC_Order::class, (string) $order_id );
+		} catch ( \Throwable $e ) {
+			wc_get_logger()->error(
+				sprintf( 'Failed to load fulfillments for order %d: %s', $order_id, $e->getMessage() ),
+				array( 'source' => 'fulfillments' )
+			);
+			return;
+		}
 
 		$this->update_fulfillment_status( $order, $fulfillments );
 	}
@@ -208,8 +227,21 @@ class FulfillmentsManager {
 		}
 
 		// Get the fulfillments data store and read all fulfillments for the order.
-		$fulfillments_data_store = wc_get_container()->get( FulfillmentsDataStore::class );
-		$fulfillments            = $fulfillments_data_store->read_fulfillments( \WC_Order::class, (string) $order_id );
+		try {
+			/**
+			 * Fulfillments data store.
+			 *
+			 * @var \Automattic\WooCommerce\Admin\Features\Fulfillments\DataStore\FulfillmentsDataStore $fulfillments_data_store
+			 */
+			$fulfillments_data_store = \WC_Data_Store::load( 'order-fulfillment' );
+			$fulfillments            = $fulfillments_data_store->read_fulfillments( \WC_Order::class, (string) $order_id );
+		} catch ( \Throwable $e ) {
+			wc_get_logger()->error(
+				sprintf( 'Failed to load fulfillments for order %d: %s', $order_id, $e->getMessage() ),
+				array( 'source' => 'fulfillments' )
+			);
+			return;
+		}
 		if ( empty( $fulfillments ) ) {
 			return; // No fulfillments found for the order.
 		}
