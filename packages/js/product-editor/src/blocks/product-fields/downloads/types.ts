@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { ProductDownload } from '@woocommerce/data';
+import { ProductDownload } from '@poocommerce/data';
 import { BlockAttributes } from '@wordpress/blocks';
 
 export interface UploadsBlockAttributes extends BlockAttributes {

@@ -8,8 +8,8 @@ import { render, screen } from '@testing-library/react';
  */
 import FormattedMonetaryAmount from '../index';
 
-jest.mock( '@woocommerce/settings', () => ( {
-	...jest.requireActual( '@woocommerce/settings' ),
+jest.mock( '@poocommerce/settings', () => ( {
+	...jest.requireActual( '@poocommerce/settings' ),
 	SITE_CURRENCY: {
 		code: 'EUR',
 		symbol: 'TEST',

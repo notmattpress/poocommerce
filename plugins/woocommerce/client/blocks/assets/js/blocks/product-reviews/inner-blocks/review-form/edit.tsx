@@ -52,7 +52,7 @@ export default function PostCommentsFormEdit( {
 			<div { ...blockProps }>
 				<CommentsForm postId={ postId } postType={ postType } />
 				<VisuallyHidden id={ instanceIdDesc }>
-					{ __( 'Reviews form disabled in editor.', 'woocommerce' ) }
+					{ __( 'Reviews form disabled in editor.', 'poocommerce' ) }
 				</VisuallyHidden>
 			</div>
 		</>

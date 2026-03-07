@@ -3,8 +3,8 @@
  */
 import { __ } from '@wordpress/i18n';
 import { useEffect, useState } from '@wordpress/element';
-import { recordEvent } from '@woocommerce/tracks';
-import { navigateTo, getNewPath, useQuery } from '@woocommerce/navigation';
+import { recordEvent } from '@poocommerce/tracks';
+import { navigateTo, getNewPath, useQuery } from '@poocommerce/navigation';
 import { SearchControl } from '@wordpress/components';
 
 /**
@@ -20,7 +20,7 @@ import { MARKETPLACE_PATH } from '../constants';
  */
 function Search(): JSX.Element {
 	const [ searchTerm, setSearchTerm ] = useState( '' );
-	const searchPlaceholder = __( 'Search Marketplace', 'woocommerce' );
+	const searchPlaceholder = __( 'Search Marketplace', 'poocommerce' );
 
 	const query = useQuery();
 
@@ -86,7 +86,7 @@ function Search(): JSX.Element {
 			onKeyUp={ handleKeyUp }
 			onClose={ onClose }
 			onFocus={ onFocus }
-			className="woocommerce-marketplace__search"
+			className="poocommerce-marketplace__search"
 		/>
 	);
 }

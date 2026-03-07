@@ -2,9 +2,9 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\ComingSoon;
+namespace Automattic\PooCommerce\Internal\ComingSoon;
 
-use Automattic\WooCommerce\Utilities\FeaturesUtil;
+use Automattic\PooCommerce\Utilities\FeaturesUtil;
 
 
 /**
@@ -28,7 +28,7 @@ class ComingSoonAdminBarBadge {
 	 */
 	public function init_hooks() {
 		// Early exit if the user is not logged in as administrator / shop manager.
-		if ( ! is_user_logged_in() || ! current_user_can( 'manage_woocommerce' ) ) {
+		if ( ! is_user_logged_in() || ! current_user_can( 'manage_poocommerce' ) ) {
 			return;
 		}
 
@@ -50,13 +50,13 @@ class ComingSoonAdminBarBadge {
 		}
 
 		$labels = array(
-			'coming-soon'       => __( 'Coming soon', 'woocommerce' ),
-			'store-coming-soon' => __( 'Store coming soon', 'woocommerce' ),
-			'live'              => __( 'Live', 'woocommerce' ),
+			'coming-soon'       => __( 'Coming soon', 'poocommerce' ),
+			'store-coming-soon' => __( 'Store coming soon', 'poocommerce' ),
+			'live'              => __( 'Live', 'poocommerce' ),
 		);
 
-		if ( get_option( 'woocommerce_coming_soon' ) === 'yes' ) {
-			if ( get_option( 'woocommerce_store_pages_only' ) === 'yes' ) {
+		if ( get_option( 'poocommerce_coming_soon' ) === 'yes' ) {
+			if ( get_option( 'poocommerce_store_pages_only' ) === 'yes' ) {
 				$key = 'store-coming-soon';
 			} else {
 				$key = 'coming-soon';
@@ -66,11 +66,11 @@ class ComingSoonAdminBarBadge {
 		}
 
 		$args = array(
-			'id'    => 'woocommerce-site-visibility-badge',
+			'id'    => 'poocommerce-site-visibility-badge',
 			'title' => $labels[ $key ],
 			'href'  => admin_url( 'admin.php?page=wc-settings&tab=site-visibility' ),
 			'meta'  => array(
-				'class' => 'woocommerce-site-status-badge-' . $key,
+				'class' => 'poocommerce-site-status-badge-' . $key,
 			),
 		);
 		$wp_admin_bar->add_node( $args );
@@ -89,11 +89,11 @@ class ComingSoonAdminBarBadge {
 
 		if ( is_admin_bar_showing() ) {
 			echo '<style>
-				#wpadminbar .quicklinks #wp-admin-bar-woocommerce-site-visibility-badge {
+				#wpadminbar .quicklinks #wp-admin-bar-poocommerce-site-visibility-badge {
 					padding: 7px 0;
 				}
 
-				#wpadminbar .quicklinks #wp-admin-bar-woocommerce-site-visibility-badge a.ab-item {
+				#wpadminbar .quicklinks #wp-admin-bar-poocommerce-site-visibility-badge a.ab-item {
 					/* Layout  */
 					background-color: #F6F7F7;
 					border-radius: 2px;
@@ -111,22 +111,22 @@ class ComingSoonAdminBarBadge {
 					line-height: 16px;
 				}
 
-				#wpadminbar .quicklinks #wp-admin-bar-woocommerce-site-visibility-badge a.ab-item:hover,
-				#wpadminbar .quicklinks #wp-admin-bar-woocommerce-site-visibility-badge a.ab-item:focus {
+				#wpadminbar .quicklinks #wp-admin-bar-poocommerce-site-visibility-badge a.ab-item:hover,
+				#wpadminbar .quicklinks #wp-admin-bar-poocommerce-site-visibility-badge a.ab-item:focus {
 					background-color: #DCDCDE;
 				}
 
-				#wpadminbar .quicklinks #wp-admin-bar-woocommerce-site-visibility-badge a.ab-item:focus {
+				#wpadminbar .quicklinks #wp-admin-bar-poocommerce-site-visibility-badge a.ab-item:focus {
 					outline: var(--wp-admin-border-width-focus) solid var(--wp-admin-theme-color-darker-20);
 				}
 
-				#wpadminbar .quicklinks #wp-admin-bar-woocommerce-site-visibility-badge.woocommerce-site-status-badge-live a.ab-item {
+				#wpadminbar .quicklinks #wp-admin-bar-poocommerce-site-visibility-badge.poocommerce-site-status-badge-live a.ab-item {
 					background-color: #E6F2E8;
 					color: #00450C;
 				}
 
-				#wpadminbar .quicklinks #wp-admin-bar-woocommerce-site-visibility-badge.woocommerce-site-status-badge-live a.ab-item:hover,
-				#wpadminbar .quicklinks #wp-admin-bar-woocommerce-site-visibility-badge.woocommerce-site-status-badge-live a.ab-item:focus {
+				#wpadminbar .quicklinks #wp-admin-bar-poocommerce-site-visibility-badge.poocommerce-site-status-badge-live a.ab-item:hover,
+				#wpadminbar .quicklinks #wp-admin-bar-poocommerce-site-visibility-badge.poocommerce-site-status-badge-live a.ab-item:focus {
 					background-color: #B8E6BF;
 				}
 			</style>';

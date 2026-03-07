@@ -2,21 +2,21 @@
  * External dependencies
  */
 import { __, sprintf } from '@wordpress/i18n';
-import { useQueryStateByKey } from '@woocommerce/base-context/hooks';
-import { getSetting, getSettingWithCoercion } from '@woocommerce/settings';
+import { useQueryStateByKey } from '@poocommerce/base-context/hooks';
+import { getSetting, getSettingWithCoercion } from '@poocommerce/settings';
 import { useMemo, useEffect, useState } from '@wordpress/element';
 import clsx from 'clsx';
-import { Label } from '@woocommerce/blocks-components';
+import { Label } from '@poocommerce/blocks-components';
 import {
 	isAttributeQueryCollection,
 	isBoolean,
 	isRatingQueryCollection,
 	isStockStatusQueryCollection,
 	isStockStatusOptions,
-} from '@woocommerce/types';
-import { getUrlParameter } from '@woocommerce/utils';
-import FilterTitlePlaceholder from '@woocommerce/base-components/filter-placeholder';
-import { useIsMounted } from '@woocommerce/base-hooks';
+} from '@poocommerce/types';
+import { getUrlParameter } from '@poocommerce/utils';
+import FilterTitlePlaceholder from '@poocommerce/base-components/filter-placeholder';
+import { useIsMounted } from '@poocommerce/base-hooks';
 import type { BlockAttributes } from '@wordpress/blocks';
 
 /**
@@ -96,7 +96,7 @@ const ActiveFiltersBlock = ( {
 			return null;
 		}
 
-		const stockStatusLabel = __( 'Stock Status', 'woocommerce' );
+		const stockStatusLabel = __( 'Stock Status', 'poocommerce' );
 
 		return (
 			<li>
@@ -146,7 +146,7 @@ const ActiveFiltersBlock = ( {
 			return null;
 		}
 		return renderRemovableListItem( {
-			type: __( 'Price', 'woocommerce' ),
+			type: __( 'Price', 'poocommerce' ),
 			name: formatPriceRange( minPrice, maxPrice ),
 			removeCallback: () => {
 				removeArgsFromFilterUrl( 'max_price', 'min_price' );
@@ -242,7 +242,7 @@ const ActiveFiltersBlock = ( {
 			return null;
 		}
 
-		const ratingLabel = __( 'Rating', 'woocommerce' );
+		const ratingLabel = __( 'Rating', 'poocommerce' );
 
 		return (
 			<li>
@@ -255,7 +255,7 @@ const ActiveFiltersBlock = ( {
 							type: ratingLabel,
 							name: sprintf(
 								/* translators: %s is referring to the average rating value */
-								__( 'Rated %s out of 5', 'woocommerce' ),
+								__( 'Rated %s out of 5', 'poocommerce' ),
 								slug
 							),
 							removeCallback: () => {
@@ -343,13 +343,13 @@ const ActiveFiltersBlock = ( {
 					{ isEditor ? (
 						<>
 							{ renderRemovableListItem( {
-								type: __( 'Size', 'woocommerce' ),
-								name: __( 'Small', 'woocommerce' ),
+								type: __( 'Size', 'poocommerce' ),
+								name: __( 'Small', 'poocommerce' ),
 								displayStyle: blockAttributes.displayStyle,
 							} ) }
 							{ renderRemovableListItem( {
-								type: __( 'Color', 'woocommerce' ),
-								name: __( 'Blue', 'woocommerce' ),
+								type: __( 'Color', 'poocommerce' ),
+								name: __( 'Blue', 'poocommerce' ),
 								displayStyle: blockAttributes.displayStyle,
 							} ) }
 						</>
@@ -383,10 +383,10 @@ const ActiveFiltersBlock = ( {
 						} }
 					>
 						<Label
-							label={ __( 'Clear All', 'woocommerce' ) }
+							label={ __( 'Clear All', 'poocommerce' ) }
 							screenReaderLabel={ __(
 								'Clear All Filters',
-								'woocommerce'
+								'poocommerce'
 							) }
 						/>
 					</button>

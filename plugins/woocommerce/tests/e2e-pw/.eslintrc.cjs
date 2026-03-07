@@ -12,7 +12,7 @@ module.exports = {
 		'jest/valid-title': 'off',
 		'testing-library/await-async-utils': 'off',
 		/*
-		 * The e2e-pw tests use dependencies from the parent woocommerce package.
+		 * The e2e-pw tests use dependencies from the parent poocommerce package.
 		 * This configuration tells ESLint to check both the local package.json
 		 * and the parent package.json when validating imports.
 		 */

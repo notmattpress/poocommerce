@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { expect, test as base } from '@woocommerce/e2e-utils';
+import { expect, test as base } from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -21,7 +21,7 @@ const test = base.extend< { checkoutPageObject: CheckoutPage } >( {
 test.describe( 'Merchant → Additional Checkout Fields', () => {
 	test.beforeEach( async ( { requestUtils, frontendUtils } ) => {
 		await requestUtils.activatePlugin(
-			'woocommerce-blocks-test-additional-checkout-fields'
+			'poocommerce-blocks-test-additional-checkout-fields'
 		);
 
 		await frontendUtils.goToShop();

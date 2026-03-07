@@ -1,4 +1,4 @@
-# WooCommerce `src` files
+# PooCommerce `src` files
 
 ## Table of contents
 
@@ -24,27 +24,27 @@
     * [Mocking dependencies](#mocking-dependencies)
     * [Additional tools for writing unit tests](#additional-tools-for-writing-unit-tests)
 
-This directory is home to new WooCommerce class files under the `Automattic\WooCommerce` namespace using [PSR-4](https://www.php-fig.org/psr/psr-4/) file naming. This is to take full advantage of autoloading.
+This directory is home to new PooCommerce class files under the `Automattic\PooCommerce` namespace using [PSR-4](https://www.php-fig.org/psr/psr-4/) file naming. This is to take full advantage of autoloading.
 
-Ideally, all the new code for WooCommerce should consist of classes following the PSR-4 naming and living in this directory, and the code in [the `includes` directory](https://github.com/woocommerce/woocommerce/tree/trunk/plugins/woocommerce/includes/README.md) should receive the minimum amount of changes required for bug fixing. This will not always be possible but that should be the rule of thumb.
+Ideally, all the new code for PooCommerce should consist of classes following the PSR-4 naming and living in this directory, and the code in [the `includes` directory](https://github.com/poocommerce/poocommerce/tree/trunk/plugins/poocommerce/includes/README.md) should receive the minimum amount of changes required for bug fixing. This will not always be possible but that should be the rule of thumb.
 
 A [PSR-11](https://www.php-fig.org/psr/psr-11/) container is in place for registering and resolving the classes in this directory by using the [dependency injection](https://en.wikipedia.org/wiki/Dependency_injection) pattern. There are tools in place to interact with legacy code (and code outside the `src` directory in general) in a way that makes it easy to write unit tests.
 
 ## A note on `@internal` annotations
 
-Some classes and methods in this folder have an `@internal` annotation in their documentation comment block. This means that the code entity is intended for internal usage of WooCommerce core only, and **must not** be used in extensions. Backwards compatibility for these code entities is not guaranteed: they could be renamed, modified (in behavior, return value or arguments accepted) or deleted.
+Some classes and methods in this folder have an `@internal` annotation in their documentation comment block. This means that the code entity is intended for internal usage of PooCommerce core only, and **must not** be used in extensions. Backwards compatibility for these code entities is not guaranteed: they could be renamed, modified (in behavior, return value or arguments accepted) or deleted.
 
 See also [the README file for the `Internal` folder](Internal/README.md).
 
 ## Installing Composer
 
-Composer is used to generate autoload class-maps for the files here. The stable release of WooCommerce comes with the autoloader, however, if you're running a development version you'll need to use Composer.
+Composer is used to generate autoload class-maps for the files here. The stable release of PooCommerce comes with the autoloader, however, if you're running a development version you'll need to use Composer.
 
-If you don't have Composer installed, go and check how to [install Composer](https://developer.woocommerce.com/docs/contribution/contributing/#setting-up-your-development-environment) and then continue here.
+If you don't have Composer installed, go and check how to [install Composer](https://developer.poocommerce.com/docs/contribution/contributing/#setting-up-your-development-environment) and then continue here.
 
 ### Updating the autoloader class maps
 
-If you add a class to WooCommerce you need to run the following to ensure it's included in the autoloader class-maps:
+If you add a class to PooCommerce you need to run the following to ensure it's included in the autoloader class-maps:
 
 ```bash
 composer dump-autoload
@@ -52,7 +52,7 @@ composer dump-autoload
 
 ## Installing packages
 
-To install the packages WooCommerce requires, from the main directory run:
+To install the packages PooCommerce requires, from the main directory run:
 
 ```bash
 composer install
@@ -66,7 +66,7 @@ composer update
 
 ## The container
 
-WooCommerce uses a [PSR-11](https://www.php-fig.org/psr/psr-11/) compatible container for retrieving instances of all the classes in this directory by using the [dependency injection](https://en.wikipedia.org/wiki/Dependency_injection) pattern. This container is very simple: explicit class registration is not needed, any class in the `Automattic\Woocommerce` namespace can be retrieved and reflection is used to locate and instantiate classes and their dependencies.
+PooCommerce uses a [PSR-11](https://www.php-fig.org/psr/psr-11/) compatible container for retrieving instances of all the classes in this directory by using the [dependency injection](https://en.wikipedia.org/wiki/Dependency_injection) pattern. This container is very simple: explicit class registration is not needed, any class in the `Automattic\Woocommerce` namespace can be retrieved and reflection is used to locate and instantiate classes and their dependencies.
 
 The container assumes that all the retrieved classes are single-instance classes: the class will be instantiated the first time it's requested, and further requests will serve a cached version of the created instance. Thus for data-only classes for which multiple instances may be needed, instances should be created directly with `new` instead.
 
@@ -149,28 +149,28 @@ This implies that classes outside `src` can't be dependency-injected, and thus m
 
 ### Historical note
 
-In previous versions WooCommerce used [the PHP League's Container package](https://container.thephpleague.com/) as the underlying dependency injection engine, requiring explicit registration for all the classes intended to be retrieved using it. The new simplified container [was introduced in WooCommerce 9.5](https://developer.woocommerce.com/2024/11/15/developer-advisory-changes-to-the-dependency-injection-container-in-woocommerce/), while the old container package and all the related infrastructure code was removed in WooCommerce 10.0.
+In previous versions PooCommerce used [the PHP League's Container package](https://container.thephpleague.com/) as the underlying dependency injection engine, requiring explicit registration for all the classes intended to be retrieved using it. The new simplified container [was introduced in PooCommerce 9.5](https://developer.poocommerce.com/2024/11/15/developer-advisory-changes-to-the-dependency-injection-container-in-poocommerce/), while the old container package and all the related infrastructure code was removed in PooCommerce 10.0.
 
 ## The `Internal` namespace
 
-While it's up to the developer to choose the appropriate namespaces for any newly created classes, and those namespaces should make sense from a semantic point of view, there's one namespace that has a special meaning: `Automattic\WooCommerce\Internal`.
+While it's up to the developer to choose the appropriate namespaces for any newly created classes, and those namespaces should make sense from a semantic point of view, there's one namespace that has a special meaning: `Automattic\PooCommerce\Internal`.
 
-Classes in `Automattic\WooCommerce\Internal` are meant to be WooCommerce infrastructure code that might change in future releases. In other words, for code inside that namespace, **backwards compatibility  of the public surface is not guaranteed**: future releases might include breaking changes including renaming or renaming classes, renaming or removing public methods, or changing the signature of public methods. The code in this namespace is considered "internal", whereas all the other code in `src` is considered "public".
+Classes in `Automattic\PooCommerce\Internal` are meant to be PooCommerce infrastructure code that might change in future releases. In other words, for code inside that namespace, **backwards compatibility  of the public surface is not guaranteed**: future releases might include breaking changes including renaming or renaming classes, renaming or removing public methods, or changing the signature of public methods. The code in this namespace is considered "internal", whereas all the other code in `src` is considered "public".
 
 What this implies for you as developer depends on what type of contribution are you making:
 
-* **If you are working on WooCommerce core:** When you need to add a new class please think carefully if the class could be useful for plugins. If you really think so, add it to the appropriate namespace rooted at `Automattic\WooCommerce`. If not, add it to the appropriate namespace but rooted at `Automattic\WooCommerce\Internal`.
+* **If you are working on PooCommerce core:** When you need to add a new class please think carefully if the class could be useful for plugins. If you really think so, add it to the appropriate namespace rooted at `Automattic\PooCommerce`. If not, add it to the appropriate namespace but rooted at `Automattic\PooCommerce\Internal`.
     * When in doubt, always make the code internal. If an internal class is later deemed to be worth being made public, the change can be made easily (by just changing the class namespace) and nothing will break. Turning a public class into an internal class, on the other hand, is impossible since it could break existing plugins.
 
-* **If you are a plugin developer:** You should **never** use code from the `Automattic\WooCommerce\Internal` namespace in your plugins. Doing so might cause your plugin to break in future versions of WooCommerce.
+* **If you are a plugin developer:** You should **never** use code from the `Automattic\PooCommerce\Internal` namespace in your plugins. Doing so might cause your plugin to break in future versions of PooCommerce.
 
 ## Interacting with legacy code
 
-Here by "legacy code" we refer mainly to the old WooCommerce code in the `includes` directory, but the mechanisms described in this section are useful for dealing with any code outside the `src` directory.
+Here by "legacy code" we refer mainly to the old PooCommerce code in the `includes` directory, but the mechanisms described in this section are useful for dealing with any code outside the `src` directory.
 
-The code in the `src` directory can for sure interact directly with legacy code. A function needs to be called? Call it. You need an instance of an object? Instantiate it. The problem is that this makes the code difficult to test: it's not easy to mock functions (unless you use [hacks](https://github.com/woocommerce/woocommerce/blob/trunk/plugins/woocommerce/tests/Tools/CodeHacking/README.md), or objects that are instantiated directly with `new` or whose instance is retrieved via a `TheClass::instance()` method).
+The code in the `src` directory can for sure interact directly with legacy code. A function needs to be called? Call it. You need an instance of an object? Instantiate it. The problem is that this makes the code difficult to test: it's not easy to mock functions (unless you use [hacks](https://github.com/poocommerce/poocommerce/blob/trunk/plugins/poocommerce/tests/Tools/CodeHacking/README.md), or objects that are instantiated directly with `new` or whose instance is retrieved via a `TheClass::instance()` method).
 
-But we want the WooCommerce code base (and especially the code in `src`) to be well covered by unit tests, and so there are mechanisms in place to interact with legacy code while keeping the code testable.
+But we want the PooCommerce code base (and especially the code in `src`) to be well covered by unit tests, and so there are mechanisms in place to interact with legacy code while keeping the code testable.
 
 ### The `LegacyProxy` class
 
@@ -190,7 +190,7 @@ But how does using `LegacyProxy` help in making the code testable? The trick is 
 `LegacyProxy` is a class that is registered in the container as any other class, so an instance can be obtained by using dependency-injection:
 
 ```php
-use Automattic\WooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
 
 class TheClass {
     private $legacy_proxy;
@@ -205,7 +205,7 @@ class TheClass {
 }
 ```
 
-However, the recommended way (especially when no other dependencies need to be dependency-injected) is to use the equivalent methods in the `WooCommerce` class via the `WC()` helper, like this:
+However, the recommended way (especially when no other dependencies need to be dependency-injected) is to use the equivalent methods in the `PooCommerce` class via the `WC()` helper, like this:
 
 ```php
 class TheClass {
@@ -244,7 +244,7 @@ $this->register_legacy_proxy_function_mocks(
 
 Of course, for the cases where no mocks are defined `MockableLegacyProxy` works the same way as `LegacyProxy`.
 
-Please see [the code of the MockableLegacyProxy class](https://github.com/woocommerce/woocommerce/blob/trunk/plugins/woocommerce/tests/Tools/DependencyManagement/MockableLegacyProxy.php) and [its unit tests](https://github.com/woocommerce/woocommerce/blob/trunk/plugins/woocommerce/tests/php/src/Proxies/MockableLegacyProxyTest.php) for more detailed usage instructions and examples.
+Please see [the code of the MockableLegacyProxy class](https://github.com/poocommerce/poocommerce/blob/trunk/plugins/poocommerce/tests/Tools/DependencyManagement/MockableLegacyProxy.php) and [its unit tests](https://github.com/poocommerce/poocommerce/blob/trunk/plugins/poocommerce/tests/php/src/Proxies/MockableLegacyProxyTest.php) for more detailed usage instructions and examples.
 
 ### But how does `get_instance_of` work?
 
@@ -252,7 +252,7 @@ We use a container to retrieve instances of classes in the `src` directory, but 
 
 This is a mostly ad-hoc process. When a class has a special way to be instantiated or retrieved (e.g. a static `instance` method), then that is used; otherwise the method fallbacks to simply creating a new instance of the class using `new`.
 
-This means that the `get_instance_of` method will most likely need to evolve over time to cover additional special cases. Take a look at the method code in [LegacyProxy](https://github.com/woocommerce/woocommerce/blob/trunk/plugins/woocommerce/src/Proxies/LegacyProxy.php) for details on how to properly make changes to the method.
+This means that the `get_instance_of` method will most likely need to evolve over time to cover additional special cases. Take a look at the method code in [LegacyProxy](https://github.com/poocommerce/poocommerce/blob/trunk/plugins/poocommerce/src/Proxies/LegacyProxy.php) for details on how to properly make changes to the method.
 
 ### Creating specialized proxies
 
@@ -272,23 +272,23 @@ class ActionsProxy {
 }
 ```
 
-Note however that such a class would have to be explicitly dependency-injected (unless additional helper methods are defined in the `WooCommerce` class), and that you would need to create a pairing mock class (e.g. `MockableActionsProxy`) and replace the original registration using `wc_get_container()->replace( ActionsProxy::class, MockableActionsProxy::class )`.
+Note however that such a class would have to be explicitly dependency-injected (unless additional helper methods are defined in the `PooCommerce` class), and that you would need to create a pairing mock class (e.g. `MockableActionsProxy`) and replace the original registration using `wc_get_container()->replace( ActionsProxy::class, MockableActionsProxy::class )`.
 
 ## Defining new actions and filters
 
-WordPress' hooks (actions and filters) are a very powerful extensibility mechanism and it's the core tool that allows WooCommerce extensions to be developer. However it has been often (ab)used in the WooCommerce core codebase to drive internal logic, e.g. an action is triggered from within one class or function with the assumption that somewhere there's some other class or function that will handle it and continue whatever processing is supposed to happen.
+WordPress' hooks (actions and filters) are a very powerful extensibility mechanism and it's the core tool that allows PooCommerce extensions to be developer. However it has been often (ab)used in the PooCommerce core codebase to drive internal logic, e.g. an action is triggered from within one class or function with the assumption that somewhere there's some other class or function that will handle it and continue whatever processing is supposed to happen.
 
-In order to keep the code as easy as reasonably possible to read and maintain, **hooks shouldn't be used to drive WooCommerce's internal logic and processes**. If you need the services of a given class or function, please call these directly (by using dependency-injection or the legacy proxy as appropriate to get access to the desired service). **New hooks should be introduced only if they provide a valuable extension point for plugins**.
+In order to keep the code as easy as reasonably possible to read and maintain, **hooks shouldn't be used to drive PooCommerce's internal logic and processes**. If you need the services of a given class or function, please call these directly (by using dependency-injection or the legacy proxy as appropriate to get access to the desired service). **New hooks should be introduced only if they provide a valuable extension point for plugins**.
 
 As usual, there might be reasonable exceptions to this; but please keep this rule in mind whenever you consider creating a new hook.
 
 ## Writing unit tests
 
-Unit tests are a fundamental tool to keep the code reliable and reasonably safe from regression errors. To that end, any new code added to the WooCommerce codebase, but especially to the `src` directory, should be reasonably covered by such tests.
+Unit tests are a fundamental tool to keep the code reliable and reasonably safe from regression errors. To that end, any new code added to the PooCommerce codebase, but especially to the `src` directory, should be reasonably covered by such tests.
 
-**If you are a WooCommerce core team member or a contributor from other team at Automattic:** Please write unit tests to cover any code addition or modification that you make to the `src` directory (and ideally the same for the `includes` directory, by the way). There are always reasonable exceptions, but the rule of thumb is that all code should be covered by tests.
+**If you are a PooCommerce core team member or a contributor from other team at Automattic:** Please write unit tests to cover any code addition or modification that you make to the `src` directory (and ideally the same for the `includes` directory, by the way). There are always reasonable exceptions, but the rule of thumb is that all code should be covered by tests.
 
-**If you are an external contributor:** When adding or changing code on the WooCommerce codebase, and especially in the `src` directory, adding unit tests is recommended but not mandatory: no contributions will be rejected solely for lacking unit tests. However, please try to at least make the code easily testable by honoring the container and dependency-injection mechanism, and by using the legacy proxy to interact with legacy code when needed. If you do so, the WooCommerce team or other contributors will be able to add the missing tests.
+**If you are an external contributor:** When adding or changing code on the PooCommerce codebase, and especially in the `src` directory, adding unit tests is recommended but not mandatory: no contributions will be rejected solely for lacking unit tests. However, please try to at least make the code easily testable by honoring the container and dependency-injection mechanism, and by using the legacy proxy to interact with legacy code when needed. If you do so, the PooCommerce team or other contributors will be able to add the missing tests.
 
 ### Mocking dependencies
 
@@ -324,8 +324,8 @@ Note: of course all of this applies to dependencies from the `src` directory, fo
 
 ### Additional tools for writing unit tests
 
-[The `tests/Tools` directory](https://github.com/woocommerce/woocommerce/blob/trunk/plugins/woocommerce/tests/Tools) contains additional tools that can help in the task of writing unit tests, notably:
+[The `tests/Tools` directory](https://github.com/poocommerce/poocommerce/blob/trunk/plugins/poocommerce/tests/Tools) contains additional tools that can help in the task of writing unit tests, notably:
 
-* [The code hacker](https://github.com/woocommerce/woocommerce/tree/trunk/plugins/woocommerce/tests/Tools/CodeHacking#readme), which allows modifying the code before it's tested in order to mock functions, static methods and `final` classes. This is a last resort mechanism when using other mechanisms like [the `LegacyProxy` class](#the-legacyproxy-class) is not an option.
-* [The DynamicDecorator class](https://github.com/woocommerce/woocommerce/tree/trunk/plugins/woocommerce/tests/Tools/DynamicDecorator.php), which wraps an arbitrary object and allows to define replacements its for methods and properties; the decorator is then used in lieu of the original object. This can be useful when extending the class of the original object isn't possible or is too complicated. See [the unis tests](https://github.com/woocommerce/woocommerce/tree/trunk/plugins/woocommerce/tests/php/src/Proxies/DynamicDecoratorTest.php) for examples of how it's used.
+* [The code hacker](https://github.com/poocommerce/poocommerce/tree/trunk/plugins/poocommerce/tests/Tools/CodeHacking#readme), which allows modifying the code before it's tested in order to mock functions, static methods and `final` classes. This is a last resort mechanism when using other mechanisms like [the `LegacyProxy` class](#the-legacyproxy-class) is not an option.
+* [The DynamicDecorator class](https://github.com/poocommerce/poocommerce/tree/trunk/plugins/poocommerce/tests/Tools/DynamicDecorator.php), which wraps an arbitrary object and allows to define replacements its for methods and properties; the decorator is then used in lieu of the original object. This can be useful when extending the class of the original object isn't possible or is too complicated. See [the unis tests](https://github.com/poocommerce/poocommerce/tree/trunk/plugins/poocommerce/tests/php/src/Proxies/DynamicDecoratorTest.php) for examples of how it's used.
 

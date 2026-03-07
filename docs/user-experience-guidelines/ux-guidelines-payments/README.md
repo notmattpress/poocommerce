@@ -6,7 +6,7 @@ post_title: Payments guidelines
 
 # Payments Guidelines
 
-When building payments extensions, you should ensure you follow the [WooCommerce Extension Guidelines](https://developer.woocommerce.com/docs/extensions/ux-guidelines-extensions/).
+When building payments extensions, you should ensure you follow the [PooCommerce Extension Guidelines](https://developer.poocommerce.com/docs/extensions/ux-guidelines-extensions/).
 
 Payments plugins come in many types: payment processors and gateways, wallets, Buy Now Pay Later, crypto, and more.
 

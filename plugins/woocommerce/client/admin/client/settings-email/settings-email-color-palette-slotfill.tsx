@@ -48,7 +48,7 @@ const EmailColorPaletteFill = ( {
 
 export const registerSettingsEmailColorPaletteFill = () => {
 	const autoSyncInput = document.getElementById(
-		'woocommerce_email_auto_sync_with_theme'
+		'poocommerce_email_auto_sync_with_theme'
 	) as HTMLInputElement;
 	if ( ! autoSyncInput ) {
 		return; // Don't register the plugin if the input doesn't exist
@@ -81,8 +81,8 @@ export const registerSettingsEmailColorPaletteFill = () => {
 	const hasThemeJson =
 		slotElement?.getAttribute( 'data-has-theme-json' ) !== null;
 
-	registerPlugin( 'woocommerce-admin-settings-email-color-palette', {
-		scope: 'woocommerce-email-color-palette-settings',
+	registerPlugin( 'poocommerce-admin-settings-email-color-palette', {
+		scope: 'poocommerce-email-color-palette-settings',
 		render: () => (
 			<EmailColorPaletteFill
 				autoSync={ autoSync }

@@ -115,9 +115,9 @@ export const isPreKycComplete = ( data: OnboardingFields ): boolean => {
 
 export const getComingSoonShareKey = () => {
 	const {
-		woocommerce_share_key: shareKey,
-		woocommerce_coming_soon: comingSoon,
-		woocommerce_private_link: privateLink,
+		poocommerce_share_key: shareKey,
+		poocommerce_coming_soon: comingSoon,
+		poocommerce_private_link: privateLink,
 	} = window.wcSettings?.admin?.siteVisibilitySettings || {};
 
 	if ( comingSoon !== 'yes' || privateLink === 'no' ) {

@@ -2,15 +2,15 @@
 /**
  * Plugins Helper Tests
  *
- * @package WooCommerce\Admin\Tests\PluginHelper
+ * @package PooCommerce\Admin\Tests\PluginHelper
  */
 
-use Automattic\WooCommerce\Admin\PluginsHelper;
+use Automattic\PooCommerce\Admin\PluginsHelper;
 
 /**
  * WC_Admin_Tests_Plugin_Helper Class
  *
- * @package WooCommerce\Admin\Tests\PluginHelper
+ * @package PooCommerce\Admin\Tests\PluginHelper
  */
 class WC_Admin_Tests_Plugins_Helper extends WP_UnitTestCase {
 
@@ -41,8 +41,8 @@ class WC_Admin_Tests_Plugins_Helper extends WP_UnitTestCase {
 		$this->assertEquals( false, $invalid_path, 'False should be returned when no matching plugin is installed.' );
 
 		// Check for when slug already appears to be a path.
-		$wc_path_slug = PluginsHelper::get_plugin_path_from_slug( 'woocommerce/woocommerce' );
-		$this->assertEquals( 'woocommerce/woocommerce', $wc_path_slug, 'Slug should be returned if it appears to already be path.' );
+		$wc_path_slug = PluginsHelper::get_plugin_path_from_slug( 'poocommerce/poocommerce' );
+		$this->assertEquals( 'poocommerce/poocommerce', $wc_path_slug, 'Slug should be returned if it appears to already be path.' );
 	}
 
 	/**
@@ -123,7 +123,7 @@ class WC_Admin_Tests_Plugins_Helper extends WP_UnitTestCase {
 
 		// Check if akismet is now active.
 		$activated = PluginsHelper::is_plugin_active( 'akismet' );
-		$this->assertEquals( true, $activated, 'Akismet for WooCommerce should be installed.' );
+		$this->assertEquals( true, $activated, 'Akismet for PooCommerce should be installed.' );
 	}
 
 	/**

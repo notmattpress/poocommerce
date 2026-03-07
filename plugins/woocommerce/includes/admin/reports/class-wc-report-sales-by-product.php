@@ -2,10 +2,10 @@
 /**
  * Sales By Product Reporting
  *
- * @package WooCommerce\Admin\Reporting
+ * @package PooCommerce\Admin\Reporting
  */
 
-use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Enums\OrderStatus;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * WC_Report_Sales_By_Product
  *
- * @package     WooCommerce\Admin\Reports
+ * @package     PooCommerce\Admin\Reports
  * @version     2.1.0
  */
 class WC_Report_Sales_By_Product extends WC_Admin_Report {
@@ -120,14 +120,14 @@ class WC_Report_Sales_By_Product extends WC_Admin_Report {
 
 		$legend[] = array(
 			/* translators: %s: total items sold */
-			'title'            => sprintf( __( '%s sales for the selected items', 'woocommerce' ), '<strong>' . wc_price( $total_sales ) . '</strong>' ),
+			'title'            => sprintf( __( '%s sales for the selected items', 'poocommerce' ), '<strong>' . wc_price( $total_sales ) . '</strong>' ),
 			'color'            => $this->chart_colours['sales_amount'],
 			'highlight_series' => 1,
 		);
 
 		$legend[] = array(
 			/* translators: %s: total items purchased */
-			'title'            => sprintf( __( '%s purchases for the selected items', 'woocommerce' ), '<strong>' . ( $total_items ) . '</strong>' ),
+			'title'            => sprintf( __( '%s purchases for the selected items', 'poocommerce' ), '<strong>' . ( $total_items ) . '</strong>' ),
 			'color'            => $this->chart_colours['item_count'],
 			'highlight_series' => 0,
 		);
@@ -141,10 +141,10 @@ class WC_Report_Sales_By_Product extends WC_Admin_Report {
 	public function output_report() {
 
 		$ranges = array(
-			'year'       => __( 'Year', 'woocommerce' ),
-			'last_month' => __( 'Last month', 'woocommerce' ),
-			'month'      => __( 'This month', 'woocommerce' ),
-			'7day'       => __( 'Last 7 days', 'woocommerce' ),
+			'year'       => __( 'Year', 'poocommerce' ),
+			'last_month' => __( 'Last month', 'poocommerce' ),
+			'month'      => __( 'This month', 'poocommerce' ),
+			'7day'       => __( 'Last 7 days', 'poocommerce' ),
 		);
 
 		$this->chart_colours = array(
@@ -175,7 +175,7 @@ class WC_Report_Sales_By_Product extends WC_Admin_Report {
 
 		if ( ! empty( $this->product_ids ) ) {
 			$widgets[] = array(
-				'title'    => __( 'Showing reports for:', 'woocommerce' ),
+				'title'    => __( 'Showing reports for:', 'poocommerce' ),
 				'callback' => array( $this, 'current_filters' ),
 			);
 		}
@@ -207,7 +207,7 @@ class WC_Report_Sales_By_Product extends WC_Admin_Report {
 		}
 
 		echo '<p><strong>' . wp_kses_post( implode( ', ', $this->product_ids_titles ) ) . '</strong></p>';
-		echo '<p><a class="button" href="' . esc_url( remove_query_arg( 'product_ids' ) ) . '">' . esc_html__( 'Reset', 'woocommerce' ) . '</a></p>';
+		echo '<p><a class="button" href="' . esc_url( remove_query_arg( 'product_ids' ) ) . '">' . esc_html__( 'Reset', 'poocommerce' ) . '</a></p>';
 	}
 
 	/**
@@ -215,13 +215,13 @@ class WC_Report_Sales_By_Product extends WC_Admin_Report {
 	 */
 	public function products_widget() {
 		?>
-		<h4 class="section_title"><span><?php esc_html_e( 'Product search', 'woocommerce' ); ?></span></h4>
+		<h4 class="section_title"><span><?php esc_html_e( 'Product search', 'poocommerce' ); ?></span></h4>
 		<div class="section">
 			<form method="GET">
 				<div>
 					<?php // @codingStandardsIgnoreStart ?>
-					<select class="wc-product-search" style="width:203px;" multiple="multiple" id="product_ids" name="product_ids[]" data-placeholder="<?php esc_attr_e( 'Search for a product&hellip;', 'woocommerce' ); ?>" data-action="woocommerce_json_search_products_and_variations"></select>
-					<button type="submit" class="submit button" value="<?php esc_attr_e( 'Show', 'woocommerce' ); ?>"><?php esc_html_e( 'Show', 'woocommerce' ); ?></button>
+					<select class="wc-product-search" style="width:203px;" multiple="multiple" id="product_ids" name="product_ids[]" data-placeholder="<?php esc_attr_e( 'Search for a product&hellip;', 'poocommerce' ); ?>" data-action="poocommerce_json_search_products_and_variations"></select>
+					<button type="submit" class="submit button" value="<?php esc_attr_e( 'Show', 'poocommerce' ); ?>"><?php esc_html_e( 'Show', 'poocommerce' ); ?></button>
 					<input type="hidden" name="range" value="<?php echo ( ! empty( $_GET['range'] ) ) ? esc_attr( $_GET['range'] ) : ''; ?>" />
 					<input type="hidden" name="start_date" value="<?php echo ( ! empty( $_GET['start_date'] ) ) ? esc_attr( $_GET['start_date'] ) : ''; ?>" />
 					<input type="hidden" name="end_date" value="<?php echo ( ! empty( $_GET['end_date'] ) ) ? esc_attr( $_GET['end_date'] ) : ''; ?>" />
@@ -233,7 +233,7 @@ class WC_Report_Sales_By_Product extends WC_Admin_Report {
 				</div>
 			</form>
 		</div>
-		<h4 class="section_title"><span><?php esc_html_e( 'Top sellers', 'woocommerce' ); ?></span></h4>
+		<h4 class="section_title"><span><?php esc_html_e( 'Top sellers', 'poocommerce' ); ?></span></h4>
 		<div class="section">
 			<table cellspacing="0">
 				<?php
@@ -273,12 +273,12 @@ class WC_Report_Sales_By_Product extends WC_Admin_Report {
 					}
 					// @codingStandardsIgnoreEnd
 				} else {
-					echo '<tr><td colspan="3">' . esc_html__( 'No products found in range', 'woocommerce' ) . '</td></tr>';
+					echo '<tr><td colspan="3">' . esc_html__( 'No products found in range', 'poocommerce' ) . '</td></tr>';
 				}
 				?>
 			</table>
 		</div>
-		<h4 class="section_title"><span><?php esc_html_e( 'Top freebies', 'woocommerce' ); ?></span></h4>
+		<h4 class="section_title"><span><?php esc_html_e( 'Top freebies', 'poocommerce' ); ?></span></h4>
 		<div class="section">
 			<table cellspacing="0">
 				<?php
@@ -325,12 +325,12 @@ class WC_Report_Sales_By_Product extends WC_Admin_Report {
 					}
 					// @codingStandardsIgnoreEnd
 				} else {
-					echo '<tr><td colspan="3">' . esc_html__( 'No products found in range', 'woocommerce' ) . '</td></tr>';
+					echo '<tr><td colspan="3">' . esc_html__( 'No products found in range', 'poocommerce' ) . '</td></tr>';
 				}
 				?>
 			</table>
 		</div>
-		<h4 class="section_title"><span><?php esc_html_e( 'Top earners', 'woocommerce' ); ?></span></h4>
+		<h4 class="section_title"><span><?php esc_html_e( 'Top earners', 'poocommerce' ); ?></span></h4>
 		<div class="section">
 			<table cellspacing="0">
 				<?php
@@ -370,7 +370,7 @@ class WC_Report_Sales_By_Product extends WC_Admin_Report {
 					}
 					// @codingStandardsIgnoreEnd
 				} else {
-					echo '<tr><td colspan="3">' . esc_html__( 'No products found in range', 'woocommerce' ) . '</td></tr>';
+					echo '<tr><td colspan="3">' . esc_html__( 'No products found in range', 'poocommerce' ) . '</td></tr>';
 				}
 				?>
 			</table>
@@ -410,10 +410,10 @@ class WC_Report_Sales_By_Product extends WC_Admin_Report {
 			download="report-<?php echo esc_attr( $current_range ); ?>-<?php echo esc_html( date_i18n( 'Y-m-d', current_time( 'timestamp' ) ) ); ?>.csv"
 			class="export_csv"
 			data-export="chart"
-			data-xaxes="<?php esc_attr_e( 'Date', 'woocommerce' ); ?>"
+			data-xaxes="<?php esc_attr_e( 'Date', 'poocommerce' ); ?>"
 			data-groupby="<?php echo $this->chart_groupby; ?>"<?php // @codingStandardsIgnoreLine ?>
 		>
-			<?php esc_html_e( 'Export CSV', 'woocommerce' ); ?>
+			<?php esc_html_e( 'Export CSV', 'poocommerce' ); ?>
 		</a>
 		<?php
 	}
@@ -427,7 +427,7 @@ class WC_Report_Sales_By_Product extends WC_Admin_Report {
 		if ( empty( $this->product_ids ) ) {
 			?>
 			<div class="chart-container">
-				<p class="chart-prompt"><?php esc_html_e( 'Choose a product to view stats', 'woocommerce' ); ?></p>
+				<p class="chart-prompt"><?php esc_html_e( 'Choose a product to view stats', 'poocommerce' ); ?></p>
 			</div>
 			<?php
 		} else {
@@ -534,7 +534,7 @@ class WC_Report_Sales_By_Product extends WC_Admin_Report {
 
 						var series = [
 							{
-								label: "<?php echo esc_js( __( 'Number of items sold', 'woocommerce' ) ) ?>",
+								label: "<?php echo esc_js( __( 'Number of items sold', 'poocommerce' ) ) ?>",
 								data: order_data.order_item_counts,
 								color: '<?php echo $this->chart_colours['item_count']; ?>',
 								bars: { fillColor: '<?php echo $this->chart_colours['item_count']; ?>', fill: true, show: true, lineWidth: 0, barWidth: <?php echo $this->barwidth; ?> * 0.5, align: 'center' },
@@ -542,7 +542,7 @@ class WC_Report_Sales_By_Product extends WC_Admin_Report {
 								hoverable: false
 							},
 							{
-								label: "<?php echo esc_js( __( 'Sales amount', 'woocommerce' ) ) ?>",
+								label: "<?php echo esc_js( __( 'Sales amount', 'poocommerce' ) ) ?>",
 								data: order_data.order_item_amounts,
 								yaxis: 2,
 								color: '<?php echo $this->chart_colours['sales_amount']; ?>',

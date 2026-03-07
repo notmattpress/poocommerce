@@ -9,9 +9,9 @@ import {
 	useCallback,
 	useEffect,
 } from '@wordpress/element';
-import '@woocommerce/settings';
-import { useWooBlockProps } from '@woocommerce/block-templates';
-import { __experimentalSelectTreeControl as SelectTreeControl } from '@woocommerce/components';
+import '@poocommerce/settings';
+import { useWooBlockProps } from '@poocommerce/block-templates';
+import { __experimentalSelectTreeControl as SelectTreeControl } from '@poocommerce/components';
 import { useDebounce, useInstanceId } from '@wordpress/compose';
 import { useSelect } from '@wordpress/data';
 
@@ -117,7 +117,7 @@ export function Edit( {
 					id={
 						useInstanceId(
 							SelectTreeControl,
-							'woocommerce-taxonomy-select'
+							'poocommerce-taxonomy-select'
 						) as string
 					}
 					label={ <Label label={ label } tooltip={ help } /> }

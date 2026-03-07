@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { expect, test } from '@woocommerce/e2e-utils';
+import { expect, test } from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -9,7 +9,7 @@ import { expect, test } from '@woocommerce/e2e-utils';
 
 const blockData = {
 	name: 'Product Details',
-	slug: 'woocommerce/product-details',
+	slug: 'poocommerce/product-details',
 };
 
 test.describe( `${ blockData.slug } Block`, () => {

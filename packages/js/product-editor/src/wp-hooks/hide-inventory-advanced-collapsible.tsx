@@ -6,7 +6,7 @@ import { createElement } from '@wordpress/element';
 import { addFilter } from '@wordpress/hooks';
 import { createHigherOrderComponent } from '@wordpress/compose';
 import { useSelect } from '@wordpress/data';
-import { evaluate } from '@woocommerce/expression-evaluation';
+import { evaluate } from '@poocommerce/expression-evaluation';
 
 /**
  * Internal dependencies
@@ -92,7 +92,7 @@ const maybeHideInventoryAdvancedCollapsible = createHigherOrderComponent(
 export default function () {
 	addFilter(
 		'editor.BlockEdit',
-		'woocommerce/handle-hide-inventory-advanced-collapsible',
+		'poocommerce/handle-hide-inventory-advanced-collapsible',
 		maybeHideInventoryAdvancedCollapsible
 	);
 }

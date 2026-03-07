@@ -1,12 +1,12 @@
 <?php declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Admin\Features\Fulfillments;
+namespace Automattic\PooCommerce\Tests\Admin\Features\Fulfillments;
 
-use Automattic\WooCommerce\Admin\Features\Fulfillments\DataStore\FulfillmentsDataStore;
-use Automattic\WooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
-use Automattic\WooCommerce\Admin\Features\Fulfillments\Fulfillment;
-use Automattic\WooCommerce\Admin\Features\Fulfillments\FulfillmentsRenderer;
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
+use Automattic\PooCommerce\Admin\Features\Fulfillments\DataStore\FulfillmentsDataStore;
+use Automattic\PooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
+use Automattic\PooCommerce\Admin\Features\Fulfillments\Fulfillment;
+use Automattic\PooCommerce\Admin\Features\Fulfillments\FulfillmentsRenderer;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
 use WC_Helper_Order;
 use WC_Helper_Product;
 use WC_Order;
@@ -35,9 +35,9 @@ class FulfillmentsRendererTest extends \WC_Unit_Test_Case {
 	 */
 	public static function setUpBeforeClass(): void {
 		parent::setUpBeforeClass();
-		self::$original_fulfillments_flag = get_option( 'woocommerce_feature_fulfillments_enabled' );
-		update_option( 'woocommerce_feature_fulfillments_enabled', 'yes' );
-		$controller = wc_get_container()->get( \Automattic\WooCommerce\Admin\Features\Fulfillments\FulfillmentsController::class );
+		self::$original_fulfillments_flag = get_option( 'poocommerce_feature_fulfillments_enabled' );
+		update_option( 'poocommerce_feature_fulfillments_enabled', 'yes' );
+		$controller = wc_get_container()->get( \Automattic\PooCommerce\Admin\Features\Fulfillments\FulfillmentsController::class );
 		$controller->register();
 		$controller->initialize_fulfillments();
 	}
@@ -47,9 +47,9 @@ class FulfillmentsRendererTest extends \WC_Unit_Test_Case {
 	 */
 	public static function tearDownAfterClass(): void {
 		if ( false === self::$original_fulfillments_flag ) {
-			delete_option( 'woocommerce_feature_fulfillments_enabled' );
+			delete_option( 'poocommerce_feature_fulfillments_enabled' );
 		} else {
-			update_option( 'woocommerce_feature_fulfillments_enabled', self::$original_fulfillments_flag );
+			update_option( 'poocommerce_feature_fulfillments_enabled', self::$original_fulfillments_flag );
 		}
 		parent::tearDownAfterClass();
 	}
@@ -117,7 +117,7 @@ class FulfillmentsRendererTest extends \WC_Unit_Test_Case {
 		$this->assertStringContainsString( 'Fulfilled', $output );
 		$this->assertStringContainsString( '123456789', $output );
 		$this->assertStringContainsString( 'UPS', $output );
-		$this->assertStringContainsString( "<a href='#' class='fulfillments-trigger' data-order-id='" . $order->get_id() . "' title='" . esc_attr__( 'View Fulfillments', 'woocommerce' ) . "'>", $output );
+		$this->assertStringContainsString( "<a href='#' class='fulfillments-trigger' data-order-id='" . $order->get_id() . "' title='" . esc_attr__( 'View Fulfillments', 'poocommerce' ) . "'>", $output );
 		$this->assertStringContainsString( "<svg width='16' height='16' viewBox='0 0 12 14' xmlns='http://www.w3.org/2000/svg'>", $output );
 		$this->assertStringContainsString( "<path d='M11.8333 2.83301L9.33329 0.333008L2.24996 7.41634L1.41663 10.7497L4.74996 9.91634L11.8333 2.83301ZM5.99996 12.4163H0.166626V13.6663H5.99996V12.4163Z' />", $output );
 		$this->assertStringContainsString( '</svg>', $output );
@@ -174,7 +174,7 @@ class FulfillmentsRendererTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_render_fulfillment_drawer_slot_renders_on_orders_page() {
 		$this->renderer = wc_get_container()->get( FulfillmentsRenderer::class );
-		set_current_screen( 'woocommerce_page_wc-orders' );
+		set_current_screen( 'poocommerce_page_wc-orders' );
 		ob_start();
 		$this->renderer->render_fulfillment_drawer_slot();
 		$output = ob_get_clean();

@@ -1,8 +1,8 @@
 <?php
 /**
- * WooCommerce Admin Webhooks Class
+ * PooCommerce Admin Webhooks Class
  *
- * @package WooCommerce\Admin
+ * @package PooCommerce\Admin
  * @version 3.3.0
  */
 
@@ -18,8 +18,8 @@ class WC_Admin_Webhooks {
 	 */
 	public function __construct() {
 		add_action( 'admin_init', array( $this, 'actions' ) );
-		add_action( 'woocommerce_settings_page_init', array( $this, 'screen_option' ) );
-		add_filter( 'woocommerce_save_settings_advanced_webhooks', array( $this, 'allow_save_settings' ) );
+		add_action( 'poocommerce_settings_page_init', array( $this, 'screen_option' ) );
+		add_filter( 'poocommerce_save_settings_advanced_webhooks', array( $this, 'allow_save_settings' ) );
 	}
 
 	/**
@@ -52,10 +52,10 @@ class WC_Admin_Webhooks {
 	 * Save method.
 	 */
 	private function save() {
-		check_admin_referer( 'woocommerce-settings' );
+		check_admin_referer( 'poocommerce-settings' );
 
-		if ( ! current_user_can( 'manage_woocommerce' ) ) {
-			wp_die( esc_html__( 'You do not have permission to update Webhooks', 'woocommerce' ) );
+		if ( ! current_user_can( 'manage_poocommerce' ) ) {
+			wp_die( esc_html__( 'You do not have permission to update Webhooks', 'poocommerce' ) );
 		}
 
 		$errors = array();
@@ -71,9 +71,9 @@ class WC_Admin_Webhooks {
 		} else {
 			$name = sprintf(
 				/* translators: %s: date */
-				__( 'Webhook created on %s', 'woocommerce' ),
+				__( 'Webhook created on %s', 'poocommerce' ),
 				// @codingStandardsIgnoreStart
-				(new DateTime('now'))->format( _x( 'M d, Y @ h:i A', 'Webhook created on date parsed by DateTime::format', 'woocommerce' ) )
+				(new DateTime('now'))->format( _x( 'M d, Y @ h:i A', 'Webhook created on date parsed by DateTime::format', 'poocommerce' ) )
 				// @codingStandardsIgnoreEnd
 			);
 		}
@@ -126,7 +126,7 @@ class WC_Admin_Webhooks {
 			if ( wc_is_webhook_valid_topic( $topic ) ) {
 				$webhook->set_topic( $topic );
 			} else {
-				$errors[] = __( 'Webhook topic unknown. Please select a valid topic.', 'woocommerce' );
+				$errors[] = __( 'Webhook topic unknown. Please select a valid topic.', 'poocommerce' );
 			}
 		}
 
@@ -138,7 +138,7 @@ class WC_Admin_Webhooks {
 		$webhook->save();
 
 		// Run actions.
-		do_action( 'woocommerce_webhook_options_save', $webhook->get_id() );
+		do_action( 'poocommerce_webhook_options_save', $webhook->get_id() );
 		if ( $errors ) {
 			// Redirect to webhook edit page to avoid settings save actions.
 			wp_safe_redirect( admin_url( 'admin.php?page=wc-settings&tab=advanced&section=webhooks&edit-webhook=' . $webhook->get_id() . '&error=' . rawurlencode( implode( '|', $errors ) ) ) );
@@ -246,17 +246,17 @@ class WC_Admin_Webhooks {
 			$deleted = absint( $_GET['deleted'] );
 
 			/* translators: %d: count */
-			WC_Admin_Settings::add_message( sprintf( _n( '%d webhook permanently deleted.', '%d webhooks permanently deleted.', $deleted, 'woocommerce' ), $deleted ) );
+			WC_Admin_Settings::add_message( sprintf( _n( '%d webhook permanently deleted.', '%d webhooks permanently deleted.', $deleted, 'poocommerce' ), $deleted ) );
 		}
 
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		if ( isset( $_GET['updated'] ) ) {
-			WC_Admin_Settings::add_message( __( 'Webhook updated successfully.', 'woocommerce' ) );
+			WC_Admin_Settings::add_message( __( 'Webhook updated successfully.', 'poocommerce' ) );
 		}
 
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		if ( isset( $_GET['created'] ) ) {
-			WC_Admin_Settings::add_message( __( 'Webhook created successfully.', 'woocommerce' ) );
+			WC_Admin_Settings::add_message( __( 'Webhook created successfully.', 'poocommerce' ) );
 		}
 
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
@@ -283,7 +283,7 @@ class WC_Admin_Webhooks {
 				'per_page',
 				array(
 					'default' => 10,
-					'option'  => 'woocommerce_webhooks_per_page',
+					'option'  => 'poocommerce_webhooks_per_page',
 				)
 			);
 		}
@@ -295,7 +295,7 @@ class WC_Admin_Webhooks {
 	private static function table_list_output() {
 		global $webhooks_table_list;
 
-		echo '<h2 class="wc-table-list-header">' . esc_html__( 'Webhooks', 'woocommerce' ) . ' <a href="' . esc_url( admin_url( 'admin.php?page=wc-settings&tab=advanced&section=webhooks&edit-webhook=0' ) ) . '" class="page-title-action">' . esc_html__( 'Add webhook', 'woocommerce' ) . '</a></h2>';
+		echo '<h2 class="wc-table-list-header">' . esc_html__( 'Webhooks', 'poocommerce' ) . ' <a href="' . esc_url( admin_url( 'admin.php?page=wc-settings&tab=advanced&section=webhooks&edit-webhook=0' ) ) . '" class="page-title-action">' . esc_html__( 'Add webhook', 'poocommerce' ) . '</a></h2>';
 
 		// Get the webhooks count.
 		$data_store   = WC_Data_Store::load( 'webhook' );
@@ -313,13 +313,13 @@ class WC_Admin_Webhooks {
 			self::maybe_display_legacy_rest_api_warning();
 
 			$webhooks_table_list->views();
-			$webhooks_table_list->search_box( __( 'Search webhooks', 'woocommerce' ), 'webhook' );
+			$webhooks_table_list->search_box( __( 'Search webhooks', 'poocommerce' ), 'webhook' );
 			$webhooks_table_list->display();
 		} else {
-			echo '<div class="woocommerce-BlankState woocommerce-BlankState--webhooks">';
+			echo '<div class="poocommerce-BlankState poocommerce-BlankState--webhooks">';
 			?>
-			<h2 class="woocommerce-BlankState-message"><?php esc_html_e( 'Webhooks are event notifications sent to URLs of your choice. They can be used to integrate with third-party services which support them.', 'woocommerce' ); ?></h2>
-			<a class="woocommerce-BlankState-cta button-primary button" href="<?php echo esc_url( admin_url( 'admin.php?page=wc-settings&tab=advanced&section=webhooks&edit-webhook=0' ) ); ?>"><?php esc_html_e( 'Create a new webhook', 'woocommerce' ); ?></a>
+			<h2 class="poocommerce-BlankState-message"><?php esc_html_e( 'Webhooks are event notifications sent to URLs of your choice. They can be used to integrate with third-party services which support them.', 'poocommerce' ); ?></h2>
+			<a class="poocommerce-BlankState-cta button-primary button" href="<?php echo esc_url( admin_url( 'admin.php?page=wc-settings&tab=advanced&section=webhooks&edit-webhook=0' ) ); ?>"><?php esc_html_e( 'Create a new webhook', 'poocommerce' ); ?></a>
 			<style type="text/css">#posts-filter .wp-list-table, #posts-filter .tablenav.top, .tablenav.bottom .actions { display: none; }</style>
 			<?php
 		}
@@ -344,7 +344,7 @@ class WC_Admin_Webhooks {
 		?>
 		<div class='error inline'>
 			<p><strong>
-				<?php echo esc_html__( 'Incompatible webhooks warning', 'woocommerce' ); ?>
+				<?php echo esc_html__( 'Incompatible webhooks warning', 'poocommerce' ); ?>
 			</strong></p>
 			<p>
 				<?php
@@ -352,13 +352,13 @@ class WC_Admin_Webhooks {
 					sprintf(
 						/* translators: %s = webhooks count */
 						_n(
-							"There's %d webhook that is configured to be delivered using the Legacy REST API, which has been removed from WooCommerce. This webhook will fail to be sent.",
-							'There are %d webhooks that are configured to be delivered using the Legacy REST API, which has been removed from WooCommerce. These webhooks will fail to be sent.',
+							"There's %d webhook that is configured to be delivered using the Legacy REST API, which has been removed from PooCommerce. This webhook will fail to be sent.",
+							'There are %d webhooks that are configured to be delivered using the Legacy REST API, which has been removed from PooCommerce. These webhooks will fail to be sent.',
 							$legacy_api_webhooks_count,
-							'woocommerce'
+							'poocommerce'
 						),
 						$legacy_api_webhooks_count,
-						'woocommerce'
+						'poocommerce'
 					)
 				);
 				?>
@@ -369,12 +369,12 @@ class WC_Admin_Webhooks {
 					sprintf(
 						/* translators: %s = URL */
 						_n(
-							'This webhook has the ⚠️ symbol in front of its name in the list below. Please either edit the webhook to use a different delivery format, or install and activate <a href="%s" target="_blank">the WooCommerce Legacy REST API extension</a>.',
-							'These webhooks have the ⚠️ symbol in front of their names in the list below. Please either edit the webhooks to use a different delivery format, or install and activate <a href="%s" target="_blank">the WooCommerce Legacy REST API extension</a>.',
+							'This webhook has the ⚠️ symbol in front of its name in the list below. Please either edit the webhook to use a different delivery format, or install and activate <a href="%s" target="_blank">the PooCommerce Legacy REST API extension</a>.',
+							'These webhooks have the ⚠️ symbol in front of their names in the list below. Please either edit the webhooks to use a different delivery format, or install and activate <a href="%s" target="_blank">the PooCommerce Legacy REST API extension</a>.',
 							$legacy_api_webhooks_count,
-							'woocommerce'
+							'poocommerce'
 						),
-						'https://wordpress.org/plugins/woocommerce-legacy-rest-api/'
+						'https://wordpress.org/plugins/poocommerce-legacy-rest-api/'
 					),
 					array(
 						'a' => array(
@@ -390,8 +390,8 @@ class WC_Admin_Webhooks {
 				echo wp_kses_data(
 					sprintf(
 						/* translators: %s is an URL */
-						__( "<a href='%s'>More information</a>", 'woocommerce' ),
-						'https://developer.woocommerce.com/2023/10/03/the-legacy-rest-api-will-move-to-a-dedicated-extension-in-woocommerce-9-0/'
+						__( "<a href='%s'>More information</a>", 'poocommerce' ),
+						'https://developer.poocommerce.com/2023/10/03/the-legacy-rest-api-will-move-to-a-dedicated-extension-in-poocommerce-9-0/'
 					)
 				);
 				?>

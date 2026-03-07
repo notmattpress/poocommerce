@@ -4,7 +4,7 @@
  *
  * Handles requests to the /reports/customers/count endpoint.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @since   3.5.0
  */
 
@@ -13,7 +13,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * REST API Reports Customers Totals controller class.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @extends WC_REST_Reports_Controller
  */
 class WC_REST_Report_Customers_Totals_Controller extends WC_REST_Reports_Controller {
@@ -71,12 +71,12 @@ class WC_REST_Report_Customers_Totals_Controller extends WC_REST_Reports_Control
 		$data = array(
 			array(
 				'slug'  => 'paying',
-				'name'  => __( 'Paying customer', 'woocommerce' ),
+				'name'  => __( 'Paying customer', 'poocommerce' ),
 				'total' => $total_paying,
 			),
 			array(
 				'slug'  => 'non_paying',
-				'name'  => __( 'Non-paying customer', 'woocommerce' ),
+				'name'  => __( 'Non-paying customer', 'poocommerce' ),
 				'total' => $total_customers - $total_paying,
 			),
 		);
@@ -114,7 +114,7 @@ class WC_REST_Report_Customers_Totals_Controller extends WC_REST_Reports_Control
 		 * @param object           $report   The original report object.
 		 * @param WP_REST_Request  $request  Request used to generate the response.
 		 */
-		return apply_filters( 'woocommerce_rest_prepare_report_customers_count', $response, $report, $request );
+		return apply_filters( 'poocommerce_rest_prepare_report_customers_count', $response, $report, $request );
 	}
 
 	/**
@@ -129,19 +129,19 @@ class WC_REST_Report_Customers_Totals_Controller extends WC_REST_Reports_Control
 			'type'       => 'object',
 			'properties' => array(
 				'slug'  => array(
-					'description' => __( 'An alphanumeric identifier for the resource.', 'woocommerce' ),
+					'description' => __( 'An alphanumeric identifier for the resource.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
 				'name'  => array(
-					'description' => __( 'Customer type name.', 'woocommerce' ),
+					'description' => __( 'Customer type name.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
 				'total' => array(
-					'description' => __( 'Amount of customers.', 'woocommerce' ),
+					'description' => __( 'Amount of customers.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view' ),
 					'readonly'    => true,

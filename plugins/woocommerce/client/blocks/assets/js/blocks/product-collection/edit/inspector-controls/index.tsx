@@ -4,9 +4,9 @@
 import { InspectorControls } from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
 import { useMemo } from '@wordpress/element';
-import { useIsEmailEditor } from '@woocommerce/email-editor';
-import { recordEvent } from '@woocommerce/tracks';
-import { CesFeedbackButton } from '@woocommerce/editor-components/ces-feedback-button';
+import { useIsEmailEditor } from '@poocommerce/email-editor';
+import { recordEvent } from '@poocommerce/tracks';
+import { CesFeedbackButton } from '@poocommerce/editor-components/ces-feedback-button';
 import {
 	PanelBody,
 	// eslint-disable-next-line @wordpress/no-unsafe-wp-apis
@@ -194,7 +194,7 @@ const ProductCollectionInspectorControls = (
 			{ renderCollectionSpecificControl() }
 
 			<ToolsPanel
-				label={ __( 'Settings', 'woocommerce' ) }
+				label={ __( 'Settings', 'poocommerce' ) }
 				resetAll={ () => {
 					const defaultSettings = getDefaultSettings(
 						props.attributes
@@ -248,7 +248,7 @@ const ProductCollectionInspectorControls = (
 
 			{ showCustomQueryControls ? (
 				<ToolsPanel
-					label={ __( 'Filters', 'woocommerce' ) }
+					label={ __( 'Filters', 'poocommerce' ) }
 					resetAll={ ( resetAllFilters: ( () => void )[] ) => {
 						resetAllFilters.forEach( ( resetFilter ) => {
 							resetFilter();

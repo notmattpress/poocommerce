@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Admin\Features\Fulfillments\Providers;
+namespace Automattic\PooCommerce\Admin\Features\Fulfillments\Providers;
 
 /**
  * Magyar Posta Shipping Provider class.

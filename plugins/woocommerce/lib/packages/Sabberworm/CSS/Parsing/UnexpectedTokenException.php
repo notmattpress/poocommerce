@@ -1,6 +1,6 @@
 <?php
 
-namespace Automattic\WooCommerce\Vendor\Sabberworm\CSS\Parsing;
+namespace Automattic\PooCommerce\Vendor\Sabberworm\CSS\Parsing;
 
 /**
  * Thrown if the CSS parser encounters a token it did not expect.

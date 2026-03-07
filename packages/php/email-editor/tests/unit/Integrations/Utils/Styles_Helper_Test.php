@@ -1,15 +1,15 @@
 <?php
 /**
- * This file is part of the WooCommerce Email Editor package
+ * This file is part of the PooCommerce Email Editor package
  *
- * @package Automattic\WooCommerce\EmailEditor
+ * @package Automattic\PooCommerce\EmailEditor
  */
 
 declare(strict_types = 1);
 
-namespace Automattic\WooCommerce\EmailEditor\Integrations\Utils;
+namespace Automattic\PooCommerce\EmailEditor\Integrations\Utils;
 
-use Automattic\WooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Rendering_Context;
+use Automattic\PooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Rendering_Context;
 
 /**
  * Unit test for Styles_Helper class.
@@ -269,7 +269,7 @@ class Styles_Helper_Test extends \Email_Editor_Unit_Test {
 		$__email_editor_last_wp_style_engine_get_styles_call = null;
 
 		add_filter(
-			'woocommerce_email_editor_styles_unsupported_props',
+			'poocommerce_email_editor_styles_unsupported_props',
 			function ( $unsupported_props ) {
 				$unsupported_props['padding-top'] = array( 'spacing', 'padding', 'top' );
 				return $unsupported_props;

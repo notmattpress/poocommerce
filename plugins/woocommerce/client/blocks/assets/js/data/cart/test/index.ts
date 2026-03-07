@@ -14,7 +14,7 @@ import {
 
 // Mock all dependencies before importing the module that contains the event listener
 jest.mock( '@wordpress/data' );
-jest.mock( '@woocommerce/utils', () => ( {
+jest.mock( '@poocommerce/utils', () => ( {
 	isSiteEditorPage: jest.fn().mockReturnValue( true ),
 } ) );
 jest.mock( '../persistence-layer' );

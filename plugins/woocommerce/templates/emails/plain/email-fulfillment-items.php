@@ -2,16 +2,16 @@
 /**
  * Email Fulfillment Items (plain)
  *
- * This template can be overridden by copying it to yourtheme/woocommerce/emails/plain/email-fulfillment-items.php.
+ * This template can be overridden by copying it to yourtheme/poocommerce/emails/plain/email-fulfillment-items.php.
  *
- * HOWEVER, on occasion WooCommerce will need to update template files and you
+ * HOWEVER, on occasion PooCommerce will need to update template files and you
  * (the theme developer) will need to copy the new files to your theme to
  * maintain compatibility. We try to do this as little as possible, but it does
  * happen. When this occurs the version of the template file will be bumped and
  * the readme will list any important changes.
  *
- * @see         https://woocommerce.com/document/template-structure/
- * @package     WooCommerce\Templates\Emails\Plain
+ * @see         https://poocommerce.com/document/template-structure/
+ * @package     PooCommerce\Templates\Emails\Plain
  * @version     10.1.0
  */
 
@@ -30,7 +30,7 @@ foreach ( $items as $item_id => $item ) :
 	 * @return bool
 	 */
 	if ( apply_filters(
-		'woocommerce_order_item_visible',
+		'poocommerce_order_item_visible',
 		true,
 		$item->item
 	) ) {
@@ -52,7 +52,7 @@ foreach ( $items as $item_id => $item ) :
 		 * @param WC_Order_Item $item Order item object.
 		 * @param bool          $is_visible Is item visible.
 		 */
-		$product_name = apply_filters( 'woocommerce_order_item_name', $item->item->get_name(), $item->item, false );
+		$product_name = apply_filters( 'poocommerce_order_item_name', $item->item->get_name(), $item->item, false );
 		/**
 		 * Email Order Item Quantity hook.
 		 *
@@ -60,7 +60,7 @@ foreach ( $items as $item_id => $item ) :
 		 * @param int           $quantity Item quantity.
 		 * @param WC_Order_Item $item     Item object.
 		 */
-		$product_name .= ' × ' . apply_filters( 'woocommerce_email_order_item_quantity', $item->qty, $item->item );
+		$product_name .= ' × ' . apply_filters( 'poocommerce_email_order_item_quantity', $item->qty, $item->item );
 		echo wp_kses_post( str_pad( wp_kses_post( $product_name ), 40 ) );
 		echo ' ';
 		echo esc_html( str_pad( wp_kses( $order->get_formatted_line_subtotal( $item->item ), array() ), 20, ' ', STR_PAD_LEFT ) ) . "\n";

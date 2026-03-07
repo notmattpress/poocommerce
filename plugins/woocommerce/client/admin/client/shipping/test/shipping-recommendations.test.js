@@ -40,39 +40,39 @@ describe( 'ShippingRecommendations', () => {
 	it( 'should render when WCS&T is installed', () => {
 		useSelect.mockImplementation( ( fn ) =>
 			fn( () => ( {
-				getActivePlugins: () => [ 'woocommerce-services' ],
+				getActivePlugins: () => [ 'poocommerce-services' ],
 				isJetpackConnected: () => false,
 			} ) )
 		);
 		render( <ShippingRecommendations /> );
 
 		expect(
-			screen.queryByText( 'WooCommerce Shipping' )
+			screen.queryByText( 'PooCommerce Shipping' )
 		).toBeInTheDocument();
 	} );
 
-	it( 'should not render when the WooCommerce Shipping plugin is active', () => {
+	it( 'should not render when the PooCommerce Shipping plugin is active', () => {
 		useSelect.mockImplementation( ( fn ) =>
 			fn( () => ( {
-				getActivePlugins: () => [ 'woocommerce-shipping' ],
+				getActivePlugins: () => [ 'poocommerce-shipping' ],
 			} ) )
 		);
 		render( <ShippingRecommendations /> );
 
 		expect(
-			screen.queryByText( 'WooCommerce Shipping' )
+			screen.queryByText( 'PooCommerce Shipping' )
 		).not.toBeInTheDocument();
 	} );
 
-	it( 'should render when WooCommerce Shipping is not installed', () => {
+	it( 'should render when PooCommerce Shipping is not installed', () => {
 		render( <ShippingRecommendations /> );
 
 		expect(
-			screen.queryByText( 'WooCommerce Shipping' )
+			screen.queryByText( 'PooCommerce Shipping' )
 		).toBeInTheDocument();
 	} );
 
-	it( 'allows to install WooCommerce Shipping', async () => {
+	it( 'allows to install PooCommerce Shipping', async () => {
 		const installAndActivatePluginsMock = jest
 			.fn()
 			.mockResolvedValue( undefined );
@@ -92,7 +92,7 @@ describe( 'ShippingRecommendations', () => {
 		expect( installAndActivatePluginsMock ).toHaveBeenCalled();
 		await waitFor( () => {
 			expect( successNoticeMock ).toHaveBeenCalledWith(
-				'🎉 WooCommerce Shipping is installed!',
+				'🎉 PooCommerce Shipping is installed!',
 				expect.anything()
 			);
 		} );

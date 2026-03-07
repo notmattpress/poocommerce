@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { expect, test } from '@woocommerce/e2e-utils';
+import { expect, test } from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -18,7 +18,7 @@ const lowestRating = [ ...allReviews ].sort(
 	( a, b ) => a.rating - b.rating
 )[ 0 ];
 
-const BLOCK_NAME = 'woocommerce/reviews-by-category';
+const BLOCK_NAME = 'poocommerce/reviews-by-category';
 
 test.describe( `${ BLOCK_NAME } Block`, () => {
 	test.beforeEach( async ( { admin, editor } ) => {

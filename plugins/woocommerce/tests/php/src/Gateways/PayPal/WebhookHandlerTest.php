@@ -1,18 +1,18 @@
 <?php
 /**
- * Unit tests for Automattic\WooCommerce\Gateways\PayPal\WebhookHandler class.
+ * Unit tests for Automattic\PooCommerce\Gateways\PayPal\WebhookHandler class.
  *
- * @package WooCommerce\Tests\Gateways\Paypal
+ * @package PooCommerce\Tests\Gateways\Paypal
  */
 
 // phpcs:disable WordPress.WP.GlobalVariablesOverride.Prohibited -- Required for testing WordPress globals
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Gateways\PayPal;
+namespace Automattic\PooCommerce\Tests\Gateways\PayPal;
 
-use Automattic\WooCommerce\Gateways\PayPal\Constants as PayPalConstants;
-use Automattic\WooCommerce\Gateways\PayPal\WebhookHandler as PayPalWebhookHandler;
+use Automattic\PooCommerce\Gateways\PayPal\Constants as PayPalConstants;
+use Automattic\PooCommerce\Gateways\PayPal\WebhookHandler as PayPalWebhookHandler;
 
 /**
  * Class WebhookHandlerTest.

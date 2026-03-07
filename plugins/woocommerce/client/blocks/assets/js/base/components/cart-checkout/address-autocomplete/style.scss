@@ -1,5 +1,5 @@
 /**
-This file is part of the WooCommerce Blocks autocomplete. If editing shortcode, you need to modify: plugins/woocommerce/client/legacy/css/address-autocomplete.scss
+This file is part of the PooCommerce Blocks autocomplete. If editing shortcode, you need to modify: plugins/poocommerce/client/legacy/css/address-autocomplete.scss
 */
 .wc-block-components-address-autocomplete-container {
 	width: 100%;
@@ -78,7 +78,7 @@ This file is part of the WooCommerce Blocks autocomplete. If editing shortcode, 
 		}
 	}
 
-	.woocommerce-address-autocomplete-branding {
+	.poocommerce-address-autocomplete-branding {
 		background: #d3d3d3;
 		padding: 8px 12px;
 		color: rgba(34, 34, 34, 0.66);

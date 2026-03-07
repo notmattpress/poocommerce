@@ -1,8 +1,8 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\Domain\Services;
+namespace Automattic\PooCommerce\Blocks\Domain\Services;
 
-use Automattic\WooCommerce\Blocks\Package;
-use Automattic\WooCommerce\Blocks\Assets\Api as AssetApi;
+use Automattic\PooCommerce\Blocks\Package;
+use Automattic\PooCommerce\Blocks\Assets\Api as AssetApi;
 
 /**
  * Service class to integrate Blocks with the Google Analytics extension,
@@ -64,7 +64,7 @@ class GoogleAnalytics {
 		 *
 		 * @param boolean $disable_tracking If true, tracking will be disabled.
 		 */
-		if ( apply_filters( 'woocommerce_ga_disable_tracking', ! wc_string_to_bool( $settings['ga_event_tracking_enabled'] ) ) ) {
+		if ( apply_filters( 'poocommerce_ga_disable_tracking', ! wc_string_to_bool( $settings['ga_event_tracking_enabled'] ) ) ) {
 			return;
 		}
 
@@ -101,7 +101,7 @@ class GoogleAnalytics {
 	 */
 	private function get_google_analytics_settings() {
 		return wp_parse_args(
-			get_option( 'woocommerce_google_analytics_settings' ),
+			get_option( 'poocommerce_google_analytics_settings' ),
 			[
 				'ga_id'                     => '',
 				'ga_event_tracking_enabled' => 'no',
@@ -122,7 +122,7 @@ class GoogleAnalytics {
 			return $tag;
 		}
 		// If script was output manually in wp_head, abort.
-		if ( did_action( 'woocommerce_gtag_snippet' ) ) {
+		if ( did_action( 'poocommerce_gtag_snippet' ) ) {
 			return '';
 		}
 		return str_replace( '<script src', '<script async src', $tag );

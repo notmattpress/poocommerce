@@ -11,13 +11,13 @@ function getFirstChild(
 	currentHeading: HTMLDivElement
 ): HTMLLabelElement | null {
 	const parentTreeItem = currentHeading?.closest< HTMLDivElement >(
-		'.experimental-woocommerce-tree-item'
+		'.experimental-poocommerce-tree-item'
 	);
 	const firstSubTreeItem = parentTreeItem?.querySelector(
-		'.experimental-woocommerce-tree > .experimental-woocommerce-tree-item'
+		'.experimental-poocommerce-tree > .experimental-poocommerce-tree-item'
 	);
 	const label = firstSubTreeItem?.querySelector< HTMLLabelElement >(
-		'.experimental-woocommerce-tree-item__heading > .experimental-woocommerce-tree-item__label'
+		'.experimental-poocommerce-tree-item__heading > .experimental-poocommerce-tree-item__label'
 	);
 	return label ?? null;
 }
@@ -26,13 +26,13 @@ function getFirstAncestor(
 	currentHeading: HTMLDivElement
 ): HTMLLabelElement | null {
 	const parentTree = currentHeading?.closest< HTMLDivElement >(
-		'.experimental-woocommerce-tree'
+		'.experimental-poocommerce-tree'
 	);
 	const grandParentTreeItem = parentTree?.closest< HTMLDivElement >(
-		'.experimental-woocommerce-tree-item'
+		'.experimental-poocommerce-tree-item'
 	);
 	const label = grandParentTreeItem?.querySelector< HTMLLabelElement >(
-		'.experimental-woocommerce-tree-item__heading > .experimental-woocommerce-tree-item__label'
+		'.experimental-poocommerce-tree-item__heading > .experimental-poocommerce-tree-item__label'
 	);
 	return label ?? null;
 }
@@ -41,10 +41,10 @@ function getAllHeadings(
 	currentHeading: HTMLDivElement
 ): NodeListOf< HTMLDivElement > | undefined {
 	const rootTree = currentHeading.closest< HTMLDivElement >(
-		'.experimental-woocommerce-tree--level-1'
+		'.experimental-poocommerce-tree--level-1'
 	);
 	return rootTree?.querySelectorAll< HTMLDivElement >(
-		'.experimental-woocommerce-tree-item > .experimental-woocommerce-tree-item__heading'
+		'.experimental-poocommerce-tree-item > .experimental-poocommerce-tree-item__heading'
 	);
 }
 
@@ -76,7 +76,7 @@ function getNextFocusableElement(
 		currentHeadingIndex + ( step[ code ] ?? 0 )
 	);
 	return heading?.querySelector< HTMLLabelElement >(
-		'.experimental-woocommerce-tree-item__label'
+		'.experimental-poocommerce-tree-item__label'
 	);
 }
 
@@ -88,7 +88,7 @@ function getFirstFocusableElement(
 	return headingsNodeList
 		.item( 0 )
 		.querySelector< HTMLLabelElement >(
-			'.experimental-woocommerce-tree-item__label'
+			'.experimental-poocommerce-tree-item__label'
 		);
 }
 
@@ -100,7 +100,7 @@ function getLastFocusableElement(
 	return headingsNodeList
 		.item( headingsNodeList.length - 1 )
 		.querySelector< HTMLLabelElement >(
-			'.experimental-woocommerce-tree-item__label'
+			'.experimental-poocommerce-tree-item__label'
 		);
 }
 

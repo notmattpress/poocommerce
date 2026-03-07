@@ -48,7 +48,7 @@ export const useFilterEditorContentStylesheets = () => {
 					! allowedIframeStyleHandles.includes( stylesheetId );
 
 				return applyFilters(
-					'woocommerce_email_editor_iframe_stylesheet_should_remove',
+					'poocommerce_email_editor_iframe_stylesheet_should_remove',
 					shouldRemove,
 					stylesheet
 				);

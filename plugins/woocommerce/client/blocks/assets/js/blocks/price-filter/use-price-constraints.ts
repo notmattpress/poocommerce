@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { usePrevious } from '@woocommerce/base-hooks';
+import { usePrevious } from '@poocommerce/base-hooks';
 
 /**
  * Internal dependencies

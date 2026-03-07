@@ -1,6 +1,6 @@
 @import "../../stylesheets/_variables.scss";
 
-.woocommerce-marketplace__footer {
+.poocommerce-marketplace__footer {
 	background: $gray-0;
 	border-radius: 4px;
 	max-width: 1600px;
@@ -12,14 +12,14 @@
 	}
 }
 
-.woocommerce-marketplace__footer-content {
+.poocommerce-marketplace__footer-content {
 	box-sizing: content-box;
 	max-width: $content-max-width;
 	margin: auto;
 	width: 100%;
 }
 
-.woocommerce-marketplace__footer-title {
+.poocommerce-marketplace__footer-title {
 	color: $gutenberg-gray-900;
 	font-size: 20px;
 	font-style: normal;
@@ -29,18 +29,18 @@
 	margin: 0 0 $content-spacing-large;
 }
 
-.woocommerce-marketplace__footer-columns {
+.poocommerce-marketplace__footer-columns {
 	display: flex;
 	flex-direction: column;
 	gap: $large-gap;
 }
 
 @media screen and (min-width: $breakpoint-medium) {
-	.woocommerce-marketplace__footer {
+	.poocommerce-marketplace__footer {
 		padding: $content-spacing-xlarge $content-spacing-large;
 	}
 
-	.woocommerce-marketplace__footer-columns {
+	.poocommerce-marketplace__footer-columns {
 		flex-direction: row;
 	}
 }

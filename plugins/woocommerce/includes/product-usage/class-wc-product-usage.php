@@ -1,10 +1,10 @@
 <?php
 /**
- * WooCommerce Product Usage.
+ * PooCommerce Product Usage.
  *
  * This class defines method to be used by Woo extensions to control product usage based on subscription status.
  *
- * @package WooCommerce\ProductUsage
+ * @package PooCommerce\ProductUsage
  */
 
 declare( strict_types = 1 );

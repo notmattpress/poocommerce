@@ -1,6 +1,6 @@
 <?php
 
-use Automattic\WooCommerce\Internal\ProductDownloads\ApprovedDirectories\Register as Download_Directories;
+use Automattic\PooCommerce\Internal\ProductDownloads\ApprovedDirectories\Register as Download_Directories;
 /**
  * Class WC_Product_Download_Test
  */

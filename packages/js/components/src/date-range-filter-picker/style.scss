@@ -1,4 +1,4 @@
-.woocommerce-filters-date__content {
+.poocommerce-filters-date__content {
 	&.is-mobile {
 		.components-popover__header {
 			border: none;
@@ -20,7 +20,7 @@
 	}
 }
 
-.woocommerce-filters-date__tabs {
+.poocommerce-filters-date__tabs {
 	height: calc(100% - 42px);
 	border-top: 1px solid $gray-400;
 
@@ -44,7 +44,7 @@
 	@include set-grid-item-position( 2, 2 );
 }
 
-.woocommerce-filters-date__text {
+.poocommerce-filters-date__text {
 	@include font-size( 12 );
 	font-weight: 100;
 	text-transform: uppercase;
@@ -56,7 +56,7 @@
 	background-color: $studio-white;
 }
 
-.woocommerce-filters-date__content-controls {
+.poocommerce-filters-date__content-controls {
 	display: flex;
 	flex-direction: column;
 	width: 100%;
@@ -69,13 +69,13 @@
 	}
 }
 
-.woocommerce-filters-date__button-group {
+.poocommerce-filters-date__button-group {
 	padding-top: 1em;
 	display: flex;
 	justify-content: center;
 	width: 100%;
 
-	.woocommerce-filters-date__button {
+	.poocommerce-filters-date__button {
 		justify-content: center;
 		width: 40%;
 		height: 34px;

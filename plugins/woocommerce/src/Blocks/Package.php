@@ -1,11 +1,11 @@
 <?php
 
-namespace Automattic\WooCommerce\Blocks;
+namespace Automattic\PooCommerce\Blocks;
 
-use Automattic\WooCommerce\Blocks\Domain\Package as NewPackage;
-use Automattic\WooCommerce\Blocks\Domain\Bootstrap;
-use Automattic\WooCommerce\Blocks\Registry\Container;
-use Automattic\WooCommerce\Blocks\Domain\Services\FeatureGating;
+use Automattic\PooCommerce\Blocks\Domain\Package as NewPackage;
+use Automattic\PooCommerce\Blocks\Domain\Bootstrap;
+use Automattic\PooCommerce\Blocks\Registry\Container;
+use Automattic\PooCommerce\Blocks\Domain\Services\FeatureGating;
 
 /**
  * Main package class.
@@ -13,10 +13,10 @@ use Automattic\WooCommerce\Blocks\Domain\Services\FeatureGating;
  * Returns information about the package and handles init.
  *
  * In the context of this plugin, it handles init and is called from the main
- * plugin file (woocommerce-gutenberg-products-block.php).
+ * plugin file (poocommerce-gutenberg-products-block.php).
  *
- * In the context of WooCommerce core, it handles init and is called from
- * WooCommerce's package loader. The main plugin file is _not_ loaded.
+ * In the context of PooCommerce core, it handles init and is called from
+ * PooCommerce's package loader. The main plugin file is _not_ loaded.
  *
  * @since 2.5.0
  */
@@ -74,7 +74,7 @@ class Package {
 	}
 
 	/**
-	 * Loads the dependency injection container for woocommerce blocks.
+	 * Loads the dependency injection container for poocommerce blocks.
 	 *
 	 * @param boolean $reset Used to reset the container to a fresh instance.
 	 *                       Note: this means all dependencies will be

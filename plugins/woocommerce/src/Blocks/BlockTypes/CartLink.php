@@ -1,9 +1,9 @@
 <?php // phpcs:ignore Generic.PHP.RequireStrictTypes.MissingDeclaration
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\Utils\StyleAttributesUtils;
-use Automattic\WooCommerce\Blocks\Utils\MiniCartUtils;
+use Automattic\PooCommerce\Blocks\Utils\StyleAttributesUtils;
+use Automattic\PooCommerce\Blocks\Utils\MiniCartUtils;
 
 /**
  * CartLink class.
@@ -28,7 +28,7 @@ class CartLink extends AbstractBlock {
 	protected function render( $attributes, $content, $block ) {
 		$classes_and_styles = StyleAttributesUtils::get_classes_and_styles_by_attributes( $attributes );
 		$icon               = MiniCartUtils::get_svg_icon( $attributes['cartIcon'] ?? '' );
-		$text               = array_key_exists( 'content', $attributes ) ? esc_html( $attributes['content'] ) : esc_html__( 'Cart', 'woocommerce' );
+		$text               = array_key_exists( 'content', $attributes ) ? esc_html( $attributes['content'] ) : esc_html__( 'Cart', 'poocommerce' );
 
 		return sprintf(
 			'<div %1$s><a class="wc-block-cart-link" href="%2$s">%3$s<span class="wc-block-cart-link__text">%4$s</span></a></div>',

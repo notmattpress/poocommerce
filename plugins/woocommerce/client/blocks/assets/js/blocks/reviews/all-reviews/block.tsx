@@ -31,9 +31,9 @@ const AllReviewsEditor = ( {
 	const getInspectorControls = () => {
 		return (
 			<InspectorControls key="inspector">
-				<PanelBody title={ __( 'Content', 'woocommerce' ) }>
+				<PanelBody title={ __( 'Content', 'poocommerce' ) }>
 					<ToggleControl
-						label={ __( 'Product name', 'woocommerce' ) }
+						label={ __( 'Product name', 'poocommerce' ) }
 						checked={ attributes.showProductName }
 						onChange={ () =>
 							setAttributes( {
@@ -46,7 +46,7 @@ const AllReviewsEditor = ( {
 						setAttributes
 					) }
 				</PanelBody>
-				<PanelBody title={ __( 'List Settings', 'woocommerce' ) }>
+				<PanelBody title={ __( 'List Settings', 'poocommerce' ) }>
 					{ getSharedReviewListControls( attributes, setAttributes ) }
 				</PanelBody>
 			</InspectorControls>
@@ -64,7 +64,7 @@ const AllReviewsEditor = ( {
 						className="block-editor-block-icon"
 					/>
 				}
-				name={ __( 'All Reviews', 'woocommerce' ) }
+				name={ __( 'All Reviews', 'poocommerce' ) }
 				noReviewsPlaceholder={ NoReviewsPlaceholder }
 			/>
 		</>

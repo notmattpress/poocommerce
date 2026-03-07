@@ -4,8 +4,8 @@
 import { __, sprintf } from '@wordpress/i18n';
 import { useEffect } from '@wordpress/element';
 import { decodeEntities } from '@wordpress/html-entities';
-import { getSetting } from '@woocommerce/settings';
-import { getScreenFromPath, isWCAdmin, getPath } from '@woocommerce/navigation';
+import { getSetting } from '@poocommerce/settings';
+import { getScreenFromPath, isWCAdmin, getPath } from '@poocommerce/navigation';
 
 /**
  * Internal dependencies
@@ -22,7 +22,7 @@ import {
 import { isTaskListActive } from '~/hooks/use-tasklists-state';
 import { BaseHeader } from './shared';
 
-export const PAGE_TITLE_FILTER = 'woocommerce_admin_header_page_title';
+export const PAGE_TITLE_FILTER = 'poocommerce_admin_header_page_title';
 
 export const Header = ( {
 	sections,
@@ -44,7 +44,7 @@ export const Header = ( {
 		const decodedTitle = decodeEntities(
 			sprintf(
 				/* translators: 1: document title. 2: page title */
-				__( '%1$s &lsaquo; %2$s &#8212; WooCommerce', 'woocommerce' ),
+				__( '%1$s &lsaquo; %2$s &#8212; PooCommerce', 'poocommerce' ),
 				documentTitle,
 				siteTitle
 			)

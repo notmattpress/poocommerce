@@ -1,10 +1,10 @@
 /**
  * External dependencies
  */
-import { useWooBlockProps } from '@woocommerce/block-templates';
+import { useWooBlockProps } from '@poocommerce/block-templates';
 import { useMergeRefs } from '@wordpress/compose';
-import { Link } from '@woocommerce/components';
-import { Product } from '@woocommerce/data';
+import { Link } from '@poocommerce/components';
+import { Product } from '@poocommerce/data';
 import { createElement, useRef } from '@wordpress/element';
 import { __, sprintf } from '@wordpress/i18n';
 import { Icon, external } from '@wordpress/icons';
@@ -67,18 +67,18 @@ export function Edit( {
 			if ( input.validity.typeMismatch ) {
 				customErrorMessage =
 					type?.message ??
-					__( 'Invalid value for the field.', 'woocommerce' );
+					__( 'Invalid value for the field.', 'poocommerce' );
 			}
 			if ( input.validity.valueMissing ) {
 				customErrorMessage =
 					typeof required === 'string'
 						? required
-						: __( 'This field is required.', 'woocommerce' );
+						: __( 'This field is required.', 'poocommerce' );
 			}
 			if ( input.validity.patternMismatch ) {
 				customErrorMessage =
 					pattern?.message ??
-					__( 'Invalid value for the field.', 'woocommerce' );
+					__( 'Invalid value for the field.', 'poocommerce' );
 			}
 			if ( input.validity.tooShort ) {
 				// eslint-disable-next-line @wordpress/valid-sprintf
@@ -87,7 +87,7 @@ export function Edit( {
 						/* translators: %d: minimum length */
 						__(
 							'The minimum length of the field is %d',
-							'woocommerce'
+							'poocommerce'
 						),
 					minLength?.value
 				);
@@ -99,7 +99,7 @@ export function Edit( {
 						/* translators: %d: maximum length */
 						__(
 							'The maximum length of the field is %d',
-							'woocommerce'
+							'poocommerce'
 						),
 					maxLength?.value
 				);
@@ -111,7 +111,7 @@ export function Edit( {
 						/* translators: %d: minimum length */
 						__(
 							'The minimum value of the field is %d',
-							'woocommerce'
+							'poocommerce'
 						),
 					min?.value
 				);
@@ -123,7 +123,7 @@ export function Edit( {
 						/* translators: %d: maximum length */
 						__(
 							'The maximum value of the field is %d',
-							'woocommerce'
+							'poocommerce'
 						),
 					max?.value
 				);
@@ -154,7 +154,7 @@ export function Edit( {
 					href={ value }
 					target="_blank"
 					rel="noreferrer"
-					className="wp-block-woocommerce-product-text-field__suffix-link"
+					className="wp-block-poocommerce-product-text-field__suffix-link"
 				>
 					<Icon icon={ external } size={ 20 } />
 				</Link>

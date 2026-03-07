@@ -2,10 +2,10 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\PushNotifications\Triggers;
+namespace Automattic\PooCommerce\Tests\Internal\PushNotifications\Triggers;
 
-use Automattic\WooCommerce\Internal\PushNotifications\Services\PendingNotificationStore;
-use Automattic\WooCommerce\Internal\PushNotifications\Triggers\NewReviewNotificationTrigger;
+use Automattic\PooCommerce\Internal\PushNotifications\Services\PendingNotificationStore;
+use Automattic\PooCommerce\Internal\PushNotifications\Triggers\NewReviewNotificationTrigger;
 use WC_Helper_Product;
 use WC_Unit_Test_Case;
 

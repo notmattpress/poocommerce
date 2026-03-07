@@ -7,12 +7,12 @@ import {
 	getConfig,
 	getElement,
 } from '@wordpress/interactivity';
-import { SelectedAttributes } from '@woocommerce/stores/woocommerce/cart';
+import { SelectedAttributes } from '@poocommerce/stores/poocommerce/cart';
 import type { ChangeEvent } from 'react';
-import type { ProductDataStore } from '@woocommerce/stores/woocommerce/product-data';
-import '@woocommerce/stores/woocommerce/products';
-import type { ProductsStore } from '@woocommerce/stores/woocommerce/products';
-import type { ProductResponseItem } from '@woocommerce/types';
+import type { ProductDataStore } from '@poocommerce/stores/poocommerce/product-data';
+import '@poocommerce/stores/poocommerce/products';
+import type { ProductsStore } from '@poocommerce/stores/poocommerce/products';
+import type { ProductResponseItem } from '@poocommerce/types';
 
 /**
  * Internal dependencies
@@ -52,13 +52,13 @@ const universalLock =
 	'I acknowledge that using a private store means my plugin will inevitably break on the next store release.';
 
 const { state: productDataState } = store< ProductDataStore >(
-	'woocommerce/product-data',
+	'poocommerce/product-data',
 	{},
 	{ lock: universalLock }
 );
 
 const { state: productsState } = store< ProductsStore >(
-	'woocommerce/products',
+	'poocommerce/products',
 	{},
 	{ lock: universalLock }
 );
@@ -222,7 +222,7 @@ export type VariableProductAddToCartWithOptionsStore =
 	};
 
 const { actions, state } = store< VariableProductAddToCartWithOptionsStore >(
-	'woocommerce/add-to-cart-with-options',
+	'poocommerce/add-to-cart-with-options',
 	{
 		state: {
 			get selectedAttributes(): SelectedAttributes[] {
@@ -423,7 +423,7 @@ const { actions, state } = store< VariableProductAddToCartWithOptionsStore >(
 
 				const { actions: productDataActions } =
 					store< ProductDataStore >(
-						'woocommerce/product-data',
+						'poocommerce/product-data',
 						{},
 						{ lock: universalLock }
 					);

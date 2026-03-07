@@ -2,11 +2,11 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\StockNotifications\Admin;
+namespace Automattic\PooCommerce\Internal\StockNotifications\Admin;
 
-use Automattic\WooCommerce\Internal\StockNotifications\Admin\ListTable;
-use Automattic\WooCommerce\Internal\StockNotifications\Admin\NotificationCreatePage;
-use Automattic\WooCommerce\Internal\StockNotifications\Admin\NotificationEditPage;
+use Automattic\PooCommerce\Internal\StockNotifications\Admin\ListTable;
+use Automattic\PooCommerce\Internal\StockNotifications\Admin\NotificationCreatePage;
+use Automattic\PooCommerce\Internal\StockNotifications\Admin\NotificationEditPage;
 
 /**
  * Notifications admin page for Customer Stock Notifications.

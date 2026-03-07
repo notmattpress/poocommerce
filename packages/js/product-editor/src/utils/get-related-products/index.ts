@@ -2,8 +2,8 @@
  * External dependencies
  */
 import { select, resolveSelect, dispatch } from '@wordpress/data';
-import { productsStore } from '@woocommerce/data';
-import type { PartialProduct, Product } from '@woocommerce/data';
+import { productsStore } from '@poocommerce/data';
+import type { PartialProduct, Product } from '@poocommerce/data';
 
 type getRelatedProductsOptions = {
 	// If true, return random products if no related products are found.

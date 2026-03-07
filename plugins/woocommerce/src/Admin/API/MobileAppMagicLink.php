@@ -5,7 +5,7 @@
  * Handles requests to the /mobile-app endpoint.
  */
 
-namespace Automattic\WooCommerce\Admin\API;
+namespace Automattic\PooCommerce\Admin\API;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -72,7 +72,7 @@ class MobileAppMagicLink extends \WC_REST_Data_Controller {
 						)
 					);
 
-					$xml->query( 'jetpack.sendMobileMagicLink', array( 'app' => 'woocommerce' ) );
+					$xml->query( 'jetpack.sendMobileMagicLink', array( 'app' => 'poocommerce' ) );
 					if ( $xml->isError() ) {
 						return new \WP_Error(
 							'error_sending_mobile_magic_link',
@@ -93,6 +93,6 @@ class MobileAppMagicLink extends \WC_REST_Data_Controller {
 			}
 		}
 
-		return new \WP_Error( 'jetpack_not_connected', __( 'Jetpack is not connected.', 'woocommerce' ) );
+		return new \WP_Error( 'jetpack_not_connected', __( 'Jetpack is not connected.', 'poocommerce' ) );
 	}
 }

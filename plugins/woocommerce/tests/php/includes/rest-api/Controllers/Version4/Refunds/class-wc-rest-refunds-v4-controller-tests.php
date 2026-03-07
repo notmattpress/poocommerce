@@ -1,12 +1,12 @@
 <?php
 declare( strict_types=1 );
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\RestApi\UnitTests\HPOSToggleTrait;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Refunds\Controller as RefundsController;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Refunds\Schema\RefundSchema;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Refunds\CollectionQuery;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Refunds\DataUtils;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\RestApi\UnitTests\HPOSToggleTrait;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Refunds\Controller as RefundsController;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Refunds\Schema\RefundSchema;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Refunds\CollectionQuery;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Refunds\DataUtils;
 
 /**
  * Refunds Controller tests for V4 REST API.
@@ -75,8 +75,8 @@ class WC_REST_Refunds_V4_Controller_Tests extends WC_REST_Unit_Test_Case {
 
 		// Clean up tax data.
 		global $wpdb;
-		$wpdb->query( "DELETE FROM {$wpdb->prefix}woocommerce_tax_rate_locations" );
-		$wpdb->query( "DELETE FROM {$wpdb->prefix}woocommerce_tax_rates" );
+		$wpdb->query( "DELETE FROM {$wpdb->prefix}poocommerce_tax_rate_locations" );
+		$wpdb->query( "DELETE FROM {$wpdb->prefix}poocommerce_tax_rates" );
 
 		parent::tearDown();
 		$this->disable_rest_api_v4_feature();
@@ -87,7 +87,7 @@ class WC_REST_Refunds_V4_Controller_Tests extends WC_REST_Unit_Test_Case {
 	 */
 	public static function enable_rest_api_v4_feature() {
 		add_filter(
-			'woocommerce_admin_features',
+			'poocommerce_admin_features',
 			function ( $features ) {
 				$features[] = 'rest-api-v4';
 				return $features;
@@ -100,7 +100,7 @@ class WC_REST_Refunds_V4_Controller_Tests extends WC_REST_Unit_Test_Case {
 	 */
 	public static function disable_rest_api_v4_feature() {
 		add_filter(
-			'woocommerce_admin_features',
+			'poocommerce_admin_features',
 			function ( $features ) {
 				$features = array_diff( $features, array( 'rest-api-v4' ) );
 				return $features;
@@ -982,7 +982,7 @@ class WC_REST_Refunds_V4_Controller_Tests extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_refunds_create_validation_error_under_refunding(): void {
 		// Enable tax calculations.
-		update_option( 'woocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
 
 		// Create a tax rate.
 		$tax_rate_id = WC_Tax::_insert_tax_rate(
@@ -1120,7 +1120,7 @@ class WC_REST_Refunds_V4_Controller_Tests extends WC_REST_Unit_Test_Case {
 	 * the 2DP rounded values that were used to build the original total.
 	 * This causes the base to be calculated as $50.01 instead of $50.00.
 	 *
-	 * @link https://github.com/woocommerce/woocommerce/issues/XXXXX
+	 * @link https://github.com/poocommerce/poocommerce/issues/XXXXX
 	 */
 	public function test_refunds_create_with_automatic_tax_extraction_rounding_precision(): void {
 		// Create three non-compound tax rates matching California-style setup.
@@ -1184,7 +1184,7 @@ class WC_REST_Refunds_V4_Controller_Tests extends WC_REST_Unit_Test_Case {
 			)
 		);
 
-		// Set taxes as they would be calculated by WooCommerce (forward calculation).
+		// Set taxes as they would be calculated by PooCommerce (forward calculation).
 		// County: 50 × 0.01 = 0.50.
 		// Special: 50 × 0.0325 = 1.625 → stored/displayed as 1.63.
 		// State: 50 × 0.0625 = 3.125 → stored/displayed as 3.13.

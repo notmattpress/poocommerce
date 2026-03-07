@@ -1,17 +1,17 @@
 <?php
 /**
- * WooCommerce Abilities API Client (Namespaced Version)
+ * PooCommerce Abilities API Client (Namespaced Version)
  *
  * Simple interface for enabling WordPress Abilities API client scripts.
- * This version uses WooCommerce's PSR-4 namespace structure.
+ * This version uses PooCommerce's PSR-4 namespace structure.
  *
- * @package Automattic\WooCommerce\Internal\AbilitiesApi
+ * @package Automattic\PooCommerce\Internal\AbilitiesApi
  * @version 10.4.0
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\AbilitiesApi;
+namespace Automattic\PooCommerce\Internal\AbilitiesApi;
 
 /**
  * AbilitiesClient class.

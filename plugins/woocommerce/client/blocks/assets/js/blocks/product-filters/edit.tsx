@@ -6,7 +6,7 @@ import { BlockEditProps, InnerBlockTemplate } from '@wordpress/blocks';
 import { __ } from '@wordpress/i18n';
 import { Icon, close } from '@wordpress/icons';
 import { useState } from '@wordpress/element';
-import { filterThreeLines } from '@woocommerce/icons';
+import { filterThreeLines } from '@poocommerce/icons';
 import clsx from 'clsx';
 
 /**
@@ -21,19 +21,19 @@ const TEMPLATE: InnerBlockTemplate[] = [
 		'core/heading',
 		{
 			level: 2,
-			content: __( 'Filters', 'woocommerce' ),
+			content: __( 'Filters', 'poocommerce' ),
 			style: {
 				margin: { top: '0', bottom: '0' },
 				spacing: { margin: { top: '0', bottom: '0' } },
 			},
 		},
 	],
-	[ 'woocommerce/product-filter-active' ],
-	[ 'woocommerce/product-filter-price' ],
-	[ 'woocommerce/product-filter-rating' ],
-	[ 'woocommerce/product-filter-attribute' ],
-	[ 'woocommerce/product-filter-taxonomy' ],
-	[ 'woocommerce/product-filter-status' ],
+	[ 'poocommerce/product-filter-active' ],
+	[ 'poocommerce/product-filter-price' ],
+	[ 'poocommerce/product-filter-rating' ],
+	[ 'poocommerce/product-filter-attribute' ],
+	[ 'poocommerce/product-filter-taxonomy' ],
+	[ 'poocommerce/product-filter-status' ],
 ];
 
 export const Edit = ( props: BlockEditProps< BlockAttributes > ) => {
@@ -60,7 +60,7 @@ export const Edit = ( props: BlockEditProps< BlockAttributes > ) => {
 						onClick={ () => setIsOpen( ! isOpen ) }
 					>
 						<Icon icon={ filterThreeLines } />
-						<span>{ __( 'Filter products', 'woocommerce' ) }</span>
+						<span>{ __( 'Filter products', 'poocommerce' ) }</span>
 					</button>
 
 					<div className="wc-block-product-filters__overlay">
@@ -75,7 +75,7 @@ export const Edit = ( props: BlockEditProps< BlockAttributes > ) => {
 										onClick={ () => setIsOpen( ! isOpen ) }
 									>
 										<span>
-											{ __( 'Close', 'woocommerce' ) }
+											{ __( 'Close', 'poocommerce' ) }
 										</span>
 										<Icon icon={ close } />
 									</button>
@@ -92,7 +92,7 @@ export const Edit = ( props: BlockEditProps< BlockAttributes > ) => {
 										onClick={ () => setIsOpen( ! isOpen ) }
 									>
 										<span>
-											{ __( 'Apply', 'woocommerce' ) }
+											{ __( 'Apply', 'poocommerce' ) }
 										</span>
 									</button>
 								</footer>

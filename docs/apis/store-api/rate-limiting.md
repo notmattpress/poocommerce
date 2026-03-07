@@ -5,7 +5,7 @@ sidebar_position: 4
 
 # Rate Limiting for Store API endpoints 
 
-[Rate Limiting](https://github.com/woocommerce/woocommerce-blocks/pull/5962) is available for Store API endpoints. This is optional and disabled by default. It can be enabled by following [these instructions](#rate-limiting-options-filter).
+[Rate Limiting](https://github.com/poocommerce/poocommerce-blocks/pull/5962) is available for Store API endpoints. This is optional and disabled by default. It can be enabled by following [these instructions](#rate-limiting-options-filter).
 
 The main purpose prevent abuse on endpoints from excessive calls and performance degradation on the machine running the store.
 
@@ -15,11 +15,11 @@ It also offers standard support for running behind a proxy, load balancer, etc. 
 
 ## UI Control
 
-Currently, this feature is only controlled via the `woocommerce_store_api_rate_limit_options` filter. To control it via a UI, you can use the following community plugin: [Rate Limiting UI for WooCommerce](https://wordpress.org/plugins/rate-limiting-ui-for-woocommerce/).
+Currently, this feature is only controlled via the `poocommerce_store_api_rate_limit_options` filter. To control it via a UI, you can use the following community plugin: [Rate Limiting UI for PooCommerce](https://wordpress.org/plugins/rate-limiting-ui-for-poocommerce/).
 
 ## Checkout rate limiting
 
-You can enable rate limiting for Checkout place order and `POST /checkout` endpoint only via the UI by going to WooCommerce -> Settings -> Advanced -> Features and enabling "Rate limiting Checkout block and Store API".
+You can enable rate limiting for Checkout place order and `POST /checkout` endpoint only via the UI by going to PooCommerce -> Settings -> Advanced -> Features and enabling "Rate limiting Checkout block and Store API".
 
 When enabled via the UI, the rate limiting will only be applied to the `POST /checkout` and Place Order flow for Checkout block. The limit will be a maximum of 3 requests per 60 seconds.
 
@@ -36,7 +36,7 @@ Only `POST` requests are rate limited. Requests using the `X-HTTP-Method-Overrid
 A filter is available for setting options for rate limiting:
 
 ```php
-add_filter( 'woocommerce_store_api_rate_limit_options', function() {
+add_filter( 'poocommerce_store_api_rate_limit_options', function() {
 	return [
 		'enabled' => false, // enables/disables Rate Limiting. Default: false
 		'proxy_support' => false, // enables/disables Proxy support. Default: false
@@ -64,7 +64,7 @@ This allows for a custom implementation to group requests without relying on log
 ### Custom basic example for grouping requests by User-Agent and Accept-Language combination
 
 ```php
-add_filter( 'woocommerce_store_api_rate_limit_id', function() {
+add_filter( 'poocommerce_store_api_rate_limit_id', function() {
     $accept_language = isset( $_SERVER['HTTP_ACCEPT_LANGUAGE'] ) ? sanitize_text_field( wp_unslash( $_SERVER['HTTP_ACCEPT_LANGUAGE'] ) ) : '';
     
     return md5( wc_get_user_agent() . $accept_language );
@@ -92,13 +92,13 @@ RateLimit-Retry-After: 28
 ## Tracking limit abuses
 
 This uses a modified wc_rate_limit table with an additional remaining column for tracking the request count in any given request window.
-A custom action `woocommerce_store_api_rate_limit_exceeded` was implemented for extendability in tracking such abuses.
+A custom action `poocommerce_store_api_rate_limit_exceeded` was implemented for extendability in tracking such abuses.
 
 ### Custom tracking usage example
 
 ```php
 add_action(
-    'woocommerce_store_api_rate_limit_exceeded',
+    'poocommerce_store_api_rate_limit_exceeded',
     function ( $offending_ip, $action_id ) { /* Custom tracking implementation */ }
 );
 ```

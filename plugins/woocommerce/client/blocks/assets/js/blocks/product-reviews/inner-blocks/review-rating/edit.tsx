@@ -10,7 +10,7 @@ import {
 } from '@wordpress/block-editor';
 import type { BlockEditProps } from '@wordpress/blocks';
 import { useSelect } from '@wordpress/data';
-import { REVIEWS_STORE_NAME } from '@woocommerce/data';
+import { REVIEWS_STORE_NAME } from '@poocommerce/data';
 
 export default function Edit( {
 	// commentId is the ID of the review.
@@ -44,14 +44,14 @@ export default function Edit( {
 
 	const ratingText = sprintf(
 		/* translators: %f is referring to the average rating value */
-		__( 'Rated %f out of 5', 'woocommerce' ),
+		__( 'Rated %f out of 5', 'poocommerce' ),
 		rating
 	);
 
 	const ratingHTML = {
 		__html: sprintf(
 			/* translators: %s is the rating value wrapped in HTML strong tags. */
-			__( 'Rated %s out of 5', 'woocommerce' ),
+			__( 'Rated %s out of 5', 'poocommerce' ),
 			sprintf( '<strong class="rating">%f</strong>', rating )
 		),
 	};

@@ -6,7 +6,7 @@ import { createElement, Component } from '@wordpress/element';
 import { filter } from 'lodash';
 import PropTypes from 'prop-types';
 
-import { presetValues } from '@woocommerce/date';
+import { presetValues } from '@poocommerce/date';
 
 /**
  * Internal dependencies
@@ -25,7 +25,7 @@ class PresetPeriods extends Component {
 				selected={ period }
 				onSelect={ onSelect }
 				name="period"
-				legend={ __( 'select a preset period', 'woocommerce' ) }
+				legend={ __( 'select a preset period', 'poocommerce' ) }
 			/>
 		);
 	}

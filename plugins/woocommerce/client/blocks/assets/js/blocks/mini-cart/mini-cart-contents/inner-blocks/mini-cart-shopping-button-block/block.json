@@ -1,9 +1,9 @@
 {
-	"name": "woocommerce/mini-cart-shopping-button-block",
+	"name": "poocommerce/mini-cart-shopping-button-block",
 	"version": "1.0.0",
 	"title": "Mini-Cart Shopping Button",
 	"description": "Block that displays the shopping button when the Mini-Cart is empty.",
-	"category": "woocommerce",
+	"category": "poocommerce",
 	"supports": {
 		"align": false,
 		"html": false,
@@ -42,8 +42,8 @@
 			"label": "Outline"
 		}
 	],
-	"parent": [ "woocommerce/empty-mini-cart-contents-block" ],
-	"textdomain": "woocommerce",
+	"parent": [ "poocommerce/empty-mini-cart-contents-block" ],
+	"textdomain": "poocommerce",
 	"apiVersion": 3,
 	"$schema": "https://schemas.wp.org/trunk/block.json"
 }

@@ -4,15 +4,15 @@
 import { __ } from '@wordpress/i18n';
 import { useDispatch } from '@wordpress/data';
 import { Button, ExternalLink } from '@wordpress/components';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
  */
-import './woocommerce-shipping-item.scss';
-import type { ShippingPartnerTrackingProps } from './experimental-woocommerce-shipping-item';
+import './poocommerce-shipping-item.scss';
+import type { ShippingPartnerTrackingProps } from './experimental-poocommerce-shipping-item';
 
-const SHIPSTATION_PLUGIN_SLUG = 'woocommerce-shipstation-integration';
+const SHIPSTATION_PLUGIN_SLUG = 'poocommerce-shipstation-integration';
 
 const ShipStationItem = ( {
 	isPluginInstalled,
@@ -50,8 +50,8 @@ const ShipStationItem = ( {
 				} );
 				createSuccessNotice(
 					isPluginInstalled
-						? __( 'ShipStation activated!', 'woocommerce' )
-						: __( 'ShipStation is installed!', 'woocommerce' ),
+						? __( 'ShipStation activated!', 'poocommerce' )
+						: __( 'ShipStation is installed!', 'poocommerce' ),
 					{}
 				);
 			},
@@ -65,30 +65,30 @@ const ShipStationItem = ( {
 	};
 
 	return (
-		<div className="woocommerce-list__item-inner woocommerce-shipping-plugin-item">
-			<div className="woocommerce-list__item-before">
+		<div className="poocommerce-list__item-inner poocommerce-shipping-plugin-item">
+			<div className="poocommerce-list__item-before">
 				<img
-					className="woocommerce-shipping-plugin-item__logo"
-					src="https://ps.w.org/woocommerce-shipstation-integration/assets/icon-128x128.png"
+					className="poocommerce-shipping-plugin-item__logo"
+					src="https://ps.w.org/poocommerce-shipstation-integration/assets/icon-128x128.png"
 					alt=""
 				/>
 			</div>
-			<div className="woocommerce-list__item-text">
-				<span className="woocommerce-list__item-title">
-					{ __( 'ShipStation', 'woocommerce' ) }
+			<div className="poocommerce-list__item-text">
+				<span className="poocommerce-list__item-title">
+					{ __( 'ShipStation', 'poocommerce' ) }
 				</span>
-				<span className="woocommerce-list__item-content">
+				<span className="poocommerce-list__item-content">
 					{ __(
-						'Ship your WooCommerce orders with confidence, save on top carriers, and automate your processes with ShipStation.',
-						'woocommerce'
+						'Ship your PooCommerce orders with confidence, save on top carriers, and automate your processes with ShipStation.',
+						'poocommerce'
 					) }
 					<br />
-					<ExternalLink href="https://woocommerce.com/products/shipstation-integration/">
-						{ __( 'Learn more', 'woocommerce' ) }
+					<ExternalLink href="https://poocommerce.com/products/shipstation-integration/">
+						{ __( 'Learn more', 'poocommerce' ) }
 					</ExternalLink>
 				</span>
 			</div>
-			<div className="woocommerce-list__item-after">
+			<div className="poocommerce-list__item-after">
 				<Button
 					onClick={ handleClick }
 					variant={ isPluginInstalled ? 'primary' : 'secondary' }
@@ -98,8 +98,8 @@ const ShipStationItem = ( {
 					disabled={ pluginsBeingSetup.length > 0 }
 				>
 					{ isPluginInstalled
-						? __( 'Activate', 'woocommerce' )
-						: __( 'Install', 'woocommerce' ) }
+						? __( 'Activate', 'poocommerce' )
+						: __( 'Install', 'poocommerce' ) }
 				</Button>
 			</div>
 		</div>

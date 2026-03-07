@@ -3,7 +3,7 @@
  * MatchImageBySKU class file.
  */
 
-namespace Automattic\WooCommerce\Internal\ProductImage;
+namespace Automattic\PooCommerce\Internal\ProductImage;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -17,7 +17,7 @@ class MatchImageBySKU {
 	 *
 	 * @var string
 	 */
-	private $setting_name = 'woocommerce_product_match_featured_image_by_sku';
+	private $setting_name = 'poocommerce_product_match_featured_image_by_sku';
 
 	/**
 	 * MatchImageBySKU constructor.
@@ -30,7 +30,7 @@ class MatchImageBySKU {
 	 * Initialize the hooks used by the class.
 	 */
 	private function init_hooks() {
-		add_filter( 'woocommerce_get_settings_products', array( $this, 'add_product_image_sku_setting' ), 110, 2 );
+		add_filter( 'poocommerce_get_settings_products', array( $this, 'add_product_image_sku_setting' ), 110, 2 );
 	}
 
 	/**
@@ -44,13 +44,13 @@ class MatchImageBySKU {
 	}
 
 	/**
-	 * Handler for 'woocommerce_get_settings_products', adds the settings related to the product image SKU matching table.
+	 * Handler for 'poocommerce_get_settings_products', adds the settings related to the product image SKU matching table.
 	 *
 	 * @param array  $settings Original settings configuration array.
 	 * @param string $section_id Settings section identifier.
 	 * @return array New settings configuration array.
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 */
 	public function add_product_image_sku_setting( array $settings, string $section_id ): array {
 		if ( 'advanced' !== $section_id ) {
@@ -58,13 +58,13 @@ class MatchImageBySKU {
 		}
 
 		$settings[] = array(
-			'title' => __( 'Product image matching by SKU', 'woocommerce' ),
+			'title' => __( 'Product image matching by SKU', 'poocommerce' ),
 			'type'  => 'title',
 		);
 
 		$settings[] = array(
-			'title'         => __( 'Match images', 'woocommerce' ),
-			'desc'          => __( 'Set product featured image when uploaded image file name matches product SKU.', 'woocommerce' ),
+			'title'         => __( 'Match images', 'poocommerce' ),
+			'desc'          => __( 'Set product featured image when uploaded image file name matches product SKU.', 'poocommerce' ),
 			'id'            => $this->setting_name,
 			'default'       => 'no',
 			'type'          => 'checkbox',

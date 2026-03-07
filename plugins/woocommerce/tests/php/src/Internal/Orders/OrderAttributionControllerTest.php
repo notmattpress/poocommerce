@@ -1,12 +1,12 @@
 <?php
 
-namespace Automattic\WooCommerce\Tests\Internal\Orders;
+namespace Automattic\PooCommerce\Tests\Internal\Orders;
 
-use Automattic\WooCommerce\Internal\Features\FeaturesController;
-use Automattic\WooCommerce\Internal\Integrations\WPConsentAPI;
-use Automattic\WooCommerce\Internal\Orders\OrderAttributionController;
-use Automattic\WooCommerce\Proxies\LegacyProxy;
-use Automattic\WooCommerce\Testing\Tools\DependencyManagement\MockableLegacyProxy;
+use Automattic\PooCommerce\Internal\Features\FeaturesController;
+use Automattic\PooCommerce\Internal\Integrations\WPConsentAPI;
+use Automattic\PooCommerce\Internal\Orders\OrderAttributionController;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\Testing\Tools\DependencyManagement\MockableLegacyProxy;
 use Closure;
 use WC_Logger;
 use WC_Order;
@@ -206,7 +206,7 @@ class OrderAttributionControllerTest extends WP_UnitTestCase {
 	 * @return void
 	 */
 	public function test_deprecated_method_calls_main_method() {
-		$this->setExpectedDeprecated( 'Automattic\WooCommerce\Internal\Orders\OrderAttributionController::stamp_checkout_html_element_once' );
+		$this->setExpectedDeprecated( 'Automattic\PooCommerce\Internal\Orders\OrderAttributionController::stamp_checkout_html_element_once' );
 
 		ob_start();
 		$this->attribution_class->stamp_checkout_html_element_once();

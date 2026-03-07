@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
 use WP_Block;
-use Automattic\WooCommerce\Blocks\Utils\StyleAttributesUtils;
+use Automattic\PooCommerce\Blocks\Utils\StyleAttributesUtils;
 
 /**
  * PaymentMethodIcons class.
@@ -116,7 +116,7 @@ class PaymentMethodIcons extends AbstractBlock {
 	private function is_woopayments_enabled() {
 		$payment_gateways = WC()->payment_gateways->get_available_payment_gateways();
 
-		return isset( $payment_gateways['woocommerce_payments'] ) && 'yes' === $payment_gateways['woocommerce_payments']->enabled;
+		return isset( $payment_gateways['poocommerce_payments'] ) && 'yes' === $payment_gateways['poocommerce_payments']->enabled;
 	}
 
 	/**
@@ -186,7 +186,7 @@ class PaymentMethodIcons extends AbstractBlock {
 
 		foreach ( $available_gateways as $gateway ) {
 			if ( 'yes' === $gateway->enabled ) {
-				if ( 'woocommerce_payments' === $gateway->id ) {
+				if ( 'poocommerce_payments' === $gateway->id ) {
 					continue;
 				}
 

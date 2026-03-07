@@ -4,11 +4,11 @@
 import { decodeEntities } from '@wordpress/html-entities';
 import { Button } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
-import { WooPaymentsMethodsLogos } from '@woocommerce/onboarding';
+import { WooPaymentsMethodsLogos } from '@poocommerce/onboarding';
 import {
 	PaymentsExtensionSuggestionProvider,
 	PaymentsEntity,
-} from '@woocommerce/data';
+} from '@poocommerce/data';
 
 /**
  * Internal dependencies
@@ -80,36 +80,36 @@ export const PaymentExtensionSuggestionListItem = ( {
 	const incentive = hasIncentive( suggestion ) ? suggestion._incentive : null;
 
 	// Determine the CTA button label based on the extension state.
-	let ctaButtonLabel = __( 'Install', 'woocommerce' );
+	let ctaButtonLabel = __( 'Install', 'poocommerce' );
 	if ( pluginInstalled ) {
-		ctaButtonLabel = __( 'Enable', 'woocommerce' );
+		ctaButtonLabel = __( 'Enable', 'poocommerce' );
 	} else if ( installingPlugin === suggestion.id ) {
-		ctaButtonLabel = __( 'Installing', 'woocommerce' );
+		ctaButtonLabel = __( 'Installing', 'poocommerce' );
 	}
 
 	return (
 		<div
 			id={ suggestion.id }
-			className={ `transitions-disabled woocommerce-list__item woocommerce-list__item-enter-done ${
+			className={ `transitions-disabled poocommerce-list__item poocommerce-list__item-enter-done ${
 				hasIncentive( suggestion ) && shouldHighlightIncentive
 					? `has-incentive`
 					: ''
 			}` }
 			{ ...props }
 		>
-			<div className="woocommerce-list__item-inner">
-				<div className="woocommerce-list__item-before">
+			<div className="poocommerce-list__item-inner">
+				<div className="poocommerce-list__item-before">
 					<DefaultDragHandle />
 					{ suggestion.icon && (
 						<img
-							className={ 'woocommerce-list__item-image' }
+							className={ 'poocommerce-list__item-image' }
 							src={ suggestion.icon }
 							alt={ suggestion.title + ' logo' }
 						/>
 					) }
 				</div>
-				<div className="woocommerce-list__item-text">
-					<span className="woocommerce-list__item-title">
+				<div className="poocommerce-list__item-text">
+					<span className="poocommerce-list__item-title">
 						{ suggestion.title }{ ' ' }
 						{ ! hasIncentive( suggestion ) &&
 							isWooPayments( suggestion.id ) && (
@@ -125,7 +125,7 @@ export const PaymentExtensionSuggestionListItem = ( {
 						/>
 					</span>
 					<span
-						className="woocommerce-list__item-content"
+						className="poocommerce-list__item-content"
 						dangerouslySetInnerHTML={ sanitizeHTML(
 							decodeEntities( suggestion.description )
 						) }
@@ -139,8 +139,8 @@ export const PaymentExtensionSuggestionListItem = ( {
 						/>
 					) }
 				</div>
-				<div className="woocommerce-list__item-buttons">
-					<div className="woocommerce-list__item-buttons__actions">
+				<div className="poocommerce-list__item-buttons">
+					<div className="poocommerce-list__item-buttons__actions">
 						<Button
 							variant="primary"
 							onClick={ () => {
@@ -179,12 +179,12 @@ export const PaymentExtensionSuggestionListItem = ( {
 						</Button>
 					</div>
 				</div>
-				<div className="woocommerce-list__item-after">
-					<div className="woocommerce-list__item-after__actions">
+				<div className="poocommerce-list__item-after">
+					<div className="poocommerce-list__item-after__actions">
 						<EllipsisMenu
 							label={ __(
 								'Payment provider actions',
-								'woocommerce'
+								'poocommerce'
 							) }
 							provider={ suggestion }
 						/>

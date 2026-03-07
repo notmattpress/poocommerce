@@ -10,8 +10,8 @@ import userEvent from '@testing-library/user-event';
 import { useCampaignTypes, useRecommendedChannels } from '~/marketing/hooks';
 import { CreateNewCampaignModal } from './CreateNewCampaignModal';
 
-jest.mock( '@woocommerce/components', () => {
-	const originalModule = jest.requireActual( '@woocommerce/components' );
+jest.mock( '@poocommerce/components', () => {
+	const originalModule = jest.requireActual( '@poocommerce/components' );
 
 	return {
 		__esModule: true,
@@ -29,31 +29,31 @@ jest.mock( '~/marketing/hooks', () => ( {
 
 const google = {
 	id: 'google-ads',
-	icon: 'https://woocommerce.com/wp-content/uploads/2021/06/woo-GoogleListingsAds-jworee.png',
+	icon: 'https://poocommerce.com/wp-content/uploads/2021/06/woo-GoogleListingsAds-jworee.png',
 	name: 'Google Ads',
 	description:
 		'Boost your product listings with a campaign that is automatically optimized to meet your goals.',
 	createUrl:
 		'https://wc1.test/wp-admin/admin.php?page=wc-admin&path=/google/dashboard&subpath=/campaigns/create',
-	channelName: 'Google for WooCommerce',
+	channelName: 'Google for PooCommerce',
 	channelSlug: 'google-listings-and-ads',
 };
 
 const pinterest = {
-	title: 'Pinterest for WooCommerce',
+	title: 'Pinterest for PooCommerce',
 	description:
 		'Grow your business on Pinterest! Use this official plugin to allow shoppers to Pin products while browsing your store, track conversions, and advertise on Pinterest.',
-	url: 'https://woocommerce.com/products/pinterest-for-woocommerce/?utm_source=marketingtab&utm_medium=product&utm_campaign=wcaddons',
+	url: 'https://poocommerce.com/products/pinterest-for-poocommerce/?utm_source=marketingtab&utm_medium=product&utm_campaign=wcaddons',
 	direct_install: true,
-	icon: 'https://woocommerce.com/wp-content/plugins/wccom-plugins/marketing-tab-rest-api/icons/pinterest.svg',
-	product: 'pinterest-for-woocommerce',
-	plugin: 'pinterest-for-woocommerce/pinterest-for-woocommerce.php',
+	icon: 'https://poocommerce.com/wp-content/plugins/wccom-plugins/marketing-tab-rest-api/icons/pinterest.svg',
+	product: 'pinterest-for-poocommerce',
+	plugin: 'pinterest-for-poocommerce/pinterest-for-poocommerce.php',
 	categories: [ 'marketing' ],
 	subcategories: [ { slug: 'sales-channels', name: 'Sales channels' } ],
 	tags: [
 		{
-			slug: 'built-by-woocommerce',
-			name: 'Built by WooCommerce',
+			slug: 'built-by-poocommerce',
+			name: 'Built by PooCommerce',
 		},
 	],
 	show_extension_promotions: true,
@@ -84,7 +84,7 @@ describe( 'CreateNewCampaignModal component', () => {
 		);
 
 		expect(
-			screen.getByText( 'Pinterest for WooCommerce' )
+			screen.getByText( 'Pinterest for PooCommerce' )
 		).toBeInTheDocument();
 	} );
 

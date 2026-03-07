@@ -17,7 +17,7 @@ import './store-only.scss';
 import './entire-site.scss';
 
 registerBlockType( metadata, {
-	title: __( 'Coming Soon', 'woocommerce' ),
+	title: __( 'Coming Soon', 'poocommerce' ),
 	edit: Edit,
 	save: Save,
 	apiVersion: 3,

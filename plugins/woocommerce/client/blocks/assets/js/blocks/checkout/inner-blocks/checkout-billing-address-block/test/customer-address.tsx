@@ -3,14 +3,14 @@
  */
 import { render, screen } from '@testing-library/react';
 import { useSelect } from '@wordpress/data';
-import type { FieldValidationStatus } from '@woocommerce/types';
-import { useCheckoutAddress, useCustomerData } from '@woocommerce/base-context';
-import { previewCart } from '@woocommerce/resource-previews';
+import type { FieldValidationStatus } from '@poocommerce/types';
+import { useCheckoutAddress, useCustomerData } from '@poocommerce/base-context';
+import { previewCart } from '@poocommerce/resource-previews';
 import type {
 	FormFields,
 	ShippingAddress,
 	BillingAddress,
-} from '@woocommerce/settings';
+} from '@poocommerce/settings';
 
 /**
  * Internal dependencies
@@ -22,11 +22,11 @@ jest.mock( '@wordpress/data', () => ( {
 	useSelect: jest.fn(),
 } ) );
 
-jest.mock( '@woocommerce/block-data', () => ( {
+jest.mock( '@poocommerce/block-data', () => ( {
 	validationStore: 'wc/store/validation',
 } ) );
 
-jest.mock( '@woocommerce/base-context', () => ( {
+jest.mock( '@poocommerce/base-context', () => ( {
 	useCheckoutAddress: jest.fn(),
 	useStoreEvents: jest.fn( () => ( {
 		dispatchCheckoutEvent: jest.fn(),
@@ -34,7 +34,7 @@ jest.mock( '@woocommerce/base-context', () => ( {
 	useCustomerData: jest.fn(),
 } ) );
 
-jest.mock( '@woocommerce/base-components/cart-checkout', () => ( {
+jest.mock( '@poocommerce/base-components/cart-checkout', () => ( {
 	Form: jest.fn( () => <div data-testid="billing-form" /> ),
 } ) );
 

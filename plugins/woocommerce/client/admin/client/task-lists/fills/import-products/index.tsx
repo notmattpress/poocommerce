@@ -1,14 +1,14 @@
 /**
  * External dependencies
  */
-import { WooOnboardingTask } from '@woocommerce/onboarding';
+import { WooOnboardingTask } from '@poocommerce/onboarding';
 import { registerPlugin } from '@wordpress/plugins';
 import { __ } from '@wordpress/i18n';
 import { Icon, chevronUp, chevronDown } from '@wordpress/icons';
 import { Button } from '@wordpress/components';
 import { useMemo, useState } from '@wordpress/element';
-import { getAdminLink } from '@woocommerce/settings';
-import { recordEvent } from '@woocommerce/tracks';
+import { getAdminLink } from '@poocommerce/settings';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -69,10 +69,10 @@ export const Products = () => {
 	);
 
 	return (
-		<div className="woocommerce-task-import-products">
-			<h1>{ __( 'Import your products', 'woocommerce' ) }</h1>
+		<div className="poocommerce-task-import-products">
+			<h1>{ __( 'Import your products', 'poocommerce' ) }</h1>
 			<CardList items={ importTypesWithTimeRecord } />
-			<div className="woocommerce-task-import-products-stacks">
+			<div className="poocommerce-task-import-products-stacks">
 				<Button
 					onClick={ () => {
 						recordEvent(
@@ -81,7 +81,7 @@ export const Products = () => {
 						setStackVisibility( ! showStacks );
 					} }
 				>
-					{ __( 'Or add your products from scratch', 'woocommerce' ) }
+					{ __( 'Or add your products from scratch', 'poocommerce' ) }
 					<Icon icon={ showStacks ? chevronUp : chevronDown } />
 				</Button>
 				{ showStacks && StacksComponent }
@@ -109,7 +109,7 @@ export const Products = () => {
 };
 
 registerPlugin( 'wc-admin-onboarding-task-products', {
-	scope: 'woocommerce-tasks',
+	scope: 'poocommerce-tasks',
 	render: () => (
 		<WooOnboardingTask id="products">
 			<Products />

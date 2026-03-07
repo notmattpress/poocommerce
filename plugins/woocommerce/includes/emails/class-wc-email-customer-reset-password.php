@@ -2,7 +2,7 @@
 /**
  * Class WC_Email_Customer_Reset_Password file.
  *
- * @package WooCommerce\Emails
+ * @package PooCommerce\Emails
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -18,7 +18,7 @@ if ( ! class_exists( 'WC_Email_Customer_Reset_Password', false ) ) :
 	 *
 	 * @class       WC_Email_Customer_Reset_Password
 	 * @version     3.5.0
-	 * @package     WooCommerce\Classes\Emails
+	 * @package     PooCommerce\Classes\Emails
 	 * @extends     WC_Email
 	 */
 	class WC_Email_Customer_Reset_Password extends WC_Email {
@@ -59,8 +59,8 @@ if ( ! class_exists( 'WC_Email_Customer_Reset_Password', false ) ) :
 			$this->id             = 'customer_reset_password';
 			$this->customer_email = true;
 
-			$this->title       = __( 'Reset password', 'woocommerce' );
-			$this->description = __( 'Send an email to customers notifying them that their password has been reset', 'woocommerce' );
+			$this->title       = __( 'Reset password', 'poocommerce' );
+			$this->description = __( 'Send an email to customers notifying them that their password has been reset', 'poocommerce' );
 
 			$this->template_html  = 'emails/customer-reset-password.php';
 			$this->template_plain = 'emails/plain/customer-reset-password.php';
@@ -68,15 +68,15 @@ if ( ! class_exists( 'WC_Email_Customer_Reset_Password', false ) ) :
 			$this->email_group = 'accounts';
 
 			// Trigger.
-			add_action( 'woocommerce_reset_password_notification', array( $this, 'trigger' ), 10, 2 );
+			add_action( 'poocommerce_reset_password_notification', array( $this, 'trigger' ), 10, 2 );
 
 			// Call parent constructor.
 			parent::__construct();
 
 			// Must be after parent's constructor which sets `block_email_editor_enabled` property.
 			if ( $this->block_email_editor_enabled ) {
-				$this->title       = __( 'Account password reset', 'woocommerce' );
-				$this->description = __( 'Notifies customers when their password has been reset.', 'woocommerce' );
+				$this->title       = __( 'Account password reset', 'poocommerce' );
+				$this->description = __( 'Notifies customers when their password has been reset.', 'poocommerce' );
 			}
 		}
 
@@ -88,8 +88,8 @@ if ( ! class_exists( 'WC_Email_Customer_Reset_Password', false ) ) :
 		 */
 		public function get_default_subject() {
 			return $this->email_improvements_enabled
-				? __( 'Reset your password for {site_title}', 'woocommerce' )
-				: __( 'Password Reset Request for {site_title}', 'woocommerce' );
+				? __( 'Reset your password for {site_title}', 'poocommerce' )
+				: __( 'Password Reset Request for {site_title}', 'poocommerce' );
 		}
 
 		/**
@@ -100,8 +100,8 @@ if ( ! class_exists( 'WC_Email_Customer_Reset_Password', false ) ) :
 		 */
 		public function get_default_heading() {
 			return $this->email_improvements_enabled
-				? __( 'Reset your password', 'woocommerce' )
-				: __( 'Password Reset Request', 'woocommerce' );
+				? __( 'Reset your password', 'poocommerce' )
+				: __( 'Password Reset Request', 'poocommerce' );
 		}
 
 		/**
@@ -201,7 +201,7 @@ if ( ! class_exists( 'WC_Email_Customer_Reset_Password', false ) ) :
 		 * @return string
 		 */
 		public function get_default_additional_content() {
-			return __( 'Thanks for reading.', 'woocommerce' );
+			return __( 'Thanks for reading.', 'poocommerce' );
 		}
 	}
 

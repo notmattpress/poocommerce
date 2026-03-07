@@ -5,7 +5,7 @@
  * Handles requests to /experiment
  */
 
-namespace Automattic\WooCommerce\Admin\API;
+namespace Automattic\PooCommerce\Admin\API;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -61,17 +61,17 @@ class Experiments extends \WC_REST_Data_Controller {
 
 		if ( ! isset( $args['experiment_name'] ) ) {
 			return new \WP_Error(
-				'woocommerce_rest_experiment_name_required',
-				__( 'Sorry, experiment_name is required.', 'woocommerce' ),
+				'poocommerce_rest_experiment_name_required',
+				__( 'Sorry, experiment_name is required.', 'poocommerce' ),
 				array( 'status' => 400 )
 			);
 		}
 
 		unset( $args['rest_route'] );
 
-		$abtest   = new \WooCommerce\Admin\Experimental_Abtest(
+		$abtest   = new \PooCommerce\Admin\Experimental_Abtest(
 			$request->get_param( 'anon_id' ) ?? '',
-			'woocommerce',
+			'poocommerce',
 			true, // set consent to true here since frontend has checked it already.
 			true  // set true to send request as auth user.
 		);

@@ -3,7 +3,7 @@
  */
 import { render, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -11,7 +11,7 @@ import { recordEvent } from '@woocommerce/tracks';
 import Stack from '../stack';
 import { productTypes } from '../constants';
 
-jest.mock( '@woocommerce/tracks', () => ( { recordEvent: jest.fn() } ) );
+jest.mock( '@poocommerce/tracks', () => ( { recordEvent: jest.fn() } ) );
 
 describe( 'Stack', () => {
 	beforeEach( () => {

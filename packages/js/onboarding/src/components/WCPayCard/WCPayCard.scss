@@ -1,5 +1,5 @@
-.woocommerce-task-payments .woocommerce-task-payment-wcpay {
-	.woocommerce-task-payment-wcpay__description {
+.poocommerce-task-payments .poocommerce-task-payment-wcpay {
+	.poocommerce-task-payment-wcpay__description {
 		font-size: 16px;
 		margin-bottom: $gap-large;
 	}
@@ -9,7 +9,7 @@
 		justify-content: flex-start;
 		padding: 25px;
 
-		.woocommerce-pill {
+		.poocommerce-pill {
 			margin-left: $gap-small;
 		}
 	}
@@ -30,7 +30,7 @@
 		}
 	}
 
-	.woocommerce-task-payment-wcpay__accepted {
+	.poocommerce-task-payment-wcpay__accepted {
 		display: flex;
 		margin-top: $gap-small;
 		flex-wrap: wrap;

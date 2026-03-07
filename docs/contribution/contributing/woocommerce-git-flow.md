@@ -1,10 +1,10 @@
 ---
-post_title: WooCommerce Git Flow
-sidebar_label: WooCommerce Git Flow
+post_title: PooCommerce Git Flow
+sidebar_label: PooCommerce Git Flow
 
 ---
 
-# WooCommerce Git Flow
+# PooCommerce Git Flow
 
 ## Conventions
 

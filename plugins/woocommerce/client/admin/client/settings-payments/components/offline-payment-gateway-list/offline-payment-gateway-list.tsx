@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { decodeEntities } from '@wordpress/html-entities';
-import { type OfflinePaymentMethodProvider } from '@woocommerce/data';
+import { type OfflinePaymentMethodProvider } from '@poocommerce/data';
 
 /**
  * Internal dependencies
@@ -40,30 +40,30 @@ export const OfflinePaymentGatewayListItem = ( {
 			key={ gateway.id }
 			id={ gateway.id }
 			className={
-				'woocommerce-list__item woocommerce-list__item-enter-done' +
+				'poocommerce-list__item poocommerce-list__item-enter-done' +
 				( props.className ? ` ${ props.className }` : '' )
 			}
 			{ ...props }
 		>
-			<div className="woocommerce-list__item-inner">
+			<div className="poocommerce-list__item-inner">
 				{ /* Left section with drag handle and icon */ }
-				<div className="woocommerce-list__item-before">
+				<div className="poocommerce-list__item-before">
 					<DefaultDragHandle />
 					{ gateway.icon && (
 						<img
-							className={ 'woocommerce-list__item-image' }
+							className={ 'poocommerce-list__item-image' }
 							src={ gateway.icon }
 							alt={ gateway.title + ' logo' }
 						/>
 					) }
 				</div>
 				{ /* Middle section with title and description */ }
-				<div className="woocommerce-list__item-text">
-					<span className="woocommerce-list__item-title">
+				<div className="poocommerce-list__item-text">
+					<span className="poocommerce-list__item-title">
 						{ gateway.title }
 					</span>
 					<span
-						className="woocommerce-list__item-content"
+						className="poocommerce-list__item-content"
 						// eslint-disable-next-line react/no-danger -- This string is sanitized by the PaymentGateway class.
 						dangerouslySetInnerHTML={ sanitizeHTML(
 							decodeEntities( gateway.description )
@@ -71,8 +71,8 @@ export const OfflinePaymentGatewayListItem = ( {
 					/>
 				</div>
 				{ /* Right section with action buttons */ }
-				<div className="woocommerce-list__item-after">
-					<div className="woocommerce-list__item-after__actions">
+				<div className="poocommerce-list__item-after">
+					<div className="poocommerce-list__item-after__actions">
 						{ ! gateway.state.enabled ? (
 							<EnableGatewayButton
 								installingPlugin={ null }
@@ -115,7 +115,7 @@ export const OfflinePaymentGatewayList = ( {
 } ) => {
 	return (
 		<SortableContainer< OfflinePaymentMethodProvider >
-			className="woocommerce-list"
+			className="poocommerce-list"
 			items={ gateways }
 			setItems={ setGateways }
 		>
@@ -124,7 +124,7 @@ export const OfflinePaymentGatewayList = ( {
 					gateway={ method }
 					key={ method.id }
 					className={
-						'woocommerce-list__item' +
+						'poocommerce-list__item' +
 						( index === gateways.length - 1 ? ' is-last' : '' )
 					}
 				/>

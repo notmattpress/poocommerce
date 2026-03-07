@@ -1,6 +1,6 @@
 
 
-.woocommerce-section-header {
+.poocommerce-section-header {
 	padding: ($gap - 3);
 	border-bottom: none;
 	display: flex;
@@ -26,7 +26,7 @@
 		&.has-interval-select {
 			position: relative;
 			padding-bottom: 30px;
-			.woocommerce-chart__interval-select {
+			.poocommerce-chart__interval-select {
 				position: absolute;
 				left: 0;
 				bottom: 0;
@@ -36,11 +36,11 @@
 	}
 }
 
-.woocommerce-section-header__actions,
-.woocommerce-section-header__menu {
+.poocommerce-section-header__actions,
+.poocommerce-section-header__menu {
 	text-align: right;
 }
-.woocommerce-section-header__actions {
+.poocommerce-section-header__actions {
 	display: flex;
 	flex-grow: 1;
 	justify-content: flex-end;
@@ -58,17 +58,17 @@
 	}
 }
 
-.woocommerce-ellipsis-menu__toggle {
+.poocommerce-ellipsis-menu__toggle {
 	padding: 0;
 }
 
-.woocommerce-section-header__menu {
+.poocommerce-section-header__menu {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 }
 
-.woocommerce-section-header__title {
+.poocommerce-section-header__title {
 	margin: 0 $gap 0 0;
 	// EllipsisMenu is 24px, so to match we add 6px padding around the
 	// heading text, which we know is 18px from line-height.

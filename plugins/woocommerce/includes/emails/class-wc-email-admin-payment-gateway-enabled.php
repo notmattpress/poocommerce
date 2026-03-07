@@ -2,10 +2,10 @@
 /**
  * Class WC_Email_Admin_Payment_Gateway_Enabled file.
  *
- * @package WooCommerce\Emails
+ * @package PooCommerce\Emails
  */
 
-use Automattic\WooCommerce\Utilities\FeaturesUtil;
+use Automattic\PooCommerce\Utilities\FeaturesUtil;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -20,7 +20,7 @@ if ( ! class_exists( 'WC_Email_Admin_Payment_Gateway_Enabled', false ) ) :
 	 *
 	 * @class   WC_Email_Admin_Payment_Gateway_Enabled
 	 * @version 10.6.0
-	 * @package WooCommerce\Classes\Emails
+	 * @package PooCommerce\Classes\Emails
 	 */
 	class WC_Email_Admin_Payment_Gateway_Enabled extends WC_Email {
 
@@ -57,7 +57,7 @@ if ( ! class_exists( 'WC_Email_Admin_Payment_Gateway_Enabled', false ) ) :
 		 */
 		public function __construct() {
 			$this->id             = 'admin_payment_gateway_enabled';
-			$this->title          = __( 'Payment gateway enabled', 'woocommerce' );
+			$this->title          = __( 'Payment gateway enabled', 'poocommerce' );
 			$this->email_group    = 'payments';
 			$this->template_html  = 'emails/admin-payment-gateway-enabled.php';
 			$this->template_plain = 'emails/plain/admin-payment-gateway-enabled.php';
@@ -67,20 +67,20 @@ if ( ! class_exists( 'WC_Email_Admin_Payment_Gateway_Enabled', false ) ) :
 			);
 
 			// Trigger for this email.
-			add_action( 'woocommerce_payment_gateway_enabled_notification', array( $this, 'trigger' ), 10, 1 );
+			add_action( 'poocommerce_payment_gateway_enabled_notification', array( $this, 'trigger' ), 10, 1 );
 
 			// Block email editor hooks.
-			add_action( 'woocommerce_email_general_block_content', array( $this, 'block_content' ), 10, 3 );
-			add_filter( 'woocommerce_emails_general_block_content_emails_without_order_details', array( $this, 'exclude_from_order_details' ) );
+			add_action( 'poocommerce_email_general_block_content', array( $this, 'block_content' ), 10, 3 );
+			add_filter( 'poocommerce_emails_general_block_content_emails_without_order_details', array( $this, 'exclude_from_order_details' ) );
 
 			// Call parent constructor.
 			parent::__construct();
 
 			// Must be after parent's constructor which sets `email_improvements_enabled` and `block_email_editor_enabled` properties.
-			$this->description = __( 'Payment gateway enabled emails are sent to chosen recipient(s) when a payment gateway is enabled.', 'woocommerce' );
+			$this->description = __( 'Payment gateway enabled emails are sent to chosen recipient(s) when a payment gateway is enabled.', 'poocommerce' );
 
 			if ( $this->block_email_editor_enabled ) {
-				$this->description = __( 'Notifies admins when a payment gateway has been enabled.', 'woocommerce' );
+				$this->description = __( 'Notifies admins when a payment gateway has been enabled.', 'poocommerce' );
 			}
 
 			// Other settings.
@@ -94,7 +94,7 @@ if ( ! class_exists( 'WC_Email_Admin_Payment_Gateway_Enabled', false ) ) :
 		 * @return string
 		 */
 		public function get_default_subject() {
-			return __( '[{site_title}] Payment gateway "{gateway_title}" enabled', 'woocommerce' );
+			return __( '[{site_title}] Payment gateway "{gateway_title}" enabled', 'poocommerce' );
 		}
 
 		/**
@@ -104,7 +104,7 @@ if ( ! class_exists( 'WC_Email_Admin_Payment_Gateway_Enabled', false ) ) :
 		 * @return string
 		 */
 		public function get_default_heading() {
-			return __( 'Payment gateway "{gateway_title}" enabled', 'woocommerce' );
+			return __( 'Payment gateway "{gateway_title}" enabled', 'poocommerce' );
 		}
 
 		/**
@@ -134,7 +134,7 @@ if ( ! class_exists( 'WC_Email_Admin_Payment_Gateway_Enabled', false ) ) :
 				 *
 				 * @since 10.7.0
 				 */
-				$this->gateway_settings_url = apply_filters( 'woocommerce_payment_gateway_enabled_notification_settings_url', $this->gateway_settings_url, $gateway );
+				$this->gateway_settings_url = apply_filters( 'poocommerce_payment_gateway_enabled_notification_settings_url', $this->gateway_settings_url, $gateway );
 
 				$this->admin_email = get_option( 'admin_email' );
 				$user              = get_user_by( 'email', $this->admin_email );
@@ -267,7 +267,7 @@ if ( ! class_exists( 'WC_Email_Admin_Payment_Gateway_Enabled', false ) ) :
 		/**
 		 * Output dynamic block content for this email.
 		 *
-		 * Hooked into `woocommerce_email_general_block_content` to render the gateway
+		 * Hooked into `poocommerce_email_general_block_content` to render the gateway
 		 * title, security notice, and gateway settings URL inside the ##WOO_CONTENT## area.
 		 *
 		 * @since 10.6.0
@@ -281,18 +281,18 @@ if ( ! class_exists( 'WC_Email_Admin_Payment_Gateway_Enabled', false ) ) :
 				return;
 			}
 
-			$gateway_title = ! empty( $this->gateway_title ) ? $this->gateway_title : __( 'Dummy Gateway', 'woocommerce' );
+			$gateway_title = ! empty( $this->gateway_title ) ? $this->gateway_title : __( 'Dummy Gateway', 'poocommerce' );
 
-			$gateway_settings_url = ! empty( $this->gateway_settings_url ) ? $this->gateway_settings_url : __( 'Dummy Settings URL', 'woocommerce' );
+			$gateway_settings_url = ! empty( $this->gateway_settings_url ) ? $this->gateway_settings_url : __( 'Dummy Settings URL', 'poocommerce' );
 
 			// phpcs:disable Squiz.PHP.EmbeddedPhp.ContentBeforeOpen -- Template-like output.
 			// phpcs:disable Squiz.PHP.EmbeddedPhp.ContentAfterEnd -- Template-like output.
 			?>
 			<p><?php
 				/* translators: %s: gateway title */
-				printf( esc_html__( 'The payment gateway "%s" has been enabled.', 'woocommerce' ), esc_html( $gateway_title ) );
+				printf( esc_html__( 'The payment gateway "%s" has been enabled.', 'poocommerce' ), esc_html( $gateway_title ) );
 			?></p>
-			<p><?php esc_html_e( 'If you did not enable this payment gateway, please log in to your site and consider disabling it here:', 'woocommerce' ); ?></p>
+			<p><?php esc_html_e( 'If you did not enable this payment gateway, please log in to your site and consider disabling it here:', 'poocommerce' ); ?></p>
 			<p><a href="<?php echo esc_url( $gateway_settings_url ); ?>"><?php echo esc_url( $gateway_settings_url ); ?></a></p>
 			<?php
 			// phpcs:enable Squiz.PHP.EmbeddedPhp.ContentBeforeOpen
@@ -318,7 +318,7 @@ if ( ! class_exists( 'WC_Email_Admin_Payment_Gateway_Enabled', false ) ) :
 		 * @return string
 		 */
 		public function get_default_additional_content() {
-			return __( 'If this was intentional, you can safely ignore and delete this email.', 'woocommerce' );
+			return __( 'If this was intentional, you can safely ignore and delete this email.', 'poocommerce' );
 		}
 
 		/**
@@ -329,25 +329,25 @@ if ( ! class_exists( 'WC_Email_Admin_Payment_Gateway_Enabled', false ) ) :
 		 */
 		public function init_form_fields() {
 			/* translators: %s: list of placeholders */
-			$placeholder_text  = sprintf( __( 'Available placeholders: %s', 'woocommerce' ), '<code>' . esc_html( implode( '</code>, <code>', array_keys( $this->placeholders ) ) ) . '</code>' );
+			$placeholder_text  = sprintf( __( 'Available placeholders: %s', 'poocommerce' ), '<code>' . esc_html( implode( '</code>, <code>', array_keys( $this->placeholders ) ) ) . '</code>' );
 			$this->form_fields = array(
 				'enabled'            => array(
-					'title'   => __( 'Enable/Disable', 'woocommerce' ),
+					'title'   => __( 'Enable/Disable', 'poocommerce' ),
 					'type'    => 'checkbox',
-					'label'   => __( 'Enable this email notification', 'woocommerce' ),
+					'label'   => __( 'Enable this email notification', 'poocommerce' ),
 					'default' => 'yes',
 				),
 				'recipient'          => array(
-					'title'       => __( 'Recipient(s)', 'woocommerce' ),
+					'title'       => __( 'Recipient(s)', 'poocommerce' ),
 					'type'        => 'text',
 					/* translators: %s: admin email */
-					'description' => sprintf( __( 'Enter recipients (comma separated) for this email. Defaults to %s.', 'woocommerce' ), '<code>' . esc_attr( get_option( 'admin_email' ) ) . '</code>' ),
+					'description' => sprintf( __( 'Enter recipients (comma separated) for this email. Defaults to %s.', 'poocommerce' ), '<code>' . esc_attr( get_option( 'admin_email' ) ) . '</code>' ),
 					'placeholder' => '',
 					'default'     => '',
 					'desc_tip'    => true,
 				),
 				'subject'            => array(
-					'title'       => __( 'Subject', 'woocommerce' ),
+					'title'       => __( 'Subject', 'poocommerce' ),
 					'type'        => 'text',
 					'desc_tip'    => true,
 					'description' => $placeholder_text,
@@ -355,7 +355,7 @@ if ( ! class_exists( 'WC_Email_Admin_Payment_Gateway_Enabled', false ) ) :
 					'default'     => '',
 				),
 				'heading'            => array(
-					'title'       => __( 'Email heading', 'woocommerce' ),
+					'title'       => __( 'Email heading', 'poocommerce' ),
 					'type'        => 'text',
 					'desc_tip'    => true,
 					'description' => $placeholder_text,
@@ -363,18 +363,18 @@ if ( ! class_exists( 'WC_Email_Admin_Payment_Gateway_Enabled', false ) ) :
 					'default'     => '',
 				),
 				'additional_content' => array(
-					'title'       => __( 'Additional content', 'woocommerce' ),
-					'description' => __( 'Text to appear below the main email content.', 'woocommerce' ) . ' ' . $placeholder_text,
+					'title'       => __( 'Additional content', 'poocommerce' ),
+					'description' => __( 'Text to appear below the main email content.', 'poocommerce' ) . ' ' . $placeholder_text,
 					'css'         => 'width:400px; height: 75px;',
-					'placeholder' => __( 'N/A', 'woocommerce' ),
+					'placeholder' => __( 'N/A', 'poocommerce' ),
 					'type'        => 'textarea',
 					'default'     => $this->get_default_additional_content(),
 					'desc_tip'    => true,
 				),
 				'email_type'         => array(
-					'title'       => __( 'Email type', 'woocommerce' ),
+					'title'       => __( 'Email type', 'poocommerce' ),
 					'type'        => 'select',
-					'description' => __( 'Choose which format of email to send.', 'woocommerce' ),
+					'description' => __( 'Choose which format of email to send.', 'poocommerce' ),
 					'default'     => 'html',
 					'class'       => 'email_type wc-enhanced-select',
 					'options'     => $this->get_email_type_options(),

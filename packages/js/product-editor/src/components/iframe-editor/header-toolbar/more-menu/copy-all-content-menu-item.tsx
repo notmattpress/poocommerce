@@ -8,7 +8,7 @@ import { useCopyToClipboard } from '@wordpress/compose';
 import { useDispatch, useSelect } from '@wordpress/data';
 import { createElement } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 export const CopyAllContentMenuItem = () => {
 	const { createNotice } = useDispatch( 'core/notices' );
@@ -34,7 +34,7 @@ export const CopyAllContentMenuItem = () => {
 	};
 
 	const onCopySuccess = () => {
-		createNotice( 'success', __( 'All content copied.', 'woocommerce' ) );
+		createNotice( 'success', __( 'All content copied.', 'poocommerce' ) );
 	};
 
 	const ref = useCopyToClipboard( getText, onCopySuccess );
@@ -48,7 +48,7 @@ export const CopyAllContentMenuItem = () => {
 			onClick={ recordClick }
 			disabled={ ! blocks.length }
 		>
-			{ __( 'Copy all content', 'woocommerce' ) }
+			{ __( 'Copy all content', 'poocommerce' ) }
 		</MenuItem>
 	);
 };

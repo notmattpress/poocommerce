@@ -21,7 +21,7 @@
 	}
 }
 
-.woocommerce-spinner {
+.poocommerce-spinner {
 	animation: rotate 2s linear infinite;
 	width: 40px;
 	min-width: 40px;
@@ -29,7 +29,7 @@
 	max-height: 40px;
 }
 
-.woocommerce-spinner__circle {
+.poocommerce-spinner__circle {
 	stroke-dasharray: 200;
 	stroke-dashoffset: 0;
 	transform-origin: center;

@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { totals } from '@woocommerce/icons';
+import { totals } from '@poocommerce/icons';
 import { Icon } from '@wordpress/icons';
 import { registerBlockType } from '@wordpress/blocks';
 
@@ -12,7 +12,7 @@ import { Edit, Save } from './edit';
 import metadata from './block.json';
 import './style.scss';
 
-registerBlockType( 'woocommerce/checkout-order-summary-totals-block', {
+registerBlockType( 'poocommerce/checkout-order-summary-totals-block', {
 	apiVersion: metadata.apiVersion,
 	title: metadata.title,
 	icon: {

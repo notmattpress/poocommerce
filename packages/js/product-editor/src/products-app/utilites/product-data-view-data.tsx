@@ -32,12 +32,12 @@ export const PRODUCTS_DATA = [
 			{
 				id: '3c60ffba-cab0-45c1-b201-b0e520da7006',
 				name: 'Single 1',
-				file: 'https://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2017/08/single.jpg',
+				file: 'https://demo.woothemes.com/poocommerce/wp-content/uploads/sites/56/2017/08/single.jpg',
 			},
 			{
 				id: '70c30447-1da4-48f2-8233-51ff1a332010',
 				name: 'Single 2',
-				file: 'https://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2017/08/album.jpg',
+				file: 'https://demo.woothemes.com/poocommerce/wp-content/uploads/sites/56/2017/08/album.jpg',
 			},
 		],
 		download_limit: 1,
@@ -96,7 +96,7 @@ export const PRODUCTS_DATA = [
 		grouped_products: [],
 		menu_order: 0,
 		price_html:
-			'<span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&euro;</span>&nbsp;15</bdi></span>',
+			'<span class="poocommerce-Price-amount amount"><bdi><span class="poocommerce-Price-currencySymbol">&euro;</span>&nbsp;15</bdi></span>',
 		related_ids: [ 237 ],
 		meta_data: [
 			{
@@ -172,7 +172,7 @@ export const PRODUCTS_DATA = [
 			{
 				id: '37d09344-7e41-43fc-ba78-f0f50d6c9a44',
 				name: 'Single',
-				file: 'https://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2017/08/single.jpg',
+				file: 'https://demo.woothemes.com/poocommerce/wp-content/uploads/sites/56/2017/08/single.jpg',
 			},
 		],
 		download_limit: 1,
@@ -231,7 +231,7 @@ export const PRODUCTS_DATA = [
 		grouped_products: [],
 		menu_order: 0,
 		price_html:
-			'<del aria-hidden="true"><span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&euro;</span>&nbsp;3</bdi></span></del> <span class="screen-reader-text">Original price was: &euro;&nbsp;3.</span><ins aria-hidden="true"><span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&euro;</span>&nbsp;2</bdi></span></ins><span class="screen-reader-text">Current price is: &euro;&nbsp;2.</span>',
+			'<del aria-hidden="true"><span class="poocommerce-Price-amount amount"><bdi><span class="poocommerce-Price-currencySymbol">&euro;</span>&nbsp;3</bdi></span></del> <span class="screen-reader-text">Original price was: &euro;&nbsp;3.</span><ins aria-hidden="true"><span class="poocommerce-Price-amount amount"><bdi><span class="poocommerce-Price-currencySymbol">&euro;</span>&nbsp;2</bdi></span></ins><span class="screen-reader-text">Current price is: &euro;&nbsp;2.</span>',
 		related_ids: [ 236 ],
 		meta_data: [
 			{
@@ -371,7 +371,7 @@ export const PRODUCTS_DATA = [
 		grouped_products: [],
 		menu_order: 0,
 		price_html:
-			'<span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&euro;</span>&nbsp;18</bdi></span>',
+			'<span class="poocommerce-Price-amount amount"><bdi><span class="poocommerce-Price-currencySymbol">&euro;</span>&nbsp;18</bdi></span>',
 		related_ids: [ 235, 234, 224, 227 ],
 		meta_data: [
 			{
@@ -509,7 +509,7 @@ export const PRODUCTS_DATA = [
 		grouped_products: [],
 		menu_order: 0,
 		price_html:
-			'<del aria-hidden="true"><span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&euro;</span>&nbsp;20</bdi></span></del> <span class="screen-reader-text">Original price was: &euro;&nbsp;20.</span><ins aria-hidden="true"><span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&euro;</span>&nbsp;18</bdi></span></ins><span class="screen-reader-text">Current price is: &euro;&nbsp;18.</span>',
+			'<del aria-hidden="true"><span class="poocommerce-Price-amount amount"><bdi><span class="poocommerce-Price-currencySymbol">&euro;</span>&nbsp;20</bdi></span></del> <span class="screen-reader-text">Original price was: &euro;&nbsp;20.</span><ins aria-hidden="true"><span class="poocommerce-Price-amount amount"><bdi><span class="poocommerce-Price-currencySymbol">&euro;</span>&nbsp;18</bdi></span></ins><span class="screen-reader-text">Current price is: &euro;&nbsp;18.</span>',
 		related_ids: [ 228, 229, 231, 230 ],
 		meta_data: [
 			{
@@ -668,7 +668,7 @@ export const PRODUCTS_DATA = [
 		grouped_products: [ 226, 227, 228 ],
 		menu_order: 0,
 		price_html:
-			'<span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&euro;</span>&nbsp;18</bdi></span> &ndash; <span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&euro;</span>&nbsp;45</bdi></span>',
+			'<span class="poocommerce-Price-amount amount"><bdi><span class="poocommerce-Price-currencySymbol">&euro;</span>&nbsp;18</bdi></span> &ndash; <span class="poocommerce-Price-amount amount"><bdi><span class="poocommerce-Price-currencySymbol">&euro;</span>&nbsp;45</bdi></span>',
 		related_ids: [],
 		meta_data: [
 			{
@@ -797,7 +797,7 @@ export const PRODUCTS_DATA = [
 		grouped_products: [],
 		menu_order: 0,
 		price_html:
-			'<span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&euro;</span>&nbsp;11</bdi></span>',
+			'<span class="poocommerce-Price-amount amount"><bdi><span class="poocommerce-Price-currencySymbol">&euro;</span>&nbsp;11</bdi></span>',
 		related_ids: [],
 		meta_data: [
 			{
@@ -963,7 +963,7 @@ export const PRODUCTS_DATA = [
 		grouped_products: [],
 		menu_order: 0,
 		price_html:
-			'<span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&euro;</span>&nbsp;15</bdi></span> &ndash; <span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&euro;</span>&nbsp;20</bdi></span>',
+			'<span class="poocommerce-Price-amount amount"><bdi><span class="poocommerce-Price-currencySymbol">&euro;</span>&nbsp;15</bdi></span> &ndash; <span class="poocommerce-Price-amount amount"><bdi><span class="poocommerce-Price-currencySymbol">&euro;</span>&nbsp;20</bdi></span>',
 		related_ids: [ 244, 234, 235, 227 ],
 		meta_data: [
 			{
@@ -1141,7 +1141,7 @@ export const PRODUCTS_DATA = [
 		grouped_products: [],
 		menu_order: 0,
 		price_html:
-			'<span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&euro;</span>&nbsp;42</bdi></span> &ndash; <span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&euro;</span>&nbsp;45</bdi></span>',
+			'<span class="poocommerce-Price-amount amount"><bdi><span class="poocommerce-Price-currencySymbol">&euro;</span>&nbsp;42</bdi></span> &ndash; <span class="poocommerce-Price-amount amount"><bdi><span class="poocommerce-Price-currencySymbol">&euro;</span>&nbsp;45</bdi></span>',
 		related_ids: [ 226, 233 ],
 		meta_data: [
 			{
@@ -1280,7 +1280,7 @@ export const PRODUCTS_DATA = [
 		grouped_products: [],
 		menu_order: 0,
 		price_html:
-			'<span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&euro;</span>&nbsp;45</bdi></span>',
+			'<span class="poocommerce-Price-amount amount"><bdi><span class="poocommerce-Price-currencySymbol">&euro;</span>&nbsp;45</bdi></span>',
 		related_ids: [ 233, 225 ],
 		meta_data: [
 			{
@@ -1418,7 +1418,7 @@ export const PRODUCTS_DATA = [
 		grouped_products: [],
 		menu_order: 0,
 		price_html:
-			'<span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&euro;</span>&nbsp;18</bdi></span>',
+			'<span class="poocommerce-Price-amount amount"><bdi><span class="poocommerce-Price-currencySymbol">&euro;</span>&nbsp;18</bdi></span>',
 		related_ids: [ 234, 244, 224, 235 ],
 		meta_data: [
 			{

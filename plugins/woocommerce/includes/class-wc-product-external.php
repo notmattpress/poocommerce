@@ -4,12 +4,12 @@
  *
  * External products cannot be bought; they link offsite. Extends simple products.
  *
- * @package WooCommerce\Classes\Products
+ * @package PooCommerce\Classes\Products
  * @version 3.0.0
  */
 
-use Automattic\WooCommerce\Enums\ProductStockStatus;
-use Automattic\WooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Enums\ProductStockStatus;
+use Automattic\PooCommerce\Enums\ProductType;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -105,7 +105,7 @@ class WC_Product_External extends WC_Product {
 		$this->set_prop( 'manage_stock', false );
 
 		if ( true === $manage_stock ) {
-			$this->error( 'product_external_invalid_manage_stock', __( 'External products cannot be stock managed.', 'woocommerce' ) );
+			$this->error( 'product_external_invalid_manage_stock', __( 'External products cannot be stock managed.', 'poocommerce' ) );
 		}
 	}
 
@@ -120,7 +120,7 @@ class WC_Product_External extends WC_Product {
 		$this->set_prop( 'stock_status', ProductStockStatus::IN_STOCK );
 
 		if ( ProductStockStatus::IN_STOCK !== $stock_status ) {
-			$this->error( 'product_external_invalid_stock_status', __( 'External products cannot be stock managed.', 'woocommerce' ) );
+			$this->error( 'product_external_invalid_stock_status', __( 'External products cannot be stock managed.', 'poocommerce' ) );
 		}
 	}
 
@@ -134,7 +134,7 @@ class WC_Product_External extends WC_Product {
 		$this->set_prop( 'backorders', 'no' );
 
 		if ( 'no' !== $backorders ) {
-			$this->error( 'product_external_invalid_backorders', __( 'External products cannot be backordered.', 'woocommerce' ) );
+			$this->error( 'product_external_invalid_backorders', __( 'External products cannot be backordered.', 'poocommerce' ) );
 		}
 	}
 
@@ -151,7 +151,7 @@ class WC_Product_External extends WC_Product {
 	 * @return bool
 	 */
 	public function is_purchasable() {
-		return apply_filters( 'woocommerce_is_purchasable', false, $this );
+		return apply_filters( 'poocommerce_is_purchasable', false, $this );
 	}
 
 	/**
@@ -161,7 +161,7 @@ class WC_Product_External extends WC_Product {
 	 * @return string
 	 */
 	public function add_to_cart_url() {
-		return apply_filters( 'woocommerce_product_add_to_cart_url', $this->get_product_url(), $this );
+		return apply_filters( 'poocommerce_product_add_to_cart_url', $this->get_product_url(), $this );
 	}
 
 	/**
@@ -171,7 +171,7 @@ class WC_Product_External extends WC_Product {
 	 * @return string
 	 */
 	public function single_add_to_cart_text() {
-		return apply_filters( 'woocommerce_product_single_add_to_cart_text', $this->get_button_text() ? $this->get_button_text() : _x( 'Buy product', 'placeholder', 'woocommerce' ), $this );
+		return apply_filters( 'poocommerce_product_single_add_to_cart_text', $this->get_button_text() ? $this->get_button_text() : _x( 'Buy product', 'placeholder', 'poocommerce' ), $this );
 	}
 
 	/**
@@ -181,7 +181,7 @@ class WC_Product_External extends WC_Product {
 	 * @return string
 	 */
 	public function add_to_cart_text() {
-		return apply_filters( 'woocommerce_product_add_to_cart_text', $this->get_button_text() ? $this->get_button_text() : _x( 'Buy product', 'placeholder', 'woocommerce' ), $this );
+		return apply_filters( 'poocommerce_product_add_to_cart_text', $this->get_button_text() ? $this->get_button_text() : _x( 'Buy product', 'placeholder', 'poocommerce' ), $this );
 	}
 
 	/**
@@ -192,6 +192,6 @@ class WC_Product_External extends WC_Product {
 	 */
 	public function add_to_cart_description() {
 		/* translators: %s: Product title */
-		return apply_filters( 'woocommerce_product_add_to_cart_description', $this->get_button_text() ? $this->get_button_text() : sprintf( __( 'Buy &ldquo;%s&rdquo;', 'woocommerce' ), $this->get_name() ), $this );
+		return apply_filters( 'poocommerce_product_add_to_cart_description', $this->get_button_text() ? $this->get_button_text() : sprintf( __( 'Buy &ldquo;%s&rdquo;', 'poocommerce' ), $this->get_name() ), $this );
 	}
 }

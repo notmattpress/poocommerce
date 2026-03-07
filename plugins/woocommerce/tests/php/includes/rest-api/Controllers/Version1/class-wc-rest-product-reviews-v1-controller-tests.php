@@ -1,7 +1,7 @@
 <?php
 
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper;
 
 /**
  * Tests relating to WC_REST_Product_Reviews_V1_Controller.
@@ -59,7 +59,7 @@ class WC_REST_Product_Reviews_V1_Controller_Tests extends WC_Unit_Test_Case {
 
 		wp_set_current_user( $this->customer_id );
 		$this->assertEquals(
-			'woocommerce_rest_cannot_view',
+			'poocommerce_rest_cannot_view',
 			$this->sut->get_items_permissions_check( $api_request )->get_error_code(),
 			'A user (such as a customer) lacking the moderate_comments capability cannot list reviews.'
 		);
@@ -81,7 +81,7 @@ class WC_REST_Product_Reviews_V1_Controller_Tests extends WC_Unit_Test_Case {
 
 		wp_set_current_user( $this->editor_id );
 		$this->assertEquals(
-			'woocommerce_rest_cannot_edit',
+			'poocommerce_rest_cannot_edit',
 			$this->sut->update_item_permissions_check( $api_request )->get_error_code(),
 			'A user (such as an editor) lacking edit_comment permissions cannot update a product review.'
 		);
@@ -97,7 +97,7 @@ class WC_REST_Product_Reviews_V1_Controller_Tests extends WC_Unit_Test_Case {
 		$api_request->set_param( 'product_id', $nonexistent_product_id );
 
 		$this->assertEquals(
-			'woocommerce_rest_product_invalid_id',
+			'poocommerce_rest_product_invalid_id',
 			$this->sut->update_item( $api_request )->get_error_code(),
 			'Attempts to edit reviews for non-existent products are rejected.'
 		);
@@ -113,7 +113,7 @@ class WC_REST_Product_Reviews_V1_Controller_Tests extends WC_Unit_Test_Case {
 
 		wp_set_current_user( $this->editor_id );
 		$this->assertEquals(
-			'woocommerce_rest_cannot_delete',
+			'poocommerce_rest_cannot_delete',
 			$this->sut->delete_item_permissions_check( $api_request )->get_error_code(),
 			'A user lacking edit_comment permissions (such as an editor) cannot delete a product review.'
 		);
@@ -130,7 +130,7 @@ class WC_REST_Product_Reviews_V1_Controller_Tests extends WC_Unit_Test_Case {
 		$api_request->set_param( 'id', $this->review_id );
 
 		$this->assertEquals(
-			'woocommerce_rest_product_invalid_id',
+			'poocommerce_rest_product_invalid_id',
 			$this->sut->delete_item( $api_request )->get_error_code(),
 			'Attempts to delete reviews for non-existent products are rejected, even if the review ID is valid.'
 		);
@@ -148,7 +148,7 @@ class WC_REST_Product_Reviews_V1_Controller_Tests extends WC_Unit_Test_Case {
 		$request->set_param( 'id', $order_note_id );
 
 		$this->assertEquals(
-			'woocommerce_rest_product_invalid_id',
+			'poocommerce_rest_product_invalid_id',
 			$this->sut->delete_item( $request )->get_error_code(),
 			'Comments that are not product reviews cannot be deleted via this endpoint.'
 		);
@@ -165,7 +165,7 @@ class WC_REST_Product_Reviews_V1_Controller_Tests extends WC_Unit_Test_Case {
 		$request->set_param( 'id', $comment_id );
 
 		$this->assertEquals(
-			'woocommerce_rest_product_invalid_id',
+			'poocommerce_rest_product_invalid_id',
 			$this->sut->delete_item( $request )->get_error_code(),
 			'Comments that are not product reviews (including other types of comments belonging to products) cannot be deleted via this endpoint.'
 		);

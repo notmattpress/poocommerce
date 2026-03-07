@@ -1,6 +1,6 @@
 <?php
 /**
- * WooCommerce Mock Session Handler
+ * PooCommerce Mock Session Handler
  *
  * @since 2.2
  */

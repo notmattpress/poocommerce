@@ -14,10 +14,10 @@ import {
 	MenuItem,
 	MenuTitle,
 	SectionHeader,
-} from '@woocommerce/components';
-import { useUserPreferences } from '@woocommerce/data';
-import { getAllowedIntervalsForQuery } from '@woocommerce/date';
-import { recordEvent } from '@woocommerce/tracks';
+} from '@poocommerce/components';
+import { useUserPreferences } from '@poocommerce/data';
+import { getAllowedIntervalsForQuery } from '@poocommerce/date';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -65,17 +65,17 @@ const renderIntervalSelector = ( {
 	}
 
 	const intervalLabels = {
-		hour: __( 'By hour', 'woocommerce' ),
-		day: __( 'By day', 'woocommerce' ),
-		week: __( 'By week', 'woocommerce' ),
-		month: __( 'By month', 'woocommerce' ),
-		quarter: __( 'By quarter', 'woocommerce' ),
-		year: __( 'By year', 'woocommerce' ),
+		hour: __( 'By hour', 'poocommerce' ),
+		day: __( 'By day', 'poocommerce' ),
+		week: __( 'By week', 'poocommerce' ),
+		month: __( 'By month', 'poocommerce' ),
+		quarter: __( 'By quarter', 'poocommerce' ),
+		year: __( 'By year', 'poocommerce' ),
 	};
 
 	return (
 		<SelectControl
-			className="woocommerce-chart__interval-select"
+			className="poocommerce-chart__interval-select"
 			value={ chartInterval }
 			options={ allowedIntervals.map( ( allowedInterval ) => ( {
 				value: allowedInterval,
@@ -100,7 +100,7 @@ const renderChartBlocks = ( { hiddenBlocks, path, query, filters } ) => {
 	}, {} );
 
 	return (
-		<div className="woocommerce-dashboard__columns">
+		<div className="poocommerce-dashboard__columns">
 			{ uniqCharts.map( ( chart ) => {
 				return hiddenBlocks.includes(
 					chart.endpoint + '_' + chart.key
@@ -159,11 +159,11 @@ const DashboardCharts = ( props ) => {
 
 	const renderMenu = () => (
 		<EllipsisMenu
-			label={ __( 'Choose which charts to display', 'woocommerce' ) }
+			label={ __( 'Choose which charts to display', 'poocommerce' ) }
 			placement={ 'bottom-end' }
 			renderContent={ ( { onToggle } ) => (
 				<Fragment>
-					<MenuTitle>{ __( 'Charts', 'woocommerce' ) }</MenuTitle>
+					<MenuTitle>{ __( 'Charts', 'poocommerce' ) }</MenuTitle>
 					{ renderChartToggles( {
 						hiddenBlocks,
 						onToggleHiddenBlock,
@@ -193,9 +193,9 @@ const DashboardCharts = ( props ) => {
 	};
 
 	return (
-		<div className="woocommerce-dashboard__dashboard-charts">
+		<div className="poocommerce-dashboard__dashboard-charts">
 			<SectionHeader
-				title={ title || __( 'Charts', 'woocommerce' ) }
+				title={ title || __( 'Charts', 'poocommerce' ) }
 				menu={ renderMenu() }
 				className={ 'has-interval-select' }
 			>
@@ -206,16 +206,16 @@ const DashboardCharts = ( props ) => {
 					defaultDateRange,
 				} ) }
 				<NavigableMenu
-					className="woocommerce-chart__types"
+					className="poocommerce-chart__types"
 					orientation="horizontal"
 					role="menubar"
 				>
 					<Button
-						className={ clsx( 'woocommerce-chart__type-button', {
-							'woocommerce-chart__type-button-selected':
+						className={ clsx( 'poocommerce-chart__type-button', {
+							'poocommerce-chart__type-button-selected':
 								! query.chartType || query.chartType === 'line',
 						} ) }
-						title={ __( 'Line chart', 'woocommerce' ) }
+						title={ __( 'Line chart', 'poocommerce' ) }
 						aria-checked={ query.chartType === 'line' }
 						role="menuitemradio"
 						tabIndex={ query.chartType === 'line' ? 0 : -1 }
@@ -224,11 +224,11 @@ const DashboardCharts = ( props ) => {
 						<LineGraphIcon />
 					</Button>
 					<Button
-						className={ clsx( 'woocommerce-chart__type-button', {
-							'woocommerce-chart__type-button-selected':
+						className={ clsx( 'poocommerce-chart__type-button', {
+							'poocommerce-chart__type-button-selected':
 								query.chartType === 'bar',
 						} ) }
-						title={ __( 'Bar chart', 'woocommerce' ) }
+						title={ __( 'Bar chart', 'poocommerce' ) }
 						aria-checked={ query.chartType === 'bar' }
 						role="menuitemradio"
 						tabIndex={ query.chartType === 'bar' ? 0 : -1 }

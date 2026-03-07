@@ -1,11 +1,11 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "woocommerce/product-gallery",
+	"name": "poocommerce/product-gallery",
 	"title": "Product Gallery",
 	"description": "Showcase your products relevant images and media.",
-	"category": "woocommerce",
-	"keywords": [ "WooCommerce" ],
+	"category": "poocommerce",
+	"keywords": [ "PooCommerce" ],
 	"supports": {
 		"align": true,
 		"interactivity": true,
@@ -21,13 +21,13 @@
 		},
 		"email": true
 	},
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"usesContext": [ "postId" ],
 	"providesContext": {
 		"hoverZoom": "hoverZoom",
 		"fullScreenOnClick": "fullScreenOnClick"
 	},
-	"ancestor": [ "woocommerce/single-product" ],
+	"ancestor": [ "poocommerce/single-product" ],
 	"attributes": {
 		"hoverZoom": {
 			"type": "boolean",
@@ -40,6 +40,6 @@
 	},
 	"viewScript": "wc-product-gallery-frontend",
 	"example": {},
-	"viewScriptModule": "woocommerce/product-gallery",
-	"style": "file:../woocommerce/product-gallery-style.css"
+	"viewScriptModule": "poocommerce/product-gallery",
+	"style": "file:../poocommerce/product-gallery-style.css"
 }

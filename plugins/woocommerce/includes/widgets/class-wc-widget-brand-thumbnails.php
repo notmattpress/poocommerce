@@ -7,9 +7,9 @@ declare( strict_types = 1);
  *
  * Show brand images as thumbnails
  *
- * Important: For internal use only by the Automattic\WooCommerce\Internal\Brands package.
+ * Important: For internal use only by the Automattic\PooCommerce\Internal\Brands package.
  *
- * @package WooCommerce\Widgets
+ * @package PooCommerce\Widgets
  * @version 9.4.0
  */
 class WC_Widget_Brand_Thumbnails extends WP_Widget {
@@ -46,8 +46,8 @@ class WC_Widget_Brand_Thumbnails extends WP_Widget {
 	public function __construct() {
 
 		/* Widget variable settings. */
-		$this->woo_widget_name        = __( 'WooCommerce Brand Thumbnails', 'woocommerce' );
-		$this->woo_widget_description = __( 'Show a grid of brand thumbnails.', 'woocommerce' );
+		$this->woo_widget_name        = __( 'PooCommerce Brand Thumbnails', 'poocommerce' );
+		$this->woo_widget_description = __( 'Show a grid of brand thumbnails.', 'poocommerce' );
 		$this->woo_widget_idbase      = 'wc_brands_brand_thumbnails';
 		$this->woo_widget_cssclass    = 'widget_brand_thumbnails';
 
@@ -124,7 +124,7 @@ class WC_Widget_Brand_Thumbnails extends WP_Widget {
 				'columns'       => (int) $instance['columns'],
 				'fluid_columns' => ! empty( $instance['fluid_columns'] ) ? true : false,
 			),
-			'woocommerce',
+			'poocommerce',
 			WC()->plugin_path() . '/templates/brands/'
 		);
 
@@ -191,43 +191,43 @@ class WC_Widget_Brand_Thumbnails extends WP_Widget {
 
 		?>
 			<p>
-				<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_html_e( 'Title:', 'woocommerce' ); ?></label>
+				<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_html_e( 'Title:', 'poocommerce' ); ?></label>
 				<input type="text" class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" value="<?php echo isset( $instance['title'] ) ? esc_attr( $instance['title'] ) : ''; ?>" />
 			</p>
 
 			<p>
-				<label for="<?php echo esc_attr( $this->get_field_id( 'columns' ) ); ?>"><?php esc_html_e( 'Columns:', 'woocommerce' ); ?></label>
+				<label for="<?php echo esc_attr( $this->get_field_id( 'columns' ) ); ?>"><?php esc_html_e( 'Columns:', 'poocommerce' ); ?></label>
 				<input type="text" class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'columns' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'columns' ) ); ?>" value="<?php echo isset( $instance['columns'] ) ? esc_attr( $instance['columns'] ) : '1'; ?>" />
 			</p>
 
 			<p>
-				<label for="<?php echo esc_attr( $this->get_field_id( 'fluid_columns' ) ); ?>"><?php esc_html_e( 'Fluid columns:', 'woocommerce' ); ?></label>
+				<label for="<?php echo esc_attr( $this->get_field_id( 'fluid_columns' ) ); ?>"><?php esc_html_e( 'Fluid columns:', 'poocommerce' ); ?></label>
 				<input type="checkbox" <?php checked( $instance['fluid_columns'] ); ?> id="<?php echo esc_attr( $this->get_field_id( 'fluid_columns' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'fluid_columns' ) ); ?>" />
 			</p>
 
 			<p>
-				<label for="<?php echo esc_attr( $this->get_field_id( 'number' ) ); ?>"><?php esc_html_e( 'Number:', 'woocommerce' ); ?></label>
-				<input type="text" class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'number' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'number' ) ); ?>" value="<?php if ( isset ( $instance['number'] ) ) { echo esc_attr( $instance['number'] ); } // phpcs:ignore ?>" placeholder="<?php esc_attr_e( 'All', 'woocommerce' ); ?>" />
+				<label for="<?php echo esc_attr( $this->get_field_id( 'number' ) ); ?>"><?php esc_html_e( 'Number:', 'poocommerce' ); ?></label>
+				<input type="text" class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'number' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'number' ) ); ?>" value="<?php if ( isset ( $instance['number'] ) ) { echo esc_attr( $instance['number'] ); } // phpcs:ignore ?>" placeholder="<?php esc_attr_e( 'All', 'poocommerce' ); ?>" />
 			</p>
 
 			<p>
-				<label for="<?php echo esc_attr( $this->get_field_id( 'exclude' ) ); ?>"><?php esc_html_e( 'Exclude:', 'woocommerce' ); ?></label>
-				<input type="text" class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'exclude' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'exclude' ) ); ?>" value="<?php if ( isset ( $instance['exclude'] ) ) { echo esc_attr( $instance['exclude'] ); } // phpcs:ignore ?>" placeholder="<?php esc_attr_e( 'None', 'woocommerce' ); ?>" />
+				<label for="<?php echo esc_attr( $this->get_field_id( 'exclude' ) ); ?>"><?php esc_html_e( 'Exclude:', 'poocommerce' ); ?></label>
+				<input type="text" class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'exclude' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'exclude' ) ); ?>" value="<?php if ( isset ( $instance['exclude'] ) ) { echo esc_attr( $instance['exclude'] ); } // phpcs:ignore ?>" placeholder="<?php esc_attr_e( 'None', 'poocommerce' ); ?>" />
 			</p>
 
 			<p>
-				<label for="<?php echo esc_attr( $this->get_field_id( 'hide_empty' ) ); ?>"><?php esc_html_e( 'Hide empty brands:', 'woocommerce' ); ?></label>
+				<label for="<?php echo esc_attr( $this->get_field_id( 'hide_empty' ) ); ?>"><?php esc_html_e( 'Hide empty brands:', 'poocommerce' ); ?></label>
 				<select id="<?php echo esc_attr( $this->get_field_id( 'hide_empty' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'hide_empty' ) ); ?>">
-					<option value="1" <?php selected( $instance['hide_empty'], 1 ); ?>><?php esc_html_e( 'Yes', 'woocommerce' ); ?></option>
-					<option value="0" <?php selected( $instance['hide_empty'], 0 ); ?>><?php esc_html_e( 'No', 'woocommerce' ); ?></option>
+					<option value="1" <?php selected( $instance['hide_empty'], 1 ); ?>><?php esc_html_e( 'Yes', 'poocommerce' ); ?></option>
+					<option value="0" <?php selected( $instance['hide_empty'], 0 ); ?>><?php esc_html_e( 'No', 'poocommerce' ); ?></option>
 				</select>
 			</p>
 
 			<p>
-				<label for="<?php echo esc_attr( $this->get_field_id( 'orderby' ) ); ?>"><?php esc_html_e( 'Order by:', 'woocommerce' ); ?></label>
+				<label for="<?php echo esc_attr( $this->get_field_id( 'orderby' ) ); ?>"><?php esc_html_e( 'Order by:', 'poocommerce' ); ?></label>
 				<select id="<?php echo esc_attr( $this->get_field_id( 'orderby' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'orderby' ) ); ?>">
-					<option value="name" <?php selected( $instance['orderby'], 'name' ); ?>><?php esc_html_e( 'Name', 'woocommerce' ); ?></option>
-					<option value="count" <?php selected( $instance['orderby'], 'count' ); ?>><?php esc_html_e( 'Count', 'woocommerce' ); ?></option>
+					<option value="name" <?php selected( $instance['orderby'], 'name' ); ?>><?php esc_html_e( 'Name', 'poocommerce' ); ?></option>
+					<option value="count" <?php selected( $instance['orderby'], 'count' ); ?>><?php esc_html_e( 'Count', 'poocommerce' ); ?></option>
 				</select>
 			</p>
 		<?php

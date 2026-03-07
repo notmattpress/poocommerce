@@ -9,7 +9,7 @@ const ActivityPanelToggleBubble = ( {
 	width = 24,
 	hasUnread = false,
 } ) => {
-	const classes = clsx( 'woocommerce-layout__activity-panel-toggle-bubble', {
+	const classes = clsx( 'poocommerce-layout__activity-panel-toggle-bubble', {
 		'has-unread': hasUnread,
 	} );
 

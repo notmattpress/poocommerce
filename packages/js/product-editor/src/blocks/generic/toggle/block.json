@@ -1,9 +1,9 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "woocommerce/product-toggle-field",
+	"name": "poocommerce/product-toggle-field",
 	"title": "Product toggle control",
-	"category": "woocommerce",
+	"category": "poocommerce",
 	"description": "The product toggle.",
 	"keywords": [
 		"products",

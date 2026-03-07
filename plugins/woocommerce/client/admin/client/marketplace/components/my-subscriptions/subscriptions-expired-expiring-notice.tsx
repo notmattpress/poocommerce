@@ -3,7 +3,7 @@
  */
 import { Button } from '@wordpress/components';
 import apiFetch from '@wordpress/api-fetch';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies

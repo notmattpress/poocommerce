@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { useContext, useEffect, useRef, useState } from '@wordpress/element';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -140,7 +140,7 @@ export default function Discover(): JSX.Element | null {
 
 	if ( isLoading ) {
 		return (
-			<div className="woocommerce-marketplace__discover">
+			<div className="poocommerce-marketplace__discover">
 				<ProductLoader
 					placeholderCount={ 9 }
 					type={ ProductType.extension }
@@ -151,7 +151,7 @@ export default function Discover(): JSX.Element | null {
 
 	const groupsList = productGroups.flatMap( ( group ) => group );
 	return (
-		<div className="woocommerce-marketplace__discover">
+		<div className="poocommerce-marketplace__discover">
 			{ groupsList.map( ( groups ) => (
 				<ProductList
 					key={ groups.id }

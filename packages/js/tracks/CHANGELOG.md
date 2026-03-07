@@ -2,7 +2,7 @@
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.5.0](https://www.npmjs.com/package/@woocommerce/tracks/v/1.5.0) - 2026-02-23 
+## [1.5.0](https://www.npmjs.com/package/@poocommerce/tracks/v/1.5.0) - 2026-02-23 
 
 -   Minor - Add bumpStats and fix unit test tooling [#50155]
 -   Patch - Comment: Fix some comment typos. [#50993]
@@ -22,7 +22,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 -   Patch - Update wireit to 0.14.10 [#54996]
 -   Minor - Upgraded Typescript in the monorepo to 5.7.2 [#53165]
 
-## [1.4.0](https://www.npmjs.com/package/@woocommerce/tracks/v/1.4.0) - 2024-06-11 
+## [1.4.0](https://www.npmjs.com/package/@poocommerce/tracks/v/1.4.0) - 2024-06-11 
 
 -   Minor - Add recordEvent validation to Tracks package #34005 [#34005]
 -   Minor - Bump node version. [#45148]
@@ -39,14 +39,14 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 -   Patch - Update eslint to 8.32.0 across the monorepo. [#36700]
 -   Patch - Update pnpm to 9.1.0 [#47385]
 
-## [1.3.0](https://www.npmjs.com/package/@woocommerce/tracks/v/1.3.0) - 2022-07-08 
+## [1.3.0](https://www.npmjs.com/package/@poocommerce/tracks/v/1.3.0) - 2022-07-08 
 
 -   Minor - Remove PHP and Composer dependencies for packaged JS packages
 
-## [1.2.0](https://www.npmjs.com/package/@woocommerce/tracks/v/1.2.0) - 2022-06-15 
+## [1.2.0](https://www.npmjs.com/package/@poocommerce/tracks/v/1.2.0) - 2022-06-15 
 
 -   Minor - Add Jetpack Changelogger
 -   Minor - Convert package to Typescript.
 -   Patch - Standardize lint scripts: add lint:fix
 
-[See legacy changelogs for previous versions](https://github.com/woocommerce/woocommerce/blob/68581955106947918d2b17607a01bdfdf22288a9/packages/js/tracks/CHANGELOG.md).
+[See legacy changelogs for previous versions](https://github.com/poocommerce/poocommerce/blob/68581955106947918d2b17607a01bdfdf22288a9/packages/js/tracks/CHANGELOG.md).
