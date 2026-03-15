@@ -1,8 +1,8 @@
-# WooCommerce Email Editor
+# PooCommerce Email Editor
 
-This is the WooCommerce Email Editor package - a JavaScript library for building and customizing email templates. While currently integrated with WooCommerce, this package is designed to be used as an independent library in other projects.
+This is the PooCommerce Email Editor package - a JavaScript library for building and customizing email templates. While currently integrated with PooCommerce, this package is designed to be used as an independent library in other projects.
 
-You can try the email editor in [the WordPress Playground](https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/woocommerce/woocommerce/refs/heads/trunk/packages/js/email-editor/blueprint.json).
+You can try the email editor in [the WordPress Playground](https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/poocommerce/poocommerce/refs/heads/trunk/packages/js/email-editor/blueprint.json).
 
 This JavaScript package is designed to work in conjunction with its PHP counterpart, which can be found in the same repository at `packages/php/email-editor`. Both packages are required for full functionality.
 
@@ -10,11 +10,11 @@ This JavaScript package is designed to work in conjunction with its PHP counterp
 
 > **Note:** The `initializeEditor` function is currently experimental and its API is subject to change in future releases. Please be aware that breaking changes may occur.
 
-To use the email editor in your project, you'll need to initialize it using the `initializeEditor` function. The editor requires certain data to be set on the global `window.WooCommerceEmailEditor` object before initialization:
+To use the email editor in your project, you'll need to initialize it using the `initializeEditor` function. The editor requires certain data to be set on the global `window.PooCommerceEmailEditor` object before initialization:
 
 ```javascript
 // First, set up the required data on the window object
-window.WooCommerceEmailEditor = {
+window.PooCommerceEmailEditor = {
     current_post_type: '', // The post type of the current post
     current_post_id: '', // The ID of the current post
     current_wp_user_email: '', // The email of the current user
@@ -32,7 +32,7 @@ window.WooCommerceEmailEditor = {
 };
 
 // Then initialize the editor with the HTML element ID
-import { initializeEditor } from '@woocommerce/email-editor';
+import { initializeEditor } from '@poocommerce/email-editor';
 initializeEditor( 'email-editor-container' );
 ```
 
@@ -40,7 +40,7 @@ The `initializeEditor` function accepts a single parameter:
 
 -   `htmlId` (required): The ID of the HTML element where the editor will be mounted
 
-Make sure to set up the required data on `window.WooCommerceEmailEditor` before calling `initializeEditor`.
+Make sure to set up the required data on `window.PooCommerceEmailEditor` before calling `initializeEditor`.
 
 ### Editor settings
 
@@ -58,12 +58,12 @@ The `editor_settings` object (or `config.editorSettings` when using `Experimenta
 
 #### `ExperimentalEmailEditor`
 
-A React component alternative to `initializeEditor`. Renders the email editor inline instead of mounting it to a DOM element by ID. Accepts a `config` prop directly, removing the need for `window.WooCommerceEmailEditor`. Cleans up global editor settings on unmount.
+A React component alternative to `initializeEditor`. Renders the email editor inline instead of mounting it to a DOM element by ID. Accepts a `config` prop directly, removing the need for `window.PooCommerceEmailEditor`. Cleans up global editor settings on unmount.
 
 > **Note:** This component is experimental and its API is subject to change.
 
 ```jsx
-import { ExperimentalEmailEditor } from '@woocommerce/email-editor';
+import { ExperimentalEmailEditor } from '@poocommerce/email-editor';
 
 <ExperimentalEmailEditor
     postId="123"
@@ -90,7 +90,7 @@ A modal component for sending test emails. Provides email validation, sending st
 > Requires the store to be initialized via `createStore()`, `initializeEditor`, or `ExperimentalEmailEditor`.
 
 ```jsx
-import { createStore, SendPreviewEmail } from '@woocommerce/email-editor';
+import { createStore, SendPreviewEmail } from '@poocommerce/email-editor';
 
 createStore();
 // ...
@@ -104,7 +104,7 @@ A WordPress `RichText` input enhanced with a button for inserting personalizatio
 > Requires the store to be initialized via `createStore()`, `initializeEditor`, or `ExperimentalEmailEditor`.
 
 ```jsx
-import { createStore, RichTextWithButton } from '@woocommerce/email-editor';
+import { createStore, RichTextWithButton } from '@poocommerce/email-editor';
 
 createStore();
 // ...
@@ -126,7 +126,7 @@ Returns `true` when the current context is the email editor. Checks the email ed
 > Requires the store to be initialized for meaningful results.
 
 ```js
-import { createStore, useIsEmailEditor } from '@woocommerce/email-editor';
+import { createStore, useIsEmailEditor } from '@poocommerce/email-editor';
 
 createStore();
 // ...
@@ -140,7 +140,7 @@ Generates preview data for email templates by merging template layouts with cont
 > Requires the store to be initialized.
 
 ```js
-import { createStore, usePreviewTemplates } from '@woocommerce/email-editor';
+import { createStore, usePreviewTemplates } from '@poocommerce/email-editor';
 
 createStore();
 // ...
@@ -154,7 +154,7 @@ Generates complete CSS styles for the email editor by merging editor theme setti
 > Requires the store to be initialized.
 
 ```js
-import { createStore, useEmailCss } from '@woocommerce/email-editor';
+import { createStore, useEmailCss } from '@poocommerce/email-editor';
 
 createStore();
 // ...
@@ -172,7 +172,7 @@ The store identifier: `'email-editor/editor'`. Use with `@wordpress/data` `selec
 Registers the email editor Redux store with `@wordpress/data`. Safe to call multiple times; returns the existing store if already registered.
 
 ```js
-import { createStore } from '@woocommerce/email-editor';
+import { createStore } from '@poocommerce/email-editor';
 
 createStore();
 ```
@@ -188,7 +188,7 @@ import {
     recordEvent,
     recordEventOnce,
     debouncedRecordEvent,
-} from '@woocommerce/email-editor';
+} from '@poocommerce/email-editor';
 
 recordEvent( 'button_clicked', { buttonType: 'save' } );
 recordEventOnce( 'editor_loaded' );
@@ -200,7 +200,7 @@ debouncedRecordEvent( 'content_typed', { length: 42 } );
 Returns whether event tracking is currently enabled.
 
 ```js
-import { isEventTrackingEnabled } from '@woocommerce/email-editor';
+import { isEventTrackingEnabled } from '@poocommerce/email-editor';
 
 if ( isEventTrackingEnabled() ) {
     // perform tracking work
@@ -308,24 +308,24 @@ We may add, update and delete any of them.
 
 | Name                              | Argument           | Description         |
 | --------------------------------- | ------------------ | ------------------- |
-| `woocommerce_email_editor_events` | `EventData.detail` | Email editor events |
+| `poocommerce_email_editor_events` | `EventData.detail` | Email editor events |
 
 ### Filters
 
 | Name                                                               | Argument                                              | Return                                     | Description                                                                                                                    |
 | ------------------------------------------------------------------ | ----------------------------------------------------- | ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ |
-| `woocommerce_email_editor_events_tracking_enabled`                 | `boolean` (false-default)                             | `boolean`                                  | Used to enable the email editor events tracking and collection                                                                 |
-| `woocommerce_email_editor_wrap_editor_component`                   | `JSX.Element` Editor                                  | `JSX.Element` Editor                       | The main editor component. Custom component can wrap the editor and provide additional functionality                           |
-| `woocommerce_email_editor_send_button_label`                       | `string` 'Send'                                       | `string` 'Send' (default)                  | Email editor send button label. The `Send` text can be updated using this filter                                               |
-| `woocommerce_email_editor_send_action_callback`                    | `function` sendAction                                 | `function` sendAction                      | Action to perform when the Send button is clicked                                                                              |
-| `woocommerce_email_editor_content_validation_rules`                | `array` rules                                         | `EmailContentValidationRule[]` rules       | Email editor content validation rules. The validation is done on `send button` click and revalidated on `save draft`           |
-| `woocommerce_email_editor_check_sending_method_configuration_link` | `string` link                                         | `string` link                              | Edit or remove the sending configuration link message                                                                          |
-| `woocommerce_email_editor_setting_sidebar_extension_component`     | `JSX.Element` RichTextWithButton                      | `JSX.Element` Sidebar extension component  | Add components to the Email settings sidebar                                                                                   |
-| `woocommerce_email_editor_preferred_template_title`                | `string` '', `Post` post                              | `string` custom (preferred) template title | Custom title for Email preset template selector                                                                                |
-| `woocommerce_email_editor_sidebar_email_type_info_icon`            | none                                                  | `JSX.Element` icon component               | Return an icon from @wordpress/icons e.g. () => <Icon icon={ postContent } />                                                  |
-| `woocommerce_email_editor_sidebar_email_type_info_content`         | none                                                  | `JSX.Element` info content                 | Return a React component containing information about the current template or content                                          |
-| `woocommerce_email_editor_trash_modal_should_permanently_delete`   | `boolean` (false-default)                             | `boolean`                                  | Controls the action of the trash modal. Returning `true` will ensure the modal permanently deletes the email (skipping trash). |
-| `woocommerce_email_editor_iframe_stylesheet_should_remove`         | `boolean` (false-default), `CSSStyleSheet` stylesheet | `boolean`                                  | Controls whether the iframe stylesheet should be removed. Returning `true` will remove the iframe stylesheet.                  |
-| `woocommerce_email_editor_close_action_callback`                   | `function` backAction                                 | `function` backAction                      | Action to perform when the close (back) button is clicked                                                                      |
-| `woocommerce_email_editor_close_content`                           | `React.ComponentType` DefaultBackButtonContent        | `React.ComponentType` Back button content  | Custom component for the back button content in the editor header                                                              |
-| `woocommerce_email_editor_create_coupon_handler`                   | `() => void` handler                                  | `() => void` handler                       | Handler function called when user clicks "Create new coupon". Should open the coupon creation UI.                              |
+| `poocommerce_email_editor_events_tracking_enabled`                 | `boolean` (false-default)                             | `boolean`                                  | Used to enable the email editor events tracking and collection                                                                 |
+| `poocommerce_email_editor_wrap_editor_component`                   | `JSX.Element` Editor                                  | `JSX.Element` Editor                       | The main editor component. Custom component can wrap the editor and provide additional functionality                           |
+| `poocommerce_email_editor_send_button_label`                       | `string` 'Send'                                       | `string` 'Send' (default)                  | Email editor send button label. The `Send` text can be updated using this filter                                               |
+| `poocommerce_email_editor_send_action_callback`                    | `function` sendAction                                 | `function` sendAction                      | Action to perform when the Send button is clicked                                                                              |
+| `poocommerce_email_editor_content_validation_rules`                | `array` rules                                         | `EmailContentValidationRule[]` rules       | Email editor content validation rules. The validation is done on `send button` click and revalidated on `save draft`           |
+| `poocommerce_email_editor_check_sending_method_configuration_link` | `string` link                                         | `string` link                              | Edit or remove the sending configuration link message                                                                          |
+| `poocommerce_email_editor_setting_sidebar_extension_component`     | `JSX.Element` RichTextWithButton                      | `JSX.Element` Sidebar extension component  | Add components to the Email settings sidebar                                                                                   |
+| `poocommerce_email_editor_preferred_template_title`                | `string` '', `Post` post                              | `string` custom (preferred) template title | Custom title for Email preset template selector                                                                                |
+| `poocommerce_email_editor_sidebar_email_type_info_icon`            | none                                                  | `JSX.Element` icon component               | Return an icon from @wordpress/icons e.g. () => <Icon icon={ postContent } />                                                  |
+| `poocommerce_email_editor_sidebar_email_type_info_content`         | none                                                  | `JSX.Element` info content                 | Return a React component containing information about the current template or content                                          |
+| `poocommerce_email_editor_trash_modal_should_permanently_delete`   | `boolean` (false-default)                             | `boolean`                                  | Controls the action of the trash modal. Returning `true` will ensure the modal permanently deletes the email (skipping trash). |
+| `poocommerce_email_editor_iframe_stylesheet_should_remove`         | `boolean` (false-default), `CSSStyleSheet` stylesheet | `boolean`                                  | Controls whether the iframe stylesheet should be removed. Returning `true` will remove the iframe stylesheet.                  |
+| `poocommerce_email_editor_close_action_callback`                   | `function` backAction                                 | `function` backAction                      | Action to perform when the close (back) button is clicked                                                                      |
+| `poocommerce_email_editor_close_content`                           | `React.ComponentType` DefaultBackButtonContent        | `React.ComponentType` Back button content  | Custom component for the back button content in the editor header                                                              |
+| `poocommerce_email_editor_create_coupon_handler`                   | `() => void` handler                                  | `() => void` handler                       | Handler function called when user clicks "Create new coupon". Should open the coupon creation UI.                              |

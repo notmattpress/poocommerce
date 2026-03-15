@@ -2,7 +2,7 @@
 /**
  * Shopify mappings
  *
- * @package WooCommerce\Admin\Importers
+ * @package PooCommerce\Admin\Importers
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -41,7 +41,7 @@ function wc_importer_shopify_mappings( $mappings, $raw_headers ) {
 	);
 	return array_merge( $mappings, $shopify_mappings );
 }
-add_filter( 'woocommerce_csv_product_import_mapping_default_columns', 'wc_importer_shopify_mappings', 10, 2 );
+add_filter( 'poocommerce_csv_product_import_mapping_default_columns', 'wc_importer_shopify_mappings', 10, 2 );
 
 /**
  * Add special wildcard Shopify mappings.
@@ -62,7 +62,7 @@ function wc_importer_shopify_special_mappings( $mappings, $raw_headers ) {
 	);
 	return array_merge( $mappings, $shopify_mappings );
 }
-add_filter( 'woocommerce_csv_product_import_mapping_special_columns', 'wc_importer_shopify_special_mappings', 10, 2 );
+add_filter( 'poocommerce_csv_product_import_mapping_special_columns', 'wc_importer_shopify_special_mappings', 10, 2 );
 
 /**
  * Expand special Shopify columns to WC format.
@@ -87,4 +87,4 @@ function wc_importer_shopify_expand_data( $data ) {
 	}
 	return $data;
 }
-add_filter( 'woocommerce_product_importer_pre_expand_data', 'wc_importer_shopify_expand_data' );
+add_filter( 'poocommerce_product_importer_pre_expand_data', 'wc_importer_shopify_expand_data' );

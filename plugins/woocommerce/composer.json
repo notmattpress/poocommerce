@@ -1,7 +1,7 @@
 {
-	"name": "woocommerce/woocommerce",
+	"name": "poocommerce/poocommerce",
 	"description": "An eCommerce toolkit that helps you sell anything. Beautifully.",
-	"homepage": "https://woocommerce.com/",
+	"homepage": "https://poocommerce.com/",
 	"version": "10.7.0",
 	"type": "wordpress-plugin",
 	"license": "GPL-2.0-or-later",
@@ -53,9 +53,9 @@
 		"composer/installers": "^1.9",
 		"maxmind-db/reader": "^1.11",
 		"opis/json-schema": "*",
-		"woocommerce/action-scheduler": "3.9.3",
-		"woocommerce/blueprint": "*",
-		"woocommerce/email-editor": "*",
+		"poocommerce/action-scheduler": "3.9.3",
+		"poocommerce/blueprint": "*",
+		"poocommerce/email-editor": "*",
 		"wordpress/abilities-api": "^0.4.0",
 		"wordpress/mcp-adapter": "^0.3.0"
 	},
@@ -71,12 +71,12 @@
 		"sebastian/comparator": "^4.0",
 		"spatie/phpunit-watcher": "^1.23",
 		"szepeviktor/phpstan-wordpress": "^2.0",
-		"woocommerce/monorepo-plugin": "*",
+		"poocommerce/monorepo-plugin": "*",
 		"yoast/phpunit-polyfills": "^2.0"
 	},
 	"config": {
 		"preferred-install": {
-			"woocommerce/action-scheduler": "dist"
+			"poocommerce/action-scheduler": "dist"
 		},
 		"sort-packages": true,
 		"platform": {
@@ -86,7 +86,7 @@
 			"automattic/jetpack-autoloader": true,
 			"composer/installers": true,
 			"bamarni/composer-bin-plugin": true,
-			"woocommerce/monorepo-plugin": true
+			"poocommerce/monorepo-plugin": true
 		}
 	},
 	"autoload": {
@@ -98,11 +98,11 @@
 			"includes/rest-api"
 		],
 		"psr-4": {
-			"Automattic\\WooCommerce\\": "src/",
-			"Automattic\\WooCommerce\\Vendor\\": "lib/packages/"
+			"Automattic\\PooCommerce\\": "src/",
+			"Automattic\\PooCommerce\\Vendor\\": "lib/packages/"
 		},
 		"psr-0": {
-			"Automattic\\WooCommerce\\Vendor\\": "lib/packages/"
+			"Automattic\\PooCommerce\\Vendor\\": "lib/packages/"
 		},
 		"files": [
 			"src/StoreApi/deprecated.php",
@@ -113,8 +113,8 @@
 	},
 	"autoload-dev": {
 		"psr-4": {
-			"Automattic\\WooCommerce\\Tests\\": "tests/php/src/",
-			"Automattic\\WooCommerce\\Testing\\Tools\\": "tests/Tools/"
+			"Automattic\\PooCommerce\\Tests\\": "tests/php/src/",
+			"Automattic\\PooCommerce\\Testing\\Tools\\": "tests/Tools/"
 		},
 		"classmap": [
 			"tests/legacy/unit-tests/rest-api/Helpers"
@@ -146,7 +146,7 @@
 			"phpcbf -p"
 		],
 		"makepot-audit": [
-			"wp --allow-root i18n make-pot . --include=\"woocommerce.php,assets,i18n,includes,lib,packages,patterns,src,templates\" --slug=woocommerce"
+			"wp --allow-root i18n make-pot . --include=\"poocommerce.php,assets,i18n,includes,lib,packages,patterns,src,templates\" --slug=poocommerce"
 		],
 		"makepot": [
 			"@makepot-audit --skip-audit"
@@ -167,19 +167,19 @@
 	"extra": {
 		"installer-paths": {
 			"packages/{$name}": [
-				"woocommerce/action-scheduler",
-				"woocommerce/email-editor",
-				"woocommerce/blueprint"
+				"poocommerce/action-scheduler",
+				"poocommerce/email-editor",
+				"poocommerce/blueprint"
 			]
 		},
 		"scripts-description": {
 			"test": "Run unit tests",
 			"phpcs": "Analyze code against the WordPress coding standards with PHP_CodeSniffer",
 			"phpcbf": "Fix coding standards warnings/errors automatically with PHP Code Beautifier",
-			"phpstan": "Run PHPStan static analysis on the WooCommerce plugin",
+			"phpstan": "Run PHPStan static analysis on the PooCommerce plugin",
 			"phpstan:baseline": "Generate a PHPStan baseline file to ignore existing errors",
-			"makepot-audit": "Generate i18n/languages/woocommerce.pot file and run audit",
-			"makepot": "Generate i18n/languages/woocommerce.pot file"
+			"makepot-audit": "Generate i18n/languages/poocommerce.pot file and run audit",
+			"makepot": "Generate i18n/languages/poocommerce.pot file"
 		},
 		"bamarni-bin": {
 			"target-directory": "bin/composer"

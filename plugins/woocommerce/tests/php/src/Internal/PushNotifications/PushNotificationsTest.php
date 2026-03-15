@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Internal\PushNotifications;
+namespace Automattic\PooCommerce\Tests\Internal\PushNotifications;
 
 use Automattic\Jetpack\Connection\Manager as JetpackConnectionManager;
-use Automattic\WooCommerce\Internal\Features\FeaturesController;
-use Automattic\WooCommerce\Internal\PushNotifications\Entities\PushToken;
-use Automattic\WooCommerce\Internal\PushNotifications\PushNotifications;
-use Automattic\WooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\Internal\Features\FeaturesController;
+use Automattic\PooCommerce\Internal\PushNotifications\Entities\PushToken;
+use Automattic\PooCommerce\Internal\PushNotifications\PushNotifications;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
 use Exception;
 use PHPUnit\Framework\MockObject\MockObject;
 use WC_Logger;
@@ -17,7 +17,7 @@ use WC_Unit_Test_Case;
 /**
  * PushNotifications test.
  *
- * @covers \Automattic\WooCommerce\Internal\PushNotifications\PushNotifications
+ * @covers \Automattic\PooCommerce\Internal\PushNotifications\PushNotifications
  */
 class PushNotificationsTest extends WC_Unit_Test_Case {
 	/**

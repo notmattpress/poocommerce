@@ -5,9 +5,9 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\Orders;
+namespace Automattic\PooCommerce\Internal\Orders;
 
-use Automattic\WooCommerce\Internal\RegisterHooksInterface;
+use Automattic\PooCommerce\Internal\RegisterHooksInterface;
 use WC_Abstract_Order;
 
 /**
@@ -41,7 +41,7 @@ class PointOfSaleEmailHandler implements RegisterHooksInterface {
 	 */
 	public function register(): void {
 		foreach ( self::SUPPRESSED_EMAIL_IDS as $email_id ) {
-			add_filter( 'woocommerce_email_enabled_' . $email_id, array( $this, 'maybe_suppress_email' ), 10, 2 );
+			add_filter( 'poocommerce_email_enabled_' . $email_id, array( $this, 'maybe_suppress_email' ), 10, 2 );
 		}
 	}
 

@@ -14,7 +14,7 @@ import { useDispatch } from '@wordpress/data';
 import {
 	__experimentalSelectTreeControl as SelectTree,
 	TreeItemType as Item,
-} from '@woocommerce/components';
+} from '@poocommerce/components';
 import { useDebounce, useInstanceId } from '@wordpress/compose';
 import clsx from 'clsx';
 
@@ -97,7 +97,7 @@ export const CreateTaxonomyModal = ( {
 				setErrorMessage( e.message );
 			} else {
 				setErrorMessage(
-					__( `Failed to create taxonomy`, 'woocommerce' )
+					__( `Failed to create taxonomy`, 'poocommerce' )
 				);
 				throw e;
 			}
@@ -115,12 +115,12 @@ export const CreateTaxonomyModal = ( {
 		<Modal
 			title={ title }
 			onRequestClose={ onCancel }
-			className="woocommerce-create-new-taxonomy-modal"
+			className="poocommerce-create-new-taxonomy-modal"
 		>
-			<div className="woocommerce-create-new-taxonomy-modal__wrapper">
+			<div className="poocommerce-create-new-taxonomy-modal__wrapper">
 				<BaseControl
 					id={ id }
-					label={ __( 'Name', 'woocommerce' ) }
+					label={ __( 'Name', 'poocommerce' ) }
 					help={ errorMessage || dialogNameHelpText }
 					className={ clsx( {
 						'has-error': errorMessage,
@@ -138,12 +138,12 @@ export const CreateTaxonomyModal = ( {
 						label={ createInterpolateElement(
 							`${
 								parentTaxonomyText ||
-								__( 'Parent', 'woocommerce' )
+								__( 'Parent', 'poocommerce' )
 							} <optional/>`,
 							{
 								optional: (
-									<span className="woocommerce-create-new-taxonomy-modal__optional">
-										{ __( '(optional)', 'woocommerce' ) }
+									<span className="poocommerce-create-new-taxonomy-modal__optional">
+										{ __( '(optional)', 'poocommerce' ) }
 									</span>
 								),
 							}
@@ -182,13 +182,13 @@ export const CreateTaxonomyModal = ( {
 						createValue={ categoryParentTypedValue }
 					/>
 				) }
-				<div className="woocommerce-create-new-taxonomy-modal__buttons">
+				<div className="poocommerce-create-new-taxonomy-modal__buttons">
 					<Button
 						variant="tertiary"
 						onClick={ onCancel }
 						disabled={ isCreating }
 					>
-						{ __( 'Cancel', 'woocommerce' ) }
+						{ __( 'Cancel', 'poocommerce' ) }
 					</Button>
 					<Button
 						variant="primary"
@@ -196,7 +196,7 @@ export const CreateTaxonomyModal = ( {
 						isBusy={ isCreating }
 						onClick={ onSave }
 					>
-						{ __( 'Create', 'woocommerce' ) }
+						{ __( 'Create', 'poocommerce' ) }
 					</Button>
 				</div>
 			</div>

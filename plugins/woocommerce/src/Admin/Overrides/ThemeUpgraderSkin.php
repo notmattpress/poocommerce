@@ -3,7 +3,7 @@
  * Theme upgrader skin used in REST API response.
  */
 
-namespace Automattic\WooCommerce\Admin\Overrides;
+namespace Automattic\PooCommerce\Admin\Overrides;
 
 defined( 'ABSPATH' ) || exit;
 

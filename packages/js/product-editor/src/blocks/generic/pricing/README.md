@@ -1,8 +1,8 @@
-# woocommerce/product-pricing-field
+# poocommerce/product-pricing-field
 
 A product price block with currency display.
 
-![Product pricing field](https://woocommerce.files.wordpress.com/2023/09/woocommerceproduct-pricing-field.png)
+![Product pricing field](https://poocommerce.files.wordpress.com/2023/09/poocommerceproduct-pricing-field.png)
 
 ## Attributes
 
@@ -46,10 +46,10 @@ if ( ! function_exists( 'add_pricing_field' ) ) {
     $product_summary_field->get_parent()->add_block(
       [
         'id'         => 'example-pricing-field',
-        'blockName'  => 'woocommerce/product-pricing-field',
+        'blockName'  => 'poocommerce/product-pricing-field',
         'order'      => $product_summary_field->get_order() + 5,
         'attributes' => [
-          'label'    => __( 'Example price field', 'woocommerce'),
+          'label'    => __( 'Example price field', 'poocommerce'),
           'property' => 'custom_price',
           'help'     => 'This is a help text',
           'tooltip'  => 'This is a tooltip',
@@ -62,7 +62,7 @@ if ( ! function_exists( 'add_pricing_field' ) ) {
 if ( ! function_exists( 'example_hook_up_block_template_modifications_pricing' ) ) {
   function example_hook_up_block_template_modifications_pricing() {
     add_action(
-      'woocommerce_block_template_area_product-form_after_add_block_product-summary',
+      'poocommerce_block_template_area_product-form_after_add_block_product-summary',
       'add_pricing_field'
     );
   }

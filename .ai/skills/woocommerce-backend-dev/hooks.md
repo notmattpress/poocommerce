@@ -8,22 +8,22 @@ Name hook callback methods: `handle_{hook_name}` with `@internal` annotation.
 
 ```php
 /**
- * Handle the woocommerce_init hook.
+ * Handle the poocommerce_init hook.
  *
  * @internal
  */
-public function handle_woocommerce_init() {
+public function handle_poocommerce_init() {
     // Initialize components
 }
 
 /**
- * Handle the woocommerce_before_checkout hook.
+ * Handle the poocommerce_before_checkout hook.
  *
  * @internal
  *
  * @param WC_Checkout $checkout The checkout object.
  */
-public function handle_woocommerce_before_checkout( $checkout ) {
+public function handle_poocommerce_before_checkout( $checkout ) {
     // Setup checkout process
 }
 ```
@@ -45,7 +45,7 @@ If you modify a line that fires a hook without a docblock:
  *
  * @since 8.2.0
  */
-do_action( 'woocommerce_order_processed', $order_id, $order_data );
+do_action( 'poocommerce_order_processed', $order_id, $order_data );
 ```
 
 ## Hook Documentation Requirements
@@ -55,7 +55,7 @@ All hooks must have docblocks that include:
 - Description of when the hook fires
 - `@param` tags for each parameter passed to the hook
 - `@since` annotation with the version number (last line, with blank line before)
-    - For new hooks: Use the version from `includes/class-woocommerce.php` on trunk, removing `-dev` suffix
+    - For new hooks: Use the version from `includes/class-poocommerce.php` on trunk, removing `-dev` suffix
     - For existing hooks: Use `git log -S "hook_name"` to find when it was introduced
 
 **Action hook example:**
@@ -69,7 +69,7 @@ All hooks must have docblocks that include:
  *
  * @since 9.5.0
  */
-do_action( 'woocommerce_product_saved', $product_id, $product );
+do_action( 'poocommerce_product_saved', $product_id, $product );
 ```
 
 **Filter hook example:**
@@ -83,5 +83,5 @@ do_action( 'woocommerce_product_saved', $product_id, $product );
  *
  * @since 9.5.0
  */
-$price = apply_filters( 'woocommerce_product_price', $price, $product );
+$price = apply_filters( 'poocommerce_product_price', $price, $product );
 ```

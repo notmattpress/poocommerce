@@ -1,9 +1,9 @@
 /*!
  * SelectWoo 1.0.10
- * https://github.com/woocommerce/selectWoo
+ * https://github.com/poocommerce/selectWoo
  *
  * Released under the MIT license
- * https://github.com/woocommerce/selectWoo/blob/master/LICENSE.md
+ * https://github.com/poocommerce/selectWoo/blob/master/LICENSE.md
  */
 (function (factory) {
   if (typeof define === 'function' && define.amd) {

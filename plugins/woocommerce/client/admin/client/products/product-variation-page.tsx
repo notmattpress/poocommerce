@@ -10,10 +10,10 @@ import {
 	TRACKS_SOURCE,
 	__experimentalVariationSwitcherFooter as VariationSwitcherFooter,
 	__experimentalProductMVPFeedbackModalContainer as ProductMVPFeedbackModalContainer,
-} from '@woocommerce/product-editor';
-import { recordEvent } from '@woocommerce/tracks';
+} from '@poocommerce/product-editor';
+import { recordEvent } from '@poocommerce/tracks';
 import { useEffect } from '@wordpress/element';
-import { WooFooterItem } from '@woocommerce/admin-layout';
+import { WooFooterItem } from '@poocommerce/admin-layout';
 import { registerPlugin, unregisterPlugin } from '@wordpress/plugins';
 import { useParams } from 'react-router-dom';
 import { Spinner } from '@wordpress/components';
@@ -37,7 +37,7 @@ export default function ProductPage() {
 
 	useEffect( () => {
 		registerPlugin( 'wc-admin-more-menu', {
-			scope: 'woocommerce-product-block-editor',
+			scope: 'poocommerce-product-block-editor',
 			render: () => (
 				<>
 					<WooProductMoreMenuItem>
@@ -81,9 +81,9 @@ export default function ProductPage() {
 
 	if ( ! variation ) {
 		return (
-			<div className="woocommerce-layout__loading">
+			<div className="poocommerce-layout__loading">
 				<Spinner
-					aria-label={ __( 'Creating the product', 'woocommerce' ) }
+					aria-label={ __( 'Creating the product', 'poocommerce' ) }
 				/>
 			</div>
 		);

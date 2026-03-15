@@ -78,7 +78,7 @@ module.exports = function ( grunt ) {
 
 		// Generate RTL .css files.
 		rtlcss: {
-			woocommerce: {
+			poocommerce: {
 				expand: true,
 				cwd: '<%= dirs.css %>',
 				src: [ '*.css', '!select2.css', '!*-rtl.css' ],

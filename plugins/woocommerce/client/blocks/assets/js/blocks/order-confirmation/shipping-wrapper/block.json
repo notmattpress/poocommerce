@@ -1,11 +1,11 @@
 {
-	"name": "woocommerce/order-confirmation-shipping-wrapper",
+	"name": "poocommerce/order-confirmation-shipping-wrapper",
 	"version": "1.0.0",
 	"title": "Shipping Address Section",
 	"description": "Display the order confirmation shipping section.",
-	"category": "woocommerce",
+	"category": "poocommerce",
 	"keywords": [
-		"WooCommerce"
+		"PooCommerce"
 	],
 	"attributes": {
 		"heading": {
@@ -29,7 +29,7 @@
 			}
 		}
 	},
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"apiVersion": 3,
 	"$schema": "https://schemas.wp.org/trunk/block.json"
 }

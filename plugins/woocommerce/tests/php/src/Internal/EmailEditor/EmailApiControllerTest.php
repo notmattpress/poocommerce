@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Internal\EmailEditor;
+namespace Automattic\PooCommerce\Tests\Internal\EmailEditor;
 
-use Automattic\WooCommerce\Internal\EmailEditor\EmailApiController;
-use Automattic\WooCommerce\Internal\EmailEditor\Integration;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsGenerator;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsManager;
+use Automattic\PooCommerce\Internal\EmailEditor\EmailApiController;
+use Automattic\PooCommerce\Internal\EmailEditor\Integration;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsGenerator;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsManager;
 
 require_once 'EmailStub.php';
 
@@ -35,7 +35,7 @@ class EmailApiControllerTest extends \WC_Unit_Test_Case {
 	 */
 	public function setUp(): void {
 		parent::setUp();
-		add_option( 'woocommerce_feature_block_email_editor_enabled', 'yes' );
+		add_option( 'poocommerce_feature_block_email_editor_enabled', 'yes' );
 		// Create a test email post.
 		$this->email_post = $this->factory()->post->create_and_get(
 			array(
@@ -61,8 +61,8 @@ class EmailApiControllerTest extends \WC_Unit_Test_Case {
 	 */
 	public function tearDown(): void {
 		parent::tearDown();
-		update_option( 'woocommerce_feature_block_email_editor_enabled', 'no' );
-		delete_option( 'woocommerce_' . $this->email_type . '_settings' );
+		update_option( 'poocommerce_feature_block_email_editor_enabled', 'no' );
+		delete_option( 'poocommerce_' . $this->email_type . '_settings' );
 	}
 
 	/**
@@ -150,7 +150,7 @@ class EmailApiControllerTest extends \WC_Unit_Test_Case {
 			'bcc'       => 'bcc@example.com',
 		);
 		$controller->save_email_data( $data, $this->email_post );
-		$option = get_option( 'woocommerce_' . $this->email_type . '_settings' );
+		$option = get_option( 'poocommerce_' . $this->email_type . '_settings' );
 		$this->assertEquals( 'Updated Subject', $option['subject'] );
 		$this->assertEquals( 'Updated Preheader', $option['preheader'] );
 		$this->assertEquals( 'recipient@example.com', $option['recipient'] );
@@ -295,13 +295,13 @@ class EmailApiControllerTest extends \WC_Unit_Test_Case {
 			)
 		);
 
-		$request = new \WP_REST_Request( 'GET', '/woocommerce-email-editor/v1/emails/' . $unassociated_post->ID . '/default-content' );
+		$request = new \WP_REST_Request( 'GET', '/poocommerce-email-editor/v1/emails/' . $unassociated_post->ID . '/default-content' );
 		$request->set_param( 'id', $unassociated_post->ID );
 
 		$result = $this->email_api_controller->get_default_content_response( $request );
 
 		$this->assertInstanceOf( \WP_Error::class, $result );
-		$this->assertSame( 'woocommerce_email_not_found', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_email_not_found', $result->get_error_code() );
 		$this->assertSame( 404, $result->get_error_data()['status'] );
 	}
 
@@ -328,7 +328,7 @@ class EmailApiControllerTest extends \WC_Unit_Test_Case {
 		$property->setAccessible( true );
 		$property->setValue( $controller, $mock_generator );
 
-		$request = new \WP_REST_Request( 'GET', '/woocommerce-email-editor/v1/emails/' . $this->email_post->ID . '/default-content' );
+		$request = new \WP_REST_Request( 'GET', '/poocommerce-email-editor/v1/emails/' . $this->email_post->ID . '/default-content' );
 		$request->set_param( 'id', $this->email_post->ID );
 
 		$result = $controller->get_default_content_response( $request );

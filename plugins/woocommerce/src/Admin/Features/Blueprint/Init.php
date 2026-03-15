@@ -2,33 +2,33 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Admin\Features\Blueprint;
+namespace Automattic\PooCommerce\Admin\Features\Blueprint;
 
-use Automattic\WooCommerce\Admin\Features\Blueprint\Exporters\ExportWCPaymentGateways;
-use Automattic\WooCommerce\Admin\Features\Blueprint\Exporters\ExportWCSettingsAccount;
-use Automattic\WooCommerce\Admin\Features\Blueprint\Exporters\ExportWCSettingsAdvanced;
-use Automattic\WooCommerce\Admin\Features\Blueprint\Exporters\ExportWCSettingsEmails;
-use Automattic\WooCommerce\Admin\Features\Blueprint\Exporters\ExportWCSettingsGeneral;
-use Automattic\WooCommerce\Admin\Features\Blueprint\Exporters\ExportWCSettingsTax;
-use Automattic\WooCommerce\Admin\Features\Blueprint\Exporters\ExportWCSettingsIntegrations;
-use Automattic\WooCommerce\Admin\Features\Blueprint\Exporters\ExportWCSettingsProducts;
-use Automattic\WooCommerce\Admin\Features\Blueprint\Exporters\ExportWCSettingsSiteVisibility;
-use Automattic\WooCommerce\Admin\Features\Blueprint\Exporters\ExportWCSettingsShipping;
-use Automattic\WooCommerce\Admin\PageController;
-use Automattic\WooCommerce\Blueprint\Exporters\HasAlias;
-use Automattic\WooCommerce\Blueprint\Exporters\StepExporter;
-use Automattic\WooCommerce\Blueprint\UseWPFunctions;
+use Automattic\PooCommerce\Admin\Features\Blueprint\Exporters\ExportWCPaymentGateways;
+use Automattic\PooCommerce\Admin\Features\Blueprint\Exporters\ExportWCSettingsAccount;
+use Automattic\PooCommerce\Admin\Features\Blueprint\Exporters\ExportWCSettingsAdvanced;
+use Automattic\PooCommerce\Admin\Features\Blueprint\Exporters\ExportWCSettingsEmails;
+use Automattic\PooCommerce\Admin\Features\Blueprint\Exporters\ExportWCSettingsGeneral;
+use Automattic\PooCommerce\Admin\Features\Blueprint\Exporters\ExportWCSettingsTax;
+use Automattic\PooCommerce\Admin\Features\Blueprint\Exporters\ExportWCSettingsIntegrations;
+use Automattic\PooCommerce\Admin\Features\Blueprint\Exporters\ExportWCSettingsProducts;
+use Automattic\PooCommerce\Admin\Features\Blueprint\Exporters\ExportWCSettingsSiteVisibility;
+use Automattic\PooCommerce\Admin\Features\Blueprint\Exporters\ExportWCSettingsShipping;
+use Automattic\PooCommerce\Admin\PageController;
+use Automattic\PooCommerce\Blueprint\Exporters\HasAlias;
+use Automattic\PooCommerce\Blueprint\Exporters\StepExporter;
+use Automattic\PooCommerce\Blueprint\UseWPFunctions;
 
 /**
  * Class Init
  *
- * This class initializes the Blueprint feature for WooCommerce.
+ * This class initializes the Blueprint feature for PooCommerce.
  */
 class Init {
 	use UseWPFunctions;
 
-	const INSTALLED_WP_ORG_PLUGINS_TRANSIENT = 'woocommerce_blueprint_installed_wp_org_plugins';
-	const INSTALLED_WP_ORG_THEMES_TRANSIENT  = 'woocommerce_blueprint_installed_wp_org_themes';
+	const INSTALLED_WP_ORG_PLUGINS_TRANSIENT = 'poocommerce_blueprint_installed_wp_org_plugins';
+	const INSTALLED_WP_ORG_THEMES_TRANSIENT  = 'poocommerce_blueprint_installed_wp_org_themes';
 	/**
 	 * Array of initialized exporters.
 	 *
@@ -41,7 +41,7 @@ class Init {
 	 */
 	public function __construct() {
 		add_action( 'rest_api_init', array( $this, 'init_rest_api' ) );
-		add_filter( 'woocommerce_admin_shared_settings', array( $this, 'add_js_vars' ) );
+		add_filter( 'poocommerce_admin_shared_settings', array( $this, 'add_js_vars' ) );
 
 		add_filter(
 			'wooblueprint_export_landingpage',
@@ -197,8 +197,8 @@ class Init {
 		return array(
 			array(
 				'id'          => 'settings',
-				'description' => __( 'Includes all the items featured in WooCommerce | Settings.', 'woocommerce' ),
-				'label'       => __( 'WooCommerce Settings', 'woocommerce' ),
+				'description' => __( 'Includes all the items featured in PooCommerce | Settings.', 'poocommerce' ),
+				'label'       => __( 'PooCommerce Settings', 'poocommerce' ),
 				'icon'        => 'settings',
 				'items'       => array_map(
 					function ( $exporter ) {
@@ -214,15 +214,15 @@ class Init {
 			),
 			array(
 				'id'          => 'plugins',
-				'description' => __( 'Includes all the installed plugins.', 'woocommerce' ),
-				'label'       => __( 'Plugins', 'woocommerce' ),
+				'description' => __( 'Includes all the installed plugins.', 'poocommerce' ),
+				'label'       => __( 'Plugins', 'poocommerce' ),
 				'icon'        => 'plugins',
 				'items'       => $this->get_plugins_for_export_group(),
 			),
 			array(
 				'id'          => 'themes',
-				'description' => __( 'Includes all the installed themes.', 'woocommerce' ),
-				'label'       => __( 'Themes', 'woocommerce' ),
+				'description' => __( 'Includes all the installed themes.', 'poocommerce' ),
+				'label'       => __( 'Themes', 'poocommerce' ),
 				'icon'        => 'layout',
 				'items'       => $this->get_themes_for_export_group(),
 			),
@@ -241,7 +241,7 @@ class Init {
 			return $settings;
 		}
 
-		if ( 'woocommerce_page_wc-settings-advanced-blueprint' === PageController::get_instance()->get_current_screen_id() ) {
+		if ( 'poocommerce_page_wc-settings-advanced-blueprint' === PageController::get_instance()->get_current_screen_id() ) {
 			// Used on the settings page.
 			// wcSettings.admin.blueprint_step_groups.
 			$settings['blueprint_step_groups']         = $this->get_step_groups_for_js();
@@ -273,7 +273,7 @@ class Init {
 			/**
 			 * Apply the WP Core "wp_plugin_dependencies_slug" filter to get the correct plugin slug.
 			 */
-			$slug = apply_filters( 'wp_plugin_dependencies_slug', $slug ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingSinceComment
+			$slug = apply_filters( 'wp_plugin_dependencies_slug', $slug ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingSinceComment
 
 			$plugin_slugs[]              = $slug;
 			$all_plugins[ $key ]['slug'] = $slug;

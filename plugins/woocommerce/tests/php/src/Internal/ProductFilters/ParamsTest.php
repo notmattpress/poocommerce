@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Internal\ProductFilters;
+namespace Automattic\PooCommerce\Tests\Internal\ProductFilters;
 
-use Automattic\WooCommerce\Internal\ProductFilters\Params;
+use Automattic\PooCommerce\Internal\ProductFilters\Params;
 
 require_once WC_ABSPATH . '/includes/class-wc-brands.php';
 

@@ -1,23 +1,23 @@
 <?php
 /**
- * WooCommerce Product Functions
+ * PooCommerce Product Functions
  *
  * Functions for product specific things.
  *
- * @package WooCommerce\Functions
+ * @package PooCommerce\Functions
  * @version 3.0.0
  */
 
 use Automattic\Jetpack\Constants;
-use Automattic\WooCommerce\Enums\ProductStatus;
-use Automattic\WooCommerce\Enums\ProductStockStatus;
-use Automattic\WooCommerce\Enums\ProductType;
-use Automattic\WooCommerce\Enums\CatalogVisibility;
-use Automattic\WooCommerce\Internal\Utilities\ProductUtil;
-use Automattic\WooCommerce\Proxies\LegacyProxy;
-use Automattic\WooCommerce\Utilities\ArrayUtil;
-use Automattic\WooCommerce\Utilities\NumberUtil;
-use Automattic\WooCommerce\Internal\ProductImage\MatchImageBySKU;
+use Automattic\PooCommerce\Enums\ProductStatus;
+use Automattic\PooCommerce\Enums\ProductStockStatus;
+use Automattic\PooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Enums\CatalogVisibility;
+use Automattic\PooCommerce\Internal\Utilities\ProductUtil;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\Utilities\ArrayUtil;
+use Automattic\PooCommerce\Utilities\NumberUtil;
+use Automattic\PooCommerce\Internal\ProductImage\MatchImageBySKU;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -27,7 +27,7 @@ defined( 'ABSPATH' ) || exit;
  * This function should be used for product retrieval so that we have a data agnostic
  * way to get a list of products.
  *
- * Args and usage: https://developer.woocommerce.com/docs/extensions/core-concepts/wc-get-products/
+ * Args and usage: https://developer.poocommerce.com/docs/extensions/core-concepts/wc-get-products/
  *
  * @since  3.0.0
  * @param  array $args Array of args (above).
@@ -67,9 +67,9 @@ function wc_get_products( $args ) {
  * @return WC_Product|null|false
  */
 function wc_get_product( $the_product = false, $deprecated = array() ) {
-	if ( ! did_action( 'woocommerce_init' ) || ! did_action( 'woocommerce_after_register_taxonomy' ) || ! did_action( 'woocommerce_after_register_post_type' ) ) {
-		/* translators: 1: wc_get_product 2: woocommerce_init 3: woocommerce_after_register_taxonomy 4: woocommerce_after_register_post_type */
-		wc_doing_it_wrong( __FUNCTION__, sprintf( __( '%1$s should not be called before the %2$s, %3$s and %4$s actions have finished.', 'woocommerce' ), 'wc_get_product', 'woocommerce_init', 'woocommerce_after_register_taxonomy', 'woocommerce_after_register_post_type' ), '3.9' );
+	if ( ! did_action( 'poocommerce_init' ) || ! did_action( 'poocommerce_after_register_taxonomy' ) || ! did_action( 'poocommerce_after_register_post_type' ) ) {
+		/* translators: 1: wc_get_product 2: poocommerce_init 3: poocommerce_after_register_taxonomy 4: poocommerce_after_register_post_type */
+		wc_doing_it_wrong( __FUNCTION__, sprintf( __( '%1$s should not be called before the %2$s, %3$s and %4$s actions have finished.', 'poocommerce' ), 'wc_get_product', 'poocommerce_init', 'poocommerce_after_register_taxonomy', 'poocommerce_after_register_post_type' ), '3.9' );
 		return false;
 	}
 	if ( ! empty( $deprecated ) ) {
@@ -143,10 +143,10 @@ function wc_delete_product_transients( $post_id = 0 ) {
 		wc_get_container()->get( ProductUtil::class )->delete_product_specific_transients( $post_id );
 	}
 
-	// Kept for compatibility, WooCommerce core doesn't use product transient versions anymore.
+	// Kept for compatibility, PooCommerce core doesn't use product transient versions anymore.
 	WC_Cache_Helper::get_transient_version( 'product', true );
 
-	do_action( 'woocommerce_delete_product_transients', $post_id );
+	do_action( 'poocommerce_delete_product_transients', $post_id );
 }
 
 /**
@@ -335,7 +335,7 @@ function wc_product_post_type_link( $permalink, $post ) {
 					 *
 					 * @param bool $use_parent_only Whether to use only the top-level parent category. Default false.
 					 */
-					if ( apply_filters( 'woocommerce_product_post_type_link_parent_category_only', false ) ) {
+					if ( apply_filters( 'poocommerce_product_post_type_link_parent_category_only', false ) ) {
 						$product_cat = $ancestor_object->slug;
 					} else {
 						$product_cat = $ancestor_object->slug . '/' . $product_cat;
@@ -344,7 +344,7 @@ function wc_product_post_type_link( $permalink, $post ) {
 			}
 		} else {
 			// If no terms are assigned to this post, use a string instead (can't leave the placeholder there).
-			$product_cat = _x( 'uncategorized', 'slug', 'woocommerce' );
+			$product_cat = _x( 'uncategorized', 'slug', 'poocommerce' );
 		}
 	}
 
@@ -389,7 +389,7 @@ function wc_product_canonical_redirect(): void {
 	global $wp_rewrite;
 
 	if (
-		! did_action( 'woocommerce_init' )
+		! did_action( 'poocommerce_init' )
 		|| ! is_product()
 		|| ! is_a( $wp_rewrite, WP_Rewrite::class )
 	) {
@@ -427,9 +427,9 @@ add_action( 'template_redirect', 'wc_product_canonical_redirect', 5 );
  * @param string $size Thumbnail size to use.
  * @return string
  */
-function wc_placeholder_img_src( $size = 'woocommerce_thumbnail' ) {
+function wc_placeholder_img_src( $size = 'poocommerce_thumbnail' ) {
 	$src               = WC()->plugin_url() . '/assets/images/placeholder.webp';
-	$placeholder_image = get_option( 'woocommerce_placeholder_image', 0 );
+	$placeholder_image = get_option( 'poocommerce_placeholder_image', 0 );
 
 	if ( ! empty( $placeholder_image ) ) {
 		if ( is_numeric( $placeholder_image ) ) {
@@ -443,7 +443,7 @@ function wc_placeholder_img_src( $size = 'woocommerce_thumbnail' ) {
 		}
 	}
 
-	return apply_filters( 'woocommerce_placeholder_img_src', $src );
+	return apply_filters( 'poocommerce_placeholder_img_src', $src );
 }
 
 /**
@@ -455,13 +455,13 @@ function wc_placeholder_img_src( $size = 'woocommerce_thumbnail' ) {
  * @param string|array $attr Optional. Attributes for the image markup. Default empty.
  * @return string
  */
-function wc_placeholder_img( $size = 'woocommerce_thumbnail', $attr = '' ) {
+function wc_placeholder_img( $size = 'poocommerce_thumbnail', $attr = '' ) {
 	$dimensions        = wc_get_image_size( $size );
-	$placeholder_image = get_option( 'woocommerce_placeholder_image', 0 );
+	$placeholder_image = get_option( 'poocommerce_placeholder_image', 0 );
 
 	$default_attr = array(
-		'class' => 'woocommerce-placeholder wp-post-image',
-		'alt'   => __( 'Placeholder', 'woocommerce' ),
+		'class' => 'poocommerce-placeholder wp-post-image',
+		'alt'   => __( 'Placeholder', 'poocommerce' ),
 	);
 
 	$attr = wp_parse_args( $attr, $default_attr );
@@ -485,7 +485,7 @@ function wc_placeholder_img( $size = 'woocommerce_thumbnail', $attr = '' ) {
 		$image_html = '<img src="' . esc_url( $image ) . '" ' . $hwstring . implode( ' ', $attributes ) . '/>';
 	}
 
-	return apply_filters( 'woocommerce_placeholder_img', $image_html, $size, $dimensions );
+	return apply_filters( 'poocommerce_placeholder_img', $image_html, $size, $dimensions );
 }
 
 /**
@@ -590,7 +590,7 @@ function wc_schedule_product_sale_events( WC_Product $product ): void {
 				$start_ts,
 				'wc_product_start_scheduled_sale',
 				array( 'product_id' => $product_id ),
-				'woocommerce-sales'
+				'poocommerce-sales'
 			);
 		}
 	}
@@ -602,7 +602,7 @@ function wc_schedule_product_sale_events( WC_Product $product ): void {
 				$end_ts,
 				'wc_product_end_scheduled_sale',
 				array( 'product_id' => $product_id ),
-				'woocommerce-sales'
+				'poocommerce-sales'
 			);
 		}
 	}
@@ -754,8 +754,8 @@ function wc_maybe_schedule_product_sale_events( $product_id, $product = null ): 
 	$product_id = $product->get_id();
 
 	// Always clear existing events first.
-	as_unschedule_all_actions( 'wc_product_start_scheduled_sale', array( 'product_id' => $product_id ), 'woocommerce-sales' );
-	as_unschedule_all_actions( 'wc_product_end_scheduled_sale', array( 'product_id' => $product_id ), 'woocommerce-sales' );
+	as_unschedule_all_actions( 'wc_product_start_scheduled_sale', array( 'product_id' => $product_id ), 'poocommerce-sales' );
+	as_unschedule_all_actions( 'wc_product_end_scheduled_sale', array( 'product_id' => $product_id ), 'poocommerce-sales' );
 
 	$date_from = $product->get_date_on_sale_from( 'edit' );
 	$date_to   = $product->get_date_on_sale_to( 'edit' );
@@ -764,8 +764,8 @@ function wc_maybe_schedule_product_sale_events( $product_id, $product = null ): 
 		wc_schedule_product_sale_events( $product );
 	}
 }
-add_action( 'woocommerce_update_product', 'wc_maybe_schedule_product_sale_events', 10, 2 );
-add_action( 'woocommerce_new_product', 'wc_maybe_schedule_product_sale_events', 10, 2 );
+add_action( 'poocommerce_update_product', 'wc_maybe_schedule_product_sale_events', 10, 2 );
+add_action( 'poocommerce_new_product', 'wc_maybe_schedule_product_sale_events', 10, 2 );
 
 /**
  * Function which handles the start and end of scheduled sales via cron.
@@ -779,7 +779,7 @@ add_action( 'woocommerce_new_product', 'wc_maybe_schedule_product_sale_events', 
  * 2. Handle products created before the AS events were introduced
  *
  * This function is kept for backwards compatibility. Extenders may hook into the
- * `woocommerce_scheduled_sales` cron event or the before/after hooks fired within.
+ * `poocommerce_scheduled_sales` cron event or the before/after hooks fired within.
  *
  * Note: The before/after hooks (wc_before_products_starting_sales, etc.) only fire
  * when this cron finds products to process. If per-product AS events handled sales
@@ -805,7 +805,7 @@ function wc_scheduled_sales() {
 			if ( $product ) {
 				wc_apply_sale_state_for_product( $product, 'start' );
 				// Note: wc_apply_sale_state_for_product() calls save(), which triggers
-				// woocommerce_update_product hook, which schedules the end AS event.
+				// poocommerce_update_product hook, which schedules the end AS event.
 			}
 
 			$product_util->delete_product_specific_transients( $product ? $product : $product_id );
@@ -834,11 +834,11 @@ function wc_scheduled_sales() {
 	}
 
 	if ( $must_refresh_transient ) {
-		// Kept for compatibility, WooCommerce core doesn't use product transient versions anymore.
+		// Kept for compatibility, PooCommerce core doesn't use product transient versions anymore.
 		WC_Cache_Helper::get_transient_version( 'product', true );
 	}
 }
-add_action( 'woocommerce_scheduled_sales', 'wc_scheduled_sales' );
+add_action( 'poocommerce_scheduled_sales', 'wc_scheduled_sales' );
 
 /**
  * Get attachment image attributes.
@@ -848,10 +848,10 @@ add_action( 'woocommerce_scheduled_sales', 'wc_scheduled_sales' );
  */
 function wc_get_attachment_image_attributes( $attr ) {
 	/*
-	 * If the user can manage woocommerce, allow them to
+	 * If the user can manage poocommerce, allow them to
 	 * see the image content.
 	 */
-	if ( current_user_can( 'manage_woocommerce' ) ) {
+	if ( current_user_can( 'manage_poocommerce' ) ) {
 		return $attr;
 	}
 
@@ -860,7 +860,7 @@ function wc_get_attachment_image_attributes( $attr ) {
 	 * filter out the image source and replace with placeholder
 	 * image.
 	 */
-	if ( isset( $attr['src'] ) && strstr( $attr['src'], 'woocommerce_uploads/' ) ) {
+	if ( isset( $attr['src'] ) && strstr( $attr['src'], 'poocommerce_uploads/' ) ) {
 		$attr['src'] = wc_placeholder_img_src();
 
 		if ( isset( $attr['srcset'] ) ) {
@@ -880,10 +880,10 @@ add_filter( 'wp_get_attachment_image_attributes', 'wc_get_attachment_image_attri
  */
 function wc_prepare_attachment_for_js( $response ) {
 	/*
-	 * If the user can manage woocommerce, allow them to
+	 * If the user can manage poocommerce, allow them to
 	 * see the image content.
 	 */
-	if ( current_user_can( 'manage_woocommerce' ) ) {
+	if ( current_user_can( 'manage_poocommerce' ) ) {
 		return $response;
 	}
 
@@ -892,7 +892,7 @@ function wc_prepare_attachment_for_js( $response ) {
 	 * filter out the image source and replace with placeholder
 	 * image.
 	 */
-	if ( isset( $response['url'] ) && strstr( $response['url'], 'woocommerce_uploads/' ) ) {
+	if ( isset( $response['url'] ) && strstr( $response['url'], 'poocommerce_uploads/' ) ) {
 		$response['full']['url'] = wc_placeholder_img_src();
 		if ( isset( $response['sizes'] ) ) {
 			foreach ( $response['sizes'] as $size => $value ) {
@@ -909,16 +909,16 @@ add_filter( 'wp_prepare_attachment_for_js', 'wc_prepare_attachment_for_js' );
  * Track product views.
  */
 function wc_track_product_view() {
-	if ( ! is_singular( 'product' ) || ! is_active_widget( false, false, 'woocommerce_recently_viewed_products', true ) ) {
+	if ( ! is_singular( 'product' ) || ! is_active_widget( false, false, 'poocommerce_recently_viewed_products', true ) ) {
 		return;
 	}
 
 	global $post;
 
-	if ( empty( $_COOKIE['woocommerce_recently_viewed'] ) ) { // @codingStandardsIgnoreLine.
+	if ( empty( $_COOKIE['poocommerce_recently_viewed'] ) ) { // @codingStandardsIgnoreLine.
 		$viewed_products = array();
 	} else {
-		$viewed_products = wp_parse_id_list( (array) explode( '|', wp_unslash( $_COOKIE['woocommerce_recently_viewed'] ) ) ); // @codingStandardsIgnoreLine.
+		$viewed_products = wp_parse_id_list( (array) explode( '|', wp_unslash( $_COOKIE['poocommerce_recently_viewed'] ) ) ); // @codingStandardsIgnoreLine.
 	}
 
 	// Unset if already in viewed products list.
@@ -935,7 +935,7 @@ function wc_track_product_view() {
 	}
 
 	// Store for session only.
-	wc_setcookie( 'woocommerce_recently_viewed', implode( '|', $viewed_products ) );
+	wc_setcookie( 'poocommerce_recently_viewed', implode( '|', $viewed_products ) );
 }
 
 add_action( 'template_redirect', 'wc_track_product_view', 20 );
@@ -950,10 +950,10 @@ function wc_get_product_types() {
 	return (array) apply_filters(
 		'product_type_selector',
 		array(
-			ProductType::SIMPLE   => __( 'Simple product', 'woocommerce' ),
-			ProductType::GROUPED  => __( 'Grouped product', 'woocommerce' ),
-			ProductType::EXTERNAL => __( 'External/Affiliate product', 'woocommerce' ),
-			ProductType::VARIABLE => __( 'Variable product', 'woocommerce' ),
+			ProductType::SIMPLE   => __( 'Simple product', 'poocommerce' ),
+			ProductType::GROUPED  => __( 'Grouped product', 'poocommerce' ),
+			ProductType::EXTERNAL => __( 'External/Affiliate product', 'poocommerce' ),
+			ProductType::VARIABLE => __( 'Variable product', 'poocommerce' ),
 		)
 	);
 }
@@ -1228,7 +1228,7 @@ function wc_get_product_attachment_props( $attachment_id = null, $product = fals
 		 *
 		 * @since 2.6.0
 		 */
-		$full_size           = apply_filters( 'woocommerce_gallery_full_size', apply_filters( 'woocommerce_product_thumbnails_large_size', 'full' ) );
+		$full_size           = apply_filters( 'poocommerce_gallery_full_size', apply_filters( 'poocommerce_product_thumbnails_large_size', 'full' ) );
 		$src                 = wp_get_attachment_image_src( $attachment_id, $full_size );
 		$props['full_src']   = $src[0] ?? null;
 		$props['full_src_w'] = $src[1] ?? null;
@@ -1242,7 +1242,7 @@ function wc_get_product_attachment_props( $attachment_id = null, $product = fals
 		 *
 		 * @since 2.6.0
 		 */
-		$gallery_thumbnail_size           = apply_filters( 'woocommerce_gallery_thumbnail_size', array( $gallery_thumbnail['width'], $gallery_thumbnail['height'] ) );
+		$gallery_thumbnail_size           = apply_filters( 'poocommerce_gallery_thumbnail_size', array( $gallery_thumbnail['width'], $gallery_thumbnail['height'] ) );
 		$src                              = wp_get_attachment_image_src( $attachment_id, $gallery_thumbnail_size );
 		$props['gallery_thumbnail_src']   = $src[0] ?? null;
 		$props['gallery_thumbnail_src_w'] = $src[1] ?? null;
@@ -1255,7 +1255,7 @@ function wc_get_product_attachment_props( $attachment_id = null, $product = fals
 		 *
 		 * @since 2.6.0
 		 */
-		$thumbnail_size       = apply_filters( 'woocommerce_thumbnail_size', 'woocommerce_thumbnail' );
+		$thumbnail_size       = apply_filters( 'poocommerce_thumbnail_size', 'poocommerce_thumbnail' );
 		$src                  = wp_get_attachment_image_src( $attachment_id, $thumbnail_size );
 		$props['thumb_src']   = $src[0] ?? null;
 		$props['thumb_src_w'] = $src[1] ?? null;
@@ -1268,7 +1268,7 @@ function wc_get_product_attachment_props( $attachment_id = null, $product = fals
 		 *
 		 * @since 2.6.0
 		 */
-		$image_size      = apply_filters( 'woocommerce_gallery_image_size', 'woocommerce_single' );
+		$image_size      = apply_filters( 'poocommerce_gallery_image_size', 'poocommerce_single' );
 		$src             = wp_get_attachment_image_src( $attachment_id, $image_size );
 		$props['src']    = $src[0] ?? null;
 		$props['src_w']  = $src[1] ?? null;
@@ -1287,12 +1287,12 @@ function wc_get_product_attachment_props( $attachment_id = null, $product = fals
  */
 function wc_get_product_visibility_options() {
 	return apply_filters(
-		'woocommerce_product_visibility_options',
+		'poocommerce_product_visibility_options',
 		array(
-			CatalogVisibility::VISIBLE => __( 'Shop and search results', 'woocommerce' ),
-			CatalogVisibility::CATALOG => __( 'Shop only', 'woocommerce' ),
-			CatalogVisibility::SEARCH  => __( 'Search results only', 'woocommerce' ),
-			CatalogVisibility::HIDDEN  => __( 'Hidden', 'woocommerce' ),
+			CatalogVisibility::VISIBLE => __( 'Shop and search results', 'poocommerce' ),
+			CatalogVisibility::CATALOG => __( 'Shop only', 'poocommerce' ),
+			CatalogVisibility::SEARCH  => __( 'Search results only', 'poocommerce' ),
+			CatalogVisibility::HIDDEN  => __( 'Hidden', 'poocommerce' ),
 		)
 	);
 }
@@ -1306,7 +1306,7 @@ function wc_get_product_visibility_options() {
 function wc_get_product_tax_class_options() {
 	$tax_classes           = WC_Tax::get_tax_classes();
 	$tax_class_options     = array();
-	$tax_class_options[''] = __( 'Standard', 'woocommerce' );
+	$tax_class_options[''] = __( 'Standard', 'poocommerce' );
 
 	if ( ! empty( $tax_classes ) ) {
 		foreach ( $tax_classes as $class ) {
@@ -1324,11 +1324,11 @@ function wc_get_product_tax_class_options() {
  */
 function wc_get_product_stock_status_options() {
 	return apply_filters(
-		'woocommerce_product_stock_status_options',
+		'poocommerce_product_stock_status_options',
 		array(
-			ProductStockStatus::IN_STOCK     => __( 'In stock', 'woocommerce' ),
-			ProductStockStatus::OUT_OF_STOCK => __( 'Out of stock', 'woocommerce' ),
-			ProductStockStatus::ON_BACKORDER => __( 'On backorder', 'woocommerce' ),
+			ProductStockStatus::IN_STOCK     => __( 'In stock', 'poocommerce' ),
+			ProductStockStatus::OUT_OF_STOCK => __( 'Out of stock', 'poocommerce' ),
+			ProductStockStatus::ON_BACKORDER => __( 'On backorder', 'poocommerce' ),
 		)
 	);
 }
@@ -1341,9 +1341,9 @@ function wc_get_product_stock_status_options() {
  */
 function wc_get_product_backorder_options() {
 	return array(
-		'no'     => __( 'Do not allow', 'woocommerce' ),
-		'notify' => __( 'Allow, but notify customer', 'woocommerce' ),
-		'yes'    => __( 'Allow', 'woocommerce' ),
+		'no'     => __( 'Do not allow', 'poocommerce' ),
+		'notify' => __( 'Allow, but notify customer', 'poocommerce' ),
+		'yes'    => __( 'Allow', 'poocommerce' ),
 	);
 }
 
@@ -1396,11 +1396,11 @@ function wc_get_related_products( $product_id, $limit = 5, $exclude_ids = array(
 	// We want to query related posts if they are not cached, or we don't have enough.
 	if ( false === $related_posts || count( $related_posts ) < $limit ) {
 
-		$cats_array = apply_filters( 'woocommerce_product_related_posts_relate_by_category', true, $product_id ) ? apply_filters( 'woocommerce_get_related_product_cat_terms', wc_get_product_term_ids( $product_id, 'product_cat' ), $product_id ) : array();
-		$tags_array = apply_filters( 'woocommerce_product_related_posts_relate_by_tag', true, $product_id ) ? apply_filters( 'woocommerce_get_related_product_tag_terms', wc_get_product_term_ids( $product_id, 'product_tag' ), $product_id ) : array();
+		$cats_array = apply_filters( 'poocommerce_product_related_posts_relate_by_category', true, $product_id ) ? apply_filters( 'poocommerce_get_related_product_cat_terms', wc_get_product_term_ids( $product_id, 'product_cat' ), $product_id ) : array();
+		$tags_array = apply_filters( 'poocommerce_product_related_posts_relate_by_tag', true, $product_id ) ? apply_filters( 'poocommerce_get_related_product_tag_terms', wc_get_product_term_ids( $product_id, 'product_tag' ), $product_id ) : array();
 
-		// Don't bother if none are set, unless woocommerce_product_related_posts_force_display is set to true in which case all products are related.
-		if ( empty( $cats_array ) && empty( $tags_array ) && ! apply_filters( 'woocommerce_product_related_posts_force_display', false, $product_id ) ) {
+		// Don't bother if none are set, unless poocommerce_product_related_posts_force_display is set to true in which case all products are related.
+		if ( empty( $cats_array ) && empty( $tags_array ) && ! apply_filters( 'poocommerce_product_related_posts_force_display', false, $product_id ) ) {
 			$related_posts = array();
 		} else {
 			$data_store    = WC_Data_Store::load( 'product' );
@@ -1417,7 +1417,7 @@ function wc_get_related_products( $product_id, $limit = 5, $exclude_ids = array(
 	}
 
 	$related_posts = apply_filters(
-		'woocommerce_related_products',
+		'poocommerce_related_products',
 		$related_posts,
 		$product_id,
 		array(
@@ -1428,7 +1428,7 @@ function wc_get_related_products( $product_id, $limit = 5, $exclude_ids = array(
 
 	$related_posts = is_array( $related_posts ) ? $related_posts : array();
 
-	if ( apply_filters( 'woocommerce_product_related_posts_shuffle', true ) ) {
+	if ( apply_filters( 'poocommerce_product_related_posts_shuffle', true ) ) {
 		shuffle( $related_posts );
 	}
 
@@ -1484,7 +1484,7 @@ function wc_get_price_including_tax( $product, $args = array() ) {
 				$tax_rates = WC_Tax::get_rates( $product->get_tax_class() );
 				$taxes     = WC_Tax::calc_tax( $line_price, $tax_rates, false );
 
-				if ( 'yes' === get_option( 'woocommerce_tax_round_at_subtotal' ) ) {
+				if ( 'yes' === get_option( 'poocommerce_tax_round_at_subtotal' ) ) {
 					$taxes_total = array_sum( $taxes );
 				} else {
 					$taxes_total = array_sum( array_map( 'wc_round_tax_total', $taxes ) );
@@ -1498,12 +1498,12 @@ function wc_get_price_including_tax( $product, $args = array() ) {
 
 			/**
 			 * If the customer is exempt from VAT, remove the taxes here.
-			 * Either remove the base or the user taxes depending on woocommerce_adjust_non_base_location_prices setting.
+			 * Either remove the base or the user taxes depending on poocommerce_adjust_non_base_location_prices setting.
 			 */
 			if ( ! empty( WC()->customer ) && WC()->customer->get_is_vat_exempt() ) { // @codingStandardsIgnoreLine.
-				$remove_taxes = apply_filters( 'woocommerce_adjust_non_base_location_prices', true ) ? WC_Tax::calc_tax( $line_price, $base_tax_rates, true ) : WC_Tax::calc_tax( $line_price, $tax_rates, true );
+				$remove_taxes = apply_filters( 'poocommerce_adjust_non_base_location_prices', true ) ? WC_Tax::calc_tax( $line_price, $base_tax_rates, true ) : WC_Tax::calc_tax( $line_price, $tax_rates, true );
 
-				if ( 'yes' === get_option( 'woocommerce_tax_round_at_subtotal' ) ) {
+				if ( 'yes' === get_option( 'poocommerce_tax_round_at_subtotal' ) ) {
 					$remove_taxes_total = array_sum( $remove_taxes );
 				} else {
 					$remove_taxes_total = array_sum( array_map( 'wc_round_tax_total', $remove_taxes ) );
@@ -1512,15 +1512,15 @@ function wc_get_price_including_tax( $product, $args = array() ) {
 				$return_price = NumberUtil::round( $line_price - $remove_taxes_total, wc_get_price_decimals() );
 
 				/**
-			 * The woocommerce_adjust_non_base_location_prices filter can stop base taxes being taken off when dealing with out of base locations.
+			 * The poocommerce_adjust_non_base_location_prices filter can stop base taxes being taken off when dealing with out of base locations.
 			 * e.g. If a product costs 10 including tax, all users will pay 10 regardless of location and taxes.
 			 * This feature is experimental @since 2.4.7 and may change in the future. Use at your risk.
 			 */
-			} elseif ( $tax_rates !== $base_tax_rates && apply_filters( 'woocommerce_adjust_non_base_location_prices', true ) ) {
+			} elseif ( $tax_rates !== $base_tax_rates && apply_filters( 'poocommerce_adjust_non_base_location_prices', true ) ) {
 				$base_taxes   = WC_Tax::calc_tax( $line_price, $base_tax_rates, true );
 				$modded_taxes = WC_Tax::calc_tax( $line_price - array_sum( $base_taxes ), $tax_rates, false );
 
-				if ( 'yes' === get_option( 'woocommerce_tax_round_at_subtotal' ) ) {
+				if ( 'yes' === get_option( 'poocommerce_tax_round_at_subtotal' ) ) {
 					$base_taxes_total   = array_sum( $base_taxes );
 					$modded_taxes_total = array_sum( $modded_taxes );
 				} else {
@@ -1532,7 +1532,7 @@ function wc_get_price_including_tax( $product, $args = array() ) {
 			}
 		}
 	}
-	return apply_filters( 'woocommerce_get_price_including_tax', $return_price, $qty, $product );
+	return apply_filters( 'poocommerce_get_price_including_tax', $return_price, $qty, $product );
 }
 
 /**
@@ -1570,7 +1570,7 @@ function wc_get_price_excluding_tax( $product, $args = array() ) {
 		$customer_id = $order ? $order->get_customer_id() : 0;
 		$tax_rates   = false;
 
-		if ( apply_filters( 'woocommerce_adjust_non_base_location_prices', true ) ) {
+		if ( apply_filters( 'poocommerce_adjust_non_base_location_prices', true ) ) {
 			$tax_rates = WC_Tax::get_base_tax_rates( $product->get_tax_class( 'unfiltered' ) );
 		} elseif ( $customer_id ) {
 			$customer  = wc_get_container()->get( LegacyProxy::class )->get_instance_of( WC_Customer::class, $customer_id );
@@ -1601,14 +1601,14 @@ function wc_get_price_excluding_tax( $product, $args = array() ) {
 		$return_price = $line_price;
 	}
 
-	return apply_filters( 'woocommerce_get_price_excluding_tax', $return_price, $qty, $product );
+	return apply_filters( 'poocommerce_get_price_excluding_tax', $return_price, $qty, $product );
 }
 
 /**
  * Returns the price including or excluding tax.
  *
- * By default it's based on the 'woocommerce_tax_display_shop' setting.
- * Set `$arg['display_context']` to 'cart' to base on the 'woocommerce_tax_display_cart' setting instead.
+ * By default it's based on the 'poocommerce_tax_display_shop' setting.
+ * Set `$arg['display_context']` to 'cart' to base on the 'poocommerce_tax_display_cart' setting instead.
  *
  * @since  3.0.0
  * @since  7.6.0 Added `display_context` argument.
@@ -1630,7 +1630,7 @@ function wc_get_price_to_display( $product, $args = array() ) {
 	$price       = $args['price'];
 	$qty         = $args['qty'];
 	$tax_display = get_option(
-		'cart' === $args['display_context'] ? 'woocommerce_tax_display_cart' : 'woocommerce_tax_display_shop'
+		'cart' === $args['display_context'] ? 'poocommerce_tax_display_cart' : 'poocommerce_tax_display_shop'
 	);
 
 	return 'incl' === $tax_display ?
@@ -1890,7 +1890,7 @@ function wc_update_product_lookup_tables() {
 	}
 
 	// Note that the table is not yet generated.
-	update_option( 'woocommerce_product_lookup_table_is_generating', true );
+	update_option( 'poocommerce_product_lookup_table_is_generating', true );
 
 	// Make a row per product in lookup table.
 	$wpdb->query(
@@ -1917,7 +1917,7 @@ function wc_update_product_lookup_tables() {
 		'virtual',
 		'onsale',
 		'tax_class',
-		'tax_status', // When last column is updated, woocommerce_product_lookup_table_is_generating is updated.
+		'tax_status', // When last column is updated, poocommerce_product_lookup_table_is_generating is updated.
 	);
 
 	foreach ( $columns as $index => $column ) {
@@ -2087,7 +2087,7 @@ function wc_update_product_lookup_tables_column( $column ) {
 
 	// Final column - mark complete.
 	if ( 'tax_status' === $column ) {
-		delete_option( 'woocommerce_product_lookup_table_is_generating' );
+		delete_option( 'poocommerce_product_lookup_table_is_generating' );
 	}
 }
 add_action( 'wc_update_product_lookup_tables_column', 'wc_update_product_lookup_tables_column' );

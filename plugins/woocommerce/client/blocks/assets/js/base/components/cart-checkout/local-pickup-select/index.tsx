@@ -4,16 +4,16 @@
 import {
 	RadioControl,
 	RadioControlOptionType,
-} from '@woocommerce/blocks-components';
-import { CartShippingPackageShippingRate } from '@woocommerce/types';
-import { useShippingData } from '@woocommerce/base-context';
+} from '@poocommerce/blocks-components';
+import { CartShippingPackageShippingRate } from '@poocommerce/types';
+import { useShippingData } from '@poocommerce/base-context';
 import clsx from 'clsx';
-import { sanitizeHTML } from '@woocommerce/sanitize';
-import { useStoreCart } from '@woocommerce/base-context/hooks';
+import { sanitizeHTML } from '@poocommerce/sanitize';
+import { useStoreCart } from '@poocommerce/base-context/hooks';
 import {
 	PackageItems,
 	ShippingPackageItemIcon,
-} from '@woocommerce/base-components/cart-checkout';
+} from '@poocommerce/base-components/cart-checkout';
 
 /**
  * Internal dependencies

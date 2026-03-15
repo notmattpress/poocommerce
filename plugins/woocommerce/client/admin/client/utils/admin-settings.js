@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { getSetting } from '@woocommerce/settings';
+import { getSetting } from '@poocommerce/settings';
 
 /**
  * Internal dependencies
@@ -25,13 +25,13 @@ const ADMIN_SETTINGS_SOURCE = Object.keys( adminSettings ).reduce(
 export const deprecatedAdminProperties = {
 	onboarding: {
 		profile:
-			'Deprecated: wcSettings.admin.onboarding.profile is deprecated. It is planned to be released in WooCommerce 10.0.0. Please use `getProfileItems` from the onboarding store. See https://github.com/woocommerce/woocommerce/tree/trunk/packages/js/data/src/onboarding for more information.',
+			'Deprecated: wcSettings.admin.onboarding.profile is deprecated. It is planned to be released in PooCommerce 10.0.0. Please use `getProfileItems` from the onboarding store. See https://github.com/poocommerce/poocommerce/tree/trunk/packages/js/data/src/onboarding for more information.',
 		euCountries:
-			'Deprecated: wcSettings.admin.onboarding.euCountries is deprecated. Please use `/wc/v3/data/continents/eu` from the REST API. See https://woocommerce.github.io/woocommerce-rest-api-docs/#list-all-continents for more information.',
+			'Deprecated: wcSettings.admin.onboarding.euCountries is deprecated. Please use `/wc/v3/data/continents/eu` from the REST API. See https://poocommerce.github.io/poocommerce-rest-api-docs/#list-all-continents for more information.',
 		localInfo:
 			'Deprecated: wcSettings.admin.onboarding.localInfo is deprecated. Please use `include WC()->plugin_path() . "/i18n/locale-info.php"` instead.',
 		currencySymbols:
-			'"Deprecated: wcSettings.admin.onboarding.currencySymbols is deprecated. Please use get_woocommerce_currency_symbols() function instead.',
+			'"Deprecated: wcSettings.admin.onboarding.currencySymbols is deprecated. Please use get_poocommerce_currency_symbols() function instead.',
 	},
 };
 
@@ -61,7 +61,7 @@ export function getAdminSetting(
 		throw new Error(
 			__(
 				'Mutable settings should be accessed via data store.',
-				'woocommerce'
+				'poocommerce'
 			)
 		);
 	}
@@ -109,7 +109,7 @@ export function setAdminSetting( name, value, filter = ( val ) => val ) {
 		throw new Error(
 			__(
 				'Mutable settings should be mutated via data store.',
-				'woocommerce'
+				'poocommerce'
 			)
 		);
 	}

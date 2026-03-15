@@ -2,11 +2,11 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\BlockTypes\ProductCollection\Utils as ProductCollectionUtils;
-use Automattic\WooCommerce\Internal\ProductFilters\FilterDataProvider;
-use Automattic\WooCommerce\Internal\ProductFilters\QueryClauses;
+use Automattic\PooCommerce\Blocks\BlockTypes\ProductCollection\Utils as ProductCollectionUtils;
+use Automattic\PooCommerce\Internal\ProductFilters\FilterDataProvider;
+use Automattic\PooCommerce\Internal\ProductFilters\QueryClauses;
 
 /**
  * Product Filter: Price Block.
@@ -34,7 +34,7 @@ final class ProductFilterPrice extends AbstractBlock {
 	protected function initialize() {
 		parent::initialize();
 
-		add_filter( 'woocommerce_blocks_product_filters_selected_items', array( $this, 'prepare_selected_filters' ), 10, 2 );
+		add_filter( 'poocommerce_blocks_product_filters_selected_items', array( $this, 'prepare_selected_filters' ), 10, 2 );
 	}
 
 	/**
@@ -61,7 +61,7 @@ final class ProductFilterPrice extends AbstractBlock {
 		if ( $formatted_min_price && $formatted_max_price ) {
 			$item['activeLabel'] = sprintf(
 				/* translators: %1$s and %2$s are the formatted minimum and maximum prices respectively. */
-				__( 'Price: %1$s - %2$s', 'woocommerce' ),
+				__( 'Price: %1$s - %2$s', 'poocommerce' ),
 				$formatted_min_price,
 				$formatted_max_price
 			);
@@ -70,13 +70,13 @@ final class ProductFilterPrice extends AbstractBlock {
 
 		if ( ! $formatted_min_price ) {
 			/* translators: %s is the formatted maximum price. */
-			$item['activeLabel'] = sprintf( __( 'Price: Up to %s', 'woocommerce' ), $formatted_max_price );
+			$item['activeLabel'] = sprintf( __( 'Price: Up to %s', 'poocommerce' ), $formatted_max_price );
 			$item['value']       = "|{$max_price}";
 		}
 
 		if ( ! $formatted_max_price ) {
 			/* translators: %s is the formatted minimum price. */
-			$item['activeLabel'] = sprintf( __( 'Price: From %s', 'woocommerce' ), $formatted_min_price );
+			$item['activeLabel'] = sprintf( __( 'Price: From %s', 'poocommerce' ), $formatted_min_price );
 			$item['value']       = "{$min_price}|";
 		}
 
@@ -118,11 +118,11 @@ final class ProductFilterPrice extends AbstractBlock {
 				'minRange' => $min_range,
 				'maxRange' => $max_range,
 			),
-			'groupLabel' => __( 'Price', 'woocommerce' ),
+			'groupLabel' => __( 'Price', 'poocommerce' ),
 		);
 
 		$wrapper_attributes = array(
-			'data-wp-interactive' => 'woocommerce/product-filters',
+			'data-wp-interactive' => 'poocommerce/product-filters',
 			'data-wp-key'         => wp_unique_prefixed_id( $this->get_full_block_name() ),
 			'data-wp-context'     => wp_json_encode(
 				array(
@@ -135,21 +135,21 @@ final class ProductFilterPrice extends AbstractBlock {
 		);
 
 		wp_interactivity_config(
-			'woocommerce/product-filters',
+			'poocommerce/product-filters',
 			array(
 				'activePriceLabelTemplates' => array(
 					/* translators: {{min}} and {{max}} are the formatted minimum and maximum prices respectively. */
-					'minAndMax' => __( 'Price: {{min}} - {{max}}', 'woocommerce' ),
+					'minAndMax' => __( 'Price: {{min}} - {{max}}', 'poocommerce' ),
 					/* translators: {{max}} is the formatted maximum price. */
-					'maxOnly'   => __( 'Price: Up to {{max}}', 'woocommerce' ),
+					'maxOnly'   => __( 'Price: Up to {{max}}', 'poocommerce' ),
 					/* translators: {{min}} is the formatted minimum price. */
-					'minOnly'   => __( 'Price: From {{min}}', 'woocommerce' ),
+					'minOnly'   => __( 'Price: From {{min}}', 'poocommerce' ),
 				),
 			)
 		);
 
 		wp_interactivity_state(
-			'woocommerce/product-filters',
+			'poocommerce/product-filters',
 			array(
 				'formattedMinPrice' => $formatted_min_price,
 				'formattedMaxPrice' => $formatted_max_price,

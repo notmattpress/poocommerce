@@ -3,7 +3,7 @@
  */
 import { renderHook, act } from '@testing-library/react';
 import { resolveSelect, useSelect } from '@wordpress/data';
-import type { ProductVariation } from '@woocommerce/data';
+import type { ProductVariation } from '@poocommerce/data';
 
 /**
  * Internal dependencies
@@ -25,7 +25,7 @@ jest.mock( '@wordpress/core-data', () => ( {
 	} ),
 } ) );
 
-jest.mock( '@woocommerce/data', () => ( {
+jest.mock( '@poocommerce/data', () => ( {
 	experimentalProductVariationsStore: 'wc/experimental/product-variations',
 } ) );
 

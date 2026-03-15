@@ -14,7 +14,7 @@ Current filter blocks and former filter widgets only care about the product cata
 
 Before Gutenberg, we have product archive contexts including Catalog, Taxonomy, Attribute, and Search. With blocks, we have StoreAPI and Product Collection. All types of context can be customized by altering the product archive query, passing more parameters, or adding Product Collection backend filters.
 
-WooCommerce has some solutions, but each has its own limitations:
+PooCommerce has some solutions, but each has its own limitations:
 
 -   `Filterer` and `WC_Query`, which power filter widgets, return contextual filter data but only work with the main query.
 -   `ProductCollectionData`, which powers filter blocks, returns contextual data only for StoreAPI requests.

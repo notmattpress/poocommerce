@@ -8,8 +8,8 @@ export function Skeleton() {
 	return (
 		<div
 			aria-hidden="true"
-			aria-label={ __( 'Loading linked products', 'woocommerce' ) }
-			className="woocommerce-product-list"
+			aria-label={ __( 'Loading linked products', 'poocommerce' ) }
+			className="poocommerce-product-list"
 		>
 			<div role="table">
 				<div role="rowgroup">
@@ -24,15 +24,15 @@ export function Skeleton() {
 					{ Array.from( { length: 3 } ).map( ( _, index ) => (
 						<div role="row" key={ index }>
 							<div role="cell">
-								<div className="woocommerce-product-list__product-image skeleton" />
-								<div className="woocommerce-product-list__product-info">
-									<div className="woocommerce-product-list__product-name skeleton"></div>
-									<div className="woocommerce-product-list__product-price skeleton" />
+								<div className="poocommerce-product-list__product-image skeleton" />
+								<div className="poocommerce-product-list__product-info">
+									<div className="poocommerce-product-list__product-name skeleton"></div>
+									<div className="poocommerce-product-list__product-price skeleton" />
 								</div>
 							</div>
 							<div
 								role="cell"
-								className="woocommerce-product-list__actions"
+								className="poocommerce-product-list__actions"
 							>
 								<div className="skeleton" />
 								<div className="skeleton" />

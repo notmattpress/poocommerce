@@ -298,7 +298,7 @@ class FeatureContext extends BehatContext implements ClosuredContextInterface {
 		// disable emailing
 		mkdir( $dest_dir . '/wp-content/mu-plugins' );
 		copy( __DIR__ . '/../extra/no-mail.php', $dest_dir . '/wp-content/mu-plugins/no-mail.php' );
-		symlink( dirname( dirname( dirname( dirname( dirname( __FILE__ ) ) ) ) ),  $dest_dir . '/wp-content/plugins/woocommerce' );
+		symlink( dirname( dirname( dirname( dirname( dirname( __FILE__ ) ) ) ) ),  $dest_dir . '/wp-content/plugins/poocommerce' );
 	}
 
 	public function create_config( $subdir = '' ) {
@@ -325,6 +325,6 @@ class FeatureContext extends BehatContext implements ClosuredContextInterface {
 		);
 
 		$this->proc( 'wp core install', $install_args, $subdir )->run_check();
-		$this->proc( 'wp plugin activate woocommerce', array(), $subdir )->run_check();
+		$this->proc( 'wp plugin activate poocommerce', array(), $subdir )->run_check();
 	}
 }

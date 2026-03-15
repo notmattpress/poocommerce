@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import type { ProductsStoreState } from '@woocommerce/stores/woocommerce/products';
+import type { ProductsStoreState } from '@poocommerce/stores/poocommerce/products';
 
 /**
  * Internal dependencies
@@ -23,7 +23,7 @@ jest.mock(
 	'@wordpress/interactivity',
 	() => ( {
 		store: jest.fn( ( name ) => {
-			if ( name === 'woocommerce/products' ) {
+			if ( name === 'poocommerce/products' ) {
 				return { state: mockProductsState };
 			}
 			return { state: {} };
@@ -33,11 +33,11 @@ jest.mock(
 	{ virtual: true }
 );
 
-jest.mock( '@woocommerce/stores/woocommerce/product-data', () => ( {} ), {
+jest.mock( '@poocommerce/stores/poocommerce/product-data', () => ( {} ), {
 	virtual: true,
 } );
 
-jest.mock( '@woocommerce/stores/woocommerce/products', () => ( {} ), {
+jest.mock( '@poocommerce/stores/poocommerce/products', () => ( {} ), {
 	virtual: true,
 } );
 

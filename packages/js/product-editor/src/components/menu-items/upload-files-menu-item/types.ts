@@ -6,7 +6,7 @@ import {
 	MenuItem as DropdownMenuItem,
 } from '@wordpress/components';
 import { MediaItem, UploadMediaOptions } from '@wordpress/media-utils';
-import { MediaUploaderErrorCallback } from '@woocommerce/components';
+import { MediaUploaderErrorCallback } from '@poocommerce/components';
 
 export type UploadFilesMenuItemProps = Omit<
 	React.ComponentProps< typeof FormFileUpload >,

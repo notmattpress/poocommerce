@@ -3,11 +3,11 @@
  */
 import { useDispatch, useSelect } from '@wordpress/data';
 import { createElement } from '@wordpress/element';
-import { STORE_KEY } from '@woocommerce/customer-effort-score';
-import { recordEvent } from '@woocommerce/tracks';
-import { getAdminLink, getSetting } from '@woocommerce/settings';
-import { useFormContext } from '@woocommerce/components';
-import { Product } from '@woocommerce/data';
+import { STORE_KEY } from '@poocommerce/customer-effort-score';
+import { recordEvent } from '@poocommerce/tracks';
+import { getAdminLink, getSetting } from '@poocommerce/settings';
+import { useFormContext } from '@poocommerce/components';
+import { Product } from '@poocommerce/data';
 
 /**
  * Internal dependencies

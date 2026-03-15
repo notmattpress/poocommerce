@@ -9,8 +9,8 @@ import React from 'react';
  */
 import { Header } from '../index';
 
-jest.mock( '@woocommerce/settings', () => ( {
-	...jest.requireActual( '@woocommerce/settings' ),
+jest.mock( '@poocommerce/settings', () => ( {
+	...jest.requireActual( '@poocommerce/settings' ),
 	getSetting() {
 		return 'Fake Site Title';
 	},
@@ -36,8 +36,8 @@ jest.mock( '~/hooks/use-tasklists-state', () => ( {
 	isTaskListActive: () => false,
 } ) );
 
-jest.mock( '@woocommerce/navigation', () => ( {
-	...jest.requireActual( '@woocommerce/navigation' ),
+jest.mock( '@poocommerce/navigation', () => ( {
+	...jest.requireActual( '@poocommerce/navigation' ),
 	isWCAdmin: () => true,
 	getScreenFromPath: () => 'homescreen',
 	getPath: () => '/analytics/overview',
@@ -96,7 +96,7 @@ describe( 'Header', () => {
 		render( <Header sections={ encodedBreadcrumb } query={ {} } /> );
 
 		expect( document.title ).toBe(
-			'Accounts & Privacy ‹ Settings ‹ Fake Site Title — WooCommerce'
+			'Accounts & Privacy ‹ Settings ‹ Fake Site Title — PooCommerce'
 		);
 	} );
 

@@ -2,17 +2,17 @@
 /**
  * CollectionQuery class.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @internal This file is for internal use only and should not be used by external code.
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\RestApi\Routes\V4\OrderNotes;
+namespace Automattic\PooCommerce\Internal\RestApi\Routes\V4\OrderNotes;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\AbstractCollectionQuery;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\AbstractCollectionQuery;
 use WP_REST_Request;
 use WC_Order;
 
@@ -31,7 +31,7 @@ final class CollectionQuery extends AbstractCollectionQuery {
 		return array(
 			'note_type' => array(
 				'default'           => 'all',
-				'description'       => __( 'Limit result to customer notes or private notes.', 'woocommerce' ),
+				'description'       => __( 'Limit result to customer notes or private notes.', 'poocommerce' ),
 				'type'              => 'string',
 				'enum'              => array( 'all', 'customer', 'private' ),
 				'sanitize_callback' => 'sanitize_key',

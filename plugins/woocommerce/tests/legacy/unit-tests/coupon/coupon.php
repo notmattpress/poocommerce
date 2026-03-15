@@ -2,12 +2,12 @@
 /**
  * Coupon tests.
  *
- * @package WooCommerce\Tests\Coupon
+ * @package PooCommerce\Tests\Coupon
  */
 
 /**
  * Class Coupon.
- * @package WooCommerce\Tests\Coupon
+ * @package PooCommerce\Tests\Coupon
  * @group coupons
  */
 class WC_Tests_Coupon extends WC_Unit_Test_Case {
@@ -394,7 +394,7 @@ class WC_Tests_Coupon extends WC_Unit_Test_Case {
 	 * Test that setting an invalid date type on a coupon doesn't cause fatal errors.
 	 * This tests the fix for issue where non-string/numeric/DateTime values cause crashes.
 	 *
-	 * @see https://github.com/woocommerce/woocommerce/pull/58700
+	 * @see https://github.com/poocommerce/poocommerce/pull/58700
 	 */
 	public function test_coupons_with_invalid_date_no_fatal_error() {
 		$coupon = WC_Helper_Coupon::create_coupon(

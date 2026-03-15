@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes\ProductCollection;
+namespace Automattic\PooCommerce\Blocks\BlockTypes\ProductCollection;
 
-use Automattic\WooCommerce\Blocks\BlockTypes\AbstractBlock;
-use Automattic\WooCommerce\Blocks\BlockTypes\EnableBlockJsonAssetsTrait;
+use Automattic\PooCommerce\Blocks\BlockTypes\AbstractBlock;
+use Automattic\PooCommerce\Blocks\BlockTypes\EnableBlockJsonAssetsTrait;
 use WP_Query;
 
 /**
@@ -96,8 +96,8 @@ class Controller extends AbstractBlock {
 	 * @return string   Modified block content with added interactivity.
 	 */
 	public function add_product_title_click_event_directives( $block_content, $block, $instance ) {
-		$namespace              = $instance->attributes['__woocommerceNamespace'] ?? '';
-		$is_product_title_block = 'woocommerce/product-collection/product-title' === $namespace;
+		$namespace              = $instance->attributes['__poocommerceNamespace'] ?? '';
+		$is_product_title_block = 'poocommerce/product-collection/product-title' === $namespace;
 		$is_link                = $instance->attributes['isLink'] ?? false;
 
 		// Only proceed if the block is a Product Title (Post Title variation) block.
@@ -107,7 +107,7 @@ class Controller extends AbstractBlock {
 			$is_anchor = $p->next_tag( array( 'tag_name' => 'a' ) );
 
 			if ( $is_anchor ) {
-				$p->set_attribute( 'data-wp-on--click', 'woocommerce/product-collection::actions.viewProduct' );
+				$p->set_attribute( 'data-wp-on--click', 'poocommerce/product-collection::actions.viewProduct' );
 
 				$block_content = $p->get_updated_html();
 			}
@@ -154,7 +154,7 @@ class Controller extends AbstractBlock {
 
 		if (
 			$is_product_collection_block &&
-			'woocommerce/product-collection' === $block_name &&
+			'poocommerce/product-collection' === $block_name &&
 			! $force_page_reload_global &&
 			isset( $parsed_block['attrs']['queryId'] )
 		) {
@@ -188,14 +188,14 @@ class Controller extends AbstractBlock {
 					array_pop( $enhanced_query_stack );
 
 					if ( empty( $enhanced_query_stack ) ) {
-						remove_filter( 'render_block_woocommerce/product-collection', $render_product_collection_callback, 5 );
+						remove_filter( 'render_block_poocommerce/product-collection', $render_product_collection_callback, 5 );
 						$render_product_collection_callback = null;
 					}
 
 					return $content;
 				};
 
-				add_filter( 'render_block_woocommerce/product-collection', $render_product_collection_callback, 5, 2 );
+				add_filter( 'render_block_poocommerce/product-collection', $render_product_collection_callback, 5, 2 );
 			}
 		} elseif (
 			! empty( $enhanced_query_stack ) &&
@@ -221,7 +221,7 @@ class Controller extends AbstractBlock {
 		parent::enqueue_data( $attributes );
 
 		// The `loop_shop_per_page` filter can be found in WC_Query::product_query().
-		// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
+		// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
 		$this->asset_data_registry->add( 'loopShopPerPage', apply_filters( 'loop_shop_per_page', wc_get_default_products_per_row() * wc_get_default_product_rows_per_page() ) );
 	}
 
@@ -232,13 +232,13 @@ class Controller extends AbstractBlock {
 	public function register_settings() {
 		register_setting(
 			'options',
-			'woocommerce_default_catalog_orderby',
+			'poocommerce_default_catalog_orderby',
 			array(
 				'type'         => 'object',
-				'description'  => __( 'How should products be sorted in the catalog by default?', 'woocommerce' ),
-				'label'        => __( 'Default product sorting', 'woocommerce' ),
+				'description'  => __( 'How should products be sorted in the catalog by default?', 'poocommerce' ),
+				'label'        => __( 'Default product sorting', 'poocommerce' ),
 				'show_in_rest' => array(
-					'name'   => 'woocommerce_default_catalog_orderby',
+					'name'   => 'poocommerce_default_catalog_orderby',
 					'schema' => array(
 						'type' => 'string',
 						'enum' => array( 'menu_order', 'popularity', 'rating', 'date', 'price', 'price-desc' ),
@@ -284,10 +284,10 @@ class Controller extends AbstractBlock {
 			return $this->query_builder->get_preview_query_args( $collection_args, array_merge( $query, array( 'orderby' => $orderby ) ), $request );
 		}
 
-		$on_sale                        = $request->get_param( 'woocommerceOnSale' ) === 'true';
-		$stock_status                   = $request->get_param( 'woocommerceStockStatus' );
-		$product_attributes             = $request->get_param( 'woocommerceAttributes' );
-		$handpicked_products            = $request->get_param( 'woocommerceHandPickedProducts' );
+		$on_sale                        = $request->get_param( 'poocommerceOnSale' ) === 'true';
+		$stock_status                   = $request->get_param( 'poocommerceStockStatus' );
+		$product_attributes             = $request->get_param( 'poocommerceAttributes' );
+		$handpicked_products            = $request->get_param( 'poocommerceHandPickedProducts' );
 		$featured                       = $request->get_param( 'featured' );
 		$time_frame                     = $request->get_param( 'timeFrame' );
 		$price_range                    = $request->get_param( 'priceRange' );

@@ -9,16 +9,16 @@ import Search from '../search/search';
 
 export default function Header() {
 	return (
-		<div className="woocommerce-marketplace__header-container">
-			<header className="woocommerce-marketplace__header">
+		<div className="poocommerce-marketplace__header-container">
+			<header className="poocommerce-marketplace__header">
 				<HeaderTitle />
 				<Tabs
 					additionalClassNames={ [
-						'woocommerce-marketplace__header-tabs',
+						'poocommerce-marketplace__header-tabs',
 					] }
 				/>
 				<Search />
-				<div className="woocommerce-marketplace__header-meta">
+				<div className="poocommerce-marketplace__header-meta">
 					<HeaderAccount page="wc-addons" />
 				</div>
 			</header>

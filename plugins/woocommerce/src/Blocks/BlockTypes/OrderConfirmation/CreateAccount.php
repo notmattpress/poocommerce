@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes\OrderConfirmation;
+namespace Automattic\PooCommerce\Blocks\BlockTypes\OrderConfirmation;
 
-use Automattic\WooCommerce\StoreApi\Utilities\OrderController;
-use Automattic\WooCommerce\Admin\Features\Features;
+use Automattic\PooCommerce\StoreApi\Utilities\OrderController;
+use Automattic\PooCommerce\Admin\Features\Features;
 
 /**
  * CreateAccount class.
@@ -39,7 +39,7 @@ class CreateAccount extends AbstractOrderConfirmationBlock {
 		add_filter(
 			'hooked_block_types',
 			function ( $hooked_block_types, $relative_position, $anchor_block_type, $context ) {
-				if ( 'after' !== $relative_position || 'woocommerce/order-confirmation-summary' !== $anchor_block_type || ! $context instanceof \WP_Block_Template ) {
+				if ( 'after' !== $relative_position || 'poocommerce/order-confirmation-summary' !== $anchor_block_type || ! $context instanceof \WP_Block_Template ) {
 					return $hooked_block_types;
 				}
 
@@ -53,28 +53,28 @@ class CreateAccount extends AbstractOrderConfirmationBlock {
 			4
 		);
 		add_filter(
-			'hooked_block_woocommerce/order-confirmation-create-account',
+			'hooked_block_poocommerce/order-confirmation-create-account',
 			function ( $parsed_hooked_block, $hooked_block_type, $relative_position ) {
 				if ( 'after' !== $relative_position || is_null( $parsed_hooked_block ) ) {
 					return $parsed_hooked_block;
 				}
 
 				/* translators: %s: Site title */
-				$site_title_heading                  = sprintf( __( 'Create an account with %s', 'woocommerce' ), wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES ) );
+				$site_title_heading                  = sprintf( __( 'Create an account with %s', 'poocommerce' ), wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES ) );
 				$parsed_hooked_block['innerContent'] = array(
-					'<div class="wp-block-woocommerce-order-confirmation-create-account alignwide">
+					'<div class="wp-block-poocommerce-order-confirmation-create-account alignwide">
 					<!-- wp:heading {"level":3} -->
                     <h3 class="wp-block-heading">' . esc_html( $site_title_heading ) . '</h3>
 					<!-- /wp:heading -->
 					<!-- wp:list {"className":"is-style-checkmark-list"} -->
 					<ul class="wp-block-list is-style-checkmark-list"><!-- wp:list-item -->
-                    <li>' . esc_html__( 'Faster future purchases', 'woocommerce' ) . '</li>
+                    <li>' . esc_html__( 'Faster future purchases', 'poocommerce' ) . '</li>
                     <!-- /wp:list-item -->
                     <!-- wp:list-item -->
-                    <li>' . esc_html__( 'Securely save payment info', 'woocommerce' ) . '</li>
+                    <li>' . esc_html__( 'Securely save payment info', 'poocommerce' ) . '</li>
                     <!-- /wp:list-item -->
                     <!-- wp:list-item -->
-                    <li>' . esc_html__( 'Track orders &amp; view shopping history', 'woocommerce' ) . '</li>
+                    <li>' . esc_html__( 'Track orders &amp; view shopping history', 'poocommerce' ) . '</li>
                     <!-- /wp:list-item --></ul>
                     <!-- /wp:list -->
                     </div>',
@@ -109,7 +109,7 @@ class CreateAccount extends AbstractOrderConfirmationBlock {
 	 * @return bool
 	 */
 	protected function is_feature_enabled() {
-		return get_option( 'woocommerce_enable_delayed_account_creation', 'yes' ) === 'yes';
+		return get_option( 'poocommerce_enable_delayed_account_creation', 'yes' ) === 'yes';
 	}
 
 	/**
@@ -124,22 +124,22 @@ class CreateAccount extends AbstractOrderConfirmationBlock {
 		}
 
 		if ( ! wp_verify_nonce( sanitize_key( wp_unslash( $_POST['_wpnonce'] ?? '' ) ), 'wc_create_account' ) ) {
-			return new \WP_Error( 'invalid_nonce', __( 'Unable to create account. Please try again.', 'woocommerce' ) );
+			return new \WP_Error( 'invalid_nonce', __( 'Unable to create account. Please try again.', 'poocommerce' ) );
 		}
 
 		$user_email = sanitize_email( wp_unslash( $_POST['email'] ) );
 
 		// Does order already have user?
 		if ( $order->get_customer_id() ) {
-			return new \WP_Error( 'order_already_has_user', __( 'This order is already linked to a user account.', 'woocommerce' ) );
+			return new \WP_Error( 'order_already_has_user', __( 'This order is already linked to a user account.', 'poocommerce' ) );
 		}
 
 		// Check given details match the current viewed order.
 		if ( $order->get_billing_email() !== $user_email ) {
-			return new \WP_Error( 'email_mismatch', __( 'The email address provided does not match the email address on this order.', 'woocommerce' ) );
+			return new \WP_Error( 'email_mismatch', __( 'The email address provided does not match the email address on this order.', 'poocommerce' ) );
 		}
 
-		$generate_password = filter_var( get_option( 'woocommerce_registration_generate_password', 'no' ), FILTER_VALIDATE_BOOLEAN );
+		$generate_password = filter_var( get_option( 'poocommerce_registration_generate_password', 'no' ), FILTER_VALIDATE_BOOLEAN );
 
 		if ( $generate_password ) {
 			$password = ''; // Will be generated by wc_create_new_customer.
@@ -147,7 +147,7 @@ class CreateAccount extends AbstractOrderConfirmationBlock {
 			$password = wp_unslash( $_POST['password'] ?? '' ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 
 			if ( empty( $password ) || strlen( $password ) < 8 ) {
-				return new \WP_Error( 'password_too_short', __( 'Password must be at least 8 characters.', 'woocommerce' ) );
+				return new \WP_Error( 'password_too_short', __( 'Password must be at least 8 characters.', 'poocommerce' ) );
 			}
 		}
 
@@ -216,7 +216,7 @@ class CreateAccount extends AbstractOrderConfirmationBlock {
 			'</div>'
 		);
 
-		if ( ! $processor->next_tag( array( 'class_name' => 'wp-block-woocommerce-order-confirmation-create-account' ) ) ) {
+		if ( ! $processor->next_tag( array( 'class_name' => 'wp-block-poocommerce-order-confirmation-create-account' ) ) ) {
 			return $content;
 		}
 
@@ -245,10 +245,10 @@ class CreateAccount extends AbstractOrderConfirmationBlock {
 	 */
 	protected function render_confirmation() {
 		$content  = '<div class="wc-block-order-confirmation-create-account-success" id="create-account">';
-		$content .= '<h3>' . esc_html__( 'Your account has been successfully created', 'woocommerce' ) . '</h3>';
+		$content .= '<h3>' . esc_html__( 'Your account has been successfully created', 'poocommerce' ) . '</h3>';
 		$content .= '<p>' . sprintf(
 			/* translators: 1: link to my account page, 2: link to shipping and billing addresses, 3: link to account details, 4: closing tag */
-			esc_html__( 'You can now %1$sview your recent orders%4$s, manage your %2$sshipping and billing addresses%4$s, and edit your %3$spassword and account details%4$s.', 'woocommerce' ),
+			esc_html__( 'You can now %1$sview your recent orders%4$s, manage your %2$sshipping and billing addresses%4$s, and edit your %3$spassword and account details%4$s.', 'poocommerce' ),
 			'<a href="' . esc_url( wc_get_endpoint_url( 'orders', '', wc_get_page_permalink( 'myaccount' ) ) ) . '">',
 			'<a href="' . esc_url( wc_get_endpoint_url( 'edit-address', '', wc_get_page_permalink( 'myaccount' ) ) ) . '">',
 			'<a href="' . esc_url( wc_get_endpoint_url( 'edit-account', '', wc_get_page_permalink( 'myaccount' ) ) ) . '">',
@@ -270,6 +270,6 @@ class CreateAccount extends AbstractOrderConfirmationBlock {
 		parent::enqueue_data( $attributes );
 
 		$this->asset_data_registry->add( 'delayedAccountCreationEnabled', $this->is_feature_enabled() );
-		$this->asset_data_registry->add( 'registrationGeneratePassword', filter_var( get_option( 'woocommerce_registration_generate_password' ), FILTER_VALIDATE_BOOLEAN ) );
+		$this->asset_data_registry->add( 'registrationGeneratePassword', filter_var( get_option( 'poocommerce_registration_generate_password' ), FILTER_VALIDATE_BOOLEAN ) );
 	}
 }

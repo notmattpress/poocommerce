@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { __ } from '@wordpress/i18n';
-import type { CheckoutField } from '@woocommerce/block-settings';
+import type { CheckoutField } from '@poocommerce/block-settings';
 
 /**
  * Internal dependencies
@@ -20,10 +20,10 @@ const AdditionalFieldsPlaceholder = ( {
 		<dl className="wc-block-components-additional-fields-list">
 			{ Object.entries( additionalFields ).map( ( [ , field ] ) => {
 				const { label, type, options } = field;
-				let sampleValue = __( 'Placeholder', 'woocommerce' );
+				let sampleValue = __( 'Placeholder', 'poocommerce' );
 
 				if ( type === 'checkbox' ) {
-					sampleValue = __( 'Yes', 'woocommerce' );
+					sampleValue = __( 'Yes', 'poocommerce' );
 				}
 
 				if ( type === 'select' ) {

@@ -1,13 +1,13 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Admin\Features\Fulfillments\Providers;
+namespace Automattic\PooCommerce\Tests\Admin\Features\Fulfillments\Providers;
 
-use Automattic\WooCommerce\Admin\Features\Fulfillments\Providers\DPDShippingProvider;
+use Automattic\PooCommerce\Admin\Features\Fulfillments\Providers\DPDShippingProvider;
 
 /**
  * Unit tests for DPDShippingProvider class.
  *
- * @package WooCommerce\Tests\Admin\Features\Fulfillments\Providers
+ * @package PooCommerce\Tests\Admin\Features\Fulfillments\Providers
  */
 class DPDShippingProviderTest extends \WP_UnitTestCase {
 	/**

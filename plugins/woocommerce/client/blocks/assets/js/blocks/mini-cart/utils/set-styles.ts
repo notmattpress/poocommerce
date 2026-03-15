@@ -38,7 +38,7 @@ function setStyles() {
 	// We use :where here to reduce specificity so customized colors and theme
 	// CSS take priority.
 	// We need to set `div` and `span` in the selector so it has more specificity than the CSS.
-	const css = `div:where(.wp-block-woocommerce-mini-cart-contents) {
+	const css = `div:where(.wp-block-poocommerce-mini-cart-contents) {
 			background-color: ${ backgroundColor };
 		}
 		span:where(.wc-block-mini-cart__badge) {

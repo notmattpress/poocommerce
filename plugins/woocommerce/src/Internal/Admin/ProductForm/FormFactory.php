@@ -1,16 +1,16 @@
 <?php
 /**
- * WooCommerce Product Form Factory
+ * PooCommerce Product Form Factory
  *
  * @package Woocommerce ProductForm
  */
 
-namespace Automattic\WooCommerce\Internal\Admin\ProductForm;
+namespace Automattic\PooCommerce\Internal\Admin\ProductForm;
 
 use WP_Error;
 
 /**
- * Factory that contains logic for the WooCommerce Product Form.
+ * Factory that contains logic for the PooCommerce Product Form.
  */
 class FormFactory {
 	/**
@@ -222,7 +222,7 @@ class FormFactory {
 		'order' => 'asc',
 	) ) {
 		$item_list = self::get_item_list( $type );
-		$class     = 'Automattic\\WooCommerce\\Internal\\Admin\\ProductForm\\' . $class_name;
+		$class     = 'Automattic\\PooCommerce\\Internal\\Admin\\ProductForm\\' . $class_name;
 		$items     = array_values( $item_list );
 		if ( class_exists( $class ) && method_exists( $class, 'sort' ) ) {
 			usort(
@@ -247,13 +247,13 @@ class FormFactory {
 	 */
 	private static function create_item( $type, $class_name, $id, $plugin_id, $args ) {
 		$item_list = self::get_item_list( $type );
-		$class     = 'Automattic\\WooCommerce\\Internal\\Admin\\ProductForm\\' . $class_name;
+		$class     = 'Automattic\\PooCommerce\\Internal\\Admin\\ProductForm\\' . $class_name;
 		if ( ! class_exists( $class ) ) {
 			return new WP_Error(
 				'wc_product_form_' . $type . '_missing_form_class',
 				sprintf(
 				/* translators: 1: missing class name. */
-					esc_html__( '%1$s class does not exist.', 'woocommerce' ),
+					esc_html__( '%1$s class does not exist.', 'poocommerce' ),
 					$class
 				)
 			);
@@ -263,7 +263,7 @@ class FormFactory {
 				'wc_product_form_' . $type . '_duplicate_field_id',
 				sprintf(
 				/* translators: 1: Item type 2: Duplicate registered item id. */
-					esc_html__( 'You have attempted to register a duplicate form %1$s with WooCommerce Form: %2$s', 'woocommerce' ),
+					esc_html__( 'You have attempted to register a duplicate form %1$s with PooCommerce Form: %2$s', 'poocommerce' ),
 					$type,
 					'`' . $id . '`'
 				)

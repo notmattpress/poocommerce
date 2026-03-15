@@ -2,17 +2,17 @@
 /**
  * CollectionQuery class.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @internal This file is for internal use only and should not be used by external code.
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\RestApi\Routes\V4\Customers;
+namespace Automattic\PooCommerce\Internal\RestApi\Routes\V4\Customers;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\AbstractCollectionQuery;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\AbstractCollectionQuery;
 use WP_REST_Request;
 use WP_User_Query;
 
@@ -30,7 +30,7 @@ final class CollectionQuery extends AbstractCollectionQuery {
 	public function get_query_schema(): array {
 		return array(
 			'page'     => array(
-				'description'       => __( 'Current page of the collection.', 'woocommerce' ),
+				'description'       => __( 'Current page of the collection.', 'poocommerce' ),
 				'type'              => 'integer',
 				'default'           => 1,
 				'sanitize_callback' => 'absint',
@@ -38,7 +38,7 @@ final class CollectionQuery extends AbstractCollectionQuery {
 				'minimum'           => 1,
 			),
 			'per_page' => array(
-				'description'       => __( 'Maximum number of items to be returned in result set.', 'woocommerce' ),
+				'description'       => __( 'Maximum number of items to be returned in result set.', 'poocommerce' ),
 				'type'              => 'integer',
 				'default'           => 10,
 				'minimum'           => 1,
@@ -47,13 +47,13 @@ final class CollectionQuery extends AbstractCollectionQuery {
 				'validate_callback' => 'rest_validate_request_arg',
 			),
 			'search'   => array(
-				'description'       => __( 'Limit results to those matching a string.', 'woocommerce' ),
+				'description'       => __( 'Limit results to those matching a string.', 'poocommerce' ),
 				'type'              => 'string',
 				'sanitize_callback' => 'sanitize_text_field',
 				'validate_callback' => 'rest_validate_request_arg',
 			),
 			'exclude'  => array(
-				'description'       => __( 'Ensure result set excludes specific IDs.', 'woocommerce' ),
+				'description'       => __( 'Ensure result set excludes specific IDs.', 'poocommerce' ),
 				'type'              => 'array',
 				'items'             => array(
 					'type' => 'integer',
@@ -62,7 +62,7 @@ final class CollectionQuery extends AbstractCollectionQuery {
 				'sanitize_callback' => 'wp_parse_id_list',
 			),
 			'include'  => array(
-				'description'       => __( 'Limit result set to specific IDs.', 'woocommerce' ),
+				'description'       => __( 'Limit result set to specific IDs.', 'poocommerce' ),
 				'type'              => 'array',
 				'items'             => array(
 					'type' => 'integer',
@@ -71,7 +71,7 @@ final class CollectionQuery extends AbstractCollectionQuery {
 				'sanitize_callback' => 'wp_parse_id_list',
 			),
 			'order'    => array(
-				'description'       => __( 'Order sort attribute ascending or descending.', 'woocommerce' ),
+				'description'       => __( 'Order sort attribute ascending or descending.', 'poocommerce' ),
 				'type'              => 'string',
 				'default'           => 'asc',
 				'enum'              => array( 'asc', 'desc' ),
@@ -79,7 +79,7 @@ final class CollectionQuery extends AbstractCollectionQuery {
 				'validate_callback' => 'rest_validate_request_arg',
 			),
 			'orderby'  => array(
-				'description'       => __( 'Sort collection by object attribute.', 'woocommerce' ),
+				'description'       => __( 'Sort collection by object attribute.', 'poocommerce' ),
 				'type'              => 'string',
 				'default'           => 'name',
 				'enum'              => array(
@@ -94,7 +94,7 @@ final class CollectionQuery extends AbstractCollectionQuery {
 				'validate_callback' => 'rest_validate_request_arg',
 			),
 			'role'     => array(
-				'description'       => __( 'Limit result set to resources with a specific role.', 'woocommerce' ),
+				'description'       => __( 'Limit result set to resources with a specific role.', 'poocommerce' ),
 				'type'              => 'string',
 				'default'           => 'customer',
 				'enum'              => array( 'customer', 'all' ),
@@ -145,7 +145,7 @@ final class CollectionQuery extends AbstractCollectionQuery {
 		 * @param WP_REST_Request $request       The current request.
 		 * @since 10.2.0
 		 */
-		$prepared_args = apply_filters( 'woocommerce_rest_customer_query', $prepared_args, $request );
+		$prepared_args = apply_filters( 'poocommerce_rest_customer_query', $prepared_args, $request );
 
 		return $prepared_args;
 	}

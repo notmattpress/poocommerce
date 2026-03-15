@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { useState, useEffect, useRef } from '@wordpress/element';
-import { useQuery } from '@woocommerce/navigation';
+import { useQuery } from '@poocommerce/navigation';
 import { Icon } from '@wordpress/components';
 import { useDebounce } from '@wordpress/compose';
 import { __ } from '@wordpress/i18n';
@@ -183,7 +183,7 @@ export default function CategorySelector(
 	}, [ categoriesToShow ] );
 
 	function mobileCategoryDropdownLabel() {
-		const allCategoriesText = __( 'All Categories', 'woocommerce' );
+		const allCategoriesText = __( 'All Categories', 'poocommerce' );
 
 		if ( ! selected ) {
 			return allCategoriesText;
@@ -199,11 +199,11 @@ export default function CategorySelector(
 	if ( isLoading ) {
 		return (
 			<>
-				<ul className="woocommerce-marketplace__category-selector">
+				<ul className="poocommerce-marketplace__category-selector">
 					{ [ ...Array( 5 ) ].map( ( el, i ) => (
 						<li
 							key={ i }
-							className="woocommerce-marketplace__category-item"
+							className="poocommerce-marketplace__category-item"
 						>
 							<CategoryLink slug="" label="" selected={ false } />
 						</li>
@@ -216,13 +216,13 @@ export default function CategorySelector(
 	return (
 		<>
 			<ul
-				className="woocommerce-marketplace__category-selector"
+				className="poocommerce-marketplace__category-selector"
 				aria-label="Categories"
 				ref={ categorySelectorRef }
 			>
 				{ categoriesToShow.map( ( category ) => (
 					<li
-						className="woocommerce-marketplace__category-item"
+						className="poocommerce-marketplace__category-item"
 						key={ category.slug }
 						ref={
 							category.slug === selected?.slug
@@ -238,14 +238,14 @@ export default function CategorySelector(
 					</li>
 				) ) }
 			</ul>
-			<div className="woocommerce-marketplace__category-selector--full-width">
+			<div className="poocommerce-marketplace__category-selector--full-width">
 				<CategoryDropdown
 					type={ props.type }
 					label={ mobileCategoryDropdownLabel() }
 					categories={ categoriesToShow }
-					buttonClassName="woocommerce-marketplace__category-dropdown-button"
-					className="woocommerce-marketplace__category-dropdown"
-					contentClassName="woocommerce-marketplace__category-dropdown-content"
+					buttonClassName="poocommerce-marketplace__category-dropdown-button"
+					className="poocommerce-marketplace__category-dropdown"
+					contentClassName="poocommerce-marketplace__category-dropdown-content"
 					selected={ selected }
 				/>
 			</div>
@@ -253,7 +253,7 @@ export default function CategorySelector(
 				<>
 					<button
 						onClick={ scrollToPrevCategories }
-						className="woocommerce-marketplace__category-navigation-button woocommerce-marketplace__category-navigation-button--prev"
+						className="poocommerce-marketplace__category-navigation-button poocommerce-marketplace__category-navigation-button--prev"
 						hidden={ scrollPosition === 'start' }
 						aria-label="Scroll to previous categories"
 						tabIndex={ -1 }
@@ -262,7 +262,7 @@ export default function CategorySelector(
 					</button>
 					<button
 						onClick={ scrollToNextCategories }
-						className="woocommerce-marketplace__category-navigation-button woocommerce-marketplace__category-navigation-button--next"
+						className="poocommerce-marketplace__category-navigation-button poocommerce-marketplace__category-navigation-button--next"
 						hidden={ scrollPosition === 'end' }
 						aria-label="Scroll to next categories"
 						tabIndex={ -1 }

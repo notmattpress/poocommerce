@@ -8,13 +8,13 @@ import { wpCLI } from '../utils/cli';
 export const test = baseTest.extend( {
 	page: async ( { page }, use ) => {
 		await wpCLI(
-			"wp option patch update woocommerce_paypal_settings _should_load 'yes'"
+			"wp option patch update poocommerce_paypal_settings _should_load 'yes'"
 		);
 
 		await use( page );
 
 		await wpCLI(
-			"wp option patch update woocommerce_paypal_settings _should_load 'no'"
+			"wp option patch update poocommerce_paypal_settings _should_load 'no'"
 		);
 	},
 	storageState: ADMIN_STATE_PATH,

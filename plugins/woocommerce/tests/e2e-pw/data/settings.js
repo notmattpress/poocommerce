@@ -3,7 +3,7 @@
  *
  * For more details on shipping zone properties, see:
  *
- * https://woocommerce.github.io/woocommerce-rest-api-docs/#shipping-zone-properties
+ * https://poocommerce.github.io/poocommerce-rest-api-docs/#shipping-zone-properties
  *
  */
 

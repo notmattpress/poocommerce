@@ -1,10 +1,10 @@
 /**
  * External dependencies
  */
-import { useWooBlockProps } from '@woocommerce/block-templates';
-import { Link } from '@woocommerce/components';
-import { getNewPath } from '@woocommerce/navigation';
-import { recordEvent } from '@woocommerce/tracks';
+import { useWooBlockProps } from '@poocommerce/block-templates';
+import { Link } from '@poocommerce/components';
+import { getNewPath } from '@poocommerce/navigation';
+import { recordEvent } from '@poocommerce/tracks';
 import { useInstanceId } from '@wordpress/compose';
 import { createElement, createInterpolateElement } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
@@ -29,7 +29,7 @@ export function Edit( {
 	const blockProps = useWooBlockProps( attributes );
 	const {
 		property,
-		label = __( 'Price', 'woocommerce' ),
+		label = __( 'Price', 'poocommerce' ),
 		help,
 		disabled,
 		tooltip,
@@ -58,7 +58,7 @@ export function Edit( {
 
 	const priceId = useInstanceId(
 		BaseControl,
-		'wp-block-woocommerce-product-pricing-field'
+		'wp-block-poocommerce-product-pricing-field'
 	) as string;
 
 	return (

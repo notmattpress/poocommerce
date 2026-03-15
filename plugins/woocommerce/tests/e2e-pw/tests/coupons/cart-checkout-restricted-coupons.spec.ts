@@ -6,7 +6,7 @@ import {
 	addAProductToCart,
 	getOrderIdFromUrl,
 	WC_API_PATH,
-} from '@woocommerce/e2e-utils-playwright';
+} from '@poocommerce/e2e-utils-playwright';
 /**
  * Internal dependencies
  */
@@ -43,7 +43,7 @@ const expandCouponForm = async ( page: Page ) => {
 		.click();
 	// This is to wait for the expand animation to finish, it avoids flakiness.
 	await expect(
-		page.locator( 'form.woocommerce-form-coupon' )
+		page.locator( 'form.poocommerce-form-coupon' )
 	).toHaveAttribute( 'style', '' );
 };
 
@@ -74,26 +74,26 @@ test.describe(
 			await restApi.post( `${ WC_API_PATH }/settings/general/batch`, {
 				update: [
 					{
-						id: 'woocommerce_store_address',
+						id: 'poocommerce_store_address',
 						value: 'addr 1',
 					},
 					{
-						id: 'woocommerce_store_city',
+						id: 'poocommerce_store_city',
 						value: 'San Francisco',
 					},
 					{
-						id: 'woocommerce_default_country',
+						id: 'poocommerce_default_country',
 						value: 'US:CA',
 					},
 					{
-						id: 'woocommerce_store_postcode',
+						id: 'poocommerce_store_postcode',
 						value: '94107',
 					},
 				],
 			} );
 			// make sure the currency is USD
 			await restApi.put(
-				`${ WC_API_PATH }/settings/general/woocommerce_currency`,
+				`${ WC_API_PATH }/settings/general/poocommerce_currency`,
 				{
 					value: 'USD',
 				}

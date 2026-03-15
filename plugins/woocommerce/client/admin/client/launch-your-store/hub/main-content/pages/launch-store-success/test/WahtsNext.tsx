@@ -175,7 +175,7 @@ describe( 'getActionsList', () => {
 					],
 				},
 			],
-			activePlugins: [ 'mailchimp-for-woocommerce' ],
+			activePlugins: [ 'mailchimp-for-poocommerce' ],
 		};
 		const actions = getActionsList( props as WhatsNextProps );
 		const mailchimpAction = actions.find(
@@ -200,7 +200,7 @@ describe( 'getActionsList', () => {
 					],
 				},
 			],
-			activePlugins: [ 'mailchimp-for-woocommerce' ],
+			activePlugins: [ 'mailchimp-for-poocommerce' ],
 		};
 		const actions = getActionsList( props as WhatsNextProps );
 		expect( actions ).toContainEqual(

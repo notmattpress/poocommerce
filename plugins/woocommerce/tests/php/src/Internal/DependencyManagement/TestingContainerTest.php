@@ -2,16 +2,16 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\DependencyManagement;
+namespace Automattic\PooCommerce\Tests\Internal\DependencyManagement;
 
-use Automattic\WooCommerce\Internal\DependencyManagement\RuntimeContainer;
-use Automattic\WooCommerce\Proxies\LegacyProxy;
-use Automattic\WooCommerce\Testing\Tools\DependencyManagement\MockableLegacyProxy;
-use Automattic\WooCommerce\Testing\Tools\TestingContainer;
-use Automattic\WooCommerce\Tests\Internal\DependencyManagement\ExampleClasses\ClassWithNestedDependencies;
-use Automattic\WooCommerce\Tests\Internal\DependencyManagement\ExampleClasses\ClassWithNoInterface;
-use Automattic\WooCommerce\Tests\Internal\DependencyManagement\ExampleClasses\DependencyClass;
-use Automattic\WooCommerce\Tests\Internal\DependencyManagement\ExampleClasses\DependencyClassWithInnerDependency;
+use Automattic\PooCommerce\Internal\DependencyManagement\RuntimeContainer;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\Testing\Tools\DependencyManagement\MockableLegacyProxy;
+use Automattic\PooCommerce\Testing\Tools\TestingContainer;
+use Automattic\PooCommerce\Tests\Internal\DependencyManagement\ExampleClasses\ClassWithNestedDependencies;
+use Automattic\PooCommerce\Tests\Internal\DependencyManagement\ExampleClasses\ClassWithNoInterface;
+use Automattic\PooCommerce\Tests\Internal\DependencyManagement\ExampleClasses\DependencyClass;
+use Automattic\PooCommerce\Tests\Internal\DependencyManagement\ExampleClasses\DependencyClassWithInnerDependency;
 
 /**
  * Tests for TestingContainer.

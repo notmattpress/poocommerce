@@ -130,7 +130,7 @@ describe( 'product filters interactivity store', () => {
 				mockGetServerContext.mockReturnValue( context );
 
 				mockGetConfig.mockImplementation( ( key: string ) => {
-					if ( key === 'woocommerce/product-filters' ) {
+					if ( key === 'poocommerce/product-filters' ) {
 						return {
 							canonicalUrl,
 						};

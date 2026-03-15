@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Enums\ProductStatus;
+use Automattic\PooCommerce\Enums\ProductStatus;
 use WP_Query;
-use Automattic\WooCommerce\Blocks\Utils\Utils;
-use Automattic\WooCommerce\Enums\ProductStockStatus;
+use Automattic\PooCommerce\Blocks\Utils\Utils;
+use Automattic\PooCommerce\Enums\ProductStockStatus;
 
 // phpcs:disable WordPress.DB.SlowDBQuery.slow_db_query_tax_query
 // phpcs:disable WordPress.DB.SlowDBQuery.slow_db_query_meta_query
@@ -47,7 +47,7 @@ class ProductQuery extends AbstractBlock {
 	/** This is a feature flag to enable the custom inherit Global Query implementation.
 	 * This is not intended to be a permanent feature flag, but rather a temporary.
 	 * It is also necessary to enable this feature flag on the PHP side: `assets/js/blocks/product-query/utils.tsx:83`.
-	 * https://github.com/woocommerce/woocommerce-blocks/pull/7382
+	 * https://github.com/poocommerce/poocommerce-blocks/pull/7382
 	 *
 	 * @var boolean
 	 */
@@ -89,8 +89,8 @@ class ProductQuery extends AbstractBlock {
 	/**
 	 * Post Template support for grid view was introduced in Gutenberg 16 / WordPress 6.3
 	 * Fixed in:
-	 * - https://github.com/woocommerce/woocommerce-blocks/pull/9916
-	 * - https://github.com/woocommerce/woocommerce-blocks/pull/10360
+	 * - https://github.com/poocommerce/poocommerce-blocks/pull/9916
+	 * - https://github.com/poocommerce/poocommerce-blocks/pull/10360
 	 */
 	private function check_if_post_template_has_support_for_grid_view() {
 		if ( Utils::wp_version_compare( '6.3', '>=' ) ) {
@@ -135,7 +135,7 @@ class ProductQuery extends AbstractBlock {
 		);
 
 		// The `loop_shop_per_page` filter can be found in WC_Query::product_query().
-		// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
+		// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
 		$this->asset_data_registry->add( 'loopShopPerPage', apply_filters( 'loop_shop_per_page', wc_get_default_products_per_row() * wc_get_default_product_rows_per_page() ) );
 	}
 
@@ -145,9 +145,9 @@ class ProductQuery extends AbstractBlock {
 	 * @param array $parsed_block The block being rendered.
 	 * @return boolean
 	 */
-	public static function is_woocommerce_variation( $parsed_block ) {
+	public static function is_poocommerce_variation( $parsed_block ) {
 		return isset( $parsed_block['attrs']['namespace'] )
-		&& substr( $parsed_block['attrs']['namespace'], 0, 11 ) === 'woocommerce';
+		&& substr( $parsed_block['attrs']['namespace'], 0, 11 ) === 'poocommerce';
 	}
 
 	/**
@@ -159,7 +159,7 @@ class ProductQuery extends AbstractBlock {
 	 * @return string The block content.
 	 */
 	public function enqueue_styles( string $block_content, array $block ) {
-		if ( 'core/query' === $block['blockName'] && self::is_woocommerce_variation( $block ) ) {
+		if ( 'core/query' === $block['blockName'] && self::is_poocommerce_variation( $block ) ) {
 			wp_enqueue_style( 'wc-blocks-style-product-query' );
 		}
 
@@ -179,7 +179,7 @@ class ProductQuery extends AbstractBlock {
 
 		$this->parsed_block = $parsed_block;
 
-		if ( self::is_woocommerce_variation( $parsed_block ) ) {
+		if ( self::is_poocommerce_variation( $parsed_block ) ) {
 			// Disable client-side navigation so that interactivity powered
 			// components fall back to full page reload.
 			wp_interactivity_config(
@@ -225,11 +225,11 @@ class ProductQuery extends AbstractBlock {
 	 * @param WP_REST_Request $request Request.
 	 */
 	public function update_rest_query( $args, $request ): array {
-		$woo_attributes      = $request->get_param( '__woocommerceAttributes' );
+		$woo_attributes      = $request->get_param( '__poocommerceAttributes' );
 		$is_valid_attributes = is_array( $woo_attributes );
 		$orderby             = $request->get_param( 'orderby' );
-		$woo_stock_status    = $request->get_param( '__woocommerceStockStatus' );
-		$on_sale             = $request->get_param( '__woocommerceOnSale' ) === 'true';
+		$woo_stock_status    = $request->get_param( '__poocommerceStockStatus' );
+		$on_sale             = $request->get_param( '__poocommerceOnSale' ) === 'true';
 
 		$on_sale_query    = $on_sale ? $this->get_on_sale_products_query() : [];
 		$orderby_query    = $orderby ? $this->get_custom_orderby_query( $orderby ) : [];
@@ -251,7 +251,7 @@ class ProductQuery extends AbstractBlock {
 	public function build_query( $query, $block = null ) {
 		$parsed_block                = $this->parsed_block;
 		$is_product_collection_block = $block->context['query']['isProductCollectionBlock'] ?? false;
-		if ( ! $this->is_woocommerce_variation( $parsed_block ) || $is_product_collection_block ) {
+		if ( ! $this->is_poocommerce_variation( $parsed_block ) || $is_product_collection_block ) {
 			return $query;
 		}
 
@@ -486,7 +486,7 @@ class ProductQuery extends AbstractBlock {
 		$product_visibility_not_in = array( is_search() ? $product_visibility_terms['exclude-from-search'] : $product_visibility_terms['exclude-from-catalog'] );
 
 		// Hide out of stock products.
-		if ( empty( $stock_query ) && 'yes' === get_option( 'woocommerce_hide_out_of_stock_items' ) ) {
+		if ( empty( $stock_query ) && 'yes' === get_option( 'poocommerce_hide_out_of_stock_items' ) ) {
 			$product_visibility_not_in[] = $product_visibility_terms[ ProductStockStatus::OUT_OF_STOCK ];
 		}
 
@@ -601,9 +601,9 @@ class ProductQuery extends AbstractBlock {
 	 */
 	private function get_queries_by_custom_attributes( $parsed_block ) {
 		$query            = $parsed_block['attrs']['query'];
-		$on_sale_enabled  = isset( $query['__woocommerceOnSale'] ) && true === $query['__woocommerceOnSale'];
-		$attributes_query = isset( $query['__woocommerceAttributes'] ) ? $this->get_product_attributes_query( $query['__woocommerceAttributes'] ) : array();
-		$stock_query      = isset( $query['__woocommerceStockStatus'] ) ? $this->get_stock_status_query( $query['__woocommerceStockStatus'] ) : array();
+		$on_sale_enabled  = isset( $query['__poocommerceOnSale'] ) && true === $query['__poocommerceOnSale'];
+		$attributes_query = isset( $query['__poocommerceAttributes'] ) ? $this->get_product_attributes_query( $query['__poocommerceAttributes'] ) : array();
+		$stock_query      = isset( $query['__poocommerceStockStatus'] ) ? $this->get_stock_status_query( $query['__poocommerceStockStatus'] ) : array();
 		$visibility_query = $this->get_product_visibility_query( $stock_query );
 
 		return array(
@@ -856,7 +856,7 @@ class ProductQuery extends AbstractBlock {
 
 		global $wp_query;
 
-		$inherit_enabled = isset( $parsed_block['attrs']['query']['__woocommerceInherit'] ) && true === $parsed_block['attrs']['query']['__woocommerceInherit'];
+		$inherit_enabled = isset( $parsed_block['attrs']['query']['__poocommerceInherit'] ) && true === $parsed_block['attrs']['query']['__poocommerceInherit'];
 
 		if ( ! $inherit_enabled ) {
 			return array();

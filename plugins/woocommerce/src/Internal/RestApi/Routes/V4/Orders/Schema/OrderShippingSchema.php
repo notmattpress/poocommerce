@@ -2,12 +2,12 @@
 /**
  * OrderShippingSchema class.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\RestApi\Routes\V4\Orders\Schema;
+namespace Automattic\PooCommerce\Internal\RestApi\Routes\V4\Orders\Schema;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -37,33 +37,33 @@ class OrderShippingSchema extends AbstractLineItemSchema {
 	public function get_item_schema_properties(): array {
 		$schema = array(
 			'id'           => array(
-				'description' => __( 'Item ID.', 'woocommerce' ),
+				'description' => __( 'Item ID.', 'poocommerce' ),
 				'type'        => 'integer',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'readonly'    => true,
 			),
 			'method_title' => array(
-				'description' => __( 'Shipping method name.', 'woocommerce' ),
+				'description' => __( 'Shipping method name.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 			),
 			'method_id'    => array(
-				'description' => __( 'Shipping method ID.', 'woocommerce' ),
+				'description' => __( 'Shipping method ID.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 			),
 			'instance_id'  => array(
-				'description' => __( 'Shipping instance ID.', 'woocommerce' ),
+				'description' => __( 'Shipping instance ID.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 			),
 			'total'        => array(
-				'description' => __( 'Line total (after discounts).', 'woocommerce' ),
+				'description' => __( 'Line total (after discounts).', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 			),
 			'total_tax'    => array(
-				'description' => __( 'Line total tax (after discounts).', 'woocommerce' ),
+				'description' => __( 'Line total tax (after discounts).', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'readonly'    => true,

@@ -1,13 +1,13 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\StoreApi\Utilities;
+namespace Automattic\PooCommerce\Tests\Blocks\StoreApi\Utilities;
 
 use WC_Helper_Order;
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\StoreApi\Exceptions\RouteException;
-use Automattic\WooCommerce\StoreApi\Utilities\OrderController;
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\CouponHelper;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\StoreApi\Exceptions\RouteException;
+use Automattic\PooCommerce\StoreApi\Utilities\OrderController;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\CouponHelper;
 use Yoast\PHPUnitPolyfills\TestCases\TestCase;
 
 /**
@@ -317,12 +317,12 @@ class OrderControllerTests extends TestCase {
 			return $locales;
 		};
 
-		add_filter( 'woocommerce_get_country_locale', $hide_postcode );
+		add_filter( 'poocommerce_get_country_locale', $hide_postcode );
 
 		$errors = new \WP_Error();
 		$this->sut->validate_address_fields( $order, 'shipping', $errors );
 		$this->assertEmpty( $errors->get_error_messages() );
-		remove_filter( 'woocommerce_get_country_locale', $hide_postcode );
+		remove_filter( 'poocommerce_get_country_locale', $hide_postcode );
 	}
 
 	/**

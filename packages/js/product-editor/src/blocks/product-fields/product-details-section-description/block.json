@@ -1,9 +1,9 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "woocommerce/product-details-section-description",
+	"name": "poocommerce/product-details-section-description",
 	"title": "Product details section description",
-	"category": "woocommerce",
+	"category": "poocommerce",
 	"description": "The product details section description.",
 	"keywords": [
 		"products",

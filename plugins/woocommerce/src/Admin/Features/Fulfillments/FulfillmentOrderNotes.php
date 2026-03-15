@@ -4,14 +4,14 @@
  *
  * Adds order notes for fulfillment lifecycle events.
  *
- * @package WooCommerce\Admin\Features\Fulfillments
+ * @package PooCommerce\Admin\Features\Fulfillments
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Admin\Features\Fulfillments;
+namespace Automattic\PooCommerce\Admin\Features\Fulfillments;
 
-use Automattic\WooCommerce\Internal\Orders\OrderNoteGroup;
+use Automattic\PooCommerce\Internal\Orders\OrderNoteGroup;
 
 /**
  * FulfillmentOrderNotes class.
@@ -27,9 +27,9 @@ class FulfillmentOrderNotes {
 	 * Register hooks for fulfillment order notes.
 	 */
 	public function register(): void {
-		add_action( 'woocommerce_fulfillment_after_create', array( $this, 'add_fulfillment_created_note' ), 10, 1 );
-		add_action( 'woocommerce_fulfillment_after_update', array( $this, 'add_fulfillment_updated_note' ), 10, 3 );
-		add_action( 'woocommerce_fulfillment_after_delete', array( $this, 'add_fulfillment_deleted_note' ), 10, 1 );
+		add_action( 'poocommerce_fulfillment_after_create', array( $this, 'add_fulfillment_created_note' ), 10, 1 );
+		add_action( 'poocommerce_fulfillment_after_update', array( $this, 'add_fulfillment_updated_note' ), 10, 3 );
+		add_action( 'poocommerce_fulfillment_after_delete', array( $this, 'add_fulfillment_deleted_note' ), 10, 1 );
 	}
 
 	/**
@@ -50,7 +50,7 @@ class FulfillmentOrderNotes {
 
 		$message = sprintf(
 			/* translators: 1: fulfillment ID, 2: fulfillment status label, 3: item list */
-			__( 'Fulfillment #%1$d created (status: %2$s). Items: %3$s.', 'woocommerce' ),
+			__( 'Fulfillment #%1$d created (status: %2$s). Items: %3$s.', 'poocommerce' ),
 			$fulfillment->get_id(),
 			$status_label,
 			$items_text
@@ -59,7 +59,7 @@ class FulfillmentOrderNotes {
 		if ( ! empty( $tracking_text ) ) {
 			$message .= ' ' . sprintf(
 				/* translators: %s: tracking number */
-				__( 'Tracking: %s.', 'woocommerce' ),
+				__( 'Tracking: %s.', 'poocommerce' ),
 				$tracking_text
 			);
 		}
@@ -75,7 +75,7 @@ class FulfillmentOrderNotes {
 		 * @param Fulfillment  $fulfillment The fulfillment object.
 		 * @param \WC_Order    $order       The order object.
 		 */
-		$message = apply_filters( 'woocommerce_fulfillment_created_order_note', $message, $fulfillment, $order );
+		$message = apply_filters( 'poocommerce_fulfillment_created_order_note', $message, $fulfillment, $order );
 		$message = $this->normalize_note_message( $message );
 
 		if ( null === $message ) {
@@ -119,7 +119,7 @@ class FulfillmentOrderNotes {
 
 		$message = sprintf(
 			/* translators: 1: fulfillment ID, 2: item list */
-			__( 'Fulfillment #%1$d updated. Items: %2$s.', 'woocommerce' ),
+			__( 'Fulfillment #%1$d updated. Items: %2$s.', 'poocommerce' ),
 			$fulfillment->get_id(),
 			$items_text
 		);
@@ -127,7 +127,7 @@ class FulfillmentOrderNotes {
 		if ( ! empty( $tracking_text ) ) {
 			$message .= ' ' . sprintf(
 				/* translators: %s: tracking number */
-				__( 'Tracking: %s.', 'woocommerce' ),
+				__( 'Tracking: %s.', 'poocommerce' ),
 				$tracking_text
 			);
 		}
@@ -143,7 +143,7 @@ class FulfillmentOrderNotes {
 		 * @param Fulfillment  $fulfillment The fulfillment object.
 		 * @param \WC_Order    $order       The order object.
 		 */
-		$message = apply_filters( 'woocommerce_fulfillment_updated_order_note', $message, $fulfillment, $order );
+		$message = apply_filters( 'poocommerce_fulfillment_updated_order_note', $message, $fulfillment, $order );
 		$message = $this->normalize_note_message( $message );
 
 		if ( null === $message ) {
@@ -166,7 +166,7 @@ class FulfillmentOrderNotes {
 
 		$message = sprintf(
 			/* translators: %d: fulfillment ID */
-			__( 'Fulfillment #%d deleted.', 'woocommerce' ),
+			__( 'Fulfillment #%d deleted.', 'poocommerce' ),
 			$fulfillment->get_id()
 		);
 
@@ -181,7 +181,7 @@ class FulfillmentOrderNotes {
 		 * @param Fulfillment  $fulfillment The fulfillment object.
 		 * @param \WC_Order    $order       The order object.
 		 */
-		$message = apply_filters( 'woocommerce_fulfillment_deleted_order_note', $message, $fulfillment, $order );
+		$message = apply_filters( 'poocommerce_fulfillment_deleted_order_note', $message, $fulfillment, $order );
 		$message = $this->normalize_note_message( $message );
 
 		if ( null === $message ) {
@@ -206,7 +206,7 @@ class FulfillmentOrderNotes {
 
 		$message = sprintf(
 			/* translators: 1: old fulfillment status label, 2: new fulfillment status label */
-			__( 'Order fulfillment status changed from %1$s to %2$s.', 'woocommerce' ),
+			__( 'Order fulfillment status changed from %1$s to %2$s.', 'poocommerce' ),
 			$old_status_label,
 			$new_status_label
 		);
@@ -223,7 +223,7 @@ class FulfillmentOrderNotes {
 		 * @param string      $old_status The previous fulfillment status.
 		 * @param string      $new_status The new fulfillment status.
 		 */
-		$message = apply_filters( 'woocommerce_fulfillment_order_status_changed_order_note', $message, $order, $old_status, $new_status );
+		$message = apply_filters( 'poocommerce_fulfillment_order_status_changed_order_note', $message, $order, $old_status, $new_status );
 		$message = $this->normalize_note_message( $message );
 
 		if ( null === $message ) {
@@ -247,7 +247,7 @@ class FulfillmentOrderNotes {
 
 		$message = sprintf(
 			/* translators: 1: fulfillment ID, 2: old status label, 3: new status label */
-			__( 'Fulfillment #%1$d status changed from %2$s to %3$s.', 'woocommerce' ),
+			__( 'Fulfillment #%1$d status changed from %2$s to %3$s.', 'poocommerce' ),
 			$fulfillment->get_id(),
 			$old_status_label,
 			$new_status_label
@@ -266,7 +266,7 @@ class FulfillmentOrderNotes {
 		 * @param string       $old_status  The previous status.
 		 * @param string       $new_status  The new status.
 		 */
-		$message = apply_filters( 'woocommerce_fulfillment_status_changed_order_note', $message, $fulfillment, $order, $old_status, $new_status );
+		$message = apply_filters( 'poocommerce_fulfillment_status_changed_order_note', $message, $fulfillment, $order, $old_status, $new_status );
 		$message = $this->normalize_note_message( $message );
 
 		if ( null === $message ) {
@@ -303,7 +303,7 @@ class FulfillmentOrderNotes {
 			if ( empty( $name ) ) {
 				$name = sprintf(
 					/* translators: %d: item ID */
-					__( 'Item #%d', 'woocommerce' ),
+					__( 'Item #%d', 'poocommerce' ),
 					$item_id
 				);
 			}
@@ -336,7 +336,7 @@ class FulfillmentOrderNotes {
 		if ( is_string( $shipping_provider ) && '' !== $shipping_provider ) {
 			$parts[] = sprintf(
 				/* translators: %s: shipping provider name */
-				__( 'Provider: %s', 'woocommerce' ),
+				__( 'Provider: %s', 'poocommerce' ),
 				$shipping_provider
 			);
 		}
@@ -344,7 +344,7 @@ class FulfillmentOrderNotes {
 		if ( is_string( $tracking_url ) && '' !== $tracking_url ) {
 			$parts[] = sprintf(
 				/* translators: %s: tracking URL */
-				__( 'URL: %s', 'woocommerce' ),
+				__( 'URL: %s', 'poocommerce' ),
 				$tracking_url
 			);
 		}

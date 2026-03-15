@@ -1,4 +1,4 @@
-name: 'Setup WooCommerce Monorepo'
+name: 'Setup PooCommerce Monorepo'
 description: 'A composite action bundling together the setup of dependencies and optional installation and building of projects.'
 inputs:
     php-version:
@@ -82,19 +82,19 @@ runs:
           id: 'project-filters'
           shell: 'bash'
           run: |
-              echo "install=$(node ./.github/actions/setup-woocommerce-monorepo/scripts/parse-input-filter.js '${{ inputs.install }}')" >> $GITHUB_OUTPUT
-              echo "build=$(node ./.github/actions/setup-woocommerce-monorepo/scripts/parse-input-filter.js '${{ inputs.build }}')" >> $GITHUB_OUTPUT
+              echo "install=$(node ./.github/actions/setup-poocommerce-monorepo/scripts/parse-input-filter.js '${{ inputs.install }}')" >> $GITHUB_OUTPUT
+              echo "build=$(node ./.github/actions/setup-poocommerce-monorepo/scripts/parse-input-filter.js '${{ inputs.build }}')" >> $GITHUB_OUTPUT
         - name: 'Install Project Dependencies'
           # Boolean inputs aren't parsed into filters so it'll either be "true" or there will be a filter.
           if: ${{ inputs.install == 'true' || steps.project-filters.outputs.install != '' }}
           shell: 'bash'
           # The installation command is a bit odd as it's a workaround for know bug - https://github.com/pnpm/pnpm/issues/6300.
           run: |
-            if [[ '${{ inputs.install }}' == '@woocommerce/plugin-woocommerce...' && '${{ inputs.build-type }}' == 'backend' ]]; then
+            if [[ '${{ inputs.install }}' == '@poocommerce/plugin-poocommerce...' && '${{ inputs.build-type }}' == 'backend' ]]; then
               # PHPUnit/REST testing optimized installation of the deps: minimalistic and parallellized between PHP/JS.
               # JS deps installation is abit hard-core, but all we need actually is wp-env and playwright - we are good at that regard.
-              composer install --working-dir=./plugins/woocommerce --quiet &
-              pnpm install --filter='@woocommerce/plugin-woocommerce' --frozen-lockfile --config.dedupe-peer-dependents=false --ignore-scripts
+              composer install --working-dir=./plugins/poocommerce --quiet &
+              pnpm install --filter='@poocommerce/plugin-poocommerce' --frozen-lockfile --config.dedupe-peer-dependents=false --ignore-scripts
             else
               pnpm install ${{ steps.project-filters.outputs.install }} --frozen-lockfile ${{ steps.project-filters.outputs.install != '' && '--config.dedupe-peer-dependents=false' || '' }}
             fi
@@ -112,7 +112,7 @@ runs:
           shell: 'bash'
           run: |
             if [[ '${{ inputs.build-type }}' == 'backend' ]]; then
-              pnpm --filter="@woocommerce/admin-library" build:project:feature-config
+              pnpm --filter="@poocommerce/admin-library" build:project:feature-config
             fi
             if [[ '${{ inputs.build-type }}' == 'full' ]]; then
               pnpm ${{ steps.project-filters.outputs.build }} build

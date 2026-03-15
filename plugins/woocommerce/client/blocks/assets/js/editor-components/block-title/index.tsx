@@ -30,7 +30,7 @@ const BlockTitle = ( {
 				className="screen-reader-text"
 				htmlFor={ `block-title-${ instanceId }` }
 			>
-				{ __( 'Block title', 'woocommerce' ) }
+				{ __( 'Block title', 'poocommerce' ) }
 			</label>
 			<PlainText
 				id={ `block-title-${ instanceId }` }

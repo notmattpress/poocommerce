@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import type { ProductVariation } from '@woocommerce/data';
+import type { ProductVariation } from '@poocommerce/data';
 
 export type VariationPricingFormProps = {
 	initialValue?: Partial< ProductVariation >;

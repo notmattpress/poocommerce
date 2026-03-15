@@ -4,8 +4,8 @@
 import { useEffect, useState } from '@wordpress/element';
 import { applyFilters } from '@wordpress/hooks';
 import { __ } from '@wordpress/i18n';
-import { TourKit, TourKitTypes } from '@woocommerce/components';
-import { recordEvent } from '@woocommerce/tracks';
+import { TourKit, TourKitTypes } from '@poocommerce/components';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -44,11 +44,11 @@ const getTourConfig = ( {
 			},
 			meta: {
 				name: 'product-name',
-				heading: __( 'Product name', 'woocommerce' ),
+				heading: __( 'Product name', 'poocommerce' ),
 				descriptions: {
 					desktop: __(
 						'Start typing your new product name here. This will be what your customers will see in your store.',
-						'woocommerce'
+						'poocommerce'
 					),
 				},
 			},
@@ -65,29 +65,29 @@ const getTourConfig = ( {
 			},
 			meta: {
 				name: 'product-description',
-				heading: __( 'Add your product description', 'woocommerce' ),
+				heading: __( 'Add your product description', 'poocommerce' ),
 				descriptions: {
 					desktop: __(
 						'Add your full product description here. Describe your product in detail.',
-						'woocommerce'
+						'poocommerce'
 					),
 				},
 			},
 		},
 		{
 			referenceElements: {
-				desktop: '#woocommerce-product-data',
+				desktop: '#poocommerce-product-data',
 			},
 			focusElement: {
 				desktop: '#_regular_price',
 			},
 			meta: {
 				name: 'product-data',
-				heading: __( 'Add your product data', 'woocommerce' ),
+				heading: __( 'Add your product data', 'poocommerce' ),
 				descriptions: {
 					desktop: __(
 						'Use the tabs to switch between sections and insert product details. Start by adding your product price.',
-						'woocommerce'
+						'poocommerce'
 					),
 				},
 			},
@@ -106,12 +106,12 @@ const getTourConfig = ( {
 				name: 'product-short-description',
 				heading: __(
 					'Add your short product description',
-					'woocommerce'
+					'poocommerce'
 				),
 				descriptions: {
 					desktop: __(
 						'Type a quick summary for your product here. This will appear on the product page right under the product name.',
-						'woocommerce'
+						'poocommerce'
 					),
 				},
 			},
@@ -125,11 +125,11 @@ const getTourConfig = ( {
 			},
 			meta: {
 				name: 'product-image',
-				heading: __( 'Add your product image', 'woocommerce' ),
+				heading: __( 'Add your product image', 'poocommerce' ),
 				descriptions: {
 					desktop: __(
 						'Upload an image to your product here. Ideally a JPEG or PNG about 600 px wide or bigger. This image will be shown in your store’s catalog.',
-						'woocommerce'
+						'poocommerce'
 					),
 				},
 			},
@@ -143,11 +143,11 @@ const getTourConfig = ( {
 			},
 			meta: {
 				name: 'product-tags',
-				heading: __( 'Add your product tags', 'woocommerce' ),
+				heading: __( 'Add your product tags', 'poocommerce' ),
 				descriptions: {
 					desktop: __(
 						'Add your product tags here. Tags are a method of labeling your products to make them easier for customers to find. For example, if you sell clothing, and you have a lot of cat prints, you could make a tag for “cat.”',
-						'woocommerce'
+						'poocommerce'
 					),
 				},
 			},
@@ -158,11 +158,11 @@ const getTourConfig = ( {
 			},
 			meta: {
 				name: 'product-categories',
-				heading: __( 'Add your product categories', 'woocommerce' ),
+				heading: __( 'Add your product categories', 'poocommerce' ),
 				descriptions: {
 					desktop: __(
 						'Add your product categories here. Assign categories to your products to make them easier to browse through and find in your store.',
-						'woocommerce'
+						'poocommerce'
 					),
 				},
 			},
@@ -176,15 +176,15 @@ const getTourConfig = ( {
 			},
 			meta: {
 				name: 'publish',
-				heading: __( 'Publish your product 🎉', 'woocommerce' ),
+				heading: __( 'Publish your product 🎉', 'poocommerce' ),
 				descriptions: {
 					desktop: __(
 						'Good work! Now you can publish your product to your store by hitting the “Publish” button or keep editing it.',
-						'woocommerce'
+						'poocommerce'
 					),
 				},
 				primaryButton: {
-					text: __( 'Keep editing', 'woocommerce' ),
+					text: __( 'Keep editing', 'poocommerce' ),
 				},
 			},
 		},
@@ -193,12 +193,12 @@ const getTourConfig = ( {
 	/**
 	 * Experimental: Filter for manipulating the product tour.
 	 *
-	 * @filter experimental_woocommerce_admin_product_tour_steps
+	 * @filter experimental_poocommerce_admin_product_tour_steps
 	 * @param {Object} WooStep Array of Woo tour guide steps.
 	 * @param          string  tutorialType The type of tutorial to display.
 	 */
 	const steps: TourKitTypes.WooStep[] = applyFilters(
-		'experimental_woocommerce_admin_product_tour_steps',
+		'experimental_poocommerce_admin_product_tour_steps',
 		defaultSteps,
 		urlParams.get( 'tutorial_type' )
 	) as TourKitTypes.WooStep[];

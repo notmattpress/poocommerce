@@ -5,23 +5,23 @@ import { __ } from '@wordpress/i18n';
 
 export const filtersPreview = [
 	{
-		type: __( 'Color', 'woocommerce' ),
-		label: __( 'Blue', 'woocommerce' ),
+		type: __( 'Color', 'poocommerce' ),
+		label: __( 'Blue', 'poocommerce' ),
 	},
 	{
-		type: __( 'Color', 'woocommerce' ),
-		label: __( 'Red', 'woocommerce' ),
+		type: __( 'Color', 'poocommerce' ),
+		label: __( 'Red', 'poocommerce' ),
 	},
 	{
-		type: __( 'Size', 'woocommerce' ),
-		label: __( 'Large', 'woocommerce' ),
+		type: __( 'Size', 'poocommerce' ),
+		label: __( 'Large', 'poocommerce' ),
 	},
 	{
-		type: __( 'Status', 'woocommerce' ),
-		label: __( 'In stock', 'woocommerce' ),
+		type: __( 'Status', 'poocommerce' ),
+		label: __( 'In stock', 'poocommerce' ),
 	},
 	{
-		type: __( 'Status', 'woocommerce' ),
-		label: __( 'On sale', 'woocommerce' ),
+		type: __( 'Status', 'poocommerce' ),
+		label: __( 'On sale', 'poocommerce' ),
 	},
 ];

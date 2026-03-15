@@ -7,7 +7,7 @@ export function TabPanel( {
 } ) {
 	return (
 		<div
-			className="woocommerce-product-editor-dev-tools-bar__tab-panel"
+			className="poocommerce-product-editor-dev-tools-bar__tab-panel"
 			style={ isSelected ? {} : { display: 'none' } }
 		>
 			{ children }

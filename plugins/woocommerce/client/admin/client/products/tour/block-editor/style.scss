@@ -1,4 +1,4 @@
-.woocommerce-block-editor-guide {
+.poocommerce-block-editor-guide {
 	&__header {
 		width: 312px;
 		height: 222px;
@@ -57,8 +57,8 @@
 	}
 }
 
-.woocommerce-block-editor-tourkit {
-	.woocommerce-tour-kit-step {
+.poocommerce-block-editor-tourkit {
+	.poocommerce-tour-kit-step {
 		width: 381px;
 
 		.components-card__header {
@@ -71,7 +71,7 @@
 		}
 
 		&__heading {
-			.woocommerce-pill {
+			.poocommerce-pill {
 				margin-left: $gap-small;
 				background-color: $studio-yellow-5;
 				border: 0;

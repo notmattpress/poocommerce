@@ -25,10 +25,10 @@ export const LaunchStoreHubMobileHeader = ( props: SidebarComponentProps ) => {
 				onClick={ handleBackClick }
 				icon={ chevronLeft }
 				iconSize={ 20 }
-				aria-label={ __( 'Go back', 'woocommerce' ) }
+				aria-label={ __( 'Go back', 'poocommerce' ) }
 			/>
 			<h1 className="mobile-header__title">
-				{ __( 'Launch your store', 'woocommerce' ) }
+				{ __( 'Launch your store', 'poocommerce' ) }
 			</h1>
 			{ props.onToggle && (
 				<MobileSidebarToggle onToggle={ props.onToggle } />

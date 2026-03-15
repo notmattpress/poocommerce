@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Internal\ProductFilters;
+namespace Automattic\PooCommerce\Tests\Internal\ProductFilters;
 
-use Automattic\WooCommerce\Tests\Blocks\Helpers\FixtureData;
+use Automattic\PooCommerce\Tests\Blocks\Helpers\FixtureData;
 use WC_Product;
 use WC_Product_Variable;
-use Automattic\WooCommerce\Enums\ProductStockStatus;
+use Automattic\PooCommerce\Enums\ProductStockStatus;
 
 /**
  * Tests related to FilterClausesGenerator service.
@@ -81,14 +81,14 @@ abstract class AbstractProductFiltersTest extends \WC_Unit_Test_Case {
 		);
 
 		$this->backup_options = array(
-			'woocommerce_attribute_lookup_enabled' => get_option( 'woocommerce_attribute_lookup_enabled' ),
-			'woocommerce_calc_taxes'               => get_option( 'woocommerce_calc_taxes' ),
-			'woocommerce_tax_display_shop'         => get_option( 'woocommerce_tax_display_shop' ),
+			'poocommerce_attribute_lookup_enabled' => get_option( 'poocommerce_attribute_lookup_enabled' ),
+			'poocommerce_calc_taxes'               => get_option( 'poocommerce_calc_taxes' ),
+			'poocommerce_tax_display_shop'         => get_option( 'poocommerce_tax_display_shop' ),
 		);
 
-		update_option( 'woocommerce_attribute_lookup_enabled', 'yes' );
-		update_option( 'woocommerce_calc_taxes', 'no' );
-		update_option( 'woocommerce_tax_display_shop', 'excl' );
+		update_option( 'poocommerce_attribute_lookup_enabled', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'no' );
+		update_option( 'poocommerce_tax_display_shop', 'excl' );
 
 		$this->remove_all_attributes();
 		$this->remove_all_products();

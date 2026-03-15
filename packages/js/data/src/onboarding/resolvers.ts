@@ -95,7 +95,7 @@ export function* getEmailPrefill() {
 export function* getTaskLists() {
 	const deprecatedTasks = new DeprecatedTasks();
 	try {
-		yield checkUserCapability( 'manage_woocommerce' );
+		yield checkUserCapability( 'manage_poocommerce' );
 
 		const results: TaskListType[] = yield apiFetch( {
 			path: WC_ADMIN_NAMESPACE + '/onboarding/tasks',

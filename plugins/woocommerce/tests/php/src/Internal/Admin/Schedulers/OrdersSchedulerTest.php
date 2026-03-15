@@ -1,12 +1,12 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\Schedulers;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\Schedulers;
 
-use Automattic\WooCommerce\Internal\Admin\Schedulers\OrdersScheduler;
-use Automattic\WooCommerce\Admin\API\Reports\Orders\Stats\DataStore as OrdersStatsDataStore;
+use Automattic\PooCommerce\Internal\Admin\Schedulers\OrdersScheduler;
+use Automattic\PooCommerce\Admin\API\Reports\Orders\Stats\DataStore as OrdersStatsDataStore;
 use WC_Unit_Test_Case;
-use Automattic\WooCommerce\Admin\Features\Features;
+use Automattic\PooCommerce\Admin\Features\Features;
 
 /**
  * OrdersScheduler Test.
@@ -96,7 +96,7 @@ class OrdersSchedulerTest extends WC_Unit_Test_Case {
 		$custom_interval = 6 * HOUR_IN_SECONDS;
 		$filter_called   = false;
 		add_filter(
-			'woocommerce_analytics_import_interval',
+			'poocommerce_analytics_import_interval',
 			function () use ( $custom_interval, &$filter_called ) {
 				$filter_called = true;
 				return $custom_interval;
@@ -274,7 +274,7 @@ class OrdersSchedulerTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Should allow the woocommerce_analytics_is_test_order filter to mark a normal order as a test order.
+	 * @testdox Should allow the poocommerce_analytics_is_test_order filter to mark a normal order as a test order.
 	 */
 	public function test_is_test_order_filter_can_override(): void {
 		$order = \WC_Helper_Order::create_order();
@@ -283,15 +283,15 @@ class OrdersSchedulerTest extends WC_Unit_Test_Case {
 		$this->assertFalse( OrdersScheduler::is_test_order( $order ) );
 
 		// Override via filter to mark it as test.
-		add_filter( 'woocommerce_analytics_is_test_order', '__return_true' );
+		add_filter( 'poocommerce_analytics_is_test_order', '__return_true' );
 
 		$this->assertTrue( OrdersScheduler::is_test_order( $order ) );
 
-		remove_filter( 'woocommerce_analytics_is_test_order', '__return_true' );
+		remove_filter( 'poocommerce_analytics_is_test_order', '__return_true' );
 	}
 
 	/**
-	 * @testdox Should allow the woocommerce_analytics_is_test_order filter to include a test order in analytics.
+	 * @testdox Should allow the poocommerce_analytics_is_test_order filter to include a test order in analytics.
 	 */
 	public function test_is_test_order_filter_can_allow_test_order(): void {
 		$order = \WC_Helper_Order::create_order();
@@ -302,11 +302,11 @@ class OrdersSchedulerTest extends WC_Unit_Test_Case {
 		$this->assertTrue( OrdersScheduler::is_test_order( $order ) );
 
 		// Override via filter to allow it.
-		add_filter( 'woocommerce_analytics_is_test_order', '__return_false' );
+		add_filter( 'poocommerce_analytics_is_test_order', '__return_false' );
 
 		$this->assertFalse( OrdersScheduler::is_test_order( $order ) );
 
-		remove_filter( 'woocommerce_analytics_is_test_order', '__return_false' );
+		remove_filter( 'poocommerce_analytics_is_test_order', '__return_false' );
 	}
 
 	/**
@@ -351,14 +351,14 @@ class OrdersSchedulerTest extends WC_Unit_Test_Case {
 			$received_order = $filter_order;
 			return $is_test;
 		};
-		add_filter( 'woocommerce_analytics_is_test_order', $filter_callback, 10, 2 );
+		add_filter( 'poocommerce_analytics_is_test_order', $filter_callback, 10, 2 );
 
 		OrdersScheduler::is_test_order( $refund );
 
 		$this->assertNotNull( $received_order );
 		$this->assertEquals( $order->get_id(), $received_order->get_id() );
 
-		remove_filter( 'woocommerce_analytics_is_test_order', $filter_callback );
+		remove_filter( 'poocommerce_analytics_is_test_order', $filter_callback );
 	}
 
 	/**

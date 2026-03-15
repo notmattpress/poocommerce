@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\ProductFeed\Integrations\POSCatalog;
+namespace Automattic\PooCommerce\Tests\Internal\ProductFeed\Integrations\POSCatalog;
 
-use Automattic\WooCommerce\Internal\ProductFeed\Integrations\POSCatalog\ProductMapper;
+use Automattic\PooCommerce\Internal\ProductFeed\Integrations\POSCatalog\ProductMapper;
 use WC_Helper_Product;
 
 /**

@@ -2,15 +2,15 @@
  * External dependencies
  */
 import { render, screen, fireEvent } from '@testing-library/react';
-import { recordEvent } from '@woocommerce/tracks';
-import { TaskType } from '@woocommerce/data';
+import { recordEvent } from '@poocommerce/tracks';
+import { TaskType } from '@poocommerce/data';
 
 /**
  * Internal dependencies
  */
 import { Shipping, hasInstallableSlug } from '../index';
 
-jest.mock( '@woocommerce/tracks', () => ( {
+jest.mock( '@poocommerce/tracks', () => ( {
 	recordEvent: jest.fn(),
 } ) );
 
@@ -42,9 +42,9 @@ describe( 'Shipping', () => {
 	};
 
 	const usShippingPartner = {
-		id: 'woocommerce-shipping',
-		name: 'WooCommerce Shipping',
-		slug: 'woocommerce-shipping',
+		id: 'poocommerce-shipping',
+		name: 'PooCommerce Shipping',
+		slug: 'poocommerce-shipping',
 	};
 
 	const chileShippingPartner = {
@@ -53,10 +53,10 @@ describe( 'Shipping', () => {
 		slug: '',
 	};
 
-	it( 'should trigger event tasklist_shipping_visit_marketplace_click when clicking the WooCommerce Marketplace link', () => {
+	it( 'should trigger event tasklist_shipping_visit_marketplace_click when clicking the PooCommerce Marketplace link', () => {
 		render( <Shipping { ...props } /> );
 
-		fireEvent.click( screen.getByText( 'the WooCommerce Marketplace' ) );
+		fireEvent.click( screen.getByText( 'the PooCommerce Marketplace' ) );
 
 		expect( recordEvent ).toHaveBeenCalledWith(
 			'tasklist_shipping_visit_marketplace_click',
@@ -64,7 +64,7 @@ describe( 'Shipping', () => {
 		);
 	} );
 
-	it( 'should navigate to the marketplace when clicking the WooCommerce Marketplace link', async () => {
+	it( 'should navigate to the marketplace when clicking the PooCommerce Marketplace link', async () => {
 		const { isFeatureEnabled } = jest.requireMock( '~/utils/features' );
 		( isFeatureEnabled as jest.Mock ).mockReturnValue( true );
 
@@ -79,7 +79,7 @@ describe( 'Shipping', () => {
 
 		render( <Shipping { ...props } /> );
 
-		fireEvent.click( screen.getByText( 'the WooCommerce Marketplace' ) );
+		fireEvent.click( screen.getByText( 'the PooCommerce Marketplace' ) );
 
 		expect( mockLocation.href ).toContain(
 			'admin.php?page=wc-admin&tab=extensions&path=/extensions&category=shipping'
@@ -102,14 +102,14 @@ describe( 'Shipping', () => {
 		it( 'should fire shipping_partner_impression when entering label_printing step with partners', () => {
 			const shippingPartners = [
 				{
-					id: 'woocommerce-shipping',
-					name: 'WooCommerce Shipping',
-					slug: 'woocommerce-shipping',
+					id: 'poocommerce-shipping',
+					name: 'PooCommerce Shipping',
+					slug: 'poocommerce-shipping',
 				},
 				{
 					id: 'shipstation',
 					name: 'ShipStation',
-					slug: 'woocommerce-shipstation-integration',
+					slug: 'poocommerce-shipstation-integration',
 				},
 			];
 
@@ -147,7 +147,7 @@ describe( 'Shipping', () => {
 					context: 'tasklist',
 					country: 'US',
 					plugins:
-						'woocommerce-shipping,woocommerce-shipstation-integration',
+						'poocommerce-shipping,poocommerce-shipstation-integration',
 				}
 			);
 		} );
@@ -179,9 +179,9 @@ describe( 'Shipping', () => {
 
 			const shippingPartners = [
 				{
-					id: 'woocommerce-shipping',
-					name: 'WooCommerce Shipping',
-					slug: 'woocommerce-shipping',
+					id: 'poocommerce-shipping',
+					name: 'PooCommerce Shipping',
+					slug: 'poocommerce-shipping',
 				},
 			];
 
@@ -217,9 +217,9 @@ describe( 'Shipping', () => {
 	describe( 'recordInstallAndActivateEvents', () => {
 		const shippingPartners = [
 			{
-				id: 'woocommerce-shipping',
-				name: 'WooCommerce Shipping',
-				slug: 'woocommerce-shipping',
+				id: 'poocommerce-shipping',
+				name: 'PooCommerce Shipping',
+				slug: 'poocommerce-shipping',
 			},
 		];
 
@@ -233,7 +233,7 @@ describe( 'Shipping', () => {
 			} );
 
 			component.recordInstallAndActivateEvents(
-				'woocommerce-shipping',
+				'poocommerce-shipping',
 				true
 			);
 
@@ -242,8 +242,8 @@ describe( 'Shipping', () => {
 				{
 					context: 'tasklist',
 					country: 'US',
-					plugins: 'woocommerce-shipping',
-					selected_plugin: 'woocommerce-shipping',
+					plugins: 'poocommerce-shipping',
+					selected_plugin: 'poocommerce-shipping',
 					success: true,
 				}
 			);
@@ -252,8 +252,8 @@ describe( 'Shipping', () => {
 				{
 					context: 'tasklist',
 					country: 'US',
-					plugins: 'woocommerce-shipping',
-					selected_plugin: 'woocommerce-shipping',
+					plugins: 'poocommerce-shipping',
+					selected_plugin: 'poocommerce-shipping',
 					success: true,
 				}
 			);
@@ -269,7 +269,7 @@ describe( 'Shipping', () => {
 			} );
 
 			component.recordInstallAndActivateEvents(
-				'woocommerce-shipping',
+				'poocommerce-shipping',
 				false
 			);
 
@@ -278,8 +278,8 @@ describe( 'Shipping', () => {
 				{
 					context: 'tasklist',
 					country: 'US',
-					plugins: 'woocommerce-shipping',
-					selected_plugin: 'woocommerce-shipping',
+					plugins: 'poocommerce-shipping',
+					selected_plugin: 'poocommerce-shipping',
 					success: false,
 				}
 			);
@@ -295,11 +295,11 @@ describe( 'Shipping', () => {
 			const component = new Shipping( {
 				...props,
 				shippingPartners,
-				installedPlugins: [ 'woocommerce-shipping' ],
+				installedPlugins: [ 'poocommerce-shipping' ],
 			} );
 
 			component.recordInstallAndActivateEvents(
-				'woocommerce-shipping',
+				'poocommerce-shipping',
 				false
 			);
 
@@ -308,8 +308,8 @@ describe( 'Shipping', () => {
 				{
 					context: 'tasklist',
 					country: 'US',
-					plugins: 'woocommerce-shipping',
-					selected_plugin: 'woocommerce-shipping',
+					plugins: 'poocommerce-shipping',
+					selected_plugin: 'poocommerce-shipping',
 					success: true,
 				}
 			);
@@ -318,8 +318,8 @@ describe( 'Shipping', () => {
 				{
 					context: 'tasklist',
 					country: 'US',
-					plugins: 'woocommerce-shipping',
-					selected_plugin: 'woocommerce-shipping',
+					plugins: 'poocommerce-shipping',
+					selected_plugin: 'poocommerce-shipping',
 					success: false,
 				}
 			);
@@ -330,14 +330,14 @@ describe( 'Shipping', () => {
 		it( 'should return correct tracking props', () => {
 			const shippingPartners = [
 				{
-					id: 'woocommerce-shipping',
-					name: 'WooCommerce Shipping',
-					slug: 'woocommerce-shipping',
+					id: 'poocommerce-shipping',
+					name: 'PooCommerce Shipping',
+					slug: 'poocommerce-shipping',
 				},
 				{
 					id: 'shipstation',
 					name: 'ShipStation',
-					slug: 'woocommerce-shipstation-integration',
+					slug: 'poocommerce-shipstation-integration',
 				},
 			];
 
@@ -351,16 +351,16 @@ describe( 'Shipping', () => {
 				context: 'tasklist',
 				country: 'US',
 				plugins:
-					'woocommerce-shipping,woocommerce-shipstation-integration',
+					'poocommerce-shipping,poocommerce-shipstation-integration',
 			} );
 		} );
 
 		it( 'should filter out partners without slugs', () => {
 			const shippingPartners = [
 				{
-					id: 'woocommerce-shipping',
-					name: 'WooCommerce Shipping',
-					slug: 'woocommerce-shipping',
+					id: 'poocommerce-shipping',
+					name: 'PooCommerce Shipping',
+					slug: 'poocommerce-shipping',
 				},
 				{
 					id: 'envia',
@@ -378,7 +378,7 @@ describe( 'Shipping', () => {
 			expect( trackingProps ).toEqual( {
 				context: 'tasklist',
 				country: 'US',
-				plugins: 'woocommerce-shipping',
+				plugins: 'poocommerce-shipping',
 			} );
 		} );
 	} );

@@ -6,7 +6,7 @@ sidebar_position: 7
 
 # Release Troubleshooting & Recovery
 
-This page provides guidance for troubleshooting and recovering from issues that may arise during the WooCommerce release process. It covers common scenarios, recommended actions, and best practices to help ensure releases are handled smoothly and any problems are resolved efficiently.
+This page provides guidance for troubleshooting and recovering from issues that may arise during the PooCommerce release process. It covers common scenarios, recommended actions, and best practices to help ensure releases are handled smoothly and any problems are resolved efficiently.
 
 
 ## Scenarios / FAQ
@@ -41,7 +41,7 @@ If, after downloading and unzipping the generated artifact, something seems off 
    - In **Code > Tags**, delete the tag for the incorrect version. _If you skip this, the final release may point to the wrong commit in history._
 2. Check the status of the `release/X.Y` branch (either in the GitHub UI or locally after pulling the latest changes).
 3. Figure out which step failed. For example, if the plugin header version is correct but the changelog is missing, only the changelog step needs to be re-run.
-4. Review any [auto-generated PRs](https://github.com/woocommerce/woocommerce/pulls?q=is%3Aopen+is%3Apr+author%3Aapp%2Fgithub-actions+label%3ARelease): if there are open PRs that weren't merged and are no longer needed, close them and delete their branches.
+4. Review any [auto-generated PRs](https://github.com/poocommerce/poocommerce/pulls?q=is%3Aopen+is%3Apr+author%3Aapp%2Fgithub-actions+label%3ARelease): if there are open PRs that weren't merged and are no longer needed, close them and delete their branches.
 
 **Once you know which step failed,** re-run only that step as described in the [Building & Publishing guide](/docs/contribution/releases/building-and-publishing). Make sure to run skipped workflows in the correct order and double-check all configuration (version number, release type, etc.) before proceeding.
 
@@ -59,7 +59,7 @@ For RC and stable releases, deploying to our staging environment and monitoring 
 
 #### How to proceed once the bug fix is merged into the release branch?
 
-1. **Create a new tracking issue** for the new version (e.g., `-rc.2` if the bug was detected during `-rc.1`, or `x.y.2` if detected while monitoring `x.y.1`) by running the [`Release: Create Tracking Issue`](https://github.com/woocommerce/woocommerce/actions/workflows/release-create-tracking-issue.yml) workflow. Do not reuse the existing tracking issue.
+1. **Create a new tracking issue** for the new version (e.g., `-rc.2` if the bug was detected during `-rc.1`, or `x.y.2` if detected while monitoring `x.y.1`) by running the [`Release: Create Tracking Issue`](https://github.com/poocommerce/poocommerce/actions/workflows/release-create-tracking-issue.yml) workflow. Do not reuse the existing tracking issue.
 2. **Follow the release procedure as normal** for the new version.
 3. **Publish all draft releases** for the affected version series. Even if the prior version wasn't made publicly available, it must be published along with the valid version. Each version will have its own changelog section.
 
@@ -71,14 +71,14 @@ If a severe regression or bug is discovered (e.g., checkout failure or unrecover
 2. Prepare to do a [Point Release](/docs/contribution/releases/point-releases).
 3. Temporarily move the stable tag on WordPress.org back to the previous known-good version:
    - Identify the correct previous version and note its exact number.
-   - Use the [`Release: Update stable tag`](https://github.com/woocommerce/woocommerce/actions/workflows/release-update-stable-tag.yml) workflow, making sure to check the _Revert_ option to allow downgrading.
+   - Use the [`Release: Update stable tag`](https://github.com/poocommerce/poocommerce/actions/workflows/release-update-stable-tag.yml) workflow, making sure to check the _Revert_ option to allow downgrading.
    - Merge any auto-generated PRs right away.
 
 ### The release needs to be delayed. What should we do? {#release-delay}
 
 1. Create an internal Slack thread to communicate with the engineering teams as well as Dev Advocacy. This also provides an opportunity for teams to share any additional context and verify or challenge schedule changes.
 2. Ask Dev Advocacy to communicate the delay publicly.
-3. If there's a clear ETA on the patch release with a fix, [update the release calendar](https://developer.woocommerce.com/release-calendar/) with the new dates.
+3. If there's a clear ETA on the patch release with a fix, [update the release calendar](https://developer.poocommerce.com/release-calendar/) with the new dates.
 
 Remember to not plan the patch release [too close to the weekend](#release-delay-weekend-id).
 

@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes\AddToCartWithOptions;
+namespace Automattic\PooCommerce\Blocks\BlockTypes\AddToCartWithOptions;
 
-use Automattic\WooCommerce\Blocks\BlockTypes\AbstractBlock;
-use Automattic\WooCommerce\Blocks\BlockTypes\EnableBlockJsonAssetsTrait;
-use Automattic\WooCommerce\Blocks\Utils\StyleAttributesUtils;
+use Automattic\PooCommerce\Blocks\BlockTypes\AbstractBlock;
+use Automattic\PooCommerce\Blocks\BlockTypes\EnableBlockJsonAssetsTrait;
+use Automattic\PooCommerce\Blocks\Utils\StyleAttributesUtils;
 
 /**
  * Block type for variation selector attribute options in add to cart with options.
@@ -33,15 +33,15 @@ class VariationSelectorAttributeOptions extends AbstractBlock {
 	protected function render( $attributes, $content, $block ): string {
 		if (
 			! isset(
-				$block->context['woocommerce/attributeName'],
-				$block->context['woocommerce/attributeId'],
-				$block->context['woocommerce/attributeTerms']
+				$block->context['poocommerce/attributeName'],
+				$block->context['poocommerce/attributeId'],
+				$block->context['poocommerce/attributeTerms']
 			)
 		) {
 			return '';
 		}
 
-		$attribute_slug = wc_variation_attribute_name( $block->context['woocommerce/attributeName'] );
+		$attribute_slug = wc_variation_attribute_name( $block->context['poocommerce/attributeName'] );
 
 		$classes_and_styles = StyleAttributesUtils::get_classes_and_styles_by_attributes( $attributes, array(), array( 'extra_classes' ) );
 
@@ -139,14 +139,14 @@ class VariationSelectorAttributeOptions extends AbstractBlock {
 	 * @return string The pills.
 	 */
 	protected function render_pills( $attributes, $content, $block ) {
-		$attribute_id               = $block->context['woocommerce/attributeId'];
-		$attribute_slug             = wc_variation_attribute_name( $block->context['woocommerce/attributeName'] );
-		$attribute_terms            = $block->context['woocommerce/attributeTerms'];
+		$attribute_id               = $block->context['poocommerce/attributeId'];
+		$attribute_slug             = wc_variation_attribute_name( $block->context['poocommerce/attributeName'] );
+		$attribute_terms            = $block->context['poocommerce/attributeTerms'];
 		$autoselect                 = $attributes['autoselect'] ?? false;
 		$disabled_attributes_action = $attributes['disabledAttributesAction'] ?? 'disable';
 
 		wp_interactivity_state(
-			'woocommerce/add-to-cart-with-options',
+			'poocommerce/add-to-cart-with-options',
 			array(
 				'isOptionSelected' =>
 				function () {
@@ -212,11 +212,11 @@ class VariationSelectorAttributeOptions extends AbstractBlock {
 	 * @return string The dropdown.
 	 */
 	protected function render_dropdown( $attributes, $content, $block ) {
-		$attribute_id    = $block->context['woocommerce/attributeId'];
-		$attribute_slug  = wc_variation_attribute_name( $block->context['woocommerce/attributeName'] );
-		$attribute_terms = $block->context['woocommerce/attributeTerms'];
+		$attribute_id    = $block->context['poocommerce/attributeId'];
+		$attribute_slug  = wc_variation_attribute_name( $block->context['poocommerce/attributeName'] );
+		$attribute_terms = $block->context['poocommerce/attributeTerms'];
 		$default_option  = array(
-			'label'      => esc_html__( 'Choose an option', 'woocommerce' ),
+			'label'      => esc_html__( 'Choose an option', 'poocommerce' ),
 			'value'      => '',
 			'isSelected' => false,
 		);

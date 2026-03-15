@@ -2,13 +2,13 @@
  * External dependencies
  */
 import { useEffect, useState, useCallback, useRef } from '@wordpress/element';
-import { blocksConfig } from '@woocommerce/block-settings';
-import { getProducts } from '@woocommerce/editor-components/utils';
+import { blocksConfig } from '@poocommerce/block-settings';
+import { getProducts } from '@poocommerce/editor-components/utils';
 import { useDebouncedCallback } from 'use-debounce';
 import type {
 	ProductResponseItem,
 	WithInjectedSearchedProducts,
-} from '@woocommerce/types';
+} from '@poocommerce/types';
 
 /**
  * Internal dependencies

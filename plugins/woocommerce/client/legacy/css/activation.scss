@@ -6,7 +6,7 @@
 /**
  * Styling begins
  */
-div.woocommerce-message {
+div.poocommerce-message {
 	overflow: hidden;
 	position: relative;
 
@@ -15,10 +15,10 @@ div.woocommerce-message {
 	}
 }
 
-p.woocommerce-actions,
-.woocommerce-message {
+p.poocommerce-actions,
+.poocommerce-message {
 
-	a.woocommerce-message-close {
+	a.poocommerce-message-close {
 		position: static;
 		float: right;
 		top: 0;
@@ -49,7 +49,7 @@ p.woocommerce-actions,
 	}
 }
 
-p.woocommerce-actions,
-.woocommerce-about-text {
+p.poocommerce-actions,
+.poocommerce-about-text {
 	margin-bottom: 1em !important;
 }

@@ -27,11 +27,11 @@ export function initBlocks() {
 	// @ts-ignore An argument is allowed to specify which blocks to register.
 	registerCoreBlocks( blocks );
 
-	const woocommerceBlocks = Object.values( productBlocks ).map( ( init ) =>
+	const poocommerceBlocks = Object.values( productBlocks ).map( ( init ) =>
 		init()
 	);
 
-	const registeredBlocks = [ ...blocks, ...woocommerceBlocks ];
+	const registeredBlocks = [ ...blocks, ...poocommerceBlocks ];
 
 	return function unregisterBlocks() {
 		registeredBlocks.forEach(

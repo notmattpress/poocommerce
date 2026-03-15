@@ -2,15 +2,15 @@
 /**
  * Admin Dashboard
  *
- * @package     WooCommerce\Admin
+ * @package     PooCommerce\Admin
  * @version     2.1.0
  */
 
 use Automattic\Jetpack\Constants;
-use Automattic\WooCommerce\Admin\Features\Features;
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Enums\OrderInternalStatus;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Admin\Features\Features;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Enums\OrderInternalStatus;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -44,9 +44,9 @@ if ( ! class_exists( 'WC_Admin_Dashboard', false ) ) :
 		public function init() {
 			// Reviews Widget.
 			if ( current_user_can( 'publish_shop_orders' ) && post_type_supports( 'product', 'comments' ) ) {
-				wp_add_dashboard_widget( 'woocommerce_dashboard_recent_reviews', __( 'WooCommerce Recent Reviews', 'woocommerce' ), array( $this, 'recent_reviews' ) );
+				wp_add_dashboard_widget( 'poocommerce_dashboard_recent_reviews', __( 'PooCommerce Recent Reviews', 'poocommerce' ), array( $this, 'recent_reviews' ) );
 			}
-			wp_add_dashboard_widget( 'woocommerce_dashboard_status', __( 'WooCommerce Status', 'woocommerce' ), array( $this, 'status_widget' ) );
+			wp_add_dashboard_widget( 'poocommerce_dashboard_status', __( 'PooCommerce Status', 'poocommerce' ), array( $this, 'status_widget' ) );
 
 			// Network Order Widget.
 			if ( is_multisite() && is_main_site() ) {
@@ -58,7 +58,7 @@ if ( ! class_exists( 'WC_Admin_Dashboard', false ) ) :
 		 * Register the network order dashboard widget.
 		 */
 		public function register_network_order_widget() {
-			wp_add_dashboard_widget( 'woocommerce_network_orders', __( 'WooCommerce Network Orders', 'woocommerce' ), array( $this, 'network_orders' ) );
+			wp_add_dashboard_widget( 'poocommerce_network_orders', __( 'PooCommerce Network Orders', 'poocommerce' ), array( $this, 'network_orders' ) );
 		}
 
 		/**
@@ -71,8 +71,8 @@ if ( ! class_exists( 'WC_Admin_Dashboard', false ) ) :
 				return false;
 			}
 
-			$has_permission           = current_user_can( 'view_woocommerce_reports' ) || current_user_can( 'manage_woocommerce' ) || current_user_can( 'publish_shop_orders' );
-			$task_completed_or_hidden = 'yes' === get_option( 'woocommerce_task_list_complete' ) || 'yes' === get_option( 'woocommerce_task_list_hidden' );
+			$has_permission           = current_user_can( 'view_poocommerce_reports' ) || current_user_can( 'manage_poocommerce' ) || current_user_can( 'publish_shop_orders' );
+			$task_completed_or_hidden = 'yes' === get_option( 'poocommerce_task_list_complete' ) || 'yes' === get_option( 'poocommerce_task_list_hidden' );
 			return $task_completed_or_hidden && $has_permission;
 		}
 
@@ -93,9 +93,9 @@ if ( ! class_exists( 'WC_Admin_Dashboard', false ) ) :
 
 			$query           = array();
 			$query['fields'] = "SELECT SUM( order_item_meta.meta_value ) as qty, order_item_meta_2.meta_value as product_id FROM {$orders_table} AS orders";
-			$query['join']   = "INNER JOIN {$wpdb->prefix}woocommerce_order_items AS order_items ON orders.{$orders_column_id} = order_id ";
-			$query['join']  .= "INNER JOIN {$wpdb->prefix}woocommerce_order_itemmeta AS order_item_meta ON order_items.order_item_id = order_item_meta.order_item_id ";
-			$query['join']  .= "INNER JOIN {$wpdb->prefix}woocommerce_order_itemmeta AS order_item_meta_2 ON order_items.order_item_id = order_item_meta_2.order_item_id ";
+			$query['join']   = "INNER JOIN {$wpdb->prefix}poocommerce_order_items AS order_items ON orders.{$orders_column_id} = order_id ";
+			$query['join']  .= "INNER JOIN {$wpdb->prefix}poocommerce_order_itemmeta AS order_item_meta ON order_items.order_item_id = order_item_meta.order_item_id ";
+			$query['join']  .= "INNER JOIN {$wpdb->prefix}poocommerce_order_itemmeta AS order_item_meta_2 ON order_items.order_item_id = order_item_meta_2.order_item_id ";
 			$query['where']  = "WHERE orders.{$orders_column_type} IN ( '" . implode( "','", wc_get_order_types( 'order-count' ) ) . "' ) ";
 
 			/**
@@ -105,7 +105,7 @@ if ( ! class_exists( 'WC_Admin_Dashboard', false ) ) :
 			 *
 			 * @param string[] $order_statuses Order statuses.
 			 */
-			$order_statuses  = apply_filters( 'woocommerce_reports_order_statuses', array( OrderStatus::COMPLETED, OrderStatus::PROCESSING, OrderStatus::ON_HOLD ) );
+			$order_statuses  = apply_filters( 'poocommerce_reports_order_statuses', array( OrderStatus::COMPLETED, OrderStatus::PROCESSING, OrderStatus::ON_HOLD ) );
 			$query['where'] .= "AND orders.{$orders_column_status} IN ( 'wc-" . implode( "','wc-", $order_statuses ) . "' ) ";
 
 			$query['where']  .= "AND order_item_meta.meta_key = '_qty' ";
@@ -123,7 +123,7 @@ if ( ! class_exists( 'WC_Admin_Dashboard', false ) ) :
 			 *
 			 * @param array $query SQL query parts.
 			 */
-			$query = apply_filters( 'woocommerce_dashboard_status_widget_top_seller_query', $query );
+			$query = apply_filters( 'poocommerce_dashboard_status_widget_top_seller_query', $query );
 
 			$sql = implode( ' ', $query );
 			return $wpdb->get_row( $sql ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
@@ -145,13 +145,13 @@ if ( ! class_exists( 'WC_Admin_Dashboard', false ) ) :
 				array(
 					'ajax_url'      => admin_url( 'admin-ajax.php' ),
 					'security'      => wp_create_nonce( 'wc-status-widget' ),
-					'error_message' => esc_html__( 'Error loading widget', 'woocommerce' ),
+					'error_message' => esc_html__( 'Error loading widget', 'poocommerce' ),
 				)
 			);
 
 			// Display loading placeholder.
 			echo '<div id="wc-status-widget-loading" class="wc-status-widget-loading">';
-			echo '<p>' . esc_html__( 'Loading status data...', 'woocommerce' ) . ' <span class="spinner is-active"></span></p>';
+			echo '<p>' . esc_html__( 'Loading status data...', 'poocommerce' ) . ' <span class="spinner is-active"></span></p>';
 			echo '</div>';
 			echo '<div id="wc-status-widget-content" style="display:none;"></div>';
 		}
@@ -162,7 +162,7 @@ if ( ! class_exists( 'WC_Admin_Dashboard', false ) ) :
 		 */
 		public function status_widget_content() {
 			//phpcs:ignore
-			$is_wc_admin_disabled = apply_filters( 'woocommerce_admin_disabled', false ) || ! Features::is_enabled( 'analytics' );
+			$is_wc_admin_disabled = apply_filters( 'poocommerce_admin_disabled', false ) || ! Features::is_enabled( 'analytics' );
 
 			$status_widget_reports = array(
 				'net_sales_link'      => 'admin.php?page=wc-admin&path=%2Fanalytics%2Frevenue&chart=net_revenue&orderby=net_revenue&period=month&compare=previous_period',
@@ -182,14 +182,14 @@ if ( ! class_exists( 'WC_Admin_Dashboard', false ) ) :
 				 *
 				 * @since 9.5.0
 				 */
-				$status_widget_reports = apply_filters( 'woocommerce_dashboard_status_widget_reports', $status_widget_reports );
+				$status_widget_reports = apply_filters( 'poocommerce_dashboard_status_widget_reports', $status_widget_reports );
 			} else {
 				$status_widget_reports['report_data'] = $this->get_wc_admin_performance_data();
 			}
 
 			echo '<ul class="wc_status_list">';
 
-			if ( current_user_can( 'view_woocommerce_reports' ) ) {
+			if ( current_user_can( 'view_poocommerce_reports' ) ) {
 				$report_data         = $status_widget_reports['report_data'];
 				$get_sales_sparkline = $status_widget_reports['get_sales_sparkline'];
 				$net_sales_link      = $status_widget_reports['net_sales_link'];
@@ -217,7 +217,7 @@ if ( ! class_exists( 'WC_Admin_Dashboard', false ) ) :
 					<?php
 						printf(
 							/* translators: %s: net sales */
-							esc_html__( '%s net sales this month', 'woocommerce' ),
+							esc_html__( '%s net sales this month', 'poocommerce' ),
 							'<strong>' . wc_price( $report_data->net_sales ) . '</strong>'
 						); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped
 					?>
@@ -237,7 +237,7 @@ if ( ! class_exists( 'WC_Admin_Dashboard', false ) ) :
 					<?php
 						printf(
 							/* translators: 1: top seller product title 2: top seller quantity */
-							esc_html__( '%1$s top seller this month (sold %2$d)', 'woocommerce' ),
+							esc_html__( '%1$s top seller this month (sold %2$d)', 'poocommerce' ),
 							'<strong>' . get_the_title( $top_seller->product_id ) . '</strong>',
 							$top_seller->qty
 						); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped
@@ -249,20 +249,20 @@ if ( ! class_exists( 'WC_Admin_Dashboard', false ) ) :
 			}
 
 			$this->status_widget_order_rows();
-			if ( get_option( 'woocommerce_manage_stock' ) === 'yes' ) {
+			if ( get_option( 'poocommerce_manage_stock' ) === 'yes' ) {
 				$this->status_widget_stock_rows( $status_widget_reports['lowstock_link'], $status_widget_reports['outofstock_link'] );
 			}
 
 			/**
-			 * Filter to change the first argument passed to the `woocommerce_after_dashboard_status_widget` action.
+			 * Filter to change the first argument passed to the `poocommerce_after_dashboard_status_widget` action.
 			 *
 			 * Please note that this filter is mainly for backward compatibility with the legacy reports.
 			 * It's not recommended to use this filter as it will soon be deprecated along with the retiring of the legacy reports.
 			 *
 			 * @since 9.5.0
 			 */
-			$reports = apply_filters( 'woocommerce_after_dashboard_status_widget_parameter', null );
-			do_action( 'woocommerce_after_dashboard_status_widget', $reports );
+			$reports = apply_filters( 'poocommerce_after_dashboard_status_widget_parameter', null );
+			do_action( 'poocommerce_after_dashboard_status_widget', $reports );
 			echo '</ul>';
 		}
 
@@ -287,7 +287,7 @@ if ( ! class_exists( 'WC_Admin_Dashboard', false ) ) :
 				<?php
 					printf(
 						/* translators: %s: order count */
-						_n( '<strong>%s order</strong> awaiting processing', '<strong>%s orders</strong> awaiting processing', $processing_count, 'woocommerce' ),
+						_n( '<strong>%s order</strong> awaiting processing', '<strong>%s orders</strong> awaiting processing', $processing_count, 'poocommerce' ),
 						$processing_count
 					); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped
 				?>
@@ -298,7 +298,7 @@ if ( ! class_exists( 'WC_Admin_Dashboard', false ) ) :
 				<?php
 					printf(
 						/* translators: %s: order count */
-						_n( '<strong>%s order</strong> on-hold', '<strong>%s orders</strong> on-hold', $on_hold_count, 'woocommerce' ),
+						_n( '<strong>%s order</strong> on-hold', '<strong>%s orders</strong> on-hold', $on_hold_count, 'poocommerce' ),
 						$on_hold_count
 					); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped
 				?>
@@ -317,12 +317,12 @@ if ( ! class_exists( 'WC_Admin_Dashboard', false ) ) :
 			global $wpdb;
 
 			// Requires lookup table added in 3.6.
-			if ( version_compare( get_option( 'woocommerce_db_version', null ), '3.6', '<' ) ) {
+			if ( version_compare( get_option( 'poocommerce_db_version', null ), '3.6', '<' ) ) {
 				return;
 			}
 
-			$stock   = absint( max( get_option( 'woocommerce_notify_low_stock_amount' ), 1 ) );
-			$nostock = absint( max( get_option( 'woocommerce_notify_no_stock_amount' ), 0 ) );
+			$stock   = absint( max( get_option( 'poocommerce_notify_low_stock_amount' ), 1 ) );
+			$nostock = absint( max( get_option( 'poocommerce_notify_no_stock_amount' ), 0 ) );
 
 			$transient_name   = 'wc_low_stock_count';
 			$lowinstock_count = get_transient( $transient_name );
@@ -336,7 +336,7 @@ if ( ! class_exists( 'WC_Admin_Dashboard', false ) ) :
 				 * @param int         $stock              Low stock amount.
 				 * @param int         $nostock            No stock amount
 				 */
-				$lowinstock_count = apply_filters( 'woocommerce_status_widget_low_in_stock_count_pre_query', null, $stock, $nostock );
+				$lowinstock_count = apply_filters( 'poocommerce_status_widget_low_in_stock_count_pre_query', null, $stock, $nostock );
 
 				if ( is_null( $lowinstock_count ) ) {
 					$lowinstock_count = $wpdb->get_var(
@@ -369,7 +369,7 @@ if ( ! class_exists( 'WC_Admin_Dashboard', false ) ) :
 				 * @param null|string $outofstock_count Out of stock count, by default null.
 				 * @param int         $nostock          No stock amount
 				 */
-				$outofstock_count = apply_filters( 'woocommerce_status_widget_out_of_stock_count_pre_query', null, $nostock );
+				$outofstock_count = apply_filters( 'poocommerce_status_widget_out_of_stock_count_pre_query', null, $nostock );
 
 				if ( is_null( $outofstock_count ) ) {
 					$outofstock_count = (int) $wpdb->get_var(
@@ -392,7 +392,7 @@ if ( ! class_exists( 'WC_Admin_Dashboard', false ) ) :
 				<?php
 					printf(
 						/* translators: %s: order count */
-						_n( '<strong>%s product</strong> low in stock', '<strong>%s products</strong> low in stock', $lowinstock_count, 'woocommerce' ),
+						_n( '<strong>%s product</strong> low in stock', '<strong>%s products</strong> low in stock', $lowinstock_count, 'poocommerce' ),
 						$lowinstock_count
 					); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped
 				?>
@@ -403,7 +403,7 @@ if ( ! class_exists( 'WC_Admin_Dashboard', false ) ) :
 				<?php
 					printf(
 						/* translators: %s: order count */
-						_n( '<strong>%s product</strong> out of stock', '<strong>%s products</strong> out of stock', $outofstock_count, 'woocommerce' ),
+						_n( '<strong>%s product</strong> out of stock', '<strong>%s products</strong> out of stock', $outofstock_count, 'poocommerce' ),
 						$outofstock_count
 					); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped
 				?>
@@ -426,7 +426,7 @@ if ( ! class_exists( 'WC_Admin_Dashboard', false ) ) :
 			 * @param string $clause The from-clause.
 			 */
 			$query_from = apply_filters(
-				'woocommerce_report_recent_reviews_query_from',
+				'poocommerce_report_recent_reviews_query_from',
 				"FROM {$wpdb->comments} comments
 				LEFT JOIN {$wpdb->posts} posts ON (comments.comment_post_ID = posts.ID)
 				WHERE comments.comment_approved = '1'
@@ -457,20 +457,20 @@ if ( ! class_exists( 'WC_Admin_Dashboard', false ) ) :
 					 * @param \stdClass $comment      The comment.
 					 * @since 2.1.0
 					 */
-					$product_title = apply_filters( 'woocommerce_admin_dashboard_recent_reviews', $comment->post_title, $comment );
+					$product_title = apply_filters( 'poocommerce_admin_dashboard_recent_reviews', $comment->post_title, $comment );
 					$rating        = intval( get_comment_meta( $comment->comment_ID, 'rating', true ) );
 
 					/* translators: %s: rating */
-					echo '<div class="star-rating"><span style="width:' . esc_attr( $rating * 20 ) . '%">' . sprintf( esc_html__( '%s out of 5', 'woocommerce' ), esc_html( $rating ) ) . '</span></div>';
+					echo '<div class="star-rating"><span style="width:' . esc_attr( $rating * 20 ) . '%">' . sprintf( esc_html__( '%s out of 5', 'poocommerce' ), esc_html( $rating ) ) . '</span></div>';
 
 					/* translators: %s: review author */
-					echo '<h4 class="meta"><a href="' . esc_url( get_permalink( $comment->ID ) ) . '#comment-' . esc_attr( absint( $comment->comment_ID ) ) . '">' . esc_html( $product_title ) . '</a> ' . sprintf( esc_html__( 'reviewed by %s', 'woocommerce' ), esc_html( $comment->comment_author ) ) . '</h4>';
+					echo '<h4 class="meta"><a href="' . esc_url( get_permalink( $comment->ID ) ) . '#comment-' . esc_attr( absint( $comment->comment_ID ) ) . '">' . esc_html( $product_title ) . '</a> ' . sprintf( esc_html__( 'reviewed by %s', 'poocommerce' ), esc_html( $comment->comment_author ) ) . '</h4>';
 					echo '<blockquote>' . wp_kses_data( $comment->comment_content ) . '</blockquote></li>';
 
 				}
 				echo '</ul>';
 			} else {
-				echo '<p>' . esc_html__( 'There are no product reviews yet.', 'woocommerce' ) . '</p>';
+				echo '<p>' . esc_html__( 'There are no product reviews yet.', 'poocommerce' ) . '</p>';
 			}
 		}
 
@@ -488,13 +488,13 @@ if ( ! class_exists( 'WC_Admin_Dashboard', false ) ) :
 				array(
 					'ajax_url'      => admin_url( 'admin-ajax.php' ),
 					'security'      => wp_create_nonce( 'wc-recent-reviews-widget' ),
-					'error_message' => esc_html__( 'Error loading widget', 'woocommerce' ),
+					'error_message' => esc_html__( 'Error loading widget', 'poocommerce' ),
 				)
 			);
 
 			// Display loading placeholder.
 			echo '<div id="wc-recent-reviews-widget-loading" class="wc-recent-reviews-widget-loading">';
-			echo '<p>' . esc_html__( 'Loading reviews data...', 'woocommerce' ) . ' <span class="spinner is-active"></span></p>';
+			echo '<p>' . esc_html__( 'Loading reviews data...', 'poocommerce' ) . ' <span class="spinner is-active"></span></p>';
 			echo '</div>';
 			echo '<div id="wc-recent-reviews-widget-content" style="display:none;"></div>';
 		}
@@ -504,15 +504,15 @@ if ( ! class_exists( 'WC_Admin_Dashboard', false ) ) :
 		 */
 		public function recent_reviews_content(): void {
 			// Backward compatibility mode: if any of the checked below hooks are in use, use the legacy implementation.
-			$has_legacy_query_filter         = has_filter( 'woocommerce_report_recent_reviews_query_from' );
-			$has_legacy_product_title_filter = has_filter( 'woocommerce_admin_dashboard_recent_reviews' );
+			$has_legacy_query_filter         = has_filter( 'poocommerce_report_recent_reviews_query_from' );
+			$has_legacy_product_title_filter = has_filter( 'poocommerce_admin_dashboard_recent_reviews' );
 			$use_legacy_implementation       = $has_legacy_query_filter || $has_legacy_product_title_filter;
 			if ( $use_legacy_implementation ) {
 				if ( $has_legacy_query_filter ) {
-					wc_deprecated_hook( 'woocommerce_report_recent_reviews_query_from', '10.5.0' );
+					wc_deprecated_hook( 'poocommerce_report_recent_reviews_query_from', '10.5.0' );
 				}
 				if ( $has_legacy_product_title_filter ) {
-					wc_deprecated_hook( 'woocommerce_admin_dashboard_recent_reviews', '10.5.0', 'dashboard-widget-reviews.php template' );
+					wc_deprecated_hook( 'poocommerce_admin_dashboard_recent_reviews', '10.5.0', 'dashboard-widget-reviews.php template' );
 				}
 				$this->legacy_recent_reviews();
 
@@ -554,7 +554,7 @@ if ( ! class_exists( 'WC_Admin_Dashboard', false ) ) :
 				}
 				echo '</ul>';
 			} else {
-				echo '<p>' . esc_html__( 'There are no product reviews yet.', 'woocommerce' ) . '</p>';
+				echo '<p>' . esc_html__( 'There are no product reviews yet.', 'poocommerce' ) . '</p>';
 			}
 		}
 
@@ -575,7 +575,7 @@ if ( ! class_exists( 'WC_Admin_Dashboard', false ) ) :
 
 			wp_localize_script(
 				'wc-network-orders',
-				'woocommerce_network_orders',
+				'poocommerce_network_orders',
 				array(
 					'nonce'          => wp_create_nonce( 'wp_rest' ),
 					'sites'          => array_values( $blog_ids ),
@@ -584,27 +584,27 @@ if ( ! class_exists( 'WC_Admin_Dashboard', false ) ) :
 			);
 			?>
 			<div class="post-type-shop_order">
-			<div id="woocommerce-network-order-table-loading" class="woocommerce-network-order-table-loading is-active">
+			<div id="poocommerce-network-order-table-loading" class="poocommerce-network-order-table-loading is-active">
 				<p>
-					<span class="spinner is-active"></span> <?php esc_html_e( 'Loading network orders', 'woocommerce' ); ?>
+					<span class="spinner is-active"></span> <?php esc_html_e( 'Loading network orders', 'poocommerce' ); ?>
 				</p>
 
 			</div>
-			<table id="woocommerce-network-order-table" class="woocommerce-network-order-table">
+			<table id="poocommerce-network-order-table" class="poocommerce-network-order-table">
 				<thead>
 					<tr>
-						<td><?php esc_html_e( 'Order', 'woocommerce' ); ?></td>
-						<td><?php esc_html_e( 'Status', 'woocommerce' ); ?></td>
-						<td><?php esc_html_e( 'Total', 'woocommerce' ); ?></td>
+						<td><?php esc_html_e( 'Order', 'poocommerce' ); ?></td>
+						<td><?php esc_html_e( 'Status', 'poocommerce' ); ?></td>
+						<td><?php esc_html_e( 'Total', 'poocommerce' ); ?></td>
 					</tr>
 				</thead>
 				<tbody id="network-orders-tbody">
 
 				</tbody>
 			</table>
-			<div id="woocommerce-network-orders-no-orders" class="woocommerce-network-orders-no-orders">
+			<div id="poocommerce-network-orders-no-orders" class="poocommerce-network-orders-no-orders">
 				<p>
-					<?php esc_html_e( 'No orders found', 'woocommerce' ); ?>
+					<?php esc_html_e( 'No orders found', 'poocommerce' ); ?>
 				</p>
 			</div>
 			<?php // @codingStandardsIgnoreStart ?>
@@ -653,7 +653,7 @@ if ( ! class_exists( 'WC_Admin_Dashboard', false ) ) :
 			}
 
 			if ( 200 !== $response->get_status() ) {
-				return new \WP_Error( 'woocommerce_analytics_performance_indicators_result_failed', __( 'Sorry, fetching performance indicators failed.', 'woocommerce' ) );
+				return new \WP_Error( 'poocommerce_analytics_performance_indicators_result_failed', __( 'Sorry, fetching performance indicators failed.', 'poocommerce' ) );
 			}
 			$report_keys      = array(
 				'net_revenue' => 'net_sales',
@@ -731,10 +731,10 @@ if ( ! class_exists( 'WC_Admin_Dashboard', false ) ) :
 		private function sales_sparkline_markup( $type, $days, $total, $sparkline_data ) {
 			if ( 'sales' === $type ) {
 				/* translators: 1: total income 2: days */
-				$tooltip = sprintf( __( 'Sold %1$s worth in the last %2$d days', 'woocommerce' ), strip_tags( wc_price( $total ) ), $days );
+				$tooltip = sprintf( __( 'Sold %1$s worth in the last %2$d days', 'poocommerce' ), strip_tags( wc_price( $total ) ), $days );
 			} else {
 				/* translators: 1: total items sold 2: days */
-				$tooltip = sprintf( _n( 'Sold %1$d item in the last %2$d days', 'Sold %1$d items in the last %2$d days', $total, 'woocommerce' ), $total, $days );
+				$tooltip = sprintf( _n( 'Sold %1$d item in the last %2$d days', 'Sold %1$d items in the last %2$d days', $total, 'poocommerce' ), $total, $days );
 			}
 
 			return '<span class="wc_sparkline ' . ( ( 'sales' === $type ) ? 'lines' : 'bars' ) . ' tips" data-color="#777" data-tip="' . esc_attr( $tooltip ) . '" data-barwidth="' . 60 * 60 * 16 * 1000 . '" data-sparkline="' . wc_esc_json( wp_json_encode( $sparkline_data ) ) . '"></span>';

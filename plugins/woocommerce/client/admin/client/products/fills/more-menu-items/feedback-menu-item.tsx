@@ -14,9 +14,9 @@ import {
 	Fragment,
 } from '@wordpress/element';
 import { useDispatch } from '@wordpress/data';
-import { STORE_KEY as CES_STORE_KEY } from '@woocommerce/customer-effort-score';
-import { useLayoutContext } from '@woocommerce/admin-layout';
-import { isValidEmail } from '@woocommerce/product-editor';
+import { STORE_KEY as CES_STORE_KEY } from '@poocommerce/customer-effort-score';
+import { useLayoutContext } from '@poocommerce/admin-layout';
+import { isValidEmail } from '@poocommerce/product-editor';
 
 /**
  * Internal dependencies
@@ -36,19 +36,19 @@ export const FeedbackMenuItem = ( { onClick }: { onClick: () => void } ) => {
 						showDescription: false,
 						title: __(
 							'What do you think of the new product form?',
-							'woocommerce'
+							'poocommerce'
 						),
 						firstQuestion: __(
 							'The product editing screen is easy to use',
-							'woocommerce'
+							'poocommerce'
 						),
 						secondQuestion: __(
 							"The product editing screen's functionality meets my needs",
-							'woocommerce'
+							'poocommerce'
 						),
 						onsubmitLabel: __(
 							"Thanks for the feedback — we'll put it to good use!",
-							'woocommerce'
+							'poocommerce'
 						),
 						getExtraFieldsToBeShown: (
 							values: {
@@ -64,18 +64,18 @@ export const FeedbackMenuItem = ( { onClick }: { onClick: () => void } ) => {
 							<Fragment>
 								<BaseControl
 									id={ 'feedback_additional_thoughts' }
-									className="woocommerce-product-feedback__additional-thoughts"
+									className="poocommerce-product-feedback__additional-thoughts"
 									label={ createInterpolateElement(
 										__(
 											'ADDITIONAL THOUGHTS <optional />',
-											'woocommerce'
+											'poocommerce'
 										),
 										{
 											optional: (
-												<span className="woocommerce-product-feedback__optional-input">
+												<span className="poocommerce-product-feedback__optional-input">
 													{ __(
 														'(OPTIONAL)',
-														'woocommerce'
+														'poocommerce'
 													) }
 												</span>
 											),
@@ -99,18 +99,18 @@ export const FeedbackMenuItem = ( { onClick }: { onClick: () => void } ) => {
 								</BaseControl>
 								<BaseControl
 									id={ 'feedback_email' }
-									className="woocommerce-product-feedback__email"
+									className="poocommerce-product-feedback__email"
 									label={ createInterpolateElement(
 										__(
 											'YOUR EMAIL ADDRESS <optional />',
-											'woocommerce'
+											'poocommerce'
 										),
 										{
 											optional: (
-												<span className="woocommerce-product-feedback__optional-input">
+												<span className="poocommerce-product-feedback__optional-input">
 													{ __(
 														'(OPTIONAL)',
-														'woocommerce'
+														'poocommerce'
 													) }
 												</span>
 											),
@@ -130,7 +130,7 @@ export const FeedbackMenuItem = ( { onClick }: { onClick: () => void } ) => {
 									<span>
 										{ __(
 											'In case you want to participate in further discussion and future user research.',
-											'woocommerce'
+											'poocommerce'
 										) }
 									</span>
 								</BaseControl>
@@ -148,13 +148,13 @@ export const FeedbackMenuItem = ( { onClick }: { onClick: () => void } ) => {
 							if ( email.length > 0 && ! isValidEmail( email ) ) {
 								errors.email = __(
 									'Please enter a valid email address.',
-									'woocommerce'
+									'poocommerce'
 								);
 							}
 							if ( additional_thoughts?.length > 500 ) {
 								errors.additional_thoughts = __(
 									'Please enter no more than 500 characters.',
-									'woocommerce'
+									'poocommerce'
 								);
 							}
 							return errors;
@@ -175,7 +175,7 @@ export const FeedbackMenuItem = ( { onClick }: { onClick: () => void } ) => {
 			icon={ <FeedbackIcon /> }
 			iconPosition="right"
 		>
-			{ __( 'Share feedback', 'woocommerce' ) }
+			{ __( 'Share feedback', 'poocommerce' ) }
 		</MenuItem>
 	);
 };

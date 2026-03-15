@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\StoreApi\Utilities;
+namespace Automattic\PooCommerce\Tests\Blocks\StoreApi\Utilities;
 
-use Automattic\WooCommerce\StoreApi\Utilities\SanitizationUtils;
+use Automattic\PooCommerce\StoreApi\Utilities\SanitizationUtils;
 
 /**
  * A collection of tests for the array utility class.

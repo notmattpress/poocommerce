@@ -18,22 +18,22 @@ import {
 export const ALIGNMENT_CONTROLS = [
 	{
 		icon: alignLeft,
-		title: __( 'Align text left', 'woocommerce' ),
+		title: __( 'Align text left', 'poocommerce' ),
 		align: 'left',
 	},
 	{
 		icon: alignCenter,
-		title: __( 'Align text center', 'woocommerce' ),
+		title: __( 'Align text center', 'poocommerce' ),
 		align: 'center',
 	},
 	{
 		icon: alignRight,
-		title: __( 'Align text right', 'woocommerce' ),
+		title: __( 'Align text right', 'poocommerce' ),
 		align: 'right',
 	},
 	{
 		icon: alignJustify,
-		title: __( 'Align text justify', 'woocommerce' ),
+		title: __( 'Align text justify', 'poocommerce' ),
 		align: 'justify',
 	},
 ];

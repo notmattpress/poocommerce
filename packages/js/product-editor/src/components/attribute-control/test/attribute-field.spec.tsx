@@ -8,7 +8,7 @@ import {
 	createElement,
 	Fragment,
 } from '@wordpress/element';
-import { ProductProductAttribute } from '@woocommerce/data';
+import { ProductProductAttribute } from '@poocommerce/data';
 
 /**
  * Internal dependencies
@@ -77,7 +77,7 @@ jest.mock( '@wordpress/data', () => ( {
 	} ),
 } ) );
 
-jest.mock( '@woocommerce/components', () => ( {
+jest.mock( '@poocommerce/components', () => ( {
 	__esModule: true,
 	__experimentalSelectControlMenuSlot: () => <div></div>,
 	ListItem: ( { children }: { children: JSX.Element } ) => children,

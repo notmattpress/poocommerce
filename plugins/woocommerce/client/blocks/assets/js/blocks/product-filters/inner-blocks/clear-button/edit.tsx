@@ -21,7 +21,7 @@ const Edit = () => {
 					[
 						'core/button',
 						{
-							text: __( 'Clear filters', 'woocommerce' ),
+							text: __( 'Clear filters', 'poocommerce' ),
 							className:
 								'wc-block-product-filter-clear-button is-style-outline',
 							style: {

@@ -1,4 +1,4 @@
-export type WooCommerceEntityProductSourceArgs = {
+export type PooCommerceEntityProductSourceArgs = {
 	/*
 	 * The name of the entity property to bind.
 	 */

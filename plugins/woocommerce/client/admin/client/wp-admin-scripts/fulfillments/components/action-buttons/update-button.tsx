@@ -32,13 +32,13 @@ export default function UpdateButton( {
 			setError(
 				__(
 					'An unexpected error has occurred. Please refresh the page and try again.',
-					'woocommerce'
+					'poocommerce'
 				)
 			);
 			return;
 		}
 		if ( getFulfillmentItems( fulfillment ).length === 0 ) {
-			setError( __( 'Select items to be fulfilled.', 'woocommerce' ) );
+			setError( __( 'Select items to be fulfilled.', 'poocommerce' ) );
 			return;
 		}
 
@@ -63,7 +63,7 @@ export default function UpdateButton( {
 			isBusy={ isExecuting }
 			__next40pxDefaultSize
 		>
-			{ __( 'Update', 'woocommerce' ) }
+			{ __( 'Update', 'poocommerce' ) }
 		</Button>
 	);
 }

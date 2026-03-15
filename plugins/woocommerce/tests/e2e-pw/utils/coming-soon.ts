@@ -16,7 +16,7 @@ const setComingSoon = async ( {
 	enabled: string;
 } ) => {
 	try {
-		await setOption( request, baseURL, 'woocommerce_coming_soon', enabled );
+		await setOption( request, baseURL, 'poocommerce_coming_soon', enabled );
 	} catch ( error ) {
 		console.error( error );
 	}

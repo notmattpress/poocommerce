@@ -2,11 +2,11 @@
  * External dependencies
  */
 import { __, sprintf } from '@wordpress/i18n';
-import { CURRENT_USER_IS_ADMIN } from '@woocommerce/settings';
+import { CURRENT_USER_IS_ADMIN } from '@poocommerce/settings';
 import deprecated from '@wordpress/deprecated';
 import isShallowEqual from '@wordpress/is-shallow-equal';
 import type { ComparableObject } from '@wordpress/is-shallow-equal';
-import { isNull, isObject, objectHasProp } from '@woocommerce/types';
+import { isNull, isObject, objectHasProp } from '@poocommerce/types';
 
 /**
  * A function that always return true.
@@ -44,13 +44,13 @@ export const registerCheckoutFilters = (
 	/**
 	 * Let the user know couponName is no longer available as a filter.
 	 *
-	 * See https://github.com/woocommerce/woocommerce-gutenberg-products-block/pull/4312
+	 * See https://github.com/poocommerce/poocommerce-gutenberg-products-block/pull/4312
 	 */
 	if ( Object.keys( filters ).includes( 'couponName' ) ) {
 		deprecated( 'couponName', {
 			alternative: 'coupons',
-			plugin: 'WooCommerce Blocks',
-			link: 'https://github.com/woocommerce/woocommerce-gutenberg-products-block/blob/bb921d21f42e21f38df2b1c87b48e07aa4cb0538/docs/extensibility/available-filters.md#coupons',
+			plugin: 'PooCommerce Blocks',
+			link: 'https://github.com/poocommerce/poocommerce-gutenberg-products-block/blob/bb921d21f42e21f38df2b1c87b48e07aa4cb0538/docs/extensibility/available-filters.md#coupons',
 		} );
 	}
 	// Clear cached values when registering new filters because otherwise we get outdated results when applying them.
@@ -71,8 +71,8 @@ export const __experimentalRegisterCheckoutFilters = (
 ) => {
 	deprecated( '__experimentalRegisterCheckoutFilters', {
 		alternative: 'registerCheckoutFilters',
-		plugin: 'WooCommerce Blocks',
-		link: 'https://github.com/woocommerce/woocommerce-blocks/pull/8346',
+		plugin: 'PooCommerce Blocks',
+		link: 'https://github.com/poocommerce/poocommerce-blocks/pull/8346',
 		since: '9.6.0',
 		hint: '__experimentalRegisterCheckoutFilters has graduated to stable and this experimental function will be removed.',
 	} );
@@ -234,7 +234,7 @@ export const applyCheckoutFilter = < T >( {
 						/* translators: %1$s is the type of the variable passed to the filter function, %2$s is the type of the value returned by the filter function. */
 						__(
 							'The type returned by checkout filters must be the same as the type they receive. The function received %1$s but returned %2$s.',
-							'woocommerce'
+							'poocommerce'
 						),
 						typeof value,
 						typeof newValue
@@ -279,8 +279,8 @@ export const __experimentalApplyCheckoutFilter = < T >( {
 } ): T => {
 	deprecated( '__experimentalApplyCheckoutFilter', {
 		alternative: 'applyCheckoutFilter',
-		plugin: 'WooCommerce Blocks',
-		link: 'https://github.com/woocommerce/woocommerce-blocks/pull/8346',
+		plugin: 'PooCommerce Blocks',
+		link: 'https://github.com/poocommerce/poocommerce-blocks/pull/8346',
 		since: '9.6.0',
 		hint: '__experimentalApplyCheckoutFilter has graduated to stable and this experimental function will be removed.',
 	} );

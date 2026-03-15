@@ -4,10 +4,10 @@
 import { createElement, useState, Fragment } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { Button, PanelBody, TextControl } from '@wordpress/components';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 import { useCopyToClipboard } from '@wordpress/compose';
 import { Ref } from 'react';
-import { getNewPath } from '@woocommerce/navigation';
+import { getNewPath } from '@poocommerce/navigation';
 
 /**
  * Internal dependencies
@@ -58,7 +58,7 @@ export function PostPublishSection( { postType }: PostPublishSectionProps ) {
 	return (
 		<PanelBody>
 			<p className="post-publish-section__postpublish-subheader">
-				<strong>{ __( 'What’s next?', 'woocommerce' ) }</strong>
+				<strong>{ __( 'What’s next?', 'poocommerce' ) }</strong>
 			</p>
 			<div className="post-publish-section__postpublish-post-address-container">
 				{ /* eslint-disable-next-line @typescript-eslint/ban-ts-comment */ }
@@ -66,7 +66,7 @@ export function PostPublishSection( { postType }: PostPublishSectionProps ) {
 				<TextControl
 					className="post-publish-section__postpublish-post-address"
 					readOnly
-					label={ __( 'product address', 'woocommerce' ) }
+					label={ __( 'product address', 'poocommerce' ) }
 					value={ productURL }
 					onFocus={ onSelectInput }
 				/>
@@ -75,8 +75,8 @@ export function PostPublishSection( { postType }: PostPublishSectionProps ) {
 					<CopyButton text={ productURL } onCopy={ onCopyURL }>
 						<>
 							{ showCopyConfirmation
-								? __( 'Copied!', 'woocommerce' )
-								: __( 'Copy', 'woocommerce' ) }
+								? __( 'Copied!', 'poocommerce' )
+								: __( 'Copy', 'poocommerce' ) }
 						</>
 					</CopyButton>
 				</div>
@@ -85,14 +85,14 @@ export function PostPublishSection( { postType }: PostPublishSectionProps ) {
 			<div className="post-publish-section__postpublish-buttons">
 				{ ! isScheduled && (
 					<Button variant="primary" href={ productURL }>
-						{ __( 'View Product', 'woocommerce' ) }
+						{ __( 'View Product', 'poocommerce' ) }
 					</Button>
 				) }
 				<Button
 					variant={ isScheduled ? 'primary' : 'secondary' }
 					href={ getNewPath( {}, '/add-product', {} ) }
 				>
-					{ __( 'Add New Product', 'woocommerce' ) }
+					{ __( 'Add New Product', 'poocommerce' ) }
 				</Button>
 			</div>
 		</PanelBody>

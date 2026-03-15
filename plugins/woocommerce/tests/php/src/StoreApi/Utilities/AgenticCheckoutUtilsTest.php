@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\StoreApi\Utilities;
+namespace Automattic\PooCommerce\Tests\StoreApi\Utilities;
 
-use Automattic\WooCommerce\StoreApi\Routes\V1\Agentic\AgenticCheckoutSession;
-use Automattic\WooCommerce\StoreApi\Utilities\AgenticCheckoutUtils;
-use Automattic\WooCommerce\StoreApi\Routes\V1\Agentic\Enums\SessionKey;
-use Automattic\WooCommerce\Internal\Agentic\Enums\Specs\CheckoutSessionStatus;
-use Automattic\WooCommerce\Tests\Internal\Admin\Agentic\AgenticTestHelpers;
+use Automattic\PooCommerce\StoreApi\Routes\V1\Agentic\AgenticCheckoutSession;
+use Automattic\PooCommerce\StoreApi\Utilities\AgenticCheckoutUtils;
+use Automattic\PooCommerce\StoreApi\Routes\V1\Agentic\Enums\SessionKey;
+use Automattic\PooCommerce\Internal\Agentic\Enums\Specs\CheckoutSessionStatus;
+use Automattic\PooCommerce\Tests\Internal\Admin\Agentic\AgenticTestHelpers;
 
 /**
  * Tests for AgenticCheckoutUtils class.

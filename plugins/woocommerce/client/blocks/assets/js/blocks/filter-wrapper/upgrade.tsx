@@ -3,7 +3,7 @@
  */
 import { __ } from '@wordpress/i18n';
 import { createInterpolateElement } from '@wordpress/element';
-import { UpgradeDowngradeNotice } from '@woocommerce/editor-components/upgrade-downgrade-notice';
+import { UpgradeDowngradeNotice } from '@poocommerce/editor-components/upgrade-downgrade-notice';
 import { useDispatch, select } from '@wordpress/data';
 import { createBlock } from '@wordpress/blocks';
 
@@ -14,16 +14,16 @@ export const UpgradeNotice = ( { clientId }: { clientId: string } ) => {
 	const notice = createInterpolateElement(
 		__(
 			'Upgrade all Filter blocks on this page for better performance and more customizability',
-			'woocommerce'
+			'poocommerce'
 		),
 		{
 			strongText: (
-				<strong>{ __( `Product Filters`, 'woocommerce' ) }</strong>
+				<strong>{ __( `Product Filters`, 'poocommerce' ) }</strong>
 			),
 		}
 	);
 
-	const buttonLabel = __( 'Upgrade all Filter blocks', 'woocommerce' );
+	const buttonLabel = __( 'Upgrade all Filter blocks', 'poocommerce' );
 
 	const handleClick = () => {
 		const { getBlocksByName, getBlockParentsByBlockName } =
@@ -31,10 +31,10 @@ export const UpgradeNotice = ( { clientId }: { clientId: string } ) => {
 
 		const blockParent = getBlockParentsByBlockName(
 			clientId,
-			'woocommerce/filter-wrapper'
+			'poocommerce/filter-wrapper'
 		);
 
-		const newBlock = createBlock( 'woocommerce/product-filters' );
+		const newBlock = createBlock( 'poocommerce/product-filters' );
 
 		if ( blockParent.length ) {
 			replaceBlock( blockParent[ 0 ], newBlock );
@@ -43,7 +43,7 @@ export const UpgradeNotice = ( { clientId }: { clientId: string } ) => {
 		}
 
 		const legacyFilterBlockWrapper = getBlocksByName(
-			'woocommerce/filter-wrapper'
+			'poocommerce/filter-wrapper'
 		);
 
 		// We want to remove all the legacy filter blocks on the page.
@@ -60,10 +60,10 @@ export const UpgradeNotice = ( { clientId }: { clientId: string } ) => {
 
 		// These are the v1 legacy filters without the wrapper block.
 		const v1LegacyFilterBlocks = [
-			'woocommerce/active-filters',
-			'woocommerce/price-filter',
-			'woocommerce/attribute-filter',
-			'woocommerce/stock-filter',
+			'poocommerce/active-filters',
+			'poocommerce/price-filter',
+			'poocommerce/attribute-filter',
+			'poocommerce/stock-filter',
 		];
 
 		v1LegacyFilterBlocks.forEach( ( blockName ) => {

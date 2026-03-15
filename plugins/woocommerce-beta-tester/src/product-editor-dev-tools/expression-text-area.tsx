@@ -39,11 +39,11 @@ export const ExpressionTextArea = forwardRef<
 	return (
 		<textarea
 			ref={ textAreaRef }
-			className="woocommerce-product-editor-dev-tools-expression-field__expression"
+			className="poocommerce-product-editor-dev-tools-expression-field__expression"
 			rows={ 1 }
 			readOnly={ readOnly }
 			value={ expression }
-			placeholder={ __( 'Enter an expression', 'woocommerce' ) }
+			placeholder={ __( 'Enter an expression', 'poocommerce' ) }
 			onChange={ ( event ) => onChange?.( event.target.value ) }
 			onClick={ () => onClick?.() }
 		/>

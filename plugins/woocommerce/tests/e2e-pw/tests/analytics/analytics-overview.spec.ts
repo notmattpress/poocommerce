@@ -42,7 +42,7 @@ const hidePerformanceSection = async () => {
 			] );
 			const data = {
 				id: userId,
-				woocommerce_meta: {
+				poocommerce_meta: {
 					dashboard_sections,
 				},
 			};
@@ -59,8 +59,8 @@ const hidePerformanceSection = async () => {
 	} );
 
 	await test.step( `Inspect the response payload to verify that Performance section was successfully hidden`, async () => {
-		const { woocommerce_meta } = await response.json();
-		const { dashboard_sections } = woocommerce_meta;
+		const { poocommerce_meta } = await response.json();
+		const { dashboard_sections } = poocommerce_meta;
 		const sections = JSON.parse( dashboard_sections );
 		const performanceSection = sections.find(
 			( { key } ) => key === 'store-performance'
@@ -77,7 +77,7 @@ const resetSections = async () => {
 			const params = { _locale: 'user' };
 			const data = {
 				id: userId,
-				woocommerce_meta: {
+				poocommerce_meta: {
 					dashboard_sections: '',
 				},
 			};
@@ -94,8 +94,8 @@ const resetSections = async () => {
 	} );
 
 	await test.step( `Verify that sections were reset`, async () => {
-		const { woocommerce_meta } = await response.json();
-		const { dashboard_sections } = woocommerce_meta;
+		const { poocommerce_meta } = await response.json();
+		const { dashboard_sections } = poocommerce_meta;
 
 		expect( dashboard_sections ).toHaveLength( 0 );
 	} );
@@ -333,7 +333,7 @@ test.describe(
 			await setOption(
 				request,
 				baseURL,
-				'woocommerce_analytics_scheduled_import',
+				'poocommerce_analytics_scheduled_import',
 				'yes'
 			);
 
@@ -377,7 +377,7 @@ test.describe(
 			await setOption(
 				request,
 				baseURL,
-				'woocommerce_analytics_scheduled_import',
+				'poocommerce_analytics_scheduled_import',
 				'no'
 			);
 

@@ -2,8 +2,8 @@
  * External dependencies
  */
 import { useState, useEffect } from '@wordpress/element';
-import { RadioControl } from '@woocommerce/blocks-components';
-import type { CartShippingPackageShippingRate } from '@woocommerce/types';
+import { RadioControl } from '@poocommerce/blocks-components';
+import type { CartShippingPackageShippingRate } from '@poocommerce/types';
 
 /**
  * Internal dependencies

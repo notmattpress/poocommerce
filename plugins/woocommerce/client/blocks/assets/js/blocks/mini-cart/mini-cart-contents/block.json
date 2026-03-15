@@ -1,9 +1,9 @@
 {
-	"name": "woocommerce/mini-cart-contents",
+	"name": "poocommerce/mini-cart-contents",
 	"version": "1.0.0",
 	"title": "Mini-Cart Contents",
 	"description": "Display a Mini-Cart widget.",
-	"category": "woocommerce",
+	"category": "poocommerce",
 	"supports": {
 		"align": false,
 		"html": false,

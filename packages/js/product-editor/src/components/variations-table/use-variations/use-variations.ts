@@ -6,7 +6,7 @@ import {
 	PartialProductVariation,
 	ProductProductAttribute,
 	ProductVariation,
-} from '@woocommerce/data';
+} from '@poocommerce/data';
 import { dispatch, resolveSelect } from '@wordpress/data';
 import { useCallback, useMemo, useRef, useState } from '@wordpress/element';
 

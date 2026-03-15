@@ -1,4 +1,4 @@
-declare module '@woocommerce/components';
+declare module '@poocommerce/components';
 declare module 'gridicons/dist/*' {
 	const value: React.ElementType< {
 		size?: 12 | 18 | 24 | 36 | 48 | 54 | 72;

@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
-namespace Automattic\WooCommerce\StoreApi\Routes\V1;
+namespace Automattic\PooCommerce\StoreApi\Routes\V1;
 
-use Automattic\WooCommerce\StoreApi\Payments\PaymentResult;
-use Automattic\WooCommerce\StoreApi\Exceptions\InvalidCartException;
-use Automattic\WooCommerce\StoreApi\Exceptions\RouteException;
-use Automattic\WooCommerce\StoreApi\Utilities\DraftOrderTrait;
-use Automattic\WooCommerce\Checkout\Helpers\ReserveStockException;
-use Automattic\WooCommerce\StoreApi\Utilities\CheckoutTrait;
+use Automattic\PooCommerce\StoreApi\Payments\PaymentResult;
+use Automattic\PooCommerce\StoreApi\Exceptions\InvalidCartException;
+use Automattic\PooCommerce\StoreApi\Exceptions\RouteException;
+use Automattic\PooCommerce\StoreApi\Utilities\DraftOrderTrait;
+use Automattic\PooCommerce\Checkout\Helpers\ReserveStockException;
+use Automattic\PooCommerce\StoreApi\Utilities\CheckoutTrait;
 
 /**
  * Checkout class.
@@ -87,7 +87,7 @@ class Checkout extends AbstractCartRoute {
 				'args'                => array_merge(
 					[
 						'payment_data'      => [
-							'description' => __( 'Data to pass through to the payment method when processing payment.', 'woocommerce' ),
+							'description' => __( 'Data to pass through to the payment method when processing payment.', 'poocommerce' ),
 							'type'        => 'array',
 							'items'       => [
 								'type'       => 'object',
@@ -102,7 +102,7 @@ class Checkout extends AbstractCartRoute {
 							],
 						],
 						'customer_password' => [
-							'description' => __( 'Customer password for new accounts, if applicable.', 'woocommerce' ),
+							'description' => __( 'Customer password for new accounts, if applicable.', 'poocommerce' ),
 							'type'        => 'string',
 						],
 					],
@@ -116,15 +116,15 @@ class Checkout extends AbstractCartRoute {
 				'args'                => array_merge(
 					[
 						'additional_fields' => [
-							'description' => __( 'Additional fields related to the order.', 'woocommerce' ),
+							'description' => __( 'Additional fields related to the order.', 'poocommerce' ),
 							'type'        => 'object',
 						],
 						'payment_method'    => [
-							'description' => __( 'Selected payment method for the order.', 'woocommerce' ),
+							'description' => __( 'Selected payment method for the order.', 'poocommerce' ),
 							'type'        => 'string',
 						],
 						'order_notes'       => [
-							'description' => __( 'Order notes.', 'woocommerce' ),
+							'description' => __( 'Order notes.', 'poocommerce' ),
 							'type'        => 'string',
 						],
 					],
@@ -161,7 +161,7 @@ class Checkout extends AbstractCartRoute {
 			} catch ( RouteException $error ) {
 				$response = $this->get_route_error_response( $error->getErrorCode(), $error->getMessage(), $error->getCode(), $error->getAdditionalData() );
 			} catch ( \Exception $error ) {
-				$response = $this->get_route_error_response( 'woocommerce_rest_unknown_server_error', $error->getMessage(), 500 );
+				$response = $this->get_route_error_response( 'poocommerce_rest_unknown_server_error', $error->getMessage(), 500 );
 			}
 		}
 
@@ -270,15 +270,15 @@ class Checkout extends AbstractCartRoute {
 				if ( empty( $field_value ) ) {
 					if ( true === $field['required'] ) {
 						/* translators: %s: is the field label */
-						$error_message = sprintf( __( '%s is required', 'woocommerce' ), $field['label'] );
+						$error_message = sprintf( __( '%s is required', 'poocommerce' ), $field['label'] );
 						if ( 'shipping_address' === $context ) {
 							/* translators: %s: is the field error message */
-							$error_message = sprintf( __( 'There was a problem with the provided shipping address: %s', 'woocommerce' ), $error_message );
+							$error_message = sprintf( __( 'There was a problem with the provided shipping address: %s', 'poocommerce' ), $error_message );
 						} elseif ( 'billing_address' === $context ) {
 							/* translators: %s: is the field error message */
-							$error_message = sprintf( __( 'There was a problem with the provided billing address: %s', 'woocommerce' ), $error_message );
+							$error_message = sprintf( __( 'There was a problem with the provided billing address: %s', 'poocommerce' ), $error_message );
 						}
-						$errors->add( 'woocommerce_required_checkout_field', $error_message, [ 'key' => $field_key ] );
+						$errors->add( 'poocommerce_required_checkout_field', $error_message, [ 'key' => $field_key ] );
 					}
 					continue;
 				}
@@ -325,7 +325,7 @@ class Checkout extends AbstractCartRoute {
 			return new \WP_Error(
 				'rest_invalid_param',
 				/* translators: %s: List of invalid parameters. */
-				esc_html( sprintf( __( 'Invalid parameter(s): %s', 'woocommerce' ), implode( ', ', array_keys( $invalid_groups ) ) ) ),
+				esc_html( sprintf( __( 'Invalid parameter(s): %s', 'poocommerce' ), implode( ', ', array_keys( $invalid_groups ) ) ) ),
 				array(
 					'status'  => 400,
 					'params'  => $invalid_groups,
@@ -467,7 +467,7 @@ class Checkout extends AbstractCartRoute {
 		} catch ( \Exception $e ) {
 			// Turn the Exception into a RouteException for the API.
 			throw new RouteException(
-				'woocommerce_rest_coupon_reserve_failed',
+				'poocommerce_rest_coupon_reserve_failed',
 				esc_html( $e->getMessage() ),
 				400
 			);
@@ -477,7 +477,7 @@ class Checkout extends AbstractCartRoute {
 		 * Reserve stock for the order.
 		 *
 		 * In the shortcode based checkout, when POSTing the checkout form the order would be created and fire the
-		 * `woocommerce_checkout_order_created` action. This in turn would trigger the `wc_reserve_stock_for_order`
+		 * `poocommerce_checkout_order_created` action. This in turn would trigger the `wc_reserve_stock_for_order`
 		 * function so that stock would be held pending payment.
 		 *
 		 * Via the block based checkout and Store API we already have a draft order, but when POSTing to the /checkout
@@ -488,7 +488,7 @@ class Checkout extends AbstractCartRoute {
 		 *
 		 * @see ReserveStock::get_query_for_reserved_stock()
 		 *
-		 * @since 9.2 Stock is no longer held for all draft orders, nor on non-POST requests. See https://github.com/woocommerce/woocommerce/issues/44231
+		 * @since 9.2 Stock is no longer held for all draft orders, nor on non-POST requests. See https://github.com/poocommerce/poocommerce/issues/44231
 		 * @since 9.2 Uses wc_reserve_stock_for_order() instead of using the ReserveStock class directly.
 		 */
 		try {
@@ -503,28 +503,28 @@ class Checkout extends AbstractCartRoute {
 		wc_log_order_step( '[Store API #8] Reserved stock for order', array( 'order_object' => $this->order ) );
 
 		wc_do_deprecated_action(
-			'__experimental_woocommerce_blocks_checkout_order_processed',
+			'__experimental_poocommerce_blocks_checkout_order_processed',
 			array(
 				$this->order,
 			),
 			'6.3.0',
-			'woocommerce_store_api_checkout_order_processed',
-			'This action was deprecated in WooCommerce Blocks version 6.3.0. Please use woocommerce_store_api_checkout_order_processed instead.'
+			'poocommerce_store_api_checkout_order_processed',
+			'This action was deprecated in PooCommerce Blocks version 6.3.0. Please use poocommerce_store_api_checkout_order_processed instead.'
 		);
 
 		wc_do_deprecated_action(
-			'woocommerce_blocks_checkout_order_processed',
+			'poocommerce_blocks_checkout_order_processed',
 			array(
 				$this->order,
 			),
 			'7.2.0',
-			'woocommerce_store_api_checkout_order_processed',
-			'This action was deprecated in WooCommerce Blocks version 7.2.0. Please use woocommerce_store_api_checkout_order_processed instead.'
+			'poocommerce_store_api_checkout_order_processed',
+			'This action was deprecated in PooCommerce Blocks version 7.2.0. Please use poocommerce_store_api_checkout_order_processed instead.'
 		);
 
 		// Set the order status to 'pending' as an initial step.
 		// This allows the order to proceed towards completion. The hook
-		// 'woocommerce_store_api_checkout_order_processed' (fired below) can be used
+		// 'poocommerce_store_api_checkout_order_processed' (fired below) can be used
 		// to set a custom status *after* this point.
 		// If payment isn't needed, the custom status is kept. If payment is needed,
 		// the payment gateway's statuses take precedence.
@@ -535,18 +535,18 @@ class Checkout extends AbstractCartRoute {
 		 *
 		 * This hook informs extensions that $order has completed processing and is ready for payment.
 		 *
-		 * This is similar to existing core hook woocommerce_checkout_order_processed. We're using a new action:
+		 * This is similar to existing core hook poocommerce_checkout_order_processed. We're using a new action:
 		 * - To keep the interface focused (only pass $order, not passing request data).
 		 * - This also explicitly indicates these orders are from checkout block/StoreAPI.
 		 *
 		 * @since 7.2.0
 		 *
-		 * @see https://github.com/woocommerce/woocommerce-gutenberg-products-block/pull/3238
+		 * @see https://github.com/poocommerce/poocommerce-gutenberg-products-block/pull/3238
 		 * @example See docs/examples/checkout-order-processed.md
 
 		 * @param \WC_Order $order Order object.
 		 */
-		do_action( 'woocommerce_store_api_checkout_order_processed', $this->order );
+		do_action( 'poocommerce_store_api_checkout_order_processed', $this->order );
 
 		/**
 		 * Process the payment and return the results.
@@ -652,23 +652,23 @@ class Checkout extends AbstractCartRoute {
 		}
 
 		wc_do_deprecated_action(
-			'__experimental_woocommerce_blocks_checkout_update_order_meta',
+			'__experimental_poocommerce_blocks_checkout_update_order_meta',
 			array(
 				$this->order,
 			),
 			'6.3.0',
-			'woocommerce_store_api_checkout_update_order_meta',
-			'This action was deprecated in WooCommerce Blocks version 6.3.0. Please use woocommerce_store_api_checkout_update_order_meta instead.'
+			'poocommerce_store_api_checkout_update_order_meta',
+			'This action was deprecated in PooCommerce Blocks version 6.3.0. Please use poocommerce_store_api_checkout_update_order_meta instead.'
 		);
 
 		wc_do_deprecated_action(
-			'woocommerce_blocks_checkout_update_order_meta',
+			'poocommerce_blocks_checkout_update_order_meta',
 			array(
 				$this->order,
 			),
 			'7.2.0',
-			'woocommerce_store_api_checkout_update_order_meta',
-			'This action was deprecated in WooCommerce Blocks version 7.2.0. Please use woocommerce_store_api_checkout_update_order_meta instead.'
+			'poocommerce_store_api_checkout_update_order_meta',
+			'This action was deprecated in PooCommerce Blocks version 7.2.0. Please use poocommerce_store_api_checkout_update_order_meta instead.'
 		);
 
 		/**
@@ -677,24 +677,24 @@ class Checkout extends AbstractCartRoute {
 		 * This hook gives extensions the chance to add or update meta data on the $order.
 		 * Throwing an exception from a callback attached to this action will make the Checkout Block render in a warning state, effectively preventing checkout.
 		 *
-		 * This is similar to existing core hook woocommerce_checkout_update_order_meta.
+		 * This is similar to existing core hook poocommerce_checkout_update_order_meta.
 		 * We're using a new action:
 		 * - To keep the interface focused (only pass $order, not passing request data).
 		 * - This also explicitly indicates these orders are from checkout block/StoreAPI.
 		 *
 		 * @since 7.2.0
 		 *
-		 * @see https://github.com/woocommerce/woocommerce-gutenberg-products-block/pull/3686
+		 * @see https://github.com/poocommerce/poocommerce-gutenberg-products-block/pull/3686
 		 *
 		 * @param \WC_Order $order Order object.
 		 */
-		do_action( 'woocommerce_store_api_checkout_update_order_meta', $this->order );
+		do_action( 'poocommerce_store_api_checkout_update_order_meta', $this->order );
 
 		// Confirm order is valid before proceeding further.
 		if ( ! $this->order instanceof \WC_Order ) {
 			throw new RouteException(
-				'woocommerce_rest_checkout_missing_order',
-				esc_html__( 'Unable to create order', 'woocommerce' ),
+				'poocommerce_rest_checkout_missing_order',
+				esc_html__( 'Unable to create order', 'poocommerce' ),
 				500
 			);
 		}
@@ -790,7 +790,7 @@ class Checkout extends AbstractCartRoute {
 		 * @param \WC_Customer $customer Customer object.
 		 * @param \WP_REST_Request $request Full details about the request.
 		 */
-		do_action( 'woocommerce_store_api_checkout_update_customer_from_request', $customer, $request );
+		do_action( 'poocommerce_store_api_checkout_update_customer_from_request', $customer, $request );
 
 		$customer->save();
 	}
@@ -811,8 +811,8 @@ class Checkout extends AbstractCartRoute {
 		if ( empty( $request_payment_method ) ) {
 			if ( $requires_payment_method ) {
 				throw new RouteException(
-					'woocommerce_rest_checkout_missing_payment_method',
-					esc_html__( 'No payment method provided.', 'woocommerce' ),
+					'poocommerce_rest_checkout_missing_payment_method',
+					esc_html__( 'No payment method provided.', 'poocommerce' ),
 					400
 				);
 			}
@@ -823,10 +823,10 @@ class Checkout extends AbstractCartRoute {
 			$all_payment_gateways = WC()->payment_gateways->payment_gateways();
 			$gateway_title        = isset( $all_payment_gateways[ $request_payment_method ] ) ? $all_payment_gateways[ $request_payment_method ]->get_title() : $request_payment_method;
 			throw new RouteException(
-				'woocommerce_rest_checkout_payment_method_disabled',
+				'poocommerce_rest_checkout_payment_method_disabled',
 				sprintf(
 					// Translators: %s Payment method ID.
-					esc_html__( '%s is not available for this order—please choose a different payment method', 'woocommerce' ),
+					esc_html__( '%s is not available for this order—please choose a different payment method', 'poocommerce' ),
 					esc_html( $gateway_title )
 				),
 				400
@@ -913,21 +913,21 @@ class Checkout extends AbstractCartRoute {
 	}
 
 	/**
-	 * This validates if the order can be placed regarding settings in WooCommerce > Settings > Accounts & Privacy
+	 * This validates if the order can be placed regarding settings in PooCommerce > Settings > Accounts & Privacy
 	 * If registration during checkout is disabled, guest checkout is disabled and the user is not logged in, prevent checkout.
 	 *
 	 * @throws RouteException If user cannot place order.
 	 */
 	private function validate_user_can_place_order() {
 		if (
-			// "woocommerce_enable_signup_and_login_from_checkout" === no.
+			// "poocommerce_enable_signup_and_login_from_checkout" === no.
 			false === filter_var( WC()->checkout()->is_registration_enabled(), FILTER_VALIDATE_BOOLEAN ) &&
-			// "woocommerce_enable_guest_checkout" === no.
+			// "poocommerce_enable_guest_checkout" === no.
 			true === filter_var( WC()->checkout()->is_registration_required(), FILTER_VALIDATE_BOOLEAN ) &&
 			! is_user_logged_in()
 		) {
 			throw new RouteException(
-				'woocommerce_rest_guest_checkout_disabled',
+				'poocommerce_rest_guest_checkout_disabled',
 				esc_html(
 					/**
 					 * Filter to customize the checkout message when a user must be logged in.
@@ -937,8 +937,8 @@ class Checkout extends AbstractCartRoute {
 					 * @param string $message Message to display when a user must be logged in to check out.
 					 */
 					apply_filters(
-						'woocommerce_checkout_must_be_logged_in_message',
-						__( 'You must be logged in to checkout.', 'woocommerce' )
+						'poocommerce_checkout_must_be_logged_in_message',
+						__( 'You must be logged in to checkout.', 'poocommerce' )
 					)
 				),
 				403

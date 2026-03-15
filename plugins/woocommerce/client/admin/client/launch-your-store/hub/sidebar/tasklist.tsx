@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-/* eslint-disable @woocommerce/dependency-group */
+/* eslint-disable @poocommerce/dependency-group */
 /**
  * External dependencies
  */
-import { onboardingStore, TaskType } from '@woocommerce/data';
-import { getNewPath, navigateTo } from '@woocommerce/navigation';
+import { onboardingStore, TaskType } from '@poocommerce/data';
+import { getNewPath, navigateTo } from '@poocommerce/navigation';
 import { resolveSelect } from '@wordpress/data';
 import { applyFilters } from '@wordpress/hooks';
 import clsx from 'clsx';
@@ -15,12 +15,12 @@ import SidebarNavigationItem from '@wordpress/edit-site/build-module/components/
  * Internal dependencies
  */
 import { taskCompleteIcon, taskIcons } from './components/icons';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 import {
 	accessTaskReferralStorage,
 	createStorageUtils,
-} from '@woocommerce/onboarding';
-import { getAdminLink } from '@woocommerce/settings';
+} from '@poocommerce/onboarding';
+import { getAdminLink } from '@poocommerce/settings';
 import { recordPaymentsOnboardingEvent } from '~/settings-payments/utils';
 import { wooPaymentsOnboardingSessionEntryLYS } from '~/settings-payments/constants';
 
@@ -45,14 +45,14 @@ export const getLysTasklist = async () => {
 	];
 
 	/**
-	 * This filter allows customizing the list of tasks to show in WooCommerce Launch Your Store feature.
+	 * This filter allows customizing the list of tasks to show in PooCommerce Launch Your Store feature.
 	 *
-	 * @filter woocommerce_launch_your_store_tasklist_whitelist
+	 * @filter poocommerce_launch_your_store_tasklist_whitelist
 	 * @param {string[]} LYS_TASKS_WHITELIST Default list of task IDs to show in LYS.
 	 *
 	 */
 	const filteredTasks = applyFilters(
-		'woocommerce_launch_your_store_tasklist_whitelist',
+		'poocommerce_launch_your_store_tasklist_whitelist',
 		[ ...LYS_TASKS_WHITELIST ]
 	) as string[];
 

@@ -3,7 +3,7 @@
  * Handles the registration of marketing channels and acts as their repository.
  */
 
-namespace Automattic\WooCommerce\Admin\Marketing;
+namespace Automattic\PooCommerce\Admin\Marketing;
 
 use Exception;
 
@@ -31,7 +31,7 @@ class MarketingChannels {
 	 */
 	public function register( MarketingChannelInterface $channel ): void {
 		if ( isset( $this->registered_channels[ $channel->get_slug() ] ) ) {
-			throw new Exception( __( 'Marketing channel cannot be registered because there is already a channel registered with the same slug!', 'woocommerce' ) );
+			throw new Exception( __( 'Marketing channel cannot be registered because there is already a channel registered with the same slug!', 'poocommerce' ) );
 		}
 
 		$this->registered_channels[ $channel->get_slug() ] = $channel;
@@ -59,7 +59,7 @@ class MarketingChannels {
 		 *
 		 * @since x.x.x
 		 */
-		$channels = apply_filters( 'woocommerce_marketing_channels', $this->registered_channels );
+		$channels = apply_filters( 'poocommerce_marketing_channels', $this->registered_channels );
 
 		return array_values( $channels );
 	}

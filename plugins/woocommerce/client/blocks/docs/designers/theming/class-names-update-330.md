@@ -1,6 +1,6 @@
 # Class names update in 3.3.0
 
-In [WooCommerce Blocks 3.3.0](https://developer.woocommerce.com/2020/09/02/woocommerce-blocks-3-3-0-release-notes/), we introduced express payment methods in the Cart block. In order to make it easy to write styles for express payment methods for the Cart and Checkout blocks separately, we updated several class names:
+In [PooCommerce Blocks 3.3.0](https://developer.poocommerce.com/2020/09/02/poocommerce-blocks-3-3-0-release-notes/), we introduced express payment methods in the Cart block. In order to make it easy to write styles for express payment methods for the Cart and Checkout blocks separately, we updated several class names:
 
 ## Replaced classes
 
@@ -21,9 +21,9 @@ In [WooCommerce Blocks 3.3.0](https://developer.woocommerce.com/2020/09/02/wooco
 
 ---
 
-[We're hiring!](https://woocommerce.com/careers/) Come work with us!
+[We're hiring!](https://poocommerce.com/careers/) Come work with us!
 
-🐞 Found a mistake, or have a suggestion? [Leave feedback about this document here.](https://github.com/woocommerce/woocommerce/issues/new?assignees=&labels=type%3A+documentation&template=suggestion-for-documentation-improvement-correction.md&title=Feedback%20on%20./docs/designers/theming/class-names-update-330.md)
+🐞 Found a mistake, or have a suggestion? [Leave feedback about this document here.](https://github.com/poocommerce/poocommerce/issues/new?assignees=&labels=type%3A+documentation&template=suggestion-for-documentation-improvement-correction.md&title=Feedback%20on%20./docs/designers/theming/class-names-update-330.md)
 
 <!-- /FEEDBACK -->
 

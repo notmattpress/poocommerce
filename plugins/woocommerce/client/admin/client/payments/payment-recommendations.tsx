@@ -6,17 +6,17 @@ import { useSelect, useDispatch } from '@wordpress/data';
 import { decodeEntities } from '@wordpress/html-entities';
 import { Card, CardHeader, CardFooter, Button } from '@wordpress/components';
 import { useEffect, useRef, useState } from '@wordpress/element';
-import { EllipsisMenu, List, Pill } from '@woocommerce/components';
-import { Text } from '@woocommerce/experimental';
+import { EllipsisMenu, List, Pill } from '@poocommerce/components';
+import { Text } from '@poocommerce/experimental';
 import {
 	onboardingStore,
 	PAYMENT_GATEWAYS_STORE_NAME,
 	pluginsStore,
 	Plugin,
 	type PaymentSelectors,
-} from '@woocommerce/data';
-import { recordEvent } from '@woocommerce/tracks';
-import { getAdminLink } from '@woocommerce/settings';
+} from '@poocommerce/data';
+import { recordEvent } from '@poocommerce/tracks';
+import { getAdminLink } from '@poocommerce/settings';
 
 /**
  * Internal dependencies
@@ -28,7 +28,7 @@ import { isWcPaySupported } from './utils';
 import { TrackedLink } from '~/components/tracked-link/tracked-link';
 
 const WcPayPromotionGateway = document.querySelector(
-	'[data-gateway_id="pre_install_woocommerce_payments_promotion"]'
+	'[data-gateway_id="pre_install_poocommerce_payments_promotion"]'
 );
 
 const PaymentRecommendations = () => {
@@ -112,7 +112,7 @@ const PaymentRecommendations = () => {
 					return props;
 				},
 				{
-					woocommerce_payments_displayed: !! WcPayPromotionGateway,
+					poocommerce_payments_displayed: !! WcPayPromotionGateway,
 				}
 			);
 			recordEvent(
@@ -142,7 +142,7 @@ const PaymentRecommendations = () => {
 				'error',
 				__(
 					'There was a problem hiding the "Additional ways to get paid" card.',
-					'woocommerce'
+					'poocommerce'
 				)
 			);
 		}
@@ -172,7 +172,7 @@ const PaymentRecommendations = () => {
 				! installedPaymentGateways[ plugin.id ] &&
 				plugin.plugins?.length &&
 				( ! window.wcAdminFeatures[ 'wc-pay-promotion' ] ||
-					! plugin.id.startsWith( 'woocommerce_payments' ) )
+					! plugin.id.startsWith( 'poocommerce_payments' ) )
 			);
 		} )
 		.map( ( plugin: Plugin ) => {
@@ -182,7 +182,7 @@ const PaymentRecommendations = () => {
 					<>
 						{ plugin.title }
 						{ plugin.recommended && (
-							<Pill>{ __( 'Recommended', 'woocommerce' ) }</Pill>
+							<Pill>{ __( 'Recommended', 'poocommerce' ) }</Pill>
 						) }
 					</>
 				),
@@ -195,7 +195,7 @@ const PaymentRecommendations = () => {
 						disabled={ !! installingPlugin }
 					>
 						{ plugin.actionText ||
-							__( 'Get started', 'woocommerce' ) }
+							__( 'Get started', 'poocommerce' ) }
 					</Button>
 				),
 				before: (
@@ -216,20 +216,20 @@ const PaymentRecommendations = () => {
 	}
 
 	return (
-		<Card size="medium" className="woocommerce-recommended-payments-card">
+		<Card size="medium" className="poocommerce-recommended-payments-card">
 			<CardHeader>
-				<div className="woocommerce-recommended-payments-card__header">
+				<div className="poocommerce-recommended-payments-card__header">
 					<Text
 						variant="title.small"
 						as="p"
 						size="20"
 						lineHeight="28px"
 					>
-						{ __( 'Recommended payment providers', 'woocommerce' ) }
+						{ __( 'Recommended payment providers', 'poocommerce' ) }
 					</Text>
 					<Text
 						className={
-							'woocommerce-recommended-payments__header-heading'
+							'poocommerce-recommended-payments__header-heading'
 						}
 						variant="caption"
 						as="p"
@@ -238,19 +238,19 @@ const PaymentRecommendations = () => {
 					>
 						{ __(
 							'We recommend adding one of the following payment extensions to your store. The extension will be installed and activated for you when you click "Get started".',
-							'woocommerce'
+							'poocommerce'
 						) }
 					</Text>
 				</div>
-				<div className="woocommerce-card__menu woocommerce-card__header-item">
+				<div className="poocommerce-card__menu poocommerce-card__header-item">
 					<EllipsisMenu
-						label={ __( 'Task List Options', 'woocommerce' ) }
+						label={ __( 'Task List Options', 'poocommerce' ) }
 						renderContent={ () => (
-							<div className="woocommerce-review-activity-card__section-controls">
+							<div className="poocommerce-review-activity-card__section-controls">
 								<Button
 									onClick={ dismissPaymentRecommendations }
 								>
-									{ __( 'Hide this', 'woocommerce' ) }
+									{ __( 'Hide this', 'poocommerce' ) }
 								</Button>
 							</div>
 						) }
@@ -262,8 +262,8 @@ const PaymentRecommendations = () => {
 				<TrackedLink
 					message={ __(
 						// translators: {{Link}} is a placeholder for a html element.
-						'Visit {{Link}}the WooCommerce Marketplace{{/Link}} to find additional payment providers.',
-						'woocommerce'
+						'Visit {{Link}}the PooCommerce Marketplace{{/Link}} to find additional payment providers.',
+						'poocommerce'
 					) }
 					eventName="settings_payment_recommendations_visit_marketplace_click"
 					targetUrl={ getAdminLink(
