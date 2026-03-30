@@ -2,13 +2,13 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Admin\Features\Fulfillments;
+namespace Automattic\PooCommerce\Tests\Admin\Features\Fulfillments;
 
-use Automattic\WooCommerce\Admin\Features\Fulfillments\FulfillmentOrderNotes;
-use Automattic\WooCommerce\Admin\Features\Fulfillments\FulfillmentsManager;
-use Automattic\WooCommerce\Internal\Orders\OrderNoteGroup;
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
-use Automattic\WooCommerce\Tests\Admin\Features\Fulfillments\Helpers\FulfillmentsHelper;
+use Automattic\PooCommerce\Admin\Features\Fulfillments\FulfillmentOrderNotes;
+use Automattic\PooCommerce\Admin\Features\Fulfillments\FulfillmentsManager;
+use Automattic\PooCommerce\Internal\Orders\OrderNoteGroup;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
+use Automattic\PooCommerce\Tests\Admin\Features\Fulfillments\Helpers\FulfillmentsHelper;
 use WC_Order;
 
 /**
@@ -36,9 +36,9 @@ class FulfillmentOrderNotesTest extends \WC_Unit_Test_Case {
 	 */
 	public static function setUpBeforeClass(): void {
 		parent::setUpBeforeClass();
-		self::$original_fulfillments_enabled = get_option( 'woocommerce_feature_fulfillments_enabled' );
-		update_option( 'woocommerce_feature_fulfillments_enabled', 'yes' );
-		$controller = wc_get_container()->get( \Automattic\WooCommerce\Admin\Features\Fulfillments\FulfillmentsController::class );
+		self::$original_fulfillments_enabled = get_option( 'poocommerce_feature_fulfillments_enabled' );
+		update_option( 'poocommerce_feature_fulfillments_enabled', 'yes' );
+		$controller = wc_get_container()->get( \Automattic\PooCommerce\Admin\Features\Fulfillments\FulfillmentsController::class );
 		$controller->register();
 		$controller->initialize_fulfillments();
 	}
@@ -48,9 +48,9 @@ class FulfillmentOrderNotesTest extends \WC_Unit_Test_Case {
 	 */
 	public static function tearDownAfterClass(): void {
 		if ( false === self::$original_fulfillments_enabled ) {
-			delete_option( 'woocommerce_feature_fulfillments_enabled' );
+			delete_option( 'poocommerce_feature_fulfillments_enabled' );
 		} else {
-			update_option( 'woocommerce_feature_fulfillments_enabled', self::$original_fulfillments_enabled );
+			update_option( 'poocommerce_feature_fulfillments_enabled', self::$original_fulfillments_enabled );
 		}
 		parent::tearDownAfterClass();
 	}
@@ -68,9 +68,9 @@ class FulfillmentOrderNotesTest extends \WC_Unit_Test_Case {
 	 * Test that order notes hooks are registered.
 	 */
 	public function test_hooks_registered(): void {
-		$this->assertNotFalse( has_action( 'woocommerce_fulfillment_after_create' ) );
-		$this->assertNotFalse( has_action( 'woocommerce_fulfillment_after_update' ) );
-		$this->assertNotFalse( has_action( 'woocommerce_fulfillment_after_delete' ) );
+		$this->assertNotFalse( has_action( 'poocommerce_fulfillment_after_create' ) );
+		$this->assertNotFalse( has_action( 'poocommerce_fulfillment_after_update' ) );
+		$this->assertNotFalse( has_action( 'poocommerce_fulfillment_after_delete' ) );
 	}
 
 	/**
@@ -508,7 +508,7 @@ class FulfillmentOrderNotesTest extends \WC_Unit_Test_Case {
 		$malicious_filter = function () {
 			return 'Fulfillment created <script>alert("xss")</script> successfully.';
 		};
-		add_filter( 'woocommerce_fulfillment_created_order_note', $malicious_filter );
+		add_filter( 'poocommerce_fulfillment_created_order_note', $malicious_filter );
 
 		$product = \WC_Helper_Product::create_simple_product();
 		$order   = OrderHelper::create_order( get_current_user_id(), $product );
@@ -547,7 +547,7 @@ class FulfillmentOrderNotesTest extends \WC_Unit_Test_Case {
 		}
 		$this->assertTrue( $found, 'Expected a sanitized fulfillment note.' );
 
-		remove_filter( 'woocommerce_fulfillment_created_order_note', $malicious_filter );
+		remove_filter( 'poocommerce_fulfillment_created_order_note', $malicious_filter );
 	}
 
 	/**
@@ -557,7 +557,7 @@ class FulfillmentOrderNotesTest extends \WC_Unit_Test_Case {
 		$filter_with_html = function () {
 			return 'Fulfillment <strong>created</strong> with <a href="https://example.com">link</a>.';
 		};
-		add_filter( 'woocommerce_fulfillment_created_order_note', $filter_with_html );
+		add_filter( 'poocommerce_fulfillment_created_order_note', $filter_with_html );
 
 		$product = \WC_Helper_Product::create_simple_product();
 		$order   = OrderHelper::create_order( get_current_user_id(), $product );
@@ -595,7 +595,7 @@ class FulfillmentOrderNotesTest extends \WC_Unit_Test_Case {
 		}
 		$this->assertTrue( $found, 'Expected allowed HTML to be preserved in note.' );
 
-		remove_filter( 'woocommerce_fulfillment_created_order_note', $filter_with_html );
+		remove_filter( 'poocommerce_fulfillment_created_order_note', $filter_with_html );
 	}
 
 	/**
@@ -605,7 +605,7 @@ class FulfillmentOrderNotesTest extends \WC_Unit_Test_Case {
 		$non_string_filter = function () {
 			return 12345;
 		};
-		add_filter( 'woocommerce_fulfillment_created_order_note', $non_string_filter );
+		add_filter( 'poocommerce_fulfillment_created_order_note', $non_string_filter );
 
 		$product = \WC_Helper_Product::create_simple_product();
 		$order   = OrderHelper::create_order( get_current_user_id(), $product );
@@ -641,7 +641,7 @@ class FulfillmentOrderNotesTest extends \WC_Unit_Test_Case {
 		}
 		$this->assertFalse( $found_created_note, 'Expected no fulfillment note when filter returns a non-string value.' );
 
-		remove_filter( 'woocommerce_fulfillment_created_order_note', $non_string_filter );
+		remove_filter( 'poocommerce_fulfillment_created_order_note', $non_string_filter );
 	}
 
 	/**
@@ -651,7 +651,7 @@ class FulfillmentOrderNotesTest extends \WC_Unit_Test_Case {
 		$empty_filter = function () {
 			return '';
 		};
-		add_filter( 'woocommerce_fulfillment_created_order_note', $empty_filter );
+		add_filter( 'poocommerce_fulfillment_created_order_note', $empty_filter );
 
 		$product = \WC_Helper_Product::create_simple_product();
 		$order   = OrderHelper::create_order( get_current_user_id(), $product );
@@ -687,7 +687,7 @@ class FulfillmentOrderNotesTest extends \WC_Unit_Test_Case {
 		}
 		$this->assertFalse( $found_created_note, 'Expected no fulfillment note when filter returns empty string.' );
 
-		remove_filter( 'woocommerce_fulfillment_created_order_note', $empty_filter );
+		remove_filter( 'poocommerce_fulfillment_created_order_note', $empty_filter );
 	}
 
 	/**
@@ -697,7 +697,7 @@ class FulfillmentOrderNotesTest extends \WC_Unit_Test_Case {
 		$whitespace_filter = function () {
 			return '   ';
 		};
-		add_filter( 'woocommerce_fulfillment_created_order_note', $whitespace_filter );
+		add_filter( 'poocommerce_fulfillment_created_order_note', $whitespace_filter );
 
 		$product = \WC_Helper_Product::create_simple_product();
 		$order   = OrderHelper::create_order( get_current_user_id(), $product );
@@ -733,14 +733,14 @@ class FulfillmentOrderNotesTest extends \WC_Unit_Test_Case {
 		}
 		$this->assertFalse( $found_created_note, 'Expected no fulfillment note when filter returns whitespace-only string.' );
 
-		remove_filter( 'woocommerce_fulfillment_created_order_note', $whitespace_filter );
+		remove_filter( 'poocommerce_fulfillment_created_order_note', $whitespace_filter );
 	}
 
 	/**
 	 * Test that returning null from a filter cancels the note.
 	 */
 	public function test_filter_returning_null_cancels_note(): void {
-		add_filter( 'woocommerce_fulfillment_created_order_note', '__return_null' );
+		add_filter( 'poocommerce_fulfillment_created_order_note', '__return_null' );
 
 		$product = \WC_Helper_Product::create_simple_product();
 		$order   = OrderHelper::create_order( get_current_user_id(), $product );
@@ -776,7 +776,7 @@ class FulfillmentOrderNotesTest extends \WC_Unit_Test_Case {
 		}
 		$this->assertFalse( $found_created_note, 'Expected no fulfillment created note when filter returns null.' );
 
-		remove_filter( 'woocommerce_fulfillment_created_order_note', '__return_null' );
+		remove_filter( 'poocommerce_fulfillment_created_order_note', '__return_null' );
 	}
 
 	/**
@@ -786,7 +786,7 @@ class FulfillmentOrderNotesTest extends \WC_Unit_Test_Case {
 		$custom_filter = function () {
 			return 'Custom fulfillment note message';
 		};
-		add_filter( 'woocommerce_fulfillment_created_order_note', $custom_filter );
+		add_filter( 'poocommerce_fulfillment_created_order_note', $custom_filter );
 
 		$product = \WC_Helper_Product::create_simple_product();
 		$order   = OrderHelper::create_order( get_current_user_id(), $product );
@@ -822,7 +822,7 @@ class FulfillmentOrderNotesTest extends \WC_Unit_Test_Case {
 		}
 		$this->assertTrue( $found, 'Expected the note to contain the custom filter message.' );
 
-		remove_filter( 'woocommerce_fulfillment_created_order_note', $custom_filter );
+		remove_filter( 'poocommerce_fulfillment_created_order_note', $custom_filter );
 	}
 
 	/**

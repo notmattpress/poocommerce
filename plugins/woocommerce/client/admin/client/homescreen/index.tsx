@@ -4,8 +4,8 @@
 import { compose } from '@wordpress/compose';
 import { withSelect, type select as WCDataSelector } from '@wordpress/data';
 import { useEffect } from '@wordpress/element';
-import { onboardingStore, withOnboardingHydration } from '@woocommerce/data';
-import { getHistory, getNewPath, useQuery } from '@woocommerce/navigation';
+import { onboardingStore, withOnboardingHydration } from '@poocommerce/data';
+import { getHistory, getNewPath, useQuery } from '@poocommerce/navigation';
 
 /**
  * Internal dependencies

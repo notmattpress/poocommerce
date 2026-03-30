@@ -1,21 +1,21 @@
 <?php
 /**
- * This file is part of the WooCommerce Email Editor package
+ * This file is part of the PooCommerce Email Editor package
  *
- * @package Automattic\WooCommerce\EmailEditor
+ * @package Automattic\PooCommerce\EmailEditor
  */
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\EmailEditor\Tests\Integration\Engine\Renderer\ContentRenderer\Postprocessors;
+namespace Automattic\PooCommerce\EmailEditor\Tests\Integration\Engine\Renderer\ContentRenderer\Postprocessors;
 
 use PHPUnit\Framework\TestCase;
-use Automattic\WooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Postprocessors\Border_Style_Postprocessor;
+use Automattic\PooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Postprocessors\Border_Style_Postprocessor;
 
 /**
  * Tests for Border_Style_Postprocessor.
  *
- * @package Automattic\WooCommerce\EmailEditor
+ * @package Automattic\PooCommerce\EmailEditor
  */
 class Border_Style_Postprocessor_Test extends TestCase {
 	/**

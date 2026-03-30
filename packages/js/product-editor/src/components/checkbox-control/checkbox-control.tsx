@@ -3,9 +3,9 @@
  */
 import { createElement } from '@wordpress/element';
 import { CheckboxControl } from '@wordpress/components';
-import { __experimentalTooltip as Tooltip } from '@woocommerce/components';
+import { __experimentalTooltip as Tooltip } from '@poocommerce/components';
 import { Icon, help } from '@wordpress/icons';
-import { sanitizeHTML } from '@woocommerce/sanitize';
+import { sanitizeHTML } from '@poocommerce/sanitize';
 
 /**
  * Internal dependencies
@@ -47,9 +47,9 @@ export const Checkbox = ( {
 		}
 	}
 	return (
-		<div className="woocommerce-product-form__checkbox">
+		<div className="poocommerce-product-form__checkbox">
 			{ title && <h4>{ title }</h4> }
-			<div className="woocommerce-product-form__checkbox-wrapper">
+			<div className="poocommerce-product-form__checkbox-wrapper">
 				<CheckboxControl
 					label={ label }
 					checked={ isChecked() }
@@ -67,10 +67,10 @@ export const Checkbox = ( {
 						}
 						position="top center"
 						className={
-							'woocommerce-product-form__checkbox-tooltip'
+							'poocommerce-product-form__checkbox-tooltip'
 						}
 					>
-						<span className="woocommerce-product-form__checkbox-tooltip-icon">
+						<span className="poocommerce-product-form__checkbox-tooltip-icon">
 							<Icon icon={ help } size={ 21.94 } fill="#949494" />
 						</span>
 					</Tooltip>

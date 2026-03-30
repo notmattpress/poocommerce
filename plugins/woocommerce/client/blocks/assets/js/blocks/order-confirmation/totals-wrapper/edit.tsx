@@ -30,7 +30,7 @@ const Edit = ( {
 						},
 					],
 					[
-						'woocommerce/order-confirmation-totals',
+						'poocommerce/order-confirmation-totals',
 						{
 							lock: {
 								remove: true,

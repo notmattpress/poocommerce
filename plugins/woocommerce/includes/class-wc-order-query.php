@@ -1,9 +1,9 @@
 <?php
 /**
  * Parameter-based Order querying
- * Args and usage: https://developer.woocommerce.com/docs/extensions/core-concepts/wc-get-orders/
+ * Args and usage: https://developer.poocommerce.com/docs/extensions/core-concepts/wc-get-orders/
  *
- * @package WooCommerce\Classes
+ * @package PooCommerce\Classes
  * @version 3.1.0
  * @since   3.1.0
  */
@@ -83,8 +83,8 @@ class WC_Order_Query extends WC_Object_Query {
 	 * @throws Exception When WC_Data_Store validation fails.
 	 */
 	public function get_orders() {
-		$args    = apply_filters( 'woocommerce_order_query_args', $this->get_query_vars() );
+		$args    = apply_filters( 'poocommerce_order_query_args', $this->get_query_vars() );
 		$results = WC_Data_Store::load( 'order' )->query( $args );
-		return apply_filters( 'woocommerce_order_query', $results, $args );
+		return apply_filters( 'poocommerce_order_query', $results, $args );
 	}
 }

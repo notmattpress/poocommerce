@@ -1,4 +1,4 @@
-export const WOOCOMMERCE_ID = 'woocommerce/woocommerce';
+export const WOOCOMMERCE_ID = 'poocommerce/poocommerce';
 
 export const getDefaultTemplateProps = ( templateTitle: string ) => {
 	return {

@@ -2,7 +2,7 @@
  * External dependencies
  */
 import type { BlockConfiguration } from '@wordpress/blocks';
-import { registerProductBlockType } from '@woocommerce/atomic-utils';
+import { registerProductBlockType } from '@poocommerce/atomic-utils';
 
 /**
  * Internal dependencies

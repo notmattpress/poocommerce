@@ -5,7 +5,7 @@
 /**
  * External dependencies
  */
-import { CustomerEffortScoreTracksContainer } from '@woocommerce/customer-effort-score';
+import { CustomerEffortScoreTracksContainer } from '@poocommerce/customer-effort-score';
 import { createRoot } from '@wordpress/element';
 import debugFactory from 'debug';
 

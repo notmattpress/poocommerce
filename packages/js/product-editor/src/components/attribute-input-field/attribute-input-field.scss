@@ -1,4 +1,4 @@
-.woocommerce-attribute-input-field {
+.poocommerce-attribute-input-field {
 	&__add-new {
 		display: flex;
 		align-items: center;
@@ -12,8 +12,8 @@
 	}
 }
 
-.woocommerce-experimental-select-control__popover-menu-container {
-	.woocommerce-experimental-select-control__menu-item[disabled] {
+.poocommerce-experimental-select-control__popover-menu-container {
+	.poocommerce-experimental-select-control__menu-item[disabled] {
 		pointer-events: none;
 		color: $gray-600;
 	}

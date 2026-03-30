@@ -2,18 +2,18 @@
 /**
  * CollectionQuery class.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @internal This file is for internal use only and should not be used by external code.
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\RestApi\Routes\V4\Refunds;
+namespace Automattic\PooCommerce\Internal\RestApi\Routes\V4\Refunds;
 
 defined( 'ABSPATH' ) || exit;
 
 use WP_REST_Request;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\AbstractCollectionQuery;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\AbstractCollectionQuery;
 use WC_Order_Query;
 
 /**
@@ -30,13 +30,13 @@ class CollectionQuery extends AbstractCollectionQuery {
 	public function get_query_schema(): array {
 		return array(
 			'order_id'      => array(
-				'description'       => __( 'Filter refunds by order ID.', 'woocommerce' ),
+				'description'       => __( 'Filter refunds by order ID.', 'poocommerce' ),
 				'type'              => 'integer',
 				'sanitize_callback' => 'absint',
 				'validate_callback' => 'rest_validate_request_arg',
 			),
 			'page'          => array(
-				'description'       => __( 'Current page of the collection.', 'woocommerce' ),
+				'description'       => __( 'Current page of the collection.', 'poocommerce' ),
 				'type'              => 'integer',
 				'default'           => 1,
 				'sanitize_callback' => 'absint',
@@ -44,7 +44,7 @@ class CollectionQuery extends AbstractCollectionQuery {
 				'minimum'           => 1,
 			),
 			'per_page'      => array(
-				'description'       => __( 'Maximum number of items to be returned in result set.', 'woocommerce' ),
+				'description'       => __( 'Maximum number of items to be returned in result set.', 'poocommerce' ),
 				'type'              => 'integer',
 				'default'           => 10,
 				'minimum'           => 1,
@@ -53,14 +53,14 @@ class CollectionQuery extends AbstractCollectionQuery {
 				'validate_callback' => 'rest_validate_request_arg',
 			),
 			'order'         => array(
-				'description'       => __( 'Order sort attribute ascending or descending.', 'woocommerce' ),
+				'description'       => __( 'Order sort attribute ascending or descending.', 'poocommerce' ),
 				'type'              => 'string',
 				'default'           => 'desc',
 				'enum'              => array( 'asc', 'desc' ),
 				'validate_callback' => 'rest_validate_request_arg',
 			),
 			'orderby'       => array(
-				'description'       => __( 'Sort collection by object attribute.', 'woocommerce' ),
+				'description'       => __( 'Sort collection by object attribute.', 'poocommerce' ),
 				'type'              => 'string',
 				'default'           => 'date',
 				'enum'              => array(
@@ -75,19 +75,19 @@ class CollectionQuery extends AbstractCollectionQuery {
 				'validate_callback' => 'rest_validate_request_arg',
 			),
 			'after'         => array(
-				'description'       => __( 'Limit response to resources published after a given ISO8601 compliant date.', 'woocommerce' ),
+				'description'       => __( 'Limit response to resources published after a given ISO8601 compliant date.', 'poocommerce' ),
 				'type'              => 'string',
 				'format'            => 'date-time',
 				'validate_callback' => 'rest_validate_request_arg',
 			),
 			'before'        => array(
-				'description'       => __( 'Limit response to resources published before a given ISO8601 compliant date.', 'woocommerce' ),
+				'description'       => __( 'Limit response to resources published before a given ISO8601 compliant date.', 'poocommerce' ),
 				'type'              => 'string',
 				'format'            => 'date-time',
 				'validate_callback' => 'rest_validate_request_arg',
 			),
 			'dates_are_gmt' => array(
-				'description'       => __( 'Whether to consider GMT post dates when limiting response by published or modified date.', 'woocommerce' ),
+				'description'       => __( 'Whether to consider GMT post dates when limiting response by published or modified date.', 'poocommerce' ),
 				'type'              => 'boolean',
 				'default'           => false,
 				'validate_callback' => 'rest_validate_request_arg',

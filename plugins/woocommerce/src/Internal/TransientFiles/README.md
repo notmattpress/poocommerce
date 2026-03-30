@@ -11,7 +11,7 @@
 
 ## Summary
 
-The WooCommerce transient files engine allows for the creation of transient files. We define a _transient file_ as a physical file (in the server filesystem) that:
+The PooCommerce transient files engine allows for the creation of transient files. We define a _transient file_ as a physical file (in the server filesystem) that:
 
 * Has a random name.
 * Can have any arbitrary content.
@@ -43,7 +43,7 @@ This is the method used to create a transient file by passing the file contents 
 Here's how you can quickly test this method from the command line:
 
 ```bash
-wp eval "echo wc_get_container()->get(\Automattic\WooCommerce\Internal\TransientFiles\TransientFilesEngine::class)->create_transient_file('foobar', '2023-12-31');"
+wp eval "echo wc_get_container()->get(\Automattic\PooCommerce\Internal\TransientFiles\TransientFilesEngine::class)->create_transient_file('foobar', '2023-12-31');"
 ```
 
 The minimum allowed expiration date is the one for the current day. The expiration date is considered GMT and is always compared to the current date once converted to GMT too.
@@ -55,7 +55,7 @@ The method will return the randomly generated name of the physical transient fil
 
 Gets the base directory where existing transient files are stored. The actual directory for each file is the combination of the base directory and the expiration date of the file, formatted as `Y-m-d`.
 
-The default base directory is `woocommerce_transient_files` inside the WordPress uploads directory. A different directory specified via a dedicated [hook](#hooks).
+The default base directory is `poocommerce_transient_files` inside the WordPress uploads directory. A different directory specified via a dedicated [hook](#hooks).
 
 If the default base directory doesn't exist, this method will create it. If the dedicated hook is used to specify a different directory that doesn't exist, an exception will be thrown; it's the responsibility of either the caller or the code that sets the hook to ensure that the specified custom directory exists.
 
@@ -67,13 +67,13 @@ Returns the full physical path of a transient file given the name returned by `c
 For example, if you run the example code shown in `create_transient_file` and assuming the file name in the example, you can get the full file path running:
 
 ```bash
-wp eval "echo wc_get_container()->get(\Automattic\WooCommerce\Internal\TransientFiles\TransientFilesEngine::class)->get_transient_file_path('7e7c1f0102030405060708090a0b0c0d0e0f00');"
+wp eval "echo wc_get_container()->get(\Automattic\PooCommerce\Internal\TransientFiles\TransientFilesEngine::class)->get_transient_file_path('7e7c1f0102030405060708090a0b0c0d0e0f00');"
 ```
 
 and you'll get:
 
 ```
-<WordPress directory>/wp-content/uploads/woocommerce_transient_files/2023-12-31/0102030405060708090a0b0c0d0e0f00
+<WordPress directory>/wp-content/uploads/poocommerce_transient_files/2023-12-31/0102030405060708090a0b0c0d0e0f00
 ```
 
 
@@ -100,18 +100,18 @@ These methods control the scheduled cleanup of expired files. The scheduling wor
 2. If the cleanup operation actually deletes at least one file, then the action is rescheduled to run again immediately.
 3. When no files are deleted, the action is rescheduled for 24h later (this interval can be changed with a [hook](#hooks)).
 
-A dedicated tool is provided in the WooCommerce debug tools page to trigger or cancel the cleanup scheduled action.
+A dedicated tool is provided in the PooCommerce debug tools page to trigger or cancel the cleanup scheduled action.
 
 
 ### Hooks
 
 The `TransientFilesEngine` provides the following hooks:
 
-* `woocommerce_transient_files_directory`: Filter that allows to change the base directory where transient files are stored. This affects both the creation of new transient files and the retrieval of existing files.
+* `poocommerce_transient_files_directory`: Filter that allows to change the base directory where transient files are stored. This affects both the creation of new transient files and the retrieval of existing files.
 
-* `woocommerce_delete_expired_transient_files_interval`: Filter that allows to change the interval between cleanup scheduled actions when no files are left to delete. The default is 24h.
+* `poocommerce_delete_expired_transient_files_interval`: Filter that allows to change the interval between cleanup scheduled actions when no files are left to delete. The default is 24h.
 
-* `woocommerce_transient_file_contents_served`: Action triggered when the content of a transient file is served either via the JSON REST API endpoint or the public HTTP endpoint.
+* `poocommerce_transient_file_contents_served`: Action triggered when the content of a transient file is served either via the JSON REST API endpoint or the public HTTP endpoint.
 
 
 ## The HTTP file serving endpoint

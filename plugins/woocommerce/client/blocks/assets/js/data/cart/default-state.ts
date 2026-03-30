@@ -7,9 +7,9 @@ import type {
 	ApiErrorResponse,
 	CartShippingAddress,
 	CartBillingAddress,
-} from '@woocommerce/types';
-import { AddressFormValues } from '@woocommerce/settings';
-import { ADDRESS_FORM_KEYS } from '@woocommerce/block-settings';
+} from '@poocommerce/types';
+import { AddressFormValues } from '@poocommerce/settings';
+import { ADDRESS_FORM_KEYS } from '@poocommerce/block-settings';
 
 /**
  * Internal dependencies

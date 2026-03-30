@@ -1,4 +1,4 @@
-.woocommerce-product-block-editor {
+.poocommerce-product-block-editor {
 	padding-top: 108px; // required space to locate the dashboard just below the admin bar. @todo: find a better way to do this.
 
 	h1,
@@ -99,7 +99,7 @@
 		}
 	}
 
-	.woocommerce-collapsible-content .woocommerce-collapsible-content__content {
+	.poocommerce-collapsible-content .poocommerce-collapsible-content__content {
 		margin-top: calc(2 * $gap);
 	}
 
@@ -117,7 +117,7 @@
 		}
 	}
 
-	.woocommerce-product-form {
+	.poocommerce-product-form {
 		&__custom-label-input {
 			display: flex;
 			flex-direction: column;
@@ -142,7 +142,7 @@
 		word-break: normal;
 	}
 
-	.woocommerce-experimental-select-control__label {
+	.poocommerce-experimental-select-control__label {
 		text-transform: uppercase;
 		font-size: 11px;
 		color: $gray-900;
@@ -187,9 +187,9 @@
 	}
 }
 
-.woocommerce-product-block-editor {
+.poocommerce-product-block-editor {
 	.block-editor-block-list__layout.is-root-container.is-loading {
-		.wp-block-woocommerce-product-section__heading-title {
+		.wp-block-poocommerce-product-section__heading-title {
 			@include placeholder();
 			background-color: $gray-200;
 			border-radius: $grid-unit-05;
@@ -198,7 +198,7 @@
 			margin-bottom: $gap-smaller;
 		}
 
-		.woocommerce-product-form-label__label {
+		.poocommerce-product-form-label__label {
 			@include placeholder();
 			background-color: $gray-200;
 			border-radius: $grid-unit-05;
@@ -207,7 +207,7 @@
 			margin-bottom: $gap-smaller;
 		}
 
-		.woocommerce-product-form-input {
+		.poocommerce-product-form-input {
 			@include placeholder();
 			background-color: $gray-200;
 			border-radius: $grid-unit-05;
@@ -215,7 +215,7 @@
 			height: 36px;
 		}
 
-		.woocommerce-product-form-textarea {
+		.poocommerce-product-form-textarea {
 			@include placeholder();
 			background-color: $gray-200;
 			border-radius: $grid-unit-05;
@@ -225,7 +225,7 @@
 	}
 }
 
-.wp-admin.woocommerce-feature-enabled-product-block-editor {
+.wp-admin.poocommerce-feature-enabled-product-block-editor {
 	.components-modal {
 		&__frame {
 			border-radius: $gap-smaller;

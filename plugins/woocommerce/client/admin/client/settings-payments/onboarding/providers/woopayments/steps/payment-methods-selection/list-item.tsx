@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { decodeEntities } from '@wordpress/html-entities';
-import { type RecommendedPaymentMethod } from '@woocommerce/data';
+import { type RecommendedPaymentMethod } from '@poocommerce/data';
 import { ExternalLink, Icon, ToggleControl } from '@wordpress/components';
 import { info as infoIcon } from '@wordpress/icons';
 import { useEffect, useRef } from '@wordpress/element';
@@ -97,25 +97,25 @@ export const PaymentMethodListItem = ( {
 	return (
 		<div
 			id={ method.id }
-			className="woocommerce-list__item woocommerce-list__item-enter-done"
+			className="poocommerce-list__item poocommerce-list__item-enter-done"
 			{ ...props }
 		>
-			<div className="woocommerce-list__item-inner">
+			<div className="poocommerce-list__item-inner">
 				{ /* Default layout for regular payment methods */ }
 				{ method.id !== 'apple_google' && (
 					<>
-						<div className="woocommerce-list__item-before">
+						<div className="poocommerce-list__item-before">
 							<img
 								src={ method.icon }
 								alt={ method.title + ' logo' }
 							/>
 						</div>
-						<div className="woocommerce-list__item-text">
-							<span className="woocommerce-list__item-title">
+						<div className="poocommerce-list__item-text">
+							<span className="poocommerce-list__item-title">
 								{ method.title }
 								{ method.notice?.badge && (
 									<span
-										className="woocommerce-list__item-notice-badge"
+										className="poocommerce-list__item-notice-badge"
 										data-testid="payment-method-notice-badge"
 									>
 										{ method.notice.badge }
@@ -123,7 +123,7 @@ export const PaymentMethodListItem = ( {
 								) }
 							</span>
 							<span
-								className="woocommerce-list__item-content"
+								className="poocommerce-list__item-content"
 								// eslint-disable-next-line react/no-danger -- This string is sanitized by the PaymentGateway class.
 								dangerouslySetInnerHTML={ sanitizeHTML(
 									decodeEntities( method.description )
@@ -134,20 +134,20 @@ export const PaymentMethodListItem = ( {
 				) }
 				{ /* Special layout for "apple_google" payment methods */ }
 				{ method.id === 'apple_google' && (
-					<div className="woocommerce-list__item-multi">
-						<div className="woocommerce-list__item-multi-row multi-row-space">
-							<div className="woocommerce-list__item-before">
+					<div className="poocommerce-list__item-multi">
+						<div className="poocommerce-list__item-multi-row multi-row-space">
+							<div className="poocommerce-list__item-before">
 								<img
 									src={ method.icon }
 									alt={ method.title + ' logo' }
 								/>
 							</div>
-							<div className="woocommerce-list__item-text">
-								<span className="woocommerce-list__item-title">
+							<div className="poocommerce-list__item-text">
+								<span className="poocommerce-list__item-title">
 									{ method.title }
 									{ method.notice?.badge && (
 										<span
-											className="woocommerce-list__item-notice-badge"
+											className="poocommerce-list__item-notice-badge"
 											data-testid="payment-method-notice-badge"
 										>
 											{ method.notice.badge }
@@ -155,7 +155,7 @@ export const PaymentMethodListItem = ( {
 									) }
 								</span>
 								<span
-									className="woocommerce-list__item-content"
+									className="poocommerce-list__item-content"
 									// eslint-disable-next-line react/no-danger -- This string is sanitized by the PaymentGateway class.
 									dangerouslySetInnerHTML={ sanitizeHTML(
 										decodeEntities( method.description )
@@ -163,19 +163,19 @@ export const PaymentMethodListItem = ( {
 								/>
 							</div>
 						</div>
-						<div className="woocommerce-list__item-multi-row">
-							<div className="woocommerce-list__item-before">
+						<div className="poocommerce-list__item-multi-row">
+							<div className="poocommerce-list__item-before">
 								<img
 									src={ method.extraIcon }
 									alt={ method.extraTitle + ' logo' }
 								/>
 							</div>
-							<div className="woocommerce-list__item-text">
-								<span className="woocommerce-list__item-title">
+							<div className="poocommerce-list__item-text">
+								<span className="poocommerce-list__item-title">
 									{ method.extraTitle }
 								</span>
 								<span
-									className="woocommerce-list__item-content"
+									className="poocommerce-list__item-content"
 									// eslint-disable-next-line react/no-danger -- This string is sanitized by the PaymentGateway class.
 									dangerouslySetInnerHTML={ sanitizeHTML(
 										decodeEntities(
@@ -187,8 +187,8 @@ export const PaymentMethodListItem = ( {
 						</div>
 					</div>
 				) }
-				<div className="woocommerce-list__item-after">
-					<div className="woocommerce-list__item-after__actions wc-settings-prevent-change-event">
+				<div className="poocommerce-list__item-after">
+					<div className="poocommerce-list__item-after__actions wc-settings-prevent-change-event">
 						<ToggleControl
 							checked={
 								paymentMethodsState[ method.id ] ?? false
@@ -212,7 +212,7 @@ export const PaymentMethodListItem = ( {
 			{ method.notice?.message &&
 				( paymentMethodsState[ method.id ] ?? false ) && (
 					<div
-						className="woocommerce-list__item-notice-info"
+						className="poocommerce-list__item-notice-info"
 						data-testid="payment-method-notice-info"
 					>
 						<Icon icon={ infoIcon } size={ 24 } />

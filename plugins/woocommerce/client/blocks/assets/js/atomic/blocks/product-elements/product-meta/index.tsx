@@ -1,9 +1,9 @@
 /**
  * External dependencies
  */
-import { registerProductBlockType } from '@woocommerce/atomic-utils';
+import { registerProductBlockType } from '@poocommerce/atomic-utils';
 import { Icon } from '@wordpress/icons';
-import { productMeta } from '@woocommerce/icons';
+import { productMeta } from '@poocommerce/icons';
 
 /**
  * Internal dependencies
@@ -24,7 +24,7 @@ const blockConfig = {
 	},
 	edit,
 	save,
-	ancestor: [ 'woocommerce/single-product' ],
+	ancestor: [ 'poocommerce/single-product' ],
 };
 
 registerProductBlockType( blockConfig, {

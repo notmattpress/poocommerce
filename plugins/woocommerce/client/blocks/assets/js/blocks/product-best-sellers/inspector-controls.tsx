@@ -4,10 +4,10 @@
 import { InspectorControls } from '@wordpress/block-editor';
 import { PanelBody } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
-import GridLayoutControl from '@woocommerce/editor-components/grid-layout-control';
-import { getSetting } from '@woocommerce/settings';
-import GridContentControl from '@woocommerce/editor-components/grid-content-control';
-import ProductCategoryControl from '@woocommerce/editor-components/product-category-control';
+import GridLayoutControl from '@poocommerce/editor-components/grid-layout-control';
+import { getSetting } from '@poocommerce/settings';
+import GridContentControl from '@poocommerce/editor-components/grid-content-control';
+import ProductCategoryControl from '@poocommerce/editor-components/product-category-control';
 
 /**
  * Internal dependencies
@@ -29,7 +29,7 @@ export const ProductBestSellersInspectorControls = (
 
 	return (
 		<InspectorControls key="inspector">
-			<PanelBody title={ __( 'Layout', 'woocommerce' ) } initialOpen>
+			<PanelBody title={ __( 'Layout', 'poocommerce' ) } initialOpen>
 				<GridLayoutControl
 					columns={ columns }
 					rows={ rows }
@@ -41,7 +41,7 @@ export const ProductBestSellersInspectorControls = (
 					maxRows={ getSetting( 'maxRows', 6 ) }
 				/>
 			</PanelBody>
-			<PanelBody title={ __( 'Content', 'woocommerce' ) } initialOpen>
+			<PanelBody title={ __( 'Content', 'poocommerce' ) } initialOpen>
 				<GridContentControl
 					settings={ contentVisibility }
 					onChange={ ( value ) =>
@@ -50,7 +50,7 @@ export const ProductBestSellersInspectorControls = (
 				/>
 			</PanelBody>
 			<PanelBody
-				title={ __( 'Filter by Product Category', 'woocommerce' ) }
+				title={ __( 'Filter by Product Category', 'poocommerce' ) }
 				initialOpen={ false }
 			>
 				<ProductCategoryControl

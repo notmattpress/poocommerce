@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { WCUser, useUser } from '@woocommerce/data';
+import { WCUser, useUser } from '@poocommerce/data';
 import { useEntityProp, store as coreStore } from '@wordpress/core-data';
 import { dispatch } from '@wordpress/data';
 import { useState } from '@wordpress/element';
@@ -27,7 +27,7 @@ export function useMetaboxHiddenProduct() {
 		try {
 			setIsSaving( true );
 
-			// @ts-expect-error saveEntityRecord is not typed correctly because we are overriding the type definition. https://github.com/woocommerce/woocommerce/blob/eeaf58e20064d837412d6c455e69cc5a5e2678b4/packages/js/product-editor/typings/index.d.ts#L15-L35
+			// @ts-expect-error saveEntityRecord is not typed correctly because we are overriding the type definition. https://github.com/poocommerce/poocommerce/blob/eeaf58e20064d837412d6c455e69cc5a5e2678b4/packages/js/product-editor/typings/index.d.ts#L15-L35
 			const { saveEntityRecord } = dispatch( coreStore );
 			const currentUser: WCUser = ( await saveEntityRecord(
 				'root',

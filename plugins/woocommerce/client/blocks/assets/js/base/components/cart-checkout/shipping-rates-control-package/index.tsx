@@ -3,15 +3,15 @@
  */
 import clsx from 'clsx';
 import { decodeEntities } from '@wordpress/html-entities';
-import { Panel } from '@woocommerce/blocks-components';
+import { Panel } from '@poocommerce/blocks-components';
 import { useCallback, useEffect, useMemo, useState } from '@wordpress/element';
-import { useShippingData, useStoreCart } from '@woocommerce/base-context/hooks';
-import { sanitizeHTML } from '@woocommerce/sanitize';
-import { CartShippingPackageShippingRate } from '@woocommerce/types';
+import { useShippingData, useStoreCart } from '@poocommerce/base-context/hooks';
+import { sanitizeHTML } from '@poocommerce/sanitize';
+import { CartShippingPackageShippingRate } from '@poocommerce/types';
 import {
 	PackageItems,
 	ShippingPackageItemIcon,
-} from '@woocommerce/base-components/cart-checkout';
+} from '@poocommerce/base-components/cart-checkout';
 
 /**
  * Internal dependencies

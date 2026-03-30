@@ -14,7 +14,7 @@ import reducer from '../reducer';
 import type { SettingsState } from '../types';
 import { Setting, SettingsGroup } from '../types';
 // @ts-expect-error WP core data doesn't explicitly export the actions
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import createLocksActions from '@wordpress/core-data/build/locks/actions';
 
 /**

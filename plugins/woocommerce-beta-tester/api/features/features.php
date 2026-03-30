@@ -4,7 +4,7 @@ defined( 'ABSPATH' ) || exit;
 
 const OPTION_NAME_PREFIX = 'wc_admin_helper_feature_values';
 
-register_woocommerce_admin_test_helper_rest_route(
+register_poocommerce_admin_test_helper_rest_route(
 	'/features/(?P<feature_name>[a-z0-9_\-]+)/toggle',
 	'toggle_feature',
 	array(
@@ -12,7 +12,7 @@ register_woocommerce_admin_test_helper_rest_route(
 	)
 );
 
-register_woocommerce_admin_test_helper_rest_route(
+register_poocommerce_admin_test_helper_rest_route(
 	'/features',
 	'get_features',
 	array(
@@ -20,7 +20,7 @@ register_woocommerce_admin_test_helper_rest_route(
 	)
 );
 
-register_woocommerce_admin_test_helper_rest_route(
+register_poocommerce_admin_test_helper_rest_route(
 	'/features/reset',
 	'reset_features',
 	array(
@@ -65,7 +65,7 @@ function reset_features() {
  */
 function get_features() {
 	if ( function_exists( 'wc_admin_get_feature_config' ) ) {
-		return apply_filters( 'woocommerce_admin_get_feature_config', wc_admin_get_feature_config() );
+		return apply_filters( 'poocommerce_admin_get_feature_config', wc_admin_get_feature_config() );
 	}
 	return array();
 }

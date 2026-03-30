@@ -1,18 +1,18 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\Domain\Services;
+namespace Automattic\PooCommerce\Tests\Blocks\Domain\Services;
 
-use Automattic\WooCommerce\Blocks\Domain\Services\CheckoutFields;
-use Automattic\WooCommerce\Blocks\Domain\Services\CheckoutFieldsFrontend;
-use Automattic\WooCommerce\Blocks\Package;
+use Automattic\PooCommerce\Blocks\Domain\Services\CheckoutFields;
+use Automattic\PooCommerce\Blocks\Domain\Services\CheckoutFieldsFrontend;
+use Automattic\PooCommerce\Blocks\Package;
 use Exception;
 use WC_Customer;
 use WP_Error;
 use Yoast\PHPUnitPolyfills\TestCases\TestCase;
 
 /**
- * Test \Automattic\WooCommerce\Blocks\Domain\Services\Hydration class.
+ * Test \Automattic\PooCommerce\Blocks\Domain\Services\Hydration class.
  */
 class CheckoutFieldsFrontendTest extends TestCase {
 	/**
@@ -35,9 +35,9 @@ class CheckoutFieldsFrontendTest extends TestCase {
 	public function setUp(): void {
 		parent::setUp();
 
-		add_filter( 'woocommerce_add_notice', [ $this, 'capture_notice' ] );
-		add_filter( 'woocommerce_add_error', [ $this, 'capture_error' ] );
-		add_filter( 'woocommerce_add_success', [ $this, 'capture_success' ] );
+		add_filter( 'poocommerce_add_notice', [ $this, 'capture_notice' ] );
+		add_filter( 'poocommerce_add_error', [ $this, 'capture_error' ] );
+		add_filter( 'poocommerce_add_success', [ $this, 'capture_success' ] );
 
 		$this->sut        = Package::container()->get( CheckoutFieldsFrontend::class );
 		$this->controller = Package::container()->get( CheckoutFields::class );
@@ -47,9 +47,9 @@ class CheckoutFieldsFrontendTest extends TestCase {
 	 * Tear down.
 	 */
 	protected function tearDown(): void {
-		remove_filter( 'woocommerce_add_notice', [ $this, 'capture_notice' ] );
-		remove_filter( 'woocommerce_add_error', [ $this, 'capture_error' ] );
-		remove_filter( 'woocommerce_add_success', [ $this, 'capture_success' ] );
+		remove_filter( 'poocommerce_add_notice', [ $this, 'capture_notice' ] );
+		remove_filter( 'poocommerce_add_error', [ $this, 'capture_error' ] );
+		remove_filter( 'poocommerce_add_success', [ $this, 'capture_success' ] );
 	}
 
 	/**
@@ -105,17 +105,17 @@ class CheckoutFieldsFrontendTest extends TestCase {
 			throw new Exception( $hash ); // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
 		};
 
-		add_filter( 'woocommerce_customer_data_store', $mock_data_store );
+		add_filter( 'poocommerce_customer_data_store', $mock_data_store );
 
 		global $mocked_messages;
 		$mocked_messages = [];
 
 		$this->sut->save_account_form_fields( 12345 );
 
-		remove_filter( 'woocommerce_customer_data_store', $mock_data_store );
+		remove_filter( 'poocommerce_customer_data_store', $mock_data_store );
 
 		$this->assertCount( 1, $mocked_messages );
-		$this->assertEquals( sprintf( __( 'An error occurred while saving account details: %s', 'woocommerce' ), $hash ), $mocked_messages[0]['message'] ); // phpcs:ignore WordPress.WP.I18n.MissingTranslatorsComment
+		$this->assertEquals( sprintf( __( 'An error occurred while saving account details: %s', 'poocommerce' ), $hash ), $mocked_messages[0]['message'] ); // phpcs:ignore WordPress.WP.I18n.MissingTranslatorsComment
 		$this->assertEquals( 'error', $mocked_messages[0]['type'] );
 	}
 
@@ -124,7 +124,7 @@ class CheckoutFieldsFrontendTest extends TestCase {
 	 */
 	public function test_save_account_form_fields_contact_generic_validation_error() {
 
-		woocommerce_register_additional_checkout_field(
+		poocommerce_register_additional_checkout_field(
 			array(
 				'id'                => 'mynamespace/generic_validation_error',
 				'label'             => 'Optional field with validation',
@@ -162,7 +162,7 @@ class CheckoutFieldsFrontendTest extends TestCase {
 		$value = $this->controller->get_field_from_object( 'mynamespace/generic_validation_error', new WC_Customer( 1 ) );
 		$this->assertEquals( '', $value );
 
-		__internal_woocommerce_blocks_deregister_checkout_field( 'mynamespace/generic_validation_error' );
+		__internal_poocommerce_blocks_deregister_checkout_field( 'mynamespace/generic_validation_error' );
 	}
 
 	/**
@@ -170,7 +170,7 @@ class CheckoutFieldsFrontendTest extends TestCase {
 	 */
 	public function test_save_account_form_fields_contact_location_validation_error() {
 
-		woocommerce_register_additional_checkout_field(
+		poocommerce_register_additional_checkout_field(
 			array(
 				'id'       => 'mynamespace/location_validation_error',
 				'label'    => 'Impossible contact field',
@@ -187,7 +187,7 @@ class CheckoutFieldsFrontendTest extends TestCase {
 		global $mocked_messages;
 		$mocked_messages = [];
 
-		add_action( 'woocommerce_blocks_validate_location_contact_fields', $e_thrower );
+		add_action( 'poocommerce_blocks_validate_location_contact_fields', $e_thrower );
 
 		$this->sut->save_account_form_fields( 1 );
 
@@ -197,9 +197,9 @@ class CheckoutFieldsFrontendTest extends TestCase {
 		$value = $this->controller->get_field_from_object( 'mynamespace/required_field', new WC_Customer( 1 ) );
 		$this->assertEquals( '', $value );
 
-		__internal_woocommerce_blocks_deregister_checkout_field( 'mynamespace/location_validation_error' );
+		__internal_poocommerce_blocks_deregister_checkout_field( 'mynamespace/location_validation_error' );
 
-		remove_action( 'woocommerce_blocks_validate_location_contact_fields', $e_thrower );
+		remove_action( 'poocommerce_blocks_validate_location_contact_fields', $e_thrower );
 	}
 
 	/**
@@ -207,7 +207,7 @@ class CheckoutFieldsFrontendTest extends TestCase {
 	 */
 	public function test_save_account_form_fields_contact_save_required_field() {
 
-		woocommerce_register_additional_checkout_field(
+		poocommerce_register_additional_checkout_field(
 			array(
 				'id'       => 'mynamespace/required_field',
 				'label'    => 'Required field',
@@ -239,7 +239,7 @@ class CheckoutFieldsFrontendTest extends TestCase {
 		$value = $this->controller->get_field_from_object( 'mynamespace/required_field', new WC_Customer( 1 ) );
 		$this->assertEquals( $hash, $value );
 
-		__internal_woocommerce_blocks_deregister_checkout_field( 'mynamespace/required_field' );
+		__internal_poocommerce_blocks_deregister_checkout_field( 'mynamespace/required_field' );
 	}
 
 	/**
@@ -247,7 +247,7 @@ class CheckoutFieldsFrontendTest extends TestCase {
 	 */
 	public function test_save_account_form_fields_contact_save_optional_field() {
 
-		woocommerce_register_additional_checkout_field(
+		poocommerce_register_additional_checkout_field(
 			array(
 				'id'       => 'mynamespace/optional_field',
 				'label'    => 'Optional field',
@@ -276,14 +276,14 @@ class CheckoutFieldsFrontendTest extends TestCase {
 		$value = $this->controller->get_field_from_object( 'mynamespace/optional_field', new WC_Customer( 1 ) );
 		$this->assertEquals( $hash, $value );
 
-		__internal_woocommerce_blocks_deregister_checkout_field( 'mynamespace/optional_field' );
+		__internal_poocommerce_blocks_deregister_checkout_field( 'mynamespace/optional_field' );
 	}
 
 	/**
 	 * @testDox Contact additional field validation error for an optional email field to ensure validation rules are applied.
 	 */
 	public function test_save_account_form_fields_contact_email_validation_error_optional_field() {
-		woocommerce_register_additional_checkout_field(
+		poocommerce_register_additional_checkout_field(
 			array(
 				'id'                => 'mynamespace/email_validation_error',
 				'label'             => 'Optional field with validation',
@@ -326,14 +326,14 @@ class CheckoutFieldsFrontendTest extends TestCase {
 		$value = $this->controller->get_field_from_object( 'mynamespace/email_validation_error', new WC_Customer( 1 ) );
 		$this->assertEquals( '', $value );
 
-		__internal_woocommerce_blocks_deregister_checkout_field( 'mynamespace/email_validation_error' );
+		__internal_poocommerce_blocks_deregister_checkout_field( 'mynamespace/email_validation_error' );
 	}
 
 	/**
 	 * @testDox Optional field with existing value can be cleared by submitting empty value.
 	 */
 	public function test_save_account_form_fields_optional_field_can_be_cleared() {
-		woocommerce_register_additional_checkout_field(
+		poocommerce_register_additional_checkout_field(
 			array(
 				'id'       => 'mynamespace/optional_field',
 				'label'    => 'Optional field',
@@ -356,6 +356,6 @@ class CheckoutFieldsFrontendTest extends TestCase {
 		$value = $this->controller->get_field_from_object( 'mynamespace/optional_field', new WC_Customer( 1 ) );
 		$this->assertEquals( '', $value );
 
-		__internal_woocommerce_blocks_deregister_checkout_field( 'mynamespace/optional_field' );
+		__internal_poocommerce_blocks_deregister_checkout_field( 'mynamespace/optional_field' );
 	}
 }

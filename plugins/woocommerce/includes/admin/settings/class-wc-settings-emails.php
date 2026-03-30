@@ -1,19 +1,19 @@
 <?php
 /**
- * WooCommerce Email Settings
+ * PooCommerce Email Settings
  *
- * @package WooCommerce\Admin
+ * @package PooCommerce\Admin
  * @version 2.1.0
  */
 
-use Automattic\WooCommerce\Internal\Admin\EmailPreview\EmailPreview;
-use Automattic\WooCommerce\Internal\Email\EmailColors;
-use Automattic\WooCommerce\Internal\Email\EmailFont;
-use Automattic\WooCommerce\Internal\Email\EmailStyleSync;
-use Automattic\WooCommerce\Internal\EmailEditor\EmailTemplates\WooEmailTemplate;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsManager;
-use Automattic\WooCommerce\Internal\Features\FeaturesController;
-use Automattic\WooCommerce\Utilities\FeaturesUtil;
+use Automattic\PooCommerce\Internal\Admin\EmailPreview\EmailPreview;
+use Automattic\PooCommerce\Internal\Email\EmailColors;
+use Automattic\PooCommerce\Internal\Email\EmailFont;
+use Automattic\PooCommerce\Internal\Email\EmailStyleSync;
+use Automattic\PooCommerce\Internal\EmailEditor\EmailTemplates\WooEmailTemplate;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsManager;
+use Automattic\PooCommerce\Internal\Features\FeaturesController;
+use Automattic\PooCommerce\Utilities\FeaturesUtil;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -31,20 +31,20 @@ class WC_Settings_Emails extends WC_Settings_Page {
 	 */
 	public function __construct() {
 		$this->id    = 'email';
-		$this->label = __( 'Emails', 'woocommerce' );
+		$this->label = __( 'Emails', 'poocommerce' );
 
-		add_action( 'woocommerce_admin_field_email_notification', array( $this, 'email_notification_setting' ) );
-		add_action( 'woocommerce_admin_field_email_notification_block_emails', array( $this, 'email_notification_setting_block_emails' ) );
-		add_action( 'woocommerce_admin_field_email_preview', array( $this, 'email_preview' ) );
-		add_action( 'woocommerce_admin_field_email_image_url', array( $this, 'email_image_url' ) );
-		add_action( 'woocommerce_admin_field_email_font_family', array( $this, 'email_font_family' ) );
-		add_action( 'woocommerce_admin_field_email_color_palette', array( $this, 'email_color_palette' ) );
-		add_action( 'woocommerce_admin_field_previewing_new_templates', array( $this, 'previewing_new_templates' ) );
-		add_action( 'woocommerce_admin_field_email_improvements_button', array( $this, 'email_improvements_button' ) );
-		add_action( 'woocommerce_email_settings_after', array( $this, 'email_preview_single' ) );
-		add_action( 'woocommerce_settings_saved', array( $this, 'enable_email_improvements_when_trying_new_templates' ), 999 );
-		add_filter( 'woocommerce_admin_settings_sanitize_option_woocommerce_email_header_image', array( $this, 'sanitize_email_header_image' ), 10, 3 );
-		add_filter( 'woocommerce_tracks_event_properties', array( $this, 'append_feature_email_improvements_to_tracks' ) );
+		add_action( 'poocommerce_admin_field_email_notification', array( $this, 'email_notification_setting' ) );
+		add_action( 'poocommerce_admin_field_email_notification_block_emails', array( $this, 'email_notification_setting_block_emails' ) );
+		add_action( 'poocommerce_admin_field_email_preview', array( $this, 'email_preview' ) );
+		add_action( 'poocommerce_admin_field_email_image_url', array( $this, 'email_image_url' ) );
+		add_action( 'poocommerce_admin_field_email_font_family', array( $this, 'email_font_family' ) );
+		add_action( 'poocommerce_admin_field_email_color_palette', array( $this, 'email_color_palette' ) );
+		add_action( 'poocommerce_admin_field_previewing_new_templates', array( $this, 'previewing_new_templates' ) );
+		add_action( 'poocommerce_admin_field_email_improvements_button', array( $this, 'email_improvements_button' ) );
+		add_action( 'poocommerce_email_settings_after', array( $this, 'email_preview_single' ) );
+		add_action( 'poocommerce_settings_saved', array( $this, 'enable_email_improvements_when_trying_new_templates' ), 999 );
+		add_filter( 'poocommerce_admin_settings_sanitize_option_poocommerce_email_header_image', array( $this, 'sanitize_email_header_image' ), 10, 3 );
+		add_filter( 'poocommerce_tracks_event_properties', array( $this, 'append_feature_email_improvements_to_tracks' ) );
 		add_action( FeaturesController::FEATURE_ENABLED_CHANGED_ACTION, array( $this, 'track_email_improvements_feature_change' ), 10, 2 );
 		parent::__construct();
 	}
@@ -63,7 +63,7 @@ class WC_Settings_Emails extends WC_Settings_Page {
 	 */
 	protected function get_own_sections() {
 		return array(
-			'' => __( 'Email options', 'woocommerce' ),
+			'' => __( 'Email options', 'poocommerce' ),
 		);
 	}
 
@@ -75,9 +75,9 @@ class WC_Settings_Emails extends WC_Settings_Page {
 	protected function get_settings_for_default_section() {
 		$desc_help_text = sprintf(
 		/* translators: %1$s: Link to WP Mail Logging plugin, %2$s: Link to Email FAQ support page. */
-			__( 'To ensure your store&rsquo;s notifications arrive in your and your customers&rsquo; inboxes, we recommend connecting your email address to your domain and setting up a dedicated SMTP server. If something doesn&rsquo;t seem to be sending correctly, install the <a href="%1$s">WP Mail Logging Plugin</a> or check the <a href="%2$s">Email FAQ page</a>.', 'woocommerce' ),
+			__( 'To ensure your store&rsquo;s notifications arrive in your and your customers&rsquo; inboxes, we recommend connecting your email address to your domain and setting up a dedicated SMTP server. If something doesn&rsquo;t seem to be sending correctly, install the <a href="%1$s">WP Mail Logging Plugin</a> or check the <a href="%2$s">Email FAQ page</a>.', 'poocommerce' ),
 			'https://wordpress.org/plugins/wp-mail-logging/',
-			'https://woocommerce.com/document/email-faq'
+			'https://poocommerce.com/document/email-faq'
 		);
 
 		$block_email_editor_enabled = FeaturesUtil::feature_is_enabled( 'block_email_editor' );
@@ -92,13 +92,13 @@ class WC_Settings_Emails extends WC_Settings_Page {
 		} else {
 			$email_notifications_field = 'email_notification';
 			/* translators: %s: help description with link to WP Mail logging and support page. */
-			$email_notifications_desc = sprintf( __( 'Email notifications sent from WooCommerce are listed below. Click on an email to configure it.<br>%s', 'woocommerce' ), $desc_help_text );
+			$email_notifications_desc = sprintf( __( 'Email notifications sent from PooCommerce are listed below. Click on an email to configure it.<br>%s', 'poocommerce' ), $desc_help_text );
 		}
 
 		$settings =
 			array(
 				array(
-					'title' => __( 'Email notifications', 'woocommerce' ),
+					'title' => __( 'Email notifications', 'poocommerce' ),
 					'desc'  => $email_notifications_desc,
 					'type'  => 'title',
 					'id'    => 'email_notification_settings',
@@ -116,16 +116,16 @@ class WC_Settings_Emails extends WC_Settings_Page {
 					'id'   => 'email_recipient_options',
 				),
 				array(
-					'title' => __( 'Email sender options', 'woocommerce' ),
+					'title' => __( 'Email sender options', 'poocommerce' ),
 					'type'  => 'title',
-					'desc'  => __( "Set the name and email address you'd like your outgoing emails to use.", 'woocommerce' ),
+					'desc'  => __( "Set the name and email address you'd like your outgoing emails to use.", 'poocommerce' ),
 					'id'    => 'email_options',
 				),
 
 				array(
-					'title'             => __( '"From" name', 'woocommerce' ),
+					'title'             => __( '"From" name', 'poocommerce' ),
 					'desc'              => '',
-					'id'                => 'woocommerce_email_from_name',
+					'id'                => 'poocommerce_email_from_name',
 					'type'              => 'text',
 					'css'               => 'min-width:400px;',
 					'default'           => esc_attr( get_bloginfo( 'name', 'display' ) ),
@@ -135,9 +135,9 @@ class WC_Settings_Emails extends WC_Settings_Page {
 				),
 
 				array(
-					'title'             => __( '"From" address', 'woocommerce' ),
+					'title'             => __( '"From" address', 'poocommerce' ),
 					'desc'              => '',
-					'id'                => 'woocommerce_email_from_address',
+					'id'                => 'poocommerce_email_from_address',
 					'type'              => 'email',
 					'custom_attributes' => array(
 						'multiple' => 'multiple',
@@ -155,18 +155,18 @@ class WC_Settings_Emails extends WC_Settings_Page {
 				$settings,
 				array(
 					array(
-						'title'    => __( 'Add "Reply-to" email', 'woocommerce' ),
-						'desc'     => __( 'Add a different email address to receive replies.', 'woocommerce' ),
-						'id'       => 'woocommerce_email_reply_to_enabled',
+						'title'    => __( 'Add "Reply-to" email', 'poocommerce' ),
+						'desc'     => __( 'Add a different email address to receive replies.', 'poocommerce' ),
+						'id'       => 'poocommerce_email_reply_to_enabled',
 						'type'     => 'checkbox',
 						'default'  => 'no',
 						'autoload' => false,
 					),
 
 					array(
-						'title'    => __( '"Reply-to" name', 'woocommerce' ),
+						'title'    => __( '"Reply-to" name', 'poocommerce' ),
 						'desc'     => '',
-						'id'       => 'woocommerce_email_reply_to_name',
+						'id'       => 'poocommerce_email_reply_to_name',
 						'type'     => 'text',
 						'css'      => 'min-width:400px;',
 						'default'  => '',
@@ -175,9 +175,9 @@ class WC_Settings_Emails extends WC_Settings_Page {
 					),
 
 					array(
-						'title'    => __( '"Reply-to" address', 'woocommerce' ),
+						'title'    => __( '"Reply-to" address', 'poocommerce' ),
 						'desc'     => '',
-						'id'       => 'woocommerce_email_reply_to_address',
+						'id'       => 'poocommerce_email_reply_to_address',
 						'type'     => 'email',
 						'css'      => 'min-width:400px;',
 						'default'  => '',
@@ -204,33 +204,33 @@ class WC_Settings_Emails extends WC_Settings_Page {
 				$settings,
 				array(
 					array(
-						'title' => __( 'Email template', 'woocommerce' ),
+						'title' => __( 'Email template', 'poocommerce' ),
 						'type'  => 'title',
-						'desc'  => __( 'Customize your WooCommerce email template and preview it below.', 'woocommerce' ),
+						'desc'  => __( 'Customize your PooCommerce email template and preview it below.', 'poocommerce' ),
 						'id'    => 'email_template_options',
 					),
 
 					array(
-						'title' => __( 'Try new templates', 'woocommerce' ),
+						'title' => __( 'Try new templates', 'poocommerce' ),
 						'type'  => 'previewing_new_templates',
 						'id'    => 'previewing_new_templates',
 					),
 
 					array(
-						'title'       => __( 'Logo', 'woocommerce' ),
-						'desc'        => __( 'Add your logo to each of your WooCommerce emails. If no logo is uploaded, your site title will be used instead.', 'woocommerce' ),
-						'id'          => 'woocommerce_email_header_image',
+						'title'       => __( 'Logo', 'poocommerce' ),
+						'desc'        => __( 'Add your logo to each of your PooCommerce emails. If no logo is uploaded, your site title will be used instead.', 'poocommerce' ),
+						'id'          => 'poocommerce_email_header_image',
 						'type'        => 'email_image_url',
 						'css'         => 'min-width:400px;',
-						'placeholder' => __( 'N/A', 'woocommerce' ),
+						'placeholder' => __( 'N/A', 'poocommerce' ),
 						'default'     => '',
 						'autoload'    => false,
 						'desc_tip'    => true,
 					),
 
 					array(
-						'title'     => __( 'Logo width (px)', 'woocommerce' ),
-						'id'        => 'woocommerce_email_header_image_width',
+						'title'     => __( 'Logo width (px)', 'poocommerce' ),
+						'id'        => 'poocommerce_email_header_image_width',
 						'desc_tip'  => '',
 						'default'   => '120',
 						'type'      => 'number',
@@ -238,35 +238,35 @@ class WC_Settings_Emails extends WC_Settings_Page {
 					),
 
 					array(
-						'title'     => __( 'Header alignment', 'woocommerce' ),
-						'id'        => 'woocommerce_email_header_alignment',
+						'title'     => __( 'Header alignment', 'poocommerce' ),
+						'id'        => 'poocommerce_email_header_alignment',
 						'desc_tip'  => '',
 						'default'   => 'left',
 						'type'      => 'select',
 						'class'     => 'wc-enhanced-select',
 						'options'   => array(
-							'left'   => __( 'Left', 'woocommerce' ),
-							'center' => __( 'Center', 'woocommerce' ),
-							'right'  => __( 'Right', 'woocommerce' ),
+							'left'   => __( 'Left', 'poocommerce' ),
+							'center' => __( 'Center', 'poocommerce' ),
+							'right'  => __( 'Right', 'poocommerce' ),
 						),
 						'row_class' => $email_improvements_enabled ? '' : 'disabled',
 					),
 
 					array(
-						'title'     => __( 'Font family', 'woocommerce' ),
-						'id'        => 'woocommerce_email_font_family',
+						'title'     => __( 'Font family', 'poocommerce' ),
+						'id'        => 'poocommerce_email_font_family',
 						'default'   => 'Helvetica',
 						'type'      => 'email_font_family',
 						'row_class' => $email_improvements_enabled ? '' : 'disabled',
 					),
 
 					array(
-						'title'       => __( 'Footer text', 'woocommerce' ),
+						'title'       => __( 'Footer text', 'poocommerce' ),
 						/* translators: %s: Available placeholders for use */
-						'desc'        => __( 'This text will appear in the footer of all of your WooCommerce emails.', 'woocommerce' ) . ' ' . sprintf( __( 'Available placeholders: %s', 'woocommerce' ), '{site_title} {site_url} {store_address} {store_email}' ),
-						'id'          => 'woocommerce_email_footer_text',
+						'desc'        => __( 'This text will appear in the footer of all of your PooCommerce emails.', 'poocommerce' ) . ' ' . sprintf( __( 'Available placeholders: %s', 'poocommerce' ), '{site_title} {site_url} {store_address} {store_email}' ),
+						'id'          => 'poocommerce_email_footer_text',
 						'css'         => 'width:400px; height: 75px;',
-						'placeholder' => __( 'N/A', 'woocommerce' ),
+						'placeholder' => __( 'N/A', 'poocommerce' ),
 						'type'        => 'textarea',
 						'default'     => '{site_title}<br />{store_address}',
 						'autoload'    => false,
@@ -279,16 +279,16 @@ class WC_Settings_Emails extends WC_Settings_Page {
 					),
 
 					array(
-						'title' => __( 'Color palette', 'woocommerce' ),
+						'title' => __( 'Color palette', 'poocommerce' ),
 						'type'  => 'email_color_palette',
 						'id'    => 'email_color_palette',
 					),
 
 					array(
-						'title'    => __( 'Accent', 'woocommerce' ),
+						'title'    => __( 'Accent', 'poocommerce' ),
 						/* translators: %s: default color */
-						'desc'     => sprintf( __( 'Customize the color of your buttons and links. Default %s.', 'woocommerce' ), '<code>' . $default_colors['base'] . '</code>' ),
-						'id'       => 'woocommerce_email_base_color',
+						'desc'     => sprintf( __( 'Customize the color of your buttons and links. Default %s.', 'poocommerce' ), '<code>' . $default_colors['base'] . '</code>' ),
+						'id'       => 'poocommerce_email_base_color',
 						'type'     => 'color',
 						'css'      => 'width:6em;',
 						'default'  => $default_colors['base'],
@@ -297,10 +297,10 @@ class WC_Settings_Emails extends WC_Settings_Page {
 					),
 
 					array(
-						'title'    => __( 'Email background', 'woocommerce' ),
+						'title'    => __( 'Email background', 'poocommerce' ),
 						/* translators: %s: default color */
-						'desc'     => sprintf( __( 'Select a color for the background of your emails. Default %s.', 'woocommerce' ), '<code>' . $default_colors['bg'] . '</code>' ),
-						'id'       => 'woocommerce_email_background_color',
+						'desc'     => sprintf( __( 'Select a color for the background of your emails. Default %s.', 'poocommerce' ), '<code>' . $default_colors['bg'] . '</code>' ),
+						'id'       => 'poocommerce_email_background_color',
 						'type'     => 'color',
 						'css'      => 'width:6em;',
 						'default'  => $default_colors['bg'],
@@ -309,10 +309,10 @@ class WC_Settings_Emails extends WC_Settings_Page {
 					),
 
 					array(
-						'title'    => __( 'Content background', 'woocommerce' ),
+						'title'    => __( 'Content background', 'poocommerce' ),
 						/* translators: %s: default color */
-						'desc'     => sprintf( __( 'Choose a background color for the content area of your emails. Default %s.', 'woocommerce' ), '<code>' . $default_colors['body_bg'] . '</code>' ),
-						'id'       => 'woocommerce_email_body_background_color',
+						'desc'     => sprintf( __( 'Choose a background color for the content area of your emails. Default %s.', 'poocommerce' ), '<code>' . $default_colors['body_bg'] . '</code>' ),
+						'id'       => 'poocommerce_email_body_background_color',
 						'type'     => 'color',
 						'css'      => 'width:6em;',
 						'default'  => $default_colors['body_bg'],
@@ -321,10 +321,10 @@ class WC_Settings_Emails extends WC_Settings_Page {
 					),
 
 					array(
-						'title'    => __( 'Heading & text', 'woocommerce' ),
+						'title'    => __( 'Heading & text', 'poocommerce' ),
 						/* translators: %s: default color */
-						'desc'     => sprintf( __( 'Set the color of your headings and text. Default %s.', 'woocommerce' ), '<code>' . $default_colors['body_text'] . '</code>' ),
-						'id'       => 'woocommerce_email_text_color',
+						'desc'     => sprintf( __( 'Set the color of your headings and text. Default %s.', 'poocommerce' ), '<code>' . $default_colors['body_text'] . '</code>' ),
+						'id'       => 'poocommerce_email_text_color',
 						'type'     => 'color',
 						'css'      => 'width:6em;',
 						'default'  => $default_colors['body_text'],
@@ -333,10 +333,10 @@ class WC_Settings_Emails extends WC_Settings_Page {
 					),
 
 					array(
-						'title'    => __( 'Secondary text', 'woocommerce' ),
+						'title'    => __( 'Secondary text', 'poocommerce' ),
 						/* translators: %s: footer default color */
-						'desc'     => sprintf( __( 'Choose a color for your secondary text, such as your footer content. Default %s.', 'woocommerce' ), '<code>' . $default_colors['footer_text'] . '</code>' ),
-						'id'       => 'woocommerce_email_footer_text_color',
+						'desc'     => sprintf( __( 'Choose a color for your secondary text, such as your footer content. Default %s.', 'poocommerce' ), '<code>' . $default_colors['footer_text'] . '</code>' ),
+						'id'       => 'poocommerce_email_footer_text_color',
 						'type'     => 'color',
 						'css'      => 'width:6em;',
 						'default'  => $default_colors['footer_text'],
@@ -345,9 +345,9 @@ class WC_Settings_Emails extends WC_Settings_Page {
 					),
 
 					array(
-						'title'    => __( 'Auto-sync with theme', 'woocommerce' ),
-						'desc'     => __( 'Automatically update email styles when theme styles change', 'woocommerce' ),
-						'id'       => 'woocommerce_email_auto_sync_with_theme',
+						'title'    => __( 'Auto-sync with theme', 'poocommerce' ),
+						'desc'     => __( 'Automatically update email styles when theme styles change', 'poocommerce' ),
+						'id'       => 'poocommerce_email_auto_sync_with_theme',
 						'type'     => 'hidden',
 						'default'  => 'no',
 						'autoload' => false,
@@ -359,7 +359,7 @@ class WC_Settings_Emails extends WC_Settings_Page {
 					),
 
 					array(
-						'title' => __( 'Email improvements button', 'woocommerce' ),
+						'title' => __( 'Email improvements button', 'poocommerce' ),
 						'type'  => 'email_improvements_button',
 						'id'    => 'email_improvements_button',
 					),
@@ -379,7 +379,7 @@ class WC_Settings_Emails extends WC_Settings_Page {
 		 *
 		 * @param array $settings Array of email settings.
 		 */
-		return apply_filters( 'woocommerce_email_settings', $settings );
+		return apply_filters( 'poocommerce_email_settings', $settings );
 	}
 
 	/**
@@ -482,12 +482,12 @@ class WC_Settings_Emails extends WC_Settings_Page {
 						 * @param array $columns Array of column keys and labels.
 						 */
 						$columns = apply_filters(
-							'woocommerce_email_setting_columns',
+							'poocommerce_email_setting_columns',
 							array(
 								'status'     => '',
-								'name'       => __( 'Email', 'woocommerce' ),
-								'email_type' => __( 'Content type', 'woocommerce' ),
-								'recipient'  => __( 'Recipient(s)', 'woocommerce' ),
+								'name'       => __( 'Email', 'poocommerce' ),
+								'email_type' => __( 'Content type', 'poocommerce' ),
+								'recipient'  => __( 'Recipient(s)', 'poocommerce' ),
 								'actions'    => '',
 							)
 						);
@@ -512,19 +512,19 @@ class WC_Settings_Emails extends WC_Settings_Page {
 										</td>';
 										break;
 									case 'recipient':
-										$to  = $email->is_customer_email() ? __( 'Customer', 'woocommerce' ) : $email->get_recipient();
+										$to  = $email->is_customer_email() ? __( 'Customer', 'poocommerce' ) : $email->get_recipient();
 										$cc  = false;
 										$bcc = false;
 										if ( FeaturesUtil::feature_is_enabled( 'email_improvements' ) ) {
 											$ccs  = $email->get_cc_recipient();
 											$bccs = $email->get_bcc_recipient();
 											// Translators: %s: comma-separated email addresses to which the email is cc-ed.
-											$cc = $ccs ? sprintf( __( '<b>Cc</b>: %s', 'woocommerce' ), $ccs ) : false;
+											$cc = $ccs ? sprintf( __( '<b>Cc</b>: %s', 'poocommerce' ), $ccs ) : false;
 											// Translators: %s: comma-separated email addresses to which the email is bcc-ed.
-											$bcc = $bccs ? sprintf( __( '<b>Bcc</b>: %s', 'woocommerce' ), $bccs ) : false;
+											$bcc = $bccs ? sprintf( __( '<b>Bcc</b>: %s', 'poocommerce' ), $bccs ) : false;
 											if ( $cc || $bcc ) {
 												// Translators: %s: comma-separated email addresses to which the email is sent.
-												$to = sprintf( __( '<b>To</b>: %s', 'woocommerce' ), $to );
+												$to = sprintf( __( '<b>To</b>: %s', 'poocommerce' ), $to );
 											}
 										}
 										$allowed_tags = array( 'b' => array() );
@@ -543,11 +543,11 @@ class WC_Settings_Emails extends WC_Settings_Page {
 										echo '<td class="wc-email-settings-table-' . esc_attr( $key ) . '">';
 
 										if ( $email->is_manual() ) {
-											echo '<span class="status-manual tips" data-tip="' . esc_attr__( 'Manually sent', 'woocommerce' ) . '">' . esc_html__( 'Manual', 'woocommerce' ) . '</span>';
+											echo '<span class="status-manual tips" data-tip="' . esc_attr__( 'Manually sent', 'poocommerce' ) . '">' . esc_html__( 'Manual', 'poocommerce' ) . '</span>';
 										} elseif ( $email->is_enabled() ) {
-											echo '<span class="status-enabled tips" data-tip="' . esc_attr__( 'Enabled', 'woocommerce' ) . '">' . esc_html__( 'Yes', 'woocommerce' ) . '</span>';
+											echo '<span class="status-enabled tips" data-tip="' . esc_attr__( 'Enabled', 'poocommerce' ) . '">' . esc_html__( 'Yes', 'poocommerce' ) . '</span>';
 										} else {
-											echo '<span class="status-disabled tips" data-tip="' . esc_attr__( 'Disabled', 'woocommerce' ) . '">-</span>';
+											echo '<span class="status-disabled tips" data-tip="' . esc_attr__( 'Disabled', 'poocommerce' ) . '">-</span>';
 										}
 
 										echo '</td>';
@@ -559,7 +559,7 @@ class WC_Settings_Emails extends WC_Settings_Page {
 										break;
 									case 'actions':
 										echo '<td class="wc-email-settings-table-' . esc_attr( $key ) . '">
-										<a class="button alignright" href="' . esc_url( admin_url( 'admin.php?page=wc-settings&tab=email&section=' . strtolower( $email_key ) ) ) . '">' . esc_html__( 'Manage', 'woocommerce' ) . '</a>
+										<a class="button alignright" href="' . esc_url( admin_url( 'admin.php?page=wc-settings&tab=email&section=' . strtolower( $email_key ) ) ) . '">' . esc_html__( 'Manage', 'poocommerce' ) . '</a>
 										</td>';
 										break;
 									default:
@@ -570,7 +570,7 @@ class WC_Settings_Emails extends WC_Settings_Page {
 										 *
 										 * @param WC_Email $email The email object.
 										 */
-										do_action( 'woocommerce_email_setting_column_' . $key, $email );
+										do_action( 'poocommerce_email_setting_column_' . $key, $email );
 										break;
 								}
 							}
@@ -591,9 +591,9 @@ class WC_Settings_Emails extends WC_Settings_Page {
 	public function email_notification_setting_block_emails() {
 		$desc_help_text = sprintf(
 			/* translators: %1$s: Link to WP Mail Logging plugin, %2$s: Link to Email FAQ support page. */
-			__( 'To ensure your store&rsquo;s notifications arrive in your and your customers&rsquo; inboxes, we recommend connecting your email address to your domain and setting up a dedicated SMTP server. If something doesn&rsquo;t seem to be sending correctly, install the <a href="%1$s">WP Mail Logging Plugin</a> or check the <a href="%2$s">Email FAQ page</a>.', 'woocommerce' ),
+			__( 'To ensure your store&rsquo;s notifications arrive in your and your customers&rsquo; inboxes, we recommend connecting your email address to your domain and setting up a dedicated SMTP server. If something doesn&rsquo;t seem to be sending correctly, install the <a href="%1$s">WP Mail Logging Plugin</a> or check the <a href="%2$s">Email FAQ page</a>.', 'poocommerce' ),
 			'https://wordpress.org/plugins/wp-mail-logging/',
-			'https://woocommerce.com/document/email-faq'
+			'https://poocommerce.com/document/email-faq'
 		);
 		$email_post_manager   = WCTransactionalEmailPostsManager::get_instance();
 		$emails               = WC()->mailer()->get_emails();
@@ -610,7 +610,7 @@ class WC_Settings_Emails extends WC_Settings_Page {
 				'enabled'     => $email->is_enabled(),
 				'manual'      => $email->is_manual(),
 				'recipients'  => array(
-					'to'  => $email->is_customer_email() ? __( 'Customers', 'woocommerce' ) : $email->get_recipient(),
+					'to'  => $email->is_customer_email() ? __( 'Customers', 'poocommerce' ) : $email->get_recipient(),
 					'cc'  => $email->get_cc_recipient(),
 					'bcc' => $email->get_bcc_recipient(),
 				),
@@ -630,7 +630,7 @@ class WC_Settings_Emails extends WC_Settings_Page {
 
 		?>
 		<div
-			id="wc_settings_email_listing_slotfill" class="wc-settings-prevent-change-event woocommerce-email-listing-listview"
+			id="wc_settings_email_listing_slotfill" class="wc-settings-prevent-change-event poocommerce-email-listing-listview"
 			data-email-types="<?php echo esc_attr( wp_json_encode( $email_types ) ); ?>"
 			data-edit-template-url="<?php echo esc_attr( $edit_template_url ); ?>"
 		>
@@ -642,7 +642,7 @@ class WC_Settings_Emails extends WC_Settings_Page {
 			height: 40px;
 			width: 100%;
 			">
-				<h3> <?php esc_html_e( 'Loading&hellip;', 'woocommerce' ); ?>  </h3>
+				<h3> <?php esc_html_e( 'Loading&hellip;', 'poocommerce' ); ?>  </h3>
 			</div>
 		</div>
 		<div>
@@ -667,7 +667,7 @@ class WC_Settings_Emails extends WC_Settings_Page {
 		?>
 		<div
 			id="wc_settings_email_preview_slotfill"
-			data-preview-url="<?php echo esc_url( wp_nonce_url( admin_url( '?preview_woocommerce_mail=true' ), 'preview-mail' ) ); ?>"
+			data-preview-url="<?php echo esc_url( wp_nonce_url( admin_url( '?preview_poocommerce_mail=true' ), 'preview-mail' ) ); ?>"
 			data-email-types="<?php echo esc_attr( wp_json_encode( $email_types ) ); ?>"
 			data-email-setting-ids="<?php echo esc_attr( wp_json_encode( EmailPreview::get_email_style_setting_ids() ) ); ?>"
 		></div>
@@ -689,18 +689,18 @@ class WC_Settings_Emails extends WC_Settings_Page {
 			),
 		);
 		?>
-		<h2><?php echo esc_html( __( 'Email preview', 'woocommerce' ) ); ?></h2>
+		<h2><?php echo esc_html( __( 'Email preview', 'poocommerce' ) ); ?></h2>
 
-		<p><?php echo esc_html( __( 'Preview your email template. You can also test on different devices and send yourself a test email.', 'woocommerce' ) ); ?></p>
+		<p><?php echo esc_html( __( 'Preview your email template. You can also test on different devices and send yourself a test email.', 'poocommerce' ) ); ?></p>
 		<div>
 			<div
 				id="wc_settings_email_preview_slotfill"
-				data-preview-url="<?php echo esc_url( wp_nonce_url( admin_url( '?preview_woocommerce_mail=true' ), 'preview-mail' ) ); ?>"
+				data-preview-url="<?php echo esc_url( wp_nonce_url( admin_url( '?preview_poocommerce_mail=true' ), 'preview-mail' ) ); ?>"
 				data-email-types="<?php echo esc_attr( wp_json_encode( $email_types ) ); ?>"
 				data-email-setting-ids="<?php echo esc_attr( wp_json_encode( EmailPreview::get_email_content_setting_ids( $email->id ) ) ); ?>"
 			></div>
-			<input type="hidden" id="woocommerce_email_from_name" value="<?php echo esc_attr( get_option( 'woocommerce_email_from_name' ) ); ?>" />
-			<input type="hidden" id="woocommerce_email_from_address" value="<?php echo esc_attr( get_option( 'woocommerce_email_from_address' ) ); ?>" />
+			<input type="hidden" id="poocommerce_email_from_name" value="<?php echo esc_attr( get_option( 'poocommerce_email_from_name' ) ); ?>" />
+			<input type="hidden" id="poocommerce_email_from_address" value="<?php echo esc_attr( get_option( 'poocommerce_email_from_address' ) ); ?>" />
 		</div>
 		<?php
 	}
@@ -799,7 +799,7 @@ class WC_Settings_Emails extends WC_Settings_Page {
 					name="<?php echo esc_attr( $value['field_name'] ); ?>"
 					id="<?php echo esc_attr( $value['id'] ); ?>"
 					>
-					<optgroup label="<?php echo esc_attr__( 'Standard fonts', 'woocommerce' ); ?>">
+					<optgroup label="<?php echo esc_attr__( 'Standard fonts', 'poocommerce' ); ?>">
 						<?php
 						foreach ( EmailFont::$font as $key => $font_family ) {
 							?>
@@ -813,7 +813,7 @@ class WC_Settings_Emails extends WC_Settings_Page {
 						?>
 					</optgroup>
 					<?php if ( $custom_fonts ) : ?>
-						<optgroup label="<?php echo esc_attr__( 'Custom fonts', 'woocommerce' ); ?>">
+						<optgroup label="<?php echo esc_attr__( 'Custom fonts', 'poocommerce' ); ?>">
 							<?php
 							foreach ( $custom_fonts as $key => $val ) {
 								?>
@@ -855,13 +855,13 @@ class WC_Settings_Emails extends WC_Settings_Page {
 				></div>
 				<input
 					type="hidden"
-					name="woocommerce_email_auto_sync_with_theme"
-					id="woocommerce_email_auto_sync_with_theme"
+					name="poocommerce_email_auto_sync_with_theme"
+					id="poocommerce_email_auto_sync_with_theme"
 					value="<?php echo esc_attr( $auto_sync ); ?>"
 				/>
 			<?php else : ?>
 				<div class="wc-settings-email-color-palette-buttons">
-					<button disabled type="button" class="components-button is-secondary"><?php esc_html_e( 'Sync with theme', 'woocommerce' ); ?></button>
+					<button disabled type="button" class="components-button is-secondary"><?php esc_html_e( 'Sync with theme', 'poocommerce' ); ?></button>
 				</div>
 			<?php endif; ?>
 		</div>
@@ -879,17 +879,17 @@ class WC_Settings_Emails extends WC_Settings_Page {
 		if ( FeaturesUtil::feature_is_enabled( 'email_improvements' ) ) {
 			return;
 		}
-		update_option( 'woocommerce_admin_dismissed_try_email_improvements_modal', 'yes' );
+		update_option( 'poocommerce_admin_dismissed_try_email_improvements_modal', 'yes' );
 		?>
 		<div class="wc-settings-email-color-palette-header submit">
 			<div class="notice notice-info inline">
-				<p><?php esc_html_e( 'Previewing new template designs. You can customize and test your emails and switch to the new template whenever you are ready.', 'woocommerce' ); ?></p>
+				<p><?php esc_html_e( 'Previewing new template designs. You can customize and test your emails and switch to the new template whenever you are ready.', 'poocommerce' ); ?></p>
 				<p>
-					<button name="save" type="submit" class="components-button is-secondary" value="<?php esc_attr_e( 'Save changes', 'woocommerce' ); ?>">
-						<?php esc_html_e( 'Switch to new template', 'woocommerce' ); ?>
+					<button name="save" type="submit" class="components-button is-secondary" value="<?php esc_attr_e( 'Save changes', 'poocommerce' ); ?>">
+						<?php esc_html_e( 'Switch to new template', 'poocommerce' ); ?>
 					</button>
 					<a href="?page=wc-settings&tab=email" class="components-button is-tertiary">
-						<?php esc_html_e( 'Keep legacy template', 'woocommerce' ); ?>
+						<?php esc_html_e( 'Keep legacy template', 'poocommerce' ); ?>
 					</a>
 				</p>
 			</div>
@@ -912,13 +912,13 @@ class WC_Settings_Emails extends WC_Settings_Page {
 			?>
 			<hr class="wc-settings-email-color-palette-separator" />
 			<a href="?page=wc-settings&tab=email&try-new-templates" class="components-button is-link">
-				<?php esc_html_e( 'Try our new email templates!', 'woocommerce' ); ?>
+				<?php esc_html_e( 'Try our new email templates!', 'poocommerce' ); ?>
 			</a>
 			<?php
 			return;
 		}
 
-		$has_feature_enabled_since_installation = 'yes' === get_option( 'woocommerce_email_improvements_default_enabled', 'no' );
+		$has_feature_enabled_since_installation = 'yes' === get_option( 'poocommerce_email_improvements_default_enabled', 'no' );
 		if ( $is_feature_enabled && ! $has_feature_enabled_since_installation ) {
 			$disable_feature_args = array(
 				'email_improvements' => '0',
@@ -928,9 +928,9 @@ class WC_Settings_Emails extends WC_Settings_Page {
 			<hr class="wc-settings-email-color-palette-separator" />
 			<a href="<?php echo esc_url( add_query_arg( $disable_feature_args ) ); ?>"
 				class="components-button is-link"
-				onclick="return confirm('<?php esc_attr_e( 'Are you sure want to revert to legacy? Doing so will erase any changes you’ve made to your new email templates, and will restore your previous email designs.', 'woocommerce' ); ?>');"
+				onclick="return confirm('<?php esc_attr_e( 'Are you sure want to revert to legacy? Doing so will erase any changes you’ve made to your new email templates, and will restore your previous email designs.', 'poocommerce' ); ?>');"
 			>
-				<?php esc_html_e( 'Revert to legacy template', 'woocommerce' ); ?>
+				<?php esc_html_e( 'Revert to legacy template', 'poocommerce' ); ?>
 			</a>
 			<?php
 			return;
@@ -964,15 +964,15 @@ class WC_Settings_Emails extends WC_Settings_Page {
 		if ( 'email_improvements' === $feature_id ) {
 			$current_date = gmdate( 'Y-m-d H:i:s' );
 			if ( $enabled ) {
-				$enabled_count = get_option( 'woocommerce_email_improvements_enabled_count', 0 );
-				update_option( 'woocommerce_email_improvements_enabled_count', $enabled_count + 1 );
-				add_option( 'woocommerce_email_improvements_first_enabled_at', $current_date );
-				update_option( 'woocommerce_email_improvements_last_enabled_at', $current_date );
+				$enabled_count = get_option( 'poocommerce_email_improvements_enabled_count', 0 );
+				update_option( 'poocommerce_email_improvements_enabled_count', $enabled_count + 1 );
+				add_option( 'poocommerce_email_improvements_first_enabled_at', $current_date );
+				update_option( 'poocommerce_email_improvements_last_enabled_at', $current_date );
 			} else {
-				$disabled_count = get_option( 'woocommerce_email_improvements_disabled_count', 0 );
-				update_option( 'woocommerce_email_improvements_disabled_count', $disabled_count + 1 );
-				add_option( 'woocommerce_email_improvements_first_disabled_at', $current_date );
-				update_option( 'woocommerce_email_improvements_last_disabled_at', $current_date );
+				$disabled_count = get_option( 'poocommerce_email_improvements_disabled_count', 0 );
+				update_option( 'poocommerce_email_improvements_disabled_count', $disabled_count + 1 );
+				add_option( 'poocommerce_email_improvements_first_disabled_at', $current_date );
+				update_option( 'poocommerce_email_improvements_last_disabled_at', $current_date );
 			}
 		}
 	}

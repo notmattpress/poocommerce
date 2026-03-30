@@ -20,7 +20,7 @@ const commandName = `woo-integrate-plugin`;
 program
 	.name( commandName )
 	.description(
-		'Integrates a plugin with WooCommerce build scripts and dependencies.\n\n' +
+		'Integrates a plugin with PooCommerce build scripts and dependencies.\n\n' +
 			'The provided build scripts provide an easy way to build in a modern ' +
 			'JS environment and automatically assist in building block assets. '
 	)

@@ -1,16 +1,16 @@
 ---
-post_title: Handling SCSS and JS minification in WooCommerce
+post_title: Handling SCSS and JS minification in PooCommerce
 sidebar_label: Minification of SCSS and JS
 
 ---
 
-# Handling SCSS and JS minification in WooCommerce
+# Handling SCSS and JS minification in PooCommerce
 
 ## SCSS
 
-When updating SCSS files in the WooCommerce project, please **commit only your changes to unminified SCSS files**. The minification will be handled as part of the release process.
+When updating SCSS files in the PooCommerce project, please **commit only your changes to unminified SCSS files**. The minification will be handled as part of the release process.
 
-To get the minified CSS files, run `pnpm --filter='@woocommerce/classic-assets' build` from the repository root directory. To set up the development environment from scratch, see the section on [how to install dependencies and generate assets](https://github.com/woocommerce/woocommerce/blob/trunk/DEVELOPMENT.md) in the guide to set up a WooCommerce development environment.
+To get the minified CSS files, run `pnpm --filter='@poocommerce/classic-assets' build` from the repository root directory. To set up the development environment from scratch, see the section on [how to install dependencies and generate assets](https://github.com/poocommerce/poocommerce/blob/trunk/DEVELOPMENT.md) in the guide to set up a PooCommerce development environment.
 
 ## Javascript
 

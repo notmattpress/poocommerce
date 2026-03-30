@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Automattic\WooCommerce\EmailEditorVendor\Symfony\Component\CssSelector\Parser;
+namespace Automattic\PooCommerce\EmailEditorVendor\Symfony\Component\CssSelector\Parser;
 
-use Automattic\WooCommerce\EmailEditorVendor\Symfony\Component\CssSelector\Node\SelectorNode;
+use Automattic\PooCommerce\EmailEditorVendor\Symfony\Component\CssSelector\Node\SelectorNode;
 
 /**
  * CSS selector parser interface.

@@ -14,7 +14,7 @@ global.wp = {};
 require( '@wordpress/data' );
 
 /**
- * wcSettings is required by @woocommerce/* packages.
+ * wcSettings is required by @poocommerce/* packages.
  */
 global.wcSettings = {
 	adminUrl: 'https://vagrant.local/wp/wp-admin/',

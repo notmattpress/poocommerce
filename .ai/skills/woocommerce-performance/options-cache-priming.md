@@ -14,13 +14,13 @@ Covers correct usage of `wp_prime_option_caches()` to reduce SQL query counts wh
 // Prime caches to reduce future queries.
 wp_prime_option_caches(
     array(
-        'woocommerce_enable_checkout_login_reminder',
-        'woocommerce_tax_display_cart',
+        'poocommerce_enable_checkout_login_reminder',
+        'poocommerce_tax_display_cart',
         // ...
     )
 );
-$login_reminder = get_option( 'woocommerce_enable_checkout_login_reminder' );
-$tax_display    = get_option( 'woocommerce_tax_display_cart' );
+$login_reminder = get_option( 'poocommerce_enable_checkout_login_reminder' );
+$tax_display    = get_option( 'poocommerce_tax_display_cart' );
 ```
 
 No `! empty()` guard is needed for statically declared, always-non-empty arrays. Place the comment directly above the call.
@@ -35,24 +35,24 @@ No `! empty()` guard is needed for statically declared, always-non-empty arrays.
 
 ### 2. Missing options priming before a loop with a derivable key pattern
 
-**Apply when:** A loop iterates a collection and each iteration calls `get_option()` using a key derived from the item — for example `woocommerce_{class}_settings`.
+**Apply when:** A loop iterates a collection and each iteration calls `get_option()` using a key derived from the item — for example `poocommerce_{class}_settings`.
 
 **Correct pattern:**
 
 ```php
 // Prime caches to reduce future queries.
 wp_prime_option_caches(
-    array_map( fn( string $class ) => sprintf( 'woocommerce_%s_settings', $class ), $classes )
+    array_map( fn( string $class ) => sprintf( 'poocommerce_%s_settings', $class ), $classes )
 );
 foreach ( $classes as $class ) {
-    $settings = get_option( sprintf( 'woocommerce_%s_settings', $class ) );
+    $settings = get_option( sprintf( 'poocommerce_%s_settings', $class ) );
 }
 ```
 
 **Common locations to check:**
 
-- Email class initialization: key pattern `woocommerce_{email_class_suffix}_settings`
-- Shipping method loops: key pattern `woocommerce_{method}_settings`
+- Email class initialization: key pattern `poocommerce_{email_class_suffix}_settings`
+- Shipping method loops: key pattern `poocommerce_{method}_settings`
 
 ---
 
@@ -79,7 +79,7 @@ Guard with `! empty()` when the list is dynamically built and may be empty. When
 
 ## Notes
 
-`wp_prime_option_caches()` is a stable public WordPress function (no underscore prefix), available since WP 6.4. WooCommerce's minimum supported WordPress version guarantees its presence — no `is_callable()` guard is needed.
+`wp_prime_option_caches()` is a stable public WordPress function (no underscore prefix), available since WP 6.4. PooCommerce's minimum supported WordPress version guarantees its presence — no `is_callable()` guard is needed.
 
 Always use the comment `// Prime caches to reduce future queries.` directly above the call. When the call is guarded by `! empty()`, the comment sits inside the `if` block — not before it.
 
@@ -94,9 +94,9 @@ For multisite contexts, use `wp_prime_network_option_caches( $network_id, $keys 
 
 ---
 
-## Autoload Architecture (WooCommerce-specific)
+## Autoload Architecture (PooCommerce-specific)
 
-**WooCommerce settings API autoloads by default.** Any option registered and saved through `WC_Admin_Settings::save_fields()` is stored with `autoload = 'yes'` unless the field definition explicitly sets `'autoload' => false`. The relevant code is in `includes/admin/class-wc-admin-settings.php`:
+**PooCommerce settings API autoloads by default.** Any option registered and saved through `WC_Admin_Settings::save_fields()` is stored with `autoload = 'yes'` unless the field definition explicitly sets `'autoload' => false`. The relevant code is in `includes/admin/class-wc-admin-settings.php`:
 
 ```php
 // Line ~1035
@@ -105,14 +105,14 @@ $autoload_options[ $option_name ] = isset( $option['autoload'] ) ? (bool) $optio
 update_option( $name, $value, $autoload_options[ $name ] ? 'yes' : 'no' );
 ```
 
-WordPress loads all autoloaded options into the object cache at bootstrap via `wp_load_alloptions()`. This means that **any `get_option()` call reading a WooCommerce settings-API-registered option is already served from cache** — adding `wp_prime_option_caches` there is a no-op.
+WordPress loads all autoloaded options into the object cache at bootstrap via `wp_load_alloptions()`. This means that **any `get_option()` call reading a PooCommerce settings-API-registered option is already served from cache** — adding `wp_prime_option_caches` there is a no-op.
 
 ### False-positive patterns — do NOT add priming
 
 High `get_option()` concentration alone is **not** a signal. These are common false positives:
 
-- **Endpoint options** — `woocommerce_checkout_pay_endpoint`, `woocommerce_myaccount_*_endpoint`, etc. All autoloaded via settings API.
-- **Feature flags and toggles** — `woocommerce_enable_ajax_add_to_cart`, `woocommerce_enable_checkout_login_reminder`, `woocommerce_tax_display_cart`, etc. All autoloaded.
+- **Endpoint options** — `poocommerce_checkout_pay_endpoint`, `poocommerce_myaccount_*_endpoint`, etc. All autoloaded via settings API.
+- **Feature flags and toggles** — `poocommerce_enable_ajax_add_to_cart`, `poocommerce_enable_checkout_login_reminder`, `poocommerce_tax_display_cart`, etc. All autoloaded.
 - **General store settings** — currency, weight unit, address fields, etc. All autoloaded.
 
 ### The `*_settings` per-entity pattern

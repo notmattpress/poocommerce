@@ -23,14 +23,14 @@ const productDataStore = store< {
 	actions: {
 		setVariationId: ( variationId: number | null ) => void;
 	};
-} >( 'woocommerce/product-data', {}, { lock: universalLock } );
+} >( 'poocommerce/product-data', {}, { lock: universalLock } );
 store(
-	'woocommerce/product-data',
+	'poocommerce/product-data',
 	{
 		state: {
 			get productId(): number {
 				const context = getContext< Context >(
-					'woocommerce/single-product'
+					'poocommerce/single-product'
 				);
 
 				return (
@@ -40,7 +40,7 @@ store(
 			},
 			get variationId(): number | null {
 				const context = getContext< Context >(
-					'woocommerce/single-product'
+					'poocommerce/single-product'
 				);
 
 				return (
@@ -52,7 +52,7 @@ store(
 		actions: {
 			setVariationId: ( variationId: number | null ) => {
 				const context = getContext< Context >(
-					'woocommerce/single-product'
+					'poocommerce/single-product'
 				);
 
 				if ( context?.variationId !== undefined ) {

@@ -5,9 +5,9 @@
  */
 import type { BlockAlignment } from '@wordpress/blocks';
 import type { ComponentType, Dispatch, SetStateAction } from 'react';
-import { ProductResponseItem } from '@woocommerce/types';
+import { ProductResponseItem } from '@poocommerce/types';
 import { Icon, Placeholder, Spinner } from '@wordpress/components';
-import { ProductDataContextProvider } from '@woocommerce/shared-context';
+import { ProductDataContextProvider } from '@poocommerce/shared-context';
 import clsx from 'clsx';
 import {
 	useCallback,
@@ -17,7 +17,7 @@ import {
 	useMemo,
 } from '@wordpress/element';
 import { WP_REST_API_Category } from 'wp-types';
-import { useStyleProps } from '@woocommerce/base-hooks';
+import { useStyleProps } from '@poocommerce/base-hooks';
 import {
 	InnerBlocks,
 	// @ts-expect-error BlockContextProvider is not exported from @wordpress/block-editor
@@ -67,7 +67,7 @@ export interface FeaturedItemRequiredAttributes {
 		isBackgroundVisible: boolean;
 		message?: string | null;
 	};
-	__woocommerceBlockVersion: number;
+	__poocommerceBlockVersion: number;
 }
 
 interface FeaturedCategoryRequiredAttributes

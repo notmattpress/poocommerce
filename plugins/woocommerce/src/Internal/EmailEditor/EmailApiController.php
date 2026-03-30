@@ -2,11 +2,11 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\EmailEditor;
+namespace Automattic\PooCommerce\Internal\EmailEditor;
 
-use Automattic\WooCommerce\EmailEditor\Validator\Builder;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsManager;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsGenerator;
+use Automattic\PooCommerce\EmailEditor\Validator\Builder;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsManager;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsGenerator;
 use WC_Email;
 use WP_Error;
 use WP_REST_Request;
@@ -15,21 +15,21 @@ use WP_REST_Response;
 defined( 'ABSPATH' ) || exit;
 
 /**
- * API Controller for managing WooCommerce email templates via extending the post type API.
+ * API Controller for managing PooCommerce email templates via extending the post type API.
  *
  * @internal
  */
 class EmailApiController {
 
 	/**
-	 * The WooCommerce transactional email post manager.
+	 * The PooCommerce transactional email post manager.
 	 *
 	 * @var WCTransactionalEmailPostsManager|null
 	 */
 	private ?WCTransactionalEmailPostsManager $post_manager;
 
 	/**
-	 * The WooCommerce transactional email posts generator.
+	 * The PooCommerce transactional email posts generator.
 	 *
 	 * @var WCTransactionalEmailPostsGenerator|null
 	 */
@@ -89,7 +89,7 @@ class EmailApiController {
 	}
 
 	/**
-	 * Update WooCommerce specific option data by post name.
+	 * Update PooCommerce specific option data by post name.
 	 *
 	 * @param array    $data - Data that are stored in the wp_options table.
 	 * @param \WP_Post $post - WP_Post object.
@@ -157,7 +157,7 @@ class EmailApiController {
 		if ( ! empty( $invalid_recipients ) ) {
 			$error_message = sprintf(
 				// translators: %s will be replaced by comma-separated email addresses. For example, "invalidemail1@example.com,invalidemail2@example.com".
-				__( 'One or more Recipient email addresses are invalid: “%s”. Please enter valid email addresses separated by commas.', 'woocommerce' ),
+				__( 'One or more Recipient email addresses are invalid: “%s”. Please enter valid email addresses separated by commas.', 'poocommerce' ),
 				implode( ',', $invalid_recipients )
 			);
 			$error->add( 'invalid_recipient_email_address', $error_message );
@@ -168,7 +168,7 @@ class EmailApiController {
 		if ( ! empty( $invalid_cc ) ) {
 			$error_message = sprintf(
 				// translators: %s will be replaced by comma-separated email addresses. For example, "invalidemail1@example.com,invalidemail2@example.com".
-				__( 'One or more CC email addresses are invalid: “%s”. Please enter valid email addresses separated by commas.', 'woocommerce' ),
+				__( 'One or more CC email addresses are invalid: “%s”. Please enter valid email addresses separated by commas.', 'poocommerce' ),
 				implode( ',', $invalid_cc )
 			);
 			$error->add( 'invalid_cc_email_address', $error_message );
@@ -179,7 +179,7 @@ class EmailApiController {
 		if ( ! empty( $invalid_bcc ) ) {
 			$error_message = sprintf(
 				// translators: %s will be replaced by comma-separated email addresses. For example, "invalidemail1@example.com,invalidemail2@example.com".
-				__( 'One or more BCC email addresses are invalid: “%s”. Please enter valid email addresses separated by commas.', 'woocommerce' ),
+				__( 'One or more BCC email addresses are invalid: “%s”. Please enter valid email addresses separated by commas.', 'poocommerce' ),
 				implode( ',', $invalid_bcc )
 			);
 			$error->add( 'invalid_bcc_email_address', $error_message );
@@ -215,7 +215,7 @@ class EmailApiController {
 	}
 
 	/**
-	 * Get the schema for the WooCommerce email post data.
+	 * Get the schema for the PooCommerce email post data.
 	 *
 	 * @return array
 	 */
@@ -236,7 +236,7 @@ class EmailApiController {
 	}
 
 	/**
-	 * Get all WooCommerce emails.
+	 * Get all PooCommerce emails.
 	 *
 	 * @return \WC_Email[]
 	 */
@@ -264,17 +264,17 @@ class EmailApiController {
 	 */
 	public function register_routes(): void {
 		register_rest_route(
-			'woocommerce-email-editor/v1',
+			'poocommerce-email-editor/v1',
 			'/emails/(?P<id>\d+)/default-content',
 			array(
 				'methods'             => \WP_REST_Server::READABLE,
 				'callback'            => array( $this, 'get_default_content_response' ),
 				'permission_callback' => function () {
-					return current_user_can( 'manage_woocommerce' );
+					return current_user_can( 'manage_poocommerce' );
 				},
 				'args'                => array(
 					'id' => array(
-						'description'       => __( 'The ID of the woo_email post.', 'woocommerce' ),
+						'description'       => __( 'The ID of the woo_email post.', 'poocommerce' ),
 						'type'              => 'integer',
 						'required'          => true,
 						'sanitize_callback' => 'absint',
@@ -297,7 +297,7 @@ class EmailApiController {
 			'type'       => 'object',
 			'properties' => array(
 				'content' => array(
-					'description' => __( 'The default block content for the email.', 'woocommerce' ),
+					'description' => __( 'The default block content for the email.', 'poocommerce' ),
 					'type'        => 'string',
 					'readonly'    => true,
 				),
@@ -315,8 +315,8 @@ class EmailApiController {
 	public function get_default_content_response( WP_REST_Request $request ) {
 		if ( ! ( $this->post_manager && $this->posts_generator ) ) {
 			return new WP_Error(
-				'woocommerce_email_editor_not_initialized',
-				__( 'Email editor is not initialized.', 'woocommerce' ),
+				'poocommerce_email_editor_not_initialized',
+				__( 'Email editor is not initialized.', 'poocommerce' ),
 				array( 'status' => 500 )
 			);
 		}
@@ -327,8 +327,8 @@ class EmailApiController {
 
 		if ( ! $email ) {
 			return new WP_Error(
-				'woocommerce_email_not_found',
-				__( 'No email found for the given post ID.', 'woocommerce' ),
+				'poocommerce_email_not_found',
+				__( 'No email found for the given post ID.', 'poocommerce' ),
 				array( 'status' => 404 )
 			);
 		}

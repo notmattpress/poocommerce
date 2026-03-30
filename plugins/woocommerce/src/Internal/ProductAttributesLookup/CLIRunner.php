@@ -1,6 +1,6 @@
 <?php
 
-namespace Automattic\WooCommerce\Internal\ProductAttributesLookup;
+namespace Automattic\PooCommerce\Internal\ProductAttributesLookup;
 
 use WP_CLI;
 
@@ -56,7 +56,7 @@ class CLIRunner {
 	 */
 	private function enable_core( array $args, array $assoc_args ) {
 		$table_name = $this->lookup_data_store->get_lookup_table_name();
-		if ( 'yes' === get_option( 'woocommerce_attribute_lookup_enabled' ) ) {
+		if ( 'yes' === get_option( 'poocommerce_attribute_lookup_enabled' ) ) {
 			$this->warning( "The usage of the of the %W{$table_name}%n table is already enabled." );
 			return;
 		}
@@ -78,7 +78,7 @@ class CLIRunner {
 			}
 		}
 
-		update_option( 'woocommerce_attribute_lookup_enabled', 'yes' );
+		update_option( 'poocommerce_attribute_lookup_enabled', 'yes' );
 		$table_name = $this->lookup_data_store->get_lookup_table_name();
 		$this->success( "The usage of the %W{$table_name}%n table for product attribute lookup has been enabled." );
 	}
@@ -100,12 +100,12 @@ class CLIRunner {
 	 * @param array $assoc_args Associative arguments (options) passed to the command.
 	 */
 	private function disable_core( array $args, array $assoc_args ) {
-		if ( 'yes' !== get_option( 'woocommerce_attribute_lookup_enabled' ) ) {
+		if ( 'yes' !== get_option( 'poocommerce_attribute_lookup_enabled' ) ) {
 			$table_name = $this->lookup_data_store->get_lookup_table_name();
 			$this->warning( "The usage of the of the %W{$table_name}%n table is already disabled." );
 			return;
 		}
-		update_option( 'woocommerce_attribute_lookup_enabled', 'no' );
+		update_option( 'poocommerce_attribute_lookup_enabled', 'no' );
 		$table_name = $this->lookup_data_store->get_lookup_table_name();
 		$this->success( "The usage of the %W{$table_name}%n table for product attribute lookup has been disabled." );
 	}
@@ -147,7 +147,7 @@ class CLIRunner {
 		$this->lookup_data_store->create_data_for_product( $product_id, $use_db_optimization );
 
 		if ( $this->lookup_data_store->get_last_create_operation_failed() ) {
-			$this->error( "Lookup data regeneration failed.\nSee the WooCommerce logs (source is %9palt-updates%n) for details." );
+			$this->error( "Lookup data regeneration failed.\nSee the PooCommerce logs (source is %9palt-updates%n) for details." );
 		} else {
 			$total_time = microtime( true ) - $start_time;
 			WP_CLI::success( sprintf( 'Attributes lookup data for product %d regenerated in %f seconds.', $product_id, $total_time ) );
@@ -184,7 +184,7 @@ class CLIRunner {
 	private function info_core( array $args, array $assoc_args ) {
 		global $wpdb;
 
-		$enabled = 'yes' === get_option( 'woocommerce_attribute_lookup_enabled' );
+		$enabled = 'yes' === get_option( 'poocommerce_attribute_lookup_enabled' );
 
 		$table_name = $this->lookup_data_store->get_lookup_table_name();
 		$info       = $this->get_lookup_table_info();
@@ -200,7 +200,7 @@ class CLIRunner {
 		}
 
 		if ( $this->lookup_data_store->regeneration_is_in_progress() ) {
-			$max_product_id_to_process = get_option( 'woocommerce_attribute_lookup_last_product_id_to_process', '???' );
+			$max_product_id_to_process = get_option( 'poocommerce_attribute_lookup_last_product_id_to_process', '???' );
 			WP_CLI::log( '' );
 			$this->warning( 'Full regeneration of the table is currently %Gin progress.%n' );
 			if ( ! $this->data_regenerator->has_scheduled_action_for_regeneration_step() ) {
@@ -210,7 +210,7 @@ class CLIRunner {
 			$this->log( "\nRun %9wp cli palt abort_regeneration%n to abort the regeneration process," );
 			$this->log( "then you'll be able to run %9wp cli palt resume_regeneration%n to resume the regeneration process," );
 		} elseif ( $this->lookup_data_store->regeneration_was_aborted() ) {
-			$max_product_id_to_process = get_option( 'woocommerce_attribute_lookup_last_product_id_to_process', '???' );
+			$max_product_id_to_process = get_option( 'poocommerce_attribute_lookup_last_product_id_to_process', '???' );
 			WP_CLI::log( '' );
 			$this->warning( "Full regeneration of the table has been %Raborted.%n\nThe last product id that will be processed is %Y{$max_product_id_to_process}%n." );
 			$this->log( "\nRun %9wp cli palt resume_regeneration%n to resume the regeneration process." );
@@ -380,7 +380,7 @@ class CLIRunner {
 			throw new \Exception( 'batch_size must be a number bigger than 0' );
 		}
 
-		$was_enabled = 'yes' === get_option( 'woocommerce_attribute_lookup_enabled' );
+		$was_enabled = 'yes' === get_option( 'poocommerce_attribute_lookup_enabled' );
 
 		// phpcs:ignore Generic.Commenting.Todo.TaskFound
 		// TODO: adjust for non-CPT datastores (this is only used for the progress bar, though).
@@ -403,12 +403,12 @@ class CLIRunner {
 			}
 			$processed_count = 0;
 		} else {
-			$last_product_id = get_option( 'woocommerce_attribute_lookup_last_product_id_to_process' );
+			$last_product_id = get_option( 'poocommerce_attribute_lookup_last_product_id_to_process' );
 			if ( false === $last_product_id ) {
-				WP_CLI::error( 'Regeneration seems to be already in progress, but the woocommerce_attribute_lookup_last_product_id_to_process option isn\'t there. Try %9wp cli palt cleanup_regeneration_progress%n first." );' );
+				WP_CLI::error( 'Regeneration seems to be already in progress, but the poocommerce_attribute_lookup_last_product_id_to_process option isn\'t there. Try %9wp cli palt cleanup_regeneration_progress%n first." );' );
 				return 1;
 			}
-			$processed_count = get_option( 'woocommerce_attribute_lookup_processed_count', 0 );
+			$processed_count = get_option( 'poocommerce_attribute_lookup_processed_count', 0 );
 			$this->log( "Resuming regeneration, %C{$processed_count}%n products have been processed already" );
 			$this->lookup_data_store->set_regeneration_in_progress_flag();
 		}
@@ -432,7 +432,7 @@ class CLIRunner {
 		$progress->finish();
 
 		if ( $regeneration_step_failed ) {
-			$this->warning( "Lookup data regeneration failed for at least one product.\nSee the WooCommerce logs (source is %9palt-updates%n) for details.\n" );
+			$this->warning( "Lookup data regeneration failed for at least one product.\nSee the PooCommerce logs (source is %9palt-updates%n) for details.\n" );
 			$this->log( "Table %W{$table_name}%n regenerated in {$time}." );
 		} else {
 			$this->log( "%GSuccess:%n Table %W{$table_name}%n regenerated in {$time}." );

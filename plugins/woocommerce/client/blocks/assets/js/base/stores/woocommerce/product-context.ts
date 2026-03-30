@@ -2,15 +2,15 @@
  * External dependencies
  */
 import { store, getContext } from '@wordpress/interactivity';
-import type { ProductResponseItem } from '@woocommerce/types';
-import type { ProductsStore } from '@woocommerce/stores/woocommerce/products';
+import type { ProductResponseItem } from '@poocommerce/types';
+import type { ProductsStore } from '@poocommerce/stores/poocommerce/products';
 
 // Stores are locked to prevent 3PD usage until the API is stable.
 const universalLock =
 	'I acknowledge that using a private store means my plugin will inevitably break on the next store release.';
 
 const productsStore = store< ProductsStore >(
-	'woocommerce/products',
+	'poocommerce/products',
 	{},
 	{ lock: universalLock }
 );
@@ -44,12 +44,12 @@ export type ProductContextStore = {
 };
 
 const productContextStore = store< ProductContextStore >(
-	'woocommerce/product-context',
+	'poocommerce/product-context',
 	{
 		state: {
 			get product(): ProductResponseItem | null {
 				const context = getContext< ProductContext >(
-					'woocommerce/product-context'
+					'poocommerce/product-context'
 				);
 				const productId = context
 					? context.productId
@@ -63,7 +63,7 @@ const productContextStore = store< ProductContextStore >(
 
 			get selectedVariation(): ProductResponseItem | null {
 				const context = getContext< ProductContext >(
-					'woocommerce/product-context'
+					'poocommerce/product-context'
 				);
 				const variationId = context
 					? context.variationId

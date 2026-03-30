@@ -2,10 +2,10 @@
 /**
  * Class WC_Email_Customer_Fulfillment_Created file.
  *
- * @package WooCommerce\Emails
+ * @package PooCommerce\Emails
  */
 
-use Automattic\WooCommerce\Admin\Features\Fulfillments\Fulfillment;
+use Automattic\PooCommerce\Admin\Features\Fulfillments\Fulfillment;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -20,7 +20,7 @@ if ( ! class_exists( 'WC_Email_Customer_Fulfillment_Created', false ) ) :
 	 *
 	 * @class       WC_Email_Customer_Fulfillment_Created
 	 * @version     1.0.0
-	 * @package     WooCommerce\Classes\Emails
+	 * @package     PooCommerce\Classes\Emails
 	 * @extends     WC_Email
 	 */
 	class WC_Email_Customer_Fulfillment_Created extends WC_Email {
@@ -37,7 +37,7 @@ if ( ! class_exists( 'WC_Email_Customer_Fulfillment_Created', false ) ) :
 		public function __construct() {
 			$this->id             = 'customer_fulfillment_created';
 			$this->customer_email = true;
-			$this->title          = __( 'Fulfillment created', 'woocommerce' );
+			$this->title          = __( 'Fulfillment created', 'poocommerce' );
 			$this->email_group    = 'order-updates';
 			$this->template_html  = 'emails/customer-fulfillment-created.php';
 			$this->template_plain = 'emails/plain/customer-fulfillment-created.php';
@@ -47,12 +47,12 @@ if ( ! class_exists( 'WC_Email_Customer_Fulfillment_Created', false ) ) :
 			);
 
 			// Triggers for this email.
-			add_action( 'woocommerce_fulfillment_created_notification', array( $this, 'trigger' ), 10, 3 );
+			add_action( 'poocommerce_fulfillment_created_notification', array( $this, 'trigger' ), 10, 3 );
 
 			// Call parent constructor.
 			parent::__construct();
 
-			$this->description = __( 'Fulfillment created emails are sent to the customer when the merchant creates a fulfillment for the order, and marks it as fulfilled. The notification isn’t sent for draft fulfillments.', 'woocommerce' );
+			$this->description = __( 'Fulfillment created emails are sent to the customer when the merchant creates a fulfillment for the order, and marks it as fulfilled. The notification isn’t sent for draft fulfillments.', 'poocommerce' );
 
 			$this->template_block_content = 'emails/block/general-block-content-for-fulfillment-emails.php';
 		}
@@ -114,9 +114,9 @@ if ( ! class_exists( 'WC_Email_Customer_Fulfillment_Created', false ) ) :
 		 */
 		public function get_default_subject() {
 			if ( $this->get_fulfillment_item_count() > 1 ) {
-				return __( 'Items from {site_title} order {order_number} have been fulfilled!', 'woocommerce' );
+				return __( 'Items from {site_title} order {order_number} have been fulfilled!', 'poocommerce' );
 			}
-			return __( 'An item from {site_title} order {order_number} has been fulfilled!', 'woocommerce' );
+			return __( 'An item from {site_title} order {order_number} has been fulfilled!', 'poocommerce' );
 		}
 
 		/**
@@ -128,9 +128,9 @@ if ( ! class_exists( 'WC_Email_Customer_Fulfillment_Created', false ) ) :
 		 */
 		public function get_default_heading() {
 			if ( $this->get_fulfillment_item_count() > 1 ) {
-				return __( 'Your items are on the way!', 'woocommerce' );
+				return __( 'Your items are on the way!', 'poocommerce' );
 			}
-			return __( 'Your item is on the way!', 'woocommerce' );
+			return __( 'Your item is on the way!', 'poocommerce' );
 		}
 
 		/**
@@ -201,7 +201,7 @@ if ( ! class_exists( 'WC_Email_Customer_Fulfillment_Created', false ) ) :
 		 * @return string
 		 */
 		public function get_default_additional_content() {
-			return __( 'Please note that couriers may need some time to provide the latest shipping information.', 'woocommerce' );
+			return __( 'Please note that couriers may need some time to provide the latest shipping information.', 'poocommerce' );
 		}
 
 		/**
@@ -219,7 +219,7 @@ if ( ! class_exists( 'WC_Email_Customer_Fulfillment_Created', false ) ) :
 			 *
 			 * @since 9.8.0
 			 */
-			$is_email_preview = apply_filters( 'woocommerce_is_email_preview', false );
+			$is_email_preview = apply_filters( 'poocommerce_is_email_preview', false );
 			if ( $is_email_preview ) {
 				// If this is a preview, we need to set up a dummy fulfillment object.
 				$this->fulfillment = new Fulfillment();
@@ -245,10 +245,10 @@ if ( ! class_exists( 'WC_Email_Customer_Fulfillment_Created', false ) ) :
 
 				// Add translations for metadata keys.
 				add_filter(
-					'woocommerce_fulfillment_meta_key_translations',
+					'poocommerce_fulfillment_meta_key_translations',
 					function ( $keys ) {
-						$keys['service']           = __( 'Service', 'woocommerce' );
-						$keys['expected_delivery'] = __( 'Expected Delivery', 'woocommerce' );
+						$keys['service']           = __( 'Service', 'poocommerce' );
+						$keys['expected_delivery'] = __( 'Expected Delivery', 'poocommerce' );
 						return $keys;
 					}
 				);

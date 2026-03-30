@@ -2,7 +2,7 @@
 /**
  * Shipping providers admin
  *
- * @package WooCommerce\Admin\Shipping
+ * @package PooCommerce\Admin\Shipping
  */
 
 declare( strict_types = 1 );
@@ -14,12 +14,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 
 <h2 class="wc-shipping-zones-heading">
-	<span><?php esc_html_e( 'Shipping providers', 'woocommerce' ); ?></span>
-	<a class="page-title-action wc-shipping-provider-add-new" href="#"><?php esc_html_e( 'Add shipping provider', 'woocommerce' ); ?></a>
+	<span><?php esc_html_e( 'Shipping providers', 'poocommerce' ); ?></span>
+	<a class="page-title-action wc-shipping-provider-add-new" href="#"><?php esc_html_e( 'Add shipping provider', 'poocommerce' ); ?></a>
 </h2>
 
 <p class="wc-shipping-zone-help-text">
-	<?php esc_html_e( 'Add custom shipping providers so they appear in the fulfillment form when creating shipments. Use the tracking URL template to auto-generate tracking links.', 'woocommerce' ); ?>
+	<?php esc_html_e( 'Add custom shipping providers so they appear in the fulfillment form when creating shipments. Use the tracking URL template to auto-generate tracking links.', 'poocommerce' ); ?>
 </p>
 
 <table class="wc-shipping-classes widefat">
@@ -36,7 +36,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <script type="text/html" id="tmpl-wc-shipping-provider-row-blank">
 	<tr>
-		<td class="wc-shipping-classes-blank-state" colspan="<?php echo absint( count( $shipping_provider_columns ) + 1 ); ?>"><p><?php esc_html_e( 'No custom shipping providers have been created.', 'woocommerce' ); ?></p></td>
+		<td class="wc-shipping-classes-blank-state" colspan="<?php echo absint( count( $shipping_provider_columns ) + 1 ); ?>"><p><?php esc_html_e( 'No custom shipping providers have been created.', 'poocommerce' ); ?></p></td>
 	</tr>
 </script>
 
@@ -45,9 +45,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div class="wc-backbone-modal-content" data-id="{{ data.term_id }}">
 			<section class="wc-backbone-modal-main" role="main">
 				<header class="wc-backbone-modal-header">
-					<h1><?php esc_html_e( 'Add shipping provider', 'woocommerce' ); ?></h1>
+					<h1><?php esc_html_e( 'Add shipping provider', 'poocommerce' ); ?></h1>
 					<button class="modal-close modal-close-link dashicons dashicons-no-alt">
-						<span class="screen-reader-text"><?php esc_html_e( 'Close modal panel', 'woocommerce' ); ?></span>
+						<span class="screen-reader-text"><?php esc_html_e( 'Close modal panel', 'poocommerce' ); ?></span>
 					</button>
 				</header>
 				<article>
@@ -63,9 +63,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 									<?php echo esc_html( $heading ); ?> *
 								</div>
 								<div class="edit">
-									<input type="text" name="name" data-attribute="name" value="{{ data.name }}" placeholder="<?php esc_attr_e( 'e.g. My Local Courier', 'woocommerce' ); ?>" />
+									<input type="text" name="name" data-attribute="name" value="{{ data.name }}" placeholder="<?php esc_attr_e( 'e.g. My Local Courier', 'poocommerce' ); ?>" />
 								</div>
-								<div class="wc-shipping-class-modal-help-text"><?php esc_html_e( 'The display name for this shipping provider.', 'woocommerce' ); ?></div>
+								<div class="wc-shipping-class-modal-help-text"><?php esc_html_e( 'The display name for this shipping provider.', 'poocommerce' ); ?></div>
 								<?php
 								break;
 							case 'wc-shipping-provider-slug':
@@ -74,9 +74,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 									<?php echo esc_html( $heading ); ?>
 								</div>
 								<div class="edit">
-									<input type="text" name="slug" data-attribute="slug" value="{{ data.slug }}" placeholder="<?php esc_attr_e( 'e.g. my-local-courier', 'woocommerce' ); ?>" />
+									<input type="text" name="slug" data-attribute="slug" value="{{ data.slug }}" placeholder="<?php esc_attr_e( 'e.g. my-local-courier', 'poocommerce' ); ?>" />
 								</div>
-								<div class="wc-shipping-class-modal-help-text"><?php esc_html_e( 'Unique identifier (auto-generated if left blank).', 'woocommerce' ); ?></div>
+								<div class="wc-shipping-class-modal-help-text"><?php esc_html_e( 'Unique identifier (auto-generated if left blank).', 'poocommerce' ); ?></div>
 								<?php
 								break;
 							case 'wc-shipping-provider-tracking-url-template':
@@ -85,9 +85,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 									<?php echo esc_html( $heading ); ?>
 								</div>
 								<div class="edit">
-									<input type="text" name="tracking_url_template" data-attribute="tracking_url_template" value="{{ data.tracking_url_template }}" placeholder="<?php esc_attr_e( 'e.g. https://example.com/track?id=__PLACEHOLDER__', 'woocommerce' ); ?>" />
+									<input type="text" name="tracking_url_template" data-attribute="tracking_url_template" value="{{ data.tracking_url_template }}" placeholder="<?php esc_attr_e( 'e.g. https://example.com/track?id=__PLACEHOLDER__', 'poocommerce' ); ?>" />
 								</div>
-								<div class="wc-shipping-class-modal-help-text"><?php esc_html_e( 'Use __PLACEHOLDER__ where the tracking number should appear in the URL.', 'woocommerce' ); ?></div>
+								<div class="wc-shipping-class-modal-help-text"><?php esc_html_e( 'Use __PLACEHOLDER__ where the tracking number should appear in the URL.', 'poocommerce' ); ?></div>
 								<?php
 								break;
 							case 'wc-shipping-provider-icon':
@@ -96,9 +96,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 									<?php echo esc_html( $heading ); ?>
 								</div>
 								<div class="edit">
-									<input type="text" name="icon" data-attribute="icon" value="{{ data.icon }}" placeholder="<?php esc_attr_e( 'e.g. https://example.com/icon.png', 'woocommerce' ); ?>" />
+									<input type="text" name="icon" data-attribute="icon" value="{{ data.icon }}" placeholder="<?php esc_attr_e( 'e.g. https://example.com/icon.png', 'poocommerce' ); ?>" />
 								</div>
-								<div class="wc-shipping-class-modal-help-text"><?php esc_html_e( 'Optional URL for the provider icon.', 'woocommerce' ); ?></div>
+								<div class="wc-shipping-class-modal-help-text"><?php esc_html_e( 'Optional URL for the provider icon.', 'poocommerce' ); ?></div>
 								<?php
 								break;
 							default:
@@ -112,7 +112,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 								 *
 								 * @since 10.7.0
 								 */
-								do_action( 'woocommerce_shipping_providers_column_' . $class );
+								do_action( 'poocommerce_shipping_providers_column_' . $class );
 								break;
 						}
 						echo '</div>';
@@ -123,8 +123,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<footer>
 					<div class="inner">
 						<button id="btn-ok" disabled class="button button-primary button-large disabled">
-							<div class="wc-backbone-modal-action-{{ data.action === 'create' ? 'active' : 'inactive' }}"><?php esc_html_e( 'Create', 'woocommerce' ); ?></div>
-							<div class="wc-backbone-modal-action-{{ data.action === 'edit' ? 'active' : 'inactive' }}"><?php esc_html_e( 'Save', 'woocommerce' ); ?></div>
+							<div class="wc-backbone-modal-action-{{ data.action === 'create' ? 'active' : 'inactive' }}"><?php esc_html_e( 'Create', 'poocommerce' ); ?></div>
+							<div class="wc-backbone-modal-action-{{ data.action === 'edit' ? 'active' : 'inactive' }}"><?php esc_html_e( 'Save', 'poocommerce' ); ?></div>
 						</button>
 					</div>
 				</footer>
@@ -168,7 +168,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					 *
 					 * @since 10.7.0
 					 */
-					do_action( 'woocommerce_shipping_providers_column_' . $class );
+					do_action( 'poocommerce_shipping_providers_column_' . $class );
 					break;
 			}
 			echo '</td>';
@@ -176,7 +176,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		?>
 		<td class="wc-shipping-zone-actions">
 			<div>
-				<a class="wc-shipping-provider-edit wc-shipping-zone-action-edit" href="#"><?php esc_html_e( 'Edit', 'woocommerce' ); ?></a> | <a href="#" class="wc-shipping-provider-delete wc-shipping-zone-actions"><?php esc_html_e( 'Delete', 'woocommerce' ); ?></a>
+				<a class="wc-shipping-provider-edit wc-shipping-zone-action-edit" href="#"><?php esc_html_e( 'Edit', 'poocommerce' ); ?></a> | <a href="#" class="wc-shipping-provider-delete wc-shipping-zone-actions"><?php esc_html_e( 'Delete', 'poocommerce' ); ?></a>
 			</div>
 		</td>
 	</tr>

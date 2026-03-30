@@ -57,7 +57,7 @@ const DefaultBackButtonContent = () => {
 
 	return (
 		<motion.div
-			className="woocommerce-email-editor__view-mode-toggle"
+			className="poocommerce-email-editor__view-mode-toggle"
 			transition={ {
 				duration: 0.2,
 			} }
@@ -67,22 +67,22 @@ const DefaultBackButtonContent = () => {
 			whileTap="tap"
 		>
 			<Button
-				label={ __( 'Close editor', 'woocommerce' ) }
+				label={ __( 'Close editor', 'poocommerce' ) }
 				showTooltip
 				tooltipPosition="middle right"
 				onClick={ () => {
 					recordEvent( 'header_close_button_clicked' );
 					const action = applyFilters(
-						'woocommerce_email_editor_close_action_callback',
+						'poocommerce_email_editor_close_action_callback',
 						backAction
 					) as () => void;
 					action();
 				} }
 			>
 				<motion.div variants={ siteIconVariants }>
-					<div className="woocommerce-email-editor__view-mode-toggle-icon">
+					<div className="poocommerce-email-editor__view-mode-toggle-icon">
 						<Icon
-							className="woocommerce-email-editor-icon__icon"
+							className="poocommerce-email-editor-icon__icon"
 							icon={ wordpress }
 							size={ 48 }
 						/>
@@ -90,7 +90,7 @@ const DefaultBackButtonContent = () => {
 				</motion.div>
 			</Button>
 			<motion.div
-				className="woocommerce-email-editor-icon"
+				className="poocommerce-email-editor-icon"
 				variants={ toggleHomeIconVariants }
 			>
 				<Icon icon={ arrowLeft } />
@@ -101,7 +101,7 @@ const DefaultBackButtonContent = () => {
 
 export const BackButtonContent = () => {
 	const BackButtonUsedContent = applyFilters(
-		'woocommerce_email_editor_close_content',
+		'poocommerce_email_editor_close_content',
 		DefaultBackButtonContent
 	) as React.ComponentType;
 

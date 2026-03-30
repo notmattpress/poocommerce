@@ -1,7 +1,7 @@
 <?php declare(strict_types = 1);
 
 // phpcs:ignoreFile PSR1.Classes.ClassDeclaration
-namespace Automattic\WooCommerce\EmailEditor;
+namespace Automattic\PooCommerce\EmailEditor;
 
 /**
  * Provides information for converting exceptions to HTTP responses.
@@ -12,7 +12,7 @@ interface HttpAwareException {
 
 
 /**
- * Frames all exceptions ("$e instanceof Automattic\WooCommerce\EmailEditor\Exception").
+ * Frames all exceptions ("$e instanceof Automattic\PooCommerce\EmailEditor\Exception").
  */
 abstract class Exception extends \Exception {
   /** @var string[] */

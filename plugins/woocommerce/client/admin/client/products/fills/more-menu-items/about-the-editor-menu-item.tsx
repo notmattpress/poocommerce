@@ -31,7 +31,7 @@ export const AboutTheEditorMenuItem = ( {
 				icon={ <Icon icon={ info } /> }
 				iconPosition="right"
 			>
-				{ __( 'About the form…', 'woocommerce' ) }
+				{ __( 'About the form…', 'poocommerce' ) }
 			</MenuItem>
 			{ isGuideOpen && (
 				<BlockEditorGuide

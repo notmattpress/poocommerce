@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import type { HTMLElementEvent } from '@woocommerce/types';
+import type { HTMLElementEvent } from '@poocommerce/types';
 import * as iAPI from '@wordpress/interactivity';
 
 /**
@@ -175,4 +175,4 @@ export type ProductFilterPriceStore = typeof productFilterPriceStore;
 
 const { state, actions } = store<
 	ProductFiltersStore & ProductFilterPriceStore
->( 'woocommerce/product-filters', productFilterPriceStore );
+>( 'poocommerce/product-filters', productFilterPriceStore );

@@ -1,13 +1,13 @@
 <?php
 /**
- * WooCommerce Product Importer
+ * PooCommerce Product Importer
  *
- * @package Automattic\WooCommerce\Internal\CLI\Migrator\Core
+ * @package Automattic\PooCommerce\Internal\CLI\Migrator\Core
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\CLI\Migrator\Core;
+namespace Automattic\PooCommerce\Internal\CLI\Migrator\Core;
 
 use WC_Product;
 use WC_Product_Simple;
@@ -15,20 +15,20 @@ use WC_Product_Variable;
 use WC_Product_Variation;
 use WP_Error;
 use Exception;
-use Automattic\WooCommerce\Utilities\FeaturesUtil;
+use Automattic\PooCommerce\Utilities\FeaturesUtil;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * WooCommerceProductImporter class.
+ * PooCommerceProductImporter class.
  *
- * Handles the creation and updating of WooCommerce products from mapped data.
+ * Handles the creation and updating of PooCommerce products from mapped data.
  * This class focuses on the actual product creation logic, following WordPress
  * coding standards and our established architecture patterns.
  *
  * @internal This class is part of the CLI Migrator feature and should not be used directly.
  */
-class WooCommerceProductImporter {
+class PooCommerceProductImporter {
 
 	/**
 	 * Default timeout for image downloads in seconds.
@@ -89,7 +89,7 @@ class WooCommerceProductImporter {
 	private array $current_attribute_mapping = array();
 
 	/**
-	 * Constructor - parameterless to support WooCommerce DI container.
+	 * Constructor - parameterless to support PooCommerce DI container.
 	 */
 	public function __construct() {
 		$this->import_options = $this->get_default_options();
@@ -117,7 +117,7 @@ class WooCommerceProductImporter {
 	/**
 	 * Import a single product from mapped data.
 	 *
-	 * @param array $product_data Mapped WooCommerce product data.
+	 * @param array $product_data Mapped PooCommerce product data.
 	 * @param array $source_data  Original source platform data for reference.
 	 * @return array Import result with status and details.
 	 */
@@ -653,7 +653,7 @@ class WooCommerceProductImporter {
 					 * @since 10.2.0
 					 * @param array $object_types Array of object types.
 					 */
-					apply_filters( 'woocommerce_taxonomy_objects_' . $taxonomy_name, array( 'product' ) ),
+					apply_filters( 'poocommerce_taxonomy_objects_' . $taxonomy_name, array( 'product' ) ),
 					/**
 					 * Filters the arguments for registering the attribute taxonomy.
 					 *
@@ -661,7 +661,7 @@ class WooCommerceProductImporter {
 					 * @param array $args Array of taxonomy registration arguments.
 					 */
 					apply_filters(
-						'woocommerce_taxonomy_args_' . $taxonomy_name,
+						'poocommerce_taxonomy_args_' . $taxonomy_name,
 						array(
 							'labels'       => array(
 								'name' => $attr_name,

@@ -2,7 +2,7 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Caches;
+namespace Automattic\PooCommerce\Internal\Caches;
 
 /**
  * Order version string invalidation handler.
@@ -37,12 +37,12 @@ class OrdersVersionStringInvalidator {
 	final public function init(): void {
 		// We can't use FeaturesController::feature_is_enabled at this point
 		// (before the 'init' action is triggered) because that would cause
-		// "Translation loading for the woocommerce domain was triggered too early" warnings.
-		if ( 'yes' !== get_option( 'woocommerce_feature_rest_api_caching_enabled' ) ) {
+		// "Translation loading for the poocommerce domain was triggered too early" warnings.
+		if ( 'yes' !== get_option( 'poocommerce_feature_rest_api_caching_enabled' ) ) {
 			return;
 		}
 
-		if ( 'yes' === get_option( 'woocommerce_rest_api_enable_backend_caching', 'no' ) ) {
+		if ( 'yes' === get_option( 'poocommerce_rest_api_enable_backend_caching', 'no' ) ) {
 			$this->register_hooks();
 		}
 	}
@@ -50,35 +50,35 @@ class OrdersVersionStringInvalidator {
 	/**
 	 * Register all order-related hooks.
 	 *
-	 * Only WooCommerce hooks are registered (not WordPress post hooks) since these always fire
-	 * when an order is created/updated/deleted via the WooCommerce APIs, regardless of HPOS
+	 * Only PooCommerce hooks are registered (not WordPress post hooks) since these always fire
+	 * when an order is created/updated/deleted via the PooCommerce APIs, regardless of HPOS
 	 * being active or not.
 	 *
 	 * @return void
 	 */
 	private function register_hooks(): void {
 		// Hook to capture customer ID before save for change detection.
-		add_action( 'woocommerce_before_order_object_save', array( $this, 'handle_before_order_save' ), 10, 1 );
+		add_action( 'poocommerce_before_order_object_save', array( $this, 'handle_before_order_save' ), 10, 1 );
 
-		// WooCommerce CRUD hooks for orders.
-		add_action( 'woocommerce_new_order', array( $this, 'handle_woocommerce_new_order' ), 10, 2 );
-		add_action( 'woocommerce_update_order', array( $this, 'handle_woocommerce_update_order' ), 10, 2 );
-		add_action( 'woocommerce_before_delete_order', array( $this, 'handle_woocommerce_before_delete_order' ), 10, 2 );
-		add_action( 'woocommerce_trash_order', array( $this, 'handle_woocommerce_trash_order' ), 10, 1 );
-		add_action( 'woocommerce_untrash_order', array( $this, 'handle_woocommerce_untrash_order' ), 10, 2 );
+		// PooCommerce CRUD hooks for orders.
+		add_action( 'poocommerce_new_order', array( $this, 'handle_poocommerce_new_order' ), 10, 2 );
+		add_action( 'poocommerce_update_order', array( $this, 'handle_poocommerce_update_order' ), 10, 2 );
+		add_action( 'poocommerce_before_delete_order', array( $this, 'handle_poocommerce_before_delete_order' ), 10, 2 );
+		add_action( 'poocommerce_trash_order', array( $this, 'handle_poocommerce_trash_order' ), 10, 1 );
+		add_action( 'poocommerce_untrash_order', array( $this, 'handle_poocommerce_untrash_order' ), 10, 2 );
 
 		// Status change hook.
-		add_action( 'woocommerce_order_status_changed', array( $this, 'handle_woocommerce_order_status_changed' ), 10, 4 );
+		add_action( 'poocommerce_order_status_changed', array( $this, 'handle_poocommerce_order_status_changed' ), 10, 4 );
 
 		// Refund hooks.
-		add_action( 'woocommerce_order_refunded', array( $this, 'handle_woocommerce_order_refunded' ), 10, 2 );
-		add_action( 'woocommerce_refund_deleted', array( $this, 'handle_woocommerce_refund_deleted' ), 10, 2 );
+		add_action( 'poocommerce_order_refunded', array( $this, 'handle_poocommerce_order_refunded' ), 10, 2 );
+		add_action( 'poocommerce_refund_deleted', array( $this, 'handle_poocommerce_refund_deleted' ), 10, 2 );
 	}
 
 	// phpcs:disable Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 
 	/**
-	 * Handle the woocommerce_before_order_object_save hook.
+	 * Handle the poocommerce_before_order_object_save hook.
 	 *
 	 * Captures the customer ID before save to detect changes.
 	 *
@@ -102,7 +102,7 @@ class OrdersVersionStringInvalidator {
 	}
 
 	/**
-	 * Handle the woocommerce_new_order hook.
+	 * Handle the poocommerce_new_order hook.
 	 *
 	 * @param int       $order_id The order ID.
 	 * @param \WC_Order $order    The order object.
@@ -113,13 +113,13 @@ class OrdersVersionStringInvalidator {
 	 *
 	 * @internal
 	 */
-	public function handle_woocommerce_new_order( $order_id, $order ): void {
+	public function handle_poocommerce_new_order( $order_id, $order ): void {
 		$this->invalidate( (int) $order_id );
 		$this->invalidate_orders_list();
 	}
 
 	/**
-	 * Handle the woocommerce_update_order hook.
+	 * Handle the poocommerce_update_order hook.
 	 *
 	 * @param int       $order_id The order ID.
 	 * @param \WC_Order $order    The order object.
@@ -130,7 +130,7 @@ class OrdersVersionStringInvalidator {
 	 *
 	 * @internal
 	 */
-	public function handle_woocommerce_update_order( $order_id, $order ): void {
+	public function handle_poocommerce_update_order( $order_id, $order ): void {
 		$order_id = (int) $order_id;
 		$this->invalidate( $order_id );
 
@@ -161,7 +161,7 @@ class OrdersVersionStringInvalidator {
 	}
 
 	/**
-	 * Handle the woocommerce_before_delete_order hook.
+	 * Handle the poocommerce_before_delete_order hook.
 	 *
 	 * @param int       $order_id The order ID.
 	 * @param \WC_Order $order    The order object.
@@ -172,13 +172,13 @@ class OrdersVersionStringInvalidator {
 	 *
 	 * @internal
 	 */
-	public function handle_woocommerce_before_delete_order( $order_id, $order ): void {
+	public function handle_poocommerce_before_delete_order( $order_id, $order ): void {
 		$this->invalidate( (int) $order_id );
 		$this->invalidate_orders_list();
 	}
 
 	/**
-	 * Handle the woocommerce_trash_order hook.
+	 * Handle the poocommerce_trash_order hook.
 	 *
 	 * @param int $order_id The order ID.
 	 *
@@ -188,13 +188,13 @@ class OrdersVersionStringInvalidator {
 	 *
 	 * @internal
 	 */
-	public function handle_woocommerce_trash_order( $order_id ): void {
+	public function handle_poocommerce_trash_order( $order_id ): void {
 		$this->invalidate( (int) $order_id );
 		$this->invalidate_orders_list();
 	}
 
 	/**
-	 * Handle the woocommerce_untrash_order hook.
+	 * Handle the poocommerce_untrash_order hook.
 	 *
 	 * @param int    $order_id        The order ID.
 	 * @param string $previous_status The previous order status before trashing.
@@ -205,13 +205,13 @@ class OrdersVersionStringInvalidator {
 	 *
 	 * @internal
 	 */
-	public function handle_woocommerce_untrash_order( $order_id, $previous_status ): void {
+	public function handle_poocommerce_untrash_order( $order_id, $previous_status ): void {
 		$this->invalidate( (int) $order_id );
 		$this->invalidate_orders_list();
 	}
 
 	/**
-	 * Handle the woocommerce_order_status_changed hook.
+	 * Handle the poocommerce_order_status_changed hook.
 	 *
 	 * Status changes affect which orders appear in status-filtered collection endpoints,
 	 * so we always invalidate the orders list.
@@ -227,13 +227,13 @@ class OrdersVersionStringInvalidator {
 	 *
 	 * @internal
 	 */
-	public function handle_woocommerce_order_status_changed( $order_id, $from_status, $to_status, $order ): void {
+	public function handle_poocommerce_order_status_changed( $order_id, $from_status, $to_status, $order ): void {
 		$this->invalidate( (int) $order_id );
 		$this->invalidate_orders_list();
 	}
 
 	/**
-	 * Handle the woocommerce_order_refunded hook.
+	 * Handle the poocommerce_order_refunded hook.
 	 *
 	 * @param int $order_id  The parent order ID.
 	 * @param int $refund_id The refund ID.
@@ -244,7 +244,7 @@ class OrdersVersionStringInvalidator {
 	 *
 	 * @internal
 	 */
-	public function handle_woocommerce_order_refunded( $order_id, $refund_id ): void {
+	public function handle_poocommerce_order_refunded( $order_id, $refund_id ): void {
 		$order_id  = (int) $order_id;
 		$refund_id = (int) $refund_id;
 
@@ -255,7 +255,7 @@ class OrdersVersionStringInvalidator {
 	}
 
 	/**
-	 * Handle the woocommerce_refund_deleted hook.
+	 * Handle the poocommerce_refund_deleted hook.
 	 *
 	 * @param int $refund_id The refund ID.
 	 * @param int $order_id  The parent order ID.
@@ -266,7 +266,7 @@ class OrdersVersionStringInvalidator {
 	 *
 	 * @internal
 	 */
-	public function handle_woocommerce_refund_deleted( $refund_id, $order_id ): void {
+	public function handle_poocommerce_refund_deleted( $refund_id, $order_id ): void {
 		$order_id  = (int) $order_id;
 		$refund_id = (int) $refund_id;
 

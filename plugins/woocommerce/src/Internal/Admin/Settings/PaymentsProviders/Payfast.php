@@ -1,9 +1,9 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Admin\Settings\PaymentsProviders;
+namespace Automattic\PooCommerce\Internal\Admin\Settings\PaymentsProviders;
 
-use Automattic\WooCommerce\Internal\Logging\SafeGlobalFunctionProxy;
+use Automattic\PooCommerce\Internal\Logging\SafeGlobalFunctionProxy;
 use Throwable;
 use WC_Payment_Gateway;
 
@@ -29,7 +29,7 @@ class Payfast extends PaymentGateway {
 			return ! empty( $payment_gateway->get_option( 'merchant_id' ) ) &&
 					! empty( $payment_gateway->get_option( 'merchant_key' ) ) &&
 					! empty( $payment_gateway->get_option( 'pass_phrase' ) ) &&
-					! wc_string_to_bool( get_option( 'woocommerce_payfast_invalid_credentials', 'no' ) );
+					! wc_string_to_bool( get_option( 'poocommerce_payfast_invalid_credentials', 'no' ) );
 		} catch ( Throwable $e ) {
 			// Do nothing but log so we can investigate.
 			SafeGlobalFunctionProxy::wc_get_logger()->debug(

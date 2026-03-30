@@ -2,16 +2,16 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\EmailEditor;
+namespace Automattic\PooCommerce\Tests\Internal\EmailEditor;
 
-use Automattic\WooCommerce\EmailEditor\Bootstrap;
-use Automattic\WooCommerce\EmailEditor\Email_Editor_Container;
-use Automattic\WooCommerce\EmailEditor\Engine\Dependency_Check;
-use Automattic\WooCommerce\EmailEditor\Engine\Personalizer;
-use Automattic\WooCommerce\Internal\EmailEditor\BlockEmailRenderer;
-use Automattic\WooCommerce\Internal\EmailEditor\Integration;
-use Automattic\WooCommerce\Internal\EmailEditor\Package;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsManager;
+use Automattic\PooCommerce\EmailEditor\Bootstrap;
+use Automattic\PooCommerce\EmailEditor\Email_Editor_Container;
+use Automattic\PooCommerce\EmailEditor\Engine\Dependency_Check;
+use Automattic\PooCommerce\EmailEditor\Engine\Personalizer;
+use Automattic\PooCommerce\Internal\EmailEditor\BlockEmailRenderer;
+use Automattic\PooCommerce\Internal\EmailEditor\Integration;
+use Automattic\PooCommerce\Internal\EmailEditor\Package;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsManager;
 /**
  * Tests for the BlockEmailRenderer class.
  */
@@ -25,12 +25,12 @@ class BlockEmailRendererTest extends \WC_Unit_Test_Case {
 	 * @var string $email_post_content
 	 */
 	private $email_post_content = '<!-- wp:paragraph -->
-<p>Test Paragraph. <!--[woocommerce/customer-email]--></p>
+<p>Test Paragraph. <!--[poocommerce/customer-email]--></p>
 <!-- /wp:paragraph -->
 
-<!-- wp:woocommerce/email-content {"lock":{"move":false,"remove":true}} -->
-<div class="wp-block-woocommerce-email-content">##WOO_CONTENT##</div>
-<!-- /wp:woocommerce/email-content -->';
+<!-- wp:poocommerce/email-content {"lock":{"move":false,"remove":true}} -->
+<div class="wp-block-poocommerce-email-content">##WOO_CONTENT##</div>
+<!-- /wp:poocommerce/email-content -->';
 
 	/**
 	 * @var \WP_Post $email_post
@@ -53,7 +53,7 @@ class BlockEmailRendererTest extends \WC_Unit_Test_Case {
 			require_once WC_ABSPATH . 'includes/emails/class-wc-email.php';
 		}
 
-		add_option( 'woocommerce_feature_block_email_editor_enabled', 'yes' );
+		add_option( 'poocommerce_feature_block_email_editor_enabled', 'yes' );
 		wc_get_container()->get( Package::class )->init();
 		wc_get_container()->get( Integration::class )->initialize();
 		Email_Editor_Container::container()->get( Bootstrap::class )->initialize();
@@ -111,7 +111,7 @@ class BlockEmailRendererTest extends \WC_Unit_Test_Case {
 	 */
 	public function tearDown(): void {
 		parent::tearDown();
-		update_option( 'woocommerce_feature_block_email_editor_enabled', 'no' );
+		update_option( 'poocommerce_feature_block_email_editor_enabled', 'no' );
 	}
 
 	/**

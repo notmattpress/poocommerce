@@ -5,8 +5,8 @@ import { __ } from '@wordpress/i18n';
 import { Button, Modal, TextControl } from '@wordpress/components';
 import { useState, createElement } from '@wordpress/element';
 import { useDispatch } from '@wordpress/data';
-import { recordEvent } from '@woocommerce/tracks';
-import { experimentalProductTagsStore } from '@woocommerce/data';
+import { recordEvent } from '@poocommerce/tracks';
+import { experimentalProductTagsStore } from '@poocommerce/data';
 
 /**
  * Internal dependencies
@@ -40,7 +40,7 @@ export const CreateTagModal = ( {
 		} catch ( e ) {
 			createNotice(
 				'error',
-				__( 'Failed to create tag.', 'woocommerce' )
+				__( 'Failed to create tag.', 'poocommerce' )
 			);
 			setIsCreating( false );
 			onCancel();
@@ -49,24 +49,24 @@ export const CreateTagModal = ( {
 
 	return (
 		<Modal
-			title={ __( 'Create tag', 'woocommerce' ) }
+			title={ __( 'Create tag', 'poocommerce' ) }
 			onRequestClose={ () => onCancel() }
-			className="woocommerce-create-new-tag-modal"
+			className="poocommerce-create-new-tag-modal"
 		>
-			<div className="woocommerce-create-new-tag-modal__wrapper">
+			<div className="poocommerce-create-new-tag-modal__wrapper">
 				<TextControl
-					label={ __( 'Name', 'woocommerce' ) }
+					label={ __( 'Name', 'poocommerce' ) }
 					name="Tops"
 					value={ tagName }
 					onChange={ setTagName }
 				/>
-				<div className="woocommerce-create-new-tag-modal__buttons">
+				<div className="poocommerce-create-new-tag-modal__buttons">
 					<Button
 						isSecondary
 						onClick={ () => onCancel() }
 						disabled={ isCreating }
 					>
-						{ __( 'Cancel', 'woocommerce' ) }
+						{ __( 'Cancel', 'poocommerce' ) }
 					</Button>
 					<Button
 						isPrimary
@@ -76,7 +76,7 @@ export const CreateTagModal = ( {
 							onSave();
 						} }
 					>
-						{ __( 'Save', 'woocommerce' ) }
+						{ __( 'Save', 'poocommerce' ) }
 					</Button>
 				</div>
 			</div>

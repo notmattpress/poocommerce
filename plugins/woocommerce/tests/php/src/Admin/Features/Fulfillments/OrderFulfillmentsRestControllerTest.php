@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Admin\Features\Fulfillments;
+namespace Automattic\PooCommerce\Tests\Admin\Features\Fulfillments;
 
-use Automattic\WooCommerce\Admin\Features\Fulfillments\OrderFulfillmentsRestController;
-use Automattic\WooCommerce\Tests\Admin\Features\Fulfillments\Helpers\FulfillmentsHelper;
+use Automattic\PooCommerce\Admin\Features\Fulfillments\OrderFulfillmentsRestController;
+use Automattic\PooCommerce\Tests\Admin\Features\Fulfillments\Helpers\FulfillmentsHelper;
 use WC_Helper_Order;
 use WC_Order;
 use WC_REST_Unit_Test_Case;
@@ -14,7 +14,7 @@ use WP_REST_Request;
 /**
  * Class OrderFulfillmentsRestControllerTest
  *
- * @package Automattic\WooCommerce\Tests\Internal\Orders
+ * @package Automattic\PooCommerce\Tests\Internal\Orders
  */
 class OrderFulfillmentsRestControllerTest extends WC_REST_Unit_Test_Case {
 	/**
@@ -59,9 +59,9 @@ class OrderFulfillmentsRestControllerTest extends WC_REST_Unit_Test_Case {
 	public static function setupBeforeClass(): void {
 		parent::setupBeforeClass();
 
-		self::$original_fulfillments_flag = get_option( 'woocommerce_feature_fulfillments_enabled' );
-		update_option( 'woocommerce_feature_fulfillments_enabled', 'yes' );
-		$controller = wc_get_container()->get( \Automattic\WooCommerce\Admin\Features\Fulfillments\FulfillmentsController::class );
+		self::$original_fulfillments_flag = get_option( 'poocommerce_feature_fulfillments_enabled' );
+		update_option( 'poocommerce_feature_fulfillments_enabled', 'yes' );
+		$controller = wc_get_container()->get( \Automattic\PooCommerce\Admin\Features\Fulfillments\FulfillmentsController::class );
 		$controller->register();
 		$controller->initialize_fulfillments();
 
@@ -96,9 +96,9 @@ class OrderFulfillmentsRestControllerTest extends WC_REST_Unit_Test_Case {
 		// Delete the created user.
 		wp_delete_user( self::$created_user_id );
 		if ( false === self::$original_fulfillments_flag ) {
-			delete_option( 'woocommerce_feature_fulfillments_enabled' );
+			delete_option( 'poocommerce_feature_fulfillments_enabled' );
 		} else {
-			update_option( 'woocommerce_feature_fulfillments_enabled', self::$original_fulfillments_flag );
+			update_option( 'poocommerce_feature_fulfillments_enabled', self::$original_fulfillments_flag );
 		}
 
 		parent::tearDownAfterClass();
@@ -149,7 +149,7 @@ class OrderFulfillmentsRestControllerTest extends WC_REST_Unit_Test_Case {
 		$this->assertEquals( 0, $current_user->ID );
 		wp_set_current_user( self::$created_user_id );
 		$this->assertEquals( self::$created_user_id, get_current_user_id() );
-		$this->assertFalse( current_user_can( 'manage_woocommerce' ) ); // phpcs:ignore WordPress.WP.Capabilities.Unknown
+		$this->assertFalse( current_user_can( 'manage_poocommerce' ) ); // phpcs:ignore WordPress.WP.Capabilities.Unknown
 
 		// Do the request as a non-admin user, for another user's order.
 		$request  = new WP_REST_Request( 'GET', '/wc/v3/orders/' . self::$created_order_ids[0] . '/fulfillments' );
@@ -158,7 +158,7 @@ class OrderFulfillmentsRestControllerTest extends WC_REST_Unit_Test_Case {
 		// Check the response.
 		$this->assertEquals( WP_Http::FORBIDDEN, $response->get_status() );
 		$data = $response->get_data();
-		$this->assertEquals( 'woocommerce_rest_cannot_view', $data['code'] );
+		$this->assertEquals( 'poocommerce_rest_cannot_view', $data['code'] );
 		$this->assertEquals( 'Sorry, you cannot view resources.', $data['message'] );
 		$this->assertEquals( WP_Http::FORBIDDEN, $data['data']['status'] );
 
@@ -173,9 +173,9 @@ class OrderFulfillmentsRestControllerTest extends WC_REST_Unit_Test_Case {
 		// Prepare the test environment.
 		$current_user = wp_get_current_user();
 		$this->assertEquals( 0, $current_user->ID );
-		$this->assertFalse( current_user_can( 'manage_woocommerce' ) ); // phpcs:ignore WordPress.WP.Capabilities.Unknown
+		$this->assertFalse( current_user_can( 'manage_poocommerce' ) ); // phpcs:ignore WordPress.WP.Capabilities.Unknown
 		wp_set_current_user( 1 );
-		$this->assertTrue( current_user_can( 'manage_woocommerce' ) ); // phpcs:ignore WordPress.WP.Capabilities.Unknown
+		$this->assertTrue( current_user_can( 'manage_poocommerce' ) ); // phpcs:ignore WordPress.WP.Capabilities.Unknown
 		$this->assertEquals( 1, get_current_user_id() );
 
 		// Do the request as an admin user, for another user's order.
@@ -242,7 +242,7 @@ class OrderFulfillmentsRestControllerTest extends WC_REST_Unit_Test_Case {
 		// Check the response. It should be an error saying that a regular user cannot create a fulfillment.
 		$this->assertEquals( WP_Http::UNAUTHORIZED, $response->get_status() );
 		$data = $response->get_data();
-		$this->assertEquals( 'woocommerce_rest_cannot_create', $data['code'] );
+		$this->assertEquals( 'poocommerce_rest_cannot_create', $data['code'] );
 		$this->assertEquals( 'Sorry, you cannot create resources.', $data['message'] );
 		$this->assertEquals( WP_Http::UNAUTHORIZED, $data['data']['status'] );
 	}
@@ -477,7 +477,7 @@ class OrderFulfillmentsRestControllerTest extends WC_REST_Unit_Test_Case {
 		// Check the response. It should be an error saying that the order ID is invalid.
 		$this->assertEquals( WP_Http::NOT_FOUND, $response->get_status() );
 		$data = $response->get_data();
-		$this->assertEquals( 'woocommerce_rest_order_invalid_id', $data['code'] );
+		$this->assertEquals( 'poocommerce_rest_order_invalid_id', $data['code'] );
 		$this->assertEquals( 'Invalid order ID.', $data['message'] );
 		$this->assertEquals( WP_Http::NOT_FOUND, $data['data']['status'] );
 	}
@@ -565,7 +565,7 @@ class OrderFulfillmentsRestControllerTest extends WC_REST_Unit_Test_Case {
 		// Check the response. It should be an error saying that the order ID is invalid.
 		$this->assertEquals( WP_Http::NOT_FOUND, $response->get_status() );
 		$data = $response->get_data();
-		$this->assertEquals( 'woocommerce_rest_order_invalid_id', $data['code'] );
+		$this->assertEquals( 'poocommerce_rest_order_invalid_id', $data['code'] );
 		$this->assertEquals( 'Invalid order ID.', $data['message'] );
 		$this->assertEquals( WP_Http::NOT_FOUND, $data['data']['status'] );
 	}
@@ -623,7 +623,7 @@ class OrderFulfillmentsRestControllerTest extends WC_REST_Unit_Test_Case {
 		// Check the response. It should be an error saying that a regular user cannot view a fulfillment.
 		$this->assertEquals( WP_Http::FORBIDDEN, $response->get_status() );
 		$data = $response->get_data();
-		$this->assertEquals( 'woocommerce_rest_cannot_view', $data['code'] );
+		$this->assertEquals( 'poocommerce_rest_cannot_view', $data['code'] );
 		$this->assertEquals( 'Sorry, you cannot view resources.', $data['message'] );
 		$this->assertEquals( WP_Http::FORBIDDEN, $data['data']['status'] );
 
@@ -863,7 +863,7 @@ class OrderFulfillmentsRestControllerTest extends WC_REST_Unit_Test_Case {
 		// Check the response. It should be an error saying that the order ID is invalid.
 		$this->assertEquals( WP_Http::NOT_FOUND, $response->get_status() );
 		$data = $response->get_data();
-		$this->assertEquals( 'woocommerce_rest_order_invalid_id', $data['code'] );
+		$this->assertEquals( 'poocommerce_rest_order_invalid_id', $data['code'] );
 		$this->assertEquals( 'Invalid order ID.', $data['message'] );
 		$this->assertEquals( WP_Http::NOT_FOUND, $data['data']['status'] );
 
@@ -1116,7 +1116,7 @@ class OrderFulfillmentsRestControllerTest extends WC_REST_Unit_Test_Case {
 		// Check the response. It should be an error saying that a regular user cannot delete a fulfillment.
 		$this->assertEquals( WP_Http::FORBIDDEN, $response->get_status() );
 		$data = $response->get_data();
-		$this->assertEquals( 'woocommerce_rest_cannot_delete', $data['code'] );
+		$this->assertEquals( 'poocommerce_rest_cannot_delete', $data['code'] );
 		$this->assertEquals( 'Sorry, you cannot delete resources.', $data['message'] );
 		$this->assertEquals( WP_Http::FORBIDDEN, $data['data']['status'] );
 	}
@@ -1170,7 +1170,7 @@ class OrderFulfillmentsRestControllerTest extends WC_REST_Unit_Test_Case {
 		// Check the response. It should be an error saying that the order ID is invalid.
 		$this->assertEquals( WP_Http::NOT_FOUND, $response->get_status() );
 		$data = $response->get_data();
-		$this->assertEquals( 'woocommerce_rest_order_invalid_id', $data['code'] );
+		$this->assertEquals( 'poocommerce_rest_order_invalid_id', $data['code'] );
 		$this->assertEquals( 'Invalid order ID.', $data['message'] );
 		$this->assertEquals( WP_Http::NOT_FOUND, $data['data']['status'] );
 	}
@@ -1229,7 +1229,7 @@ class OrderFulfillmentsRestControllerTest extends WC_REST_Unit_Test_Case {
 		// Check the response. It should be an error saying that a regular user cannot delete a fulfillment.
 		$this->assertEquals( WP_Http::FORBIDDEN, $response->get_status() );
 		$data = $response->get_data();
-		$this->assertEquals( 'woocommerce_rest_cannot_delete', $data['code'] );
+		$this->assertEquals( 'poocommerce_rest_cannot_delete', $data['code'] );
 		$this->assertEquals( 'Sorry, you cannot delete resources.', $data['message'] );
 		$this->assertEquals( WP_Http::FORBIDDEN, $data['data']['status'] );
 
@@ -1365,7 +1365,7 @@ class OrderFulfillmentsRestControllerTest extends WC_REST_Unit_Test_Case {
 		// Check the response. It should be an error saying that the order ID is invalid.
 		$this->assertEquals( WP_Http::NOT_FOUND, $response->get_status() );
 		$data = $response->get_data();
-		$this->assertEquals( 'woocommerce_rest_order_invalid_id', $data['code'] );
+		$this->assertEquals( 'poocommerce_rest_order_invalid_id', $data['code'] );
 		$this->assertEquals( 'Invalid order ID.', $data['message'] );
 		$this->assertEquals( WP_Http::NOT_FOUND, $data['data']['status'] );
 	}
@@ -1424,7 +1424,7 @@ class OrderFulfillmentsRestControllerTest extends WC_REST_Unit_Test_Case {
 		// Check the response. It should be an error saying that a regular user cannot view a fulfillment.
 		$this->assertEquals( WP_Http::FORBIDDEN, $response->get_status() );
 		$data = $response->get_data();
-		$this->assertEquals( 'woocommerce_rest_cannot_view', $data['code'] );
+		$this->assertEquals( 'poocommerce_rest_cannot_view', $data['code'] );
 		$this->assertEquals( 'Sorry, you cannot view resources.', $data['message'] );
 		$this->assertEquals( WP_Http::FORBIDDEN, $data['data']['status'] );
 
@@ -1599,7 +1599,7 @@ class OrderFulfillmentsRestControllerTest extends WC_REST_Unit_Test_Case {
 		// Check the response. It should be an error saying that the order ID is invalid.
 		$this->assertEquals( WP_Http::NOT_FOUND, $response->get_status() );
 		$data = $response->get_data();
-		$this->assertEquals( 'woocommerce_rest_order_invalid_id', $data['code'] );
+		$this->assertEquals( 'poocommerce_rest_order_invalid_id', $data['code'] );
 		$this->assertEquals( 'Invalid order ID.', $data['message'] );
 		$this->assertEquals( WP_Http::NOT_FOUND, $data['data']['status'] );
 
@@ -1734,7 +1734,7 @@ class OrderFulfillmentsRestControllerTest extends WC_REST_Unit_Test_Case {
 		// Check the response. It should be an error saying that a regular user cannot delete a fulfillment.
 		$this->assertEquals( WP_Http::UNAUTHORIZED, $response->get_status() );
 		$data = $response->get_data();
-		$this->assertEquals( 'woocommerce_rest_cannot_delete', $data['code'] );
+		$this->assertEquals( 'poocommerce_rest_cannot_delete', $data['code'] );
 		$this->assertEquals( 'Sorry, you cannot delete resources.', $data['message'] );
 		$this->assertEquals( WP_Http::UNAUTHORIZED, $data['data']['status'] );
 	}
@@ -1806,7 +1806,7 @@ class OrderFulfillmentsRestControllerTest extends WC_REST_Unit_Test_Case {
 		// Check the response. It should be an error saying that the order ID is invalid.
 		$this->assertEquals( WP_Http::NOT_FOUND, $response->get_status() );
 		$data = $response->get_data();
-		$this->assertEquals( 'woocommerce_rest_order_invalid_id', $data['code'] );
+		$this->assertEquals( 'poocommerce_rest_order_invalid_id', $data['code'] );
 		$this->assertEquals( 'Invalid order ID.', $data['message'] );
 		$this->assertEquals( WP_Http::NOT_FOUND, $data['data']['status'] );
 		// Clean up the test environment.
@@ -1885,7 +1885,7 @@ class OrderFulfillmentsRestControllerTest extends WC_REST_Unit_Test_Case {
 		// Check the response. It should be an error saying that a regular user cannot delete a fulfillment.
 		$this->assertEquals( WP_Http::FORBIDDEN, $response->get_status() );
 		$data = $response->get_data();
-		$this->assertEquals( 'woocommerce_rest_cannot_delete', $data['code'] );
+		$this->assertEquals( 'poocommerce_rest_cannot_delete', $data['code'] );
 		$this->assertEquals( 'Sorry, you cannot delete resources.', $data['message'] );
 		$this->assertEquals( WP_Http::FORBIDDEN, $data['data']['status'] );
 

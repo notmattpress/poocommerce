@@ -1,9 +1,9 @@
 <?php
 
-namespace Automattic\WooCommerce\Blueprint;
+namespace Automattic\PooCommerce\Blueprint;
 
-use Automattic\WooCommerce\Blueprint\Exporters\ExportInstallPluginSteps;
-use Automattic\WooCommerce\Blueprint\Exporters\ExportInstallThemeSteps;
+use Automattic\PooCommerce\Blueprint\Exporters\ExportInstallPluginSteps;
+use Automattic\PooCommerce\Blueprint\Exporters\ExportInstallThemeSteps;
 
 /**
  * Built-in exporters.

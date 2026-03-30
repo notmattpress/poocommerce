@@ -1,6 +1,6 @@
 # BlockTemplates
 
-The `Automattic\WooCommerce\Admin\BlockTemplates` namespace contains interfaces for working with block templates.
+The `Automattic\PooCommerce\Admin\BlockTemplates` namespace contains interfaces for working with block templates.
 
 ## Usage
 
@@ -14,12 +14,12 @@ Please see the documentation for those APIs for more information on how to do th
 Note: In order to use these interface type definitions, you will need to import them. For example to import the `BlockInterface`:
 
 ```php
-use Automattic\WooCommerce\Admin\BlockTemplates\BlockInterface;
+use Automattic\PooCommerce\Admin\BlockTemplates\BlockInterface;
 ```
 
 ## Hooks
 
-### `woocommerce_block_template_area_{template_area}_after_add_block_{block_id}`
+### `poocommerce_block_template_area_{template_area}_after_add_block_{block_id}`
 
 Fires after a specific block is added to any template in a specific area.
 
@@ -33,11 +33,11 @@ The dynamic portion of the hook name, `$block_id`, refers to the ID of the block
 
 The block that was added.
 
-### `woocommerce_block_template_after_add_block`
+### `poocommerce_block_template_after_add_block`
 
 Fires after a block is added to a template.
 
-Unless you need to perform an action after any block is added to any template, you should use the more specific `woocommerce_block_template_area_{template_area}_after_add_block_{block_id}` hook instead for better performance.
+Unless you need to perform an action after any block is added to any template, you should use the more specific `poocommerce_block_template_area_{template_area}_after_add_block_{block_id}` hook instead for better performance.
 
 #### Parameters
 
@@ -45,7 +45,7 @@ Unless you need to perform an action after any block is added to any template, y
 
 The block that was added.
 
-### `woocommerce_block_template_area_{template_area}_after_remove_block_{block_id}`
+### `poocommerce_block_template_area_{template_area}_after_remove_block_{block_id}`
 
 Fires after a specific block is removed from any template in a specific area.
 
@@ -59,11 +59,11 @@ The dynamic portion of the hook name, `$block_id`, refers to the ID of the block
 
 The block that was removed.
 
-### `woocommerce_block_template_after_remove_block`
+### `poocommerce_block_template_after_remove_block`
 
 Fires after a block is removed from a template.
 
-Unless you need to perform an action after any block is removed from any template, you should use the more specific `woocommerce_block_template_area_{template_area}_after_remove_block_{block_id}` hook instead for better performance.
+Unless you need to perform an action after any block is removed from any template, you should use the more specific `poocommerce_block_template_area_{template_area}_after_remove_block_{block_id}` hook instead for better performance.
 
 #### Parameters
 
@@ -207,7 +207,7 @@ Check if the block is detached from its parent or root template. A detached bloc
 
 Adds a hide condition to the block. The hide condition is a JavaScript-like expression that is evaluated at runtime on the client to determine if the block should be hidden.
 
-See [@woocommerce/expression-evaluation](../../../../../packages/js/expression-evaluation/README.md) for more information on the expression syntax.
+See [@poocommerce/expression-evaluation](../../../../../packages/js/expression-evaluation/README.md) for more information on the expression syntax.
 
 ##### `remove_hide_condition( string $key )`
 

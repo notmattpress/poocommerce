@@ -1,11 +1,11 @@
 <?php
 /**
- * Plugin Name: WooCommerce Blocks Test Short Nonce Life
+ * Plugin Name: PooCommerce Blocks Test Short Nonce Life
  * Description: Sets a very short nonce lifetime for testing nonce expiry scenarios.
- * Plugin URI: https://github.com/woocommerce/woocommerce
- * Author: WooCommerce
+ * Plugin URI: https://github.com/poocommerce/poocommerce
+ * Author: PooCommerce
  *
- * @package woocommerce-blocks-test-short-nonce-life
+ * @package poocommerce-blocks-test-short-nonce-life
  */
 
 declare( strict_types=1 );

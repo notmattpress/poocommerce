@@ -1,8 +1,8 @@
 <?php
 /**
- * WooCommerce Importer Interface
+ * PooCommerce Importer Interface
  *
- * @package  WooCommerce\Interface
+ * @package  PooCommerce\Interface
  * @version  3.1.0
  */
 

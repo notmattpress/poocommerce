@@ -24,7 +24,7 @@ const TEMPLATE: Template[] = [
 					fontSize: 'medium',
 					content: `<strong>${ __(
 						'No results found',
-						'woocommerce'
+						'poocommerce'
 					) }</strong>`,
 				},
 			],
@@ -33,16 +33,16 @@ const TEMPLATE: Template[] = [
 				{
 					content: `${ __(
 						'You can try',
-						'woocommerce'
+						'poocommerce'
 					) } <a href="#" class="wc-link-clear-any-filters">${ __(
 						'clearing any filters',
-						'woocommerce'
+						'poocommerce'
 					) }</a> ${ __(
 						'or head to our',
-						'woocommerce'
+						'poocommerce'
 					) } <a href="#" class="wc-link-stores-home">${ __(
 						"store's home",
-						'woocommerce'
+						'poocommerce'
 					) }</a>`,
 				},
 			],

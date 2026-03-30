@@ -4,7 +4,7 @@
  *
  * The attributes section lets users add custom attributes to assign to products - they can also be used in the "Filter Products by Attribute" widget.
  *
- * @package WooCommerce\Admin
+ * @package PooCommerce\Admin
  * @version 2.3.0
  */
 
@@ -54,7 +54,7 @@ class WC_Admin_Attributes {
 		}
 
 		if ( is_wp_error( $result ) ) {
-			echo '<div id="woocommerce_errors" class="error"><p>' . wp_kses_post( $result->get_error_message() ) . '</p></div>';
+			echo '<div id="poocommerce_errors" class="error"><p>' . wp_kses_post( $result->get_error_message() ) . '</p></div>';
 		}
 
 		// Show admin interface.
@@ -98,7 +98,7 @@ class WC_Admin_Attributes {
 	 * @return bool|WP_Error
 	 */
 	private static function process_add_attribute() {
-		check_admin_referer( 'woocommerce-add-new_attribute' );
+		check_admin_referer( 'poocommerce-add-new_attribute' );
 
 		$attribute = self::get_posted_attribute();
 		$args      = array(
@@ -125,7 +125,7 @@ class WC_Admin_Attributes {
 	 */
 	private static function process_edit_attribute() {
 		$attribute_id = isset( $_GET['edit'] ) ? absint( $_GET['edit'] ) : 0;
-		check_admin_referer( 'woocommerce-save-attribute_' . $attribute_id );
+		check_admin_referer( 'poocommerce-save-attribute_' . $attribute_id );
 
 		$attribute = self::get_posted_attribute();
 		$args      = array(
@@ -154,7 +154,7 @@ class WC_Admin_Attributes {
 	 */
 	private static function process_delete_attribute() {
 		$attribute_id = isset( $_GET['delete'] ) ? absint( $_GET['delete'] ) : 0;
-		check_admin_referer( 'woocommerce-delete-attribute_' . $attribute_id );
+		check_admin_referer( 'poocommerce-delete-attribute_' . $attribute_id );
 
 		return wc_delete_attribute( $attribute_id );
 	}
@@ -173,22 +173,22 @@ class WC_Admin_Attributes {
 			$wpdb->prepare(
 				"
 				SELECT attribute_type, attribute_label, attribute_name, attribute_orderby, attribute_public
-				FROM {$wpdb->prefix}woocommerce_attribute_taxonomies WHERE attribute_id = %d
+				FROM {$wpdb->prefix}poocommerce_attribute_taxonomies WHERE attribute_id = %d
 				",
 				$edit
 			)
 		);
 
 		?>
-		<div class="wrap woocommerce">
-			<h1><?php esc_html_e( 'Edit attribute', 'woocommerce' ); ?></h1>
+		<div class="wrap poocommerce">
+			<h1><?php esc_html_e( 'Edit attribute', 'poocommerce' ); ?></h1>
 
 			<?php
 			if ( ! $attribute_to_edit ) {
-				echo '<div id="woocommerce_errors" class="error"><p>' . esc_html__( 'Error: non-existing attribute ID.', 'woocommerce' ) . '</p></div>';
+				echo '<div id="poocommerce_errors" class="error"><p>' . esc_html__( 'Error: non-existing attribute ID.', 'poocommerce' ) . '</p></div>';
 			} else {
 				if ( self::$edited_attribute_id > 0 ) {
-					echo '<div id="message" class="updated"><p>' . esc_html__( 'Attribute updated successfully', 'woocommerce' ) . '</p><p><a href="' . esc_url( admin_url( 'edit.php?post_type=product&amp;page=product_attributes' ) ) . '">' . esc_html__( 'Back to Attributes', 'woocommerce' ) . '</a></p></div>';
+					echo '<div id="message" class="updated"><p>' . esc_html__( 'Attribute updated successfully', 'poocommerce' ) . '</p><p><a href="' . esc_url( admin_url( 'edit.php?post_type=product&amp;page=product_attributes' ) ) . '">' . esc_html__( 'Back to Attributes', 'poocommerce' ) . '</a></p></div>';
 					self::$edited_attribute_id = null;
 				}
 				$att_type    = $attribute_to_edit->attribute_type;
@@ -200,39 +200,39 @@ class WC_Admin_Attributes {
 				<form action="edit.php?post_type=product&amp;page=product_attributes&amp;edit=<?php echo absint( $edit ); ?>" method="post">
 					<table class="form-table">
 						<tbody>
-							<?php do_action( 'woocommerce_before_edit_attribute_fields' ); ?>
+							<?php do_action( 'poocommerce_before_edit_attribute_fields' ); ?>
 							<tr class="form-field form-required">
 								<th scope="row" valign="top">
-									<label for="attribute_label"><?php esc_html_e( 'Name', 'woocommerce' ); ?></label>
+									<label for="attribute_label"><?php esc_html_e( 'Name', 'poocommerce' ); ?></label>
 								</th>
 								<td>
 									<input name="attribute_label" id="attribute_label" type="text" value="<?php echo esc_attr( $att_label ); ?>" />
-									<p class="description"><?php esc_html_e( 'Name for the attribute (shown on the front-end).', 'woocommerce' ); ?></p>
+									<p class="description"><?php esc_html_e( 'Name for the attribute (shown on the front-end).', 'poocommerce' ); ?></p>
 								</td>
 							</tr>
 							<tr class="form-field form-required">
 								<th scope="row" valign="top">
-									<label for="attribute_name"><?php esc_html_e( 'Slug', 'woocommerce' ); ?></label>
+									<label for="attribute_name"><?php esc_html_e( 'Slug', 'poocommerce' ); ?></label>
 								</th>
 								<td>
 									<input name="attribute_name" id="attribute_name" type="text" value="<?php echo esc_attr( $att_name ); ?>" maxlength="28" />
-									<p class="description"><?php esc_html_e( 'Unique slug/reference for the attribute; must be no more than 28 characters.', 'woocommerce' ); ?></p>
+									<p class="description"><?php esc_html_e( 'Unique slug/reference for the attribute; must be no more than 28 characters.', 'poocommerce' ); ?></p>
 								</td>
 							</tr>
 							<tr class="form-field form-required">
 								<th scope="row" valign="top">
-									<label for="attribute_public"><?php esc_html_e( 'Enable archives?', 'woocommerce' ); ?></label>
+									<label for="attribute_public"><?php esc_html_e( 'Enable archives?', 'poocommerce' ); ?></label>
 								</th>
 								<td>
 									<input name="attribute_public" id="attribute_public" type="checkbox" value="1" <?php checked( $att_public, 1 ); ?> />
-									<p class="description"><?php esc_html_e( 'Enable this if you want this attribute to have product archives in your store.', 'woocommerce' ); ?></p>
+									<p class="description"><?php esc_html_e( 'Enable this if you want this attribute to have product archives in your store.', 'poocommerce' ); ?></p>
 								</td>
 							</tr>
 							<?php
 							/**
 							 * Attribute types can change the way attributes are displayed on the frontend and admin.
 							 *
-							 * By Default WooCommerce only includes the `select` type. Others can be added with the
+							 * By Default PooCommerce only includes the `select` type. Others can be added with the
 							 * `product_attributes_type_selector` filter. If there is only the default type registered,
 							 * this setting will be hidden.
 							 */
@@ -240,7 +240,7 @@ class WC_Admin_Attributes {
 								?>
 								<tr class="form-field form-required">
 									<th scope="row" valign="top">
-										<label for="attribute_type"><?php esc_html_e( 'Type', 'woocommerce' ); ?></label>
+										<label for="attribute_type"><?php esc_html_e( 'Type', 'poocommerce' ); ?></label>
 									</th>
 									<td>
 										<select name="attribute_type" id="attribute_type">
@@ -254,10 +254,10 @@ class WC_Admin_Attributes {
 												 * @todo Remove in 4.0.0
 												 * @deprecated 2.4.0
 												 */
-												do_action( 'woocommerce_admin_attribute_types' );
+												do_action( 'poocommerce_admin_attribute_types' );
 											?>
 										</select>
-										<p class="description"><?php esc_html_e( "Determines how this attribute's values are displayed.", 'woocommerce' ); ?></p>
+										<p class="description"><?php esc_html_e( "Determines how this attribute's values are displayed.", 'poocommerce' ); ?></p>
 									</td>
 								</tr>
 								<?php
@@ -265,23 +265,23 @@ class WC_Admin_Attributes {
 							?>
 							<tr class="form-field form-required">
 								<th scope="row" valign="top">
-									<label for="attribute_orderby"><?php esc_html_e( 'Default sort order', 'woocommerce' ); ?></label>
+									<label for="attribute_orderby"><?php esc_html_e( 'Default sort order', 'poocommerce' ); ?></label>
 								</th>
 								<td>
 									<select name="attribute_orderby" id="attribute_orderby">
-										<option value="menu_order" <?php selected( $att_orderby, 'menu_order' ); ?>><?php esc_html_e( 'Custom ordering', 'woocommerce' ); ?></option>
-										<option value="name" <?php selected( $att_orderby, 'name' ); ?>><?php esc_html_e( 'Name', 'woocommerce' ); ?></option>
-										<option value="name_num" <?php selected( $att_orderby, 'name_num' ); ?>><?php esc_html_e( 'Name (numeric)', 'woocommerce' ); ?></option>
-										<option value="id" <?php selected( $att_orderby, 'id' ); ?>><?php esc_html_e( 'Term ID', 'woocommerce' ); ?></option>
+										<option value="menu_order" <?php selected( $att_orderby, 'menu_order' ); ?>><?php esc_html_e( 'Custom ordering', 'poocommerce' ); ?></option>
+										<option value="name" <?php selected( $att_orderby, 'name' ); ?>><?php esc_html_e( 'Name', 'poocommerce' ); ?></option>
+										<option value="name_num" <?php selected( $att_orderby, 'name_num' ); ?>><?php esc_html_e( 'Name (numeric)', 'poocommerce' ); ?></option>
+										<option value="id" <?php selected( $att_orderby, 'id' ); ?>><?php esc_html_e( 'Term ID', 'poocommerce' ); ?></option>
 									</select>
-									<p class="description"><?php esc_html_e( 'Determines the sort order of the terms on the frontend shop product pages. If using custom ordering, you can drag and drop the terms in this attribute.', 'woocommerce' ); ?></p>
+									<p class="description"><?php esc_html_e( 'Determines the sort order of the terms on the frontend shop product pages. If using custom ordering, you can drag and drop the terms in this attribute.', 'poocommerce' ); ?></p>
 								</td>
 							</tr>
-							<?php do_action( 'woocommerce_after_edit_attribute_fields' ); ?>
+							<?php do_action( 'poocommerce_after_edit_attribute_fields' ); ?>
 						</tbody>
 					</table>
-					<p class="submit"><button type="submit" name="save_attribute" id="submit" class="button-primary" value="<?php esc_attr_e( 'Update', 'woocommerce' ); ?>"><?php esc_html_e( 'Update', 'woocommerce' ); ?></button></p>
-					<?php wp_nonce_field( 'woocommerce-save-attribute_' . $edit ); ?>
+					<p class="submit"><button type="submit" name="save_attribute" id="submit" class="button-primary" value="<?php esc_attr_e( 'Update', 'poocommerce' ); ?>"><?php esc_html_e( 'Update', 'poocommerce' ); ?></button></p>
+					<?php wp_nonce_field( 'poocommerce-save-attribute_' . $edit ); ?>
 				</form>
 			<?php } ?>
 		</div>
@@ -295,7 +295,7 @@ class WC_Admin_Attributes {
 	 */
 	public static function add_attribute() {
 		?>
-		<div class="wrap woocommerce">
+		<div class="wrap poocommerce">
 			<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
 
 			<br class="clear" />
@@ -305,13 +305,13 @@ class WC_Admin_Attributes {
 						<table class="widefat attributes-table wp-list-table ui-sortable" style="width:100%">
 							<thead>
 								<tr>
-									<th scope="col"><?php esc_html_e( 'Name', 'woocommerce' ); ?></th>
-									<th scope="col"><?php esc_html_e( 'Slug', 'woocommerce' ); ?></th>
+									<th scope="col"><?php esc_html_e( 'Name', 'poocommerce' ); ?></th>
+									<th scope="col"><?php esc_html_e( 'Slug', 'poocommerce' ); ?></th>
 									<?php if ( wc_has_custom_attribute_types() ) : ?>
-										<th scope="col"><?php esc_html_e( 'Type', 'woocommerce' ); ?></th>
+										<th scope="col"><?php esc_html_e( 'Type', 'poocommerce' ); ?></th>
 									<?php endif; ?>
-									<th scope="col"><?php esc_html_e( 'Order by', 'woocommerce' ); ?></th>
-									<th scope="col"><?php esc_html_e( 'Terms', 'woocommerce' ); ?></th>
+									<th scope="col"><?php esc_html_e( 'Order by', 'poocommerce' ); ?></th>
+									<th scope="col"><?php esc_html_e( 'Terms', 'poocommerce' ); ?></th>
 								</tr>
 							</thead>
 							<tbody>
@@ -326,33 +326,33 @@ class WC_Admin_Attributes {
 									 *
 									 * @since 6.9.0
 									 */
-									$max_terms_to_display = apply_filters( 'woocommerce_max_terms_displayed_in_attributes_page', 100 );
+									$max_terms_to_display = apply_filters( 'poocommerce_max_terms_displayed_in_attributes_page', 100 );
 									foreach ( $attribute_taxonomies as $tax ) :
 										?>
 										<tr>
 												<td>
 													<strong><a href="edit-tags.php?taxonomy=<?php echo esc_attr( wc_attribute_taxonomy_name( $tax->attribute_name ) ); ?>&amp;post_type=product"><?php echo esc_html( $tax->attribute_label ); ?></a></strong>
 
-													<div class="row-actions"><span class="edit"><a href="<?php echo esc_url( add_query_arg( 'edit', $tax->attribute_id, 'edit.php?post_type=product&amp;page=product_attributes' ) ); ?>"><?php esc_html_e( 'Edit', 'woocommerce' ); ?></a> | </span><span class="delete"><a class="delete" href="<?php echo esc_url( wp_nonce_url( add_query_arg( 'delete', $tax->attribute_id, 'edit.php?post_type=product&amp;page=product_attributes' ), 'woocommerce-delete-attribute_' . $tax->attribute_id ) ); ?>"><?php esc_html_e( 'Delete', 'woocommerce' ); ?></a></span></div>
+													<div class="row-actions"><span class="edit"><a href="<?php echo esc_url( add_query_arg( 'edit', $tax->attribute_id, 'edit.php?post_type=product&amp;page=product_attributes' ) ); ?>"><?php esc_html_e( 'Edit', 'poocommerce' ); ?></a> | </span><span class="delete"><a class="delete" href="<?php echo esc_url( wp_nonce_url( add_query_arg( 'delete', $tax->attribute_id, 'edit.php?post_type=product&amp;page=product_attributes' ), 'poocommerce-delete-attribute_' . $tax->attribute_id ) ); ?>"><?php esc_html_e( 'Delete', 'poocommerce' ); ?></a></span></div>
 												</td>
 												<td><?php echo esc_html( $tax->attribute_name ); ?></td>
 												<?php if ( wc_has_custom_attribute_types() ) : ?>
-													<td><?php echo esc_html( wc_get_attribute_type_label( $tax->attribute_type ) ); ?> <?php echo $tax->attribute_public ? esc_html__( '(Public)', 'woocommerce' ) : ''; ?></td>
+													<td><?php echo esc_html( wc_get_attribute_type_label( $tax->attribute_type ) ); ?> <?php echo $tax->attribute_public ? esc_html__( '(Public)', 'poocommerce' ) : ''; ?></td>
 												<?php endif; ?>
 												<td>
 													<?php
 													switch ( $tax->attribute_orderby ) {
 														case 'name':
-															esc_html_e( 'Name', 'woocommerce' );
+															esc_html_e( 'Name', 'poocommerce' );
 															break;
 														case 'name_num':
-															esc_html_e( 'Name (numeric)', 'woocommerce' );
+															esc_html_e( 'Name (numeric)', 'poocommerce' );
 															break;
 														case 'id':
-															esc_html_e( 'Term ID', 'woocommerce' );
+															esc_html_e( 'Term ID', 'poocommerce' );
 															break;
 														default:
-															esc_html_e( 'Custom ordering', 'woocommerce' );
+															esc_html_e( 'Custom ordering', 'poocommerce' );
 															break;
 													}
 													?>
@@ -384,20 +384,20 @@ class WC_Admin_Attributes {
 															if ( $total_count > $max_terms_to_display ) {
 																$remaining = $total_count - $max_terms_to_display;
 																/* translators: 1: Comma-separated terms list, 2: how many terms are hidden */
-																$terms_string = sprintf( __( '%1$s... (%2$s more)', 'woocommerce' ), $terms_string, $remaining );
+																$terms_string = sprintf( __( '%1$s... (%2$s more)', 'poocommerce' ), $terms_string, $remaining );
 															}
 															echo esc_html( $terms_string );
 														} elseif ( 1 === $total_count ) {
-															echo esc_html( __( '1 term', 'woocommerce' ) );
+															echo esc_html( __( '1 term', 'poocommerce' ) );
 														} else {
 															/* translators: %s: Total count of terms available for the attribute */
-															echo esc_html( sprintf( __( '%s terms', 'woocommerce' ), $total_count ) );
+															echo esc_html( sprintf( __( '%s terms', 'poocommerce' ), $total_count ) );
 														}
 													} else {
 															echo '<span class="na">&ndash;</span><br />';
 													}
 													?>
-													<br /><a href="edit-tags.php?taxonomy=<?php echo esc_attr( wc_attribute_taxonomy_name( $tax->attribute_name ) ); ?>&amp;post_type=product" class="configure-terms"><?php esc_html_e( 'Configure terms', 'woocommerce' ); ?></a>
+													<br /><a href="edit-tags.php?taxonomy=<?php echo esc_attr( wc_attribute_taxonomy_name( $tax->attribute_name ) ); ?>&amp;post_type=product" class="configure-terms"><?php esc_html_e( 'Configure terms', 'poocommerce' ); ?></a>
 												</td>
 											</tr>
 											<?php
@@ -405,7 +405,7 @@ class WC_Admin_Attributes {
 								} else {
 									?>
 										<tr>
-											<td colspan="6"><?php esc_html_e( 'No attributes currently exist.', 'woocommerce' ); ?></td>
+											<td colspan="6"><?php esc_html_e( 'No attributes currently exist.', 'poocommerce' ); ?></td>
 										</tr>
 										<?php
 								}
@@ -417,41 +417,41 @@ class WC_Admin_Attributes {
 				<div id="col-left">
 					<div class="col-wrap">
 						<div class="form-wrap">
-							<h2><?php esc_html_e( 'Add new attribute', 'woocommerce' ); ?></h2>
-							<p><?php esc_html_e( 'Attributes let you define extra product data, such as size or color. You can use these attributes in the shop sidebar using the "layered nav" widgets.', 'woocommerce' ); ?></p>
+							<h2><?php esc_html_e( 'Add new attribute', 'poocommerce' ); ?></h2>
+							<p><?php esc_html_e( 'Attributes let you define extra product data, such as size or color. You can use these attributes in the shop sidebar using the "layered nav" widgets.', 'poocommerce' ); ?></p>
 							<form action="edit.php?post_type=product&amp;page=product_attributes" method="post">
-								<?php do_action( 'woocommerce_before_add_attribute_fields' ); ?>
+								<?php do_action( 'poocommerce_before_add_attribute_fields' ); ?>
 
 								<div class="form-field">
-									<label for="attribute_label"><?php esc_html_e( 'Name', 'woocommerce' ); ?></label>
+									<label for="attribute_label"><?php esc_html_e( 'Name', 'poocommerce' ); ?></label>
 									<input name="attribute_label" id="attribute_label" type="text" value="" />
-									<p class="description"><?php esc_html_e( 'Name for the attribute (shown on the front-end).', 'woocommerce' ); ?></p>
+									<p class="description"><?php esc_html_e( 'Name for the attribute (shown on the front-end).', 'poocommerce' ); ?></p>
 								</div>
 
 								<div class="form-field">
-									<label for="attribute_name"><?php esc_html_e( 'Slug', 'woocommerce' ); ?></label>
+									<label for="attribute_name"><?php esc_html_e( 'Slug', 'poocommerce' ); ?></label>
 									<input name="attribute_name" id="attribute_name" type="text" value="" maxlength="28" />
-									<p class="description"><?php esc_html_e( 'Unique slug/reference for the attribute; must be no more than 28 characters.', 'woocommerce' ); ?></p>
+									<p class="description"><?php esc_html_e( 'Unique slug/reference for the attribute; must be no more than 28 characters.', 'poocommerce' ); ?></p>
 								</div>
 
 								<div class="form-field">
-									<label for="attribute_public"><input name="attribute_public" id="attribute_public" type="checkbox" value="1" /> <?php esc_html_e( 'Enable Archives?', 'woocommerce' ); ?></label>
+									<label for="attribute_public"><input name="attribute_public" id="attribute_public" type="checkbox" value="1" /> <?php esc_html_e( 'Enable Archives?', 'poocommerce' ); ?></label>
 
-									<p class="description"><?php esc_html_e( 'Enable this if you want this attribute to have product archives in your store.', 'woocommerce' ); ?></p>
+									<p class="description"><?php esc_html_e( 'Enable this if you want this attribute to have product archives in your store.', 'poocommerce' ); ?></p>
 								</div>
 
 								<?php
 								/**
 								 * Attribute types can change the way attributes are displayed on the frontend and admin.
 								 *
-								 * By Default WooCommerce only includes the `select` type. Others can be added with the
+								 * By Default PooCommerce only includes the `select` type. Others can be added with the
 								 * `product_attributes_type_selector` filter. If there is only the default type registered,
 								 * this setting will be hidden.
 								 */
 								if ( wc_has_custom_attribute_types() ) {
 									?>
 									<div class="form-field">
-										<label for="attribute_type"><?php esc_html_e( 'Type', 'woocommerce' ); ?></label>
+										<label for="attribute_type"><?php esc_html_e( 'Type', 'poocommerce' ); ?></label>
 										<select name="attribute_type" id="attribute_type">
 											<?php foreach ( wc_get_attribute_types() as $key => $value ) : ?>
 												<option value="<?php echo esc_attr( $key ); ?>"><?php echo esc_html( $value ); ?></option>
@@ -463,30 +463,30 @@ class WC_Admin_Attributes {
 												 * @todo Remove in 4.0.0
 												 * @deprecated 2.4.0
 												 */
-												do_action( 'woocommerce_admin_attribute_types' );
+												do_action( 'poocommerce_admin_attribute_types' );
 											?>
 										</select>
-										<p class="description"><?php esc_html_e( "Determines how this attribute's values are displayed.", 'woocommerce' ); ?></p>
+										<p class="description"><?php esc_html_e( "Determines how this attribute's values are displayed.", 'poocommerce' ); ?></p>
 									</div>
 									<?php
 								}
 								?>
 
 								<div class="form-field">
-									<label for="attribute_orderby"><?php esc_html_e( 'Default sort order', 'woocommerce' ); ?></label>
+									<label for="attribute_orderby"><?php esc_html_e( 'Default sort order', 'poocommerce' ); ?></label>
 									<select name="attribute_orderby" id="attribute_orderby">
-										<option value="menu_order"><?php esc_html_e( 'Custom ordering', 'woocommerce' ); ?></option>
-										<option value="name"><?php esc_html_e( 'Name', 'woocommerce' ); ?></option>
-										<option value="name_num"><?php esc_html_e( 'Name (numeric)', 'woocommerce' ); ?></option>
-										<option value="id"><?php esc_html_e( 'Term ID', 'woocommerce' ); ?></option>
+										<option value="menu_order"><?php esc_html_e( 'Custom ordering', 'poocommerce' ); ?></option>
+										<option value="name"><?php esc_html_e( 'Name', 'poocommerce' ); ?></option>
+										<option value="name_num"><?php esc_html_e( 'Name (numeric)', 'poocommerce' ); ?></option>
+										<option value="id"><?php esc_html_e( 'Term ID', 'poocommerce' ); ?></option>
 									</select>
-									<p class="description"><?php esc_html_e( 'Determines the sort order of the terms on the frontend shop product pages. If using custom ordering, you can drag and drop the terms in this attribute.', 'woocommerce' ); ?></p>
+									<p class="description"><?php esc_html_e( 'Determines the sort order of the terms on the frontend shop product pages. If using custom ordering, you can drag and drop the terms in this attribute.', 'poocommerce' ); ?></p>
 								</div>
 
-								<?php do_action( 'woocommerce_after_add_attribute_fields' ); ?>
+								<?php do_action( 'poocommerce_after_add_attribute_fields' ); ?>
 
-								<p class="submit"><button type="submit" name="add_new_attribute" id="submit" class="button button-primary" value="<?php esc_attr_e( 'Add attribute', 'woocommerce' ); ?>"><?php esc_html_e( 'Add attribute', 'woocommerce' ); ?></button></p>
-								<?php wp_nonce_field( 'woocommerce-add-new_attribute' ); ?>
+								<p class="submit"><button type="submit" name="add_new_attribute" id="submit" class="button button-primary" value="<?php esc_attr_e( 'Add attribute', 'poocommerce' ); ?>"><?php esc_html_e( 'Add attribute', 'poocommerce' ); ?></button></p>
+								<?php wp_nonce_field( 'poocommerce-add-new_attribute' ); ?>
 							</form>
 						</div>
 					</div>
@@ -496,7 +496,7 @@ class WC_Admin_Attributes {
 			/* <![CDATA[ */
 
 				jQuery( 'a.delete' ).on( 'click', function() {
-					if ( window.confirm( '<?php esc_html_e( 'Are you sure you want to delete this attribute?', 'woocommerce' ); ?>' ) ) {
+					if ( window.confirm( '<?php esc_html_e( 'Are you sure you want to delete this attribute?', 'poocommerce' ); ?>' ) ) {
 						return true;
 					}
 					return false;

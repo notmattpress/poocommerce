@@ -2,7 +2,7 @@
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [8.2.0](https://www.npmjs.com/package/@woocommerce/navigation/v/8.2.0) - 2024-06-11 
+## [8.2.0](https://www.npmjs.com/package/@poocommerce/navigation/v/8.2.0) - 2024-06-11 
 
 -   Patch - Added in missing TS definitions in package.json [#34154]
 -   Minor - Added useQuery hook for usage in React functional components [#34183]
@@ -27,11 +27,11 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 -   Minor - Update pnpm version constraint to 7.13.3 to avoid auto-install-peers issues [#35007]
 -   Minor - Upgrade TypeScript to 5.1.6 [#39531]
 
-## [8.1.0](https://www.npmjs.com/package/@woocommerce/navigation/v/8.1.0) - 2022-07-08 
+## [8.1.0](https://www.npmjs.com/package/@poocommerce/navigation/v/8.1.0) - 2022-07-08 
 
 -   Minor - Remove PHP and Composer dependencies for packaged JS packages
 
-## [8.0.0](https://www.npmjs.com/package/@woocommerce/navigation/v/8.0.0) - 2022-06-15 
+## [8.0.0](https://www.npmjs.com/package/@poocommerce/navigation/v/8.0.0) - 2022-06-15 
 
 -   Minor - Add Jetpack Changelogger
 -   Minor - Update dependency `@wordpress/hooks` to ^3.5.0
@@ -41,4 +41,4 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 -   Patch - Update dependency history to ^5.3.0
 -    - Upgraded react-router-dom to v6, which itself causes breaking changes. This upgrade will require consumers to also upgrade their react-router-dom to v6. #33156
 
-[See legacy changelogs for previous versions](https://github.com/woocommerce/woocommerce/blob/68581955106947918d2b17607a01bdfdf22288a9/packages/js/navigation/CHANGELOG.md).
+[See legacy changelogs for previous versions](https://github.com/poocommerce/poocommerce/blob/68581955106947918d2b17607a01bdfdf22288a9/packages/js/navigation/CHANGELOG.md).

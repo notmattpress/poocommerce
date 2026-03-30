@@ -1,12 +1,12 @@
 <?php
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\BlockTemplates;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\BlockTemplates;
 
-use Automattic\WooCommerce\Admin\BlockTemplates\BlockContainerInterface;
-use Automattic\WooCommerce\Admin\BlockTemplates\BlockTemplateInterface;
+use Automattic\PooCommerce\Admin\BlockTemplates\BlockContainerInterface;
+use Automattic\PooCommerce\Admin\BlockTemplates\BlockTemplateInterface;
 
-use Automattic\WooCommerce\Internal\Admin\BlockTemplates\Block;
-use Automattic\WooCommerce\Internal\Admin\BlockTemplates\BlockTemplate;
+use Automattic\PooCommerce\Internal\Admin\BlockTemplates\Block;
+use Automattic\PooCommerce\Internal\Admin\BlockTemplates\BlockTemplate;
 
 use WC_Unit_Test_Case;
 

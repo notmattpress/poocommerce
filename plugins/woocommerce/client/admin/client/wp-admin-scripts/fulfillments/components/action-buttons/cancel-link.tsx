@@ -24,12 +24,12 @@ export default function CancelLink( { onClick }: { onClick: () => void } ) {
 				__next40pxDefaultSize
 				aria-describedby={ descriptionId }
 			>
-				{ __( 'Cancel', 'woocommerce' ) }
+				{ __( 'Cancel', 'poocommerce' ) }
 			</Button>
 			<span id={ descriptionId } className="screen-reader-text">
 				{ __(
 					'Cancels the current operation without saving changes',
-					'woocommerce'
+					'poocommerce'
 				) }
 			</span>
 		</>

@@ -1,5 +1,5 @@
 <?php
-namespace Automattic\WooCommerce\StoreApi\Utilities;
+namespace Automattic\PooCommerce\StoreApi\Utilities;
 
 /**
  * ProductItemTrait
@@ -56,7 +56,7 @@ trait ProductItemTrait {
 					 *
 					 * @since 10.7.0
 					 *
-					 * @internal Matches filter name in WooCommerce core.
+					 * @internal Matches filter name in PooCommerce core.
 					 *
 					 * @param string      $name     The term name to display.
 					 * @param \WP_Term    $term     Term object.
@@ -64,7 +64,7 @@ trait ProductItemTrait {
 					 * @param \WC_Product $product  Product data.
 					 * @return string
 					 */
-					$value = apply_filters( 'woocommerce_variation_option_name', $term->name, $term, $taxonomy, $product );
+					$value = apply_filters( 'poocommerce_variation_option_name', $term->name, $term, $taxonomy, $product );
 				}
 				$label = wc_attribute_label( $taxonomy );
 			} else {
@@ -76,7 +76,7 @@ trait ProductItemTrait {
 				 *
 				 * @since 2.5.0
 				 *
-				 * @internal Matches filter name in WooCommerce core.
+				 * @internal Matches filter name in PooCommerce core.
 				 *
 				 * @param string $value The name to display.
 				 * @param null $unused Unused because this is not a variation taxonomy.
@@ -84,7 +84,7 @@ trait ProductItemTrait {
 				 * @param \WC_Product $product Product data.
 				 * @return string
 				 */
-				$value = apply_filters( 'woocommerce_variation_option_name', $value, null, $taxonomy, $product );
+				$value = apply_filters( 'poocommerce_variation_option_name', $value, null, $taxonomy, $product );
 				$label = wc_attribute_label( str_replace( 'attribute_', '', $key ), $product );
 			}
 

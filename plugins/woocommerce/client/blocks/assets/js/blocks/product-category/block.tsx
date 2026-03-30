@@ -5,7 +5,7 @@ import { __ } from '@wordpress/i18n';
 import ServerSideRender from '@wordpress/server-side-render';
 import { Placeholder } from '@wordpress/components';
 import { Icon, file } from '@wordpress/icons';
-import { gridBlockPreview } from '@woocommerce/resource-previews';
+import { gridBlockPreview } from '@poocommerce/resource-previews';
 
 /**
  * Internal dependencies
@@ -15,12 +15,12 @@ import { Props } from './types';
 const EmptyPlaceholder = () => (
 	<Placeholder
 		icon={ <Icon icon={ file } /> }
-		label={ __( 'Products by Category', 'woocommerce' ) }
+		label={ __( 'Products by Category', 'poocommerce' ) }
 		className="wc-block-products-grid wc-block-products-category"
 	>
 		{ __(
 			'No products were found that matched your selection.',
-			'woocommerce'
+			'poocommerce'
 		) }
 	</Placeholder>
 );
@@ -43,7 +43,7 @@ export const ProductByCategoryBlock = ( props: Props ): JSX.Element => {
 		<>
 			{ __(
 				'Select at least one category to display its products.',
-				'woocommerce'
+				'poocommerce'
 			) }
 		</>
 	);

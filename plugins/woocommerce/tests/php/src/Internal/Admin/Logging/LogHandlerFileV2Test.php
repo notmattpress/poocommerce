@@ -1,11 +1,11 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\Logging;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\Logging;
 
 use Automattic\Jetpack\Constants;
-use Automattic\WooCommerce\Internal\Admin\Logging\{ LogHandlerFileV2, Settings };
-use Automattic\WooCommerce\Internal\Admin\Logging\FileV2\File;
+use Automattic\PooCommerce\Internal\Admin\Logging\{ LogHandlerFileV2, Settings };
+use Automattic\PooCommerce\Internal\Admin\Logging\FileV2\File;
 use WC_Unit_Test_Case;
 
 /**
@@ -76,7 +76,7 @@ class LogHandlerFileV2Test extends WC_Unit_Test_Case {
 				'timestamp' => $current_time,
 				'context'   => array(),
 			),
-			'plugin-woocommerce-' . gmdate( 'Y-m-d', $current_time ),
+			'plugin-poocommerce-' . gmdate( 'Y-m-d', $current_time ),
 		);
 		yield 'custom source, past time' => array(
 			array(

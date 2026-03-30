@@ -5,9 +5,9 @@ import clsx from 'clsx';
 import { __ } from '@wordpress/i18n';
 import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
 import { PanelBody, ExternalLink } from '@wordpress/components';
-import { ADMIN_URL } from '@woocommerce/settings';
-import { innerBlockAreas } from '@woocommerce/blocks-checkout';
-import Noninteractive from '@woocommerce/base-components/noninteractive';
+import { ADMIN_URL } from '@poocommerce/settings';
+import { innerBlockAreas } from '@poocommerce/blocks-checkout';
+import Noninteractive from '@poocommerce/base-components/noninteractive';
 
 /**
  * Internal dependencies
@@ -44,19 +44,19 @@ export const Edit = ( {
 				<PanelBody
 					title={ __(
 						'Account creation and guest checkout',
-						'woocommerce'
+						'poocommerce'
 					) }
 				>
 					<p className="wc-block-checkout__controls-text">
 						{ __(
 							'Account creation and guest checkout settings can be managed in your store settings.',
-							'woocommerce'
+							'poocommerce'
 						) }
 					</p>
 					<ExternalLink
 						href={ `${ ADMIN_URL }admin.php?page=wc-settings&tab=account` }
 					>
-						{ __( 'Manage account settings', 'woocommerce' ) }
+						{ __( 'Manage account settings', 'poocommerce' ) }
 					</ExternalLink>
 				</PanelBody>
 			</InspectorControls>

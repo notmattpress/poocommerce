@@ -1,11 +1,11 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\Domain\Services;
+namespace Automattic\PooCommerce\Blocks\Domain\Services;
 
-use Automattic\WooCommerce\Blocks\Domain\Package;
-use Automattic\WooCommerce\Blocks\Utils\CartCheckoutUtils;
+use Automattic\PooCommerce\Blocks\Domain\Package;
+use Automattic\PooCommerce\Blocks\Utils\CartCheckoutUtils;
 
 /**
- * Service class for adding new-style Notices to WooCommerce core.
+ * Service class for adding new-style Notices to PooCommerce core.
  *
  * @internal
  */
@@ -51,13 +51,13 @@ class Notices {
 				 * @param bool $use_block_notices_in_classic_theme Whether to use block notices in classic theme.
 				 * @return bool
 				 */
-				if ( wp_is_block_theme() || apply_filters( 'woocommerce_use_block_notices_in_classic_theme', false ) ) {
+				if ( wp_is_block_theme() || apply_filters( 'poocommerce_use_block_notices_in_classic_theme', false ) ) {
 					add_filter( 'wc_get_template', [ $this, 'get_notices_template' ], 10, 5 );
 				}
 			}
 		);
 
-		add_filter( 'woocommerce_kses_notice_allowed_tags', [ $this, 'add_kses_notice_allowed_tags' ] );
+		add_filter( 'poocommerce_kses_notice_allowed_tags', [ $this, 'add_kses_notice_allowed_tags' ] );
 		add_action( 'wp_head', [ $this, 'enqueue_notice_styles' ] );
 	}
 
@@ -90,7 +90,7 @@ class Notices {
 	 * The new notice templates match block components with matching icons and styling. The differences are:
 	 * 1. Core has notices for info, success, and error notices, blocks has notices for info, success, error,
 	 * warning, and a default notice type.
-	 * 2. The block notices use different CSS classes to the core notices. Core uses `woocommerce-message`, `is-info`
+	 * 2. The block notices use different CSS classes to the core notices. Core uses `poocommerce-message`, `is-info`
 	 * and `is-error` classes, blocks uses `wc-block-components-notice-banner is-error`,
 	 * `wc-block-components-notice-banner is-info`, and `wc-block-components-notice-banner is-success`.
 	 * 3. The markup of the notices is different, with the block notices using SVG icons and a slightly different
@@ -106,7 +106,7 @@ class Notices {
 	public function get_notices_template( $template, $template_name, $args, $template_path, $default_path ) {
 		if ( in_array( $template_name, $this->notice_templates, true ) ) {
 			$directory = get_stylesheet_directory();
-			$file      = $directory . '/woocommerce/' . $template_name;
+			$file      = $directory . '/poocommerce/' . $template_name;
 
 			if ( file_exists( $file ) ) {
 				return $file;

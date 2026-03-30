@@ -2,10 +2,10 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Logging;
+namespace Automattic\PooCommerce\Internal\Logging;
 
-use Automattic\WooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
-use Automattic\WooCommerce\Internal\DataStores\Orders\DataSynchronizer;
+use Automattic\PooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
+use Automattic\PooCommerce\Internal\DataStores\Orders\DataSynchronizer;
 use WC_Logger;
 
 /**
@@ -81,7 +81,7 @@ class OrderLogsCleanupHelper {
 		 *
 		 * @since 10.7.0
 		 */
-		return absint( apply_filters( 'woocommerce_cleanup_order_debug_logs_max_age', 3 * DAY_IN_SECONDS ) );
+		return absint( apply_filters( 'poocommerce_cleanup_order_debug_logs_max_age', 3 * DAY_IN_SECONDS ) );
 	}
 
 	/**
@@ -110,11 +110,11 @@ class OrderLogsCleanupHelper {
 	 * @param int $max_age Maximum age in seconds before a file is eligible for deletion.
 	 */
 	private function cleanup_old_log_files( int $max_age ): void {
-		if ( \Automattic\WooCommerce\Utilities\LoggingUtil::get_default_handler() !== \Automattic\WooCommerce\Internal\Admin\Logging\LogHandlerFileV2::class ) {
+		if ( \Automattic\PooCommerce\Utilities\LoggingUtil::get_default_handler() !== \Automattic\PooCommerce\Internal\Admin\Logging\LogHandlerFileV2::class ) {
 			return;
 		}
 
-		$file_controller = wc_get_container()->get( \Automattic\WooCommerce\Internal\Admin\Logging\FileV2\FileController::class );
+		$file_controller = wc_get_container()->get( \Automattic\PooCommerce\Internal\Admin\Logging\FileV2\FileController::class );
 		$files           = $file_controller->get_files(
 			array(
 				'source'      => 'place-order-debug',

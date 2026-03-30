@@ -2,22 +2,22 @@
 /**
  * Handles order data updates from the request.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\RestApi\Routes\V4\Orders;
+namespace Automattic\PooCommerce\Internal\RestApi\Routes\V4\Orders;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Internal\Orders\OrderNoteGroup;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Orders\Schema\OrderSchema;
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Internal\CostOfGoodsSold\CogsAwareTrait;
-use Automattic\WooCommerce\Utilities\ArrayUtil;
-use Automattic\WooCommerce\Utilities\StringUtil;
-use Automattic\WooCommerce\Internal\Utilities\Users;
+use Automattic\PooCommerce\Internal\Orders\OrderNoteGroup;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Orders\Schema\OrderSchema;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Internal\CostOfGoodsSold\CogsAwareTrait;
+use Automattic\PooCommerce\Utilities\ArrayUtil;
+use Automattic\PooCommerce\Utilities\StringUtil;
+use Automattic\PooCommerce\Internal\Utilities\Users;
 use WC_REST_Exception;
 use WC_Order;
 use WP_REST_Request;
@@ -94,7 +94,7 @@ class UpdateUtils {
 		if ( ! is_null( $request['customer_id'] ) && 0 !== $request['customer_id'] ) {
 			// The customer must exist, and in a multisite context must be visible to the current user.
 			if ( is_wp_error( Users::get_user_in_current_site( $request['customer_id'] ) ) ) {
-				throw new WC_REST_Exception( 'woocommerce_rest_invalid_customer_id', esc_html__( 'Customer ID is invalid.', 'woocommerce' ), (int) WP_Http::BAD_REQUEST );
+				throw new WC_REST_Exception( 'poocommerce_rest_invalid_customer_id', esc_html__( 'Customer ID is invalid.', 'poocommerce' ), (int) WP_Http::BAD_REQUEST );
 			}
 
 			// Make sure customer is part of blog.
@@ -161,7 +161,7 @@ class UpdateUtils {
 	 */
 	protected function update_line_items( WC_Order $order, array $line_items, string $line_items_type = 'line_item' ) {
 		if ( ! in_array( $line_items_type, array( 'line_item', 'shipping', 'fee', 'coupon' ), true ) ) {
-			throw new WC_REST_Exception( 'woocommerce_rest_invalid_line_items_type', esc_html__( 'Invalid line items type.', 'woocommerce' ), 400 );
+			throw new WC_REST_Exception( 'poocommerce_rest_invalid_line_items_type', esc_html__( 'Invalid line items type.', 'poocommerce' ), 400 );
 		}
 
 		// Get existing items from the order. Any items that are not in the $line_items array will be removed.
@@ -210,7 +210,7 @@ class UpdateUtils {
 			$item = $order->get_item( absint( $line_item_data['id'] ), false );
 
 			if ( ! $item ) {
-				throw new WC_REST_Exception( 'woocommerce_rest_invalid_item_id', esc_html__( 'Order item ID provided is not associated with order.', 'woocommerce' ), 400 );
+				throw new WC_REST_Exception( 'poocommerce_rest_invalid_item_id', esc_html__( 'Order item ID provided is not associated with order.', 'poocommerce' ), 400 );
 			}
 		}
 
@@ -225,7 +225,7 @@ class UpdateUtils {
 		 *
 		 * @since 4.5.0.
 		 */
-		do_action( 'woocommerce_rest_set_order_item', $item, $line_item_data );
+		do_action( 'poocommerce_rest_set_order_item', $item, $line_item_data );
 
 		// If creating the order, add the item to it.
 		if ( 'create' === $action ) {
@@ -242,7 +242,7 @@ class UpdateUtils {
 				$order->add_order_note(
 					sprintf(
 						// translators: %s item name.
-						__( 'Adjusted stock: %s.', 'woocommerce' ),
+						__( 'Adjusted stock: %s.', 'poocommerce' ),
 						sprintf(
 							'%1$s (%2$s&rarr;%3$s)',
 							$item->get_name(),
@@ -301,8 +301,8 @@ class UpdateUtils {
 
 		if ( ! $item ) {
 			throw new WC_REST_Exception(
-				'woocommerce_rest_invalid_item_id',
-				esc_html__( 'Order item ID provided is not associated with order.', 'woocommerce' ),
+				'poocommerce_rest_invalid_item_id',
+				esc_html__( 'Order item ID provided is not associated with order.', 'poocommerce' ),
 				400
 			);
 		}
@@ -319,7 +319,7 @@ class UpdateUtils {
 		 *
 		 * @since 9.3.0.
 		 */
-		do_action( 'woocommerce_rest_remove_order_item', $item );
+		do_action( 'poocommerce_rest_remove_order_item', $item );
 
 		$order->remove_item( $item_id );
 	}
@@ -342,7 +342,7 @@ class UpdateUtils {
 		} elseif ( 'update' === $action ) {
 			$product_id = 0;
 		} else {
-			throw new WC_REST_Exception( 'woocommerce_rest_required_product_reference', esc_html__( 'Product ID or SKU is required.', 'woocommerce' ), 400 );
+			throw new WC_REST_Exception( 'poocommerce_rest_required_product_reference', esc_html__( 'Product ID or SKU is required.', 'poocommerce' ), 400 );
 		}
 		return $product_id;
 	}
@@ -399,7 +399,7 @@ class UpdateUtils {
 		$item = is_null( $item ) ? new WC_Order_Item_Shipping( ! empty( $request_data['id'] ) ? $request_data['id'] : '' ) : $item;
 
 		if ( 'create' === $action && empty( $request_data['method_id'] ) ) {
-			throw new WC_REST_Exception( 'woocommerce_rest_invalid_shipping_item', esc_html__( 'Shipping method ID is required.', 'woocommerce' ), 400 );
+			throw new WC_REST_Exception( 'poocommerce_rest_invalid_shipping_item', esc_html__( 'Shipping method ID is required.', 'poocommerce' ), 400 );
 		}
 
 		$this->maybe_set_item_props( $item, array( 'method_id', 'method_title', 'total', 'instance_id' ), $request_data );
@@ -421,7 +421,7 @@ class UpdateUtils {
 		$item = is_null( $item ) ? new WC_Order_Item_Fee( ! empty( $request_data['id'] ) ? $request_data['id'] : '' ) : $item;
 
 		if ( 'create' === $action && empty( $request_data['name'] ) ) {
-			throw new WC_REST_Exception( 'woocommerce_rest_invalid_fee_item', esc_html__( 'Fee name is required.', 'woocommerce' ), 400 );
+			throw new WC_REST_Exception( 'poocommerce_rest_invalid_fee_item', esc_html__( 'Fee name is required.', 'poocommerce' ), 400 );
 		}
 
 		$this->maybe_set_item_props( $item, array( 'name', 'tax_class', 'tax_status', 'total' ), $request_data );
@@ -445,7 +445,7 @@ class UpdateUtils {
 		if ( 'create' === $action ) {
 			$coupon_code = ArrayUtil::get_value_or_default( $request_data, 'code' );
 			if ( StringUtil::is_null_or_whitespace( $coupon_code ) ) {
-				throw new WC_REST_Exception( 'woocommerce_rest_invalid_coupon_coupon', esc_html__( 'Coupon code is required.', 'woocommerce' ), 400 );
+				throw new WC_REST_Exception( 'poocommerce_rest_invalid_coupon_coupon', esc_html__( 'Coupon code is required.', 'poocommerce' ), 400 );
 			}
 		}
 

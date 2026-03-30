@@ -9,7 +9,7 @@ defined( 'ABSPATH' ) || exit;
 
 require_once __DIR__ . '/../../includes/class-wc-beta-tester-live-branches-installer.php';
 
-register_woocommerce_admin_test_helper_rest_route(
+register_poocommerce_admin_test_helper_rest_route(
 	'/live-branches/manifest/v1',
 	'fetch_live_branches_manifest',
 	array(
@@ -21,7 +21,7 @@ register_woocommerce_admin_test_helper_rest_route(
  * API endpoint to fetch the manifest of live branches.
  */
 function fetch_live_branches_manifest() {
-	$response = wp_remote_get( 'https://betadownload.jetpack.me/woocommerce-branches.json' );
+	$response = wp_remote_get( 'https://betadownload.jetpack.me/poocommerce-branches.json' );
 
 	if ( is_wp_error( $response ) ) {
 		// Handle the error case.

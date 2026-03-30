@@ -3,7 +3,7 @@
  */
 import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { useShippingData, useStoreCart } from '@woocommerce/base-context/hooks';
+import { useShippingData, useStoreCart } from '@poocommerce/base-context/hooks';
 
 /**
  * Internal dependencies
@@ -14,7 +14,7 @@ import {
 	generateShippingRate,
 } from '../../../../../mocks/shipping-package';
 
-jest.mock( '@woocommerce/base-context/hooks' );
+jest.mock( '@poocommerce/base-context/hooks' );
 
 const testPackageData = generateShippingPackage( {
 	packageId: 0,

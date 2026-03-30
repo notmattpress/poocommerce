@@ -69,7 +69,7 @@ test.describe( 'Marketing page', () => {
 			try {
 				await page
 					.locator(
-						'.woocommerce-marketing-introduction-banner-illustration > .components-button'
+						'.poocommerce-marketing-introduction-banner-illustration > .components-button'
 					)
 					.click( { timeout: 2000 } );
 			} catch ( e ) {
@@ -79,7 +79,7 @@ test.describe( 'Marketing page', () => {
 			// The introduction should be hidden.
 			await expect(
 				page.getByText(
-					'Reach new customers and increase sales without leaving WooCommerce'
+					'Reach new customers and increase sales without leaving PooCommerce'
 				)
 			).toBeHidden();
 
@@ -89,7 +89,7 @@ test.describe( 'Marketing page', () => {
 			// The introduction should still be hidden.
 			await expect(
 				page.getByText(
-					'Reach new customers and increase sales without leaving WooCommerce'
+					'Reach new customers and increase sales without leaving PooCommerce'
 				)
 			).toBeHidden();
 		}

@@ -3,12 +3,12 @@
  * Customer syncing related functions and actions.
  */
 
-namespace Automattic\WooCommerce\Internal\Admin\Schedulers;
+namespace Automattic\PooCommerce\Internal\Admin\Schedulers;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\API\Reports\Cache as ReportsCache;
-use Automattic\WooCommerce\Admin\API\Reports\Customers\DataStore as CustomersDataStore;
+use Automattic\PooCommerce\Admin\API\Reports\Cache as ReportsCache;
+use Automattic\PooCommerce\Admin\API\Reports\Customers\DataStore as CustomersDataStore;
 
 /**
  * CustomersScheduler Class.
@@ -53,7 +53,7 @@ class CustomersScheduler extends ImportScheduler {
 	 * @param bool     $skip_existing Skip already imported customers.
 	 */
 	public static function get_items( $limit = 10, $page = 1, $days = false, $skip_existing = false ) {
-		$customer_roles = apply_filters( 'woocommerce_analytics_import_customer_roles', array( 'customer' ) );
+		$customer_roles = apply_filters( 'poocommerce_analytics_import_customer_roles', array( 'customer' ) );
 		$query_args     = array(
 			'fields'   => 'ID',
 			'orderby'  => 'ID',

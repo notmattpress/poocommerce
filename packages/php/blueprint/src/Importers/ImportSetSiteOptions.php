@@ -1,18 +1,18 @@
 <?php
 
-namespace Automattic\WooCommerce\Blueprint\Importers;
+namespace Automattic\PooCommerce\Blueprint\Importers;
 
-use Automattic\WooCommerce\Blueprint\StepProcessor;
-use Automattic\WooCommerce\Blueprint\StepProcessorResult;
-use Automattic\WooCommerce\Blueprint\Steps\SetSiteOptions;
-use Automattic\WooCommerce\Blueprint\UseWPFunctions;
+use Automattic\PooCommerce\Blueprint\StepProcessor;
+use Automattic\PooCommerce\Blueprint\StepProcessorResult;
+use Automattic\PooCommerce\Blueprint\Steps\SetSiteOptions;
+use Automattic\PooCommerce\Blueprint\UseWPFunctions;
 
 /**
  * Class ImportSetSiteOptions
  *
  * Importer for the SetSiteOptions step.
  *
- * @package Automattic\WooCommerce\Blueprint\Importers
+ * @package Automattic\PooCommerce\Blueprint\Importers
  */
 class ImportSetSiteOptions implements StepProcessor {
 	use UseWPFunctions;

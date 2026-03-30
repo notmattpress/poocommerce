@@ -1,9 +1,9 @@
 ---
-name: woocommerce-performance
-description: Identify missing cache priming calls in WooCommerce PHP code. Use when writing or reviewing code that loads collections of post-based objects (products, orders), renders product lists with images, or reads multiple options in a loop or method.
+name: poocommerce-performance
+description: Identify missing cache priming calls in PooCommerce PHP code. Use when writing or reviewing code that loads collections of post-based objects (products, orders), renders product lists with images, or reads multiple options in a loop or method.
 ---
 
-# WooCommerce Performance
+# PooCommerce Performance
 
 ## Post Cache Priming — [cache-priming.md](cache-priming.md)
 

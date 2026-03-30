@@ -11,7 +11,7 @@ export type HandlePromptProps = {
 };
 
 export async function handlePrompt( {
-	message = __( 'Enter a value', 'woocommerce' ),
+	message = __( 'Enter a value', 'poocommerce' ),
 	defaultValue,
 	onOk,
 	onCancel,

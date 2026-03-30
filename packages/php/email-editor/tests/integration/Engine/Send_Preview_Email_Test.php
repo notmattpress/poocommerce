@@ -1,16 +1,16 @@
 <?php
 /**
- * This file is part of the WooCommerce Email Editor package
+ * This file is part of the PooCommerce Email Editor package
  *
- * @package Automattic\WooCommerce\EmailEditor
+ * @package Automattic\PooCommerce\EmailEditor
  */
 
 declare(strict_types = 1);
-namespace Automattic\WooCommerce\EmailEditor\Engine;
+namespace Automattic\PooCommerce\EmailEditor\Engine;
 
 use Codeception\Stub\Expected;
-use Automattic\WooCommerce\EmailEditor\Engine\Renderer\Renderer;
-use Automattic\WooCommerce\EmailEditor\Engine\Personalizer;
+use Automattic\PooCommerce\EmailEditor\Engine\Renderer\Renderer;
+use Automattic\PooCommerce\EmailEditor\Engine\Personalizer;
 use MailPoet\WP\Functions as WPFunctions;
 
 /**
@@ -151,13 +151,13 @@ class Send_Preview_Email_Test extends \Email_Editor_Integration_Test_Case {
 			$this->assertEquals( $post->ID, $filter_post->ID );
 			return 'Filtered: ' . $subject;
 		};
-		add_filter( 'woocommerce_email_editor_send_preview_email_subject', $filter, 10, 2 );
+		add_filter( 'poocommerce_email_editor_send_preview_email_subject', $filter, 10, 2 );
 
 		$result = $this->send_preview_email->get_preview_email_subject( $post );
 
 		$this->assertEquals( 'Filtered: Original Subject', $result );
 
-		remove_filter( 'woocommerce_email_editor_send_preview_email_subject', $filter );
+		remove_filter( 'poocommerce_email_editor_send_preview_email_subject', $filter );
 	}
 
 	/**

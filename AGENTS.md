@@ -1,12 +1,12 @@
-# WooCommerce Monorepo - AI Agents Documentation
+# PooCommerce Monorepo - AI Agents Documentation
 
 ## Project Overview
 
-WooCommerce is a WordPress e-commerce plugin organized as a monorepo with:
+PooCommerce is a WordPress e-commerce plugin organized as a monorepo with:
 
-- **Backend**: PHP in `plugins/woocommerce/` (PSR-4, WordPress standards)
-- **Admin Client**: React/TypeScript in `plugins/woocommerce/client/admin/`
-- **Payment Settings**: Specialized React/TypeScript module in `plugins/woocommerce/client/admin/client/settings-payments/`
+- **Backend**: PHP in `plugins/poocommerce/` (PSR-4, WordPress standards)
+- **Admin Client**: React/TypeScript in `plugins/poocommerce/client/admin/`
+- **Payment Settings**: Specialized React/TypeScript module in `plugins/poocommerce/client/admin/client/settings-payments/`
 
 ## Navigation Guide
 
@@ -22,17 +22,17 @@ WooCommerce is a WordPress e-commerce plugin organized as a monorepo with:
 
 The `.ai/skills/` directory contains procedural HOW-TO instructions:
 
-- **`woocommerce-backend-dev`** - Backend PHP conventions and unit tests. **Invoke before writing any PHP test files.**
-- **`woocommerce-dev-cycle`** - Testing and linting workflows (PHP, JS, markdown)
-- **`woocommerce-copy-guidelines`** - UI text standards (sentence case rules)
-- **`woocommerce-code-review`** - Code review standards and critical violations to flag
-- **`woocommerce-markdown`** - Markdown writing and editing guidelines
-- **`woocommerce-git`** - Guidelines for git and GitHub operations
-- **`woocommerce-email-editor`** - Email editor development setup and Mailpit configuration
+- **`poocommerce-backend-dev`** - Backend PHP conventions and unit tests. **Invoke before writing any PHP test files.**
+- **`poocommerce-dev-cycle`** - Testing and linting workflows (PHP, JS, markdown)
+- **`poocommerce-copy-guidelines`** - UI text standards (sentence case rules)
+- **`poocommerce-code-review`** - Code review standards and critical violations to flag
+- **`poocommerce-markdown`** - Markdown writing and editing guidelines
+- **`poocommerce-git`** - Guidelines for git and GitHub operations
+- **`poocommerce-email-editor`** - Email editor development setup and Mailpit configuration
 
 **CRITICAL:** After reading a skill, check if a personal skill override file exists at
 `~/.ai/skills/{skill-name}-personal/SKILL.md` and apply it too. For example, for the
-`woocommerce-backend-dev` skill, check for `~/.ai/skills/woocommerce-backend-dev-personal/SKILL.md`.
+`poocommerce-backend-dev` skill, check for `~/.ai/skills/poocommerce-backend-dev-personal/SKILL.md`.
 **Personal override skills take precedence over project-level skills in case of conflict**.
 
 ## Project Architecture
@@ -40,12 +40,12 @@ The `.ai/skills/` directory contains procedural HOW-TO instructions:
 ### Directory Structure
 
 ```text
-plugins/woocommerce/
+plugins/poocommerce/
 ├── src/                    # Modern PHP code (PSR-4, DI container)
 │   ├── Internal/           # Internal classes (default location)
 │   └── [Public classes]    # Public API classes
 ├── includes/               # Legacy WordPress code
-│   └── class-woocommerce.php  # Main plugin class
+│   └── class-poocommerce.php  # Main plugin class
 ├── tests/php/              # PHPUnit tests
 │   ├── includes/           # Tests for legacy code
 │   └── src/                # Tests for modern code
@@ -57,30 +57,30 @@ plugins/woocommerce/
 
 **Modern vs Legacy Code:**
 
-- `plugins/woocommerce/src/` - Modern PHP with dependency injection, PSR-4 autoloading
-- `plugins/woocommerce/includes/` - Legacy WordPress patterns, modify only when necessary
+- `plugins/poocommerce/src/` - Modern PHP with dependency injection, PSR-4 autoloading
+- `plugins/poocommerce/includes/` - Legacy WordPress patterns, modify only when necessary
 
 **Namespace:**
 
-- Root namespace: `Automattic\WooCommerce`
-- Internal classes: `Automattic\WooCommerce\Internal\*`
+- Root namespace: `Automattic\PooCommerce`
+- Internal classes: `Automattic\PooCommerce\Internal\*`
 
 **Dependency Injection:**
 
-- Classes in `plugins/woocommerce/src/` use DI container (`$container->get()`)
+- Classes in `plugins/poocommerce/src/` use DI container (`$container->get()`)
 - Dependencies injected via `init()` method
 
 **Version Management:**
 
-- Current version in `plugins/woocommerce/includes/class-woocommerce.php` → `$version` property
+- Current version in `plugins/poocommerce/includes/class-poocommerce.php` → `$version` property
 - Used for `@since` annotations (remove `-dev` suffix)
 - When changing template files (PHP files used to display UI on the front-end) the version in their header should be updated to the current version, without the `-dev` suffix.
 
 ## Development Workflow
 
 1. Make code changes
-2. Run relevant tests (see `woocommerce-dev-cycle` skill)
-3. Run linting (see `woocommerce-dev-cycle` skill)
+2. Run relevant tests (see `poocommerce-dev-cycle` skill)
+3. Run linting (see `poocommerce-dev-cycle` skill)
 4. Run PHPStan for PHP changes (see below)
 5. Commit only after tests pass and all checks are clean
 6. Create changelog entries for each affected package
@@ -92,9 +92,9 @@ plugins/woocommerce/
 
 ```sh
 # Lint changed PHP files
-pnpm --filter=@woocommerce/plugin-woocommerce lint:php:changes
+pnpm --filter=@poocommerce/plugin-poocommerce lint:php:changes
 
-# Run PHPStan on modified files (from plugins/woocommerce directory)
+# Run PHPStan on modified files (from plugins/poocommerce directory)
 composer exec -- phpstan analyse path/to/modified/File.php --memory-limit=2G
 ```
 
@@ -105,7 +105,7 @@ PHPStan failures often indicate the need to update the baseline file (`phpstan-b
 **Before pushing**, run the branch-level lint to catch issues across all commits on the branch (e.g. alignment warnings that per-file linting misses):
 
 ```sh
-pnpm --filter=@woocommerce/plugin-woocommerce lint:changes:branch
+pnpm --filter=@poocommerce/plugin-poocommerce lint:changes:branch
 ```
 
 This compares the full branch diff against trunk and runs `phpcs-changed` on it. Fix any warnings before pushing.
@@ -116,10 +116,10 @@ This compares the full branch diff against trunk and runs `phpcs-changed` on it.
 pnpm --filter=<project> changelog add
 ```
 
-Example for WooCommerce Core:
+Example for PooCommerce Core:
 
 ```sh
-pnpm --filter=@woocommerce/plugin-woocommerce changelog add
+pnpm --filter=@poocommerce/plugin-poocommerce changelog add
 ```
 
 This command prompts for the change type and description. Run it once per affected package before creating any PR.
@@ -141,27 +141,27 @@ For bug fixes, always reference the PR that introduced the bug using: `Bug intro
 ## Testing Environment
 
 - PHP tests run in Docker via `wp-env`
-- WordPress and WooCommerce auto-installed
+- WordPress and PooCommerce auto-installed
 - Uses PHPUnit 9.6.24 with PHP 8.1
 
-For detailed test commands, see `woocommerce-dev-cycle` skill.
+For detailed test commands, see `poocommerce-dev-cycle` skill.
 
 ## Known Constraints
 
 - `includes/` directory changes should be minimal (legacy code)
-- All new backend code goes in `plugins/woocommerce/src/Internal/` by default
+- All new backend code goes in `plugins/poocommerce/src/Internal/` by default
 - Never create standalone functions (always use class methods)
 - Tests require Docker environment
 
 ## Interactivity API Stores
 
-All WooCommerce Interactivity API stores are **private by design**:
+All PooCommerce Interactivity API stores are **private by design**:
 
 - Stores use `lock: true` indicating they are not intended for extension
 - Removing or changing store state/selectors is **not a breaking change**
 - No backwards compatibility is required for store internals
 - If a store needs to be extensible in the future, it will be split into private (internal) and public (API) stores
-- General stores (namespace `woocommerce`) may become public eventually, but currently all are locked
+- General stores (namespace `poocommerce`) may become public eventually, but currently all are locked
 
 Reference: [WordPress Interactivity API - Private Stores](https://developer.wordpress.org/block-editor/reference-guides/interactivity-api/api-reference#private-stores)
 
@@ -180,11 +180,11 @@ pnpm lint:php:changes
 pnpm lint:php:fix -- path/to/file.php
 ```
 
-For complete command reference and workflows, see `woocommerce-dev-cycle` skill.
+For complete command reference and workflows, see `poocommerce-dev-cycle` skill.
 
 ## Monorepo Context
 
-This is part of the WooCommerce monorepo:
+This is part of the PooCommerce monorepo:
 
 - Multiple packages managed with pnpm workspaces
 - Root-level scripts coordinate across packages
@@ -192,13 +192,13 @@ This is part of the WooCommerce monorepo:
 
 ## Historical Context
 
-**Why two code styles?** The `plugins/woocommerce/includes/` directory predates modern PHP practices. New code uses PSR-4 and dependency injection in `plugins/woocommerce/src/`.
+**Why two code styles?** The `plugins/poocommerce/includes/` directory predates modern PHP practices. New code uses PSR-4 and dependency injection in `plugins/poocommerce/src/`.
 
 **Why DI container?** Improves testability and maintainability compared to legacy global state patterns.
 
 ## Automated Code Reviews
 
-For code review standards and critical violations to flag, use the **`woocommerce-code-review` skill**.
+For code review standards and critical violations to flag, use the **`poocommerce-code-review` skill**.
 
 ## Notes for AI Agents
 

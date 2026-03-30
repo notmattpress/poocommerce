@@ -1,9 +1,9 @@
 <?php
 
-namespace Automattic\WooCommerce\Tests\Admin\Marketing;
+namespace Automattic\PooCommerce\Tests\Admin\Marketing;
 
-use Automattic\WooCommerce\Admin\Marketing\MarketingChannelInterface;
-use Automattic\WooCommerce\Admin\Marketing\MarketingChannels;
+use Automattic\PooCommerce\Admin\Marketing\MarketingChannelInterface;
+use Automattic\PooCommerce\Admin\Marketing\MarketingChannels;
 use WC_Unit_Test_Case;
 
 /**
@@ -15,7 +15,7 @@ class MarketingChannelsTest extends WC_Unit_Test_Case {
 	 * Runs before each test.
 	 */
 	public function setUp(): void {
-		remove_all_filters( 'woocommerce_marketing_channels' );
+		remove_all_filters( 'poocommerce_marketing_channels' );
 	}
 
 	/**
@@ -53,7 +53,7 @@ class MarketingChannelsTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox A marketing channel can be registered using the `woocommerce_marketing_channels` WordPress filter if the same channel slug is NOT previously registered.
+	 * @testdox A marketing channel can be registered using the `poocommerce_marketing_channels` WordPress filter if the same channel slug is NOT previously registered.
 	 */
 	public function test_registers_channel_using_wp_filter() {
 		$test_channel = $this->createMock( MarketingChannelInterface::class );
@@ -62,7 +62,7 @@ class MarketingChannelsTest extends WC_Unit_Test_Case {
 		$marketing_channels = new MarketingChannels();
 
 		add_filter(
-			'woocommerce_marketing_channels',
+			'poocommerce_marketing_channels',
 			function ( array $channels ) use ( $test_channel ) {
 				$channels[ $test_channel->get_slug() ] = $test_channel;
 
@@ -75,7 +75,7 @@ class MarketingChannelsTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox A marketing channel can NOT be registered using the `woocommerce_marketing_channels` WordPress filter if it is previously registered.
+	 * @testdox A marketing channel can NOT be registered using the `poocommerce_marketing_channels` WordPress filter if it is previously registered.
 	 */
 	public function test_overrides_existing_channel_if_registered_using_wp_filter() {
 		$marketing_channels = new MarketingChannels();
@@ -89,7 +89,7 @@ class MarketingChannelsTest extends WC_Unit_Test_Case {
 		$test_channel_1_duplicate->expects( $this->any() )->method( 'get_slug' )->willReturn( 'test-channel-1' );
 
 		add_filter(
-			'woocommerce_marketing_channels',
+			'poocommerce_marketing_channels',
 			function ( array $channels ) use ( $test_channel_1_duplicate ) {
 				$channels[ $test_channel_1_duplicate->get_slug() ] = $test_channel_1_duplicate;
 

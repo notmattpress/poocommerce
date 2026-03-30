@@ -3,23 +3,23 @@
  */
 import clsx from 'clsx';
 import { sprintf, _n } from '@wordpress/i18n';
-import { Label } from '@woocommerce/blocks-components';
-import ProductPrice from '@woocommerce/base-components/product-price';
-import ProductName from '@woocommerce/base-components/product-name';
+import { Label } from '@poocommerce/blocks-components';
+import ProductPrice from '@poocommerce/base-components/product-price';
+import ProductName from '@poocommerce/base-components/product-name';
 import {
 	getCurrencyFromPriceResponse,
 	formatPrice,
-} from '@woocommerce/price-format';
+} from '@poocommerce/price-format';
 import {
 	applyCheckoutFilter,
 	productPriceScreenReaderValidation,
 	productPriceValidation,
-} from '@woocommerce/blocks-checkout';
-import { getSetting } from '@woocommerce/settings';
+} from '@poocommerce/blocks-checkout';
+import { getSetting } from '@poocommerce/settings';
 import { createInterpolateElement, useMemo } from '@wordpress/element';
-import { useStoreCart } from '@woocommerce/base-context/hooks';
-import { CartItem, isString } from '@woocommerce/types';
-import { calculateSaleAmount } from '@woocommerce/base-utils';
+import { useStoreCart } from '@poocommerce/base-context/hooks';
+import { CartItem, isString } from '@poocommerce/types';
+import { calculateSaleAmount } from '@poocommerce/base-utils';
 import { dinero, transformScale, toSnapshot } from 'dinero.js';
 import { USD } from 'dinero.js/currencies'; // USD is used as a placeholder currency for arithmetic; actual formatting is handled elsewhere.
 
@@ -151,7 +151,7 @@ const OrderSummaryItem = ( {
 		'Total price for <quantity/> <productName/> item: <price/>',
 		'Total price for <quantity/> <productName/> items: <price/>',
 		quantity,
-		'woocommerce'
+		'poocommerce'
 	);
 
 	const productPriceScreenReaderFormat = applyCheckoutFilter( {
@@ -206,7 +206,7 @@ const OrderSummaryItem = ( {
 								'%d item',
 								'%d items',
 								quantity,
-								'woocommerce'
+								'poocommerce'
 							),
 							quantity
 						) }

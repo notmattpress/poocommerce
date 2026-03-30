@@ -1,9 +1,9 @@
 <?php
 
-namespace Automattic\WooCommerce\Caches;
+namespace Automattic\PooCommerce\Caches;
 
-use Automattic\WooCommerce\Caching\ObjectCache;
-use Automattic\WooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
+use Automattic\PooCommerce\Caching\ObjectCache;
+use Automattic\PooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
 
 /**
  * A class to cache order objects.

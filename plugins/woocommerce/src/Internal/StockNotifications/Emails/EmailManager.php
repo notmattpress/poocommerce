@@ -2,14 +2,14 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\StockNotifications\Emails;
+namespace Automattic\PooCommerce\Internal\StockNotifications\Emails;
 
-use Automattic\WooCommerce\Internal\StockNotifications\Notification;
-use Automattic\WooCommerce\Internal\StockNotifications\Factory;
-use Automattic\WooCommerce\Internal\StockNotifications\Emails\CustomerStockNotificationEmail;
-use Automattic\WooCommerce\Internal\StockNotifications\Emails\CustomerStockNotificationVerifyEmail;
-use Automattic\WooCommerce\Internal\StockNotifications\Emails\CustomerStockNotificationVerifiedEmail;
-use Automattic\WooCommerce\Internal\StockNotifications\Emails\EmailTemplatesController;
+use Automattic\PooCommerce\Internal\StockNotifications\Notification;
+use Automattic\PooCommerce\Internal\StockNotifications\Factory;
+use Automattic\PooCommerce\Internal\StockNotifications\Emails\CustomerStockNotificationEmail;
+use Automattic\PooCommerce\Internal\StockNotifications\Emails\CustomerStockNotificationVerifyEmail;
+use Automattic\PooCommerce\Internal\StockNotifications\Emails\CustomerStockNotificationVerifiedEmail;
+use Automattic\PooCommerce\Internal\StockNotifications\Emails\EmailTemplatesController;
 /**
  * Emails manager.
  */
@@ -36,20 +36,20 @@ class EmailManager {
 	final public function init() {
 
 		// Setup email hooks & handlers.
-		add_filter( 'woocommerce_email_classes', array( $this, 'email_classes' ) );
+		add_filter( 'poocommerce_email_classes', array( $this, 'email_classes' ) );
 
 		// Add "transactional" emails.
-		add_action( 'woocommerce_email_actions', array( $this, 'add_transactional_emails' ) );
+		add_action( 'poocommerce_email_actions', array( $this, 'add_transactional_emails' ) );
 
 		// Setup styles.
-		add_filter( 'woocommerce_email_styles', array( $this, 'add_stylesheets' ), 10, 2 );
+		add_filter( 'poocommerce_email_styles', array( $this, 'add_stylesheets' ), 10, 2 );
 
 		// Preview.
-		add_filter( 'woocommerce_prepare_email_for_preview', array( $this, 'prepare_email_for_preview' ) );
-		add_filter( 'woocommerce_email_preview_email_content_setting_ids', array( $this, 'add_intro_content_to_preview_settings' ), 10, 2 );
+		add_filter( 'poocommerce_prepare_email_for_preview', array( $this, 'prepare_email_for_preview' ) );
+		add_filter( 'poocommerce_email_preview_email_content_setting_ids', array( $this, 'add_intro_content_to_preview_settings' ), 10, 2 );
 
 		// Restore customer's context while rendering the emails.
-		add_action( 'woocommerce_email_stock_notification_product', array( $this, 'maybe_restore_customer_tax_location_data' ), 9 );
+		add_action( 'poocommerce_email_stock_notification_product', array( $this, 'maybe_restore_customer_tax_location_data' ), 9 );
 
 		// Register email templates.
 		$container = wc_get_container();
@@ -77,7 +77,7 @@ class EmailManager {
 	 * Additionally, two transactional emails are dispatched during the signup and verification processes,
 	 * which need to be included in the actions array to support deferred email functionality.
 	 *
-	 * @hook woocommerce_defer_transactional_emails
+	 * @hook poocommerce_defer_transactional_emails
 	 *
 	 * @param array $actions The list of actions.
 	 * @return array
@@ -87,8 +87,8 @@ class EmailManager {
 			return $actions;
 		}
 
-		$actions[] = 'woocommerce_customer_stock_notification_verify';
-		$actions[] = 'woocommerce_customer_stock_notification_verified';
+		$actions[] = 'poocommerce_customer_stock_notification_verify';
+		$actions[] = 'poocommerce_customer_stock_notification_verified';
 
 		return $actions;
 	}
@@ -103,7 +103,7 @@ class EmailManager {
 	public function maybe_restore_customer_tax_location_data( $notification ) {
 
 		// No need if stores displaying price excluding tax.
-		if ( 'incl' !== get_option( 'woocommerce_tax_display_shop' ) ) {
+		if ( 'incl' !== get_option( 'poocommerce_tax_display_shop' ) ) {
 			return;
 		}
 
@@ -120,7 +120,7 @@ class EmailManager {
 
 		// Restore the tax location.
 		add_filter(
-			'woocommerce_get_tax_location',
+			'poocommerce_get_tax_location',
 			function () use ( $location ) {
 				return $location;
 			}
@@ -137,30 +137,30 @@ class EmailManager {
 	public function add_stylesheets( $css, $email = null ) {
 
 		/**
-		 * `woocommerce_email_stock_notification_emails_to_style` filter.
+		 * `poocommerce_email_stock_notification_emails_to_style` filter.
 		 *
 		 * @since  10.2.0
 		 *
 		 * @return array
 		 */
-		if ( ( is_null( $email ) || ! in_array( $email->id, (array) apply_filters( 'woocommerce_email_stock_notification_emails_to_style', self::$email_ids ), true ) ) ) {
+		if ( ( is_null( $email ) || ! in_array( $email->id, (array) apply_filters( 'poocommerce_email_stock_notification_emails_to_style', self::$email_ids ), true ) ) ) {
 			return $css;
 		}
 
 		// General text.
-		$text = get_option( 'woocommerce_email_text_color' );
+		$text = get_option( 'poocommerce_email_text_color' );
 
 		// Primary color.
-		$base = get_option( 'woocommerce_email_base_color' );
+		$base = get_option( 'poocommerce_email_base_color' );
 
 		/**
-		 * `woocommerce_email_stock_notification_base_text_color` filter.
+		 * `poocommerce_email_stock_notification_base_text_color` filter.
 		 *
 		 * @since  10.2.0
 		 *
 		 * @return string
 		 */
-		$base_text = (string) apply_filters( 'woocommerce_email_stock_notification_base_text_color', wc_light_or_dark( $base, '#202020', '#ffffff' ), $email );
+		$base_text = (string) apply_filters( 'poocommerce_email_stock_notification_base_text_color', wc_light_or_dark( $base, '#202020', '#ffffff' ), $email );
 
 		ob_start();
 		?>
@@ -240,7 +240,7 @@ class EmailManager {
 	}
 
 	/**
-	 * Register intro_content email fields to be watched by WooCommerce's live email preview.
+	 * Register intro_content email fields to be watched by PooCommerce's live email preview.
 	 *
 	 * @param array  $setting_ids The email content setting IDs.
 	 * @param string $email_id The email ID.
@@ -249,7 +249,7 @@ class EmailManager {
 	public function add_intro_content_to_preview_settings( $setting_ids, $email_id ) {
 
 		if ( in_array( $email_id, self::$email_ids, true ) ) {
-			$setting_ids[] = "woocommerce_{$email_id}_intro_content";
+			$setting_ids[] = "poocommerce_{$email_id}_intro_content";
 		}
 
 		return $setting_ids;

@@ -9,7 +9,7 @@ export function useBlocksHelper() {
 			// @ts-expect-error Outdated type definition.
 			select( 'core/block-editor' ).getBlockParentsByBlockName(
 				clientId,
-				'woocommerce/product-tab',
+				'poocommerce/product-tab',
 				true
 			);
 		if ( ! closestParentClientId ) {

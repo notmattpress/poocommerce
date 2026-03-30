@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-wp user create customer customer@woocommerceblockse2etestsuite.com \
+wp user create customer customer@poocommerceblockse2etestsuite.com \
 	--user_pass=password \
 	--role=subscriber \
 	--first_name='Jane' \

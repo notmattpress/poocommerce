@@ -50,8 +50,8 @@ Thumbs.db
 # Built files
 /build/
 bin/languages
-bin/eslint-plugin-woocommerce/node_modules/
-woocommerce-gutenberg-products-block.zip
+bin/eslint-plugin-poocommerce/node_modules/
+poocommerce-gutenberg-products-block.zip
 storybook-static/
 /wp-content/
 /.wp-env.override.json

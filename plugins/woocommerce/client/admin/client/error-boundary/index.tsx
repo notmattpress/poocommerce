@@ -4,8 +4,8 @@
 import { Component, ReactNode, ErrorInfo } from 'react';
 import { __ } from '@wordpress/i18n';
 import { Button } from '@wordpress/components';
-import { captureException } from '@woocommerce/remote-logging';
-import { bumpStat } from '@woocommerce/tracks';
+import { captureException } from '@poocommerce/remote-logging';
+import { bumpStat } from '@poocommerce/tracks';
 /**
  * Internal dependencies
  */
@@ -62,7 +62,7 @@ export class ErrorBoundary extends Component<
 
 	handleOpenSupport = () => {
 		window.open(
-			'https://wordpress.org/support/plugin/woocommerce/',
+			'https://wordpress.org/support/plugin/poocommerce/',
 			'_blank'
 		);
 	};
@@ -70,36 +70,36 @@ export class ErrorBoundary extends Component<
 	render() {
 		if ( this.state.hasError ) {
 			return (
-				<div className="woocommerce-global-error-boundary">
-					<h1 className="woocommerce-global-error-boundary__heading">
-						{ __( 'Oops, something went wrong', 'woocommerce' ) }
+				<div className="poocommerce-global-error-boundary">
+					<h1 className="poocommerce-global-error-boundary__heading">
+						{ __( 'Oops, something went wrong', 'poocommerce' ) }
 					</h1>
-					<p className="woocommerce-global-error-boundary__subheading">
+					<p className="poocommerce-global-error-boundary__subheading">
 						{ __(
 							'We’re sorry for the inconvenience. Please try reloading the page, or you can get support from the community forums.',
-							'woocommerce'
+							'poocommerce'
 						) }
 					</p>
-					<div className="woocommerce-global-error-boundary__actions">
+					<div className="poocommerce-global-error-boundary__actions">
 						<Button
 							variant="secondary"
 							onClick={ this.handleOpenSupport }
 						>
-							{ __( 'Get Support', 'woocommerce' ) }
+							{ __( 'Get Support', 'poocommerce' ) }
 						</Button>
 						<Button
 							variant="primary"
 							onClick={ this.handleRefresh }
 						>
-							{ __( 'Reload Page', 'woocommerce' ) }
+							{ __( 'Reload Page', 'poocommerce' ) }
 						</Button>
 					</div>
-					<details className="woocommerce-global-error-boundary__details">
+					<details className="poocommerce-global-error-boundary__details">
 						<summary>
-							{ __( 'Click for error details', 'woocommerce' ) }
+							{ __( 'Click for error details', 'poocommerce' ) }
 						</summary>
-						<div className="woocommerce-global-error-boundary__details-content">
-							<strong className="woocommerce-global-error-boundary__error">
+						<div className="poocommerce-global-error-boundary__details-content">
+							<strong className="poocommerce-global-error-boundary__error">
 								{ this.state.error &&
 									this.state.error.toString() }
 							</strong>

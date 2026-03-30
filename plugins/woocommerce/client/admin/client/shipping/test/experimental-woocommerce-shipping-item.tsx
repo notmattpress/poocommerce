@@ -3,22 +3,22 @@
  */
 import { render, screen, waitFor } from '@testing-library/react';
 import { useDispatch } from '@wordpress/data';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
  */
-import WooCommerceShippingItem from '../experimental-woocommerce-shipping-item';
+import PooCommerceShippingItem from '../experimental-poocommerce-shipping-item';
 jest.mock( '@wordpress/data', () => ( {
 	...jest.requireActual( '@wordpress/data' ),
 	useDispatch: jest.fn(),
 } ) );
-jest.mock( '@woocommerce/tracks', () => ( {
-	...jest.requireActual( '@woocommerce/tracks' ),
+jest.mock( '@poocommerce/tracks', () => ( {
+	...jest.requireActual( '@poocommerce/tracks' ),
 	recordEvent: jest.fn(),
 } ) );
 
-jest.mock( '@woocommerce/admin-layout', () => {
+jest.mock( '@poocommerce/admin-layout', () => {
 	const mockContext = {
 		layoutPath: [ 'root' ],
 		layoutString: 'root',
@@ -26,13 +26,13 @@ jest.mock( '@woocommerce/admin-layout', () => {
 		isDescendantOf: () => false,
 	};
 	return {
-		...jest.requireActual( '@woocommerce/admin-layout' ),
+		...jest.requireActual( '@poocommerce/admin-layout' ),
 		useLayoutContext: jest.fn().mockReturnValue( mockContext ),
 		useExtendLayout: jest.fn().mockReturnValue( mockContext ),
 	};
 } );
 
-describe( 'WooCommerceShippingItem', () => {
+describe( 'PooCommerceShippingItem', () => {
 	const defaultProps = {
 		pluginsBeingSetup: [] as string[],
 		onInstallClick: jest.fn( () => Promise.resolve() ),
@@ -47,14 +47,14 @@ describe( 'WooCommerceShippingItem', () => {
 
 	it( 'should render WC Shipping item with CTA = "Install" when WC Shipping is not installed', () => {
 		render(
-			<WooCommerceShippingItem
+			<PooCommerceShippingItem
 				isPluginInstalled={ false }
 				{ ...defaultProps }
 			/>
 		);
 
 		expect(
-			screen.queryByText( 'WooCommerce Shipping' )
+			screen.queryByText( 'PooCommerce Shipping' )
 		).toBeInTheDocument();
 
 		expect(
@@ -64,14 +64,14 @@ describe( 'WooCommerceShippingItem', () => {
 
 	it( 'should render WC Shipping item with CTA = "Activate" when WC Shipping is installed', () => {
 		render(
-			<WooCommerceShippingItem
+			<PooCommerceShippingItem
 				isPluginInstalled={ true }
 				{ ...defaultProps }
 			/>
 		);
 
 		expect(
-			screen.queryByText( 'WooCommerce Shipping' )
+			screen.queryByText( 'PooCommerce Shipping' )
 		).toBeInTheDocument();
 
 		expect(
@@ -82,7 +82,7 @@ describe( 'WooCommerceShippingItem', () => {
 	it( 'should call onInstallClick when clicking Install button', () => {
 		const onInstallClick = jest.fn( () => Promise.resolve() );
 		render(
-			<WooCommerceShippingItem
+			<PooCommerceShippingItem
 				isPluginInstalled={ false }
 				pluginsBeingSetup={ [] }
 				onInstallClick={ onInstallClick }
@@ -92,19 +92,19 @@ describe( 'WooCommerceShippingItem', () => {
 
 		screen.queryByRole( 'button', { name: 'Install' } )?.click();
 		expect( onInstallClick ).toHaveBeenCalledWith( [
-			'woocommerce-shipping',
+			'poocommerce-shipping',
 		] );
 	} );
 
 	it( 'should record shipping_partner_click when clicking Install button', () => {
 		render(
-			<WooCommerceShippingItem
+			<PooCommerceShippingItem
 				isPluginInstalled={ false }
 				{ ...defaultProps }
 				tracking={ {
 					context: 'settings',
 					country: 'US',
-					plugins: 'woocommerce-shipping',
+					plugins: 'poocommerce-shipping',
 				} }
 			/>
 		);
@@ -113,20 +113,20 @@ describe( 'WooCommerceShippingItem', () => {
 		expect( recordEvent ).toHaveBeenCalledWith( 'shipping_partner_click', {
 			context: 'settings',
 			country: 'US',
-			plugins: 'woocommerce-shipping',
-			selected_plugin: 'woocommerce-shipping',
+			plugins: 'poocommerce-shipping',
+			selected_plugin: 'poocommerce-shipping',
 		} );
 	} );
 
 	it( 'should record shipping_partner_click when clicking Activate button', () => {
 		render(
-			<WooCommerceShippingItem
+			<PooCommerceShippingItem
 				isPluginInstalled={ true }
 				{ ...defaultProps }
 				tracking={ {
 					context: 'settings',
 					country: 'US',
-					plugins: 'woocommerce-shipping',
+					plugins: 'poocommerce-shipping',
 				} }
 			/>
 		);
@@ -135,14 +135,14 @@ describe( 'WooCommerceShippingItem', () => {
 		expect( recordEvent ).toHaveBeenCalledWith( 'shipping_partner_click', {
 			context: 'settings',
 			country: 'US',
-			plugins: 'woocommerce-shipping',
-			selected_plugin: 'woocommerce-shipping',
+			plugins: 'poocommerce-shipping',
+			selected_plugin: 'poocommerce-shipping',
 		} );
 	} );
 
 	it( 'should record settings_shipping_recommendation_setup_click with action=install when clicking Install button', () => {
 		render(
-			<WooCommerceShippingItem
+			<PooCommerceShippingItem
 				isPluginInstalled={ false }
 				{ ...defaultProps }
 			/>
@@ -152,7 +152,7 @@ describe( 'WooCommerceShippingItem', () => {
 		expect( recordEvent ).toHaveBeenCalledWith(
 			'settings_shipping_recommendation_setup_click',
 			{
-				plugin: 'woocommerce-shipping',
+				plugin: 'poocommerce-shipping',
 				action: 'install',
 			}
 		);
@@ -160,7 +160,7 @@ describe( 'WooCommerceShippingItem', () => {
 
 	it( 'should record settings_shipping_recommendation_setup_click with action=activate when clicking Activate button', () => {
 		render(
-			<WooCommerceShippingItem
+			<PooCommerceShippingItem
 				isPluginInstalled={ true }
 				{ ...defaultProps }
 			/>
@@ -170,7 +170,7 @@ describe( 'WooCommerceShippingItem', () => {
 		expect( recordEvent ).toHaveBeenCalledWith(
 			'settings_shipping_recommendation_setup_click',
 			{
-				plugin: 'woocommerce-shipping',
+				plugin: 'poocommerce-shipping',
 				action: 'activate',
 			}
 		);
@@ -179,7 +179,7 @@ describe( 'WooCommerceShippingItem', () => {
 	it( 'should call onActivateClick when clicking Activate button', () => {
 		const onActivateClick = jest.fn( () => Promise.resolve() );
 		render(
-			<WooCommerceShippingItem
+			<PooCommerceShippingItem
 				isPluginInstalled={ true }
 				pluginsBeingSetup={ [] }
 				onInstallClick={ jest.fn( () => Promise.resolve() ) }
@@ -189,7 +189,7 @@ describe( 'WooCommerceShippingItem', () => {
 
 		screen.queryByRole( 'button', { name: 'Activate' } )?.click();
 		expect( onActivateClick ).toHaveBeenCalledWith( [
-			'woocommerce-shipping',
+			'poocommerce-shipping',
 		] );
 	} );
 
@@ -197,10 +197,10 @@ describe( 'WooCommerceShippingItem', () => {
 		const tracking = {
 			context: 'settings' as const,
 			country: 'US',
-			plugins: 'woocommerce-shipping',
+			plugins: 'poocommerce-shipping',
 		};
 		render(
-			<WooCommerceShippingItem
+			<PooCommerceShippingItem
 				isPluginInstalled={ false }
 				{ ...defaultProps }
 				onInstallClick={ jest.fn( () => Promise.resolve() ) }
@@ -216,8 +216,8 @@ describe( 'WooCommerceShippingItem', () => {
 				{
 					context: 'settings',
 					country: 'US',
-					plugins: 'woocommerce-shipping',
-					selected_plugin: 'woocommerce-shipping',
+					plugins: 'poocommerce-shipping',
+					selected_plugin: 'poocommerce-shipping',
 					success: true,
 				}
 			);
@@ -228,10 +228,10 @@ describe( 'WooCommerceShippingItem', () => {
 		const tracking = {
 			context: 'settings' as const,
 			country: 'US',
-			plugins: 'woocommerce-shipping',
+			plugins: 'poocommerce-shipping',
 		};
 		render(
-			<WooCommerceShippingItem
+			<PooCommerceShippingItem
 				isPluginInstalled={ false }
 				{ ...defaultProps }
 				onInstallClick={ jest.fn( () => Promise.reject() ) }
@@ -247,8 +247,8 @@ describe( 'WooCommerceShippingItem', () => {
 				{
 					context: 'settings',
 					country: 'US',
-					plugins: 'woocommerce-shipping',
-					selected_plugin: 'woocommerce-shipping',
+					plugins: 'poocommerce-shipping',
+					selected_plugin: 'poocommerce-shipping',
 					success: false,
 				}
 			);
@@ -259,10 +259,10 @@ describe( 'WooCommerceShippingItem', () => {
 		const tracking = {
 			context: 'settings' as const,
 			country: 'US',
-			plugins: 'woocommerce-shipping',
+			plugins: 'poocommerce-shipping',
 		};
 		render(
-			<WooCommerceShippingItem
+			<PooCommerceShippingItem
 				isPluginInstalled={ true }
 				{ ...defaultProps }
 				onActivateClick={ jest.fn( () => Promise.resolve() ) }
@@ -278,8 +278,8 @@ describe( 'WooCommerceShippingItem', () => {
 				{
 					context: 'settings',
 					country: 'US',
-					plugins: 'woocommerce-shipping',
-					selected_plugin: 'woocommerce-shipping',
+					plugins: 'poocommerce-shipping',
+					selected_plugin: 'poocommerce-shipping',
 					success: true,
 				}
 			);
@@ -290,10 +290,10 @@ describe( 'WooCommerceShippingItem', () => {
 		const tracking = {
 			context: 'settings' as const,
 			country: 'US',
-			plugins: 'woocommerce-shipping',
+			plugins: 'poocommerce-shipping',
 		};
 		render(
-			<WooCommerceShippingItem
+			<PooCommerceShippingItem
 				isPluginInstalled={ true }
 				{ ...defaultProps }
 				onActivateClick={ jest.fn( () => Promise.reject() ) }
@@ -309,8 +309,8 @@ describe( 'WooCommerceShippingItem', () => {
 				{
 					context: 'settings',
 					country: 'US',
-					plugins: 'woocommerce-shipping',
-					selected_plugin: 'woocommerce-shipping',
+					plugins: 'poocommerce-shipping',
+					selected_plugin: 'poocommerce-shipping',
 					success: false,
 				}
 			);

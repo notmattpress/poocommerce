@@ -1,9 +1,9 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Orders;
+namespace Automattic\PooCommerce\Tests\Internal\Orders;
 
-use Automattic\WooCommerce\Internal\Orders\OrderActionsRestController;
+use Automattic\PooCommerce\Internal\Orders\OrderActionsRestController;
 use WC_Helper_Order;
 use WC_REST_Unit_Test_Case;
 use WP_REST_Request;
@@ -679,7 +679,7 @@ class OrderActionsRestControllerTest extends WC_REST_Unit_Test_Case {
 		$override_preferred_ids = function () {
 			return array( 'customer_invoice', 'customer_completed_order' );
 		};
-		add_filter( 'woocommerce_rest_order_actions_email_preferred_template_ids', $override_preferred_ids );
+		add_filter( 'poocommerce_rest_order_actions_email_preferred_template_ids', $override_preferred_ids );
 
 		$request = new WP_REST_Request( 'POST', '/wc/v3/orders/' . $order->get_id() . '/actions/send_email' );
 		$request->add_header( 'User-Agent', 'some app' );
@@ -691,7 +691,7 @@ class OrderActionsRestControllerTest extends WC_REST_Unit_Test_Case {
 		$data = $response->get_data();
 		$this->assertStringContainsString( 'Order details sent to', $data['message'] );
 
-		remove_filter( 'woocommerce_rest_order_actions_email_preferred_template_ids', $override_preferred_ids );
+		remove_filter( 'poocommerce_rest_order_actions_email_preferred_template_ids', $override_preferred_ids );
 	}
 
 	/**
@@ -732,7 +732,7 @@ class OrderActionsRestControllerTest extends WC_REST_Unit_Test_Case {
 		$this->assertEquals( 404, $response->get_status() );
 
 		$data = $response->get_data();
-		$this->assertEquals( 'woocommerce_rest_not_found', $data['code'] );
+		$this->assertEquals( 'poocommerce_rest_not_found', $data['code'] );
 		$this->assertEquals( 'Order not found', $data['message'] );
 	}
 
@@ -844,7 +844,7 @@ class OrderActionsRestControllerTest extends WC_REST_Unit_Test_Case {
 		$this->assertEquals( 400, $response->get_status() );
 
 		$data = $response->get_data();
-		$this->assertEquals( 'woocommerce_rest_missing_email', $data['code'] );
+		$this->assertEquals( 'poocommerce_rest_missing_email', $data['code'] );
 		$this->assertEquals( 'Order does not have an email address.', $data['message'] );
 	}
 }

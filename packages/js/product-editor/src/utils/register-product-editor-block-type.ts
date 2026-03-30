@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { Block, BlockConfiguration } from '@wordpress/blocks';
-import { registerWooBlockType } from '@woocommerce/block-templates';
+import { registerWooBlockType } from '@poocommerce/block-templates';
 import { useEntityId } from '@wordpress/core-data';
 
 interface BlockRepresentation< T extends Record< string, object > > {
@@ -47,7 +47,7 @@ export function useEvaluationContext( context: Record< string, unknown > ) {
 
 function augmentUsesContext( usesContext?: string[] ) {
 	// Note: If you modify this function, also update the server-side
-	// Automattic\WooCommerce\Admin\Features\ProductBlockEditor\BlockRegistry::augment_uses_context() function.
+	// Automattic\PooCommerce\Admin\Features\ProductBlockEditor\BlockRegistry::augment_uses_context() function.
 	return [ ...( usesContext || [] ), 'postType' ];
 }
 

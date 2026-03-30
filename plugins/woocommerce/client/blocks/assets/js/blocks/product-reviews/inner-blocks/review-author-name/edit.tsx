@@ -57,7 +57,7 @@ export default function Edit( {
 					'user',
 					comment.author
 				) as User | null;
-				return user?.name ?? __( 'Anonymous', 'woocommerce' );
+				return user?.name ?? __( 'Anonymous', 'poocommerce' );
 			}
 			return authorName ?? '';
 		},
@@ -65,7 +65,7 @@ export default function Edit( {
 	);
 
 	if ( ! commentId || ! displayName ) {
-		displayName = _x( 'Review Author', 'block title', 'woocommerce' );
+		displayName = _x( 'Review Author', 'block title', 'poocommerce' );
 	}
 
 	const displayAuthor = isLink ? (
@@ -81,17 +81,17 @@ export default function Edit( {
 	return (
 		<>
 			<InspectorControls>
-				<PanelBody title={ __( 'Settings', 'woocommerce' ) }>
+				<PanelBody title={ __( 'Settings', 'poocommerce' ) }>
 					<ToggleControl
 						__nextHasNoMarginBottom
-						label={ __( 'Link to authors URL', 'woocommerce' ) }
+						label={ __( 'Link to authors URL', 'poocommerce' ) }
 						onChange={ () => setAttributes( { isLink: ! isLink } ) }
 						checked={ isLink }
 					/>
 					{ isLink && (
 						<ToggleControl
 							__nextHasNoMarginBottom
-							label={ __( 'Open in new tab', 'woocommerce' ) }
+							label={ __( 'Open in new tab', 'poocommerce' ) }
 							onChange={ ( value ) =>
 								setAttributes( {
 									linkTarget: value ? '_blank' : '_self',

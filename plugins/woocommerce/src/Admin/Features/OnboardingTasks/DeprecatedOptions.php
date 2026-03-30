@@ -3,9 +3,9 @@
  * Filters for maintaining backwards compatibility with deprecated options.
  */
 
-namespace Automattic\WooCommerce\Admin\Features\OnboardingTasks;
+namespace Automattic\PooCommerce\Admin\Features\OnboardingTasks;
 
-use Automattic\WooCommerce\Admin\Features\OnboardingTasks\Tasks\TaskList;
+use Automattic\PooCommerce\Admin\Features\OnboardingTasks\Tasks\TaskList;
 use WC_Install;
 
 /**
@@ -18,12 +18,12 @@ class DeprecatedOptions {
 	 * @internal
 	 */
 	final public static function init(): void {
-		add_filter( 'pre_option_woocommerce_task_list_complete', array( __CLASS__, 'get_deprecated_options' ), 10, 2 );
-		add_filter( 'pre_option_woocommerce_task_list_hidden', array( __CLASS__, 'get_deprecated_options' ), 10, 2 );
-		add_filter( 'pre_option_woocommerce_extended_task_list_hidden', array( __CLASS__, 'get_deprecated_options' ), 10, 2 );
-		add_filter( 'pre_update_option_woocommerce_task_list_complete', array( __CLASS__, 'update_deprecated_options' ), 10, 3 );
-		add_filter( 'pre_update_option_woocommerce_task_list_hidden', array( __CLASS__, 'update_deprecated_options' ), 10, 3 );
-		add_filter( 'pre_update_option_woocommerce_extended_task_list_hidden', array( __CLASS__, 'update_deprecated_options' ), 10, 3 );
+		add_filter( 'pre_option_poocommerce_task_list_complete', array( __CLASS__, 'get_deprecated_options' ), 10, 2 );
+		add_filter( 'pre_option_poocommerce_task_list_hidden', array( __CLASS__, 'get_deprecated_options' ), 10, 2 );
+		add_filter( 'pre_option_poocommerce_extended_task_list_hidden', array( __CLASS__, 'get_deprecated_options' ), 10, 2 );
+		add_filter( 'pre_update_option_poocommerce_task_list_complete', array( __CLASS__, 'update_deprecated_options' ), 10, 3 );
+		add_filter( 'pre_update_option_poocommerce_task_list_hidden', array( __CLASS__, 'update_deprecated_options' ), 10, 3 );
+		add_filter( 'pre_update_option_poocommerce_extended_task_list_hidden', array( __CLASS__, 'update_deprecated_options' ), 10, 3 );
 	}
 
 	/**
@@ -39,14 +39,14 @@ class DeprecatedOptions {
 		}
 
 		switch ( $option ) {
-			case 'woocommerce_task_list_complete':
-				$completed = get_option( 'woocommerce_task_list_completed_lists', array() );
+			case 'poocommerce_task_list_complete':
+				$completed = get_option( 'poocommerce_task_list_completed_lists', array() );
 				return is_array( $completed ) && in_array( 'setup', $completed, true ) ? 'yes' : 'no';
-			case 'woocommerce_task_list_hidden':
-				$hidden = get_option( 'woocommerce_task_list_hidden_lists', array() );
+			case 'poocommerce_task_list_hidden':
+				$hidden = get_option( 'poocommerce_task_list_hidden_lists', array() );
 				return is_array( $hidden ) && in_array( 'setup', $hidden, true ) ? 'yes' : 'no';
-			case 'woocommerce_extended_task_list_hidden':
-				$hidden = get_option( 'woocommerce_task_list_hidden_lists', array() );
+			case 'poocommerce_extended_task_list_hidden':
+				$hidden = get_option( 'poocommerce_task_list_hidden_lists', array() );
 				return is_array( $hidden ) && in_array( 'extended', $hidden, true ) ? 'yes' : 'no';
 			default:
 				return $pre_option;
@@ -64,36 +64,36 @@ class DeprecatedOptions {
 	 */
 	public static function update_deprecated_options( $value, $old_value, $option ) {
 		switch ( $option ) {
-			case 'woocommerce_task_list_complete':
-				$completed = get_option( 'woocommerce_task_list_completed_lists', array() );
+			case 'poocommerce_task_list_complete':
+				$completed = get_option( 'poocommerce_task_list_completed_lists', array() );
 				if ( is_array( $completed ) ) {
 					if ( 'yes' === $value ) {
 						if ( ! in_array( 'setup', $completed, true ) ) {
 							$completed[] = 'setup';
-							update_option( 'woocommerce_task_list_completed_lists', $completed, true );
+							update_option( 'poocommerce_task_list_completed_lists', $completed, true );
 						}
 					} else {
 						$completed = array_diff( $completed, array( 'setup' ) );
-						update_option( 'woocommerce_task_list_completed_lists', array_values( $completed ), true );
+						update_option( 'poocommerce_task_list_completed_lists', array_values( $completed ), true );
 					}
-					delete_option( 'woocommerce_task_list_complete' );
+					delete_option( 'poocommerce_task_list_complete' );
 				}
 				return $old_value;
-			case 'woocommerce_task_list_hidden':
+			case 'poocommerce_task_list_hidden':
 				$task_list = TaskLists::get_list( 'setup' );
 				if ( ! $task_list ) {
 					return $value;
 				}
 				$update = 'yes' === $value ? $task_list->hide() : $task_list->unhide();
-				delete_option( 'woocommerce_task_list_hidden' );
+				delete_option( 'poocommerce_task_list_hidden' );
 				return $old_value;
-			case 'woocommerce_extended_task_list_hidden':
+			case 'poocommerce_extended_task_list_hidden':
 				$task_list = TaskLists::get_list( 'extended' );
 				if ( ! $task_list ) {
 					return $value;
 				}
 				$update = 'yes' === $value ? $task_list->hide() : $task_list->unhide();
-				delete_option( 'woocommerce_extended_task_list_hidden' );
+				delete_option( 'poocommerce_extended_task_list_hidden' );
 				return $old_value;
 			default:
 				return $value;

@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { checkoutStore, paymentStore } from '@woocommerce/block-data';
+import { checkoutStore, paymentStore } from '@poocommerce/block-data';
 import { useSelect } from '@wordpress/data';
 
 /**

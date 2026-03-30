@@ -7,7 +7,7 @@ parameters:
 	level: 8
 	phpVersion: 70400
 	paths:
-		- woocommerce.php
+		- poocommerce.php
 		- src/
 		- includes/
 	excludePaths:

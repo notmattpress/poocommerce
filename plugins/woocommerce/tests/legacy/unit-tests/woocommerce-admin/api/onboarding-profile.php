@@ -2,15 +2,15 @@
 /**
  * Onboarding Profile REST API Test
  *
- * @package WooCommerce\Admin\Tests\API
+ * @package PooCommerce\Admin\Tests\API
  */
 
 declare(strict_types=1);
 
-use Automattic\WooCommerce\Admin\API\OnboardingProfile;
-use Automattic\WooCommerce\Internal\Admin\Schedulers\MailchimpScheduler;
-use Automattic\WooCommerce\Internal\Admin\Onboarding;
-use Automattic\WooCommerce\Internal\Admin\Onboarding\OnboardingProfile as Profile;
+use Automattic\PooCommerce\Admin\API\OnboardingProfile;
+use Automattic\PooCommerce\Internal\Admin\Schedulers\MailchimpScheduler;
+use Automattic\PooCommerce\Internal\Admin\Onboarding;
+use Automattic\PooCommerce\Internal\Admin\Onboarding\OnboardingProfile as Profile;
 
 /**
  * WC Tests API Onboarding Profile
@@ -167,11 +167,11 @@ class WC_Admin_Tests_API_Onboarding_Profiles extends WC_REST_Unit_Test_Case {
 		wp_set_current_user( $this->user );
 
 		add_filter(
-			'woocommerce_rest_onboarding_profile_properties',
+			'poocommerce_rest_onboarding_profile_properties',
 			function ( $properties ) {
 				$properties['test_profile_datum'] = array(
 					'type'        => 'array',
-					'description' => __( 'Test onboarding profile extensibility.', 'woocommerce' ),
+					'description' => __( 'Test onboarding profile extensibility.', 'poocommerce' ),
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				);
