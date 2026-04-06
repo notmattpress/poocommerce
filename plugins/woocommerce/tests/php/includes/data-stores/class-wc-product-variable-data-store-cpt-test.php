@@ -338,9 +338,9 @@ class WC_Product_Variable_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 	public function test_variation_price_cache_vat_exempt() {
 		// Set store to include tax in price display.
 		add_filter( 'wc_tax_enabled', '__return_true' );
-		add_filter( 'woocommerce_prices_include_tax', '__return_true' );
-		add_filter( 'pre_option_woocommerce_tax_display_shop', array( $this, '__return_incl' ) );
-		add_filter( 'pre_option_woocommerce_tax_display_cart', array( $this, '__return_incl' ) );
+		add_filter( 'poocommerce_prices_include_tax', '__return_true' );
+		add_filter( 'pre_option_poocommerce_tax_display_shop', array( $this, '__return_incl' ) );
+		add_filter( 'pre_option_poocommerce_tax_display_cart', array( $this, '__return_incl' ) );
 
 		// Create tax rate.
 		$tax_id = WC_Tax::_insert_tax_rate(
@@ -381,9 +381,9 @@ class WC_Product_Variable_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 		WC_Tax::_delete_tax_rate( $tax_id );
 
 		remove_filter( 'wc_tax_enabled', '__return_true' );
-		remove_filter( 'woocommerce_prices_include_tax', '__return_true' );
-		remove_filter( 'pre_option_woocommerce_tax_display_shop', array( $this, '__return_incl' ) );
-		remove_filter( 'pre_option_woocommerce_tax_display_cart', array( $this, '__return_incl' ) );
+		remove_filter( 'poocommerce_prices_include_tax', '__return_true' );
+		remove_filter( 'pre_option_poocommerce_tax_display_shop', array( $this, '__return_incl' ) );
+		remove_filter( 'pre_option_poocommerce_tax_display_cart', array( $this, '__return_incl' ) );
 	}
 
 	/**
@@ -477,8 +477,8 @@ class WC_Product_Variable_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 	 */
 	public function test_read_prices_cache_when_taxes_dont_influence_price( bool $tax_enabled, bool $taxable_product, bool $tax_has_rates, bool $user_vat_exempt ) {
 		add_filter( 'wc_tax_enabled', $tax_enabled ? '__return_true' : '__return_false' );
-		add_filter( 'woocommerce_product_is_taxable', $taxable_product ? '__return_true' : '__return_false' );
-		add_filter( 'woocommerce_matched_rates', $tax_has_rates ? array( $this, '__return_rates' ) : '__return_empty_array' );
+		add_filter( 'poocommerce_product_is_taxable', $taxable_product ? '__return_true' : '__return_false' );
+		add_filter( 'poocommerce_matched_rates', $tax_has_rates ? array( $this, '__return_rates' ) : '__return_empty_array' );
 		WC()->customer->set_is_vat_exempt( $user_vat_exempt );
 
 		$data_store     = new WC_Product_Variable_Data_Store_CPT();
@@ -505,8 +505,8 @@ class WC_Product_Variable_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 		$this->assertEquals( $expected_hashes, $actual_hashes );
 
 		remove_filter( 'wc_tax_enabled', $tax_enabled ? '__return_true' : '__return_false' );
-		remove_filter( 'woocommerce_product_is_taxable', $taxable_product ? '__return_true' : '__return_false' );
-		remove_filter( 'woocommerce_matched_rates', $tax_has_rates ? array( $this, '__return_rates' ) : '__return_empty_array' );
+		remove_filter( 'poocommerce_product_is_taxable', $taxable_product ? '__return_true' : '__return_false' );
+		remove_filter( 'poocommerce_matched_rates', $tax_has_rates ? array( $this, '__return_rates' ) : '__return_empty_array' );
 	}
 
 	/**
@@ -519,8 +519,8 @@ class WC_Product_Variable_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 	 */
 	public function test_read_prices_cache_when_taxes_influence_price( bool $for_display ) {
 		add_filter( 'wc_tax_enabled', '__return_true' );
-		add_filter( 'woocommerce_product_is_taxable', '__return_true' );
-		add_filter( 'woocommerce_matched_rates', array( $this, '__return_rates' ) );
+		add_filter( 'poocommerce_product_is_taxable', '__return_true' );
+		add_filter( 'poocommerce_matched_rates', array( $this, '__return_rates' ) );
 		WC()->customer->set_is_vat_exempt( false );
 
 		$data_store     = new WC_Product_Variable_Data_Store_CPT();
@@ -537,12 +537,12 @@ class WC_Product_Variable_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 		$this->assertEquals( $expected_hashes, $actual_hashes );
 
 		remove_filter( 'wc_tax_enabled', '__return_true' );
-		remove_filter( 'woocommerce_product_is_taxable', '__return_true' );
-		remove_filter( 'woocommerce_matched_rates', array( $this, '__return_rates' ) );
+		remove_filter( 'poocommerce_product_is_taxable', '__return_true' );
+		remove_filter( 'poocommerce_matched_rates', array( $this, '__return_rates' ) );
 	}
 
 	/**
-	 * @testdox read_prices skips unified caching if code hooked to woocommerce_variation_prices_array modifies the prices array.
+	 * @testdox read_prices skips unified caching if code hooked to poocommerce_variation_prices_array modifies the prices array.
 	 *
 	 * @testWith [true]
 	 *           [false]
@@ -552,12 +552,12 @@ class WC_Product_Variable_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 	 */
 	public function test_read_prices_cache_when_taxes_dont_influence_price_plus_hook( bool $hook_modifies_prices ) {
 		add_filter( 'wc_tax_enabled', '__return_true' );
-		add_filter( 'woocommerce_product_is_taxable', '__return_false' );
-		add_filter( 'woocommerce_matched_rates', array( $this, '__return_rates' ) );
+		add_filter( 'poocommerce_product_is_taxable', '__return_false' );
+		add_filter( 'poocommerce_matched_rates', array( $this, '__return_rates' ) );
 		WC()->customer->set_is_vat_exempt( false );
 
 		add_filter(
-			'woocommerce_variation_prices_array',
+			'poocommerce_variation_prices_array',
 			function ( $prices_array, $variation, $for_display ) use ( $hook_modifies_prices ) {
 				if ( $hook_modifies_prices ) {
 					$prices_array['foobar'] = $for_display;
@@ -583,10 +583,10 @@ class WC_Product_Variable_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 			array( $extended_data_store->get_price_hash( $product, true ), $extended_data_store->get_price_hash( $product, false ) );
 		$this->assertEquals( $expected_hashes, $actual_hashes );
 
-		remove_all_filters( 'woocommerce_variation_prices_array' );
+		remove_all_filters( 'poocommerce_variation_prices_array' );
 		remove_filter( 'wc_tax_enabled', '__return_true' );
-		remove_filter( 'woocommerce_product_is_taxable', '__return_false' );
-		remove_filter( 'woocommerce_matched_rates', array( $this, '__return_rates' ) );
+		remove_filter( 'poocommerce_product_is_taxable', '__return_false' );
+		remove_filter( 'poocommerce_matched_rates', array( $this, '__return_rates' ) );
 	}
 
 	/**

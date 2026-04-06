@@ -1,6 +1,6 @@
 interface Window {
 	_wpCollaborationEnabled?: boolean;
-	WooCommerceEmailEditor: {
+	PooCommerceEmailEditor: {
 		current_wp_user_email: string;
 		user_theme_post_id: number;
 		urls: {

@@ -1,12 +1,12 @@
 <?php
 /**
- * This file is part of the WooCommerce Email Editor package
+ * This file is part of the PooCommerce Email Editor package
  *
- * @package Automattic\WooCommerce\EmailEditor
+ * @package Automattic\PooCommerce\EmailEditor
  */
 
 declare(strict_types = 1);
-namespace Automattic\WooCommerce\EmailEditor\Engine;
+namespace Automattic\PooCommerce\EmailEditor\Engine;
 
 /**
  * Integration test for the send_preview_email endpoint permission callback.
@@ -32,7 +32,7 @@ class Send_Preview_Email_Permission_Test extends \Email_Editor_Integration_Test_
 	 *
 	 * @var string
 	 */
-	private const ROUTE = '/woocommerce-email-editor/v1/send_preview_email';
+	private const ROUTE = '/poocommerce-email-editor/v1/send_preview_email';
 
 	/**
 	 * Creates a user and returns an integer ID.

@@ -2,12 +2,12 @@
 /**
  * BacsGatewaySettingsSchema class.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\RestApi\Routes\V4\Settings\PaymentGateways\Schema;
+namespace Automattic\PooCommerce\Internal\RestApi\Routes\V4\Settings\PaymentGateways\Schema;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -36,29 +36,29 @@ class BacsGatewaySettingsSchema extends AbstractPaymentGatewaySettingsSchema {
 		// Design-aligned overrides for core fields.
 		$core_field_overrides = array(
 			'enabled'      => array(
-				'label' => __( 'Enable/Disable', 'woocommerce' ),
+				'label' => __( 'Enable/Disable', 'poocommerce' ),
 				'type'  => 'checkbox',
-				'desc'  => __( 'Enable Direct bank transfer at checkout', 'woocommerce' ),
+				'desc'  => __( 'Enable Direct bank transfer at checkout', 'poocommerce' ),
 			),
 			'title'        => array(
-				'label' => __( 'Checkout label', 'woocommerce' ),
+				'label' => __( 'Checkout label', 'poocommerce' ),
 				'type'  => 'text',
-				'desc'  => __( 'Shown to customers on the payment methods list at checkout.', 'woocommerce' ),
+				'desc'  => __( 'Shown to customers on the payment methods list at checkout.', 'poocommerce' ),
 			),
 			'description'  => array(
-				'label' => __( 'Checkout instructions', 'woocommerce' ),
+				'label' => __( 'Checkout instructions', 'poocommerce' ),
 				'type'  => 'text',
-				'desc'  => __( 'Shown below the checkout label.', 'woocommerce' ),
+				'desc'  => __( 'Shown below the checkout label.', 'poocommerce' ),
 			),
 			'order'        => array(
-				'label' => __( 'Order', 'woocommerce' ),
+				'label' => __( 'Order', 'poocommerce' ),
 				'type'  => 'number',
-				'desc'  => __( 'Determines the display order of payment gateways during checkout.', 'woocommerce' ),
+				'desc'  => __( 'Determines the display order of payment gateways during checkout.', 'poocommerce' ),
 			),
 			'instructions' => array(
-				'label' => __( 'Order confirmation instructions', 'woocommerce' ),
+				'label' => __( 'Order confirmation instructions', 'poocommerce' ),
 				'type'  => 'text',
-				'desc'  => __( 'Shown on the order confirmation page and in order emails.', 'woocommerce' ),
+				'desc'  => __( 'Shown on the order confirmation page and in order emails.', 'poocommerce' ),
 			),
 		);
 
@@ -66,8 +66,8 @@ class BacsGatewaySettingsSchema extends AbstractPaymentGatewaySettingsSchema {
 		$fields = $this->build_fields_from_form_fields( $gateway, $core_field_overrides, array( 'account_details' ) );
 
 		$settings_group = array(
-			'title'       => __( 'Direct bank transfer settings', 'woocommerce' ),
-			'description' => __( 'Manage how Direct bank transfer appears at checkout and in order emails.', 'woocommerce' ),
+			'title'       => __( 'Direct bank transfer settings', 'poocommerce' ),
+			'description' => __( 'Manage how Direct bank transfer appears at checkout and in order emails.', 'poocommerce' ),
 			'order'       => 1,
 			'fields'      => $fields,
 		);
@@ -75,15 +75,15 @@ class BacsGatewaySettingsSchema extends AbstractPaymentGatewaySettingsSchema {
 		$field = $gateway->form_fields['account_details'] ?? array();
 
 		$account_details_group = array(
-			'title'       => __( 'Bank account details', 'woocommerce' ),
-			'description' => __( 'Manage the bank accounts customers can use to pay by bank transfer.', 'woocommerce' ),
+			'title'       => __( 'Bank account details', 'poocommerce' ),
+			'description' => __( 'Manage the bank accounts customers can use to pay by bank transfer.', 'poocommerce' ),
 			'order'       => 2,
 			'fields'      => array(
 				array(
 					'id'    => 'account_details',
-					'label' => $field['title'] ?? __( 'Account details', 'woocommerce' ),
+					'label' => $field['title'] ?? __( 'Account details', 'poocommerce' ),
 					'type'  => 'array',
-					'desc'  => $field['description'] ?? __( 'Bank account details for direct bank transfer.', 'woocommerce' ),
+					'desc'  => $field['description'] ?? __( 'Bank account details for direct bank transfer.', 'poocommerce' ),
 				),
 			),
 		);
@@ -102,7 +102,7 @@ class BacsGatewaySettingsSchema extends AbstractPaymentGatewaySettingsSchema {
 	 */
 	protected function get_special_field_values( WC_Payment_Gateway $gateway ): array {
 		return array(
-			'account_details' => get_option( 'woocommerce_bacs_accounts', array() ),
+			'account_details' => get_option( 'poocommerce_bacs_accounts', array() ),
 		);
 	}
 
@@ -148,7 +148,7 @@ class BacsGatewaySettingsSchema extends AbstractPaymentGatewaySettingsSchema {
 	public function update_special_fields( WC_Payment_Gateway $gateway, array $values ): void {
 		foreach ( $values as $field_id => $value ) {
 			if ( 'account_details' === $field_id ) {
-				update_option( 'woocommerce_bacs_accounts', $value );
+				update_option( 'poocommerce_bacs_accounts', $value );
 			}
 		}
 	}
@@ -163,7 +163,7 @@ class BacsGatewaySettingsSchema extends AbstractPaymentGatewaySettingsSchema {
 		if ( ! is_array( $value ) ) {
 			return new WP_Error(
 				'rest_invalid_param',
-				__( 'Account details must be an array.', 'woocommerce' ),
+				__( 'Account details must be an array.', 'poocommerce' ),
 				array( 'status' => 400 )
 			);
 		}
@@ -177,7 +177,7 @@ class BacsGatewaySettingsSchema extends AbstractPaymentGatewaySettingsSchema {
 					'rest_invalid_param',
 					sprintf(
 						/* translators: %d: account index */
-						__( 'Account at index %d must be an object.', 'woocommerce' ),
+						__( 'Account at index %d must be an object.', 'poocommerce' ),
 						$index
 					),
 					array( 'status' => 400 )

@@ -1,20 +1,20 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Admin\Settings\PaymentsProviders;
+namespace Automattic\PooCommerce\Internal\Admin\Settings\PaymentsProviders;
 
 use Automattic\Jetpack\Connection\Manager as WPCOM_Connection_Manager;
 use Automattic\Jetpack\Constants;
-use Automattic\WooCommerce\Admin\PluginsHelper;
-use Automattic\WooCommerce\Admin\WCAdminHelper;
-use Automattic\WooCommerce\Enums\OrderInternalStatus;
-use Automattic\WooCommerce\Internal\Admin\Onboarding\OnboardingProfile;
-use Automattic\WooCommerce\Internal\Admin\Settings\PaymentsProviders;
-use Automattic\WooCommerce\Internal\Admin\Settings\PaymentsProviders\WooPayments\WooPaymentsRestController;
-use Automattic\WooCommerce\Internal\Admin\Settings\PaymentsProviders\WooPayments\WooPaymentsService;
-use Automattic\WooCommerce\Internal\Admin\Settings\Payments;
-use Automattic\WooCommerce\Internal\Admin\Settings\Utils;
-use Automattic\WooCommerce\Internal\Logging\SafeGlobalFunctionProxy;
+use Automattic\PooCommerce\Admin\PluginsHelper;
+use Automattic\PooCommerce\Admin\WCAdminHelper;
+use Automattic\PooCommerce\Enums\OrderInternalStatus;
+use Automattic\PooCommerce\Internal\Admin\Onboarding\OnboardingProfile;
+use Automattic\PooCommerce\Internal\Admin\Settings\PaymentsProviders;
+use Automattic\PooCommerce\Internal\Admin\Settings\PaymentsProviders\WooPayments\WooPaymentsRestController;
+use Automattic\PooCommerce\Internal\Admin\Settings\PaymentsProviders\WooPayments\WooPaymentsService;
+use Automattic\PooCommerce\Internal\Admin\Settings\Payments;
+use Automattic\PooCommerce\Internal\Admin\Settings\Utils;
+use Automattic\PooCommerce\Internal\Logging\SafeGlobalFunctionProxy;
 use Throwable;
 use WC_Abstract_Order;
 use WC_Payment_Gateway;
@@ -28,7 +28,7 @@ defined( 'ABSPATH' ) || exit;
  */
 class WooPayments extends PaymentGateway {
 
-	const PREFIX = 'woocommerce_admin_settings_payments__woopayments__';
+	const PREFIX = 'poocommerce_admin_settings_payments__woopayments__';
 
 	/**
 	 * Extract the payment gateway provider details from the object.
@@ -374,7 +374,7 @@ class WooPayments extends PaymentGateway {
 
 		return sprintf(
 			/* translators: %s: WooPayments. */
-			esc_html__( '%s is not supported in the selected business location.', 'woocommerce' ),
+			esc_html__( '%s is not supported in the selected business location.', 'poocommerce' ),
 			'WooPayments'
 		);
 	}
@@ -457,9 +457,9 @@ class WooPayments extends PaymentGateway {
 		 * - Store has an active payments gateway (other than WooPayments).
 		 * - Store has processed a live electronic payment in the past 90 days (any gateway).
 		 *
-		 * @see plugins/woocommerce/client/admin/client/core-profiler/pages/UserProfile.tsx for the values.
+		 * @see plugins/poocommerce/client/admin/client/core-profiler/pages/UserProfile.tsx for the values.
 		 */
-		if ( filter_var( get_option( 'woocommerce_coming_soon' ), FILTER_VALIDATE_BOOLEAN ) ) {
+		if ( filter_var( get_option( 'poocommerce_coming_soon' ), FILTER_VALIDATE_BOOLEAN ) ) {
 			$onboarding_profile = get_option( OnboardingProfile::DATA_OPTION, array() );
 			if (
 				isset( $onboarding_profile['business_choice'] ) && 'im_already_selling' === $onboarding_profile['business_choice'] &&
@@ -558,7 +558,7 @@ class WooPayments extends PaymentGateway {
 				return 'yes' === $gateway->enabled &&
 					! in_array(
 						$gateway->id,
-						array( 'woocommerce_payments', ...PaymentsProviders::OFFLINE_METHODS ),
+						array( 'poocommerce_payments', ...PaymentsProviders::OFFLINE_METHODS ),
 						true
 					);
 			}
@@ -661,7 +661,7 @@ class WooPayments extends PaymentGateway {
 	 */
 	private function get_wpcom_connection_state(): array {
 		try {
-			$wpcom_connection_manager = $this->proxy->get_instance_of( WPCOM_Connection_Manager::class, 'woocommerce' );
+			$wpcom_connection_manager = $this->proxy->get_instance_of( WPCOM_Connection_Manager::class, 'poocommerce' );
 		} catch ( \Throwable $e ) {
 			// Log so we can investigate.
 			SafeGlobalFunctionProxy::wc_get_logger()->error(

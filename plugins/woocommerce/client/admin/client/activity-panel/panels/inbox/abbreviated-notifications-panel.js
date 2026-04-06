@@ -2,13 +2,13 @@
  * External dependencies
  */
 import { __, _n, sprintf } from '@wordpress/i18n';
-import { Text } from '@woocommerce/experimental';
-import { recordEvent } from '@woocommerce/tracks';
-import { AbbreviatedCard } from '@woocommerce/components';
+import { Text } from '@poocommerce/experimental';
+import { recordEvent } from '@poocommerce/tracks';
+import { AbbreviatedCard } from '@poocommerce/components';
 import { useSelect } from '@wordpress/data';
 import { box, comment, page } from '@wordpress/icons';
 import { createSlotFill } from '@wordpress/components';
-import { isWCAdmin } from '@woocommerce/navigation';
+import { isWCAdmin } from '@poocommerce/navigation';
 
 /**
  * Internal dependencies
@@ -60,10 +60,10 @@ export const AbbreviatedNotificationsPanel = ( { thingsToDoNextCount } ) => {
 	const isWCAdminPage = isWCAdmin();
 
 	return (
-		<div className="woocommerce-abbreviated-notifications">
+		<div className="poocommerce-abbreviated-notifications">
 			{ thingsToDoNextCount > 0 && ! isExtendedTaskListHidden && (
 				<AbbreviatedCard
-					className="woocommerce-abbreviated-notification"
+					className="poocommerce-abbreviated-notification"
 					icon={ <Bell /> }
 					href={ `admin.php?page=wc-admin#${ EXTENDED_TASK_LIST_ID }` }
 					onClick={ () =>
@@ -72,7 +72,7 @@ export const AbbreviatedNotificationsPanel = ( { thingsToDoNextCount } ) => {
 					type={ isWCAdminPage ? 'wc-admin' : 'wp-admin' }
 				>
 					<Text as="h3">
-						{ __( 'Things to do next', 'woocommerce' ) }
+						{ __( 'Things to do next', 'poocommerce' ) }
 					</Text>
 					<Text as="p">
 						{ sprintf(
@@ -81,7 +81,7 @@ export const AbbreviatedNotificationsPanel = ( { thingsToDoNextCount } ) => {
 								'You have %d new thing to do',
 								'You have %d new things to do',
 								thingsToDoNextCount,
-								'woocommerce'
+								'poocommerce'
 							),
 							thingsToDoNextCount
 						) }
@@ -90,7 +90,7 @@ export const AbbreviatedNotificationsPanel = ( { thingsToDoNextCount } ) => {
 			) }
 			{ ordersToProcessCount > 0 && isSetupTaskListHidden && (
 				<AbbreviatedCard
-					className="woocommerce-abbreviated-notification"
+					className="poocommerce-abbreviated-notification"
 					icon={ page }
 					href={ `admin.php?page=wc-admin&opened_panel=${ ORDER_PANEL_ID }` }
 					onClick={ () =>
@@ -99,7 +99,7 @@ export const AbbreviatedNotificationsPanel = ( { thingsToDoNextCount } ) => {
 					type={ isWCAdminPage ? 'wc-admin' : 'wp-admin' }
 				>
 					<Text as="h3">
-						{ __( 'Orders to fulfill', 'woocommerce' ) }
+						{ __( 'Orders to fulfill', 'poocommerce' ) }
 					</Text>
 					<Text>
 						{ sprintf(
@@ -108,7 +108,7 @@ export const AbbreviatedNotificationsPanel = ( { thingsToDoNextCount } ) => {
 								'You have %d order to fulfill',
 								'You have %d orders to fulfill',
 								ordersToProcessCount,
-								'woocommerce'
+								'poocommerce'
 							),
 							ordersToProcessCount
 						) }
@@ -117,7 +117,7 @@ export const AbbreviatedNotificationsPanel = ( { thingsToDoNextCount } ) => {
 			) }
 			{ reviewsToModerateCount > 0 && isSetupTaskListHidden && (
 				<AbbreviatedCard
-					className="woocommerce-abbreviated-notification"
+					className="poocommerce-abbreviated-notification"
 					icon={ comment }
 					href={ `admin.php?page=wc-admin&opened_panel=${ REVIEWS_PANEL_ID }` }
 					onClick={ () =>
@@ -126,7 +126,7 @@ export const AbbreviatedNotificationsPanel = ( { thingsToDoNextCount } ) => {
 					type={ isWCAdminPage ? 'wc-admin' : 'wp-admin' }
 				>
 					<Text as="h3">
-						{ __( 'Reviews to moderate', 'woocommerce' ) }
+						{ __( 'Reviews to moderate', 'poocommerce' ) }
 					</Text>
 					<Text>
 						{ sprintf(
@@ -135,7 +135,7 @@ export const AbbreviatedNotificationsPanel = ( { thingsToDoNextCount } ) => {
 								'You have %d review to moderate',
 								'You have %d reviews to moderate',
 								reviewsToModerateCount,
-								'woocommerce'
+								'poocommerce'
 							),
 							reviewsToModerateCount
 						) }
@@ -144,7 +144,7 @@ export const AbbreviatedNotificationsPanel = ( { thingsToDoNextCount } ) => {
 			) }
 			{ stockNoticesCount > 0 && isSetupTaskListHidden && (
 				<AbbreviatedCard
-					className="woocommerce-abbreviated-notification"
+					className="poocommerce-abbreviated-notification"
 					icon={ box }
 					href={ `admin.php?page=wc-admin&opened_panel=${ STOCK_PANEL_ID }` }
 					onClick={ () =>
@@ -153,12 +153,12 @@ export const AbbreviatedNotificationsPanel = ( { thingsToDoNextCount } ) => {
 					type={ isWCAdminPage ? 'wc-admin' : 'wp-admin' }
 				>
 					<Text as="h3">
-						{ __( 'Inventory to review', 'woocommerce' ) }
+						{ __( 'Inventory to review', 'poocommerce' ) }
 					</Text>
 					<Text>
 						{ __(
 							'You have inventory to review and update',
-							'woocommerce'
+							'poocommerce'
 						) }
 					</Text>
 				</AbbreviatedCard>

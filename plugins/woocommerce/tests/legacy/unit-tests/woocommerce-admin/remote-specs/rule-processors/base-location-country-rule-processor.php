@@ -2,13 +2,13 @@
 /**
  * Base Location country rule processor tests.
  *
- * @package WooCommerce\Admin\Tests\RemoteSpecs
+ * @package PooCommerce\Admin\Tests\RemoteSpecs
  */
 
 declare( strict_types = 1 );
 
-use Automattic\WooCommerce\Admin\RemoteSpecs\RuleProcessors\BaseLocationCountryRuleProcessor;
-use Automattic\WooCommerce\Internal\Admin\Onboarding\OnboardingProfile;
+use Automattic\PooCommerce\Admin\RemoteSpecs\RuleProcessors\BaseLocationCountryRuleProcessor;
+use Automattic\PooCommerce\Internal\Admin\Onboarding\OnboardingProfile;
 
 /**
  * class WC_Admin_Tests_RemoteSpecs_RuleProcessors_BaseLocationCountryRuleProcessor
@@ -34,8 +34,8 @@ class WC_Admin_Tests_RemoteSpecs_RuleProcessors_BaseLocationCountryRuleProcessor
 	 */
 	public function tearDown(): void {
 		parent::tearDown();
-		update_option( 'woocommerce_store_address', '' );
-		update_option( 'woocommerce_default_country', 'US:CA' );
+		update_option( 'poocommerce_store_address', '' );
+		update_option( 'poocommerce_default_country', 'US:CA' );
 		update_option( OnboardingProfile::DATA_OPTION, array() );
 	}
 
@@ -45,7 +45,7 @@ class WC_Admin_Tests_RemoteSpecs_RuleProcessors_BaseLocationCountryRuleProcessor
 	 * @group fast
 	 */
 	public function test_spec_fails_if_wc_get_base_location_is_not_an_array() {
-		update_option( 'woocommerce_default_country', '' );
+		update_option( 'poocommerce_default_country', '' );
 
 		$processor = new BaseLocationCountryRuleProcessor();
 
@@ -60,7 +60,7 @@ class WC_Admin_Tests_RemoteSpecs_RuleProcessors_BaseLocationCountryRuleProcessor
 	 * @group fast
 	 */
 	public function test_spec_fails_if_base_location_is_default_and_onboarding_is_not_completed() {
-		update_option( 'woocommerce_default_country', 'US:CA' );
+		update_option( 'poocommerce_default_country', 'US:CA' );
 		update_option( OnboardingProfile::DATA_OPTION, array() );
 
 		$processor = new BaseLocationCountryRuleProcessor();
@@ -76,7 +76,7 @@ class WC_Admin_Tests_RemoteSpecs_RuleProcessors_BaseLocationCountryRuleProcessor
 	 * @group fast
 	 */
 	public function test_spec_succeeds_if_base_location_is_default_and_onboarding_is_completed() {
-		update_option( 'woocommerce_default_country', 'US:CA' );
+		update_option( 'poocommerce_default_country', 'US:CA' );
 		update_option( OnboardingProfile::DATA_OPTION, array( 'completed' => true ) );
 
 		$processor = new BaseLocationCountryRuleProcessor();
@@ -92,7 +92,7 @@ class WC_Admin_Tests_RemoteSpecs_RuleProcessors_BaseLocationCountryRuleProcessor
 	 * @group fast
 	 */
 	public function test_spec_succeeds_if_base_location_is_default_and_onboarding_is_skipped() {
-		update_option( 'woocommerce_default_country', 'US:CA' );
+		update_option( 'poocommerce_default_country', 'US:CA' );
 		update_option( OnboardingProfile::DATA_OPTION, array( 'skipped' => true ) );
 
 		$processor = new BaseLocationCountryRuleProcessor();
@@ -108,7 +108,7 @@ class WC_Admin_Tests_RemoteSpecs_RuleProcessors_BaseLocationCountryRuleProcessor
 	 * @group fast
 	 */
 	public function test_spec_succeeds_if_base_location_is_not_default() {
-		update_option( 'woocommerce_default_country', 'US:FL' );
+		update_option( 'poocommerce_default_country', 'US:FL' );
 		update_option( OnboardingProfile::DATA_OPTION, array() );
 
 		$processor = new BaseLocationCountryRuleProcessor();
@@ -124,7 +124,7 @@ class WC_Admin_Tests_RemoteSpecs_RuleProcessors_BaseLocationCountryRuleProcessor
 	 * @group fast
 	 */
 	public function test_spec_succeeds_if_base_location_is_default_and_is_store_country_set_is_true() {
-		update_option( 'woocommerce_default_country', 'US:CA' );
+		update_option( 'poocommerce_default_country', 'US:CA' );
 		update_option( OnboardingProfile::DATA_OPTION, array( 'is_store_country_set' => true ) );
 
 		$processor = new BaseLocationCountryRuleProcessor();
@@ -140,8 +140,8 @@ class WC_Admin_Tests_RemoteSpecs_RuleProcessors_BaseLocationCountryRuleProcessor
 	 * @group fast
 	 */
 	public function test_spec_succeeds_if_store_address_is_updated() {
-		update_option( 'woocommerce_store_address', 'updated' );
-		update_option( 'woocommerce_default_country', 'US:CA' );
+		update_option( 'poocommerce_store_address', 'updated' );
+		update_option( 'poocommerce_default_country', 'US:CA' );
 		update_option( OnboardingProfile::DATA_OPTION, array() );
 
 		$processor = new BaseLocationCountryRuleProcessor();

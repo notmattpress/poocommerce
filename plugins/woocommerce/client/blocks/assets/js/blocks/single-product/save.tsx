@@ -4,9 +4,9 @@
 import { InnerBlocks, useBlockProps } from '@wordpress/block-editor';
 
 const Save = () => {
-	// We add the `woocommerce` class to the wrapper to apply WooCommerce styles to the block.
+	// We add the `poocommerce` class to the wrapper to apply PooCommerce styles to the block.
 	const blockProps = useBlockProps.save( {
-		className: 'woocommerce',
+		className: 'poocommerce',
 	} );
 
 	return (

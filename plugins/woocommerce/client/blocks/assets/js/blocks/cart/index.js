@@ -25,10 +25,10 @@ export const settings = {
 		to: [
 			{
 				type: 'block',
-				blocks: [ 'woocommerce/classic-shortcode' ],
+				blocks: [ 'poocommerce/classic-shortcode' ],
 				transform: ( attributes ) => {
 					return createBlock(
-						'woocommerce/classic-shortcode',
+						'poocommerce/classic-shortcode',
 						{
 							shortcode: 'cart',
 							align: attributes.align,
@@ -58,34 +58,34 @@ export const settings = {
 					attributes,
 					[
 						createBlock(
-							'woocommerce/filled-cart-block',
+							'poocommerce/filled-cart-block',
 							{ align },
 							[
-								createBlock( 'woocommerce/cart-items-block' ),
+								createBlock( 'poocommerce/cart-items-block' ),
 								createBlock(
-									'woocommerce/cart-totals-block',
+									'poocommerce/cart-totals-block',
 									{},
 									[
 										createBlock(
-											'woocommerce/cart-order-summary-block',
+											'poocommerce/cart-order-summary-block',
 											{}
 										),
 										createBlock(
-											'woocommerce/cart-express-payment-block'
+											'poocommerce/cart-express-payment-block'
 										),
 										createBlock(
-											'woocommerce/proceed-to-checkout-block',
+											'poocommerce/proceed-to-checkout-block',
 											{ checkoutPageId }
 										),
 										createBlock(
-											'woocommerce/cart-accepted-payment-methods-block'
+											'poocommerce/cart-accepted-payment-methods-block'
 										),
 									]
 								),
 							]
 						),
 						createBlock(
-							'woocommerce/empty-cart-block',
+							'poocommerce/empty-cart-block',
 							{ align },
 							innerBlocks
 						),
@@ -94,7 +94,7 @@ export const settings = {
 			},
 			isEligible: ( _, innerBlocks ) => {
 				return ! innerBlocks.find(
-					( block ) => block.name === 'woocommerce/filled-cart-block'
+					( block ) => block.name === 'poocommerce/filled-cart-block'
 				);
 			},
 		},

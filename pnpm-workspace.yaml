@@ -2,10 +2,10 @@ packages:
     - 'packages/js/*'
     - 'packages/php/*'
     - 'plugins/*'
-    - 'plugins/woocommerce/client/admin'
-    - 'plugins/woocommerce/client/blocks'
-    - 'plugins/woocommerce/client/legacy'
-    - 'plugins/woocommerce/client/blocks/bin/eslint-plugin-woocommerce'
+    - 'plugins/poocommerce/client/admin'
+    - 'plugins/poocommerce/client/blocks'
+    - 'plugins/poocommerce/client/legacy'
+    - 'plugins/poocommerce/client/blocks/bin/eslint-plugin-poocommerce'
     - 'tools/monorepo-merge'
     - 'tools/code-analyzer'
     - 'tools/compare-perf'
@@ -38,7 +38,7 @@ childConcurrency: 8
 minimumReleaseAge: 1440
 minimumReleaseAgeExclude:
     - '@automattic/*'
-    - '@woocommerce/*'
+    - '@poocommerce/*'
     - '@wordpress/*'
 
 # Require explicit approval for dependency build scripts (postinstall, etc).
@@ -62,7 +62,7 @@ allowBuilds:
 # Block odd protocols (git+ssh, etc.) in transitive dependencies.
 # DISABLED: @wordpress/interactivity uses a git-hosted fork (via .pnpmfile.cjs readPackage hook)
 # for @wordpress/interactivity-router. pnpm has no exclude mechanism for blockExoticSubdeps.
-# TODO: Re-enable once the WooCommerce Gutenberg fork of @wordpress/interactivity is no longer needed.
+# TODO: Re-enable once the PooCommerce Gutenberg fork of @wordpress/interactivity is no longer needed.
 blockExoticSubdeps: false
 
 # Prevent trust downgrades (e.g., replacing a signed version with unsigned).

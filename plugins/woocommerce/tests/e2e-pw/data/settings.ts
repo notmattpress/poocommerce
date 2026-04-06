@@ -3,7 +3,7 @@
  *
  * For more details on settings properties, see:
  *
- * https://woocommerce.github.io/woocommerce-rest-api-docs/#settings
+ * https://poocommerce.github.io/poocommerce-rest-api-docs/#settings
  *
  */
 

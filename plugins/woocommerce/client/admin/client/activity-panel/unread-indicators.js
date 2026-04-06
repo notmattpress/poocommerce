@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { notesStore, userStore, QUERY_DEFAULTS } from '@woocommerce/data';
+import { notesStore, userStore, QUERY_DEFAULTS } from '@poocommerce/data';
 
 /**
  * Internal dependencies
@@ -25,8 +25,8 @@ export function hasUnreadNotes( select ) {
 	const userData = getCurrentUser();
 	const lastRead = parseInt(
 		userData &&
-			userData.woocommerce_meta &&
-			userData.woocommerce_meta.activity_panel_inbox_last_read,
+			userData.poocommerce_meta &&
+			userData.poocommerce_meta.activity_panel_inbox_last_read,
 		10
 	);
 

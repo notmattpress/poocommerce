@@ -5,7 +5,7 @@
 	"plugins": [
 	  {
 		"name": "WooPayments",
-		"description": "Accept credit cards and other popular payment methods with <a href=\"https://woocommerce.com/products/woocommerce-payments\" target=\"_blank\">WooPayments</a>",
+		"description": "Accept credit cards and other popular payment methods with <a href=\"https://poocommerce.com/products/poocommerce-payments\" target=\"_blank\">WooPayments</a>",
 		"is_visible": [
 		  {
 			"type": "or",
@@ -223,7 +223,7 @@
 				}
 			  }
 			],
-			"option_name": "woocommerce_onboarding_profile",
+			"option_name": "poocommerce_onboarding_profile",
 			"operation": "!contains",
 			"value": "cbd-other-hemp-derived-products",
 			"default": []
@@ -231,11 +231,11 @@
 		],
 		"is_built_by_wc": true,
 		"min_wp_version": "5.9",
-		"key": "woocommerce-payments"
+		"key": "poocommerce-payments"
 	  },
 	  {
-		"name": "WooCommerce Shipping",
-		"description": "Print shipping labels with <a href=\"https://woocommerce.com/products/shipping\" target=\"_blank\">WooCommerce Shipping</a>",
+		"name": "PooCommerce Shipping",
+		"description": "Print shipping labels with <a href=\"https://poocommerce.com/products/shipping\" target=\"_blank\">PooCommerce Shipping</a>",
 		"is_visible": [
 		  {
 			"type": "base_location_country",
@@ -248,7 +248,7 @@
 			  {
 				"type": "plugins_activated",
 				"plugins": [
-				  "woocommerce-services"
+				  "poocommerce-services"
 				]
 			  }
 			]
@@ -270,7 +270,7 @@
 					  "use": "count"
 					}
 				  ],
-				  "option_name": "woocommerce_onboarding_profile",
+				  "option_name": "poocommerce_onboarding_profile",
 				  "value": 1,
 				  "default": [],
 				  "operation": "!="
@@ -287,7 +287,7 @@
 					  }
 					}
 				  ],
-				  "option_name": "woocommerce_onboarding_profile",
+				  "option_name": "poocommerce_onboarding_profile",
 				  "value": "downloads",
 				  "default": "",
 				  "operation": "!="
@@ -297,11 +297,11 @@
 		  }
 		],
 		"is_built_by_wc": true,
-		"key": "woocommerce-services:shipping"
+		"key": "poocommerce-services:shipping"
 	  },
 	  {
-		"name": "WooCommerce Tax",
-		"description": "Get automated sales tax with <a href=\"https://woocommerce.com/products/tax\" target=\"_blank\">WooCommerce Tax</a>",
+		"name": "PooCommerce Tax",
+		"description": "Get automated sales tax with <a href=\"https://poocommerce.com/products/tax\" target=\"_blank\">PooCommerce Tax</a>",
 		"is_visible": [
 		  {
 			"type": "or",
@@ -369,18 +369,18 @@
 			  {
 				"type": "plugins_activated",
 				"plugins": [
-				  "woocommerce-services"
+				  "poocommerce-services"
 				]
 			  }
 			]
 		  }
 		],
 		"is_built_by_wc": true,
-		"key": "woocommerce-services:tax"
+		"key": "poocommerce-services:tax"
 	  },
 	  {
 		"name": "Jetpack",
-		"description": "Enhance speed and security with <a href=\"https://woocommerce.com/products/jetpack\" target=\"_blank\">Jetpack</a>",
+		"description": "Enhance speed and security with <a href=\"https://poocommerce.com/products/jetpack\" target=\"_blank\">Jetpack</a>",
 		"is_visible": [
 		  {
 			"type": "not",
@@ -406,7 +406,7 @@
 	"plugins": [
 	  {
 		"name": "MailPoet",
-		"description": "Level up your email marketing with <a href=\"https://woocommerce.com/products/mailpoet\" target=\"_blank\">MailPoet</a>",
+		"description": "Level up your email marketing with <a href=\"https://poocommerce.com/products/mailpoet\" target=\"_blank\">MailPoet</a>",
 		"manage_url": "admin.php?page=mailpoet-newsletters",
 		"is_visible": [
 		  {
@@ -425,9 +425,9 @@
 		"key": "mailpoet"
 	  },
 	  {
-		"name": "Google for WooCommerce",
-		"description": "Drive sales with <a href=\"https://woocommerce.com/products/google-listings-and-ads\" target=\"_blank\">Google for WooCommerce</a>",
-		"image_url": "https://woocommerce.com/wp-content/plugins/wccom-plugins/obw-free-extensions/images/google.svg",
+		"name": "Google for PooCommerce",
+		"description": "Drive sales with <a href=\"https://poocommerce.com/products/google-listings-and-ads\" target=\"_blank\">Google for PooCommerce</a>",
+		"image_url": "https://poocommerce.com/wp-content/plugins/wccom-plugins/obw-free-extensions/images/google.svg",
 		"manage_url": "admin.php?page=wc-admin&path=%2Fgoogle%2Fstart",
 		"is_visible": [
 		  {
@@ -447,22 +447,22 @@
 		"key": "google-listings-and-ads"
 	  },
 	  {
-		"name": "Pinterest for WooCommerce",
+		"name": "Pinterest for PooCommerce",
 		"description": "Get your products in front of Pinners searching for ideas and things to buy.",
-		"image_url": "https://woocommerce.com/wp-content/plugins/wccom-plugins/obw-free-extensions/images/pinterest.png",
+		"image_url": "https://poocommerce.com/wp-content/plugins/wccom-plugins/obw-free-extensions/images/pinterest.png",
 		"manage_url": "admin.php?page=wc-admin&path=%2Fpinterest%2Flanding",
 		"is_built_by_wc": true,
 		"min_php_version": "7.3",
-		"key": "pinterest-for-woocommerce"
+		"key": "pinterest-for-poocommerce"
 	  },
 	  {
-		"name": "Facebook for WooCommerce",
-		"description": "List products and create ads on Facebook and Instagram with <a href=\"https://woocommerce.com/products/facebook/\">Facebook for WooCommerce</a>",
-		"image_url": "https://woocommerce.com/wp-content/plugins/wccom-plugins/obw-free-extensions/images/facebook.png",
+		"name": "Facebook for PooCommerce",
+		"description": "List products and create ads on Facebook and Instagram with <a href=\"https://poocommerce.com/products/facebook/\">Facebook for PooCommerce</a>",
+		"image_url": "https://poocommerce.com/wp-content/plugins/wccom-plugins/obw-free-extensions/images/facebook.png",
 		"manage_url": "admin.php?page=wc-facebook",
 		"is_visible": false,
 		"is_built_by_wc": false,
-		"key": "facebook-for-woocommerce"
+		"key": "facebook-for-poocommerce"
 	  }
 	]
   },
@@ -473,7 +473,7 @@
 	  {
 		"name": "MailPoet",
 		"description": "Create and send purchase follow-up emails, newsletters, and promotional campaigns straight from your dashboard.",
-		"image_url": "https://woocommerce.com/wp-content/plugins/wccom-plugins/obw-free-extensions/images/mailpoet.svg",
+		"image_url": "https://poocommerce.com/wp-content/plugins/wccom-plugins/obw-free-extensions/images/mailpoet.svg",
 		"manage_url": "admin.php?page=mailpoet-newsletters",
 		"is_built_by_wc": true,
 		"key": "mailpoet:alt"
@@ -481,15 +481,15 @@
 	  {
 		"name": "Mailchimp",
 		"description": "Send targeted campaigns, recover abandoned carts and much more with Mailchimp.",
-		"image_url": "https://woocommerce.com/wp-content/plugins/wccom-plugins/obw-free-extensions/images/mailchimp.svg",
-		"manage_url": "admin.php?page=mailchimp-woocommerce",
+		"image_url": "https://poocommerce.com/wp-content/plugins/wccom-plugins/obw-free-extensions/images/mailchimp.svg",
+		"manage_url": "admin.php?page=mailchimp-poocommerce",
 		"is_built_by_wc": false,
-		"key": "mailchimp-for-woocommerce"
+		"key": "mailchimp-for-poocommerce"
 	  },
 	  {
 		"name": "Klaviyo",
 		"description": "Grow and retain customers with intelligent, impactful email and SMS marketing automation and a consolidated view of customer interactions.",
-		"image_url": "https://woocommerce.com/wp-content/plugins/wccom-plugins/obw-free-extensions/images/klaviyo.png",
+		"image_url": "https://poocommerce.com/wp-content/plugins/wccom-plugins/obw-free-extensions/images/klaviyo.png",
 		"manage_url": "admin.php?page=klaviyo_settings",
 		"is_built_by_wc": false,
 		"key": "klaviyo"
@@ -501,16 +501,16 @@
 	"title": "Grow your store",
 	"plugins": [
 	  {
-		"name": "Google for WooCommerce",
+		"name": "Google for PooCommerce",
 		"description": "Reach more shoppers and drive sales for your store. Integrate with Google to list your products for free and launch paid ad campaigns.",
-		"image_url": "https://woocommerce.com/wp-content/plugins/wccom-plugins/obw-free-extensions/images/google.svg",
+		"image_url": "https://poocommerce.com/wp-content/plugins/wccom-plugins/obw-free-extensions/images/google.svg",
 		"manage_url": "admin.php?page=wc-admin&path=%2Fgoogle%2Fstart",
 		"is_built_by_wc": true,
 		"key": "google-listings-and-ads:alt"
 	  },
 	  {
-		"name": "TikTok for WooCommerce",
-		"image_url": "https://woocommerce.com/wp-content/plugins/wccom-plugins/obw-free-extensions/images/tiktok.svg",
+		"name": "TikTok for PooCommerce",
+		"image_url": "https://poocommerce.com/wp-content/plugins/wccom-plugins/obw-free-extensions/images/tiktok.svg",
 		"description": "Grow your online sales by promoting your products on TikTok to over one billion monthly active users around the world.",
 		"manage_url": "admin.php?page=tiktok",
 		"is_visible": [
@@ -724,21 +724,21 @@
 		"key": "tiktok-for-business"
 	  },
 	  {
-		"name": "Pinterest for WooCommerce",
+		"name": "Pinterest for PooCommerce",
 		"description": "Get your products in front of Pinterest users searching for ideas and things to buy. Get started with Pinterest and make your entire product catalog browsable.",
-		"image_url": "https://woocommerce.com/wp-content/plugins/wccom-plugins/obw-free-extensions/images/pinterest.png",
+		"image_url": "https://poocommerce.com/wp-content/plugins/wccom-plugins/obw-free-extensions/images/pinterest.png",
 		"manage_url": "admin.php?page=wc-admin&path=%2Fpinterest%2Flanding",
 		"is_built_by_wc": true,
-		"key": "pinterest-for-woocommerce:alt"
+		"key": "pinterest-for-poocommerce:alt"
 	  },
 	  {
-		"name": "Facebook for WooCommerce",
+		"name": "Facebook for PooCommerce",
 		"description": "List products and create ads on Facebook and Instagram.",
-		"image_url": "https://woocommerce.com/wp-content/plugins/wccom-plugins/obw-free-extensions/images/facebook.png",
+		"image_url": "https://poocommerce.com/wp-content/plugins/wccom-plugins/obw-free-extensions/images/facebook.png",
 		"manage_url": "admin.php?page=wc-facebook",
 		"is_visible": false,
 		"is_built_by_wc": false,
-		"key": "facebook-for-woocommerce:alt"
+		"key": "facebook-for-poocommerce:alt"
 	  }
 	]
   },
@@ -966,7 +966,7 @@
 				}
 			  }
 			],
-			"option_name": "woocommerce_onboarding_profile",
+			"option_name": "poocommerce_onboarding_profile",
 			"operation": "!contains",
 			"value": "cbd-other-hemp-derived-products",
 			"default": []
@@ -974,14 +974,14 @@
 		],
 		"is_built_by_wc": true,
 		"min_wp_version": "5.9",
-		"key": "woocommerce-payments",
+		"key": "poocommerce-payments",
 		"label": "Get paid with WooPayments",
-		"image_url": "https://woocommerce.com/wp-content/plugins/wccom-plugins/obw-free-extensions/images/core-profiler/logo-woo.svg",
-		"learn_more_link": "https://woocommerce.com/products/woocommerce-payments",
+		"image_url": "https://poocommerce.com/wp-content/plugins/wccom-plugins/obw-free-extensions/images/core-profiler/logo-woo.svg",
+		"learn_more_link": "https://poocommerce.com/products/poocommerce-payments",
 		"install_priority": 5
 	  },
 	  {
-		"name": "WooCommerce Shipping",
+		"name": "PooCommerce Shipping",
 		"description": "Print USPS and DHL labels directly from your dashboard and save on shipping.",
 		"is_visible": [
 		  {
@@ -991,10 +991,10 @@
 		  }
 		],
 		"is_built_by_wc": true,
-		"key": "woocommerce-services:shipping",
-		"label": "Print shipping labels with WooCommerce Shipping",
-		"image_url": "https://woocommerce.com/wp-content/plugins/wccom-plugins/obw-free-extensions/images/core-profiler/logo-woo.svg",
-		"learn_more_link": "https://woocommerce.com/woocommerce-shipping",
+		"key": "poocommerce-services:shipping",
+		"label": "Print shipping labels with PooCommerce Shipping",
+		"image_url": "https://poocommerce.com/wp-content/plugins/wccom-plugins/obw-free-extensions/images/core-profiler/logo-woo.svg",
+		"learn_more_link": "https://poocommerce.com/poocommerce-shipping",
 		"install_priority": 3
 	  },
 	  {
@@ -1005,20 +1005,20 @@
 		"min_wp_version": "6.0",
 		"key": "jetpack",
 		"label": "Boost content creation with Jetpack AI Assistant",
-		"image_url": "https://woocommerce.com/wp-content/plugins/wccom-plugins/obw-free-extensions/images/core-profiler/logo-jetpack.svg",
-		"learn_more_link": "https://woocommerce.com/products/jetpack",
+		"image_url": "https://poocommerce.com/wp-content/plugins/wccom-plugins/obw-free-extensions/images/core-profiler/logo-jetpack.svg",
+		"learn_more_link": "https://poocommerce.com/products/jetpack",
 		"install_priority": 8
 	  },
 	  {
-		"name": "Pinterest for WooCommerce",
+		"name": "Pinterest for PooCommerce",
 		"description": "Get your products in front of a highly engaged audience.",
-		"image_url": "https://woocommerce.com/wp-content/plugins/wccom-plugins/obw-free-extensions/images/core-profiler/logo-pinterest.svg",
+		"image_url": "https://poocommerce.com/wp-content/plugins/wccom-plugins/obw-free-extensions/images/core-profiler/logo-pinterest.svg",
 		"manage_url": "admin.php?page=wc-admin&path=%2Fpinterest%2Flanding",
 		"is_built_by_wc": true,
 		"min_php_version": "7.3",
-		"key": "pinterest-for-woocommerce",
+		"key": "pinterest-for-poocommerce",
 		"label": "Showcase your products with Pinterest",
-		"learn_more_link": "https://woocommerce.com/products/pinterest-for-woocommerce",
+		"learn_more_link": "https://poocommerce.com/products/pinterest-for-poocommerce",
 		"install_priority": 2
 	  },
 	  {
@@ -1029,25 +1029,25 @@
 		"is_built_by_wc": true,
 		"key": "mailpoet",
 		"label": "Reach your customers with MailPoet",
-		"image_url": "https://woocommerce.com/wp-content/plugins/wccom-plugins/obw-free-extensions/images/core-profiler/logo-mailpoet.svg",
-		"learn_more_link": "https://woocommerce.com/products/mailpoet",
+		"image_url": "https://poocommerce.com/wp-content/plugins/wccom-plugins/obw-free-extensions/images/core-profiler/logo-mailpoet.svg",
+		"learn_more_link": "https://poocommerce.com/products/mailpoet",
 		"install_priority": 7
 	  },
 	  {
-		"name": "Google for WooCommerce",
+		"name": "Google for PooCommerce",
 		"description": "Reach millions of active shoppers across Google with free product listings and ads.",
-		"image_url": "https://woocommerce.com/wp-content/plugins/wccom-plugins/obw-free-extensions/images/core-profiler/logo-google.svg",
+		"image_url": "https://poocommerce.com/wp-content/plugins/wccom-plugins/obw-free-extensions/images/core-profiler/logo-google.svg",
 		"manage_url": "admin.php?page=wc-admin&path=%2Fgoogle%2Fstart",
 		"is_visible": true,
 		"is_built_by_wc": true,
 		"min_php_version": "7.4",
 		"key": "google-listings-and-ads",
-		"label": "Drive sales with Google for WooCommerce",
-		"learn_more_link": "https://woocommerce.com/products/google-listings-and-ads",
+		"label": "Drive sales with Google for PooCommerce",
+		"learn_more_link": "https://poocommerce.com/products/google-listings-and-ads",
 		"install_priority": 6
 	  },
 	  {
-		"name": "WooCommerce Tax",
+		"name": "PooCommerce Tax",
 		"description": "Automatically calculate how much sales tax should be collected – by city, country, or state.",
 		"is_visible": [
 		  {
@@ -1112,15 +1112,15 @@
 		  }
 		],
 		"is_built_by_wc": true,
-		"key": "woocommerce-services:tax",
-		"label": "Get automated tax rates with WooCommerce Tax",
-		"image_url": "https://woocommerce.com/wp-content/plugins/wccom-plugins/obw-free-extensions/images/core-profiler/logo-woo.svg",
-		"learn_more_link": "https://woocommerce.com/products/tax",
+		"key": "poocommerce-services:tax",
+		"label": "Get automated tax rates with PooCommerce Tax",
+		"image_url": "https://poocommerce.com/wp-content/plugins/wccom-plugins/obw-free-extensions/images/core-profiler/logo-woo.svg",
+		"learn_more_link": "https://poocommerce.com/products/tax",
 		"install_priority": 4
 	  },
 	  {
-		"name": "TikTok for WooCommerce",
-		"image_url": "https://woocommerce.com/wp-content/plugins/wccom-plugins/obw-free-extensions/images/core-profiler/logo-tiktok.svg",
+		"name": "TikTok for PooCommerce",
+		"image_url": "https://poocommerce.com/wp-content/plugins/wccom-plugins/obw-free-extensions/images/core-profiler/logo-tiktok.svg",
 		"description": "Create advertising campaigns and reach one billion global users.",
 		"manage_url": "admin.php?page=tiktok",
 		"is_visible": [
@@ -1333,7 +1333,7 @@
 		"is_built_by_wc": false,
 		"key": "tiktok-for-business",
 		"label": "Create ad campaigns with TikTok",
-		"learn_more_link": "https://woocommerce.com/products/tiktok-for-woocommerce",
+		"learn_more_link": "https://poocommerce.com/products/tiktok-for-poocommerce",
 		"install_priority": 1
 	  }
 	]

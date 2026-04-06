@@ -2,12 +2,12 @@
 /**
  * OrderFeeSchema class.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\RestApi\Routes\V4\Orders\Schema;
+namespace Automattic\PooCommerce\Internal\RestApi\Routes\V4\Orders\Schema;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -37,34 +37,34 @@ class OrderFeeSchema extends AbstractLineItemSchema {
 	public function get_item_schema_properties(): array {
 		$schema = array(
 			'id'         => array(
-				'description' => __( 'Item ID.', 'woocommerce' ),
+				'description' => __( 'Item ID.', 'poocommerce' ),
 				'type'        => 'integer',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'readonly'    => true,
 			),
 			'name'       => array(
-				'description' => __( 'Fee name.', 'woocommerce' ),
+				'description' => __( 'Fee name.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 			),
 			'tax_class'  => array(
-				'description' => __( 'Tax class of fee.', 'woocommerce' ),
+				'description' => __( 'Tax class of fee.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 			),
 			'tax_status' => array(
-				'description' => __( 'Tax status of fee.', 'woocommerce' ),
+				'description' => __( 'Tax status of fee.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'enum'        => array( 'taxable', 'none' ),
 			),
 			'total'      => array(
-				'description' => __( 'Line total (after discounts).', 'woocommerce' ),
+				'description' => __( 'Line total (after discounts).', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 			),
 			'total_tax'  => array(
-				'description' => __( 'Line total tax (after discounts).', 'woocommerce' ),
+				'description' => __( 'Line total tax (after discounts).', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'readonly'    => true,

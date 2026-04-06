@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Abilities\REST;
+namespace Automattic\PooCommerce\Tests\Internal\Abilities\REST;
 
-use Automattic\WooCommerce\Internal\Abilities\REST\RestAbilityFactory;
+use Automattic\PooCommerce\Internal\Abilities\REST\RestAbilityFactory;
 use WC_Unit_Test_Case;
 
 /**

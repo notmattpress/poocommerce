@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import type { ProductResponseItem } from '@woocommerce/types';
+import type { ProductResponseItem } from '@poocommerce/types';
 
 /**
  * Internal dependencies
@@ -33,12 +33,12 @@ jest.mock(
 	'@wordpress/interactivity',
 	() => ( {
 		store: jest.fn( ( namespace, definition ) => {
-			if ( namespace === 'woocommerce/products' ) {
+			if ( namespace === 'poocommerce/products' ) {
 				return {
 					state: mockProductsState,
 				};
 			}
-			if ( namespace === 'woocommerce/product-context' ) {
+			if ( namespace === 'poocommerce/product-context' ) {
 				// Simulate server-hydrated state merged with client definition.
 				// Getters from definition.state are preserved, and productId /
 				// variationId are added as plain values (simulating
@@ -64,7 +64,7 @@ jest.mock(
 	{ virtual: true }
 );
 
-describe( 'woocommerce/product-context store', () => {
+describe( 'poocommerce/product-context store', () => {
 	beforeEach( () => {
 		mockRegisteredStore = null;
 		mockContext = null;

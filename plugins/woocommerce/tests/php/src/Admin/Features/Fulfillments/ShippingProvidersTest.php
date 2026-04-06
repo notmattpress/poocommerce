@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Admin\Features\Fulfillments;
+namespace Automattic\PooCommerce\Tests\Admin\Features\Fulfillments;
 
-use Automattic\WooCommerce\Admin\Features\Fulfillments\FulfillmentUtils;
-use Automattic\WooCommerce\Admin\Features\Fulfillments\Providers as ShippingProviders;
+use Automattic\PooCommerce\Admin\Features\Fulfillments\FulfillmentUtils;
+use Automattic\PooCommerce\Admin\Features\Fulfillments\Providers as ShippingProviders;
 
 /**
  * ShippingProvidersTest class.
@@ -24,7 +24,7 @@ class ShippingProvidersTest extends \WP_UnitTestCase {
 	 */
 	public function setUp(): void {
 		parent::setUp();
-		$this->original_fulfillments_flag = get_option( 'woocommerce_feature_fulfillments_enabled' );
+		$this->original_fulfillments_flag = get_option( 'poocommerce_feature_fulfillments_enabled' );
 	}
 
 	/**
@@ -32,9 +32,9 @@ class ShippingProvidersTest extends \WP_UnitTestCase {
 	 */
 	public function tearDown(): void {
 		if ( false === $this->original_fulfillments_flag ) {
-			delete_option( 'woocommerce_feature_fulfillments_enabled' );
+			delete_option( 'poocommerce_feature_fulfillments_enabled' );
 		} else {
-			update_option( 'woocommerce_feature_fulfillments_enabled', $this->original_fulfillments_flag );
+			update_option( 'poocommerce_feature_fulfillments_enabled', $this->original_fulfillments_flag );
 		}
 		parent::tearDown();
 	}
@@ -43,8 +43,8 @@ class ShippingProvidersTest extends \WP_UnitTestCase {
 	 * Test that the shipping providers configuration returns the correct classes.
 	 */
 	public function test_shipping_providers_configuration(): void {
-		update_option( 'woocommerce_feature_fulfillments_enabled', 'yes' );
-		$controller = wc_get_container()->get( \Automattic\WooCommerce\Admin\Features\Fulfillments\FulfillmentsController::class );
+		update_option( 'poocommerce_feature_fulfillments_enabled', 'yes' );
+		$controller = wc_get_container()->get( \Automattic\PooCommerce\Admin\Features\Fulfillments\FulfillmentsController::class );
 		$controller->register();
 		$controller->initialize_fulfillments();
 

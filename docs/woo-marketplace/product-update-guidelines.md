@@ -5,21 +5,21 @@ sidebar_label: 'Product update guidelines'
 
 # Product update guidelines and best practices
 
-To maintain a high-quality and competitive Marketplace, we encourage all vendors to regularly update their products. Consistent updates ensure compatibility with the latest versions of WooCommerce and WordPress, improve security and performance, and deliver ongoing value to customers.
+To maintain a high-quality and competitive Marketplace, we encourage all vendors to regularly update their products. Consistent updates ensure compatibility with the latest versions of PooCommerce and WordPress, improve security and performance, and deliver ongoing value to customers.
 
 ## Best practices
 
 ### TL;DR
 
 - Update your product at minimum **every 6 months**.
-- Align with the [WooCommerce core release calendar](https://developer.woocommerce.com/release-calendar/).
+- Align with the [PooCommerce core release calendar](https://developer.poocommerce.com/release-calendar/).
 - Use tools such as the [Quality Insights Toolkit](https://qit.woo.com/) (QIT) and your **vendor dashboard**.
-- Check the [feature request portal](https://woocommerce.com/document/feature-request-portal/) for product ideas.
+- Check the [feature request portal](https://poocommerce.com/document/feature-request-portal/) for product ideas.
 - Regular updates = better customer trust and renewal rates.
 
 ## Why regular updates matter
 
-- **Compatibility**: Ensures your product works seamlessly with the latest WooCommerce and WordPress releases.
+- **Compatibility**: Ensures your product works seamlessly with the latest PooCommerce and WordPress releases.
 - **Security**: Patches vulnerabilities and keeps customer sites secure.
 - **Performance**: Enhances speed, reliability, and efficiency.
 - **Customer trust**: Builds confidence in your brand and product longevity. Regularly updated products often see higher renewal rates. Each update is a reminder of the value of keeping a subscription.
@@ -27,7 +27,7 @@ To maintain a high-quality and competitive Marketplace, we encourage all vendors
 
 ### Recommendations
 
-1. **Monitor the [WooCommerce release calendar](https://developer.woocommerce.com/release-calendar/)**: Anticipate changes that might impact your product.
+1. **Monitor the [PooCommerce release calendar](https://developer.poocommerce.com/release-calendar/)**: Anticipate changes that might impact your product.
 2. **Engage customer feedback**: Use reviews, support tickets, and feature requests to inform improvements, new features, and community-requested improvements.
 3. **Use semantic versioning**: Example: `v2.1.0` for features, `v3.0.0` for breaking changes.
 4. **Test thoroughly**: Ensure updates are stable and backward-compatible where possible. Consider integrating the [Quality Insights Tool](https://qit.woo.com/docs/) (QIT) into your workflow to automatically detect potential issues.
@@ -35,11 +35,11 @@ To maintain a high-quality and competitive Marketplace, we encourage all vendors
 
 ### Marketplace expectations
 
-Products that fail to stay current with WooCommerce core and/or those that are not updated at least once every six months will be **flagged for removal** from the WooCommerce Marketplace.
+Products that fail to stay current with PooCommerce core and/or those that are not updated at least once every six months will be **flagged for removal** from the PooCommerce Marketplace.
 
 ### Recommended update cadence
 
-- **Major releases**: At least quarterly, to align with [WooCommerce core releases](https://developer.woocommerce.com/release-calendar/).
+- **Major releases**: At least quarterly, to align with [PooCommerce core releases](https://developer.poocommerce.com/release-calendar/).
 - **Security fixes**: As needed, with urgency.
 - **Minor improvements**: Monthly or as features and fixes are ready.
 - **Documentation**: Keep changelogs and user guides current with each release.
@@ -83,13 +83,13 @@ Activation, security, and malware test passes are required for a new product ver
 
 #### Formatting the changelog
 
-[Learn more about changelog formatting and entry types](https://developer.woocommerce.com/docs/extensions/core-concepts/changelog-txt/#the-changelogtxt-file).
+[Learn more about changelog formatting and entry types](https://developer.poocommerce.com/docs/extensions/core-concepts/changelog-txt/#the-changelogtxt-file).
 
 #### Common errors
 
 If an upload fails, there are a few common errors you should check first:
 
-- **The name of the file:** WooCommerce.com looks for a specific name for your .zip file and the main folder within it. You will see the expected name when you try to upload a product:
+- **The name of the file:** PooCommerce.com looks for a specific name for your .zip file and the main folder within it. You will see the expected name when you try to upload a product:
 
 ![Expected file name format](./_media/product-update-filename.png)
 
@@ -110,8 +110,8 @@ To deploy an extension programmatically, it must be an extension update and **no
 
 #### Generating an application password
 
-1. Ensure that you are logged into your WooCommerce vendor dashboard.
-2. [Create an application password](https://woocommerce.com/wp-admin/authorize-application.php?app_name=WCCOM+Product+Submissions&app_id=c08e8963-897b-46cd-91e9-e92488ac9120).
+1. Ensure that you are logged into your PooCommerce vendor dashboard.
+2. [Create an application password](https://poocommerce.com/wp-admin/authorize-application.php?app_name=WCCOM+Product+Submissions&app_id=c08e8963-897b-46cd-91e9-e92488ac9120).
 
 :::note
 For extra security, this application password is scoped to the deploy endpoint and cannot be used to perform any other action on the user's behalf.
@@ -122,7 +122,7 @@ For extra security, this application password is scoped to the deploy endpoint a
 Make a POST request to deploy your product using the following command:
 
 ```bash
-curl -X POST https://woocommerce.com/wp-json/wc/submission/runner/v1/product/deploy \
+curl -X POST https://poocommerce.com/wp-json/wc/submission/runner/v1/product/deploy \
   -F "file=@/path/to/zip" \
   -F "product_id=<product_id>" \
   -F "username=<username>" \
@@ -137,7 +137,7 @@ Replace `<product_id>`, `<username>`, `<app_password>`, and `<product_version>` 
 To check the status of your deployment, use the following command:
 
 ```bash
-curl -X POST https://woocommerce.com/wp-json/wc/submission/runner/v1/product/deploy/status \
+curl -X POST https://poocommerce.com/wp-json/wc/submission/runner/v1/product/deploy/status \
   -F "product_id=<product_id>" \
   -F "username=<username>" \
   -F "password=<app_password>"
@@ -174,7 +174,7 @@ Below is an example of this response:
 
 ### Maximize compatibility and reliability via custom E2E tests
 
-We strongly encourage contributing E2E tests for your extensions built on top of the QIT's [custom E2E testing framework](https://qit.woo.com/docs/custom-tests/introduction). By sharing these tests with us, you play a crucial role in ensuring true compatibility across different WordPress and WooCommerce versions, various PHP environments, and alongside other popular extensions.
+We strongly encourage contributing E2E tests for your extensions built on top of the QIT's [custom E2E testing framework](https://qit.woo.com/docs/custom-tests/introduction). By sharing these tests with us, you play a crucial role in ensuring true compatibility across different WordPress and PooCommerce versions, various PHP environments, and alongside other popular extensions.
 
 Our custom E2E testing framework — equipped with a Dockerized development environment and simple-to-use command tools — empowers you to design and execute comprehensive tests using [Playwright](https://playwright.dev/) that are tailored to your extension's unique functionalities.
 
@@ -186,4 +186,4 @@ Review our [QIT custom test documentation](https://qit.woo.com/docs/custom-tests
 
 Feel free to reach out to the Marketplace team for update planning, QIT help, or deployment issues.
 
-Let's work together to keep the WooCommerce.com Marketplace innovative, secure, and reliable for everyone!
+Let's work together to keep the PooCommerce.com Marketplace innovative, secure, and reliable for everyone!

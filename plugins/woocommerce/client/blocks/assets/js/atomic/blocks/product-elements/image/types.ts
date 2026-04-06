@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { ProductQueryContext } from '@woocommerce/blocks/product-query/types';
+import { ProductQueryContext } from '@poocommerce/blocks/product-query/types';
 
 export enum ImageSizing {
 	SINGLE = 'single',

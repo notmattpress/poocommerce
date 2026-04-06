@@ -1,12 +1,12 @@
 <?php
 
-namespace Automattic\WooCommerce\Blueprint\Importers;
+namespace Automattic\PooCommerce\Blueprint\Importers;
 
-use Automattic\WooCommerce\Blueprint\ResourceStorages;
-use Automattic\WooCommerce\Blueprint\StepProcessor;
-use Automattic\WooCommerce\Blueprint\StepProcessorResult;
-use Automattic\WooCommerce\Blueprint\Steps\InstallPlugin;
-use Automattic\WooCommerce\Blueprint\UseWPFunctions;
+use Automattic\PooCommerce\Blueprint\ResourceStorages;
+use Automattic\PooCommerce\Blueprint\StepProcessor;
+use Automattic\PooCommerce\Blueprint\StepProcessorResult;
+use Automattic\PooCommerce\Blueprint\Steps\InstallPlugin;
+use Automattic\PooCommerce\Blueprint\UseWPFunctions;
 use Plugin_Upgrader;
 
 /**

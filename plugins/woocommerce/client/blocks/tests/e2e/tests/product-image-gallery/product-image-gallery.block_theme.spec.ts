@@ -2,10 +2,10 @@
  * External dependencies
  */
 import { devices } from '@playwright/test';
-import { test, expect, BLOCK_THEME_SLUG } from '@woocommerce/e2e-utils';
+import { test, expect, BLOCK_THEME_SLUG } from '@poocommerce/e2e-utils';
 
 const blockData = {
-	name: 'woocommerce/product-image-gallery',
+	name: 'poocommerce/product-image-gallery',
 	productPage: '/product/hoodie/',
 };
 

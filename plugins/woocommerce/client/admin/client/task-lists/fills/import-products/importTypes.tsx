@@ -3,16 +3,16 @@
  */
 import { __ } from '@wordpress/i18n';
 import PageIcon from 'gridicons/dist/pages';
-import { getAdminLink } from '@woocommerce/settings';
-import { recordEvent } from '@woocommerce/tracks';
+import { getAdminLink } from '@poocommerce/settings';
+import { recordEvent } from '@poocommerce/tracks';
 
 export const importTypes = [
 	{
 		key: 'from-csv' as const,
-		title: __( 'FROM A CSV FILE', 'woocommerce' ),
+		title: __( 'FROM A CSV FILE', 'poocommerce' ),
 		content: __(
 			'Import all products at once by uploading a CSV file.',
-			'woocommerce'
+			'poocommerce'
 		),
 		before: <PageIcon />,
 		onClick: () => {

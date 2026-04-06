@@ -1,12 +1,12 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "woocommerce/product-review-date",
+	"name": "poocommerce/product-review-date",
 	"title": "Review Date",
-	"category": "woocommerce",
-	"ancestor": [ "woocommerce/product-reviews" ],
+	"category": "poocommerce",
+	"ancestor": [ "poocommerce/product-reviews" ],
 	"description": "Displays the date on which the review was posted.",
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"attributes": {
 		"format": {
 			"type": "string"

@@ -1,16 +1,16 @@
 <?php
 /**
- * WooCommerce: Db update note.
+ * PooCommerce: Db update note.
  *
- * Adds a note to complete the WooCommerce db update after the upgrade in the WC Admin context.
+ * Adds a note to complete the PooCommerce db update after the upgrade in the WC Admin context.
  *
- * @package WooCommerce
+ * @package PooCommerce
  */
 
 defined( 'ABSPATH' ) || exit;
 
 use Automattic\Jetpack\Constants;
-use Automattic\WooCommerce\Admin\Notes\Note;
+use Automattic\PooCommerce\Admin\Notes\Note;
 
 /**
  * WC_Notes_Run_Db_Update.
@@ -20,7 +20,7 @@ class WC_Notes_Run_Db_Update {
 
 	/**
 	 * Checks whether the note needs an update based on the current db update status.
-	 * Hooked onto the 'woocommerce_get_note_from_db' filter. See {@see \WC_Install}.
+	 * Hooked onto the 'poocommerce_get_note_from_db' filter. See {@see \WC_Install}.
 	 *
 	 * @since 10.3.0
 	 *
@@ -49,7 +49,7 @@ class WC_Notes_Run_Db_Update {
 			}
 		} else {
 			// If a db update is needed...
-			$next_scheduled_date = WC()->queue()->get_next( 'woocommerce_run_update_callback', null, 'woocommerce-db-updates' );
+			$next_scheduled_date = WC()->queue()->get_next( 'poocommerce_run_update_callback', null, 'poocommerce-db-updates' );
 
 			if ( $next_scheduled_date ) {
 				// ... and scheduled, update the note to "in progress".
@@ -142,7 +142,7 @@ class WC_Notes_Run_Db_Update {
 		$update_url =
 			add_query_arg(
 				array(
-					'do_update_woocommerce' => 'true',
+					'do_update_poocommerce' => 'true',
 					'return_url'            => 'wc-admin-referer',
 				),
 				admin_url()
@@ -151,7 +151,7 @@ class WC_Notes_Run_Db_Update {
 		$note_actions = array(
 			array(
 				'name'         => 'update-db_run',
-				'label'        => __( 'Update WooCommerce Database', 'woocommerce' ),
+				'label'        => __( 'Update PooCommerce Database', 'poocommerce' ),
 				'url'          => $update_url,
 				'status'       => 'unactioned',
 				'primary'      => true,
@@ -160,8 +160,8 @@ class WC_Notes_Run_Db_Update {
 			),
 			array(
 				'name'    => 'update-db_learn-more',
-				'label'   => __( 'Learn more about updates', 'woocommerce' ),
-				'url'     => 'https://woocommerce.com/document/how-to-update-woocommerce/',
+				'label'   => __( 'Learn more about updates', 'poocommerce' ),
+				'url'     => 'https://poocommerce.com/document/how-to-update-poocommerce/',
 				'status'  => 'unactioned',
 				'primary' => false,
 			),
@@ -172,16 +172,16 @@ class WC_Notes_Run_Db_Update {
 			return $note;
 		}
 
-		$note->set_title( __( 'WooCommerce database update required', 'woocommerce' ) );
+		$note->set_title( __( 'PooCommerce database update required', 'poocommerce' ) );
 		$note->set_content(
-			__( 'WooCommerce has been updated! To keep things running smoothly, we have to update your database to the newest version.', 'woocommerce' )
+			__( 'PooCommerce has been updated! To keep things running smoothly, we have to update your database to the newest version.', 'poocommerce' )
 			/* translators: %1$s: opening <a> tag %2$s: closing </a> tag*/
-			. sprintf( ' ' . esc_html__( 'The database update process runs in the background and may take a little while, so please be patient. Advanced users can alternatively update via %1$sWP CLI%2$s.', 'woocommerce' ), '<a href="https://developer.woocommerce.com/docs/wc-cli/wc-cli-examples/#upgrading-the-database-using-wp-cli">', '</a>' )
+			. sprintf( ' ' . esc_html__( 'The database update process runs in the background and may take a little while, so please be patient. Advanced users can alternatively update via %1$sWP CLI%2$s.', 'poocommerce' ), '<a href="https://developer.poocommerce.com/docs/wc-cli/wc-cli-examples/#upgrading-the-database-using-wp-cli">', '</a>' )
 		);
 		$note->set_type( Note::E_WC_ADMIN_NOTE_UPDATE );
 		$note->set_name( self::NOTE_NAME );
 		$note->set_content_data( (object) array() );
-		$note->set_source( 'woocommerce-core' );
+		$note->set_source( 'poocommerce-core' );
 		// In case db version is out of sync with WC version or during the next update, the notice needs to show up again,
 		// so set it to unactioned.
 		$note->set_status( Note::E_WC_ADMIN_NOTE_UNACTIONED );
@@ -208,12 +208,12 @@ class WC_Notes_Run_Db_Update {
 	 */
 	private static function update_in_progress_notice( Note $note ) {
 		// Same actions as in includes/admin/views/html-notice-updating.php. This just redirects, performs no action, so without nonce.
-		$pending_actions_url = admin_url( 'admin.php?page=wc-status&tab=action-scheduler&s=woocommerce_run_update&status=pending' );
+		$pending_actions_url = admin_url( 'admin.php?page=wc-status&tab=action-scheduler&s=poocommerce_run_update&status=pending' );
 		$cron_disabled       = Constants::is_true( 'DISABLE_WP_CRON' );
-		$cron_cta            = $cron_disabled ? __( 'You can manually run queued updates here.', 'woocommerce' ) : __( 'View progress →', 'woocommerce' );
+		$cron_cta            = $cron_disabled ? __( 'You can manually run queued updates here.', 'poocommerce' ) : __( 'View progress →', 'poocommerce' );
 
-		$note->set_title( __( 'WooCommerce database update in progress', 'woocommerce' ) );
-		$note->set_content( __( 'WooCommerce is updating the database in the background. The database update process may take a little while, so please be patient.', 'woocommerce' ) );
+		$note->set_title( __( 'PooCommerce database update in progress', 'poocommerce' ) );
+		$note->set_content( __( 'PooCommerce is updating the database in the background. The database update process may take a little while, so please be patient.', 'poocommerce' ) );
 
 		$note->clear_actions();
 		$note->add_action(
@@ -247,11 +247,11 @@ class WC_Notes_Run_Db_Update {
 		$note_actions = array(
 			array(
 				'name'         => 'update-db_done',
-				'label'        => __( 'Thanks!', 'woocommerce' ),
+				'label'        => __( 'Thanks!', 'poocommerce' ),
 				'url'          => $hide_notices_url,
 				'status'       => 'actioned',
 				'primary'      => true,
-				'nonce_action' => 'woocommerce_hide_notices_nonce',
+				'nonce_action' => 'poocommerce_hide_notices_nonce',
 				'nonce_name'   => '_wc_notice_nonce',
 			),
 		);
@@ -261,8 +261,8 @@ class WC_Notes_Run_Db_Update {
 			return;
 		}
 
-		$note->set_title( __( 'WooCommerce database update done', 'woocommerce' ) );
-		$note->set_content( __( 'WooCommerce database update complete. Thank you for updating to the latest version!', 'woocommerce' ) );
+		$note->set_title( __( 'PooCommerce database update done', 'poocommerce' ) );
+		$note->set_content( __( 'PooCommerce database update complete. Thank you for updating to the latest version!', 'poocommerce' ) );
 
 		$note->clear_actions();
 		foreach ( $note_actions as $note_action ) {
@@ -334,9 +334,9 @@ class WC_Notes_Run_Db_Update {
 
 			$note = new Note( $note_id );
 
-			$next_scheduled_date = WC()->queue()->get_next( 'woocommerce_run_update_callback', null, 'woocommerce-db-updates' );
+			$next_scheduled_date = WC()->queue()->get_next( 'poocommerce_run_update_callback', null, 'poocommerce-db-updates' );
 
-			if ( $next_scheduled_date || ! empty( $_GET['do_update_woocommerce'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			if ( $next_scheduled_date || ! empty( $_GET['do_update_poocommerce'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 				// Db needs update && db update is scheduled -> update note to In progress.
 				self::update_in_progress_notice( $note );
 			} else {

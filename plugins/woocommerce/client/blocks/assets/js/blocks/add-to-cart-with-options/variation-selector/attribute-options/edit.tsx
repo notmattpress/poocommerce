@@ -2,8 +2,8 @@
  * External dependencies
  */
 import clsx from 'clsx';
-import { useCustomDataContext } from '@woocommerce/shared-context';
-import type { ProductResponseAttributeItem } from '@woocommerce/types';
+import { useCustomDataContext } from '@poocommerce/shared-context';
+import type { ProductResponseAttributeItem } from '@poocommerce/types';
 import { __ } from '@wordpress/i18n';
 import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
 import { type BlockEditProps } from '@wordpress/blocks';
@@ -100,19 +100,19 @@ export default function AttributeOptionsEdit(
 		<div { ...blockProps }>
 			<InspectorControls>
 				<ToolsPanel
-					label={ __( 'Style', 'woocommerce' ) }
+					label={ __( 'Style', 'poocommerce' ) }
 					resetAll={ () => setAttributes( { optionStyle: 'pills' } ) }
 				>
 					<ToolsPanelItem
 						hasValue={ () => optionStyle !== 'pills' }
-						label={ __( 'Style', 'woocommerce' ) }
+						label={ __( 'Style', 'poocommerce' ) }
 						onDeselect={ () =>
 							setAttributes( { optionStyle: 'pills' } )
 						}
 						isShownByDefault
 					>
 						<ToggleGroupControl
-							label={ __( 'Style', 'woocommerce' ) }
+							label={ __( 'Style', 'poocommerce' ) }
 							value={ optionStyle }
 							onChange={ ( newOptionStyle ) => {
 								if (
@@ -130,17 +130,17 @@ export default function AttributeOptionsEdit(
 						>
 							<ToggleGroupControlOption
 								value="pills"
-								label={ __( 'Pills', 'woocommerce' ) }
+								label={ __( 'Pills', 'poocommerce' ) }
 							/>
 							<ToggleGroupControlOption
 								value="dropdown"
-								label={ __( 'Dropdown', 'woocommerce' ) }
+								label={ __( 'Dropdown', 'poocommerce' ) }
 							/>
 						</ToggleGroupControl>
 					</ToolsPanelItem>
 				</ToolsPanel>
 				<ToolsPanel
-					label={ __( 'Auto-select', 'woocommerce' ) }
+					label={ __( 'Auto-select', 'poocommerce' ) }
 					resetAll={ () =>
 						setAttributes( {
 							autoselect: false,
@@ -151,7 +151,7 @@ export default function AttributeOptionsEdit(
 					<ToolsPanelItem
 						label={ __(
 							'Auto-select when only one option is available',
-							'woocommerce'
+							'poocommerce'
 						) }
 						hasValue={ () => autoselect }
 						onDeselect={ () =>
@@ -162,11 +162,11 @@ export default function AttributeOptionsEdit(
 						<ToggleControl
 							label={ __(
 								'Auto-select when only one option is available',
-								'woocommerce'
+								'poocommerce'
 							) }
 							help={ __(
 								'Automatically select options on page load or after the shopper changes attributes, when only one valid choice is available.',
-								'woocommerce'
+								'poocommerce'
 							) }
 							checked={ autoselect }
 							onChange={ () =>
@@ -176,7 +176,7 @@ export default function AttributeOptionsEdit(
 						/>
 					</ToolsPanelItem>
 					<ToolsPanelItem
-						label={ __( 'Invalid options', 'woocommerce' ) }
+						label={ __( 'Invalid options', 'poocommerce' ) }
 						hasValue={ () =>
 							disabledAttributesAction !== 'disable'
 						}
@@ -188,10 +188,10 @@ export default function AttributeOptionsEdit(
 						isShownByDefault
 					>
 						<ToggleGroupControl
-							label={ __( 'Invalid options', 'woocommerce' ) }
+							label={ __( 'Invalid options', 'poocommerce' ) }
 							help={ __(
 								'Control the display of invalid options.',
-								'woocommerce'
+								'poocommerce'
 							) }
 							value={ disabledAttributesAction }
 							onChange={ ( value ) => {
@@ -206,11 +206,11 @@ export default function AttributeOptionsEdit(
 						>
 							<ToggleGroupControlOption
 								value="disable"
-								label={ __( 'Grayed-out', 'woocommerce' ) }
+								label={ __( 'Grayed-out', 'poocommerce' ) }
 							/>
 							<ToggleGroupControlOption
 								value="hide"
-								label={ __( 'Hidden', 'woocommerce' ) }
+								label={ __( 'Hidden', 'poocommerce' ) }
 							/>
 						</ToggleGroupControl>
 					</ToolsPanelItem>

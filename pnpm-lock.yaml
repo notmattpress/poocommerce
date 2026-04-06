@@ -42,10 +42,10 @@ importers:
       '@types/node':
         specifier: 20.x.x
         version: 20.17.8
-      '@woocommerce/eslint-plugin':
+      '@poocommerce/eslint-plugin':
         specifier: workspace:*
         version: link:packages/js/eslint-plugin
-      '@woocommerce/monorepo-utils':
+      '@poocommerce/monorepo-utils':
         specifier: workspace:*
         version: link:tools/monorepo-utils
       '@wordpress/data':
@@ -126,7 +126,7 @@ importers:
 
   packages/js/admin-layout:
     dependencies:
-      '@woocommerce/components':
+      '@poocommerce/components':
         specifier: workspace:*
         version: link:../components
       '@wordpress/components':
@@ -139,13 +139,13 @@ importers:
       '@types/react':
         specifier: 18.3.x
         version: 18.3.16
-      '@woocommerce/eslint-plugin':
+      '@poocommerce/eslint-plugin':
         specifier: workspace:*
         version: link:../eslint-plugin
-      '@woocommerce/internal-style-build':
+      '@poocommerce/internal-style-build':
         specifier: workspace:*
         version: link:../internal-style-build
-      '@woocommerce/internal-ts-config':
+      '@poocommerce/internal-ts-config':
         specifier: workspace:*
         version: link:../internal-ts-config
       '@wordpress/browserslist-config':
@@ -196,10 +196,10 @@ importers:
 
   packages/js/block-templates:
     dependencies:
-      '@woocommerce/expression-evaluation':
+      '@poocommerce/expression-evaluation':
         specifier: workspace:*
         version: link:../expression-evaluation
-      '@woocommerce/settings':
+      '@poocommerce/settings':
         specifier: 1.0.0
         version: 1.0.0
       '@wordpress/block-editor':
@@ -245,16 +245,16 @@ importers:
       '@types/wordpress__blocks':
         specifier: 11.0.7
         version: 11.0.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@woocommerce/eslint-plugin':
+      '@poocommerce/eslint-plugin':
         specifier: workspace:*
         version: link:../eslint-plugin
-      '@woocommerce/internal-js-tests':
+      '@poocommerce/internal-js-tests':
         specifier: workspace:*
         version: link:../internal-js-tests
-      '@woocommerce/internal-style-build':
+      '@poocommerce/internal-style-build':
         specifier: workspace:*
         version: link:../internal-style-build
-      '@woocommerce/internal-ts-config':
+      '@poocommerce/internal-ts-config':
         specifier: workspace:*
         version: link:../internal-ts-config
       '@wordpress/browserslist-config':
@@ -344,22 +344,22 @@ importers:
       '@types/wordpress__rich-text':
         specifier: 3.4.6
         version: 3.4.6(react@18.3.1)
-      '@woocommerce/csv-export':
+      '@poocommerce/csv-export':
         specifier: workspace:*
         version: link:../csv-export
-      '@woocommerce/currency':
+      '@poocommerce/currency':
         specifier: workspace:*
         version: link:../currency
-      '@woocommerce/data':
+      '@poocommerce/data':
         specifier: workspace:*
         version: link:../data
-      '@woocommerce/date':
+      '@poocommerce/date':
         specifier: workspace:*
         version: link:../date
-      '@woocommerce/navigation':
+      '@poocommerce/navigation':
         specifier: workspace:*
         version: link:../navigation
-      '@woocommerce/sanitize':
+      '@poocommerce/sanitize':
         specifier: workspace:*
         version: link:../sanitize
       '@wordpress/a11y':
@@ -555,16 +555,16 @@ importers:
       '@types/wordpress__viewport':
         specifier: 2.5.4
         version: 2.5.4
-      '@woocommerce/eslint-plugin':
+      '@poocommerce/eslint-plugin':
         specifier: workspace:*
         version: link:../eslint-plugin
-      '@woocommerce/internal-js-tests':
+      '@poocommerce/internal-js-tests':
         specifier: workspace:*
         version: link:../internal-js-tests
-      '@woocommerce/internal-style-build':
+      '@poocommerce/internal-style-build':
         specifier: workspace:*
         version: link:../internal-style-build
-      '@woocommerce/internal-ts-config':
+      '@poocommerce/internal-ts-config':
         specifier: workspace:*
         version: link:../internal-ts-config
       '@wordpress/babel-preset-default':
@@ -655,13 +655,13 @@ importers:
       '@types/jest':
         specifier: 29.5.x
         version: 29.5.14
-      '@woocommerce/eslint-plugin':
+      '@poocommerce/eslint-plugin':
         specifier: workspace:*
         version: link:../eslint-plugin
-      '@woocommerce/internal-js-tests':
+      '@poocommerce/internal-js-tests':
         specifier: workspace:*
         version: link:../internal-js-tests
-      '@woocommerce/internal-ts-config':
+      '@poocommerce/internal-ts-config':
         specifier: workspace:*
         version: link:../internal-ts-config
       eslint:
@@ -691,7 +691,7 @@ importers:
 
   packages/js/currency:
     dependencies:
-      '@woocommerce/number':
+      '@poocommerce/number':
         specifier: workspace:*
         version: link:../number
       '@wordpress/deprecated':
@@ -719,13 +719,13 @@ importers:
       '@types/react':
         specifier: 18.3.x
         version: 18.3.16
-      '@woocommerce/eslint-plugin':
+      '@poocommerce/eslint-plugin':
         specifier: workspace:*
         version: link:../eslint-plugin
-      '@woocommerce/internal-js-tests':
+      '@poocommerce/internal-js-tests':
         specifier: workspace:*
         version: link:../internal-js-tests
-      '@woocommerce/internal-ts-config':
+      '@poocommerce/internal-ts-config':
         specifier: workspace:*
         version: link:../internal-ts-config
       eslint:
@@ -755,7 +755,7 @@ importers:
 
   packages/js/customer-effort-score:
     dependencies:
-      '@woocommerce/experimental':
+      '@poocommerce/experimental':
         specifier: workspace:*
         version: link:../experimental
       '@wordpress/components':
@@ -810,25 +810,25 @@ importers:
       '@types/testing-library__jest-dom':
         specifier: ^5.14.9
         version: 5.14.9
-      '@woocommerce/data':
+      '@poocommerce/data':
         specifier: workspace:*
         version: link:../data
-      '@woocommerce/eslint-plugin':
+      '@poocommerce/eslint-plugin':
         specifier: workspace:*
         version: link:../eslint-plugin
-      '@woocommerce/internal-js-tests':
+      '@poocommerce/internal-js-tests':
         specifier: workspace:*
         version: link:../internal-js-tests
-      '@woocommerce/internal-style-build':
+      '@poocommerce/internal-style-build':
         specifier: workspace:*
         version: link:../internal-style-build
-      '@woocommerce/internal-ts-config':
+      '@poocommerce/internal-ts-config':
         specifier: workspace:*
         version: link:../internal-ts-config
-      '@woocommerce/navigation':
+      '@poocommerce/navigation':
         specifier: workspace:*
         version: link:../navigation
-      '@woocommerce/tracks':
+      '@poocommerce/tracks':
         specifier: workspace:*
         version: link:../tracks
       '@wordpress/browserslist-config':
@@ -879,13 +879,13 @@ importers:
 
   packages/js/data:
     dependencies:
-      '@woocommerce/date':
+      '@poocommerce/date':
         specifier: workspace:*
         version: link:../date
-      '@woocommerce/navigation':
+      '@poocommerce/navigation':
         specifier: workspace:*
         version: link:../navigation
-      '@woocommerce/tracks':
+      '@poocommerce/tracks':
         specifier: workspace:*
         version: link:../tracks
       '@wordpress/api-fetch':
@@ -967,13 +967,13 @@ importers:
       '@types/react':
         specifier: 18.3.x
         version: 18.3.16
-      '@woocommerce/eslint-plugin':
+      '@poocommerce/eslint-plugin':
         specifier: workspace:*
         version: link:../eslint-plugin
-      '@woocommerce/internal-js-tests':
+      '@poocommerce/internal-js-tests':
         specifier: workspace:*
         version: link:../internal-js-tests
-      '@woocommerce/internal-ts-config':
+      '@poocommerce/internal-ts-config':
         specifier: workspace:*
         version: link:../internal-ts-config
       eslint:
@@ -1043,13 +1043,13 @@ importers:
       '@types/qs':
         specifier: ^6.9.10
         version: 6.9.10
-      '@woocommerce/eslint-plugin':
+      '@poocommerce/eslint-plugin':
         specifier: workspace:*
         version: link:../eslint-plugin
-      '@woocommerce/internal-js-tests':
+      '@poocommerce/internal-js-tests':
         specifier: workspace:*
         version: link:../internal-js-tests
-      '@woocommerce/internal-ts-config':
+      '@poocommerce/internal-ts-config':
         specifier: workspace:*
         version: link:../internal-ts-config
       d3-time-format:
@@ -1089,7 +1089,7 @@ importers:
       '@babel/core':
         specifier: 7.25.7
         version: 7.25.7
-      '@woocommerce/eslint-plugin':
+      '@poocommerce/eslint-plugin':
         specifier: workspace:*
         version: link:../eslint-plugin
       eslint:
@@ -1138,10 +1138,10 @@ importers:
       '@types/node':
         specifier: 20.x.x
         version: 20.17.8
-      '@woocommerce/eslint-plugin':
+      '@poocommerce/eslint-plugin':
         specifier: workspace:*
         version: link:../eslint-plugin
-      '@woocommerce/internal-js-tests':
+      '@poocommerce/internal-js-tests':
         specifier: workspace:*
         version: link:../internal-js-tests
       eslint:
@@ -1325,13 +1325,13 @@ importers:
       '@types/wordpress__media-utils':
         specifier: ^4.14.4
         version: 4.14.4(@emotion/is-prop-valid@1.2.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@woocommerce/eslint-plugin':
+      '@poocommerce/eslint-plugin':
         specifier: workspace:*
         version: link:../eslint-plugin
-      '@woocommerce/internal-js-tests':
+      '@poocommerce/internal-js-tests':
         specifier: workspace:*
         version: link:../internal-js-tests
-      '@woocommerce/internal-style-build':
+      '@poocommerce/internal-style-build':
         specifier: workspace:*
         version: link:../internal-style-build
       '@wordpress/browserslist-config':
@@ -1425,10 +1425,10 @@ importers:
 
   packages/js/experimental:
     dependencies:
-      '@woocommerce/components':
+      '@poocommerce/components':
         specifier: workspace:*
         version: link:../components
-      '@woocommerce/sanitize':
+      '@poocommerce/sanitize':
         specifier: workspace:*
         version: link:../sanitize
       '@wordpress/components':
@@ -1501,16 +1501,16 @@ importers:
       '@types/testing-library__jest-dom':
         specifier: ^5.14.9
         version: 5.14.9
-      '@woocommerce/eslint-plugin':
+      '@poocommerce/eslint-plugin':
         specifier: workspace:*
         version: link:../eslint-plugin
-      '@woocommerce/internal-js-tests':
+      '@poocommerce/internal-js-tests':
         specifier: workspace:*
         version: link:../internal-js-tests
-      '@woocommerce/internal-style-build':
+      '@poocommerce/internal-style-build':
         specifier: workspace:*
         version: link:../internal-style-build
-      '@woocommerce/internal-ts-config':
+      '@poocommerce/internal-ts-config':
         specifier: workspace:*
         version: link:../internal-ts-config
       '@wordpress/browserslist-config':
@@ -1598,13 +1598,13 @@ importers:
       '@types/react':
         specifier: 18.3.x
         version: 18.3.16
-      '@woocommerce/eslint-plugin':
+      '@poocommerce/eslint-plugin':
         specifier: workspace:*
         version: link:../eslint-plugin
-      '@woocommerce/internal-js-tests':
+      '@poocommerce/internal-js-tests':
         specifier: workspace:*
         version: link:../internal-js-tests
-      '@woocommerce/internal-ts-config':
+      '@poocommerce/internal-ts-config':
         specifier: workspace:*
         version: link:../internal-ts-config
       eslint:
@@ -1647,13 +1647,13 @@ importers:
       '@types/jest':
         specifier: 29.5.x
         version: 29.5.14
-      '@woocommerce/eslint-plugin':
+      '@poocommerce/eslint-plugin':
         specifier: workspace:*
         version: link:../eslint-plugin
-      '@woocommerce/internal-js-tests':
+      '@poocommerce/internal-js-tests':
         specifier: workspace:*
         version: link:../internal-js-tests
-      '@woocommerce/internal-ts-config':
+      '@poocommerce/internal-ts-config':
         specifier: workspace:*
         version: link:../internal-ts-config
       eslint:
@@ -1738,13 +1738,13 @@ importers:
       '@types/testing-library__jest-dom':
         specifier: ^5.14.9
         version: 5.14.9
-      '@woocommerce/eslint-plugin':
+      '@poocommerce/eslint-plugin':
         specifier: workspace:*
         version: link:../eslint-plugin
-      '@woocommerce/internal-js-tests':
+      '@poocommerce/internal-js-tests':
         specifier: workspace:*
         version: link:../internal-js-tests
-      '@woocommerce/internal-ts-config':
+      '@poocommerce/internal-ts-config':
         specifier: workspace:*
         version: link:../internal-ts-config
       '@wordpress/browserslist-config':
@@ -1814,10 +1814,10 @@ importers:
       '@babel/core':
         specifier: 7.25.7
         version: 7.25.7
-      '@woocommerce/eslint-plugin':
+      '@poocommerce/eslint-plugin':
         specifier: workspace:*
         version: link:../eslint-plugin
-      '@woocommerce/internal-ts-config':
+      '@poocommerce/internal-ts-config':
         specifier: workspace:*
         version: link:../internal-ts-config
       babel-jest:
@@ -1893,7 +1893,7 @@ importers:
       '@babel/core':
         specifier: 7.25.7
         version: 7.25.7
-      '@woocommerce/eslint-plugin':
+      '@poocommerce/eslint-plugin':
         specifier: workspace:*
         version: link:../eslint-plugin
       eslint:
@@ -1929,7 +1929,7 @@ importers:
       '@types/wordpress__editor':
         specifier: '>=13.6.0'
         version: 13.6.8(@emotion/is-prop-valid@1.2.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@woocommerce/eslint-plugin':
+      '@poocommerce/eslint-plugin':
         specifier: workspace:*
         version: link:../eslint-plugin
       '@wordpress/core-data':
@@ -1999,13 +1999,13 @@ importers:
       '@types/qs':
         specifier: ^6.9.10
         version: 6.9.10
-      '@woocommerce/eslint-plugin':
+      '@poocommerce/eslint-plugin':
         specifier: workspace:*
         version: link:../eslint-plugin
-      '@woocommerce/internal-js-tests':
+      '@poocommerce/internal-js-tests':
         specifier: workspace:*
         version: link:../internal-js-tests
-      '@woocommerce/internal-ts-config':
+      '@poocommerce/internal-ts-config':
         specifier: workspace:*
         version: link:../internal-ts-config
       eslint:
@@ -2035,7 +2035,7 @@ importers:
 
   packages/js/notices:
     dependencies:
-      '@woocommerce/data':
+      '@poocommerce/data':
         specifier: workspace:*
         version: link:../data
       '@wordpress/a11y':
@@ -2063,10 +2063,10 @@ importers:
       '@types/lodash':
         specifier: ^4.14.202
         version: 4.14.202
-      '@woocommerce/eslint-plugin':
+      '@poocommerce/eslint-plugin':
         specifier: workspace:*
         version: link:../eslint-plugin
-      '@woocommerce/internal-ts-config':
+      '@poocommerce/internal-ts-config':
         specifier: workspace:*
         version: link:../internal-ts-config
       eslint:
@@ -2112,13 +2112,13 @@ importers:
       '@types/lodash':
         specifier: ^4.14.202
         version: 4.14.202
-      '@woocommerce/eslint-plugin':
+      '@poocommerce/eslint-plugin':
         specifier: workspace:*
         version: link:../eslint-plugin
-      '@woocommerce/internal-js-tests':
+      '@poocommerce/internal-js-tests':
         specifier: workspace:*
         version: link:../internal-js-tests
-      '@woocommerce/internal-ts-config':
+      '@poocommerce/internal-ts-config':
         specifier: workspace:*
         version: link:../internal-ts-config
       eslint:
@@ -2148,16 +2148,16 @@ importers:
 
   packages/js/onboarding:
     dependencies:
-      '@woocommerce/components':
+      '@poocommerce/components':
         specifier: workspace:*
         version: link:../components
-      '@woocommerce/experimental':
+      '@poocommerce/experimental':
         specifier: workspace:*
         version: link:../experimental
-      '@woocommerce/explat':
+      '@poocommerce/explat':
         specifier: workspace:*
         version: link:../explat
-      '@woocommerce/tracks':
+      '@poocommerce/tracks':
         specifier: workspace:*
         version: link:../tracks
       '@wordpress/components':
@@ -2200,16 +2200,16 @@ importers:
       '@types/string-similarity':
         specifier: 4.0.0
         version: 4.0.0
-      '@woocommerce/eslint-plugin':
+      '@poocommerce/eslint-plugin':
         specifier: workspace:*
         version: link:../eslint-plugin
-      '@woocommerce/internal-js-tests':
+      '@poocommerce/internal-js-tests':
         specifier: workspace:*
         version: link:../internal-js-tests
-      '@woocommerce/internal-style-build':
+      '@poocommerce/internal-style-build':
         specifier: workspace:*
         version: link:../internal-style-build
-      '@woocommerce/internal-ts-config':
+      '@poocommerce/internal-ts-config':
         specifier: workspace:*
         version: link:../internal-ts-config
       '@wordpress/browserslist-config':
@@ -2269,43 +2269,43 @@ importers:
       '@types/wordpress__blocks':
         specifier: 11.0.7
         version: 11.0.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@woocommerce/admin-layout':
+      '@poocommerce/admin-layout':
         specifier: workspace:*
         version: link:../admin-layout
-      '@woocommerce/block-templates':
+      '@poocommerce/block-templates':
         specifier: workspace:*
         version: link:../block-templates
-      '@woocommerce/components':
+      '@poocommerce/components':
         specifier: workspace:*
         version: link:../components
-      '@woocommerce/currency':
+      '@poocommerce/currency':
         specifier: workspace:*
         version: link:../currency
-      '@woocommerce/customer-effort-score':
+      '@poocommerce/customer-effort-score':
         specifier: workspace:*
         version: link:../customer-effort-score
-      '@woocommerce/data':
+      '@poocommerce/data':
         specifier: workspace:*
         version: link:../data
-      '@woocommerce/experimental':
+      '@poocommerce/experimental':
         specifier: workspace:*
         version: link:../experimental
-      '@woocommerce/expression-evaluation':
+      '@poocommerce/expression-evaluation':
         specifier: workspace:*
         version: link:../expression-evaluation
-      '@woocommerce/navigation':
+      '@poocommerce/navigation':
         specifier: workspace:*
         version: link:../navigation
-      '@woocommerce/number':
+      '@poocommerce/number':
         specifier: workspace:*
         version: link:../number
-      '@woocommerce/sanitize':
+      '@poocommerce/sanitize':
         specifier: workspace:*
         version: link:../sanitize
-      '@woocommerce/settings':
+      '@poocommerce/settings':
         specifier: 1.0.0
         version: 1.0.0
-      '@woocommerce/tracks':
+      '@poocommerce/tracks':
         specifier: workspace:*
         version: link:../tracks
       '@wordpress/api-fetch':
@@ -2456,16 +2456,16 @@ importers:
       '@types/wordpress__rich-text':
         specifier: 3.4.6
         version: 3.4.6(react@18.3.1)
-      '@woocommerce/eslint-plugin':
+      '@poocommerce/eslint-plugin':
         specifier: workspace:*
         version: link:../eslint-plugin
-      '@woocommerce/internal-js-tests':
+      '@poocommerce/internal-js-tests':
         specifier: workspace:*
         version: link:../internal-js-tests
-      '@woocommerce/internal-style-build':
+      '@poocommerce/internal-style-build':
         specifier: workspace:*
         version: link:../internal-style-build
-      '@woocommerce/internal-ts-config':
+      '@poocommerce/internal-ts-config':
         specifier: workspace:*
         version: link:../internal-ts-config
       '@wordpress/browserslist-config':
@@ -2534,7 +2534,7 @@ importers:
 
   packages/js/remote-logging:
     dependencies:
-      '@woocommerce/tracks':
+      '@poocommerce/tracks':
         specifier: workspace:*
         version: link:../tracks
       '@wordpress/hooks':
@@ -2559,13 +2559,13 @@ importers:
       '@types/node':
         specifier: 20.x.x
         version: 20.17.8
-      '@woocommerce/eslint-plugin':
+      '@poocommerce/eslint-plugin':
         specifier: workspace:*
         version: link:../eslint-plugin
-      '@woocommerce/internal-js-tests':
+      '@poocommerce/internal-js-tests':
         specifier: workspace:*
         version: link:../internal-js-tests
-      '@woocommerce/internal-ts-config':
+      '@poocommerce/internal-ts-config':
         specifier: workspace:*
         version: link:../internal-ts-config
       '@wordpress/jest-console':
@@ -2626,13 +2626,13 @@ importers:
       '@types/trusted-types':
         specifier: ^2.0.7
         version: 2.0.7
-      '@woocommerce/eslint-plugin':
+      '@poocommerce/eslint-plugin':
         specifier: workspace:*
         version: link:../eslint-plugin
-      '@woocommerce/internal-js-tests':
+      '@poocommerce/internal-js-tests':
         specifier: workspace:*
         version: link:../internal-js-tests
-      '@woocommerce/internal-ts-config':
+      '@poocommerce/internal-ts-config':
         specifier: workspace:*
         version: link:../internal-ts-config
       '@wordpress/scripts':
@@ -2677,22 +2677,22 @@ importers:
       '@types/wordpress__blocks':
         specifier: 11.0.7
         version: 11.0.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@woocommerce/components':
+      '@poocommerce/components':
         specifier: workspace:*
         version: link:../components
-      '@woocommerce/navigation':
+      '@poocommerce/navigation':
         specifier: workspace:*
         version: link:../navigation
-      '@woocommerce/product-editor':
+      '@poocommerce/product-editor':
         specifier: workspace:*
         version: link:../product-editor
-      '@woocommerce/sanitize':
+      '@poocommerce/sanitize':
         specifier: workspace:*
         version: link:../sanitize
-      '@woocommerce/settings':
+      '@poocommerce/settings':
         specifier: 1.0.0
         version: 1.0.0
-      '@woocommerce/tracks':
+      '@poocommerce/tracks':
         specifier: workspace:*
         version: link:../tracks
       '@wordpress/api-fetch':
@@ -2822,16 +2822,16 @@ importers:
       '@types/wordpress__editor':
         specifier: 13.0.0
         version: 13.0.0(@emotion/is-prop-valid@1.2.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@woocommerce/eslint-plugin':
+      '@poocommerce/eslint-plugin':
         specifier: workspace:*
         version: link:../eslint-plugin
-      '@woocommerce/internal-js-tests':
+      '@poocommerce/internal-js-tests':
         specifier: workspace:*
         version: link:../internal-js-tests
-      '@woocommerce/internal-style-build':
+      '@poocommerce/internal-style-build':
         specifier: workspace:*
         version: link:../internal-style-build
-      '@woocommerce/internal-ts-config':
+      '@poocommerce/internal-ts-config':
         specifier: workspace:*
         version: link:../internal-ts-config
       '@wordpress/block-editor':
@@ -2916,13 +2916,13 @@ importers:
       '@types/node':
         specifier: 20.x.x
         version: 20.17.8
-      '@woocommerce/eslint-plugin':
+      '@poocommerce/eslint-plugin':
         specifier: workspace:*
         version: link:../eslint-plugin
-      '@woocommerce/internal-js-tests':
+      '@poocommerce/internal-js-tests':
         specifier: workspace:*
         version: link:../internal-js-tests
-      '@woocommerce/internal-ts-config':
+      '@poocommerce/internal-ts-config':
         specifier: workspace:*
         version: link:../internal-ts-config
       eslint:
@@ -2977,15 +2977,15 @@ importers:
         specifier: ^3.0.15
         version: 3.0.15
 
-  plugins/woocommerce:
+  plugins/poocommerce:
     dependencies:
-      '@woocommerce/admin-library':
+      '@poocommerce/admin-library':
         specifier: workspace:*
         version: link:client/admin
-      '@woocommerce/block-library':
+      '@poocommerce/block-library':
         specifier: workspace:*
         version: link:client/blocks
-      '@woocommerce/classic-assets':
+      '@poocommerce/classic-assets':
         specifier: workspace:*
         version: link:client/legacy
     devDependencies:
@@ -3013,10 +3013,10 @@ importers:
       '@typescript-eslint/parser':
         specifier: ^5.62.0
         version: 5.62.0(eslint@8.55.0)(typescript@5.7.2)
-      '@woocommerce/e2e-utils-playwright':
+      '@poocommerce/e2e-utils-playwright':
         specifier: workspace:*
         version: link:../../packages/js/e2e-utils-playwright
-      '@woocommerce/eslint-plugin':
+      '@poocommerce/eslint-plugin':
         specifier: workspace:*
         version: link:../../packages/js/eslint-plugin
       '@wordpress/browserslist-config':
@@ -3095,7 +3095,7 @@ importers:
         specifier: 1.0.1
         version: 1.0.1
 
-  plugins/woocommerce-beta-tester:
+  plugins/poocommerce-beta-tester:
     dependencies:
       '@emotion/react':
         specifier: ^11.11.1
@@ -3103,22 +3103,22 @@ importers:
       '@types/prop-types':
         specifier: ^15.7.11
         version: 15.7.11
-      '@woocommerce/admin-layout':
+      '@poocommerce/admin-layout':
         specifier: workspace:*
         version: link:../../packages/js/admin-layout
-      '@woocommerce/components':
+      '@poocommerce/components':
         specifier: workspace:*
         version: link:../../packages/js/components
-      '@woocommerce/data':
+      '@poocommerce/data':
         specifier: workspace:*
         version: link:../../packages/js/data
-      '@woocommerce/expression-evaluation':
+      '@poocommerce/expression-evaluation':
         specifier: workspace:*
         version: link:../../packages/js/expression-evaluation
-      '@woocommerce/product-editor':
+      '@poocommerce/product-editor':
         specifier: workspace:*
         version: link:../../packages/js/product-editor
-      '@woocommerce/remote-logging':
+      '@poocommerce/remote-logging':
         specifier: workspace:*
         version: link:../../packages/js/remote-logging
       '@wordpress/api-fetch':
@@ -3176,10 +3176,10 @@ importers:
       '@types/wordpress__block-editor':
         specifier: 11.5.16
         version: 11.5.16(@emotion/is-prop-valid@1.2.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@woocommerce/dependency-extraction-webpack-plugin':
+      '@poocommerce/dependency-extraction-webpack-plugin':
         specifier: workspace:*
         version: link:../../packages/js/dependency-extraction-webpack-plugin
-      '@woocommerce/eslint-plugin':
+      '@poocommerce/eslint-plugin':
         specifier: workspace:*
         version: link:../../packages/js/eslint-plugin
       '@wordpress/env':
@@ -3210,7 +3210,7 @@ importers:
         specifier: 0.14.12
         version: 0.14.12
 
-  plugins/woocommerce/client/admin:
+  plugins/poocommerce/client/admin:
     dependencies:
       '@automattic/components':
         specifier: ^2.1.1
@@ -3242,7 +3242,7 @@ importers:
       '@stripe/react-connect-js':
         specifier: ^3.3.21
         version: 3.3.21(@stripe/connect-js@3.3.21)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@woocommerce/sanitize':
+      '@poocommerce/sanitize':
         specifier: workspace:*
         version: link:../../../../packages/js/sanitize
       '@wordpress/a11y':
@@ -3498,76 +3498,76 @@ importers:
       '@typescript-eslint/parser':
         specifier: ^5.62.0
         version: 5.62.0(eslint@8.55.0)(typescript@5.7.2)
-      '@woocommerce/admin-layout':
+      '@poocommerce/admin-layout':
         specifier: workspace:*
         version: link:../../../../packages/js/admin-layout
-      '@woocommerce/block-templates':
+      '@poocommerce/block-templates':
         specifier: workspace:*
         version: link:../../../../packages/js/block-templates
-      '@woocommerce/components':
+      '@poocommerce/components':
         specifier: workspace:*
         version: link:../../../../packages/js/components
-      '@woocommerce/csv-export':
+      '@poocommerce/csv-export':
         specifier: workspace:*
         version: link:../../../../packages/js/csv-export
-      '@woocommerce/currency':
+      '@poocommerce/currency':
         specifier: workspace:*
         version: link:../../../../packages/js/currency
-      '@woocommerce/customer-effort-score':
+      '@poocommerce/customer-effort-score':
         specifier: workspace:*
         version: link:../../../../packages/js/customer-effort-score
-      '@woocommerce/data':
+      '@poocommerce/data':
         specifier: workspace:*
         version: link:../../../../packages/js/data
-      '@woocommerce/date':
+      '@poocommerce/date':
         specifier: workspace:*
         version: link:../../../../packages/js/date
-      '@woocommerce/dependency-extraction-webpack-plugin':
+      '@poocommerce/dependency-extraction-webpack-plugin':
         specifier: workspace:*
         version: link:../../../../packages/js/dependency-extraction-webpack-plugin
-      '@woocommerce/email-editor':
+      '@poocommerce/email-editor':
         specifier: workspace:*
         version: link:../../../../packages/js/email-editor
-      '@woocommerce/eslint-plugin':
+      '@poocommerce/eslint-plugin':
         specifier: workspace:*
         version: link:../../../../packages/js/eslint-plugin
-      '@woocommerce/experimental':
+      '@poocommerce/experimental':
         specifier: workspace:*
         version: link:../../../../packages/js/experimental
-      '@woocommerce/explat':
+      '@poocommerce/explat':
         specifier: workspace:*
         version: link:../../../../packages/js/explat
-      '@woocommerce/internal-js-tests':
+      '@poocommerce/internal-js-tests':
         specifier: workspace:*
         version: link:../../../../packages/js/internal-js-tests
-      '@woocommerce/internal-style-build':
+      '@poocommerce/internal-style-build':
         specifier: workspace:*
         version: link:../../../../packages/js/internal-style-build
-      '@woocommerce/internal-ts-config':
+      '@poocommerce/internal-ts-config':
         specifier: workspace:*
         version: link:../../../../packages/js/internal-ts-config
-      '@woocommerce/navigation':
+      '@poocommerce/navigation':
         specifier: workspace:*
         version: link:../../../../packages/js/navigation
-      '@woocommerce/notices':
+      '@poocommerce/notices':
         specifier: workspace:*
         version: link:../../../../packages/js/notices
-      '@woocommerce/number':
+      '@poocommerce/number':
         specifier: workspace:*
         version: link:../../../../packages/js/number
-      '@woocommerce/onboarding':
+      '@poocommerce/onboarding':
         specifier: workspace:*
         version: link:../../../../packages/js/onboarding
-      '@woocommerce/product-editor':
+      '@poocommerce/product-editor':
         specifier: workspace:*
         version: link:../../../../packages/js/product-editor
-      '@woocommerce/remote-logging':
+      '@poocommerce/remote-logging':
         specifier: workspace:*
         version: link:../../../../packages/js/remote-logging
-      '@woocommerce/settings-editor':
+      '@poocommerce/settings-editor':
         specifier: workspace:*
         version: link:../../../../packages/js/settings-editor
-      '@woocommerce/tracks':
+      '@poocommerce/tracks':
         specifier: workspace:*
         version: link:../../../../packages/js/tracks
       '@wordpress/babel-preset-default':
@@ -3757,7 +3757,7 @@ importers:
         specifier: 0.14.12
         version: 0.14.12
 
-  plugins/woocommerce/client/blocks:
+  plugins/poocommerce/client/blocks:
     dependencies:
       '@ariakit/react':
         specifier: ^0.4.5
@@ -3783,13 +3783,13 @@ importers:
       '@preact/signals':
         specifier: ^1.3.0
         version: 1.3.1(preact@10.25.1)
-      '@woocommerce/email-editor':
+      '@poocommerce/email-editor':
         specifier: workspace:*
         version: link:../../../../packages/js/email-editor
-      '@woocommerce/sanitize':
+      '@poocommerce/sanitize':
         specifier: workspace:*
         version: link:../../../../packages/js/sanitize
-      '@woocommerce/tracks':
+      '@poocommerce/tracks':
         specifier: workspace:*
         version: link:../../../../packages/js/tracks
       '@wordpress/a11y':
@@ -4039,16 +4039,16 @@ importers:
       '@typescript-eslint/parser':
         specifier: 5.56.0
         version: 5.56.0(eslint@8.55.0)(typescript@5.7.2)
-      '@woocommerce/customer-effort-score':
+      '@poocommerce/customer-effort-score':
         specifier: workspace:*
         version: link:../../../../packages/js/customer-effort-score
-      '@woocommerce/data':
+      '@poocommerce/data':
         specifier: workspace:*
         version: link:../../../../packages/js/data
-      '@woocommerce/eslint-plugin':
+      '@poocommerce/eslint-plugin':
         specifier: workspace:*
         version: link:../../../../packages/js/eslint-plugin
-      '@woocommerce/internal-ts-config':
+      '@poocommerce/internal-ts-config':
         specifier: workspace:*
         version: link:../../../../packages/js/internal-ts-config
       '@wordpress/api-fetch':
@@ -4216,9 +4216,9 @@ importers:
       eslint-plugin-storybook:
         specifier: ^0.6.15
         version: 0.6.15(eslint@8.55.0)(typescript@5.7.2)
-      eslint-plugin-woocommerce:
-        specifier: file:bin/eslint-plugin-woocommerce
-        version: link:bin/eslint-plugin-woocommerce
+      eslint-plugin-poocommerce:
+        specifier: file:bin/eslint-plugin-poocommerce
+        version: link:bin/eslint-plugin-poocommerce
       eslint-plugin-you-dont-need-lodash-underscore:
         specifier: 6.12.0
         version: 6.12.0
@@ -4350,17 +4350,17 @@ importers:
         specifier: 1.1.5
         version: 1.1.5
 
-  plugins/woocommerce/client/blocks/bin/eslint-plugin-woocommerce:
+  plugins/poocommerce/client/blocks/bin/eslint-plugin-poocommerce:
     devDependencies:
       eslint:
         specifier: ^8.55.0
         version: 8.55.0
 
-  plugins/woocommerce/client/legacy:
+  plugins/poocommerce/client/legacy:
     dependencies:
       sourcebuster:
-        specifier: github:woocommerce/sourcebuster-js#d7f4616d5a17e17db925ca1842457f309379d861
-        version: https://codeload.github.com/woocommerce/sourcebuster-js/tar.gz/d7f4616d5a17e17db925ca1842457f309379d861
+        specifier: github:poocommerce/sourcebuster-js#d7f4616d5a17e17db925ca1842457f309379d861
+        version: https://codeload.github.com/poocommerce/sourcebuster-js/tar.gz/d7f4616d5a17e17db925ca1842457f309379d861
     devDependencies:
       '@types/node':
         specifier: 20.x.x
@@ -4452,7 +4452,7 @@ importers:
       '@tsconfig/node16':
         specifier: ^1.0.4
         version: 1.0.4
-      '@woocommerce/monorepo-utils':
+      '@poocommerce/monorepo-utils':
         specifier: workspace:*
         version: link:../monorepo-utils
       commander:
@@ -4471,7 +4471,7 @@ importers:
       '@types/node':
         specifier: 20.x.x
         version: 20.17.8
-      '@woocommerce/eslint-plugin':
+      '@poocommerce/eslint-plugin':
         specifier: workspace:*
         version: link:../../packages/js/eslint-plugin
       eslint:
@@ -4547,7 +4547,7 @@ importers:
       '@types/node':
         specifier: 20.x.x
         version: 20.17.8
-      '@woocommerce/eslint-plugin':
+      '@poocommerce/eslint-plugin':
         specifier: workspace:*
         version: link:../../packages/js/eslint-plugin
       eslint:
@@ -4653,7 +4653,7 @@ importers:
       '@types/node':
         specifier: 20.x.x
         version: 20.17.8
-      '@woocommerce/eslint-plugin':
+      '@poocommerce/eslint-plugin':
         specifier: workspace:*
         version: link:../../packages/js/eslint-plugin
       copy-webpack-plugin:
@@ -4708,7 +4708,7 @@ importers:
       '@types/node':
         specifier: 20.x.x
         version: 20.17.8
-      '@woocommerce/eslint-plugin':
+      '@poocommerce/eslint-plugin':
         specifier: workspace:*
         version: link:../../packages/js/eslint-plugin
       oclif:
@@ -4738,7 +4738,7 @@ importers:
       '@octokit/rest':
         specifier: ^19.0.13
         version: 19.0.13(encoding@0.1.13)
-      '@woocommerce/monorepo-utils':
+      '@poocommerce/monorepo-utils':
         specifier: workspace:*
         version: link:../monorepo-utils
       code-analyzer:
@@ -4868,13 +4868,13 @@ importers:
       '@storybook/theming':
         specifier: 7.6.19
         version: 7.6.19(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@woocommerce/admin-library':
+      '@poocommerce/admin-library':
         specifier: workspace:*
-        version: link:../../plugins/woocommerce/client/admin
-      '@woocommerce/block-library':
+        version: link:../../plugins/poocommerce/client/admin
+      '@poocommerce/block-library':
         specifier: workspace:*
-        version: link:../../plugins/woocommerce/client/blocks
-      '@woocommerce/eslint-plugin':
+        version: link:../../plugins/poocommerce/client/blocks
+      '@poocommerce/eslint-plugin':
         specifier: workspace:*
         version: link:../../packages/js/eslint-plugin
       react:
@@ -10184,7 +10184,7 @@ packages:
     peerDependencies:
       react: ^17.0.0-0
 
-  '@woocommerce/settings@1.0.0':
+  '@poocommerce/settings@1.0.0':
     resolution: {integrity: sha512-BjrT56Cz8XTRHw2JNPmANRkYh2rzdF33wOa56lah1qb/MjHUKuVJ0PTSZ19S5Trb92IkxfcIVB26CSdxXnf5Og==}
     deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
@@ -11163,8 +11163,8 @@ packages:
     resolution: {integrity: sha512-9fjoPCOMdcwX1cGW2P4YBIK8LYkz9lhWHI8kgg4OCmBgkVuaFr+g43jjLojbD5bq2KPJYiQ1bD+hGJcgg4zPeQ==}
     engines: {node: '>=18.12.0', npm: '>=8.19.2'}
 
-  '@wordpress/interactivity@https://codeload.github.com/woocommerce/gutenberg/tar.gz/96b89ddfd6344b417a6e2fcd3748be856bb55b16#path:/packages/interactivity':
-    resolution: {path: /packages/interactivity, tarball: https://codeload.github.com/woocommerce/gutenberg/tar.gz/96b89ddfd6344b417a6e2fcd3748be856bb55b16}
+  '@wordpress/interactivity@https://codeload.github.com/poocommerce/gutenberg/tar.gz/96b89ddfd6344b417a6e2fcd3748be856bb55b16#path:/packages/interactivity':
+    resolution: {path: /packages/interactivity, tarball: https://codeload.github.com/poocommerce/gutenberg/tar.gz/96b89ddfd6344b417a6e2fcd3748be856bb55b16}
     version: 6.23.0
     engines: {node: '>=18.12.0', npm: '>=8.19.2'}
 
@@ -22199,8 +22199,8 @@ packages:
     resolution: {integrity: sha512-l3BikUxvPOcn5E74dZiq5BGsTb5yEwhaTSzccU6t4sDOH8NWJCstKO5QT2CvtFoK6F0saL7p9xHAqHOlCPJygA==}
     engines: {node: '>= 8'}
 
-  sourcebuster@https://codeload.github.com/woocommerce/sourcebuster-js/tar.gz/d7f4616d5a17e17db925ca1842457f309379d861:
-    resolution: {tarball: https://codeload.github.com/woocommerce/sourcebuster-js/tar.gz/d7f4616d5a17e17db925ca1842457f309379d861}
+  sourcebuster@https://codeload.github.com/poocommerce/sourcebuster-js/tar.gz/d7f4616d5a17e17db925ca1842457f309379d861:
+    resolution: {tarball: https://codeload.github.com/poocommerce/sourcebuster-js/tar.gz/d7f4616d5a17e17db925ca1842457f309379d861}
     version: 1.1.2
 
   space-separated-tokens@1.1.5:
@@ -34102,7 +34102,7 @@ snapshots:
       prop-types: 15.8.1
       react: 18.3.1
 
-  '@woocommerce/settings@1.0.0':
+  '@poocommerce/settings@1.0.0':
     dependencies:
       '@babel/runtime-corejs2': 7.5.5
 
@@ -37758,7 +37758,7 @@ snapshots:
   '@wordpress/interactivity-router@2.39.0':
     dependencies:
       '@wordpress/a11y': 4.39.0
-      '@wordpress/interactivity': https://codeload.github.com/woocommerce/gutenberg/tar.gz/96b89ddfd6344b417a6e2fcd3748be856bb55b16#path:/packages/interactivity
+      '@wordpress/interactivity': https://codeload.github.com/poocommerce/gutenberg/tar.gz/96b89ddfd6344b417a6e2fcd3748be856bb55b16#path:/packages/interactivity
       es-module-lexer: 1.7.0
 
   '@wordpress/interactivity@3.0.1(@preact/signals-core@1.8.0)':
@@ -37775,7 +37775,7 @@ snapshots:
       '@preact/signals': 1.3.1(preact@10.25.1)
       preact: 10.25.1
 
-  '@wordpress/interactivity@https://codeload.github.com/woocommerce/gutenberg/tar.gz/96b89ddfd6344b417a6e2fcd3748be856bb55b16#path:/packages/interactivity':
+  '@wordpress/interactivity@https://codeload.github.com/poocommerce/gutenberg/tar.gz/96b89ddfd6344b417a6e2fcd3748be856bb55b16#path:/packages/interactivity':
     dependencies:
       '@preact/signals': 1.3.1(preact@10.25.1)
       preact: 10.25.1
@@ -53728,7 +53728,7 @@ snapshots:
 
   source-map@0.7.4: {}
 
-  sourcebuster@https://codeload.github.com/woocommerce/sourcebuster-js/tar.gz/d7f4616d5a17e17db925ca1842457f309379d861: {}
+  sourcebuster@https://codeload.github.com/poocommerce/sourcebuster-js/tar.gz/d7f4616d5a17e17db925ca1842457f309379d861: {}
 
   space-separated-tokens@1.1.5: {}
 

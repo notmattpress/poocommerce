@@ -2,9 +2,9 @@
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Internal\ComingSoon\ComingSoonCacheInvalidator;
+use Automattic\PooCommerce\Internal\ComingSoon\ComingSoonCacheInvalidator;
 
-register_woocommerce_admin_test_helper_rest_route(
+register_poocommerce_admin_test_helper_rest_route(
 	'/tools/update-coming-soon-mode/v1',
 	'tools_set_coming_soon_mode',
 	array(
@@ -19,7 +19,7 @@ register_woocommerce_admin_test_helper_rest_route(
 	)
 );
 
-register_woocommerce_admin_test_helper_rest_route(
+register_poocommerce_admin_test_helper_rest_route(
 	'/tools/get-force-coming-soon-mode/v1',
 	'tools_get_coming_soon_mode',
 	array(

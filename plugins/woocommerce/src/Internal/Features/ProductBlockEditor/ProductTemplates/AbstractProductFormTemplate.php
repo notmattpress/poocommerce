@@ -1,13 +1,13 @@
 <?php
 
-namespace Automattic\WooCommerce\Internal\Features\ProductBlockEditor\ProductTemplates;
+namespace Automattic\PooCommerce\Internal\Features\ProductBlockEditor\ProductTemplates;
 
-use Automattic\WooCommerce\Admin\BlockTemplates\BlockInterface;
-use Automattic\WooCommerce\Admin\Features\ProductBlockEditor\ProductTemplates\GroupInterface;
-use Automattic\WooCommerce\Admin\Features\ProductBlockEditor\ProductTemplates\ProductFormTemplateInterface;
-use Automattic\WooCommerce\Admin\Features\ProductBlockEditor\ProductTemplates\SectionInterface;
-use Automattic\WooCommerce\Admin\Features\ProductBlockEditor\ProductTemplates\SubsectionInterface;
-use Automattic\WooCommerce\Internal\Admin\BlockTemplates\AbstractBlockTemplate;
+use Automattic\PooCommerce\Admin\BlockTemplates\BlockInterface;
+use Automattic\PooCommerce\Admin\Features\ProductBlockEditor\ProductTemplates\GroupInterface;
+use Automattic\PooCommerce\Admin\Features\ProductBlockEditor\ProductTemplates\ProductFormTemplateInterface;
+use Automattic\PooCommerce\Admin\Features\ProductBlockEditor\ProductTemplates\SectionInterface;
+use Automattic\PooCommerce\Admin\Features\ProductBlockEditor\ProductTemplates\SubsectionInterface;
+use Automattic\PooCommerce\Internal\Admin\BlockTemplates\AbstractBlockTemplate;
 
 /**
  * Block template class.

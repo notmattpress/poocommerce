@@ -37,13 +37,13 @@ export default function UpdateButton( {
 			setError(
 				__(
 					'An unexpected error has occurred. Please refresh the page and try again.',
-					'woocommerce'
+					'poocommerce'
 				)
 			);
 			return;
 		}
 		if ( getFulfillmentItems( fulfillment ).length === 0 ) {
-			setError( __( 'Select items to be fulfilled.', 'woocommerce' ) );
+			setError( __( 'Select items to be fulfilled.', 'poocommerce' ) );
 			return;
 		}
 
@@ -71,13 +71,13 @@ export default function UpdateButton( {
 				aria-describedby={ descriptionId }
 			>
 				{ isExecuting
-					? __( 'Updating…', 'woocommerce' )
-					: __( 'Update', 'woocommerce' ) }
+					? __( 'Updating…', 'poocommerce' )
+					: __( 'Update', 'poocommerce' ) }
 			</Button>
 			<span id={ descriptionId } className="screen-reader-text">
 				{ __(
 					'Applies changes to the existing fulfillment',
-					'woocommerce'
+					'poocommerce'
 				) }
 			</span>
 		</>

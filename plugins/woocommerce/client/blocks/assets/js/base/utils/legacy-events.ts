@@ -1,8 +1,8 @@
 /**
  * External dependencies
  */
-import type { AddToCartEventDetail } from '@woocommerce/types';
-import type { CoreCollectionNames } from '@woocommerce/blocks/product-collection/types';
+import type { AddToCartEventDetail } from '@poocommerce/types';
+import type { CoreCollectionNames } from '@poocommerce/blocks/product-collection/types';
 
 const CustomEvent = window.CustomEvent || null;
 

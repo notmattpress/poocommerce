@@ -5,7 +5,7 @@ import { Slot, Fill } from '@wordpress/components';
 import {
 	createOrderedChildren,
 	sortFillsByOrder,
-} from '@woocommerce/components';
+} from '@poocommerce/components';
 
 type WooTaskListCompletionProps = {
 	children: React.ReactNode;
@@ -13,12 +13,12 @@ type WooTaskListCompletionProps = {
 };
 
 export const EXPERIMENTAL_WC_TASK_LIST_COMPLETION_SLOT_NAME =
-	'woocommerce_experimental_task_list_completion';
+	'poocommerce_experimental_task_list_completion';
 /**
- * Create a Fill for extensions to add items to the WooCommerce Admin Task List completion component slot.
+ * Create a Fill for extensions to add items to the PooCommerce Admin Task List completion component slot.
  *
  * @slotFill WooTaskListCompletion
- * @scope woocommerce-admin
+ * @scope poocommerce-admin
  * @example
  * const MyTasklistCompletionItem = () => (
  * <WooTaskListCompletion>My Task List completion item</WooTaskListCompletion>
@@ -26,7 +26,7 @@ export const EXPERIMENTAL_WC_TASK_LIST_COMPLETION_SLOT_NAME =
  *
  * registerPlugin( 'my-extension', {
  * render: MyTasklistCompletionItem,
- * scope: 'woocommerce-admin',
+ * scope: 'poocommerce-admin',
  * } );
  * @param {Object} param0
  * @param {Array}  param0.children - Node children.

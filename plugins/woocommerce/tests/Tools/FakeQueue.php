@@ -2,10 +2,10 @@
 /**
  * FakeQueue class file.
  *
- * @package WooCommerce\Testing\Tools
+ * @package PooCommerce\Testing\Tools
  */
 
-namespace Automattic\WooCommerce\Testing\Tools;
+namespace Automattic\PooCommerce\Testing\Tools;
 
 /**
  * Fake scheduled actions queue for unit tests, it just records all the method calls

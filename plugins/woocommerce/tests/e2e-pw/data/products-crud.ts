@@ -3,7 +3,7 @@
  *
  * For more details on the Product properties, see:
  *
- * https://woocommerce.github.io/woocommerce-rest-api-docs/#products
+ * https://poocommerce.github.io/poocommerce-rest-api-docs/#products
  *
  */
 

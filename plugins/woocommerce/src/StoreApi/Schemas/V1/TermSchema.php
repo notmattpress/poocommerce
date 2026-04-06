@@ -1,5 +1,5 @@
 <?php
-namespace Automattic\WooCommerce\StoreApi\Schemas\V1;
+namespace Automattic\PooCommerce\StoreApi\Schemas\V1;
 
 /**
  * TermSchema class.
@@ -27,37 +27,37 @@ class TermSchema extends AbstractSchema {
 	public function get_properties() {
 		return [
 			'id'          => array(
-				'description' => __( 'Unique identifier for the resource.', 'woocommerce' ),
+				'description' => __( 'Unique identifier for the resource.', 'poocommerce' ),
 				'type'        => 'integer',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
 			),
 			'name'        => array(
-				'description' => __( 'Term name.', 'woocommerce' ),
+				'description' => __( 'Term name.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
 			),
 			'slug'        => array(
-				'description' => __( 'String based identifier for the term.', 'woocommerce' ),
+				'description' => __( 'String based identifier for the term.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
 			),
 			'description' => array(
-				'description' => __( 'Term description.', 'woocommerce' ),
+				'description' => __( 'Term description.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
 			),
 			'parent'      => array(
-				'description' => __( 'Parent term ID, if applicable.', 'woocommerce' ),
+				'description' => __( 'Parent term ID, if applicable.', 'poocommerce' ),
 				'type'        => 'integer',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
 			),
 			'count'       => array(
-				'description' => __( 'Number of objects (posts of any type) assigned to the term.', 'woocommerce' ),
+				'description' => __( 'Number of objects (posts of any type) assigned to the term.', 'poocommerce' ),
 				'type'        => 'integer',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,

@@ -8,13 +8,13 @@ post_title: On-Sale Badge block
 
 The On-Sale Badge block displays a "Sale" badge on products that are on sale.
 
-> **Note:** This block uses the slug `woocommerce/product-sale-badge`.
+> **Note:** This block uses the slug `poocommerce/product-sale-badge`.
 
-## `woocommerce_sale_badge_text`
+## `poocommerce_sale_badge_text`
 
 ### Description <!-- omit in toc -->
 
-The `woocommerce_sale_badge_text` filter allows customization of the sale badge text based on product context.
+The `poocommerce_sale_badge_text` filter allows customization of the sale badge text based on product context.
 
 ### Parameters <!-- omit in toc -->
 
@@ -30,7 +30,7 @@ The `woocommerce_sale_badge_text` filter allows customization of the sale badge 
 #### Basic example <!-- omit in toc -->
 
 ```php
-add_filter( 'woocommerce_sale_badge_text', 'custom_sale_badge_text', 10, 2 );
+add_filter( 'poocommerce_sale_badge_text', 'custom_sale_badge_text', 10, 2 );
 
 function custom_sale_badge_text( $sale_text, $product ) {
 	return __( 'On Sale', 'your-textdomain' );
@@ -40,7 +40,7 @@ function custom_sale_badge_text( $sale_text, $product ) {
 #### Product-specific customization <!-- omit in toc -->
 
 ```php
-add_filter( 'woocommerce_sale_badge_text', 'custom_sale_badge_by_product_type', 10, 2 );
+add_filter( 'poocommerce_sale_badge_text', 'custom_sale_badge_by_product_type', 10, 2 );
 
 function custom_sale_badge_by_product_type( $sale_text, $product ) {
 	if ( $product->is_type( 'variable' ) ) {
@@ -58,7 +58,7 @@ function custom_sale_badge_by_product_type( $sale_text, $product ) {
 #### Discount percentage <!-- omit in toc -->
 
 ```php
-add_filter( 'woocommerce_sale_badge_text', 'show_discount_percentage_badge', 10, 2 );
+add_filter( 'poocommerce_sale_badge_text', 'show_discount_percentage_badge', 10, 2 );
 
 function show_discount_percentage_badge( $sale_text, $product ) {
 	if ( $product->is_type( 'simple' ) || $product->is_type( 'external' ) ) {
@@ -75,15 +75,15 @@ function show_discount_percentage_badge( $sale_text, $product ) {
 }
 ```
 
-## Difference from `woocommerce_sale_flash`
+## Difference from `poocommerce_sale_flash`
 
-| Aspect | `woocommerce_sale_badge_text` | `woocommerce_sale_flash` |
+| Aspect | `poocommerce_sale_badge_text` | `poocommerce_sale_flash` |
 | --- | --- | --- |
 | **Context** | On-Sale Badge block | Classic templates (`loop/sale-flash.php`, `single-product/sale-flash.php`) |
 | **Output** | Plain text | HTML markup |
 | **Parameters** | `$sale_text`, `$product` | `$html`, `$post`, `$product` |
 | **Default** | `'Sale'` | `'<span class="onsale">Sale!</span>'` |
-| **Since** | WooCommerce 10.0.0 | WooCommerce 2.x |
+| **Since** | PooCommerce 10.0.0 | PooCommerce 2.x |
 
 ### Output handling
 
@@ -91,12 +91,12 @@ The block filter expects plain text only. HTML tags will be escaped and displaye
 
 ```php
 // Correct - plain text
-add_filter( 'woocommerce_sale_badge_text', function( $text, $product ) {
+add_filter( 'poocommerce_sale_badge_text', function( $text, $product ) {
 	return 'Hot Deal';
 }, 10, 2 );
 
 // Incorrect - HTML will be escaped
-add_filter( 'woocommerce_sale_badge_text', function( $text, $product ) {
+add_filter( 'poocommerce_sale_badge_text', function( $text, $product ) {
 	return '<strong>Hot Deal</strong>'; // Displays as "&lt;strong&gt;Hot Deal&lt;/strong&gt;"
 }, 10, 2 );
 ```
@@ -104,7 +104,7 @@ add_filter( 'woocommerce_sale_badge_text', function( $text, $product ) {
 The classic filter expects HTML markup:
 
 ```php
-add_filter( 'woocommerce_sale_flash', function( $html, $post, $product ) {
+add_filter( 'poocommerce_sale_flash', function( $html, $post, $product ) {
 	return '<span class="onsale">Hot Deal</span>';
 }, 10, 3 );
 ```
@@ -115,14 +115,14 @@ To support both block and classic themes, implement both filters:
 
 ```php
 // Block filter
-add_filter( 'woocommerce_sale_badge_text', 'my_custom_sale_badge', 10, 2 );
+add_filter( 'poocommerce_sale_badge_text', 'my_custom_sale_badge', 10, 2 );
 
 function my_custom_sale_badge( $sale_text, $product ) {
 	return __( 'Special Offer', 'your-textdomain' );
 }
 
 // Classic filter
-add_filter( 'woocommerce_sale_flash', 'my_classic_sale_flash', 10, 3 );
+add_filter( 'poocommerce_sale_flash', 'my_classic_sale_flash', 10, 3 );
 
 function my_classic_sale_flash( $html, $post, $product ) {
 	return '<span class="onsale">' . __( 'Special Offer', 'your-textdomain' ) . '</span>';

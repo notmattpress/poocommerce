@@ -5,7 +5,7 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\PushNotifications\Exceptions;
+namespace Automattic\PooCommerce\Internal\PushNotifications\Exceptions;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -25,7 +25,7 @@ class PushTokenNotFoundException extends WC_Data_Exception {
 	 */
 	public function __construct() {
 		parent::__construct(
-			'woocommerce_invalid_push_token',
+			'poocommerce_invalid_push_token',
 			'Push token could not be found.',
 			WP_Http::NOT_FOUND
 		);

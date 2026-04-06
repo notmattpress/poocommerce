@@ -1,16 +1,16 @@
 <?php
 /**
- * WooCommerce Interactivity API Functions
+ * PooCommerce Interactivity API Functions
  *
  * Procedural wrappers for interactivity API shared stores.
  * These are experimental APIs and may change in future versions.
  *
- * @package WooCommerce\Functions
+ * @package PooCommerce\Functions
  */
 
 declare( strict_types = 1 );
 
-use Automattic\WooCommerce\Blocks\SharedStores\ProductsStore;
+use Automattic\PooCommerce\Blocks\SharedStores\ProductsStore;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;

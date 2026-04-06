@@ -1,13 +1,13 @@
 <?php
 /**
- * WooCommerce Admin Payments More Info Needed Inbox Note Provider
+ * PooCommerce Admin Payments More Info Needed Inbox Note Provider
  */
 
-namespace Automattic\WooCommerce\Internal\Admin\Notes;
+namespace Automattic\PooCommerce\Internal\Admin\Notes;
 
-use Automattic\WooCommerce\Admin\Notes\Note;
-use Automattic\WooCommerce\Admin\Notes\NoteTraits;
-use Automattic\WooCommerce\Internal\Admin\WcPayWelcomePage;
+use Automattic\PooCommerce\Admin\Notes\Note;
+use Automattic\PooCommerce\Admin\Notes\NoteTraits;
+use Automattic\PooCommerce\Internal\Admin\WcPayWelcomePage;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -64,17 +64,17 @@ class PaymentsMoreInfoNeeded {
 			return;
 		}
 		/* translators: %s: Payment provider name. */
-		$content = sprintf( __( 'We recently asked you if you wanted more information about %s. Run your business and manage your payments in one place with the solution built and supported by WooCommerce.', 'woocommerce' ), 'WooPayments' );
+		$content = sprintf( __( 'We recently asked you if you wanted more information about %s. Run your business and manage your payments in one place with the solution built and supported by PooCommerce.', 'poocommerce' ), 'WooPayments' );
 
 		$note = new Note();
 		/* translators: %s: Payment provider name. */
-		$note->set_title( sprintf( __( 'Payments made simple with %s', 'woocommerce' ), 'WooPayments' ) );
+		$note->set_title( sprintf( __( 'Payments made simple with %s', 'poocommerce' ), 'WooPayments' ) );
 		$note->set_content( $content );
 		$note->set_content_data( (object) array() );
 		$note->set_type( Note::E_WC_ADMIN_NOTE_INFORMATIONAL );
 		$note->set_name( self::NOTE_NAME );
-		$note->set_source( 'woocommerce-admin' );
-		$note->add_action( 'learn-more', __( 'Learn more here', 'woocommerce' ), 'https://woocommerce.com/payments/' );
+		$note->set_source( 'poocommerce-admin' );
+		$note->add_action( 'learn-more', __( 'Learn more here', 'poocommerce' ), 'https://poocommerce.com/payments/' );
 		return $note;
 	}
 }

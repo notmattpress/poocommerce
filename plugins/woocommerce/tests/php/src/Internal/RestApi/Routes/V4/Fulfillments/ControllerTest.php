@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Internal\RestApi\Routes\V4\Fulfillments;
+namespace Automattic\PooCommerce\Tests\Internal\RestApi\Routes\V4\Fulfillments;
 
-use Automattic\WooCommerce\Admin\Features\Fulfillments\Fulfillment;
-use Automattic\WooCommerce\Admin\Features\Fulfillments\OrderFulfillmentsRestController;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Fulfillments\Controller as FulfillmentsController;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Fulfillments\Schema\FulfillmentSchema;
-use Automattic\WooCommerce\Tests\Admin\Features\Fulfillments\Helpers\FulfillmentsHelper;
+use Automattic\PooCommerce\Admin\Features\Fulfillments\Fulfillment;
+use Automattic\PooCommerce\Admin\Features\Fulfillments\OrderFulfillmentsRestController;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Fulfillments\Controller as FulfillmentsController;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Fulfillments\Schema\FulfillmentSchema;
+use Automattic\PooCommerce\Tests\Admin\Features\Fulfillments\Helpers\FulfillmentsHelper;
 use WC_REST_Unit_Test_Case;
 use WC_Helper_Order;
 use WC_Order;
@@ -65,9 +65,9 @@ class ControllerTest extends WC_REST_Unit_Test_Case {
 	 */
 	public static function setUpBeforeClass(): void {
 		parent::setUpBeforeClass();
-		self::$original_fulfillments_flag = get_option( 'woocommerce_feature_fulfillments_enabled' );
-		update_option( 'woocommerce_feature_fulfillments_enabled', 'yes' );
-		$controller = wc_get_container()->get( \Automattic\WooCommerce\Admin\Features\Fulfillments\FulfillmentsController::class );
+		self::$original_fulfillments_flag = get_option( 'poocommerce_feature_fulfillments_enabled' );
+		update_option( 'poocommerce_feature_fulfillments_enabled', 'yes' );
+		$controller = wc_get_container()->get( \Automattic\PooCommerce\Admin\Features\Fulfillments\FulfillmentsController::class );
 		$controller->register();
 		$controller->initialize_fulfillments();
 	}
@@ -77,9 +77,9 @@ class ControllerTest extends WC_REST_Unit_Test_Case {
 	 */
 	public static function tearDownAfterClass(): void {
 		if ( false === self::$original_fulfillments_flag ) {
-			delete_option( 'woocommerce_feature_fulfillments_enabled' );
+			delete_option( 'poocommerce_feature_fulfillments_enabled' );
 		} else {
-			update_option( 'woocommerce_feature_fulfillments_enabled', self::$original_fulfillments_flag );
+			update_option( 'poocommerce_feature_fulfillments_enabled', self::$original_fulfillments_flag );
 		}
 		parent::tearDownAfterClass();
 	}
@@ -229,7 +229,7 @@ class ControllerTest extends WC_REST_Unit_Test_Case {
 		$response = rest_get_server()->dispatch( $request );
 		$this->assertEquals( 400, $response->get_status() );
 		$data = $response->get_data();
-		$this->assertEquals( 'woocommerce_rest_invalid_entity_type', $data['code'] );
+		$this->assertEquals( 'poocommerce_rest_invalid_entity_type', $data['code'] );
 	}
 
 	/**
@@ -257,7 +257,7 @@ class ControllerTest extends WC_REST_Unit_Test_Case {
 		$response = rest_get_server()->dispatch( $request );
 		$this->assertEquals( 400, $response->get_status() );
 		$data = $response->get_data();
-		$this->assertEquals( 'woocommerce_rest_fulfillment_invalid_id', $data['code'] );
+		$this->assertEquals( 'poocommerce_rest_fulfillment_invalid_id', $data['code'] );
 	}
 
 	/**
@@ -287,7 +287,7 @@ class ControllerTest extends WC_REST_Unit_Test_Case {
 		$response = rest_get_server()->dispatch( $request );
 		$this->assertEquals( 400, $response->get_status() );
 		$data = $response->get_data();
-		$this->assertEquals( 'woocommerce_rest_fulfillment_invalid_id', $data['code'] );
+		$this->assertEquals( 'poocommerce_rest_fulfillment_invalid_id', $data['code'] );
 	}
 
 	/**
@@ -321,7 +321,7 @@ class ControllerTest extends WC_REST_Unit_Test_Case {
 		$response = rest_get_server()->dispatch( $request );
 		$this->assertEquals( 400, $response->get_status() );
 		$data = $response->get_data();
-		$this->assertEquals( 'woocommerce_rest_fulfillment_invalid_id', $data['code'] );
+		$this->assertEquals( 'poocommerce_rest_fulfillment_invalid_id', $data['code'] );
 	}
 
 	/**

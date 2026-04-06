@@ -41,7 +41,7 @@ export default function ItemSelector( { editMode }: ItemSelectorProps ) {
 				} ) ),
 			} ) )
 		);
-		speak( __( 'All items deselected.', 'woocommerce' ), 'polite' );
+		speak( __( 'All items deselected.', 'poocommerce' ), 'polite' );
 	};
 
 	const selectAllItems = () => {
@@ -61,7 +61,7 @@ export default function ItemSelector( { editMode }: ItemSelectorProps ) {
 					'%d item selected.',
 					'%d items selected.',
 					itemsCount,
-					'woocommerce'
+					'poocommerce'
 				),
 				itemsCount
 			),
@@ -114,11 +114,11 @@ export default function ItemSelector( { editMode }: ItemSelectorProps ) {
 			speak(
 				sprintf(
 					/* translators: %1$s is the item name, %2$s is selected/deselected status */
-					__( '%1$s %2$s.', 'woocommerce' ),
+					__( '%1$s %2$s.', 'poocommerce' ),
 					currentItem.item.name,
 					checked
-						? __( 'selected', 'woocommerce' )
-						: __( 'deselected', 'woocommerce' )
+						? __( 'selected', 'poocommerce' )
+						: __( 'deselected', 'poocommerce' )
 				),
 				'polite'
 			);
@@ -157,11 +157,11 @@ export default function ItemSelector( { editMode }: ItemSelectorProps ) {
 
 	return (
 		<ul
-			className="woocommerce-fulfillment-item-list"
-			aria-label={ __( 'Select items for fulfillment', 'woocommerce' ) }
+			className="poocommerce-fulfillment-item-list"
+			aria-label={ __( 'Select items for fulfillment', 'poocommerce' ) }
 		>
 			<li>
-				<div className="woocommerce-fulfillment-item-bulk-select">
+				<div className="poocommerce-fulfillment-item-bulk-select">
 					{ editMode && (
 						<CheckboxControl
 							onChange={ () => {
@@ -178,20 +178,20 @@ export default function ItemSelector( { editMode }: ItemSelectorProps ) {
 							}
 							aria-label={
 								selectedItemsCount === itemsCount
-									? __( 'Deselect all items', 'woocommerce' )
-									: __( 'Select all items', 'woocommerce' )
+									? __( 'Deselect all items', 'poocommerce' )
+									: __( 'Select all items', 'poocommerce' )
 							}
 							__nextHasNoMarginBottom
 						/>
 					) }
-					<div className="woocommerce-fulfillment-item-bulk-select__label">
+					<div className="poocommerce-fulfillment-item-bulk-select__label">
 						{ sprintf(
 							/* translators: %s: number of selected items */
 							_n(
 								'%s selected',
 								'%s selected',
 								selectedItemsCount,
-								'woocommerce'
+								'poocommerce'
 							),
 							selectedItemsCount
 						) }

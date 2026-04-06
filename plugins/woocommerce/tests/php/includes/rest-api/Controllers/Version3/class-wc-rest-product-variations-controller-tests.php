@@ -1,7 +1,7 @@
 <?php
 declare( strict_types=1 );
 
-use Automattic\WooCommerce\Internal\CostOfGoodsSold\CogsAwareUnitTestSuiteTrait;
+use Automattic\PooCommerce\Internal\CostOfGoodsSold\CogsAwareUnitTestSuiteTrait;
 
 /**
  * Variations Controller tests for V3 REST API.
@@ -172,7 +172,7 @@ class WC_REST_Product_Variations_Controller_Tests extends WC_REST_Unit_Test_Case
 	 *
 	 * This test verifies the fix for issue #61791 where attributes with non-ASCII characters
 	 * (like Persian) were not saved when creating variations via the REST API.
-	 * @see https://github.com/woocommerce/woocommerce/issues/61791
+	 * @see https://github.com/poocommerce/poocommerce/issues/61791
 	 */
 	public function test_create_variation_with_persian_attribute_by_id() {
 		// Create a variable product with Persian attribute names.

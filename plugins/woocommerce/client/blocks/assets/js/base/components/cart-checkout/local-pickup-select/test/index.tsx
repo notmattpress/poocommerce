@@ -3,8 +3,8 @@
  */
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { useShippingData, useStoreCart } from '@woocommerce/base-context/hooks';
-import { CartShippingPackageShippingRate } from '@woocommerce/types';
+import { useShippingData, useStoreCart } from '@poocommerce/base-context/hooks';
+import { CartShippingPackageShippingRate } from '@poocommerce/types';
 
 /**
  * Internal dependencies
@@ -15,7 +15,7 @@ import {
 	generateShippingPackage,
 } from '../../../../../mocks/shipping-package';
 
-jest.mock( '@woocommerce/base-context/hooks' );
+jest.mock( '@poocommerce/base-context/hooks' );
 
 describe( 'LocalPickupSelect', () => {
 	const renderPickupLocationMock = jest.fn().mockImplementation(

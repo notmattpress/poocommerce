@@ -16,9 +16,9 @@ export default function ErrorLabel( { error }: { error: string } ) {
 		}
 	}, [ error ] );
 	return (
-		<div className="woocommerce-fulfillment-error-label" ref={ labelRef }>
+		<div className="poocommerce-fulfillment-error-label" ref={ labelRef }>
 			<span
-				className="woocommerce-fulfillment-error-label__icon"
+				className="poocommerce-fulfillment-error-label__icon"
 				aria-hidden="true"
 			>
 				<svg
@@ -37,7 +37,7 @@ export default function ErrorLabel( { error }: { error: string } ) {
 					<path d="M8.66671 10H7.33337V11.3333H8.66671V10Z" />
 				</svg>
 			</span>
-			<span className="woocommerce-fulfillment-error-label__text">
+			<span className="poocommerce-fulfillment-error-label__text">
 				{ error }
 			</span>
 		</div>

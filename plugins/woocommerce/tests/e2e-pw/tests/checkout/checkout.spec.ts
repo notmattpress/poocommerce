@@ -7,7 +7,7 @@ import {
 	fillBillingCheckoutBlocks,
 	fillShippingCheckoutBlocks,
 	WC_API_PATH,
-} from '@woocommerce/e2e-utils-playwright';
+} from '@poocommerce/e2e-utils-playwright';
 import { faker } from '@faker-js/faker';
 
 /**
@@ -152,17 +152,17 @@ const test = baseTest.extend( {
 		await createClassicCheckoutPage();
 
 		const calcTaxesState = await updateIfNeeded(
-			'general/woocommerce_calc_taxes',
+			'general/poocommerce_calc_taxes',
 			'yes'
 		);
 
 		const loginAtCheckoutState = await updateIfNeeded(
-			'account/woocommerce_enable_checkout_login_reminder',
+			'account/poocommerce_enable_checkout_login_reminder',
 			'yes'
 		);
 
 		const signUpAtCheckoutState = await updateIfNeeded(
-			'account/woocommerce_enable_signup_and_login_from_checkout',
+			'account/poocommerce_enable_signup_and_login_from_checkout',
 			'yes'
 		);
 
@@ -195,15 +195,15 @@ const test = baseTest.extend( {
 
 		// revert the settings to initial state
 
-		await resetValue( 'general/woocommerce_calc_taxes', calcTaxesState );
+		await resetValue( 'general/poocommerce_calc_taxes', calcTaxesState );
 
 		await resetValue(
-			'account/woocommerce_enable_checkout_login_reminder',
+			'account/poocommerce_enable_checkout_login_reminder',
 			loginAtCheckoutState
 		);
 
 		await resetValue(
-			'account/woocommerce_enable_signup_and_login_from_checkout',
+			'account/poocommerce_enable_signup_and_login_from_checkout',
 			signUpAtCheckoutState
 		);
 
@@ -411,7 +411,7 @@ checkoutPages.forEach( ( { name, slug } ) => {
 			);
 
 			// Make sure after login the user is redirected to the right checkout page
-			// Login from classic checkout redirects to default checkout page: https://github.com/woocommerce/woocommerce/issues/56205
+			// Login from classic checkout redirects to default checkout page: https://github.com/poocommerce/poocommerce/issues/56205
 			// Workaround until bug is fixed: extra navigation the test checkout page
 			await page.goto( slug );
 			await expect( page.url() ).toContain( slug );

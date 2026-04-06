@@ -3,19 +3,19 @@
 	justify-content: $justification;
 }
 
-.is-layout-constrained > .wp-block-woocommerce-customer-account.alignright {
+.is-layout-constrained > .wp-block-poocommerce-customer-account.alignright {
 	@include flex-justify-content(flex-end);
 }
 
-.is-layout-constrained > .wp-block-woocommerce-customer-account.alignleft {
+.is-layout-constrained > .wp-block-poocommerce-customer-account.alignleft {
 	@include flex-justify-content(flex-start);
 }
 
-.is-layout-constrained > .wp-block-woocommerce-customer-account.aligncenter {
+.is-layout-constrained > .wp-block-poocommerce-customer-account.aligncenter {
 	@include flex-justify-content(center);
 }
 
-:where(.wp-block-woocommerce-customer-account) {
+:where(.wp-block-poocommerce-customer-account) {
 	--wc-customer-account-padding: var(
 		--wp--preset--spacing--20,
 		#{em($gap-smaller)}
@@ -45,9 +45,9 @@
 	);
 }
 
-:where(.wp-block-woocommerce-customer-account .wc-block-customer-account__link),
+:where(.wp-block-poocommerce-customer-account .wc-block-customer-account__link),
 :where(
-		.wp-block-woocommerce-customer-account.wc-block-customer-account--has-dropdown
+		.wp-block-poocommerce-customer-account.wc-block-customer-account--has-dropdown
 			.wc-block-customer-account__toggle
 	) {
 	align-items: center;
@@ -71,7 +71,7 @@
 	}
 }
 
-:where(.wp-block-woocommerce-customer-account) {
+:where(.wp-block-poocommerce-customer-account) {
 	.wc-block-customer-account__caret {
 		margin-left: em($gap-smallest);
 		transition: transform 0.2s ease;

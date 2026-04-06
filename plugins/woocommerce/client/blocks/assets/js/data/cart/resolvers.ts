@@ -2,8 +2,8 @@
  * External dependencies
  */
 import apiFetch from '@wordpress/api-fetch';
-import { CartResponse } from '@woocommerce/types';
-import { previewCart } from '@woocommerce/resource-previews';
+import { CartResponse } from '@poocommerce/types';
+import { previewCart } from '@poocommerce/resource-previews';
 
 /**
  * Internal dependencies

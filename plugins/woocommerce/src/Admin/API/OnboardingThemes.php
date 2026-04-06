@@ -5,7 +5,7 @@
  * Handles requests to install and activate themes.
  */
 
-namespace Automattic\WooCommerce\Admin\API;
+namespace Automattic\PooCommerce\Admin\API;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -69,7 +69,7 @@ class OnboardingThemes extends \WC_REST_Data_Controller {
 	 */
 	public function update_item_permissions_check( $request ) {
 		if ( ! current_user_can( 'switch_themes' ) ) {
-			return new \WP_Error( 'woocommerce_rest_cannot_update', __( 'Sorry, you cannot manage themes.', 'woocommerce' ), array( 'status' => rest_authorization_required_code() ) );
+			return new \WP_Error( 'poocommerce_rest_cannot_update', __( 'Sorry, you cannot manage themes.', 'poocommerce' ), array( 'status' => rest_authorization_required_code() ) );
 		}
 		return true;
 	}
@@ -111,10 +111,10 @@ class OnboardingThemes extends \WC_REST_Data_Controller {
 
 		if ( is_wp_error( $api ) ) {
 			return new \WP_Error(
-				'woocommerce_rest_theme_install',
+				'poocommerce_rest_theme_install',
 				sprintf(
-				/* translators: %s: theme slug (example: woocommerce-services) */
-					__( 'The requested theme `%s` could not be installed. Theme API call failed.', 'woocommerce' ),
+				/* translators: %s: theme slug (example: poocommerce-services) */
+					__( 'The requested theme `%s` could not be installed. Theme API call failed.', 'poocommerce' ),
 					$theme
 				),
 				500
@@ -126,10 +126,10 @@ class OnboardingThemes extends \WC_REST_Data_Controller {
 
 		if ( is_wp_error( $result ) || is_null( $result ) ) {
 			return new \WP_Error(
-				'woocommerce_rest_theme_install',
+				'poocommerce_rest_theme_install',
 				sprintf(
-				/* translators: %s: theme slug (example: woocommerce-services) */
-					__( 'The requested theme `%s` could not be installed.', 'woocommerce' ),
+				/* translators: %s: theme slug (example: poocommerce-services) */
+					__( 'The requested theme `%s` could not be installed.', 'poocommerce' ),
 					$theme
 				),
 				500
@@ -157,13 +157,13 @@ class OnboardingThemes extends \WC_REST_Data_Controller {
 		$installed_themes = wp_get_themes();
 
 		if ( ! in_array( $theme, array_keys( $installed_themes ), true ) ) {
-			/* translators: %s: theme slug (example: woocommerce-services) */
-			return new \WP_Error( 'woocommerce_rest_invalid_theme', sprintf( __( 'Invalid theme %s.', 'woocommerce' ), $theme ), 404 );
+			/* translators: %s: theme slug (example: poocommerce-services) */
+			return new \WP_Error( 'poocommerce_rest_invalid_theme', sprintf( __( 'Invalid theme %s.', 'poocommerce' ), $theme ), 404 );
 		}
 
 		$result = switch_theme( $theme );
 		if ( ! is_null( $result ) ) {
-			return new \WP_Error( 'woocommerce_rest_invalid_theme', sprintf( __( 'The requested theme could not be activated.', 'woocommerce' ), $theme ), 500 );
+			return new \WP_Error( 'poocommerce_rest_invalid_theme', sprintf( __( 'The requested theme could not be activated.', 'poocommerce' ), $theme ), 500 );
 		}
 
 		return( array(
@@ -185,19 +185,19 @@ class OnboardingThemes extends \WC_REST_Data_Controller {
 			'type'       => 'object',
 			'properties' => array(
 				'slug'   => array(
-					'description' => __( 'Theme slug.', 'woocommerce' ),
+					'description' => __( 'Theme slug.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'name'   => array(
-					'description' => __( 'Theme name.', 'woocommerce' ),
+					'description' => __( 'Theme name.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'status' => array(
-					'description' => __( 'Theme status.', 'woocommerce' ),
+					'description' => __( 'Theme status.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,

@@ -1,10 +1,10 @@
 @include wordpress-admin-schemes();
 
-.product_page_woocommerce-products-dashboard #wpcontent {
+.product_page_poocommerce-products-dashboard #wpcontent {
 	margin-left: 0;
 }
 
-body.product_page_woocommerce-products-dashboard #woocommerce-products-dashboard {
+body.product_page_poocommerce-products-dashboard #poocommerce-products-dashboard {
 	@include reset;
 	display: flex !important;
 	min-height: 100vh;
@@ -18,21 +18,21 @@ body.product_page_woocommerce-products-dashboard #woocommerce-products-dashboard
 
 body.js:not(.is-fullscreen-mode) {
 
-	&.product_page_woocommerce-products-dashboard #wpadminbar,
-	&.product_page_woocommerce-products-dashboard #adminmenumain {
+	&.product_page_poocommerce-products-dashboard #wpadminbar,
+	&.product_page_poocommerce-products-dashboard #adminmenumain {
 		display: block;
 	}
 
-	&.product_page_woocommerce-products-dashboard #wpcontent {
+	&.product_page_poocommerce-products-dashboard #wpcontent {
 		margin-left: 160px;
 	}
 
-	&.product_page_woocommerce-products-dashboard #wpbody {
+	&.product_page_poocommerce-products-dashboard #wpbody {
 		background: #1d2327;
 		;
 	}
 
-	#woocommerce-products-dashboard {
+	#poocommerce-products-dashboard {
 		min-height: calc(100vh - #{$admin-bar-height});
 
 		.edit-site-layout {
@@ -48,20 +48,20 @@ body.js:not(.is-fullscreen-mode) {
 }
 
 body.js.is-fullscreen-mode {
-	#woocommerce-products-dashboard {
-		@include wp-admin-reset("#woocommerce-products-dashboard");
+	#poocommerce-products-dashboard {
+		@include wp-admin-reset("#poocommerce-products-dashboard");
 	}
 
-	&.product_page_woocommerce-products-dashboard #wpadminbar,
-	&.product_page_woocommerce-products-dashboard #adminmenumain {
+	&.product_page_poocommerce-products-dashboard #wpadminbar,
+	&.product_page_poocommerce-products-dashboard #adminmenumain {
 		display: none;
 	}
 
-	&.product_page_woocommerce-products-dashboard #wpcontent {
+	&.product_page_poocommerce-products-dashboard #wpcontent {
 		margin-left: 0;
 	}
 
-	&.product_page_woocommerce-products-dashboard #woocommerce-products-dashboard {
+	&.product_page_poocommerce-products-dashboard #poocommerce-products-dashboard {
 		min-height: 100vh;
 		position: absolute;
 		top: 0;
@@ -88,7 +88,7 @@ body.js.is-fullscreen-mode {
 	}
 }
 
-.product_page_woocommerce-products-dashboard {
+.product_page_poocommerce-products-dashboard {
 	@import "products-app/sidebar-dataviews/style.scss";
 	@import "products-app/product-edit/style.scss";
 }

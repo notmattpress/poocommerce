@@ -1,9 +1,9 @@
 <?php
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\BlockTemplates;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\BlockTemplates;
 
-use Automattic\WooCommerce\Admin\BlockTemplates\BlockInterface;
-use Automattic\WooCommerce\Internal\Admin\BlockTemplates\BlockTemplate;
+use Automattic\PooCommerce\Admin\BlockTemplates\BlockInterface;
+use Automattic\PooCommerce\Internal\Admin\BlockTemplates\BlockTemplate;
 
 use WC_Unit_Test_Case;
 
@@ -72,7 +72,7 @@ class BlockTemplateTest extends WC_Unit_Test_Case {
 		};
 
 		try {
-			add_action( 'woocommerce_block_template_after_add_block', $after_add_block_hook );
+			add_action( 'poocommerce_block_template_after_add_block', $after_add_block_hook );
 
 			$specific_hook_called = false;
 
@@ -82,7 +82,7 @@ class BlockTemplateTest extends WC_Unit_Test_Case {
 				}
 			};
 
-			add_action( 'woocommerce_block_template_area_uncategorized_after_add_block_test-block-id', $specific_after_add_block_hook );
+			add_action( 'poocommerce_block_template_area_uncategorized_after_add_block_test-block-id', $specific_after_add_block_hook );
 
 			$template->add_block(
 				[
@@ -106,8 +106,8 @@ class BlockTemplateTest extends WC_Unit_Test_Case {
 				'Failed asserting that the block was added to the template from the hook.'
 			);
 		} finally {
-			remove_action( 'woocommerce_block_template_after_add_block', $after_add_block_hook );
-			remove_action( 'woocommerce_block_template_area_uncategorized_after_add_block_test-block-id', $specific_after_add_block_hook );
+			remove_action( 'poocommerce_block_template_after_add_block', $after_add_block_hook );
+			remove_action( 'poocommerce_block_template_area_uncategorized_after_add_block_test-block-id', $specific_after_add_block_hook );
 		}
 	}
 
@@ -138,8 +138,8 @@ class BlockTemplateTest extends WC_Unit_Test_Case {
 		};
 
 		try {
-			add_action( 'woocommerce_block_template_after_remove_block', $after_remove_block_hook );
-			add_action( 'woocommerce_block_template_area_uncategorized_after_remove_block_test-block-id', $specific_after_remove_block_hook );
+			add_action( 'poocommerce_block_template_after_remove_block', $after_remove_block_hook );
+			add_action( 'poocommerce_block_template_area_uncategorized_after_remove_block_test-block-id', $specific_after_remove_block_hook );
 
 			$block = $template->add_block(
 				[
@@ -165,8 +165,8 @@ class BlockTemplateTest extends WC_Unit_Test_Case {
 				'Failed asserting that the block was added to the template from the hook.'
 			);
 		} finally {
-			remove_action( 'woocommerce_block_template_after_remove_block', $after_remove_block_hook );
-			remove_action( 'woocommerce_block_template_area_uncategorized_after_remove_block_test-block-id', $specific_after_remove_block_hook );
+			remove_action( 'poocommerce_block_template_after_remove_block', $after_remove_block_hook );
+			remove_action( 'poocommerce_block_template_area_uncategorized_after_remove_block_test-block-id', $specific_after_remove_block_hook );
 		}
 	}
 

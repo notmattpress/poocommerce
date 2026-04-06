@@ -1,4 +1,4 @@
-# Writing Tests for WooCommerce Email Editor PHP Library
+# Writing Tests for PooCommerce Email Editor PHP Library
 
 ## Table of Contents
 
@@ -57,7 +57,7 @@ tests/
 composer run test:unit
 
 # Run specific test file
-pnpm --filter='@woocommerce/email-editor-config' test:unit -- tests/unit/Engine/Settings_Controller_Test.php
+pnpm --filter='@poocommerce/email-editor-config' test:unit -- tests/unit/Engine/Settings_Controller_Test.php
 
 # Run tests with specific group
 composer run test:unit -- --group=settings
@@ -68,7 +68,7 @@ composer run test:unit -- --group=settings
 ```php
 <?php
 declare(strict_types = 1);
-namespace Automattic\WooCommerce\EmailEditor\Engine;
+namespace Automattic\PooCommerce\EmailEditor\Engine;
 
 class Settings_Controller_Test extends \Email_Editor_Unit_Test  {
     /**
@@ -125,7 +125,7 @@ class Settings_Controller_Test extends \Email_Editor_Unit_Test  {
 composer run test:integration
 
 # Run specific integration test
-pnpm --filter='@woocommerce/email-editor-config' test:integration -- tests/integration/Integrations/Core/Renderer/Blocks/Social_Links_Test.php
+pnpm --filter='@poocommerce/email-editor-config' test:integration -- tests/integration/Integrations/Core/Renderer/Blocks/Social_Links_Test.php
 
 # Run tests with specific group
 composer run test:integration -- --group=email-templates
@@ -136,7 +136,7 @@ composer run test:integration -- --group=email-templates
 ```php
 <?php
 declare(strict_types = 1);
-namespace Automattic\WooCommerce\EmailEditor\Integrations\Core\Renderer;
+namespace Automattic\PooCommerce\EmailEditor\Integrations\Core\Renderer;
 
 class Renderer_Test extends \Email_Editor_Integration_Test_Case {
     /**

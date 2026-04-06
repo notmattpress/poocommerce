@@ -11,8 +11,8 @@ import {
 } from '@wordpress/element';
 import { SyntheticEvent, useCallback } from 'react';
 import { useDispatch, useSelect } from '@wordpress/data';
-import { pluginsStore } from '@woocommerce/data';
-import type { InstallPluginsResponse } from '@woocommerce/data';
+import { pluginsStore } from '@poocommerce/data';
+import type { InstallPluginsResponse } from '@poocommerce/data';
 
 type ButtonProps = React.ComponentProps< typeof Button >;
 
@@ -42,14 +42,14 @@ export const Plugins = ( {
 	onComplete,
 	onError = () => null,
 	onClick = () => null,
-	pluginSlugs = [ 'woocommerce-services' ],
+	pluginSlugs = [ 'poocommerce-services' ],
 	onSkip,
-	installText = __( 'Install & enable', 'woocommerce' ),
-	skipText = __( 'No thanks', 'woocommerce' ),
-	abortText = __( 'Abort', 'woocommerce' ),
+	installText = __( 'Install & enable', 'poocommerce' ),
+	skipText = __( 'No thanks', 'poocommerce' ),
+	abortText = __( 'Abort', 'poocommerce' ),
 	installButtonVariant = 'primary',
 	learnMoreLink,
-	learnMoreText = __( 'Learn more', 'woocommerce' ),
+	learnMoreText = __( 'Learn more', 'poocommerce' ),
 	onLearnMore,
 }: PluginsProps ) => {
 	const [ hasErrors, setHasErrors ] = useState( false );
@@ -128,11 +128,11 @@ export const Plugins = ( {
 					isBusy={ isRequesting }
 					onClick={ installAndActivate }
 				>
-					{ __( 'Retry', 'woocommerce' ) }
+					{ __( 'Retry', 'poocommerce' ) }
 				</Button>
 				{ onSkip && (
 					<Button onClick={ onSkip }>
-						{ __( 'Continue without installing', 'woocommerce' ) }
+						{ __( 'Continue without installing', 'poocommerce' ) }
 					</Button>
 				) }
 			</>
@@ -151,7 +151,7 @@ export const Plugins = ( {
 					isBusy={ isRequesting }
 					onClick={ onSkip }
 				>
-					{ __( 'Continue', 'woocommerce' ) }
+					{ __( 'Continue', 'poocommerce' ) }
 				</Button>
 			</Fragment>
 		);

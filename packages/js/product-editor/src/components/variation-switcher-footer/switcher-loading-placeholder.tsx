@@ -12,8 +12,8 @@ export function SwitcherLoadingPlaceholder( {
 } ) {
 	return (
 		<Button
-			data-testid="woocommerce-product-variation-switcher-footer-placeholder"
-			className="woocommerce-product-variation-switcher-footer__button is-placeholder"
+			data-testid="poocommerce-product-variation-switcher-footer-placeholder"
+			className="poocommerce-product-variation-switcher-footer__button is-placeholder"
 			disabled={ true }
 		>
 			{ position === 'left' && (
@@ -21,20 +21,20 @@ export function SwitcherLoadingPlaceholder( {
 					<Icon
 						icon={ arrowLeft }
 						size={ 16 }
-						className="woocommerce-product-variation-switcher-footer__arrow"
+						className="poocommerce-product-variation-switcher-footer__arrow"
 					/>
-					<div className="woocommerce-product-variation-switcher-footer__product-image" />
+					<div className="poocommerce-product-variation-switcher-footer__product-image" />
 				</>
 			) }
-			<div className="woocommerce-product-variation-switcher-footer__item-label" />
+			<div className="poocommerce-product-variation-switcher-footer__item-label" />
 
 			{ position === 'right' && (
 				<>
-					<div className="woocommerce-product-variation-switcher-footer__product-image" />
+					<div className="poocommerce-product-variation-switcher-footer__product-image" />
 					<Icon
 						icon={ arrowRight }
 						size={ 16 }
-						className="woocommerce-product-variation-switcher-footer__arrow"
+						className="poocommerce-product-variation-switcher-footer__arrow"
 					/>
 				</>
 			) }

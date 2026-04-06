@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Email;
+namespace Automattic\PooCommerce\Tests\Internal\Email;
 
-use Automattic\WooCommerce\Internal\Email\DeferredEmailQueue;
+use Automattic\PooCommerce\Internal\Email\DeferredEmailQueue;
 use WC_Unit_Test_Case;
 
 /**
@@ -26,7 +26,7 @@ class DeferredEmailQueueTest extends WC_Unit_Test_Case {
 		$this->sut = new DeferredEmailQueue();
 		$this->reset_queue_singleton();
 		add_filter(
-			'woocommerce_queue_class',
+			'poocommerce_queue_class',
 			function () {
 				return \WC_Admin_Test_Action_Queue::class;
 			}
@@ -37,9 +37,9 @@ class DeferredEmailQueueTest extends WC_Unit_Test_Case {
 	 * Tear down test fixtures.
 	 */
 	public function tearDown(): void {
-		remove_all_filters( 'woocommerce_queue_class' );
-		remove_all_filters( 'woocommerce_allow_send_queued_transactional_email' );
-		remove_all_actions( 'woocommerce_send_queued_transactional_email' );
+		remove_all_filters( 'poocommerce_queue_class' );
+		remove_all_filters( 'poocommerce_allow_send_queued_transactional_email' );
+		remove_all_actions( 'poocommerce_send_queued_transactional_email' );
 		$this->reset_queue_singleton();
 		parent::tearDown();
 	}
@@ -48,16 +48,16 @@ class DeferredEmailQueueTest extends WC_Unit_Test_Case {
 	 * @testdox Push and dispatch schedules one AS action per email.
 	 */
 	public function test_push_and_dispatch_schedules_per_email(): void {
-		$this->sut->push( 'woocommerce_order_status_completed', array( 123 ) );
-		$this->sut->push( 'woocommerce_new_customer_note', array( 456, 'note' ) );
+		$this->sut->push( 'poocommerce_order_status_completed', array( 123 ) );
+		$this->sut->push( 'poocommerce_new_customer_note', array( 456, 'note' ) );
 
 		$this->sut->dispatch();
 
 		$queue = $this->get_test_queue();
 
 		$this->assertCount( 2, $queue->actions, 'Should schedule one AS action per email' );
-		$this->assertSame( 'woocommerce_send_queued_transactional_email', $queue->actions[0]['hook'] );
-		$this->assertSame( 'woocommerce_send_queued_transactional_email', $queue->actions[1]['hook'] );
+		$this->assertSame( 'poocommerce_send_queued_transactional_email', $queue->actions[0]['hook'] );
+		$this->assertSame( 'poocommerce_send_queued_transactional_email', $queue->actions[1]['hook'] );
 	}
 
 	/**
@@ -75,7 +75,7 @@ class DeferredEmailQueueTest extends WC_Unit_Test_Case {
 	 * @testdox Dispatch clears the queue after scheduling so a second dispatch is a no-op.
 	 */
 	public function test_dispatch_clears_queue(): void {
-		$this->sut->push( 'woocommerce_order_status_completed', array( 123 ) );
+		$this->sut->push( 'poocommerce_order_status_completed', array( 123 ) );
 		$this->sut->dispatch();
 		$this->sut->dispatch();
 
@@ -88,26 +88,26 @@ class DeferredEmailQueueTest extends WC_Unit_Test_Case {
 	 * @testdox Dispatch preserves the filter name and args for each queued email.
 	 */
 	public function test_dispatch_preserves_callback_data(): void {
-		$this->sut->push( 'woocommerce_order_status_pending_to_processing', array( 42, 'extra' ) );
+		$this->sut->push( 'poocommerce_order_status_pending_to_processing', array( 42, 'extra' ) );
 		$this->sut->dispatch();
 
 		$queue  = $this->get_test_queue();
 		$action = $queue->actions[0];
 
-		$this->assertSame( 'woocommerce_order_status_pending_to_processing', $action['args'][0] );
+		$this->assertSame( 'poocommerce_order_status_pending_to_processing', $action['args'][0] );
 		$this->assertSame( array( 42, 'extra' ), $action['args'][1] );
 	}
 
 	/**
-	 * @testdox Dispatch assigns the woocommerce-emails group to scheduled actions.
+	 * @testdox Dispatch assigns the poocommerce-emails group to scheduled actions.
 	 */
 	public function test_dispatch_uses_correct_group(): void {
-		$this->sut->push( 'woocommerce_order_status_completed', array( 1 ) );
+		$this->sut->push( 'poocommerce_order_status_completed', array( 1 ) );
 		$this->sut->dispatch();
 
 		$queue = $this->get_test_queue();
 
-		$this->assertSame( 'woocommerce-emails', $queue->actions[0]['group'] );
+		$this->assertSame( 'poocommerce-emails', $queue->actions[0]['group'] );
 	}
 
 	/**
@@ -117,7 +117,7 @@ class DeferredEmailQueueTest extends WC_Unit_Test_Case {
 		$sent = array();
 
 		add_filter(
-			'woocommerce_allow_send_queued_transactional_email',
+			'poocommerce_allow_send_queued_transactional_email',
 			function ( $allow, $filter, $args ) use ( &$sent ) {
 				unset( $allow );
 				$sent[] = array(
@@ -130,10 +130,10 @@ class DeferredEmailQueueTest extends WC_Unit_Test_Case {
 			3
 		);
 
-		$this->sut->send_queued_transactional_email( 'woocommerce_order_status_completed', array( 100 ) );
+		$this->sut->send_queued_transactional_email( 'poocommerce_order_status_completed', array( 100 ) );
 
 		$this->assertCount( 1, $sent, 'Should process the email callback' );
-		$this->assertSame( 'woocommerce_order_status_completed', $sent[0]['filter'] );
+		$this->assertSame( 'poocommerce_order_status_completed', $sent[0]['filter'] );
 		$this->assertSame( array( 100 ), $sent[0]['args'] );
 	}
 
@@ -144,7 +144,7 @@ class DeferredEmailQueueTest extends WC_Unit_Test_Case {
 		$sent = array();
 
 		add_filter(
-			'woocommerce_allow_send_queued_transactional_email',
+			'poocommerce_allow_send_queued_transactional_email',
 			function ( $allow, $filter ) use ( &$sent ) {
 				unset( $allow );
 				$sent[] = $filter;
@@ -164,10 +164,10 @@ class DeferredEmailQueueTest extends WC_Unit_Test_Case {
 	 * @testdox Push can be called again after dispatch to queue new emails.
 	 */
 	public function test_push_after_dispatch_queues_new_emails(): void {
-		$this->sut->push( 'woocommerce_order_status_completed', array( 1 ) );
+		$this->sut->push( 'poocommerce_order_status_completed', array( 1 ) );
 		$this->sut->dispatch();
 
-		$this->sut->push( 'woocommerce_new_customer_note', array( 2 ) );
+		$this->sut->push( 'poocommerce_new_customer_note', array( 2 ) );
 		$this->sut->dispatch();
 
 		$queue = $this->get_test_queue();

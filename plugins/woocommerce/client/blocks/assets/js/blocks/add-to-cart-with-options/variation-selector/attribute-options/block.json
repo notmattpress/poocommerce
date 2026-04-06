@@ -1,11 +1,11 @@
 {
-	"name": "woocommerce/add-to-cart-with-options-variation-selector-attribute-options",
+	"name": "poocommerce/add-to-cart-with-options-variation-selector-attribute-options",
 	"title": "Variation Selector: Attribute Options (Beta)",
 	"description": "Display the attribute options associated with a variable product.",
-	"category": "woocommerce-product-elements",
-	"keywords": [ "WooCommerce" ],
+	"category": "poocommerce-product-elements",
+	"keywords": [ "PooCommerce" ],
 	"ancestor": [
-		"woocommerce/add-to-cart-with-options-variation-selector-attribute"
+		"poocommerce/add-to-cart-with-options-variation-selector-attribute"
 	],
 	"attributes": {
 		"optionStyle": {
@@ -23,7 +23,7 @@
 			"default": "disable"
 		}
 	},
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"apiVersion": 3,
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"supports": {
@@ -31,9 +31,9 @@
 		"interactivity": true
 	},
 	"usesContext": [
-		"woocommerce/attributeId",
-		"woocommerce/attributeName",
-		"woocommerce/attributeTerms"
+		"poocommerce/attributeId",
+		"poocommerce/attributeName",
+		"poocommerce/attributeTerms"
 	],
-	"style": "file:../woocommerce/add-to-cart-with-options-variation-selector-attribute-options-style.css"
+	"style": "file:../poocommerce/add-to-cart-with-options-variation-selector-attribute-options-style.css"
 }

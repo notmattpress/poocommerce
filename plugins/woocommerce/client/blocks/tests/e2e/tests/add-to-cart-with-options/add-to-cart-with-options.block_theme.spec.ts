@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { test as base, expect, wpCLI, Editor } from '@woocommerce/e2e-utils';
+import { test as base, expect, wpCLI, Editor } from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -43,7 +43,7 @@ test.describe( 'Add to Cart + Options Block', () => {
 		requestUtils,
 	} ) => {
 		await requestUtils.activatePlugin(
-			'woocommerce-blocks-test-custom-product-type'
+			'poocommerce-blocks-test-custom-product-type'
 		);
 		const cliOutput = await wpCLI(
 			`wc product create --slug="custom-product" --name="Custom Product" --type="custom" --regular_price=10 --user=1`
@@ -203,15 +203,15 @@ test.describe( 'Add to Cart + Options Block', () => {
 		// We update to the Product Gallery block to test that it scrolls to the
 		// correct variation image.
 		const productImageGalleryBlock = await editor.getBlockByName(
-			'woocommerce/product-image-gallery'
+			'poocommerce/product-image-gallery'
 		);
 		await editor.selectBlocks( productImageGalleryBlock );
-		await editor.transformBlockTo( 'woocommerce/product-gallery' );
+		await editor.transformBlockTo( 'poocommerce/product-gallery' );
 
 		// We insert the blockified Product Details block to test that it updates
 		// with the correct variation data.
 		await editor.insertBlock( {
-			name: 'woocommerce/product-details',
+			name: 'poocommerce/product-details',
 		} );
 
 		await editor.saveSiteEditorEntities( {
@@ -250,7 +250,7 @@ test.describe( 'Add to Cart + Options Block', () => {
 			.locator( '.wp-block-add-to-cart-with-options' )
 			.getByRole( 'button', { name: 'Add to cart' } );
 		const productPrice = page
-			.locator( '.wp-block-woocommerce-product-price' )
+			.locator( '.wp-block-poocommerce-product-price' )
 			.first();
 		const quantitySelector = page.getByLabel( 'Product quantity' );
 
@@ -516,7 +516,7 @@ test.describe( 'Add to Cart + Options Block', () => {
 		await test.step( 'successfully adds to cart when child products are selected', async () => {
 			const increaseQuantityButton = page
 				.locator(
-					'[data-block-name="woocommerce/add-to-cart-with-options"]'
+					'[data-block-name="poocommerce/add-to-cart-with-options"]'
 				)
 				.getByLabel( 'Increase quantity of Beanie' );
 			await increaseQuantityButton.click();
@@ -546,7 +546,7 @@ test.describe( 'Add to Cart + Options Block', () => {
 		await test.step( 'child simple product quantities can be decreased down to 0', async () => {
 			const reduceQuantityButton = page
 				.locator(
-					'[data-block-name="woocommerce/add-to-cart-with-options-grouped-product-item-selector"]'
+					'[data-block-name="poocommerce/add-to-cart-with-options-grouped-product-item-selector"]'
 				)
 				.getByLabel( 'Reduce quantity of Beanie' );
 			await reduceQuantityButton.click();
@@ -617,7 +617,7 @@ test.describe( 'Add to Cart + Options Block', () => {
 			// Try to add another product to cart again (it will succeed).
 			const beanieIncreaseQuantityButton = page
 				.locator(
-					'[data-block-name="woocommerce/add-to-cart-with-options"]'
+					'[data-block-name="poocommerce/add-to-cart-with-options"]'
 				)
 				.getByLabel( 'Increase quantity of Beanie' );
 			await beanieIncreaseQuantityButton.click();
@@ -669,13 +669,13 @@ test.describe( 'Add to Cart + Options Block', () => {
 
 		const increaseBeanie = page
 			.locator(
-				'[data-block-name="woocommerce/add-to-cart-with-options"]'
+				'[data-block-name="poocommerce/add-to-cart-with-options"]'
 			)
 			.getByLabel( 'Increase quantity of Beanie' );
 
 		const increaseTShirt = page
 			.locator(
-				'[data-block-name="woocommerce/add-to-cart-with-options"]'
+				'[data-block-name="poocommerce/add-to-cart-with-options"]'
 			)
 			.getByLabel( 'Increase quantity of T-Shirt' );
 
@@ -783,7 +783,7 @@ test.describe( 'Add to Cart + Options Block', () => {
 		).toBeVisible();
 
 		const attributeOptionsBlock = await editor.getBlockByName(
-			'woocommerce/add-to-cart-with-options-variation-selector-attribute-options'
+			'poocommerce/add-to-cart-with-options-variation-selector-attribute-options'
 		);
 		await editor.selectBlocks( attributeOptionsBlock.first() );
 
@@ -821,7 +821,7 @@ test.describe( 'Add to Cart + Options Block', () => {
 		requestUtils,
 	} ) => {
 		await requestUtils.activatePlugin(
-			'woocommerce-blocks-test-quantity-constraints'
+			'poocommerce-blocks-test-quantity-constraints'
 		);
 		await pageObject.updateSingleProductTemplate();
 
@@ -1089,7 +1089,7 @@ test.describe( 'Add to Cart + Options Block', () => {
 		pageObject,
 		editor,
 	} ) => {
-		await wpCLI( `option set woocommerce_enable_ajax_add_to_cart no` );
+		await wpCLI( `option set poocommerce_enable_ajax_add_to_cart no` );
 
 		await pageObject.updateSingleProductTemplate();
 
@@ -1113,7 +1113,7 @@ test.describe( 'Add to Cart + Options Block', () => {
 		pageObject,
 		editor,
 	} ) => {
-		await wpCLI( `option set woocommerce_cart_redirect_after_add yes` );
+		await wpCLI( `option set poocommerce_cart_redirect_after_add yes` );
 
 		await pageObject.updateSingleProductTemplate();
 
@@ -1139,7 +1139,7 @@ test.describe( 'Add to Cart + Options Block', () => {
 		pageObject,
 		editor,
 	} ) => {
-		await wpCLI( `option set woocommerce_cart_redirect_after_add yes` );
+		await wpCLI( `option set poocommerce_cart_redirect_after_add yes` );
 
 		await pageObject.updateSingleProductTemplate();
 
@@ -1171,7 +1171,7 @@ test.describe( 'Add to Cart + Options Block', () => {
 		pageObject,
 		editor,
 	} ) => {
-		await wpCLI( `option set woocommerce_cart_redirect_after_add yes` );
+		await wpCLI( `option set poocommerce_cart_redirect_after_add yes` );
 
 		await pageObject.updateSingleProductTemplate();
 

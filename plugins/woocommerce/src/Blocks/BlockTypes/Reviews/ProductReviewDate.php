@@ -1,7 +1,7 @@
 <?php declare( strict_types = 1 );
-namespace Automattic\WooCommerce\Blocks\BlockTypes\Reviews;
+namespace Automattic\PooCommerce\Blocks\BlockTypes\Reviews;
 
-use Automattic\WooCommerce\Blocks\BlockTypes\AbstractBlock;
+use Automattic\PooCommerce\Blocks\BlockTypes\AbstractBlock;
 
 /**
  * ProductReviewDate class.
@@ -37,7 +37,7 @@ class ProductReviewDate extends AbstractBlock {
 		$wrapper_attributes = get_block_wrapper_attributes( array( 'class' => $classes ) );
 		if ( isset( $attributes['format'] ) && 'human-diff' === $attributes['format'] ) {
 			// translators: %s: human-readable time difference.
-			$formatted_date = sprintf( __( '%s ago', 'woocommerce' ), human_time_diff( get_comment_date( 'U', $comment ) ) );
+			$formatted_date = sprintf( __( '%s ago', 'poocommerce' ), human_time_diff( get_comment_date( 'U', $comment ) ) );
 		} else {
 			$formatted_date = get_comment_date( empty( $attributes['format'] ) ? '' : $attributes['format'], $comment );
 		}

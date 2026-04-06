@@ -9,8 +9,8 @@ import {
 	getConfig,
 	withSyncEvent,
 } from '@wordpress/interactivity';
-import type { ProductDataStore } from '@woocommerce/stores/woocommerce/product-data';
-import type { WooCommerceConfig } from '@woocommerce/stores/woocommerce/cart';
+import type { ProductDataStore } from '@poocommerce/stores/poocommerce/product-data';
+import type { PooCommerceConfig } from '@poocommerce/stores/poocommerce/cart';
 
 /**
  * Internal dependencies
@@ -53,7 +53,7 @@ const scrollImageIntoView = ( imageId: number ) => {
 	}
 
 	const galleryContainer = element.closest(
-		'.wp-block-woocommerce-product-gallery'
+		'.wp-block-poocommerce-product-gallery'
 	);
 
 	if ( ! galleryContainer ) {
@@ -111,7 +111,7 @@ const scrollThumbnailIntoView = ( imageId: number ) => {
 
 	// Find the closest gallery container
 	const galleryContainer = element.closest(
-		'.wp-block-woocommerce-product-gallery'
+		'.wp-block-poocommerce-product-gallery'
 	);
 
 	if ( ! galleryContainer ) {
@@ -166,7 +166,7 @@ const scrollThumbnailIntoView = ( imageId: number ) => {
 };
 
 const { state: productDataState } = store< ProductDataStore >(
-	'woocommerce/product-data',
+	'poocommerce/product-data',
 	{},
 	{ lock: universalLock }
 );
@@ -400,7 +400,7 @@ const productGallery = {
 
 			if ( element ) {
 				const galleryContainer = element.closest(
-					'.wp-block-woocommerce-product-gallery'
+					'.wp-block-poocommerce-product-gallery'
 				);
 				if ( galleryContainer ) {
 					const selectedImage = galleryContainer.querySelector(
@@ -434,8 +434,8 @@ const productGallery = {
 			}
 
 			const { products } = getConfig(
-				'woocommerce'
-			) as WooCommerceConfig;
+				'poocommerce'
+			) as PooCommerceConfig;
 
 			const productData =
 				products?.[ productId ]?.variations?.[
@@ -588,7 +588,7 @@ const productGallery = {
 		// so they no longer overflow resulting in a ghost scrollbar (no scroll).
 		// scrollbar-gutter doesn't work well in flexbox and doesn't solve it,
 		// hence programmatic solution.
-		// See https://github.com/woocommerce/woocommerce/issues/59810.
+		// See https://github.com/poocommerce/poocommerce/issues/59810.
 		hideGhostOverflow: () => {
 			const element = getElement()?.ref as HTMLElement;
 			if ( ! element ) return;
@@ -602,7 +602,7 @@ const productGallery = {
 	},
 };
 
-const { actions } = store( 'woocommerce/product-gallery', productGallery, {
+const { actions } = store( 'poocommerce/product-gallery', productGallery, {
 	lock: true,
 } );
 

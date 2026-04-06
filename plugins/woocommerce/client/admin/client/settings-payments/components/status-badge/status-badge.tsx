@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { Pill } from '@woocommerce/components';
+import { Pill } from '@poocommerce/components';
 import { Popover } from '@wordpress/components';
 import { useState, useRef } from '@wordpress/element';
 import { Icon, info } from '@wordpress/icons';
@@ -65,7 +65,7 @@ export const StatusBadge = ( {
 	const handleClick = ( event: React.MouseEvent | React.KeyboardEvent ) => {
 		const clickedElement = event.target as HTMLElement;
 		const parentSpan = clickedElement.closest(
-			'.woocommerce-status-badge__icon-container'
+			'.poocommerce-status-badge__icon-container'
 		);
 
 		if ( buttonRef.current && parentSpan !== buttonRef.current ) {
@@ -97,15 +97,15 @@ export const StatusBadge = ( {
 		switch ( status ) {
 			case 'active':
 			case 'has_incentive':
-				return 'woocommerce-status-badge--success';
+				return 'poocommerce-status-badge--success';
 			case 'needs_setup':
 			case 'test_mode':
 			case 'test_account':
 			case 'not_supported':
-				return 'woocommerce-status-badge--warning';
+				return 'poocommerce-status-badge--warning';
 			case 'recommended':
 			case 'inactive':
-				return 'woocommerce-status-badge--info';
+				return 'poocommerce-status-badge--info';
 			default:
 				return '';
 		}
@@ -117,47 +117,47 @@ export const StatusBadge = ( {
 	const getStatusMessage = () => {
 		switch ( status ) {
 			case 'active':
-				return __( 'Active', 'woocommerce' );
+				return __( 'Active', 'poocommerce' );
 			case 'inactive':
-				return __( 'Inactive', 'woocommerce' );
+				return __( 'Inactive', 'poocommerce' );
 			case 'needs_setup':
-				return __( 'Action needed', 'woocommerce' );
+				return __( 'Action needed', 'poocommerce' );
 			case 'test_mode':
-				return __( 'Test mode', 'woocommerce' );
+				return __( 'Test mode', 'poocommerce' );
 			case 'test_account':
-				return __( 'Test account', 'woocommerce' );
+				return __( 'Test account', 'poocommerce' );
 			case 'recommended':
-				return __( 'Recommended', 'woocommerce' );
+				return __( 'Recommended', 'poocommerce' );
 			case 'not_supported':
-				return __( 'Not supported', 'woocommerce' );
+				return __( 'Not supported', 'poocommerce' );
 			default:
 				return '';
 		}
 	};
 
 	return (
-		<Pill className={ `woocommerce-status-badge ${ getStatusClass() }` }>
+		<Pill className={ `poocommerce-status-badge ${ getStatusClass() }` }>
 			{ message || getStatusMessage() }
 			{ popoverContent && (
 				<span
-					className="woocommerce-status-badge__icon-container"
+					className="poocommerce-status-badge__icon-container"
 					tabIndex={ 0 }
 					role="button"
 					aria-haspopup="dialog"
 					aria-expanded={ isPopoverVisible }
-					aria-label={ __( 'More information', 'woocommerce' ) }
+					aria-label={ __( 'More information', 'poocommerce' ) }
 					ref={ buttonRef }
 					onClick={ handleClick }
 					onKeyDown={ handleKeyDown }
 				>
 					<Icon
-						className="woocommerce-status-badge-icon"
+						className="poocommerce-status-badge-icon"
 						size={ 16 }
 						icon={ info }
 					/>
 					{ isPopoverVisible && (
 						<Popover
-							className="woocommerce-status-badge-popover"
+							className="poocommerce-status-badge-popover"
 							placement="top-start"
 							offset={ 4 }
 							variant="unstyled"

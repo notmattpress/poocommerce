@@ -63,7 +63,7 @@ class WC_Cache_Helper_Tests extends WC_Unit_Test_Case {
 	 */
 	public function test_geolocation_ajax_get_location_hash( string $expected, array $location ) {
 		WC()->session->set( 'customer', null );
-		update_option( 'woocommerce_default_country', $location['country'] );
+		update_option( 'poocommerce_default_country', $location['country'] );
 
 		$session = new WC_Customer( 0, true );
 		$session->set_billing_location( $location['country'], $location['state'], $location['postcode'], $location['city'] );

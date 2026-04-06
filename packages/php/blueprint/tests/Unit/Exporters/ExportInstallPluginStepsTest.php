@@ -1,10 +1,10 @@
 <?php
 
-namespace Automattic\WooCommerce\Blueprint\Tests\Unit\Exporters;
+namespace Automattic\PooCommerce\Blueprint\Tests\Unit\Exporters;
 
-use Automattic\WooCommerce\Blueprint\Exporters\ExportInstallPluginSteps;
-use Automattic\WooCommerce\Blueprint\Steps\Step;
-use Automattic\WooCommerce\Blueprint\Tests\TestCase;
+use Automattic\PooCommerce\Blueprint\Exporters\ExportInstallPluginSteps;
+use Automattic\PooCommerce\Blueprint\Steps\Step;
+use Automattic\PooCommerce\Blueprint\Tests\TestCase;
 
 /**
  * Unit tests for ExportInstallPluginSteps class.

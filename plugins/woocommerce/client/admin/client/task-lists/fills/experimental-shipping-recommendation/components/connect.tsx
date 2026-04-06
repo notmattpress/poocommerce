@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -16,7 +16,7 @@ export const Connect = ( { onConnect }: ConnectProps ) => {
 	return (
 		// @ts-expect-error TODO: convert ConnectForm to TypeScript
 		<ConnectForm
-			from="woocommerce-shipping"
+			from="poocommerce-shipping"
 			onConnect={ () => {
 				recordEvent( 'tasklist_shipping_recommendation_connect_store', {
 					connect: true,

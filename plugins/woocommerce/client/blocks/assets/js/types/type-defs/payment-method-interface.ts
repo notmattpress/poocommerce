@@ -2,11 +2,11 @@
 /**
  * External dependencies
  */
-import type PaymentMethodLabel from '@woocommerce/base-components/cart-checkout/payment-method-label';
-import type PaymentMethodIcons from '@woocommerce/base-components/cart-checkout/payment-method-icons';
-import type LoadingMask from '@woocommerce/base-components/loading-mask';
-import type { Skeleton } from '@woocommerce/base-components/skeleton';
-import type { ValidationInputError } from '@woocommerce/blocks-components';
+import type PaymentMethodLabel from '@poocommerce/base-components/cart-checkout/payment-method-label';
+import type PaymentMethodIcons from '@poocommerce/base-components/cart-checkout/payment-method-icons';
+import type LoadingMask from '@poocommerce/base-components/loading-mask';
+import type { Skeleton } from '@poocommerce/base-components/skeleton';
+import type { ValidationInputError } from '@poocommerce/blocks-components';
 import type { ComponentType } from 'react';
 
 /**

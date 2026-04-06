@@ -1,7 +1,7 @@
 <?php
-namespace Automattic\WooCommerce\StoreApi\Routes\V1;
+namespace Automattic\PooCommerce\StoreApi\Routes\V1;
 
-use Automattic\WooCommerce\StoreApi\Exceptions\RouteException;
+use Automattic\PooCommerce\StoreApi\Exceptions\RouteException;
 
 /**
  * CartItemsByKey class.
@@ -48,7 +48,7 @@ class CartItemsByKey extends AbstractCartRoute {
 		return [
 			'args'        => [
 				'key' => [
-					'description' => __( 'Unique identifier for the item within the cart.', 'woocommerce' ),
+					'description' => __( 'Unique identifier for the item within the cart.', 'poocommerce' ),
 					'type'        => 'string',
 				],
 			],
@@ -87,7 +87,7 @@ class CartItemsByKey extends AbstractCartRoute {
 		$cart_item = $this->cart_controller->get_cart_item( $request['key'] );
 
 		if ( empty( $cart_item ) ) {
-			throw new RouteException( 'woocommerce_rest_cart_invalid_key', __( 'Cart item does not exist.', 'woocommerce' ), 409 );
+			throw new RouteException( 'poocommerce_rest_cart_invalid_key', __( 'Cart item does not exist.', 'poocommerce' ), 409 );
 		}
 
 		$data     = $this->prepare_item_for_response( $cart_item, $request );
@@ -125,7 +125,7 @@ class CartItemsByKey extends AbstractCartRoute {
 		$cart_item = $this->cart_controller->get_cart_item( $request['key'] );
 
 		if ( empty( $cart_item ) ) {
-			throw new RouteException( 'woocommerce_rest_cart_invalid_key', __( 'Cart item does not exist.', 'woocommerce' ), 409 );
+			throw new RouteException( 'poocommerce_rest_cart_invalid_key', __( 'Cart item does not exist.', 'poocommerce' ), 409 );
 		}
 
 		$cart->remove_cart_item( $request['key'] );

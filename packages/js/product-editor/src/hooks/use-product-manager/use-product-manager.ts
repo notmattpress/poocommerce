@@ -4,7 +4,7 @@
 import { useEntityProp, store as coreStore } from '@wordpress/core-data';
 import { dispatch, useSelect, select as wpSelect } from '@wordpress/data';
 import { useState } from '@wordpress/element';
-import { Product, ProductStatus, productsStore } from '@woocommerce/data';
+import { Product, ProductStatus, productsStore } from '@poocommerce/data';
 
 /**
  * Internal dependencies

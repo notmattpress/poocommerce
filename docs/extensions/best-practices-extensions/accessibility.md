@@ -1,14 +1,14 @@
 ---
-post_title: Accessibility Standards for WooCommerce extensions
+post_title: Accessibility Standards for PooCommerce extensions
 sidebar_label: Accessibility
 sidebar_position: 1
 ---
 
 # Accessibility Best Practices
 
-In many places around the world, ecommerce stores are required to be accessible to people with disabilities. As a WooCommerce extension developer, your code directly impacts the accessibility of the shops that use it and can impact merchants’ compliance with accessibility laws.
+In many places around the world, ecommerce stores are required to be accessible to people with disabilities. As a PooCommerce extension developer, your code directly impacts the accessibility of the shops that use it and can impact merchants’ compliance with accessibility laws.
 
-This page is a resource for developers who want to ensure their extensions comply with accessibility standards and best practices. It is recommended that all WooCommerce extensions follow accessibility best practices to provide the best experience for merchants and their customers.
+This page is a resource for developers who want to ensure their extensions comply with accessibility standards and best practices. It is recommended that all PooCommerce extensions follow accessibility best practices to provide the best experience for merchants and their customers.
 
 ## Accessibility Laws
 
@@ -122,7 +122,7 @@ Learn more about coding [prefers-reduced-motion media queries](https://developer
 
 Consider bringing in actual users with disabilities to test your extensions for accessibility. Seeing someone who relies on a screen reader or other assistive device use your products can be very enlightening. Ask your customer base to see if you already have people with disabilities in your audience available to test and provide feedback. Here’s a great resource on [how to run user testing sessions](https://www.w3.org/WAI/test-evaluate/involving-users/).
 
-If you don’t want to run your own user testing sessions, there are [WooExperts](https://woocommerce.com/for-agencies/) who can help with this.
+If you don’t want to run your own user testing sessions, there are [WooExperts](https://poocommerce.com/for-agencies/) who can help with this.
 
 ## Additional Considerations
 
@@ -152,7 +152,7 @@ ACRs are created using a Voluntary Product Accessibility Template (VPAT), a stan
 
 WCAG compliance doesn’t have to feel overwhelming! You can test and fix one issue at a time, incrementally improving your extension. However, accessibility goes faster if you don’t have to memorize WCAG or learn how to test first. Consider hiring an accessibility specialist to help with auditing or user testing your extension. The right company or consultant will help you find problems quickly, prioritize fixes, and train your team so fewer accessibility issues will be added in the future.
 
-You can find accessibility-focused developers in our [WooExperts directory](https://woocommerce.com/for-agencies/).
+You can find accessibility-focused developers in our [WooExperts directory](https://poocommerce.com/for-agencies/).
 
 ## Learning More About Accessibility 
 

@@ -1,5 +1,5 @@
 {
-	"extends": "@woocommerce/internal-ts-config/tsconfig-cjs.json",
+	"extends": "@poocommerce/internal-ts-config/tsconfig-cjs.json",
 	"compilerOptions": {
 		"rootDir": "src",
 		"outDir": "build",

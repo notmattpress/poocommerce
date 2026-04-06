@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { Extension } from '@woocommerce/data';
+import { Extension } from '@poocommerce/data';
 
 /**
  * Internal dependencies

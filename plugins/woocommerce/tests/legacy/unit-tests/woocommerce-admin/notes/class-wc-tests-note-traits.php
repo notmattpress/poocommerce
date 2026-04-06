@@ -2,12 +2,12 @@
 /**
  * NoteTraits tests
  *
- * @package WooCommerce\Admin\Tests\Notes
+ * @package PooCommerce\Admin\Tests\Notes
  */
 
-use Automattic\WooCommerce\Admin\Notes\NotesUnavailableException;
-use Automattic\WooCommerce\Admin\Notes\Note;
-use Automattic\WooCommerce\Admin\Notes\NoteTraits;
+use Automattic\PooCommerce\Admin\Notes\NotesUnavailableException;
+use Automattic\PooCommerce\Admin\Notes\Note;
+use Automattic\PooCommerce\Admin\Notes\NoteTraits;
 
 /**
  * Class WC_Admin_Tests_NoteTraits
@@ -39,10 +39,10 @@ class WC_Admin_Tests_NoteTraits extends WC_Unit_Test_Case {
 	 * @param callable $callback Tested NoteTraits method.
 	 */
 	public function test_exception_is_thrown_if_data_store_cannot_be_loaded( $callback ) {
-		add_filter( 'woocommerce_data_stores', '__return_empty_array' );
+		add_filter( 'poocommerce_data_stores', '__return_empty_array' );
 		$this->expectException( NotesUnavailableException::class );
 		$callback();
-		remove_filter( 'woocommerce_data_stores', '__return_empty_array' );
+		remove_filter( 'poocommerce_data_stores', '__return_empty_array' );
 	}
 
 	/**
@@ -52,9 +52,9 @@ class WC_Admin_Tests_NoteTraits extends WC_Unit_Test_Case {
 	 * @param callable $callback Tested NoteTraits method.
 	 */
 	public function test_no_exception_is_thrown_even_if_data_store_cannot_be_loaded( $callback ) {
-		add_filter( 'woocommerce_data_stores', '__return_empty_array' );
+		add_filter( 'poocommerce_data_stores', '__return_empty_array' );
 		$callback();
-		remove_filter( 'woocommerce_data_stores', '__return_empty_array' );
+		remove_filter( 'poocommerce_data_stores', '__return_empty_array' );
 	}
 
 	/**

@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\ProductFeed\Storage;
+namespace Automattic\PooCommerce\Tests\Internal\ProductFeed\Storage;
 
-use Automattic\WooCommerce\Internal\ProductFeed\Storage\JsonFileFeed;
+use Automattic\PooCommerce\Internal\ProductFeed\Storage\JsonFileFeed;
 
 // This file works directly with local files. That's fine.
 // phpcs:disable WordPress.WP.AlternativeFunctions
@@ -23,7 +23,7 @@ class JsonFileFeedTest extends \WC_Unit_Test_Case {
 	public function tearDown(): void {
 		parent::tearDown();
 		$this->get_and_delete_dir();
-		remove_all_filters( 'woocommerce_product_feed_time' );
+		remove_all_filters( 'poocommerce_product_feed_time' );
 	}
 
 	/**
@@ -32,7 +32,7 @@ class JsonFileFeedTest extends \WC_Unit_Test_Case {
 	public function test_feed_file_is_created() {
 		// Use the current time for the test as the time in the SUT to avoid flakiness.
 		$current_time = time();
-		add_filter( 'woocommerce_product_feed_time', fn() => $current_time );
+		add_filter( 'poocommerce_product_feed_time', fn() => $current_time );
 
 		$feed = new JsonFileFeed( 'test-feed' );
 		$feed->start();

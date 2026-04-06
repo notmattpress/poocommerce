@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { Product } from '@woocommerce/data';
+import { Product } from '@poocommerce/data';
 
 export type ProductListProps = React.DetailedHTMLProps<
 	React.HTMLAttributes< HTMLDivElement >,

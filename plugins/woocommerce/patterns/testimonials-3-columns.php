@@ -1,17 +1,17 @@
 <?php
 /**
  * Title: Testimonials 3 Columns
- * Slug: woocommerce-blocks/testimonials-3-columns
- * Categories: WooCommerce, Reviews
+ * Slug: poocommerce-blocks/testimonials-3-columns
+ * Categories: PooCommerce, Reviews
  */
 
-$main_header        = __( 'What our customers say', 'woocommerce' );
-$first_review       = __( 'Eclectic finds, ethical delights', 'woocommerce' );
-$second_review      = __( 'Sip, Shop, Savor', 'woocommerce' );
-$third_review       = __( 'LOCAL LOVE', 'woocommerce' );
-$first_description  = __( 'Transformed my daily routine with unique, eco-friendly treasures. Exceptional quality and service. Proud to support a store that aligns with my values.', 'woocommerce' );
-$second_description = __( 'The organic coffee beans are a revelation. Each sip feels like a journey. Beautifully crafted accessories add a touch of elegance to my home.', 'woocommerce' );
-$third_description  = __( 'From sustainably sourced teas to chic vases, this store is a treasure trove. Love knowing my purchases contribute to a greener planet.', 'woocommerce' );
+$main_header        = __( 'What our customers say', 'poocommerce' );
+$first_review       = __( 'Eclectic finds, ethical delights', 'poocommerce' );
+$second_review      = __( 'Sip, Shop, Savor', 'poocommerce' );
+$third_review       = __( 'LOCAL LOVE', 'poocommerce' );
+$first_description  = __( 'Transformed my daily routine with unique, eco-friendly treasures. Exceptional quality and service. Proud to support a store that aligns with my values.', 'poocommerce' );
+$second_description = __( 'The organic coffee beans are a revelation. Each sip feels like a journey. Beautifully crafted accessories add a touch of elegance to my home.', 'poocommerce' );
+$third_description  = __( 'From sustainably sourced teas to chic vases, this store is a treasure trove. Love knowing my purchases contribute to a greener planet.', 'poocommerce' );
 ?>
 
 <!-- wp:group {"metadata":{"name":"Testimonials 3 Columns"},"align":"full","style":{"spacing":{"padding":{"top":"calc( 0.5 * var(--wp--style--root--padding-right, var(--wp--custom--gap--horizontal)))","bottom":"calc( 0.5 * var(--wp--style--root--padding-right, var(--wp--custom--gap--horizontal)))","left":"var(--wp--style--root--padding-left, var(--wp--custom--gap--horizontal))","right":"var(--wp--style--root--padding-right, var(--wp--custom--gap--horizontal))"},"margin":{"top":"0","bottom":"0"}}},"layout":{"type":"constrained","justifyContent":"center"}} -->

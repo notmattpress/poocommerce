@@ -3,13 +3,13 @@
  */
 import { dispatch, resolveSelect, useSelect } from '@wordpress/data';
 import { useCallback, useMemo, useState } from '@wordpress/element';
-import { getNewPath, getPath, navigateTo } from '@woocommerce/navigation';
+import { getNewPath, getPath, navigateTo } from '@poocommerce/navigation';
 import {
 	Product,
 	ProductDefaultAttribute,
 	ProductVariation,
 	experimentalProductVariationsStore,
-} from '@woocommerce/data';
+} from '@poocommerce/data';
 import { applyFilters } from '@wordpress/hooks';
 import {
 	useEntityProp,
@@ -141,12 +141,12 @@ export function useProductVariationsHelper() {
 		/**
 		 * Filters the meta_data array for generated variations.
 		 *
-		 * @filter woocommerce.product.variations.generate.meta_data
+		 * @filter poocommerce.product.variations.generate.meta_data
 		 * @param {Object} product Main product object.
 		 * @return {Object} meta_data array for variations.
 		 */
 		const meta_data = applyFilters(
-			'woocommerce.product.variations.generate.meta_data',
+			'poocommerce.product.variations.generate.meta_data',
 			[],
 			product
 		);

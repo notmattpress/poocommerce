@@ -3,7 +3,7 @@
  * A class of utilities for dealing with internationalization.
  */
 
-namespace Automattic\WooCommerce\Utilities;
+namespace Automattic\PooCommerce\Utilities;
 
 /**
  * A class of utilities for dealing with internationalization.

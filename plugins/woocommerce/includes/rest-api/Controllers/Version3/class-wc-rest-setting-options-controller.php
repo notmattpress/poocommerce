@@ -4,7 +4,7 @@
  *
  * Handles requests to the /settings/$group/$setting endpoints.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @since   3.0.0
  */
 
@@ -13,7 +13,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * REST API Setting Options controller class.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @extends WC_REST_Setting_Options_V2_Controller
  */
 class WC_REST_Setting_Options_Controller extends WC_REST_Setting_Options_V2_Controller {
@@ -73,13 +73,13 @@ class WC_REST_Setting_Options_Controller extends WC_REST_Setting_Options_V2_Cont
 	 */
 	public function get_group_settings( $group_id ) {
 		if ( empty( $group_id ) ) {
-			return new WP_Error( 'rest_setting_setting_group_invalid', __( 'Invalid setting group.', 'woocommerce' ), array( 'status' => 404 ) );
+			return new WP_Error( 'rest_setting_setting_group_invalid', __( 'Invalid setting group.', 'poocommerce' ), array( 'status' => 404 ) );
 		}
 
-		$settings = apply_filters( 'woocommerce_settings-' . $group_id, array() ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
+		$settings = apply_filters( 'poocommerce_settings-' . $group_id, array() ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
 
 		if ( empty( $settings ) ) {
-			return new WP_Error( 'rest_setting_setting_group_invalid', __( 'Invalid setting group.', 'woocommerce' ), array( 'status' => 404 ) );
+			return new WP_Error( 'rest_setting_setting_group_invalid', __( 'Invalid setting group.', 'poocommerce' ), array( 'status' => 404 ) );
 		}
 
 		$this->prime_options_cache_for_settings( $settings );
@@ -170,7 +170,7 @@ class WC_REST_Setting_Options_Controller extends WC_REST_Setting_Options_V2_Cont
 			'type'       => 'object',
 			'properties' => array(
 				'id'          => array(
-					'description' => __( 'A unique identifier for the setting.', 'woocommerce' ),
+					'description' => __( 'A unique identifier for the setting.', 'poocommerce' ),
 					'type'        => 'string',
 					'arg_options' => array(
 						'sanitize_callback' => 'sanitize_title',
@@ -179,7 +179,7 @@ class WC_REST_Setting_Options_Controller extends WC_REST_Setting_Options_V2_Cont
 					'readonly'    => true,
 				),
 				'group_id'    => array(
-					'description' => __( 'An identifier for the group this setting belongs to.', 'woocommerce' ),
+					'description' => __( 'An identifier for the group this setting belongs to.', 'poocommerce' ),
 					'type'        => 'string',
 					'arg_options' => array(
 						'sanitize_callback' => 'sanitize_title',
@@ -188,7 +188,7 @@ class WC_REST_Setting_Options_Controller extends WC_REST_Setting_Options_V2_Cont
 					'readonly'    => true,
 				),
 				'label'       => array(
-					'description' => __( 'A human readable label for the setting used in interfaces.', 'woocommerce' ),
+					'description' => __( 'A human readable label for the setting used in interfaces.', 'poocommerce' ),
 					'type'        => 'string',
 					'arg_options' => array(
 						'sanitize_callback' => 'sanitize_text_field',
@@ -197,7 +197,7 @@ class WC_REST_Setting_Options_Controller extends WC_REST_Setting_Options_V2_Cont
 					'readonly'    => true,
 				),
 				'description' => array(
-					'description' => __( 'A human readable description for the setting used in interfaces.', 'woocommerce' ),
+					'description' => __( 'A human readable description for the setting used in interfaces.', 'poocommerce' ),
 					'type'        => 'string',
 					'arg_options' => array(
 						'sanitize_callback' => 'sanitize_text_field',
@@ -206,18 +206,18 @@ class WC_REST_Setting_Options_Controller extends WC_REST_Setting_Options_V2_Cont
 					'readonly'    => true,
 				),
 				'value'       => array(
-					'description' => __( 'Setting value.', 'woocommerce' ),
+					'description' => __( 'Setting value.', 'poocommerce' ),
 					'type'        => 'mixed',
 					'context'     => array( 'view', 'edit' ),
 				),
 				'default'     => array(
-					'description' => __( 'Default value for the setting.', 'woocommerce' ),
+					'description' => __( 'Default value for the setting.', 'poocommerce' ),
 					'type'        => 'mixed',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'tip'         => array(
-					'description' => __( 'Additional help text shown to the user about the setting.', 'woocommerce' ),
+					'description' => __( 'Additional help text shown to the user about the setting.', 'poocommerce' ),
 					'type'        => 'string',
 					'arg_options' => array(
 						'sanitize_callback' => 'sanitize_text_field',
@@ -226,7 +226,7 @@ class WC_REST_Setting_Options_Controller extends WC_REST_Setting_Options_V2_Cont
 					'readonly'    => true,
 				),
 				'placeholder' => array(
-					'description' => __( 'Placeholder text to be displayed in text inputs.', 'woocommerce' ),
+					'description' => __( 'Placeholder text to be displayed in text inputs.', 'poocommerce' ),
 					'type'        => 'string',
 					'arg_options' => array(
 						'sanitize_callback' => 'sanitize_text_field',
@@ -235,7 +235,7 @@ class WC_REST_Setting_Options_Controller extends WC_REST_Setting_Options_V2_Cont
 					'readonly'    => true,
 				),
 				'type'        => array(
-					'description' => __( 'Type of setting.', 'woocommerce' ),
+					'description' => __( 'Type of setting.', 'poocommerce' ),
 					'type'        => 'string',
 					'arg_options' => array(
 						'sanitize_callback' => 'sanitize_text_field',
@@ -245,7 +245,7 @@ class WC_REST_Setting_Options_Controller extends WC_REST_Setting_Options_V2_Cont
 					'readonly'    => true,
 				),
 				'options'     => array(
-					'description' => __( 'Array of options (key value pairs) for inputs such as select, multiselect, and radio buttons.', 'woocommerce' ),
+					'description' => __( 'Array of options (key value pairs) for inputs such as select, multiselect, and radio buttons.', 'poocommerce' ),
 					'type'        => 'object',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,

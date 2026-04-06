@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { ViewMoreList } from '@woocommerce/components';
+import { ViewMoreList } from '@poocommerce/components';
 
 export const Basic = () => (
 	<ViewMoreList

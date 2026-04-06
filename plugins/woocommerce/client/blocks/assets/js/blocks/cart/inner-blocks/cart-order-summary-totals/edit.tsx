@@ -3,7 +3,7 @@
  */
 import { useBlockProps, InnerBlocks } from '@wordpress/block-editor';
 import type { TemplateArray } from '@wordpress/blocks';
-import { innerBlockAreas } from '@woocommerce/blocks-checkout';
+import { innerBlockAreas } from '@poocommerce/blocks-checkout';
 
 /**
  * Internal dependencies
@@ -19,11 +19,11 @@ export const Edit = ( { clientId }: { clientId: string } ): JSX.Element => {
 		innerBlockAreas.CART_ORDER_SUMMARY_TOTALS
 	);
 	const defaultTemplate = [
-		[ 'woocommerce/cart-order-summary-subtotal-block', {}, [] ],
-		[ 'woocommerce/cart-order-summary-fee-block', {}, [] ],
-		[ 'woocommerce/cart-order-summary-discount-block', {}, [] ],
-		[ 'woocommerce/cart-order-summary-shipping-block', {}, [] ],
-		[ 'woocommerce/cart-order-summary-taxes-block', {}, [] ],
+		[ 'poocommerce/cart-order-summary-subtotal-block', {}, [] ],
+		[ 'poocommerce/cart-order-summary-fee-block', {}, [] ],
+		[ 'poocommerce/cart-order-summary-discount-block', {}, [] ],
+		[ 'poocommerce/cart-order-summary-shipping-block', {}, [] ],
+		[ 'poocommerce/cart-order-summary-taxes-block', {}, [] ],
 	] as TemplateArray;
 
 	useForcedLayout( {

@@ -60,12 +60,12 @@ export default function Edit( props: BlockEditProps ): JSX.Element {
 	const handleCreateCoupon = () => {
 		// Get the handler from the filter (integrations provide the default handler)
 		// Integrators can customize this filter for SPA routing, custom workflows, etc.
-		// Filter: woocommerce_email_editor_create_coupon_handler
+		// Filter: poocommerce_email_editor_create_coupon_handler
 		// @since 10.5.0
 		// @param {() => void} handler - Function called when user clicks "Create new coupon"
 		// @return {() => void} Modified handler function. The returned function should open the coupon creation UI.
 		const createCouponHandler = applyFilters(
-			'woocommerce_email_editor_create_coupon_handler',
+			'poocommerce_email_editor_create_coupon_handler',
 			() => {
 				// This is the ultimate fallback if no integration provides a handler
 				// May not work correctly in subdirectory installations
@@ -123,7 +123,7 @@ export default function Edit( props: BlockEditProps ): JSX.Element {
 					dispatch( 'core/notices' ).createErrorNotice(
 						__(
 							'You do not have permission to view coupons.',
-							'woocommerce'
+							'poocommerce'
 						),
 						{
 							id: 'coupon-code-permission-error',
@@ -258,18 +258,18 @@ export default function Edit( props: BlockEditProps ): JSX.Element {
 		<>
 			<InspectorControls>
 				<PanelBody
-					title={ __( 'Settings', 'woocommerce' ) }
+					title={ __( 'Settings', 'poocommerce' ) }
 					initialOpen={ true }
 				>
 					<div style={ { marginBottom: '16px' } }>
 						<div>
 							{ __(
 								'Search for an existing coupon',
-								'woocommerce'
+								'poocommerce'
 							) }
 						</div>
 						<ComboboxControl
-							label={ __( 'Search coupons', 'woocommerce' ) }
+							label={ __( 'Search coupons', 'poocommerce' ) }
 							hideLabelFromVision
 							value={ couponCode }
 							onChange={ ( value ) => {
@@ -287,7 +287,7 @@ export default function Edit( props: BlockEditProps ): JSX.Element {
 								if ( isLoading ) {
 									return __(
 										'Searching coupons…',
-										'woocommerce'
+										'poocommerce'
 									);
 								}
 								if (
@@ -296,7 +296,7 @@ export default function Edit( props: BlockEditProps ): JSX.Element {
 								) {
 									return __(
 										'Type at least 2 characters to search',
-										'woocommerce'
+										'poocommerce'
 									);
 								}
 								return null;
@@ -320,7 +320,7 @@ export default function Edit( props: BlockEditProps ): JSX.Element {
 							onClick={ handleCreateCoupon }
 							style={ { padding: 0, height: 'auto' } }
 						>
-							{ __( 'Create new coupon', 'woocommerce' ) }
+							{ __( 'Create new coupon', 'poocommerce' ) }
 						</Button>
 					</div>
 				</PanelBody>
@@ -338,7 +338,7 @@ export default function Edit( props: BlockEditProps ): JSX.Element {
 						? couponCode
 						: __(
 								'Coupon Code block – No coupon selected',
-								'woocommerce'
+								'poocommerce'
 						  ) }
 				</span>
 			</div>

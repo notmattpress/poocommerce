@@ -1,6 +1,6 @@
 #!/bin/sh
 
-PLUGIN_SLUG="woocommerce-beta-tester"
+PLUGIN_SLUG="poocommerce-beta-tester"
 PROJECT_PATH=$(pwd)
 BUILD_PATH="${PROJECT_PATH}/build"
 DEST_PATH="$BUILD_PATH/$PLUGIN_SLUG"
@@ -12,7 +12,7 @@ mkdir -p "$DEST_PATH"
 echo "Installing PHP and JS dependencies..."
 pnpm install --frozen-lockfile
 echo "Running JS Build..."
-pnpm --filter='@woocommerce/plugin-woocommerce-beta-tester' build || exit "$?"
+pnpm --filter='@poocommerce/plugin-poocommerce-beta-tester' build || exit "$?"
 
 echo "Cleaning up PHP dependencies..."
 composer install --no-dev --quiet --optimize-autoloader || exit "$?"

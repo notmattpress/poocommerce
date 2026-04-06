@@ -6,9 +6,9 @@ import React from 'react';
 import { createElement } from '@wordpress/element';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { recordEvent } from '@woocommerce/tracks';
-import { useSettings, useUserPreferences } from '@woocommerce/data';
-import { getAdminLink } from '@woocommerce/settings';
+import { recordEvent } from '@poocommerce/tracks';
+import { useSettings, useUserPreferences } from '@poocommerce/data';
+import { getAdminLink } from '@poocommerce/settings';
 
 /**
  * Internal dependencies
@@ -16,12 +16,12 @@ import { getAdminLink } from '@woocommerce/settings';
 import ScheduledUpdatesPromotionNotice from '../index';
 
 // Mock dependencies
-jest.mock( '@woocommerce/tracks', () => ( {
+jest.mock( '@poocommerce/tracks', () => ( {
 	recordEvent: jest.fn(),
 } ) );
 
-jest.mock( '@woocommerce/data', () => {
-	const originalModule = jest.requireActual( '@woocommerce/data' );
+jest.mock( '@poocommerce/data', () => {
+	const originalModule = jest.requireActual( '@poocommerce/data' );
 	return {
 		...originalModule,
 		useSettings: jest.fn(),
@@ -29,7 +29,7 @@ jest.mock( '@woocommerce/data', () => {
 	};
 } );
 
-jest.mock( '@woocommerce/settings', () => ( {
+jest.mock( '@poocommerce/settings', () => ( {
 	getAdminLink: jest.fn( ( path: string ) => `http://example.com/${ path }` ),
 } ) );
 
@@ -116,7 +116,7 @@ describe( 'ScheduledUpdatesPromotionNotice', () => {
 		test( 'should not render when option is set to "no"', () => {
 			mockUseSettings.mockReturnValue( {
 				wcAdminSettings: {
-					woocommerce_analytics_scheduled_import: 'no',
+					poocommerce_analytics_scheduled_import: 'no',
 				},
 			} as unknown as ReturnType< typeof useSettings > );
 
@@ -128,7 +128,7 @@ describe( 'ScheduledUpdatesPromotionNotice', () => {
 		test( 'should not render when option is set to "yes"', () => {
 			mockUseSettings.mockReturnValue( {
 				wcAdminSettings: {
-					woocommerce_analytics_scheduled_import: 'yes',
+					poocommerce_analytics_scheduled_import: 'yes',
 				},
 			} as unknown as ReturnType< typeof useSettings > );
 
@@ -161,7 +161,7 @@ describe( 'ScheduledUpdatesPromotionNotice', () => {
 		test( 'should render when option is null', () => {
 			mockUseSettings.mockReturnValue( {
 				wcAdminSettings: {
-					woocommerce_analytics_scheduled_import: null,
+					poocommerce_analytics_scheduled_import: null,
 				},
 			} as unknown as ReturnType< typeof useSettings > );
 
@@ -318,7 +318,7 @@ describe( 'ScheduledUpdatesPromotionNotice', () => {
 
 			expect( dismissButton ).toBeInTheDocument();
 			expect( dismissButton ).toHaveClass(
-				'woocommerce-message-close',
+				'poocommerce-message-close',
 				'notice-dismiss'
 			);
 		} );
@@ -383,7 +383,7 @@ describe( 'ScheduledUpdatesPromotionNotice', () => {
 
 			mockUseSettings.mockReturnValue( {
 				wcAdminSettings: {
-					woocommerce_analytics_scheduled_import: 'no',
+					poocommerce_analytics_scheduled_import: 'no',
 				},
 			} as unknown as ReturnType< typeof useSettings > );
 

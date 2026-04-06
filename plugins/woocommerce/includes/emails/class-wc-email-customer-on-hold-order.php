@@ -2,7 +2,7 @@
 /**
  * Class WC_Email_Customer_On_Hold_Order file.
  *
- * @package WooCommerce\Emails
+ * @package PooCommerce\Emails
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -18,7 +18,7 @@ if ( ! class_exists( 'WC_Email_Customer_On_Hold_Order', false ) ) :
 	 *
 	 * @class       WC_Email_Customer_On_Hold_Order
 	 * @version     2.6.0
-	 * @package     WooCommerce\Classes\Emails
+	 * @package     PooCommerce\Classes\Emails
 	 * @extends     WC_Email
 	 */
 	class WC_Email_Customer_On_Hold_Order extends WC_Email {
@@ -29,7 +29,7 @@ if ( ! class_exists( 'WC_Email_Customer_On_Hold_Order', false ) ) :
 		public function __construct() {
 			$this->id             = 'customer_on_hold_order';
 			$this->customer_email = true;
-			$this->title          = __( 'Order on-hold', 'woocommerce' );
+			$this->title          = __( 'Order on-hold', 'poocommerce' );
 			$this->email_group    = 'order-changes';
 			$this->template_html  = 'emails/customer-on-hold-order.php';
 			$this->template_plain = 'emails/plain/customer-on-hold-order.php';
@@ -39,21 +39,21 @@ if ( ! class_exists( 'WC_Email_Customer_On_Hold_Order', false ) ) :
 			);
 
 			// Triggers for this email.
-			add_action( 'woocommerce_order_status_pending_to_on-hold_notification', array( $this, 'trigger' ), 10, 2 );
-			add_action( 'woocommerce_order_status_failed_to_on-hold_notification', array( $this, 'trigger' ), 10, 2 );
-			add_action( 'woocommerce_order_status_cancelled_to_on-hold_notification', array( $this, 'trigger' ), 10, 2 );
+			add_action( 'poocommerce_order_status_pending_to_on-hold_notification', array( $this, 'trigger' ), 10, 2 );
+			add_action( 'poocommerce_order_status_failed_to_on-hold_notification', array( $this, 'trigger' ), 10, 2 );
+			add_action( 'poocommerce_order_status_cancelled_to_on-hold_notification', array( $this, 'trigger' ), 10, 2 );
 
 			// Call parent constructor.
 			parent::__construct();
 
 			// Must be after parent's constructor which sets `email_improvements_enabled` property.
 			$this->description = $this->email_improvements_enabled
-				? __( 'Send an email to customers notifying them when their order has been placed on hold', 'woocommerce' )
-				: __( 'This is an order notification sent to customers containing order details after an order is placed on-hold from Pending, Cancelled or Failed order status.', 'woocommerce' );
+				? __( 'Send an email to customers notifying them when their order has been placed on hold', 'poocommerce' )
+				: __( 'This is an order notification sent to customers containing order details after an order is placed on-hold from Pending, Cancelled or Failed order status.', 'poocommerce' );
 
 			if ( $this->block_email_editor_enabled ) {
-				$this->title       = __( 'Order on hold', 'woocommerce' );
-				$this->description = __( 'Notifies customers when their order is pending payment confirmation.', 'woocommerce' );
+				$this->title       = __( 'Order on hold', 'poocommerce' );
+				$this->description = __( 'Notifies customers when their order is pending payment confirmation.', 'poocommerce' );
 			}
 		}
 
@@ -65,9 +65,9 @@ if ( ! class_exists( 'WC_Email_Customer_On_Hold_Order', false ) ) :
 		 */
 		public function get_default_subject() {
 			if ( $this->block_email_editor_enabled ) {
-				return __( 'Your order from {site_title} is on hold', 'woocommerce' );
+				return __( 'Your order from {site_title} is on hold', 'poocommerce' );
 			}
-			return __( 'Your {site_title} order has been received!', 'woocommerce' );
+			return __( 'Your {site_title} order has been received!', 'poocommerce' );
 		}
 
 		/**
@@ -78,9 +78,9 @@ if ( ! class_exists( 'WC_Email_Customer_On_Hold_Order', false ) ) :
 		 */
 		public function get_default_heading() {
 			if ( $this->block_email_editor_enabled ) {
-				return __( 'Payment confirmation pending', 'woocommerce' );
+				return __( 'Payment confirmation pending', 'poocommerce' );
 			}
-			return __( 'Thank you for your order', 'woocommerce' );
+			return __( 'Thank you for your order', 'poocommerce' );
 		}
 
 		/**
@@ -156,8 +156,8 @@ if ( ! class_exists( 'WC_Email_Customer_On_Hold_Order', false ) ) :
 		 */
 		public function get_default_additional_content() {
 			return $this->email_improvements_enabled
-				? __( 'Thanks again! If you need any help with your order, please contact us at {store_email}.', 'woocommerce' )
-				: __( 'We look forward to fulfilling your order soon.', 'woocommerce' );
+				? __( 'Thanks again! If you need any help with your order, please contact us at {store_email}.', 'poocommerce' )
+				: __( 'We look forward to fulfilling your order soon.', 'poocommerce' );
 		}
 	}
 

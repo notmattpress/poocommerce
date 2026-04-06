@@ -1,16 +1,16 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Orders;
+namespace Automattic\PooCommerce\Tests\Internal\Orders;
 
-use Automattic\WooCommerce\Internal\Orders\PointOfSaleEmailHandler;
+use Automattic\PooCommerce\Internal\Orders\PointOfSaleEmailHandler;
 use WC_Order;
 use WC_Unit_Test_Case;
 
 /**
  * Tests for the PointOfSaleEmailHandler class.
  *
- * @covers \Automattic\WooCommerce\Internal\Orders\PointOfSaleEmailHandler
+ * @covers \Automattic\PooCommerce\Internal\Orders\PointOfSaleEmailHandler
  */
 class PointOfSaleEmailHandlerTest extends WC_Unit_Test_Case {
 
@@ -108,29 +108,29 @@ class PointOfSaleEmailHandlerTest extends WC_Unit_Test_Case {
 		$handler->register();
 
 		$this->assertNotFalse(
-			has_filter( 'woocommerce_email_enabled_customer_completed_order', array( $handler, 'maybe_suppress_email' ) )
+			has_filter( 'poocommerce_email_enabled_customer_completed_order', array( $handler, 'maybe_suppress_email' ) )
 		);
 		$this->assertNotFalse(
-			has_filter( 'woocommerce_email_enabled_customer_processing_order', array( $handler, 'maybe_suppress_email' ) )
+			has_filter( 'poocommerce_email_enabled_customer_processing_order', array( $handler, 'maybe_suppress_email' ) )
 		);
 		$this->assertNotFalse(
-			has_filter( 'woocommerce_email_enabled_customer_on_hold_order', array( $handler, 'maybe_suppress_email' ) )
+			has_filter( 'poocommerce_email_enabled_customer_on_hold_order', array( $handler, 'maybe_suppress_email' ) )
 		);
 		$this->assertNotFalse(
-			has_filter( 'woocommerce_email_enabled_new_order', array( $handler, 'maybe_suppress_email' ) )
+			has_filter( 'poocommerce_email_enabled_new_order', array( $handler, 'maybe_suppress_email' ) )
 		);
 		$this->assertNotFalse(
-			has_filter( 'woocommerce_email_enabled_customer_refunded_order', array( $handler, 'maybe_suppress_email' ) )
+			has_filter( 'poocommerce_email_enabled_customer_refunded_order', array( $handler, 'maybe_suppress_email' ) )
 		);
 		$this->assertNotFalse(
-			has_filter( 'woocommerce_email_enabled_customer_partially_refunded_order', array( $handler, 'maybe_suppress_email' ) )
+			has_filter( 'poocommerce_email_enabled_customer_partially_refunded_order', array( $handler, 'maybe_suppress_email' ) )
 		);
 
-		remove_all_filters( 'woocommerce_email_enabled_customer_completed_order' );
-		remove_all_filters( 'woocommerce_email_enabled_customer_processing_order' );
-		remove_all_filters( 'woocommerce_email_enabled_customer_on_hold_order' );
-		remove_all_filters( 'woocommerce_email_enabled_customer_refunded_order' );
-		remove_all_filters( 'woocommerce_email_enabled_customer_partially_refunded_order' );
-		remove_all_filters( 'woocommerce_email_enabled_new_order' );
+		remove_all_filters( 'poocommerce_email_enabled_customer_completed_order' );
+		remove_all_filters( 'poocommerce_email_enabled_customer_processing_order' );
+		remove_all_filters( 'poocommerce_email_enabled_customer_on_hold_order' );
+		remove_all_filters( 'poocommerce_email_enabled_customer_refunded_order' );
+		remove_all_filters( 'poocommerce_email_enabled_customer_partially_refunded_order' );
+		remove_all_filters( 'poocommerce_email_enabled_new_order' );
 	}
 }

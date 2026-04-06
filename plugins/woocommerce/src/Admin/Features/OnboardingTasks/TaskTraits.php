@@ -3,7 +3,7 @@
  * Task and TaskList Traits
  */
 
-namespace Automattic\WooCommerce\Admin\Features\OnboardingTasks;
+namespace Automattic\PooCommerce\Admin\Features\OnboardingTasks;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -40,7 +40,7 @@ trait TaskTraits {
 	 */
 	public function get_list_id() {
 		$namespaced_class = get_class( $this );
-		return is_subclass_of( $namespaced_class, 'Automattic\WooCommerce\Admin\Features\OnboardingTasks\Task' )
+		return is_subclass_of( $namespaced_class, 'Automattic\PooCommerce\Admin\Features\OnboardingTasks\Task' )
 			? $this->get_parent_id()
 			: $this->id;
 	}

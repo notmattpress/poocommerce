@@ -4,9 +4,9 @@
  * !! Do not apply Woo-specific changes to this class !!
  *
  * This class is a part of the WordPress/php-toolkit project and is currently
- * duplicated between WordPress/php-toolkit and woocommerce/woocommerce:
+ * duplicated between WordPress/php-toolkit and poocommerce/poocommerce:
  * * https://github.com/WordPress/php-toolkit/blob/trunk/components/DataLiberation/Importer/ImportSession.php
- * * https://github.com/woocommerce/woocommerce/blob/trunk/plugins/woocommerce/src/Internal/CLI/Migrator/Lib/ImportSession.php
+ * * https://github.com/poocommerce/poocommerce/blob/trunk/plugins/poocommerce/src/Internal/CLI/Migrator/Lib/ImportSession.php
  *
  * Apply all changes in both projects until Woo consumes php-toolkit as a
  * composer dependency. Generic changes belong to this class. Anything
@@ -17,7 +17,7 @@
  * external imports and make the class fully self-contained.
  */
 
-namespace Automattic\WooCommerce\Internal\CLI\Migrator\Lib;
+namespace Automattic\PooCommerce\Internal\CLI\Migrator\Lib;
 
 use WP_Query;
 

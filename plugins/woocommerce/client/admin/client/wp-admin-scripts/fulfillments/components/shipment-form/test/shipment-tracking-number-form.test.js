@@ -135,7 +135,7 @@ describe( 'ShipmentTrackingNumberForm', () => {
 			// Check that the error message is within the error label component
 			const errorLabel = screen.getByText(
 				'No information found for this tracking number. Check the number or enter the details manually.',
-				{ selector: '.woocommerce-fulfillment-error-label__text' }
+				{ selector: '.poocommerce-fulfillment-error-label__text' }
 			);
 			// eslint-disable-next-line testing-library/no-wait-for-multiple-assertions
 			expect( errorLabel ).toBeInTheDocument();

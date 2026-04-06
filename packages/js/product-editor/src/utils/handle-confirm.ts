@@ -10,7 +10,7 @@ export type HandleConfirmProps = {
 };
 
 export async function handleConfirm( {
-	message = __( 'Are you sure?', 'woocommerce' ),
+	message = __( 'Are you sure?', 'poocommerce' ),
 	onOk,
 	onCancel,
 }: HandleConfirmProps ) {

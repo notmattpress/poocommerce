@@ -1,10 +1,10 @@
 <?php
 
-namespace Automattic\WooCommerce\Internal\Admin\Orders\MetaBoxes;
+namespace Automattic\PooCommerce\Internal\Admin\Orders\MetaBoxes;
 
-use Automattic\WooCommerce\Admin\API\Reports\Customers\Query as CustomersQuery;
-use Automattic\WooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Admin\API\Reports\Customers\Query as CustomersQuery;
+use Automattic\PooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 use WC_Order;
 
 /**
@@ -199,7 +199,7 @@ class CustomerHistory {
 	private function get_excluded_statuses_sql(): string {
 		global $wpdb;
 
-		$excluded_statuses = get_option( 'woocommerce_excluded_report_order_statuses', array( 'pending', 'failed', 'cancelled' ) );
+		$excluded_statuses = get_option( 'poocommerce_excluded_report_order_statuses', array( 'pending', 'failed', 'cancelled' ) );
 		if ( ! is_array( $excluded_statuses ) ) {
 			$excluded_statuses = array( 'pending', 'failed', 'cancelled' );
 		}
@@ -211,7 +211,7 @@ class CustomerHistory {
 		 * @since 4.0.0
 		 * @param array $excluded_statuses Order statuses to exclude.
 		 */
-		$excluded_statuses = apply_filters( 'woocommerce_analytics_excluded_order_statuses', $excluded_statuses );
+		$excluded_statuses = apply_filters( 'poocommerce_analytics_excluded_order_statuses', $excluded_statuses );
 		if ( ! is_array( $excluded_statuses ) ) {
 			$excluded_statuses = array( 'auto-draft', 'trash', 'pending', 'failed', 'cancelled' );
 		}

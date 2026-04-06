@@ -2,12 +2,12 @@
 /**
  * Product attribute terms controller tests for V1 REST API.
  *
- * @package WooCommerce\Tests\RestApi
+ * @package PooCommerce\Tests\RestApi
  */
 
 declare( strict_types = 1 );
 
-use Automattic\WooCommerce\Tests\Blocks\Helpers\FixtureData;
+use Automattic\PooCommerce\Tests\Blocks\Helpers\FixtureData;
 
 /**
  * Product attribute terms controller tests for V1 REST API.

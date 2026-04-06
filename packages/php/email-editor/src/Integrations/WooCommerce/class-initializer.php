@@ -1,36 +1,36 @@
 <?php
 /**
- * This file is part of the WooCommerce Email Editor package
+ * This file is part of the PooCommerce Email Editor package
  *
- * @package Automattic\WooCommerce\EmailEditor
+ * @package Automattic\PooCommerce\EmailEditor
  */
 
 declare( strict_types = 1 );
-namespace Automattic\WooCommerce\EmailEditor\Integrations\WooCommerce;
+namespace Automattic\PooCommerce\EmailEditor\Integrations\PooCommerce;
 
-use Automattic\WooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Rendering_Context;
-use Automattic\WooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks\Abstract_Block_Renderer;
-use Automattic\WooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks\Fallback;
-use Automattic\WooCommerce\EmailEditor\Integrations\WooCommerce\Renderer\Blocks\Product_Button;
-use Automattic\WooCommerce\EmailEditor\Integrations\WooCommerce\Renderer\Blocks\Product_Collection;
-use Automattic\WooCommerce\EmailEditor\Integrations\WooCommerce\Renderer\Blocks\Product_Image;
-use Automattic\WooCommerce\EmailEditor\Integrations\WooCommerce\Renderer\Blocks\Product_Price;
-use Automattic\WooCommerce\EmailEditor\Integrations\WooCommerce\Renderer\Blocks\Product_Sale_Badge;
+use Automattic\PooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Rendering_Context;
+use Automattic\PooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks\Abstract_Block_Renderer;
+use Automattic\PooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks\Fallback;
+use Automattic\PooCommerce\EmailEditor\Integrations\PooCommerce\Renderer\Blocks\Product_Button;
+use Automattic\PooCommerce\EmailEditor\Integrations\PooCommerce\Renderer\Blocks\Product_Collection;
+use Automattic\PooCommerce\EmailEditor\Integrations\PooCommerce\Renderer\Blocks\Product_Image;
+use Automattic\PooCommerce\EmailEditor\Integrations\PooCommerce\Renderer\Blocks\Product_Price;
+use Automattic\PooCommerce\EmailEditor\Integrations\PooCommerce\Renderer\Blocks\Product_Sale_Badge;
 
 /**
- * Initializes the WooCommerce blocks renderers.
+ * Initializes the PooCommerce blocks renderers.
  */
 class Initializer {
 	/**
-	 * List of supported WooCommerce blocks in the email editor.
+	 * List of supported PooCommerce blocks in the email editor.
 	 */
 	const ALLOWED_BLOCK_TYPES = array(
-		'woocommerce/product-collection',
-		'woocommerce/product-image',
-		'woocommerce/product-price',
-		'woocommerce/product-button',
-		'woocommerce/product-sale-badge',
-		'woocommerce/coupon-code',
+		'poocommerce/product-collection',
+		'poocommerce/product-image',
+		'poocommerce/product-price',
+		'poocommerce/product-button',
+		'poocommerce/product-sale-badge',
+		'poocommerce/coupon-code',
 	);
 
 	/**
@@ -84,19 +84,19 @@ class Initializer {
 		}
 
 		switch ( $block_name ) {
-			case 'woocommerce/product-image':
+			case 'poocommerce/product-image':
 				$renderer = new Product_Image();
 				break;
-			case 'woocommerce/product-price':
+			case 'poocommerce/product-price':
 				$renderer = new Product_Price();
 				break;
-			case 'woocommerce/product-sale-badge':
+			case 'poocommerce/product-sale-badge':
 				$renderer = new Product_Sale_Badge();
 				break;
-			case 'woocommerce/product-collection':
+			case 'poocommerce/product-collection':
 				$renderer = new Product_Collection();
 				break;
-			case 'woocommerce/product-button':
+			case 'poocommerce/product-button':
 				$renderer = new Product_Button();
 				break;
 			default:

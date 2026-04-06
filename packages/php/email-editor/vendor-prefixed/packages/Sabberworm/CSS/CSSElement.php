@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS;
+namespace Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS;
 
 /**
  * Represents any entity in the CSS that is encapsulated by a class.

@@ -2,7 +2,7 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\Email;
+namespace Automattic\PooCommerce\Internal\Email;
 
 /**
  * Handles deferred transactional email sending via Action Scheduler.
@@ -18,12 +18,12 @@ final class DeferredEmailQueue {
 	/**
 	 * Action Scheduler hook for processing a queued email.
 	 */
-	private const AS_HOOK = 'woocommerce_send_queued_transactional_email';
+	private const AS_HOOK = 'poocommerce_send_queued_transactional_email';
 
 	/**
 	 * Action Scheduler group for email actions.
 	 */
-	private const AS_GROUP = 'woocommerce-emails';
+	private const AS_GROUP = 'poocommerce-emails';
 
 	/**
 	 * Queue of email callbacks collected during the current request.

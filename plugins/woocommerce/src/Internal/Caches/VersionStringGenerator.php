@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Internal\Caches;
+namespace Automattic\PooCommerce\Internal\Caches;
 
-use Automattic\WooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
 
 /**
  * Version string generator/cache class.
@@ -20,7 +20,7 @@ class VersionStringGenerator {
 	/**
 	 * Cache group name.
 	 */
-	private const CACHE_GROUP = 'woocommerce_version_strings';
+	private const CACHE_GROUP = 'poocommerce_version_strings';
 
 	/**
 	 * Can the version string cache be used?
@@ -132,7 +132,7 @@ class VersionStringGenerator {
 		 *
 		 * @since 10.4.0
 		 */
-		$ttl = apply_filters( 'woocommerce_version_string_generator_ttl', DAY_IN_SECONDS, $id );
+		$ttl = apply_filters( 'poocommerce_version_string_generator_ttl', DAY_IN_SECONDS, $id );
 		$ttl = max( 0, (int) $ttl );
 
 		$result = wp_cache_set( $cache_key, $version, self::CACHE_GROUP, $ttl );

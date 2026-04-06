@@ -1,10 +1,10 @@
 <?php
 /**
- * WooCommerce Uninstall
+ * PooCommerce Uninstall
  *
- * Uninstalling WooCommerce deletes user roles, pages, tables, and options.
+ * Uninstalling PooCommerce deletes user roles, pages, tables, and options.
  *
- * @package WooCommerce\Uninstaller
+ * @package PooCommerce\Uninstaller
  * @version 2.3.0
  */
 
@@ -15,27 +15,27 @@ global $wpdb, $wp_version, $wc_uninstalling_plugin;
 $wc_uninstalling_plugin = true;
 
 // Clear WordPress cron events.
-wp_clear_scheduled_hook( 'woocommerce_scheduled_sales' );
-wp_clear_scheduled_hook( 'woocommerce_cancel_unpaid_orders' );
-wp_clear_scheduled_hook( 'woocommerce_cleanup_sessions' );
-wp_clear_scheduled_hook( 'woocommerce_cleanup_personal_data' );
-wp_clear_scheduled_hook( 'woocommerce_cleanup_logs' );
-wp_clear_scheduled_hook( 'woocommerce_geoip_updater' );
-wp_clear_scheduled_hook( 'woocommerce_tracker_send_event' );
-wp_clear_scheduled_hook( 'woocommerce_cleanup_rate_limits' );
+wp_clear_scheduled_hook( 'poocommerce_scheduled_sales' );
+wp_clear_scheduled_hook( 'poocommerce_cancel_unpaid_orders' );
+wp_clear_scheduled_hook( 'poocommerce_cleanup_sessions' );
+wp_clear_scheduled_hook( 'poocommerce_cleanup_personal_data' );
+wp_clear_scheduled_hook( 'poocommerce_cleanup_logs' );
+wp_clear_scheduled_hook( 'poocommerce_geoip_updater' );
+wp_clear_scheduled_hook( 'poocommerce_tracker_send_event' );
+wp_clear_scheduled_hook( 'poocommerce_cleanup_rate_limits' );
 wp_clear_scheduled_hook( 'wc_admin_daily' );
 wp_clear_scheduled_hook( 'generate_category_lookup_table' );
 wp_clear_scheduled_hook( 'wc_admin_unsnooze_admin_notes' );
 
 if ( class_exists( ActionScheduler::class ) && ActionScheduler::is_initialized() && function_exists( 'as_unschedule_all_actions' ) ) {
-	as_unschedule_all_actions( 'woocommerce_scheduled_sales' );
-	as_unschedule_all_actions( 'woocommerce_cancel_unpaid_orders' );
-	as_unschedule_all_actions( 'woocommerce_cleanup_sessions' );
-	as_unschedule_all_actions( 'woocommerce_cleanup_personal_data' );
-	as_unschedule_all_actions( 'woocommerce_cleanup_logs' );
-	as_unschedule_all_actions( 'woocommerce_geoip_updater' );
-	as_unschedule_all_actions( 'woocommerce_tracker_send_event' );
-	as_unschedule_all_actions( 'woocommerce_cleanup_rate_limits' );
+	as_unschedule_all_actions( 'poocommerce_scheduled_sales' );
+	as_unschedule_all_actions( 'poocommerce_cancel_unpaid_orders' );
+	as_unschedule_all_actions( 'poocommerce_cleanup_sessions' );
+	as_unschedule_all_actions( 'poocommerce_cleanup_personal_data' );
+	as_unschedule_all_actions( 'poocommerce_cleanup_logs' );
+	as_unschedule_all_actions( 'poocommerce_geoip_updater' );
+	as_unschedule_all_actions( 'poocommerce_tracker_send_event' );
+	as_unschedule_all_actions( 'poocommerce_cleanup_rate_limits' );
 	as_unschedule_all_actions( 'wc_admin_daily' );
 	as_unschedule_all_actions( 'generate_category_lookup_table' );
 	as_unschedule_all_actions( 'wc_admin_unsnooze_admin_notes' );
@@ -47,7 +47,7 @@ if ( class_exists( ActionScheduler::class ) && ActionScheduler::is_initialized()
  * and to ensure only the site owner can perform this action.
  */
 if ( defined( 'WC_REMOVE_ALL_DATA' ) && true === WC_REMOVE_ALL_DATA ) {
-	// Load WooCommerce so we can access the container, install routines, etc, during uninstall.
+	// Load PooCommerce so we can access the container, install routines, etc, during uninstall.
 	require_once __DIR__ . '/includes/class-wc-install.php';
 
 	// Drop custom WordPress tables indexes. See \WC_Install::create_tables() for details.
@@ -68,17 +68,17 @@ if ( defined( 'WC_REMOVE_ALL_DATA' ) && true === WC_REMOVE_ALL_DATA ) {
 	WC_Install::remove_roles();
 
 	// Pages.
-	wp_trash_post( get_option( 'woocommerce_shop_page_id' ) );
-	wp_trash_post( get_option( 'woocommerce_cart_page_id' ) );
-	wp_trash_post( get_option( 'woocommerce_checkout_page_id' ) );
-	wp_trash_post( get_option( 'woocommerce_myaccount_page_id' ) );
-	wp_trash_post( get_option( 'woocommerce_edit_address_page_id' ) );
-	wp_trash_post( get_option( 'woocommerce_view_order_page_id' ) );
-	wp_trash_post( get_option( 'woocommerce_change_password_page_id' ) );
-	wp_trash_post( get_option( 'woocommerce_logout_page_id' ) );
+	wp_trash_post( get_option( 'poocommerce_shop_page_id' ) );
+	wp_trash_post( get_option( 'poocommerce_cart_page_id' ) );
+	wp_trash_post( get_option( 'poocommerce_checkout_page_id' ) );
+	wp_trash_post( get_option( 'poocommerce_myaccount_page_id' ) );
+	wp_trash_post( get_option( 'poocommerce_edit_address_page_id' ) );
+	wp_trash_post( get_option( 'poocommerce_view_order_page_id' ) );
+	wp_trash_post( get_option( 'poocommerce_change_password_page_id' ) );
+	wp_trash_post( get_option( 'poocommerce_logout_page_id' ) );
 
-	if ( $wpdb->get_var( "SHOW TABLES LIKE '{$wpdb->prefix}woocommerce_attribute_taxonomies';" ) ) {
-		$wc_attributes = array_filter( (array) $wpdb->get_col( "SELECT attribute_name FROM {$wpdb->prefix}woocommerce_attribute_taxonomies;" ) );
+	if ( $wpdb->get_var( "SHOW TABLES LIKE '{$wpdb->prefix}poocommerce_attribute_taxonomies';" ) ) {
+		$wc_attributes = array_filter( (array) $wpdb->get_col( "SELECT attribute_name FROM {$wpdb->prefix}poocommerce_attribute_taxonomies;" ) );
 	} else {
 		$wc_attributes = array();
 	}
@@ -87,11 +87,11 @@ if ( defined( 'WC_REMOVE_ALL_DATA' ) && true === WC_REMOVE_ALL_DATA ) {
 	WC_Install::drop_tables();
 
 	// Delete options.
-	$wpdb->query( "DELETE FROM $wpdb->options WHERE option_name LIKE 'woocommerce\_%';" );
-	$wpdb->query( "DELETE FROM $wpdb->options WHERE option_name LIKE 'widget\_woocommerce\_%';" );
+	$wpdb->query( "DELETE FROM $wpdb->options WHERE option_name LIKE 'poocommerce\_%';" );
+	$wpdb->query( "DELETE FROM $wpdb->options WHERE option_name LIKE 'widget\_poocommerce\_%';" );
 
 	// Delete usermeta.
-	$wpdb->query( "DELETE FROM $wpdb->usermeta WHERE meta_key LIKE 'woocommerce\_%';" );
+	$wpdb->query( "DELETE FROM $wpdb->usermeta WHERE meta_key LIKE 'poocommerce\_%';" );
 
 	// Delete our data from the post and post meta tables, and remove any additional tables we created.
 	$wpdb->query( "DELETE FROM {$wpdb->posts} WHERE post_type IN ( 'product', 'product_variation', 'shop_coupon', 'shop_order', 'shop_order_refund' );" );

@@ -1,16 +1,16 @@
 <?php
 /**
- * This file is part of the WooCommerce Email Editor package
+ * This file is part of the PooCommerce Email Editor package
  *
- * @package Automattic\WooCommerce\EmailEditor
+ * @package Automattic\PooCommerce\EmailEditor
  */
 
 declare(strict_types = 1);
-namespace Automattic\WooCommerce\EmailEditor\Engine;
+namespace Automattic\PooCommerce\EmailEditor\Engine;
 
-use Automattic\WooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tag;
-use Automattic\WooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tags_Registry;
-use Automattic\WooCommerce\EmailEditor\Validator\Builder;
+use Automattic\PooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tag;
+use Automattic\PooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tags_Registry;
+use Automattic\PooCommerce\EmailEditor\Validator\Builder;
 use WP_Post;
 use WP_REST_Request;
 use WP_REST_Response;
@@ -74,7 +74,7 @@ class Email_Api_Controller {
 		 */
 		$data = $request->get_params();
 		try {
-			$result = apply_filters( 'woocommerce_email_editor_send_preview_email', $data );
+			$result = apply_filters( 'poocommerce_email_editor_send_preview_email', $data );
 			return new WP_REST_Response(
 				array(
 					'success' => (bool) $result,
@@ -142,7 +142,7 @@ class Email_Api_Controller {
 			 *
 			 * @param int $post_id The post ID for context-aware tag handling.
 			 */
-			do_action( 'woocommerce_email_editor_personalization_tags_for_post', $post_id );
+			do_action( 'poocommerce_email_editor_personalization_tags_for_post', $post_id );
 		}
 
 		$tags = $this->personalization_tags_registry->get_all();

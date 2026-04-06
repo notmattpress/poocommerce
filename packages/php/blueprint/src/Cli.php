@@ -1,9 +1,9 @@
 <?php
 
-namespace Automattic\WooCommerce\Blueprint;
+namespace Automattic\PooCommerce\Blueprint;
 
-use Automattic\WooCommerce\Blueprint\Cli\ExportCli;
-use Automattic\WooCommerce\Blueprint\Cli\ImportCli;
+use Automattic\PooCommerce\Blueprint\Cli\ExportCli;
+use Automattic\PooCommerce\Blueprint\Cli\ImportCli;
 
 $autoload_path = __DIR__ . '/../vendor/autoload.php';
 if ( file_exists( $autoload_path ) ) {

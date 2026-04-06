@@ -4,15 +4,15 @@
 import { __ } from '@wordpress/i18n';
 import { registerPlugin } from '@wordpress/plugins';
 import { Fill as NotificationFill } from '@wordpress/components';
-import { AbbreviatedCard } from '@woocommerce/components';
+import { AbbreviatedCard } from '@poocommerce/components';
 import { page } from '@wordpress/icons';
-import { Text } from '@woocommerce/experimental';
+import { Text } from '@poocommerce/experimental';
 
 const MyAbbreviatedNotification = () => {
 	return (
 		<NotificationFill name="AbbreviatedNotification">
 			<AbbreviatedCard
-				className="woocommerce-abbreviated-notification"
+				className="poocommerce-abbreviated-notification"
 				icon={ page }
 				href={ '#' }
 			>

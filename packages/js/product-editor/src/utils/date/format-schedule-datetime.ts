@@ -24,7 +24,7 @@ export function getFormattedDateTime( value: string | Date, format?: string ) {
 
 	const dateTimeFormat = sprintf(
 		// translators: %s: Time of day the product is scheduled for.
-		_x( 'F j, Y %s', 'product schedule full date format', 'woocommerce' ),
+		_x( 'F j, Y %s', 'product schedule full date format', 'poocommerce' ),
 		formats.time
 	);
 
@@ -46,7 +46,7 @@ export function formatScheduleDatetime( dateAttribute: string ) {
 	const now = getDate( null );
 
 	if ( isSameDay( date, now ) && ! isInTheFuture( dateAttribute ) ) {
-		return __( 'Immediately', 'woocommerce' );
+		return __( 'Immediately', 'poocommerce' );
 	}
 
 	// If the user timezone does not equal the site timezone then using words
@@ -58,7 +58,7 @@ export function formatScheduleDatetime( dateAttribute: string ) {
 	if ( isSameDay( date, now ) ) {
 		return sprintf(
 			// translators: %s: Time of day the product is scheduled for.
-			__( 'Today at %s', 'woocommerce' ),
+			__( 'Today at %s', 'poocommerce' ),
 			getFormattedDateTime( dateAttribute, formats.time )
 		);
 	}
@@ -69,7 +69,7 @@ export function formatScheduleDatetime( dateAttribute: string ) {
 	if ( isSameDay( date, tomorrow ) ) {
 		return sprintf(
 			// translators: %s: Time of day the product is scheduled for.
-			__( 'Tomorrow at %s', 'woocommerce' ),
+			__( 'Tomorrow at %s', 'poocommerce' ),
 			getFormattedDateTime( dateAttribute, formats.time )
 		);
 	}
@@ -82,7 +82,7 @@ export function formatScheduleDatetime( dateAttribute: string ) {
 				_x(
 					'F j %s',
 					'product schedule date format without year',
-					'woocommerce'
+					'poocommerce'
 				),
 				formats.time
 			)

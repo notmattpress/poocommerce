@@ -1,8 +1,8 @@
 <?php
 
-namespace Automattic\WooCommerce\Tests\Caching;
+namespace Automattic\PooCommerce\Tests\Caching;
 
-use Automattic\WooCommerce\Caching\ObjectCache;
+use Automattic\PooCommerce\Caching\ObjectCache;
 
 /**
  * An implementation of CacheEngine that is invalid (returns an empty object type).
