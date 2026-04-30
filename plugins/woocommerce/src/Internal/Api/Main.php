@@ -50,6 +50,11 @@ class Main {
 	public const OPTION_MAX_QUERY_COMPLEXITY = 'woocommerce_graphql_max_query_complexity';
 
 	/**
+	 * Option name for the "ObjectCache-based caching" setting.
+	 */
+	public const OPTION_OBJECT_CACHE_ENABLED = 'woocommerce_graphql_object_cache_enabled';
+
+	/**
 	 * Check whether the Dual Code & GraphQL API feature is active.
 	 *
 	 * Requires PHP 8.1+ and the dual_code_graphql_api feature flag to be
@@ -70,6 +75,15 @@ class Main {
 	 */
 	public static function is_get_endpoint_enabled(): bool {
 		return wc_string_to_bool( get_option( self::OPTION_GET_ENDPOINT_ENABLED, 'yes' ) );
+	}
+
+	/**
+	 * Whether the ObjectCache-backed query cache is enabled.
+	 *
+	 * Defaults to true.
+	 */
+	public static function is_object_cache_enabled(): bool {
+		return wc_string_to_bool( get_option( self::OPTION_OBJECT_CACHE_ENABLED, 'yes' ) );
 	}
 
 	/**

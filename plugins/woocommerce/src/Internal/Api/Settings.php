@@ -87,6 +87,13 @@ class Settings {
 				'custom_attributes' => array( 'min' => '1' ),
 			),
 			array(
+				'title'   => __( 'Enable ObjectCache-based caching', 'woocommerce' ),
+				'desc'    => __( 'Cache parsed queries in the WP object cache', 'woocommerce' ),
+				'id'      => Main::OPTION_OBJECT_CACHE_ENABLED,
+				'default' => 'yes',
+				'type'    => 'checkbox',
+			),
+			array(
 				'title'    => __( 'Endpoint URL', 'woocommerce' ),
 				'desc'     => __( 'Path relative to /wp-json/ where the GraphQL endpoint is exposed. Needs at least two segments (namespace/route), e.g. wc/graphql.', 'woocommerce' ),
 				'desc_tip' => true,
