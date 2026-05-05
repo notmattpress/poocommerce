@@ -5,8 +5,8 @@ declare( strict_types = 1 );
 namespace Automattic\WooCommerce\Internal\EmailEditor;
 
 use Automattic\WooCommerce\EmailEditor\Validator\Builder;
+use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateChangeSummary;
 use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateAutoApplier;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateSyncRegistry;
 use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsManager;
 use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsGenerator;
 use WC_Email;
@@ -306,6 +306,27 @@ class EmailApiController {
 				'schema'              => array( $this, 'get_reset_schema' ),
 			)
 		);
+
+		register_rest_route(
+			'woocommerce-email-editor/v1',
+			'/emails/(?P<id>\d+)/change-summary',
+			array(
+				'methods'             => \WP_REST_Server::READABLE,
+				'callback'            => array( $this, 'get_change_summary_response' ),
+				'permission_callback' => function () {
+					return current_user_can( 'manage_woocommerce' );
+				},
+				'args'                => array(
+					'id' => array(
+						'description'       => __( 'The ID of the woo_email post.', 'woocommerce' ),
+						'type'              => 'integer',
+						'required'          => true,
+						'sanitize_callback' => 'absint',
+					),
+				),
+				'schema'              => array( $this, 'get_change_summary_schema' ),
+			)
+		);
 	}
 
 	/**
@@ -464,5 +485,163 @@ class EmailApiController {
 		}
 
 		return new WP_REST_Response( $result, 200 );
+	}
+
+	/**
+	 * Get the schema for the change-summary endpoint response.
+	 *
+	 * @return array
+	 */
+	public function get_change_summary_schema(): array {
+		return array(
+			'$schema'    => 'http://json-schema.org/draft-04/schema#',
+			'title'      => 'woo_email_change_summary',
+			'type'       => 'object',
+			'properties' => array(
+				'version_from'       => array(
+					'description' => __( 'The template version stamped on the post (may be empty for pre-backfill posts).', 'woocommerce' ),
+					'type'        => 'string',
+					'readonly'    => true,
+				),
+				'version_to'         => array(
+					'description' => __( 'The current core template version recorded in the sync registry.', 'woocommerce' ),
+					'type'        => 'string',
+					'readonly'    => true,
+				),
+				'added_blocks'       => array(
+					'description' => __( 'Blocks that would be added to the merchant post if the update were applied (in core, not in post). `name` is the post-alias-normalized block name (e.g. `core/heading`); `label` is its humanized form for display; `path` is the core-side index path through the parsed block tree.', 'woocommerce' ),
+					'type'        => 'array',
+					'items'       => array(
+						'type'       => 'object',
+						'properties' => array(
+							'name'  => array( 'type' => 'string' ),
+							'label' => array( 'type' => 'string' ),
+							'path'  => array(
+								'type'  => 'array',
+								'items' => array( 'type' => array( 'integer', 'string' ) ),
+							),
+						),
+					),
+					'readonly'    => true,
+				),
+				'removed_blocks'     => array(
+					'description' => __( 'Blocks that would be removed from the merchant post if the update were applied (in post, not in core). Same fields as `added_blocks`; `path` is the post-side index path.', 'woocommerce' ),
+					'type'        => 'array',
+					'items'       => array(
+						'type'       => 'object',
+						'properties' => array(
+							'name'  => array( 'type' => 'string' ),
+							'label' => array( 'type' => 'string' ),
+							'path'  => array(
+								'type'  => 'array',
+								'items' => array( 'type' => array( 'integer', 'string' ) ),
+							),
+						),
+					),
+					'readonly'    => true,
+				),
+				'copy_changes'       => array(
+					'description' => __( 'Block-level copy edits, truncated to 120 chars per side. `before` is the merchant\'s current text; `after` is the canonical core text. `path` is the post-side index path.', 'woocommerce' ),
+					'type'        => 'array',
+					'items'       => array(
+						'type'       => 'object',
+						'properties' => array(
+							'block'      => array( 'type' => 'string' ),
+							'before'     => array( 'type' => 'string' ),
+							'after'      => array( 'type' => 'string' ),
+							'occurrence' => array( 'type' => 'integer' ),
+							'total'      => array( 'type' => 'integer' ),
+							'path'       => array(
+								'type'  => 'array',
+								'items' => array( 'type' => array( 'integer', 'string' ) ),
+							),
+						),
+					),
+					'readonly'    => true,
+				),
+				'structural_changes' => array(
+					'description' => __( 'Structural deltas (reorder / nest) between the two trees. `path` is omitted on `kind: "reorder"` entries.', 'woocommerce' ),
+					'type'        => 'array',
+					'items'       => array(
+						'type'       => 'object',
+						'properties' => array(
+							'kind'        => array( 'type' => 'string' ),
+							'description' => array( 'type' => 'string' ),
+							'path'        => array(
+								'type'  => 'array',
+								'items' => array( 'type' => array( 'integer', 'string' ) ),
+							),
+						),
+					),
+					'readonly'    => true,
+				),
+				'summary_lines'      => array(
+					'description' => __( 'Pre-localized one-liners ready for direct render.', 'woocommerce' ),
+					'type'        => 'array',
+					'items'       => array( 'type' => 'string' ),
+					'readonly'    => true,
+				),
+				'is_fallback'        => array(
+					'description' => __( 'True when the diff could not be produced and a generic message is returned instead.', 'woocommerce' ),
+					'type'        => 'boolean',
+					'readonly'    => true,
+				),
+				'cache_hit'          => array(
+					'description' => __( 'Diagnostic flag indicating whether the response came from the transient cache.', 'woocommerce' ),
+					'type'        => 'boolean',
+					'readonly'    => true,
+				),
+			),
+		);
+	}
+
+	/**
+	 * Return a localized summary of differences between the merchant's
+	 * `woo_email` post and the canonical core render.
+	 *
+	 * Thin wrapper over {@see WCEmailTemplateChangeSummary::summarize()}. The
+	 * 404 path mirrors {@see self::get_default_content_response()} — when the
+	 * email type cannot be resolved from the post ID, the post is either
+	 * non-existent or not a `woo_email`.
+	 *
+	 * The 200 path differs for valid posts that are NOT in
+	 * {@see WCEmailTemplateSyncRegistry}: `default-content` returns the
+	 * canonical content; `change-summary` returns a fallback payload with
+	 * `is_fallback: true` and a generic release-notes line because no
+	 * registered version is available to diff against. Consumers gating on
+	 * `is_fallback` should treat that case as "no actionable summary,"
+	 * regardless of HTTP status.
+	 *
+	 * @param WP_REST_Request $request The REST request.
+	 * @phpstan-param WP_REST_Request<array<string, mixed>> $request
+	 * @return WP_REST_Response|WP_Error
+	 *
+	 * @since 10.9.0
+	 */
+	public function get_change_summary_response( WP_REST_Request $request ) {
+		if ( ! ( $this->post_manager && $this->posts_generator ) ) {
+			return new WP_Error(
+				'woocommerce_email_editor_not_initialized',
+				__( 'Email editor is not initialized.', 'woocommerce' ),
+				array( 'status' => 500 )
+			);
+		}
+
+		$post_id    = (int) $request->get_param( 'id' );
+		$email_type = $this->post_manager->get_email_type_from_post_id( $post_id );
+		$email      = $this->get_email_by_type( $email_type ?? '' );
+
+		if ( ! $email ) {
+			return new WP_Error(
+				'woocommerce_email_not_found',
+				__( 'No email found for the given post ID.', 'woocommerce' ),
+				array( 'status' => 404 )
+			);
+		}
+
+		return new WP_REST_Response(
+			WCEmailTemplateChangeSummary::summarize( $post_id ),
+			200
+		);
 	}
 }
