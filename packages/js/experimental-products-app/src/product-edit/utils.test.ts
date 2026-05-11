@@ -270,6 +270,9 @@ describe( 'product edit utils', () => {
 			'shipping_class',
 			'tax_status',
 		];
+		const bulkUniversalFieldIds = universalFieldIds.filter(
+			( fieldId ) => fieldId !== 'sku'
+		);
 
 		it( 'shows pricing, shipping, and linked product fields for simple physical products', () => {
 			const fieldIds = getVisibleFieldIds( [
@@ -432,6 +435,7 @@ describe( 'product edit utils', () => {
 			] );
 
 			expectFieldsHidden( fieldIds, priceFieldIds );
+			expectFieldsHidden( fieldIds, [ 'sku' ] );
 			expect( fieldIds ).toEqual(
 				expect.arrayContaining( [
 					'name',
@@ -442,9 +446,31 @@ describe( 'product edit utils', () => {
 					'featured',
 					'upsell_ids',
 					'cross_sell_ids',
-					...universalFieldIds,
+					...bulkUniversalFieldIds,
 				] )
 			);
+		} );
+
+		it( 'shows price but not SKU when bulk editing simple products', () => {
+			const fieldIds = getVisibleFieldIds( [
+				buildProduct( {
+					id: 1,
+					type: 'simple',
+					regular_price: '12',
+					price: '12',
+				} ),
+				buildProduct( {
+					id: 2,
+					type: 'simple',
+					regular_price: '15',
+					price: '15',
+				} ),
+			] );
+
+			expect( fieldIds ).toEqual(
+				expect.arrayContaining( [ 'price', 'regular_price' ] )
+			);
+			expectFieldsHidden( fieldIds, [ 'sku' ] );
 		} );
 
 		it( 'shows sellable instance fields for variations', () => {
@@ -496,12 +522,13 @@ describe( 'product edit utils', () => {
 			expect( fieldIds ).toEqual(
 				expect.arrayContaining( [
 					...priceFieldIds,
-					...universalFieldIds,
+					...bulkUniversalFieldIds,
 				] )
 			);
 			expectFieldsHidden( fieldIds, [
 				...parentOwnedFieldIds,
 				'downloadable',
+				'sku',
 			] );
 		} );
 
@@ -524,12 +551,13 @@ describe( 'product edit utils', () => {
 			] );
 
 			expect( fieldIds ).toEqual(
-				expect.arrayContaining( universalFieldIds )
+				expect.arrayContaining( bulkUniversalFieldIds )
 			);
 			expectFieldsHidden( fieldIds, [
 				...parentOwnedFieldIds,
 				...priceFieldIds,
 				'downloadable',
+				'sku',
 			] );
 		} );
 
@@ -560,12 +588,13 @@ describe( 'product edit utils', () => {
 			] );
 
 			expect( fieldIds ).toEqual(
-				expect.arrayContaining( universalFieldIds )
+				expect.arrayContaining( bulkUniversalFieldIds )
 			);
 			expectFieldsHidden( fieldIds, [
 				...parentOwnedFieldIds,
 				...priceFieldIds,
 				'downloadable',
+				'sku',
 			] );
 		} );
 
