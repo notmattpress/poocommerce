@@ -120,11 +120,6 @@ const SIMPLE_PRODUCT_EDIT_FORM_FIELDS = [
 		'regular_price',
 		'sale_price',
 		'schedule_sale',
-		{
-			id: 'sale-schedule-dates',
-			layout: { type: 'row' as const },
-			children: [ 'date_on_sale_from', 'date_on_sale_to' ],
-		},
 		'cost_of_goods_sold',
 	] ),
 	createProductEditFormGroup( 'image-fields', __( 'Images', 'woocommerce' ), [
@@ -158,11 +153,6 @@ const VARIATION_PRODUCT_EDIT_FORM_FIELDS = [
 		'regular_price',
 		'sale_price',
 		'schedule_sale',
-		{
-			id: 'sale-schedule-dates',
-			layout: { type: 'row' as const },
-			children: [ 'date_on_sale_from', 'date_on_sale_to' ],
-		},
 		'cost_of_goods_sold',
 	] ),
 	createProductEditFormGroup( 'image-fields', __( 'Images', 'woocommerce' ), [
@@ -217,11 +207,6 @@ const EXTERNAL_PRODUCT_EDIT_FORM_FIELDS = [
 		'regular_price',
 		'sale_price',
 		'schedule_sale',
-		{
-			id: 'sale-schedule-dates',
-			layout: { type: 'row' as const },
-			children: [ 'date_on_sale_from', 'date_on_sale_to' ],
-		},
 	] ),
 	createProductEditFormGroup( 'image-fields', __( 'Images', 'woocommerce' ), [
 		'images',

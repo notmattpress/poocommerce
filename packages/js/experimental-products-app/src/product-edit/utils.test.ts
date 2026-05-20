@@ -592,8 +592,6 @@ describe( 'product edit utils', () => {
 			'regular_price',
 			'sale_price',
 			'schedule_sale',
-			'date_on_sale_from',
-			'date_on_sale_to',
 			'cost_of_goods_sold',
 		];
 		const basePriceFieldIds = [ 'regular_price', 'sale_price' ];
@@ -635,8 +633,6 @@ describe( 'product edit utils', () => {
 				'regular_price',
 				'sale_price',
 				'schedule_sale',
-				'date_on_sale_from',
-				'date_on_sale_to',
 				'cost_of_goods_sold',
 				'images',
 				'sku',
@@ -690,8 +686,6 @@ describe( 'product edit utils', () => {
 				'regular_price',
 				'sale_price',
 				'schedule_sale',
-				'date_on_sale_from',
-				'date_on_sale_to',
 				'cost_of_goods_sold',
 			] );
 		} );
@@ -982,8 +976,6 @@ describe( 'product edit utils', () => {
 					'regular_price',
 					'sale_price',
 					'schedule_sale',
-					'date_on_sale_from',
-					'date_on_sale_to',
 					'cost_of_goods_sold',
 					'images',
 					'sku',
@@ -1025,8 +1017,6 @@ describe( 'product edit utils', () => {
 					'regular_price',
 					'sale_price',
 					'schedule_sale',
-					'date_on_sale_from',
-					'date_on_sale_to',
 					'cost_of_goods_sold',
 					'stock',
 					'manage_stock',
@@ -1106,8 +1096,6 @@ describe( 'product edit utils', () => {
 					'regular_price',
 					'sale_price',
 					'schedule_sale',
-					'date_on_sale_from',
-					'date_on_sale_to',
 					'cost_of_goods_sold',
 					...bulkSellableInstanceFieldIds,
 				] )
@@ -1377,7 +1365,7 @@ describe( 'product edit utils', () => {
 			[ 'simple product', 'simple' ],
 			[ 'variation product', 'variation' ],
 		] as const )(
-			'groups sale schedule date fields on the same row for %s',
+			'uses schedule sale as a compound price field for %s',
 			( _label, productType ) => {
 				const product = buildProduct( {
 					type: productType,
@@ -1398,14 +1386,6 @@ describe( 'product edit utils', () => {
 						'regular_price',
 						'sale_price',
 						'schedule_sale',
-						{
-							id: 'sale-schedule-dates',
-							layout: { type: 'row' },
-							children: [
-								'date_on_sale_from',
-								'date_on_sale_to',
-							],
-						},
 						'cost_of_goods_sold',
 					],
 				} );
