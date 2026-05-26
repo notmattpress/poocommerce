@@ -5,6 +5,7 @@ import { __ } from '@wordpress/i18n';
 import { useMemo } from '@wordpress/element';
 import clsx from 'clsx';
 import { decodeHtmlEntities } from '@woocommerce/utils';
+import { getSetting } from '@woocommerce/settings';
 import {
 	InspectorControls,
 	useBlockProps,
@@ -57,13 +58,28 @@ const Edit = ( props: EditProps ): JSX.Element => {
 
 	const hasColorSwatches = items.some( ( item ) => 'color' in item );
 
+	const globalColors = getSetting< { background?: string; text?: string } >(
+		'globalStylesColors',
+		{}
+	);
+	const colorVars = getColorVars( attributes );
+
 	const blockProps = useBlockProps( {
 		className: clsx( 'wc-block-product-filter-chips', {
 			'is-loading': isLoading,
 			'is-style-swatch': hasColorSwatches,
 			...getColorClasses( attributes ),
 		} ),
-		style: getColorVars( attributes ),
+		style: {
+			'--wc-product-filter-chips-text':
+				colorVars[ '--wc-product-filter-chips-text' ] ||
+				globalColors.text ||
+				undefined,
+			'--wc-product-filter-chips-background':
+				colorVars[ '--wc-product-filter-chips-background' ] ||
+				globalColors.background ||
+				undefined,
+		},
 	} );
 
 	const loadingState = useMemo( () => {
