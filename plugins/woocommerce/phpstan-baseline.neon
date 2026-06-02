@@ -45994,18 +45994,6 @@ parameters:
 			path: src/Admin/FeaturePlugin.php
 
 		-
-			message: '#^Method Automattic\\WooCommerce\\Admin\\Features\\AsyncProductEditorCategoryField\\Init\:\:enqueue_scripts\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/Admin/Features/AsyncProductEditorCategoryField/Init.php
-
-		-
-			message: '#^Method Automattic\\WooCommerce\\Admin\\Features\\AsyncProductEditorCategoryField\\Init\:\:enqueue_styles\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/Admin/Features/AsyncProductEditorCategoryField/Init.php
-
-		-
 			message: '#^Access to an undefined property WooCommerce\:\:\$payment_gateways\.$#'
 			identifier: property.notFound
 			count: 1
