@@ -88,6 +88,30 @@ class Leaderboards extends \WC_REST_Data_Controller {
 	}
 
 	/**
+	 * Check whether a given request has permission to read leaderboards.
+	 *
+	 * Leaderboards expose analytics report data, so allow users with the
+	 * `view_woocommerce_reports` capability to access the endpoint (matching
+	 * other Analytics report endpoints). The `manage_woocommerce` check is
+	 * preserved for backwards compatibility with the previous behavior
+	 * inherited from `\WC_REST_Data_Controller`, so users granted only the
+	 * broader manage capability are not regressed.
+	 *
+	 * @param  \WP_REST_Request<array<string, mixed>> $request Full details about the request.
+	 * @return \WP_Error|boolean
+	 */
+	public function get_items_permissions_check( $request ) {
+		if (
+			! wc_rest_check_manager_permissions( 'reports', 'read' )
+			&& ! wc_rest_check_manager_permissions( 'settings', 'read' )
+		) {
+			return new \WP_Error( 'woocommerce_rest_cannot_view', __( 'Sorry, you cannot list resources.', 'woocommerce' ), array( 'status' => rest_authorization_required_code() ) );
+		}
+
+		return true;
+	}
+
+	/**
 	 * Get the data for the coupons leaderboard.
 	 *
 	 * @param int    $per_page Number of rows.
