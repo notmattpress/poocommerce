@@ -2,11 +2,11 @@
 /**
  * This ongoing trait will have shared calculation logic between WC_Abstract_Order and WC_Cart_Totals classes.
  *
- * @package WooCommerce\Traits
+ * @package PooCommerce\Traits
  * @version 3.9.0
  */
 
-use Automattic\WooCommerce\Utilities\NumberUtil;
+use Automattic\PooCommerce\Utilities\NumberUtil;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -70,7 +70,7 @@ trait WC_Item_Totals {
 	 * @return bool
 	 */
 	protected static function round_at_subtotal() {
-		return 'yes' === get_option( 'woocommerce_tax_round_at_subtotal' );
+		return 'yes' === get_option( 'poocommerce_tax_round_at_subtotal' );
 	}
 
 	/**

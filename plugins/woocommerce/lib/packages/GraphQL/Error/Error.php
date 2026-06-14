@@ -1,16 +1,16 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\GraphQL\Error;
+namespace Automattic\PooCommerce\Vendor\GraphQL\Error;
 
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\Node;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\Source;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\SourceLocation;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\Node;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\Source;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\SourceLocation;
 
 /**
  * Describes an Error found during the parse, validate, or
- * execute phases of performing a Automattic\WooCommerce\Vendor\GraphQL operation. In addition to a message
+ * execute phases of performing a Automattic\PooCommerce\Vendor\GraphQL operation. In addition to a message
  * and stack trace, it also includes information about the locations in a
- * Automattic\WooCommerce\Vendor\GraphQL document and/or execution result that correspond to the Error.
+ * Automattic\PooCommerce\Vendor\GraphQL document and/or execution result that correspond to the Error.
  *
  * When the error was caused by an exception thrown in resolver, original exception
  * is available via `getPrevious()`.
@@ -20,7 +20,7 @@ use Automattic\WooCommerce\Vendor\GraphQL\Language\SourceLocation;
  * Class extends standard PHP `\Exception`, so all standard methods of base `\Exception` class
  * are available in addition to those listed below.
  *
- * @see \Automattic\WooCommerce\Vendor\GraphQL\Tests\Error\ErrorTest
+ * @see \Automattic\PooCommerce\Vendor\GraphQL\Tests\Error\ErrorTest
  */
 class Error extends \Exception implements \JsonSerializable, ClientAware, ProvidesExtensions
 {
@@ -50,14 +50,14 @@ class Error extends \Exception implements \JsonSerializable, ClientAware, Provid
     public ?array $unaliasedPath;
 
     /**
-     * An array of Automattic\WooCommerce\Vendor\GraphQL AST Nodes corresponding to this error.
+     * An array of Automattic\PooCommerce\Vendor\GraphQL AST Nodes corresponding to this error.
      *
      * @var array<Node>|null
      */
     public ?array $nodes;
 
     /**
-     * The source Automattic\WooCommerce\Vendor\GraphQL document for the first location of this error.
+     * The source Automattic\PooCommerce\Vendor\GraphQL document for the first location of this error.
      *
      * Note that if this Error represents more than one node, the source may not
      * represent nodes after the first node.
@@ -123,7 +123,7 @@ class Error extends \Exception implements \JsonSerializable, ClientAware, Provid
 
     /**
      * Given an arbitrary Error, presumably thrown while attempting to execute a
-     * Automattic\WooCommerce\Vendor\GraphQL operation, produce a new GraphQLError aware of the location in the
+     * Automattic\PooCommerce\Vendor\GraphQL operation, produce a new GraphQLError aware of the location in the
      * document responsible for the original Error.
      *
      * @param mixed $error
@@ -222,9 +222,9 @@ class Error extends \Exception implements \JsonSerializable, ClientAware, Provid
     }
 
     /**
-     * An array of locations within the source Automattic\WooCommerce\Vendor\GraphQL document which correspond to this error.
+     * An array of locations within the source Automattic\PooCommerce\Vendor\GraphQL document which correspond to this error.
      *
-     * Each entry has information about `line` and `column` within source Automattic\WooCommerce\Vendor\GraphQL document:
+     * Each entry has information about `line` and `column` within source Automattic\PooCommerce\Vendor\GraphQL document:
      * $location->line;
      * $location->column;
      *

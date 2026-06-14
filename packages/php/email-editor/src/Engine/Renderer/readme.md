@@ -11,9 +11,9 @@
 ```php
 <?php declare(strict_types = 1);
 
-namespace Automattic\WooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks;
+namespace Automattic\PooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks;
 
-use Automattic\WooCommerce\EmailEditor\Engine\Settings_Controller;
+use Automattic\PooCommerce\EmailEditor\Engine\Settings_Controller;
 
 class Heading extends AbstractBlockRenderer {
   protected function renderContent($blockContent, array $parsedBlock, Settings_Controller $settingsController): string {
@@ -32,9 +32,9 @@ class Heading extends AbstractBlockRenderer {
 ```php
 <?php
 
-use Automattic\WooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Blocks_Registry;
+use Automattic\PooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Blocks_Registry;
 
-add_action('woocommerce_blocks_renderer_initialized', 'register_my_block_email_renderer');
+add_action('poocommerce_blocks_renderer_initialized', 'register_my_block_email_renderer');
 
 function register_my_block_email_renderer(Blocks_Registry $blocksRegistry): void {
   $blocksRegistry->add_block_renderer('core/heading', new Renderer\Blocks\Heading());

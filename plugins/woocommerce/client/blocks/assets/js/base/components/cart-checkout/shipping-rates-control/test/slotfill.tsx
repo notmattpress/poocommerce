@@ -2,14 +2,14 @@
  * External dependencies
  */
 import { render, screen } from '@testing-library/react';
-import { useStoreCart } from '@woocommerce/base-context';
+import { useStoreCart } from '@poocommerce/base-context';
 
 /**
  * Internal dependencies
  */
 import ShippingRatesControl from '..';
 
-jest.mock( '@woocommerce/base-context', () => ( {
+jest.mock( '@poocommerce/base-context', () => ( {
 	useStoreCart: jest.fn(),
 	useEditorContext: jest.fn( () => ( { isEditor: false } ) ),
 	useShippingData: jest.fn( () => ( {
@@ -18,12 +18,12 @@ jest.mock( '@woocommerce/base-context', () => ( {
 	} ) ),
 } ) );
 
-jest.mock( '@woocommerce/base-hooks', () => ( {
+jest.mock( '@poocommerce/base-hooks', () => ( {
 	usePrevious: jest.fn(),
 } ) );
 
 const mockSlotRender = jest.fn( () => <div data-testid="shipping-slot" /> );
-jest.mock( '@woocommerce/blocks-checkout', () => {
+jest.mock( '@poocommerce/blocks-checkout', () => {
 	const MockFill = ( { children }: { children: React.ReactNode } ) => (
 		<>{ children }</>
 	);
@@ -40,7 +40,7 @@ const defaultProps = {
 	showItems: false,
 	noResultsMessage: <span>No rates</span>,
 	renderOption: jest.fn(),
-	context: 'woocommerce/checkout',
+	context: 'poocommerce/checkout',
 };
 
 describe( 'ShippingRatesControl slot rendering', () => {
@@ -60,7 +60,7 @@ describe( 'ShippingRatesControl slot rendering', () => {
 
 		expect( mockSlotRender ).toHaveBeenCalledWith(
 			expect.objectContaining( {
-				context: 'woocommerce/checkout',
+				context: 'poocommerce/checkout',
 				extensions: { 'ship-ext': true },
 				collapsible: false,
 				showItems: false,

@@ -10,7 +10,7 @@ import {
 	ToggleControl,
 	withSpokenMessages,
 } from '@wordpress/components';
-import ProductCategoryControl from '@woocommerce/editor-components/product-category-control';
+import ProductCategoryControl from '@poocommerce/editor-components/product-category-control';
 import { Icon, commentContent } from '@wordpress/icons';
 
 /**
@@ -44,7 +44,7 @@ const ReviewsByCategoryEditor = ( {
 		return (
 			<InspectorControls key="inspector">
 				<PanelBody
-					title={ __( 'Category', 'woocommerce' ) }
+					title={ __( 'Category', 'poocommerce' ) }
 					initialOpen={ false }
 				>
 					<ProductCategoryControl
@@ -57,9 +57,9 @@ const ReviewsByCategoryEditor = ( {
 						showReviewCount={ true }
 					/>
 				</PanelBody>
-				<PanelBody title={ __( 'Content', 'woocommerce' ) }>
+				<PanelBody title={ __( 'Content', 'poocommerce' ) }>
 					<ToggleControl
-						label={ __( 'Product name', 'woocommerce' ) }
+						label={ __( 'Product name', 'poocommerce' ) }
 						checked={ attributes.showProductName }
 						onChange={ () =>
 							setAttributes( {
@@ -72,7 +72,7 @@ const ReviewsByCategoryEditor = ( {
 						setAttributes
 					) }
 				</PanelBody>
-				<PanelBody title={ __( 'List Settings', 'woocommerce' ) }>
+				<PanelBody title={ __( 'List Settings', 'poocommerce' ) }>
 					{ getSharedReviewListControls( attributes, setAttributes ) }
 				</PanelBody>
 			</InspectorControls>
@@ -85,7 +85,7 @@ const ReviewsByCategoryEditor = ( {
 			debouncedSpeak(
 				__(
 					'Now displaying a preview of the reviews for the products in the selected categories.',
-					'woocommerce'
+					'poocommerce'
 				)
 			);
 		};
@@ -98,12 +98,12 @@ const ReviewsByCategoryEditor = ( {
 						className="block-editor-block-icon"
 					/>
 				}
-				label={ __( 'Reviews by Category', 'woocommerce' ) }
+				label={ __( 'Reviews by Category', 'poocommerce' ) }
 				className="wc-block-reviews-by-category"
 			>
 				{ __(
 					'Show product reviews from specific categories.',
-					'woocommerce'
+					'poocommerce'
 				) }
 				<div className="wc-block-reviews__selection">
 					<ProductCategoryControl
@@ -115,7 +115,7 @@ const ReviewsByCategoryEditor = ( {
 						showReviewCount={ true }
 					/>
 					<Button variant="primary" onClick={ onDone }>
-						{ __( 'Done', 'woocommerce' ) }
+						{ __( 'Done', 'poocommerce' ) }
 					</Button>
 				</div>
 			</Placeholder>
@@ -126,7 +126,7 @@ const ReviewsByCategoryEditor = ( {
 		return renderEditMode();
 	}
 
-	const buttonTitle = __( 'Edit selected categories', 'woocommerce' );
+	const buttonTitle = __( 'Edit selected categories', 'poocommerce' );
 
 	return (
 		<>
@@ -140,7 +140,7 @@ const ReviewsByCategoryEditor = ( {
 						className="block-editor-block-icon"
 					/>
 				}
-				name={ __( 'Reviews by Category', 'woocommerce' ) }
+				name={ __( 'Reviews by Category', 'poocommerce' ) }
 				noReviewsPlaceholder={ NoReviewsPlaceholder }
 			/>
 		</>

@@ -56,7 +56,7 @@ const renderPaymentsSettings = () => {
 			component: <SettingsPaymentsCodWrapper />,
 		},
 		{
-			id: 'experimental_wc_settings_payments_woocommerce_payments',
+			id: 'experimental_wc_settings_payments_poocommerce_payments',
 			component: <SettingsPaymentsWooPaymentsWrapper />,
 		},
 	];

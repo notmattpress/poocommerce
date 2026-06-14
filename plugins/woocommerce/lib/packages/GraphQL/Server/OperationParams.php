@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\GraphQL\Server;
+namespace Automattic\PooCommerce\Vendor\GraphQL\Server;
 
 /**
- * Structure representing parsed HTTP parameters for Automattic\WooCommerce\Vendor\GraphQL operation.
+ * Structure representing parsed HTTP parameters for Automattic\PooCommerce\Vendor\GraphQL operation.
  *
  * The properties in this class are not strictly typed, as this class
  * is only meant to serve as an intermediary representation which is
@@ -26,7 +26,7 @@ class OperationParams
     public $queryId;
 
     /**
-     * A document containing Automattic\WooCommerce\Vendor\GraphQL operations and fragments to execute.
+     * A document containing Automattic\PooCommerce\Vendor\GraphQL operations and fragments to execute.
      *
      * @api
      *

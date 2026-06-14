@@ -15,7 +15,7 @@ import {
 
 const fieldDefinition = {
 	type: 'text',
-	label: __( 'Weight', 'woocommerce' ),
+	label: __( 'Weight', 'poocommerce' ),
 	enableSorting: false,
 	enableHiding: false,
 	filterBy: false,

@@ -30,7 +30,7 @@ curl https://example.com/wp-json/wc/v3/reports \
   <TabItem value="js" label="JavaScript">
 
 ```javascript
-WooCommerce.get( 'reports' )
+PooCommerce.get( 'reports' )
 	.then( ( response ) => {
 		console.log( response.data );
 	} )
@@ -43,7 +43,7 @@ WooCommerce.get( 'reports' )
   <TabItem value="php" label="PHP">
 
 ```php
-<?php print_r($woocommerce->get('reports')); ?>
+<?php print_r($poocommerce->get('reports')); ?>
 ```
 
   </TabItem>
@@ -57,7 +57,7 @@ print(wcapi.get("reports").json())
   <TabItem value="ruby" label="Ruby">
 
 ```ruby
-woocommerce.get("reports").parsed_response
+poocommerce.get("reports").parsed_response
 ```
 
   </TabItem>
@@ -251,7 +251,7 @@ curl https://example.com/wp-json/wc/v3/reports/sales?date_min=2016-05-03&date_ma
   <TabItem value="js" label="JavaScript">
 
 ```javascript
-WooCommerce.get( 'reports/sales', {
+PooCommerce.get( 'reports/sales', {
 	date_min: '2016-05-03',
 	date_max: '2016-05-04',
 } )
@@ -273,7 +273,7 @@ $query = [
     'date_max' => '2016-05-04'
 ];
 
-print_r($woocommerce->get('reports/sales', $query));
+print_r($poocommerce->get('reports/sales', $query));
 ?>
 ```
 
@@ -293,7 +293,7 @@ query = {
   date_max: "2016-05-04"
 }
 
-woocommerce.get("reports/sales", query).parsed_response
+poocommerce.get("reports/sales", query).parsed_response
 ```
 
   </TabItem>
@@ -392,7 +392,7 @@ curl https://example.com/wp-json/wc/v3/reports/top_sellers?period=last_month \
   <TabItem value="js" label="JavaScript">
 
 ```javascript
-WooCommerce.get( 'reports/top_sellers', {
+PooCommerce.get( 'reports/top_sellers', {
 	period: 'last_month',
 } )
 	.then( ( response ) => {
@@ -412,7 +412,7 @@ $query = [
     'period' => 'last_month'
 ];
 
-print_r($woocommerce->get('reports/top_sellers', $query));
+print_r($poocommerce->get('reports/top_sellers', $query));
 ?>
 ```
 
@@ -431,7 +431,7 @@ query = {
   period: "last_month"
 }
 
-woocommerce.get("reports/top_sellers", query).parsed_response
+poocommerce.get("reports/top_sellers", query).parsed_response
 ```
 
   </TabItem>
@@ -516,7 +516,7 @@ curl https://example.com/wp-json/wc/v3/reports/coupons/totals \
   <TabItem value="js" label="JavaScript">
 
 ```javascript
-WooCommerce.get( 'reports/coupons/totals' )
+PooCommerce.get( 'reports/coupons/totals' )
 	.then( ( response ) => {
 		console.log( response.data );
 	} )
@@ -530,7 +530,7 @@ WooCommerce.get( 'reports/coupons/totals' )
 
 ```php
 <?php
-print_r($woocommerce->get('reports/coupons/totals'));
+print_r($poocommerce->get('reports/coupons/totals'));
 ?>
 ```
 
@@ -545,7 +545,7 @@ print(wcapi.get("reports/coupons/totals").json())
   <TabItem value="ruby" label="Ruby">
 
 ```ruby
-woocommerce.get("reports/coupons/totals").parsed_response
+poocommerce.get("reports/coupons/totals").parsed_response
 ```
 
   </TabItem>
@@ -602,7 +602,7 @@ curl https://example.com/wp-json/wc/v3/reports/customers/totals \
   <TabItem value="js" label="JavaScript">
 
 ```javascript
-WooCommerce.get( 'reports/customers/totals' )
+PooCommerce.get( 'reports/customers/totals' )
 	.then( ( response ) => {
 		console.log( response.data );
 	} )
@@ -616,7 +616,7 @@ WooCommerce.get( 'reports/customers/totals' )
 
 ```php
 <?php
-print_r($woocommerce->get('reports/customers/totals'));
+print_r($poocommerce->get('reports/customers/totals'));
 ?>
 ```
 
@@ -631,7 +631,7 @@ print(wcapi.get("reports/customers/totals").json())
   <TabItem value="ruby" label="Ruby">
 
 ```ruby
-woocommerce.get("reports/customers/totals").parsed_response
+poocommerce.get("reports/customers/totals").parsed_response
 ```
 
   </TabItem>
@@ -683,7 +683,7 @@ curl https://example.com/wp-json/wc/v3/reports/orders/totals \
   <TabItem value="js" label="JavaScript">
 
 ```javascript
-WooCommerce.get( 'reports/orders/totals' )
+PooCommerce.get( 'reports/orders/totals' )
 	.then( ( response ) => {
 		console.log( response.data );
 	} )
@@ -697,7 +697,7 @@ WooCommerce.get( 'reports/orders/totals' )
 
 ```php
 <?php
-print_r($woocommerce->get('reports/orders/totals'));
+print_r($poocommerce->get('reports/orders/totals'));
 ?>
 ```
 
@@ -712,7 +712,7 @@ print(wcapi.get("reports/orders/totals").json())
   <TabItem value="ruby" label="Ruby">
 
 ```ruby
-woocommerce.get("reports/orders/totals").parsed_response
+poocommerce.get("reports/orders/totals").parsed_response
 ```
 
   </TabItem>
@@ -789,7 +789,7 @@ curl https://example.com/wp-json/wc/v3/reports/products/totals \
   <TabItem value="js" label="JavaScript">
 
 ```javascript
-WooCommerce.get( 'reports/products/totals' )
+PooCommerce.get( 'reports/products/totals' )
 	.then( ( response ) => {
 		console.log( response.data );
 	} )
@@ -803,7 +803,7 @@ WooCommerce.get( 'reports/products/totals' )
 
 ```php
 <?php
-print_r($woocommerce->get('reports/products/totals'));
+print_r($poocommerce->get('reports/products/totals'));
 ?>
 ```
 
@@ -818,7 +818,7 @@ print(wcapi.get("reports/products/totals").json())
   <TabItem value="ruby" label="Ruby">
 
 ```ruby
-woocommerce.get("reports/products/totals").parsed_response
+poocommerce.get("reports/products/totals").parsed_response
 ```
 
   </TabItem>
@@ -880,7 +880,7 @@ curl https://example.com/wp-json/wc/v3/reports/reviews/totals \
   <TabItem value="js" label="JavaScript">
 
 ```javascript
-WooCommerce.get( 'reports/reviews/totals' )
+PooCommerce.get( 'reports/reviews/totals' )
 	.then( ( response ) => {
 		console.log( response.data );
 	} )
@@ -894,7 +894,7 @@ WooCommerce.get( 'reports/reviews/totals' )
 
 ```php
 <?php
-print_r($woocommerce->get('reports/reviews/totals'));
+print_r($poocommerce->get('reports/reviews/totals'));
 ?>
 ```
 
@@ -909,7 +909,7 @@ print(wcapi.get("reports/reviews/totals").json())
   <TabItem value="ruby" label="Ruby">
 
 ```ruby
-woocommerce.get("reports/reviews/totals").parsed_response
+poocommerce.get("reports/reviews/totals").parsed_response
 ```
 
   </TabItem>

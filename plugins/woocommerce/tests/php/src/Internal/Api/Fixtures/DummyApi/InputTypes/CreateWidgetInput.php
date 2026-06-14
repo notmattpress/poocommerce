@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Internal\Api\Fixtures\DummyApi\InputTypes;
+namespace Automattic\PooCommerce\Tests\Internal\Api\Fixtures\DummyApi\InputTypes;
 
-use Automattic\WooCommerce\Api\Attributes\ArrayOf;
-use Automattic\WooCommerce\Api\Attributes\Description;
-use Automattic\WooCommerce\Api\Attributes\RequiredCapability;
-use Automattic\WooCommerce\Api\Attributes\ScalarType;
-use Automattic\WooCommerce\Api\InputTypes\TracksProvidedFields;
-use Automattic\WooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Enums\Color;
-use Automattic\WooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Scalars\DummyDateTime;
+use Automattic\PooCommerce\Api\Attributes\ArrayOf;
+use Automattic\PooCommerce\Api\Attributes\Description;
+use Automattic\PooCommerce\Api\Attributes\RequiredCapability;
+use Automattic\PooCommerce\Api\Attributes\ScalarType;
+use Automattic\PooCommerce\Api\InputTypes\TracksProvidedFields;
+use Automattic\PooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Enums\Color;
+use Automattic\PooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Scalars\DummyDateTime;
 
 /**
  * Input type for creating a widget.
@@ -23,7 +23,7 @@ class CreateWidgetInput {
 	public string $label;
 
 	#[Description( 'Optional weight in grams' )]
-	#[RequiredCapability( 'manage_woocommerce' )]
+	#[RequiredCapability( 'manage_poocommerce' )]
 	public ?int $weight = null;
 
 	#[Description( 'The widget color' )]

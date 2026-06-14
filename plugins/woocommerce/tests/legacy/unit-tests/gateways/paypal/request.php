@@ -2,7 +2,7 @@
 /**
  * Unit tests for Paypal standard gateway request.
  *
- * @package WooCommerce\Tests\Gateways\Paypal
+ * @package PooCommerce\Tests\Gateways\Paypal
  */
 
 /**
@@ -363,7 +363,7 @@ class WC_Tests_Paypal_Gateway_Request extends WC_Unit_Test_Case {
 		// - order totals mismatch and
 		// - item amount < 0.
 		$correct_options = array(
-			// woocommerce_calc_taxes, woocommerce_prices_include_tax, $shipping_tax_included values.
+			// poocommerce_calc_taxes, poocommerce_prices_include_tax, $shipping_tax_included values.
 			array( 'no', 'no', false ),
 			array( 'yes', 'no', false ),
 			// phpcs:ignore Squiz.PHP.CommentedOutCode.Found
@@ -373,16 +373,16 @@ class WC_Tests_Paypal_Gateway_Request extends WC_Unit_Test_Case {
 
 		// One test without sandbox.
 		$testmode = false;
-		update_option( 'woocommerce_calc_taxes', 'no' );
-		update_option( 'woocommerce_prices_include_tax', 'no' );
+		update_option( 'poocommerce_calc_taxes', 'no' );
+		update_option( 'poocommerce_prices_include_tax', 'no' );
 		$shipping_tax_included = false;
 		$this->check_small_order( 5, $shipping_tax_included, $testmode );
 
 		// Other tests with sandbox active.
 		$testmode = true;
 		foreach ( $correct_options as $values ) {
-			update_option( 'woocommerce_calc_taxes', $values[0] );
-			update_option( 'woocommerce_prices_include_tax', $values[1] );
+			update_option( 'poocommerce_calc_taxes', $values[0] );
+			update_option( 'poocommerce_prices_include_tax', $values[1] );
 			$shipping_tax_included = $values[2];
 
 			// Test order with < 9 items (URL shorter than limit).

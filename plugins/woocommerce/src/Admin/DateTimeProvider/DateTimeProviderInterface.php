@@ -4,7 +4,7 @@
  * designed to be mockable for unit tests.
  */
 
-namespace Automattic\WooCommerce\Admin\DateTimeProvider;
+namespace Automattic\PooCommerce\Admin\DateTimeProvider;
 
 defined( 'ABSPATH' ) || exit;
 

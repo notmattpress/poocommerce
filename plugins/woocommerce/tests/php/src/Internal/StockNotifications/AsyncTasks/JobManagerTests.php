@@ -2,9 +2,9 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\StockNotifications\AsyncTasks;
+namespace Automattic\PooCommerce\Tests\Internal\StockNotifications\AsyncTasks;
 
-use Automattic\WooCommerce\Internal\StockNotifications\AsyncTasks\JobManager;
+use Automattic\PooCommerce\Internal\StockNotifications\AsyncTasks\JobManager;
 
 /**
  * JobManagerTests data tests.

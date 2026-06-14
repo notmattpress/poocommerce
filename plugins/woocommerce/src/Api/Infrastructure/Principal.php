@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Api\Infrastructure;
+namespace Automattic\PooCommerce\Api\Infrastructure;
 
 /**
- * Default principal class for the WooCommerce dual code+GraphQL API.
+ * Default principal class for the PooCommerce dual code+GraphQL API.
  *
  * Plugins that authenticate against something other than WordPress users must ship
  * their own principal class at `<plugin-api-namespace>\Infrastructure\...` together
@@ -45,7 +45,7 @@ class Principal {
 	 * model rather than inheriting an introspection policy by accident.
 	 */
 	public function can_introspect(): bool {
-		return user_can( $this->user, 'manage_woocommerce' );
+		return user_can( $this->user, 'manage_poocommerce' );
 	}
 
 	/**
@@ -59,7 +59,7 @@ class Principal {
 	 * Note that this method's outcome is necessary but not sufficient for debug
 	 * mode to be active: the controller also requires the request to carry
 	 * `_debug=1`. The decision can be overridden by the
-	 * `woocommerce_graphql_can_use_debug_mode` filter.
+	 * `poocommerce_graphql_can_use_debug_mode` filter.
 	 */
 	public function can_use_debug_mode(): bool {
 		return user_can( $this->user, 'manage_options' );

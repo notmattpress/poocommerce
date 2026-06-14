@@ -6,7 +6,7 @@ import {
 	OnboardingProductType,
 	OnboardingProductTypes,
 	ProfileItems,
-} from '@woocommerce/data';
+} from '@poocommerce/data';
 
 /**
  * Gets the country code from a country:state value string.

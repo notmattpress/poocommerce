@@ -1,10 +1,10 @@
 /**
  * External dependencies
  */
-import type { DocumentObject } from '@woocommerce/base-hooks';
+import type { DocumentObject } from '@poocommerce/base-hooks';
 import type { JSONSchemaType } from 'ajv';
 import type { AllHTMLAttributes, AriaAttributes } from 'react';
-import { isFormFields } from '@woocommerce/types';
+import { isFormFields } from '@poocommerce/types';
 
 /**
  * Internal dependencies

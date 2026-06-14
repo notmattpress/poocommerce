@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { responseTypes } from '@woocommerce/types';
+import { responseTypes } from '@poocommerce/types';
 /**
  * Internal dependencies
  */

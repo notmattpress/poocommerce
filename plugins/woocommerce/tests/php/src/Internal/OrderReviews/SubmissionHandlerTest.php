@@ -1,12 +1,12 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\OrderReviews;
+namespace Automattic\PooCommerce\Tests\Internal\OrderReviews;
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Internal\OrderReviews\ItemEligibility;
-use Automattic\WooCommerce\Internal\OrderReviews\SubmissionHandler;
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Internal\OrderReviews\ItemEligibility;
+use Automattic\PooCommerce\Internal\OrderReviews\SubmissionHandler;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
 use WC_Helper_Product;
 use WC_Order;
 use WC_Unit_Test_Case;
@@ -22,7 +22,7 @@ class SubmissionHandlerTest extends WC_Unit_Test_Case {
 	 */
 	public function setUp(): void {
 		parent::setUp();
-		update_option( 'woocommerce_feature_customer_review_request_enabled', 'yes' );
+		update_option( 'poocommerce_feature_customer_review_request_enabled', 'yes' );
 	}
 
 	/**
@@ -31,13 +31,13 @@ class SubmissionHandlerTest extends WC_Unit_Test_Case {
 	public function tearDown(): void {
 		$_POST = array();
 		update_option( 'comment_moderation', '0' );
-		remove_all_filters( 'woocommerce_review_order_submitted' );
-		remove_all_filters( 'woocommerce_review_order_eligible_statuses' );
-		remove_all_filters( 'woocommerce_review_order_eligible_items' );
+		remove_all_filters( 'poocommerce_review_order_submitted' );
+		remove_all_filters( 'poocommerce_review_order_eligible_statuses' );
+		remove_all_filters( 'poocommerce_review_order_eligible_items' );
 		remove_all_filters( 'wp_die_ajax_handler' );
 		remove_all_filters( 'wp_send_json_handler' );
 		remove_all_filters( 'wp_doing_ajax' );
-		delete_option( 'woocommerce_feature_customer_review_request_enabled' );
+		delete_option( 'poocommerce_feature_customer_review_request_enabled' );
 		parent::tearDown();
 	}
 
@@ -655,7 +655,7 @@ class SubmissionHandlerTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox A successful submission fires the woocommerce_review_order_submitted action with order + per-row results.
+	 * @testdox A successful submission fires the poocommerce_review_order_submitted action with order + per-row results.
 	 */
 	public function test_fires_review_order_submitted_action(): void {
 		$built      = $this->make_order( 1 );
@@ -670,7 +670,7 @@ class SubmissionHandlerTest extends WC_Unit_Test_Case {
 		);
 
 		add_action(
-			'woocommerce_review_order_submitted',
+			'poocommerce_review_order_submitted',
 			static function ( $order_arg, $results_arg ) use ( &$captured ) {
 				$captured['order']   = $order_arg;
 				$captured['results'] = $results_arg;
@@ -910,7 +910,7 @@ class SubmissionHandlerTest extends WC_Unit_Test_Case {
 		// drop fully-refunded items. The handler uses the same filter, so
 		// dropping the item here mirrors what the WC default does.
 		add_filter(
-			'woocommerce_review_order_eligible_items',
+			'poocommerce_review_order_eligible_items',
 			static function ( $items, $order_arg ) use ( $item_id ) {
 				unset( $order_arg );
 				$filtered = array();
@@ -944,7 +944,7 @@ class SubmissionHandlerTest extends WC_Unit_Test_Case {
 		$this->assertSame( 'error', $row['status'] );
 		$this->assertSame( 'invalid_row', $row['error'] );
 
-		remove_all_filters( 'woocommerce_review_order_eligible_items' );
+		remove_all_filters( 'poocommerce_review_order_eligible_items' );
 
 		$total = (int) get_comments(
 			array(

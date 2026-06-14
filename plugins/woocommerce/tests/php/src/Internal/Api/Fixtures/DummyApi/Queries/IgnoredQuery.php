@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Queries;
+namespace Automattic\PooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Queries;
 
-use Automattic\WooCommerce\Api\Attributes\Ignore;
-use Automattic\WooCommerce\Api\Attributes\PublicAccess;
+use Automattic\PooCommerce\Api\Attributes\Ignore;
+use Automattic\PooCommerce\Api\Attributes\PublicAccess;
 
 /**
  * Carries #[Ignore] so the ApiBuilder skips it entirely. Tests assert that

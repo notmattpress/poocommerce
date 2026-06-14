@@ -1,8 +1,8 @@
 <?php
 
-namespace Automattic\WooCommerce\Internal\Admin\Orders\MetaBoxes;
+namespace Automattic\PooCommerce\Internal\Admin\Orders\MetaBoxes;
 
-use Automattic\WooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
+use Automattic\PooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
 
 /**
  * TaxonomiesMetaBox class, renders taxonomy sidebar widget on order edit screen.

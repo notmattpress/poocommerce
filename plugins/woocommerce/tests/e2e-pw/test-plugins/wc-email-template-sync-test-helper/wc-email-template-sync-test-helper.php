@@ -4,7 +4,7 @@
  * Description: E2E test fixture for RSM-146. Option-driven filters and REST endpoints used by Playwright tests. Dormant unless its driving options are set.
  * Version: 1.0.0
  * Requires PHP: 8.1
- * Author: WooCommerce
+ * Author: PooCommerce
  *
  * @package WC_Email_Template_Sync_Test_Helper
  */
@@ -14,7 +14,7 @@ declare( strict_types=1 );
 defined( 'ABSPATH' ) || exit;
 
 // This plugin is only mounted by .wp-env.json for E2E test environments — it does not ship
-// in any production WooCommerce build. REST permission callbacks still enforce manage_options.
+// in any production PooCommerce build. REST permission callbacks still enforce manage_options.
 
 define( 'WC_EMAIL_TEMPLATE_SYNC_TEST_HELPER_DIR', plugin_dir_path( __FILE__ ) );
 
@@ -42,10 +42,10 @@ add_action(
 
 // Register the fake third-party WC_Email subclass ONLY when an option signals tests want it.
 // The class file is lazy-loaded here because it extends WC_Email, which is not defined
-// until the woocommerce plugin has loaded — eager-loading at plugin-bootstrap time would
+// until the poocommerce plugin has loaded — eager-loading at plugin-bootstrap time would
 // fatal on PHP class resolution.
 add_filter(
-	'woocommerce_email_classes',
+	'poocommerce_email_classes',
 	static function ( $emails ) {
 		if ( 'yes' !== get_option( 'wc_test_fake_third_party_email_enabled', 'no' ) ) {
 			return $emails;

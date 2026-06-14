@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { createElement } from '@wordpress/element';
@@ -12,24 +12,24 @@ import { createElement } from '@wordpress/element';
 import { RecommendedExtensions } from '../index.js';
 import RecommendedExtensionsItem from '../item.js';
 
-jest.mock( '@woocommerce/tracks' );
+jest.mock( '@poocommerce/tracks' );
 
 const mockExtensions = [
 	{
 		title: 'AutomateWoo',
 		description: 'Does things.',
-		url: 'https://woocommerce.com/products/automatewoo/',
+		url: 'https://poocommerce.com/products/automatewoo/',
 		icon: 'icons/automatewoo.svg',
 		product: 'automatewoo',
 		plugin: 'automatewoo/automatewoo.php',
 	},
 	{
-		title: 'Mailchimp for WooCommerce',
+		title: 'Mailchimp for PooCommerce',
 		description: 'Does things.',
-		url: 'https://woocommerce.com/products/mailchimp-for-woocommerce/',
+		url: 'https://poocommerce.com/products/mailchimp-for-poocommerce/',
 		icon: 'icons/mailchimp.svg',
-		product: 'mailchimp-for-woocommerce',
-		plugin: 'mailchimp-for-woocommerce/mailchimp-woocommerce.php',
+		product: 'mailchimp-for-poocommerce',
+		plugin: 'mailchimp-for-poocommerce/mailchimp-poocommerce.php',
 	},
 ];
 
@@ -50,7 +50,7 @@ describe( 'Recommendations and not loading', () => {
 		const { container } = recommendedExtensionsWrapper;
 		expect(
 			container.querySelector(
-				'.is-loading.woocommerce-marketing-recommended-extensions-item'
+				'.is-loading.poocommerce-marketing-recommended-extensions-item'
 			)
 		).toBeNull();
 	} );
@@ -77,7 +77,7 @@ describe( 'Recommendations and not loading', () => {
 		expect(
 			getByRole( 'heading', {
 				level: 4,
-				name: 'Mailchimp for WooCommerce',
+				name: 'Mailchimp for PooCommerce',
 			} )
 		).toBeInTheDocument();
 	} );
@@ -100,7 +100,7 @@ describe( 'Recommendations and loading', () => {
 		const { container } = recommendedExtensionsWrapper;
 		expect(
 			container.querySelector(
-				'.is-loading.woocommerce-marketing-recommended-extensions-item'
+				'.is-loading.poocommerce-marketing-recommended-extensions-item'
 			)
 		).toBeTruthy();
 	} );
@@ -115,7 +115,7 @@ describe( 'Recommendations and loading', () => {
 		expect(
 			queryByRole( 'heading', {
 				level: 4,
-				name: 'Mailchimp for WooCommerce',
+				name: 'Mailchimp for PooCommerce',
 			} )
 		).toBeNull();
 	} );
@@ -138,7 +138,7 @@ describe( 'No Recommendations and not loading', () => {
 		const { container } = recommendedExtensionsWrapper;
 		expect(
 			container.querySelector(
-				'.is-loading.woocommerce-marketing-recommended-extensions-item'
+				'.is-loading.poocommerce-marketing-recommended-extensions-item'
 			)
 		).toBeNull();
 	} );
@@ -147,7 +147,7 @@ describe( 'No Recommendations and not loading', () => {
 		const { container } = recommendedExtensionsWrapper;
 		expect(
 			container.getElementsByClassName(
-				'woocommerce-marketing-recommended-extensions-card__items'
+				'poocommerce-marketing-recommended-extensions-card__items'
 			)
 		).toHaveLength( 0 );
 	} );
@@ -160,7 +160,7 @@ describe( 'Click Recommendations', () => {
 				title={ 'AutomateWoo' }
 				description={ 'Does things.' }
 				icon={ 'icons/automatewoo.svg' }
-				url={ 'https://woocommerce.com/products/automatewoo/' }
+				url={ 'https://poocommerce.com/products/automatewoo/' }
 				product={ 'automatewoo' }
 				category={ 'marketing' }
 			/>
@@ -173,7 +173,7 @@ describe( 'Click Recommendations', () => {
 			'marketing_recommended_extension',
 			{
 				name: 'AutomateWoo',
-				source: 'plugin-woocommerce',
+				source: 'plugin-poocommerce',
 			}
 		);
 	} );

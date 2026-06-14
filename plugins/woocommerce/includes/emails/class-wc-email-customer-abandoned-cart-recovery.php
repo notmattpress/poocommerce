@@ -2,14 +2,14 @@
 /**
  * Class WC_Email_Customer_Abandoned_Cart_Recovery file.
  *
- * @package WooCommerce\Emails
+ * @package PooCommerce\Emails
  */
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Internal\AbandonedCartRecovery\ManualSendHandler;
-use Automattic\WooCommerce\Internal\Email\Unsubscribes\Endpoint as UnsubscribesEndpoint;
-use Automattic\WooCommerce\Internal\Email\Unsubscribes\Storage as UnsubscribesStorage;
-use Automattic\WooCommerce\Internal\Orders\OrderNoteGroup;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Internal\AbandonedCartRecovery\ManualSendHandler;
+use Automattic\PooCommerce\Internal\Email\Unsubscribes\Endpoint as UnsubscribesEndpoint;
+use Automattic\PooCommerce\Internal\Email\Unsubscribes\Storage as UnsubscribesStorage;
+use Automattic\PooCommerce\Internal\Orders\OrderNoteGroup;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -25,7 +25,7 @@ if ( ! class_exists( 'WC_Email_Customer_Abandoned_Cart_Recovery', false ) ) :
 	 *
 	 * @class    WC_Email_Customer_Abandoned_Cart_Recovery
 	 * @version  10.9.0
-	 * @package  WooCommerce\Classes\Emails
+	 * @package  PooCommerce\Classes\Emails
 	 */
 	class WC_Email_Customer_Abandoned_Cart_Recovery extends WC_Email {
 
@@ -93,7 +93,7 @@ if ( ! class_exists( 'WC_Email_Customer_Abandoned_Cart_Recovery', false ) ) :
 		public function __construct() {
 			$this->id             = self::EMAIL_ID;
 			$this->customer_email = true;
-			$this->title          = __( 'Abandoned cart recovery', 'woocommerce' );
+			$this->title          = __( 'Abandoned cart recovery', 'poocommerce' );
 			$this->email_group    = 'order-updates';
 			$this->template_html  = 'emails/customer-abandoned-cart-recovery.php';
 			$this->template_plain = 'emails/plain/customer-abandoned-cart-recovery.php';
@@ -105,23 +105,23 @@ if ( ! class_exists( 'WC_Email_Customer_Abandoned_Cart_Recovery', false ) ) :
 				'{order_number}' => '',
 			);
 
-			// Trigger fires after Action Scheduler dispatches `woocommerce_send_abandoned_cart_recovery_notification`,
+			// Trigger fires after Action Scheduler dispatches `poocommerce_send_abandoned_cart_recovery_notification`,
 			// or when the merchant invokes the manual-send action from the order edit page.
 			// The order-edit action hooks live in `Internal\AbandonedCartRecovery\ManualSendHandler`
 			// so the listener is in place before the admin POST runs the order-meta save flow
 			// (which happens before the mailer would otherwise be instantiated).
-			add_action( 'woocommerce_send_abandoned_cart_recovery_notification', array( $this, 'trigger' ), 10, 1 );
+			add_action( 'poocommerce_send_abandoned_cart_recovery_notification', array( $this, 'trigger' ), 10, 1 );
 
 			parent::__construct();
 
 			// Must be after parent's constructor which sets `email_improvements_enabled` property.
-			$this->description = __( 'Win back shoppers who almost bought. Automatically email customers who didn\'t finish checking out, with a one-click link back to their order.', 'woocommerce' );
+			$this->description = __( 'Win back shoppers who almost bought. Automatically email customers who didn\'t finish checking out, with a one-click link back to their order.', 'poocommerce' );
 		}
 
 		/**
 		 * Trigger the sending of this email.
 		 *
-		 * Wired to `woocommerce_send_abandoned_cart_recovery_notification`, which Action
+		 * Wired to `poocommerce_send_abandoned_cart_recovery_notification`, which Action
 		 * Scheduler fires with the order id as its single argument. Also called
 		 * directly by the manual-send action on the order edit page.
 		 *
@@ -212,7 +212,7 @@ if ( ! class_exists( 'WC_Email_Customer_Abandoned_Cart_Recovery', false ) ) :
 				return $actions;
 			}
 
-			$actions[ self::MANUAL_RECOVERY_EMAIL_SEND_ACTION ] = __( 'Send abandoned cart recovery email', 'woocommerce' );
+			$actions[ self::MANUAL_RECOVERY_EMAIL_SEND_ACTION ] = __( 'Send abandoned cart recovery email', 'poocommerce' );
 
 			return $actions;
 		}
@@ -228,7 +228,7 @@ if ( ! class_exists( 'WC_Email_Customer_Abandoned_Cart_Recovery', false ) ) :
 		 *
 		 * Single source of truth: called both by `trigger()` (defence-in-depth at
 		 * send time) and by the manual-send dropdown gates. Partners can widen the
-		 * eligible-status set via `woocommerce_abandoned_cart_recovery_eligible_statuses`
+		 * eligible-status set via `poocommerce_abandoned_cart_recovery_eligible_statuses`
 		 * and both paths will agree.
 		 *
 		 * @since 10.9.0
@@ -250,7 +250,7 @@ if ( ! class_exists( 'WC_Email_Customer_Abandoned_Cart_Recovery', false ) ) :
 			 * @param WC_Order $order             Order being inspected.
 			 */
 			$eligible_statuses = (array) apply_filters(
-				'woocommerce_abandoned_cart_recovery_eligible_statuses',
+				'poocommerce_abandoned_cart_recovery_eligible_statuses',
 				self::ABANDONED_STATUSES,
 				$order
 			);
@@ -273,7 +273,7 @@ if ( ! class_exists( 'WC_Email_Customer_Abandoned_Cart_Recovery', false ) ) :
 		/**
 		 * Handle a merchant-initiated send from the order edit page.
 		 *
-		 * Fired by `woocommerce_order_action_send_abandoned_cart_recovery_email` after
+		 * Fired by `poocommerce_order_action_send_abandoned_cart_recovery_email` after
 		 * the order metabox save flow has validated the request. We re-check the
 		 * capability and order status as defense in depth in case the hook is
 		 * invoked from a non-metabox path.
@@ -316,12 +316,12 @@ if ( ! class_exists( 'WC_Email_Customer_Abandoned_Cart_Recovery', false ) ) :
 			 * @param WC_Order $order      Order being recovered.
 			 * @param string   $email_type Email identifier ('customer_abandoned_cart_recovery').
 			 */
-			do_action( 'woocommerce_before_resend_order_emails', $order, $this->id );
+			do_action( 'poocommerce_before_resend_order_emails', $order, $this->id );
 
 			$this->trigger( $order->get_id() );
 
 			$order->add_order_note(
-				__( 'Abandoned cart recovery email sent from the order actions menu.', 'woocommerce' ),
+				__( 'Abandoned cart recovery email sent from the order actions menu.', 'poocommerce' ),
 				0,
 				true,
 				array( 'note_group' => OrderNoteGroup::EMAIL_NOTIFICATION )
@@ -335,7 +335,7 @@ if ( ! class_exists( 'WC_Email_Customer_Abandoned_Cart_Recovery', false ) ) :
 			 * @param WC_Order $order      Order being recovered.
 			 * @param string   $email_type Email identifier ('customer_abandoned_cart_recovery').
 			 */
-			do_action( 'woocommerce_after_resend_order_email', $order, $this->id );
+			do_action( 'poocommerce_after_resend_order_email', $order, $this->id );
 
 			// Reuse the existing "Order updated. Email sent." admin notice (message id 11) on the
 			// classic order edit page. HPOS uses a different redirect pipeline that sets the
@@ -401,7 +401,7 @@ if ( ! class_exists( 'WC_Email_Customer_Abandoned_Cart_Recovery', false ) ) :
 			 *
 			 * @param bool $suppress Default false.
 			 */
-			return (bool) apply_filters( 'woocommerce_abandoned_cart_recovery_suppress', false );
+			return (bool) apply_filters( 'poocommerce_abandoned_cart_recovery_suppress', false );
 		}
 
 		/**
@@ -409,7 +409,7 @@ if ( ! class_exists( 'WC_Email_Customer_Abandoned_Cart_Recovery', false ) ) :
 		 *
 		 * Returns the order's pay endpoint, which resumes the checkout for the
 		 * pending order. A future iteration may swap this for a single-use signed
-		 * URL with explicit expiry (see `woocommerce_abandoned_cart_recovery_url` filter).
+		 * URL with explicit expiry (see `poocommerce_abandoned_cart_recovery_url` filter).
 		 *
 		 * @since  10.9.0
 		 * @return string
@@ -427,7 +427,7 @@ if ( ! class_exists( 'WC_Email_Customer_Abandoned_Cart_Recovery', false ) ) :
 			 * @param string   $url   Default: the pending order's pay endpoint.
 			 * @param WC_Order $order Order being recovered.
 			 */
-			return (string) apply_filters( 'woocommerce_abandoned_cart_recovery_url', $this->object->get_checkout_payment_url(), $this->object );
+			return (string) apply_filters( 'poocommerce_abandoned_cart_recovery_url', $this->object->get_checkout_payment_url(), $this->object );
 		}
 
 		/**
@@ -479,7 +479,7 @@ if ( ! class_exists( 'WC_Email_Customer_Abandoned_Cart_Recovery', false ) ) :
 		 * @return string
 		 */
 		public function get_default_subject() {
-			return __( 'Still want it?', 'woocommerce' );
+			return __( 'Still want it?', 'poocommerce' );
 		}
 
 		/**
@@ -489,7 +489,7 @@ if ( ! class_exists( 'WC_Email_Customer_Abandoned_Cart_Recovery', false ) ) :
 		 * @return string
 		 */
 		public function get_default_heading() {
-			return __( 'Pick up where you left off', 'woocommerce' );
+			return __( 'Pick up where you left off', 'poocommerce' );
 		}
 
 		/**
@@ -499,7 +499,7 @@ if ( ! class_exists( 'WC_Email_Customer_Abandoned_Cart_Recovery', false ) ) :
 		 * @return string
 		 */
 		public function get_default_additional_content() {
-			return __( 'If you have any questions, reply to this email and we\'ll help out.', 'woocommerce' );
+			return __( 'If you have any questions, reply to this email and we\'ll help out.', 'poocommerce' );
 		}
 
 		/**
@@ -553,7 +553,7 @@ if ( ! class_exists( 'WC_Email_Customer_Abandoned_Cart_Recovery', false ) ) :
 		public function init_form_fields(): void {
 			$placeholder_text = sprintf(
 				/* translators: %s: list of placeholders */
-				__( 'Available placeholders: %s', 'woocommerce' ),
+				__( 'Available placeholders: %s', 'poocommerce' ),
 				'<code>' . implode( '</code>, <code>', array_map( 'esc_html', array_keys( $this->placeholders ) ) ) . '</code>'
 			);
 
@@ -563,29 +563,29 @@ if ( ! class_exists( 'WC_Email_Customer_Abandoned_Cart_Recovery', false ) ) :
 				? ''
 				: sprintf(
 					/* translators: %s: comma-separated list of detected plugins that already handle abandoned cart recovery (e.g. "AutomateWoo, MailPoet"). */
-					__( '%s is active on this site and already handles abandoned cart recovery. We\'ve turned this off so customers don\'t receive duplicate emails. Enable anyway if you want WooCommerce to handle recovery instead.', 'woocommerce' ),
+					__( '%s is active on this site and already handles abandoned cart recovery. We\'ve turned this off so customers don\'t receive duplicate emails. Enable anyway if you want PooCommerce to handle recovery instead.', 'poocommerce' ),
 					implode( ', ', $active_handlers )
 				);
 
 			$this->form_fields = array(
 				'enabled'            => array(
-					'title'       => __( 'Enable/Disable', 'woocommerce' ),
+					'title'       => __( 'Enable/Disable', 'poocommerce' ),
 					'type'        => 'checkbox',
-					'label'       => __( 'Enable this email notification', 'woocommerce' ),
+					'label'       => __( 'Enable this email notification', 'poocommerce' ),
 					'description' => $enabled_description,
 					'default'     => $enabled_default,
 					'desc_tip'    => '' !== $enabled_description,
 				),
 				'automated'          => array(
-					'title'       => __( 'Send automatically', 'woocommerce' ),
+					'title'       => __( 'Send automatically', 'poocommerce' ),
 					'type'        => 'checkbox',
-					'label'       => __( 'Schedule the recovery email to send 2 hours after a checkout is abandoned', 'woocommerce' ),
-					'description' => __( 'When disabled, the email is only sent when you trigger it manually from the order edit page.', 'woocommerce' ),
+					'label'       => __( 'Schedule the recovery email to send 2 hours after a checkout is abandoned', 'poocommerce' ),
+					'description' => __( 'When disabled, the email is only sent when you trigger it manually from the order edit page.', 'poocommerce' ),
 					'default'     => 'no',
 					'desc_tip'    => true,
 				),
 				'subject'            => array(
-					'title'       => __( 'Subject', 'woocommerce' ),
+					'title'       => __( 'Subject', 'poocommerce' ),
 					'type'        => 'text',
 					'desc_tip'    => true,
 					'description' => $placeholder_text,
@@ -593,7 +593,7 @@ if ( ! class_exists( 'WC_Email_Customer_Abandoned_Cart_Recovery', false ) ) :
 					'default'     => '',
 				),
 				'heading'            => array(
-					'title'       => __( 'Email heading', 'woocommerce' ),
+					'title'       => __( 'Email heading', 'poocommerce' ),
 					'type'        => 'text',
 					'desc_tip'    => true,
 					'description' => $placeholder_text,
@@ -601,18 +601,18 @@ if ( ! class_exists( 'WC_Email_Customer_Abandoned_Cart_Recovery', false ) ) :
 					'default'     => '',
 				),
 				'additional_content' => array(
-					'title'       => __( 'Additional content', 'woocommerce' ),
-					'description' => __( 'Text to appear below the main email content.', 'woocommerce' ) . ' ' . $placeholder_text,
+					'title'       => __( 'Additional content', 'poocommerce' ),
+					'description' => __( 'Text to appear below the main email content.', 'poocommerce' ) . ' ' . $placeholder_text,
 					'css'         => 'width:400px; height: 75px;',
-					'placeholder' => __( 'N/A', 'woocommerce' ),
+					'placeholder' => __( 'N/A', 'poocommerce' ),
 					'type'        => 'textarea',
 					'default'     => $this->get_default_additional_content(),
 					'desc_tip'    => true,
 				),
 				'email_type'         => array(
-					'title'       => __( 'Email type', 'woocommerce' ),
+					'title'       => __( 'Email type', 'poocommerce' ),
 					'type'        => 'select',
-					'description' => __( 'Choose which format of email to send.', 'woocommerce' ),
+					'description' => __( 'Choose which format of email to send.', 'poocommerce' ),
 					'default'     => 'html',
 					'class'       => 'email_type wc-enhanced-select',
 					'options'     => $this->get_email_type_options(),

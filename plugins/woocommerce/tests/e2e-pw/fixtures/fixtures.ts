@@ -6,7 +6,7 @@ import {
 	expect as baseExpect,
 	request as baseRequest,
 } from '@playwright/test';
-import { createClient, WP_API_PATH } from '@woocommerce/e2e-utils-playwright';
+import { createClient, WP_API_PATH } from '@poocommerce/e2e-utils-playwright';
 
 /**
  * Internal dependencies

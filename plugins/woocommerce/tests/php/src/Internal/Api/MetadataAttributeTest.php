@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Internal\Api;
+namespace Automattic\PooCommerce\Tests\Internal\Api;
 
-use Automattic\WooCommerce\Api\Attributes\Internal;
-use Automattic\WooCommerce\Api\Attributes\Metadata;
+use Automattic\PooCommerce\Api\Attributes\Internal;
+use Automattic\PooCommerce\Api\Attributes\Metadata;
 use WC_Unit_Test_Case;
 
 /**

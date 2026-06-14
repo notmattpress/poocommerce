@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Api\Queries\Coupons;
+namespace Automattic\PooCommerce\Tests\Api\Queries\Coupons;
 
-use Automattic\WooCommerce\Api\Enums\Coupons\CouponStatus;
-use Automattic\WooCommerce\Api\Pagination\IdCursorFilter;
-use Automattic\WooCommerce\Api\Pagination\PaginationParams;
-use Automattic\WooCommerce\Api\Queries\Coupons\ListCoupons;
+use Automattic\PooCommerce\Api\Enums\Coupons\CouponStatus;
+use Automattic\PooCommerce\Api\Pagination\IdCursorFilter;
+use Automattic\PooCommerce\Api\Pagination\PaginationParams;
+use Automattic\PooCommerce\Api\Queries\Coupons\ListCoupons;
 use ReflectionClass;
 use WC_Helper_Coupon;
 use WC_Unit_Test_Case;

@@ -23,7 +23,7 @@ import {
 
 const recordEventMock = jest.fn();
 
-jest.mock( '@woocommerce/tracks', () => ( {
+jest.mock( '@poocommerce/tracks', () => ( {
 	recordEvent: ( name: string, payload: Record< string, unknown > ) =>
 		recordEventMock( name, payload ),
 } ) );

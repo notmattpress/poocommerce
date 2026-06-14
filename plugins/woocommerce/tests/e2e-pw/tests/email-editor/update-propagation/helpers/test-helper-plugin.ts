@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { createClient } from '@woocommerce/e2e-utils-playwright';
+import { createClient } from '@poocommerce/e2e-utils-playwright';
 
 /**
  * Internal dependencies
@@ -96,7 +96,7 @@ export async function disableFakeThirdPartyEmail(): Promise< void > {
 
 export async function stampBackfillComplete(): Promise< void > {
 	await setOption(
-		'woocommerce_email_template_sync_backfill_complete',
+		'poocommerce_email_template_sync_backfill_complete',
 		'yes'
 	);
 }

@@ -2,7 +2,7 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\StockNotifications\Enums;
+namespace Automattic\PooCommerce\Internal\StockNotifications\Enums;
 
 /**
  * Enum class for all the notification statuses.

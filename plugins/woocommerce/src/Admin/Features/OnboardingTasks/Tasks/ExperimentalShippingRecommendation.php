@@ -1,12 +1,12 @@
 <?php
 
-namespace Automattic\WooCommerce\Admin\Features\OnboardingTasks\Tasks;
+namespace Automattic\PooCommerce\Admin\Features\OnboardingTasks\Tasks;
 
 use Automattic\Jetpack\Connection\Manager;
-use Automattic\WooCommerce\Admin\Features\Features;
-use Automattic\WooCommerce\Admin\Features\OnboardingTasks\Task;
-use Automattic\WooCommerce\Admin\PluginsHelper;
-use Automattic\WooCommerce\Internal\Jetpack\JetpackConnection;
+use Automattic\PooCommerce\Admin\Features\Features;
+use Automattic\PooCommerce\Admin\Features\OnboardingTasks\Task;
+use Automattic\PooCommerce\Admin\PluginsHelper;
+use Automattic\PooCommerce\Internal\Jetpack\JetpackConnection;
 
 /**
  * Shipping Task
@@ -27,7 +27,7 @@ class ExperimentalShippingRecommendation extends Task {
 	 * @return string
 	 */
 	public function get_title() {
-		return __( 'Get your products shipped', 'woocommerce' );
+		return __( 'Get your products shipped', 'poocommerce' );
 	}
 
 	/**
@@ -81,7 +81,7 @@ class ExperimentalShippingRecommendation extends Task {
 	 * @return bool
 	 */
 	public static function has_plugins_active() {
-		return PluginsHelper::is_plugin_active( 'woocommerce-shipping' );
+		return PluginsHelper::is_plugin_active( 'poocommerce-shipping' );
 	}
 
 	/**

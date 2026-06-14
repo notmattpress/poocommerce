@@ -1,14 +1,14 @@
 <?php
 /**
- * Features loader for features developed in WooCommerce Admin.
+ * Features loader for features developed in PooCommerce Admin.
  */
 
-namespace Automattic\WooCommerce\Admin\Features;
+namespace Automattic\PooCommerce\Admin\Features;
 
-use Automattic\WooCommerce\Admin\PageController;
-use Automattic\WooCommerce\Internal\Admin\Loader;
-use Automattic\WooCommerce\Internal\Admin\WCAdminAssets;
-use Automattic\WooCommerce\Utilities\FeaturesUtil;
+use Automattic\PooCommerce\Admin\PageController;
+use Automattic\PooCommerce\Internal\Admin\Loader;
+use Automattic\PooCommerce\Internal\Admin\WCAdminAssets;
+use Automattic\PooCommerce\Utilities\FeaturesUtil;
 
 /**
  * Features Class.
@@ -52,19 +52,19 @@ class Features {
 			return;
 		}
 
-		// Load feature before WooCommerce update hooks.
+		// Load feature before PooCommerce update hooks.
 		add_action( 'init', array( __CLASS__, 'load_features' ), 4 );
 		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'load_scripts' ), 15 );
 		add_filter( 'admin_body_class', array( __CLASS__, 'add_admin_body_classes' ) );
 	}
 
 	/**
-	 * Gets a build configured array of enabled WooCommerce Admin features/sections, but does not respect optionally disabled features.
+	 * Gets a build configured array of enabled PooCommerce Admin features/sections, but does not respect optionally disabled features.
 	 *
 	 * @return array Enabled Woocommerce Admin features/sections.
 	 */
 	public static function get_features() {
-		return apply_filters( 'woocommerce_admin_features', array() );
+		return apply_filters( 'poocommerce_admin_features', array() );
 	}
 
 	/**
@@ -104,7 +104,7 @@ class Features {
 	 */
 	public static function get_feature_class( $feature ) {
 		$feature       = str_replace( '-', '', ucwords( strtolower( $feature ), '-' ) );
-		$feature_class = 'Automattic\\WooCommerce\\Admin\\Features\\' . $feature;
+		$feature_class = 'Automattic\\PooCommerce\\Admin\\Features\\' . $feature;
 
 		$should_autoload_class = self::should_load_features();
 
@@ -121,7 +121,7 @@ class Features {
 	}
 
 	/**
-	 * Class loader for enabled WooCommerce Admin features/sections.
+	 * Class loader for enabled PooCommerce Admin features/sections.
 	 */
 	public static function load_features() {
 		if ( ! self::should_load_features() ) {
@@ -138,16 +138,16 @@ class Features {
 		}
 
 		if ( FeaturesUtil::feature_is_enabled( 'blueprint' ) ) {
-			new \Automattic\WooCommerce\Admin\Features\Blueprint\Init();
+			new \Automattic\PooCommerce\Admin\Features\Blueprint\Init();
 		}
 
 		if ( FeaturesUtil::feature_is_enabled( 'order-detail-redesign' ) ) {
-			new \Automattic\WooCommerce\Internal\Features\OrderDetailRedesign\Init();
+			new \Automattic\PooCommerce\Internal\Features\OrderDetailRedesign\Init();
 		}
 	}
 
 	/**
-	 * Gets a build configured array of enabled WooCommerce Admin respecting optionally disabled features.
+	 * Gets a build configured array of enabled PooCommerce Admin respecting optionally disabled features.
 	 *
 	 * @return array Enabled Woocommerce Admin features/sections.
 	 */
@@ -157,11 +157,11 @@ class Features {
 		$optional_features_unavailable = array();
 
 		/**
-		 * Filter allowing WooCommerce Admin optional features to be disabled.
+		 * Filter allowing PooCommerce Admin optional features to be disabled.
 		 *
 		 * @param bool $disabled False.
 		 */
-		if ( apply_filters( 'woocommerce_admin_disabled', false ) ) {
+		if ( apply_filters( 'poocommerce_admin_disabled', false ) ) {
 			return array_values( array_diff( $features, $optional_feature_keys ) );
 		}
 
@@ -235,9 +235,9 @@ class Features {
 	}
 
 	/**
-	 * Adds the Features section to the advanced tab of WooCommerce Settings
+	 * Adds the Features section to the advanced tab of PooCommerce Settings
 	 *
-	 * @deprecated 7.0 The WooCommerce Admin features are now handled by the WooCommerce features engine (see the FeaturesController class).
+	 * @deprecated 7.0 The PooCommerce Admin features are now handled by the PooCommerce features engine (see the FeaturesController class).
 	 *
 	 * @param array $sections Sections.
 	 * @return array
@@ -249,7 +249,7 @@ class Features {
 	/**
 	 * Adds the Features settings.
 	 *
-	 * @deprecated 7.0 The WooCommerce Admin features are now handled by the WooCommerce features engine (see the FeaturesController class).
+	 * @deprecated 7.0 The PooCommerce Admin features are now handled by the PooCommerce features engine (see the FeaturesController class).
 	 *
 	 * @param array  $settings Settings.
 	 * @param string $current_section Current section slug.
@@ -290,7 +290,7 @@ class Features {
 
 		$features = self::get_features();
 		foreach ( $features as $feature_key ) {
-			$classes[] = sanitize_html_class( 'woocommerce-feature-enabled-' . $feature_key );
+			$classes[] = sanitize_html_class( 'poocommerce-feature-enabled-' . $feature_key );
 		}
 
 		$admin_body_class = implode( ' ', array_unique( $classes ) );
@@ -300,26 +300,26 @@ class Features {
 	/**
 	 * Alias internal features classes to make them backward compatible.
 	 * We've moved our feature classes to src-internal as part of merging this
-	 * repository with WooCommerce Core to form a monorepo.
+	 * repository with PooCommerce Core to form a monorepo.
 	 * See https://wp.me/p90Yrv-2HY for details.
 	 */
 	private function register_internal_class_aliases() {
 		$aliases = array(
 			// new class => original class (this will be aliased).
-			'Automattic\WooCommerce\Internal\Admin\WCPayPromotion\Init' => 'Automattic\WooCommerce\Admin\Features\WcPayPromotion\Init',
-			'Automattic\WooCommerce\Internal\Admin\RemoteFreeExtensions\Init' => 'Automattic\WooCommerce\Admin\Features\RemoteFreeExtensions\Init',
-			'Automattic\WooCommerce\Internal\Admin\ActivityPanels' => 'Automattic\WooCommerce\Admin\Features\ActivityPanels',
-			'Automattic\WooCommerce\Internal\Admin\Analytics' => 'Automattic\WooCommerce\Admin\Features\Analytics',
-			'Automattic\WooCommerce\Internal\Admin\Coupons' => 'Automattic\WooCommerce\Admin\Features\Coupons',
-			'Automattic\WooCommerce\Internal\Admin\CouponsMovedTrait' => 'Automattic\WooCommerce\Admin\Features\CouponsMovedTrait',
-			'Automattic\WooCommerce\Internal\Admin\CustomerEffortScoreTracks' => 'Automattic\WooCommerce\Admin\Features\CustomerEffortScoreTracks',
-			'Automattic\WooCommerce\Internal\Admin\Homescreen' => 'Automattic\WooCommerce\Admin\Features\Homescreen',
-			'Automattic\WooCommerce\Internal\Admin\Marketing' => 'Automattic\WooCommerce\Admin\Features\Marketing',
-			'Automattic\WooCommerce\Internal\Admin\MobileAppBanner' => 'Automattic\WooCommerce\Admin\Features\MobileAppBanner',
-			'Automattic\WooCommerce\Internal\Admin\RemoteInboxNotifications' => 'Automattic\WooCommerce\Admin\Features\RemoteInboxNotifications',
-			'Automattic\WooCommerce\Internal\Admin\ShippingLabelBanner' => 'Automattic\WooCommerce\Admin\Features\ShippingLabelBanner',
-			'Automattic\WooCommerce\Internal\Admin\ShippingLabelBannerDisplayRules' => 'Automattic\WooCommerce\Admin\Features\ShippingLabelBannerDisplayRules',
-			'Automattic\WooCommerce\Internal\Admin\WcPayWelcomePage' => 'Automattic\WooCommerce\Admin\Features\WcPayWelcomePage',
+			'Automattic\PooCommerce\Internal\Admin\WCPayPromotion\Init' => 'Automattic\PooCommerce\Admin\Features\WcPayPromotion\Init',
+			'Automattic\PooCommerce\Internal\Admin\RemoteFreeExtensions\Init' => 'Automattic\PooCommerce\Admin\Features\RemoteFreeExtensions\Init',
+			'Automattic\PooCommerce\Internal\Admin\ActivityPanels' => 'Automattic\PooCommerce\Admin\Features\ActivityPanels',
+			'Automattic\PooCommerce\Internal\Admin\Analytics' => 'Automattic\PooCommerce\Admin\Features\Analytics',
+			'Automattic\PooCommerce\Internal\Admin\Coupons' => 'Automattic\PooCommerce\Admin\Features\Coupons',
+			'Automattic\PooCommerce\Internal\Admin\CouponsMovedTrait' => 'Automattic\PooCommerce\Admin\Features\CouponsMovedTrait',
+			'Automattic\PooCommerce\Internal\Admin\CustomerEffortScoreTracks' => 'Automattic\PooCommerce\Admin\Features\CustomerEffortScoreTracks',
+			'Automattic\PooCommerce\Internal\Admin\Homescreen' => 'Automattic\PooCommerce\Admin\Features\Homescreen',
+			'Automattic\PooCommerce\Internal\Admin\Marketing' => 'Automattic\PooCommerce\Admin\Features\Marketing',
+			'Automattic\PooCommerce\Internal\Admin\MobileAppBanner' => 'Automattic\PooCommerce\Admin\Features\MobileAppBanner',
+			'Automattic\PooCommerce\Internal\Admin\RemoteInboxNotifications' => 'Automattic\PooCommerce\Admin\Features\RemoteInboxNotifications',
+			'Automattic\PooCommerce\Internal\Admin\ShippingLabelBanner' => 'Automattic\PooCommerce\Admin\Features\ShippingLabelBanner',
+			'Automattic\PooCommerce\Internal\Admin\ShippingLabelBannerDisplayRules' => 'Automattic\PooCommerce\Admin\Features\ShippingLabelBannerDisplayRules',
+			'Automattic\PooCommerce\Internal\Admin\WcPayWelcomePage' => 'Automattic\PooCommerce\Admin\Features\WcPayWelcomePage',
 		);
 		foreach ( $aliases as $new_class => $orig_class ) {
 			class_alias( $new_class, $orig_class );
@@ -339,7 +339,7 @@ class Features {
 			( defined( 'WP_CLI' ) && WP_CLI ) ||
 			( WC()->is_rest_api_request() && ! WC()->is_store_api_request() ) ||
 			// Allow features to be loaded in frontend for admin users. This is needed for the use case such as the coming soon footer banner.
-			current_user_can( 'manage_woocommerce' )
+			current_user_can( 'manage_poocommerce' )
 		);
 
 		/**
@@ -348,6 +348,6 @@ class Features {
 		 * @since 9.6.0
 		 * @param boolean $should_load Whether admin features should be loaded. It defaults to true when the current request is in an admin context.
 		 */
-		return apply_filters( 'woocommerce_admin_should_load_features', $should_load );
+		return apply_filters( 'poocommerce_admin_should_load_features', $should_load );
 	}
 }

@@ -1,12 +1,12 @@
 {
-	"name": "woocommerce/mini-cart",
+	"name": "poocommerce/mini-cart",
 	"version": "1.0.0",
 	"title": "Mini-Cart",
 	"icon": "miniCartAlt",
 	"description": "Display a button for shoppers to quickly view their cart.",
-	"category": "woocommerce",
-	"keywords": [ "WooCommerce" ],
-	"textdomain": "woocommerce",
+	"category": "poocommerce",
+	"keywords": [ "PooCommerce" ],
+	"textdomain": "poocommerce",
 	"supports": {
 		"html": false,
 		"multiple": false,

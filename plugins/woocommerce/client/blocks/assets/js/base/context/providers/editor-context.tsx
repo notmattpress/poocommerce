@@ -3,7 +3,7 @@
  */
 import { createContext, useContext, useCallback } from '@wordpress/element';
 import { useSelect } from '@wordpress/data';
-import { usePreviewMode } from '@woocommerce/base-hooks';
+import { usePreviewMode } from '@poocommerce/base-hooks';
 
 interface EditorContextType {
 	// Indicates whether in the editor context.

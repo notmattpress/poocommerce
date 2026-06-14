@@ -2,10 +2,10 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Enums;
+namespace Automattic\PooCommerce\Enums;
 
 /**
- * Enum class for the possible values of the `woocommerce_tax_based_on` option,
+ * Enum class for the possible values of the `poocommerce_tax_based_on` option,
  * which determines which address is used to calculate tax.
  *
  * @since 10.8.0

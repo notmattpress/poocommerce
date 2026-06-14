@@ -2,10 +2,10 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails;
+namespace Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails;
 
-use Automattic\WooCommerce\EmailEditor\Engine\Logger\Email_Editor_Logger_Interface;
-use Automattic\WooCommerce\Internal\EmailEditor\Logger;
+use Automattic\PooCommerce\EmailEditor\Engine\Logger\Email_Editor_Logger_Interface;
+use Automattic\PooCommerce\Internal\EmailEditor\Logger;
 
 /**
  * Auto-applies the current core block template to `woo_email` posts that have
@@ -17,11 +17,11 @@ use Automattic\WooCommerce\Internal\EmailEditor\Logger;
  * flip its status meta back to `in_sync`.
  *
  * The per-post atom ({@see self::apply_to_post()}) is shared with the
- * `POST /woocommerce-email-editor/v1/emails/{id}/reset` endpoint
- * (see {@see \Automattic\WooCommerce\Internal\EmailEditor\EmailApiController::reset_response()})
+ * `POST /poocommerce-email-editor/v1/emails/{id}/reset` endpoint
+ * (see {@see \Automattic\PooCommerce\Internal\EmailEditor\EmailApiController::reset_response()})
  * so reset and auto-apply share one canonical-write code path.
  *
- * @package Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails
+ * @package Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails
  * @since 10.8.0
  */
 class WCEmailTemplateAutoApplier {
@@ -29,24 +29,24 @@ class WCEmailTemplateAutoApplier {
 	 * Action Scheduler hook name for the batched auto-apply runner.
 	 *
 	 * Internal AS plumbing — not intended for extension consumption. To react to
-	 * the upgrade-time signal, hook {@see 'woocommerce_email_template_divergence_sweep_complete'}
+	 * the upgrade-time signal, hook {@see 'poocommerce_email_template_divergence_sweep_complete'}
 	 * instead.
 	 *
 	 * @var string
 	 */
-	public const AUTO_APPLY_AS_HOOK = 'woocommerce_email_template_auto_apply_uncustomized';
+	public const AUTO_APPLY_AS_HOOK = 'poocommerce_email_template_auto_apply_uncustomized';
 
 	/**
 	 * Action Scheduler group for the batched auto-apply runner.
 	 *
 	 * Internal AS plumbing — not intended for extension consumption. The
-	 * `woocommerce-email-editor` namespace is reserved for the standalone email
+	 * `poocommerce-email-editor` namespace is reserved for the standalone email
 	 * editor package; integration glue lives under
-	 * `woocommerce-email-editor-integration` to keep the boundary explicit.
+	 * `poocommerce-email-editor-integration` to keep the boundary explicit.
 	 *
 	 * @var string
 	 */
-	public const AUTO_APPLY_AS_GROUP = 'woocommerce-email-editor-integration';
+	public const AUTO_APPLY_AS_GROUP = 'poocommerce-email-editor-integration';
 
 	/**
 	 * Re-entrancy flag set while the atom rewrites a post.
@@ -100,19 +100,19 @@ class WCEmailTemplateAutoApplier {
 				'not_sync_enabled',
 				sprintf(
 					/* translators: %s: email ID */
-					__( 'Email "%s" is not registered for template sync.', 'woocommerce' ),
+					__( 'Email "%s" is not registered for template sync.', 'poocommerce' ),
 					(string) $email->id
 				)
 			);
 		}
 
 		$post = get_post( $post_id );
-		if ( ! $post instanceof \WP_Post || \Automattic\WooCommerce\Internal\EmailEditor\Integration::EMAIL_POST_TYPE !== $post->post_type ) {
+		if ( ! $post instanceof \WP_Post || \Automattic\PooCommerce\Internal\EmailEditor\Integration::EMAIL_POST_TYPE !== $post->post_type ) {
 			return new \WP_Error(
 				'post_not_found',
 				sprintf(
 					/* translators: %d: post ID */
-					__( 'No woo_email post found for ID %d.', 'woocommerce' ),
+					__( 'No woo_email post found for ID %d.', 'poocommerce' ),
 					$post_id
 				)
 			);
@@ -126,7 +126,7 @@ class WCEmailTemplateAutoApplier {
 					'no_stored_hash',
 					sprintf(
 						/* translators: %d: post ID */
-						__( 'Post %d has no stored source hash; cannot safely auto-apply.', 'woocommerce' ),
+						__( 'Post %d has no stored source hash; cannot safely auto-apply.', 'poocommerce' ),
 						$post_id
 					)
 				);
@@ -155,7 +155,7 @@ class WCEmailTemplateAutoApplier {
 						'post_modified_since_stamp',
 						sprintf(
 							/* translators: %d: post ID */
-							__( 'Post %d has been modified since the last sync stamp; skipping auto-apply.', 'woocommerce' ),
+							__( 'Post %d has been modified since the last sync stamp; skipping auto-apply.', 'poocommerce' ),
 							$post_id
 						)
 					);
@@ -226,10 +226,10 @@ class WCEmailTemplateAutoApplier {
 	/**
 	 * Enqueue the batched auto-apply runner as an Action Scheduler async action.
 	 *
-	 * Hooked to {@see 'woocommerce_email_template_divergence_sweep_complete'}. The
+	 * Hooked to {@see 'poocommerce_email_template_divergence_sweep_complete'}. The
 	 * `as_has_scheduled_action()` short-circuit guards against double-enqueueing
 	 * when the detector sweep runs twice in one request — once on
-	 * `woocommerce_updated`, once on `BACKFILL_COMPLETE_ACTION`.
+	 * `poocommerce_updated`, once on `BACKFILL_COMPLETE_ACTION`.
 	 *
 	 * @since 10.8.0
 	 */
@@ -265,7 +265,7 @@ class WCEmailTemplateAutoApplier {
 		// is fair game for auto-apply.
 		$candidate_ids = get_posts(
 			array(
-				'post_type'      => \Automattic\WooCommerce\Internal\EmailEditor\Integration::EMAIL_POST_TYPE,
+				'post_type'      => \Automattic\PooCommerce\Internal\EmailEditor\Integration::EMAIL_POST_TYPE,
 				'post_status'    => 'any',
 				'posts_per_page' => -1,
 				'fields'         => 'ids',

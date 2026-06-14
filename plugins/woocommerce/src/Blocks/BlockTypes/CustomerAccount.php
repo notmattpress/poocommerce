@@ -1,9 +1,9 @@
 <?php
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\Utils\StyleAttributesUtils;
-use Automattic\WooCommerce\Blocks\Utils\BlockHooksTrait;
+use Automattic\PooCommerce\Blocks\Utils\StyleAttributesUtils;
+use Automattic\PooCommerce\Blocks\Utils\BlockHooksTrait;
 
 /**
  * CustomerAccount class.
@@ -46,11 +46,11 @@ class CustomerAccount extends AbstractBlock {
 		parent::initialize();
 		/**
 		 * The hooked_block_{$hooked_block_type} filter was added in WordPress 6.5.
-		 * We are the only code adding the filter 'hooked_block_woocommerce/customer-account'.
+		 * We are the only code adding the filter 'hooked_block_poocommerce/customer-account'.
 		 * Using has_filter() for a compatibility check won't work because add_filter() is used in the same file.
 		 */
 		if ( version_compare( get_bloginfo( 'version' ), '6.5', '>=' ) ) {
-			add_filter( 'hooked_block_woocommerce/customer-account', array( $this, 'modify_hooked_block_attributes' ), 10, 5 );
+			add_filter( 'hooked_block_poocommerce/customer-account', array( $this, 'modify_hooked_block_attributes' ), 10, 5 );
 			add_filter( 'hooked_block_types', array( $this, 'register_hooked_block' ), 9, 4 );
 		}
 	}
@@ -71,7 +71,7 @@ class CustomerAccount extends AbstractBlock {
 		$parsed_hooked_block['attrs']['iconStyle']    = 'line';
 		$parsed_hooked_block['attrs']['iconClass']    = 'wc-block-customer-account__account-icon';
 
-		$customer_account_block_font_size = wp_get_global_styles( array( 'blocks', 'woocommerce/customer-account', 'typography', 'fontSize' ) );
+		$customer_account_block_font_size = wp_get_global_styles( array( 'blocks', 'poocommerce/customer-account', 'typography', 'fontSize' ) );
 
 		if ( ! is_string( $customer_account_block_font_size ) ) {
 			$navigation_block_font_size = wp_get_global_styles( array( 'blocks', 'core/navigation', 'typography', 'fontSize' ) );
@@ -122,7 +122,7 @@ class CustomerAccount extends AbstractBlock {
 	 */
 	protected function render( $attributes, $content, $block ) {
 		$classes_and_styles = StyleAttributesUtils::get_classes_and_styles_by_attributes( $attributes );
-		$has_myaccount_page = get_option( 'woocommerce_myaccount_page_id' );
+		$has_myaccount_page = get_option( 'poocommerce_myaccount_page_id' );
 		$account_link       = $has_myaccount_page ? wc_get_account_endpoint_url( 'dashboard' ) : wp_login_url();
 		$has_dropdown       = ! empty( $attributes['hasDropdownNavigation'] ) && is_user_logged_in() && $has_myaccount_page;
 
@@ -153,7 +153,7 @@ class CustomerAccount extends AbstractBlock {
 		ob_start();
 		?>
 		<div
-			class="wp-block-woocommerce-customer-account <?php echo esc_attr( $classes_and_styles['classes'] ); ?>"
+			class="wp-block-poocommerce-customer-account <?php echo esc_attr( $classes_and_styles['classes'] ); ?>"
 			style="<?php echo esc_attr( $classes_and_styles['styles'] ); ?>"
 		>	
 			<a
@@ -194,9 +194,9 @@ class CustomerAccount extends AbstractBlock {
 		ob_start();
 		?>
 		<div
-			class="wp-block-woocommerce-customer-account wc-block-customer-account--has-dropdown <?php echo esc_attr( $classes_and_styles['classes'] ); ?>"
+			class="wp-block-poocommerce-customer-account wc-block-customer-account--has-dropdown <?php echo esc_attr( $classes_and_styles['classes'] ); ?>"
 			style="<?php echo esc_attr( $classes_and_styles['styles'] ); ?>"
-			data-wp-interactive="woocommerce/customer-account/private"
+			data-wp-interactive="poocommerce/customer-account/private"
 			<?php echo wp_interactivity_data_wp_context( $context ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 			data-wp-class--wc-block-customer-account--align-right="context.alignRight"
 			data-wp-class--wc-block-customer-account--is-dropdown-open="context.isDropdownOpen"
@@ -219,7 +219,7 @@ class CustomerAccount extends AbstractBlock {
 			</button>
 			<nav
 				class="wc-block-customer-account__dropdown"
-				aria-label="<?php echo esc_attr__( 'Account navigation', 'woocommerce' ); ?>"
+				aria-label="<?php echo esc_attr__( 'Account navigation', 'poocommerce' ); ?>"
 				data-wp-bind--hidden="!context.isDropdownOpen"
 			>
 				<?php echo $dropdown_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
@@ -388,7 +388,7 @@ class CustomerAccount extends AbstractBlock {
 	 */
 	private function render_label() {
 		return get_current_user_id()
-			? __( 'My Account', 'woocommerce' )
-			: __( 'Login', 'woocommerce' );
+			? __( 'My Account', 'poocommerce' )
+			: __( 'Login', 'poocommerce' );
 	}
 }

@@ -17,7 +17,7 @@ import { QRLoginNumberMatchStep } from '../QRLoginNumberMatchStep';
 // Tracks is fire-and-forget here — we don't assert against it, just keep the
 // component's recordEvent calls from blowing up because no global window
 // shim is registered in jsdom.
-jest.mock( '@woocommerce/tracks', () => ( {
+jest.mock( '@poocommerce/tracks', () => ( {
 	recordEvent: jest.fn(),
 } ) );
 

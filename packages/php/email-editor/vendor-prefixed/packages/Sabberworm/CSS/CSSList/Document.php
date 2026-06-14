@@ -1,13 +1,13 @@
 <?php
 
-namespace Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\CSSList;
+namespace Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\CSSList;
 
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\OutputFormat;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Parsing\ParserState;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Parsing\SourceException;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Property\Selector;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\RuleSet\DeclarationBlock;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\RuleSet\RuleSet;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\OutputFormat;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Parsing\ParserState;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Parsing\SourceException;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Property\Selector;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\RuleSet\DeclarationBlock;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\RuleSet\RuleSet;
 
 /**
  * This class represents the root of a parsed CSS file. It contains all top-level CSS contents: mostly declaration

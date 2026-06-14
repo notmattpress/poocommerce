@@ -2,13 +2,13 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Enums;
+namespace Automattic\PooCommerce\Enums;
 
 /**
  * Enum class for all the order statuses.
  *
  * For a full documentation on the public order statuses, please refer to the following link:
- * https://woocommerce.com/document/managing-orders/order-statuses/
+ * https://poocommerce.com/document/managing-orders/order-statuses/
  */
 final class OrderStatus {
 	/**

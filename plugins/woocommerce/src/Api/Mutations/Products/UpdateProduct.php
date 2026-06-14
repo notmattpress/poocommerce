@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Api\Mutations\Products;
+namespace Automattic\PooCommerce\Api\Mutations\Products;
 
-use Automattic\WooCommerce\Api\ApiException;
-use Automattic\WooCommerce\Api\Attributes\Description;
-use Automattic\WooCommerce\Api\Attributes\RequiredCapability;
-use Automattic\WooCommerce\Api\Attributes\ReturnType;
-use Automattic\WooCommerce\Api\InputTypes\Products\UpdateProductInput;
-use Automattic\WooCommerce\Api\Interfaces\Product;
-use Automattic\WooCommerce\Api\Utils\Products\ProductMapper;
+use Automattic\PooCommerce\Api\ApiException;
+use Automattic\PooCommerce\Api\Attributes\Description;
+use Automattic\PooCommerce\Api\Attributes\RequiredCapability;
+use Automattic\PooCommerce\Api\Attributes\ReturnType;
+use Automattic\PooCommerce\Api\InputTypes\Products\UpdateProductInput;
+use Automattic\PooCommerce\Api\Interfaces\Product;
+use Automattic\PooCommerce\Api\Utils\Products\ProductMapper;
 
 /**
  * Mutation to update an existing product.
  */
 #[Description( 'Update an existing product.' )]
-#[RequiredCapability( 'manage_woocommerce' )]
+#[RequiredCapability( 'manage_poocommerce' )]
 class UpdateProduct {
 	/**
 	 * Execute the mutation.

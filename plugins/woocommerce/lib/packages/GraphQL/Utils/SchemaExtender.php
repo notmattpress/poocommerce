@@ -1,41 +1,41 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\GraphQL\Utils;
+namespace Automattic\PooCommerce\Vendor\GraphQL\Utils;
 
-use Automattic\WooCommerce\Vendor\GraphQL\Error\Error;
-use Automattic\WooCommerce\Vendor\GraphQL\Error\InvariantViolation;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\DirectiveDefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\DocumentNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\EnumTypeExtensionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\InputObjectTypeExtensionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\InterfaceTypeExtensionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\Node;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\ObjectTypeExtensionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\ScalarTypeExtensionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\SchemaDefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\SchemaExtensionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\TypeDefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\TypeExtensionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\UnionTypeExtensionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\Argument;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\CustomScalarType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\Directive;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\EnumType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\ImplementingType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\InputObjectField;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\InputObjectType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\InterfaceType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\ListOfType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\NamedType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\NonNull;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\ObjectType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\ScalarType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\Type;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\UnionType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Introspection;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Schema;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\SchemaConfig;
-use Automattic\WooCommerce\Vendor\GraphQL\Validator\DocumentValidator;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\Error;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\InvariantViolation;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\DirectiveDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\DocumentNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\EnumTypeExtensionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\InputObjectTypeExtensionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\InterfaceTypeExtensionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\Node;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\ObjectTypeExtensionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\ScalarTypeExtensionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\SchemaDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\SchemaExtensionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\TypeDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\TypeExtensionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\UnionTypeExtensionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\Argument;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\CustomScalarType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\Directive;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\EnumType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\ImplementingType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\InputObjectField;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\InputObjectType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\InterfaceType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\ListOfType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\NamedType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\NonNull;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\ObjectType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\ScalarType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\Type;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\UnionType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Introspection;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Schema;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\SchemaConfig;
+use Automattic\PooCommerce\Vendor\GraphQL\Validator\DocumentValidator;
 
 /**
  * @phpstan-import-type TypeConfigDecorator from ASTDefinitionBuilder
@@ -43,7 +43,7 @@ use Automattic\WooCommerce\Vendor\GraphQL\Validator\DocumentValidator;
  * @phpstan-import-type UnnamedArgumentConfig from Argument
  * @phpstan-import-type UnnamedInputObjectFieldConfig from InputObjectField
  *
- * @see \Automattic\WooCommerce\Vendor\GraphQL\Tests\Utils\SchemaExtenderTest
+ * @see \Automattic\PooCommerce\Vendor\GraphQL\Tests\Utils\SchemaExtenderTest
  */
 class SchemaExtender
 {

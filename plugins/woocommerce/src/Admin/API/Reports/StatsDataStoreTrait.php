@@ -1,14 +1,14 @@
 <?php
 declare( strict_types = 1);
 
-namespace Automattic\WooCommerce\Admin\API\Reports;
+namespace Automattic\PooCommerce\Admin\API\Reports;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-use Automattic\WooCommerce\Admin\API\Reports\SqlQuery;
+use Automattic\PooCommerce\Admin\API\Reports\SqlQuery;
 
 /**
  * Trait to contain *stats-specific methods for data stores.

@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Automattic\WooCommerce\EmailEditorVendor\Symfony\Component\CssSelector\Parser\Tokenizer;
+namespace Automattic\PooCommerce\EmailEditorVendor\Symfony\Component\CssSelector\Parser\Tokenizer;
 
 /**
  * CSS selector tokenizer patterns builder.

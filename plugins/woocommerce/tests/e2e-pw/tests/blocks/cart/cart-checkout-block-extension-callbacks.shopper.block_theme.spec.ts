@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { expect, test as base } from '@woocommerce/e2e-utils';
+import { expect, test as base } from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -25,7 +25,7 @@ test.describe( 'Shopper → Cart Extension Callbacks', () => {
 		page,
 	} ) => {
 		await requestUtils.activatePlugin(
-			'woocommerce-blocks-test-cart-extensions'
+			'poocommerce-blocks-test-cart-extensions'
 		);
 
 		await frontendUtils.goToShop();
@@ -45,13 +45,13 @@ test.describe( 'Shopper → Cart Extension Callbacks', () => {
 		).rejects.toThrow( 'This is an error with cart context.' );
 	} );
 
-	test( 'Error code `woocommerce_rest_cart_extensions_error` creates notice', async ( {
+	test( 'Error code `poocommerce_rest_cart_extensions_error` creates notice', async ( {
 		frontendUtils,
 		requestUtils,
 		page,
 	} ) => {
 		await requestUtils.activatePlugin(
-			'woocommerce-blocks-test-cart-extensions'
+			'poocommerce-blocks-test-cart-extensions'
 		);
 
 		await frontendUtils.goToShop();

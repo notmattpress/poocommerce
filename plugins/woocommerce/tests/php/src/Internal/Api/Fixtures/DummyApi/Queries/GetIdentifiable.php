@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Queries;
+namespace Automattic\PooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Queries;
 
-use Automattic\WooCommerce\Api\Attributes\Description;
-use Automattic\WooCommerce\Api\Attributes\Name;
-use Automattic\WooCommerce\Api\Attributes\PublicAccess;
-use Automattic\WooCommerce\Api\Attributes\ReturnType;
-use Automattic\WooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Interfaces\Named;
-use Automattic\WooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Store;
+use Automattic\PooCommerce\Api\Attributes\Description;
+use Automattic\PooCommerce\Api\Attributes\Name;
+use Automattic\PooCommerce\Api\Attributes\PublicAccess;
+use Automattic\PooCommerce\Api\Attributes\ReturnType;
+use Automattic\PooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Interfaces\Named;
+use Automattic\PooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Store;
 
 /**
  * Returns an interface type — exercises #[ReturnType] (since PHP cannot

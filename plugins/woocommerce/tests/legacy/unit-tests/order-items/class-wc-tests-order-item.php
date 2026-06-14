@@ -2,12 +2,12 @@
 /**
  * Tests for the WC_Order_Item class.
  *
- * @package WooCommerce\Tests\Order_Item
+ * @package PooCommerce\Tests\Order_Item
  */
 
 declare( strict_types=1 );
 
-use Automattic\WooCommerce\Internal\CostOfGoodsSold\CogsAwareUnitTestSuiteTrait;
+use Automattic\PooCommerce\Internal\CostOfGoodsSold\CogsAwareUnitTestSuiteTrait;
 
 /**
  * Tests for the WC_Order_Item class.
@@ -56,7 +56,7 @@ class WC_Tests_Base_Order_Item extends WC_Unit_Test_Case {
 		parent::tearDown();
 		$this->disable_cogs_feature();
 
-		remove_all_filters( 'woocommerce_calculated_order_item_cogs_value' );
+		remove_all_filters( 'poocommerce_calculated_order_item_cogs_value' );
 	}
 
 	/**
@@ -178,7 +178,7 @@ class WC_Tests_Base_Order_Item extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox The calculated value for Cost of Goods Sold can be modified using the 'woocommerce_calculated_order_item_cogs_value' filter, returning null means a failure in the calculation.
+	 * @testdox The calculated value for Cost of Goods Sold can be modified using the 'poocommerce_calculated_order_item_cogs_value' filter, returning null means a failure in the calculation.
 	 *
 	 * @testWith [90.12, true, 90.12]
 	 *           [null, false, 56.78]
@@ -198,7 +198,7 @@ class WC_Tests_Base_Order_Item extends WC_Unit_Test_Case {
 		$this->sut->set_cogs_value( 56.78 );
 
 		add_filter(
-			'woocommerce_calculated_order_item_cogs_value',
+			'poocommerce_calculated_order_item_cogs_value',
 			function ( $value, $item ) use ( &$filter_received_value, &$filter_received_item, $value_returned_by_filter ) {
 				$filter_received_value = $value;
 				$filter_received_item  = $item;

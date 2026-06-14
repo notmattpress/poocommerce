@@ -1,13 +1,13 @@
 <?php
 
 declare( strict_types = 1 );
-namespace Automattic\WooCommerce\Tests\Internal\StockNotifications\Frontend;
+namespace Automattic\PooCommerce\Tests\Internal\StockNotifications\Frontend;
 
-use Automattic\WooCommerce\Internal\StockNotifications\Emails\EmailManager;
-use Automattic\WooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
-use Automattic\WooCommerce\Internal\StockNotifications\Factory;
-use Automattic\WooCommerce\Internal\StockNotifications\Frontend\NotificationManagementService;
-use Automattic\WooCommerce\Internal\StockNotifications\Notification;
+use Automattic\PooCommerce\Internal\StockNotifications\Emails\EmailManager;
+use Automattic\PooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
+use Automattic\PooCommerce\Internal\StockNotifications\Factory;
+use Automattic\PooCommerce\Internal\StockNotifications\Frontend\NotificationManagementService;
+use Automattic\PooCommerce\Internal\StockNotifications\Notification;
 use WC_Helper_Product;
 
 /**

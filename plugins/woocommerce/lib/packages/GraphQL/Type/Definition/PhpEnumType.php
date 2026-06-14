@@ -1,12 +1,12 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\GraphQL\Type\Definition;
+namespace Automattic\PooCommerce\Vendor\GraphQL\Type\Definition;
 
-use Automattic\WooCommerce\Vendor\GraphQL\Error\SerializationError;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\EnumTypeDefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\EnumTypeExtensionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Utils\PhpDoc;
-use Automattic\WooCommerce\Vendor\GraphQL\Utils\Utils;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\SerializationError;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\EnumTypeDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\EnumTypeExtensionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Utils\PhpDoc;
+use Automattic\PooCommerce\Vendor\GraphQL\Utils\Utils;
 
 /**
  * @phpstan-import-type PartialEnumValueConfig from EnumType

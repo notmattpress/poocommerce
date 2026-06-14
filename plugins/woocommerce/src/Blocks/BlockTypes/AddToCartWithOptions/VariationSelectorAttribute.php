@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes\AddToCartWithOptions;
+namespace Automattic\PooCommerce\Blocks\BlockTypes\AddToCartWithOptions;
 
-use Automattic\WooCommerce\Blocks\BlockTypes\AbstractBlock;
-use Automattic\WooCommerce\Blocks\BlockTypes\EnableBlockJsonAssetsTrait;
-use Automattic\WooCommerce\Internal\ProductAttributes\VisualAttributeTermMeta;
+use Automattic\PooCommerce\Blocks\BlockTypes\AbstractBlock;
+use Automattic\PooCommerce\Blocks\BlockTypes\EnableBlockJsonAssetsTrait;
+use Automattic\PooCommerce\Internal\ProductAttributes\VisualAttributeTermMeta;
 use WP_Block;
 
 /**
@@ -82,13 +82,13 @@ class VariationSelectorAttribute extends AbstractBlock {
 		$attribute_label  = wc_attribute_label( $attribute_name );
 		$attribute_id     = 'wc_product_attribute_' . uniqid();
 		$context          = array(
-			'woocommerce/attributeId'     => $attribute_id,
-			'woocommerce/attributeName'   => $attribute_name,
-			'woocommerce/attributeTerms'  => $attribute_terms,
-			'woocommerce/selectableItems' => array(
+			'poocommerce/attributeId'     => $attribute_id,
+			'poocommerce/attributeName'   => $attribute_name,
+			'poocommerce/attributeTerms'  => $attribute_terms,
+			'poocommerce/selectableItems' => array(
 				'items'          => $variation_items,
 				'selectionMode'  => 'single',
-				'storeNamespace' => 'woocommerce/add-to-cart-with-options',
+				'storeNamespace' => 'poocommerce/add-to-cart-with-options',
 				'groupLabel'     => $attribute_label,
 			),
 		);
@@ -109,7 +109,7 @@ class VariationSelectorAttribute extends AbstractBlock {
 		);
 
 		$interactive_attributes = array(
-			'data-wp-interactive' => 'woocommerce/add-to-cart-with-options',
+			'data-wp-interactive' => 'poocommerce/add-to-cart-with-options',
 			'data-wp-init'        => 'callbacks.setDefaultSelectedAttribute',
 		);
 
@@ -129,7 +129,7 @@ class VariationSelectorAttribute extends AbstractBlock {
 	 * @return array The replaced inner block.
 	 */
 	private function replace_legacy_attribute_options_block( array $inner_block, array &$attributes ): array {
-		if ( 'woocommerce/add-to-cart-with-options-variation-selector-attribute-options' === $inner_block['blockName'] ) {
+		if ( 'poocommerce/add-to-cart-with-options-variation-selector-attribute-options' === $inner_block['blockName'] ) {
 			$legacy_attrs = $inner_block['attrs'] ?? array();
 
 			if ( array_key_exists( 'autoselect', $legacy_attrs ) && true === $legacy_attrs['autoselect'] ) {
@@ -141,11 +141,11 @@ class VariationSelectorAttribute extends AbstractBlock {
 			}
 
 			if ( array_key_exists( 'optionStyle', $legacy_attrs ) && 'dropdown' === $legacy_attrs['optionStyle'] ) {
-				$attributes['displayStyle'] = 'woocommerce/dropdown';
+				$attributes['displayStyle'] = 'poocommerce/dropdown';
 			}
 
 			return array(
-				'blockName'    => 'woocommerce/dropdown' === $attributes['displayStyle'] ? 'woocommerce/dropdown' : 'woocommerce/product-filter-chips',
+				'blockName'    => 'poocommerce/dropdown' === $attributes['displayStyle'] ? 'poocommerce/dropdown' : 'poocommerce/product-filter-chips',
 				'attrs'        => array(),
 				'innerBlocks'  => array(),
 				'innerHTML'    => '',
@@ -320,7 +320,7 @@ class VariationSelectorAttribute extends AbstractBlock {
 			 * @param \WC_Product           $product        Product object.
 			 */
 			'label'      => apply_filters(
-				'woocommerce_variation_option_name',
+				'poocommerce_variation_option_name',
 				$label,
 				$filter_item,
 				$attribute_name,

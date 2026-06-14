@@ -1,7 +1,7 @@
 <?php declare( strict_types = 1 );
-namespace Automattic\WooCommerce\Blocks\BlockTypes\Reviews;
+namespace Automattic\PooCommerce\Blocks\BlockTypes\Reviews;
 
-use Automattic\WooCommerce\Blocks\BlockTypes\AbstractBlock;
+use Automattic\PooCommerce\Blocks\BlockTypes\AbstractBlock;
 
 /**
  * ProductReviewsPaginationPrevious class.
@@ -23,7 +23,7 @@ class ProductReviewsPaginationPrevious extends AbstractBlock {
 	 * @return string Rendered block type output.
 	 */
 	protected function render( $attributes, $content, $block ) {
-		$default_label    = __( 'Older Reviews', 'woocommerce' );
+		$default_label    = __( 'Older Reviews', 'poocommerce' );
 		$label            = isset( $attributes['label'] ) && ! empty( $attributes['label'] ) ? $attributes['label'] : $default_label;
 		$pagination_arrow = $this->get_pagination_arrow( $block );
 
@@ -64,7 +64,7 @@ class ProductReviewsPaginationPrevious extends AbstractBlock {
 		if ( ! empty( $block->context['reviews/paginationArrow'] ) && ! empty( $arrow_map[ $block->context['reviews/paginationArrow'] ] ) ) {
 			$arrow_attribute = $block->context['reviews/paginationArrow'];
 			$arrow           = $arrow_map[ $block->context['reviews/paginationArrow'] ];
-			$arrow_classes   = "wp-block-woocommerce-product-reviews-pagination-previous-arrow is-arrow-$arrow_attribute";
+			$arrow_classes   = "wp-block-poocommerce-product-reviews-pagination-previous-arrow is-arrow-$arrow_attribute";
 			return "<span class='$arrow_classes' aria-hidden='true'>$arrow</span>";
 		}
 		return null;

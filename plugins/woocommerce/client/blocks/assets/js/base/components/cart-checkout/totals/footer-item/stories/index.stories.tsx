@@ -2,8 +2,8 @@
  * External dependencies
  */
 import type { Story, Meta } from '@storybook/react';
-import { allSettings } from '@woocommerce/settings';
-import { Currency } from '@woocommerce/types';
+import { allSettings } from '@poocommerce/settings';
+import { Currency } from '@poocommerce/types';
 
 /**
  * Internal dependencies

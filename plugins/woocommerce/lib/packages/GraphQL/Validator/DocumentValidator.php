@@ -1,54 +1,54 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\GraphQL\Validator;
+namespace Automattic\PooCommerce\Vendor\GraphQL\Validator;
 
-use Automattic\WooCommerce\Vendor\GraphQL\Error\Error;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\DocumentNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\Visitor;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Schema;
-use Automattic\WooCommerce\Vendor\GraphQL\Utils\TypeInfo;
-use Automattic\WooCommerce\Vendor\GraphQL\Validator\Rules\DisableIntrospection;
-use Automattic\WooCommerce\Vendor\GraphQL\Validator\Rules\ExecutableDefinitions;
-use Automattic\WooCommerce\Vendor\GraphQL\Validator\Rules\FieldsOnCorrectType;
-use Automattic\WooCommerce\Vendor\GraphQL\Validator\Rules\FragmentsOnCompositeTypes;
-use Automattic\WooCommerce\Vendor\GraphQL\Validator\Rules\KnownArgumentNames;
-use Automattic\WooCommerce\Vendor\GraphQL\Validator\Rules\KnownArgumentNamesOnDirectives;
-use Automattic\WooCommerce\Vendor\GraphQL\Validator\Rules\KnownDirectives;
-use Automattic\WooCommerce\Vendor\GraphQL\Validator\Rules\KnownFragmentNames;
-use Automattic\WooCommerce\Vendor\GraphQL\Validator\Rules\KnownTypeNames;
-use Automattic\WooCommerce\Vendor\GraphQL\Validator\Rules\LoneAnonymousOperation;
-use Automattic\WooCommerce\Vendor\GraphQL\Validator\Rules\LoneSchemaDefinition;
-use Automattic\WooCommerce\Vendor\GraphQL\Validator\Rules\NoFragmentCycles;
-use Automattic\WooCommerce\Vendor\GraphQL\Validator\Rules\NoUndefinedVariables;
-use Automattic\WooCommerce\Vendor\GraphQL\Validator\Rules\NoUnusedFragments;
-use Automattic\WooCommerce\Vendor\GraphQL\Validator\Rules\NoUnusedVariables;
-use Automattic\WooCommerce\Vendor\GraphQL\Validator\Rules\OneOfInputObjectsRule;
-use Automattic\WooCommerce\Vendor\GraphQL\Validator\Rules\OverlappingFieldsCanBeMerged;
-use Automattic\WooCommerce\Vendor\GraphQL\Validator\Rules\PossibleFragmentSpreads;
-use Automattic\WooCommerce\Vendor\GraphQL\Validator\Rules\PossibleTypeExtensions;
-use Automattic\WooCommerce\Vendor\GraphQL\Validator\Rules\ProvidedRequiredArguments;
-use Automattic\WooCommerce\Vendor\GraphQL\Validator\Rules\ProvidedRequiredArgumentsOnDirectives;
-use Automattic\WooCommerce\Vendor\GraphQL\Validator\Rules\QueryComplexity;
-use Automattic\WooCommerce\Vendor\GraphQL\Validator\Rules\QueryDepth;
-use Automattic\WooCommerce\Vendor\GraphQL\Validator\Rules\QuerySecurityRule;
-use Automattic\WooCommerce\Vendor\GraphQL\Validator\Rules\ScalarLeafs;
-use Automattic\WooCommerce\Vendor\GraphQL\Validator\Rules\SingleFieldSubscription;
-use Automattic\WooCommerce\Vendor\GraphQL\Validator\Rules\UniqueArgumentDefinitionNames;
-use Automattic\WooCommerce\Vendor\GraphQL\Validator\Rules\UniqueArgumentNames;
-use Automattic\WooCommerce\Vendor\GraphQL\Validator\Rules\UniqueDirectiveNames;
-use Automattic\WooCommerce\Vendor\GraphQL\Validator\Rules\UniqueDirectivesPerLocation;
-use Automattic\WooCommerce\Vendor\GraphQL\Validator\Rules\UniqueEnumValueNames;
-use Automattic\WooCommerce\Vendor\GraphQL\Validator\Rules\UniqueFieldDefinitionNames;
-use Automattic\WooCommerce\Vendor\GraphQL\Validator\Rules\UniqueFragmentNames;
-use Automattic\WooCommerce\Vendor\GraphQL\Validator\Rules\UniqueInputFieldNames;
-use Automattic\WooCommerce\Vendor\GraphQL\Validator\Rules\UniqueOperationNames;
-use Automattic\WooCommerce\Vendor\GraphQL\Validator\Rules\UniqueOperationTypes;
-use Automattic\WooCommerce\Vendor\GraphQL\Validator\Rules\UniqueTypeNames;
-use Automattic\WooCommerce\Vendor\GraphQL\Validator\Rules\UniqueVariableNames;
-use Automattic\WooCommerce\Vendor\GraphQL\Validator\Rules\ValidationRule;
-use Automattic\WooCommerce\Vendor\GraphQL\Validator\Rules\ValuesOfCorrectType;
-use Automattic\WooCommerce\Vendor\GraphQL\Validator\Rules\VariablesAreInputTypes;
-use Automattic\WooCommerce\Vendor\GraphQL\Validator\Rules\VariablesInAllowedPosition;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\Error;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\DocumentNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\Visitor;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Schema;
+use Automattic\PooCommerce\Vendor\GraphQL\Utils\TypeInfo;
+use Automattic\PooCommerce\Vendor\GraphQL\Validator\Rules\DisableIntrospection;
+use Automattic\PooCommerce\Vendor\GraphQL\Validator\Rules\ExecutableDefinitions;
+use Automattic\PooCommerce\Vendor\GraphQL\Validator\Rules\FieldsOnCorrectType;
+use Automattic\PooCommerce\Vendor\GraphQL\Validator\Rules\FragmentsOnCompositeTypes;
+use Automattic\PooCommerce\Vendor\GraphQL\Validator\Rules\KnownArgumentNames;
+use Automattic\PooCommerce\Vendor\GraphQL\Validator\Rules\KnownArgumentNamesOnDirectives;
+use Automattic\PooCommerce\Vendor\GraphQL\Validator\Rules\KnownDirectives;
+use Automattic\PooCommerce\Vendor\GraphQL\Validator\Rules\KnownFragmentNames;
+use Automattic\PooCommerce\Vendor\GraphQL\Validator\Rules\KnownTypeNames;
+use Automattic\PooCommerce\Vendor\GraphQL\Validator\Rules\LoneAnonymousOperation;
+use Automattic\PooCommerce\Vendor\GraphQL\Validator\Rules\LoneSchemaDefinition;
+use Automattic\PooCommerce\Vendor\GraphQL\Validator\Rules\NoFragmentCycles;
+use Automattic\PooCommerce\Vendor\GraphQL\Validator\Rules\NoUndefinedVariables;
+use Automattic\PooCommerce\Vendor\GraphQL\Validator\Rules\NoUnusedFragments;
+use Automattic\PooCommerce\Vendor\GraphQL\Validator\Rules\NoUnusedVariables;
+use Automattic\PooCommerce\Vendor\GraphQL\Validator\Rules\OneOfInputObjectsRule;
+use Automattic\PooCommerce\Vendor\GraphQL\Validator\Rules\OverlappingFieldsCanBeMerged;
+use Automattic\PooCommerce\Vendor\GraphQL\Validator\Rules\PossibleFragmentSpreads;
+use Automattic\PooCommerce\Vendor\GraphQL\Validator\Rules\PossibleTypeExtensions;
+use Automattic\PooCommerce\Vendor\GraphQL\Validator\Rules\ProvidedRequiredArguments;
+use Automattic\PooCommerce\Vendor\GraphQL\Validator\Rules\ProvidedRequiredArgumentsOnDirectives;
+use Automattic\PooCommerce\Vendor\GraphQL\Validator\Rules\QueryComplexity;
+use Automattic\PooCommerce\Vendor\GraphQL\Validator\Rules\QueryDepth;
+use Automattic\PooCommerce\Vendor\GraphQL\Validator\Rules\QuerySecurityRule;
+use Automattic\PooCommerce\Vendor\GraphQL\Validator\Rules\ScalarLeafs;
+use Automattic\PooCommerce\Vendor\GraphQL\Validator\Rules\SingleFieldSubscription;
+use Automattic\PooCommerce\Vendor\GraphQL\Validator\Rules\UniqueArgumentDefinitionNames;
+use Automattic\PooCommerce\Vendor\GraphQL\Validator\Rules\UniqueArgumentNames;
+use Automattic\PooCommerce\Vendor\GraphQL\Validator\Rules\UniqueDirectiveNames;
+use Automattic\PooCommerce\Vendor\GraphQL\Validator\Rules\UniqueDirectivesPerLocation;
+use Automattic\PooCommerce\Vendor\GraphQL\Validator\Rules\UniqueEnumValueNames;
+use Automattic\PooCommerce\Vendor\GraphQL\Validator\Rules\UniqueFieldDefinitionNames;
+use Automattic\PooCommerce\Vendor\GraphQL\Validator\Rules\UniqueFragmentNames;
+use Automattic\PooCommerce\Vendor\GraphQL\Validator\Rules\UniqueInputFieldNames;
+use Automattic\PooCommerce\Vendor\GraphQL\Validator\Rules\UniqueOperationNames;
+use Automattic\PooCommerce\Vendor\GraphQL\Validator\Rules\UniqueOperationTypes;
+use Automattic\PooCommerce\Vendor\GraphQL\Validator\Rules\UniqueTypeNames;
+use Automattic\PooCommerce\Vendor\GraphQL\Validator\Rules\UniqueVariableNames;
+use Automattic\PooCommerce\Vendor\GraphQL\Validator\Rules\ValidationRule;
+use Automattic\PooCommerce\Vendor\GraphQL\Validator\Rules\ValuesOfCorrectType;
+use Automattic\PooCommerce\Vendor\GraphQL\Validator\Rules\VariablesAreInputTypes;
+use Automattic\PooCommerce\Vendor\GraphQL\Validator\Rules\VariablesInAllowedPosition;
 
 /**
  * Implements the "Validation" section of the spec.
@@ -57,12 +57,12 @@ use Automattic\WooCommerce\Vendor\GraphQL\Validator\Rules\VariablesInAllowedPosi
  * an empty array if no errors were encountered and the document is valid.
  *
  * A list of specific validation rules may be provided. If not provided, the
- * default list of rules defined by the Automattic\WooCommerce\Vendor\GraphQL specification will be used.
+ * default list of rules defined by the Automattic\PooCommerce\Vendor\GraphQL specification will be used.
  *
- * Each validation rule is an instance of Automattic\WooCommerce\Vendor\GraphQL\Validator\Rules\ValidationRule
- * which returns a visitor (see the [Automattic\WooCommerce\Vendor\GraphQL\Language\Visitor API](class-reference.md#graphqllanguagevisitor)).
+ * Each validation rule is an instance of Automattic\PooCommerce\Vendor\GraphQL\Validator\Rules\ValidationRule
+ * which returns a visitor (see the [Automattic\PooCommerce\Vendor\GraphQL\Language\Visitor API](class-reference.md#graphqllanguagevisitor)).
  *
- * Visitor methods are expected to return an instance of [Automattic\WooCommerce\Vendor\GraphQL\Error\Error](class-reference.md#graphqlerrorerror),
+ * Visitor methods are expected to return an instance of [Automattic\PooCommerce\Vendor\GraphQL\Error\Error](class-reference.md#graphqlerrorerror),
  * or array of such instances when invalid.
  *
  * Optionally a custom TypeInfo instance may be provided. If not provided, one
@@ -85,7 +85,7 @@ class DocumentValidator
     private static bool $initRules = false;
 
     /**
-     * Validate a Automattic\WooCommerce\Vendor\GraphQL query against a schema.
+     * Validate a Automattic\PooCommerce\Vendor\GraphQL query against a schema.
      *
      * @param array<ValidationRule>|null $rules Defaults to using all available rules
      *
@@ -227,7 +227,7 @@ class DocumentValidator
      *
      * Standard rules are named by class name, so example usage for such rules:
      *
-     * @example DocumentValidator::getRule(Automattic\WooCommerce\Vendor\GraphQL\Validator\Rules\QueryComplexity::class);
+     * @example DocumentValidator::getRule(Automattic\PooCommerce\Vendor\GraphQL\Validator\Rules\QueryComplexity::class);
      *
      * @api
      *
@@ -259,7 +259,7 @@ class DocumentValidator
     }
 
     /**
-     * Validate a Automattic\WooCommerce\Vendor\GraphQL document defined through schema definition language.
+     * Validate a Automattic\PooCommerce\Vendor\GraphQL document defined through schema definition language.
      *
      * @param array<ValidationRule>|null $rules
      *

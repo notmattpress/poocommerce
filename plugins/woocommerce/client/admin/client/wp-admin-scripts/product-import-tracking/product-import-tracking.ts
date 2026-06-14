@@ -4,8 +4,8 @@
 import {
 	addExitPage,
 	removeExitPage,
-} from '@woocommerce/customer-effort-score';
-import { getQuery } from '@woocommerce/navigation';
+} from '@poocommerce/customer-effort-score';
+import { getQuery } from '@poocommerce/navigation';
 
 const ACTION_NAME = 'import_products';
 

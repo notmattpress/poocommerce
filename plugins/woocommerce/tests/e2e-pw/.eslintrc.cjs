@@ -15,7 +15,7 @@ module.exports = {
 		'jest/valid-title': 'off',
 		'testing-library/await-async-utils': 'off',
 		/*
-		 * The e2e-pw tests use dependencies from the parent woocommerce package.
+		 * The e2e-pw tests use dependencies from the parent poocommerce package.
 		 * This configuration tells ESLint to check both the local package.json
 		 * and the parent package.json when validating imports.
 		 */
@@ -61,7 +61,7 @@ module.exports = {
 				'rulesdir/no-raw-playwright-test-import': 'error',
 				// Since we're restoring the database for each test, hooks other
 				// than `beforeEach` don't make sense.
-				// See https://github.com/woocommerce/woocommerce/pull/46432.
+				// See https://github.com/poocommerce/poocommerce/pull/46432.
 				'playwright/no-hooks': [ 'error', { allow: [ 'beforeEach' ] } ],
 				'no-restricted-syntax': [
 					'error',

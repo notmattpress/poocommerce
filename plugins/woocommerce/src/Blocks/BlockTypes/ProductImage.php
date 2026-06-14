@@ -1,8 +1,8 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\Utils\ProductGalleryUtils;
-use Automattic\WooCommerce\Blocks\Utils\StyleAttributesUtils;
+use Automattic\PooCommerce\Blocks\Utils\ProductGalleryUtils;
+use Automattic\PooCommerce\Blocks\Utils\StyleAttributesUtils;
 
 /**
  * ProductImage class.
@@ -77,7 +77,7 @@ class ProductImage extends AbstractBlock {
 
 		$block = new \WP_Block(
 			array(
-				'blockName' => 'woocommerce/product-sale-badge',
+				'blockName' => 'poocommerce/product-sale-badge',
 				'attrs'     => array(
 					'align' => $align,
 				),
@@ -115,7 +115,7 @@ class ProductImage extends AbstractBlock {
 		}
 
 		return sprintf(
-			'<a href="%1$s" data-wp-on--click="woocommerce/product-collection::actions.viewProduct">%2$s%3$s%4$s</a>',
+			'<a href="%1$s" data-wp-on--click="poocommerce/product-collection::actions.viewProduct">%2$s%3$s%4$s</a>',
 			esc_url( $product_permalink ),
 			$on_sale_badge,
 			$product_image,
@@ -132,7 +132,7 @@ class ProductImage extends AbstractBlock {
 	 * @return string
 	 */
 	private function render_image( $product, $attributes, $image_id = null ) {
-		$image_size = 'single' === $attributes['imageSizing'] ? 'woocommerce_single' : 'woocommerce_thumbnail';
+		$image_size = 'single' === $attributes['imageSizing'] ? 'poocommerce_single' : 'poocommerce_thumbnail';
 
 		$image_style = '';
 
@@ -193,7 +193,7 @@ class ProductImage extends AbstractBlock {
 		 * @param int    $image_id     Target image ID.
 		 */
 		$loading_attr = apply_filters(
-			'woocommerce_product_image_loading_attr',
+			'poocommerce_product_image_loading_attr',
 			'lazy',
 			$target_image_id,
 		);
@@ -228,7 +228,7 @@ class ProductImage extends AbstractBlock {
 	 */
 	protected function enqueue_data( array $attributes = [] ) {
 		$this->asset_data_registry->add( 'isBlockTheme', wp_is_block_theme() );
-		$this->asset_data_registry->add( 'placeholderImgSrcFullSize', wc_placeholder_img_src( 'woocommerce_single' ) );
+		$this->asset_data_registry->add( 'placeholderImgSrcFullSize', wc_placeholder_img_src( 'poocommerce_single' ) );
 	}
 
 	/**

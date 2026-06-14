@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { registerBlockType } from '@wordpress/blocks';
-import { filterThreeLines } from '@woocommerce/icons';
+import { filterThreeLines } from '@poocommerce/icons';
 import { Icon } from '@wordpress/icons';
 
 /**

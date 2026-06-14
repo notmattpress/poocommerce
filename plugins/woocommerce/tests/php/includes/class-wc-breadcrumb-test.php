@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 /**
  * Tests for WC_Breadcrumb.
  *
- * @package WooCommerce\Tests\Includes
+ * @package PooCommerce\Tests\Includes
  */
 
 /**
@@ -50,7 +50,7 @@ class WC_Breadcrumb_Test extends \WC_Unit_Test_Case {
 				'post_name'   => 'my-account',
 			)
 		);
-		update_option( 'woocommerce_myaccount_page_id', $my_account_page_id );
+		update_option( 'poocommerce_myaccount_page_id', $my_account_page_id );
 
 		global $post, $wp, $wp_query;
 		$post = get_post( $my_account_page_id ); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
@@ -101,7 +101,7 @@ class WC_Breadcrumb_Test extends \WC_Unit_Test_Case {
 		$this->assertNotEquals( $breadcrumbs[1][0], $breadcrumbs[2][0] );
 
 		wp_delete_post( $my_account_page_id, true );
-		delete_option( 'woocommerce_myaccount_page_id' );
+		delete_option( 'poocommerce_myaccount_page_id' );
 	}
 
 	/**
@@ -116,7 +116,7 @@ class WC_Breadcrumb_Test extends \WC_Unit_Test_Case {
 				'post_name'   => 'my-account',
 			)
 		);
-		update_option( 'woocommerce_myaccount_page_id', $my_account_page_id );
+		update_option( 'poocommerce_myaccount_page_id', $my_account_page_id );
 
 		global $post, $wp, $wp_query;
 		$post = get_post( $my_account_page_id ); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
@@ -167,7 +167,7 @@ class WC_Breadcrumb_Test extends \WC_Unit_Test_Case {
 		$this->assertNotEquals( $breadcrumbs[1][0], $breadcrumbs[2][0] );
 
 		wp_delete_post( $my_account_page_id, true );
-		delete_option( 'woocommerce_myaccount_page_id' );
+		delete_option( 'poocommerce_myaccount_page_id' );
 	}
 
 	/**

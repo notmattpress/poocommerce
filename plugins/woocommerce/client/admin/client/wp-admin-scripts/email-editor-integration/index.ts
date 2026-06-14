@@ -10,7 +10,7 @@ import { registerPlugin } from '@wordpress/plugins';
 import {
 	initializeEditor,
 	registerEntityAction,
-} from '@woocommerce/email-editor';
+} from '@poocommerce/email-editor';
 
 /**
  * Internal dependencies
@@ -30,35 +30,35 @@ import {
 import './style.scss';
 import './update-banner.scss';
 
-addFilter( 'woocommerce_email_editor_send_button_label', NAME_SPACE, () =>
-	__( 'Save email', 'woocommerce' )
+addFilter( 'poocommerce_email_editor_send_button_label', NAME_SPACE, () =>
+	__( 'Save email', 'poocommerce' )
 );
 
 addFilter(
-	'woocommerce_email_editor_check_sending_method_configuration_link',
+	'poocommerce_email_editor_check_sending_method_configuration_link',
 	NAME_SPACE,
-	() => 'https://woocommerce.com/document/email-faq/'
+	() => 'https://poocommerce.com/document/email-faq/'
 );
 
 // Add filter to permanently delete emails.
 // This is used to delete email posts from the database instead of moving them to the trash.
-// The email posts can be recreated from the WooCommerce settings email listing page.
+// The email posts can be recreated from the PooCommerce settings email listing page.
 addFilter(
-	'woocommerce_email_editor_trash_modal_should_permanently_delete',
+	'poocommerce_email_editor_trash_modal_should_permanently_delete',
 	NAME_SPACE,
 	() => true
 );
 
 /**
- * Register default handler for creating coupons in WooCommerce.
+ * Register default handler for creating coupons in PooCommerce.
  * Uses the localized admin URL from PHP to support subdirectory installations.
  * Integrators can override this filter to customize behavior (e.g., SPA routing).
  */
-addFilter( 'woocommerce_email_editor_create_coupon_handler', NAME_SPACE, () => {
+addFilter( 'poocommerce_email_editor_create_coupon_handler', NAME_SPACE, () => {
 	// Get the create coupon URL from localized data (provided by PHP)
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const editorStore = ( window as any ).wp?.data?.select(
-		'woocommerce/email-editor'
+		'poocommerce/email-editor'
 	);
 	const urls = editorStore?.getUrls?.();
 	const createCouponUrl = urls?.createCoupon;
@@ -89,12 +89,12 @@ registerEmailValidationRules();
 
 // Register the review-update plugin (RSM-143). Mounts the review drawer
 // into the email editor — its open / close state is driven by the
-// `woocommerce/email-editor-integration` store, so any other surface
+// `poocommerce/email-editor-integration` store, so any other surface
 // (RSM-141 banner, list-page row action, browser console) can open it
-// via `wp.data.dispatch( 'woocommerce/email-editor-integration' )
+// via `wp.data.dispatch( 'poocommerce/email-editor-integration' )
 // .openReviewDrawer()`.
-registerPlugin( 'woocommerce-email-editor-review-update', {
-	scope: 'woocommerce-email-editor',
+registerPlugin( 'poocommerce-email-editor-review-update', {
+	scope: 'poocommerce-email-editor',
 	render: ReviewUpdatePlugin,
 } );
 
@@ -103,8 +103,8 @@ registerPlugin( 'woocommerce-email-editor-review-update', {
 // `core_updated_customized`. Reads dismiss + viewed-dedup state from the
 // integration store; consumes useChangeSummary (RSM-142) and
 // useApplyUpdate (RSM-143) for content + apply.
-registerPlugin( 'woocommerce-email-editor-update-banner', {
-	scope: 'woocommerce-email-editor',
+registerPlugin( 'poocommerce-email-editor-update-banner', {
+	scope: 'poocommerce-email-editor',
 	render: UpdateBannerPlugin,
 } );
 
@@ -145,4 +145,4 @@ addAction(
 	registerResetNotificationEmailContentAction
 );
 
-initializeEditor( 'woocommerce-email-editor' );
+initializeEditor( 'poocommerce-email-editor' );

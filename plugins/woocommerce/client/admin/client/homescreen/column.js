@@ -48,7 +48,7 @@ export const Column = ( { children, shouldStick = false } ) => {
 
 	return (
 		<div
-			className="woocommerce-homescreen-column"
+			className="poocommerce-homescreen-column"
 			ref={ content }
 			style={ {
 				position: shouldStick && isContentStuck ? 'sticky' : 'static',

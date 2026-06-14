@@ -25,41 +25,41 @@ const deprecated = [
 				attributes,
 				[
 					createBlock(
-						'woocommerce/checkout-order-summary-cart-items-block',
+						'poocommerce/checkout-order-summary-cart-items-block',
 						{},
 						[]
 					),
 					createBlock(
-						'woocommerce/checkout-order-summary-coupon-form-block',
+						'poocommerce/checkout-order-summary-coupon-form-block',
 						{},
 						[]
 					),
 					createBlock(
-						'woocommerce/checkout-order-summary-totals-block',
+						'poocommerce/checkout-order-summary-totals-block',
 						{},
 						[
 							createBlock(
-								'woocommerce/checkout-order-summary-subtotal-block',
+								'poocommerce/checkout-order-summary-subtotal-block',
 								{},
 								[]
 							),
 							createBlock(
-								'woocommerce/checkout-order-summary-fee-block',
+								'poocommerce/checkout-order-summary-fee-block',
 								{},
 								[]
 							),
 							createBlock(
-								'woocommerce/checkout-order-summary-discount-block',
+								'poocommerce/checkout-order-summary-discount-block',
 								{},
 								[]
 							),
 							createBlock(
-								'woocommerce/checkout-order-summary-shipping-block',
+								'poocommerce/checkout-order-summary-shipping-block',
 								{},
 								[]
 							),
 							createBlock(
-								'woocommerce/checkout-order-summary-taxes-block',
+								'poocommerce/checkout-order-summary-taxes-block',
 								{},
 								[]
 							),
@@ -72,7 +72,7 @@ const deprecated = [
 			return ! innerBlocks.some(
 				( block ) =>
 					block.name ===
-					'woocommerce/checkout-order-summary-totals-block'
+					'poocommerce/checkout-order-summary-totals-block'
 			);
 		},
 	},

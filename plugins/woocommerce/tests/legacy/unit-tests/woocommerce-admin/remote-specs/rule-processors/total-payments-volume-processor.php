@@ -2,13 +2,13 @@
 /**
  * Total payments volume processor tests.
  *
- * @package WooCommerce\Admin\Tests\RemoteInboxNotification
+ * @package PooCommerce\Admin\Tests\RemoteInboxNotification
  */
 
 declare( strict_types = 1 );
 
-use Automattic\WooCommerce\Admin\RemoteSpecs\RuleProcessors\TotalPaymentsVolumeProcessor;
-use Automattic\WooCommerce\Admin\API\Reports\Revenue\Query as RevenueQuery;
+use Automattic\PooCommerce\Admin\RemoteSpecs\RuleProcessors\TotalPaymentsVolumeProcessor;
+use Automattic\PooCommerce\Admin\API\Reports\Revenue\Query as RevenueQuery;
 
 /**
  * class WC_Admin_Tests_RemoteSpecs_RuleProcessors_TotalPaymentsVolumeProcessor

@@ -13,7 +13,7 @@ import type { ProductEntityRecord } from '../types';
 
 export const fieldExtensions: Partial< Field< ProductEntityRecord > > = {
 	type: 'integer',
-	label: __( 'Download expiry', 'woocommerce' ),
+	label: __( 'Download expiry', 'poocommerce' ),
 	enableSorting: false,
 	filterBy: false,
 	isVisible: ( item ) => !! item.downloadable,
@@ -22,7 +22,7 @@ export const fieldExtensions: Partial< Field< ProductEntityRecord > > = {
 		const hasExpiry = ( data.download_expiry ?? -1 ) !== -1;
 		return (
 			<div
-				className="woocommerce-fields-field__download-expiry"
+				className="poocommerce-fields-field__download-expiry"
 				style={ {
 					display: 'flex',
 					flexDirection: 'column',
@@ -31,7 +31,7 @@ export const fieldExtensions: Partial< Field< ProductEntityRecord > > = {
 			>
 				<CheckboxControl
 					__nextHasNoMarginBottom
-					label={ __( 'Expire download link', 'woocommerce' ) }
+					label={ __( 'Expire download link', 'poocommerce' ) }
 					checked={ hasExpiry }
 					onChange={ ( checked ) => {
 						onChange( {
@@ -56,7 +56,7 @@ export const fieldExtensions: Partial< Field< ProductEntityRecord > > = {
 						} }
 						suffix={
 							<InputLayout.Slot padding="minimal">
-								{ __( 'days', 'woocommerce' ) }
+								{ __( 'days', 'poocommerce' ) }
 							</InputLayout.Slot>
 						}
 					/>

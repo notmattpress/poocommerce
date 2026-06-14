@@ -4,7 +4,7 @@
 import {
 	BLOCK_ATTRIBUTES,
 	INNER_BLOCKS_TEMPLATE,
-} from '@woocommerce/blocks/product-query/variations';
+} from '@poocommerce/blocks/product-query/variations';
 import {
 	InnerBlocks,
 	InspectorControls,
@@ -36,7 +36,7 @@ const Edit = () => {
 					<p>
 						{ __(
 							'These products will vary depending on the main product in the page',
-							'woocommerce'
+							'poocommerce'
 						) }
 					</p>
 				</Notice>

@@ -1,5 +1,5 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
 /**
  * CheckoutActionsBlock class.
@@ -32,7 +32,7 @@ class CheckoutActionsBlock extends AbstractInnerBlock {
 			$this->get_full_block_name(),
 			array(
 				'name'       => 'without-price',
-				'label'      => __( 'Hide Price', 'woocommerce' ),
+				'label'      => __( 'Hide Price', 'poocommerce' ),
 				'is_default' => true,
 			)
 		);
@@ -41,7 +41,7 @@ class CheckoutActionsBlock extends AbstractInnerBlock {
 			$this->get_full_block_name(),
 			array(
 				'name'       => 'with-price',
-				'label'      => __( 'Show Price', 'woocommerce' ),
+				'label'      => __( 'Show Price', 'poocommerce' ),
 				'is_default' => false,
 			)
 		);

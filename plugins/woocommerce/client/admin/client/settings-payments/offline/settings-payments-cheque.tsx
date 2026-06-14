@@ -9,7 +9,7 @@ import {
 } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { useDispatch, useSelect } from '@wordpress/data';
-import { paymentGatewaysStore, paymentSettingsStore } from '@woocommerce/data';
+import { paymentGatewaysStore, paymentSettingsStore } from '@poocommerce/data';
 import { useState, useEffect } from '@wordpress/element';
 
 /**
@@ -86,12 +86,12 @@ export const SettingsPaymentsCheque = () => {
 				setHasChanges( false );
 				invalidateResolutionForStoreSelector( 'getPaymentGateway' );
 				createSuccessNotice(
-					__( 'Settings updated successfully', 'woocommerce' )
+					__( 'Settings updated successfully', 'poocommerce' )
 				);
 			} )
 			.catch( () => {
 				createErrorNotice(
-					__( 'Failed to update settings', 'woocommerce' )
+					__( 'Failed to update settings', 'poocommerce' )
 				);
 			} )
 			.finally( () => {
@@ -113,10 +113,10 @@ export const SettingsPaymentsCheque = () => {
 					} }
 				>
 					<Settings.Section
-						title={ __( 'Enable and customise', 'woocommerce' ) }
+						title={ __( 'Enable and customise', 'poocommerce' ) }
 						description={ __(
 							'Choose how you want to present check payments to your customers during checkout.',
-							'woocommerce'
+							'poocommerce'
 						) }
 					>
 						{ isLoading ? (
@@ -125,7 +125,7 @@ export const SettingsPaymentsCheque = () => {
 							<CheckboxControl
 								label={ __(
 									'Enable check payments',
-									'woocommerce'
+									'poocommerce'
 								) }
 								checked={ Boolean( formValues.enabled ) }
 								onChange={ ( checked ) => {
@@ -141,14 +141,14 @@ export const SettingsPaymentsCheque = () => {
 							<FieldPlaceholder size="medium" />
 						) : (
 							<TextControl
-								label={ __( 'Title', 'woocommerce' ) }
+								label={ __( 'Title', 'poocommerce' ) }
 								help={ __(
 									'Payment method name that the customer will see during checkout.',
-									'woocommerce'
+									'poocommerce'
 								) }
 								placeholder={ __(
 									'Check payments',
-									'woocommerce'
+									'poocommerce'
 								) }
 								value={ String( formValues.title ) }
 								onChange={ ( value ) => {
@@ -164,10 +164,10 @@ export const SettingsPaymentsCheque = () => {
 							<FieldPlaceholder size="large" />
 						) : (
 							<TextareaControl
-								label={ __( 'Description', 'woocommerce' ) }
+								label={ __( 'Description', 'poocommerce' ) }
 								help={ __(
 									'Payment method description that the customer will see during checkout.',
-									'woocommerce'
+									'poocommerce'
 								) }
 								value={ String( formValues.description ) }
 								onChange={ ( value ) => {
@@ -183,10 +183,10 @@ export const SettingsPaymentsCheque = () => {
 							<FieldPlaceholder size="large" />
 						) : (
 							<TextareaControl
-								label={ __( 'Instructions', 'woocommerce' ) }
+								label={ __( 'Instructions', 'poocommerce' ) }
 								help={ __(
 									'Instructions that will be added to the thank you page and emails.',
-									'woocommerce'
+									'poocommerce'
 								) }
 								value={ String( formValues.instructions ) }
 								onChange={ ( value ) => {
@@ -206,7 +206,7 @@ export const SettingsPaymentsCheque = () => {
 							isBusy={ isSaving }
 							disabled={ isSaving || ! hasChanges }
 						>
-							{ __( 'Save changes', 'woocommerce' ) }
+							{ __( 'Save changes', 'poocommerce' ) }
 						</Button>
 					</Settings.Actions>
 				</Settings.Form>

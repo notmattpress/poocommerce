@@ -16,7 +16,7 @@ import { validatePrice } from '../price/utils';
 
 const fieldDefinition = {
 	type: 'text',
-	label: __( 'Regular Price', 'woocommerce' ),
+	label: __( 'Regular Price', 'poocommerce' ),
 	enableSorting: false,
 	enableHiding: false,
 	filterBy: false,

@@ -13,9 +13,9 @@
 		}
 	],
 	"ignoreDeps": [
-		"woocommerce/action-scheduler",
-		"woocommerce/woocommerce-admin",
-		"woocommerce/woocommerce-blocks",
-		"woocommerce/woocommerce-rest-api"
+		"poocommerce/action-scheduler",
+		"poocommerce/poocommerce-admin",
+		"poocommerce/poocommerce-blocks",
+		"poocommerce/poocommerce-rest-api"
 	]
 }

@@ -1,11 +1,11 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\SharedStores;
+namespace Automattic\PooCommerce\Tests\Blocks\SharedStores;
 
-use Automattic\WooCommerce\Blocks\Domain\Services\Hydration;
-use Automattic\WooCommerce\Blocks\Package;
-use Automattic\WooCommerce\Blocks\SharedStores\ProductsStore as TestedProductsStore;
+use Automattic\PooCommerce\Blocks\Domain\Services\Hydration;
+use Automattic\PooCommerce\Blocks\Package;
+use Automattic\PooCommerce\Blocks\SharedStores\ProductsStore as TestedProductsStore;
 use WC_Helper_Product;
 use WC_Product_Grouped;
 
@@ -19,14 +19,14 @@ class ProductsStore extends \WC_Unit_Test_Case {
 	 *
 	 * @var string
 	 */
-	protected $consent = 'I acknowledge that using experimental APIs means my theme or plugin will inevitably break in the next version of WooCommerce';
+	protected $consent = 'I acknowledge that using experimental APIs means my theme or plugin will inevitably break in the next version of PooCommerce';
 
 	/**
 	 * The Interactivity API store namespace under test.
 	 *
 	 * @var string
 	 */
-	protected $store_namespace = 'woocommerce/products';
+	protected $store_namespace = 'poocommerce/products';
 
 	/**
 	 * Captured original Hydration registry entry for restoration in tearDown.
@@ -465,7 +465,7 @@ class ProductsStore extends \WC_Unit_Test_Case {
 			$this->original_hydration_registry_entry = $registry[ Hydration::class ] ?? false;
 		}
 
-		$shared_type_class            = 'Automattic\\WooCommerce\\Blocks\\Registry\\SharedType';
+		$shared_type_class            = 'Automattic\\PooCommerce\\Blocks\\Registry\\SharedType';
 		$registry[ Hydration::class ] = new $shared_type_class(
 			function () use ( $fake ) {
 				return $fake;

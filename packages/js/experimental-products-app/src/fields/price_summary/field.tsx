@@ -50,7 +50,7 @@ export const fieldExtensions: Partial< Field< ProductEntityRecord > > = {
 				<span>
 					{ priceText }
 					{ ' · ' }
-					{ __( 'On sale', 'woocommerce' ) }
+					{ __( 'On sale', 'poocommerce' ) }
 				</span>
 			);
 		}

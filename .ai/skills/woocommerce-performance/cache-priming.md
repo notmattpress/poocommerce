@@ -20,7 +20,7 @@ if ( ! empty( $ids ) ) {
 
 The comment `// Prime caches to reduce future queries.` must always sit **inside** the `if` block, directly above the call. Do not place it before the `if`. Place the prime immediately before the loop or `array_map` that consumes the IDs. Exception: if a `do_action` call between the guard and the loop passes the IDs as arguments (e.g. `do_action( 'wc_before_products_starting_sales', $product_ids )`), move the prime before that action so hooked callbacks loading the same objects also benefit from the warmed cache. If the action does not receive the IDs, keep the prime directly above the loop.
 
-`_prime_post_caches()` is a WordPress internal (underscore-prefixed) that has existed since WP 4.1. The minimum supported WordPress version for WooCommerce guarantees its presence — `is_callable( '_prime_post_caches' )` guards are unnecessary and must be removed when encountered. Always wrap in `! empty()` to avoid a no-op SQL on empty arrays.
+`_prime_post_caches()` is a WordPress internal (underscore-prefixed) that has existed since WP 4.1. The minimum supported WordPress version for PooCommerce guarantees its presence — `is_callable( '_prime_post_caches' )` guards are unnecessary and must be removed when encountered. Always wrap in `! empty()` to avoid a no-op SQL on empty arrays.
 
 ---
 
@@ -41,7 +41,7 @@ if ( ! empty( $product_ids ) ) {
 }
 ```
 
-Applies to: `woocommerce_related_products()`, `woocommerce_upsell_display()`, block type `RelatedProducts`, and any similar rendering functions.
+Applies to: `poocommerce_related_products()`, `poocommerce_upsell_display()`, block type `RelatedProducts`, and any similar rendering functions.
 
 ---
 
@@ -68,8 +68,8 @@ Blocks and classic templates are separate entry points — each must be audited 
 
 **Check pairs:**
 
-- `woocommerce_related_products()` ↔ `RelatedProducts` block type
-- `woocommerce_upsell_display()` ↔ any upsells block
+- `poocommerce_related_products()` ↔ `RelatedProducts` block type
+- `poocommerce_upsell_display()` ↔ any upsells block
 - Legacy template functions ↔ StoreApi schema handlers
 
 ---

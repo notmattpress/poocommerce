@@ -15,7 +15,7 @@ import { __, _n, sprintf } from '@wordpress/i18n';
 import { store as noticesStore } from '@wordpress/notices';
 import { privateApis as routerPrivateApis } from '@wordpress/router';
 import { addQueryArgs } from '@wordpress/url';
-import { getAdminLink } from '@woocommerce/settings';
+import { getAdminLink } from '@poocommerce/settings';
 import type { Action } from '@wordpress/dataviews';
 import { useMemo } from '@wordpress/element';
 
@@ -98,7 +98,7 @@ function getErrorMessage( error: unknown ): string {
 
 	return __(
 		'An error occurred while performing the action.',
-		'woocommerce'
+		'poocommerce'
 	);
 }
 
@@ -158,8 +158,8 @@ export const quickEditAction = ( {
 	id: 'quick-edit-product',
 	label: ( items ) =>
 		items.length > 1
-			? __( 'Bulk editing', 'woocommerce' )
-			: __( 'Quick edit', 'woocommerce' ),
+			? __( 'Bulk editing', 'poocommerce' )
+			: __( 'Quick edit', 'poocommerce' ),
 	isPrimary: true,
 	supportsBulk: true,
 	icon: edit,
@@ -181,7 +181,7 @@ export const quickEditAction = ( {
 
 export const editAction = (): Action< ProductEntityRecord > => ( {
 	id: 'edit-product',
-	label: __( 'Edit', 'woocommerce' ),
+	label: __( 'Edit', 'poocommerce' ),
 	isPrimary: true,
 	isEligible( product ) {
 		return product.status !== 'trash';
@@ -210,7 +210,7 @@ export const selectAllVariationsAction = ( {
 	query = {},
 }: EditActionOptions ): Action< ProductEntityRecord > => ( {
 	id: 'select-all-variations',
-	label: __( 'Select all variations', 'woocommerce' ),
+	label: __( 'Select all variations', 'poocommerce' ),
 	isPrimary: true,
 	isEligible( product ) {
 		return (
@@ -267,7 +267,7 @@ const duplicateProduct = async ( items: ProductEntityRecord[] ) => {
 					'"%1$s" duplicated successfully.',
 					'%2$d products duplicated successfully.',
 					count,
-					'woocommerce'
+					'poocommerce'
 				),
 				items[ 0 ]?.name || '',
 				count
@@ -279,7 +279,7 @@ const duplicateProduct = async ( items: ProductEntityRecord[] ) => {
 					'Failed to duplicate "%1$s".',
 					'Failed to duplicate %2$d products.',
 					count,
-					'woocommerce'
+					'poocommerce'
 				),
 				failedItems[ 0 ]?.name || '',
 				count
@@ -305,7 +305,7 @@ const duplicateProduct = async ( items: ProductEntityRecord[] ) => {
 			const newProduct = promiseResult[ 0 ].value;
 			noticeOptions.actions = [
 				{
-					label: __( 'View product', 'woocommerce' ),
+					label: __( 'View product', 'poocommerce' ),
 					onClick: () => {
 						window.location.href = getAdminLink(
 							addQueryArgs( 'post.php', {
@@ -330,7 +330,7 @@ const duplicateProduct = async ( items: ProductEntityRecord[] ) => {
 
 export const duplicateProductAction = (): Action< ProductEntityRecord > => ( {
 	id: 'duplicate-product',
-	label: __( 'Duplicate', 'woocommerce' ),
+	label: __( 'Duplicate', 'poocommerce' ),
 	isPrimary: false,
 	supportsBulk: true,
 	isEligible( item ) {
@@ -361,7 +361,7 @@ export const duplicateProductAction = (): Action< ProductEntityRecord > => ( {
 
 export const moveToTrashAction = (): Action< ProductEntityRecord > => ( {
 	id: 'move-to-trash-product',
-	label: __( 'Move to trash', 'woocommerce' ),
+	label: __( 'Move to trash', 'poocommerce' ),
 	supportsBulk: true,
 	icon: trash,
 	isEligible( product ) {
@@ -391,14 +391,14 @@ export const moveToTrashAction = (): Action< ProductEntityRecord > => ( {
 		if ( successfulItems.length > 0 ) {
 			createSuccessNotice(
 				successfulItems.length === 1
-					? __( 'Product successfully deleted', 'woocommerce' )
+					? __( 'Product successfully deleted', 'poocommerce' )
 					: sprintf(
 							/* translators: %s: number of products. */
 							_n(
 								'%s product successfully deleted',
 								'%s products successfully deleted',
 								successfulItems.length,
-								'woocommerce'
+								'poocommerce'
 							),
 							successfulItems.length
 					  ),
@@ -424,7 +424,7 @@ export const moveToTrashAction = (): Action< ProductEntityRecord > => ( {
 
 export const restoreAction = (): Action< ProductEntityRecord > => ( {
 	id: 'restore-product',
-	label: __( 'Restore', 'woocommerce' ),
+	label: __( 'Restore', 'poocommerce' ),
 	supportsBulk: true,
 	icon: backup,
 	isEligible( product ) {
@@ -458,14 +458,14 @@ export const restoreAction = (): Action< ProductEntityRecord > => ( {
 			await invalidateResolutionForStoreSelector( 'getEntityRecords' );
 			createSuccessNotice(
 				successfulItems.length === 1
-					? __( 'Product successfully restored', 'woocommerce' )
+					? __( 'Product successfully restored', 'poocommerce' )
 					: sprintf(
 							/* translators: %s: number of products. */
 							_n(
 								'%s product successfully restored',
 								'%s products successfully restored',
 								successfulItems.length,
-								'woocommerce'
+								'poocommerce'
 							),
 							successfulItems.length
 					  ),
@@ -487,7 +487,7 @@ export const restoreAction = (): Action< ProductEntityRecord > => ( {
 
 export const permanentlyDeleteAction = (): Action< ProductEntityRecord > => ( {
 	id: 'permanently-delete-product',
-	label: __( 'Permanently delete', 'woocommerce' ),
+	label: __( 'Permanently delete', 'poocommerce' ),
 	supportsBulk: true,
 	icon: trash,
 	isEligible( product ) {
@@ -497,8 +497,8 @@ export const permanentlyDeleteAction = (): Action< ProductEntityRecord > => ( {
 	},
 	modalHeader: ( items ) =>
 		items.length === 1
-			? __( 'Delete product?', 'woocommerce' )
-			: __( 'Delete products?', 'woocommerce' ),
+			? __( 'Delete product?', 'poocommerce' )
+			: __( 'Delete products?', 'poocommerce' ),
 	RenderModal: ( { items, closeModal, onActionPerformed } ) => {
 		const onConfirm = async () => {
 			const { deleteEntityRecord, invalidateResolutionForStoreSelector } =
@@ -525,14 +525,14 @@ export const permanentlyDeleteAction = (): Action< ProductEntityRecord > => ( {
 				);
 				createSuccessNotice(
 					successfulItems.length === 1
-						? __( 'Product permanently deleted', 'woocommerce' )
+						? __( 'Product permanently deleted', 'poocommerce' )
 						: sprintf(
 								/* translators: %s: number of products. */
 								_n(
 									'%s product permanently deleted',
 									'%s products permanently deleted',
 									successfulItems.length,
-									'woocommerce'
+									'poocommerce'
 								),
 								successfulItems.length
 						  ),
@@ -561,7 +561,7 @@ export const permanentlyDeleteAction = (): Action< ProductEntityRecord > => ( {
 								/* translators: %s: The product's name. */
 								__(
 									"%s will be permanently deleted and can't be restored.",
-									'woocommerce'
+									'poocommerce'
 								),
 								items[ 0 ]?.name ?? ''
 						  )
@@ -571,7 +571,7 @@ export const permanentlyDeleteAction = (): Action< ProductEntityRecord > => ( {
 									"%s product will be permanently deleted and can't be restored.",
 									"%s products will be permanently deleted and can't be restored.",
 									items.length,
-									'woocommerce'
+									'poocommerce'
 								),
 								items.length
 						  ) }
@@ -582,7 +582,7 @@ export const permanentlyDeleteAction = (): Action< ProductEntityRecord > => ( {
 						variant="tertiary"
 						onClick={ closeModal }
 					>
-						{ __( 'Cancel', 'woocommerce' ) }
+						{ __( 'Cancel', 'poocommerce' ) }
 					</Button>
 					<Button
 						__next40pxDefaultSize
@@ -590,7 +590,7 @@ export const permanentlyDeleteAction = (): Action< ProductEntityRecord > => ( {
 						isDestructive
 						onClick={ onConfirm }
 					>
-						{ __( 'Delete permanently', 'woocommerce' ) }
+						{ __( 'Delete permanently', 'poocommerce' ) }
 					</Button>
 				</HStack>
 			</VStack>

@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { AdvancedFilters } from '@woocommerce/components';
+import { AdvancedFilters } from '@poocommerce/components';
 
 const ORDER_STATUSES = {
 	cancelled: 'Cancelled',

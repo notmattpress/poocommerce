@@ -1,17 +1,17 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\GraphQL\Type\Definition;
+namespace Automattic\PooCommerce\Vendor\GraphQL\Type\Definition;
 
-use Automattic\WooCommerce\Vendor\GraphQL\Error\Error;
-use Automattic\WooCommerce\Vendor\GraphQL\Error\SerializationError;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\IntValueNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\Node;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\Printer;
-use Automattic\WooCommerce\Vendor\GraphQL\Utils\Utils;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\Error;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\SerializationError;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\IntValueNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\Node;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\Printer;
+use Automattic\PooCommerce\Vendor\GraphQL\Utils\Utils;
 
 class IntType extends ScalarType
 {
-    // As per the Automattic\WooCommerce\Vendor\GraphQL Spec, Integers are only treated as valid when a valid
+    // As per the Automattic\PooCommerce\Vendor\GraphQL Spec, Integers are only treated as valid when a valid
     // 32-bit signed integer, providing the broadest support across platforms.
     //
     // n.b. JavaScript's integers are safe between -(2^53 - 1) and 2^53 - 1 because

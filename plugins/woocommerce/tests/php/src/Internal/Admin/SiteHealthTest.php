@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin;
+namespace Automattic\PooCommerce\Tests\Internal\Admin;
 
-use Automattic\WooCommerce\Internal\Admin\SiteHealth;
+use Automattic\PooCommerce\Internal\Admin\SiteHealth;
 use WC_Unit_Test_Case;
 use WP_Error;
 
@@ -24,14 +24,14 @@ class SiteHealthTest extends WC_Unit_Test_Case {
 	public function setUp(): void {
 		parent::setUp();
 		$this->sut = new SiteHealth();
-		delete_transient( '_woocommerce_upload_directory_status' );
+		delete_transient( '_poocommerce_upload_directory_status' );
 	}
 
 	/**
 	 * Tear down test fixtures.
 	 */
 	public function tearDown(): void {
-		delete_transient( '_woocommerce_upload_directory_status' );
+		delete_transient( '_poocommerce_upload_directory_status' );
 		parent::tearDown();
 	}
 
@@ -48,10 +48,10 @@ class SiteHealthTest extends WC_Unit_Test_Case {
 		add_filter( 'pre_http_request', $filter_callback, 10, 3 );
 
 		try {
-			$result = $this->sut->run_test( 'woocommerce_uploads_directory_protection' );
+			$result = $this->sut->run_test( 'poocommerce_uploads_directory_protection' );
 
 			$this->assertSame( 'critical', $result['status'], 'Request failures should not be reported as protected.' );
-			$this->assertFalse( get_transient( '_woocommerce_upload_directory_status' ), 'Request failures should not be cached.' );
+			$this->assertFalse( get_transient( '_poocommerce_upload_directory_status' ), 'Request failures should not be cached.' );
 		} finally {
 			remove_filter( 'pre_http_request', $filter_callback, 10 );
 		}
@@ -79,10 +79,10 @@ class SiteHealthTest extends WC_Unit_Test_Case {
 		add_filter( 'pre_http_request', $filter_callback, 10, 3 );
 
 		try {
-			$result = $this->sut->run_test( 'woocommerce_uploads_directory_protection' );
+			$result = $this->sut->run_test( 'poocommerce_uploads_directory_protection' );
 
 			$this->assertSame( 'critical', $result['status'], 'Missing response codes should not be reported as protected.' );
-			$this->assertFalse( get_transient( '_woocommerce_upload_directory_status' ), 'Missing response codes should not be cached.' );
+			$this->assertFalse( get_transient( '_poocommerce_upload_directory_status' ), 'Missing response codes should not be cached.' );
 		} finally {
 			remove_filter( 'pre_http_request', $filter_callback, 10 );
 		}

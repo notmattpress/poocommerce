@@ -2,9 +2,9 @@
 declare(strict_types=1);
 
 
-namespace Automattic\WooCommerce\Tests\Internal\RestApi\Routes\V4\Products;
+namespace Automattic\PooCommerce\Tests\Internal\RestApi\Routes\V4\Products;
 
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Products\Controller as ProductsController;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Products\Controller as ProductsController;
 use WC_Helper_Product;
 use WC_REST_Unit_Test_Case;
 use WP_REST_Request;
@@ -21,7 +21,7 @@ class ProductsAddToCartTest extends WC_REST_Unit_Test_Case {
 	public function setUp(): void {
 		// Enable the REST API v4 feature.
 		add_filter(
-			'woocommerce_admin_features',
+			'poocommerce_admin_features',
 			function ( $features ) {
 				$features[] = 'rest-api-v4';
 				return $features;
@@ -45,7 +45,7 @@ class ProductsAddToCartTest extends WC_REST_Unit_Test_Case {
 
 		// Disable the REST API v4 feature.
 		add_filter(
-			'woocommerce_admin_features',
+			'poocommerce_admin_features',
 			function ( $features ) {
 				$features = array_diff( $features, array( 'rest-api-v4' ) );
 				return $features;

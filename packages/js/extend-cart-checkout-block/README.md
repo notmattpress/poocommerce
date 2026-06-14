@@ -1,6 +1,6 @@
-# @woocommerce/extend-cart-checkout-block
+# @poocommerce/extend-cart-checkout-block
 
-This is a template to be used with `@wordpress/create-block` to create a WooCommerce Blocks extension starting point.
+This is a template to be used with `@wordpress/create-block` to create a PooCommerce Blocks extension starting point.
 
 ## Installation
 
@@ -13,7 +13,7 @@ e.g. `nvm install 20 && nvm use 20` or `fnm install 20 && fnm use 20`
 From your `plugins` directory run:
 
 ```sh
-npx @wordpress/create-block -t @woocommerce/extend-cart-checkout-block your_extension_name
+npx @wordpress/create-block -t @poocommerce/extend-cart-checkout-block your_extension_name
 ```
 
 When this has completed, go to your WordPress plugins page and activate the plugin.
@@ -22,7 +22,7 @@ Add some items to your cart and visit the Checkout block, notice there is additi
 
 ### Linting
 
-You can lint the project according to the [WordPress coding standards](https://developer.wordpress.org/coding-standards/wordpress-coding-standards/javascript/) by running `npm run lint:js`. The configuration is ultimately read from the [WooCommerce recommended eslint config](https://github.com/woocommerce/woocommerce/blob/trunk/packages/js/eslint-plugin/configs/recommended.js). To modify the rules edit the `.estintrc.js` file.
+You can lint the project according to the [WordPress coding standards](https://developer.wordpress.org/coding-standards/wordpress-coding-standards/javascript/) by running `npm run lint:js`. The configuration is ultimately read from the [PooCommerce recommended eslint config](https://github.com/poocommerce/poocommerce/blob/trunk/packages/js/eslint-plugin/configs/recommended.js). To modify the rules edit the `.estintrc.js` file.
 
 ### Installing `wp-env` (optional)
 

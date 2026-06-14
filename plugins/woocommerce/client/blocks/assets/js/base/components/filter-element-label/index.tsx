@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { _n, sprintf } from '@wordpress/i18n';
-import { Label } from '@woocommerce/blocks-components';
+import { Label } from '@poocommerce/blocks-components';
 
 /**
  * Internal dependencies
@@ -32,7 +32,7 @@ const FilterElementLabel = ( {
 					label={ count.toString() }
 					screenReaderLabel={ sprintf(
 						/* translators: %s number of products. */
-						_n( '%s product', '%s products', count, 'woocommerce' ),
+						_n( '%s product', '%s products', count, 'poocommerce' ),
 						count
 					) }
 					wrapperElement="span"

@@ -3,7 +3,7 @@
  */
 import clsx from 'clsx';
 import { __ } from '@wordpress/i18n';
-import { formatPrice, getCurrency } from '@woocommerce/price-format';
+import { formatPrice, getCurrency } from '@poocommerce/price-format';
 import {
 	useBlockProps,
 	InspectorControls,
@@ -15,7 +15,7 @@ import {
 	// eslint-disable-next-line @wordpress/no-unsafe-wp-apis
 	__experimentalUseMultipleOriginColorsAndGradients as useMultipleOriginColorsAndGradients,
 } from '@wordpress/block-editor';
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import {
 	ToggleControl,
 	Disabled,
@@ -56,7 +56,7 @@ const PriceSliderEdit = ( {
 		customSlider,
 	} = attributes;
 
-	const rangeInput = context[ 'woocommerce/rangeInput' ];
+	const rangeInput = context[ 'poocommerce/rangeInput' ];
 	const { isLoading } = rangeInput ?? {};
 
 	const blockProps = useBlockProps( {
@@ -74,7 +74,7 @@ const PriceSliderEdit = ( {
 	const colorGradientSettings = useMultipleOriginColorsAndGradients();
 
 	if ( isLoading || ! rangeInput ) {
-		return <>{ __( 'Loading…', 'woocommerce' ) }</>;
+		return <>{ __( 'Loading…', 'poocommerce' ) }</>;
 	}
 
 	const { min, max, currentMin, currentMax } = rangeInput;
@@ -104,7 +104,7 @@ const PriceSliderEdit = ( {
 		<>
 			<InspectorControls>
 				<ToolsPanel
-					label={ __( 'Settings', 'woocommerce' ) }
+					label={ __( 'Settings', 'poocommerce' ) }
 					resetAll={ () => {
 						setAttributes( {
 							showInputFields: true,
@@ -114,14 +114,14 @@ const PriceSliderEdit = ( {
 				>
 					<ToolsPanelItem
 						hasValue={ () => showInputFields !== true }
-						label={ __( 'Show input fields', 'woocommerce' ) }
+						label={ __( 'Show input fields', 'poocommerce' ) }
 						onDeselect={ () =>
 							setAttributes( { showInputFields: true } )
 						}
 						isShownByDefault
 					>
 						<ToggleControl
-							label={ __( 'Show input fields', 'woocommerce' ) }
+							label={ __( 'Show input fields', 'poocommerce' ) }
 							checked={ showInputFields }
 							onChange={ () =>
 								setAttributes( {
@@ -135,7 +135,7 @@ const PriceSliderEdit = ( {
 					{ showInputFields && (
 						<ToolsPanelItem
 							hasValue={ () => inlineInput === true }
-							label={ __( 'Inline input fields', 'woocommerce' ) }
+							label={ __( 'Inline input fields', 'poocommerce' ) }
 							onDeselect={ () =>
 								setAttributes( { inlineInput: false } )
 							}
@@ -144,7 +144,7 @@ const PriceSliderEdit = ( {
 							<ToggleControl
 								label={ __(
 									'Inline input fields',
-									'woocommerce'
+									'poocommerce'
 								) }
 								checked={ inlineInput }
 								onChange={ () =>
@@ -165,7 +165,7 @@ const PriceSliderEdit = ( {
 						__experimentalIsRenderedInSidebar
 						settings={ [
 							{
-								label: __( 'Slider Handle', 'woocommerce' ),
+								label: __( 'Slider Handle', 'poocommerce' ),
 								colorValue:
 									sliderHandle.color || customSliderHandle,
 								isShownByDefault: true,
@@ -186,7 +186,7 @@ const PriceSliderEdit = ( {
 							{
 								label: __(
 									'Slider Handle Border',
-									'woocommerce'
+									'poocommerce'
 								),
 								colorValue:
 									sliderHandleBorder.color ||
@@ -207,7 +207,7 @@ const PriceSliderEdit = ( {
 								},
 							},
 							{
-								label: __( 'Slider', 'woocommerce' ),
+								label: __( 'Slider', 'poocommerce' ),
 								colorValue: slider.color || customSlider,
 								isShownByDefault: true,
 								enableAlpha: true,

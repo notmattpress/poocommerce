@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Blocks\BlockTypes\ProductCollection;
+namespace Automattic\PooCommerce\Tests\Blocks\BlockTypes\ProductCollection;
 
-use Automattic\WooCommerce\Blocks\BlockTypes\ProductCollection\Utils as ProductCollectionUtils;
-use Automattic\WooCommerce\Tests\Blocks\BlockTypes\ProductCollection\Utils;
-use Automattic\WooCommerce\Tests\Blocks\Mocks\ProductCollectionMock;
-use Automattic\WooCommerce\Enums\ProductStockStatus;
+use Automattic\PooCommerce\Blocks\BlockTypes\ProductCollection\Utils as ProductCollectionUtils;
+use Automattic\PooCommerce\Tests\Blocks\BlockTypes\ProductCollection\Utils;
+use Automattic\PooCommerce\Tests\Blocks\Mocks\ProductCollectionMock;
+use Automattic\PooCommerce\Enums\ProductStockStatus;
 use WC_Helper_Product;
 use WP_Query;
 
@@ -60,7 +60,7 @@ class QueryBuilder extends \WP_UnitTestCase {
 		set_transient( 'wc_products_onsale', $on_sale_product_ids, DAY_IN_SECONDS * 30 );
 
 		$parsed_block                                        = Utils::get_base_parsed_block();
-		$parsed_block['attrs']['query']['woocommerceOnSale'] = true;
+		$parsed_block['attrs']['query']['poocommerceOnSale'] = true;
 
 		$merged_query = Utils::initialize_merged_query( $this->block_instance, $parsed_block );
 
@@ -78,7 +78,7 @@ class QueryBuilder extends \WP_UnitTestCase {
 	 */
 	public function test_merging_stock_status_queries() {
 		$parsed_block = Utils::get_base_parsed_block();
-		$parsed_block['attrs']['query']['woocommerceStockStatus'] = array(
+		$parsed_block['attrs']['query']['poocommerceStockStatus'] = array(
 			ProductStockStatus::OUT_OF_STOCK,
 			ProductStockStatus::ON_BACKORDER,
 		);
@@ -101,7 +101,7 @@ class QueryBuilder extends \WP_UnitTestCase {
 	 */
 	public function test_merging_default_stock_queries() {
 		$parsed_block = Utils::get_base_parsed_block();
-		$parsed_block['attrs']['query']['woocommerceStockStatus'] = array(
+		$parsed_block['attrs']['query']['poocommerceStockStatus'] = array(
 			ProductStockStatus::IN_STOCK,
 			ProductStockStatus::OUT_OF_STOCK,
 			ProductStockStatus::ON_BACKORDER,
@@ -113,7 +113,7 @@ class QueryBuilder extends \WP_UnitTestCase {
 
 		// Test with hide out of stock items option enabled.
 		$parsed_block = Utils::get_base_parsed_block();
-		$parsed_block['attrs']['query']['woocommerceStockStatus'] = array(
+		$parsed_block['attrs']['query']['poocommerceStockStatus'] = array(
 			ProductStockStatus::IN_STOCK,
 			ProductStockStatus::ON_BACKORDER,
 		);
@@ -128,7 +128,7 @@ class QueryBuilder extends \WP_UnitTestCase {
 	 */
 	public function test_merging_attribute_queries() {
 		$parsed_block = Utils::get_base_parsed_block();
-		$parsed_block['attrs']['query']['woocommerceAttributes'] = array(
+		$parsed_block['attrs']['query']['poocommerceAttributes'] = array(
 			array(
 				'taxonomy' => 'pa_test',
 				'termId'   => 1,
@@ -207,11 +207,11 @@ class QueryBuilder extends \WP_UnitTestCase {
 	public function test_merging_multiple_queries() {
 		$parsed_block                              = Utils::get_base_parsed_block();
 		$parsed_block['attrs']['query']['orderBy'] = 'rating';
-		$parsed_block['attrs']['query']['woocommerceStockStatus'] = array(
+		$parsed_block['attrs']['query']['poocommerceStockStatus'] = array(
 			ProductStockStatus::IN_STOCK,
 			ProductStockStatus::OUT_OF_STOCK,
 		);
-		$parsed_block['attrs']['query']['woocommerceAttributes']  = array(
+		$parsed_block['attrs']['query']['poocommerceAttributes']  = array(
 			array(
 				'taxonomy' => 'pa_test',
 				'termId'   => 1,
@@ -580,7 +580,7 @@ class QueryBuilder extends \WP_UnitTestCase {
 		$handpicked_product_ids = array( 1, 2, 3, 4 );
 
 		$parsed_block = Utils::get_base_parsed_block();
-		$parsed_block['attrs']['query']['woocommerceHandPickedProducts'] = $handpicked_product_ids;
+		$parsed_block['attrs']['query']['poocommerceHandPickedProducts'] = $handpicked_product_ids;
 
 		$merged_query = Utils::initialize_merged_query( $this->block_instance, $parsed_block );
 
@@ -602,7 +602,7 @@ class QueryBuilder extends \WP_UnitTestCase {
 
 		$parsed_block                               = Utils::get_base_parsed_block();
 		$parsed_block['attrs']['query']['post__in'] = $existing_id_filter;
-		$parsed_block['attrs']['query']['woocommerceHandPickedProducts'] = $handpicked_product_ids;
+		$parsed_block['attrs']['query']['poocommerceHandPickedProducts'] = $handpicked_product_ids;
 
 		$merged_query = Utils::initialize_merged_query( $this->block_instance, $parsed_block );
 
@@ -622,7 +622,7 @@ class QueryBuilder extends \WP_UnitTestCase {
 
 		$parsed_block                               = Utils::get_base_parsed_block();
 		$parsed_block['attrs']['query']['post__in'] = $existing_id_filter;
-		$parsed_block['attrs']['query']['woocommerceHandPickedProducts'] = $handpicked_product_ids;
+		$parsed_block['attrs']['query']['poocommerceHandPickedProducts'] = $handpicked_product_ids;
 
 		$merged_query = Utils::initialize_merged_query( $this->block_instance, $parsed_block );
 

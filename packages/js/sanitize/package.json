@@ -1,7 +1,7 @@
 {
-	"name": "@woocommerce/sanitize",
+	"name": "@poocommerce/sanitize",
 	"version": "1.0.0",
-	"description": "WooCommerce HTML sanitization utilities.",
+	"description": "PooCommerce HTML sanitization utilities.",
 	"exports": {
 		".": {
 			"wc-source": "./src/index.ts",
@@ -21,11 +21,11 @@
 	],
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/woocommerce/woocommerce.git",
+		"url": "https://github.com/poocommerce/poocommerce.git",
 		"directory": "packages/js/sanitize"
 	},
 	"keywords": [
-		"woocommerce",
+		"poocommerce",
 		"sanitize",
 		"dompurify",
 		"html",
@@ -34,9 +34,9 @@
 	"author": "Automattic",
 	"license": "GPL-2.0-or-later",
 	"bugs": {
-		"url": "https://github.com/woocommerce/woocommerce/issues"
+		"url": "https://github.com/poocommerce/poocommerce/issues"
 	},
-	"homepage": "https://github.com/woocommerce/woocommerce/tree/trunk/packages/js/sanitize#readme",
+	"homepage": "https://github.com/poocommerce/poocommerce/tree/trunk/packages/js/sanitize#readme",
 	"dependencies": {
 		"dompurify": "^3.2.6"
 	},
@@ -45,9 +45,9 @@
 		"@types/dompurify": "^2.0.4",
 		"@types/jest": "29.5.x",
 		"@types/trusted-types": "^2.0.7",
-		"@woocommerce/eslint-plugin": "workspace:*",
-		"@woocommerce/internal-build": "workspace:*",
-		"@woocommerce/internal-js-tests": "workspace:*",
+		"@poocommerce/eslint-plugin": "workspace:*",
+		"@poocommerce/internal-build": "workspace:*",
+		"@poocommerce/internal-js-tests": "workspace:*",
 		"@wordpress/scripts": "^27.0.0",
 		"eslint": "^8.55.0",
 		"jest": "29.5.x",

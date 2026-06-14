@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Internal\Api;
+namespace Automattic\PooCommerce\Internal\Api;
 
-use Automattic\WooCommerce\Vendor\GraphQL\Validator\Rules\QueryComplexity;
+use Automattic\PooCommerce\Vendor\GraphQL\Validator\Rules\QueryComplexity;
 
 /**
  * QueryComplexity validation rule that returns a generic error message when the complexity is exceeded.

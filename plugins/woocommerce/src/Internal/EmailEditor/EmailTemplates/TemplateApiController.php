@@ -2,14 +2,14 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\EmailEditor\EmailTemplates;
+namespace Automattic\PooCommerce\Internal\EmailEditor\EmailTemplates;
 
-use Automattic\WooCommerce\EmailEditor\Validator\Builder;
+use Automattic\PooCommerce\EmailEditor\Validator\Builder;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * API Controller for managing WooCommerce email templates via extending the post type API.
+ * API Controller for managing PooCommerce email templates via extending the post type API.
  *
  * @internal
  */
@@ -28,14 +28,14 @@ class TemplateApiController {
 
 		return array(
 			'sender_settings' => array(
-				'from_name'    => get_option( 'woocommerce_email_from_name', get_bloginfo( 'name', 'display' ) ),
-				'from_address' => get_option( 'woocommerce_email_from_address' ),
+				'from_name'    => get_option( 'poocommerce_email_from_name', get_bloginfo( 'name', 'display' ) ),
+				'from_address' => get_option( 'poocommerce_email_from_address' ),
 			),
 		);
 	}
 
 	/**
-	 * Update WooCommerce specific data we store with Template.
+	 * Update PooCommerce specific data we store with Template.
 	 *
 	 * @param array              $data - WP_Block_Template data.
 	 * @param \WP_Block_Template $template_post - WP_Block_Template object.
@@ -46,15 +46,15 @@ class TemplateApiController {
 			$new_from_name = $data['sender_settings']['from_name'] ?? null;
 
 			if ( null !== $new_from_name ) {
-				update_option( 'woocommerce_email_from_name', $new_from_name );
+				update_option( 'poocommerce_email_from_name', $new_from_name );
 			}
 
 			$new_from_address = $data['sender_settings']['from_address'] ?? null;
 			if ( null === $new_from_address || ! filter_var( $new_from_address, FILTER_VALIDATE_EMAIL ) ) {
-				return new \WP_Error( 'invalid_email_address', __( 'Invalid email address provided for sender settings', 'woocommerce' ), array( 'status' => 400 ) );
+				return new \WP_Error( 'invalid_email_address', __( 'Invalid email address provided for sender settings', 'poocommerce' ), array( 'status' => 400 ) );
 			}
 
-			update_option( 'woocommerce_email_from_address', $new_from_address );
+			update_option( 'poocommerce_email_from_address', $new_from_address );
 		}
 
 		return null;

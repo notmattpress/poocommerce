@@ -7,7 +7,7 @@
  *
  * @class       WC_Settings_API
  * @version     2.6.0
- * @package     WooCommerce\Abstracts
+ * @package     PooCommerce\Abstracts
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @class    WC_Integration
  * @extends  WC_Settings_API
  * @version  2.6.0
- * @package  WooCommerce\Abstracts
+ * @package  PooCommerce\Abstracts
  */
 abstract class WC_Integration extends WC_Settings_API {
 
@@ -53,7 +53,7 @@ abstract class WC_Integration extends WC_Settings_API {
 	 * @return string
 	 */
 	public function get_method_title() {
-		return apply_filters( 'woocommerce_integration_title', $this->method_title, $this );
+		return apply_filters( 'poocommerce_integration_title', $this->method_title, $this );
 	}
 
 	/**
@@ -62,7 +62,7 @@ abstract class WC_Integration extends WC_Settings_API {
 	 * @return string
 	 */
 	public function get_method_description() {
-		return apply_filters( 'woocommerce_integration_description', $this->method_description, $this );
+		return apply_filters( 'poocommerce_integration_description', $this->method_description, $this );
 	}
 
 	/**

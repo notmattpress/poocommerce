@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Api\Enums\Products;
+namespace Automattic\PooCommerce\Api\Enums\Products;
 
-use Automattic\WooCommerce\Api\Attributes\Description;
+use Automattic\PooCommerce\Api\Attributes\Description;
 
-#[Description( 'The type of a WooCommerce product.' )]
+#[Description( 'The type of a PooCommerce product.' )]
 enum ProductType: string {
 	#[Description( 'A simple product.' )]
 	case Simple = 'simple';
@@ -23,6 +23,6 @@ enum ProductType: string {
 	#[Description( 'A product variation.' )]
 	case Variation = 'variation';
 
-	#[Description( 'The product type is not one of the standard WooCommerce values (e.g. added by a plugin). Inspect raw_product_type for the underlying value.' )]
+	#[Description( 'The product type is not one of the standard PooCommerce values (e.g. added by a plugin). Inspect raw_product_type for the underlying value.' )]
 	case Other = 'other';
 }

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Api\Enums\Products;
+namespace Automattic\PooCommerce\Api\Enums\Products;
 
-use Automattic\WooCommerce\Api\Attributes\Deprecated;
-use Automattic\WooCommerce\Api\Attributes\Description;
-use Automattic\WooCommerce\Api\Attributes\Name;
+use Automattic\PooCommerce\Api\Attributes\Deprecated;
+use Automattic\PooCommerce\Api\Attributes\Description;
+use Automattic\PooCommerce\Api\Attributes\Name;
 
 #[Description( 'The publication status of a product.' )]
 enum ProductStatus: string {

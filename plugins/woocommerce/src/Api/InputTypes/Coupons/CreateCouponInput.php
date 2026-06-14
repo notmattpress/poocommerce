@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Api\InputTypes\Coupons;
+namespace Automattic\PooCommerce\Api\InputTypes\Coupons;
 
-use Automattic\WooCommerce\Api\Attributes\ArrayOf;
-use Automattic\WooCommerce\Api\Attributes\Description;
-use Automattic\WooCommerce\Api\Enums\Coupons\CouponStatus;
-use Automattic\WooCommerce\Api\Enums\Coupons\DiscountType;
-use Automattic\WooCommerce\Api\InputTypes\TracksProvidedFields;
+use Automattic\PooCommerce\Api\Attributes\ArrayOf;
+use Automattic\PooCommerce\Api\Attributes\Description;
+use Automattic\PooCommerce\Api\Enums\Coupons\CouponStatus;
+use Automattic\PooCommerce\Api\Enums\Coupons\DiscountType;
+use Automattic\PooCommerce\Api\InputTypes\TracksProvidedFields;
 
 /**
  * Input type for creating a coupon.

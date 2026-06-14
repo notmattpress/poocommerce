@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Admin\Features\Fulfillments;
+namespace Automattic\PooCommerce\Admin\Features\Fulfillments;
 
 use WC_Tracks;
 
@@ -297,7 +297,7 @@ class FulfillmentsTracker {
 	/**
 	 * Track when a merchant saves changes to a fulfillment email template in settings.
 	 *
-	 * Tracked from: FulfillmentsManager (hooked to woocommerce_update_options_email_{id}).
+	 * Tracked from: FulfillmentsManager (hooked to poocommerce_update_options_email_{id}).
 	 * Measures: Whether merchants customize fulfillment email templates.
 	 *
 	 * @since 10.7.0

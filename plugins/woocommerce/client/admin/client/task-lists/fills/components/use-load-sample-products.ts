@@ -4,10 +4,10 @@
 
 import { __ } from '@wordpress/i18n';
 import apiFetch from '@wordpress/api-fetch';
-import { WC_ADMIN_NAMESPACE } from '@woocommerce/data';
+import { WC_ADMIN_NAMESPACE } from '@poocommerce/data';
 import { useDispatch } from '@wordpress/data';
 import { useState } from '@wordpress/element';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -47,7 +47,7 @@ const useLoadSampleProducts = ( {
 					? error.message
 					: __(
 							'There was an error importing the sample products',
-							'woocommerce'
+							'poocommerce'
 					  );
 
 			createNotice( 'error', message );

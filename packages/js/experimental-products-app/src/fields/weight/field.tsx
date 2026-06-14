@@ -15,7 +15,7 @@ import { isDimensionVisible } from '../components/dimension';
 
 const fieldDefinition = {
 	type: 'text',
-	label: __( 'Weight', 'woocommerce' ),
+	label: __( 'Weight', 'poocommerce' ),
 	enableSorting: false,
 	enableHiding: false,
 	filterBy: false,
@@ -23,7 +23,7 @@ const fieldDefinition = {
 
 export const fieldExtensions: Partial< Field< ProductEntityRecord > > = {
 	...fieldDefinition,
-	label: __( 'Weight', 'woocommerce' ),
+	label: __( 'Weight', 'poocommerce' ),
 	isVisible: isDimensionVisible,
 	Edit: ( { data, onChange, field } ) => {
 		const {
@@ -40,7 +40,7 @@ export const fieldExtensions: Partial< Field< ProductEntityRecord > > = {
 		}
 
 		const weightUnit =
-			storeProductsSettings?.values?.woocommerce_weight_unit;
+			storeProductsSettings?.values?.poocommerce_weight_unit;
 
 		return (
 			<InputControl

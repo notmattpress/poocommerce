@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\GraphQL\Type\Definition;
+namespace Automattic\PooCommerce\Vendor\GraphQL\Type\Definition;
 
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\EnumValueDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\EnumValueDefinitionNode;
 
 /**
  * @phpstan-type EnumValueConfig array{

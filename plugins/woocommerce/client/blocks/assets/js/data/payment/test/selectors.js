@@ -3,20 +3,20 @@
  */
 import { render, screen, waitFor, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { previewCart } from '@woocommerce/resource-previews';
+import { previewCart } from '@poocommerce/resource-previews';
 import * as wpDataFunctions from '@wordpress/data';
 import {
 	CART_STORE_KEY as storeKey,
 	paymentStore,
-} from '@woocommerce/block-data';
+} from '@poocommerce/block-data';
 import {
 	registerPaymentMethod,
 	registerExpressPaymentMethod,
 	__experimentalDeRegisterPaymentMethod,
 	__experimentalDeRegisterExpressPaymentMethod,
 	getExpressPaymentMethods,
-} from '@woocommerce/blocks-registry';
-import { server, http, HttpResponse } from '@woocommerce/test-utils/msw';
+} from '@poocommerce/blocks-registry';
+import { server, http, HttpResponse } from '@poocommerce/test-utils/msw';
 
 /**
  * Internal dependencies
@@ -52,12 +52,12 @@ jest.mock( '@wordpress/data', () => {
 	};
 } );
 
-jest.mock( '@woocommerce/settings', () => {
-	const originalModule = jest.requireActual( '@woocommerce/settings' );
+jest.mock( '@poocommerce/settings', () => {
+	const originalModule = jest.requireActual( '@poocommerce/settings' );
 
 	return {
 		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-		// @ts-ignore We know @woocommerce/settings is an object.
+		// @ts-ignore We know @poocommerce/settings is an object.
 		...originalModule,
 		getSetting: ( setting, ...rest ) => {
 			if ( setting === 'customerPaymentMethods' ) {

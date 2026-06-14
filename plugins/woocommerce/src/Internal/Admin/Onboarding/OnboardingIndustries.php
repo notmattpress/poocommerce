@@ -1,9 +1,9 @@
 <?php
 /**
- * WooCommerce Onboarding Industries
+ * PooCommerce Onboarding Industries
  */
 
-namespace Automattic\WooCommerce\Internal\Admin\Onboarding;
+namespace Automattic\PooCommerce\Internal\Admin\Onboarding;
 
 /**
  * Logic around onboarding industries.
@@ -13,7 +13,7 @@ class OnboardingIndustries {
 	 * Init.
 	 */
 	public static function init() {
-		add_filter( 'woocommerce_admin_onboarding_preloaded_data', array( __CLASS__, 'preload_data' ) );
+		add_filter( 'poocommerce_admin_onboarding_preloaded_data', array( __CLASS__, 'preload_data' ) );
 	}
 
 	/**
@@ -24,57 +24,57 @@ class OnboardingIndustries {
 	public static function get_allowed_industries() {
 		/* With "use_description" we turn the description input on. With "description_label" we set the input label */
 		return apply_filters(
-			'woocommerce_admin_onboarding_industries',
+			'poocommerce_admin_onboarding_industries',
 			array(
 				'fashion-apparel-accessories'     => array(
-					'label'             => __( 'Fashion, apparel, and accessories', 'woocommerce' ),
+					'label'             => __( 'Fashion, apparel, and accessories', 'poocommerce' ),
 					'use_description'   => false,
 					'description_label' => '',
 				),
 				'health-beauty'                   => array(
-					'label'             => __( 'Health and beauty', 'woocommerce' ),
+					'label'             => __( 'Health and beauty', 'poocommerce' ),
 					'use_description'   => false,
 					'description_label' => '',
 				),
 				'electronics-computers'           => array(
-					'label'             => __( 'Electronics and computers', 'woocommerce' ),
+					'label'             => __( 'Electronics and computers', 'poocommerce' ),
 					'use_description'   => false,
 					'description_label' => '',
 				),
 				'food-drink'                      => array(
-					'label'             => __( 'Food and drink', 'woocommerce' ),
+					'label'             => __( 'Food and drink', 'poocommerce' ),
 					'use_description'   => false,
 					'description_label' => '',
 				),
 				'home-furniture-garden'           => array(
-					'label'             => __( 'Home, furniture, and garden', 'woocommerce' ),
+					'label'             => __( 'Home, furniture, and garden', 'poocommerce' ),
 					'use_description'   => false,
 					'description_label' => '',
 				),
 				'cbd-other-hemp-derived-products' => array(
-					'label'             => __( 'CBD and other hemp-derived products', 'woocommerce' ),
+					'label'             => __( 'CBD and other hemp-derived products', 'poocommerce' ),
 					'use_description'   => false,
 					'description_label' => '',
 				),
 				'education-and-learning'          => array(
-					'label'             => __( 'Education and learning', 'woocommerce' ),
+					'label'             => __( 'Education and learning', 'poocommerce' ),
 					'use_description'   => false,
 					'description_label' => '',
 				),
 				'sports-and-recreation'           => array(
-					'label'             => __( 'Sports and recreation', 'woocommerce' ),
+					'label'             => __( 'Sports and recreation', 'poocommerce' ),
 					'use_description'   => false,
 					'description_label' => '',
 				),
 				'arts-and-crafts'                 => array(
-					'label'             => __( 'Arts and crafts', 'woocommerce' ),
+					'label'             => __( 'Arts and crafts', 'poocommerce' ),
 					'use_description'   => false,
 					'description_label' => '',
 				),
 				'other'                           => array(
-					'label'             => __( 'Other', 'woocommerce' ),
+					'label'             => __( 'Other', 'poocommerce' ),
 					'use_description'   => true,
-					'description_label' => __( 'Description', 'woocommerce' ),
+					'description_label' => __( 'Description', 'poocommerce' ),
 				),
 			)
 		);

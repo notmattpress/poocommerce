@@ -2,13 +2,13 @@
 /**
  * Class WC_AJAX_Test file.
  *
- * @package WooCommerce\Tests\WC_AJAX.
+ * @package PooCommerce\Tests\WC_AJAX.
  */
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Internal\Orders\CouponsController;
-use Automattic\WooCommerce\Internal\Orders\TaxesController;
-use Automattic\WooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Internal\Orders\CouponsController;
+use Automattic\PooCommerce\Internal\Orders\TaxesController;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
 
 /**
  * Class WC_AJAX_Test file.
@@ -108,7 +108,7 @@ class WC_AJAX_Test extends \WP_Ajax_UnitTestCase {
 		$_POST['description'] = $description;
 
 		try {
-			$this->_handleAjax( 'woocommerce_update_api_key' );
+			$this->_handleAjax( 'poocommerce_update_api_key' );
 		} catch ( WPAjaxDieContinueException $e ) {
 			// wp_die() doesn't actually occur, so we need to clean up WC_AJAX::update_api_key's output buffer.
 			ob_end_clean();
@@ -150,9 +150,9 @@ class WC_AJAX_Test extends \WP_Ajax_UnitTestCase {
 
 		try {
 			switch_theme( 'twentytwentyfour' );
-			delete_option( 'woocommerce_feature_wc_visual_attribute_enabled' );
+			delete_option( 'poocommerce_feature_wc_visual_attribute_enabled' );
 			$this->assertTrue(
-				wc_get_container()->get( \Automattic\WooCommerce\Internal\Features\FeaturesController::class )->change_feature_enable( 'wc-visual-attribute', true ),
+				wc_get_container()->get( \Automattic\PooCommerce\Internal\Features\FeaturesController::class )->change_feature_enable( 'wc-visual-attribute', true ),
 				'The visual attribute feature should be toggled on.'
 			);
 
@@ -183,7 +183,7 @@ class WC_AJAX_Test extends \WP_Ajax_UnitTestCase {
 			$_POST['wc_visual_attribute_type'] = 'color';
 			$_POST['term_color']               = '#336699';
 
-			$visual_response = $this->do_ajax( 'woocommerce_add_new_attribute' );
+			$visual_response = $this->do_ajax( 'poocommerce_add_new_attribute' );
 			$visual_term_id  = isset( $visual_response['term_id'] ) ? absint( $visual_response['term_id'] ) : 0;
 
 			$this->assertNotEmpty( $visual_term_id, 'The visual attribute term should be created.' );
@@ -208,7 +208,7 @@ class WC_AJAX_Test extends \WP_Ajax_UnitTestCase {
 			$_POST['term_color']               = '#445566';
 			$_POST['term_image']               = (string) $image_id;
 
-			$color_type_response = $this->do_ajax( 'woocommerce_add_new_attribute' );
+			$color_type_response = $this->do_ajax( 'poocommerce_add_new_attribute' );
 			$color_type_term_id  = isset( $color_type_response['term_id'] ) ? absint( $color_type_response['term_id'] ) : 0;
 
 			$this->assertNotEmpty( $color_type_term_id, 'The visual attribute term with selected color type should be created.' );
@@ -222,7 +222,7 @@ class WC_AJAX_Test extends \WP_Ajax_UnitTestCase {
 			$_POST['term_color']               = '#abcdef';
 			$_POST['term_image']               = (string) $image_id;
 
-			$image_response = $this->do_ajax( 'woocommerce_add_new_attribute' );
+			$image_response = $this->do_ajax( 'poocommerce_add_new_attribute' );
 			$image_term_id  = isset( $image_response['term_id'] ) ? absint( $image_response['term_id'] ) : 0;
 
 			$this->assertNotEmpty( $image_term_id, 'The visual attribute term with image should be created.' );
@@ -234,7 +234,7 @@ class WC_AJAX_Test extends \WP_Ajax_UnitTestCase {
 			$_POST['term']       = 'Plain ' . $suffix;
 			$_POST['term_color'] = '#abcdef';
 
-			$text_response = $this->do_ajax( 'woocommerce_add_new_attribute' );
+			$text_response = $this->do_ajax( 'poocommerce_add_new_attribute' );
 			$text_term_id  = isset( $text_response['term_id'] ) ? absint( $text_response['term_id'] ) : 0;
 
 			$this->assertNotEmpty( $text_term_id, 'The text attribute term should be created.' );
@@ -278,7 +278,7 @@ class WC_AJAX_Test extends \WP_Ajax_UnitTestCase {
 				unset( $wc_product_attributes[ $taxonomy ] );
 			}
 
-			delete_option( 'woocommerce_feature_wc_visual_attribute_enabled' );
+			delete_option( 'poocommerce_feature_wc_visual_attribute_enabled' );
 			switch_theme( $original_theme );
 		}//end try
 	}
@@ -317,10 +317,10 @@ class WC_AJAX_Test extends \WP_Ajax_UnitTestCase {
 	 * Test coupon and recalculation of totals sequences when product prices are tax inclusive.
 	 */
 	public function test_apply_coupon_with_tax_inclusive_settings() {
-		update_option( 'woocommerce_prices_include_tax', 'yes' );
-		update_option( 'woocommerce_tax_based_on', 'base' );
-		update_option( 'woocommerce_calc_taxes', 'yes' );
-		update_option( 'woocommerce_default_country', 'IN:AP' );
+		update_option( 'poocommerce_prices_include_tax', 'yes' );
+		update_option( 'poocommerce_tax_based_on', 'base' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_default_country', 'IN:AP' );
 
 		$tax_rate = array(
 			'tax_rate_country' => 'IN',
@@ -383,7 +383,7 @@ class WC_AJAX_Test extends \WP_Ajax_UnitTestCase {
 	 * multisite context (it should generally not be possible to retrieve information about
 	 * users who have not been added to the current blog).
 	 *
-	 * @throws Automattic\WooCommerce\Internal\DependencyManagement\ContainerException If the LegacyProxy cannot be retrieved.
+	 * @throws Automattic\PooCommerce\Internal\DependencyManagement\ContainerException If the LegacyProxy cannot be retrieved.
 	 */
 	public function test_json_search_customers(): void {
 		$this->markTestSkipped( 'Skipping this test temporarily due to intermittent failures. Needs proper investigation.' );
@@ -420,7 +420,7 @@ class WC_AJAX_Test extends \WP_Ajax_UnitTestCase {
 		wp_set_current_user( $admin_id );
 		$_GET['term'] = $customer_id;
 
-		$response = $this->do_ajax( 'woocommerce_json_search_customers' );
+		$response = $this->do_ajax( 'poocommerce_json_search_customers' );
 		$this->assertEquals(
 			$customer_id,
 			key( $response ),
@@ -430,7 +430,7 @@ class WC_AJAX_Test extends \WP_Ajax_UnitTestCase {
 		// Let's repeat the test, but simulate being inside a multisite network where the user is not a member of the blog.
 		$is_member_of_blog = false;
 		$is_multisite      = true;
-		$response          = $this->do_ajax( 'woocommerce_json_search_customers' );
+		$response          = $this->do_ajax( 'poocommerce_json_search_customers' );
 		$this->assertEmpty(
 			$response,
 			'If an admin searches for a specific customer ID, and the customer is not part of the same blog, then it should NOT be possible to retrieve their details.'
@@ -446,7 +446,7 @@ class WC_AJAX_Test extends \WP_Ajax_UnitTestCase {
 	 * Describes the behavior of the `get_customer_details` ajax endpoint, particularly in relation to
 	 * permissions of the requesting user.
 	 *
-	 * @throws Automattic\WooCommerce\Internal\DependencyManagement\ContainerException If the LegacyProxy cannot be retrieved.
+	 * @throws Automattic\PooCommerce\Internal\DependencyManagement\ContainerException If the LegacyProxy cannot be retrieved.
 	 */
 	public function test_get_customer_details(): void {
 		// This class does not inherit from WC_Unit_Test_Case, so we're handling the legacy proxy mechanics ourselves.
@@ -483,14 +483,14 @@ class WC_AJAX_Test extends \WP_Ajax_UnitTestCase {
 		wp_set_current_user( $admin_id );
 		$_POST['user_id'] = $customer_id;
 
-		$response = $this->do_ajax( 'woocommerce_get_customer_details' );
+		$response = $this->do_ajax( 'poocommerce_get_customer_details' );
 		$this->assertIsArray(
 			$response,
 			'If the customer is part of the blog, an array of information is supplied.'
 		);
 
 		$is_member_of_blog = false;
-		$response          = $this->do_ajax( 'woocommerce_get_customer_details' );
+		$response          = $this->do_ajax( 'poocommerce_get_customer_details' );
 		$this->assertNull(
 			$response,
 			'If the customer is not part of the blog, we do not get back any customer information (in reality, the request was ended with wp_die).'
@@ -498,7 +498,7 @@ class WC_AJAX_Test extends \WP_Ajax_UnitTestCase {
 	}
 
 	/**
-	 * @testdox Should fire internal_woocommerce_cart_item_added_from_user_request when adding an item via AJAX.
+	 * @testdox Should fire internal_poocommerce_cart_item_added_from_user_request when adding an item via AJAX.
 	 */
 	public function test_add_to_cart_fires_cart_item_added_from_user_request(): void {
 		$product = WC_Helper_Product::create_simple_product();
@@ -514,15 +514,15 @@ class WC_AJAX_Test extends \WP_Ajax_UnitTestCase {
 			);
 		};
 
-		add_action( 'internal_woocommerce_cart_item_added_from_user_request', $callback, 10, 2 );
+		add_action( 'internal_poocommerce_cart_item_added_from_user_request', $callback, 10, 2 );
 
-		$this->do_ajax( 'woocommerce_add_to_cart' );
+		$this->do_ajax( 'poocommerce_add_to_cart' );
 
 		$this->assertNotEmpty( $captured_args, 'The action should have been fired' );
 		$this->assertSame( $product->get_id(), $captured_args['product_id'] );
 		$this->assertEquals( 3, $captured_args['quantity'] );
 
-		remove_action( 'internal_woocommerce_cart_item_added_from_user_request', $callback );
+		remove_action( 'internal_poocommerce_cart_item_added_from_user_request', $callback );
 
 		WC()->cart->empty_cart();
 		unset( $_POST['product_id'], $_POST['quantity'] );
@@ -530,7 +530,7 @@ class WC_AJAX_Test extends \WP_Ajax_UnitTestCase {
 	}
 
 	/**
-	 * @testdox Should fire internal_woocommerce_cart_item_added_from_user_request with variation ID when adding a variation via AJAX.
+	 * @testdox Should fire internal_poocommerce_cart_item_added_from_user_request with variation ID when adding a variation via AJAX.
 	 */
 	public function test_add_to_cart_fires_cart_item_added_from_user_request_for_variation(): void {
 		$product = new \WC_Product_Variable();
@@ -556,15 +556,15 @@ class WC_AJAX_Test extends \WP_Ajax_UnitTestCase {
 			);
 		};
 
-		add_action( 'internal_woocommerce_cart_item_added_from_user_request', $callback, 10, 2 );
+		add_action( 'internal_poocommerce_cart_item_added_from_user_request', $callback, 10, 2 );
 
-		$this->do_ajax( 'woocommerce_add_to_cart' );
+		$this->do_ajax( 'poocommerce_add_to_cart' );
 
 		$this->assertNotEmpty( $captured_args, 'The action should have been fired' );
 		$this->assertSame( $variation->get_id(), $captured_args['product_id'], 'The product_id should be the variation ID, not the parent product ID' );
 		$this->assertEquals( 2, $captured_args['quantity'] );
 
-		remove_action( 'internal_woocommerce_cart_item_added_from_user_request', $callback );
+		remove_action( 'internal_poocommerce_cart_item_added_from_user_request', $callback );
 
 		WC()->cart->empty_cart();
 		unset( $_POST['product_id'], $_POST['quantity'] );
@@ -573,7 +573,7 @@ class WC_AJAX_Test extends \WP_Ajax_UnitTestCase {
 	}
 
 	/**
-	 * @testdox Should fire internal_woocommerce_cart_item_removed_from_user_request when removing an item via AJAX.
+	 * @testdox Should fire internal_poocommerce_cart_item_removed_from_user_request when removing an item via AJAX.
 	 */
 	public function test_remove_from_cart_fires_cart_item_removed_from_user_request(): void {
 		$product = WC_Helper_Product::create_simple_product();
@@ -591,15 +591,15 @@ class WC_AJAX_Test extends \WP_Ajax_UnitTestCase {
 			);
 		};
 
-		add_action( 'internal_woocommerce_cart_item_removed_from_user_request', $callback, 10, 2 );
+		add_action( 'internal_poocommerce_cart_item_removed_from_user_request', $callback, 10, 2 );
 
-		$this->do_ajax( 'woocommerce_remove_from_cart' );
+		$this->do_ajax( 'poocommerce_remove_from_cart' );
 
 		$this->assertNotEmpty( $captured_args, 'The action should have been fired' );
 		$this->assertSame( $cart_item_key, $captured_args['cart_item_key'] );
 		$this->assertInstanceOf( WC_Cart::class, $captured_args['cart'] );
 
-		remove_action( 'internal_woocommerce_cart_item_removed_from_user_request', $callback );
+		remove_action( 'internal_poocommerce_cart_item_removed_from_user_request', $callback );
 
 		WC()->cart->empty_cart();
 		unset( $_POST['cart_item_key'] );

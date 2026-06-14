@@ -4,7 +4,7 @@
  *
  * Handles requests to the /taxes/classes endpoint.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @since   2.6.0
  */
 
@@ -13,7 +13,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * REST API Tax Classes controller class.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @extends WC_REST_Tax_Classes_V1_Controller
  */
 class WC_REST_Tax_Classes_V2_Controller extends WC_REST_Tax_Classes_V1_Controller {
@@ -55,7 +55,7 @@ class WC_REST_Tax_Classes_V2_Controller extends WC_REST_Tax_Classes_V1_Controlle
 			array(
 				'args' => array(
 					'slug' => array(
-						'description' => __( 'Unique slug for the resource.', 'woocommerce' ),
+						'description' => __( 'Unique slug for the resource.', 'poocommerce' ),
 						'type'        => 'string',
 					),
 				),
@@ -72,7 +72,7 @@ class WC_REST_Tax_Classes_V2_Controller extends WC_REST_Tax_Classes_V1_Controlle
 						'force' => array(
 							'default'     => false,
 							'type'        => 'boolean',
-							'description' => __( 'Required to be true, as resource does not support trashing.', 'woocommerce' ),
+							'description' => __( 'Required to be true, as resource does not support trashing.', 'poocommerce' ),
 						),
 					),
 				),
@@ -91,14 +91,14 @@ class WC_REST_Tax_Classes_V2_Controller extends WC_REST_Tax_Classes_V1_Controlle
 		if ( 'standard' === $request['slug'] ) {
 			$tax_class = array(
 				'slug' => 'standard',
-				'name' => __( 'Standard rate', 'woocommerce' ),
+				'name' => __( 'Standard rate', 'poocommerce' ),
 			);
 		} else {
 			$tax_class = WC_Tax::get_tax_class_by( 'slug', sanitize_title( $request['slug'] ) );
 		}
 
 		if ( ! $tax_class ) {
-			return new WP_Error( 'woocommerce_rest_tax_class_invalid_slug', __( 'Invalid slug.', 'woocommerce' ), array( 'status' => 404 ) );
+			return new WP_Error( 'poocommerce_rest_tax_class_invalid_slug', __( 'Invalid slug.', 'poocommerce' ), array( 'status' => 404 ) );
 		}
 
 		$data   = array();

@@ -1,4 +1,4 @@
-/* eslint-disable @woocommerce/dependency-group -- mocks must be imported first */
+/* eslint-disable @poocommerce/dependency-group -- mocks must be imported first */
 /**
  * External dependencies
  */

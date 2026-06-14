@@ -5,15 +5,15 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities\Domain\Traits;
+namespace Automattic\PooCommerce\Internal\Abilities\Domain\Traits;
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Shared order helpers for WooCommerce domain ability definitions.
+ * Shared order helpers for PooCommerce domain ability definitions.
  */
 trait OrderAbilityTrait {
 
@@ -82,7 +82,7 @@ trait OrderAbilityTrait {
 				),
 				'currency'             => array(
 					'type' => 'string',
-					'enum' => array_keys( get_woocommerce_currencies() ),
+					'enum' => array_keys( get_poocommerce_currencies() ),
 				),
 				'currency_symbol'      => array( 'type' => 'string' ),
 				'total'                => array( 'type' => 'string' ),
@@ -111,7 +111,7 @@ trait OrderAbilityTrait {
 				),
 				'line_items'           => array(
 					'type'        => 'array',
-					'description' => __( 'Order line items. Only present when include_line_items is true.', 'woocommerce' ),
+					'description' => __( 'Order line items. Only present when include_line_items is true.', 'poocommerce' ),
 					'items'       => array(
 						'type'                 => 'object',
 						'properties'           => array(
@@ -140,8 +140,8 @@ trait OrderAbilityTrait {
 	protected static function get_order_from_input( array $input ) {
 		if ( empty( $input['id'] ) ) {
 			return new \WP_Error(
-				'woocommerce_order_id_required',
-				__( 'Order ID is required.', 'woocommerce' ),
+				'poocommerce_order_id_required',
+				__( 'Order ID is required.', 'poocommerce' ),
 				array( 'status' => 400 )
 			);
 		}
@@ -150,8 +150,8 @@ trait OrderAbilityTrait {
 
 		if ( $order_id < 1 ) {
 			return new \WP_Error(
-				'woocommerce_order_id_required',
-				__( 'Order ID is required.', 'woocommerce' ),
+				'poocommerce_order_id_required',
+				__( 'Order ID is required.', 'poocommerce' ),
 				array( 'status' => 400 )
 			);
 		}
@@ -160,8 +160,8 @@ trait OrderAbilityTrait {
 
 		if ( ! $order instanceof \WC_Order ) {
 			return new \WP_Error(
-				'woocommerce_order_not_found',
-				__( 'Order not found.', 'woocommerce' ),
+				'poocommerce_order_not_found',
+				__( 'Order not found.', 'poocommerce' ),
 				array( 'status' => 404 )
 			);
 		}
@@ -198,7 +198,7 @@ trait OrderAbilityTrait {
 			'status'               => $order->get_status(),
 			'currency'             => $order->get_currency(),
 			'currency_symbol'      => html_entity_decode(
-				get_woocommerce_currency_symbol( $order->get_currency() ),
+				get_poocommerce_currency_symbol( $order->get_currency() ),
 				ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401
 			),
 			'total'                => $order->get_total(),

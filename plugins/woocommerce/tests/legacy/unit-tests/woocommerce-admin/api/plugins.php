@@ -2,10 +2,10 @@
 /**
  * Plugins REST API Test
  *
- * @package WooCommerce\Admin\Tests\API
+ * @package PooCommerce\Admin\Tests\API
  */
 
-use Automattic\WooCommerce\Admin\API\Plugins;
+use Automattic\PooCommerce\Admin\API\Plugins;
 
 /**
  * WC Tests API Plugins
@@ -108,7 +108,7 @@ class WC_Admin_Tests_API_Plugins extends WC_REST_Unit_Test_Case {
 		$response = $this->server->dispatch( $request );
 		$data     = $response->get_data();
 
-		$this->assertEquals( 'woocommerce_rest_invalid_plugins', $data['code'] );
+		$this->assertEquals( 'poocommerce_rest_invalid_plugins', $data['code'] );
 	}
 
 	/**
@@ -163,7 +163,7 @@ class WC_Admin_Tests_API_Plugins extends WC_REST_Unit_Test_Case {
 		$response = $this->server->dispatch( $request );
 		$data     = $response->get_data();
 
-		$this->assertEquals( 'woocommerce_rest_invalid_plugins', $data['code'] );
+		$this->assertEquals( 'poocommerce_rest_invalid_plugins', $data['code'] );
 	}
 
 	/**

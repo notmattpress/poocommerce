@@ -4,19 +4,19 @@
  *
  * Holds schema for REST API routes.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\RestApi\Routes\V4;
+namespace Automattic\PooCommerce\Internal\RestApi\Routes\V4;
 
 defined( 'ABSPATH' ) || exit;
 
 use WP_REST_Request;
 
 /**
- * Abstract REST Schema for WooCommerce REST API V4.
+ * Abstract REST Schema for PooCommerce REST API V4.
  *
  * Provides common functionality for all V4 schema controllers including
  * property generation, context filtering, and validation.

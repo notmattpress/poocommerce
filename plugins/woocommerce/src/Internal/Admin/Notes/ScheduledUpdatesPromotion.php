@@ -1,19 +1,19 @@
 <?php
 /**
- * WooCommerce Admin Scheduled Updates Promotion Note Provider.
+ * PooCommerce Admin Scheduled Updates Promotion Note Provider.
  *
  * Adds a note to the merchant's inbox promoting scheduled updates for analytics.
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Admin\Notes;
+namespace Automattic\PooCommerce\Internal\Admin\Notes;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\Features\Features;
-use Automattic\WooCommerce\Admin\Notes\Note;
-use Automattic\WooCommerce\Admin\Notes\NoteTraits;
+use Automattic\PooCommerce\Admin\Features\Features;
+use Automattic\PooCommerce\Admin\Notes\Note;
+use Automattic\PooCommerce\Admin\Notes\NoteTraits;
 
 /**
  * ScheduledUpdatesPromotion
@@ -34,13 +34,13 @@ class ScheduledUpdatesPromotion {
 	/**
 	 * Name of the option to check.
 	 */
-	const OPTION_NAME = 'woocommerce_analytics_scheduled_import';
+	const OPTION_NAME = 'poocommerce_analytics_scheduled_import';
 
 	/**
 	 * Constructor - attach action hooks.
 	 */
 	public function __construct() {
-		add_action( 'woocommerce_note_action_scheduled-updates-enable', array( $this, 'enable_scheduled_updates' ) );
+		add_action( 'poocommerce_note_action_scheduled-updates-enable', array( $this, 'enable_scheduled_updates' ) );
 	}
 
 	/**
@@ -78,21 +78,21 @@ class ScheduledUpdatesPromotion {
 
 		$note = new Note();
 
-		$note->set_title( __( 'Analytics now supports scheduled updates', 'woocommerce' ) );
-		$note->set_content( __( 'This provides improved performance to your store, enable it in Analytics > Settings.', 'woocommerce' ) );
+		$note->set_title( __( 'Analytics now supports scheduled updates', 'poocommerce' ) );
+		$note->set_content( __( 'This provides improved performance to your store, enable it in Analytics > Settings.', 'poocommerce' ) );
 		$note->set_content_data( (object) array() );
 		$note->set_type( Note::E_WC_ADMIN_NOTE_INFORMATIONAL );
 		$note->set_name( self::NOTE_NAME );
-		$note->set_source( 'woocommerce-admin' );
+		$note->set_source( 'poocommerce-admin' );
 
 		// Add "Enable" action with custom handler.
 		$note->add_action(
 			'scheduled-updates-enable',
-			__( 'Enable', 'woocommerce' ),
+			__( 'Enable', 'poocommerce' ),
 			wc_admin_url(),
 			Note::E_WC_ADMIN_NOTE_ACTIONED,
 			true,
-			__( 'Scheduled updates enabled', 'woocommerce' )
+			__( 'Scheduled updates enabled', 'poocommerce' )
 		);
 
 		return $note;

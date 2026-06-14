@@ -6,7 +6,7 @@ sidebar_position: 2
 
 # Reference: attributes
 
-PHP 8 attributes supply the metadata the builder can't infer from code structure. All built-in attributes live in `Automattic\WooCommerce\Api\Attributes`. Plugins define their own under their `Api\Attributes\` namespace, following the [conventions](#conventions-for-custom-attributes) below; those conventions also apply when adding attributes to core.
+PHP 8 attributes supply the metadata the builder can't infer from code structure. All built-in attributes live in `Automattic\PooCommerce\Api\Attributes`. Plugins define their own under their `Api\Attributes\` namespace, following the [conventions](#conventions-for-custom-attributes) below; those conventions also apply when adding attributes to core.
 
 ## Naming and description
 

@@ -1,14 +1,14 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Blocks\Domain\Services;
+namespace Automattic\PooCommerce\Blocks\Domain\Services;
 
-use Automattic\WooCommerce\Blocks\Domain\Package;
+use Automattic\PooCommerce\Blocks\Domain\Package;
 
 /**
  * Service class implementing new create account emails used for order processing via the Block Based Checkout.
  *
- * @deprecated This class can't be removed due to https://github.com/woocommerce/woocommerce/issues/52311.
+ * @deprecated This class can't be removed due to https://github.com/poocommerce/poocommerce/issues/52311.
  */
 class CreateAccount {
 	/**
@@ -28,7 +28,7 @@ class CreateAccount {
 	}
 
 	/**
-	 * Init - register handlers for WooCommerce core email hooks.
+	 * Init - register handlers for PooCommerce core email hooks.
 	 */
 	public function init() {
 		// This method is intentionally left blank.

@@ -19,11 +19,11 @@ Since [WordPress 2.1 "Ella"](https://wordpress.org/support/wordpress-version/ver
 
 ## GlotPress
 
-All translations are handled using [GlotPress](https://wordpress.org/plugins/glotpress/). As the WooCommerce Blocks plugin is hosted on <https://wordpress.org/>, all plugin-related translations can be found and managed on <https://translate.wordpress.org/projects/wp-plugins/woo-gutenberg-products-block/>.
+All translations are handled using [GlotPress](https://wordpress.org/plugins/glotpress/). As the PooCommerce Blocks plugin is hosted on <https://wordpress.org/>, all plugin-related translations can be found and managed on <https://translate.wordpress.org/projects/wp-plugins/woo-gutenberg-products-block/>.
 
 ## Text domain
 
-Prior to [WordPress 4.6 “Pepper Adams”](https://wordpress.org/support/wordpress-version/version-4-6/), a text domain had to be defined to make the strings translatable. While it’s no longer a requirement to have a text domain, it does no harm to still include it. If the text domain is available, it has to match the slug of the plugin and is defined in the header of the main plugin file `woocommerce-gutenberg-products-block.php`:
+Prior to [WordPress 4.6 “Pepper Adams”](https://wordpress.org/support/wordpress-version/version-4-6/), a text domain had to be defined to make the strings translatable. While it’s no longer a requirement to have a text domain, it does no harm to still include it. If the text domain is available, it has to match the slug of the plugin and is defined in the header of the main plugin file `poocommerce-gutenberg-products-block.php`:
 
 ```php
 <?php
@@ -44,6 +44,6 @@ See also <https://developer.wordpress.org/plugins/internationalization/how-to-in
 
 ## Domain Path
 
-Only plugins that are not hosted in the official WordPress Plugin Directory need to define a `Domain Path`. As the WooCommerce Blocks plugin is hosted in the official WordPress Plugin Directory, it does not need a `Domain Path`.
+Only plugins that are not hosted in the official WordPress Plugin Directory need to define a `Domain Path`. As the PooCommerce Blocks plugin is hosted in the official WordPress Plugin Directory, it does not need a `Domain Path`.
 
 See also <https://developer.wordpress.org/plugins/internationalization/how-to-internationalize-your-plugin/#domain-path>.

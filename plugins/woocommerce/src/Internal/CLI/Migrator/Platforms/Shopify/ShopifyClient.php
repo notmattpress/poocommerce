@@ -2,12 +2,12 @@
 /**
  * Shopify Client
  *
- * @package Automattic\WooCommerce\Internal\CLI\Migrator\Platforms\Shopify
+ * @package Automattic\PooCommerce\Internal\CLI\Migrator\Platforms\Shopify
  */
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Internal\CLI\Migrator\Platforms\Shopify;
+namespace Automattic\PooCommerce\Internal\CLI\Migrator\Platforms\Shopify;
 
 /**
  * Handles communication with the Shopify REST API.

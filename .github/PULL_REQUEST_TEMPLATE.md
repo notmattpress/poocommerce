@@ -1,7 +1,7 @@
 ### Submission Review Guidelines:
 
--   I have followed the [WooCommerce Contributing Guidelines](https://github.com/woocommerce/woocommerce/blob/trunk/.github/CONTRIBUTING.md) and the [WordPress Coding Standards](https://make.wordpress.org/core/handbook/best-practices/coding-standards/).
--   I have checked to ensure there aren't other open [Pull Requests](https://github.com/woocommerce/woocommerce/pulls) for the same update/change.
+-   I have followed the [PooCommerce Contributing Guidelines](https://github.com/poocommerce/poocommerce/blob/trunk/.github/CONTRIBUTING.md) and the [WordPress Coding Standards](https://make.wordpress.org/core/handbook/best-practices/coding-standards/).
+-   I have checked to ensure there aren't other open [Pull Requests](https://github.com/poocommerce/poocommerce/pulls) for the same update/change.
 -   I have reviewed my code for [security best practices](https://developer.wordpress.org/apis/security/).
 -   Following the above guidelines will result in quick merges and clear and detailed feedback when appropriate.
 
@@ -37,7 +37,7 @@ Closes # .
 
 <!-- Include detailed instructions on how these changes can be tested. Review and follow the guide for how to write high-quality testing instructions. -->
 
-Using the [WooCommerce Testing Instructions Guide](https://developer.woocommerce.com/docs/contribution/testing/writing-high-quality-testing-instructions/), include your detailed testing instructions:
+Using the [PooCommerce Testing Instructions Guide](https://developer.poocommerce.com/docs/contribution/testing/writing-high-quality-testing-instructions/), include your detailed testing instructions:
 
 1.
 2.
@@ -57,7 +57,7 @@ Using the [WooCommerce Testing Instructions Guide](https://developer.woocommerce
 <!-- DO NOT remove or modify this section (other than to check the box). -->
 
 <!-- milestone-target-selection -->
-- [ ] Automatically assign milestone for the **[next WooCommerce version](../blob/trunk/plugins/woocommerce/woocommerce.php#L6)**
+- [ ] Automatically assign milestone for the **[next PooCommerce version](../blob/trunk/plugins/poocommerce/poocommerce.php#L6)**
 <!-- /milestone-target-selection -->
 
 > **Note:** Check the box above to have the milestone automatically assigned when merged.
@@ -70,7 +70,7 @@ Using the [WooCommerce Testing Instructions Guide](https://developer.woocommerce
 <!-- It will trigger the 'Add changelog to PR' CI job to create and push the entry into the branch. -->
 
 <!-- Due to org permissions, the job might fail for PRs crated from a fork under GitHub organizations. Possible solutions: -->
-<!-- * Create entry manually with `pnpm --filter='@woocommerce/plugin-woocommerce' changelog add` and push it into the branch (replace `@woocommerce/plugin-woocommerce` with package name from nearest `package.json` file) -->
+<!-- * Create entry manually with `pnpm --filter='@poocommerce/plugin-poocommerce' changelog add` and push it into the branch (replace `@poocommerce/plugin-poocommerce` with package name from nearest `package.json` file) -->
 <!-- * Create entry from supplied PR data and push it automatically `pnpm utils changefile pr-number-here -o github-org-name-here` -->
 
 -   [ ] Automatically create a changelog entry from the details below.

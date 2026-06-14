@@ -108,7 +108,7 @@ class WC_REST_Customers_V1_Controller_Tests extends WC_Unit_Test_Case {
 		$api_request->set_param( 'username', 'admin2' );
 		$api_request->set_param( 'email', 'admin2example.com' );
 		$this->assertEquals(
-			'woocommerce_rest_cannot_edit',
+			'poocommerce_rest_cannot_edit',
 			$this->sut->update_item_permissions_check( $api_request )->get_error_code(),
 			'Sensitive fields cannot be updated via the customers api.'
 		);
@@ -129,7 +129,7 @@ class WC_REST_Customers_V1_Controller_Tests extends WC_Unit_Test_Case {
 
 		$api_request->set_param( 'id', $this->admin_id );
 		$this->assertEquals(
-			'woocommerce_rest_cannot_delete',
+			'poocommerce_rest_cannot_delete',
 			$this->sut->delete_item_permissions_check( $api_request )->get_error_code(),
 			'An admin user cannot delete any admin user from customer API.'
 		);
@@ -225,8 +225,8 @@ class WC_REST_Customers_V1_Controller_Tests extends WC_Unit_Test_Case {
 		$customer       = new WC_Customer( $id );
 		$this->assertEquals( 'customer', $customer->get_role(), 'Role will always default to customer' );
 
-		$this->assertEquals( 'woocommerce_rest_cannot_edit', $response['update'][0]['error']['code'], 'Admin cannot update an admin' );
+		$this->assertEquals( 'poocommerce_rest_cannot_edit', $response['update'][0]['error']['code'], 'Admin cannot update an admin' );
 
-		$this->assertEquals( 'woocommerce_rest_cannot_delete', $response['delete'][0]['error']['code'], 'Admin user can delete a customer.' );
+		$this->assertEquals( 'poocommerce_rest_cannot_delete', $response['delete'][0]['error']['code'], 'Admin user can delete a customer.' );
 	}
 }

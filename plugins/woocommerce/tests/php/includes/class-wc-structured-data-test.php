@@ -98,8 +98,8 @@ class WC_Structured_Data_Test extends \WC_Unit_Test_Case {
 		$offer = $data[0]['offers'][0];
 
 		$this->assertEquals( '97.00', $offer['price'] );
-		$this->assertEquals( get_woocommerce_currency(), $offer['priceCurrency'] );
-		$this->assertEquals( get_woocommerce_currency(), $offer['priceSpecification'][0]['priceCurrency'] );
+		$this->assertEquals( get_poocommerce_currency(), $offer['priceCurrency'] );
+		$this->assertEquals( get_poocommerce_currency(), $offer['priceSpecification'][0]['priceCurrency'] );
 	}
 
 	/**
@@ -122,6 +122,6 @@ class WC_Structured_Data_Test extends \WC_Unit_Test_Case {
 		// The offer-level `price` should reflect the sale price, matching `priceSpecification[0]['price']`.
 		$this->assertEquals( '70.00', $offer['price'] );
 		$this->assertEquals( '70.00', $offer['priceSpecification'][0]['price'] );
-		$this->assertEquals( get_woocommerce_currency(), $offer['priceCurrency'] );
+		$this->assertEquals( get_poocommerce_currency(), $offer['priceCurrency'] );
 	}
 }

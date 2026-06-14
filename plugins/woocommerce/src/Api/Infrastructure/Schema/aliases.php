@@ -16,11 +16,11 @@
 declare(strict_types=1);
 
 class_alias(
-	\Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\ResolveInfo::class,
-	'Automattic\\WooCommerce\\Api\\Infrastructure\\Schema\\ResolveInfo'
+	\Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\ResolveInfo::class,
+	'Automattic\\PooCommerce\\Api\\Infrastructure\\Schema\\ResolveInfo'
 );
 
 class_alias(
-	\Automattic\WooCommerce\Vendor\GraphQL\Language\AST\StringValueNode::class,
-	'Automattic\\WooCommerce\\Api\\Infrastructure\\Schema\\AST\\StringValueNode'
+	\Automattic\PooCommerce\Vendor\GraphQL\Language\AST\StringValueNode::class,
+	'Automattic\\PooCommerce\\Api\\Infrastructure\\Schema\\AST\\StringValueNode'
 );

@@ -2,14 +2,14 @@
 /**
  * SettingsUISchema tests.
  *
- * @package WooCommerce\Tests\Internal\Admin\Settings
+ * @package PooCommerce\Tests\Internal\Admin\Settings
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\Settings;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\Settings;
 
-use Automattic\WooCommerce\Internal\Admin\Settings\SettingsUISchema;
+use Automattic\PooCommerce\Internal\Admin\Settings\SettingsUISchema;
 use WC_Unit_Test_Case;
 
 /**
@@ -53,7 +53,7 @@ class SettingsUISchemaTest extends WC_Unit_Test_Case {
 				'not a setting',
 				null,
 				array(
-					'id'    => 'woocommerce_test_text',
+					'id'    => 'poocommerce_test_text',
 					'type'  => 'text',
 					'title' => 'Test text',
 				),
@@ -61,14 +61,14 @@ class SettingsUISchemaTest extends WC_Unit_Test_Case {
 		);
 
 		$this->assertCount( 1, $schema['groups']['default']['fields'] );
-		$this->assertSame( 'woocommerce_test_text', $schema['groups']['default']['fields'][0]['id'] );
+		$this->assertSame( 'poocommerce_test_text', $schema['groups']['default']['fields'][0]['id'] );
 	}
 
 	/**
 	 * @testdox It groups fields that appear before the first title marker.
 	 */
 	public function test_from_legacy_settings_creates_default_group_for_fields_before_title(): void {
-		update_option( 'woocommerce_test_text', 'saved value' );
+		update_option( 'poocommerce_test_text', 'saved value' );
 
 		$schema = SettingsUISchema::from_legacy_settings(
 			'test',
@@ -76,7 +76,7 @@ class SettingsUISchemaTest extends WC_Unit_Test_Case {
 			'Test settings',
 			array(
 				array(
-					'id'    => 'woocommerce_test_text',
+					'id'    => 'poocommerce_test_text',
 					'type'  => 'text',
 					'title' => 'Test text',
 				),
@@ -85,7 +85,7 @@ class SettingsUISchemaTest extends WC_Unit_Test_Case {
 
 		$this->assertArrayHasKey( 'default', $schema['groups'] );
 		$this->assertSame( 'default', array_key_first( $schema['groups'] ) );
-		$this->assertSame( 'woocommerce_test_text', $schema['groups']['default']['fields'][0]['id'] );
+		$this->assertSame( 'poocommerce_test_text', $schema['groups']['default']['fields'][0]['id'] );
 		$this->assertSame( 'saved value', $schema['groups']['default']['fields'][0]['value'] );
 	}
 
@@ -104,7 +104,7 @@ class SettingsUISchemaTest extends WC_Unit_Test_Case {
 					'title' => 'Group',
 				),
 				array(
-					'id'                => 'woocommerce_test_component',
+					'id'                => 'poocommerce_test_component',
 					'type'              => 'multiselect',
 					'title'             => 'Component field',
 					'component'         => 'test/component',
@@ -154,12 +154,12 @@ class SettingsUISchemaTest extends WC_Unit_Test_Case {
 					'id'      => 'group',
 					'type'    => 'title',
 					'title'   => 'Group',
-					'desc'    => 'Read the <a href="https://woocommerce.com">documentation</a><script>alert("x")</script>.',
+					'desc'    => 'Read the <a href="https://poocommerce.com">documentation</a><script>alert("x")</script>.',
 					'actions' => array(
 						array(
 							'id'      => 'learn-more',
 							'label'   => 'Learn more',
-							'href'    => 'https://woocommerce.com/documentation',
+							'href'    => 'https://poocommerce.com/documentation',
 							'variant' => 'secondary',
 							'target'  => '_blank',
 							'rel'     => 'noopener noreferrer',
@@ -171,13 +171,13 @@ class SettingsUISchemaTest extends WC_Unit_Test_Case {
 
 		$group = $schema['groups']['group'];
 
-		$this->assertSame( 'Read the <a href="https://woocommerce.com">documentation</a>alert("x").', $group['description'] );
+		$this->assertSame( 'Read the <a href="https://poocommerce.com">documentation</a>alert("x").', $group['description'] );
 		$this->assertSame(
 			array(
 				array(
 					'id'      => 'learn-more',
 					'label'   => 'Learn more',
-					'href'    => 'https://woocommerce.com/documentation',
+					'href'    => 'https://poocommerce.com/documentation',
 					'variant' => 'secondary',
 					'target'  => '_blank',
 					'rel'     => 'noopener noreferrer',
@@ -197,7 +197,7 @@ class SettingsUISchemaTest extends WC_Unit_Test_Case {
 			'Test settings',
 			array(
 				array(
-					'id'       => 'woocommerce_test_checkbox',
+					'id'       => 'poocommerce_test_checkbox',
 					'type'     => 'checkbox',
 					'title'    => 'Checkbox row',
 					'desc'     => 'Enable the test option',
@@ -222,7 +222,7 @@ class SettingsUISchemaTest extends WC_Unit_Test_Case {
 			'Test settings',
 			array(
 				array(
-					'id'       => 'woocommerce_test_select',
+					'id'       => 'poocommerce_test_select',
 					'type'     => 'select',
 					'title'    => 'Select field',
 					'desc'     => 'Select help text.',
@@ -247,10 +247,10 @@ class SettingsUISchemaTest extends WC_Unit_Test_Case {
 			'Test settings',
 			array(
 				array(
-					'id'         => 'woocommerce_test_nested',
+					'id'         => 'poocommerce_test_nested',
 					'type'       => 'text',
 					'title'      => 'Nested field',
-					'field_name' => 'woocommerce_test[nested]',
+					'field_name' => 'poocommerce_test[nested]',
 				),
 			)
 		);
@@ -258,7 +258,7 @@ class SettingsUISchemaTest extends WC_Unit_Test_Case {
 		$this->assertSame(
 			array(
 				'adapter' => 'form_post',
-				'name'    => 'woocommerce_test[nested]',
+				'name'    => 'poocommerce_test[nested]',
 			),
 			$schema['groups']['default']['fields'][0]['save']
 		);
@@ -274,7 +274,7 @@ class SettingsUISchemaTest extends WC_Unit_Test_Case {
 			'Test settings',
 			array(
 				array(
-					'id'   => 'woocommerce_test_info',
+					'id'   => 'poocommerce_test_info',
 					'type' => 'info',
 					'text' => 'Read-only <strong>information</strong><script>alert("x")</script>.',
 				),
@@ -297,7 +297,7 @@ class SettingsUISchemaTest extends WC_Unit_Test_Case {
 			'Test settings',
 			array(
 				array(
-					'id'       => 'woocommerce_test_text',
+					'id'       => 'poocommerce_test_text',
 					'type'     => 'text',
 					'title'    => 'Text field',
 					'desc'     => 'Visible help text.',
@@ -319,21 +319,21 @@ class SettingsUISchemaTest extends WC_Unit_Test_Case {
 			'Test settings',
 			array(
 				array(
-					'id'              => 'woocommerce_enable_reviews',
+					'id'              => 'poocommerce_enable_reviews',
 					'type'            => 'checkbox',
 					'desc'            => 'Enable product reviews',
 					'checkboxgroup'   => 'start',
 					'show_if_checked' => 'option',
 				),
 				array(
-					'id'              => 'woocommerce_review_rating_required',
+					'id'              => 'poocommerce_review_rating_required',
 					'type'            => 'checkbox',
 					'desc'            => 'Star ratings should be required',
 					'checkboxgroup'   => 'end',
 					'show_if_checked' => 'yes',
 				),
 				array(
-					'id'    => 'woocommerce_hold_stock_minutes',
+					'id'    => 'poocommerce_hold_stock_minutes',
 					'type'  => 'number',
 					'title' => 'Hold stock',
 					'class' => 'manage_stock_field',
@@ -345,14 +345,14 @@ class SettingsUISchemaTest extends WC_Unit_Test_Case {
 
 		$this->assertSame(
 			array(
-				'controller' => 'woocommerce_enable_reviews',
+				'controller' => 'poocommerce_enable_reviews',
 				'value'      => true,
 			),
 			$fields[1]['visibility']
 		);
 		$this->assertSame(
 			array(
-				'controller' => 'woocommerce_manage_stock',
+				'controller' => 'poocommerce_manage_stock',
 				'value'      => true,
 			),
 			$fields[2]['visibility']
@@ -369,7 +369,7 @@ class SettingsUISchemaTest extends WC_Unit_Test_Case {
 			'Test settings',
 			array(
 				array(
-					'id'                => 'woocommerce_test_select',
+					'id'                => 'poocommerce_test_select',
 					'type'              => 'select',
 					'title'             => 'Select field',
 					'custom_attributes' => array(

@@ -15,7 +15,7 @@ import { TaxonomyEdit } from '../components/taxonomy-edit';
 
 const fieldDefinition = {
 	type: 'array',
-	label: __( 'Brands', 'woocommerce' ),
+	label: __( 'Brands', 'poocommerce' ),
 	enableSorting: false,
 	filterBy: {
 		operators: [ 'isAny' ],
@@ -61,7 +61,7 @@ export const fieldExtensions: Partial< Field< ProductEntityRecord > > = {
 			{ ...props }
 			taxonomy="product_brand"
 			fieldProperty="brands"
-			searchPlaceholder={ __( 'Search or create brands', 'woocommerce' ) }
+			searchPlaceholder={ __( 'Search or create brands', 'poocommerce' ) }
 		/>
 	),
 };

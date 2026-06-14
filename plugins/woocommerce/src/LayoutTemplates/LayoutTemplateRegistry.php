@@ -1,9 +1,9 @@
 <?php
 /**
- * WooCommerce Layout Template Registry compatibility shim.
+ * PooCommerce Layout Template Registry compatibility shim.
  */
 
-namespace Automattic\WooCommerce\LayoutTemplates;
+namespace Automattic\PooCommerce\LayoutTemplates;
 
 /**
  * Removed layout template registry.
@@ -112,7 +112,7 @@ final class LayoutTemplateRegistry {
 		self::$removal_warning_logged = true;
 
 		wc_get_logger()->warning(
-			'Automattic\WooCommerce\LayoutTemplates\LayoutTemplateRegistry is a temporary compatibility shim and will be removed soon. Block template extension APIs were deprecated in WooCommerce 10.9.0, and the block templates API was removed in WooCommerce 11.0.0 with no replacement.',
+			'Automattic\PooCommerce\LayoutTemplates\LayoutTemplateRegistry is a temporary compatibility shim and will be removed soon. Block template extension APIs were deprecated in PooCommerce 10.9.0, and the block templates API was removed in PooCommerce 11.0.0 with no replacement.',
 			array( 'source' => 'block-templates' )
 		);
 	}

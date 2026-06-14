@@ -50,7 +50,7 @@ export function Layout( { route, showNewNavigation = false }: LayoutProps ) {
 					{ ( ! isMobileViewport || ! areas.mobile ) &&
 						showNewNavigation && (
 							<NavigableRegion
-								ariaLabel={ __( 'Navigation', 'woocommerce' ) }
+								ariaLabel={ __( 'Navigation', 'poocommerce' ) }
 								className="edit-site-layout__sidebar-region"
 							>
 								<AnimatePresence>
@@ -78,7 +78,7 @@ export function Layout( { route, showNewNavigation = false }: LayoutProps ) {
 							</NavigableRegion>
 						) }
 
-					<SnackbarNotices className="product_page_woocommerce-products-dashboard-snackbar" />
+					<SnackbarNotices className="product_page_poocommerce-products-dashboard-snackbar" />
 
 					{ ! isMobileViewport && areas.content && (
 						<div

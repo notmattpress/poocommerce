@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { createNotice, DEFAULT_ERROR_MESSAGE } from '@woocommerce/base-utils';
+import { createNotice, DEFAULT_ERROR_MESSAGE } from '@poocommerce/base-utils';
 import { decodeEntities } from '@wordpress/html-entities';
 import {
 	objectHasProp,
@@ -10,8 +10,8 @@ import {
 	ApiErrorResponseData,
 	isObject,
 	isString,
-} from '@woocommerce/types';
-import { noticeContexts } from '@woocommerce/base-context/event-emit/utils';
+} from '@poocommerce/types';
+import { noticeContexts } from '@poocommerce/base-context/event-emit/utils';
 
 type ApiParamError = {
 	param: string;
@@ -101,8 +101,8 @@ export const getErrorDetails = (
  */
 const getErrorContextFromCode = ( code: string ): string => {
 	switch ( code ) {
-		case 'woocommerce_rest_missing_email_address':
-		case 'woocommerce_rest_invalid_email_address':
+		case 'poocommerce_rest_missing_email_address':
+		case 'poocommerce_rest_invalid_email_address':
 			return noticeContexts.CONTACT_INFORMATION;
 		default:
 			return noticeContexts.CART;

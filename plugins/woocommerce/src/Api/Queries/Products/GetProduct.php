@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Api\Queries\Products;
+namespace Automattic\PooCommerce\Api\Queries\Products;
 
-use Automattic\WooCommerce\Api\Attributes\Description;
-use Automattic\WooCommerce\Api\Attributes\Name;
-use Automattic\WooCommerce\Api\Attributes\RequiredCapability;
-use Automattic\WooCommerce\Api\Attributes\ReturnType;
-use Automattic\WooCommerce\Api\UnauthorizedException;
-use Automattic\WooCommerce\Api\Interfaces\Product;
-use Automattic\WooCommerce\Api\Utils\Products\ProductMapper;
+use Automattic\PooCommerce\Api\Attributes\Description;
+use Automattic\PooCommerce\Api\Attributes\Name;
+use Automattic\PooCommerce\Api\Attributes\RequiredCapability;
+use Automattic\PooCommerce\Api\Attributes\ReturnType;
+use Automattic\PooCommerce\Api\UnauthorizedException;
+use Automattic\PooCommerce\Api\Interfaces\Product;
+use Automattic\PooCommerce\Api\Utils\Products\ProductMapper;
 
 /**
  * Query to retrieve a single product by ID.
  *
  * Demonstrates: authorize(), $_query_info, UnauthorizedException.
  *
- * Authorization logic: admins (manage_woocommerce) can read any product,
+ * Authorization logic: admins (manage_poocommerce) can read any product,
  * non-admin users can only read their own products.
  */
 #[Name( 'product' )]
@@ -62,15 +62,15 @@ class GetProduct {
 			return true;
 		}
 
-		// `manage_woocommerce` is the canonical "admin sees everything"
-		// capability in WooCommerce. The declared #[RequiredCapability]
+		// `manage_poocommerce` is the canonical "admin sees everything"
+		// capability in PooCommerce. The declared #[RequiredCapability]
 		// pre-authorizes on `read_product` (the read-level post-type cap,
 		// which is what the schema advertises), but an admin whose cap set
-		// grants `manage_woocommerce` without `read_product` would
+		// grants `manage_poocommerce` without `read_product` would
 		// otherwise fall through to the ownership check and get "Product
 		// not found" for any product they don't own — contrary to the
 		// documented admin-can-see-everything contract.
-		if ( current_user_can( 'manage_woocommerce' ) ) {
+		if ( current_user_can( 'manage_poocommerce' ) ) {
 			return true;
 		}
 

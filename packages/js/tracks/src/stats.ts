@@ -12,12 +12,12 @@ import { isDevelopmentMode } from './utils';
  * Module variables
  */
 const tracksDebug = debug( 'wc-admin:tracks:stats' );
-const GROUP_PREFIX = 'x_woocommerce-';
+const GROUP_PREFIX = 'x_poocommerce-';
 
 /**
  * Builds a query parameters from the given group and name parameters.
  *
- * This will automatically add the prefix `x_woocommerce-` to the group name.
+ * This will automatically add the prefix `x_poocommerce-` to the group name.
  *
  * @param {Record<string, string> | string} group  - The group of stats or a single stat name.
  * @param {string}                          [name] - The name of the stat if group is a string.

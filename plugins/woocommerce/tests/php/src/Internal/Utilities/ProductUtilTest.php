@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Internal\Utilities;
+namespace Automattic\PooCommerce\Tests\Internal\Utilities;
 
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper;
-use Automattic\WooCommerce\Internal\Utilities\ProductUtil;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper;
+use Automattic\PooCommerce\Internal\Utilities\ProductUtil;
 
 /**
  * Tests for the internal ProductUtil class.
@@ -22,11 +22,11 @@ class ProductUtilTest extends \WC_Unit_Test_Case {
 		};
 
 		set_transient( 'wc_products_onsale', 'foobar' );
-		add_action( 'woocommerce_delete_product_transients', $track_hook );
+		add_action( 'poocommerce_delete_product_transients', $track_hook );
 		try {
 			wc_get_container()->get( ProductUtil::class )->delete_product_transients_for_products( $product_ids );
 		} finally {
-			remove_action( 'woocommerce_delete_product_transients', $track_hook );
+			remove_action( 'poocommerce_delete_product_transients', $track_hook );
 		}
 
 		$this->assertFalse( get_transient( 'wc_products_onsale' ) );

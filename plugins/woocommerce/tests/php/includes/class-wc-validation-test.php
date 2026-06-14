@@ -2,7 +2,7 @@
 /**
  * Validation functions tests
  *
- * @package WooCommerce\Tests\Validation.
+ * @package PooCommerce\Tests\Validation.
  */
 
 /**

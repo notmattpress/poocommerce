@@ -1,7 +1,7 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use Automattic\WooCommerce\Blueprint\Steps\ActivateTheme;
+use Automattic\PooCommerce\Blueprint\Steps\ActivateTheme;
 
 /**
  * Unit tests for ActivateTheme class.

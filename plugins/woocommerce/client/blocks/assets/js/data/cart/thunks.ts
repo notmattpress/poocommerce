@@ -10,19 +10,19 @@ import {
 	CartShippingPackageShippingRate,
 	CartShippingRate,
 	BillingAddressShippingAddress,
-} from '@woocommerce/types';
+} from '@poocommerce/types';
 import {
 	camelCaseKeys,
 	triggerAddedToCartEvent,
 	triggerAddingToCartEvent,
-} from '@woocommerce/base-utils';
+} from '@poocommerce/base-utils';
 import {
 	type CurriedSelectorsOf,
 	type ConfigOf,
 	type ActionCreatorsOf,
 } from '@wordpress/data/build-types/types';
 import { __ } from '@wordpress/i18n';
-import { cartStore } from '@woocommerce/block-data';
+import { cartStore } from '@poocommerce/block-data';
 
 /**
  * Internal dependencies
@@ -489,7 +489,7 @@ export const removeItemFromCart =
  * Saves a cart line item to the saved-for-later shopper list.
  *
  * On success, emits a `wc-blocks_store_sync_required` event with the saved
- * item in `detail.item` so a `woocommerce/shopper-lists` iAPI store on the
+ * item in `detail.item` so a `poocommerce/shopper-lists` iAPI store on the
  * same page (rendered by a Saved for Later block) can splice the row
  * into its local state — no extra GET, no race window between a slow
  * refetch and concurrent mutations. Same envelope the cart's iAPI → wp.data
@@ -511,7 +511,7 @@ export const saveForLater =
 			throw new Error(
 				__(
 					'A cart item is required to save it for later.',
-					'woocommerce'
+					'poocommerce'
 				)
 			);
 		}

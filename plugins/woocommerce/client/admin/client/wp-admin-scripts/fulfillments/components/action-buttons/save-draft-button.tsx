@@ -38,7 +38,7 @@ export default function SaveAsDraftButton( {
 			return;
 		}
 		if ( getFulfillmentItems( fulfillment ).length === 0 ) {
-			setError( __( 'Select items to be fulfilled.', 'woocommerce' ) );
+			setError( __( 'Select items to be fulfilled.', 'poocommerce' ) );
 			return;
 		}
 		setIsExecuting( true );
@@ -64,13 +64,13 @@ export default function SaveAsDraftButton( {
 				aria-describedby={ descriptionId }
 			>
 				{ isExecuting
-					? __( 'Saving…', 'woocommerce' )
-					: __( 'Save as draft', 'woocommerce' ) }
+					? __( 'Saving…', 'poocommerce' )
+					: __( 'Save as draft', 'poocommerce' ) }
 			</Button>
 			<span id={ descriptionId } className="screen-reader-text">
 				{ __(
 					'Saves the fulfillment without marking items as fulfilled',
-					'woocommerce'
+					'poocommerce'
 				) }
 			</span>
 		</>

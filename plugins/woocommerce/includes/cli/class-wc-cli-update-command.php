@@ -2,7 +2,7 @@
 /**
  * WC_CLI_Update_Command class file.
  *
- * @package WooCommerce\CLI
+ * @package PooCommerce\CLI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Allows updates via CLI.
  *
  * @version 3.0.0
- * @package WooCommerce
+ * @package PooCommerce
  */
 class WC_CLI_Update_Command {
 
@@ -25,7 +25,7 @@ class WC_CLI_Update_Command {
 	}
 
 	/**
-	 * Runs all pending WooCommerce database updates.
+	 * Runs all pending PooCommerce database updates.
 	 */
 	public static function update() {
 		global $wpdb;
@@ -35,7 +35,7 @@ class WC_CLI_Update_Command {
 		include_once WC_ABSPATH . 'includes/class-wc-install.php';
 		include_once WC_ABSPATH . 'includes/wc-update-functions.php';
 
-		$current_db_version = get_option( 'woocommerce_db_version' );
+		$current_db_version = get_option( 'poocommerce_db_version' );
 		$update_count       = 0;
 		$callbacks          = WC_Install::get_db_update_callbacks();
 		$callbacks_to_run   = array();
@@ -56,7 +56,7 @@ class WC_CLI_Update_Command {
 				WP_CLI::class,
 				'success',
 				/* translators: %s Database version number */
-				sprintf( __( 'No updates required. Database version is %s', 'woocommerce' ), get_option( 'woocommerce_db_version' ) )
+				sprintf( __( 'No updates required. Database version is %s', 'poocommerce' ), get_option( 'poocommerce_db_version' ) )
 			);
 			return;
 		}
@@ -65,12 +65,12 @@ class WC_CLI_Update_Command {
 			WP_CLI::class,
 			'log',
 			/* translators: 1: Number of database updates 2: List of update callbacks */
-			sprintf( __( 'Found %1$d updates (%2$s)', 'woocommerce' ), count( $callbacks_to_run ), implode( ', ', $callbacks_to_run ) )
+			sprintf( __( 'Found %1$d updates (%2$s)', 'poocommerce' ), count( $callbacks_to_run ), implode( ', ', $callbacks_to_run ) )
 		);
 
 		$progress = WC()->call_function(
 			'WP_CLI\Utils\make_progress_bar',
-			__( 'Updating database', 'woocommerce' ),
+			__( 'Updating database', 'poocommerce' ),
 			count( $callbacks_to_run ) // phpcs:ignore PHPCompatibility.LanguageConstructs.NewLanguageConstructs.t_ns_separatorFound
 		);
 
@@ -89,7 +89,7 @@ class WC_CLI_Update_Command {
 			WP_CLI::class,
 			'success',
 			/* translators: 1: Number of database updates performed 2: Database version number */
-			sprintf( __( '%1$d update functions completed. Database version is %2$s', 'woocommerce' ), absint( $update_count ), get_option( 'woocommerce_db_version' ) )
+			sprintf( __( '%1$d update functions completed. Database version is %2$s', 'poocommerce' ), absint( $update_count ), get_option( 'poocommerce_db_version' ) )
 		);
 	}
 }

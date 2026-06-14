@@ -2,9 +2,9 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Caches;
+namespace Automattic\PooCommerce\Tests\Internal\Caches;
 
-use Automattic\WooCommerce\Internal\Caches\ProductTransientsDeferrer;
+use Automattic\PooCommerce\Internal\Caches\ProductTransientsDeferrer;
 
 /**
  * Tests for product transient deletion deferral.
@@ -21,7 +21,7 @@ class ProductTransientsDeferrerTest extends \WC_Unit_Test_Case {
 		};
 
 		$deferrer = wc_get_container()->get( ProductTransientsDeferrer::class );
-		add_action( 'woocommerce_delete_product_transients', $track_hook );
+		add_action( 'poocommerce_delete_product_transients', $track_hook );
 
 		try {
 			$deferrer->start_deferring();
@@ -37,7 +37,7 @@ class ProductTransientsDeferrerTest extends \WC_Unit_Test_Case {
 
 			$deferrer->stop_deferring();
 		} finally {
-			remove_action( 'woocommerce_delete_product_transients', $track_hook );
+			remove_action( 'poocommerce_delete_product_transients', $track_hook );
 			$deferrer->stop_deferring();
 		}
 

@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Internal\ProductAttributes\VisualAttributeTermMeta;
+use Automattic\PooCommerce\Internal\ProductAttributes\VisualAttributeTermMeta;
 
 /**
  * Product Filter: Chips Block.
@@ -44,14 +44,14 @@ final class ProductFilterChips extends AbstractBlock {
 	 * @return string Rendered block type output.
 	 */
 	protected function render( $attributes, $content, $block ) {
-		if ( empty( $block->context['woocommerce/selectableItems'] ) ) {
+		if ( empty( $block->context['poocommerce/selectableItems'] ) ) {
 			return '';
 		}
 
-		$block_context   = $block->context['woocommerce/selectableItems'];
+		$block_context   = $block->context['poocommerce/selectableItems'];
 		$items           = is_array( $block_context['items'] ?? null ) ? $block_context['items'] : array();
-		$store_namespace = $block_context['storeNamespace'] ?? 'woocommerce/product-filters';
-		$display_limit   = 'woocommerce/product-filters' === $store_namespace ? 15 : 30;
+		$store_namespace = $block_context['storeNamespace'] ?? 'poocommerce/product-filters';
+		$display_limit   = 'poocommerce/product-filters' === $store_namespace ? 15 : 30;
 		$classes         = '';
 		$style           = '';
 
@@ -62,7 +62,7 @@ final class ProductFilterChips extends AbstractBlock {
 		}
 
 		$wrapper_attributes = array(
-			'data-wp-interactive'  => 'woocommerce/product-filter-chips',
+			'data-wp-interactive'  => 'poocommerce/product-filter-chips',
 			'data-wp-init--colors' => 'callbacks.initColors',
 			'data-wp-context'      => (string) wp_json_encode(
 				array(
@@ -80,7 +80,7 @@ final class ProductFilterChips extends AbstractBlock {
 			$wrapper_attributes['style'] = esc_attr( $style ) . ';';
 		}
 
-		$attribute_id       = $block->context['woocommerce/attributeId'] ?? '';
+		$attribute_id       = $block->context['poocommerce/attributeId'] ?? '';
 		$has_external_label = is_string( $attribute_id ) && '' !== $attribute_id;
 
 		if ( $has_external_label ) {
@@ -184,8 +184,8 @@ final class ProductFilterChips extends AbstractBlock {
 								<?php if ( $has_visual_swatches ) : ?>
 									<span
 										class="wc-block-product-filter-chips__swatch"
-										data-wp-class--wc-block-product-filter-chips__swatch--no-color="woocommerce/product-filter-chips::state.swatchHidden"
-										data-wp-bind--style="woocommerce/product-filter-chips::state.swatchStyle"
+										data-wp-class--wc-block-product-filter-chips__swatch--no-color="poocommerce/product-filter-chips::state.swatchHidden"
+										data-wp-bind--style="poocommerce/product-filter-chips::state.swatchStyle"
 										aria-hidden="true"
 									></span>
 								<?php endif; ?>
@@ -211,7 +211,7 @@ final class ProductFilterChips extends AbstractBlock {
 					>
 						<?php
 						/* translators: %d: number of hidden items */
-						echo esc_html( sprintf( __( '+%d more', 'woocommerce' ), $hidden_count ) );
+						echo esc_html( sprintf( __( '+%d more', 'poocommerce' ), $hidden_count ) );
 						?>
 					</button>
 				<?php endif; ?>

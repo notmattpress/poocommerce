@@ -5,7 +5,7 @@ sidebar_label: Product Querying
 
 # `wc_get_products` and product queries
 
-`wc_get_products` and `WC_Product_Query` provide a standard way of retrieving products that is safe to use and will not break due to database changes in future WooCommerce versions. Building custom WP_Queries or database queries is likely to break your code in future versions of WooCommerce as data moves towards custom tables for better performance. This is the best-practices way for plugin and theme developers to retrieve multiple products. `wc_get_products` and `WC_Product_Query` are similar to WordPress [`get_posts` and `WP_Query`](https://developer.wordpress.org/reference/classes/wp_query/). Just like those, you pass in an array of arguments defining the criteria for the search.
+`wc_get_products` and `WC_Product_Query` provide a standard way of retrieving products that is safe to use and will not break due to database changes in future PooCommerce versions. Building custom WP_Queries or database queries is likely to break your code in future versions of PooCommerce as data moves towards custom tables for better performance. This is the best-practices way for plugin and theme developers to retrieve multiple products. `wc_get_products` and `WC_Product_Query` are similar to WordPress [`get_posts` and `WP_Query`](https://developer.wordpress.org/reference/classes/wp_query/). Just like those, you pass in an array of arguments defining the criteria for the search.
 
 ## Basic usage
 
@@ -60,8 +60,8 @@ Query parameters/arguments that can be used with these functions are described b
 
 | Parameter | Description |
 | --------- | ----------- |
-| **status** | Accepts a string or array of strings: one or more of `'draft'`, `'pending'`, `'private'`, `'publish'`, or a custom status. See [ProductStatus constant class](https://github.com/woocommerce/woocommerce/blob/trunk/plugins/woocommerce/src/Enums/ProductStatus.php). |
-| **type** | Accepts a string or array of strings: one or more of `'external'`, `'grouped'`, `'simple'`, `'variable'`, or a custom type. See [ProductType constant class](https://github.com/woocommerce/woocommerce/blob/trunk/plugins/woocommerce/src/Enums/ProductType.php). |
+| **status** | Accepts a string or array of strings: one or more of `'draft'`, `'pending'`, `'private'`, `'publish'`, or a custom status. See [ProductStatus constant class](https://github.com/poocommerce/poocommerce/blob/trunk/plugins/poocommerce/src/Enums/ProductStatus.php). |
+| **type** | Accepts a string or array of strings: one or more of `'external'`, `'grouped'`, `'simple'`, `'variable'`, or a custom type. See [ProductType constant class](https://github.com/poocommerce/poocommerce/blob/trunk/plugins/poocommerce/src/Enums/ProductType.php). |
 | **include** | Accepts an array of integers: only includes products with IDs in the array. |
 | **exclude** | Accepts an array of integers: excludes products with IDs in the array. |
 | **parent** | Accepts an integer: post ID of the product parent. |
@@ -79,7 +79,7 @@ $products = wc_get_products( array( 'status' => 'draft' ) );
 
 ```php
 // Using constant class for status.
-$products = wc_get_products( array( 'status' => \Automattic\WooCommerce\Enums\ProductStatus::DRAFT ) );
+$products = wc_get_products( array( 'status' => \Automattic\PooCommerce\Enums\ProductStatus::DRAFT ) );
 ```
 
 ```php
@@ -264,7 +264,7 @@ $products = wc_get_products( array( 'total_sales' => 0 ) );
 | **manage_stock** | Accepts a boolean: limit to products with stock management enabled. |
 | **reviews_allowed** | Accepts a boolean: limit to products that allow reviews. |
 | **backorders** | Accepts a string: `'yes'`, `'no'`, or `'notify'`. |
-| **visibility** | Accepts a string: `'visible'`, `'catalog'`, `'search'`, or `'hidden'`. See [CatalogVisibility constant class](https://github.com/woocommerce/woocommerce/blob/trunk/plugins/woocommerce/src/Enums/CatalogVisibility.php). |
+| **visibility** | Accepts a string: `'visible'`, `'catalog'`, `'search'`, or `'hidden'`. See [CatalogVisibility constant class](https://github.com/poocommerce/poocommerce/blob/trunk/plugins/poocommerce/src/Enums/CatalogVisibility.php). |
 | **download_limit** | Accepts an integer: the download limit or `-1` for unlimited. |
 | **download_expiry** | Accepts an integer: the download expiry (days) or `-1` for unlimited. |
 
@@ -291,7 +291,7 @@ $products = wc_get_products( array( 'visibility' => 'catalog' ) );
 
 ```php
 // Using constant class for visibility.
-$products = wc_get_products( array( 'visibility' => \Automattic\WooCommerce\Enums\CatalogVisibility::CATALOG ) );
+$products = wc_get_products( array( 'visibility' => \Automattic\PooCommerce\Enums\CatalogVisibility::CATALOG ) );
 ```
 
 ```php
@@ -304,7 +304,7 @@ $products = wc_get_products( array( 'download_limit' => -1 ) );
 | Parameter | Description |
 | --------- | ----------- |
 | **stock_quantity** | Accepts an integer: the quantity of a product in stock. |
-| **stock_status** | Accepts a string: `'outofstock'`, `'instock'`, or `'onbackorder'`. See [ProductStockStatus constant class](https://github.com/woocommerce/woocommerce/blob/trunk/plugins/woocommerce/src/Enums/ProductStockStatus.php). |
+| **stock_status** | Accepts a string: `'outofstock'`, `'instock'`, or `'onbackorder'`. See [ProductStockStatus constant class](https://github.com/poocommerce/poocommerce/blob/trunk/plugins/poocommerce/src/Enums/ProductStockStatus.php). |
 
 #### Examples
 
@@ -320,14 +320,14 @@ $products = wc_get_products( array( 'stock_status' => 'outofstock' ) );
 
 ```php
 // Using constant class for stock status.
-$products = wc_get_products( array( 'stock_status' => \Automattic\WooCommerce\Enums\ProductStockStatus::OUT_OF_STOCK ) );
+$products = wc_get_products( array( 'stock_status' => \Automattic\PooCommerce\Enums\ProductStockStatus::OUT_OF_STOCK ) );
 ```
 
 ### Tax & shipping
 
 | Parameter | Description |
 | --------- | ----------- |
-| **tax_status** | Accepts a string: `'taxable'`, `'shipping'`, or `'none'`. See [ProductTaxStatus constant class](https://github.com/woocommerce/woocommerce/blob/trunk/plugins/woocommerce/src/Enums/ProductTaxStatus.php). |
+| **tax_status** | Accepts a string: `'taxable'`, `'shipping'`, or `'none'`. See [ProductTaxStatus constant class](https://github.com/poocommerce/poocommerce/blob/trunk/plugins/poocommerce/src/Enums/ProductTaxStatus.php). |
 | **tax_class** | Accepts a string: a tax class slug. |
 | **shipping_class** | Accepts a string or array of strings: one or more shipping class slugs. |
 
@@ -340,7 +340,7 @@ $products = wc_get_products( array( 'tax_status' => 'taxable' ) );
 
 ```php
 // Using constant class for tax status.
-$products = wc_get_products( array( 'tax_status' => \Automattic\WooCommerce\Enums\ProductTaxStatus::TAXABLE ) );
+$products = wc_get_products( array( 'tax_status' => \Automattic\PooCommerce\Enums\ProductTaxStatus::TAXABLE ) );
 ```
 
 ```php
@@ -432,7 +432,7 @@ function handle_custom_query_var( $query, $query_vars ) {
 
 	return $query;
 }
-add_filter( 'woocommerce_product_data_store_cpt_get_products_query', 'handle_custom_query_var', 10, 2 );
+add_filter( 'poocommerce_product_data_store_cpt_get_products_query', 'handle_custom_query_var', 10, 2 );
 ```
 
 Usage:

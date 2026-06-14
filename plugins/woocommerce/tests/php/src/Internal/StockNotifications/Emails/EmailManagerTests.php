@@ -1,11 +1,11 @@
 <?php
 
 declare( strict_types = 1 );
-namespace Automattic\WooCommerce\Tests\Internal\StockNotifications\Emails;
+namespace Automattic\PooCommerce\Tests\Internal\StockNotifications\Emails;
 
-use Automattic\WooCommerce\Internal\StockNotifications\Emails\EmailManager;
-use Automattic\WooCommerce\Internal\StockNotifications\Notification;
-use Automattic\WooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
+use Automattic\PooCommerce\Internal\StockNotifications\Emails\EmailManager;
+use Automattic\PooCommerce\Internal\StockNotifications\Notification;
+use Automattic\PooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
 use WC_Helper_Product;
 
 /**
@@ -70,7 +70,7 @@ class EmailManagerTests extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Should register the three BIS email classes via woocommerce_email_classes filter.
+	 * @testdox Should register the three BIS email classes via poocommerce_email_classes filter.
 	 */
 	public function test_registers_all_three_bis_email_classes() {
 		$emails = WC()->mailer()->get_emails();

@@ -1,8 +1,8 @@
 {
-	"name": "woocommerce-monorepo",
-	"title": "WooCommerce Monorepo",
-	"description": "Monorepo for the WooCommerce ecosystem",
-	"homepage": "https://woocommerce.com/",
+	"name": "poocommerce-monorepo",
+	"title": "PooCommerce Monorepo",
+	"description": "Monorepo for the PooCommerce ecosystem",
+	"homepage": "https://poocommerce.com/",
 	"packageManager": "pnpm@10.33.0",
 	"engines": {
 		"node": "^24.15.0"
@@ -10,12 +10,12 @@
 	"private": true,
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/woocommerce/woocommerce.git"
+		"url": "https://github.com/poocommerce/poocommerce.git"
 	},
 	"author": "Automattic",
 	"license": "GPL-2.0-or-later",
 	"bugs": {
-		"url": "https://github.com/woocommerce/woocommerce/issues"
+		"url": "https://github.com/poocommerce/poocommerce/issues"
 	},
 	"scripts": {
 		"build": "pnpm -r --workspace-concurrency=Infinity --stream '/^build:project:.*$/'",
@@ -23,30 +23,30 @@
 		"lint": "pnpm -r lint",
 		"cherry-pick": "node ./tools/cherry-pick/bin/run",
 		"clean": "rimraf -g '**/node_modules' 'packages/*/*/vendor' 'plugins/*/vendor' && pnpm store prune",
-		"clean:build": "rimraf -g '**/node_modules/.cache' '**/*.tsbuildinfo' 'packages/js/*/build' 'packages/js/*/build-*' 'packages/js/*/dist' 'plugins/*/build' 'plugins/woocommerce/client/*/build' && git clean --force -d -X --quiet ./plugins/woocommerce/assets",
+		"clean:build": "rimraf -g '**/node_modules/.cache' '**/*.tsbuildinfo' 'packages/js/*/build' 'packages/js/*/build-*' 'packages/js/*/dist' 'plugins/*/build' 'plugins/poocommerce/client/*/build' && git clean --force -d -X --quiet ./plugins/poocommerce/assets",
 		"preinstall": "npx only-allow pnpm",
 		"postinstall": "husky",
 		"run-canonical-extensions-tests": "bash bin/run-canonical-extensions-tests.sh",
 		"sync-dependencies": "pnpm exec syncpack -- fix-mismatches",
 		"utils": "./tools/monorepo-utils/bin/run",
-		"wc:build": "pnpm --filter='@woocommerce/plugin-woocommerce' build",
-		"wc:build:admin": "pnpm --filter='@woocommerce/plugin-woocommerce' build:admin",
-		"wc:build:blocks": "pnpm --filter='@woocommerce/plugin-woocommerce' build:blocks",
-		"wc:build:classic-assets": "pnpm --filter='@woocommerce/plugin-woocommerce' build:classic-assets",
-		"wc:env": "pnpm --filter='@woocommerce/plugin-woocommerce' env:dev",
-		"wc:env:restart": "pnpm --filter='@woocommerce/plugin-woocommerce' env:restart",
-		"wc:env:stop": "pnpm --filter='@woocommerce/plugin-woocommerce' env:stop",
-		"wc:watch": "pnpm --filter='@woocommerce/plugin-woocommerce' watch:build",
-		"wc:watch:admin": "pnpm --filter='@woocommerce/plugin-woocommerce' watch:build:admin",
-		"wc:watch:blocks": "pnpm --filter='@woocommerce/plugin-woocommerce' watch:build:blocks",
-		"wc:watch:classic-assets": "pnpm --filter='@woocommerce/plugin-woocommerce' watch:build:classic-assets"
+		"wc:build": "pnpm --filter='@poocommerce/plugin-poocommerce' build",
+		"wc:build:admin": "pnpm --filter='@poocommerce/plugin-poocommerce' build:admin",
+		"wc:build:blocks": "pnpm --filter='@poocommerce/plugin-poocommerce' build:blocks",
+		"wc:build:classic-assets": "pnpm --filter='@poocommerce/plugin-poocommerce' build:classic-assets",
+		"wc:env": "pnpm --filter='@poocommerce/plugin-poocommerce' env:dev",
+		"wc:env:restart": "pnpm --filter='@poocommerce/plugin-poocommerce' env:restart",
+		"wc:env:stop": "pnpm --filter='@poocommerce/plugin-poocommerce' env:stop",
+		"wc:watch": "pnpm --filter='@poocommerce/plugin-poocommerce' watch:build",
+		"wc:watch:admin": "pnpm --filter='@poocommerce/plugin-poocommerce' watch:build:admin",
+		"wc:watch:blocks": "pnpm --filter='@poocommerce/plugin-poocommerce' watch:build:blocks",
+		"wc:watch:classic-assets": "pnpm --filter='@poocommerce/plugin-poocommerce' watch:build:classic-assets"
 	},
 	"devDependencies": {
 		"@babel/preset-env": "7.25.7",
 		"@babel/runtime": "7.25.7",
 		"@types/node": "^24.1.0",
-		"@woocommerce/eslint-plugin": "workspace:*",
-		"@woocommerce/monorepo-utils": "workspace:*",
+		"@poocommerce/eslint-plugin": "workspace:*",
+		"@poocommerce/monorepo-utils": "workspace:*",
 		"@wordpress/eslint-plugin": "14.7.0",
 		"@wordpress/prettier-config": "2.17.0",
 		"babel-loader": "9.2.x",

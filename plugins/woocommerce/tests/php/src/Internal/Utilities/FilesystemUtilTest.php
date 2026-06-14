@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Utilities;
+namespace Automattic\PooCommerce\Tests\Internal\Utilities;
 
 use Automattic\Jetpack\Constants;
-use Automattic\WooCommerce\Internal\Utilities\FilesystemUtil;
+use Automattic\PooCommerce\Internal\Utilities\FilesystemUtil;
 use WC_Unit_Test_Case;
 use WP_Filesystem_Base;
 

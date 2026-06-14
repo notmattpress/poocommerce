@@ -1,4 +1,4 @@
-.woocommerce-products-load-sample-product-confirm-modal-overlay {
+.poocommerce-products-load-sample-product-confirm-modal-overlay {
 	@media (min-width: 783px ) {
 		& {
 			left: 35px;
@@ -12,12 +12,12 @@
 	}
 }
 
-.woocommerce-products-load-sample-product-confirm-modal {
-	.components-truncate.components-text.woocommerce-confirmation-modal__message {
+.poocommerce-products-load-sample-product-confirm-modal {
+	.components-truncate.components-text.poocommerce-confirmation-modal__message {
 		color: $studio-gray-60;
 	}
 
-	.woocommerce-confirmation-modal-actions {
+	.poocommerce-confirmation-modal-actions {
 		display: flex;
 		justify-content: flex-end;
 		margin-top: $gap;

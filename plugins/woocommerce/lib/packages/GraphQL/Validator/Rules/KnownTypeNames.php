@@ -1,26 +1,26 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\GraphQL\Validator\Rules;
+namespace Automattic\PooCommerce\Vendor\GraphQL\Validator\Rules;
 
-use Automattic\WooCommerce\Vendor\GraphQL\Error\Error;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\NamedTypeNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\NodeKind;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\TypeDefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\TypeSystemDefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\TypeSystemExtensionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\Type;
-use Automattic\WooCommerce\Vendor\GraphQL\Utils\Utils;
-use Automattic\WooCommerce\Vendor\GraphQL\Validator\QueryValidationContext;
-use Automattic\WooCommerce\Vendor\GraphQL\Validator\SDLValidationContext;
-use Automattic\WooCommerce\Vendor\GraphQL\Validator\ValidationContext;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\Error;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\NamedTypeNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\NodeKind;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\TypeDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\TypeSystemDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\TypeSystemExtensionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\Type;
+use Automattic\PooCommerce\Vendor\GraphQL\Utils\Utils;
+use Automattic\PooCommerce\Vendor\GraphQL\Validator\QueryValidationContext;
+use Automattic\PooCommerce\Vendor\GraphQL\Validator\SDLValidationContext;
+use Automattic\PooCommerce\Vendor\GraphQL\Validator\ValidationContext;
 
 /**
  * Known type names.
  *
- * A Automattic\WooCommerce\Vendor\GraphQL document is only valid if referenced types (specifically
+ * A Automattic\PooCommerce\Vendor\GraphQL document is only valid if referenced types (specifically
  * variable definitions and fragment conditions) are defined by the type schema.
  *
- * @phpstan-import-type VisitorArray from \Automattic\WooCommerce\Vendor\GraphQL\Language\Visitor
+ * @phpstan-import-type VisitorArray from \Automattic\PooCommerce\Vendor\GraphQL\Language\Visitor
  */
 class KnownTypeNames extends ValidationRule
 {

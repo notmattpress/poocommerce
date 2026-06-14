@@ -2,9 +2,9 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\StockNotifications\Frontend;
+namespace Automattic\PooCommerce\Internal\StockNotifications\Frontend;
 
-use Automattic\WooCommerce\Internal\StockNotifications\Config;
+use Automattic\PooCommerce\Internal\StockNotifications\Config;
 
 /**
  * Class for handling the form submission.
@@ -112,6 +112,6 @@ class FormHandlerService {
 		 * @param bool $requires_nonce_check Whether to require nonce check.
 		 * @return bool
 		 */
-		return (bool) apply_filters( 'woocommerce_customer_stock_notifications_requires_nonce_check', $requires_account );
+		return (bool) apply_filters( 'poocommerce_customer_stock_notifications_requires_nonce_check', $requires_account );
 	}
 }

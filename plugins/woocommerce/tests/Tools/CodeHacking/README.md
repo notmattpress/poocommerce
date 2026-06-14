@@ -43,8 +43,8 @@ Create a file named `class-wc-tests-admin-foobar.php` in `tests/unit-tests/admin
 ```php
 <?php
 
-use Automattic\WooCommerce\Testing\Tools\CodeHacking\Hacks\FunctionsMockerHack;
-use Automattic\WooCommerce\Testing\Tools\CodeHacking\Hacks\StaticMockerHack;
+use Automattic\PooCommerce\Testing\Tools\CodeHacking\Hacks\FunctionsMockerHack;
+use Automattic\PooCommerce\Testing\Tools\CodeHacking\Hacks\StaticMockerHack;
 
 class WC_Tests_Admin_Foobar extends WC_Unit_Test_Case {
 	public function test_functions_mocking() {

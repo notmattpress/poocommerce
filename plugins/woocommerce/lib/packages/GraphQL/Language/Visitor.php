@@ -1,12 +1,12 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\GraphQL\Language;
+namespace Automattic\PooCommerce\Vendor\GraphQL\Language;
 
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\Node;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\NodeKind;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\NodeList;
-use Automattic\WooCommerce\Vendor\GraphQL\Utils\TypeInfo;
-use Automattic\WooCommerce\Vendor\GraphQL\Utils\Utils;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\Node;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\NodeKind;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\NodeList;
+use Automattic\PooCommerce\Vendor\GraphQL\Utils\TypeInfo;
+use Automattic\PooCommerce\Vendor\GraphQL\Utils\Utils;
 
 /**
  * Utility for efficient AST traversal and modification.
@@ -102,7 +102,7 @@ use Automattic\WooCommerce\Vendor\GraphQL\Utils\Utils;
  * @phpstan-type NodeVisitor callable(Node): (VisitorOperation|Node|NodeList<Node>|null|false|void)
  * @phpstan-type VisitorArray array<string, NodeVisitor>|array<string, array<string, NodeVisitor>>
  *
- * @see \Automattic\WooCommerce\Vendor\GraphQL\Tests\Language\VisitorTest
+ * @see \Automattic\PooCommerce\Vendor\GraphQL\Tests\Language\VisitorTest
  */
 class Visitor
 {

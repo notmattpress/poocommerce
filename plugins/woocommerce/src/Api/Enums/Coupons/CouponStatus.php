@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Api\Enums\Coupons;
+namespace Automattic\PooCommerce\Api\Enums\Coupons;
 
-use Automattic\WooCommerce\Api\Attributes\Description;
+use Automattic\PooCommerce\Api\Attributes\Description;
 
 #[Description( 'The publication status of a coupon.' )]
 enum CouponStatus: string {

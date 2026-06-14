@@ -5,7 +5,7 @@ import { QRCodeSVG } from 'qrcode.react';
 import React, { useEffect, useRef } from '@wordpress/element';
 import { Button, Spinner } from '@wordpress/components';
 import { sprintf, __ } from '@wordpress/i18n';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -124,8 +124,8 @@ export const QRDirectLoginCode = ( {
 		buttonLabel: string,
 		eventName: string
 	) => (
-		<div className="woocommerce-qr-direct-login">
-			<p className="woocommerce-qr-direct-login__error" role="alert">
+		<div className="poocommerce-qr-direct-login">
+			<p className="poocommerce-qr-direct-login__error" role="alert">
 				{ message }
 			</p>
 			<Button
@@ -145,10 +145,10 @@ export const QRDirectLoginCode = ( {
 	// (terminal) or fall through to the normal state machine below.
 	if ( availability.isLoading ) {
 		return (
-			<div className="woocommerce-qr-direct-login">
+			<div className="poocommerce-qr-direct-login">
 				<Spinner />
 				<p role="status" aria-live="polite">
-					{ __( 'Checking sign-in availability…', 'woocommerce' ) }
+					{ __( 'Checking sign-in availability…', 'poocommerce' ) }
 				</p>
 			</div>
 		);
@@ -160,10 +160,10 @@ export const QRDirectLoginCode = ( {
 
 	if ( state === QRLoginTokenStates.LOADING ) {
 		return (
-			<div className="woocommerce-qr-direct-login">
+			<div className="poocommerce-qr-direct-login">
 				<Spinner />
 				<p role="status" aria-live="polite">
-					{ __( 'Generating secure login code…', 'woocommerce' ) }
+					{ __( 'Generating secure login code…', 'poocommerce' ) }
 				</p>
 			</div>
 		);
@@ -179,9 +179,9 @@ export const QRDirectLoginCode = ( {
 			errorCode === 'application_passwords_unavailable';
 
 		return (
-			<div className="woocommerce-qr-direct-login">
+			<div className="poocommerce-qr-direct-login">
 				<p
-					className="woocommerce-qr-direct-login__error"
+					className="poocommerce-qr-direct-login__error"
 					role="status"
 					aria-live="polite"
 				>
@@ -197,7 +197,7 @@ export const QRDirectLoginCode = ( {
 							refreshToken();
 						} }
 					>
-						{ __( 'Try again', 'woocommerce' ) }
+						{ __( 'Try again', 'poocommerce' ) }
 					</Button>
 				) }
 			</div>
@@ -206,9 +206,9 @@ export const QRDirectLoginCode = ( {
 
 	if ( state === QRLoginTokenStates.EXPIRED ) {
 		return (
-			<div className="woocommerce-qr-direct-login">
+			<div className="poocommerce-qr-direct-login">
 				<p role="status" aria-live="polite">
-					{ __( 'The login code has expired.', 'woocommerce' ) }
+					{ __( 'The login code has expired.', 'poocommerce' ) }
 				</p>
 				<Button
 					variant="secondary"
@@ -217,7 +217,7 @@ export const QRDirectLoginCode = ( {
 						refreshToken();
 					} }
 				>
-					{ __( 'Generate new code', 'woocommerce' ) }
+					{ __( 'Generate new code', 'poocommerce' ) }
 				</Button>
 			</div>
 		);
@@ -240,9 +240,9 @@ export const QRDirectLoginCode = ( {
 		return renderRecoveryFallback(
 			__(
 				'We could not load the confirmation challenge. Please try again.',
-				'woocommerce'
+				'poocommerce'
 			),
-			__( 'Try again', 'woocommerce' ),
+			__( 'Try again', 'poocommerce' ),
 			'mobile_app_qr_direct_login_refreshed'
 		);
 	}
@@ -250,7 +250,7 @@ export const QRDirectLoginCode = ( {
 	if ( state === QRLoginTokenStates.APPROVED ) {
 		return (
 			<div
-				className="woocommerce-qr-direct-login woocommerce-qr-direct-login--approved"
+				className="poocommerce-qr-direct-login poocommerce-qr-direct-login--approved"
 				role="status"
 				aria-live="polite"
 			>
@@ -258,7 +258,7 @@ export const QRDirectLoginCode = ( {
 				<p>
 					{ __(
 						'Confirmed. Finishing sign-in on your phone…',
-						'woocommerce'
+						'poocommerce'
 					) }
 				</p>
 			</div>
@@ -268,13 +268,13 @@ export const QRDirectLoginCode = ( {
 	if ( state === QRLoginTokenStates.REJECTED ) {
 		return (
 			<div
-				className="woocommerce-qr-direct-login woocommerce-qr-direct-login--rejected"
+				className="poocommerce-qr-direct-login poocommerce-qr-direct-login--rejected"
 				role="alert"
 			>
 				<p>
 					{ __(
 						'Sign-in denied. For your security, this attempt has been cancelled.',
-						'woocommerce'
+						'poocommerce'
 					) }
 				</p>
 				<Button
@@ -284,7 +284,7 @@ export const QRDirectLoginCode = ( {
 						refreshToken();
 					} }
 				>
-					{ __( 'Start over', 'woocommerce' ) }
+					{ __( 'Start over', 'poocommerce' ) }
 				</Button>
 			</div>
 		);
@@ -313,20 +313,20 @@ export const QRDirectLoginCode = ( {
 
 	if ( state === QRLoginTokenStates.READY && qrUrl ) {
 		return (
-			<div className="woocommerce-qr-direct-login woocommerce-qr-direct-login--ready">
-				<div className="woocommerce-qr-direct-login__qr">
+			<div className="poocommerce-qr-direct-login poocommerce-qr-direct-login--ready">
+				<div className="poocommerce-qr-direct-login__qr">
 					<QRCodeSVG value={ qrUrl } size={ 140 } />
 				</div>
-				<div className="woocommerce-qr-direct-login__meta">
+				<div className="poocommerce-qr-direct-login__meta">
 					{ /* Countdown stays outside any live region so screen
 					     readers don't re-announce it every second. */ }
 					<p
-						className="woocommerce-qr-direct-login__timer"
+						className="poocommerce-qr-direct-login__timer"
 						aria-live="off"
 					>
 						{ sprintf(
 							/* translators: %s: time remaining in M:SS format */
-							__( 'Code expires in %s', 'woocommerce' ),
+							__( 'Code expires in %s', 'poocommerce' ),
 							formatTime( secondsRemaining )
 						) }
 					</p>
@@ -337,13 +337,13 @@ export const QRDirectLoginCode = ( {
 					*/ }
 					<Button
 						variant="link"
-						className="woocommerce-qr-direct-login__renew"
+						className="poocommerce-qr-direct-login__renew"
 						onClick={ () => {
 							recordEvent( 'mobile_app_qr_direct_login_renewed' );
 							refreshToken();
 						} }
 					>
-						{ __( 'Renew code', 'woocommerce' ) }
+						{ __( 'Renew code', 'poocommerce' ) }
 					</Button>
 				</div>
 			</div>
@@ -354,9 +354,9 @@ export const QRDirectLoginCode = ( {
 		return renderRecoveryFallback(
 			__(
 				'We could not generate the login code. Please renew and try again.',
-				'woocommerce'
+				'poocommerce'
 			),
-			__( 'Renew code', 'woocommerce' ),
+			__( 'Renew code', 'poocommerce' ),
 			'mobile_app_qr_direct_login_renewed'
 		);
 	}

@@ -2,7 +2,7 @@
 /**
  * Tests for the Woocommerce_Analytics class.
  *
- * @package automattic/woocommerce-analytics
+ * @package automattic/poocommerce-analytics
  */
 
 namespace Automattic\Woocommerce_Analytics;
@@ -39,7 +39,7 @@ class Woocommerce_Analytics_Test extends BaseTestCase {
 		delete_transient( Woocommerce_Analytics::PROXY_SPEED_MODULE_VERSION_CHECK_TRANSIENT );
 
 		// Remove any filters that might interfere.
-		remove_all_filters( 'woocommerce_analytics_auto_install_proxy_speed_module' );
+		remove_all_filters( 'poocommerce_analytics_auto_install_proxy_speed_module' );
 	}
 
 	/**
@@ -136,7 +136,7 @@ class Woocommerce_Analytics_Test extends BaseTestCase {
 	 */
 	public function test_maybe_update_proxy_speed_module_skips_when_version_matches(): void {
 		// Enable the feature flag so the update path is checked.
-		add_filter( 'woocommerce_analytics_auto_install_proxy_speed_module', '__return_true' );
+		add_filter( 'poocommerce_analytics_auto_install_proxy_speed_module', '__return_true' );
 
 		// Set version to match current.
 		update_option( Woocommerce_Analytics::PROXY_SPEED_MODULE_VERSION_OPTION, Woocommerce_Analytics::PACKAGE_VERSION );
@@ -147,7 +147,7 @@ class Woocommerce_Analytics_Test extends BaseTestCase {
 		// Version should remain the same (no update needed).
 		$this->assertSame( Woocommerce_Analytics::PACKAGE_VERSION, get_option( Woocommerce_Analytics::PROXY_SPEED_MODULE_VERSION_OPTION ) );
 
-		remove_filter( 'woocommerce_analytics_auto_install_proxy_speed_module', '__return_true' );
+		remove_filter( 'poocommerce_analytics_auto_install_proxy_speed_module', '__return_true' );
 	}
 
 	/**
@@ -185,7 +185,7 @@ class Woocommerce_Analytics_Test extends BaseTestCase {
 			return true;
 		};
 
-		add_filter( 'woocommerce_analytics_auto_install_proxy_speed_module', $filter_cb );
+		add_filter( 'poocommerce_analytics_auto_install_proxy_speed_module', $filter_cb );
 
 		// Call the method - it will proceed past the filter check but may stop at other checks
 		// (e.g., filesystem init, WPMU_PLUGIN_DIR). The point is the filter is respected.
@@ -193,7 +193,7 @@ class Woocommerce_Analytics_Test extends BaseTestCase {
 
 		$this->assertTrue( $filter_called, 'The auto_install_proxy_speed_module filter should be checked.' );
 
-		remove_filter( 'woocommerce_analytics_auto_install_proxy_speed_module', $filter_cb );
+		remove_filter( 'poocommerce_analytics_auto_install_proxy_speed_module', $filter_cb );
 	}
 
 	/**
@@ -212,7 +212,7 @@ class Woocommerce_Analytics_Test extends BaseTestCase {
 		Woocommerce_Analytics::maybe_add_proxy_speed_module();
 
 		// No file should be created since version matches.
-		$mu_plugin_file = $this->temp_mu_plugin_dir . '/woocommerce-analytics-proxy-speed-module.php';
+		$mu_plugin_file = $this->temp_mu_plugin_dir . '/poocommerce-analytics-proxy-speed-module.php';
 		$this->assertFileDoesNotExist( $mu_plugin_file );
 	}
 
@@ -245,7 +245,7 @@ class Woocommerce_Analytics_Test extends BaseTestCase {
 	 */
 	public function test_version_option_constant_is_defined(): void {
 		$this->assertSame(
-			'woocommerce_analytics_proxy_speed_module_version',
+			'poocommerce_analytics_proxy_speed_module_version',
 			Woocommerce_Analytics::PROXY_SPEED_MODULE_VERSION_OPTION
 		);
 	}
@@ -255,7 +255,7 @@ class Woocommerce_Analytics_Test extends BaseTestCase {
 	 */
 	public function test_version_check_transient_constant_is_defined(): void {
 		$this->assertSame(
-			'woocommerce_analytics_proxy_speed_module_version_check',
+			'poocommerce_analytics_proxy_speed_module_version_check',
 			Woocommerce_Analytics::PROXY_SPEED_MODULE_VERSION_CHECK_TRANSIENT
 		);
 	}

@@ -4,11 +4,11 @@ This folder contains the components used in the Dashboard page.
 
 ## Extending the Dashboard
 
-New Dashboard sections can be added by hooking into the filter `woocommerce_dashboard_default_sections`. For example:
+New Dashboard sections can be added by hooking into the filter `poocommerce_dashboard_default_sections`. For example:
 
 ```js
 import { arrowRight } from '@wordpress/icons';
-addFilter( 'woocommerce_dashboard_default_sections', ( sections ) => {
+addFilter( 'poocommerce_dashboard_default_sections', ( sections ) => {
 	return [
 		...sections,
 		{

@@ -5,30 +5,30 @@ $border: $gray-200;
 @mixin make-cols( $i ) {
 	grid-template-columns: repeat($i, 1fr);
 
-	.woocommerce-summary__item-container:nth-of-type(#{$i}n)
-	.woocommerce-summary__item {
+	.poocommerce-summary__item-container:nth-of-type(#{$i}n)
+	.poocommerce-summary__item {
 		border-right-color: $border;
 	}
 
-	.woocommerce-summary__item-container:nth-of-type(#{$i}n
+	.poocommerce-summary__item-container:nth-of-type(#{$i}n
 + 1):nth-last-of-type(-n + #{$i}) {
-		.woocommerce-summary__item,
-		& ~ .woocommerce-summary__item-container .woocommerce-summary__item {
+		.poocommerce-summary__item,
+		& ~ .poocommerce-summary__item-container .poocommerce-summary__item {
 			border-bottom-color: $border;
 		}
 	}
 }
 
 @mixin wrap-contents() {
-	.woocommerce-summary__item-value,
+	.poocommerce-summary__item-value,
 	&.is-placeholder {
-		.woocommerce-summary__item-prev-label {
+		.poocommerce-summary__item-prev-label {
 			margin-right: calc(100% - 80px);
 		}
 	}
 }
 
-.woocommerce-summary {
+.poocommerce-summary {
 	margin: $gap 0;
 	display: grid;
 	border-width: 1px 0 0 1px;
@@ -47,7 +47,7 @@ $border: $gray-200;
 			border-top: 0;
 		}
 
-		.woocommerce-summary__item-container.is-placeholder {
+		.poocommerce-summary__item-container.is-placeholder {
 			border-top: 1px solid $border;
 		}
 	}
@@ -79,7 +79,7 @@ $border: $gray-200;
 			border: none;
 			transform: none;
 
-			.woocommerce-summary__item.is-selected {
+			.poocommerce-summary__item.is-selected {
 				display: none;
 			}
 		}
@@ -93,12 +93,12 @@ $border: $gray-200;
 		border: none;
 	}
 
-	.woocommerce-summary__item-value,
-	.woocommerce-summary__item-delta {
+	.poocommerce-summary__item-value,
+	.poocommerce-summary__item-delta {
 		flex: 1 0 auto;
 	}
 
-	.woocommerce-summary__item-delta {
+	.poocommerce-summary__item-delta {
 		flex: 0 1 auto;
 		display: flex;
 	}
@@ -160,27 +160,27 @@ $border: $gray-200;
 
 		&.has-9-items,
 		&.has-10-items {
-			.woocommerce-summary__item-container:nth-of-type(5n)
-			.woocommerce-summary__item {
+			.poocommerce-summary__item-container:nth-of-type(5n)
+			.poocommerce-summary__item {
 				border-right-color: $border;
 			}
 		}
 	}
 
 	@include breakpoint( '<960px' ) {
-		.woocommerce-summary__item {
+		.poocommerce-summary__item {
 			// One-col layout for all items means right border is always "outer"
 			border-right-color: $border;
 		}
 	}
 
 	@include breakpoint( '<782px' ) {
-		.woocommerce-summary__item-container {
+		.poocommerce-summary__item-container {
 			margin-left: -16px;
 			margin-right: -16px;
 			width: auto;
 
-			.woocommerce-summary__item {
+			.poocommerce-summary__item {
 				// Remove the border when the button is edge-to-edge
 				border-right: none;
 			}
@@ -189,7 +189,7 @@ $border: $gray-200;
 			margin-left: -16px;
 			margin-right: -16px;
 
-			.woocommerce-summary__item-container {
+			.poocommerce-summary__item-container {
 				margin-left: 0;
 				margin-right: 0;
 			}
@@ -197,10 +197,10 @@ $border: $gray-200;
 	}
 }
 
-.woocommerce-summary__item-container {
+.poocommerce-summary__item-container {
 	margin-bottom: 0;
 
-	&:last-of-type .woocommerce-summary__item {
+	&:last-of-type .poocommerce-summary__item {
 		// Make sure the last item always uses the outer-border color.
 		border-bottom-color: $border !important;
 	}
@@ -222,11 +222,11 @@ $border: $gray-200;
 	}
 
 	&.is-placeholder {
-		.woocommerce-summary__item {
+		.poocommerce-summary__item {
 			height: 117px;
 		}
 
-		.woocommerce-summary__item-label {
+		.poocommerce-summary__item-label {
 			@include placeholder();
 			display: inline-block;
 			height: 20px;
@@ -235,11 +235,11 @@ $border: $gray-200;
 			width: 70%;
 		}
 
-		.woocommerce-summary__item-data {
+		.poocommerce-summary__item-data {
 			justify-content: space-between;
 		}
 
-		.woocommerce-summary__item-value {
+		.poocommerce-summary__item-value {
 			@include placeholder();
 			display: inline-block;
 			height: 28px;
@@ -247,7 +247,7 @@ $border: $gray-200;
 			max-width: 60px;
 		}
 
-		.woocommerce-summary__item-delta {
+		.poocommerce-summary__item-delta {
 			@include placeholder();
 			width: 60px;
 			border-radius: 2px;
@@ -255,7 +255,7 @@ $border: $gray-200;
 	}
 }
 
-.woocommerce-summary__item {
+.poocommerce-summary__item {
 	display: flex;
 	flex-direction: column;
 	height: 100%;
@@ -277,7 +277,7 @@ $border: $gray-200;
 		background-color: $gray-100;
 		color: var(--wp-admin-theme-color);
 
-		.woocommerce-summary__item-label {
+		.poocommerce-summary__item-label {
 			color: var(--wp-admin-theme-color);
 		}
 	}
@@ -309,19 +309,19 @@ $border: $gray-200;
 		}
 	}
 
-	.woocommerce-summary__item-data {
+	.poocommerce-summary__item-data {
 		display: flex;
 		justify-content: space-between;
 	}
 
-	.woocommerce-summary__item-label {
+	.poocommerce-summary__item-label {
 		display: flex;
 		margin-bottom: $gap;
 
 		color: $gray-700;
 	}
 
-	.woocommerce-summary__info-tooltip {
+	.poocommerce-summary__info-tooltip {
 		color: $gray-600;
 		line-height: 1em;
 		margin-left: $gap-smallest;
@@ -331,13 +331,13 @@ $border: $gray-200;
 		}
 	}
 
-	.woocommerce-summary__item-value {
+	.poocommerce-summary__item-value {
 		margin-bottom: $gap-smallest;
 		font-weight: 500;
 		color: $gray-900;
 	}
 
-	.woocommerce-summary__item-delta {
+	.poocommerce-summary__item-delta {
 		padding: 5px;
 		border-radius: 3px;
 		height: min-content;
@@ -349,26 +349,26 @@ $border: $gray-200;
 		background: $studio-white;
 		box-shadow: inset 0 4px 0 var(--wp-admin-theme-color);
 
-		.woocommerce-summary__item-value {
+		.poocommerce-summary__item-value {
 			font-weight: 600;
 		}
 
-		.woocommerce-summary__item-delta {
+		.poocommerce-summary__item-delta {
 			font-weight: 400;
 		}
 	}
 
-	&.is-good-trend .woocommerce-summary__item-delta {
+	&.is-good-trend .poocommerce-summary__item-delta {
 		background-color: $alert-green;
 		color: $white;
 	}
 
-	&.is-bad-trend .woocommerce-summary__item-delta {
+	&.is-bad-trend .poocommerce-summary__item-delta {
 		background-color: $alert-red;
 		color: $white;
 	}
 
-	.woocommerce-summary__toggle {
+	.poocommerce-summary__toggle {
 		position: absolute;
 		top: 44px;
 		right: $gap;
@@ -376,18 +376,18 @@ $border: $gray-200;
 	}
 
 	.is-dropdown-expanded & {
-		.woocommerce-summary__toggle {
+		.poocommerce-summary__toggle {
 			transform: rotate(-180deg);
 		}
 	}
 
 	.components-popover__content & {
-		.woocommerce-summary__item-label {
+		.poocommerce-summary__item-label {
 			margin-bottom: 0;
 		}
 
-		.woocommerce-summary__item-value,
-		.woocommerce-summary__item-delta {
+		.poocommerce-summary__item-value,
+		.poocommerce-summary__item-delta {
 			margin-bottom: 0;
 		}
 	}

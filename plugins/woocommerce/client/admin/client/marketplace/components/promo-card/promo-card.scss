@@ -124,7 +124,7 @@
 	white-space: nowrap;
 }
 
-.promo-cta-link.woocommerce-admin-dismiss-notification {
+.promo-cta-link.poocommerce-admin-dismiss-notification {
 	color: $gray-700;
 
 	&:hover {
@@ -132,8 +132,8 @@
 	}
 }
 
-// WooCommerce > Extensions
-.woocommerce-admin-page__extensions {
+// PooCommerce > Extensions
+.poocommerce-admin-page__extensions {
 	.promo-card {
 		margin-bottom: 40px;
 		width: 100%;
@@ -141,7 +141,7 @@
 }
 
 // Marketing > Coupons
-.woocommerce-marketing-coupons {
+.poocommerce-marketing-coupons {
 	.promo-card {
 		margin-bottom: 24px;
 	}

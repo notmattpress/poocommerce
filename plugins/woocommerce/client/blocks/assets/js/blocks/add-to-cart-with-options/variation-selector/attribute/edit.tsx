@@ -12,22 +12,22 @@ import {
 } from '@wordpress/block-editor';
 import type { BlockEditProps, BlockInstance } from '@wordpress/blocks';
 import { useSelect } from '@wordpress/data';
-import { useCollection } from '@woocommerce/base-context/hooks';
+import { useCollection } from '@poocommerce/base-context/hooks';
 import {
 	CustomDataProvider,
 	useCustomDataContext,
 	useProductDataContext,
-} from '@woocommerce/shared-context';
-import { isProductResponseItem } from '@woocommerce/entities';
+} from '@poocommerce/shared-context';
+import { isProductResponseItem } from '@poocommerce/entities';
 import type {
 	AttributeTerm,
 	ProductResponseAttributeItem,
-} from '@woocommerce/types';
+} from '@poocommerce/types';
 import { __ } from '@wordpress/i18n';
 import {
 	DisplayStyleSwitcher,
 	resetDisplayStyleBlock,
-} from '@woocommerce/editor-components/display-style-switcher';
+} from '@poocommerce/editor-components/display-style-switcher';
 import {
 	ToggleControl,
 	__experimentalToggleGroupControl as ToggleGroupControl,
@@ -46,7 +46,7 @@ import type {
 } from '../../../../types/type-defs/selectable-items';
 import type { VisualAttributeTerm } from '../../../../base/utils/visual-attribute-terms';
 
-const INNER_CHIPS = 'woocommerce/product-filter-chips';
+const INNER_CHIPS = 'poocommerce/product-filter-chips';
 
 const getFallbackDisplayStyleInsertionPoint = (
 	parentBlock: BlockInstance
@@ -143,7 +143,7 @@ function AttributeItem( { blocks, isSelected, onSelect }: AttributeItemProps ) {
 		return {
 			items,
 			selectionMode: 'single' as const,
-			storeNamespace: 'woocommerce/add-to-cart-with-options',
+			storeNamespace: 'poocommerce/add-to-cart-with-options',
 			groupLabel: '',
 		} satisfies SelectableItemsContext< {
 			label: string;
@@ -164,7 +164,7 @@ function AttributeItem( { blocks, isSelected, onSelect }: AttributeItemProps ) {
 	return (
 		<BlockContextProvider
 			value={ {
-				'woocommerce/selectableItems': selectableContext,
+				'poocommerce/selectableItems': selectableContext,
 			} }
 		>
 			{ isSelected ? (
@@ -216,7 +216,7 @@ export default function AttributeItemTemplateEdit(
 		<>
 			<InspectorControls>
 				<ToolsPanel
-					label={ __( 'Style', 'woocommerce' ) }
+					label={ __( 'Style', 'poocommerce' ) }
 					resetAll={ () => {
 						setAttributes( { displayStyle: INNER_CHIPS } );
 						resetDisplayStyleBlock(
@@ -228,7 +228,7 @@ export default function AttributeItemTemplateEdit(
 				>
 					<ToolsPanelItem
 						hasValue={ () => displayStyle !== INNER_CHIPS }
-						label={ __( 'Style', 'woocommerce' ) }
+						label={ __( 'Style', 'poocommerce' ) }
 						onDeselect={ () => {
 							setAttributes( { displayStyle: INNER_CHIPS } );
 							resetDisplayStyleBlock(
@@ -241,7 +241,7 @@ export default function AttributeItemTemplateEdit(
 					>
 						<div>
 							<span className="screen-reader-text">
-								{ __( 'Style', 'woocommerce' ) }
+								{ __( 'Style', 'poocommerce' ) }
 							</span>
 							<DisplayStyleSwitcher
 								clientId={ clientId }
@@ -259,7 +259,7 @@ export default function AttributeItemTemplateEdit(
 					</ToolsPanelItem>
 				</ToolsPanel>
 				<ToolsPanel
-					label={ __( 'Auto-select', 'woocommerce' ) }
+					label={ __( 'Auto-select', 'poocommerce' ) }
 					resetAll={ () =>
 						setAttributes( {
 							autoselect: false,
@@ -270,7 +270,7 @@ export default function AttributeItemTemplateEdit(
 					<ToolsPanelItem
 						label={ __(
 							'Auto-select when only one option is available',
-							'woocommerce'
+							'poocommerce'
 						) }
 						hasValue={ () => autoselect }
 						onDeselect={ () =>
@@ -281,11 +281,11 @@ export default function AttributeItemTemplateEdit(
 						<ToggleControl
 							label={ __(
 								'Auto-select when only one option is available',
-								'woocommerce'
+								'poocommerce'
 							) }
 							help={ __(
 								'Automatically select options on page load or after the shopper changes attributes, when only one valid choice is available.',
-								'woocommerce'
+								'poocommerce'
 							) }
 							checked={ autoselect }
 							onChange={ () =>
@@ -295,7 +295,7 @@ export default function AttributeItemTemplateEdit(
 						/>
 					</ToolsPanelItem>
 					<ToolsPanelItem
-						label={ __( 'Invalid options', 'woocommerce' ) }
+						label={ __( 'Invalid options', 'poocommerce' ) }
 						hasValue={ () =>
 							disabledAttributesAction !== 'disable'
 						}
@@ -307,10 +307,10 @@ export default function AttributeItemTemplateEdit(
 						isShownByDefault
 					>
 						<ToggleGroupControl
-							label={ __( 'Invalid options', 'woocommerce' ) }
+							label={ __( 'Invalid options', 'poocommerce' ) }
 							help={ __(
 								'Control the display of invalid options.',
-								'woocommerce'
+								'poocommerce'
 							) }
 							value={ disabledAttributesAction }
 							onChange={ ( value ) => {
@@ -325,11 +325,11 @@ export default function AttributeItemTemplateEdit(
 						>
 							<ToggleGroupControlOption
 								value="disable"
-								label={ __( 'Grayed-out', 'woocommerce' ) }
+								label={ __( 'Grayed-out', 'poocommerce' ) }
 							/>
 							<ToggleGroupControlOption
 								value="hide"
-								label={ __( 'Hidden', 'woocommerce' ) }
+								label={ __( 'Hidden', 'poocommerce' ) }
 							/>
 						</ToggleGroupControl>
 					</ToolsPanelItem>

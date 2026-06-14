@@ -16,7 +16,7 @@ import { validateSalePrice } from './validation';
 
 const fieldDefinition = {
 	type: 'text',
-	label: __( 'Sale Price', 'woocommerce' ),
+	label: __( 'Sale Price', 'poocommerce' ),
 	enableSorting: false,
 	enableHiding: false,
 	filterBy: false,

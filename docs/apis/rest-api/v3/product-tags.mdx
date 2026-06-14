@@ -50,7 +50,7 @@ const data = {
 	name: 'Leather Shoes',
 };
 
-WooCommerce.post( 'products/tags', data )
+PooCommerce.post( 'products/tags', data )
 	.then( ( response ) => {
 		console.log( response.data );
 	} )
@@ -68,7 +68,7 @@ $data = [
     'name' => 'Leather Shoes'
 ];
 
-print_r($woocommerce->post('products/tags', $data));
+print_r($poocommerce->post('products/tags', $data));
 ?>
 ```
 
@@ -91,7 +91,7 @@ data = {
   name: "Leather Shoes"
 }
 
-woocommerce.post("products/tags", data).parsed_response
+poocommerce.post("products/tags", data).parsed_response
 ```
 
   </TabItem>
@@ -142,7 +142,7 @@ curl https://example.com/wp-json/wc/v3/products/tags/34 \
   <TabItem value="js" label="JavaScript">
 
 ```javascript
-WooCommerce.get( 'products/tags/34' )
+PooCommerce.get( 'products/tags/34' )
 	.then( ( response ) => {
 		console.log( response.data );
 	} )
@@ -155,7 +155,7 @@ WooCommerce.get( 'products/tags/34' )
   <TabItem value="php" label="PHP">
 
 ```php
-<?php print_r($woocommerce->get('products/tags/34')); ?>
+<?php print_r($poocommerce->get('products/tags/34')); ?>
 ```
 
   </TabItem>
@@ -169,7 +169,7 @@ print(wcapi.get("products/tags/34").json())
   <TabItem value="ruby" label="Ruby">
 
 ```ruby
-woocommerce.get("products/tags/34").parsed_response
+poocommerce.get("products/tags/34").parsed_response
 ```
 
   </TabItem>
@@ -220,7 +220,7 @@ curl https://example.com/wp-json/wc/v3/products/tags \
   <TabItem value="js" label="JavaScript">
 
 ```javascript
-WooCommerce.get( 'products/tags' )
+PooCommerce.get( 'products/tags' )
 	.then( ( response ) => {
 		console.log( response.data );
 	} )
@@ -233,7 +233,7 @@ WooCommerce.get( 'products/tags' )
   <TabItem value="php" label="PHP">
 
 ```php
-<?php print_r($woocommerce->get('products/tags')); ?>
+<?php print_r($poocommerce->get('products/tags')); ?>
 ```
 
   </TabItem>
@@ -247,7 +247,7 @@ print(wcapi.get("products/tags").json())
   <TabItem value="ruby" label="Ruby">
 
 ```ruby
-woocommerce.get("products/tags").parsed_response
+poocommerce.get("products/tags").parsed_response
 ```
 
   </TabItem>
@@ -344,7 +344,7 @@ const data = {
 	description: 'Genuine leather.',
 };
 
-WooCommerce.put( 'products/tags/34', data )
+PooCommerce.put( 'products/tags/34', data )
 	.then( ( response ) => {
 		console.log( response.data );
 	} )
@@ -362,7 +362,7 @@ $data = [
     'description': 'Genuine leather.'
 ];
 
-print_r($woocommerce->put('products/tags/34', $data));
+print_r($poocommerce->put('products/tags/34', $data));
 ?>
 ```
 
@@ -385,7 +385,7 @@ data = {
   description: "Genuine leather."
 }
 
-woocommerce.put("products/tags/34", data).parsed_response
+poocommerce.put("products/tags/34", data).parsed_response
 ```
 
   </TabItem>
@@ -436,7 +436,7 @@ curl -X DELETE https://example.com/wp-json/wc/v3/products/tags/34?force=true \
   <TabItem value="js" label="JavaScript">
 
 ```javascript
-WooCommerce.delete( 'products/tags/34', {
+PooCommerce.delete( 'products/tags/34', {
 	force: true,
 } )
 	.then( ( response ) => {
@@ -451,7 +451,7 @@ WooCommerce.delete( 'products/tags/34', {
   <TabItem value="php" label="PHP">
 
 ```php
-<?php print_r($woocommerce->delete('products/tags/34', ['force' => true])); ?>
+<?php print_r($poocommerce->delete('products/tags/34', ['force' => true])); ?>
 ```
 
   </TabItem>
@@ -465,7 +465,7 @@ print(wcapi.delete("products/tags/34", params={"force": True}).json())
   <TabItem value="ruby" label="Ruby">
 
 ```ruby
-woocommerce.delete("products/tags/34", force: true).parsed_response
+poocommerce.delete("products/tags/34", force: true).parsed_response
 ```
 
   </TabItem>
@@ -565,7 +565,7 @@ const data = {
 	delete: [ 35 ],
 };
 
-WooCommerce.post( 'products/tags/batch', data )
+PooCommerce.post( 'products/tags/batch', data )
 	.then( ( response ) => {
 		console.log( response.data );
 	} )
@@ -599,7 +599,7 @@ $data = [
     ]
 ];
 
-print_r($woocommerce->post('products/tags/batch', $data));
+print_r($poocommerce->post('products/tags/batch', $data));
 ?>
 ```
 
@@ -654,7 +654,7 @@ data = {
   ]
 }
 
-woocommerce.post("products/tags/batch", data).parsed_response
+poocommerce.post("products/tags/batch", data).parsed_response
 ```
 
   </TabItem>

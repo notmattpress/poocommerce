@@ -4,10 +4,10 @@
 import { useMemo } from '@wordpress/element';
 import { useSelect } from '@wordpress/data';
 import { store as coreStore } from '@wordpress/core-data';
-import ProductCategoryControl from '@woocommerce/editor-components/product-category-control';
-import ProductTagControl from '@woocommerce/editor-components/product-tag-control';
-import ProductBrandControl from '@woocommerce/editor-components/product-brand-control';
-import type { SearchListItem } from '@woocommerce/editor-components/search-list-control/types';
+import ProductCategoryControl from '@poocommerce/editor-components/product-category-control';
+import ProductTagControl from '@poocommerce/editor-components/product-tag-control';
+import ProductBrandControl from '@poocommerce/editor-components/product-brand-control';
+import type { SearchListItem } from '@poocommerce/editor-components/search-list-control/types';
 import type { Taxonomy } from '@wordpress/core-data';
 import {
 	// eslint-disable-next-line @wordpress/no-unsafe-wp-apis

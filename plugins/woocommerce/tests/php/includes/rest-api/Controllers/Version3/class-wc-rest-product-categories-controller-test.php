@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 /**
  * REST API Product Categories Controller Tests
  *
- * @package WooCommerce\Tests\RestApi
+ * @package PooCommerce\Tests\RestApi
  * @since 9.4.0
  */
 
@@ -168,7 +168,7 @@ class WC_REST_Product_Categories_Controller_Test extends WC_REST_Unit_Test_Case 
 		$this->assertEquals( 1, $test_category_data['count'], 'Category should initially have count of 1' );
 
 		// Set product to out of stock and enable hide out of stock setting.
-		update_option( 'woocommerce_hide_out_of_stock_items', 'yes' );
+		update_option( 'poocommerce_hide_out_of_stock_items', 'yes' );
 		$product->set_stock_status( 'outofstock' );
 		$product->save();
 
@@ -187,7 +187,7 @@ class WC_REST_Product_Categories_Controller_Test extends WC_REST_Unit_Test_Case 
 		$this->assertEquals( 1, $data['count'], 'Category should have count of 1 when product is out of stock and hidden' );
 
 		// Reset the setting.
-		update_option( 'woocommerce_hide_out_of_stock_items', 'no' );
+		update_option( 'poocommerce_hide_out_of_stock_items', 'no' );
 
 		// Clean up.
 		wp_delete_post( $product->get_id(), true );

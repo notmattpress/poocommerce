@@ -5,13 +5,13 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Internal\RestApi\Routes\V4\Refunds;
+namespace Automattic\PooCommerce\Internal\RestApi\Routes\V4\Refunds;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Enums\OrderItemType;
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Utilities\NumberUtil;
+use Automattic\PooCommerce\Enums\OrderItemType;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Utilities\NumberUtil;
 use WC_Order;
 use WC_Order_Item_Fee;
 use WC_Order_Item_Product;
@@ -25,7 +25,7 @@ use WP_Http;
  *
  * Class DataUtils
  *
- * @package Automattic\WooCommerce\Internal\RestApi\Routes\V4\Refunds
+ * @package Automattic\PooCommerce\Internal\RestApi\Routes\V4\Refunds
  */
 class DataUtils {
 	/**
@@ -183,24 +183,24 @@ class DataUtils {
 			$line_item_id = $line_item['line_item_id'] ?? null;
 
 			if ( ! $line_item_id ) {
-				return new WP_Error( 'invalid_line_item', __( 'Line item ID is required.', 'woocommerce' ) );
+				return new WP_Error( 'invalid_line_item', __( 'Line item ID is required.', 'poocommerce' ) );
 			}
 
 			$item = $order->get_item( $line_item_id );
 
 			// Validate item exists and belongs to the order.
 			if ( ! $item || $item->get_order_id() !== $order->get_id() ) {
-				return new WP_Error( 'invalid_line_item', __( 'Line item not found.', 'woocommerce' ) );
+				return new WP_Error( 'invalid_line_item', __( 'Line item not found.', 'poocommerce' ) );
 			}
 
 			if ( ! $item instanceof \WC_Order_Item_Product && ! $item instanceof \WC_Order_Item_Fee && ! $item instanceof \WC_Order_Item_Shipping ) {
-				return new WP_Error( 'invalid_line_item', __( 'Line item is not a product, fee, or shipping line.', 'woocommerce' ) );
+				return new WP_Error( 'invalid_line_item', __( 'Line item is not a product, fee, or shipping line.', 'poocommerce' ) );
 			}
 
 			// Validate item quantity is not greater than the item quantity.
 			if ( $item->get_quantity() < $line_item['quantity'] ) {
 				/* translators: %s: item quantity */
-				return new WP_Error( 'invalid_line_item', sprintf( __( 'Line item quantity cannot be greater than the item quantity (%s).', 'woocommerce' ), $item->get_quantity() ) );
+				return new WP_Error( 'invalid_line_item', sprintf( __( 'Line item quantity cannot be greater than the item quantity (%s).', 'poocommerce' ), $item->get_quantity() ) );
 			}
 
 			// Validate refund total is not greater than the item total (including tax).
@@ -210,7 +210,7 @@ class DataUtils {
 					'invalid_refund_amount',
 					sprintf(
 						/* translators: %s: item total with tax */
-						__( 'Refund total cannot be greater than the line item total including tax (%s).', 'woocommerce' ),
+						__( 'Refund total cannot be greater than the line item total including tax (%s).', 'poocommerce' ),
 						$item_total_with_tax
 					)
 				);
@@ -224,7 +224,7 @@ class DataUtils {
 
 					foreach ( $line_item['refund_tax'] as $refund_tax ) {
 						if ( ! isset( $refund_tax['id'], $refund_tax['refund_total'] ) ) {
-							return new WP_Error( 'invalid_line_item', __( 'Tax id and refund_total are required.', 'woocommerce' ) );
+							return new WP_Error( 'invalid_line_item', __( 'Tax id and refund_total are required.', 'poocommerce' ) );
 						}
 						$tax_id           = $refund_tax['id'];
 						$tax_refund_total = $refund_tax['refund_total'];
@@ -234,7 +234,7 @@ class DataUtils {
 								'invalid_line_item',
 								sprintf(
 								/* translators: %s: tax IDs */
-									__( 'Line item tax not found. Must be: %s.', 'woocommerce' ),
+									__( 'Line item tax not found. Must be: %s.', 'poocommerce' ),
 									implode( ', ', $allowed_tax_ids )
 								)
 							);
@@ -245,7 +245,7 @@ class DataUtils {
 								'invalid_refund_amount',
 								sprintf(
 								/* translators: %s: tax total */
-									__( 'Refund tax total cannot be greater than the line item tax total (%s).', 'woocommerce' ),
+									__( 'Refund tax total cannot be greater than the line item tax total (%s).', 'poocommerce' ),
 									$item_taxes['total'][ $tax_id ]
 								)
 							);
@@ -502,7 +502,7 @@ class DataUtils {
 		if ( empty( $line_items ) ) {
 			return new WP_Error(
 				'missing_line_items',
-				__( 'At least one line item is required.', 'woocommerce' ),
+				__( 'At least one line item is required.', 'poocommerce' ),
 				array( 'status' => WP_Http::BAD_REQUEST )
 			);
 		}
@@ -510,7 +510,7 @@ class DataUtils {
 		if ( ! in_array( $order->get_status(), self::REFUNDABLE_STATUSES, true ) ) {
 			return new WP_Error(
 				'order_not_refundable',
-				__( 'This order cannot be refunded.', 'woocommerce' ),
+				__( 'This order cannot be refunded.', 'poocommerce' ),
 				array( 'status' => WP_Http::UNPROCESSABLE_ENTITY )
 			);
 		}
@@ -518,7 +518,7 @@ class DataUtils {
 		if ( (float) $order->get_remaining_refund_amount() <= 0 ) {
 			return new WP_Error(
 				'order_not_refundable',
-				__( 'This order has already been fully refunded.', 'woocommerce' ),
+				__( 'This order has already been fully refunded.', 'poocommerce' ),
 				array( 'status' => WP_Http::UNPROCESSABLE_ENTITY )
 			);
 		}
@@ -530,7 +530,7 @@ class DataUtils {
 			if ( ! $line_item_id ) {
 				return new WP_Error(
 					'missing_line_item_id',
-					__( 'Line item ID is required.', 'woocommerce' ),
+					__( 'Line item ID is required.', 'poocommerce' ),
 					array( 'status' => WP_Http::BAD_REQUEST )
 				);
 			}
@@ -539,7 +539,7 @@ class DataUtils {
 			if ( ! $item || $item->get_order_id() !== $order->get_id() ) {
 				return new WP_Error(
 					'line_item_not_found',
-					__( 'Line item not found.', 'woocommerce' ),
+					__( 'Line item not found.', 'poocommerce' ),
 					array( 'status' => WP_Http::NOT_FOUND )
 				);
 			}
@@ -547,7 +547,7 @@ class DataUtils {
 			if ( ! $item instanceof WC_Order_Item_Product && ! $item instanceof WC_Order_Item_Fee && ! $item instanceof WC_Order_Item_Shipping ) {
 				return new WP_Error(
 					'unsupported_item_type',
-					__( 'Line item is not a product, fee, or shipping line.', 'woocommerce' ),
+					__( 'Line item is not a product, fee, or shipping line.', 'poocommerce' ),
 					array( 'status' => WP_Http::UNPROCESSABLE_ENTITY )
 				);
 			}
@@ -555,7 +555,7 @@ class DataUtils {
 			if ( ! isset( $line_item['quantity'] ) || ! is_int( $line_item['quantity'] ) || $line_item['quantity'] < 1 ) {
 				return new WP_Error(
 					'invalid_quantity',
-					__( 'Quantity must be a positive integer.', 'woocommerce' ),
+					__( 'Quantity must be a positive integer.', 'poocommerce' ),
 					array( 'status' => WP_Http::BAD_REQUEST )
 				);
 			}
@@ -568,7 +568,7 @@ class DataUtils {
 						'quantity_exceeds_refundable',
 						sprintf(
 							/* translators: %d: remaining refundable quantity */
-							__( 'Requested quantity exceeds remaining refundable quantity (%d).', 'woocommerce' ),
+							__( 'Requested quantity exceeds remaining refundable quantity (%d).', 'poocommerce' ),
 							$remaining_qty
 						),
 						array( 'status' => WP_Http::UNPROCESSABLE_ENTITY )
@@ -580,7 +580,7 @@ class DataUtils {
 				if ( 1 !== $quantity ) {
 					return new WP_Error(
 						'invalid_quantity',
-						__( 'Shipping and fee line items must be refunded with quantity of 1.', 'woocommerce' ),
+						__( 'Shipping and fee line items must be refunded with quantity of 1.', 'poocommerce' ),
 						array( 'status' => WP_Http::BAD_REQUEST )
 					);
 				}
@@ -594,7 +594,7 @@ class DataUtils {
 				if ( $remaining_total <= 0 ) {
 					return new WP_Error(
 						'quantity_exceeds_refundable',
-						__( 'This line item has already been fully refunded.', 'woocommerce' ),
+						__( 'This line item has already been fully refunded.', 'poocommerce' ),
 						array( 'status' => WP_Http::UNPROCESSABLE_ENTITY )
 					);
 				}
@@ -610,7 +610,7 @@ class DataUtils {
 						'quantity_exceeds_refundable',
 						sprintf(
 							/* translators: %s: remaining refundable amount */
-							__( 'Requested refund exceeds the remaining refundable amount for this line item (%s).', 'woocommerce' ),
+							__( 'Requested refund exceeds the remaining refundable amount for this line item (%s).', 'poocommerce' ),
 							wc_format_decimal( $remaining_total, wc_get_price_decimals() )
 						),
 						array( 'status' => WP_Http::UNPROCESSABLE_ENTITY )

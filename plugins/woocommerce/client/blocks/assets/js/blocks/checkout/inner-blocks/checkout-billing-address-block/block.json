@@ -1,9 +1,9 @@
 {
-	"name": "woocommerce/checkout-billing-address-block",
+	"name": "poocommerce/checkout-billing-address-block",
 	"version": "1.0.0",
 	"title": "Billing Address",
 	"description": "Collect your customer's billing address.",
-	"category": "woocommerce",
+	"category": "poocommerce",
 	"supports": {
 		"align": false,
 		"html": false,
@@ -22,9 +22,9 @@
 		}
 	},
 	"parent": [
-		"woocommerce/checkout-fields-block"
+		"poocommerce/checkout-fields-block"
 	],
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3
 }

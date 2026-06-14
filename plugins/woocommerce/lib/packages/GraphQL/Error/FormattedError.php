@@ -1,12 +1,12 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\GraphQL\Error;
+namespace Automattic\PooCommerce\Vendor\GraphQL\Error;
 
-use Automattic\WooCommerce\Vendor\GraphQL\Executor\ExecutionResult;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\Source;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\SourceLocation;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\Type;
-use Automattic\WooCommerce\Vendor\GraphQL\Utils\Utils;
+use Automattic\PooCommerce\Vendor\GraphQL\Executor\ExecutionResult;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\Source;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\SourceLocation;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\Type;
+use Automattic\PooCommerce\Vendor\GraphQL\Utils\Utils;
 use PHPUnit\Framework\Test;
 
 /**
@@ -19,7 +19,7 @@ use PHPUnit\Framework\Test;
  * @phpstan-import-type SerializableError from ExecutionResult
  * @phpstan-import-type ErrorFormatter from ExecutionResult
  *
- * @see \Automattic\WooCommerce\Vendor\GraphQL\Tests\Error\FormattedErrorTest
+ * @see \Automattic\PooCommerce\Vendor\GraphQL\Tests\Error\FormattedErrorTest
  */
 class FormattedError
 {
@@ -71,7 +71,7 @@ class FormattedError
     }
 
     /**
-     * Render a helpful description of the location of the error in the Automattic\WooCommerce\Vendor\GraphQL
+     * Render a helpful description of the location of the error in the Automattic\PooCommerce\Vendor\GraphQL
      * Source document.
      */
     private static function highlightSourceAtLocation(Source $source, SourceLocation $location): string
@@ -118,12 +118,12 @@ class FormattedError
     }
 
     /**
-     * Convert any exception to a Automattic\WooCommerce\Vendor\GraphQL spec compliant array.
+     * Convert any exception to a Automattic\PooCommerce\Vendor\GraphQL spec compliant array.
      *
      * This method only exposes the exception message when the given exception
      * implements the ClientAware interface, or when debug flags are passed.
      *
-     * For a list of available debug flags @see \Automattic\WooCommerce\Vendor\GraphQL\Error\DebugFlag constants.
+     * For a list of available debug flags @see \Automattic\PooCommerce\Vendor\GraphQL\Error\DebugFlag constants.
      *
      * @return SerializableError
      *
@@ -171,7 +171,7 @@ class FormattedError
      * Decorates spec-compliant $formattedError with debug entries according to $debug flags.
      *
      * @param SerializableError $formattedError
-     * @param int $debugFlag For available flags @see \Automattic\WooCommerce\Vendor\GraphQL\Error\DebugFlag
+     * @param int $debugFlag For available flags @see \Automattic\PooCommerce\Vendor\GraphQL\Error\DebugFlag
      *
      * @throws \Throwable
      *
@@ -256,7 +256,7 @@ class FormattedError
         if (
             isset($trace[0]['function']) && isset($trace[0]['class'])
             // Remove invariant entries as they don't provide much value:
-            && ($trace[0]['class'] . '::' . $trace[0]['function'] === 'Automattic\WooCommerce\Vendor\GraphQL\Utils\Utils::invariant')
+            && ($trace[0]['class'] . '::' . $trace[0]['function'] === 'Automattic\PooCommerce\Vendor\GraphQL\Utils\Utils::invariant')
         ) {
             array_shift($trace);
         } elseif (! isset($trace[0]['file'])) {

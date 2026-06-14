@@ -2,24 +2,24 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Api\Queries\Products;
+namespace Automattic\PooCommerce\Api\Queries\Products;
 
-use Automattic\WooCommerce\Api\ApiException;
-use Automattic\WooCommerce\Api\Attributes\ConnectionOf;
-use Automattic\WooCommerce\Api\Attributes\Description;
-use Automattic\WooCommerce\Api\Attributes\Name;
-use Automattic\WooCommerce\Api\Attributes\RequiredCapability;
-use Automattic\WooCommerce\Api\Attributes\Unroll;
-use Automattic\WooCommerce\Api\Enums\Products\ProductType;
-use Automattic\WooCommerce\Api\Enums\Products\StockStatus;
-use Automattic\WooCommerce\Api\InputTypes\Products\ProductFilterInput;
-use Automattic\WooCommerce\Api\Pagination\Connection;
-use Automattic\WooCommerce\Api\Pagination\Edge;
-use Automattic\WooCommerce\Api\Pagination\IdCursorFilter;
-use Automattic\WooCommerce\Api\Pagination\PageInfo;
-use Automattic\WooCommerce\Api\Pagination\PaginationParams;
-use Automattic\WooCommerce\Api\Interfaces\Product;
-use Automattic\WooCommerce\Api\Utils\Products\ProductMapper;
+use Automattic\PooCommerce\Api\ApiException;
+use Automattic\PooCommerce\Api\Attributes\ConnectionOf;
+use Automattic\PooCommerce\Api\Attributes\Description;
+use Automattic\PooCommerce\Api\Attributes\Name;
+use Automattic\PooCommerce\Api\Attributes\RequiredCapability;
+use Automattic\PooCommerce\Api\Attributes\Unroll;
+use Automattic\PooCommerce\Api\Enums\Products\ProductType;
+use Automattic\PooCommerce\Api\Enums\Products\StockStatus;
+use Automattic\PooCommerce\Api\InputTypes\Products\ProductFilterInput;
+use Automattic\PooCommerce\Api\Pagination\Connection;
+use Automattic\PooCommerce\Api\Pagination\Edge;
+use Automattic\PooCommerce\Api\Pagination\IdCursorFilter;
+use Automattic\PooCommerce\Api\Pagination\PageInfo;
+use Automattic\PooCommerce\Api\Pagination\PaginationParams;
+use Automattic\PooCommerce\Api\Interfaces\Product;
+use Automattic\PooCommerce\Api\Utils\Products\ProductMapper;
 
 /**
  * Query to list products with cursor-based pagination.
@@ -28,7 +28,7 @@ use Automattic\WooCommerce\Api\Utils\Products\ProductMapper;
  */
 #[Name( 'products' )]
 #[Description( 'List products with cursor-based pagination and optional filtering.' )]
-#[RequiredCapability( 'manage_woocommerce' )]
+#[RequiredCapability( 'manage_poocommerce' )]
 #[RequiredCapability( 'edit_products' )]
 class ListProducts {
 	/**
@@ -100,7 +100,7 @@ class ListProducts {
 		}
 
 		// Stock status filter via meta. `StockStatus::Other` means "stored
-		// _stock_status isn't one of the three standard WooCommerce values"
+		// _stock_status isn't one of the three standard PooCommerce values"
 		// (typically a plugin-added custom status), so it maps to NOT IN
 		// those three. `default` throws INVALID_ARGUMENT so any future
 		// enum case added without updating this match fails loudly with a

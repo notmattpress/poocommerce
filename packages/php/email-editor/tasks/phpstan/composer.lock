@@ -8,16 +8,16 @@
     "packages": [],
     "packages-dev": [
         {
-            "name": "php-stubs/woocommerce-stubs",
+            "name": "php-stubs/poocommerce-stubs",
             "version": "v9.8.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/php-stubs/woocommerce-stubs.git",
+                "url": "https://github.com/php-stubs/poocommerce-stubs.git",
                 "reference": "3e8464d5471332cd56d595fde61ce8821236674f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-stubs/woocommerce-stubs/zipball/3e8464d5471332cd56d595fde61ce8821236674f",
+                "url": "https://api.github.com/repos/php-stubs/poocommerce-stubs/zipball/3e8464d5471332cd56d595fde61ce8821236674f",
                 "reference": "3e8464d5471332cd56d595fde61ce8821236674f",
                 "shasum": ""
             },
@@ -37,17 +37,17 @@
             "license": [
                 "MIT"
             ],
-            "description": "WooCommerce function and class declaration stubs for static analysis.",
-            "homepage": "https://github.com/php-stubs/woocommerce-stubs",
+            "description": "PooCommerce function and class declaration stubs for static analysis.",
+            "homepage": "https://github.com/php-stubs/poocommerce-stubs",
             "keywords": [
                 "PHPStan",
                 "static analysis",
-                "woocommerce",
+                "poocommerce",
                 "wordpress"
             ],
             "support": {
-                "issues": "https://github.com/php-stubs/woocommerce-stubs/issues",
-                "source": "https://github.com/php-stubs/woocommerce-stubs/tree/v9.8.2"
+                "issues": "https://github.com/php-stubs/poocommerce-stubs/issues",
+                "source": "https://github.com/php-stubs/poocommerce-stubs/tree/v9.8.2"
             },
             "time": "2025-04-23T03:16:52+00:00"
         },

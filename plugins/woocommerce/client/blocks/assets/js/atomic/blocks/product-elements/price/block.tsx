@@ -2,19 +2,19 @@
  * External dependencies
  */
 import clsx from 'clsx';
-import { ProductEntityResponse } from '@woocommerce/entities';
-import ProductPrice from '@woocommerce/base-components/product-price';
-import { getCurrencyFromPriceResponse } from '@woocommerce/price-format';
+import { ProductEntityResponse } from '@poocommerce/entities';
+import ProductPrice from '@poocommerce/base-components/product-price';
+import { getCurrencyFromPriceResponse } from '@poocommerce/price-format';
 import {
 	useInnerBlockLayoutContext,
 	useProductDataContext,
-} from '@woocommerce/shared-context';
-import { useStyleProps } from '@woocommerce/base-hooks';
-import { withProductDataContext } from '@woocommerce/shared-hocs';
-import { CurrencyCode } from '@woocommerce/type-defs/currency';
+} from '@poocommerce/shared-context';
+import { useStyleProps } from '@poocommerce/base-hooks';
+import { withProductDataContext } from '@poocommerce/shared-hocs';
+import { CurrencyCode } from '@poocommerce/type-defs/currency';
 import type { HTMLAttributes } from 'react';
-import type { Currency, ProductResponseItem } from '@woocommerce/types';
-import { SITE_CURRENCY } from '@woocommerce/settings';
+import type { Currency, ProductResponseItem } from '@poocommerce/types';
+import { SITE_CURRENCY } from '@poocommerce/settings';
 
 /**
  * Internal dependencies
@@ -79,7 +79,7 @@ export const Block = ( props: Props ): JSX.Element | null => {
 	const { product } = useProductDataContext(
 		/**
 		 * This block can depend on the core-data package only when the experimental WC Rest API feature flag is enabled because
-		 * it depends on experimental fields: https://github.com/woocommerce/woocommerce/pull/60101
+		 * it depends on experimental fields: https://github.com/poocommerce/poocommerce/pull/60101
 		 */
 		isExperimentalWcRestApiV4Enabled
 			? {
@@ -90,10 +90,10 @@ export const Block = ( props: Props ): JSX.Element | null => {
 	);
 
 	const isDescendentOfAllProductsBlock =
-		parentName === 'woocommerce/all-products';
+		parentName === 'poocommerce/all-products';
 	const isDescendentOfAddToCartGroupedProductSelectorBlock =
 		parentName ===
-		'woocommerce/add-to-cart-with-options-grouped-product-item';
+		'poocommerce/add-to-cart-with-options-grouped-product-item';
 
 	// If the block is not a descendant of the All Products block, we are
 	// already printing the styles from the PHP side (in the frontend) and the
@@ -127,7 +127,7 @@ export const Block = ( props: Props ): JSX.Element | null => {
 		);
 		if ( isDescendentOfAllProductsBlock ) {
 			return (
-				<div className="wp-block-woocommerce-product-price">
+				<div className="wp-block-poocommerce-product-price">
 					{ productPriceComponent }
 				</div>
 			);
@@ -211,7 +211,7 @@ export const Block = ( props: Props ): JSX.Element | null => {
 	);
 	if ( isDescendentOfAllProductsBlock ) {
 		return (
-			<div className="wp-block-woocommerce-product-price">
+			<div className="wp-block-poocommerce-product-price">
 				{ productPriceComponent }
 			</div>
 		);
@@ -225,7 +225,7 @@ export default ( props: Props ) => {
 	// - Inside `Products Block` -> Gutenberg Context
 	// - Inside `Single Product Template` -> Gutenberg Context
 	// - Without any parent -> `WithSelector` and `withProductDataContext` HOCs
-	// For more details, check https://github.com/woocommerce/woocommerce-blocks/pull/8609
+	// For more details, check https://github.com/poocommerce/poocommerce-blocks/pull/8609
 	if ( props.isDescendentOfSingleProductTemplate ) {
 		return <Block { ...props } />;
 	}

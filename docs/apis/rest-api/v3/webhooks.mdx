@@ -10,7 +10,7 @@ import TabItem from '@theme/TabItem';
 
 The webhooks API allows you to create, view, update, and delete individual, or a batch, of webhooks.
 
-Webhooks can be managed via the WooCommerce settings screen or by using the REST API endpoints. The `WC_Webhook` class manages all data storage and retrieval of the webhook custom post type, as well as enqueuing webhook actions and processing/delivering/logging webhooks. On `woocommerce_init`, active webhooks are loaded.
+Webhooks can be managed via the PooCommerce settings screen or by using the REST API endpoints. The `WC_Webhook` class manages all data storage and retrieval of the webhook custom post type, as well as enqueuing webhook actions and processing/delivering/logging webhooks. On `poocommerce_init`, active webhooks are loaded.
 
 Each webhook has:
 
@@ -22,7 +22,7 @@ Each webhook has:
 
 ### Topics
 
-The topic is a combination resource (e.g. order) and event (e.g. created) and maps to one or more hook names (e.g. `woocommerce_checkout_order_processed`). Webhooks can be created using the topic name and the appropriate hooks are automatically added.
+The topic is a combination resource (e.g. order) and event (e.g. created) and maps to one or more hook names (e.g. `poocommerce_checkout_order_processed`). Webhooks can be created using the topic name and the appropriate hooks are automatically added.
 
 Core topics are:
 
@@ -31,7 +31,7 @@ Core topics are:
 -   Orders: `order.created`, `order.updated` and `order.deleted`.
 -   Products: `product.created`, `product.updated` and `product.deleted`.
 
-Custom topics can also be used which map to a single hook name, for example you could add a webhook with topic `action.woocommerce_add_to_cart` that is triggered on that event. Custom topics pass the first hook argument to the payload, so in this example the `cart_item_key` would be included in the payload.
+Custom topics can also be used which map to a single hook name, for example you could add a webhook with topic `action.poocommerce_add_to_cart` that is triggered on that event. Custom topics pass the first hook argument to the payload, so in this example the `cart_item_key` would be included in the payload.
 
 ### Delivery/payload
 
@@ -49,7 +49,7 @@ The payload is JSON encoded and for API resources (coupons, customers, orders, p
 
 ### Logging
 
-Requests/responses are logged using the WooCommerce logging system. Each delivery log includes:
+Requests/responses are logged using the PooCommerce logging system. Each delivery log includes:
 
 -   Request duration.
 -   Request URL, method, headers, and body.
@@ -57,11 +57,11 @@ Requests/responses are logged using the WooCommerce logging system. Each deliver
 
 After 5 consecutive failed deliveries (as defined by a non HTTP 2xx response code), the webhook is disabled and must be edited via the REST API to re-enable.
 
-Delivery logs can be accessed in "WooCommerce" > "Status" > "Logs".
+Delivery logs can be accessed in "PooCommerce" > "Status" > "Logs".
 
 ### Visual interface
 
-You can find the Webhooks interface going to "WooCommerce" > "Settings" > "Advanced" > "Webhooks", see our [Visual Webhooks docs](https://docs.woocommerce.com/document/webhooks/) for more details.
+You can find the Webhooks interface going to "PooCommerce" > "Settings" > "Advanced" > "Webhooks", see our [Visual Webhooks docs](https://docs.poocommerce.com/document/webhooks/) for more details.
 
 ## Webhook properties
 
@@ -73,7 +73,7 @@ You can find the Webhooks interface going to "WooCommerce" > "Settings" > "Advan
 | `topic`             | string    | Webhook topic. `MANDATORY`                                                                                                    |
 | `resource`          | string    | Webhook resource. `READ-ONLY`                                                                                                 |
 | `event`             | string    | Webhook event. `READ-ONLY`                                                                                                    |
-| `hooks`             | array     | WooCommerce action names associated with the webhook. `READ-ONLY`                                                             |
+| `hooks`             | array     | PooCommerce action names associated with the webhook. `READ-ONLY`                                                             |
 | `delivery_url`      | string    | The URL where the webhook payload is delivered. `READ-ONLY` `MANDATORY`                         |
 | `secret`            | string    | Secret key used to generate a hash of the delivered webhook and provided in the request headers. This will default is a MD5 hash from the current user's ID | username if not provided. `WRITE-ONLY` `MANDATORY` |
 | `date_created`      | date-time | The date the webhook was created, in the site's timezone. `READ-ONLY`                                                         |
@@ -113,7 +113,7 @@ const data = {
 	delivery_url: 'http://requestb.in/1g0sxmo1',
 };
 
-WooCommerce.post( 'webhooks', data )
+PooCommerce.post( 'webhooks', data )
 	.then( ( response ) => {
 		console.log( response.data );
 	} )
@@ -133,7 +133,7 @@ $data = [
     'delivery_url' => 'http://requestb.in/1g0sxmo1'
 ];
 
-print_r($woocommerce->post('webhooks', $data));
+print_r($poocommerce->post('webhooks', $data));
 ?>
 ```
 
@@ -160,7 +160,7 @@ data = {
   delivery_url: "http://requestb.in/1g0sxmo1"
 }
 
-woocommerce.post("webhooks", data).parsed_response
+poocommerce.post("webhooks", data).parsed_response
 ```
 
   </TabItem>
@@ -175,10 +175,10 @@ woocommerce.post("webhooks", data).parsed_response
 	"resource": "order",
 	"event": "updated",
 	"hooks": [
-		"woocommerce_process_shop_order_meta",
-		"woocommerce_api_edit_order",
-		"woocommerce_order_edit_status",
-		"woocommerce_order_status_changed"
+		"poocommerce_process_shop_order_meta",
+		"poocommerce_api_edit_order",
+		"poocommerce_order_edit_status",
+		"poocommerce_order_status_changed"
 	],
 	"delivery_url": "http://requestb.in/1g0sxmo1",
 	"date_created": "2016-05-15T23:17:52",
@@ -223,7 +223,7 @@ curl https://example.com/wp-json/wc/v3/webhooks/142 \
   <TabItem value="js" label="JavaScript">
 
 ```javascript
-WooCommerce.get( 'webhooks/142' )
+PooCommerce.get( 'webhooks/142' )
 	.then( ( response ) => {
 		console.log( response.data );
 	} )
@@ -236,7 +236,7 @@ WooCommerce.get( 'webhooks/142' )
   <TabItem value="php" label="PHP">
 
 ```php
-<?php print_r($woocommerce->get('webhooks/142')); ?>
+<?php print_r($poocommerce->get('webhooks/142')); ?>
 ```
 
   </TabItem>
@@ -250,7 +250,7 @@ print(wcapi.get("webhooks/142").json())
   <TabItem value="ruby" label="Ruby">
 
 ```ruby
-woocommerce.get("webhooks/142").parsed_response
+poocommerce.get("webhooks/142").parsed_response
 ```
 
   </TabItem>
@@ -265,10 +265,10 @@ woocommerce.get("webhooks/142").parsed_response
 	"resource": "order",
 	"event": "updated",
 	"hooks": [
-		"woocommerce_process_shop_order_meta",
-		"woocommerce_api_edit_order",
-		"woocommerce_order_edit_status",
-		"woocommerce_order_status_changed"
+		"poocommerce_process_shop_order_meta",
+		"poocommerce_api_edit_order",
+		"poocommerce_order_edit_status",
+		"poocommerce_order_status_changed"
 	],
 	"delivery_url": "http://requestb.in/1g0sxmo1",
 	"date_created": "2016-05-15T23:17:52",
@@ -313,7 +313,7 @@ curl https://example.com/wp-json/wc/v3/webhooks \
   <TabItem value="js" label="JavaScript">
 
 ```javascript
-WooCommerce.get( 'webhooks' )
+PooCommerce.get( 'webhooks' )
 	.then( ( response ) => {
 		console.log( response.data );
 	} )
@@ -326,7 +326,7 @@ WooCommerce.get( 'webhooks' )
   <TabItem value="php" label="PHP">
 
 ```php
-<?php print_r($woocommerce->get('webhooks')); ?>
+<?php print_r($poocommerce->get('webhooks')); ?>
 ```
 
   </TabItem>
@@ -340,7 +340,7 @@ print(wcapi.get("webhooks").json())
   <TabItem value="ruby" label="Ruby">
 
 ```ruby
-woocommerce.get("webhooks").parsed_response
+poocommerce.get("webhooks").parsed_response
 ```
 
   </TabItem>
@@ -357,8 +357,8 @@ woocommerce.get("webhooks").parsed_response
 		"event": "created",
 		"hooks": [
 			"user_register",
-			"woocommerce_created_customer",
-			"woocommerce_api_create_customer"
+			"poocommerce_created_customer",
+			"poocommerce_api_create_customer"
 		],
 		"delivery_url": "http://requestb.in/1g0sxmo1",
 		"date_created": "2016-05-15T23:17:52",
@@ -386,10 +386,10 @@ woocommerce.get("webhooks").parsed_response
 		"resource": "order",
 		"event": "updated",
 		"hooks": [
-			"woocommerce_process_shop_order_meta",
-			"woocommerce_api_edit_order",
-			"woocommerce_order_edit_status",
-			"woocommerce_order_status_changed"
+			"poocommerce_process_shop_order_meta",
+			"poocommerce_api_edit_order",
+			"poocommerce_order_edit_status",
+			"poocommerce_order_status_changed"
 		],
 		"delivery_url": "http://requestb.in/1g0sxmo1",
 		"date_created": "2016-05-15T23:17:52",
@@ -461,7 +461,7 @@ const data = {
 	status: 'paused',
 };
 
-WooCommerce.put( 'webhooks/142', data )
+PooCommerce.put( 'webhooks/142', data )
 	.then( ( response ) => {
 		console.log( response.data );
 	} )
@@ -479,7 +479,7 @@ $data = [
     'status' => 'paused'
 ];
 
-print_r($woocommerce->put('webhooks/142', $data));
+print_r($poocommerce->put('webhooks/142', $data));
 ?>
 ```
 
@@ -502,7 +502,7 @@ data = {
   status: "paused"
 }
 
-woocommerce.put("webhooks/142", data).parsed_response
+poocommerce.put("webhooks/142", data).parsed_response
 ```
 
   </TabItem>
@@ -517,10 +517,10 @@ woocommerce.put("webhooks/142", data).parsed_response
 	"resource": "order",
 	"event": "updated",
 	"hooks": [
-		"woocommerce_process_shop_order_meta",
-		"woocommerce_api_edit_order",
-		"woocommerce_order_edit_status",
-		"woocommerce_order_status_changed"
+		"poocommerce_process_shop_order_meta",
+		"poocommerce_api_edit_order",
+		"poocommerce_order_edit_status",
+		"poocommerce_order_status_changed"
 	],
 	"delivery_url": "http://requestb.in/1g0sxmo1",
 	"date_created": "2016-05-15T23:17:52",
@@ -565,7 +565,7 @@ curl -X DELETE https://example.com/wp-json/wc/v3/webhooks/142 \
   <TabItem value="js" label="JavaScript">
 
 ```javascript
-WooCommerce.delete( 'webhooks/142' )
+PooCommerce.delete( 'webhooks/142' )
 	.then( ( response ) => {
 		console.log( response.data );
 	} )
@@ -578,7 +578,7 @@ WooCommerce.delete( 'webhooks/142' )
   <TabItem value="php" label="PHP">
 
 ```php
-<?php print_r($woocommerce->delete('webhooks/142')); ?>
+<?php print_r($poocommerce->delete('webhooks/142')); ?>
 ```
 
   </TabItem>
@@ -592,7 +592,7 @@ print(wcapi.delete("webhooks/142").json())
   <TabItem value="ruby" label="Ruby">
 
 ```ruby
-woocommerce.delete("webhooks/142").parsed_response
+poocommerce.delete("webhooks/142").parsed_response
 ```
 
   </TabItem>
@@ -607,10 +607,10 @@ woocommerce.delete("webhooks/142").parsed_response
 	"resource": "order",
 	"event": "updated",
 	"hooks": [
-		"woocommerce_process_shop_order_meta",
-		"woocommerce_api_edit_order",
-		"woocommerce_order_edit_status",
-		"woocommerce_order_status_changed"
+		"poocommerce_process_shop_order_meta",
+		"poocommerce_api_edit_order",
+		"poocommerce_order_edit_status",
+		"poocommerce_order_status_changed"
 	],
 	"delivery_url": "http://requestb.in/1g0sxmo1",
 	"date_created": "2016-05-15T23:17:52",
@@ -700,7 +700,7 @@ const data = {
 	delete: [ 143 ],
 };
 
-WooCommerce.post( 'webhooks/batch', data )
+PooCommerce.post( 'webhooks/batch', data )
 	.then( ( response ) => {
 		console.log( response.data );
 	} )
@@ -732,7 +732,7 @@ $data = [
     ]
 ];
 
-print_r($woocommerce->post('webhooks/batch', $data));
+print_r($poocommerce->post('webhooks/batch', $data));
 ?>
 ```
 
@@ -783,7 +783,7 @@ data = {
   ]
 }
 
-woocommerce.post("webhooks/batch", data).parsed_response
+poocommerce.post("webhooks/batch", data).parsed_response
 ```
 
   </TabItem>
@@ -800,8 +800,8 @@ woocommerce.post("webhooks/batch", data).parsed_response
 			"resource": "coupon",
 			"event": "created",
 			"hooks": [
-				"woocommerce_process_shop_coupon_meta",
-				"woocommerce_api_create_coupon"
+				"poocommerce_process_shop_coupon_meta",
+				"poocommerce_api_create_coupon"
 			],
 			"delivery_url": "http://requestb.in/1g0sxmo1",
 			"date_created": "2016-05-25T01:56:26",
@@ -858,8 +858,8 @@ woocommerce.post("webhooks/batch", data).parsed_response
 			"event": "created",
 			"hooks": [
 				"user_register",
-				"woocommerce_created_customer",
-				"woocommerce_api_create_customer"
+				"poocommerce_created_customer",
+				"poocommerce_api_create_customer"
 			],
 			"delivery_url": "http://requestb.in/1g0sxmo1",
 			"date_created": "2016-05-15T23:17:52",

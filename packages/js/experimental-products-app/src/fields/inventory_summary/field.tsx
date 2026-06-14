@@ -15,9 +15,9 @@ const fieldDefinition = {
 	enableHiding: false,
 	filterBy: false,
 	elements: [
-		{ label: __( 'In stock', 'woocommerce' ), value: 'instock' },
-		{ label: __( 'Out of stock', 'woocommerce' ), value: 'outofstock' },
-		{ label: __( 'On backorder', 'woocommerce' ), value: 'onbackorder' },
+		{ label: __( 'In stock', 'poocommerce' ), value: 'instock' },
+		{ label: __( 'Out of stock', 'poocommerce' ), value: 'outofstock' },
+		{ label: __( 'On backorder', 'poocommerce' ), value: 'onbackorder' },
 	],
 } satisfies Partial< Field< ProductEntityRecord > >;
 
@@ -32,24 +32,24 @@ export const fieldExtensions: Partial< Field< ProductEntityRecord > > = {
 		if ( item.manage_stock ) {
 			if ( ! Number.isFinite( item.stock_quantity ) ) {
 				return (
-					<div className="woocommerce-fields-field__inventory-summary">
-						{ __( 'No stock quantity set', 'woocommerce' ) }
+					<div className="poocommerce-fields-field__inventory-summary">
+						{ __( 'No stock quantity set', 'poocommerce' ) }
 					</div>
 				);
 			}
 
 			return (
-				<div className="woocommerce-fields-field__inventory-summary">
+				<div className="poocommerce-fields-field__inventory-summary">
 					{ sprintf(
 						/* translators: %d: stock quantity */
-						__( '%d available in stock', 'woocommerce' ),
+						__( '%d available in stock', 'poocommerce' ),
 						item.stock_quantity
 					) }
 				</div>
 			);
 		}
 		return (
-			<div className="woocommerce-fields-field__inventory-summary">
+			<div className="poocommerce-fields-field__inventory-summary">
 				{ match?.label ?? item.stock_status }
 			</div>
 		);

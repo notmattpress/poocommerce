@@ -2,19 +2,19 @@
  * External dependencies
  */
 import { render } from '@testing-library/react';
-import { useStoreCart } from '@woocommerce/base-context/hooks';
+import { useStoreCart } from '@poocommerce/base-context/hooks';
 
 /**
  * Internal dependencies
  */
 import { OrderMetaSlotFill } from '../slotfills';
 
-jest.mock( '@woocommerce/base-context/hooks', () => ( {
+jest.mock( '@poocommerce/base-context/hooks', () => ( {
 	useStoreCart: jest.fn(),
 } ) );
 
 const mockSlotRender = jest.fn( () => <div data-testid="order-meta-slot" /> );
-jest.mock( '@woocommerce/blocks-checkout', () => {
+jest.mock( '@poocommerce/blocks-checkout', () => {
 	const MockFill = ( { children }: { children: React.ReactNode } ) => (
 		<>{ children }</>
 	);
@@ -39,7 +39,7 @@ describe( 'Cart OrderMetaSlotFill', () => {
 
 		expect( mockSlotRender ).toHaveBeenCalledWith(
 			expect.objectContaining( {
-				context: 'woocommerce/cart',
+				context: 'poocommerce/cart',
 				extensions: { 'my-ext': true },
 				cart: expect.objectContaining( {
 					cartTotals: { total: '1000' },

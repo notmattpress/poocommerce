@@ -8,7 +8,7 @@ import {
 	act,
 } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { SlotFillProvider } from '@woocommerce/blocks-checkout';
+import { SlotFillProvider } from '@poocommerce/blocks-checkout';
 
 /**
  * Internal dependencies

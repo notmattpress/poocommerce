@@ -2,8 +2,8 @@
  * External dependencies
  */
 import { useDispatch, useSelect } from '@wordpress/data';
-import { ServerAddressAutocompleteProvider } from '@woocommerce/type-defs/address-autocomplete';
-import { getSettingWithCoercion } from '@woocommerce/settings';
+import { ServerAddressAutocompleteProvider } from '@poocommerce/type-defs/address-autocomplete';
+import { getSettingWithCoercion } from '@poocommerce/settings';
 import { useEffect } from '@wordpress/element';
 import type {
 	ActionCreatorsOf,

@@ -1,7 +1,7 @@
-.woocommerce-ellipsis-menu {
+.poocommerce-ellipsis-menu {
 	text-align: center;
 
-	.woocommerce-ellipsis-menu__toggle {
+	.poocommerce-ellipsis-menu__toggle {
 		justify-content: center;
 		vertical-align: middle;
 		width: 24px;
@@ -13,7 +13,7 @@
 	}
 }
 
-.woocommerce-ellipsis-menu__popover {
+.poocommerce-ellipsis-menu__popover {
 	text-align: left;
 
 	&:not(.is-mobile)::before,
@@ -26,7 +26,7 @@
 		padding: 2px;
 	}
 
-	.woocommerce-ellipsis-menu__content {
+	.poocommerce-ellipsis-menu__content {
 		width: 100%;
 
 		.components-button {
@@ -35,12 +35,12 @@
 		}
 	}
 
-	.woocommerce-ellipsis-menu__title,
-	.woocommerce-ellipsis-menu__item {
+	.poocommerce-ellipsis-menu__title,
+	.poocommerce-ellipsis-menu__item {
 		padding: 4px 12px;
 	}
 
-	.woocommerce-ellipsis-menu__item {
+	.poocommerce-ellipsis-menu__item {
 		cursor: pointer;
 		color: $gray-700;
 
@@ -56,7 +56,7 @@
 	}
 
 	.components-base-control__label,
-	.woocommerce-ellipsis-menu__title {
+	.poocommerce-ellipsis-menu__title {
 		color: $gray-900;
 		padding-top: $gap-smaller;
 		padding-bottom: $gap-smaller;

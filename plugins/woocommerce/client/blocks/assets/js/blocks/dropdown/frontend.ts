@@ -35,7 +35,7 @@ function isToggleableItem(
 }
 
 store(
-	'woocommerce/dropdown',
+	'poocommerce/dropdown',
 	{
 		state: {
 			get selectValue(): string {

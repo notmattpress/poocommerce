@@ -5,7 +5,7 @@ import { fireEvent, render, waitFor } from '@testing-library/react';
 import type {
 	PaymentGatewayProvider,
 	PaymentsProviderState,
-} from '@woocommerce/data';
+} from '@poocommerce/data';
 
 /**
  * Internal dependencies
@@ -16,7 +16,7 @@ const mockCreateErrorNotice = jest.fn();
 const mockTogglePaymentGateway = jest.fn();
 const mockInvalidateResolutionForStoreSelector = jest.fn();
 
-jest.mock( '@woocommerce/data', () => ( {
+jest.mock( '@poocommerce/data', () => ( {
 	paymentSettingsStore: {},
 } ) );
 
@@ -61,7 +61,7 @@ describe( 'EnableGatewayButton', () => {
 			data: 'needs_setup',
 		} );
 
-		Object.defineProperty( window, 'woocommerce_admin', {
+		Object.defineProperty( window, 'poocommerce_admin', {
 			value: {
 				ajax_url: '/wp-admin/admin-ajax.php',
 				nonces: {

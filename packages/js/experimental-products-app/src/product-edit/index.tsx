@@ -332,24 +332,24 @@ function injectBulkNumericOperationFormFields(
 function getSaveNoticeMessage( successCount: number, failedCount: number ) {
 	if ( failedCount === 0 ) {
 		if ( successCount === 1 ) {
-			return __( 'Product saved.', 'woocommerce' );
+			return __( 'Product saved.', 'poocommerce' );
 		}
 
 		return sprintf(
 			/* translators: %d number of saved products. */
-			__( '%d products saved.', 'woocommerce' ),
+			__( '%d products saved.', 'poocommerce' ),
 			successCount
 		);
 	}
 
 	if ( successCount === 0 ) {
 		if ( failedCount === 1 ) {
-			return __( 'Failed to save product.', 'woocommerce' );
+			return __( 'Failed to save product.', 'poocommerce' );
 		}
 
 		return sprintf(
 			/* translators: %d number of products that could not be saved. */
-			__( 'Failed to save %d products.', 'woocommerce' ),
+			__( 'Failed to save %d products.', 'poocommerce' ),
 			failedCount
 		);
 	}
@@ -358,7 +358,7 @@ function getSaveNoticeMessage( successCount: number, failedCount: number ) {
 		/* translators: 1: successful products count, 2: failed products count. */
 		__(
 			'Saved %1$d products. %2$d products could not be saved.',
-			'woocommerce'
+			'poocommerce'
 		),
 		successCount,
 		failedCount
@@ -409,7 +409,7 @@ function ProductEditForm( {
 	};
 
 	return (
-		<div className="woocommerce-product-edit__form">
+		<div className="poocommerce-product-edit__form">
 			<DataForm
 				data={ data }
 				fields={ enhancedFields }
@@ -597,7 +597,7 @@ export default function ProductEdit( { products, isOpen }: ProductEditProps ) {
 		selectedProducts.length === requestedProductIds.length &&
 		selectedProducts.length > 0;
 
-	let title = __( 'Quick edit', 'woocommerce' );
+	let title = __( 'Quick edit', 'poocommerce' );
 
 	if ( isReady ) {
 		if ( selectedProducts.length === 1 ) {
@@ -605,7 +605,7 @@ export default function ProductEdit( { products, isOpen }: ProductEditProps ) {
 		} else {
 			title = sprintf(
 				/* translators: %d number of selected products. */
-				__( 'Edit %d products', 'woocommerce' ),
+				__( 'Edit %d products', 'poocommerce' ),
 				selectedProducts.length
 			);
 		}
@@ -754,7 +754,7 @@ export default function ProductEdit( { products, isOpen }: ProductEditProps ) {
 
 		if ( hasInvalidBulkNumericEdits ) {
 			createErrorNotice(
-				__( 'Please enter a valid value.', 'woocommerce' ),
+				__( 'Please enter a valid value.', 'poocommerce' ),
 				{
 					type: 'snackbar',
 				}
@@ -836,36 +836,36 @@ export default function ProductEdit( { products, isOpen }: ProductEditProps ) {
 	return (
 		<Drawer.Root open={ isOpen } swipeDirection="right">
 			<Drawer.Popup
-				className="woocommerce-product-edit__drawer"
+				className="poocommerce-product-edit__drawer"
 				portal={
-					<Drawer.Portal className="woocommerce-product-edit__drawer-portal" />
+					<Drawer.Portal className="poocommerce-product-edit__drawer-portal" />
 				}
 				style={ { width: 450 } }
 			>
-				<Drawer.Header className="woocommerce-product-edit__header">
-					<Drawer.Title className="woocommerce-product-edit__title">
+				<Drawer.Header className="poocommerce-product-edit__header">
+					<Drawer.Title className="poocommerce-product-edit__title">
 						{ title }
 					</Drawer.Title>
 					<Drawer.CloseIcon
 						onClick={ closeDrawer }
-						label={ __( 'Close quick edit', 'woocommerce' ) }
+						label={ __( 'Close quick edit', 'poocommerce' ) }
 					/>
 				</Drawer.Header>
 
-				<Drawer.Content className="woocommerce-product-edit">
+				<Drawer.Content className="poocommerce-product-edit">
 					{ hasNoRequestedProducts && (
-						<div className="woocommerce-product-edit__empty-state">
+						<div className="poocommerce-product-edit__empty-state">
 							<p>
 								{ __(
 									'Select one or more products to edit them here.',
-									'woocommerce'
+									'poocommerce'
 								) }
 							</p>
 						</div>
 					) }
 
 					{ ! hasNoRequestedProducts && isResolving && (
-						<div className="woocommerce-product-edit__loading">
+						<div className="poocommerce-product-edit__loading">
 							<Spinner />
 						</div>
 					) }
@@ -873,11 +873,11 @@ export default function ProductEdit( { products, isOpen }: ProductEditProps ) {
 					{ ! hasNoRequestedProducts &&
 						! isResolving &&
 						hasMissingProducts && (
-							<div className="woocommerce-product-edit__empty-state">
+							<div className="poocommerce-product-edit__empty-state">
 								<p>
 									{ __(
 										'Select one or more products to edit them here.',
-										'woocommerce'
+										'poocommerce'
 									) }
 								</p>
 							</div>
@@ -894,13 +894,13 @@ export default function ProductEdit( { products, isOpen }: ProductEditProps ) {
 				</Drawer.Content>
 
 				{ isReady && (
-					<Drawer.Footer className="woocommerce-product-edit__footer">
+					<Drawer.Footer className="poocommerce-product-edit__footer">
 						<Button
 							variant="tertiary"
 							onClick={ closeDrawer }
 							disabled={ isSaving }
 						>
-							{ __( 'Cancel', 'woocommerce' ) }
+							{ __( 'Cancel', 'poocommerce' ) }
 						</Button>
 						<Button
 							variant="primary"
@@ -912,7 +912,7 @@ export default function ProductEdit( { products, isOpen }: ProductEditProps ) {
 								( ! hasEdits && ! hasValidBulkNumericEdits )
 							}
 						>
-							{ __( 'Save', 'woocommerce' ) }
+							{ __( 'Save', 'poocommerce' ) }
 						</Button>
 					</Drawer.Footer>
 				) }

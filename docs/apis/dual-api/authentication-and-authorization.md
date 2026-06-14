@@ -23,7 +23,7 @@ final class PrincipalResolver {
 The default `Principal` carries the `WP_User` and exposes:
 
 - `is_authenticated(): bool`: `true` when `user->ID > 0`. Anonymous requests are **not** signalled by `null`; they're a real principal whose user has ID 0.
-- `can_introspect(): bool`: defaults to true only when the user has the `manage_woocommerce` capability.
+- `can_introspect(): bool`: defaults to true only when the user has the `manage_poocommerce` capability.
 - `can_use_debug_mode(): bool`: defaults to true only when the user has the `manage_options` capability.
 
 Plugins authenticating against something else (app token, signed webhook, ...) ship their own `PrincipalResolver` and principal class. The resolver's **return type declares the plugin's principal type**, which ApiBuilder uses to type-check `authorize()`/`$_principal` signatures at build time. A resolver may take an optional `\WP_REST_Request $request` parameter, or none. To reject bad credentials, throw `UnauthorizedException` or `InvalidTokenException` from the resolver. See [Creating a dual API in a plugin](./creating-a-dual-api-in-a-plugin.md) and [Infrastructure classes](./reference/infrastructure-classes.md).
@@ -111,9 +111,9 @@ Three sensitive surfaces are gated independently, each by a combination of a pri
 
 | Surface | Principal method | Filter | Default if method absent |
 | --- | --- | --- | --- |
-| Native introspection (`__schema`, `__type`) | `can_introspect()` | `woocommerce_graphql_can_introspect` | deny |
-| Debug mode (also requires `_debug=1`) | `can_use_debug_mode()` | `woocommerce_graphql_can_use_debug_mode` | deny |
-| `_apiMetadata` discovery | `can_query_metadata()`, else falls back to `can_introspect()` | `woocommerce_graphql_can_query_metadata` | deny |
+| Native introspection (`__schema`, `__type`) | `can_introspect()` | `poocommerce_graphql_can_introspect` | deny |
+| Debug mode (also requires `_debug=1`) | `can_use_debug_mode()` | `poocommerce_graphql_can_use_debug_mode` | deny |
+| `_apiMetadata` discovery | `can_query_metadata()`, else falls back to `can_introspect()` | `poocommerce_graphql_can_query_metadata` | deny |
 
 All three gates **fail closed**:
 
@@ -122,13 +122,13 @@ All three gates **fail closed**:
 - A throw from the method or filter is caught and treated as a deny.
 - Filters must return strictly `true` to grant; loose values like `1` or `'yes'` deny.
 
-The filters receive `( bool $decision, ?object $principal, \WP_REST_Request $request )`. They are **not** invoked when principal resolution itself failed. They are also **site-wide**: a callback affects every dual-API endpoint on the site (core and plugins), so branch on the `$request` route if it should apply to only one; see [Scope: what applies where](./caching-and-settings.md#scope-what-applies-where). The core `Principal` declares `can_introspect()` (gated on `manage_woocommerce`), which also governs `_apiMetadata` since it has no `can_query_metadata()` - so admin access to both works out of the box, and other principals are denied unless they opt in.
+The filters receive `( bool $decision, ?object $principal, \WP_REST_Request $request )`. They are **not** invoked when principal resolution itself failed. They are also **site-wide**: a callback affects every dual-API endpoint on the site (core and plugins), so branch on the `$request` route if it should apply to only one; see [Scope: what applies where](./caching-and-settings.md#scope-what-applies-where). The core `Principal` declares `can_introspect()` (gated on `manage_poocommerce`), which also governs `_apiMetadata` since it has no `can_query_metadata()` - so admin access to both works out of the box, and other principals are denied unless they opt in.
 
 Example override:
 
 ```php
 add_filter(
-    'woocommerce_graphql_can_introspect',
+    'poocommerce_graphql_can_introspect',
     fn( bool $can, $principal, \WP_REST_Request $request ): bool =>
         $can || 'true' === $request->get_param( 'x-allow-introspection' ),
     10,

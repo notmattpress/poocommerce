@@ -6,7 +6,7 @@
  * This class will be removed in future versions.
  *
  * @version  3.2.0
- * @package  WooCommerce\Classes
+ * @package  PooCommerce\Classes
  * @category Class
  * @author   Automattic
  */
@@ -117,7 +117,7 @@ abstract class WC_Legacy_Cart {
 				$value = wc_prices_include_tax();
 				break;
 			case 'round_at_subtotal' :
-				$value = 'yes' === get_option( 'woocommerce_tax_round_at_subtotal' );
+				$value = 'yes' === get_option( 'poocommerce_tax_round_at_subtotal' );
 				break;
 			case 'cart_contents_total' :
 				$value = $this->get_cart_contents_total();
@@ -197,7 +197,7 @@ abstract class WC_Legacy_Cart {
 				$value = $this->tax;
 				break;
 			case 'discount_total':
-				wc_deprecated_argument( 'WC_Cart->discount_total', '2.3', 'After tax coupons are no longer supported. For more information see: https://woocommerce.wordpress.com/2014/12/upcoming-coupon-changes-in-woocommerce-2-3/' );
+				wc_deprecated_argument( 'WC_Cart->discount_total', '2.3', 'After tax coupons are no longer supported. For more information see: https://poocommerce.wordpress.com/2014/12/upcoming-coupon-changes-in-poocommerce-2-3/' );
 				$value = 0;
 				break;
 			case 'tax_display_cart':
@@ -399,7 +399,7 @@ abstract class WC_Legacy_Cart {
 		} else {
 			$discounts_before_tax = false;
 		}
-		return apply_filters( 'woocommerce_cart_discounts_before_tax', $discounts_before_tax, $this );
+		return apply_filters( 'poocommerce_cart_discounts_before_tax', $discounts_before_tax, $this );
 	}
 
 	/**

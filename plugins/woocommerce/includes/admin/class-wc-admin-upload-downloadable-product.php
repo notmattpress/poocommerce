@@ -2,7 +2,7 @@
 /**
  * Add hooks related to uploading downloadable products.
  *
- * @package     WooCommerce\Admin
+ * @package     PooCommerce\Admin
  * @version     8.5.0
  */
 
@@ -37,11 +37,11 @@ class WC_Admin_Upload_Downloadable_Product {
 		if ( isset( $_POST['type'] ) && 'downloadable_product' === $_POST['type'] ) {
 
 			if ( empty( $pathdata['subdir'] ) ) {
-				$pathdata['path']   = $pathdata['path'] . '/woocommerce_uploads';
-				$pathdata['url']    = $pathdata['url'] . '/woocommerce_uploads';
-				$pathdata['subdir'] = '/woocommerce_uploads';
+				$pathdata['path']   = $pathdata['path'] . '/poocommerce_uploads';
+				$pathdata['url']    = $pathdata['url'] . '/poocommerce_uploads';
+				$pathdata['subdir'] = '/poocommerce_uploads';
 			} else {
-				$new_subdir = '/woocommerce_uploads' . $pathdata['subdir'];
+				$new_subdir = '/poocommerce_uploads' . $pathdata['subdir'];
 
 				$pathdata['path']   = str_replace( $pathdata['subdir'], $new_subdir, $pathdata['path'] );
 				$pathdata['url']    = str_replace( $pathdata['subdir'], $new_subdir, $pathdata['url'] );
@@ -53,7 +53,7 @@ class WC_Admin_Upload_Downloadable_Product {
 	}
 
 	/**
-	 * Change filename for WooCommerce uploads and prepend unique chars for security.
+	 * Change filename for PooCommerce uploads and prepend unique chars for security.
 	 *
 	 * @param string $full_filename Original filename.
 	 * @param string $ext           Extension of file.
@@ -68,11 +68,11 @@ class WC_Admin_Upload_Downloadable_Product {
 			return $full_filename;
 		}
 
-		if ( ! strpos( $dir, 'woocommerce_uploads' ) ) {
+		if ( ! strpos( $dir, 'poocommerce_uploads' ) ) {
 			return $full_filename;
 		}
 
-		if ( 'no' === get_option( 'woocommerce_downloads_add_hash_to_filename' ) ) {
+		if ( 'no' === get_option( 'poocommerce_downloads_add_hash_to_filename' ) ) {
 			return $full_filename;
 		}
 
@@ -116,8 +116,8 @@ class WC_Admin_Upload_Downloadable_Product {
 	/**
 	 * Run a filter when uploading a downloadable product.
 	 */
-	public function woocommerce_media_upload_downloadable_product() {
-		// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
+	public function poocommerce_media_upload_downloadable_product() {
+		// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
 		do_action( 'media_upload_file' );
 	}
 }

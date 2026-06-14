@@ -6,7 +6,7 @@ import {
 	removeTags,
 	trimCharacters,
 	trimWords,
-} from '@woocommerce/utils';
+} from '@poocommerce/utils';
 
 describe( 'trim-words', () => {
 	describe( 'removeTags', () => {

@@ -2,9 +2,9 @@
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\RemoteSpecs\RuleProcessors\RuleEvaluator;
+use Automattic\PooCommerce\Admin\RemoteSpecs\RuleProcessors\RuleEvaluator;
 
-register_woocommerce_admin_test_helper_rest_route(
+register_poocommerce_admin_test_helper_rest_route(
 	'/remote-spec-validator/validate',
 	'wca_test_helper_validate_remote_spec',
 	array(

@@ -1,5 +1,5 @@
 <?php
-namespace Automattic\WooCommerce\StoreApi\Routes;
+namespace Automattic\PooCommerce\StoreApi\Routes;
 
 /**
  * RouteInterface.

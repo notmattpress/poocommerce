@@ -69,7 +69,7 @@ const updateDropdownPosition = (
 };
 
 const { actions: privateActions } = store(
-	'woocommerce/customer-account/private',
+	'poocommerce/customer-account/private',
 	{
 		actions: {
 			handleDocumentClick: ( event: MouseEvent ) => {
@@ -135,7 +135,7 @@ const { actions: privateActions } = store(
 	}
 );
 
-store( 'woocommerce/customer-account', {
+store( 'poocommerce/customer-account', {
 	state: {
 		/**
 		 * Whether the dropdown is open.

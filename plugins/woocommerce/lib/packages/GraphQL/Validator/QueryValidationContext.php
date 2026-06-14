@@ -1,27 +1,27 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\GraphQL\Validator;
+namespace Automattic\PooCommerce\Vendor\GraphQL\Validator;
 
-use Automattic\WooCommerce\Vendor\GraphQL\Error\Error;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\DocumentNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\FieldNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\FragmentDefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\FragmentSpreadNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\HasSelectionSet;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\InlineFragmentNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\Node;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\NodeKind;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\OperationDefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\VariableNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\Visitor;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\Argument;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\CompositeType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\Directive;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\FieldDefinition;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\InputType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\Type;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Schema;
-use Automattic\WooCommerce\Vendor\GraphQL\Utils\TypeInfo;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\Error;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\DocumentNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\FieldNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\FragmentDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\FragmentSpreadNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\HasSelectionSet;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\InlineFragmentNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\Node;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\NodeKind;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\OperationDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\VariableNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\Visitor;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\Argument;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\CompositeType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\Directive;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\FieldDefinition;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\InputType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\Type;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Schema;
+use Automattic\PooCommerce\Vendor\GraphQL\Utils\TypeInfo;
 
 /**
  * An instance of this class is passed as the "this" context to all validators,

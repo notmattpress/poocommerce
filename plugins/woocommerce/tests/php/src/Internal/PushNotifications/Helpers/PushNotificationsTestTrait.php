@@ -2,12 +2,12 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\PushNotifications\Helpers;
+namespace Automattic\PooCommerce\Tests\Internal\PushNotifications\Helpers;
 
 use Automattic\Jetpack\Connection\Manager as JetpackConnectionManager;
-use Automattic\WooCommerce\Internal\Features\FeaturesController;
-use Automattic\WooCommerce\Internal\PushNotifications\PushNotifications;
-use Automattic\WooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\Internal\Features\FeaturesController;
+use Automattic\PooCommerce\Internal\PushNotifications\PushNotifications;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
 use PHPUnit\Framework\MockObject\MockObject;
 use ReflectionClass;
 
@@ -19,7 +19,7 @@ use ReflectionClass;
  * the three things every push-notifications-related controller test needs in
  * setUp.
  *
- * @package WooCommerce\Tests\PushNotifications
+ * @package PooCommerce\Tests\PushNotifications
  */
 trait PushNotificationsTestTrait {
 	/**

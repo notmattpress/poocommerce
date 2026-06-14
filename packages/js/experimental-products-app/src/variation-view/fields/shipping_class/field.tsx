@@ -40,7 +40,7 @@ export const fieldExtensions: Partial< Field< ProductEntityRecord > > = {
 
 		const options = [
 			{
-				label: __( 'Same as parent', 'woocommerce' ),
+				label: __( 'Same as parent', 'poocommerce' ),
 				value: SAME_AS_PARENT,
 			},
 			...( shippingClasses?.length

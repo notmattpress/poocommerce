@@ -26,7 +26,7 @@ Display a set of stars representing the product's average rating.
 ### Usage
 
 ```jsx
-// Use a real WooCommerce Product here.
+// Use a real PooCommerce Product here.
 const product = { average_rating: 3.5 };
 
 <ProductRating product={ product } />
@@ -36,7 +36,7 @@ const product = { average_rating: 3.5 };
 
 Name | Type | Default | Description
 --- | --- | --- | ---
-`product` | Object | `null` | (required) A product object containing a `average_rating`. See the [Products API documentation](https://developer.woocommerce.com/docs/apis/rest-api/v3/products/).
+`product` | Object | `null` | (required) A product object containing a `average_rating`. See the [Products API documentation](https://developer.poocommerce.com/docs/apis/rest-api/v3/products/).
 
 
 ## ReviewRating
@@ -46,7 +46,7 @@ Display a set of stars representing the review's rating.
 ### Usage
 
 ```jsx
-// Use a real WooCommerce Review here.
+// Use a real PooCommerce Review here.
 const review = { rating: 5 };
 
 <ReviewRating review={ review } />
@@ -56,4 +56,4 @@ const review = { rating: 5 };
 
 Name | Type | Default | Description
 --- | --- | --- | ---
-`review` | Object | `null` | (required) A review object containing a `rating`. See the [Product Reviews API documentation](https://developer.woocommerce.com/docs/apis/rest-api/v3/product-reviews/#retrieve-a-product-review).
+`review` | Object | `null` | (required) A review object containing a `rating`. See the [Product Reviews API documentation](https://developer.poocommerce.com/docs/apis/rest-api/v3/product-reviews/#retrieve-a-product-review).

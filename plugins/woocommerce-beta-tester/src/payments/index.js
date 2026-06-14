@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { useSelect, useDispatch } from '@wordpress/data';
-import { ordersStore } from '@woocommerce/data';
+import { ordersStore } from '@poocommerce/data';
 import { ToggleControl } from '@wordpress/components';
 import apiFetch from '@wordpress/api-fetch';
 
@@ -108,7 +108,7 @@ const Payments = () => {
 
 	return (
 		<>
-			<h2>WooCommerce Payments</h2>
+			<h2>PooCommerce Payments</h2>
 			<table className="wp-list-table striped table-view-list widefat">
 				<thead>
 					<tr>

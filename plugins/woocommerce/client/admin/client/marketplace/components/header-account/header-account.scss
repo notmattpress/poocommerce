@@ -1,6 +1,6 @@
 @import "../../stylesheets/_variables.scss";
 
-.woocommerce-marketplace {
+.poocommerce-marketplace {
 	// Connected-user avatar in the floating-header toggle — locked to 18px
 	// so the User button matches every other tab in the bar regardless of
 	// sign-in state.
@@ -47,16 +47,16 @@
 	// next to a search input. The default toggle structure doesn't
 	// stretch / centre vertically on its own, so we explicitly handle
 	// both contexts:
-	// - Floating header (inside `.woocommerce-layout__activity-panel-tabs`):
+	// - Floating header (inside `.poocommerce-layout__activity-panel-tabs`):
 	//   wrapper stretches to the 60px bar height so the User tab aligns
 	//   with its neighbours (bell / store / display / help).
-	// - Marketplace page (inside `.woocommerce-marketplace__header`):
+	// - Marketplace page (inside `.poocommerce-marketplace__header`):
 	//   wrapper sits at 40px to match the WP 7.0-height search input
 	//   beside it.
 	// Both rules scope to their parent container rather than styling
 	// `__user-menu` unconditionally, otherwise the Home rule would leak
 	// onto Marketplace (and vice versa).
-	.woocommerce-layout__activity-panel-tabs &__user-menu {
+	.poocommerce-layout__activity-panel-tabs &__user-menu {
 		display: flex;
 		align-items: stretch;
 		height: $header-height;
@@ -131,8 +131,8 @@
 		margin-top: $grid-unit-30;
 		width: 100%;
 
-		.woocommerce-marketplace__header-account-modal-button,
-		.woocommerce-marketplace__header-account-modal-button.is-primary {
+		.poocommerce-marketplace__header-account-modal-button,
+		.poocommerce-marketplace__header-account-modal-button.is-primary {
 			border-radius: 2px;
 			box-shadow: none;
 		}
@@ -140,7 +140,7 @@
 }
 
 @media screen and (min-width: $break-small) {
-	.woocommerce-marketplace {
+	.poocommerce-marketplace {
 		&__header-account-modal {
 			max-width: $header-account-modal-width;
 

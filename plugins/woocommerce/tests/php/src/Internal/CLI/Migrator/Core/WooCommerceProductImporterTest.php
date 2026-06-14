@@ -1,30 +1,30 @@
 <?php
 /**
- * WooCommerceProductImporter Test
+ * PooCommerceProductImporter Test
  *
- * @package Automattic\WooCommerce\Tests\Internal\CLI\Migrator\Core
+ * @package Automattic\PooCommerce\Tests\Internal\CLI\Migrator\Core
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\CLI\Migrator\Core;
+namespace Automattic\PooCommerce\Tests\Internal\CLI\Migrator\Core;
 
-use Automattic\WooCommerce\Internal\CLI\Migrator\Core\WooCommerceProductImporter;
-use Automattic\WooCommerce\Tests\Internal\CLI\Migrator\Fixtures\MockShopifyData;
+use Automattic\PooCommerce\Internal\CLI\Migrator\Core\PooCommerceProductImporter;
+use Automattic\PooCommerce\Tests\Internal\CLI\Migrator\Fixtures\MockShopifyData;
 use WC_Product_Simple;
 use WC_Product_Variable;
 
 /**
- * WooCommerceProductImporterTest class.
+ * PooCommerceProductImporterTest class.
  */
-class WooCommerceProductImporterTest extends \WC_Unit_Test_Case {
+class PooCommerceProductImporterTest extends \WC_Unit_Test_Case {
 
 	/**
-	 * The WooCommerceProductImporter instance under test.
+	 * The PooCommerceProductImporter instance under test.
 	 *
-	 * @var WooCommerceProductImporter
+	 * @var PooCommerceProductImporter
 	 */
-	private WooCommerceProductImporter $importer;
+	private PooCommerceProductImporter $importer;
 
 	/**
 	 * Set up before each test.
@@ -33,7 +33,7 @@ class WooCommerceProductImporterTest extends \WC_Unit_Test_Case {
 		parent::setUp();
 
 		// Create importer with default options.
-		$this->importer = new WooCommerceProductImporter();
+		$this->importer = new PooCommerceProductImporter();
 
 		// Clean up any existing products.
 		$this->clean_up_products();
@@ -48,10 +48,10 @@ class WooCommerceProductImporterTest extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Test WooCommerceProductImporter instantiation.
+	 * Test PooCommerceProductImporter instantiation.
 	 */
 	public function test_importer_instantiation(): void {
-		$this->assertInstanceOf( WooCommerceProductImporter::class, $this->importer );
+		$this->assertInstanceOf( PooCommerceProductImporter::class, $this->importer );
 	}
 
 	/**
@@ -132,7 +132,7 @@ class WooCommerceProductImporterTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_import_existing_product_skip(): void {
 		// Create importer with skip_existing option.
-		$importer_skip = new WooCommerceProductImporter();
+		$importer_skip = new PooCommerceProductImporter();
 		$importer_skip->configure( array( 'skip_existing' => true ) );
 
 		$product_data = MockShopifyData::get_mock_wc_product_data( 3 );
@@ -153,7 +153,7 @@ class WooCommerceProductImporterTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_import_existing_product_update(): void {
 		// Create importer with update_existing option.
-		$importer_update = new WooCommerceProductImporter();
+		$importer_update = new PooCommerceProductImporter();
 		$importer_update->configure( array( 'update_existing' => true ) );
 
 		$product_data = MockShopifyData::get_mock_wc_product_data( 4 );
@@ -299,7 +299,7 @@ class WooCommerceProductImporterTest extends \WC_Unit_Test_Case {
 	 * Test dry run mode.
 	 */
 	public function test_dry_run_mode(): void {
-		$dry_run_importer = new WooCommerceProductImporter();
+		$dry_run_importer = new PooCommerceProductImporter();
 		$dry_run_importer->configure( array( 'dry_run' => true ) );
 
 		$product_data           = MockShopifyData::get_mock_wc_product_data( 40 );
@@ -404,7 +404,7 @@ class WooCommerceProductImporterTest extends \WC_Unit_Test_Case {
 	 * Test image import with dry run mode.
 	 */
 	public function test_image_import_dry_run(): void {
-		$dry_run_importer = new WooCommerceProductImporter();
+		$dry_run_importer = new PooCommerceProductImporter();
 		$dry_run_importer->configure( array( 'dry_run' => true ) );
 
 		$product_data           = MockShopifyData::get_mock_wc_product_data( 71 );
@@ -428,7 +428,7 @@ class WooCommerceProductImporterTest extends \WC_Unit_Test_Case {
 	 * Test image import with max images limit configuration.
 	 */
 	public function test_image_import_with_max_limit(): void {
-		$limited_importer = new WooCommerceProductImporter();
+		$limited_importer = new PooCommerceProductImporter();
 		$limited_importer->configure( array( 'max_images_per_product' => 2 ) );
 
 		$product_data           = MockShopifyData::get_mock_wc_product_data( 72 );
@@ -459,7 +459,7 @@ class WooCommerceProductImporterTest extends \WC_Unit_Test_Case {
 	 * Test image import disabled.
 	 */
 	public function test_image_import_disabled(): void {
-		$no_images_importer = new WooCommerceProductImporter();
+		$no_images_importer = new PooCommerceProductImporter();
 		$no_images_importer->configure( array( 'import_images' => false ) );
 
 		$product_data           = MockShopifyData::get_mock_wc_product_data( 73 );
@@ -499,7 +499,7 @@ class WooCommerceProductImporterTest extends \WC_Unit_Test_Case {
 			'sku'   => 'INVALID-PRICE-TEST',
 		);
 
-		// This should still succeed as price validation is handled by WooCommerce.
+		// This should still succeed as price validation is handled by PooCommerce.
 		$result = $this->importer->import_product( $invalid_product );
 		$this->assertEquals( 'success', $result['status'] );
 	}
@@ -520,7 +520,7 @@ class WooCommerceProductImporterTest extends \WC_Unit_Test_Case {
 		$this->assertEquals( 'created', $result1['action'] );
 
 		// Second product with same SKU should be handled based on configuration.
-		$importer_skip = new WooCommerceProductImporter();
+		$importer_skip = new PooCommerceProductImporter();
 		$importer_skip->configure( array( 'skip_existing' => true ) );
 
 		$result2 = $importer_skip->import_product( $product_data2 );
@@ -584,7 +584,7 @@ class WooCommerceProductImporterTest extends \WC_Unit_Test_Case {
 	 * Test category creation disabled.
 	 */
 	public function test_category_creation_disabled(): void {
-		$no_categories_importer = new WooCommerceProductImporter();
+		$no_categories_importer = new PooCommerceProductImporter();
 		$no_categories_importer->configure( array( 'create_categories' => false ) );
 
 		$product_data               = MockShopifyData::get_mock_wc_product_data( 100 );
@@ -611,7 +611,7 @@ class WooCommerceProductImporterTest extends \WC_Unit_Test_Case {
 	 * Test tag creation disabled.
 	 */
 	public function test_tag_creation_disabled(): void {
-		$no_tags_importer = new WooCommerceProductImporter();
+		$no_tags_importer = new PooCommerceProductImporter();
 		$no_tags_importer->configure( array( 'create_tags' => false ) );
 
 		$product_data         = MockShopifyData::get_mock_wc_product_data( 101 );
@@ -631,7 +631,7 @@ class WooCommerceProductImporterTest extends \WC_Unit_Test_Case {
 	 * Test variation handling disabled.
 	 */
 	public function test_variation_handling_disabled(): void {
-		$no_variations_importer = new WooCommerceProductImporter();
+		$no_variations_importer = new PooCommerceProductImporter();
 		$no_variations_importer->configure( array( 'handle_variations' => false ) );
 
 		$product_data               = MockShopifyData::get_mock_wc_product_data( 102 );
@@ -677,7 +677,7 @@ class WooCommerceProductImporterTest extends \WC_Unit_Test_Case {
 		$duplicate_data['sku']  = 'DIFFERENT-SKU';
 		$duplicate_data['name'] = 'Updated Product Name';
 
-		$update_importer = new WooCommerceProductImporter();
+		$update_importer = new PooCommerceProductImporter();
 		$update_importer->configure( array( 'update_existing' => true ) );
 
 		$result2 = $update_importer->import_product( $duplicate_data );
@@ -708,7 +708,7 @@ class WooCommerceProductImporterTest extends \WC_Unit_Test_Case {
 		$duplicate_data['sku']                 = 'COMPLETELY-DIFFERENT-SKU';
 		$duplicate_data['name']                = 'Updated via Original ID';
 
-		$update_importer = new WooCommerceProductImporter();
+		$update_importer = new PooCommerceProductImporter();
 		$update_importer->configure( array( 'update_existing' => true ) );
 
 		$result2 = $update_importer->import_product( $duplicate_data );
@@ -752,7 +752,7 @@ class WooCommerceProductImporterTest extends \WC_Unit_Test_Case {
 		$test_data['sku']                 = 'PRIORITY-TEST-SKU'; // Also matches first product.
 		$test_data['name']                = 'Found by Original ID Priority';
 
-		$update_importer = new WooCommerceProductImporter();
+		$update_importer = new PooCommerceProductImporter();
 		$update_importer->configure( array( 'update_existing' => true ) );
 
 		$result3 = $update_importer->import_product( $test_data );

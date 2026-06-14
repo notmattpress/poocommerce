@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { CartResponseShippingRate } from '@woocommerce/type-defs/cart-response';
+import { CartResponseShippingRate } from '@poocommerce/type-defs/cart-response';
 import type { ReactElement } from 'react';
 
 /**
@@ -29,7 +29,7 @@ export interface PackagesProps {
 	renderOption: PackageRateRenderOption;
 
 	// The context that this component is rendered in (Cart/Checkout)
-	context?: 'woocommerce/cart' | 'woocommerce/checkout' | '';
+	context?: 'poocommerce/cart' | 'poocommerce/checkout' | '';
 }
 
 export interface ShippingRatesControlProps {
@@ -55,5 +55,5 @@ export interface ShippingRatesControlProps {
 	renderOption?: PackageRateRenderOption | undefined;
 
 	// String equal to the block name where the Slot is rendered
-	context: 'woocommerce/cart' | 'woocommerce/checkout';
+	context: 'poocommerce/cart' | 'poocommerce/checkout';
 }

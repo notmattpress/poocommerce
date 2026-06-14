@@ -1,6 +1,6 @@
 # Coupons Report
 
-WooCommerce 4.0 (and the WooCommerce Admin plugin) includes a new `Analytics` top level menu. The `Coupons` report is under the `Analytics` menu.
+PooCommerce 4.0 (and the PooCommerce Admin plugin) includes a new `Analytics` top level menu. The `Coupons` report is under the `Analytics` menu.
 
 If you have a store with existing Orders, you should [Import your Historical Data](analytics-historical-data-import.md)
 

@@ -63,7 +63,7 @@ function getCurrentItem(): CheckboxListItem | undefined {
 }
 
 const { state }: CheckboxListStore = store< CheckboxListStore >(
-	'woocommerce/product-filter-checkbox-list',
+	'poocommerce/product-filter-checkbox-list',
 	{
 		state: {
 			get items(): CheckboxListItem[] {

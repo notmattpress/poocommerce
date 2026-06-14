@@ -2,12 +2,12 @@
 /**
  * Attribute functions tests
  *
- * @package WooCommerce\Tests\Functions.
+ * @package PooCommerce\Tests\Functions.
  */
 
 declare( strict_types=1 );
 
-use Automattic\WooCommerce\Utilities\FeaturesUtil;
+use Automattic\PooCommerce\Utilities\FeaturesUtil;
 use PHPUnit\Framework\MockObject\Matcher\InvokedRecorder;
 
 /**
@@ -38,7 +38,7 @@ class WC_Attribute_Functions_Test extends \WC_Unit_Test_Case {
 			->method( '__invoke' )
 			->will( $this->returnArgument( 0 ) );
 
-		add_filter( 'woocommerce_attribute_taxonomies', $filter_mock );
+		add_filter( 'poocommerce_attribute_taxonomies', $filter_mock );
 		add_filter( 'sanitize_taxonomy_name', $filter_mock );
 	}
 
@@ -46,7 +46,7 @@ class WC_Attribute_Functions_Test extends \WC_Unit_Test_Case {
 	 * Tear down.
 	 */
 	public function tearDown(): void {
-		remove_all_filters( 'woocommerce_attribute_taxonomies' );
+		remove_all_filters( 'poocommerce_attribute_taxonomies' );
 		remove_all_filters( 'sanitize_taxonomy_name' );
 
 		parent::tearDown();
@@ -62,14 +62,14 @@ class WC_Attribute_Functions_Test extends \WC_Unit_Test_Case {
 		$this->assertEquals(
 			1,
 			$this->filter_recorder->getInvocationCount(),
-			'Filter `woocommerce_attribute_taxonomies` should have been triggered once after fetching all attribute taxonomies.'
+			'Filter `poocommerce_attribute_taxonomies` should have been triggered once after fetching all attribute taxonomies.'
 		);
 		$ids = wc_get_attribute_taxonomy_ids();
 		$this->assertEquals( array(), $ids );
 		$this->assertEquals(
 			1,
 			$this->filter_recorder->getInvocationCount(),
-			'Filter `woocommerce_attribute_taxonomies` should not be triggered a second time because the results should be loaded from the cache.'
+			'Filter `poocommerce_attribute_taxonomies` should not be triggered a second time because the results should be loaded from the cache.'
 		);
 	}
 
@@ -83,14 +83,14 @@ class WC_Attribute_Functions_Test extends \WC_Unit_Test_Case {
 		$this->assertEquals(
 			1,
 			$this->filter_recorder->getInvocationCount(),
-			'Filter `woocommerce_attribute_taxonomies` should have been triggered once after fetching all attribute taxonomies.'
+			'Filter `poocommerce_attribute_taxonomies` should have been triggered once after fetching all attribute taxonomies.'
 		);
 		$labels = wc_get_attribute_taxonomy_labels();
 		$this->assertEquals( array(), $labels );
 		$this->assertEquals(
 			1,
 			$this->filter_recorder->getInvocationCount(),
-			'Filter `woocommerce_attribute_taxonomies` should not be triggered a second time because the results should be loaded from the cache.'
+			'Filter `poocommerce_attribute_taxonomies` should not be triggered a second time because the results should be loaded from the cache.'
 		);
 	}
 
@@ -230,10 +230,10 @@ class WC_Attribute_Functions_Test extends \WC_Unit_Test_Case {
 		try {
 			switch_theme( 'twentytwentyfour' );
 
-			delete_option( 'woocommerce_feature_wc_visual_attribute_enabled' );
+			delete_option( 'poocommerce_feature_wc_visual_attribute_enabled' );
 			$this->assertArrayNotHasKey( 'wc-visual', wc_get_attribute_types(), 'The visual attribute type should require the feature setting.' );
 			$this->assertTrue(
-				wc_get_container()->get( \Automattic\WooCommerce\Internal\Features\FeaturesController::class )->change_feature_enable( 'wc-visual-attribute', true ),
+				wc_get_container()->get( \Automattic\PooCommerce\Internal\Features\FeaturesController::class )->change_feature_enable( 'wc-visual-attribute', true ),
 				'The visual attribute feature should be toggled on.'
 			);
 			$this->assertArrayHasKey( 'wc-visual', wc_get_attribute_types(), 'The visual attribute type should be available in block themes.' );
@@ -261,7 +261,7 @@ class WC_Attribute_Functions_Test extends \WC_Unit_Test_Case {
 				wc_delete_attribute( $attribute_id );
 			}
 
-			delete_option( 'woocommerce_feature_wc_visual_attribute_enabled' );
+			delete_option( 'poocommerce_feature_wc_visual_attribute_enabled' );
 			switch_theme( $original_theme );
 		}//end try
 	}

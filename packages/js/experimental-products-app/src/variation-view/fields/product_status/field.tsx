@@ -23,14 +23,14 @@ function isValidStatus( value: string ) {
 
 const fieldDefinition = {
 	type: 'text',
-	label: __( 'Status', 'woocommerce' ),
+	label: __( 'Status', 'poocommerce' ),
 	enableSorting: false,
 	filterBy: false,
 	elements: [
-		{ value: 'publish', label: __( 'Published', 'woocommerce' ) },
-		{ value: 'draft', label: __( 'Draft', 'woocommerce' ) },
-		{ value: 'pending', label: __( 'Pending review', 'woocommerce' ) },
-		{ value: 'trash', label: __( 'Trash', 'woocommerce' ) },
+		{ value: 'publish', label: __( 'Published', 'poocommerce' ) },
+		{ value: 'draft', label: __( 'Draft', 'poocommerce' ) },
+		{ value: 'pending', label: __( 'Pending review', 'poocommerce' ) },
+		{ value: 'trash', label: __( 'Trash', 'poocommerce' ) },
 	],
 } satisfies Partial< Field< ProductEntityRecord > >;
 

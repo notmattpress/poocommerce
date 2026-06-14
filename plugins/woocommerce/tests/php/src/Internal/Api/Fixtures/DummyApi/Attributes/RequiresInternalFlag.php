@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Attributes;
+namespace Automattic\PooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Attributes;
 
 use Attribute;
-use Automattic\WooCommerce\Api\Infrastructure\Principal;
+use Automattic\PooCommerce\Api\Infrastructure\Principal;
 
 /**
  * Fixture authorization attribute that exercises the opt-in `$_metadata`
@@ -14,7 +14,7 @@ use Automattic\WooCommerce\Api\Infrastructure\Principal;
  *
  * Declaring both the principal and `$_metadata` covers the
  * happy-path mixed-positional/named call shape ApiBuilder and
- * {@see \Automattic\WooCommerce\Api\Infrastructure\ResolverHelpers::compute_preauthorized()}
+ * {@see \Automattic\PooCommerce\Api\Infrastructure\ResolverHelpers::compute_preauthorized()}
  * must produce.
  */
 #[Attribute( Attribute::TARGET_CLASS | Attribute::TARGET_PROPERTY )]

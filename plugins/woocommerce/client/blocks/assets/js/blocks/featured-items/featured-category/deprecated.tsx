@@ -39,7 +39,7 @@ const v1 = {
 		// Conditionally add category description if showDesc was true
 		if ( showDesc ) {
 			innerBlocks.unshift(
-				createBlock( 'woocommerce/category-description', {
+				createBlock( 'poocommerce/category-description', {
 					textAlign: 'center',
 					style: {
 						padding: {
@@ -52,7 +52,7 @@ const v1 = {
 
 		// Always add category title as first inner block
 		innerBlocks.unshift(
-			createBlock( 'woocommerce/category-title', {
+			createBlock( 'poocommerce/category-title', {
 				level: 2,
 				isLink: false,
 				textAlign: 'center',

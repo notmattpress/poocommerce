@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Api\Infrastructure\Schema;
+namespace Automattic\PooCommerce\Api\Infrastructure\Schema;
 
 /**
  * Stable subclass of the underlying GraphQL engine's Schema, used by
@@ -13,5 +13,5 @@ namespace Automattic\WooCommerce\Api\Infrastructure\Schema;
  * Extending the engine class means its executor treats an instance of this
  * class identically to its own parent, so no adaptation is needed at runtime.
  */
-class Schema extends \Automattic\WooCommerce\Vendor\GraphQL\Type\Schema {
+class Schema extends \Automattic\PooCommerce\Vendor\GraphQL\Type\Schema {
 }

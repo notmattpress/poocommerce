@@ -10,7 +10,7 @@ import {
 	Notice,
 } from '@wordpress/components';
 import { FormInputValidation } from '@automattic/components';
-import { SelectControl } from '@woocommerce/components';
+import { SelectControl } from '@poocommerce/components';
 import { Icon, chevronDown } from '@wordpress/icons';
 import {
 	useEffect,
@@ -34,46 +34,46 @@ import { GeolocationCountrySelect } from '../components/geolocation-country-sele
 /** These are some store names that are known to be set by default and not likely to be used as actual names */
 export const POSSIBLY_DEFAULT_STORE_NAMES = [
 	undefined,
-	'woocommerce',
+	'poocommerce',
 	'Site Title',
 	'',
 ];
 export type IndustryChoice = ( typeof industryChoices )[ number ][ 'key' ];
 export const industryChoices = [
 	{
-		label: __( 'Clothing and accessories', 'woocommerce' ),
+		label: __( 'Clothing and accessories', 'poocommerce' ),
 		key: 'clothing_and_accessories' as const,
 	},
 	{
-		label: __( 'Food and drink', 'woocommerce' ),
+		label: __( 'Food and drink', 'poocommerce' ),
 		key: 'food_and_drink' as const,
 	},
 	{
-		label: __( 'Electronics and computers', 'woocommerce' ),
+		label: __( 'Electronics and computers', 'poocommerce' ),
 		key: 'electronics_and_computers' as const,
 	},
 	{
-		label: __( 'Health and beauty', 'woocommerce' ),
+		label: __( 'Health and beauty', 'poocommerce' ),
 		key: 'health_and_beauty' as const,
 	},
 	{
-		label: __( 'Education and learning', 'woocommerce' ),
+		label: __( 'Education and learning', 'poocommerce' ),
 		key: 'education_and_learning' as const,
 	},
 	{
-		label: __( 'Home, furniture and garden', 'woocommerce' ),
+		label: __( 'Home, furniture and garden', 'poocommerce' ),
 		key: 'home_furniture_and_garden' as const,
 	},
 	{
-		label: __( 'Arts and crafts', 'woocommerce' ),
+		label: __( 'Arts and crafts', 'poocommerce' ),
 		key: 'arts_and_crafts' as const,
 	},
 	{
-		label: __( 'Sports and recreation', 'woocommerce' ),
+		label: __( 'Sports and recreation', 'poocommerce' ),
 		key: 'sports_and_recreation' as const,
 	},
 	{
-		label: __( 'Other', 'woocommerce' ),
+		label: __( 'Other', 'poocommerce' ),
 		key: 'other' as const,
 	},
 ];
@@ -83,15 +83,15 @@ export type IndustryChoiceOption = ( typeof industryChoices )[ number ];
 export const selectIndustryMapping = {
 	im_just_starting_my_business: __(
 		'What type of products or services do you plan to sell?',
-		'woocommerce'
+		'poocommerce'
 	),
 	im_already_selling: __(
 		'Which industry is your business in?',
-		'woocommerce'
+		'poocommerce'
 	),
 	im_setting_up_a_store_for_a_client: __(
 		'Which industry is your client’s business in?',
-		'woocommerce'
+		'poocommerce'
 	),
 };
 
@@ -164,7 +164,7 @@ export const BusinessInfo = ( {
 			: undefined
 	);
 
-	const selectCountryLabel = __( 'Select country/region', 'woocommerce' );
+	const selectCountryLabel = __( 'Select country/region', 'poocommerce' );
 	const selectIndustryQuestionLabel =
 		selectIndustryMapping[
 			businessChoice ||
@@ -200,30 +200,30 @@ export const BusinessInfo = ( {
 
 	return (
 		<div
-			className="woocommerce-profiler-business-information"
+			className="poocommerce-profiler-business-information"
 			data-testid="core-profiler-business-information"
 		>
 			<Navigation percentage={ navigationProgress } />
-			<div className="woocommerce-profiler-page__content woocommerce-profiler-business-information__content">
+			<div className="poocommerce-profiler-page__content poocommerce-profiler-business-information__content">
 				<Heading
-					className="woocommerce-profiler__stepper-heading"
+					className="poocommerce-profiler__stepper-heading"
 					title={ __(
 						'Tell us a bit about your store',
-						'woocommerce'
+						'poocommerce'
 					) }
 					subTitle={ __(
 						'We’ll use this information to help you set up payments, shipping, and taxes, as well as recommending the best theme for your store.',
-						'woocommerce'
+						'poocommerce'
 					) }
 				/>
 
 				<form
-					className="woocommerce-profiler-business-information-form"
+					className="poocommerce-profiler-business-information-form"
 					autoComplete="off"
 				>
 					<TextControl
 						__nextHasNoMarginBottom
-						className="woocommerce-profiler-business-info-store-name"
+						className="poocommerce-profiler-business-info-store-name"
 						onChange={ ( value ) => {
 							setStoreName( value );
 						} }
@@ -232,32 +232,32 @@ export const BusinessInfo = ( {
 							<>
 								{ __(
 									'Give your store a name',
-									'woocommerce'
+									'poocommerce'
 								) }
 							</>
 						}
 						placeholder={ __(
 							'Ex. My awesome store',
-							'woocommerce'
+							'poocommerce'
 						) }
 					/>
-					<p className="woocommerce-profiler-question-subtext">
+					<p className="poocommerce-profiler-question-subtext">
 						{ __(
 							'Don’t worry — you can always change it later!',
-							'woocommerce'
+							'poocommerce'
 						) }
 					</p>
-					<p className="woocommerce-profiler-question-label">
+					<p className="poocommerce-profiler-question-label">
 						{ selectIndustryQuestionLabel }
 					</p>
 					<SelectControl
-						className="woocommerce-profiler-select-control__industry"
+						className="poocommerce-profiler-select-control__industry"
 						instanceId={ 1 }
 						placeholder={ __(
 							'Select an industry',
-							'woocommerce'
+							'poocommerce'
 						) }
-						label={ __( 'Select an industry', 'woocommerce' ) }
+						label={ __( 'Select an industry', 'poocommerce' ) }
 						options={ industryChoices }
 						excludeSelectedOptions={ false }
 						help={ <Icon icon={ chevronDown } /> }
@@ -272,9 +272,9 @@ export const BusinessInfo = ( {
 						showAllOnFocus
 						isSearchable
 					/>
-					<p className="woocommerce-profiler-question-label">
-						{ __( 'Where is your store located?', 'woocommerce' ) }
-						<span className="woocommerce-profiler-question-required">
+					<p className="poocommerce-profiler-question-label">
+						{ __( 'Where is your store located?', 'poocommerce' ) }
+						<span className="poocommerce-profiler-question-required">
 							{ '*' }
 						</span>
 					</p>
@@ -293,14 +293,14 @@ export const BusinessInfo = ( {
 					/>
 					{ countries.length === 0 && (
 						<Notice
-							className="woocommerce-profiler-select-control__country-error"
+							className="poocommerce-profiler-select-control__country-error"
 							isDismissible={ false }
 							status="error"
 						>
 							{ createInterpolateElement(
 								__(
 									'Oops! We encountered a problem while fetching the list of countries to choose from. <retryButton/> or <skipButton/>',
-									'woocommerce'
+									'poocommerce'
 								),
 								{
 									retryButton: (
@@ -314,7 +314,7 @@ export const BusinessInfo = ( {
 										>
 											{ __(
 												'Please try again',
-												'woocommerce'
+												'poocommerce'
 											) }
 										</Button>
 									),
@@ -329,7 +329,7 @@ export const BusinessInfo = ( {
 										>
 											{ __(
 												'Skip this step',
-												'woocommerce'
+												'poocommerce'
 											) }
 										</Button>
 									),
@@ -342,7 +342,7 @@ export const BusinessInfo = ( {
 							<TextControl
 								__nextHasNoMarginBottom
 								className={ clsx(
-									'woocommerce-profiler-business-info-email-adddress',
+									'poocommerce-profiler-business-info-email-adddress',
 									{ 'is-error': isEmailInvalid }
 								) }
 								onChange={ ( value ) => {
@@ -359,10 +359,10 @@ export const BusinessInfo = ( {
 									<>
 										{ __(
 											'Your email address',
-											'woocommerce'
+											'poocommerce'
 										) }
 										{ isOptInMarketing && (
-											<span className="woocommerce-profiler-question-required">
+											<span className="poocommerce-profiler-question-required">
 												{ '*' }
 											</span>
 										) }
@@ -370,7 +370,7 @@ export const BusinessInfo = ( {
 								}
 								placeholder={ __(
 									'wordpress@example.com',
-									'woocommerce'
+									'poocommerce'
 								) }
 							/>
 							{ isEmailInvalid && (
@@ -378,7 +378,7 @@ export const BusinessInfo = ( {
 									isError
 									text={ __(
 										'This email is not valid.',
-										'woocommerce'
+										'poocommerce'
 									) }
 								/>
 							) }
@@ -387,7 +387,7 @@ export const BusinessInfo = ( {
 								className="core-profiler__checkbox"
 								label={ __(
 									'Opt-in to receive tips, discounts, and recommendations from the Woo team directly in your inbox.',
-									'woocommerce'
+									'poocommerce'
 								) }
 								checked={ isOptInMarketing }
 								onChange={ ( isChecked ) => {
@@ -398,9 +398,9 @@ export const BusinessInfo = ( {
 						</>
 					}
 				</form>
-				<div className="woocommerce-profiler-button-container">
+				<div className="poocommerce-profiler-button-container">
 					<Button
-						className="woocommerce-profiler-button"
+						className="poocommerce-profiler-button"
 						variant="primary"
 						disabled={ ! storeCountry.key || isEmailInvalid }
 						onClick={ () => {
@@ -422,7 +422,7 @@ export const BusinessInfo = ( {
 						{ hasSubmitted ? (
 							<Spinner />
 						) : (
-							__( 'Continue', 'woocommerce' )
+							__( 'Continue', 'poocommerce' )
 						) }
 					</Button>
 				</div>

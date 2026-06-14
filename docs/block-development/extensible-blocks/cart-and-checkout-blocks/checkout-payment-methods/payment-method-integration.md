@@ -10,9 +10,9 @@ sidebar_label: Payment method integration
 
 The client side integration consists of an API for registering both _regular_ and _express_ payment methods.
 
-In both cases, the client side integration is done using registration methods exposed on the `blocks-registry` API. You can access this via the `wc` global in a WooCommerce environment (`wc.wcBlocksRegistry`).
+In both cases, the client side integration is done using registration methods exposed on the `blocks-registry` API. You can access this via the `wc` global in a PooCommerce environment (`wc.wcBlocksRegistry`).
 
-> Note: In your build process, you could do something similar to what is done in the blocks repository which [aliases this API as an external on `@woocommerce/blocks-registry`](https://github.com/woocommerce/woocommerce/blob/e024b720ddeb617fe889b9772959db6eca9e8c70/plugins/woocommerce/client/blocks/bin/webpack-helpers.js#L14-L33).
+> Note: In your build process, you could do something similar to what is done in the blocks repository which [aliases this API as an external on `@poocommerce/blocks-registry`](https://github.com/poocommerce/poocommerce/blob/e024b720ddeb617fe889b9772959db6eca9e8c70/plugins/poocommerce/client/blocks/bin/webpack-helpers.js#L14-L33).
 
 ## Express Payment Methods
 
@@ -28,10 +28,10 @@ To register an express payment method, you use the `registerExpressPaymentMethod
 const { registerExpressPaymentMethod } = window.wc.wcBlocksRegistry;
 ```
 
-If you're using an aliased import for `@woocommerce/blocks-registry`, you can import the function like this:
+If you're using an aliased import for `@poocommerce/blocks-registry`, you can import the function like this:
 
 ```js
-import { registerExpressPaymentMethod } from '@woocommerce/blocks-registry';
+import { registerExpressPaymentMethod } from '@poocommerce/blocks-registry';
 ```
 
 The registry function expects a JavaScript object with options specific to the payment method:
@@ -91,7 +91,7 @@ canMakePayment( {
 } )
 ```
 
-`canMakePayment` returns a boolean value. If your gateway needs to perform async initialization to determine availability, you can return a promise (resolving to boolean). This allows a payment method to be hidden based on the cart, e.g. if the cart has physical/shippable products (example: [`Cash on delivery`](https://github.com/woocommerce/woocommerce/blob/df02d62e2d41e9007da44cb87fea2b7a9551f55c/plugins/woocommerce/client/blocks/assets/js/extensions/payment-methods/cod/index.js#L46-L73)); or for payment methods to control whether they are available depending on other conditions.
+`canMakePayment` returns a boolean value. If your gateway needs to perform async initialization to determine availability, you can return a promise (resolving to boolean). This allows a payment method to be hidden based on the cart, e.g. if the cart has physical/shippable products (example: [`Cash on delivery`](https://github.com/poocommerce/poocommerce/blob/df02d62e2d41e9007da44cb87fea2b7a9551f55c/plugins/poocommerce/client/blocks/assets/js/extensions/payment-methods/cod/index.js#L46-L73)); or for payment methods to control whether they are available depending on other conditions.
 
 `canMakePayment` only runs on the frontend of the Store. In editor context, rather than use `canMakePayment`, the editor will assume the payment method is available (true) so that the defined `edit` component is shown to the merchant.
 
@@ -134,10 +134,10 @@ To register a payment method, you use the `registerPaymentMethod` function from 
 const { registerPaymentMethod } = window.wc.wcBlocksRegistry;
 ```
 
-If you're using an aliased import for `@woocommerce/blocks-registry`, you can import the function like this:
+If you're using an aliased import for `@poocommerce/blocks-registry`, you can import the function like this:
 
 ```js
-import { registerPaymentMethod } from '@woocommerce/blocks-registry';
+import { registerPaymentMethod } from '@poocommerce/blocks-registry';
 ```
 
 The registry function expects a JavaScript object with options specific to the payment method:
@@ -189,7 +189,7 @@ const CustomButton = ( props ) => {
 		const validationResult = await validate();
 
 		if ( validationResult.hasError ) {
-			return; // WooCommerce automatically displays validation errors
+			return; // PooCommerce automatically displays validation errors
 		}
 
 		// 2. Show your payment UI (e.g., Google Pay sheet, Apple Pay sheet)
@@ -259,7 +259,7 @@ registerPaymentMethod( {
 
 ## Props Fed to Payment Method Nodes
 
-A big part of the payment method integration is the interface that is exposed for payment methods to use via props when the node provided is cloned and rendered on block mount. While all the props are listed below, you can find more details about what the props reference, their types etc via the [typedefs described in this file](https://github.com/woocommerce/woocommerce/blob/trunk/plugins/woocommerce/client/blocks/assets/js/types/type-defs/payment-method-interface.ts).
+A big part of the payment method integration is the interface that is exposed for payment methods to use via props when the node provided is cloned and rendered on block mount. While all the props are listed below, you can find more details about what the props reference, their types etc via the [typedefs described in this file](https://github.com/poocommerce/poocommerce/blob/trunk/plugins/poocommerce/client/blocks/assets/js/types/type-defs/payment-method-interface.ts).
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -292,7 +292,7 @@ Any registered `savedTokenComponent` node will also receive a `token` prop which
 
 ## Server Side Integration
 
-For the server side integration, you need to create a class that extends the `Automattic\WooCommerce\Blocks\Payments\Integrations\AbstractPaymentMethodType` class. 
+For the server side integration, you need to create a class that extends the `Automattic\PooCommerce\Blocks\Payments\Integrations\AbstractPaymentMethodType` class. 
 
 This class is the server side representation of your payment method. It is used to handle the registration of your payment methods assets with the Store API and Checkout block at the correct time. It is not the same as the [Payment Gateway API](/features/payments/payment-gateway-api.md) that you need to implement separately for payment processing.
 
@@ -302,7 +302,7 @@ This class is the server side representation of your payment method. It is used 
 <?php
 namespace MyPlugin\MyPaymentMethod;
 
-use Automattic\WooCommerce\Blocks\Payments\Integrations\AbstractPaymentMethodType;
+use Automattic\PooCommerce\Blocks\Payments\Integrations\AbstractPaymentMethodType;
 
 final class MyPaymentMethodType extends AbstractPaymentMethodType {
 	/**
@@ -322,7 +322,7 @@ final class MyPaymentMethodType extends AbstractPaymentMethodType {
 	 * Note, this will be called on every request so don't put anything expensive here.
 	 */
 	public function initialize() {
-		$this->settings = get_option( 'woocommerce_my_payment_method_settings', [] );
+		$this->settings = get_option( 'poocommerce_my_payment_method_settings', [] );
 	}
 
 	/**
@@ -344,8 +344,8 @@ final class MyPaymentMethodType extends AbstractPaymentMethodType {
 	 * and thus take sure of loading it correctly. 
 	 * 
 	 * Note that you should still make sure any other asset dependencies your script has are registered properly here, if 
-	 * you're using Webpack to build your assets, you may want to use the WooCommerce Webpack Dependency Extraction Plugin
-	 * (https://www.npmjs.com/package/@woocommerce/dependency-extraction-webpack-plugin) to make this easier for you.
+	 * you're using Webpack to build your assets, you may want to use the PooCommerce Webpack Dependency Extraction Plugin
+	 * (https://www.npmjs.com/package/@poocommerce/dependency-extraction-webpack-plugin) to make this easier for you.
 	 *
 	 * @return array
 	 */
@@ -392,16 +392,16 @@ final class MyPaymentMethodType extends AbstractPaymentMethodType {
 
 ### Registering the Payment Method Integration
 
-After creating a class that extends `Automattic\WooCommerce\Blocks\Payments\Integrations\AbstractPaymentMethodType`, you need to register it with the server side handling of payment methods. 
+After creating a class that extends `Automattic\PooCommerce\Blocks\Payments\Integrations\AbstractPaymentMethodType`, you need to register it with the server side handling of payment methods. 
 
 You can do this by using the `register` method on the `PaymentMethodRegistry` class. 
 
 ```php
 use MyPlugin\MyPaymentMethod\MyPaymentMethodType;
-use Automattic\WooCommerce\Blocks\Payments\PaymentMethodRegistry;
+use Automattic\PooCommerce\Blocks\Payments\PaymentMethodRegistry;
 
 add_action(
-	'woocommerce_blocks_payment_method_type_registration',
+	'poocommerce_blocks_payment_method_type_registration',
 	function( PaymentMethodRegistry $payment_method_registry ) {
 		$payment_method_registry->register( new MyPaymentMethodType() );
 	}
@@ -414,7 +414,7 @@ Payments are still handled via the [Payment Gateway API](/features/payments/paym
 
 The checkout block converts incoming `payment_data` provided by the client-side script to `$_POST` and calls the Payment Gateway `process_payment` method. 
 
-_If you already have a WooCommerce Payment method extension integrated with the shortcode checkout flow, the legacy handling will take care of processing your payment for you on the server side._
+_If you already have a PooCommerce Payment method extension integrated with the shortcode checkout flow, the legacy handling will take care of processing your payment for you on the server side._
 
 ## Processing Payments via the Store API
 
@@ -423,7 +423,7 @@ There may be more advanced cases where the legacy payment processing mentioned e
 This hook is the _preferred_ place to hook in your payment processing:
 
 ```php
-do_action_ref_array( 'woocommerce_rest_checkout_process_payment_with_context', [ $context, &$result ] );
+do_action_ref_array( 'poocommerce_rest_checkout_process_payment_with_context', [ $context, &$result ] );
 ```
 
 > Note: A good place to register your callback on this hook is in the `initialize` method of the payment method type class you created earlier
@@ -439,7 +439,7 @@ Here is an example callback:
 
 ```php
 add_action(
-	'woocommerce_rest_checkout_process_payment_with_context',
+	'poocommerce_rest_checkout_process_payment_with_context',
 	function( $context, $result ) {
 		if ( $context->payment_method === 'my_payment_method' ) {
 			// Order processing would happen here!
@@ -496,7 +496,7 @@ const bankTransferPaymentMethod = {
 };
 ```
 
-Payment method nodes are passed everything from the [usePaymentMethodInterface hook](https://github.com/woocommerce/woocommerce-blocks/blob/trunk/docs/internal-developers/block-client-apis/checkout/checkout-api.md#usepaymentmethodinterface). So we can consume this in our `<Content />` component like this:
+Payment method nodes are passed everything from the [usePaymentMethodInterface hook](https://github.com/poocommerce/poocommerce-blocks/blob/trunk/docs/internal-developers/block-client-apis/checkout/checkout-api.md#usepaymentmethodinterface). So we can consume this in our `<Content />` component like this:
 
 ```js
 const Content = ( props ) => {
@@ -557,10 +557,10 @@ Now when an order is placed, if we look at the API request payload, we can see t
 }
 ```
 
-A callback on `woocommerce_rest_checkout_process_payment_with_context` can then access this data and use it to process the payment.
+A callback on `poocommerce_rest_checkout_process_payment_with_context` can then access this data and use it to process the payment.
 
 ```php
-add_action( 'woocommerce_rest_checkout_process_payment_with_context', function( $context, $result ) {
+add_action( 'poocommerce_rest_checkout_process_payment_with_context', function( $context, $result ) {
   if ( $context->payment_method === 'bacs' ) {
     $myGatewayCustomData = $context->payment_data['myGatewayCustomData'];
     // Here we would use the $myGatewayCustomData to process the payment

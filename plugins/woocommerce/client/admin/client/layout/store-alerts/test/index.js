@@ -75,11 +75,11 @@ describe( 'StoreAlerts', () => {
 		const { container } = render( <StoreAlerts /> );
 
 		expect(
-			container.querySelector( '.woocommerce-store-alerts__title' )
+			container.querySelector( '.poocommerce-store-alerts__title' )
 				.textContent
 		).toBe( 'Alert title 1' );
 		expect(
-			container.querySelector( '.woocommerce-store-alerts__message' )
+			container.querySelector( '.poocommerce-store-alerts__message' )
 				.textContent
 		).toBe( 'Alert content 1' );
 	} );
@@ -94,7 +94,7 @@ describe( 'StoreAlerts', () => {
 		const { container } = render( <StoreAlerts /> );
 
 		expect(
-			container.querySelector( '.woocommerce-store-alerts__pagination' )
+			container.querySelector( '.poocommerce-store-alerts__pagination' )
 		).toBeNull();
 	} );
 
@@ -108,7 +108,7 @@ describe( 'StoreAlerts', () => {
 		const { container } = render( <StoreAlerts /> );
 
 		expect(
-			container.querySelector( '.woocommerce-store-alerts__pagination' )
+			container.querySelector( '.poocommerce-store-alerts__pagination' )
 		).toBeInTheDocument();
 	} );
 
@@ -123,18 +123,18 @@ describe( 'StoreAlerts', () => {
 
 		expect(
 			container.querySelector(
-				'.components-button:not(.woocommerce-store-alerts__close)'
+				'.components-button:not(.poocommerce-store-alerts__close)'
 			).textContent
 		).toBe( 'Click me!' );
 		expect(
 			container
 				.querySelector(
-					'.components-button:not(.woocommerce-store-alerts__close)'
+					'.components-button:not(.poocommerce-store-alerts__close)'
 				)
 				.getAttribute( 'href' )
 		).toBe( '#' );
 		expect(
-			container.querySelector( '.woocommerce-store-alerts__snooze' )
+			container.querySelector( '.poocommerce-store-alerts__snooze' )
 		).not.toBeInTheDocument();
 	} );
 
@@ -149,18 +149,18 @@ describe( 'StoreAlerts', () => {
 
 		expect(
 			container.querySelector(
-				'.components-button:not(.woocommerce-store-alerts__close)'
+				'.components-button:not(.poocommerce-store-alerts__close)'
 			).textContent
 		).toBe( 'Click me!' );
 		expect(
 			container
 				.querySelector(
-					'.components-button:not(.woocommerce-store-alerts__close)'
+					'.components-button:not(.poocommerce-store-alerts__close)'
 				)
 				.getAttribute( 'href' )
 		).toBe( '#' );
 		expect(
-			container.querySelector( '.woocommerce-store-alerts__snooze' )
+			container.querySelector( '.poocommerce-store-alerts__snooze' )
 		).toBeInTheDocument();
 	} );
 
@@ -173,7 +173,7 @@ describe( 'StoreAlerts', () => {
 		);
 
 		expect(
-			container.querySelector( '.woocommerce-store-alerts__title' )
+			container.querySelector( '.poocommerce-store-alerts__title' )
 				.textContent
 		).toBe( 'Alert title 1' );
 
@@ -182,7 +182,7 @@ describe( 'StoreAlerts', () => {
 		rerender( <StoreAlerts /> );
 
 		expect(
-			container.querySelector( '.woocommerce-store-alerts__title' )
+			container.querySelector( '.poocommerce-store-alerts__title' )
 				.textContent
 		).toBe( 'Alert title 2' );
 
@@ -191,7 +191,7 @@ describe( 'StoreAlerts', () => {
 		rerender( <StoreAlerts /> );
 
 		expect(
-			container.querySelector( '.woocommerce-store-alerts__title' )
+			container.querySelector( '.poocommerce-store-alerts__title' )
 				.textContent
 		).toBe( 'Alert title 1' );
 	} );

@@ -1,10 +1,10 @@
 <?php
 /**
- * WooCommerce Log Table List
+ * PooCommerce Log Table List
  *
  * @author   WooThemes
  * @category Admin
- * @package  WooCommerce\Admin
+ * @package  PooCommerce\Admin
  * @version  1.0.0
  */
 
@@ -22,14 +22,14 @@ class WC_Admin_Log_Table_List extends WP_List_Table {
 	 *
 	 * @const string
 	 */
-	public const PER_PAGE_USER_OPTION_KEY = 'woocommerce_status_log_items_per_page';
+	public const PER_PAGE_USER_OPTION_KEY = 'poocommerce_status_log_items_per_page';
 
 	/**
 	 * The key for the option that stores the list of unique sources that exist in the log table.
 	 *
 	 * @const string
 	 */
-	public const SOURCE_CACHE_OPTION_KEY = 'woocommerce_status_log_db_sources';
+	public const SOURCE_CACHE_OPTION_KEY = 'poocommerce_status_log_db_sources';
 
 	/**
 	 * If the number of log entries is over this number, cache the query that gets the total count.
@@ -72,9 +72,9 @@ class WC_Admin_Log_Table_List extends WP_List_Table {
 
 		$selected_level = isset( $_REQUEST['level'] ) ? $_REQUEST['level'] : '';
 		?>
-			<label for="filter-by-level" class="screen-reader-text"><?php esc_html_e( 'Filter by level', 'woocommerce' ); ?></label>
+			<label for="filter-by-level" class="screen-reader-text"><?php esc_html_e( 'Filter by level', 'poocommerce' ); ?></label>
 			<select name="level" id="filter-by-level">
-				<option<?php selected( $selected_level, '' ); ?> value=""><?php esc_html_e( 'All levels', 'woocommerce' ); ?></option>
+				<option<?php selected( $selected_level, '' ); ?> value=""><?php esc_html_e( 'All levels', 'poocommerce' ); ?></option>
 				<?php
 				foreach ( $levels as $l ) {
 					printf(
@@ -116,7 +116,7 @@ class WC_Admin_Log_Table_List extends WP_List_Table {
 		<tr style="display: none"><td></td></tr>
 		<tr id="log-context-<?php echo esc_attr( $log['log_id'] ); ?>" class="log-context">
 			<td colspan="<?php echo esc_attr( $this->get_column_count() ); ?>">
-				<p><strong><?php esc_html_e( 'Additional context', 'woocommerce' ); ?></strong></p>
+				<p><strong><?php esc_html_e( 'Additional context', 'poocommerce' ); ?></strong></p>
 				<pre><?php echo esc_html( $log['context'] ); ?></pre>
 			</td>
 		</tr>
@@ -131,11 +131,11 @@ class WC_Admin_Log_Table_List extends WP_List_Table {
 	public function get_columns() {
 		return array(
 			'cb'        => '<input type="checkbox" />',
-			'timestamp' => __( 'Timestamp', 'woocommerce' ),
-			'level'     => __( 'Level', 'woocommerce' ),
-			'message'   => __( 'Message', 'woocommerce' ),
-			'source'    => __( 'Source', 'woocommerce' ),
-			'context'   => __( 'Context', 'woocommerce' ),
+			'timestamp' => __( 'Timestamp', 'poocommerce' ),
+			'level'     => __( 'Level', 'poocommerce' ),
+			'message'   => __( 'Message', 'poocommerce' ),
+			'source'    => __( 'Source', 'poocommerce' ),
+			'context'   => __( 'Context', 'poocommerce' ),
 		);
 	}
 
@@ -223,11 +223,11 @@ class WC_Admin_Log_Table_List extends WP_List_Table {
 					class="log-toggle button button-secondary button-small"
 					data-log-id="<?php echo esc_attr( $log['log_id'] ); ?>"
 					data-toggle-status="off"
-					data-label-show="<?php esc_attr_e( 'Show context', 'woocommerce' ); ?>"
-					data-label-hide="<?php esc_attr_e( 'Hide context', 'woocommerce' ); ?>"
+					data-label-show="<?php esc_attr_e( 'Show context', 'poocommerce' ); ?>"
+					data-label-hide="<?php esc_attr_e( 'Hide context', 'poocommerce' ); ?>"
 				>
 					<span class="dashicons dashicons-arrow-down-alt2"></span>
-					<span class="log-toggle-label screen-reader-text"><?php esc_html_e( 'Show context', 'woocommerce' ); ?></span>
+					<span class="log-toggle-label screen-reader-text"><?php esc_html_e( 'Show context', 'poocommerce' ); ?></span>
 				</button>
 			<?php
 			$content = ob_get_clean();
@@ -243,7 +243,7 @@ class WC_Admin_Log_Table_List extends WP_List_Table {
 	 */
 	protected function get_bulk_actions() {
 		return array(
-			'delete' => __( 'Delete', 'woocommerce' ),
+			'delete' => __( 'Delete', 'poocommerce' ),
 		);
 	}
 
@@ -257,7 +257,7 @@ class WC_Admin_Log_Table_List extends WP_List_Table {
 			echo '<div class="alignleft actions">';
 				$this->level_dropdown();
 				$this->source_dropdown();
-				submit_button( __( 'Filter', 'woocommerce' ), '', 'filter-action', false );
+				submit_button( __( 'Filter', 'poocommerce' ), '', 'filter-action', false );
 			echo '</div>';
 		}
 	}
@@ -286,9 +286,9 @@ class WC_Admin_Log_Table_List extends WP_List_Table {
 		if ( ! empty( $sources ) ) {
 			$selected_source = isset( $_REQUEST['source'] ) ? $_REQUEST['source'] : '';
 			?>
-				<label for="filter-by-source" class="screen-reader-text"><?php esc_html_e( 'Filter by source', 'woocommerce' ); ?></label>
+				<label for="filter-by-source" class="screen-reader-text"><?php esc_html_e( 'Filter by source', 'poocommerce' ); ?></label>
 				<select name="source" id="filter-by-source">
-					<option<?php selected( $selected_source, '' ); ?> value=""><?php esc_html_e( 'All sources', 'woocommerce' ); ?></option>
+					<option<?php selected( $selected_source, '' ); ?> value=""><?php esc_html_e( 'All sources', 'poocommerce' ); ?></option>
 					<?php
 					foreach ( $sources as $s ) {
 						printf(
@@ -323,7 +323,7 @@ class WC_Admin_Log_Table_List extends WP_List_Table {
 
 		$sql = "
 			SELECT DISTINCT source
-			FROM {$wpdb->prefix}woocommerce_log
+			FROM {$wpdb->prefix}poocommerce_log
 			WHERE source != ''
 			ORDER BY source ASC
 		";
@@ -358,7 +358,7 @@ class WC_Admin_Log_Table_List extends WP_List_Table {
 
 		$query_items = "
 			SELECT log_id, timestamp, level, message, source, context
-			FROM {$wpdb->prefix}woocommerce_log
+			FROM {$wpdb->prefix}poocommerce_log
 			{$where} {$order} {$limit} {$offset}
 		";
 
@@ -400,7 +400,7 @@ class WC_Admin_Log_Table_List extends WP_List_Table {
 
 		$count_query = "
 			SELECT COUNT(*)
-			FROM {$wpdb->prefix}woocommerce_log
+			FROM {$wpdb->prefix}poocommerce_log
 			{$where}
 		";
 

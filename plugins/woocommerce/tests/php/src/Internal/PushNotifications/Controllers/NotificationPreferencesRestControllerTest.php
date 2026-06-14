@@ -2,14 +2,14 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\PushNotifications\Controllers;
+namespace Automattic\PooCommerce\Tests\Internal\PushNotifications\Controllers;
 
-use Automattic\WooCommerce\Internal\PushNotifications\Controllers\NotificationPreferencesRestController;
-use Automattic\WooCommerce\Internal\PushNotifications\Controllers\PushTokenRestController;
-use Automattic\WooCommerce\Internal\PushNotifications\DataStores\NotificationPreferencesDataStore;
-use Automattic\WooCommerce\Internal\PushNotifications\Services\NotificationPreferencesService;
-use Automattic\WooCommerce\Internal\Utilities\Users;
-use Automattic\WooCommerce\Tests\Internal\PushNotifications\Helpers\PushNotificationsTestTrait;
+use Automattic\PooCommerce\Internal\PushNotifications\Controllers\NotificationPreferencesRestController;
+use Automattic\PooCommerce\Internal\PushNotifications\Controllers\PushTokenRestController;
+use Automattic\PooCommerce\Internal\PushNotifications\DataStores\NotificationPreferencesDataStore;
+use Automattic\PooCommerce\Internal\PushNotifications\Services\NotificationPreferencesService;
+use Automattic\PooCommerce\Internal\Utilities\Users;
+use Automattic\PooCommerce\Tests\Internal\PushNotifications\Helpers\PushNotificationsTestTrait;
 use WC_Data_Exception;
 use WC_REST_Unit_Test_Case;
 use WP_Http;
@@ -18,7 +18,7 @@ use WP_REST_Request;
 /**
  * Tests for the NotificationPreferencesRestController class.
  *
- * @package WooCommerce\Tests\PushNotifications
+ * @package PooCommerce\Tests\PushNotifications
  */
 class NotificationPreferencesRestControllerTest extends WC_REST_Unit_Test_Case {
 	use PushNotificationsTestTrait;
@@ -246,7 +246,7 @@ class NotificationPreferencesRestControllerTest extends WC_REST_Unit_Test_Case {
 				'store_review' => array( 'enabled' => true ),
 			)
 		);
-		$internal_code    = 'woocommerce_push_notification_preferences_save_failed';
+		$internal_code    = 'poocommerce_push_notification_preferences_save_failed';
 		$internal_message = 'Failed to save push notification preferences.';
 
 		$service_mock->method( 'save_preferences' )->willThrowException(
@@ -269,7 +269,7 @@ class NotificationPreferencesRestControllerTest extends WC_REST_Unit_Test_Case {
 
 		$data = $response->get_data();
 		$this->assertArrayHasKey( 'code', $data );
-		$this->assertSame( 'woocommerce_internal_error', $data['code'] );
+		$this->assertSame( 'poocommerce_internal_error', $data['code'] );
 
 		// Internal exception details must not be leaked to API clients.
 		$this->assertNotSame( $internal_code, $data['code'] );
@@ -532,7 +532,7 @@ class NotificationPreferencesRestControllerTest extends WC_REST_Unit_Test_Case {
 	 *
 	 * Both controllers share the URL route namespace `wc-push-notifications`, but they must use
 	 * distinct class identifiers via `get_rest_api_namespace()` so that neither overwrites the
-	 * other in the `woocommerce_rest_api_get_rest_namespaces` filter output.
+	 * other in the `poocommerce_rest_api_get_rest_namespaces` filter output.
 	 */
 	public function test_does_not_overwrite_sibling_controller_in_rest_namespaces_filter() {
 		$preferences_controller = new NotificationPreferencesRestController();
@@ -541,8 +541,8 @@ class NotificationPreferencesRestControllerTest extends WC_REST_Unit_Test_Case {
 		$preferences_controller->register();
 		$push_token_controller->register();
 
-		// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment -- Triggering an existing filter from RestApiControllerBase, not defining one.
-		$namespaces = apply_filters( 'woocommerce_rest_api_get_rest_namespaces', array( 'wc/v3' => array() ) );
+		// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment -- Triggering an existing filter from RestApiControllerBase, not defining one.
+		$namespaces = apply_filters( 'poocommerce_rest_api_get_rest_namespaces', array( 'wc/v3' => array() ) );
 
 		$this->assertArrayHasKey( 'wc/v3', $namespaces );
 

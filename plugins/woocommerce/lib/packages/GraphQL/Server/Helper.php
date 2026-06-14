@@ -1,34 +1,34 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\GraphQL\Server;
+namespace Automattic\PooCommerce\Vendor\GraphQL\Server;
 
-use Automattic\WooCommerce\Vendor\GraphQL\Error\Error;
-use Automattic\WooCommerce\Vendor\GraphQL\Error\FormattedError;
-use Automattic\WooCommerce\Vendor\GraphQL\Error\InvariantViolation;
-use Automattic\WooCommerce\Vendor\GraphQL\Executor\ExecutionResult;
-use Automattic\WooCommerce\Vendor\GraphQL\Executor\Executor;
-use Automattic\WooCommerce\Vendor\GraphQL\Executor\Promise\Adapter\SyncPromiseAdapter;
-use Automattic\WooCommerce\Vendor\GraphQL\Executor\Promise\Promise;
-use Automattic\WooCommerce\Vendor\GraphQL\Executor\Promise\PromiseAdapter;
-use Automattic\WooCommerce\Vendor\GraphQL\GraphQL;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\DocumentNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\Parser;
-use Automattic\WooCommerce\Vendor\GraphQL\Server\Exception\BatchedQueriesAreNotSupported;
-use Automattic\WooCommerce\Vendor\GraphQL\Server\Exception\CannotParseJsonBody;
-use Automattic\WooCommerce\Vendor\GraphQL\Server\Exception\CannotParseVariables;
-use Automattic\WooCommerce\Vendor\GraphQL\Server\Exception\CannotReadBody;
-use Automattic\WooCommerce\Vendor\GraphQL\Server\Exception\FailedToDetermineOperationType;
-use Automattic\WooCommerce\Vendor\GraphQL\Server\Exception\GetMethodSupportsOnlyQueryOperation;
-use Automattic\WooCommerce\Vendor\GraphQL\Server\Exception\HttpMethodNotSupported;
-use Automattic\WooCommerce\Vendor\GraphQL\Server\Exception\InvalidOperationParameter;
-use Automattic\WooCommerce\Vendor\GraphQL\Server\Exception\InvalidQueryIdParameter;
-use Automattic\WooCommerce\Vendor\GraphQL\Server\Exception\InvalidQueryParameter;
-use Automattic\WooCommerce\Vendor\GraphQL\Server\Exception\MissingContentTypeHeader;
-use Automattic\WooCommerce\Vendor\GraphQL\Server\Exception\MissingQueryOrQueryIdParameter;
-use Automattic\WooCommerce\Vendor\GraphQL\Server\Exception\PersistedQueriesAreNotSupported;
-use Automattic\WooCommerce\Vendor\GraphQL\Server\Exception\UnexpectedContentType;
-use Automattic\WooCommerce\Vendor\GraphQL\Utils\AST;
-use Automattic\WooCommerce\Vendor\GraphQL\Utils\Utils;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\Error;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\FormattedError;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\InvariantViolation;
+use Automattic\PooCommerce\Vendor\GraphQL\Executor\ExecutionResult;
+use Automattic\PooCommerce\Vendor\GraphQL\Executor\Executor;
+use Automattic\PooCommerce\Vendor\GraphQL\Executor\Promise\Adapter\SyncPromiseAdapter;
+use Automattic\PooCommerce\Vendor\GraphQL\Executor\Promise\Promise;
+use Automattic\PooCommerce\Vendor\GraphQL\Executor\Promise\PromiseAdapter;
+use Automattic\PooCommerce\Vendor\GraphQL\GraphQL;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\DocumentNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\Parser;
+use Automattic\PooCommerce\Vendor\GraphQL\Server\Exception\BatchedQueriesAreNotSupported;
+use Automattic\PooCommerce\Vendor\GraphQL\Server\Exception\CannotParseJsonBody;
+use Automattic\PooCommerce\Vendor\GraphQL\Server\Exception\CannotParseVariables;
+use Automattic\PooCommerce\Vendor\GraphQL\Server\Exception\CannotReadBody;
+use Automattic\PooCommerce\Vendor\GraphQL\Server\Exception\FailedToDetermineOperationType;
+use Automattic\PooCommerce\Vendor\GraphQL\Server\Exception\GetMethodSupportsOnlyQueryOperation;
+use Automattic\PooCommerce\Vendor\GraphQL\Server\Exception\HttpMethodNotSupported;
+use Automattic\PooCommerce\Vendor\GraphQL\Server\Exception\InvalidOperationParameter;
+use Automattic\PooCommerce\Vendor\GraphQL\Server\Exception\InvalidQueryIdParameter;
+use Automattic\PooCommerce\Vendor\GraphQL\Server\Exception\InvalidQueryParameter;
+use Automattic\PooCommerce\Vendor\GraphQL\Server\Exception\MissingContentTypeHeader;
+use Automattic\PooCommerce\Vendor\GraphQL\Server\Exception\MissingQueryOrQueryIdParameter;
+use Automattic\PooCommerce\Vendor\GraphQL\Server\Exception\PersistedQueriesAreNotSupported;
+use Automattic\PooCommerce\Vendor\GraphQL\Server\Exception\UnexpectedContentType;
+use Automattic\PooCommerce\Vendor\GraphQL\Utils\AST;
+use Automattic\PooCommerce\Vendor\GraphQL\Utils\Utils;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -37,12 +37,12 @@ use Psr\Http\Message\StreamInterface;
 /**
  * Contains functionality that could be re-used by various server implementations.
  *
- * @see \Automattic\WooCommerce\Vendor\GraphQL\Tests\Server\HelperTest
+ * @see \Automattic\PooCommerce\Vendor\GraphQL\Tests\Server\HelperTest
  */
 class Helper
 {
     /**
-     * Parses HTTP request using PHP globals and returns Automattic\WooCommerce\Vendor\GraphQL OperationParams
+     * Parses HTTP request using PHP globals and returns Automattic\PooCommerce\Vendor\GraphQL OperationParams
      * contained in this request. For batched requests it returns an array of OperationParams.
      *
      * This function does not check validity of these params
@@ -150,33 +150,33 @@ class Helper
         $query = $params->query ?? '';
         $queryId = $params->queryId ?? '';
         if ($query === '' && $queryId === '') {
-            $errors[] = new MissingQueryOrQueryIdParameter('Automattic\WooCommerce\Vendor\GraphQL Request must include at least one of those two parameters: "query" or "queryId"');
+            $errors[] = new MissingQueryOrQueryIdParameter('Automattic\PooCommerce\Vendor\GraphQL Request must include at least one of those two parameters: "query" or "queryId"');
         }
 
         if (! is_string($query)) {
             $errors[] = new InvalidQueryParameter(
-                'Automattic\WooCommerce\Vendor\GraphQL Request parameter "query" must be string, but got '
+                'Automattic\PooCommerce\Vendor\GraphQL Request parameter "query" must be string, but got '
                 . Utils::printSafeJson($params->query)
             );
         }
 
         if (! is_string($queryId)) {
             $errors[] = new InvalidQueryIdParameter(
-                'Automattic\WooCommerce\Vendor\GraphQL Request parameter "queryId" must be string, but got '
+                'Automattic\PooCommerce\Vendor\GraphQL Request parameter "queryId" must be string, but got '
                 . Utils::printSafeJson($params->queryId)
             );
         }
 
         if ($params->operation !== null && ! is_string($params->operation)) {
             $errors[] = new InvalidOperationParameter(
-                'Automattic\WooCommerce\Vendor\GraphQL Request parameter "operation" must be string, but got '
+                'Automattic\PooCommerce\Vendor\GraphQL Request parameter "operation" must be string, but got '
                 . Utils::printSafeJson($params->operation)
             );
         }
 
         if ($params->variables !== null && (! is_array($params->variables) || isset($params->variables[0]))) {
             $errors[] = new CannotParseVariables(
-                'Automattic\WooCommerce\Vendor\GraphQL Request parameter "variables" must be object or JSON string parsed to object, but got '
+                'Automattic\PooCommerce\Vendor\GraphQL Request parameter "variables" must be object or JSON string parsed to object, but got '
                 . Utils::printSafeJson($params->originalInput['variables'])
             );
         }
@@ -185,7 +185,7 @@ class Helper
     }
 
     /**
-     * Executes Automattic\WooCommerce\Vendor\GraphQL operation with given server configuration and returns execution result
+     * Executes Automattic\PooCommerce\Vendor\GraphQL operation with given server configuration and returns execution result
      * (or promise when promise adapter is different from SyncPromiseAdapter).
      *
      * @throws \Exception
@@ -208,7 +208,7 @@ class Helper
     }
 
     /**
-     * Executes batched Automattic\WooCommerce\Vendor\GraphQL operations with shared promise queue
+     * Executes batched Automattic\PooCommerce\Vendor\GraphQL operations with shared promise queue
      * (thus, effectively batching deferreds|promises of all queries at once).
      *
      * @param array<OperationParams> $operations

@@ -1,11 +1,11 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\EmailEditor;
+namespace Automattic\PooCommerce\Internal\EmailEditor;
 
-use Automattic\WooCommerce\EmailEditor\Email_Css_Inliner;
-use Automattic\WooCommerce\EmailEditor\Email_Editor_Container;
-use Automattic\WooCommerce\EmailEditor\Engine\Theme_Controller;
+use Automattic\PooCommerce\EmailEditor\Email_Css_Inliner;
+use Automattic\PooCommerce\EmailEditor\Email_Editor_Container;
+use Automattic\PooCommerce\EmailEditor\Engine\Theme_Controller;
 
 /**
  * Class responsible for extracting the main content from a WC_Email object.
@@ -36,9 +36,9 @@ class WooContentProcessor {
 	}
 
 	/**
-	 * Get the WooCommerce content excluding headers and footers.
+	 * Get the PooCommerce content excluding headers and footers.
 	 *
-	 * @param \WC_Email $wc_email WooCommerce email.
+	 * @param \WC_Email $wc_email PooCommerce email.
 	 * @return string
 	 */
 	public function get_woo_content( \WC_Email $wc_email ): string {
@@ -50,19 +50,19 @@ class WooContentProcessor {
 	/**
 	 * Filter CSS for the email.
 	 * The CSS from the email editor was already inlined.
-	 * The method hooks to woocommerce_email_styles and removes CSS rules that we don't want to apply to the email.
+	 * The method hooks to poocommerce_email_styles and removes CSS rules that we don't want to apply to the email.
 	 *
 	 * Typography properties (font-size, font-weight, line-height, letter-spacing) are stripped
 	 * because the email editor theme controls all typography via theme.json. Leaving these in
-	 * the WooCommerce CSS would override the editor's heading sizes and weights.
+	 * the PooCommerce CSS would override the editor's heading sizes and weights.
 	 *
 	 * @since 10.8.0
 	 * @param string $css CSS.
 	 * @return string
 	 */
 	public function prepare_css( string $css ): string {
-		remove_filter( 'woocommerce_email_styles', array( $this, 'prepare_css' ) );
-		// Remove typography declarations from WooCommerce CSS.
+		remove_filter( 'poocommerce_email_styles', array( $this, 'prepare_css' ) );
+		// Remove typography declarations from PooCommerce CSS.
 		// The email editor theme.json controls all typography; WC CSS would override it.
 		return (string) preg_replace(
 			array(
@@ -95,7 +95,7 @@ class WooContentProcessor {
 	/**
 	 * Inline the CSS from the email theme and user email settings.
 	 *
-	 * @param string $woo_content WooCommerce content.
+	 * @param string $woo_content PooCommerce content.
 	 * @return string
 	 */
 	private function inline_css( string $woo_content ): string {
@@ -108,10 +108,10 @@ class WooContentProcessor {
 	}
 
 	/**
-	 * Get CSS styles specific to WooCommerce email content.
+	 * Get CSS styles specific to PooCommerce email content.
 	 *
-	 * These styles target WooCommerce-specific HTML classes in the order details,
-	 * totals, and other email content areas. They are needed because the WooCommerce
+	 * These styles target PooCommerce-specific HTML classes in the order details,
+	 * totals, and other email content areas. They are needed because the PooCommerce
 	 * email CSS selectors (prefixed with #body_content) do not match in the block
 	 * email editor template structure.
 	 *
@@ -171,9 +171,9 @@ class WooContentProcessor {
 	}
 
 	/**
-	 * Capture the WooCommerce content excluding headers and footers.
+	 * Capture the PooCommerce content excluding headers and footers.
 	 *
-	 * @param \WC_Email $wc_email WooCommerce email.
+	 * @param \WC_Email $wc_email PooCommerce email.
 	 * @return string
 	 */
 	private function capture_woo_content( \WC_Email $wc_email ): string {

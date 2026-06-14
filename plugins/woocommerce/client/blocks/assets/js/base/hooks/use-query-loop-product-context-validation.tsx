@@ -50,7 +50,7 @@ export const useQueryLoopProductContextValidation = ( {
 					/* translators: %s: block name */
 					__(
 						'The %s block requires a product context. When used in a Query Loop, the Query Loop must be configured to display products.',
-						'woocommerce'
+						'poocommerce'
 					),
 					blockName
 				) }

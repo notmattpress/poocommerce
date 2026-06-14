@@ -5,7 +5,7 @@
  *
  * Handles requests to the /paypal-webhooks endpoint.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @since   2.6.0
  */
 
@@ -13,12 +13,12 @@ declare(strict_types=1);
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Gateways\PayPal\WebhookHandler as PayPalWebhookHandler;
+use Automattic\PooCommerce\Gateways\PayPal\WebhookHandler as PayPalWebhookHandler;
 
 /**
  * REST API PayPal webhook handler controller class.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @extends WC_REST_Controller
  */
 class WC_REST_Paypal_Webhooks_Controller extends WC_REST_Controller {
@@ -90,7 +90,7 @@ class WC_REST_Paypal_Webhooks_Controller extends WC_REST_Controller {
 			return new WP_REST_Response( array( 'message' => 'Webhook processed successfully' ), 200 );
 		} catch ( \Throwable $e ) {
 			WC_Gateway_Paypal::log( 'Error processing webhook: ' . $e->getMessage() );
-			return new WP_REST_Response( array( 'error' => __( 'Webhook processing failed.', 'woocommerce' ) ), 500 );
+			return new WP_REST_Response( array( 'error' => __( 'Webhook processing failed.', 'poocommerce' ) ), 500 );
 		}
 	}
 }

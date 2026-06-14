@@ -2,16 +2,16 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\EmailEditor\WCTransactionalEmails;
+namespace Automattic\PooCommerce\Tests\Internal\EmailEditor\WCTransactionalEmails;
 
-use Automattic\WooCommerce\EmailEditor\Bootstrap;
-use Automattic\WooCommerce\EmailEditor\Email_Editor_Container;
-use Automattic\WooCommerce\Internal\EmailEditor\Integration;
-use Automattic\WooCommerce\Internal\EmailEditor\Package;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateDivergenceDetector;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateSyncRegistry;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsGenerator;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsManager;
+use Automattic\PooCommerce\EmailEditor\Bootstrap;
+use Automattic\PooCommerce\EmailEditor\Email_Editor_Container;
+use Automattic\PooCommerce\Internal\EmailEditor\Integration;
+use Automattic\PooCommerce\Internal\EmailEditor\Package;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateDivergenceDetector;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateSyncRegistry;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsGenerator;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsManager;
 
 /**
  * Tests for the WCEmailTemplateDivergenceDetector class.
@@ -44,7 +44,7 @@ class WCEmailTemplateDivergenceDetectorTest extends \WC_Unit_Test_Case {
 	public function setUp(): void {
 		parent::setUp();
 
-		update_option( 'woocommerce_feature_block_email_editor_enabled', 'yes' );
+		update_option( 'poocommerce_feature_block_email_editor_enabled', 'yes' );
 		update_option( WCEmailTemplateDivergenceDetector::BACKFILL_COMPLETE_OPTION, 'yes' );
 
 		$this->fixtures_base = __DIR__ . '/fixtures/';
@@ -196,7 +196,7 @@ class WCEmailTemplateDivergenceDetectorTest extends \WC_Unit_Test_Case {
 		update_post_meta( $post_id, WCEmailTemplateDivergenceDetector::VERSION_META_KEY, '1.0.0' );
 
 		$captured = array();
-		\Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateSyncTracker::set_event_recorder(
+		\Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateSyncTracker::set_event_recorder(
 			static function ( string $event_name, array $payload ) use ( &$captured ): void {
 				$captured[] = array( $event_name, $payload );
 			}
@@ -204,7 +204,7 @@ class WCEmailTemplateDivergenceDetectorTest extends \WC_Unit_Test_Case {
 
 		$status = WCEmailTemplateDivergenceDetector::reclassify( $post_id );
 
-		\Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateSyncTracker::set_event_recorder( null );
+		\Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateSyncTracker::set_event_recorder( null );
 
 		$this->assertSame( WCEmailTemplateDivergenceDetector::STATUS_CORE_UPDATED_CUSTOMIZED, $status );
 		$this->assertCount( 1, $captured, 'reclassify must fire one _update_available event on version-advance transition.' );
@@ -240,7 +240,7 @@ class WCEmailTemplateDivergenceDetectorTest extends \WC_Unit_Test_Case {
 		);
 
 		$captured = array();
-		\Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateSyncTracker::set_event_recorder(
+		\Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateSyncTracker::set_event_recorder(
 			static function ( string $event_name, array $payload ) use ( &$captured ): void {
 				$captured[] = array( $event_name, $payload );
 			}
@@ -248,7 +248,7 @@ class WCEmailTemplateDivergenceDetectorTest extends \WC_Unit_Test_Case {
 
 		$status = WCEmailTemplateDivergenceDetector::reclassify( $post_id );
 
-		\Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateSyncTracker::set_event_recorder( null );
+		\Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateSyncTracker::set_event_recorder( null );
 
 		$this->assertSame( WCEmailTemplateDivergenceDetector::STATUS_CORE_UPDATED_CUSTOMIZED, $status );
 		$this->assertCount(
@@ -276,7 +276,7 @@ class WCEmailTemplateDivergenceDetectorTest extends \WC_Unit_Test_Case {
 		update_post_meta( $post_id, WCEmailTemplateDivergenceDetector::VERSION_META_KEY, '1.2.3' );
 
 		$captured = array();
-		\Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateSyncTracker::set_event_recorder(
+		\Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateSyncTracker::set_event_recorder(
 			static function ( string $event_name, array $payload ) use ( &$captured ): void {
 				$captured[] = array( $event_name, $payload );
 			}
@@ -284,7 +284,7 @@ class WCEmailTemplateDivergenceDetectorTest extends \WC_Unit_Test_Case {
 
 		WCEmailTemplateDivergenceDetector::reclassify( $post_id );
 
-		\Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateSyncTracker::set_event_recorder( null );
+		\Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateSyncTracker::set_event_recorder( null );
 
 		$this->assertSame( array(), $captured, 'reclassify must not fire _update_available when the merchant has already reviewed this version.' );
 	}
@@ -341,14 +341,14 @@ class WCEmailTemplateDivergenceDetectorTest extends \WC_Unit_Test_Case {
 	public function tearDown(): void {
 		$this->cleanup_injected_emails();
 
-		remove_all_filters( 'woocommerce_transactional_emails_for_block_editor' );
-		remove_all_filters( 'woocommerce_email_content_post_data' );
+		remove_all_filters( 'poocommerce_transactional_emails_for_block_editor' );
+		remove_all_filters( 'poocommerce_email_content_post_data' );
 
 		WCEmailTemplateSyncRegistry::reset_cache();
 		WCEmailTemplateDivergenceDetector::set_logger( null );
 
 		delete_option( WCEmailTemplateDivergenceDetector::BACKFILL_COMPLETE_OPTION );
-		update_option( 'woocommerce_feature_block_email_editor_enabled', 'no' );
+		update_option( 'poocommerce_feature_block_email_editor_enabled', 'no' );
 
 		parent::tearDown();
 	}
@@ -483,9 +483,9 @@ class WCEmailTemplateDivergenceDetectorTest extends \WC_Unit_Test_Case {
 	 * both sides route through {@see WCTransactionalEmailPostsGenerator::compute_canonical_post_content()}
 	 * so any filter mutation that shifts post_content shifts both hashes identically.
 	 */
-	public function test_contract_equivalence_under_woocommerce_email_content_post_data_filter(): void {
+	public function test_contract_equivalence_under_poocommerce_email_content_post_data_filter(): void {
 		add_filter(
-			'woocommerce_email_content_post_data',
+			'poocommerce_email_content_post_data',
 			static function ( array $post_data ): array {
 				$post_data['post_content'] = (string) ( $post_data['post_content'] ?? '' ) . "\n<!-- filter mutation -->";
 				return $post_data;
@@ -505,7 +505,7 @@ class WCEmailTemplateDivergenceDetectorTest extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * The sweep must fire `woocommerce_email_template_divergence_sweep_complete`
+	 * The sweep must fire `poocommerce_email_template_divergence_sweep_complete`
 	 * unconditionally at end of run, so downstream listeners (RSM-139 auto-applier)
 	 * can hook the completion event without inspecting detector internals.
 	 */
@@ -517,12 +517,12 @@ class WCEmailTemplateDivergenceDetectorTest extends \WC_Unit_Test_Case {
 		$listener = static function () use ( &$fired ): void {
 			++$fired;
 		};
-		add_action( 'woocommerce_email_template_divergence_sweep_complete', $listener );
+		add_action( 'poocommerce_email_template_divergence_sweep_complete', $listener );
 
 		try {
 			WCEmailTemplateDivergenceDetector::run_sweep();
 		} finally {
-			remove_action( 'woocommerce_email_template_divergence_sweep_complete', $listener );
+			remove_action( 'poocommerce_email_template_divergence_sweep_complete', $listener );
 		}
 
 		$this->assertSame( 1, $fired, 'Completion action must fire exactly once per sweep.' );
@@ -539,9 +539,9 @@ class WCEmailTemplateDivergenceDetectorTest extends \WC_Unit_Test_Case {
 	 */
 	private function initialize_email_editor_integration(): void {
 		$this->setExpectedIncorrectUsage( 'WP_Block_Type_Registry::register' );
-		$this->setExpectedIncorrectUsage( 'Automattic\WooCommerce\Blocks\Integrations\IntegrationRegistry::register' );
+		$this->setExpectedIncorrectUsage( 'Automattic\PooCommerce\Blocks\Integrations\IntegrationRegistry::register' );
 
-		add_option( 'woocommerce_feature_block_email_editor_enabled', 'yes' );
+		add_option( 'poocommerce_feature_block_email_editor_enabled', 'yes' );
 		wc_get_container()->get( Package::class )->init();
 		wc_get_container()->get( Integration::class )->initialize();
 		Email_Editor_Container::container()->get( Bootstrap::class )->initialize();
@@ -631,7 +631,7 @@ class WCEmailTemplateDivergenceDetectorTest extends \WC_Unit_Test_Case {
 		$this->injected_email_keys[] = $class_key;
 
 		add_filter(
-			'woocommerce_transactional_emails_for_block_editor',
+			'poocommerce_transactional_emails_for_block_editor',
 			static function ( array $emails ) use ( $email_id ): array {
 				if ( ! in_array( $email_id, $emails, true ) ) {
 					$emails[] = $email_id;
@@ -685,7 +685,7 @@ class WCEmailTemplateDivergenceDetectorTest extends \WC_Unit_Test_Case {
 	 */
 	private function use_canonical_content( string $email_id, string $content ): void {
 		add_filter(
-			'woocommerce_email_content_post_data',
+			'poocommerce_email_content_post_data',
 			static function ( array $post_data, string $type ) use ( $email_id, $content ): array {
 				if ( $type === $email_id ) {
 					$post_data['post_content'] = $content;

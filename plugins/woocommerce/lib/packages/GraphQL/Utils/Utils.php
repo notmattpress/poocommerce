@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\GraphQL\Utils;
+namespace Automattic\PooCommerce\Vendor\GraphQL\Utils;
 
-use Automattic\WooCommerce\Vendor\GraphQL\Error\Error;
-use Automattic\WooCommerce\Vendor\GraphQL\Error\Warning;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\Node;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\Error;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\Warning;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\Node;
 
 class Utils
 {
@@ -177,7 +177,7 @@ class Utils
     {
         if (isset($name[1]) && $name[0] === '_' && $name[1] === '_') {
             return new Error(
-                "Name \"{$name}\" must not begin with \"__\", which is reserved by Automattic\WooCommerce\Vendor\GraphQL introspection.",
+                "Name \"{$name}\" must not begin with \"__\", which is reserved by Automattic\PooCommerce\Vendor\GraphQL introspection.",
                 $node
             );
         }

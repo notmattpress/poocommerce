@@ -2,12 +2,12 @@
 /**
  * RemoteInboxNotificationsEngine tests.
  *
- * @package WooCommerce\Admin\Tests\RemoteInboxNotifications
+ * @package PooCommerce\Admin\Tests\RemoteInboxNotifications
  */
 
-use Automattic\WooCommerce\Admin\RemoteInboxNotifications\RemoteInboxNotificationsEngine;
-use Automattic\WooCommerce\Admin\RemoteInboxNotifications\RemoteInboxNotificationsDataSourcePoller;
-use Automattic\WooCommerce\Admin\Notes\Note;
+use Automattic\PooCommerce\Admin\RemoteInboxNotifications\RemoteInboxNotificationsEngine;
+use Automattic\PooCommerce\Admin\RemoteInboxNotifications\RemoteInboxNotificationsDataSourcePoller;
+use Automattic\PooCommerce\Admin\Notes\Note;
 
 /**
  * class WC_Admin_Tests_RemoteInboxNotifications_SpecRunner
@@ -21,7 +21,7 @@ class WC_Admin_Tests_RemoteInboxNotifications_RemoteInboxNotificationsEngine ext
 		parent::setUp();
 
 		add_filter(
-			'transient_woocommerce_admin_' . RemoteInboxNotificationsDataSourcePoller::ID . '_specs',
+			'transient_poocommerce_admin_' . RemoteInboxNotificationsDataSourcePoller::ID . '_specs',
 			function( $value ) {
 				if ( $value ) {
 					return $value;
@@ -63,8 +63,8 @@ class WC_Admin_Tests_RemoteInboxNotifications_RemoteInboxNotificationsEngine ext
 	 */
 	public function tearDown(): void {
 		parent::tearDown();
-		delete_transient( 'woocommerce_admin_' . RemoteInboxNotificationsDataSourcePoller::ID . '_specs' );
-		remove_all_filters( 'transient_woocommerce_admin_' . RemoteInboxNotificationsDataSourcePoller::ID . '_specs' );
+		delete_transient( 'poocommerce_admin_' . RemoteInboxNotificationsDataSourcePoller::ID . '_specs' );
+		remove_all_filters( 'transient_poocommerce_admin_' . RemoteInboxNotificationsDataSourcePoller::ID . '_specs' );
 	}
 
 

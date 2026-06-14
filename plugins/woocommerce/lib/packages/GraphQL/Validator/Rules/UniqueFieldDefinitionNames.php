@@ -1,29 +1,29 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\GraphQL\Validator\Rules;
+namespace Automattic\PooCommerce\Vendor\GraphQL\Validator\Rules;
 
-use Automattic\WooCommerce\Vendor\GraphQL\Error\Error;
-use Automattic\WooCommerce\Vendor\GraphQL\Error\InvariantViolation;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\InputObjectTypeDefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\InputObjectTypeExtensionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\InterfaceTypeDefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\InterfaceTypeExtensionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\NameNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\NodeKind;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\ObjectTypeDefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\ObjectTypeExtensionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\Visitor;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\VisitorOperation;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\InputObjectType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\InterfaceType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\NamedType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\ObjectType;
-use Automattic\WooCommerce\Vendor\GraphQL\Validator\SDLValidationContext;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\Error;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\InvariantViolation;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\InputObjectTypeDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\InputObjectTypeExtensionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\InterfaceTypeDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\InterfaceTypeExtensionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\NameNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\NodeKind;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\ObjectTypeDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\ObjectTypeExtensionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\Visitor;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\VisitorOperation;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\InputObjectType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\InterfaceType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\NamedType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\ObjectType;
+use Automattic\PooCommerce\Vendor\GraphQL\Validator\SDLValidationContext;
 
 /**
  * Unique field definition names.
  *
- * A Automattic\WooCommerce\Vendor\GraphQL complex type is only valid if all its fields are uniquely named.
+ * A Automattic\PooCommerce\Vendor\GraphQL complex type is only valid if all its fields are uniquely named.
  */
 class UniqueFieldDefinitionNames extends ValidationRule
 {

@@ -6,7 +6,7 @@ sidebar_position: 5
 
 # Settings UI SDK
 
-The settings UI SDK is an opt-in path for rendering WooCommerce settings pages with React while keeping the existing `WC_Settings_Page` registration and save flow.
+The settings UI SDK is an opt-in path for rendering PooCommerce settings pages with React while keeping the existing `WC_Settings_Page` registration and save flow.
 
 It is designed for extension authors who want to migrate incrementally. PHP still owns page registration, settings schema, permissions, script dependencies, and persistence. React owns field rendering and client-side interaction.
 
@@ -15,8 +15,8 @@ It is designed for extension authors who want to migrate incrementally. PHP stil
 -   The SDK is behind the `settings-ui` feature flag.
 -   With the flag disabled, settings pages keep the legacy PHP renderer.
 -   With the flag enabled, a settings page still has to opt in explicitly.
--   Saves use the existing WooCommerce settings form POST flow by default.
--   The public PHP API is available under `Automattic\WooCommerce\Admin\Settings`.
+-   Saves use the existing PooCommerce settings form POST flow by default.
+-   The public PHP API is available under `Automattic\PooCommerce\Admin\Settings`.
 
 ## Enable the feature flag
 
@@ -25,7 +25,7 @@ For local testing, enable the feature with a small mu-plugin:
 ```php
 <?php
 add_filter(
-	'woocommerce_admin_features',
+	'poocommerce_admin_features',
 	static function ( array $features ): array {
 		$features[] = 'settings-ui';
 		return array_values( array_unique( $features ) );
@@ -41,8 +41,8 @@ For pages that only need native fields, use `LegacySettingsPageAdapter`:
 
 ```php
 <?php
-use Automattic\WooCommerce\Admin\Settings\LegacySettingsPageAdapter;
-use Automattic\WooCommerce\Admin\Settings\SettingsUIPageInterface;
+use Automattic\PooCommerce\Admin\Settings\LegacySettingsPageAdapter;
+use Automattic\PooCommerce\Admin\Settings\SettingsUIPageInterface;
 
 class My_Plugin_Settings_Page extends WC_Settings_Page {
 	public function __construct() {
@@ -58,7 +58,7 @@ class My_Plugin_Settings_Page extends WC_Settings_Page {
 }
 ```
 
-WooCommerce only uses the adapter when the `settings-ui` feature flag is enabled. Returning an adapter does not change the page while the feature flag is disabled.
+PooCommerce only uses the adapter when the `settings-ui` feature flag is enabled. Returning an adapter does not change the page while the feature flag is disabled.
 
 ## Native field migration
 
@@ -104,7 +104,7 @@ array(
 Then register that component from JavaScript:
 
 ```ts
-import { registerSettingsExtension } from '@woocommerce/settings-ui-sdk';
+import { registerSettingsExtension } from '@poocommerce/settings-ui-sdk';
 import { PaymentMethodPicker } from './payment-method-picker';
 
 registerSettingsExtension( {
@@ -125,7 +125,7 @@ Custom component scripts must load before the settings app mounts. Return their 
 
 ```php
 <?php
-use Automattic\WooCommerce\Admin\Settings\LegacySettingsPageAdapter;
+use Automattic\PooCommerce\Admin\Settings\LegacySettingsPageAdapter;
 
 final class My_Plugin_Settings_UI_Page extends LegacySettingsPageAdapter {
 	public function get_script_handles( string $section ): array {
@@ -142,7 +142,7 @@ The SDK supports two save adapters:
 
 | Adapter     | Behavior                                                             |
 | ----------- | -------------------------------------------------------------------- |
-| `form_post` | Serializes hidden inputs for the existing WooCommerce settings form. |
+| `form_post` | Serializes hidden inputs for the existing PooCommerce settings form. |
 | `none`      | Does not submit a value. Use for display-only fields.                |
 
 The legacy adapter uses `form_post` by default. A field can override its save behavior:
@@ -185,7 +185,7 @@ array(
 
 Descriptions are sanitized with `wp_kses_post()`. Actions are structured data with `id`, `label`, `href`, optional `variant`, optional `target`, and optional `rel`.
 
-## Reference migration in WooCommerce core
+## Reference migration in PooCommerce core
 
 The Products settings page is the Core reference migration. With `settings-ui` enabled, the Products tab renders through the settings UI SDK. With the flag disabled, it renders through the existing legacy settings UI.
 

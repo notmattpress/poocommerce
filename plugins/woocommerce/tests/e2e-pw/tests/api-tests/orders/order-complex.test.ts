@@ -122,8 +122,8 @@ test.describe( 'Orders API test', () => {
 
 			if ( responseCreateTaxClasses.status() === 400 ) {
 				const expectedCodes = [
-					'woocommerce_rest_tax_class_exists',
-					'woocommerce_rest_tax_class_slug_exists',
+					'poocommerce_rest_tax_class_exists',
+					'poocommerce_rest_tax_class_slug_exists',
 				];
 				const expectedMessages = [
 					'Tax class already exists',
@@ -266,7 +266,7 @@ test.describe( 'Orders API test', () => {
 	test( 'can add complex order', async ( { request } ) => {
 		//ensure tax calculations are enabled
 		await request.put(
-			'./wp-json/wc/v3/settings/general/woocommerce_calc_taxes',
+			'./wp-json/wc/v3/settings/general/poocommerce_calc_taxes',
 			{
 				data: {
 					value: 'yes',

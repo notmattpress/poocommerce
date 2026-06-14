@@ -2,10 +2,10 @@
 /**
  * Unit tests for WC_Discounts class.
  *
- * @package WooCommerce\Tests.
+ * @package PooCommerce\Tests.
  */
 
-use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Enums\OrderStatus;
 
 /**
   * Class WC_Discounts_Tests.
@@ -16,7 +16,7 @@ class WC_Discounts_Tests extends WC_Unit_Test_Case {
 	 * Helper method to create limited coupon.
 	 */
 	private function create_limited_coupon() {
-		update_option( 'woocommerce_hold_stock_minutes', 60 );
+		update_option( 'poocommerce_hold_stock_minutes', 60 );
 		return WC_Helper_Coupon::create_coupon(
 			'coupon4one' . microtime( true ) . wp_generate_password( 6, false, false ),
 			array(

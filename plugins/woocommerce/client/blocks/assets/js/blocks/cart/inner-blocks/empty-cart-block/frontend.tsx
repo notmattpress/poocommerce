@@ -1,9 +1,9 @@
 /**
  * External dependencies
  */
-import { useStoreCart } from '@woocommerce/base-context/hooks';
+import { useStoreCart } from '@poocommerce/base-context/hooks';
 import { useEffect } from '@wordpress/element';
-import { dispatchEvent } from '@woocommerce/base-utils';
+import { dispatchEvent } from '@poocommerce/base-utils';
 
 /**
  * Internal dependencies
@@ -24,7 +24,7 @@ const FrontendBlock = ( {
 		}
 		dispatchEvent( 'wc-blocks_render_blocks_frontend', {
 			element: document.body.querySelector(
-				'.wp-block-woocommerce-cart'
+				'.wp-block-poocommerce-cart'
 			),
 		} );
 	}, [ cartIsLoading, cartItems ] );

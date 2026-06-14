@@ -1,14 +1,14 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\StoreApi\Utilities;
+namespace Automattic\PooCommerce\Tests\Blocks\StoreApi\Utilities;
 
 use WC_Helper_Order;
 use WC_Helper_Product;
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\StoreApi\Exceptions\RouteException;
-use Automattic\WooCommerce\StoreApi\Utilities\OrderController;
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\CouponHelper;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\StoreApi\Exceptions\RouteException;
+use Automattic\PooCommerce\StoreApi\Utilities\OrderController;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\CouponHelper;
 use Yoast\PHPUnitPolyfills\TestCases\TestCase;
 
 /**
@@ -318,19 +318,19 @@ class OrderControllerTests extends TestCase {
 			return $locales;
 		};
 
-		add_filter( 'woocommerce_get_country_locale', $hide_postcode );
+		add_filter( 'poocommerce_get_country_locale', $hide_postcode );
 
 		$errors = new \WP_Error();
 		$this->sut->validate_address_fields( $order, 'shipping', $errors );
 		$this->assertEmpty( $errors->get_error_messages() );
-		remove_filter( 'woocommerce_get_country_locale', $hide_postcode );
+		remove_filter( 'poocommerce_get_country_locale', $hide_postcode );
 	}
 
 	/**
-	 * @testdox create_order_from_cart() removes its woocommerce_default_order_status filter even when the order update throws.
+	 * @testdox create_order_from_cart() removes its poocommerce_default_order_status filter even when the order update throws.
 	 */
 	public function test_create_order_from_cart_removes_default_order_status_filter_on_exception(): void {
-		$hook           = 'woocommerce_default_order_status';
+		$hook           = 'poocommerce_default_order_status';
 		$filters_before = has_filter( $hook );
 
 		$product = WC_Helper_Product::create_simple_product();
@@ -341,7 +341,7 @@ class OrderControllerTests extends TestCase {
 		$thrower = static function () {
 			throw new \RuntimeException( 'Forced failure during totals calculation.' );
 		};
-		add_action( 'woocommerce_before_calculate_totals', $thrower );
+		add_action( 'poocommerce_before_calculate_totals', $thrower );
 
 		$threw = false;
 		try {
@@ -349,7 +349,7 @@ class OrderControllerTests extends TestCase {
 		} catch ( \Throwable $e ) {
 			$threw = true;
 		} finally {
-			remove_action( 'woocommerce_before_calculate_totals', $thrower );
+			remove_action( 'poocommerce_before_calculate_totals', $thrower );
 			WC()->cart->empty_cart();
 		}
 
@@ -357,15 +357,15 @@ class OrderControllerTests extends TestCase {
 		$this->assertSame(
 			$filters_before,
 			has_filter( $hook ),
-			'create_order_from_cart() must remove the woocommerce_default_order_status filter even when the order update throws.'
+			'create_order_from_cart() must remove the poocommerce_default_order_status filter even when the order update throws.'
 		);
 	}
 
 	/**
-	 * @testdox create_order_from_cart() leaves no woocommerce_default_order_status callbacks registered, so the filter chain does not grow across calls.
+	 * @testdox create_order_from_cart() leaves no poocommerce_default_order_status callbacks registered, so the filter chain does not grow across calls.
 	 */
 	public function test_create_order_from_cart_removes_default_order_status_filter(): void {
-		$hook           = 'woocommerce_default_order_status';
+		$hook           = 'poocommerce_default_order_status';
 		$filters_before = has_filter( $hook );
 
 		$product = WC_Helper_Product::create_simple_product();
@@ -383,7 +383,7 @@ class OrderControllerTests extends TestCase {
 		$this->assertSame(
 			$filters_before,
 			has_filter( $hook ),
-			'create_order_from_cart() must remove its woocommerce_default_order_status filter; the chain must not grow across repeated calls.'
+			'create_order_from_cart() must remove its poocommerce_default_order_status filter; the chain must not grow across repeated calls.'
 		);
 	}
 

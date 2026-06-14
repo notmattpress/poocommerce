@@ -11,7 +11,7 @@ import type { ProductEntityRecord } from '../types';
 
 export const fieldExtensions: Partial< Field< ProductEntityRecord > > = {
 	type: 'boolean',
-	label: __( 'Downloadable', 'woocommerce' ),
+	label: __( 'Downloadable', 'poocommerce' ),
 	enableSorting: false,
 	enableHiding: false,
 	filterBy: false,

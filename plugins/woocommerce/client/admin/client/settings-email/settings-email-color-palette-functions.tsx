@@ -4,11 +4,11 @@
 import { DefaultColors } from './settings-email-color-palette-slotfill';
 
 const colorFieldMap = {
-	woocommerce_email_base_color: 'baseColor',
-	woocommerce_email_background_color: 'bgColor',
-	woocommerce_email_body_background_color: 'bodyBgColor',
-	woocommerce_email_text_color: 'bodyTextColor',
-	woocommerce_email_footer_text_color: 'footerTextColor',
+	poocommerce_email_base_color: 'baseColor',
+	poocommerce_email_background_color: 'bgColor',
+	poocommerce_email_body_background_color: 'bodyBgColor',
+	poocommerce_email_text_color: 'bodyTextColor',
+	poocommerce_email_footer_text_color: 'footerTextColor',
 };
 
 const setColor = ( inputId: string, color: string ) => {

@@ -2,17 +2,17 @@
 /**
  * TestingContainer class file.
  *
- * @package WooCommerce\Testing\Tools
+ * @package PooCommerce\Testing\Tools
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Testing\Tools;
+namespace Automattic\PooCommerce\Testing\Tools;
 
-use Automattic\WooCommerce\Internal\DependencyManagement\ContainerException;
-use Automattic\WooCommerce\Internal\DependencyManagement\RuntimeContainer;
-use Automattic\WooCommerce\Proxies\LegacyProxy;
-use Automattic\WooCommerce\Testing\Tools\DependencyManagement\MockableLegacyProxy;
+use Automattic\PooCommerce\Internal\DependencyManagement\ContainerException;
+use Automattic\PooCommerce\Internal\DependencyManagement\RuntimeContainer;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\Testing\Tools\DependencyManagement\MockableLegacyProxy;
 
 /**
  * Dependency injection container to be used in unit tests.

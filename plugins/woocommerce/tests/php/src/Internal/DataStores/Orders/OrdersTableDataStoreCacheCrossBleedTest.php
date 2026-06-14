@@ -1,14 +1,14 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\DataStores\Orders;
+namespace Automattic\PooCommerce\Tests\Internal\DataStores\Orders;
 
-use Automattic\WooCommerce\Caching\WPCacheEngine;
-use Automattic\WooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
-use Automattic\WooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
-use Automattic\WooCommerce\Internal\DataStores\Orders\OrdersTableRefundDataStore;
-use Automattic\WooCommerce\RestApi\UnitTests\HPOSToggleTrait;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Caching\WPCacheEngine;
+use Automattic\PooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
+use Automattic\PooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
+use Automattic\PooCommerce\Internal\DataStores\Orders\OrdersTableRefundDataStore;
+use Automattic\PooCommerce\RestApi\UnitTests\HPOSToggleTrait;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 use WC_Order;
 
 /**
@@ -66,7 +66,7 @@ class OrdersTableDataStoreCacheCrossBleedTest extends \HposTestCase {
 		delete_option( CustomOrdersTableController::HPOS_DATASTORE_CACHING_ENABLED_OPTION );
 
 		remove_all_filters( 'wc_allow_changing_orders_storage_while_sync_is_pending' );
-		remove_all_filters( 'woocommerce_logging_class' );
+		remove_all_filters( 'poocommerce_logging_class' );
 		parent::tearDown();
 	}
 
@@ -264,7 +264,7 @@ class OrdersTableDataStoreCacheCrossBleedTest extends \HposTestCase {
 	public function test_debug_logging_on_missing_property(): void {
 		$fake_logger = $this->create_fake_logger();
 		add_filter(
-			'woocommerce_logging_class',
+			'poocommerce_logging_class',
 			function () use ( $fake_logger ) {
 				return $fake_logger;
 			}
@@ -298,7 +298,7 @@ class OrdersTableDataStoreCacheCrossBleedTest extends \HposTestCase {
 		}
 		$this->assertTrue( $found_hpos_source, 'Debug log entries should have source "hpos-data-cache"' );
 
-		remove_all_filters( 'woocommerce_logging_class' );
+		remove_all_filters( 'poocommerce_logging_class' );
 	}
 
 	/**

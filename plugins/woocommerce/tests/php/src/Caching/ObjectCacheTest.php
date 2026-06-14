@@ -1,11 +1,11 @@
 <?php
 
-namespace Automattic\WooCommerce\Tests\Caching;
+namespace Automattic\PooCommerce\Tests\Caching;
 
-use Automattic\WooCommerce\Caching\CacheException;
-use Automattic\WooCommerce\Caching\ObjectCache;
-use Automattic\WooCommerce\Caching\CacheEngine;
-use Automattic\WooCommerce\Caching\WPCacheEngine;
+use Automattic\PooCommerce\Caching\CacheException;
+use Automattic\PooCommerce\Caching\ObjectCache;
+use Automattic\PooCommerce\Caching\CacheEngine;
+use Automattic\PooCommerce\Caching\WPCacheEngine;
 
 /**
  * Tests for the ObjectCache class.
@@ -61,9 +61,9 @@ class ObjectCacheTest extends \WC_Unit_Test_Case {
 	public function tearDown(): void {
 		delete_option( 'wp_object_cache_key_prefix_the_type' );
 		remove_all_filters( 'wc_object_cache_get_engine' );
-		remove_all_filters( 'woocommerce_after_serializing_the_type_for_caching' );
-		remove_all_actions( 'woocommerce_after_removing_the_type_from_cache' );
-		remove_all_actions( 'woocommerce_after_flushing_the_type_cache' );
+		remove_all_filters( 'poocommerce_after_serializing_the_type_for_caching' );
+		remove_all_actions( 'poocommerce_after_removing_the_type_from_cache' );
+		remove_all_actions( 'poocommerce_after_flushing_the_type_cache' );
 
 		parent::tearDown();
 	}

@@ -103,9 +103,9 @@ function getEmptyContent(
 		return <Spinner />;
 	}
 	if ( isServerSearch && ! inputValue.trim() ) {
-		return __( 'Type to search…', 'woocommerce' );
+		return __( 'Type to search…', 'poocommerce' );
 	}
-	return __( 'No results found.', 'woocommerce' );
+	return __( 'No results found.', 'poocommerce' );
 }
 
 export function TaxonomyEdit< T extends Record< string, unknown > >( {
@@ -204,7 +204,7 @@ export function TaxonomyEdit< T extends Record< string, unknown > >( {
 			value: CREATABLE_VALUE,
 			label: sprintf(
 				/* translators: %s: the name of the new term to create */
-				__( 'Create "%s"', 'woocommerce' ),
+				__( 'Create "%s"', 'poocommerce' ),
 				termName
 			),
 		};
@@ -285,7 +285,7 @@ export function TaxonomyEdit< T extends Record< string, unknown > >( {
 					void createErrorNotice(
 						sprintf(
 							/* translators: %s: error message */
-							__( 'Failed to create term: %s', 'woocommerce' ),
+							__( 'Failed to create term: %s', 'poocommerce' ),
 							getErrorMessage( error )
 						),
 						{
@@ -341,7 +341,7 @@ export function TaxonomyEdit< T extends Record< string, unknown > >( {
 				value.length === 0 ? field.placeholder : undefined
 			}
 			searchPlaceholder={
-				searchPlaceholder ?? __( 'Search', 'woocommerce' )
+				searchPlaceholder ?? __( 'Search', 'poocommerce' )
 			}
 			disabled={ isCreating }
 			emptyContent={ getEmptyContent(
@@ -362,10 +362,10 @@ export function TaxonomyEdit< T extends Record< string, unknown > >( {
 											<img
 												src={ item.image.src }
 												alt={ item.image.alt ?? '' }
-												className="woocommerce-next-taxonomy-edit__chip-thumbnail"
+												className="poocommerce-next-taxonomy-edit__chip-thumbnail"
 											/>
 										) : (
-											<span className="woocommerce-next-taxonomy-edit__chip-thumbnail woocommerce-next-taxonomy-edit__chip-thumbnail--empty" />
+											<span className="poocommerce-next-taxonomy-edit__chip-thumbnail poocommerce-next-taxonomy-edit__chip-thumbnail--empty" />
 										)
 									}
 								>
@@ -386,18 +386,18 @@ export function TaxonomyEdit< T extends Record< string, unknown > >( {
 								direction="row"
 								align="center"
 								style={ { gap: '12px' } }
-								className="woocommerce-next-taxonomy-edit__option"
+								className="poocommerce-next-taxonomy-edit__option"
 							>
 								{ item.image?.src ? (
 									<img
 										src={ item.image.src }
 										alt={ item.image.alt ?? '' }
-										className="woocommerce-next-taxonomy-edit__option-thumbnail"
+										className="poocommerce-next-taxonomy-edit__option-thumbnail"
 									/>
 								) : (
-									<span className="woocommerce-next-taxonomy-edit__option-thumbnail woocommerce-next-taxonomy-edit__option-thumbnail--empty" />
+									<span className="poocommerce-next-taxonomy-edit__option-thumbnail poocommerce-next-taxonomy-edit__option-thumbnail--empty" />
 								) }
-								<span className="woocommerce-next-taxonomy-edit__option-label">
+								<span className="poocommerce-next-taxonomy-edit__option-label">
 									{ item.label }
 								</span>
 							</Stack>

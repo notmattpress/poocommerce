@@ -7,10 +7,10 @@ import {
 	getConfig,
 	getElement,
 } from '@wordpress/interactivity';
-import { SelectedAttributes } from '@woocommerce/stores/woocommerce/cart';
-import '@woocommerce/stores/woocommerce/products';
-import type { ProductsStore } from '@woocommerce/stores/woocommerce/products';
-import type { ProductResponseItem } from '@woocommerce/types';
+import { SelectedAttributes } from '@poocommerce/stores/poocommerce/cart';
+import '@poocommerce/stores/poocommerce/products';
+import type { ProductsStore } from '@poocommerce/stores/poocommerce/products';
+import type { ProductResponseItem } from '@poocommerce/types';
 
 /**
  * Internal dependencies
@@ -51,7 +51,7 @@ const universalLock =
 	'I acknowledge that using a private store means my plugin will inevitably break on the next store release.';
 
 const { state: productsState } = store< ProductsStore >(
-	'woocommerce/products',
+	'poocommerce/products',
 	{},
 	{ lock: universalLock }
 );
@@ -207,7 +207,7 @@ export type VariableProductAddToCartWithOptionsStore =
 	};
 
 const { actions, state } = store< VariableProductAddToCartWithOptionsStore >(
-	'woocommerce/add-to-cart-with-options',
+	'poocommerce/add-to-cart-with-options',
 	{
 		state: {
 			get selectedAttributes(): SelectedAttributes[] {
@@ -443,7 +443,7 @@ const { actions, state } = store< VariableProductAddToCartWithOptionsStore >(
 				const variationId = matchedVariation?.id ?? null;
 				const productContext = getContext< {
 					variationId?: number | null;
-				} >( 'woocommerce/products' );
+				} >( 'poocommerce/products' );
 
 				// If there is context, update the context. Otherwise, update the state directly.
 				( productContext

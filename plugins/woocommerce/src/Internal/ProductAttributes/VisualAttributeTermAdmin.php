@@ -2,15 +2,15 @@
 /**
  * Visual attribute term admin fields.
  *
- * @package WooCommerce\Classes
+ * @package PooCommerce\Classes
  */
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\ProductAttributes;
+namespace Automattic\PooCommerce\Internal\ProductAttributes;
 
-use Automattic\WooCommerce\Internal\Admin\WCAdminAssets;
-use Automattic\WooCommerce\Internal\RegisterHooksInterface;
+use Automattic\PooCommerce\Internal\Admin\WCAdminAssets;
+use Automattic\PooCommerce\Internal\RegisterHooksInterface;
 
 /**
  * Admin UI for wc-visual attribute term metadata.
@@ -109,7 +109,7 @@ class VisualAttributeTermAdmin implements RegisterHooksInterface {
 	private static function render_div_visual_attribute_fields( string $field_id_prefix ): void {
 		?>
 		<div class="form-field wc-admin-visual-attribute-type">
-			<label><?php esc_html_e( 'Swatch type', 'woocommerce' ); ?></label>
+			<label><?php esc_html_e( 'Swatch type', 'poocommerce' ); ?></label>
 			<?php self::render_visual_type_inputs( $field_id_prefix, VisualAttributeTermMeta::TYPE_COLOR ); ?>
 		</div>
 		<div class="form-field wc-admin-visual-attribute-color">
@@ -136,19 +136,19 @@ class VisualAttributeTermAdmin implements RegisterHooksInterface {
 		?>
 		<tr class="form-field wc-admin-visual-attribute-type">
 			<th scope="row" valign="top">
-				<label><?php esc_html_e( 'Swatch type', 'woocommerce' ); ?></label>
+				<label><?php esc_html_e( 'Swatch type', 'poocommerce' ); ?></label>
 			</th>
 			<td><?php self::render_visual_type_inputs( $field_prefix, $visual_type ); ?></td>
 		</tr>
 		<tr class="form-field wc-admin-visual-attribute-color">
 			<th scope="row" valign="top">
-				<label for="<?php echo esc_attr( self::get_color_input_id( $field_prefix ) ); ?>"><?php esc_html_e( 'Color value', 'woocommerce' ); ?></label>
+				<label for="<?php echo esc_attr( self::get_color_input_id( $field_prefix ) ); ?>"><?php esc_html_e( 'Color value', 'poocommerce' ); ?></label>
 			</th>
 			<td><?php self::render_color_input_control( $field_prefix, $color_value ); ?></td>
 		</tr>
 		<tr class="form-field wc-admin-visual-attribute-image">
 			<th scope="row" valign="top">
-				<label for="<?php echo esc_attr( self::get_image_input_id( $field_prefix ) ); ?>"><?php esc_html_e( 'Image value', 'woocommerce' ); ?></label>
+				<label for="<?php echo esc_attr( self::get_image_input_id( $field_prefix ) ); ?>"><?php esc_html_e( 'Image value', 'poocommerce' ); ?></label>
 			</th>
 			<td><?php self::render_image_input_control( $field_prefix, $image_value ); ?></td>
 		</tr>
@@ -175,7 +175,7 @@ class VisualAttributeTermAdmin implements RegisterHooksInterface {
 					value="<?php echo esc_attr( VisualAttributeTermMeta::TYPE_COLOR ); ?>"
 					<?php checked( VisualAttributeTermMeta::TYPE_COLOR, $selected_type ); ?>
 				/>
-				<?php esc_html_e( 'Color', 'woocommerce' ); ?>
+				<?php esc_html_e( 'Color', 'poocommerce' ); ?>
 			</label>
 			<label for="<?php echo esc_attr( $image_id ); ?>">
 				<input
@@ -185,7 +185,7 @@ class VisualAttributeTermAdmin implements RegisterHooksInterface {
 					value="<?php echo esc_attr( VisualAttributeTermMeta::TYPE_IMAGE ); ?>"
 					<?php checked( VisualAttributeTermMeta::TYPE_IMAGE, $selected_type ); ?>
 				/>
-				<?php esc_html_e( 'Image', 'woocommerce' ); ?>
+				<?php esc_html_e( 'Image', 'poocommerce' ); ?>
 			</label>
 		</fieldset>
 		<?php
@@ -200,7 +200,7 @@ class VisualAttributeTermAdmin implements RegisterHooksInterface {
 	 */
 	private static function render_color_input( string $field_id_prefix, string $color_value ): void {
 		?>
-		<label for="<?php echo esc_attr( self::get_color_input_id( $field_id_prefix ) ); ?>"><?php esc_html_e( 'Color value', 'woocommerce' ); ?></label>
+		<label for="<?php echo esc_attr( self::get_color_input_id( $field_id_prefix ) ); ?>"><?php esc_html_e( 'Color value', 'poocommerce' ); ?></label>
 		<?php self::render_color_input_control( $field_id_prefix, $color_value ); ?>
 		<?php
 	}
@@ -227,7 +227,7 @@ class VisualAttributeTermAdmin implements RegisterHooksInterface {
 	 */
 	private static function render_image_input( string $field_id_prefix, int $image_value ): void {
 		?>
-		<label for="<?php echo esc_attr( self::get_image_input_id( $field_id_prefix ) ); ?>"><?php esc_html_e( 'Image value', 'woocommerce' ); ?></label>
+		<label for="<?php echo esc_attr( self::get_image_input_id( $field_id_prefix ) ); ?>"><?php esc_html_e( 'Image value', 'poocommerce' ); ?></label>
 		<?php self::render_image_input_control( $field_id_prefix, $image_value ); ?>
 		<?php
 	}
@@ -331,13 +331,13 @@ class VisualAttributeTermAdmin implements RegisterHooksInterface {
 		$new_columns = array();
 		foreach ( $columns as $key => $label ) {
 			if ( 'slug' === $key ) {
-				$new_columns['visual'] = __( 'Visual', 'woocommerce' );
+				$new_columns['visual'] = __( 'Visual', 'poocommerce' );
 			}
 			$new_columns[ $key ] = $label;
 		}
 
 		if ( ! isset( $new_columns['visual'] ) ) {
-			$new_columns['visual'] = __( 'Visual', 'woocommerce' );
+			$new_columns['visual'] = __( 'Visual', 'poocommerce' );
 		}
 
 		return $new_columns;
@@ -389,7 +389,7 @@ class VisualAttributeTermAdmin implements RegisterHooksInterface {
 	private function is_ajax_add_attribute_request(): bool {
 		$action = isset( $_REQUEST['action'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['action'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 
-		return wp_doing_ajax() && 'woocommerce_add_new_attribute' === $action;
+		return wp_doing_ajax() && 'poocommerce_add_new_attribute' === $action;
 	}
 
 	/**

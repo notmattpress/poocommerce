@@ -8,7 +8,7 @@ import type { RecordEventFunction } from '../types/shared';
  * @param recordEvent - Record event function
  */
 export function initListeners( recordEvent: RecordEventFunction ): void {
-	jQuery( '.woocommerce-MyAccount-navigation-link--customer-logout' ).on( 'click', function () {
+	jQuery( '.poocommerce-MyAccount-navigation-link--customer-logout' ).on( 'click', function () {
 		recordEvent( 'my_account_tab_click', {
 			tab: 'logout',
 		} );

@@ -4,7 +4,7 @@
 import clsx from 'clsx';
 import { CheckboxControl } from '@wordpress/components';
 import { useCallback, useEffect } from '@wordpress/element';
-import { arrayDifferenceBy, arrayUnionBy } from '@woocommerce/utils';
+import { arrayDifferenceBy, arrayUnionBy } from '@poocommerce/utils';
 import { decodeEntities } from '@wordpress/html-entities';
 
 /**
@@ -18,7 +18,7 @@ import { getHighlightedName, getBreadcrumbsForDisplay } from './utils';
 
 const Count = ( { label }: { label: string | React.ReactNode | number } ) => {
 	return (
-		<span className="woocommerce-search-list__item-count">{ label }</span>
+		<span className="poocommerce-search-list__item-count">{ label }</span>
 	);
 };
 
@@ -27,13 +27,13 @@ const ItemLabel = ( props: { item: SearchListItemProps; search: string } ) => {
 	const hasBreadcrumbs = item.breadcrumbs && item.breadcrumbs.length;
 
 	return (
-		<span className="woocommerce-search-list__item-label">
+		<span className="poocommerce-search-list__item-label">
 			{ hasBreadcrumbs ? (
-				<span className="woocommerce-search-list__item-prefix">
+				<span className="poocommerce-search-list__item-prefix">
 					{ getBreadcrumbsForDisplay( item.breadcrumbs ) }
 				</span>
 			) : null }
-			<span className="woocommerce-search-list__item-name">
+			<span className="poocommerce-search-list__item-name">
 				{ getHighlightedName( decodeEntities( item.name ), search ) }
 			</span>
 		</span>
@@ -64,7 +64,7 @@ export const SearchListItem = < T extends object = object >( {
 	const hasChildren = !! item.children?.length;
 	const isExpanded = expandedPanelId === item.id;
 	const classes = clsx(
-		[ 'woocommerce-search-list__item', `depth-${ depth }`, className ],
+		[ 'poocommerce-search-list__item', `depth-${ depth }`, className ],
 		{
 			'has-breadcrumbs': hasBreadcrumbs,
 			'has-children': hasChildren,
@@ -107,7 +107,7 @@ export const SearchListItem = < T extends object = object >( {
 						onChange={ onSelect( item ) }
 						onClick={ ( e ) => e.stopPropagation() }
 						checked={ isSelected }
-						className="woocommerce-search-list__item-input"
+						className="poocommerce-search-list__item-input"
 						{ ...props }
 					/>
 
@@ -120,7 +120,7 @@ export const SearchListItem = < T extends object = object >( {
 			) : (
 				<>
 					<CheckboxControl
-						className="woocommerce-search-list__item-input"
+						className="poocommerce-search-list__item-input"
 						checked={ isSelected }
 						{ ...( ! isSelected &&
 						// We know that `item.children` is not `undefined` because
@@ -178,7 +178,7 @@ export const SearchListItem = < T extends object = object >( {
 						value={ item.value }
 						onChange={ onSelect( item ) }
 						checked={ isSelected }
-						className="woocommerce-search-list__item-input"
+						className="poocommerce-search-list__item-input"
 					></input>
 
 					<ItemLabel item={ item } search={ search } />
@@ -188,7 +188,7 @@ export const SearchListItem = < T extends object = object >( {
 					{ ...props }
 					id={ id }
 					name={ name }
-					className="woocommerce-search-list__item-input"
+					className="poocommerce-search-list__item-input"
 					value={ decodeEntities( item.value ) }
 					label={ getHighlightedName(
 						decodeEntities( item.name ),

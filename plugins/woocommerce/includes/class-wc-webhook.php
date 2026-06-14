@@ -7,16 +7,16 @@
  * Webhooks are enqueued to their associated actions, delivered, and logged.
  *
  * @version  3.2.0
- * @package  WooCommerce\Webhooks
+ * @package  PooCommerce\Webhooks
  * @since    2.2.0
  */
 
 use Automattic\Jetpack\Constants;
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Utilities\NumberUtil;
-use Automattic\WooCommerce\Utilities\OrderUtil;
-use Automattic\WooCommerce\Utilities\RestApiUtil;
-use Automattic\WooCommerce\Utilities\LoggingUtil;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Utilities\NumberUtil;
+use Automattic\PooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Utilities\RestApiUtil;
+use Automattic\PooCommerce\Utilities\LoggingUtil;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -127,7 +127,7 @@ class WC_Webhook extends WC_Legacy_Webhook {
 		 * @since 3.3.0
 		 * @hooked wc_webhook_process_delivery - 10
 		 */
-		do_action( 'woocommerce_webhook_process_delivery', $this, $arg );
+		do_action( 'poocommerce_webhook_process_delivery', $this, $arg );
 
 		return $arg;
 	}
@@ -150,7 +150,7 @@ class WC_Webhook extends WC_Legacy_Webhook {
 		 * @param WC_Webhook $this The current webhook class.
 		 * @param mixed      $arg First hook argument.
 		 */
-		return apply_filters( 'woocommerce_webhook_should_deliver', $should_deliver, $this, $arg );
+		return apply_filters( 'poocommerce_webhook_should_deliver', $should_deliver, $this, $arg );
 	}
 
 	/**
@@ -195,7 +195,7 @@ class WC_Webhook extends WC_Legacy_Webhook {
 				break;
 		}
 
-		if ( 0 === strpos( $current_action, 'woocommerce_process_shop' ) || 0 === strpos( $current_action, 'woocommerce_process_product' ) ) {
+		if ( 0 === strpos( $current_action, 'poocommerce_process_shop' ) || 0 === strpos( $current_action, 'poocommerce_process_product' ) ) {
 			$return = $this->is_valid_processing_action( $arg );
 		}
 
@@ -248,7 +248,7 @@ class WC_Webhook extends WC_Legacy_Webhook {
 	 * @return bool       True if validation passes.
 	 */
 	private function is_valid_processing_action( $arg ) {
-		// The `woocommerce_process_shop_*` and `woocommerce_process_product_*` hooks
+		// The `poocommerce_process_shop_*` and `poocommerce_process_product_*` hooks
 		// fire for create and update of products and orders, so check the post
 		// creation date to determine the actual event.
 		$resource = get_post( absint( $arg ) );
@@ -332,7 +332,7 @@ class WC_Webhook extends WC_Legacy_Webhook {
 			'redirection' => 0,
 			'httpversion' => '1.0',
 			'blocking'    => true,
-			'user-agent'  => sprintf( 'WooCommerce/%s Hookshot (WordPress/%s)', Constants::get_constant( 'WC_VERSION' ), $GLOBALS['wp_version'] ),
+			'user-agent'  => sprintf( 'PooCommerce/%s Hookshot (WordPress/%s)', Constants::get_constant( 'WC_VERSION' ), $GLOBALS['wp_version'] ),
 			'body'        => trim( wp_json_encode( $payload ) ),
 			'headers'     => array(
 				'Content-Type' => 'application/json',
@@ -349,7 +349,7 @@ class WC_Webhook extends WC_Legacy_Webhook {
 		 * @param int   $webhook_id The webhook ID.
 		 * @return array The filtered HTTP arguments.
 		 */
-		$http_args = apply_filters( 'woocommerce_webhook_http_args', $http_args, $arg, $this->get_id() );
+		$http_args = apply_filters( 'poocommerce_webhook_http_args', $http_args, $arg, $this->get_id() );
 
 		// Add custom headers.
 		$delivery_id                                      = $this->get_new_delivery_id();
@@ -368,7 +368,7 @@ class WC_Webhook extends WC_Legacy_Webhook {
 
 		$this->log_delivery( $delivery_id, $http_args, $response, $duration );
 
-		do_action( 'woocommerce_webhook_delivery', $http_args, $response, $duration, $arg, $this->get_id() );
+		do_action( 'poocommerce_webhook_delivery', $http_args, $response, $duration, $arg, $this->get_id() );
 	}
 
 	/**
@@ -444,7 +444,7 @@ class WC_Webhook extends WC_Legacy_Webhook {
 					wc_deprecated_function( 'Webhook delivery via the Legacy REST API', '9.0.0', 'editing the webhook to use a current API version' );
 					$payload = wc()->api->get_webhook_api_payload( $resource, $resource_id, $event );
 				} else {
-					throw new \Exception( esc_html__( 'Unsupported webhook API version. Please edit this webhook to use a current REST API version.', 'woocommerce' ) );
+					throw new \Exception( esc_html__( 'Unsupported webhook API version. Please edit this webhook to use a current REST API version.', 'poocommerce' ) );
 				}
 			}
 
@@ -457,7 +457,7 @@ class WC_Webhook extends WC_Legacy_Webhook {
 			 * @param mixed  $resource_id Resource ID.
 			 * @param int    $webhook_id  Webhook ID.
 			 */
-			return apply_filters( 'woocommerce_webhook_payload', $payload, $resource, $resource_id, $this->get_id() );
+			return apply_filters( 'poocommerce_webhook_payload', $payload, $resource, $resource_id, $this->get_id() );
 		} finally {
 			// Restore the current user.
 			wp_set_current_user( $current_user );
@@ -474,7 +474,7 @@ class WC_Webhook extends WC_Legacy_Webhook {
 	 * @return string
 	 */
 	public function generate_signature( $payload ) {
-		$hash_algo = apply_filters( 'woocommerce_webhook_hash_algorithm', 'sha256', $payload, $this->get_id() );
+		$hash_algo = apply_filters( 'poocommerce_webhook_hash_algorithm', 'sha256', $payload, $this->get_id() );
 
 		// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode
 		return base64_encode( hash_hmac( $hash_algo, $payload, wp_specialchars_decode( $this->get_secret(), ENT_QUOTES ), true ) );
@@ -506,7 +506,7 @@ class WC_Webhook extends WC_Legacy_Webhook {
 		$message = array(
 			'Webhook Delivery' => array(
 				'Delivery ID' => $delivery_id,
-				'Date'        => date_i18n( __( 'M j, Y @ G:i', 'woocommerce' ), strtotime( 'now' ), true ),
+				'Date'        => date_i18n( __( 'M j, Y @ G:i', 'poocommerce' ), strtotime( 'now' ), true ),
 				'URL'         => $this->get_delivery_url(),
 				'Duration'    => $duration,
 				'Request'     => array(
@@ -577,10 +577,10 @@ class WC_Webhook extends WC_Legacy_Webhook {
 	private function failed_delivery() {
 		$failures = $this->get_failure_count();
 
-		if ( $failures > apply_filters( 'woocommerce_max_webhook_delivery_failures', 5 ) ) {
+		if ( $failures > apply_filters( 'poocommerce_max_webhook_delivery_failures', 5 ) ) {
 			$this->set_status( 'disabled' );
 
-			do_action( 'woocommerce_webhook_disabled_due_delivery_failures', $this->get_id() );
+			do_action( 'poocommerce_webhook_disabled_due_delivery_failures', $this->get_id() );
 		} else {
 			$this->set_failure_count( ++$failures );
 		}
@@ -626,7 +626,7 @@ class WC_Webhook extends WC_Legacy_Webhook {
 	 */
 	public function deliver_ping() {
 		$args = array(
-			'user-agent' => sprintf( 'WooCommerce/%s Hookshot (WordPress/%s)', Constants::get_constant( 'WC_VERSION' ), $GLOBALS['wp_version'] ),
+			'user-agent' => sprintf( 'PooCommerce/%s Hookshot (WordPress/%s)', Constants::get_constant( 'WC_VERSION' ), $GLOBALS['wp_version'] ),
 			'body'       => 'webhook_id=' . $this->get_id(),
 		);
 
@@ -639,19 +639,19 @@ class WC_Webhook extends WC_Legacy_Webhook {
 		 * @param int   $webhook_id The webhook ID.
 		 * @return array The filtered HTTP arguments.
 		 */
-		$http_args = apply_filters( 'woocommerce_webhook_http_args', $args, null, $this->get_id() );
+		$http_args = apply_filters( 'poocommerce_webhook_http_args', $args, null, $this->get_id() );
 
 		$test          = wp_safe_remote_post( $this->get_delivery_url(), $http_args );
 		$response_code = wp_remote_retrieve_response_code( $test );
 
 		if ( is_wp_error( $test ) ) {
 			/* translators: error message */
-			return new WP_Error( 'error', sprintf( __( 'Error: Delivery URL cannot be reached: %s', 'woocommerce' ), $test->get_error_message() ) );
+			return new WP_Error( 'error', sprintf( __( 'Error: Delivery URL cannot be reached: %s', 'poocommerce' ), $test->get_error_message() ) );
 		}
 
 		if ( 200 !== $response_code ) {
 			/* translators: error message */
-			return new WP_Error( 'error', sprintf( __( 'Error: Delivery URL returned response code: %s', 'woocommerce' ), absint( $response_code ) ) );
+			return new WP_Error( 'error', sprintf( __( 'Error: Delivery URL returned response code: %s', 'poocommerce' ), absint( $response_code ) ) );
 		}
 
 		$this->set_pending_delivery( false );
@@ -675,7 +675,7 @@ class WC_Webhook extends WC_Legacy_Webhook {
 	 * @return string
 	 */
 	public function get_name( $context = 'view' ) {
-		return apply_filters( 'woocommerce_webhook_name', $this->get_prop( 'name', $context ), $this->get_id() );
+		return apply_filters( 'poocommerce_webhook_name', $this->get_prop( 'name', $context ), $this->get_id() );
 	}
 
 	/**
@@ -691,7 +691,7 @@ class WC_Webhook extends WC_Legacy_Webhook {
 	 * @return string status
 	 */
 	public function get_status( $context = 'view' ) {
-		return apply_filters( 'woocommerce_webhook_status', $this->get_prop( 'status', $context ), $this->get_id() );
+		return apply_filters( 'poocommerce_webhook_status', $this->get_prop( 'status', $context ), $this->get_id() );
 	}
 
 	/**
@@ -727,7 +727,7 @@ class WC_Webhook extends WC_Legacy_Webhook {
 	 * @return string
 	 */
 	public function get_secret( $context = 'view' ) {
-		return apply_filters( 'woocommerce_webhook_secret', $this->get_prop( 'secret', $context ), $this->get_id() );
+		return apply_filters( 'poocommerce_webhook_secret', $this->get_prop( 'secret', $context ), $this->get_id() );
 	}
 
 	/**
@@ -739,7 +739,7 @@ class WC_Webhook extends WC_Legacy_Webhook {
 	 * @return string
 	 */
 	public function get_topic( $context = 'view' ) {
-		return apply_filters( 'woocommerce_webhook_topic', $this->get_prop( 'topic', $context ), $this->get_id() );
+		return apply_filters( 'poocommerce_webhook_topic', $this->get_prop( 'topic', $context ), $this->get_id() );
 	}
 
 	/**
@@ -751,7 +751,7 @@ class WC_Webhook extends WC_Legacy_Webhook {
 	 * @return string
 	 */
 	public function get_delivery_url( $context = 'view' ) {
-		return apply_filters( 'woocommerce_webhook_delivery_url', $this->get_prop( 'delivery_url', $context ), $this->get_id() );
+		return apply_filters( 'poocommerce_webhook_delivery_url', $this->get_prop( 'delivery_url', $context ), $this->get_id() );
 	}
 
 	/**
@@ -954,7 +954,7 @@ class WC_Webhook extends WC_Legacy_Webhook {
 	 * can deliver. Used by `wc_is_webhook_valid_topic()` to derive the
 	 * default-pair allowlist so the validator and the map cannot drift.
 	 *
-	 * The `woocommerce_webhook_topic_hooks` filter is applied here. When called
+	 * The `poocommerce_webhook_topic_hooks` filter is applied here. When called
 	 * statically (without a webhook context, e.g. from the topic validator),
 	 * a fresh, unsaved `WC_Webhook` instance is passed as the filter's second
 	 * argument so callbacks registered with `accepted_args = 2` keep working.
@@ -975,12 +975,12 @@ class WC_Webhook extends WC_Legacy_Webhook {
 
 		$topic_hooks = array(
 			'coupon.created'    => array(
-				'woocommerce_process_shop_coupon_meta',
-				'woocommerce_new_coupon',
+				'poocommerce_process_shop_coupon_meta',
+				'poocommerce_new_coupon',
 			),
 			'coupon.updated'    => array(
-				'woocommerce_process_shop_coupon_meta',
-				'woocommerce_update_coupon',
+				'poocommerce_process_shop_coupon_meta',
+				'poocommerce_update_coupon',
 			),
 			'coupon.deleted'    => array(
 				'wp_trash_post',
@@ -990,40 +990,40 @@ class WC_Webhook extends WC_Legacy_Webhook {
 			),
 			'customer.created'  => array(
 				'user_register',
-				'woocommerce_created_customer',
-				'woocommerce_new_customer',
+				'poocommerce_created_customer',
+				'poocommerce_new_customer',
 			),
 			'customer.updated'  => array(
 				'profile_update',
-				'woocommerce_update_customer',
+				'poocommerce_update_customer',
 			),
 			'customer.deleted'  => array(
 				'delete_user',
 			),
 			'order.created'     => array(
-				'woocommerce_new_order',
+				'poocommerce_new_order',
 			),
 			'order.updated'     => array(
-				'woocommerce_update_order',
-				'woocommerce_order_refunded',
+				'poocommerce_update_order',
+				'poocommerce_order_refunded',
 			),
 			'order.deleted'     => array(
 				'wp_trash_post',
-				'woocommerce_trash_order',
+				'poocommerce_trash_order',
 			),
 			'order.restored'    => array(
 				'untrashed_post',
-				'woocommerce_untrash_order',
+				'poocommerce_untrash_order',
 			),
 			'product.created'   => array(
-				'woocommerce_process_product_meta',
-				'woocommerce_new_product',
-				'woocommerce_new_product_variation',
+				'poocommerce_process_product_meta',
+				'poocommerce_new_product',
+				'poocommerce_new_product_variation',
 			),
 			'product.updated'   => array(
-				'woocommerce_process_product_meta',
-				'woocommerce_update_product',
-				'woocommerce_update_product_variation',
+				'poocommerce_process_product_meta',
+				'poocommerce_update_product',
+				'poocommerce_update_product_variation',
 			),
 			'product.deleted'   => array(
 				'wp_trash_post',
@@ -1032,7 +1032,7 @@ class WC_Webhook extends WC_Legacy_Webhook {
 				'untrashed_post',
 			),
 			'product.published' => array(
-				'woocommerce_product_published',
+				'poocommerce_product_published',
 			),
 		);
 
@@ -1046,7 +1046,7 @@ class WC_Webhook extends WC_Legacy_Webhook {
 		 *                                `WC_Webhook::get_default_topic_hooks()`
 		 *                                without a webhook context.
 		 */
-		return apply_filters( 'woocommerce_webhook_topic_hooks', $topic_hooks, $webhook );
+		return apply_filters( 'poocommerce_webhook_topic_hooks', $topic_hooks, $webhook );
 	}
 
 	/**
@@ -1075,7 +1075,7 @@ class WC_Webhook extends WC_Legacy_Webhook {
 			$hooks = $this->get_topic_hooks( $this->get_topic() );
 		}
 
-		return apply_filters( 'woocommerce_webhook_hooks', $hooks, $this->get_id() );
+		return apply_filters( 'poocommerce_webhook_hooks', $hooks, $this->get_id() );
 	}
 
 	/**
@@ -1087,7 +1087,7 @@ class WC_Webhook extends WC_Legacy_Webhook {
 	public function get_resource() {
 		$topic = explode( '.', $this->get_topic() );
 
-		return apply_filters( 'woocommerce_webhook_resource', $topic[0], $this->get_id() );
+		return apply_filters( 'poocommerce_webhook_resource', $topic[0], $this->get_id() );
 	}
 
 	/**
@@ -1099,7 +1099,7 @@ class WC_Webhook extends WC_Legacy_Webhook {
 	public function get_event() {
 		$topic = explode( '.', $this->get_topic() );
 
-		return apply_filters( 'woocommerce_webhook_event', isset( $topic[1] ) ? $topic[1] : '', $this->get_id() );
+		return apply_filters( 'poocommerce_webhook_event', isset( $topic[1] ) ? $topic[1] : '', $this->get_id() );
 	}
 
 	/**

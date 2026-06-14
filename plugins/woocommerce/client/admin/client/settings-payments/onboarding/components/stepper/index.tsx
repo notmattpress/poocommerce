@@ -113,7 +113,7 @@ export default function Stepper( {
 							{ /* translators: %1$s: current step number, %2$s: total number of steps */ }
 							{ sprintf(
 								/* translators: %1$s: current step number, %2$s: total number of steps */
-								__( 'Step %1$s of %2$s', 'woocommerce' ),
+								__( 'Step %1$s of %2$s', 'poocommerce' ),
 								activeStepIndex,
 								steps.length
 							) }

@@ -6,11 +6,11 @@ post_title: Community contributions
 
 # Community contributions
 
-WooCommerce is open-source software that welcomes community contributions. To help us review your contribution quickly, please follow these guidelines.
+PooCommerce is open-source software that welcomes community contributions. To help us review your contribution quickly, please follow these guidelines.
 
 ## Before you submit
 
-1. **Link to a related issue** - If one exists, reference it in your PR. If you're proposing a new feature or significant change, [open an issue](https://github.com/woocommerce/woocommerce/issues/new/choose) first to discuss it.
+1. **Link to a related issue** - If one exists, reference it in your PR. If you're proposing a new feature or significant change, [open an issue](https://github.com/poocommerce/poocommerce/issues/new/choose) first to discuss it.
 
 2. **Run tests locally** - Som of the CI workflows are not automatically triggered for community contributions, so please verify your changes pass relevant tests and linting locally before submitting.
 
@@ -44,6 +44,6 @@ If your PR needs changes, we'll add a `needs: author feedback` label. Please res
 
 ## Getting help
 
-- [WooCommerce Community Slack](https://woocommerce.com/community-slack/)
-- [Developer Documentation](https://developer.woocommerce.com/docs/)
-- [Open an Issue](https://github.com/woocommerce/woocommerce/issues/new/choose)
+- [PooCommerce Community Slack](https://poocommerce.com/community-slack/)
+- [Developer Documentation](https://developer.poocommerce.com/docs/)
+- [Open an Issue](https://github.com/poocommerce/poocommerce/issues/new/choose)

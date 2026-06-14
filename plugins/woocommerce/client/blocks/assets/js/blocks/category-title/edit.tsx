@@ -15,9 +15,9 @@ import {
 	PlainText,
 	HeadingLevelDropdown,
 } from '@wordpress/block-editor';
-import { usePreviewMode } from '@woocommerce/base-hooks';
-import { previewCategories } from '@woocommerce/resource-previews';
-// eslint-disable-next-line @woocommerce/dependency-group
+import { usePreviewMode } from '@poocommerce/base-hooks';
+import { previewCategories } from '@poocommerce/resource-previews';
+// eslint-disable-next-line @poocommerce/dependency-group
 import {
 	ToggleControl,
 	TextControl,
@@ -130,14 +130,14 @@ export default function Edit( { attributes, setAttributes, context }: Props ) {
 	let titleElement: JSX.Element = createElement(
 		TagName,
 		blockProps,
-		__( 'Category title', 'woocommerce' )
+		__( 'Category title', 'poocommerce' )
 	) as JSX.Element;
 
 	if ( termId ) {
 		titleElement = userCanEdit ? (
 			<PlainText
 				tagName={ TagName }
-				placeholder={ __( 'No title', 'woocommerce' ) }
+				placeholder={ __( 'No title', 'poocommerce' ) }
 				value={ displayRawTitle }
 				onChange={ ( v ) => setTitle( v ) }
 				__experimentalVersion={ 2 }
@@ -164,7 +164,7 @@ export default function Edit( { attributes, setAttributes, context }: Props ) {
 					rel={ rel }
 					placeholder={
 						! displayRawTitle?.length
-							? __( 'No title', 'woocommerce' )
+							? __( 'No title', 'poocommerce' )
 							: undefined
 					}
 					value={ displayRawTitle }
@@ -205,13 +205,13 @@ export default function Edit( { attributes, setAttributes, context }: Props ) {
 			</BlockControls>
 			<InspectorControls>
 				<ToolsPanel
-					label={ __( 'Settings', 'woocommerce' ) }
+					label={ __( 'Settings', 'poocommerce' ) }
 					resetAll={ () => {
 						setAttributes( DEFAULT_ATTRIBUTES );
 					} }
 				>
 					<ToolsPanelItem
-						label={ __( 'Make title a link', 'woocommerce' ) }
+						label={ __( 'Make title a link', 'poocommerce' ) }
 						hasValue={ () => isLink !== DEFAULT_ATTRIBUTES.isLink }
 						onDeselect={ () =>
 							setAttributes( {
@@ -222,7 +222,7 @@ export default function Edit( { attributes, setAttributes, context }: Props ) {
 					>
 						<ToggleControl
 							__nextHasNoMarginBottom
-							label={ __( 'Make title a link', 'woocommerce' ) }
+							label={ __( 'Make title a link', 'poocommerce' ) }
 							onChange={ () =>
 								setAttributes( { isLink: ! isLink } )
 							}
@@ -232,7 +232,7 @@ export default function Edit( { attributes, setAttributes, context }: Props ) {
 					{ isLink && (
 						<>
 							<ToolsPanelItem
-								label={ __( 'Open in new tab', 'woocommerce' ) }
+								label={ __( 'Open in new tab', 'poocommerce' ) }
 								hasValue={ () =>
 									linkTarget !== DEFAULT_ATTRIBUTES.linkTarget
 								}
@@ -248,7 +248,7 @@ export default function Edit( { attributes, setAttributes, context }: Props ) {
 									__nextHasNoMarginBottom
 									label={ __(
 										'Open in new tab',
-										'woocommerce'
+										'poocommerce'
 									) }
 									onChange={ ( v ) =>
 										setAttributes( {
@@ -259,7 +259,7 @@ export default function Edit( { attributes, setAttributes, context }: Props ) {
 								/>
 							</ToolsPanelItem>
 							<ToolsPanelItem
-								label={ __( 'Link rel', 'woocommerce' ) }
+								label={ __( 'Link rel', 'poocommerce' ) }
 								hasValue={ () =>
 									rel !== DEFAULT_ATTRIBUTES.rel
 								}
@@ -273,7 +273,7 @@ export default function Edit( { attributes, setAttributes, context }: Props ) {
 								<TextControl
 									__next40pxDefaultSize
 									__nextHasNoMarginBottom
-									label={ __( 'Link rel', 'woocommerce' ) }
+									label={ __( 'Link rel', 'poocommerce' ) }
 									value={ rel }
 									onChange={ ( newRel ) =>
 										setAttributes( { rel: newRel } )

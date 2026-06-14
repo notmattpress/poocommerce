@@ -3,7 +3,7 @@
  * Class for parameter-based Reports querying
  */
 
-namespace Automattic\WooCommerce\Admin\API\Reports;
+namespace Automattic\PooCommerce\Admin\API\Reports;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -36,6 +36,6 @@ abstract class Query extends \WC_Object_Query {
 	public function get_data() {
 		wc_deprecated_function( __CLASS__ . '::' . __FUNCTION__, '9.3.0', '`GenericQuery`, `\WC_Object_Query`, or direct `DataStore` use' );
 		/* translators: %s: Method name */
-		return new \WP_Error( 'invalid-method', sprintf( __( "Method '%s' not implemented. Must be overridden in subclass.", 'woocommerce' ), __METHOD__ ), array( 'status' => 405 ) );
+		return new \WP_Error( 'invalid-method', sprintf( __( "Method '%s' not implemented. Must be overridden in subclass.", 'poocommerce' ), __METHOD__ ), array( 'status' => 405 ) );
 	}
 }

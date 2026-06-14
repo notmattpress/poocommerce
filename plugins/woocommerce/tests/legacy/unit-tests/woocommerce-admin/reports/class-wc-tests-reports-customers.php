@@ -2,10 +2,10 @@
 /**
  * Reports customers tests.
  *
- * @package WooCommerce\Admin\Tests\Customers
+ * @package PooCommerce\Admin\Tests\Customers
  */
 
-use Automattic\WooCommerce\Admin\API\Reports\Customers\Stats\DataStore;
+use Automattic\PooCommerce\Admin\API\Reports\Customers\Stats\DataStore;
 
 /**
  * Class WC_Admin_Tests_Reports_Customers
@@ -15,7 +15,7 @@ class WC_Admin_Tests_Reports_Customer extends WC_Unit_Test_Case {
 	/**
 	 * Test order count calculation for customer.
 	 *
-	 * @covers \Automattic\WooCommerce\Admin\API\Reports\Customers\DataStore::get_order_count
+	 * @covers \Automattic\PooCommerce\Admin\API\Reports\Customers\DataStore::get_order_count
 	 */
 	public function test_customer_order_count() {
 		WC_Helper_Reports::reset_stats_dbs();
@@ -56,7 +56,7 @@ class WC_Admin_Tests_Reports_Customer extends WC_Unit_Test_Case {
 	 *
 	 * A customer record should only be deleted if the customer has no other orders.
 	 *
-	 * @covers \Automattic\WooCommerce\Admin\API\Reports\Customers\DataStore::sync_on_order_delete
+	 * @covers \Automattic\PooCommerce\Admin\API\Reports\Customers\DataStore::sync_on_order_delete
 	 */
 	public function test_order_deletion_removes_customer() {
 		WC_Helper_Reports::reset_stats_dbs();
@@ -102,7 +102,7 @@ class WC_Admin_Tests_Reports_Customer extends WC_Unit_Test_Case {
 	 * Test that delayed account creation (order confirmation page) merges the
 	 * guest customer_lookup row instead of creating a duplicate.
 	 *
-	 * @covers \Automattic\WooCommerce\Admin\API\Reports\Customers\DataStore::merge_guest_customer_on_delayed_account_creation
+	 * @covers \Automattic\PooCommerce\Admin\API\Reports\Customers\DataStore::merge_guest_customer_on_delayed_account_creation
 	 */
 	public function test_delayed_account_creation_merges_guest_row() {
 		global $wpdb;
@@ -119,7 +119,7 @@ class WC_Admin_Tests_Reports_Customer extends WC_Unit_Test_Case {
 		WC_Helper_Queue::run_all_pending( 'wc-admin-data' );
 
 		// Verify guest row exists.
-		$guest_customer_id = \Automattic\WooCommerce\Admin\API\Reports\Customers\DataStore::get_guest_id_by_email( $email );
+		$guest_customer_id = \Automattic\PooCommerce\Admin\API\Reports\Customers\DataStore::get_guest_id_by_email( $email );
 		$this->assertNotFalse( $guest_customer_id, 'Guest customer row should exist after guest order.' );
 
 		// Register via delayed account creation (same source as the order confirmation page).
@@ -153,7 +153,7 @@ class WC_Admin_Tests_Reports_Customer extends WC_Unit_Test_Case {
 	/**
 	 * Test that normal (non-delayed) registration does NOT merge a guest row.
 	 *
-	 * @covers \Automattic\WooCommerce\Admin\API\Reports\Customers\DataStore::merge_guest_customer_on_delayed_account_creation
+	 * @covers \Automattic\PooCommerce\Admin\API\Reports\Customers\DataStore::merge_guest_customer_on_delayed_account_creation
 	 */
 	public function test_normal_registration_does_not_merge_guest_row() {
 		global $wpdb;
@@ -169,7 +169,7 @@ class WC_Admin_Tests_Reports_Customer extends WC_Unit_Test_Case {
 
 		WC_Helper_Queue::run_all_pending( 'wc-admin-data' );
 
-		$guest_customer_id = \Automattic\WooCommerce\Admin\API\Reports\Customers\DataStore::get_guest_id_by_email( $email );
+		$guest_customer_id = \Automattic\PooCommerce\Admin\API\Reports\Customers\DataStore::get_guest_id_by_email( $email );
 		$this->assertNotFalse( $guest_customer_id, 'Guest customer row should exist.' );
 
 		// Register via normal flow (no source = no merge).

@@ -2,10 +2,10 @@
 /**
  *  Tests for the WC_Admin_Dashboard_Setup class.
  *
- * @package WooCommerce\Tests\Admin
+ * @package PooCommerce\Tests\Admin
  */
 
-use Automattic\WooCommerce\Admin\Features\OnboardingTasks\TaskList;
+use Automattic\PooCommerce\Admin\Features\OnboardingTasks\TaskList;
 
 /**
  * Class WC_Admin_Dashboard_Setup_Test
@@ -16,9 +16,9 @@ class WC_Admin_Dashboard_Setup_Test extends WC_Unit_Test_Case {
 	 * Set up
 	 */
 	public function setUp(): void {
-		// Set default country to non-US so that 'payments' task gets added but 'woocommerce-payments' doesn't,
+		// Set default country to non-US so that 'payments' task gets added but 'poocommerce-payments' doesn't,
 		// by default it won't be considered completed but we can manually change that as needed.
-		update_option( 'woocommerce_default_country', 'JP' );
+		update_option( 'poocommerce_default_country', 'JP' );
 		$password    = wp_generate_password( 8, false, false );
 		$this->admin = wp_insert_user(
 			array(
@@ -37,7 +37,7 @@ class WC_Admin_Dashboard_Setup_Test extends WC_Unit_Test_Case {
 	 * Tear down
 	 */
 	public function tearDown(): void {
-		remove_all_filters( 'woocommerce_available_payment_gateways' );
+		remove_all_filters( 'poocommerce_available_payment_gateways' );
 
 		parent::tearDown();
 	}
@@ -57,7 +57,7 @@ class WC_Admin_Dashboard_Setup_Test extends WC_Unit_Test_Case {
 	 * @return string Render widget HTML
 	 */
 	public function get_widget_output() {
-		update_option( 'woocommerce_task_list_hidden', 'no' );
+		update_option( 'poocommerce_task_list_hidden', 'no' );
 
 		ob_start();
 		$this->get_widget()->render();
@@ -71,7 +71,7 @@ class WC_Admin_Dashboard_Setup_Test extends WC_Unit_Test_Case {
 	public function test_widget_render() {
 		// Force the "payments" task to be considered incomplete.
 		add_filter(
-			'woocommerce_available_payment_gateways',
+			'poocommerce_available_payment_gateways',
 			function () {
 				return array();
 			}
@@ -115,7 +115,7 @@ class WC_Admin_Dashboard_Setup_Test extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Tests widget does not display when user cannot manage woocommerce.
+	 * Tests widget does not display when user cannot manage poocommerce.
 	 */
 	public function test_widget_does_not_display_when_missing_capabilities() {
 		$password = wp_generate_password( 8, false, false );
@@ -150,7 +150,7 @@ class WC_Admin_Dashboard_Setup_Test extends WC_Unit_Test_Case {
 	public function test_initial_widget_output() {
 		// Force the "payments" task to be considered incomplete.
 		add_filter(
-			'woocommerce_available_payment_gateways',
+			'poocommerce_available_payment_gateways',
 			function () {
 				return array();
 			}
@@ -176,7 +176,7 @@ class WC_Admin_Dashboard_Setup_Test extends WC_Unit_Test_Case {
 		// Force the "payments" task to be considered completed
 		// by faking a valid payment gateway.
 		add_filter(
-			'woocommerce_available_payment_gateways',
+			'poocommerce_available_payment_gateways',
 			function () {
 				return array(
 					new class() extends WC_Payment_Gateway {
@@ -200,7 +200,7 @@ class WC_Admin_Dashboard_Setup_Test extends WC_Unit_Test_Case {
 	 */
 	public function test_get_button_link_redirects_to_core_profiler_when_needed() {
 		// Set up onboarding profile data to indicate profiler is not completed.
-		update_option( 'woocommerce_onboarding_profile', array( 'completed' => false ) );
+		update_option( 'poocommerce_onboarding_profile', array( 'completed' => false ) );
 
 		$widget    = $this->get_widget();
 		$task_list = $widget->get_task_list();
@@ -214,7 +214,7 @@ class WC_Admin_Dashboard_Setup_Test extends WC_Unit_Test_Case {
 			$this->assertStringContainsString( 'path=/setup-wizard', $button_link );
 		}
 
-		delete_option( 'woocommerce_onboarding_profile' );
+		delete_option( 'poocommerce_onboarding_profile' );
 	}
 
 	/**
@@ -222,7 +222,7 @@ class WC_Admin_Dashboard_Setup_Test extends WC_Unit_Test_Case {
 	 */
 	public function test_get_button_link_redirects_to_core_profiler_when_option_does_not_exist() {
 		// Set up onboarding profile data to indicate profiler is not completed.
-		delete_option( 'woocommerce_onboarding_profile' );
+		delete_option( 'poocommerce_onboarding_profile' );
 
 		$widget    = $this->get_widget();
 		$task_list = $widget->get_task_list();
@@ -236,7 +236,7 @@ class WC_Admin_Dashboard_Setup_Test extends WC_Unit_Test_Case {
 			$this->assertStringContainsString( 'path=/setup-wizard', $button_link );
 		}
 
-		delete_option( 'woocommerce_onboarding_profile' );
+		delete_option( 'poocommerce_onboarding_profile' );
 	}
 
 	/**
@@ -244,7 +244,7 @@ class WC_Admin_Dashboard_Setup_Test extends WC_Unit_Test_Case {
 	 */
 	public function test_get_button_link_returns_normal_url_when_profiler_completed() {
 		// Set up onboarding profile data to indicate profiler is completed.
-		update_option( 'woocommerce_onboarding_profile', array( 'completed' => true ) );
+		update_option( 'poocommerce_onboarding_profile', array( 'completed' => true ) );
 
 		$widget    = $this->get_widget();
 		$task_list = $widget->get_task_list();
@@ -260,7 +260,7 @@ class WC_Admin_Dashboard_Setup_Test extends WC_Unit_Test_Case {
 			$this->assertMatchesRegularExpression( '/(task=|path=)/', $button_link );
 		}
 
-		delete_option( 'woocommerce_onboarding_profile' );
+		delete_option( 'poocommerce_onboarding_profile' );
 	}
 
 	/**
@@ -268,7 +268,7 @@ class WC_Admin_Dashboard_Setup_Test extends WC_Unit_Test_Case {
 	 */
 	public function test_get_button_link_returns_normal_url_when_profiler_skipped() {
 		// Set up onboarding profile data to indicate profiler is skipped.
-		update_option( 'woocommerce_onboarding_profile', array( 'skipped' => true ) );
+		update_option( 'poocommerce_onboarding_profile', array( 'skipped' => true ) );
 
 		$widget    = $this->get_widget();
 		$task_list = $widget->get_task_list();
@@ -284,6 +284,6 @@ class WC_Admin_Dashboard_Setup_Test extends WC_Unit_Test_Case {
 			$this->assertMatchesRegularExpression( '/(task=|path=)/', $button_link );
 		}
 
-		delete_option( 'woocommerce_onboarding_profile' );
+		delete_option( 'poocommerce_onboarding_profile' );
 	}
 }

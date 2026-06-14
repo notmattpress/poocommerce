@@ -60,7 +60,7 @@ const MenuItem = ( {
 				event.preventDefault();
 				const nextElementToFocus = ( eventTarget.nextSibling ||
 					eventTarget.parentNode?.querySelector(
-						'.woocommerce-ellipsis-menu__item'
+						'.poocommerce-ellipsis-menu__item'
 					) ) as HTMLElement;
 				nextElementToFocus.focus();
 			}
@@ -76,7 +76,7 @@ const MenuItem = ( {
 				tabIndex={ 0 }
 				onKeyDown={ onKeyDown }
 				onClick={ onClick }
-				className="woocommerce-ellipsis-menu__item"
+				className="poocommerce-ellipsis-menu__item"
 			>
 				<BaseControl className="components-toggle-control">
 					<FormToggle
@@ -98,7 +98,7 @@ const MenuItem = ( {
 			tabIndex={ 0 }
 			onKeyDown={ onKeyDown }
 			onClick={ onClick }
-			className="woocommerce-ellipsis-menu__item"
+			className="poocommerce-ellipsis-menu__item"
 		>
 			{ children }
 		</div>

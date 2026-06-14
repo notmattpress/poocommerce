@@ -5,12 +5,12 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Abilities;
+namespace Automattic\PooCommerce\Abilities;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Defines a WooCommerce ability registration class.
+ * Defines a PooCommerce ability registration class.
  *
  * @since 10.9.0
  */

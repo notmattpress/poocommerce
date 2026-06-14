@@ -1,11 +1,11 @@
 <?php
 /**
- * WooCommerce Product Data Views
+ * PooCommerce Product Data Views
  */
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Admin\Features\ProductDataViews;
+namespace Automattic\PooCommerce\Admin\Features\ProductDataViews;
 
 /**
  * Loads assets related to product data views.
@@ -15,7 +15,7 @@ class Init {
 	 * Constructor
 	 */
 	public function __construct() {
-		add_action( 'admin_menu', array( $this, 'woocommerce_add_new_products_dashboard' ) );
+		add_action( 'admin_menu', array( $this, 'poocommerce_add_new_products_dashboard' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_styles' ), 20 );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ), 20 );
 
@@ -37,7 +37,7 @@ class Init {
 	 */
 	public static function is_product_data_view_page() {
 		// phpcs:disable WordPress.Security.NonceVerification
-		return isset( $_GET['page'] ) && 'woocommerce-products-dashboard' === $_GET['page'];
+		return isset( $_GET['page'] ) && 'poocommerce-products-dashboard' === $_GET['page'];
 		// phpcs:enable WordPress.Security.NonceVerification
 	}
 
@@ -60,7 +60,7 @@ class Init {
 			return;
 		}
 		wp_enqueue_script( 'wc-experimental-products-app' );
-		wp_add_inline_script( 'wc-experimental-products-app', 'window.wc.experimentalProductsApp.initializeProductsDashboard( "woocommerce-products-dashboard" );', 'after' );
+		wp_add_inline_script( 'wc-experimental-products-app', 'window.wc.experimentalProductsApp.initializeProductsDashboard( "poocommerce-products-dashboard" );', 'after' );
 
 		$script_handle = 'wc-admin-edit-product';
 		wp_register_script( $script_handle, '', array( 'wp-blocks' ), '0.1.0', true );
@@ -74,7 +74,7 @@ class Init {
 	/**
 	 * Replaces the default posts menu item with the new posts dashboard.
 	 */
-	public function woocommerce_add_new_products_dashboard() {
+	public function poocommerce_add_new_products_dashboard() {
 		$gutenberg_experiments = get_option( 'gutenberg-experiments' );
 		if ( ! $gutenberg_experiments ) {
 			return;
@@ -83,10 +83,10 @@ class Init {
 		add_submenu_page(
 			'edit.php?post_type=product',
 			$ptype_obj->labels->name,
-			esc_html__( 'All Products ( new )', 'woocommerce' ),
-			'manage_woocommerce',
-			'woocommerce-products-dashboard',
-			array( $this, 'woocommerce_products_dashboard' ),
+			esc_html__( 'All Products ( new )', 'poocommerce' ),
+			'manage_poocommerce',
+			'poocommerce-products-dashboard',
+			array( $this, 'poocommerce_products_dashboard' ),
 			1
 		);
 	}
@@ -94,7 +94,7 @@ class Init {
 	/**
 	 * Renders the new posts dashboard page.
 	 */
-	public function woocommerce_products_dashboard() {
+	public function poocommerce_products_dashboard() {
 		if ( function_exists( 'gutenberg_url' ) ) {
 			// phpcs:disable WordPress.WP.EnqueuedResourceParameters.MissingVersion
 			wp_register_style(
@@ -109,10 +109,10 @@ class Init {
 		if ( ! wp_script_is( 'wc-experimental-products-app', 'enqueued' ) ) {
 			printf(
 				'<div class="notice notice-error"><p>%s</p></div>',
-				esc_html__( 'The experimental products app assets are not available yet. Rebuild the admin assets and reload this page.', 'woocommerce' )
+				esc_html__( 'The experimental products app assets are not available yet. Rebuild the admin assets and reload this page.', 'poocommerce' )
 			);
 		}
 
-		echo '<div id="woocommerce-products-dashboard"></div>';
+		echo '<div id="poocommerce-products-dashboard"></div>';
 	}
 }

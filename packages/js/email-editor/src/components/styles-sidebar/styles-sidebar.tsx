@@ -5,7 +5,7 @@ import { memo } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { useSelect } from '@wordpress/data';
 import { styles } from '@wordpress/icons';
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import { PluginSidebar, PluginSidebarMoreMenuItem } from '@wordpress/editor';
 
 /**
@@ -42,7 +42,7 @@ export function RawStylesSidebar(): JSX.Element {
 					name="email-styles-sidebar"
 					icon={ styles }
 					title={ __( 'Styles', __i18n_text_domain__ ) }
-					className="woocommerce-email-editor-styles-panel"
+					className="poocommerce-email-editor-styles-panel"
 				>
 					<Navigator initialPath="/">
 						<Navigator.Screen path="/">

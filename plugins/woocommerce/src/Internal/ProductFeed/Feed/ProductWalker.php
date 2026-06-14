@@ -2,15 +2,15 @@
 /**
  * Product Walker class.
  *
- * @package Automattic\WooCommerce\Internal\ProductFeed
+ * @package Automattic\PooCommerce\Internal\ProductFeed
  */
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Internal\ProductFeed\Feed;
+namespace Automattic\PooCommerce\Internal\ProductFeed\Feed;
 
-use Automattic\WooCommerce\Internal\ProductFeed\Integrations\IntegrationInterface;
-use Automattic\WooCommerce\Internal\ProductFeed\Utils\MemoryManager;
+use Automattic\PooCommerce\Internal\ProductFeed\Integrations\IntegrationInterface;
+use Automattic\PooCommerce\Internal\ProductFeed\Utils\MemoryManager;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -142,7 +142,7 @@ class ProductWalker {
 		 * @return array
 		 */
 		$query_args = apply_filters(
-			'woocommerce_product_feed_args',
+			'poocommerce_product_feed_args',
 			$query_args,
 			$integration
 		);

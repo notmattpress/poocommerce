@@ -8,7 +8,7 @@ import {
 	InspectorControls,
 	useBlockProps,
 } from '@wordpress/block-editor';
-import { useProduct } from '@woocommerce/entities';
+import { useProduct } from '@poocommerce/entities';
 
 /**
  * Internal dependencies

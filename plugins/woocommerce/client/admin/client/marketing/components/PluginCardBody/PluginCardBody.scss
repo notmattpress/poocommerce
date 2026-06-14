@@ -1,7 +1,7 @@
 $image-size: 36px;
 $gap-vertical: 2px;
 
-.woocommerce_marketing_plugin_card_body {
+.poocommerce_marketing_plugin_card_body {
 	display: flex;
 	align-items: center;
 	gap: $gap;
@@ -30,7 +30,7 @@ $gap-vertical: 2px;
 			line-height: 20px;
 			margin-bottom: $gap-smallest;
 
-			.woocommerce-pill {
+			.poocommerce-pill {
 				padding: $gap-vertical $gap-smaller;
 				color: $gray-700;
 			}

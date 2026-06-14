@@ -1,4 +1,4 @@
-# Writing E2E Tests for WooCommerce Email Editor
+# Writing E2E Tests for PooCommerce Email Editor
 
 ## Table of Contents
 
@@ -16,8 +16,8 @@
    # From repository root
    nvm use
    pnpm install
-   pnpm --filter='@woocommerce/plugin-woocommerce' build
-   cd plugins/woocommerce
+   pnpm --filter='@poocommerce/plugin-poocommerce' build
+   cd plugins/poocommerce
    pnpm env:start 
    ```
 
@@ -25,8 +25,8 @@
 
    ```bash
    # From anywhere
-   pnpm --filter='@woocommerce/plugin-woocommerce' build
-   pnpm --filter='@woocommerce/plugin-woocommerce' wp-env start
+   pnpm --filter='@poocommerce/plugin-poocommerce' build
+   pnpm --filter='@poocommerce/plugin-poocommerce' wp-env start
    ```
 
 2. **Required Dependencies**:
@@ -51,7 +51,7 @@ const {
     ensureEmailEditorSettingsPanelIsOpened 
 } = require('../../utils/email');
 
-test.describe('WooCommerce Email Editor', () => {
+test.describe('PooCommerce Email Editor', () => {
     test.use({ storageState: ADMIN_STATE_PATH });
 
     test.beforeAll(async ({ baseURL }) => {

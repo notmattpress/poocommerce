@@ -2,7 +2,7 @@
 /**
  * Class WC_Auth_Test file.
  *
- * @package WooCommerce\Tests\WC_Auth.
+ * @package PooCommerce\Tests\WC_Auth.
  */
 
 /**
@@ -12,7 +12,7 @@ class WC_Auth_Test extends \WC_Unit_Test_Case {
 
 	/**
 	 * Test that API keys created via the REST API with long descriptions get saved correctly.
-	 * See: https://github.com/woocommerce/woocommerce/issues/30594.
+	 * See: https://github.com/poocommerce/poocommerce/issues/30594.
 	 */
 	public function test_api_key_long_description() {
 		$wc_auth        = new WC_Auth();

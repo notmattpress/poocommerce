@@ -1,15 +1,15 @@
 ---
-post_title: WooCommerce CLI commands
+post_title: PooCommerce CLI commands
 sidebar_label: Commands
 sidebar_position: 4
 
 ---
 
-# WooCommerce CLI Commands
+# PooCommerce CLI Commands
 
 ## Overview
 
-This document serves as a comprehensive reference for the WooCommerce Command Line Interface (WC-CLI) commands. It includes syntax, options, and brief descriptions for each command. These commands are applicable for WooCommerce version 3.0.0 and later.
+This document serves as a comprehensive reference for the PooCommerce Command Line Interface (WC-CLI) commands. It includes syntax, options, and brief descriptions for each command. These commands are applicable for PooCommerce version 3.0.0 and later.
 
 ## General Command Structure
 

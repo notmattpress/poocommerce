@@ -1,17 +1,17 @@
 <?php
 /**
- * WooCommerce Unit Tests Bootstrap
+ * PooCommerce Unit Tests Bootstrap
  *
  * @since 2.2
- * @package WooCommerce Tests
+ * @package PooCommerce Tests
  */
 
-use Automattic\WooCommerce\Internal\Admin\FeaturePlugin;
-use Automattic\WooCommerce\Testing\Tools\CodeHacking\CodeHacker;
-use Automattic\WooCommerce\Testing\Tools\CodeHacking\Hacks\StaticMockerHack;
-use Automattic\WooCommerce\Testing\Tools\CodeHacking\Hacks\FunctionsMockerHack;
-use Automattic\WooCommerce\Testing\Tools\CodeHacking\Hacks\BypassFinalsHack;
-use Automattic\WooCommerce\Testing\Tools\TestingContainer;
+use Automattic\PooCommerce\Internal\Admin\FeaturePlugin;
+use Automattic\PooCommerce\Testing\Tools\CodeHacking\CodeHacker;
+use Automattic\PooCommerce\Testing\Tools\CodeHacking\Hacks\StaticMockerHack;
+use Automattic\PooCommerce\Testing\Tools\CodeHacking\Hacks\FunctionsMockerHack;
+use Automattic\PooCommerce\Testing\Tools\CodeHacking\Hacks\BypassFinalsHack;
+use Automattic\PooCommerce\Testing\Tools\TestingContainer;
 
 /**
  * Class WC_Unit_Tests_Bootstrap
@@ -62,13 +62,13 @@ class WC_Unit_Tests_Bootstrap {
 		tests_add_filter( 'muplugins_loaded', array( $this, 'load_wc' ) );
 
 		// Load admin features.
-		tests_add_filter( 'woocommerce_admin_should_load_features', '__return_true' );
+		tests_add_filter( 'poocommerce_admin_should_load_features', '__return_true' );
 
 		// install WC.
 		tests_add_filter( 'setup_theme', array( $this, 'install_wc' ) );
 
 		// Set up WC-Admin config.
-		tests_add_filter( 'woocommerce_admin_get_feature_config', array( $this, 'add_development_features' ) );
+		tests_add_filter( 'poocommerce_admin_get_feature_config', array( $this, 'add_development_features' ) );
 
 		// Speed things up by turning down the password hashing cost.
 		tests_add_filter(
@@ -108,7 +108,7 @@ class WC_Unit_Tests_Bootstrap {
 	}
 
 	/**
-	 * Register autoloader for the files in the 'tests/tools' directory, for the root namespace 'Automattic\WooCommerce\Testing\Tools'.
+	 * Register autoloader for the files in the 'tests/tools' directory, for the root namespace 'Automattic\PooCommerce\Testing\Tools'.
 	 */
 	protected static function register_autoloader_for_testing_tools() {
 		spl_autoload_register(
@@ -126,8 +126,8 @@ class WC_Unit_Tests_Bootstrap {
 					}
 				}
 
-				// Otherwise, check if this might relate to an Automattic\WooCommerce\Testing\Tools class.
-				$prefix   = 'Automattic\\WooCommerce\\Testing\\Tools\\';
+				// Otherwise, check if this might relate to an Automattic\PooCommerce\Testing\Tools class.
+				$prefix   = 'Automattic\\PooCommerce\\Testing\\Tools\\';
 				$base_dir = $tests_directory . '/Tools/';
 				$len      = strlen( $prefix );
 				if ( strncmp( $prefix, $class, $len ) !== 0 ) {
@@ -176,7 +176,7 @@ class WC_Unit_Tests_Bootstrap {
 	 */
 	private function maybe_initialize_hpos() {
 		$disable_hpos = ! empty( getenv( 'DISABLE_HPOS' ) );
-		\Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::toggle_cot_feature_and_usage( ! $disable_hpos );
+		\Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::toggle_cot_feature_and_usage( ! $disable_hpos );
 	}
 
 	/**
@@ -227,9 +227,9 @@ class WC_Unit_Tests_Bootstrap {
 	 */
 	private function initialize_dependency_injection() {
 		try {
-			$inner_container_property = new \ReflectionProperty( \Automattic\WooCommerce\Container::class, 'container' );
+			$inner_container_property = new \ReflectionProperty( \Automattic\PooCommerce\Container::class, 'container' );
 		} catch ( ReflectionException $ex ) {
-			throw new \Exception( "Error when trying to get the private 'container' property from the " . \Automattic\WooCommerce\Container::class . ' class using reflection during unit testing bootstrap, has the property been removed or renamed?' );
+			throw new \Exception( "Error when trying to get the private 'container' property from the " . \Automattic\PooCommerce\Container::class . ' class using reflection during unit testing bootstrap, has the property been removed or renamed?' );
 		}
 
 		$inner_container_property->setAccessible( true );
@@ -243,7 +243,7 @@ class WC_Unit_Tests_Bootstrap {
 	}
 
 	/**
-	 * Load WooCommerce.
+	 * Load PooCommerce.
 	 *
 	 * @since 2.2
 	 */
@@ -257,16 +257,16 @@ class WC_Unit_Tests_Bootstrap {
 			define( 'WOOCOMMERCE_BIS_ALPHA_ENABLED', true );
 		}
 
-		update_option( 'woocommerce_enable_coupons', 'yes' );
-		update_option( 'woocommerce_calc_taxes', 'yes' );
-		update_option( 'woocommerce_onboarding_opt_in', 'yes' );
+		update_option( 'poocommerce_enable_coupons', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_onboarding_opt_in', 'yes' );
 
-		require_once $this->plugin_dir . '/woocommerce.php';
+		require_once $this->plugin_dir . '/poocommerce.php';
 		FeaturePlugin::instance()->init();
 	}
 
 	/**
-	 * Install WooCommerce after the test environment and WC have been loaded.
+	 * Install PooCommerce after the test environment and WC have been loaded.
 	 *
 	 * @since 2.2
 	 */
@@ -289,7 +289,7 @@ class WC_Unit_Tests_Bootstrap {
 		// the product CRUD/cache interfaces (e.g. raw SQL or direct postmeta writes without
 		// invalidation). install_wc() runs on `setup_theme`, before `init`, so the option is
 		// set in time for ProductCacheController::on_init() to register its invalidation hooks.
-		update_option( 'woocommerce_feature_product_instance_caching_enabled', 'yes' );
+		update_option( 'poocommerce_feature_product_instance_caching_enabled', 'yes' );
 
 		// Reload capabilities after install, see https://core.trac.wordpress.org/ticket/28374.
 		if ( version_compare( $GLOBALS['wp_version'], '4.7', '<' ) ) {
@@ -299,7 +299,7 @@ class WC_Unit_Tests_Bootstrap {
 			wp_roles();
 		}
 
-		echo esc_html( 'Installing WooCommerce...' . PHP_EOL );
+		echo esc_html( 'Installing PooCommerce...' . PHP_EOL );
 	}
 
 	/**

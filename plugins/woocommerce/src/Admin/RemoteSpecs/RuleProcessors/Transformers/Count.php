@@ -1,14 +1,14 @@
 <?php
 
-namespace Automattic\WooCommerce\Admin\RemoteSpecs\RuleProcessors\Transformers;
+namespace Automattic\PooCommerce\Admin\RemoteSpecs\RuleProcessors\Transformers;
 
-use Automattic\WooCommerce\Admin\RemoteSpecs\RuleProcessors\Transformers\TransformerInterface;
+use Automattic\PooCommerce\Admin\RemoteSpecs\RuleProcessors\Transformers\TransformerInterface;
 use stdClass;
 
 /**
  * Count elements in Array or Countable object.
  *
- * @package Automattic\WooCommerce\Admin\RemoteSpecs\RuleProcessors\Transformers
+ * @package Automattic\PooCommerce\Admin\RemoteSpecs\RuleProcessors\Transformers
  */
 class Count implements TransformerInterface {
 	/**

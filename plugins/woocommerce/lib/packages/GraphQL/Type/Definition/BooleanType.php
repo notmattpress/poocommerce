@@ -1,12 +1,12 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\GraphQL\Type\Definition;
+namespace Automattic\PooCommerce\Vendor\GraphQL\Type\Definition;
 
-use Automattic\WooCommerce\Vendor\GraphQL\Error\Error;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\BooleanValueNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\Node;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\Printer;
-use Automattic\WooCommerce\Vendor\GraphQL\Utils\Utils;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\Error;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\BooleanValueNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\Node;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\Printer;
+use Automattic\PooCommerce\Vendor\GraphQL\Utils\Utils;
 
 class BooleanType extends ScalarType
 {
@@ -17,7 +17,7 @@ class BooleanType extends ScalarType
     /**
      * Serialize the given value to a Boolean.
      *
-     * The Automattic\WooCommerce\Vendor\GraphQL spec leaves this up to the implementations, so we just do what
+     * The Automattic\PooCommerce\Vendor\GraphQL spec leaves this up to the implementations, so we just do what
      * PHP does natively to make this intuitive for developers.
      */
     public function serialize($value): bool

@@ -36,8 +36,8 @@ import {
 export default [
 	{
 		command: 'Trigger WCA Install',
-		description: `This will trigger a WooCommerce Admin install, which usually
-    happens when a new version (or new install) of WooCommerce
+		description: `This will trigger a PooCommerce Admin install, which usually
+    happens when a new version (or new install) of PooCommerce
     Admin is installed. Triggering the install manually can
     run tasks such as removing obsolete admin notes.`,
 		action: 'triggerWcaInstall',
@@ -61,7 +61,7 @@ export default [
 	{
 		command: 'Update WC installation timestamp',
 		description:
-			'Updates woocommerce_admin_install_timestamp to a certain date',
+			'Updates poocommerce_admin_install_timestamp to a certain date',
 		action: 'updateStoreAge',
 	},
 	{
@@ -105,7 +105,7 @@ export default [
 		action: UPDATE_COMING_SOON_MODE_ACTION_NAME,
 	},
 	{
-		command: 'Force errors on woocommerce.com requests',
+		command: 'Force errors on poocommerce.com requests',
 		description: <SetWccomRequestErrros />,
 		action: UPDATE_WCCOM_REQUEST_ERRORS_MODE,
 	},
@@ -115,7 +115,7 @@ export default [
 		action: FAKE_WOO_PAYMENTS_ACTION_NAME,
 	},
 	{
-		command: 'Set WooCommerce.com Base URL',
+		command: 'Set PooCommerce.com Base URL',
 		description: <SetWccomBaseUrl />,
 		action: UPDATE_WCCOM_BASE_URL_ACTION_NAME,
 	},

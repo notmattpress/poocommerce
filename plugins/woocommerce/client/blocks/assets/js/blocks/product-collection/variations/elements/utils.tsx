@@ -29,12 +29,12 @@ export function registerElementVariation(
 		name: variationName,
 		title: blockTitle,
 		isActive: ( blockAttributes ) =>
-			blockAttributes.__woocommerceNamespace === variationName,
+			blockAttributes.__poocommerceNamespace === variationName,
 		icon: {
 			src: blockIcon,
 		},
 		attributes: {
-			__woocommerceNamespace: variationName,
+			__poocommerceNamespace: variationName,
 		},
 		scope,
 	} );

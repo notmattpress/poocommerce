@@ -2,18 +2,18 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Logging;
+namespace Automattic\PooCommerce\Tests\Internal\Logging;
 
-use Automattic\WooCommerce\Internal\Admin\Logging\FileV2\FileController;
-use Automattic\WooCommerce\Internal\Admin\Logging\LogHandlerFileV2;
-use Automattic\WooCommerce\Internal\Admin\Logging\Settings;
-use Automattic\WooCommerce\Internal\DataStores\Orders\DataSynchronizer;
-use Automattic\WooCommerce\Internal\Logging\OrderLogsCleanupHelper;
-use Automattic\WooCommerce\Internal\Logging\OrderLogsDeletionProcessor;
-use Automattic\WooCommerce\Proxies\LegacyProxy;
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
-use Automattic\WooCommerce\RestApi\UnitTests\HPOSToggleTrait;
-use Automattic\WooCommerce\Testing\Tools\TestingContainer;
+use Automattic\PooCommerce\Internal\Admin\Logging\FileV2\FileController;
+use Automattic\PooCommerce\Internal\Admin\Logging\LogHandlerFileV2;
+use Automattic\PooCommerce\Internal\Admin\Logging\Settings;
+use Automattic\PooCommerce\Internal\DataStores\Orders\DataSynchronizer;
+use Automattic\PooCommerce\Internal\Logging\OrderLogsCleanupHelper;
+use Automattic\PooCommerce\Internal\Logging\OrderLogsDeletionProcessor;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
+use Automattic\PooCommerce\RestApi\UnitTests\HPOSToggleTrait;
+use Automattic\PooCommerce\Testing\Tools\TestingContainer;
 
 /**
  * Tests for the OrderLogsDeletionProcessor and OrderLogsCleanupHelper classes.
@@ -133,7 +133,7 @@ class OrderLogsCleanupTest extends \WC_Unit_Test_Case {
 		self::delete_all_log_files();
 		parent::tearDown();
 		if ( $this->data_store_filter_callback ) {
-				remove_filter( 'woocommerce_order_data_store', $this->data_store_filter_callback, 99999 );
+				remove_filter( 'poocommerce_order_data_store', $this->data_store_filter_callback, 99999 );
 				$this->data_store_filter_callback = null;
 		}
 	}
@@ -409,7 +409,7 @@ class OrderLogsCleanupTest extends \WC_Unit_Test_Case {
 		$this->data_store_filter_callback = function () use ( $data_store ) {
 			return $data_store;
 		};
-		add_filter( 'woocommerce_order_data_store', $this->data_store_filter_callback, 99999, 0 );
+		add_filter( 'poocommerce_order_data_store', $this->data_store_filter_callback, 99999, 0 );
 
 		$this->setup_hpos_and_reset_container( false );
 

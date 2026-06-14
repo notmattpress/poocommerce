@@ -3,7 +3,7 @@
  */
 import { __ } from '@wordpress/i18n';
 import clsx from 'clsx';
-import { Spinner } from '@woocommerce/blocks-components';
+import { Spinner } from '@poocommerce/blocks-components';
 
 /**
  * Internal dependencies
@@ -42,7 +42,7 @@ const LoadingMask = ( {
 			</div>
 			{ isLoading && (
 				<span className="screen-reader-text">
-					{ screenReaderLabel || __( 'Loading…', 'woocommerce' ) }
+					{ screenReaderLabel || __( 'Loading…', 'poocommerce' ) }
 				</span>
 			) }
 		</div>

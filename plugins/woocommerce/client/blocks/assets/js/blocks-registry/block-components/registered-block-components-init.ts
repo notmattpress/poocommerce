@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import type { RegisteredBlockComponent } from '@woocommerce/types';
+import type { RegisteredBlockComponent } from '@poocommerce/types';
 
 const registeredBlockComponents: Record<
 	string,

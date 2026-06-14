@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Api;
+namespace Automattic\PooCommerce\Tests\Internal\Api;
 
-use Automattic\WooCommerce\Internal\Api\OpcacheFileExpiry;
-use Automattic\WooCommerce\Internal\Api\QueryCache;
+use Automattic\PooCommerce\Internal\Api\OpcacheFileExpiry;
+use Automattic\PooCommerce\Internal\Api\QueryCache;
 use WC_Unit_Test_Case;
 
 /**
@@ -34,7 +34,7 @@ class OpcacheFileExpiryTest extends WC_Unit_Test_Case {
 	 * Clean up filters, temp dirs, and scheduled actions between tests.
 	 */
 	public function tearDown(): void {
-		remove_all_filters( 'woocommerce_graphql_opcache_cache_dir' );
+		remove_all_filters( 'poocommerce_graphql_opcache_cache_dir' );
 		foreach ( $this->temp_dirs_to_clean as $dir ) {
 			$this->rrmdir( $dir );
 		}
@@ -69,7 +69,7 @@ class OpcacheFileExpiryTest extends WC_Unit_Test_Case {
 	 */
 	public function test_delete_expired_files_returns_zero_when_dir_missing(): void {
 		add_filter(
-			'woocommerce_graphql_opcache_cache_dir',
+			'poocommerce_graphql_opcache_cache_dir',
 			static function () {
 				return '/nonexistent/path/that/does/not/exist';
 			}
@@ -88,7 +88,7 @@ class OpcacheFileExpiryTest extends WC_Unit_Test_Case {
 		mkdir( $dir, 0700, true );
 
 		add_filter(
-			'woocommerce_graphql_opcache_cache_dir',
+			'poocommerce_graphql_opcache_cache_dir',
 			static function () use ( $dir ) {
 				return $dir;
 			}

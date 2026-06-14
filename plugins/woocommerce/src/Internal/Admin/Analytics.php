@@ -1,17 +1,17 @@
 <?php
 /**
- * WooCommerce Analytics.
+ * PooCommerce Analytics.
  */
 
-namespace Automattic\WooCommerce\Internal\Admin;
+namespace Automattic\PooCommerce\Internal\Admin;
 
-use Automattic\WooCommerce\Admin\API\Reports\Cache;
-use Automattic\WooCommerce\Utilities\OrderUtil;
-use Automattic\WooCommerce\Admin\Features\Features;
-use Automattic\WooCommerce\Internal\Features\FeaturesController;
-use Automattic\WooCommerce\Admin\API\Reports\Orders\Stats\DataStore as OrderStatsDataStore;
-use Automattic\WooCommerce\Internal\Admin\Schedulers\OrdersScheduler;
-use Automattic\WooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
+use Automattic\PooCommerce\Admin\API\Reports\Cache;
+use Automattic\PooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Admin\Features\Features;
+use Automattic\PooCommerce\Internal\Features\FeaturesController;
+use Automattic\PooCommerce\Admin\API\Reports\Orders\Stats\DataStore as OrderStatsDataStore;
+use Automattic\PooCommerce\Internal\Admin\Schedulers\OrdersScheduler;
+use Automattic\PooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
 
 /**
  * Contains backend logic for the Analytics feature.
@@ -20,17 +20,17 @@ class Analytics {
 	/**
 	 * Option name used to toggle this feature.
 	 */
-	const TOGGLE_OPTION_NAME = 'woocommerce_analytics_enabled';
+	const TOGGLE_OPTION_NAME = 'poocommerce_analytics_enabled';
 	/**
 	 * Clear cache tool identifier.
 	 */
-	const CACHE_TOOL_ID = 'clear_woocommerce_analytics_cache';
+	const CACHE_TOOL_ID = 'clear_poocommerce_analytics_cache';
 	/**
 	 * Full refund fix data tool identifier.
 	 *
 	 * @since 10.8.0
 	 */
-	const FULL_REFUND_FIX_DATA_TOOL_ID = 'fix_woocommerce_analytics_full_refund_data';
+	const FULL_REFUND_FIX_DATA_TOOL_ID = 'fix_poocommerce_analytics_full_refund_data';
 
 	/**
 	 * Class instance.
@@ -57,37 +57,37 @@ class Analytics {
 	}
 
 	/**
-	 * Hook into WooCommerce.
+	 * Hook into PooCommerce.
 	 */
 	public function __construct() {
 		add_action( 'update_option_' . self::TOGGLE_OPTION_NAME, array( $this, 'reload_page_on_toggle' ), 10, 2 );
-		add_action( 'woocommerce_settings_saved', array( $this, 'maybe_reload_page' ) );
+		add_action( 'poocommerce_settings_saved', array( $this, 'maybe_reload_page' ) );
 
 		if ( ! Features::is_enabled( 'analytics' ) ) {
 			return;
 		}
 
-		add_filter( 'woocommerce_component_settings_preload_endpoints', array( $this, 'add_preload_endpoints' ) );
-		add_filter( 'woocommerce_admin_get_user_data_fields', array( $this, 'add_user_data_fields' ) );
+		add_filter( 'poocommerce_component_settings_preload_endpoints', array( $this, 'add_preload_endpoints' ) );
+		add_filter( 'poocommerce_admin_get_user_data_fields', array( $this, 'add_user_data_fields' ) );
 		add_action( 'admin_menu', array( $this, 'register_pages' ) );
-		add_filter( 'woocommerce_debug_tools', array( $this, 'register_cache_clear_tool' ) );
-		add_filter( 'woocommerce_debug_tools', array( $this, 'register_regenerate_order_fulfillment_status_tool' ), 12 );
+		add_filter( 'poocommerce_debug_tools', array( $this, 'register_cache_clear_tool' ) );
+		add_filter( 'poocommerce_debug_tools', array( $this, 'register_regenerate_order_fulfillment_status_tool' ), 12 );
 
 		// Always register the batch hook so in-flight jobs survive after the legacy
 		// flag is cleared (clearing happens before the first batch is queued).
-		add_action( 'woocommerce_analytics_refund_fix_batch', array( $this, 'process_refund_fix_batch' ) );
+		add_action( 'poocommerce_analytics_refund_fix_batch', array( $this, 'process_refund_fix_batch' ) );
 
 		if ( $this->should_show_refund_fix_tool() ) {
-			add_filter( 'woocommerce_debug_tools', array( $this, 'register_full_refund_fix_data_tool' ) );
+			add_filter( 'poocommerce_debug_tools', array( $this, 'register_full_refund_fix_data_tool' ) );
 			add_action( 'admin_footer', array( $this, 'output_refund_fix_tool_js' ) );
-			add_action( 'wp_ajax_woocommerce_check_refund_fix_needed', array( $this, 'ajax_check_refund_fix_needed' ) );
+			add_action( 'wp_ajax_poocommerce_check_refund_fix_needed', array( $this, 'ajax_check_refund_fix_needed' ) );
 		}
 	}
 
 	/**
 	 * Add the feature toggle to the features settings.
 	 *
-	 * @deprecated 7.0 The WooCommerce Admin features are now handled by the WooCommerce features engine (see the FeaturesController class).
+	 * @deprecated 7.0 The PooCommerce Admin features are now handled by the PooCommerce features engine (see the FeaturesController class).
 	 *
 	 * @param array $features Feature sections.
 	 * @return array
@@ -132,7 +132,7 @@ class Analytics {
 		$screen_id = ( function_exists( 'get_current_screen' ) && get_current_screen() ) ? get_current_screen()->id : '';
 
 		// Only preload endpoints on wc-admin pages.
-		if ( 'woocommerce_page_wc-admin' === $screen_id ) {
+		if ( 'poocommerce_page_wc-admin' === $screen_id ) {
 			$endpoints['performanceIndicators'] = '/wc-analytics/reports/performance-indicators/allowed';
 			$endpoints['leaderboards']          = '/wc-analytics/leaderboards/allowed';
 		}
@@ -169,7 +169,7 @@ class Analytics {
 	}
 
 	/**
-	 * Register the cache clearing tool on the WooCommerce > Status > Tools page.
+	 * Register the cache clearing tool on the PooCommerce > Status > Tools page.
 	 *
 	 * @param array $debug_tools Available debug tool registrations.
 	 * @return array Filtered debug tool registrations.
@@ -184,11 +184,11 @@ class Analytics {
 		);
 
 		$debug_tools[ self::CACHE_TOOL_ID ] = array(
-			'name'     => __( 'Clear analytics cache', 'woocommerce' ),
-			'button'   => __( 'Clear', 'woocommerce' ),
+			'name'     => __( 'Clear analytics cache', 'poocommerce' ),
+			'button'   => __( 'Clear', 'poocommerce' ),
 			'desc'     => sprintf(
 				/* translators: 1: opening link tag, 2: closing tag */
-				__( 'This tool will reset the cached values used in WooCommerce Analytics. If numbers still look off, try %1$sReimporting Historical Data%2$s.', 'woocommerce' ),
+				__( 'This tool will reset the cached values used in PooCommerce Analytics. If numbers still look off, try %1$sReimporting Historical Data%2$s.', 'poocommerce' ),
 				'<a href="' . esc_url( $settings_url ) . '">',
 				'</a>'
 			),
@@ -211,11 +211,11 @@ class Analytics {
 	 */
 	private function should_show_refund_fix_tool(): bool {
 		return ! OrderUtil::uses_new_full_refund_data()
-			|| 'yes' === get_option( 'woocommerce_analytics_show_old_refund_data_tool' );
+			|| 'yes' === get_option( 'poocommerce_analytics_show_old_refund_data_tool' );
 	}
 
 	/**
-	 * Register the full refund fix data tool on the WooCommerce > Status > Tools page.
+	 * Register the full refund fix data tool on the PooCommerce > Status > Tools page.
 	 *
 	 * The Fix button is disabled by default (via the PHP 'disabled' field). JS enables it
 	 * only after a Check confirms there are affected orders to fix.
@@ -226,13 +226,13 @@ class Analytics {
 	 * @return array Filtered debug tool registrations.
 	 */
 	public function register_full_refund_fix_data_tool( $debug_tools ) {
-		$desc = __( 'This tool will fix the full refund data used in WooCommerce Analytics and re-import all the refunded historical data.', 'woocommerce' );
+		$desc = __( 'This tool will fix the full refund data used in PooCommerce Analytics and re-import all the refunded historical data.', 'poocommerce' );
 
 		$disabled = true;
 
 		$debug_tools[ self::FULL_REFUND_FIX_DATA_TOOL_ID ] = array(
-			'name'     => __( 'Fix analytics full refund data', 'woocommerce' ),
-			'button'   => __( 'Fix', 'woocommerce' ),
+			'name'     => __( 'Fix analytics full refund data', 'poocommerce' ),
+			'button'   => __( 'Fix', 'poocommerce' ),
 			'desc'     => $desc,
 			'callback' => array( $this, 'run_full_refund_fix_data_tool' ),
 			'disabled' => $disabled,
@@ -253,17 +253,17 @@ class Analytics {
 	 * @return string Success message.
 	 */
 	public function run_full_refund_fix_data_tool() {
-		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Nonce verified by WooCommerce tools framework.
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Nonce verified by PooCommerce tools framework.
 		if ( isset( $_GET['wc_refund_fix_action'] ) && 'disable' === sanitize_key( $_GET['wc_refund_fix_action'] ) ) {
-			delete_option( 'woocommerce_analytics_uses_old_full_refund_data' );
-			delete_option( 'woocommerce_analytics_show_old_refund_data_tool' );
-			return __( 'Tool dismissed.', 'woocommerce' );
+			delete_option( 'poocommerce_analytics_uses_old_full_refund_data' );
+			delete_option( 'poocommerce_analytics_show_old_refund_data_tool' );
+			return __( 'Tool dismissed.', 'poocommerce' );
 		}
 
 		$already_running = ! empty(
 			as_get_scheduled_actions(
 				array(
-					'hook'     => 'woocommerce_analytics_refund_fix_batch',
+					'hook'     => 'poocommerce_analytics_refund_fix_batch',
 					'status'   => array( \ActionScheduler_Store::STATUS_PENDING, \ActionScheduler_Store::STATUS_RUNNING ),
 					'per_page' => 1,
 					'orderby'  => 'none',
@@ -273,23 +273,23 @@ class Analytics {
 		);
 
 		if ( $already_running ) {
-			return __( 'A fix is already in progress, please check back later.', 'woocommerce' );
+			return __( 'A fix is already in progress, please check back later.', 'poocommerce' );
 		}
 
 		// Clear the legacy flag before queuing so that every batch job runs with
 		// the corrected full-refund import logic (uses_new_full_refund_data() → true).
 		// Set the show-tool option so the tool stays visible until the merchant dismisses it.
-		delete_option( 'woocommerce_analytics_uses_old_full_refund_data' );
-		update_option( 'woocommerce_analytics_show_old_refund_data_tool', 'yes' );
+		delete_option( 'poocommerce_analytics_uses_old_full_refund_data' );
+		update_option( 'poocommerce_analytics_show_old_refund_data_tool', 'yes' );
 
 		WC()->queue()->schedule_single(
 			time(),
-			'woocommerce_analytics_refund_fix_batch',
+			'poocommerce_analytics_refund_fix_batch',
 			array( 0 ),
 			'wc-admin-data'
 		);
 
-		return __( 'Re-importing refunded orders in batches. Full refund data will be updated shortly.', 'woocommerce' );
+		return __( 'Re-importing refunded orders in batches. Full refund data will be updated shortly.', 'poocommerce' );
 	}
 
 	/**
@@ -342,7 +342,7 @@ class Analytics {
 			$last_order_id = intval( end( $refunded_orders )->order_id );
 			WC()->queue()->schedule_single(
 				time() + 5,
-				'woocommerce_analytics_refund_fix_batch',
+				'poocommerce_analytics_refund_fix_batch',
 				array( $last_order_id ),
 				'wc-admin-data'
 			);
@@ -357,10 +357,10 @@ class Analytics {
 	 * @return void
 	 */
 	public function ajax_check_refund_fix_needed(): void {
-		check_ajax_referer( 'woocommerce_refund_fix_check', 'nonce' );
+		check_ajax_referer( 'poocommerce_refund_fix_check', 'nonce' );
 
-		if ( ! current_user_can( 'manage_woocommerce' ) ) {
-			wp_send_json_error( array( 'message' => __( 'Insufficient permissions.', 'woocommerce' ) ), 403 );
+		if ( ! current_user_can( 'manage_poocommerce' ) ) {
+			wp_send_json_error( array( 'message' => __( 'Insufficient permissions.', 'poocommerce' ) ), 403 );
 		}
 
 		global $wpdb;
@@ -391,7 +391,7 @@ class Analytics {
 		$fix_in_progress = ! empty(
 			as_get_scheduled_actions(
 				array(
-					'hook'     => 'woocommerce_analytics_refund_fix_batch',
+					'hook'     => 'poocommerce_analytics_refund_fix_batch',
 					'status'   => array( \ActionScheduler_Store::STATUS_PENDING, \ActionScheduler_Store::STATUS_RUNNING ),
 					'per_page' => 1,
 					'orderby'  => 'none',
@@ -410,31 +410,31 @@ class Analytics {
 
 	/**
 	 * Output the inline script that injects a "Check" button into the full refund
-	 * fix tool row on the WooCommerce > Status > Tools page.
+	 * fix tool row on the PooCommerce > Status > Tools page.
 	 *
 	 * @since 10.8.0
 	 * @return void
 	 */
 	public function output_refund_fix_tool_js(): void {
-		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Nonce verified by WooCommerce tools framework.
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Nonce verified by PooCommerce tools framework.
 		if ( ! isset( $_GET['page'], $_GET['tab'] ) || 'wc-status' !== $_GET['page'] || 'tools' !== $_GET['tab'] ) {
 			return;
 		}
-		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Nonce verified by WooCommerce tools framework.
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Nonce verified by PooCommerce tools framework.
 		if ( isset( $_GET['wc_refund_fix_action'] ) && 'disable' === sanitize_key( $_GET['wc_refund_fix_action'] ) ) {
 			return;
 		}
 
 		$tool_class         = self::FULL_REFUND_FIX_DATA_TOOL_ID;
-		$nonce              = wp_create_nonce( 'woocommerce_refund_fix_check' );
+		$nonce              = wp_create_nonce( 'poocommerce_refund_fix_check' );
 		$ajax_url           = admin_url( 'admin-ajax.php' );
-		$label_check        = __( 'Check', 'woocommerce' );
-		$label_working      = __( 'Checking…', 'woocommerce' );
-		$msg_needs_fix      = __( 'Your store has orders that need fixing.', 'woocommerce' );
-		$msg_no_fix         = __( 'No affected orders found.', 'woocommerce' );
-		$label_disable_tool = __( 'Disable tool', 'woocommerce' );
-		$msg_in_progress    = __( 'A fix is already in progress, please check back later.', 'woocommerce' );
-		$msg_error          = __( 'Check failed, please try again.', 'woocommerce' );
+		$label_check        = __( 'Check', 'poocommerce' );
+		$label_working      = __( 'Checking…', 'poocommerce' );
+		$msg_needs_fix      = __( 'Your store has orders that need fixing.', 'poocommerce' );
+		$msg_no_fix         = __( 'No affected orders found.', 'poocommerce' );
+		$label_disable_tool = __( 'Disable tool', 'poocommerce' );
+		$msg_in_progress    = __( 'A fix is already in progress, please check back later.', 'poocommerce' );
+		$msg_error          = __( 'Check failed, please try again.', 'poocommerce' );
 		?>
 		<script type="text/javascript">
 		( function() {
@@ -469,7 +469,7 @@ class Analytics {
 				statusSpan.style.color = '';
 
 				const data = new FormData();
-				data.append( 'action', 'woocommerce_check_refund_fix_needed' );
+				data.append( 'action', 'poocommerce_check_refund_fix_needed' );
 				data.append( 'nonce', <?php echo wp_json_encode( $nonce ); ?> );
 
 				fetch( <?php echo wp_json_encode( $ajax_url ); ?>, { method: 'POST', body: data } )
@@ -532,7 +532,7 @@ class Analytics {
 	}
 
 	/**
-	 * Register the regenerate order fulfillment status tool on the WooCommerce > Status > Tools page.
+	 * Register the regenerate order fulfillment status tool on the PooCommerce > Status > Tools page.
 	 *
 	 * @param array $debug_tools Available debug tool registrations.
 	 * @return array Filtered debug tool registrations.
@@ -547,14 +547,14 @@ class Analytics {
 		}
 
 		// If the order fulfillment status has already been regenerated, don't register the tool again.
-		if ( true === (bool) get_option( 'woocommerce_analytics_order_fulfillment_status_regenerated' ) ) {
+		if ( true === (bool) get_option( 'poocommerce_analytics_order_fulfillment_status_regenerated' ) ) {
 			return $debug_tools;
 		}
 
 		$debug_tools['regenerate_order_fulfillment_status'] = array(
-			'name'     => __( 'Regenerate order fulfillment status for Analytics', 'woocommerce' ),
-			'button'   => __( 'Regenerate', 'woocommerce' ),
-			'desc'     => __( 'This tool will regenerate the order fulfillment status for all orders and update the Analytics data using a direct SQL query.', 'woocommerce' ),
+			'name'     => __( 'Regenerate order fulfillment status for Analytics', 'poocommerce' ),
+			'button'   => __( 'Regenerate', 'poocommerce' ),
+			'desc'     => __( 'This tool will regenerate the order fulfillment status for all orders and update the Analytics data using a direct SQL query.', 'poocommerce' ),
 			'callback' => array( $this, 'run_regenerate_order_fulfillment_status_tool' ),
 		);
 
@@ -576,7 +576,7 @@ class Analytics {
 			if ( true !== $create_column_result ) {
 				return sprintf(
 					/* translators: %s: error message */
-					__( 'Failed to create fulfillment status column: %s', 'woocommerce' ),
+					__( 'Failed to create fulfillment status column: %s', 'poocommerce' ),
 					$create_column_result
 				);
 			}
@@ -609,15 +609,15 @@ class Analytics {
 		);
 
 		if ( false === $updated ) {
-			return __( 'Failed to update order fulfillment status. Please check the database logs for errors.', 'woocommerce' );
+			return __( 'Failed to update order fulfillment status. Please check the database logs for errors.', 'poocommerce' );
 		}
 
 		// Mark as completed.
-		update_option( 'woocommerce_analytics_order_fulfillment_status_regenerated', true, false );
+		update_option( 'poocommerce_analytics_order_fulfillment_status_regenerated', true, false );
 
 		return sprintf(
 			/* translators: %d: number of orders updated */
-			__( 'Successfully updated fulfillment status for %d orders.', 'woocommerce' ),
+			__( 'Successfully updated fulfillment status for %d orders.', 'poocommerce' ),
 			$updated
 		);
 	}
@@ -639,85 +639,85 @@ class Analytics {
 	 */
 	public static function get_report_pages() {
 		$overview_page = array(
-			'id'       => 'woocommerce-analytics',
-			'title'    => __( 'Analytics', 'woocommerce' ),
+			'id'       => 'poocommerce-analytics',
+			'title'    => __( 'Analytics', 'poocommerce' ),
 			'path'     => '/analytics/overview',
 			'icon'     => 'dashicons-chart-bar',
-			'position' => 57, // After WooCommerce & Product menu items.
+			'position' => 57, // After PooCommerce & Product menu items.
 		);
 
 		$report_pages = array(
 			$overview_page,
 			array(
-				'id'     => 'woocommerce-analytics-overview',
-				'title'  => __( 'Overview', 'woocommerce' ),
-				'parent' => 'woocommerce-analytics',
+				'id'     => 'poocommerce-analytics-overview',
+				'title'  => __( 'Overview', 'poocommerce' ),
+				'parent' => 'poocommerce-analytics',
 				'path'   => '/analytics/overview',
 			),
 			array(
-				'id'     => 'woocommerce-analytics-products',
-				'title'  => __( 'Products', 'woocommerce' ),
-				'parent' => 'woocommerce-analytics',
+				'id'     => 'poocommerce-analytics-products',
+				'title'  => __( 'Products', 'poocommerce' ),
+				'parent' => 'poocommerce-analytics',
 				'path'   => '/analytics/products',
 			),
 			array(
-				'id'     => 'woocommerce-analytics-revenue',
-				'title'  => __( 'Revenue', 'woocommerce' ),
-				'parent' => 'woocommerce-analytics',
+				'id'     => 'poocommerce-analytics-revenue',
+				'title'  => __( 'Revenue', 'poocommerce' ),
+				'parent' => 'poocommerce-analytics',
 				'path'   => '/analytics/revenue',
 			),
 			array(
-				'id'     => 'woocommerce-analytics-orders',
-				'title'  => __( 'Orders', 'woocommerce' ),
-				'parent' => 'woocommerce-analytics',
+				'id'     => 'poocommerce-analytics-orders',
+				'title'  => __( 'Orders', 'poocommerce' ),
+				'parent' => 'poocommerce-analytics',
 				'path'   => '/analytics/orders',
 			),
 			array(
-				'id'     => 'woocommerce-analytics-variations',
-				'title'  => __( 'Variations', 'woocommerce' ),
-				'parent' => 'woocommerce-analytics',
+				'id'     => 'poocommerce-analytics-variations',
+				'title'  => __( 'Variations', 'poocommerce' ),
+				'parent' => 'poocommerce-analytics',
 				'path'   => '/analytics/variations',
 			),
 			array(
-				'id'     => 'woocommerce-analytics-categories',
-				'title'  => __( 'Categories', 'woocommerce' ),
-				'parent' => 'woocommerce-analytics',
+				'id'     => 'poocommerce-analytics-categories',
+				'title'  => __( 'Categories', 'poocommerce' ),
+				'parent' => 'poocommerce-analytics',
 				'path'   => '/analytics/categories',
 			),
 			array(
-				'id'     => 'woocommerce-analytics-coupons',
-				'title'  => __( 'Coupons', 'woocommerce' ),
-				'parent' => 'woocommerce-analytics',
+				'id'     => 'poocommerce-analytics-coupons',
+				'title'  => __( 'Coupons', 'poocommerce' ),
+				'parent' => 'poocommerce-analytics',
 				'path'   => '/analytics/coupons',
 			),
 			array(
-				'id'     => 'woocommerce-analytics-taxes',
-				'title'  => __( 'Taxes', 'woocommerce' ),
-				'parent' => 'woocommerce-analytics',
+				'id'     => 'poocommerce-analytics-taxes',
+				'title'  => __( 'Taxes', 'poocommerce' ),
+				'parent' => 'poocommerce-analytics',
 				'path'   => '/analytics/taxes',
 			),
 			array(
-				'id'     => 'woocommerce-analytics-downloads',
-				'title'  => __( 'Downloads', 'woocommerce' ),
-				'parent' => 'woocommerce-analytics',
+				'id'     => 'poocommerce-analytics-downloads',
+				'title'  => __( 'Downloads', 'poocommerce' ),
+				'parent' => 'poocommerce-analytics',
 				'path'   => '/analytics/downloads',
 			),
-			'yes' === get_option( 'woocommerce_manage_stock' ) ? array(
-				'id'     => 'woocommerce-analytics-stock',
-				'title'  => __( 'Stock', 'woocommerce' ),
-				'parent' => 'woocommerce-analytics',
+			'yes' === get_option( 'poocommerce_manage_stock' ) ? array(
+				'id'     => 'poocommerce-analytics-stock',
+				'title'  => __( 'Stock', 'poocommerce' ),
+				'parent' => 'poocommerce-analytics',
 				'path'   => '/analytics/stock',
 			) : null,
 			array(
-				'id'     => 'woocommerce-analytics-customers',
-				'title'  => __( 'Customers', 'woocommerce' ),
-				'parent' => 'woocommerce',
+				'id'     => 'poocommerce-analytics-customers',
+				'title'  => __( 'Customers', 'poocommerce' ),
+				'parent' => 'poocommerce',
 				'path'   => '/customers',
 			),
 			array(
-				'id'     => 'woocommerce-analytics-settings',
-				'title'  => __( 'Settings', 'woocommerce' ),
-				'parent' => 'woocommerce-analytics',
+				'id'     => 'poocommerce-analytics-settings',
+				'title'  => __( 'Settings', 'poocommerce' ),
+				'parent' => 'poocommerce-analytics',
 				'path'   => '/analytics/settings',
 			),
 		);
@@ -727,7 +727,7 @@ class Analytics {
 		 *
 		 * @since 6.4.0
 		 */
-		return apply_filters( 'woocommerce_analytics_report_menu_items', $report_pages );
+		return apply_filters( 'poocommerce_analytics_report_menu_items', $report_pages );
 	}
 
 	/**
@@ -736,6 +736,6 @@ class Analytics {
 	public function run_clear_cache_tool() {
 		Cache::invalidate();
 
-		return __( 'Analytics cache cleared.', 'woocommerce' );
+		return __( 'Analytics cache cleared.', 'poocommerce' );
 	}
 }

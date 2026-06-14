@@ -5,9 +5,9 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\DataStores\StockNotifications;
+namespace Automattic\PooCommerce\Internal\DataStores\StockNotifications;
 
-use Automattic\WooCommerce\Internal\DataStores\CustomMetaDataStore;
+use Automattic\PooCommerce\Internal\DataStores\CustomMetaDataStore;
 
 defined( 'ABSPATH' ) || exit;
 

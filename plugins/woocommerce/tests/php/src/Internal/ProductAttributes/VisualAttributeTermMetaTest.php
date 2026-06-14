@@ -2,14 +2,14 @@
 /**
  * Visual attribute term meta tests.
  *
- * @package WooCommerce\Tests\Internal\ProductAttributes
+ * @package PooCommerce\Tests\Internal\ProductAttributes
  */
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\ProductAttributes;
+namespace Automattic\PooCommerce\Tests\Internal\ProductAttributes;
 
-use Automattic\WooCommerce\Internal\ProductAttributes\VisualAttributeTermMeta;
+use Automattic\PooCommerce\Internal\ProductAttributes\VisualAttributeTermMeta;
 use WC_Unit_Test_Case;
 
 /**

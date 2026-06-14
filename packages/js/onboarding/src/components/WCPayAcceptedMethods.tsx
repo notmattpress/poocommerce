@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { createElement, Fragment } from '@wordpress/element';
-import { Text } from '@woocommerce/experimental';
+import { Text } from '@poocommerce/experimental';
 import { __ } from '@wordpress/i18n';
 
 /**
@@ -22,10 +22,10 @@ import UnionPay from '../images/cards/unionpay.js';
 export const WCPayAcceptedMethods: React.VFC = () => (
 	<>
 		<Text as="h3" variant="label" weight="600" size="12" lineHeight="16px">
-			{ __( 'Accepted payment methods', 'woocommerce' ) }
+			{ __( 'Accepted payment methods', 'poocommerce' ) }
 		</Text>
 
-		<div className="woocommerce-task-payment-wcpay__accepted">
+		<div className="poocommerce-task-payment-wcpay__accepted">
 			<Visa />
 			<MasterCard />
 			<Maestro />

@@ -7,7 +7,7 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Admin\API;
+namespace Automattic\PooCommerce\Admin\API;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -56,7 +56,7 @@ class Products extends \WC_REST_Products_Controller {
 		}
 
 		$schema['properties']['last_order_date'] = array(
-			'description' => __( "The date the last order for this product was placed, in the site's timezone.", 'woocommerce' ),
+			'description' => __( "The date the last order for this product was placed, in the site's timezone.", 'poocommerce' ),
 			'type'        => 'date-time',
 			'context'     => array( 'view', 'edit' ),
 			'readonly'    => true,
@@ -73,13 +73,13 @@ class Products extends \WC_REST_Products_Controller {
 	public function get_collection_params() {
 		$params                 = parent::get_collection_params();
 		$params['low_in_stock'] = array(
-			'description'       => __( 'Limit result set to products that are low or out of stock. (Deprecated)', 'woocommerce' ),
+			'description'       => __( 'Limit result set to products that are low or out of stock. (Deprecated)', 'poocommerce' ),
 			'type'              => 'boolean',
 			'default'           => false,
 			'sanitize_callback' => 'wc_string_to_bool',
 		);
 		$params['search']       = array(
-			'description'       => __( 'Search by similar product name or sku.', 'woocommerce' ),
+			'description'       => __( 'Search by similar product name or sku.', 'poocommerce' ),
 			'type'              => 'string',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
@@ -126,14 +126,14 @@ class Products extends \WC_REST_Products_Controller {
 		remove_filter( 'posts_groupby', array( __CLASS__, 'add_wp_query_group_by' ), 10 );
 
 		/**
-		 * The low stock query caused performance issues in WooCommerce 5.5.1
+		 * The low stock query caused performance issues in PooCommerce 5.5.1
 		 * due to a) being slow, and b) multiple requests being made to this endpoint
 		 * from WC Admin.
 		 *
 		 * This is a temporary measure to trigger the user’s browser to cache the
 		 * endpoint response for 1 minute, limiting the amount of requests overall.
 		 *
-		 * https://github.com/woocommerce/woocommerce-admin/issues/7358
+		 * https://github.com/poocommerce/poocommerce-admin/issues/7358
 		 */
 		if ( $this->is_low_in_stock_request( $request ) ) {
 			$response->header( 'Cache-Control', 'max-age=300' );
@@ -246,7 +246,7 @@ class Products extends \WC_REST_Products_Controller {
 		}
 
 		if ( $wp_query->get( 'low_in_stock' ) ) {
-			$low_stock_amount = absint( max( get_option( 'woocommerce_notify_low_stock_amount' ), 1 ) );
+			$low_stock_amount = absint( max( get_option( 'poocommerce_notify_low_stock_amount' ), 1 ) );
 			$where           .= "
 			AND wc_product_meta_lookup.stock_quantity IS NOT NULL
 			AND wc_product_meta_lookup.stock_status IN('instock','outofstock')

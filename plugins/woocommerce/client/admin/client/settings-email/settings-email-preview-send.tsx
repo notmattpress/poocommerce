@@ -6,7 +6,7 @@ import { Icon, check, warning } from '@wordpress/icons';
 import apiFetch from '@wordpress/api-fetch';
 import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -53,7 +53,7 @@ export function friendlyEmailSendError( wpError: WPError ): string {
 	if ( code === 'rest_cookie_invalid_nonce' || code === 'invalid_nonce' ) {
 		return __(
 			'Your session expired. Refresh the page and try again.',
-			'woocommerce'
+			'poocommerce'
 		);
 	}
 
@@ -61,7 +61,7 @@ export function friendlyEmailSendError( wpError: WPError ): string {
 	if ( code === 'rest_invalid_json' ) {
 		return __(
 			'The server returned unexpected output. Check your error log, or disable recently added plugins.',
-			'woocommerce'
+			'poocommerce'
 		);
 	}
 
@@ -70,16 +70,16 @@ export function friendlyEmailSendError( wpError: WPError ): string {
 	if ( message.includes( 'critical error' ) ) {
 		return __(
 			'A PHP error stopped the send. Check your error log or contact your host.',
-			'woocommerce'
+			'poocommerce'
 		);
 	}
 
 	// Stable Woo code emitted by EmailPreviewRestController when the preview
 	// template fails to render.
-	if ( code === 'woocommerce_rest_email_preview_not_rendered' ) {
+	if ( code === 'poocommerce_rest_email_preview_not_rendered' ) {
 		return __(
 			"The email couldn't be rendered. Try resetting the template in Settings → Emails.",
-			'woocommerce'
+			'poocommerce'
 		);
 	}
 
@@ -88,13 +88,13 @@ export function friendlyEmailSendError( wpError: WPError ): string {
 	if ( message === 'Could not get a valid response from the server.' ) {
 		return __(
 			'Your server timed out. If it keeps happening, ask your host to check PHP execution limits.',
-			'woocommerce'
+			'poocommerce'
 		);
 	}
 
 	return __(
 		"Couldn't send the test email. Check your email settings and try again.",
-		'woocommerce'
+		'poocommerce'
 	);
 }
 
@@ -146,12 +146,12 @@ export const EmailPreviewSend = ( { type }: EmailPreviewSendProps ) => {
 				variant="secondary"
 				onClick={ () => setIsModalOpen( true ) }
 			>
-				{ __( 'Send a test email', 'woocommerce' ) }
+				{ __( 'Send a test email', 'poocommerce' ) }
 			</Button>
 
 			{ isModalOpen && (
 				<Modal
-					title={ __( 'Send a test email', 'woocommerce' ) }
+					title={ __( 'Send a test email', 'poocommerce' ) }
 					onRequestClose={ () => {
 						setIsModalOpen( false );
 						setIsSending( false );
@@ -161,15 +161,15 @@ export const EmailPreviewSend = ( { type }: EmailPreviewSendProps ) => {
 					<p>
 						{ __(
 							'Send yourself a test email to check how your email looks in different email apps.',
-							'woocommerce'
+							'poocommerce'
 						) }
 					</p>
 
 					<TextControl
-						label={ __( 'Send to', 'woocommerce' ) }
+						label={ __( 'Send to', 'poocommerce' ) }
 						type="email"
 						value={ email }
-						placeholder={ __( 'Enter an email', 'woocommerce' ) }
+						placeholder={ __( 'Enter an email', 'poocommerce' ) }
 						onChange={ setEmail }
 					/>
 
@@ -191,7 +191,7 @@ export const EmailPreviewSend = ( { type }: EmailPreviewSendProps ) => {
 							variant="tertiary"
 							onClick={ () => setIsModalOpen( false ) }
 						>
-							{ __( 'Cancel', 'woocommerce' ) }
+							{ __( 'Cancel', 'poocommerce' ) }
 						</Button>
 
 						<Button
@@ -201,8 +201,8 @@ export const EmailPreviewSend = ( { type }: EmailPreviewSendProps ) => {
 							disabled={ ! isValidEmail( email ) || isSending }
 						>
 							{ isSending
-								? __( 'Sending…', 'woocommerce' )
-								: __( 'Send test email', 'woocommerce' ) }
+								? __( 'Sending…', 'poocommerce' )
+								: __( 'Send test email', 'poocommerce' ) }
 						</Button>
 					</div>
 				</Modal>

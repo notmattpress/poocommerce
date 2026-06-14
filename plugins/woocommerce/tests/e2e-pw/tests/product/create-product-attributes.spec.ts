@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { WC_API_PATH } from '@woocommerce/e2e-utils-playwright';
+import { WC_API_PATH } from '@poocommerce/e2e-utils-playwright';
 import type { Page } from '@playwright/test';
 
 /**
@@ -56,7 +56,7 @@ async function goToAttributesTab( page: Page ) {
 	// There is the chance we might click on the 'Attributes' tab too early. To
 	// prevent that, we wait until the 'Variations' tab is hidden, which means
 	// the tabs have been updated.
-	// @see https://github.com/woocommerce/woocommerce/issues/53449.
+	// @see https://github.com/poocommerce/poocommerce/issues/53449.
 	await expect(
 		page
 			.locator( '.attribute_tab' )
@@ -294,7 +294,7 @@ test( 'can create attribute terms from the attributes modal', async ( {
 		await test.step( `Expect "${ newTerm }" to be in attribute values`, async () => {
 			await expect(
 				page.locator(
-					'.woocommerce_attribute .attribute_values option',
+					'.poocommerce_attribute .attribute_values option',
 					{
 						hasText: newTerm,
 					}

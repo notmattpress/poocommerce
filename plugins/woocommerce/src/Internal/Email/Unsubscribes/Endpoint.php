@@ -5,7 +5,7 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\Email\Unsubscribes;
+namespace Automattic\PooCommerce\Internal\Email\Unsubscribes;
 
 /**
  * Public-facing endpoint that handles the unsubscribe links embedded in
@@ -150,8 +150,8 @@ class Endpoint {
 	 */
 	private function render_unsubscribed(): void {
 		wp_die(
-			wp_kses_post( '<p>' . esc_html__( 'You won\'t receive any more of these emails from us.', 'woocommerce' ) . '</p>' ),
-			esc_html__( 'Unsubscribed', 'woocommerce' ),
+			wp_kses_post( '<p>' . esc_html__( 'You won\'t receive any more of these emails from us.', 'poocommerce' ) . '</p>' ),
+			esc_html__( 'Unsubscribed', 'poocommerce' ),
 			array( 'response' => 200 )
 		);
 	}
@@ -162,8 +162,8 @@ class Endpoint {
 	 */
 	private function render_invalid(): void {
 		wp_die(
-			wp_kses_post( '<p>' . esc_html__( 'This unsubscribe link could not be verified. It may have been altered or copied incompletely.', 'woocommerce' ) . '</p>' ),
-			esc_html__( 'Link not valid', 'woocommerce' ),
+			wp_kses_post( '<p>' . esc_html__( 'This unsubscribe link could not be verified. It may have been altered or copied incompletely.', 'poocommerce' ) . '</p>' ),
+			esc_html__( 'Link not valid', 'poocommerce' ),
 			array( 'response' => 200 )
 		);
 	}

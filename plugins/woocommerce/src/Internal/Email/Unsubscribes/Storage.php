@@ -5,7 +5,7 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\Email\Unsubscribes;
+namespace Automattic\PooCommerce\Internal\Email\Unsubscribes;
 
 /**
  * Storage and lookup for customer "do not send me this kind of email" preferences.
@@ -206,7 +206,7 @@ class Storage {
 	 */
 	public function register_personal_data_eraser( array $erasers ): array {
 		$erasers['wc-email-unsubscribes'] = array(
-			'eraser_friendly_name' => __( 'WooCommerce Email Unsubscribes', 'woocommerce' ),
+			'eraser_friendly_name' => __( 'PooCommerce Email Unsubscribes', 'poocommerce' ),
 			'callback'             => array( $this, 'handle_personal_data_erasure' ),
 		);
 		return $erasers;

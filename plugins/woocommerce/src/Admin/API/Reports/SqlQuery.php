@@ -3,7 +3,7 @@
  * Admin\API\Reports\SqlQuery class file.
  */
 
-namespace Automattic\WooCommerce\Admin\API\Reports;
+namespace Automattic\PooCommerce\Admin\API\Reports;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -112,13 +112,13 @@ class SqlQuery {
 		 * @param array  $clauses The original arguments for the request.
 		 * @param string $context The data store context.
 		 */
-		$clauses = apply_filters( "woocommerce_analytics_clauses_{$type}", $clauses, $this->context );
+		$clauses = apply_filters( "poocommerce_analytics_clauses_{$type}", $clauses, $this->context );
 		/**
 		 * Filter SQL clauses by type and context.
 		 *
 		 * @param array  $clauses The original arguments for the request.
 		 */
-		$clauses = apply_filters( "woocommerce_analytics_clauses_{$type}_{$this->context}", $clauses );
+		$clauses = apply_filters( "poocommerce_analytics_clauses_{$type}_{$this->context}", $clauses );
 		return implode( ' ', $clauses );
 	}
 

@@ -2,10 +2,10 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\PushNotifications\Triggers;
+namespace Automattic\PooCommerce\Internal\PushNotifications\Triggers;
 
-use Automattic\WooCommerce\Internal\PushNotifications\Notifications\NewOrderNotification;
-use Automattic\WooCommerce\Internal\PushNotifications\Services\PendingNotificationStore;
+use Automattic\PooCommerce\Internal\PushNotifications\Notifications\NewOrderNotification;
+use Automattic\PooCommerce\Internal\PushNotifications\Services\PendingNotificationStore;
 use WC_Order;
 
 defined( 'ABSPATH' ) || exit;
@@ -22,13 +22,13 @@ class NewOrderNotificationTrigger {
 	 */
 	const NOTIFIABLE_STATUSES = array(
 		/**
-		 * Source: WooCommerce plugin.
+		 * Source: PooCommerce plugin.
 		 */
 		'processing',
 		'on-hold',
 		'completed',
 		/**
-		 * Source: WooCommerce Pre-Orders plugin.
+		 * Source: PooCommerce Pre-Orders plugin.
 		 */
 		'pre-order',
 		/**
@@ -36,7 +36,7 @@ class NewOrderNotificationTrigger {
 		 */
 		'pre-ordered',
 		/**
-		 *  Source: WooCommerce Deposits plugin.
+		 *  Source: PooCommerce Deposits plugin.
 		 */
 		'partial-payment',
 	);
@@ -49,12 +49,12 @@ class NewOrderNotificationTrigger {
 	 * @since 10.7.0
 	 */
 	public function register(): void {
-		add_action( 'woocommerce_new_order', array( $this, 'on_new_order' ), 10, 2 );
-		add_action( 'woocommerce_order_status_changed', array( $this, 'on_order_status_changed' ), 10, 4 );
+		add_action( 'poocommerce_new_order', array( $this, 'on_new_order' ), 10, 2 );
+		add_action( 'poocommerce_order_status_changed', array( $this, 'on_order_status_changed' ), 10, 4 );
 	}
 
 	/**
-	 * Handles the woocommerce_new_order hook.
+	 * Handles the poocommerce_new_order hook.
 	 *
 	 * @param int      $order_id The order ID.
 	 * @param WC_Order $order    The order object.
@@ -74,7 +74,7 @@ class NewOrderNotificationTrigger {
 
 	// phpcs:disable Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 	/**
-	 * Handles the woocommerce_order_status_changed hook.
+	 * Handles the poocommerce_order_status_changed hook.
 	 *
 	 * @param int      $order_id        The order ID.
 	 * @param string   $previous_status The previous order status.

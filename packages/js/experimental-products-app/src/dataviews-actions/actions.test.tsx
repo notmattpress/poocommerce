@@ -74,7 +74,7 @@ jest.mock( '@wordpress/i18n', () => ( {
 	),
 } ) );
 
-jest.mock( '@woocommerce/settings', () => ( {
+jest.mock( '@poocommerce/settings', () => ( {
 	getAdminLink: jest.fn( ( path ) => path ),
 } ) );
 
@@ -374,7 +374,7 @@ describe( 'product list actions', () => {
 		} );
 	} );
 
-	it( 'duplicates products through the WooCommerce duplicate endpoint', async () => {
+	it( 'duplicates products through the PooCommerce duplicate endpoint', async () => {
 		const duplicatedProduct = {
 			...product,
 			id: 99,

@@ -1,21 +1,21 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\GraphQL\Validator\Rules;
+namespace Automattic\PooCommerce\Vendor\GraphQL\Validator\Rules;
 
-use Automattic\WooCommerce\Vendor\GraphQL\Error\Error;
-use Automattic\WooCommerce\Vendor\GraphQL\Error\InvariantViolation;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\FragmentSpreadNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\InlineFragmentNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\NodeKind;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\AbstractType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\CompositeType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\InterfaceType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\ObjectType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\Type;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\UnionType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Schema;
-use Automattic\WooCommerce\Vendor\GraphQL\Utils\AST;
-use Automattic\WooCommerce\Vendor\GraphQL\Validator\QueryValidationContext;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\Error;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\InvariantViolation;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\FragmentSpreadNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\InlineFragmentNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\NodeKind;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\AbstractType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\CompositeType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\InterfaceType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\ObjectType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\Type;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\UnionType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Schema;
+use Automattic\PooCommerce\Vendor\GraphQL\Utils\AST;
+use Automattic\PooCommerce\Vendor\GraphQL\Validator\QueryValidationContext;
 
 class PossibleFragmentSpreads extends ValidationRule
 {

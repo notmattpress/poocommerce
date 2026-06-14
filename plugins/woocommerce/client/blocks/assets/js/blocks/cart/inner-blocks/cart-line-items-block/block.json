@@ -1,9 +1,9 @@
 {
-	"name": "woocommerce/cart-line-items-block",
+	"name": "poocommerce/cart-line-items-block",
 	"version": "1.0.0",
 	"title": "Cart Line Items",
 	"description": "Block containing current line items in Cart.",
-	"category": "woocommerce",
+	"category": "poocommerce",
 	"supports": {
 		"align": false,
 		"html": false,
@@ -22,9 +22,9 @@
 		}
 	},
 	"parent": [
-		"woocommerce/cart-items-block"
+		"poocommerce/cart-items-block"
 	],
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3
 }

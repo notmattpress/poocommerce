@@ -126,7 +126,7 @@ class WC_REST_Taxes_Controller_Tests extends WC_REST_Unit_Test_Case {
 		$data = $wpdb->get_results(
 			$wpdb->prepare(
 				"SELECT location_type, GROUP_CONCAT(location_code SEPARATOR ';') as items
-						FROM {$wpdb->prefix}woocommerce_tax_rate_locations
+						FROM {$wpdb->prefix}poocommerce_tax_rate_locations
 						WHERE tax_rate_id=%d
 						GROUP BY location_type",
 				$tax_rate_id

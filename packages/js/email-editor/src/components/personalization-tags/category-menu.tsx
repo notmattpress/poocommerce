@@ -16,11 +16,11 @@ const CategoryMenu = ( {
 } ) => {
 	const getMenuItemClass = ( category: string | null ) =>
 		category === activeCategory
-			? 'woocommerce-personalization-tags-modal-menu-item-active'
+			? 'poocommerce-personalization-tags-modal-menu-item-active'
 			: '';
 
 	return (
-		<MenuGroup className="woocommerce-personalization-tags-modal-menu">
+		<MenuGroup className="poocommerce-personalization-tags-modal-menu">
 			<MenuItem
 				onClick={ () => onCategorySelect( null ) }
 				className={ getMenuItemClass( null ) }
@@ -28,10 +28,10 @@ const CategoryMenu = ( {
 				{ __( 'All', __i18n_text_domain__ ) }
 			</MenuItem>
 			<div
-				className="woocommerce-personalization-tags-modal-menu-separator"
+				className="poocommerce-personalization-tags-modal-menu-separator"
 				aria-hidden="true"
 				role="presentation"
-				data-testid="woocommerce-personalization-tags-modal-menu-separator"
+				data-testid="poocommerce-personalization-tags-modal-menu-separator"
 			></div>
 			{ Object.keys( groupedTags ).map( ( category, index, array ) => (
 				<React.Fragment key={ category }>
@@ -43,10 +43,10 @@ const CategoryMenu = ( {
 					</MenuItem>
 					{ index < array.length - 1 && (
 						<div
-							className="woocommerce-personalization-tags-modal-menu-separator"
+							className="poocommerce-personalization-tags-modal-menu-separator"
 							aria-hidden="true"
 							role="presentation"
-							data-testid="woocommerce-personalization-tags-modal-menu-separator"
+							data-testid="poocommerce-personalization-tags-modal-menu-separator"
 						></div>
 					) }
 				</React.Fragment>

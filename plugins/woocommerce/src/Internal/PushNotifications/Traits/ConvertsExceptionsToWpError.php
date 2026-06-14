@@ -2,12 +2,12 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\PushNotifications\Traits;
+namespace Automattic\PooCommerce\Internal\PushNotifications\Traits;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Internal\PushNotifications\PushNotifications;
-use Automattic\WooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\Internal\PushNotifications\PushNotifications;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
 use Exception;
 use WC_Data_Exception;
 use WP_Error;
@@ -50,8 +50,8 @@ trait ConvertsExceptionsToWpError {
 			->error( $e->getMessage(), array( 'source' => PushNotifications::FEATURE_NAME ) );
 
 		return new WP_Error(
-			'woocommerce_internal_error',
-			__( 'Internal server error', 'woocommerce' ),
+			'poocommerce_internal_error',
+			__( 'Internal server error', 'poocommerce' ),
 			array( 'status' => WP_Http::INTERNAL_SERVER_ERROR )
 		);
 	}

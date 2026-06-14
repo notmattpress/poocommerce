@@ -7,15 +7,15 @@ import {
 	RichText,
 	InspectorControls,
 } from '@wordpress/block-editor';
-import { CheckboxControl } from '@woocommerce/blocks-components';
+import { CheckboxControl } from '@poocommerce/blocks-components';
 import {
 	PanelBody,
 	ToggleControl,
 	Notice,
 	ExternalLink,
 } from '@wordpress/components';
-import { PRIVACY_URL, TERMS_URL } from '@woocommerce/block-settings';
-import { ADMIN_URL } from '@woocommerce/settings';
+import { PRIVACY_URL, TERMS_URL } from '@poocommerce/block-settings';
+import { ADMIN_URL } from '@poocommerce/settings';
 import clsx from 'clsx';
 
 /**
@@ -52,7 +52,7 @@ export const Edit = ( {
 					>
 						{ __(
 							"Link to your store's Terms and Conditions and Privacy Policy pages by creating pages for them.",
-							'woocommerce'
+							'poocommerce'
 						) }
 						<br />
 						{ ! TERMS_URL && (
@@ -63,7 +63,7 @@ export const Edit = ( {
 								>
 									{ __(
 										'Setup a Terms and Conditions page',
-										'woocommerce'
+										'poocommerce'
 									) }
 								</ExternalLink>
 							</>
@@ -76,7 +76,7 @@ export const Edit = ( {
 								>
 									{ __(
 										'Setup a Privacy Policy page',
-										'woocommerce'
+										'poocommerce'
 									) }
 								</ExternalLink>
 							</>
@@ -100,7 +100,7 @@ export const Edit = ( {
 											{
 												label: __(
 													'Restore default text',
-													'woocommerce'
+													'poocommerce'
 												),
 												onClick: () =>
 													setAttributes( {
@@ -114,15 +114,15 @@ export const Edit = ( {
 							<p>
 								{ __(
 									'Ensure you add links to your policy pages in this section.',
-									'woocommerce'
+									'poocommerce'
 								) }
 							</p>
 						</Notice>
 					) }
-				<PanelBody title={ __( 'Display options', 'woocommerce' ) }>
+				<PanelBody title={ __( 'Display options', 'poocommerce' ) }>
 					<ToggleControl
 						__nextHasNoMarginBottom
-						label={ __( 'Require checkbox', 'woocommerce' ) }
+						label={ __( 'Require checkbox', 'poocommerce' ) }
 						checked={ checkbox }
 						onChange={ () =>
 							setAttributes( {
@@ -132,7 +132,7 @@ export const Edit = ( {
 					/>
 					<ToggleControl
 						__nextHasNoMarginBottom
-						label={ __( 'Show separator', 'woocommerce' ) }
+						label={ __( 'Show separator', 'poocommerce' ) }
 						checked={ showSeparator }
 						onChange={ () =>
 							setAttributes( {

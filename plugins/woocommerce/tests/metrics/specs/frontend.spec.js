@@ -1,4 +1,4 @@
-/* eslint-disable @woocommerce/dependency-group, jest/expect-expect, jest/no-test-callback, array-callback-return, jest/no-identical-title */
+/* eslint-disable @poocommerce/dependency-group, jest/expect-expect, jest/no-test-callback, array-callback-return, jest/no-identical-title */
 
 /**
  * WordPress dependencies
@@ -92,4 +92,4 @@ test.describe( 'Frontend Performance', () => {
 	} );
 } );
 
-/* eslint-enable @woocommerce/dependency-group, jest/expect-expect, jest/no-test-callback, array-callback-return, jest/no-identical-title */
+/* eslint-enable @poocommerce/dependency-group, jest/expect-expect, jest/no-test-callback, array-callback-return, jest/no-identical-title */

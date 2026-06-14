@@ -3,8 +3,8 @@
  */
 import { createInterpolateElement } from '@wordpress/element';
 import { __, sprintf } from '@wordpress/i18n';
-import { FormattedMonetaryAmount } from '@woocommerce/blocks-components';
-import type { Currency } from '@woocommerce/price-format';
+import { FormattedMonetaryAmount } from '@poocommerce/blocks-components';
+import type { Currency } from '@poocommerce/price-format';
 
 /**
  * Internal dependencies
@@ -41,7 +41,7 @@ const ProductSaleBadge = ( {
 
 	const formattedMessage = sprintf(
 		/* translators: %s will be replaced by the discount amount */
-		__( `Save %s`, 'woocommerce' ),
+		__( `Save %s`, 'poocommerce' ),
 		format
 	);
 

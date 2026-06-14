@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Queries\Inheritance;
+namespace Automattic\PooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Queries\Inheritance;
 
-use Automattic\WooCommerce\Api\Attributes\Description;
-use Automattic\WooCommerce\Api\Attributes\Name;
+use Automattic\PooCommerce\Api\Attributes\Description;
+use Automattic\PooCommerce\Api\Attributes\Name;
 
 /**
  * Inherits #[RequiredCapability('manage_options')] from its abstract parent

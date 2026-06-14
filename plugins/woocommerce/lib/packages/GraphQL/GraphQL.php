@@ -1,49 +1,49 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\GraphQL;
+namespace Automattic\PooCommerce\Vendor\GraphQL;
 
-use Automattic\WooCommerce\Vendor\GraphQL\Error\Error;
-use Automattic\WooCommerce\Vendor\GraphQL\Error\InvariantViolation;
-use Automattic\WooCommerce\Vendor\GraphQL\Executor\ExecutionResult;
-use Automattic\WooCommerce\Vendor\GraphQL\Executor\Executor;
-use Automattic\WooCommerce\Vendor\GraphQL\Executor\Promise\Adapter\SyncPromiseAdapter;
-use Automattic\WooCommerce\Vendor\GraphQL\Executor\Promise\Promise;
-use Automattic\WooCommerce\Vendor\GraphQL\Executor\Promise\PromiseAdapter;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\DocumentNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\Parser;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\Source;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\Directive;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\ScalarType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\Type;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Schema as SchemaType;
-use Automattic\WooCommerce\Vendor\GraphQL\Validator\DocumentValidator;
-use Automattic\WooCommerce\Vendor\GraphQL\Validator\Rules\QueryComplexity;
-use Automattic\WooCommerce\Vendor\GraphQL\Validator\Rules\ValidationRule;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\Error;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\InvariantViolation;
+use Automattic\PooCommerce\Vendor\GraphQL\Executor\ExecutionResult;
+use Automattic\PooCommerce\Vendor\GraphQL\Executor\Executor;
+use Automattic\PooCommerce\Vendor\GraphQL\Executor\Promise\Adapter\SyncPromiseAdapter;
+use Automattic\PooCommerce\Vendor\GraphQL\Executor\Promise\Promise;
+use Automattic\PooCommerce\Vendor\GraphQL\Executor\Promise\PromiseAdapter;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\DocumentNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\Parser;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\Source;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\Directive;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\ScalarType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\Type;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Schema as SchemaType;
+use Automattic\PooCommerce\Vendor\GraphQL\Validator\DocumentValidator;
+use Automattic\PooCommerce\Vendor\GraphQL\Validator\Rules\QueryComplexity;
+use Automattic\PooCommerce\Vendor\GraphQL\Validator\Rules\ValidationRule;
 
 /**
- * This is the primary facade for fulfilling Automattic\WooCommerce\Vendor\GraphQL operations.
+ * This is the primary facade for fulfilling Automattic\PooCommerce\Vendor\GraphQL operations.
  * See [related documentation](executing-queries.md).
  *
  * @phpstan-import-type ArgsMapper from Executor
  * @phpstan-import-type FieldResolver from Executor
  *
- * @see \Automattic\WooCommerce\Vendor\GraphQL\Tests\GraphQLTest
+ * @see \Automattic\PooCommerce\Vendor\GraphQL\Tests\GraphQLTest
  */
 class GraphQL
 {
     /**
      * Executes graphql query.
      *
-     * More sophisticated Automattic\WooCommerce\Vendor\GraphQL servers, such as those which persist queries,
+     * More sophisticated Automattic\PooCommerce\Vendor\GraphQL servers, such as those which persist queries,
      * may wish to separate the validation and execution phases to a static time
      * tooling step, and a server runtime step.
      *
      * Available options:
      *
      * schema:
-     *    The Automattic\WooCommerce\Vendor\GraphQL type system to use when validating and executing a query.
+     *    The Automattic\PooCommerce\Vendor\GraphQL type system to use when validating and executing a query.
      * source:
-     *    A Automattic\WooCommerce\Vendor\GraphQL language formatted string representing the requested operation.
+     *    A Automattic\PooCommerce\Vendor\GraphQL language formatted string representing the requested operation.
      * rootValue:
      *    The value provided as the first argument to resolver functions on the top
      *    level type (e.g. the query object type).
@@ -178,7 +178,7 @@ class GraphQL
     }
 
     /**
-     * Returns directives defined in Automattic\WooCommerce\Vendor\GraphQL spec.
+     * Returns directives defined in Automattic\PooCommerce\Vendor\GraphQL spec.
      *
      * @deprecated use {@see Directive::builtInDirectives()}
      *
@@ -194,7 +194,7 @@ class GraphQL
     }
 
     /**
-     * Returns built-in scalar types defined in Automattic\WooCommerce\Vendor\GraphQL spec.
+     * Returns built-in scalar types defined in Automattic\PooCommerce\Vendor\GraphQL spec.
      *
      * @deprecated use {@see Type::builtInScalars()}
      *
@@ -214,7 +214,7 @@ class GraphQL
      *
      * Standard types not listed here remain untouched.
      *
-     * @deprecated prefer per-schema scalar overrides via {@see \Automattic\WooCommerce\Vendor\GraphQL\Type\SchemaConfig::$types} or {@see \Automattic\WooCommerce\Vendor\GraphQL\Type\SchemaConfig::$typeLoader}
+     * @deprecated prefer per-schema scalar overrides via {@see \Automattic\PooCommerce\Vendor\GraphQL\Type\SchemaConfig::$types} or {@see \Automattic\PooCommerce\Vendor\GraphQL\Type\SchemaConfig::$typeLoader}
      *
      * @param array<string, ScalarType> $types
      *
@@ -228,7 +228,7 @@ class GraphQL
     }
 
     /**
-     * Returns standard validation rules implementing Automattic\WooCommerce\Vendor\GraphQL spec.
+     * Returns standard validation rules implementing Automattic\PooCommerce\Vendor\GraphQL spec.
      *
      * @return array<class-string<ValidationRule>, ValidationRule>
      *

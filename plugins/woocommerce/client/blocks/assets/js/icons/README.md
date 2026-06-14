@@ -5,17 +5,17 @@
 -   [Usage](#usage)
 -   [Adding Icons](#adding-icons)
 
-WooCommerce Blocks Icons Library.
+PooCommerce Blocks Icons Library.
 
 ## Usage
 
-Note we use the `Icon` component from `@wordpress/icons`. We use some SVG icons from `@woocommerce/icons` for WC Blocks specific icons, but we also use existing icons from `@wordpress/icons`.
+Note we use the `Icon` component from `@wordpress/icons`. We use some SVG icons from `@poocommerce/icons` for WC Blocks specific icons, but we also use existing icons from `@wordpress/icons`.
 
 ```js
-import { woo } from '@woocommerce/icons';
+import { woo } from '@poocommerce/icons';
 import { Icon, postComments } from '@wordpress/icons';
 
-<Icon icon={ woo } /> // icon  from '@woocommerce/icons'
+<Icon icon={ woo } /> // icon  from '@poocommerce/icons'
 <Icon icon={ postComments } /> // icon from '@wordpress/icons'
 <Icon icon={ woo } size={ 16 } />
 <Icon icon={ woo } width={ 20 } height={ Math.floor( 20 * 1.67 ) } />
@@ -35,8 +35,8 @@ Before adding a new icon, make sure the icon is not already included in the [Lib
 
 ---
 
-[We're hiring!](https://woocommerce.com/careers/) Come work with us!
+[We're hiring!](https://poocommerce.com/careers/) Come work with us!
 
-🐞 Found a mistake, or have a suggestion? [Leave feedback about this document here.](https://github.com/woocommerce/woocommerce/issues/new?assignees=&labels=type%3A+documentation&template=suggestion-for-documentation-improvement-correction.md&title=Feedback%20on%20./docs/README.md)
+🐞 Found a mistake, or have a suggestion? [Leave feedback about this document here.](https://github.com/poocommerce/poocommerce/issues/new?assignees=&labels=type%3A+documentation&template=suggestion-for-documentation-improvement-correction.md&title=Feedback%20on%20./docs/README.md)
 
 <!-- /FEEDBACK -->

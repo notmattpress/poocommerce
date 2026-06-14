@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\GraphQL\Error;
+namespace Automattic\PooCommerce\Vendor\GraphQL\Error;
 
-use Automattic\WooCommerce\Vendor\GraphQL\Utils\Utils;
+use Automattic\PooCommerce\Vendor\GraphQL\Utils\Utils;
 
 /**
  * @phpstan-type InputPath list<string|int>

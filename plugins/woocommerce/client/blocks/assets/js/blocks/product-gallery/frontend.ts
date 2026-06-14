@@ -9,8 +9,8 @@ import {
 	withSyncEvent,
 	getConfig,
 } from '@wordpress/interactivity';
-import '@woocommerce/stores/woocommerce/products';
-import type { ProductsStore } from '@woocommerce/stores/woocommerce/products';
+import '@poocommerce/stores/poocommerce/products';
+import type { ProductsStore } from '@poocommerce/stores/poocommerce/products';
 
 /**
  * Internal dependencies
@@ -36,9 +36,9 @@ const getArrowsState = ( imageIndex: number, totalImages: number ) => ( {
 	isDisabledNext: imageIndex === totalImages - 1,
 } );
 
-/** Read the `products` map from the WooCommerce iAPI config (or `{}`). */
+/** Read the `products` map from the PooCommerce iAPI config (or `{}`). */
 const getConfiguredProducts = () =>
-	( getConfig( 'woocommerce' ) as ProductGalleryConfig )?.products || {};
+	( getConfig( 'poocommerce' ) as ProductGalleryConfig )?.products || {};
 
 const getProductImageSet = ( productId: string | number ) =>
 	getConfiguredProducts()?.[ String( productId ) ];
@@ -282,7 +282,7 @@ const scrollThumbnailIntoView = ( imageId: number ) => {
 };
 
 const { state: productsState } = store< ProductsStore >(
-	'woocommerce/products',
+	'poocommerce/products',
 	{},
 	{ lock: universalLock }
 );
@@ -791,7 +791,7 @@ const productGallery = {
 		// so they no longer overflow resulting in a ghost scrollbar (no scroll).
 		// scrollbar-gutter doesn't work well in flexbox and doesn't solve it,
 		// hence programmatic solution.
-		// See https://github.com/woocommerce/woocommerce/issues/59810.
+		// See https://github.com/poocommerce/poocommerce/issues/59810.
 		hideGhostOverflow: () => {
 			const element = getElement()?.ref as HTMLElement;
 			if ( ! element ) return;
@@ -805,7 +805,7 @@ const productGallery = {
 	},
 };
 
-const { actions } = store( 'woocommerce/product-gallery', productGallery, {
+const { actions } = store( 'poocommerce/product-gallery', productGallery, {
 	lock: true,
 } );
 

@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { sanitizeHTML } from '@woocommerce/sanitize';
+import { sanitizeHTML } from '@poocommerce/sanitize';
 
 /**
  * Default allowed HTML tags for extended sanitization.

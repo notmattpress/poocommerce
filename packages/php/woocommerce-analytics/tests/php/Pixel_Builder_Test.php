@@ -2,7 +2,7 @@
 /**
  * Tests for the Pixel_Builder class.
  *
- * @package automattic/woocommerce-analytics
+ * @package automattic/poocommerce-analytics
  */
 
 namespace Automattic\Woocommerce_Analytics;
@@ -90,7 +90,7 @@ class Pixel_Builder_Test extends BaseTestCase {
 	 */
 	public static function valid_event_names_provider(): array {
 		return array(
-			'simple event'         => array( 'woocommerceanalytics_checkout_started' ),
+			'simple event'         => array( 'poocommerceanalytics_checkout_started' ),
 			'short prefix'         => array( 'woo_event' ),
 			'numeric prefix'       => array( 'test123_event' ),
 			'underscores in event' => array( 'wcadmin_product_view_click' ),
@@ -186,7 +186,7 @@ class Pixel_Builder_Test extends BaseTestCase {
 	 */
 	public function test_build_tracks_url_with_valid_properties(): void {
 		$properties = array(
-			'_en' => 'woocommerceanalytics_checkout_started',
+			'_en' => 'poocommerceanalytics_checkout_started',
 			'_ts' => '1234567890123',
 			'_ut' => 'anon',
 			'_ui' => 'test_visitor_id',
@@ -196,7 +196,7 @@ class Pixel_Builder_Test extends BaseTestCase {
 
 		$this->assertIsString( $result );
 		$this->assertStringStartsWith( Pixel_Builder::TRACKS_PIXEL_URL . '?', $result );
-		$this->assertStringContainsString( '_en=woocommerceanalytics_checkout_started', $result );
+		$this->assertStringContainsString( '_en=poocommerceanalytics_checkout_started', $result );
 		$this->assertStringContainsString( 'browser_type=php-agent', $result );
 	}
 
@@ -233,7 +233,7 @@ class Pixel_Builder_Test extends BaseTestCase {
 	 */
 	public function test_build_ch_url_with_valid_properties(): void {
 		$properties = array(
-			'_en' => 'woocommerceanalytics_checkout_started',
+			'_en' => 'poocommerceanalytics_checkout_started',
 			'_ts' => '1234567890123',
 		);
 
@@ -241,7 +241,7 @@ class Pixel_Builder_Test extends BaseTestCase {
 
 		$this->assertIsString( $result );
 		$this->assertStringStartsWith( Pixel_Builder::CH_PIXEL_URL . '?', $result );
-		$this->assertStringContainsString( '_en=woocommerceanalytics_checkout_started', $result );
+		$this->assertStringContainsString( '_en=poocommerceanalytics_checkout_started', $result );
 	}
 
 	/**
@@ -249,7 +249,7 @@ class Pixel_Builder_Test extends BaseTestCase {
 	 */
 	public function test_validate_and_sanitize_adds_timestamp(): void {
 		$properties = array(
-			'_en' => 'woocommerceanalytics_test_event',
+			'_en' => 'poocommerceanalytics_test_event',
 		);
 
 		$result = Pixel_Builder::validate_and_sanitize( $properties );
@@ -264,7 +264,7 @@ class Pixel_Builder_Test extends BaseTestCase {
 	 */
 	public function test_validate_and_sanitize_adds_browser_type(): void {
 		$properties = array(
-			'_en' => 'woocommerceanalytics_test_event',
+			'_en' => 'poocommerceanalytics_test_event',
 		);
 
 		$result = Pixel_Builder::validate_and_sanitize( $properties );
@@ -279,7 +279,7 @@ class Pixel_Builder_Test extends BaseTestCase {
 	 */
 	public function test_validate_and_sanitize_removes_private_ips(): void {
 		$properties = array(
-			'_en'     => 'woocommerceanalytics_test_event',
+			'_en'     => 'poocommerceanalytics_test_event',
 			'_via_ip' => '192.168.1.1',
 		);
 
@@ -294,7 +294,7 @@ class Pixel_Builder_Test extends BaseTestCase {
 	 */
 	public function test_validate_and_sanitize_keeps_public_ips(): void {
 		$properties = array(
-			'_en'     => 'woocommerceanalytics_test_event',
+			'_en'     => 'poocommerceanalytics_test_event',
 			'_via_ip' => '203.0.113.195',
 		);
 
@@ -310,7 +310,7 @@ class Pixel_Builder_Test extends BaseTestCase {
 	 */
 	public function test_validate_and_sanitize_handles_indexed_arrays(): void {
 		$properties = array(
-			'_en'   => 'woocommerceanalytics_test_event',
+			'_en'   => 'poocommerceanalytics_test_event',
 			'items' => array( 'item1', 'item2', 'item3' ),
 		);
 
@@ -325,7 +325,7 @@ class Pixel_Builder_Test extends BaseTestCase {
 	 */
 	public function test_validate_and_sanitize_handles_associative_arrays(): void {
 		$properties = array(
-			'_en'     => 'woocommerceanalytics_test_event',
+			'_en'     => 'poocommerceanalytics_test_event',
 			'options' => array(
 				'key1' => 'value1',
 				'key2' => 'value2',
@@ -350,7 +350,7 @@ class Pixel_Builder_Test extends BaseTestCase {
 	 */
 	public function test_validate_and_sanitize_handles_empty_arrays(): void {
 		$properties = array(
-			'_en'   => 'woocommerceanalytics_test_event',
+			'_en'   => 'poocommerceanalytics_test_event',
 			'items' => array(),
 		);
 
@@ -365,7 +365,7 @@ class Pixel_Builder_Test extends BaseTestCase {
 	 */
 	public function test_validate_and_sanitize_returns_error_for_invalid_prop_name(): void {
 		$properties = array(
-			'_en'         => 'woocommerceanalytics_test_event',
+			'_en'         => 'poocommerceanalytics_test_event',
 			'InvalidProp' => 'value',
 		);
 
@@ -379,7 +379,7 @@ class Pixel_Builder_Test extends BaseTestCase {
 	 * Test send_pixel returns true (integration test - doesn't actually send).
 	 */
 	public function test_send_pixel_returns_true(): void {
-		$pixel = Pixel_Builder::TRACKS_PIXEL_URL . '?_en=woocommerceanalytics_test';
+		$pixel = Pixel_Builder::TRACKS_PIXEL_URL . '?_en=poocommerceanalytics_test';
 
 		// This test just ensures the method doesn't throw and returns true.
 		// The actual HTTP request is non-blocking and we can't easily verify it.
@@ -403,8 +403,8 @@ class Pixel_Builder_Test extends BaseTestCase {
 	#[IgnoreDeprecations]
 	public function test_send_pixels_batched_with_valid_pixels(): void {
 		$pixels = array(
-			Pixel_Builder::TRACKS_PIXEL_URL . '?_en=woocommerceanalytics_test1',
-			Pixel_Builder::TRACKS_PIXEL_URL . '?_en=woocommerceanalytics_test2',
+			Pixel_Builder::TRACKS_PIXEL_URL . '?_en=poocommerceanalytics_test1',
+			Pixel_Builder::TRACKS_PIXEL_URL . '?_en=poocommerceanalytics_test2',
 		);
 
 		$result = Pixel_Builder::send_pixels_batched( $pixels );

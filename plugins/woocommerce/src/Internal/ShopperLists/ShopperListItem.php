@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\ShopperLists;
+namespace Automattic\PooCommerce\Internal\ShopperLists;
 
-use Automattic\WooCommerce\Enums\ProductStatus;
-use Automattic\WooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Enums\ProductStatus;
+use Automattic\PooCommerce\Enums\ProductType;
 
 /**
  * A single saved item within a shopper list.
@@ -144,7 +144,7 @@ class ShopperListItem {
 			$variation    = self::resolve_variation_attributes( $product, $variation );
 		} elseif ( $product->is_type( ProductType::VARIABLE ) ) {
 			throw new \InvalidArgumentException(
-				esc_html__( 'When saving a variation, product_id must be the variation ID, not the parent product ID.', 'woocommerce' )
+				esc_html__( 'When saving a variation, product_id must be the variation ID, not the parent product ID.', 'poocommerce' )
 			);
 		} else {
 			$product_id   = $product->get_id();
@@ -200,7 +200,7 @@ class ShopperListItem {
 						esc_html(
 							sprintf(
 								/* translators: %s: attribute name. */
-								__( 'Attribute "%s" is required.', 'woocommerce' ),
+								__( 'Attribute "%s" is required.', 'poocommerce' ),
 								$name
 							)
 						)
@@ -212,7 +212,7 @@ class ShopperListItem {
 						esc_html(
 							sprintf(
 								/* translators: 1: attribute name, 2: comma-separated allowed values. */
-								__( 'Invalid value posted for "%1$s". Allowed values: %2$s', 'woocommerce' ),
+								__( 'Invalid value posted for "%1$s". Allowed values: %2$s', 'poocommerce' ),
 								$name,
 								implode( ', ', $attribute->get_slugs() )
 							)
@@ -230,7 +230,7 @@ class ShopperListItem {
 					esc_html(
 						sprintf(
 							/* translators: 1: attribute name, 2: expected value. */
-							__( 'Invalid value posted for "%1$s". Expected "%2$s".', 'woocommerce' ),
+							__( 'Invalid value posted for "%1$s". Expected "%2$s".', 'poocommerce' ),
 							$name,
 							$expected
 						)

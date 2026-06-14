@@ -1,11 +1,11 @@
 <?php
 /**
- * WooCommerce Product Variations Classic Redesign
+ * PooCommerce Product Variations Classic Redesign
  */
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Admin\Features;
+namespace Automattic\PooCommerce\Admin\Features;
 
 /**
  * Loads assets for the product variations classic redesign feature.
@@ -14,8 +14,8 @@ class ProductVariationsClassicRedesign {
 	const FEATURE_ID         = 'product-variations-classic-redesign';
 	const SCRIPT_HANDLE      = 'wc-experimental-products-app';
 	const SCRIPT_PATH        = 'experimental-products-app';
-	const ROOT_ID            = 'woocommerce-variations-classic-root';
-	const ATTRIBUTES_ROOT_ID = 'woocommerce-product-attributes-classic-root';
+	const ROOT_ID            = 'poocommerce-variations-classic-root';
+	const ATTRIBUTES_ROOT_ID = 'poocommerce-product-attributes-classic-root';
 
 	/**
 	 * Constructor
@@ -26,7 +26,7 @@ class ProductVariationsClassicRedesign {
 		}
 
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ), 20 );
-		add_filter( 'woocommerce_product_data_tabs', array( $this, 'handle_woocommerce_product_data_tabs' ), 5 );
+		add_filter( 'poocommerce_product_data_tabs', array( $this, 'handle_poocommerce_product_data_tabs' ), 5 );
 	}
 
 	/**
@@ -47,14 +47,14 @@ class ProductVariationsClassicRedesign {
 	}
 
 	/**
-	 * Handle the woocommerce_product_data_tabs filter.
+	 * Handle the poocommerce_product_data_tabs filter.
 	 *
 	 * @internal
 	 *
 	 * @param array $tabs Product data tabs.
 	 * @return array Product data tabs.
 	 */
-	public function handle_woocommerce_product_data_tabs( array $tabs ): array {
+	public function handle_poocommerce_product_data_tabs( array $tabs ): array {
 		if ( isset( $tabs['variations'] ) && is_array( $tabs['variations'] ) ) {
 			$tabs['variations']['priority'] = 40;
 		}

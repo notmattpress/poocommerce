@@ -1,17 +1,17 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\GraphQL\Type\Definition;
+namespace Automattic\PooCommerce\Vendor\GraphQL\Type\Definition;
 
-use Automattic\WooCommerce\Vendor\GraphQL\Error\Error;
-use Automattic\WooCommerce\Vendor\GraphQL\Error\InvariantViolation;
-use Automattic\WooCommerce\Vendor\GraphQL\Executor\Values;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\FieldNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\FragmentDefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\FragmentSpreadNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\InlineFragmentNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\SelectionSetNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Introspection;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Schema;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\Error;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\InvariantViolation;
+use Automattic\PooCommerce\Vendor\GraphQL\Executor\Values;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\FieldNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\FragmentDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\FragmentSpreadNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\InlineFragmentNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\SelectionSetNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Introspection;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Schema;
 
 /**
  * @phpstan-type QueryPlanOptions array{

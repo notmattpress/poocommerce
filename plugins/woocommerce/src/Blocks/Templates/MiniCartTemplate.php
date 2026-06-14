@@ -1,5 +1,5 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\Templates;
+namespace Automattic\PooCommerce\Blocks\Templates;
 
 /**
  * MiniCartTemplate class.
@@ -35,7 +35,7 @@ class MiniCartTemplate extends AbstractTemplatePart {
 	 * @return string
 	 */
 	public function get_template_title() {
-		return _x( 'Mini-Cart', 'Template name', 'woocommerce' );
+		return _x( 'Mini-Cart', 'Template name', 'poocommerce' );
 	}
 
 	/**
@@ -44,7 +44,7 @@ class MiniCartTemplate extends AbstractTemplatePart {
 	 * @return string
 	 */
 	public function get_template_description() {
-		return __( 'Template used to display the Mini-Cart drawer.', 'woocommerce' );
+		return __( 'Template used to display the Mini-Cart drawer.', 'poocommerce' );
 	}
 
 	/**
@@ -56,8 +56,8 @@ class MiniCartTemplate extends AbstractTemplatePart {
 	public function register_mini_cart_template_part_area( $default_area_definitions ) {
 		$mini_cart_template_part_area = array(
 			'area'        => 'mini-cart',
-			'label'       => __( 'Mini-Cart', 'woocommerce' ),
-			'description' => __( 'The Mini-Cart template allows shoppers to see their cart items and provides access to the Cart and Checkout pages.', 'woocommerce' ),
+			'label'       => __( 'Mini-Cart', 'poocommerce' ),
+			'description' => __( 'The Mini-Cart template allows shoppers to see their cart items and provides access to the Cart and Checkout pages.', 'poocommerce' ),
 			'icon'        => 'mini-cart',
 			'area_tag'    => 'mini-cart',
 		);

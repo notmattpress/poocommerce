@@ -123,21 +123,21 @@ export function useApplyUpdate(
 			}
 			try {
 				const res = ( await apiFetch( {
-					path: `/woocommerce-email-editor/v1/emails/${ postId }/undo`,
+					path: `/poocommerce-email-editor/v1/emails/${ postId }/undo`,
 					method: 'POST',
 					data: { revision_id: revisionId },
 				} ) ) as UndoResponse;
 
 				syncEditorState( res.restored_content );
 
-				createSuccessNotice( __( 'Update reverted.', 'woocommerce' ), {
+				createSuccessNotice( __( 'Update reverted.', 'poocommerce' ), {
 					type: 'snackbar',
 				} );
 			} catch ( err: unknown ) {
 				const message =
 					err && typeof err === 'object' && 'message' in err
 						? String( err.message )
-						: __( 'Could not revert the update.', 'woocommerce' );
+						: __( 'Could not revert the update.', 'poocommerce' );
 				createErrorNotice( message, { type: 'snackbar' } );
 			}
 		},
@@ -152,7 +152,7 @@ export function useApplyUpdate(
 			setIsApplying( true );
 			try {
 				const res = ( await apiFetch( {
-					path: `/woocommerce-email-editor/v1/emails/${ postId }/apply`,
+					path: `/poocommerce-email-editor/v1/emails/${ postId }/apply`,
 					method: 'POST',
 					data: { choices },
 				} ) ) as ApplyResponse;
@@ -168,16 +168,16 @@ export function useApplyUpdate(
 					choices.length > 0 &&
 					choices.every( ( c ) => c.decision === 'use_core' );
 				const successMessage = allUseCore
-					? __( 'Update applied', 'woocommerce' )
+					? __( 'Update applied', 'poocommerce' )
 					: __(
 							'Update applied · customizations preserved',
-							'woocommerce'
+							'poocommerce'
 					  );
 				createSuccessNotice( successMessage, {
 					type: 'snackbar',
 					actions: [
 						{
-							label: __( 'Undo', 'woocommerce' ),
+							label: __( 'Undo', 'poocommerce' ),
 							onClick: () => {
 								void undo( res.revision_id );
 							},
@@ -190,7 +190,7 @@ export function useApplyUpdate(
 				const message =
 					err && typeof err === 'object' && 'message' in err
 						? String( err.message )
-						: __( 'Could not apply the update.', 'woocommerce' );
+						: __( 'Could not apply the update.', 'poocommerce' );
 				if ( ! options.suppressSnackbarOnError ) {
 					createErrorNotice( message, { type: 'snackbar' } );
 				}

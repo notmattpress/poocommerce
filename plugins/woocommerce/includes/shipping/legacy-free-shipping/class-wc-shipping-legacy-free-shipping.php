@@ -2,10 +2,10 @@
 /**
  * Class WC_Shipping_Legacy_Free_Shipping file.
  *
- * @package WooCommerce\Shipping
+ * @package PooCommerce\Shipping
  */
 
-use Automattic\WooCommerce\Utilities\NumberUtil;
+use Automattic\PooCommerce\Utilities\NumberUtil;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @deprecated  2.6.0
  * @version 2.4.0
- * @package WooCommerce\Classes\Shipping
+ * @package PooCommerce\Classes\Shipping
  */
 class WC_Shipping_Legacy_Free_Shipping extends WC_Shipping_Method {
 
@@ -41,9 +41,9 @@ class WC_Shipping_Legacy_Free_Shipping extends WC_Shipping_Method {
 	 */
 	public function __construct() {
 		$this->id           = 'legacy_free_shipping';
-		$this->method_title = __( 'Free shipping (legacy)', 'woocommerce' );
+		$this->method_title = __( 'Free shipping (legacy)', 'poocommerce' );
 		/* translators: %s: Admin shipping settings URL */
-		$this->method_description = '<strong>' . sprintf( __( 'This method is deprecated in 2.6.0 and will be removed in future versions - we recommend disabling it and instead setting up a new rate within your <a href="%s">Shipping zones</a>.', 'woocommerce' ), admin_url( 'admin.php?page=wc-settings&tab=shipping' ) ) . '</strong>';
+		$this->method_description = '<strong>' . sprintf( __( 'This method is deprecated in 2.6.0 and will be removed in future versions - we recommend disabling it and instead setting up a new rate within your <a href="%s">Shipping zones</a>.', 'poocommerce' ), admin_url( 'admin.php?page=wc-settings&tab=shipping' ) ) . '</strong>';
 		$this->init();
 	}
 
@@ -87,7 +87,7 @@ class WC_Shipping_Legacy_Free_Shipping extends WC_Shipping_Method {
 		$this->requires     = $this->get_option( 'requires' );
 
 		// Actions.
-		add_action( 'woocommerce_update_options_shipping_' . $this->id, array( $this, 'process_admin_options' ) );
+		add_action( 'poocommerce_update_options_shipping_' . $this->id, array( $this, 'process_admin_options' ) );
 	}
 
 	/**
@@ -96,57 +96,57 @@ class WC_Shipping_Legacy_Free_Shipping extends WC_Shipping_Method {
 	public function init_form_fields() {
 		$this->form_fields = array(
 			'enabled'      => array(
-				'title'   => __( 'Enable/Disable', 'woocommerce' ),
+				'title'   => __( 'Enable/Disable', 'poocommerce' ),
 				'type'    => 'checkbox',
-				'label'   => __( 'Once disabled, this legacy method will no longer be available.', 'woocommerce' ),
+				'label'   => __( 'Once disabled, this legacy method will no longer be available.', 'poocommerce' ),
 				'default' => 'no',
 			),
 			'title'        => array(
-				'title'       => __( 'Method title', 'woocommerce' ),
+				'title'       => __( 'Method title', 'poocommerce' ),
 				'type'        => 'text',
-				'description' => __( 'This controls the title which the user sees during checkout.', 'woocommerce' ),
-				'default'     => __( 'Free Shipping', 'woocommerce' ),
+				'description' => __( 'This controls the title which the user sees during checkout.', 'poocommerce' ),
+				'default'     => __( 'Free Shipping', 'poocommerce' ),
 				'desc_tip'    => true,
 			),
 			'availability' => array(
-				'title'   => __( 'Method availability', 'woocommerce' ),
+				'title'   => __( 'Method availability', 'poocommerce' ),
 				'type'    => 'select',
 				'default' => 'all',
 				'class'   => 'availability wc-enhanced-select',
 				'options' => array(
-					'all'      => __( 'All allowed countries', 'woocommerce' ),
-					'specific' => __( 'Specific Countries', 'woocommerce' ),
+					'all'      => __( 'All allowed countries', 'poocommerce' ),
+					'specific' => __( 'Specific Countries', 'poocommerce' ),
 				),
 			),
 			'countries'    => array(
-				'title'             => __( 'Specific countries', 'woocommerce' ),
+				'title'             => __( 'Specific countries', 'poocommerce' ),
 				'type'              => 'multiselect',
 				'class'             => 'wc-enhanced-select',
 				'css'               => 'width: 400px;',
 				'default'           => '',
 				'options'           => WC()->countries->get_shipping_countries(),
 				'custom_attributes' => array(
-					'data-placeholder' => __( 'Select some countries', 'woocommerce' ),
+					'data-placeholder' => __( 'Select some countries', 'poocommerce' ),
 				),
 			),
 			'requires'     => array(
-				'title'   => __( 'Free shipping requires...', 'woocommerce' ),
+				'title'   => __( 'Free shipping requires...', 'poocommerce' ),
 				'type'    => 'select',
 				'class'   => 'wc-enhanced-select',
 				'default' => '',
 				'options' => array(
-					''           => __( 'N/A', 'woocommerce' ),
-					'coupon'     => __( 'A valid free shipping coupon', 'woocommerce' ),
-					'min_amount' => __( 'A minimum order amount', 'woocommerce' ),
-					'either'     => __( 'A minimum order amount OR a coupon', 'woocommerce' ),
-					'both'       => __( 'A minimum order amount AND a coupon', 'woocommerce' ),
+					''           => __( 'N/A', 'poocommerce' ),
+					'coupon'     => __( 'A valid free shipping coupon', 'poocommerce' ),
+					'min_amount' => __( 'A minimum order amount', 'poocommerce' ),
+					'either'     => __( 'A minimum order amount OR a coupon', 'poocommerce' ),
+					'both'       => __( 'A minimum order amount AND a coupon', 'poocommerce' ),
 				),
 			),
 			'min_amount'   => array(
-				'title'       => __( 'Minimum order amount', 'woocommerce' ),
+				'title'       => __( 'Minimum order amount', 'poocommerce' ),
 				'type'        => 'price',
 				'placeholder' => wc_format_localized_price( 0 ),
-				'description' => __( 'Users will need to spend this amount to get free shipping (if enabled above).', 'woocommerce' ),
+				'description' => __( 'Users will need to spend this amount to get free shipping (if enabled above).', 'poocommerce' ),
 				'default'     => '0',
 				'desc_tip'    => true,
 			),
@@ -231,7 +231,7 @@ class WC_Shipping_Legacy_Free_Shipping extends WC_Shipping_Method {
 				break;
 		}
 
-		return apply_filters( 'woocommerce_shipping_' . $this->id . '_is_available', $is_available, $package, $this );
+		return apply_filters( 'poocommerce_shipping_' . $this->id . '_is_available', $is_available, $package, $this );
 	}
 
 	/**

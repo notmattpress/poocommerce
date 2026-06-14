@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import type { ProductVariation } from '@woocommerce/data';
+import type { ProductVariation } from '@poocommerce/data';
 import { __, sprintf } from '@wordpress/i18n';
 
 /**
@@ -40,7 +40,7 @@ function getVariationName( variation: VariationSource ) {
 
 	return sprintf(
 		/* translators: %d: variation ID. */
-		__( 'Variation #%d', 'woocommerce' ),
+		__( 'Variation #%d', 'poocommerce' ),
 		variation.id
 	);
 }

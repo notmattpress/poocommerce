@@ -14,7 +14,7 @@ import { CurrencyControl } from '../components/currency-input';
 
 const fieldDefinition = {
 	type: 'text',
-	label: __( 'Cost of goods', 'woocommerce' ),
+	label: __( 'Cost of goods', 'poocommerce' ),
 	enableSorting: false,
 	enableHiding: false,
 	filterBy: false,

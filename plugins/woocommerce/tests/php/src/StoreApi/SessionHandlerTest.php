@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\StoreApi;
+namespace Automattic\PooCommerce\Tests\StoreApi;
 
-use Automattic\WooCommerce\StoreApi\SessionHandler;
+use Automattic\PooCommerce\StoreApi\SessionHandler;
 use WC_Session;
 use WC_Unit_Test_Case;
 

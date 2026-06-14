@@ -8,7 +8,7 @@ import { render } from '@testing-library/react';
  */
 import { List } from '../List';
 
-jest.mock( '@woocommerce/tracks', () => ( {
+jest.mock( '@poocommerce/tracks', () => ( {
 	recordEvent: jest.fn(),
 } ) );
 

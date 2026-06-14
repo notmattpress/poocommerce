@@ -2,12 +2,12 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin;
+namespace Automattic\PooCommerce\Tests\Internal\Admin;
 
-use Automattic\WooCommerce\Internal\Admin\OrderMilestoneEasterEgg;
-use Automattic\WooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
-use Automattic\WooCommerce\RestApi\UnitTests\HPOSToggleTrait;
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
+use Automattic\PooCommerce\Internal\Admin\OrderMilestoneEasterEgg;
+use Automattic\PooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
+use Automattic\PooCommerce\RestApi\UnitTests\HPOSToggleTrait;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
 
 /**
  * Unit tests for OrderMilestoneEasterEgg.
@@ -43,10 +43,10 @@ class OrderMilestoneEasterEggTest extends \WC_Unit_Test_Case {
 		remove_action( 'admin_enqueue_scripts', array( $this->sut, 'handle_admin_enqueue_scripts' ) );
 		remove_action( 'wp_ajax_wc_egg_dismiss', array( $this->sut, 'handle_ajax_dismiss' ) );
 		remove_action( 'wp_ajax_wc_egg_opt_out', array( $this->sut, 'handle_ajax_opt_out' ) );
-		remove_action( 'woocommerce_new_order', array( $this->sut, 'clear_milestone_cache' ) );
-		remove_action( 'woocommerce_update_order', array( $this->sut, 'clear_milestone_cache' ) );
-		remove_action( 'woocommerce_delete_order', array( $this->sut, 'clear_milestone_cache' ) );
-		remove_action( 'woocommerce_trash_order', array( $this->sut, 'clear_milestone_cache' ) );
+		remove_action( 'poocommerce_new_order', array( $this->sut, 'clear_milestone_cache' ) );
+		remove_action( 'poocommerce_update_order', array( $this->sut, 'clear_milestone_cache' ) );
+		remove_action( 'poocommerce_delete_order', array( $this->sut, 'clear_milestone_cache' ) );
+		remove_action( 'poocommerce_trash_order', array( $this->sut, 'clear_milestone_cache' ) );
 
 		// Drop HPOS tables before toggling off — avoids the "orders out of sync" exception
 		// that fires when HPOS is disabled while the table still holds unsync'd rows.
@@ -76,16 +76,16 @@ class OrderMilestoneEasterEggTest extends \WC_Unit_Test_Case {
 			has_action( 'wp_ajax_wc_egg_opt_out', array( $this->sut, 'handle_ajax_opt_out' ) )
 		);
 		$this->assertNotFalse(
-			has_action( 'woocommerce_new_order', array( $this->sut, 'clear_milestone_cache' ) )
+			has_action( 'poocommerce_new_order', array( $this->sut, 'clear_milestone_cache' ) )
 		);
 		$this->assertNotFalse(
-			has_action( 'woocommerce_update_order', array( $this->sut, 'clear_milestone_cache' ) )
+			has_action( 'poocommerce_update_order', array( $this->sut, 'clear_milestone_cache' ) )
 		);
 		$this->assertNotFalse(
-			has_action( 'woocommerce_delete_order', array( $this->sut, 'clear_milestone_cache' ) )
+			has_action( 'poocommerce_delete_order', array( $this->sut, 'clear_milestone_cache' ) )
 		);
 		$this->assertNotFalse(
-			has_action( 'woocommerce_trash_order', array( $this->sut, 'clear_milestone_cache' ) )
+			has_action( 'poocommerce_trash_order', array( $this->sut, 'clear_milestone_cache' ) )
 		);
 	}
 
@@ -391,7 +391,7 @@ class OrderMilestoneEasterEggTest extends \WC_Unit_Test_Case {
 	 * @testdox handle_admin_enqueue_scripts skips enqueue when not on the order edit page.
 	 */
 	public function test_enqueue_skipped_when_not_order_edit_page(): void {
-		$_GET['page'] = 'woocommerce';
+		$_GET['page'] = 'poocommerce';
 
 		$this->sut->handle_admin_enqueue_scripts();
 

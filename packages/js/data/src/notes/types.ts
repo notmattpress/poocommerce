@@ -26,7 +26,7 @@ export type NoteType =
 	| 'survey'
 	| 'email';
 
-// [Notes.php](https://github.com/woocommerce/woocommerce/blob/af97aaf41067bcd0b7ff12df9b6169f97c326c0f/plugins/woocommerce/src/Admin/API/Notes.php#L706-L822)
+// [Notes.php](https://github.com/poocommerce/poocommerce/blob/af97aaf41067bcd0b7ff12df9b6169f97c326c0f/plugins/poocommerce/src/Admin/API/Notes.php#L706-L822)
 export type Note = {
 	id: number;
 	name: string;
@@ -49,7 +49,7 @@ export type Note = {
 	is_deleted: boolean;
 };
 
-// [Notes.php](https://github.com/woocommerce/woocommerce/blob/af97aaf41067bcd0b7ff12df9b6169f97c326c0f/plugins/woocommerce/src/Admin/API/Notes.php#L629-L699)
+// [Notes.php](https://github.com/poocommerce/poocommerce/blob/af97aaf41067bcd0b7ff12df9b6169f97c326c0f/plugins/poocommerce/src/Admin/API/Notes.php#L629-L699)
 export type NoteQuery = Partial< {
 	context: string;
 	is_read: boolean;

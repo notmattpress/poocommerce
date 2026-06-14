@@ -1,6 +1,6 @@
 # REST API Route Controllers
 
-This directory contains route controllers and schemas for WooCommerce REST API endpoints, organized by major version.
+This directory contains route controllers and schemas for PooCommerce REST API endpoints, organized by major version.
 
 ## Version Structure
 
@@ -15,14 +15,14 @@ Each major version of the REST API has its own directory:
 Previous versions of the REST API (v1, v2, v3) can be found in the legacy includes directory:
 
 ```markdown
-plugins/woocommerce/includes/rest-api/
+plugins/poocommerce/includes/rest-api/
 ```
 
 These legacy controllers are maintained for backwards compatibility and should not be modified for new features.
 
 ## V4 Controllers and Schemas
 
-Route controllers and schemas for the WooCommerce REST API V4 endpoints are placed in the `V4/` directory.
+Route controllers and schemas for the PooCommerce REST API V4 endpoints are placed in the `V4/` directory.
 
 ### Directory Structure
 
@@ -51,8 +51,8 @@ The main controller class should be named `Controller.php` with the correct name
 
 For example:
 
-- `V4/Orders/Controller.php` with namespace `Automattic\WooCommerce\Internal\RestApi\Routes\V4\Orders`
-- `V4/OrderNotes/Controller.php` with namespace `Automattic\WooCommerce\Internal\RestApi\Routes\V4\OrderNotes`
+- `V4/Orders/Controller.php` with namespace `Automattic\PooCommerce\Internal\RestApi\Routes\V4\Orders`
+- `V4/OrderNotes/Controller.php` with namespace `Automattic\PooCommerce\Internal\RestApi\Routes\V4\OrderNotes`
 
 #### Schemas
 
@@ -60,8 +60,8 @@ The schema class should be named `{SingularResourceType}Schema.php` with the cor
 
 For example:
 
-- `V4/Orders/OrderSchema.php` with namespace `Automattic\WooCommerce\Internal\RestApi\Routes\V4\Orders`
-- `V4/OrderNotes/OrderNoteSchema.php` with namespace `Automattic\WooCommerce\Internal\RestApi\Routes\V4\OrderNotes`
+- `V4/Orders/OrderSchema.php` with namespace `Automattic\PooCommerce\Internal\RestApi\Routes\V4\Orders`
+- `V4/OrderNotes/OrderNoteSchema.php` with namespace `Automattic\PooCommerce\Internal\RestApi\Routes\V4\OrderNotes`
 
 ### Controller Structure
 

@@ -1,13 +1,13 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Tests\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\Assets\Api;
-use Automattic\WooCommerce\Blocks\BlockTypes\SavedForLater;
-use Automattic\WooCommerce\Blocks\Package;
-use Automattic\WooCommerce\Proxies\LegacyProxy;
-use Automattic\WooCommerce\Tests\Blocks\Mocks\AssetDataRegistryMock;
+use Automattic\PooCommerce\Blocks\Assets\Api;
+use Automattic\PooCommerce\Blocks\BlockTypes\SavedForLater;
+use Automattic\PooCommerce\Blocks\Package;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\Tests\Blocks\Mocks\AssetDataRegistryMock;
 use ReflectionClass;
 use ReflectionMethod;
 use ReflectionProperty;
@@ -52,20 +52,20 @@ class SavedForLaterTests extends WP_UnitTestCase {
 	 * @return array<string, array{string, string, bool, bool}>
 	 */
 	public function provider_register_hooked_block(): array {
-		$cart_only       = '<!-- wp:woocommerce/cart /-->';
-		$cart_with_block = '<!-- wp:woocommerce/cart /--><!-- wp:woocommerce/saved-for-later /-->';
+		$cart_only       = '<!-- wp:poocommerce/cart /-->';
+		$cart_with_block = '<!-- wp:poocommerce/cart /--><!-- wp:poocommerce/saved-for-later /-->';
 
 		return array(
 			// label                                => array( cart_page_content, anchor, context_is_cart_page, expected_hooked ).
-			'hooked after cart on cart page'        => array( $cart_only, 'woocommerce/cart', true, true ),
+			'hooked after cart on cart page'        => array( $cart_only, 'poocommerce/cart', true, true ),
 			'not hooked after non-cart anchor'      => array( $cart_only, 'core/paragraph', true, false ),
-			'not hooked when context is other page' => array( $cart_only, 'woocommerce/cart', false, false ),
-			'not hooked when already present'       => array( $cart_with_block, 'woocommerce/cart', true, false ),
+			'not hooked when context is other page' => array( $cart_only, 'poocommerce/cart', false, false ),
+			'not hooked when already present'       => array( $cart_with_block, 'poocommerce/cart', true, false ),
 		);
 	}
 
 	/**
-	 * `register_hooked_block` only adds the block when the anchor is `woocommerce/cart`,
+	 * `register_hooked_block` only adds the block when the anchor is `poocommerce/cart`,
 	 * the context is the cart page, and the cart page doesn't already contain the block.
 	 *
 	 * @dataProvider provider_register_hooked_block
@@ -83,7 +83,7 @@ class SavedForLaterTests extends WP_UnitTestCase {
 				'post_content' => $cart_page_content,
 			)
 		);
-		update_option( 'woocommerce_cart_page_id', $cart_page_id );
+		update_option( 'poocommerce_cart_page_id', $cart_page_id );
 
 		$context_id = $context_is_cart_page
 			? $cart_page_id
@@ -97,9 +97,9 @@ class SavedForLaterTests extends WP_UnitTestCase {
 		$hooked = $this->sut->register_hooked_block( array(), 'after', $anchor, get_post( $context_id ) );
 
 		if ( $expected_hooked ) {
-			$this->assertContains( 'woocommerce/saved-for-later', $hooked );
+			$this->assertContains( 'poocommerce/saved-for-later', $hooked );
 		} else {
-			$this->assertNotContains( 'woocommerce/saved-for-later', $hooked );
+			$this->assertNotContains( 'poocommerce/saved-for-later', $hooked );
 		}
 	}
 
@@ -108,19 +108,19 @@ class SavedForLaterTests extends WP_UnitTestCase {
 	 * must treat that as "no cart page" rather than letting it match a real post ID.
 	 */
 	public function test_register_hooked_block_skips_when_cart_page_unset(): void {
-		delete_option( 'woocommerce_cart_page_id' );
+		delete_option( 'poocommerce_cart_page_id' );
 
 		$context_id = self::factory()->post->create(
 			array(
 				'post_type'    => 'page',
 				'post_status'  => 'publish',
-				'post_content' => '<!-- wp:woocommerce/cart /-->',
+				'post_content' => '<!-- wp:poocommerce/cart /-->',
 			)
 		);
 
-		$hooked = $this->sut->register_hooked_block( array(), 'after', 'woocommerce/cart', get_post( $context_id ) );
+		$hooked = $this->sut->register_hooked_block( array(), 'after', 'poocommerce/cart', get_post( $context_id ) );
 
-		$this->assertNotContains( 'woocommerce/saved-for-later', $hooked );
+		$this->assertNotContains( 'poocommerce/saved-for-later', $hooked );
 	}
 
 	/**
@@ -131,14 +131,14 @@ class SavedForLaterTests extends WP_UnitTestCase {
 	 */
 	public function test_hooked_block_attributes_seed_heading_inner_block(): void {
 		$parsed_hooked_block = array(
-			'blockName' => 'woocommerce/saved-for-later',
+			'blockName' => 'poocommerce/saved-for-later',
 			'attrs'     => array(),
 		);
-		$parsed_anchor_block = array( 'blockName' => 'woocommerce/cart' );
+		$parsed_anchor_block = array( 'blockName' => 'poocommerce/cart' );
 
 		$result = $this->sut->set_hooked_block_attributes(
 			$parsed_hooked_block,
-			'woocommerce/saved-for-later',
+			'poocommerce/saved-for-later',
 			'after',
 			$parsed_anchor_block
 		);
@@ -162,7 +162,7 @@ class SavedForLaterTests extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Extensions are free to hook `hooked_block_woocommerce/saved-for-later`
+	 * Extensions are free to hook `hooked_block_poocommerce/saved-for-later`
 	 * to add their own inner blocks at a different priority. Our heading must
 	 * still be seeded alongside, not in place of, what they added.
 	 */
@@ -175,16 +175,16 @@ class SavedForLaterTests extends WP_UnitTestCase {
 			'innerContent' => array( '<p>From another extension</p>' ),
 		);
 		$parsed_hooked_block = array(
-			'blockName'    => 'woocommerce/saved-for-later',
+			'blockName'    => 'poocommerce/saved-for-later',
 			'attrs'        => array(),
 			'innerBlocks'  => array( $existing_block ),
 			'innerContent' => array( null ),
 		);
-		$parsed_anchor_block = array( 'blockName' => 'woocommerce/cart' );
+		$parsed_anchor_block = array( 'blockName' => 'poocommerce/cart' );
 
 		$result = $this->sut->set_hooked_block_attributes(
 			$parsed_hooked_block,
-			'woocommerce/saved-for-later',
+			'poocommerce/saved-for-later',
 			'after',
 			$parsed_anchor_block
 		);
@@ -239,7 +239,7 @@ class SavedForLaterTests extends WP_UnitTestCase {
 
 		$previous_block_to_render            = \WP_Block_Supports::$block_to_render;
 		\WP_Block_Supports::$block_to_render = array(
-			'blockName' => 'woocommerce/saved-for-later',
+			'blockName' => 'poocommerce/saved-for-later',
 			'attrs'     => $attributes,
 		);
 
@@ -291,7 +291,7 @@ class SavedForLaterTests extends WP_UnitTestCase {
 
 		$previous_block_to_render            = \WP_Block_Supports::$block_to_render;
 		\WP_Block_Supports::$block_to_render = array(
-			'blockName' => 'woocommerce/saved-for-later',
+			'blockName' => 'poocommerce/saved-for-later',
 			'attrs'     => $attributes,
 		);
 

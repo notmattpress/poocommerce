@@ -2,10 +2,10 @@
 /**
  * Represents a marketing/ads campaign for marketing channels.
  *
- * Marketing channels (implementing MarketingChannelInterface) can use this class to map their campaign data and present it to WooCommerce core.
+ * Marketing channels (implementing MarketingChannelInterface) can use this class to map their campaign data and present it to PooCommerce core.
  */
 
-namespace Automattic\WooCommerce\Admin\Marketing;
+namespace Automattic\PooCommerce\Admin\Marketing;
 
 /**
  * MarketingCampaign class

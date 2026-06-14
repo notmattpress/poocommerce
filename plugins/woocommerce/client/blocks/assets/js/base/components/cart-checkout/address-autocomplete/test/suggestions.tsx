@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { render, screen } from '@testing-library/react';
-import type { AddressAutocompleteResult } from '@woocommerce/types';
+import type { AddressAutocompleteResult } from '@poocommerce/types';
 
 /**
  * Internal dependencies

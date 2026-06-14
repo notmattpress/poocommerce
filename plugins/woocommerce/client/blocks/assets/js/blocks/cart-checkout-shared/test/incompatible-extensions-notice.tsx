@@ -3,24 +3,24 @@
  */
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { getSetting } from '@woocommerce/settings';
-import { useLocalStorageState } from '@woocommerce/base-hooks';
+import { getSetting } from '@poocommerce/settings';
+import { useLocalStorageState } from '@poocommerce/base-hooks';
 
 /**
  * Internal dependencies
  */
 import { IncompatibleExtensionsFrontendNotice } from '../incompatible-extensions-notice';
 
-jest.mock( '@woocommerce/settings', () => ( {
+jest.mock( '@poocommerce/settings', () => ( {
 	getSetting: jest.fn(),
 	CURRENT_USER_IS_ADMIN: true,
 } ) );
 
-jest.mock( '@woocommerce/base-hooks', () => ( {
+jest.mock( '@poocommerce/base-hooks', () => ( {
 	useLocalStorageState: jest.fn(),
 } ) );
 
-jest.mock( '@woocommerce/base-components/notice-banner', () => ( {
+jest.mock( '@poocommerce/base-components/notice-banner', () => ( {
 	__esModule: true,
 	default: ( {
 		children,
@@ -63,7 +63,7 @@ describe( 'IncompatibleExtensionsFrontendNotice', () => {
 
 		it( 'should not render', () => {
 			const { container } = render(
-				<IncompatibleExtensionsFrontendNotice block="woocommerce/checkout" />
+				<IncompatibleExtensionsFrontendNotice block="poocommerce/checkout" />
 			);
 			expect( container ).toBeEmptyDOMElement();
 			expect(
@@ -83,7 +83,7 @@ describe( 'IncompatibleExtensionsFrontendNotice', () => {
 
 		it( 'should render notice with extension name for checkout', () => {
 			render(
-				<IncompatibleExtensionsFrontendNotice block="woocommerce/checkout" />
+				<IncompatibleExtensionsFrontendNotice block="poocommerce/checkout" />
 			);
 
 			expect( screen.getByTestId( 'notice-banner' ) ).toBeInTheDocument();
@@ -103,7 +103,7 @@ describe( 'IncompatibleExtensionsFrontendNotice', () => {
 
 		it( 'should render notice with extension name for cart', () => {
 			render(
-				<IncompatibleExtensionsFrontendNotice block="woocommerce/cart" />
+				<IncompatibleExtensionsFrontendNotice block="poocommerce/cart" />
 			);
 
 			expect(
@@ -115,7 +115,7 @@ describe( 'IncompatibleExtensionsFrontendNotice', () => {
 
 		it( 'should not render a list', () => {
 			render(
-				<IncompatibleExtensionsFrontendNotice block="woocommerce/checkout" />
+				<IncompatibleExtensionsFrontendNotice block="poocommerce/checkout" />
 			);
 
 			expect( screen.queryByRole( 'list' ) ).not.toBeInTheDocument();
@@ -132,7 +132,7 @@ describe( 'IncompatibleExtensionsFrontendNotice', () => {
 
 		it( 'should render notice with list of extensions', () => {
 			render(
-				<IncompatibleExtensionsFrontendNotice block="woocommerce/checkout" />
+				<IncompatibleExtensionsFrontendNotice block="poocommerce/checkout" />
 			);
 
 			expect(
@@ -162,7 +162,7 @@ describe( 'IncompatibleExtensionsFrontendNotice', () => {
 		it( 'should call setDismissedNotices when dismissed', async () => {
 			const user = userEvent.setup();
 			render(
-				<IncompatibleExtensionsFrontendNotice block="woocommerce/checkout" />
+				<IncompatibleExtensionsFrontendNotice block="poocommerce/checkout" />
 			);
 
 			await user.click( screen.getByTestId( 'dismiss-button' ) );
@@ -179,7 +179,7 @@ describe( 'IncompatibleExtensionsFrontendNotice', () => {
 			] );
 
 			const { container } = render(
-				<IncompatibleExtensionsFrontendNotice block="woocommerce/checkout" />
+				<IncompatibleExtensionsFrontendNotice block="poocommerce/checkout" />
 			);
 
 			expect( container ).toBeEmptyDOMElement();
@@ -196,7 +196,7 @@ describe( 'IncompatibleExtensionsFrontendNotice', () => {
 			] );
 
 			render(
-				<IncompatibleExtensionsFrontendNotice block="woocommerce/checkout" />
+				<IncompatibleExtensionsFrontendNotice block="poocommerce/checkout" />
 			);
 
 			expect( screen.getByTestId( 'notice-banner' ) ).toBeInTheDocument();
@@ -209,7 +209,7 @@ describe( 'IncompatibleExtensionsFrontendNotice', () => {
 			] );
 
 			const { container } = render(
-				<IncompatibleExtensionsFrontendNotice block="woocommerce/cart" />
+				<IncompatibleExtensionsFrontendNotice block="poocommerce/cart" />
 			);
 
 			expect( container ).toBeEmptyDOMElement();

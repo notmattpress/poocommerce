@@ -1,10 +1,10 @@
 # Site Style Sync Hooks and Filters
 
-The WooCommerce Email Editor Site Style Sync feature provides several hooks and filters that developers can use to customize the synchronization behavior.
+The PooCommerce Email Editor Site Style Sync feature provides several hooks and filters that developers can use to customize the synchronization behavior.
 
 ## Filters
 
-### `woocommerce_email_editor_synced_site_styles`
+### `poocommerce_email_editor_synced_site_styles`
 
 Filter the synced site style data before applying to email theme.
 
@@ -17,13 +17,13 @@ Filter the synced site style data before applying to email theme.
  * @param array $site_data The original site theme data
  * @return array Modified synced data
  */
-apply_filters( 'woocommerce_email_editor_synced_site_styles', $synced_data, $site_data );
+apply_filters( 'poocommerce_email_editor_synced_site_styles', $synced_data, $site_data );
 ```
 
 **Example Usage:**
 
 ```php
-add_filter( 'woocommerce_email_editor_synced_site_styles', function( $synced_data, $site_data ) {
+add_filter( 'poocommerce_email_editor_synced_site_styles', function( $synced_data, $site_data ) {
     // Override specific colors for emails
     if ( isset( $synced_data['styles']['color'] ) ) {
         $synced_data['styles']['color']['background'] = '#ffffff'; // Force white background
@@ -44,7 +44,7 @@ add_filter( 'woocommerce_email_editor_synced_site_styles', function( $synced_dat
  );
 ```
 
-### `woocommerce_email_editor_site_style_sync_enabled`
+### `poocommerce_email_editor_site_style_sync_enabled`
 
 Control whether site style sync functionality is enabled.
 
@@ -56,14 +56,14 @@ Control whether site style sync functionality is enabled.
  * @param bool $enabled Whether site style sync is enabled
  * @return bool
  */
-apply_filters( 'woocommerce_email_editor_site_style_sync_enabled', true );
+apply_filters( 'poocommerce_email_editor_site_style_sync_enabled', true );
 ```
 
 **Example Usage:**
 
 ```php
 // Disable site style sync for specific themes
-add_filter( 'woocommerce_email_editor_site_style_sync_enabled', function( $enabled ) {
+add_filter( 'poocommerce_email_editor_site_style_sync_enabled', function( $enabled ) {
     $current_theme = get_template();
     $incompatible_themes = array( 'legacy-theme', 'custom-theme' );
     
@@ -75,7 +75,7 @@ add_filter( 'woocommerce_email_editor_site_style_sync_enabled', function( $enabl
 });
 ```
 
-### `woocommerce_email_editor_site_theme`
+### `poocommerce_email_editor_site_theme`
 
 Filter the site theme data used for email style sync.
 
@@ -89,7 +89,7 @@ This filter allows overriding the site theme used when syncing global styles for
  * @param WP_Theme_JSON $site_theme The site theme data.
  * @return WP_Theme_JSON Modified site theme data.
  */
-apply_filters( 'woocommerce_email_editor_site_theme', $site_theme );
+apply_filters( 'poocommerce_email_editor_site_theme', $site_theme );
 ```
 
 **Example Usage:**
@@ -97,7 +97,7 @@ apply_filters( 'woocommerce_email_editor_site_theme', $site_theme );
 ```php
 // Override the site theme with custom theme data for environments
 // where theme data is not directly accessible
-add_filter( 'woocommerce_email_editor_site_theme', function( $site_theme ) {
+add_filter( 'poocommerce_email_editor_site_theme', function( $site_theme ) {
     // Fetch theme data from an external source
     $custom_theme_data = get_custom_theme_data();
 
@@ -114,7 +114,7 @@ add_filter( 'woocommerce_email_editor_site_theme', function( $site_theme ) {
 ### Custom Font Mapping
 
 ```php
-add_filter( 'woocommerce_email_editor_synced_site_styles', function( $synced_data, $site_data ) {
+add_filter( 'poocommerce_email_editor_synced_site_styles', function( $synced_data, $site_data ) {
     // Map specific site fonts to preferred email fonts
     $font_mappings = array(
         'Inter' => 'Arial, sans-serif',
@@ -140,7 +140,7 @@ add_filter( 'woocommerce_email_editor_synced_site_styles', function( $synced_dat
 ### Conditional Sync Based on Email Type
 
 ```php
-add_filter( 'woocommerce_email_editor_synced_site_styles', function( $synced_data, $site_data ) {
+add_filter( 'poocommerce_email_editor_synced_site_styles', function( $synced_data, $site_data ) {
     global $post;
     
     // Different styling for different email types

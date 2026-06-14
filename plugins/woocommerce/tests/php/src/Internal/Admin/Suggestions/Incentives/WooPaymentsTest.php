@@ -1,10 +1,10 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\Suggestions\Incentives;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\Suggestions\Incentives;
 
-use Automattic\WooCommerce\Internal\Admin\Suggestions\Incentives\Incentive;
-use Automattic\WooCommerce\Internal\Admin\Suggestions\Incentives\WooPayments;
+use Automattic\PooCommerce\Internal\Admin\Suggestions\Incentives\Incentive;
+use Automattic\PooCommerce\Internal\Admin\Suggestions\Incentives\WooPayments;
 use WC_Unit_Test_Case;
 
 /**
@@ -214,7 +214,7 @@ class WooPaymentsTest extends WC_Unit_Test_Case {
 			->method( 'is_extension_active' );
 
 		// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
-		$filter_callback = fn( $caps ) => array( 'manage_woocommerce' => true );
+		$filter_callback = fn( $caps ) => array( 'manage_poocommerce' => true );
 		add_filter( 'user_has_cap', $filter_callback );
 
 		add_filter( 'pre_http_request', $this->response_mock_ref, 10, 3 );

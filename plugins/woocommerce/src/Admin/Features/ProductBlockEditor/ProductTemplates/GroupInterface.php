@@ -1,9 +1,9 @@
 <?php
 /**
- * WooCommerce Product Editor group interface compatibility shim.
+ * PooCommerce Product Editor group interface compatibility shim.
  */
 
-namespace Automattic\WooCommerce\Admin\Features\ProductBlockEditor\ProductTemplates;
+namespace Automattic\PooCommerce\Admin\Features\ProductBlockEditor\ProductTemplates;
 
 /**
  * Removed product editor group container interface.

@@ -21,7 +21,7 @@ import {
 	getNewPath,
 	getQueryFromActiveFilters,
 	getHistory,
-} from '@woocommerce/navigation';
+} from '@poocommerce/navigation';
 
 /**
  * Internal dependencies
@@ -32,8 +32,8 @@ import { Text } from '../experimental';
 import { backwardsCompatibleCreateInterpolateElement as createInterpolateElement } from './utils';
 
 const matches = [
-	{ value: 'all', label: __( 'All', 'woocommerce' ) },
-	{ value: 'any', label: __( 'Any', 'woocommerce' ) },
+	{ value: 'all', label: __( 'All', 'poocommerce' ) },
+	{ value: 'any', label: __( 'Any', 'poocommerce' ) },
 ];
 
 /**
@@ -148,13 +148,13 @@ class AdvancedFilters extends Component {
 			select: (
 				<SelectControl
 					__next40pxDefaultSize
-					className="woocommerce-filters-advanced__title-select"
+					className="poocommerce-filters-advanced__title-select"
 					options={ matches }
 					value={ match }
 					onChange={ this.onMatchChange }
 					aria-label={ __(
 						'Choose to apply any or all filters',
-						'woocommerce'
+						'poocommerce'
 					) }
 				/>
 			),
@@ -281,7 +281,7 @@ class AdvancedFilters extends Component {
 			activeFilters.length === 0;
 		const isEnglish = this.isEnglish();
 		return (
-			<Card className="woocommerce-filters-advanced" size="small">
+			<Card className="poocommerce-filters-advanced" size="small">
 				<CardHeader justify="flex-start">
 					<Text
 						variant="subtitle.small"
@@ -297,7 +297,7 @@ class AdvancedFilters extends Component {
 				{ !! activeFilters.length && (
 					<CardBody size="none">
 						<ul
-							className="woocommerce-filters-advanced__list"
+							className="poocommerce-filters-advanced__list"
 							ref={ this.filterListRef }
 						>
 							{ activeFilters
@@ -327,24 +327,24 @@ class AdvancedFilters extends Component {
 				) }
 				{ availableFilters.length > 0 && (
 					<CardBody>
-						<div className="woocommerce-filters-advanced__add-filter">
+						<div className="poocommerce-filters-advanced__add-filter">
 							<Dropdown
-								className="woocommerce-filters-advanced__add-filter-dropdown"
+								className="poocommerce-filters-advanced__add-filter-dropdown"
 								popoverProps={ {
 									placement: 'bottom',
 								} }
 								renderToggle={ ( { isOpen, onToggle } ) => (
 									<Button
-										className="woocommerce-filters-advanced__add-button"
+										className="poocommerce-filters-advanced__add-button"
 										onClick={ onToggle }
 										aria-expanded={ isOpen }
 									>
 										<AddOutlineIcon />
-										{ __( 'Add a filter', 'woocommerce' ) }
+										{ __( 'Add a filter', 'poocommerce' ) }
 									</Button>
 								) }
 								renderContent={ ( { onClose } ) => (
-									<ul className="woocommerce-filters-advanced__add-dropdown">
+									<ul className="poocommerce-filters-advanced__add-dropdown">
 										{ availableFilters.map( ( filter ) => (
 											<li key={ filter.key }>
 												<Button
@@ -365,10 +365,10 @@ class AdvancedFilters extends Component {
 					</CardBody>
 				) }
 				<CardFooter align="center">
-					<div className="woocommerce-filters-advanced__controls">
+					<div className="poocommerce-filters-advanced__controls">
 						{ updateDisabled && (
 							<Button isPrimary disabled>
-								{ __( 'Filter', 'woocommerce' ) }
+								{ __( 'Filter', 'poocommerce' ) }
 							</Button>
 						) }
 						{ ! updateDisabled && (
@@ -378,7 +378,7 @@ class AdvancedFilters extends Component {
 								href={ updateHref }
 								onClick={ this.onFilter }
 							>
-								{ __( 'Filter', 'woocommerce' ) }
+								{ __( 'Filter', 'poocommerce' ) }
 							</Link>
 						) }
 						{ activeFilters.length > 0 && (
@@ -387,7 +387,7 @@ class AdvancedFilters extends Component {
 								href={ this.getUpdateHref( [] ) }
 								onClick={ this.clearFilters }
 							>
-								{ __( 'Clear all filters', 'woocommerce' ) }
+								{ __( 'Clear all filters', 'poocommerce' ) }
 							</Link>
 						) }
 					</div>

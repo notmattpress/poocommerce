@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Admin\Features\Fulfillments\DataStore;
+namespace Automattic\PooCommerce\Tests\Admin\Features\Fulfillments\DataStore;
 
-use Automattic\WooCommerce\Admin\Features\Fulfillments\DataStore\FulfillmentsDataStore;
-use Automattic\WooCommerce\Admin\Features\Fulfillments\Fulfillment;
+use Automattic\PooCommerce\Admin\Features\Fulfillments\DataStore\FulfillmentsDataStore;
+use Automattic\PooCommerce\Admin\Features\Fulfillments\Fulfillment;
 use WC_Helper_Order;
 use WC_Order;
 use WC_Unit_Test_Case;
@@ -13,7 +13,7 @@ use WP_REST_Request;
 /**
  * Class OrderFulfillmentsRestControllerHookTest
  *
- * @package Automattic\WooCommerce\Tests\Admin\Features\Fulfillments
+ * @package Automattic\PooCommerce\Tests\Admin\Features\Fulfillments
  */
 class FulfillmentsDataStoreHookTest extends WC_Unit_Test_Case {
 	/**
@@ -31,8 +31,8 @@ class FulfillmentsDataStoreHookTest extends WC_Unit_Test_Case {
 	 */
 	public static function setUpBeforeClass(): void {
 		parent::setUpBeforeClass();
-		update_option( 'woocommerce_feature_fulfillments_enabled', 'yes' );
-		$controller = wc_get_container()->get( \Automattic\WooCommerce\Admin\Features\Fulfillments\FulfillmentsController::class );
+		update_option( 'poocommerce_feature_fulfillments_enabled', 'yes' );
+		$controller = wc_get_container()->get( \Automattic\PooCommerce\Admin\Features\Fulfillments\FulfillmentsController::class );
 		$controller->register();
 		$controller->initialize_fulfillments();
 	}
@@ -41,7 +41,7 @@ class FulfillmentsDataStoreHookTest extends WC_Unit_Test_Case {
 	 * Runs after all the tests of the class.
 	 */
 	public static function tearDownAfterClass(): void {
-		update_option( 'woocommerce_feature_fulfillments_enabled', 'no' );
+		update_option( 'poocommerce_feature_fulfillments_enabled', 'no' );
 		parent::tearDownAfterClass();
 	}
 
@@ -76,7 +76,7 @@ class FulfillmentsDataStoreHookTest extends WC_Unit_Test_Case {
 	public function test_fulfillment_before_create_hook_is_called() {
 		$hook_called = false;
 		add_filter(
-			'woocommerce_fulfillment_before_create',
+			'poocommerce_fulfillment_before_create',
 			function ( $fulfillment ) use ( &$hook_called ) {
 				$hook_called = true;
 				return $fulfillment;
@@ -97,7 +97,7 @@ class FulfillmentsDataStoreHookTest extends WC_Unit_Test_Case {
 		$hook_called = false;
 
 		add_filter(
-			'woocommerce_fulfillment_before_create',
+			'poocommerce_fulfillment_before_create',
 			function () use ( &$hook_called ) {
 				$hook_called = true;
 				throw new \Exception( 'Fulfillment creation prevented by hook.' );
@@ -123,7 +123,7 @@ class FulfillmentsDataStoreHookTest extends WC_Unit_Test_Case {
 		$hook_called = false;
 
 		add_action(
-			'woocommerce_fulfillment_after_create',
+			'poocommerce_fulfillment_after_create',
 			function ( $fulfillment ) use ( &$hook_called, &$received_fulfillment ) {
 				$received_fulfillment = $fulfillment;
 				$hook_called          = true;
@@ -164,7 +164,7 @@ class FulfillmentsDataStoreHookTest extends WC_Unit_Test_Case {
 
 		$hook_called = false;
 		add_filter(
-			'woocommerce_fulfillment_before_update',
+			'poocommerce_fulfillment_before_update',
 			function ( $fulfillment ) use ( &$hook_called ) {
 				$hook_called = true;
 				return $fulfillment;
@@ -192,7 +192,7 @@ class FulfillmentsDataStoreHookTest extends WC_Unit_Test_Case {
 
 		$hook_called = false;
 		add_filter(
-			'woocommerce_fulfillment_before_update',
+			'poocommerce_fulfillment_before_update',
 			function () use ( &$hook_called ) {
 				$hook_called = true;
 				throw new \Exception( 'Fulfillment update prevented by hook.' );
@@ -225,7 +225,7 @@ class FulfillmentsDataStoreHookTest extends WC_Unit_Test_Case {
 		$received_changes         = null;
 		$received_previous_status = null;
 		add_action(
-			'woocommerce_fulfillment_after_update',
+			'poocommerce_fulfillment_after_update',
 			function ( $fulfillment, $changes, $previous_status ) use ( &$hook_called, &$received_fulfillment, &$received_changes, &$received_previous_status ) {
 				$received_fulfillment     = $fulfillment;
 				$received_changes         = $changes;
@@ -289,7 +289,7 @@ class FulfillmentsDataStoreHookTest extends WC_Unit_Test_Case {
 
 		$hook_called = false;
 		add_filter(
-			'woocommerce_fulfillment_before_fulfill',
+			'poocommerce_fulfillment_before_fulfill',
 			function ( $fulfillment ) use ( &$hook_called ) {
 				$hook_called = true;
 
@@ -309,7 +309,7 @@ class FulfillmentsDataStoreHookTest extends WC_Unit_Test_Case {
 
 		$db_fulfillment = new Fulfillment( $fulfillment->get_id() );
 		$this->assertFalse( $db_fulfillment->get_is_fulfilled() );
-		remove_all_filters( 'woocommerce_fulfillment_before_fulfill' );
+		remove_all_filters( 'poocommerce_fulfillment_before_fulfill' );
 	}
 
 	/**
@@ -329,7 +329,7 @@ class FulfillmentsDataStoreHookTest extends WC_Unit_Test_Case {
 
 		$hook_called = false;
 		add_filter(
-			'woocommerce_fulfillment_before_fulfill',
+			'poocommerce_fulfillment_before_fulfill',
 			function ( $fulfillment ) use ( &$hook_called ) {
 				$hook_called = true;
 
@@ -352,7 +352,7 @@ class FulfillmentsDataStoreHookTest extends WC_Unit_Test_Case {
 
 		$db_fulfillment = new Fulfillment( $fulfillment->get_id() );
 		$this->assertTrue( $db_fulfillment->get_is_fulfilled() );
-		remove_all_filters( 'woocommerce_fulfillment_before_fulfill' );
+		remove_all_filters( 'poocommerce_fulfillment_before_fulfill' );
 	}
 
 	/**
@@ -372,7 +372,7 @@ class FulfillmentsDataStoreHookTest extends WC_Unit_Test_Case {
 
 		$hook_called = false;
 		add_filter(
-			'woocommerce_fulfillment_before_fulfill',
+			'poocommerce_fulfillment_before_fulfill',
 			function () use ( &$hook_called ) {
 				$hook_called = true;
 				throw new \Exception( 'Fulfillment fulfill prevented by hook.' );
@@ -404,7 +404,7 @@ class FulfillmentsDataStoreHookTest extends WC_Unit_Test_Case {
 			$this->expectExceptionMessage( 'Fulfillment not found.' );
 			new Fulfillment( $fulfillment->get_id() );
 		}
-		remove_all_filters( 'woocommerce_fulfillment_before_fulfill' );
+		remove_all_filters( 'poocommerce_fulfillment_before_fulfill' );
 	}
 
 	/**
@@ -424,7 +424,7 @@ class FulfillmentsDataStoreHookTest extends WC_Unit_Test_Case {
 
 		$hook_called = false;
 		add_action(
-			'woocommerce_fulfillment_after_fulfill',
+			'poocommerce_fulfillment_after_fulfill',
 			function ( $fulfillment ) use ( &$hook_called, &$received_fulfillment ) {
 				$received_fulfillment = $fulfillment;
 				$hook_called          = true;
@@ -456,7 +456,7 @@ class FulfillmentsDataStoreHookTest extends WC_Unit_Test_Case {
 		$this->assertEquals( $received_fulfillment->get_meta( 'test_meta_key_2' ), $fulfillment->get_meta( 'test_meta_key_2' ) );
 		$this->assertEquals( $received_fulfillment->get_meta( 'test_meta_update' ), $fulfillment->get_meta( 'test_meta_update' ) );
 		$this->assertEquals( $received_fulfillment->get_items(), $fulfillment->get_items() );
-		remove_all_actions( 'woocommerce_fulfillment_after_fulfill' );
+		remove_all_actions( 'poocommerce_fulfillment_after_fulfill' );
 	}
 
 	/**
@@ -471,7 +471,7 @@ class FulfillmentsDataStoreHookTest extends WC_Unit_Test_Case {
 
 		$hook_called = false;
 		add_filter(
-			'woocommerce_fulfillment_before_delete',
+			'poocommerce_fulfillment_before_delete',
 			function ( $fulfillment ) use ( &$hook_called ) {
 				$hook_called = true;
 				return $fulfillment;
@@ -498,7 +498,7 @@ class FulfillmentsDataStoreHookTest extends WC_Unit_Test_Case {
 
 		$hook_called = false;
 		add_filter(
-			'woocommerce_fulfillment_before_delete',
+			'poocommerce_fulfillment_before_delete',
 			function () use ( &$hook_called ) {
 				$hook_called = true;
 				throw new \Exception( 'Fulfillment delete prevented by hook.' );
@@ -527,7 +527,7 @@ class FulfillmentsDataStoreHookTest extends WC_Unit_Test_Case {
 
 		$hook_called = false;
 		add_action(
-			'woocommerce_fulfillment_after_delete',
+			'poocommerce_fulfillment_after_delete',
 			function ( $fulfillment ) use ( &$hook_called, &$received_fulfillment ) {
 				$received_fulfillment = $fulfillment;
 				$hook_called          = true;

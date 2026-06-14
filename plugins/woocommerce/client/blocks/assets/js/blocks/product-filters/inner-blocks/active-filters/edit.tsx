@@ -22,8 +22,8 @@ const Edit = () => {
 		{
 			allowedBlocks: getAllowedBlocks( EXCLUDED_BLOCKS ),
 			template: [
-				[ 'woocommerce/product-filter-removable-chips' ],
-				[ 'woocommerce/product-filter-clear-button' ],
+				[ 'poocommerce/product-filter-removable-chips' ],
+				[ 'poocommerce/product-filter-clear-button' ],
 			],
 		}
 	);
@@ -33,9 +33,9 @@ const Edit = () => {
 			<InitialDisabled>
 				<BlockContextProvider
 					value={ {
-						'woocommerce/removableItems': {
+						'poocommerce/removableItems': {
 							items: filtersPreview,
-							storeNamespace: 'woocommerce/product-filters',
+							storeNamespace: 'poocommerce/product-filters',
 						} satisfies RemovableItemsContext,
 					} }
 				>

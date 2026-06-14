@@ -2,15 +2,15 @@
 /**
  * Tests for the MobileAppQRLogin REST controller.
  *
- * @package WooCommerce\Admin\Tests\Admin\API
+ * @package PooCommerce\Admin\Tests\Admin\API
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Admin\API;
+namespace Automattic\PooCommerce\Tests\Admin\API;
 
-use Automattic\WooCommerce\Admin\API\MobileAppQRLogin;
-use Automattic\WooCommerce\Admin\API\RateLimits\QRLoginRateLimits;
+use Automattic\PooCommerce\Admin\API\MobileAppQRLogin;
+use Automattic\PooCommerce\Admin\API\RateLimits\QRLoginRateLimits;
 use WC_REST_Unit_Test_Case;
 use WP_Application_Passwords;
 use WP_REST_Request;
@@ -350,7 +350,7 @@ class MobileAppQRLoginTest extends WC_REST_Unit_Test_Case {
 	/**
 	 * Extract the plaintext token from a `qr_url` deep link.
 	 *
-	 * @param string $qr_url The `woocommerce://qr-login?...` URL.
+	 * @param string $qr_url The `poocommerce://qr-login?...` URL.
 	 * @return string The plaintext token.
 	 */
 	private function token_from_qr_url( string $qr_url ): string {
@@ -605,12 +605,12 @@ class MobileAppQRLoginTest extends WC_REST_Unit_Test_Case {
 		$this->assertArrayHasKey( 'expires_at', $data );
 		$this->assertArrayHasKey( 'ttl', $data );
 		$this->assertSame( MobileAppQRLogin::TOKEN_TTL, $data['ttl'] );
-		$this->assertStringStartsWith( 'woocommerce://qr-login?token=', $data['qr_url'] );
+		$this->assertStringStartsWith( 'poocommerce://qr-login?token=', $data['qr_url'] );
 		$this->assertStringContainsString( '&siteUrl=', $data['qr_url'] );
 	}
 
 	/**
-	 * @testdox Shop managers can generate a token because they have the manage_woocommerce capability.
+	 * @testdox Shop managers can generate a token because they have the manage_poocommerce capability.
 	 */
 	public function test_generate_token_happy_path_for_shop_manager(): void {
 		wp_set_current_user( $this->shop_manager_id );
@@ -630,11 +630,11 @@ class MobileAppQRLoginTest extends WC_REST_Unit_Test_Case {
 		$response = $this->dispatch_generate();
 
 		$this->assertSame( rest_authorization_required_code(), $response->get_status() );
-		$this->assertSame( 'woocommerce_rest_cannot_view', $response->get_data()['code'] );
+		$this->assertSame( 'poocommerce_rest_cannot_view', $response->get_data()['code'] );
 	}
 
 	/**
-	 * @testdox Token generation rejects subscribers who lack the manage_woocommerce capability.
+	 * @testdox Token generation rejects subscribers who lack the manage_poocommerce capability.
 	 */
 	public function test_generate_token_rejects_subscriber(): void {
 		wp_set_current_user( $this->subscriber_id );
@@ -642,7 +642,7 @@ class MobileAppQRLoginTest extends WC_REST_Unit_Test_Case {
 		$response = $this->dispatch_generate();
 
 		$this->assertSame( rest_authorization_required_code(), $response->get_status() );
-		$this->assertSame( 'woocommerce_rest_cannot_view', $response->get_data()['code'] );
+		$this->assertSame( 'poocommerce_rest_cannot_view', $response->get_data()['code'] );
 	}
 
 	// -----------------------------------------------------------------------
@@ -1234,7 +1234,7 @@ class MobileAppQRLoginTest extends WC_REST_Unit_Test_Case {
 		$qr_url = $this->dispatch_generate()->get_data()['qr_url'];
 
 		$this->assertMatchesRegularExpression(
-			'#^woocommerce://qr-login\?token=[^&]+&siteUrl=[^&]+$#',
+			'#^poocommerce://qr-login\?token=[^&]+&siteUrl=[^&]+$#',
 			$qr_url
 		);
 	}
@@ -1472,7 +1472,7 @@ class MobileAppQRLoginTest extends WC_REST_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Status endpoint rejects subscribers who lack the manage_woocommerce capability.
+	 * @testdox Status endpoint rejects subscribers who lack the manage_poocommerce capability.
 	 */
 	public function test_get_status_rejects_subscriber(): void {
 		wp_set_current_user( $this->subscriber_id );
@@ -1542,7 +1542,7 @@ class MobileAppQRLoginTest extends WC_REST_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Revoke endpoint rejects subscribers who lack the manage_woocommerce capability.
+	 * @testdox Revoke endpoint rejects subscribers who lack the manage_poocommerce capability.
 	 */
 	public function test_revoke_password_rejects_subscriber(): void {
 		wp_set_current_user( $this->subscriber_id );
@@ -1630,12 +1630,12 @@ class MobileAppQRLoginTest extends WC_REST_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox The sign-in notification email can be suppressed via the woocommerce_qr_login_should_send_signin_email filter.
+	 * @testdox The sign-in notification email can be suppressed via the poocommerce_qr_login_should_send_signin_email filter.
 	 */
 	public function test_sign_in_notification_email_can_be_suppressed_via_filter(): void {
 		$capture  = $this->capture_wp_mail();
 		$suppress = static fn () => false;
-		add_filter( 'woocommerce_qr_login_should_send_signin_email', $suppress );
+		add_filter( 'poocommerce_qr_login_should_send_signin_email', $suppress );
 
 		try {
 			$prep     = $this->prepare_exchange_token(
@@ -1653,7 +1653,7 @@ class MobileAppQRLoginTest extends WC_REST_Unit_Test_Case {
 				'Filter returning false must suppress the email send entirely.'
 			);
 		} finally {
-			remove_filter( 'woocommerce_qr_login_should_send_signin_email', $suppress );
+			remove_filter( 'poocommerce_qr_login_should_send_signin_email', $suppress );
 			$capture['remove']();
 		}//end try
 	}
@@ -1678,7 +1678,7 @@ class MobileAppQRLoginTest extends WC_REST_Unit_Test_Case {
 			);
 
 		$logger_filter = static fn () => $logger;
-		add_filter( 'woocommerce_logging_class', $logger_filter );
+		add_filter( 'poocommerce_logging_class', $logger_filter );
 
 		try {
 			$prep     = $this->prepare_exchange_token(
@@ -1692,7 +1692,7 @@ class MobileAppQRLoginTest extends WC_REST_Unit_Test_Case {
 			$this->assertSame( 200, $response->get_status() );
 			$this->assertCount( 1, $capture['captures'], 'A failed mailer return should still prove the send was attempted.' );
 		} finally {
-			remove_filter( 'woocommerce_logging_class', $logger_filter );
+			remove_filter( 'poocommerce_logging_class', $logger_filter );
 			$capture['remove']();
 		}//end try
 	}
@@ -1926,7 +1926,7 @@ class MobileAppQRLoginTest extends WC_REST_Unit_Test_Case {
 		wp_set_current_user( 0 );
 		$scan_data = $this->dispatch_scan( $plaintext )->get_data();
 
-		// A second administrator who is also `manage_woocommerce`-capable
+		// A second administrator who is also `manage_poocommerce`-capable
 		// must still be rejected — this is not "permission denied", it's
 		// "this token doesn't belong to you, full stop".
 		$other_admin_id = $this->factory->user->create( array( 'role' => 'administrator' ) );

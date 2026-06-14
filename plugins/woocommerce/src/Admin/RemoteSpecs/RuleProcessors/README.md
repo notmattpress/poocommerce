@@ -15,9 +15,9 @@ values. The following operations are implemented:
 - `!=`
 - `contains`
 - `!contains`
-- `in` (Added in WooCommerce 8.2.0)
-- `!in` (Added in WooCommerce 8.2.0)
-- `range` (Added in WooCommerce 8.8.0)
+- `in` (Added in PooCommerce 8.2.0)
+- `!in` (Added in PooCommerce 8.2.0)
+- `range` (Added in PooCommerce 8.8.0)
 
 ### contains and !contains
 
@@ -38,7 +38,7 @@ onboarding profile:
 
 ### in and !in
 
-`in` and `!in` allow checking if a value is found (or not found) in a provided array. For example, using the `in` comparison operator to check if the base country location value is found in a given array, as below. This rule matches if the `base_location_country` is `US`, `NZ`, or `ZA`. **NOTE:** These comparisons were added in **WooCommerce 8.2.0**. If the spec is read by an older version of WooCommerce, the rule will evaluate to `false`.
+`in` and `!in` allow checking if a value is found (or not found) in a provided array. For example, using the `in` comparison operator to check if the base country location value is found in a given array, as below. This rule matches if the `base_location_country` is `US`, `NZ`, or `ZA`. **NOTE:** These comparisons were added in **PooCommerce 8.2.0**. If the spec is read by an older version of PooCommerce, the rule will evaluate to `false`.
 
 ```json
 {
@@ -57,7 +57,7 @@ onboarding profile:
 `range` operator performs an inclusive check to determine if a number falls within a certain range.
 This means that both the 'from' and 'to' values of the specified range are included in the check. 
 
-The following rule returns true when `woocommerce_remote_variant_assignment` value is between 1 and 10.
+The following rule returns true when `poocommerce_remote_variant_assignment` value is between 1 and 10.
 
 ```json
 {
@@ -65,7 +65,7 @@ The following rule returns true when `woocommerce_remote_variant_assignment` val
   "value": [ 1, 10 ],
   "default": 0,
   "operation": "range",
-  "option_name": "woocommerce_remote_variant_assignment",
+  "option_name": "poocommerce_remote_variant_assignment",
 }
 ```
 
@@ -251,9 +251,9 @@ This example passes if there are more than 10 orders currently in the system.
 
 `operation` and `value` are required.
 
-## WooCommerce Admin active for
+## PooCommerce Admin active for
 
-This passes if the time WooCommerce Admin has been active for (in days) matches the comparison operation.
+This passes if the time PooCommerce Admin has been active for (in days) matches the comparison operation.
 
 This is used as a proxy indicator of the age of the shop.
 
@@ -381,7 +381,7 @@ This passes when the option value matches the value using the operation.
 ```json
 {
 	"type": "option",
-	"option_name": "woocommerce_currency",
+	"option_name": "poocommerce_currency",
 	"value": "USD",
 	"default": "USD",
 	"operation": "="
@@ -440,7 +440,7 @@ If you want to ensure that the industry array contains `fashion-apparel-accessor
 	        }
 	    }
 	],
-	"option_name": "woocommerce_onboarding_profile",
+	"option_name": "poocommerce_onboarding_profile",
 	"value": "fashion-apparel-accessories",
 	"default": "USD",
 	"operation": "="
@@ -451,10 +451,10 @@ You can find a list of transformers and examples in the transformer [README](./T
 
 ## WCA updated
 
-This passes when WooCommerce Admin has just been updated. The specs will be run
+This passes when PooCommerce Admin has just been updated. The specs will be run
 on update. Note that this doesn't provide a way to check the version number as
 the `plugin_version` rule can be used to check for a specific version of the
-WooCommerce Admin plugin.
+PooCommerce Admin plugin.
 
 ```json
 {

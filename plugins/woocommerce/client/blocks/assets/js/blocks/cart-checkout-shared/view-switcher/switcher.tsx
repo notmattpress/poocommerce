@@ -7,7 +7,7 @@ import { useSelect } from '@wordpress/data';
 import { ToolbarGroup, ToolbarDropdownMenu } from '@wordpress/components';
 import { BlockControls } from '@wordpress/block-editor';
 import { Icon } from '@wordpress/icons';
-import { eye } from '@woocommerce/icons';
+import { eye } from '@poocommerce/icons';
 
 /**
  * Internal dependencies
@@ -87,7 +87,7 @@ export const Switcher = ( {
 		<BlockControls>
 			<ToolbarGroup>
 				<ToolbarDropdownMenu
-					label={ __( 'Switch view', 'woocommerce' ) }
+					label={ __( 'Switch view', 'poocommerce' ) }
 					text={ currentViewLabel }
 					icon={
 						<Icon icon={ eye } style={ { marginRight: '8px' } } />

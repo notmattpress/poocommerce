@@ -1,25 +1,25 @@
-.woocommerce-email-editor__settings-panel {
-	.woocommerce-settings-panel-preheader-text {
+.poocommerce-email-editor__settings-panel {
+	.poocommerce-settings-panel-preheader-text {
 		.components-base-control__help {
 			text-align: right;
 		}
 	}
-	.woocommerce-settings-panel-preheader-text .components-base-control__help {
+	.poocommerce-settings-panel-preheader-text .components-base-control__help {
 		text-align: right;
 	}
-	.woocommerce-settings-panel__preview-text-length {
+	.poocommerce-settings-panel__preview-text-length {
 		color: #000;
 		display: inline-block;
 		font-weight: 500;
 		padding: 3px;
 	}
-	.woocommerce-settings-panel__preview-text-length-warning {
+	.poocommerce-settings-panel__preview-text-length-warning {
 		color: #f0b849;
 	}
-	.woocommerce-settings-panel__preview-text-length-error {
+	.poocommerce-settings-panel__preview-text-length-error {
 		color: #cc1818;
 	}
-	.woocommerce-email-editor-recipients-help {
+	.poocommerce-email-editor-recipients-help {
 		color: $gray-700;
 		font-size: 12px;
 		font-style: normal;
@@ -47,21 +47,21 @@
 
 /* ---------- Chrome (overlay + panel + header + body + footer) ---------- */
 
-.woocommerce-review-drawer__overlay {
+.poocommerce-review-drawer__overlay {
 	position: fixed;
 	inset: 0;
 	background: rgba(0, 0, 0, 0.4);
 	z-index: 100000;
 }
 
-.woocommerce-review-drawer {
+.poocommerce-review-drawer {
 	position: fixed;
 	inset: 0;
 	z-index: 100001;
 	pointer-events: none;
 }
 
-.woocommerce-review-drawer__panel {
+.poocommerce-review-drawer__panel {
 	position: absolute;
 	top: 0;
 	right: 0;
@@ -85,7 +85,7 @@
 	}
 }
 
-.woocommerce-review-drawer__header {
+.poocommerce-review-drawer__header {
 	display: flex;
 	align-items: flex-start;
 	justify-content: space-between;
@@ -94,14 +94,14 @@
 	border-bottom: 1px solid #f0f0f1;
 }
 
-.woocommerce-review-drawer__h-stack {
+.poocommerce-review-drawer__h-stack {
 	display: flex;
 	flex-direction: column;
 	gap: 4px;
 	min-width: 0;
 }
 
-.woocommerce-review-drawer__title {
+.poocommerce-review-drawer__title {
 	margin: 0;
 	font-size: 15px;
 	font-weight: 600;
@@ -109,24 +109,24 @@
 	color: #1d2327;
 }
 
-.woocommerce-review-drawer__subtitle {
+.poocommerce-review-drawer__subtitle {
 	margin: 0;
 	font-size: 12px;
 	color: #50575e;
 	line-height: 1.4;
 }
 
-.woocommerce-review-drawer__close {
+.poocommerce-review-drawer__close {
 	flex: 0 0 auto;
 }
 
-.woocommerce-review-drawer__body {
+.poocommerce-review-drawer__body {
 	flex: 1 1 auto;
 	overflow-y: auto;
 	padding: 0;
 }
 
-.woocommerce-review-drawer__footer {
+.poocommerce-review-drawer__footer {
 	display: flex;
 	align-items: center;
 	gap: 12px;
@@ -134,14 +134,14 @@
 	border-top: 1px solid #f0f0f1;
 }
 
-.woocommerce-review-drawer__foot-note {
+.poocommerce-review-drawer__foot-note {
 	margin: 0;
 	flex: 1 1 auto;
 	font-size: 12px;
 	color: #6b7280;
 }
 
-.woocommerce-review-drawer__footer-actions {
+.poocommerce-review-drawer__footer-actions {
 	display: flex;
 	gap: 8px;
 	flex-shrink: 0;
@@ -159,12 +159,12 @@
 
 /* ---------- Body (status, groups, items, diff, choice grid, tags) ---------- */
 
-.woocommerce-review-drawer__status {
+.poocommerce-review-drawer__status {
 	padding: 24px 20px;
 	color: #50575e;
 }
 
-.woocommerce-review-drawer__group {
+.poocommerce-review-drawer__group {
 	padding: 12px 0;
 	border-bottom: 1px solid #f0f0f1;
 
@@ -173,7 +173,7 @@
 	}
 }
 
-.woocommerce-review-drawer__group-h {
+.poocommerce-review-drawer__group-h {
 	display: flex;
 	align-items: center;
 	gap: 8px;
@@ -186,7 +186,7 @@
 	color: #50575e;
 }
 
-.woocommerce-review-drawer__dot {
+.poocommerce-review-drawer__dot {
 	width: 8px;
 	height: 8px;
 	border-radius: 50%;
@@ -194,15 +194,15 @@
 	flex: 0 0 auto;
 }
 
-.woocommerce-review-drawer__dot--warning {
+.poocommerce-review-drawer__dot--warning {
 	background: #b26200;
 }
 
-.woocommerce-review-drawer__dot--brand {
+.poocommerce-review-drawer__dot--brand {
 	background: var(--wp-admin-theme-color, #3858e9);
 }
 
-.woocommerce-review-drawer__item {
+.poocommerce-review-drawer__item {
 	display: flex;
 	flex-direction: column;
 	gap: 6px;
@@ -214,14 +214,14 @@
 	}
 }
 
-.woocommerce-review-drawer__item-h {
+.poocommerce-review-drawer__item-h {
 	display: flex;
 	align-items: flex-start;
 	justify-content: space-between;
 	gap: 10px;
 }
 
-.woocommerce-review-drawer__item-title {
+.poocommerce-review-drawer__item-title {
 	margin: 0;
 	font-size: 14px;
 	font-weight: 500;
@@ -229,14 +229,14 @@
 	color: #1d2327;
 }
 
-.woocommerce-review-drawer__item-sub {
+.poocommerce-review-drawer__item-sub {
 	margin: 0;
 	font-size: 13px;
 	color: #4b5563;
 	line-height: 1.4;
 }
 
-.woocommerce-review-drawer__tag {
+.poocommerce-review-drawer__tag {
 	display: inline-flex;
 	align-items: center;
 	padding: 2px 8px;
@@ -248,22 +248,22 @@
 	flex: 0 0 auto;
 }
 
-.woocommerce-review-drawer__tag--conflict {
+.poocommerce-review-drawer__tag--conflict {
 	background: #fef3c7;
 	color: #92400e;
 }
 
-.woocommerce-review-drawer__tag--apply-core {
+.poocommerce-review-drawer__tag--apply-core {
 	background: #dbeafe;
 	color: #1e40af;
 }
 
-.woocommerce-review-drawer__tag--keep-yours {
+.poocommerce-review-drawer__tag--keep-yours {
 	background: #f3f4f6;
 	color: #374151;
 }
 
-.woocommerce-review-drawer__diff {
+.poocommerce-review-drawer__diff {
 	border: 1px solid #f0f0f1;
 	border-radius: 2px;
 	overflow: hidden;
@@ -272,11 +272,11 @@
 	line-height: 1.6;
 }
 
-.woocommerce-review-drawer__diff-row {
+.poocommerce-review-drawer__diff-row {
 	padding: 6px 10px;
 }
 
-.woocommerce-review-drawer__diff-row--minus {
+.poocommerce-review-drawer__diff-row--minus {
 	background: #fff6f5;
 	color: #6b1b1b;
 
@@ -286,7 +286,7 @@
 	}
 }
 
-.woocommerce-review-drawer__diff-row--plus {
+.poocommerce-review-drawer__diff-row--plus {
 	background: #ebffed;
 	color: #003814;
 
@@ -296,14 +296,14 @@
 	}
 }
 
-.woocommerce-review-drawer__choice {
+.poocommerce-review-drawer__choice {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 	gap: 6px;
 	margin-top: 4px;
 }
 
-.woocommerce-review-drawer__choice-card {
+.poocommerce-review-drawer__choice-card {
 	background: #fff;
 	border: 1px solid #ddd;
 	border-radius: 2px;
@@ -331,13 +331,13 @@
 	}
 }
 
-.woocommerce-review-drawer__choice-label {
+.poocommerce-review-drawer__choice-label {
 	font-size: 12px;
 	font-weight: 600;
 	color: #1d2327;
 }
 
-.woocommerce-review-drawer__choice-hint {
+.poocommerce-review-drawer__choice-hint {
 	font-size: 11px;
 	color: #50575e;
 }

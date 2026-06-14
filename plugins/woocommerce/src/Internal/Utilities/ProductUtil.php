@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Internal\Utilities;
+namespace Automattic\PooCommerce\Internal\Utilities;
 
 /**
  * Class with general utility methods related to products.
@@ -12,7 +12,7 @@ class ProductUtil {
 	 * Delete all product transients for a set of products.
 	 *
 	 * Fixed-name transients are deleted once for the whole set, and the
-	 * woocommerce_delete_product_transients action fires once per product ID.
+	 * poocommerce_delete_product_transients action fires once per product ID.
 	 *
 	 * @param array $product_ids Product IDs whose transients are being deleted.
 	 * @return void
@@ -37,7 +37,7 @@ class ProductUtil {
 			$this->delete_product_specific_transients_for_products( $product_ids_to_clear );
 		}
 
-		// Kept for compatibility, WooCommerce core doesn't use product transient versions anymore.
+		// Kept for compatibility, PooCommerce core doesn't use product transient versions anymore.
 		\WC_Cache_Helper::get_transient_version( 'product', true );
 
 		foreach ( $product_ids as $product_id ) {
@@ -48,7 +48,7 @@ class ProductUtil {
 			 *
 			 * @param int $product_id Product ID whose transients were deleted.
 			 */
-			do_action( 'woocommerce_delete_product_transients', $product_id );
+			do_action( 'poocommerce_delete_product_transients', $product_id );
 		}
 	}
 

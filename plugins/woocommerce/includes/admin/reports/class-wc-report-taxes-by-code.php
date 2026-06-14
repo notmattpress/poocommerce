@@ -2,10 +2,10 @@
 /**
  * Taxes by tax code report.
  *
- * @package     WooCommerce\Admin\Reports
+ * @package     PooCommerce\Admin\Reports
  */
 
-use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Enums\OrderStatus;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * WC_Report_Taxes_By_Code
  *
- * @package     WooCommerce\Admin\Reports
+ * @package     PooCommerce\Admin\Reports
  * @version     2.1.0
  */
 class WC_Report_Taxes_By_Code extends WC_Admin_Report {
@@ -41,7 +41,7 @@ class WC_Report_Taxes_By_Code extends WC_Admin_Report {
 			class="export_csv"
 			data-export="table"
 		>
-			<?php esc_html_e( 'Export CSV', 'woocommerce' ); ?>
+			<?php esc_html_e( 'Export CSV', 'poocommerce' ); ?>
 		</a>
 		<?php
 	}
@@ -52,9 +52,9 @@ class WC_Report_Taxes_By_Code extends WC_Admin_Report {
 	public function output_report() {
 
 		$ranges = array(
-			'year'       => __( 'Year', 'woocommerce' ),
-			'last_month' => __( 'Last month', 'woocommerce' ),
-			'month'      => __( 'This month', 'woocommerce' ),
+			'year'       => __( 'Year', 'poocommerce' ),
+			'last_month' => __( 'Last month', 'poocommerce' ),
+			'month'      => __( 'This month', 'poocommerce' ),
 		);
 
 		$current_range = ! empty( $_GET['range'] ) ? sanitize_text_field( wp_unslash( $_GET['range'] ) ) : 'last_month';
@@ -195,23 +195,23 @@ class WC_Report_Taxes_By_Code extends WC_Admin_Report {
 		<table class="widefat">
 			<thead>
 				<tr>
-					<th><?php esc_html_e( 'Tax', 'woocommerce' ); ?></th>
-					<th><?php esc_html_e( 'Rate', 'woocommerce' ); ?></th>
-					<th class="total_row"><?php esc_html_e( 'Number of orders', 'woocommerce' ); ?></th>
-					<th class="total_row"><?php esc_html_e( 'Tax amount', 'woocommerce' ); ?> <?php echo wc_help_tip( __( 'This is the sum of the "Tax rows" tax amount within your orders.', 'woocommerce' ) ); ?></th>
-					<th class="total_row"><?php esc_html_e( 'Shipping tax amount', 'woocommerce' ); ?> <?php echo wc_help_tip( __( 'This is the sum of the "Tax rows" shipping tax amount within your orders.', 'woocommerce' ) ); ?></th>
-					<th class="total_row"><?php esc_html_e( 'Total tax', 'woocommerce' ); ?> <?php echo wc_help_tip( __( 'This is the total tax for the rate (shipping tax + product tax).', 'woocommerce' ) ); ?></th>
+					<th><?php esc_html_e( 'Tax', 'poocommerce' ); ?></th>
+					<th><?php esc_html_e( 'Rate', 'poocommerce' ); ?></th>
+					<th class="total_row"><?php esc_html_e( 'Number of orders', 'poocommerce' ); ?></th>
+					<th class="total_row"><?php esc_html_e( 'Tax amount', 'poocommerce' ); ?> <?php echo wc_help_tip( __( 'This is the sum of the "Tax rows" tax amount within your orders.', 'poocommerce' ) ); ?></th>
+					<th class="total_row"><?php esc_html_e( 'Shipping tax amount', 'poocommerce' ); ?> <?php echo wc_help_tip( __( 'This is the sum of the "Tax rows" shipping tax amount within your orders.', 'poocommerce' ) ); ?></th>
+					<th class="total_row"><?php esc_html_e( 'Total tax', 'poocommerce' ); ?> <?php echo wc_help_tip( __( 'This is the total tax for the rate (shipping tax + product tax).', 'poocommerce' ) ); ?></th>
 				</tr>
 			</thead>
 			<?php if ( ! empty( $tax_rows ) ) : ?>
 				<tbody>
 					<?php
 					foreach ( $tax_rows as $rate_id => $tax_row ) {
-						$rate = $wpdb->get_var( $wpdb->prepare( "SELECT tax_rate FROM {$wpdb->prefix}woocommerce_tax_rates WHERE tax_rate_id = %d;", $rate_id ) );
+						$rate = $wpdb->get_var( $wpdb->prepare( "SELECT tax_rate FROM {$wpdb->prefix}poocommerce_tax_rates WHERE tax_rate_id = %d;", $rate_id ) );
 						?>
 						<tr>
-							<th scope="row"><?php echo wp_kses_post( apply_filters( 'woocommerce_reports_taxes_tax_rate', $tax_row->tax_rate, $rate_id, $tax_row ) ); ?></th>
-							<td><?php echo wp_kses_post( apply_filters( 'woocommerce_reports_taxes_rate', $rate, $rate_id, $tax_row ) ); ?>%</td>
+							<th scope="row"><?php echo wp_kses_post( apply_filters( 'poocommerce_reports_taxes_tax_rate', $tax_row->tax_rate, $rate_id, $tax_row ) ); ?></th>
+							<td><?php echo wp_kses_post( apply_filters( 'poocommerce_reports_taxes_rate', $rate, $rate_id, $tax_row ) ); ?>%</td>
 							<td class="total_row"><?php echo esc_html( $tax_row->total_orders ); ?></td>
 							<td class="total_row"><?php echo wc_price( $tax_row->tax_amount ); // phpcs:ignore ?></td>
 							<td class="total_row"><?php echo wc_price( $tax_row->shipping_tax_amount ); // phpcs:ignore ?></td>
@@ -223,7 +223,7 @@ class WC_Report_Taxes_By_Code extends WC_Admin_Report {
 				</tbody>
 				<tfoot>
 					<tr>
-						<th scope="row" colspan="3"><?php esc_html_e( 'Total', 'woocommerce' ); ?></th>
+						<th scope="row" colspan="3"><?php esc_html_e( 'Total', 'poocommerce' ); ?></th>
 						<th class="total_row"><?php echo wc_price( wc_round_tax_total( array_sum( wp_list_pluck( (array) $tax_rows, 'tax_amount' ) ) ) ); // phpcs:ignore ?></th>
 						<th class="total_row"><?php echo wc_price( wc_round_tax_total( array_sum( wp_list_pluck( (array) $tax_rows, 'shipping_tax_amount' ) ) ) ); // phpcs:ignore ?></th>
 						<th class="total_row"><strong><?php echo wc_price( wc_round_tax_total( array_sum( wp_list_pluck( (array) $tax_rows, 'tax_amount' ) ) + array_sum( wp_list_pluck( (array) $tax_rows, 'shipping_tax_amount' ) ) ) ); // phpcs:ignore ?></strong></th>
@@ -232,7 +232,7 @@ class WC_Report_Taxes_By_Code extends WC_Admin_Report {
 			<?php else : ?>
 				<tbody>
 					<tr>
-						<td><?php esc_html_e( 'No taxes found in this period', 'woocommerce' ); ?></td>
+						<td><?php esc_html_e( 'No taxes found in this period', 'poocommerce' ); ?></td>
 					</tr>
 				</tbody>
 			<?php endif; ?>

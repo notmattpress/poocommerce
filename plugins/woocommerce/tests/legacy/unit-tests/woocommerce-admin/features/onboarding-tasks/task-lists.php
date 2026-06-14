@@ -2,7 +2,7 @@
 /**
  * Test the TaskLists class.
  *
- * @package WooCommerce\Admin\Tests\OnboardingTasks
+ * @package PooCommerce\Admin\Tests\OnboardingTasks
  */
 
 /**
@@ -10,9 +10,9 @@
  */
 require_once __DIR__ . '/test-task.php';
 
-use Automattic\WooCommerce\Admin\Features\OnboardingTasks\TaskLists;
-use Automattic\WooCommerce\Admin\Features\OnboardingTasks\TaskList;
-use Automattic\WooCommerce\Admin\Features\OnboardingTasks\Task;
+use Automattic\PooCommerce\Admin\Features\OnboardingTasks\TaskLists;
+use Automattic\PooCommerce\Admin\Features\OnboardingTasks\TaskList;
+use Automattic\PooCommerce\Admin\Features\OnboardingTasks\Task;
 
 /**
  * Class WC_Tests_OnboardingTasks_TaskLists
@@ -37,12 +37,12 @@ class WC_Tests_OnboardingTasks_TaskLists extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Tests that the "woocommerce_admin_experimental_onboarding_tasklists" filter is able to append tasks to any tasklist.
+	 * Tests that the "poocommerce_admin_experimental_onboarding_tasklists" filter is able to append tasks to any tasklist.
 	 */
 	public function test_default_tasklists_can_be_add_by_onboarding_filter() {
 		// Filter the default task lists.
 		add_filter(
-			'woocommerce_admin_experimental_onboarding_tasklists',
+			'poocommerce_admin_experimental_onboarding_tasklists',
 			function (
 				$task_lists
 			) {

@@ -3,7 +3,7 @@
  *
  */
 
-.woocommerce-analytics-import-status-bar-wrapper {
+.poocommerce-analytics-import-status-bar-wrapper {
 	display: flex;
 	flex-direction: column;
 	gap: 6px;
@@ -17,7 +17,7 @@
 	}
 
 	// Match the filters' breakpoint so label/gap shrink in lockstep with
-	// .woocommerce-filters-filter — keeps Date Range and Data Status boxes aligned.
+	// .poocommerce-filters-filter — keeps Date Range and Data Status boxes aligned.
 	@media screen and ( max-width: $break-wide ) {
 		gap: 5px;
 
@@ -28,7 +28,7 @@
 	}
 }
 
-.woocommerce-analytics-import-status-bar {
+.poocommerce-analytics-import-status-bar {
 	display: flex;
 	align-items: center;
 	border: 1px solid $gray-300;

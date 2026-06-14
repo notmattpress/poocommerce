@@ -4,7 +4,7 @@
 import { render, fireEvent, screen } from '@testing-library/react';
 import { useDispatch, useSelect } from '@wordpress/data';
 import { useState } from '@wordpress/element';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -17,7 +17,7 @@ jest.mock( '@wordpress/data', () => ( {
 	useDispatch: jest.fn(),
 	useSelect: jest.fn(),
 } ) );
-jest.mock( '@woocommerce/tracks', () => ( { recordEvent: jest.fn() } ) );
+jest.mock( '@poocommerce/tracks', () => ( { recordEvent: jest.fn() } ) );
 jest.mock( '~/utils/admin-settings', () => ( { getAdminSetting: jest.fn() } ) );
 jest.mock( '@wordpress/element', () => ( {
 	...jest.requireActual( '@wordpress/element' ),

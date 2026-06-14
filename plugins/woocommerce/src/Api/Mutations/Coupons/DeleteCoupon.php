@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Api\Mutations\Coupons;
+namespace Automattic\PooCommerce\Api\Mutations\Coupons;
 
-use Automattic\WooCommerce\Api\ApiException;
-use Automattic\WooCommerce\Api\Attributes\Description;
-use Automattic\WooCommerce\Api\Attributes\RequiredCapability;
-use Automattic\WooCommerce\Api\Types\Coupons\DeleteCouponResult;
+use Automattic\PooCommerce\Api\ApiException;
+use Automattic\PooCommerce\Api\Attributes\Description;
+use Automattic\PooCommerce\Api\Attributes\RequiredCapability;
+use Automattic\PooCommerce\Api\Types\Coupons\DeleteCouponResult;
 
 /**
  * Mutation to delete a coupon.
  */
 #[Description( 'Delete a coupon.' )]
-#[RequiredCapability( 'manage_woocommerce' )]
+#[RequiredCapability( 'manage_poocommerce' )]
 class DeleteCoupon {
 	/**
 	 * Execute the mutation.

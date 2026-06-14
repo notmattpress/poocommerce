@@ -1,10 +1,10 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\VariationGallery;
+namespace Automattic\PooCommerce\Tests\Internal\VariationGallery;
 
-use Automattic\WooCommerce\Internal\VariationGallery\ClassicVariationGalleryAdmin;
-use Automattic\WooCommerce\Internal\VariationGallery\LegacyVariationGalleryCompatibility;
+use Automattic\PooCommerce\Internal\VariationGallery\ClassicVariationGalleryAdmin;
+use Automattic\PooCommerce\Internal\VariationGallery\LegacyVariationGalleryCompatibility;
 use WC_Helper_Product;
 use WC_Product_Variation;
 
@@ -40,7 +40,7 @@ class ClassicVariationGalleryAdminTest extends \WC_Unit_Test_Case {
 	 */
 	public function tearDown(): void {
 		remove_filter(
-			'woocommerce_product_variation_get_gallery_image_ids',
+			'poocommerce_product_variation_get_gallery_image_ids',
 			array( $this->legacy_compat, 'maybe_read_legacy_gallery_image_ids' ),
 			10
 		);

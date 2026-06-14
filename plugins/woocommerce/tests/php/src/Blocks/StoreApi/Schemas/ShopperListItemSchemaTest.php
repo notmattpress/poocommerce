@@ -1,16 +1,16 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\StoreApi\Schemas;
+namespace Automattic\PooCommerce\Tests\Blocks\StoreApi\Schemas;
 
-use Automattic\WooCommerce\Internal\ShopperLists\ShopperListItem;
-use Automattic\WooCommerce\StoreApi\Formatters;
-use Automattic\WooCommerce\StoreApi\Formatters\CurrencyFormatter;
-use Automattic\WooCommerce\StoreApi\Formatters\HtmlFormatter;
-use Automattic\WooCommerce\StoreApi\Formatters\MoneyFormatter;
-use Automattic\WooCommerce\StoreApi\SchemaController;
-use Automattic\WooCommerce\StoreApi\Schemas\ExtendSchema;
-use Automattic\WooCommerce\StoreApi\Schemas\V1\ShopperListItemSchema;
+use Automattic\PooCommerce\Internal\ShopperLists\ShopperListItem;
+use Automattic\PooCommerce\StoreApi\Formatters;
+use Automattic\PooCommerce\StoreApi\Formatters\CurrencyFormatter;
+use Automattic\PooCommerce\StoreApi\Formatters\HtmlFormatter;
+use Automattic\PooCommerce\StoreApi\Formatters\MoneyFormatter;
+use Automattic\PooCommerce\StoreApi\SchemaController;
+use Automattic\PooCommerce\StoreApi\Schemas\ExtendSchema;
+use Automattic\PooCommerce\StoreApi\Schemas\V1\ShopperListItemSchema;
 use WC_Unit_Test_Case;
 
 /**
@@ -326,7 +326,7 @@ class ShopperListItemSchemaTest extends WC_Unit_Test_Case {
 		$this->assertArrayHasKey( 'price_html', $response, 'price_html must be present on the response' );
 		$this->assertIsString( $response['price_html'] );
 		$this->assertNotSame( '', $response['price_html'], 'price_html must be non-empty for a live priced product' );
-		$this->assertStringContainsString( 'woocommerce-Price-amount', $response['price_html'], 'price_html should be the formatted markup from wc_price' );
+		$this->assertStringContainsString( 'poocommerce-Price-amount', $response['price_html'], 'price_html should be the formatted markup from wc_price' );
 
 		$product->delete( true );
 	}
@@ -352,7 +352,7 @@ class ShopperListItemSchemaTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Should expose image_html using the WooCommerce placeholder when the product has no image.
+	 * @testdox Should expose image_html using the PooCommerce placeholder when the product has no image.
 	 */
 	public function test_image_html_falls_back_to_placeholder_when_product_has_no_image(): void {
 		$product = \WC_Helper_Product::create_simple_product( true, array( 'name' => 'No-Image T-Shirt' ) );
@@ -363,7 +363,7 @@ class ShopperListItemSchemaTest extends WC_Unit_Test_Case {
 
 		$this->assertArrayHasKey( 'image_html', $response );
 		$this->assertSame(
-			(string) wc_placeholder_img( 'woocommerce_thumbnail' ),
+			(string) wc_placeholder_img( 'poocommerce_thumbnail' ),
 			$response['image_html'],
 			'image_html for an image-less product must equal the configured placeholder markup'
 		);
@@ -411,7 +411,7 @@ class ShopperListItemSchemaTest extends WC_Unit_Test_Case {
 		$this->assertSame( '', $response['price_html'], 'Tombstones must not advertise a price' );
 		$this->assertArrayHasKey( 'image_html', $response );
 		$this->assertSame(
-			(string) wc_placeholder_img( 'woocommerce_thumbnail' ),
+			(string) wc_placeholder_img( 'poocommerce_thumbnail' ),
 			$response['image_html'],
 			'Tombstones must use the placeholder image markup'
 		);

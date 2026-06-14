@@ -19,10 +19,10 @@ import Card from '../card';
 const RecommendedExtensions = ( {
 	extensions,
 	isLoading,
-	title = __( 'Recommended extensions', 'woocommerce' ),
+	title = __( 'Recommended extensions', 'poocommerce' ),
 	description = __(
 		'Great marketing requires the right tools. Take your marketing to the next level with our recommended marketing extensions.',
-		'woocommerce'
+		'poocommerce'
 	),
 	category,
 } ) => {
@@ -31,7 +31,7 @@ const RecommendedExtensions = ( {
 	}
 
 	const categoryClass = category
-		? `woocommerce-marketing-recommended-extensions-card__category-${ category }`
+		? `poocommerce-marketing-recommended-extensions-card__category-${ category }`
 		: '';
 	const placholdersCount = 5;
 
@@ -40,15 +40,15 @@ const RecommendedExtensions = ( {
 			title={ title }
 			description={ description }
 			className={ clsx(
-				'woocommerce-marketing-recommended-extensions-card',
+				'poocommerce-marketing-recommended-extensions-card',
 				categoryClass
 			) }
 		>
 			{ isLoading ? (
 				<div
 					className={ clsx(
-						'woocommerce-marketing-recommended-extensions-card__items',
-						`woocommerce-marketing-recommended-extensions-card__items--count-${ placholdersCount }`
+						'poocommerce-marketing-recommended-extensions-card__items',
+						`poocommerce-marketing-recommended-extensions-card__items--count-${ placholdersCount }`
 					) }
 				>
 					{ [ ...Array( placholdersCount ).keys() ].map( ( key ) => (
@@ -58,8 +58,8 @@ const RecommendedExtensions = ( {
 			) : (
 				<div
 					className={ clsx(
-						'woocommerce-marketing-recommended-extensions-card__items',
-						`woocommerce-marketing-recommended-extensions-card__items--count-${ extensions.length }`
+						'poocommerce-marketing-recommended-extensions-card__items',
+						`poocommerce-marketing-recommended-extensions-card__items--count-${ extensions.length }`
 					) }
 				>
 					{ extensions.map( ( extension ) => (

@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { ExtensionCartUpdateArgs } from '@woocommerce/types';
+import { ExtensionCartUpdateArgs } from '@poocommerce/types';
 
 /**
  * Internal dependencies

@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Enums\OrderStatus;
 
 /**
  * Tests for the `can_be_refunded` field on v4 order and line item responses.
@@ -20,7 +20,7 @@ class WC_REST_Orders_V4_Can_Be_Refunded_Test extends WC_REST_Unit_Test_Case {
 	 */
 	private static function enable_rest_api_v4_feature(): void {
 		add_filter(
-			'woocommerce_admin_features',
+			'poocommerce_admin_features',
 			array( __CLASS__, 'add_v4_feature' ),
 		);
 	}
@@ -30,7 +30,7 @@ class WC_REST_Orders_V4_Can_Be_Refunded_Test extends WC_REST_Unit_Test_Case {
 	 */
 	private static function disable_rest_api_v4_feature(): void {
 		remove_filter(
-			'woocommerce_admin_features',
+			'poocommerce_admin_features',
 			array( __CLASS__, 'add_v4_feature' ),
 		);
 	}

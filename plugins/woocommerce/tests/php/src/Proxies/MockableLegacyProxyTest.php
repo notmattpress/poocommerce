@@ -3,10 +3,10 @@
  * MockableLegacyProxyTests class file
  */
 
-namespace Automattic\WooCommerce\Tests\Proxies;
+namespace Automattic\PooCommerce\Tests\Proxies;
 
-use Automattic\WooCommerce\Testing\Tools\DependencyManagement\MockableLegacyProxy;
-use Automattic\WooCommerce\Tests\Internal\DependencyManagement\ExampleClasses\DependencyClass;
+use Automattic\PooCommerce\Testing\Tools\DependencyManagement\MockableLegacyProxy;
+use Automattic\PooCommerce\Tests\Internal\DependencyManagement\ExampleClasses\DependencyClass;
 
 /**
  * Tests for MockableLegacyProxy

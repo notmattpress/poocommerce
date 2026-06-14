@@ -1,65 +1,65 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\GraphQL\Language;
+namespace Automattic\PooCommerce\Vendor\GraphQL\Language;
 
-use Automattic\WooCommerce\Vendor\GraphQL\Error\SyntaxError;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\ArgumentNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\BooleanValueNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\DefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\DirectiveDefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\DirectiveNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\DocumentNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\EnumTypeDefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\EnumTypeExtensionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\EnumValueDefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\EnumValueNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\ExecutableDefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\FieldDefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\FieldNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\FloatValueNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\FragmentDefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\FragmentSpreadNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\InlineFragmentNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\InputObjectTypeDefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\InputObjectTypeExtensionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\InputValueDefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\InterfaceTypeDefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\InterfaceTypeExtensionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\IntValueNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\ListTypeNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\ListValueNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\Location;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\NamedTypeNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\NameNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\Node;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\NodeList;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\NonNullTypeNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\NullValueNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\ObjectFieldNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\ObjectTypeDefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\ObjectTypeExtensionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\ObjectValueNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\OperationDefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\OperationTypeDefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\ScalarTypeDefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\ScalarTypeExtensionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\SchemaDefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\SchemaExtensionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\SelectionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\SelectionSetNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\StringValueNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\TypeExtensionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\TypeNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\TypeSystemDefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\TypeSystemExtensionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\UnionTypeDefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\UnionTypeExtensionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\ValueNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\VariableDefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\VariableNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\SyntaxError;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\ArgumentNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\BooleanValueNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\DefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\DirectiveDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\DirectiveNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\DocumentNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\EnumTypeDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\EnumTypeExtensionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\EnumValueDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\EnumValueNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\ExecutableDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\FieldDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\FieldNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\FloatValueNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\FragmentDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\FragmentSpreadNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\InlineFragmentNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\InputObjectTypeDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\InputObjectTypeExtensionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\InputValueDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\InterfaceTypeDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\InterfaceTypeExtensionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\IntValueNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\ListTypeNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\ListValueNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\Location;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\NamedTypeNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\NameNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\Node;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\NodeList;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\NonNullTypeNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\NullValueNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\ObjectFieldNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\ObjectTypeDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\ObjectTypeExtensionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\ObjectValueNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\OperationDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\OperationTypeDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\ScalarTypeDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\ScalarTypeExtensionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\SchemaDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\SchemaExtensionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\SelectionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\SelectionSetNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\StringValueNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\TypeExtensionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\TypeNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\TypeSystemDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\TypeSystemExtensionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\UnionTypeDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\UnionTypeExtensionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\ValueNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\VariableDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\VariableNode;
 
 /**
- * Parses string containing Automattic\WooCommerce\Vendor\GraphQL query language or [schema definition language](schema-definition-language.md) to Abstract Syntax Tree.
+ * Parses string containing Automattic\PooCommerce\Vendor\GraphQL query language or [schema definition language](schema-definition-language.md) to Abstract Syntax Tree.
  *
  * @phpstan-type ParserOptions array{
  *   noLocation?: bool,
@@ -163,14 +163,14 @@ use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\VariableNode;
  * @method static NodeList<NameNode> directiveLocations(Source|string $source, ParserOptions $options = [])
  * @method static NameNode directiveLocation(Source|string $source, ParserOptions $options = [])
  *
- * @see \Automattic\WooCommerce\Vendor\GraphQL\Tests\Language\ParserTest
+ * @see \Automattic\PooCommerce\Vendor\GraphQL\Tests\Language\ParserTest
  */
 class Parser
 {
     /**
-     * Given a Automattic\WooCommerce\Vendor\GraphQL source, parses it into a `Automattic\WooCommerce\Vendor\GraphQL\Language\AST\DocumentNode`.
+     * Given a Automattic\PooCommerce\Vendor\GraphQL source, parses it into a `Automattic\PooCommerce\Vendor\GraphQL\Language\AST\DocumentNode`.
      *
-     * Throws `Automattic\WooCommerce\Vendor\GraphQL\Error\SyntaxError` if a syntax error is encountered.
+     * Throws `Automattic\PooCommerce\Vendor\GraphQL\Error\SyntaxError` if a syntax error is encountered.
      *
      * @param Source|string $source
      *
@@ -187,14 +187,14 @@ class Parser
     }
 
     /**
-     * Given a string containing a Automattic\WooCommerce\Vendor\GraphQL value (ex. `[42]`), parse the AST for that value.
+     * Given a string containing a Automattic\PooCommerce\Vendor\GraphQL value (ex. `[42]`), parse the AST for that value.
      *
-     * Throws `Automattic\WooCommerce\Vendor\GraphQL\Error\SyntaxError` if a syntax error is encountered.
+     * Throws `Automattic\PooCommerce\Vendor\GraphQL\Error\SyntaxError` if a syntax error is encountered.
      *
-     * This is useful within tools that operate upon Automattic\WooCommerce\Vendor\GraphQL Values directly and
-     * in isolation of complete Automattic\WooCommerce\Vendor\GraphQL documents.
+     * This is useful within tools that operate upon Automattic\PooCommerce\Vendor\GraphQL Values directly and
+     * in isolation of complete Automattic\PooCommerce\Vendor\GraphQL documents.
      *
-     * Consider providing the results to the utility function: `Automattic\WooCommerce\Vendor\GraphQL\Utils\AST::valueFromAST()`.
+     * Consider providing the results to the utility function: `Automattic\PooCommerce\Vendor\GraphQL\Utils\AST::valueFromAST()`.
      *
      * @param Source|string $source
      *
@@ -218,14 +218,14 @@ class Parser
     }
 
     /**
-     * Given a string containing a Automattic\WooCommerce\Vendor\GraphQL Type (ex. `[Int!]`), parse the AST for that type.
+     * Given a string containing a Automattic\PooCommerce\Vendor\GraphQL Type (ex. `[Int!]`), parse the AST for that type.
      *
-     * Throws `Automattic\WooCommerce\Vendor\GraphQL\Error\SyntaxError` if a syntax error is encountered.
+     * Throws `Automattic\PooCommerce\Vendor\GraphQL\Error\SyntaxError` if a syntax error is encountered.
      *
-     * This is useful within tools that operate upon Automattic\WooCommerce\Vendor\GraphQL Types directly and
-     * in isolation of complete Automattic\WooCommerce\Vendor\GraphQL documents.
+     * This is useful within tools that operate upon Automattic\PooCommerce\Vendor\GraphQL Types directly and
+     * in isolation of complete Automattic\PooCommerce\Vendor\GraphQL documents.
      *
-     * Consider providing the results to the utility function: `Automattic\WooCommerce\Vendor\GraphQL\Utils\AST::typeFromAST()`.
+     * Consider providing the results to the utility function: `Automattic\PooCommerce\Vendor\GraphQL\Utils\AST::typeFromAST()`.
      *
      * @param Source|string $source
      *

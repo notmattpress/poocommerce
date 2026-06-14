@@ -1,5 +1,5 @@
 <?php
-namespace Automattic\WooCommerce\Internal\DataStores\Orders;
+namespace Automattic\PooCommerce\Internal\DataStores\Orders;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -225,7 +225,7 @@ class OrdersTableFieldQuery {
 		}
 
 		if ( empty( $q['table'] ) || empty( $q['column'] ) ) {
-			throw new \Exception( __( 'Missing table info for query arg.', 'woocommerce' ) );
+			throw new \Exception( __( 'Missing table info for query arg.', 'poocommerce' ) );
 		}
 
 		$join = '';

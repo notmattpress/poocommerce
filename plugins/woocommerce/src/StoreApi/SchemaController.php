@@ -1,7 +1,7 @@
 <?php
-namespace Automattic\WooCommerce\StoreApi;
+namespace Automattic\PooCommerce\StoreApi;
 
-use Automattic\WooCommerce\StoreApi\Schemas\ExtendSchema;
+use Automattic\PooCommerce\StoreApi\Schemas\ExtendSchema;
 
 /**
  * SchemaController class.

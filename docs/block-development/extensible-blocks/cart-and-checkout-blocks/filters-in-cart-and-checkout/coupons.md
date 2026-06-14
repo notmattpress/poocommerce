@@ -70,7 +70,7 @@ registerCheckoutFilters( 'example-extension', {
 
 | Before                                                                 | After                                                                 |
 |:---------------------------------------------------------------------:|:---------------------------------------------------------------------:|
-|![Before applying the Coupons filter](https://github.com/woocommerce/woocommerce-blocks/assets/3323310/6cab1aff-e4b9-4909-b81c-5726c6a20c40) |![After applying the Coupons filter](https://github.com/woocommerce/woocommerce-blocks/assets/3323310/a5cc2572-16e7-4781-a5ab-5d6cdced2ff6) |
+|![Before applying the Coupons filter](https://github.com/poocommerce/poocommerce-blocks/assets/3323310/6cab1aff-e4b9-4909-b81c-5726c6a20c40) |![After applying the Coupons filter](https://github.com/poocommerce/poocommerce-blocks/assets/3323310/a5cc2572-16e7-4781-a5ab-5d6cdced2ff6) |
 
 ## `showApplyCouponNotice`
 
@@ -128,7 +128,7 @@ registerCheckoutFilters( 'example-extension', {
 
 | Before                                                                 | After                                                                 |
 |:---------------------------------------------------------------------:|:---------------------------------------------------------------------:|
-|![Before applying the Show Apply Coupon Notice filter](https://github.com/woocommerce/woocommerce-blocks/assets/3323310/374d4899-61f3-49b2-ae04-5541d4c130c2) |![After applying the Show Apply Coupon Notice filter](https://github.com/woocommerce/woocommerce-blocks/assets/3323310/c35dbd9b-eee4-4afe-9a29-9c554d467729) |
+|![Before applying the Show Apply Coupon Notice filter](https://github.com/poocommerce/poocommerce-blocks/assets/3323310/374d4899-61f3-49b2-ae04-5541d4c130c2) |![After applying the Show Apply Coupon Notice filter](https://github.com/poocommerce/poocommerce-blocks/assets/3323310/c35dbd9b-eee4-4afe-9a29-9c554d467729) |
 
 ## `showRemoveCouponNotice`
 
@@ -186,4 +186,4 @@ registerCheckoutFilters( 'example-extension', {
 
 | Before                                                                 | After                                                                 |
 |:---------------------------------------------------------------------:|:---------------------------------------------------------------------:|
-|![Before applying the Show Remove Coupon Notice filter](https://github.com/woocommerce/woocommerce-blocks/assets/3323310/9d8607fa-ab20-4181-b70b-7954e7aa49cb) |![After applying the Show Remove Coupon Notice filter](https://github.com/woocommerce/woocommerce-blocks/assets/3323310/83d5f65f-c4f3-4707-a250-077952514931) |
+|![Before applying the Show Remove Coupon Notice filter](https://github.com/poocommerce/poocommerce-blocks/assets/3323310/9d8607fa-ab20-4181-b70b-7954e7aa49cb) |![After applying the Show Remove Coupon Notice filter](https://github.com/poocommerce/poocommerce-blocks/assets/3323310/83d5f65f-c4f3-4707-a250-077952514931) |

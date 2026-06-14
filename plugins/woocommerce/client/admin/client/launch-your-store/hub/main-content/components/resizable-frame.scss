@@ -1,9 +1,9 @@
 // This is a copy of the Gutenberg styles with the selectors modified.
 // https://github.com/WordPress/gutenberg/blob/8aa998526984a3e9d547cd638840f8314bad9d81/packages/edit-site/src/components/resizable-frame/style.scss
-// See https://github.com/woocommerce/woocommerce/issues/48377
+// See https://github.com/poocommerce/poocommerce/issues/48377
 @import "_variables.scss";
 
-.woocommerce-edit-site-resizable-frame__inner {
+.poocommerce-edit-site-resizable-frame__inner {
 	position: relative;
 
 	&.is-resizing {
@@ -26,13 +26,13 @@
 	}
 }
 
-.woocommerce-edit-site-resizable-frame__inner-content {
+.poocommerce-edit-site-resizable-frame__inner-content {
 	position: absolute;
 	z-index: 0;
 	inset: 0;
 }
 
-.woocommerce-edit-site-resizable-frame__handle {
+.poocommerce-edit-site-resizable-frame__handle {
 	align-items: center;
 	background-color: rgba($gray-700, 0.4);
 	border: 0;

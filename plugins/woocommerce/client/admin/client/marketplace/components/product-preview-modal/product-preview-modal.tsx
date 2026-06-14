@@ -4,7 +4,7 @@
 import { Modal } from '@wordpress/components';
 import { useEffect, useState, useCallback } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import { Spinner } from '@woocommerce/components';
+import { Spinner } from '@poocommerce/components';
 
 /**
  * Internal dependencies
@@ -72,7 +72,7 @@ export default function ProductPreviewModal( {
 		};
 
 		const contentElement = document.querySelector(
-			'.woocommerce-marketplace__product-preview-modal__content'
+			'.poocommerce-marketplace__product-preview-modal__content'
 		);
 		if ( contentElement ) {
 			contentElement.addEventListener(
@@ -112,7 +112,7 @@ export default function ProductPreviewModal( {
 				setError( null );
 			} catch ( err ) {
 				setError(
-					__( 'Failed to load product preview.', 'woocommerce' )
+					__( 'Failed to load product preview.', 'poocommerce' )
 				);
 			} finally {
 				setIsLoading( false );
@@ -126,19 +126,19 @@ export default function ProductPreviewModal( {
 	}, [ onOpen, productId ] );
 
 	const productHeader = (
-		<div className="woocommerce-marketplace__product-preview-modal__header">
+		<div className="poocommerce-marketplace__product-preview-modal__header">
 			{ productIcon && (
 				<img
-					className="woocommerce-marketplace__product-preview-modal__icon"
+					className="poocommerce-marketplace__product-preview-modal__icon"
 					src={ productIcon }
 					alt={ productTitle }
 				/>
 			) }
-			<div className="woocommerce-marketplace__product-preview-modal__header-content">
+			<div className="poocommerce-marketplace__product-preview-modal__header-content">
 				<h2>{ productTitle }</h2>
 				{ productVendor && (
-					<div className="woocommerce-marketplace__product-preview-modal__vendor">
-						<span>{ __( 'By', 'woocommerce' ) }</span>{ ' ' }
+					<div className="poocommerce-marketplace__product-preview-modal__vendor">
+						<span>{ __( 'By', 'poocommerce' ) }</span>{ ' ' }
 						{ productVendor }
 					</div>
 				) }
@@ -151,21 +151,21 @@ export default function ProductPreviewModal( {
 			onRequestClose={ () =>
 				closeModal( 'marketplace_product_preview_modal_dismissed' )
 			}
-			className="woocommerce-marketplace__product-preview-modal"
-			closeButtonLabel={ __( 'Close product preview', 'woocommerce' ) }
+			className="poocommerce-marketplace__product-preview-modal"
+			closeButtonLabel={ __( 'Close product preview', 'poocommerce' ) }
 			size="large"
 			focusOnMount="firstElement"
-			title={ __( 'The WooCommerce Marketplace', 'woocommerce' ) }
+			title={ __( 'The PooCommerce Marketplace', 'poocommerce' ) }
 		>
 			{ productHeader }
-			<div className="woocommerce-marketplace__product-preview-modal__content">
+			<div className="poocommerce-marketplace__product-preview-modal__content">
 				{ isLoading && (
-					<div className="woocommerce-marketplace__product-preview-modal__loading">
+					<div className="poocommerce-marketplace__product-preview-modal__loading">
 						<Spinner />
 					</div>
 				) }
 				{ error && (
-					<div className="woocommerce-marketplace__product-preview-modal__error">
+					<div className="poocommerce-marketplace__product-preview-modal__error">
 						{ error }
 					</div>
 				) }

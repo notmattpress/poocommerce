@@ -2,14 +2,14 @@
  * External dependencies
  */
 import clsx from 'clsx';
-import { withFilteredAttributes } from '@woocommerce/shared-hocs';
-import { FormStep } from '@woocommerce/blocks-components';
+import { withFilteredAttributes } from '@poocommerce/shared-hocs';
+import { FormStep } from '@poocommerce/blocks-components';
 import {
 	useCheckoutAddress,
 	useShippingData,
-} from '@woocommerce/base-context/hooks';
+} from '@poocommerce/base-context/hooks';
 import { useSelect } from '@wordpress/data';
-import { checkoutStore } from '@woocommerce/block-data';
+import { checkoutStore } from '@poocommerce/block-data';
 
 /**
  * Internal dependencies

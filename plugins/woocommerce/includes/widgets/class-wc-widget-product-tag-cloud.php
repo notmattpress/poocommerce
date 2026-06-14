@@ -2,7 +2,7 @@
 /**
  * Tag Cloud Widget.
  *
- * @package WooCommerce\Widgets
+ * @package PooCommerce\Widgets
  * @version 3.4.0
  */
 
@@ -19,15 +19,15 @@ class WC_Widget_Product_Tag_Cloud extends WC_Widget {
 	 * Constructor.
 	 */
 	public function __construct() {
-		$this->widget_cssclass    = 'woocommerce widget_product_tag_cloud';
-		$this->widget_description = __( 'A cloud of your most used product tags.', 'woocommerce' );
-		$this->widget_id          = 'woocommerce_product_tag_cloud';
-		$this->widget_name        = __( 'Product Tag Cloud', 'woocommerce' );
+		$this->widget_cssclass    = 'poocommerce widget_product_tag_cloud';
+		$this->widget_description = __( 'A cloud of your most used product tags.', 'poocommerce' );
+		$this->widget_id          = 'poocommerce_product_tag_cloud';
+		$this->widget_name        = __( 'Product Tag Cloud', 'poocommerce' );
 		$this->settings           = array(
 			'title' => array(
 				'type'  => 'text',
-				'std'   => __( 'Product tags', 'woocommerce' ),
-				'label' => __( 'Title', 'woocommerce' ),
+				'std'   => __( 'Product tags', 'poocommerce' ),
+				'label' => __( 'Title', 'poocommerce' ),
 			),
 		);
 
@@ -56,7 +56,7 @@ class WC_Widget_Product_Tag_Cloud extends WC_Widget {
 
 		wp_tag_cloud(
 			apply_filters(
-				'woocommerce_product_tag_cloud_widget_args',
+				'poocommerce_product_tag_cloud_widget_args',
 				array(
 					'taxonomy'                  => $current_taxonomy,
 					'topic_count_text_callback' => array( $this, 'topic_count_text' ),
@@ -88,7 +88,7 @@ class WC_Widget_Product_Tag_Cloud extends WC_Widget {
 	 */
 	public function topic_count_text( $count ) {
 		/* translators: %s: product count */
-		return sprintf( _n( '%s product', '%s products', $count, 'woocommerce' ), number_format_i18n( $count ) );
+		return sprintf( _n( '%s product', '%s products', $count, 'poocommerce' ), number_format_i18n( $count ) );
 	}
 
 	// Ignore whole block to avoid warnings about PSR2.Methods.MethodDeclaration.Underscore violation.

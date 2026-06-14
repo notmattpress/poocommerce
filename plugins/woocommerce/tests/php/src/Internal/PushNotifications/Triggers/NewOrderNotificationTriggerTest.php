@@ -2,11 +2,11 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\PushNotifications\Triggers;
+namespace Automattic\PooCommerce\Tests\Internal\PushNotifications\Triggers;
 
-use Automattic\WooCommerce\Internal\PushNotifications\Dispatchers\InternalNotificationDispatcher;
-use Automattic\WooCommerce\Internal\PushNotifications\Services\PendingNotificationStore;
-use Automattic\WooCommerce\Internal\PushNotifications\Triggers\NewOrderNotificationTrigger;
+use Automattic\PooCommerce\Internal\PushNotifications\Dispatchers\InternalNotificationDispatcher;
+use Automattic\PooCommerce\Internal\PushNotifications\Services\PendingNotificationStore;
+use Automattic\PooCommerce\Internal\PushNotifications\Triggers\NewOrderNotificationTrigger;
 use WC_Order;
 use WC_Unit_Test_Case;
 
@@ -51,8 +51,8 @@ class NewOrderNotificationTriggerTest extends WC_Unit_Test_Case {
 	 * Tear down test fixtures.
 	 */
 	public function tearDown(): void {
-		remove_action( 'woocommerce_new_order', array( $this->trigger, 'on_new_order' ) );
-		remove_action( 'woocommerce_order_status_changed', array( $this->trigger, 'on_order_status_changed' ) );
+		remove_action( 'poocommerce_new_order', array( $this->trigger, 'on_new_order' ) );
+		remove_action( 'poocommerce_order_status_changed', array( $this->trigger, 'on_order_status_changed' ) );
 		remove_action( 'shutdown', array( $this->store, 'dispatch_all' ) );
 
 		$this->reset_container_replacements();

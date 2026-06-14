@@ -19,7 +19,7 @@ const fieldDefinition = {
 export const fieldExtensions: Partial< Field< ProductEntityRecord > > = {
 	...fieldDefinition,
 	render: ( { item } ) => (
-		<div className="woocommerce-fields-field__visibility-summary">
+		<div className="poocommerce-fields-field__visibility-summary">
 			<ProductStatusBadge
 				status={ item.status as ProductEntityRecord[ 'status' ] }
 			/>

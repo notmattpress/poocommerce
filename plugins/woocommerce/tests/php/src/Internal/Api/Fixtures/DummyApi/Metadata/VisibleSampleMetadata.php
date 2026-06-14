@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Metadata;
+namespace Automattic\PooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Metadata;
 
 use Attribute;
-use Automattic\WooCommerce\Api\Attributes\Metadata;
+use Automattic\PooCommerce\Api\Attributes\Metadata;
 
 /**
  * Plain fixture metadata subclass with the default

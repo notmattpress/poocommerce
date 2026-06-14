@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 /**
  * Tests for the WC_Admin_Dashboard class.
  *
- * @package WooCommerce\Tests\Admin
+ * @package PooCommerce\Tests\Admin
  */
 
 /**
@@ -49,12 +49,12 @@ class WC_Admin_Dashboard_Test extends WC_Unit_Test_Case {
 	 * Tear down test fixtures.
 	 */
 	public function tearDown(): void {
-		delete_option( 'woocommerce_task_list_completed_lists' );
-		delete_option( 'woocommerce_task_list_hidden' );
-		delete_option( 'woocommerce_task_list_hidden_lists' );
-		delete_option( 'woocommerce_task_list_complete' );
-		remove_all_filters( 'pre_option_woocommerce_task_list_complete' );
-		remove_all_filters( 'pre_option_woocommerce_task_list_hidden' );
+		delete_option( 'poocommerce_task_list_completed_lists' );
+		delete_option( 'poocommerce_task_list_hidden' );
+		delete_option( 'poocommerce_task_list_hidden_lists' );
+		delete_option( 'poocommerce_task_list_complete' );
+		remove_all_filters( 'pre_option_poocommerce_task_list_complete' );
+		remove_all_filters( 'pre_option_poocommerce_task_list_hidden' );
 
 		parent::tearDown();
 	}
@@ -77,7 +77,7 @@ class WC_Admin_Dashboard_Test extends WC_Unit_Test_Case {
 	public function test_widget_shows_when_task_list_complete(): void {
 		// Uses pre_option filter because WC_INSTALLING is true in test env,
 		// which causes the DeprecatedOptions bridge to bail out.
-		add_filter( 'pre_option_woocommerce_task_list_complete', fn() => 'yes' );
+		add_filter( 'pre_option_poocommerce_task_list_complete', fn() => 'yes' );
 
 		$this->assertTrue(
 			$this->invoke_should_display_widget( $this->sut ),
@@ -89,7 +89,7 @@ class WC_Admin_Dashboard_Test extends WC_Unit_Test_Case {
 	 * @testdox Widget shows when task list is hidden.
 	 */
 	public function test_widget_shows_when_task_list_hidden(): void {
-		add_filter( 'pre_option_woocommerce_task_list_hidden', fn() => 'yes' );
+		add_filter( 'pre_option_poocommerce_task_list_hidden', fn() => 'yes' );
 
 		$this->assertTrue(
 			$this->invoke_should_display_widget( $this->sut ),
@@ -101,8 +101,8 @@ class WC_Admin_Dashboard_Test extends WC_Unit_Test_Case {
 	 * @testdox Widget does not show when neither complete nor hidden.
 	 */
 	public function test_widget_does_not_show_when_neither_complete_nor_hidden(): void {
-		delete_option( 'woocommerce_task_list_completed_lists' );
-		delete_option( 'woocommerce_task_list_hidden_lists' );
+		delete_option( 'poocommerce_task_list_completed_lists' );
+		delete_option( 'poocommerce_task_list_hidden_lists' );
 
 		$this->assertFalse(
 			$this->invoke_should_display_widget( $this->sut ),
@@ -114,7 +114,7 @@ class WC_Admin_Dashboard_Test extends WC_Unit_Test_Case {
 	 * @testdox Widget does not show without proper capabilities.
 	 */
 	public function test_widget_does_not_show_without_capabilities(): void {
-		add_filter( 'pre_option_woocommerce_task_list_complete', fn() => 'yes' );
+		add_filter( 'pre_option_poocommerce_task_list_complete', fn() => 'yes' );
 
 		$password   = wp_generate_password( 8, false, false );
 		$subscriber = wp_insert_user(

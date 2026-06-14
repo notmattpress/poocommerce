@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Api\Types\Products;
+namespace Automattic\PooCommerce\Api\Types\Products;
 
-use Automattic\WooCommerce\Api\Attributes\Description;
-use Automattic\WooCommerce\Api\Attributes\ScalarType;
-use Automattic\WooCommerce\Api\Scalars\DateTime;
+use Automattic\PooCommerce\Api\Attributes\Description;
+use Automattic\PooCommerce\Api\Attributes\ScalarType;
+use Automattic\PooCommerce\Api\Scalars\DateTime;
 
 /**
  * Output type representing a product review.

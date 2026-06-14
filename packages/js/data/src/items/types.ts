@@ -23,7 +23,7 @@ export type ItemImage = {
 	alt: string;
 };
 
-// https://github.com/woocommerce/woocommerce/blob/trunk/plugins/woocommerce/includes/rest-api/Controllers/Version3/class-wc-rest-product-categories-controller.php#L97-L208
+// https://github.com/poocommerce/poocommerce/blob/trunk/plugins/poocommerce/includes/rest-api/Controllers/Version3/class-wc-rest-product-categories-controller.php#L97-L208
 export type CategoryItem = {
 	id: number;
 	name: string;
@@ -40,8 +40,8 @@ export type CategoryItem = {
 	};
 };
 
-// https://github.com/woocommerce/woocommerce/blob/trunk/plugins/woocommerce/src/Admin/API/Products.php#L72-L83
-// https://github.com/woocommerce/woocommerce/blob/trunk/plugins/woocommerce/includes/rest-api/Controllers/Version3/class-wc-rest-products-controller.php#L809-L1423
+// https://github.com/poocommerce/poocommerce/blob/trunk/plugins/poocommerce/src/Admin/API/Products.php#L72-L83
+// https://github.com/poocommerce/poocommerce/blob/trunk/plugins/poocommerce/includes/rest-api/Controllers/Version3/class-wc-rest-products-controller.php#L809-L1423
 export type ProductItem = {
 	id: number;
 	name: string;
@@ -161,7 +161,7 @@ export type ProductItem = {
 	last_order_date: string;
 };
 
-// https://github.com/woocommerce/woocommerce/blob/trunk/plugins/woocommerce/src/Admin/API/Reports/Customers/Controller.php#L221-L318
+// https://github.com/poocommerce/poocommerce/blob/trunk/plugins/poocommerce/src/Admin/API/Reports/Customers/Controller.php#L221-L318
 export type CustomerItem = {
 	id: number;
 	user_id: number;
@@ -183,7 +183,7 @@ export type CustomerItem = {
 	};
 };
 
-// https://github.com/woocommerce/woocommerce/blob/trunk/plugins/woocommerce/src/Admin/API/Leaderboards.php#L527-L585
+// https://github.com/poocommerce/poocommerce/blob/trunk/plugins/poocommerce/src/Admin/API/Leaderboards.php#L527-L585
 export type LeaderboardItem = {
 	id: string;
 	label: string;

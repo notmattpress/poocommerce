@@ -1,11 +1,11 @@
 <?php
 /**
- * WooCommerce MCP REST Transport with API validation.
+ * PooCommerce MCP REST Transport with API validation.
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\MCP\Transport;
+namespace Automattic\PooCommerce\Internal\MCP\Transport;
 
 use WP\MCP\Transport\HttpTransport;
 use WP\MCP\Transport\Infrastructure\McpTransportContext;
@@ -15,12 +15,12 @@ use WP_Error;
 defined( 'ABSPATH' ) || exit;
 
 /**
- * WooCommerce MCP REST Transport class.
+ * PooCommerce MCP REST Transport class.
  *
- * Extends the base HttpTransport with standalone WooCommerce REST API key authentication.
+ * Extends the base HttpTransport with standalone PooCommerce REST API key authentication.
  * Uses X-MCP-API-Key header with consumer_key:consumer_secret format.
  */
-class WooCommerceRestTransport extends HttpTransport {
+class PooCommerceRestTransport extends HttpTransport {
 
 	/**
 	 * Current MCP user's API key permissions.
@@ -38,11 +38,11 @@ class WooCommerceRestTransport extends HttpTransport {
 		parent::__construct( $context );
 
 		// This filter is documented in the check_ability_permission method.
-		add_filter( 'woocommerce_check_rest_ability_permissions_for_method', array( $this, 'check_ability_permission' ), 10, 3 );
+		add_filter( 'poocommerce_check_rest_ability_permissions_for_method', array( $this, 'check_ability_permission' ), 10, 3 );
 	}
 
 	/**
-	 * Validate request using WooCommerce REST API authentication.
+	 * Validate request using PooCommerce REST API authentication.
 	 *
 	 * @param WP_REST_Request|null $request The REST request object.
 	 * @return bool|\WP_Error True if allowed, WP_Error if not.
@@ -66,10 +66,10 @@ class WooCommerceRestTransport extends HttpTransport {
 		 * @param bool             $allowed Whether to allow insecure transport.
 		 * @param \WP_REST_Request $request The REST request object.
 		 */
-		if ( ! is_ssl() && ! apply_filters( 'woocommerce_mcp_allow_insecure_transport', false, $request ) ) {
+		if ( ! is_ssl() && ! apply_filters( 'poocommerce_mcp_allow_insecure_transport', false, $request ) ) {
 			return new \WP_Error(
 				'insecure_transport',
-				__( 'HTTPS is required for MCP requests.', 'woocommerce' ),
+				__( 'HTTPS is required for MCP requests.', 'poocommerce' ),
 				array( 'status' => 403 )
 			);
 		}
@@ -80,7 +80,7 @@ class WooCommerceRestTransport extends HttpTransport {
 		if ( empty( $api_key ) ) {
 			return new \WP_Error(
 				'missing_api_key',
-				__( 'X-MCP-API-Key header required. Format: consumer_key:consumer_secret', 'woocommerce' ),
+				__( 'X-MCP-API-Key header required. Format: consumer_key:consumer_secret', 'poocommerce' ),
 				array( 'status' => 401 )
 			);
 		}
@@ -88,7 +88,7 @@ class WooCommerceRestTransport extends HttpTransport {
 		if ( strpos( $api_key, ':' ) === false ) {
 			return new \WP_Error(
 				'invalid_api_key',
-				__( 'X-MCP-API-Key must be in format consumer_key:consumer_secret', 'woocommerce' ),
+				__( 'X-MCP-API-Key must be in format consumer_key:consumer_secret', 'poocommerce' ),
 				array( 'status' => 401 )
 			);
 		}
@@ -115,14 +115,14 @@ class WooCommerceRestTransport extends HttpTransport {
 	private function authenticate( $consumer_key, $consumer_secret ) {
 		global $wpdb;
 
-		// Hash the consumer key as WooCommerce does.
+		// Hash the consumer key as PooCommerce does.
 		$hashed_consumer_key = wc_api_hash( trim( (string) $consumer_key ) );
 
-		// Query the WooCommerce API keys table directly.
+		// Query the PooCommerce API keys table directly.
 		$user_data = $wpdb->get_row(
 			$wpdb->prepare(
 				"SELECT key_id, user_id, permissions, consumer_key, consumer_secret, nonces
-				FROM {$wpdb->prefix}woocommerce_api_keys
+				FROM {$wpdb->prefix}poocommerce_api_keys
 				WHERE consumer_key = %s",
 				$hashed_consumer_key
 			)
@@ -132,7 +132,7 @@ class WooCommerceRestTransport extends HttpTransport {
 		if ( empty( $user_data ) ) {
 			return new \WP_Error(
 				'authentication_failed',
-				__( 'Authentication failed.', 'woocommerce' ),
+				__( 'Authentication failed.', 'poocommerce' ),
 				array( 'status' => 401 )
 			);
 		}
@@ -141,7 +141,7 @@ class WooCommerceRestTransport extends HttpTransport {
 		if ( ! hash_equals( $user_data->consumer_secret, trim( (string) $consumer_secret ) ) ) {
 			return new \WP_Error(
 				'authentication_failed',
-				__( 'Authentication failed.', 'woocommerce' ),
+				__( 'Authentication failed.', 'poocommerce' ),
 				array( 'status' => 401 )
 			);
 		}
@@ -154,7 +154,7 @@ class WooCommerceRestTransport extends HttpTransport {
 		if ( ! $user ) {
 			return new \WP_Error(
 				'mcp_user_not_found',
-				__( 'The user associated with this API key no longer exists.', 'woocommerce' ),
+				__( 'The user associated with this API key no longer exists.', 'poocommerce' ),
 				array( 'status' => 401 )
 			);
 		}

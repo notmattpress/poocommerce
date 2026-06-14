@@ -1,24 +1,24 @@
-# WooCommerce Interactivity API stores
+# PooCommerce Interactivity API stores
 
-This folder contains the Interactivity API (iAPI) stores that WooCommerce blocks use on the frontend. All stores here are **locked** (`lock: true`) and private by design — they are not intended for third-party extension, and removing or changing their state is **not** a breaking change. See the "Interactivity API Stores" section in `client/blocks/CLAUDE.md` and the [WordPress Private Stores reference](https://developer.wordpress.org/block-editor/reference-guides/interactivity-api/api-reference#private-stores).
+This folder contains the Interactivity API (iAPI) stores that PooCommerce blocks use on the frontend. All stores here are **locked** (`lock: true`) and private by design — they are not intended for third-party extension, and removing or changing their state is **not** a breaking change. See the "Interactivity API Stores" section in `client/blocks/CLAUDE.md` and the [WordPress Private Stores reference](https://developer.wordpress.org/block-editor/reference-guides/interactivity-api/api-reference#private-stores).
 
 Stores in this folder:
 
--   [`woocommerce/products`](#woocommerceproducts-store) — server-populated cache of product and variation data in Store API format.
--   `woocommerce/cart` — cart state and actions (with mutation batching for performance).
+-   [`poocommerce/products`](#poocommerceproducts-store) — server-populated cache of product and variation data in Store API format.
+-   `poocommerce/cart` — cart state and actions (with mutation batching for performance).
 
 ---
 
-## `woocommerce/products` store
+## `poocommerce/products` store
 
-A locked, server-populated iAPI store that exposes WooCommerce products and variations in Store API format (`ProductResponseItem`) to interactive blocks. PHP loaders populate the raw data during render; JS and PHP derived getters expose the "current" product for the surrounding context so that directives like `data-wp-text="state.productInContext.sku"` resolve correctly on both the server (SSR) and the client.
+A locked, server-populated iAPI store that exposes PooCommerce products and variations in Store API format (`ProductResponseItem`) to interactive blocks. PHP loaders populate the raw data during render; JS and PHP derived getters expose the "current" product for the surrounding context so that directives like `data-wp-text="state.productInContext.sku"` resolve correctly on both the server (SSR) and the client.
 
 **Source files:**
 
--   JS: `plugins/woocommerce/client/blocks/assets/js/base/stores/woocommerce/products.ts`
--   PHP: `plugins/woocommerce/src/Blocks/SharedStores/ProductsStore.php`
--   PHP procedural wrappers: `plugins/woocommerce/includes/wc-interactivity-api-functions.php`
--   Behavioral tests: `plugins/woocommerce/client/blocks/assets/js/base/stores/woocommerce/test/products.test.ts`
+-   JS: `plugins/poocommerce/client/blocks/assets/js/base/stores/poocommerce/products.ts`
+-   PHP: `plugins/poocommerce/src/Blocks/SharedStores/ProductsStore.php`
+-   PHP procedural wrappers: `plugins/poocommerce/includes/wc-interactivity-api-functions.php`
+-   Behavioral tests: `plugins/poocommerce/client/blocks/assets/js/base/stores/poocommerce/test/products.test.ts`
 
 ### When to use it
 
@@ -30,24 +30,24 @@ Use this store when an interactive block needs to read product fields (price, SK
 PHP                                                  Client
 ┌───────────────────────────────────┐               ┌───────────────────────────────────┐
 │ ProductsStore::load_product()     │               │ store<ProductsStore>(             │
-│ ProductsStore::load_variations()  │  populates    │   'woocommerce/products'          │
+│ ProductsStore::load_variations()  │  populates    │   'poocommerce/products'          │
 │ ProductsStore::load_purchasable_  │──────────────▶│ )                                 │
 │   child_products()                │               │                                   │
 └────────────┬──────────────────────┘               │ state.products                    │
              │                                      │ state.productVariations           │
              ▼                                      │                                   │
    wp_interactivity_state(                          │ Derived getters:                  │
-     'woocommerce/products',                        │ • state.mainProductInContext      │
+     'poocommerce/products',                        │ • state.mainProductInContext      │
      [ 'products' => ..., ... ]                     │ • state.productVariationInContext │
    )                                                │ • state.productInContext          │
                                                     └─────────────────┬─────────────────┘
                                                                  │
  Selection (one of):                                             ▼
  • Global: wp_interactivity_state(..., [        Directives bound in markup:
-     'productId' => N, 'variationId' => null   data-wp-interactive="woocommerce/products"
+     'productId' => N, 'variationId' => null   data-wp-interactive="poocommerce/products"
    ])                                          data-wp-text="state.productInContext.sku"
  • Local context: data-wp-context=
-     'woocommerce/products::{"productId":N}'
+     'poocommerce/products::{"productId":N}'
 ```
 
 Two planes:
@@ -75,7 +75,7 @@ Derived getters mirror each other in JS (`products.ts`) and PHP (`ProductsStore:
 All loaders require a consent statement (they are experimental APIs). The literal to pass is:
 
 ```php
-'I acknowledge that using experimental APIs means my theme or plugin will inevitably break in the next version of WooCommerce'
+'I acknowledge that using experimental APIs means my theme or plugin will inevitably break in the next version of PooCommerce'
 ```
 
 Loaders are idempotent — calling them multiple times for the same ID (or the same variation parent) is cheap.
@@ -89,7 +89,7 @@ From `SingleProduct` block (`src/Blocks/BlockTypes/SingleProduct.php`):
 ```php
 // Load product into the shared products store.
 wc_interactivity_api_load_product(
-    'I acknowledge that using experimental APIs means my theme or plugin will inevitably break in the next version of WooCommerce',
+    'I acknowledge that using experimental APIs means my theme or plugin will inevitably break in the next version of PooCommerce',
     $product->get_id()
 );
 ```
@@ -115,14 +115,14 @@ From `SingleProductTemplate.php`:
 ```php
 $product = wc_get_product( $post->ID );
 if ( $product ) {
-    $consent = 'I acknowledge that using experimental APIs means my theme or plugin will inevitably break in the next version of WooCommerce';
+    $consent = 'I acknowledge that using experimental APIs means my theme or plugin will inevitably break in the next version of PooCommerce';
 
     // Load the product data into the products store so derived
     // state closures can resolve it during server-side rendering.
     ProductsStore::load_product( $consent, $product->get_id() );
 
     wp_interactivity_state(
-        'woocommerce/products',
+        'poocommerce/products',
         array(
             'productId'   => $product->get_id(),
             'variationId' => null,
@@ -139,7 +139,7 @@ Use `wp_interactivity_data_wp_context()` to generate the properly encoded attrib
 
 ```php
 wc_interactivity_api_load_product(
-    'I acknowledge that using experimental APIs means my theme or plugin will inevitably break in the next version of WooCommerce',
+    'I acknowledge that using experimental APIs means my theme or plugin will inevitably break in the next version of PooCommerce',
     $product->get_id()
 );
 
@@ -149,13 +149,13 @@ $context = array(
 );
 
 printf(
-    '<div data-wp-interactive="woocommerce/single-product" %s>%s</div>',
-    wp_interactivity_data_wp_context( $context, 'woocommerce/products' ),
+    '<div data-wp-interactive="poocommerce/single-product" %s>%s</div>',
+    wp_interactivity_data_wp_context( $context, 'poocommerce/products' ),
     $content
 );
 ```
 
-The second argument to `wp_interactivity_data_wp_context` (`'woocommerce/products'`) namespaces the context to the `woocommerce/products` store; the JS store's `getContext< ProductContext >( 'woocommerce/products' )` calls read from it.
+The second argument to `wp_interactivity_data_wp_context` (`'poocommerce/products'`) namespaces the context to the `poocommerce/products` store; the JS store's `getContext< ProductContext >( 'poocommerce/products' )` calls read from it.
 
 ### Reading product data in a block
 
@@ -169,7 +169,7 @@ From `ProductSKU.php`:
 
 ```php
 $interactive_attributes = $is_interactive
-    ? 'data-wp-interactive="woocommerce/products" data-wp-text="state.productInContext.sku"'
+    ? 'data-wp-interactive="poocommerce/products" data-wp-text="state.productInContext.sku"'
     : '';
 ```
 
@@ -183,15 +183,15 @@ From `atomic/blocks/product-elements/button/frontend.ts`:
 
 ```ts
 import { store } from '@wordpress/interactivity';
-import '@woocommerce/stores/woocommerce/products';
-import type { ProductsStore } from '@woocommerce/stores/woocommerce/products';
+import '@poocommerce/stores/poocommerce/products';
+import type { ProductsStore } from '@poocommerce/stores/poocommerce/products';
 
 // Stores are locked to prevent 3PD usage until the API is stable.
 const universalLock =
 	'I acknowledge that using a private store means my plugin will inevitably break on the next store release.';
 
 const { state: productsState } = store< ProductsStore >(
-	'woocommerce/products',
+	'poocommerce/products',
 	{},
 	{ lock: universalLock }
 );
@@ -212,7 +212,7 @@ From `base/utils/variations/does-cart-item-match-attributes.ts`:
 
 ```ts
 const { state: productsState } = store< ProductsStore >(
-	'woocommerce/products',
+	'poocommerce/products',
 	{},
 	{ lock: universalLock }
 );
@@ -229,6 +229,6 @@ For variable products, `findProduct` returns `null` when no variation matches th
 -   **Always load before you bind.** If `wc_interactivity_api_load_product` was never called for the current `productId`, `state.mainProductInContext` resolves to `null` and directive bindings silently render empty.
 -   **Prefer `productInContext`** for "whatever is currently being shown". Use `mainProductInContext` / `productVariationInContext` only when the distinction matters (e.g. rendering a variation-specific description vs. the parent title).
 -   **`data-wp-context` sets local context.** Use it whenever the same block type can appear multiple times on a page for different products.
--   **Local context beats state.** If a block is wrapped in a `data-wp-context="woocommerce/products::{ ... }"` element, its `productId` / `variationId` override any globally-set values for descendants of that element. See `test/products.test.ts` for the exact precedence rules — notably, a context that has `productId` but no `variationId` key does **not** fall back to the global `variationId`.
+-   **Local context beats state.** If a block is wrapped in a `data-wp-context="poocommerce/products::{ ... }"` element, its `productId` / `variationId` override any globally-set values for descendants of that element. See `test/products.test.ts` for the exact precedence rules — notably, a context that has `productId` but no `variationId` key does **not** fall back to the global `variationId`.
 -   **Keep the consent string in sync.** The literal string is defined in `ProductsStore::$consent_statement` (PHP) and `universalLock` (JS). They are intentionally different (loaders vs. store lock); copy-paste from this README or the source files.
 -   **Do not extend this store from third-party code.** It is `lock: true` and private by design; anything here can change or disappear without notice.

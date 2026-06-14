@@ -1,27 +1,27 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests;
+namespace Automattic\PooCommerce\Tests;
 
-use Automattic\WooCommerce\Autoloader;
+use Automattic\PooCommerce\Autoloader;
 use Composer\Autoload\ClassLoader;
 
 /**
- * Tests for the WooCommerce-scoped Composer PSR-4 fallback autoloader.
+ * Tests for the PooCommerce-scoped Composer PSR-4 fallback autoloader.
  *
- * @package Automattic\WooCommerce\Tests
+ * @package Automattic\PooCommerce\Tests
  */
 class AutoloaderTest extends \WC_Unit_Test_Case {
 
 	/**
 	 * The builder returns a ClassLoader scoped to the first-party `src/` namespace
 	 * only: it resolves a real src class, and refuses the bundled `Vendor\` packages,
-	 * non-WooCommerce vendor namespaces, and non-existent classes.
+	 * non-PooCommerce vendor namespaces, and non-existent classes.
 	 *
-	 * @testdox build_woocommerce_psr4_fallback() resolves src classes only.
+	 * @testdox build_poocommerce_psr4_fallback() resolves src classes only.
 	 */
-	public function test_build_woocommerce_psr4_fallback_scopes_to_src(): void {
-		$sut = Autoloader::build_woocommerce_psr4_fallback();
+	public function test_build_poocommerce_psr4_fallback_scopes_to_src(): void {
+		$sut = Autoloader::build_poocommerce_psr4_fallback();
 
 		$this->assertInstanceOf(
 			ClassLoader::class,
@@ -29,28 +29,28 @@ class AutoloaderTest extends \WC_Unit_Test_Case {
 			'Builder must return a ClassLoader when the Composer files are present (they ship in the build).'
 		);
 
-		// Positive: resolves a real WooCommerce src class from disk via PSR-4.
+		// Positive: resolves a real PooCommerce src class from disk via PSR-4.
 		$this->assertNotFalse(
-			$sut->findFile( 'Automattic\\WooCommerce\\Enums\\DefaultCustomerAddress' ),
-			'Fallback must resolve a WooCommerce src class.'
+			$sut->findFile( 'Automattic\\PooCommerce\\Enums\\DefaultCustomerAddress' ),
+			'Fallback must resolve a PooCommerce src class.'
 		);
 
 		// Excluded: bundled third-party under Vendor\ (lib/packages) must NOT resolve, so the
-		// fallback can never load WooCommerce's bundled copy over the Jetpack-coordinated version.
+		// fallback can never load PooCommerce's bundled copy over the Jetpack-coordinated version.
 		$this->assertFalse(
-			$sut->findFile( 'Automattic\\WooCommerce\\Vendor\\Psr\\Container\\ContainerInterface' ),
+			$sut->findFile( 'Automattic\\PooCommerce\\Vendor\\Psr\\Container\\ContainerInterface' ),
 			'Fallback must exclude bundled Vendor\\ packages.'
 		);
 
-		// Excluded: a non-WooCommerce vendor namespace that exists in the full map.
+		// Excluded: a non-PooCommerce vendor namespace that exists in the full map.
 		$this->assertFalse(
 			$sut->findFile( 'Opis\\JsonSchema\\Validator' ),
-			'Fallback must be scoped to WooCommerce src and refuse non-WooCommerce namespaces.'
+			'Fallback must be scoped to PooCommerce src and refuse non-PooCommerce namespaces.'
 		);
 
 		// Bogus: must not invent files for non-existent classes.
 		$this->assertFalse(
-			$sut->findFile( 'Automattic\\WooCommerce\\Nope\\Does_Not_Exist_XYZ' ),
+			$sut->findFile( 'Automattic\\PooCommerce\\Nope\\Does_Not_Exist_XYZ' ),
 			'Fallback must not resolve non-existent classes.'
 		);
 	}
@@ -59,11 +59,11 @@ class AutoloaderTest extends \WC_Unit_Test_Case {
 	 * Each builder call returns a distinct ClassLoader, so Composer's per-instance
 	 * negative cache (missingClasses) is never shared across resolutions.
 	 *
-	 * @testdox build_woocommerce_psr4_fallback() returns a fresh loader each call.
+	 * @testdox build_poocommerce_psr4_fallback() returns a fresh loader each call.
 	 */
-	public function test_build_woocommerce_psr4_fallback_is_not_shared(): void {
-		$first  = Autoloader::build_woocommerce_psr4_fallback();
-		$second = Autoloader::build_woocommerce_psr4_fallback();
+	public function test_build_poocommerce_psr4_fallback_is_not_shared(): void {
+		$first  = Autoloader::build_poocommerce_psr4_fallback();
+		$second = Autoloader::build_poocommerce_psr4_fallback();
 
 		$this->assertInstanceOf( ClassLoader::class, $first );
 		$this->assertInstanceOf( ClassLoader::class, $second );
@@ -84,8 +84,8 @@ class AutoloaderTest extends \WC_Unit_Test_Case {
 	public function test_find_scoped_file_resolves_after_the_file_appears(): void {
 		$base  = sys_get_temp_dir() . '/wc_autoloader_' . str_replace( '.', '', uniqid( '', true ) );
 		$file  = $base . '/Widget.php';
-		$class = 'Automattic\\WooCommerce\\ReproNs\\Widget';
-		$map   = array( 'Automattic\\WooCommerce\\ReproNs\\' => array( $base ) );
+		$class = 'Automattic\\PooCommerce\\ReproNs\\Widget';
+		$map   = array( 'Automattic\\PooCommerce\\ReproNs\\' => array( $base ) );
 
 		try {
 			wp_mkdir_p( $base );
@@ -98,7 +98,7 @@ class AutoloaderTest extends \WC_Unit_Test_Case {
 
 			// The file appears mid-request (as a WordPress in-place upgrade would swap it in).
 			// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents -- Test fixture; WP_Filesystem adds no value here.
-			file_put_contents( $file, "<?php\nnamespace Automattic\\WooCommerce\\ReproNs;\nclass Widget {}\n" );
+			file_put_contents( $file, "<?php\nnamespace Automattic\\PooCommerce\\ReproNs;\nclass Widget {}\n" );
 			clearstatcache( true, $file );
 
 			// Resolve: a fresh loader (no carried-over negative cache) finds the new file.
@@ -120,16 +120,16 @@ class AutoloaderTest extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * The resolver ignores classes outside the `Automattic\WooCommerce\` namespace.
+	 * The resolver ignores classes outside the `Automattic\PooCommerce\` namespace.
 	 *
-	 * @testdox find_scoped_file() ignores non-WooCommerce classes.
+	 * @testdox find_scoped_file() ignores non-PooCommerce classes.
 	 */
-	public function test_find_scoped_file_ignores_non_woocommerce_classes(): void {
-		$map = array( 'Automattic\\WooCommerce\\' => array( dirname( WC_PLUGIN_FILE ) . '/src' ) );
+	public function test_find_scoped_file_ignores_non_poocommerce_classes(): void {
+		$map = array( 'Automattic\\PooCommerce\\' => array( dirname( WC_PLUGIN_FILE ) . '/src' ) );
 
 		$this->assertNull(
 			Autoloader::find_scoped_file( 'Opis\\JsonSchema\\Validator', $map ),
-			'Must ignore classes outside the Automattic\\WooCommerce\\ namespace.'
+			'Must ignore classes outside the Automattic\\PooCommerce\\ namespace.'
 		);
 	}
 
@@ -140,13 +140,13 @@ class AutoloaderTest extends \WC_Unit_Test_Case {
 	 * @testdox the registered handler requires a src class that appears after a miss.
 	 */
 	public function test_registered_handler_requires_an_appearing_src_class(): void {
-		$handler = Autoloader::register_woocommerce_psr4_fallback();
+		$handler = Autoloader::register_poocommerce_psr4_fallback();
 		$this->assertInstanceOf( \Closure::class, $handler, 'Bootstrap must register a handler.' );
 
 		$suffix = 'ReproFixture' . str_replace( '.', '', uniqid( '', true ) );
 		$dir    = dirname( WC_PLUGIN_FILE ) . '/src/' . $suffix;
 		$file   = $dir . '/Widget.php';
-		$class  = 'Automattic\\WooCommerce\\' . $suffix . '\\Widget';
+		$class  = 'Automattic\\PooCommerce\\' . $suffix . '\\Widget';
 
 		$this->assertFalse( class_exists( $class, false ), 'Precondition: fixture class must not be loaded.' );
 
@@ -161,7 +161,7 @@ class AutoloaderTest extends \WC_Unit_Test_Case {
 			// File appears mid-request: the handler resolves it from disk and requires it.
 			wp_mkdir_p( $dir );
 			// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents -- Test fixture; WP_Filesystem adds no value here.
-			file_put_contents( $file, "<?php\nnamespace Automattic\\WooCommerce\\{$suffix};\nclass Widget {}\n" );
+			file_put_contents( $file, "<?php\nnamespace Automattic\\PooCommerce\\{$suffix};\nclass Widget {}\n" );
 			clearstatcache( true, $file );
 
 			$handler( $class );
@@ -187,19 +187,19 @@ class AutoloaderTest extends \WC_Unit_Test_Case {
 	 * @testdox the registered handler degrades (does not fatal) on a torn class file.
 	 */
 	public function test_registered_handler_degrades_on_a_torn_class_file(): void {
-		$handler = Autoloader::register_woocommerce_psr4_fallback();
+		$handler = Autoloader::register_poocommerce_psr4_fallback();
 		$this->assertInstanceOf( \Closure::class, $handler, 'Bootstrap must register a handler.' );
 
 		$suffix = 'ReproTorn' . str_replace( '.', '', uniqid( '', true ) );
 		$dir    = dirname( WC_PLUGIN_FILE ) . '/src/' . $suffix;
 		$file   = $dir . '/Widget.php';
-		$class  = 'Automattic\\WooCommerce\\' . $suffix . '\\Widget';
+		$class  = 'Automattic\\PooCommerce\\' . $suffix . '\\Widget';
 
 		try {
 			wp_mkdir_p( $dir );
 			// A torn / partially-written file mid-upgrade: a syntax error (unclosed class body).
 			// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents -- Test fixture; WP_Filesystem adds no value here.
-			file_put_contents( $file, "<?php\nnamespace Automattic\\WooCommerce\\{$suffix};\nclass Widget {\n" );
+			file_put_contents( $file, "<?php\nnamespace Automattic\\PooCommerce\\{$suffix};\nclass Widget {\n" );
 			clearstatcache( true, $file );
 
 			// The handler must not let the include's ParseError escape.
@@ -238,19 +238,19 @@ class AutoloaderTest extends \WC_Unit_Test_Case {
 	 * @testdox the registered handler loads a torn class file once it is completed.
 	 */
 	public function test_registered_handler_recovers_after_a_torn_file_is_completed(): void {
-		$handler = Autoloader::register_woocommerce_psr4_fallback();
+		$handler = Autoloader::register_poocommerce_psr4_fallback();
 		$this->assertInstanceOf( \Closure::class, $handler, 'Bootstrap must register a handler.' );
 
 		$suffix = 'ReproRetry' . str_replace( '.', '', uniqid( '', true ) );
 		$dir    = dirname( WC_PLUGIN_FILE ) . '/src/' . $suffix;
 		$file   = $dir . '/Widget.php';
-		$class  = 'Automattic\\WooCommerce\\' . $suffix . '\\Widget';
+		$class  = 'Automattic\\PooCommerce\\' . $suffix . '\\Widget';
 
 		try {
 			wp_mkdir_p( $dir );
 			// A torn / partially-written file mid-upgrade: a syntax error (unclosed class body).
 			// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents -- Test fixture; WP_Filesystem adds no value here.
-			file_put_contents( $file, "<?php\nnamespace Automattic\\WooCommerce\\{$suffix};\nclass Widget {\n" );
+			file_put_contents( $file, "<?php\nnamespace Automattic\\PooCommerce\\{$suffix};\nclass Widget {\n" );
 			clearstatcache( true, $file );
 
 			// First probe: degrades to a miss (covered by the torn-file test above).
@@ -259,7 +259,7 @@ class AutoloaderTest extends \WC_Unit_Test_Case {
 
 			// The upgrade finishes writing the file mid-request.
 			// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents -- Test fixture; WP_Filesystem adds no value here.
-			file_put_contents( $file, "<?php\nnamespace Automattic\\WooCommerce\\{$suffix};\nclass Widget {}\n" );
+			file_put_contents( $file, "<?php\nnamespace Automattic\\PooCommerce\\{$suffix};\nclass Widget {}\n" );
 			clearstatcache( true, $file );
 
 			$handler( $class );
@@ -288,19 +288,19 @@ class AutoloaderTest extends \WC_Unit_Test_Case {
 	 * @testdox the registered handler never re-executes an already-included file.
 	 */
 	public function test_registered_handler_skips_an_already_included_file(): void {
-		$handler = Autoloader::register_woocommerce_psr4_fallback();
+		$handler = Autoloader::register_poocommerce_psr4_fallback();
 		$this->assertInstanceOf( \Closure::class, $handler, 'Bootstrap must register a handler.' );
 
 		$suffix = 'ReproRogue' . str_replace( '.', '', uniqid( '', true ) );
 		$dir    = dirname( WC_PLUGIN_FILE ) . '/src/' . $suffix;
 		$file   = $dir . '/Widget.php';
-		$class  = 'Automattic\\WooCommerce\\' . $suffix . '\\Widget';
+		$class  = 'Automattic\\PooCommerce\\' . $suffix . '\\Widget';
 
 		try {
 			wp_mkdir_p( $dir );
 			// A rogue file: parses fine but declares a class that does not match its PSR-4 path.
 			// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents -- Test fixture; WP_Filesystem adds no value here.
-			file_put_contents( $file, "<?php\nnamespace Automattic\\WooCommerce\\{$suffix};\nclass Mismatch {}\n" );
+			file_put_contents( $file, "<?php\nnamespace Automattic\\PooCommerce\\{$suffix};\nclass Mismatch {}\n" );
 			clearstatcache( true, $file );
 
 			// First probe executes the file (declares Mismatch) without resolving Widget.
@@ -339,20 +339,20 @@ class AutoloaderTest extends \WC_Unit_Test_Case {
 	 * @testdox the registered handler never re-executes a file another mechanism already loaded.
 	 */
 	public function test_registered_handler_skips_a_file_another_mechanism_loaded(): void {
-		$handler = Autoloader::register_woocommerce_psr4_fallback();
+		$handler = Autoloader::register_poocommerce_psr4_fallback();
 		$this->assertInstanceOf( \Closure::class, $handler, 'Bootstrap must register a handler.' );
 
 		$suffix = 'ReproForeign' . str_replace( '.', '', uniqid( '', true ) );
 		$dir    = dirname( WC_PLUGIN_FILE ) . '/src/' . $suffix;
 		$file   = $dir . '/Widget.php';
-		$class  = 'Automattic\\WooCommerce\\' . $suffix . '\\Widget';
+		$class  = 'Automattic\\PooCommerce\\' . $suffix . '\\Widget';
 
 		try {
 			wp_mkdir_p( $dir );
 			// A rogue file: parses fine but declares a class that does not match its PSR-4 path,
 			// so a probe for Widget keeps resolving to it without ever declaring Widget.
 			// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents -- Test fixture; WP_Filesystem adds no value here.
-			file_put_contents( $file, "<?php\nnamespace Automattic\\WooCommerce\\{$suffix};\nclass Mismatch {}\n" );
+			file_put_contents( $file, "<?php\nnamespace Automattic\\PooCommerce\\{$suffix};\nclass Mismatch {}\n" );
 			clearstatcache( true, $file );
 
 			// Another mechanism — not the handler — executes the file (declares Mismatch).
@@ -390,20 +390,20 @@ class AutoloaderTest extends \WC_Unit_Test_Case {
 	 * @testdox the registered handler loads a link-failed class file once its dependency exists.
 	 */
 	public function test_registered_handler_recovers_after_a_link_failed_file_is_completed(): void {
-		$handler = Autoloader::register_woocommerce_psr4_fallback();
+		$handler = Autoloader::register_poocommerce_psr4_fallback();
 		$this->assertInstanceOf( \Closure::class, $handler, 'Bootstrap must register a handler.' );
 
 		$suffix = 'ReproLink' . str_replace( '.', '', uniqid( '', true ) );
 		$dir    = dirname( WC_PLUGIN_FILE ) . '/src/' . $suffix;
 		$file   = $dir . '/Widget.php';
-		$class  = 'Automattic\\WooCommerce\\' . $suffix . '\\Widget';
+		$class  = 'Automattic\\PooCommerce\\' . $suffix . '\\Widget';
 
 		try {
 			wp_mkdir_p( $dir );
 			// Syntactically valid, but extends a sibling class whose file is not written yet:
 			// the include compiles, then throws Error: Class "...Base" not found while linking.
 			// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents -- Test fixture; WP_Filesystem adds no value here.
-			file_put_contents( $file, "<?php\nnamespace Automattic\\WooCommerce\\{$suffix};\nclass Widget extends Base {}\n" );
+			file_put_contents( $file, "<?php\nnamespace Automattic\\PooCommerce\\{$suffix};\nclass Widget extends Base {}\n" );
 			clearstatcache( true, $file );
 
 			$handler( $class );
@@ -415,7 +415,7 @@ class AutoloaderTest extends \WC_Unit_Test_Case {
 
 			// The upgrade finishes: the dependency lands and the class file is now self-contained.
 			// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents -- Test fixture; WP_Filesystem adds no value here.
-			file_put_contents( $file, "<?php\nnamespace Automattic\\WooCommerce\\{$suffix};\nclass Widget {}\n" );
+			file_put_contents( $file, "<?php\nnamespace Automattic\\PooCommerce\\{$suffix};\nclass Widget {}\n" );
 			clearstatcache( true, $file );
 
 			$handler( $class );
@@ -449,13 +449,13 @@ class AutoloaderTest extends \WC_Unit_Test_Case {
 	 * @testdox the registered handler retries a class file whose include failed to open.
 	 */
 	public function test_registered_handler_recovers_after_a_failed_open(): void {
-		$handler = Autoloader::register_woocommerce_psr4_fallback();
+		$handler = Autoloader::register_poocommerce_psr4_fallback();
 		$this->assertInstanceOf( \Closure::class, $handler, 'Bootstrap must register a handler.' );
 
 		$suffix = 'ReproOpen' . str_replace( '.', '', uniqid( '', true ) );
 		$dir    = dirname( WC_PLUGIN_FILE ) . '/src/' . $suffix;
 		$file   = $dir . '/Widget.php';
-		$class  = 'Automattic\\WooCommerce\\' . $suffix . '\\Widget';
+		$class  = 'Automattic\\PooCommerce\\' . $suffix . '\\Widget';
 
 		try {
 			// A directory where the class file belongs: the failed-open shape, minus the race.
@@ -478,7 +478,7 @@ class AutoloaderTest extends \WC_Unit_Test_Case {
 			// The upgrade completes: the path is now a regular, self-contained class file.
 			rmdir( $file ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_rmdir -- Test fixture.
 			// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents -- Test fixture; WP_Filesystem adds no value here.
-			file_put_contents( $file, "<?php\nnamespace Automattic\\WooCommerce\\{$suffix};\nclass Widget {}\n" );
+			file_put_contents( $file, "<?php\nnamespace Automattic\\PooCommerce\\{$suffix};\nclass Widget {}\n" );
 			clearstatcache( true, $file );
 
 			$handler( $class );
@@ -503,12 +503,12 @@ class AutoloaderTest extends \WC_Unit_Test_Case {
 	 * Registration is idempotent: repeated calls return the same handler and never
 	 * stack duplicate autoloaders on the SPL stack.
 	 *
-	 * @testdox register_woocommerce_psr4_fallback() is idempotent.
+	 * @testdox register_poocommerce_psr4_fallback() is idempotent.
 	 */
-	public function test_register_woocommerce_psr4_fallback_is_idempotent(): void {
-		$first       = Autoloader::register_woocommerce_psr4_fallback();
+	public function test_register_poocommerce_psr4_fallback_is_idempotent(): void {
+		$first       = Autoloader::register_poocommerce_psr4_fallback();
 		$stack_after = spl_autoload_functions();
-		$second      = Autoloader::register_woocommerce_psr4_fallback();
+		$second      = Autoloader::register_poocommerce_psr4_fallback();
 
 		$this->assertInstanceOf( \Closure::class, $first );
 		$this->assertSame( $first, $second, 'Repeat registration must return the same handler.' );

@@ -1,25 +1,25 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\GraphQL\Type;
+namespace Automattic\PooCommerce\Vendor\GraphQL\Type;
 
-use Automattic\WooCommerce\Vendor\GraphQL\Error\Error;
-use Automattic\WooCommerce\Vendor\GraphQL\Error\InvariantViolation;
-use Automattic\WooCommerce\Vendor\GraphQL\GraphQL;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\OperationDefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\SchemaDefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\SchemaExtensionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\AbstractType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\Directive;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\ImplementingType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\InterfaceType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\NamedType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\ObjectType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\ScalarType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\Type;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\UnionType;
-use Automattic\WooCommerce\Vendor\GraphQL\Utils\InterfaceImplementations;
-use Automattic\WooCommerce\Vendor\GraphQL\Utils\TypeInfo;
-use Automattic\WooCommerce\Vendor\GraphQL\Utils\Utils;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\Error;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\InvariantViolation;
+use Automattic\PooCommerce\Vendor\GraphQL\GraphQL;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\OperationDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\SchemaDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\SchemaExtensionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\AbstractType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\Directive;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\ImplementingType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\InterfaceType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\NamedType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\ObjectType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\ScalarType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\Type;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\UnionType;
+use Automattic\PooCommerce\Vendor\GraphQL\Utils\InterfaceImplementations;
+use Automattic\PooCommerce\Vendor\GraphQL\Utils\TypeInfo;
+use Automattic\PooCommerce\Vendor\GraphQL\Utils\Utils;
 
 /**
  * Schema Definition (see [schema definition docs](schema-definition.md)).
@@ -28,23 +28,23 @@ use Automattic\WooCommerce\Vendor\GraphQL\Utils\Utils;
  * query, mutation (optional) and subscription (optional). A schema definition is
  * then supplied to the validator and executor. Usage Example:
  *
- *     $schema = new Automattic\WooCommerce\Vendor\GraphQL\Type\Schema([
+ *     $schema = new Automattic\PooCommerce\Vendor\GraphQL\Type\Schema([
  *       'query' => $MyAppQueryRootType,
  *       'mutation' => $MyAppMutationRootType,
  *     ]);
  *
  * Or using Schema Config instance:
  *
- *     $config = Automattic\WooCommerce\Vendor\GraphQL\Type\SchemaConfig::create()
+ *     $config = Automattic\PooCommerce\Vendor\GraphQL\Type\SchemaConfig::create()
  *         ->setQuery($MyAppQueryRootType)
  *         ->setMutation($MyAppMutationRootType);
  *
- *     $schema = new Automattic\WooCommerce\Vendor\GraphQL\Type\Schema($config);
+ *     $schema = new Automattic\PooCommerce\Vendor\GraphQL\Type\Schema($config);
  *
  * @phpstan-import-type SchemaConfigOptions from SchemaConfig
  * @phpstan-import-type OperationType from OperationDefinitionNode
  *
- * @see \Automattic\WooCommerce\Vendor\GraphQL\Tests\Type\SchemaTest
+ * @see \Automattic\PooCommerce\Vendor\GraphQL\Tests\Type\SchemaTest
  */
 class Schema
 {

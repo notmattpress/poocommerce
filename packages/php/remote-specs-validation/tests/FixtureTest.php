@@ -1,8 +1,8 @@
 <?php
 
-namespace Automattic\WooCommerce\RemoteSpecsValidation\Tests;
+namespace Automattic\PooCommerce\RemoteSpecsValidation\Tests;
 
-use Automattic\WooCommerce\RemoteSpecsValidation\RemoteSpecValidator;
+use Automattic\PooCommerce\RemoteSpecsValidation\RemoteSpecValidator;
 
 /**
  * Tests fixtures.

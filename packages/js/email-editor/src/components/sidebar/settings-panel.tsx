@@ -5,7 +5,7 @@ import { __ } from '@wordpress/i18n';
 import { applyFilters } from '@wordpress/hooks';
 import { useMemo } from '@wordpress/element';
 import { createSlotFill } from '@wordpress/components';
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import { ErrorBoundary, PluginDocumentSettingPanel } from '@wordpress/editor';
 
 /**
@@ -30,7 +30,7 @@ const tracking = {
  * This component is used to render the email actions section of the email editor.
  */
 const { Fill: EmailActionsFill, Slot } = createSlotFill(
-	'WooCommerceEmailEditorPostSummarySection'
+	'PooCommerceEmailEditorPostSummarySection'
 );
 
 export { EmailActionsFill };
@@ -39,7 +39,7 @@ export function SettingsPanel() {
 	const SidebarExtensionComponent = useMemo(
 		() =>
 			applyFilters(
-				'woocommerce_email_editor_setting_sidebar_extension_component',
+				'poocommerce_email_editor_setting_sidebar_extension_component',
 				RichTextWithButton,
 				tracking
 			) as () => JSX.Element,
@@ -50,7 +50,7 @@ export function SettingsPanel() {
 		<PluginDocumentSettingPanel
 			name="email-settings-panel"
 			title={ __( 'Settings', __i18n_text_domain__ ) }
-			className="woocommerce-email-editor__settings-panel"
+			className="poocommerce-email-editor__settings-panel"
 		>
 			<Slot />
 			<ErrorBoundary canCopyContent>

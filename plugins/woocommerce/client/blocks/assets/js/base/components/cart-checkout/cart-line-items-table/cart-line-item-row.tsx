@@ -4,26 +4,26 @@
 import clsx from 'clsx';
 import { __, sprintf } from '@wordpress/i18n';
 import { speak } from '@wordpress/a11y';
-import QuantitySelector from '@woocommerce/base-components/quantity-selector';
-import ProductPrice from '@woocommerce/base-components/product-price';
-import ProductName from '@woocommerce/base-components/product-name';
+import QuantitySelector from '@poocommerce/base-components/quantity-selector';
+import ProductPrice from '@poocommerce/base-components/product-price';
+import ProductName from '@poocommerce/base-components/product-name';
 import {
 	useStoreCartItemQuantity,
 	useStoreEvents,
 	useStoreCart,
 	useSaveForLater,
-} from '@woocommerce/base-context/hooks';
-import { getCurrencyFromPriceResponse } from '@woocommerce/price-format';
+} from '@poocommerce/base-context/hooks';
+import { getCurrencyFromPriceResponse } from '@poocommerce/price-format';
 import {
 	applyCheckoutFilter,
 	productPriceValidation,
-} from '@woocommerce/blocks-checkout';
+} from '@poocommerce/blocks-checkout';
 import { forwardRef, useMemo } from '@wordpress/element';
-import type { CartItem } from '@woocommerce/types';
-import { isBoolean, objectHasProp, Currency } from '@woocommerce/types';
-import { getSetting, getSettingWithCoercion } from '@woocommerce/settings';
+import type { CartItem } from '@poocommerce/types';
+import { isBoolean, objectHasProp, Currency } from '@poocommerce/types';
+import { getSetting, getSettingWithCoercion } from '@poocommerce/settings';
 import { Icon, trash } from '@wordpress/icons';
-import { calculateSaleAmount } from '@woocommerce/base-utils';
+import { calculateSaleAmount } from '@poocommerce/base-utils';
 import { dinero, transformScale, toSnapshot, type Dinero } from 'dinero.js';
 import { USD } from 'dinero.js/currencies'; // USD is used as a placeholder currency for arithmetic; actual formatting is handled elsewhere.
 
@@ -333,7 +333,7 @@ const CartLineItemRow: React.ForwardRefExoticComponent<
 										/* translators: %s refers to the item's name in the cart. */
 										__(
 											'Remove %s from cart',
-											'woocommerce'
+											'poocommerce'
 										),
 										name
 									) }
@@ -352,7 +352,7 @@ const CartLineItemRow: React.ForwardRefExoticComponent<
 												/* translators: %s refers to the item name in the cart. */
 												__(
 													'%s has been removed from your cart.',
-													'woocommerce'
+													'poocommerce'
 												),
 												name
 											)
@@ -398,7 +398,7 @@ const CartLineItemRow: React.ForwardRefExoticComponent<
 												/* translators: %s refers to the item name. */
 												__(
 													'%s has been saved for later and removed from your cart.',
-													'woocommerce'
+													'poocommerce'
 												),
 												name
 											)
@@ -409,10 +409,10 @@ const CartLineItemRow: React.ForwardRefExoticComponent<
 									}
 								>
 									{ isSavingForLater
-										? __( 'Saving…', 'woocommerce' )
+										? __( 'Saving…', 'poocommerce' )
 										: __(
 												'Save for later',
-												'woocommerce'
+												'poocommerce'
 										  ) }
 								</button>
 							</div>

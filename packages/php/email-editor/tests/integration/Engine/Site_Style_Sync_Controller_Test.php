@@ -2,15 +2,15 @@
 /**
  * Integration tests for Site_Style_Sync_Controller class.
  *
- * @package Automattic\WooCommerce\EmailEditor
+ * @package Automattic\PooCommerce\EmailEditor
  */
 
 declare(strict_types = 1);
 
-namespace Automattic\WooCommerce\EmailEditor\Tests\Integration\Engine;
+namespace Automattic\PooCommerce\EmailEditor\Tests\Integration\Engine;
 
-use Automattic\WooCommerce\EmailEditor\Engine\Site_Style_Sync_Controller;
-use Automattic\WooCommerce\EmailEditor\Tests\Integration\Email_Editor_Integration_Test_Case;
+use Automattic\PooCommerce\EmailEditor\Engine\Site_Style_Sync_Controller;
+use Automattic\PooCommerce\EmailEditor\Tests\Integration\Email_Editor_Integration_Test_Case;
 use WP_Theme_JSON;
 
 /**
@@ -61,12 +61,12 @@ class Site_Style_Sync_Controller_Test extends \Email_Editor_Integration_Test_Cas
 	 */
 	public function test_sync_can_be_disabled_via_filter(): void {
 		// Add filter to disable sync.
-		add_filter( 'woocommerce_email_editor_site_style_sync_enabled', '__return_false' );
+		add_filter( 'poocommerce_email_editor_site_style_sync_enabled', '__return_false' );
 
 		$this->assertFalse( $this->controller->is_sync_enabled() );
 
 		// Clean up.
-		remove_filter( 'woocommerce_email_editor_site_style_sync_enabled', '__return_false' );
+		remove_filter( 'poocommerce_email_editor_site_style_sync_enabled', '__return_false' );
 	}
 
 	/**
@@ -74,13 +74,13 @@ class Site_Style_Sync_Controller_Test extends \Email_Editor_Integration_Test_Cas
 	 */
 	public function test_get_theme_returns_null_when_disabled(): void {
 		// Disable sync.
-		add_filter( 'woocommerce_email_editor_site_style_sync_enabled', '__return_false' );
+		add_filter( 'poocommerce_email_editor_site_style_sync_enabled', '__return_false' );
 
 		$result = $this->controller->get_theme();
 		$this->assertNull( $result );
 
 		// Clean up.
-		remove_filter( 'woocommerce_email_editor_site_style_sync_enabled', '__return_false' );
+		remove_filter( 'poocommerce_email_editor_site_style_sync_enabled', '__return_false' );
 	}
 
 	/**
@@ -300,7 +300,7 @@ class Site_Style_Sync_Controller_Test extends \Email_Editor_Integration_Test_Cas
 
 		// Add filter to modify synced data.
 		add_filter(
-			'woocommerce_email_editor_synced_site_styles',
+			'poocommerce_email_editor_synced_site_styles',
 			function ( $synced_data ) use ( &$filter_applied ) {
 				$filter_applied                 = true;
 				$synced_data['custom_property'] = 'custom_value';
@@ -317,7 +317,7 @@ class Site_Style_Sync_Controller_Test extends \Email_Editor_Integration_Test_Cas
 		$this->assertEquals( 'custom_value', $synced_data['custom_property'] );
 
 		// Clean up.
-		remove_all_filters( 'woocommerce_email_editor_synced_site_styles' );
+		remove_all_filters( 'poocommerce_email_editor_synced_site_styles' );
 	}
 
 	/**
@@ -325,7 +325,7 @@ class Site_Style_Sync_Controller_Test extends \Email_Editor_Integration_Test_Cas
 	 */
 	public function test_invalidate_cache_when_sync_disabled(): void {
 		// Disable sync.
-		add_filter( 'woocommerce_email_editor_site_style_sync_enabled', '__return_false' );
+		add_filter( 'poocommerce_email_editor_site_style_sync_enabled', '__return_false' );
 
 		// This should return early without doing anything.
 		$this->controller->invalidate_site_theme_cache();
@@ -334,7 +334,7 @@ class Site_Style_Sync_Controller_Test extends \Email_Editor_Integration_Test_Cas
 		$this->assertFalse( $this->controller->is_sync_enabled() );
 
 		// Clean up.
-		remove_filter( 'woocommerce_email_editor_site_style_sync_enabled', '__return_false' );
+		remove_filter( 'poocommerce_email_editor_site_style_sync_enabled', '__return_false' );
 	}
 
 	/**
@@ -792,7 +792,7 @@ class Site_Style_Sync_Controller_Test extends \Email_Editor_Integration_Test_Cas
 	public function test_site_theme_filter_is_applied(): void {
 		// Add filter to override site theme.
 		add_filter(
-			'woocommerce_email_editor_site_theme',
+			'poocommerce_email_editor_site_theme',
 			function ( $site_theme ) {
 				$new_site_theme = new WP_Theme_JSON(
 					array(
@@ -846,7 +846,7 @@ class Site_Style_Sync_Controller_Test extends \Email_Editor_Integration_Test_Cas
 		$this->assertEquals( 'Custom Color', $palette[ $custom_index ]['name'] );
 
 		// Clean up.
-		remove_all_filters( 'woocommerce_email_editor_site_theme' );
+		remove_all_filters( 'poocommerce_email_editor_site_theme' );
 	}
 
 	/**

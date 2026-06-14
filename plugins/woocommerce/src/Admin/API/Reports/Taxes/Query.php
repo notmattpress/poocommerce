@@ -9,15 +9,15 @@
  *          'page'         => 2,
  *          'taxes'        => array(1,2,3)
  *         );
- * $report = new \Automattic\WooCommerce\Admin\API\Reports\Taxes\Query( $args );
+ * $report = new \Automattic\PooCommerce\Admin\API\Reports\Taxes\Query( $args );
  * $mydata = $report->get_data();
  */
 
-namespace Automattic\WooCommerce\Admin\API\Reports\Taxes;
+namespace Automattic\PooCommerce\Admin\API\Reports\Taxes;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\API\Reports\Query as ReportsQuery;
+use Automattic\PooCommerce\Admin\API\Reports\Query as ReportsQuery;
 
 /**
  * API\Reports\Taxes\Query
@@ -49,10 +49,10 @@ class Query extends ReportsQuery {
 	public function get_data() {
 		wc_deprecated_function( __CLASS__ . '::' . __FUNCTION__, '9.3.0', '`GenericQuery`, `\WC_Object_Query`, or direct `DataStore` use' );
 
-		$args = apply_filters( 'woocommerce_analytics_taxes_query_args', $this->get_query_vars() );
+		$args = apply_filters( 'poocommerce_analytics_taxes_query_args', $this->get_query_vars() );
 
 		$data_store = \WC_Data_Store::load( 'report-taxes' );
 		$results    = $data_store->get_data( $args );
-		return apply_filters( 'woocommerce_analytics_taxes_select_query', $results, $args );
+		return apply_filters( 'poocommerce_analytics_taxes_select_query', $results, $args );
 	}
 }

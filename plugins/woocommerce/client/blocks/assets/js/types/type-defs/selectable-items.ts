@@ -31,7 +31,7 @@ export interface SelectableItemsContext< T = unknown > {
 
 export type SelectableItemsBlockContext< T = unknown > = {
 	// eslint-disable-next-line @typescript-eslint/naming-convention
-	'woocommerce/selectableItems': SelectableItemsContext< T >;
+	'poocommerce/selectableItems': SelectableItemsContext< T >;
 };
 
 /**

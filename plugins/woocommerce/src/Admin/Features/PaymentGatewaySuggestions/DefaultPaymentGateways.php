@@ -3,7 +3,7 @@
  * Gets a list of fallback methods if remote fetching is disabled.
  */
 
-namespace Automattic\WooCommerce\Admin\Features\PaymentGatewaySuggestions;
+namespace Automattic\PooCommerce\Admin\Features\PaymentGatewaySuggestions;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -22,9 +22,9 @@ class DefaultPaymentGateways {
 	 * @var array
 	 */
 	private static $recommendation_priority = array(
-		'woocommerce_payments'                            => 1,
-		'woocommerce_payments:with-in-person-payments'    => 1,
-		'woocommerce_payments:without-in-person-payments' => 1,
+		'poocommerce_payments'                            => 1,
+		'poocommerce_payments:with-in-person-payments'    => 1,
+		'poocommerce_payments:without-in-person-payments' => 1,
 		'stripe'                                          => 2,
 		'woo-mercado-pago-custom'                         => 3,
 		// PayPal Payments.
@@ -55,12 +55,12 @@ class DefaultPaymentGateways {
 		$payment_gateways = array(
 			array(
 				'id'                  => 'affirm',
-				'title'               => __( 'Affirm', 'woocommerce' ),
-				'content'             => __( 'Affirm’s tailored Buy Now Pay Later programs remove price as a barrier, turning browsers into buyers, increasing average order value, and expanding your customer base.', 'woocommerce' ),
+				'title'               => __( 'Affirm', 'poocommerce' ),
+				'content'             => __( 'Affirm’s tailored Buy Now Pay Later programs remove price as a barrier, turning browsers into buyers, increasing average order value, and expanding your customer base.', 'poocommerce' ),
 				'image'               => WC_ADMIN_IMAGES_FOLDER_URL . '/payment_methods/72x72/affirm.png',
 				'image_72x72'         => WC_ADMIN_IMAGES_FOLDER_URL . '/payment_methods/72x72/affirm.png',
 				'plugins'             => array(),
-				'external_link'       => 'https://woocommerce.com/products/woocommerce-gateway-affirm',
+				'external_link'       => 'https://poocommerce.com/products/poocommerce-gateway-affirm',
 				'is_visible'          => array(
 					self::get_rules_for_countries(
 						array(
@@ -84,11 +84,11 @@ class DefaultPaymentGateways {
 			),
 			array(
 				'id'                  => 'afterpay',
-				'title'               => __( 'Afterpay', 'woocommerce' ),
-				'content'             => __( 'Afterpay allows customers to receive products immediately and pay for purchases over four installments, always interest-free.', 'woocommerce' ),
+				'title'               => __( 'Afterpay', 'poocommerce' ),
+				'content'             => __( 'Afterpay allows customers to receive products immediately and pay for purchases over four installments, always interest-free.', 'poocommerce' ),
 				'image'               => WC_ADMIN_IMAGES_FOLDER_URL . '/payment_methods/72x72/afterpay.png',
 				'image_72x72'         => WC_ADMIN_IMAGES_FOLDER_URL . '/payment_methods/72x72/afterpay.png',
-				'plugins'             => array( 'afterpay-gateway-for-woocommerce' ),
+				'plugins'             => array( 'afterpay-gateway-for-poocommerce' ),
 				'is_visible'          => array(
 					self::get_rules_for_countries(
 						array(
@@ -114,8 +114,8 @@ class DefaultPaymentGateways {
 			),
 			array(
 				'id'                  => 'airwallex_main',
-				'title'               => __( 'Airwallex Payments', 'woocommerce' ),
-				'content'             => __( 'Boost international sales and save on FX fees. Accept 60+ local payment methods including Apple Pay and Google Pay.', 'woocommerce' ),
+				'title'               => __( 'Airwallex Payments', 'poocommerce' ),
+				'content'             => __( 'Boost international sales and save on FX fees. Accept 60+ local payment methods including Apple Pay and Google Pay.', 'poocommerce' ),
 				'image'               => WC_ADMIN_IMAGES_FOLDER_URL . '/onboarding/airwallex.png',
 				'image_72x72'         => WC_ADMIN_IMAGES_FOLDER_URL . '/payment_methods/72x72/airwallex.png',
 				'plugins'             => array( 'airwallex-online-payments-gateway' ),
@@ -127,11 +127,11 @@ class DefaultPaymentGateways {
 			),
 			array(
 				'id'                  => 'amazon_payments_advanced',
-				'title'               => __( 'Amazon Pay', 'woocommerce' ),
-				'content'             => __( 'Enable a familiar, fast checkout for hundreds of millions of active Amazon customers globally.', 'woocommerce' ),
+				'title'               => __( 'Amazon Pay', 'poocommerce' ),
+				'content'             => __( 'Enable a familiar, fast checkout for hundreds of millions of active Amazon customers globally.', 'poocommerce' ),
 				'image'               => WC_ADMIN_IMAGES_FOLDER_URL . '/payment_methods/72x72/amazonpay.png',
 				'image_72x72'         => WC_ADMIN_IMAGES_FOLDER_URL . '/payment_methods/72x72/amazonpay.png',
-				'plugins'             => array( 'woocommerce-gateway-amazon-payments-advanced' ),
+				'plugins'             => array( 'poocommerce-gateway-amazon-payments-advanced' ),
 				'is_visible'          => array(
 					self::get_rules_for_countries(
 						array(
@@ -180,8 +180,8 @@ class DefaultPaymentGateways {
 			),
 			array(
 				'id'          => WC_Gateway_BACS::ID,
-				'title'       => __( 'Direct bank transfer', 'woocommerce' ),
-				'content'     => __( 'Take payments via bank transfer.', 'woocommerce' ),
+				'title'       => __( 'Direct bank transfer', 'poocommerce' ),
+				'content'     => __( 'Take payments via bank transfer.', 'poocommerce' ),
 				'image'       => WC_ADMIN_IMAGES_FOLDER_URL . '/onboarding/bacs.svg',
 				'image_72x72' => WC_ADMIN_IMAGES_FOLDER_URL . '/payment_methods/72x72/bacs.png',
 				'is_visible'  => array(
@@ -191,8 +191,8 @@ class DefaultPaymentGateways {
 			),
 			array(
 				'id'          => WC_Gateway_COD::ID,
-				'title'       => __( 'Cash on delivery', 'woocommerce' ),
-				'content'     => __( 'Take payments in cash upon delivery.', 'woocommerce' ),
+				'title'       => __( 'Cash on delivery', 'poocommerce' ),
+				'content'     => __( 'Take payments in cash upon delivery.', 'poocommerce' ),
 				'image'       => WC_ADMIN_IMAGES_FOLDER_URL . '/onboarding/cod.svg',
 				'image_72x72' => WC_ADMIN_IMAGES_FOLDER_URL . '/payment_methods/72x72/cod.png',
 				'is_visible'  => array(
@@ -202,22 +202,22 @@ class DefaultPaymentGateways {
 			),
 			array(
 				'id'                  => 'eway',
-				'title'               => __( 'Eway', 'woocommerce' ),
-				'content'             => __( 'The Eway extension for WooCommerce allows you to take credit card payments directly on your store without redirecting your customers to a third party site to make payment.', 'woocommerce' ),
+				'title'               => __( 'Eway', 'poocommerce' ),
+				'content'             => __( 'The Eway extension for PooCommerce allows you to take credit card payments directly on your store without redirecting your customers to a third party site to make payment.', 'poocommerce' ),
 				'image'               => WC_ADMIN_IMAGES_FOLDER_URL . '/onboarding/eway.png',
 				'image_72x72'         => WC_ADMIN_IMAGES_FOLDER_URL . '/payment_methods/72x72/eway.png',
-				'plugins'             => array( 'woocommerce-gateway-eway' ),
+				'plugins'             => array( 'poocommerce-gateway-eway' ),
 				'is_visible'          => false,
 				'category_other'      => array(),
 				'category_additional' => array(),
 			),
 			array(
 				'id'                  => 'kco',
-				'title'               => __( 'Klarna Checkout', 'woocommerce' ),
-				'content'             => __( 'Choose the payment that you want, pay now, pay later or slice it. No credit card numbers, no passwords, no worries.', 'woocommerce' ),
+				'title'               => __( 'Klarna Checkout', 'poocommerce' ),
+				'content'             => __( 'Choose the payment that you want, pay now, pay later or slice it. No credit card numbers, no passwords, no worries.', 'poocommerce' ),
 				'image'               => WC_ADMIN_IMAGES_FOLDER_URL . '/klarna-black.png',
 				'image_72x72'         => WC_ADMIN_IMAGES_FOLDER_URL . '/payment_methods/72x72/klarna.png',
-				'plugins'             => array( 'klarna-checkout-for-woocommerce' ),
+				'plugins'             => array( 'klarna-checkout-for-poocommerce' ),
 				'is_visible'          => array(
 					self::get_rules_for_countries(
 						array(
@@ -237,11 +237,11 @@ class DefaultPaymentGateways {
 			),
 			array(
 				'id'                  => 'klarna_payments',
-				'title'               => __( 'Klarna Payments', 'woocommerce' ),
-				'content'             => __( 'Choose the payment that you want, pay now, pay later or slice it. No credit card numbers, no passwords, no worries.', 'woocommerce' ),
+				'title'               => __( 'Klarna Payments', 'poocommerce' ),
+				'content'             => __( 'Choose the payment that you want, pay now, pay later or slice it. No credit card numbers, no passwords, no worries.', 'poocommerce' ),
 				'image'               => WC_ADMIN_IMAGES_FOLDER_URL . '/klarna-black.png',
 				'image_72x72'         => WC_ADMIN_IMAGES_FOLDER_URL . '/payment_methods/72x72/klarna.png',
-				'plugins'             => array( 'klarna-payments-for-woocommerce' ),
+				'plugins'             => array( 'klarna-payments-for-poocommerce' ),
 				'is_visible'          => array(
 					self::get_rules_for_countries(
 						array(
@@ -306,11 +306,11 @@ class DefaultPaymentGateways {
 			),
 			array(
 				'id'                  => 'mollie_wc_gateway_banktransfer',
-				'title'               => __( 'Mollie', 'woocommerce' ),
-				'content'             => __( 'Effortless payments by Mollie: Offer global and local payment methods, get onboarded in minutes, and supported in your language.', 'woocommerce' ),
+				'title'               => __( 'Mollie', 'poocommerce' ),
+				'content'             => __( 'Effortless payments by Mollie: Offer global and local payment methods, get onboarded in minutes, and supported in your language.', 'poocommerce' ),
 				'image'               => WC_ADMIN_IMAGES_FOLDER_URL . '/onboarding/mollie.svg',
 				'image_72x72'         => WC_ADMIN_IMAGES_FOLDER_URL . '/payment_methods/72x72/mollie.png',
-				'plugins'             => array( 'mollie-payments-for-woocommerce' ),
+				'plugins'             => array( 'mollie-payments-for-poocommerce' ),
 				'is_visible'          => array(
 					self::get_rules_for_countries(
 						array(
@@ -345,11 +345,11 @@ class DefaultPaymentGateways {
 			),
 			array(
 				'id'                  => 'payfast',
-				'title'               => __( 'Payfast', 'woocommerce' ),
-				'content'             => __( 'The Payfast extension for WooCommerce enables you to accept payments by Credit Card and EFT via one of South Africa’s most popular payment gateways. No setup fees or monthly subscription costs. Selecting this extension will configure your store to use South African rands as the selected currency.', 'woocommerce' ),
+				'title'               => __( 'Payfast', 'poocommerce' ),
+				'content'             => __( 'The Payfast extension for PooCommerce enables you to accept payments by Credit Card and EFT via one of South Africa’s most popular payment gateways. No setup fees or monthly subscription costs. Selecting this extension will configure your store to use South African rands as the selected currency.', 'poocommerce' ),
 				'image'               => WC_ADMIN_IMAGES_FOLDER_URL . '/payfast.png',
 				'image_72x72'         => WC_ADMIN_IMAGES_FOLDER_URL . '/payment_methods/72x72/payfast.png',
-				'plugins'             => array( 'woocommerce-payfast-gateway' ),
+				'plugins'             => array( 'poocommerce-payfast-gateway' ),
 				'is_visible'          => array(
 					self::get_rules_for_countries( array( 'ZA' ) ),
 					self::get_rules_for_cbd( false ),
@@ -359,8 +359,8 @@ class DefaultPaymentGateways {
 			),
 			array(
 				'id'                  => 'payoneer-checkout',
-				'title'               => __( 'Payoneer Checkout', 'woocommerce' ),
-				'content'             => __( 'Payoneer Checkout is the next generation of payment processing platforms, giving merchants around the world the solutions and direction they need to succeed in today’s hyper-competitive global market.', 'woocommerce' ),
+				'title'               => __( 'Payoneer Checkout', 'poocommerce' ),
+				'content'             => __( 'Payoneer Checkout is the next generation of payment processing platforms, giving merchants around the world the solutions and direction they need to succeed in today’s hyper-competitive global market.', 'poocommerce' ),
 				'image'               => WC_ADMIN_IMAGES_FOLDER_URL . '/onboarding/payoneer.png',
 				'image_72x72'         => WC_ADMIN_IMAGES_FOLDER_URL . '/payment_methods/72x72/payoneer.png',
 				'plugins'             => array( 'payoneer-checkout' ),
@@ -380,8 +380,8 @@ class DefaultPaymentGateways {
 			),
 			array(
 				'id'                  => 'paystack',
-				'title'               => __( 'Paystack', 'woocommerce' ),
-				'content'             => __( 'Paystack helps African merchants accept one-time and recurring payments online with a modern, safe, and secure payment gateway.', 'woocommerce' ),
+				'title'               => __( 'Paystack', 'poocommerce' ),
+				'content'             => __( 'Paystack helps African merchants accept one-time and recurring payments online with a modern, safe, and secure payment gateway.', 'poocommerce' ),
 				'image'               => WC_ADMIN_IMAGES_FOLDER_URL . '/onboarding/paystack.png',
 				'image_72x72'         => WC_ADMIN_IMAGES_FOLDER_URL . '/payment_methods/72x72/paystack.png',
 				'plugins'             => array( 'woo-paystack' ),
@@ -394,8 +394,8 @@ class DefaultPaymentGateways {
 			),
 			array(
 				'id'                  => 'payubiz',
-				'title'               => __( 'PayU for WooCommerce', 'woocommerce' ),
-				'content'             => __( 'Enable PayU’s exclusive plugin for WooCommerce to start accepting payments in 100+ payment methods available in India including credit cards, debit cards, UPI, & more!', 'woocommerce' ),
+				'title'               => __( 'PayU for PooCommerce', 'poocommerce' ),
+				'content'             => __( 'Enable PayU’s exclusive plugin for PooCommerce to start accepting payments in 100+ payment methods available in India including credit cards, debit cards, UPI, & more!', 'poocommerce' ),
 				'image'               => WC_ADMIN_IMAGES_FOLDER_URL . '/onboarding/payu.svg',
 				'image_72x72'         => WC_ADMIN_IMAGES_FOLDER_URL . '/payment_methods/72x72/payu.png',
 				'plugins'             => array( 'payu-india' ),
@@ -412,11 +412,11 @@ class DefaultPaymentGateways {
 			),
 			array(
 				'id'                  => 'ppcp-gateway',
-				'title'               => __( 'PayPal Payments', 'woocommerce' ),
-				'content'             => __( "Safe and secure payments using credit cards or your customer's PayPal account.", 'woocommerce' ),
+				'title'               => __( 'PayPal Payments', 'poocommerce' ),
+				'content'             => __( "Safe and secure payments using credit cards or your customer's PayPal account.", 'poocommerce' ),
 				'image'               => WC_ADMIN_IMAGES_FOLDER_URL . '/paypal.png',
 				'image_72x72'         => WC_ADMIN_IMAGES_FOLDER_URL . '/payment_methods/72x72/paypal.png',
-				'plugins'             => array( 'woocommerce-paypal-payments' ),
+				'plugins'             => array( 'poocommerce-paypal-payments' ),
 				'is_visible'          => array(
 					self::get_rules_for_countries(
 						array(
@@ -580,8 +580,8 @@ class DefaultPaymentGateways {
 			),
 			array(
 				'id'                  => 'razorpay',
-				'title'               => __( 'Razorpay', 'woocommerce' ),
-				'content'             => __( 'The official Razorpay extension for WooCommerce allows you to accept credit cards, debit cards, netbanking, wallet, and UPI payments.', 'woocommerce' ),
+				'title'               => __( 'Razorpay', 'poocommerce' ),
+				'content'             => __( 'The official Razorpay extension for PooCommerce allows you to accept credit cards, debit cards, netbanking, wallet, and UPI payments.', 'poocommerce' ),
 				'image'               => WC_ADMIN_IMAGES_FOLDER_URL . '/onboarding/razorpay.svg',
 				'image_72x72'         => WC_ADMIN_IMAGES_FOLDER_URL . '/payment_methods/72x72/razorpay.png',
 				'plugins'             => array( 'woo-razorpay' ),
@@ -598,11 +598,11 @@ class DefaultPaymentGateways {
 			),
 			array(
 				'id'                  => 'square_credit_card',
-				'title'               => __( 'Square', 'woocommerce' ),
-				'content'             => __( 'Securely accept credit and debit cards with one low rate, no surprise fees (custom rates available). Sell online and in store and track sales and inventory in one place.', 'woocommerce' ),
+				'title'               => __( 'Square', 'poocommerce' ),
+				'content'             => __( 'Securely accept credit and debit cards with one low rate, no surprise fees (custom rates available). Sell online and in store and track sales and inventory in one place.', 'poocommerce' ),
 				'image'               => WC_ADMIN_IMAGES_FOLDER_URL . '/square-black.png',
 				'image_72x72'         => WC_ADMIN_IMAGES_FOLDER_URL . '/payment_methods/72x72/square.png',
-				'plugins'             => array( 'woocommerce-square' ),
+				'plugins'             => array( 'poocommerce-square' ),
 				'is_visible'          => array(
 					(object) array(
 						'type'     => 'or',
@@ -649,11 +649,11 @@ class DefaultPaymentGateways {
 			),
 			array(
 				'id'                  => 'stripe',
-				'title'               => __( ' Stripe', 'woocommerce' ),
-				'content'             => __( 'Accept debit and credit cards in 135+ currencies, methods such as Alipay, and one-touch checkout with Apple Pay.', 'woocommerce' ),
+				'title'               => __( ' Stripe', 'poocommerce' ),
+				'content'             => __( 'Accept debit and credit cards in 135+ currencies, methods such as Alipay, and one-touch checkout with Apple Pay.', 'poocommerce' ),
 				'image'               => WC_ADMIN_IMAGES_FOLDER_URL . '/stripe.png',
 				'image_72x72'         => WC_ADMIN_IMAGES_FOLDER_URL . '/payment_methods/72x72/stripe.png',
-				'plugins'             => array( 'woocommerce-gateway-stripe' ),
+				'plugins'             => array( 'poocommerce-gateway-stripe' ),
 				'is_visible'          => array(
 					// https://stripe.com/global.
 					self::get_rules_for_countries(
@@ -748,11 +748,11 @@ class DefaultPaymentGateways {
 			),
 			array(
 				'id'                  => 'woo-mercado-pago-custom',
-				'title'               => __( 'Mercado Pago', 'woocommerce' ),
-				'content'             => __( 'Set up your payment methods and accept credit and debit cards, cash, bank transfers and money from your Mercado Pago account. Offer safe and secure payments with Latin America’s leading processor.', 'woocommerce' ),
+				'title'               => __( 'Mercado Pago', 'poocommerce' ),
+				'content'             => __( 'Set up your payment methods and accept credit and debit cards, cash, bank transfers and money from your Mercado Pago account. Offer safe and secure payments with Latin America’s leading processor.', 'poocommerce' ),
 				'image'               => WC_ADMIN_IMAGES_FOLDER_URL . '/onboarding/mercadopago.png',
 				'image_72x72'         => WC_ADMIN_IMAGES_FOLDER_URL . '/payment_methods/72x72/mercadopago.png',
-				'plugins'             => array( 'woocommerce-mercadopago' ),
+				'plugins'             => array( 'poocommerce-mercadopago' ),
 				'is_visible'          => array(
 					self::get_rules_for_countries(
 						array(
@@ -782,22 +782,22 @@ class DefaultPaymentGateways {
 			),
 			// This is for backwards compatibility only (WC < 5.10.0-dev or WCA < 2.9.0-dev).
 			array(
-				'id'          => 'woocommerce_payments',
-				'title'       => __( 'WooPayments', 'woocommerce' ),
+				'id'          => 'poocommerce_payments',
+				'title'       => __( 'WooPayments', 'poocommerce' ),
 				'content'     => __(
 					'Manage transactions without leaving your WordPress Dashboard. Only with WooPayments.',
-					'woocommerce'
+					'poocommerce'
 				),
 				'image'       => WC_ADMIN_IMAGES_FOLDER_URL . '/onboarding/wcpay.svg',
 				'image_72x72' => WC_ADMIN_IMAGES_FOLDER_URL . '/onboarding/wcpay.svg',
-				'plugins'     => array( 'woocommerce-payments' ),
-				'description' => __( 'With WooPayments, you can securely accept major cards, Apple Pay, and payments in over 100 currencies. Track cash flow and manage recurring revenue directly from your store’s dashboard - with no setup costs or monthly fees.', 'woocommerce' ),
+				'plugins'     => array( 'poocommerce-payments' ),
+				'description' => __( 'With WooPayments, you can securely accept major cards, Apple Pay, and payments in over 100 currencies. Track cash flow and manage recurring revenue directly from your store’s dashboard - with no setup costs or monthly fees.', 'poocommerce' ),
 				'is_visible'  => array(
 					self::get_rules_for_cbd( false ),
 					self::get_rules_for_countries( self::get_wcpay_countries() ),
 					(object) array(
 						'type'     => 'plugin_version',
-						'plugin'   => 'woocommerce',
+						'plugin'   => 'poocommerce',
 						'version'  => '5.10.0-dev',
 						'operator' => '<',
 					),
@@ -809,13 +809,13 @@ class DefaultPaymentGateways {
 								'operand' => array(
 									(object) array(
 										'type'    => 'plugins_activated',
-										'plugins' => array( 'woocommerce-admin' ),
+										'plugins' => array( 'poocommerce-admin' ),
 									),
 								),
 							),
 							(object) array(
 								'type'     => 'plugin_version',
-								'plugin'   => 'woocommerce-admin',
+								'plugin'   => 'poocommerce-admin',
 								'version'  => '2.9.0-dev',
 								'operator' => '<',
 							),
@@ -824,32 +824,32 @@ class DefaultPaymentGateways {
 				),
 			),
 			array(
-				'id'          => 'woocommerce_payments:without-in-person-payments',
-				'title'       => __( 'WooPayments', 'woocommerce' ),
+				'id'          => 'poocommerce_payments:without-in-person-payments',
+				'title'       => __( 'WooPayments', 'poocommerce' ),
 				'content'     => __(
 					'Manage transactions without leaving your WordPress Dashboard. Only with WooPayments.',
-					'woocommerce'
+					'poocommerce'
 				),
 				'image'       => WC_ADMIN_IMAGES_FOLDER_URL . '/onboarding/wcpay.svg',
 				'image_72x72' => WC_ADMIN_IMAGES_FOLDER_URL . '/onboarding/wcpay.svg',
-				'plugins'     => array( 'woocommerce-payments' ),
-				'description' => __( 'With WooPayments, you can securely accept major cards, Apple Pay, and payments in over 100 currencies. Track cash flow and manage recurring revenue directly from your store’s dashboard - with no setup costs or monthly fees.', 'woocommerce' ),
+				'plugins'     => array( 'poocommerce-payments' ),
+				'description' => __( 'With WooPayments, you can securely accept major cards, Apple Pay, and payments in over 100 currencies. Track cash flow and manage recurring revenue directly from your store’s dashboard - with no setup costs or monthly fees.', 'poocommerce' ),
 				'is_visible'  => array(
 					self::get_rules_for_cbd( false ),
 					self::get_rules_for_countries( array_diff( self::get_wcpay_countries(), array( 'US', 'CA' ) ) ),
 					(object) array(
 						'type'     => 'or',
-						// Older versions of WooCommerce Admin require the ID to be `woocommerce-payments` to show the suggestion card.
+						// Older versions of PooCommerce Admin require the ID to be `poocommerce-payments` to show the suggestion card.
 						'operands' => (object) array(
 							(object) array(
 								'type'     => 'plugin_version',
-								'plugin'   => 'woocommerce-admin',
+								'plugin'   => 'poocommerce-admin',
 								'version'  => '2.9.0-dev',
 								'operator' => '>=',
 							),
 							(object) array(
 								'type'     => 'plugin_version',
-								'plugin'   => 'woocommerce',
+								'plugin'   => 'poocommerce',
 								'version'  => '5.10.0-dev',
 								'operator' => '>=',
 							),
@@ -859,32 +859,32 @@ class DefaultPaymentGateways {
 			),
 			// This is the same as the above, but with a different description for countries that support in-person payments such as US and CA.
 			array(
-				'id'          => 'woocommerce_payments:with-in-person-payments',
-				'title'       => __( 'WooPayments', 'woocommerce' ),
+				'id'          => 'poocommerce_payments:with-in-person-payments',
+				'title'       => __( 'WooPayments', 'poocommerce' ),
 				'content'     => __(
 					'Manage transactions without leaving your WordPress Dashboard. Only with WooPayments.',
-					'woocommerce'
+					'poocommerce'
 				),
 				'image'       => WC_ADMIN_IMAGES_FOLDER_URL . '/onboarding/wcpay.svg',
 				'image_72x72' => WC_ADMIN_IMAGES_FOLDER_URL . '/onboarding/wcpay.svg',
-				'plugins'     => array( 'woocommerce-payments' ),
-				'description' => __( 'With WooPayments, you can securely accept major cards, Apple Pay, and payments in over 100 currencies – with no setup costs or monthly fees – and you can now accept in-person payments with the Woo mobile app.', 'woocommerce' ),
+				'plugins'     => array( 'poocommerce-payments' ),
+				'description' => __( 'With WooPayments, you can securely accept major cards, Apple Pay, and payments in over 100 currencies – with no setup costs or monthly fees – and you can now accept in-person payments with the Woo mobile app.', 'poocommerce' ),
 				'is_visible'  => array(
 					self::get_rules_for_cbd( false ),
 					self::get_rules_for_countries( array( 'US', 'CA' ) ),
 					(object) array(
 						'type'     => 'or',
-						// Older versions of WooCommerce Admin require the ID to be `woocommerce-payments` to show the suggestion card.
+						// Older versions of PooCommerce Admin require the ID to be `poocommerce-payments` to show the suggestion card.
 						'operands' => (object) array(
 							(object) array(
 								'type'     => 'plugin_version',
-								'plugin'   => 'woocommerce-admin',
+								'plugin'   => 'poocommerce-admin',
 								'version'  => '2.9.0-dev',
 								'operator' => '>=',
 							),
 							(object) array(
 								'type'     => 'plugin_version',
-								'plugin'   => 'woocommerce',
+								'plugin'   => 'poocommerce',
 								'version'  => '5.10.0-dev',
 								'operator' => '>=',
 							),
@@ -893,15 +893,15 @@ class DefaultPaymentGateways {
 				),
 			),
 			array(
-				'id'          => 'woocommerce_payments:bnpl',
-				'title'       => __( 'Activate BNPL instantly on WooPayments', 'woocommerce' ),
+				'id'          => 'poocommerce_payments:bnpl',
+				'title'       => __( 'Activate BNPL instantly on WooPayments', 'poocommerce' ),
 				'content'     => __(
 					'The world’s favorite buy now, pay later options and many more are right at your fingertips with WooPayments — all from one dashboard, without needing multiple extensions and logins.',
-					'woocommerce'
+					'poocommerce'
 				),
 				'image'       => WC_ADMIN_IMAGES_FOLDER_URL . '/onboarding/wcpay-bnpl.svg',
 				'image_72x72' => WC_ADMIN_IMAGES_FOLDER_URL . '/onboarding/wcpay-bnpl.svg',
-				'plugins'     => array( 'woocommerce-payments' ),
+				'plugins'     => array( 'poocommerce-payments' ),
 				'is_visible'  => array(
 					self::get_rules_for_countries(
 						array_intersect(
@@ -935,11 +935,11 @@ class DefaultPaymentGateways {
 			),
 			array(
 				'id'                  => 'zipmoney',
-				'title'               => __( 'Zip Co - Buy Now, Pay Later', 'woocommerce' ),
-				'content'             => __( 'Give your customers the power to pay later, interest free and watch your sales grow.', 'woocommerce' ),
+				'title'               => __( 'Zip Co - Buy Now, Pay Later', 'poocommerce' ),
+				'content'             => __( 'Give your customers the power to pay later, interest free and watch your sales grow.', 'poocommerce' ),
 				'image'               => WC_ADMIN_IMAGES_FOLDER_URL . '/onboarding/zipco.png',
 				'image_72x72'         => WC_ADMIN_IMAGES_FOLDER_URL . '/payment_methods/72x72/zipco.png',
-				'plugins'             => array( 'zipmoney-payments-woocommerce' ),
+				'plugins'             => array( 'zipmoney-payments-poocommerce' ),
 				'is_visible'          => false,
 				'category_other'      => array(),
 				'category_additional' => array(),
@@ -1007,7 +1007,7 @@ class DefaultPaymentGateways {
 						),
 					),
 				),
-				'option_name'  => 'woocommerce_onboarding_profile',
+				'option_name'  => 'poocommerce_onboarding_profile',
 				'operation'    => '=',
 				'value'        => $venue,
 				'default'      => array(),
@@ -1036,7 +1036,7 @@ class DefaultPaymentGateways {
 					),
 				),
 			),
-			'option_name'  => 'woocommerce_onboarding_profile',
+			'option_name'  => 'poocommerce_onboarding_profile',
 			'operation'    => 'in',
 			'value'        => array( 'no_im_selling_offline', 'im_selling_both_online_and_offline' ),
 			'default'      => '',
@@ -1066,7 +1066,7 @@ class DefaultPaymentGateways {
 					),
 				),
 			),
-			'option_name'  => 'woocommerce_onboarding_profile',
+			'option_name'  => 'poocommerce_onboarding_profile',
 			'operation'    => $should_have ? 'contains' : '!contains',
 			'value'        => 'cbd-other-hemp-derived-products',
 			'default'      => array(),
@@ -1083,7 +1083,7 @@ class DefaultPaymentGateways {
 	public static function get_rules_for_wcpay_activated( $should_be ) {
 		$active_rule = (object) array(
 			'type'    => 'plugins_activated',
-			'plugins' => array( 'woocommerce-payments' ),
+			'plugins' => array( 'poocommerce-payments' ),
 		);
 
 		if ( $should_be ) {
@@ -1140,9 +1140,9 @@ class DefaultPaymentGateways {
 	private static function get_recommendation_priority( $gateway_id, $country_code ) {
 		$recommendation_priority_map = array(
 			'US' => array(
-				'woocommerce_payments:with-in-person-payments',
-				'woocommerce_payments:without-in-person-payments',
-				'woocommerce_payments',
+				'poocommerce_payments:with-in-person-payments',
+				'poocommerce_payments:without-in-person-payments',
+				'poocommerce_payments',
 				'stripe',
 				'ppcp-gateway',
 				'square_credit_card',
@@ -1152,9 +1152,9 @@ class DefaultPaymentGateways {
 				'klarna_payments',
 			),
 			'CA' => array(
-				'woocommerce_payments:with-in-person-payments',
-				'woocommerce_payments:without-in-person-payments',
-				'woocommerce_payments',
+				'poocommerce_payments:with-in-person-payments',
+				'poocommerce_payments:without-in-person-payments',
+				'poocommerce_payments',
 				'stripe',
 				'ppcp-gateway',
 				'square_credit_card',
@@ -1163,9 +1163,9 @@ class DefaultPaymentGateways {
 				'klarna_payments',
 			),
 			'AT' => array(
-				'woocommerce_payments:with-in-person-payments',
-				'woocommerce_payments:without-in-person-payments',
-				'woocommerce_payments',
+				'poocommerce_payments:with-in-person-payments',
+				'poocommerce_payments:without-in-person-payments',
+				'poocommerce_payments',
 				'stripe',
 				'ppcp-gateway',
 				'airwallex_main',
@@ -1174,9 +1174,9 @@ class DefaultPaymentGateways {
 				'amazon_payments_advanced',
 			),
 			'BE' => array(
-				'woocommerce_payments:with-in-person-payments',
-				'woocommerce_payments:without-in-person-payments',
-				'woocommerce_payments',
+				'poocommerce_payments:with-in-person-payments',
+				'poocommerce_payments:without-in-person-payments',
+				'poocommerce_payments',
 				'stripe',
 				'ppcp-gateway',
 				'airwallex_main',
@@ -1185,63 +1185,63 @@ class DefaultPaymentGateways {
 				'amazon_payments_advanced',
 			),
 			'BG' => array(
-				'woocommerce_payments:with-in-person-payments',
-				'woocommerce_payments:without-in-person-payments',
-				'woocommerce_payments',
+				'poocommerce_payments:with-in-person-payments',
+				'poocommerce_payments:without-in-person-payments',
+				'poocommerce_payments',
 				'stripe',
 				'ppcp-gateway',
 			),
 			'HR' => array(
-				'woocommerce_payments:with-in-person-payments',
-				'woocommerce_payments:without-in-person-payments',
-				'woocommerce_payments',
+				'poocommerce_payments:with-in-person-payments',
+				'poocommerce_payments:without-in-person-payments',
+				'poocommerce_payments',
 				'ppcp-gateway',
 			),
 			'CH' => array(
-				'woocommerce_payments:with-in-person-payments',
-				'woocommerce_payments:without-in-person-payments',
-				'woocommerce_payments',
+				'poocommerce_payments:with-in-person-payments',
+				'poocommerce_payments:without-in-person-payments',
+				'poocommerce_payments',
 				'stripe',
 				'ppcp-gateway',
 				'mollie_wc_gateway_banktransfer',
 				'klarna_payments',
 			),
 			'CY' => array(
-				'woocommerce_payments:with-in-person-payments',
-				'woocommerce_payments:without-in-person-payments',
-				'woocommerce_payments',
+				'poocommerce_payments:with-in-person-payments',
+				'poocommerce_payments:without-in-person-payments',
+				'poocommerce_payments',
 				'stripe',
 				'ppcp-gateway',
 				'amazon_payments_advanced',
 			),
 			'CZ' => array(
-				'woocommerce_payments:with-in-person-payments',
-				'woocommerce_payments:without-in-person-payments',
-				'woocommerce_payments',
+				'poocommerce_payments:with-in-person-payments',
+				'poocommerce_payments:without-in-person-payments',
+				'poocommerce_payments',
 				'stripe',
 				'ppcp-gateway',
 			),
 			'DK' => array(
-				'woocommerce_payments:with-in-person-payments',
-				'woocommerce_payments:without-in-person-payments',
-				'woocommerce_payments',
+				'poocommerce_payments:with-in-person-payments',
+				'poocommerce_payments:without-in-person-payments',
+				'poocommerce_payments',
 				'stripe',
 				'ppcp-gateway',
 				'klarna_payments',
 				'amazon_payments_advanced',
 			),
 			'EE' => array(
-				'woocommerce_payments:with-in-person-payments',
-				'woocommerce_payments:without-in-person-payments',
-				'woocommerce_payments',
+				'poocommerce_payments:with-in-person-payments',
+				'poocommerce_payments:without-in-person-payments',
+				'poocommerce_payments',
 				'stripe',
 				'ppcp-gateway',
 				'airwallex_main',
 			),
 			'ES' => array(
-				'woocommerce_payments:with-in-person-payments',
-				'woocommerce_payments:without-in-person-payments',
-				'woocommerce_payments',
+				'poocommerce_payments:with-in-person-payments',
+				'poocommerce_payments:without-in-person-payments',
+				'poocommerce_payments',
 				'stripe',
 				'ppcp-gateway',
 				'mollie_wc_gateway_banktransfer',
@@ -1250,9 +1250,9 @@ class DefaultPaymentGateways {
 				'amazon_payments_advanced',
 			),
 			'FI' => array(
-				'woocommerce_payments:with-in-person-payments',
-				'woocommerce_payments:without-in-person-payments',
-				'woocommerce_payments',
+				'poocommerce_payments:with-in-person-payments',
+				'poocommerce_payments:without-in-person-payments',
+				'poocommerce_payments',
 				'stripe',
 				'ppcp-gateway',
 				'mollie_wc_gateway_banktransfer',
@@ -1260,9 +1260,9 @@ class DefaultPaymentGateways {
 				'klarna_payments',
 			),
 			'FR' => array(
-				'woocommerce_payments:with-in-person-payments',
-				'woocommerce_payments:without-in-person-payments',
-				'woocommerce_payments',
+				'poocommerce_payments:with-in-person-payments',
+				'poocommerce_payments:without-in-person-payments',
+				'poocommerce_payments',
 				'stripe',
 				'ppcp-gateway',
 				'airwallex_main',
@@ -1272,9 +1272,9 @@ class DefaultPaymentGateways {
 				'amazon_payments_advanced',
 			),
 			'DE' => array(
-				'woocommerce_payments:with-in-person-payments',
-				'woocommerce_payments:without-in-person-payments',
-				'woocommerce_payments',
+				'poocommerce_payments:with-in-person-payments',
+				'poocommerce_payments:without-in-person-payments',
+				'poocommerce_payments',
 				'stripe',
 				'ppcp-gateway',
 				'airwallex_main',
@@ -1283,9 +1283,9 @@ class DefaultPaymentGateways {
 				'amazon_payments_advanced',
 			),
 			'GB' => array(
-				'woocommerce_payments:with-in-person-payments',
-				'woocommerce_payments:without-in-person-payments',
-				'woocommerce_payments',
+				'poocommerce_payments:with-in-person-payments',
+				'poocommerce_payments:without-in-person-payments',
+				'poocommerce_payments',
 				'stripe',
 				'ppcp-gateway',
 				'airwallex_main',
@@ -1295,25 +1295,25 @@ class DefaultPaymentGateways {
 				'amazon_payments_advanced',
 			),
 			'GR' => array(
-				'woocommerce_payments:with-in-person-payments',
-				'woocommerce_payments:without-in-person-payments',
-				'woocommerce_payments',
+				'poocommerce_payments:with-in-person-payments',
+				'poocommerce_payments:without-in-person-payments',
+				'poocommerce_payments',
 				'stripe',
 				'ppcp-gateway',
 				'airwallex_main',
 			),
 			'HU' => array(
-				'woocommerce_payments:with-in-person-payments',
-				'woocommerce_payments:without-in-person-payments',
-				'woocommerce_payments',
+				'poocommerce_payments:with-in-person-payments',
+				'poocommerce_payments:without-in-person-payments',
+				'poocommerce_payments',
 				'stripe',
 				'ppcp-gateway',
 				'amazon_payments_advanced',
 			),
 			'IE' => array(
-				'woocommerce_payments:with-in-person-payments',
-				'woocommerce_payments:without-in-person-payments',
-				'woocommerce_payments',
+				'poocommerce_payments:with-in-person-payments',
+				'poocommerce_payments:without-in-person-payments',
+				'poocommerce_payments',
 				'stripe',
 				'ppcp-gateway',
 				'airwallex_main',
@@ -1321,9 +1321,9 @@ class DefaultPaymentGateways {
 				'amazon_payments_advanced',
 			),
 			'IT' => array(
-				'woocommerce_payments:with-in-person-payments',
-				'woocommerce_payments:without-in-person-payments',
-				'woocommerce_payments',
+				'poocommerce_payments:with-in-person-payments',
+				'poocommerce_payments:without-in-person-payments',
+				'poocommerce_payments',
 				'stripe',
 				'ppcp-gateway',
 				'airwallex_main',
@@ -1332,38 +1332,38 @@ class DefaultPaymentGateways {
 				'amazon_payments_advanced',
 			),
 			'LV' => array(
-				'woocommerce_payments:with-in-person-payments',
-				'woocommerce_payments:without-in-person-payments',
-				'woocommerce_payments',
+				'poocommerce_payments:with-in-person-payments',
+				'poocommerce_payments:without-in-person-payments',
+				'poocommerce_payments',
 				'stripe',
 				'ppcp-gateway',
 			),
 			'LT' => array(
-				'woocommerce_payments:with-in-person-payments',
-				'woocommerce_payments:without-in-person-payments',
-				'woocommerce_payments',
+				'poocommerce_payments:with-in-person-payments',
+				'poocommerce_payments:without-in-person-payments',
+				'poocommerce_payments',
 				'stripe',
 				'ppcp-gateway',
 			),
 			'LU' => array(
-				'woocommerce_payments:with-in-person-payments',
-				'woocommerce_payments:without-in-person-payments',
-				'woocommerce_payments',
+				'poocommerce_payments:with-in-person-payments',
+				'poocommerce_payments:without-in-person-payments',
+				'poocommerce_payments',
 				'stripe',
 				'ppcp-gateway',
 				'amazon_payments_advanced',
 			),
 			'MT' => array(
-				'woocommerce_payments:with-in-person-payments',
-				'woocommerce_payments:without-in-person-payments',
-				'woocommerce_payments',
+				'poocommerce_payments:with-in-person-payments',
+				'poocommerce_payments:without-in-person-payments',
+				'poocommerce_payments',
 				'stripe',
 				'ppcp-gateway',
 			),
 			'NL' => array(
-				'woocommerce_payments:with-in-person-payments',
-				'woocommerce_payments:without-in-person-payments',
-				'woocommerce_payments',
+				'poocommerce_payments:with-in-person-payments',
+				'poocommerce_payments:without-in-person-payments',
+				'poocommerce_payments',
 				'stripe',
 				'ppcp-gateway',
 				'airwallex_main',
@@ -1372,18 +1372,18 @@ class DefaultPaymentGateways {
 				'amazon_payments_advanced',
 			),
 			'NO' => array(
-				'woocommerce_payments:with-in-person-payments',
-				'woocommerce_payments:without-in-person-payments',
-				'woocommerce_payments',
+				'poocommerce_payments:with-in-person-payments',
+				'poocommerce_payments:without-in-person-payments',
+				'poocommerce_payments',
 				'stripe',
 				'ppcp-gateway',
 				'kco',
 				'klarna_payments',
 			),
 			'PL' => array(
-				'woocommerce_payments:with-in-person-payments',
-				'woocommerce_payments:without-in-person-payments',
-				'woocommerce_payments',
+				'poocommerce_payments:with-in-person-payments',
+				'poocommerce_payments:without-in-person-payments',
+				'poocommerce_payments',
 				'stripe',
 				'ppcp-gateway',
 				'airwallex_main',
@@ -1391,40 +1391,40 @@ class DefaultPaymentGateways {
 				'klarna_payments',
 			),
 			'PT' => array(
-				'woocommerce_payments:with-in-person-payments',
-				'woocommerce_payments:without-in-person-payments',
-				'woocommerce_payments',
+				'poocommerce_payments:with-in-person-payments',
+				'poocommerce_payments:without-in-person-payments',
+				'poocommerce_payments',
 				'stripe',
 				'ppcp-gateway',
 				'airwallex_main',
 				'amazon_payments_advanced',
 			),
 			'RO' => array(
-				'woocommerce_payments:with-in-person-payments',
-				'woocommerce_payments:without-in-person-payments',
-				'woocommerce_payments',
+				'poocommerce_payments:with-in-person-payments',
+				'poocommerce_payments:without-in-person-payments',
+				'poocommerce_payments',
 				'stripe',
 				'ppcp-gateway',
 			),
 			'SK' => array(
-				'woocommerce_payments:with-in-person-payments',
-				'woocommerce_payments:without-in-person-payments',
-				'woocommerce_payments',
+				'poocommerce_payments:with-in-person-payments',
+				'poocommerce_payments:without-in-person-payments',
+				'poocommerce_payments',
 				'stripe',
 				'ppcp-gateway',
 			),
 			'SL' => array(
-				'woocommerce_payments:with-in-person-payments',
-				'woocommerce_payments:without-in-person-payments',
-				'woocommerce_payments',
+				'poocommerce_payments:with-in-person-payments',
+				'poocommerce_payments:without-in-person-payments',
+				'poocommerce_payments',
 				'stripe',
 				'ppcp-gateway',
 				'amazon_payments_advanced',
 			),
 			'SE' => array(
-				'woocommerce_payments:with-in-person-payments',
-				'woocommerce_payments:without-in-person-payments',
-				'woocommerce_payments',
+				'poocommerce_payments:with-in-person-payments',
+				'poocommerce_payments:without-in-person-payments',
+				'poocommerce_payments',
 				'stripe',
 				'ppcp-gateway',
 				'kco',
@@ -1452,9 +1452,9 @@ class DefaultPaymentGateways {
 			'UY' => array( 'woo-mercado-pago-custom', 'ppcp-gateway' ),
 			'VE' => array( 'ppcp-gateway' ),
 			'AU' => array(
-				'woocommerce_payments:with-in-person-payments',
-				'woocommerce_payments:without-in-person-payments',
-				'woocommerce_payments',
+				'poocommerce_payments:with-in-person-payments',
+				'poocommerce_payments:without-in-person-payments',
+				'poocommerce_payments',
 				'stripe',
 				'airwallex_main',
 				'ppcp-gateway',
@@ -1463,36 +1463,36 @@ class DefaultPaymentGateways {
 				'klarna_payments',
 			),
 			'NZ' => array(
-				'woocommerce_payments:with-in-person-payments',
-				'woocommerce_payments:without-in-person-payments',
-				'woocommerce_payments',
+				'poocommerce_payments:with-in-person-payments',
+				'poocommerce_payments:without-in-person-payments',
+				'poocommerce_payments',
 				'stripe',
 				'airwallex_main',
 				'ppcp-gateway',
 				'klarna_payments',
 			),
 			'HK' => array(
-				'woocommerce_payments:with-in-person-payments',
-				'woocommerce_payments:without-in-person-payments',
-				'woocommerce_payments',
+				'poocommerce_payments:with-in-person-payments',
+				'poocommerce_payments:without-in-person-payments',
+				'poocommerce_payments',
 				'stripe',
 				'airwallex_main',
 				'ppcp-gateway',
 				'payoneer-checkout',
 			),
 			'JP' => array(
-				'woocommerce_payments:with-in-person-payments',
-				'woocommerce_payments:without-in-person-payments',
-				'woocommerce_payments',
+				'poocommerce_payments:with-in-person-payments',
+				'poocommerce_payments:without-in-person-payments',
+				'poocommerce_payments',
 				'stripe',
 				'ppcp-gateway',
 				'square_credit_card',
 				'amazon_payments_advanced',
 			),
 			'SG' => array(
-				'woocommerce_payments:with-in-person-payments',
-				'woocommerce_payments:without-in-person-payments',
-				'woocommerce_payments',
+				'poocommerce_payments:with-in-person-payments',
+				'poocommerce_payments:without-in-person-payments',
+				'poocommerce_payments',
 				'stripe',
 				'airwallex_main',
 				'ppcp-gateway',
@@ -1506,9 +1506,9 @@ class DefaultPaymentGateways {
 			'NG' => array( 'paystack' ),
 			'GH' => array( 'paystack' ),
 			'AE' => array(
-				'woocommerce_payments:with-in-person-payments',
-				'woocommerce_payments:without-in-person-payments',
-				'woocommerce_payments',
+				'poocommerce_payments:with-in-person-payments',
+				'poocommerce_payments:without-in-person-payments',
+				'poocommerce_payments',
 			),
 		);
 

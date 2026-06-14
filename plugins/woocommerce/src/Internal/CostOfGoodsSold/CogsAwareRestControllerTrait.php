@@ -1,7 +1,7 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\CostOfGoodsSold;
+namespace Automattic\PooCommerce\Internal\CostOfGoodsSold;
 
 /**
  * Trait with Cost of Goods Sold related functionality shared by the REST products and variations controllers.
@@ -70,24 +70,24 @@ trait CogsAwareRestControllerTrait {
 	 */
 	private function add_cogs_related_product_schema( array $schema, bool $for_variations_controller ): array {
 		$schema['properties']['cost_of_goods_sold'] = array(
-			'description' => __( 'Cost of Goods Sold data.', 'woocommerce' ),
+			'description' => __( 'Cost of Goods Sold data.', 'poocommerce' ),
 			'type'        => 'object',
 			'context'     => array( 'view', 'edit' ),
 			'properties'  => array(
 				'values'                    => array(
-					'description' => __( 'Cost of Goods Sold values for the product.', 'woocommerce' ),
+					'description' => __( 'Cost of Goods Sold values for the product.', 'poocommerce' ),
 					'type'        => 'array',
 					'context'     => array( 'view', 'edit' ),
 					'items'       => array(
 						'type'       => 'object',
 						'properties' => array(
 							'defined_value'   => array(
-								'description' => __( 'Defined cost value.', 'woocommerce' ),
+								'description' => __( 'Defined cost value.', 'poocommerce' ),
 								'type'        => 'number',
 								'context'     => array( 'view', 'edit' ),
 							),
 							'effective_value' => array(
-								'description' => __( 'Effective monetary cost value.', 'woocommerce' ),
+								'description' => __( 'Effective monetary cost value.', 'poocommerce' ),
 								'type'        => 'number',
 								'context'     => array( 'view', 'edit' ),
 								'readonly'    => true,
@@ -97,13 +97,13 @@ trait CogsAwareRestControllerTrait {
 
 				),
 				'defined_value_is_additive' => array(
-					'description' => __( 'Applies to variations only. If true, the effective value is the base value from the parent product plus the defined value; if false, the defined value is the final effective value.', 'woocommerce' ),
+					'description' => __( 'Applies to variations only. If true, the effective value is the base value from the parent product plus the defined value; if false, the defined value is the final effective value.', 'poocommerce' ),
 					'type'        => 'boolean',
 					'default'     => false,
 					'context'     => array( 'view', 'edit' ),
 				),
 				'total_value'               => array(
-					'description' => __( 'Total monetary value of the Cost of Goods Sold for the product (sum of all the effective values).', 'woocommerce' ),
+					'description' => __( 'Total monetary value of the Cost of Goods Sold for the product (sum of all the effective values).', 'poocommerce' ),
 					'type'        => 'number',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
@@ -113,7 +113,7 @@ trait CogsAwareRestControllerTrait {
 
 		if ( $for_variations_controller ) {
 			$schema['properties']['cost_of_goods_sold']['properties']['defined_value_is_additive']['description'] =
-				__( 'If true, the effective value is the base value from the parent product plus the defined value; if false, the defined value is the final effective value.', 'woocommerce' );
+				__( 'If true, the effective value is the base value from the parent product plus the defined value; if false, the defined value is the final effective value.', 'poocommerce' );
 		}
 
 		return $schema;

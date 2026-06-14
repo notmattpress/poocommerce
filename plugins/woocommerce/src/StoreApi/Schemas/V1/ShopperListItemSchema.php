@@ -1,12 +1,12 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\StoreApi\Schemas\V1;
+namespace Automattic\PooCommerce\StoreApi\Schemas\V1;
 
-use Automattic\WooCommerce\Internal\ShopperLists\ShopperListItem;
-use Automattic\WooCommerce\StoreApi\Schemas\ExtendSchema;
-use Automattic\WooCommerce\StoreApi\SchemaController;
-use Automattic\WooCommerce\StoreApi\Utilities\ProductItemTrait;
+use Automattic\PooCommerce\Internal\ShopperLists\ShopperListItem;
+use Automattic\PooCommerce\StoreApi\Schemas\ExtendSchema;
+use Automattic\PooCommerce\StoreApi\SchemaController;
+use Automattic\PooCommerce\StoreApi\Utilities\ProductItemTrait;
 
 /**
  * ShopperListItemSchema class.
@@ -64,62 +64,62 @@ class ShopperListItemSchema extends AbstractSchema {
 	public function get_properties() {
 		return array(
 			'key'            => array(
-				'description' => __( 'Stable identifier for the saved item within its list.', 'woocommerce' ),
+				'description' => __( 'Stable identifier for the saved item within its list.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
 			),
 			'id'             => array(
-				'description' => __( 'Variation ID if applicable, otherwise product ID.', 'woocommerce' ),
+				'description' => __( 'Variation ID if applicable, otherwise product ID.', 'poocommerce' ),
 				'type'        => 'integer',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
 			),
 			'product_id'     => array(
-				'description' => __( 'Product ID at the time the item was saved.', 'woocommerce' ),
+				'description' => __( 'Product ID at the time the item was saved.', 'poocommerce' ),
 				'type'        => 'integer',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
 			),
 			'variation_id'   => array(
-				'description' => __( 'Variation ID at the time the item was saved, or 0 for non-variable products.', 'woocommerce' ),
+				'description' => __( 'Variation ID at the time the item was saved, or 0 for non-variable products.', 'poocommerce' ),
 				'type'        => 'integer',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
 			),
 			'quantity'       => array(
-				'description' => __( 'Quantity of this saved item.', 'woocommerce' ),
+				'description' => __( 'Quantity of this saved item.', 'poocommerce' ),
 				'type'        => 'integer',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
 			),
 			'is_live'        => array(
-				'description' => __( 'True when the row serves live product data; false rows are at-save tombstones.', 'woocommerce' ),
+				'description' => __( 'True when the row serves live product data; false rows are at-save tombstones.', 'poocommerce' ),
 				'type'        => 'boolean',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
 			),
 			'is_purchasable' => array(
-				'description' => __( 'True when the product can be added to the cart.', 'woocommerce' ),
+				'description' => __( 'True when the product can be added to the cart.', 'poocommerce' ),
 				'type'        => 'boolean',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
 			),
 			'name'           => array(
-				'description' => __( 'Product name. Live when is_live is true; falls back to the at-save title snapshot otherwise.', 'woocommerce' ),
+				'description' => __( 'Product name. Live when is_live is true; falls back to the at-save title snapshot otherwise.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
 			),
 			'permalink'      => array(
-				'description' => __( 'Product URL. Null when the row is a tombstone (so iAPI strips the anchor href).', 'woocommerce' ),
+				'description' => __( 'Product URL. Null when the row is a tombstone (so iAPI strips the anchor href).', 'poocommerce' ),
 				'type'        => array( 'string', 'null' ),
 				'format'      => 'uri',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
 			),
 			'images'         => array(
-				'description' => __( 'List of images for the live product. Empty when the product no longer exists.', 'woocommerce' ),
+				'description' => __( 'List of images for the live product. Empty when the product no longer exists.', 'poocommerce' ),
 				'type'        => 'array',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
@@ -129,7 +129,7 @@ class ShopperListItemSchema extends AbstractSchema {
 				),
 			),
 			'variation'      => array(
-				'description' => __( 'Chosen variation attributes, if applicable.', 'woocommerce' ),
+				'description' => __( 'Chosen variation attributes, if applicable.', 'poocommerce' ),
 				'type'        => 'array',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
@@ -137,19 +137,19 @@ class ShopperListItemSchema extends AbstractSchema {
 					'type'       => 'object',
 					'properties' => array(
 						'raw_attribute' => array(
-							'description' => __( 'Variation system generated attribute name.', 'woocommerce' ),
+							'description' => __( 'Variation system generated attribute name.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => array( 'view', 'edit' ),
 							'readonly'    => true,
 						),
 						'attribute'     => array(
-							'description' => __( 'Variation attribute name.', 'woocommerce' ),
+							'description' => __( 'Variation attribute name.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => array( 'view', 'edit' ),
 							'readonly'    => true,
 						),
 						'value'         => array(
-							'description' => __( 'Variation attribute value.', 'woocommerce' ),
+							'description' => __( 'Variation attribute value.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => array( 'view', 'edit' ),
 							'readonly'    => true,
@@ -158,7 +158,7 @@ class ShopperListItemSchema extends AbstractSchema {
 				),
 			),
 			'prices'         => array(
-				'description' => __( 'Live product prices. Omitted when the product no longer exists.', 'woocommerce' ),
+				'description' => __( 'Live product prices. Omitted when the product no longer exists.', 'poocommerce' ),
 				'type'        => array( 'object', 'null' ),
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
@@ -166,19 +166,19 @@ class ShopperListItemSchema extends AbstractSchema {
 					$this->get_store_currency_properties(),
 					array(
 						'price'         => array(
-							'description' => __( 'Current product price.', 'woocommerce' ),
+							'description' => __( 'Current product price.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => array( 'view', 'edit' ),
 							'readonly'    => true,
 						),
 						'regular_price' => array(
-							'description' => __( 'Regular product price.', 'woocommerce' ),
+							'description' => __( 'Regular product price.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => array( 'view', 'edit' ),
 							'readonly'    => true,
 						),
 						'sale_price'    => array(
-							'description' => __( 'Sale product price, if applicable.', 'woocommerce' ),
+							'description' => __( 'Sale product price, if applicable.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => array( 'view', 'edit' ),
 							'readonly'    => true,
@@ -187,19 +187,19 @@ class ShopperListItemSchema extends AbstractSchema {
 				),
 			),
 			'price_html'     => array(
-				'description' => __( 'Live product price as HTML, formatted via wc_price including sale/discount markup. Empty when the product no longer exists.', 'woocommerce' ),
+				'description' => __( 'Live product price as HTML, formatted via wc_price including sale/discount markup. Empty when the product no longer exists.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
 			),
 			'image_html'     => array(
-				'description' => __( 'Product thumbnail as a fully-formed <img> element with srcset, sizes, alt, and lazy-loading attributes. Falls back to the configured placeholder image when the product has no image or no longer exists.', 'woocommerce' ),
+				'description' => __( 'Product thumbnail as a fully-formed <img> element with srcset, sizes, alt, and lazy-loading attributes. Falls back to the configured placeholder image when the product has no image or no longer exists.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
 			),
 			'date_added_gmt' => array(
-				'description' => __( 'The date the item was saved, as GMT.', 'woocommerce' ),
+				'description' => __( 'The date the item was saved, as GMT.', 'poocommerce' ),
 				'type'        => 'string',
 				'format'      => 'date-time',
 				'context'     => array( 'view', 'edit' ),
@@ -284,7 +284,7 @@ class ShopperListItemSchema extends AbstractSchema {
 
 	/**
 	 * Get the thumbnail image HTML for a shopper list item, falling back to the
-	 * WooCommerce placeholder when the product has no image or has been deleted.
+	 * PooCommerce placeholder when the product has no image or has been deleted.
 	 *
 	 * Pre-formatting on the server lets renderers (PHP SSR + JS hydration)
 	 * consume one canonical string instead of each side composing the markup
@@ -297,9 +297,9 @@ class ShopperListItemSchema extends AbstractSchema {
 	private function get_image_html( ?\WC_Product $product ): string {
 		$image_id = $product instanceof \WC_Product ? (int) $product->get_image_id() : 0;
 		if ( $image_id > 0 ) {
-			return (string) wp_get_attachment_image( $image_id, 'woocommerce_thumbnail' );
+			return (string) wp_get_attachment_image( $image_id, 'poocommerce_thumbnail' );
 		}
-		return (string) wc_placeholder_img( 'woocommerce_thumbnail' );
+		return (string) wc_placeholder_img( 'poocommerce_thumbnail' );
 	}
 
 	/**

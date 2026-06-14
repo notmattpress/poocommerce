@@ -1,15 +1,15 @@
 <?php
 /**
- * Register the scripts, and styles used within WooCommerce Admin.
+ * Register the scripts, and styles used within PooCommerce Admin.
  */
 
-namespace Automattic\WooCommerce\Internal\Admin;
+namespace Automattic\PooCommerce\Internal\Admin;
 
 use _WP_Dependency;
-use Automattic\WooCommerce\Admin\Features\Features;
-use Automattic\WooCommerce\Admin\PageController;
-use Automattic\WooCommerce\Admin\Settings\SettingsUIPageInterface;
-use Automattic\WooCommerce\Internal\Admin\Loader;
+use Automattic\PooCommerce\Admin\Features\Features;
+use Automattic\PooCommerce\Admin\PageController;
+use Automattic\PooCommerce\Admin\Settings\SettingsUIPageInterface;
+use Automattic\PooCommerce\Internal\Admin\Loader;
 /**
  * WCAdminAssets Class.
  */
@@ -99,7 +99,7 @@ class WCAdminAssets {
 
 	/**
 	 * Gets the file modified time as a cache buster if we're in dev mode,
-	 * or the asset version (file content hash) if exists, or the WooCommerce version.
+	 * or the asset version (file content hash) if exists, or the PooCommerce version.
 	 *
 	 * @param string      $ext File extension.
 	 * @param string|null $asset_version Optional. The version from the asset file.
@@ -302,7 +302,7 @@ class WCAdminAssets {
 			'wc-explat',
 			'wc-experimental',
 			'wc-customer-effort-score',
-			// NOTE: This should be removed when Gutenberg is updated and the notices package is removed from WooCommerce Admin.
+			// NOTE: This should be removed when Gutenberg is updated and the notices package is removed from PooCommerce Admin.
 			'wc-notices',
 			'wc-number',
 			'wc-tracks',
@@ -356,7 +356,7 @@ class WCAdminAssets {
 				);
 
 				if ( in_array( $script, $translated_scripts, true ) ) {
-					wp_set_script_translations( $script, 'woocommerce' );
+					wp_set_script_translations( $script, 'poocommerce' );
 				}
 
 				if ( WC_ADMIN_APP === $script ) {
@@ -432,7 +432,7 @@ class WCAdminAssets {
 	 * @return array
 	 */
 	private function get_settings_ui_script_dependencies(): array {
-		if ( ! PageController::is_settings_page() || ! Features::is_enabled( 'settings-ui' ) || ! current_user_can( 'manage_woocommerce' ) ) {
+		if ( ! PageController::is_settings_page() || ! Features::is_enabled( 'settings-ui' ) || ! current_user_can( 'manage_poocommerce' ) ) {
 			return array();
 		}
 
@@ -492,7 +492,7 @@ class WCAdminAssets {
 	}
 
 	/**
-	 * Get the current WooCommerce settings tab.
+	 * Get the current PooCommerce settings tab.
 	 *
 	 * @return string
 	 */
@@ -514,7 +514,7 @@ class WCAdminAssets {
 	}
 
 	/**
-	 * Get the current WooCommerce settings section.
+	 * Get the current PooCommerce settings section.
 	 *
 	 * @return string
 	 */
@@ -544,7 +544,7 @@ class WCAdminAssets {
 				'wc-experimental-products-app',
 				'wc-navigation',
 				// NOTE: This should be removed when Gutenberg is updated and
-				// the notices package is removed from WooCommerce Admin.
+				// the notices package is removed from PooCommerce Admin.
 				'wc-notices',
 				'wc-number',
 				'wc-date',
@@ -566,7 +566,7 @@ class WCAdminAssets {
 					// Show a warning.
 					$error_handle  = 'wc-settings-dep-in-header';
 					$used_deps     = implode( ', ', array_intersect( $handles_for_injection, $script->deps ) );
-					$error_message = "Scripts that have a dependency on [$used_deps] must be loaded in the footer, {$handle} was registered to load in the header, but has been switched to load in the footer instead. See https://github.com/woocommerce/woocommerce-gutenberg-products-block/pull/5059";
+					$error_message = "Scripts that have a dependency on [$used_deps] must be loaded in the footer, {$handle} was registered to load in the header, but has been switched to load in the footer instead. See https://github.com/poocommerce/poocommerce-gutenberg-products-block/pull/5059";
 					// phpcs:ignore WordPress.WP.EnqueuedResourceParameters.NotInFooter,WordPress.WP.EnqueuedResourceParameters.MissingVersion
 					wp_register_script( $error_handle, '' );
 					wp_enqueue_script( $error_handle );
@@ -600,7 +600,7 @@ class WCAdminAssets {
 			true
 		);
 		if ( $need_translation ) {
-			wp_set_script_translations( 'wc-admin-' . $script_name, 'woocommerce' );
+			wp_set_script_translations( 'wc-admin-' . $script_name, 'poocommerce' );
 		}
 	}
 

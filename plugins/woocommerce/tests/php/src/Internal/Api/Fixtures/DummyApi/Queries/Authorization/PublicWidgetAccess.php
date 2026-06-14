@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Queries\Authorization;
+namespace Automattic\PooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Queries\Authorization;
 
-use Automattic\WooCommerce\Api\Attributes\Description;
-use Automattic\WooCommerce\Api\Attributes\Name;
-use Automattic\WooCommerce\Api\Attributes\PublicAccess;
-use Automattic\WooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Store;
-use Automattic\WooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Types\Widget;
+use Automattic\PooCommerce\Api\Attributes\Description;
+use Automattic\PooCommerce\Api\Attributes\Name;
+use Automattic\PooCommerce\Api\Attributes\PublicAccess;
+use Automattic\PooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Store;
+use Automattic\PooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Types\Widget;
 
 /**
  * Publicly-accessible Widget query used by the field-level authorization tests

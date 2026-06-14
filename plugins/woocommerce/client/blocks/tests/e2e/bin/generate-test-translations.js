@@ -64,7 +64,7 @@ builtJsFiles.forEach( ( filePath ) => {
 		return;
 	}
 	// Match WordPress's script handle path: assets are enqueued from
-	// `plugins/woocommerce/assets/client/blocks/...` and WP hashes that
+	// `plugins/poocommerce/assets/client/blocks/...` and WP hashes that
 	// path (minus the plugin prefix) to find translation JSON files.
 	const relativeFilePath = filePath.substring(
 		filePath.indexOf( 'assets/client/blocks/' )
@@ -88,7 +88,7 @@ builtJsFiles.forEach( ( filePath ) => {
 		.digest( 'hex' );
 
 	writeJsonSync(
-		path.join( LANGUAGES_DIR, `woocommerce-${ locale }-${ md5Path }.json` ),
+		path.join( LANGUAGES_DIR, `poocommerce-${ locale }-${ md5Path }.json` ),
 		data
 	);
 } );

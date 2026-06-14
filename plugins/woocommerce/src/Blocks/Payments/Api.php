@@ -1,12 +1,12 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\Payments;
+namespace Automattic\PooCommerce\Blocks\Payments;
 
-use Automattic\WooCommerce\Blocks\Assets\AssetDataRegistry;
-use Automattic\WooCommerce\Blocks\Package;
-use Automattic\WooCommerce\Blocks\Payments\Integrations\BankTransfer;
-use Automattic\WooCommerce\Blocks\Payments\Integrations\CashOnDelivery;
-use Automattic\WooCommerce\Blocks\Payments\Integrations\Cheque;
-use Automattic\WooCommerce\Blocks\Payments\Integrations\PayPal;
+use Automattic\PooCommerce\Blocks\Assets\AssetDataRegistry;
+use Automattic\PooCommerce\Blocks\Package;
+use Automattic\PooCommerce\Blocks\Payments\Integrations\BankTransfer;
+use Automattic\PooCommerce\Blocks\Payments\Integrations\CashOnDelivery;
+use Automattic\PooCommerce\Blocks\Payments\Integrations\Cheque;
+use Automattic\PooCommerce\Blocks\Payments\Integrations\PayPal;
 
 /**
  *  The Api class provides an interface to payment method registration.
@@ -44,10 +44,10 @@ class Api {
 	 */
 	public function init() {
 		add_action( 'init', array( $this->payment_method_registry, 'initialize' ), 5 );
-		add_filter( 'woocommerce_blocks_register_script_dependencies', array( $this, 'add_payment_method_script_dependencies' ), 10, 2 );
-		add_action( 'woocommerce_blocks_checkout_enqueue_data', array( $this, 'add_payment_method_script_data' ) );
-		add_action( 'woocommerce_blocks_cart_enqueue_data', array( $this, 'add_payment_method_script_data' ) );
-		add_action( 'woocommerce_blocks_payment_method_type_registration', array( $this, 'register_payment_method_integrations' ) );
+		add_filter( 'poocommerce_blocks_register_script_dependencies', array( $this, 'add_payment_method_script_dependencies' ), 10, 2 );
+		add_action( 'poocommerce_blocks_checkout_enqueue_data', array( $this, 'add_payment_method_script_data' ) );
+		add_action( 'poocommerce_blocks_cart_enqueue_data', array( $this, 'add_payment_method_script_data' ) );
+		add_action( 'poocommerce_blocks_payment_method_type_registration', array( $this, 'register_payment_method_integrations' ) );
 		add_action( 'wp_print_scripts', array( $this, 'verify_payment_methods_dependencies' ), 1 );
 	}
 
@@ -144,7 +144,7 @@ class Api {
 				if ( ! wp_script_is( $dep, 'registered' ) ) {
 					$error_handle  = $dep . '-dependency-error';
 					$error_message = sprintf(
-						'Payment gateway with handle \'%1$s\' has been deactivated in Cart and Checkout blocks because its dependency \'%2$s\' is not registered. Read the docs about registering assets for payment methods: https://github.com/woocommerce/woocommerce-blocks/blob/060f63c04f0f34f645200b5d4da9212125c49177/docs/third-party-developers/extensibility/checkout-payment-methods/payment-method-integration.md#registering-assets',
+						'Payment gateway with handle \'%1$s\' has been deactivated in Cart and Checkout blocks because its dependency \'%2$s\' is not registered. Read the docs about registering assets for payment methods: https://github.com/poocommerce/poocommerce-blocks/blob/060f63c04f0f34f645200b5d4da9212125c49177/docs/third-party-developers/extensibility/checkout-payment-methods/payment-method-integration.md#registering-assets',
 						esc_html( $payment_method_script ),
 						esc_html( $dep )
 					);

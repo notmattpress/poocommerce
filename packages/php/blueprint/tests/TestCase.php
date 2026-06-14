@@ -1,6 +1,6 @@
 <?php
 
-namespace Automattic\WooCommerce\Blueprint\Tests;
+namespace Automattic\PooCommerce\Blueprint\Tests;
 
 use PHPUnit\Framework\TestCase as PHPUnitTestCase;
 

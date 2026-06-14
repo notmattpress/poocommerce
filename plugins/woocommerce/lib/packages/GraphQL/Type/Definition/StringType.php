@@ -1,13 +1,13 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\GraphQL\Type\Definition;
+namespace Automattic\PooCommerce\Vendor\GraphQL\Type\Definition;
 
-use Automattic\WooCommerce\Vendor\GraphQL\Error\Error;
-use Automattic\WooCommerce\Vendor\GraphQL\Error\SerializationError;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\Node;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\StringValueNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\Printer;
-use Automattic\WooCommerce\Vendor\GraphQL\Utils\Utils;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\Error;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\SerializationError;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\Node;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\StringValueNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\Printer;
+use Automattic\PooCommerce\Vendor\GraphQL\Utils\Utils;
 
 class StringType extends ScalarType
 {
@@ -15,7 +15,7 @@ class StringType extends ScalarType
 
     public ?string $description
         = 'The `String` scalar type represents textual data, represented as UTF-8
-character sequences. The String type is most often used by Automattic\WooCommerce\Vendor\GraphQL to
+character sequences. The String type is most often used by Automattic\PooCommerce\Vendor\GraphQL to
 represent free-form human-readable text.';
 
     /** @throws SerializationError */

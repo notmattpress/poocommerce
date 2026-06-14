@@ -25,14 +25,14 @@ const getHelpText = ( layoutOptions: LayoutOptions ) => {
 		case LayoutOptions.GRID:
 			return __(
 				'Display products using rows and columns.',
-				'woocommerce'
+				'poocommerce'
 			);
 		case LayoutOptions.STACK:
-			return __( 'Display products in a single column.', 'woocommerce' );
+			return __( 'Display products in a single column.', 'poocommerce' );
 		case LayoutOptions.CAROUSEL:
 			return __(
 				'Display products in a carousel. It displays a single row of products.',
-				'woocommerce'
+				'poocommerce'
 			);
 		default:
 			return '';
@@ -55,7 +55,7 @@ const LayoutOptionsControl = ( props: DisplayLayoutControlProps ) => {
 
 	return (
 		<ToolsPanelItem
-			label={ __( 'Layout', 'woocommerce' ) }
+			label={ __( 'Layout', 'poocommerce' ) }
 			hasValue={ () => type !== DEFAULT_VALUE }
 			isShownByDefault
 			onDeselect={ () => {
@@ -65,7 +65,7 @@ const LayoutOptionsControl = ( props: DisplayLayoutControlProps ) => {
 			<ToggleGroupControl
 				__next40pxDefaultSize
 				__nextHasNoMarginBottom
-				label={ __( 'Layout', 'woocommerce' ) }
+				label={ __( 'Layout', 'poocommerce' ) }
 				isBlock
 				onChange={ ( value: LayoutOptions ) => {
 					setDisplayLayout( value );
@@ -75,15 +75,15 @@ const LayoutOptionsControl = ( props: DisplayLayoutControlProps ) => {
 			>
 				<ToggleGroupControlOption
 					value={ LayoutOptions.STACK }
-					label={ __( 'Stack', 'woocommerce' ) }
+					label={ __( 'Stack', 'poocommerce' ) }
 				/>
 				<ToggleGroupControlOption
 					value={ LayoutOptions.GRID }
-					label={ __( 'Grid', 'woocommerce' ) }
+					label={ __( 'Grid', 'poocommerce' ) }
 				/>
 				<ToggleGroupControlOption
 					value={ LayoutOptions.CAROUSEL }
-					label={ __( 'Carousel', 'woocommerce' ) }
+					label={ __( 'Carousel', 'poocommerce' ) }
 				/>
 			</ToggleGroupControl>
 		</ToolsPanelItem>

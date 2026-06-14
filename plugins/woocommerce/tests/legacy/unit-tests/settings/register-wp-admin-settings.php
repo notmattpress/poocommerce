@@ -2,7 +2,7 @@
 /**
  * WC_Tests_Register_WP_Admin_Settings class file.
  *
- * @package @package WooCommerce\Tests\Settings
+ * @package @package PooCommerce\Tests\Settings
  */
 
 /**
@@ -10,7 +10,7 @@
  * Tests the helper class that makes settings (currently present in wp-admin)
  * available to the REST API.
  *
- * @package WooCommerce\Tests\Settings
+ * @package PooCommerce\Tests\Settings
  * @since 3.0.0
  */
 class WC_Tests_Register_WP_Admin_Settings extends WC_Unit_Test_Case {
@@ -48,8 +48,8 @@ class WC_Tests_Register_WP_Admin_Settings extends WC_Unit_Test_Case {
 	public function test_constructor() {
 		$settings = new WC_Register_WP_Admin_Settings( $this->page, 'page' );
 
-		$this->assertEquals( has_filter( 'woocommerce_settings_groups', array( $settings, 'register_page_group' ) ), 10 );
-		$this->assertEquals( has_filter( 'woocommerce_settings-' . $this->page->get_id(), array( $settings, 'register_page_settings' ) ), 10 );
+		$this->assertEquals( has_filter( 'poocommerce_settings_groups', array( $settings, 'register_page_group' ) ), 10 );
+		$this->assertEquals( has_filter( 'poocommerce_settings-' . $this->page->get_id(), array( $settings, 'register_page_settings' ) ), 10 );
 	}
 
 	/**

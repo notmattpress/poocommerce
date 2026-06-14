@@ -3,7 +3,7 @@
  */
 import { store, getContext } from '@wordpress/interactivity';
 
-const { state } = store( 'woocommerce/accordion', {
+const { state } = store( 'poocommerce/accordion', {
 	state: {
 		get isOpen() {
 			const { isOpen, id } = getContext();

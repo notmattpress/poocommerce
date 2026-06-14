@@ -37,10 +37,10 @@ const getCacheConfig = ( name, configPaths = [] ) =>
 						__filename,
 						path.resolve( __dirname, '../../../../pnpm-lock.yaml' ),
 						require.resolve(
-							'@woocommerce/dependency-extraction-webpack-plugin'
+							'@poocommerce/dependency-extraction-webpack-plugin'
 						),
 						require.resolve(
-							'@woocommerce/internal-build/style-build'
+							'@poocommerce/internal-build/style-build'
 						),
 						...configPaths.map( ( configPath ) =>
 							path.resolve( __dirname, configPath )

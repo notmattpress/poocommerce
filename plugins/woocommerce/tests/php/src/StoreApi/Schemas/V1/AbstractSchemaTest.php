@@ -1,12 +1,12 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\StoreApi\Schemas\V1;
+namespace Automattic\PooCommerce\Tests\StoreApi\Schemas\V1;
 
-use Automattic\WooCommerce\StoreApi\Schemas\V1\AbstractSchema;
-use Automattic\WooCommerce\StoreApi\SchemaController;
-use Automattic\WooCommerce\StoreApi\Schemas\ExtendSchema;
-use Automattic\WooCommerce\StoreApi\Formatters;
+use Automattic\PooCommerce\StoreApi\Schemas\V1\AbstractSchema;
+use Automattic\PooCommerce\StoreApi\SchemaController;
+use Automattic\PooCommerce\StoreApi\Schemas\ExtendSchema;
+use Automattic\PooCommerce\StoreApi\Formatters;
 use WC_Unit_Test_Case;
 use ReflectionClass;
 

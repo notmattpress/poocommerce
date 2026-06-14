@@ -1,16 +1,16 @@
 <?php
 /**
- * WooCommerce Order Detail Redesign feature loader.
+ * PooCommerce Order Detail Redesign feature loader.
  *
- * @package WooCommerce
+ * @package PooCommerce
  */
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\Features\OrderDetailRedesign;
+namespace Automattic\PooCommerce\Internal\Features\OrderDetailRedesign;
 
 /**
- * Loads support for the redesigned WooCommerce order detail page.
+ * Loads support for the redesigned PooCommerce order detail page.
  *
  * Manually instantiated from `Features::load_features()` when the
  * `order-detail-redesign` feature flag is enabled (see
@@ -38,7 +38,7 @@ class Init {
 	 * Adds the feature body class to every admin page while the feature is enabled.
 	 *
 	 * Screen-level scoping is handled by the CSS selectors, which chain this
-	 * class with the WP-provided page classes (`.woocommerce_page_wc-orders`,
+	 * class with the WP-provided page classes (`.poocommerce_page_wc-orders`,
 	 * `.post-type-shop_order`) and qualifiers like `:has(#poststuff)` so the
 	 * styles only apply on the actual order edit/new screens.
 	 *
@@ -48,6 +48,6 @@ class Init {
 	 * @return string
 	 */
 	public function handle_admin_body_class( string $classes ): string {
-		return $classes . ' woocommerce-feature-enabled-' . self::FEATURE_ID;
+		return $classes . ' poocommerce-feature-enabled-' . self::FEATURE_ID;
 	}
 }

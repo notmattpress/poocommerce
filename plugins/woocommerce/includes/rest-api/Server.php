@@ -2,32 +2,32 @@
 /**
  * Initialize this version of the REST API.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  */
 
-namespace Automattic\WooCommerce\RestApi;
+namespace Automattic\PooCommerce\RestApi;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Proxies\LegacyProxy;
-use Automattic\WooCommerce\RestApi\Utilities\SingletonTrait;
-use Automattic\WooCommerce\Admin\Features\Features;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\OrderNotes\Controller as OrderNotesController;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\ShippingZones\Controller as ShippingZonesController;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\ShippingZoneMethod\Controller as ShippingZoneMethodController;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Orders\Controller as OrdersController;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Refunds\Controller as RefundsController;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Settings\Products\Controller as SettingsProductsController;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Products\Controller as ProductsController;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Settings\PaymentGateways\Controller as PaymentGatewaysController;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Settings\OfflinePaymentMethods\Controller as OfflinePaymentMethodsController;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Customers\Controller as CustomersController;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Settings\General\Controller as GeneralSettingsController;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Settings\Email\Controller as EmailSettingsController;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Settings\Tax\Controller as TaxSettingsController;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Settings\Emails\Controller as EmailsSettingsController;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Fulfillments\Controller as FulfillmentsController;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Settings\Account\Controller as AccountSettingsController;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\RestApi\Utilities\SingletonTrait;
+use Automattic\PooCommerce\Admin\Features\Features;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\OrderNotes\Controller as OrderNotesController;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\ShippingZones\Controller as ShippingZonesController;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\ShippingZoneMethod\Controller as ShippingZoneMethodController;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Orders\Controller as OrdersController;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Refunds\Controller as RefundsController;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Settings\Products\Controller as SettingsProductsController;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Products\Controller as ProductsController;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Settings\PaymentGateways\Controller as PaymentGatewaysController;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Settings\OfflinePaymentMethods\Controller as OfflinePaymentMethodsController;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Customers\Controller as CustomersController;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Settings\General\Controller as GeneralSettingsController;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Settings\Email\Controller as EmailSettingsController;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Settings\Tax\Controller as TaxSettingsController;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Settings\Emails\Controller as EmailsSettingsController;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Fulfillments\Controller as FulfillmentsController;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Settings\Account\Controller as AccountSettingsController;
 
 /**
  * Class responsible for loading the REST API and all REST API namespaces.
@@ -45,7 +45,7 @@ class Server {
 	/**
 	 * Hook into WordPress ready to init the REST API as needed.
 	 */
-	public function init() { // phpcs:ignore WooCommerce.Functions.InternalInjectionMethod -- Not an injection method.
+	public function init() { // phpcs:ignore PooCommerce.Functions.InternalInjectionMethod -- Not an injection method.
 		add_action( 'rest_api_init', array( $this, 'register_rest_routes' ), 10 );
 
 		\WC_REST_System_Status_V2_Controller::register_cache_clean();
@@ -90,7 +90,7 @@ class Server {
 		 * @since 4.5.0
 		 * @param array $controllers List of $namespace => $controllers to load.
 		 */
-		return apply_filters( 'woocommerce_rest_api_get_rest_namespaces', $namespaces );
+		return apply_filters( 'poocommerce_rest_api_get_rest_namespaces', $namespaces );
 	}
 
 	/**

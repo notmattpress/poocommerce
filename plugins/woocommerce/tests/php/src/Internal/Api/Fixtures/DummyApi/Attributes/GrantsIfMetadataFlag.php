@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Attributes;
+namespace Automattic\PooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Attributes;
 
 use Attribute;
-use Automattic\WooCommerce\Api\Infrastructure\Principal;
+use Automattic\PooCommerce\Api\Infrastructure\Principal;
 
 /**
  * Fixture authorization attribute that grants iff a `runtime_flag` metadata

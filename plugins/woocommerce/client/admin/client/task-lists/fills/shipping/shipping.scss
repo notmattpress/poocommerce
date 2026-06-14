@@ -1,18 +1,18 @@
-.woocommerce-shipping-rate {
+.poocommerce-shipping-rate {
 	display: flex;
 	padding-top: $gap-small;
 	padding-bottom: $gap-small;
 
-	.woocommerce-shipping-rate__main {
+	.poocommerce-shipping-rate__main {
 		width: 100%;
 	}
 
-	.woocommerce-shipping-rate__icon {
+	.poocommerce-shipping-rate__icon {
 		padding-top: $gap;
 		margin-right: $gap-large;
 	}
 
-	.woocommerce-shipping-rate__name {
+	.poocommerce-shipping-rate__name {
 		align-items: center;
 		display: flex;
 		padding-top: $gap;
@@ -28,7 +28,7 @@
 		}
 	}
 
-	.woocommerce-shipping-rate__control-wrapper {
+	.poocommerce-shipping-rate__control-wrapper {
 		.components-base-control {
 			margin-bottom: 0;
 		}

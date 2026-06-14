@@ -47,8 +47,8 @@ export const registerSettingsEmailImageUrlFill = () => {
 	const slot_element = document.getElementById( slot_element_id );
 	const image_url = slot_element?.getAttribute( 'data-image-url' ) || '';
 	const input_id = slot_element?.getAttribute( 'data-id' ) || '';
-	registerPlugin( 'woocommerce-admin-settings-email-image-url', {
-		scope: 'woocommerce-email-image-url-settings',
+	registerPlugin( 'poocommerce-admin-settings-email-image-url', {
+		scope: 'poocommerce-email-image-url-settings',
 		render: () => (
 			<EmailImageUrlFill
 				inputId={ input_id }

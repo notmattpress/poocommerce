@@ -2,12 +2,12 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\PushNotifications\Triggers;
+namespace Automattic\PooCommerce\Tests\Internal\PushNotifications\Triggers;
 
-use Automattic\WooCommerce\Internal\PushNotifications\Dispatchers\InternalNotificationDispatcher;
-use Automattic\WooCommerce\Internal\PushNotifications\Notifications\StockNotification;
-use Automattic\WooCommerce\Internal\PushNotifications\Services\PendingNotificationStore;
-use Automattic\WooCommerce\Internal\PushNotifications\Triggers\StockNotificationTrigger;
+use Automattic\PooCommerce\Internal\PushNotifications\Dispatchers\InternalNotificationDispatcher;
+use Automattic\PooCommerce\Internal\PushNotifications\Notifications\StockNotification;
+use Automattic\PooCommerce\Internal\PushNotifications\Services\PendingNotificationStore;
+use Automattic\PooCommerce\Internal\PushNotifications\Triggers\StockNotificationTrigger;
 use WC_Helper_Product;
 use WC_Unit_Test_Case;
 
@@ -52,9 +52,9 @@ class StockNotificationTriggerTest extends WC_Unit_Test_Case {
 	 * Tear down test fixtures.
 	 */
 	public function tearDown(): void {
-		remove_action( 'woocommerce_low_stock', array( $this->trigger, 'on_low_stock' ) );
-		remove_action( 'woocommerce_no_stock', array( $this->trigger, 'on_no_stock' ) );
-		remove_action( 'woocommerce_product_on_backorder', array( $this->trigger, 'on_backorder' ) );
+		remove_action( 'poocommerce_low_stock', array( $this->trigger, 'on_low_stock' ) );
+		remove_action( 'poocommerce_no_stock', array( $this->trigger, 'on_no_stock' ) );
+		remove_action( 'poocommerce_product_on_backorder', array( $this->trigger, 'on_backorder' ) );
 		remove_action( 'shutdown', array( $this->store, 'dispatch_all' ) );
 
 		$this->reset_container_replacements();

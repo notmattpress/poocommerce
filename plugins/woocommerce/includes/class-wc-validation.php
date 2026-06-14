@@ -2,7 +2,7 @@
 /**
  * General user data validation methods
  *
- * @package WooCommerce\Classes
+ * @package PooCommerce\Classes
  * @version  2.4.0
  */
 
@@ -121,7 +121,7 @@ class WC_Validation {
 				break;
 		}
 
-		return apply_filters( 'woocommerce_validate_postcode', $valid, $postcode, $country );
+		return apply_filters( 'poocommerce_validate_postcode', $valid, $postcode, $country );
 	}
 
 	/**

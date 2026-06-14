@@ -93,7 +93,7 @@ function initChipColors( element: HTMLElement ): void {
 }
 
 const { state }: ChipsStore = store< ChipsStore >(
-	'woocommerce/product-filter-chips',
+	'poocommerce/product-filter-chips',
 	{
 		state: {
 			get items(): ChipsItem[] {

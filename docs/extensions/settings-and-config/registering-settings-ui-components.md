@@ -6,7 +6,7 @@ sidebar_position: 6
 
 # Registering settings UI components
 
-Use custom components when a WooCommerce settings field needs plugin-specific React UI that cannot be represented by a native field type.
+Use custom components when a PooCommerce settings field needs plugin-specific React UI that cannot be represented by a native field type.
 
 For most fields, prefer the native renderer. Custom components are best for specialized selectors, previews, or validation flows.
 
@@ -31,10 +31,10 @@ The `component` value is a name, not a script handle. It lets the PHP schema say
 
 ## Register JavaScript components
 
-Register components with `registerSettingsExtension()` from `@woocommerce/settings-ui-sdk`:
+Register components with `registerSettingsExtension()` from `@poocommerce/settings-ui-sdk`:
 
 ```ts
-import { registerSettingsExtension } from '@woocommerce/settings-ui-sdk';
+import { registerSettingsExtension } from '@poocommerce/settings-ui-sdk';
 import { PaymentMethodPicker } from './payment-method-picker';
 
 registerSettingsExtension( {
@@ -82,7 +82,7 @@ Call `onChange()` with the next field value. The SDK handles hidden input serial
 ## Example component
 
 ```tsx
-import type { SettingsFieldComponentProps } from '@woocommerce/settings-ui-sdk';
+import type { SettingsFieldComponentProps } from '@poocommerce/settings-ui-sdk';
 
 export const PaymentMethodPicker = ( {
 	field,
@@ -167,7 +167,7 @@ Register your script in WordPress and return its handle from the settings UI ada
 
 ```php
 <?php
-use Automattic\WooCommerce\Admin\Settings\LegacySettingsPageAdapter;
+use Automattic\PooCommerce\Admin\Settings\LegacySettingsPageAdapter;
 
 final class My_Plugin_Settings_UI_Page extends LegacySettingsPageAdapter {
 	public function get_script_handles( string $section ): array {
@@ -176,4 +176,4 @@ final class My_Plugin_Settings_UI_Page extends LegacySettingsPageAdapter {
 }
 ```
 
-WooCommerce loads the SDK first, then your script, then mounts the settings app.
+PooCommerce loads the SDK first, then your script, then mounts the settings app.

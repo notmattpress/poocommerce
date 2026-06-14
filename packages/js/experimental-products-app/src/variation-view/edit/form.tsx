@@ -3,7 +3,7 @@
  */
 import { DataForm } from '@wordpress/dataviews';
 import type { FormField } from '@wordpress/dataviews';
-import { getSetting } from '@woocommerce/settings';
+import { getSetting } from '@poocommerce/settings';
 
 /**
  * Internal dependencies
@@ -81,7 +81,7 @@ export function VariationEditForm( {
 	};
 
 	return (
-		<div className="woocommerce-product-edit__form">
+		<div className="poocommerce-product-edit__form">
 			<DataForm
 				data={ mergedData }
 				fields={ visibleFields }

@@ -4,9 +4,9 @@
  *
  * Developers can add fees to the cart via WC()->cart->fees_api() which will reference this class.
  *
- * We suggest using the action woocommerce_cart_calculate_fees hook for adding fees.
+ * We suggest using the action poocommerce_cart_calculate_fees hook for adding fees.
  *
- * @package WooCommerce\Classes
+ * @package PooCommerce\Classes
  * @version 3.2.0
  */
 
@@ -43,7 +43,7 @@ final class WC_Cart_Fees {
 	/**
 	 * Constructor. Reference to the cart.
 	 *
-	 * @param null $deprecated Deprecated since WooCommerce 8.2.0.
+	 * @param null $deprecated Deprecated since PooCommerce 8.2.0.
 	 *
 	 * @since 3.2.0
 	 */
@@ -71,7 +71,7 @@ final class WC_Cart_Fees {
 	 */
 	public function add_fee( $args = array() ) {
 		$fee_props            = (object) wp_parse_args( $args, $this->default_fee_props );
-		$fee_props->name      = $fee_props->name ? $fee_props->name : __( 'Fee', 'woocommerce' );
+		$fee_props->name      = $fee_props->name ? $fee_props->name : __( 'Fee', 'poocommerce' );
 		$fee_props->tax_class = in_array( $fee_props->tax_class, array_merge( WC_Tax::get_tax_classes(), WC_Tax::get_tax_class_slugs() ), true ) ? $fee_props->tax_class : '';
 		$fee_props->taxable   = wc_string_to_bool( $fee_props->taxable );
 		$fee_props->amount    = wc_format_decimal( $fee_props->amount );
@@ -81,7 +81,7 @@ final class WC_Cart_Fees {
 		}
 
 		if ( array_key_exists( $fee_props->id, $this->fees ) ) {
-			return new WP_Error( 'fee_exists', __( 'Fee has already been added.', 'woocommerce' ) );
+			return new WP_Error( 'fee_exists', __( 'Fee has already been added.', 'poocommerce' ) );
 		}
 
 		$this->fees[ $fee_props->id ] = $fee_props;
@@ -138,7 +138,7 @@ final class WC_Cart_Fees {
 		 * @param stdClass $a Fee object.
 		 * @param stdClass $b Fee object.
 		 */
-		return apply_filters( 'woocommerce_sort_fees_callback', $a->amount > $b->amount ? -1 : 1, $a, $b );
+		return apply_filters( 'poocommerce_sort_fees_callback', $a->amount > $b->amount ? -1 : 1, $a, $b );
 	}
 
 	/**

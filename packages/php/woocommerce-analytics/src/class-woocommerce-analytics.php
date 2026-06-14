@@ -1,9 +1,9 @@
 <?php
 /**
- * Main class for the WooCommerce Analytics package.
+ * Main class for the PooCommerce Analytics package.
  * Originally ported from the Jetpack_Google_Analytics code.
  *
- * @package automattic/woocommerce-analytics
+ * @package automattic/poocommerce-analytics
  */
 
 namespace Automattic;
@@ -16,7 +16,7 @@ use Automattic\Woocommerce_Analytics\WC_Analytics_Tracking_Proxy;
 use Composer\InstalledVersions;
 
 /**
- * Instantiate WooCommerce Analytics
+ * Instantiate PooCommerce Analytics
  */
 class Woocommerce_Analytics {
 	/**
@@ -29,23 +29,23 @@ class Woocommerce_Analytics {
 	 *
 	 * @var string
 	 */
-	const PROXY_SPEED_MODULE_VERSION_OPTION = 'woocommerce_analytics_proxy_speed_module_version';
+	const PROXY_SPEED_MODULE_VERSION_OPTION = 'poocommerce_analytics_proxy_speed_module_version';
 
 	/**
 	 * Proxy speed module version check transient.
 	 *
 	 * @var string
 	 */
-	const PROXY_SPEED_MODULE_VERSION_CHECK_TRANSIENT = 'woocommerce_analytics_proxy_speed_module_version_check';
+	const PROXY_SPEED_MODULE_VERSION_CHECK_TRANSIENT = 'poocommerce_analytics_proxy_speed_module_version_check';
 
 	/**
 	 * Initializer.
-	 * Used to configure the WooCommerce Analytics package.
+	 * Used to configure the PooCommerce Analytics package.
 	 *
 	 * @return void
 	 */
 	public static function init() {
-		if ( ! self::should_track_store() || did_action( 'woocommerce_analytics_init' ) ) {
+		if ( ! self::should_track_store() || did_action( 'poocommerce_analytics_init' ) ) {
 			return;
 		}
 
@@ -66,16 +66,16 @@ class Woocommerce_Analytics {
 		add_action( 'rest_api_init', array( __CLASS__, 'register_rest_routes' ) );
 
 		/**
-		 * Fires after the WooCommerce Analytics package is initialized
+		 * Fires after the PooCommerce Analytics package is initialized
 		 *
 		 * @since 0.1.5
 		 */
-		do_action( 'woocommerce_analytics_init' );
+		do_action( 'poocommerce_analytics_init' );
 	}
 
 	/**
-	 * WooCommerce Analytics is only available to Jetpack connected WooCommerce stores
-	 * with WooCommerce version 3.0 or higher
+	 * PooCommerce Analytics is only available to Jetpack connected PooCommerce stores
+	 * with PooCommerce version 3.0 or higher
 	 *
 	 * @return bool
 	 */
@@ -86,16 +86,16 @@ class Woocommerce_Analytics {
 		}
 
 		/**
-		 * Make sure WooCommerce is installed and active
+		 * Make sure PooCommerce is installed and active
 		 *
-		 * This action is documented in https://docs.woocommerce.com/document/create-a-plugin
+		 * This action is documented in https://docs.poocommerce.com/document/create-a-plugin
 		 */
-		if ( ! is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
+		if ( ! is_plugin_active( 'poocommerce/poocommerce.php' ) ) {
 			return false;
 		}
-		// Ensure the WooCommerce class exists and is a valid version.
-		$minimum_woocommerce_active = class_exists( 'WooCommerce' ) && version_compare( \WC_VERSION, '3.0', '>=' );
-		if ( ! $minimum_woocommerce_active ) {
+		// Ensure the PooCommerce class exists and is a valid version.
+		$minimum_poocommerce_active = class_exists( 'PooCommerce' ) && version_compare( \WC_VERSION, '3.0', '>=' );
+		if ( ! $minimum_poocommerce_active ) {
 			return false;
 		}
 
@@ -145,7 +145,7 @@ class Woocommerce_Analytics {
 		);
 
 		wp_enqueue_script(
-			'woocommerce-analytics',
+			'poocommerce-analytics',
 			$url,
 			array(),
 			null, // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion -- The version is set in the URL.
@@ -161,8 +161,8 @@ class Woocommerce_Analytics {
 	 */
 	public static function enqueue_client_script() {
 		Assets::register_script(
-			'woocommerce-analytics-client',
-			'../build/woocommerce-analytics-client.js',
+			'poocommerce-analytics-client',
+			'../build/poocommerce-analytics-client.js',
 			__FILE__,
 			array(
 				'in_footer' => true,
@@ -231,7 +231,7 @@ class Woocommerce_Analytics {
 		// Check if the mu-plugin directory is writable.
 		if ( ! $wp_filesystem->is_writable( WPMU_PLUGIN_DIR ) ) {
 			if ( function_exists( 'wc_get_logger' ) ) {
-				wc_get_logger()->debug( 'WooCommerce Analytics proxy speed module not installed: mu-plugins directory is not writable.', array( 'source' => 'woocommerce-analytics' ) );
+				wc_get_logger()->debug( 'PooCommerce Analytics proxy speed module not installed: mu-plugins directory is not writable.', array( 'source' => 'poocommerce-analytics' ) );
 			}
 			return;
 		}
@@ -241,13 +241,13 @@ class Woocommerce_Analytics {
 			return;
 		}
 
-		$mu_plugin_src_file  = __DIR__ . '/mu-plugin/woocommerce-analytics-proxy-speed-module-template.php';
-		$mu_plugin_dest_file = trailingslashit( WPMU_PLUGIN_DIR ) . 'woocommerce-analytics-proxy-speed-module.php';
+		$mu_plugin_src_file  = __DIR__ . '/mu-plugin/poocommerce-analytics-proxy-speed-module-template.php';
+		$mu_plugin_dest_file = trailingslashit( WPMU_PLUGIN_DIR ) . 'poocommerce-analytics-proxy-speed-module.php';
 
 		// Verify source file exists before attempting to copy.
 		if ( ! file_exists( $mu_plugin_src_file ) ) {
 			if ( function_exists( 'wc_get_logger' ) ) {
-				wc_get_logger()->error( 'WooCommerce Analytics proxy speed module source file not found.', array( 'source' => 'woocommerce-analytics' ) );
+				wc_get_logger()->error( 'PooCommerce Analytics proxy speed module source file not found.', array( 'source' => 'poocommerce-analytics' ) );
 			}
 			return;
 		}
@@ -255,7 +255,7 @@ class Woocommerce_Analytics {
 		$content = $wp_filesystem->get_contents( $mu_plugin_src_file );
 		if ( false === $content ) {
 			if ( function_exists( 'wc_get_logger' ) ) {
-				wc_get_logger()->error( 'Failed to read the WooCommerce Analytics proxy speed module source file.', array( 'source' => 'woocommerce-analytics' ) );
+				wc_get_logger()->error( 'Failed to read the PooCommerce Analytics proxy speed module source file.', array( 'source' => 'poocommerce-analytics' ) );
 			}
 			return;
 		}
@@ -264,7 +264,7 @@ class Woocommerce_Analytics {
 		$autoloader_path = self::locate_autoloader_file();
 		if ( null === $autoloader_path ) {
 			if ( function_exists( 'wc_get_logger' ) ) {
-				wc_get_logger()->error( 'WooCommerce Analytics proxy speed module not installed: could not locate autoloader.', array( 'source' => 'woocommerce-analytics' ) );
+				wc_get_logger()->error( 'PooCommerce Analytics proxy speed module not installed: could not locate autoloader.', array( 'source' => 'poocommerce-analytics' ) );
 			}
 			return;
 		}
@@ -278,7 +278,7 @@ class Woocommerce_Analytics {
 
 		if ( ! $wp_filesystem->put_contents( $mu_plugin_dest_file, $content ) ) {
 			if ( function_exists( 'wc_get_logger' ) ) {
-				wc_get_logger()->error( 'Failed to write the WooCommerce Analytics proxy speed module file.', array( 'source' => 'woocommerce-analytics' ) );
+				wc_get_logger()->error( 'Failed to write the PooCommerce Analytics proxy speed module file.', array( 'source' => 'poocommerce-analytics' ) );
 			}
 			return;
 		}
@@ -299,12 +299,12 @@ class Woocommerce_Analytics {
 		/**
 		 * Clean up MU plugin.
 		 */
-		$file_path = trailingslashit( WPMU_PLUGIN_DIR ) . 'woocommerce-analytics-proxy-speed-module.php';
+		$file_path = trailingslashit( WPMU_PLUGIN_DIR ) . 'poocommerce-analytics-proxy-speed-module.php';
 
 		if ( $wp_filesystem->exists( $file_path ) && $wp_filesystem->is_writable( $file_path ) ) {
 			$deleted = $wp_filesystem->delete( $file_path );
 			if ( ! $deleted && function_exists( 'wc_get_logger' ) ) {
-				wc_get_logger()->error( 'Failed to delete WooCommerce Analytics proxy speed module file. The MU-plugin may continue running.', array( 'source' => 'woocommerce-analytics' ) );
+				wc_get_logger()->error( 'Failed to delete PooCommerce Analytics proxy speed module file. The MU-plugin may continue running.', array( 'source' => 'poocommerce-analytics' ) );
 			}
 		}
 
@@ -316,7 +316,7 @@ class Woocommerce_Analytics {
 	 * Finds the path to the autoloader file.
 	 *
 	 * Uses multiple strategies to locate the autoloader, since this package
-	 * can be included in different plugins (Jetpack, WooCommerce Analytics, etc.):
+	 * can be included in different plugins (Jetpack, PooCommerce Analytics, etc.):
 	 * 1. Jetpack autoloader global (if available)
 	 * 2. Composer's InstalledVersions API
 	 * 3. Directory-based guessing as a fallback
@@ -332,7 +332,7 @@ class Woocommerce_Analytics {
 		if ( isset( $jetpack_autoloader_loader ) ) {
 			$class_file = $jetpack_autoloader_loader->find_class_file( self::class );
 			if ( $class_file ) {
-				// Walk up 5 levels: src/ → woocommerce-analytics/ → automattic/ → jetpack_vendor/ → plugin root.
+				// Walk up 5 levels: src/ → poocommerce-analytics/ → automattic/ → jetpack_vendor/ → plugin root.
 				$autoload_file = dirname( $class_file, 5 ) . '/vendor/autoload.php';
 			}
 		}
@@ -340,21 +340,21 @@ class Woocommerce_Analytics {
 		// Try Composer's InstalledVersions API.
 		if ( null === $autoload_file
 			&& is_callable( array( InstalledVersions::class, 'getInstallPath' ) )
-			&& InstalledVersions::isInstalled( 'automattic/woocommerce-analytics' )
+			&& InstalledVersions::isInstalled( 'automattic/poocommerce-analytics' )
 		) {
-			$package_file    = InstalledVersions::getInstallPath( 'automattic/woocommerce-analytics' );
-			$expected_suffix = '/automattic/woocommerce-analytics';
+			$package_file    = InstalledVersions::getInstallPath( 'automattic/poocommerce-analytics' );
+			$expected_suffix = '/automattic/poocommerce-analytics';
 			if ( substr( $package_file, -strlen( $expected_suffix ) ) === $expected_suffix ) {
-				// Walk up 3 levels: woocommerce-analytics/ → automattic/ → jetpack_vendor/ → plugin root.
+				// Walk up 3 levels: poocommerce-analytics/ → automattic/ → jetpack_vendor/ → plugin root.
 				$autoload_file = dirname( $package_file, 3 ) . '/vendor/autoload.php';
 			}
 		}
 
 		// Guess based on directory structure.
-		// First try standard vendor layout (vendor/automattic/woocommerce-analytics/src/),
+		// First try standard vendor layout (vendor/automattic/poocommerce-analytics/src/),
 		// then try standalone package with its own vendor dir.
 		if ( null === $autoload_file ) {
-			// Walk up 4 levels from src/: woocommerce-analytics/ → automattic/ → vendor/ → project root.
+			// Walk up 4 levels from src/: poocommerce-analytics/ → automattic/ → vendor/ → project root.
 			$autoload_file = dirname( __DIR__, 4 ) . '/vendor/autoload.php';
 			if ( ! file_exists( $autoload_file ) ) {
 				$autoload_file = dirname( __DIR__ ) . '/vendor/autoload.php';

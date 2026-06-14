@@ -30,7 +30,7 @@ const PriceRangeControl = ( props: QueryControlProps ) => {
 
 	return (
 		<ToolsPanelItem
-			label={ __( 'Price Range', 'woocommerce' ) }
+			label={ __( 'Price Range', 'poocommerce' ) }
 			hasValue={ () => {
 				return value?.min !== undefined || value?.max !== undefined;
 			} }
@@ -39,12 +39,12 @@ const PriceRangeControl = ( props: QueryControlProps ) => {
 			className="wc-block-product-price-range-control"
 		>
 			<BaseControl.VisualLabel>
-				{ __( 'PRICE RANGE', 'woocommerce' ) }
+				{ __( 'PRICE RANGE', 'poocommerce' ) }
 			</BaseControl.VisualLabel>
 
 			<HStack spacing="2">
 				<PriceTextField
-					label={ __( 'MIN', 'woocommerce' ) }
+					label={ __( 'MIN', 'poocommerce' ) }
 					value={ value?.min as number }
 					onChange={ ( val?: number ) => {
 						const min = val === 0 ? undefined : val;
@@ -60,7 +60,7 @@ const PriceRangeControl = ( props: QueryControlProps ) => {
 				/>
 
 				<PriceTextField
-					label={ __( 'MAX', 'woocommerce' ) }
+					label={ __( 'MAX', 'poocommerce' ) }
 					value={ value?.max as number }
 					onChange={ ( val?: number ) => {
 						const max = val === 0 ? undefined : val;

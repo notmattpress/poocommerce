@@ -13,11 +13,11 @@ import { ImageSizing } from '../../atomic/blocks/product-elements/image/types';
  * The default layout built from the default template.
  */
 export const DEFAULT_PRODUCT_LIST_LAYOUT = [
-	[ 'woocommerce/product-image', { imageSizing: ImageSizing.THUMBNAIL } ],
-	[ 'woocommerce/product-title' ],
-	[ 'woocommerce/product-price' ],
-	[ 'woocommerce/product-rating' ],
-	[ 'woocommerce/product-button' ],
+	[ 'poocommerce/product-image', { imageSizing: ImageSizing.THUMBNAIL } ],
+	[ 'poocommerce/product-title' ],
+	[ 'poocommerce/product-price' ],
+	[ 'poocommerce/product-rating' ],
+	[ 'poocommerce/product-button' ],
 ];
 
 /**
@@ -43,7 +43,7 @@ export const getProductLayoutConfig = ( innerBlocks ) => {
 				/**
 				 * Add custom width class to Add to cart button,
 				 * This is needed to support "Width Setting" controls available in
-				 * "woocommerce/product-button" block.
+				 * "poocommerce/product-button" block.
 				 */
 				...( block.name === addToCartButtonMetadata.name && {
 					className: clsx( block.attributes.className, {

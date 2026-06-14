@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\GraphQL\Executor\Promise\Adapter;
+namespace Automattic\PooCommerce\Vendor\GraphQL\Executor\Promise\Adapter;
 
 /**
  * Queue for deferred execution of SyncPromise tasks.

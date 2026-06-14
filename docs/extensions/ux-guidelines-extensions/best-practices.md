@@ -5,7 +5,7 @@ sidebar_position: 1
 
 # Best Practices
 
-- **Plugin name should simply state the feature of the plugin and not use an existing core feature or extension in its' title**. The plugin name should appear at all times in the UI as a functional and original name. e.g "Appointments" instead of "VendorXYZ Bookings Plugin for WooCommerce."
+- **Plugin name should simply state the feature of the plugin and not use an existing core feature or extension in its' title**. The plugin name should appear at all times in the UI as a functional and original name. e.g "Appointments" instead of "VendorXYZ Bookings Plugin for PooCommerce."
 
 - **Avoid creating new UI**. Before considering a new UI, review the WordPress interface to see if a component can be repurposed. Follow existing UI navigation patterns so merchants have context on where they are when navigating to a new experience.
 
@@ -29,4 +29,4 @@ sidebar_position: 1
         - Use sentences for descriptions, feedback, and headlines. Avoid all-caps text.
         - Use standard punctuation and avoid excessive exclamation marks.
         - Use American English.
-        - For more, read our [Grammar, Punctuation, and Capitalization guide](https://woocommerce.com/document/grammar-punctuation-style-guide/).
+        - For more, read our [Grammar, Punctuation, and Capitalization guide](https://poocommerce.com/document/grammar-punctuation-style-guide/).

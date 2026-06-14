@@ -2,7 +2,7 @@
 /**
  * General store tracking actions.
  *
- * @package automattic/woocommerce-analytics
+ * @package automattic/poocommerce-analytics
  */
 
 namespace Automattic\Woocommerce_Analytics;
@@ -32,32 +32,32 @@ class Universal {
 		add_action( 'template_redirect', array( $this, 'capture_search_query' ), 11 );
 
 		// Capture cart events.
-		add_action( 'woocommerce_add_to_cart', array( $this, 'capture_add_to_cart' ), 10, 6 );
-		add_action( 'woocommerce_after_cart_item_quantity_update', array( $this, 'capture_cart_quantity_update' ), 10, 4 );
-		add_action( 'woocommerce_cart_item_removed', array( $this, 'capture_remove_from_cart' ), 10, 2 );
-		add_filter( 'woocommerce_cart_item_remove_link', array( $this, 'remove_from_cart_attributes' ), 10, 2 );
+		add_action( 'poocommerce_add_to_cart', array( $this, 'capture_add_to_cart' ), 10, 6 );
+		add_action( 'poocommerce_after_cart_item_quantity_update', array( $this, 'capture_cart_quantity_update' ), 10, 4 );
+		add_action( 'poocommerce_cart_item_removed', array( $this, 'capture_remove_from_cart' ), 10, 2 );
+		add_filter( 'poocommerce_cart_item_remove_link', array( $this, 'remove_from_cart_attributes' ), 10, 2 );
 
 		// Checkout.
 		// Send events after checkout template (shortcode).
-		add_action( 'woocommerce_after_checkout_form', array( $this, 'checkout_process' ) );
+		add_action( 'poocommerce_after_checkout_form', array( $this, 'checkout_process' ) );
 		// Send events after checkout block.
-		add_action( 'woocommerce_blocks_enqueue_checkout_block_scripts_after', array( $this, 'checkout_process' ) );
+		add_action( 'poocommerce_blocks_enqueue_checkout_block_scripts_after', array( $this, 'checkout_process' ) );
 
 		// order processed.
-		add_action( 'woocommerce_checkout_order_processed', array( $this, 'order_process' ), 10, 1 );
-		add_action( 'woocommerce_store_api_checkout_order_processed', array( $this, 'order_process' ), 10, 1 );
+		add_action( 'poocommerce_checkout_order_processed', array( $this, 'order_process' ), 10, 1 );
+		add_action( 'poocommerce_store_api_checkout_order_processed', array( $this, 'order_process' ), 10, 1 );
 
-		add_filter( 'woocommerce_checkout_posted_data', array( $this, 'save_checkout_post_data' ), 10, 1 );
+		add_filter( 'poocommerce_checkout_posted_data', array( $this, 'save_checkout_post_data' ), 10, 1 );
 
-		add_action( 'woocommerce_created_customer', array( $this, 'capture_created_customer' ), 10, 2 );
+		add_action( 'poocommerce_created_customer', array( $this, 'capture_created_customer' ), 10, 2 );
 
-		add_action( 'woocommerce_created_customer', array( $this, 'capture_post_checkout_created_customer' ), 10, 2 );
+		add_action( 'poocommerce_created_customer', array( $this, 'capture_post_checkout_created_customer' ), 10, 2 );
 
 		// single product page view.
-		add_action( 'woocommerce_after_single_product', array( $this, 'capture_product_view' ) );
+		add_action( 'poocommerce_after_single_product', array( $this, 'capture_product_view' ) );
 
 		// order confirmed page view
-		add_action( 'woocommerce_thankyou', array( $this, 'capture_order_confirmation_view' ), 10, 1 );
+		add_action( 'poocommerce_thankyou', array( $this, 'capture_order_confirmation_view' ), 10, 1 );
 
 		// checkout page view
 		add_action( 'wp_footer', array( $this, 'capture_checkout_view' ), 11 );
@@ -84,11 +84,11 @@ class Universal {
 				const wcAnalytics = window.wcAnalytics;
 
 				// Set the assets URL for webpack to find the split assets.
-				wcAnalytics.assets_url = '<?php echo esc_url( plugins_url( '../build/', __DIR__ . '/class-woocommerce-analytics.php' ) ); ?>';
+				wcAnalytics.assets_url = '<?php echo esc_url( plugins_url( '../build/', __DIR__ . '/class-poocommerce-analytics.php' ) ); ?>';
 
 				// Set the REST API tracking endpoint URL.
 				<?php
-				$track_endpoint = rest_url( 'woocommerce-analytics/v1/track' );
+				$track_endpoint = rest_url( 'poocommerce-analytics/v1/track' );
 				// Include the WP REST nonce for logged-in users so WordPress can identify
 				// the current user via cookie auth. This is needed for the store_admin
 				// property detection, not for endpoint authorization.
@@ -246,7 +246,7 @@ class Universal {
 				}
 				$selected_rate_id = $selected_options[ $package_id ];
 				$method_key_id    = sanitize_text_field( str_replace( ':', '_', $selected_rate_id ) );
-				$option_name      = 'woocommerce_' . $method_key_id . '_settings';
+				$option_name      = 'poocommerce_' . $method_key_id . '_settings';
 				$option_value     = get_option( $option_name );
 				$title            = '';
 				if ( is_array( $option_value ) && isset( $option_value['title'] ) ) {
@@ -278,9 +278,9 @@ class Universal {
 
 		foreach ( $cart as $cart_item_key => $cart_item ) {
 			/**
-			 * This filter is already documented in woocommerce/templates/cart/cart.php
+			 * This filter is already documented in poocommerce/templates/cart/cart.php
 			 */
-			$product = apply_filters( 'woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key );
+			$product = apply_filters( 'poocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key );
 
 			if ( ! $product || ! $product instanceof WC_Product ) {
 				continue;
@@ -326,18 +326,18 @@ class Universal {
 			$checkout_page_used = 'No';
 		}
 
-		$delayed_account_creation = ucfirst( get_option( 'woocommerce_enable_delayed_account_creation', 'Yes' ) );
+		$delayed_account_creation = ucfirst( get_option( 'poocommerce_enable_delayed_account_creation', 'Yes' ) );
 
 		$guest_checkout = $order->get_user() ? 'No' : 'Yes';
 
 		$express_checkout = 'null';
-		// When the payment option is woocommerce_payment
+		// When the payment option is poocommerce_payment
 		// See if Google Pay or Apple Pay was used.
-		if ( 'woocommerce_payments' === $payment_option ) {
+		if ( 'poocommerce_payments' === $payment_option ) {
 			$payment_option_title = $order->get_payment_method_title();
-			if ( 'Google Pay (WooCommerce Payments)' === $payment_option_title ) {
+			if ( 'Google Pay (PooCommerce Payments)' === $payment_option_title ) {
 				$express_checkout = array( 'google_pay' );
-			} elseif ( 'Apple Pay (WooCommerce Payments)' === $payment_option_title ) {
+			} elseif ( 'Apple Pay (PooCommerce Payments)' === $payment_option_title ) {
 				$express_checkout = array( 'apple_pay' );
 			}
 		}
@@ -558,9 +558,9 @@ class Universal {
 		$cart_page_id = wc_get_page_id( 'cart' );
 
 		$is_cart = $cart_page_id && is_page( $cart_page_id )
-			|| wc_post_content_has_shortcode( 'woocommerce_cart' )
-			|| has_block( 'woocommerce/cart', $post )
-			|| apply_filters( 'woocommerce_is_cart', false )
+			|| wc_post_content_has_shortcode( 'poocommerce_cart' )
+			|| has_block( 'poocommerce/cart', $post )
+			|| apply_filters( 'poocommerce_is_cart', false )
 			|| Constants::is_defined( 'WOOCOMMERCE_CART' )
 			|| is_cart();
 
@@ -631,7 +631,7 @@ class Universal {
 			$checkout_page_used = 'No';
 		}
 
-		$delayed_account_creation = ucfirst( get_option( 'woocommerce_enable_delayed_account_creation', 'Yes' ) );
+		$delayed_account_creation = ucfirst( get_option( 'poocommerce_enable_delayed_account_creation', 'Yes' ) );
 		$this->enqueue_event(
 			'order_confirmation_view',
 			$this->get_cart_checkout_event_properties(
@@ -672,9 +672,9 @@ class Universal {
 		$checkout_page_id = wc_get_page_id( 'checkout' );
 
 		$is_checkout = $checkout_page_id && is_page( $checkout_page_id )
-			|| wc_post_content_has_shortcode( 'woocommerce_checkout' )
-			|| has_block( 'woocommerce/checkout', $post )
-			|| apply_filters( 'woocommerce_is_checkout', false )
+			|| wc_post_content_has_shortcode( 'poocommerce_checkout' )
+			|| has_block( 'poocommerce/checkout', $post )
+			|| apply_filters( 'poocommerce_is_checkout', false )
 			|| Constants::is_defined( 'WOOCOMMERCE_CHECKOUT' );
 
 		if ( ! $is_checkout ) {

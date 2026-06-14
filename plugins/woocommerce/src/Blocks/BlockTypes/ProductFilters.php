@@ -2,11 +2,11 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\Utils\BlocksSharedState;
-use Automattic\WooCommerce\Blocks\Utils\StyleAttributesUtils;
-use Automattic\WooCommerce\Internal\ProductFilters\Params;
+use Automattic\PooCommerce\Blocks\Utils\BlocksSharedState;
+use Automattic\PooCommerce\Blocks\Utils\StyleAttributesUtils;
+use Automattic\PooCommerce\Internal\ProductFilters\Params;
 use WP_Block;
 
 /**
@@ -44,7 +44,7 @@ class ProductFilters extends AbstractBlock {
 			$this->asset_data_registry->add( 'globalStylesColors', wp_get_global_styles( array( 'color' ) ) );
 		}
 
-		BlocksSharedState::load_store_config( 'I acknowledge that using private APIs means my theme or plugin will inevitably break in the next version of WooCommerce' );
+		BlocksSharedState::load_store_config( 'I acknowledge that using private APIs means my theme or plugin will inevitably break in the next version of PooCommerce' );
 
 		// Classic themes do not support client-side navigation on product
 		// archive pages, so disable it globally for the Interactivity Router.
@@ -79,7 +79,7 @@ class ProductFilters extends AbstractBlock {
 		 *
 		 * @since 9.7.0
 		 */
-		$active_filters = apply_filters( 'woocommerce_blocks_product_filters_selected_items', array(), $filter_params );
+		$active_filters = apply_filters( 'poocommerce_blocks_product_filters_selected_items', array(), $filter_params );
 
 		usort(
 			$active_filters,
@@ -123,7 +123,7 @@ class ProductFilters extends AbstractBlock {
 			'style'                            => $this->get_css_variables( $attributes ),
 		);
 
-		// TODO: Remove this conditional once the fix is released in WP. https://github.com/woocommerce/gutenberg/pull/4.
+		// TODO: Remove this conditional once the fix is released in WP. https://github.com/poocommerce/gutenberg/pull/4.
 		if ( ! isset( $block->context['productCollectionLocation'] ) ) {
 			$wrapper_attributes['data-wp-router-region'] = $this->generate_navigation_id( $block );
 		}
@@ -136,21 +136,21 @@ class ProductFilters extends AbstractBlock {
 				data-wp-on--click="actions.openOverlay"
 			>
 				<?php echo $this->get_svg_icon( 'filter-icon-2' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-				<span><?php echo esc_html__( 'Filter products', 'woocommerce' ); ?></span>
+				<span><?php echo esc_html__( 'Filter products', 'poocommerce' ); ?></span>
 			</button>
 			<div class="wc-block-product-filters__overlay">
 				<div class="wc-block-product-filters__overlay-wrapper">
 					<div
 						class="wc-block-product-filters__overlay-dialog"
 						role="dialog"
-						aria-label="<?php echo esc_html__( 'Product Filters', 'woocommerce' ); ?>"
+						aria-label="<?php echo esc_html__( 'Product Filters', 'poocommerce' ); ?>"
 					>
 						<header class="wc-block-product-filters__overlay-header">
 							<button
 								class="wc-block-product-filters__close-overlay"
 								data-wp-on--click="actions.closeOverlay"
 							>
-								<span><?php echo esc_html__( 'Close', 'woocommerce' ); ?></span>
+								<span><?php echo esc_html__( 'Close', 'poocommerce' ); ?></span>
 								<?php echo $this->get_svg_icon( 'close' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 							</button>
 						</header>
@@ -165,7 +165,7 @@ class ProductFilters extends AbstractBlock {
 								data-wp-interactive="<?php echo esc_attr( $this->get_full_block_name() ); ?>"
 								data-wp-on--click="actions.closeOverlay"
 							>
-								<span><?php echo esc_html__( 'Apply', 'woocommerce' ); ?></span>
+								<span><?php echo esc_html__( 'Apply', 'poocommerce' ); ?></span>
 							</button>
 						</footer>
 					</div>

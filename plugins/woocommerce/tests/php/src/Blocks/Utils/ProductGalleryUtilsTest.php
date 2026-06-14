@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\Utils;
+namespace Automattic\PooCommerce\Tests\Blocks\Utils;
 
-use Automattic\WooCommerce\Blocks\Utils\ProductGalleryUtils;
+use Automattic\PooCommerce\Blocks\Utils\ProductGalleryUtils;
 use WP_UnitTestCase;
 
 /**
@@ -14,7 +14,7 @@ class ProductGalleryUtilsTest extends \WP_UnitTestCase {
 	 * Reset variation gallery feature-flag option leaked by individual tests.
 	 */
 	public function tearDown(): void {
-		delete_option( \Automattic\WooCommerce\Internal\VariationGallery\Package::ENABLE_OPTION_NAME );
+		delete_option( \Automattic\PooCommerce\Internal\VariationGallery\Package::ENABLE_OPTION_NAME );
 		parent::tearDown();
 	}
 
@@ -22,7 +22,7 @@ class ProductGalleryUtilsTest extends \WP_UnitTestCase {
 	 * Test get_product_gallery_image_data method.
 	 */
 	public function test_get_product_gallery_image_data() {
-		update_option( \Automattic\WooCommerce\Internal\VariationGallery\Package::ENABLE_OPTION_NAME, 'yes' );
+		update_option( \Automattic\PooCommerce\Internal\VariationGallery\Package::ENABLE_OPTION_NAME, 'yes' );
 
 		// Create the variable product.
 		$variable_product = \WC_Helper_Product::create_variation_product();
@@ -104,7 +104,7 @@ class ProductGalleryUtilsTest extends \WP_UnitTestCase {
 			$variation->save();
 		}
 
-		$image_data = ProductGalleryUtils::get_product_gallery_image_data( $variable_product, 'woocommerce_thumbnail' );
+		$image_data = ProductGalleryUtils::get_product_gallery_image_data( $variable_product, 'poocommerce_thumbnail' );
 
 		// Assert that $image_data is a non-empty array.
 		$this->assertIsArray( $image_data );
@@ -144,7 +144,7 @@ class ProductGalleryUtilsTest extends \WP_UnitTestCase {
 	 * the variation has multiple gallery images saved.
 	 */
 	public function test_get_product_variation_gallery_data_returns_single_image_when_feature_flag_disabled() {
-		update_option( \Automattic\WooCommerce\Internal\VariationGallery\Package::ENABLE_OPTION_NAME, 'no' );
+		update_option( \Automattic\PooCommerce\Internal\VariationGallery\Package::ENABLE_OPTION_NAME, 'no' );
 
 		$variable_product = \WC_Helper_Product::create_variation_product();
 
@@ -189,7 +189,7 @@ class ProductGalleryUtilsTest extends \WP_UnitTestCase {
 	 * Test that variation gallery data falls back to the variation's own gallery when the variation featured image is stale.
 	 */
 	public function test_get_product_variation_gallery_data_falls_back_to_variation_gallery_when_featured_is_stale() {
-		update_option( \Automattic\WooCommerce\Internal\VariationGallery\Package::ENABLE_OPTION_NAME, 'yes' );
+		update_option( \Automattic\PooCommerce\Internal\VariationGallery\Package::ENABLE_OPTION_NAME, 'yes' );
 
 		$variable_product     = \WC_Helper_Product::create_variation_product();
 		$parent_featured_id   = $this->create_image_attachment( 'Parent Featured Image', 'parent-featured.jpg' );
@@ -377,7 +377,7 @@ class ProductGalleryUtilsTest extends \WP_UnitTestCase {
 		array $variation_gallery_ids = array(),
 		string $feature_flag = 'yes'
 	): array {
-		update_option( \Automattic\WooCommerce\Internal\VariationGallery\Package::ENABLE_OPTION_NAME, $feature_flag );
+		update_option( \Automattic\PooCommerce\Internal\VariationGallery\Package::ENABLE_OPTION_NAME, $feature_flag );
 
 		$variable_product = \WC_Helper_Product::create_variation_product();
 		$variable_product->set_image_id( $parent_featured_id );

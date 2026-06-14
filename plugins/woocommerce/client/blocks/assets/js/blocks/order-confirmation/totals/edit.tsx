@@ -4,7 +4,7 @@
 import { useBlockProps } from '@wordpress/block-editor';
 import { Disabled } from '@wordpress/components';
 import { __, _x } from '@wordpress/i18n';
-import { formatPrice } from '@woocommerce/price-format';
+import { formatPrice } from '@poocommerce/price-format';
 
 /**
  * Internal dependencies
@@ -43,15 +43,15 @@ const Edit = (): JSX.Element => {
 					<thead>
 						<tr>
 							<th className="wc-block-order-confirmation-totals__product">
-								{ __( 'Product', 'woocommerce' ) }
+								{ __( 'Product', 'poocommerce' ) }
 							</th>
 							<th className="wc-block-order-confirmation-totals__total">
-								{ __( 'Total', 'woocommerce' ) }
+								{ __( 'Total', 'poocommerce' ) }
 							</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr className="woocommerce-table__line-item order_item">
+						<tr className="poocommerce-table__line-item order_item">
 							<th
 								scope="row"
 								className="wc-block-order-confirmation-totals__product"
@@ -60,7 +60,7 @@ const Edit = (): JSX.Element => {
 									{ _x(
 										'Test Product',
 										'sample product name',
-										'woocommerce'
+										'poocommerce'
 									) }
 								</a>
 								&nbsp;
@@ -72,7 +72,7 @@ const Edit = (): JSX.Element => {
 								{ formatPrice( 2000 ) }
 							</td>
 						</tr>
-						<tr className="woocommerce-table__line-item order_item">
+						<tr className="poocommerce-table__line-item order_item">
 							<th
 								scope="row"
 								className="wc-block-order-confirmation-totals__product"
@@ -81,7 +81,7 @@ const Edit = (): JSX.Element => {
 									{ _x(
 										'Test Product',
 										'sample product name',
-										'woocommerce'
+										'poocommerce'
 									) }
 								</a>
 								&nbsp;
@@ -100,7 +100,7 @@ const Edit = (): JSX.Element => {
 								className="wc-block-order-confirmation-totals__label"
 								scope="row"
 							>
-								{ __( 'Total', 'woocommerce' ) }
+								{ __( 'Total', 'poocommerce' ) }
 							</th>
 							<td className="wc-block-order-confirmation-totals__total">
 								{ formatPrice( 4000 ) }

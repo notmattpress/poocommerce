@@ -40,13 +40,13 @@ export function useElements( {
 		};
 
 		window.addEventListener(
-			'woocommerce-refresh-product-taxonomies',
+			'poocommerce-refresh-product-taxonomies',
 			handleRefresh
 		);
 
 		return () => {
 			window.removeEventListener(
-				'woocommerce-refresh-product-taxonomies',
+				'poocommerce-refresh-product-taxonomies',
 				handleRefresh
 			);
 		};

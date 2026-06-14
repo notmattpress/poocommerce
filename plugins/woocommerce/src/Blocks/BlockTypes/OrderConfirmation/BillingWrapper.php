@@ -1,6 +1,6 @@
 <?php
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes\OrderConfirmation;
+namespace Automattic\PooCommerce\Blocks\BlockTypes\OrderConfirmation;
 
 /**
  * BillingWrapper class.

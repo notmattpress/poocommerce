@@ -2,7 +2,7 @@
 /**
  * Deprecated action hooks
  *
- * @package WooCommerce\Abstracts
+ * @package PooCommerce\Abstracts
  * @since   3.0.0
  * @version 3.3.0
  */
@@ -20,37 +20,37 @@ class WC_Deprecated_Action_Hooks extends WC_Deprecated_Hooks {
 	 * @var array
 	 */
 	protected $deprecated_hooks = array(
-		'woocommerce_new_order_item'        => array(
-			'woocommerce_order_add_shipping',
-			'woocommerce_order_add_coupon',
-			'woocommerce_order_add_tax',
-			'woocommerce_order_add_fee',
-			'woocommerce_add_shipping_order_item',
-			'woocommerce_add_order_item_meta',
-			'woocommerce_add_order_fee_meta',
+		'poocommerce_new_order_item'        => array(
+			'poocommerce_order_add_shipping',
+			'poocommerce_order_add_coupon',
+			'poocommerce_order_add_tax',
+			'poocommerce_order_add_fee',
+			'poocommerce_add_shipping_order_item',
+			'poocommerce_add_order_item_meta',
+			'poocommerce_add_order_fee_meta',
 		),
-		'woocommerce_update_order_item'     => array(
-			'woocommerce_order_edit_product',
-			'woocommerce_order_update_coupon',
-			'woocommerce_order_update_shipping',
-			'woocommerce_order_update_fee',
-			'woocommerce_order_update_tax',
+		'poocommerce_update_order_item'     => array(
+			'poocommerce_order_edit_product',
+			'poocommerce_order_update_coupon',
+			'poocommerce_order_update_shipping',
+			'poocommerce_order_update_fee',
+			'poocommerce_order_update_tax',
 		),
-		'woocommerce_new_payment_token'     => 'woocommerce_payment_token_created',
-		'woocommerce_new_product_variation' => 'woocommerce_create_product_variation',
-		'woocommerce_order_details_after_order_table_items' => 'woocommerce_order_items_table',
+		'poocommerce_new_payment_token'     => 'poocommerce_payment_token_created',
+		'poocommerce_new_product_variation' => 'poocommerce_create_product_variation',
+		'poocommerce_order_details_after_order_table_items' => 'poocommerce_order_items_table',
 
-		'woocommerce_settings_advanced_page_options' => array(
-			'woocommerce_settings_checkout_page_options',
-			'woocommerce_settings_account_page_options',
+		'poocommerce_settings_advanced_page_options' => array(
+			'poocommerce_settings_checkout_page_options',
+			'poocommerce_settings_account_page_options',
 		),
-		'woocommerce_settings_advanced_page_options_end' => array(
-			'woocommerce_settings_checkout_page_options_end',
-			'woocommerce_settings_account_page_options_end',
+		'poocommerce_settings_advanced_page_options_end' => array(
+			'poocommerce_settings_checkout_page_options_end',
+			'poocommerce_settings_account_page_options_end',
 		),
-		'woocommerce_settings_advanced_page_options_after' => array(
-			'woocommerce_settings_checkout_page_options_after',
-			'woocommerce_settings_account_page_options_after',
+		'poocommerce_settings_advanced_page_options_after' => array(
+			'poocommerce_settings_checkout_page_options_after',
+			'poocommerce_settings_account_page_options_after',
 		),
 	);
 
@@ -60,27 +60,27 @@ class WC_Deprecated_Action_Hooks extends WC_Deprecated_Hooks {
 	 * @var array
 	 */
 	protected $deprecated_version = array(
-		'woocommerce_order_add_shipping'                   => '3.0.0',
-		'woocommerce_order_add_coupon'                     => '3.0.0',
-		'woocommerce_order_add_tax'                        => '3.0.0',
-		'woocommerce_order_add_fee'                        => '3.0.0',
-		'woocommerce_add_shipping_order_item'              => '3.0.0',
-		'woocommerce_add_order_item_meta'                  => '3.0.0',
-		'woocommerce_add_order_fee_meta'                   => '3.0.0',
-		'woocommerce_order_edit_product'                   => '3.0.0',
-		'woocommerce_order_update_coupon'                  => '3.0.0',
-		'woocommerce_order_update_shipping'                => '3.0.0',
-		'woocommerce_order_update_fee'                     => '3.0.0',
-		'woocommerce_order_update_tax'                     => '3.0.0',
-		'woocommerce_payment_token_created'                => '3.0.0',
-		'woocommerce_create_product_variation'             => '3.0.0',
-		'woocommerce_order_items_table'                    => '3.0.0',
-		'woocommerce_settings_checkout_page_options'       => '3.4.0',
-		'woocommerce_settings_account_page_options'        => '3.4.0',
-		'woocommerce_settings_checkout_page_options_end'   => '3.4.0',
-		'woocommerce_settings_account_page_options_end'    => '3.4.0',
-		'woocommerce_settings_checkout_page_options_after' => '3.4.0',
-		'woocommerce_settings_account_page_options_after'  => '3.4.0',
+		'poocommerce_order_add_shipping'                   => '3.0.0',
+		'poocommerce_order_add_coupon'                     => '3.0.0',
+		'poocommerce_order_add_tax'                        => '3.0.0',
+		'poocommerce_order_add_fee'                        => '3.0.0',
+		'poocommerce_add_shipping_order_item'              => '3.0.0',
+		'poocommerce_add_order_item_meta'                  => '3.0.0',
+		'poocommerce_add_order_fee_meta'                   => '3.0.0',
+		'poocommerce_order_edit_product'                   => '3.0.0',
+		'poocommerce_order_update_coupon'                  => '3.0.0',
+		'poocommerce_order_update_shipping'                => '3.0.0',
+		'poocommerce_order_update_fee'                     => '3.0.0',
+		'poocommerce_order_update_tax'                     => '3.0.0',
+		'poocommerce_payment_token_created'                => '3.0.0',
+		'poocommerce_create_product_variation'             => '3.0.0',
+		'poocommerce_order_items_table'                    => '3.0.0',
+		'poocommerce_settings_checkout_page_options'       => '3.4.0',
+		'poocommerce_settings_account_page_options'        => '3.4.0',
+		'poocommerce_settings_checkout_page_options_end'   => '3.4.0',
+		'poocommerce_settings_account_page_options_end'    => '3.4.0',
+		'poocommerce_settings_checkout_page_options_after' => '3.4.0',
+		'poocommerce_settings_account_page_options_after'  => '3.4.0',
 	);
 
 	/**
@@ -118,8 +118,8 @@ class WC_Deprecated_Action_Hooks extends WC_Deprecated_Hooks {
 	 */
 	protected function trigger_hook( $old_hook, $new_callback_args ) {
 		switch ( $old_hook ) {
-			case 'woocommerce_order_add_shipping':
-			case 'woocommerce_order_add_fee':
+			case 'poocommerce_order_add_shipping':
+			case 'poocommerce_order_add_fee':
 				$item_id  = $new_callback_args[0];
 				$item     = $new_callback_args[1];
 				$order_id = $new_callback_args[2];
@@ -127,7 +127,7 @@ class WC_Deprecated_Action_Hooks extends WC_Deprecated_Hooks {
 					do_action( $old_hook, $order_id, $item_id, $item );
 				}
 				break;
-			case 'woocommerce_order_add_coupon':
+			case 'poocommerce_order_add_coupon':
 				$item_id  = $new_callback_args[0];
 				$item     = $new_callback_args[1];
 				$order_id = $new_callback_args[2];
@@ -135,7 +135,7 @@ class WC_Deprecated_Action_Hooks extends WC_Deprecated_Hooks {
 					do_action( $old_hook, $order_id, $item_id, $item->get_code(), $item->get_discount(), $item->get_discount_tax() );
 				}
 				break;
-			case 'woocommerce_order_add_tax':
+			case 'poocommerce_order_add_tax':
 				$item_id  = $new_callback_args[0];
 				$item     = $new_callback_args[1];
 				$order_id = $new_callback_args[2];
@@ -143,7 +143,7 @@ class WC_Deprecated_Action_Hooks extends WC_Deprecated_Hooks {
 					do_action( $old_hook, $order_id, $item_id, $item->get_rate_id(), $item->get_tax_total(), $item->get_shipping_tax_total() );
 				}
 				break;
-			case 'woocommerce_add_shipping_order_item':
+			case 'poocommerce_add_shipping_order_item':
 				$item_id  = $new_callback_args[0];
 				$item     = $new_callback_args[1];
 				$order_id = $new_callback_args[2];
@@ -151,7 +151,7 @@ class WC_Deprecated_Action_Hooks extends WC_Deprecated_Hooks {
 					do_action( $old_hook, $order_id, $item_id, $item->legacy_package_key );
 				}
 				break;
-			case 'woocommerce_add_order_item_meta':
+			case 'poocommerce_add_order_item_meta':
 				$item_id  = $new_callback_args[0];
 				$item     = $new_callback_args[1];
 				$order_id = $new_callback_args[2];
@@ -159,7 +159,7 @@ class WC_Deprecated_Action_Hooks extends WC_Deprecated_Hooks {
 					do_action( $old_hook, $item_id, $item->legacy_values, $item->legacy_cart_item_key );
 				}
 				break;
-			case 'woocommerce_add_order_fee_meta':
+			case 'poocommerce_add_order_fee_meta':
 				$item_id  = $new_callback_args[0];
 				$item     = $new_callback_args[1];
 				$order_id = $new_callback_args[2];
@@ -167,7 +167,7 @@ class WC_Deprecated_Action_Hooks extends WC_Deprecated_Hooks {
 					do_action( $old_hook, $order_id, $item_id, $item->legacy_fee, $item->legacy_fee_key );
 				}
 				break;
-			case 'woocommerce_order_edit_product':
+			case 'poocommerce_order_edit_product':
 				$item_id  = $new_callback_args[0];
 				$item     = $new_callback_args[1];
 				$order_id = $new_callback_args[2];

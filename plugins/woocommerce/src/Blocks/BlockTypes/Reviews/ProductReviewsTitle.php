@@ -1,7 +1,7 @@
 <?php declare( strict_types = 1 );
-namespace Automattic\WooCommerce\Blocks\BlockTypes\Reviews;
+namespace Automattic\PooCommerce\Blocks\BlockTypes\Reviews;
 
-use Automattic\WooCommerce\Blocks\BlockTypes\AbstractBlock;
+use Automattic\PooCommerce\Blocks\BlockTypes\AbstractBlock;
 
 /**
  * ProductReviewsTitle class.
@@ -29,14 +29,14 @@ class ProductReviewsTitle extends AbstractBlock {
 		if ( $show_reviews_count && $show_product_title ) {
 			return 1 === $reviews_count
 				/* translators: %s: Product title. */
-				? sprintf( __( 'One review for %s', 'woocommerce' ), $product->get_title() )
+				? sprintf( __( 'One review for %s', 'poocommerce' ), $product->get_title() )
 				: sprintf(
 					/* translators: 1: Number of reviews, 2: Product title. */
 					_n(
 						'%1$s review for %2$s',
 						'%1$s reviews for %2$s',
 						$reviews_count,
-						'woocommerce'
+						'poocommerce'
 					),
 					number_format_i18n( $reviews_count ),
 					$product->get_title()
@@ -46,10 +46,10 @@ class ProductReviewsTitle extends AbstractBlock {
 		if ( ! $show_reviews_count && $show_product_title ) {
 			return 1 === $reviews_count
 				/* translators: %s: Product title. */
-				? sprintf( __( 'Review for %s', 'woocommerce' ), $product->get_title() )
+				? sprintf( __( 'Review for %s', 'poocommerce' ), $product->get_title() )
 				: sprintf(
 					/* translators: %s: Product title. */
-					__( 'Reviews for %s', 'woocommerce' ),
+					__( 'Reviews for %s', 'poocommerce' ),
 					$product->get_title()
 				);
 		}
@@ -57,19 +57,19 @@ class ProductReviewsTitle extends AbstractBlock {
 		if ( $show_reviews_count && ! $show_product_title ) {
 			return 1 === $reviews_count
 				/* translators: %s: Number of reviews. */
-				? __( 'One review', 'woocommerce' )
+				? __( 'One review', 'poocommerce' )
 				: sprintf(
 					/* translators: %s: Number of reviews. */
-					_n( '%s review', '%s reviews', $reviews_count, 'woocommerce' ),
+					_n( '%s review', '%s reviews', $reviews_count, 'poocommerce' ),
 					number_format_i18n( $reviews_count )
 				);
 		}
 
 		if ( 1 === $reviews_count ) {
-			return __( 'Review', 'woocommerce' );
+			return __( 'Review', 'poocommerce' );
 		}
 
-		return __( 'Reviews', 'woocommerce' );
+		return __( 'Reviews', 'poocommerce' );
 	}
 
 	/**

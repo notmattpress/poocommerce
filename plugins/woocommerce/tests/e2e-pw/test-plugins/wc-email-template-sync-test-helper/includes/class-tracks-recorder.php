@@ -24,7 +24,7 @@ class Tracks_Recorder {
 	 * Register hooks.
 	 */
 	public function register(): void {
-		add_filter( 'woocommerce_tracks_event_properties', array( $this, 'record' ), 100, 2 );
+		add_filter( 'poocommerce_tracks_event_properties', array( $this, 'record' ), 100, 2 );
 	}
 
 	/**

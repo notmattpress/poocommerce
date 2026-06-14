@@ -31,7 +31,7 @@ const castValueToString = (
 
 const fieldDefinition = {
 	type: 'integer',
-	label: __( 'Stock quantity', 'woocommerce' ),
+	label: __( 'Stock quantity', 'poocommerce' ),
 	enableSorting: false,
 	enableHiding: false,
 	filterBy: {
@@ -77,7 +77,7 @@ export const fieldExtensions: Partial< Field< ProductEntityRecord > > = {
 			return (
 				<Stack direction="row">
 					<InputControl
-						label={ __( 'From', 'woocommerce' ) }
+						label={ __( 'From', 'poocommerce' ) }
 						type="number"
 						step={ 1 }
 						value={ min }
@@ -90,7 +90,7 @@ export const fieldExtensions: Partial< Field< ProductEntityRecord > > = {
 						} }
 					/>
 					<InputControl
-						label={ __( 'To', 'woocommerce' ) }
+						label={ __( 'To', 'poocommerce' ) }
 						type="number"
 						step={ 1 }
 						value={ max }

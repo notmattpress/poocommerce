@@ -2,9 +2,9 @@
  * External dependencies
  */
 import { paramCase as kebabCase } from 'change-case';
-import { sanitizeHTML } from '@woocommerce/sanitize';
+import { sanitizeHTML } from '@poocommerce/sanitize';
 
-import type { ProductResponseItemData } from '@woocommerce/types';
+import type { ProductResponseItemData } from '@poocommerce/types';
 
 /**
  * Internal dependencies

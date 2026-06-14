@@ -1,12 +1,12 @@
 <?php
 /**
  * Unit tests for Webhook functions.
- * @package WooCommerce\Tests\Webhook
+ * @package PooCommerce\Tests\Webhook
  */
 
 /**
  * Class Functions.
- * @package WooCommerce\Tests\Webhook
+ * @package PooCommerce\Tests\Webhook
  * @since 2.3
  */
 class WC_Tests_Webhook_Functions extends WC_Unit_Test_Case {
@@ -24,7 +24,7 @@ class WC_Tests_Webhook_Functions extends WC_Unit_Test_Case {
 	 */
 	public function data_provider_test_wc_is_webhook_valid_topic() {
 		return array(
-			array( true, wc_is_webhook_valid_topic( 'action.woocommerce_add_to_cart' ) ),
+			array( true, wc_is_webhook_valid_topic( 'action.poocommerce_add_to_cart' ) ),
 			array( true, wc_is_webhook_valid_topic( 'action.wc_add_to_cart' ) ),
 			array( true, wc_is_webhook_valid_topic( 'product.created' ) ),
 			array( true, wc_is_webhook_valid_topic( 'product.updated' ) ),
@@ -46,7 +46,7 @@ class WC_Tests_Webhook_Functions extends WC_Unit_Test_Case {
 			array( false, wc_is_webhook_valid_topic( 'wc.product.updated' ) ),
 			array( false, wc_is_webhook_valid_topic( 'missingdot' ) ),
 			array( false, wc_is_webhook_valid_topic( 'with space' ) ),
-			array( false, wc_is_webhook_valid_topic( 'action.woocommerce_login_credentials' ) ),
+			array( false, wc_is_webhook_valid_topic( 'action.poocommerce_login_credentials' ) ),
 		);
 	}
 
@@ -98,7 +98,7 @@ class WC_Tests_Webhook_Functions extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Plugins extending the default-pair allowlist via `woocommerce_webhook_topic_hooks`
+	 * Plugins extending the default-pair allowlist via `poocommerce_webhook_topic_hooks`
 	 * (e.g. wiring `untrashed_post` to fire `customer.restored`) are honored: the
 	 * validator accepts the topic so the webhook can save and deliver.
 	 */
@@ -111,10 +111,10 @@ class WC_Tests_Webhook_Functions extends WC_Unit_Test_Case {
 		};
 
 		try {
-			add_filter( 'woocommerce_webhook_topic_hooks', $add_default_pair_hook );
+			add_filter( 'poocommerce_webhook_topic_hooks', $add_default_pair_hook );
 			$this->assertTrue( wc_is_webhook_valid_topic( 'customer.restored' ) );
 		} finally {
-			remove_filter( 'woocommerce_webhook_topic_hooks', $add_default_pair_hook );
+			remove_filter( 'poocommerce_webhook_topic_hooks', $add_default_pair_hook );
 		}
 
 		$this->assertFalse( wc_is_webhook_valid_topic( 'customer.restored' ) );
@@ -122,7 +122,7 @@ class WC_Tests_Webhook_Functions extends WC_Unit_Test_Case {
 
 	/**
 	 * Inverse of the filter-extended case: a plugin that empties a previously-valid
-	 * default pair via `woocommerce_webhook_topic_hooks` causes the validator to
+	 * default pair via `poocommerce_webhook_topic_hooks` causes the validator to
 	 * reject that topic, since there are no hooks left to deliver it.
 	 */
 	public function test_wc_is_webhook_valid_topic_rejects_filter_emptied_default_pair() {
@@ -134,10 +134,10 @@ class WC_Tests_Webhook_Functions extends WC_Unit_Test_Case {
 		};
 
 		try {
-			add_filter( 'woocommerce_webhook_topic_hooks', $empty_default_pair_hooks );
+			add_filter( 'poocommerce_webhook_topic_hooks', $empty_default_pair_hooks );
 			$this->assertFalse( wc_is_webhook_valid_topic( 'order.created' ) );
 		} finally {
-			remove_filter( 'woocommerce_webhook_topic_hooks', $empty_default_pair_hooks );
+			remove_filter( 'poocommerce_webhook_topic_hooks', $empty_default_pair_hooks );
 		}
 
 		$this->assertTrue( wc_is_webhook_valid_topic( 'order.created' ) );
@@ -157,15 +157,15 @@ class WC_Tests_Webhook_Functions extends WC_Unit_Test_Case {
 			$resources[] = 'subscription';
 			return $resources;
 		};
-		add_filter( 'woocommerce_valid_webhook_events', $add_event );
-		add_filter( 'woocommerce_valid_webhook_resources', $add_resource );
+		add_filter( 'poocommerce_valid_webhook_events', $add_event );
+		add_filter( 'poocommerce_valid_webhook_resources', $add_resource );
 
 		try {
 			$this->assertTrue( wc_is_webhook_valid_topic( 'order.refunded' ) );
 			$this->assertTrue( wc_is_webhook_valid_topic( 'subscription.created' ) );
 		} finally {
-			remove_filter( 'woocommerce_valid_webhook_events', $add_event );
-			remove_filter( 'woocommerce_valid_webhook_resources', $add_resource );
+			remove_filter( 'poocommerce_valid_webhook_events', $add_event );
+			remove_filter( 'poocommerce_valid_webhook_resources', $add_resource );
 		}
 	}
 
@@ -248,7 +248,7 @@ class WC_Tests_Webhook_Functions extends WC_Unit_Test_Case {
 	 */
 	public function test_wc_load_webhooks_status( $status ) {
 
-		$webhook = $this->create_webhook( 'action.woocommerce_some_action', $status );
+		$webhook = $this->create_webhook( 'action.poocommerce_some_action', $status );
 
 		$this->assertTrue( wc_load_webhooks( '' ) );
 		$this->assertTrue( wc_load_webhooks( $status ) );
@@ -276,21 +276,21 @@ class WC_Tests_Webhook_Functions extends WC_Unit_Test_Case {
 	public function test_wc_load_webhooks_limit() {
 		global $wp_filter;
 
-		$webhook_one = $this->create_webhook( 'action.woocommerce_one_test' );
-		$webhook_two = $this->create_webhook( 'action.woocommerce_two_test' );
+		$webhook_one = $this->create_webhook( 'action.poocommerce_one_test' );
+		$webhook_two = $this->create_webhook( 'action.poocommerce_two_test' );
 
 		$this->assertFalse( wc_load_webhooks( '', 0 ) );
-		$this->assertFalse( isset( $wp_filter['woocommerce_one_test'] ) );
-		$this->assertFalse( isset( $wp_filter['woocommerce_two_test'] ) );
+		$this->assertFalse( isset( $wp_filter['poocommerce_one_test'] ) );
+		$this->assertFalse( isset( $wp_filter['poocommerce_two_test'] ) );
 
 		$this->assertTrue( wc_load_webhooks( '', 1 ) );
-		$this->assertFalse( isset( $wp_filter['woocommerce_one_test'] ) );
-		$this->assertTrue( isset( $wp_filter['woocommerce_two_test'] ) );
+		$this->assertFalse( isset( $wp_filter['poocommerce_one_test'] ) );
+		$this->assertTrue( isset( $wp_filter['poocommerce_two_test'] ) );
 
 		$webhook_two->delete( true );
 
 		$this->assertTrue( wc_load_webhooks( '', 1 ) );
-		$this->assertTrue( isset( $wp_filter['woocommerce_one_test'] ) );
+		$this->assertTrue( isset( $wp_filter['poocommerce_one_test'] ) );
 
 		$webhook_one->delete( true );
 
@@ -306,9 +306,9 @@ class WC_Tests_Webhook_Functions extends WC_Unit_Test_Case {
 	public function test_wc_load_webhooks_status_and_limit( $status ) {
 		global $wp_filter;
 
-		$action_one  = 'woocommerce_one_test_status_' . $status;
+		$action_one  = 'poocommerce_one_test_status_' . $status;
 		$webhook_one = $this->create_webhook( 'action.' . $action_one, $status );
-		$action_two  = 'woocommerce_two_test_status_' . $status;
+		$action_two  = 'poocommerce_two_test_status_' . $status;
 		$webhook_two = $this->create_webhook( 'action.' . $action_two, $status );
 
 		$this->assertTrue( wc_load_webhooks( $status, 1 ) );
@@ -331,14 +331,14 @@ class WC_Tests_Webhook_Functions extends WC_Unit_Test_Case {
 	 * This example uses Customer Created (which has 3 hooks defined), to verify that creating a customer
 	 * will only deliver the payload once per webhook.
 	 */
-	public function test_woocommerce_webhook_is_delivered_only_once() {
+	public function test_poocommerce_webhook_is_delivered_only_once() {
 		global $wc_queued_webhooks;
 		$this->assertNull( $wc_queued_webhooks );
 
 		$webhook1 = wc_get_webhook( $this->create_webhook( 'customer.created' )->get_id() );
 		$webhook2 = wc_get_webhook( $this->create_webhook( 'customer.created' )->get_id() );
 		wc_load_webhooks( 'active' );
-		add_action( 'woocommerce_webhook_process_delivery', array( $this, 'woocommerce_webhook_process_delivery' ), 1, 2 );
+		add_action( 'poocommerce_webhook_process_delivery', array( $this, 'poocommerce_webhook_process_delivery' ), 1, 2 );
 		$customer1 = WC_Helper_Customer::create_customer( 'test1', 'pw1', 'user1@example.com' );
 		$customer2 = WC_Helper_Customer::create_customer( 'test2', 'pw2', 'user2@example.com' );
 		$this->assertEquals( 1, $this->delivery_counter[ $webhook1->get_id() . $customer1->get_id() ] );
@@ -361,7 +361,7 @@ class WC_Tests_Webhook_Functions extends WC_Unit_Test_Case {
 		$webhook2->delete( true );
 		$customer1->delete( true );
 		$customer2->delete( true );
-		remove_action( 'woocommerce_webhook_process_delivery', array( $this, 'woocommerce_webhook_process_delivery' ), 1, 2 );
+		remove_action( 'poocommerce_webhook_process_delivery', array( $this, 'poocommerce_webhook_process_delivery' ), 1, 2 );
 	}
 
 	/**
@@ -371,7 +371,7 @@ class WC_Tests_Webhook_Functions extends WC_Unit_Test_Case {
 	 * @param WC_Webhook $webhook Webhook that is processing delivery.
 	 * @param mixed      $arg Webhook arg (usually resource ID).
 	 */
-	public function woocommerce_webhook_process_delivery( $webhook, $arg ) {
+	public function poocommerce_webhook_process_delivery( $webhook, $arg ) {
 		if ( ! isset( $this->delivery_counter[ $webhook->get_id() . $arg ] ) ) {
 			$this->delivery_counter[ $webhook->get_id() . $arg ] = 0;
 		}
@@ -384,7 +384,7 @@ class WC_Tests_Webhook_Functions extends WC_Unit_Test_Case {
 	 * @param string $topic The webhook topic for the test.
 	 * @param string $status The status of the webhook to be tested.
 	 */
-	public function create_webhook( $topic = 'action.woocommerce_some_action', $status = 'active' ) {
+	public function create_webhook( $topic = 'action.poocommerce_some_action', $status = 'active' ) {
 		$webhook = new WC_Webhook();
 		$webhook->set_props(
 			array(

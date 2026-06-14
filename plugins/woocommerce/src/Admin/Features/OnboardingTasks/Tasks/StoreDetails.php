@@ -1,9 +1,9 @@
 <?php
 
-namespace Automattic\WooCommerce\Admin\Features\OnboardingTasks\Tasks;
+namespace Automattic\PooCommerce\Admin\Features\OnboardingTasks\Tasks;
 
-use Automattic\WooCommerce\Internal\Admin\Onboarding\OnboardingProfile;
-use Automattic\WooCommerce\Admin\Features\OnboardingTasks\Task;
+use Automattic\PooCommerce\Internal\Admin\Onboarding\OnboardingProfile;
+use Automattic\PooCommerce\Admin\Features\OnboardingTasks\Task;
 
 /**
  * Store Details Task
@@ -26,11 +26,11 @@ class StoreDetails extends Task {
 	public function get_title() {
 		if ( true === $this->get_parent_option( 'use_completed_title' ) ) {
 			if ( $this->is_complete() ) {
-				return __( 'You added store details', 'woocommerce' );
+				return __( 'You added store details', 'poocommerce' );
 			}
-			return __( 'Add store details', 'woocommerce' );
+			return __( 'Add store details', 'poocommerce' );
 		}
-		return __( 'Store details', 'woocommerce' );
+		return __( 'Store details', 'poocommerce' );
 	}
 
 	/**
@@ -41,7 +41,7 @@ class StoreDetails extends Task {
 	public function get_content() {
 		return __(
 			'Your store address is required to set the origin country for shipping, currencies, and payment options.',
-			'woocommerce'
+			'poocommerce'
 		);
 	}
 
@@ -51,7 +51,7 @@ class StoreDetails extends Task {
 	 * @return string
 	 */
 	public function get_time() {
-		return __( '4 minutes', 'woocommerce' );
+		return __( '4 minutes', 'poocommerce' );
 	}
 
 	/**
@@ -76,11 +76,11 @@ class StoreDetails extends Task {
 		$hide_postcode = $locale['postcode']['hidden'] ?? false;
 		// If postcode is hidden, just check that the store address and city are set.
 		if ( $hide_postcode ) {
-			return get_option( 'woocommerce_store_address', '' ) !== '' && get_option( 'woocommerce_store_city', '' ) !== '';
+			return get_option( 'poocommerce_store_address', '' ) !== '' && get_option( 'poocommerce_store_city', '' ) !== '';
 		}
 
 		// Mark as completed if the store address, city and postcode are set. We don't need to check the country because it's set by default.
-		return get_option( 'woocommerce_store_address', '' ) !== '' && get_option( 'woocommerce_store_city', '' ) !== '' &&
-		get_option( 'woocommerce_store_postcode', '' ) !== '';
+		return get_option( 'poocommerce_store_address', '' ) !== '' && get_option( 'poocommerce_store_city', '' ) !== '' &&
+		get_option( 'poocommerce_store_postcode', '' ) !== '';
 	}
 }

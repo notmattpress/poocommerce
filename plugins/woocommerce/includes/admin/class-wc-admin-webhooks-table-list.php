@@ -1,8 +1,8 @@
 <?php
 /**
- * WooCommerce Webhooks Table List
+ * PooCommerce Webhooks Table List
  *
- * @package WooCommerce\Admin
+ * @package PooCommerce\Admin
  * @version 3.3.0
  */
 
@@ -34,7 +34,7 @@ class WC_Admin_Webhooks_Table_List extends WP_List_Table {
 	 * No items found text.
 	 */
 	public function no_items() {
-		esc_html_e( 'No webhooks found.', 'woocommerce' );
+		esc_html_e( 'No webhooks found.', 'poocommerce' );
 	}
 
 	/**
@@ -45,10 +45,10 @@ class WC_Admin_Webhooks_Table_List extends WP_List_Table {
 	public function get_columns() {
 		return array(
 			'cb'           => '<input type="checkbox" />',
-			'title'        => __( 'Name', 'woocommerce' ),
-			'status'       => __( 'Status', 'woocommerce' ),
-			'topic'        => __( 'Topic', 'woocommerce' ),
-			'delivery_url' => __( 'Delivery URL', 'woocommerce' ),
+			'title'        => __( 'Name', 'poocommerce' ),
+			'status'       => __( 'Status', 'poocommerce' ),
+			'topic'        => __( 'Topic', 'poocommerce' ),
+			'delivery_url' => __( 'Delivery URL', 'poocommerce' ),
 		);
 	}
 
@@ -75,10 +75,10 @@ class WC_Admin_Webhooks_Table_List extends WP_List_Table {
 		// Get actions.
 		$actions = array(
 			/* translators: %s: webhook ID. */
-			'id'     => sprintf( __( 'ID: %d', 'woocommerce' ), $webhook->get_id() ),
-			'edit'   => '<a href="' . esc_url( $edit_link ) . '">' . esc_html__( 'Edit', 'woocommerce' ) . '</a>',
+			'id'     => sprintf( __( 'ID: %d', 'poocommerce' ), $webhook->get_id() ),
+			'edit'   => '<a href="' . esc_url( $edit_link ) . '">' . esc_html__( 'Edit', 'poocommerce' ) . '</a>',
 			/* translators: %s: webhook name */
-			'delete' => '<a class="submitdelete" aria-label="' . esc_attr( sprintf( __( 'Delete "%s" permanently', 'woocommerce' ), $webhook->get_name() ) ) . '" href="' . esc_url(
+			'delete' => '<a class="submitdelete" aria-label="' . esc_attr( sprintf( __( 'Delete "%s" permanently', 'poocommerce' ), $webhook->get_name() ) ) . '" href="' . esc_url(
 				wp_nonce_url(
 					add_query_arg(
 						array(
@@ -88,7 +88,7 @@ class WC_Admin_Webhooks_Table_List extends WP_List_Table {
 					),
 					'delete-webhook'
 				)
-			) . '">' . esc_html__( 'Delete permanently', 'woocommerce' ) . '</a>',
+			) . '">' . esc_html__( 'Delete permanently', 'poocommerce' ) . '</a>',
 		);
 
 		$actions     = apply_filters( 'webhook_row_actions', $actions, $webhook );
@@ -148,7 +148,7 @@ class WC_Admin_Webhooks_Table_List extends WP_List_Table {
 				'singular' => sprintf( '%s <span class="count">(%s)</span>', esc_html( $statuses[ $status_name ] ), $amount ),
 				'plural'   => sprintf( '%s <span class="count">(%s)</span>', esc_html( $statuses[ $status_name ] ), $amount ),
 				'context'  => '',
-				'domain'   => 'woocommerce',
+				'domain'   => 'poocommerce',
 			);
 		}
 
@@ -156,7 +156,7 @@ class WC_Admin_Webhooks_Table_List extends WP_List_Table {
 			'singular' => sprintf( '%s <span class="count">(%s)</span>', esc_html( $status_name ), $amount ),
 			'plural'   => sprintf( '%s <span class="count">(%s)</span>', esc_html( $status_name ), $amount ),
 			'context'  => '',
-			'domain'   => 'woocommerce',
+			'domain'   => 'poocommerce',
 		);
 	}
 
@@ -175,7 +175,7 @@ class WC_Admin_Webhooks_Table_List extends WP_List_Table {
 		$class = empty( $_REQUEST['status'] ) && empty( $_REQUEST['legacy'] ) ? ' class="current"' : '';
 
 		/* translators: %s: count */
-		$status_links['all'] = "<a href='admin.php?page=wc-settings&amp;tab=advanced&amp;section=webhooks'$class>" . sprintf( _nx( 'All <span class="count">(%s)</span>', 'All <span class="count">(%s)</span>', $total_webhooks, 'posts', 'woocommerce' ), number_format_i18n( $total_webhooks ) ) . '</a>';
+		$status_links['all'] = "<a href='admin.php?page=wc-settings&amp;tab=advanced&amp;section=webhooks'$class>" . sprintf( _nx( 'All <span class="count">(%s)</span>', 'All <span class="count">(%s)</span>', $total_webhooks, 'posts', 'poocommerce' ), number_format_i18n( $total_webhooks ) ) . '</a>';
 
 		foreach ( $statuses as $status_name ) {
 			$class = '';
@@ -204,7 +204,7 @@ class WC_Admin_Webhooks_Table_List extends WP_List_Table {
 	 */
 	protected function get_bulk_actions() {
 		return array(
-			'delete' => __( 'Delete permanently', 'woocommerce' ),
+			'delete' => __( 'Delete permanently', 'poocommerce' ),
 		);
 	}
 
@@ -216,10 +216,10 @@ class WC_Admin_Webhooks_Table_List extends WP_List_Table {
 		$webhooks = isset( $_REQUEST['webhook'] ) ? array_map( 'absint', (array) $_REQUEST['webhook'] ) : array(); // WPCS: input var okay, CSRF ok.
 
 		if ( false !== $action ) {
-			check_admin_referer( 'woocommerce-settings' );
+			check_admin_referer( 'poocommerce-settings' );
 
-			if ( ! current_user_can( 'manage_woocommerce' ) ) {
-				wp_die( esc_html__( 'You do not have permission to edit Webhooks', 'woocommerce' ) );
+			if ( ! current_user_can( 'manage_poocommerce' ) ) {
+				wp_die( esc_html__( 'You do not have permission to edit Webhooks', 'poocommerce' ) );
 			}
 
 			if ( 'delete' === $action ) {
@@ -282,7 +282,7 @@ class WC_Admin_Webhooks_Table_List extends WP_List_Table {
 	 * Prepare table list items.
 	 */
 	public function prepare_items() {
-		$per_page     = $this->get_items_per_page( 'woocommerce_webhooks_per_page' );
+		$per_page     = $this->get_items_per_page( 'poocommerce_webhooks_per_page' );
 		$current_page = $this->get_pagenum();
 
 		// Query args.
@@ -326,7 +326,7 @@ class WC_Admin_Webhooks_Table_List extends WP_List_Table {
 	 * Get how many of the existing webhooks are configured to use the legacy payload format.
 	 *
 	 * @since      9.0.0
-	 * @deprecated 10.8.0 The Legacy REST API has been removed from WooCommerce core. This always returns 0.
+	 * @deprecated 10.8.0 The Legacy REST API has been removed from PooCommerce core. This always returns 0.
 	 *
 	 * @return int Always 0.
 	 */

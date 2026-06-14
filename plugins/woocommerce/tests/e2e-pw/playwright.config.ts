@@ -47,7 +47,7 @@ const reporter = [
 			outputFile: `ctrf-report-${ Date.now() }.json`,
 			branchName: process.env.GITHUB_REF_NAME || '',
 			commit: process.env.GITHUB_SHA || '',
-			appName: 'woocommerce-core',
+			appName: 'poocommerce-core',
 			repositoryName: process.env.GITHUB_REPOSITORY || '',
 		},
 	],
@@ -133,7 +133,7 @@ export default defineConfig( {
 			name: 'e2e',
 			testIgnore: [
 				'**/api-tests/**',
-				/* Exclude PayPal tests, as they don't run well in parallel - see https://github.com/woocommerce/woocommerce/pull/63068. */
+				/* Exclude PayPal tests, as they don't run well in parallel - see https://github.com/poocommerce/poocommerce/pull/63068. */
 				'**/tests/paypal/**',
 				/* Blocks specs are run by the Blocks e2e suite - see client/blocks/tests/e2e/playwright.config.ts. */
 				'**/tests/blocks/**',

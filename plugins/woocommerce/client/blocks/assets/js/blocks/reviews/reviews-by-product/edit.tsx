@@ -9,8 +9,8 @@ import {
 	Placeholder,
 	withSpokenMessages,
 } from '@wordpress/components';
-import { SearchListItem } from '@woocommerce/editor-components/search-list-control';
-import ProductControl from '@woocommerce/editor-components/product-control';
+import { SearchListItem } from '@poocommerce/editor-components/search-list-control';
+import ProductControl from '@poocommerce/editor-components/product-control';
 import { commentContent, Icon } from '@wordpress/icons';
 import { decodeEntities } from '@wordpress/html-entities';
 
@@ -51,7 +51,7 @@ const ReviewsByProductEditor = ( {
 						'%d review',
 						'%d reviews',
 						item.details.review_count,
-						'woocommerce'
+						'poocommerce'
 					),
 					item.details.review_count
 				) }
@@ -61,7 +61,7 @@ const ReviewsByProductEditor = ( {
 						'%1$s, has %2$d review',
 						'%1$s, has %2$d reviews',
 						item.details.review_count,
-						'woocommerce'
+						'poocommerce'
 					),
 					decodeEntities( item.name ),
 					item.details.review_count
@@ -74,7 +74,7 @@ const ReviewsByProductEditor = ( {
 		return (
 			<InspectorControls key="inspector">
 				<PanelBody
-					title={ __( 'Product', 'woocommerce' ) }
+					title={ __( 'Product', 'poocommerce' ) }
 					initialOpen={ false }
 				>
 					<ProductControl
@@ -87,13 +87,13 @@ const ReviewsByProductEditor = ( {
 						isCompact={ true }
 					/>
 				</PanelBody>
-				<PanelBody title={ __( 'Content', 'woocommerce' ) }>
+				<PanelBody title={ __( 'Content', 'poocommerce' ) }>
 					{ getSharedReviewContentControls(
 						attributes,
 						setAttributes
 					) }
 				</PanelBody>
-				<PanelBody title={ __( 'List Settings', 'woocommerce' ) }>
+				<PanelBody title={ __( 'List Settings', 'poocommerce' ) }>
 					{ getSharedReviewListControls( attributes, setAttributes ) }
 				</PanelBody>
 			</InspectorControls>
@@ -104,7 +104,7 @@ const ReviewsByProductEditor = ( {
 		const onDone = () => {
 			setAttributes( { editMode: false } );
 			debouncedSpeak(
-				__( 'Showing Reviews by Product block preview.', 'woocommerce' )
+				__( 'Showing Reviews by Product block preview.', 'poocommerce' )
 			);
 		};
 
@@ -116,12 +116,12 @@ const ReviewsByProductEditor = ( {
 						className="block-editor-block-icon"
 					/>
 				}
-				label={ __( 'Reviews by Product', 'woocommerce' ) }
+				label={ __( 'Reviews by Product', 'poocommerce' ) }
 				className="wc-block-reviews-by-product"
 			>
 				{ __(
 					'Show reviews of your product to build trust',
-					'woocommerce'
+					'poocommerce'
 				) }
 				<div className="wc-block-reviews__selection">
 					<ProductControl
@@ -137,7 +137,7 @@ const ReviewsByProductEditor = ( {
 						renderItem={ renderProductControlItem }
 					/>
 					<Button variant="primary" onClick={ onDone }>
-						{ __( 'Done', 'woocommerce' ) }
+						{ __( 'Done', 'poocommerce' ) }
 					</Button>
 				</div>
 			</Placeholder>
@@ -148,7 +148,7 @@ const ReviewsByProductEditor = ( {
 		return renderEditMode();
 	}
 
-	const buttonTitle = __( 'Edit selected product', 'woocommerce' );
+	const buttonTitle = __( 'Edit selected product', 'poocommerce' );
 
 	return (
 		<div { ...blockProps }>
@@ -162,7 +162,7 @@ const ReviewsByProductEditor = ( {
 						className="block-editor-block-icon"
 					/>
 				}
-				name={ __( 'Reviews by Product', 'woocommerce' ) }
+				name={ __( 'Reviews by Product', 'poocommerce' ) }
 				noReviewsPlaceholder={ NoReviewsPlaceholder }
 			/>
 		</div>

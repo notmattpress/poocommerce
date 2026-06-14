@@ -1,12 +1,12 @@
 /**
  * External dependencies
  */
-import { CHECKOUT_URL } from '@woocommerce/block-settings';
-import Button from '@woocommerce/base-components/button';
+import { CHECKOUT_URL } from '@poocommerce/block-settings';
+import Button from '@poocommerce/base-components/button';
 import clsx from 'clsx';
-import { useStyleProps } from '@woocommerce/base-hooks';
-import { useCartEventsContext } from '@woocommerce/base-context';
-import { isErrorResponse } from '@woocommerce/types';
+import { useStyleProps } from '@poocommerce/base-hooks';
+import { useCartEventsContext } from '@poocommerce/base-context';
+import { isErrorResponse } from '@poocommerce/types';
 
 /**
  * Internal dependencies

@@ -3,11 +3,11 @@
 exports[`ActivityCard should render a basic card 1`] = `
 <div>
   <section
-    class="woocommerce-activity-card"
+    class="poocommerce-activity-card"
   >
     <span
       aria-hidden="true"
-      class="woocommerce-activity-card__icon"
+      class="poocommerce-activity-card__icon"
     >
       <svg
         class="gridicon gridicons-notice-outline"
@@ -24,16 +24,16 @@ exports[`ActivityCard should render a basic card 1`] = `
       </svg>
     </span>
     <header
-      class="woocommerce-activity-card__header"
+      class="poocommerce-activity-card__header"
     >
       <h2
-        class="woocommerce-activity-card__title"
+        class="poocommerce-activity-card__title"
       >
         Inbox message
       </h2>
     </header>
     <div
-      class="woocommerce-activity-card__body"
+      class="poocommerce-activity-card__body"
     >
       This card has some content
     </div>
@@ -44,11 +44,11 @@ exports[`ActivityCard should render a basic card 1`] = `
 exports[`ActivityCard should render a custom icon on a card 1`] = `
 <div>
   <section
-    class="woocommerce-activity-card"
+    class="poocommerce-activity-card"
   >
     <span
       aria-hidden="true"
-      class="woocommerce-activity-card__icon"
+      class="poocommerce-activity-card__icon"
     >
       <svg
         class="gridicon gridicons-customize"
@@ -65,16 +65,16 @@ exports[`ActivityCard should render a custom icon on a card 1`] = `
       </svg>
     </span>
     <header
-      class="woocommerce-activity-card__header"
+      class="poocommerce-activity-card__header"
     >
       <h2
-        class="woocommerce-activity-card__title"
+        class="poocommerce-activity-card__title"
       >
         Inbox message
       </h2>
     </header>
     <div
-      class="woocommerce-activity-card__body"
+      class="poocommerce-activity-card__body"
     >
       This card has some content
     </div>
@@ -85,11 +85,11 @@ exports[`ActivityCard should render a custom icon on a card 1`] = `
 exports[`ActivityCard should render a timestamp on a card 1`] = `
 <div>
   <section
-    class="woocommerce-activity-card"
+    class="poocommerce-activity-card"
   >
     <span
       aria-hidden="true"
-      class="woocommerce-activity-card__icon"
+      class="poocommerce-activity-card__icon"
     >
       <svg
         class="gridicon gridicons-notice-outline"
@@ -106,21 +106,21 @@ exports[`ActivityCard should render a timestamp on a card 1`] = `
       </svg>
     </span>
     <header
-      class="woocommerce-activity-card__header"
+      class="poocommerce-activity-card__header"
     >
       <h2
-        class="woocommerce-activity-card__title"
+        class="poocommerce-activity-card__title"
       >
         Inbox message
       </h2>
       <span
-        class="woocommerce-activity-card__date"
+        class="poocommerce-activity-card__date"
       >
         3 days ago
       </span>
     </header>
     <div
-      class="woocommerce-activity-card__body"
+      class="poocommerce-activity-card__body"
     >
       This card has some content
     </div>
@@ -131,11 +131,11 @@ exports[`ActivityCard should render a timestamp on a card 1`] = `
 exports[`ActivityCard should render an action on a card 1`] = `
 <div>
   <section
-    class="woocommerce-activity-card"
+    class="poocommerce-activity-card"
   >
     <span
       aria-hidden="true"
-      class="woocommerce-activity-card__icon"
+      class="poocommerce-activity-card__icon"
     >
       <svg
         class="gridicon gridicons-notice-outline"
@@ -152,21 +152,21 @@ exports[`ActivityCard should render an action on a card 1`] = `
       </svg>
     </span>
     <header
-      class="woocommerce-activity-card__header"
+      class="poocommerce-activity-card__header"
     >
       <h2
-        class="woocommerce-activity-card__title"
+        class="poocommerce-activity-card__title"
       >
         Inbox message
       </h2>
     </header>
     <div
-      class="woocommerce-activity-card__body"
+      class="poocommerce-activity-card__body"
     >
       This card has some content
     </div>
     <footer
-      class="woocommerce-activity-card__actions"
+      class="poocommerce-activity-card__actions"
     >
       <button
         class="components-button is-secondary"
@@ -182,14 +182,14 @@ exports[`ActivityCard should render an action on a card 1`] = `
 exports[`ActivityCard should render an unread bubble on a card 1`] = `
 <div>
   <section
-    class="woocommerce-activity-card"
+    class="poocommerce-activity-card"
   >
     <span
-      class="woocommerce-activity-card__unread"
+      class="poocommerce-activity-card__unread"
     />
     <span
       aria-hidden="true"
-      class="woocommerce-activity-card__icon"
+      class="poocommerce-activity-card__icon"
     >
       <svg
         class="gridicon gridicons-notice-outline"
@@ -206,16 +206,16 @@ exports[`ActivityCard should render an unread bubble on a card 1`] = `
       </svg>
     </span>
     <header
-      class="woocommerce-activity-card__header"
+      class="poocommerce-activity-card__header"
     >
       <h2
-        class="woocommerce-activity-card__title"
+        class="poocommerce-activity-card__title"
       >
         Inbox message
       </h2>
     </header>
     <div
-      class="woocommerce-activity-card__body"
+      class="poocommerce-activity-card__body"
     >
       This card has some content
     </div>
@@ -226,11 +226,11 @@ exports[`ActivityCard should render an unread bubble on a card 1`] = `
 exports[`ActivityCard should render multiple actions on a card 1`] = `
 <div>
   <section
-    class="woocommerce-activity-card"
+    class="poocommerce-activity-card"
   >
     <span
       aria-hidden="true"
-      class="woocommerce-activity-card__icon"
+      class="poocommerce-activity-card__icon"
     >
       <svg
         class="gridicon gridicons-notice-outline"
@@ -247,21 +247,21 @@ exports[`ActivityCard should render multiple actions on a card 1`] = `
       </svg>
     </span>
     <header
-      class="woocommerce-activity-card__header"
+      class="poocommerce-activity-card__header"
     >
       <h2
-        class="woocommerce-activity-card__title"
+        class="poocommerce-activity-card__title"
       >
         Inbox message
       </h2>
     </header>
     <div
-      class="woocommerce-activity-card__body"
+      class="poocommerce-activity-card__body"
     >
       This card has some content
     </div>
     <footer
-      class="woocommerce-activity-card__actions"
+      class="poocommerce-activity-card__actions"
     >
       <button
         class="components-button is-primary"
@@ -283,11 +283,11 @@ exports[`ActivityCard should render multiple actions on a card 1`] = `
 exports[`ActivityCard supports a non-date "date" prop on a card 1`] = `
 <div>
   <section
-    class="woocommerce-activity-card"
+    class="poocommerce-activity-card"
   >
     <span
       aria-hidden="true"
-      class="woocommerce-activity-card__icon"
+      class="poocommerce-activity-card__icon"
     >
       <svg
         class="gridicon gridicons-notice-outline"
@@ -304,21 +304,21 @@ exports[`ActivityCard supports a non-date "date" prop on a card 1`] = `
       </svg>
     </span>
     <header
-      class="woocommerce-activity-card__header"
+      class="poocommerce-activity-card__header"
     >
       <h2
-        class="woocommerce-activity-card__title"
+        class="poocommerce-activity-card__title"
       >
         Inbox message
       </h2>
       <span
-        class="woocommerce-activity-card__date"
+        class="poocommerce-activity-card__date"
       >
         A long, long time ago
       </span>
     </header>
     <div
-      class="woocommerce-activity-card__body"
+      class="poocommerce-activity-card__body"
     >
       This card has some content
     </div>

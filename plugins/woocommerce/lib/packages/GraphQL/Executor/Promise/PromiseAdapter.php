@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\GraphQL\Executor\Promise;
+namespace Automattic\PooCommerce\Vendor\GraphQL\Executor\Promise;
 
 /**
  * Provides a means for integration of async PHP platforms ([related docs](data-fetching.md#async-php)).
@@ -17,7 +17,7 @@ interface PromiseAdapter
     public function isThenable($value): bool;
 
     /**
-     * Converts thenable of the underlying platform into Automattic\WooCommerce\Vendor\GraphQL\Executor\Promise\Promise instance.
+     * Converts thenable of the underlying platform into Automattic\PooCommerce\Vendor\GraphQL\Executor\Promise\Promise instance.
      *
      * @param mixed $thenable
      *
@@ -27,7 +27,7 @@ interface PromiseAdapter
 
     /**
      * Accepts our Promise wrapper, extracts adopted promise out of it and executes actual `then` logic described
-     * in Promises/A+ specs. Then returns new wrapped instance of Automattic\WooCommerce\Vendor\GraphQL\Executor\Promise\Promise.
+     * in Promises/A+ specs. Then returns new wrapped instance of Automattic\PooCommerce\Vendor\GraphQL\Executor\Promise\Promise.
      *
      * @api
      */

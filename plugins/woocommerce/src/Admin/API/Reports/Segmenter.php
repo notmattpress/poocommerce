@@ -3,13 +3,13 @@
  * Class for adding segmenting support without cluttering the data stores.
  */
 
-namespace Automattic\WooCommerce\Admin\API\Reports;
+namespace Automattic\PooCommerce\Admin\API\Reports;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\API\Reports\Coupons\DataStore as CouponsDataStore;
-use Automattic\WooCommerce\Admin\API\Reports\Taxes\Stats\DataStore as TaxesStatsDataStore;
-use Automattic\WooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Admin\API\Reports\Coupons\DataStore as CouponsDataStore;
+use Automattic\PooCommerce\Admin\API\Reports\Taxes\Stats\DataStore as TaxesStatsDataStore;
+use Automattic\PooCommerce\Enums\ProductType;
 
 /**
  * Date & time interval and numeric range handling class for Reporting API.
@@ -385,7 +385,7 @@ class Segmenter {
 				$id           = $segment->get_id();
 				$segments[]   = $id;
 				$product_name = $segment->get_name();
-				$separator    = apply_filters( 'woocommerce_product_variation_title_attributes_separator', ' - ', $segment );
+				$separator    = apply_filters( 'poocommerce_product_variation_title_attributes_separator', ' - ', $segment );
 				$attributes   = wc_get_formatted_variation( $segment, true, false );
 
 				$segment_labels[ $id ] = $product_name . $separator . $attributes;
@@ -393,7 +393,7 @@ class Segmenter {
 
 			// If no variations were specified, add a segment for the parent product (variation = 0).
 			// This is to catch simple products with prior sales converted into variable products.
-			// See: https://github.com/woocommerce/woocommerce-admin/issues/2719.
+			// See: https://github.com/poocommerce/poocommerce-admin/issues/2719.
 			if ( isset( $args['parent'] ) && empty( $args['include'] ) ) {
 				$parent_object     = wc_get_product( $args['parent'] );
 				$segments[]        = 0;

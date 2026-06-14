@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Internal\StockNotifications\Frontend;
+namespace Automattic\PooCommerce\Internal\StockNotifications\Frontend;
 
-use Automattic\WooCommerce\Internal\StockNotifications\Notification;
+use Automattic\PooCommerce\Internal\StockNotifications\Notification;
 
 /**
  * A class for representing the result of a signup.

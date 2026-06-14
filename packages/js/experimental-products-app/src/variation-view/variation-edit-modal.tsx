@@ -23,7 +23,7 @@ export function VariationEditModal( {
 		<Modal
 			title={ sprintf(
 				/* translators: %d: variation ID. */
-				__( 'Edit variation #%d', 'woocommerce' ),
+				__( 'Edit variation #%d', 'poocommerce' ),
 				variation.id
 			) }
 			onRequestClose={ onClose }

@@ -8,9 +8,9 @@ import {
 	WCPayBannerBody,
 	WCPayBenefits,
 	WCPayBannerImageCut,
-} from '@woocommerce/onboarding';
+} from '@poocommerce/onboarding';
 import { useDispatch, useSelect } from '@wordpress/data';
-import { paymentSettingsStore } from '@woocommerce/data';
+import { paymentSettingsStore } from '@poocommerce/data';
 
 /**
  * Internal dependencies
@@ -61,7 +61,7 @@ export const Suggestion = ( {
 	}
 
 	return (
-		<div className="woocommerce-wcpay-suggestion">
+		<div className="poocommerce-wcpay-suggestion">
 			<WCPayBanner>
 				<WCPayBannerBody
 					textPosition="left"
@@ -76,7 +76,7 @@ export const Suggestion = ( {
 							hasPlugins={ true }
 							setupButtonText={ __(
 								'Get started',
-								'woocommerce'
+								'poocommerce'
 							) }
 							onSetupCallback={ onSetupCallback }
 						/>

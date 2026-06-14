@@ -4,7 +4,7 @@
 import { Button } from '@wordpress/components';
 import { chevronLeft } from '@wordpress/icons';
 import { __, sprintf } from '@wordpress/i18n';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -61,19 +61,19 @@ export const PaymentsMobileHeader = ( props: SidebarComponentProps ) => {
 				onClick={ handleBackClick }
 				icon={ chevronLeft }
 				iconSize={ 20 }
-				aria-label={ __( 'Go back', 'woocommerce' ) }
+				aria-label={ __( 'Go back', 'poocommerce' ) }
 			/>
 			<h1 className="mobile-header__title">
 				{
 					/* translators: %s: Payment provider name (e.g., WooPayments) */
-					sprintf( __( 'Set up %s', 'woocommerce' ), 'WooPayments' )
+					sprintf( __( 'Set up %s', 'poocommerce' ), 'WooPayments' )
 				}
 			</h1>
 			<div className="mobile-header__steps">
 				{ /* translators: %1$s: current step number, %2$s: total number of steps */ }
 				{ sprintf(
 					/* translators: %1$s: current step number, %2$s: total number of steps */
-					__( 'Step %1$s of %2$s', 'woocommerce' ),
+					__( 'Step %1$s of %2$s', 'poocommerce' ),
 					currentStepIndex,
 					totalSteps
 				) }

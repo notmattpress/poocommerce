@@ -1,14 +1,14 @@
 # Components <!-- omit in toc -->
 
-A library of components to be used for creating common UI elements shared between features of the WooCommerce Cart and Checkout Blocks.
+A library of components to be used for creating common UI elements shared between features of the PooCommerce Cart and Checkout Blocks.
 
 ## Usage
 
-When WooCommerce Blocks is installed and activated, these components can be accessed by importing from the `blocks-checkout` package.
+When PooCommerce Blocks is installed and activated, these components can be accessed by importing from the `blocks-checkout` package.
 
 ```ts
 // Aliased import
-import { Button } from '@woocommerce/blocks-components';
+import { Button } from '@poocommerce/blocks-components';
 
 // Global import
 // const { Button } = wc.blocksCheckout;
@@ -24,8 +24,8 @@ These components are here so they can be consumed by extensions.
 
 ---
 
-[We're hiring!](https://woocommerce.com/careers/) Come work with us!
+[We're hiring!](https://poocommerce.com/careers/) Come work with us!
 
-🐞 Found a mistake, or have a suggestion? [Leave feedback about this document here.](https://github.com/woocommerce/woocommerce/issues/new?assignees=&labels=type%3A+documentation&template=suggestion-for-documentation-improvement-correction.md&title=Feedback%20on%20./packages/checkout/components/README.md)
+🐞 Found a mistake, or have a suggestion? [Leave feedback about this document here.](https://github.com/poocommerce/poocommerce/issues/new?assignees=&labels=type%3A+documentation&template=suggestion-for-documentation-improvement-correction.md&title=Feedback%20on%20./packages/checkout/components/README.md)
 
 <!-- /FEEDBACK -->

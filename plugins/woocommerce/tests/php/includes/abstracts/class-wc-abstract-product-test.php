@@ -1,7 +1,7 @@
 <?php
 
-use Automattic\WooCommerce\Internal\CostOfGoodsSold\CogsAwareUnitTestSuiteTrait;
-use Automattic\WooCommerce\Internal\ProductDownloads\ApprovedDirectories\Register as Download_Directories;
+use Automattic\PooCommerce\Internal\CostOfGoodsSold\CogsAwareUnitTestSuiteTrait;
+use Automattic\PooCommerce\Internal\ProductDownloads\ApprovedDirectories\Register as Download_Directories;
 
 // phpcs:disable Squiz.Classes.ClassFileName.NoMatch, Squiz.Classes.ValidClassName.NotCamelCaps -- Backward compatibility.
 /**
@@ -16,7 +16,7 @@ class WC_Abstract_Product_Test extends WC_Unit_Test_Case {
 	public function tearDown(): void {
 		parent::tearDown();
 		$this->disable_cogs_feature();
-		remove_all_filters( 'woocommerce_get_cogs_total_value' );
+		remove_all_filters( 'poocommerce_get_cogs_total_value' );
 	}
 
 	/**
@@ -302,7 +302,7 @@ class WC_Abstract_Product_Test extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox The total Cost of Goods Sold value van be modified using the woocommerce_get_cogs_total_value filter.
+	 * @testdox The total Cost of Goods Sold value van be modified using the poocommerce_get_cogs_total_value filter.
 	 */
 	public function test_cogs_total_value_can_be_altered_via_filter() {
 		$this->enable_cogs_feature();
@@ -310,7 +310,7 @@ class WC_Abstract_Product_Test extends WC_Unit_Test_Case {
 		$product = WC_Helper_Product::create_simple_product();
 		$product->set_cogs_value( 12.34 );
 
-		add_filter( 'woocommerce_get_product_cogs_total_value', fn( $value, $product ) => $value + $product->get_id(), 10, 2 );
+		add_filter( 'poocommerce_get_product_cogs_total_value', fn( $value, $product ) => $value + $product->get_id(), 10, 2 );
 
 		$this->assertEquals( 12.34 + $product->get_id(), $product->get_cogs_total_value() );
 	}
@@ -346,13 +346,13 @@ class WC_Abstract_Product_Test extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox validate_props() keeps a product in stock when stock quantity is a positive float below 1 and the woocommerce_stock_amount filter is set to floatval.
+	 * @testdox validate_props() keeps a product in stock when stock quantity is a positive float below 1 and the poocommerce_stock_amount filter is set to floatval.
 	 *
-	 * See https://github.com/woocommerce/woocommerce/issues/41676 for more details.
+	 * See https://github.com/poocommerce/poocommerce/issues/41676 for more details.
 	 */
 	public function test_validate_props_preserves_in_stock_for_float_stock_quantity() {
-		remove_filter( 'woocommerce_stock_amount', 'intval' );
-		add_filter( 'woocommerce_stock_amount', 'floatval' );
+		remove_filter( 'poocommerce_stock_amount', 'intval' );
+		add_filter( 'poocommerce_stock_amount', 'floatval' );
 
 		$product = new WC_Product_Simple();
 		$product->set_manage_stock( true );
@@ -364,20 +364,20 @@ class WC_Abstract_Product_Test extends WC_Unit_Test_Case {
 		$this->assertSame( 0.5, $product->get_stock_quantity() );
 		$this->assertSame( 'instock', $product->get_stock_status() );
 
-		remove_filter( 'woocommerce_stock_amount', 'floatval' );
-		add_filter( 'woocommerce_stock_amount', 'intval' );
+		remove_filter( 'poocommerce_stock_amount', 'floatval' );
+		add_filter( 'poocommerce_stock_amount', 'intval' );
 	}
 
 	/**
-	 * @testdox validate_props() compares fractional stock against a non-default woocommerce_notify_no_stock_amount threshold using a float comparison.
+	 * @testdox validate_props() compares fractional stock against a non-default poocommerce_notify_no_stock_amount threshold using a float comparison.
 	 *
-	 * See https://github.com/woocommerce/woocommerce/issues/41676 for more details.
+	 * See https://github.com/poocommerce/poocommerce/issues/41676 for more details.
 	 */
 	public function test_validate_props_respects_non_default_no_stock_threshold_for_float_stock_quantity() {
-		$previous_threshold = get_option( 'woocommerce_notify_no_stock_amount' );
-		update_option( 'woocommerce_notify_no_stock_amount', 5 );
-		remove_filter( 'woocommerce_stock_amount', 'intval' );
-		add_filter( 'woocommerce_stock_amount', 'floatval' );
+		$previous_threshold = get_option( 'poocommerce_notify_no_stock_amount' );
+		update_option( 'poocommerce_notify_no_stock_amount', 5 );
+		remove_filter( 'poocommerce_stock_amount', 'intval' );
+		add_filter( 'poocommerce_stock_amount', 'floatval' );
 
 		$above_threshold = new WC_Product_Simple();
 		$above_threshold->set_manage_stock( true );
@@ -399,22 +399,22 @@ class WC_Abstract_Product_Test extends WC_Unit_Test_Case {
 		$this->assertSame( 4.5, $at_threshold->get_stock_quantity() );
 		$this->assertSame( 'outofstock', $at_threshold->get_stock_status(), 'A fractional stock quantity below the threshold should flip to out of stock.' );
 
-		remove_filter( 'woocommerce_stock_amount', 'floatval' );
-		add_filter( 'woocommerce_stock_amount', 'intval' );
-		update_option( 'woocommerce_notify_no_stock_amount', $previous_threshold );
+		remove_filter( 'poocommerce_stock_amount', 'floatval' );
+		add_filter( 'poocommerce_stock_amount', 'intval' );
+		update_option( 'poocommerce_notify_no_stock_amount', $previous_threshold );
 	}
 
 	/**
-	 * @testdox validate_props() treats a negative woocommerce_notify_no_stock_amount threshold by its magnitude (absolute value), matching the pre-#37855 absint() behaviour.
+	 * @testdox validate_props() treats a negative poocommerce_notify_no_stock_amount threshold by its magnitude (absolute value), matching the pre-#37855 absint() behaviour.
 	 *
 	 * Without the abs() wrap, a negative threshold would let every positive stock value compare as "above threshold"
 	 * and stay in stock. With abs(), the threshold is compared by magnitude, so -5 behaves like 5.
 	 */
 	public function test_validate_props_treats_negative_no_stock_threshold_by_magnitude() {
-		$previous_threshold = get_option( 'woocommerce_notify_no_stock_amount' );
-		update_option( 'woocommerce_notify_no_stock_amount', -5 );
-		remove_filter( 'woocommerce_stock_amount', 'intval' );
-		add_filter( 'woocommerce_stock_amount', 'floatval' );
+		$previous_threshold = get_option( 'poocommerce_notify_no_stock_amount' );
+		update_option( 'poocommerce_notify_no_stock_amount', -5 );
+		remove_filter( 'poocommerce_stock_amount', 'intval' );
+		add_filter( 'poocommerce_stock_amount', 'floatval' );
 
 		$below_magnitude = new WC_Product_Simple();
 		$below_magnitude->set_manage_stock( true );
@@ -436,9 +436,9 @@ class WC_Abstract_Product_Test extends WC_Unit_Test_Case {
 		$this->assertSame( 5.5, $above_magnitude->get_stock_quantity() );
 		$this->assertSame( 'instock', $above_magnitude->get_stock_status(), 'A stock quantity above the threshold magnitude (5.5 vs abs(-5)=5) should stay in stock.' );
 
-		remove_filter( 'woocommerce_stock_amount', 'floatval' );
-		add_filter( 'woocommerce_stock_amount', 'intval' );
-		update_option( 'woocommerce_notify_no_stock_amount', $previous_threshold );
+		remove_filter( 'poocommerce_stock_amount', 'floatval' );
+		add_filter( 'poocommerce_stock_amount', 'intval' );
+		update_option( 'poocommerce_notify_no_stock_amount', $previous_threshold );
 	}
 
 	/**

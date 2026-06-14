@@ -1,13 +1,13 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "woocommerce/saved-for-later",
+	"name": "poocommerce/saved-for-later",
 	"version": "1.0.0",
 	"title": "Saved for Later",
 	"description": "Display items the shopper has saved from their cart for later.",
-	"category": "woocommerce",
-	"keywords": [ "WooCommerce", "Saved for Later" ],
-	"textdomain": "woocommerce",
+	"category": "poocommerce",
+	"keywords": [ "PooCommerce", "Saved for Later" ],
+	"textdomain": "poocommerce",
 	"attributes": {
 		"columnCount": {
 			"type": "number",
@@ -34,11 +34,11 @@
 			"background": true
 		}
 	},
-	"viewScriptModule": "woocommerce/saved-for-later",
+	"viewScriptModule": "poocommerce/saved-for-later",
 	"style": [
-		"file:../woocommerce/saved-for-later-style.css",
+		"file:../poocommerce/saved-for-later-style.css",
 		"wc-blocks-style-product-image",
-		"woocommerce-product-price-style",
-		"woocommerce-product-button-style"
+		"poocommerce-product-price-style",
+		"poocommerce-product-button-style"
 	]
 }

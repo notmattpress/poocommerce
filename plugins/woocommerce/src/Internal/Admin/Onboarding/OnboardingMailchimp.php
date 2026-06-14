@@ -1,11 +1,11 @@
 <?php
 /**
- * WooCommerce Onboarding Mailchimp
+ * PooCommerce Onboarding Mailchimp
  */
 
-namespace Automattic\WooCommerce\Internal\Admin\Onboarding;
+namespace Automattic\PooCommerce\Internal\Admin\Onboarding;
 
-use Automattic\WooCommerce\Internal\Admin\Schedulers\MailchimpScheduler;
+use Automattic\PooCommerce\Internal\Admin\Schedulers\MailchimpScheduler;
 
 /**
  * Logic around updating Mailchimp during onboarding.
@@ -32,7 +32,7 @@ class OnboardingMailchimp {
 	 * Init.
 	 */
 	public function init() {
-		add_action( 'woocommerce_onboarding_profile_data_updated', array( $this, 'on_profile_data_updated' ), 10, 2 );
+		add_action( 'poocommerce_onboarding_profile_data_updated', array( $this, 'on_profile_data_updated' ), 10, 2 );
 	}
 
 	/**

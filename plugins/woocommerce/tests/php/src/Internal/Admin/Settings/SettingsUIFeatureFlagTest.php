@@ -2,15 +2,15 @@
 /**
  * Settings UI feature flag tests.
  *
- * @package WooCommerce\Tests\Internal\Admin\Settings
+ * @package PooCommerce\Tests\Internal\Admin\Settings
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\Settings;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\Settings;
 
-use Automattic\WooCommerce\Internal\Admin\Settings;
-use Automattic\WooCommerce\Internal\Admin\WCAdminAssets;
+use Automattic\PooCommerce\Internal\Admin\Settings;
+use Automattic\PooCommerce\Internal\Admin\WCAdminAssets;
 use WC_Unit_Test_Case;
 
 /**
@@ -88,8 +88,8 @@ class SettingsUIFeatureFlagTest extends WC_Unit_Test_Case {
 			unset( $GLOBALS['hide_save_button'] );
 		}
 
-		remove_filter( 'woocommerce_admin_features', array( $this, 'enable_settings_ui_feature' ) );
-		remove_filter( 'woocommerce_admin_features', array( $this, 'disable_settings_ui_feature' ) );
+		remove_filter( 'poocommerce_admin_features', array( $this, 'enable_settings_ui_feature' ) );
+		remove_filter( 'poocommerce_admin_features', array( $this, 'disable_settings_ui_feature' ) );
 
 		parent::tearDown();
 	}
@@ -98,7 +98,7 @@ class SettingsUIFeatureFlagTest extends WC_Unit_Test_Case {
 	 * It keeps opted-in pages on the legacy renderer when the feature flag is disabled.
 	 */
 	public function test_opted_in_page_uses_legacy_output_when_feature_flag_is_disabled(): void {
-		add_filter( 'woocommerce_admin_features', array( $this, 'disable_settings_ui_feature' ) );
+		add_filter( 'poocommerce_admin_features', array( $this, 'disable_settings_ui_feature' ) );
 
 		global $current_section;
 		$current_section = '';
@@ -108,7 +108,7 @@ class SettingsUIFeatureFlagTest extends WC_Unit_Test_Case {
 		$page->output();
 		$output = ob_get_clean();
 
-		$this->assertStringContainsString( 'name="woocommerce_settings_ui_flag_test"', $output );
+		$this->assertStringContainsString( 'name="poocommerce_settings_ui_flag_test"', $output );
 		$this->assertStringNotContainsString( 'data-wc-settings-ui="1"', $output );
 		$this->assertArrayNotHasKey( 'hide_save_button', $GLOBALS );
 	}
@@ -117,7 +117,7 @@ class SettingsUIFeatureFlagTest extends WC_Unit_Test_Case {
 	 * It renders the settings UI mount point only when the feature flag is enabled.
 	 */
 	public function test_opted_in_page_uses_settings_ui_output_when_feature_flag_is_enabled(): void {
-		add_filter( 'woocommerce_admin_features', array( $this, 'enable_settings_ui_feature' ) );
+		add_filter( 'poocommerce_admin_features', array( $this, 'enable_settings_ui_feature' ) );
 
 		global $current_section;
 		$current_section = '';
@@ -129,7 +129,7 @@ class SettingsUIFeatureFlagTest extends WC_Unit_Test_Case {
 
 		$this->assertStringContainsString( 'data-wc-settings-ui="1"', $output );
 		$this->assertStringContainsString( 'data-wc-settings-page="settings_ui_flag_test"', $output );
-		$this->assertStringNotContainsString( 'name="woocommerce_settings_ui_flag_test"', $output );
+		$this->assertStringNotContainsString( 'name="poocommerce_settings_ui_flag_test"', $output );
 		$this->assertTrue( $GLOBALS['hide_save_button'] );
 	}
 
@@ -137,7 +137,7 @@ class SettingsUIFeatureFlagTest extends WC_Unit_Test_Case {
 	 * It emits developer feedback when settings UI rendering falls back to legacy output.
 	 */
 	public function test_settings_ui_fallback_emits_doing_it_wrong_notice(): void {
-		add_filter( 'woocommerce_admin_features', array( $this, 'enable_settings_ui_feature' ) );
+		add_filter( 'poocommerce_admin_features', array( $this, 'enable_settings_ui_feature' ) );
 		add_filter( 'doing_it_wrong_trigger_error', '__return_false' );
 		$this->setExpectedIncorrectUsage( 'WC_Settings_Page::output' );
 
@@ -166,7 +166,7 @@ class SettingsUIFeatureFlagTest extends WC_Unit_Test_Case {
 
 		$settings_page_notices = $this->get_settings_page_output_notices( $notices );
 
-		$this->assertStringContainsString( 'name="woocommerce_settings_ui_flag_test"', $output );
+		$this->assertStringContainsString( 'name="poocommerce_settings_ui_flag_test"', $output );
 		$this->assertStringNotContainsString( 'data-wc-settings-ui="1"', $output );
 		$this->assertNotEmpty( $settings_page_notices );
 		$this->assertSame( '10.9.0', $settings_page_notices[0]['version'] );
@@ -179,7 +179,7 @@ class SettingsUIFeatureFlagTest extends WC_Unit_Test_Case {
 	 * It emits developer feedback when settings UI schema generation has failed.
 	 */
 	public function test_settings_ui_schema_failure_fallback_emits_doing_it_wrong_notice(): void {
-		add_filter( 'woocommerce_admin_features', array( $this, 'enable_settings_ui_feature' ) );
+		add_filter( 'poocommerce_admin_features', array( $this, 'enable_settings_ui_feature' ) );
 		add_filter( 'doing_it_wrong_trigger_error', '__return_false' );
 		$this->setExpectedIncorrectUsage( 'WC_Settings_Page::output' );
 
@@ -211,7 +211,7 @@ class SettingsUIFeatureFlagTest extends WC_Unit_Test_Case {
 
 		$settings_page_notices = $this->get_settings_page_output_notices( $notices );
 
-		$this->assertStringContainsString( 'name="woocommerce_settings_ui_flag_test"', $output );
+		$this->assertStringContainsString( 'name="poocommerce_settings_ui_flag_test"', $output );
 		$this->assertStringNotContainsString( 'data-wc-settings-ui="1"', $output );
 		$this->assertNotEmpty( $settings_page_notices );
 		$this->assertSame( '10.9.0', $settings_page_notices[0]['version'] );
@@ -225,7 +225,7 @@ class SettingsUIFeatureFlagTest extends WC_Unit_Test_Case {
 	 */
 	public function test_legacy_adapter_adds_shell_navigation_metadata(): void {
 		$page    = $this->get_settings_ui_page_with_sections();
-		$adapter = new \Automattic\WooCommerce\Admin\Settings\LegacySettingsPageAdapter( $page );
+		$adapter = new \Automattic\PooCommerce\Admin\Settings\LegacySettingsPageAdapter( $page );
 		$schema  = $adapter->get_schema( '' );
 
 		$this->assertSame( 'Settings UI flag test', $schema['shell']['title'] );
@@ -240,7 +240,7 @@ class SettingsUIFeatureFlagTest extends WC_Unit_Test_Case {
 	 * It does not inject settings UI shared data when the feature flag is disabled.
 	 */
 	public function test_shared_settings_are_not_injected_when_feature_flag_is_disabled(): void {
-		add_filter( 'woocommerce_admin_features', array( $this, 'disable_settings_ui_feature' ) );
+		add_filter( 'poocommerce_admin_features', array( $this, 'disable_settings_ui_feature' ) );
 
 		$_GET['page'] = 'wc-settings';
 		$_GET['tab']  = 'products';
@@ -254,7 +254,7 @@ class SettingsUIFeatureFlagTest extends WC_Unit_Test_Case {
 	 * It does not add settings UI script dependencies when the feature flag is disabled.
 	 */
 	public function test_settings_ui_script_dependencies_are_empty_when_feature_flag_is_disabled(): void {
-		add_filter( 'woocommerce_admin_features', array( $this, 'disable_settings_ui_feature' ) );
+		add_filter( 'poocommerce_admin_features', array( $this, 'disable_settings_ui_feature' ) );
 
 		$_GET['page'] = 'wc-settings';
 		$_GET['tab']  = 'products';
@@ -268,7 +268,7 @@ class SettingsUIFeatureFlagTest extends WC_Unit_Test_Case {
 	 * It does not add the settings UI body class when the feature flag is disabled.
 	 */
 	public function test_settings_ui_body_class_is_not_added_when_feature_flag_is_disabled(): void {
-		add_filter( 'woocommerce_admin_features', array( $this, 'disable_settings_ui_feature' ) );
+		add_filter( 'poocommerce_admin_features', array( $this, 'disable_settings_ui_feature' ) );
 
 		global $current_tab;
 		$current_tab = 'settings_ui_flag_test';
@@ -283,7 +283,7 @@ class SettingsUIFeatureFlagTest extends WC_Unit_Test_Case {
 	 * It adds the settings UI body class when the feature flag is enabled.
 	 */
 	public function test_settings_ui_body_class_is_added_when_feature_flag_is_enabled(): void {
-		add_filter( 'woocommerce_admin_features', array( $this, 'enable_settings_ui_feature' ) );
+		add_filter( 'poocommerce_admin_features', array( $this, 'enable_settings_ui_feature' ) );
 
 		global $current_tab;
 		$current_tab = 'settings_ui_flag_test';
@@ -292,7 +292,7 @@ class SettingsUIFeatureFlagTest extends WC_Unit_Test_Case {
 		$classes = $page->add_settings_ui_body_class( 'existing-class' );
 
 		$this->assertStringContainsString( 'existing-class', $classes );
-		$this->assertStringContainsString( 'woocommerce-settings-ui-page', $classes );
+		$this->assertStringContainsString( 'poocommerce-settings-ui-page', $classes );
 	}
 
 	/**
@@ -334,10 +334,10 @@ class SettingsUIFeatureFlagTest extends WC_Unit_Test_Case {
 			/**
 			 * Get the settings UI page adapter.
 			 *
-			 * @return \Automattic\WooCommerce\Admin\Settings\SettingsUIPageInterface|null
+			 * @return \Automattic\PooCommerce\Admin\Settings\SettingsUIPageInterface|null
 			 */
-			public function get_settings_ui_page(): ?\Automattic\WooCommerce\Admin\Settings\SettingsUIPageInterface {
-				return new \Automattic\WooCommerce\Admin\Settings\LegacySettingsPageAdapter( $this );
+			public function get_settings_ui_page(): ?\Automattic\PooCommerce\Admin\Settings\SettingsUIPageInterface {
+				return new \Automattic\PooCommerce\Admin\Settings\LegacySettingsPageAdapter( $this );
 			}
 
 			/**
@@ -348,7 +348,7 @@ class SettingsUIFeatureFlagTest extends WC_Unit_Test_Case {
 			protected function get_settings_for_default_section() {
 				return array(
 					array(
-						'id'    => 'woocommerce_settings_ui_flag_test',
+						'id'    => 'poocommerce_settings_ui_flag_test',
 						'type'  => 'text',
 						'title' => 'Settings UI flag test',
 					),
@@ -392,10 +392,10 @@ class SettingsUIFeatureFlagTest extends WC_Unit_Test_Case {
 			/**
 			 * Get the settings UI page adapter.
 			 *
-			 * @return \Automattic\WooCommerce\Admin\Settings\SettingsUIPageInterface|null
+			 * @return \Automattic\PooCommerce\Admin\Settings\SettingsUIPageInterface|null
 			 */
-			public function get_settings_ui_page(): ?\Automattic\WooCommerce\Admin\Settings\SettingsUIPageInterface {
-				return new class( $this ) extends \Automattic\WooCommerce\Admin\Settings\LegacySettingsPageAdapter {
+			public function get_settings_ui_page(): ?\Automattic\PooCommerce\Admin\Settings\SettingsUIPageInterface {
+				return new class( $this ) extends \Automattic\PooCommerce\Admin\Settings\LegacySettingsPageAdapter {
 					/**
 					 * Get script handles.
 					 *
@@ -421,7 +421,7 @@ class SettingsUIFeatureFlagTest extends WC_Unit_Test_Case {
 			protected function get_settings_for_section_core( $section_id ) {
 				return array(
 					array(
-						'id'    => 'woocommerce_settings_ui_flag_test',
+						'id'    => 'poocommerce_settings_ui_flag_test',
 						'type'  => 'text',
 						'title' => 'Settings UI flag test',
 					),

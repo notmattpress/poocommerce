@@ -92,7 +92,7 @@ To modify the environment used by tests locally, you will need to modify `.wp-en
 -	"core": "WordPress/WordPress#5.7-branch",
 +	"core": "WordPress/WordPress#5.6-branch",
 	"plugins": [
-		"https://downloads.wordpress.org/plugin/woocommerce.latest-stable.zip",
+		"https://downloads.wordpress.org/plugin/poocommerce.latest-stable.zip",
 		"https://github.com/WP-API/Basic-Auth/archive/master.zip",
 +		"https://downloads.wordpress.org/plugin/gutenberg.latest-stable.zip",
 		"."
@@ -105,7 +105,7 @@ You will need to stop `wp-env` and start it again. In some cases, you will also 
 
 ### WordPress versions and end-to-end tests suites
 
-Currently, we only run e2e tests with the most recent version of WordPress. We also have the infrastructure in place to run e2e tests with the most recent version of WordPress with Gutenberg installed, but [it's currently disabled](https://github.com/woocommerce/woocommerce-blocks/blob/07605450ffa4e460543980b7011b3bf8a8e82ff4/.github/workflows/php-js-e2e-tests.yml#L10).
+Currently, we only run e2e tests with the most recent version of WordPress. We also have the infrastructure in place to run e2e tests with the most recent version of WordPress with Gutenberg installed, but [it's currently disabled](https://github.com/poocommerce/poocommerce-blocks/blob/07605450ffa4e460543980b7011b3bf8a8e82ff4/.github/workflows/php-js-e2e-tests.yml#L10).
 
 When preparing for a new version of WordPress, it's a good practice to search for conditions in our tests that check for specific WP versions (with the variable `WP_VERSION`).
 
@@ -113,8 +113,8 @@ When preparing for a new version of WordPress, it's a good practice to search fo
 
 ---
 
-[We're hiring!](https://woocommerce.com/careers/) Come work with us!
+[We're hiring!](https://poocommerce.com/careers/) Come work with us!
 
-🐞 Found a mistake, or have a suggestion? [Leave feedback about this document here.](https://github.com/woocommerce/woocommerce/issues/new?assignees=&labels=type%3A+documentation&template=suggestion-for-documentation-improvement-correction.md&title=Feedback%20on%20./docs/contributors/javascript-testing.md)
+🐞 Found a mistake, or have a suggestion? [Leave feedback about this document here.](https://github.com/poocommerce/poocommerce/issues/new?assignees=&labels=type%3A+documentation&template=suggestion-for-documentation-improvement-correction.md&title=Feedback%20on%20./docs/contributors/javascript-testing.md)
 
 <!-- /FEEDBACK -->

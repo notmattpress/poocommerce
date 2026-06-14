@@ -3,7 +3,7 @@
  * Survey helper methods.
  */
 
-namespace Automattic\WooCommerce\Internal\Admin;
+namespace Automattic\PooCommerce\Internal\Admin;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -26,7 +26,7 @@ class Survey {
 	public static function get_url( $path, $query = array() ) {
 		$url = self::SURVEY_URL . $path;
 
-		$query_args = apply_filters( 'woocommerce_admin_survey_query', $query );
+		$query_args = apply_filters( 'poocommerce_admin_survey_query', $query );
 
 		if ( ! empty( $query_args ) ) {
 			$query_string = http_build_query( $query_args );

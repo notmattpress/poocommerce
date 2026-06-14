@@ -4,13 +4,13 @@
  *
  * Functions for displaying the order data meta box.
  *
- * @package     WooCommerce\Admin\Meta Boxes
+ * @package     PooCommerce\Admin\Meta Boxes
  * @version     2.2.0
  */
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Internal\Utilities\Users;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Internal\Utilities\Users;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -53,53 +53,53 @@ class WC_Meta_Box_Order_Data {
 		 * @param string $context Context of fields (view or edit).
 		 */
 		return apply_filters(
-			'woocommerce_admin_billing_fields',
+			'poocommerce_admin_billing_fields',
 			array(
 				'first_name' => array(
-					'label' => __( 'First name', 'woocommerce' ),
+					'label' => __( 'First name', 'poocommerce' ),
 					'show'  => false,
 				),
 				'last_name'  => array(
-					'label' => __( 'Last name', 'woocommerce' ),
+					'label' => __( 'Last name', 'poocommerce' ),
 					'show'  => false,
 				),
 				'company'    => array(
-					'label' => __( 'Company', 'woocommerce' ),
+					'label' => __( 'Company', 'poocommerce' ),
 					'show'  => false,
 				),
 				'address_1'  => array(
-					'label' => __( 'Address line 1', 'woocommerce' ),
+					'label' => __( 'Address line 1', 'poocommerce' ),
 					'show'  => false,
 				),
 				'address_2'  => array(
-					'label' => __( 'Address line 2', 'woocommerce' ),
+					'label' => __( 'Address line 2', 'poocommerce' ),
 					'show'  => false,
 				),
 				'city'       => array(
-					'label' => __( 'City', 'woocommerce' ),
+					'label' => __( 'City', 'poocommerce' ),
 					'show'  => false,
 				),
 				'postcode'   => array(
-					'label' => __( 'Postcode / ZIP', 'woocommerce' ),
+					'label' => __( 'Postcode / ZIP', 'poocommerce' ),
 					'show'  => false,
 				),
 				'country'    => array(
-					'label'   => __( 'Country / Region', 'woocommerce' ),
+					'label'   => __( 'Country / Region', 'poocommerce' ),
 					'show'    => false,
 					'class'   => 'js_field-country select short',
 					'type'    => 'select',
-					'options' => array( '' => __( 'Select a country / region&hellip;', 'woocommerce' ) ) + WC()->countries->get_countries(),
+					'options' => array( '' => __( 'Select a country / region&hellip;', 'poocommerce' ) ) + WC()->countries->get_countries(),
 				),
 				'state'      => array(
-					'label' => __( 'State / County', 'woocommerce' ),
+					'label' => __( 'State / County', 'poocommerce' ),
 					'class' => 'js_field-state select short',
 					'show'  => false,
 				),
 				'email'      => array(
-					'label' => __( 'Email address', 'woocommerce' ),
+					'label' => __( 'Email address', 'poocommerce' ),
 				),
 				'phone'      => array(
-					'label' => __( 'Phone', 'woocommerce' ),
+					'label' => __( 'Phone', 'poocommerce' ),
 				),
 			),
 			$order,
@@ -125,50 +125,50 @@ class WC_Meta_Box_Order_Data {
 		 * @param string $context Context of fields (view or edit).
 		 */
 		return apply_filters(
-			'woocommerce_admin_shipping_fields',
+			'poocommerce_admin_shipping_fields',
 			array(
 				'first_name' => array(
-					'label' => __( 'First name', 'woocommerce' ),
+					'label' => __( 'First name', 'poocommerce' ),
 					'show'  => false,
 				),
 				'last_name'  => array(
-					'label' => __( 'Last name', 'woocommerce' ),
+					'label' => __( 'Last name', 'poocommerce' ),
 					'show'  => false,
 				),
 				'company'    => array(
-					'label' => __( 'Company', 'woocommerce' ),
+					'label' => __( 'Company', 'poocommerce' ),
 					'show'  => false,
 				),
 				'address_1'  => array(
-					'label' => __( 'Address line 1', 'woocommerce' ),
+					'label' => __( 'Address line 1', 'poocommerce' ),
 					'show'  => false,
 				),
 				'address_2'  => array(
-					'label' => __( 'Address line 2', 'woocommerce' ),
+					'label' => __( 'Address line 2', 'poocommerce' ),
 					'show'  => false,
 				),
 				'city'       => array(
-					'label' => __( 'City', 'woocommerce' ),
+					'label' => __( 'City', 'poocommerce' ),
 					'show'  => false,
 				),
 				'postcode'   => array(
-					'label' => __( 'Postcode / ZIP', 'woocommerce' ),
+					'label' => __( 'Postcode / ZIP', 'poocommerce' ),
 					'show'  => false,
 				),
 				'country'    => array(
-					'label'   => __( 'Country / Region', 'woocommerce' ),
+					'label'   => __( 'Country / Region', 'poocommerce' ),
 					'show'    => false,
 					'type'    => 'select',
 					'class'   => 'js_field-country select short',
-					'options' => array( '' => __( 'Select a country / region&hellip;', 'woocommerce' ) ) + WC()->countries->get_countries(),
+					'options' => array( '' => __( 'Select a country / region&hellip;', 'poocommerce' ) ) + WC()->countries->get_countries(),
 				),
 				'state'      => array(
-					'label' => __( 'State / County', 'woocommerce' ),
+					'label' => __( 'State / County', 'poocommerce' ),
 					'class' => 'js_field-state select short',
 					'show'  => false,
 				),
 				'phone'      => array(
-					'label' => __( 'Phone', 'woocommerce' ),
+					'label' => __( 'Phone', 'poocommerce' ),
 				),
 			),
 			$order,
@@ -205,30 +205,30 @@ class WC_Meta_Box_Order_Data {
 		$payment_method = $order->get_payment_method();
 
 		$order_type_object = get_post_type_object( $order->get_type() );
-		wp_nonce_field( 'woocommerce_save_data', 'woocommerce_meta_nonce' );
+		wp_nonce_field( 'poocommerce_save_data', 'poocommerce_meta_nonce' );
 		?>
 		<style type="text/css">
 			#post-body-content, #titlediv { display:none }
 		</style>
-		<div class="panel-wrap woocommerce">
-			<input name="post_title" type="hidden" value="<?php echo esc_attr( empty( $order->get_title() ) ? __( 'Order', 'woocommerce' ) : $order->get_title() ); ?>" />
+		<div class="panel-wrap poocommerce">
+			<input name="post_title" type="hidden" value="<?php echo esc_attr( empty( $order->get_title() ) ? __( 'Order', 'poocommerce' ) : $order->get_title() ); ?>" />
 			<input name="post_status" type="hidden" value="<?php echo esc_attr( $order->get_status() ); ?>" />
-			<div id="order_data" class="panel woocommerce-order-data">
+			<div id="order_data" class="panel poocommerce-order-data">
 				<div class="order_data_header">
 					<div class="order_data_header_column">
-						<h2 class="woocommerce-order-data__heading">
+						<h2 class="poocommerce-order-data__heading">
 							<?php
 
 							printf(
 								/* translators: 1: order type 2: order number */
-								esc_html__( '%1$s #%2$s details', 'woocommerce' ),
+								esc_html__( '%1$s #%2$s details', 'poocommerce' ),
 								esc_html( $order_type_object->labels->singular_name ),
 								esc_html( $order->get_order_number() )
 							);
 
 							?>
 						</h2>
-						<p class="woocommerce-order-data__meta order_number">
+						<p class="poocommerce-order-data__meta order_number">
 							<?php
 
 							$meta_list = array();
@@ -236,7 +236,7 @@ class WC_Meta_Box_Order_Data {
 							if ( $payment_method && 'other' !== $payment_method ) {
 								$payment_method_string = sprintf(
 									/* translators: %s: payment method */
-									__( 'Payment via %s', 'woocommerce' ),
+									__( 'Payment via %s', 'poocommerce' ),
 									esc_html( isset( $payment_gateways[ $payment_method ] ) ? $payment_gateways[ $payment_method ]->get_title() : $payment_method )
 								);
 
@@ -261,7 +261,7 @@ class WC_Meta_Box_Order_Data {
 							if ( $order->get_date_paid() ) {
 								$meta_list[] = sprintf(
 									/* translators: 1: date 2: time */
-									__( 'Paid on %1$s @ %2$s', 'woocommerce' ),
+									__( 'Paid on %1$s @ %2$s', 'poocommerce' ),
 									wc_format_datetime( $order->get_date_paid() ),
 									wc_format_datetime( $order->get_date_paid(), get_option( 'time_format' ) )
 								);
@@ -271,8 +271,8 @@ class WC_Meta_Box_Order_Data {
 							if ( $ip_address ) {
 								$meta_list[] = sprintf(
 									/* translators: %s: IP address */
-									__( 'Customer IP: %s', 'woocommerce' ),
-									'<span class="woocommerce-Order-customerIP">' . esc_html( $ip_address ) . '</span>'
+									__( 'Customer IP: %s', 'poocommerce' ),
+									'<span class="poocommerce-Order-customerIP">' . esc_html( $ip_address ) . '</span>'
 								);
 							}
 
@@ -290,7 +290,7 @@ class WC_Meta_Box_Order_Data {
 							 * @param $order WC_Order The order object being displayed.
 							 * @since 9.9.0
 							 */
-							do_action( 'woocommerce_admin_order_data_header_right', $order );
+							do_action( 'poocommerce_admin_order_data_header_right', $order );
 						?>
 					</div>
 				</div>
@@ -307,33 +307,33 @@ class WC_Meta_Box_Order_Data {
 					 * @param $order WC_Order The order object being displayed.
 					 * @since 7.9.0
 					 */
-					do_action( 'woocommerce_admin_order_data_after_payment_info', $order );
+					do_action( 'poocommerce_admin_order_data_after_payment_info', $order );
 				?>
 				<div class="order_data_column_container">
 					<div class="order_data_column">
-						<h3><?php esc_html_e( 'General', 'woocommerce' ); ?></h3>
+						<h3><?php esc_html_e( 'General', 'poocommerce' ); ?></h3>
 
 						<p class="form-field form-field-wide">
 							<?php
 							$order_date_created_localised = ! is_null( $order->get_date_created() ) ? $order->get_date_created()->getOffsetTimestamp() : '';
 							?>
-							<label for="order_date"><?php esc_html_e( 'Date created:', 'woocommerce' ); ?></label>
-							<input type="text" class="date-picker" name="order_date" maxlength="10" value="<?php echo esc_attr( date_i18n( 'Y-m-d', $order_date_created_localised ) ); ?>" pattern="<?php echo esc_attr( apply_filters( 'woocommerce_date_input_html_pattern', '[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])' ) ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment ?>" />@
+							<label for="order_date"><?php esc_html_e( 'Date created:', 'poocommerce' ); ?></label>
+							<input type="text" class="date-picker" name="order_date" maxlength="10" value="<?php echo esc_attr( date_i18n( 'Y-m-d', $order_date_created_localised ) ); ?>" pattern="<?php echo esc_attr( apply_filters( 'poocommerce_date_input_html_pattern', '[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])' ) ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment ?>" />@
 							&lrm;
-							<input type="number" class="hour" placeholder="<?php esc_attr_e( 'h', 'woocommerce' ); ?>" name="order_date_hour" min="0" max="23" step="1" value="<?php echo esc_attr( date_i18n( 'H', $order_date_created_localised ) ); ?>" pattern="([01]?[0-9]{1}|2[0-3]{1})" />:
-							<input type="number" class="minute" placeholder="<?php esc_attr_e( 'm', 'woocommerce' ); ?>" name="order_date_minute" min="0" max="59" step="1" value="<?php echo esc_attr( date_i18n( 'i', $order_date_created_localised ) ); ?>" pattern="[0-5]{1}[0-9]{1}" />
+							<input type="number" class="hour" placeholder="<?php esc_attr_e( 'h', 'poocommerce' ); ?>" name="order_date_hour" min="0" max="23" step="1" value="<?php echo esc_attr( date_i18n( 'H', $order_date_created_localised ) ); ?>" pattern="([01]?[0-9]{1}|2[0-3]{1})" />:
+							<input type="number" class="minute" placeholder="<?php esc_attr_e( 'm', 'poocommerce' ); ?>" name="order_date_minute" min="0" max="59" step="1" value="<?php echo esc_attr( date_i18n( 'i', $order_date_created_localised ) ); ?>" pattern="[0-5]{1}[0-9]{1}" />
 							<input type="hidden" name="order_date_second" value="<?php echo esc_attr( date_i18n( 's', $order_date_created_localised ) ); ?>" />
 						</p>
 
 						<p class="form-field form-field-wide wc-order-status">
 							<label for="order_status">
 								<?php
-								esc_html_e( 'Status:', 'woocommerce' );
+								esc_html_e( 'Status:', 'poocommerce' );
 								if ( $order->needs_payment() ) {
 									printf(
 										'<a href="%s">%s</a>',
 										esc_url( $order->get_checkout_payment_url() ),
-										esc_html__( 'Customer payment page &rarr;', 'woocommerce' )
+										esc_html__( 'Customer payment page &rarr;', 'poocommerce' )
 									);
 								}
 								?>
@@ -352,7 +352,7 @@ class WC_Meta_Box_Order_Data {
 							<!--email_off--> <!-- Disable CloudFlare email obfuscation -->
 							<label for="customer_user">
 								<?php
-								esc_html_e( 'Customer:', 'woocommerce' );
+								esc_html_e( 'Customer:', 'poocommerce' );
 								if ( $order->get_user_id( 'edit' ) ) {
 									$args = array(
 										'post_status'    => 'all',
@@ -362,12 +362,12 @@ class WC_Meta_Box_Order_Data {
 									printf(
 										'<a href="%s">%s</a>',
 										esc_url( add_query_arg( $args, admin_url( 'edit.php' ) ) ),
-										' ' . esc_html__( 'View other orders &rarr;', 'woocommerce' )
+										' ' . esc_html__( 'View other orders &rarr;', 'poocommerce' )
 									);
 									printf(
 										'<a href="%s">%s</a>',
 										esc_url( add_query_arg( 'user_id', $order->get_user_id( 'edit' ), admin_url( 'user-edit.php' ) ) ),
-										' ' . esc_html__( 'Profile &rarr;', 'woocommerce' )
+										' ' . esc_html__( 'Profile &rarr;', 'poocommerce' )
 									);
 								}
 								?>
@@ -384,20 +384,20 @@ class WC_Meta_Box_Order_Data {
 									/* translators: 1: user display name 2: user ID 3: user email */
 									$user_string = sprintf(
 									/* translators: 1: customer name, 2 customer id, 3: customer email */
-										esc_html__( '%1$s (#%2$s &ndash; %3$s)', 'woocommerce' ),
+										esc_html__( '%1$s (#%2$s &ndash; %3$s)', 'poocommerce' ),
 										$customer->get_first_name() . ' ' . $customer->get_last_name(),
 										$customer->get_id(),
 										$customer->get_email()
 									);
 								} else {
 									// print customer not available in the current site.
-									$user_string = esc_html__( '(Not available)', 'woocommerce' );
+									$user_string = esc_html__( '(Not available)', 'poocommerce' );
 								}
 							}
 							?>
-							<select class="wc-customer-search" id="customer_user" name="customer_user" data-placeholder="<?php esc_attr_e( 'Guest', 'woocommerce' ); ?>" data-allow_clear="true">
+							<select class="wc-customer-search" id="customer_user" name="customer_user" data-placeholder="<?php esc_attr_e( 'Guest', 'poocommerce' ); ?>" data-allow_clear="true">
 								<?php
-								// phpcs:disable WooCommerce.Commenting.CommentHooks.MissingHookComment
+								// phpcs:disable PooCommerce.Commenting.CommentHooks.MissingHookComment
 								/**
 								 * Filter to customize the display of the currently selected customer for an order in the order edit page.
 								 * This is the same filter used in the ajax call for customer search in the same metabox.
@@ -407,19 +407,19 @@ class WC_Meta_Box_Order_Data {
 								 * @param array @user_info An array containing one item with the name and email of the user currently selected as the customer for the order.
 								 */
 								?>
-								<option value="<?php echo esc_attr( $user_id ); ?>" selected="selected"><?php echo esc_html( htmlspecialchars( wp_kses_post( current( apply_filters( 'woocommerce_json_search_found_customers', array( $user_string ) ) ) ) ) ); ?></option>
-								<?php // phpcs:enable WooCommerce.Commenting.CommentHooks.MissingHookComment ?>
+								<option value="<?php echo esc_attr( $user_id ); ?>" selected="selected"><?php echo esc_html( htmlspecialchars( wp_kses_post( current( apply_filters( 'poocommerce_json_search_found_customers', array( $user_string ) ) ) ) ) ); ?></option>
+								<?php // phpcs:enable PooCommerce.Commenting.CommentHooks.MissingHookComment ?>
 							</select>
 							<!--/email_off-->
 						</p>
-						<?php do_action( 'woocommerce_admin_order_data_after_order_details', $order ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment ?>
+						<?php do_action( 'poocommerce_admin_order_data_after_order_details', $order ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment ?>
 					</div>
 					<div class="order_data_column">
 						<h3>
-							<?php esc_html_e( 'Billing', 'woocommerce' ); ?>
-							<a href="#" class="edit_address"><?php esc_html_e( 'Edit', 'woocommerce' ); ?></a>
+							<?php esc_html_e( 'Billing', 'poocommerce' ); ?>
+							<a href="#" class="edit_address"><?php esc_html_e( 'Edit', 'poocommerce' ); ?></a>
 							<span>
-								<a href="#" class="load_customer_billing" style="display:none;"><?php esc_html_e( 'Load billing address', 'woocommerce' ); ?></a>
+								<a href="#" class="load_customer_billing" style="display:none;"><?php esc_html_e( 'Load billing address', 'poocommerce' ); ?></a>
 							</span>
 						</h3>
 						<div class="address">
@@ -427,7 +427,7 @@ class WC_Meta_Box_Order_Data {
 							// Display values.
 							$user = Users::get_user_in_current_site( $order->get_user_id() );
 
-							$details_not_available_message = __( 'Details are not available for this customer as this user does not exist in the current site.', 'woocommerce' );
+							$details_not_available_message = __( 'Details are not available for this customer as this user does not exist in the current site.', 'poocommerce' );
 							// If the user is not a guest and is not a valid user in the current site, print details not available.
 							if ( $order->get_user_id() !== 0 && is_wp_error( $user ) ) {
 								echo '<p>' . esc_html( $details_not_available_message ) . '</p>';
@@ -435,7 +435,7 @@ class WC_Meta_Box_Order_Data {
 								if ( $order->get_formatted_billing_address() ) {
 									echo '<p>' . wp_kses( $order->get_formatted_billing_address(), array( 'br' => array() ) ) . '</p>';
 								} else {
-									echo '<p class="none_set"><strong>' . esc_html__( 'Address:', 'woocommerce' ) . '</strong> ' . esc_html__( 'No billing address set.', 'woocommerce' ) . '</p>';
+									echo '<p class="none_set"><strong>' . esc_html__( 'Address:', 'poocommerce' ) . '</strong> ' . esc_html__( 'No billing address set.', 'poocommerce' ) . '</p>';
 								}
 
 								$billing_fields = self::get_billing_fields( $order, 'view' );
@@ -502,21 +502,21 @@ class WC_Meta_Box_Order_Data {
 
 								switch ( $field['type'] ) {
 									case 'select':
-										woocommerce_wp_select( $field, $order );
+										poocommerce_wp_select( $field, $order );
 										break;
 									case 'checkbox':
-										woocommerce_wp_checkbox( $field, $order );
+										poocommerce_wp_checkbox( $field, $order );
 										break;
 									default:
-										woocommerce_wp_text_input( $field, $order );
+										poocommerce_wp_text_input( $field, $order );
 										break;
 								}
 							}
 							?>
 							<p class="form-field form-field-wide">
-								<label><?php esc_html_e( 'Payment method:', 'woocommerce' ); ?></label>
+								<label><?php esc_html_e( 'Payment method:', 'poocommerce' ); ?></label>
 								<select name="_payment_method" id="_payment_method" class="first">
-									<option value=""><?php esc_html_e( 'N/A', 'woocommerce' ); ?></option>
+									<option value=""><?php esc_html_e( 'N/A', 'poocommerce' ); ?></option>
 									<?php
 									$found_method = false;
 
@@ -530,19 +530,19 @@ class WC_Meta_Box_Order_Data {
 									}
 
 									if ( ! $found_method && ! empty( $payment_method ) ) {
-										echo '<option value="' . esc_attr( $payment_method ) . '" selected="selected">' . esc_html__( 'Other', 'woocommerce' ) . '</option>';
+										echo '<option value="' . esc_attr( $payment_method ) . '" selected="selected">' . esc_html__( 'Other', 'poocommerce' ) . '</option>';
 									} else {
-										echo '<option value="other">' . esc_html__( 'Other', 'woocommerce' ) . '</option>';
+										echo '<option value="other">' . esc_html__( 'Other', 'poocommerce' ) . '</option>';
 									}
 									?>
 								</select>
 							</p>
 							<?php
 
-							woocommerce_wp_text_input(
+							poocommerce_wp_text_input(
 								array(
 									'id'    => '_transaction_id',
-									'label' => __( 'Transaction ID', 'woocommerce' ),
+									'label' => __( 'Transaction ID', 'poocommerce' ),
 									'value' => $order->get_transaction_id( 'edit' ),
 								),
 								$order
@@ -550,15 +550,15 @@ class WC_Meta_Box_Order_Data {
 							?>
 
 						</div>
-						<?php do_action( 'woocommerce_admin_order_data_after_billing_address', $order ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment ?>
+						<?php do_action( 'poocommerce_admin_order_data_after_billing_address', $order ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment ?>
 					</div>
 					<div class="order_data_column">
 						<h3>
-							<?php esc_html_e( 'Shipping', 'woocommerce' ); ?>
-							<a href="#" class="edit_address"><?php esc_html_e( 'Edit', 'woocommerce' ); ?></a>
+							<?php esc_html_e( 'Shipping', 'poocommerce' ); ?>
+							<a href="#" class="edit_address"><?php esc_html_e( 'Edit', 'poocommerce' ); ?></a>
 							<span>
-								<a href="#" class="load_customer_shipping" style="display:none;"><?php esc_html_e( 'Load shipping address', 'woocommerce' ); ?></a>
-								<a href="#" class="billing-same-as-shipping" style="display:none;"><?php esc_html_e( 'Copy billing address', 'woocommerce' ); ?></a>
+								<a href="#" class="load_customer_shipping" style="display:none;"><?php esc_html_e( 'Load shipping address', 'poocommerce' ); ?></a>
+								<a href="#" class="billing-same-as-shipping" style="display:none;"><?php esc_html_e( 'Copy billing address', 'poocommerce' ); ?></a>
 							</span>
 						</h3>
 						<div class="address">
@@ -571,7 +571,7 @@ class WC_Meta_Box_Order_Data {
 								if ( $order->get_formatted_shipping_address() ) {
 									echo '<p>' . wp_kses( $order->get_formatted_shipping_address(), array( 'br' => array() ) ) . '</p>';
 								} else {
-									echo '<p class="none_set"><strong>' . esc_html__( 'Address:', 'woocommerce' ) . '</strong> ' . esc_html__( 'No shipping address set.', 'woocommerce' ) . '</p>';
+									echo '<p class="none_set"><strong>' . esc_html__( 'Address:', 'poocommerce' ) . '</strong> ' . esc_html__( 'No shipping address set.', 'poocommerce' ) . '</p>';
 								}
 
 								$shipping_fields = self::get_shipping_fields( $order, 'view' );
@@ -602,8 +602,8 @@ class WC_Meta_Box_Order_Data {
 									}
 								}
 
-								if ( apply_filters( 'woocommerce_enable_order_notes_field', 'yes' === get_option( 'woocommerce_enable_order_comments', 'yes' ) ) && $order->get_customer_note() ) { // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
-									echo '<p class="order_note"><strong>' . esc_html( __( 'Customer provided note:', 'woocommerce' ) ) . '</strong> ' . wp_kses( nl2br( esc_html( wc_wptexturize_order_note( $order->get_customer_note() ) ) ), array( 'br' => array() ) ) . '</p>';
+								if ( apply_filters( 'poocommerce_enable_order_notes_field', 'yes' === get_option( 'poocommerce_enable_order_comments', 'yes' ) ) && $order->get_customer_note() ) { // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
+									echo '<p class="order_note"><strong>' . esc_html( __( 'Customer provided note:', 'poocommerce' ) ) . '</strong> ' . wp_kses( nl2br( esc_html( wc_wptexturize_order_note( $order->get_customer_note() ) ) ), array( 'br' => array() ) ) . '</p>';
 								}
 							}
 							?>
@@ -640,13 +640,13 @@ class WC_Meta_Box_Order_Data {
 
 									switch ( $field['type'] ) {
 										case 'select':
-											woocommerce_wp_select( $field, $order );
+											poocommerce_wp_select( $field, $order );
 											break;
 										case 'checkbox':
-											woocommerce_wp_checkbox( $field, $order );
+											poocommerce_wp_checkbox( $field, $order );
 											break;
 										default:
-											woocommerce_wp_text_input( $field, $order );
+											poocommerce_wp_text_input( $field, $order );
 											break;
 									}
 								}
@@ -659,16 +659,16 @@ class WC_Meta_Box_Order_Data {
 							 *
 							 * @param bool TRUE if the note should be displayed. FALSE otherwise.
 							 */
-							if ( apply_filters( 'woocommerce_enable_order_notes_field', 'yes' === get_option( 'woocommerce_enable_order_comments', 'yes' ) ) ) :
+							if ( apply_filters( 'poocommerce_enable_order_notes_field', 'yes' === get_option( 'poocommerce_enable_order_comments', 'yes' ) ) ) :
 								?>
 								<p class="form-field form-field-wide">
-									<label for="customer_note"><?php esc_html_e( 'Customer provided note', 'woocommerce' ); ?>:</label>
-									<textarea rows="1" cols="40" name="customer_note" tabindex="6" id="excerpt" placeholder="<?php esc_attr_e( 'Customer notes about the order', 'woocommerce' ); ?>"><?php echo wp_kses( $order->get_customer_note(), array( 'br' => array() ) ); ?></textarea>
+									<label for="customer_note"><?php esc_html_e( 'Customer provided note', 'poocommerce' ); ?>:</label>
+									<textarea rows="1" cols="40" name="customer_note" tabindex="6" id="excerpt" placeholder="<?php esc_attr_e( 'Customer notes about the order', 'poocommerce' ); ?>"><?php echo wp_kses( $order->get_customer_note(), array( 'br' => array() ) ); ?></textarea>
 								</p>
 							<?php endif; ?>
 						</div>
 
-						<?php do_action( 'woocommerce_admin_order_data_after_shipping_address', $order ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment ?>
+						<?php do_action( 'poocommerce_admin_order_data_after_shipping_address', $order ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment ?>
 					</div>
 				</div>
 				<div class="clear"></div>
@@ -687,11 +687,11 @@ class WC_Meta_Box_Order_Data {
 		// phpcs:disable WordPress.Security.NonceVerification.Missing
 
 		if ( ! isset( $_POST['order_status'] ) ) {
-			throw new Exception( __( 'Order status is missing.', 'woocommerce' ), 400 );
+			throw new Exception( __( 'Order status is missing.', 'poocommerce' ), 400 );
 		}
 
 		if ( ! isset( $_POST['_payment_method'] ) ) {
-			throw new Exception( __( 'Payment method is missing.', 'woocommerce' ), 400 );
+			throw new Exception( __( 'Payment method is missing.', 'poocommerce' ), 400 );
 		}
 
 		// Ensure gateways are loaded in case they need to insert data into the emails.
@@ -792,7 +792,7 @@ class WC_Meta_Box_Order_Data {
 			}
 
 			if ( 'other' === $payment_method ) {
-				$payment_method_title = esc_html__( 'Other', 'woocommerce' );
+				$payment_method_title = esc_html__( 'Other', 'poocommerce' );
 			}
 
 			$props['payment_method']       = $payment_method;
@@ -804,7 +804,7 @@ class WC_Meta_Box_Order_Data {
 			$date = time();
 		} else {
 			if ( ! isset( $_POST['order_date_hour'] ) || ! isset( $_POST['order_date_minute'] ) || ! isset( $_POST['order_date_second'] ) ) {
-				throw new Exception( __( 'Order date, hour, minute and/or second are missing.', 'woocommerce' ), 400 );
+				throw new Exception( __( 'Order date, hour, minute and/or second are missing.', 'poocommerce' ), 400 );
 			}
 			// phpcs:ignore WordPress.Security.ValidatedSanitizedInput
 			$date = gmdate( 'Y-m-d H:i:s', strtotime( $_POST['order_date'] . ' ' . (int) $_POST['order_date_hour'] . ':' . (int) $_POST['order_date_minute'] . ':' . (int) $_POST['order_date_second'] ) );

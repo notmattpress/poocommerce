@@ -3,23 +3,23 @@
  */
 import { useRef, useMemo } from '@wordpress/element';
 import { useSelect } from '@wordpress/data';
-import { snakeCaseKeys } from '@woocommerce/base-utils';
+import { snakeCaseKeys } from '@poocommerce/base-utils';
 import type {
 	OrderFormValues,
 	AddressFormValues,
 	FormType,
 	ContactFormValues,
-} from '@woocommerce/settings';
+} from '@poocommerce/settings';
 import {
 	ORDER_FORM_KEYS,
 	CONTACT_FORM_KEYS,
-} from '@woocommerce/block-settings';
+} from '@poocommerce/block-settings';
 import fastDeepEqual from 'fast-deep-equal/es6';
 import {
 	cartStore,
 	checkoutStore,
 	paymentStore,
-} from '@woocommerce/block-data';
+} from '@poocommerce/block-data';
 import type Ajv from 'ajv';
 
 const useDocumentObject = < T extends FormType | 'global' >(

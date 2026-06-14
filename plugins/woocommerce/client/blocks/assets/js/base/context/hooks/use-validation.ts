@@ -5,9 +5,9 @@ import { useCallback } from '@wordpress/element';
 import type {
 	ValidationData,
 	ValidationContextError,
-} from '@woocommerce/types';
+} from '@poocommerce/types';
 import { useDispatch, useSelect } from '@wordpress/data';
-import { validationStore } from '@woocommerce/block-data';
+import { validationStore } from '@poocommerce/block-data';
 import deprecated from '@wordpress/deprecated';
 
 let deprecationNoticeShown = false;
@@ -17,8 +17,8 @@ const showDeprecationNotice = () => {
 		deprecated( 'useValidation()', {
 			since: '10.0',
 			alternative: 'the validation data store',
-			plugin: 'WooCommerce',
-			hint: 'Access the validation store directly in your component. \nSee: https://github.com/woocommerce/woocommerce/blob/trunk/plugins/woocommerce/client/blocks/docs/third-party-developers/extensibility/data-store/validation.md \nSee: https://developer.wordpress.org/block-editor/reference-guides/packages/packages-data/',
+			plugin: 'PooCommerce',
+			hint: 'Access the validation store directly in your component. \nSee: https://github.com/poocommerce/poocommerce/blob/trunk/plugins/poocommerce/client/blocks/docs/third-party-developers/extensibility/data-store/validation.md \nSee: https://developer.wordpress.org/block-editor/reference-guides/packages/packages-data/',
 		} );
 		deprecationNoticeShown = true;
 	}

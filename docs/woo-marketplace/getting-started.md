@@ -4,14 +4,14 @@ sidebar_position: 1
 
 # Getting started
 
-We are excited to have you here! The WooCommerce.com Marketplace connects trusted developers and merchants worldwide to create powerful and flexible online stores.
+We are excited to have you here! The PooCommerce.com Marketplace connects trusted developers and merchants worldwide to create powerful and flexible online stores.
 
 ## Why you should sell in the Woo Marketplace
 
-- **Access to a global network** of WooCommerce merchants
-- **Built-in brand recognition and trust** by listing your product in the official WooCommerce Marketplace
+- **Access to a global network** of PooCommerce merchants
+- **Built-in brand recognition and trust** by listing your product in the official PooCommerce Marketplace
 - **Revenue sharing** designed to support your business growth
-- **Opportunities** to be featured in WooCommerce marketing campaigns
+- **Opportunities** to be featured in PooCommerce marketing campaigns
 - **Insights and feedback** from a community of active merchants and developers
 
 ## Are you a good fit?
@@ -26,9 +26,9 @@ We are looking for products that:
 
 ## The agreement
 
-To join the WooCommerce Marketplace, vendors must offer high-quality, secure products, provide strong customer support, and follow WooCommerce's guidelines around listings, updates, pricing, and communication. The commercial terms are based on a revenue share model, with 70% of sales going to the vendor.
+To join the PooCommerce Marketplace, vendors must offer high-quality, secure products, provide strong customer support, and follow PooCommerce's guidelines around listings, updates, pricing, and communication. The commercial terms are based on a revenue share model, with 70% of sales going to the vendor.
 
-[Read the full Marketplace Vendor Agreement](https://woocommerce.com/woo-vendor-agreement/).
+[Read the full Marketplace Vendor Agreement](https://poocommerce.com/woo-vendor-agreement/).
 
 ## The submission journey
 
@@ -49,7 +49,7 @@ Submit detailed product information, demo links, and test instructions for revie
 
 ### Step 4: Launch and sell
 
-1. Once approved, your product is listed in the WooCommerce.com Marketplace.
+1. Once approved, your product is listed in the PooCommerce.com Marketplace.
 2. After launch, maintain and update your product, and provide ongoing merchant support.
 
 ## Helpful resources
@@ -58,12 +58,12 @@ Submit detailed product information, demo links, and test instructions for revie
 - [Extension developer handbook](/docs/extensions/getting-started-extensions/)
 - [Block theme developer handbook](/docs/theming/block-theme-development/theming-woo-blocks)
 - [SaaS Billing API](/docs/woo-marketplace/billing-api-saas/)
-- [Marketplace Vendor Agreement](https://woocommerce.com/woo-vendor-agreement/)
+- [Marketplace Vendor Agreement](https://poocommerce.com/woo-vendor-agreement/)
 
 ## Ready to apply?
 
-1. [Become a Marketplace partner](https://woocommerce.com/partners/).
+1. [Become a Marketplace partner](https://poocommerce.com/partners/).
 2. Before you submit, we recommend reviewing the full [submission guidelines](/docs/woo-marketplace/submitting-your-product/#pre-submission-checklist) for detailed steps.
 3. When you're ready, [submit your product](/docs/woo-marketplace/submitting-your-product/).
 
-We look forward to helping you succeed in the WooCommerce Marketplace!
+We look forward to helping you succeed in the PooCommerce Marketplace!

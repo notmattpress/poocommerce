@@ -49,7 +49,7 @@ export function ScreenHeader( { title, description, onBack }: Props ) {
 						/>
 						<Spacer>
 							<Heading
-								className="woocommerce-email-editor-styles-header"
+								className="poocommerce-email-editor-styles-header"
 								level={ 2 }
 								size={ 13 }
 							>
@@ -60,7 +60,7 @@ export function ScreenHeader( { title, description, onBack }: Props ) {
 				</Spacer>
 			</View>
 			{ description && (
-				<p className="woocommerce-email-editor-styles-header-description">
+				<p className="poocommerce-email-editor-styles-header-description">
 					{ description }
 				</p>
 			) }

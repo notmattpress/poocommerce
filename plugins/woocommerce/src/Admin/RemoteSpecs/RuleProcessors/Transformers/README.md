@@ -30,7 +30,7 @@ Transformers run in the order in which they are defined, and each transformer pa
                 }
             }
         ],
-        "option_name": "woocommerce_onboarding_profile",
+        "option_name": "poocommerce_onboarding_profile",
         "operation": "!=",
         "value": "fashion-apparel-accessories",
         "default": []

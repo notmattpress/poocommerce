@@ -1,49 +1,49 @@
 # Monorepo CI and package managers manifests.
-/.github/ @woocommerce/flux
-**/composer.json @woocommerce/flux
-**/package.json @woocommerce/flux
+/.github/ @poocommerce/flux
+**/composer.json @poocommerce/flux
+**/package.json @poocommerce/flux
 
 # Monorepo tooling folders.
-/bin/ @woocommerce/flux
-/tools/ @woocommerce/flux
-/packages/js/eslint-plugin/ @woocommerce/flux
-/packages/js/dependency-extraction-webpack-plugin/ @woocommerce/flux
-/packages/js/e2e-utils-playwright/ @woocommerce/flux
+/bin/ @poocommerce/flux
+/tools/ @poocommerce/flux
+/packages/js/eslint-plugin/ @poocommerce/flux
+/packages/js/dependency-extraction-webpack-plugin/ @poocommerce/flux
+/packages/js/e2e-utils-playwright/ @poocommerce/flux
 
 # Files in root of repository
-/.* @woocommerce/flux
-/*.* @woocommerce/flux
+/.* @poocommerce/flux
+/*.* @poocommerce/flux
 /changelog.txt
 /pnpm-lock.yaml
 
-# Docs resources, which gets published to https://developer.woocommerce.com
-/docs/ @woocommerce/developer-advocacy
+# Docs resources, which gets published to https://developer.poocommerce.com
+/docs/ @poocommerce/developer-advocacy
 
 # Interactivity API - public stores
-/plugins/woocommerce/client/blocks/assets/js/base/stores/ @woocommerce/billow
-/plugins/woocommerce/src/Blocks/Utils/BlocksSharedState.php @woocommerce/billow
+/plugins/poocommerce/client/blocks/assets/js/base/stores/ @poocommerce/billow
+/plugins/poocommerce/src/Blocks/Utils/BlocksSharedState.php @poocommerce/billow
 
 # Core cart and checkout related files
-/plugins/woocommerce/includes/class-wc-cart*.php @woocommerce/rubik
-/plugins/woocommerce/includes/class-wc-checkout*.php @woocommerce/rubik
-/plugins/woocommerce/includes/wc-cart-functions.php @woocommerce/rubik
-/plugins/woocommerce/includes/class-wc-session-handler.php @woocommerce/rubik
+/plugins/poocommerce/includes/class-wc-cart*.php @poocommerce/rubik
+/plugins/poocommerce/includes/class-wc-checkout*.php @poocommerce/rubik
+/plugins/poocommerce/includes/wc-cart-functions.php @poocommerce/rubik
+/plugins/poocommerce/includes/class-wc-session-handler.php @poocommerce/rubik
 
 # Store API related files
-/plugins/woocommerce/src/StoreApi/ @woocommerce/rubik
+/plugins/poocommerce/src/StoreApi/ @poocommerce/rubik
 
 # Cart Checkout Blocks
-/plugins/woocommerce/client/blocks/assets/js/blocks/cart @woocommerce/rubik
-/plugins/woocommerce/client/blocks/assets/js/blocks/cart-checkout-shared @woocommerce/rubik
-/plugins/woocommerce/client/blocks/assets/js/blocks/checkout @woocommerce/rubik
-/plugins/woocommerce/client/blocks/assets/js/blocks/mini-cart @woocommerce/rubik
-/plugins/woocommerce/client/blocks/assets/js/blocks/order-confirmation @woocommerce/rubik
-/plugins/woocommerce/client/blocks/packages/checkout @woocommerce/rubik
+/plugins/poocommerce/client/blocks/assets/js/blocks/cart @poocommerce/rubik
+/plugins/poocommerce/client/blocks/assets/js/blocks/cart-checkout-shared @poocommerce/rubik
+/plugins/poocommerce/client/blocks/assets/js/blocks/checkout @poocommerce/rubik
+/plugins/poocommerce/client/blocks/assets/js/blocks/mini-cart @poocommerce/rubik
+/plugins/poocommerce/client/blocks/assets/js/blocks/order-confirmation @poocommerce/rubik
+/plugins/poocommerce/client/blocks/packages/checkout @poocommerce/rubik
 
 # Email Editor packages
-/packages/js/email-editor/ @woocommerce/ballade
-/packages/php/email-editor/ @woocommerce/ballade
+/packages/js/email-editor/ @poocommerce/ballade
+/packages/php/email-editor/ @poocommerce/ballade
 
 # Email Editor integrations
-/plugins/woocommerce/src/Internal/EmailEditor/ @woocommerce/ballade
-/plugins/woocommerce/client/admin/client/wp-admin-scripts/email-editor-integration/ @woocommerce/ballade
+/plugins/poocommerce/src/Internal/EmailEditor/ @poocommerce/ballade
+/plugins/poocommerce/client/admin/client/wp-admin-scripts/email-editor-integration/ @poocommerce/ballade

@@ -1,12 +1,12 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\GraphQL\Type\Definition;
+namespace Automattic\PooCommerce\Vendor\GraphQL\Type\Definition;
 
-use Automattic\WooCommerce\Vendor\GraphQL\Error\Error;
-use Automattic\WooCommerce\Vendor\GraphQL\Error\InvariantViolation;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\InterfaceTypeDefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\InterfaceTypeExtensionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Utils\Utils;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\Error;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\InvariantViolation;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\InterfaceTypeDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\InterfaceTypeExtensionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Utils\Utils;
 
 /**
  * @phpstan-import-type ResolveType from AbstractType
@@ -63,7 +63,7 @@ class InterfaceType extends Type implements AbstractType, OutputType, CompositeT
     {
         if (! $type instanceof self) {
             $notInterfaceType = Utils::printSafe($type);
-            throw new InvariantViolation("Expected {$notInterfaceType} to be a Automattic\WooCommerce\Vendor\GraphQL Interface type.");
+            throw new InvariantViolation("Expected {$notInterfaceType} to be a Automattic\PooCommerce\Vendor\GraphQL Interface type.");
         }
 
         return $type;

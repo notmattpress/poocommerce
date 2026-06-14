@@ -3,7 +3,7 @@
  * Handles product form field related methods.
  */
 
-namespace Automattic\WooCommerce\Internal\Admin\ProductForm;
+namespace Automattic\PooCommerce\Internal\Admin\ProductForm;
 
 /**
  * Field class.
@@ -38,7 +38,7 @@ class Field extends Component {
 			throw new \Exception(
 				sprintf(
 				/* translators: 1: Missing arguments list. */
-					esc_html__( 'You are missing required arguments of WooCommerce ProductForm Field: %1$s', 'woocommerce' ),
+					esc_html__( 'You are missing required arguments of PooCommerce ProductForm Field: %1$s', 'poocommerce' ),
 					join( ', ', $missing_arguments )
 				)
 			);

@@ -2,14 +2,14 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\EmailEditor\WCTransactionalEmails;
+namespace Automattic\PooCommerce\Tests\Internal\EmailEditor\WCTransactionalEmails;
 
-use Automattic\WooCommerce\Internal\EmailEditor\Integration;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateChangeSummary;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateDivergenceDetector;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateSelectiveApplier;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateSyncRegistry;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsManager;
+use Automattic\PooCommerce\Internal\EmailEditor\Integration;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateChangeSummary;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateDivergenceDetector;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateSelectiveApplier;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateSyncRegistry;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsManager;
 
 /**
  * Tests for the WCEmailTemplateSelectiveApplier class.
@@ -42,7 +42,7 @@ class WCEmailTemplateSelectiveApplierTest extends \WC_Unit_Test_Case {
 	public function setUp(): void {
 		parent::setUp();
 
-		update_option( 'woocommerce_feature_block_email_editor_enabled', 'yes' );
+		update_option( 'poocommerce_feature_block_email_editor_enabled', 'yes' );
 
 		$this->fixtures_base = __DIR__ . '/fixtures/';
 		$this->posts_manager = WCTransactionalEmailPostsManager::get_instance();
@@ -58,15 +58,15 @@ class WCEmailTemplateSelectiveApplierTest extends \WC_Unit_Test_Case {
 	public function tearDown(): void {
 		$this->cleanup_injected_emails();
 
-		remove_all_filters( 'woocommerce_transactional_emails_for_block_editor' );
-		remove_all_filters( 'woocommerce_email_content_post_data' );
+		remove_all_filters( 'poocommerce_transactional_emails_for_block_editor' );
+		remove_all_filters( 'poocommerce_email_content_post_data' );
 
 		WCEmailTemplateSyncRegistry::reset_cache();
 		WCEmailTemplateChangeSummary::reset_cache();
 		WCEmailTemplateChangeSummary::set_logger( null );
 		WCEmailTemplateSelectiveApplier::set_logger( null );
 
-		update_option( 'woocommerce_feature_block_email_editor_enabled', 'no' );
+		update_option( 'poocommerce_feature_block_email_editor_enabled', 'no' );
 
 		parent::tearDown();
 	}
@@ -897,20 +897,20 @@ class WCEmailTemplateSelectiveApplierTest extends \WC_Unit_Test_Case {
 
 	/**
 	 * Apply rewrites the deprecated `wp:woo/email-content` namespace to the
-	 * canonical `wp:woocommerce/email-content` form, including the
+	 * canonical `wp:poocommerce/email-content` form, including the
 	 * `wp-block-woo-email-content` CSS class on the inner div. The
 	 * migration runs unconditionally during apply (independent of `choices`)
 	 * because `woo/email-content` is a known alias of the canonical block,
 	 * not a customisation worth preserving. The response surfaces it via
 	 * `aliases_migrated`.
 	 */
-	public function test_apply_selectively_migrates_woo_email_content_to_woocommerce_namespace(): void {
+	public function test_apply_selectively_migrates_woo_email_content_to_poocommerce_namespace(): void {
 		$email_id = 'sa_alias_migration';
 		$this->register_fixture_email( $email_id );
 
-		$core_content = '<!-- wp:woocommerce/email-content {"lock":{"move":false,"remove":true}} -->'
-			. '<div class="wp-block-woocommerce-email-content"> ##WOO_CONTENT## </div>'
-			. '<!-- /wp:woocommerce/email-content -->';
+		$core_content = '<!-- wp:poocommerce/email-content {"lock":{"move":false,"remove":true}} -->'
+			. '<div class="wp-block-poocommerce-email-content"> ##WOO_CONTENT## </div>'
+			. '<!-- /wp:poocommerce/email-content -->';
 
 		$post_content = '<!-- wp:woo/email-content {"lock":{"move":false,"remove":true}} -->'
 			. '<div class="wp-block-woo-email-content"> ##WOO_CONTENT## </div>'
@@ -925,8 +925,8 @@ class WCEmailTemplateSelectiveApplierTest extends \WC_Unit_Test_Case {
 		$this->assertSame( 'applied', $result['status'] );
 
 		$merged = (string) $result['merged_content'];
-		$this->assertStringContainsString( 'wp:woocommerce/email-content', $merged, 'Block name comment must be migrated to canonical form.' );
-		$this->assertStringContainsString( 'wp-block-woocommerce-email-content', $merged, 'CSS class must be migrated to canonical form.' );
+		$this->assertStringContainsString( 'wp:poocommerce/email-content', $merged, 'Block name comment must be migrated to canonical form.' );
+		$this->assertStringContainsString( 'wp-block-poocommerce-email-content', $merged, 'CSS class must be migrated to canonical form.' );
 		$this->assertStringNotContainsString( 'wp:woo/email-content', $merged, 'Deprecated namespace comment must not survive the apply.' );
 		$this->assertStringNotContainsString( 'wp-block-woo-email-content', $merged, 'Deprecated CSS class must not survive the apply.' );
 
@@ -940,7 +940,7 @@ class WCEmailTemplateSelectiveApplierTest extends \WC_Unit_Test_Case {
 		// The persisted post reflects the migrated content too.
 		$persisted = get_post( $post_id );
 		$this->assertInstanceOf( \WP_Post::class, $persisted );
-		$this->assertStringContainsString( 'wp:woocommerce/email-content', $persisted->post_content );
+		$this->assertStringContainsString( 'wp:poocommerce/email-content', $persisted->post_content );
 		$this->assertStringNotContainsString( 'wp:woo/email-content', $persisted->post_content );
 	}
 
@@ -951,8 +951,8 @@ class WCEmailTemplateSelectiveApplierTest extends \WC_Unit_Test_Case {
 		$email_id = 'apply_keep_yours_status';
 		$this->register_fixture_email( $email_id );
 
-		$canonical = "<!-- wp:paragraph -->\n<p>Hi there [woocommerce/customer-username],</p>\n<!-- /wp:paragraph -->";
-		$post_html = "<!-- wp:paragraph -->\n<p>Hello, [woocommerce/customer-username]!</p>\n<!-- /wp:paragraph -->";
+		$canonical = "<!-- wp:paragraph -->\n<p>Hi there [poocommerce/customer-username],</p>\n<!-- /wp:paragraph -->";
+		$post_html = "<!-- wp:paragraph -->\n<p>Hello, [poocommerce/customer-username]!</p>\n<!-- /wp:paragraph -->";
 
 		$this->use_canonical_content( $email_id, $canonical );
 		$post_id = $this->create_woo_email_post( $email_id, $post_html );
@@ -1024,7 +1024,7 @@ class WCEmailTemplateSelectiveApplierTest extends \WC_Unit_Test_Case {
 		$this->injected_email_keys[] = $class_key;
 
 		add_filter(
-			'woocommerce_transactional_emails_for_block_editor',
+			'poocommerce_transactional_emails_for_block_editor',
 			static function ( array $emails ) use ( $email_id ): array {
 				if ( ! in_array( $email_id, $emails, true ) ) {
 					$emails[] = $email_id;
@@ -1048,7 +1048,7 @@ class WCEmailTemplateSelectiveApplierTest extends \WC_Unit_Test_Case {
 	 */
 	private function use_canonical_content( string $email_id, string $content ): void {
 		add_filter(
-			'woocommerce_email_content_post_data',
+			'poocommerce_email_content_post_data',
 			static function ( array $post_data, string $type ) use ( $email_id, $content ): array {
 				if ( $type === $email_id ) {
 					$post_data['post_content'] = $content;

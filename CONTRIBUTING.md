@@ -1,6 +1,6 @@
-# Contributing to WooCommerce
+# Contributing to PooCommerce
 
-This is a quick reference for common commands used during development. For broader contribution guidelines, see the [Contributing to WooCommerce](https://developer.woocommerce.com/docs/contribution/contributing/) docs. For detailed development notes, see [DEVELOPMENT.md](DEVELOPMENT.md).
+This is a quick reference for common commands used during development. For broader contribution guidelines, see the [Contributing to PooCommerce](https://developer.poocommerce.com/docs/contribution/contributing/) docs. For detailed development notes, see [DEVELOPMENT.md](DEVELOPMENT.md).
 
 ## Tooling
 
@@ -27,10 +27,10 @@ pnpm install
 This is a PNPM workspaces monorepo. Use `--filter` to target individual projects:
 
 ```sh
-# Build WooCommerce Core + deps
-pnpm --filter='@woocommerce/plugin-woocommerce' build
+# Build PooCommerce Core + deps
+pnpm --filter='@poocommerce/plugin-poocommerce' build
 # Lint a specific package
-pnpm --filter='@woocommerce/components' lint
+pnpm --filter='@poocommerce/components' lint
 # Build all JS packages
 pnpm --filter='./packages/js/*' build
 # Build only what changed
@@ -44,7 +44,7 @@ See [DEVELOPMENT.md](DEVELOPMENT.md) for more filtering examples and [tools/READ
 The repository uses [`@wordpress/env`](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-env/) (`wp-env`) for local development environments.
 
 ```sh
-cd plugins/woocommerce
+cd plugins/poocommerce
 # Start the environment (creates it if needed, pulls latest config)
 pnpm env:dev
 # Stop the environment
@@ -58,24 +58,24 @@ pnpm env:destroy
 ```sh
 # Build everything
 pnpm build
-# Build WooCommerce Core
-pnpm --filter='@woocommerce/plugin-woocommerce' build
-# Create woocommerce.zip
-pnpm --filter='@woocommerce/plugin-woocommerce' build:zip
+# Build PooCommerce Core
+pnpm --filter='@poocommerce/plugin-poocommerce' build
+# Create poocommerce.zip
+pnpm --filter='@poocommerce/plugin-poocommerce' build:zip
 ```
 
 For active development with file watching:
 
 ```sh
 # Watch and rebuild on changes
-pnpm --filter='@woocommerce/plugin-woocommerce' watch:build
+pnpm --filter='@poocommerce/plugin-poocommerce' watch:build
 ```
 
 ## Tests
 
 ```sh
 # PHP unit tests (requires wp-env)
-cd plugins/woocommerce
+cd plugins/poocommerce
 # Start the test environment
 pnpm env:dev
 # Run all PHP unit tests
@@ -86,18 +86,18 @@ pnpm test:unit:env -- --filter=TestClassName
 pnpm test:unit:env:watch
 
 # E2E tests (requires Docker)
-cd plugins/woocommerce
+cd plugins/poocommerce
 # Start the E2E environment
 pnpm env:start
 # Run Playwright E2E tests
 pnpm test:e2e
 
 # JavaScript tests
-pnpm --filter='@woocommerce/admin-library' test:js
-pnpm --filter='@woocommerce/block-library' test:js
+pnpm --filter='@poocommerce/admin-library' test:js
+pnpm --filter='@poocommerce/block-library' test:js
 ```
 
-See the [unit tests README](plugins/woocommerce/tests/README.md), [E2E tests README](plugins/woocommerce/tests/e2e-pw/README.md), and [performance tests README](plugins/woocommerce/tests/performance/README.md) for full details.
+See the [unit tests README](plugins/poocommerce/tests/README.md), [E2E tests README](plugins/poocommerce/tests/e2e-pw/README.md), and [performance tests README](plugins/poocommerce/tests/performance/README.md) for full details.
 
 ## Linting and static analysis
 
@@ -105,42 +105,42 @@ See the [unit tests README](plugins/woocommerce/tests/README.md), [E2E tests REA
 # Lint everything
 pnpm lint
 # Lint changed PHP files
-pnpm --filter='@woocommerce/plugin-woocommerce' lint:php:changes
+pnpm --filter='@poocommerce/plugin-poocommerce' lint:php:changes
 # Lint PHP changes on branch (vs trunk)
-pnpm --filter='@woocommerce/plugin-woocommerce' lint:php:changes:branch
+pnpm --filter='@poocommerce/plugin-poocommerce' lint:php:changes:branch
 # Auto-fix PHP lint issues
-pnpm --filter='@woocommerce/plugin-woocommerce' lint:php:fix -- path/to/file.php
+pnpm --filter='@poocommerce/plugin-poocommerce' lint:php:fix -- path/to/file.php
 # Lint JS/TS (ESLint)
-pnpm --filter='@woocommerce/plugin-woocommerce' lint:lang:js
+pnpm --filter='@poocommerce/plugin-poocommerce' lint:lang:js
 ```
 
 PHPStan:
 
 ```sh
-cd plugins/woocommerce
+cd plugins/poocommerce
 composer exec -- phpstan analyse path/to/File.php --memory-limit=2G
 ```
 
-See the [Coding Standards](https://developer.woocommerce.com/docs/best-practices/coding-standards/) docs and the [WordPress Coding Standards](https://developer.wordpress.org/coding-standards/wordpress-coding-standards/php/) for conventions.
+See the [Coding Standards](https://developer.poocommerce.com/docs/best-practices/coding-standards/) docs and the [WordPress Coding Standards](https://developer.wordpress.org/coding-standards/wordpress-coding-standards/php/) for conventions.
 
 ## Changelog
 
 Every PR that changes code in a project requires a changelog entry:
 
 ```sh
-# Interactive prompt for WooCommerce Core
-pnpm --filter='@woocommerce/plugin-woocommerce' changelog add
+# Interactive prompt for PooCommerce Core
+pnpm --filter='@poocommerce/plugin-poocommerce' changelog add
 ```
 
-Replace `@woocommerce/plugin-woocommerce` with the relevant package name if your changes affect a different project.
+Replace `@poocommerce/plugin-poocommerce` with the relevant package name if your changes affect a different project.
 
-For the full PR workflow, changelog conventions, and coding guidelines, see [Contributing to WooCommerce](.github/CONTRIBUTING.md) and the [contribution docs](https://developer.woocommerce.com/docs/contribution/contributing/).
+For the full PR workflow, changelog conventions, and coding guidelines, see [Contributing to PooCommerce](.github/CONTRIBUTING.md) and the [contribution docs](https://developer.poocommerce.com/docs/contribution/contributing/).
 
 ## Repository structure
 
 ```
 plugins/                   # WordPress plugins
-  woocommerce/             # WooCommerce Core plugin
+  poocommerce/             # PooCommerce Core plugin
     src/                   #   Modern PHP (PSR-4, DI container)
     includes/              #   Legacy PHP
     client/admin/          #   Admin React/TypeScript app
@@ -151,4 +151,4 @@ packages/                  # Shared libraries
 tools/                     # Monorepo utilities and scripts
 ```
 
-See [plugins/woocommerce/src/README.md](plugins/woocommerce/src/README.md) for modern PHP architecture and [tools/README.md](tools/README.md) for monorepo tooling.
+See [plugins/poocommerce/src/README.md](plugins/poocommerce/src/README.md) for modern PHP architecture and [tools/README.md](tools/README.md) for monorepo tooling.

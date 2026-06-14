@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<ruleset name="WooCommerce Analytics Coding Standards">
+<ruleset name="PooCommerce Analytics Coding Standards">
 	<rule ref="WordPress">
 		<!-- Yoda conditions are not enforced in this package. -->
 		<exclude name="WordPress.PHP.YodaConditions"/>
@@ -17,14 +17,14 @@
 	<rule ref="WordPress.WP.I18n">
 		<properties>
 			<property name="text_domain" type="array">
-				<element value="woocommerce-analytics" />
+				<element value="poocommerce-analytics" />
 			</property>
 		</properties>
 	</rule>
 	<rule ref="WordPress.Utils.I18nTextDomainFixer">
 		<properties>
 			<property name="old_text_domain" type="array" />
-			<property name="new_text_domain" value="woocommerce-analytics" />
+			<property name="new_text_domain" value="poocommerce-analytics" />
 		</properties>
 	</rule>
 

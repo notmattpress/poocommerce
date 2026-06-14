@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\GraphQL\Validator\Rules;
+namespace Automattic\PooCommerce\Vendor\GraphQL\Validator\Rules;
 
-use Automattic\WooCommerce\Vendor\GraphQL\Error\Error;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\FragmentSpreadNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\NodeKind;
-use Automattic\WooCommerce\Vendor\GraphQL\Validator\QueryValidationContext;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\Error;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\FragmentSpreadNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\NodeKind;
+use Automattic\PooCommerce\Vendor\GraphQL\Validator\QueryValidationContext;
 
 class KnownFragmentNames extends ValidationRule
 {

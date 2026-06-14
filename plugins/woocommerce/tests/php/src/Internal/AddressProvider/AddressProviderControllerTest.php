@@ -1,9 +1,9 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\AddressProvider;
+namespace Automattic\PooCommerce\Tests\Internal\AddressProvider;
 
-use Automattic\WooCommerce\Internal\AddressProvider\AddressProviderController;
+use Automattic\PooCommerce\Internal\AddressProvider\AddressProviderController;
 use Mockery\Adapter\Phpunit\MockeryTestCase;
 use WC_Address_Provider;
 
@@ -36,7 +36,7 @@ class AddressProviderControllerTest extends MockeryTestCase {
 
 		// Setup mock logger.
 		$this->mock_logger = $this->getMockBuilder( 'WC_Logger_Interface' )->getMock();
-		add_filter( 'woocommerce_logging_class', array( $this, 'override_wc_logger' ) );
+		add_filter( 'poocommerce_logging_class', array( $this, 'override_wc_logger' ) );
 	}
 
 	/**
@@ -44,8 +44,8 @@ class AddressProviderControllerTest extends MockeryTestCase {
 	 */
 	protected function tearDown(): void {
 		parent::tearDown();
-		remove_all_filters( 'woocommerce_address_providers' );
-		remove_filter( 'woocommerce_logging_class', array( $this, 'override_wc_logger' ) );
+		remove_all_filters( 'poocommerce_address_providers' );
+		remove_filter( 'poocommerce_logging_class', array( $this, 'override_wc_logger' ) );
 	}
 
 	/**
@@ -98,7 +98,7 @@ class AddressProviderControllerTest extends MockeryTestCase {
 		$provider2_class_name = get_class( $provider2_class );
 
 		add_filter(
-			'woocommerce_address_providers',
+			'poocommerce_address_providers',
 			function ( $providers ) use ( $provider1_class_name, $provider2_class_name ) {
 				$providers[] = $provider1_class_name;
 				$providers[] = $provider2_class_name;
@@ -141,7 +141,7 @@ class AddressProviderControllerTest extends MockeryTestCase {
 		$provider_class_name = get_class( $provider_class );
 
 		add_filter(
-			'woocommerce_address_providers',
+			'poocommerce_address_providers',
 			function ( $providers ) use ( $provider_class_name ) {
 				$providers[] = $provider_class_name;
 				return $providers;
@@ -189,7 +189,7 @@ class AddressProviderControllerTest extends MockeryTestCase {
 		$provider2_class_name = get_class( $provider2_class );
 
 		add_filter(
-			'woocommerce_address_providers',
+			'poocommerce_address_providers',
 			function ( $providers ) use ( $provider1_class_name ) {
 				$providers[] = $provider1_class_name;
 				return $providers;
@@ -198,7 +198,7 @@ class AddressProviderControllerTest extends MockeryTestCase {
 		);
 
 		add_filter(
-			'woocommerce_address_providers',
+			'poocommerce_address_providers',
 			function ( $providers ) use ( $provider2_class_name ) {
 				$providers[] = $provider2_class_name;
 				return $providers;
@@ -227,7 +227,7 @@ class AddressProviderControllerTest extends MockeryTestCase {
 	public function test_invalid_provider_classes() {
 		// Create classes in the filter to ensure they're unique.
 		add_filter(
-			'woocommerce_address_providers',
+			'poocommerce_address_providers',
 			function ( $providers ) {
 				// Add an invalid provider class without required properties.
 				$providers[] = get_class( new class() extends WC_Address_Provider {} );
@@ -267,7 +267,7 @@ class AddressProviderControllerTest extends MockeryTestCase {
 	public function test_non_provider_classes() {
 		// Create classes in the filter to ensure they're unique.
 		add_filter(
-			'woocommerce_address_providers',
+			'poocommerce_address_providers',
 			function ( $providers ) {
 				// Add a class that's not a WC_Address_Provider.
 				$providers[] = get_class(
@@ -321,11 +321,11 @@ class AddressProviderControllerTest extends MockeryTestCase {
 		$autocomplete_enabled_setting  = null;
 		$autocomplete_provider_setting = null;
 		foreach ( $settings as $setting ) {
-			if ( isset( $setting['id'] ) && 'woocommerce_address_autocomplete_enabled' === $setting['id'] ) {
+			if ( isset( $setting['id'] ) && 'poocommerce_address_autocomplete_enabled' === $setting['id'] ) {
 				$autocomplete_enabled_setting = $setting;
 				break;
 			}
-			if ( isset( $setting['id'] ) && 'woocommerce_address_autocomplete_provider' === $setting['id'] ) {
+			if ( isset( $setting['id'] ) && 'poocommerce_address_autocomplete_provider' === $setting['id'] ) {
 				$autocomplete_provider_setting = $setting;
 				break;
 			}
@@ -360,7 +360,7 @@ class AddressProviderControllerTest extends MockeryTestCase {
 		$provider_class_name = get_class( $provider_class );
 
 		add_filter(
-			'woocommerce_address_providers',
+			'poocommerce_address_providers',
 			function ( $providers ) use ( $provider_class_name ) {
 				$providers[] = $provider_class_name;
 				return $providers;
@@ -378,11 +378,11 @@ class AddressProviderControllerTest extends MockeryTestCase {
 		$autocomplete_enabled_setting  = null;
 		$autocomplete_provider_setting = null;
 		foreach ( $settings as $setting ) {
-			if ( isset( $setting['id'] ) && 'woocommerce_address_autocomplete_enabled' === $setting['id'] ) {
+			if ( isset( $setting['id'] ) && 'poocommerce_address_autocomplete_enabled' === $setting['id'] ) {
 				$autocomplete_enabled_setting = $setting;
 				break;
 			}
-			if ( isset( $setting['id'] ) && 'woocommerce_address_autocomplete_provider' === $setting['id'] ) {
+			if ( isset( $setting['id'] ) && 'poocommerce_address_autocomplete_provider' === $setting['id'] ) {
 				$autocomplete_provider_setting = $setting;
 				break;
 			}
@@ -399,7 +399,7 @@ class AddressProviderControllerTest extends MockeryTestCase {
 		// Verify provider select is not added when only one provider exists.
 		$provider_setting = null;
 		foreach ( $settings as $setting ) {
-			if ( isset( $setting['id'] ) && 'woocommerce_address_autocomplete_provider' === $setting['id'] ) {
+			if ( isset( $setting['id'] ) && 'poocommerce_address_autocomplete_provider' === $setting['id'] ) {
 				$provider_setting = $setting;
 				break;
 			}
@@ -440,7 +440,7 @@ class AddressProviderControllerTest extends MockeryTestCase {
 		$provider2_class_name = get_class( $provider2_class );
 
 		add_filter(
-			'woocommerce_address_providers',
+			'poocommerce_address_providers',
 			function ( $providers ) use ( $provider1_class_name, $provider2_class_name ) {
 				$providers[] = $provider1_class_name;
 				$providers[] = $provider2_class_name;
@@ -458,7 +458,7 @@ class AddressProviderControllerTest extends MockeryTestCase {
 		// Find the provider select setting.
 		$provider_setting = null;
 		foreach ( $settings as $setting ) {
-			if ( isset( $setting['id'] ) && 'woocommerce_address_autocomplete_provider' === $setting['id'] ) {
+			if ( isset( $setting['id'] ) && 'poocommerce_address_autocomplete_provider' === $setting['id'] ) {
 				$provider_setting = $setting;
 				break;
 			}
@@ -485,9 +485,9 @@ class AddressProviderControllerTest extends MockeryTestCase {
 		$autocomplete_pos    = -1;
 		foreach ( $settings as $index => $setting ) {
 			if ( isset( $setting['id'] ) ) {
-				if ( 'woocommerce_default_customer_address' === $setting['id'] ) {
+				if ( 'poocommerce_default_customer_address' === $setting['id'] ) {
 					$default_address_pos = $index;
-				} elseif ( 'woocommerce_address_autocomplete_enabled' === $setting['id'] ) {
+				} elseif ( 'poocommerce_address_autocomplete_enabled' === $setting['id'] ) {
 					$autocomplete_pos = $index;
 				}
 			}
@@ -531,7 +531,7 @@ class AddressProviderControllerTest extends MockeryTestCase {
 		$provider2_class_name = get_class( $provider2_class );
 
 		add_filter(
-			'woocommerce_address_providers',
+			'poocommerce_address_providers',
 			function ( $providers ) use ( $provider1_class_name, $provider2_class_name ) {
 				$providers[] = $provider1_class_name;
 				$providers[] = $provider2_class_name;
@@ -539,7 +539,7 @@ class AddressProviderControllerTest extends MockeryTestCase {
 			}
 		);
 
-		update_option( 'woocommerce_address_autocomplete_provider', 'provider-2' );
+		update_option( 'poocommerce_address_autocomplete_provider', 'provider-2' );
 
 		$this->sut = new AddressProviderController();
 		$this->sut->init();
@@ -580,7 +580,7 @@ class AddressProviderControllerTest extends MockeryTestCase {
 		$provider2_class_name = get_class( $provider2_class );
 
 		add_filter(
-			'woocommerce_address_providers',
+			'poocommerce_address_providers',
 			function ( $providers ) use ( $provider1_class_name, $provider2_class_name ) {
 				$providers[] = $provider1_class_name;
 				$providers[] = $provider2_class_name;
@@ -588,7 +588,7 @@ class AddressProviderControllerTest extends MockeryTestCase {
 			}
 		);
 
-		delete_option( 'woocommerce_address_autocomplete_provider' );
+		delete_option( 'poocommerce_address_autocomplete_provider' );
 
 		$this->sut = new AddressProviderController();
 		$this->sut->init();
@@ -629,7 +629,7 @@ class AddressProviderControllerTest extends MockeryTestCase {
 		$provider2_class_name = get_class( $provider2_class );
 
 		add_filter(
-			'woocommerce_address_providers',
+			'poocommerce_address_providers',
 			function ( $providers ) use ( $provider1_class_name, $provider2_class_name ) {
 				$providers[] = $provider1_class_name;
 				$providers[] = $provider2_class_name;
@@ -637,7 +637,7 @@ class AddressProviderControllerTest extends MockeryTestCase {
 			}
 		);
 
-		update_option( 'woocommerce_address_autocomplete_provider', 'provider-3' );
+		update_option( 'poocommerce_address_autocomplete_provider', 'provider-3' );
 
 		$this->sut = new AddressProviderController();
 		$this->sut->init();
@@ -659,7 +659,7 @@ class AddressProviderControllerTest extends MockeryTestCase {
 	 */
 	public function test_logs_error_for_non_array_filter_return() {
 		add_filter(
-			'woocommerce_address_providers',
+			'poocommerce_address_providers',
 			function () {
 				return 'not an array';
 			}
@@ -669,7 +669,7 @@ class AddressProviderControllerTest extends MockeryTestCase {
 			->expects( $this->once() )
 			->method( 'error' )
 			->with(
-				'Invalid return value for woocommerce_address_providers, expected an array of class names or instances.',
+				'Invalid return value for poocommerce_address_providers, expected an array of class names or instances.',
 				array( 'context' => 'address_provider_service' )
 			);
 
@@ -685,7 +685,7 @@ class AddressProviderControllerTest extends MockeryTestCase {
 	 */
 	public function test_logs_error_for_invalid_class_name() {
 		add_filter(
-			'woocommerce_address_providers',
+			'poocommerce_address_providers',
 			function () {
 				return array( 123 ); // Non-string value.
 			}
@@ -711,7 +711,7 @@ class AddressProviderControllerTest extends MockeryTestCase {
 	 */
 	public function test_logs_error_for_non_existent_class() {
 		add_filter(
-			'woocommerce_address_providers',
+			'poocommerce_address_providers',
 			function () {
 				return array( 'NonExistentClass' );
 			}
@@ -741,7 +741,7 @@ class AddressProviderControllerTest extends MockeryTestCase {
 		$provider_class_name = get_class( $invalid_provider );
 
 		add_filter(
-			'woocommerce_address_providers',
+			'poocommerce_address_providers',
 			function () use ( $provider_class_name ) {
 				return array( $provider_class_name );
 			}
@@ -771,7 +771,7 @@ class AddressProviderControllerTest extends MockeryTestCase {
 		$provider_class_name = get_class( $invalid_provider );
 
 		add_filter(
-			'woocommerce_address_providers',
+			'poocommerce_address_providers',
 			function () use ( $provider_class_name ) {
 				return array(
 					123, // Invalid type.
@@ -835,7 +835,7 @@ class AddressProviderControllerTest extends MockeryTestCase {
 		$provider2_class_name = get_class( $provider2_class );
 
 		add_filter(
-			'woocommerce_address_providers',
+			'poocommerce_address_providers',
 			function () use ( $provider1_class_name, $provider2_class_name ) {
 				return array( $provider1_class_name, $provider2_class_name );
 			}
@@ -894,7 +894,7 @@ class AddressProviderControllerTest extends MockeryTestCase {
 		$provider2_class_name = get_class( $provider2_class );
 
 		add_filter(
-			'woocommerce_address_providers',
+			'poocommerce_address_providers',
 			function () use ( $provider1_class_name, $provider2_class_name ) {
 				return array( $provider1_class_name, $provider2_class_name );
 			}
@@ -959,14 +959,14 @@ class AddressProviderControllerTest extends MockeryTestCase {
 
 		// Register providers in specific order.
 		add_filter(
-			'woocommerce_address_providers',
+			'poocommerce_address_providers',
 			function () use ( $provider1_class_name, $provider2_class_name, $provider3_class_name ) {
 				return array( $provider1_class_name, $provider2_class_name, $provider3_class_name );
 			}
 		);
 
 		// Delete any existing preferred provider setting.
-		delete_option( 'woocommerce_address_autocomplete_provider' );
+		delete_option( 'poocommerce_address_autocomplete_provider' );
 
 		$this->sut = new AddressProviderController();
 		$this->sut->init();
@@ -1021,14 +1021,14 @@ class AddressProviderControllerTest extends MockeryTestCase {
 
 		// Register providers in specific order.
 		add_filter(
-			'woocommerce_address_providers',
+			'poocommerce_address_providers',
 			function () use ( $provider1_class_name, $provider2_class_name, $provider3_class_name ) {
 				return array( $provider1_class_name, $provider2_class_name, $provider3_class_name );
 			}
 		);
 
 		// Set provider-2 as the preferred provider.
-		update_option( 'woocommerce_address_autocomplete_provider', 'provider-2' );
+		update_option( 'poocommerce_address_autocomplete_provider', 'provider-2' );
 
 		$this->sut = new AddressProviderController();
 		$this->sut->init();
@@ -1083,14 +1083,14 @@ class AddressProviderControllerTest extends MockeryTestCase {
 
 		// Register providers in specific order.
 		add_filter(
-			'woocommerce_address_providers',
+			'poocommerce_address_providers',
 			function () use ( $provider1_class_name, $provider2_class_name, $provider3_class_name ) {
 				return array( $provider1_class_name, $provider2_class_name, $provider3_class_name );
 			}
 		);
 
 		// Set provider-3 (the last one) as the preferred provider.
-		update_option( 'woocommerce_address_autocomplete_provider', 'provider-3' );
+		update_option( 'poocommerce_address_autocomplete_provider', 'provider-3' );
 
 		$this->sut = new AddressProviderController();
 		$this->sut->init();
@@ -1134,14 +1134,14 @@ class AddressProviderControllerTest extends MockeryTestCase {
 
 		// Register providers in specific order.
 		add_filter(
-			'woocommerce_address_providers',
+			'poocommerce_address_providers',
 			function () use ( $provider1_class_name, $provider2_class_name ) {
 				return array( $provider1_class_name, $provider2_class_name );
 			}
 		);
 
 		// Set a non-existent provider as preferred.
-		update_option( 'woocommerce_address_autocomplete_provider', 'provider-nonexistent' );
+		update_option( 'poocommerce_address_autocomplete_provider', 'provider-nonexistent' );
 
 		$this->sut = new AddressProviderController();
 		$this->sut->init();
@@ -1184,7 +1184,7 @@ class AddressProviderControllerTest extends MockeryTestCase {
 
 		// Register providers in specific order.
 		add_filter(
-			'woocommerce_address_providers',
+			'poocommerce_address_providers',
 			function () use ( $provider1_class_name, $provider2_class_name ) {
 				return array( $provider1_class_name, $provider2_class_name );
 			}
@@ -1194,7 +1194,7 @@ class AddressProviderControllerTest extends MockeryTestCase {
 		$this->sut->init();
 
 		// Set the first provider as preferred.
-		update_option( 'woocommerce_address_autocomplete_provider', 'provider-1' );
+		update_option( 'poocommerce_address_autocomplete_provider', 'provider-1' );
 
 		$providers = $this->sut->get_providers();
 

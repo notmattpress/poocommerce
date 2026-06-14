@@ -4,7 +4,7 @@
 import { __ } from '@wordpress/i18n';
 import { useSelect } from '@wordpress/data';
 import { SelectControl } from '@wordpress/components';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 import { PluginDocumentSettingPanel } from '@wordpress/editor';
 
 /**
@@ -17,7 +17,7 @@ function ProductTypeSwitcher() {
 
 	return (
 		<SelectControl
-			label={ __( 'Type switcher', 'woocommerce' ) }
+			label={ __( 'Type switcher', 'poocommerce' ) }
 			value={ current?.slug }
 			options={ productTypes.map( ( productType ) => ( {
 				label: productType.label,
@@ -36,7 +36,7 @@ function ProductTypeSwitcher() {
 			} }
 			help={ __(
 				'Switch product type to see how the template adapts to each one.',
-				'woocommerce'
+				'poocommerce'
 			) }
 		/>
 	);
@@ -71,8 +71,8 @@ export default function ProductTypeSelectorPlugin() {
 
 	return (
 		<PluginDocumentSettingPanel
-			name="woocommerce/product-type-selector"
-			title={ __( 'Product Type', 'woocommerce' ) }
+			name="poocommerce/product-type-selector"
+			title={ __( 'Product Type', 'poocommerce' ) }
 		>
 			<ProductTypeSwitcher />
 		</PluginDocumentSettingPanel>

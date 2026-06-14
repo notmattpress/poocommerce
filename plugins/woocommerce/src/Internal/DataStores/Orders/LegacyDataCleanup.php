@@ -3,10 +3,10 @@
  * LegacyDataCleanup class file.
  */
 
-namespace Automattic\WooCommerce\Internal\DataStores\Orders;
+namespace Automattic\PooCommerce\Internal\DataStores\Orders;
 
-use Automattic\WooCommerce\Internal\BatchProcessing\BatchProcessingController;
-use Automattic\WooCommerce\Internal\BatchProcessing\BatchProcessorInterface;
+use Automattic\PooCommerce\Internal\BatchProcessing\BatchProcessingController;
+use Automattic\PooCommerce\Internal\BatchProcessing\BatchProcessorInterface;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -20,7 +20,7 @@ class LegacyDataCleanup implements BatchProcessorInterface {
 	 *
 	 * @deprecated 9.1.0
 	 */
-	public const OPTION_NAME = 'woocommerce_hpos_legacy_data_cleanup_in_progress';
+	public const OPTION_NAME = 'poocommerce_hpos_legacy_data_cleanup_in_progress';
 
 	/**
 	 * The default number of orders to process per batch.
@@ -131,7 +131,7 @@ class LegacyDataCleanup implements BatchProcessorInterface {
 				$this->error_logger->error(
 					sprintf(
 						// translators: %1$d is an order ID, %2$s is an error message.
-						__( 'Order %1$d legacy data could not be cleaned up during batch process. Error: %2$s', 'woocommerce' ),
+						__( 'Order %1$d legacy data could not be cleaned up during batch process. Error: %2$s', 'poocommerce' ),
 						$order_id,
 						$e->getMessage()
 					)
@@ -140,7 +140,7 @@ class LegacyDataCleanup implements BatchProcessorInterface {
 		}
 
 		if ( $batch_failed ) {
-			$this->error_logger->error( __( 'Order legacy cleanup failed for an entire batch of orders. Aborting cleanup.', 'woocommerce' ) );
+			$this->error_logger->error( __( 'Order legacy cleanup failed for an entire batch of orders. Aborting cleanup.', 'poocommerce' ) );
 		}
 
 		if ( ! $this->orders_pending() || $batch_failed ) {
@@ -193,7 +193,7 @@ class LegacyDataCleanup implements BatchProcessorInterface {
 	}
 
 	/**
-	 * Returns an array in format required by 'woocommerce_debug_tools' to register the cleanup tool in WC.
+	 * Returns an array in format required by 'poocommerce_debug_tools' to register the cleanup tool in WC.
 	 *
 	 * @return array Tools entries to register with WC.
 	 */
@@ -201,10 +201,10 @@ class LegacyDataCleanup implements BatchProcessorInterface {
 		$orders_for_cleanup_exist = ! empty( $this->legacy_handler->get_orders_for_cleanup( array(), 1 ) );
 		$entry_id                 = $this->is_flag_set() ? 'hpos_legacy_cleanup_cancel' : 'hpos_legacy_cleanup';
 		$entry                    = array(
-			'name'             => __( 'Clean up order data from legacy tables', 'woocommerce' ),
-			'desc'             => __( 'This tool will clear the data from legacy order tables in WooCommerce.', 'woocommerce' ),
+			'name'             => __( 'Clean up order data from legacy tables', 'poocommerce' ),
+			'desc'             => __( 'This tool will clear the data from legacy order tables in PooCommerce.', 'poocommerce' ),
 			'requires_refresh' => true,
-			'button'           => __( 'Clear data', 'woocommerce' ),
+			'button'           => __( 'Clear data', 'poocommerce' ),
 			'disabled'         => ! ( $this->can_run() && ( $orders_for_cleanup_exist || $this->is_flag_set() ) ),
 		);
 
@@ -212,27 +212,27 @@ class LegacyDataCleanup implements BatchProcessorInterface {
 			$entry['desc'] .= '<br />';
 			$entry['desc'] .= sprintf(
 				'<strong class="red">%1$s</strong> %2$s',
-				__( 'Note:', 'woocommerce' ),
-				__( 'Only available when HPOS is authoritative and compatibility mode is disabled.', 'woocommerce' )
+				__( 'Note:', 'poocommerce' ),
+				__( 'Only available when HPOS is authoritative and compatibility mode is disabled.', 'poocommerce' )
 			);
 		} else {
 			if ( $this->is_flag_set() ) {
 				$entry['status_text'] = sprintf(
 					'%1$s %2$s',
 					'<span class="dashicons dashicons-update spin"></span>',
-					__( 'Clearing data...', 'woocommerce' )
+					__( 'Clearing data...', 'poocommerce' )
 				);
-				$entry['button']      = __( 'Cancel', 'woocommerce' );
+				$entry['button']      = __( 'Cancel', 'poocommerce' );
 				$entry['callback']    = function() {
 					$this->toggle_flag( false );
-					return __( 'Order legacy data cleanup has been canceled.', 'woocommerce' );
+					return __( 'Order legacy data cleanup has been canceled.', 'poocommerce' );
 				};
 			} elseif ( ! $orders_for_cleanup_exist ) {
-				$entry['button'] = __( 'No orders in need of cleanup', 'woocommerce' );
+				$entry['button'] = __( 'No orders in need of cleanup', 'poocommerce' );
 			} else {
 				$entry['callback'] = function() {
 					$this->toggle_flag( true );
-					return __( 'Order legacy data cleanup process has been started.', 'woocommerce' );
+					return __( 'Order legacy data cleanup process has been started.', 'poocommerce' );
 				};
 			}
 		}

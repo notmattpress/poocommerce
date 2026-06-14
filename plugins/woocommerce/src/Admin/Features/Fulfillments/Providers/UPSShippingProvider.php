@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Admin\Features\Fulfillments\Providers;
+namespace Automattic\PooCommerce\Admin\Features\Fulfillments\Providers;
 
-use Automattic\WooCommerce\Admin\Features\Fulfillments\FulfillmentUtils;
+use Automattic\PooCommerce\Admin\Features\Fulfillments\FulfillmentUtils;
 
 /**
  * UPS Shipping Provider class.

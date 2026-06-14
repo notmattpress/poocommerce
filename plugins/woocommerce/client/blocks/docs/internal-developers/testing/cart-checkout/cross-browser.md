@@ -5,6 +5,6 @@ The primary goal here is to conduct tests across a range of themes, browsers, pl
 The baseline for testing includes:
 
 -   The latest stable version of WordPress.
--   The latest stable version of WooCommerce.
+-   The latest stable version of PooCommerce.
 -   The latest stable core theme (for testing block-themes), and Storefront (for testing classic themes).
 -   The latest two versions of [all browsers supported by WordPress](https://make.wordpress.org/core/handbook/best-practices/browser-support/).

@@ -1,10 +1,10 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\VariationGallery;
+namespace Automattic\PooCommerce\Internal\VariationGallery;
 
 use Automattic\Jetpack\Constants;
-use Automattic\WooCommerce\Internal\RegisterHooksInterface;
+use Automattic\PooCommerce\Internal\RegisterHooksInterface;
 use WC_Product_Variation;
 use WP_Post;
 
@@ -33,8 +33,8 @@ class ClassicVariationGalleryAdmin implements RegisterHooksInterface {
 	 */
 	public function register() {
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_assets' ), 20 );
-		add_action( 'woocommerce_variation_after_upload_image', array( $this, 'render_variation_gallery_field' ), 10, 3 );
-		add_action( 'woocommerce_admin_process_variation_object', array( $this, 'persist_variation_gallery_field' ), 10, 2 );
+		add_action( 'poocommerce_variation_after_upload_image', array( $this, 'render_variation_gallery_field' ), 10, 3 );
+		add_action( 'poocommerce_admin_process_variation_object', array( $this, 'persist_variation_gallery_field' ), 10, 2 );
 	}
 
 	/**
@@ -61,29 +61,29 @@ class ClassicVariationGalleryAdmin implements RegisterHooksInterface {
 			self::SCRIPT_HANDLE,
 			'wcVariationGalleryL10n',
 			array(
-				'manageTitle'      => __( 'Manage variation gallery', 'woocommerce' ),
-				'manageButton'     => __( 'Update gallery', 'woocommerce' ),
-				'replaceTitle'     => __( 'Replace image', 'woocommerce' ),
-				'replaceButton'    => __( 'Use this image', 'woocommerce' ),
-				'replaceLabel'     => __( 'Replace', 'woocommerce' ),
-				'addTitle'         => __( 'Add images to variation gallery', 'woocommerce' ),
-				'addButton'        => __( 'Add to gallery', 'woocommerce' ),
-				'emptyCtaLabel'    => __( 'Add variation images', 'woocommerce' ),
-				'announceUpdated'  => __( 'Variation gallery updated.', 'woocommerce' ),
-				'announceReplaced' => __( 'Image replaced.', 'woocommerce' ),
-				'announceRemoved'  => __( 'Image removed from variation gallery.', 'woocommerce' ),
-				'announceReorder'  => __( 'Variation gallery order updated.', 'woocommerce' ),
-				'announcePrimary'  => __( 'New primary image set.', 'woocommerce' ),
-				'removeLabel'      => __( 'Remove image', 'woocommerce' ),
-				'countZero'        => __( 'No images yet', 'woocommerce' ),
+				'manageTitle'      => __( 'Manage variation gallery', 'poocommerce' ),
+				'manageButton'     => __( 'Update gallery', 'poocommerce' ),
+				'replaceTitle'     => __( 'Replace image', 'poocommerce' ),
+				'replaceButton'    => __( 'Use this image', 'poocommerce' ),
+				'replaceLabel'     => __( 'Replace', 'poocommerce' ),
+				'addTitle'         => __( 'Add images to variation gallery', 'poocommerce' ),
+				'addButton'        => __( 'Add to gallery', 'poocommerce' ),
+				'emptyCtaLabel'    => __( 'Add variation images', 'poocommerce' ),
+				'announceUpdated'  => __( 'Variation gallery updated.', 'poocommerce' ),
+				'announceReplaced' => __( 'Image replaced.', 'poocommerce' ),
+				'announceRemoved'  => __( 'Image removed from variation gallery.', 'poocommerce' ),
+				'announceReorder'  => __( 'Variation gallery order updated.', 'poocommerce' ),
+				'announcePrimary'  => __( 'New primary image set.', 'poocommerce' ),
+				'removeLabel'      => __( 'Remove image', 'poocommerce' ),
+				'countZero'        => __( 'No images yet', 'poocommerce' ),
 				/* translators: %d: number of variation gallery images */
-				'countSingular'    => __( '%d image', 'woocommerce' ),
+				'countSingular'    => __( '%d image', 'poocommerce' ),
 				/* translators: %d: number of variation gallery images */
-				'countPlural'      => __( '%d images', 'woocommerce' ),
-				'primaryLabel'     => __( 'Primary', 'woocommerce' ),
+				'countPlural'      => __( '%d images', 'poocommerce' ),
+				'primaryLabel'     => __( 'Primary', 'poocommerce' ),
 				/* translators: %d: gallery image position */
-				'thumbLabel'       => __( 'Show gallery image %d', 'woocommerce' ),
-				'missingFileLabel' => __( 'Attachment file missing', 'woocommerce' ),
+				'thumbLabel'       => __( 'Show gallery image %d', 'poocommerce' ),
+				'missingFileLabel' => __( 'Attachment file missing', 'poocommerce' ),
 			)
 		);
 
@@ -122,7 +122,7 @@ class ClassicVariationGalleryAdmin implements RegisterHooksInterface {
 			<div class="wc-variation-gallery-field__header">
 				<div class="wc-variation-gallery-field__title-block">
 					<strong class="wc-variation-gallery-field__title">
-						<?php esc_html_e( 'Variation gallery', 'woocommerce' ); ?>
+						<?php esc_html_e( 'Variation gallery', 'poocommerce' ); ?>
 					</strong>
 					<span class="wc-variation-gallery-field__count" aria-live="polite">
 						<?php echo esc_html( $this->get_count_text( $count ) ); ?>
@@ -131,9 +131,9 @@ class ClassicVariationGalleryAdmin implements RegisterHooksInterface {
 				<button
 					type="button"
 					class="button-link wc-variation-gallery-manage"
-					aria-label="<?php esc_attr_e( 'Manage variation gallery images', 'woocommerce' ); ?>"
+					aria-label="<?php esc_attr_e( 'Manage variation gallery images', 'poocommerce' ); ?>"
 				>
-					<?php esc_html_e( 'Manage', 'woocommerce' ); ?>
+					<?php esc_html_e( 'Manage', 'poocommerce' ); ?>
 				</button>
 			</div>
 
@@ -142,15 +142,15 @@ class ClassicVariationGalleryAdmin implements RegisterHooksInterface {
 					<?php $this->render_hero_image( $hero_id ); ?>
 					<span class="wc-variation-gallery-field__badge" data-primary-badge aria-hidden="true">
 						<span class="dashicons dashicons-star-filled"></span>
-						<?php esc_html_e( 'Primary', 'woocommerce' ); ?>
+						<?php esc_html_e( 'Primary', 'poocommerce' ); ?>
 					</span>
 					<button type="button" class="button wc-variation-gallery-replace">
-						<?php esc_html_e( 'Replace', 'woocommerce' ); ?>
+						<?php esc_html_e( 'Replace', 'poocommerce' ); ?>
 					</button>
 				<?php else : ?>
 					<button type="button" class="wc-variation-gallery-field__empty-cta wc-variation-gallery-manage">
 						<span class="dashicons dashicons-plus-alt2" aria-hidden="true"></span>
-						<?php esc_html_e( 'Add variation images', 'woocommerce' ); ?>
+						<?php esc_html_e( 'Add variation images', 'poocommerce' ); ?>
 					</button>
 				<?php endif; ?>
 			</div>
@@ -162,7 +162,7 @@ class ClassicVariationGalleryAdmin implements RegisterHooksInterface {
 			</ul>
 
 			<p class="wc-variation-gallery-field__hint"<?php echo 0 === $count ? ' hidden' : ''; ?>>
-				<?php esc_html_e( 'First image is used as the primary. Drag to reorder.', 'woocommerce' ); ?>
+				<?php esc_html_e( 'First image is used as the primary. Drag to reorder.', 'poocommerce' ); ?>
 			</p>
 
 			<input
@@ -188,7 +188,7 @@ class ClassicVariationGalleryAdmin implements RegisterHooksInterface {
 	 * @throws \Throwable When setting the variation image or gallery fails.
 	 */
 	public function persist_variation_gallery_field( WC_Product_Variation $variation, int $index ): void {
-		// We verify the variation save nonce before firing `woocommerce_admin_process_variation_object`.
+		// We verify the variation save nonce before firing `poocommerce_admin_process_variation_object`.
 		if ( ! isset( $_POST['variable_gallery_image_ids'][ $index ] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
 			return;
 		}
@@ -258,7 +258,7 @@ class ClassicVariationGalleryAdmin implements RegisterHooksInterface {
 	private function render_hero_image( int $image_id ): void {
 		$html = wp_get_attachment_image(
 			$image_id,
-			'woocommerce_single',
+			'poocommerce_single',
 			false,
 			array(
 				'class'    => 'wc-variation-gallery-field__hero-img',
@@ -274,7 +274,7 @@ class ClassicVariationGalleryAdmin implements RegisterHooksInterface {
 				<span class="dashicons dashicons-format-image"></span>
 			</span>
 			<span class="screen-reader-text">
-				<?php esc_html_e( 'Attachment file missing', 'woocommerce' ); ?>
+				<?php esc_html_e( 'Attachment file missing', 'poocommerce' ); ?>
 			</span>
 			<?php
 			return;
@@ -304,7 +304,7 @@ class ClassicVariationGalleryAdmin implements RegisterHooksInterface {
 		}
 
 		/* translators: %d attachment ID */
-		$thumb_label = sprintf( __( 'Show gallery image %d', 'woocommerce' ), $image_id );
+		$thumb_label = sprintf( __( 'Show gallery image %d', 'poocommerce' ), $image_id );
 		?>
 		<li
 			class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>"
@@ -320,7 +320,7 @@ class ClassicVariationGalleryAdmin implements RegisterHooksInterface {
 						<span class="dashicons dashicons-format-image"></span>
 					</span>
 					<span class="screen-reader-text">
-						<?php esc_html_e( 'Attachment file missing', 'woocommerce' ); ?>
+						<?php esc_html_e( 'Attachment file missing', 'poocommerce' ); ?>
 					</span>
 				<?php else : ?>
 					<?php echo wp_kses_post( $thumbnail ); ?>
@@ -329,7 +329,7 @@ class ClassicVariationGalleryAdmin implements RegisterHooksInterface {
 			<button
 				type="button"
 				class="wc-variation-gallery-thumb__remove"
-				aria-label="<?php esc_attr_e( 'Remove image', 'woocommerce' ); ?>"
+				aria-label="<?php esc_attr_e( 'Remove image', 'poocommerce' ); ?>"
 			>
 				<span class="dashicons dashicons-no-alt" aria-hidden="true"></span>
 			</button>
@@ -345,12 +345,12 @@ class ClassicVariationGalleryAdmin implements RegisterHooksInterface {
 	 */
 	private function get_count_text( int $count ): string {
 		if ( 0 === $count ) {
-			return __( 'No images yet', 'woocommerce' );
+			return __( 'No images yet', 'poocommerce' );
 		}
 
 		return sprintf(
 			/* translators: %d number of variation gallery images */
-			_n( '%d image', '%d images', $count, 'woocommerce' ),
+			_n( '%d image', '%d images', $count, 'poocommerce' ),
 			$count
 		);
 	}

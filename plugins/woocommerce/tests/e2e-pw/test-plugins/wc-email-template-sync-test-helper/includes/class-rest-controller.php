@@ -198,7 +198,7 @@ class REST_Controller {
 	public function reset_post( WP_REST_Request $request ): WP_REST_Response {
 		$email_id = (string) $request->get_param( 'email_id' );
 
-		$manager = \Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsManager::get_instance();
+		$manager = \Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsManager::get_instance();
 
 		$existing_post_id = (int) $manager->get_email_template_post_id( $email_id );
 		if ( $existing_post_id > 0 ) {
@@ -209,7 +209,7 @@ class REST_Controller {
 
 		delete_transient( 'wc_email_editor_initial_templates_generated' );
 
-		$generator = new \Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsGenerator();
+		$generator = new \Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsGenerator();
 		$generator->init_default_transactional_emails();
 		$new_post_id = (int) $generator->generate_email_template_if_not_exists( $email_id );
 
@@ -379,7 +379,7 @@ class REST_Controller {
 		$email_id = (string) $request->get_param( 'email_id' );
 		$mode     = (string) $request->get_param( 'mode' );
 
-		$manager = \Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsManager::get_instance();
+		$manager = \Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsManager::get_instance();
 		$email   = $manager->get_email_by_id( $email_id );
 		if ( ! $email instanceof \WC_Email ) {
 			return new WP_REST_Response( array( 'error' => "Unknown email_id {$email_id}" ), 404 );
@@ -390,7 +390,7 @@ class REST_Controller {
 			delete_option( Template_HTML_Overrides::OPTION_NAME );
 		}
 
-		$canonical = \Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsGenerator::compute_canonical_post_content( $email );
+		$canonical = \Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsGenerator::compute_canonical_post_content( $email );
 
 		if ( 'old' === $mode && is_array( $existing_override ) && ! empty( $existing_override ) ) {
 			update_option( Template_HTML_Overrides::OPTION_NAME, $existing_override, false );
@@ -468,15 +468,15 @@ class REST_Controller {
 	public function trigger_sweep( WP_REST_Request $request ): WP_REST_Response {
 		unset( $request );
 
-		\Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateDivergenceDetector::run_sweep();
+		\Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateDivergenceDetector::run_sweep();
 
 		// Run the auto-applier inline so unmodified posts are stamped IN_SYNC before
 		// this response returns. In production the applier is deferred via Action
 		// Scheduler; calling run() directly here keeps the E2E request synchronous.
-		\Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateAutoApplier::run();
+		\Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateAutoApplier::run();
 
-		$registry = \Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateSyncRegistry::get_sync_enabled_emails();
-		$manager  = \Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsManager::get_instance();
+		$registry = \Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateSyncRegistry::get_sync_enabled_emails();
+		$manager  = \Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsManager::get_instance();
 
 		$classifications = array();
 		foreach ( array_keys( $registry ) as $email_id ) {
@@ -484,7 +484,7 @@ class REST_Controller {
 			if ( ! $post instanceof \WP_Post ) {
 				continue;
 			}
-			$status = (string) get_post_meta( (int) $post->ID, \Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateDivergenceDetector::STATUS_META_KEY, true );
+			$status = (string) get_post_meta( (int) $post->ID, \Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateDivergenceDetector::STATUS_META_KEY, true );
 			if ( '' !== $status ) {
 				$classifications[ (int) $post->ID ] = $status;
 			}
@@ -505,7 +505,7 @@ class REST_Controller {
 	 * convenience only. Tests assert via meta snapshots before/after.
 	 *
 	 * WC_Tracks::record_event() short-circuits when site tracking is disabled (the
-	 * default in wp-env), so it never reaches the woocommerce_tracks_event_properties
+	 * default in wp-env), so it never reaches the poocommerce_tracks_event_properties
 	 * filter that Tracks_Recorder hooks into. To capture the _backfill_completed event
 	 * reliably we inject a custom recorder via set_event_recorder() that writes
 	 * directly to the Tracks_Recorder log option, then restore the default (null)
@@ -526,7 +526,7 @@ class REST_Controller {
 		// Event names get the 'wcadmin_' prefix to match WC_Tracks::PREFIX — that's
 		// what server-side events are dispatched as via WC_Tracks::record_event().
 		// The TRACKS_EVENTS constants in classifications.ts expect the prefixed name.
-		\Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateSyncTracker::set_event_recorder(
+		\Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateSyncTracker::set_event_recorder(
 			static function ( string $event_name, array $payload ): void {
 				if ( 'yes' !== get_option( Tracks_Recorder::ENABLED_OPTION, 'no' ) ) {
 					return;
@@ -544,17 +544,17 @@ class REST_Controller {
 			}
 		);
 
-		$ran = \Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateSyncBackfill::run();
+		$ran = \Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateSyncBackfill::run();
 
 		// Restore the default recorder so subsequent calls don't double-log via
 		// both the injected recorder and any future WC_Tracks path.
-		\Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateSyncTracker::set_event_recorder( null );
+		\Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateSyncTracker::set_event_recorder( null );
 
 		global $wpdb;
 		$stamped = (int) $wpdb->get_var(
 			$wpdb->prepare(
 				"SELECT COUNT(DISTINCT post_id) FROM {$wpdb->postmeta} WHERE meta_key = %s AND meta_value <> ''",
-				\Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateDivergenceDetector::SOURCE_HASH_META_KEY
+				\Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateDivergenceDetector::SOURCE_HASH_META_KEY
 			)
 		);
 
@@ -637,7 +637,7 @@ class REST_Controller {
 	/**
 	 * Permission callback used by every non-health endpoint. Requires the manage_options
 	 * capability. The plugin is only mounted in test environments via .wp-env.json — it
-	 * does not ship in any production WooCommerce build — which provides the second
+	 * does not ship in any production PooCommerce build — which provides the second
 	 * layer of defense.
 	 *
 	 * @param WP_REST_Request $request The REST request (unused).

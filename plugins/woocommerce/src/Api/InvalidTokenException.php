@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Api;
+namespace Automattic\PooCommerce\Api;
 
 /**
  * Thrown to signal that authentication credentials were supplied but are

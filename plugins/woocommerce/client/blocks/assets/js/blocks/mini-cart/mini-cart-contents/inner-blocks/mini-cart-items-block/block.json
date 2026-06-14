@@ -1,9 +1,9 @@
 {
-	"name": "woocommerce/mini-cart-items-block",
+	"name": "poocommerce/mini-cart-items-block",
 	"version": "1.0.0",
 	"title": "Mini-Cart Items",
 	"description": "Contains the products table and other custom blocks of filled mini-cart.",
-	"category": "woocommerce",
+	"category": "poocommerce",
 	"supports": {
 		"align": false,
 		"html": false,
@@ -24,8 +24,8 @@
 			}
 		}
 	},
-	"parent": [ "woocommerce/filled-mini-cart-contents-block" ],
-	"textdomain": "woocommerce",
+	"parent": [ "poocommerce/filled-mini-cart-contents-block" ],
+	"textdomain": "poocommerce",
 	"apiVersion": 3,
 	"$schema": "https://schemas.wp.org/trunk/block.json"
 }
