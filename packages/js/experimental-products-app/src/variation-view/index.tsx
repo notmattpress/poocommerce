@@ -94,8 +94,8 @@ function VariationMoreActions( {
 	return (
 		<DropdownMenu
 			icon={ moreVertical }
-			label={ __( 'More actions', 'woocommerce' ) }
-			className="woocommerce-variation-view__more-actions"
+			label={ __( 'More actions', 'poocommerce' ) }
+			className="poocommerce-variation-view__more-actions"
 			popoverProps={ {
 				placement: 'bottom-end',
 			} }
@@ -112,14 +112,14 @@ function VariationMoreActions( {
 							onClose();
 						} }
 					>
-						{ __( 'Edit', 'woocommerce' ) }
+						{ __( 'Edit', 'poocommerce' ) }
 					</MenuItem>
 					<MenuItem
 						disabled={ disabled }
 						isDestructive
 						onClick={ onClose }
 					>
-						{ __( 'Delete variation', 'woocommerce' ) }
+						{ __( 'Delete variation', 'poocommerce' ) }
 					</MenuItem>
 				</MenuGroup>
 			) }
@@ -279,7 +279,7 @@ export function VariationView( { productId }: VariationViewProps ) {
 		() => [
 			{
 				id: 'edit',
-				label: __( 'Edit', 'woocommerce' ),
+				label: __( 'Edit', 'poocommerce' ),
 				isPrimary: true,
 				supportsBulk: true,
 				callback: ( items ) =>
@@ -289,7 +289,7 @@ export function VariationView( { productId }: VariationViewProps ) {
 			},
 			{
 				id: 'delete-variation',
-				label: __( 'Delete variation', 'woocommerce' ),
+				label: __( 'Delete variation', 'poocommerce' ),
 				supportsBulk: true,
 				callback: () => {},
 			},
@@ -298,10 +298,10 @@ export function VariationView( { productId }: VariationViewProps ) {
 	);
 
 	return (
-		<div className="woocommerce-variation-view">
+		<div className="poocommerce-variation-view">
 			<VariationAttributes productId={ productId } />
-			<h3 className="woocommerce-variation-view__title">
-				{ __( 'Variations', 'woocommerce' ) }
+			<h3 className="poocommerce-variation-view__title">
+				{ __( 'Variations', 'poocommerce' ) }
 			</h3>
 			<DataViews
 				data={ variations }
@@ -324,16 +324,16 @@ export function VariationView( { productId }: VariationViewProps ) {
 					align="center"
 					justify="space-between"
 					gap="sm"
-					className="woocommerce-variation-view__toolbar"
+					className="poocommerce-variation-view__toolbar"
 				>
 					<Stack
 						direction="row"
 						align="center"
 						gap="xs"
-						className="woocommerce-variation-view__toolbar-search"
+						className="poocommerce-variation-view__toolbar-search"
 					>
 						<DataViews.Search
-							label={ __( 'Search variations', 'woocommerce' ) }
+							label={ __( 'Search variations', 'poocommerce' ) }
 						/>
 						<DataViews.FiltersToggle />
 					</Stack>
@@ -341,7 +341,7 @@ export function VariationView( { productId }: VariationViewProps ) {
 						direction="row"
 						align="center"
 						gap="xs"
-						className="woocommerce-variation-view__toolbar-actions"
+						className="poocommerce-variation-view__toolbar-actions"
 					>
 						<DataViews.ViewConfig />
 						<VariationMoreActions
@@ -352,7 +352,7 @@ export function VariationView( { productId }: VariationViewProps ) {
 						/>
 					</Stack>
 				</Stack>
-				<DataViews.FiltersToggled className="woocommerce-variation-view__filters" />
+				<DataViews.FiltersToggled className="poocommerce-variation-view__filters" />
 				<DataViews.Layout />
 				<DataViews.Footer />
 			</DataViews>

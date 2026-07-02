@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { ShippingMethod } from '@woocommerce/data';
+import { ShippingMethod } from '@poocommerce/data';
 
 /**
  * Internal dependencies

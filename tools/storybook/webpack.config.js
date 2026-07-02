@@ -7,7 +7,7 @@ const CopyWebpackPlugin = require( 'copy-webpack-plugin' );
 /**
  * External dependencies
  */
-const wcAdminWebpackConfig = require( '../../plugins/woocommerce/client/admin/webpack.config.js' );
+const wcAdminWebpackConfig = require( '../../plugins/poocommerce/client/admin/webpack.config.js' );
 
 const wcAdminPackages = [
 	'components',
@@ -31,11 +31,11 @@ module.exports = ( storybookConfig ) => {
 	storybookConfig.resolve.alias = wcAdminWebpackConfig.resolve.alias;
 
 	wcAdminPackages.forEach( ( name ) => {
-		storybookConfig.resolve.alias[ `@woocommerce/${ name }` ] =
+		storybookConfig.resolve.alias[ `@poocommerce/${ name }` ] =
 			path.resolve( __dirname, `../../packages/js/${ name }/src` );
 	} );
 
-	storybookConfig.resolve.alias[ '@woocommerce/settings' ] = path.resolve(
+	storybookConfig.resolve.alias[ '@poocommerce/settings' ] = path.resolve(
 		__dirname,
 		'./setting.mock.js'
 	);
@@ -54,7 +54,7 @@ module.exports = ( storybookConfig ) => {
 		'@storybook/react-dom-shim/dist/react-18';
 
 	storybookConfig.resolve.modules = [
-		path.join( __dirname, '../../plugins/woocommerce/client/admin/client' ),
+		path.join( __dirname, '../../plugins/poocommerce/client/admin/client' ),
 		'node_modules',
 	];
 
@@ -96,7 +96,7 @@ module.exports = ( storybookConfig ) => {
 				{
 					from: path.resolve(
 						__dirname,
-						`../../plugins/woocommerce/client/admin/build/app/*.css`
+						`../../plugins/poocommerce/client/admin/build/app/*.css`
 					),
 					to: `./app-css/[name][ext]`,
 				},

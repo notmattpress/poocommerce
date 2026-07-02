@@ -2,7 +2,7 @@
  * External dependencies
  */
 import deprecated from '@wordpress/deprecated';
-import type { RegisteredBlockComponent } from '@woocommerce/types';
+import type { RegisteredBlockComponent } from '@poocommerce/types';
 
 /**
  * Internal dependencies
@@ -12,7 +12,7 @@ import { registeredBlockComponents } from './registered-block-components-init';
 /**
  * Get all Registered Block Components.
  *
- * WooCommerce Blocks allows React Components to be used on the frontend of the store in place of
+ * PooCommerce Blocks allows React Components to be used on the frontend of the store in place of
  * Blocks instead of just serving static content.
  *
  * This gets all registered Block Components so we know which Blocks map to which React Components.
@@ -49,7 +49,7 @@ export function getRegisteredInnerBlocks(
 	deprecated( 'getRegisteredInnerBlocks', {
 		version: '2.8.0',
 		alternative: 'getRegisteredBlockComponents',
-		plugin: 'WooCommerce Blocks',
+		plugin: 'PooCommerce Blocks',
 	} );
 	return getRegisteredBlockComponents( main );
 }

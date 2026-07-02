@@ -16,18 +16,18 @@ const Edit = () => {
 			'core/group',
 			{ layout: { type: 'flex', flexWrap: 'nowrap' } },
 			[
-				[ 'woocommerce/product-sku' ],
+				[ 'poocommerce/product-sku' ],
 				[
 					'core/post-terms',
 					{
-						prefix: __( 'Category: ', 'woocommerce' ),
+						prefix: __( 'Category: ', 'poocommerce' ),
 						term: 'product_cat',
 					},
 				],
 				[
 					'core/post-terms',
 					{
-						prefix: __( 'Tags: ', 'woocommerce' ),
+						prefix: __( 'Tags: ', 'poocommerce' ),
 						term: 'product_tag',
 					},
 				],

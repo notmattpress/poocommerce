@@ -2,8 +2,8 @@
  * External dependencies
  */
 import { useBlockProps, InnerBlocks } from '@wordpress/block-editor';
-import { Main } from '@woocommerce/base-components/sidebar-layout';
-import { innerBlockAreas } from '@woocommerce/blocks-checkout';
+import { Main } from '@poocommerce/base-components/sidebar-layout';
+import { innerBlockAreas } from '@poocommerce/blocks-checkout';
 import type { TemplateArray } from '@wordpress/blocks';
 
 /**
@@ -25,12 +25,12 @@ export const Edit = ( { clientId }: Props ): JSX.Element => {
 	// Product collection is used for the Cross-Sells block.
 	// We don't want to set a parent on the product collection block
 	// so we add it here manually.
-	allowedBlocks.push( 'woocommerce/product-collection' );
+	allowedBlocks.push( 'poocommerce/product-collection' );
 
 	const defaultTemplate = [
-		[ 'woocommerce/cart-line-items-block', {}, [] ],
+		[ 'poocommerce/cart-line-items-block', {}, [] ],
 		[
-			'woocommerce/product-collection',
+			'poocommerce/product-collection',
 			{
 				...crossSells.attributes,
 				displayLayout: {
@@ -41,7 +41,7 @@ export const Edit = ( { clientId }: Props ): JSX.Element => {
 					...crossSells.attributes.query,
 					perPage: 3,
 				},
-				collection: 'woocommerce/product-collection/cross-sells',
+				collection: 'poocommerce/product-collection/cross-sells',
 			},
 			crossSells.innerBlocks,
 		],

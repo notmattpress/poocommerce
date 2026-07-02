@@ -3,7 +3,7 @@
  */
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { useSelect, useDispatch } from '@wordpress/data';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 import userEvent from '@testing-library/user-event';
 
 /**
@@ -23,7 +23,7 @@ jest.mock( '../../settings-recommendations/dismissable-list', () => ( {
 jest.mock( '../../lib/notices', () => ( {
 	createNoticesFromResponse: () => null,
 } ) );
-jest.mock( '@woocommerce/admin-layout', () => {
+jest.mock( '@poocommerce/admin-layout', () => {
 	const mockContext = {
 		layoutPath: [ 'home' ],
 		layoutString: 'home',
@@ -31,12 +31,12 @@ jest.mock( '@woocommerce/admin-layout', () => {
 		isDescendantOf: () => false,
 	};
 	return {
-		...jest.requireActual( '@woocommerce/admin-layout' ),
+		...jest.requireActual( '@poocommerce/admin-layout' ),
 		useLayoutContext: jest.fn().mockReturnValue( mockContext ),
 		useExtendLayout: jest.fn().mockReturnValue( mockContext ),
 	};
 } );
-jest.mock( '@woocommerce/tracks', () => ( {
+jest.mock( '@poocommerce/tracks', () => ( {
 	recordEvent: jest.fn(),
 } ) );
 jest.mock( '~/utils/features', () => ( {
@@ -48,7 +48,7 @@ const defaultSelectReturn = {
 	getInstalledPlugins: () => [],
 	getSettings: () => ( {
 		general: {
-			woocommerce_default_country: 'US',
+			poocommerce_default_country: 'US',
 		},
 	} ),
 	getProfileItems: () => ( {} ),
@@ -67,7 +67,7 @@ const mockSelectForCountry = (
 			getActivePlugins: () => activePlugins,
 			getSettings: () => ( {
 				general: {
-					woocommerce_default_country: countryCode,
+					poocommerce_default_country: countryCode,
 				},
 			} ),
 			...overrides,
@@ -89,12 +89,12 @@ describe( 'ShippingRecommendations', () => {
 	} );
 
 	describe( 'country-based filtering', () => {
-		it( 'should show WooCommerce Shipping and ShipStation for US', () => {
+		it( 'should show PooCommerce Shipping and ShipStation for US', () => {
 			mockSelectForCountry( 'US' );
 			render( <ShippingRecommendations /> );
 
 			expect(
-				screen.queryByText( 'WooCommerce Shipping' )
+				screen.queryByText( 'PooCommerce Shipping' )
 			).toBeInTheDocument();
 			expect( screen.queryByText( 'ShipStation' ) ).toBeInTheDocument();
 			expect(
@@ -107,7 +107,7 @@ describe( 'ShippingRecommendations', () => {
 			render( <ShippingRecommendations /> );
 
 			expect(
-				screen.queryByText( 'WooCommerce Shipping' )
+				screen.queryByText( 'PooCommerce Shipping' )
 			).not.toBeInTheDocument();
 			expect( screen.queryByText( 'ShipStation' ) ).toBeInTheDocument();
 		} );
@@ -127,7 +127,7 @@ describe( 'ShippingRecommendations', () => {
 			render( <ShippingRecommendations /> );
 
 			expect(
-				screen.queryByText( 'WooCommerce Shipping' )
+				screen.queryByText( 'PooCommerce Shipping' )
 			).not.toBeInTheDocument();
 			expect(
 				screen.queryByText( 'ShipStation' )
@@ -175,7 +175,7 @@ describe( 'ShippingRecommendations', () => {
 					screen.queryByText( 'ShipStation' )
 				).not.toBeInTheDocument();
 				expect(
-					screen.queryByText( 'WooCommerce Shipping' )
+					screen.queryByText( 'PooCommerce Shipping' )
 				).not.toBeInTheDocument();
 			}
 		);
@@ -185,7 +185,7 @@ describe( 'ShippingRecommendations', () => {
 			render( <ShippingRecommendations /> );
 
 			expect(
-				screen.queryByText( 'WooCommerce Shipping' )
+				screen.queryByText( 'PooCommerce Shipping' )
 			).not.toBeInTheDocument();
 			expect(
 				screen.queryByText( 'ShipStation' )
@@ -197,24 +197,24 @@ describe( 'ShippingRecommendations', () => {
 	} );
 
 	describe( 'rendering when partners are already active', () => {
-		it( 'should still show WooCommerce Shipping when it is already active', () => {
-			mockSelectForCountry( 'US', [ 'woocommerce-shipping' ] );
+		it( 'should still show PooCommerce Shipping when it is already active', () => {
+			mockSelectForCountry( 'US', [ 'poocommerce-shipping' ] );
 			render( <ShippingRecommendations /> );
 
 			expect(
-				screen.queryByText( 'WooCommerce Shipping' )
+				screen.queryByText( 'PooCommerce Shipping' )
 			).toBeInTheDocument();
 			expect( screen.queryByText( 'ShipStation' ) ).toBeInTheDocument();
 		} );
 
 		it( 'should still show ShipStation when it is already active', () => {
 			mockSelectForCountry( 'US', [
-				'woocommerce-shipstation-integration',
+				'poocommerce-shipstation-integration',
 			] );
 			render( <ShippingRecommendations /> );
 
 			expect(
-				screen.queryByText( 'WooCommerce Shipping' )
+				screen.queryByText( 'PooCommerce Shipping' )
 			).toBeInTheDocument();
 			expect( screen.queryByText( 'ShipStation' ) ).toBeInTheDocument();
 		} );
@@ -228,13 +228,13 @@ describe( 'ShippingRecommendations', () => {
 
 		it( 'should still render all recommendations when every extension for a country is active', () => {
 			mockSelectForCountry( 'US', [
-				'woocommerce-shipping',
-				'woocommerce-shipstation-integration',
+				'poocommerce-shipping',
+				'poocommerce-shipstation-integration',
 			] );
 			render( <ShippingRecommendations /> );
 
 			expect(
-				screen.queryByText( 'WooCommerce Shipping' )
+				screen.queryByText( 'PooCommerce Shipping' )
 			).toBeInTheDocument();
 			expect( screen.queryByText( 'ShipStation' ) ).toBeInTheDocument();
 		} );
@@ -243,13 +243,13 @@ describe( 'ShippingRecommendations', () => {
 			mockSelectForCountry(
 				'US',
 				[
-					'woocommerce-shipping',
-					'woocommerce-shipstation-integration',
+					'poocommerce-shipping',
+					'poocommerce-shipstation-integration',
 				],
 				{
 					getInstalledPlugins: () => [
-						'woocommerce-shipping',
-						'woocommerce-shipstation-integration',
+						'poocommerce-shipping',
+						'poocommerce-shipstation-integration',
 					],
 				}
 			);
@@ -265,10 +265,10 @@ describe( 'ShippingRecommendations', () => {
 		} );
 
 		it( 'should render an "Active" pill only for the active partner and keep CTAs for inactive ones', () => {
-			mockSelectForCountry( 'US', [ 'woocommerce-shipping' ] );
+			mockSelectForCountry( 'US', [ 'poocommerce-shipping' ] );
 			render( <ShippingRecommendations /> );
 
-			// WooCommerce Shipping is active → "Active" pill.
+			// PooCommerce Shipping is active → "Active" pill.
 			// ShipStation is neither installed nor active → Install button shown.
 			expect( screen.queryAllByText( 'Active' ) ).toHaveLength( 1 );
 			const installButtons = screen.queryAllByRole( 'button', {
@@ -294,7 +294,7 @@ describe( 'ShippingRecommendations', () => {
 			render( <ShippingRecommendations /> );
 
 			expect(
-				screen.queryByText( 'WooCommerce Shipping' )
+				screen.queryByText( 'PooCommerce Shipping' )
 			).not.toBeInTheDocument();
 		} );
 	} );
@@ -310,7 +310,7 @@ describe( 'ShippingRecommendations', () => {
 					context: 'settings',
 					country: 'US',
 					plugins:
-						'woocommerce-shipping,woocommerce-shipstation-integration',
+						'poocommerce-shipping,poocommerce-shipstation-integration',
 				}
 			);
 		} );
@@ -360,20 +360,20 @@ describe( 'ShippingRecommendations', () => {
 		} );
 	} );
 
-	describe( 'WooCommerce Shipping item', () => {
+	describe( 'PooCommerce Shipping item', () => {
 		it( 'should render WC Shipping when not installed', () => {
 			render( <ShippingRecommendations /> );
 
 			expect(
-				screen.queryByText( 'WooCommerce Shipping' )
+				screen.queryByText( 'PooCommerce Shipping' )
 			).toBeInTheDocument();
 		} );
 
-		it( 'should trigger event settings_shipping_recommendation_visit_marketplace_click when clicking the WooCommerce Marketplace link', () => {
+		it( 'should trigger event settings_shipping_recommendation_visit_marketplace_click when clicking the PooCommerce Marketplace link', () => {
 			render( <ShippingRecommendations /> );
 
 			fireEvent.click(
-				screen.getByText( 'the WooCommerce Marketplace' )
+				screen.getByText( 'the PooCommerce Marketplace' )
 			);
 
 			expect( recordEvent ).toHaveBeenCalledWith(
@@ -382,7 +382,7 @@ describe( 'ShippingRecommendations', () => {
 			);
 		} );
 
-		it( 'should navigate to the marketplace when clicking the WooCommerce Marketplace link', async () => {
+		it( 'should navigate to the marketplace when clicking the PooCommerce Marketplace link', async () => {
 			const { isFeatureEnabled } = jest.requireMock( '~/utils/features' );
 			const originalLocation = global.window.location;
 			( isFeatureEnabled as jest.Mock ).mockReturnValue( true );
@@ -399,7 +399,7 @@ describe( 'ShippingRecommendations', () => {
 			render( <ShippingRecommendations /> );
 
 			fireEvent.click(
-				screen.getByText( 'the WooCommerce Marketplace' )
+				screen.getByText( 'the PooCommerce Marketplace' )
 			);
 
 			expect( mockLocation.href ).toContain(
@@ -413,7 +413,7 @@ describe( 'ShippingRecommendations', () => {
 	} );
 
 	describe( 'plugin installation', () => {
-		it( 'allows to install WooCommerce Shipping', async () => {
+		it( 'allows to install PooCommerce Shipping', async () => {
 			const installPluginsMock = jest.fn().mockResolvedValue( undefined );
 			const successNoticeMock = jest.fn();
 			( useDispatch as jest.Mock ).mockReturnValue( {
@@ -425,12 +425,12 @@ describe( 'ShippingRecommendations', () => {
 				createSuccessNotice: successNoticeMock,
 			} );
 			mockSelectForCountry( 'US', [
-				'woocommerce-shipstation-integration',
+				'poocommerce-shipstation-integration',
 			] );
 			render( <ShippingRecommendations /> );
 
 			// Both cards are now rendered for US; the first "Install" button
-			// belongs to the WooCommerce Shipping card (first entry in the
+			// belongs to the PooCommerce Shipping card (first entry in the
 			// COUNTRY_EXTENSIONS_MAP for US).
 			userEvent.click( screen.getAllByText( 'Install' )[ 0 ] );
 
@@ -440,16 +440,16 @@ describe( 'ShippingRecommendations', () => {
 					context: 'settings',
 					country: 'US',
 					plugins:
-						'woocommerce-shipping,woocommerce-shipstation-integration',
-					selected_plugin: 'woocommerce-shipping',
+						'poocommerce-shipping,poocommerce-shipstation-integration',
+					selected_plugin: 'poocommerce-shipping',
 				}
 			);
 			expect( installPluginsMock ).toHaveBeenCalledWith( [
-				'woocommerce-shipping',
+				'poocommerce-shipping',
 			] );
 			await waitFor( () => {
 				expect( successNoticeMock ).toHaveBeenCalledWith(
-					'WooCommerce Shipping is installed!',
+					'PooCommerce Shipping is installed!',
 					expect.anything()
 				);
 			} );
@@ -476,12 +476,12 @@ describe( 'ShippingRecommendations', () => {
 				{
 					context: 'settings',
 					country: 'CA',
-					plugins: 'woocommerce-shipstation-integration',
-					selected_plugin: 'woocommerce-shipstation-integration',
+					plugins: 'poocommerce-shipstation-integration',
+					selected_plugin: 'poocommerce-shipstation-integration',
 				}
 			);
 			expect( installPluginsMock ).toHaveBeenCalledWith( [
-				'woocommerce-shipstation-integration',
+				'poocommerce-shipstation-integration',
 			] );
 			await waitFor( () => {
 				expect( successNoticeMock ).toHaveBeenCalledWith(
@@ -551,8 +551,8 @@ describe( 'ShippingRecommendations', () => {
 					{
 						context: 'settings',
 						country: 'CA',
-						plugins: 'woocommerce-shipstation-integration',
-						selected_plugin: 'woocommerce-shipstation-integration',
+						plugins: 'poocommerce-shipstation-integration',
+						selected_plugin: 'poocommerce-shipstation-integration',
 						success: true,
 					}
 				);
@@ -583,8 +583,8 @@ describe( 'ShippingRecommendations', () => {
 					{
 						context: 'settings',
 						country: 'CA',
-						plugins: 'woocommerce-shipstation-integration',
-						selected_plugin: 'woocommerce-shipstation-integration',
+						plugins: 'poocommerce-shipstation-integration',
+						selected_plugin: 'poocommerce-shipstation-integration',
 						success: false,
 					}
 				);
@@ -608,7 +608,7 @@ describe( 'ShippingRecommendations', () => {
 			} );
 			mockSelectForCountry( 'CA', [], {
 				getInstalledPlugins: () => [
-					'woocommerce-shipstation-integration',
+					'poocommerce-shipstation-integration',
 				],
 			} );
 			render( <ShippingRecommendations /> );
@@ -621,8 +621,8 @@ describe( 'ShippingRecommendations', () => {
 					{
 						context: 'settings',
 						country: 'CA',
-						plugins: 'woocommerce-shipstation-integration',
-						selected_plugin: 'woocommerce-shipstation-integration',
+						plugins: 'poocommerce-shipstation-integration',
+						selected_plugin: 'poocommerce-shipstation-integration',
 						success: true,
 					}
 				);
@@ -644,7 +644,7 @@ describe( 'ShippingRecommendations', () => {
 			} );
 			mockSelectForCountry( 'CA', [], {
 				getInstalledPlugins: () => [
-					'woocommerce-shipstation-integration',
+					'poocommerce-shipstation-integration',
 				],
 			} );
 			render( <ShippingRecommendations /> );
@@ -657,8 +657,8 @@ describe( 'ShippingRecommendations', () => {
 					{
 						context: 'settings',
 						country: 'CA',
-						plugins: 'woocommerce-shipstation-integration',
-						selected_plugin: 'woocommerce-shipstation-integration',
+						plugins: 'poocommerce-shipstation-integration',
+						selected_plugin: 'poocommerce-shipstation-integration',
 						success: false,
 					}
 				);
@@ -667,23 +667,23 @@ describe( 'ShippingRecommendations', () => {
 	} );
 
 	describe( 'plugin activation (installed but not active)', () => {
-		it( 'shows Activate button for WooCommerce Shipping when installed but not active', () => {
+		it( 'shows Activate button for PooCommerce Shipping when installed but not active', () => {
 			mockSelectForCountry( 'US', [], {
-				getInstalledPlugins: () => [ 'woocommerce-shipping' ],
+				getInstalledPlugins: () => [ 'poocommerce-shipping' ],
 			} );
 			render( <ShippingRecommendations /> );
 
 			const buttons = screen.getAllByText( 'Activate' );
 			expect( buttons ).toHaveLength( 1 );
 			expect(
-				screen.queryByText( 'WooCommerce Shipping' )
+				screen.queryByText( 'PooCommerce Shipping' )
 			).toBeInTheDocument();
 		} );
 
 		it( 'shows Activate button for ShipStation when installed but not active', () => {
 			mockSelectForCountry( 'CA', [], {
 				getInstalledPlugins: () => [
-					'woocommerce-shipstation-integration',
+					'poocommerce-shipstation-integration',
 				],
 			} );
 			render( <ShippingRecommendations /> );
@@ -702,7 +702,7 @@ describe( 'ShippingRecommendations', () => {
 			expect( screen.queryByText( 'Install' ) ).not.toBeInTheDocument();
 		} );
 
-		it( 'shows activated notice for WooCommerce Shipping when activating installed plugin', async () => {
+		it( 'shows activated notice for PooCommerce Shipping when activating installed plugin', async () => {
 			const activatePluginsMock = jest
 				.fn()
 				.mockResolvedValue( undefined );
@@ -717,9 +717,9 @@ describe( 'ShippingRecommendations', () => {
 			} );
 			mockSelectForCountry(
 				'US',
-				[ 'woocommerce-shipstation-integration' ],
+				[ 'poocommerce-shipstation-integration' ],
 				{
-					getInstalledPlugins: () => [ 'woocommerce-shipping' ],
+					getInstalledPlugins: () => [ 'poocommerce-shipping' ],
 				}
 			);
 			render( <ShippingRecommendations /> );
@@ -732,16 +732,16 @@ describe( 'ShippingRecommendations', () => {
 					context: 'settings',
 					country: 'US',
 					plugins:
-						'woocommerce-shipping,woocommerce-shipstation-integration',
-					selected_plugin: 'woocommerce-shipping',
+						'poocommerce-shipping,poocommerce-shipstation-integration',
+					selected_plugin: 'poocommerce-shipping',
 				}
 			);
 			expect( activatePluginsMock ).toHaveBeenCalledWith( [
-				'woocommerce-shipping',
+				'poocommerce-shipping',
 			] );
 			await waitFor( () => {
 				expect( successNoticeMock ).toHaveBeenCalledWith(
-					'WooCommerce Shipping activated!',
+					'PooCommerce Shipping activated!',
 					expect.anything()
 				);
 			} );
@@ -762,7 +762,7 @@ describe( 'ShippingRecommendations', () => {
 			} );
 			mockSelectForCountry( 'CA', [], {
 				getInstalledPlugins: () => [
-					'woocommerce-shipstation-integration',
+					'poocommerce-shipstation-integration',
 				],
 			} );
 			render( <ShippingRecommendations /> );
@@ -774,12 +774,12 @@ describe( 'ShippingRecommendations', () => {
 				{
 					context: 'settings',
 					country: 'CA',
-					plugins: 'woocommerce-shipstation-integration',
-					selected_plugin: 'woocommerce-shipstation-integration',
+					plugins: 'poocommerce-shipstation-integration',
+					selected_plugin: 'poocommerce-shipstation-integration',
 				}
 			);
 			expect( activatePluginsMock ).toHaveBeenCalledWith( [
-				'woocommerce-shipstation-integration',
+				'poocommerce-shipstation-integration',
 			] );
 			await waitFor( () => {
 				expect( successNoticeMock ).toHaveBeenCalledWith(

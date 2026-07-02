@@ -1,13 +1,13 @@
 <?php
 /**
- * WooCommerce Attribute Functions
+ * PooCommerce Attribute Functions
  *
- * @package WooCommerce\Functions
+ * @package PooCommerce\Functions
  * @version 2.1.0
  */
 
-use Automattic\WooCommerce\Enums\ProductType;
-use Automattic\WooCommerce\Utilities\FeaturesUtil;
+use Automattic\PooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Utilities\FeaturesUtil;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -53,9 +53,9 @@ function wc_implode_text_attributes( $attributes ) {
  * @return array of objects, @since 3.6.0 these are also indexed by ID.
  */
 function wc_get_attribute_taxonomies() {
-	$prefix      = WC_Cache_Helper::get_cache_prefix( 'woocommerce-attributes' );
+	$prefix      = WC_Cache_Helper::get_cache_prefix( 'poocommerce-attributes' );
 	$cache_key   = $prefix . 'attributes';
-	$cache_value = wp_cache_get( $cache_key, 'woocommerce-attributes' );
+	$cache_value = wp_cache_get( $cache_key, 'poocommerce-attributes' );
 
 	if ( false !== $cache_value ) {
 		return $cache_value;
@@ -66,7 +66,7 @@ function wc_get_attribute_taxonomies() {
 	if ( false === $raw_attribute_taxonomies ) {
 		global $wpdb;
 
-		$raw_attribute_taxonomies = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}woocommerce_attribute_taxonomies WHERE attribute_name != '' ORDER BY attribute_name ASC;" );
+		$raw_attribute_taxonomies = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}poocommerce_attribute_taxonomies WHERE attribute_name != '' ORDER BY attribute_name ASC;" );
 
 		set_transient( 'wc_attribute_taxonomies', $raw_attribute_taxonomies );
 	}
@@ -76,7 +76,7 @@ function wc_get_attribute_taxonomies() {
 	 *
 	 * @param array $attribute_taxonomies Results of the DB query. Each taxonomy is an object.
 	 */
-	$raw_attribute_taxonomies = (array) array_filter( apply_filters( 'woocommerce_attribute_taxonomies', $raw_attribute_taxonomies ) );
+	$raw_attribute_taxonomies = (array) array_filter( apply_filters( 'poocommerce_attribute_taxonomies', $raw_attribute_taxonomies ) );
 
 	// Index by ID for easier lookups.
 	$attribute_taxonomies = array();
@@ -85,7 +85,7 @@ function wc_get_attribute_taxonomies() {
 		$attribute_taxonomies[ 'id:' . $result->attribute_id ] = $result;
 	}
 
-	wp_cache_set( $cache_key, $attribute_taxonomies, 'woocommerce-attributes' );
+	wp_cache_set( $cache_key, $attribute_taxonomies, 'poocommerce-attributes' );
 
 	return $attribute_taxonomies;
 }
@@ -97,9 +97,9 @@ function wc_get_attribute_taxonomies() {
  * @return array
  */
 function wc_get_attribute_taxonomy_ids() {
-	$prefix      = WC_Cache_Helper::get_cache_prefix( 'woocommerce-attributes' );
+	$prefix      = WC_Cache_Helper::get_cache_prefix( 'poocommerce-attributes' );
 	$cache_key   = $prefix . 'ids';
-	$cache_value = wp_cache_get( $cache_key, 'woocommerce-attributes' );
+	$cache_value = wp_cache_get( $cache_key, 'poocommerce-attributes' );
 
 	if ( false !== $cache_value ) {
 		return $cache_value;
@@ -107,7 +107,7 @@ function wc_get_attribute_taxonomy_ids() {
 
 	$taxonomy_ids = array_map( 'absint', wp_list_pluck( wc_get_attribute_taxonomies(), 'attribute_id', 'attribute_name' ) );
 
-	wp_cache_set( $cache_key, $taxonomy_ids, 'woocommerce-attributes' );
+	wp_cache_set( $cache_key, $taxonomy_ids, 'poocommerce-attributes' );
 
 	return $taxonomy_ids;
 }
@@ -119,9 +119,9 @@ function wc_get_attribute_taxonomy_ids() {
  * @return array
  */
 function wc_get_attribute_taxonomy_labels() {
-	$prefix      = WC_Cache_Helper::get_cache_prefix( 'woocommerce-attributes' );
+	$prefix      = WC_Cache_Helper::get_cache_prefix( 'poocommerce-attributes' );
 	$cache_key   = $prefix . 'labels';
-	$cache_value = wp_cache_get( $cache_key, 'woocommerce-attributes' );
+	$cache_value = wp_cache_get( $cache_key, 'poocommerce-attributes' );
 
 	if ( false !== $cache_value ) {
 		return $cache_value;
@@ -129,7 +129,7 @@ function wc_get_attribute_taxonomy_labels() {
 
 	$taxonomy_labels = wp_list_pluck( wc_get_attribute_taxonomies(), 'attribute_label', 'attribute_name' );
 
-	wp_cache_set( $cache_key, $taxonomy_labels, 'woocommerce-attributes' );
+	wp_cache_set( $cache_key, $taxonomy_labels, 'poocommerce-attributes' );
 
 	return $taxonomy_labels;
 }
@@ -214,7 +214,7 @@ function wc_attribute_label( $name, $product = '' ) {
 		$label = $name;
 	}//end if
 
-	return apply_filters( 'woocommerce_attribute_label', $label, $name, $product );
+	return apply_filters( 'poocommerce_attribute_label', $label, $name, $product );
 }
 
 /**
@@ -228,7 +228,7 @@ function wc_attribute_orderby( $name ) {
 	$id         = wc_attribute_taxonomy_id_by_name( $name );
 	$taxonomies = wc_get_attribute_taxonomies();
 
-	return apply_filters( 'woocommerce_attribute_orderby', isset( $taxonomies[ 'id:' . $id ] ) ? $taxonomies[ 'id:' . $id ]->attribute_orderby : 'menu_order', $name );
+	return apply_filters( 'poocommerce_attribute_orderby', isset( $taxonomies[ 'id:' . $id ] ) ? $taxonomies[ 'id:' . $id ]->attribute_orderby : 'menu_order', $name );
 }
 
 /**
@@ -255,7 +255,7 @@ function wc_get_attribute_taxonomy_names() {
  */
 function wc_get_attribute_types() {
 	$attribute_types = array(
-		'select' => __( 'Text', 'woocommerce' ),
+		'select' => __( 'Text', 'poocommerce' ),
 	);
 
 	$allow_visual_attribute_type =
@@ -274,7 +274,7 @@ function wc_get_attribute_types() {
 	}
 
 	if ( $allow_visual_attribute_type ) {
-		$attribute_types['wc-visual'] = __( 'Color / image', 'woocommerce' );
+		$attribute_types['wc-visual'] = __( 'Color / image', 'poocommerce' );
 	}
 
 	return (array) apply_filters(
@@ -306,7 +306,7 @@ function wc_has_custom_attribute_types() {
 function wc_get_attribute_type_label( $type ) {
 	$types = wc_get_attribute_types();
 
-	return isset( $types[ $type ] ) ? $types[ $type ] : __( 'Text', 'woocommerce' );
+	return isset( $types[ $type ] ) ? $types[ $type ] : __( 'Text', 'poocommerce' );
 }
 
 /**
@@ -431,7 +431,7 @@ function wc_attributes_array_filter_variation( $attribute ) {
  */
 function wc_is_attribute_in_product_name( $attribute, $name ) {
 	$is_in_name = stristr( $name, ' ' . $attribute . ',' ) || 0 === stripos( strrev( $name ), strrev( ' ' . $attribute ) );
-	return apply_filters( 'woocommerce_is_attribute_in_product_name', $is_in_name, $attribute, $name );
+	return apply_filters( 'poocommerce_is_attribute_in_product_name', $is_in_name, $attribute, $name );
 }
 
 /**
@@ -501,7 +501,7 @@ function wc_create_attribute( $args ) {
 
 	// Name is required.
 	if ( empty( $args['name'] ) ) {
-		return new WP_Error( 'missing_attribute_name', __( 'Please, provide an attribute name.', 'woocommerce' ), array( 'status' => 400 ) );
+		return new WP_Error( 'missing_attribute_name', __( 'Please, provide an attribute name.', 'poocommerce' ), array( 'status' => 400 ) );
 	}
 
 	// Set the attribute slug.
@@ -514,13 +514,13 @@ function wc_create_attribute( $args ) {
 	// Validate slug.
 	if ( strlen( $slug ) > 28 ) {
 		/* translators: %s: attribute slug */
-		return new WP_Error( 'invalid_product_attribute_slug_too_long', sprintf( __( 'Slug "%s" is too long (28 characters max). Shorten it, please.', 'woocommerce' ), $slug ), array( 'status' => 400 ) );
+		return new WP_Error( 'invalid_product_attribute_slug_too_long', sprintf( __( 'Slug "%s" is too long (28 characters max). Shorten it, please.', 'poocommerce' ), $slug ), array( 'status' => 400 ) );
 	} elseif ( wc_check_if_attribute_name_is_reserved( $slug ) ) {
 		/* translators: %s: attribute slug */
-		return new WP_Error( 'invalid_product_attribute_slug_reserved_name', sprintf( __( 'Slug "%s" is not allowed because it is a reserved term. Change it, please.', 'woocommerce' ), $slug ), array( 'status' => 400 ) );
+		return new WP_Error( 'invalid_product_attribute_slug_reserved_name', sprintf( __( 'Slug "%s" is not allowed because it is a reserved term. Change it, please.', 'poocommerce' ), $slug ), array( 'status' => 400 ) );
 	} elseif ( ( 0 === $id && taxonomy_exists( wc_attribute_taxonomy_name( $slug ) ) ) || ( isset( $args['old_slug'] ) && $args['old_slug'] !== $slug && taxonomy_exists( wc_attribute_taxonomy_name( $slug ) ) ) ) {
 		/* translators: %s: attribute slug */
-		return new WP_Error( 'invalid_product_attribute_slug_already_exists', sprintf( __( 'Slug "%s" is already in use. Change it, please.', 'woocommerce' ), $slug ), array( 'status' => 400 ) );
+		return new WP_Error( 'invalid_product_attribute_slug_already_exists', sprintf( __( 'Slug "%s" is already in use. Change it, please.', 'poocommerce' ), $slug ), array( 'status' => 400 ) );
 	}
 
 	// Validate type.
@@ -544,7 +544,7 @@ function wc_create_attribute( $args ) {
 	// Create or update.
 	if ( 0 === $id ) {
 		$results = $wpdb->insert(
-			$wpdb->prefix . 'woocommerce_attribute_taxonomies',
+			$wpdb->prefix . 'poocommerce_attribute_taxonomies',
 			$data,
 			$format
 		);
@@ -561,10 +561,10 @@ function wc_create_attribute( $args ) {
 		 * @param int   $id   Added attribute ID.
 		 * @param array $data Attribute data.
 		 */
-		do_action( 'woocommerce_attribute_added', $id, $data );
+		do_action( 'poocommerce_attribute_added', $id, $data );
 	} else {
 		$results = $wpdb->update(
-			$wpdb->prefix . 'woocommerce_attribute_taxonomies',
+			$wpdb->prefix . 'poocommerce_attribute_taxonomies',
 			$data,
 			array( 'attribute_id' => $id ),
 			$format,
@@ -572,7 +572,7 @@ function wc_create_attribute( $args ) {
 		);
 
 		if ( false === $results ) {
-			return new WP_Error( 'cannot_update_attribute', __( 'Could not update the attribute.', 'woocommerce' ), array( 'status' => 400 ) );
+			return new WP_Error( 'cannot_update_attribute', __( 'Could not update the attribute.', 'poocommerce' ), array( 'status' => 400 ) );
 		}
 
 		// Set old slug to check for database changes.
@@ -585,7 +585,7 @@ function wc_create_attribute( $args ) {
 		 * @param array  $data     Attribute data.
 		 * @param string $old_slug Attribute old name.
 		 */
-		do_action( 'woocommerce_attribute_updated', $id, $data, $old_slug );
+		do_action( 'poocommerce_attribute_updated', $id, $data, $old_slug );
 
 		if ( $old_slug !== $slug ) {
 			// Update taxonomies in the wp term taxonomy table.
@@ -649,9 +649,9 @@ function wc_create_attribute( $args ) {
 	}//end if
 
 	// Clear cache and flush rewrite rules.
-	wp_schedule_single_event( time(), 'woocommerce_flush_rewrite_rules' );
+	wp_schedule_single_event( time(), 'poocommerce_flush_rewrite_rules' );
 	delete_transient( 'wc_attribute_taxonomies' );
-	WC_Cache_Helper::invalidate_cache_group( 'woocommerce-attributes' );
+	WC_Cache_Helper::invalidate_cache_group( 'poocommerce-attributes' );
 
 	return $id;
 }
@@ -691,7 +691,7 @@ function wc_update_attribute( $id, $args ) {
 		$wpdb->prepare(
 			"
 				SELECT attribute_name
-				FROM {$wpdb->prefix}woocommerce_attribute_taxonomies
+				FROM {$wpdb->prefix}poocommerce_attribute_taxonomies
 				WHERE attribute_id = %d
 			",
 			$args['id']
@@ -715,7 +715,7 @@ function wc_delete_attribute( $id ) {
 		$wpdb->prepare(
 			"
 			SELECT attribute_name
-			FROM {$wpdb->prefix}woocommerce_attribute_taxonomies
+			FROM {$wpdb->prefix}poocommerce_attribute_taxonomies
 			WHERE attribute_id = %d
 			",
 			$id
@@ -731,9 +731,9 @@ function wc_delete_attribute( $id ) {
 	 * @param string $name     Attribute name.
 	 * @param string $taxonomy Attribute taxonomy name.
 	 */
-	do_action( 'woocommerce_before_attribute_delete', $id, $name, $taxonomy );
+	do_action( 'poocommerce_before_attribute_delete', $id, $name, $taxonomy );
 
-	if ( $name && $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}woocommerce_attribute_taxonomies WHERE attribute_id = %d", $id ) ) ) {
+	if ( $name && $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}poocommerce_attribute_taxonomies WHERE attribute_id = %d", $id ) ) ) {
 		if ( taxonomy_exists( $taxonomy ) ) {
 			$terms = get_terms( $taxonomy, 'orderby=name&hide_empty=0' );
 			foreach ( $terms as $term ) {
@@ -748,10 +748,10 @@ function wc_delete_attribute( $id ) {
 		 * @param string $name     Attribute name.
 		 * @param string $taxonomy Attribute taxonomy name.
 		 */
-		do_action( 'woocommerce_attribute_deleted', $id, $name, $taxonomy );
-		wp_schedule_single_event( time(), 'woocommerce_flush_rewrite_rules' );
+		do_action( 'poocommerce_attribute_deleted', $id, $name, $taxonomy );
+		wp_schedule_single_event( time(), 'poocommerce_flush_rewrite_rules' );
 		delete_transient( 'wc_attribute_taxonomies' );
-		WC_Cache_Helper::invalidate_cache_group( 'woocommerce-attributes' );
+		WC_Cache_Helper::invalidate_cache_group( 'poocommerce-attributes' );
 
 		return true;
 	}//end if
@@ -768,9 +768,9 @@ function wc_delete_attribute( $id ) {
  * @return string
  */
 function wc_attribute_taxonomy_slug( $attribute_name ) {
-	$prefix      = WC_Cache_Helper::get_cache_prefix( 'woocommerce-attributes' );
+	$prefix      = WC_Cache_Helper::get_cache_prefix( 'poocommerce-attributes' );
 	$cache_key   = $prefix . 'slug-' . $attribute_name;
-	$cache_value = wp_cache_get( $cache_key, 'woocommerce-attributes' );
+	$cache_value = wp_cache_get( $cache_key, 'poocommerce-attributes' );
 
 	if ( false !== $cache_value ) {
 		return $cache_value;
@@ -778,7 +778,7 @@ function wc_attribute_taxonomy_slug( $attribute_name ) {
 
 	$attribute_name = wc_sanitize_taxonomy_name( $attribute_name );
 	$attribute_slug = 0 === strpos( $attribute_name, 'pa_' ) ? substr( $attribute_name, 3 ) : $attribute_name;
-	wp_cache_set( $cache_key, $attribute_slug, 'woocommerce-attributes' );
+	wp_cache_set( $cache_key, $attribute_slug, 'poocommerce-attributes' );
 
 	return $attribute_slug;
 }

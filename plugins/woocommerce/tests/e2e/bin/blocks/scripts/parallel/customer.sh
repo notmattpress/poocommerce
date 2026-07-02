@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 if ! wp user get customer --field=ID --path=/var/www/html >/dev/null 2>&1; then
-	wp user create customer customer@woocommerceblockse2etestsuite.com \
+	wp user create customer customer@poocommerceblockse2etestsuite.com \
 		--user_pass=password \
 		--role=subscriber \
 		--first_name='Jane' \

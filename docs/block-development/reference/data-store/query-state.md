@@ -6,11 +6,11 @@ sidebar_label: Query State Store
 
 ## Overview
 
-The Query State Store offers actions to handle and manipulate query-related data within specific contexts, such as individual blocks. This facilitates the dynamic updating and retrieval of query-state values, ensuring accurate and context-specific data management within WooCommerce Blocks.
+The Query State Store offers actions to handle and manipulate query-related data within specific contexts, such as individual blocks. This facilitates the dynamic updating and retrieval of query-state values, ensuring accurate and context-specific data management within PooCommerce Blocks.
 
 ## Usage
 
-To utilize this store you will import the `QUERY_STATE_STORE_KEY` in any module referencing it. Assuming `@woocommerce/block-data` is registered as an external pointing to `wc.wcBlocksData` you can import the key via:
+To utilize this store you will import the `QUERY_STATE_STORE_KEY` in any module referencing it. Assuming `@poocommerce/block-data` is registered as an external pointing to `wc.wcBlocksData` you can import the key via:
 
 ```js
 const { QUERY_STATE_STORE_KEY } = window.wc.wcBlocksData;

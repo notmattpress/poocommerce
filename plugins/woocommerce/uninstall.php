@@ -1,10 +1,10 @@
 <?php
 /**
- * WooCommerce Uninstall
+ * PooCommerce Uninstall
  *
- * Uninstalling WooCommerce deletes user roles, pages, tables, and options.
+ * Uninstalling PooCommerce deletes user roles, pages, tables, and options.
  *
- * @package WooCommerce\Uninstaller
+ * @package PooCommerce\Uninstaller
  * @version 2.3.0
  */
 
@@ -15,27 +15,27 @@ global $wpdb, $wp_version, $wc_uninstalling_plugin;
 $wc_uninstalling_plugin = true;
 
 // Clear WordPress cron events.
-wp_clear_scheduled_hook( 'woocommerce_scheduled_sales' );
-wp_clear_scheduled_hook( 'woocommerce_cancel_unpaid_orders' );
-wp_clear_scheduled_hook( 'woocommerce_cleanup_sessions' );
-wp_clear_scheduled_hook( 'woocommerce_cleanup_personal_data' );
-wp_clear_scheduled_hook( 'woocommerce_cleanup_logs' );
-wp_clear_scheduled_hook( 'woocommerce_geoip_updater' );
-wp_clear_scheduled_hook( 'woocommerce_tracker_send_event' );
-wp_clear_scheduled_hook( 'woocommerce_cleanup_rate_limits' );
+wp_clear_scheduled_hook( 'poocommerce_scheduled_sales' );
+wp_clear_scheduled_hook( 'poocommerce_cancel_unpaid_orders' );
+wp_clear_scheduled_hook( 'poocommerce_cleanup_sessions' );
+wp_clear_scheduled_hook( 'poocommerce_cleanup_personal_data' );
+wp_clear_scheduled_hook( 'poocommerce_cleanup_logs' );
+wp_clear_scheduled_hook( 'poocommerce_geoip_updater' );
+wp_clear_scheduled_hook( 'poocommerce_tracker_send_event' );
+wp_clear_scheduled_hook( 'poocommerce_cleanup_rate_limits' );
 wp_clear_scheduled_hook( 'wc_admin_daily' );
 wp_clear_scheduled_hook( 'generate_category_lookup_table' );
 wp_clear_scheduled_hook( 'wc_admin_unsnooze_admin_notes' );
 
 if ( class_exists( ActionScheduler::class ) && ActionScheduler::is_initialized() && function_exists( 'as_unschedule_all_actions' ) ) {
-	as_unschedule_all_actions( 'woocommerce_scheduled_sales' );
-	as_unschedule_all_actions( 'woocommerce_cancel_unpaid_orders' );
-	as_unschedule_all_actions( 'woocommerce_cleanup_sessions' );
-	as_unschedule_all_actions( 'woocommerce_cleanup_personal_data' );
-	as_unschedule_all_actions( 'woocommerce_cleanup_logs' );
-	as_unschedule_all_actions( 'woocommerce_geoip_updater' );
-	as_unschedule_all_actions( 'woocommerce_tracker_send_event' );
-	as_unschedule_all_actions( 'woocommerce_cleanup_rate_limits' );
+	as_unschedule_all_actions( 'poocommerce_scheduled_sales' );
+	as_unschedule_all_actions( 'poocommerce_cancel_unpaid_orders' );
+	as_unschedule_all_actions( 'poocommerce_cleanup_sessions' );
+	as_unschedule_all_actions( 'poocommerce_cleanup_personal_data' );
+	as_unschedule_all_actions( 'poocommerce_cleanup_logs' );
+	as_unschedule_all_actions( 'poocommerce_geoip_updater' );
+	as_unschedule_all_actions( 'poocommerce_tracker_send_event' );
+	as_unschedule_all_actions( 'poocommerce_cleanup_rate_limits' );
 	as_unschedule_all_actions( 'wc_admin_daily' );
 	as_unschedule_all_actions( 'generate_category_lookup_table' );
 	as_unschedule_all_actions( 'wc_admin_unsnooze_admin_notes' );
@@ -47,7 +47,7 @@ if ( class_exists( ActionScheduler::class ) && ActionScheduler::is_initialized()
  * and to ensure only the site owner can perform this action.
  */
 if ( defined( 'WC_REMOVE_ALL_DATA' ) && true === WC_REMOVE_ALL_DATA ) {
-	// Load WooCommerce so we can access the container, install routines, etc, during uninstall.
+	// Load PooCommerce so we can access the container, install routines, etc, during uninstall.
 	require_once __DIR__ . '/includes/class-wc-install.php';
 
 	// Drop custom WordPress tables indexes. See \WC_Install::create_tables() for details.
@@ -68,17 +68,17 @@ if ( defined( 'WC_REMOVE_ALL_DATA' ) && true === WC_REMOVE_ALL_DATA ) {
 	WC_Install::remove_roles();
 
 	// Pages.
-	wp_trash_post( get_option( 'woocommerce_shop_page_id' ) );
-	wp_trash_post( get_option( 'woocommerce_cart_page_id' ) );
-	wp_trash_post( get_option( 'woocommerce_checkout_page_id' ) );
-	wp_trash_post( get_option( 'woocommerce_myaccount_page_id' ) );
-	wp_trash_post( get_option( 'woocommerce_edit_address_page_id' ) );
-	wp_trash_post( get_option( 'woocommerce_view_order_page_id' ) );
-	wp_trash_post( get_option( 'woocommerce_change_password_page_id' ) );
-	wp_trash_post( get_option( 'woocommerce_logout_page_id' ) );
+	wp_trash_post( get_option( 'poocommerce_shop_page_id' ) );
+	wp_trash_post( get_option( 'poocommerce_cart_page_id' ) );
+	wp_trash_post( get_option( 'poocommerce_checkout_page_id' ) );
+	wp_trash_post( get_option( 'poocommerce_myaccount_page_id' ) );
+	wp_trash_post( get_option( 'poocommerce_edit_address_page_id' ) );
+	wp_trash_post( get_option( 'poocommerce_view_order_page_id' ) );
+	wp_trash_post( get_option( 'poocommerce_change_password_page_id' ) );
+	wp_trash_post( get_option( 'poocommerce_logout_page_id' ) );
 
-	if ( $wpdb->get_var( "SHOW TABLES LIKE '{$wpdb->prefix}woocommerce_attribute_taxonomies';" ) ) {
-		$wc_attributes = array_filter( (array) $wpdb->get_col( "SELECT attribute_name FROM {$wpdb->prefix}woocommerce_attribute_taxonomies;" ) );
+	if ( $wpdb->get_var( "SHOW TABLES LIKE '{$wpdb->prefix}poocommerce_attribute_taxonomies';" ) ) {
+		$wc_attributes = array_filter( (array) $wpdb->get_col( "SELECT attribute_name FROM {$wpdb->prefix}poocommerce_attribute_taxonomies;" ) );
 	} else {
 		$wc_attributes = array();
 	}
@@ -103,28 +103,28 @@ if ( defined( 'WC_REMOVE_ALL_DATA' ) && true === WC_REMOVE_ALL_DATA ) {
 	WC_Install::delete_placeholder_image();
 
 	// Delete options.
-	$wpdb->query( "DELETE FROM $wpdb->options WHERE option_name LIKE 'woocommerce\_%';" );
-	$wpdb->query( "DELETE FROM $wpdb->options WHERE option_name LIKE 'widget\_woocommerce\_%';" );
+	$wpdb->query( "DELETE FROM $wpdb->options WHERE option_name LIKE 'poocommerce\_%';" );
+	$wpdb->query( "DELETE FROM $wpdb->options WHERE option_name LIKE 'widget\_poocommerce\_%';" );
 
 	/*
-	 * Delete user meta created by WooCommerce.
+	 * Delete user meta created by PooCommerce.
 	 *
-	 * The woocommerce_ and _woocommerce_ prefixes are uniquely namespaced, so a LIKE wildcard is safe.
+	 * The poocommerce_ and _poocommerce_ prefixes are uniquely namespaced, so a LIKE wildcard is safe.
 	 * The wc_ / _wc_ namespace is only two characters: a blanket wc_% / _wc_% wildcard would also delete
 	 * other plugins' user meta and, critically, WordPress core's own role/capability meta (the
 	 * {prefix}capabilities and {prefix}user_level keys) on any site whose database table prefix is "wc_",
 	 * which would strip every user's roles and could lock the site out. We therefore match only
-	 * WooCommerce's own known wc_ / _wc_ user meta keys (including the wc_admin_ legacy prefix, the
+	 * PooCommerce's own known wc_ / _wc_ user meta keys (including the wc_admin_ legacy prefix, the
 	 * _wc_egg_ easter-egg meta, and the per-site customer lookup meta, whose keys are suffixed with the
 	 * site's table prefix) rather than a blanket wildcard.
 	 *
 	 * Note: wp_usermeta is shared across a multisite network while this uninstall runs per site, so the
-	 * matching meta is removed network-wide, consistent with the woocommerce_ option/meta cleanup above.
+	 * matching meta is removed network-wide, consistent with the poocommerce_ option/meta cleanup above.
 	 */
 	$wpdb->query(
 		"DELETE FROM $wpdb->usermeta WHERE
-			meta_key LIKE 'woocommerce\_%'
-			OR meta_key LIKE '\_woocommerce\_%'
+			meta_key LIKE 'poocommerce\_%'
+			OR meta_key LIKE '\_poocommerce\_%'
 			OR meta_key LIKE 'wc\_admin\_%'
 			OR meta_key LIKE '\_wc\_egg\_%'
 			OR meta_key LIKE 'wc\_last\_order\_%'

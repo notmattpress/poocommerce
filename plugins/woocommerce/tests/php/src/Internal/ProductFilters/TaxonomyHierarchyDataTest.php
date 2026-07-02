@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\ProductFilters;
+namespace Automattic\PooCommerce\Tests\Internal\ProductFilters;
 
-use Automattic\WooCommerce\Internal\ProductFilters\TaxonomyHierarchyData;
+use Automattic\PooCommerce\Internal\ProductFilters\TaxonomyHierarchyData;
 use WP_UnitTestCase;
 
 /**

@@ -4,21 +4,21 @@ declare( strict_types=1 );
 /**
  * Package_Formatter class
  *
- * @package  WooCommerce
+ * @package  PooCommerce
  */
 
-namespace Automattic\WooCommerce\MonorepoTools\Changelogger;
+namespace Automattic\PooCommerce\MonorepoTools\Changelogger;
 
 use Automattic\Jetpack\Changelogger\FormatterPlugin;
 
 /**
- * Jetpack Changelogger Formatter for WooCommerce packages
+ * Jetpack Changelogger Formatter for PooCommerce packages
  */
 
 require_once 'class-formatter.php';
 
 /**
- * Jetpack Changelogger Formatter for WooCommerce Packages
+ * Jetpack Changelogger Formatter for PooCommerce Packages
  *
  * Class Formatter
  */

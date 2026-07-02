@@ -37,13 +37,13 @@ export const SearchableChipSelect = forwardRef<
 		children,
 		creatableItem,
 		disabled,
-		emptyContent = __( 'No results found.', 'woocommerce' ),
+		emptyContent = __( 'No results found.', 'poocommerce' ),
 		items = DEFAULT_ITEMS,
 		chipsContent,
 		placeholderChip,
-		searchPlaceholder = __( 'Search', 'woocommerce' ),
+		searchPlaceholder = __( 'Search', 'poocommerce' ),
 		showClearButton = true,
-		clearButtonLabel = __( 'Clear all', 'woocommerce' ),
+		clearButtonLabel = __( 'Clear all', 'poocommerce' ),
 		'aria-label': ariaLabel,
 		'aria-labelledby': ariaLabelledby,
 		'aria-describedby': ariaDescribedby,
@@ -71,9 +71,9 @@ export const SearchableChipSelect = forwardRef<
 				render={
 					<div
 						className={ clsx(
-							'woocommerce-searchable-chip-select',
+							'poocommerce-searchable-chip-select',
 							disabled &&
-								'woocommerce-searchable-chip-select--is-disabled'
+								'poocommerce-searchable-chip-select--is-disabled'
 						) }
 					/>
 				}
@@ -85,23 +85,23 @@ export const SearchableChipSelect = forwardRef<
 							! hasValue && Boolean( placeholderChip );
 
 						return hasValue || showPlaceholderChip ? (
-							<div className="woocommerce-searchable-chip-select__chips-edit-area">
-								<div className="woocommerce-searchable-chip-select__chips-list">
+							<div className="poocommerce-searchable-chip-select__chips-edit-area">
+								<div className="poocommerce-searchable-chip-select__chips-list">
 									{ hasValue && chipsContent
 										? chipsContent( value )
 										: value.map( ( item ) => (
 												<BaseCombobox.Chip
 													key={ item.value }
-													className="woocommerce-searchable-chip-select__chip"
+													className="poocommerce-searchable-chip-select__chip"
 												>
-													<span className="woocommerce-searchable-chip-select__chip-content">
+													<span className="poocommerce-searchable-chip-select__chip-content">
 														{ item.label }
 													</span>
 													<BaseCombobox.ChipRemove
-														className="woocommerce-searchable-chip-select__chip-remove"
+														className="poocommerce-searchable-chip-select__chip-remove"
 														aria-label={ __(
 															'Remove',
-															'woocommerce'
+															'poocommerce'
 														) }
 													>
 														<span aria-hidden="true">
@@ -111,8 +111,8 @@ export const SearchableChipSelect = forwardRef<
 												</BaseCombobox.Chip>
 										  ) ) }
 									{ showPlaceholderChip && (
-										<span className="woocommerce-searchable-chip-select__chip woocommerce-searchable-chip-select__chip--is-placeholder">
-											<span className="woocommerce-searchable-chip-select__chip-content">
+										<span className="poocommerce-searchable-chip-select__chip poocommerce-searchable-chip-select__chip--is-placeholder">
+											<span className="poocommerce-searchable-chip-select__chip-content">
 												{ placeholderChip }
 											</span>
 										</span>
@@ -120,7 +120,7 @@ export const SearchableChipSelect = forwardRef<
 								</div>
 								{ hasValue && showClearButton && (
 									<BaseCombobox.Clear
-										className="woocommerce-searchable-chip-select__clear"
+										className="poocommerce-searchable-chip-select__clear"
 										aria-label={ clearButtonLabel }
 									>
 										<span aria-hidden="true">×</span>
@@ -132,7 +132,7 @@ export const SearchableChipSelect = forwardRef<
 				</BaseCombobox.Value>
 
 				<BaseCombobox.Input
-					className="woocommerce-searchable-chip-select__input"
+					className="poocommerce-searchable-chip-select__input"
 					placeholder={ searchPlaceholder }
 					aria-label={ ariaLabel }
 					aria-labelledby={ ariaLabelledby }
@@ -141,12 +141,12 @@ export const SearchableChipSelect = forwardRef<
 			</BaseCombobox.Chips>
 
 			<BaseCombobox.Portal>
-				<BaseCombobox.Positioner className="woocommerce-searchable-chip-select__positioner">
-					<BaseCombobox.Popup className="woocommerce-searchable-chip-select__popup">
-						<BaseCombobox.Empty className="woocommerce-searchable-chip-select__empty">
+				<BaseCombobox.Positioner className="poocommerce-searchable-chip-select__positioner">
+					<BaseCombobox.Popup className="poocommerce-searchable-chip-select__popup">
+						<BaseCombobox.Empty className="poocommerce-searchable-chip-select__empty">
 							{ emptyContent }
 						</BaseCombobox.Empty>
-						<BaseCombobox.List className="woocommerce-searchable-chip-select__list">
+						<BaseCombobox.List className="poocommerce-searchable-chip-select__list">
 							<BaseCombobox.Collection>
 								{ ( item: Item, index: number ) => {
 									if ( item.value === creatableItem?.value ) {
@@ -160,7 +160,7 @@ export const SearchableChipSelect = forwardRef<
 											key={ item.value }
 											value={ item }
 											disabled={ item.disabled }
-											className="woocommerce-searchable-chip-select__item"
+											className="poocommerce-searchable-chip-select__item"
 										>
 											{ item.label }
 										</BaseCombobox.Item>
@@ -172,8 +172,8 @@ export const SearchableChipSelect = forwardRef<
 									value={ creatableItem }
 									disabled={ creatableItem.disabled }
 									className={ clsx(
-										'woocommerce-searchable-chip-select__item',
-										'woocommerce-searchable-chip-select__item--is-creatable'
+										'poocommerce-searchable-chip-select__item',
+										'poocommerce-searchable-chip-select__item--is-creatable'
 									) }
 								>
 									{ creatableItem.label }

@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { Cart } from '@woocommerce/type-defs/cart';
+import { Cart } from '@poocommerce/type-defs/cart';
 
 export interface ShippingData {
 	needsShipping: Cart[ 'needsShipping' ];

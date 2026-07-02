@@ -45,7 +45,7 @@ export const createDimensionField = (
 			}
 
 			const dimensionUnit =
-				storeProductsSettings?.values?.woocommerce_dimension_unit;
+				storeProductsSettings?.values?.poocommerce_dimension_unit;
 
 			return (
 				<InputControl

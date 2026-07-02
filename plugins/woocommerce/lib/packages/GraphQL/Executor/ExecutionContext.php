@@ -1,12 +1,12 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\GraphQL\Executor;
+namespace Automattic\PooCommerce\Vendor\GraphQL\Executor;
 
-use Automattic\WooCommerce\Vendor\GraphQL\Error\Error;
-use Automattic\WooCommerce\Vendor\GraphQL\Executor\Promise\PromiseAdapter;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\FragmentDefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\OperationDefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Schema;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\Error;
+use Automattic\PooCommerce\Vendor\GraphQL\Executor\Promise\PromiseAdapter;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\FragmentDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\OperationDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Schema;
 
 /**
  * Data that must be available at all points during query execution.

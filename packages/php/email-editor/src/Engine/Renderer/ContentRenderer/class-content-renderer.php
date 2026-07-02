@@ -1,19 +1,19 @@
 <?php
 /**
- * This file is part of the WooCommerce Email Editor package.
+ * This file is part of the PooCommerce Email Editor package.
  *
- * @package Automattic\WooCommerce\EmailEditor
+ * @package Automattic\PooCommerce\EmailEditor
  */
 
 declare(strict_types = 1);
-namespace Automattic\WooCommerce\EmailEditor\Engine\Renderer\ContentRenderer;
+namespace Automattic\PooCommerce\EmailEditor\Engine\Renderer\ContentRenderer;
 
-use Automattic\WooCommerce\EmailEditor\Engine\Logger\Email_Editor_Logger;
-use Automattic\WooCommerce\EmailEditor\Engine\Renderer\Css_Inliner;
-use Automattic\WooCommerce\EmailEditor\Engine\Theme_Controller;
-use Automattic\WooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks\Fallback;
-use Automattic\WooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks\Post_Content;
-use Automattic\WooCommerce\EmailEditor\Integrations\Utils\Table_Wrapper_Helper;
+use Automattic\PooCommerce\EmailEditor\Engine\Logger\Email_Editor_Logger;
+use Automattic\PooCommerce\EmailEditor\Engine\Renderer\Css_Inliner;
+use Automattic\PooCommerce\EmailEditor\Engine\Theme_Controller;
+use Automattic\PooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks\Fallback;
+use Automattic\PooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks\Post_Content;
+use Automattic\PooCommerce\EmailEditor\Integrations\Utils\Table_Wrapper_Helper;
 use WP_Block_Template;
 use WP_Block_Type_Registry;
 use WP_Post;
@@ -162,7 +162,7 @@ class Content_Renderer {
 	private function initialize() {
 		add_filter( 'render_block', array( $this, 'render_block' ), 10, 2 );
 		add_filter( 'block_parser_class', array( $this, 'block_parser' ) );
-		add_filter( 'woocommerce_email_blocks_renderer_parsed_blocks', array( $this, 'preprocess_parsed_blocks' ) );
+		add_filter( 'poocommerce_email_blocks_renderer_parsed_blocks', array( $this, 'preprocess_parsed_blocks' ) );
 
 		// Swap core/post-content render callback for email rendering.
 		// This prevents issues with WordPress's static $seen_ids array when rendering
@@ -239,7 +239,7 @@ class Content_Renderer {
 		$this->set_template_globals( $post, $template );
 		$this->initialize();
 		try {
-			do_action( 'woocommerce_email_editor_render_start' );
+			do_action( 'poocommerce_email_editor_render_start' );
 			$rendered_html = get_the_block_template_html();
 		} finally {
 			$this->reset();
@@ -257,7 +257,7 @@ class Content_Renderer {
 	 * @return string
 	 */
 	public function block_parser() {
-		return 'Automattic\WooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Blocks_Parser';
+		return 'Automattic\PooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Blocks_Parser';
 	}
 
 	/**
@@ -321,7 +321,7 @@ class Content_Renderer {
 	private function find_post_content_width( array $blocks, ?array $post_content_block_names = null ): ?string {
 		if ( null === $post_content_block_names ) {
 			$post_content_block_names = (array) apply_filters(
-				'woocommerce_email_editor_post_content_block_names',
+				'poocommerce_email_editor_post_content_block_names',
 				array( 'core/post-content' )
 			);
 		}
@@ -522,7 +522,7 @@ class Content_Renderer {
 	private function reset(): void {
 		remove_filter( 'render_block', array( $this, 'render_block' ) );
 		remove_filter( 'block_parser_class', array( $this, 'block_parser' ) );
-		remove_filter( 'woocommerce_email_blocks_renderer_parsed_blocks', array( $this, 'preprocess_parsed_blocks' ) );
+		remove_filter( 'poocommerce_email_blocks_renderer_parsed_blocks', array( $this, 'preprocess_parsed_blocks' ) );
 
 		$this->post_content_width = null;
 		$this->container_padding  = array();
@@ -589,7 +589,7 @@ class Content_Renderer {
 		 * @param WP_Post|null           $post     Email post being rendered.
 		 * @param WP_Block_Template|null $template Block template being rendered.
 		 */
-		$email_context = apply_filters( 'woocommerce_email_editor_rendering_email_context', array(), $post, $template );
+		$email_context = apply_filters( 'poocommerce_email_editor_rendering_email_context', array(), $post, $template );
 		if ( ! is_array( $email_context ) ) {
 			$email_context = array();
 		}
@@ -653,6 +653,6 @@ class Content_Renderer {
 
 		$styles .= $block_support_styles;
 
-		return wp_strip_all_tags( (string) apply_filters( 'woocommerce_email_content_renderer_styles', $styles, $post ) );
+		return wp_strip_all_tags( (string) apply_filters( 'poocommerce_email_content_renderer_styles', $styles, $post ) );
 	}
 }

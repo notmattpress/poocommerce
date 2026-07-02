@@ -1,10 +1,10 @@
 /**
  * External dependencies
  */
-import { expect, test } from '@woocommerce/e2e-utils';
+import { expect, test } from '@poocommerce/e2e-utils';
 
 const blockData = {
-	name: 'woocommerce/customer-account',
+	name: 'poocommerce/customer-account',
 	selectors: {
 		frontend: {
 			icon: 'svg',

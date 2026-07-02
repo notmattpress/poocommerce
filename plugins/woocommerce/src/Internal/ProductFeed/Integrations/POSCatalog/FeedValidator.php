@@ -2,14 +2,14 @@
 /**
  *  Feed Validator class.
  *
- * @package Automattic\WooCommerce\Internal\ProductFeed
+ * @package Automattic\PooCommerce\Internal\ProductFeed
  */
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Internal\ProductFeed\Integrations\POSCatalog;
+namespace Automattic\PooCommerce\Internal\ProductFeed\Integrations\POSCatalog;
 
-use Automattic\WooCommerce\Internal\ProductFeed\Feed\FeedValidatorInterface;
+use Automattic\PooCommerce\Internal\ProductFeed\Feed\FeedValidatorInterface;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;

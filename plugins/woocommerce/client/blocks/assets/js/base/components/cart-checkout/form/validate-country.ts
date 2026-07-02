@@ -2,13 +2,13 @@
  * External dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { type ShippingAddress } from '@woocommerce/settings';
+import { type ShippingAddress } from '@poocommerce/settings';
 import { select, dispatch } from '@wordpress/data';
-import { validationStore } from '@woocommerce/block-data';
+import { validationStore } from '@poocommerce/block-data';
 import {
 	ALLOWED_COUNTRIES,
 	SHIPPING_COUNTRIES,
-} from '@woocommerce/block-settings';
+} from '@poocommerce/block-settings';
 
 // If it's the shipping address form and the user starts entering address
 // values without having set the country first, show an error.
@@ -24,7 +24,7 @@ const validateCountry = (
 
 	try {
 		if ( ! values.country && hasCityStateOrPostcode ) {
-			throw __( 'Please select your country', 'woocommerce' );
+			throw __( 'Please select your country', 'poocommerce' );
 		}
 
 		if (
@@ -34,7 +34,7 @@ const validateCountry = (
 		) {
 			throw __(
 				'Sorry, we do not allow orders from the selected country',
-				'woocommerce'
+				'poocommerce'
 			);
 		}
 
@@ -45,7 +45,7 @@ const validateCountry = (
 		) {
 			throw __(
 				'Sorry, we do not ship orders to the selected country',
-				'woocommerce'
+				'poocommerce'
 			);
 		}
 

@@ -1,6 +1,6 @@
 # Folder Structure
 
-The following snippet explains how the WooCommerce Blocks repository is structured omitting irrelevant or obvious items with further explanations:
+The following snippet explains how the PooCommerce Blocks repository is structured omitting irrelevant or obvious items with further explanations:
 
 ```text
 │
@@ -62,28 +62,28 @@ The following snippet explains how the WooCommerce Blocks repository is structur
 | tasks and scripts used for day to day development.
 │
 ├── readme.txt
-│ Readme of the WooCommerce Blocks plugin hosted on the WordPress
+│ Readme of the PooCommerce Blocks plugin hosted on the WordPress
 │ plugin repository.
 │
-├── woocommerce-gutenberg-products-block.php
-│ Entry point of the WooCommerce Blocks plugin.
+├── poocommerce-gutenberg-products-block.php
+│ Entry point of the PooCommerce Blocks plugin.
 │
 ├── .github/*
 │ Config of the different Github features (issues and PR templates, CI,
 │ owners).
 │
 ├── .sources/_
-│ Sketch files of the WooCommerce Blocks plugin.
+│ Sketch files of the PooCommerce Blocks plugin.
 │
 ├── .wordpress-org/_
-│ Assets of the WooCommerce Blocks plugin hosted on the WordPress plugin
+│ Assets of the PooCommerce Blocks plugin hosted on the WordPress plugin
 │ repository.
 │
 ├── assets/css/_
-│ The SCSS files of the WooCommerce Blocks plugin.
+│ The SCSS files of the PooCommerce Blocks plugin.
 │
 ├── assets/js/_
-│ The React components of the WooCommerce Blocks plugin.
+│ The React components of the PooCommerce Blocks plugin.
 │
 ├── assets/js/atomic
 │ The atomic components such as product title, product rating, product
@@ -98,7 +98,7 @@ The following snippet explains how the WooCommerce Blocks repository is structur
 │ Files that allows developers to connect their extensions to this plugin.
 │
 ├── assets/js/blocks
-│ The main blocks of the WooCommerce Blocks plugin such as the Active
+│ The main blocks of the PooCommerce Blocks plugin such as the Active
 │ Filters Block.
 │
 ├── assets/js/data
@@ -115,10 +115,10 @@ The following snippet explains how the WooCommerce Blocks repository is structur
 │ Filter such as excluding the checkout draft from Google Analytics.
 │
 ├── assets/js/hocs
-│ The Higher Order Components of the WooCommerce Blocks plugin.
+│ The Higher Order Components of the PooCommerce Blocks plugin.
 │
 ├── assets/js/icons
-│ The WooCommerce Blocks Icon library.
+│ The PooCommerce Blocks Icon library.
 │
 ├── assets/js/middleware
 │ The middleware code to handle Store API calls.
@@ -133,19 +133,19 @@ The following snippet explains how the WooCommerce Blocks repository is structur
 │ Functionality to view the settings in the frontend.
 │
 ├── assets/js/shared
-│ Shared components of the WooCommerce Blocks plugin.
+│ Shared components of the PooCommerce Blocks plugin.
 │
 ├── assets/js/types
-│ TypeScript definitions of the WooCommerce Blocks plugin.
+│ TypeScript definitions of the PooCommerce Blocks plugin.
 │
 ├── assets/js/utils
-│ Shared utilities of the WooCommerce Blocks plugin.
+│ Shared utilities of the PooCommerce Blocks plugin.
 │
 ├── bin/\_
 │ Set of scripts used to build the WordPress packages.
 │
 ├── docs/\*
-│ Set of documentation pages of the WooCommerce Blocks plugin.
+│ Set of documentation pages of the PooCommerce Blocks plugin.
 │
 ├── images
 │ Images for the payment options and the previews.
@@ -153,20 +153,20 @@ The following snippet explains how the WooCommerce Blocks repository is structur
 ├── packages
 │ Things that are likely to be published as npm packages in the future. Packages can be:
 │ - Production JavaScript scripts and styles loaded on WordPress
-│ and the WooCommerce Blocks plugin or distributed as npm packages.
+│ and the PooCommerce Blocks plugin or distributed as npm packages.
 │ - Development tools available on npm.
 │
 ├── patches
 │ Patches for 3rd party scripts applied when installing dependencies.
 │
 ├── src
-│ The core PHP files of the WooCommerce Blocks plugin.
+│ The core PHP files of the PooCommerce Blocks plugin.
 │
 ├── storybook
-│ Config of the [WooCommerce Blocks Storybook](https://woocommerce.github.io/woocommerce-gutenberg-products-block/).
+│ Config of the [PooCommerce Blocks Storybook](https://poocommerce.github.io/poocommerce-gutenberg-products-block/).
 │
 ├── templates/emails
-│ Email templates of the WooCommerce Blocks plugin.
+│ Email templates of the PooCommerce Blocks plugin.
 │
 ├── tests/js
 │ Configuration for Jest.
@@ -187,9 +187,9 @@ This file is inspired by the great work of @JustinyAhin and @gziolo in <https://
 
 ---
 
-[We're hiring!](https://woocommerce.com/careers/) Come work with us!
+[We're hiring!](https://poocommerce.com/careers/) Come work with us!
 
-🐞 Found a mistake, or have a suggestion? [Leave feedback about this document here.](https://github.com/woocommerce/woocommerce/issues/new?assignees=&labels=type%3A+documentation&template=suggestion-for-documentation-improvement-correction.md&title=Feedback%20on%20./docs/contributors/folder-structure.md)
+🐞 Found a mistake, or have a suggestion? [Leave feedback about this document here.](https://github.com/poocommerce/poocommerce/issues/new?assignees=&labels=type%3A+documentation&template=suggestion-for-documentation-improvement-correction.md&title=Feedback%20on%20./docs/contributors/folder-structure.md)
 
 <!-- /FEEDBACK -->
 

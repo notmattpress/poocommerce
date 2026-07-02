@@ -4,7 +4,7 @@
 import apiFetch from '@wordpress/api-fetch';
 import { store as coreStore } from '@wordpress/core-data';
 import { select } from '@wordpress/data';
-import type { ProductVariation } from '@woocommerce/data';
+import type { ProductVariation } from '@poocommerce/data';
 
 /**
  * Internal dependencies

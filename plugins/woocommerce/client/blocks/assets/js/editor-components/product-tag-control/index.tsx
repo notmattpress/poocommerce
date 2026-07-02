@@ -3,9 +3,9 @@
  */
 import { __, _n, sprintf } from '@wordpress/i18n';
 import { useState, useEffect, useCallback, useMemo } from '@wordpress/element';
-import { SearchListControl } from '@woocommerce/editor-components/search-list-control';
+import { SearchListControl } from '@poocommerce/editor-components/search-list-control';
 import { SelectControl } from '@wordpress/components';
-import { getSetting } from '@woocommerce/settings';
+import { getSetting } from '@poocommerce/settings';
 import { useDebouncedCallback } from 'use-debounce';
 
 /**
@@ -63,26 +63,26 @@ const ProductTagControl = ( {
 	const debouncedOnSearch = useDebouncedCallback( onSearch, 400 );
 
 	const messages = {
-		clear: __( 'Clear all product tags', 'woocommerce' ),
-		list: __( 'Product Tags', 'woocommerce' ),
+		clear: __( 'Clear all product tags', 'poocommerce' ),
+		list: __( 'Product Tags', 'poocommerce' ),
 		noItems: __(
 			'You have not set up any product tags on your store.',
-			'woocommerce'
+			'poocommerce'
 		),
-		search: __( 'Search for product tags', 'woocommerce' ),
+		search: __( 'Search for product tags', 'poocommerce' ),
 		selected: ( n: number ) =>
 			sprintf(
 				/* translators: %d is the count of selected tags. */
-				_n( '%d tag selected', '%d tags selected', n, 'woocommerce' ),
+				_n( '%d tag selected', '%d tags selected', n, 'poocommerce' ),
 				n
 			),
-		updated: __( 'Tag search results updated.', 'woocommerce' ),
+		updated: __( 'Tag search results updated.', 'poocommerce' ),
 	};
 
 	return (
 		<>
 			<SearchListControl
-				className="woocommerce-product-tags"
+				className="poocommerce-product-tags"
 				list={ list }
 				isLoading={ loading }
 				selected={ selectedTags }
@@ -97,24 +97,24 @@ const ProductTagControl = ( {
 			{ !! onOperatorChange && (
 				<div hidden={ selected.length < 2 }>
 					<SelectControl
-						className="woocommerce-product-tags__operator"
+						className="poocommerce-product-tags__operator"
 						label={ __(
 							'Display products matching',
-							'woocommerce'
+							'poocommerce'
 						) }
 						help={ __(
 							'Pick at least two tags to use this setting.',
-							'woocommerce'
+							'poocommerce'
 						) }
 						value={ operator }
 						onChange={ onOperatorChange }
 						options={ [
 							{
-								label: __( 'Any selected tags', 'woocommerce' ),
+								label: __( 'Any selected tags', 'poocommerce' ),
 								value: 'any',
 							},
 							{
-								label: __( 'All selected tags', 'woocommerce' ),
+								label: __( 'All selected tags', 'poocommerce' ),
 								value: 'all',
 							},
 						] }

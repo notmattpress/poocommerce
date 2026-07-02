@@ -56,7 +56,7 @@ export const createVariationDimensionField = (
 			}
 
 			const dimensionUnit =
-				storeProductsSettings?.values?.woocommerce_dimension_unit;
+				storeProductsSettings?.values?.poocommerce_dimension_unit;
 			const parentValue = parentProduct?.dimensions?.[ key ];
 			const placeholder = parentValue ? String( parentValue ) : undefined;
 
@@ -120,7 +120,7 @@ export const createVariationWeightField = (): Partial<
 			}
 
 			const weightUnit =
-				storeProductsSettings?.values?.woocommerce_weight_unit;
+				storeProductsSettings?.values?.poocommerce_weight_unit;
 			const parentValue = parentProduct?.weight;
 			const placeholder = parentValue ? String( parentValue ) : undefined;
 
@@ -166,7 +166,7 @@ export const createDimensionField = (
 			}
 
 			const dimensionUnit =
-				storeProductsSettings?.values?.woocommerce_dimension_unit;
+				storeProductsSettings?.values?.poocommerce_dimension_unit;
 
 			return (
 				<InputControl

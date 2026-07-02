@@ -1,9 +1,9 @@
 <?php
-namespace Automattic\WooCommerce\StoreApi\Routes\V1;
+namespace Automattic\PooCommerce\StoreApi\Routes\V1;
 
-use Automattic\WooCommerce\Internal\ProductAttributes\VisualAttributeTermMeta;
-use Automattic\WooCommerce\StoreApi\Exceptions\RouteException;
-use Automattic\WooCommerce\StoreApi\Schemas\V1\ProductAttributeTermSchema;
+use Automattic\PooCommerce\Internal\ProductAttributes\VisualAttributeTermMeta;
+use Automattic\PooCommerce\StoreApi\Exceptions\RouteException;
+use Automattic\PooCommerce\StoreApi\Schemas\V1\ProductAttributeTermSchema;
 
 /**
  * ProductAttributeTerms class.
@@ -50,7 +50,7 @@ class ProductAttributeTerms extends AbstractTermsRoute {
 		return [
 			'args'   => array(
 				'attribute_id' => array(
-					'description' => __( 'Unique identifier for the attribute.', 'woocommerce' ),
+					'description' => __( 'Unique identifier for the attribute.', 'poocommerce' ),
 					'type'        => 'integer',
 				),
 			),
@@ -76,7 +76,7 @@ class ProductAttributeTerms extends AbstractTermsRoute {
 		$params['orderby']['enum'][]     = 'name_num';
 		$params['orderby']['enum'][]     = 'id';
 		$params['__experimental_visual'] = array(
-			'description'       => __( 'If true, include experimental visual swatch data for wc-visual attribute terms.', 'woocommerce' ),
+			'description'       => __( 'If true, include experimental visual swatch data for wc-visual attribute terms.', 'poocommerce' ),
 			'type'              => 'boolean',
 			'default'           => false,
 			'sanitize_callback' => 'wc_string_to_bool',
@@ -128,7 +128,7 @@ class ProductAttributeTerms extends AbstractTermsRoute {
 		$attribute = wc_get_attribute( $request['attribute_id'] );
 
 		if ( ! $attribute || ! taxonomy_exists( $attribute->slug ) ) {
-			throw new RouteException( 'woocommerce_rest_taxonomy_invalid', __( 'Attribute does not exist.', 'woocommerce' ), 404 );
+			throw new RouteException( 'poocommerce_rest_taxonomy_invalid', __( 'Attribute does not exist.', 'poocommerce' ), 404 );
 		}
 
 		return $this->get_terms_response( $attribute->slug, $request );

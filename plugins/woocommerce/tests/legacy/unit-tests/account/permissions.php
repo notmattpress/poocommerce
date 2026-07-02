@@ -1,7 +1,7 @@
 <?php
 /** Account permission tests
  *
- * @package WooCommerce\Tests\Account
+ * @package PooCommerce\Tests\Account
  */
 
 /**

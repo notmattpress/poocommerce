@@ -20,7 +20,7 @@
  */
 import { Button } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
-import { getAdminLink } from '@woocommerce/settings';
+import { getAdminLink } from '@poocommerce/settings';
 
 /**
  * Internal dependencies
@@ -37,7 +37,7 @@ export const UpdatesCell = ( { post }: UpdatesCellProps ) => {
 	const eligible = shouldShowReviewUpdate( post );
 
 	if ( ! eligible ) {
-		return <span aria-label={ __( 'Up to date', 'woocommerce' ) }>—</span>;
+		return <span aria-label={ __( 'Up to date', 'poocommerce' ) }>—</span>;
 	}
 
 	const onReviewUpdate = () => {
@@ -56,7 +56,7 @@ export const UpdatesCell = ( { post }: UpdatesCellProps ) => {
 
 	return (
 		<Button variant="secondary" onClick={ onReviewUpdate }>
-			{ __( 'Review update', 'woocommerce' ) }
+			{ __( 'Review update', 'poocommerce' ) }
 		</Button>
 	);
 };

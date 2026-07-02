@@ -272,7 +272,7 @@ jQuery( function ( $ ) {
 										term: params.term,
 										action:
 											$( this ).data( 'action' ) ||
-											'woocommerce_json_search_products_and_variations',
+											'poocommerce_json_search_products_and_variations',
 										security:
 											wc_enhanced_select_params.search_products_nonce,
 										exclude: $( this ).data( 'exclude' ),
@@ -331,7 +331,7 @@ jQuery( function ( $ ) {
 										term: params.term,
 										action:
 											$( this ).data( 'action' ) ||
-											'woocommerce_json_search_pages',
+											'poocommerce_json_search_pages',
 										security:
 											wc_enhanced_select_params.search_pages_nonce,
 										exclude: $( this ).data( 'exclude' ),
@@ -387,7 +387,7 @@ jQuery( function ( $ ) {
 								data: function ( params ) {
 									return {
 										term: params.term,
-										action: 'woocommerce_json_search_customers',
+										action: 'poocommerce_json_search_customers',
 										security:
 											wc_enhanced_select_params.search_customers_nonce,
 										exclude: $( this ).data( 'exclude' ),
@@ -481,7 +481,7 @@ jQuery( function ( $ ) {
 									data: function ( params ) {
 										return {
 											term: params.term,
-											action: 'woocommerce_json_search_categories',
+											action: 'poocommerce_json_search_categories',
 											security:
 												wc_enhanced_select_params.search_categories_nonce,
 										};
@@ -558,7 +558,7 @@ jQuery( function ( $ ) {
 											orderby:
 												$( this ).data( 'orderby' ),
 											term: params.term,
-											action: 'woocommerce_json_search_taxonomy_terms',
+											action: 'poocommerce_json_search_taxonomy_terms',
 											security:
 												wc_enhanced_select_params.search_taxonomy_terms_nonce,
 										};
@@ -657,7 +657,7 @@ jQuery( function ( $ ) {
 									data: function ( params ) {
 										return {
 											term: params.term,
-											action: 'woocommerce_json_search_product_attributes',
+											action: 'poocommerce_json_search_product_attributes',
 											security:
 												wc_enhanced_select_params.search_product_attributes_nonce,
 										};
@@ -699,7 +699,7 @@ jQuery( function ( $ ) {
 					} );
 			} )
 
-			// WooCommerce Backbone Modal
+			// PooCommerce Backbone Modal
 			.on( 'wc_backbone_modal_before_remove', function () {
 				$(
 					'.wc-enhanced-select, :input.wc-product-search, :input.wc-customer-search'

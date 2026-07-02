@@ -2,10 +2,10 @@
 /**
  * Unit tests for WC_Discounts class.
  *
- * @package WooCommerce\Tests.
+ * @package PooCommerce\Tests.
  */
 
-use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Enums\OrderStatus;
 
 /**
   * Class WC_Discounts_Tests.
@@ -28,7 +28,7 @@ class WC_Discounts_Tests extends WC_Unit_Test_Case {
 	 * Helper method to create limited coupon.
 	 */
 	private function create_limited_coupon() {
-		update_option( 'woocommerce_hold_stock_minutes', 60 );
+		update_option( 'poocommerce_hold_stock_minutes', 60 );
 		return WC_Helper_Coupon::create_coupon(
 			'coupon4one' . microtime( true ) . wp_generate_password( 6, false, false ),
 			array(
@@ -131,7 +131,7 @@ class WC_Discounts_Tests extends WC_Unit_Test_Case {
 	 * @testdox is_coupon_valid rejects a coupon when the cart subtotal is below its minimum spend.
 	 */
 	public function test_is_coupon_valid_rejects_below_minimum_spend() {
-		update_option( 'woocommerce_calc_taxes', 'no' );
+		update_option( 'poocommerce_calc_taxes', 'no' );
 		WC()->cart->empty_cart();
 
 		$product = WC_Helper_Product::create_simple_product( true, array( 'regular_price' => 20 ) );
@@ -158,7 +158,7 @@ class WC_Discounts_Tests extends WC_Unit_Test_Case {
 	 * @testdox is_coupon_valid rejects a product/category-restricted coupon when the cart has none of its products.
 	 */
 	public function test_is_coupon_valid_rejects_non_included_product() {
-		update_option( 'woocommerce_calc_taxes', 'no' );
+		update_option( 'poocommerce_calc_taxes', 'no' );
 		WC()->cart->empty_cart();
 
 		$included = WC_Helper_Product::create_simple_product( true, array( 'regular_price' => 20 ) );
@@ -191,7 +191,7 @@ class WC_Discounts_Tests extends WC_Unit_Test_Case {
 	 * Closes the gap left by the e2e "excluded product/category" test, which never applied the excluded coupon.
 	 */
 	public function test_is_coupon_valid_rejects_excluded_product() {
-		update_option( 'woocommerce_calc_taxes', 'no' );
+		update_option( 'poocommerce_calc_taxes', 'no' );
 		WC()->cart->empty_cart();
 
 		$excluded = WC_Helper_Product::create_simple_product( true, array( 'regular_price' => 20 ) );
@@ -217,7 +217,7 @@ class WC_Discounts_Tests extends WC_Unit_Test_Case {
 	 * @testdox is_coupon_valid rejects an email-restricted coupon for a non-matching customer.
 	 */
 	public function test_is_coupon_valid_rejects_disallowed_email() {
-		update_option( 'woocommerce_calc_taxes', 'no' );
+		update_option( 'poocommerce_calc_taxes', 'no' );
 		WC()->cart->empty_cart();
 
 		$product = WC_Helper_Product::create_simple_product( true, array( 'regular_price' => 20 ) );

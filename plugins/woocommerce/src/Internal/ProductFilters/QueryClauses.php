@@ -5,13 +5,13 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Internal\ProductFilters;
+namespace Automattic\PooCommerce\Internal\ProductFilters;
 
-use Automattic\WooCommerce\Enums\TaxDisplayMode;
-use Automattic\WooCommerce\Internal\ProductAttributesLookup\LookupDataStore;
-use Automattic\WooCommerce\Internal\ProductFilters\Interfaces\QueryClausesGenerator;
-use Automattic\WooCommerce\Internal\ProductFilters\Interfaces\MainQueryClausesGenerator;
-use Automattic\WooCommerce\Internal\ProductFilters\CacheController;
+use Automattic\PooCommerce\Enums\TaxDisplayMode;
+use Automattic\PooCommerce\Internal\ProductAttributesLookup\LookupDataStore;
+use Automattic\PooCommerce\Internal\ProductFilters\Interfaces\QueryClausesGenerator;
+use Automattic\PooCommerce\Internal\ProductFilters\Interfaces\MainQueryClausesGenerator;
+use Automattic\PooCommerce\Internal\ProductFilters\CacheController;
 use WC_Tax;
 use WC_Cache_Helper;
 
@@ -20,7 +20,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Class for filter clauses.
  *
- * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+ * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
  */
 class QueryClauses implements QueryClausesGenerator, MainQueryClausesGenerator {
 	/**
@@ -33,7 +33,7 @@ class QueryClauses implements QueryClausesGenerator, MainQueryClausesGenerator {
 	/**
 	 * Initialize the query clauses.
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 * @param Params $params The filter params.
 	 * @return void
 	 */
@@ -83,7 +83,7 @@ class QueryClauses implements QueryClausesGenerator, MainQueryClausesGenerator {
 
 	/**
 	 * Add query clauses for main query.
-	 * WooCommerce handles attribute, price, and rating filters in the main query.
+	 * PooCommerce handles attribute, price, and rating filters in the main query.
 	 * This method is used to add stock status and taxonomy filters to the main query.
 	 *
 	 * @param array     $args     Query args.
@@ -215,7 +215,7 @@ class QueryClauses implements QueryClausesGenerator, MainQueryClausesGenerator {
 		// The extra derived table ("SELECT product_or_parent_id FROM") is needed for performance
 		// (causes the filtering subquery to be executed only once).
 		$clause_root = " {$wpdb->posts}.ID IN ( SELECT product_or_parent_id FROM (";
-		if ( 'yes' === get_option( 'woocommerce_hide_out_of_stock_items' ) ) {
+		if ( 'yes' === get_option( 'poocommerce_hide_out_of_stock_items' ) ) {
 			$in_stock_clause = ' AND in_stock = 1';
 		} else {
 			$in_stock_clause = '';
@@ -451,7 +451,7 @@ class QueryClauses implements QueryClausesGenerator, MainQueryClausesGenerator {
 	 * @return boolean
 	 */
 	private function should_adjust_price_filters_for_displayed_taxes(): bool {
-		$display  = get_option( 'woocommerce_tax_display_shop' );
+		$display  = get_option( 'poocommerce_tax_display_shop' );
 		$database = wc_prices_include_tax() ? TaxDisplayMode::INCLUSIVE : TaxDisplayMode::EXCLUSIVE;
 
 		return $display !== $database;
@@ -518,7 +518,7 @@ class QueryClauses implements QueryClausesGenerator, MainQueryClausesGenerator {
 	 * @return float
 	 */
 	private function adjust_price_filter_for_tax_class( float $price_filter, string $tax_class ): float {
-		$tax_display    = get_option( 'woocommerce_tax_display_shop' );
+		$tax_display    = get_option( 'poocommerce_tax_display_shop' );
 		$tax_rates      = WC_Tax::get_rates( $tax_class );
 		$base_tax_rates = WC_Tax::get_base_tax_rates( $tax_class );
 
@@ -527,18 +527,18 @@ class QueryClauses implements QueryClausesGenerator, MainQueryClausesGenerator {
 			/**
 			 * Filters if taxes should be removed from locations outside the store base location.
 			 *
-			 * The woocommerce_adjust_non_base_location_prices filter can stop base taxes being taken off when dealing
+			 * The poocommerce_adjust_non_base_location_prices filter can stop base taxes being taken off when dealing
 			 * with out of base locations. e.g. If a product costs 10 including tax, all users will pay 10
 			 * regardless of location and taxes.
 			 *
 			 * @since 2.6.0
 			 *
-			 * @internal Matches filter name in WooCommerce core.
+			 * @internal Matches filter name in PooCommerce core.
 			 *
 			 * @param boolean $adjust_non_base_location_prices True by default.
 			 * @return boolean
 			 */
-			$taxes = apply_filters( 'woocommerce_adjust_non_base_location_prices', true ) ? WC_Tax::calc_tax( $price_filter, $base_tax_rates, true ) : WC_Tax::calc_tax( $price_filter, $tax_rates, true );
+			$taxes = apply_filters( 'poocommerce_adjust_non_base_location_prices', true ) ? WC_Tax::calc_tax( $price_filter, $base_tax_rates, true ) : WC_Tax::calc_tax( $price_filter, $tax_rates, true );
 			return $price_filter - array_sum( $taxes );
 		}
 

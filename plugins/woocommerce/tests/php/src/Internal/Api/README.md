@@ -45,4 +45,4 @@ Whenever the code-API fixture under `Fixtures/DummyApi/` changes, regenerate the
 pnpm build:api:test
 ```
 
-The script invokes `build-api.php` with the fixture paths and namespaces. It does not run `composer dump-autoload` because both fixture namespaces are already covered by the existing `Automattic\WooCommerce\Tests\` PSR-4 prefix.
+The script invokes `build-api.php` with the fixture paths and namespaces. It does not run `composer dump-autoload` because both fixture namespaces are already covered by the existing `Automattic\PooCommerce\Tests\` PSR-4 prefix.

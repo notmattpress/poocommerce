@@ -1,15 +1,15 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\GraphQL\Server;
+namespace Automattic\PooCommerce\Vendor\GraphQL\Server;
 
-use Automattic\WooCommerce\Vendor\GraphQL\Error\DebugFlag;
-use Automattic\WooCommerce\Vendor\GraphQL\Error\InvariantViolation;
-use Automattic\WooCommerce\Vendor\GraphQL\Executor\ExecutionResult;
-use Automattic\WooCommerce\Vendor\GraphQL\Executor\Promise\PromiseAdapter;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\DocumentNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Schema;
-use Automattic\WooCommerce\Vendor\GraphQL\Utils\Utils;
-use Automattic\WooCommerce\Vendor\GraphQL\Validator\Rules\ValidationRule;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\DebugFlag;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\InvariantViolation;
+use Automattic\PooCommerce\Vendor\GraphQL\Executor\ExecutionResult;
+use Automattic\PooCommerce\Vendor\GraphQL\Executor\Promise\PromiseAdapter;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\DocumentNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Schema;
+use Automattic\PooCommerce\Vendor\GraphQL\Utils\Utils;
+use Automattic\PooCommerce\Vendor\GraphQL\Validator\Rules\ValidationRule;
 
 /**
  * Server configuration class.
@@ -18,11 +18,11 @@ use Automattic\WooCommerce\Vendor\GraphQL\Validator\Rules\ValidationRule;
  *
  * Usage example:
  *
- *     $config = Automattic\WooCommerce\Vendor\GraphQL\Server\ServerConfig::create()
+ *     $config = Automattic\PooCommerce\Vendor\GraphQL\Server\ServerConfig::create()
  *         ->setSchema($mySchema)
  *         ->setContext($myContext);
  *
- *     $server = new Automattic\WooCommerce\Vendor\GraphQL\Server\StandardServer($config);
+ *     $server = new Automattic\PooCommerce\Vendor\GraphQL\Server\StandardServer($config);
  *
  * @see ExecutionResult
  *
@@ -33,7 +33,7 @@ use Automattic\WooCommerce\Vendor\GraphQL\Validator\Rules\ValidationRule;
  * @phpstan-import-type ErrorsHandler from ExecutionResult
  * @phpstan-import-type ErrorFormatter from ExecutionResult
  *
- * @see \Automattic\WooCommerce\Vendor\GraphQL\Tests\Server\ServerConfigTest
+ * @see \Automattic\PooCommerce\Vendor\GraphQL\Tests\Server\ServerConfigTest
  */
 class ServerConfig
 {
@@ -245,7 +245,7 @@ class ServerConfig
     /**
      * Set response debug flags.
      *
-     * @see \Automattic\WooCommerce\Vendor\GraphQL\Error\DebugFlag class for a list of all available flags
+     * @see \Automattic\PooCommerce\Vendor\GraphQL\Error\DebugFlag class for a list of all available flags
      *
      * @api
      */

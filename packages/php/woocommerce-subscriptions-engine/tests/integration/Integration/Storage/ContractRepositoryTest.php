@@ -2,25 +2,25 @@
 /**
  * Integration tests for the lean ContractRepository and its targeted cycle access.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine
+ * @package Automattic\PooCommerce\SubscriptionsEngine
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Tests\Integration\Integration\Storage;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Tests\Integration\Integration\Storage;
 
 use EngineIntegrationTestCase;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\Contract;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\ContractStatus;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\Cycle;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\CycleStatus;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\ValueObject\ItemsSnapshot;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\ValueObject\PlanSnapshot;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage\ContractRepository;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage\SchemaInstaller;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\Contract;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\ContractStatus;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\Cycle;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\CycleStatus;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\ValueObject\ItemsSnapshot;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\ValueObject\PlanSnapshot;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage\ContractRepository;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage\SchemaInstaller;
 
 /**
- * @covers \Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage\ContractRepository
+ * @covers \Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage\ContractRepository
  */
 class ContractRepositoryTest extends EngineIntegrationTestCase {
 
@@ -44,7 +44,7 @@ class ContractRepositoryTest extends EngineIntegrationTestCase {
 				'selling_plan_id'      => 7,
 				'origin_order_id'      => 1001,
 				'extension_slug'       => 'lite',
-				'payment_method'       => 'woocommerce_payments',
+				'payment_method'       => 'poocommerce_payments',
 				'payment_method_title' => 'Credit card',
 				'payment_token_id'     => 55,
 				'start_gmt'            => '2026-06-15 00:00:00',
@@ -167,7 +167,7 @@ class ContractRepositoryTest extends EngineIntegrationTestCase {
 
 		$instrument = $fetched->get_payment_instrument();
 		$this->assertSame( 55, $instrument->get_token_id() );
-		$this->assertSame( 'woocommerce_payments', $instrument->get_gateway() );
+		$this->assertSame( 'poocommerce_payments', $instrument->get_gateway() );
 
 		$items = $fetched->get_items();
 		$this->assertCount( 1, $items );

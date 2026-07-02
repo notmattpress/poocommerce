@@ -2,14 +2,14 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\PushNotifications\Controllers;
+namespace Automattic\PooCommerce\Internal\PushNotifications\Controllers;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Internal\PushNotifications\Notifications\Notification;
-use Automattic\WooCommerce\Internal\PushNotifications\PushNotifications;
-use Automattic\WooCommerce\Internal\PushNotifications\Services\NotificationProcessor;
-use Automattic\WooCommerce\StoreApi\Utilities\JsonWebToken;
+use Automattic\PooCommerce\Internal\PushNotifications\Notifications\Notification;
+use Automattic\PooCommerce\Internal\PushNotifications\PushNotifications;
+use Automattic\PooCommerce\Internal\PushNotifications\Services\NotificationProcessor;
+use Automattic\PooCommerce\StoreApi\Utilities\JsonWebToken;
 use Exception;
 use WP_Error;
 use WP_Http;
@@ -119,7 +119,7 @@ class PushNotificationRestController {
 
 		if ( empty( $header ) ) {
 			return new WP_Error(
-				'woocommerce_rest_unauthorized',
+				'poocommerce_rest_unauthorized',
 				'Missing authorization header.',
 				array( 'status' => WP_Http::UNAUTHORIZED )
 			);
@@ -129,7 +129,7 @@ class PushNotificationRestController {
 
 		if ( ! JsonWebToken::validate( $token, wp_salt( 'auth' ) ) ) {
 			return new WP_Error(
-				'woocommerce_rest_unauthorized',
+				'poocommerce_rest_unauthorized',
 				'Invalid or expired token.',
 				array( 'status' => WP_Http::UNAUTHORIZED )
 			);
@@ -139,7 +139,7 @@ class PushNotificationRestController {
 
 		if ( ! isset( $parts->payload->iss ) || get_site_url() !== $parts->payload->iss ) {
 			return new WP_Error(
-				'woocommerce_rest_unauthorized',
+				'poocommerce_rest_unauthorized',
 				'Invalid token issuer.',
 				array( 'status' => WP_Http::UNAUTHORIZED )
 			);
@@ -149,7 +149,7 @@ class PushNotificationRestController {
 
 		if ( ! isset( $parts->payload->body_hash ) || ! hash_equals( (string) $parts->payload->body_hash, $body_hash ) ) {
 			return new WP_Error(
-				'woocommerce_rest_unauthorized',
+				'poocommerce_rest_unauthorized',
 				'Body hash mismatch.',
 				array( 'status' => WP_Http::UNAUTHORIZED )
 			);

@@ -21,14 +21,14 @@ test.describe( 'Settings UI feature flag', { tag: tags.NOT_E2E }, () => {
 		const url = getBaseURL( baseURL );
 
 		await setFeatureFlag( request, url, 'settings-ui', false );
-		await setOption( request, url, 'woocommerce_enable_reviews', 'yes' );
+		await setOption( request, url, 'poocommerce_enable_reviews', 'yes' );
 	} );
 
 	test.afterAll( async ( { baseURL } ) => {
 		const url = getBaseURL( baseURL );
 
 		await resetFeatureFlags( request, url );
-		await setOption( request, url, 'woocommerce_enable_reviews', 'yes' );
+		await setOption( request, url, 'poocommerce_enable_reviews', 'yes' );
 	} );
 
 	test( 'does not mount the settings UI when the feature flag is disabled', async ( {
@@ -37,19 +37,19 @@ test.describe( 'Settings UI feature flag', { tag: tags.NOT_E2E }, () => {
 		await page.goto( 'wp-admin/admin.php?page=wc-settings&tab=products' );
 
 		await expect(
-			page.locator( '#woocommerce_enable_reviews' )
+			page.locator( '#poocommerce_enable_reviews' )
 		).toBeVisible();
 		await expect( page.locator( '[data-wc-settings-ui]' ) ).toHaveCount(
 			0
 		);
-		await page.locator( '#woocommerce_enable_reviews' ).uncheck();
+		await page.locator( '#poocommerce_enable_reviews' ).uncheck();
 		await page.getByRole( 'button', { name: 'Save changes' } ).click();
 
 		await expect( page.locator( 'div.updated.inline' ) ).toContainText(
 			'Your settings have been saved.'
 		);
 		await expect(
-			page.locator( '#woocommerce_enable_reviews' )
+			page.locator( '#poocommerce_enable_reviews' )
 		).not.toBeChecked();
 	} );
 } );

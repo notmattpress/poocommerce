@@ -5,11 +5,11 @@ global.crypto = webcrypto;
 global.TextEncoder = require( 'util' ).TextEncoder;
 global.TextDecoder = require( 'util' ).TextDecoder;
 
-// The @woocommerce/email-editor package reads `__i18n_text_domain__` as its
+// The @poocommerce/email-editor package reads `__i18n_text_domain__` as its
 // text domain. It is normally replaced by `webpack.DefinePlugin` at bundle
 // time, but Jest does not run through webpack, so provide a default here so
 // test files that import from the package do not hit a ReferenceError.
-global.__i18n_text_domain__ = 'woocommerce';
+global.__i18n_text_domain__ = 'poocommerce';
 
 /**
  * Set up `wp.*` aliases.  Doing this because any tests importing wp stuff will
@@ -20,7 +20,7 @@ global.wp = {};
 require( '@wordpress/data' );
 
 /**
- * wcSettings is required by @woocommerce/* packages.
+ * wcSettings is required by @poocommerce/* packages.
  */
 global.wcSettings = {
 	adminUrl: 'https://vagrant.local/wp/wp-admin/',

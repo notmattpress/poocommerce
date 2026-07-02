@@ -4,7 +4,7 @@
 import {
 	WC_ADMIN_API_PATH,
 	WC_API_PATH,
-} from '@woocommerce/e2e-utils-playwright';
+} from '@poocommerce/e2e-utils-playwright';
 
 /**
  * Internal dependencies
@@ -17,12 +17,12 @@ const test = baseTest.extend( {
 
 	page: async ( { page, restApi }, use ) => {
 		const initialTaskListState = await restApi.get(
-			`${ WC_ADMIN_API_PATH }/options?options=woocommerce_task_list_hidden`
+			`${ WC_ADMIN_API_PATH }/options?options=poocommerce_task_list_hidden`
 		);
 
 		// Ensure task list is visible.
 		await restApi.put( `${ WC_ADMIN_API_PATH }/options`, {
-			woocommerce_task_list_hidden: 'no',
+			poocommerce_task_list_hidden: 'no',
 		} );
 
 		await page.goto( 'wp-admin/admin.php?page=wc-admin' );
@@ -40,10 +40,10 @@ const test = baseTest.extend( {
 		// Ensure store's base country location is a WooPayments non-supported country (e.g. AF).
 		// Otherwise, the WooPayments task page logic or WooPayments redirects will kick in.
 		const initialDefaultCountry = await restApi.get(
-			`${ WC_API_PATH }/settings/general/woocommerce_default_country`
+			`${ WC_API_PATH }/settings/general/poocommerce_default_country`
 		);
 		await restApi.put(
-			`${ WC_API_PATH }/settings/general/woocommerce_default_country`,
+			`${ WC_API_PATH }/settings/general/poocommerce_default_country`,
 			{
 				value: 'AF',
 			}
@@ -53,7 +53,7 @@ const test = baseTest.extend( {
 
 		// Reset the default country to its initial state.
 		await restApi.put(
-			`${ WC_API_PATH }/settings/general/woocommerce_default_country`,
+			`${ WC_API_PATH }/settings/general/poocommerce_default_country`,
 			{
 				value: initialDefaultCountry.data.value,
 			}
@@ -102,19 +102,19 @@ test(
 			'wp-admin/admin.php?page=wc-admin'
 		);
 		await nonSupportedWooPaymentsCountryPage
-			.locator( '.woocommerce-task-list__item' )
+			.locator( '.poocommerce-task-list__item' )
 			.filter( { hasText: 'Set up payments' } )
 			.click();
 
 		await expect(
 			nonSupportedWooPaymentsCountryPage.locator(
-				'.woocommerce-layout__header-wrapper > h1'
+				'.poocommerce-layout__header-wrapper > h1'
 			)
 		).toHaveText( 'Settings' );
 	}
 );
 
-test( 'Can connect to WooCommerce.com', async ( { page } ) => {
+test( 'Can connect to PooCommerce.com', async ( { page } ) => {
 	await page.goto( 'wp-admin/admin.php?page=wc-admin' );
 	await test.step( 'Go to WC Home and make sure the total sales is visible', async () => {
 		await page

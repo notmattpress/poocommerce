@@ -1,38 +1,38 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\GraphQL\Executor;
+namespace Automattic\PooCommerce\Vendor\GraphQL\Executor;
 
-use Automattic\WooCommerce\Vendor\GraphQL\Error\Error;
-use Automattic\WooCommerce\Vendor\GraphQL\Error\InvariantViolation;
-use Automattic\WooCommerce\Vendor\GraphQL\Error\Warning;
-use Automattic\WooCommerce\Vendor\GraphQL\Executor\Promise\Promise;
-use Automattic\WooCommerce\Vendor\GraphQL\Executor\Promise\PromiseAdapter;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\DocumentNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\FieldNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\FragmentDefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\FragmentSpreadNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\InlineFragmentNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\Node;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\OperationDefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\SelectionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\SelectionSetNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\AbstractType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\Directive;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\FieldDefinition;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\InterfaceType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\LeafType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\ListOfType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\NamedType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\NonNull;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\ObjectType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\OutputType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\ResolveInfo;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\Type;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Introspection;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Schema;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\SchemaValidationContext;
-use Automattic\WooCommerce\Vendor\GraphQL\Utils\AST;
-use Automattic\WooCommerce\Vendor\GraphQL\Utils\Utils;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\Error;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\InvariantViolation;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\Warning;
+use Automattic\PooCommerce\Vendor\GraphQL\Executor\Promise\Promise;
+use Automattic\PooCommerce\Vendor\GraphQL\Executor\Promise\PromiseAdapter;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\DocumentNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\FieldNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\FragmentDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\FragmentSpreadNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\InlineFragmentNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\Node;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\OperationDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\SelectionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\SelectionSetNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\AbstractType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\Directive;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\FieldDefinition;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\InterfaceType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\LeafType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\ListOfType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\NamedType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\NonNull;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\ObjectType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\OutputType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\ResolveInfo;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\Type;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Introspection;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Schema;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\SchemaValidationContext;
+use Automattic\PooCommerce\Vendor\GraphQL\Utils\AST;
+use Automattic\PooCommerce\Vendor\GraphQL\Utils\Utils;
 
 /**
  * @phpstan-import-type FieldResolver from Executor
@@ -240,9 +240,9 @@ class ReferenceExecutor implements ExecutorImplementation
     public function doExecute(): Promise
     {
         // Return a Promise that will eventually resolve to the data described by
-        // the "Response" section of the Automattic\WooCommerce\Vendor\GraphQL specification.
+        // the "Response" section of the Automattic\PooCommerce\Vendor\GraphQL specification.
         //
-        // If errors are encountered while executing a Automattic\WooCommerce\Vendor\GraphQL field, only that
+        // If errors are encountered while executing a Automattic\PooCommerce\Vendor\GraphQL field, only that
         // field and its descendants will be omitted, and sibling fields will still
         // be executed. An execution which encounters errors will still result in a
         // resolved Promise.
@@ -843,7 +843,7 @@ class ReferenceExecutor implements ExecutorImplementation
      * for the inner type on each item in the list.
      *
      * If the field type is a Scalar or Enum, ensures the completed value is a legal
-     * value of the type by calling the `serialize` method of Automattic\WooCommerce\Vendor\GraphQL type
+     * value of the type by calling the `serialize` method of Automattic\PooCommerce\Vendor\GraphQL type
      * definition.
      *
      * If the field is an abstract type, determine the runtime type of the value
@@ -1167,7 +1167,7 @@ class ReferenceExecutor implements ExecutorImplementation
         if ($abstractType instanceof InterfaceType && isset($info->schema->getConfig()->typeLoader)) {
             $safeValue = Utils::printSafe($value);
             Warning::warnOnce(
-                "Automattic\WooCommerce\Vendor\GraphQL Interface Type `{$abstractType->name}` returned `null` from its `resolveType` function for value: {$safeValue}. Switching to slow resolution method using `isTypeOf` of all possible implementations. It requires full schema scan and degrades query performance significantly. Make sure your `resolveType` function always returns a valid implementation or throws.",
+                "Automattic\PooCommerce\Vendor\GraphQL Interface Type `{$abstractType->name}` returned `null` from its `resolveType` function for value: {$safeValue}. Switching to slow resolution method using `isTypeOf` of all possible implementations. It requires full schema scan and degrades query performance significantly. Make sure your `resolveType` function always returns a valid implementation or throws.",
                 Warning::WARNING_FULL_SCHEMA_SCAN
             );
         }

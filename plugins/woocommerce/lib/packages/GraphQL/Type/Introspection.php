@@ -1,30 +1,30 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\GraphQL\Type;
+namespace Automattic\PooCommerce\Vendor\GraphQL\Type;
 
-use Automattic\WooCommerce\Vendor\GraphQL\Error\InvariantViolation;
-use Automattic\WooCommerce\Vendor\GraphQL\GraphQL;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\DirectiveLocation;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\Printer;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\Argument;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\Directive;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\EnumType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\EnumValueDefinition;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\FieldDefinition;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\InputObjectField;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\InputObjectType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\InterfaceType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\ListOfType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\NamedType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\NonNull;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\ObjectType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\ResolveInfo;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\ScalarType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\Type;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\UnionType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\WrappingType;
-use Automattic\WooCommerce\Vendor\GraphQL\Utils\AST;
-use Automattic\WooCommerce\Vendor\GraphQL\Utils\Utils;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\InvariantViolation;
+use Automattic\PooCommerce\Vendor\GraphQL\GraphQL;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\DirectiveLocation;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\Printer;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\Argument;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\Directive;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\EnumType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\EnumValueDefinition;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\FieldDefinition;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\InputObjectField;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\InputObjectType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\InterfaceType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\ListOfType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\NamedType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\NonNull;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\ObjectType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\ResolveInfo;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\ScalarType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\Type;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\UnionType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\WrappingType;
+use Automattic\PooCommerce\Vendor\GraphQL\Utils\AST;
+use Automattic\PooCommerce\Vendor\GraphQL\Utils\Utils;
 
 /**
  * @phpstan-type IntrospectionOptions array{
@@ -45,7 +45,7 @@ use Automattic\WooCommerce\Vendor\GraphQL\Utils\Utils;
  *   Include field `isOneOf` for types?
  *   Default: false
  *
- * @see \Automattic\WooCommerce\Vendor\GraphQL\Tests\Type\IntrospectionTest
+ * @see \Automattic\PooCommerce\Vendor\GraphQL\Tests\Type\IntrospectionTest
  */
 class Introspection
 {
@@ -270,7 +270,7 @@ GRAPHQL;
         return self::$cachedInstances[self::SCHEMA_OBJECT_NAME] ??= new ObjectType([ // @phpstan-ignore missingType.checkedException (static configuration is known to be correct)
             'name' => self::SCHEMA_OBJECT_NAME,
             'isIntrospection' => true,
-            'description' => 'A Automattic\WooCommerce\Vendor\GraphQL Schema defines the capabilities of a Automattic\WooCommerce\Vendor\GraphQL '
+            'description' => 'A Automattic\PooCommerce\Vendor\GraphQL Schema defines the capabilities of a Automattic\PooCommerce\Vendor\GraphQL '
                 . 'server. It exposes all available types and directives on '
                 . 'the server, as well as the entry points for query, mutation, and '
                 . 'subscription operations.',
@@ -313,8 +313,8 @@ GRAPHQL;
         return self::$cachedInstances[self::TYPE_OBJECT_NAME] ??= new ObjectType([ // @phpstan-ignore missingType.checkedException (static configuration is known to be correct)
             'name' => self::TYPE_OBJECT_NAME,
             'isIntrospection' => true,
-            'description' => 'The fundamental unit of any Automattic\WooCommerce\Vendor\GraphQL Schema is the type. There are '
-                . 'many kinds of types in Automattic\WooCommerce\Vendor\GraphQL as represented by the `__TypeKind` enum.'
+            'description' => 'The fundamental unit of any Automattic\PooCommerce\Vendor\GraphQL Schema is the type. There are '
+                . 'many kinds of types in Automattic\PooCommerce\Vendor\GraphQL as represented by the `__TypeKind` enum.'
                 . "\n\n"
                 . 'Depending on the kind of a type, certain fields describe '
                 . 'information about that type. Scalar types provide no information '
@@ -652,7 +652,7 @@ GRAPHQL;
             'name' => self::DIRECTIVE_OBJECT_NAME,
             'isIntrospection' => true,
             'description' => 'A Directive provides a way to describe alternate runtime execution and '
-                . 'type validation behavior in a Automattic\WooCommerce\Vendor\GraphQL document.'
+                . 'type validation behavior in a Automattic\PooCommerce\Vendor\GraphQL document.'
                 . "\n\nIn some cases, you need to provide options to alter GraphQL's "
                 . 'execution behavior in ways field arguments will not suffice, such as '
                 . 'conditionally including or skipping a field. Directives provide this by '
@@ -706,7 +706,7 @@ GRAPHQL;
         return self::$cachedInstances[self::DIRECTIVE_LOCATION_ENUM_NAME] ??= new EnumType([ // @phpstan-ignore missingType.checkedException (static configuration is known to be correct)
             'name' => self::DIRECTIVE_LOCATION_ENUM_NAME,
             'isIntrospection' => true,
-            'description' => 'A Directive can be adjacent to many parts of the Automattic\WooCommerce\Vendor\GraphQL language, a '
+            'description' => 'A Directive can be adjacent to many parts of the Automattic\PooCommerce\Vendor\GraphQL language, a '
                     . '__DirectiveLocation describes one such possible adjacencies.',
             'values' => [
                 'QUERY' => [

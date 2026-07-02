@@ -43,11 +43,11 @@ export function validatePrice( value: unknown ): string | null {
 	const parsed = toNumberOrNaN( value );
 
 	if ( Number.isNaN( parsed ) ) {
-		return __( 'Please enter a valid price.', 'woocommerce' );
+		return __( 'Please enter a valid price.', 'poocommerce' );
 	}
 
 	if ( parsed < 0 ) {
-		return __( 'Price must not be negative.', 'woocommerce' );
+		return __( 'Price must not be negative.', 'poocommerce' );
 	}
 
 	return null;

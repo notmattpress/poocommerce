@@ -77,7 +77,7 @@ const CheckboxList = ( {
 								'Show %s more option',
 								'Show %s more options',
 								remainingOptionsCount,
-								'woocommerce'
+								'poocommerce'
 							),
 							remainingOptionsCount
 						) }
@@ -88,7 +88,7 @@ const CheckboxList = ( {
 								'Show %s more',
 								'Show %s more',
 								remainingOptionsCount,
-								'woocommerce'
+								'poocommerce'
 							),
 							remainingOptionsCount
 						) }
@@ -107,9 +107,9 @@ const CheckboxList = ( {
 							setShowExpanded( false );
 						} }
 						aria-expanded={ true }
-						aria-label={ __( 'Show less options', 'woocommerce' ) }
+						aria-label={ __( 'Show less options', 'poocommerce' ) }
 					>
-						{ __( 'Show less', 'woocommerce' ) }
+						{ __( 'Show less', 'poocommerce' ) }
 					</button>
 				</li>
 			)

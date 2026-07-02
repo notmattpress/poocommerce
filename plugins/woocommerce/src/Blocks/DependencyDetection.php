@@ -1,15 +1,15 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Blocks;
+namespace Automattic\PooCommerce\Blocks;
 
-use Automattic\WooCommerce\Blocks\Utils\Utils;
-use Automattic\WooCommerce\Internal\Utilities\BlocksUtil;
+use Automattic\PooCommerce\Blocks\Utils\Utils;
+use Automattic\PooCommerce\Internal\Utilities\BlocksUtil;
 
 /**
  * DependencyDetection class.
  *
- * Provides runtime detection of extensions that use Blocks related WooCommerce globals
+ * Provides runtime detection of extensions that use Blocks related PooCommerce globals
  * (window.wc.*) without properly declaring their PHP script dependencies.
  *
  * This runs by default to warn developers about missing dependencies.
@@ -20,16 +20,16 @@ use Automattic\WooCommerce\Internal\Utilities\BlocksUtil;
 final class DependencyDetection {
 
 	/**
-	 * WooCommerce blocks that use the tracked globals.
+	 * PooCommerce blocks that use the tracked globals.
 	 *
 	 * Detection script only runs on pages containing these blocks.
 	 *
 	 * @var array<string>
 	 */
 	private const TRACKED_BLOCKS = array(
-		'woocommerce/checkout',
-		'woocommerce/cart',
-		'woocommerce/mini-cart',
+		'poocommerce/checkout',
+		'poocommerce/cart',
+		'poocommerce/mini-cart',
 	);
 
 	/**
@@ -94,7 +94,7 @@ final class DependencyDetection {
 	/**
 	 * Output early inline script to set up the Proxy on window.wc.
 	 *
-	 * This must run before any WooCommerce scripts to intercept access.
+	 * This must run before any PooCommerce scripts to intercept access.
 	 * The script is loaded from a separate file for better IDE support and testing,
 	 * but output inline to ensure correct timing (before any enqueued scripts).
 	 *
@@ -131,7 +131,7 @@ final class DependencyDetection {
 			$script_content
 		);
 
-		// Inject the WooCommerce plugin URL for script origin detection.
+		// Inject the PooCommerce plugin URL for script origin detection.
 		// This accounts for custom plugin directories (WP_PLUGIN_DIR, WP_CONTENT_DIR).
 		$wc_plugin_url  = \plugins_url( '/', WC_PLUGIN_FILE );
 		$script_content = str_replace(
@@ -198,8 +198,8 @@ final class DependencyDetection {
 			// Resolve relative URLs to absolute the same way WordPress core does.
 			$src = Utils::get_absolute_script_url( $src );
 
-			// Skip WooCommerce's own scripts - we don't need to check those.
-			if ( $this->is_woocommerce_script( $src ) ) {
+			// Skip PooCommerce's own scripts - we don't need to check those.
+			if ( $this->is_poocommerce_script( $src ) ) {
 				continue;
 			}
 
@@ -221,27 +221,27 @@ final class DependencyDetection {
 	}
 
 	/**
-	 * Check if a script URL belongs to WooCommerce core.
+	 * Check if a script URL belongs to PooCommerce core.
 	 *
-	 * Checks if the script is loaded from the WooCommerce core plugin directory,
+	 * Checks if the script is loaded from the PooCommerce core plugin directory,
 	 * not from third-party extensions that may use similar handle naming.
 	 *
 	 * @param string $url Script URL.
 	 * @return bool
 	 */
-	private function is_woocommerce_script( string $url ): bool {
-		// Get the WooCommerce plugin URL (accounts for custom plugin directories).
+	private function is_poocommerce_script( string $url ): bool {
+		// Get the PooCommerce plugin URL (accounts for custom plugin directories).
 		$wc_plugin_url = \plugins_url( '/', WC_PLUGIN_FILE );
 
-		// Check if the URL starts with the WooCommerce plugin URL and is in a known subdirectory.
+		// Check if the URL starts with the PooCommerce plugin URL and is in a known subdirectory.
 		if ( strpos( $url, $wc_plugin_url ) !== 0 ) {
 			return false;
 		}
 
-		// Get the path after the WooCommerce plugin URL.
+		// Get the path after the PooCommerce plugin URL.
 		$relative_path = substr( $url, strlen( $wc_plugin_url ) );
 
-		// Check if it's in one of the known WooCommerce asset directories.
+		// Check if it's in one of the known PooCommerce asset directories.
 		return (bool) preg_match( '#^(client|assets|build|vendor)/#', $relative_path );
 	}
 
@@ -288,7 +288,7 @@ final class DependencyDetection {
 			}
 		}
 
-		// Filter to only include WooCommerce handles we care about.
+		// Filter to only include PooCommerce handles we care about.
 		$wc_handles = array_values( self::WC_GLOBAL_EXPORTS );
 		return array_values(
 			array_filter(
@@ -315,14 +315,14 @@ final class DependencyDetection {
 		}
 
 		// Check widget areas for mini-cart (classic themes).
-		$mini_cart_in_widgets = BlocksUtil::get_blocks_from_widget_area( 'woocommerce/mini-cart' );
+		$mini_cart_in_widgets = BlocksUtil::get_blocks_from_widget_area( 'poocommerce/mini-cart' );
 		if ( ! empty( $mini_cart_in_widgets ) ) {
 			return true;
 		}
 
 		// Check header template part for mini-cart (block themes).
 		try {
-			$mini_cart_in_header = BlocksUtil::get_block_from_template_part( 'woocommerce/mini-cart', 'header' );
+			$mini_cart_in_header = BlocksUtil::get_block_from_template_part( 'poocommerce/mini-cart', 'header' );
 			if ( ! empty( $mini_cart_in_header ) ) {
 				return true;
 			}

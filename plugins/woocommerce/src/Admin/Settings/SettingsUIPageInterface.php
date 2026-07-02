@@ -5,7 +5,7 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Admin\Settings;
+namespace Automattic\PooCommerce\Admin\Settings;
 
 defined( 'ABSPATH' ) || exit;
 

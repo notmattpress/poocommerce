@@ -59,7 +59,7 @@ const reporter = [
 			outputFile: `ctrf-report-${ Date.now() }.json`,
 			branchName: process.env.GITHUB_REF_NAME || '',
 			commit: process.env.GITHUB_SHA || '',
-			appName: 'woocommerce-core',
+			appName: 'poocommerce-core',
 			repositoryName: process.env.GITHUB_REPOSITORY || '',
 		},
 	],
@@ -126,11 +126,11 @@ const serialRunSpecs = [
 	'**/tests/analytics/analytics-data.spec.ts',
 	// Asserts store-wide `$0.00 / Orders 0`, polluted by concurrent orders.
 	'**/tests/analytics/analytics-access.spec.ts',
-	// Mutates the shared admin's `woocommerce_meta.dashboard_sections` and flips the
-	// global `woocommerce_analytics_scheduled_import` option (racing analytics-settings).
+	// Mutates the shared admin's `poocommerce_meta.dashboard_sections` and flips the
+	// global `poocommerce_analytics_scheduled_import` option (racing analytics-settings).
 	'**/tests/analytics/analytics-overview.spec.ts',
-	// Flips the global `woocommerce_default_customer_address` (geolocation) and
-	// `woocommerce_enable_ajax_add_to_cart` settings, which change add-to-cart
+	// Flips the global `poocommerce_default_customer_address` (geolocation) and
+	// `poocommerce_enable_ajax_add_to_cart` settings, which change add-to-cart
 	// behavior for every other worker. (`cart.spec.ts` runs in core-parallel — it
 	// scopes its tax rate to a dedicated tax class instead of toggling global tax.)
 	'**/tests/cart/add-to-cart.spec.ts',
@@ -139,13 +139,13 @@ const serialRunSpecs = [
 	'**/tests/checkout/checkout-shortcode-custom-place-order-button.spec.ts',
 	// Every spec toggles a global email feature flag via `setOption`:
 	// `editor-tracking-selectors`/`settings-email-listing` flip
-	// `woocommerce_feature_block_email_editor_enabled`, while `account-emails`/
-	// `order-emails`/`settings-email` flip `woocommerce_feature_email_improvements_enabled`.
+	// `poocommerce_feature_block_email_editor_enabled`, while `account-emails`/
+	// `order-emails`/`settings-email` flip `poocommerce_feature_email_improvements_enabled`.
 	// Run in parallel they race on those options — one file's afterAll disables the
 	// editor (or flips improvements) mid-test for the others. Proven not parallel-safe:
 	// an email-only `core-parallel` run failed across all three clusters.
 	'**/tests/email/**/*.spec.ts',
-	// Each spec toggles the global `woocommerce_feature_block_email_editor_enabled`
+	// Each spec toggles the global `poocommerce_feature_block_email_editor_enabled`
 	// flag in beforeAll/afterAll; running the files concurrently races on that option
 	// (`e2e-options/update` returns 400 "Update option FAILED") and the first file's
 	// afterAll disables the editor mid-test for the others. Proven not parallel-safe.
@@ -153,7 +153,7 @@ const serialRunSpecs = [
 	// Mutate the global onboarding profile/options, site-visibility options and
 	// the active theme.
 	'**/tests/onboarding/**/*.spec.ts',
-	// Toggles the global `woocommerce_downloads_grant_access_after_payment` setting.
+	// Toggles the global `poocommerce_downloads_grant_access_after_payment` setting.
 	'**/tests/order/order-edit.spec.ts',
 	// Submits and deletes product reviews via the Review Order form while it runs;
 	// that concurrent churn on the shared reviews list makes `product-reviews`'
@@ -163,18 +163,18 @@ const serialRunSpecs = [
 	// Imports a fixed-content CSV (fixed SKUs/names) and asserts the imported rows
 	// on the store-wide product list — collides with concurrently created products.
 	'**/tests/product/product-import-csv.spec.ts',
-	// Mutate global WooCommerce settings (store address/currency/country, tax)
+	// Mutate global PooCommerce settings (store address/currency/country, tax)
 	// that other workers' cart/checkout/storefront specs depend on.
 	'**/tests/settings/settings-general.spec.ts',
 	'**/tests/settings/settings-tax.spec.ts',
-	// Unchecks and saves `woocommerce_enable_reviews`, flipping that global option
+	// Unchecks and saves `poocommerce_enable_reviews`, flipping that global option
 	// to `no` mid-run (restored only in afterAll). While off, the front-end Reviews
 	// tab and admin review management disappear — proven to deterministically fail 3
 	// `product/product-reviews.spec.ts` tests (shopper post + the edit/reply Reviews
 	// tab assertions). Also toggles the global `settings-ui` feature flag and resets
 	// ALL e2e feature flags in afterAll.
 	'**/tests/settings/settings-ui-feature-flag.spec.ts',
-	// Toggles the global `woocommerce_cart_redirect_after_add` setting, which
+	// Toggles the global `poocommerce_cart_redirect_after_add` setting, which
 	// changes add-to-cart behavior for every other worker — not parallel-safe.
 	'**/tests/shop/cart-redirection.spec.ts',
 	// Trashes and restores the global Shop page in a fixture; while trashed, every
@@ -184,7 +184,7 @@ const serialRunSpecs = [
 
 /**
  * Spec folders owned by other Playwright projects — excluded from both core projects.
- * PayPal tests don't run well in parallel (https://github.com/woocommerce/woocommerce/pull/63068);
+ * PayPal tests don't run well in parallel (https://github.com/poocommerce/poocommerce/pull/63068);
  * blocks specs need the `blocks setup` project and its storage state.
  */
 const nonCoreSpecs = [

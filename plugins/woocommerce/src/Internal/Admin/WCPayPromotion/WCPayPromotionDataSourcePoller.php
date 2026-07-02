@@ -1,8 +1,8 @@
 <?php
 
-namespace Automattic\WooCommerce\Internal\Admin\WCPayPromotion;
+namespace Automattic\PooCommerce\Internal\Admin\WCPayPromotion;
 
-use Automattic\WooCommerce\Admin\RemoteSpecs\DataSourcePoller;
+use Automattic\PooCommerce\Admin\RemoteSpecs\DataSourcePoller;
 use WC_Helper;
 
 /**
@@ -43,7 +43,7 @@ class WCPayPromotionDataSourcePoller extends DataSourcePoller {
 	 */
 	public static function get_data_sources() {
 		$data_sources = array(
-			WC_Helper::get_woocommerce_com_base_url() . 'wp-json/wccom/payment-gateway-suggestions/2.0/payment-method/promotions.json',
+			WC_Helper::get_poocommerce_com_base_url() . 'wp-json/wccom/payment-gateway-suggestions/2.0/payment-method/promotions.json',
 		);
 
 		// Add country query param to data sources.

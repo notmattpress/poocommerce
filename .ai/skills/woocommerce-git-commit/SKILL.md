@@ -1,6 +1,6 @@
 ---
-name: woocommerce-git-commit
-description: Commit uncommitted changes with well-crafted messages following WooCommerce repo conventions. Use when the user says "commit", "commit changes", "commit this", "git commit", or "save my work".
+name: poocommerce-git-commit
+description: Commit uncommitted changes with well-crafted messages following PooCommerce repo conventions. Use when the user says "commit", "commit changes", "commit this", "git commit", or "save my work".
 ---
 
 # Commit Changes
@@ -63,7 +63,7 @@ Commit 1: Fix double margin-top in flex layout
          src/Blocks/EmailEditor/styles.css
 
 Commit 2: Add changelog entries for email editor fix
-  files: plugins/woocommerce/changelog/fix-email-margin
+  files: plugins/poocommerce/changelog/fix-email-margin
 ```
 
 ### 5. Execute
@@ -84,4 +84,4 @@ After all commits, show `git log --oneline -n <number of new commits>` to confir
 - No Co-Authored-By lines or self-attribution
 - Never push to remote
 - Never use `git add -A` or `git add .`
-- Do not run pre-commit lint/test checks — the `woocommerce-dev-cycle` skill handles that. Linting should be run *before* invoking this skill, not after.
+- Do not run pre-commit lint/test checks — the `poocommerce-dev-cycle` skill handles that. Linting should be run *before* invoking this skill, not after.

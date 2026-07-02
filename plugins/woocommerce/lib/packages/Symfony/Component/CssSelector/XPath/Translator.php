@@ -9,14 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Automattic\WooCommerce\Vendor\Symfony\Component\CssSelector\XPath;
+namespace Automattic\PooCommerce\Vendor\Symfony\Component\CssSelector\XPath;
 
-use Automattic\WooCommerce\Vendor\Symfony\Component\CssSelector\Exception\ExpressionErrorException;
-use Automattic\WooCommerce\Vendor\Symfony\Component\CssSelector\Node\FunctionNode;
-use Automattic\WooCommerce\Vendor\Symfony\Component\CssSelector\Node\NodeInterface;
-use Automattic\WooCommerce\Vendor\Symfony\Component\CssSelector\Node\SelectorNode;
-use Automattic\WooCommerce\Vendor\Symfony\Component\CssSelector\Parser\Parser;
-use Automattic\WooCommerce\Vendor\Symfony\Component\CssSelector\Parser\ParserInterface;
+use Automattic\PooCommerce\Vendor\Symfony\Component\CssSelector\Exception\ExpressionErrorException;
+use Automattic\PooCommerce\Vendor\Symfony\Component\CssSelector\Node\FunctionNode;
+use Automattic\PooCommerce\Vendor\Symfony\Component\CssSelector\Node\NodeInterface;
+use Automattic\PooCommerce\Vendor\Symfony\Component\CssSelector\Node\SelectorNode;
+use Automattic\PooCommerce\Vendor\Symfony\Component\CssSelector\Parser\Parser;
+use Automattic\PooCommerce\Vendor\Symfony\Component\CssSelector\Parser\ParserInterface;
 
 /**
  * XPath expression translator interface.

@@ -4,18 +4,18 @@
  *
  * Handles requests to the /reports/orders/count endpoint.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @since   3.5.0
  */
 
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
  * REST API Reports Orders Totals controller class.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @extends WC_REST_Reports_Controller
  */
 class WC_REST_Report_Orders_Totals_Controller extends WC_REST_Reports_Controller {
@@ -89,7 +89,7 @@ class WC_REST_Report_Orders_Totals_Controller extends WC_REST_Reports_Controller
 		 * @param object           $report   The original report object.
 		 * @param WP_REST_Request  $request  Request used to generate the response.
 		 */
-		return apply_filters( 'woocommerce_rest_prepare_report_orders_count', $response, $report, $request );
+		return apply_filters( 'poocommerce_rest_prepare_report_orders_count', $response, $report, $request );
 	}
 
 	/**
@@ -104,19 +104,19 @@ class WC_REST_Report_Orders_Totals_Controller extends WC_REST_Reports_Controller
 			'type'       => 'object',
 			'properties' => array(
 				'slug'  => array(
-					'description' => __( 'An alphanumeric identifier for the resource.', 'woocommerce' ),
+					'description' => __( 'An alphanumeric identifier for the resource.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
 				'name'  => array(
-					'description' => __( 'Order status name.', 'woocommerce' ),
+					'description' => __( 'Order status name.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
 				'total' => array(
-					'description' => __( 'Amount of orders.', 'woocommerce' ),
+					'description' => __( 'Amount of orders.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view' ),
 					'readonly'    => true,

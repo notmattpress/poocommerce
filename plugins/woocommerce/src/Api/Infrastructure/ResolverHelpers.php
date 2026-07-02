@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Api\Infrastructure;
+namespace Automattic\PooCommerce\Api\Infrastructure;
 
-use Automattic\WooCommerce\Api\Infrastructure\Schema\Error;
+use Automattic\PooCommerce\Api\Infrastructure\Schema\Error;
 
 /**
  * Shared utilities for the auto-generated GraphQL resolvers.
@@ -33,10 +33,10 @@ class ResolverHelpers {
 	 * @return int The total complexity for this connection field.
 	 */
 	public static function complexity_from_pagination( int $child_complexity, array $args ): int {
-		$requested = $args['first'] ?? $args['last'] ?? \Automattic\WooCommerce\Api\Pagination\PaginationParams::get_default_page_size();
-		$page_size = ( is_int( $requested ) && $requested >= 0 && $requested <= \Automattic\WooCommerce\Api\Pagination\PaginationParams::MAX_PAGE_SIZE )
+		$requested = $args['first'] ?? $args['last'] ?? \Automattic\PooCommerce\Api\Pagination\PaginationParams::get_default_page_size();
+		$page_size = ( is_int( $requested ) && $requested >= 0 && $requested <= \Automattic\PooCommerce\Api\Pagination\PaginationParams::MAX_PAGE_SIZE )
 			? $requested
-			: \Automattic\WooCommerce\Api\Pagination\PaginationParams::MAX_PAGE_SIZE;
+			: \Automattic\PooCommerce\Api\Pagination\PaginationParams::MAX_PAGE_SIZE;
 		return $page_size * ( $child_complexity + 1 );
 	}
 
@@ -46,12 +46,12 @@ class ResolverHelpers {
 	 *
 	 * @param array $args The GraphQL field arguments.
 	 *
-	 * @return \Automattic\WooCommerce\Api\Pagination\PaginationParams
+	 * @return \Automattic\PooCommerce\Api\Pagination\PaginationParams
 	 * @throws Error When a pagination value is out of range.
 	 */
-	public static function create_pagination_params( array $args ): \Automattic\WooCommerce\Api\Pagination\PaginationParams {
+	public static function create_pagination_params( array $args ): \Automattic\PooCommerce\Api\Pagination\PaginationParams {
 		return self::create_input(
-			fn() => new \Automattic\WooCommerce\Api\Pagination\PaginationParams(
+			fn() => new \Automattic\PooCommerce\Api\Pagination\PaginationParams(
 				first: $args['first'] ?? null,
 				last: $args['last'] ?? null,
 				after: $args['after'] ?? null,
@@ -210,11 +210,11 @@ class ResolverHelpers {
 	 * Scope is class-level (queries / mutations). Field-level authorization
 	 * lives on output-type / input-type properties and is enforced inside
 	 * the generated resolvers. To inspect a field's declared authorization
-	 * from code, walk {@see \Automattic\WooCommerce\Api\Utils\SchemaHandle::find_metadata()}
+	 * from code, walk {@see \Automattic\PooCommerce\Api\Utils\SchemaHandle::find_metadata()}
 	 * and read the `authorization` slice on each row.
 	 *
 	 * @param string $command_fqcn Fully-qualified command class name.
-	 * @param object $principal    The resolved principal. Anonymous requests are represented by a sentinel principal (e.g. {@see \Automattic\WooCommerce\Api\Infrastructure\Principal} whose underlying WP_User has ID=0), not by null.
+	 * @param object $principal    The resolved principal. Anonymous requests are represented by a sentinel principal (e.g. {@see \Automattic\PooCommerce\Api\Infrastructure\Principal} whose underlying WP_User has ID=0), not by null.
 	 *
 	 * @throws \InvalidArgumentException When `$command_fqcn` does not name an existing class.
 	 */
@@ -233,7 +233,7 @@ class ResolverHelpers {
 			// (recursively). All inherited sources contribute as peers; the
 			// only thing direct attributes shadow is the inherited tree as a
 			// whole. Mirrors
-			// {@see \Automattic\WooCommerce\Api\Infrastructure\DesignTime\ApiBuilder::resolve_authorization()}.
+			// {@see \Automattic\PooCommerce\Api\Infrastructure\DesignTime\ApiBuilder::resolve_authorization()}.
 			$visited = array();
 			$stack   = array_merge(
 				$ref->getParentClass() ? array( $ref->getParentClass() ) : array(),
@@ -276,7 +276,7 @@ class ResolverHelpers {
 
 	/**
 	 * Mirror of `ApiBuilder::harvest_metadata()` for the runtime path. Walks
-	 * {@see \Automattic\WooCommerce\Api\Attributes\Metadata}-subclass attributes
+	 * {@see \Automattic\PooCommerce\Api\Attributes\Metadata}-subclass attributes
 	 * on a class reflector and returns `name => value`. Duplicate names are
 	 * resolved last-wins — the build-time validator already errors on
 	 * duplicates, so this is only relevant for in-process classes that
@@ -293,7 +293,7 @@ class ResolverHelpers {
 	 */
 	private static function harvest_class_metadata( \ReflectionClass $ref ): array {
 		$entries = array();
-		foreach ( $ref->getAttributes( \Automattic\WooCommerce\Api\Attributes\Metadata::class, \ReflectionAttribute::IS_INSTANCEOF ) as $attribute ) {
+		foreach ( $ref->getAttributes( \Automattic\PooCommerce\Api\Attributes\Metadata::class, \ReflectionAttribute::IS_INSTANCEOF ) as $attribute ) {
 			$instance                         = $attribute->newInstance();
 			$entries[ $instance->get_name() ] = $instance->get_value();
 		}
@@ -339,7 +339,7 @@ class ResolverHelpers {
 	 * Collect attribute instances declared on $source whose class declares an
 	 * authorization-shaped `authorize()` method.
 	 *
-	 * Mirrors {@see \Automattic\WooCommerce\Api\Infrastructure\DesignTime\ApiBuilder::collect_authorization_usages()}
+	 * Mirrors {@see \Automattic\PooCommerce\Api\Infrastructure\DesignTime\ApiBuilder::collect_authorization_usages()}
 	 * for the runtime path: same direct-then-inherited precedence, same
 	 * "any class with a bool-returning authorize() method qualifies" rule.
 	 *
@@ -437,7 +437,7 @@ class ResolverHelpers {
 		// phpcs:disable WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Not HTML; serialized as JSON.
 		try {
 			return $operation();
-		} catch ( \Automattic\WooCommerce\Api\ApiException $e ) {
+		} catch ( \Automattic\PooCommerce\Api\ApiException $e ) {
 			// Caller-supplied extensions come first so the canonical
 			// getErrorCode() can't be silently overridden by an extensions
 			// entry keyed 'code'. The invariant "the code on the wire

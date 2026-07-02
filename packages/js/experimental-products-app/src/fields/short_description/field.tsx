@@ -13,10 +13,10 @@ import { convertHtmlToPlainText } from '../../utilites';
 
 const fieldDefinition = {
 	type: 'text',
-	label: __( 'Summary', 'woocommerce' ),
+	label: __( 'Summary', 'poocommerce' ),
 	description: __(
 		'Give customers a quick overview of your product. This appears above the full description.',
-		'woocommerce'
+		'poocommerce'
 	),
 	enableSorting: false,
 	filterBy: false,

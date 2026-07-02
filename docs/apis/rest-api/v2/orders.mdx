@@ -17,7 +17,7 @@ The orders API allows you to create, view, update, and delete individual, or a b
 | `number`               | string    | Order number. `READ-ONLY`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
 | `order_key`            | string    | Order key. `READ-ONLY`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
 | `created_via`          | string    | Shows where the order was created. `READ-ONLY`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| `version`              | string    | Version of WooCommerce which last updated the order. `READ-ONLY`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| `version`              | string    | Version of PooCommerce which last updated the order. `READ-ONLY`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
 | `status`               | string    | Order status. Options: `pending`, `processing`, `on-hold`, `completed`, `cancelled`, `refunded`, `failed` and `trash`. Default is `pending`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 | `currency`             | string    | Currency the order was created with, in ISO format. Options: `AED`, `AFN`, `ALL`, `AMD`, `ANG`, `AOA`, `ARS`, `AUD`, `AWG`, `AZN`, `BAM`, `BBD`, `BDT`, `BGN`, `BHD`, `BIF`, `BMD`, `BND`, `BOB`, `BRL`, `BSD`, `BTC`, `BTN`, `BWP`, `BYR`, `BZD`, `CAD`, `CDF`, `CHF`, `CLP`, `CNY`, `COP`, `CRC`, `CUC`, `CUP`, `CVE`, `CZK`, `DJF`, `DKK`, `DOP`, `DZD`, `EGP`, `ERN`, `ETB`, `EUR`, `FJD`, `FKP`, `GBP`, `GEL`, `GGP`, `GHS`, `GIP`, `GMD`, `GNF`, `GTQ`, `GYD`, `HKD`, `HNL`, `HRK`, `HTG`, `HUF`, `IDR`, `ILS`, `IMP`, `INR`, `IQD`, `IRR`, `IRT`, `ISK`, `JEP`, `JMD`, `JOD`, `JPY`, `KES`, `KGS`, `KHR`, `KMF`, `KPW`, `KRW`, `KWD`, `KYD`, `KZT`, `LAK`, `LBP`, `LKR`, `LRD`, `LSL`, `LYD`, `MAD`, `MDL`, `MGA`, `MKD`, `MMK`, `MNT`, `MOP`, `MRO`, `MUR`, `MVR`, `MWK`, `MXN`, `MYR`, `MZN`, `NAD`, `NGN`, `NIO`, `NOK`, `NPR`, `NZD`, `OMR`, `PAB`, `PEN`, `PGK`, `PHP`, `PKR`, `PLN`, `PRB`, `PYG`, `QAR`, `RON`, `RSD`, `RUB`, `RWF`, `SAR`, `SBD`, `SCR`, `SDG`, `SEK`, `SGD`, `SHP`, `SLL`, `SOS`, `SRD`, `SSP`, `STD`, `SYP`, `SZL`, `THB`, `TJS`, `TMT`, `TND`, `TOP`, `TRY`, `TTD`, `TWD`, `TZS`, `UAH`, `UGX`, `USD`, `UYU`, `UZS`, `VEF`, `VND`, `VUV`, `WST`, `XAF`, `XCD`, `XOF`, `XPF`, `YER`, `ZAR` and `ZMW`. Default is `USD`. |
 | `date_created`         | date-time | The date the order was created, in the site's timezone. `READ-ONLY`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
@@ -284,7 +284,7 @@ const data = {
   ]
 };
 
-WooCommerce.post("orders", data)
+PooCommerce.post("orders", data)
   .then((response) => {
     console.log(response.data);
   })
@@ -344,7 +344,7 @@ $data = [
     ]
 ];
 
-print_r($woocommerce->post('orders', $data));
+print_r($poocommerce->post('orders', $data));
 ?>
 ```
 
@@ -451,7 +451,7 @@ data = {
   ]
 }
 
-woocommerce.post("orders", data).parsed_response
+poocommerce.post("orders", data).parsed_response
 ```
 
   </TabItem>
@@ -642,7 +642,7 @@ curl https://example.com/wp-json/wc/v2/orders/727 \
   <TabItem value="js" label="JavaScript">
 
 ```javascript
-WooCommerce.get("orders/727")
+PooCommerce.get("orders/727")
   .then((response) => {
     console.log(response.data);
   })
@@ -655,7 +655,7 @@ WooCommerce.get("orders/727")
   <TabItem value="php" label="PHP">
 
 ```php
-<?php print_r($woocommerce->get('orders/727')); ?>
+<?php print_r($poocommerce->get('orders/727')); ?>
 ```
 
   </TabItem>
@@ -669,7 +669,7 @@ print(wcapi.get("orders/727").json())
   <TabItem value="ruby" label="Ruby">
 
 ```ruby
-woocommerce.get("orders/727").parsed_response
+poocommerce.get("orders/727").parsed_response
 ```
 
   </TabItem>
@@ -865,7 +865,7 @@ curl https://example.com/wp-json/wc/v2/orders \
   <TabItem value="js" label="JavaScript">
 
 ```javascript
-WooCommerce.get("orders")
+PooCommerce.get("orders")
   .then((response) => {
     console.log(response.data);
   })
@@ -878,7 +878,7 @@ WooCommerce.get("orders")
   <TabItem value="php" label="PHP">
 
 ```php
-<?php print_r($woocommerce->get('orders')); ?>
+<?php print_r($poocommerce->get('orders')); ?>
 ```
 
   </TabItem>
@@ -892,7 +892,7 @@ print(wcapi.get("orders").json())
   <TabItem value="ruby" label="Ruby">
 
 ```ruby
-woocommerce.get("orders").parsed_response
+poocommerce.get("orders").parsed_response
 ```
 
   </TabItem>
@@ -1269,7 +1269,7 @@ const data = {
   status: "completed"
 };
 
-WooCommerce.put("orders/727", data)
+PooCommerce.put("orders/727", data)
   .then((response) => {
     console.log(response.data);
   })
@@ -1287,7 +1287,7 @@ $data = [
     'status' => 'completed'
 ];
 
-print_r($woocommerce->put('orders/727', $data));
+print_r($poocommerce->put('orders/727', $data));
 ?>
 ```
 
@@ -1310,7 +1310,7 @@ data = {
   status: "completed"
 }
 
-woocommerce.put("orders/727", data).parsed_response
+poocommerce.put("orders/727", data).parsed_response
 ```
 
   </TabItem>
@@ -1506,7 +1506,7 @@ curl -X DELETE https://example.com/wp-json/wc/v2/orders/727?force=true \
   <TabItem value="js" label="JavaScript">
 
 ```javascript
-WooCommerce.delete("orders/727", {
+PooCommerce.delete("orders/727", {
   force: true
 })
   .then((response) => {
@@ -1521,7 +1521,7 @@ WooCommerce.delete("orders/727", {
   <TabItem value="php" label="PHP">
 
 ```php
-<?php print_r($woocommerce->delete('orders/727', ['force' => true])); ?>
+<?php print_r($poocommerce->delete('orders/727', ['force' => true])); ?>
 ```
 
   </TabItem>
@@ -1535,7 +1535,7 @@ print(wcapi.delete("orders/727", params={"force": True}).json())
   <TabItem value="ruby" label="Ruby">
 
 ```ruby
-woocommerce.delete("orders/727", force: true).parsed_response
+poocommerce.delete("orders/727", force: true).parsed_response
 ```
 
   </TabItem>
@@ -1956,7 +1956,7 @@ const data = {
   ]
 };
 
-WooCommerce.post("orders/batch", data)
+PooCommerce.post("orders/batch", data)
   .then((response) => {
     console.log(response.data);
   })
@@ -2078,7 +2078,7 @@ $data = [
     ]
 ];
 
-print_r($woocommerce->post('orders/batch', $data));
+print_r($poocommerce->post('orders/batch', $data));
 ?>
 ```
 
@@ -2309,7 +2309,7 @@ data = {
   ]
 }
 
-woocommerce.post("orders/batch", data).parsed_response
+poocommerce.post("orders/batch", data).parsed_response
 ```
 
   </TabItem>

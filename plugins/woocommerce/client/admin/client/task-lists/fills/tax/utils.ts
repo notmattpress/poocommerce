@@ -1,16 +1,16 @@
 /**
  * External dependencies
  */
-import { getAdminLink } from '@woocommerce/settings';
-import { TaskType } from '@woocommerce/data';
+import { getAdminLink } from '@poocommerce/settings';
+import { TaskType } from '@poocommerce/data';
 
 /**
  * Plugins required to automate taxes.
  */
-export const AUTOMATION_PLUGINS = [ 'woocommerce-services' ];
+export const AUTOMATION_PLUGINS = [ 'poocommerce-services' ];
 
 /**
- * Countries where WooCommerce Tax automated taxes are supported.
+ * Countries where PooCommerce Tax automated taxes are supported.
  *
  * Mirrors the support gate used for automated taxes in core.
  */
@@ -52,18 +52,18 @@ export const WOOCOMMERCE_TAX_SUPPORTED_COUNTRIES = [
  * Check if a store has a complete address given general settings.
  *
  * @param {Object} generalSettings                             General settings.
- * @param {Object} generalSettings.woocommerce_store_address   Store address.
- * @param {Object} generalSettings.woocommerce_default_country Store default country.
- * @param {Object} generalSettings.woocommerce_store_postcode  Store postal code.
+ * @param {Object} generalSettings.poocommerce_store_address   Store address.
+ * @param {Object} generalSettings.poocommerce_default_country Store default country.
+ * @param {Object} generalSettings.poocommerce_store_postcode  Store postal code.
  */
 export const hasCompleteAddress = (
 	generalSettings: Record< string, string >,
 	requiresPostcode = true
 ): boolean => {
 	const {
-		woocommerce_store_address: storeAddress,
-		woocommerce_default_country: defaultCountry,
-		woocommerce_store_postcode: storePostCode,
+		poocommerce_store_address: storeAddress,
+		poocommerce_default_country: defaultCountry,
+		poocommerce_store_postcode: storePostCode,
 	} = generalSettings;
 	if ( requiresPostcode ) {
 		return Boolean( storeAddress && defaultCountry && storePostCode );
@@ -93,12 +93,12 @@ export type TaxChildProps = {
 };
 
 /**
- * Check if WooCommerce Tax is supported for a given store country.
+ * Check if PooCommerce Tax is supported for a given store country.
  *
  * @param {string|null} countryCode Country code.
- * @return {boolean} If WooCommerce Tax is supported.
+ * @return {boolean} If PooCommerce Tax is supported.
  */
-export const supportsWooCommerceTax = (
+export const supportsPooCommerceTax = (
 	countryCode: string | null
 ): boolean => {
 	if ( ! countryCode ) {

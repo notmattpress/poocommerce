@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { getSetting } from '@woocommerce/settings';
+import { getSetting } from '@poocommerce/settings';
 
 export const useIncompatibleExtensionNotice = (): [
 	{ [ k: string ]: string } | null,

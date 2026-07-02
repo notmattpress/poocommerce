@@ -3,7 +3,7 @@
  */
 import { renderHook } from '@testing-library/react';
 import { createRegistry, RegistryProvider } from '@wordpress/data';
-import type { FormType } from '@woocommerce/settings';
+import type { FormType } from '@poocommerce/settings';
 import Ajv from 'ajv';
 import { WPDataRegistry } from '@wordpress/data/build-types/registry';
 
@@ -17,7 +17,7 @@ import { CartState } from '../../../data/cart/default-state';
 import checkoutSchema from './checkout-document-schema.json';
 
 // Mock the stores
-jest.mock( '@woocommerce/block-data', () => ( {
+jest.mock( '@poocommerce/block-data', () => ( {
 	__esModule: true,
 	cartStore: 'wc/store/cart',
 	checkoutStore: 'wc/store/checkout',

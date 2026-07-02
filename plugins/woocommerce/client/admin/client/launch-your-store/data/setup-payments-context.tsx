@@ -3,8 +3,8 @@
  */
 import { createContext, useContext, useState } from '@wordpress/element';
 import { useSelect } from '@wordpress/data';
-import { pluginsStore, paymentSettingsStore } from '@woocommerce/data';
-import { getNewPath } from '@woocommerce/navigation';
+import { pluginsStore, paymentSettingsStore } from '@poocommerce/data';
+import { getNewPath } from '@poocommerce/navigation';
 
 /**
  * Internal dependencies

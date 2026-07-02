@@ -1,14 +1,14 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\GraphQL\Type\Definition;
+namespace Automattic\PooCommerce\Vendor\GraphQL\Type\Definition;
 
-use Automattic\WooCommerce\Vendor\GraphQL\Error\InvariantViolation;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Introspection;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\SchemaConfig;
-use Automattic\WooCommerce\Vendor\GraphQL\Utils\Utils;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\InvariantViolation;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Introspection;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\SchemaConfig;
+use Automattic\PooCommerce\Vendor\GraphQL\Utils\Utils;
 
 /**
- * Registry of built-in Automattic\WooCommerce\Vendor\GraphQL types and base class for all other types.
+ * Registry of built-in Automattic\PooCommerce\Vendor\GraphQL types and base class for all other types.
  */
 abstract class Type implements \JsonSerializable
 {

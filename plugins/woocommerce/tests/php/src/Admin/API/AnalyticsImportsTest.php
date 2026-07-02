@@ -2,10 +2,10 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Admin\API;
+namespace Automattic\PooCommerce\Tests\Admin\API;
 
-use Automattic\WooCommerce\Admin\Features\Features;
-use Automattic\WooCommerce\Internal\Admin\Schedulers\OrdersScheduler;
+use Automattic\PooCommerce\Admin\Features\Features;
+use Automattic\PooCommerce\Internal\Admin\Schedulers\OrdersScheduler;
 use WC_REST_Unit_Test_Case;
 use WP_REST_Request;
 
@@ -175,7 +175,7 @@ class AnalyticsImportsTest extends WC_REST_Unit_Test_Case {
 	}
 
 	/**
-	 * Test status endpoint requires manage_woocommerce capability.
+	 * Test status endpoint requires manage_poocommerce capability.
 	 *
 	 * @return void
 	 */
@@ -244,11 +244,11 @@ class AnalyticsImportsTest extends WC_REST_Unit_Test_Case {
 
 		$data = $response->get_data();
 		$this->assertArrayHasKey( 'code', $data );
-		$this->assertSame( 'woocommerce_rest_analytics_import_immediate_mode', $data['code'] );
+		$this->assertSame( 'poocommerce_rest_analytics_import_immediate_mode', $data['code'] );
 	}
 
 	/**
-	 * Test trigger endpoint requires manage_woocommerce capability.
+	 * Test trigger endpoint requires manage_poocommerce capability.
 	 *
 	 * @return void
 	 */
@@ -342,7 +342,7 @@ class AnalyticsImportsTest extends WC_REST_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Retry-failed requires the manage_woocommerce capability.
+	 * @testdox Retry-failed requires the manage_poocommerce capability.
 	 */
 	public function test_retry_failed_requires_permission(): void {
 		wp_set_current_user( $this->customer_user );
@@ -401,22 +401,22 @@ class AnalyticsImportsTest extends WC_REST_Unit_Test_Case {
 
 		// Force schedule_action() to run the import synchronously, and make
 		// the import itself throw, so the scheduling attempt errors.
-		add_filter( 'woocommerce_analytics_disable_action_scheduling', '__return_true' );
+		add_filter( 'poocommerce_analytics_disable_action_scheduling', '__return_true' );
 		$throwing_filter = function () {
 			throw new \DivisionByZeroError( 'Division by zero' );
 		};
-		add_filter( 'woocommerce_analytics_is_test_order', $throwing_filter );
+		add_filter( 'poocommerce_analytics_is_test_order', $throwing_filter );
 
 		try {
 			$request  = new WP_REST_Request( 'POST', self::ENDPOINT . '/retry-failed' );
 			$response = $this->server->dispatch( $request );
 		} finally {
-			remove_filter( 'woocommerce_analytics_is_test_order', $throwing_filter );
-			remove_filter( 'woocommerce_analytics_disable_action_scheduling', '__return_true' );
+			remove_filter( 'poocommerce_analytics_is_test_order', $throwing_filter );
+			remove_filter( 'poocommerce_analytics_disable_action_scheduling', '__return_true' );
 		}
 
 		$this->assertSame( 500, $response->get_status(), 'A fully failed retry must not report success' );
-		$this->assertSame( 'woocommerce_rest_analytics_retry_failed', $response->get_data()['code'] );
+		$this->assertSame( 'poocommerce_rest_analytics_retry_failed', $response->get_data()['code'] );
 
 		$failed = OrdersScheduler::get_failed_order_imports();
 		$this->assertContains( $order->get_id(), $failed['ids'], 'Orders that failed again stay recorded' );

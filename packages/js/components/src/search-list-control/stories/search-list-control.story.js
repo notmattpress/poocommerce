@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { SearchListControl } from '@woocommerce/components';
+import { SearchListControl } from '@poocommerce/components';
 import { useState } from '@wordpress/element';
 
 const SearchListControlExample = ( { showCount, isCompact, isSingle } ) => {

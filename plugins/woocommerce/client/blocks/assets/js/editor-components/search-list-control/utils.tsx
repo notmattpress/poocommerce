@@ -3,7 +3,7 @@
  */
 import { Fragment } from '@wordpress/element';
 import { __, _n, sprintf } from '@wordpress/i18n';
-import { keyBy } from '@woocommerce/base-utils';
+import { keyBy } from '@poocommerce/base-utils';
 
 /**
  * Internal dependencies
@@ -11,18 +11,18 @@ import { keyBy } from '@woocommerce/base-utils';
 import type { SearchListItem } from './types';
 
 export const defaultMessages = {
-	clear: __( 'Clear all selected items', 'woocommerce' ),
-	noItems: __( 'No items found.', 'woocommerce' ),
+	clear: __( 'Clear all selected items', 'poocommerce' ),
+	noItems: __( 'No items found.', 'poocommerce' ),
 	/* Translators: %s search term */
-	noResults: __( 'No results for %s', 'woocommerce' ),
-	search: __( 'Search for items', 'woocommerce' ),
+	noResults: __( 'No results for %s', 'poocommerce' ),
+	search: __( 'Search for items', 'poocommerce' ),
 	selected: ( n: number ): string =>
 		sprintf(
 			/* translators: Number of items selected from list. */
-			_n( '%d item selected', '%d items selected', n, 'woocommerce' ),
+			_n( '%d item selected', '%d items selected', n, 'poocommerce' ),
 			n
 		),
-	updated: __( 'Search results updated.', 'woocommerce' ),
+	updated: __( 'Search results updated.', 'poocommerce' ),
 };
 
 /**

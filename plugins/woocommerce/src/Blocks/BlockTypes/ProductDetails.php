@@ -2,11 +2,11 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
 use WP_Block;
 use WP_HTML_Tag_Processor;
-use Automattic\WooCommerce\Blocks\Utils\StyleAttributesUtils;
+use Automattic\PooCommerce\Blocks\Utils\StyleAttributesUtils;
 
 /**
  * ProductDetails class.
@@ -30,13 +30,13 @@ class ProductDetails extends AbstractBlock {
 		/**
 		 * Filter the blocks that are hooked into the Product Details block.
 		 *
-		 * @hook woocommerce_product_details_hooked_blocks
+		 * @hook poocommerce_product_details_hooked_blocks
 		 *
 		 * @since 10.0.0
 		 * @param {array} $hooked_blocks The blocks that are hooked into the Product Details block.
 		 * @return {array} The blocks that are hooked into the Product Details block.
 		 */
-		$hooked_blocks = apply_filters( 'woocommerce_product_details_hooked_blocks', [] );
+		$hooked_blocks = apply_filters( 'poocommerce_product_details_hooked_blocks', [] );
 
 		foreach ( $this->validate_hooked_blocks( $hooked_blocks ) as $slug => $block ) {
 			$this->register_hooked_block( $slug, $block );
@@ -77,7 +77,7 @@ class ProductDetails extends AbstractBlock {
 		 * @see AddToCartWithOptions::render() for full documentation.
 		 * @since 7.6.0
 		 */
-		if ( ! apply_filters( 'woocommerce_disable_compatibility_layer', false ) ) {
+		if ( ! apply_filters( 'poocommerce_disable_compatibility_layer', false ) ) {
 			$parsed_block = $this->inject_compatible_tabs( $parsed_block );
 		}
 
@@ -116,13 +116,13 @@ class ProductDetails extends AbstractBlock {
 		 * @param array $tabs Array of product tabs.
 		 */
 		$product_tabs = apply_filters(
-			'woocommerce_product_tabs',
+			'poocommerce_product_tabs',
 			array()
 		);
 
 		$default_tabs_callbacks = array(
-			'woocommerce_product_description_tab',
-			'woocommerce_product_additional_information_tab',
+			'poocommerce_product_description_tab',
+			'poocommerce_product_additional_information_tab',
 			'comments_template',
 		);
 
@@ -192,22 +192,22 @@ class ProductDetails extends AbstractBlock {
 				</div>
 				<!-- /wp:accordion-item -->';
 		} else {
-			$template = '<!-- wp:woocommerce/accordion-item -->
-				<div class="wp-block-woocommerce-accordion-item"><!-- wp:woocommerce/accordion-header -->
-				<h3 class="wp-block-woocommerce-accordion-header accordion-item__heading">
+			$template = '<!-- wp:poocommerce/accordion-item -->
+				<div class="wp-block-poocommerce-accordion-item"><!-- wp:poocommerce/accordion-header -->
+				<h3 class="wp-block-poocommerce-accordion-header accordion-item__heading">
 				<button class="accordion-item__toggle">
 				<span>%1$s</span>
 				<span class="accordion-item__toggle-icon has-icon-plus" style="width:1.2em;height:1.2em"><svg width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M11 12.5V17.5H12.5V12.5H17.5V11H12.5V6H11V11H6V12.5H11Z" fill="currentColor"></path></svg></span>
 				</button>
 				</h3>
-				<!-- /wp:woocommerce/accordion-header -->
+				<!-- /wp:poocommerce/accordion-header -->
 
-				<!-- wp:woocommerce/accordion-panel -->
-				<div class="wp-block-woocommerce-accordion-panel"><div class="accordion-content__wrapper">
+				<!-- wp:poocommerce/accordion-panel -->
+				<div class="wp-block-poocommerce-accordion-panel"><div class="accordion-content__wrapper">
 				%2$s
 				</div></div>
-				<!-- /wp:woocommerce/accordion-panel --></div>
-				<!-- /wp:woocommerce/accordion-item -->';
+				<!-- /wp:poocommerce/accordion-panel --></div>
+				<!-- /wp:poocommerce/accordion-item -->';
 		}
 
 		return parse_blocks( sprintf( $template, $title, $content ) )[0];
@@ -222,7 +222,7 @@ class ProductDetails extends AbstractBlock {
 	 * @return array Parsed block.
 	 */
 	private function inject_parsed_accordion_blocks( $parsed_block, $accordion_blocks ) {
-		if ( 'core/accordion' === $parsed_block['blockName'] || 'woocommerce/accordion-group' === $parsed_block['blockName'] ) {
+		if ( 'core/accordion' === $parsed_block['blockName'] || 'poocommerce/accordion-group' === $parsed_block['blockName'] ) {
 			$parsed_block['innerBlocks']  = array_merge( $parsed_block['innerBlocks'], $accordion_blocks );
 			$parsed_block['innerBlocks']  = array_values( array_filter( $parsed_block['innerBlocks'] ) );
 			$opening_tag                  = reset( $parsed_block['innerContent'] );
@@ -255,7 +255,7 @@ class ProductDetails extends AbstractBlock {
 			return $parsed_block;
 		}
 
-		if ( 'core/accordion' === $parsed_block['blockName'] || 'woocommerce/accordion-group' === $parsed_block['blockName'] ) {
+		if ( 'core/accordion' === $parsed_block['blockName'] || 'poocommerce/accordion-group' === $parsed_block['blockName'] ) {
 			foreach ( $parsed_block['innerBlocks'] as $key => $inner_block ) {
 				$parsed_block['innerBlocks'][ $key ] = $this->mark_accordion_item_hidden( $inner_block, $context );
 			}
@@ -311,7 +311,7 @@ class ProductDetails extends AbstractBlock {
 	 * @return bool True if the block has an accordion, false otherwise.
 	 */
 	private function has_accordion( $parsed_block ) {
-		if ( 'core/accordion' === $parsed_block['blockName'] || 'woocommerce/accordion-group' === $parsed_block['blockName'] ) {
+		if ( 'core/accordion' === $parsed_block['blockName'] || 'poocommerce/accordion-group' === $parsed_block['blockName'] ) {
 			return true;
 		}
 
@@ -332,7 +332,7 @@ class ProductDetails extends AbstractBlock {
 	 * @return array|null Accordion anchor block or null.
 	 */
 	private function get_accordion_anchor_block( $parsed_block ) {
-		if ( 'core/accordion' === $parsed_block['blockName'] || 'woocommerce/accordion-group' === $parsed_block['blockName'] ) {
+		if ( 'core/accordion' === $parsed_block['blockName'] || 'poocommerce/accordion-group' === $parsed_block['blockName'] ) {
 			return $parsed_block;
 		}
 
@@ -414,7 +414,7 @@ class ProductDetails extends AbstractBlock {
 			'hooked_block_types',
 			function ( $hooked_block_types, $relative_position, $anchor_block_type ) use ( $slug ) {
 				if (
-					( 'core/accordion' === $anchor_block_type || 'woocommerce/accordion-group' === $anchor_block_type ) &&
+					( 'core/accordion' === $anchor_block_type || 'poocommerce/accordion-group' === $anchor_block_type ) &&
 					'last_child' === $relative_position &&
 					! in_array( $slug, $hooked_block_types, true )
 				) {
@@ -431,7 +431,7 @@ class ProductDetails extends AbstractBlock {
 			function ( $parsed_hooked_block, $hooked_block_type, $relative_position, $parsed_anchor_block ) use ( $block ) {
 				if (
 					is_null( $parsed_hooked_block ) ||
-					( 'core/accordion' !== $parsed_anchor_block['blockName'] && 'woocommerce/accordion-group' !== $parsed_anchor_block['blockName'] ) ||
+					( 'core/accordion' !== $parsed_anchor_block['blockName'] && 'poocommerce/accordion-group' !== $parsed_anchor_block['blockName'] ) ||
 					'last_child' !== $relative_position ||
 					empty( $parsed_anchor_block['attrs']['metadata']['isDescendantOfProductDetails'] )
 				) {
@@ -448,7 +448,7 @@ class ProductDetails extends AbstractBlock {
 	/**
 	 * Enqueue legacy assets when this block is used as we don't enqueue them for block themes anymore.
 	 *
-	 * @see https://github.com/woocommerce/woocommerce/pull/60223
+	 * @see https://github.com/poocommerce/poocommerce/pull/60223
 	 */
 	public function enqueue_legacy_assets() {
 		wp_enqueue_script( 'wc-single-product' );
@@ -461,7 +461,7 @@ class ProductDetails extends AbstractBlock {
 	 * continue working as before, so we moved the logic the legacy render
 	 * method here.
 	 *
-	 * @see https://github.com/woocommerce/woocommerce/pull/59005
+	 * @see https://github.com/poocommerce/poocommerce/pull/59005
 	 *
 	 * @param array    $attributes Block attributes.
 	 * @param string   $content Block content.
@@ -479,17 +479,17 @@ class ProductDetails extends AbstractBlock {
 		$hide_tab_title = isset( $attributes['hideTabTitle'] ) ? $attributes['hideTabTitle'] : false;
 
 		if ( $hide_tab_title ) {
-			add_filter( 'woocommerce_product_description_heading', '__return_empty_string' );
-			add_filter( 'woocommerce_product_additional_information_heading', '__return_empty_string' );
-			add_filter( 'woocommerce_reviews_title', '__return_empty_string' );
+			add_filter( 'poocommerce_product_description_heading', '__return_empty_string' );
+			add_filter( 'poocommerce_product_additional_information_heading', '__return_empty_string' );
+			add_filter( 'poocommerce_reviews_title', '__return_empty_string' );
 		}
 
 		$tabs = $this->render_tabs();
 
 		if ( $hide_tab_title ) {
-			remove_filter( 'woocommerce_product_description_heading', '__return_empty_string' );
-			remove_filter( 'woocommerce_product_additional_information_heading', '__return_empty_string' );
-			remove_filter( 'woocommerce_reviews_title', '__return_empty_string' );
+			remove_filter( 'poocommerce_product_description_heading', '__return_empty_string' );
+			remove_filter( 'poocommerce_product_additional_information_heading', '__return_empty_string' );
+			remove_filter( 'poocommerce_reviews_title', '__return_empty_string' );
 
 			// Remove the first `h2` of every `.wc-tab`. This is required for the Reviews tabs when there are no reviews and for plugin tabs.
 			$tabs_html = new WP_HTML_Tag_Processor( $tabs );
@@ -504,7 +504,7 @@ class ProductDetails extends AbstractBlock {
 		$classes_and_styles = StyleAttributesUtils::get_classes_and_styles_by_attributes( $attributes );
 
 		return sprintf(
-			'<div class="wp-block-woocommerce-product-details %1$s">
+			'<div class="wp-block-poocommerce-product-details %1$s">
 				<div style="%2$s">
 					%3$s
 				</div>
@@ -525,7 +525,7 @@ class ProductDetails extends AbstractBlock {
 		rewind_posts();
 		while ( have_posts() ) {
 			the_post();
-			woocommerce_output_product_data_tabs();
+			poocommerce_output_product_data_tabs();
 		}
 
 		$tabs = ob_get_clean();

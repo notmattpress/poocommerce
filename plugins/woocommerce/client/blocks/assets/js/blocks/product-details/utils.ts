@@ -1,9 +1,9 @@
 /**
  * External dependencies
  */
-import { PartialProduct, ProductDimensions } from '@woocommerce/data';
-import { isWpVersion } from '@woocommerce/settings';
-import { isEmpty } from '@woocommerce/types';
+import { PartialProduct, ProductDimensions } from '@poocommerce/data';
+import { isWpVersion } from '@poocommerce/settings';
+import { isEmpty } from '@poocommerce/types';
 import { __ } from '@wordpress/i18n';
 
 /**
@@ -19,10 +19,10 @@ const getAccordionBlockNames = () => {
 		};
 	}
 	return {
-		group: 'woocommerce/accordion-group',
-		item: 'woocommerce/accordion-item',
-		header: 'woocommerce/accordion-header',
-		panel: 'woocommerce/accordion-panel',
+		group: 'poocommerce/accordion-group',
+		item: 'poocommerce/accordion-item',
+		header: 'poocommerce/accordion-header',
+		panel: 'poocommerce/accordion-panel',
 	};
 };
 
@@ -75,13 +75,13 @@ export const getTemplate = (
 					[
 						[
 							blockNames.header,
-							{ title: __( 'Description', 'woocommerce' ) },
+							{ title: __( 'Description', 'poocommerce' ) },
 							[],
 						],
 						[
 							blockNames.panel,
 							{},
-							[ [ 'woocommerce/product-description', {}, [] ] ],
+							[ [ 'poocommerce/product-description', {}, [] ] ],
 						],
 					],
 				],
@@ -96,7 +96,7 @@ export const getTemplate = (
 										{
 											title: __(
 												'Additional Information',
-												'woocommerce'
+												'poocommerce'
 											),
 										},
 										[],
@@ -106,7 +106,7 @@ export const getTemplate = (
 										{},
 										[
 											[
-												'woocommerce/product-specifications',
+												'poocommerce/product-specifications',
 												{},
 											],
 										],
@@ -121,13 +121,13 @@ export const getTemplate = (
 					[
 						[
 							blockNames.header,
-							{ title: __( 'Reviews', 'woocommerce' ) },
+							{ title: __( 'Reviews', 'poocommerce' ) },
 							[],
 						],
 						[
 							blockNames.panel,
 							{},
-							[ [ 'woocommerce/product-reviews', {} ] ],
+							[ [ 'poocommerce/product-reviews', {} ] ],
 						],
 					],
 				],

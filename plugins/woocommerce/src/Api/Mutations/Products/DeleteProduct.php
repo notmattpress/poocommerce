@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Api\Mutations\Products;
+namespace Automattic\PooCommerce\Api\Mutations\Products;
 
-use Automattic\WooCommerce\Api\ApiException;
-use Automattic\WooCommerce\Api\Attributes\Description;
-use Automattic\WooCommerce\Api\Attributes\RequiredCapability;
+use Automattic\PooCommerce\Api\ApiException;
+use Automattic\PooCommerce\Api\Attributes\Description;
+use Automattic\PooCommerce\Api\Attributes\RequiredCapability;
 
 /**
  * Mutation to delete a product.
@@ -14,7 +14,7 @@ use Automattic\WooCommerce\Api\Attributes\RequiredCapability;
  * Demonstrates: mutation returning bool.
  */
 #[Description( 'Delete a product.' )]
-#[RequiredCapability( 'manage_woocommerce' )]
+#[RequiredCapability( 'manage_poocommerce' )]
 class DeleteProduct {
 	/**
 	 * Execute the mutation.

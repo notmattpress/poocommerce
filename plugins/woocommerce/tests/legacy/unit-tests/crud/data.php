@@ -2,7 +2,7 @@
 /**
  * Tests for the WC_Data class.
  *
- * @package WooCommerce\Tests\CRUD
+ * @package PooCommerce\Tests\CRUD
  */
 
 /**

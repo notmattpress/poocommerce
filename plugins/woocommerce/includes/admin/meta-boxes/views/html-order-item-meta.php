@@ -2,7 +2,7 @@
 /**
  * Shows an order item meta
  *
- * @package WooCommerce\Admin
+ * @package PooCommerce\Admin
  * @var object $item The item being displayed
  * @var int $item_id The id of the item being displayed
  */
@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$hidden_order_itemmeta = \Automattic\WooCommerce\Internal\Utilities\OrderItemMetaUtil::get_hidden_keys();
+$hidden_order_itemmeta = \Automattic\PooCommerce\Internal\Utilities\OrderItemMetaUtil::get_hidden_keys();
 ?><div class="view">
 	<?php
 	$meta_data = $item->get_all_formatted_meta_data( '' );
@@ -43,8 +43,8 @@ $hidden_order_itemmeta = \Automattic\WooCommerce\Internal\Utilities\OrderItemMet
 					?>
 					<tr data-meta_id="<?php echo esc_attr( $meta_id ); ?>">
 						<td>
-							<input type="text" maxlength="255" placeholder="<?php esc_attr_e( 'Name (required)', 'woocommerce' ); ?>" name="meta_key[<?php echo esc_attr( $item_id ); ?>][<?php echo esc_attr( $meta_id ); ?>]" value="<?php echo esc_attr( $meta->key ); ?>" />
-							<textarea placeholder="<?php esc_attr_e( 'Value (required)', 'woocommerce' ); ?>" name="meta_value[<?php echo esc_attr( $item_id ); ?>][<?php echo esc_attr( $meta_id ); ?>]"><?php echo esc_textarea( rawurldecode( $meta->value ) ); ?></textarea>
+							<input type="text" maxlength="255" placeholder="<?php esc_attr_e( 'Name (required)', 'poocommerce' ); ?>" name="meta_key[<?php echo esc_attr( $item_id ); ?>][<?php echo esc_attr( $meta_id ); ?>]" value="<?php echo esc_attr( $meta->key ); ?>" />
+							<textarea placeholder="<?php esc_attr_e( 'Value (required)', 'poocommerce' ); ?>" name="meta_value[<?php echo esc_attr( $item_id ); ?>][<?php echo esc_attr( $meta_id ); ?>]"><?php echo esc_textarea( rawurldecode( $meta->value ) ); ?></textarea>
 						</td>
 						<td width="1%"><button class="remove_order_item_meta button">&times;</button></td>
 					</tr>
@@ -53,7 +53,7 @@ $hidden_order_itemmeta = \Automattic\WooCommerce\Internal\Utilities\OrderItemMet
 		</tbody>
 		<tfoot>
 			<tr>
-				<td colspan="4"><button class="add_order_item_meta button"><?php esc_html_e( 'Add&nbsp;meta', 'woocommerce' ); ?></button></td>
+				<td colspan="4"><button class="add_order_item_meta button"><?php esc_html_e( 'Add&nbsp;meta', 'poocommerce' ); ?></button></td>
 			</tr>
 		</tfoot>
 	</table>

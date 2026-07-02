@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\GraphQL\Executor\Promise\Adapter;
+namespace Automattic\PooCommerce\Vendor\GraphQL\Executor\Promise\Adapter;
 
-use Automattic\WooCommerce\Vendor\GraphQL\Error\InvariantViolation;
-use Automattic\WooCommerce\Vendor\GraphQL\Executor\Promise\Promise;
-use Automattic\WooCommerce\Vendor\GraphQL\Executor\Promise\PromiseAdapter;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\InvariantViolation;
+use Automattic\PooCommerce\Vendor\GraphQL\Executor\Promise\Promise;
+use Automattic\PooCommerce\Vendor\GraphQL\Executor\Promise\PromiseAdapter;
 use React\Promise\Promise as ReactPromise;
 use React\Promise\PromiseInterface as ReactPromiseInterface;
 

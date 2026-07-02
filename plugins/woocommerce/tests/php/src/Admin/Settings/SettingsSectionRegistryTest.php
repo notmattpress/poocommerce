@@ -2,18 +2,18 @@
 /**
  * Settings section registry tests.
  *
- * @package WooCommerce\Tests\Admin\Settings
+ * @package PooCommerce\Tests\Admin\Settings
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Admin\Settings;
+namespace Automattic\PooCommerce\Tests\Admin\Settings;
 
-use Automattic\WooCommerce\Admin\Settings\SettingsSection;
-use Automattic\WooCommerce\Admin\Settings\SettingsSectionInterface;
-use Automattic\WooCommerce\Admin\Settings\SettingsSectionRegistry;
-use Automattic\WooCommerce\Admin\Settings\SettingsUIPageInterface;
-use Automattic\WooCommerce\Internal\Admin\Settings\SettingsUIRequestContext;
+use Automattic\PooCommerce\Admin\Settings\SettingsSection;
+use Automattic\PooCommerce\Admin\Settings\SettingsSectionInterface;
+use Automattic\PooCommerce\Admin\Settings\SettingsSectionRegistry;
+use Automattic\PooCommerce\Admin\Settings\SettingsUIPageInterface;
+use Automattic\PooCommerce\Internal\Admin\Settings\SettingsUIRequestContext;
 use WC_Unit_Test_Case;
 
 /**
@@ -50,7 +50,7 @@ class SettingsSectionRegistryTest extends WC_Unit_Test_Case {
 		global $current_section;
 		$current_section = $this->original_current_section;
 
-		remove_filter( 'woocommerce_admin_features', array( $this, 'enable_settings_ui_feature' ) );
+		remove_filter( 'poocommerce_admin_features', array( $this, 'enable_settings_ui_feature' ) );
 		SettingsSectionRegistry::get_instance()->unregister_all();
 		SettingsUIRequestContext::reset();
 
@@ -67,12 +67,12 @@ class SettingsSectionRegistryTest extends WC_Unit_Test_Case {
 			$registry->register( $section );
 		};
 
-		add_action( 'woocommerce_settings_sections_registration', $action );
+		add_action( 'poocommerce_settings_sections_registration', $action );
 
 		try {
 			$sections = $page->get_sections();
 		} finally {
-			remove_action( 'woocommerce_settings_sections_registration', $action );
+			remove_action( 'poocommerce_settings_sections_registration', $action );
 		}
 
 		$this->assertArrayHasKey( 'acme_payments', $sections, 'Registered section should be exposed by its parent page.' );
@@ -110,7 +110,7 @@ class SettingsSectionRegistryTest extends WC_Unit_Test_Case {
 	 * @testdox Should render a registered section through the settings UI when the feature is enabled.
 	 */
 	public function test_renders_registered_section_with_settings_ui(): void {
-		add_filter( 'woocommerce_admin_features', array( $this, 'enable_settings_ui_feature' ) );
+		add_filter( 'poocommerce_admin_features', array( $this, 'enable_settings_ui_feature' ) );
 		SettingsSectionRegistry::get_instance()->register( $this->get_registered_section() );
 
 		global $current_section;
@@ -135,13 +135,13 @@ class SettingsSectionRegistryTest extends WC_Unit_Test_Case {
 			++$calls;
 			throw new \Error( 'Broken settings section registration.' );
 		};
-		add_action( 'woocommerce_settings_sections_registration', $action );
+		add_action( 'poocommerce_settings_sections_registration', $action );
 
 		try {
 			$sections      = SettingsSectionRegistry::get_instance()->get_sections_for_page( 'checkout' );
 			$second_lookup = SettingsSectionRegistry::get_instance()->get_sections_for_page( 'checkout' );
 		} finally {
-			remove_action( 'woocommerce_settings_sections_registration', $action );
+			remove_action( 'poocommerce_settings_sections_registration', $action );
 		}
 
 		$this->assertSame( array(), $sections );

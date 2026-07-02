@@ -5,7 +5,7 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\AbandonedCartRecovery;
+namespace Automattic\PooCommerce\Internal\AbandonedCartRecovery;
 
 use WC_Email_Customer_Abandoned_Cart_Recovery;
 use WC_Order;
@@ -23,7 +23,7 @@ use WC_Order;
  * actually needed.
  *
  * The container auto-calls `init()` after instantiation; resolution is driven
- * by `WooCommerce::maybe_init_abandoned_cart_recovery()`, hooked on `init` priority 1.
+ * by `PooCommerce::maybe_init_abandoned_cart_recovery()`, hooked on `init` priority 1.
  *
  * @internal Just for internal use.
  *
@@ -52,9 +52,9 @@ class ManualSendHandler {
 	 * @internal
 	 */
 	final public function init(): void {
-		add_filter( 'woocommerce_order_actions', array( $this, 'register_order_action' ), 10, 2 );
+		add_filter( 'poocommerce_order_actions', array( $this, 'register_order_action' ), 10, 2 );
 		add_action(
-			'woocommerce_order_action_' . self::MANUAL_SEND_ACTION,
+			'poocommerce_order_action_' . self::MANUAL_SEND_ACTION,
 			array( $this, 'handle_order_action' ),
 			10,
 			1

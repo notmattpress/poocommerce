@@ -11,19 +11,19 @@
  * There is no whole-graph `save()`. Snapshots are deduped by copy-forward (reuse the
  * previous cycle's snapshot id when plan / items are unchanged), via {@see SnapshotStore}.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage
+ * @package Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage;
 
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\Contract;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\Cycle;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\CycleStatus;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Support\ScalarCoercion;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\ValueObject\ItemsSnapshot;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\ValueObject\PlanSnapshot;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\Contract;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\Cycle;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\CycleStatus;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Support\ScalarCoercion;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\ValueObject\ItemsSnapshot;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\ValueObject\PlanSnapshot;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -215,7 +215,7 @@ final class ContractRepository {
 	 * Query a window of contracts for list screens, newest first (id DESC). Hydrated
 	 * lightweight (row only, no children) like {@see self::find_summary()}.
 	 *
-	 * Takes a WooCommerce-style args array (cf. `wc_get_orders()`) rather than positional
+	 * Takes a PooCommerce-style args array (cf. `wc_get_orders()`) rather than positional
 	 * paging args, so the shape can widen to status / search / sort without a signature
 	 * change. Only the paging args are honoured for now.
 	 *
@@ -419,7 +419,7 @@ final class ContractRepository {
 	 * non-1:1 reference (an aggregate order may serve many cycles), so this returns
 	 * every match. Snapshots are decoded for any in-flight cycle.
 	 *
-	 * @param int $order_id WooCommerce order id.
+	 * @param int $order_id PooCommerce order id.
 	 * @return array<int, Cycle> Cycles linked to the order, oldest first.
 	 */
 	public function find_cycles_by_order_id( int $order_id ): array {

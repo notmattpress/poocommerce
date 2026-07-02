@@ -1,21 +1,21 @@
 {
-	"name": "@woocommerce/email-editor",
+	"name": "@poocommerce/email-editor",
 	"version": "2.1.0",
-	"description": "Gutenberg based email editor that is used in WooCommerce emails.",
+	"description": "Gutenberg based email editor that is used in PooCommerce emails.",
 	"author": "Automattic",
 	"license": "GPL-2.0-or-later",
 	"keywords": [
 		"wordpress",
-		"woocommerce",
+		"poocommerce",
 		"email"
 	],
-	"homepage": "https://github.com/woocommerce/woocommerce/tree/trunk/packages/js/email-editor",
+	"homepage": "https://github.com/poocommerce/poocommerce/tree/trunk/packages/js/email-editor",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/woocommerce/woocommerce.git"
+		"url": "https://github.com/poocommerce/poocommerce.git"
 	},
 	"bugs": {
-		"url": "https://github.com/woocommerce/woocommerce/issues"
+		"url": "https://github.com/poocommerce/poocommerce/issues"
 	},
 	"exports": {
 		".": {
@@ -135,9 +135,9 @@
 		"@types/wordpress__block-library": "catalog:wp-min",
 		"@types/wordpress__blocks": "catalog:wp-min",
 		"@types/wordpress__edit-post": "catalog:wp-min",
-		"@woocommerce/eslint-plugin": "workspace:*",
-		"@woocommerce/internal-build": "workspace:*",
-		"@woocommerce/internal-js-tests": "workspace:*",
+		"@poocommerce/eslint-plugin": "workspace:*",
+		"@poocommerce/internal-build": "workspace:*",
+		"@poocommerce/internal-js-tests": "workspace:*",
 		"@wordpress/browserslist-config": "next",
 		"@wordpress/prettier-config": "2.17.0",
 		"@wordpress/stylelint-config": "^21.0.0",

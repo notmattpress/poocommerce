@@ -7,7 +7,7 @@ import {
 	fillBillingCheckoutBlocks,
 	fillShippingCheckoutBlocks,
 	WC_API_PATH,
-} from '@woocommerce/e2e-utils-playwright';
+} from '@poocommerce/e2e-utils-playwright';
 import { faker } from '@faker-js/faker';
 
 /**
@@ -181,12 +181,12 @@ const test = baseTest.extend( {
 		await assertTaxCalculationEnabled( restApi );
 
 		const loginAtCheckoutState = await updateIfNeeded(
-			'account/woocommerce_enable_checkout_login_reminder',
+			'account/poocommerce_enable_checkout_login_reminder',
 			'yes'
 		);
 
 		const signUpAtCheckoutState = await updateIfNeeded(
-			'account/woocommerce_enable_signup_and_login_from_checkout',
+			'account/poocommerce_enable_signup_and_login_from_checkout',
 			'yes'
 		);
 
@@ -201,12 +201,12 @@ const test = baseTest.extend( {
 		// revert the settings to initial state
 
 		await resetValue(
-			'account/woocommerce_enable_checkout_login_reminder',
+			'account/poocommerce_enable_checkout_login_reminder',
 			loginAtCheckoutState
 		);
 
 		await resetValue(
-			'account/woocommerce_enable_signup_and_login_from_checkout',
+			'account/poocommerce_enable_signup_and_login_from_checkout',
 			signUpAtCheckoutState
 		);
 
@@ -368,7 +368,7 @@ checkoutPages.forEach( ( { name, slug } ) => {
 
 			// The at-checkout login is submitted with assertSuccess=false, so it
 			// isn't fully awaited, and its redirect target is unreliable
-			// (https://github.com/woocommerce/woocommerce/issues/56205). Under
+			// (https://github.com/poocommerce/poocommerce/issues/56205). Under
 			// parallel load the session can lag, leaving the checkout in a guest
 			// state with an empty contact email that blocks the order. Confirm the
 			// session is established via My account before returning to checkout.

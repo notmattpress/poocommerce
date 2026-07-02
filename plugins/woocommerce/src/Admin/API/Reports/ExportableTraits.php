@@ -5,7 +5,7 @@
  * Collection of utility methods for exportable reports.
  */
 
-namespace Automattic\WooCommerce\Admin\API\Reports;
+namespace Automattic\PooCommerce\Admin\API\Reports;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -21,7 +21,7 @@ trait ExportableTraits {
 	 */
 	public static function csv_number_format( $value ) {
 		$decimals = wc_get_price_decimals();
-		// See: @woocommerce/currency: getCurrencyFormatDecimal().
+		// See: @poocommerce/currency: getCurrencyFormatDecimal().
 		return number_format( $value, $decimals, '.', '' );
 	}
 }

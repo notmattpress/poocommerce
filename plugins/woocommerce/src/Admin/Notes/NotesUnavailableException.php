@@ -1,11 +1,11 @@
 <?php
 /**
- * WooCommerce Admin Notes Unavailable Exception Class
+ * PooCommerce Admin Notes Unavailable Exception Class
  *
  * Exception class thrown when an attempt to use notes is made but notes are unavailable.
  */
 
-namespace Automattic\WooCommerce\Admin\Notes;
+namespace Automattic\PooCommerce\Admin\Notes;
 
 defined( 'ABSPATH' ) || exit;
 

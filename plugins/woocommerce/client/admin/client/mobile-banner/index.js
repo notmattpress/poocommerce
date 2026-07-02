@@ -2,8 +2,8 @@
  * External dependencies
  */
 import { registerPlugin } from '@wordpress/plugins';
-import { WooHeaderItem } from '@woocommerce/admin-layout';
-import { useUserPreferences } from '@woocommerce/data';
+import { WooHeaderItem } from '@poocommerce/admin-layout';
+import { useUserPreferences } from '@poocommerce/data';
 
 /**
  * Internal dependencies
@@ -33,5 +33,5 @@ export const MobileAppBanner = () => {
 
 registerPlugin( 'mobile-banner-header-item', {
 	render: MobileAppBanner,
-	scope: 'woocommerce-admin',
+	scope: 'poocommerce-admin',
 } );

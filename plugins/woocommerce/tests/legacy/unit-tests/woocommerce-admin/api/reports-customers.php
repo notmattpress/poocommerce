@@ -2,21 +2,21 @@
 /**
  * Reports Customers REST API Test
  *
- * @package WooCommerce\Admin\Tests\API
+ * @package PooCommerce\Admin\Tests\API
  * @since 3.5.0
  */
 
 // phpcs:disable Squiz.Classes.ClassFileName.NoMatch, Squiz.Classes.ValidClassName.NotCamelCaps
 
-use Automattic\WooCommerce\Admin\API\Reports\Customers\DataStore as CustomersDataStore;
-use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Admin\API\Reports\Customers\DataStore as CustomersDataStore;
+use Automattic\PooCommerce\Enums\OrderStatus;
 
 /**
  * Reports Customers REST API Test Class
  * @runTestsInSeparateProcesses
  * @preserveGlobalState disabled
  * @group run-in-separate-process
- * @package WooCommerce\Admin\Tests\API
+ * @package PooCommerce\Admin\Tests\API
  * @since 3.5.0
  */
 class WC_Admin_Tests_API_Reports_Customers extends WC_REST_Unit_Test_Case {
@@ -45,14 +45,14 @@ class WC_Admin_Tests_API_Reports_Customers extends WC_REST_Unit_Test_Case {
 		// query semantics, not cache behaviour.  A separate issue (#64557)
 		// tracks the cache-invalidation timing bug that stable cache keys
 		// have surfaced.
-		add_filter( 'woocommerce_analytics_report_should_use_cache', '__return_false' );
+		add_filter( 'poocommerce_analytics_report_should_use_cache', '__return_false' );
 	}
 
 	/**
 	 * Clean up after tests.
 	 */
 	public function tearDown(): void {
-		remove_filter( 'woocommerce_analytics_report_should_use_cache', '__return_false' );
+		remove_filter( 'poocommerce_analytics_report_should_use_cache', '__return_false' );
 		parent::tearDown();
 	}
 
@@ -791,7 +791,7 @@ class WC_Admin_Tests_API_Reports_Customers extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_get_or_create_customer_from_plain_wc_order() {
 		// Remove the filter that converts WC_Order to Overrides\Order so we get a plain WC_Order.
-		remove_filter( 'woocommerce_order_class', array( \Automattic\WooCommerce\Admin\Overrides\Order::class, 'order_class_name' ), 10 );
+		remove_filter( 'poocommerce_order_class', array( \Automattic\PooCommerce\Admin\Overrides\Order::class, 'order_class_name' ), 10 );
 
 		$order = new \WC_Order();
 		$order->set_billing_first_name( 'Plain' );
@@ -801,7 +801,7 @@ class WC_Admin_Tests_API_Reports_Customers extends WC_REST_Unit_Test_Case {
 		$order->save();
 
 		// Restore the filter.
-		add_filter( 'woocommerce_order_class', array( \Automattic\WooCommerce\Admin\Overrides\Order::class, 'order_class_name' ), 10, 3 );
+		add_filter( 'poocommerce_order_class', array( \Automattic\PooCommerce\Admin\Overrides\Order::class, 'order_class_name' ), 10, 3 );
 
 		$customer_id = CustomersDataStore::get_or_create_customer_from_order( $order );
 
@@ -830,7 +830,7 @@ class WC_Admin_Tests_API_Reports_Customers extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_get_or_create_customer_from_unsaved_order() {
 		// Remove the filter that converts WC_Order to Overrides\Order so we get a plain WC_Order.
-		remove_filter( 'woocommerce_order_class', array( \Automattic\WooCommerce\Admin\Overrides\Order::class, 'order_class_name' ), 10 );
+		remove_filter( 'poocommerce_order_class', array( \Automattic\PooCommerce\Admin\Overrides\Order::class, 'order_class_name' ), 10 );
 
 		$order = new \WC_Order();
 		$order->set_billing_first_name( 'Unsaved' );
@@ -843,7 +843,7 @@ class WC_Admin_Tests_API_Reports_Customers extends WC_REST_Unit_Test_Case {
 		$this->assertFalse( $result );
 
 		// Restore the filter.
-		add_filter( 'woocommerce_order_class', array( \Automattic\WooCommerce\Admin\Overrides\Order::class, 'order_class_name' ), 10, 3 );
+		add_filter( 'poocommerce_order_class', array( \Automattic\PooCommerce\Admin\Overrides\Order::class, 'order_class_name' ), 10, 3 );
 	}
 
 	/**
@@ -855,7 +855,7 @@ class WC_Admin_Tests_API_Reports_Customers extends WC_REST_Unit_Test_Case {
 	 * Validates: Requirements 1.3
 	 */
 	public function test_get_customer_order_data_with_null_date_created() {
-		$order = new \Automattic\WooCommerce\Admin\Overrides\Order();
+		$order = new \Automattic\PooCommerce\Admin\Overrides\Order();
 		$order->set_billing_first_name( 'NullDate' );
 		$order->set_billing_last_name( 'Test' );
 		$order->set_billing_email( 'nulldate@example.com' );
@@ -898,7 +898,7 @@ class WC_Admin_Tests_API_Reports_Customers extends WC_REST_Unit_Test_Case {
 	 * Validates: Requirements 3.1, 3.2
 	 */
 	public function test_overrides_order_customer_creation_preserved() {
-		$order = new \Automattic\WooCommerce\Admin\Overrides\Order();
+		$order = new \Automattic\PooCommerce\Admin\Overrides\Order();
 		$order->set_billing_first_name( 'Preserved' );
 		$order->set_billing_last_name( 'Customer' );
 		$order->set_billing_email( 'preserved.customer@example.com' );
@@ -947,7 +947,7 @@ class WC_Admin_Tests_API_Reports_Customers extends WC_REST_Unit_Test_Case {
 			)
 		);
 
-		$order = new \Automattic\WooCommerce\Admin\Overrides\Order();
+		$order = new \Automattic\PooCommerce\Admin\Overrides\Order();
 		$order->set_customer_id( $user_id );
 		$order->set_billing_first_name( 'BillingFirst' );
 		$order->set_billing_last_name( 'BillingLast' );
@@ -981,7 +981,7 @@ class WC_Admin_Tests_API_Reports_Customers extends WC_REST_Unit_Test_Case {
 	 * Validates: Requirements 3.4
 	 */
 	public function test_existing_customer_not_duplicated() {
-		$order = new \Automattic\WooCommerce\Admin\Overrides\Order();
+		$order = new \Automattic\PooCommerce\Admin\Overrides\Order();
 		$order->set_billing_first_name( 'NoDupe' );
 		$order->set_billing_last_name( 'Test' );
 		$order->set_billing_email( 'nodupe@example.com' );

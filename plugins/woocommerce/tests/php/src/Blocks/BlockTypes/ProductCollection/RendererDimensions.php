@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\BlockTypes\ProductCollection;
+namespace Automattic\PooCommerce\Tests\Blocks\BlockTypes\ProductCollection;
 
-use Automattic\WooCommerce\Blocks\BlockTypes\ProductCollection\Renderer;
+use Automattic\PooCommerce\Blocks\BlockTypes\ProductCollection\Renderer;
 use WC_Unit_Test_Case;
 
 /**

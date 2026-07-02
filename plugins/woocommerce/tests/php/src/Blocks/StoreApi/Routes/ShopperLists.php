@@ -5,9 +5,9 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\StoreApi\Routes;
+namespace Automattic\PooCommerce\Tests\Blocks\StoreApi\Routes;
 
-use Automattic\WooCommerce\Tests\Blocks\Helpers\FixtureData;
+use Automattic\PooCommerce\Tests\Blocks\Helpers\FixtureData;
 
 /**
  * Tests for the /wc/store/v1/shopper-lists/* endpoints.
@@ -42,7 +42,7 @@ class ShopperLists extends ControllerTestCase {
 		// The shopper-lists routes are gated behind the `cart_save_for_later`
 		// feature flag, which is read inside `do_action( 'rest_api_init' )`
 		// fired by parent::setUp(). The option must be in place before then.
-		update_option( 'woocommerce_cart_save_for_later_enabled', 'yes' );
+		update_option( 'poocommerce_cart_save_for_later_enabled', 'yes' );
 
 		parent::setUp();
 
@@ -81,7 +81,7 @@ class ShopperLists extends ControllerTestCase {
 			wp_delete_user( $this->other_customer_id );
 		}
 
-		delete_option( 'woocommerce_cart_save_for_later_enabled' );
+		delete_option( 'poocommerce_cart_save_for_later_enabled' );
 	}
 
 	/**
@@ -360,10 +360,10 @@ class ShopperLists extends ControllerTestCase {
 	/**
 	 * Test writes without (or with invalid) Nonce header are rejected.
 	 *
-	 * @testWith ["POST", "", 401, "woocommerce_rest_missing_nonce"]
-	 *           ["POST", "not-a-valid-nonce", 403, "woocommerce_rest_invalid_nonce"]
-	 *           ["DELETE", "", 401, "woocommerce_rest_missing_nonce"]
-	 *           ["DELETE", "not-a-valid-nonce", 403, "woocommerce_rest_invalid_nonce"]
+	 * @testWith ["POST", "", 401, "poocommerce_rest_missing_nonce"]
+	 *           ["POST", "not-a-valid-nonce", 403, "poocommerce_rest_invalid_nonce"]
+	 *           ["DELETE", "", 401, "poocommerce_rest_missing_nonce"]
+	 *           ["DELETE", "not-a-valid-nonce", 403, "poocommerce_rest_invalid_nonce"]
 	 *
 	 * @param string $method              HTTP method.
 	 * @param string $nonce               Nonce header value.
@@ -412,12 +412,12 @@ class ShopperLists extends ControllerTestCase {
 	}
 
 	/**
-	 * Test the `woocommerce_store_api_disable_nonce_check` filter bypass.
+	 * Test the `poocommerce_store_api_disable_nonce_check` filter bypass.
 	 */
 	public function test_disable_nonce_check_filter_bypasses_enforcement() {
 		wp_set_current_user( $this->customer_id );
 
-		add_filter( 'woocommerce_store_api_disable_nonce_check', '__return_true' );
+		add_filter( 'poocommerce_store_api_disable_nonce_check', '__return_true' );
 		try {
 			$response = $this->dispatch(
 				'POST',
@@ -426,7 +426,7 @@ class ShopperLists extends ControllerTestCase {
 				''
 			);
 		} finally {
-			remove_filter( 'woocommerce_store_api_disable_nonce_check', '__return_true' );
+			remove_filter( 'poocommerce_store_api_disable_nonce_check', '__return_true' );
 		}
 
 		$this->assertEquals( 201, $response->get_status() );

@@ -23,13 +23,13 @@ export const acceleratedPrepCommand = new Command( 'accelerated-prep' )
 	.argument( '<date>', 'Release date to use in changelog' )
 	.option(
 		'-o --owner <owner>',
-		'Repository owner. Default: woocommerce',
-		'woocommerce'
+		'Repository owner. Default: poocommerce',
+		'poocommerce'
 	)
 	.option(
 		'-n --name <name>',
-		'Repository name. Default: woocommerce',
-		'woocommerce'
+		'Repository name. Default: poocommerce',
+		'poocommerce'
 	)
 	.option(
 		'-b --base <base>',
@@ -58,14 +58,14 @@ export const acceleratedPrepCommand = new Command( 'accelerated-prep' )
 		const remote = `https://${ owner }:${ token }@${ source }`;
 		const tmpRepoPath = await sparseCheckoutRepoShallow(
 			remote,
-			'woocommerce',
+			'poocommerce',
 			[
-				'plugins/woocommerce/includes/class-woocommerce.php',
+				'plugins/poocommerce/includes/class-poocommerce.php',
 				// All that's needed is the line above, but including these here for completeness.
-				'plugins/woocommerce/composer.json',
-				'plugins/woocommerce/package.json',
-				'plugins/woocommerce/readme.txt',
-				'plugins/woocommerce/woocommerce.php',
+				'plugins/poocommerce/composer.json',
+				'plugins/poocommerce/package.json',
+				'plugins/poocommerce/readme.txt',
+				'plugins/poocommerce/poocommerce.php',
 			]
 		);
 		Logger.endTask();

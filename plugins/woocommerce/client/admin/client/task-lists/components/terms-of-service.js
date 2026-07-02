@@ -1,15 +1,15 @@
 /**
  * External dependencies
  */
-import { Text } from '@woocommerce/experimental';
+import { Text } from '@poocommerce/experimental';
 import interpolateComponents from '@automattic/interpolate-components';
 import { __, sprintf } from '@wordpress/i18n';
-import { Link } from '@woocommerce/components';
+import { Link } from '@poocommerce/components';
 
 export const TermsOfService = ( { buttonText } ) => (
 	<Text
 		variant="caption"
-		className="woocommerce-task__caption is-tos"
+		className="poocommerce-task__caption is-tos"
 		size="12"
 		lineHeight="16px"
 		style={ { display: 'block' } }
@@ -19,7 +19,7 @@ export const TermsOfService = ( { buttonText } ) => (
 				/* translators: button text, most likely something like 'Install and Enable' or Continue setup' */
 				__(
 					'By clicking "%s," you agree to our {{tosLink}}Terms of Service{{/tosLink}} and have read our {{privacyPolicyLink}}Privacy Policy{{/privacyPolicyLink}}.',
-					'woocommerce'
+					'poocommerce'
 				),
 				buttonText
 			),

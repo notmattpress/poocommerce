@@ -18,16 +18,16 @@ const AppearanceHeader = ( { task } ) => {
 	const taskCta = task.actionLabel;
 
 	return (
-		<div className="woocommerce-task-header__contents-container">
+		<div className="poocommerce-task-header__contents-container">
 			<img
-				alt={ __( 'Appearance illustration', 'woocommerce' ) }
+				alt={ __( 'Appearance illustration', 'poocommerce' ) }
 				src={
 					WC_ASSET_URL +
 					'images/task_list/expand-section-illustration.png'
 				}
 				className="svg-background"
 			/>
-			<div className="woocommerce-task-header__contents">
+			<div className="poocommerce-task-header__contents">
 				<h1>{ taskTitle }</h1>
 				<p>{ taskDescription }</p>
 				<Button

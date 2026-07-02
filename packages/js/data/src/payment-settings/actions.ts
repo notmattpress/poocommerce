@@ -82,7 +82,7 @@ export function* togglePaymentGateway(
 				'Content-Type': 'application/x-www-form-urlencoded',
 			},
 			body: new URLSearchParams( {
-				action: 'woocommerce_toggle_gateway_enabled',
+				action: 'poocommerce_toggle_gateway_enabled',
 				security: gatewayToggleNonce,
 				gateway_id: gatewayId,
 			} ),

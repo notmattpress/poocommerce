@@ -21,12 +21,12 @@ import {
 } from './bulk-edit';
 
 const OPERATION_LABELS: Record< BulkNumericOperation, string > = {
-	dont_change: __( 'Don’t change', 'woocommerce' ),
-	set: __( 'Set to', 'woocommerce' ),
-	increase: __( 'Increase by amount', 'woocommerce' ),
-	decrease: __( 'Decrease by amount', 'woocommerce' ),
-	increase_percent: __( 'Increase by %', 'woocommerce' ),
-	decrease_percent: __( 'Decrease by %', 'woocommerce' ),
+	dont_change: __( 'Don’t change', 'poocommerce' ),
+	set: __( 'Set to', 'poocommerce' ),
+	increase: __( 'Increase by amount', 'poocommerce' ),
+	decrease: __( 'Decrease by amount', 'poocommerce' ),
+	increase_percent: __( 'Increase by %', 'poocommerce' ),
+	decrease_percent: __( 'Decrease by %', 'poocommerce' ),
 };
 
 function BulkNumericOperationControl( {

@@ -3,7 +3,7 @@
  */
 import { addQueryArgs } from '@wordpress/url';
 import { parse } from 'qs';
-import { getAdminLink } from '@woocommerce/settings';
+import { getAdminLink } from '@poocommerce/settings';
 
 /**
  * Internal dependencies

@@ -1,5 +1,5 @@
 module.exports = {
-	extends: [ 'plugin:@woocommerce/eslint-plugin/recommended' ],
+	extends: [ 'plugin:@poocommerce/eslint-plugin/recommended' ],
 	root: true,
 	overrides: [
 		{
@@ -11,8 +11,8 @@ module.exports = {
 	],
 	settings: {
 		'import/core-modules': [
-			'@woocommerce/data',
-			'@woocommerce/settings',
+			'@poocommerce/data',
+			'@poocommerce/settings',
 			'@wordpress/components',
 			'@wordpress/compose',
 			'@wordpress/core-data',

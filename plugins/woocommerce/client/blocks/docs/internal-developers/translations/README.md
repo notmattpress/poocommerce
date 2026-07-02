@@ -1,6 +1,6 @@
 # Translations
 
-This folder contains documentation around translation handling of WooCommerce Blocks:
+This folder contains documentation around translation handling of PooCommerce Blocks:
 
 -   [Translation basics](./translation-basics.md)
 -   [Translations in PHP files](./translations-in-PHP-files.md)

@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Api\Types\Products;
+namespace Automattic\PooCommerce\Api\Types\Products;
 
-use Automattic\WooCommerce\Api\Attributes\ConnectionOf;
-use Automattic\WooCommerce\Api\Attributes\Description;
-use Automattic\WooCommerce\Api\Attributes\Parameter;
-use Automattic\WooCommerce\Api\Interfaces\Product;
-use Automattic\WooCommerce\Api\Pagination\Connection;
-use Automattic\WooCommerce\Api\Pagination\PaginationParams;
+use Automattic\PooCommerce\Api\Attributes\ConnectionOf;
+use Automattic\PooCommerce\Api\Attributes\Description;
+use Automattic\PooCommerce\Api\Attributes\Parameter;
+use Automattic\PooCommerce\Api\Interfaces\Product;
+use Automattic\PooCommerce\Api\Pagination\Connection;
+use Automattic\PooCommerce\Api\Pagination\PaginationParams;
 
 /**
  * Output type representing a variable product with variations.

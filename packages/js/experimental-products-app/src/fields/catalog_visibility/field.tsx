@@ -21,21 +21,21 @@ function isValidVisibility( value: string ) {
 }
 
 const fieldDefinition = {
-	label: __( 'Catalog visibility', 'woocommerce' ),
+	label: __( 'Catalog visibility', 'poocommerce' ),
 	enableSorting: false,
 	enableHiding: false,
 	filterBy: false,
 	elements: [
 		{
-			label: __( 'Catalog and search results', 'woocommerce' ),
+			label: __( 'Catalog and search results', 'poocommerce' ),
 			value: 'visible',
 		},
-		{ label: __( 'Catalog only', 'woocommerce' ), value: 'catalog' },
+		{ label: __( 'Catalog only', 'poocommerce' ), value: 'catalog' },
 		{
-			label: __( 'Search results only', 'woocommerce' ),
+			label: __( 'Search results only', 'poocommerce' ),
 			value: 'search',
 		},
-		{ label: __( 'Hidden', 'woocommerce' ), value: 'hidden' },
+		{ label: __( 'Hidden', 'poocommerce' ), value: 'hidden' },
 	],
 } satisfies Partial< Field< ProductEntityRecord > >;
 

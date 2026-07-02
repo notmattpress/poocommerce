@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import type { Editor } from '@woocommerce/e2e-utils';
+import type { Editor } from '@poocommerce/e2e-utils';
 
 export const addTestingBlocks = async ( editor: Editor ) => {
 	// Add testing blocks

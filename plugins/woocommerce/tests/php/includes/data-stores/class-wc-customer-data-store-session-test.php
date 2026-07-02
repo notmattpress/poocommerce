@@ -8,7 +8,7 @@ class WC_Customer_Data_Store_Session_Test extends WC_Unit_Test_Case {
 	 * Ensure that the country and state shipping address fields only inherit
 	 * the corresponding billing address values if a shipping address is not set.
 	 *
-	 * @see https://github.com/woocommerce/woocommerce/issues/28759
+	 * @see https://github.com/poocommerce/poocommerce/issues/28759
 	 * @dataProvider provide_customers_with_different_addresses
 	 *
 	 * @param Closure $customer_closure The customer object being tested.
@@ -38,14 +38,14 @@ class WC_Customer_Data_Store_Session_Test extends WC_Unit_Test_Case {
 	 */
 	public function test_customer_data_is_set_in_session_if_is_not_the_default_customer_data() {
 		$customer = new WC_Customer();
-		$customer->set_billing_email( 'email@woocommerce.com' );
+		$customer->set_billing_email( 'email@poocommerce.com' );
 
 		$session_data = new WC_Customer_Data_Store_Session();
 		$session_data->save_to_session( $customer );
 
 		$customer_from_session = WC()->session->get( 'customer' );
 		$this->assertNotEmpty( $customer_from_session );
-		$this->assertEquals( 'email@woocommerce.com', $customer_from_session['email'] );
+		$this->assertEquals( 'email@poocommerce.com', $customer_from_session['email'] );
 	}
 
 	/**
@@ -207,7 +207,7 @@ class WC_Customer_Data_Store_Session_Test extends WC_Unit_Test_Case {
 	 * follow-up request reads it back: the session store must not wp_unslash() the data on read, or
 	 * real backslashes the buyer typed get stripped (session data is stored raw, never magic-quoted).
 	 *
-	 * @see https://github.com/woocommerce/woocommerce/pull/65900
+	 * @see https://github.com/poocommerce/poocommerce/pull/65900
 	 */
 	public function test_backslashes_survive_session_round_trip() {
 		WC()->session->init();

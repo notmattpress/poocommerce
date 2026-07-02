@@ -15,11 +15,11 @@ const CopyWebpackPlugin = require( 'copy-webpack-plugin' );
 /**
  * Internal dependencies
  */
-const DependencyExtractionWebpackPlugin = require( '@woocommerce/dependency-extraction-webpack-plugin' );
+const DependencyExtractionWebpackPlugin = require( '@poocommerce/dependency-extraction-webpack-plugin' );
 const FilesystemCacheWarningsPlugin = require( './filesystem-cache-warnings-webpack-plugin.js' );
 const {
 	WebpackRTLPlugin,
-} = require( '@woocommerce/internal-build/style-build' );
+} = require( '@poocommerce/internal-build/style-build' );
 const { getEntryConfig, genericBlocks } = require( './webpack-entries' );
 const {
 	ASSET_CHECK,
@@ -35,7 +35,7 @@ const AddSplitChunkDependencies = require( './add-split-chunk-dependencies' );
 const { sharedOptimizationConfig } = require( './webpack-shared-config' );
 
 const ROOT_DIR = path.resolve( __dirname, '../../../../../' );
-// Blocks' webpack writes directly to the WooCommerce plugin's
+// Blocks' webpack writes directly to the PooCommerce plugin's
 // `assets/client/blocks/` so PHP can enqueue files from their final location
 // without an intermediate rsync step.
 const BUILD_DIR = path.resolve( __dirname, '../../../assets/client/blocks' );
@@ -76,10 +76,10 @@ const getSharedPlugins = ( {
 			requestToHandle,
 		} ),
 		// Substitute the `__i18n_text_domain__` identifier used by the
-		// @woocommerce/email-editor package with the WooCommerce text
-		// domain so strings extract and translate under `woocommerce`.
+		// @poocommerce/email-editor package with the PooCommerce text
+		// domain so strings extract and translate under `poocommerce`.
 		new webpack.DefinePlugin( {
-			__i18n_text_domain__: JSON.stringify( 'woocommerce' ),
+			__i18n_text_domain__: JSON.stringify( 'poocommerce' ),
 		} ),
 		// Suppress file system cache warnings (unsupported serialization related).
 		new FilesystemCacheWarningsPlugin(),
@@ -230,7 +230,7 @@ const getMainConfig = ( options = {} ) => {
 			new ProgressBarPlugin( getProgressBarPluginConfig( 'Main' ) ),
 			/**
 			 * Ensure that logic of this CopyWebpackPlugin is kept in sync with the copy-block-json.sh script:
-			 * https://github.com/woocommerce/woocommerce/blob/7d72fb937907bf841aabe959642be524eb093803/plugins/woocommerce/client/blocks/bin/copy-blocks-json.sh
+			 * https://github.com/poocommerce/poocommerce/blob/7d72fb937907bf841aabe959642be524eb093803/plugins/poocommerce/client/blocks/bin/copy-blocks-json.sh
 			 */
 			new CopyWebpackPlugin( {
 				patterns: [

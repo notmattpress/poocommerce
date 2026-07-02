@@ -4,14 +4,14 @@
 import { useState, useEffect, useCallback } from '@wordpress/element';
 import { Guide } from '@wordpress/components';
 import { useSearchParams } from 'react-router-dom';
-import { updateQueryString } from '@woocommerce/navigation';
+import { updateQueryString } from '@poocommerce/navigation';
 import { registerPlugin } from '@wordpress/plugins';
 import { addFilter, removeFilter } from '@wordpress/hooks';
-import { getAdminLink } from '@woocommerce/settings';
+import { getAdminLink } from '@poocommerce/settings';
 import { __ } from '@wordpress/i18n';
 import { useDispatch } from '@wordpress/data';
-import { optionsStore, onboardingStore } from '@woocommerce/data';
-import { recordEvent } from '@woocommerce/tracks';
+import { optionsStore, onboardingStore } from '@poocommerce/data';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -135,7 +135,7 @@ export const MobileAppModal = () => {
 
 	const onFinish = () => {
 		updateOptions( {
-			woocommerce_admin_dismissed_mobile_app_modal: 'yes',
+			poocommerce_admin_dismissed_mobile_app_modal: 'yes',
 		} ).then( () =>
 			invalidateResolutionForStoreSelector( 'getTaskLists' )
 		);
@@ -150,7 +150,7 @@ export const MobileAppModal = () => {
 				<Guide
 					onFinish={ onFinish }
 					contentLabel=""
-					className={ 'woocommerce__mobile-app-welcome-modal' }
+					className={ 'poocommerce__mobile-app-welcome-modal' }
 					pages={ [
 						{
 							content: (
@@ -185,7 +185,7 @@ export const MobileAppHelpMenuEntryLoader = () => {
 			return [
 				...helpMenuEntries,
 				{
-					title: __( 'Get the WooCommerce app', 'woocommerce' ),
+					title: __( 'Get the PooCommerce app', 'poocommerce' ),
 					link: getAdminLink(
 						'./admin.php?page=wc-admin&mobileAppModal=true'
 					),
@@ -212,7 +212,7 @@ export const MobileAppHelpMenuEntryLoader = () => {
 	return null;
 };
 
-registerPlugin( 'woocommerce-mobile-app-modal', {
+registerPlugin( 'poocommerce-mobile-app-modal', {
 	render: MobileAppHelpMenuEntryLoader,
-	scope: 'woocommerce-admin',
+	scope: 'poocommerce-admin',
 } );

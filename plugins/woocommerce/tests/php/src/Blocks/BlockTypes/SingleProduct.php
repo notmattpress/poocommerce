@@ -2,7 +2,7 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Tests\Blocks\BlockTypes;
 
 use WC_Helper_Product;
 
@@ -80,45 +80,45 @@ class SingleProduct extends \WP_UnitTestCase {
 	private function render_single_product_with_gallery_columns_and_title( $product_id ) {
 		return do_blocks(
 			sprintf(
-				'<!-- wp:woocommerce/single-product {"productId":%d} -->
-<div class="wp-block-woocommerce-single-product woocommerce">
+				'<!-- wp:poocommerce/single-product {"productId":%d} -->
+<div class="wp-block-poocommerce-single-product poocommerce">
 <!-- wp:columns -->
 <div class="wp-block-columns">
 <!-- wp:column -->
 <div class="wp-block-column">
-<!-- wp:woocommerce/product-gallery -->
-<div class="wp-block-woocommerce-product-gallery wc-block-product-gallery">
-<!-- wp:woocommerce/product-gallery-thumbnails /-->
+<!-- wp:poocommerce/product-gallery -->
+<div class="wp-block-poocommerce-product-gallery wc-block-product-gallery">
+<!-- wp:poocommerce/product-gallery-thumbnails /-->
 
-<!-- wp:woocommerce/product-gallery-large-image -->
-<div class="wp-block-woocommerce-product-gallery-large-image wc-block-product-gallery-large-image__inner-blocks">
-<!-- wp:woocommerce/product-image {"showProductLink":false,"showSaleBadge":false,"isDescendentOfSingleProductBlock":true} /-->
+<!-- wp:poocommerce/product-gallery-large-image -->
+<div class="wp-block-poocommerce-product-gallery-large-image wc-block-product-gallery-large-image__inner-blocks">
+<!-- wp:poocommerce/product-image {"showProductLink":false,"showSaleBadge":false,"isDescendentOfSingleProductBlock":true} /-->
 
-<!-- wp:woocommerce/product-sale-badge {"align":"right"} /-->
+<!-- wp:poocommerce/product-sale-badge {"align":"right"} /-->
 
-<!-- wp:woocommerce/product-gallery-large-image-next-previous -->
-<div class="wp-block-woocommerce-product-gallery-large-image-next-previous"></div>
-<!-- /wp:woocommerce/product-gallery-large-image-next-previous --></div>
-<!-- /wp:woocommerce/product-gallery-large-image --></div>
-<!-- /wp:woocommerce/product-gallery --></div>
+<!-- wp:poocommerce/product-gallery-large-image-next-previous -->
+<div class="wp-block-poocommerce-product-gallery-large-image-next-previous"></div>
+<!-- /wp:poocommerce/product-gallery-large-image-next-previous --></div>
+<!-- /wp:poocommerce/product-gallery-large-image --></div>
+<!-- /wp:poocommerce/product-gallery --></div>
 <!-- /wp:column -->
 
 <!-- wp:column -->
 <div class="wp-block-column">
-<!-- wp:post-title {"isLink":true,"__woocommerceNamespace":"woocommerce/product-query/product-title"} /-->
+<!-- wp:post-title {"isLink":true,"__poocommerceNamespace":"poocommerce/product-query/product-title"} /-->
 
-<!-- wp:woocommerce/product-rating {"isDescendentOfSingleProductBlock":true} /-->
+<!-- wp:poocommerce/product-rating {"isDescendentOfSingleProductBlock":true} /-->
 
-<!-- wp:woocommerce/product-price {"isDescendentOfSingleProductBlock":true} /-->
+<!-- wp:poocommerce/product-price {"isDescendentOfSingleProductBlock":true} /-->
 
-<!-- wp:woocommerce/product-summary {"isDescendentOfSingleProductBlock":true} /-->
+<!-- wp:poocommerce/product-summary {"isDescendentOfSingleProductBlock":true} /-->
 
-<!-- wp:woocommerce/product-meta -->
-<div class="wp-block-woocommerce-product-meta"></div>
-<!-- /wp:woocommerce/product-meta --></div>
+<!-- wp:poocommerce/product-meta -->
+<div class="wp-block-poocommerce-product-meta"></div>
+<!-- /wp:poocommerce/product-meta --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns --></div>
-<!-- /wp:woocommerce/single-product -->',
+<!-- /wp:poocommerce/single-product -->',
 				$product_id
 			)
 		);

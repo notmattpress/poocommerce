@@ -13,7 +13,7 @@ import {
 	__unstableAnimatePresence as AnimatePresence,
 } from '@wordpress/components';
 // @ts-expect-error - This component isn't available in WordPress 6.9. Given that it's an experimental project, it's okay to use it here. Remove the check below when WordPress 7.0 is the minimum supported version.
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import { SnackbarNotices } from '@wordpress/notices';
 
 /**
@@ -52,7 +52,7 @@ export function Layout( { route, showNewNavigation = false }: LayoutProps ) {
 					{ ( ! isMobileViewport || ! areas.mobile ) &&
 						showNewNavigation && (
 							<NavigableRegion
-								ariaLabel={ __( 'Navigation', 'woocommerce' ) }
+								ariaLabel={ __( 'Navigation', 'poocommerce' ) }
 								className="edit-site-layout__sidebar-region"
 							>
 								<AnimatePresence>
@@ -81,7 +81,7 @@ export function Layout( { route, showNewNavigation = false }: LayoutProps ) {
 						) }
 
 					{ SnackbarNotices && (
-						<SnackbarNotices className="product_page_woocommerce-products-dashboard-snackbar" />
+						<SnackbarNotices className="product_page_poocommerce-products-dashboard-snackbar" />
 					) }
 
 					{ ! isMobileViewport && areas.content && (

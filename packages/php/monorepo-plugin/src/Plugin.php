@@ -2,10 +2,10 @@
 /**
  * Custom Composer plugin to override any standard behavior required within the monorepo.
  *
- * @package woocommerce/monorepo-plugin
+ * @package poocommerce/monorepo-plugin
  */
 
-namespace Automattic\WooCommerce\Monorepo\Composer;
+namespace Automattic\PooCommerce\Monorepo\Composer;
 
 use Composer\Composer;
 use Composer\EventDispatcher\EventSubscriberInterface;
@@ -17,7 +17,7 @@ use Composer\Script\ScriptEvents;
 /**
  * Class Plugin.
  *
- * @package woocommerce/monorepo-plugin
+ * @package poocommerce/monorepo-plugin
  */
 class Plugin implements PluginInterface, EventSubscriberInterface {
 
@@ -99,7 +99,7 @@ class Plugin implements PluginInterface, EventSubscriberInterface {
 		$dev_autoload          = $root_package->getDevAutoload();
 		$dev_autoload['files'] = array_merge(
 			$dev_autoload['files'] ?? array(),
-			array( 'vendor/woocommerce/monorepo-plugin/autoload-dev.php' )
+			array( 'vendor/poocommerce/monorepo-plugin/autoload-dev.php' )
 		);
 
 		$root_package->setDevAutoload( $dev_autoload );

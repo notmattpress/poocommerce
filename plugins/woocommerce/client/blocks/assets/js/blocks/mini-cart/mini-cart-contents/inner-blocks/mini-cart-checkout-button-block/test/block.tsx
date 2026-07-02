@@ -4,7 +4,7 @@
 import {
 	CartEventsProvider,
 	useCartEventsContext,
-} from '@woocommerce/base-context';
+} from '@poocommerce/base-context';
 import { useEffect } from '@wordpress/element';
 import { render, screen, waitFor } from '@testing-library/react';
 

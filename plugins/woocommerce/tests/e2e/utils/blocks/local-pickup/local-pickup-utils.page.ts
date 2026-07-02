@@ -3,7 +3,7 @@
  */
 import { Notice } from '@wordpress/notices';
 import { Page } from '@playwright/test';
-import { Admin, wpCLI } from '@woocommerce/e2e-utils';
+import { Admin, wpCLI } from '@poocommerce/e2e-utils';
 
 type Location = {
 	name: string;

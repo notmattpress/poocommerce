@@ -2,18 +2,18 @@
 /**
  * Class WC_Tests_CRUD_Orders file.
  *
- * @package WooCommerce\Tests\CRUD
+ * @package PooCommerce\Tests\CRUD
  */
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Enums\ProductTaxStatus;
-use Automattic\WooCommerce\Utilities\OrderUtil;
-use Automattic\WooCommerce\Testing\Tools\CodeHacking\Hacks\FunctionsMockerHack;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Enums\ProductTaxStatus;
+use Automattic\PooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Testing\Tools\CodeHacking\Hacks\FunctionsMockerHack;
 
 /**
  * Meta
  *
- * @package WooCommerce\Tests\CRUD
+ * @package PooCommerce\Tests\CRUD
  */
 class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 	/**
@@ -397,7 +397,7 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 	 * Test: get_taxes
 	 */
 	public function test_get_taxes() {
-		update_option( 'woocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
 		$tax_rate = array(
 			'tax_rate_country'  => '',
 			'tax_rate_state'    => '',
@@ -658,7 +658,7 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 	 * Test: calculate_taxes
 	 */
 	public function test_calculate_taxes() {
-		update_option( 'woocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
 		$tax_rate = array(
 			'tax_rate_country'  => '',
 			'tax_rate_state'    => '',
@@ -698,7 +698,7 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 	 * Test: calculate_taxes_is_vat_excempt
 	 */
 	public function test_calculate_taxes_is_vat_excempt() {
-		update_option( 'woocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
 		$tax_rate = array(
 			'tax_rate_country'  => '',
 			'tax_rate_state'    => '',
@@ -743,7 +743,7 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 	 * Test: calculate_taxes_issue_with_addresses
 	 */
 	public function test_calculate_taxes_issue_with_addresses() {
-		update_option( 'woocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
 
 		$taxes = array();
 
@@ -774,8 +774,8 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 			)
 		);
 
-		update_option( 'woocommerce_default_country', 'PY:Central' );
-		update_option( 'woocommerce_tax_based_on', 'shipping' );
+		update_option( 'poocommerce_default_country', 'PY:Central' );
+		update_option( 'poocommerce_tax_based_on', 'shipping' );
 
 		$order = new WC_Order();
 		$order->set_billing_country( 'US' );
@@ -792,7 +792,7 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 	 * Test: calculate_totals
 	 */
 	public function test_calculate_totals() {
-		update_option( 'woocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
 		$tax_rate = array(
 			'tax_rate_country'  => '',
 			'tax_rate_state'    => '',
@@ -839,7 +839,7 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 	/**
 	 * Test: calculate_totals negative fees should not make order total negative.
 	 *
-	 * See: https://github.com/woocommerce/woocommerce/commit/804feb93333a8f00d0f93a163c6de58204f31f14
+	 * See: https://github.com/poocommerce/poocommerce/commit/804feb93333a8f00d0f93a163c6de58204f31f14
 	 */
 	public function test_calculate_totals_negative_fees_should_not_make_order_total_negative() {
 		$order = WC_Helper_Order::create_order();
@@ -1015,7 +1015,7 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 		$object = new WC_Order();
 		$object->save();
 
-		add_action( 'woocommerce_payment_complete', array( $this, 'throwAnException' ) );
+		add_action( 'poocommerce_payment_complete', array( $this, 'throwAnException' ) );
 
 		$this->assertFalse( $object->payment_complete( '12345' ) );
 		$note = current(
@@ -1027,7 +1027,7 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 		);
 		$this->assertStringContainsString( 'Payment complete event failed', $note->content );
 
-		remove_action( 'woocommerce_payment_complete', array( $this, 'throwAnException' ) );
+		remove_action( 'poocommerce_payment_complete', array( $this, 'throwAnException' ) );
 	}
 
 	/**
@@ -1037,7 +1037,7 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 		$object = new WC_Order();
 		$object->set_total( 100 );
 		$object->set_currency( 'USD' );
-		$this->assertEquals( '<span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol" translate="no">&#36;</span>100.00</bdi></span>', $object->get_formatted_order_total() );
+		$this->assertEquals( '<span class="poocommerce-Price-amount amount"><bdi><span class="poocommerce-Price-currencySymbol" translate="no">&#36;</span>100.00</bdi></span>', $object->get_formatted_order_total() );
 	}
 
 	/**
@@ -1063,12 +1063,12 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 		// Force a non-numeric total via filter to confirm the (float) cast prevents a TypeError on
 		// PHP 8.x. Without the cast, `non-numeric-string − float` is a fatal TypeError.
 		$non_numeric_filter = fn() => 'not-a-number';
-		add_filter( 'woocommerce_order_get_total', $non_numeric_filter );
+		add_filter( 'poocommerce_order_get_total', $non_numeric_filter );
 
 		// Should not throw a TypeError when the filter returns a non-numeric string.
 		$formatted_total = $order->get_formatted_order_total();
 
-		remove_filter( 'woocommerce_order_get_total', $non_numeric_filter );
+		remove_filter( 'poocommerce_order_get_total', $non_numeric_filter );
 
 		$this->assertStringContainsString( '<del', $formatted_total );
 		$this->assertStringContainsString( '<ins', $formatted_total );
@@ -1104,7 +1104,7 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 		$object = new WC_Order();
 		$object->save();
 
-		add_filter( 'woocommerce_payment_complete_order_status', array( $this, 'throwAnException' ) );
+		add_filter( 'poocommerce_payment_complete_order_status', array( $this, 'throwAnException' ) );
 
 		$this->assertFalse( $object->update_status( OrderStatus::ON_HOLD ) );
 		$note = current(
@@ -1116,7 +1116,7 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 		);
 		$this->assertStringContainsString( 'Update status event failed', $note->content );
 
-		remove_filter( 'woocommerce_payment_complete_order_status', array( $this, 'throwAnException' ) );
+		remove_filter( 'poocommerce_payment_complete_order_status', array( $this, 'throwAnException' ) );
 	}
 
 	/**
@@ -1126,9 +1126,9 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 		$object = new WC_Order();
 		$object->save();
 
-		add_filter( 'woocommerce_order_status_on-hold', array( $this, 'throwAnException' ) );
+		add_filter( 'poocommerce_order_status_on-hold', array( $this, 'throwAnException' ) );
 		$object->update_status( OrderStatus::ON_HOLD );
-		remove_filter( 'woocommerce_order_status_on-hold', array( $this, 'throwAnException' ) );
+		remove_filter( 'poocommerce_order_status_on-hold', array( $this, 'throwAnException' ) );
 
 		$note = current(
 			wc_get_order_notes(
@@ -1138,7 +1138,7 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 			)
 		);
 
-		$this->assertStringContainsString( __( 'Error during status transition.', 'woocommerce' ), $note->content );
+		$this->assertStringContainsString( __( 'Error during status transition.', 'poocommerce' ), $note->content );
 	}
 
 	/**
@@ -1481,7 +1481,7 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 	 */
 	public function test_get_created_via() {
 		$object = new WC_Order();
-		$set_to = 'WooCommerce';
+		$set_to = 'PooCommerce';
 		$object->set_created_via( $set_to );
 		$this->assertEquals( $set_to, $object->get_created_via() );
 	}
@@ -1953,7 +1953,7 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 	 */
 	public function test_refund_exception() {
 		$order = WC_Helper_Order::create_order();
-		add_action( 'woocommerce_create_refund', array( $this, 'throwAnException' ) );
+		add_action( 'poocommerce_create_refund', array( $this, 'throwAnException' ) );
 		$refund = wc_create_refund(
 			array(
 				'order_id'   => $order->get_id(),
@@ -1961,7 +1961,7 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 				'line_items' => array(),
 			)
 		);
-		remove_action( 'woocommerce_create_refund', array( $this, 'throwAnException' ) );
+		remove_action( 'poocommerce_create_refund', array( $this, 'throwAnException' ) );
 		$this->assertEmpty( $order->get_refunds() );
 	}
 
@@ -2097,7 +2097,7 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 		$object = new WC_Order();
 		$object->save();
 
-		add_action( 'woocommerce_before_order_object_save', array( $this, 'throwAnException' ) );
+		add_action( 'poocommerce_before_order_object_save', array( $this, 'throwAnException' ) );
 
 		$object->save();
 		$note = current(
@@ -2109,7 +2109,7 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 		);
 		$this->assertStringContainsString( 'Error saving order', $note->content );
 
-		remove_action( 'woocommerce_before_order_object_save', array( $this, 'throwAnException' ) );
+		remove_action( 'poocommerce_before_order_object_save', array( $this, 'throwAnException' ) );
 	}
 
 	/**
@@ -2177,12 +2177,12 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox calculate_taxes() respects woocommerce_adjust_non_base_location_prices
+	 * @testdox calculate_taxes() respects poocommerce_adjust_non_base_location_prices
 	 *          for manual backend orders.
 	 */
 	public function test_calculate_taxes_fixed_end_price_non_base_country(): void {
 		$context = $this->create_manual_order_tax_context();
-		add_filter( 'woocommerce_adjust_non_base_location_prices', '__return_false' );
+		add_filter( 'poocommerce_adjust_non_base_location_prices', '__return_false' );
 		$order = $this->create_manual_order_for_tax_context( $context, '24' );
 
 		try {
@@ -2204,7 +2204,7 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 
 	/**
 	 * @testdox calculate_taxes() without the filter still adjusts price for non-base
-	 *          country (default WooCommerce behaviour must be preserved).
+	 *          country (default PooCommerce behaviour must be preserved).
 	 */
 	public function test_calculate_taxes_adjusts_price_without_filter(): void {
 		$context = $this->create_manual_order_tax_context();
@@ -2230,7 +2230,7 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 	 */
 	public function test_calculate_taxes_fixed_price_filter_noop_for_excl_tax_store(): void {
 		$context = $this->create_manual_order_tax_context( 'no' );
-		add_filter( 'woocommerce_adjust_non_base_location_prices', '__return_false' );
+		add_filter( 'poocommerce_adjust_non_base_location_prices', '__return_false' );
 		$order = $this->create_manual_order_for_tax_context( $context );
 
 		try {
@@ -2252,7 +2252,7 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 	 */
 	public function test_calculate_taxes_fixed_price_idempotent(): void {
 		$context = $this->create_manual_order_tax_context();
-		add_filter( 'woocommerce_adjust_non_base_location_prices', '__return_false' );
+		add_filter( 'poocommerce_adjust_non_base_location_prices', '__return_false' );
 		$order = $this->create_manual_order_for_tax_context( $context, '24' );
 
 		try {
@@ -2278,7 +2278,7 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 	 */
 	public function test_calculate_taxes_fixed_price_positive_fee_remains_tax_exclusive(): void {
 		$context = $this->create_manual_order_tax_context();
-		add_filter( 'woocommerce_adjust_non_base_location_prices', '__return_false' );
+		add_filter( 'poocommerce_adjust_non_base_location_prices', '__return_false' );
 		$order = $this->create_manual_order_for_tax_context( $context, '24' );
 
 		$fee = new WC_Order_Item_Fee();
@@ -2307,7 +2307,7 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 	 */
 	public function test_calculate_taxes_fixed_price_negative_fee_uses_inclusive_tax(): void {
 		$context = $this->create_manual_order_tax_context();
-		add_filter( 'woocommerce_adjust_non_base_location_prices', '__return_false' );
+		add_filter( 'poocommerce_adjust_non_base_location_prices', '__return_false' );
 		$order = $this->create_manual_order_for_tax_context( $context, '24' );
 
 		$fee = new WC_Order_Item_Fee();
@@ -2337,7 +2337,7 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 	 */
 	public function test_get_subtotal_amount_to_display_excludes_fee_tax_in_fixed_price_mode(): void {
 		$context = $this->create_manual_order_tax_context();
-		add_filter( 'woocommerce_adjust_non_base_location_prices', '__return_false' );
+		add_filter( 'poocommerce_adjust_non_base_location_prices', '__return_false' );
 		$order = $this->create_manual_order_for_tax_context( $context, '24' );
 
 		$fee = new WC_Order_Item_Fee();
@@ -2384,17 +2384,17 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 		$tax_class_created = false;
 
 		$context = array(
-			'original_prices_include_tax' => get_option( 'woocommerce_prices_include_tax' ),
-			'original_calc_taxes'         => get_option( 'woocommerce_calc_taxes' ),
-			'original_tax_based_on'       => get_option( 'woocommerce_tax_based_on' ),
-			'original_base_country'       => get_option( 'woocommerce_default_country' ),
+			'original_prices_include_tax' => get_option( 'poocommerce_prices_include_tax' ),
+			'original_calc_taxes'         => get_option( 'poocommerce_calc_taxes' ),
+			'original_tax_based_on'       => get_option( 'poocommerce_tax_based_on' ),
+			'original_base_country'       => get_option( 'poocommerce_default_country' ),
 			'tax_class_slug'              => $tax_class_slug,
 		);
 
-		update_option( 'woocommerce_prices_include_tax', $prices_include_tax );
-		update_option( 'woocommerce_calc_taxes', 'yes' );
-		update_option( 'woocommerce_tax_based_on', 'billing' );
-		update_option( 'woocommerce_default_country', 'BE' );
+		update_option( 'poocommerce_prices_include_tax', $prices_include_tax );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_tax_based_on', 'billing' );
+		update_option( 'poocommerce_default_country', 'BE' );
 
 		if ( ! in_array( $tax_class_slug, WC_Tax::get_tax_class_slugs(), true ) ) {
 			WC_Tax::create_tax_class( 'Books VAT', $tax_class_slug );
@@ -2476,7 +2476,7 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 	 * @param WC_Order|null       $order Order to delete.
 	 */
 	private function cleanup_manual_order_tax_context( array $context, ?WC_Order $order = null ): void {
-		remove_filter( 'woocommerce_adjust_non_base_location_prices', '__return_false' );
+		remove_filter( 'poocommerce_adjust_non_base_location_prices', '__return_false' );
 		WC_Tax::_delete_tax_rate( $context['be_rate_id'] );
 		WC_Tax::_delete_tax_rate( $context['nl_rate_id'] );
 
@@ -2491,10 +2491,10 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 			$order->delete( true );
 		}
 
-		update_option( 'woocommerce_prices_include_tax', $context['original_prices_include_tax'] );
-		update_option( 'woocommerce_calc_taxes', $context['original_calc_taxes'] );
-		update_option( 'woocommerce_tax_based_on', $context['original_tax_based_on'] );
-		update_option( 'woocommerce_default_country', $context['original_base_country'] );
+		update_option( 'poocommerce_prices_include_tax', $context['original_prices_include_tax'] );
+		update_option( 'poocommerce_calc_taxes', $context['original_calc_taxes'] );
+		update_option( 'poocommerce_tax_based_on', $context['original_tax_based_on'] );
+		update_option( 'poocommerce_default_country', $context['original_base_country'] );
 	}
 
 	/**

@@ -8,21 +8,21 @@
  * cycle_count (counters are per-chain and derived from the cycle rows), and
  * origin_order_id may be null.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine
+ * @package Automattic\PooCommerce\SubscriptionsEngine
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Tests\Unit\Core\Entity;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Tests\Unit\Core\Entity;
 
 use DomainException;
 use PHPUnit\Framework\TestCase;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\Contract;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\ContractStatus;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\ValueObject\InstrumentRef;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\Contract;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\ContractStatus;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\ValueObject\InstrumentRef;
 
 /**
- * @covers \Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\Contract
+ * @covers \Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\Contract
  */
 class ContractTest extends TestCase {
 

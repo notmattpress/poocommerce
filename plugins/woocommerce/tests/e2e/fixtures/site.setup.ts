@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { request } from '@playwright/test';
-import { WC_API_PATH } from '@woocommerce/e2e-utils-playwright';
+import { WC_API_PATH } from '@poocommerce/e2e-utils-playwright';
 
 /**
  * Internal dependencies
@@ -29,7 +29,7 @@ setup( 'setup site', async ( { baseURL, restApi } ) => {
 					} HPOS...`
 				);
 				const response = await restApi.post(
-					`${ WC_API_PATH }/settings/advanced/woocommerce_custom_orders_table_enabled`,
+					`${ WC_API_PATH }/settings/advanced/poocommerce_custom_orders_table_enabled`,
 					{ value }
 				);
 				if ( response.data.value === value ) {
@@ -57,12 +57,12 @@ setup( 'setup site', async ( { baseURL, restApi } ) => {
 		}
 
 		const response = await restApi.get(
-			`${ WC_API_PATH }/settings/advanced/woocommerce_custom_orders_table_enabled`
+			`${ WC_API_PATH }/settings/advanced/poocommerce_custom_orders_table_enabled`
 		);
 		const dataValue = response.data.value;
 		const enabledOption = response.data.options[ dataValue ];
 		console.log(
-			`HPOS configuration (woocommerce_custom_orders_table_enabled): ${ dataValue } - ${ enabledOption }`
+			`HPOS configuration (poocommerce_custom_orders_table_enabled): ${ dataValue } - ${ enabledOption }`
 		);
 	} );
 
@@ -74,7 +74,7 @@ setup( 'setup site', async ( { baseURL, restApi } ) => {
 		await setOption(
 			request,
 			baseURL,
-			'woocommerce_feature_product_instance_caching_enabled',
+			'poocommerce_feature_product_instance_caching_enabled',
 			'yes'
 		);
 	} );
@@ -109,16 +109,16 @@ setup( 'setup site', async ( { baseURL, restApi } ) => {
 				// cart/refund totals are unaffected. A spec that needs taxes scopes
 				// its rate to a dedicated tax class and assigns only its own products
 				// to that class (see `cart.spec.ts`), so other workers never match it.
-				{ id: 'woocommerce_calc_taxes', value: 'yes' },
-				{ id: 'woocommerce_allowed_countries', value: 'all' },
-				{ id: 'woocommerce_currency', value: 'USD' },
-				{ id: 'woocommerce_price_thousand_sep', value: ',' },
-				{ id: 'woocommerce_price_decimal_sep', value: '.' },
-				{ id: 'woocommerce_price_num_decimals', value: '2' },
-				{ id: 'woocommerce_store_address', value: 'addr 1' },
-				{ id: 'woocommerce_store_city', value: 'San Francisco' },
-				{ id: 'woocommerce_default_country', value: 'US:CA' },
-				{ id: 'woocommerce_store_postcode', value: '94107' },
+				{ id: 'poocommerce_calc_taxes', value: 'yes' },
+				{ id: 'poocommerce_allowed_countries', value: 'all' },
+				{ id: 'poocommerce_currency', value: 'USD' },
+				{ id: 'poocommerce_price_thousand_sep', value: ',' },
+				{ id: 'poocommerce_price_decimal_sep', value: '.' },
+				{ id: 'poocommerce_price_num_decimals', value: '2' },
+				{ id: 'poocommerce_store_address', value: 'addr 1' },
+				{ id: 'poocommerce_store_city', value: 'San Francisco' },
+				{ id: 'poocommerce_default_country', value: 'US:CA' },
+				{ id: 'poocommerce_store_postcode', value: '94107' },
 			],
 		} );
 	} );
@@ -128,12 +128,12 @@ setup( 'setup site', async ( { baseURL, restApi } ) => {
 		// display mode now affects how class-scoped tax specs (e.g. `cart.spec.ts`)
 		// see prices, and a stray `incl` left by an interrupted blocks/settings-tax
 		// run would otherwise break their ex-tax line-price assertions. `excl` is
-		// the WooCommerce default: line prices shown ex-tax, totals tax-inclusive.
+		// the PooCommerce default: line prices shown ex-tax, totals tax-inclusive.
 		await restApi.post( `${ WC_API_PATH }/settings/tax/batch`, {
 			update: [
-				{ id: 'woocommerce_prices_include_tax', value: 'no' },
-				{ id: 'woocommerce_tax_display_shop', value: 'excl' },
-				{ id: 'woocommerce_tax_display_cart', value: 'excl' },
+				{ id: 'poocommerce_prices_include_tax', value: 'no' },
+				{ id: 'poocommerce_tax_display_shop', value: 'excl' },
+				{ id: 'poocommerce_tax_display_cart', value: 'excl' },
 			],
 		} );
 	} );

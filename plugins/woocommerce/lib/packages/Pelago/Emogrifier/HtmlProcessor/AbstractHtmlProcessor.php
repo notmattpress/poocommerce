@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\Pelago\Emogrifier\HtmlProcessor;
+namespace Automattic\PooCommerce\Vendor\Pelago\Emogrifier\HtmlProcessor;
 
-use Automattic\WooCommerce\Vendor\Pelago\Emogrifier\Utilities\Preg;
+use Automattic\PooCommerce\Vendor\Pelago\Emogrifier\Utilities\Preg;
 
 /**
  * Base class for HTML processor that e.g., can remove, add or modify nodes or attributes.

@@ -9,14 +9,14 @@ import { test, expect } from '@playwright/test';
 import { tags } from '../../fixtures/fixtures';
 import { ADMIN_STATE_PATH } from '../../playwright.config';
 
-test.describe( 'WooCommerce Home', () => {
+test.describe( 'PooCommerce Home', () => {
 	test.use( { storageState: ADMIN_STATE_PATH } );
 
 	test(
 		'Can access Analytics Reports from Stats Overview',
 		{ tag: [ tags.NOT_E2E ] },
 		async ( { page } ) => {
-			await test.step( 'Navigate to the WooCommerce Home page', async () => {
+			await test.step( 'Navigate to the PooCommerce Home page', async () => {
 				await page.goto( 'wp-admin/admin.php?page=wc-admin' );
 				await expect(
 					page.getByText( 'Stats overview' )

@@ -2,35 +2,35 @@
 /**
  * Integration tests for RenewalEngine (and RenewalScheduler).
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine
+ * @package Automattic\PooCommerce\SubscriptionsEngine
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Tests\Integration\Integration\Renewal;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Tests\Integration\Integration\Renewal;
 
 use EngineIntegrationTestCase;
 use WC_Order;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\Contract;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\ContractStatus;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\Cycle;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\CycleStatus;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\Plan;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\PlanGroup;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Gateway\GatewayCapabilities;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\ValueObject\BillingPolicy;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Checkout\ContractFactory;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Checkout\OrderLinkage;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Contracts\Cancellation;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Renewal\RenewalEngine;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Renewal\RenewalScheduler;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage\ContractRepository;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage\PlanGroupRepository;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage\PlanRepository;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\Contract;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\ContractStatus;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\Cycle;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\CycleStatus;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\Plan;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\PlanGroup;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Gateway\GatewayCapabilities;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\ValueObject\BillingPolicy;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Checkout\ContractFactory;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Checkout\OrderLinkage;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Contracts\Cancellation;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Renewal\RenewalEngine;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Renewal\RenewalScheduler;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage\ContractRepository;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage\PlanGroupRepository;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage\PlanRepository;
 
 /**
- * @covers \Automattic\WooCommerce\SubscriptionsEngine\Integration\Renewal\RenewalEngine
- * @covers \Automattic\WooCommerce\SubscriptionsEngine\Integration\Renewal\RenewalScheduler
+ * @covers \Automattic\PooCommerce\SubscriptionsEngine\Integration\Renewal\RenewalEngine
+ * @covers \Automattic\PooCommerce\SubscriptionsEngine\Integration\Renewal\RenewalScheduler
  */
 class RenewalEngineTest extends EngineIntegrationTestCase {
 

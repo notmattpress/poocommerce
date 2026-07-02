@@ -1,8 +1,8 @@
 <?php
 /**
- * This file is part of the WooCommerce Email Editor package.
+ * This file is part of the PooCommerce Email Editor package.
  *
- * @package Automattic\WooCommerce\EmailEditor
+ * @package Automattic\PooCommerce\EmailEditor
  */
 
 declare(strict_types = 1);
@@ -19,7 +19,7 @@ declare(strict_types = 1);
  * @var string $template_html The email template HTML content
  * @var string $meta_robots Meta robots tag content
  * @var array{contentSize: string} $layout Layout configuration
- * @var Automattic\WooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Rendering_Context $rendering_context Rendering context
+ * @var Automattic\PooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Rendering_Context $rendering_context Rendering context
  */
 $language_attributes = get_language_attributes();
 $language_attributes = trim( (string) preg_replace( '/\s?dir=(["\']).*?\1/i', '', $language_attributes ) );

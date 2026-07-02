@@ -9,16 +9,16 @@ export const Edit = (): JSX.Element => {
 	} );
 
 	const TEMPLATE = [
-		[ 'woocommerce/mini-cart-title-label-block', {} ],
-		[ 'woocommerce/mini-cart-title-items-counter-block', {} ],
+		[ 'poocommerce/mini-cart-title-label-block', {} ],
+		[ 'poocommerce/mini-cart-title-items-counter-block', {} ],
 	];
 
 	return (
 		<h2 { ...blockProps }>
 			<InnerBlocks
 				allowedBlocks={ [
-					'woocommerce/mini-cart-title-label-block',
-					'woocommerce/mini-cart-title-items-counter-block',
+					'poocommerce/mini-cart-title-label-block',
+					'poocommerce/mini-cart-title-items-counter-block',
 				] }
 				template={ TEMPLATE }
 				templateLock="all"

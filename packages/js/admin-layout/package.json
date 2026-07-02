@@ -1,20 +1,20 @@
 {
-	"name": "@woocommerce/admin-layout",
+	"name": "@poocommerce/admin-layout",
 	"version": "2.0.0",
-	"description": "WooCommerce admin layout copmonents and utilities.",
+	"description": "PooCommerce admin layout copmonents and utilities.",
 	"author": "Automattic",
 	"license": "GPL-2.0-or-later",
 	"keywords": [
 		"wordpress",
-		"woocommerce"
+		"poocommerce"
 	],
-	"homepage": "https://github.com/woocommerce/woocommerce/tree/trunk/packages/js/admin-layout/README.md",
+	"homepage": "https://github.com/poocommerce/poocommerce/tree/trunk/packages/js/admin-layout/README.md",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/woocommerce/woocommerce.git"
+		"url": "https://github.com/poocommerce/poocommerce.git"
 	},
 	"bugs": {
-		"url": "https://github.com/woocommerce/woocommerce/issues"
+		"url": "https://github.com/poocommerce/poocommerce/issues"
 	},
 	"exports": {
 		".": {
@@ -71,14 +71,14 @@
 		"watch:build:project:esm": "node build.mjs --watch"
 	},
 	"dependencies": {
-		"@woocommerce/components": "workspace:*",
+		"@poocommerce/components": "workspace:*",
 		"@wordpress/components": "catalog:wp-min",
 		"@wordpress/element": "catalog:wp-min"
 	},
 	"devDependencies": {
 		"@types/react": "18.3.x",
-		"@woocommerce/eslint-plugin": "workspace:*",
-		"@woocommerce/internal-build": "workspace:*",
+		"@poocommerce/eslint-plugin": "workspace:*",
+		"@poocommerce/internal-build": "workspace:*",
 		"@wordpress/browserslist-config": "next",
 		"css-loader": "6.11.x",
 		"eslint": "^8.55.0",

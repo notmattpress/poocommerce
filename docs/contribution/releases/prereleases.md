@@ -1,12 +1,12 @@
 ---
-post_title: WooCommerce Pre-releases
-sidebar_label: WooCommerce Pre-releases
+post_title: PooCommerce Pre-releases
+sidebar_label: PooCommerce Pre-releases
 sidebar_position: 5
 ---
 
-# WooCommerce Pre-releases
+# PooCommerce Pre-releases
 
-WooCommerce pre-releases provide early access to upcoming features and improvements, allowing developers, testers, and the community to prepare for future releases.
+PooCommerce pre-releases provide early access to upcoming features and improvements, allowing developers, testers, and the community to prepare for future releases.
 
 This document outlines the different types of pre-releases available, their timing, and how they fit into the overall release cycle.
 
@@ -21,7 +21,7 @@ This document outlines the different types of pre-releases available, their timi
 
 ## Nightlies
 
-Regenerated every night based on the current contents of `trunk`. Found [under the `nightly` tag on GitHub](https://github.com/woocommerce/woocommerce/releases/tag/nightly).
+Regenerated every night based on the current contents of `trunk`. Found [under the `nightly` tag on GitHub](https://github.com/poocommerce/poocommerce/releases/tag/nightly).
 
 These are only available in the GitHub repository, and are neither announced publicly nor uploaded to WordPress.org.
 
@@ -29,7 +29,7 @@ These are only available in the GitHub repository, and are neither announced pub
 
 Once the feature freeze for the upcoming main version (`X.Y.0`) happens, a release-specific branch is created (named `release/x.y`) which is used for stabilization, fixing regressions, and building all the pre-releases tied to that release cycle.
 
-These releases are tagged at various points in time as described below. As usual, the source of truth for any specific dates is [our release calendar](https://developer.woocommerce.com/release-calendar/).
+These releases are tagged at various points in time as described below. As usual, the source of truth for any specific dates is [our release calendar](https://developer.poocommerce.com/release-calendar/).
 
 ### `-dev` release
 
@@ -47,7 +47,7 @@ We aim to release at least 2 betas per cycle, but more are possible if any impor
 
 All beta versions are available both on GitHub and WordPress.org.
 
-For guidance on how to participate in WooCommerce beta testing and contribute valuable feedback, refer to our [beta testing documentation](/docs/contribution/testing/beta-testing/).
+For guidance on how to participate in PooCommerce beta testing and contribute valuable feedback, refer to our [beta testing documentation](/docs/contribution/testing/beta-testing/).
 
 ### Release Candidate (RC)
 
@@ -57,4 +57,4 @@ They are versioned incrementally as `-rc.1`, `-rc.2`, and so on.
 
 We aim to release at least one RC before the final release, which will not be publicly announced but will be tagged and available for download on both GitHub and WordPress.org.
 
-Additional RCs (`-rc.2` onwards) are only cut when monitoring uncovers a critical bug. Their tracking issues are not created by the regular release-assignment automation; they are created on demand by running [`Release: Create Tracking Issue`](https://github.com/woocommerce/woocommerce/actions/workflows/release-create-tracking-issue.yml). See the [troubleshooting guide](/docs/contribution/releases/troubleshooting#a-serious-bug-was-detected-during-internal-checks--monitoring) for the full recovery procedure.
+Additional RCs (`-rc.2` onwards) are only cut when monitoring uncovers a critical bug. Their tracking issues are not created by the regular release-assignment automation; they are created on demand by running [`Release: Create Tracking Issue`](https://github.com/poocommerce/poocommerce/actions/workflows/release-create-tracking-issue.yml). See the [troubleshooting guide](/docs/contribution/releases/troubleshooting#a-serious-bug-was-detected-during-internal-checks--monitoring) for the full recovery procedure.

@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Queries;
+namespace Automattic\PooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Queries;
 
-use Automattic\WooCommerce\Api\Attributes\ArrayOf;
-use Automattic\WooCommerce\Api\Attributes\Description;
-use Automattic\WooCommerce\Api\Attributes\Name;
-use Automattic\WooCommerce\Api\Attributes\PublicAccess;
-use Automattic\WooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Types\Widget;
+use Automattic\PooCommerce\Api\Attributes\ArrayOf;
+use Automattic\PooCommerce\Api\Attributes\Description;
+use Automattic\PooCommerce\Api\Attributes\Name;
+use Automattic\PooCommerce\Api\Attributes\PublicAccess;
+use Automattic\PooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Types\Widget;
 
 /**
  * Returns a plain (non-paginated) list of widgets — exercises the

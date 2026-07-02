@@ -2,7 +2,7 @@
 /**
  * Woo_Analytics_Trait
  *
- * @package automattic/woocommerce-analytics
+ * @package automattic/poocommerce-analytics
  */
 
 namespace Automattic\Woocommerce_Analytics;
@@ -15,7 +15,7 @@ use WC_Payment_Gateway;
 use WC_Product;
 
 /**
- * Common functionality for WooCommerce Analytics classes.
+ * Common functionality for PooCommerce Analytics classes.
  */
 trait Woo_Analytics_Trait {
 	/**
@@ -99,9 +99,9 @@ trait Woo_Analytics_Trait {
 	protected function get_cart_checkout_shared_data() {
 		$cart = WC()->cart;
 
-		$guest_checkout           = ucfirst( get_option( 'woocommerce_enable_guest_checkout', 'No' ) );
-		$create_account           = ucfirst( get_option( 'woocommerce_enable_signup_and_login_from_checkout', 'No' ) );
-		$delayed_account_creation = ucfirst( get_option( 'woocommerce_enable_delayed_account_creation', 'Yes' ) );
+		$guest_checkout           = ucfirst( get_option( 'poocommerce_enable_guest_checkout', 'No' ) );
+		$create_account           = ucfirst( get_option( 'poocommerce_enable_signup_and_login_from_checkout', 'No' ) );
+		$delayed_account_creation = ucfirst( get_option( 'poocommerce_enable_delayed_account_creation', 'Yes' ) );
 
 		$coupons     = $cart->get_coupons();
 		$coupon_used = 0;
@@ -156,7 +156,7 @@ trait Woo_Analytics_Trait {
 		 *    transient with a 1-day lifespan. This will prevent us from having to do this work on every page load.
 		 */
 
-		$cart_checkout_content_cache_transient_name = 'jetpack_woocommerce_analytics_cart_checkout_content_sources';
+		$cart_checkout_content_cache_transient_name = 'jetpack_poocommerce_analytics_cart_checkout_content_sources';
 
 		$transient_value = get_transient( $cart_checkout_content_cache_transient_name );
 
@@ -171,9 +171,9 @@ trait Woo_Analytics_Trait {
 		}
 
 		$this->cart_checkout_templates_in_use = wp_is_block_theme()
-			&& class_exists( '\Automattic\WooCommerce\Blocks\Package' )
-			// @phan-suppress-current-line UnusedPluginSuppression @phan-suppress-next-line PhanUndeclaredClassMethod -- If the class exists (as of WooCommerce 8.5.0), the method exists. See also: https://github.com/phan/phan/issues/1204
-			&& version_compare( \Automattic\WooCommerce\Blocks\Package::get_version(), '10.6.0', '>=' );
+			&& class_exists( '\Automattic\PooCommerce\Blocks\Package' )
+			// @phan-suppress-current-line UnusedPluginSuppression @phan-suppress-next-line PhanUndeclaredClassMethod -- If the class exists (as of PooCommerce 8.5.0), the method exists. See also: https://github.com/phan/phan/issues/1204
+			&& version_compare( \Automattic\PooCommerce\Blocks\Package::get_version(), '10.6.0', '>=' );
 
 		// Cart/Checkout *pages* are in use if the templates are not in use. Return their content and do nothing else.
 		if ( ! $this->cart_checkout_templates_in_use ) {
@@ -201,22 +201,22 @@ trait Woo_Analytics_Trait {
 
 		// We are in a Block theme - so we need to find out if the templates are being used.
 		if ( function_exists( 'get_block_template' ) ) {
-			$checkout_template = get_block_template( 'woocommerce/woocommerce//page-checkout' );
-			$cart_template     = get_block_template( 'woocommerce/woocommerce//page-cart' );
+			$checkout_template = get_block_template( 'poocommerce/poocommerce//page-checkout' );
+			$cart_template     = get_block_template( 'poocommerce/poocommerce//page-cart' );
 
 			if ( ! $checkout_template ) {
-				$checkout_template = get_block_template( 'woocommerce/woocommerce//checkout' );
+				$checkout_template = get_block_template( 'poocommerce/poocommerce//checkout' );
 			}
 
 			if ( ! $cart_template ) {
-				$cart_template = get_block_template( 'woocommerce/woocommerce//cart' );
+				$cart_template = get_block_template( 'poocommerce/poocommerce//cart' );
 			}
 		}
 
 		if ( ! empty( $checkout_template->content ) ) {
 			// Checkout template is in use, but we need to see if the page-content-wrapper is in use, or if the template is being used directly.
 			$this->checkout_content_source = $checkout_template->content;
-			$is_using_page_content         = str_contains( $checkout_template->content, '<!-- wp:woocommerce/page-content-wrapper {"page":"checkout"}' );
+			$is_using_page_content         = str_contains( $checkout_template->content, '<!-- wp:poocommerce/page-content-wrapper {"page":"checkout"}' );
 
 			if ( $is_using_page_content ) {
 				// The page-content-wrapper is in use, so we need to get the page content.
@@ -231,7 +231,7 @@ trait Woo_Analytics_Trait {
 		if ( ! empty( $cart_template->content ) ) {
 			// Cart template is in use, but we need to see if the page-content-wrapper is in use, or if the template is being used directly.
 			$this->cart_content_source = $cart_template->content;
-			$is_using_page_content     = str_contains( $cart_template->content, '<!-- wp:woocommerce/page-content-wrapper {"page":"cart"}' );
+			$is_using_page_content     = str_contains( $cart_template->content, '<!-- wp:poocommerce/page-content-wrapper {"page":"cart"}' );
 
 			if ( $is_using_page_content ) {
 				// The page-content-wrapper is in use, so we need to get the page content.
@@ -261,16 +261,16 @@ trait Woo_Analytics_Trait {
 	public function get_common_properties() {
 		$common_properties = WC_Analytics_Tracking::get_common_properties();
 		/**
-		 * Allow defining custom event properties in WooCommerce Analytics.
+		 * Allow defining custom event properties in PooCommerce Analytics.
 		 *
-		 * @module woocommerce-analytics
+		 * @module poocommerce-analytics
 		 *
 		 * @since 12.5
 		 *
 		 * @param array $properties Array of event props to be filtered.
 		 */
 		$properties = apply_filters(
-			'jetpack_woocommerce_analytics_event_props',
+			'jetpack_poocommerce_analytics_event_props',
 			$common_properties
 		);
 
@@ -366,7 +366,7 @@ trait Woo_Analytics_Trait {
 	 * @return array All inner blocks on the page.
 	 */
 	public function get_additional_blocks_on_page( $cart_or_checkout = 'cart' ) {
-		$additional_blocks_on_page_transient_name = 'jetpack_woocommerce_analytics_additional_blocks_on_' . $cart_or_checkout . '_page';
+		$additional_blocks_on_page_transient_name = 'jetpack_poocommerce_analytics_additional_blocks_on_' . $cart_or_checkout . '_page';
 		$additional_blocks_on_page                = get_transient( $additional_blocks_on_page_transient_name );
 
 		if ( false !== $additional_blocks_on_page ) {
@@ -380,9 +380,9 @@ trait Woo_Analytics_Trait {
 		}
 
 		$blocks_to_ignore = array(
-			'woocommerce/classic-shortcode',
+			'poocommerce/classic-shortcode',
 			'core/shortcode',
-			'checkout' === $cart_or_checkout ? 'woocommerce/checkout' : 'woocommerce/cart',
+			'checkout' === $cart_or_checkout ? 'poocommerce/checkout' : 'poocommerce/cart',
 		);
 
 		$scanner = Block_Scanner::create( $content );
@@ -440,9 +440,9 @@ trait Woo_Analytics_Trait {
 		$new_info = array();
 
 		$content                    = $this->cart_content_source;
-		$block_presence             = str_contains( $content, '<!-- wp:woocommerce/cart' );
-		$shortcode_presence         = str_contains( $content, '[woocommerce_cart]' );
-		$classic_shortcode_presence = str_contains( $content, '<!-- wp:woocommerce/classic-shortcode {"shortcode":"cart"}' );
+		$block_presence             = str_contains( $content, '<!-- wp:poocommerce/cart' );
+		$shortcode_presence         = str_contains( $content, '[poocommerce_cart]' );
+		$classic_shortcode_presence = str_contains( $content, '<!-- wp:poocommerce/classic-shortcode {"shortcode":"cart"}' );
 
 		$new_info['cart_page_contains_cart_block']     = $block_presence ? '1' : '0';
 		$new_info['cart_page_contains_cart_shortcode'] = $shortcode_presence || $classic_shortcode_presence ? '1' : '0';
@@ -458,9 +458,9 @@ trait Woo_Analytics_Trait {
 		$new_info = array();
 
 		$content                    = $this->checkout_content_source;
-		$block_presence             = str_contains( $content, '<!-- wp:woocommerce/checkout' );
-		$shortcode_presence         = str_contains( $content, '[woocommerce_checkout]' );
-		$classic_shortcode_presence = str_contains( $content, '<!-- wp:woocommerce/classic-shortcode {"shortcode":"checkout"}' );
+		$block_presence             = str_contains( $content, '<!-- wp:poocommerce/checkout' );
+		$shortcode_presence         = str_contains( $content, '[poocommerce_checkout]' );
+		$classic_shortcode_presence = str_contains( $content, '<!-- wp:poocommerce/classic-shortcode {"shortcode":"checkout"}' );
 
 		$new_info['checkout_page_contains_checkout_block']     = $block_presence ? '1' : '0';
 		$new_info['checkout_page_contains_checkout_shortcode'] = $shortcode_presence || $classic_shortcode_presence ? '1' : '0';
@@ -472,8 +472,8 @@ trait Woo_Analytics_Trait {
 	 * whether the store is using shortcodes or Gutenberg blocks.
 	 * This info is cached in a transient.
 	 *
-	 * Note: similar code is in a WooCommerce core PR:
-	 * https://github.com/woocommerce/woocommerce/pull/25932
+	 * Note: similar code is in a PooCommerce core PR:
+	 * https://github.com/poocommerce/poocommerce/pull/25932
 	 *
 	 * @return array
 	 */
@@ -488,8 +488,8 @@ trait Woo_Analytics_Trait {
 	/**
 	 * Search a specific post for text content.
 	 *
-	 * Note: similar code is in a WooCommerce core PR:
-	 * https://github.com/woocommerce/woocommerce/pull/25932
+	 * Note: similar code is in a PooCommerce core PR:
+	 * https://github.com/poocommerce/poocommerce/pull/25932
 	 *
 	 * @param integer $post_id The id of the post to search.
 	 * @param string  $text    The text to search for.
@@ -600,7 +600,7 @@ trait Woo_Analytics_Trait {
 	 *
 	 * This function attempts to generate a hierarchical breadcrumb trail for the current page or post.
 	 * - For the front page, it returns "Home".
-	 * - For WooCommerce product, category, or tag pages, it uses the WooCommerce breadcrumb generator and prepends the shop page title if needed.
+	 * - For PooCommerce product, category, or tag pages, it uses the PooCommerce breadcrumb generator and prepends the shop page title if needed.
 	 * - For regular pages, it builds the breadcrumb from the page's ancestors, ordered from top-level to current.
 	 * - For all other cases, it returns the current page's title.
 	 *
@@ -608,7 +608,7 @@ trait Woo_Analytics_Trait {
 	 */
 	private function get_breadcrumb_titles() {
 		if ( is_front_page() ) {
-			return array( __( 'Home', 'woocommerce-analytics' ) );
+			return array( __( 'Home', 'poocommerce-analytics' ) );
 		}
 
 		if ( class_exists( '\WC_Breadcrumb' ) ) {

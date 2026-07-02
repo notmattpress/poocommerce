@@ -2,7 +2,7 @@
 /**
  * General user data validation methods
  *
- * @package WooCommerce\Classes
+ * @package PooCommerce\Classes
  * @version  2.4.0
  */
 
@@ -42,7 +42,7 @@ class WC_Validation {
 		 * @param string      $phone   The phone number being validated.
 		 * @param string|null $country The country code the phone is being validated for, or null if unknown.
 		 */
-		return (bool) apply_filters( 'woocommerce_validate_phone', $valid, $phone, $country );
+		return (bool) apply_filters( 'poocommerce_validate_phone', $valid, $phone, $country );
 	}
 
 	/**
@@ -129,7 +129,7 @@ class WC_Validation {
 				break;
 		}
 
-		return apply_filters( 'woocommerce_validate_postcode', $valid, $postcode, $country );
+		return apply_filters( 'poocommerce_validate_postcode', $valid, $postcode, $country );
 	}
 
 	/**

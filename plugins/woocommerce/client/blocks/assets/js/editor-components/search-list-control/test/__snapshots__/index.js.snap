@@ -30,13 +30,13 @@ exports[`SearchListControl should render a search box and list of hierarchical o
     />
     <div>
       <div
-        class="woocommerce-search-list is-compact"
+        class="poocommerce-search-list is-compact"
       >
         <div
-          class="woocommerce-search-list__selected"
+          class="poocommerce-search-list__selected"
         >
           <div
-            class="woocommerce-search-list__selected-header"
+            class="poocommerce-search-list__selected-header"
           >
             <strong>
               0 items selected
@@ -44,7 +44,7 @@ exports[`SearchListControl should render a search box and list of hierarchical o
           </div>
         </div>
         <div
-          class="woocommerce-search-list__search"
+          class="poocommerce-search-list__search"
         >
           <div
             class="components-base-control css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
@@ -68,16 +68,16 @@ exports[`SearchListControl should render a search box and list of hierarchical o
           </div>
         </div>
         <ul
-          class="woocommerce-search-list__list"
+          class="poocommerce-search-list__list"
         >
           <li>
             <div
-              class="woocommerce-search-list__item depth-0 has-children"
+              class="poocommerce-search-list__item depth-0 has-children"
               role="treeitem"
               tabindex="0"
             >
               <div
-                class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+                class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
               >
                 <div
                   class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -110,11 +110,11 @@ exports[`SearchListControl should render a search box and list of hierarchical o
           </li>
           <li>
             <label
-              class="woocommerce-search-list__item depth-0"
+              class="poocommerce-search-list__item depth-0"
               for="search-list-item-11-5"
             >
               <div
-                class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+                class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
               >
                 <div
                   class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -148,11 +148,11 @@ exports[`SearchListControl should render a search box and list of hierarchical o
           </li>
           <li>
             <label
-              class="woocommerce-search-list__item depth-0"
+              class="poocommerce-search-list__item depth-0"
               for="search-list-item-11-6"
             >
               <div
-                class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+                class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
               >
                 <div
                   class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -190,13 +190,13 @@ exports[`SearchListControl should render a search box and list of hierarchical o
   </body>,
   "container": <div>
     <div
-      class="woocommerce-search-list is-compact"
+      class="poocommerce-search-list is-compact"
     >
       <div
-        class="woocommerce-search-list__selected"
+        class="poocommerce-search-list__selected"
       >
         <div
-          class="woocommerce-search-list__selected-header"
+          class="poocommerce-search-list__selected-header"
         >
           <strong>
             0 items selected
@@ -204,7 +204,7 @@ exports[`SearchListControl should render a search box and list of hierarchical o
         </div>
       </div>
       <div
-        class="woocommerce-search-list__search"
+        class="poocommerce-search-list__search"
       >
         <div
           class="components-base-control css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
@@ -228,16 +228,16 @@ exports[`SearchListControl should render a search box and list of hierarchical o
         </div>
       </div>
       <ul
-        class="woocommerce-search-list__list"
+        class="poocommerce-search-list__list"
       >
         <li>
           <div
-            class="woocommerce-search-list__item depth-0 has-children"
+            class="poocommerce-search-list__item depth-0 has-children"
             role="treeitem"
             tabindex="0"
           >
             <div
-              class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+              class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
             >
               <div
                 class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -270,11 +270,11 @@ exports[`SearchListControl should render a search box and list of hierarchical o
         </li>
         <li>
           <label
-            class="woocommerce-search-list__item depth-0"
+            class="poocommerce-search-list__item depth-0"
             for="search-list-item-11-5"
           >
             <div
-              class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+              class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
             >
               <div
                 class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -308,11 +308,11 @@ exports[`SearchListControl should render a search box and list of hierarchical o
         </li>
         <li>
           <label
-            class="woocommerce-search-list__item depth-0"
+            class="poocommerce-search-list__item depth-0"
             for="search-list-item-11-6"
           >
             <div
-              class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+              class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
             >
               <div
                 class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -431,13 +431,13 @@ exports[`SearchListControl should render a search box and list of options 1`] = 
     />
     <div>
       <div
-        class="woocommerce-search-list"
+        class="poocommerce-search-list"
       >
         <div
-          class="woocommerce-search-list__selected"
+          class="poocommerce-search-list__selected"
         >
           <div
-            class="woocommerce-search-list__selected-header"
+            class="poocommerce-search-list__selected-header"
           >
             <strong>
               0 items selected
@@ -445,7 +445,7 @@ exports[`SearchListControl should render a search box and list of options 1`] = 
           </div>
         </div>
         <div
-          class="woocommerce-search-list__search"
+          class="poocommerce-search-list__search"
         >
           <div
             class="components-base-control css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
@@ -469,15 +469,15 @@ exports[`SearchListControl should render a search box and list of options 1`] = 
           </div>
         </div>
         <ul
-          class="woocommerce-search-list__list"
+          class="poocommerce-search-list__list"
         >
           <li>
             <label
-              class="woocommerce-search-list__item depth-0"
+              class="poocommerce-search-list__item depth-0"
               for="search-list-item-0-1"
             >
               <div
-                class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+                class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
               >
                 <div
                   class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -511,11 +511,11 @@ exports[`SearchListControl should render a search box and list of options 1`] = 
           </li>
           <li>
             <label
-              class="woocommerce-search-list__item depth-0"
+              class="poocommerce-search-list__item depth-0"
               for="search-list-item-0-2"
             >
               <div
-                class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+                class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
               >
                 <div
                   class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -549,11 +549,11 @@ exports[`SearchListControl should render a search box and list of options 1`] = 
           </li>
           <li>
             <label
-              class="woocommerce-search-list__item depth-0"
+              class="poocommerce-search-list__item depth-0"
               for="search-list-item-0-3"
             >
               <div
-                class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+                class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
               >
                 <div
                   class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -587,11 +587,11 @@ exports[`SearchListControl should render a search box and list of options 1`] = 
           </li>
           <li>
             <label
-              class="woocommerce-search-list__item depth-0"
+              class="poocommerce-search-list__item depth-0"
               for="search-list-item-0-4"
             >
               <div
-                class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+                class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
               >
                 <div
                   class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -625,11 +625,11 @@ exports[`SearchListControl should render a search box and list of options 1`] = 
           </li>
           <li>
             <label
-              class="woocommerce-search-list__item depth-0"
+              class="poocommerce-search-list__item depth-0"
               for="search-list-item-0-5"
             >
               <div
-                class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+                class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
               >
                 <div
                   class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -663,11 +663,11 @@ exports[`SearchListControl should render a search box and list of options 1`] = 
           </li>
           <li>
             <label
-              class="woocommerce-search-list__item depth-0"
+              class="poocommerce-search-list__item depth-0"
               for="search-list-item-0-6"
             >
               <div
-                class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+                class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
               >
                 <div
                   class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -705,13 +705,13 @@ exports[`SearchListControl should render a search box and list of options 1`] = 
   </body>,
   "container": <div>
     <div
-      class="woocommerce-search-list"
+      class="poocommerce-search-list"
     >
       <div
-        class="woocommerce-search-list__selected"
+        class="poocommerce-search-list__selected"
       >
         <div
-          class="woocommerce-search-list__selected-header"
+          class="poocommerce-search-list__selected-header"
         >
           <strong>
             0 items selected
@@ -719,7 +719,7 @@ exports[`SearchListControl should render a search box and list of options 1`] = 
         </div>
       </div>
       <div
-        class="woocommerce-search-list__search"
+        class="poocommerce-search-list__search"
       >
         <div
           class="components-base-control css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
@@ -743,15 +743,15 @@ exports[`SearchListControl should render a search box and list of options 1`] = 
         </div>
       </div>
       <ul
-        class="woocommerce-search-list__list"
+        class="poocommerce-search-list__list"
       >
         <li>
           <label
-            class="woocommerce-search-list__item depth-0"
+            class="poocommerce-search-list__item depth-0"
             for="search-list-item-0-1"
           >
             <div
-              class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+              class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
             >
               <div
                 class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -785,11 +785,11 @@ exports[`SearchListControl should render a search box and list of options 1`] = 
         </li>
         <li>
           <label
-            class="woocommerce-search-list__item depth-0"
+            class="poocommerce-search-list__item depth-0"
             for="search-list-item-0-2"
           >
             <div
-              class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+              class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
             >
               <div
                 class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -823,11 +823,11 @@ exports[`SearchListControl should render a search box and list of options 1`] = 
         </li>
         <li>
           <label
-            class="woocommerce-search-list__item depth-0"
+            class="poocommerce-search-list__item depth-0"
             for="search-list-item-0-3"
           >
             <div
-              class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+              class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
             >
               <div
                 class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -861,11 +861,11 @@ exports[`SearchListControl should render a search box and list of options 1`] = 
         </li>
         <li>
           <label
-            class="woocommerce-search-list__item depth-0"
+            class="poocommerce-search-list__item depth-0"
             for="search-list-item-0-4"
           >
             <div
-              class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+              class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
             >
               <div
                 class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -899,11 +899,11 @@ exports[`SearchListControl should render a search box and list of options 1`] = 
         </li>
         <li>
           <label
-            class="woocommerce-search-list__item depth-0"
+            class="poocommerce-search-list__item depth-0"
             for="search-list-item-0-5"
           >
             <div
-              class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+              class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
             >
               <div
                 class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -937,11 +937,11 @@ exports[`SearchListControl should render a search box and list of options 1`] = 
         </li>
         <li>
           <label
-            class="woocommerce-search-list__item depth-0"
+            class="poocommerce-search-list__item depth-0"
             for="search-list-item-0-6"
           >
             <div
-              class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+              class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
             >
               <div
                 class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -1060,13 +1060,13 @@ exports[`SearchListControl should render a search box and list of options with a
     />
     <div>
       <div
-        class="woocommerce-search-list test-search"
+        class="poocommerce-search-list test-search"
       >
         <div
-          class="woocommerce-search-list__selected"
+          class="poocommerce-search-list__selected"
         >
           <div
-            class="woocommerce-search-list__selected-header"
+            class="poocommerce-search-list__selected-header"
           >
             <strong>
               0 items selected
@@ -1074,7 +1074,7 @@ exports[`SearchListControl should render a search box and list of options with a
           </div>
         </div>
         <div
-          class="woocommerce-search-list__search"
+          class="poocommerce-search-list__search"
         >
           <div
             class="components-base-control css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
@@ -1098,15 +1098,15 @@ exports[`SearchListControl should render a search box and list of options with a
           </div>
         </div>
         <ul
-          class="woocommerce-search-list__list"
+          class="poocommerce-search-list__list"
         >
           <li>
             <label
-              class="woocommerce-search-list__item depth-0"
+              class="poocommerce-search-list__item depth-0"
               for="search-list-item-1-1"
             >
               <div
-                class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+                class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
               >
                 <div
                   class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -1140,11 +1140,11 @@ exports[`SearchListControl should render a search box and list of options with a
           </li>
           <li>
             <label
-              class="woocommerce-search-list__item depth-0"
+              class="poocommerce-search-list__item depth-0"
               for="search-list-item-1-2"
             >
               <div
-                class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+                class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
               >
                 <div
                   class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -1178,11 +1178,11 @@ exports[`SearchListControl should render a search box and list of options with a
           </li>
           <li>
             <label
-              class="woocommerce-search-list__item depth-0"
+              class="poocommerce-search-list__item depth-0"
               for="search-list-item-1-3"
             >
               <div
-                class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+                class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
               >
                 <div
                   class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -1216,11 +1216,11 @@ exports[`SearchListControl should render a search box and list of options with a
           </li>
           <li>
             <label
-              class="woocommerce-search-list__item depth-0"
+              class="poocommerce-search-list__item depth-0"
               for="search-list-item-1-4"
             >
               <div
-                class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+                class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
               >
                 <div
                   class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -1254,11 +1254,11 @@ exports[`SearchListControl should render a search box and list of options with a
           </li>
           <li>
             <label
-              class="woocommerce-search-list__item depth-0"
+              class="poocommerce-search-list__item depth-0"
               for="search-list-item-1-5"
             >
               <div
-                class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+                class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
               >
                 <div
                   class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -1292,11 +1292,11 @@ exports[`SearchListControl should render a search box and list of options with a
           </li>
           <li>
             <label
-              class="woocommerce-search-list__item depth-0"
+              class="poocommerce-search-list__item depth-0"
               for="search-list-item-1-6"
             >
               <div
-                class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+                class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
               >
                 <div
                   class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -1334,13 +1334,13 @@ exports[`SearchListControl should render a search box and list of options with a
   </body>,
   "container": <div>
     <div
-      class="woocommerce-search-list test-search"
+      class="poocommerce-search-list test-search"
     >
       <div
-        class="woocommerce-search-list__selected"
+        class="poocommerce-search-list__selected"
       >
         <div
-          class="woocommerce-search-list__selected-header"
+          class="poocommerce-search-list__selected-header"
         >
           <strong>
             0 items selected
@@ -1348,7 +1348,7 @@ exports[`SearchListControl should render a search box and list of options with a
         </div>
       </div>
       <div
-        class="woocommerce-search-list__search"
+        class="poocommerce-search-list__search"
       >
         <div
           class="components-base-control css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
@@ -1372,15 +1372,15 @@ exports[`SearchListControl should render a search box and list of options with a
         </div>
       </div>
       <ul
-        class="woocommerce-search-list__list"
+        class="poocommerce-search-list__list"
       >
         <li>
           <label
-            class="woocommerce-search-list__item depth-0"
+            class="poocommerce-search-list__item depth-0"
             for="search-list-item-1-1"
           >
             <div
-              class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+              class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
             >
               <div
                 class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -1414,11 +1414,11 @@ exports[`SearchListControl should render a search box and list of options with a
         </li>
         <li>
           <label
-            class="woocommerce-search-list__item depth-0"
+            class="poocommerce-search-list__item depth-0"
             for="search-list-item-1-2"
           >
             <div
-              class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+              class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
             >
               <div
                 class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -1452,11 +1452,11 @@ exports[`SearchListControl should render a search box and list of options with a
         </li>
         <li>
           <label
-            class="woocommerce-search-list__item depth-0"
+            class="poocommerce-search-list__item depth-0"
             for="search-list-item-1-3"
           >
             <div
-              class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+              class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
             >
               <div
                 class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -1490,11 +1490,11 @@ exports[`SearchListControl should render a search box and list of options with a
         </li>
         <li>
           <label
-            class="woocommerce-search-list__item depth-0"
+            class="poocommerce-search-list__item depth-0"
             for="search-list-item-1-4"
           >
             <div
-              class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+              class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
             >
               <div
                 class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -1528,11 +1528,11 @@ exports[`SearchListControl should render a search box and list of options with a
         </li>
         <li>
           <label
-            class="woocommerce-search-list__item depth-0"
+            class="poocommerce-search-list__item depth-0"
             for="search-list-item-1-5"
           >
             <div
-              class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+              class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
             >
               <div
                 class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -1566,11 +1566,11 @@ exports[`SearchListControl should render a search box and list of options with a
         </li>
         <li>
           <label
-            class="woocommerce-search-list__item depth-0"
+            class="poocommerce-search-list__item depth-0"
             for="search-list-item-1-6"
           >
             <div
-              class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+              class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
             >
               <div
                 class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -1689,13 +1689,13 @@ exports[`SearchListControl should render a search box and list of options, with 
     />
     <div>
       <div
-        class="woocommerce-search-list"
+        class="poocommerce-search-list"
       >
         <div
-          class="woocommerce-search-list__selected"
+          class="poocommerce-search-list__selected"
         >
           <div
-            class="woocommerce-search-list__selected-header"
+            class="poocommerce-search-list__selected-header"
           >
             <strong>
               0 items selected
@@ -1703,7 +1703,7 @@ exports[`SearchListControl should render a search box and list of options, with 
           </div>
         </div>
         <div
-          class="woocommerce-search-list__search"
+          class="poocommerce-search-list__search"
         >
           <div
             class="components-base-control css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
@@ -1727,7 +1727,7 @@ exports[`SearchListControl should render a search box and list of options, with 
           </div>
         </div>
         <ul
-          class="woocommerce-search-list__list"
+          class="poocommerce-search-list__list"
         >
           <li>
             <div>
@@ -1771,13 +1771,13 @@ exports[`SearchListControl should render a search box and list of options, with 
   </body>,
   "container": <div>
     <div
-      class="woocommerce-search-list"
+      class="poocommerce-search-list"
     >
       <div
-        class="woocommerce-search-list__selected"
+        class="poocommerce-search-list__selected"
       >
         <div
-          class="woocommerce-search-list__selected-header"
+          class="poocommerce-search-list__selected-header"
         >
           <strong>
             0 items selected
@@ -1785,7 +1785,7 @@ exports[`SearchListControl should render a search box and list of options, with 
         </div>
       </div>
       <div
-        class="woocommerce-search-list__search"
+        class="poocommerce-search-list__search"
       >
         <div
           class="components-base-control css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
@@ -1809,7 +1809,7 @@ exports[`SearchListControl should render a search box and list of options, with 
         </div>
       </div>
       <ul
-        class="woocommerce-search-list__list"
+        class="poocommerce-search-list__list"
       >
         <li>
           <div>
@@ -1934,13 +1934,13 @@ exports[`SearchListControl should render a search box and list of options, with 
     />
     <div>
       <div
-        class="woocommerce-search-list"
+        class="poocommerce-search-list"
       >
         <div
-          class="woocommerce-search-list__selected"
+          class="poocommerce-search-list__selected"
         >
           <div
-            class="woocommerce-search-list__selected-header"
+            class="poocommerce-search-list__selected-header"
           >
             <strong>
               0 items selected
@@ -1948,7 +1948,7 @@ exports[`SearchListControl should render a search box and list of options, with 
           </div>
         </div>
         <div
-          class="woocommerce-search-list__search"
+          class="poocommerce-search-list__search"
         >
           <div
             class="components-base-control css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
@@ -1972,15 +1972,15 @@ exports[`SearchListControl should render a search box and list of options, with 
           </div>
         </div>
         <ul
-          class="woocommerce-search-list__list"
+          class="poocommerce-search-list__list"
         >
           <li>
             <label
-              class="woocommerce-search-list__item depth-0"
+              class="poocommerce-search-list__item depth-0"
               for="search-list-item-9-1"
             >
               <div
-                class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+                class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
               >
                 <div
                   class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -2014,11 +2014,11 @@ exports[`SearchListControl should render a search box and list of options, with 
           </li>
           <li>
             <label
-              class="woocommerce-search-list__item depth-0"
+              class="poocommerce-search-list__item depth-0"
               for="search-list-item-9-2"
             >
               <div
-                class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+                class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
               >
                 <div
                   class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -2052,11 +2052,11 @@ exports[`SearchListControl should render a search box and list of options, with 
           </li>
           <li>
             <label
-              class="woocommerce-search-list__item depth-0"
+              class="poocommerce-search-list__item depth-0"
               for="search-list-item-9-3"
             >
               <div
-                class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+                class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
               >
                 <div
                   class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -2090,11 +2090,11 @@ exports[`SearchListControl should render a search box and list of options, with 
           </li>
           <li>
             <label
-              class="woocommerce-search-list__item depth-0"
+              class="poocommerce-search-list__item depth-0"
               for="search-list-item-9-4"
             >
               <div
-                class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+                class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
               >
                 <div
                   class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -2128,11 +2128,11 @@ exports[`SearchListControl should render a search box and list of options, with 
           </li>
           <li>
             <label
-              class="woocommerce-search-list__item depth-0"
+              class="poocommerce-search-list__item depth-0"
               for="search-list-item-9-5"
             >
               <div
-                class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+                class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
               >
                 <div
                   class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -2166,11 +2166,11 @@ exports[`SearchListControl should render a search box and list of options, with 
           </li>
           <li>
             <label
-              class="woocommerce-search-list__item depth-0"
+              class="poocommerce-search-list__item depth-0"
               for="search-list-item-9-6"
             >
               <div
-                class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+                class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
               >
                 <div
                   class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -2208,13 +2208,13 @@ exports[`SearchListControl should render a search box and list of options, with 
   </body>,
   "container": <div>
     <div
-      class="woocommerce-search-list"
+      class="poocommerce-search-list"
     >
       <div
-        class="woocommerce-search-list__selected"
+        class="poocommerce-search-list__selected"
       >
         <div
-          class="woocommerce-search-list__selected-header"
+          class="poocommerce-search-list__selected-header"
         >
           <strong>
             0 items selected
@@ -2222,7 +2222,7 @@ exports[`SearchListControl should render a search box and list of options, with 
         </div>
       </div>
       <div
-        class="woocommerce-search-list__search"
+        class="poocommerce-search-list__search"
       >
         <div
           class="components-base-control css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
@@ -2246,15 +2246,15 @@ exports[`SearchListControl should render a search box and list of options, with 
         </div>
       </div>
       <ul
-        class="woocommerce-search-list__list"
+        class="poocommerce-search-list__list"
       >
         <li>
           <label
-            class="woocommerce-search-list__item depth-0"
+            class="poocommerce-search-list__item depth-0"
             for="search-list-item-9-1"
           >
             <div
-              class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+              class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
             >
               <div
                 class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -2288,11 +2288,11 @@ exports[`SearchListControl should render a search box and list of options, with 
         </li>
         <li>
           <label
-            class="woocommerce-search-list__item depth-0"
+            class="poocommerce-search-list__item depth-0"
             for="search-list-item-9-2"
           >
             <div
-              class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+              class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
             >
               <div
                 class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -2326,11 +2326,11 @@ exports[`SearchListControl should render a search box and list of options, with 
         </li>
         <li>
           <label
-            class="woocommerce-search-list__item depth-0"
+            class="poocommerce-search-list__item depth-0"
             for="search-list-item-9-3"
           >
             <div
-              class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+              class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
             >
               <div
                 class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -2364,11 +2364,11 @@ exports[`SearchListControl should render a search box and list of options, with 
         </li>
         <li>
           <label
-            class="woocommerce-search-list__item depth-0"
+            class="poocommerce-search-list__item depth-0"
             for="search-list-item-9-4"
           >
             <div
-              class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+              class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
             >
               <div
                 class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -2402,11 +2402,11 @@ exports[`SearchListControl should render a search box and list of options, with 
         </li>
         <li>
           <label
-            class="woocommerce-search-list__item depth-0"
+            class="poocommerce-search-list__item depth-0"
             for="search-list-item-9-5"
           >
             <div
-              class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+              class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
             >
               <div
                 class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -2440,11 +2440,11 @@ exports[`SearchListControl should render a search box and list of options, with 
         </li>
         <li>
           <label
-            class="woocommerce-search-list__item depth-0"
+            class="poocommerce-search-list__item depth-0"
             for="search-list-item-9-6"
           >
             <div
-              class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+              class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
             >
               <div
                 class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -2563,13 +2563,13 @@ exports[`SearchListControl should render a search box and no options 1`] = `
     />
     <div>
       <div
-        class="woocommerce-search-list"
+        class="poocommerce-search-list"
       >
         <div
-          class="woocommerce-search-list__selected"
+          class="poocommerce-search-list__selected"
         >
           <div
-            class="woocommerce-search-list__selected-header"
+            class="poocommerce-search-list__selected-header"
           >
             <strong>
               0 items selected
@@ -2577,7 +2577,7 @@ exports[`SearchListControl should render a search box and no options 1`] = `
           </div>
         </div>
         <div
-          class="woocommerce-search-list__search"
+          class="poocommerce-search-list__search"
         >
           <div
             class="components-base-control css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
@@ -2601,10 +2601,10 @@ exports[`SearchListControl should render a search box and no options 1`] = `
           </div>
         </div>
         <div
-          class="woocommerce-search-list__list is-not-found"
+          class="poocommerce-search-list__list is-not-found"
         >
           <span
-            class="woocommerce-search-list__not-found-icon"
+            class="poocommerce-search-list__not-found-icon"
           >
             <svg
               aria-hidden="true"
@@ -2623,7 +2623,7 @@ exports[`SearchListControl should render a search box and no options 1`] = `
             </svg>
           </span>
           <span
-            class="woocommerce-search-list__not-found-text"
+            class="poocommerce-search-list__not-found-text"
           >
             No items found.
           </span>
@@ -2633,13 +2633,13 @@ exports[`SearchListControl should render a search box and no options 1`] = `
   </body>,
   "container": <div>
     <div
-      class="woocommerce-search-list"
+      class="poocommerce-search-list"
     >
       <div
-        class="woocommerce-search-list__selected"
+        class="poocommerce-search-list__selected"
       >
         <div
-          class="woocommerce-search-list__selected-header"
+          class="poocommerce-search-list__selected-header"
         >
           <strong>
             0 items selected
@@ -2647,7 +2647,7 @@ exports[`SearchListControl should render a search box and no options 1`] = `
         </div>
       </div>
       <div
-        class="woocommerce-search-list__search"
+        class="poocommerce-search-list__search"
       >
         <div
           class="components-base-control css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
@@ -2671,10 +2671,10 @@ exports[`SearchListControl should render a search box and no options 1`] = `
         </div>
       </div>
       <div
-        class="woocommerce-search-list__list is-not-found"
+        class="poocommerce-search-list__list is-not-found"
       >
         <span
-          class="woocommerce-search-list__not-found-icon"
+          class="poocommerce-search-list__not-found-icon"
         >
           <svg
             aria-hidden="true"
@@ -2693,7 +2693,7 @@ exports[`SearchListControl should render a search box and no options 1`] = `
           </svg>
         </span>
         <span
-          class="woocommerce-search-list__not-found-text"
+          class="poocommerce-search-list__not-found-text"
         >
           No items found.
         </span>
@@ -2784,13 +2784,13 @@ exports[`SearchListControl should render a search box with a search term, and no
     />
     <div>
       <div
-        class="woocommerce-search-list"
+        class="poocommerce-search-list"
       >
         <div
-          class="woocommerce-search-list__selected"
+          class="poocommerce-search-list__selected"
         >
           <div
-            class="woocommerce-search-list__selected-header"
+            class="poocommerce-search-list__selected-header"
           >
             <strong>
               0 items selected
@@ -2798,7 +2798,7 @@ exports[`SearchListControl should render a search box with a search term, and no
           </div>
         </div>
         <div
-          class="woocommerce-search-list__search"
+          class="poocommerce-search-list__search"
         >
           <div
             class="components-base-control css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
@@ -2822,15 +2822,15 @@ exports[`SearchListControl should render a search box with a search term, and no
           </div>
         </div>
         <ul
-          class="woocommerce-search-list__list"
+          class="poocommerce-search-list__list"
         >
           <li>
             <label
-              class="woocommerce-search-list__item depth-0"
+              class="poocommerce-search-list__item depth-0"
               for="search-list-item-8-1"
             >
               <div
-                class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+                class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
               >
                 <div
                   class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -2864,11 +2864,11 @@ exports[`SearchListControl should render a search box with a search term, and no
           </li>
           <li>
             <label
-              class="woocommerce-search-list__item depth-0"
+              class="poocommerce-search-list__item depth-0"
               for="search-list-item-8-2"
             >
               <div
-                class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+                class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
               >
                 <div
                   class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -2902,11 +2902,11 @@ exports[`SearchListControl should render a search box with a search term, and no
           </li>
           <li>
             <label
-              class="woocommerce-search-list__item depth-0"
+              class="poocommerce-search-list__item depth-0"
               for="search-list-item-8-3"
             >
               <div
-                class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+                class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
               >
                 <div
                   class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -2940,11 +2940,11 @@ exports[`SearchListControl should render a search box with a search term, and no
           </li>
           <li>
             <label
-              class="woocommerce-search-list__item depth-0"
+              class="poocommerce-search-list__item depth-0"
               for="search-list-item-8-4"
             >
               <div
-                class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+                class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
               >
                 <div
                   class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -2978,11 +2978,11 @@ exports[`SearchListControl should render a search box with a search term, and no
           </li>
           <li>
             <label
-              class="woocommerce-search-list__item depth-0"
+              class="poocommerce-search-list__item depth-0"
               for="search-list-item-8-5"
             >
               <div
-                class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+                class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
               >
                 <div
                   class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -3016,11 +3016,11 @@ exports[`SearchListControl should render a search box with a search term, and no
           </li>
           <li>
             <label
-              class="woocommerce-search-list__item depth-0"
+              class="poocommerce-search-list__item depth-0"
               for="search-list-item-8-6"
             >
               <div
-                class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+                class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
               >
                 <div
                   class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -3058,13 +3058,13 @@ exports[`SearchListControl should render a search box with a search term, and no
   </body>,
   "container": <div>
     <div
-      class="woocommerce-search-list"
+      class="poocommerce-search-list"
     >
       <div
-        class="woocommerce-search-list__selected"
+        class="poocommerce-search-list__selected"
       >
         <div
-          class="woocommerce-search-list__selected-header"
+          class="poocommerce-search-list__selected-header"
         >
           <strong>
             0 items selected
@@ -3072,7 +3072,7 @@ exports[`SearchListControl should render a search box with a search term, and no
         </div>
       </div>
       <div
-        class="woocommerce-search-list__search"
+        class="poocommerce-search-list__search"
       >
         <div
           class="components-base-control css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
@@ -3096,15 +3096,15 @@ exports[`SearchListControl should render a search box with a search term, and no
         </div>
       </div>
       <ul
-        class="woocommerce-search-list__list"
+        class="poocommerce-search-list__list"
       >
         <li>
           <label
-            class="woocommerce-search-list__item depth-0"
+            class="poocommerce-search-list__item depth-0"
             for="search-list-item-8-1"
           >
             <div
-              class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+              class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
             >
               <div
                 class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -3138,11 +3138,11 @@ exports[`SearchListControl should render a search box with a search term, and no
         </li>
         <li>
           <label
-            class="woocommerce-search-list__item depth-0"
+            class="poocommerce-search-list__item depth-0"
             for="search-list-item-8-2"
           >
             <div
-              class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+              class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
             >
               <div
                 class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -3176,11 +3176,11 @@ exports[`SearchListControl should render a search box with a search term, and no
         </li>
         <li>
           <label
-            class="woocommerce-search-list__item depth-0"
+            class="poocommerce-search-list__item depth-0"
             for="search-list-item-8-3"
           >
             <div
-              class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+              class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
             >
               <div
                 class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -3214,11 +3214,11 @@ exports[`SearchListControl should render a search box with a search term, and no
         </li>
         <li>
           <label
-            class="woocommerce-search-list__item depth-0"
+            class="poocommerce-search-list__item depth-0"
             for="search-list-item-8-4"
           >
             <div
-              class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+              class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
             >
               <div
                 class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -3252,11 +3252,11 @@ exports[`SearchListControl should render a search box with a search term, and no
         </li>
         <li>
           <label
-            class="woocommerce-search-list__item depth-0"
+            class="poocommerce-search-list__item depth-0"
             for="search-list-item-8-5"
           >
             <div
-              class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+              class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
             >
               <div
                 class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -3290,11 +3290,11 @@ exports[`SearchListControl should render a search box with a search term, and no
         </li>
         <li>
           <label
-            class="woocommerce-search-list__item depth-0"
+            class="poocommerce-search-list__item depth-0"
             for="search-list-item-8-6"
           >
             <div
-              class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+              class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
             >
               <div
                 class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -3413,13 +3413,13 @@ exports[`SearchListControl should render a search box with a search term, and on
     />
     <div>
       <div
-        class="woocommerce-search-list"
+        class="poocommerce-search-list"
       >
         <div
-          class="woocommerce-search-list__selected"
+          class="poocommerce-search-list__selected"
         >
           <div
-            class="woocommerce-search-list__selected-header"
+            class="poocommerce-search-list__selected-header"
           >
             <strong>
               0 items selected
@@ -3427,7 +3427,7 @@ exports[`SearchListControl should render a search box with a search term, and on
           </div>
         </div>
         <div
-          class="woocommerce-search-list__search"
+          class="poocommerce-search-list__search"
         >
           <div
             class="components-base-control css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
@@ -3451,15 +3451,15 @@ exports[`SearchListControl should render a search box with a search term, and on
           </div>
         </div>
         <ul
-          class="woocommerce-search-list__list"
+          class="poocommerce-search-list__list"
         >
           <li>
             <label
-              class="woocommerce-search-list__item depth-0"
+              class="poocommerce-search-list__item depth-0"
               for="search-list-item-5-1"
             >
               <div
-                class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+                class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
               >
                 <div
                   class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -3493,11 +3493,11 @@ exports[`SearchListControl should render a search box with a search term, and on
           </li>
           <li>
             <label
-              class="woocommerce-search-list__item depth-0"
+              class="poocommerce-search-list__item depth-0"
               for="search-list-item-5-2"
             >
               <div
-                class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+                class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
               >
                 <div
                   class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -3531,11 +3531,11 @@ exports[`SearchListControl should render a search box with a search term, and on
           </li>
           <li>
             <label
-              class="woocommerce-search-list__item depth-0"
+              class="poocommerce-search-list__item depth-0"
               for="search-list-item-5-3"
             >
               <div
-                class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+                class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
               >
                 <div
                   class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -3569,11 +3569,11 @@ exports[`SearchListControl should render a search box with a search term, and on
           </li>
           <li>
             <label
-              class="woocommerce-search-list__item depth-0"
+              class="poocommerce-search-list__item depth-0"
               for="search-list-item-5-4"
             >
               <div
-                class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+                class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
               >
                 <div
                   class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -3607,11 +3607,11 @@ exports[`SearchListControl should render a search box with a search term, and on
           </li>
           <li>
             <label
-              class="woocommerce-search-list__item depth-0"
+              class="poocommerce-search-list__item depth-0"
               for="search-list-item-5-5"
             >
               <div
-                class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+                class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
               >
                 <div
                   class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -3645,11 +3645,11 @@ exports[`SearchListControl should render a search box with a search term, and on
           </li>
           <li>
             <label
-              class="woocommerce-search-list__item depth-0"
+              class="poocommerce-search-list__item depth-0"
               for="search-list-item-5-6"
             >
               <div
-                class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+                class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
               >
                 <div
                   class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -3687,13 +3687,13 @@ exports[`SearchListControl should render a search box with a search term, and on
   </body>,
   "container": <div>
     <div
-      class="woocommerce-search-list"
+      class="poocommerce-search-list"
     >
       <div
-        class="woocommerce-search-list__selected"
+        class="poocommerce-search-list__selected"
       >
         <div
-          class="woocommerce-search-list__selected-header"
+          class="poocommerce-search-list__selected-header"
         >
           <strong>
             0 items selected
@@ -3701,7 +3701,7 @@ exports[`SearchListControl should render a search box with a search term, and on
         </div>
       </div>
       <div
-        class="woocommerce-search-list__search"
+        class="poocommerce-search-list__search"
       >
         <div
           class="components-base-control css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
@@ -3725,15 +3725,15 @@ exports[`SearchListControl should render a search box with a search term, and on
         </div>
       </div>
       <ul
-        class="woocommerce-search-list__list"
+        class="poocommerce-search-list__list"
       >
         <li>
           <label
-            class="woocommerce-search-list__item depth-0"
+            class="poocommerce-search-list__item depth-0"
             for="search-list-item-5-1"
           >
             <div
-              class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+              class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
             >
               <div
                 class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -3767,11 +3767,11 @@ exports[`SearchListControl should render a search box with a search term, and on
         </li>
         <li>
           <label
-            class="woocommerce-search-list__item depth-0"
+            class="poocommerce-search-list__item depth-0"
             for="search-list-item-5-2"
           >
             <div
-              class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+              class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
             >
               <div
                 class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -3805,11 +3805,11 @@ exports[`SearchListControl should render a search box with a search term, and on
         </li>
         <li>
           <label
-            class="woocommerce-search-list__item depth-0"
+            class="poocommerce-search-list__item depth-0"
             for="search-list-item-5-3"
           >
             <div
-              class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+              class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
             >
               <div
                 class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -3843,11 +3843,11 @@ exports[`SearchListControl should render a search box with a search term, and on
         </li>
         <li>
           <label
-            class="woocommerce-search-list__item depth-0"
+            class="poocommerce-search-list__item depth-0"
             for="search-list-item-5-4"
           >
             <div
-              class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+              class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
             >
               <div
                 class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -3881,11 +3881,11 @@ exports[`SearchListControl should render a search box with a search term, and on
         </li>
         <li>
           <label
-            class="woocommerce-search-list__item depth-0"
+            class="poocommerce-search-list__item depth-0"
             for="search-list-item-5-5"
           >
             <div
-              class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+              class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
             >
               <div
                 class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -3919,11 +3919,11 @@ exports[`SearchListControl should render a search box with a search term, and on
         </li>
         <li>
           <label
-            class="woocommerce-search-list__item depth-0"
+            class="poocommerce-search-list__item depth-0"
             for="search-list-item-5-6"
           >
             <div
-              class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+              class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
             >
               <div
                 class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -4042,13 +4042,13 @@ exports[`SearchListControl should render a search box with a search term, and on
     />
     <div>
       <div
-        class="woocommerce-search-list"
+        class="poocommerce-search-list"
       >
         <div
-          class="woocommerce-search-list__selected"
+          class="poocommerce-search-list__selected"
         >
           <div
-            class="woocommerce-search-list__selected-header"
+            class="poocommerce-search-list__selected-header"
           >
             <strong>
               0 items selected
@@ -4056,7 +4056,7 @@ exports[`SearchListControl should render a search box with a search term, and on
           </div>
         </div>
         <div
-          class="woocommerce-search-list__search"
+          class="poocommerce-search-list__search"
         >
           <div
             class="components-base-control css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
@@ -4080,15 +4080,15 @@ exports[`SearchListControl should render a search box with a search term, and on
           </div>
         </div>
         <ul
-          class="woocommerce-search-list__list"
+          class="poocommerce-search-list__list"
         >
           <li>
             <label
-              class="woocommerce-search-list__item depth-0"
+              class="poocommerce-search-list__item depth-0"
               for="search-list-item-6-3"
             >
               <div
-                class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+                class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
               >
                 <div
                   class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -4125,11 +4125,11 @@ exports[`SearchListControl should render a search box with a search term, and on
           </li>
           <li>
             <label
-              class="woocommerce-search-list__item depth-0"
+              class="poocommerce-search-list__item depth-0"
               for="search-list-item-6-6"
             >
               <div
-                class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+                class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
               >
                 <div
                   class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -4170,13 +4170,13 @@ exports[`SearchListControl should render a search box with a search term, and on
   </body>,
   "container": <div>
     <div
-      class="woocommerce-search-list"
+      class="poocommerce-search-list"
     >
       <div
-        class="woocommerce-search-list__selected"
+        class="poocommerce-search-list__selected"
       >
         <div
-          class="woocommerce-search-list__selected-header"
+          class="poocommerce-search-list__selected-header"
         >
           <strong>
             0 items selected
@@ -4184,7 +4184,7 @@ exports[`SearchListControl should render a search box with a search term, and on
         </div>
       </div>
       <div
-        class="woocommerce-search-list__search"
+        class="poocommerce-search-list__search"
       >
         <div
           class="components-base-control css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
@@ -4208,15 +4208,15 @@ exports[`SearchListControl should render a search box with a search term, and on
         </div>
       </div>
       <ul
-        class="woocommerce-search-list__list"
+        class="poocommerce-search-list__list"
       >
         <li>
           <label
-            class="woocommerce-search-list__item depth-0"
+            class="poocommerce-search-list__item depth-0"
             for="search-list-item-6-3"
           >
             <div
-              class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+              class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
             >
               <div
                 class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -4253,11 +4253,11 @@ exports[`SearchListControl should render a search box with a search term, and on
         </li>
         <li>
           <label
-            class="woocommerce-search-list__item depth-0"
+            class="poocommerce-search-list__item depth-0"
             for="search-list-item-6-6"
           >
             <div
-              class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+              class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
             >
               <div
                 class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -4379,13 +4379,13 @@ exports[`SearchListControl should render a search box, a list of options, and 1 
     />
     <div>
       <div
-        class="woocommerce-search-list"
+        class="poocommerce-search-list"
       >
         <div
-          class="woocommerce-search-list__selected"
+          class="poocommerce-search-list__selected"
         >
           <div
-            class="woocommerce-search-list__selected-header"
+            class="poocommerce-search-list__selected-header"
           >
             <strong>
               1 item selected
@@ -4401,11 +4401,11 @@ exports[`SearchListControl should render a search box, a list of options, and 1 
           <ul>
             <li>
               <span
-                class="woocommerce-tag has-remove"
+                class="poocommerce-tag has-remove"
               >
                 <span
-                  class="woocommerce-tag__text"
-                  id="woocommerce-tag__label-0"
+                  class="poocommerce-tag__text"
+                  id="poocommerce-tag__label-0"
                 >
                   <span
                     class="screen-reader-text"
@@ -4419,9 +4419,9 @@ exports[`SearchListControl should render a search box, a list of options, and 1 
                   </span>
                 </span>
                 <button
-                  aria-describedby="woocommerce-tag__label-0"
+                  aria-describedby="poocommerce-tag__label-0"
                   aria-label="Remove Clementine"
-                  class="components-button woocommerce-tag__remove"
+                  class="components-button poocommerce-tag__remove"
                   type="button"
                 >
                   <svg
@@ -4444,7 +4444,7 @@ exports[`SearchListControl should render a search box, a list of options, and 1 
           </ul>
         </div>
         <div
-          class="woocommerce-search-list__search"
+          class="poocommerce-search-list__search"
         >
           <div
             class="components-base-control css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
@@ -4468,15 +4468,15 @@ exports[`SearchListControl should render a search box, a list of options, and 1 
           </div>
         </div>
         <ul
-          class="woocommerce-search-list__list"
+          class="poocommerce-search-list__list"
         >
           <li>
             <label
-              class="woocommerce-search-list__item depth-0"
+              class="poocommerce-search-list__item depth-0"
               for="search-list-item-2-1"
             >
               <div
-                class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+                class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
               >
                 <div
                   class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -4510,11 +4510,11 @@ exports[`SearchListControl should render a search box, a list of options, and 1 
           </li>
           <li>
             <label
-              class="woocommerce-search-list__item depth-0"
+              class="poocommerce-search-list__item depth-0"
               for="search-list-item-2-2"
             >
               <div
-                class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+                class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
               >
                 <div
                   class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -4563,11 +4563,11 @@ exports[`SearchListControl should render a search box, a list of options, and 1 
           </li>
           <li>
             <label
-              class="woocommerce-search-list__item depth-0"
+              class="poocommerce-search-list__item depth-0"
               for="search-list-item-2-3"
             >
               <div
-                class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+                class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
               >
                 <div
                   class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -4601,11 +4601,11 @@ exports[`SearchListControl should render a search box, a list of options, and 1 
           </li>
           <li>
             <label
-              class="woocommerce-search-list__item depth-0"
+              class="poocommerce-search-list__item depth-0"
               for="search-list-item-2-4"
             >
               <div
-                class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+                class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
               >
                 <div
                   class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -4639,11 +4639,11 @@ exports[`SearchListControl should render a search box, a list of options, and 1 
           </li>
           <li>
             <label
-              class="woocommerce-search-list__item depth-0"
+              class="poocommerce-search-list__item depth-0"
               for="search-list-item-2-5"
             >
               <div
-                class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+                class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
               >
                 <div
                   class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -4677,11 +4677,11 @@ exports[`SearchListControl should render a search box, a list of options, and 1 
           </li>
           <li>
             <label
-              class="woocommerce-search-list__item depth-0"
+              class="poocommerce-search-list__item depth-0"
               for="search-list-item-2-6"
             >
               <div
-                class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+                class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
               >
                 <div
                   class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -4719,13 +4719,13 @@ exports[`SearchListControl should render a search box, a list of options, and 1 
   </body>,
   "container": <div>
     <div
-      class="woocommerce-search-list"
+      class="poocommerce-search-list"
     >
       <div
-        class="woocommerce-search-list__selected"
+        class="poocommerce-search-list__selected"
       >
         <div
-          class="woocommerce-search-list__selected-header"
+          class="poocommerce-search-list__selected-header"
         >
           <strong>
             1 item selected
@@ -4741,11 +4741,11 @@ exports[`SearchListControl should render a search box, a list of options, and 1 
         <ul>
           <li>
             <span
-              class="woocommerce-tag has-remove"
+              class="poocommerce-tag has-remove"
             >
               <span
-                class="woocommerce-tag__text"
-                id="woocommerce-tag__label-0"
+                class="poocommerce-tag__text"
+                id="poocommerce-tag__label-0"
               >
                 <span
                   class="screen-reader-text"
@@ -4759,9 +4759,9 @@ exports[`SearchListControl should render a search box, a list of options, and 1 
                 </span>
               </span>
               <button
-                aria-describedby="woocommerce-tag__label-0"
+                aria-describedby="poocommerce-tag__label-0"
                 aria-label="Remove Clementine"
-                class="components-button woocommerce-tag__remove"
+                class="components-button poocommerce-tag__remove"
                 type="button"
               >
                 <svg
@@ -4784,7 +4784,7 @@ exports[`SearchListControl should render a search box, a list of options, and 1 
         </ul>
       </div>
       <div
-        class="woocommerce-search-list__search"
+        class="poocommerce-search-list__search"
       >
         <div
           class="components-base-control css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
@@ -4808,15 +4808,15 @@ exports[`SearchListControl should render a search box, a list of options, and 1 
         </div>
       </div>
       <ul
-        class="woocommerce-search-list__list"
+        class="poocommerce-search-list__list"
       >
         <li>
           <label
-            class="woocommerce-search-list__item depth-0"
+            class="poocommerce-search-list__item depth-0"
             for="search-list-item-2-1"
           >
             <div
-              class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+              class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
             >
               <div
                 class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -4850,11 +4850,11 @@ exports[`SearchListControl should render a search box, a list of options, and 1 
         </li>
         <li>
           <label
-            class="woocommerce-search-list__item depth-0"
+            class="poocommerce-search-list__item depth-0"
             for="search-list-item-2-2"
           >
             <div
-              class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+              class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
             >
               <div
                 class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -4903,11 +4903,11 @@ exports[`SearchListControl should render a search box, a list of options, and 1 
         </li>
         <li>
           <label
-            class="woocommerce-search-list__item depth-0"
+            class="poocommerce-search-list__item depth-0"
             for="search-list-item-2-3"
           >
             <div
-              class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+              class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
             >
               <div
                 class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -4941,11 +4941,11 @@ exports[`SearchListControl should render a search box, a list of options, and 1 
         </li>
         <li>
           <label
-            class="woocommerce-search-list__item depth-0"
+            class="poocommerce-search-list__item depth-0"
             for="search-list-item-2-4"
           >
             <div
-              class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+              class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
             >
               <div
                 class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -4979,11 +4979,11 @@ exports[`SearchListControl should render a search box, a list of options, and 1 
         </li>
         <li>
           <label
-            class="woocommerce-search-list__item depth-0"
+            class="poocommerce-search-list__item depth-0"
             for="search-list-item-2-5"
           >
             <div
-              class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+              class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
             >
               <div
                 class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -5017,11 +5017,11 @@ exports[`SearchListControl should render a search box, a list of options, and 1 
         </li>
         <li>
           <label
-            class="woocommerce-search-list__item depth-0"
+            class="poocommerce-search-list__item depth-0"
             for="search-list-item-2-6"
           >
             <div
-              class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+              class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
             >
               <div
                 class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -5140,13 +5140,13 @@ exports[`SearchListControl should render a search box, a list of options, and 2 
     />
     <div>
       <div
-        class="woocommerce-search-list"
+        class="poocommerce-search-list"
       >
         <div
-          class="woocommerce-search-list__selected"
+          class="poocommerce-search-list__selected"
         >
           <div
-            class="woocommerce-search-list__selected-header"
+            class="poocommerce-search-list__selected-header"
           >
             <strong>
               2 items selected
@@ -5162,11 +5162,11 @@ exports[`SearchListControl should render a search box, a list of options, and 2 
           <ul>
             <li>
               <span
-                class="woocommerce-tag has-remove"
+                class="poocommerce-tag has-remove"
               >
                 <span
-                  class="woocommerce-tag__text"
-                  id="woocommerce-tag__label-1"
+                  class="poocommerce-tag__text"
+                  id="poocommerce-tag__label-1"
                 >
                   <span
                     class="screen-reader-text"
@@ -5180,9 +5180,9 @@ exports[`SearchListControl should render a search box, a list of options, and 2 
                   </span>
                 </span>
                 <button
-                  aria-describedby="woocommerce-tag__label-1"
+                  aria-describedby="poocommerce-tag__label-1"
                   aria-label="Remove Clementine"
-                  class="components-button woocommerce-tag__remove"
+                  class="components-button poocommerce-tag__remove"
                   type="button"
                 >
                   <svg
@@ -5204,11 +5204,11 @@ exports[`SearchListControl should render a search box, a list of options, and 2 
             </li>
             <li>
               <span
-                class="woocommerce-tag has-remove"
+                class="poocommerce-tag has-remove"
               >
                 <span
-                  class="woocommerce-tag__text"
-                  id="woocommerce-tag__label-2"
+                  class="poocommerce-tag__text"
+                  id="poocommerce-tag__label-2"
                 >
                   <span
                     class="screen-reader-text"
@@ -5222,9 +5222,9 @@ exports[`SearchListControl should render a search box, a list of options, and 2 
                   </span>
                 </span>
                 <button
-                  aria-describedby="woocommerce-tag__label-2"
+                  aria-describedby="poocommerce-tag__label-2"
                   aria-label="Remove Guava"
-                  class="components-button woocommerce-tag__remove"
+                  class="components-button poocommerce-tag__remove"
                   type="button"
                 >
                   <svg
@@ -5247,7 +5247,7 @@ exports[`SearchListControl should render a search box, a list of options, and 2 
           </ul>
         </div>
         <div
-          class="woocommerce-search-list__search"
+          class="poocommerce-search-list__search"
         >
           <div
             class="components-base-control css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
@@ -5271,15 +5271,15 @@ exports[`SearchListControl should render a search box, a list of options, and 2 
           </div>
         </div>
         <ul
-          class="woocommerce-search-list__list"
+          class="poocommerce-search-list__list"
         >
           <li>
             <label
-              class="woocommerce-search-list__item depth-0"
+              class="poocommerce-search-list__item depth-0"
               for="search-list-item-3-1"
             >
               <div
-                class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+                class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
               >
                 <div
                   class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -5313,11 +5313,11 @@ exports[`SearchListControl should render a search box, a list of options, and 2 
           </li>
           <li>
             <label
-              class="woocommerce-search-list__item depth-0"
+              class="poocommerce-search-list__item depth-0"
               for="search-list-item-3-2"
             >
               <div
-                class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+                class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
               >
                 <div
                   class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -5366,11 +5366,11 @@ exports[`SearchListControl should render a search box, a list of options, and 2 
           </li>
           <li>
             <label
-              class="woocommerce-search-list__item depth-0"
+              class="poocommerce-search-list__item depth-0"
               for="search-list-item-3-3"
             >
               <div
-                class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+                class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
               >
                 <div
                   class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -5404,11 +5404,11 @@ exports[`SearchListControl should render a search box, a list of options, and 2 
           </li>
           <li>
             <label
-              class="woocommerce-search-list__item depth-0"
+              class="poocommerce-search-list__item depth-0"
               for="search-list-item-3-4"
             >
               <div
-                class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+                class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
               >
                 <div
                   class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -5457,11 +5457,11 @@ exports[`SearchListControl should render a search box, a list of options, and 2 
           </li>
           <li>
             <label
-              class="woocommerce-search-list__item depth-0"
+              class="poocommerce-search-list__item depth-0"
               for="search-list-item-3-5"
             >
               <div
-                class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+                class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
               >
                 <div
                   class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -5495,11 +5495,11 @@ exports[`SearchListControl should render a search box, a list of options, and 2 
           </li>
           <li>
             <label
-              class="woocommerce-search-list__item depth-0"
+              class="poocommerce-search-list__item depth-0"
               for="search-list-item-3-6"
             >
               <div
-                class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+                class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
               >
                 <div
                   class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -5537,13 +5537,13 @@ exports[`SearchListControl should render a search box, a list of options, and 2 
   </body>,
   "container": <div>
     <div
-      class="woocommerce-search-list"
+      class="poocommerce-search-list"
     >
       <div
-        class="woocommerce-search-list__selected"
+        class="poocommerce-search-list__selected"
       >
         <div
-          class="woocommerce-search-list__selected-header"
+          class="poocommerce-search-list__selected-header"
         >
           <strong>
             2 items selected
@@ -5559,11 +5559,11 @@ exports[`SearchListControl should render a search box, a list of options, and 2 
         <ul>
           <li>
             <span
-              class="woocommerce-tag has-remove"
+              class="poocommerce-tag has-remove"
             >
               <span
-                class="woocommerce-tag__text"
-                id="woocommerce-tag__label-1"
+                class="poocommerce-tag__text"
+                id="poocommerce-tag__label-1"
               >
                 <span
                   class="screen-reader-text"
@@ -5577,9 +5577,9 @@ exports[`SearchListControl should render a search box, a list of options, and 2 
                 </span>
               </span>
               <button
-                aria-describedby="woocommerce-tag__label-1"
+                aria-describedby="poocommerce-tag__label-1"
                 aria-label="Remove Clementine"
-                class="components-button woocommerce-tag__remove"
+                class="components-button poocommerce-tag__remove"
                 type="button"
               >
                 <svg
@@ -5601,11 +5601,11 @@ exports[`SearchListControl should render a search box, a list of options, and 2 
           </li>
           <li>
             <span
-              class="woocommerce-tag has-remove"
+              class="poocommerce-tag has-remove"
             >
               <span
-                class="woocommerce-tag__text"
-                id="woocommerce-tag__label-2"
+                class="poocommerce-tag__text"
+                id="poocommerce-tag__label-2"
               >
                 <span
                   class="screen-reader-text"
@@ -5619,9 +5619,9 @@ exports[`SearchListControl should render a search box, a list of options, and 2 
                 </span>
               </span>
               <button
-                aria-describedby="woocommerce-tag__label-2"
+                aria-describedby="poocommerce-tag__label-2"
                 aria-label="Remove Guava"
-                class="components-button woocommerce-tag__remove"
+                class="components-button poocommerce-tag__remove"
                 type="button"
               >
                 <svg
@@ -5644,7 +5644,7 @@ exports[`SearchListControl should render a search box, a list of options, and 2 
         </ul>
       </div>
       <div
-        class="woocommerce-search-list__search"
+        class="poocommerce-search-list__search"
       >
         <div
           class="components-base-control css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
@@ -5668,15 +5668,15 @@ exports[`SearchListControl should render a search box, a list of options, and 2 
         </div>
       </div>
       <ul
-        class="woocommerce-search-list__list"
+        class="poocommerce-search-list__list"
       >
         <li>
           <label
-            class="woocommerce-search-list__item depth-0"
+            class="poocommerce-search-list__item depth-0"
             for="search-list-item-3-1"
           >
             <div
-              class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+              class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
             >
               <div
                 class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -5710,11 +5710,11 @@ exports[`SearchListControl should render a search box, a list of options, and 2 
         </li>
         <li>
           <label
-            class="woocommerce-search-list__item depth-0"
+            class="poocommerce-search-list__item depth-0"
             for="search-list-item-3-2"
           >
             <div
-              class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+              class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
             >
               <div
                 class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -5763,11 +5763,11 @@ exports[`SearchListControl should render a search box, a list of options, and 2 
         </li>
         <li>
           <label
-            class="woocommerce-search-list__item depth-0"
+            class="poocommerce-search-list__item depth-0"
             for="search-list-item-3-3"
           >
             <div
-              class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+              class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
             >
               <div
                 class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -5801,11 +5801,11 @@ exports[`SearchListControl should render a search box, a list of options, and 2 
         </li>
         <li>
           <label
-            class="woocommerce-search-list__item depth-0"
+            class="poocommerce-search-list__item depth-0"
             for="search-list-item-3-4"
           >
             <div
-              class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+              class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
             >
               <div
                 class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -5854,11 +5854,11 @@ exports[`SearchListControl should render a search box, a list of options, and 2 
         </li>
         <li>
           <label
-            class="woocommerce-search-list__item depth-0"
+            class="poocommerce-search-list__item depth-0"
             for="search-list-item-3-5"
           >
             <div
-              class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+              class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
             >
               <div
                 class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"
@@ -5892,11 +5892,11 @@ exports[`SearchListControl should render a search box, a list of options, and 2 
         </li>
         <li>
           <label
-            class="woocommerce-search-list__item depth-0"
+            class="poocommerce-search-list__item depth-0"
             for="search-list-item-3-6"
           >
             <div
-              class="components-base-control components-checkbox-control woocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
+              class="components-base-control components-checkbox-control poocommerce-search-list__item-input css-1ymh5rp-Wrapper-boxSizingReset ej5x27r4"
             >
               <div
                 class="components-base-control__field css-1s74ogk-StyledField-deprecatedMarginField ej5x27r3"

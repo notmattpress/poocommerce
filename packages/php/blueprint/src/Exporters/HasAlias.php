@@ -1,6 +1,6 @@
 <?php
 
-namespace Automattic\WooCommerce\Blueprint\Exporters;
+namespace Automattic\PooCommerce\Blueprint\Exporters;
 
 /**
  * Allows a step to have an alias.
@@ -9,15 +9,15 @@ namespace Automattic\WooCommerce\Blueprint\Exporters;
  *
  * Let's say you have three exporters and all of them use `setSiteOptions` step.
  *
- * Step A: Exports options from WooCommerce -> Settings
+ * Step A: Exports options from PooCommerce -> Settings
  * Step B: Exports options for the core profiler selection.
  * Step C: Exports options for the task list.
  *
  * You also have a UI where a client can select which steps to export. In this case, we have three checkboxes.
  *
- * [ ] WooCommerce Settings
- * [ ] WooCommerce Core Profiler
- * [ ] WooCommerce Task List
+ * [ ] PooCommerce Settings
+ * [ ] PooCommerce Core Profiler
+ * [ ] PooCommerce Task List
  *
  * Without alias, the client would see three `setSiteOptions` steps and it's not possible
  * to distinguish between them from the ExportSchema class.

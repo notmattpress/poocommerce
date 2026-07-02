@@ -25,8 +25,8 @@ ruleTester.run( 'dependency-group', rule, {
 import { get } from 'lodash';
 import classnames from 'classnames';
 import { Component } from '@wordpress/element';
-import { SearchListControl } from '@woocommerce/components';
-import { withProductVariations } from '@woocommerce/block-hocs';
+import { SearchListControl } from '@poocommerce/components';
+import { withProductVariations } from '@poocommerce/block-hocs';
 /**
  * Internal dependencies
  */
@@ -42,14 +42,14 @@ import './style.scss';`,
  */
 import { get } from 'lodash';
 import './style.scss';
-import { withProductVariations } from '@woocommerce/block-hocs';
+import { withProductVariations } from '@poocommerce/block-hocs';
 /**
  * Internal dependencies
  */
 import edit from './edit';
 import classnames from 'classnames';
 import { Component } from '@wordpress/element';
-import { SearchListControl } from '@woocommerce/components';`,
+import { SearchListControl } from '@poocommerce/components';`,
 			errors: [
 				{
 					message:

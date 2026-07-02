@@ -12,7 +12,7 @@ import type { ProductEntityRecord } from '../types';
 
 const fieldDefinition = {
 	type: 'boolean',
-	label: __( 'Featured product', 'woocommerce' ),
+	label: __( 'Featured product', 'poocommerce' ),
 	enableSorting: false,
 	enableHiding: false,
 	filterBy: false,

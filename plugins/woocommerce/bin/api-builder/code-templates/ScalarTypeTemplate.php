@@ -22,7 +22,7 @@ declare(strict_types=1);
 namespace <?php echo $namespace; ?>;
 
 use <?php echo $scalar_fqcn; ?> as <?php echo $scalar_alias; ?>;
-use Automattic\WooCommerce\Api\Infrastructure\Schema\CustomScalarType;
+use Automattic\PooCommerce\Api\Infrastructure\Schema\CustomScalarType;
 
 class <?php echo $class_name; ?> {
 	private static ?CustomScalarType $instance = null;
@@ -33,7 +33,7 @@ class <?php echo $class_name; ?> {
 				array(
 					'name'         => '<?php echo $graphql_name; ?>',
 <?php if ( $description !== '' ) : ?>
-					'description'  => __( '<?php echo $escaped_description; ?>', 'woocommerce' ),
+					'description'  => __( '<?php echo $escaped_description; ?>', 'poocommerce' ),
 <?php endif; ?>
 <?php if ( ! empty( $metadata ) ) : ?>
 					'metadata'     => array(
@@ -47,18 +47,18 @@ class <?php echo $class_name; ?> {
 						try {
 							return <?php echo $scalar_alias; ?>::parse( $value );
 						} catch ( \InvalidArgumentException $e ) {
-							throw new \Automattic\WooCommerce\Api\Infrastructure\Schema\Error( $e->getMessage() );
+							throw new \Automattic\PooCommerce\Api\Infrastructure\Schema\Error( $e->getMessage() );
 						}
 					},
 					'parseLiteral' => function ( $value_node, ?array $variables = null ) {
-						if ( $value_node instanceof \Automattic\WooCommerce\Api\Infrastructure\Schema\AST\StringValueNode ) {
+						if ( $value_node instanceof \Automattic\PooCommerce\Api\Infrastructure\Schema\AST\StringValueNode ) {
 							try {
 								return <?php echo $scalar_alias; ?>::parse( $value_node->value );
 							} catch ( \InvalidArgumentException $e ) {
-								throw new \Automattic\WooCommerce\Api\Infrastructure\Schema\Error( $e->getMessage() );
+								throw new \Automattic\PooCommerce\Api\Infrastructure\Schema\Error( $e->getMessage() );
 							}
 						}
-						throw new \Automattic\WooCommerce\Api\Infrastructure\Schema\Error(
+						throw new \Automattic\PooCommerce\Api\Infrastructure\Schema\Error(
 							'<?php echo $graphql_name; ?> must be a string, got: ' . $value_node->kind
 						);
 					},

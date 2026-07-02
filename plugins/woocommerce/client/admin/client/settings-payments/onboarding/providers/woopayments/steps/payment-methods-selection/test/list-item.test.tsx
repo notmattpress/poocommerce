@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { render, screen } from '@testing-library/react';
-import { type RecommendedPaymentMethod } from '@woocommerce/data';
+import { type RecommendedPaymentMethod } from '@poocommerce/data';
 
 const mockSpeak = jest.fn();
 jest.mock( '@wordpress/a11y', () => ( {

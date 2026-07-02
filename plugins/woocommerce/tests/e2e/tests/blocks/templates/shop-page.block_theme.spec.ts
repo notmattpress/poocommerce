@@ -2,7 +2,7 @@
  * External dependencies
  */
 import type { Page } from '@playwright/test';
-import { test, expect, RequestUtils } from '@woocommerce/e2e-utils';
+import { test, expect, RequestUtils } from '@poocommerce/e2e-utils';
 
 const getShopPageId = async ( requestUtils: RequestUtils ) => {
 	const pages = await requestUtils.rest( {

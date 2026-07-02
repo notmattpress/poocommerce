@@ -2,12 +2,12 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\StockNotifications\Frontend;
+namespace Automattic\PooCommerce\Internal\StockNotifications\Frontend;
 
-use Automattic\WooCommerce\Internal\StockNotifications\Emails\EmailManager;
-use Automattic\WooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
-use Automattic\WooCommerce\Internal\StockNotifications\Factory;
-use Automattic\WooCommerce\Internal\StockNotifications\Notification;
+use Automattic\PooCommerce\Internal\StockNotifications\Emails\EmailManager;
+use Automattic\PooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
+use Automattic\PooCommerce\Internal\StockNotifications\Factory;
+use Automattic\PooCommerce\Internal\StockNotifications\Notification;
 
 /**
  * Notification management service.
@@ -120,14 +120,14 @@ class NotificationManagementService {
 		}
 
 		if ( NotificationStatus::PENDING !== $notification->get_status() ) {
-			wc_add_notice( esc_html__( 'This notification is already verified or cancelled.', 'woocommerce' ), 'error' );
+			wc_add_notice( esc_html__( 'This notification is already verified or cancelled.', 'poocommerce' ), 'error' );
 			wp_safe_redirect( $redirect_url );
 			exit;
 		}
 
 		$last_sent_at = (int) $notification->get_meta( self::LAST_VERIFY_EMAIL_SENT_META );
 		if ( $last_sent_at > 0 && ( time() - $last_sent_at ) < self::RESEND_RATE_LIMIT_SECONDS ) {
-			wc_add_notice( esc_html__( 'Please wait a moment before requesting another verification email.', 'woocommerce' ), 'notice' );
+			wc_add_notice( esc_html__( 'Please wait a moment before requesting another verification email.', 'poocommerce' ), 'notice' );
 			wp_safe_redirect( $redirect_url );
 			exit;
 		}
@@ -140,7 +140,7 @@ class NotificationManagementService {
 		$this->email_manager->send_verify_email( $notification );
 
 		/* translators: %s user email. */
-		wc_add_notice( sprintf( esc_html__( 'Verification email sent to %s.', 'woocommerce' ), $notification->get_user_email() ), 'success' );
+		wc_add_notice( sprintf( esc_html__( 'Verification email sent to %s.', 'poocommerce' ), $notification->get_user_email() ), 'success' );
 		wp_safe_redirect( $redirect_url );
 		exit;
 	}

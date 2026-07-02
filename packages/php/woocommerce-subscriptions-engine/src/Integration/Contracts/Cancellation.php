@@ -7,19 +7,19 @@
  * pending renewal, and announce it. Lives under `Integration\Contracts` so contract
  * lifecycle stays separate from the renewal money-path.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine\Integration\Contracts
+ * @package Automattic\PooCommerce\SubscriptionsEngine\Integration\Contracts
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Integration\Contracts;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Integration\Contracts;
 
 use RuntimeException;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\Contract;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\ContractStatus;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\CycleStatus;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Renewal\RenewalScheduler;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage\ContractRepository;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\Contract;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\ContractStatus;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\CycleStatus;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Renewal\RenewalScheduler;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage\ContractRepository;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -31,7 +31,7 @@ final class Cancellation {
 	/**
 	 * Action fired after a contract is cancelled, with `( $contract )`.
 	 */
-	public const CONTRACT_CANCELLED_ACTION = 'woocommerce_subscriptions_engine_contract_cancelled';
+	public const CONTRACT_CANCELLED_ACTION = 'poocommerce_subscriptions_engine_contract_cancelled';
 
 	/**
 	 * Contract repository.

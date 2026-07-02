@@ -47,6 +47,6 @@ export const ImageGalleryWrapper = ( {
 		);
 	}
 	return (
-		<div className="woocommerce-image-gallery__wrapper">{ children }</div>
+		<div className="poocommerce-image-gallery__wrapper">{ children }</div>
 	);
 };

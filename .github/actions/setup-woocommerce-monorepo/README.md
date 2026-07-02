@@ -1,4 +1,4 @@
-# GitHub Action: Setup WooCommerce Monorepo
+# GitHub Action: Setup PooCommerce Monorepo
 
 This action will prime the plugins, packages, and tools in the monorepo for other workflows. This includes support for installing dependencies, building projects, and caching the output of both.
 

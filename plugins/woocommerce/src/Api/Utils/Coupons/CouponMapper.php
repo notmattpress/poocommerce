@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Api\Utils\Coupons;
+namespace Automattic\PooCommerce\Api\Utils\Coupons;
 
-use Automattic\WooCommerce\Api\Enums\Coupons\CouponStatus;
-use Automattic\WooCommerce\Api\Enums\Coupons\DiscountType;
-use Automattic\WooCommerce\Api\Types\Coupons\Coupon;
+use Automattic\PooCommerce\Api\Enums\Coupons\CouponStatus;
+use Automattic\PooCommerce\Api\Enums\Coupons\DiscountType;
+use Automattic\PooCommerce\Api\Types\Coupons\Coupon;
 
 /**
  * Maps a WC_Coupon to the Coupon DTO.
@@ -15,7 +15,7 @@ class CouponMapper {
 	/**
 	 * Map a WC_Coupon to the Coupon DTO.
 	 *
-	 * @param \WC_Coupon $wc_coupon The WooCommerce coupon object.
+	 * @param \WC_Coupon $wc_coupon The PooCommerce coupon object.
 	 * @return Coupon
 	 */
 	public static function from_wc_coupon( \WC_Coupon $wc_coupon ): Coupon {

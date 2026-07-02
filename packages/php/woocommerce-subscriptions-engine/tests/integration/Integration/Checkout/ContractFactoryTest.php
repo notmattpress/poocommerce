@@ -2,31 +2,31 @@
 /**
  * Integration tests for ContractFactory.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine
+ * @package Automattic\PooCommerce\SubscriptionsEngine
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Tests\Integration\Integration\Checkout;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Tests\Integration\Integration\Checkout;
 
 use EngineIntegrationTestCase;
 use WC_Order;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\Contract;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\ContractStatus;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\Cycle;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\CycleStatus;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\Plan;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\PlanGroup;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\ValueObject\BillingPolicy;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Checkout\ContractFactory;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Checkout\OrderLinkage;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage\ContractRepository;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage\PlanGroupRepository;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage\PlanRepository;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\Contract;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\ContractStatus;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\Cycle;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\CycleStatus;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\Plan;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\PlanGroup;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\ValueObject\BillingPolicy;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Checkout\ContractFactory;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Checkout\OrderLinkage;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage\ContractRepository;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage\PlanGroupRepository;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage\PlanRepository;
 
 /**
- * @covers \Automattic\WooCommerce\SubscriptionsEngine\Integration\Checkout\ContractFactory
- * @covers \Automattic\WooCommerce\SubscriptionsEngine\Integration\Checkout\OrderLinkage
+ * @covers \Automattic\PooCommerce\SubscriptionsEngine\Integration\Checkout\ContractFactory
+ * @covers \Automattic\PooCommerce\SubscriptionsEngine\Integration\Checkout\OrderLinkage
  */
 class ContractFactoryTest extends EngineIntegrationTestCase {
 
@@ -56,7 +56,7 @@ class ContractFactoryTest extends EngineIntegrationTestCase {
 	private function make_order(): WC_Order {
 		$order = new WC_Order();
 		$order->set_currency( 'USD' );
-		$order->set_payment_method( 'woocommerce_payments' );
+		$order->set_payment_method( 'poocommerce_payments' );
 		$order->set_payment_method_title( 'Credit card' );
 		$order->set_total( '19.99' );
 		$order->set_address(
@@ -88,7 +88,7 @@ class ContractFactoryTest extends EngineIntegrationTestCase {
 		$this->assertSame( $plan->get_id(), $contract->get_selling_plan_id() );
 		$this->assertSame( $order->get_id(), $contract->get_origin_order_id() );
 		$this->assertSame( 'lite', $contract->get_extension_slug() );
-		$this->assertSame( 'woocommerce_payments', $contract->get_payment_instrument()->get_gateway() );
+		$this->assertSame( 'poocommerce_payments', $contract->get_payment_instrument()->get_gateway() );
 
 		// Persisted and reloadable.
 		$reloaded = ( new ContractRepository() )->find( $contract->get_id() );

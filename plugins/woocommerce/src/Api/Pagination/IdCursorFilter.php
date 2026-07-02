@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Api\Pagination;
+namespace Automattic\PooCommerce\Api\Pagination;
 
-use Automattic\WooCommerce\Api\ApiException;
+use Automattic\PooCommerce\Api\ApiException;
 
 /**
  * WP_Query ID-cursor pagination helper.

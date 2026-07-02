@@ -1,11 +1,11 @@
 {
-	"name": "woocommerce/order-confirmation-additional-fields",
+	"name": "poocommerce/order-confirmation-additional-fields",
 	"version": "1.0.0",
 	"title": "Additional Field List",
 	"description": "Display the list of additional field values from the current order.",
-	"category": "woocommerce",
+	"category": "poocommerce",
 	"keywords": [
-		"WooCommerce"
+		"PooCommerce"
 	],
 	"supports": {
 		"multiple": false,
@@ -43,7 +43,7 @@
 			"default": ""
 		}
 	},
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"apiVersion": 3,
 	"$schema": "https://schemas.wp.org/trunk/block.json"
 }

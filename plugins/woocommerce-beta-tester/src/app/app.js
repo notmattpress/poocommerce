@@ -18,7 +18,7 @@ import RemoteInboxNotifications from '../remote-inbox-notifications';
 import RemoteLogging from '../remote-logging';
 import Payments from '../payments';
 
-const tabs = applyFilters( 'woocommerce_admin_test_helper_tabs', [
+const tabs = applyFilters( 'poocommerce_admin_test_helper_tabs', [
 	{
 		name: 'options',
 		title: 'Options',
@@ -55,7 +55,7 @@ const tabs = applyFilters( 'woocommerce_admin_test_helper_tabs', [
 		content: <RemoteLogging />,
 	},
 	{
-		name: 'woocommerce-payments',
+		name: 'poocommerce-payments',
 		title: 'WCPay',
 		content: <Payments />,
 	},
@@ -109,9 +109,9 @@ export function App() {
 
 	return (
 		<div className="wrap">
-			<h1>WooCommerce Admin Test Helper</h1>
+			<h1>PooCommerce Admin Test Helper</h1>
 			<TabPanel
-				className="woocommerce-admin-test-helper__main-tab-panel"
+				className="poocommerce-admin-test-helper__main-tab-panel"
 				tabs={ tabsWithActiveClass }
 				// Tab panel manages its own state, but doesn't apply the active class to the correct tab when navigating back so we don't use it.
 				activeClass=""
@@ -122,7 +122,7 @@ export function App() {
 					<>
 						{ activeTab.content }
 						{ applyFilters(
-							`woocommerce_admin_test_helper_tab_${ activeTab.name }`,
+							`poocommerce_admin_test_helper_tab_${ activeTab.name }`,
 							[]
 						) }
 					</>

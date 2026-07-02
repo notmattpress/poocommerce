@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\StoreApi\Utilities;
+namespace Automattic\PooCommerce\Tests\Blocks\StoreApi\Utilities;
 
-use Automattic\WooCommerce\Tests\Blocks\Helpers\FixtureData;
-use Automattic\WooCommerce\StoreApi\Utilities\QuantityLimits;
+use Automattic\PooCommerce\Tests\Blocks\Helpers\FixtureData;
+use Automattic\PooCommerce\StoreApi\Utilities\QuantityLimits;
 use Yoast\PHPUnitPolyfills\TestCases\TestCase;
 
 /**
@@ -20,7 +20,7 @@ class QuantityLimitsTests extends TestCase {
 	 * Set up test environment.
 	 */
 	public function setUp(): void {
-		$this->manage_stock = get_option( 'woocommerce_manage_stock' );
+		$this->manage_stock = get_option( 'poocommerce_manage_stock' );
 		parent::setUp();
 	}
 
@@ -28,12 +28,12 @@ class QuantityLimitsTests extends TestCase {
 	 * Clean up test environment.
 	 */
 	public function tearDown(): void {
-		update_option( 'woocommerce_manage_stock', $this->manage_stock );
+		update_option( 'poocommerce_manage_stock', $this->manage_stock );
 		// Clean up custom filters.
-		remove_all_filters( 'woocommerce_store_api_product_quantity_multiple_of' );
-		remove_all_filters( 'woocommerce_store_api_product_quantity_maximum' );
-		remove_all_filters( 'woocommerce_store_api_product_quantity_minimum' );
-		remove_all_filters( 'woocommerce_quantity_input_args' );
+		remove_all_filters( 'poocommerce_store_api_product_quantity_multiple_of' );
+		remove_all_filters( 'poocommerce_store_api_product_quantity_maximum' );
+		remove_all_filters( 'poocommerce_store_api_product_quantity_minimum' );
+		remove_all_filters( 'poocommerce_quantity_input_args' );
 		parent::tearDown();
 	}
 
@@ -42,9 +42,9 @@ class QuantityLimitsTests extends TestCase {
 	 */
 	private function enable_float_support() {
 		// Remove all existing filters first.
-		remove_all_filters( 'woocommerce_stock_amount' );
+		remove_all_filters( 'poocommerce_stock_amount' );
 		// Add only floatval.
-		add_filter( 'woocommerce_stock_amount', 'floatval' );
+		add_filter( 'poocommerce_stock_amount', 'floatval' );
 	}
 
 	/**
@@ -52,9 +52,9 @@ class QuantityLimitsTests extends TestCase {
 	 */
 	private function disable_float_support() {
 		// Remove all existing filters first.
-		remove_all_filters( 'woocommerce_stock_amount' );
+		remove_all_filters( 'poocommerce_stock_amount' );
 		// Add only intval.
-		add_filter( 'woocommerce_stock_amount', 'intval' );
+		add_filter( 'poocommerce_stock_amount', 'intval' );
 	}
 
 	/**
@@ -74,7 +74,7 @@ class QuantityLimitsTests extends TestCase {
 		$product->save();
 
 		add_filter(
-			'woocommerce_quantity_input_args',
+			'poocommerce_quantity_input_args',
 			function ( $args, $the_product ) use ( $product ) {
 				if ( $the_product->get_id() === $product->get_id() ) {
 					$args['min_value'] = 2;
@@ -93,11 +93,11 @@ class QuantityLimitsTests extends TestCase {
 		$this->assertEquals( 2, $limits['minimum'], 'Minimum quantity should be 2' );
 		$this->assertEquals( 8, $limits['maximum'], 'Maximum quantity should be 8' );
 		$this->assertEquals( 2, $limits['multiple_of'], 'Multiple of should be 2' );
-		remove_all_filters( 'woocommerce_quantity_input_args' );
+		remove_all_filters( 'poocommerce_quantity_input_args' );
 
 		// Adjust max value in filter greater than stock quantity.
 		add_filter(
-			'woocommerce_quantity_input_args',
+			'poocommerce_quantity_input_args',
 			function ( $args, $the_product ) use ( $product ) {
 				if ( $the_product->get_id() === $product->get_id() ) {
 					$args['min_value'] = 2;
@@ -116,7 +116,7 @@ class QuantityLimitsTests extends TestCase {
 		$this->assertEquals( 2, $limits['minimum'], 'Minimum quantity should be 2' );
 		$this->assertEquals( 10, $limits['maximum'], 'Maximum quantity should be 10 to match stock quantity' );
 		$this->assertEquals( 2, $limits['multiple_of'], 'Multiple of should be 2' );
-		remove_all_filters( 'woocommerce_quantity_input_args' );
+		remove_all_filters( 'poocommerce_quantity_input_args' );
 	}
 
 	/**
@@ -132,7 +132,7 @@ class QuantityLimitsTests extends TestCase {
 		);
 
 		// Enable stock management globally.
-		update_option( 'woocommerce_manage_stock', 'yes' );
+		update_option( 'poocommerce_manage_stock', 'yes' );
 
 		$product->set_manage_stock( true );
 		$product->set_stock_quantity( 10 );
@@ -166,14 +166,14 @@ class QuantityLimitsTests extends TestCase {
 		);
 
 		// Enable stock management.
-		update_option( 'woocommerce_manage_stock', 'yes' );
+		update_option( 'poocommerce_manage_stock', 'yes' );
 
 		$product->set_stock_quantity( 10 );
 		$product->set_backorders( 'yes' );
 		$product->save();
 
 		// Disable stock management.
-		update_option( 'woocommerce_manage_stock', 'no' );
+		update_option( 'poocommerce_manage_stock', 'no' );
 
 		$quantity_limits = new QuantityLimits();
 		$limits          = $quantity_limits->get_add_to_cart_limits( $product );
@@ -195,7 +195,7 @@ class QuantityLimitsTests extends TestCase {
 		);
 
 		// Step 1: Enable stock management globally and on product level.
-		update_option( 'woocommerce_manage_stock', 'yes' );
+		update_option( 'poocommerce_manage_stock', 'yes' );
 		$product->set_manage_stock( true );
 		$product->set_stock_quantity( 10 );
 		$product->set_backorders( 'no' );
@@ -208,7 +208,7 @@ class QuantityLimitsTests extends TestCase {
 
 		// Step 2: Disable stock management globally but leave product-level manage_stock as true.
 		// This simulates the scenario from import or when stock management was previously enabled.
-		update_option( 'woocommerce_manage_stock', 'no' );
+		update_option( 'poocommerce_manage_stock', 'no' );
 
 		// The product still has manage_stock = true and stock_quantity = 10.
 		$product = wc_get_product( $product->get_id() );
@@ -229,7 +229,7 @@ class QuantityLimitsTests extends TestCase {
 		 * @param array|null $cart_item The cart item if the product exists in the cart, or null.
 		 * @return mixed
 		 */
-		$expected_max = apply_filters( 'woocommerce_store_api_product_quantity_maximum', 9999, $product );
+		$expected_max = apply_filters( 'poocommerce_store_api_product_quantity_maximum', 9999, $product );
 		$this->assertEquals( $expected_max, $limits_when_disabled['maximum'], 'When stock management is globally disabled, maximum should ignore product-level manage_stock/stock and use the default maximum' );
 		$this->assertEquals( 1, $limits_when_disabled['minimum'], 'Minimum should remain default when stock management is globally disabled' );
 		$this->assertEquals( 1, $limits_when_disabled['multiple_of'], 'Multiple-of should remain default when stock management is globally disabled' );
@@ -248,7 +248,7 @@ class QuantityLimitsTests extends TestCase {
 		);
 
 		// Enable stock management globally.
-		update_option( 'woocommerce_manage_stock', 'yes' );
+		update_option( 'poocommerce_manage_stock', 'yes' );
 
 		$product->set_stock_quantity( 10 );
 		$product->set_backorders( 'yes' );
@@ -275,7 +275,7 @@ class QuantityLimitsTests extends TestCase {
 		);
 
 		// Enable stock management globally.
-		update_option( 'woocommerce_manage_stock', 'yes' );
+		update_option( 'poocommerce_manage_stock', 'yes' );
 
 		// Set up product with stock management and backorders allowed.
 		$product->set_manage_stock( 'no' );
@@ -302,7 +302,7 @@ class QuantityLimitsTests extends TestCase {
 		);
 
 		// Enable stock management globally.
-		update_option( 'woocommerce_manage_stock', 'yes' );
+		update_option( 'poocommerce_manage_stock', 'yes' );
 
 		// Set up product with stock management and backorders not allowed.
 		$product->set_manage_stock( true );
@@ -329,7 +329,7 @@ class QuantityLimitsTests extends TestCase {
 		);
 
 		// Enable stock management globally.
-		update_option( 'woocommerce_manage_stock', 'yes' );
+		update_option( 'poocommerce_manage_stock', 'yes' );
 
 		// Set up product as sold individually with stock management.
 		$product->set_manage_stock( true );
@@ -357,7 +357,7 @@ class QuantityLimitsTests extends TestCase {
 		);
 
 		// Disable stock management globally.
-		update_option( 'woocommerce_manage_stock', 'no' );
+		update_option( 'poocommerce_manage_stock', 'no' );
 
 		// Set up product as sold individually without stock management.
 		$product->set_manage_stock( false );
@@ -378,7 +378,7 @@ class QuantityLimitsTests extends TestCase {
 
 		// Make multiple_of 0.5.
 		add_filter(
-			'woocommerce_store_api_product_quantity_multiple_of',
+			'poocommerce_store_api_product_quantity_multiple_of',
 			function () {
 				return 0.5;
 			},
@@ -397,7 +397,7 @@ class QuantityLimitsTests extends TestCase {
 			)
 		);
 
-		update_option( 'woocommerce_manage_stock', 'yes' );
+		update_option( 'poocommerce_manage_stock', 'yes' );
 		$product->set_manage_stock( true );
 		$product->set_stock_quantity( 5.5 );
 		$product->set_backorders( 'no' );
@@ -539,7 +539,7 @@ class QuantityLimitsTests extends TestCase {
 
 		// Make multiple_of 0.5.
 		add_filter(
-			'woocommerce_store_api_product_quantity_multiple_of',
+			'poocommerce_store_api_product_quantity_multiple_of',
 			function () {
 				return 0.5;
 			},
@@ -596,7 +596,7 @@ class QuantityLimitsTests extends TestCase {
 
 		// Add filter to set multiple_of to 0.5.
 		add_filter(
-			'woocommerce_store_api_product_quantity_multiple_of',
+			'poocommerce_store_api_product_quantity_multiple_of',
 			function () {
 				return 0.5;
 			},

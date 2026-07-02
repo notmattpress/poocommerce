@@ -2,20 +2,20 @@
 /**
  * Integration tests for SnapshotStore.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine
+ * @package Automattic\PooCommerce\SubscriptionsEngine
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Tests\Integration\Integration\Storage;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Tests\Integration\Integration\Storage;
 
 use EngineIntegrationTestCase;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Support\ScalarCoercion;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage\SchemaInstaller;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage\SnapshotStore;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Support\ScalarCoercion;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage\SchemaInstaller;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage\SnapshotStore;
 
 /**
- * @covers \Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage\SnapshotStore
+ * @covers \Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage\SnapshotStore
  */
 class SnapshotStoreTest extends EngineIntegrationTestCase {
 

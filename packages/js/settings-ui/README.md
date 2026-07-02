@@ -1,6 +1,6 @@
 # Settings UI
 
-React utilities for WooCommerce settings pages that opt in to the settings UI renderer.
+React utilities for PooCommerce settings pages that opt in to the settings UI renderer.
 
 For the full integration guide, see [Settings UI](../../../docs/extensions/settings-and-config/settings-ui.md).
 
@@ -11,7 +11,7 @@ PHP settings pages continue to register through `WC_Settings_Page`. A page opts 
 Custom JavaScript registers scoped components:
 
 ```ts
-import { registerSettingsExtension } from '@woocommerce/settings-ui';
+import { registerSettingsExtension } from '@poocommerce/settings-ui';
 import { PaymentMethodPicker } from './payment-method-picker';
 
 registerSettingsExtension( {

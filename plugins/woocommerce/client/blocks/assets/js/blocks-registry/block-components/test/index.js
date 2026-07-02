@@ -9,8 +9,8 @@ import {
 } from '../index';
 
 describe( 'blocks registry', () => {
-	const context = '@woocommerce/all-products';
-	const blockName = '@woocommerce-extension/price-level';
+	const context = '@poocommerce/all-products';
+	const blockName = '@poocommerce-extension/price-level';
 	const component = () => {
 		return null;
 	};
@@ -34,13 +34,13 @@ describe( 'blocks registry', () => {
 	describe( 'getRegisteredBlockComponents', () => {
 		it( 'gets an empty object when context has no inner blocks', () => {
 			expect(
-				getRegisteredBlockComponents( '@woocommerce/all-products' )
+				getRegisteredBlockComponents( '@poocommerce/all-products' )
 			).toEqual( {} );
 		} );
 		it( 'gets a block that was successfully registered', () => {
 			registerBlockComponent( { context, blockName, component } );
 			expect(
-				getRegisteredBlockComponents( '@woocommerce/all-products' )
+				getRegisteredBlockComponents( '@poocommerce/all-products' )
 			).toEqual( { [ blockName ]: component } );
 		} );
 	} );
@@ -68,14 +68,14 @@ describe( 'blocks registry', () => {
 	describe( 'getRegisteredInnerBlocks (deprecated)', () => {
 		it( 'gets an empty object when parent has no inner blocks', () => {
 			expect(
-				getRegisteredInnerBlocks( '@woocommerce/test-parent' )
+				getRegisteredInnerBlocks( '@poocommerce/test-parent' )
 			).toEqual( {} );
 			expect( console ).toHaveWarned();
 		} );
 		it( 'gets a block that was successfully registered', () => {
 			registerBlockComponent( { context, blockName, component } );
 			expect(
-				getRegisteredInnerBlocks( '@woocommerce/all-products' )
+				getRegisteredInnerBlocks( '@poocommerce/all-products' )
 			).toEqual( {
 				[ blockName ]: component,
 			} );

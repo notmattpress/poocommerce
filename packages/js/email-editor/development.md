@@ -2,19 +2,19 @@
 
 ## Local Development
 
-The most efficient way to develop the Email Editor is by using the WooCommerce plugin's watch command:
+The most efficient way to develop the Email Editor is by using the PooCommerce plugin's watch command:
 
 ```bash
-pnpm --filter='@woocommerce/plugin-woocommerce' watch:build:admin
+pnpm --filter='@poocommerce/plugin-poocommerce' watch:build:admin
 ```
 
 ---
 
 ## Translation text domain
 
-Translation function calls inside the package (`__()`, `_x()`, `_n()`, `_nx()`) use the `__i18n_text_domain__` identifier as the text domain argument instead of a hardcoded string literal. This lets each consumer of the package (WooCommerce, MailPoet, or any other plugin) substitute its own text domain at bundle time and extract strings under that domain with `wp i18n make-pot`.
+Translation function calls inside the package (`__()`, `_x()`, `_n()`, `_nx()`) use the `__i18n_text_domain__` identifier as the text domain argument instead of a hardcoded string literal. This lets each consumer of the package (PooCommerce, MailPoet, or any other plugin) substitute its own text domain at bundle time and extract strings under that domain with `wp i18n make-pot`.
 
-If the identifier is not substituted, the package falls back to `'woocommerce'` at runtime (assigned in `src/index.ts`) so the editor still loads and renders with English strings — matching the package's pre-1.11 behaviour. Consumers that want their own translations to apply **should** replace the identifier with a string literal during their own build, typically with [`webpack.DefinePlugin`](https://webpack.js.org/plugins/define-plugin/):
+If the identifier is not substituted, the package falls back to `'poocommerce'` at runtime (assigned in `src/index.ts`) so the editor still loads and renders with English strings — matching the package's pre-1.11 behaviour. Consumers that want their own translations to apply **should** replace the identifier with a string literal during their own build, typically with [`webpack.DefinePlugin`](https://webpack.js.org/plugins/define-plugin/):
 
 ```js
 // consumer webpack.config.js
@@ -30,11 +30,11 @@ module.exports = {
 };
 ```
 
-String extraction happens against the built consumer bundle (not the package source), so `wp i18n make-pot` picks up the substituted literal domain and extracts strings correctly for the consumer's translation workflow. Without the substitution, strings stay under the `woocommerce` domain at runtime and `wp i18n make-pot` won't extract them under the consumer's own domain — translators won't be able to translate them under that domain even though the editor still works.
+String extraction happens against the built consumer bundle (not the package source), so `wp i18n make-pot` picks up the substituted literal domain and extracts strings correctly for the consumer's translation workflow. Without the substitution, strings stay under the `poocommerce` domain at runtime and `wp i18n make-pot` won't extract them under the consumer's own domain — translators won't be able to translate them under that domain even though the editor still works.
 
 ### Jest tests
 
-Jest does not run through webpack, so `DefinePlugin` does not apply to unit tests that import from this package. Either rely on the runtime fallback (strings will use `woocommerce`) or define the identifier explicitly in the consumer's Jest setup file:
+Jest does not run through webpack, so `DefinePlugin` does not apply to unit tests that import from this package. Either rely on the runtime fallback (strings will use `poocommerce`) or define the identifier explicitly in the consumer's Jest setup file:
 
 ```js
 // jest.setup.js / global-mocks.js
@@ -93,7 +93,7 @@ jest.mock('@wordpress/data', () => ({
 #### Example Basic Component Test
 
 ```tsx
-/* eslint-disable @woocommerce/dependency-group -- because we import mocks first, we deactivate this rule to avoid es lint errors */
+/* eslint-disable @poocommerce/dependency-group -- because we import mocks first, we deactivate this rule to avoid es lint errors */
 import '../../__mocks__/setup-shared-mocks';
 
 /**

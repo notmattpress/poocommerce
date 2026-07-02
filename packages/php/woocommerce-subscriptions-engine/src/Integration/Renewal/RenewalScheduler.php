@@ -15,12 +15,12 @@
  * Integration zone: WordPress-native. Calls Action Scheduler's `as_*()`
  * functions directly.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine\Integration\Renewal
+ * @package Automattic\PooCommerce\SubscriptionsEngine\Integration\Renewal
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Integration\Renewal;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Integration\Renewal;
 
 use DateTimeImmutable;
 use DateTimeZone;
@@ -38,13 +38,13 @@ final class RenewalScheduler {
 	 * Public so tooling and tests can inspect or cancel pending actions via
 	 * `as_has_scheduled_action()` and friends.
 	 */
-	public const HOOK = 'woocommerce_subscriptions_engine_process_renewal';
+	public const HOOK = 'poocommerce_subscriptions_engine_process_renewal';
 
 	/**
 	 * Action Scheduler group - used for admin filterability (Tools ->
 	 * Scheduled Actions) and bulk teardown.
 	 */
-	public const GROUP = 'woocommerce_subscriptions_engine';
+	public const GROUP = 'poocommerce_subscriptions_engine';
 
 	/**
 	 * Enqueue an AS action for `$contract_id` at `$when`.

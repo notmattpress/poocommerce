@@ -3,14 +3,14 @@
  * Renders order edit page, works with both post and order object.
  */
 
-namespace Automattic\WooCommerce\Internal\Admin\Orders;
+namespace Automattic\PooCommerce\Internal\Admin\Orders;
 
-use Automattic\WooCommerce\Internal\Admin\Orders\MetaBoxes\CustomerHistory;
-use Automattic\WooCommerce\Internal\Admin\Orders\MetaBoxes\CustomMetaBox;
-use Automattic\WooCommerce\Internal\Admin\Orders\MetaBoxes\OrderAttribution;
-use Automattic\WooCommerce\Internal\Admin\Orders\MetaBoxes\TaxonomiesMetaBox;
-use Automattic\WooCommerce\Internal\Features\FeaturesController;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Internal\Admin\Orders\MetaBoxes\CustomerHistory;
+use Automattic\PooCommerce\Internal\Admin\Orders\MetaBoxes\CustomMetaBox;
+use Automattic\PooCommerce\Internal\Admin\Orders\MetaBoxes\OrderAttribution;
+use Automattic\PooCommerce\Internal\Admin\Orders\MetaBoxes\TaxonomiesMetaBox;
+use Automattic\PooCommerce\Internal\Features\FeaturesController;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 use WC_Order;
 
 /**
@@ -75,13 +75,13 @@ class Edit {
 	 */
 	public static function add_order_meta_boxes( string $screen_id, string $title ) {
 		/* Translators: %s order type name. */
-		add_meta_box( 'woocommerce-order-data', sprintf( __( '%s data', 'woocommerce' ), $title ), 'WC_Meta_Box_Order_Data::output', $screen_id, 'normal', 'high' );
-		add_meta_box( 'woocommerce-order-items', __( 'Items', 'woocommerce' ), 'WC_Meta_Box_Order_Items::output', $screen_id, 'normal', 'high' );
+		add_meta_box( 'poocommerce-order-data', sprintf( __( '%s data', 'poocommerce' ), $title ), 'WC_Meta_Box_Order_Data::output', $screen_id, 'normal', 'high' );
+		add_meta_box( 'poocommerce-order-items', __( 'Items', 'poocommerce' ), 'WC_Meta_Box_Order_Items::output', $screen_id, 'normal', 'high' );
 		/* Translators: %s order type name. */
-		add_meta_box( 'woocommerce-order-notes', sprintf( __( '%s notes', 'woocommerce' ), $title ), 'WC_Meta_Box_Order_Notes::output', $screen_id, 'side', 'default' );
-		add_meta_box( 'woocommerce-order-downloads', __( 'Downloadable product permissions', 'woocommerce' ) . wc_help_tip( __( 'Note: Permissions for order items will automatically be granted when the order status changes to processing/completed.', 'woocommerce' ) ), 'WC_Meta_Box_Order_Downloads::output', $screen_id, 'normal', 'default' );
+		add_meta_box( 'poocommerce-order-notes', sprintf( __( '%s notes', 'poocommerce' ), $title ), 'WC_Meta_Box_Order_Notes::output', $screen_id, 'side', 'default' );
+		add_meta_box( 'poocommerce-order-downloads', __( 'Downloadable product permissions', 'poocommerce' ) . wc_help_tip( __( 'Note: Permissions for order items will automatically be granted when the order status changes to processing/completed.', 'poocommerce' ) ), 'WC_Meta_Box_Order_Downloads::output', $screen_id, 'normal', 'default' );
 		/* Translators: %s order type name. */
-		add_meta_box( 'woocommerce-order-actions', sprintf( __( '%s actions', 'woocommerce' ), $title ), 'WC_Meta_Box_Order_Actions::output', $screen_id, 'side', 'high' );
+		add_meta_box( 'poocommerce-order-actions', sprintf( __( '%s actions', 'poocommerce' ), $title ), 'WC_Meta_Box_Order_Actions::output', $screen_id, 'side', 'high' );
 		self::maybe_register_order_attribution( $screen_id, $title );
 	}
 
@@ -101,10 +101,10 @@ class Edit {
 		 *      Save order data - also updates status and sends out admin emails if needed. Last to show latest data.
 		 *      Save actions - sends out other emails. Last to show latest data.
 		 */
-		add_action( 'woocommerce_process_shop_order_meta', 'WC_Meta_Box_Order_Items::save', 10 );
-		add_action( 'woocommerce_process_shop_order_meta', 'WC_Meta_Box_Order_Downloads::save', 30, 2 );
-		add_action( 'woocommerce_process_shop_order_meta', 'WC_Meta_Box_Order_Data::save', 40 );
-		add_action( 'woocommerce_process_shop_order_meta', 'WC_Meta_Box_Order_Actions::save', 50, 2 );
+		add_action( 'poocommerce_process_shop_order_meta', 'WC_Meta_Box_Order_Items::save', 10 );
+		add_action( 'poocommerce_process_shop_order_meta', 'WC_Meta_Box_Order_Downloads::save', 30, 2 );
+		add_action( 'poocommerce_process_shop_order_meta', 'WC_Meta_Box_Order_Data::save', 40 );
+		add_action( 'poocommerce_process_shop_order_meta', 'WC_Meta_Box_Order_Actions::save', 50, 2 );
 	}
 
 	/**
@@ -151,7 +151,7 @@ class Edit {
 
 		$this->add_save_meta_boxes();
 		$this->handle_order_update();
-		$this->add_order_meta_boxes( $this->screen_id, __( 'Order', 'woocommerce' ) );
+		$this->add_order_meta_boxes( $this->screen_id, __( 'Order', 'poocommerce' ) );
 		$this->add_order_specific_meta_box();
 		$this->add_order_taxonomies_meta_box();
 
@@ -197,7 +197,7 @@ class Edit {
 	private function add_order_specific_meta_box() {
 		add_meta_box(
 			'order_custom',
-			__( 'Custom Fields', 'woocommerce' ),
+			__( 'Custom Fields', 'poocommerce' ),
 			array( $this, 'render_custom_meta_box' ),
 			$this->screen_id,
 			'normal'
@@ -242,9 +242,9 @@ class Edit {
 		$order_attribution_meta_box = wc_get_container()->get( OrderAttribution::class );
 
 		add_meta_box(
-			'woocommerce-order-source-data',
+			'poocommerce-order-source-data',
 			/* Translators: %s order type name. */
-			sprintf( __( '%s attribution', 'woocommerce' ), $title ),
+			sprintf( __( '%s attribution', 'poocommerce' ), $title ),
 			function( $post_or_order ) use ( $order_attribution_meta_box ) {
 				$order = $post_or_order instanceof WC_Order ? $post_or_order : wc_get_order( $post_or_order );
 				if ( $order instanceof WC_Order ) {
@@ -257,7 +257,7 @@ class Edit {
 		);
 
 		// Add customer history meta box if analytics is enabled.
-		if ( 'yes' !== get_option( 'woocommerce_analytics_enabled' ) ) {
+		if ( 'yes' !== get_option( 'poocommerce_analytics_enabled' ) ) {
 			return;
 		}
 
@@ -273,8 +273,8 @@ class Edit {
 		$customer_history_meta_box = wc_get_container()->get( CustomerHistory::class );
 
 		add_meta_box(
-			'woocommerce-customer-history',
-			__( 'Customer history', 'woocommerce' ),
+			'poocommerce-customer-history',
+			__( 'Customer history', 'poocommerce' ),
 			function ( $post_or_order ) use ( $customer_history_meta_box ) {
 				$order = $post_or_order instanceof WC_Order ? $post_or_order : wc_get_order( $post_or_order );
 				if ( $order instanceof WC_Order ) {
@@ -315,7 +315,7 @@ class Edit {
 		 *
 		 * @since 2.1.0
 		 */
-		do_action( 'woocommerce_process_shop_order_meta', $this->order->get_id(), $this->order );
+		do_action( 'poocommerce_process_shop_order_meta', $this->order->get_id(), $this->order );
 
 		$this->custom_meta_box->handle_metadata_changes($this->order);
 
@@ -352,7 +352,7 @@ class Edit {
 			 * @since 8.0.0
 			 */
 			apply_filters(
-				'woocommerce_redirect_order_location',
+				'poocommerce_redirect_order_location',
 				$redirect_to,
 				$order->get_id(),
 				$order
@@ -395,7 +395,7 @@ class Edit {
 		 *
 		 * @since 7.4.0.
 		 */
-		$messages = apply_filters( 'woocommerce_order_updated_messages', array() );
+		$messages = apply_filters( 'poocommerce_order_updated_messages', array() );
 
 		$message = $this->message;
 		if ( isset( $_GET['message'] ) ) {

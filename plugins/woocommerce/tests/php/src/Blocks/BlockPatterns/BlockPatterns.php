@@ -1,12 +1,12 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\BlockPatterns;
+namespace Automattic\PooCommerce\Tests\Blocks\BlockPatterns;
 
-use Automattic\WooCommerce\Blocks\Patterns\PatternRegistry;
-use Automattic\WooCommerce\Blocks\BlockPatterns as TestedBlockPatterns;
-use Automattic\WooCommerce\Blocks\Patterns\PTKPatternsStore;
-use Automattic\WooCommerce\Blocks\Domain\Package;
+use Automattic\PooCommerce\Blocks\Patterns\PatternRegistry;
+use Automattic\PooCommerce\Blocks\BlockPatterns as TestedBlockPatterns;
+use Automattic\PooCommerce\Blocks\Patterns\PTKPatternsStore;
+use Automattic\PooCommerce\Blocks\Domain\Package;
 
 /**
  * Unit tests for the BlockPatterns class.
@@ -41,7 +41,7 @@ class BlockPatterns extends \WP_UnitTestCase {
 	protected function setUp(): void {
 		parent::setUp();
 
-		delete_site_transient( 'woocommerce_blocks_patterns' );
+		delete_site_transient( 'poocommerce_blocks_patterns' );
 
 		$package                  = new Package( '0.1.0', __DIR__ );
 		$this->pattern_registry   = $this->createMock( PatternRegistry::class );
@@ -69,10 +69,10 @@ class BlockPatterns extends \WP_UnitTestCase {
 					__DIR__ . '/patterns/mock-footer.php',
 					array(
 						'title'         => 'Mock Footer',
-						'slug'          => 'woocommerce-blocks/mock-footer',
+						'slug'          => 'poocommerce-blocks/mock-footer',
 						'description'   => '',
 						'viewportWidth' => '',
-						'categories'    => 'WooCommerce',
+						'categories'    => 'PooCommerce',
 						'keywords'      => '',
 						'blockTypes'    => 'core/template-part/footer',
 						'inserter'      => '',
@@ -86,10 +86,10 @@ class BlockPatterns extends \WP_UnitTestCase {
 					__DIR__ . '/patterns/mock-header.php',
 					array(
 						'title'         => 'Mock Header',
-						'slug'          => 'woocommerce-blocks/mock-header',
+						'slug'          => 'poocommerce-blocks/mock-header',
 						'description'   => '',
 						'viewportWidth' => '',
-						'categories'    => 'WooCommerce',
+						'categories'    => 'PooCommerce',
 						'keywords'      => '',
 						'blockTypes'    => 'core/template-part/header',
 						'inserter'      => '',
@@ -123,7 +123,7 @@ class BlockPatterns extends \WP_UnitTestCase {
 			'patterns' => $mock_patterns,
 		);
 
-		set_site_transient( 'woocommerce_blocks_patterns', $pattern_data );
+		set_site_transient( 'poocommerce_blocks_patterns', $pattern_data );
 
 		$expected_pattern             = $mock_patterns[0];
 		$expected_pattern['source']   = __DIR__ . '/patterns/mock-header.php';
@@ -157,7 +157,7 @@ class BlockPatterns extends \WP_UnitTestCase {
 			),
 		);
 
-		set_site_transient( 'woocommerce_blocks_patterns', $pattern_data );
+		set_site_transient( 'poocommerce_blocks_patterns', $pattern_data );
 
 		$this->pattern_registry
 			->expects( $this->never() )
@@ -186,7 +186,7 @@ class BlockPatterns extends \WP_UnitTestCase {
 			),
 		);
 
-		set_site_transient( 'woocommerce_blocks_patterns', $pattern_data );
+		set_site_transient( 'poocommerce_blocks_patterns', $pattern_data );
 
 		$this->pattern_registry
 			->expects( $this->never() )
@@ -210,7 +210,7 @@ class BlockPatterns extends \WP_UnitTestCase {
 			'patterns' => $mock_patterns,
 		);
 
-		set_site_transient( 'woocommerce_blocks_patterns', $pattern_data );
+		set_site_transient( 'poocommerce_blocks_patterns', $pattern_data );
 
 		// Content is no longer loaded eagerly. Patterns are registered with a
 		// `filePath` so core can load the content lazily on demand.
@@ -222,10 +222,10 @@ class BlockPatterns extends \WP_UnitTestCase {
 					__DIR__ . '/patterns/mock-footer.php',
 					array(
 						'title'         => 'Mock Footer',
-						'slug'          => 'woocommerce-blocks/mock-footer',
+						'slug'          => 'poocommerce-blocks/mock-footer',
 						'description'   => '',
 						'viewportWidth' => '',
-						'categories'    => 'WooCommerce',
+						'categories'    => 'PooCommerce',
 						'keywords'      => '',
 						'blockTypes'    => 'core/template-part/footer',
 						'inserter'      => '',
@@ -239,10 +239,10 @@ class BlockPatterns extends \WP_UnitTestCase {
 					__DIR__ . '/patterns/mock-header.php',
 					array(
 						'title'         => 'Mock Header',
-						'slug'          => 'woocommerce-blocks/mock-header',
+						'slug'          => 'poocommerce-blocks/mock-header',
 						'description'   => '',
 						'viewportWidth' => '',
-						'categories'    => 'WooCommerce',
+						'categories'    => 'PooCommerce',
 						'keywords'      => '',
 						'blockTypes'    => 'core/template-part/header',
 						'inserter'      => '',

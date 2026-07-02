@@ -5,8 +5,8 @@ import { compose } from '@wordpress/compose';
 import { withSelect } from '@wordpress/data';
 import type { SelectFunction } from '@wordpress/data/build-types/types';
 import { useEffect } from '@wordpress/element';
-import { onboardingStore, withOnboardingHydration } from '@woocommerce/data';
-import { getHistory, getNewPath, useQuery } from '@woocommerce/navigation';
+import { onboardingStore, withOnboardingHydration } from '@poocommerce/data';
+import { getHistory, getNewPath, useQuery } from '@poocommerce/navigation';
 
 /**
  * Internal dependencies

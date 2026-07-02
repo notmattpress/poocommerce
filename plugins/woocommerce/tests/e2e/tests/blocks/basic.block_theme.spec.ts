@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { test, expect, customerFile, guestFile } from '@woocommerce/e2e-utils';
+import { test, expect, customerFile, guestFile } from '@poocommerce/e2e-utils';
 
 test.describe( 'Basic role-based functionality tests', () => {
 	test.describe( 'As admin', () => {
@@ -47,7 +47,7 @@ test.describe( 'Basic role-based functionality tests', () => {
 
 			await expect(
 				page.getByRole( 'banner' ).getByRole( 'link', {
-					name: 'WooCommerce Blocks E2E Test',
+					name: 'PooCommerce Blocks E2E Test',
 				} )
 			).toBeVisible();
 		} );

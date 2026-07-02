@@ -2,11 +2,11 @@
 /**
  * Orders Report tests.
  *
- * @package WooCommerce\Admin\Tests\Orders
+ * @package PooCommerce\Admin\Tests\Orders
  */
 
-use Automattic\WooCommerce\Admin\API\Reports\Orders\DataStore as OrdersDataStore;
-use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Admin\API\Reports\Orders\DataStore as OrdersDataStore;
+use Automattic\PooCommerce\Enums\OrderStatus;
 
 /**
  * Class WC_Admin_Tests_Reports_Orders
@@ -283,7 +283,7 @@ class WC_Admin_Tests_Reports_Orders extends WC_Unit_Test_Case {
 
 	/**
 	 * Test that excluding specific coupons doesn't exclude orders without coupons.
-	 * See: https://github.com/woocommerce/woocommerce-admin/issues/6824.
+	 * See: https://github.com/poocommerce/poocommerce-admin/issues/6824.
 	 */
 	public function test_coupon_exclusion_includes_orders_without_coupons() {
 		global $wpdb;

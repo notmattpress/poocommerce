@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Api\Infrastructure\Schema;
+namespace Automattic\PooCommerce\Api\Infrastructure\Schema;
 
 /**
  * Stable subclass of the underlying GraphQL engine's InterfaceType, used by
@@ -15,7 +15,7 @@ namespace Automattic\WooCommerce\Api\Infrastructure\Schema;
  * A `metadata` config key may also be provided; see
  * {@see ObjectType::get_metadata()} for the semantics.
  */
-class InterfaceType extends \Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\InterfaceType {
+class InterfaceType extends \Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\InterfaceType {
 	/**
 	 * Type-level metadata entries declared in the config, keyed by name.
 	 *

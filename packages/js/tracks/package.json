@@ -1,7 +1,7 @@
 {
-	"name": "@woocommerce/tracks",
+	"name": "@poocommerce/tracks",
 	"version": "1.5.1",
-	"description": "WooCommerce user event tracking utilities for Automattic based projects.",
+	"description": "PooCommerce user event tracking utilities for Automattic based projects.",
 	"author": "Automattic",
 	"license": "GPL-2.0-or-later",
 	"engines": {
@@ -9,16 +9,16 @@
 	},
 	"keywords": [
 		"wordpress",
-		"woocommerce",
+		"poocommerce",
 		"tracks"
 	],
-	"homepage": "https://github.com/woocommerce/woocommerce/tree/trunk/packages/js/tracks/README.md",
+	"homepage": "https://github.com/poocommerce/poocommerce/tree/trunk/packages/js/tracks/README.md",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/woocommerce/woocommerce.git"
+		"url": "https://github.com/poocommerce/poocommerce.git"
 	},
 	"bugs": {
-		"url": "https://github.com/woocommerce/woocommerce/issues"
+		"url": "https://github.com/poocommerce/poocommerce/issues"
 	},
 	"exports": {
 		".": {
@@ -76,9 +76,9 @@
 		"@types/debug": "^4.1.12",
 		"@types/jest": "29.5.x",
 		"@types/node": "^24.1.0",
-		"@woocommerce/eslint-plugin": "workspace:*",
-		"@woocommerce/internal-build": "workspace:*",
-		"@woocommerce/internal-js-tests": "workspace:*",
+		"@poocommerce/eslint-plugin": "workspace:*",
+		"@poocommerce/internal-build": "workspace:*",
+		"@poocommerce/internal-js-tests": "workspace:*",
 		"eslint": "^8.55.0",
 		"jest": "29.5.x",
 		"jest-cli": "29.5.x",

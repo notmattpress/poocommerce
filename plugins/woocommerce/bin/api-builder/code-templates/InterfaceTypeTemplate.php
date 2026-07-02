@@ -50,8 +50,8 @@ $use_statements             = array_values(
 <?php foreach ( $use_statements as $use ) : ?>
 use <?php echo $use; ?>;
 <?php endforeach; ?>
-use Automattic\WooCommerce\Api\Infrastructure\Schema\InterfaceType;
-use Automattic\WooCommerce\Api\Infrastructure\Schema\Type;
+use Automattic\PooCommerce\Api\Infrastructure\Schema\InterfaceType;
+use Automattic\PooCommerce\Api\Infrastructure\Schema\Type;
 
 class <?php echo $class_name; ?> {
 	private static ?InterfaceType $instance = null;
@@ -62,7 +62,7 @@ class <?php echo $class_name; ?> {
 				array(
 					'name' => '<?php echo $graphql_name; ?>',
 <?php if ( $description !== '' ) : ?>
-					'description' => __( '<?php echo $escaped_description; ?>', 'woocommerce' ),
+					'description' => __( '<?php echo $escaped_description; ?>', 'poocommerce' ),
 <?php endif; ?>
 <?php if ( ! empty( $metadata ) ) : ?>
 					'metadata' => array(
@@ -86,7 +86,7 @@ class <?php echo $class_name; ?> {
 						'<?php echo $field['name']; ?>' => array(
 							'type' => <?php echo $field['type_expr']; ?>,
 	<?php if ( ! empty( $field['description'] ) ) : ?>
-							'description' => __( '<?php echo addslashes( $field['description'] ); ?>', 'woocommerce' ),
+							'description' => __( '<?php echo addslashes( $field['description'] ); ?>', 'poocommerce' ),
 <?php endif; ?>
 	<?php if ( ! empty( $field['metadata'] ) ) : ?>
 							'metadata' => array(
@@ -104,7 +104,7 @@ class <?php echo $class_name; ?> {
 									'defaultValue' => <?php echo var_export( $arg['default'], true ); ?>,
 <?php endif; ?>
 			<?php if ( ! empty( $arg['description'] ) ) : ?>
-									'description' => __( '<?php echo addslashes( $arg['description'] ); ?>', 'woocommerce' ),
+									'description' => __( '<?php echo addslashes( $arg['description'] ); ?>', 'poocommerce' ),
 <?php endif; ?>
 			<?php if ( ! empty( $arg['metadata'] ) ) : ?>
 									'metadata' => array(

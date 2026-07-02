@@ -10,7 +10,7 @@ import clsx from 'clsx';
 import { Button, Stack, Tabs } from '@wordpress/ui';
 import { privateApis as editorPrivateApis } from '@wordpress/editor';
 import { addQueryArgs } from '@wordpress/url';
-import { getAdminLink } from '@woocommerce/settings';
+import { getAdminLink } from '@poocommerce/settings';
 import { __ } from '@wordpress/i18n';
 
 /**
@@ -205,7 +205,7 @@ export default function ProductList( {
 		[ postTypeActions, productActions ]
 	);
 
-	const classes = clsx( 'woocommerce-product-list', className );
+	const classes = clsx( 'poocommerce-product-list', className );
 
 	const pageActions = (
 		<Stack gap="lg">
@@ -221,7 +221,7 @@ export default function ProductList( {
 					) )
 				}
 			>
-				{ __( 'Export', 'woocommerce' ) }
+				{ __( 'Export', 'poocommerce' ) }
 			</Button>
 			<Button
 				size="compact"
@@ -235,7 +235,7 @@ export default function ProductList( {
 				}
 				variant="outline"
 			>
-				{ __( 'Import', 'woocommerce' ) }
+				{ __( 'Import', 'poocommerce' ) }
 			</Button>
 			<Button
 				disabled={ canCreateRecord === false }
@@ -249,7 +249,7 @@ export default function ProductList( {
 					) )
 				}
 			>
-				{ __( 'Add new product', 'woocommerce' ) }
+				{ __( 'Add new product', 'poocommerce' ) }
 			</Button>
 		</Stack>
 	);
@@ -260,15 +260,15 @@ export default function ProductList( {
 			align="center"
 			justify="space-between"
 			gap="sm"
-			className="woocommerce-product-list__toolbar"
+			className="poocommerce-product-list__toolbar"
 		>
-			{ /* Tabs component should not be used: https://github.com/woocommerce/woocommerce/issues/64478 */ }
+			{ /* Tabs component should not be used: https://github.com/poocommerce/poocommerce/issues/64478 */ }
 			<Tabs.Root value={ selectedTab } onValueChange={ onChangeTab }>
 				<Tabs.List
 					variant="minimal"
 					aria-label={ __(
 						'Filter products by status',
-						'woocommerce'
+						'poocommerce'
 					) }
 				>
 					{ PRODUCT_LIST_TABS.map( ( tab ) => (
@@ -279,7 +279,7 @@ export default function ProductList( {
 				</Tabs.List>
 			</Tabs.Root>
 			<Stack direction="row" align="center" gap="xs">
-				<DataViews.Search label={ __( 'Search', 'woocommerce' ) } />
+				<DataViews.Search label={ __( 'Search', 'poocommerce' ) } />
 				<DataViews.FiltersToggle />
 				<DataViews.LayoutSwitcher />
 				<DataViews.ViewConfig />
@@ -290,7 +290,7 @@ export default function ProductList( {
 	return (
 		<ProductListPage
 			className={ classes }
-			ariaLabel={ __( 'Products', 'woocommerce' ) }
+			ariaLabel={ __( 'Products', 'poocommerce' ) }
 		>
 			<DataViews
 				key={ activeView }
@@ -329,15 +329,15 @@ export default function ProductList( {
 				) }
 			>
 				<ProductListPageHeader
-					title={ __( 'Products', 'woocommerce' ) }
+					title={ __( 'Products', 'poocommerce' ) }
 					subTitle={ __(
 						'Add, edit, and manage the products you sell in your store.',
-						'woocommerce'
+						'poocommerce'
 					) }
 					actions={ pageActions }
 					toolbar={ toolbar }
 				/>
-				<DataViews.FiltersToggled className="woocommerce-product-list__filters" />
+				<DataViews.FiltersToggled className="poocommerce-product-list__filters" />
 				<DataViews.Layout />
 				<DataViews.Footer />
 			</DataViews>

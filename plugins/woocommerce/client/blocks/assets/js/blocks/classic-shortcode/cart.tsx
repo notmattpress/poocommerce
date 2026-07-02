@@ -9,11 +9,11 @@ import { __ } from '@wordpress/i18n';
  */
 import type { OnClickCallbackParameter, InheritedAttributes } from './types';
 
-const getButtonLabel = () => __( 'Transform into blocks', 'woocommerce' );
+const getButtonLabel = () => __( 'Transform into blocks', 'poocommerce' );
 
 const getBlockifiedTemplate = ( inheritedAttributes: InheritedAttributes ) =>
 	[
-		createBlock( 'woocommerce/cart', {
+		createBlock( 'poocommerce/cart', {
 			...inheritedAttributes,
 			className: 'wc-block-cart',
 		} ),
@@ -35,7 +35,7 @@ const onClickCallback = ( {
 			block.name === 'core/group' &&
 			block.innerBlocks.some(
 				( innerBlock ) =>
-					innerBlock.name === 'woocommerce/store-notices'
+					innerBlock.name === 'poocommerce/store-notices'
 			)
 	);
 
@@ -48,7 +48,7 @@ const onClickCallback = ( {
  * Title shown within the block itself.
  */
 const getTitle = () => {
-	return __( 'Classic Cart', 'woocommerce' );
+	return __( 'Classic Cart', 'poocommerce' );
 };
 
 /**
@@ -57,7 +57,7 @@ const getTitle = () => {
 const getDescription = () => {
 	return __(
 		'This block will render the classic cart shortcode. You can optionally transform it into blocks for more control over the cart experience.',
-		'woocommerce'
+		'poocommerce'
 	);
 };
 

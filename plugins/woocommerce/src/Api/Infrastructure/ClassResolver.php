@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Api\Infrastructure;
+namespace Automattic\PooCommerce\Api\Infrastructure;
 
 /**
  * Class resolver for code-API command classes and other infrastructure classes.

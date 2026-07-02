@@ -2,13 +2,13 @@
 /**
  * Order Line Item (shipping)
  *
- * @package WooCommerce\Classes
+ * @package PooCommerce\Classes
  * @version 3.0.0
  * @since   3.0.0
  */
 
-use Automattic\WooCommerce\Enums\ProductTaxStatus;
-use Automattic\WooCommerce\Utilities\NumberUtil;
+use Automattic\PooCommerce\Enums\ProductTaxStatus;
+use Automattic\PooCommerce\Utilities\NumberUtil;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -54,7 +54,7 @@ class WC_Order_Item_Shipping extends WC_Order_Item {
 			$this->set_taxes( false );
 		}
 
-		do_action( 'woocommerce_order_item_shipping_after_calculate_taxes', $this, $calculate_tax_for );
+		do_action( 'poocommerce_order_item_shipping_after_calculate_taxes', $this, $calculate_tax_for );
 
 		return true;
 	}
@@ -153,11 +153,11 @@ class WC_Order_Item_Shipping extends WC_Order_Item {
 				wc_get_logger()->warning(
 					sprintf(
 						/* translators: %d: order item ID */
-						__( 'Order item #%d contains legacy tax data format. Tax rate ID information is unavailable.', 'woocommerce' ),
+						__( 'Order item #%d contains legacy tax data format. Tax rate ID information is unavailable.', 'poocommerce' ),
 						$this->get_id()
 					),
 					array(
-						'source'        => 'woocommerce-order-item-shipping',
+						'source'        => 'poocommerce-order-item-shipping',
 						'order_item_id' => $this->get_id(),
 						'order_id'      => $order ? $order->get_id() : 0,
 					)
@@ -171,7 +171,7 @@ class WC_Order_Item_Shipping extends WC_Order_Item {
 		}
 		$this->set_prop( 'taxes', $tax_data );
 
-		if ( 'yes' === get_option( 'woocommerce_tax_round_at_subtotal' ) ) {
+		if ( 'yes' === get_option( 'poocommerce_tax_round_at_subtotal' ) ) {
 			$this->set_total_tax( NumberUtil::array_sum( $tax_data['total'] ) );
 		} else {
 			$this->set_total_tax( NumberUtil::array_sum( array_map( 'wc_round_tax_total', $tax_data['total'] ) ) );
@@ -237,7 +237,7 @@ class WC_Order_Item_Shipping extends WC_Order_Item {
 	public function get_method_title( $context = 'view' ) {
 		$method_title = $this->get_prop( 'method_title', $context );
 		if ( 'view' === $context ) {
-			return $method_title ? $method_title : __( 'Shipping', 'woocommerce' );
+			return $method_title ? $method_title : __( 'Shipping', 'poocommerce' );
 		} else {
 			return $method_title;
 		}
@@ -300,7 +300,7 @@ class WC_Order_Item_Shipping extends WC_Order_Item {
 	 * @return string
 	 */
 	public function get_tax_class( $context = 'view' ) {
-		return get_option( 'woocommerce_shipping_tax_class' );
+		return get_option( 'poocommerce_shipping_tax_class' );
 	}
 
 	/**

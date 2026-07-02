@@ -23,12 +23,12 @@ const mockCountriesStore = ( countries ) => {
 	} );
 };
 
-jest.mock( '@woocommerce/data', () => ( {
-	...jest.requireActual( '@woocommerce/data' ),
+jest.mock( '@poocommerce/data', () => ( {
+	...jest.requireActual( '@poocommerce/data' ),
 	COUNTRIES_STORE_NAME: 'wc/admin/countries',
 } ) );
 
-jest.mock( '@woocommerce/currency', () => {
+jest.mock( '@poocommerce/currency', () => {
 	const React = require( 'react' );
 	const config = {
 		formatAmount: ( v ) => String( v ),
@@ -130,7 +130,7 @@ describe( 'CustomersReportTable country cell', () => {
 		expect( () => renderCellDisplay( cell.display ) ).not.toThrow();
 	} );
 
-	// Regression for woocommerce/woocommerce#64555. Before the fix, getCountryName
+	// Regression for poocommerce/poocommerce#64555. Before the fix, getCountryName
 	// did `countries[ code ]`, which on an Array treats the key as an index.
 	// A customer record with country = "0" therefore resolved to the first
 	// country object, which React then refused to render as a child.

@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\GraphQL\Executor;
+namespace Automattic\PooCommerce\Vendor\GraphQL\Executor;
 
-use Automattic\WooCommerce\Vendor\GraphQL\Error\DebugFlag;
-use Automattic\WooCommerce\Vendor\GraphQL\Error\Error;
-use Automattic\WooCommerce\Vendor\GraphQL\Error\FormattedError;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\DebugFlag;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\Error;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\FormattedError;
 
 /**
  * Returned after [query execution](executing-queries.md).
@@ -29,7 +29,7 @@ use Automattic\WooCommerce\Vendor\GraphQL\Error\FormattedError;
  * @phpstan-type ErrorFormatter callable(\Throwable): SerializableError
  * @phpstan-type ErrorsHandler callable(list<Error> $errors, ErrorFormatter $formatter): SerializableErrors
  *
- * @see \Automattic\WooCommerce\Vendor\GraphQL\Tests\Executor\ExecutionResultTest
+ * @see \Automattic\PooCommerce\Vendor\GraphQL\Tests\Executor\ExecutionResultTest
  */
 class ExecutionResult implements \JsonSerializable
 {
@@ -92,9 +92,9 @@ class ExecutionResult implements \JsonSerializable
     /**
      * Define custom error formatting (must conform to http://facebook.github.io/graphql/#sec-Errors).
      *
-     * Expected signature is: function (Automattic\WooCommerce\Vendor\GraphQL\Error\Error $error): array
+     * Expected signature is: function (Automattic\PooCommerce\Vendor\GraphQL\Error\Error $error): array
      *
-     * Default formatter is "Automattic\WooCommerce\Vendor\GraphQL\Error\FormattedError::createFromException"
+     * Default formatter is "Automattic\PooCommerce\Vendor\GraphQL\Error\FormattedError::createFromException"
      *
      * Expected returned value must be an array:
      * array(
@@ -141,13 +141,13 @@ class ExecutionResult implements \JsonSerializable
     }
 
     /**
-     * Converts Automattic\WooCommerce\Vendor\GraphQL query result to spec-compliant serializable array using provided
+     * Converts Automattic\PooCommerce\Vendor\GraphQL query result to spec-compliant serializable array using provided
      * errors handler and formatter.
      *
      * If debug argument is passed, output of error formatter is enriched which debugging information
      * ("debugMessage", "trace" keys depending on flags).
      *
-     * $debug argument must sum of flags from @see \Automattic\WooCommerce\Vendor\GraphQL\Error\DebugFlag
+     * $debug argument must sum of flags from @see \Automattic\PooCommerce\Vendor\GraphQL\Error\DebugFlag
      *
      * @phpstan-return SerializableResult
      *

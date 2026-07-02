@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 /**
  * Tests for the WC_Admin_Dashboard class.
  *
- * @package WooCommerce\Tests\Admin
+ * @package PooCommerce\Tests\Admin
  */
 
 /**
@@ -49,13 +49,13 @@ class WC_Admin_Dashboard_Test extends WC_Unit_Test_Case {
 	 * Tear down test fixtures.
 	 */
 	public function tearDown(): void {
-		delete_option( 'woocommerce_task_list_completed_lists' );
-		delete_option( 'woocommerce_task_list_hidden' );
-		delete_option( 'woocommerce_task_list_hidden_lists' );
-		delete_option( 'woocommerce_task_list_complete' );
-		remove_all_filters( 'pre_option_woocommerce_task_list_complete' );
-		remove_all_filters( 'pre_option_woocommerce_task_list_hidden' );
-		delete_option( 'woocommerce_enable_reviews' );
+		delete_option( 'poocommerce_task_list_completed_lists' );
+		delete_option( 'poocommerce_task_list_hidden' );
+		delete_option( 'poocommerce_task_list_hidden_lists' );
+		delete_option( 'poocommerce_task_list_complete' );
+		remove_all_filters( 'pre_option_poocommerce_task_list_complete' );
+		remove_all_filters( 'pre_option_poocommerce_task_list_hidden' );
+		delete_option( 'poocommerce_enable_reviews' );
 
 		parent::tearDown();
 	}
@@ -78,7 +78,7 @@ class WC_Admin_Dashboard_Test extends WC_Unit_Test_Case {
 	public function test_widget_shows_when_task_list_complete(): void {
 		// Uses pre_option filter because WC_INSTALLING is true in test env,
 		// which causes the DeprecatedOptions bridge to bail out.
-		add_filter( 'pre_option_woocommerce_task_list_complete', fn() => 'yes' );
+		add_filter( 'pre_option_poocommerce_task_list_complete', fn() => 'yes' );
 
 		$this->assertTrue(
 			$this->invoke_should_display_widget( $this->sut ),
@@ -90,7 +90,7 @@ class WC_Admin_Dashboard_Test extends WC_Unit_Test_Case {
 	 * @testdox Widget shows when task list is hidden.
 	 */
 	public function test_widget_shows_when_task_list_hidden(): void {
-		add_filter( 'pre_option_woocommerce_task_list_hidden', fn() => 'yes' );
+		add_filter( 'pre_option_poocommerce_task_list_hidden', fn() => 'yes' );
 
 		$this->assertTrue(
 			$this->invoke_should_display_widget( $this->sut ),
@@ -102,8 +102,8 @@ class WC_Admin_Dashboard_Test extends WC_Unit_Test_Case {
 	 * @testdox Widget shows when task list is incomplete.
 	 */
 	public function test_widget_shows_when_task_list_is_incomplete(): void {
-		delete_option( 'woocommerce_task_list_completed_lists' );
-		delete_option( 'woocommerce_task_list_hidden_lists' );
+		delete_option( 'poocommerce_task_list_completed_lists' );
+		delete_option( 'poocommerce_task_list_hidden_lists' );
 
 		$this->assertTrue(
 			$this->invoke_should_display_widget( $this->sut ),
@@ -112,19 +112,19 @@ class WC_Admin_Dashboard_Test extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox WooCommerce widgets are registered high in the normal dashboard column in their current order.
+	 * @testdox PooCommerce widgets are registered high in the normal dashboard column in their current order.
 	 */
-	public function test_init_registers_woocommerce_widgets_in_high_normal_context_in_current_order(): void {
+	public function test_init_registers_poocommerce_widgets_in_high_normal_context_in_current_order(): void {
 		global $wp_meta_boxes;
 
 		require_once ABSPATH . 'wp-admin/includes/dashboard.php';
 		set_current_screen( 'dashboard' );
-		update_option( 'woocommerce_enable_reviews', 'yes' );
+		update_option( 'poocommerce_enable_reviews', 'yes' );
 		unset( $wp_meta_boxes['dashboard'] );
 
 		add_meta_box(
 			'wc_admin_dashboard_setup',
-			'WooCommerce Setup',
+			'PooCommerce Setup',
 			'__return_empty_string',
 			'dashboard',
 			'normal',
@@ -133,16 +133,16 @@ class WC_Admin_Dashboard_Test extends WC_Unit_Test_Case {
 		$this->sut->init();
 
 		$this->assertArrayHasKey( 'wc_admin_dashboard_setup', $wp_meta_boxes['dashboard']['normal']['high'] );
-		$this->assertArrayHasKey( 'woocommerce_dashboard_status', $wp_meta_boxes['dashboard']['normal']['high'] );
-		$this->assertArrayHasKey( 'woocommerce_dashboard_recent_reviews', $wp_meta_boxes['dashboard']['normal']['high'] );
+		$this->assertArrayHasKey( 'poocommerce_dashboard_status', $wp_meta_boxes['dashboard']['normal']['high'] );
+		$this->assertArrayHasKey( 'poocommerce_dashboard_recent_reviews', $wp_meta_boxes['dashboard']['normal']['high'] );
 
 		$widget_order = array_values(
 			array_intersect(
 				array_keys( $wp_meta_boxes['dashboard']['normal']['high'] ),
 				array(
 					'wc_admin_dashboard_setup',
-					'woocommerce_dashboard_status',
-					'woocommerce_dashboard_recent_reviews',
+					'poocommerce_dashboard_status',
+					'poocommerce_dashboard_recent_reviews',
 				)
 			)
 		);
@@ -150,8 +150,8 @@ class WC_Admin_Dashboard_Test extends WC_Unit_Test_Case {
 		$this->assertSame(
 			array(
 				'wc_admin_dashboard_setup',
-				'woocommerce_dashboard_status',
-				'woocommerce_dashboard_recent_reviews',
+				'poocommerce_dashboard_status',
+				'poocommerce_dashboard_recent_reviews',
 			),
 			$widget_order
 		);
@@ -165,7 +165,7 @@ class WC_Admin_Dashboard_Test extends WC_Unit_Test_Case {
 
 		require_once ABSPATH . 'wp-admin/includes/dashboard.php';
 		set_current_screen( 'dashboard' );
-		update_option( 'woocommerce_enable_reviews', 'no' );
+		update_option( 'poocommerce_enable_reviews', 'no' );
 		$had_comments_support = post_type_supports( 'product', 'comments' );
 		add_post_type_support( 'product', 'comments' );
 		unset( $wp_meta_boxes['dashboard'] );
@@ -173,8 +173,8 @@ class WC_Admin_Dashboard_Test extends WC_Unit_Test_Case {
 		try {
 			$this->sut->init();
 
-			$this->assertArrayHasKey( 'woocommerce_dashboard_status', $wp_meta_boxes['dashboard']['normal']['high'] );
-			$this->assertArrayNotHasKey( 'woocommerce_dashboard_recent_reviews', $wp_meta_boxes['dashboard']['normal']['high'] );
+			$this->assertArrayHasKey( 'poocommerce_dashboard_status', $wp_meta_boxes['dashboard']['normal']['high'] );
+			$this->assertArrayNotHasKey( 'poocommerce_dashboard_recent_reviews', $wp_meta_boxes['dashboard']['normal']['high'] );
 		} finally {
 			if ( ! $had_comments_support ) {
 				remove_post_type_support( 'product', 'comments' );
@@ -190,7 +190,7 @@ class WC_Admin_Dashboard_Test extends WC_Unit_Test_Case {
 
 		require_once ABSPATH . 'wp-admin/includes/dashboard.php';
 		set_current_screen( 'dashboard' );
-		update_option( 'woocommerce_enable_reviews', 'yes' );
+		update_option( 'poocommerce_enable_reviews', 'yes' );
 		$had_comments_support = post_type_supports( 'product', 'comments' );
 		add_post_type_support( 'product', 'comments' );
 		unset( $wp_meta_boxes['dashboard'] );
@@ -198,7 +198,7 @@ class WC_Admin_Dashboard_Test extends WC_Unit_Test_Case {
 		try {
 			$this->sut->init();
 
-			$this->assertArrayHasKey( 'woocommerce_dashboard_recent_reviews', $wp_meta_boxes['dashboard']['normal']['high'] );
+			$this->assertArrayHasKey( 'poocommerce_dashboard_recent_reviews', $wp_meta_boxes['dashboard']['normal']['high'] );
 		} finally {
 			if ( ! $had_comments_support ) {
 				remove_post_type_support( 'product', 'comments' );
@@ -214,7 +214,7 @@ class WC_Admin_Dashboard_Test extends WC_Unit_Test_Case {
 
 		require_once ABSPATH . 'wp-admin/includes/dashboard.php';
 		set_current_screen( 'dashboard' );
-		delete_option( 'woocommerce_enable_reviews' );
+		delete_option( 'poocommerce_enable_reviews' );
 		$had_comments_support = post_type_supports( 'product', 'comments' );
 		add_post_type_support( 'product', 'comments' );
 		unset( $wp_meta_boxes['dashboard'] );
@@ -222,7 +222,7 @@ class WC_Admin_Dashboard_Test extends WC_Unit_Test_Case {
 		try {
 			$this->sut->init();
 
-			$this->assertArrayHasKey( 'woocommerce_dashboard_recent_reviews', $wp_meta_boxes['dashboard']['normal']['high'] );
+			$this->assertArrayHasKey( 'poocommerce_dashboard_recent_reviews', $wp_meta_boxes['dashboard']['normal']['high'] );
 		} finally {
 			if ( ! $had_comments_support ) {
 				remove_post_type_support( 'product', 'comments' );
@@ -278,7 +278,7 @@ class WC_Admin_Dashboard_Test extends WC_Unit_Test_Case {
 	 * @testdox Widget does not show without proper capabilities.
 	 */
 	public function test_widget_does_not_show_without_capabilities(): void {
-		add_filter( 'pre_option_woocommerce_task_list_complete', fn() => 'yes' );
+		add_filter( 'pre_option_poocommerce_task_list_complete', fn() => 'yes' );
 
 		$password   = wp_generate_password( 8, false, false );
 		$subscriber = wp_insert_user(

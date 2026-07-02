@@ -3,7 +3,7 @@ title: wc payment_gateway
 sidebar_label: wc payment_gateway
 ---
 
-Manage WooCommerce payment gateway resources.
+Manage PooCommerce payment gateway resources.
 
 ## wc payment_gateway list
 

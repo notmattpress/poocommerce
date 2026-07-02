@@ -10,10 +10,10 @@ import {
 	useRef,
 } from '@wordpress/element';
 import clsx from 'clsx';
-import { isObject } from '@woocommerce/types';
+import { isObject } from '@poocommerce/types';
 import { useDispatch, useSelect } from '@wordpress/data';
-import { validationStore } from '@woocommerce/block-data';
-import { usePrevious } from '@woocommerce/base-hooks';
+import { validationStore } from '@poocommerce/block-data';
+import { usePrevious } from '@poocommerce/base-hooks';
 import { useInstanceId } from '@wordpress/compose';
 
 /**

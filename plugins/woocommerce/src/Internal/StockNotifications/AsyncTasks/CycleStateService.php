@@ -2,9 +2,9 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\StockNotifications\AsyncTasks;
+namespace Automattic\PooCommerce\Internal\StockNotifications\AsyncTasks;
 
-use Automattic\WooCommerce\Internal\StockNotifications\AsyncTasks\JobManager;
+use Automattic\PooCommerce\Internal\StockNotifications\AsyncTasks\JobManager;
 
 /**
  * The service for managing a product's send cycle state.

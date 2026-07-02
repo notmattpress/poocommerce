@@ -5,16 +5,16 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Abilities\AbilityDefinition;
-use Automattic\WooCommerce\Internal\Abilities\Domain\Traits\OrderAbilityTrait;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Abilities\AbilityDefinition;
+use Automattic\PooCommerce\Internal\Abilities\Domain\Traits\OrderAbilityTrait;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Registers the WooCommerce orders query ability.
+ * Registers the PooCommerce orders query ability.
  */
 class OrdersQuery extends AbstractDomainAbility implements AbilityDefinition {
 
@@ -28,7 +28,7 @@ class OrdersQuery extends AbstractDomainAbility implements AbilityDefinition {
 	 * @since 10.9.0
 	 */
 	public static function get_name(): string {
-		return 'woocommerce/orders-query';
+		return 'poocommerce/orders-query';
 	}
 
 	/**
@@ -40,12 +40,12 @@ class OrdersQuery extends AbstractDomainAbility implements AbilityDefinition {
 	 */
 	public static function get_registration_args(): array {
 		return array(
-			'label'               => __( 'Query orders', 'woocommerce' ),
+			'label'               => __( 'Query orders', 'poocommerce' ),
 			'description'         => __(
 				'Find orders by ID or common order filters.',
-				'woocommerce'
+				'poocommerce'
 			),
-			'category'            => 'woocommerce',
+			'category'            => 'poocommerce',
 			'input_schema'        => self::get_input_schema(),
 			'output_schema'       => self::get_collection_output_schema( 'orders', self::get_order_output_schema() ),
 			'execute_callback'    => array( __CLASS__, 'execute' ),
@@ -191,12 +191,12 @@ class OrdersQuery extends AbstractDomainAbility implements AbilityDefinition {
 				),
 				'status'             => array(
 					'type'        => 'string',
-					'description' => __( 'Filter by order status slug without the wc- prefix.', 'woocommerce' ),
+					'description' => __( 'Filter by order status slug without the wc- prefix.', 'poocommerce' ),
 					'enum'        => self::get_allowed_order_status_slugs(),
 				),
 				'customer_id'        => array(
 					'type'        => 'integer',
-					'description' => __( 'Filter by customer ID. Use 0 to filter guest orders.', 'woocommerce' ),
+					'description' => __( 'Filter by customer ID. Use 0 to filter guest orders.', 'poocommerce' ),
 					'minimum'     => 0,
 				),
 				'billing_email'      => array(
@@ -205,12 +205,12 @@ class OrdersQuery extends AbstractDomainAbility implements AbilityDefinition {
 				),
 				'parent'             => array(
 					'type'        => 'integer',
-					'description' => __( 'Filter by parent order ID.', 'woocommerce' ),
+					'description' => __( 'Filter by parent order ID.', 'poocommerce' ),
 					'minimum'     => 1,
 				),
 				'exclude'            => array(
 					'type'        => 'array',
-					'description' => __( 'Order IDs to exclude from the results.', 'woocommerce' ),
+					'description' => __( 'Order IDs to exclude from the results.', 'poocommerce' ),
 					'items'       => array(
 						'type'    => 'integer',
 						'minimum' => 1,
@@ -218,22 +218,22 @@ class OrdersQuery extends AbstractDomainAbility implements AbilityDefinition {
 				),
 				'date_after'         => array(
 					'type'        => 'string',
-					'description' => __( 'Filter orders created after this date/time.', 'woocommerce' ),
+					'description' => __( 'Filter orders created after this date/time.', 'poocommerce' ),
 					'format'      => 'date-time',
 				),
 				'date_before'        => array(
 					'type'        => 'string',
-					'description' => __( 'Filter orders created before this date/time.', 'woocommerce' ),
+					'description' => __( 'Filter orders created before this date/time.', 'poocommerce' ),
 					'format'      => 'date-time',
 				),
 				'modified_after'     => array(
 					'type'        => 'string',
-					'description' => __( 'Filter orders modified after this date/time.', 'woocommerce' ),
+					'description' => __( 'Filter orders modified after this date/time.', 'poocommerce' ),
 					'format'      => 'date-time',
 				),
 				'modified_before'    => array(
 					'type'        => 'string',
-					'description' => __( 'Filter orders modified before this date/time.', 'woocommerce' ),
+					'description' => __( 'Filter orders modified before this date/time.', 'poocommerce' ),
 					'format'      => 'date-time',
 				),
 				'orderby'            => array(
@@ -248,7 +248,7 @@ class OrdersQuery extends AbstractDomainAbility implements AbilityDefinition {
 					'type'        => 'boolean',
 					'description' => __(
 						'Whether to include order line items in each returned order. Defaults to false.',
-						'woocommerce'
+						'poocommerce'
 					),
 					'default'     => false,
 				),

@@ -3,11 +3,11 @@
  * Webhook Data Store Interface
  *
  * @version  3.2.0
- * @package  WooCommerce\Interface
+ * @package  PooCommerce\Interface
  */
 
 /**
- * WooCommerce Webhook data store interface.
+ * PooCommerce Webhook data store interface.
  */
 interface WC_Webhook_Data_Store_Interface {
 

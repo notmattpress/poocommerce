@@ -1,10 +1,10 @@
 module.exports = {
-	extends: [ 'plugin:@woocommerce/eslint-plugin/recommended' ],
+	extends: [ 'plugin:@poocommerce/eslint-plugin/recommended' ],
 	root: true,
 	settings: {
 		'import/core-modules': [
-			'@woocommerce/number',
-			'@woocommerce/settings',
+			'@poocommerce/number',
+			'@poocommerce/settings',
 		],
 		'import/resolver': {
 			node: {},

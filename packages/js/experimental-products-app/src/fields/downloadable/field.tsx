@@ -31,7 +31,7 @@ import {
 	type UploadedItem,
 } from './utils';
 
-const uploadingLabel = __( 'uploading…', 'woocommerce' );
+const uploadingLabel = __( 'uploading…', 'poocommerce' );
 
 const getAttachmentTextValue = ( value: unknown ) => {
 	return typeof value === 'string' ? value : '';
@@ -61,7 +61,7 @@ const toUploadedDownload = (
 
 const fieldDefinition = {
 	type: 'boolean',
-	label: __( 'Downloadable', 'woocommerce' ),
+	label: __( 'Downloadable', 'poocommerce' ),
 	enableSorting: false,
 	enableHiding: false,
 	filterBy: false,
@@ -225,7 +225,7 @@ export const fieldExtensions: Partial< Field< ProductEntityRecord > > = {
 		];
 
 		return (
-			<div className="woocommerce-fields-field__downloadable">
+			<div className="poocommerce-fields-field__downloadable">
 				{ items.length > 0 && (
 					<ListItem
 						items={ items }
@@ -235,7 +235,7 @@ export const fieldExtensions: Partial< Field< ProductEntityRecord > > = {
 				) }
 				<FormFileUpload
 					__next40pxDefaultSize
-					className="woocommerce-fields-field__downloadable-upload-button"
+					className="poocommerce-fields-field__downloadable-upload-button"
 					onChange={ ( event ) => {
 						const file = event?.currentTarget.files?.[ 0 ];
 						if ( file ) {
@@ -244,7 +244,7 @@ export const fieldExtensions: Partial< Field< ProductEntityRecord > > = {
 					} }
 				>
 					<span>
-						{ __( '+ Upload another file', 'woocommerce' ) }
+						{ __( '+ Upload another file', 'poocommerce' ) }
 					</span>
 				</FormFileUpload>
 			</div>

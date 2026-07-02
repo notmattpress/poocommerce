@@ -2009,7 +2009,7 @@ test.describe.serial( 'Orders API tests', () => {
 
 			// We need to update the review in order for the product's
 			// average_rating to be recalculated.
-			// See: https://github.com/woocommerce/woocommerce/issues/29906.
+			// See: https://github.com/poocommerce/poocommerce/issues/29906.
 			//await updateProductReview(review1.id);
 			await request.post(
 				`./wp-json/wc/v3/products/reviews/${ review1JSON.id }`,
@@ -2378,7 +2378,7 @@ test.describe.serial( 'Orders API tests', () => {
 
 			// Create an order with all possible numerical fields (taxes, fees, refunds, etc).
 			await request.put(
-				'./wp-json/wc/v3/settings/general/woocommerce_calc_taxes',
+				'./wp-json/wc/v3/settings/general/poocommerce_calc_taxes',
 				{
 					data: {
 						value: 'yes',

@@ -18,9 +18,9 @@ export default function transformer( file, api ) {
 		.find( j.CallExpression )
 		.filter( ( p ) => isFunctionNamed( p, i18nFunctionsToRename ) )
 		.forEach( ( path ) => {
-			j( path ) // Descend into each call expression to find any strings literal 'woocommerce-admin'
-				.find( j.StringLiteral, { value: 'woocommerce-admin' } )
-				.replaceWith( j.stringLiteral( 'woocommerce' ) );
+			j( path ) // Descend into each call expression to find any strings literal 'poocommerce-admin'
+				.find( j.StringLiteral, { value: 'poocommerce-admin' } )
+				.replaceWith( j.stringLiteral( 'poocommerce' ) );
 		} )
 		.toSource();
 }

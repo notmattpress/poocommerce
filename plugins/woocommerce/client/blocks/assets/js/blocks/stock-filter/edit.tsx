@@ -4,7 +4,7 @@
 import { __, _x } from '@wordpress/i18n';
 import clsx from 'clsx';
 import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
-import BlockTitle from '@woocommerce/editor-components/block-title';
+import BlockTitle from '@poocommerce/editor-components/block-title';
 import type { BlockEditProps } from '@wordpress/blocks';
 import {
 	Disabled,
@@ -55,7 +55,7 @@ const Edit = ( {
 					<UpgradeNotice clientId={ clientId } />
 				</PanelBody>
 				<ToolsPanel
-					label={ __( 'Display Settings', 'woocommerce' ) }
+					label={ __( 'Display Settings', 'poocommerce' ) }
 					resetAll={ () =>
 						setAttributes( {
 							showCounts: false,
@@ -66,7 +66,7 @@ const Edit = ( {
 					}
 				>
 					<ToolsPanelItem
-						label={ __( 'Display product count', 'woocommerce' ) }
+						label={ __( 'Display product count', 'poocommerce' ) }
 						hasValue={ () => showCounts !== false }
 						onDeselect={ () =>
 							setAttributes( { showCounts: false } )
@@ -76,7 +76,7 @@ const Edit = ( {
 						<ToggleControl
 							label={ __(
 								'Display product count',
-								'woocommerce'
+								'poocommerce'
 							) }
 							checked={ showCounts }
 							onChange={ () =>
@@ -89,7 +89,7 @@ const Edit = ( {
 					<ToolsPanelItem
 						label={ __(
 							'Allow selecting multiple options?',
-							'woocommerce'
+							'poocommerce'
 						) }
 						hasValue={ () => selectType !== 'multiple' }
 						onDeselect={ () =>
@@ -100,7 +100,7 @@ const Edit = ( {
 						<ToggleGroupControl
 							label={ __(
 								'Allow selecting multiple options?',
-								'woocommerce'
+								'poocommerce'
 							) }
 							isBlock
 							value={ selectType || 'multiple' }
@@ -116,7 +116,7 @@ const Edit = ( {
 								label={ _x(
 									'Multiple',
 									'Number of filters',
-									'woocommerce'
+									'poocommerce'
 								) }
 							/>
 							<ToggleGroupControlOption
@@ -124,13 +124,13 @@ const Edit = ( {
 								label={ _x(
 									'Single',
 									'Number of filters',
-									'woocommerce'
+									'poocommerce'
 								) }
 							/>
 						</ToggleGroupControl>
 					</ToolsPanelItem>
 					<ToolsPanelItem
-						label={ __( 'Display Style', 'woocommerce' ) }
+						label={ __( 'Display Style', 'poocommerce' ) }
 						hasValue={ () => displayStyle !== 'list' }
 						onDeselect={ () =>
 							setAttributes( { displayStyle: 'list' } )
@@ -138,7 +138,7 @@ const Edit = ( {
 						isShownByDefault
 					>
 						<ToggleGroupControl
-							label={ __( 'Display Style', 'woocommerce' ) }
+							label={ __( 'Display Style', 'poocommerce' ) }
 							isBlock
 							value={ displayStyle }
 							onChange={ ( value ) =>
@@ -150,18 +150,18 @@ const Edit = ( {
 						>
 							<ToggleGroupControlOption
 								value="list"
-								label={ __( 'List', 'woocommerce' ) }
+								label={ __( 'List', 'poocommerce' ) }
 							/>
 							<ToggleGroupControlOption
 								value="dropdown"
-								label={ __( 'Dropdown', 'woocommerce' ) }
+								label={ __( 'Dropdown', 'poocommerce' ) }
 							/>
 						</ToggleGroupControl>
 					</ToolsPanelItem>
 					<ToolsPanelItem
 						label={ __(
 							"Show 'Apply filters' button",
-							'woocommerce'
+							'poocommerce'
 						) }
 						hasValue={ () => showFilterButton !== false }
 						onDeselect={ () =>
@@ -172,11 +172,11 @@ const Edit = ( {
 						<ToggleControl
 							label={ __(
 								"Show 'Apply filters' button",
-								'woocommerce'
+								'poocommerce'
 							) }
 							help={ __(
 								'Products will update when the button is clicked.',
-								'woocommerce'
+								'poocommerce'
 							) }
 							checked={ showFilterButton }
 							onChange={ ( value ) =>

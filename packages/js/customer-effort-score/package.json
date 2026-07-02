@@ -1,23 +1,23 @@
 {
-	"name": "@woocommerce/customer-effort-score",
+	"name": "@poocommerce/customer-effort-score",
 	"version": "4.0.0",
-	"description": "WooCommerce utility to measure user effort.",
+	"description": "PooCommerce utility to measure user effort.",
 	"author": "Automattic",
 	"license": "GPL-2.0-or-later",
 	"keywords": [
 		"wordpress",
-		"woocommerce"
+		"poocommerce"
 	],
 	"engines": {
 		"node": "^24.15.0"
 	},
-	"homepage": "https://github.com/woocommerce/woocommerce/tree/trunk/packages/js/customer-effort-score/README.md",
+	"homepage": "https://github.com/poocommerce/poocommerce/tree/trunk/packages/js/customer-effort-score/README.md",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/woocommerce/woocommerce.git"
+		"url": "https://github.com/poocommerce/poocommerce.git"
 	},
 	"bugs": {
-		"url": "https://github.com/woocommerce/woocommerce/issues"
+		"url": "https://github.com/poocommerce/poocommerce/issues"
 	},
 	"exports": {
 		".": {
@@ -67,7 +67,7 @@
 		]
 	},
 	"dependencies": {
-		"@woocommerce/experimental": "workspace:*",
+		"@poocommerce/experimental": "workspace:*",
 		"@wordpress/components": "catalog:wp-min",
 		"@wordpress/compose": "catalog:wp-min",
 		"@wordpress/element": "catalog:wp-min",
@@ -94,12 +94,12 @@
 		"@types/jest": "29.5.x",
 		"@types/prop-types": "^15.7.11",
 		"@types/testing-library__jest-dom": "^5.14.9",
-		"@woocommerce/data": "workspace:*",
-		"@woocommerce/eslint-plugin": "workspace:*",
-		"@woocommerce/internal-build": "workspace:*",
-		"@woocommerce/internal-js-tests": "workspace:*",
-		"@woocommerce/navigation": "workspace:*",
-		"@woocommerce/tracks": "workspace:*",
+		"@poocommerce/data": "workspace:*",
+		"@poocommerce/eslint-plugin": "workspace:*",
+		"@poocommerce/internal-build": "workspace:*",
+		"@poocommerce/internal-js-tests": "workspace:*",
+		"@poocommerce/navigation": "workspace:*",
+		"@poocommerce/tracks": "workspace:*",
 		"@wordpress/browserslist-config": "next",
 		"css-loader": "6.11.x",
 		"eslint": "^8.55.0",

@@ -16,8 +16,8 @@ const CustomTemplatedPathPlugin = require( './bin/custom-templated-path-webpack-
 const UnminifyWebpackPlugin = require( './bin/unminify-webpack-plugin.js' );
 const {
 	webpackConfig: styleConfig,
-} = require( '@woocommerce/internal-build/style-build' );
-const WooCommerceDependencyExtractionWebpackPlugin = require( '@woocommerce/dependency-extraction-webpack-plugin/src/index' );
+} = require( '@poocommerce/internal-build/style-build' );
+const PooCommerceDependencyExtractionWebpackPlugin = require( '@poocommerce/dependency-extraction-webpack-plugin/src/index' );
 
 const NODE_ENV = process.env.NODE_ENV || 'development';
 const WC_ADMIN_PHASE = process.env.WC_ADMIN_PHASE || 'development';
@@ -41,7 +41,7 @@ const WP_ADMIN_SCRIPTS_DIR = './client/wp-admin-scripts';
 // package CSS config use this constant for `output.path`.
 const BUILD_DIR = path.resolve( __dirname, '../../assets/client/admin' );
 
-// wpAdminScripts are loaded on wp-admin pages outside the context of WooCommerce Admin
+// wpAdminScripts are loaded on wp-admin pages outside the context of PooCommerce Admin
 // See ./client/wp-admin-scripts/README.md for more details
 const wpAdminScripts = getSubdirectoriesAt( WP_ADMIN_SCRIPTS_DIR ); // automatically include all subdirs
 const wcAdminPackages = [
@@ -68,11 +68,11 @@ const wcAdminPackages = [
 ];
 
 // Resolve each entry to the package's `wc-source` export as an absolute path.
-// Using the package name (`@woocommerce/<name>`) as the entry request would
-// match WooCommerceDependencyExtractionWebpackPlugin's externals list and
+// Using the package name (`@poocommerce/<name>`) as the entry request would
+// match PooCommerceDependencyExtractionWebpackPlugin's externals list and
 // collapse the entry into a `window.wc.<name>` shim that re-exports itself.
 // Pointing entries at the filesystem dodges that match while still letting
-// transitive `@woocommerce/*` imports inside the bundle externalize normally.
+// transitive `@poocommerce/*` imports inside the bundle externalize normally.
 const resolvePackageSourceEntry = ( name ) => {
 	const pkgJsonPath = path.resolve(
 		__dirname,
@@ -82,7 +82,7 @@ const resolvePackageSourceEntry = ( name ) => {
 	const source = pkgJson.exports?.[ '.' ]?.[ 'wc-source' ];
 	if ( ! source ) {
 		throw new Error(
-			`Package @woocommerce/${ name } has no exports["."]["wc-source"] entry in ${ pkgJsonPath }`
+			`Package @poocommerce/${ name } has no exports["."]["wc-source"] entry in ${ pkgJsonPath }`
 		);
 	}
 	return path.resolve( path.dirname( pkgJsonPath ), source );
@@ -146,10 +146,10 @@ const jsConfig = {
 								'../../../../pnpm-lock.yaml'
 							),
 							require.resolve(
-								'@woocommerce/dependency-extraction-webpack-plugin'
+								'@poocommerce/dependency-extraction-webpack-plugin'
 							),
 							require.resolve(
-								'@woocommerce/internal-build/style-build'
+								'@poocommerce/internal-build/style-build'
 							),
 						],
 					},
@@ -158,7 +158,7 @@ const jsConfig = {
 	output: {
 		filename: ( data ) => {
 			// Output wpAdminScripts to wp-admin-scripts folder
-			// See https://github.com/woocommerce/woocommerce-admin/pull/3061
+			// See https://github.com/poocommerce/poocommerce-admin/pull/3061
 			return wpAdminScripts.includes( data.chunk.name )
 				? `wp-admin-scripts/[name]${ outputSuffix }.js`
 				: `[name]/index${ outputSuffix }.js`;
@@ -166,7 +166,7 @@ const jsConfig = {
 		chunkFilename: `chunks/[name]${ outputSuffix }.js?ver=[contenthash]`,
 		path: BUILD_DIR,
 		library: {
-			// Expose the exports of entry points so we can consume the libraries in window.wc.[modulename] with WooCommerceDependencyExtractionWebpackPlugin.
+			// Expose the exports of entry points so we can consume the libraries in window.wc.[modulename] with PooCommerceDependencyExtractionWebpackPlugin.
 			name: [ 'wc', '[modulename]' ],
 			type: 'window',
 		},
@@ -180,7 +180,7 @@ const jsConfig = {
 				test: /\.(t|j)sx?$/,
 				parser: {
 					// Disable AMD to fix an issue where underscore and lodash where clashing
-					// See https://github.com/woocommerce/woocommerce-admin/pull/1004 and https://github.com/Automattic/woocommerce-services/pull/1522
+					// See https://github.com/poocommerce/poocommerce-admin/pull/1004 and https://github.com/Automattic/poocommerce-services/pull/1522
 					amd: false,
 				},
 				exclude: [
@@ -222,7 +222,7 @@ const jsConfig = {
 	resolve: {
 		fallback: {
 			// Reduce bundle size by omitting Node crypto library.
-			// See https://github.com/woocommerce/woocommerce-admin/pull/5768
+			// See https://github.com/poocommerce/poocommerce-admin/pull/5768
 			crypto: 'empty',
 			// Ignore fs, path to skip resolve errors for @automattic/calypso-config
 			fs: false,
@@ -232,7 +232,7 @@ const jsConfig = {
 		// Activate the `"wc-source"` conditional export declared in each
 		// `packages/js/*` package.json. Webpack walks the package's exports map
 		// and picks `./src/index.ts` directly — no per-package alias is
-		// required, and transitive `@woocommerce/*` imports resolve to source
+		// required, and transitive `@poocommerce/*` imports resolve to source
 		// through the same mechanism. The condition is namespaced (`wc-` prefix)
 		// so it never collides with third-party packages that publish their own
 		// `"source"` conditional export. `'...'` extends the default list.
@@ -246,10 +246,10 @@ const jsConfig = {
 	plugins: [
 		...styleConfig.plugins,
 		// Substitute the `__i18n_text_domain__` identifier used by the
-		// @woocommerce/email-editor package with the WooCommerce text
-		// domain so strings extract and translate under `woocommerce`.
+		// @poocommerce/email-editor package with the PooCommerce text
+		// domain so strings extract and translate under `poocommerce`.
 		new webpack.DefinePlugin( {
-			__i18n_text_domain__: JSON.stringify( 'woocommerce' ),
+			__i18n_text_domain__: JSON.stringify( 'poocommerce' ),
 		} ),
 		new CustomTemplatedPathPlugin( {
 			modulename( outputPath, data ) {
@@ -270,7 +270,7 @@ const jsConfig = {
 
 		// We reuse this Webpack setup for Storybook, where we need to disable dependency extraction.
 		! process.env.STORYBOOK &&
-			new WooCommerceDependencyExtractionWebpackPlugin( {
+			new PooCommerceDependencyExtractionWebpackPlugin( {
 				requestToExternal( request ) {
 					switch ( request ) {
 						case 'moment-timezone':
@@ -318,10 +318,10 @@ const jsConfig = {
 						return null;
 					}
 
-					// Skip requesting to external if the import path is from the build or build-module directory for WooCommerce packages.
-					// This can reduce the bundle size when we don't need to load the entire WooCommerce package.
+					// Skip requesting to external if the import path is from the build or build-module directory for PooCommerce packages.
+					// This can reduce the bundle size when we don't need to load the entire PooCommerce package.
 					if (
-						request.match( /^@woocommerce\/.*\/build(?:-module)?/ )
+						request.match( /^@poocommerce\/.*\/build(?:-module)?/ )
 					) {
 						return null;
 					}
@@ -348,7 +348,7 @@ const jsConfig = {
 		minimize: NODE_ENV !== 'development',
 		splitChunks: {
 			// Not to generate chunk names because it caused a stressful workflow when deploying the plugin to WP.org
-			// See https://github.com/woocommerce/woocommerce-admin/pull/5229
+			// See https://github.com/poocommerce/poocommerce-admin/pull/5229
 			name: false,
 		},
 	},

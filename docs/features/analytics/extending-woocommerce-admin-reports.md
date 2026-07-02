@@ -1,10 +1,10 @@
 ---
-post_title: How to extend WooCommerce analytics reports
+post_title: How to extend PooCommerce analytics reports
 sidebar_label: Extend analytics reports
 sidebar_position: 1
 ---
 
-# How to extend WooCommerce analytics reports
+# How to extend PooCommerce analytics reports
 
 ## Introduction
 
@@ -12,14 +12,14 @@ This document serves as a guide to extending WC-Admin Reports with a basic UI dr
 
 ## Getting started
 
-We'll be using `@woocommerce/create-woo-extension` to scaffold a modern WordPress JavaScript environment for plugins. This tool creates a fully functional development environment for integrating with WooCommerce.
+We'll be using `@poocommerce/create-woo-extension` to scaffold a modern WordPress JavaScript environment for plugins. This tool creates a fully functional development environment for integrating with PooCommerce.
 
 In this example, we'll be using the `sql-modification` variant to create a basic report extension that we can build upon.
 
 In your `wp-content/plugins` directory, run the following command to create your extension:
 
 ```sh
-npx @wordpress/create-block -t @woocommerce/create-woo-extension --variant=sql-modification my-extension-name
+npx @wordpress/create-block -t @poocommerce/create-woo-extension --variant=sql-modification my-extension-name
 ```
 
 Navigate to the newly created folder and start development:
@@ -40,11 +40,11 @@ Don't forget to head over to `/wp-admin/plugins.php` and activate your plugin.
 
 ## Populating test data
 
-Next, set up some orders to have sample data. Using WooCommerce > Settings > Currency, I added three test orders in Mexican Peso, US Dollar, and New Zealand Dollar.
+Next, set up some orders to have sample data. Using PooCommerce > Settings > Currency, I added three test orders in Mexican Peso, US Dollar, and New Zealand Dollar.
 
-After doing so, check out WC-Admin to make sure the orders are showing up by going to `/wp-admin/admin.php?page=wc-admin&period=today&path=%2Fanalytics%2Forders&compare=previous_year`. Note that without any modification currency figures show according to what I have currently in WooCommerce settings, which is New Zealand Dollar in this case.
+After doing so, check out WC-Admin to make sure the orders are showing up by going to `/wp-admin/admin.php?page=wc-admin&period=today&path=%2Fanalytics%2Forders&compare=previous_year`. Note that without any modification currency figures show according to what I have currently in PooCommerce settings, which is New Zealand Dollar in this case.
 
-![screenshot of wp-admin showing processing orders](https://developer.woocommerce.com/wp-content/uploads/2023/12/screen-shot-2020-02-19-at-12.11.34-pm.png?w=851)
+![screenshot of wp-admin showing processing orders](https://developer.poocommerce.com/wp-content/uploads/2023/12/screen-shot-2020-02-19-at-12.11.34-pm.png?w=851)
 
 We can confirm each order's currency by running the following query on the `wp_posts` table and joining `wp_postmeta` to gather currency meta values. Results show an order in NZD, USD, and MXN. This query is similar to the one we'll implement later in the guide to gather and display currency values.
 
@@ -61,11 +61,11 @@ ORDER BY wp_posts.post_date DESC
 LIMIT 3
 ```
 
-![screenshot of resulting query](https://developer.woocommerce.com/wp-content/uploads/2023/12/screen-shot-2020-02-19-at-12.33.45-pm.png?w=756)
+![screenshot of resulting query](https://developer.poocommerce.com/wp-content/uploads/2023/12/screen-shot-2020-02-19-at-12.33.45-pm.png?w=756)
 
 ## Add a UI dropdown
 
-In order to view reports in differing currencies, a filter or dropdown will be needed. We can add a basic filter to reports by adding a configuration object similar to [this one from the Orders Report](https://github.com/woocommerce/woocommerce/blob/trunk/plugins/woocommerce/client/admin/client/analytics/report/orders/config.js#L50-L62).
+In order to view reports in differing currencies, a filter or dropdown will be needed. We can add a basic filter to reports by adding a configuration object similar to [this one from the Orders Report](https://github.com/poocommerce/poocommerce/blob/trunk/plugins/poocommerce/client/admin/client/analytics/report/orders/config.js#L50-L62).
 
 First, we need to populate the client with data to render the dropdown. The best way to do this is to add data to the `wcSettings` global. This global can be useful for transferring static configuration data from PHP to the client. In the main PHP file, add currency settings to the Data Registry to populate `window.wcSettings.multiCurrency`.
 
@@ -86,8 +86,8 @@ function add_currency_settings() {
 		),
 	);
 
-	$data_registry = Automattic\WooCommerce\Blocks\Package::container()->get(
-		Automattic\WooCommerce\Blocks\Assets\AssetDataRegistry::class
+	$data_registry = Automattic\PooCommerce\Blocks\Package::container()->get(
+		Automattic\PooCommerce\Blocks\Assets\AssetDataRegistry::class
 	);
 
 	$data_registry->add( 'multiCurrency', $currencies );
@@ -98,7 +98,7 @@ add_action( 'init', 'add_currency_settings' );
 
 In the console, you can confirm the data has safely made its way to the client.
 
-![screenshot of console](https://developer.woocommerce.com/wp-content/uploads/2023/12/screen-shot-2020-02-19-at-1.11.50-pm.png?w=476)
+![screenshot of console](https://developer.poocommerce.com/wp-content/uploads/2023/12/screen-shot-2020-02-19-at-1.11.50-pm.png?w=476)
 
 In `index.js` create the custom currency filter and add it the Orders Report.
 
@@ -121,7 +121,7 @@ const addCurrencyFilters = (filters) => {
 };
 
 addFilter(
-  "woocommerce_admin_orders_report_filters",
+  "poocommerce_admin_orders_report_filters",
   "dev-blog-example",
   addCurrencyFilters
 );
@@ -129,7 +129,7 @@ addFilter(
 
 If we check out the Orders Report, we can see our new dropdown. Play around with it and you'll notice the currency query parameter gets added to the url. If you check out the Network tab, you'll also see this value included in requests for data used to populate the report. For example, see the requests to orders stats endpoint, `/wp-json/wc-analytics/reports/orders/stats`. Next we'll use that query parameter to adjust report results.
 
-![screenshot showing UI dropdown in wp-admin](https://developer.woocommerce.com/wp-content/uploads/2023/12/screen-shot-2020-02-19-at-1.16.44-pm.png?w=512)
+![screenshot showing UI dropdown in wp-admin](https://developer.poocommerce.com/wp-content/uploads/2023/12/screen-shot-2020-02-19-at-1.16.44-pm.png?w=512)
 
 ## Handle currency parameters on the server
 
@@ -148,8 +148,8 @@ function apply_currency_arg( $args ) {
 	return $args;
 }
 
-add_filter( 'woocommerce_analytics_orders_query_args', 'apply_currency_arg' );
-add_filter( 'woocommerce_analytics_orders_stats_query_args', 'apply_currency_arg' );
+add_filter( 'poocommerce_analytics_orders_query_args', 'apply_currency_arg' );
+add_filter( 'poocommerce_analytics_orders_stats_query_args', 'apply_currency_arg' );
 ```
 
 Now that we're sure a new database query is performed on mutations of the `currency` query parameter, we can start adding SQL statements to the queries that gather data.
@@ -165,9 +165,9 @@ function add_join_subquery( $clauses ) {
 	return $clauses;
 }
 
-add_filter( 'woocommerce_analytics_clauses_join_orders_subquery', 'add_join_subquery' );
-add_filter( 'woocommerce_analytics_clauses_join_orders_stats_total', 'add_join_subquery' );
-add_filter( 'woocommerce_analytics_clauses_join_orders_stats_interval', 'add_join_subquery' );
+add_filter( 'poocommerce_analytics_clauses_join_orders_subquery', 'add_join_subquery' );
+add_filter( 'poocommerce_analytics_clauses_join_orders_stats_total', 'add_join_subquery' );
+add_filter( 'poocommerce_analytics_clauses_join_orders_stats_interval', 'add_join_subquery' );
 ```
 
 Next, add a WHERE clause
@@ -194,9 +194,9 @@ function add_where_subquery( $clauses ) {
 	return $clauses;
 }
 
-add_filter( 'woocommerce_analytics_clauses_where_orders_subquery', 'add_where_subquery' );
-add_filter( 'woocommerce_analytics_clauses_where_orders_stats_total', 'add_where_subquery' );
-add_filter( 'woocommerce_analytics_clauses_where_orders_stats_interval', 'add_where_subquery' );
+add_filter( 'poocommerce_analytics_clauses_where_orders_subquery', 'add_where_subquery' );
+add_filter( 'poocommerce_analytics_clauses_where_orders_stats_total', 'add_where_subquery' );
+add_filter( 'poocommerce_analytics_clauses_where_orders_stats_interval', 'add_where_subquery' );
 ```
 
 And finally, a SELECT clause.
@@ -208,14 +208,14 @@ function add_select_subquery( $clauses ) {
 	return $clauses;
 }
 
-add_filter( 'woocommerce_analytics_clauses_select_orders_subquery', 'add_select_subquery' );
-add_filter( 'woocommerce_analytics_clauses_select_orders_stats_total', 'add_select_subquery' );
-add_filter( 'woocommerce_analytics_clauses_select_orders_stats_interval', 'add_select_subquery' );
+add_filter( 'poocommerce_analytics_clauses_select_orders_subquery', 'add_select_subquery' );
+add_filter( 'poocommerce_analytics_clauses_select_orders_stats_total', 'add_select_subquery' );
+add_filter( 'poocommerce_analytics_clauses_select_orders_stats_interval', 'add_select_subquery' );
 ```
 
 Lets head back to the Orders Report and see if it works. You can manipulate the dropdown and see the relevant order reflected in the table.
 
-![screenshot of WooCommerce Orders tab in wp-admin showing the relevant order reflected in the table.](https://developer.woocommerce.com/wp-content/uploads/2023/12/screen-shot-2020-02-19-at-1.38.54-pm.png?w=585)
+![screenshot of PooCommerce Orders tab in wp-admin showing the relevant order reflected in the table.](https://developer.poocommerce.com/wp-content/uploads/2023/12/screen-shot-2020-02-19-at-1.38.54-pm.png?w=585)
 
 ## Finishing touches
 
@@ -252,18 +252,18 @@ const addTableColumn = (reportTableData) => {
   return reportTableData;
 };
 
-addFilter("woocommerce_admin_report_table", "dev-blog-example", addTableColumn);
+addFilter("poocommerce_admin_report_table", "dev-blog-example", addTableColumn);
 ```
 
-![screenshot of customized table](https://developer.woocommerce.com/wp-content/uploads/2023/12/screen-shot-2020-02-19-at-4.02.15-pm.png?w=861)
+![screenshot of customized table](https://developer.poocommerce.com/wp-content/uploads/2023/12/screen-shot-2020-02-19-at-4.02.15-pm.png?w=861)
 
 While adding a column is certainly helpful, currency figures in the table and chart only reflect the store currency.
 
-![screenshot of report](https://developer.woocommerce.com/wp-content/uploads/2023/12/screen-shot-2020-02-19-at-4.03.42-pm.png?w=865)
+![screenshot of report](https://developer.poocommerce.com/wp-content/uploads/2023/12/screen-shot-2020-02-19-at-4.03.42-pm.png?w=865)
 
-In order to change a Report's currency and number formatting, we can make use of the `woocommerce_admin_report_currency` JS hook. You can see the store's default sent to the client in `wcSettings.currency`, but we'll need to change these depending on the currency being viewed and designated by the query parameter `?currency=NZD`.
+In order to change a Report's currency and number formatting, we can make use of the `poocommerce_admin_report_currency` JS hook. You can see the store's default sent to the client in `wcSettings.currency`, but we'll need to change these depending on the currency being viewed and designated by the query parameter `?currency=NZD`.
 
-![screenshot of currency settings](https://developer.woocommerce.com/wp-content/uploads/2023/12/screen-shot-2020-04-03-at-11.18.42-am.png?w=238)
+![screenshot of currency settings](https://developer.poocommerce.com/wp-content/uploads/2023/12/screen-shot-2020-04-03-at-11.18.42-am.png?w=238)
 
 First, lets create some configs in index.js.
 
@@ -299,7 +299,7 @@ const updateReportCurrencies = (config, { currency }) => {
 };
 
 addFilter(
-  "woocommerce_admin_report_currency",
+  "poocommerce_admin_report_currency",
   "dev-blog-example",
   updateReportCurrencies
 );
@@ -307,7 +307,7 @@ addFilter(
 
 🎉 We can now view our Orders Report and see the currency reflected in monetary values throughout the report.
 
-![Screenshot of customized order report](https://developer.woocommerce.com/wp-content/uploads/2023/12/screen-shot-2020-04-03-at-11.29.05-am.png?w=912)
+![Screenshot of customized order report](https://developer.poocommerce.com/wp-content/uploads/2023/12/screen-shot-2020-04-03-at-11.29.05-am.png?w=912)
 
 ## Conclusion
 

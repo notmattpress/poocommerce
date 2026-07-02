@@ -2,15 +2,15 @@
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\RemoteInboxNotifications\SpecRunner;
-use Automattic\WooCommerce\Admin\RemoteInboxNotifications\RemoteInboxNotificationsEngine;
-use Automattic\WooCommerce\Admin\RemoteInboxNotifications\RemoteInboxNotificationsDataSourcePoller;
-use Automattic\WooCommerce\Admin\RemoteSpecs\RuleProcessors\GetRuleProcessor;
-use Automattic\WooCommerce\Admin\RemoteSpecs\RuleProcessors\RuleEvaluator;
+use Automattic\PooCommerce\Admin\RemoteInboxNotifications\SpecRunner;
+use Automattic\PooCommerce\Admin\RemoteInboxNotifications\RemoteInboxNotificationsEngine;
+use Automattic\PooCommerce\Admin\RemoteInboxNotifications\RemoteInboxNotificationsDataSourcePoller;
+use Automattic\PooCommerce\Admin\RemoteSpecs\RuleProcessors\GetRuleProcessor;
+use Automattic\PooCommerce\Admin\RemoteSpecs\RuleProcessors\RuleEvaluator;
 
 require_once dirname( __FILE__ ) . '/class-wc-beta-tester-remote-inbox-notifications-helper.php';
 
-register_woocommerce_admin_test_helper_rest_route(
+register_poocommerce_admin_test_helper_rest_route(
 	'/remote-inbox-notifications',
 	array( WCA_Test_Helper_Remote_Inbox_Notifications::class, 'get_items' ),
 	array(
@@ -18,7 +18,7 @@ register_woocommerce_admin_test_helper_rest_route(
 	)
 );
 
-register_woocommerce_admin_test_helper_rest_route(
+register_poocommerce_admin_test_helper_rest_route(
 	'/remote-inbox-notifications/(?P<id>\d+)/delete',
 	array( WCA_Test_Helper_Remote_Inbox_Notifications::class, 'delete' ),
 	array(
@@ -33,7 +33,7 @@ register_woocommerce_admin_test_helper_rest_route(
 	)
 );
 
-register_woocommerce_admin_test_helper_rest_route(
+register_poocommerce_admin_test_helper_rest_route(
 	'/remote-inbox-notifications/(?P<name>(.*)+)/test',
 	array( WCA_Test_Helper_Remote_Inbox_Notifications::class, 'test' ),
 	array(
@@ -48,7 +48,7 @@ register_woocommerce_admin_test_helper_rest_route(
 	)
 );
 
-register_woocommerce_admin_test_helper_rest_route(
+register_poocommerce_admin_test_helper_rest_route(
 	'/remote-inbox-notifications/delete-all',
 	array( WCA_Test_Helper_Remote_Inbox_Notifications::class, 'delete_all_items' ),
 	array(
@@ -56,7 +56,7 @@ register_woocommerce_admin_test_helper_rest_route(
 	)
 );
 
-register_woocommerce_admin_test_helper_rest_route(
+register_poocommerce_admin_test_helper_rest_route(
 	'/remote-inbox-notifications/import',
 	array( WCA_Test_Helper_Remote_Inbox_Notifications::class, 'import' ),
 	array(
@@ -107,7 +107,7 @@ class WCA_Test_Helper_Remote_Inbox_Notifications {
 	private static function get_notes_to_exclude() {
 		$vars       = array( 'other_note_classes', 'note_classes_to_added_or_updated' );
 		$note_names = array();
-		$reflection = new ReflectionClass( '\Automattic\WooCommerce\Internal\Admin\Events' );
+		$reflection = new ReflectionClass( '\Automattic\PooCommerce\Internal\Admin\Events' );
 		foreach ( $vars as $var ) {
 			$property = $reflection->getProperty( $var );
 			$property->setAccessible( true );

@@ -49,7 +49,7 @@ export const DeleteAllNotes = () => {
 					Delete all notes
 				</Button>
 				<br />
-				<span className="woocommerce-admin-test-helper__action-status">
+				<span className="poocommerce-admin-test-helper__action-status">
 					{ isDeleting && 'Deleting, please wait.' }
 					{ deleteStatus && (
 						<>

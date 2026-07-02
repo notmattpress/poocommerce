@@ -1,8 +1,8 @@
 <?php
 /**
- * WooCommerce Admin Helper - React admin interface
+ * PooCommerce Admin Helper - React admin interface
  *
- * @package WooCommerce\Admin\Helper
+ * @package PooCommerce\Admin\Helper
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * WC_Helper_Orders_API
  *
- * Pings WooCommerce.com to create an order and pull in the necessary data to start the installation process.
+ * Pings PooCommerce.com to create an order and pull in the necessary data to start the installation process.
  */
 class WC_Helper_Orders_API {
 	/**
@@ -49,7 +49,7 @@ class WC_Helper_Orders_API {
 	}
 
 	/**
-	 * The Extensions page can only be accessed by users with the manage_woocommerce
+	 * The Extensions page can only be accessed by users with the manage_poocommerce
 	 * capability. So the API mimics that behavior.
 	 *
 	 * @return bool
@@ -59,7 +59,7 @@ class WC_Helper_Orders_API {
 	}
 
 	/**
-	 * Core function to create an order on WooCommerce.com. Pings the API and catches the exceptions if any.
+	 * Core function to create an order on PooCommerce.com. Pings the API and catches the exceptions if any.
 	 *
 	 * @param WP_REST_Request $request Request object.
 	 *
@@ -69,7 +69,7 @@ class WC_Helper_Orders_API {
 		if ( ! current_user_can( 'install_plugins' ) ) {
 			return new \WP_REST_Response(
 				array(
-					'message' => __( 'You do not have permission to install plugins.', 'woocommerce' ),
+					'message' => __( 'You do not have permission to install plugins.', 'poocommerce' ),
 				),
 				403
 			);
@@ -95,7 +95,7 @@ class WC_Helper_Orders_API {
 		} catch ( Exception $e ) {
 			return new \WP_REST_Response(
 				array(
-					'message' => __( 'Could not start the installation process. Reason: ', 'woocommerce' ) . $e->getMessage(),
+					'message' => __( 'Could not start the installation process. Reason: ', 'poocommerce' ) . $e->getMessage(),
 					'code'    => 'could-not-install',
 				),
 				500

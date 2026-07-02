@@ -9,7 +9,7 @@ import {
 	paymentGatewaysStore,
 	optionsStore,
 	paymentSettingsStore,
-} from '@woocommerce/data';
+} from '@poocommerce/data';
 import { DataForm } from '@wordpress/dataviews';
 import type { Field } from '@wordpress/dataviews';
 
@@ -34,7 +34,7 @@ import {
 export const SettingsPaymentsBacs = () => {
 	const storeCountryCode =
 		window.wcSettings?.admin?.preloadSettings?.general
-			?.woocommerce_default_country || 'US';
+			?.poocommerce_default_country || 'US';
 
 	const { createSuccessNotice, createErrorNotice } =
 		useDispatch( 'core/notices' );
@@ -59,10 +59,10 @@ export const SettingsPaymentsBacs = () => {
 
 		return {
 			accountsOption: selectors.getOption(
-				'woocommerce_bacs_accounts'
+				'poocommerce_bacs_accounts'
 			) as BankAccount[] | undefined,
 			isLoadingAccounts: ! selectors.hasFinishedResolution( 'getOption', [
-				'woocommerce_bacs_accounts',
+				'poocommerce_bacs_accounts',
 			] ),
 		};
 	}, [] );
@@ -99,37 +99,37 @@ export const SettingsPaymentsBacs = () => {
 		() => [
 			{
 				id: 'enabled',
-				label: __( 'Enable direct bank transfers', 'woocommerce' ),
+				label: __( 'Enable direct bank transfers', 'poocommerce' ),
 				Edit: CheckboxEdit,
 			},
 			{
 				id: 'title',
-				label: __( 'Title', 'woocommerce' ),
+				label: __( 'Title', 'poocommerce' ),
 				description: __(
 					'Payment method name that the customer will see during checkout.',
-					'woocommerce'
+					'poocommerce'
 				),
 				placeholder: __(
 					'Direct bank transfer payments',
-					'woocommerce'
+					'poocommerce'
 				),
 				Edit: TextEdit,
 			},
 			{
 				id: 'description',
-				label: __( 'Description', 'woocommerce' ),
+				label: __( 'Description', 'poocommerce' ),
 				description: __(
 					'Payment method description that the customer will see during checkout.',
-					'woocommerce'
+					'poocommerce'
 				),
 				Edit: TextareaEdit,
 			},
 			{
 				id: 'instructions',
-				label: __( 'Instructions', 'woocommerce' ),
+				label: __( 'Instructions', 'poocommerce' ),
 				description: __(
 					'Instructions that will be added to the thank you page and emails.',
-					'woocommerce'
+					'poocommerce'
 				),
 				Edit: TextareaEdit,
 			},
@@ -151,7 +151,7 @@ export const SettingsPaymentsBacs = () => {
 		try {
 			await Promise.all( [
 				updateOptions( {
-					woocommerce_bacs_accounts: accounts.map(
+					poocommerce_bacs_accounts: accounts.map(
 						( {
 							account_name,
 							account_number,
@@ -179,11 +179,11 @@ export const SettingsPaymentsBacs = () => {
 			] );
 			setHasChanges( false );
 			createSuccessNotice(
-				__( 'Settings updated successfully', 'woocommerce' )
+				__( 'Settings updated successfully', 'poocommerce' )
 			);
 		} catch ( error ) {
 			createErrorNotice(
-				__( 'Failed to update settings', 'woocommerce' )
+				__( 'Failed to update settings', 'poocommerce' )
 			);
 		} finally {
 			setIsSaving( false );
@@ -202,10 +202,10 @@ export const SettingsPaymentsBacs = () => {
 					} }
 				>
 					<Settings.Section
-						title={ __( 'Enable and customise', 'woocommerce' ) }
+						title={ __( 'Enable and customise', 'poocommerce' ) }
 						description={ __(
 							'Choose how you want to present bank transfer to your customers during checkout.',
-							'woocommerce'
+							'poocommerce'
 						) }
 					>
 						{ isLoading ? (
@@ -240,10 +240,10 @@ export const SettingsPaymentsBacs = () => {
 					</Settings.Section>
 
 					<Settings.Section
-						title={ __( 'Account details', 'woocommerce' ) }
+						title={ __( 'Account details', 'poocommerce' ) }
 						description={ __(
 							'Configure your bank account details.',
-							'woocommerce'
+							'poocommerce'
 						) }
 					>
 						{ isLoadingAccounts ? (
@@ -267,7 +267,7 @@ export const SettingsPaymentsBacs = () => {
 							isBusy={ isSaving }
 							disabled={ isSaving || ! hasChanges }
 						>
-							{ __( 'Save changes', 'woocommerce' ) }
+							{ __( 'Save changes', 'poocommerce' ) }
 						</Button>
 					</Settings.Actions>
 				</Settings.Form>

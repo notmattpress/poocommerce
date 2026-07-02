@@ -1,6 +1,6 @@
 <?php
 
-namespace Automattic\WooCommerce\Blueprint;
+namespace Automattic\PooCommerce\Blueprint;
 
 use RecursiveArrayIterator;
 use RecursiveIteratorIterator;

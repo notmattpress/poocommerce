@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\Domain\Services;
+namespace Automattic\PooCommerce\Tests\Blocks\Domain\Services;
 
-use Automattic\WooCommerce\Blocks\Domain\Services\CheckoutLink;
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\CouponHelper;
+use Automattic\PooCommerce\Blocks\Domain\Services\CheckoutLink;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\CouponHelper;
 use PHPUnit\Framework\TestCase;
 
 /**

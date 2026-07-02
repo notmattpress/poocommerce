@@ -74,7 +74,7 @@ const NoticeBanner = ( {
 			{ !! isDismissible && (
 				<Button
 					className="wc-block-components-notice-banner__dismiss"
-					aria-label={ __( 'Dismiss this notice', 'woocommerce' ) }
+					aria-label={ __( 'Dismiss this notice', 'poocommerce' ) }
 					onClick={ dismiss }
 					removeTextWrap
 				>

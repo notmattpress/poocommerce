@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import type { ProductVariation } from '@woocommerce/data';
+import type { ProductVariation } from '@poocommerce/data';
 
 /**
  * Internal dependencies

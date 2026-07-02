@@ -5,9 +5,9 @@
  * Handles requests to /marketing/recommendations.
  */
 
-namespace Automattic\WooCommerce\Admin\API;
+namespace Automattic\PooCommerce\Admin\API;
 
-use Automattic\WooCommerce\Admin\Features\MarketingRecommendations\Init as MarketingRecommendationsInit;
+use Automattic\PooCommerce\Admin\Features\MarketingRecommendations\Init as MarketingRecommendationsInit;
 use WC_REST_Controller;
 use WP_Error;
 use WP_REST_Request;
@@ -74,7 +74,7 @@ class MarketingRecommendations extends WC_REST_Controller {
 	 */
 	public function get_items_permissions_check( $request ) {
 		if ( ! current_user_can( 'install_plugins' ) ) {
-			return new WP_Error( 'woocommerce_rest_cannot_view', __( 'Sorry, you cannot view marketing channels.', 'woocommerce' ), array( 'status' => rest_authorization_required_code() ) );
+			return new WP_Error( 'poocommerce_rest_cannot_view', __( 'Sorry, you cannot view marketing channels.', 'poocommerce' ), array( 'status' => rest_authorization_required_code() ) );
 		}
 
 		return true;
@@ -94,7 +94,7 @@ class MarketingRecommendations extends WC_REST_Controller {
 		} elseif ( 'extensions' === $category ) {
 			$items = MarketingRecommendationsInit::get_recommended_marketing_extensions_excluding_channels();
 		} else {
-			return new WP_Error( 'woocommerce_rest_invalid_category', __( 'The specified category for recommendations is invalid. Allowed values: "channels", "extensions".', 'woocommerce' ), array( 'status' => 400 ) );
+			return new WP_Error( 'poocommerce_rest_invalid_category', __( 'The specified category for recommendations is invalid. Allowed values: "channels", "extensions".', 'poocommerce' ), array( 'status' => 400 ) );
 		}
 
 		$responses = [];

@@ -5,7 +5,7 @@ import {
 	type Currency,
 	type CurrencyResponse,
 	type CartShippingPackageShippingRate,
-} from '@woocommerce/types';
+} from '@poocommerce/types';
 import { getConfig } from '@wordpress/interactivity';
 
 /**
@@ -16,7 +16,7 @@ import {
 	getCurrencySuffix,
 } from '../../../settings/shared/utils';
 
-const currencyConfig = getConfig( 'woocommerce' ).currency;
+const currencyConfig = getConfig( 'poocommerce' ).currency;
 
 const siteCurrency: Currency = {
 	...currencyConfig,

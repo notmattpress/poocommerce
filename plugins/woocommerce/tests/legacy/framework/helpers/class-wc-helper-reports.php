@@ -2,7 +2,7 @@
 /**
  * Helper code for wc-admin unit tests.
  *
- * @package WooCommerce\Admin\Tests\Framework\Helpers
+ * @package PooCommerce\Admin\Tests\Framework\Helpers
  */
 
 /**
@@ -17,10 +17,10 @@ class WC_Helper_Reports {
 	 */
 	public static function reset_stats_dbs() {
 		global $wpdb;
-		$wpdb->query( 'DELETE FROM ' . \Automattic\WooCommerce\Admin\API\Reports\Orders\Stats\DataStore::get_db_table_name() ); // @codingStandardsIgnoreLine.
-		$wpdb->query( 'DELETE FROM ' . \Automattic\WooCommerce\Admin\API\Reports\Products\DataStore::get_db_table_name() ); // @codingStandardsIgnoreLine.
-		$wpdb->query( 'DELETE FROM ' . \Automattic\WooCommerce\Admin\API\Reports\Coupons\DataStore::get_db_table_name() ); // @codingStandardsIgnoreLine.
-		$wpdb->query( 'DELETE FROM ' . \Automattic\WooCommerce\Admin\API\Reports\Customers\DataStore::get_db_table_name() ); // @codingStandardsIgnoreLine.
-		\Automattic\WooCommerce\Internal\Admin\CategoryLookup::instance()->regenerate();
+		$wpdb->query( 'DELETE FROM ' . \Automattic\PooCommerce\Admin\API\Reports\Orders\Stats\DataStore::get_db_table_name() ); // @codingStandardsIgnoreLine.
+		$wpdb->query( 'DELETE FROM ' . \Automattic\PooCommerce\Admin\API\Reports\Products\DataStore::get_db_table_name() ); // @codingStandardsIgnoreLine.
+		$wpdb->query( 'DELETE FROM ' . \Automattic\PooCommerce\Admin\API\Reports\Coupons\DataStore::get_db_table_name() ); // @codingStandardsIgnoreLine.
+		$wpdb->query( 'DELETE FROM ' . \Automattic\PooCommerce\Admin\API\Reports\Customers\DataStore::get_db_table_name() ); // @codingStandardsIgnoreLine.
+		\Automattic\PooCommerce\Internal\Admin\CategoryLookup::instance()->regenerate();
 	}
 }

@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Internal\RestApi\Routes\V4\Fulfillments;
+namespace Automattic\PooCommerce\Tests\Internal\RestApi\Routes\V4\Fulfillments;
 
-use Automattic\WooCommerce\Admin\Features\Fulfillments\OrderFulfillmentsRestController;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Fulfillments\Controller as FulfillmentsController;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Fulfillments\Schema\FulfillmentSchema;
+use Automattic\PooCommerce\Admin\Features\Fulfillments\OrderFulfillmentsRestController;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Fulfillments\Controller as FulfillmentsController;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Fulfillments\Schema\FulfillmentSchema;
 use WC_REST_Unit_Test_Case;
 use WP_REST_Request;
 
@@ -54,9 +54,9 @@ class ProvidersTest extends WC_REST_Unit_Test_Case {
 	 */
 	public static function setUpBeforeClass(): void {
 		parent::setUpBeforeClass();
-		self::$original_fulfillments_flag = get_option( 'woocommerce_feature_fulfillments_enabled' );
-		update_option( 'woocommerce_feature_fulfillments_enabled', 'yes' );
-		$controller = wc_get_container()->get( \Automattic\WooCommerce\Admin\Features\Fulfillments\FulfillmentsController::class );
+		self::$original_fulfillments_flag = get_option( 'poocommerce_feature_fulfillments_enabled' );
+		update_option( 'poocommerce_feature_fulfillments_enabled', 'yes' );
+		$controller = wc_get_container()->get( \Automattic\PooCommerce\Admin\Features\Fulfillments\FulfillmentsController::class );
 		$controller->register();
 		$controller->initialize_fulfillments();
 	}
@@ -66,9 +66,9 @@ class ProvidersTest extends WC_REST_Unit_Test_Case {
 	 */
 	public static function tearDownAfterClass(): void {
 		if ( false === self::$original_fulfillments_flag ) {
-			delete_option( 'woocommerce_feature_fulfillments_enabled' );
+			delete_option( 'poocommerce_feature_fulfillments_enabled' );
 		} else {
-			update_option( 'woocommerce_feature_fulfillments_enabled', self::$original_fulfillments_flag );
+			update_option( 'poocommerce_feature_fulfillments_enabled', self::$original_fulfillments_flag );
 		}
 		parent::tearDownAfterClass();
 	}
@@ -145,7 +145,7 @@ class ProvidersTest extends WC_REST_Unit_Test_Case {
 		$test_provider = function () {
 			return array( 'TestProvider' );
 		};
-		add_filter( 'woocommerce_fulfillment_shipping_providers', $test_provider );
+		add_filter( 'poocommerce_fulfillment_shipping_providers', $test_provider );
 
 		$request = new WP_REST_Request( 'GET', '/wc/v4/fulfillments/providers' );
 
@@ -153,7 +153,7 @@ class ProvidersTest extends WC_REST_Unit_Test_Case {
 		$data     = $response->get_data();
 
 		// Remove the filter.
-		remove_filter( 'woocommerce_fulfillment_shipping_providers', $test_provider );
+		remove_filter( 'poocommerce_fulfillment_shipping_providers', $test_provider );
 
 		$this->assertIsArray( $data );
 		// Since we added a non-existent class, it should be empty.
@@ -213,7 +213,7 @@ class ProvidersTest extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_get_providers_with_feature_disabled() {
 		// Disable the fulfillments feature.
-		update_option( 'woocommerce_feature_fulfillments_enabled', 'no' );
+		update_option( 'poocommerce_feature_fulfillments_enabled', 'no' );
 
 		wp_set_current_user( $this->admin_user_id );
 
@@ -222,7 +222,7 @@ class ProvidersTest extends WC_REST_Unit_Test_Case {
 		$response = rest_get_server()->dispatch( $request );
 
 		// Re-enable the fulfillments feature.
-		update_option( 'woocommerce_feature_fulfillments_enabled', 'yes' );
+		update_option( 'poocommerce_feature_fulfillments_enabled', 'yes' );
 
 		// The route should still exist and be accessible if the controller is already registered.
 		// This test verifies the route exists even when feature is disabled.

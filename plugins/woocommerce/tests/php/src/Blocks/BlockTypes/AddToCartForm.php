@@ -2,12 +2,12 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Tests\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\Assets\Api;
-use Automattic\WooCommerce\Blocks\Assets\AssetDataRegistry;
-use Automattic\WooCommerce\Blocks\Integrations\IntegrationRegistry;
-use Automattic\WooCommerce\Blocks\Package;
+use Automattic\PooCommerce\Blocks\Assets\Api;
+use Automattic\PooCommerce\Blocks\Assets\AssetDataRegistry;
+use Automattic\PooCommerce\Blocks\Integrations\IntegrationRegistry;
+use Automattic\PooCommerce\Blocks\Package;
 use WC_Unit_Test_Case;
 
 /**
@@ -18,7 +18,7 @@ class AddToCartForm extends WC_Unit_Test_Case {
 	/**
 	 * Tests that add_stepper_classes_to_add_to_cart_form_input adds wrapper and input classes to inputs.
 	 *
-	 * @covers \Automattic\WooCommerce\Blocks\BlockTypes\AddToCartForm::add_stepper_classes_to_add_to_cart_form_input
+	 * @covers \Automattic\PooCommerce\Blocks\BlockTypes\AddToCartForm::add_stepper_classes_to_add_to_cart_form_input
 	 */
 	public function test_add_stepper_classes_to_add_to_cart_form_input(): void {
 		$quantity_html = '<div class="quantity"><input type="number" class="input-text qty text" name="custom_name" value="1" /></div>';
@@ -27,9 +27,9 @@ class AddToCartForm extends WC_Unit_Test_Case {
 			Package::container()->get( Api::class ),
 			Package::container()->get( AssetDataRegistry::class ),
 			new IntegrationRegistry()
-		) extends \Automattic\WooCommerce\Blocks\BlockTypes\AddToCartForm {
+		) extends \Automattic\PooCommerce\Blocks\BlockTypes\AddToCartForm {
 			/**
-			 * Skip block registration; woocommerce/add-to-cart-form is already registered when WooCommerce loads.
+			 * Skip block registration; poocommerce/add-to-cart-form is already registered when PooCommerce loads.
 			 */
 			protected function initialize() {
 			}

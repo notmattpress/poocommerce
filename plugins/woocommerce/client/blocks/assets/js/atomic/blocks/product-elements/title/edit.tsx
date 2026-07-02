@@ -8,7 +8,7 @@ import {
 	AlignmentToolbar,
 	useBlockProps,
 } from '@wordpress/block-editor';
-import HeadingToolbar from '@woocommerce/editor-components/heading-toolbar';
+import HeadingToolbar from '@poocommerce/editor-components/heading-toolbar';
 import {
 	Disabled,
 	ToggleControl,
@@ -59,7 +59,7 @@ const TitleEdit = ( { attributes, setAttributes }: Props ): JSX.Element => {
 			</BlockControls>
 			<InspectorControls>
 				<ToolsPanel
-					label={ __( 'Link settings', 'woocommerce' ) }
+					label={ __( 'Link settings', 'poocommerce' ) }
 					resetAll={ () =>
 						setAttributes( {
 							showProductLink: DEFAULT_ATTRIBUTES.showProductLink,
@@ -68,7 +68,7 @@ const TitleEdit = ( { attributes, setAttributes }: Props ): JSX.Element => {
 					}
 				>
 					<ToolsPanelItem
-						label={ __( 'Make title a link', 'woocommerce' ) }
+						label={ __( 'Make title a link', 'poocommerce' ) }
 						hasValue={ () =>
 							showProductLink !==
 							DEFAULT_ATTRIBUTES.showProductLink
@@ -82,7 +82,7 @@ const TitleEdit = ( { attributes, setAttributes }: Props ): JSX.Element => {
 						isShownByDefault
 					>
 						<ToggleControl
-							label={ __( 'Make title a link', 'woocommerce' ) }
+							label={ __( 'Make title a link', 'poocommerce' ) }
 							checked={ showProductLink }
 							onChange={ () =>
 								setAttributes( {
@@ -93,7 +93,7 @@ const TitleEdit = ( { attributes, setAttributes }: Props ): JSX.Element => {
 					</ToolsPanelItem>
 					{ showProductLink && (
 						<ToolsPanelItem
-							label={ __( 'Open in new tab', 'woocommerce' ) }
+							label={ __( 'Open in new tab', 'poocommerce' ) }
 							hasValue={ () =>
 								linkTarget !== DEFAULT_ATTRIBUTES.linkTarget
 							}
@@ -105,7 +105,7 @@ const TitleEdit = ( { attributes, setAttributes }: Props ): JSX.Element => {
 							isShownByDefault
 						>
 							<ToggleControl
-								label={ __( 'Open in new tab', 'woocommerce' ) }
+								label={ __( 'Open in new tab', 'poocommerce' ) }
 								onChange={ ( value ) =>
 									setAttributes( {
 										linkTarget: value ? '_blank' : '_self',

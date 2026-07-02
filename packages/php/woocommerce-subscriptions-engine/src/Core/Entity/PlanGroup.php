@@ -6,14 +6,14 @@
  * unique at the storage layer and is the deduplication key consumers use to
  * make group creation idempotent. `extension_slug` scopes a group to a specific extension.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine\Core\Entity
+ * @package Automattic\PooCommerce\SubscriptionsEngine\Core\Entity
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Core\Entity;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Core\Entity;
 
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Support\ScalarCoercion;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Support\ScalarCoercion;
 
 defined( 'ABSPATH' ) || exit;
 

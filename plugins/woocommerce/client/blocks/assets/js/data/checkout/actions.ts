@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import type { AddressFormType, OrderFormValues } from '@woocommerce/settings';
+import type { AddressFormType, OrderFormValues } from '@poocommerce/settings';
 import deprecated from '@wordpress/deprecated';
 
 /**
@@ -94,7 +94,7 @@ export const __internalFinishCalculation = () => ( {
 export const __internalIncrementCalculating = () => {
 	deprecated( '__internalIncrementCalculating', {
 		alternative: 'disableCheckoutFor',
-		plugin: 'WooCommerce',
+		plugin: 'PooCommerce',
 		version: '9.9.0',
 	} );
 	return {
@@ -108,7 +108,7 @@ export const __internalIncrementCalculating = () => {
 export const __internalDecrementCalculating = () => {
 	deprecated( '__internalDecrementCalculating', {
 		alternative: 'disableCheckoutFor',
-		plugin: 'WooCommerce',
+		plugin: 'PooCommerce',
 		version: '9.9.0',
 	} );
 	return {
@@ -230,7 +230,7 @@ export const __internalSetExtensionData = (
 ) => {
 	deprecated( '__internalSetExtensionData', {
 		alternative: 'setExtensionData',
-		plugin: 'WooCommerce',
+		plugin: 'PooCommerce',
 		version: '9.9.0',
 	} );
 	return setExtensionData( ...args );

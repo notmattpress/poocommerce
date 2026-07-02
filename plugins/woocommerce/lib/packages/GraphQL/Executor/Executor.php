@@ -1,26 +1,26 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\GraphQL\Executor;
+namespace Automattic\PooCommerce\Vendor\GraphQL\Executor;
 
-use Automattic\WooCommerce\Vendor\GraphQL\Error\InvariantViolation;
-use Automattic\WooCommerce\Vendor\GraphQL\Executor\Promise\Adapter\SyncPromiseAdapter;
-use Automattic\WooCommerce\Vendor\GraphQL\Executor\Promise\Promise;
-use Automattic\WooCommerce\Vendor\GraphQL\Executor\Promise\PromiseAdapter;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\DocumentNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\FieldNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\FieldDefinition;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\ResolveInfo;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Schema;
-use Automattic\WooCommerce\Vendor\GraphQL\Utils\Utils;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\InvariantViolation;
+use Automattic\PooCommerce\Vendor\GraphQL\Executor\Promise\Adapter\SyncPromiseAdapter;
+use Automattic\PooCommerce\Vendor\GraphQL\Executor\Promise\Promise;
+use Automattic\PooCommerce\Vendor\GraphQL\Executor\Promise\PromiseAdapter;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\DocumentNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\FieldNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\FieldDefinition;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\ResolveInfo;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Schema;
+use Automattic\PooCommerce\Vendor\GraphQL\Utils\Utils;
 
 /**
- * Implements the "Evaluating requests" section of the Automattic\WooCommerce\Vendor\GraphQL specification.
+ * Implements the "Evaluating requests" section of the Automattic\PooCommerce\Vendor\GraphQL specification.
  *
  * @phpstan-type ArgsMapper callable(array<string, mixed>, FieldDefinition, FieldNode, mixed): mixed
  * @phpstan-type FieldResolver callable(mixed, array<string, mixed>, mixed, ResolveInfo): mixed
  * @phpstan-type ImplementationFactory callable(PromiseAdapter, Schema, DocumentNode, mixed, mixed, array<mixed>, ?string, callable, callable): ExecutorImplementation
  *
- * @see \Automattic\WooCommerce\Vendor\GraphQL\Tests\Executor\ExecutorTest
+ * @see \Automattic\PooCommerce\Vendor\GraphQL\Tests\Executor\ExecutorTest
  */
 class Executor
 {

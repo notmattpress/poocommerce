@@ -37,19 +37,19 @@ type EmbeddedKycLoadFailure = {
 
 const embeddedKycLoadTimeoutMs = 20000;
 const embeddedKycTroubleshootingUrl =
-	'https://woocommerce.com/document/woopayments/startup-guide/#requirements';
+	'https://poocommerce.com/document/woopayments/startup-guide/#requirements';
 const embeddedKycFailureMessage = __(
 	"We couldn't load this step. This can happen when your site's security or server settings block a required connection to Stripe. Check the setup requirements, or contact support if the error persists.",
-	'woocommerce'
+	'poocommerce'
 );
 const embeddedKycHttpsFailureMessage = __(
 	'Payment activation through our financial partner requires HTTPS and cannot be completed.',
-	'woocommerce'
+	'poocommerce'
 );
-const embeddedKycLoadingMessage = __( 'Loading onboarding…', 'woocommerce' );
+const embeddedKycLoadingMessage = __( 'Loading onboarding…', 'poocommerce' );
 const embeddedKycFinalizingMessage = __(
 	'Finalizing onboarding…',
-	'woocommerce'
+	'poocommerce'
 );
 
 const getFailureTrackingDetails = (
@@ -226,13 +226,13 @@ const EmbeddedKyc: React.FC< Props > = ( {
 						isDismissible={ false }
 						actions={ [
 							{
-								label: __( 'Learn more', 'woocommerce' ),
+								label: __( 'Learn more', 'poocommerce' ),
 								variant: 'primary',
 								url: embeddedKycTroubleshootingUrl,
 								urlTarget: '_blank',
 							},
 							{
-								label: __( 'Cancel', 'woocommerce' ),
+								label: __( 'Cancel', 'poocommerce' ),
 								variant: 'link',
 								url: fallbackUrl,
 							},

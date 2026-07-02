@@ -2,15 +2,15 @@
 /**
  * Admin Dashboard - Setup
  *
- * @package     WooCommerce\Admin
+ * @package     PooCommerce\Admin
  * @version     2.1.0
  */
 
 use Automattic\Jetpack\Constants;
-use Automattic\WooCommerce\Admin\Features\Features;
-use Automattic\WooCommerce\Admin\Features\OnboardingTasks\Task;
-use Automattic\WooCommerce\Admin\Features\OnboardingTasks\TaskLists;
-use Automattic\WooCommerce\Internal\Admin\Onboarding\OnboardingProfile;
+use Automattic\PooCommerce\Admin\Features\Features;
+use Automattic\PooCommerce\Admin\Features\OnboardingTasks\Task;
+use Automattic\PooCommerce\Admin\Features\OnboardingTasks\TaskLists;
+use Automattic\PooCommerce\Internal\Admin\Onboarding\OnboardingProfile;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -52,7 +52,7 @@ if ( ! class_exists( 'WC_Admin_Dashboard_Setup', false ) ) :
 			if ( $this->should_display_widget() ) {
 				add_meta_box(
 					'wc_admin_dashboard_setup',
-					__( 'WooCommerce Setup', 'woocommerce' ),
+					__( 'PooCommerce Setup', 'poocommerce' ),
 					array( $this, 'render' ),
 					'dashboard',
 					'normal',
@@ -103,48 +103,48 @@ if ( ! class_exists( 'WC_Admin_Dashboard_Setup', false ) ) :
 				'content'      => $task_json['content'] ?? '',
 				'button_label' => $task_json['actionLabel'] ?? $task->get_title(),
 				'image_url'    => $asset_url . 'images/dashboard-widget-setup.png',
-				'image_alt'    => __( 'WooCommerce setup illustration', 'woocommerce' ),
+				'image_alt'    => __( 'PooCommerce setup illustration', 'poocommerce' ),
 			);
 			$task_images         = array(
 				'store_details'        => array(
 					'image_url' => $asset_url . 'images/task_list/store-details-illustration.png',
-					'image_alt' => __( 'Store location illustration', 'woocommerce' ),
+					'image_alt' => __( 'Store location illustration', 'poocommerce' ),
 				),
 				'customize-store'      => array(
 					'image_url' => $asset_url . 'images/task_list/customize-store-illustration.svg',
-					'image_alt' => __( 'Customize your store illustration', 'woocommerce' ),
+					'image_alt' => __( 'Customize your store illustration', 'poocommerce' ),
 				),
 				'tax'                  => array(
 					'image_url' => $asset_url . 'images/task_list/tax-illustration.svg',
-					'image_alt' => __( 'Tax illustration', 'woocommerce' ),
+					'image_alt' => __( 'Tax illustration', 'poocommerce' ),
 				),
 				'shipping'             => array(
 					'image_url' => $asset_url . 'images/task_list/shipping-illustration.svg',
-					'image_alt' => __( 'Shipping illustration', 'woocommerce' ),
+					'image_alt' => __( 'Shipping illustration', 'poocommerce' ),
 				),
 				'marketing'            => array(
 					'image_url' => $asset_url . 'images/task_list/sales-illustration.svg',
-					'image_alt' => __( 'Marketing illustration', 'woocommerce' ),
+					'image_alt' => __( 'Marketing illustration', 'poocommerce' ),
 				),
 				'payments'             => array(
 					'image_url' => $asset_url . 'images/task_list/payment-illustration.svg',
-					'image_alt' => __( 'Payment illustration', 'woocommerce' ),
+					'image_alt' => __( 'Payment illustration', 'poocommerce' ),
 				),
-				'woocommerce-payments' => array(
+				'poocommerce-payments' => array(
 					'image_url' => $asset_url . 'images/task_list/payment-illustration.svg',
-					'image_alt' => __( 'Payment illustration', 'woocommerce' ),
+					'image_alt' => __( 'Payment illustration', 'poocommerce' ),
 				),
 				'products'             => array(
 					'image_url' => $asset_url . 'images/task_list/sales-section-illustration.svg',
-					'image_alt' => __( 'Products illustration', 'woocommerce' ),
+					'image_alt' => __( 'Products illustration', 'poocommerce' ),
 				),
 				'purchase'             => array(
 					'image_url' => $asset_url . 'images/task_list/purchase-illustration.png',
-					'image_alt' => __( 'Purchase illustration', 'woocommerce' ),
+					'image_alt' => __( 'Purchase illustration', 'poocommerce' ),
 				),
 				'launch-your-store'    => array(
 					'image_url' => $asset_url . 'images/task_list/launch-your-store-illustration.svg',
-					'image_alt' => __( 'Launch your store illustration', 'woocommerce' ),
+					'image_alt' => __( 'Launch your store illustration', 'poocommerce' ),
 				),
 			);
 
@@ -249,7 +249,7 @@ if ( ! class_exists( 'WC_Admin_Dashboard_Setup', false ) ) :
 		 * @return bool
 		 */
 		public function should_display_widget() {
-			if ( ! class_exists( 'Automattic\WooCommerce\Admin\Features\Features' ) || ! class_exists( 'Automattic\WooCommerce\Admin\Features\OnboardingTasks\TaskLists' ) ) {
+			if ( ! class_exists( 'Automattic\PooCommerce\Admin\Features\Features' ) || ! class_exists( 'Automattic\PooCommerce\Admin\Features\OnboardingTasks\TaskLists' ) ) {
 				return false;
 			}
 
@@ -257,7 +257,7 @@ if ( ! class_exists( 'WC_Admin_Dashboard_Setup', false ) ) :
 				return false;
 			}
 
-			if ( ! current_user_can( 'manage_woocommerce' ) ) {
+			if ( ! current_user_can( 'manage_poocommerce' ) ) {
 				return false;
 			}
 

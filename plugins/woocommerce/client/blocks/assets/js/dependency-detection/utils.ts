@@ -1,5 +1,5 @@
 /**
- * WooCommerce Dependency Detection - Utility Functions
+ * PooCommerce Dependency Detection - Utility Functions
  *
  * Extracted from dependency-detection.js for testability.
  * These functions are used by the inline detection script.
@@ -38,7 +38,7 @@ export interface WcGlobalExportsMap {
 export type WcGlobalKey = keyof WcGlobalExportsMap;
 
 /**
- * WooCommerce script dependency handles.
+ * PooCommerce script dependency handles.
  *
  * @internal
  */
@@ -66,29 +66,29 @@ export interface WarningInfo {
 }
 
 /**
- * WooCommerce asset subdirectories that contain core scripts.
+ * PooCommerce asset subdirectories that contain core scripts.
  */
 const WC_ASSET_DIRS = [ 'client/', 'assets/', 'build/', 'vendor/' ];
 
 /**
- * Fallback pattern for WooCommerce core scripts when plugin URL is not available.
- * Matches /plugins/woocommerce/(client|assets|build|vendor)/ but NOT /plugins/woocommerce-subscriptions/ etc.
+ * Fallback pattern for PooCommerce core scripts when plugin URL is not available.
+ * Matches /plugins/poocommerce/(client|assets|build|vendor)/ but NOT /plugins/poocommerce-subscriptions/ etc.
  */
 const WC_CORE_SCRIPT_FALLBACK_PATTERN =
-	/\/plugins\/woocommerce\/(client|assets|build|vendor)\//;
+	/\/plugins\/poocommerce\/(client|assets|build|vendor)\//;
 
 /**
- * Check if a URL belongs to WooCommerce core scripts.
+ * Check if a URL belongs to PooCommerce core scripts.
  *
  * Uses the plugin URL from the server to account for custom plugin directories
  * (WP_PLUGIN_DIR, WP_CONTENT_DIR configurations). Falls back to a hardcoded
  * pattern if the plugin URL is not available.
  *
  * @param url         - The script URL to check.
- * @param wcPluginUrl - The WooCommerce plugin URL from the server.
- * @return True if this is a WooCommerce core script.
+ * @param wcPluginUrl - The PooCommerce plugin URL from the server.
+ * @return True if this is a PooCommerce core script.
  */
-export function isWooCommerceScript(
+export function isPooCommerceScript(
 	url: string | null,
 	wcPluginUrl = ''
 ): boolean {
@@ -102,7 +102,7 @@ export function isWooCommerceScript(
 		return WC_CORE_SCRIPT_FALLBACK_PATTERN.test( url );
 	}
 
-	// Check if the URL starts with the WooCommerce plugin URL.
+	// Check if the URL starts with the PooCommerce plugin URL.
 	if ( ! url.startsWith( wcPluginUrl ) ) {
 		return false;
 	}
@@ -110,7 +110,7 @@ export function isWooCommerceScript(
 	// Get the path after the plugin URL.
 	const relativePath = url.substring( wcPluginUrl.length );
 
-	// Check if it's in one of the known WooCommerce asset directories.
+	// Check if it's in one of the known PooCommerce asset directories.
 	for ( let i = 0; i < WC_ASSET_DIRS.length; i++ ) {
 		if ( relativePath.startsWith( WC_ASSET_DIRS[ i ] ) ) {
 			return true;
@@ -148,7 +148,7 @@ export function getFilename( url: string | null ): string {
  * that accessed wc.*, not the detection code itself. Lines to skip include:
  * - Current page lines: These are from our inline detection script (the IIFE
  *   output by PHP). They appear as "cart/:123" or "checkout/:456" in the stack.
- * - Webpack source maps: Internal WooCommerce build artifacts that aren't the
+ * - Webpack source maps: Internal PooCommerce build artifacts that aren't the
  *   actual caller script.
  *
  * @param line        - A single line from the stack trace.
@@ -342,7 +342,7 @@ export function getWarningInfo(
 	if ( ! callerUrl ) {
 		return {
 			type: 'inline',
-			message: `[WooCommerce] An inline or unknown script accessed wc.${ wcGlobalKey } without proper dependency declaration. This script should declare "${ requiredDependencyHandle }" as a dependency.`,
+			message: `[PooCommerce] An inline or unknown script accessed wc.${ wcGlobalKey } without proper dependency declaration. This script should declare "${ requiredDependencyHandle }" as a dependency.`,
 		};
 	}
 
@@ -359,7 +359,7 @@ export function getWarningInfo(
 	) {
 		return {
 			type: 'unregistered',
-			message: `[WooCommerce] Unregistered script "${ getFilenameFn(
+			message: `[PooCommerce] Unregistered script "${ getFilenameFn(
 				callerUrl
 			) }" accessed wc.${ wcGlobalKey }. This script should be registered with wp_enqueue_script() and declare "${ requiredDependencyHandle }" as a dependency.`,
 		};
@@ -369,7 +369,7 @@ export function getWarningInfo(
 	if ( scriptInfo.deps.indexOf( requiredDependencyHandle ) === -1 ) {
 		return {
 			type: 'missing-dependency',
-			message: `[WooCommerce] Script "${ scriptInfo.handle }" accessed wc.${ wcGlobalKey } without declaring "${ requiredDependencyHandle }" as a dependency. Add "${ requiredDependencyHandle }" to the script's dependencies array.`,
+			message: `[PooCommerce] Script "${ scriptInfo.handle }" accessed wc.${ wcGlobalKey } without declaring "${ requiredDependencyHandle }" as a dependency. Add "${ requiredDependencyHandle }" to the script's dependencies array.`,
 		};
 	}
 

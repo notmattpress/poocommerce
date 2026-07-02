@@ -7,7 +7,7 @@ parameters:
 	level: 8
 	phpVersion: 70400
 	paths:
-		- woocommerce.php
+		- poocommerce.php
 		- src/
 		- includes/
 	excludePaths:
@@ -42,13 +42,13 @@ parameters:
 		# ShopperListItemSchema uses ProductItemTrait only for format_variation_data();
 		# the trait's unused prepare_product_price_response() assumes a ProductSchema parent.
 		-
-			message: '#Call to an undefined method Automattic\\WooCommerce\\StoreApi\\Schemas\\V1\\ShopperListItemSchema::get_tax_display_mode\(\)#'
+			message: '#Call to an undefined method Automattic\\PooCommerce\\StoreApi\\Schemas\\V1\\ShopperListItemSchema::get_tax_display_mode\(\)#'
 			path: src/StoreApi/Utilities/ProductItemTrait.php
 		-
-			message: '#Call to an undefined method Automattic\\WooCommerce\\StoreApi\\Schemas\\V1\\ShopperListItemSchema::get_price_function_from_tax_display_mode\(\)#'
+			message: '#Call to an undefined method Automattic\\PooCommerce\\StoreApi\\Schemas\\V1\\ShopperListItemSchema::get_price_function_from_tax_display_mode\(\)#'
 			path: src/StoreApi/Utilities/ProductItemTrait.php
 		-
-			message: '#Call to an undefined static method Automattic\\WooCommerce\\StoreApi\\Schemas\\V1\\AbstractSchema::prepare_product_price_response\(\)#'
+			message: '#Call to an undefined static method Automattic\\PooCommerce\\StoreApi\\Schemas\\V1\\AbstractSchema::prepare_product_price_response\(\)#'
 			path: src/StoreApi/Utilities/ProductItemTrait.php
 	parallel:
 		maximumNumberOfProcesses: 4

@@ -2,19 +2,19 @@
 /**
  * Unit tests for PlanSnapshot.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine
+ * @package Automattic\PooCommerce\SubscriptionsEngine
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Tests\Unit\Core\ValueObject;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Tests\Unit\Core\ValueObject;
 
 use DomainException;
 use PHPUnit\Framework\TestCase;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\ValueObject\PlanSnapshot;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\ValueObject\PlanSnapshot;
 
 /**
- * @covers \Automattic\WooCommerce\SubscriptionsEngine\Core\ValueObject\PlanSnapshot
+ * @covers \Automattic\PooCommerce\SubscriptionsEngine\Core\ValueObject\PlanSnapshot
  */
 class PlanSnapshotTest extends TestCase {
 

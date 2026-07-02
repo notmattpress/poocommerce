@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Internal\Api;
+namespace Automattic\PooCommerce\Internal\Api;
 
 /**
  * Internal sentinel raised by {@see GraphQLController::pick_status()} when a

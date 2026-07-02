@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Admin\API\Reports\DataStore;
+namespace Automattic\PooCommerce\Tests\Admin\API\Reports\DataStore;
 
-use Automattic\WooCommerce\Admin\API\Reports\Customers\DataStore as CustomersDataStore;
+use Automattic\PooCommerce\Admin\API\Reports\Customers\DataStore as CustomersDataStore;
 use WC_Unit_Test_Case;
 
 /**

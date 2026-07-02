@@ -1,11 +1,11 @@
 <?php
 /**
- * WooCommerce Analytics Tracking for tracking frontend events
+ * PooCommerce Analytics Tracking for tracking frontend events
  *
- * This class is designed to work without WooCommerce dependencies,
- * enabling it to run at the MU-plugin stage without loading WooCommerce to optimize performance.
+ * This class is designed to work without PooCommerce dependencies,
+ * enabling it to run at the MU-plugin stage without loading PooCommerce to optimize performance.
  *
- * @package automattic/woocommerce-analytics
+ * @package automattic/poocommerce-analytics
  */
 
 namespace Automattic\Woocommerce_Analytics;
@@ -15,7 +15,7 @@ use Automattic\Jetpack\Device_Detection\User_Agent_Info;
 use WP_Error;
 
 /**
- * WooCommerce Analytics Tracking class
+ * PooCommerce Analytics Tracking class
  */
 class WC_Analytics_Tracking {
 	/**
@@ -23,14 +23,14 @@ class WC_Analytics_Tracking {
 	 *
 	 * @var string
 	 */
-	const PREFIX = 'woocommerceanalytics_';
+	const PREFIX = 'poocommerceanalytics_';
 
 	/**
 	 * Option name for storing daily salt data.
 	 *
 	 * @var string
 	 */
-	const DAILY_SALT_OPTION = 'woocommerce_analytics_daily_salt';
+	const DAILY_SALT_OPTION = 'poocommerce_analytics_daily_salt';
 
 	/**
 	 * Event queue.
@@ -281,15 +281,15 @@ class WC_Analytics_Tracking {
 		$common_properties = self::get_common_properties();
 
 		/**
-		 * Allow defining custom event properties in WooCommerce Analytics.
+		 * Allow defining custom event properties in PooCommerce Analytics.
 		 *
-		 * @module woocommerce-analytics
+		 * @module poocommerce-analytics
 		 *
 		 * @since 12.5
 		 *
 		 * @param array $all_props Array of event props to be filtered.
 		 */
-		$properties = apply_filters( 'jetpack_woocommerce_analytics_event_props', array_merge( $common_properties, $event_properties ), $event_name );
+		$properties = apply_filters( 'jetpack_poocommerce_analytics_event_props', array_merge( $common_properties, $event_properties ), $event_name );
 
 		$required_properties = $event_name
 			? array(
@@ -391,7 +391,7 @@ class WC_Analytics_Tracking {
 	 * Get the blog details.
 	 *
 	 * This method is now standalone and doesn't rely on WC_Tracks parent class.
-	 * It still works with WooCommerce when available for additional details.
+	 * It still works with PooCommerce when available for additional details.
 	 *
 	 * @return array The blog details.
 	 */
@@ -409,21 +409,21 @@ class WC_Analytics_Tracking {
 			$jetpack_blog_id = \Jetpack_Options::get_option( 'id' );
 		}
 
-		// Get WooCommerce version if available.
+		// Get PooCommerce version if available.
 		// Check WC_VERSION constant first (most reliable), then fall back to option.
 		if ( defined( 'WC_VERSION' ) ) {
 			$wc_version = WC_VERSION;
 		} else {
-			$wc_version = get_option( 'woocommerce_version', '' );
+			$wc_version = get_option( 'poocommerce_version', '' );
 		}
 
 		// Get store ID from known option name.
-		$store_id = get_option( 'woocommerce_store_id', null );
+		$store_id = get_option( 'poocommerce_store_id', null );
 
 		// Get store currency - use WC function if available, otherwise fall back to option.
-		$store_currency = function_exists( 'get_woocommerce_currency' )
-		? get_woocommerce_currency()
-		: get_option( 'woocommerce_currency', 'USD' );
+		$store_currency = function_exists( 'get_poocommerce_currency' )
+		? get_poocommerce_currency()
+		: get_option( 'poocommerce_currency', 'USD' );
 
 		$blog_details = array(
 			'url'            => home_url(),
@@ -447,7 +447,7 @@ class WC_Analytics_Tracking {
 	 */
 	private static function get_session_details() {
 		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- JSON is decoded and validated below. We don't need to sanitize the cookie value because we're not outputting it but decoding it as JSON. Sanitization might break the JSON.
-		$raw_cookie = isset( $_COOKIE['woocommerceanalytics_session'] ) ? wp_unslash( $_COOKIE['woocommerceanalytics_session'] ) : '';
+		$raw_cookie = isset( $_COOKIE['poocommerceanalytics_session'] ) ? wp_unslash( $_COOKIE['poocommerceanalytics_session'] ) : '';
 
 		if ( ! $raw_cookie ) {
 			return array();

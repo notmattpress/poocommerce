@@ -11,7 +11,7 @@ const config = {
 	projects: [
 		...setupProjects,
 		{
-			name: 'WooCommerce PayPal Payments',
+			name: 'PooCommerce PayPal Payments',
 			grep: new RegExp( tags.PAYMENTS ),
 			dependencies: [ 'site setup' ],
 		},

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Api\Attributes;
+namespace Automattic\PooCommerce\Api\Attributes;
 
 use Attribute;
-use Automattic\WooCommerce\Api\Infrastructure\Principal;
+use Automattic\PooCommerce\Api\Infrastructure\Principal;
 
 /**
  * Declares a WordPress capability required to execute a query or mutation,
@@ -29,7 +29,7 @@ final class RequiredCapability {
 	 * Constructor.
 	 *
 	 * @param string $capability A WordPress capability slug
-	 *                           (e.g. 'manage_woocommerce').
+	 *                           (e.g. 'manage_poocommerce').
 	 */
 	public function __construct(
 		public readonly string $capability,

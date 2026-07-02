@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import type { HTMLElementEvent } from '@woocommerce/types';
+import type { HTMLElementEvent } from '@poocommerce/types';
 import * as iAPI from '@wordpress/interactivity';
 
 /**

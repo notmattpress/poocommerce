@@ -47,10 +47,10 @@ const Tag = ( {
 		return null;
 	}
 	label = decodeEntities( label );
-	const classes = clsx( 'woocommerce-tag', className, {
+	const classes = clsx( 'poocommerce-tag', className, {
 		'has-remove': !! remove,
 	} );
-	const labelId = `woocommerce-tag__label-${ instanceId }`;
+	const labelId = `poocommerce-tag__label-${ instanceId }`;
 	const labelTextNode = (
 		<>
 			<span className="screen-reader-text">{ screenReaderLabel }</span>
@@ -62,14 +62,14 @@ const Tag = ( {
 		<span className={ classes }>
 			{ popoverContents ? (
 				<Button
-					className="woocommerce-tag__text"
+					className="poocommerce-tag__text"
 					id={ labelId }
 					onClick={ () => setIsVisible( true ) }
 				>
 					{ labelTextNode }
 				</Button>
 			) : (
-				<span className="woocommerce-tag__text" id={ labelId }>
+				<span className="poocommerce-tag__text" id={ labelId }>
 					{ labelTextNode }
 				</span>
 			) }
@@ -80,11 +80,11 @@ const Tag = ( {
 			) }
 			{ remove && (
 				<Button
-					className="woocommerce-tag__remove"
+					className="poocommerce-tag__remove"
 					onClick={ remove( id ) }
 					label={ sprintf(
 						// Translators: %s label.
-						__( 'Remove %s', 'woocommerce' ),
+						__( 'Remove %s', 'poocommerce' ),
 						label
 					) }
 					aria-describedby={ labelId }

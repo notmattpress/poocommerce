@@ -1,5 +1,5 @@
 {
-	"name": "@woocommerce/onboarding",
+	"name": "@poocommerce/onboarding",
 	"version": "4.0.0",
 	"description": "Onboarding utilities.",
 	"author": "Automattic",
@@ -9,16 +9,16 @@
 	},
 	"keywords": [
 		"wordpress",
-		"woocommerce",
+		"poocommerce",
 		"onboarding"
 	],
-	"homepage": "https://github.com/woocommerce/woocommerce/tree/trunk/packages/js/onboarding/README.md",
+	"homepage": "https://github.com/poocommerce/poocommerce/tree/trunk/packages/js/onboarding/README.md",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/woocommerce/woocommerce.git"
+		"url": "https://github.com/poocommerce/poocommerce.git"
 	},
 	"bugs": {
-		"url": "https://github.com/woocommerce/woocommerce/issues"
+		"url": "https://github.com/poocommerce/poocommerce/issues"
 	},
 	"exports": {
 		".": {
@@ -64,10 +64,10 @@
 		]
 	},
 	"dependencies": {
-		"@woocommerce/components": "workspace:*",
-		"@woocommerce/experimental": "workspace:*",
-		"@woocommerce/explat": "workspace:*",
-		"@woocommerce/tracks": "workspace:*",
+		"@poocommerce/components": "workspace:*",
+		"@poocommerce/experimental": "workspace:*",
+		"@poocommerce/explat": "workspace:*",
+		"@poocommerce/tracks": "workspace:*",
 		"@wordpress/components": "catalog:wp-min",
 		"@wordpress/compose": "catalog:wp-min",
 		"@wordpress/element": "catalog:wp-min",
@@ -83,9 +83,9 @@
 		"@types/jest": "29.5.x",
 		"@types/react": "18.3.x",
 		"@types/string-similarity": "4.0.0",
-		"@woocommerce/eslint-plugin": "workspace:*",
-		"@woocommerce/internal-build": "workspace:*",
-		"@woocommerce/internal-js-tests": "workspace:*",
+		"@poocommerce/eslint-plugin": "workspace:*",
+		"@poocommerce/internal-build": "workspace:*",
+		"@poocommerce/internal-js-tests": "workspace:*",
 		"@wordpress/browserslist-config": "next",
 		"css-loader": "6.11.x",
 		"eslint": "^8.55.0",

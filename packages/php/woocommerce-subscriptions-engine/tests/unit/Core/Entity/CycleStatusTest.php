@@ -2,19 +2,19 @@
 /**
  * Unit tests for the CycleStatus state machine.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine
+ * @package Automattic\PooCommerce\SubscriptionsEngine
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Tests\Unit\Core\Entity;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Tests\Unit\Core\Entity;
 
 use DomainException;
 use PHPUnit\Framework\TestCase;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\CycleStatus;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\CycleStatus;
 
 /**
- * @covers \Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\CycleStatus
+ * @covers \Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\CycleStatus
  */
 class CycleStatusTest extends TestCase {
 

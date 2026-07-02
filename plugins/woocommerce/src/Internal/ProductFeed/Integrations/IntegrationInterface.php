@@ -2,16 +2,16 @@
 /**
  * Interface that should be implemented by all provider integrations.
  *
- * @package Automattic\WooCommerce\Internal\ProductFeed
+ * @package Automattic\PooCommerce\Internal\ProductFeed
  */
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Internal\ProductFeed\Integrations;
+namespace Automattic\PooCommerce\Internal\ProductFeed\Integrations;
 
-use Automattic\WooCommerce\Internal\ProductFeed\Feed\FeedInterface;
-use Automattic\WooCommerce\Internal\ProductFeed\Feed\FeedValidatorInterface;
-use Automattic\WooCommerce\Internal\ProductFeed\Mapping\ProductShapeMapperInterface;
+use Automattic\PooCommerce\Internal\ProductFeed\Feed\FeedInterface;
+use Automattic\PooCommerce\Internal\ProductFeed\Feed\FeedValidatorInterface;
+use Automattic\PooCommerce\Internal\ProductFeed\Mapping\ProductShapeMapperInterface;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;

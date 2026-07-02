@@ -2,16 +2,16 @@
 /**
  * Shipping Method Schema.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\RestApi\Routes\V4\ShippingZoneMethod;
+namespace Automattic\PooCommerce\Internal\RestApi\Routes\V4\ShippingZoneMethod;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\AbstractSchema;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\AbstractSchema;
 use WP_REST_Request;
 
 /**
@@ -34,43 +34,43 @@ class ShippingMethodSchema extends AbstractSchema {
 	public function get_item_schema_properties(): array {
 		return array(
 			'instance_id' => array(
-				'description' => __( 'Shipping method instance ID.', 'woocommerce' ),
+				'description' => __( 'Shipping method instance ID.', 'poocommerce' ),
 				'type'        => 'integer',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
 			),
 			'zone_id'     => array(
-				'description' => __( 'Shipping zone ID.', 'woocommerce' ),
+				'description' => __( 'Shipping zone ID.', 'poocommerce' ),
 				'type'        => 'integer',
 				'context'     => array( 'view', 'edit' ),
 				'required'    => true,
 			),
 			'enabled'     => array(
-				'description' => __( 'Whether the shipping method is enabled.', 'woocommerce' ),
+				'description' => __( 'Whether the shipping method is enabled.', 'poocommerce' ),
 				'type'        => 'boolean',
 				'context'     => array( 'view', 'edit' ),
 				'required'    => true,
 			),
 			'order'       => array(
-				'description'       => __( 'Shipping method sort order.', 'woocommerce' ),
+				'description'       => __( 'Shipping method sort order.', 'poocommerce' ),
 				'type'              => 'integer',
 				'context'           => array( 'view', 'edit' ),
 				'sanitize_callback' => 'absint',
 			),
 			'method_id'   => array(
-				'description' => __( 'Shipping method ID.', 'woocommerce' ),
+				'description' => __( 'Shipping method ID.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => array( 'view', 'edit' ),
 				'required'    => true,
 			),
 			'settings'    => array(
-				'description'          => __( 'Shipping method settings including title and configuration.', 'woocommerce' ),
+				'description'          => __( 'Shipping method settings including title and configuration.', 'poocommerce' ),
 				'type'                 => 'object',
 				'context'              => array( 'view', 'edit' ),
 				'required'             => true,
 				'properties'           => array(
 					'title' => array(
-						'description' => __( 'Shipping method title.', 'woocommerce' ),
+						'description' => __( 'Shipping method title.', 'poocommerce' ),
 						'type'        => 'string',
 						'context'     => array( 'view', 'edit' ),
 						'required'    => true,

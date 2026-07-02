@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { registerPaymentMethodExtensionCallbacks } from '@woocommerce/blocks-registry';
+import { registerPaymentMethodExtensionCallbacks } from '@poocommerce/blocks-registry';
 /**
  * Internal dependencies
  */
@@ -76,7 +76,7 @@ describe( 'payment-method-config-helper', () => {
 	beforeAll( () => {
 		// Register extension callbacks for two payment methods.
 		registerPaymentMethodExtensionCallbacks(
-			'woocommerce-marketplace-extension',
+			'poocommerce-marketplace-extension',
 			{
 				// cod: one extension returns true, the other returns false.
 				cod: trueCallback,
@@ -89,12 +89,12 @@ describe( 'payment-method-config-helper', () => {
 				// testpay: one callback errors, one returns true
 				testpay: throwsCallback,
 				// Used to check that only valid callbacks run in each namespace. It is not present in
-				// 'other-woocommerce-marketplace-extension'.
+				// 'other-poocommerce-marketplace-extension'.
 				blocks_pay: trueCallback,
 			}
 		);
 		registerPaymentMethodExtensionCallbacks(
-			'other-woocommerce-marketplace-extension',
+			'other-poocommerce-marketplace-extension',
 			{
 				cod: falseCallback,
 				woopay: trueCallback,

@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { Page } from '@playwright/test';
-import { WC_API_PATH } from '@woocommerce/e2e-utils-playwright';
+import { WC_API_PATH } from '@poocommerce/e2e-utils-playwright';
 
 /**
  * Internal dependencies
@@ -158,7 +158,7 @@ test( 'can use the product search command', async ( { page, product } ) => {
 test( 'can use an analytics command', async ( { page } ) => {
 	await clickOnCommandPaletteOption( {
 		page,
-		optionName: 'WooCommerce Analytics: Products',
+		optionName: 'PooCommerce Analytics: Products',
 	} );
 
 	// Verify that the page has loaded.

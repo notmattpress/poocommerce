@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { store, getElement, getContext } from '@wordpress/interactivity';
-import type { ProductsStore } from '@woocommerce/stores/woocommerce/products';
+import type { ProductsStore } from '@poocommerce/stores/poocommerce/products';
 
 /**
  * Internal dependencies
@@ -19,7 +19,7 @@ const universalLock =
 	'I acknowledge that using a private store means my plugin will inevitably break on the next store release.';
 
 const { state: productsState } = store< ProductsStore >(
-	'woocommerce/products',
+	'poocommerce/products',
 	{},
 	{ lock: universalLock }
 );
@@ -92,7 +92,7 @@ const scrollCarousel = ( direction: 'left' | 'right' ) => {
 	const { ref } = getElement();
 
 	const productCollection = ref?.closest(
-		'.wp-block-woocommerce-product-collection'
+		'.wp-block-poocommerce-product-collection'
 	);
 	const productTemplate = productCollection?.querySelector(
 		'.wc-block-product-template'
@@ -281,6 +281,6 @@ const productCollectionStore = {
 	},
 };
 
-store( 'woocommerce/product-collection', productCollectionStore, {
+store( 'poocommerce/product-collection', productCollectionStore, {
 	lock: true,
 } );

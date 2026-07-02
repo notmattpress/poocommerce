@@ -3,10 +3,10 @@
  * Controller Tests.
  */
 
-namespace Automattic\WooCommerce\Tests\Blocks\StoreApi\Routes;
+namespace Automattic\PooCommerce\Tests\Blocks\StoreApi\Routes;
 
-use Automattic\WooCommerce\Tests\Blocks\StoreApi\Routes\ControllerTestCase;
-use Automattic\WooCommerce\Tests\Blocks\Helpers\FixtureData;
+use Automattic\PooCommerce\Tests\Blocks\StoreApi\Routes\ControllerTestCase;
+use Automattic\PooCommerce\Tests\Blocks\Helpers\FixtureData;
 
 /**
  * Batch Controller Tests.
@@ -18,7 +18,7 @@ class Batch extends ControllerTestCase {
 	 */
 	protected function setUp(): void {
 		add_filter(
-			'__experimental_woocommerce_store_api_batch_request_methods',
+			'__experimental_poocommerce_store_api_batch_request_methods',
 			function ( $methods ) {
 				$methods[] = 'GET';
 				return $methods;
@@ -181,7 +181,7 @@ class Batch extends ControllerTestCase {
 		$response = rest_get_server()->dispatch( $request );
 
 		$this->assertEquals( 400, $response->get_status(), "Path '$path' should be rejected" );
-		$this->assertEquals( 'woocommerce_rest_invalid_path', $response->get_data()['code'], "Path '$path' should return woocommerce_rest_invalid_path error code" );
+		$this->assertEquals( 'poocommerce_rest_invalid_path', $response->get_data()['code'], "Path '$path' should return poocommerce_rest_invalid_path error code" );
 	}
 
 	/**
@@ -220,7 +220,7 @@ class Batch extends ControllerTestCase {
 
 		$response = rest_get_server()->dispatch( $request );
 
-		$this->assertNotEquals( 'woocommerce_rest_invalid_path', $response->get_data()['code'] ?? '', "Path '$path' should not be rejected by path validation" );
+		$this->assertNotEquals( 'poocommerce_rest_invalid_path', $response->get_data()['code'] ?? '', "Path '$path' should not be rejected by path validation" );
 	}
 
 	/**
@@ -265,6 +265,6 @@ class Batch extends ControllerTestCase {
 		$response = rest_get_server()->dispatch( $request );
 
 		$this->assertEquals( 400, $response->get_status(), 'Batch should be rejected when any sub-request path is invalid' );
-		$this->assertEquals( 'woocommerce_rest_invalid_path', $response->get_data()['code'] );
+		$this->assertEquals( 'poocommerce_rest_invalid_path', $response->get_data()['code'] );
 	}
 }

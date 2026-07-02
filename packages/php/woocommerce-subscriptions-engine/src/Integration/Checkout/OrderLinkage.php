@@ -5,15 +5,15 @@
  * `origin_order_id`). The engine owns these keys; consumers read them through
  * this class rather than hard-coding the strings.
  *
- * Integration zone: WordPress-native. Written to WooCommerce order meta, which
+ * Integration zone: WordPress-native. Written to PooCommerce order meta, which
  * works under both HPOS and the legacy CPT order store.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine\Integration\Checkout
+ * @package Automattic\PooCommerce\SubscriptionsEngine\Integration\Checkout
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Integration\Checkout;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Integration\Checkout;
 
 use InvalidArgumentException;
 

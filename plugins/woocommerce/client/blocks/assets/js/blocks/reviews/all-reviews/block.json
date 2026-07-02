@@ -1,12 +1,12 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "woocommerce/all-reviews",
+	"name": "poocommerce/all-reviews",
 	"title": "All Reviews",
-	"category": "woocommerce",
-	"keywords": [ "WooCommerce" ],
+	"category": "poocommerce",
+	"keywords": [ "PooCommerce" ],
 	"description": "Show a list of all product reviews.",
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"supports": {
 		"html": false,
 		"interactivity": {

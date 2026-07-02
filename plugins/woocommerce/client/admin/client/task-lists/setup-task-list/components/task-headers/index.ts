@@ -10,7 +10,7 @@ import ShippingHeader from './shipping';
 import ProductsHeader from './products';
 import PurchaseHeader from './purchase';
 import PaymentsHeader from './payments';
-import WoocommercePaymentsHeader from './woocommerce-payments';
+import WoocommercePaymentsHeader from './poocommerce-payments';
 import LaunchYourStoreHeader from './launch-your-store';
 
 export const taskHeaders: Record< string, React.ElementType > = {
@@ -23,6 +23,6 @@ export const taskHeaders: Record< string, React.ElementType > = {
 	payments: PaymentsHeader,
 	products: ProductsHeader,
 	purchase: PurchaseHeader,
-	'woocommerce-payments': WoocommercePaymentsHeader,
+	'poocommerce-payments': WoocommercePaymentsHeader,
 	'launch-your-store': LaunchYourStoreHeader,
 };

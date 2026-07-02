@@ -1,6 +1,6 @@
 {
-	"name": "woocommerce/experimental-products-app",
-	"description": "WooCommerce experimental products app",
+	"name": "poocommerce/experimental-products-app",
+	"description": "PooCommerce experimental products app",
 	"type": "library",
 	"license": "GPL-2.0-or-later",
 	"minimum-stability": "dev",

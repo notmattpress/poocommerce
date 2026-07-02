@@ -4,21 +4,21 @@
  *
  * Handles route registration, permissions, CRUD operations, and schema definition.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\RestApi\Routes\V4\Refunds;
+namespace Automattic\PooCommerce\Internal\RestApi\Routes\V4\Refunds;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\AbstractController;
-use Automattic\WooCommerce\StoreApi\Utilities\Pagination;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Refunds\Schema\RefundPreviewSchema;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Refunds\Schema\RefundSchema;
-use Automattic\WooCommerce\Utilities\MetaDataUtil;
-use Automattic\WooCommerce\Utilities\NumberUtil;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\AbstractController;
+use Automattic\PooCommerce\StoreApi\Utilities\Pagination;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Refunds\Schema\RefundPreviewSchema;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Refunds\Schema\RefundSchema;
+use Automattic\PooCommerce\Utilities\MetaDataUtil;
+use Automattic\PooCommerce\Utilities\NumberUtil;
 use WP_Http;
 use WP_Error;
 use WC_Order;
@@ -116,7 +116,7 @@ class Controller extends AbstractController {
 		return array(
 			'num_decimals' => array(
 				'default'           => wc_get_price_decimals(),
-				'description'       => __( 'Number of decimal points to use in each resource.', 'woocommerce' ),
+				'description'       => __( 'Number of decimal points to use in each resource.', 'poocommerce' ),
 				'type'              => 'integer',
 				'sanitize_callback' => 'absint',
 				'validate_callback' => 'rest_validate_request_arg',
@@ -147,14 +147,14 @@ class Controller extends AbstractController {
 						$this->get_endpoint_args_for_item_schema( WP_REST_Server::CREATABLE ),
 						array(
 							'api_refund'  => array(
-								'description'       => __( 'When true, the payment gateway API is used to perform the refund. If the payment gateway does not support refunds, the refund will fail.', 'woocommerce' ),
+								'description'       => __( 'When true, the payment gateway API is used to perform the refund. If the payment gateway does not support refunds, the refund will fail.', 'poocommerce' ),
 								'type'              => 'boolean',
 								'context'           => array( 'edit' ),
 								'default'           => false,
 								'sanitize_callback' => 'rest_sanitize_boolean',
 							),
 							'api_restock' => array(
-								'description'       => __( 'When true, refunded items are restocked.', 'woocommerce' ),
+								'description'       => __( 'When true, refunded items are restocked.', 'poocommerce' ),
 								'type'              => 'boolean',
 								'context'           => array( 'edit' ),
 								'default'           => false,
@@ -181,14 +181,14 @@ class Controller extends AbstractController {
 					'permission_callback' => array( $this, 'create_item_permissions_check' ),
 					'args'                => array(
 						'order_id'   => array(
-							'description'       => __( 'The ID of the order to preview a refund for.', 'woocommerce' ),
+							'description'       => __( 'The ID of the order to preview a refund for.', 'poocommerce' ),
 							'type'              => 'integer',
 							'required'          => true,
 							'minimum'           => 1,
 							'validate_callback' => 'rest_validate_request_arg',
 						),
 						'line_items' => array(
-							'description'       => __( 'Line items to include in the refund preview.', 'woocommerce' ),
+							'description'       => __( 'Line items to include in the refund preview.', 'poocommerce' ),
 							'type'              => 'array',
 							'required'          => true,
 							'minItems'          => 1,
@@ -199,12 +199,12 @@ class Controller extends AbstractController {
 								'additionalProperties' => false,
 								'properties'           => array(
 									'line_item_id' => array(
-										'description' => __( 'ID of the original order line item.', 'woocommerce' ),
+										'description' => __( 'ID of the original order line item.', 'poocommerce' ),
 										'type'        => 'integer',
 										'minimum'     => 1,
 									),
 									'quantity'     => array(
-										'description' => __( 'Quantity to refund. Required when refund_total is omitted.', 'woocommerce' ),
+										'description' => __( 'Quantity to refund. Required when refund_total is omitted.', 'poocommerce' ),
 										'type'        => 'integer',
 										'minimum'     => 1,
 									),
@@ -216,7 +216,7 @@ class Controller extends AbstractController {
 										// line; zero and wrong-sign values are rejected. A schema `minimum`
 										// would wrongly forbid the negative form, and a generic
 										// `rest_invalid_param` is less useful to clients.
-										'description' => __( 'Tax-inclusive amount to refund for this line item. Must be non-zero and match the line\'s sign (negative for discount or credit lines, positive otherwise). Required when quantity is omitted.', 'woocommerce' ),
+										'description' => __( 'Tax-inclusive amount to refund for this line item. Must be non-zero and match the line\'s sign (negative for discount or credit lines, positive otherwise). Required when quantity is omitted.', 'poocommerce' ),
 										'type'        => array( 'number', 'null' ),
 									),
 								),
@@ -237,7 +237,7 @@ class Controller extends AbstractController {
 					$this->get_endpoint_args(),
 					array(
 						'id' => array(
-							'description' => __( 'Unique identifier for the resource.', 'woocommerce' ),
+							'description' => __( 'Unique identifier for the resource.', 'poocommerce' ),
 							'type'        => 'integer',
 						),
 					),
@@ -387,7 +387,7 @@ class Controller extends AbstractController {
 			);
 			return $this->get_route_error_response(
 				'invalid_refund_request',
-				__( 'The refund could not be created due to an unexpected error.', 'woocommerce' ),
+				__( 'The refund could not be created due to an unexpected error.', 'poocommerce' ),
 				WP_Http::INTERNAL_SERVER_ERROR
 			);
 		}
@@ -423,7 +423,7 @@ class Controller extends AbstractController {
 			$refund_amount    = ! empty( $request['amount'] ) ? $request['amount'] : $calculated_total;
 
 			if ( 0 > $refund_amount || ! $refund_amount ) {
-				return $this->get_route_error_response( 'invalid_refund_amount', __( 'Refund total must be greater than zero.', 'woocommerce' ) );
+				return $this->get_route_error_response( 'invalid_refund_amount', __( 'Refund total must be greater than zero.', 'poocommerce' ) );
 			}
 
 			// Prevent under-refunding: amount cannot be less than calculated line items total.
@@ -433,7 +433,7 @@ class Controller extends AbstractController {
 					'invalid_refund_amount',
 					sprintf(
 						/* translators: %1$s: refund amount, %2$s: calculated total from line items */
-						__( 'Refund amount (%1$s) cannot be less than the total of line items (%2$s).', 'woocommerce' ),
+						__( 'Refund amount (%1$s) cannot be less than the total of line items (%2$s).', 'poocommerce' ),
 						wc_format_decimal( $refund_amount, wc_get_price_decimals() ),
 						wc_format_decimal( $calculated_total, wc_get_price_decimals() )
 					)
@@ -450,7 +450,7 @@ class Controller extends AbstractController {
 					'refund_exceeds_remaining',
 					sprintf(
 						/* translators: %1$s: requested refund amount, %2$s: remaining refundable amount */
-						__( 'Refund amount (%1$s) exceeds the remaining refundable amount (%2$s).', 'woocommerce' ),
+						__( 'Refund amount (%1$s) exceeds the remaining refundable amount (%2$s).', 'poocommerce' ),
 						wc_format_decimal( $refund_amount, wc_get_price_decimals() ),
 						wc_format_decimal( $remaining_refundable, wc_get_price_decimals() )
 					),
@@ -470,7 +470,7 @@ class Controller extends AbstractController {
 			);
 
 			if ( ! $refund ) {
-				return $this->get_route_error_response( 'cannot_create_refund', __( 'Cannot create order refund.', 'woocommerce' ) );
+				return $this->get_route_error_response( 'cannot_create_refund', __( 'Cannot create order refund.', 'poocommerce' ) );
 			}
 
 			if ( is_wp_error( $refund ) ) {
@@ -549,7 +549,7 @@ class Controller extends AbstractController {
 			);
 			return $this->get_route_error_response(
 				'invalid_preview_request',
-				__( 'The refund preview could not be generated due to an unexpected error.', 'woocommerce' ),
+				__( 'The refund preview could not be generated due to an unexpected error.', 'poocommerce' ),
 				WP_Http::INTERNAL_SERVER_ERROR
 			);
 		} catch ( \Throwable $e ) {
@@ -559,7 +559,7 @@ class Controller extends AbstractController {
 			);
 			return $this->get_route_error_response(
 				'unexpected_preview_error',
-				__( 'An unexpected error occurred while generating the refund preview.', 'woocommerce' ),
+				__( 'An unexpected error occurred while generating the refund preview.', 'poocommerce' ),
 				WP_Http::INTERNAL_SERVER_ERROR
 			);
 		}
@@ -571,7 +571,7 @@ class Controller extends AbstractController {
 		if ( (float) $preview['total'] <= 0 ) {
 			return $this->get_route_error_response(
 				'invalid_refund_amount',
-				__( 'Refund total must be greater than zero.', 'woocommerce' )
+				__( 'Refund total must be greater than zero.', 'poocommerce' )
 			);
 		}
 
@@ -587,7 +587,7 @@ class Controller extends AbstractController {
 				'preview_exceeds_max_refundable',
 				sprintf(
 					/* translators: 1: requested preview total including tax, 2: remaining refundable */
-					__( 'Requested refund preview (%1$s) exceeds the remaining refundable amount (%2$s).', 'woocommerce' ),
+					__( 'Requested refund preview (%1$s) exceeds the remaining refundable amount (%2$s).', 'poocommerce' ),
 					wc_format_decimal( $preview_total_with_tax, wc_get_price_decimals() ),
 					$preview['max_refundable']
 				),

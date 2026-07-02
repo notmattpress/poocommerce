@@ -120,7 +120,7 @@ test.describe( 'Update propagation — core flows', () => {
 	 * inside the block editor.
 	 *
 	 * UI mode walkthrough:
-	 *   After REST setup the test navigates to WP Admin → WooCommerce → Settings →
+	 *   After REST setup the test navigates to WP Admin → PooCommerce → Settings →
 	 *   Email. The DataViews table loads and the "New order" row should contain a
 	 *   "Review update" button. The test then opens the email in the block editor
 	 *   and asserts the "Template update available" status banner is visible. No
@@ -391,7 +391,7 @@ test.describe( 'Update propagation — core flows', () => {
 		await page.goto( `/wp-admin/post.php?post=${ postId }&action=edit` );
 
 		// Wait for the editor canvas to be ready.
-		await expect( page.locator( '#woocommerce-email-editor' ) ).toBeVisible(
+		await expect( page.locator( '#poocommerce-email-editor' ) ).toBeVisible(
 			{
 				timeout: 20000,
 			}

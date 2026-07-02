@@ -1,15 +1,15 @@
 /**
  * External dependencies
  */
-import * as navigation from '@woocommerce/navigation';
+import * as navigation from '@poocommerce/navigation';
 
 /**
  * Internal dependencies
  */
 import { updateLinkHref } from '../controller';
 
-jest.mock( '@woocommerce/navigation', () => {
-	const actual = jest.requireActual( '@woocommerce/navigation' );
+jest.mock( '@poocommerce/navigation', () => {
+	const actual = jest.requireActual( '@poocommerce/navigation' );
 	return {
 		...actual,
 		getHistory: jest.fn( actual.getHistory ),
@@ -67,7 +67,7 @@ describe( 'updateLinkHref', () => {
 		);
 	} );
 
-	it( 'should not update WooCommerce urls', () => {
+	it( 'should not update PooCommerce urls', () => {
 		const item = { href: WOO_URL };
 		updateLinkHref( item, nextQuery, timeExcludedScreens );
 

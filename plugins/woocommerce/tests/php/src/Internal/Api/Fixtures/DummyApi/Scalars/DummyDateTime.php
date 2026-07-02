@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Scalars;
+namespace Automattic\PooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Scalars;
 
-use Automattic\WooCommerce\Api\Attributes\Description;
+use Automattic\PooCommerce\Api\Attributes\Description;
 
 /**
  * Custom scalar for ISO-8601 date/time strings used by the dummy fixture API.

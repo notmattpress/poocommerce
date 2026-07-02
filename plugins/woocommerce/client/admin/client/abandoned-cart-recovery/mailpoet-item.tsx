@@ -3,10 +3,10 @@
  */
 import { __ } from '@wordpress/i18n';
 import { Button } from '@wordpress/components';
-import { Pill } from '@woocommerce/components';
-import { recordEvent } from '@woocommerce/tracks';
+import { Pill } from '@poocommerce/components';
+import { recordEvent } from '@poocommerce/tracks';
 import { useDispatch } from '@wordpress/data';
-import { getAdminLink } from '@woocommerce/settings';
+import { getAdminLink } from '@poocommerce/settings';
 
 /**
  * Internal dependencies
@@ -34,14 +34,14 @@ const MailPoetItem = ( {
 		onSetupClick( [ MAILPOET_SLUG ] )
 			.then( () => {
 				createSuccessNotice(
-					__( '🎉 MailPoet is installed!', 'woocommerce' ),
+					__( '🎉 MailPoet is installed!', 'poocommerce' ),
 					{
 						actions: [
 							{
 								url: getAdminLink(
 									'admin.php?page=mailpoet-newsletters'
 								),
-								label: __( 'Set up MailPoet', 'woocommerce' ),
+								label: __( 'Set up MailPoet', 'poocommerce' ),
 							},
 						],
 					}
@@ -53,30 +53,30 @@ const MailPoetItem = ( {
 	};
 
 	return (
-		<div className="woocommerce-list__item-inner woocommerce-abandoned-cart-recovery-recommendation-item">
-			<div className="woocommerce-list__item-before">
+		<div className="poocommerce-list__item-inner poocommerce-abandoned-cart-recovery-recommendation-item">
+			<div className="poocommerce-list__item-before">
 				<ProductIcon product="mailpoet" />
 			</div>
-			<div className="woocommerce-list__item-text">
-				<span className="woocommerce-list__item-title">
-					{ __( 'MailPoet', 'woocommerce' ) }
-					<Pill>{ __( 'Recommended', 'woocommerce' ) }</Pill>
+			<div className="poocommerce-list__item-text">
+				<span className="poocommerce-list__item-title">
+					{ __( 'MailPoet', 'poocommerce' ) }
+					<Pill>{ __( 'Recommended', 'poocommerce' ) }</Pill>
 				</span>
-				<span className="woocommerce-list__item-content">
+				<span className="poocommerce-list__item-content">
 					{ __(
-						'Send newsletters and automated welcome series from your WooCommerce dashboard. Free and installs in one click.',
-						'woocommerce'
+						'Send newsletters and automated welcome series from your PooCommerce dashboard. Free and installs in one click.',
+						'poocommerce'
 					) }
 				</span>
 			</div>
-			<div className="woocommerce-list__item-after">
+			<div className="poocommerce-list__item-after">
 				<Button
 					variant="secondary"
 					onClick={ handleSetupClick }
 					isBusy={ pluginsBeingSetup.includes( MAILPOET_SLUG ) }
 					disabled={ pluginsBeingSetup.length > 0 }
 				>
-					{ __( 'Get started', 'woocommerce' ) }
+					{ __( 'Get started', 'poocommerce' ) }
 				</Button>
 			</div>
 		</div>

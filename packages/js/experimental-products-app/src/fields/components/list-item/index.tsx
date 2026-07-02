@@ -34,16 +34,16 @@ export const ListItem = ( {
 					direction="row"
 					align="center"
 					justify="space-between"
-					className="woocommerce-list-item"
+					className="poocommerce-list-item"
 					gap={ 'md' }
 				>
 					{ item.thumbnail && (
-						<div className="woocommerce-list-item__thumbnail">
+						<div className="poocommerce-list-item__thumbnail">
 							{ typeof item.thumbnail === 'string' && (
 								<img
 									src={ item.thumbnail }
 									alt={ item.altText ?? '' }
-									className="woocommerce-list-item__thumbnail-image"
+									className="poocommerce-list-item__thumbnail-image"
 								/>
 							) }
 							{ isValidElement( item.thumbnail ) &&
@@ -51,14 +51,14 @@ export const ListItem = ( {
 						</div>
 					) }
 					<Stack
-						className="woocommerce-list-item__info"
+						className="poocommerce-list-item__info"
 						direction="column"
 					>
-						<div className="woocommerce-list-item__title">
+						<div className="poocommerce-list-item__title">
 							{ item.title }
 						</div>
 						{ item.meta && (
-							<div className="woocommerce-list-item__meta">
+							<div className="poocommerce-list-item__meta">
 								{ item.meta }
 							</div>
 						) }
@@ -69,8 +69,8 @@ export const ListItem = ( {
 							variant="tertiary"
 							iconSize={ 16 }
 							onClick={ () => onRemove( item ) }
-							aria-label={ __( 'Remove item', 'woocommerce' ) }
-							className="woocommerce-list-item__remove-button"
+							aria-label={ __( 'Remove item', 'poocommerce' ) }
+							className="poocommerce-list-item__remove-button"
 						/>
 					) }
 				</Stack>

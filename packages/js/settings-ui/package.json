@@ -1,21 +1,21 @@
 {
-	"name": "@woocommerce/settings-ui",
+	"name": "@poocommerce/settings-ui",
 	"version": "0.1.0",
-	"description": "React utilities for rendering extensible WooCommerce settings pages.",
+	"description": "React utilities for rendering extensible PooCommerce settings pages.",
 	"author": "Automattic",
 	"license": "GPL-2.0-or-later",
 	"keywords": [
 		"wordpress",
-		"woocommerce",
+		"poocommerce",
 		"settings"
 	],
-	"homepage": "https://github.com/woocommerce/woocommerce/tree/trunk/packages/js/settings-ui/README.md",
+	"homepage": "https://github.com/poocommerce/poocommerce/tree/trunk/packages/js/settings-ui/README.md",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/woocommerce/woocommerce.git"
+		"url": "https://github.com/poocommerce/poocommerce.git"
 	},
 	"bugs": {
-		"url": "https://github.com/woocommerce/woocommerce/issues"
+		"url": "https://github.com/poocommerce/poocommerce/issues"
 	},
 	"exports": {
 		".": {
@@ -35,7 +35,7 @@
 		"build-types"
 	],
 	"dependencies": {
-		"@woocommerce/sanitize": "workspace:*",
+		"@poocommerce/sanitize": "workspace:*",
 		"@wordpress/admin-ui": "catalog:wp-bundled",
 		"@wordpress/a11y": "catalog:wp-min",
 		"@wordpress/components": "catalog:wp-min",
@@ -46,9 +46,9 @@
 		"@babel/core": "7.25.7",
 		"@types/jest": "29.5.x",
 		"@types/react": "18.3.x",
-		"@woocommerce/eslint-plugin": "workspace:*",
-		"@woocommerce/internal-build": "workspace:*",
-		"@woocommerce/internal-js-tests": "workspace:*",
+		"@poocommerce/eslint-plugin": "workspace:*",
+		"@poocommerce/internal-build": "workspace:*",
+		"@poocommerce/internal-js-tests": "workspace:*",
 		"eslint": "^8.55.0",
 		"jest": "29.5.x",
 		"jest-cli": "29.5.x",

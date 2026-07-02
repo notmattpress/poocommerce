@@ -1,12 +1,12 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\Logging;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\Logging;
 
 use Automattic\Jetpack\Constants;
-use Automattic\WooCommerce\Internal\Admin\Logging\{ LogHandlerFileV2, Settings };
-use Automattic\WooCommerce\Internal\Admin\Logging\FileV2\File;
-use Automattic\WooCommerce\Internal\Utilities\FilesystemUtil;
+use Automattic\PooCommerce\Internal\Admin\Logging\{ LogHandlerFileV2, Settings };
+use Automattic\PooCommerce\Internal\Admin\Logging\FileV2\File;
+use Automattic\PooCommerce\Internal\Utilities\FilesystemUtil;
 use WC_Unit_Test_Case;
 
 /**
@@ -77,7 +77,7 @@ class LogHandlerFileV2Test extends WC_Unit_Test_Case {
 				'timestamp' => $current_time,
 				'context'   => array(),
 			),
-			'plugin-woocommerce-' . gmdate( 'Y-m-d', $current_time ),
+			'plugin-poocommerce-' . gmdate( 'Y-m-d', $current_time ),
 		);
 		yield 'custom source, past time' => array(
 			array(
@@ -267,7 +267,7 @@ MESSAGE;
 	 */
 	public function provide_context_values(): array {
 		return array(
-			'namespaced class name' => array( array( 'class' => 'Automattic\WooCommerce\Internal\Admin\Logging\LogHandlerFileV2' ) ),
+			'namespaced class name' => array( array( 'class' => 'Automattic\PooCommerce\Internal\Admin\Logging\LogHandlerFileV2' ) ),
 			'windows path'          => array( array( 'path' => 'C:\Windows\System32' ) ),
 			'double quotes'         => array( array( 'quote' => 'He said "hi" to "you"' ) ),
 			'newlines and tabs'     => array( array( 'multi' => "line1\nline2\ttab" ) ),
@@ -282,7 +282,7 @@ MESSAGE;
 			),
 			'combined'              => array(
 				array(
-					'class' => 'Automattic\WooCommerce\Foo',
+					'class' => 'Automattic\PooCommerce\Foo',
 					'url'   => 'https://example.com/x',
 					'quote' => 'He said "hi"',
 				),
@@ -295,7 +295,7 @@ MESSAGE;
 	 *
 	 * @dataProvider provide_context_values
 	 *
-	 * @see https://github.com/woocommerce/woocommerce/issues/62830
+	 * @see https://github.com/poocommerce/poocommerce/issues/62830
 	 *
 	 * @param array $context The context values to log, excluding the source.
 	 */
@@ -444,12 +444,12 @@ MESSAGE;
 			$basename = basename( $file->get_path() );
 			return false !== strpos( $basename, 'source-101' );
 		};
-		add_filter( 'woocommerce_logger_delete_expired_file', $filter, 10, 2 );
+		add_filter( 'poocommerce_logger_delete_expired_file', $filter, 10, 2 );
 
 		try {
 			$result = $this->sut->delete_logs_before_timestamp( strtotime( '-3 days' ) );
 		} finally {
-			remove_filter( 'woocommerce_logger_delete_expired_file', $filter, 10 );
+			remove_filter( 'poocommerce_logger_delete_expired_file', $filter, 10 );
 		}
 
 		$this->assertEquals( 1, $result );

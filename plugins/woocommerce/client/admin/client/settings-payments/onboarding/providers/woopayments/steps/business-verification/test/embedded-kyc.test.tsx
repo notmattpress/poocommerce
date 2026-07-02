@@ -135,7 +135,7 @@ describe( 'EmbeddedKyc', () => {
 			screen.getByRole( 'link', { name: 'Learn more' } )
 		).toHaveAttribute(
 			'href',
-			'https://woocommerce.com/document/woopayments/startup-guide/#requirements'
+			'https://poocommerce.com/document/woopayments/startup-guide/#requirements'
 		);
 		expect(
 			screen.queryByTestId( 'embedded-account-onboarding' )

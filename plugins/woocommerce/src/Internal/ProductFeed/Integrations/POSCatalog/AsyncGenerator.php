@@ -2,18 +2,18 @@
 /**
  *  Async Generator class.
  *
- * @package Automattic\WooCommerce\Internal\ProductFeed
+ * @package Automattic\PooCommerce\Internal\ProductFeed
  */
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Internal\ProductFeed\Integrations\POSCatalog;
+namespace Automattic\PooCommerce\Internal\ProductFeed\Integrations\POSCatalog;
 
 use ActionScheduler_AsyncRequest_QueueRunner;
 use ActionScheduler_Store;
-use Automattic\WooCommerce\Internal\ProductFeed\Feed\ProductWalker;
-use Automattic\WooCommerce\Internal\ProductFeed\Feed\ResumableFeedInterface;
-use Automattic\WooCommerce\Internal\ProductFeed\Feed\WalkerProgress;
+use Automattic\PooCommerce\Internal\ProductFeed\Feed\ProductWalker;
+use Automattic\PooCommerce\Internal\ProductFeed\Feed\ResumableFeedInterface;
+use Automattic\PooCommerce\Internal\ProductFeed\Feed\WalkerProgress;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -30,14 +30,14 @@ class AsyncGenerator {
 	 *
 	 * @var string
 	 */
-	const FEED_GENERATION_ACTION = 'woocommerce_product_feed_generation';
+	const FEED_GENERATION_ACTION = 'poocommerce_product_feed_generation';
 
 	/**
 	 * The Action Scheduler action hook for the feed deletion.
 	 *
 	 * @var string
 	 */
-	const FEED_DELETION_ACTION = 'woocommerce_product_feed_deletion';
+	const FEED_DELETION_ACTION = 'poocommerce_product_feed_deletion';
 
 	/**
 	 * Feed expiry time, once completed.
@@ -341,7 +341,7 @@ class AsyncGenerator {
 		 *
 		 * @since 11.0.0
 		 */
-		return (int) apply_filters( 'woocommerce_product_feed_batch_time_limit', 5 * MINUTE_IN_SECONDS );
+		return (int) apply_filters( 'poocommerce_product_feed_batch_time_limit', 5 * MINUTE_IN_SECONDS );
 	}
 
 	/**
@@ -362,7 +362,7 @@ class AsyncGenerator {
 		 *
 		 * @since 11.0.0
 		 */
-		$chunk_size = (int) apply_filters( 'woocommerce_product_feed_chunk_size', $this->get_effective_chunk_size( $option_key ) );
+		$chunk_size = (int) apply_filters( 'poocommerce_product_feed_chunk_size', $this->get_effective_chunk_size( $option_key ) );
 		if ( $chunk_size < 1 ) {
 			$chunk_size = self::CHUNK_SIZE_STEPS[0];
 		}
@@ -457,14 +457,14 @@ class AsyncGenerator {
 		/**
 		 * Filters the number of products fetched per database query during feed generation.
 		 *
-		 * This is the granularity within a chunk; see `woocommerce_product_feed_chunk_size` for how many
+		 * This is the granularity within a chunk; see `poocommerce_product_feed_chunk_size` for how many
 		 * products each Action Scheduler action processes.
 		 *
 		 * @param int $batch_size The number of products per database batch.
 		 *
 		 * @since 11.0.0
 		 */
-		$batch_size = (int) apply_filters( 'woocommerce_product_feed_batch_size', self::BATCH_SIZE );
+		$batch_size = (int) apply_filters( 'poocommerce_product_feed_batch_size', self::BATCH_SIZE );
 
 		return (int) max( 1, $batch_size );
 	}
@@ -647,7 +647,7 @@ class AsyncGenerator {
 		 * @return int The stuck time in seconds.
 		 * @since 10.5.0
 		 */
-		$scheduled_timeout = apply_filters( 'woocommerce_product_feed_scheduled_timeout', 10 * MINUTE_IN_SECONDS );
+		$scheduled_timeout = apply_filters( 'poocommerce_product_feed_scheduled_timeout', 10 * MINUTE_IN_SECONDS );
 		if (
 			self::STATE_SCHEDULED === $status['state']
 			&& (
@@ -670,7 +670,7 @@ class AsyncGenerator {
 			 *
 			 * The default is kept comfortably larger than the per-batch time budget on purpose. The
 			 * heartbeat only refreshes between batches, so the longest gap a healthy job can produce is
-			 * roughly one batch (`woocommerce_product_feed_batch_time_limit`). A timeout at or near that
+			 * roughly one batch (`poocommerce_product_feed_batch_time_limit`). A timeout at or near that
 			 * budget would let a single slow-but-valid batch look stuck, and recovery would then discard
 			 * the partial the live process is still writing. Deriving it as a multiple (with a floor)
 			 * keeps that margin even when the batch budget is raised via its own filter.
@@ -680,7 +680,7 @@ class AsyncGenerator {
 			 * @since 11.0.0
 			 */
 			$in_progress_timeout = apply_filters(
-				'woocommerce_product_feed_in_progress_timeout',
+				'poocommerce_product_feed_in_progress_timeout',
 				max( 15 * MINUTE_IN_SECONDS, 3 * $this->get_batch_time_limit() )
 			);
 			if ( time() - $last_activity > $in_progress_timeout ) {

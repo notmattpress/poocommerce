@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Api\Infrastructure\Schema;
+namespace Automattic\PooCommerce\Tests\Api\Infrastructure\Schema;
 
-use Automattic\WooCommerce\Api\Infrastructure\Schema\Type;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\BooleanType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\FloatType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\IDType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\IntType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\ListOfType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\NonNull;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\StringType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\Type as WebonyxType;
+use Automattic\PooCommerce\Api\Infrastructure\Schema\Type;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\BooleanType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\FloatType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\IDType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\IntType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\ListOfType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\NonNull;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\StringType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\Type as WebonyxType;
 use WC_Unit_Test_Case;
 
 /**

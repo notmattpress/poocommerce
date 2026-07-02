@@ -191,29 +191,29 @@ const UnsavedChangesModal = ( {
 	return (
 		<Modal
 			className="wc-settings-ui__unsaved-changes-modal"
-			title={ __( 'You have unsaved changes', 'woocommerce' ) }
+			title={ __( 'You have unsaved changes', 'poocommerce' ) }
 			onRequestClose={ onClose }
 		>
 			<p>
 				{ __(
 					"If you leave now, your changes won't be saved.",
-					'woocommerce'
+					'poocommerce'
 				) }
 			</p>
 			<div className="wc-settings-ui__unsaved-changes-actions">
 				<Button variant="tertiary" onClick={ onDiscard }>
-					{ __( 'Discard', 'woocommerce' ) }
+					{ __( 'Discard', 'poocommerce' ) }
 				</Button>
 				<Button
 					variant="primary"
 					type="button"
 					name="save"
-					value={ __( 'Save', 'woocommerce' ) }
+					value={ __( 'Save', 'poocommerce' ) }
 					isBusy={ isSaving }
 					disabled={ isSaving }
 					onClick={ onSave }
 				>
-					{ __( 'Save', 'woocommerce' ) }
+					{ __( 'Save', 'poocommerce' ) }
 				</Button>
 			</div>
 		</Modal>
@@ -350,7 +350,7 @@ export class SettingsUIErrorBoundary extends Component<
 				<Notice status="error" isDismissible={ false }>
 					{ __(
 						'Something went wrong while rendering this settings page. Reload the page with the settings UI feature disabled to use the classic settings screen.',
-						'woocommerce'
+						'poocommerce'
 					) }
 				</Notice>
 			);
@@ -399,7 +399,7 @@ const ShellHeader = ( {
 		shell.breadcrumbs && shell.breadcrumbs.length > 0 ? (
 			<nav
 				className="wc-settings-ui-shell__breadcrumbs"
-				aria-label={ __( 'Breadcrumbs', 'woocommerce' ) }
+				aria-label={ __( 'Breadcrumbs', 'poocommerce' ) }
 			>
 				{ shell.breadcrumbs.map( ( breadcrumb, index ) => (
 					<span
@@ -429,11 +429,11 @@ const ShellHeader = ( {
 		  ) )
 		: undefined;
 
-	const saveButtonLabel = __( 'Save', 'woocommerce' );
+	const saveButtonLabel = __( 'Save', 'poocommerce' );
 
 	const actions = showSaveButton ? (
 		<Button
-			className="woocommerce-save-button"
+			className="poocommerce-save-button"
 			variant="primary"
 			type={ saveButtonType }
 			name="save"
@@ -460,7 +460,7 @@ const ShellHeader = ( {
 					{ shell.navigation && shell.navigation.length > 0 ? (
 						<nav
 							className="wc-settings-ui-shell__tabs wc-settings-ui-shell__tabs--primary"
-							aria-label={ __( 'Settings pages', 'woocommerce' ) }
+							aria-label={ __( 'Settings pages', 'poocommerce' ) }
 						>
 							{ shell.navigation.map( ( item ) => (
 								<a
@@ -483,7 +483,7 @@ const ShellHeader = ( {
 							className="wc-settings-ui-shell__tabs wc-settings-ui-shell__tabs--secondary"
 							aria-label={ __(
 								'Settings sections',
-								'woocommerce'
+								'poocommerce'
 							) }
 						>
 							{ shell.sectionNavigation.map( ( item ) => (
@@ -593,7 +593,7 @@ export const SettingsUIPage = ( {
 
 			allowNavigation();
 
-			const saveButton = form.querySelector( '.woocommerce-save-button' );
+			const saveButton = form.querySelector( '.poocommerce-save-button' );
 
 			if ( saveButton instanceof HTMLButtonElement ) {
 				form.requestSubmit( saveButton );
@@ -637,7 +637,7 @@ export const SettingsUIPage = ( {
 		if ( ! handler ) {
 			setSaveNotice( {
 				status: 'error',
-				message: __( 'Unable to save settings.', 'woocommerce' ),
+				message: __( 'Unable to save settings.', 'poocommerce' ),
 			} );
 			return false;
 		}
@@ -661,14 +661,14 @@ export const SettingsUIPage = ( {
 				status: 'success',
 				message:
 					result?.notice ||
-					__( 'Settings saved successfully.', 'woocommerce' ),
+					__( 'Settings saved successfully.', 'poocommerce' ),
 			} );
 			return true;
 		} catch ( saveError ) {
 			const message =
 				saveError instanceof Error && saveError.message
 					? saveError.message
-					: __( 'Unable to save settings.', 'woocommerce' );
+					: __( 'Unable to save settings.', 'poocommerce' );
 			setSaveNotice( { status: 'error', message } );
 			return false;
 		} finally {

@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { TourKit } from '@woocommerce/components';
+import { TourKit } from '@poocommerce/components';
 import { createInterpolateElement } from '@wordpress/element';
 
 /**
@@ -44,31 +44,31 @@ export const SiteVisibilityTour = ( { onClose }: { onClose: () => void } ) => {
 							},
 						},
 					],
-					classNames: 'woocommerce-lys-homescreen-status-tour-kit',
+					classNames: 'poocommerce-lys-homescreen-status-tour-kit',
 				},
 				steps: [
 					{
 						referenceElements: {
 							desktop:
-								'#wp-admin-bar-woocommerce-site-visibility-badge',
+								'#wp-admin-bar-poocommerce-site-visibility-badge',
 						},
 						meta: {
 							name: 'set-your-store-visibility',
 							heading: __(
 								'Set your store’s visibility',
-								'woocommerce'
+								'poocommerce'
 							),
 							descriptions: {
 								desktop: createInterpolateElement(
 									__(
 										'Launch your store only when you’re ready to by switching between "Coming soon" and "Live" modes. Build excitement by creating a custom page visitors will see before you’re ready to go live. <link>Discover more</link>',
-										'woocommerce'
+										'poocommerce'
 									),
 									{
 										link: (
 											// eslint-disable-next-line jsx-a11y/anchor-has-content
 											<a
-												href="https://woocommerce.com/document/configuring-woocommerce-settings/coming-soon-mode/"
+												href="https://poocommerce.com/document/configuring-poocommerce-settings/coming-soon-mode/"
 												target="_blank"
 												rel="noreferrer"
 											/>

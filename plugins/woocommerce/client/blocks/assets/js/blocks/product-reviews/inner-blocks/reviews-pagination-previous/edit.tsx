@@ -30,7 +30,7 @@ export default function Edit( {
 		>
 			{ displayArrow && (
 				<span
-					className={ `wp-block-woocommerce-product-reviews-pagination-previous-arrow is-arrow-${ paginationArrow }` }
+					className={ `wp-block-poocommerce-product-reviews-pagination-previous-arrow is-arrow-${ paginationArrow }` }
 				>
 					{ displayArrow }
 				</span>
@@ -38,8 +38,8 @@ export default function Edit( {
 			<PlainText
 				__experimentalVersion={ 2 }
 				tagName="span"
-				aria-label={ __( 'Older reviews page link', 'woocommerce' ) }
-				placeholder={ __( 'Older Reviews', 'woocommerce' ) }
+				aria-label={ __( 'Older reviews page link', 'poocommerce' ) }
+				placeholder={ __( 'Older Reviews', 'poocommerce' ) }
 				value={ label }
 				onChange={ ( newLabel ) =>
 					setAttributes( { label: newLabel } )

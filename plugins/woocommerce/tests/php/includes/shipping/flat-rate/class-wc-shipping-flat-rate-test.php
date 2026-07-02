@@ -37,8 +37,8 @@ class WC_Shipping_Flat_Rate_Test extends WC_Unit_Test_Case {
 		$this->call_sanitize_cost = function ( $value ) {
 			return $this->sanitize_cost( $value );
 		};
-		update_option( 'woocommerce_price_decimal_sep', ',' );
-		update_option( 'woocommerce_price_thousand_sep', '.' );
+		update_option( 'poocommerce_price_decimal_sep', ',' );
+		update_option( 'poocommerce_price_thousand_sep', '.' );
 	}
 
 	/**
@@ -47,8 +47,8 @@ class WC_Shipping_Flat_Rate_Test extends WC_Unit_Test_Case {
 	 * @return void
 	 */
 	public function tearDown(): void {
-		update_option( 'woocommerce_price_decimal_sep', '.' );
-		update_option( 'woocommerce_price_thousand_sep', ',' );
+		update_option( 'poocommerce_price_decimal_sep', '.' );
+		update_option( 'poocommerce_price_thousand_sep', ',' );
 		parent::tearDown();
 	}
 
@@ -171,8 +171,8 @@ class WC_Shipping_Flat_Rate_Test extends WC_Unit_Test_Case {
 	 * @param string $thousand_sep    Thousand separator to use.
 	 */
 	public function test_sanitize_cost_accepts_math_expressions( string $value, string $decimal_sep, string $thousand_sep ): void {
-		update_option( 'woocommerce_price_decimal_sep', $decimal_sep );
-		update_option( 'woocommerce_price_thousand_sep', $thousand_sep );
+		update_option( 'poocommerce_price_decimal_sep', $decimal_sep );
+		update_option( 'poocommerce_price_thousand_sep', $thousand_sep );
 
 		$result = $this->call_sanitize_cost->call( $this->sut, $value );
 		$this->assertEquals( $value, trim( $result ) );
@@ -188,8 +188,8 @@ class WC_Shipping_Flat_Rate_Test extends WC_Unit_Test_Case {
 	 * @param string $thousand_sep Thousand separator to use.
 	 */
 	public function test_sanitize_cost_rejects_invalid_expressions( string $value, string $decimal_sep, string $thousand_sep ): void {
-		update_option( 'woocommerce_price_decimal_sep', $decimal_sep );
-		update_option( 'woocommerce_price_thousand_sep', $thousand_sep );
+		update_option( 'poocommerce_price_decimal_sep', $decimal_sep );
+		update_option( 'poocommerce_price_thousand_sep', $thousand_sep );
 
 		$this->expectException( Exception::class );
 		$this->call_sanitize_cost->call( $this->sut, $value );

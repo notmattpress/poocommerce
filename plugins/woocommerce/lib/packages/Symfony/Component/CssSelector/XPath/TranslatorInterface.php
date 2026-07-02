@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Automattic\WooCommerce\Vendor\Symfony\Component\CssSelector\XPath;
+namespace Automattic\PooCommerce\Vendor\Symfony\Component\CssSelector\XPath;
 
-use Automattic\WooCommerce\Vendor\Symfony\Component\CssSelector\Node\SelectorNode;
+use Automattic\PooCommerce\Vendor\Symfony\Component\CssSelector\Node\SelectorNode;
 
 /**
  * XPath expression translator interface.

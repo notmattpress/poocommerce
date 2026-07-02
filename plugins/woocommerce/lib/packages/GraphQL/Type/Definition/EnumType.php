@@ -1,18 +1,18 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\GraphQL\Type\Definition;
+namespace Automattic\PooCommerce\Vendor\GraphQL\Type\Definition;
 
-use Automattic\WooCommerce\Vendor\GraphQL\Error\Error;
-use Automattic\WooCommerce\Vendor\GraphQL\Error\InvariantViolation;
-use Automattic\WooCommerce\Vendor\GraphQL\Error\SerializationError;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\EnumTypeDefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\EnumTypeExtensionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\EnumValueDefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\EnumValueNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\Node;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\Printer;
-use Automattic\WooCommerce\Vendor\GraphQL\Utils\MixedStore;
-use Automattic\WooCommerce\Vendor\GraphQL\Utils\Utils;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\Error;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\InvariantViolation;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\SerializationError;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\EnumTypeDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\EnumTypeExtensionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\EnumValueDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\EnumValueNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\Node;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\Printer;
+use Automattic\PooCommerce\Vendor\GraphQL\Utils\MixedStore;
+use Automattic\PooCommerce\Vendor\GraphQL\Utils\Utils;
 
 /**
  * @see EnumValueDefinitionNode

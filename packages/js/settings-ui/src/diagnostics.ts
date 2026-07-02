@@ -21,21 +21,21 @@ export const warn = ( message: string, context?: unknown ) => {
 
 	if ( context ) {
 		// eslint-disable-next-line no-console
-		console.warn( `[WooCommerce settings UI] ${ message }`, context );
+		console.warn( `[PooCommerce settings UI] ${ message }`, context );
 		return;
 	}
 
 	// eslint-disable-next-line no-console
-	console.warn( `[WooCommerce settings UI] ${ message }` );
+	console.warn( `[PooCommerce settings UI] ${ message }` );
 };
 
 export const error = ( message: string, context?: unknown ) => {
 	if ( context ) {
 		// eslint-disable-next-line no-console
-		console.error( `[WooCommerce settings UI] ${ message }`, context );
+		console.error( `[PooCommerce settings UI] ${ message }`, context );
 		return;
 	}
 
 	// eslint-disable-next-line no-console
-	console.error( `[WooCommerce settings UI] ${ message }` );
+	console.error( `[PooCommerce settings UI] ${ message }` );
 };

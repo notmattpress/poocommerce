@@ -1,7 +1,7 @@
 {
-	"name": "@woocommerce/remote-logging",
+	"name": "@poocommerce/remote-logging",
 	"version": "2.0.0",
-	"description": "WooCommerce remote logging for Automattic based projects",
+	"description": "PooCommerce remote logging for Automattic based projects",
 	"author": "Automattic",
 	"license": "GPL-2.0-or-later",
 	"engines": {
@@ -9,16 +9,16 @@
 	},
 	"keywords": [
 		"wordpress",
-		"woocommerce",
+		"poocommerce",
 		"remote-logging"
 	],
-	"homepage": "https://github.com/woocommerce/woocommerce/tree/trunk/packages/js/remote-logging/README.md",
+	"homepage": "https://github.com/poocommerce/poocommerce/tree/trunk/packages/js/remote-logging/README.md",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/woocommerce/woocommerce.git"
+		"url": "https://github.com/poocommerce/poocommerce.git"
 	},
 	"bugs": {
-		"url": "https://github.com/woocommerce/woocommerce/issues"
+		"url": "https://github.com/poocommerce/poocommerce/issues"
 	},
 	"exports": {
 		".": {
@@ -64,7 +64,7 @@
 		]
 	},
 	"dependencies": {
-		"@woocommerce/tracks": "workspace:*",
+		"@poocommerce/tracks": "workspace:*",
 		"@wordpress/hooks": "catalog:wp-min",
 		"debug": "^4.3.4",
 		"tracekit": "^0.4.6"
@@ -74,9 +74,9 @@
 		"@types/debug": "^4.1.12",
 		"@types/jest": "29.5.x",
 		"@types/node": "^24.1.0",
-		"@woocommerce/eslint-plugin": "workspace:*",
-		"@woocommerce/internal-build": "workspace:*",
-		"@woocommerce/internal-js-tests": "workspace:*",
+		"@poocommerce/eslint-plugin": "workspace:*",
+		"@poocommerce/internal-build": "workspace:*",
+		"@poocommerce/internal-js-tests": "workspace:*",
 		"@wordpress/jest-console": "^5.4.0",
 		"eslint": "^8.55.0",
 		"jest": "29.5.x",

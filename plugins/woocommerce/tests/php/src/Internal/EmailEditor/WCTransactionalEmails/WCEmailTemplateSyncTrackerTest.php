@@ -2,14 +2,14 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\EmailEditor\WCTransactionalEmails;
+namespace Automattic\PooCommerce\Tests\Internal\EmailEditor\WCTransactionalEmails;
 
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateDivergenceDetector;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateSyncBackfill;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateSyncRegistry;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateSyncTracker;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsGenerator;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsManager;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateDivergenceDetector;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateSyncBackfill;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateSyncRegistry;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateSyncTracker;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsGenerator;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsManager;
 
 /**
  * Tests for the {@see WCEmailTemplateSyncTracker} class.
@@ -53,7 +53,7 @@ class WCEmailTemplateSyncTrackerTest extends \WC_Unit_Test_Case {
 	public function setUp(): void {
 		parent::setUp();
 
-		update_option( 'woocommerce_feature_block_email_editor_enabled', 'yes' );
+		update_option( 'poocommerce_feature_block_email_editor_enabled', 'yes' );
 		update_option( WCEmailTemplateDivergenceDetector::BACKFILL_COMPLETE_OPTION, 'yes' );
 
 		$this->fixtures_base = __DIR__ . '/fixtures/';
@@ -78,8 +78,8 @@ class WCEmailTemplateSyncTrackerTest extends \WC_Unit_Test_Case {
 		WCEmailTemplateSyncTracker::set_event_recorder( null );
 		WCEmailTemplateSyncRegistry::reset_cache();
 
-		remove_all_filters( 'woocommerce_transactional_emails_for_block_editor' );
-		remove_all_filters( 'woocommerce_email_content_post_data' );
+		remove_all_filters( 'poocommerce_transactional_emails_for_block_editor' );
+		remove_all_filters( 'poocommerce_email_content_post_data' );
 
 		// Clear any dedup transients written by the tests so a re-run starts clean.
 		global $wpdb;
@@ -88,7 +88,7 @@ class WCEmailTemplateSyncTrackerTest extends \WC_Unit_Test_Case {
 
 		delete_option( WCEmailTemplateDivergenceDetector::BACKFILL_COMPLETE_OPTION );
 		delete_option( WCEmailTemplateSyncTracker::BACKFILL_COMPLETED_TRACKED_OPTION );
-		update_option( 'woocommerce_feature_block_email_editor_enabled', 'no' );
+		update_option( 'poocommerce_feature_block_email_editor_enabled', 'no' );
 
 		parent::tearDown();
 	}
@@ -377,7 +377,7 @@ class WCEmailTemplateSyncTrackerTest extends \WC_Unit_Test_Case {
 		$this->injected_email_keys[] = $class_key;
 
 		add_filter(
-			'woocommerce_transactional_emails_for_block_editor',
+			'poocommerce_transactional_emails_for_block_editor',
 			static function ( array $emails ) use ( $email_id ): array {
 				if ( ! in_array( $email_id, $emails, true ) ) {
 					$emails[] = $email_id;

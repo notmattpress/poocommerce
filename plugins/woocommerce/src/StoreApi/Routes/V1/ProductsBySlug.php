@@ -1,9 +1,9 @@
 <?php // phpcs:ignore Generic.PHP.RequireStrictTypes.MissingDeclaration
-namespace Automattic\WooCommerce\StoreApi\Routes\V1;
+namespace Automattic\PooCommerce\StoreApi\Routes\V1;
 
-use Automattic\WooCommerce\Enums\ProductStatus;
-use Automattic\WooCommerce\StoreApi\Exceptions\RouteException;
-use Automattic\WooCommerce\StoreApi\Utilities\ProductLinksTrait;
+use Automattic\PooCommerce\Enums\ProductStatus;
+use Automattic\PooCommerce\StoreApi\Exceptions\RouteException;
+use Automattic\PooCommerce\StoreApi\Utilities\ProductLinksTrait;
 
 /**
  * ProductsBySlug class.
@@ -52,7 +52,7 @@ class ProductsBySlug extends AbstractRoute {
 		return [
 			'args'   => array(
 				'slug' => array(
-					'description' => __( 'Slug of the resource.', 'woocommerce' ),
+					'description' => __( 'Slug of the resource.', 'poocommerce' ),
 					'type'        => 'string',
 				),
 			),
@@ -89,7 +89,7 @@ class ProductsBySlug extends AbstractRoute {
 		}
 
 		if ( ! $object || 0 === $object->get_id() || ProductStatus::PUBLISH !== $object->get_status() ) {
-			throw new RouteException( 'woocommerce_rest_product_invalid_slug', __( 'Invalid product slug.', 'woocommerce' ), 404 );
+			throw new RouteException( 'poocommerce_rest_product_invalid_slug', __( 'Invalid product slug.', 'poocommerce' ), 404 );
 		}
 
 		// A variation's visibility follows its parent product.
@@ -97,7 +97,7 @@ class ProductsBySlug extends AbstractRoute {
 			$parent = wc_get_product( $object->get_parent_id() );
 
 			if ( ! $parent || ProductStatus::PUBLISH !== $parent->get_status() ) {
-				throw new RouteException( 'woocommerce_rest_product_invalid_slug', __( 'Invalid product slug.', 'woocommerce' ), 404 ); // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- REST API JSON response, not HTML.
+				throw new RouteException( 'poocommerce_rest_product_invalid_slug', __( 'Invalid product slug.', 'poocommerce' ), 404 ); // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- REST API JSON response, not HTML.
 			}
 		}
 

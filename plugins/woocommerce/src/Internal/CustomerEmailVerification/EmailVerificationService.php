@@ -1,9 +1,9 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\CustomerEmailVerification;
+namespace Automattic\PooCommerce\Internal\CustomerEmailVerification;
 
-use Automattic\WooCommerce\Internal\Utilities\Users;
+use Automattic\PooCommerce\Internal\Utilities\Users;
 
 /**
  * Service class providing the foundational primitives for customer email verification.
@@ -83,7 +83,7 @@ class EmailVerificationService {
 	 * Mark the given user as having verified their current account email address.
 	 *
 	 * Stores the verified email address, clears any pending key, and fires the
-	 * {@see 'woocommerce_customer_email_verified'} action. No-ops if the user is already
+	 * {@see 'poocommerce_customer_email_verified'} action. No-ops if the user is already
 	 * verified for their current email.
 	 *
 	 * @since 11.0.0
@@ -113,7 +113,7 @@ class EmailVerificationService {
 		 *
 		 * @since 11.0.0
 		 */
-		do_action( 'woocommerce_customer_email_verified', $user_id );
+		do_action( 'poocommerce_customer_email_verified', $user_id );
 	}
 
 	/**

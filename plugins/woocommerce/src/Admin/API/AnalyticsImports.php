@@ -7,10 +7,10 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Admin\API;
+namespace Automattic\PooCommerce\Admin\API;
 
 use WP_Error;
-use Automattic\WooCommerce\Internal\Admin\Schedulers\OrdersScheduler;
+use Automattic\PooCommerce\Internal\Admin\Schedulers\OrdersScheduler;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -87,10 +87,10 @@ class AnalyticsImports extends \WC_REST_Data_Controller {
 	 * @return WP_Error|boolean
 	 */
 	public function permissions_check( $request ) {
-		if ( ! current_user_can( 'manage_woocommerce' ) ) {
+		if ( ! current_user_can( 'manage_poocommerce' ) ) {
 			return new WP_Error(
-				'woocommerce_rest_cannot_access',
-				__( 'Sorry, you cannot access analytics imports.', 'woocommerce' ),
+				'poocommerce_rest_cannot_access',
+				__( 'Sorry, you cannot access analytics imports.', 'poocommerce' ),
 				array( 'status' => rest_authorization_required_code() )
 			);
 		}
@@ -142,8 +142,8 @@ class AnalyticsImports extends \WC_REST_Data_Controller {
 		// Return error if in immediate mode.
 		if ( ! $is_scheduled_mode ) {
 			return new WP_Error(
-				'woocommerce_rest_analytics_import_immediate_mode',
-				__( 'Manual import is not available in immediate mode. Imports happen automatically.', 'woocommerce' ),
+				'poocommerce_rest_analytics_import_immediate_mode',
+				__( 'Manual import is not available in immediate mode. Imports happen automatically.', 'poocommerce' ),
 				array( 'status' => 400 )
 			);
 		}
@@ -151,8 +151,8 @@ class AnalyticsImports extends \WC_REST_Data_Controller {
 		// Check if an import is already in progress or due to run soon.
 		if ( $this->is_import_in_progress_or_due() ) {
 			return new WP_Error(
-				'woocommerce_rest_analytics_import_in_progress',
-				__( 'A batch import is already in progress or scheduled to run soon. Please wait for it to complete before triggering a new import.', 'woocommerce' ),
+				'poocommerce_rest_analytics_import_in_progress',
+				__( 'A batch import is already in progress or scheduled to run soon. Please wait for it to complete before triggering a new import.', 'poocommerce' ),
 				array( 'status' => 400 )
 			);
 		}
@@ -162,8 +162,8 @@ class AnalyticsImports extends \WC_REST_Data_Controller {
 		$action_hook = OrdersScheduler::get_action( OrdersScheduler::PROCESS_PENDING_ORDERS_BATCH_ACTION );
 		if ( ! is_string( $action_hook ) ) {
 			return new WP_Error(
-				'woocommerce_rest_analytics_import_invalid_action',
-				__( 'Invalid action hook for batch import.', 'woocommerce' ),
+				'poocommerce_rest_analytics_import_invalid_action',
+				__( 'Invalid action hook for batch import.', 'poocommerce' ),
 				array( 'status' => 500 )
 			);
 		}
@@ -173,7 +173,7 @@ class AnalyticsImports extends \WC_REST_Data_Controller {
 		return rest_ensure_response(
 			array(
 				'success' => true,
-				'message' => __( 'Batch import triggered successfully.', 'woocommerce' ),
+				'message' => __( 'Batch import triggered successfully.', 'poocommerce' ),
 			)
 		);
 	}
@@ -195,8 +195,8 @@ class AnalyticsImports extends \WC_REST_Data_Controller {
 
 		if ( empty( $failed['ids'] ) ) {
 			return new WP_Error(
-				'woocommerce_rest_analytics_no_failed_imports',
-				__( 'There are no failed order imports to retry.', 'woocommerce' ),
+				'poocommerce_rest_analytics_no_failed_imports',
+				__( 'There are no failed order imports to retry.', 'poocommerce' ),
 				array( 'status' => 400 )
 			);
 		}
@@ -238,8 +238,8 @@ class AnalyticsImports extends \WC_REST_Data_Controller {
 		// instead of reporting success for work that didn't happen.
 		if ( 0 === $retried_count && 0 === $already_scheduled_count && $error_count > 0 ) {
 			return new WP_Error(
-				'woocommerce_rest_analytics_retry_failed',
-				__( 'The failed orders could not be scheduled for re-import. Check the order import log for details.', 'woocommerce' ),
+				'poocommerce_rest_analytics_retry_failed',
+				__( 'The failed orders could not be scheduled for re-import. Check the order import log for details.', 'poocommerce' ),
 				array( 'status' => 500 )
 			);
 		}
@@ -247,19 +247,19 @@ class AnalyticsImports extends \WC_REST_Data_Controller {
 		if ( $retried_count > 0 ) {
 			$message = sprintf(
 				/* translators: %d: number of orders scheduled for re-import */
-				_n( 'Re-import scheduled for %d order.', 'Re-import scheduled for %d orders.', $retried_count, 'woocommerce' ),
+				_n( 'Re-import scheduled for %d order.', 'Re-import scheduled for %d orders.', $retried_count, 'poocommerce' ),
 				$retried_count
 			);
 		} elseif ( $already_scheduled_count > 0 ) {
-			$message = __( 'Re-import is already scheduled for the previously failed orders.', 'woocommerce' );
+			$message = __( 'Re-import is already scheduled for the previously failed orders.', 'poocommerce' );
 		} else {
-			$message = __( 'No orders were scheduled for re-import. The previously failed orders no longer exist.', 'woocommerce' );
+			$message = __( 'No orders were scheduled for re-import. The previously failed orders no longer exist.', 'poocommerce' );
 		}
 
 		if ( $error_count > 0 ) {
 			$message .= ' ' . sprintf(
 				/* translators: %d: number of orders that could not be scheduled for re-import */
-				_n( '%d order could not be scheduled. Check the order import log for details.', '%d orders could not be scheduled. Check the order import log for details.', $error_count, 'woocommerce' ),
+				_n( '%d order could not be scheduled. Check the order import log for details.', '%d orders could not be scheduled. Check the order import log for details.', $error_count, 'poocommerce' ),
 				$error_count
 			);
 		}
@@ -289,37 +289,37 @@ class AnalyticsImports extends \WC_REST_Data_Controller {
 			'properties' => array(
 				'success'                 => array(
 					'type'        => 'boolean',
-					'description' => __( 'Whether the retry was scheduled successfully.', 'woocommerce' ),
+					'description' => __( 'Whether the retry was scheduled successfully.', 'poocommerce' ),
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
 				'message'                 => array(
 					'type'        => 'string',
-					'description' => __( 'Result message.', 'woocommerce' ),
+					'description' => __( 'Result message.', 'poocommerce' ),
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
 				'retried_count'           => array(
 					'type'        => 'integer',
-					'description' => __( 'Number of orders scheduled for re-import.', 'woocommerce' ),
+					'description' => __( 'Number of orders scheduled for re-import.', 'poocommerce' ),
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
 				'pruned_count'            => array(
 					'type'        => 'integer',
-					'description' => __( 'Number of failed records removed because their orders no longer exist.', 'woocommerce' ),
+					'description' => __( 'Number of failed records removed because their orders no longer exist.', 'poocommerce' ),
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
 				'already_scheduled_count' => array(
 					'type'        => 'integer',
-					'description' => __( 'Number of orders skipped because their re-import is already pending.', 'woocommerce' ),
+					'description' => __( 'Number of orders skipped because their re-import is already pending.', 'poocommerce' ),
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
 				'error_count'             => array(
 					'type'        => 'integer',
-					'description' => __( 'Number of orders that could not be scheduled for re-import.', 'woocommerce' ),
+					'description' => __( 'Number of orders that could not be scheduled for re-import.', 'poocommerce' ),
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
@@ -375,37 +375,37 @@ class AnalyticsImports extends \WC_REST_Data_Controller {
 				'mode'                      => array(
 					'type'        => 'string',
 					'enum'        => array( 'scheduled', 'immediate' ),
-					'description' => __( 'Current import mode.', 'woocommerce' ),
+					'description' => __( 'Current import mode.', 'poocommerce' ),
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
 				'last_processed_date'       => array(
 					'type'        => array( 'string', 'null' ),
-					'description' => __( 'Last processed order date (null in immediate mode).', 'woocommerce' ),
+					'description' => __( 'Last processed order date (null in immediate mode).', 'poocommerce' ),
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
 				'next_scheduled'            => array(
 					'type'        => array( 'string', 'null' ),
-					'description' => __( 'Next scheduled import time (null in immediate mode).', 'woocommerce' ),
+					'description' => __( 'Next scheduled import time (null in immediate mode).', 'poocommerce' ),
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
 				'import_in_progress_or_due' => array(
 					'type'        => array( 'boolean', 'null' ),
-					'description' => __( 'Whether a batch import is currently running or scheduled to run within the next minute (null in immediate mode).', 'woocommerce' ),
+					'description' => __( 'Whether a batch import is currently running or scheduled to run within the next minute (null in immediate mode).', 'poocommerce' ),
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
 				'failed_count'              => array(
 					'type'        => 'integer',
-					'description' => __( 'Number of orders that failed analytics import and are pending retry.', 'woocommerce' ),
+					'description' => __( 'Number of orders that failed analytics import and are pending retry.', 'poocommerce' ),
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
 				'failed_overflow_count'     => array(
 					'type'        => 'integer',
-					'description' => __( 'Number of failed order IDs dropped because the stored list reached its limit.', 'woocommerce' ),
+					'description' => __( 'Number of failed order IDs dropped because the stored list reached its limit.', 'poocommerce' ),
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
@@ -428,13 +428,13 @@ class AnalyticsImports extends \WC_REST_Data_Controller {
 			'properties' => array(
 				'success' => array(
 					'type'        => 'boolean',
-					'description' => __( 'Whether the trigger was successful.', 'woocommerce' ),
+					'description' => __( 'Whether the trigger was successful.', 'poocommerce' ),
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
 				'message' => array(
 					'type'        => 'string',
-					'description' => __( 'Result message.', 'woocommerce' ),
+					'description' => __( 'Result message.', 'poocommerce' ),
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),

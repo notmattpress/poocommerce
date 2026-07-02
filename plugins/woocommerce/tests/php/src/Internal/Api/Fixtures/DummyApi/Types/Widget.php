@@ -2,25 +2,25 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Types;
+namespace Automattic\PooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Types;
 
-use Automattic\WooCommerce\Api\Attributes\ArrayOf;
-use Automattic\WooCommerce\Api\Attributes\ConnectionOf;
-use Automattic\WooCommerce\Api\Attributes\Deprecated;
-use Automattic\WooCommerce\Api\Attributes\Description;
-use Automattic\WooCommerce\Api\Attributes\HiddenFromMetadataQuery;
-use Automattic\WooCommerce\Api\Attributes\Ignore;
-use Automattic\WooCommerce\Api\Attributes\Parameter;
-use Automattic\WooCommerce\Api\Attributes\ParameterDescription;
-use Automattic\WooCommerce\Api\Attributes\PublicAccess;
-use Automattic\WooCommerce\Api\Attributes\RequiredCapability;
-use Automattic\WooCommerce\Api\Attributes\ScalarType;
-use Automattic\WooCommerce\Api\Pagination\Connection;
-use Automattic\WooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Enums\Color;
-use Automattic\WooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Enums\Priority;
-use Automattic\WooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Interfaces\Named;
-use Automattic\WooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Metadata\VisibleSampleMetadata;
-use Automattic\WooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Scalars\DummyDateTime;
+use Automattic\PooCommerce\Api\Attributes\ArrayOf;
+use Automattic\PooCommerce\Api\Attributes\ConnectionOf;
+use Automattic\PooCommerce\Api\Attributes\Deprecated;
+use Automattic\PooCommerce\Api\Attributes\Description;
+use Automattic\PooCommerce\Api\Attributes\HiddenFromMetadataQuery;
+use Automattic\PooCommerce\Api\Attributes\Ignore;
+use Automattic\PooCommerce\Api\Attributes\Parameter;
+use Automattic\PooCommerce\Api\Attributes\ParameterDescription;
+use Automattic\PooCommerce\Api\Attributes\PublicAccess;
+use Automattic\PooCommerce\Api\Attributes\RequiredCapability;
+use Automattic\PooCommerce\Api\Attributes\ScalarType;
+use Automattic\PooCommerce\Api\Pagination\Connection;
+use Automattic\PooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Enums\Color;
+use Automattic\PooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Enums\Priority;
+use Automattic\PooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Interfaces\Named;
+use Automattic\PooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Metadata\VisibleSampleMetadata;
+use Automattic\PooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Scalars\DummyDateTime;
 
 /**
  * A widget — exercises every attribute applicable to an output type.
@@ -34,7 +34,7 @@ class Widget {
 
 	#[Description( 'An optional caption' )]
 	#[VisibleSampleMetadata]
-	#[RequiredCapability( 'manage_woocommerce' )]
+	#[RequiredCapability( 'manage_poocommerce' )]
 	public ?string $caption;
 
 	#[Description( 'The widget color' )]

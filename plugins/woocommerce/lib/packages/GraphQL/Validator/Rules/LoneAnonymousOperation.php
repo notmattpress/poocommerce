@@ -1,17 +1,17 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\GraphQL\Validator\Rules;
+namespace Automattic\PooCommerce\Vendor\GraphQL\Validator\Rules;
 
-use Automattic\WooCommerce\Vendor\GraphQL\Error\Error;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\DocumentNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\NodeKind;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\OperationDefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Validator\QueryValidationContext;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\Error;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\DocumentNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\NodeKind;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\OperationDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Validator\QueryValidationContext;
 
 /**
  * Lone anonymous operation.
  *
- * A Automattic\WooCommerce\Vendor\GraphQL document is only valid if when it contains an anonymous operation
+ * A Automattic\PooCommerce\Vendor\GraphQL document is only valid if when it contains an anonymous operation
  * (the query shorthand) that it contains only that one operation definition.
  */
 class LoneAnonymousOperation extends ValidationRule

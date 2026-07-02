@@ -37,11 +37,11 @@ Additionally,
 
 ## How to run end-to-end tests
 
-The Blocks end-to-end tests were merged into the WooCommerce Core e2e suite. They now
-live at `plugins/woocommerce/tests/e2e/tests/blocks/` and run through the shared
+The Blocks end-to-end tests were merged into the PooCommerce Core e2e suite. They now
+live at `plugins/poocommerce/tests/e2e/tests/blocks/` and run through the shared
 Playwright config (`tests/e2e/playwright.config.ts`, project `blocks-chromium`).
 
-From `plugins/woocommerce`:
+From `plugins/poocommerce`:
 
 ```bash
 # Start wp-env, run the Blocks test-env setup, and install the browser
@@ -74,7 +74,7 @@ That will download a ZIP that you can open in your browser locally.
 
 ### WordPress versions and end-to-end tests suites
 
-Currently, we only run e2e tests with the most recent version of WordPress. We also have the infrastructure in place to run e2e tests with the most recent version of WordPress with Gutenberg installed, but [it's currently disabled](https://github.com/woocommerce/woocommerce-blocks/blob/07605450ffa4e460543980b7011b3bf8a8e82ff4/.github/workflows/php-js-e2e-tests.yml#L10).
+Currently, we only run e2e tests with the most recent version of WordPress. We also have the infrastructure in place to run e2e tests with the most recent version of WordPress with Gutenberg installed, but [it's currently disabled](https://github.com/poocommerce/poocommerce-blocks/blob/07605450ffa4e460543980b7011b3bf8a8e82ff4/.github/workflows/php-js-e2e-tests.yml#L10).
 
 When preparing for a new version of WordPress, it's a good practice to search for conditions in our tests that check for specific WP versions (with the variable `WP_VERSION`).
 
@@ -82,8 +82,8 @@ When preparing for a new version of WordPress, it's a good practice to search fo
 
 ---
 
-[We're hiring!](https://woocommerce.com/careers/) Come work with us!
+[We're hiring!](https://poocommerce.com/careers/) Come work with us!
 
-🐞 Found a mistake, or have a suggestion? [Leave feedback about this document here.](https://github.com/woocommerce/woocommerce/issues/new?assignees=&labels=type%3A+documentation&template=suggestion-for-documentation-improvement-correction.md&title=Feedback%20on%20./docs/contributors/javascript-testing.md)
+🐞 Found a mistake, or have a suggestion? [Leave feedback about this document here.](https://github.com/poocommerce/poocommerce/issues/new?assignees=&labels=type%3A+documentation&template=suggestion-for-documentation-improvement-correction.md&title=Feedback%20on%20./docs/contributors/javascript-testing.md)
 
 <!-- /FEEDBACK -->

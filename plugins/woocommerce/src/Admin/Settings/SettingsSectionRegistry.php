@@ -5,12 +5,12 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Admin\Settings;
+namespace Automattic\PooCommerce\Admin\Settings;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Registry for sections that extensions add to existing WooCommerce settings pages.
+ * Registry for sections that extensions add to existing PooCommerce settings pages.
  *
  * @since 10.9.0
  */
@@ -67,7 +67,7 @@ final class SettingsSectionRegistry {
 		if ( '' === $parent_page_id || '' === $section_id ) {
 			wc_doing_it_wrong(
 				__METHOD__,
-				esc_html__( 'Settings sections must declare a non-empty parent page id and section id.', 'woocommerce' ),
+				esc_html__( 'Settings sections must declare a non-empty parent page id and section id.', 'poocommerce' ),
 				'10.9.0'
 			);
 			return false;
@@ -78,7 +78,7 @@ final class SettingsSectionRegistry {
 				__METHOD__,
 				sprintf(
 					/* translators: 1: parent settings page id, 2: settings section id. */
-					esc_html__( 'A settings section is already registered for "%1$s/%2$s".', 'woocommerce' ),
+					esc_html__( 'A settings section is already registered for "%1$s/%2$s".', 'poocommerce' ),
 					esc_html( $parent_page_id ),
 					esc_html( $section_id )
 				),
@@ -92,7 +92,7 @@ final class SettingsSectionRegistry {
 				__METHOD__,
 				sprintf(
 					/* translators: 1: parent settings page id, 2: settings section id. */
-					esc_html__( 'The settings section "%1$s/%2$s" conflicts with an existing payment gateway section.', 'woocommerce' ),
+					esc_html__( 'The settings section "%1$s/%2$s" conflicts with an existing payment gateway section.', 'poocommerce' ),
 					esc_html( $parent_page_id ),
 					esc_html( $section_id )
 				),
@@ -174,7 +174,7 @@ final class SettingsSectionRegistry {
 			 *
 			 * @since 10.9.0
 			 */
-			do_action( 'woocommerce_settings_sections_registration', $this );
+			do_action( 'poocommerce_settings_sections_registration', $this );
 		} catch ( \Throwable $e ) {
 			wc_get_logger()->error(
 				sprintf(

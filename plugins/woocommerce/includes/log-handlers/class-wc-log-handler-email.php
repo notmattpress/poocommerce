@@ -2,7 +2,7 @@
 /**
  * Class WC_Log_Handler_Email file.
  *
- * @package WooCommerce\Log Handlers
+ * @package PooCommerce\Log Handlers
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -28,7 +28,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @class          WC_Log_Handler_Email
  * @version        1.0.0
- * @package        WooCommerce\Classes\Log_Handlers
+ * @package        PooCommerce\Classes\Log_Handlers
  */
 class WC_Log_Handler_Email extends WC_Log_Handler {
 
@@ -154,10 +154,10 @@ class WC_Log_Handler_Email extends WC_Log_Handler {
 		return sprintf(
 			/* translators: 1: Site name 2: Maximum level 3: Log count */
 			_n(
-				'[%1$s] %2$s: %3$s WooCommerce log message',
-				'[%1$s] %2$s: %3$s WooCommerce log messages',
+				'[%1$s] %2$s: %3$s PooCommerce log message',
+				'[%1$s] %2$s: %3$s PooCommerce log messages',
 				$log_count,
-				'woocommerce'
+				'poocommerce'
 			),
 			$site_name,
 			$max_level,
@@ -175,17 +175,17 @@ class WC_Log_Handler_Email extends WC_Log_Handler {
 		$entries   = implode( PHP_EOL, $this->logs );
 		$log_count = count( $this->logs );
 		return _n(
-			'You have received the following WooCommerce log message:',
-			'You have received the following WooCommerce log messages:',
+			'You have received the following PooCommerce log message:',
+			'You have received the following PooCommerce log messages:',
 			$log_count,
-			'woocommerce'
+			'poocommerce'
 		) . PHP_EOL
 			. PHP_EOL
 			. $entries
 			. PHP_EOL
 			. PHP_EOL
 			/* translators: %s: Site name */
-			. sprintf( __( 'Visit %s admin area:', 'woocommerce' ), $site_name )
+			. sprintf( __( 'Visit %s admin area:', 'poocommerce' ), $site_name )
 			. PHP_EOL
 			. admin_url();
 	}

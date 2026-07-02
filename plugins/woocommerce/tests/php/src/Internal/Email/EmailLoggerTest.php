@@ -1,17 +1,17 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Email;
+namespace Automattic\PooCommerce\Tests\Internal\Email;
 
-use Automattic\WooCommerce\Internal\Email\EmailLogger;
-use Automattic\WooCommerce\Internal\Orders\OrderNoteGroup;
-use Automattic\WooCommerce\RestApi\UnitTests\LoggerSpyTrait;
+use Automattic\PooCommerce\Internal\Email\EmailLogger;
+use Automattic\PooCommerce\Internal\Orders\OrderNoteGroup;
+use Automattic\PooCommerce\RestApi\UnitTests\LoggerSpyTrait;
 use WC_Unit_Test_Case;
 
 /**
  * Tests for the EmailLogger class.
  *
- * @covers \Automattic\WooCommerce\Internal\Email\EmailLogger
+ * @covers \Automattic\PooCommerce\Internal\Email\EmailLogger
  */
 class EmailLoggerTest extends WC_Unit_Test_Case {
 
@@ -36,26 +36,26 @@ class EmailLoggerTest extends WC_Unit_Test_Case {
 	 * Tear down test fixtures.
 	 */
 	public function tearDown(): void {
-		remove_all_filters( 'woocommerce_email_log_enabled' );
-		remove_all_filters( 'woocommerce_email_log_context' );
-		remove_all_filters( 'woocommerce_email_log_add_order_note' );
-		remove_all_actions( 'woocommerce_email_disabled' );
-		remove_all_actions( 'woocommerce_email_skipped' );
-		remove_action( 'woocommerce_email_sent', array( $this->sut, 'handle_woocommerce_email_sent' ) );
+		remove_all_filters( 'poocommerce_email_log_enabled' );
+		remove_all_filters( 'poocommerce_email_log_context' );
+		remove_all_filters( 'poocommerce_email_log_add_order_note' );
+		remove_all_actions( 'poocommerce_email_disabled' );
+		remove_all_actions( 'poocommerce_email_skipped' );
+		remove_action( 'poocommerce_email_sent', array( $this->sut, 'handle_poocommerce_email_sent' ) );
 		remove_action( 'wp_mail_failed', array( $this->sut, 'capture_mail_error' ) );
 		parent::tearDown();
 	}
 
 	/**
-	 * @testdox Register method adds hooks for woocommerce_email_sent, wp_mail_failed, woocommerce_email_disabled, and woocommerce_email_skipped.
+	 * @testdox Register method adds hooks for poocommerce_email_sent, wp_mail_failed, poocommerce_email_disabled, and poocommerce_email_skipped.
 	 */
 	public function test_register_adds_hook(): void {
 		$this->sut->register();
 
 		$this->assertSame(
 			10,
-			has_action( 'woocommerce_email_sent', array( $this->sut, 'handle_woocommerce_email_sent' ) ),
-			'Expected hook to be registered at priority 10 for woocommerce_email_sent'
+			has_action( 'poocommerce_email_sent', array( $this->sut, 'handle_poocommerce_email_sent' ) ),
+			'Expected hook to be registered at priority 10 for poocommerce_email_sent'
 		);
 		$this->assertSame(
 			10,
@@ -64,13 +64,13 @@ class EmailLoggerTest extends WC_Unit_Test_Case {
 		);
 		$this->assertSame(
 			10,
-			has_action( 'woocommerce_email_disabled', array( $this->sut, 'handle_woocommerce_email_disabled' ) ),
-			'Expected hook to be registered at priority 10 for woocommerce_email_disabled'
+			has_action( 'poocommerce_email_disabled', array( $this->sut, 'handle_poocommerce_email_disabled' ) ),
+			'Expected hook to be registered at priority 10 for poocommerce_email_disabled'
 		);
 		$this->assertSame(
 			10,
-			has_action( 'woocommerce_email_skipped', array( $this->sut, 'handle_woocommerce_email_skipped' ) ),
-			'Expected hook to be registered at priority 10 for woocommerce_email_skipped'
+			has_action( 'poocommerce_email_skipped', array( $this->sut, 'handle_poocommerce_email_skipped' ) ),
+			'Expected hook to be registered at priority 10 for poocommerce_email_skipped'
 		);
 	}
 
@@ -80,7 +80,7 @@ class EmailLoggerTest extends WC_Unit_Test_Case {
 	public function test_logs_info_on_success(): void {
 		$email = $this->create_mock_email( 'customer_processing_order', 'customer@example.com' );
 
-		$this->sut->handle_woocommerce_email_sent( true, 'customer_processing_order', $email );
+		$this->sut->handle_poocommerce_email_sent( true, 'customer_processing_order', $email );
 
 		$this->assertLogged( 'info', 'customer_processing_order' );
 	}
@@ -91,7 +91,7 @@ class EmailLoggerTest extends WC_Unit_Test_Case {
 	public function test_logs_warning_on_failure(): void {
 		$email = $this->create_mock_email( 'customer_processing_order', 'customer@example.com' );
 
-		$this->sut->handle_woocommerce_email_sent( false, 'customer_processing_order', $email );
+		$this->sut->handle_poocommerce_email_sent( false, 'customer_processing_order', $email );
 
 		$this->assertLogged( 'warning', 'customer_processing_order' );
 	}
@@ -102,7 +102,7 @@ class EmailLoggerTest extends WC_Unit_Test_Case {
 	public function test_log_context_contains_required_fields(): void {
 		$email = $this->create_mock_email( 'new_order', 'admin@example.com' );
 
-		$this->sut->handle_woocommerce_email_sent( true, 'new_order', $email );
+		$this->sut->handle_poocommerce_email_sent( true, 'new_order', $email );
 
 		$this->assertLogged(
 			'info',
@@ -121,7 +121,7 @@ class EmailLoggerTest extends WC_Unit_Test_Case {
 	public function test_status_is_failed_on_unsuccessful_send(): void {
 		$email = $this->create_mock_email( 'customer_processing_order', 'customer@example.com' );
 
-		$this->sut->handle_woocommerce_email_sent( false, 'customer_processing_order', $email );
+		$this->sut->handle_poocommerce_email_sent( false, 'customer_processing_order', $email );
 
 		$this->assertLogged( 'warning', 'customer_processing_order', array( 'status' => 'failed' ) );
 	}
@@ -134,7 +134,7 @@ class EmailLoggerTest extends WC_Unit_Test_Case {
 		$email = $this->create_mock_email( 'customer_processing_order', 'registered@example.com' );
 
 		try {
-			$this->sut->handle_woocommerce_email_sent( true, 'customer_processing_order', $email );
+			$this->sut->handle_poocommerce_email_sent( true, 'customer_processing_order', $email );
 
 			$context = $this->captured_logs[0]['context'];
 
@@ -152,7 +152,7 @@ class EmailLoggerTest extends WC_Unit_Test_Case {
 	public function test_recipient_is_guest_for_unregistered_email(): void {
 		$email = $this->create_mock_email( 'customer_processing_order', 'guest@example.com' );
 
-		$this->sut->handle_woocommerce_email_sent( true, 'customer_processing_order', $email );
+		$this->sut->handle_poocommerce_email_sent( true, 'customer_processing_order', $email );
 
 		$context = $this->captured_logs[0]['context'];
 
@@ -165,7 +165,7 @@ class EmailLoggerTest extends WC_Unit_Test_Case {
 	public function test_empty_recipient_is_guest(): void {
 		$email = $this->create_mock_email( 'new_order', '' );
 
-		$this->sut->handle_woocommerce_email_sent( true, 'new_order', $email );
+		$this->sut->handle_poocommerce_email_sent( true, 'new_order', $email );
 
 		$context = $this->captured_logs[0]['context'];
 
@@ -180,7 +180,7 @@ class EmailLoggerTest extends WC_Unit_Test_Case {
 		$this->sut->capture_mail_error( $error );
 
 		$email = $this->create_mock_email( 'new_order', 'admin@example.com' );
-		$this->sut->handle_woocommerce_email_sent( false, 'new_order', $email );
+		$this->sut->handle_poocommerce_email_sent( false, 'new_order', $email );
 
 		$this->assertLogged( 'warning', 'SMTP connect() failed' );
 	}
@@ -196,7 +196,7 @@ class EmailLoggerTest extends WC_Unit_Test_Case {
 		$this->sut->capture_mail_error( $error );
 
 		$email = $this->create_mock_email( 'new_order', 'admin@example.com' );
-		$this->sut->handle_woocommerce_email_sent( false, 'new_order', $email );
+		$this->sut->handle_poocommerce_email_sent( false, 'new_order', $email );
 
 		$log = $this->captured_logs[0];
 		$this->assertStringNotContainsString( 'customer@example.com', $log['message'], 'Raw recipient address must not appear in the logged message.' );
@@ -209,7 +209,7 @@ class EmailLoggerTest extends WC_Unit_Test_Case {
 	 */
 	public function test_success_message_has_no_error_reason(): void {
 		$email = $this->create_mock_email( 'new_order', 'admin@example.com' );
-		$this->sut->handle_woocommerce_email_sent( true, 'new_order', $email );
+		$this->sut->handle_poocommerce_email_sent( true, 'new_order', $email );
 
 		$log = $this->captured_logs[0];
 
@@ -225,7 +225,7 @@ class EmailLoggerTest extends WC_Unit_Test_Case {
 		$order->method( 'get_id' )->willReturn( 42 );
 		$email = $this->create_mock_email( 'customer_processing_order', 'customer@example.com', $order );
 
-		$this->sut->handle_woocommerce_email_sent( true, 'customer_processing_order', $email );
+		$this->sut->handle_poocommerce_email_sent( true, 'customer_processing_order', $email );
 
 		$this->assertLogged(
 			'info',
@@ -242,7 +242,7 @@ class EmailLoggerTest extends WC_Unit_Test_Case {
 		$product->method( 'get_id' )->willReturn( 10 );
 		$email = $this->create_mock_email( 'some_product_email', 'customer@example.com', $product );
 
-		$this->sut->handle_woocommerce_email_sent( true, 'some_product_email', $email );
+		$this->sut->handle_poocommerce_email_sent( true, 'some_product_email', $email );
 
 		$this->assertLogged( 'info', 'some_product_email', array( 'product' => 10 ) );
 	}
@@ -255,7 +255,7 @@ class EmailLoggerTest extends WC_Unit_Test_Case {
 		$user->ID = 5;
 		$email    = $this->create_mock_email( 'customer_new_account', 'customer@example.com', $user );
 
-		$this->sut->handle_woocommerce_email_sent( true, 'customer_new_account', $email );
+		$this->sut->handle_poocommerce_email_sent( true, 'customer_new_account', $email );
 
 		$this->assertLogged(
 			'info',
@@ -286,7 +286,7 @@ class EmailLoggerTest extends WC_Unit_Test_Case {
 		$class_name    = get_class( $wc_object );
 		$email         = $this->create_mock_email( 'custom_email', 'customer@example.com', $wc_object );
 
-		$this->sut->handle_woocommerce_email_sent( true, 'custom_email', $email );
+		$this->sut->handle_poocommerce_email_sent( true, 'custom_email', $email );
 
 		$context = $this->captured_logs[0]['context'];
 
@@ -316,7 +316,7 @@ class EmailLoggerTest extends WC_Unit_Test_Case {
 		$class_name    = get_class( $wc_object );
 		$email         = $this->create_mock_email( 'custom_email', 'customer@example.com', $wc_object );
 
-		$this->sut->handle_woocommerce_email_sent( true, 'custom_email', $email );
+		$this->sut->handle_poocommerce_email_sent( true, 'custom_email', $email );
 
 		$context = $this->captured_logs[0]['context'];
 
@@ -330,7 +330,7 @@ class EmailLoggerTest extends WC_Unit_Test_Case {
 	public function test_object_context_omitted_when_no_object(): void {
 		$email = $this->create_mock_email( 'customer_new_account', 'customer@example.com', false );
 
-		$this->sut->handle_woocommerce_email_sent( true, 'customer_new_account', $email );
+		$this->sut->handle_poocommerce_email_sent( true, 'customer_new_account', $email );
 
 		$context = $this->captured_logs[0]['context'];
 
@@ -340,23 +340,23 @@ class EmailLoggerTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox woocommerce_email_log_enabled filter can disable logging entirely.
+	 * @testdox poocommerce_email_log_enabled filter can disable logging entirely.
 	 */
 	public function test_log_enabled_filter_can_disable_logging(): void {
-		add_filter( 'woocommerce_email_log_enabled', '__return_false' );
+		add_filter( 'poocommerce_email_log_enabled', '__return_false' );
 
 		$email = $this->create_mock_email( 'customer_processing_order', 'customer@example.com' );
-		$this->sut->handle_woocommerce_email_sent( true, 'customer_processing_order', $email );
+		$this->sut->handle_poocommerce_email_sent( true, 'customer_processing_order', $email );
 
 		$this->assertEmpty( $this->captured_logs, 'No log entry should be written when the enabled filter returns false' );
 	}
 
 	/**
-	 * @testdox woocommerce_email_log_context filter can modify context before logging.
+	 * @testdox poocommerce_email_log_context filter can modify context before logging.
 	 */
 	public function test_log_context_filter_can_modify_context(): void {
 		add_filter(
-			'woocommerce_email_log_context',
+			'poocommerce_email_log_context',
 			function ( array $context ) {
 				$context['custom_key'] = 'custom_value';
 				return $context;
@@ -364,7 +364,7 @@ class EmailLoggerTest extends WC_Unit_Test_Case {
 		);
 
 		$email = $this->create_mock_email( 'new_order', 'admin@example.com' );
-		$this->sut->handle_woocommerce_email_sent( true, 'new_order', $email );
+		$this->sut->handle_poocommerce_email_sent( true, 'new_order', $email );
 
 		$this->assertLogged( 'info', 'new_order', array( 'custom_key' => 'custom_value' ) );
 	}
@@ -386,7 +386,7 @@ class EmailLoggerTest extends WC_Unit_Test_Case {
 			);
 
 		$email = $this->create_mock_email( 'customer_processing_order', 'customer@example.com', $order );
-		$this->sut->handle_woocommerce_email_sent( true, 'customer_processing_order', $email );
+		$this->sut->handle_poocommerce_email_sent( true, 'customer_processing_order', $email );
 	}
 
 	/**
@@ -409,7 +409,7 @@ class EmailLoggerTest extends WC_Unit_Test_Case {
 			);
 
 		$email = $this->create_mock_email( 'customer_processing_order', 'customer@example.com', $order );
-		$this->sut->handle_woocommerce_email_sent( false, 'customer_processing_order', $email );
+		$this->sut->handle_poocommerce_email_sent( false, 'customer_processing_order', $email );
 	}
 
 	/**
@@ -432,7 +432,7 @@ class EmailLoggerTest extends WC_Unit_Test_Case {
 		$this->sut->capture_mail_error( $error );
 
 		$email = $this->create_mock_email( 'customer_processing_order', 'customer@example.com', $order );
-		$this->sut->handle_woocommerce_email_sent( false, 'customer_processing_order', $email );
+		$this->sut->handle_poocommerce_email_sent( false, 'customer_processing_order', $email );
 	}
 
 	/**
@@ -458,7 +458,7 @@ class EmailLoggerTest extends WC_Unit_Test_Case {
 		$this->sut->capture_mail_error( $error );
 
 		$email = $this->create_mock_email( 'customer_processing_order', 'customer@example.com', $order );
-		$this->sut->handle_woocommerce_email_sent( false, 'customer_processing_order', $email );
+		$this->sut->handle_poocommerce_email_sent( false, 'customer_processing_order', $email );
 	}
 
 	/**
@@ -471,7 +471,7 @@ class EmailLoggerTest extends WC_Unit_Test_Case {
 		$email = $this->create_mock_email( 'some_product_email', 'admin@example.com', $product );
 
 		// Should complete without throwing – product objects do not get order notes.
-		$this->sut->handle_woocommerce_email_sent( true, 'some_product_email', $email );
+		$this->sut->handle_poocommerce_email_sent( true, 'some_product_email', $email );
 
 		$this->assertLogged( 'info', 'some_product_email' );
 	}
@@ -486,7 +486,7 @@ class EmailLoggerTest extends WC_Unit_Test_Case {
 		$order->expects( $this->never() )->method( 'add_order_note' );
 
 		$email = $this->create_mock_email( 'customer_processing_order', 'customer@example.com', $order );
-		$this->sut->handle_woocommerce_email_sent( true, 'customer_processing_order', $email );
+		$this->sut->handle_poocommerce_email_sent( true, 'customer_processing_order', $email );
 
 		// Logger entry should still be written even though no note is added.
 		$this->assertLogged( 'info', 'customer_processing_order' );
@@ -496,7 +496,7 @@ class EmailLoggerTest extends WC_Unit_Test_Case {
 	 * @testdox No order note is added when logging is disabled by the filter.
 	 */
 	public function test_no_order_note_when_logging_disabled_by_filter(): void {
-		add_filter( 'woocommerce_email_log_enabled', '__return_false' );
+		add_filter( 'poocommerce_email_log_enabled', '__return_false' );
 
 		$order = $this->createMock( \WC_Order::class );
 		$order->method( 'get_id' )->willReturn( 42 );
@@ -504,14 +504,14 @@ class EmailLoggerTest extends WC_Unit_Test_Case {
 		$order->expects( $this->never() )->method( 'add_order_note' );
 
 		$email = $this->create_mock_email( 'customer_processing_order', 'customer@example.com', $order );
-		$this->sut->handle_woocommerce_email_sent( true, 'customer_processing_order', $email );
+		$this->sut->handle_poocommerce_email_sent( true, 'customer_processing_order', $email );
 	}
 
 	/**
-	 * @testdox woocommerce_email_log_add_order_note filter can suppress the order note independently of logging.
+	 * @testdox poocommerce_email_log_add_order_note filter can suppress the order note independently of logging.
 	 */
 	public function test_order_note_suppressed_by_add_order_note_filter(): void {
-		add_filter( 'woocommerce_email_log_add_order_note', '__return_false' );
+		add_filter( 'poocommerce_email_log_add_order_note', '__return_false' );
 
 		$order = $this->createMock( \WC_Order::class );
 		$order->method( 'get_id' )->willReturn( 42 );
@@ -519,7 +519,7 @@ class EmailLoggerTest extends WC_Unit_Test_Case {
 		$order->expects( $this->never() )->method( 'add_order_note' );
 
 		$email = $this->create_mock_email( 'customer_processing_order', 'customer@example.com', $order );
-		$this->sut->handle_woocommerce_email_sent( true, 'customer_processing_order', $email );
+		$this->sut->handle_poocommerce_email_sent( true, 'customer_processing_order', $email );
 
 		// Logger entry should still be written even though the note is suppressed.
 		$this->assertLogged( 'info', 'customer_processing_order' );
@@ -531,7 +531,7 @@ class EmailLoggerTest extends WC_Unit_Test_Case {
 	public function test_logs_notice_when_email_is_disabled(): void {
 		$email = $this->create_mock_email( 'customer_processing_order', 'customer@example.com' );
 
-		$this->sut->handle_woocommerce_email_disabled( 'customer_processing_order', $email );
+		$this->sut->handle_poocommerce_email_disabled( 'customer_processing_order', $email );
 
 		$this->assertLogged( 'notice', 'customer_processing_order' );
 	}
@@ -542,7 +542,7 @@ class EmailLoggerTest extends WC_Unit_Test_Case {
 	public function test_disabled_log_context_contains_disabled_status(): void {
 		$email = $this->create_mock_email( 'new_order', 'admin@example.com' );
 
-		$this->sut->handle_woocommerce_email_disabled( 'new_order', $email );
+		$this->sut->handle_poocommerce_email_disabled( 'new_order', $email );
 
 		$this->assertLogged(
 			'notice',
@@ -561,19 +561,19 @@ class EmailLoggerTest extends WC_Unit_Test_Case {
 	public function test_disabled_log_message_contains_disabled(): void {
 		$email = $this->create_mock_email( 'new_order', 'admin@example.com' );
 
-		$this->sut->handle_woocommerce_email_disabled( 'new_order', $email );
+		$this->sut->handle_poocommerce_email_disabled( 'new_order', $email );
 
 		$this->assertLogged( 'notice', 'disabled' );
 	}
 
 	/**
-	 * @testdox woocommerce_email_log_enabled filter suppresses disabled log entry.
+	 * @testdox poocommerce_email_log_enabled filter suppresses disabled log entry.
 	 */
 	public function test_log_enabled_filter_suppresses_disabled_entry(): void {
-		add_filter( 'woocommerce_email_log_enabled', '__return_false' );
+		add_filter( 'poocommerce_email_log_enabled', '__return_false' );
 
 		$email = $this->create_mock_email( 'customer_processing_order', 'customer@example.com' );
-		$this->sut->handle_woocommerce_email_disabled( 'customer_processing_order', $email );
+		$this->sut->handle_poocommerce_email_disabled( 'customer_processing_order', $email );
 
 		$this->assertEmpty( $this->captured_logs, 'No log entry should be written when the enabled filter returns false' );
 	}
@@ -584,7 +584,7 @@ class EmailLoggerTest extends WC_Unit_Test_Case {
 	public function test_logs_notice_when_email_is_skipped(): void {
 		$email = $this->create_mock_email( 'customer_processing_order', 'customer@example.com' );
 
-		$this->sut->handle_woocommerce_email_skipped( \WC_Email::SKIP_REASON_NO_RECIPIENT, 'customer_processing_order', $email );
+		$this->sut->handle_poocommerce_email_skipped( \WC_Email::SKIP_REASON_NO_RECIPIENT, 'customer_processing_order', $email );
 
 		$this->assertLogged( 'notice', 'customer_processing_order' );
 	}
@@ -595,7 +595,7 @@ class EmailLoggerTest extends WC_Unit_Test_Case {
 	public function test_skipped_log_context_contains_skipped_status_and_reason(): void {
 		$email = $this->create_mock_email( 'new_order', 'admin@example.com' );
 
-		$this->sut->handle_woocommerce_email_skipped( \WC_Email::SKIP_REASON_NO_RECIPIENT, 'new_order', $email );
+		$this->sut->handle_poocommerce_email_skipped( \WC_Email::SKIP_REASON_NO_RECIPIENT, 'new_order', $email );
 
 		$this->assertLogged(
 			'notice',
@@ -615,19 +615,19 @@ class EmailLoggerTest extends WC_Unit_Test_Case {
 	public function test_skipped_log_message_contains_reason(): void {
 		$email = $this->create_mock_email( 'new_order', 'admin@example.com' );
 
-		$this->sut->handle_woocommerce_email_skipped( \WC_Email::SKIP_REASON_NO_RECIPIENT, 'new_order', $email );
+		$this->sut->handle_poocommerce_email_skipped( \WC_Email::SKIP_REASON_NO_RECIPIENT, 'new_order', $email );
 
 		$this->assertLogged( 'notice', \WC_Email::SKIP_REASON_NO_RECIPIENT );
 	}
 
 	/**
-	 * @testdox woocommerce_email_log_enabled filter suppresses skipped log entry.
+	 * @testdox poocommerce_email_log_enabled filter suppresses skipped log entry.
 	 */
 	public function test_log_enabled_filter_suppresses_skipped_entry(): void {
-		add_filter( 'woocommerce_email_log_enabled', '__return_false' );
+		add_filter( 'poocommerce_email_log_enabled', '__return_false' );
 
 		$email = $this->create_mock_email( 'customer_processing_order', 'customer@example.com' );
-		$this->sut->handle_woocommerce_email_skipped( \WC_Email::SKIP_REASON_NO_RECIPIENT, 'customer_processing_order', $email );
+		$this->sut->handle_poocommerce_email_skipped( \WC_Email::SKIP_REASON_NO_RECIPIENT, 'customer_processing_order', $email );
 
 		$this->assertEmpty( $this->captured_logs, 'No log entry should be written when the enabled filter returns false' );
 	}
@@ -640,7 +640,7 @@ class EmailLoggerTest extends WC_Unit_Test_Case {
 		$order->method( 'get_id' )->willReturn( 99 );
 		$email = $this->create_mock_email( 'customer_processing_order', 'customer@example.com', $order );
 
-		$this->sut->handle_woocommerce_email_disabled( 'customer_processing_order', $email );
+		$this->sut->handle_poocommerce_email_disabled( 'customer_processing_order', $email );
 
 		$this->assertLogged(
 			'notice',
@@ -657,7 +657,7 @@ class EmailLoggerTest extends WC_Unit_Test_Case {
 		$order->method( 'get_id' )->willReturn( 77 );
 		$email = $this->create_mock_email( 'new_order', 'admin@example.com', $order );
 
-		$this->sut->handle_woocommerce_email_skipped( \WC_Email::SKIP_REASON_NO_RECIPIENT, 'new_order', $email );
+		$this->sut->handle_poocommerce_email_skipped( \WC_Email::SKIP_REASON_NO_RECIPIENT, 'new_order', $email );
 
 		$this->assertLogged(
 			'notice',
@@ -667,14 +667,14 @@ class EmailLoggerTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox send_notification() fires woocommerce_email_disabled and returns false when email is disabled.
+	 * @testdox send_notification() fires poocommerce_email_disabled and returns false when email is disabled.
 	 */
 	public function test_send_notification_fires_disabled_and_returns_false_when_disabled(): void {
 		$email = $this->create_testable_email( 'my_email', '', false );
 
 		$disabled_fired = false;
 		add_action(
-			'woocommerce_email_disabled',
+			'poocommerce_email_disabled',
 			function ( $email_id ) use ( &$disabled_fired ) {
 				if ( 'my_email' === $email_id ) {
 					$disabled_fired = true;
@@ -685,19 +685,19 @@ class EmailLoggerTest extends WC_Unit_Test_Case {
 		$result = $email->run_send_notification();
 
 		$this->assertFalse( $result, 'send_notification() should return false when email is disabled' );
-		$this->assertTrue( $disabled_fired, 'woocommerce_email_disabled should fire when email is disabled' );
+		$this->assertTrue( $disabled_fired, 'poocommerce_email_disabled should fire when email is disabled' );
 		$this->assertFalse( $email->send_called, 'send() should not be called when email is disabled' );
 	}
 
 	/**
-	 * @testdox send_notification() fires woocommerce_email_skipped with no_recipient and returns false when recipient is empty.
+	 * @testdox send_notification() fires poocommerce_email_skipped with no_recipient and returns false when recipient is empty.
 	 */
 	public function test_send_notification_fires_skipped_and_returns_false_when_no_recipient(): void {
 		$email = $this->create_testable_email( 'my_email', '', true );
 
 		$skipped_reason = null;
 		add_action(
-			'woocommerce_email_skipped',
+			'poocommerce_email_skipped',
 			function ( $reason, $email_id ) use ( &$skipped_reason ) {
 				if ( 'my_email' === $email_id ) {
 					$skipped_reason = $reason;
@@ -710,7 +710,7 @@ class EmailLoggerTest extends WC_Unit_Test_Case {
 		$result = $email->run_send_notification();
 
 		$this->assertFalse( $result, 'send_notification() should return false when no recipient' );
-		$this->assertSame( \WC_Email::SKIP_REASON_NO_RECIPIENT, $skipped_reason, 'woocommerce_email_skipped should fire with no_recipient reason' );
+		$this->assertSame( \WC_Email::SKIP_REASON_NO_RECIPIENT, $skipped_reason, 'poocommerce_email_skipped should fire with no_recipient reason' );
 		$this->assertFalse( $email->send_called, 'send() should not be called when no recipient' );
 	}
 
@@ -728,14 +728,14 @@ class EmailLoggerTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox send_if_recipient() fires woocommerce_email_skipped and returns false when recipient is empty.
+	 * @testdox send_if_recipient() fires poocommerce_email_skipped and returns false when recipient is empty.
 	 */
 	public function test_send_if_recipient_fires_skipped_and_returns_false_when_no_recipient(): void {
 		$email = $this->create_testable_email( 'my_email', '', false );
 
 		$skipped_fired = false;
 		add_action(
-			'woocommerce_email_skipped',
+			'poocommerce_email_skipped',
 			function ( $reason, $email_id ) use ( &$skipped_fired ) {
 				if ( 'my_email' === $email_id && \WC_Email::SKIP_REASON_NO_RECIPIENT === $reason ) {
 					$skipped_fired = true;
@@ -748,7 +748,7 @@ class EmailLoggerTest extends WC_Unit_Test_Case {
 		$result = $email->run_send_if_recipient();
 
 		$this->assertFalse( $result, 'send_if_recipient() should return false when no recipient' );
-		$this->assertTrue( $skipped_fired, 'woocommerce_email_skipped should fire with no_recipient reason' );
+		$this->assertTrue( $skipped_fired, 'poocommerce_email_skipped should fire with no_recipient reason' );
 		$this->assertFalse( $email->send_called, 'send() should not be called when no recipient' );
 	}
 
@@ -881,7 +881,7 @@ class EmailLoggerTest extends WC_Unit_Test_Case {
 	 *
 	 * @param string $email_id  Email type ID.
 	 * @param string $recipient Recipient email address.
-	 * @param mixed  $wc_object Related WooCommerce object or false.
+	 * @param mixed  $wc_object Related PooCommerce object or false.
 	 * @return \WC_Email
 	 */
 	private function create_mock_email( string $email_id, string $recipient, $wc_object = false ): \WC_Email {

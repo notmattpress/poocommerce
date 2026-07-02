@@ -5,7 +5,7 @@
  * Handles requests to /products/categories.
  */
 
-namespace Automattic\WooCommerce\Admin\API;
+namespace Automattic\PooCommerce\Admin\API;
 
 defined( 'ABSPATH' ) || exit;
 

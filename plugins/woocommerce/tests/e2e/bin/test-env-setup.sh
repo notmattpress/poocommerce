@@ -12,12 +12,12 @@ if [ ! -z ${CI+y} ]; then
     exit $?
 fi
 
-# In nightly runs WooCommerce is mounted via a wp-env mapping so it installs
-# under the canonical `woocommerce` folder; mapped plugins are not
+# In nightly runs PooCommerce is mounted via a wp-env mapping so it installs
+# under the canonical `poocommerce` folder; mapped plugins are not
 # auto-activated, so activate it before any WC-dependent setup below (e.g. the
 # `customer` role user). Harmless when WC is already active (PR/source-mapped).
-echo -e 'Activate WooCommerce \n'
-wp-env run tests-cli wp plugin activate woocommerce
+echo -e 'Activate PooCommerce \n'
+wp-env run tests-cli wp plugin activate poocommerce
 
 echo -e 'Install twentytwenty, twentytwentytwo and storefront themes \n'
 wp-env run tests-cli wp theme install storefront twentytwenty twentytwentytwo &
@@ -51,7 +51,7 @@ wp-env run tests-cli wp plugin install plugin-check --activate
 
 echo -e 'Add Customer user \n'
 if ! wp-env run tests-cli wp user get customer --field=ID >/dev/null 2>&1; then
-	wp-env run tests-cli wp user create customer customer@woocommercecoree2etestsuite.com \
+	wp-env run tests-cli wp user create customer customer@poocommercecoree2etestsuite.com \
 		--user_pass=password \
 		--role=customer \
 		--first_name='Jane' \
@@ -60,16 +60,16 @@ if ! wp-env run tests-cli wp user get customer --field=ID >/dev/null 2>&1; then
 fi
 
 echo -e 'Update Blog Name \n'
-wp-env run tests-cli wp option update blogname 'WooCommerce Core E2E Test Suite'
+wp-env run tests-cli wp option update blogname 'PooCommerce Core E2E Test Suite'
 
 echo -e 'Preparing Test Files \n'
-wp-env run tests-cli sudo cp /var/www/html/wp-content/plugins/woocommerce/tests/legacy/unit-tests/importer/sample.csv /var/www/sample.csv
+wp-env run tests-cli sudo cp /var/www/html/wp-content/plugins/poocommerce/tests/legacy/unit-tests/importer/sample.csv /var/www/sample.csv
 
 ENABLE_TRACKING="${ENABLE_TRACKING:-0}"
 
 if [ $ENABLE_TRACKING == 1 ]; then
 	echo -e 'Enable tracking\n'
-	wp-env run tests-cli wp option update woocommerce_allow_tracking 'yes'
+	wp-env run tests-cli wp option update poocommerce_allow_tracking 'yes'
 fi
 
 echo -e 'Upload test images \n'

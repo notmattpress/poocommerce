@@ -12,7 +12,7 @@ import type { Field } from '@wordpress/dataviews';
 import type { ProductEntityRecord } from '../types';
 
 const fieldDefinition = {
-	label: __( 'Tax Status', 'woocommerce' ),
+	label: __( 'Tax Status', 'poocommerce' ),
 	enableSorting: false,
 	enableHiding: false,
 	filterBy: false,

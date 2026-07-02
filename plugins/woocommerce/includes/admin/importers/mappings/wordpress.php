@@ -2,7 +2,7 @@
 /**
  * WordPress mappings
  *
- * @package WooCommerce\Admin\Importers
+ * @package PooCommerce\Admin\Importers
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -28,4 +28,4 @@ function wc_importer_wordpress_mappings( $mappings ) {
 
 	return array_merge( $mappings, $wp_mappings );
 }
-add_filter( 'woocommerce_csv_product_import_mapping_default_columns', 'wc_importer_wordpress_mappings' );
+add_filter( 'poocommerce_csv_product_import_mapping_default_columns', 'wc_importer_wordpress_mappings' );

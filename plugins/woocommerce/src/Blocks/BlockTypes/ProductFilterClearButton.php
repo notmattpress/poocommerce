@@ -2,7 +2,7 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
 /**
  * Product Filter: Clear Button Block.
@@ -37,7 +37,7 @@ final class ProductFilterClearButton extends AbstractBlock {
 	 */
 	protected function render( $attributes, $content, $block ) {
 		// don't render if its admin, or ajax in progress.
-		$removable_context = $block->context['woocommerce/removableItems'] ?? null;
+		$removable_context = $block->context['poocommerce/removableItems'] ?? null;
 		if (
 			is_admin() ||
 			wp_doing_ajax() ||

@@ -1,8 +1,8 @@
 <?php
 declare( strict_types = 1 );
 
-use Automattic\WooCommerce\Admin\Features\Fulfillments\Fulfillment;
-use Automattic\WooCommerce\Tests\Admin\Features\Fulfillments\Helpers\FulfillmentsHelper;
+use Automattic\PooCommerce\Admin\Features\Fulfillments\Fulfillment;
+use Automattic\PooCommerce\Tests\Admin\Features\Fulfillments\Helpers\FulfillmentsHelper;
 
 /**
  * Class WC_Emails_Tests.
@@ -16,10 +16,10 @@ class WC_Emails_Tests extends \WC_Unit_Test_Case {
 	public function test_email_header_is_compatible_with_legacy_do_action() {
 		$email_object = new WC_Emails();
 		// 10 is expected priority of the hook.
-		$this->assertEquals( 10, has_action( 'woocommerce_email_header', array( $email_object, 'email_header' ) ) );
+		$this->assertEquals( 10, has_action( 'poocommerce_email_header', array( $email_object, 'email_header' ) ) );
 		ob_start();
-		// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
-		do_action( 'woocommerce_email_header', 'header' );
+		// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
+		do_action( 'poocommerce_email_header', 'header' );
 		$content = ob_get_contents();
 		ob_end_clean();
 		$this->assertFalse( empty( $content ) );
@@ -32,10 +32,10 @@ class WC_Emails_Tests extends \WC_Unit_Test_Case {
 	public function test_email_footer_is_compatible_with_legacy_do_action() {
 		$email_object = new WC_Emails();
 		// 10 is expected priority of the hook.
-		$this->assertEquals( 10, has_action( 'woocommerce_email_footer', array( $email_object, 'email_footer' ) ) );
+		$this->assertEquals( 10, has_action( 'poocommerce_email_footer', array( $email_object, 'email_footer' ) ) );
 		ob_start();
-		// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
-		do_action( 'woocommerce_email_footer' );
+		// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
+		do_action( 'poocommerce_email_footer' );
 		$content = ob_get_contents();
 		ob_end_clean();
 		$this->assertFalse( empty( $content ) );
@@ -65,7 +65,7 @@ class WC_Emails_Tests extends \WC_Unit_Test_Case {
 	 * @testdox Pending to cancelled order status changes trigger transactional email notifications.
 	 */
 	public function test_pending_to_cancelled_status_change_triggers_transactional_email_notifications(): void {
-		$hook             = 'woocommerce_order_status_pending_to_cancelled';
+		$hook             = 'poocommerce_order_status_pending_to_cancelled';
 		$captured_actions = array();
 		$email_actions    = function ( $actions ) use ( &$captured_actions, $hook ) {
 			$captured_actions = $actions;
@@ -74,13 +74,13 @@ class WC_Emails_Tests extends \WC_Unit_Test_Case {
 
 		remove_action( $hook, array( 'WC_Emails', 'send_transactional_email' ), 10 );
 		remove_action( $hook, array( 'WC_Emails', 'queue_transactional_email' ), 10 );
-		add_filter( 'woocommerce_email_actions', $email_actions, 999 );
-		add_filter( 'woocommerce_defer_transactional_emails', '__return_false', 999 );
+		add_filter( 'poocommerce_email_actions', $email_actions, 999 );
+		add_filter( 'poocommerce_defer_transactional_emails', '__return_false', 999 );
 
 		WC_Emails::init_transactional_emails();
 
-		remove_filter( 'woocommerce_email_actions', $email_actions, 999 );
-		remove_filter( 'woocommerce_defer_transactional_emails', '__return_false', 999 );
+		remove_filter( 'poocommerce_email_actions', $email_actions, 999 );
+		remove_filter( 'poocommerce_defer_transactional_emails', '__return_false', 999 );
 
 		$this->assertContains( $hook, $captured_actions, 'Pending to cancelled status changes should be part of the default transactional email action list.' );
 		$this->assertSame( 10, has_action( $hook, array( 'WC_Emails', 'send_transactional_email' ) ), 'Pending to cancelled status changes should dispatch transactional emails.' );
@@ -98,7 +98,7 @@ class WC_Emails_Tests extends \WC_Unit_Test_Case {
 
 		$this->assertSame(
 			10,
-			has_action( 'woocommerce_order_status_pending_to_cancelled_notification', array( $cancelled_email, 'trigger' ) ),
+			has_action( 'poocommerce_order_status_pending_to_cancelled_notification', array( $cancelled_email, 'trigger' ) ),
 			'Cancelled order emails should notify admins when a pending order is cancelled.'
 		);
 	}
@@ -108,12 +108,12 @@ class WC_Emails_Tests extends \WC_Unit_Test_Case {
 	 */
 	public function test_order_meta() {
 		add_filter(
-			'woocommerce_email_order_meta_keys',
+			'poocommerce_email_order_meta_keys',
 			function () {
 				return array( 'dummy_key' );
 			}
 		);
-		$order = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 		$order->add_meta_data( 'dummy_key', 'dummy_meta_value' );
 		$order->save();
 
@@ -132,14 +132,14 @@ class WC_Emails_Tests extends \WC_Unit_Test_Case {
 	public function test_fulfillment_meta() {
 		// Ensure the FulfillmentsController is registered, which is necessary for the translation of meta keys.
 		// Delete the DB tables flag to force recreation in case another test class left stale state.
-		delete_option( 'woocommerce_fulfillments_db_tables_created' );
-		update_option( 'woocommerce_feature_fulfillments_enabled', 'yes' );
+		delete_option( 'poocommerce_fulfillments_db_tables_created' );
+		update_option( 'poocommerce_feature_fulfillments_enabled', 'yes' );
 		$container  = wc_get_container();
-		$controller = $container->get( \Automattic\WooCommerce\Admin\Features\Fulfillments\FulfillmentsController::class );
+		$controller = $container->get( \Automattic\PooCommerce\Admin\Features\Fulfillments\FulfillmentsController::class );
 		$controller->register();
 		$controller->initialize_fulfillments();
 
-		$order       = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order       = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 		$fulfillment = FulfillmentsHelper::create_fulfillment(
 			array(
 				'entity_id'   => $order->get_id(),
@@ -148,9 +148,9 @@ class WC_Emails_Tests extends \WC_Unit_Test_Case {
 		);
 
 		add_filter(
-			'woocommerce_fulfillment_meta_key_translations',
+			'poocommerce_fulfillment_meta_key_translations',
 			function ( $translations ) {
-				$translations['test_meta_key'] = __( 'Test meta key', 'woocommerce' );
+				$translations['test_meta_key'] = __( 'Test meta key', 'poocommerce' );
 				return $translations;
 			}
 		);

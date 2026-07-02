@@ -7,7 +7,7 @@ import { trash, Icon } from '@wordpress/icons';
 import ChevronUpIcon from 'gridicons/dist/chevron-up';
 import ChevronDownIcon from 'gridicons/dist/chevron-down';
 import { Component, Fragment } from '@wordpress/element';
-import { MenuItem } from '@woocommerce/components';
+import { MenuItem } from '@poocommerce/components';
 
 class SectionControls extends Component {
 	constructor( props ) {
@@ -42,25 +42,25 @@ class SectionControls extends Component {
 
 		return (
 			<Fragment>
-				<div className="woocommerce-ellipsis-menu__item">
+				<div className="poocommerce-ellipsis-menu__item">
 					<TextControl
-						label={ __( 'Section title', 'woocommerce' ) }
+						label={ __( 'Section title', 'poocommerce' ) }
 						onBlur={ onTitleBlur }
 						onChange={ onTitleChange }
 						required
 						value={ titleInput }
 					/>
 				</div>
-				<div className="woocommerce-dashboard-section-controls">
+				<div className="poocommerce-dashboard-section-controls">
 					{ ! isFirst && (
 						<MenuItem isClickable onInvoke={ this.onMoveUp }>
 							<Icon
 								icon={ <ChevronUpIcon /> }
-								label={ __( 'Move up', 'woocommerce' ) }
+								label={ __( 'Move up', 'poocommerce' ) }
 								size={ 20 }
 								className="icon-control"
 							/>
-							{ __( 'Move up', 'woocommerce' ) }
+							{ __( 'Move up', 'poocommerce' ) }
 						</MenuItem>
 					) }
 					{ ! isLast && (
@@ -68,20 +68,20 @@ class SectionControls extends Component {
 							<Icon
 								icon={ <ChevronDownIcon /> }
 								size={ 20 }
-								label={ __( 'Move down', 'woocommerce' ) }
+								label={ __( 'Move down', 'poocommerce' ) }
 								className="icon-control"
 							/>
-							{ __( 'Move down', 'woocommerce' ) }
+							{ __( 'Move down', 'poocommerce' ) }
 						</MenuItem>
 					) }
 					<MenuItem isClickable onInvoke={ onRemove }>
 						<Icon
 							icon={ trash }
 							size={ 20 }
-							label={ __( 'Remove block', 'woocommerce' ) }
+							label={ __( 'Remove block', 'poocommerce' ) }
 							className="icon-control"
 						/>
-						{ __( 'Remove section', 'woocommerce' ) }
+						{ __( 'Remove section', 'poocommerce' ) }
 					</MenuItem>
 				</div>
 			</Fragment>

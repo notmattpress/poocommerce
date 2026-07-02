@@ -4,15 +4,15 @@
  *
  * Handles requests to generate and exchange QR login tokens for direct mobile
  * app authentication via Application Passwords. Token generation is gated on
- * the `manage_woocommerce` capability (administrators and shop managers by
+ * the `manage_poocommerce` capability (administrators and shop managers by
  * default).
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Admin\API;
+namespace Automattic\PooCommerce\Admin\API;
 
-use Automattic\WooCommerce\Admin\API\RateLimits\QRLoginRateLimits;
+use Automattic\PooCommerce\Admin\API\RateLimits\QRLoginRateLimits;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -200,7 +200,7 @@ class MobileAppQRLogin extends \WC_REST_Data_Controller {
 	 * @return void
 	 */
 	public function register_routes() {
-		// Generate a QR login token (requires authentication and `manage_woocommerce` capability).
+		// Generate a QR login token (requires authentication and `manage_poocommerce` capability).
 		register_rest_route(
 			$this->namespace,
 			'/' . $this->rest_base . '/qr-login-token',
@@ -421,10 +421,10 @@ class MobileAppQRLogin extends \WC_REST_Data_Controller {
 	/**
 	 * Check whether the current user can generate a QR login token.
 	 *
-	 * Requires the `manage_woocommerce` capability, which covers administrators and
+	 * Requires the `manage_poocommerce` capability, which covers administrators and
 	 * shop managers out of the box. The check is deliberately explicit (not routed
 	 * through `wc_rest_check_manager_permissions()`) so it cannot be loosened by the
-	 * `woocommerce_rest_check_permissions` filter that other Admin API endpoints share.
+	 * `poocommerce_rest_check_permissions` filter that other Admin API endpoints share.
 	 *
 	 * @param \WP_REST_Request<array<string, mixed>> $request The REST request (unused).
 	 * @return \WP_Error|bool True if the user has the required capability, WP_Error otherwise.
@@ -433,10 +433,10 @@ class MobileAppQRLogin extends \WC_REST_Data_Controller {
 		unset( $request );
 		// Parameter required by WP REST contract but unused here.
 
-		if ( ! current_user_can( 'manage_woocommerce' ) ) {
+		if ( ! current_user_can( 'manage_poocommerce' ) ) {
 			return new \WP_Error(
-				'woocommerce_rest_cannot_view',
-				__( 'Sorry, you are not allowed to generate a mobile app QR login token.', 'woocommerce' ),
+				'poocommerce_rest_cannot_view',
+				__( 'Sorry, you are not allowed to generate a mobile app QR login token.', 'poocommerce' ),
 				array( 'status' => rest_authorization_required_code() )
 			);
 		}
@@ -833,7 +833,7 @@ class MobileAppQRLogin extends \WC_REST_Data_Controller {
 		if ( 'https' !== $raw_scheme ) {
 			return new \WP_Error(
 				'insecure_site_url',
-				__( 'QR login cannot be used because the site URL is not configured for HTTPS. Please update the WordPress Address (URL) in Settings → General to use https://.', 'woocommerce' ),
+				__( 'QR login cannot be used because the site URL is not configured for HTTPS. Please update the WordPress Address (URL) in Settings → General to use https://.', 'poocommerce' ),
 				array( 'status' => 500 )
 			);
 		}
@@ -849,7 +849,7 @@ class MobileAppQRLogin extends \WC_REST_Data_Controller {
 		if ( 'https' !== $final_scheme ) {
 			return new \WP_Error(
 				'insecure_site_url',
-				__( 'QR login cannot be used because the site URL is not configured for HTTPS. Please update the WordPress Address (URL) in Settings → General to use https://.', 'woocommerce' ),
+				__( 'QR login cannot be used because the site URL is not configured for HTTPS. Please update the WordPress Address (URL) in Settings → General to use https://.', 'poocommerce' ),
 				array( 'status' => 500 )
 			);
 		}
@@ -862,7 +862,7 @@ class MobileAppQRLogin extends \WC_REST_Data_Controller {
 	 *
 	 * Creates a short-lived one-time token that can be exchanged for an Application
 	 * Password by the mobile app. The caller is assumed to have already passed the
-	 * `manage_woocommerce` capability check in `get_items_permissions_check()`.
+	 * `manage_poocommerce` capability check in `get_items_permissions_check()`.
 	 *
 	 * @param \WP_REST_Request<array<string, mixed>> $request Full details about the request.
 	 * @return \WP_REST_Response|\WP_Error
@@ -875,7 +875,7 @@ class MobileAppQRLogin extends \WC_REST_Data_Controller {
 		if ( ! is_ssl() ) {
 			return new \WP_Error(
 				'ssl_required',
-				__( 'QR login requires an HTTPS connection.', 'woocommerce' ),
+				__( 'QR login requires an HTTPS connection.', 'poocommerce' ),
 				array( 'status' => 403 )
 			);
 		}
@@ -891,7 +891,7 @@ class MobileAppQRLogin extends \WC_REST_Data_Controller {
 		if ( ! $this->are_application_passwords_available() ) {
 			return new \WP_Error(
 				'application_passwords_unavailable',
-				__( 'Application Passwords are not available on this site.', 'woocommerce' ),
+				__( 'Application Passwords are not available on this site.', 'poocommerce' ),
 				array( 'status' => 501 )
 			);
 		}
@@ -900,7 +900,7 @@ class MobileAppQRLogin extends \WC_REST_Data_Controller {
 		if ( ! $this->check_generation_rate_limit( get_current_user_id() ) ) {
 			return new \WP_Error(
 				'rate_limit_exceeded',
-				__( 'Too many QR login requests. Please try again later.', 'woocommerce' ),
+				__( 'Too many QR login requests. Please try again later.', 'poocommerce' ),
 				array( 'status' => 429 )
 			);
 		}
@@ -927,7 +927,7 @@ class MobileAppQRLogin extends \WC_REST_Data_Controller {
 
 		// Build the QR URL (deep link for the mobile app).
 		$qr_url = sprintf(
-			'woocommerce://qr-login?token=%s&siteUrl=%s',
+			'poocommerce://qr-login?token=%s&siteUrl=%s',
 			rawurlencode( $token ),
 			rawurlencode( $site_url )
 		);
@@ -955,7 +955,7 @@ class MobileAppQRLogin extends \WC_REST_Data_Controller {
 		if ( ! is_ssl() ) {
 			return new \WP_Error(
 				'ssl_required',
-				__( 'QR login requires an HTTPS connection.', 'woocommerce' ),
+				__( 'QR login requires an HTTPS connection.', 'poocommerce' ),
 				array( 'status' => 403 )
 			);
 		}
@@ -980,14 +980,14 @@ class MobileAppQRLogin extends \WC_REST_Data_Controller {
 			if ( ! $this->check_invalid_exchange_rate_limit() ) {
 				return new \WP_Error(
 					'rate_limit_exceeded',
-					__( 'Too many exchange attempts. Please try again later.', 'woocommerce' ),
+					__( 'Too many exchange attempts. Please try again later.', 'poocommerce' ),
 					array( 'status' => 429 )
 				);
 			}
 
 			return new \WP_Error(
 				'invalid_token',
-				__( 'Invalid or expired QR login token.', 'woocommerce' ),
+				__( 'Invalid or expired QR login token.', 'poocommerce' ),
 				array( 'status' => 401 )
 			);
 		}
@@ -999,7 +999,7 @@ class MobileAppQRLogin extends \WC_REST_Data_Controller {
 		if ( ! $this->check_exchange_ip_rate_limit() ) {
 			return new \WP_Error(
 				'rate_limit_exceeded',
-				__( 'Too many exchange attempts. Please try again later.', 'woocommerce' ),
+				__( 'Too many exchange attempts. Please try again later.', 'poocommerce' ),
 				array( 'status' => 429 )
 			);
 		}
@@ -1007,7 +1007,7 @@ class MobileAppQRLogin extends \WC_REST_Data_Controller {
 		if ( ! $this->check_valid_exchange_rate_limit( $token_hash ) ) {
 			return new \WP_Error(
 				'rate_limit_exceeded',
-				__( 'Too many exchange attempts. Please try again later.', 'woocommerce' ),
+				__( 'Too many exchange attempts. Please try again later.', 'poocommerce' ),
 				array( 'status' => 429 )
 			);
 		}
@@ -1015,7 +1015,7 @@ class MobileAppQRLogin extends \WC_REST_Data_Controller {
 		if ( ! $this->claim_token_for_exchange( $token_hash, isset( $token_data['expires_at'] ) ? (int) $token_data['expires_at'] : time() + self::TOKEN_TTL ) ) {
 			return new \WP_Error(
 				'invalid_token',
-				__( 'Invalid or expired QR login token.', 'woocommerce' ),
+				__( 'Invalid or expired QR login token.', 'poocommerce' ),
 				array( 'status' => 401 )
 			);
 		}
@@ -1027,7 +1027,7 @@ class MobileAppQRLogin extends \WC_REST_Data_Controller {
 			$this->release_token_exchange_claim( $token_hash );
 			return new \WP_Error(
 				'invalid_token',
-				__( 'Invalid or expired QR login token.', 'woocommerce' ),
+				__( 'Invalid or expired QR login token.', 'poocommerce' ),
 				array( 'status' => 401 )
 			);
 		}
@@ -1039,7 +1039,7 @@ class MobileAppQRLogin extends \WC_REST_Data_Controller {
 			$this->release_token_exchange_claim( $token_hash );
 			return new \WP_Error(
 				'token_expired',
-				__( 'QR login token has expired.', 'woocommerce' ),
+				__( 'QR login token has expired.', 'poocommerce' ),
 				array( 'status' => 401 )
 			);
 		}
@@ -1054,7 +1054,7 @@ class MobileAppQRLogin extends \WC_REST_Data_Controller {
 			$this->release_token_exchange_claim( $token_hash );
 			return new \WP_Error(
 				'qr_login_not_approved',
-				__( 'This QR login session has not been approved.', 'woocommerce' ),
+				__( 'This QR login session has not been approved.', 'poocommerce' ),
 				array( 'status' => 412 )
 			);
 		}
@@ -1091,7 +1091,7 @@ class MobileAppQRLogin extends \WC_REST_Data_Controller {
 			$this->release_token_exchange_claim( $token_hash );
 			return new \WP_Error(
 				'invalid_exchange_grant',
-				__( 'Invalid exchange grant for this QR login session.', 'woocommerce' ),
+				__( 'Invalid exchange grant for this QR login session.', 'poocommerce' ),
 				array( 'status' => 412 )
 			);
 		}//end if
@@ -1103,7 +1103,7 @@ class MobileAppQRLogin extends \WC_REST_Data_Controller {
 			$this->release_token_exchange_claim( $token_hash );
 			return new \WP_Error(
 				'user_not_found',
-				__( 'User associated with this token no longer exists.', 'woocommerce' ),
+				__( 'User associated with this token no longer exists.', 'poocommerce' ),
 				array( 'status' => 404 )
 			);
 		}
@@ -1113,7 +1113,7 @@ class MobileAppQRLogin extends \WC_REST_Data_Controller {
 			$this->release_token_exchange_claim( $token_hash );
 			return new \WP_Error(
 				'application_passwords_unavailable',
-				__( 'Application Passwords are not available on this site.', 'woocommerce' ),
+				__( 'Application Passwords are not available on this site.', 'poocommerce' ),
 				array( 'status' => 501 )
 			);
 		}
@@ -1126,7 +1126,7 @@ class MobileAppQRLogin extends \WC_REST_Data_Controller {
 			$this->release_token_exchange_claim( $token_hash );
 			return new \WP_Error(
 				'rest_cannot_create_application_passwords',
-				__( 'Application passwords are not available for your account. Please contact the site administrator for assistance.', 'woocommerce' ),
+				__( 'Application passwords are not available for your account. Please contact the site administrator for assistance.', 'poocommerce' ),
 				array( 'status' => rest_authorization_required_code() )
 			);
 		}
@@ -1163,7 +1163,7 @@ class MobileAppQRLogin extends \WC_REST_Data_Controller {
 			$this->release_token_exchange_claim( $token_hash );
 			return new \WP_Error(
 				'application_password_failed',
-				__( 'Could not create a mobile-app credential. Please try again, or contact your site administrator.', 'woocommerce' ),
+				__( 'Could not create a mobile-app credential. Please try again, or contact your site administrator.', 'poocommerce' ),
 				array( 'status' => 500 )
 			);
 		}
@@ -1243,7 +1243,7 @@ class MobileAppQRLogin extends \WC_REST_Data_Controller {
 		if ( ! $this->check_status_rate_limit( $user_id ) ) {
 			return new \WP_Error(
 				'rate_limit_exceeded',
-				__( 'Too many QR login status checks. Please try again later.', 'woocommerce' ),
+				__( 'Too many QR login status checks. Please try again later.', 'poocommerce' ),
 				array( 'status' => 429 )
 			);
 		}
@@ -1353,7 +1353,7 @@ class MobileAppQRLogin extends \WC_REST_Data_Controller {
 		if ( ! $this->check_revoke_rate_limit( $user_id ) ) {
 			return new \WP_Error(
 				'rate_limit_exceeded',
-				__( 'Too many QR login revoke attempts. Please try again later.', 'woocommerce' ),
+				__( 'Too many QR login revoke attempts. Please try again later.', 'poocommerce' ),
 				array( 'status' => 429 )
 			);
 		}
@@ -1361,7 +1361,7 @@ class MobileAppQRLogin extends \WC_REST_Data_Controller {
 		if ( ! $this->are_application_passwords_available() ) {
 			return new \WP_Error(
 				'application_passwords_unavailable',
-				__( 'Application Passwords are not available on this site.', 'woocommerce' ),
+				__( 'Application Passwords are not available on this site.', 'poocommerce' ),
 				array( 'status' => 501 )
 			);
 		}
@@ -1373,7 +1373,7 @@ class MobileAppQRLogin extends \WC_REST_Data_Controller {
 		if ( ! is_array( $ap ) ) {
 			return new \WP_Error(
 				'application_password_not_found',
-				__( 'No matching Application Password to revoke.', 'woocommerce' ),
+				__( 'No matching Application Password to revoke.', 'poocommerce' ),
 				array( 'status' => 404 )
 			);
 		}
@@ -1382,7 +1382,7 @@ class MobileAppQRLogin extends \WC_REST_Data_Controller {
 		if ( true !== $deleted ) {
 			return new \WP_Error(
 				'application_password_revoke_failed',
-				__( 'Could not revoke the Application Password. Please try again.', 'woocommerce' ),
+				__( 'Could not revoke the Application Password. Please try again.', 'poocommerce' ),
 				array( 'status' => 500 )
 			);
 		}
@@ -1457,7 +1457,7 @@ class MobileAppQRLogin extends \WC_REST_Data_Controller {
 		// is cheaper than chasing the edge case at runtime.
 		$descriptor = '' !== $model ? $model : $os;
 		if ( '' === $descriptor ) {
-			return __( 'WooCommerce Mobile App (QR Login)', 'woocommerce' );
+			return __( 'PooCommerce Mobile App (QR Login)', 'poocommerce' );
 		}
 
 		// Use the site's configured timezone so the date the merchant sees in
@@ -1465,7 +1465,7 @@ class MobileAppQRLogin extends \WC_REST_Data_Controller {
 		$date = wp_date( 'Y-m-d' );
 
 		/* translators: 1: device descriptor (model or OS, e.g. "iPhone 15"). 2: ISO date the AP was created. */
-		return sprintf( __( 'Woo Mobile · %1$s · %2$s', 'woocommerce' ), $descriptor, $date );
+		return sprintf( __( 'Woo Mobile · %1$s · %2$s', 'poocommerce' ), $descriptor, $date );
 	}
 
 	/**
@@ -1504,7 +1504,7 @@ class MobileAppQRLogin extends \WC_REST_Data_Controller {
 		if ( ! is_ssl() ) {
 			return new \WP_Error(
 				'ssl_required',
-				__( 'QR login requires an HTTPS connection.', 'woocommerce' ),
+				__( 'QR login requires an HTTPS connection.', 'poocommerce' ),
 				array( 'status' => 403 )
 			);
 		}
@@ -1512,7 +1512,7 @@ class MobileAppQRLogin extends \WC_REST_Data_Controller {
 		if ( true !== (bool) $request->get_param( 'supports_number_matching' ) ) {
 			return new \WP_Error(
 				'mobile_app_update_required',
-				__( 'This Woo mobile app version is no longer supported for QR sign-in. Please update the app and try again.', 'woocommerce' ),
+				__( 'This Woo mobile app version is no longer supported for QR sign-in. Please update the app and try again.', 'poocommerce' ),
 				array( 'status' => 426 )
 			);
 		}
@@ -1526,14 +1526,14 @@ class MobileAppQRLogin extends \WC_REST_Data_Controller {
 			if ( ! $this->check_invalid_scan_rate_limit() ) {
 				return new \WP_Error(
 					'rate_limit_exceeded',
-					__( 'Too many QR login scans. Please try again later.', 'woocommerce' ),
+					__( 'Too many QR login scans. Please try again later.', 'poocommerce' ),
 					array( 'status' => 429 )
 				);
 			}
 
 			return new \WP_Error(
 				'invalid_token',
-				__( 'Invalid or expired QR login token.', 'woocommerce' ),
+				__( 'Invalid or expired QR login token.', 'poocommerce' ),
 				array( 'status' => 401 )
 			);
 		}
@@ -1541,7 +1541,7 @@ class MobileAppQRLogin extends \WC_REST_Data_Controller {
 		if ( ! $this->check_scan_rate_limit() ) {
 			return new \WP_Error(
 				'rate_limit_exceeded',
-				__( 'Too many QR login scans. Please try again later.', 'woocommerce' ),
+				__( 'Too many QR login scans. Please try again later.', 'poocommerce' ),
 				array( 'status' => 429 )
 			);
 		}
@@ -1550,7 +1550,7 @@ class MobileAppQRLogin extends \WC_REST_Data_Controller {
 		if ( empty( $device['model'] ) && empty( $device['os'] ) ) {
 			return new \WP_Error(
 				'invalid_device',
-				__( 'QR login requires device information from the mobile app.', 'woocommerce' ),
+				__( 'QR login requires device information from the mobile app.', 'poocommerce' ),
 				array( 'status' => 400 )
 			);
 		}
@@ -1566,7 +1566,7 @@ class MobileAppQRLogin extends \WC_REST_Data_Controller {
 		) ) {
 			return new \WP_Error(
 				'qr_login_already_scanned',
-				__( 'This QR login session is no longer accepting scans.', 'woocommerce' ),
+				__( 'This QR login session is no longer accepting scans.', 'poocommerce' ),
 				array( 'status' => 409 )
 			);
 		}
@@ -1576,7 +1576,7 @@ class MobileAppQRLogin extends \WC_REST_Data_Controller {
 			$this->release_token_scan_claim( $token_hash );
 			return new \WP_Error(
 				'qr_login_already_scanned',
-				__( 'This QR login session is no longer accepting scans.', 'woocommerce' ),
+				__( 'This QR login session is no longer accepting scans.', 'poocommerce' ),
 				array( 'status' => 409 )
 			);
 		}
@@ -1590,7 +1590,7 @@ class MobileAppQRLogin extends \WC_REST_Data_Controller {
 			$this->release_token_scan_claim( $token_hash );
 			return new \WP_Error(
 				'invalid_token',
-				__( 'Invalid or expired QR login token.', 'woocommerce' ),
+				__( 'Invalid or expired QR login token.', 'poocommerce' ),
 				array( 'status' => 401 )
 			);
 		}
@@ -1658,7 +1658,7 @@ class MobileAppQRLogin extends \WC_REST_Data_Controller {
 		if ( ! $this->check_approve_rate_limit( $user_id ) ) {
 			return new \WP_Error(
 				'rate_limit_exceeded',
-				__( 'Too many QR login approval attempts. Please try again later.', 'woocommerce' ),
+				__( 'Too many QR login approval attempts. Please try again later.', 'poocommerce' ),
 				array( 'status' => 429 )
 			);
 		}
@@ -1671,7 +1671,7 @@ class MobileAppQRLogin extends \WC_REST_Data_Controller {
 		if ( ! is_array( $record ) ) {
 			return new \WP_Error(
 				'invalid_token',
-				__( 'Invalid or expired QR login token.', 'woocommerce' ),
+				__( 'Invalid or expired QR login token.', 'poocommerce' ),
 				array( 'status' => 401 )
 			);
 		}
@@ -1682,7 +1682,7 @@ class MobileAppQRLogin extends \WC_REST_Data_Controller {
 		if ( ! $this->claim_token_for_approval( $token_hash, $approval_claim_expires_at ) ) {
 			return new \WP_Error(
 				'qr_login_approval_in_progress',
-				__( 'This QR login session is already being approved.', 'woocommerce' ),
+				__( 'This QR login session is already being approved.', 'poocommerce' ),
 				array( 'status' => 409 )
 			);
 		}
@@ -1694,7 +1694,7 @@ class MobileAppQRLogin extends \WC_REST_Data_Controller {
 			$this->release_token_approval_claim( $token_hash );
 			return new \WP_Error(
 				'invalid_token',
-				__( 'Invalid or expired QR login token.', 'woocommerce' ),
+				__( 'Invalid or expired QR login token.', 'poocommerce' ),
 				array( 'status' => 401 )
 			);
 		}
@@ -1705,7 +1705,7 @@ class MobileAppQRLogin extends \WC_REST_Data_Controller {
 			$this->release_token_approval_claim( $token_hash );
 			return new \WP_Error(
 				'invalid_token',
-				__( 'Invalid or expired QR login token.', 'woocommerce' ),
+				__( 'Invalid or expired QR login token.', 'poocommerce' ),
 				array( 'status' => 401 )
 			);
 		}
@@ -1717,7 +1717,7 @@ class MobileAppQRLogin extends \WC_REST_Data_Controller {
 			$this->release_token_approval_claim( $token_hash );
 			return new \WP_Error(
 				'qr_login_expired',
-				__( 'The QR login challenge has expired. Please generate a new code.', 'woocommerce' ),
+				__( 'The QR login challenge has expired. Please generate a new code.', 'poocommerce' ),
 				array( 'status' => 410 )
 			);
 		}
@@ -1727,7 +1727,7 @@ class MobileAppQRLogin extends \WC_REST_Data_Controller {
 			$this->release_token_approval_claim( $token_hash );
 			return new \WP_Error(
 				'qr_login_not_scanned',
-				__( 'This QR login session is not waiting for approval.', 'woocommerce' ),
+				__( 'This QR login session is not waiting for approval.', 'poocommerce' ),
 				array( 'status' => 409 )
 			);
 		}
@@ -1740,7 +1740,7 @@ class MobileAppQRLogin extends \WC_REST_Data_Controller {
 			$this->release_token_approval_claim( $token_hash );
 			return new \WP_Error(
 				'qr_login_expired',
-				__( 'The QR login challenge has expired. Please generate a new code.', 'woocommerce' ),
+				__( 'The QR login challenge has expired. Please generate a new code.', 'poocommerce' ),
 				array( 'status' => 410 )
 			);
 		}
@@ -1802,7 +1802,7 @@ class MobileAppQRLogin extends \WC_REST_Data_Controller {
 		if ( ! is_ssl() ) {
 			return new \WP_Error(
 				'ssl_required',
-				__( 'QR login requires an HTTPS connection.', 'woocommerce' ),
+				__( 'QR login requires an HTTPS connection.', 'poocommerce' ),
 				array( 'status' => 403 )
 			);
 		}
@@ -1832,7 +1832,7 @@ class MobileAppQRLogin extends \WC_REST_Data_Controller {
 		if ( ! $this->check_session_status_rate_limit( $session_id ) ) {
 			return new \WP_Error(
 				'rate_limit_exceeded',
-				__( 'Too many QR login session-status checks. Please try again later.', 'woocommerce' ),
+				__( 'Too many QR login session-status checks. Please try again later.', 'poocommerce' ),
 				array( 'status' => 429 )
 			);
 		}
@@ -1974,7 +1974,7 @@ class MobileAppQRLogin extends \WC_REST_Data_Controller {
 	/**
 	 * Send the merchant a transactional email summarizing a successful QR
 	 * sign-in, unless they (or a site owner) opt out via the
-	 * `woocommerce_qr_login_should_send_signin_email` filter.
+	 * `poocommerce_qr_login_should_send_signin_email` filter.
 	 *
 	 * Wrapped so a misconfigured mailer cannot break the exchange path. Mailer
 	 * false returns and exceptions are logged, but delivery never blocks the API
@@ -1998,7 +1998,7 @@ class MobileAppQRLogin extends \WC_REST_Data_Controller {
 		 * @param array<string, mixed> $consumed_record The consumed record about to be emailed (keys: consumed_at, user_id, ap_uuid, ap_name, device).
 		 */
 		$should_send = (bool) apply_filters(
-			'woocommerce_qr_login_should_send_signin_email',
+			'poocommerce_qr_login_should_send_signin_email',
 			true,
 			$user,
 			$consumed_record
@@ -2055,7 +2055,7 @@ class MobileAppQRLogin extends \WC_REST_Data_Controller {
 		);
 
 		/* translators: %s: site name. */
-		$subject = sprintf( __( 'A new device signed in to %s', 'woocommerce' ), $site_name );
+		$subject = sprintf( __( 'A new device signed in to %s', 'poocommerce' ), $site_name );
 
 		$body_html = $this->render_sign_in_notification_email_body( $user, $consumed_record, $site_name, $subject );
 

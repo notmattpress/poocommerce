@@ -2,16 +2,16 @@
 /**
  * JSON File Feed class.
  *
- * @package Automattic\WooCommerce\Internal\ProductFeed
+ * @package Automattic\PooCommerce\Internal\ProductFeed
  */
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Internal\ProductFeed\Storage;
+namespace Automattic\PooCommerce\Internal\ProductFeed\Storage;
 
-use Automattic\WooCommerce\Internal\Utilities\FilesystemUtil;
-use Automattic\WooCommerce\Internal\ProductFeed\Feed\FeedInterface;
-use Automattic\WooCommerce\Internal\ProductFeed\Feed\ResumableFeedInterface;
+use Automattic\PooCommerce\Internal\Utilities\FilesystemUtil;
+use Automattic\PooCommerce\Internal\ProductFeed\Feed\FeedInterface;
+use Automattic\PooCommerce\Internal\ProductFeed\Feed\ResumableFeedInterface;
 use Exception;
 
 // This file works directly with local files. That's fine.
@@ -131,7 +131,7 @@ class JsonFileFeed implements ResumableFeedInterface {
 					esc_html(
 						sprintf(
 							/* translators: %s: feed identifier */
-							__( 'Invalid feed file identifier: %s', 'woocommerce' ),
+							__( 'Invalid feed file identifier: %s', 'poocommerce' ),
 							$resume_identifier
 						)
 					)
@@ -148,7 +148,7 @@ class JsonFileFeed implements ResumableFeedInterface {
 					esc_html(
 						sprintf(
 							/* translators: %s: file path */
-							__( 'Cannot resume feed; file does not exist: %s', 'woocommerce' ),
+							__( 'Cannot resume feed; file does not exist: %s', 'poocommerce' ),
 							$this->file_path
 						)
 					)
@@ -282,7 +282,7 @@ class JsonFileFeed implements ResumableFeedInterface {
 				esc_html(
 					sprintf(
 						/* translators: %s: file path */
-						__( 'Unable to open feed file: %s', 'woocommerce' ),
+						__( 'Unable to open feed file: %s', 'poocommerce' ),
 						$path
 					)
 				)
@@ -307,7 +307,7 @@ class JsonFileFeed implements ResumableFeedInterface {
 		 * @return int The current time.
 		 * @since 10.5.0
 		 */
-		$current_time = apply_filters( 'woocommerce_product_feed_time', time(), $this );
+		$current_time = apply_filters( 'poocommerce_product_feed_time', time(), $this );
 		$hash_data    = $this->base_name . gmdate( 'r', $current_time );
 
 		return sprintf(
@@ -389,7 +389,7 @@ class JsonFileFeed implements ResumableFeedInterface {
 				esc_html(
 					sprintf(
 						/* translators: %s: directory path */
-						__( 'Unable to create feed directory: %s', 'woocommerce' ),
+						__( 'Unable to create feed directory: %s', 'poocommerce' ),
 						$directory_path
 					)
 				)

@@ -440,7 +440,7 @@ describe( 'settings HTML rendering', () => {
 				'https://example.com/next'
 			);
 			expect( requestSubmit ).toHaveBeenCalledWith(
-				container.querySelector( '.woocommerce-save-button' )
+				container.querySelector( '.poocommerce-save-button' )
 			);
 		} finally {
 			act( () => root.unmount() );

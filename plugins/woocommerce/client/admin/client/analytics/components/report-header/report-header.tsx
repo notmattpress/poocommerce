@@ -35,7 +35,7 @@ interface ReportHeaderProps {
 
 export default function ReportHeader( props: ReportHeaderProps ): JSX.Element {
 	return (
-		<div className="woocommerce-analytics-report-header">
+		<div className="poocommerce-analytics-report-header">
 			{ /* @ts-expect-error - ReportFilters is a valid component but not typed */ }
 			<ReportFilters { ...props } />
 			{ !! window.wcAdminFeatures?.[ 'analytics-scheduled-import' ] && (

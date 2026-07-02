@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Infrastructure;
+namespace Automattic\PooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Infrastructure;
 
 /**
  * Class resolver for the dummy code-API used by the GraphQL infrastructure

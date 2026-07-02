@@ -25,7 +25,7 @@ class EmptyContent extends Component {
 				src={ illustration }
 				width={ illustrationWidth }
 				height={ illustrationHeight }
-				className="woocommerce-empty-content__illustration"
+				className="poocommerce-empty-content__illustration"
 			/>
 		);
 	}
@@ -50,7 +50,7 @@ class EmptyContent extends Component {
 		if ( actionURL && actionCallback ) {
 			return (
 				<Button
-					className="woocommerce-empty-content__action"
+					className="poocommerce-empty-content__action"
 					variant={ buttonVariant }
 					onClick={ actionCallback }
 					href={ actionURL }
@@ -61,7 +61,7 @@ class EmptyContent extends Component {
 		} else if ( actionURL ) {
 			return (
 				<Button
-					className="woocommerce-empty-content__action"
+					className="poocommerce-empty-content__action"
 					variant={ buttonVariant }
 					href={ actionURL }
 				>
@@ -71,7 +71,7 @@ class EmptyContent extends Component {
 		} else if ( actionCallback ) {
 			return (
 				<Button
-					className="woocommerce-empty-content__action"
+					className="poocommerce-empty-content__action"
 					variant={ buttonVariant }
 					onClick={ actionCallback }
 				>
@@ -86,7 +86,7 @@ class EmptyContent extends Component {
 	renderActions() {
 		const { actionLabel, secondaryActionLabel } = this.props;
 		return (
-			<div className="woocommerce-empty-content__actions">
+			<div className="poocommerce-empty-content__actions">
 				{ actionLabel && this.renderActionButtons( 'primary' ) }
 				{ secondaryActionLabel &&
 					this.renderActionButtons( 'secondary' ) }
@@ -97,15 +97,15 @@ class EmptyContent extends Component {
 	render() {
 		const { className, title, message, illustration } = this.props;
 		return (
-			<div className={ clsx( 'woocommerce-empty-content', className ) }>
+			<div className={ clsx( 'poocommerce-empty-content', className ) }>
 				{ illustration && this.renderIllustration() }
 				{ title ? (
-					<H className="woocommerce-empty-content__title">
+					<H className="poocommerce-empty-content__title">
 						{ title }
 					</H>
 				) : null }
 				{ message ? (
-					<p className="woocommerce-empty-content__message">
+					<p className="poocommerce-empty-content__message">
 						{ message }
 					</p>
 				) : null }

@@ -1,11 +1,11 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Admin\API\Reports\Orders\Stats;
+namespace Automattic\PooCommerce\Tests\Admin\API\Reports\Orders\Stats;
 
-use Automattic\WooCommerce\Admin\API\Reports\Orders\Stats\DataStore as OrdersStatsDataStore;
-use Automattic\WooCommerce\Caches\OrderCache;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Admin\API\Reports\Orders\Stats\DataStore as OrdersStatsDataStore;
+use Automattic\PooCommerce\Caches\OrderCache;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 use WC_Helper_Order;
 use WC_Unit_Test_Case;
 use WP_Error;
@@ -16,14 +16,14 @@ use WP_Error;
 class DataStoreTest extends WC_Unit_Test_Case {
 
 	/**
-	 * Previous woocommerce_db_version for restore.
+	 * Previous poocommerce_db_version for restore.
 	 *
 	 * @var mixed
 	 */
 	private $previous_db_version;
 
 	/**
-	 * Previous woocommerce_analytics_uses_old_full_refund_data for restore.
+	 * Previous poocommerce_analytics_uses_old_full_refund_data for restore.
 	 *
 	 * @var mixed
 	 */
@@ -34,8 +34,8 @@ class DataStoreTest extends WC_Unit_Test_Case {
 	 */
 	public function setUp(): void {
 		parent::setUp();
-		$this->previous_db_version           = get_option( 'woocommerce_db_version' );
-		$this->previous_old_full_refund_flag = get_option( 'woocommerce_analytics_uses_old_full_refund_data' );
+		$this->previous_db_version           = get_option( 'poocommerce_db_version' );
+		$this->previous_old_full_refund_flag = get_option( 'poocommerce_analytics_uses_old_full_refund_data' );
 	}
 
 	/**
@@ -43,14 +43,14 @@ class DataStoreTest extends WC_Unit_Test_Case {
 	 */
 	public function tearDown(): void {
 		if ( false !== $this->previous_db_version ) {
-			update_option( 'woocommerce_db_version', $this->previous_db_version );
+			update_option( 'poocommerce_db_version', $this->previous_db_version );
 		} else {
-			delete_option( 'woocommerce_db_version' );
+			delete_option( 'poocommerce_db_version' );
 		}
 		if ( false !== $this->previous_old_full_refund_flag ) {
-			update_option( 'woocommerce_analytics_uses_old_full_refund_data', $this->previous_old_full_refund_flag );
+			update_option( 'poocommerce_analytics_uses_old_full_refund_data', $this->previous_old_full_refund_flag );
 		} else {
-			delete_option( 'woocommerce_analytics_uses_old_full_refund_data' );
+			delete_option( 'poocommerce_analytics_uses_old_full_refund_data' );
 		}
 		parent::tearDown();
 	}
@@ -59,8 +59,8 @@ class DataStoreTest extends WC_Unit_Test_Case {
 	 * @testdox Lump-sum full refund without _refund_type stores parent product net in order stats.
 	 */
 	public function test_lump_sum_full_refund_without_refund_type_uses_parent_net_total(): void {
-		update_option( 'woocommerce_db_version', '10.2.0' );
-		update_option( 'woocommerce_analytics_uses_old_full_refund_data', 'no' );
+		update_option( 'poocommerce_db_version', '10.2.0' );
+		update_option( 'poocommerce_analytics_uses_old_full_refund_data', 'no' );
 
 		$order = WC_Helper_Order::create_order();
 		// Add cart tax so we assert tax and shipping are both stripped from net, not only shipping.

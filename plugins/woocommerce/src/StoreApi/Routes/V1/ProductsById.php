@@ -1,9 +1,9 @@
 <?php // phpcs:ignore Generic.PHP.RequireStrictTypes.MissingDeclaration
-namespace Automattic\WooCommerce\StoreApi\Routes\V1;
+namespace Automattic\PooCommerce\StoreApi\Routes\V1;
 
-use Automattic\WooCommerce\Enums\ProductStatus;
-use Automattic\WooCommerce\StoreApi\Exceptions\RouteException;
-use Automattic\WooCommerce\StoreApi\Utilities\ProductLinksTrait;
+use Automattic\PooCommerce\Enums\ProductStatus;
+use Automattic\PooCommerce\StoreApi\Exceptions\RouteException;
+use Automattic\PooCommerce\StoreApi\Utilities\ProductLinksTrait;
 
 /**
  * ProductsById class.
@@ -52,7 +52,7 @@ class ProductsById extends AbstractRoute {
 		return [
 			'args'   => array(
 				'id' => array(
-					'description' => __( 'Unique identifier for the resource.', 'woocommerce' ),
+					'description' => __( 'Unique identifier for the resource.', 'poocommerce' ),
 					'type'        => 'integer',
 				),
 			),
@@ -84,7 +84,7 @@ class ProductsById extends AbstractRoute {
 		$object = wc_get_product( (int) $request['id'] );
 
 		if ( ! $object || 0 === $object->get_id() || ProductStatus::PUBLISH !== $object->get_status() ) {
-			throw new RouteException( 'woocommerce_rest_product_invalid_id', __( 'Invalid product ID.', 'woocommerce' ), 404 );
+			throw new RouteException( 'poocommerce_rest_product_invalid_id', __( 'Invalid product ID.', 'poocommerce' ), 404 );
 		}
 
 		// A variation's visibility follows its parent product.
@@ -92,7 +92,7 @@ class ProductsById extends AbstractRoute {
 			$parent = wc_get_product( $object->get_parent_id() );
 
 			if ( ! $parent || ProductStatus::PUBLISH !== $parent->get_status() ) {
-				throw new RouteException( 'woocommerce_rest_product_invalid_id', __( 'Invalid product ID.', 'woocommerce' ), 404 ); // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- REST API JSON response, not HTML.
+				throw new RouteException( 'poocommerce_rest_product_invalid_id', __( 'Invalid product ID.', 'poocommerce' ), 404 ); // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- REST API JSON response, not HTML.
 			}
 		}
 

@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\GraphQL\Utils;
+namespace Automattic\PooCommerce\Vendor\GraphQL\Utils;
 
 /**
  * A way to keep track of pairs of things when the ordering of the pair does

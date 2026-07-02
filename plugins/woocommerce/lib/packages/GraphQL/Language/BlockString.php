@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\GraphQL\Language;
+namespace Automattic\PooCommerce\Vendor\GraphQL\Language;
 
-use Automattic\WooCommerce\Vendor\GraphQL\Utils\Utils;
+use Automattic\PooCommerce\Vendor\GraphQL\Utils\Utils;
 
 /**
- * @see \Automattic\WooCommerce\Vendor\GraphQL\Tests\Language\BlockStringTest
+ * @see \Automattic\PooCommerce\Vendor\GraphQL\Tests\Language\BlockStringTest
  */
 class BlockString
 {
@@ -13,7 +13,7 @@ class BlockString
      * Produces the value of a block string from its parsed raw value, similar to
      * CoffeeScript's block string, Python's docstring trim or Ruby's strip_heredoc.
      *
-     * This implements the Automattic\WooCommerce\Vendor\GraphQL spec's BlockStringValue() static algorithm.
+     * This implements the Automattic\PooCommerce\Vendor\GraphQL spec's BlockStringValue() static algorithm.
      */
     public static function dedentBlockStringLines(string $rawString): string
     {

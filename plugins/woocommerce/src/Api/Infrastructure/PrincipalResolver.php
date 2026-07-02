@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Api\Infrastructure;
+namespace Automattic\PooCommerce\Api\Infrastructure;
 
 /**
- * Default principal resolver for the WooCommerce dual code+GraphQL API.
+ * Default principal resolver for the PooCommerce dual code+GraphQL API.
  *
  * Plugins that implement their own API and authenticate against something
  * other than WordPress users (e.g. an app token) must ship their own resolver

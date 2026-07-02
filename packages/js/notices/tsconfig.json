@@ -1,5 +1,5 @@
 {
-	"extends": "@woocommerce/internal-build/configs/tsconfig.json",
+	"extends": "@poocommerce/internal-build/configs/tsconfig.json",
 	"compilerOptions": {
 		"rootDir": "src",
 		"outDir": "build-module",

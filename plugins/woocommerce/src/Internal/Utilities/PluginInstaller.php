@@ -1,16 +1,16 @@
 <?php
 
-namespace Automattic\WooCommerce\Internal\Utilities;
+namespace Automattic\PooCommerce\Internal\Utilities;
 
-use Automattic\WooCommerce\Internal\RegisterHooksInterface;
-use Automattic\WooCommerce\Utilities\{ PluginUtil, StringUtil };
+use Automattic\PooCommerce\Internal\RegisterHooksInterface;
+use Automattic\PooCommerce\Utilities\{ PluginUtil, StringUtil };
 
 /**
  * This class allows installing a plugin programmatically.
  *
- * Information about plugins installed in that way will be stored in a 'woocommerce_autoinstalled_plugins' option,
+ * Information about plugins installed in that way will be stored in a 'poocommerce_autoinstalled_plugins' option,
  * and a notice will be shown under the plugin name in the plugins list indicating that it was automatically
- * installed (these notices can be disabled with the 'woocommerce_show_autoinstalled_plugin_notices' hook).
+ * installed (these notices can be disabled with the 'poocommerce_show_autoinstalled_plugin_notices' hook).
  *
  * Currently it's only possible to install new plugins, not to upgrade or reinstall already installed plugins.
  *
@@ -41,14 +41,14 @@ class PluginInstaller implements RegisterHooksInterface {
 	 * $metadata can contain anything, but the following keys are recognized by the code that renders the notice
 	 * in the plugins list:
 	 *
-	 * - 'installed_by': defaults to 'WooCommerce' if not present.
+	 * - 'installed_by': defaults to 'PooCommerce' if not present.
 	 * - 'info_link': if present, a "More information" link will be included in the notice.
 	 *
-	 * If 'installed_by' is supplied and it's not 'WooCommerce' (case-insensitive), an exception will be thrown
-	 * if the code calling this method is not in a WooCommerce core file (in 'includes' or in 'src').
+	 * If 'installed_by' is supplied and it's not 'PooCommerce' (case-insensitive), an exception will be thrown
+	 * if the code calling this method is not in a PooCommerce core file (in 'includes' or in 'src').
 	 *
 	 * Information about plugins successfully installed with this method will be kept in an option named
-	 * 'woocommerce_autoinstalled_plugins'. Keys will be the plugin name and values will be associative arrays
+	 * 'poocommerce_autoinstalled_plugins'. Keys will be the plugin name and values will be associative arrays
 	 * with these keys: 'plugin_name', 'version', 'date' and 'metadata' (same meaning as in the returned array).
 	 *
 	 * A log entry will be created with the result of the process and all the installer messages
@@ -69,26 +69,26 @@ class PluginInstaller implements RegisterHooksInterface {
 	 * @param string $plugin_url URL or file path of the plugin to install.
 	 * @param array  $metadata Metadata to store if the installation succeeds.
 	 * @return array Information about the installation result.
-	 * @throws \InvalidArgumentException Source doesn't start with 'https://downloads.wordpress.org/', or installer name is 'WooCommerce' but caller is not WooCommerce core code.
+	 * @throws \InvalidArgumentException Source doesn't start with 'https://downloads.wordpress.org/', or installer name is 'PooCommerce' but caller is not PooCommerce core code.
 	 */
 	public function install_plugin( string $plugin_url, array $metadata = array() ): array {
 		$this->installing_plugin = true;
 
-		$plugins_being_installed = get_site_option( 'woocommerce_autoinstalling_plugins', array() );
+		$plugins_being_installed = get_site_option( 'poocommerce_autoinstalling_plugins', array() );
 		if ( in_array( $plugin_url, $plugins_being_installed, true ) ) {
 			return array( 'already_installing' => true );
 		}
 		$plugins_being_installed[] = $plugin_url;
-		update_site_option( 'woocommerce_autoinstalling_plugins', $plugins_being_installed );
+		update_site_option( 'poocommerce_autoinstalling_plugins', $plugins_being_installed );
 
 		try {
 			return $this->install_plugin_core( $plugin_url, $metadata );
 		} finally {
 			$plugins_being_installed = array_diff( $plugins_being_installed, array( $plugin_url ) );
 			if ( empty( $plugins_being_installed ) ) {
-				delete_site_option( 'woocommerce_autoinstalling_plugins' );
+				delete_site_option( 'poocommerce_autoinstalling_plugins' );
 			} else {
-				update_site_option( 'woocommerce_autoinstalling_plugins', $plugins_being_installed );
+				update_site_option( 'poocommerce_autoinstalling_plugins', $plugins_being_installed );
 			}
 
 			$this->installing_plugin = false;
@@ -101,19 +101,19 @@ class PluginInstaller implements RegisterHooksInterface {
 	 * @param string $plugin_url URL or file path of the plugin to install.
 	 * @param array  $metadata Metadata to store if the installation succeeds.
 	 * @return array Information about the installation result.
-	 * @throws \InvalidArgumentException Source doesn't start with 'https://downloads.wordpress.org/', or installer name is 'WooCommerce' but caller is not WooCommerce core code.
+	 * @throws \InvalidArgumentException Source doesn't start with 'https://downloads.wordpress.org/', or installer name is 'PooCommerce' but caller is not PooCommerce core code.
 	 */
 	private function install_plugin_core( string $plugin_url, array $metadata ): array {
 		if ( ! StringUtil::starts_with( $plugin_url, 'https://downloads.wordpress.org/', false ) ) {
 			throw new \InvalidArgumentException( "Only installs from the WordPress.org plugins directory (plugin URL starting with 'https://downloads.wordpress.org/') are allowed." );
 		}
 
-		$installed_by = $metadata['installed_by'] ?? 'WooCommerce';
-		if ( 0 === strcasecmp( 'WooCommerce', $installed_by ) ) {
+		$installed_by = $metadata['installed_by'] ?? 'PooCommerce';
+		if ( 0 === strcasecmp( 'PooCommerce', $installed_by ) ) {
 			// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_debug_backtrace
 			$calling_file = StringUtil::normalize_local_path_slashes( debug_backtrace()[1]['file'] ?? '' ); // [1], not [0], because the immediate caller is the install_plugin method.
 			if ( ! StringUtil::starts_with( $calling_file, StringUtil::normalize_local_path_slashes( WC_ABSPATH . 'includes/' ) ) && ! StringUtil::starts_with( $calling_file, StringUtil::normalize_local_path_slashes( WC_ABSPATH . 'src/' ) ) ) {
-				throw new \InvalidArgumentException( "If the value of 'installed_by' is 'WooCommerce', the caller of the method must be a WooCommerce core class or function." );
+				throw new \InvalidArgumentException( "If the value of 'installed_by' is 'PooCommerce', the caller of the method must be a PooCommerce core class or function." );
 			}
 		}
 
@@ -148,14 +148,14 @@ class PluginInstaller implements RegisterHooksInterface {
 				$plugin_data['metadata'] = $metadata;
 			}
 
-			$auto_installed_plugins                 = get_site_option( 'woocommerce_autoinstalled_plugins', array() );
+			$auto_installed_plugins                 = get_site_option( 'poocommerce_autoinstalled_plugins', array() );
 			$auto_installed_plugins[ $plugin_name ] = $plugin_data;
-			update_site_option( 'woocommerce_autoinstalled_plugins', $auto_installed_plugins );
+			update_site_option( 'poocommerce_autoinstalled_plugins', $auto_installed_plugins );
 
-			$auto_installed_plugins_history = get_site_option( 'woocommerce_history_of_autoinstalled_plugins', array() );
+			$auto_installed_plugins_history = get_site_option( 'poocommerce_history_of_autoinstalled_plugins', array() );
 			if ( ! isset( $auto_installed_plugins_history[ $plugin_name ] ) ) {
 				$auto_installed_plugins_history[ $plugin_name ] = $plugin_data;
-				update_site_option( 'woocommerce_history_of_autoinstalled_plugins', $auto_installed_plugins_history );
+				update_site_option( 'poocommerce_history_of_autoinstalled_plugins', $auto_installed_plugins_history );
 			}
 
 			$post_install = function () use ( $plugin_name, $plugin_version, $installed_by, $plugin_url, $plugin_data ) {
@@ -178,10 +178,10 @@ class PluginInstaller implements RegisterHooksInterface {
 		}
 
 		if ( is_multisite() ) {
-			// We log the install in the main site, unless the main site doesn't have WooCommerce installed;
+			// We log the install in the main site, unless the main site doesn't have PooCommerce installed;
 			// in that case we fallback to logging in the current site.
 			switch_to_blog( get_main_site_id() );
-			if ( self::woocommerce_is_active_in_current_site() ) {
+			if ( self::poocommerce_is_active_in_current_site() ) {
 				$post_install();
 				restore_current_blog();
 			} else {
@@ -197,31 +197,31 @@ class PluginInstaller implements RegisterHooksInterface {
 	}
 
 	/**
-	 * Check if WooCommerce is installed and active in the current blog.
+	 * Check if PooCommerce is installed and active in the current blog.
 	 * This is useful for multisite installs when a blog other than the one running this code is selected with 'switch_to_blog'.
 	 *
-	 * @return bool True if WooCommerce is installed and active in the current blog, false otherwise.
+	 * @return bool True if PooCommerce is installed and active in the current blog, false otherwise.
 	 */
-	private static function woocommerce_is_active_in_current_site(): bool {
+	private static function poocommerce_is_active_in_current_site(): bool {
 		$active_valid_plugins = wc_get_container()->get( PluginUtil::class )->get_all_active_valid_plugins();
 
 		return ! empty(
 			array_filter(
 				$active_valid_plugins,
-				fn( $plugin ) => substr_compare( $plugin, '/woocommerce.php', -strlen( '/woocommerce.php' ) ) === 0
+				fn( $plugin ) => substr_compare( $plugin, '/poocommerce.php', -strlen( '/poocommerce.php' ) ) === 0
 			)
 		);
 	}
 
 	/**
 	 * Handler for the 'plugin_list_rows' hook, it will display a notice under the name of the plugins
-	 * that have been installed using this class (unless the 'woocommerce_show_autoinstalled_plugin_notices' filter
+	 * that have been installed using this class (unless the 'poocommerce_show_autoinstalled_plugin_notices' filter
 	 * returns false) in the plugins list page.
 	 *
 	 * @param string $plugin_file Name of the plugin.
 	 * @param array  $plugin_data Plugin data.
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 */
 	public function handle_plugin_list_rows( $plugin_file, $plugin_data ) {
 		global $wp_list_table;
@@ -238,24 +238,24 @@ class PluginInstaller implements RegisterHooksInterface {
 		 * @param bool $display_notice Whether notices should be displayed or not.
 		 * @returns bool
 		 */
-		if ( ! apply_filters( 'woocommerce_show_autoinstalled_plugin_notices', '__return_true' ) ) {
+		if ( ! apply_filters( 'poocommerce_show_autoinstalled_plugin_notices', '__return_true' ) ) {
 			return;
 		}
 
-		$auto_installed_plugins_info = get_site_option( 'woocommerce_autoinstalled_plugins', array() );
+		$auto_installed_plugins_info = get_site_option( 'poocommerce_autoinstalled_plugins', array() );
 		$current_plugin_info         = $auto_installed_plugins_info[ $plugin_file ] ?? null;
 		if ( is_null( $current_plugin_info ) || $current_plugin_info['version'] !== $plugin_data['Version'] ) {
 			return;
 		}
 
-		$installed_by = $current_plugin_info['metadata']['installed_by'] ?? 'WooCommerce';
+		$installed_by = $current_plugin_info['metadata']['installed_by'] ?? 'PooCommerce';
 		$info_link    = $current_plugin_info['metadata']['info_link'] ?? null;
 		if ( $info_link ) {
 			/* translators: 1 = who installed the plugin, 2 = ISO-formatted date and time, 3 = URL */
-			$message = sprintf( __( 'Plugin installed by %1$s on %2$s. <a target="_blank" href="%3$s">More information</a>', 'woocommerce' ), $installed_by, $current_plugin_info['date'], $info_link );
+			$message = sprintf( __( 'Plugin installed by %1$s on %2$s. <a target="_blank" href="%3$s">More information</a>', 'poocommerce' ), $installed_by, $current_plugin_info['date'], $info_link );
 		} else {
 			/* translators: 1 = who installed the plugin, 2 = ISO-formatted date and time */
-			$message = sprintf( __( 'Plugin installed by %1$s on %2$s.', 'woocommerce' ), $installed_by, $current_plugin_info['date'] );
+			$message = sprintf( __( 'Plugin installed by %1$s on %2$s.', 'poocommerce' ), $installed_by, $current_plugin_info['date'] );
 		}
 
 		$columns_count      = $wp_list_table->get_column_count();
@@ -286,14 +286,14 @@ class PluginInstaller implements RegisterHooksInterface {
 	 * @param \WP_Upgrader $upgrader The upgrader class that has performed the plugin upgrade/reinstall.
 	 * @param array        $hook_extra Extra information about the upgrade process.
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 */
 	public function handle_upgrader_process_complete( \WP_Upgrader $upgrader, array $hook_extra ) {
 		if ( $this->installing_plugin || ! ( $upgrader instanceof \Plugin_Upgrader ) || ( 'plugin' !== ( $hook_extra['type'] ?? null ) ) ) {
 			return;
 		}
 
-		$auto_installed_plugins = get_site_option( 'woocommerce_autoinstalled_plugins' );
+		$auto_installed_plugins = get_site_option( 'poocommerce_autoinstalled_plugins' );
 		if ( ! $auto_installed_plugins ) {
 			return;
 		}
@@ -314,9 +314,9 @@ class PluginInstaller implements RegisterHooksInterface {
 		$new_auto_installed_plugins = array_diff_key( $auto_installed_plugins, array_flip( $updated_auto_installed_plugin_names ) );
 
 		if ( empty( $new_auto_installed_plugins ) ) {
-			delete_site_option( 'woocommerce_autoinstalled_plugins' );
+			delete_site_option( 'poocommerce_autoinstalled_plugins' );
 		} else {
-			update_site_option( 'woocommerce_autoinstalled_plugins', $new_auto_installed_plugins );
+			update_site_option( 'poocommerce_autoinstalled_plugins', $new_auto_installed_plugins );
 		}
 	}
 }

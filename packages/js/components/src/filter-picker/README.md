@@ -6,7 +6,7 @@ Modify a url query parameter via a dropdown selection of configurable options. T
 ## Usage
 
 ```jsx
-import { FilterPicker } from '@woocommerce/components';
+import { FilterPicker } from '@poocommerce/components';
 
 const renderFilterPicker = () => {
 	const config = {

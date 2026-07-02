@@ -1,14 +1,14 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\GraphQL\Executor\Promise\Adapter;
+namespace Automattic\PooCommerce\Vendor\GraphQL\Executor\Promise\Adapter;
 
 use Amp\Deferred;
 use Amp\Failure;
 use Amp\Promise as AmpPromise;
 use Amp\Success;
-use Automattic\WooCommerce\Vendor\GraphQL\Error\InvariantViolation;
-use Automattic\WooCommerce\Vendor\GraphQL\Executor\Promise\Promise;
-use Automattic\WooCommerce\Vendor\GraphQL\Executor\Promise\PromiseAdapter;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\InvariantViolation;
+use Automattic\PooCommerce\Vendor\GraphQL\Executor\Promise\Promise;
+use Automattic\PooCommerce\Vendor\GraphQL\Executor\Promise\PromiseAdapter;
 
 use function Amp\Promise\all;
 

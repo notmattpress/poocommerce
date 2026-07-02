@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Types;
+namespace Automattic\PooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Types;
 
-use Automattic\WooCommerce\Api\Attributes\HiddenFromMetadataQuery;
-use Automattic\WooCommerce\Api\Attributes\Metadata;
-use Automattic\WooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Attributes\GrantsIfMetadataFlag;
+use Automattic\PooCommerce\Api\Attributes\HiddenFromMetadataQuery;
+use Automattic\PooCommerce\Api\Attributes\Metadata;
+use Automattic\PooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Attributes\GrantsIfMetadataFlag;
 
 /**
  * Output type for the runtime-metadata-visibility regression. The type, one of
- * its fields, and the query that returns it ({@see \Automattic\WooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Queries\HiddenFlaggedQuery})
+ * its fields, and the query that returns it ({@see \Automattic\PooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Queries\HiddenFlaggedQuery})
  * all opt out of `_apiMetadata` via `#[HiddenFromMetadataQuery]` while carrying
  * a `runtime_flag` metadata entry. Each gated field reads a different
  * `$_metadata` slice and must still grant, proving the discovery opt-out does

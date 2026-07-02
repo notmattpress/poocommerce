@@ -3,27 +3,27 @@
  * CapabilityRegistry - the WordPress-facing gateway capability entry point.
  *
  * Payment gateways declare their subscription capabilities here (the engine's
- * counterpart to WooCommerce's feature-compatibility declarations), and the
+ * counterpart to PooCommerce's feature-compatibility declarations), and the
  * engine reads the declarations to gate behavior such as renewal scheduling and
  * payment-method change. This class is the public, gateway-author-facing
  * surface; it delegates the actual storage to the WordPress-free Core class
- * {@see \Automattic\WooCommerce\SubscriptionsEngine\Core\Gateway\GatewayCapabilities}
+ * {@see \Automattic\PooCommerce\SubscriptionsEngine\Core\Gateway\GatewayCapabilities}
  * and adds the live-gateway lookup, the override filter, and the ready-hook
  * wiring on top.
  *
- * Integration zone: WordPress-native. May use WooCommerce.
+ * Integration zone: WordPress-native. May use PooCommerce.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine\Integration\Gateway
+ * @package Automattic\PooCommerce\SubscriptionsEngine\Integration\Gateway
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Integration\Gateway;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Integration\Gateway;
 
 use WC_Order;
 use WC_Payment_Gateway;
 use WC_Payment_Gateways;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Gateway\GatewayCapabilities;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Gateway\GatewayCapabilities;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -40,20 +40,20 @@ final class CapabilityRegistry {
 	 * gateways (where capability resolution depends on the merchant account
 	 * routing the order) flip a capability on or off here per order.
 	 */
-	public const CAPABILITY_CHECK_FILTER = 'woocommerce_subscriptions_engine_gateway_capability_check';
+	public const CAPABILITY_CHECK_FILTER = 'poocommerce_subscriptions_engine_gateway_capability_check';
 
 	/**
 	 * Action fired once capability resolution is stable for the request.
 	 *
 	 * Gateways declare in the canonical declaration window
-	 * (`before_woocommerce_init`); WooCommerce finishes loading afterwards.
+	 * (`before_poocommerce_init`); PooCommerce finishes loading afterwards.
 	 * Consumers that resolve capabilities should wait for this action so the
 	 * live-gateway step has a populated registry to read.
 	 */
-	public const CAPABILITIES_READY_ACTION = 'woocommerce_subscriptions_engine_capabilities_ready';
+	public const CAPABILITIES_READY_ACTION = 'poocommerce_subscriptions_engine_capabilities_ready';
 
 	/**
-	 * `woocommerce_loaded` priority for the ready dispatch.
+	 * `poocommerce_loaded` priority for the ready dispatch.
 	 *
 	 * Set after the priority used by gateway integration frameworks that inject
 	 * capability flags onto the live gateway instance, so the live-gateway step
@@ -70,7 +70,7 @@ final class CapabilityRegistry {
 	private static $initialized = false;
 
 	/**
-	 * Wire the ready dispatch onto `woocommerce_loaded`.
+	 * Wire the ready dispatch onto `poocommerce_loaded`.
 	 *
 	 * Idempotent: safe to call from more than one consumer's boot.
 	 */
@@ -82,7 +82,7 @@ final class CapabilityRegistry {
 		self::$initialized = true;
 
 		add_action(
-			'woocommerce_loaded',
+			'poocommerce_loaded',
 			static function (): void {
 				do_action( self::CAPABILITIES_READY_ACTION );
 			},
@@ -93,7 +93,7 @@ final class CapabilityRegistry {
 	/**
 	 * Register a gateway's declared capabilities.
 	 *
-	 * Call from a gateway's `before_woocommerce_init` hook. Each entry must be
+	 * Call from a gateway's `before_poocommerce_init` hook. Each entry must be
 	 * one of the flag constants on {@see GatewayCapabilities}; an unknown flag
 	 * throws there so a typo surfaces at registration. Re-declaration replaces.
 	 *
@@ -113,7 +113,7 @@ final class CapabilityRegistry {
 	 *     most explicit signal: the gateway author told us up front.
 	 *  2. The live gateway instance's `$supports` array, for frameworks that
 	 *     inject capability flags onto the instance during their own init rather
-	 *     than at class-load time. Skipped silently when WooCommerce is not
+	 *     than at class-load time. Skipped silently when PooCommerce is not
 	 *     loaded yet or the gateway is not in the registry.
 	 *  3. The {@see self::CAPABILITY_CHECK_FILTER} filter, which is always the
 	 *     final word: it receives the steps-1-2 result and the `$context` order,
@@ -157,9 +157,9 @@ final class CapabilityRegistry {
 	/**
 	 * Read the live gateway instance's `$supports` array (resolution step 2).
 	 *
-	 * WooCommerce initializes its gateway registry on `woocommerce_loaded`, so
+	 * PooCommerce initializes its gateway registry on `poocommerce_loaded`, so
 	 * the lookup is empty for callers running before that fires. That is not an
-	 * error: "WooCommerce is not loaded yet" reduces cleanly to "the gateway
+	 * error: "PooCommerce is not loaded yet" reduces cleanly to "the gateway
 	 * does not claim that capability via the instance path."
 	 *
 	 * @param string $gateway_id Gateway identifier.

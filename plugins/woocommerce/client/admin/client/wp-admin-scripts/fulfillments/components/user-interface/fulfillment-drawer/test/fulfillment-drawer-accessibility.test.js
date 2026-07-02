@@ -126,7 +126,7 @@ describe( 'FulfillmentDrawer Accessibility', () => {
 		);
 
 		const backdrop = document.querySelector(
-			'.woocommerce-fulfillment-drawer__backdrop'
+			'.poocommerce-fulfillment-drawer__backdrop'
 		);
 		expect( backdrop ).toHaveAttribute( 'role', 'presentation' );
 		expect( backdrop ).toHaveAttribute( 'aria-hidden', 'false' );
@@ -152,7 +152,7 @@ describe( 'FulfillmentDrawer Accessibility', () => {
 		// The drawer panel should be focusable and have proper attributes
 		const dialog = screen.getByRole( 'dialog' );
 		expect( dialog ).toHaveAttribute( 'tabindex', '-1' );
-		expect( dialog ).toHaveClass( 'woocommerce-fulfillment-drawer__panel' );
+		expect( dialog ).toHaveClass( 'poocommerce-fulfillment-drawer__panel' );
 
 		// Clean up
 		document.body.style.overflow = originalBodyOverflow;

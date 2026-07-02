@@ -2,10 +2,10 @@
  * External dependencies
  */
 import { Button } from '@wordpress/components';
-import { TreeSelectControl } from '@woocommerce/components';
+import { TreeSelectControl } from '@poocommerce/components';
 import { __ } from '@wordpress/i18n';
 import { useDispatch, useSelect } from '@wordpress/data';
-import { paymentGatewaysStore, paymentSettingsStore } from '@woocommerce/data';
+import { paymentGatewaysStore, paymentSettingsStore } from '@poocommerce/data';
 import { useState, useEffect, useMemo } from '@wordpress/element';
 import { DataForm } from '@wordpress/dataviews';
 import type { Field } from '@wordpress/dataviews';
@@ -88,43 +88,43 @@ export const SettingsPaymentsCod = () => {
 		() => [
 			{
 				id: 'enabled',
-				label: __( 'Enable cash on delivery payments', 'woocommerce' ),
+				label: __( 'Enable cash on delivery payments', 'poocommerce' ),
 				Edit: CheckboxEdit,
 			},
 			{
 				id: 'title',
-				label: __( 'Title', 'woocommerce' ),
+				label: __( 'Title', 'poocommerce' ),
 				description: __(
 					'Payment method name that the customer will see during checkout.',
-					'woocommerce'
+					'poocommerce'
 				),
-				placeholder: __( 'Cash on delivery payments', 'woocommerce' ),
+				placeholder: __( 'Cash on delivery payments', 'poocommerce' ),
 				Edit: TextEdit,
 			},
 			{
 				id: 'description',
-				label: __( 'Description', 'woocommerce' ),
+				label: __( 'Description', 'poocommerce' ),
 				description: __(
 					'Payment method description that the customer will see during checkout.',
-					'woocommerce'
+					'poocommerce'
 				),
 				Edit: TextareaEdit,
 			},
 			{
 				id: 'instructions',
-				label: __( 'Instructions', 'woocommerce' ),
+				label: __( 'Instructions', 'poocommerce' ),
 				description: __(
 					'Instructions that will be added to the thank you page and emails.',
-					'woocommerce'
+					'poocommerce'
 				),
 				Edit: TextareaEdit,
 			},
 			{
 				id: 'enable_for_methods',
-				label: __( 'Enable for shipping methods', 'woocommerce' ),
+				label: __( 'Enable for shipping methods', 'poocommerce' ),
 				description: __(
 					'Select shipping methods for which this payment method is enabled.',
-					'woocommerce'
+					'poocommerce'
 				),
 				// COD-specific edit control: renders the shipping methods
 				// multi-select using the options that ship with the gateway.
@@ -146,10 +146,10 @@ export const SettingsPaymentsCod = () => {
 			},
 			{
 				id: 'enable_for_virtual',
-				label: __( 'Accept for virtual orders', 'woocommerce' ),
+				label: __( 'Accept for virtual orders', 'poocommerce' ),
 				description: __(
 					'Accept cash on delivery if the order is virtual',
-					'woocommerce'
+					'poocommerce'
 				),
 				Edit: CheckboxEdit,
 			},
@@ -182,12 +182,12 @@ export const SettingsPaymentsCod = () => {
 				setHasChanges( false );
 				invalidateResolutionForStoreSelector( 'getPaymentGateway' );
 				createSuccessNotice(
-					__( 'Settings updated successfully', 'woocommerce' )
+					__( 'Settings updated successfully', 'poocommerce' )
 				);
 			} )
 			.catch( () => {
 				createErrorNotice(
-					__( 'Failed to update settings', 'woocommerce' )
+					__( 'Failed to update settings', 'poocommerce' )
 				);
 			} )
 			.finally( () => {
@@ -209,10 +209,10 @@ export const SettingsPaymentsCod = () => {
 					} }
 				>
 					<Settings.Section
-						title={ __( 'Enable and customise', 'woocommerce' ) }
+						title={ __( 'Enable and customise', 'poocommerce' ) }
 						description={ __(
 							'Choose how you want to present cash on delivery payments to your customers during checkout.',
-							'woocommerce'
+							'poocommerce'
 						) }
 					>
 						{ isLoading ? (
@@ -256,7 +256,7 @@ export const SettingsPaymentsCod = () => {
 							isBusy={ isSaving }
 							disabled={ isSaving || ! hasChanges }
 						>
-							{ __( 'Save changes', 'woocommerce' ) }
+							{ __( 'Save changes', 'poocommerce' ) }
 						</Button>
 					</Settings.Actions>
 				</Settings.Form>

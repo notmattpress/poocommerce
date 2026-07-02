@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Email;
+namespace Automattic\PooCommerce\Tests\Internal\Email;
 
-use Automattic\WooCommerce\Internal\Email\OrderPriceFormatter;
+use Automattic\PooCommerce\Internal\Email\OrderPriceFormatter;
 use WC_Helper_Order;
 use WC_Helper_Product;
 use WC_Order_Item_Product;
@@ -13,7 +13,7 @@ use WC_Unit_Test_Case;
 /**
  * OrderPriceFormatter test.
  *
- * @covers \Automattic\WooCommerce\Internal\Email\OrderPriceFormatter
+ * @covers \Automattic\PooCommerce\Internal\Email\OrderPriceFormatter
  */
 class OrderPriceFormatterTest extends WC_Unit_Test_Case {
 
@@ -58,7 +58,7 @@ class OrderPriceFormatterTest extends WC_Unit_Test_Case {
 		);
 
 		// Enable tax as a requirement of the "exlucding tax" label to be shown in `wc_price`.
-		update_option( 'woocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
 
 		// Test with prices including tax and 20% tax rate.
 		$order->set_prices_include_tax( true );

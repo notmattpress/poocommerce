@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { createClient } from '@woocommerce/e2e-utils-playwright';
+import { createClient } from '@poocommerce/e2e-utils-playwright';
 
 /**
  * Internal dependencies
@@ -225,7 +225,7 @@ export async function applyWooEmailTemplate(
 ): Promise< ApplyResult > {
 	const client = apiClient();
 	const res = await client.post(
-		`woocommerce-email-editor/v1/emails/${ postId }/apply`,
+		`poocommerce-email-editor/v1/emails/${ postId }/apply`,
 		{ choices } as Record< string, unknown >
 	);
 	if ( ! res?.data?.status ) {
@@ -250,7 +250,7 @@ export type ResetResult = {
 /**
  * Call the /reset endpoint for a woo_email post using basic-auth credentials,
  * bypassing the cookie+nonce requirement of the WP REST API for authenticated
- * cookie sessions. Resets the post content to the canonical WooCommerce template.
+ * cookie sessions. Resets the post content to the canonical PooCommerce template.
  *
  * Note: unlike applyWooEmailTemplate whose `status` field is "applied", the
  * reset endpoint returns the post-reset sync status (e.g. "in_sync") in the
@@ -261,7 +261,7 @@ export async function resetWooEmailTemplate(
 ): Promise< ResetResult > {
 	const client = apiClient();
 	const res = await client.post(
-		`woocommerce-email-editor/v1/emails/${ postId }/reset`,
+		`poocommerce-email-editor/v1/emails/${ postId }/reset`,
 		{}
 	);
 	if ( res?.data?.content === undefined ) {

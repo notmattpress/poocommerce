@@ -3,7 +3,7 @@
  */
 import { render, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 import { removeAllFilters } from '@wordpress/hooks';
 import { useSelect } from '@wordpress/data';
 
@@ -63,10 +63,10 @@ global.fetch = jest.fn().mockImplementation( () =>
 	} )
 );
 
-jest.mock( '@woocommerce/tracks', () => ( { recordEvent: jest.fn() } ) );
+jest.mock( '@poocommerce/tracks', () => ( { recordEvent: jest.fn() } ) );
 
 const confirmModalText =
-	'We’ll import images from WooCommerce.com to set up your sample products.';
+	'We’ll import images from PooCommerce.com to set up your sample products.';
 
 describe( 'Products', () => {
 	beforeEach( () => {
@@ -279,15 +279,15 @@ describe( 'Products', () => {
 		const { container } = render( <Products /> );
 
 		expect(
-			container.getElementsByClassName( 'woocommerce-products-stack' )
+			container.getElementsByClassName( 'poocommerce-products-stack' )
 				.length
 		).toBeGreaterThanOrEqual( 1 );
 	} );
 
-	it( 'should trigger event tasklist_add_product_visit_marketplace_click when clicking the WooCommerce Marketplace link', () => {
+	it( 'should trigger event tasklist_add_product_visit_marketplace_click when clicking the PooCommerce Marketplace link', () => {
 		const { getByText } = render( <Products /> );
 
-		userEvent.click( getByText( 'the WooCommerce Marketplace' ) );
+		userEvent.click( getByText( 'the PooCommerce Marketplace' ) );
 
 		expect( recordEvent ).toHaveBeenCalledWith(
 			'tasklist_add_product_visit_marketplace_click',
@@ -295,7 +295,7 @@ describe( 'Products', () => {
 		);
 	} );
 
-	it( 'should navigate to the marketplace when clicking the WooCommerce Marketplace link', async () => {
+	it( 'should navigate to the marketplace when clicking the PooCommerce Marketplace link', async () => {
 		const { isFeatureEnabled } = jest.requireMock( '~/utils/features' );
 		( isFeatureEnabled as jest.Mock ).mockReturnValue( true );
 
@@ -306,7 +306,7 @@ describe( 'Products', () => {
 
 		const { getByText } = render( <Products /> );
 
-		userEvent.click( getByText( 'the WooCommerce Marketplace' ) );
+		userEvent.click( getByText( 'the PooCommerce Marketplace' ) );
 		expect( mockLocation.href ).toContain(
 			'admin.php?page=wc-admin&tab=extensions&path=/extensions&category=merchandising'
 		);
@@ -334,7 +334,7 @@ describe( 'Products', () => {
 			( useSelect as jest.Mock ).mockImplementation( ( callback ) =>
 				callback( () => ( {
 					getInstalledPlugins: () => [
-						'printful-shipping-for-woocommerce',
+						'printful-shipping-for-poocommerce',
 					],
 					isPluginsRequesting: () => false,
 				} ) )

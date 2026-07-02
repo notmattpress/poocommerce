@@ -145,5 +145,5 @@ export const getItemName = (
 			.alt;
 	}
 
-	return __( 'Item', 'woocommerce' );
+	return __( 'Item', 'poocommerce' );
 };

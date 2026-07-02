@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { __ } from '@wordpress/i18n';
-import NoticeBanner from '@woocommerce/base-components/notice-banner';
+import NoticeBanner from '@poocommerce/base-components/notice-banner';
 
 /**
  * Internal dependencies
@@ -21,7 +21,7 @@ const NoPaymentMethods = () => {
 		>
 			{ __(
 				'There are no payment methods available. Please contact us for help placing your order.',
-				'woocommerce'
+				'poocommerce'
 			) }
 		</NoticeBanner>
 	);

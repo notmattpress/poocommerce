@@ -3,7 +3,7 @@ title: wc product_attribute
 sidebar_label: wc product_attribute
 ---
 
-Manage WooCommerce product attribute resources.
+Manage PooCommerce product attribute resources.
 
 ## wc product_attribute list
 

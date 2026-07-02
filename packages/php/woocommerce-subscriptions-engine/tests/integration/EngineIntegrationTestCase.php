@@ -5,12 +5,12 @@
  * Schema is installed once in the bootstrap; WP_UnitTestCase wraps each test in
  * a transaction and rolls it back, so test rows do not leak between tests.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine
+ * @package Automattic\PooCommerce\SubscriptionsEngine
  */
 
 declare( strict_types=1 );
 
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Gateway\GatewayCapabilities;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Gateway\GatewayCapabilities;
 
 /**
  * Engine integration test case.
@@ -26,7 +26,7 @@ abstract class EngineIntegrationTestCase extends WP_UnitTestCase {
 
 	public function tear_down(): void {
 		foreach ( $this->approved_gateways as $gateway ) {
-			remove_all_actions( 'woocommerce_subscriptions_engine_scheduled_payment_' . $gateway );
+			remove_all_actions( 'poocommerce_subscriptions_engine_scheduled_payment_' . $gateway );
 		}
 		$this->approved_gateways = array();
 
@@ -44,7 +44,7 @@ abstract class EngineIntegrationTestCase extends WP_UnitTestCase {
 		GatewayCapabilities::declare( $gateway, array( GatewayCapabilities::RECURRING ) );
 
 		add_action(
-			'woocommerce_subscriptions_engine_scheduled_payment_' . $gateway,
+			'poocommerce_subscriptions_engine_scheduled_payment_' . $gateway,
 			static function ( $amount, $renewal_order ): void {
 				unset( $amount );
 				if ( $renewal_order instanceof WC_Order && $renewal_order->needs_payment() ) {

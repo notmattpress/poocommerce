@@ -2,34 +2,34 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Api\Interfaces;
+namespace Automattic\PooCommerce\Api\Interfaces;
 
-use Automattic\WooCommerce\Api\Attributes\ArrayOf;
-use Automattic\WooCommerce\Api\Attributes\ConnectionOf;
-use Automattic\WooCommerce\Api\Attributes\Deprecated;
-use Automattic\WooCommerce\Api\Attributes\Description;
-use Automattic\WooCommerce\Api\Attributes\Ignore;
-use Automattic\WooCommerce\Api\Attributes\Name;
-use Automattic\WooCommerce\Api\Attributes\Parameter;
-use Automattic\WooCommerce\Api\Attributes\ParameterDescription;
-use Automattic\WooCommerce\Api\Attributes\ScalarType;
-use Automattic\WooCommerce\Api\Enums\Products\ProductStatus;
-use Automattic\WooCommerce\Api\Enums\Products\ProductType;
-use Automattic\WooCommerce\Api\Enums\Products\StockStatus;
-use Automattic\WooCommerce\Api\Pagination\Connection;
-use Automattic\WooCommerce\Api\Scalars\DateTime;
-use Automattic\WooCommerce\Api\Types\Products\ProductDimensions;
-use Automattic\WooCommerce\Api\Types\Products\ProductAttribute;
-use Automattic\WooCommerce\Api\Types\Products\ProductImage;
-use Automattic\WooCommerce\Api\Types\Products\ProductReview;
+use Automattic\PooCommerce\Api\Attributes\ArrayOf;
+use Automattic\PooCommerce\Api\Attributes\ConnectionOf;
+use Automattic\PooCommerce\Api\Attributes\Deprecated;
+use Automattic\PooCommerce\Api\Attributes\Description;
+use Automattic\PooCommerce\Api\Attributes\Ignore;
+use Automattic\PooCommerce\Api\Attributes\Name;
+use Automattic\PooCommerce\Api\Attributes\Parameter;
+use Automattic\PooCommerce\Api\Attributes\ParameterDescription;
+use Automattic\PooCommerce\Api\Attributes\ScalarType;
+use Automattic\PooCommerce\Api\Enums\Products\ProductStatus;
+use Automattic\PooCommerce\Api\Enums\Products\ProductType;
+use Automattic\PooCommerce\Api\Enums\Products\StockStatus;
+use Automattic\PooCommerce\Api\Pagination\Connection;
+use Automattic\PooCommerce\Api\Scalars\DateTime;
+use Automattic\PooCommerce\Api\Types\Products\ProductDimensions;
+use Automattic\PooCommerce\Api\Types\Products\ProductAttribute;
+use Automattic\PooCommerce\Api\Types\Products\ProductImage;
+use Automattic\PooCommerce\Api\Types\Products\ProductReview;
 
 /**
- * Interface trait for WooCommerce products.
+ * Interface trait for PooCommerce products.
  *
  * Defines the common fields shared by all product types.
  */
 #[Name( 'Product' )]
-#[Description( 'A WooCommerce product.' )]
+#[Description( 'A PooCommerce product.' )]
 trait Product {
 	use ObjectWithId;
 
@@ -99,11 +99,11 @@ trait Product {
 	public ProductType $product_type;
 
 	/**
-	 * The raw product type as stored in WooCommerce. Useful when product_type is OTHER.
+	 * The raw product type as stored in PooCommerce. Useful when product_type is OTHER.
 	 *
 	 * @var string
 	 */
-	#[Description( 'The raw product type as stored in WooCommerce. Useful when product_type is OTHER (e.g. plugin-added types like subscription, bundle).' )]
+	#[Description( 'The raw product type as stored in PooCommerce. Useful when product_type is OTHER (e.g. plugin-added types like subscription, bundle).' )]
 	public string $raw_product_type;
 
 	/**
@@ -134,11 +134,11 @@ trait Product {
 	public StockStatus $stock_status;
 
 	/**
-	 * The raw stock status as stored in WooCommerce. Useful when stock_status is OTHER.
+	 * The raw stock status as stored in PooCommerce. Useful when stock_status is OTHER.
 	 *
 	 * @var string
 	 */
-	#[Description( 'The raw stock status as stored in WooCommerce. Useful when stock_status is OTHER (e.g. plugin-added statuses).' )]
+	#[Description( 'The raw stock status as stored in PooCommerce. Useful when stock_status is OTHER (e.g. plugin-added statuses).' )]
 	public string $raw_stock_status;
 
 	/**

@@ -1,8 +1,8 @@
-# WooCommerce Analytics
+# PooCommerce Analytics
 
 ## Overview
 
-Enhanced analytics package for WooCommerce stores with comprehensive frontend tracking for Automattic based projects.
+Enhanced analytics package for PooCommerce stores with comprehensive frontend tracking for Automattic based projects.
 
 ### Key Features
 
@@ -31,25 +31,25 @@ add_action(
 
 The package only starts tracking when:
 
--   WooCommerce 3.0 or higher is active and installed
+-   PooCommerce 3.0 or higher is active and installed
 -   Jetpack is connected (Phase 1 requirement — will be decoupled in Phase 2)
 -   In site page context (not admin, ajax, xmlrpc, login, feed, cli, etc.)
 
 ### Requirements
 
 -   WordPress 5.0+
--   WooCommerce 3.0+
+-   PooCommerce 3.0+
 -   PHP 7.4+
 
 ### Package Installation
 
-This package lives in the WooCommerce monorepo at `packages/php/woocommerce-analytics/`.
-It is included as a Composer dependency of the WooCommerce plugin — no separate installation is needed.
+This package lives in the PooCommerce monorepo at `packages/php/poocommerce-analytics/`.
+It is included as a Composer dependency of the PooCommerce plugin — no separate installation is needed.
 
 For standalone use outside the monorepo, add to your `composer.json`:
 
 ```bash
-composer require automattic/woocommerce-analytics
+composer require automattic/poocommerce-analytics
 ```
 
 ## Configuration
@@ -62,14 +62,14 @@ Enable advanced features using WordPress filters:
 
 ```php
 // Enable ClickHouse event tracking
-add_filter( 'woocommerce_analytics_clickhouse_enabled', '__return_true' );
+add_filter( 'poocommerce_analytics_clickhouse_enabled', '__return_true' );
 ```
 
 #### Proxy Tracking (Experimental)
 
 ```php
 // Enable proxy tracking for enhanced privacy and performance
-add_filter( 'woocommerce_analytics_experimental_proxy_tracking_enabled', '__return_true' );
+add_filter( 'poocommerce_analytics_experimental_proxy_tracking_enabled', '__return_true' );
 ```
 
 ## Privacy & Consent Management
@@ -149,7 +149,7 @@ Each event includes contextual data such as:
 ### PHP Backend
 
 -   **`Woocommerce_Analytics`** - Main initialization class
--   **`Universal`** - Core tracking logic and WooCommerce hooks
+-   **`Universal`** - Core tracking logic and PooCommerce hooks
 -   **`My_Account`** - Account-specific event tracking
 -   **`WC_Analytics_Tracking`** - Event queuing and processing
 -   **`Features`** - Feature flag management
@@ -165,13 +165,13 @@ Each event includes contextual data such as:
 
 **PHP (Immediate)** events:
 
-1. WooCommerce action/hook triggers PHP method
+1. PooCommerce action/hook triggers PHP method
 2. `WC_Analytics_Tracking::record_event()` called directly
 3. Event sent immediately to Tracks and/or ClickHouse
 
 **PHP → JS Queue** events:
 
-1. WooCommerce action/hook triggers PHP method
+1. PooCommerce action/hook triggers PHP method
 2. Event queued via `enqueue_event()` method
 3. Queue injected into page via `window.wcAnalytics.eventQueue`
 4. Frontend JavaScript processes queue and sends to `_wca` tracking pixel if proxy tracking is disabled, otherwise sent to Proxy API endpoint
@@ -198,20 +198,20 @@ The package uses a hierarchical approach to identify users for analytics:
 
 **Session Management:**
 
--   Session cookies (`woocommerceanalytics_session`) expire after 30 minutes or at midnight UTC (whichever comes first)
+-   Session cookies (`poocommerceanalytics_session`) expire after 30 minutes or at midnight UTC (whichever comes first)
 -   Used for tracking user journey within a session (separate from user identification)
 -   Contains session ID, landing page, and engagement status
 
 ## Development
 
-This package is part of the [WooCommerce monorepo](https://github.com/woocommerce/woocommerce).
+This package is part of the [PooCommerce monorepo](https://github.com/poocommerce/poocommerce).
 
 ```bash
 # From the monorepo root
-pnpm --filter=@automattic/woocommerce-analytics run build
-pnpm --filter=@automattic/woocommerce-analytics run typecheck
+pnpm --filter=@automattic/poocommerce-analytics run build
+pnpm --filter=@automattic/poocommerce-analytics run typecheck
 
-# Or from within packages/php/woocommerce-analytics/
+# Or from within packages/php/poocommerce-analytics/
 pnpm run build
 pnpm run watch
 ```
@@ -229,7 +229,7 @@ When proxy tracking is enabled:
 
 #### API Endpoint
 
--   **URL**: `/wp-json/woocommerce-analytics/v1/track`
+-   **URL**: `/wp-json/poocommerce-analytics/v1/track`
 -   **Method**: POST
 -   **Permission**: No authentication required
 -   **Content-Type**: `application/json`
@@ -244,7 +244,7 @@ When proxy tracking is enabled:
 
 **Server-Side Optimizations:**
 
-The package includes an optional MU plugin (`woocommerce-analytics-proxy-speed-module.php`) that significantly improves proxy performance by only loading WooCommerce, WooCommerce Analytics, and Jetpack for proxy requests
+The package includes an optional MU plugin (`poocommerce-analytics-proxy-speed-module.php`) that significantly improves proxy performance by only loading PooCommerce, PooCommerce Analytics, and Jetpack for proxy requests
 
 ### Debugging
 
@@ -261,4 +261,4 @@ Need to report a security vulnerability? Go to [https://automattic.com/security/
 
 ## License
 
-woocommerce-analytics is licensed under [GNU General Public License v2 (or later)](./LICENSE.txt)
+poocommerce-analytics is licensed under [GNU General Public License v2 (or later)](./LICENSE.txt)

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Api\Attributes;
+namespace Automattic\PooCommerce\Api\Attributes;
 
 use Attribute;
 

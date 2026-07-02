@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { useQueryLoopProductContextValidation } from '@woocommerce/base-hooks';
+import { useQueryLoopProductContextValidation } from '@poocommerce/base-hooks';
 import {
 	RecursionProvider,
 	useBlockProps,
@@ -23,7 +23,7 @@ function Placeholder( { layoutClassNames } ) {
 			<p>
 				{ __(
 					'This block displays the product description. When viewing a product page, the description content will automatically appear here.',
-					'woocommerce'
+					'poocommerce'
 				) }
 			</p>
 		</div>
@@ -44,7 +44,7 @@ function Content( props ) {
 	return content?.protected ? (
 		<div { ...blockProps }>
 			<Warning>
-				{ __( 'This content is password protected.', 'woocommerce' ) }
+				{ __( 'This content is password protected.', 'poocommerce' ) }
 			</Warning>
 		</div>
 	) : (
@@ -62,7 +62,7 @@ function RecursionError() {
 			<Warning>
 				{ __(
 					'Block cannot be rendered inside itself.',
-					'woocommerce'
+					'poocommerce'
 				) }
 			</Warning>
 		</div>
@@ -81,7 +81,7 @@ export default function ProductDescriptionEdit( {
 		useQueryLoopProductContextValidation( {
 			clientId,
 			postType: contextPostType,
-			blockName: __( 'Product Description', 'woocommerce' ),
+			blockName: __( 'Product Description', 'poocommerce' ),
 		} );
 	if ( hasInvalidContext ) {
 		return warningElement;

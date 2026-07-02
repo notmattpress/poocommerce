@@ -45,7 +45,7 @@ export const startWPEnv = async (
 	try {
 		// Stop wp-env if its already running.
 		await execAsync( 'wp-env stop', {
-			cwd: join( tmpRepoPath, 'plugins/woocommerce' ),
+			cwd: join( tmpRepoPath, 'plugins/poocommerce' ),
 			encoding: 'utf-8',
 		} );
 	} catch ( e ) {
@@ -60,7 +60,7 @@ export const startWPEnv = async (
 		}
 
 		await execAsync( 'wp-env start', {
-			cwd: join( tmpRepoPath, 'plugins/woocommerce' ),
+			cwd: join( tmpRepoPath, 'plugins/poocommerce' ),
 			encoding: 'utf-8',
 		} );
 		return true;
@@ -87,7 +87,7 @@ export const stopWPEnv = async (
 ): Promise< boolean > => {
 	try {
 		await execAsync( 'wp-env stop', {
-			cwd: join( tmpRepoPath, 'plugins/woocommerce' ),
+			cwd: join( tmpRepoPath, 'plugins/poocommerce' ),
 			encoding: 'utf-8',
 		} );
 		return true;

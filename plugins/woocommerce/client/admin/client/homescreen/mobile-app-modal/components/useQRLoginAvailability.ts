@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { useState, useEffect } from '@wordpress/element';
-import { WC_ADMIN_NAMESPACE } from '@woocommerce/data';
+import { WC_ADMIN_NAMESPACE } from '@poocommerce/data';
 import apiFetch from '@wordpress/api-fetch';
 
 /**

@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Enums\OrderInternalStatus;
-use Automattic\WooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
-use Automattic\WooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
-use Automattic\WooCommerce\Internal\Utilities\Users;
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\CustomerHelper;
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Enums\OrderInternalStatus;
+use Automattic\PooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
+use Automattic\PooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
+use Automattic\PooCommerce\Internal\Utilities\Users;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\CustomerHelper;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
 
 /**
  * Class WC_Customer_Data_Store_CPT_Test.
@@ -44,7 +44,7 @@ class WC_Customer_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 	/**
 	 * Test that metadata cannot overwrite customer's column data.
 	 *
-	 * @link https://github.com/woocommerce/woocommerce/issues/28100
+	 * @link https://github.com/poocommerce/poocommerce/issues/28100
 	 */
 	public function test_meta_data_cannot_overwrite_column_data() {
 		$customer    = WC_Helper_Customer::create_customer();
@@ -69,8 +69,8 @@ class WC_Customer_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 	 * stripping the backslash. The customer fix in PR #65643 only stops the Store API schema from
 	 * unslashing; the meta-persistence layer still corrupts the value for logged-in users.
 	 *
-	 * @link https://github.com/woocommerce/woocommerce/issues/58214
-	 * @link https://github.com/woocommerce/woocommerce/pull/65643#pullrequestreview-4485832478
+	 * @link https://github.com/poocommerce/poocommerce/issues/58214
+	 * @link https://github.com/poocommerce/poocommerce/pull/65643#pullrequestreview-4485832478
 	 */
 	public function test_backslash_in_address_survives_save_and_read(): void {
 		$customer = WC_Helper_Customer::create_customer();

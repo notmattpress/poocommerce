@@ -16,7 +16,7 @@ import '../../../../../atomic/blocks/product-elements/title/index';
 import '../../../../product-template/index';
 import '../../../../product-collection/index';
 
-// Register core blocks and WooCommerce blocks needed for the test
+// Register core blocks and PooCommerce blocks needed for the test
 beforeAll( () => {
 	registerCoreBlocks();
 } );
@@ -27,10 +27,10 @@ describe( 'createCrossSellsProductCollection transform function', () => {
 
 		// Test block type and collection identifier
 		expect( transformedBlock.name ).toBe(
-			'woocommerce/product-collection'
+			'poocommerce/product-collection'
 		);
 		expect( transformedBlock.attributes.collection ).toBe(
-			'woocommerce/product-collection/cross-sells'
+			'poocommerce/product-collection/cross-sells'
 		);
 
 		// Test that cross-sells attributes are preserved exactly

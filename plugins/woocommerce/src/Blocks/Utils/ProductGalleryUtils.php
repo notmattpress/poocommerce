@@ -1,7 +1,7 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\Utils;
+namespace Automattic\PooCommerce\Blocks\Utils;
 
-use Automattic\WooCommerce\Internal\VariationGallery\Package as VariationGalleryPackage;
+use Automattic\PooCommerce\Internal\VariationGallery\Package as VariationGalleryPackage;
 
 /**
  * Utility methods used for the Product Gallery block.
@@ -16,7 +16,7 @@ class ProductGalleryUtils {
 	 */
 	public static function get_all_image_ids( $product ) {
 		if ( ! $product instanceof \WC_Product ) {
-			wc_doing_it_wrong( __FUNCTION__, __( 'Invalid product object.', 'woocommerce' ), '9.8.0' );
+			wc_doing_it_wrong( __FUNCTION__, __( 'Invalid product object.', 'poocommerce' ), '9.8.0' );
 			return array();
 		}
 
@@ -93,7 +93,7 @@ class ProductGalleryUtils {
 				'sizes'  => $sizes ? $sizes : '',
 				'alt'    => $alt ? $alt : sprintf(
 					/* translators: 1: Product title 2: Image number */
-					__( '%1$s - Image %2$d', 'woocommerce' ),
+					__( '%1$s - Image %2$d', 'poocommerce' ),
 					$product_title,
 					$index + 1
 				),
@@ -113,7 +113,7 @@ class ProductGalleryUtils {
 		$variation_image_ids = array();
 
 		if ( ! $product instanceof \WC_Product ) {
-			wc_doing_it_wrong( __FUNCTION__, __( 'Invalid product object.', 'woocommerce' ), '9.8.0' );
+			wc_doing_it_wrong( __FUNCTION__, __( 'Invalid product object.', 'poocommerce' ), '9.8.0' );
 			return $variation_image_ids;
 		}
 
@@ -145,7 +145,7 @@ class ProductGalleryUtils {
 		$variation_gallery_data = array();
 
 		if ( ! $product instanceof \WC_Product ) {
-			wc_doing_it_wrong( __FUNCTION__, __( 'Invalid product object.', 'woocommerce' ), '10.8.0' );
+			wc_doing_it_wrong( __FUNCTION__, __( 'Invalid product object.', 'poocommerce' ), '10.8.0' );
 			return $variation_gallery_data;
 		}
 

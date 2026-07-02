@@ -399,7 +399,7 @@ body {
 		}
 	}
 
-	.woocommerce-newsletter,
+	.poocommerce-newsletter,
 	.updated {
 		padding: 24px 24px 0;
 		margin: 0 0 24px;
@@ -478,7 +478,7 @@ body {
 	}
 }
 
-.woocommerce-tracker {
+.poocommerce-tracker {
 	margin: 24px 0;
 	border: 1px solid #eee;
 	padding: 20px;
@@ -509,7 +509,7 @@ body {
 		line-height: 1.5;
 	}
 
-	.woocommerce-tracker-checkbox label {
+	.poocommerce-tracker-checkbox label {
 		margin-top: -4px;
 		display: inline-block;
 	}
@@ -592,7 +592,7 @@ body {
 }
 
 .wc-setup .wc-setup-actions .button-primary,
-.woocommerce-tracker .button-primary {
+.poocommerce-tracker .button-primary {
 	background-color: $primary;
 	border-color: $primary;
 	box-shadow: 0 0 0;
@@ -1232,7 +1232,7 @@ h3.jetpack-reasons {
 	margin-bottom: 1px;
 }
 
-#woocommerce_sell_in_person {
+#poocommerce_sell_in_person {
 	margin-left: 0;
 	margin-top: calc(0.85em / 2);
 }
@@ -1374,7 +1374,7 @@ p.jetpack-terms {
 	line-height: 1.5;
 }
 
-.woocommerce-error {
+.poocommerce-error {
 	background: #ffe6e5;
 	border-color: #ffc5c2;
 	padding: 1em;
@@ -1515,7 +1515,7 @@ p.jetpack-terms {
 			padding: calc( ( 3.5em - 2em ) / 2 );
 		}
 
-		&.recommended-item-icon-woocommerce_services {
+		&.recommended-item-icon-poocommerce_services {
 			background-color: #f0f0f0;
 			max-height: 1.5em;
 			padding: 1.3em 0.7em;

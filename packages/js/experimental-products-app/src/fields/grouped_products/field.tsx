@@ -9,7 +9,7 @@ import type { DataFormControlProps, Field } from '@wordpress/dataviews';
 import { useEffect, useMemo, useRef, useState } from '@wordpress/element';
 import { decodeEntities } from '@wordpress/html-entities';
 import { __ } from '@wordpress/i18n';
-import type { Product } from '@woocommerce/data';
+import type { Product } from '@poocommerce/data';
 
 /**
  * Internal dependencies
@@ -38,7 +38,7 @@ function productToItem(
 		value: product.id.toString(),
 		label:
 			decodeEntities( product.name ?? '' ) ||
-			__( '(Untitled product)', 'woocommerce' ),
+			__( '(Untitled product)', 'poocommerce' ),
 		image: thumbnail?.src
 			? { src: thumbnail.src, alt: thumbnail.alt ?? '' }
 			: undefined,
@@ -188,7 +188,7 @@ function GroupedProductsEdit( {
 	const emptyContent = isSearching ? (
 		<Spinner />
 	) : (
-		__( 'No products found.', 'woocommerce' )
+		__( 'No products found.', 'poocommerce' )
 	);
 
 	return (
@@ -200,7 +200,7 @@ function GroupedProductsEdit( {
 			onValueChange={ handleValueChange }
 			inputValue={ inputValue }
 			onInputValueChange={ setInputValue }
-			searchPlaceholder={ __( 'Search', 'woocommerce' ) }
+			searchPlaceholder={ __( 'Search', 'poocommerce' ) }
 			disabled={ isLoadingSelected }
 			emptyContent={ emptyContent }
 			placeholderChip={
@@ -217,10 +217,10 @@ function GroupedProductsEdit( {
 								<img
 									src={ item.image.src }
 									alt={ item.image.alt ?? '' }
-									className="woocommerce-grouped-products-edit__chip-thumbnail"
+									className="poocommerce-grouped-products-edit__chip-thumbnail"
 								/>
 							) : (
-								<span className="woocommerce-grouped-products-edit__chip-thumbnail woocommerce-grouped-products-edit__chip-thumbnail--empty" />
+								<span className="poocommerce-grouped-products-edit__chip-thumbnail poocommerce-grouped-products-edit__chip-thumbnail--empty" />
 							)
 						}
 					>
@@ -235,9 +235,9 @@ function GroupedProductsEdit( {
 					value={ item }
 					disabled={ item.disabled }
 				>
-					<div className="woocommerce-grouped-products-edit__option">
+					<div className="poocommerce-grouped-products-edit__option">
 						<span
-							className="woocommerce-grouped-products-edit__option-indicator"
+							className="poocommerce-grouped-products-edit__option-indicator"
 							aria-hidden="true"
 						>
 							<BaseCombobox.ItemIndicator>
@@ -262,12 +262,12 @@ function GroupedProductsEdit( {
 							<img
 								src={ item.image.src }
 								alt={ item.image.alt ?? '' }
-								className="woocommerce-grouped-products-edit__option-thumbnail"
+								className="poocommerce-grouped-products-edit__option-thumbnail"
 							/>
 						) : (
-							<span className="woocommerce-grouped-products-edit__option-thumbnail woocommerce-grouped-products-edit__option-thumbnail--empty" />
+							<span className="poocommerce-grouped-products-edit__option-thumbnail poocommerce-grouped-products-edit__option-thumbnail--empty" />
 						) }
-						<span className="woocommerce-grouped-products-edit__option-label">
+						<span className="poocommerce-grouped-products-edit__option-label">
 							{ item.label }
 						</span>
 					</div>
@@ -278,7 +278,7 @@ function GroupedProductsEdit( {
 }
 
 const fieldDefinition = {
-	label: __( 'Grouped products', 'woocommerce' ),
+	label: __( 'Grouped products', 'poocommerce' ),
 	enableSorting: false,
 	enableHiding: false,
 	filterBy: false,

@@ -34,7 +34,7 @@ function findVariationAttr(
 }
 
 export const fieldExtensions: Partial< Field< ProductEntityRecord > > = {
-	label: __( 'Attributes', 'woocommerce' ),
+	label: __( 'Attributes', 'poocommerce' ),
 	enableSorting: false,
 	filterBy: false,
 	isVisible: ( item ) => !! item.parent_id,

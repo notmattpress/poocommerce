@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Internal\ProductFilters;
+namespace Automattic\PooCommerce\Tests\Internal\ProductFilters;
 
-use Automattic\WooCommerce\Internal\ProductFilters\CacheController;
-use Automattic\WooCommerce\Internal\ProductFilters\FilterDataProvider;
-use Automattic\WooCommerce\Internal\ProductFilters\QueryClauses;
+use Automattic\PooCommerce\Internal\ProductFilters\CacheController;
+use Automattic\PooCommerce\Internal\ProductFilters\FilterDataProvider;
+use Automattic\PooCommerce\Internal\ProductFilters\QueryClauses;
 
 /**
  * Tests for the filter-combination cache entry cap in FilterData.
@@ -16,7 +16,7 @@ class FilterDataCacheCapTest extends AbstractProductFiltersTest {
 	/**
 	 * System under test.
 	 *
-	 * @var \Automattic\WooCommerce\Internal\ProductFilters\FilterData
+	 * @var \Automattic\PooCommerce\Internal\ProductFilters\FilterData
 	 */
 	private $sut;
 
@@ -34,7 +34,7 @@ class FilterDataCacheCapTest extends AbstractProductFiltersTest {
 	 * Runs after each test.
 	 */
 	public function tearDown(): void {
-		remove_all_filters( 'woocommerce_product_filter_cache_max_entries' );
+		remove_all_filters( 'poocommerce_product_filter_cache_max_entries' );
 		delete_transient( CacheController::CACHE_ENTRY_COUNT_TRANSIENT );
 		parent::tearDown();
 	}
@@ -43,7 +43,7 @@ class FilterDataCacheCapTest extends AbstractProductFiltersTest {
 	 * @testdox When the cache cap is reached, new combinations are skipped.
 	 */
 	public function test_cache_cap_skips_new_entries_when_limit_reached() {
-		add_filter( 'woocommerce_product_filter_cache_max_entries', fn() => 2 );
+		add_filter( 'poocommerce_product_filter_cache_max_entries', fn() => 2 );
 
 		$vars_1 = array_filter(
 			( new \WP_Query(
@@ -85,7 +85,7 @@ class FilterDataCacheCapTest extends AbstractProductFiltersTest {
 	 * @testdox When the cap is 0 (disabled), no counter transient is written.
 	 */
 	public function test_cache_cap_disabled_when_max_entries_is_zero() {
-		add_filter( 'woocommerce_product_filter_cache_max_entries', '__return_zero' );
+		add_filter( 'poocommerce_product_filter_cache_max_entries', '__return_zero' );
 
 		$vars = array_filter( ( new \WP_Query( array( 'post_type' => 'product' ) ) )->query_vars );
 		$this->sut->get_stock_status_counts( $vars, array( 'instock', 'outofstock', 'onbackorder' ) );
@@ -97,7 +97,7 @@ class FilterDataCacheCapTest extends AbstractProductFiltersTest {
 	 * @testdox Cache invalidation resets the entry counter.
 	 */
 	public function test_invalidation_resets_entry_counter() {
-		add_filter( 'woocommerce_product_filter_cache_max_entries', fn() => 100 );
+		add_filter( 'poocommerce_product_filter_cache_max_entries', fn() => 100 );
 
 		$vars = array_filter( ( new \WP_Query( array( 'post_type' => 'product' ) ) )->query_vars );
 		$this->sut->get_stock_status_counts( $vars, array( 'instock', 'outofstock', 'onbackorder' ) );
@@ -113,7 +113,7 @@ class FilterDataCacheCapTest extends AbstractProductFiltersTest {
 	 * @testdox Counter increments for each filter type, not just each unique combo.
 	 */
 	public function test_counter_increments_per_filter_type_per_combo() {
-		add_filter( 'woocommerce_product_filter_cache_max_entries', fn() => 100 );
+		add_filter( 'poocommerce_product_filter_cache_max_entries', fn() => 100 );
 
 		$vars = array_filter( ( new \WP_Query( array( 'post_type' => 'product' ) ) )->query_vars );
 
@@ -129,7 +129,7 @@ class FilterDataCacheCapTest extends AbstractProductFiltersTest {
 	 * @testdox Cap is reached after fewer unique combos when multiple filter types are used.
 	 */
 	public function test_cap_reached_faster_with_multiple_filter_types() {
-		add_filter( 'woocommerce_product_filter_cache_max_entries', fn() => 5 );
+		add_filter( 'poocommerce_product_filter_cache_max_entries', fn() => 5 );
 
 		$vars_1 = array_filter(
 			( new \WP_Query(

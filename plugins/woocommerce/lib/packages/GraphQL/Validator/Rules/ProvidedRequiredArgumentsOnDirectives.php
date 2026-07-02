@@ -1,20 +1,20 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\GraphQL\Validator\Rules;
+namespace Automattic\PooCommerce\Vendor\GraphQL\Validator\Rules;
 
-use Automattic\WooCommerce\Vendor\GraphQL\Error\Error;
-use Automattic\WooCommerce\Vendor\GraphQL\Error\InvariantViolation;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\DirectiveDefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\DirectiveNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\NodeKind;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\NonNullTypeNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\Printer;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\Visitor;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\Argument;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\Directive;
-use Automattic\WooCommerce\Vendor\GraphQL\Validator\QueryValidationContext;
-use Automattic\WooCommerce\Vendor\GraphQL\Validator\SDLValidationContext;
-use Automattic\WooCommerce\Vendor\GraphQL\Validator\ValidationContext;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\Error;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\InvariantViolation;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\DirectiveDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\DirectiveNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\NodeKind;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\NonNullTypeNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\Printer;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\Visitor;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\Argument;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\Directive;
+use Automattic\PooCommerce\Vendor\GraphQL\Validator\QueryValidationContext;
+use Automattic\PooCommerce\Vendor\GraphQL\Validator\SDLValidationContext;
+use Automattic\PooCommerce\Vendor\GraphQL\Validator\ValidationContext;
 
 /**
  * Provided required arguments on directives.

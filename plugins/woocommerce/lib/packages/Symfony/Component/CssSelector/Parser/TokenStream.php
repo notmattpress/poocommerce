@@ -9,10 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Automattic\WooCommerce\Vendor\Symfony\Component\CssSelector\Parser;
+namespace Automattic\PooCommerce\Vendor\Symfony\Component\CssSelector\Parser;
 
-use Automattic\WooCommerce\Vendor\Symfony\Component\CssSelector\Exception\InternalErrorException;
-use Automattic\WooCommerce\Vendor\Symfony\Component\CssSelector\Exception\SyntaxErrorException;
+use Automattic\PooCommerce\Vendor\Symfony\Component\CssSelector\Exception\InternalErrorException;
+use Automattic\PooCommerce\Vendor\Symfony\Component\CssSelector\Exception\SyntaxErrorException;
 
 /**
  * CSS selector token stream.

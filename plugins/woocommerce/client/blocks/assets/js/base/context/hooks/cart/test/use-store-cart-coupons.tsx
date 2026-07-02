@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { renderHook, act } from '@testing-library/react';
-import { server, http, HttpResponse } from '@woocommerce/test-utils/msw';
+import { server, http, HttpResponse } from '@poocommerce/test-utils/msw';
 
 /**
  * Internal dependencies
@@ -16,7 +16,7 @@ jest.mock( '../../../../../data/cart/resolvers', () => {
 		getCartData: jest
 			.fn()
 			.mockResolvedValue(
-				jest.requireActual( '@woocommerce/resource-previews' )
+				jest.requireActual( '@poocommerce/resource-previews' )
 					.previewCart
 			),
 	};
@@ -205,7 +205,7 @@ describe( 'useStoreCartCoupons hook API integration', () => {
 
 						return HttpResponse.json(
 							{
-								code: 'woocommerce_rest_cart_coupon_error',
+								code: 'poocommerce_rest_cart_coupon_error',
 								message: 'Coupon "INVALID" does not exist!',
 								data: {
 									status: 400,

@@ -2,7 +2,7 @@
  * External dependencies
  */
 import type { Page } from '@playwright/test';
-import { createClient } from '@woocommerce/e2e-utils-playwright';
+import { createClient } from '@poocommerce/e2e-utils-playwright';
 import { expect } from '@playwright/test';
 
 /**
@@ -50,7 +50,7 @@ function apiClient() {
 
 /**
  * Attach a client+server Tracks spy to a Page. The client-side hook patches
- * `window.wcTracks.recordEvent` (the dispatch target used by `@woocommerce/tracks`)
+ * `window.wcTracks.recordEvent` (the dispatch target used by `@poocommerce/tracks`)
  * to capture events as they fire. The server-side mirror reads the
  * Tracks_Recorder log via the test-helper plugin's REST endpoint.
  *

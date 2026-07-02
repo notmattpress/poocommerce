@@ -5,10 +5,10 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\Notes;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\Notes;
 
-use Automattic\WooCommerce\Internal\Admin\Notes\ScheduledUpdatesPromotion;
-use Automattic\WooCommerce\Admin\Notes\Note;
+use Automattic\PooCommerce\Internal\Admin\Notes\ScheduledUpdatesPromotion;
+use Automattic\PooCommerce\Admin\Notes\Note;
 use WC_Unit_Test_Case;
 
 /**
@@ -42,14 +42,14 @@ class ScheduledUpdatesPromotionTest extends WC_Unit_Test_Case {
 	 */
 	public function test_is_applicable_returns_false_when_feature_disabled() {
 		// Disable the feature (it's enabled by default in feature-config.php).
-		add_filter( 'woocommerce_admin_features', array( $this, 'disable_feature' ) );
+		add_filter( 'poocommerce_admin_features', array( $this, 'disable_feature' ) );
 
 		// Delete option to simulate existing installation.
-		delete_option( 'woocommerce_analytics_scheduled_import' );
+		delete_option( 'poocommerce_analytics_scheduled_import' );
 
 		$this->assertFalse( ScheduledUpdatesPromotion::is_applicable() );
 
-		remove_filter( 'woocommerce_admin_features', array( $this, 'disable_feature' ) );
+		remove_filter( 'poocommerce_admin_features', array( $this, 'disable_feature' ) );
 	}
 
 	/**
@@ -57,14 +57,14 @@ class ScheduledUpdatesPromotionTest extends WC_Unit_Test_Case {
 	 */
 	public function test_is_applicable_returns_true_for_existing_installations() {
 		// Enable feature flag.
-		add_filter( 'woocommerce_admin_features', array( $this, 'enable_feature' ) );
+		add_filter( 'poocommerce_admin_features', array( $this, 'enable_feature' ) );
 
 		// Delete option to simulate existing installation (doesn't exist).
-		delete_option( 'woocommerce_analytics_scheduled_import' );
+		delete_option( 'poocommerce_analytics_scheduled_import' );
 
 		$this->assertTrue( ScheduledUpdatesPromotion::is_applicable() );
 
-		remove_filter( 'woocommerce_admin_features', array( $this, 'enable_feature' ) );
+		remove_filter( 'poocommerce_admin_features', array( $this, 'enable_feature' ) );
 	}
 
 	/**
@@ -72,14 +72,14 @@ class ScheduledUpdatesPromotionTest extends WC_Unit_Test_Case {
 	 */
 	public function test_is_applicable_returns_false_for_new_installations() {
 		// Enable feature flag.
-		add_filter( 'woocommerce_admin_features', array( $this, 'enable_feature' ) );
+		add_filter( 'poocommerce_admin_features', array( $this, 'enable_feature' ) );
 
 		// Set option to 'yes' to simulate new installation (scheduled enabled).
-		update_option( 'woocommerce_analytics_scheduled_import', 'yes' );
+		update_option( 'poocommerce_analytics_scheduled_import', 'yes' );
 
 		$this->assertFalse( ScheduledUpdatesPromotion::is_applicable() );
 
-		remove_filter( 'woocommerce_admin_features', array( $this, 'enable_feature' ) );
+		remove_filter( 'poocommerce_admin_features', array( $this, 'enable_feature' ) );
 	}
 
 	/**
@@ -87,10 +87,10 @@ class ScheduledUpdatesPromotionTest extends WC_Unit_Test_Case {
 	 */
 	public function test_get_note_returns_note_for_existing_installations() {
 		// Enable feature flag.
-		add_filter( 'woocommerce_admin_features', array( $this, 'enable_feature' ) );
+		add_filter( 'poocommerce_admin_features', array( $this, 'enable_feature' ) );
 
 		// Delete option to simulate existing installation (doesn't exist).
-		delete_option( 'woocommerce_analytics_scheduled_import' );
+		delete_option( 'poocommerce_analytics_scheduled_import' );
 
 		$note = ScheduledUpdatesPromotion::get_note();
 
@@ -103,7 +103,7 @@ class ScheduledUpdatesPromotionTest extends WC_Unit_Test_Case {
 		$this->assertCount( 1, $actions, 'Note should have 1 action' );
 		$this->assertEquals( 'scheduled-updates-enable', $actions[0]->name );
 
-		remove_filter( 'woocommerce_admin_features', array( $this, 'enable_feature' ) );
+		remove_filter( 'poocommerce_admin_features', array( $this, 'enable_feature' ) );
 	}
 
 	/**
@@ -111,15 +111,15 @@ class ScheduledUpdatesPromotionTest extends WC_Unit_Test_Case {
 	 */
 	public function test_get_note_returns_null_when_not_applicable() {
 		// Disable the feature (it's enabled by default in feature-config.php).
-		add_filter( 'woocommerce_admin_features', array( $this, 'disable_feature' ) );
+		add_filter( 'poocommerce_admin_features', array( $this, 'disable_feature' ) );
 
-		delete_option( 'woocommerce_analytics_scheduled_import' );
+		delete_option( 'poocommerce_analytics_scheduled_import' );
 
 		$note = ScheduledUpdatesPromotion::get_note();
 
 		$this->assertNull( $note );
 
-		remove_filter( 'woocommerce_admin_features', array( $this, 'disable_feature' ) );
+		remove_filter( 'poocommerce_admin_features', array( $this, 'disable_feature' ) );
 	}
 
 	/**
@@ -127,10 +127,10 @@ class ScheduledUpdatesPromotionTest extends WC_Unit_Test_Case {
 	 */
 	public function test_possibly_add_note_adds_note_for_existing_installations() {
 		// Enable feature flag.
-		add_filter( 'woocommerce_admin_features', array( $this, 'enable_feature' ) );
+		add_filter( 'poocommerce_admin_features', array( $this, 'enable_feature' ) );
 
 		// Delete option to simulate existing installation.
-		delete_option( 'woocommerce_analytics_scheduled_import' );
+		delete_option( 'poocommerce_analytics_scheduled_import' );
 
 		ScheduledUpdatesPromotion::possibly_add_note();
 
@@ -140,7 +140,7 @@ class ScheduledUpdatesPromotionTest extends WC_Unit_Test_Case {
 
 		$this->assertNotEmpty( $note_ids, 'Note should be created for existing installations' );
 
-		remove_filter( 'woocommerce_admin_features', array( $this, 'enable_feature' ) );
+		remove_filter( 'poocommerce_admin_features', array( $this, 'enable_feature' ) );
 	}
 
 	/**
@@ -148,10 +148,10 @@ class ScheduledUpdatesPromotionTest extends WC_Unit_Test_Case {
 	 */
 	public function test_possibly_add_note_prevents_duplicates() {
 		// Enable feature flag.
-		add_filter( 'woocommerce_admin_features', array( $this, 'enable_feature' ) );
+		add_filter( 'poocommerce_admin_features', array( $this, 'enable_feature' ) );
 
 		// Delete option to simulate existing installation.
-		delete_option( 'woocommerce_analytics_scheduled_import' );
+		delete_option( 'poocommerce_analytics_scheduled_import' );
 
 		// Add note first time.
 		ScheduledUpdatesPromotion::possibly_add_note();
@@ -165,7 +165,7 @@ class ScheduledUpdatesPromotionTest extends WC_Unit_Test_Case {
 
 		$this->assertCount( 1, $note_ids, 'Only one note should exist' );
 
-		remove_filter( 'woocommerce_admin_features', array( $this, 'enable_feature' ) );
+		remove_filter( 'poocommerce_admin_features', array( $this, 'enable_feature' ) );
 	}
 
 	/**
@@ -173,7 +173,7 @@ class ScheduledUpdatesPromotionTest extends WC_Unit_Test_Case {
 	 */
 	public function test_enable_action_updates_option() {
 		// Delete option to simulate existing installation.
-		delete_option( 'woocommerce_analytics_scheduled_import' );
+		delete_option( 'poocommerce_analytics_scheduled_import' );
 
 		// Get the note.
 		$note = ScheduledUpdatesPromotion::get_note();
@@ -184,7 +184,7 @@ class ScheduledUpdatesPromotionTest extends WC_Unit_Test_Case {
 		$promotion->enable_scheduled_updates( $note );
 
 		// Verify option was updated to 'yes' (scheduled enabled).
-		$this->assertEquals( 'yes', get_option( 'woocommerce_analytics_scheduled_import' ) );
+		$this->assertEquals( 'yes', get_option( 'poocommerce_analytics_scheduled_import' ) );
 	}
 
 	/**
@@ -192,7 +192,7 @@ class ScheduledUpdatesPromotionTest extends WC_Unit_Test_Case {
 	 */
 	public function test_enable_action_ignores_wrong_note() {
 		// Delete option to simulate existing installation.
-		delete_option( 'woocommerce_analytics_scheduled_import' );
+		delete_option( 'poocommerce_analytics_scheduled_import' );
 
 		// Create a different note.
 		$other_note = new Note();
@@ -203,7 +203,7 @@ class ScheduledUpdatesPromotionTest extends WC_Unit_Test_Case {
 		$promotion->enable_scheduled_updates( $other_note );
 
 		// Verify option was NOT updated (still null/doesn't exist).
-		$this->assertFalse( get_option( 'woocommerce_analytics_scheduled_import' ), 'Option should not exist' );
+		$this->assertFalse( get_option( 'poocommerce_analytics_scheduled_import' ), 'Option should not exist' );
 	}
 
 	/**
@@ -217,13 +217,13 @@ class ScheduledUpdatesPromotionTest extends WC_Unit_Test_Case {
 		$note_ids   = $data_store->get_notes_with_name( ScheduledUpdatesPromotion::NOTE_NAME );
 
 		foreach ( $note_ids as $note_id ) {
-			$note = \Automattic\WooCommerce\Admin\Notes\Notes::get_note( $note_id );
+			$note = \Automattic\PooCommerce\Admin\Notes\Notes::get_note( $note_id );
 			if ( $note ) {
 				$note->delete();
 			}
 		}
 
 		// Reset options.
-		delete_option( 'woocommerce_analytics_scheduled_import' );
+		delete_option( 'poocommerce_analytics_scheduled_import' );
 	}
 }

@@ -1,15 +1,15 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Email\Unsubscribes;
+namespace Automattic\PooCommerce\Tests\Internal\Email\Unsubscribes;
 
-use Automattic\WooCommerce\Internal\Email\Unsubscribes\Storage;
+use Automattic\PooCommerce\Internal\Email\Unsubscribes\Storage;
 use WC_Unit_Test_Case;
 
 /**
  * Storage test.
  *
- * @covers \Automattic\WooCommerce\Internal\Email\Unsubscribes\Storage
+ * @covers \Automattic\PooCommerce\Internal\Email\Unsubscribes\Storage
  */
 class StorageTest extends WC_Unit_Test_Case {
 

@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { registerBlockType } from '@wordpress/blocks';
-import { toggle } from '@woocommerce/icons';
+import { toggle } from '@poocommerce/icons';
 import { Icon } from '@wordpress/icons';
 import clsx from 'clsx';
 import { useBlockProps } from '@wordpress/block-editor';

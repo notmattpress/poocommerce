@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Queries;
+namespace Automattic\PooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Queries;
 
-use Automattic\WooCommerce\Api\ApiException;
-use Automattic\WooCommerce\Api\Attributes\Description;
-use Automattic\WooCommerce\Api\Attributes\Name;
-use Automattic\WooCommerce\Api\Attributes\PublicAccess;
+use Automattic\PooCommerce\Api\ApiException;
+use Automattic\PooCommerce\Api\Attributes\Description;
+use Automattic\PooCommerce\Api\Attributes\Name;
+use Automattic\PooCommerce\Api\Attributes\PublicAccess;
 
 /**
  * Always throws, used to exercise the resolver's exception → GraphQL error

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Api\Mutations\Coupons;
+namespace Automattic\PooCommerce\Tests\Api\Mutations\Coupons;
 
-use Automattic\WooCommerce\Api\ApiException;
-use Automattic\WooCommerce\Api\Mutations\Coupons\DeleteCoupon;
-use Automattic\WooCommerce\Api\Types\Coupons\DeleteCouponResult;
+use Automattic\PooCommerce\Api\ApiException;
+use Automattic\PooCommerce\Api\Mutations\Coupons\DeleteCoupon;
+use Automattic\PooCommerce\Api\Types\Coupons\DeleteCouponResult;
 use WC_Helper_Coupon;
 use WC_Unit_Test_Case;
 
@@ -33,7 +33,7 @@ class DeleteCouponTest extends WC_Unit_Test_Case {
 	 * Tear down.
 	 */
 	public function tearDown(): void {
-		remove_all_filters( 'woocommerce_pre_delete_data' );
+		remove_all_filters( 'poocommerce_pre_delete_data' );
 		parent::tearDown();
 	}
 
@@ -97,13 +97,13 @@ class DeleteCouponTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox execute() returns deleted=false when woocommerce_pre_delete_data short-circuits to false.
+	 * @testdox execute() returns deleted=false when poocommerce_pre_delete_data short-circuits to false.
 	 */
 	public function test_execute_returns_false_when_pre_delete_filter_returns_false(): void {
 		$coupon = WC_Helper_Coupon::create_coupon( 'kept' );
 		$id     = $coupon->get_id();
 
-		add_filter( 'woocommerce_pre_delete_data', '__return_false' );
+		add_filter( 'poocommerce_pre_delete_data', '__return_false' );
 
 		$result = $this->sut->execute( $id, true );
 
@@ -113,13 +113,13 @@ class DeleteCouponTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox execute() surfaces a WP_Error from woocommerce_pre_delete_data as an INTERNAL_ERROR ApiException.
+	 * @testdox execute() surfaces a WP_Error from poocommerce_pre_delete_data as an INTERNAL_ERROR ApiException.
 	 */
 	public function test_execute_translates_wp_error_to_api_exception(): void {
 		$coupon = WC_Helper_Coupon::create_coupon( 'failing' );
 
 		add_filter(
-			'woocommerce_pre_delete_data',
+			'poocommerce_pre_delete_data',
 			static function () {
 				return new \WP_Error( 'wc_delete_failed', 'Coupon delete failed.' );
 			}

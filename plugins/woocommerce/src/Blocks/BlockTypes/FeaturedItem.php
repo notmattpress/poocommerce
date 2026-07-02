@@ -1,8 +1,8 @@
 <?php
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\Utils\StyleAttributesUtils;
+use Automattic\PooCommerce\Blocks\Utils\StyleAttributesUtils;
 
 /**
  * FeaturedItem class.
@@ -85,7 +85,7 @@ abstract class FeaturedItem extends AbstractDynamicBlock {
 			$result[] = $block['blockName'];
 		}
 
-		if ( 'woocommerce/product-template' === $block['blockName'] || 'core/post-template' === $block['blockName'] ) {
+		if ( 'poocommerce/product-template' === $block['blockName'] || 'core/post-template' === $block['blockName'] ) {
 			return $result;
 		}
 
@@ -142,7 +142,7 @@ abstract class FeaturedItem extends AbstractDynamicBlock {
 	 */
 	public function update_context( $context, $parsed_block, $parent_block ) {
 		// Check if this is a featured item block and extract all inner block names.
-		if ( ( 'woocommerce/featured-product' === $parsed_block['blockName'] || 'woocommerce/featured-category' === $parsed_block['blockName'] )
+		if ( ( 'poocommerce/featured-product' === $parsed_block['blockName'] || 'poocommerce/featured-category' === $parsed_block['blockName'] )
 			&& isset( $parsed_block['attrs'] ) ) {
 
 			$item = $this->get_item( $parsed_block['attrs'] );
@@ -236,7 +236,7 @@ abstract class FeaturedItem extends AbstractDynamicBlock {
 		$styles  = $this->get_styles( $attributes );
 		$classes = $this->get_classes( $attributes );
 
-		$output  = sprintf( '<div class="%1$s wp-block-woocommerce-%2$s" style="%3$s">', esc_attr( trim( $classes ) ), $this->block_name, esc_attr( $styles ) );
+		$output  = sprintf( '<div class="%1$s wp-block-poocommerce-%2$s" style="%3$s">', esc_attr( trim( $classes ) ), $this->block_name, esc_attr( $styles ) );
 		$output .= sprintf( '<div class="wc-block-%s__wrapper">', $this->block_name );
 		$output .= $this->render_overlay( $attributes );
 

@@ -13,9 +13,9 @@ class WC_Email_Header_Template_Test extends \WC_Unit_Test_Case {
 	 */
 	public function tearDown(): void {
 		parent::tearDown();
-		delete_option( 'woocommerce_email_header_image' );
-		update_option( 'woocommerce_feature_email_improvements_enabled', 'no' );
-		remove_all_filters( 'woocommerce_email_header_image_url' );
+		delete_option( 'poocommerce_email_header_image' );
+		update_option( 'poocommerce_feature_email_improvements_enabled', 'no' );
+		remove_all_filters( 'poocommerce_email_header_image_url' );
 	}
 
 	/**
@@ -57,7 +57,7 @@ class WC_Email_Header_Template_Test extends \WC_Unit_Test_Case {
 	 * @testdox Header image is wrapped in a link to home_url() when improvements are disabled.
 	 */
 	public function test_header_image_wrapped_in_link() {
-		update_option( 'woocommerce_email_header_image', 'https://example.com/logo.png' );
+		update_option( 'poocommerce_email_header_image', 'https://example.com/logo.png' );
 
 		$content = wc_get_template_html( 'emails/email-header.php', array( 'email_heading' => 'Test' ) );
 
@@ -70,8 +70,8 @@ class WC_Email_Header_Template_Test extends \WC_Unit_Test_Case {
 	 * @testdox Header image is wrapped in a link to home_url() when improvements are enabled.
 	 */
 	public function test_header_image_wrapped_in_link_with_improvements_enabled() {
-		update_option( 'woocommerce_feature_email_improvements_enabled', 'yes' );
-		update_option( 'woocommerce_email_header_image', 'https://example.com/logo.png' );
+		update_option( 'poocommerce_feature_email_improvements_enabled', 'yes' );
+		update_option( 'poocommerce_email_header_image', 'https://example.com/logo.png' );
 
 		$content = wc_get_template_html( 'emails/email-header.php', array( 'email_heading' => 'Test' ) );
 
@@ -84,9 +84,9 @@ class WC_Email_Header_Template_Test extends \WC_Unit_Test_Case {
 	 * @testdox Text fallback is wrapped in a link when improvements are enabled and no image is set.
 	 */
 	public function test_text_fallback_wrapped_in_link_with_improvements_enabled() {
-		update_option( 'woocommerce_feature_email_improvements_enabled', 'yes' );
+		update_option( 'poocommerce_feature_email_improvements_enabled', 'yes' );
 		update_option( 'blogname', 'My Store' );
-		delete_option( 'woocommerce_email_header_image' );
+		delete_option( 'poocommerce_email_header_image' );
 
 		$content = wc_get_template_html( 'emails/email-header.php', array( 'email_heading' => 'Test' ) );
 
@@ -99,7 +99,7 @@ class WC_Email_Header_Template_Test extends \WC_Unit_Test_Case {
 	 * @testdox No text fallback or link is rendered when improvements are disabled and no image is set.
 	 */
 	public function test_no_text_fallback_without_improvements() {
-		delete_option( 'woocommerce_email_header_image' );
+		delete_option( 'poocommerce_email_header_image' );
 
 		$content = wc_get_template_html( 'emails/email-header.php', array( 'email_heading' => 'Test' ) );
 
@@ -108,12 +108,12 @@ class WC_Email_Header_Template_Test extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Header image URL is filterable via woocommerce_email_header_image_url.
+	 * @testdox Header image URL is filterable via poocommerce_email_header_image_url.
 	 */
 	public function test_header_image_url_is_filterable() {
-		update_option( 'woocommerce_email_header_image', 'https://example.com/logo.png' );
+		update_option( 'poocommerce_email_header_image', 'https://example.com/logo.png' );
 		add_filter(
-			'woocommerce_email_header_image_url',
+			'poocommerce_email_header_image_url',
 			function () {
 				return 'https://custom-url.com/shop';
 			}
@@ -128,10 +128,10 @@ class WC_Email_Header_Template_Test extends \WC_Unit_Test_Case {
 	 * @testdox No link wraps image when filter returns empty string and improvements are enabled.
 	 */
 	public function test_no_link_when_filter_returns_empty_with_improvements_enabled() {
-		update_option( 'woocommerce_feature_email_improvements_enabled', 'yes' );
-		update_option( 'woocommerce_email_header_image', 'https://example.com/logo.png' );
+		update_option( 'poocommerce_feature_email_improvements_enabled', 'yes' );
+		update_option( 'poocommerce_email_header_image', 'https://example.com/logo.png' );
 		add_filter(
-			'woocommerce_email_header_image_url',
+			'poocommerce_email_header_image_url',
 			function () {
 				return '';
 			}
@@ -147,11 +147,11 @@ class WC_Email_Header_Template_Test extends \WC_Unit_Test_Case {
 	 * @testdox Text fallback has no link when filter returns empty string and improvements are enabled.
 	 */
 	public function test_text_fallback_no_link_when_filter_returns_empty_with_improvements_enabled() {
-		update_option( 'woocommerce_feature_email_improvements_enabled', 'yes' );
+		update_option( 'poocommerce_feature_email_improvements_enabled', 'yes' );
 		update_option( 'blogname', 'My Store' );
-		delete_option( 'woocommerce_email_header_image' );
+		delete_option( 'poocommerce_email_header_image' );
 		add_filter(
-			'woocommerce_email_header_image_url',
+			'poocommerce_email_header_image_url',
 			function () {
 				return '';
 			}
@@ -168,9 +168,9 @@ class WC_Email_Header_Template_Test extends \WC_Unit_Test_Case {
 	 * @testdox No link is rendered when filter returns empty string.
 	 */
 	public function test_no_link_when_filter_returns_empty() {
-		update_option( 'woocommerce_email_header_image', 'https://example.com/logo.png' );
+		update_option( 'poocommerce_email_header_image', 'https://example.com/logo.png' );
 		add_filter(
-			'woocommerce_email_header_image_url',
+			'poocommerce_email_header_image_url',
 			function () {
 				return '';
 			}

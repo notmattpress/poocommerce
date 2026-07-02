@@ -1,14 +1,14 @@
 /**
  * External dependencies
  */
-import { getAdminLink } from '@woocommerce/settings';
+import { getAdminLink } from '@poocommerce/settings';
 import { __ } from '@wordpress/i18n';
-import { useSettings, useUserPreferences } from '@woocommerce/data';
+import { useSettings, useUserPreferences } from '@poocommerce/data';
 import { createInterpolateElement } from '@wordpress/element';
 import { Button } from '@wordpress/components';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
-const SCHEDULED_IMPORT_OPTION = 'woocommerce_analytics_scheduled_import';
+const SCHEDULED_IMPORT_OPTION = 'poocommerce_analytics_scheduled_import';
 
 export default function ScheduledUpdatesPromotionNotice() {
 	// Get settings to check option value (hooks must be called before early returns)
@@ -48,8 +48,8 @@ export default function ScheduledUpdatesPromotionNotice() {
 		<div className="notice notice-info is-dismissible">
 			<Button
 				variant="tertiary"
-				aria-label={ __( 'Dismiss this notice.', 'woocommerce' ) }
-				className="woocommerce-message-close notice-dismiss"
+				aria-label={ __( 'Dismiss this notice.', 'poocommerce' ) }
+				className="poocommerce-message-close notice-dismiss"
 				onClick={ onDismiss }
 			/>
 
@@ -58,7 +58,7 @@ export default function ScheduledUpdatesPromotionNotice() {
 					/* translators: <a> is a link to the analytics settings page. */
 					__(
 						'Analytics now supports scheduled updates, providing improved performance. Enable it in <a>Settings</a>.',
-						'woocommerce'
+						'poocommerce'
 					),
 					{
 						a: (
@@ -68,7 +68,7 @@ export default function ScheduledUpdatesPromotionNotice() {
 								) }
 								aria-label={ __(
 									'Analytics settings',
-									'woocommerce'
+									'poocommerce'
 								) }
 							/>
 						),

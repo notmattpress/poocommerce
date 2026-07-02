@@ -2,25 +2,25 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails;
+namespace Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails;
 
 use Automattic\Jetpack\Constants;
-use Automattic\WooCommerce\Internal\EmailEditor\Integration;
-use Automattic\WooCommerce\Internal\EmailEditor\EmailTemplates\WooEmailTemplate;
-use Automattic\WooCommerce\Utilities\StringUtil;
+use Automattic\PooCommerce\Internal\EmailEditor\Integration;
+use Automattic\PooCommerce\Internal\EmailEditor\EmailTemplates\WooEmailTemplate;
+use Automattic\PooCommerce\Utilities\StringUtil;
 
 /**
  * Class WCTransactionalEmailPostsGenerator
  *
- * Handles the generation of WooCommerce transactional email templates.
+ * Handles the generation of PooCommerce transactional email templates.
  * This class is responsible for initializing and managing default email templates,
  * as well as generating new templates when required.
  *
- * @package Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails
+ * @package Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails
  */
 class WCTransactionalEmailPostsGenerator {
 	/**
-	 * WooCommerce Email Template Manager instance.
+	 * PooCommerce Email Template Manager instance.
 	 *
 	 * @var WCTransactionalEmailPostsManager
 	 */
@@ -68,10 +68,10 @@ class WCTransactionalEmailPostsGenerator {
 	}
 
 	/**
-	 * Initialize the default WooCommerce Transactional Emails.
+	 * Initialize the default PooCommerce Transactional Emails.
 	 *
 	 * This function initializes the default templates for the core transactional emails.
-	 * It fetches all the emails from WooCommerce and filters them to include only the core transactional emails.
+	 * It fetches all the emails from PooCommerce and filters them to include only the core transactional emails.
 	 */
 	public function init_default_transactional_emails() {
 		if ( ! empty( $this->default_templates ) ) {
@@ -83,7 +83,7 @@ class WCTransactionalEmailPostsGenerator {
 
 		$wc_emails = \WC_Emails::instance();
 		/**
-		 * WooCommerce Transactional Emails instance.
+		 * PooCommerce Transactional Emails instance.
 		 *
 		 * @var \WC_Email[]
 		 */
@@ -159,7 +159,7 @@ class WCTransactionalEmailPostsGenerator {
 	/**
 	 * Get the email template for the given email.
 	 *
-	 * Looks for the initial email block content in plugins/woocommerce/templates/emails/block.
+	 * Looks for the initial email block content in plugins/poocommerce/templates/emails/block.
 	 *
 	 * @param \WC_Email $email The email object.
 	 * @return string The email template.
@@ -173,7 +173,7 @@ class WCTransactionalEmailPostsGenerator {
 	 *
 	 * Resolves the block template (honouring theme overrides), falls back to the
 	 * default block content on failure, and applies the
-	 * `woocommerce_email_block_template_html` filter. Stateless so both the
+	 * `poocommerce_email_block_template_html` filter. Stateless so both the
 	 * generator (via {@see self::get_email_template()}) and the divergence
 	 * detector observe an identical rendering pipeline.
 	 *
@@ -222,7 +222,7 @@ class WCTransactionalEmailPostsGenerator {
 		 * @param \WC_Email $email The email object.
 		 * @since 10.7.0
 		 */
-		$filtered_template_html = apply_filters( 'woocommerce_email_block_template_html', $template_html, $email );
+		$filtered_template_html = apply_filters( 'poocommerce_email_block_template_html', $template_html, $email );
 
 		return is_string( $filtered_template_html ) ? $filtered_template_html : $template_html;
 	}
@@ -323,7 +323,7 @@ class WCTransactionalEmailPostsGenerator {
 
 	/**
 	 * Build the `wp_insert_post()` payload for a given email and apply the
-	 * `woocommerce_email_content_post_data` filter.
+	 * `poocommerce_email_content_post_data` filter.
 	 *
 	 * Extracted so the generator and the divergence detector observe the exact
 	 * same pre-insert post payload, guaranteeing by construction that the hash
@@ -332,7 +332,7 @@ class WCTransactionalEmailPostsGenerator {
 	 *
 	 * @param string    $email_type The email type identifier (e.g. `customer_processing_order`).
 	 * @param \WC_Email $email      The transactional email instance.
-	 * @return array The post data array after the `woocommerce_email_content_post_data` filter runs.
+	 * @return array The post data array after the `poocommerce_email_content_post_data` filter runs.
 	 *
 	 * @since 10.8.0
 	 */
@@ -358,9 +358,9 @@ class WCTransactionalEmailPostsGenerator {
 		 * @since 10.5.0
 		 * @param array     $post_data  The post data array to be used for wp_insert_post().
 		 * @param string    $email_type The email type identifier (e.g., 'customer_processing_order').
-		 * @param \WC_Email $email      The WooCommerce email object.
+		 * @param \WC_Email $email      The PooCommerce email object.
 		 */
-		$filtered_post_data = apply_filters( 'woocommerce_email_content_post_data', $post_data, $email_type, $email );
+		$filtered_post_data = apply_filters( 'poocommerce_email_content_post_data', $post_data, $email_type, $email );
 
 		return is_array( $filtered_post_data ) ? $filtered_post_data : $post_data;
 	}
@@ -369,7 +369,7 @@ class WCTransactionalEmailPostsGenerator {
 	 * Compute the canonical `post_content` for a given email.
 	 *
 	 * Returns the `post_content` value that the generator would persist for this
-	 * email after the `woocommerce_email_content_post_data` filter runs, i.e.
+	 * email after the `poocommerce_email_content_post_data` filter runs, i.e.
 	 * the exact string whose sha1 is stamped into `_wc_email_template_source_hash`.
 	 *
 	 * Callers can hash the return value to obtain `currentCoreHash` for

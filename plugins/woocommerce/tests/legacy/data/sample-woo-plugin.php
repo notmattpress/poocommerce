@@ -1,6 +1,6 @@
 <?php // phpcs:ignoreFile
 /**
- * Plugin Name: Sample WooCommerce PLugin
+ * Plugin Name: Sample PooCommerce PLugin
  * Woo: 1:sample-woo-plugin
  */
 

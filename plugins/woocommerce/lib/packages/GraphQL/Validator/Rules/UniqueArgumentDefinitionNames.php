@@ -1,25 +1,25 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\GraphQL\Validator\Rules;
+namespace Automattic\PooCommerce\Vendor\GraphQL\Validator\Rules;
 
-use Automattic\WooCommerce\Vendor\GraphQL\Error\Error;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\DirectiveDefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\InputValueDefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\InterfaceTypeDefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\InterfaceTypeExtensionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\NodeKind;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\NodeList;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\ObjectTypeDefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\ObjectTypeExtensionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\Visitor;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\VisitorOperation;
-use Automattic\WooCommerce\Vendor\GraphQL\Validator\SDLValidationContext;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\Error;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\DirectiveDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\InputValueDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\InterfaceTypeDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\InterfaceTypeExtensionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\NodeKind;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\NodeList;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\ObjectTypeDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\ObjectTypeExtensionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\Visitor;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\VisitorOperation;
+use Automattic\PooCommerce\Vendor\GraphQL\Validator\SDLValidationContext;
 
 /**
  * Unique argument definition names.
  *
- * A Automattic\WooCommerce\Vendor\GraphQL Object or Interface type is only valid if all its fields have uniquely named arguments.
- * A Automattic\WooCommerce\Vendor\GraphQL Directive is only valid if all its arguments are uniquely named.
+ * A Automattic\PooCommerce\Vendor\GraphQL Object or Interface type is only valid if all its fields have uniquely named arguments.
+ * A Automattic\PooCommerce\Vendor\GraphQL Directive is only valid if all its arguments are uniquely named.
  */
 class UniqueArgumentDefinitionNames extends ValidationRule
 {

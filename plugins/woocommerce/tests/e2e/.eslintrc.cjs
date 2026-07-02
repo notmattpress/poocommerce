@@ -16,7 +16,7 @@ module.exports = {
 		'jest/valid-title': 'off',
 		'testing-library/await-async-utils': 'off',
 		/*
-		 * The e2e tests use dependencies from the parent woocommerce package
+		 * The e2e tests use dependencies from the parent poocommerce package
 		 * (this directory has no package.json of its own). Resolve packageDir from
 		 * __dirname so the check is independent of ESLint's working directory: VS
 		 * Code / root-level ESLint can run from the monorepo root, and relative
@@ -24,7 +24,7 @@ module.exports = {
 		 *
 		 * Both entries must point at directories that contain a package.json:
 		 * eslint-plugin-import throws on the first missing one and aborts the
-		 * whole dependency merge, so we list the parent woocommerce package and
+		 * whole dependency merge, so we list the parent poocommerce package and
 		 * the monorepo root rather than this dir.
 		 */
 		'import/no-extraneous-dependencies': [
@@ -72,7 +72,7 @@ module.exports = {
 				'rulesdir/no-raw-playwright-test-import': 'error',
 				// Since we're restoring the database for each test, hooks other
 				// than `beforeEach` don't make sense.
-				// See https://github.com/woocommerce/woocommerce/pull/46432.
+				// See https://github.com/poocommerce/poocommerce/pull/46432.
 				'playwright/no-hooks': [ 'error', { allow: [ 'beforeEach' ] } ],
 				'no-restricted-syntax': [
 					'error',

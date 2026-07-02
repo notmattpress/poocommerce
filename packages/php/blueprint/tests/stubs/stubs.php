@@ -1,6 +1,6 @@
 <?php
 /**
- * Stubs for WooCommerce classes and interfaces.
+ * Stubs for PooCommerce classes and interfaces.
  */
 
 if ( ! class_exists( 'WC_Log_Levels', false ) ) {

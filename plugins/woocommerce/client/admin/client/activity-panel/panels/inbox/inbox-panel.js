@@ -10,7 +10,7 @@ export const InboxPanel = ( {
 	thingsToDoNextCount,
 } ) => {
 	return (
-		<div className="woocommerce-notification-panels">
+		<div className="poocommerce-notification-panels">
 			{ hasAbbreviatedNotifications && (
 				<AbbreviatedNotificationsPanel
 					thingsToDoNextCount={ thingsToDoNextCount }

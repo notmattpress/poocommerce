@@ -3,9 +3,9 @@
  * Controller Tests.
  */
 
-namespace Automattic\WooCommerce\Tests\Blocks\StoreApi\Formatters;
+namespace Automattic\PooCommerce\Tests\Blocks\StoreApi\Formatters;
 
-use Automattic\WooCommerce\StoreApi\Formatters\MoneyFormatter;
+use Automattic\PooCommerce\StoreApi\Formatters\MoneyFormatter;
 
 /**
  * TestMoneyFormatter tests.

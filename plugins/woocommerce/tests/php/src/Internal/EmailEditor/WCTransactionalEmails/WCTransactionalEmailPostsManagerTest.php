@@ -2,9 +2,9 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\EmailEditor\WCTransactionalEmails;
+namespace Automattic\PooCommerce\Tests\Internal\EmailEditor\WCTransactionalEmails;
 
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsManager;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsManager;
 
 /**
  * Tests for the WCTransactionalEmailPostsManager class.
@@ -20,7 +20,7 @@ class WCTransactionalEmailPostsManagerTest extends \WC_Unit_Test_Case {
 	 */
 	public function setUp(): void {
 		parent::setUp();
-		add_option( 'woocommerce_feature_block_email_editor_enabled', 'yes' );
+		add_option( 'poocommerce_feature_block_email_editor_enabled', 'yes' );
 		$this->template_manager = WCTransactionalEmailPostsManager::get_instance();
 	}
 
@@ -211,7 +211,7 @@ class WCTransactionalEmailPostsManagerTest extends \WC_Unit_Test_Case {
 		$this->template_manager->save_email_template_post_id( $email_type, $post_id );
 
 		// Check that the option was saved with the correct name format.
-		$expected_option_name = 'woocommerce_email_templates_' . $email_type . '_post_id';
+		$expected_option_name = 'poocommerce_email_templates_' . $email_type . '_post_id';
 		$this->assertEquals( $post_id, get_option( $expected_option_name ) );
 	}
 
@@ -227,7 +227,7 @@ class WCTransactionalEmailPostsManagerTest extends \WC_Unit_Test_Case {
 		$this->assertEquals( 'cached_email', $result1 );
 
 		// Delete the option to verify cache is used.
-		delete_option( 'woocommerce_email_templates_cached_email_post_id' );
+		delete_option( 'poocommerce_email_templates_cached_email_post_id' );
 
 		$cache_key = $this->template_manager->get_cache_key_for_post_id( $post_id );
 		wp_cache_delete( $cache_key, WCTransactionalEmailPostsManager::CACHE_GROUP );
@@ -249,7 +249,7 @@ class WCTransactionalEmailPostsManagerTest extends \WC_Unit_Test_Case {
 		$this->assertEquals( 'wp_cached_email', $result1 );
 
 		// Delete the option to verify cache is used.
-		delete_option( 'woocommerce_email_templates_wp_cached_email_post_id' );
+		delete_option( 'poocommerce_email_templates_wp_cached_email_post_id' );
 
 		// Clear the in-memory cache.
 		$this->template_manager->clear_caches();
@@ -280,7 +280,7 @@ class WCTransactionalEmailPostsManagerTest extends \WC_Unit_Test_Case {
 		$this->assertEquals( 'skip_cache_email', $result1 );
 
 		// Delete the option.
-		delete_option( 'woocommerce_email_templates_skip_cache_email_post_id' );
+		delete_option( 'poocommerce_email_templates_skip_cache_email_post_id' );
 
 		// Call with skip_cache should hit database and return null.
 		$result2 = $this->template_manager->get_email_type_from_post_id( $post_id, true );
@@ -308,7 +308,7 @@ class WCTransactionalEmailPostsManagerTest extends \WC_Unit_Test_Case {
 		$this->assertEquals( $post_id, $result1 );
 
 		// Delete the option to verify cache is used.
-		delete_option( 'woocommerce_email_templates_template_wp_cached_email_post_id' );
+		delete_option( 'poocommerce_email_templates_template_wp_cached_email_post_id' );
 
 		// Second call should use in-memory cache, not database.
 		$result2 = $this->template_manager->get_email_template_post_id( 'template_wp_cached_email' );
@@ -397,7 +397,7 @@ class WCTransactionalEmailPostsManagerTest extends \WC_Unit_Test_Case {
 		$method->invoke( $this->template_manager, $post_id, 'post_id' );
 
 		// delete option in database.
-		delete_option( 'woocommerce_email_templates_custom_test_email_post_id' );
+		delete_option( 'poocommerce_email_templates_custom_test_email_post_id' );
 
 		$this->assertNull( $this->template_manager->get_email_type_from_post_id( $post_id ) );
 
@@ -428,6 +428,6 @@ class WCTransactionalEmailPostsManagerTest extends \WC_Unit_Test_Case {
 	public function tearDown(): void {
 		parent::tearDown();
 		$this->template_manager->clear_caches();
-		update_option( 'woocommerce_feature_block_email_editor_enabled', 'no' );
+		update_option( 'poocommerce_feature_block_email_editor_enabled', 'no' );
 	}
 }

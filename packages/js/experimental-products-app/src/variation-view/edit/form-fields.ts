@@ -50,11 +50,11 @@ const DOWNLOAD_OPTIONS: FormField = {
 };
 
 export const VARIATION_FORM_FIELDS: VariationFormField[] = [
-	createFormGroup( 'general-fields', __( 'General', 'woocommerce' ), [
+	createFormGroup( 'general-fields', __( 'General', 'poocommerce' ), [
 		'variation_active',
 		GENERAL_CHECKBOXES,
 	] ),
-	createFormGroup( 'price-fields', __( 'Price', 'woocommerce' ), [
+	createFormGroup( 'price-fields', __( 'Price', 'poocommerce' ), [
 		'regular_price',
 		'sale_price',
 		'schedule_sale',
@@ -62,16 +62,16 @@ export const VARIATION_FORM_FIELDS: VariationFormField[] = [
 		'cost_of_goods_sold',
 		'tax_class',
 	] ),
-	createFormGroup( 'details-fields', __( 'Details', 'woocommerce' ), [
+	createFormGroup( 'details-fields', __( 'Details', 'poocommerce' ), [
 		'images',
 		'description',
 	] ),
 	createFormGroup(
 		'downloadable-files-fields',
-		__( 'Downloadable files', 'woocommerce' ),
+		__( 'Downloadable files', 'poocommerce' ),
 		[ 'downloadable_files', DOWNLOAD_OPTIONS ]
 	),
-	createFormGroup( 'inventory-fields', __( 'Inventory', 'woocommerce' ), [
+	createFormGroup( 'inventory-fields', __( 'Inventory', 'poocommerce' ), [
 		'sku',
 		'global_unique_id',
 		'manage_stock',
@@ -79,12 +79,12 @@ export const VARIATION_FORM_FIELDS: VariationFormField[] = [
 		'stock',
 		BACKORDERS_ROW,
 	] ),
-	createFormGroup( 'shipping-fields', __( 'Shipping', 'woocommerce' ), [
+	createFormGroup( 'shipping-fields', __( 'Shipping', 'poocommerce' ), [
 		'shipping_class',
 		DIMENSIONS,
 		'weight',
 	] ),
-	createFormGroup( 'attributes-fields', __( 'Attributes', 'woocommerce' ), [
+	createFormGroup( 'attributes-fields', __( 'Attributes', 'poocommerce' ), [
 		'attributes',
 	] ),
 ];

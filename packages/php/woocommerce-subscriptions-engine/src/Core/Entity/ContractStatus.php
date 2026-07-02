@@ -5,12 +5,12 @@
  * Owns the set of valid statuses and the allowed transitions between them.
  * Status transitions are validated here and applied by the {@see Contract} entity.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine\Core\Entity
+ * @package Automattic\PooCommerce\SubscriptionsEngine\Core\Entity
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Core\Entity;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Core\Entity;
 
 use DomainException;
 

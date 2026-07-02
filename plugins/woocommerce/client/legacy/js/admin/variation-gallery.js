@@ -11,7 +11,7 @@ jQuery( function ( $ ) {
 
 	const SELECTORS = {
 		productOptionsRoot: '#variable_product_options',
-		productData: '#woocommerce-product-data',
+		productData: '#poocommerce-product-data',
 		field: '.wc-variation-gallery-field',
 		fieldThumbList: '.wc-variation-gallery-field__thumbs',
 		fieldHero: '.wc-variation-gallery-field__hero',
@@ -29,7 +29,7 @@ jQuery( function ( $ ) {
 		primaryBadge: '[data-primary-badge]',
 		missingFileLabel: '.screen-reader-text[data-missing-file-label]',
 		// Legacy variation-row fields that we keep in sync.
-		variationRow: '.woocommerce_variation',
+		variationRow: '.poocommerce_variation',
 		legacyInput: '.upload_image_id',
 		legacyButton: '.upload_image_button',
 	};
@@ -174,11 +174,11 @@ jQuery( function ( $ ) {
 			// The meta box re-fires these events when variation rows are paginated
 			// in or appended after a save, so re-initialize sortables each time.
 			$root.on(
-				'woocommerce_variations_added',
+				'poocommerce_variations_added',
 				this.initializeSortables.bind( this )
 			);
 			$( SELECTORS.productData ).on(
-				'woocommerce_variations_loaded',
+				'poocommerce_variations_loaded',
 				this.initializeSortables.bind( this )
 			);
 

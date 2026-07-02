@@ -2,16 +2,16 @@
 
 set -euo pipefail
 
-# Script to prepare woocommerce-analytics package for publishing to Packagist.org
+# Script to prepare poocommerce-analytics package for publishing to Packagist.org
 # This script creates a build directory with the required structure and files
 
 # Define paths
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PACKAGE_DIR="$(dirname "$SCRIPT_DIR")"
 BUILD_DIR="$PACKAGE_DIR/build"
-DIST_DIR="$BUILD_DIR/Automattic/woocommerce-analytics"
+DIST_DIR="$BUILD_DIR/Automattic/poocommerce-analytics"
 
-echo "Preparing woocommerce-analytics package for Packagist.org publishing..."
+echo "Preparing poocommerce-analytics package for Packagist.org publishing..."
 
 # Clean up existing build directory
 if [ -d "$BUILD_DIR" ]; then
@@ -22,7 +22,7 @@ fi
 # Install JS dependencies. The mirror workflow does not run `pnpm install`
 # before invoking us, so node_modules may be missing.
 echo "Installing JS dependencies..."
-pnpm install --filter "@automattic/woocommerce-analytics" --frozen-lockfile
+pnpm install --filter "@automattic/poocommerce-analytics" --frozen-lockfile
 
 # Build JS assets first
 echo "Building JS assets..."
@@ -34,7 +34,7 @@ mkdir -p "$DIST_DIR"
 
 # Create mirrors.txt file
 echo "Creating mirrors.txt file..."
-echo "Automattic/woocommerce-analytics" > "$BUILD_DIR/mirrors.txt"
+echo "Automattic/poocommerce-analytics" > "$BUILD_DIR/mirrors.txt"
 
 # Copy PHP source
 echo "Copying PHP source files..."

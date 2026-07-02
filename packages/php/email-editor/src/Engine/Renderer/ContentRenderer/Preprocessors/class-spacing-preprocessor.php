@@ -1,15 +1,15 @@
 <?php
 /**
- * This file is part of the WooCommerce Email Editor package
+ * This file is part of the PooCommerce Email Editor package
  *
- * @package Automattic\WooCommerce\EmailEditor
+ * @package Automattic\PooCommerce\EmailEditor
  */
 
 declare(strict_types = 1);
-namespace Automattic\WooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Preprocessors;
+namespace Automattic\PooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Preprocessors;
 
-use Automattic\WooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Preset_Variable_Resolver;
-use Automattic\WooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Rendering_Context;
+use Automattic\PooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Preset_Variable_Resolver;
+use Automattic\PooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Rendering_Context;
 
 /**
  * This preprocessor is responsible for setting default spacing values for blocks.
@@ -253,7 +253,7 @@ class Spacing_Preprocessor implements Context_Aware_Preprocessor {
 	private function get_post_content_block_names(): array {
 		if ( null === $this->post_content_block_names ) {
 			$this->post_content_block_names = (array) apply_filters(
-				'woocommerce_email_editor_post_content_block_names',
+				'poocommerce_email_editor_post_content_block_names',
 				array( 'core/post-content' )
 			);
 		}

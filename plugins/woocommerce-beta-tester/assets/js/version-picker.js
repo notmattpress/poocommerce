@@ -57,7 +57,7 @@ jQuery( function ( $ ) {
 		},
 
 		/**
-		 * Submit form to switch version of WooCommerce.
+		 * Submit form to switch version of PooCommerce.
 		 *
 		 * @param {Event} event
 		 */

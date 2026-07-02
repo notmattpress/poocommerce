@@ -4,7 +4,7 @@
 import { store as blockEditorStore } from '@wordpress/block-editor';
 import { useState, useEffect } from '@wordpress/element';
 import { useSelect } from '@wordpress/data';
-import { useGetLocation } from '@woocommerce/blocks/product-template/utils';
+import { useGetLocation } from '@poocommerce/blocks/product-template/utils';
 import { Spinner, Flex } from '@wordpress/components';
 
 /**
@@ -46,7 +46,7 @@ const Edit = ( props: ProductCollectionEditComponentProps ) => {
 	const isHandPickedCollection =
 		attributes.collection === CoreCollectionNames.HAND_PICKED;
 	const hasHandPickedProducts =
-		( attributes.query?.woocommerceHandPickedProducts?.length ?? 0 ) > 0;
+		( attributes.query?.poocommerceHandPickedProducts?.length ?? 0 ) > 0;
 
 	const isTaxonomyCollection =
 		attributes.collection === CoreCollectionNames.BY_CATEGORY ||

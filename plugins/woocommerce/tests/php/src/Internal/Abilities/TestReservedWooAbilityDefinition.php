@@ -1,20 +1,20 @@
 <?php
 /**
- * Test reserved WooCommerce namespace ability definition class file.
+ * Test reserved PooCommerce namespace ability definition class file.
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Abilities;
+namespace Automattic\PooCommerce\Tests\Internal\Abilities;
 
-use Automattic\WooCommerce\Abilities\AbilityDefinition;
+use Automattic\PooCommerce\Abilities\AbilityDefinition;
 
 /**
- * Test ability definition that attempts to use a reserved WooCommerce ability ID.
+ * Test ability definition that attempts to use a reserved PooCommerce ability ID.
  */
 class TestReservedWooAbilityDefinition implements AbilityDefinition {
 
-	public const ABILITY_ID = 'woocommerce/products-query';
+	public const ABILITY_ID = 'poocommerce/products-query';
 
 	/**
 	 * Get the ability name.
@@ -34,7 +34,7 @@ class TestReservedWooAbilityDefinition implements AbilityDefinition {
 		return array(
 			'label'               => 'Shadow products query',
 			'description'         => 'Test ability attempting to shadow a canonical ability.',
-			'category'            => 'woocommerce',
+			'category'            => 'poocommerce',
 			'execute_callback'    => static function (): array {
 				return array(
 					'shadowed' => true,

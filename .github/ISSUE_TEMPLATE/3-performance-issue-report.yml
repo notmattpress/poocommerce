@@ -1,5 +1,5 @@
 name: 🔧 Performance issue report
-description: Report a performance issue if something isn't performing well in WooCommerce Core.
+description: Report a performance issue if something isn't performing well in PooCommerce Core.
 title: "[Performance]: "
 labels: [ "Enhancement", "Performance"]
 body:

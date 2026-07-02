@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { settingsStore, itemsStore } from '@woocommerce/data';
+import { settingsStore, itemsStore } from '@poocommerce/data';
 
 /**
  * Internal dependencies
@@ -50,7 +50,7 @@ export function getUnreadOrders( select, orderStatuses ) {
 export function getOrderStatuses( select ) {
 	const { getSetting: getMutableSetting } = select( settingsStore );
 	const {
-		woocommerce_actionable_order_statuses:
+		poocommerce_actionable_order_statuses:
 			orderStatuses = DEFAULT_ACTIONABLE_STATUSES,
 	} = getMutableSetting( 'wc_admin', 'wcAdminSettings', {} );
 	return orderStatuses;

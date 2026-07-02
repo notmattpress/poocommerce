@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Authorization;
+namespace Automattic\PooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Authorization;
 
-use Automattic\WooCommerce\Api\Attributes\RequiredCapability;
+use Automattic\PooCommerce\Api\Attributes\RequiredCapability;
 
 /**
  * PHP interface that carries a #[RequiredCapability] attribute. Used to

@@ -11,7 +11,7 @@ import type { ProductEntityRecord } from '../types';
 
 const fieldDefinition = {
 	type: 'text',
-	label: __( 'GTIN, UPC, EAN, ISBN', 'woocommerce' ),
+	label: __( 'GTIN, UPC, EAN, ISBN', 'poocommerce' ),
 	enableSorting: false,
 	filterBy: false,
 } satisfies Partial< Field< ProductEntityRecord > >;

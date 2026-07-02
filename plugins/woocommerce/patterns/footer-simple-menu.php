@@ -1,8 +1,8 @@
 <?php
 /**
  * Title: Footer with Simple Menu
- * Slug: woocommerce-blocks/footer-simple-menu
- * Categories: WooCommerce
+ * Slug: poocommerce-blocks/footer-simple-menu
+ * Categories: PooCommerce
  * Block Types: core/template-part/footer
  */
 ?>
@@ -13,7 +13,7 @@
 	<div class="wp-block-group alignfull" style="padding-right:0;padding-left:0">
 		<!-- wp:group {"style":{"spacing":{"blockGap":"24px"}},"layout":{"type":"flex","flexWrap":"wrap"}} -->
 		<div class="wp-block-group">
-			<!-- wp:search {"style":{"border":{"radius":"0px"}},"label":"<?php esc_html_e( 'Search', 'woocommerce' ); ?>","showLabel":false,"placeholder":"<?php esc_html_e( 'Search', 'woocommerce' ); ?>","buttonText":"<?php esc_html_e( 'Search', 'woocommerce' ); ?>","buttonUseIcon":true,"query":{"post_type":"product"},"width":100,"widthUnit":"%"} /-->
+			<!-- wp:search {"style":{"border":{"radius":"0px"}},"label":"<?php esc_html_e( 'Search', 'poocommerce' ); ?>","showLabel":false,"placeholder":"<?php esc_html_e( 'Search', 'poocommerce' ); ?>","buttonText":"<?php esc_html_e( 'Search', 'poocommerce' ); ?>","buttonUseIcon":true,"query":{"post_type":"product"},"width":100,"widthUnit":"%"} /-->
 		</div>
 		<!-- /wp:group -->
 
@@ -36,8 +36,8 @@
 		<!-- wp:paragraph {"align":"center"} -->
 		<p class="has-text-align-center">
 			<?php
-				/* translators: 1: WordPress link, 2: WooCommerce link */
-				echo sprintf( esc_html__( 'Powered by %1$s with %2$s', 'woocommerce' ), '<a href="https://wordpress.org" target="_blank" rel="noreferrer nofollow">WordPress</a>', '<a href="https://woocommerce.com" target="_blank" rel="noreferrer nofollow">WooCommerce</a>' );
+				/* translators: 1: WordPress link, 2: PooCommerce link */
+				echo sprintf( esc_html__( 'Powered by %1$s with %2$s', 'poocommerce' ), '<a href="https://wordpress.org" target="_blank" rel="noreferrer nofollow">WordPress</a>', '<a href="https://poocommerce.com" target="_blank" rel="noreferrer nofollow">PooCommerce</a>' );
 			?>
 		</p>
 		<!-- /wp:paragraph -->

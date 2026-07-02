@@ -44,8 +44,8 @@ declare(strict_types=1);
 namespace <?php echo $namespace; ?>;
 
 use <?php echo $command_fqcn; ?> as <?php echo $command_alias; ?>;
-use Automattic\WooCommerce\Api\Infrastructure\QueryInfoExtractor;
-use Automattic\WooCommerce\Api\Infrastructure\ResolverHelpers;
+use Automattic\PooCommerce\Api\Infrastructure\QueryInfoExtractor;
+use Automattic\PooCommerce\Api\Infrastructure\ResolverHelpers;
 <?php
 // Drop any caller-supplied import whose effective short name would collide
 // with one of the imports emitted unconditionally above and below, otherwise
@@ -75,14 +75,14 @@ $use_statements             = array_values(
 <?php foreach ( $use_statements as $use ) : ?>
 use <?php echo $use; ?>;
 <?php endforeach; ?>
-use Automattic\WooCommerce\Api\Infrastructure\Schema\ResolveInfo;
-use Automattic\WooCommerce\Api\Infrastructure\Schema\Type;
+use Automattic\PooCommerce\Api\Infrastructure\Schema\ResolveInfo;
+use Automattic\PooCommerce\Api\Infrastructure\Schema\Type;
 
 class <?php echo $class_name; ?> {
 	public static function get_field_definition(): array {
 		return array(
 <?php if ( $scalar_return ) : ?>
-			'type' => Type::nonNull(new \Automattic\WooCommerce\Api\Infrastructure\Schema\ObjectType(array(
+			'type' => Type::nonNull(new \Automattic\PooCommerce\Api\Infrastructure\Schema\ObjectType(array(
 				'name' => '<?php echo $class_name; ?>Result',
 				'fields' => array(
 					'result' => array( 'type' => <?php echo $return_type_expr; ?> ),
@@ -92,7 +92,7 @@ class <?php echo $class_name; ?> {
 			'type' => <?php echo $return_type_expr; ?>,
 <?php endif; ?>
 <?php if ( $description !== '' ) : ?>
-			'description' => __( '<?php echo $escaped_description; ?>', 'woocommerce' ),
+			'description' => __( '<?php echo $escaped_description; ?>', 'poocommerce' ),
 <?php endif; ?>
 <?php if ( ! empty( $metadata ) ) : ?>
 			'metadata' => array(
@@ -116,7 +116,7 @@ class <?php echo $class_name; ?> {
 				'<?php echo $arg['name']; ?>' => array(
 					'type' => <?php echo $arg['type_expr']; ?>,
 	<?php if ( ! empty( $arg['description'] ) ) : ?>
-					'description' => __( '<?php echo addslashes( $arg['description'] ); ?>', 'woocommerce' ),
+					'description' => __( '<?php echo addslashes( $arg['description'] ); ?>', 'poocommerce' ),
 <?php endif; ?>
 	<?php if ( $arg['has_default'] ) : ?>
 					'defaultValue' => <?php echo var_export( $arg['default'], true ); ?>,
@@ -165,7 +165,7 @@ class <?php echo $class_name; ?> {
 <?php endif; ?>
 		$execute_args = array();
 <?php
-$pagination_fqcn = 'Automattic\\WooCommerce\\Api\\Pagination\\PaginationParams';
+$pagination_fqcn = 'Automattic\\PooCommerce\\Api\\Pagination\\PaginationParams';
 foreach ( $execute_params as $param ) :
 	if ( ! empty( $param['unroll'] ) && $param['unroll']['fqcn'] === $pagination_fqcn ) :
 ?>

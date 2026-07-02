@@ -3,7 +3,7 @@
  */
 import { __ } from '@wordpress/i18n';
 import clsx from 'clsx';
-import { decodeHtmlEntities } from '@woocommerce/utils';
+import { decodeHtmlEntities } from '@poocommerce/utils';
 import { Disabled } from '@wordpress/components';
 import { useBlockProps } from '@wordpress/block-editor';
 import type { BlockEditProps } from '@wordpress/blocks';
@@ -42,7 +42,7 @@ function getOptionLabel( item: {
 
 const Edit = ( props: EditProps ): JSX.Element => {
 	const { context } = props;
-	const selectableItems = context?.[ 'woocommerce/selectableItems' ] ?? {};
+	const selectableItems = context?.[ 'poocommerce/selectableItems' ] ?? {};
 	const isLoading = selectableItems.isLoading ?? false;
 	const items = Array.isArray( selectableItems.items )
 		? selectableItems.items
@@ -59,7 +59,7 @@ const Edit = ( props: EditProps ): JSX.Element => {
 			<Disabled>
 				<fieldset className="wc-block-dropdown__fieldset">
 					<legend className="screen-reader-text">
-						{ __( 'Choose an option', 'woocommerce' ) }
+						{ __( 'Choose an option', 'poocommerce' ) }
 					</legend>
 					{ isLoading ? (
 						<div className="wc-block-dropdown__skeleton">
@@ -71,7 +71,7 @@ const Edit = ( props: EditProps ): JSX.Element => {
 							aria-label={ selectableItems.groupLabel }
 						>
 							<option value="">
-								{ __( 'Choose an option', 'woocommerce' ) }
+								{ __( 'Choose an option', 'poocommerce' ) }
 							</option>
 							{ items.map( ( item, index ) => {
 								const optionLabel = getOptionLabel( item );

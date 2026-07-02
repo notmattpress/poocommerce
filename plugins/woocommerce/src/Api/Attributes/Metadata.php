@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Api\Attributes;
+namespace Automattic\PooCommerce\Api\Attributes;
 
 use Attribute;
 
@@ -14,7 +14,7 @@ use Attribute;
  * schema, where they can be queried at runtime through the top-level
  * `_apiMetadata` GraphQL field. The mechanism is intentionally open: subclass
  * this attribute to ship a category of metadata (e.g. {@see Internal} for
- * marking elements as for WooCommerce internal use). Tooling discovers metadata
+ * marking elements as for PooCommerce internal use). Tooling discovers metadata
  * by name; the value is scalar-only so it can flow through GraphQL without
  * additional encoding.
  *

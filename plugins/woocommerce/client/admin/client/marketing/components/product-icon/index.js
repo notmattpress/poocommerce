@@ -26,7 +26,7 @@ class ProductIcon extends Component {
 			<div
 				className={ clsx(
 					this.props.className,
-					'woocommerce-admin-marketing-product-icon'
+					'poocommerce-admin-marketing-product-icon'
 				) }
 			>
 				<Icon icon={ iconComponent } size={ 36 } />

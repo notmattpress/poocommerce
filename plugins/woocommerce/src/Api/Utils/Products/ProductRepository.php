@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Api\Utils\Products;
+namespace Automattic\PooCommerce\Api\Utils\Products;
 
 /**
  * Repository for product persistence operations.

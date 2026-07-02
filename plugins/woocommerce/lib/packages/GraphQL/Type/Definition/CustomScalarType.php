@@ -1,15 +1,15 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\GraphQL\Type\Definition;
+namespace Automattic\PooCommerce\Vendor\GraphQL\Type\Definition;
 
-use Automattic\WooCommerce\Vendor\GraphQL\Error\Error;
-use Automattic\WooCommerce\Vendor\GraphQL\Error\InvariantViolation;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\Node;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\ScalarTypeDefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\ScalarTypeExtensionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\ValueNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Utils\AST;
-use Automattic\WooCommerce\Vendor\GraphQL\Utils\Utils;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\Error;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\InvariantViolation;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\Node;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\ScalarTypeDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\ScalarTypeExtensionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\ValueNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Utils\AST;
+use Automattic\PooCommerce\Vendor\GraphQL\Utils\Utils;
 
 /**
  * @phpstan-type InputCustomScalarConfig array{

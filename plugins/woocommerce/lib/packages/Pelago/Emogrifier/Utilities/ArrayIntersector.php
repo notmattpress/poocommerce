@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\Pelago\Emogrifier\Utilities;
+namespace Automattic\PooCommerce\Vendor\Pelago\Emogrifier\Utilities;
 
 /**
  * When computing many array intersections using the same array, it is more efficient to use `array_flip()` first and

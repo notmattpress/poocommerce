@@ -2,10 +2,10 @@
 /**
  * FunctionsMockerHack class file.
  *
- * @package WooCommerce\Testing
+ * @package PooCommerce\Testing
  */
 
-namespace Automattic\WooCommerce\Testing\Tools\CodeHacking\Hacks;
+namespace Automattic\PooCommerce\Testing\Tools\CodeHacking\Hacks;
 
 use ReflectionMethod;
 use ReflectionClass;

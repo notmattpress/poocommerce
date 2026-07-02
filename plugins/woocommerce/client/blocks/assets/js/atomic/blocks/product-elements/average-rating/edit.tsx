@@ -20,7 +20,7 @@ export interface BlockAttributes {
 const Edit = ( props: BlockEditProps< BlockAttributes > ): JSX.Element => {
 	const { attributes, setAttributes } = props;
 	const blockProps = useBlockProps( {
-		className: 'wp-block-woocommerce-product-average-rating',
+		className: 'wp-block-poocommerce-product-average-rating',
 	} );
 
 	return (

@@ -1,12 +1,12 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Tests\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\Assets\Api;
-use Automattic\WooCommerce\Blocks\BlockTypes\AddToWishlistButton;
-use Automattic\WooCommerce\Blocks\Package;
-use Automattic\WooCommerce\Tests\Blocks\Mocks\AssetDataRegistryMock;
+use Automattic\PooCommerce\Blocks\Assets\Api;
+use Automattic\PooCommerce\Blocks\BlockTypes\AddToWishlistButton;
+use Automattic\PooCommerce\Blocks\Package;
+use Automattic\PooCommerce\Tests\Blocks\Mocks\AssetDataRegistryMock;
 use ReflectionClass;
 use ReflectionMethod;
 use ReflectionProperty;
@@ -95,7 +95,7 @@ class AddToWishlistButtonTests extends WP_UnitTestCase {
 
 		$this->previous_block_to_render     = WP_Block_Supports::$block_to_render;
 		WP_Block_Supports::$block_to_render = array(
-			'blockName' => 'woocommerce/add-to-wishlist-button',
+			'blockName' => 'poocommerce/add-to-wishlist-button',
 			'attrs'     => $attributes,
 		);
 
@@ -159,7 +159,7 @@ class AddToWishlistButtonTests extends WP_UnitTestCase {
 		$markup = $this->invoke_render( $this->build_block_stub( $product_id ) );
 
 		$this->assertStringContainsString(
-			'data-wp-interactive="woocommerce/add-to-wishlist-button"',
+			'data-wp-interactive="poocommerce/add-to-wishlist-button"',
 			$markup,
 			'Wrapper must declare its iAPI interactive scope.'
 		);

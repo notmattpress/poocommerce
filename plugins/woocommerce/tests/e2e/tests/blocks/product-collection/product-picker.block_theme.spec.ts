@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { test as base, expect, BLOCK_THEME_SLUG } from '@woocommerce/e2e-utils';
+import { test as base, expect, BLOCK_THEME_SLUG } from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -29,21 +29,21 @@ test.describe( 'Product Collection: Product Picker', () => {
 			name: 'My Custom Collection - Product Context',
 			label: 'Block: My Custom Collection - Product Context',
 			collection:
-				'woocommerce/product-collection/my-custom-collection-product-context',
+				'poocommerce/product-collection/my-custom-collection-product-context',
 		},
 		{
 			id: 'myCustomCollectionMultipleContexts',
 			name: 'My Custom Collection - Multiple Contexts',
 			label: 'Block: My Custom Collection - Multiple Contexts',
 			collection:
-				'woocommerce/product-collection/my-custom-collection-multiple-contexts',
+				'poocommerce/product-collection/my-custom-collection-multiple-contexts',
 		},
 	];
 
 	// Activate plugin which registers custom product collections
 	test.beforeEach( async ( { requestUtils } ) => {
 		await requestUtils.activatePlugin(
-			'woocommerce-blocks-test-register-product-collection'
+			'poocommerce-blocks-test-register-product-collection'
 		);
 	} );
 

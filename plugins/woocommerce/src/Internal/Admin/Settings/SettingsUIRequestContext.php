@@ -5,12 +5,12 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Admin\Settings;
+namespace Automattic\PooCommerce\Internal\Admin\Settings;
 
-use Automattic\WooCommerce\Admin\Features\Features;
-use Automattic\WooCommerce\Admin\PageController;
-use Automattic\WooCommerce\Admin\Settings\SettingsSectionRegistry;
-use Automattic\WooCommerce\Admin\Settings\SettingsUIPageInterface;
+use Automattic\PooCommerce\Admin\Features\Features;
+use Automattic\PooCommerce\Admin\PageController;
+use Automattic\PooCommerce\Admin\Settings\SettingsSectionRegistry;
+use Automattic\PooCommerce\Admin\Settings\SettingsUIPageInterface;
 
 /**
  * Resolves and caches Settings UI state for the active settings request.
@@ -121,7 +121,7 @@ class SettingsUIRequestContext {
 	 * @return SettingsUIRequestContext|null
 	 */
 	public static function get_current(): ?SettingsUIRequestContext {
-		if ( ! PageController::is_settings_page() || ! Features::is_enabled( 'settings-ui' ) || ! current_user_can( 'manage_woocommerce' ) ) {
+		if ( ! PageController::is_settings_page() || ! Features::is_enabled( 'settings-ui' ) || ! current_user_can( 'manage_poocommerce' ) ) {
 			return null;
 		}
 
@@ -167,7 +167,7 @@ class SettingsUIRequestContext {
 	}
 
 	/**
-	 * Get the current WooCommerce settings tab.
+	 * Get the current PooCommerce settings tab.
 	 *
 	 * @return string
 	 */
@@ -189,7 +189,7 @@ class SettingsUIRequestContext {
 	}
 
 	/**
-	 * Get the current WooCommerce settings section.
+	 * Get the current PooCommerce settings section.
 	 *
 	 * @return string
 	 */
@@ -289,7 +289,7 @@ class SettingsUIRequestContext {
 
 		return '' !== $this->script_handles_failure_reason
 			? $this->script_handles_failure_reason
-			: __( 'Settings UI script handles could not be resolved.', 'woocommerce' );
+			: __( 'Settings UI script handles could not be resolved.', 'poocommerce' );
 	}
 
 	/**
@@ -384,7 +384,7 @@ class SettingsUIRequestContext {
 			if ( $e instanceof \Exception ) {
 				$this->script_handles_failure_reason = sprintf(
 					/* translators: %s: exception message. */
-					__( 'Settings UI script handles could not be resolved: %s', 'woocommerce' ),
+					__( 'Settings UI script handles could not be resolved: %s', 'poocommerce' ),
 					$e->getMessage()
 				);
 				wc_caught_exception( $e, __CLASS__ . '::' . __FUNCTION__ );

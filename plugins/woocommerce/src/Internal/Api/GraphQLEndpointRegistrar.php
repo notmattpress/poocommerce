@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Internal\Api;
+namespace Automattic\PooCommerce\Internal\Api;
 
-use Automattic\WooCommerce\Api\Infrastructure\Main;
+use Automattic\PooCommerce\Api\Infrastructure\Main;
 
 /**
  * Deferred-registration helper for GraphQL endpoints declared via
@@ -38,7 +38,7 @@ class GraphQLEndpointRegistrar {
 	 * The caller-declared methods are narrowed by
 	 * {@see Main::filter_methods_against_settings()} so plugin endpoints honour
 	 * the same site-wide settings (e.g. the GET-endpoint toggle) as
-	 * WooCommerce core's `/wc/graphql`. If the filter empties the list the
+	 * PooCommerce core's `/wc/graphql`. If the filter empties the list the
 	 * endpoint is not registered.
 	 */
 	public function handle_rest_api_init(): void {

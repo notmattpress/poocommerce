@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1);
 
-namespace Automattic\WooCommerce\Tests\Caching;
+namespace Automattic\PooCommerce\Tests\Caching;
 
-use Automattic\WooCommerce\Caches\ProductCountCache;
-use Automattic\WooCommerce\Enums\ProductStatus;
+use Automattic\PooCommerce\Caches\ProductCountCache;
+use Automattic\PooCommerce\Enums\ProductStatus;
 
 /**
  * Class ProductCountCacheTest.

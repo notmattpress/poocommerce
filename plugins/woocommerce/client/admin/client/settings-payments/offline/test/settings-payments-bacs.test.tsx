@@ -101,7 +101,7 @@ describe( 'SettingsPaymentsBacs', () => {
 		const { container } = render( <SettingsPaymentsBacs /> );
 
 		expect(
-			container.querySelectorAll( '.woocommerce-field-placeholder' )
+			container.querySelectorAll( '.poocommerce-field-placeholder' )
 				.length
 		).toBeGreaterThan( 0 );
 		expect( screen.queryByLabelText( 'Title' ) ).not.toBeInTheDocument();
@@ -152,7 +152,7 @@ describe( 'SettingsPaymentsBacs', () => {
 		} );
 
 		expect( updateOptions ).toHaveBeenCalledWith( {
-			woocommerce_bacs_accounts: [
+			poocommerce_bacs_accounts: [
 				{
 					account_name: 'Main account',
 					account_number: '12345678',

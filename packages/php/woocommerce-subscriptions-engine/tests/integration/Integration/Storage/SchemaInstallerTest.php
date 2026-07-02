@@ -2,19 +2,19 @@
 /**
  * Integration tests for SchemaInstaller.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine
+ * @package Automattic\PooCommerce\SubscriptionsEngine
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Tests\Integration\Integration\Storage;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Tests\Integration\Integration\Storage;
 
 use EngineIntegrationTestCase;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Support\ScalarCoercion;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage\SchemaInstaller;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Support\ScalarCoercion;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage\SchemaInstaller;
 
 /**
- * @covers \Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage\SchemaInstaller
+ * @covers \Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage\SchemaInstaller
  */
 class SchemaInstallerTest extends EngineIntegrationTestCase {
 

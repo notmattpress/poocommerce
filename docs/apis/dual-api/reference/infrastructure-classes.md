@@ -6,7 +6,7 @@ sidebar_position: 4
 
 # Reference: infrastructure classes
 
-These classes live in `Automattic\WooCommerce\Api\Infrastructure` (and `Api\Utils`). Some are **convention classes** that ApiBuilder detects per plugin; the rest are runtime helpers. Plugin override rules apply equally when adjusting core's own behavior.
+These classes live in `Automattic\PooCommerce\Api\Infrastructure` (and `Api\Utils`). Some are **convention classes** that ApiBuilder detects per plugin; the rest are runtime helpers. Plugin override rules apply equally when adjusting core's own behavior.
 
 ## Convention classes
 
@@ -37,7 +37,7 @@ The default principal wraps a `WP_User`:
 ```php
 public function __construct( public readonly \WP_User $user )
 public function is_authenticated(): bool        // user->ID > 0
-public function can_introspect(): bool          // user_can( $user, 'manage_woocommerce' )
+public function can_introspect(): bool          // user_can( $user, 'manage_poocommerce' )
 public function can_use_debug_mode(): bool      // user_can( $user, 'manage_options' )
 ```
 

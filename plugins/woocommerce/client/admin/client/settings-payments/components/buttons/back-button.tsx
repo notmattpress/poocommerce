@@ -4,7 +4,7 @@
 import { __, isRTL } from '@wordpress/i18n';
 import { Button, Tooltip } from '@wordpress/components';
 import { chevronLeft, chevronRight } from '@wordpress/icons';
-import { getHistory } from '@woocommerce/navigation';
+import { getHistory } from '@poocommerce/navigation';
 
 /**
  * Internal dependencies
@@ -41,7 +41,7 @@ interface BackButtonProps {
  */
 export const BackButton = ( {
 	href,
-	tooltipText = __( 'WooCommerce Settings', 'woocommerce' ),
+	tooltipText = __( 'PooCommerce Settings', 'poocommerce' ),
 	isRoute = false,
 	from = '',
 }: BackButtonProps ) => {
@@ -62,7 +62,7 @@ export const BackButton = ( {
 	return (
 		<Tooltip text={ tooltipText }>
 			<Button
-				className="woocommerce-settings-payments__back-button"
+				className="poocommerce-settings-payments__back-button"
 				icon={ isRTL() ? chevronRight : chevronLeft }
 				onClick={ onGoBack }
 				aria-label={ tooltipText }

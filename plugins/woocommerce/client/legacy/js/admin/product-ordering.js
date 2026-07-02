@@ -1,4 +1,4 @@
-/*global ajaxurl, woocommerce_product_ordering_params */
+/*global ajaxurl, poocommerce_product_ordering_params */
 
 /**
  * Based on Simple Page Ordering by 10up (https://wordpress.org/plugins/simple-page-ordering/)
@@ -47,8 +47,8 @@ jQuery( function( $ ) {
 			$.post(
 				ajaxurl,
 				{
-					action: 'woocommerce_product_ordering',
-					security: woocommerce_product_ordering_params.nonce,
+					action: 'poocommerce_product_ordering',
+					security: poocommerce_product_ordering_params.nonce,
 					id: postid,
 					previd: prevpostid,
 					nextid: nextpostid,

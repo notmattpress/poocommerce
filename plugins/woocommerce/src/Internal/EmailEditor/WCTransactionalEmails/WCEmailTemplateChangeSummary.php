@@ -2,10 +2,10 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails;
+namespace Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails;
 
-use Automattic\WooCommerce\EmailEditor\Engine\Logger\Email_Editor_Logger_Interface;
-use Automattic\WooCommerce\Internal\EmailEditor\Logger;
+use Automattic\PooCommerce\EmailEditor\Engine\Logger\Email_Editor_Logger_Interface;
+use Automattic\PooCommerce\Internal\EmailEditor\Logger;
 
 /**
  * Produces a localized summary of differences between a merchant's `woo_email`
@@ -28,7 +28,7 @@ use Automattic\WooCommerce\Internal\EmailEditor\Logger;
  *   notes." when it can't reliably attribute changes.
  *
  * Both paths normalize known namespace aliases (e.g. `woo/email-content` →
- * `woocommerce/email-content`) and produce the same payload shape (added /
+ * `poocommerce/email-content`) and produce the same payload shape (added /
  * removed / copy / structural) so consumers don't need a mode switch.
  *
  * Result is cached in a transient keyed on the post ID, the post + core +
@@ -39,7 +39,7 @@ use Automattic\WooCommerce\Internal\EmailEditor\Logger;
  * is guaranteed by construction — both sides route through the same
  * canonical render, identical to the divergence detector.
  *
- * @package Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails
+ * @package Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails
  * @since 10.9.0
  */
 class WCEmailTemplateChangeSummary {
@@ -78,7 +78,7 @@ class WCEmailTemplateChangeSummary {
 	 * @var array<string,string>
 	 */
 	private const BLOCK_NAME_ALIASES = array(
-		'woo/email-content' => 'woocommerce/email-content',
+		'woo/email-content' => 'poocommerce/email-content',
 	);
 
 	/**
@@ -333,7 +333,7 @@ class WCEmailTemplateChangeSummary {
 		$payload                  = self::empty_payload();
 		$payload['version_from']  = $version_from;
 		$payload['version_to']    = $version_to;
-		$payload['summary_lines'] = array( __( 'Template updated — see release notes.', 'woocommerce' ) );
+		$payload['summary_lines'] = array( __( 'Template updated — see release notes.', 'poocommerce' ) );
 		$payload['is_fallback']   = true;
 		return $payload;
 	}
@@ -520,9 +520,9 @@ class WCEmailTemplateChangeSummary {
 					'kind'        => 'nest',
 					'description' => sprintf(
 						/* translators: 1: block name; 2: parent block name */
-						__( 'Moved %1$s into %2$s', 'woocommerce' ),
+						__( 'Moved %1$s into %2$s', 'poocommerce' ),
 						$label,
-						null === $core['parent_name'] ? __( 'top level', 'woocommerce' ) : self::block_label( $core['parent_name'] )
+						null === $core['parent_name'] ? __( 'top level', 'poocommerce' ) : self::block_label( $core['parent_name'] )
 					),
 					'path'        => $post_r['path'],
 				);
@@ -564,7 +564,7 @@ class WCEmailTemplateChangeSummary {
 					'kind'        => 'nest',
 					'description' => sprintf(
 						/* translators: %s: block name */
-						__( 'Added %s wrapper', 'woocommerce' ),
+						__( 'Added %s wrapper', 'poocommerce' ),
 						self::block_label( $rec['name'] )
 					),
 					'path'        => $rec['path'],
@@ -591,7 +591,7 @@ class WCEmailTemplateChangeSummary {
 					'kind'        => 'nest',
 					'description' => sprintf(
 						/* translators: %s: block name */
-						__( 'Removed %s wrapper', 'woocommerce' ),
+						__( 'Removed %s wrapper', 'poocommerce' ),
 						self::block_label( $rec['name'] )
 					),
 					'path'        => $rec['path'],
@@ -640,7 +640,7 @@ class WCEmailTemplateChangeSummary {
 					'kind'        => 'reorder',
 					'description' => sprintf(
 						/* translators: %s: block name */
-						__( 'Reordered %s', 'woocommerce' ),
+						__( 'Reordered %s', 'poocommerce' ),
 						$label
 					),
 				);
@@ -757,7 +757,7 @@ class WCEmailTemplateChangeSummary {
 					'kind'        => 'merchant_removed',
 					'description' => sprintf(
 						/* translators: %s: block name */
-						__( 'You removed %s; core still has it.', 'woocommerce' ),
+						__( 'You removed %s; core still has it.', 'poocommerce' ),
 						self::block_label( $core_records[ $core_idx ]['name'] )
 					),
 					'path'        => $base['path'],
@@ -816,7 +816,7 @@ class WCEmailTemplateChangeSummary {
 					'kind'        => 'nest',
 					'description' => sprintf(
 						/* translators: %s: block name */
-						__( 'Added %s wrapper', 'woocommerce' ),
+						__( 'Added %s wrapper', 'poocommerce' ),
 						self::block_label( $rec['name'] )
 					),
 					'path'        => $rec['path'],
@@ -842,7 +842,7 @@ class WCEmailTemplateChangeSummary {
 					'kind'        => 'nest',
 					'description' => sprintf(
 						/* translators: %s: block name */
-						__( 'Removed %s wrapper', 'woocommerce' ),
+						__( 'Removed %s wrapper', 'poocommerce' ),
 						self::block_label( $rec['name'] )
 					),
 					'path'        => $rec['path'],
@@ -1018,7 +1018,7 @@ class WCEmailTemplateChangeSummary {
 	 * Convert a normalized block name into a human-readable label. Used for
 	 * both structured payload entries and the localized catalog.
 	 *
-	 * `core/heading` → `Heading`; `woocommerce/email-content` → `Email content`.
+	 * `core/heading` → `Heading`; `poocommerce/email-content` → `Email content`.
 	 *
 	 * @param string $normalized_name Normalized block name.
 	 */
@@ -1077,13 +1077,13 @@ class WCEmailTemplateChangeSummary {
 			if ( 1 === $count ) {
 				$lines[] = sprintf(
 					/* translators: %s: block name */
-					__( 'Added %s block', 'woocommerce' ),
+					__( 'Added %s block', 'poocommerce' ),
 					(string) $label
 				);
 			} else {
 				$lines[] = sprintf(
 					/* translators: 1: number of blocks added; 2: block name */
-					__( 'Added %1$d %2$s blocks', 'woocommerce' ),
+					__( 'Added %1$d %2$s blocks', 'poocommerce' ),
 					$count,
 					(string) $label
 				);
@@ -1097,13 +1097,13 @@ class WCEmailTemplateChangeSummary {
 			if ( 1 === $count ) {
 				$lines[] = sprintf(
 					/* translators: %s: block name */
-					__( 'Removed %s block', 'woocommerce' ),
+					__( 'Removed %s block', 'poocommerce' ),
 					(string) $label
 				);
 			} else {
 				$lines[] = sprintf(
 					/* translators: 1: number of blocks removed; 2: block name */
-					__( 'Removed %1$d %2$s blocks', 'woocommerce' ),
+					__( 'Removed %1$d %2$s blocks', 'poocommerce' ),
 					$count,
 					(string) $label
 				);
@@ -1118,7 +1118,7 @@ class WCEmailTemplateChangeSummary {
 			if ( $total > 1 ) {
 				$lines[] = sprintf(
 					/* translators: 1: block name (e.g. "Paragraph"); 2: position of the edited block (e.g. 1); 3: total blocks of that type in the template (e.g. 2). Reads as "Updated wording in Paragraph 1 of 2". */
-					__( 'Updated wording in %1$s %2$d of %3$d', 'woocommerce' ),
+					__( 'Updated wording in %1$s %2$d of %3$d', 'poocommerce' ),
 					$label,
 					$occurrence,
 					$total
@@ -1126,7 +1126,7 @@ class WCEmailTemplateChangeSummary {
 			} else {
 				$lines[] = sprintf(
 					/* translators: %s: block name */
-					__( 'Updated wording in %s', 'woocommerce' ),
+					__( 'Updated wording in %s', 'poocommerce' ),
 					$label
 				);
 			}

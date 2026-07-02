@@ -32,7 +32,7 @@ type ProductCategory = {
 
 const fieldDefinition = {
 	type: 'array',
-	label: __( 'Category', 'woocommerce' ),
+	label: __( 'Category', 'poocommerce' ),
 	enableSorting: false,
 	filterBy: {
 		operators: [ 'isAny', 'isNone' ],
@@ -73,7 +73,7 @@ export const fieldExtensions: Partial< Field< ProductEntityRecord > > = {
 			fieldProperty="categories"
 			searchPlaceholder={ __(
 				'Search or create categories',
-				'woocommerce'
+				'poocommerce'
 			) }
 		/>
 	),

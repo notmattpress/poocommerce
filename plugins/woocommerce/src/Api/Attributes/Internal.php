@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Api\Attributes;
+namespace Automattic\PooCommerce\Api\Attributes;
 
 use Attribute;
 
 /**
- * Marks a code-API element as for WooCommerce internal use.
+ * Marks a code-API element as for PooCommerce internal use.
  *
  * Discoverable through the `_apiMetadata` GraphQL field as an entry with
  * `name = "internal"` and `value = true`. The marking is informational —
@@ -17,7 +17,7 @@ use Attribute;
  * When a class, property or enum case has this attribute, the generated
  * GraphQL `description` is prefixed with `[Internal] `, and
  * when the element has no `#[Description]` at all, a default body
- * (`[Internal] For WooCommerce core internal usage only.`) is emitted so the
+ * (`[Internal] For PooCommerce core internal usage only.`) is emitted so the
  * marker still reaches stock introspection.
  *
  * `#[Internal]` on a class marks only that class — its fields and enum cases
@@ -46,7 +46,7 @@ class Internal extends Metadata {
 	 */
 	public function transform_description( string $description ): string {
 		if ( '' === $description ) {
-			$description = 'For WooCommerce core internal usage only.';
+			$description = 'For PooCommerce core internal usage only.';
 		}
 		return '[Internal] ' . $description;
 	}

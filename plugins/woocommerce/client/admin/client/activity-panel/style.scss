@@ -1,11 +1,11 @@
-.woocommerce-layout__activity-panel {
+.poocommerce-layout__activity-panel {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
 	height: $header-height;
 }
 
-.woocommerce-layout__activity-panel-tabs {
+.poocommerce-layout__activity-panel-tabs {
 	width: 100%;
 	display: flex;
 	height: $header-height;
@@ -20,7 +20,7 @@
 		width: 18px;
 		height: 18px;
 
-		&.woocommerce-layout__activity-panel-tab-icon {
+		&.poocommerce-layout__activity-panel-tab-icon {
 			fill: none;
 
 			rect,
@@ -38,13 +38,13 @@
 		}
 	}
 
-	.woocommerce-layout__homescreen-display-options {
-		svg.woocommerce-layout__activity-panel-tab-icon {
+	.poocommerce-layout__homescreen-display-options {
+		svg.poocommerce-layout__activity-panel-tab-icon {
 			height: 14px;
 		}
 	}
 
-	.woocommerce-layout__homescreen-extension-tasklist-toggle {
+	.poocommerce-layout__homescreen-extension-tasklist-toggle {
 		min-width: 205px;
 	}
 
@@ -60,7 +60,7 @@
 		}
 	}
 
-	.woocommerce-layout__activity-panel-tab {
+	.poocommerce-layout__activity-panel-tab {
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
@@ -145,7 +145,7 @@
 		}
 	}
 
-	.woocommerce-layout__activity-panel-popover {
+	.poocommerce-layout__activity-panel-popover {
 		margin-top: 0;
 		z-index: 1001; // One higher than the other activity panels.
 
@@ -155,7 +155,7 @@
 	}
 }
 
-.woocommerce-layout__activity-panel-toggle-bubble.has-unread::after {
+.poocommerce-layout__activity-panel-toggle-bubble.has-unread::after {
 	content: " ";
 	position: absolute;
 	padding: 1px;
@@ -188,7 +188,7 @@
 	}
 }
 
-.woocommerce-layout__activity-panel-wrapper {
+.poocommerce-layout__activity-panel-wrapper {
 	// Suppress the browser's default focus outline on click focus (the blue
 	// ring with slight rounded corners). Keyboard nav still gets it via
 	// :focus-visible so a11y is preserved.
@@ -217,7 +217,7 @@
 	@include breakpoint( ">782px" ) {
 		height: calc(100vh - #{$header-height + $adminbar-height});
 	}
-	.has-woocommerce-navigation & {
+	.has-poocommerce-navigation & {
 		height: calc(100vh - #{$header-height});
 		top: #{$header-height};
 	}
@@ -236,23 +236,23 @@
 		}
 	}
 
-	.woocommerce-empty-content {
+	.poocommerce-empty-content {
 		padding-left: $gap-large;
 		padding-right: $gap-large;
 	}
 }
 
-.woocommerce-layout__activity-panel-avatar-flag-overlay {
+.poocommerce-layout__activity-panel-avatar-flag-overlay {
 	position: relative;
 	top: -$gap-small;
 
-	.woocommerce-flag {
+	.poocommerce-flag {
 		position: relative;
 		top: 16px;
 		border: 2px solid $studio-white;
 	}
 }
 
-.woocommerce-layout__notice-list-hide {
+.poocommerce-layout__notice-list-hide {
 	display: none;
 }

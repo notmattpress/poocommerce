@@ -5,12 +5,12 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\DataStores\StockNotifications;
+namespace Automattic\PooCommerce\Internal\DataStores\StockNotifications;
 
 use Automattic\Jetpack\Constants;
-use Automattic\WooCommerce\Internal\StockNotifications\Notification;
-use Automattic\WooCommerce\Internal\Utilities\DatabaseUtil;
-use Automattic\WooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
+use Automattic\PooCommerce\Internal\StockNotifications\Notification;
+use Automattic\PooCommerce\Internal\Utilities\DatabaseUtil;
+use Automattic\PooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
 
 defined( 'ABSPATH' ) || exit;
 

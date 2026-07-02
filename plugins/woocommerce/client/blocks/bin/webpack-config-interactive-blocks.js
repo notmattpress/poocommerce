@@ -14,7 +14,7 @@ const RemoveFilesPlugin = require( './remove-files-webpack-plugin' );
  */
 const { getResolve } = require( './webpack-helpers' );
 
-// Blocks' webpack writes directly to the WooCommerce plugin's
+// Blocks' webpack writes directly to the PooCommerce plugin's
 // `assets/client/blocks/` so PHP can enqueue files from their final location
 // without an intermediate rsync step.
 const BUILD_DIR = path.resolve( __dirname, '../../../assets/client/blocks' );
@@ -22,11 +22,11 @@ const BUILD_DIR = path.resolve( __dirname, '../../../assets/client/blocks' );
 /**
  * Internal dependencies
  */
-const DependencyExtractionWebpackPlugin = require( '@woocommerce/dependency-extraction-webpack-plugin' );
+const DependencyExtractionWebpackPlugin = require( '@poocommerce/dependency-extraction-webpack-plugin' );
 const FilesystemCacheWarningsPlugin = require( './filesystem-cache-warnings-webpack-plugin.js' );
 const {
 	WebpackRTLPlugin,
-} = require( '@woocommerce/internal-build/style-build' );
+} = require( '@poocommerce/internal-build/style-build' );
 const { sharedOptimizationConfig } = require( './webpack-shared-config' );
 const {
 	scriptModuleEntries,
@@ -41,25 +41,25 @@ const entries = {
 	...editorStyleEntries,
 
 	// Experimental mini cart frontend modules, only enqueued when experimental-iapi-mini-cart feature flag is enabled.
-	'woocommerce/mini-cart': './assets/js/blocks/mini-cart/iapi-frontend.ts',
+	'poocommerce/mini-cart': './assets/js/blocks/mini-cart/iapi-frontend.ts',
 
 	// Product elements frontend module. Share by several blocks.
-	'woocommerce/product-elements':
+	'poocommerce/product-elements':
 		'./assets/js/atomic/blocks/product-elements/frontend.ts',
 	// Add to cart with options quantity selector frontend module used by the
 	// Product Quantity block and the Grouped Product Selector block.
-	'woocommerce/add-to-cart-with-options-quantity-selector':
+	'poocommerce/add-to-cart-with-options-quantity-selector':
 		'./assets/js/blocks/add-to-cart-with-options/quantity-selector/frontend.ts',
 
 	// Other
-	'@woocommerce/stores/woocommerce/cart':
-		'./assets/js/base/stores/woocommerce/cart.ts',
-	'@woocommerce/stores/store-notices':
+	'@poocommerce/stores/poocommerce/cart':
+		'./assets/js/base/stores/poocommerce/cart.ts',
+	'@poocommerce/stores/store-notices':
 		'./assets/js/base/stores/store-notices.ts',
-	'@woocommerce/stores/woocommerce/products':
-		'./assets/js/base/stores/woocommerce/products.ts',
-	'@woocommerce/stores/woocommerce/shopper-lists':
-		'./assets/js/base/stores/woocommerce/shopper-lists.ts',
+	'@poocommerce/stores/poocommerce/products':
+		'./assets/js/base/stores/poocommerce/products.ts',
+	'@poocommerce/stores/poocommerce/shopper-lists':
+		'./assets/js/base/stores/poocommerce/shopper-lists.ts',
 };
 
 module.exports = {
@@ -93,7 +93,7 @@ module.exports = {
 			combineAssets: true,
 			combinedOutputFile: './interactivity-blocks-frontend-assets.php',
 			requestToExternalModule( request ) {
-				if ( request.startsWith( '@woocommerce/stores/' ) ) {
+				if ( request.startsWith( '@poocommerce/stores/' ) ) {
 					return `module ${ request }`;
 				}
 			},

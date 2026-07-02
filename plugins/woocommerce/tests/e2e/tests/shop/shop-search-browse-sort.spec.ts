@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { WC_API_PATH } from '@woocommerce/e2e-utils-playwright';
+import { WC_API_PATH } from '@poocommerce/e2e-utils-playwright';
 
 /**
  * Internal dependencies
@@ -127,7 +127,7 @@ test.describe(
 			// category archive, in DOM order, as plain numbers.
 			const getDisplayedPrices = async () => {
 				const priceTexts = await page
-					.locator( 'li.product .woocommerce-Price-amount' )
+					.locator( 'li.product .poocommerce-Price-amount' )
 					.allInnerTexts();
 				return priceTexts.map( ( text ) =>
 					parseFloat( text.replace( /[^0-9.]/g, '' ) )

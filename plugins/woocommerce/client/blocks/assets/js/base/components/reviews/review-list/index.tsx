@@ -1,8 +1,8 @@
 /**
  * External dependencies
  */
-import { getSetting } from '@woocommerce/settings';
-import { ReviewBlockAttributes } from '@woocommerce/blocks/reviews/attributes';
+import { getSetting } from '@poocommerce/settings';
+import { ReviewBlockAttributes } from '@poocommerce/blocks/reviews/attributes';
 
 /**
  * Internal dependencies

@@ -4,7 +4,7 @@
 import type { Field } from '@wordpress/dataviews';
 import { Tooltip } from '@wordpress/components';
 import { addQueryArgs } from '@wordpress/url';
-import { getAdminLink } from '@woocommerce/settings';
+import { getAdminLink } from '@poocommerce/settings';
 import { __ } from '@wordpress/i18n';
 import { Badge, Stack } from '@wordpress/ui';
 import { Icon, link as linkIcon } from '@wordpress/icons';
@@ -30,12 +30,12 @@ function getGlobalAttributeTermsLink( attributeSlug: string ): string {
 }
 
 function getBooleanLabel( value: boolean ) {
-	return value ? __( 'Yes', 'woocommerce' ) : __( 'No', 'woocommerce' );
+	return value ? __( 'Yes', 'poocommerce' ) : __( 'No', 'poocommerce' );
 }
 
 function EmptyDefaultValue() {
 	return (
-		<span className="woocommerce-variation-attributes__muted">&mdash;</span>
+		<span className="poocommerce-variation-attributes__muted">&mdash;</span>
 	);
 }
 
@@ -47,7 +47,7 @@ function BooleanValue( { value }: { value: boolean } ) {
 	}
 
 	return (
-		<span className="woocommerce-variation-attributes__muted">
+		<span className="poocommerce-variation-attributes__muted">
 			{ label }
 		</span>
 	);
@@ -63,13 +63,13 @@ function AttributeValuePills( { values }: { values: string[] } ) {
 			direction="row"
 			gap="xs"
 			wrap="wrap"
-			className="woocommerce-variation-attributes__pill-list"
+			className="poocommerce-variation-attributes__pill-list"
 		>
 			{ values.map( ( value ) => (
 				<Badge
 					key={ value }
 					intent="none"
-					className="woocommerce-variation-attributes__pill"
+					className="poocommerce-variation-attributes__pill"
 				>
 					{ value }
 				</Badge>
@@ -92,7 +92,7 @@ export function getAttributeTableFields(
 		},
 		{
 			id: 'values',
-			label: __( 'Values', 'woocommerce' ),
+			label: __( 'Values', 'poocommerce' ),
 			enableSorting: false,
 			enableGlobalSearch: false,
 			getValue: ( { item } ) => item.values.join( ' ' ),
@@ -102,7 +102,7 @@ export function getAttributeTableFields(
 		},
 		{
 			id: 'defaultValue',
-			label: __( 'Default value', 'woocommerce' ),
+			label: __( 'Default value', 'poocommerce' ),
 			enableSorting: false,
 			enableGlobalSearch: false,
 			getValue: ( { item } ) => item.defaultValue,
@@ -110,7 +110,7 @@ export function getAttributeTableFields(
 				item.defaultValue ? (
 					<Badge
 						intent="none"
-						className="woocommerce-variation-attributes__pill"
+						className="poocommerce-variation-attributes__pill"
 					>
 						{ item.defaultValue }
 					</Badge>
@@ -120,7 +120,7 @@ export function getAttributeTableFields(
 		},
 		{
 			id: 'isVisible',
-			label: __( 'Visible on product page', 'woocommerce' ),
+			label: __( 'Visible on product page', 'poocommerce' ),
 			enableSorting: false,
 			enableGlobalSearch: false,
 			getValue: ( { item } ) => getBooleanLabel( item.isVisible ),
@@ -128,7 +128,7 @@ export function getAttributeTableFields(
 		},
 		{
 			id: 'isGlobal',
-			label: __( 'Global', 'woocommerce' ),
+			label: __( 'Global', 'poocommerce' ),
 			enableSorting: false,
 			enableGlobalSearch: false,
 			getValue: ( { item } ) => getBooleanLabel( item.isGlobal ),
@@ -137,17 +137,17 @@ export function getAttributeTableFields(
 					<Tooltip
 						text={ __(
 							'Available across all products. Customers can filter your catalog by this attribute.',
-							'woocommerce'
+							'poocommerce'
 						) }
 					>
 						<a
-							className="woocommerce-variation-attributes__global-link"
+							className="poocommerce-variation-attributes__global-link"
 							href={ getGlobalAttributeTermsLink( item.slug ) }
 							target="_blank"
 							rel="noreferrer"
 							onClick={ ( event ) => event.stopPropagation() }
 						>
-							{ __( 'Yes', 'woocommerce' ) }
+							{ __( 'Yes', 'poocommerce' ) }
 							<Icon icon={ linkIcon } size={ 16 } />
 						</a>
 					</Tooltip>

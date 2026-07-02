@@ -2,21 +2,21 @@
 /**
  * REST controller for subscription engine plans.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine\Integration\Rest
+ * @package Automattic\PooCommerce\SubscriptionsEngine\Integration\Rest
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Api\Rest;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Api\Rest;
 
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\Plan;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\PlanGroup;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Support\ScalarCoercion;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\ValueObject\BillingPolicy;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\ValueObject\PricingPolicy;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage\PlanGroupRepository;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage\PlanRepository;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Support\RESTPermissions;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\Plan;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\PlanGroup;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Support\ScalarCoercion;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\ValueObject\BillingPolicy;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\ValueObject\PricingPolicy;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage\PlanGroupRepository;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage\PlanRepository;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Support\RESTPermissions;
 use InvalidArgumentException;
 use Throwable;
 use WP_Error;
@@ -102,41 +102,41 @@ final class PlansController extends WP_REST_Controller {
 					'permission_callback' => array( $this, 'permissions_check' ),
 					'args'                => array(
 						'extension_slug' => array(
-							'description' => __( 'Extension slug or comma-separated list of slugs for the plan query. Use "any" to query all slugs.', 'woocommerce-subscriptions-engine' ),
+							'description' => __( 'Extension slug or comma-separated list of slugs for the plan query. Use "any" to query all slugs.', 'poocommerce-subscriptions-engine' ),
 							'type'        => 'string',
 							'required'    => true,
 						),
 						'page'           => array(
-							'description' => __( 'Page number for the plan query.', 'woocommerce-subscriptions-engine' ),
+							'description' => __( 'Page number for the plan query.', 'poocommerce-subscriptions-engine' ),
 							'type'        => 'integer',
 							'required'    => false,
 						),
 						'per_page'       => array(
-							'description' => __( 'Number of plans per page for the plan query.', 'woocommerce-subscriptions-engine' ),
+							'description' => __( 'Number of plans per page for the plan query.', 'poocommerce-subscriptions-engine' ),
 							'type'        => 'integer',
 							'required'    => false,
 							'default'     => self::DEFAULT_PER_PAGE,
 						),
 						'search'         => array(
-							'description' => __( 'Search term for the plan query.', 'woocommerce-subscriptions-engine' ),
+							'description' => __( 'Search term for the plan query.', 'poocommerce-subscriptions-engine' ),
 							'type'        => 'string',
 							'required'    => false,
 						),
 						'status'         => array(
-							'description' => __( 'Status of the plans to query.', 'woocommerce-subscriptions-engine' ),
+							'description' => __( 'Status of the plans to query.', 'poocommerce-subscriptions-engine' ),
 							'type'        => 'string',
 							'required'    => false,
 							'enum'        => array( Plan::STATUS_ACTIVE, Plan::STATUS_ARCHIVED ),
 						),
 						'orderby'        => array(
-							'description' => __( 'Order by field for the plan query.', 'woocommerce-subscriptions-engine' ),
+							'description' => __( 'Order by field for the plan query.', 'poocommerce-subscriptions-engine' ),
 							'type'        => 'string',
 							'required'    => false,
 							'enum'        => array( 'id', 'name', 'status', 'sort_order' ),
 							'default'     => 'sort_order',
 						),
 						'order'          => array(
-							'description' => __( 'Order direction for the plan query.', 'woocommerce-subscriptions-engine' ),
+							'description' => __( 'Order direction for the plan query.', 'poocommerce-subscriptions-engine' ),
 							'type'        => 'string',
 							'required'    => false,
 							'enum'        => array( 'asc', 'desc' ),
@@ -172,7 +172,7 @@ final class PlansController extends WP_REST_Controller {
 			array(
 				'args'   => array(
 					'id' => array(
-						'description' => __( 'Unique identifier for the plan.', 'woocommerce-subscriptions-engine' ),
+						'description' => __( 'Unique identifier for the plan.', 'poocommerce-subscriptions-engine' ),
 						'type'        => 'integer',
 					),
 				),
@@ -283,12 +283,12 @@ final class PlansController extends WP_REST_Controller {
 
 		$name = $this->string_param( $request, 'name' );
 		if ( '' === $name ) {
-			return $this->invalid_error( __( 'Plan name is required.', 'woocommerce-subscriptions-engine' ) );
+			return $this->invalid_error( __( 'Plan name is required.', 'poocommerce-subscriptions-engine' ) );
 		}
 
 		$billing_policy = $request->get_param( 'billing_policy' );
 		if ( ! is_array( $billing_policy ) ) {
-			return $this->invalid_error( __( 'billing_policy is required.', 'woocommerce-subscriptions-engine' ) );
+			return $this->invalid_error( __( 'billing_policy is required.', 'poocommerce-subscriptions-engine' ) );
 		}
 
 		try {
@@ -352,7 +352,7 @@ final class PlansController extends WP_REST_Controller {
 			if ( $request->has_param( 'name' ) ) {
 				$name = $this->string_param( $request, 'name' );
 				if ( '' === $name ) {
-					return $this->invalid_error( __( 'Plan name is required.', 'woocommerce-subscriptions-engine' ) );
+					return $this->invalid_error( __( 'Plan name is required.', 'poocommerce-subscriptions-engine' ) );
 				}
 				$plan->set_name( $name );
 				$sync_group_name = $name;
@@ -365,7 +365,7 @@ final class PlansController extends WP_REST_Controller {
 			if ( $request->has_param( 'billing_policy' ) ) {
 				$billing_policy = $request->get_param( 'billing_policy' );
 				if ( ! is_array( $billing_policy ) ) {
-					return $this->invalid_error( __( 'billing_policy must be an object.', 'woocommerce-subscriptions-engine' ) );
+					return $this->invalid_error( __( 'billing_policy must be an object.', 'poocommerce-subscriptions-engine' ) );
 				}
 				$billing_policy = $this->associative_array( $billing_policy, 'billing_policy must be an object.' );
 				$plan->set_billing_policy(
@@ -414,7 +414,7 @@ final class PlansController extends WP_REST_Controller {
 
 		$ids = $request->get_param( 'ids' );
 		if ( ! is_array( $ids ) ) {
-			return $this->invalid_error( __( 'ids must be an array of plan ids.', 'woocommerce-subscriptions-engine' ) );
+			return $this->invalid_error( __( 'ids must be an array of plan ids.', 'poocommerce-subscriptions-engine' ) );
 		}
 
 		$sort_order_by_id = array();
@@ -422,10 +422,10 @@ final class PlansController extends WP_REST_Controller {
 		foreach ( array_values( $ids ) as $index => $raw_id ) {
 			$id = ScalarCoercion::coerce_nullable_int( $raw_id );
 			if ( null === $id || $id <= 0 ) {
-				return $this->invalid_error( __( 'ids must contain only positive integers.', 'woocommerce-subscriptions-engine' ) );
+				return $this->invalid_error( __( 'ids must contain only positive integers.', 'poocommerce-subscriptions-engine' ) );
 			}
 			if ( isset( $sort_order_by_id[ $id ] ) ) {
-				return $this->invalid_error( __( 'ids must not contain duplicate plan ids.', 'woocommerce-subscriptions-engine' ) );
+				return $this->invalid_error( __( 'ids must not contain duplicate plan ids.', 'poocommerce-subscriptions-engine' ) );
 			}
 			$sort_order_by_id[ $id ] = $index;
 			$response_ids[]          = $id;
@@ -433,8 +433,8 @@ final class PlansController extends WP_REST_Controller {
 
 		if ( ! $this->plan_repository->reorder( $extension_slug, $sort_order_by_id ) ) {
 			return new WP_Error(
-				'woocommerce_subscriptions_engine_reorder_failed',
-				__( 'Plan reorder failed.', 'woocommerce-subscriptions-engine' ),
+				'poocommerce_subscriptions_engine_reorder_failed',
+				__( 'Plan reorder failed.', 'poocommerce-subscriptions-engine' ),
 				array( 'status' => 500 )
 			);
 		}
@@ -488,7 +488,7 @@ final class PlansController extends WP_REST_Controller {
 	public function get_collection_params(): array {
 		return array(
 			'page'     => array(
-				'description'       => __( 'Current page of the collection.', 'woocommerce-subscriptions-engine' ),
+				'description'       => __( 'Current page of the collection.', 'poocommerce-subscriptions-engine' ),
 				'type'              => 'integer',
 				'default'           => 1,
 				'minimum'           => 1,
@@ -496,7 +496,7 @@ final class PlansController extends WP_REST_Controller {
 				'validate_callback' => 'rest_validate_request_arg',
 			),
 			'per_page' => array(
-				'description'       => __( 'Maximum number of items to be returned in result set.', 'woocommerce-subscriptions-engine' ),
+				'description'       => __( 'Maximum number of items to be returned in result set.', 'poocommerce-subscriptions-engine' ),
 				'type'              => 'integer',
 				'default'           => self::DEFAULT_PER_PAGE,
 				'minimum'           => 1,
@@ -505,25 +505,25 @@ final class PlansController extends WP_REST_Controller {
 				'validate_callback' => 'rest_validate_request_arg',
 			),
 			'search'   => array(
-				'description'       => __( 'Search term.', 'woocommerce-subscriptions-engine' ),
+				'description'       => __( 'Search term.', 'poocommerce-subscriptions-engine' ),
 				'type'              => 'string',
 				'sanitize_callback' => 'sanitize_text_field',
 			),
 			'status'   => array(
-				'description'       => __( 'Limit result set to plans with a status.', 'woocommerce-subscriptions-engine' ),
+				'description'       => __( 'Limit result set to plans with a status.', 'poocommerce-subscriptions-engine' ),
 				'type'              => 'string',
 				'enum'              => Plan::ALLOWED_STATUSES,
 				'sanitize_callback' => 'sanitize_key',
 			),
 			'orderby'  => array(
-				'description'       => __( 'Sort collection by object attribute.', 'woocommerce-subscriptions-engine' ),
+				'description'       => __( 'Sort collection by object attribute.', 'poocommerce-subscriptions-engine' ),
 				'type'              => 'string',
 				'default'           => 'sort_order',
 				'enum'              => array( 'id', 'name', 'sort_order', 'date_created_gmt', 'date_updated_gmt' ),
 				'sanitize_callback' => 'sanitize_key',
 			),
 			'order'    => array(
-				'description'       => __( 'Order sort attribute ascending or descending.', 'woocommerce-subscriptions-engine' ),
+				'description'       => __( 'Order sort attribute ascending or descending.', 'poocommerce-subscriptions-engine' ),
 				'type'              => 'string',
 				'default'           => 'asc',
 				'enum'              => array( 'asc', 'desc' ),
@@ -549,55 +549,55 @@ final class PlansController extends WP_REST_Controller {
 			'type'       => 'object',
 			'properties' => array(
 				'id'             => array(
-					'description' => __( 'Unique identifier for the plan.', 'woocommerce-subscriptions-engine' ),
+					'description' => __( 'Unique identifier for the plan.', 'poocommerce-subscriptions-engine' ),
 					'type'        => 'integer',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
 				'name'           => array(
-					'description' => __( 'Display name.', 'woocommerce-subscriptions-engine' ),
+					'description' => __( 'Display name.', 'poocommerce-subscriptions-engine' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 				),
 				'description'    => array(
-					'description' => __( 'Optional description.', 'woocommerce-subscriptions-engine' ),
+					'description' => __( 'Optional description.', 'poocommerce-subscriptions-engine' ),
 					'type'        => array( 'string', 'null' ),
 					'context'     => array( 'view', 'edit' ),
 				),
 				'scope'          => array(
-					'description' => __( 'Plan scope.', 'woocommerce-subscriptions-engine' ),
+					'description' => __( 'Plan scope.', 'poocommerce-subscriptions-engine' ),
 					'type'        => 'string',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
 				'status'         => array(
-					'description' => __( 'Plan status.', 'woocommerce-subscriptions-engine' ),
+					'description' => __( 'Plan status.', 'poocommerce-subscriptions-engine' ),
 					'type'        => 'string',
 					'enum'        => Plan::ALLOWED_STATUSES,
 					'context'     => array( 'view', 'edit' ),
 				),
 				'sort_order'     => array(
-					'description' => __( 'Manual sort order.', 'woocommerce-subscriptions-engine' ),
+					'description' => __( 'Manual sort order.', 'poocommerce-subscriptions-engine' ),
 					'type'        => 'integer',
 					'context'     => array( 'view', 'edit' ),
 				),
 				'extension_slug' => array(
-					'description' => __( 'Owning extension slug.', 'woocommerce-subscriptions-engine' ),
+					'description' => __( 'Owning extension slug.', 'poocommerce-subscriptions-engine' ),
 					'type'        => array( 'string', 'null' ),
 					'context'     => array( 'view', 'edit' ),
 				),
 				'billing_policy' => array(
-					'description' => __( 'Billing policy.', 'woocommerce-subscriptions-engine' ),
+					'description' => __( 'Billing policy.', 'poocommerce-subscriptions-engine' ),
 					'type'        => 'object',
 					'context'     => array( 'view', 'edit' ),
 				),
 				'pricing_policy' => array(
-					'description' => __( 'Pricing policy.', 'woocommerce-subscriptions-engine' ),
+					'description' => __( 'Pricing policy.', 'poocommerce-subscriptions-engine' ),
 					'type'        => array( 'object', 'null' ),
 					'context'     => array( 'view', 'edit' ),
 				),
 				'group'          => array(
-					'description' => __( 'Plan group.', 'woocommerce-subscriptions-engine' ),
+					'description' => __( 'Plan group.', 'poocommerce-subscriptions-engine' ),
 					'type'        => array( 'object', 'null' ),
 					'context'     => array( 'view' ),
 					'readonly'    => true,
@@ -676,11 +676,11 @@ final class PlansController extends WP_REST_Controller {
 	private function get_multiple_extension_slugs( WP_REST_Request $request ) {
 		$raw = $request->get_param( 'extension_slug' );
 		if ( null === $raw ) {
-			return $this->invalid_error( __( 'extension_slug is required.', 'woocommerce-subscriptions-engine' ) );
+			return $this->invalid_error( __( 'extension_slug is required.', 'poocommerce-subscriptions-engine' ) );
 		}
 		$raw_string = trim( ScalarCoercion::coerce_string( $raw ) );
 		if ( '' === $raw_string ) {
-			return $this->invalid_error( __( 'extension_slug is required.', 'woocommerce-subscriptions-engine' ) );
+			return $this->invalid_error( __( 'extension_slug is required.', 'poocommerce-subscriptions-engine' ) );
 		}
 
 		if ( 'any' === $raw_string ) {
@@ -691,7 +691,7 @@ final class PlansController extends WP_REST_Controller {
 		foreach ( explode( ',', $raw_string ) as $possible_slug ) {
 			$slug = trim( $possible_slug );
 			if ( '' === $slug || 'any' === $slug || ! $this->is_valid_extension_slug( $slug ) ) {
-				return $this->invalid_error( __( 'extension_slug must be "any" or a comma-separated list of extension slugs.', 'woocommerce-subscriptions-engine' ) );
+				return $this->invalid_error( __( 'extension_slug must be "any" or a comma-separated list of extension slugs.', 'poocommerce-subscriptions-engine' ) );
 			}
 
 			$slugs[ $slug ] = $slug;
@@ -709,15 +709,15 @@ final class PlansController extends WP_REST_Controller {
 	private function get_single_extension_slug( WP_REST_Request $request ) {
 		$raw = $request->get_param( 'extension_slug' );
 		if ( null === $raw ) {
-			return $this->invalid_error( __( 'extension_slug is required.', 'woocommerce-subscriptions-engine' ) );
+			return $this->invalid_error( __( 'extension_slug is required.', 'poocommerce-subscriptions-engine' ) );
 		}
 		$raw_string = trim( ScalarCoercion::coerce_string( $raw ) );
 		if ( '' === $raw_string ) {
-			return $this->invalid_error( __( 'extension_slug is required.', 'woocommerce-subscriptions-engine' ) );
+			return $this->invalid_error( __( 'extension_slug is required.', 'poocommerce-subscriptions-engine' ) );
 		}
 
 		if ( 'any' === $raw_string || false !== strpos( $raw_string, ',' ) || ! $this->is_valid_extension_slug( $raw_string ) ) {
-			return $this->invalid_error( __( 'extension_slug must be a concrete extension slug.', 'woocommerce-subscriptions-engine' ) );
+			return $this->invalid_error( __( 'extension_slug must be a concrete extension slug.', 'poocommerce-subscriptions-engine' ) );
 		}
 
 		return $raw_string;
@@ -783,8 +783,8 @@ final class PlansController extends WP_REST_Controller {
 	 */
 	private function not_found_error(): WP_Error {
 		return new WP_Error(
-			'woocommerce_subscriptions_engine_plan_not_found',
-			__( 'Plan not found.', 'woocommerce-subscriptions-engine' ),
+			'poocommerce_subscriptions_engine_plan_not_found',
+			__( 'Plan not found.', 'poocommerce-subscriptions-engine' ),
 			array( 'status' => 404 )
 		);
 	}
@@ -796,7 +796,7 @@ final class PlansController extends WP_REST_Controller {
 	 */
 	private function invalid_error( string $message ): WP_Error {
 		return new WP_Error(
-			'woocommerce_subscriptions_engine_invalid_plan',
+			'poocommerce_subscriptions_engine_invalid_plan',
 			$message,
 			array( 'status' => 400 )
 		);

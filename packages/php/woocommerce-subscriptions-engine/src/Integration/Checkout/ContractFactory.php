@@ -7,26 +7,26 @@
  * Integration zone: WordPress-native. Reads a live `WC_Order`; the order never
  * crosses into Core - only the snapshot values pulled off it do.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine\Integration\Checkout
+ * @package Automattic\PooCommerce\SubscriptionsEngine\Integration\Checkout
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Integration\Checkout;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Integration\Checkout;
 
 use DateTimeImmutable;
 use DateTimeZone;
 use Throwable;
 use WC_Order;
 use WC_Order_Item_Product;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\Contract;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\Cycle;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\CycleStatus;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\Plan;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Support\ScalarCoercion;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\ValueObject\ItemsSnapshot;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\ValueObject\PlanSnapshot;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage\ContractRepository;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\Contract;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\Cycle;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\CycleStatus;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\Plan;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Support\ScalarCoercion;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\ValueObject\ItemsSnapshot;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\ValueObject\PlanSnapshot;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage\ContractRepository;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -212,7 +212,7 @@ final class ContractFactory {
 					$e->getMessage()
 				),
 				array(
-					'source'      => 'woocommerce-subscriptions-engine',
+					'source'      => 'poocommerce-subscriptions-engine',
 					'contract_id' => $contract_id,
 					'order_id'    => $order->get_id(),
 				)
@@ -269,7 +269,7 @@ final class ContractFactory {
 	/**
 	 * Best-effort extraction of the payment-token id from `$order`.
 	 *
-	 * Reads WooCommerce's per-order payment tokens (populated when a gateway calls
+	 * Reads PooCommerce's per-order payment tokens (populated when a gateway calls
 	 * `$order->add_payment_token()`); the last entry is the one charged. Returns null
 	 * when none is resolvable (manual gateways, or token stored elsewhere) - the contract
 	 * is then created without a token and a later payment-method change can attach one.

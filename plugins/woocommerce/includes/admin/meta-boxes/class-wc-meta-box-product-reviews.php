@@ -4,7 +4,7 @@
  *
  * Functions for displaying product reviews data meta box.
  *
- * @package WooCommerce\Admin\Meta Boxes
+ * @package PooCommerce\Admin\Meta Boxes
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -20,7 +20,7 @@ class WC_Meta_Box_Product_Reviews {
 	 * @param object $comment Comment being shown.
 	 */
 	public static function output( $comment ) {
-		wp_nonce_field( 'woocommerce_save_data', 'woocommerce_meta_nonce' );
+		wp_nonce_field( 'poocommerce_save_data', 'poocommerce_meta_nonce' );
 
 		$current = get_comment_meta( $comment->comment_ID, 'rating', true );
 		?>
@@ -42,7 +42,7 @@ class WC_Meta_Box_Product_Reviews {
 	 */
 	public static function save( $data ) {
 		// Not allowed, return regular value without updating meta.
-		if ( ! isset( $_POST['woocommerce_meta_nonce'], $_POST['rating'] ) || ! wp_verify_nonce( wp_unslash( $_POST['woocommerce_meta_nonce'] ), 'woocommerce_save_data' ) ) { // WPCS: input var ok, sanitization ok.
+		if ( ! isset( $_POST['poocommerce_meta_nonce'], $_POST['rating'] ) || ! wp_verify_nonce( wp_unslash( $_POST['poocommerce_meta_nonce'] ), 'poocommerce_save_data' ) ) { // WPCS: input var ok, sanitization ok.
 			return $data;
 		}
 

@@ -2,13 +2,13 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\EmailEditor;
+namespace Automattic\PooCommerce\Internal\EmailEditor;
 
-use Automattic\WooCommerce\EmailEditor\Engine\Assets_Manager;
-use Automattic\WooCommerce\EmailEditor\Engine\Templates\Template;
-use Automattic\WooCommerce\EmailEditor\Engine\Templates\Templates_Registry;
-use Automattic\WooCommerce\EmailEditor\Email_Editor_Container;
-use Automattic\WooCommerce\Internal\Admin\WCAdminAssets;
+use Automattic\PooCommerce\EmailEditor\Engine\Assets_Manager;
+use Automattic\PooCommerce\EmailEditor\Engine\Templates\Template;
+use Automattic\PooCommerce\EmailEditor\Engine\Templates\Templates_Registry;
+use Automattic\PooCommerce\EmailEditor\Email_Editor_Container;
+use Automattic\PooCommerce\Internal\Admin\WCAdminAssets;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -58,9 +58,9 @@ class PageRenderer {
 			return;
 		}
 
-		add_filter( 'woocommerce_email_editor_script_localization_data', array( $this, 'update_localized_data' ) );
+		add_filter( 'poocommerce_email_editor_script_localization_data', array( $this, 'update_localized_data' ) );
 		// Load the email editor integration script.
-		// The JS file is located in plugins/woocommerce/client/admin/client/wp-admin-scripts/email-editor-integration/index.ts.
+		// The JS file is located in plugins/poocommerce/client/admin/client/wp-admin-scripts/email-editor-integration/index.ts.
 		WCAdminAssets::register_script( 'wp-admin-scripts', 'email-editor-integration', true );
 		WCAdminAssets::register_style( 'email-editor-integration', 'style', true );
 
@@ -68,7 +68,7 @@ class PageRenderer {
 		$this->assets_manager->render_email_editor_html();
 
 		remove_filter(
-			'woocommerce_email_editor_script_localization_data',
+			'poocommerce_email_editor_script_localization_data',
 			array( $this, 'update_localized_data' ),
 			10
 		);
@@ -81,7 +81,7 @@ class PageRenderer {
 	 * @return array
 	 */
 	public function update_localized_data( array $localized_data ): array {
-		// Fetch all email types from WooCommerce including those added by other plugins.
+		// Fetch all email types from PooCommerce including those added by other plugins.
 		$wc_emails   = \WC_Emails::instance();
 		$email_types = $wc_emails->get_emails();
 		$email_types = array_values(

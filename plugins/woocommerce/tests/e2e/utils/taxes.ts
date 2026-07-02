@@ -2,9 +2,9 @@
  * External dependencies
  */
 import { faker } from '@faker-js/faker';
-import { ApiClient, WC_API_PATH } from '@woocommerce/e2e-utils-playwright';
+import { ApiClient, WC_API_PATH } from '@poocommerce/e2e-utils-playwright';
 
-const CALC_TAXES_PATH = `${ WC_API_PATH }/settings/general/woocommerce_calc_taxes`;
+const CALC_TAXES_PATH = `${ WC_API_PATH }/settings/general/poocommerce_calc_taxes`;
 
 /**
  * A created tax rate plus the slug of the dedicated tax class it is scoped to.
@@ -16,7 +16,7 @@ export type ScopedTaxRate = {
 };
 
 /**
- * Assert that `woocommerce_calc_taxes` is `yes` and throw if it is not.
+ * Assert that `poocommerce_calc_taxes` is `yes` and throw if it is not.
  *
  * Call this at the start of any `beforeAll` / fixture that depends on the
  * taxes-ON baseline set by `site.setup.ts`. An early, descriptive failure is
@@ -30,7 +30,7 @@ export async function assertTaxCalculationEnabled(
 	const response = await restApi.get< { value: string } >( CALC_TAXES_PATH );
 	if ( response.data.value !== 'yes' ) {
 		throw new Error(
-			`Expected woocommerce_calc_taxes=yes (site.setup baseline) but got "${ response.data.value }". ` +
+			`Expected poocommerce_calc_taxes=yes (site.setup baseline) but got "${ response.data.value }". ` +
 				'A serial spec or afterAll hook may have turned taxes off — check for afterAll leaks or cross-project pollution.'
 		);
 	}

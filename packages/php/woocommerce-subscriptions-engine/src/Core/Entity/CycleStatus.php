@@ -9,12 +9,12 @@
  * non-terminal so a later change can add a retry edge. Instance methods serve the
  * entity; the static string helpers operate on raw strings at the storage boundary.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine\Core\Entity
+ * @package Automattic\PooCommerce\SubscriptionsEngine\Core\Entity
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Core\Entity;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Core\Entity;
 
 use DomainException;
 

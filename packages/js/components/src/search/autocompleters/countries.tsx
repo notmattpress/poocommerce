@@ -4,7 +4,7 @@
 import { decodeEntities } from '@wordpress/html-entities';
 import { createElement, Fragment } from '@wordpress/element';
 import apiFetch from '@wordpress/api-fetch';
-import { Country } from '@woocommerce/data';
+import { Country } from '@poocommerce/data';
 /**
  * Internal dependencies
  */
@@ -27,7 +27,7 @@ const isCountries = ( value: unknown ): value is Country[] => {
 
 const completer: AutoCompleter = {
 	name: 'countries',
-	className: 'woocommerce-search__country-result',
+	className: 'poocommerce-search__country-result',
 	isDebounced: true,
 	options() {
 		// Returned cached countries if we've already received them.
@@ -68,7 +68,7 @@ const completer: AutoCompleter = {
 				{ /* @ts-expect-error TODO: migrate Flag component to TS. */ }
 				<Flag
 					key="thumbnail"
-					className="woocommerce-search__result-thumbnail"
+					className="poocommerce-search__result-thumbnail"
 					code={ country.code }
 					// @ts-expect-error TODO: migrate Flag component.
 					size={ 18 }
@@ -76,7 +76,7 @@ const completer: AutoCompleter = {
 				/>
 				<span
 					key="name"
-					className="woocommerce-search__result-name"
+					className="poocommerce-search__result-name"
 					aria-label={ name }
 				>
 					{ query ? (

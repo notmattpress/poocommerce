@@ -2,7 +2,7 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\StockNotifications\Admin;
+namespace Automattic\PooCommerce\Internal\StockNotifications\Admin;
 
 /**
  * Menus controller for Customer Stock Notifications.
@@ -34,7 +34,7 @@ class MenusController {
 	public function __construct() {
 
 		add_action( 'admin_menu', array( $this, 'add_menu' ), 10 );
-		add_filter( 'woocommerce_screen_ids', array( $this, 'add_screen_ids' ) );
+		add_filter( 'poocommerce_screen_ids', array( $this, 'add_screen_ids' ) );
 		add_filter( 'set-screen-option', array( $this, 'set_screen_option' ), 10, 3 );
 	}
 
@@ -45,15 +45,15 @@ class MenusController {
 	 */
 	public function add_menu() {
 
-		if ( ! current_user_can( 'manage_woocommerce' ) ) {
+		if ( ! current_user_can( 'manage_poocommerce' ) ) {
 			return false;
 		}
 
 		$dashboard_page = add_submenu_page(
-			'woocommerce',
-			__( 'Stock Notifications', 'woocommerce' ),
-			__( 'Notifications', 'woocommerce' ),
-			'manage_woocommerce',
+			'poocommerce',
+			__( 'Stock Notifications', 'poocommerce' ),
+			__( 'Notifications', 'poocommerce' ),
+			'manage_poocommerce',
 			'wc-customer-stock-notifications',
 			array( $this, 'notifications_page' )
 		);
@@ -76,7 +76,7 @@ class MenusController {
 		add_screen_option(
 			'per_page',
 			array(
-				'label'   => __( 'Notifications per page', 'woocommerce' ),
+				'label'   => __( 'Notifications per page', 'poocommerce' ),
 				'default' => 10,
 				'option'  => 'stock_notifications_per_page',
 			)
@@ -124,13 +124,13 @@ class MenusController {
 	}
 
 	/**
-	 * Add screen id to WooCommerce.
+	 * Add screen id to PooCommerce.
 	 *
 	 * @param array $screen_ids List of screen IDs.
 	 * @return array
 	 */
 	public static function add_screen_ids( $screen_ids ): array {
-		$screen_ids[] = 'woocommerce_page_wc-customer-stock-notifications';
+		$screen_ids[] = 'poocommerce_page_wc-customer-stock-notifications';
 		return $screen_ids;
 	}
 }

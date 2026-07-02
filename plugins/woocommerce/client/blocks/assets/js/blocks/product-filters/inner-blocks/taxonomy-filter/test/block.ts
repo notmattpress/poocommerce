@@ -17,8 +17,8 @@ import '../../checkbox-list';
 import '../../chips';
 
 // Mock getSetting to return the taxonomy data we need
-jest.mock( '@woocommerce/settings', () => {
-	const originalModule = jest.requireActual( '@woocommerce/settings' );
+jest.mock( '@poocommerce/settings', () => {
+	const originalModule = jest.requireActual( '@poocommerce/settings' );
 	return {
 		...originalModule,
 		getSetting: jest.fn( ( key, defaultValue ) => {
@@ -49,7 +49,7 @@ jest.mock( '@woocommerce/settings', () => {
 	};
 } );
 
-// Mock WooCommerce schema selectors to prevent namespace errors
+// Mock PooCommerce schema selectors to prevent namespace errors
 jest.mock( '../../../../../data/schema/selectors', () => ( {
 	getRoute: jest.fn( () => null ),
 	getRoutes: jest.fn( () => ( {
@@ -60,7 +60,7 @@ jest.mock( '../../../../../data/schema/selectors', () => ( {
 async function setup( attributes: BlockAttributes ) {
 	const testBlock = [
 		{
-			name: 'woocommerce/product-filter-taxonomy',
+			name: 'poocommerce/product-filter-taxonomy',
 			attributes: {
 				...attributes,
 				isPreview: true,
@@ -227,7 +227,7 @@ describe( 'Taxonomy Filter block', () => {
 			await setup( {
 				taxonomy: 'product_cat',
 				showCounts: true,
-				displayStyle: 'woocommerce/product-filter-chips',
+				displayStyle: 'poocommerce/product-filter-chips',
 				sortOrder: 'name-asc',
 				hideEmpty: false,
 			} );

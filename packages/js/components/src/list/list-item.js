@@ -47,7 +47,7 @@ function ListItem( props ) {
 	const InnerTag = href ? Link : 'div';
 
 	const innerTagProps = {
-		className: 'woocommerce-list__item-inner',
+		className: 'poocommerce-list__item-inner',
 		onClick: typeof onClick === 'function' ? onClick : null,
 		'aria-disabled': hasAction ? 'false' : null,
 		tabIndex: hasAction ? '0' : null,
@@ -62,18 +62,18 @@ function ListItem( props ) {
 	return (
 		<InnerTag { ...innerTagProps }>
 			{ before && (
-				<div className="woocommerce-list__item-before">{ before }</div>
+				<div className="poocommerce-list__item-before">{ before }</div>
 			) }
-			<div className="woocommerce-list__item-text">
-				<span className="woocommerce-list__item-title">{ title }</span>
+			<div className="poocommerce-list__item-text">
+				<span className="poocommerce-list__item-title">{ title }</span>
 				{ content && (
-					<span className="woocommerce-list__item-content">
+					<span className="poocommerce-list__item-content">
 						{ content }
 					</span>
 				) }
 			</div>
 			{ after && (
-				<div className="woocommerce-list__item-after">{ after }</div>
+				<div className="poocommerce-list__item-after">{ after }</div>
 			) }
 		</InnerTag>
 	);

@@ -7,7 +7,7 @@
  */
 
 export const SELECTORS = {
-	galleryContainer: '.wp-block-woocommerce-product-gallery',
+	galleryContainer: '.wp-block-poocommerce-product-gallery',
 	largeImageContainer: '.wc-block-product-gallery-large-image__container',
 	largeImageWrapper: '.wc-block-product-gallery-large-image__wrapper',
 	thumbnail: '.wc-block-product-gallery-thumbnails__thumbnail',

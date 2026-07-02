@@ -1,4 +1,4 @@
-.woocommerce-marketing-recommended-extensions-card {
+.poocommerce-marketing-recommended-extensions-card {
 	.components-card__body {
 		padding: $gap-small;
 	}
@@ -10,36 +10,36 @@
 
 		@include breakpoint( ">600px" ) {
 			> a,
-			> .is-loading.woocommerce-marketing-recommended-extensions-item {
+			> .is-loading.poocommerce-marketing-recommended-extensions-item {
 				width: 50%;
 			}
 		}
 
 		@include breakpoint( ">960px" ) {
 			> a,
-			> .is-loading.woocommerce-marketing-recommended-extensions-item {
+			> .is-loading.poocommerce-marketing-recommended-extensions-item {
 				width: 33.3%;
 			}
 
 			&--count-1 > a,
-			&--count-1 > .is-loading.woocommerce-marketing-recommended-extensions-item {
+			&--count-1 > .is-loading.poocommerce-marketing-recommended-extensions-item {
 				width: 100%;
 			}
 
 			&--count-2 > a,
-			&--count-2 > .is-loading.woocommerce-marketing-recommended-extensions-item {
+			&--count-2 > .is-loading.poocommerce-marketing-recommended-extensions-item {
 				width: 50%;
 			}
 
 			&--count-4 > a,
-			&--count-4 > .is-loading.woocommerce-marketing-recommended-extensions-item {
+			&--count-4 > .is-loading.poocommerce-marketing-recommended-extensions-item {
 				width: 25%;
 			}
 		}
 	}
 }
 
-.woocommerce-marketing-recommended-extensions-item {
+.poocommerce-marketing-recommended-extensions-item {
 	display: block;
 	padding: 12px;
 	text-decoration: none;
@@ -71,14 +71,14 @@
 		padding-left: 46px;
 	}
 
-	.woocommerce-admin-marketing-product-icon {
+	.poocommerce-admin-marketing-product-icon {
 		position: absolute;
 		top: 12px;
 		left: 12px;
 	}
 }
 
-.woocommerce-marketing-recommended-extensions-item.is-loading {
+.poocommerce-marketing-recommended-extensions-item.is-loading {
 
 	.is-placeholder {
 		@include placeholder();

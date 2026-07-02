@@ -1,6 +1,6 @@
 <?php
 
-namespace Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Parsing;
+namespace Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Parsing;
 
 /**
  * Thrown if the CSS parser attempts to print something invalid.

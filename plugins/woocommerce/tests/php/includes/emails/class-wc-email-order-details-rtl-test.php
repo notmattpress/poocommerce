@@ -13,7 +13,7 @@ class WC_Email_Order_Details_RTL_Test extends \WC_Unit_Test_Case {
 	 */
 	public function tearDown(): void {
 		parent::tearDown();
-		update_option( 'woocommerce_feature_email_improvements_enabled', 'no' );
+		update_option( 'poocommerce_feature_email_improvements_enabled', 'no' );
 		$GLOBALS['wp_locale']->text_direction = 'ltr';
 	}
 
@@ -39,7 +39,7 @@ class WC_Email_Order_Details_RTL_Test extends \WC_Unit_Test_Case {
 	 * @testdox Table headers use CSS classes for alignment with email improvements enabled.
 	 */
 	public function test_th_elements_use_css_classes_with_improvements(): void {
-		update_option( 'woocommerce_feature_email_improvements_enabled', 'yes' );
+		update_option( 'poocommerce_feature_email_improvements_enabled', 'yes' );
 
 		$content = $this->render_order_details_template();
 
@@ -52,7 +52,7 @@ class WC_Email_Order_Details_RTL_Test extends \WC_Unit_Test_Case {
 	 * @testdox Table headers use text-align-left CSS class when email improvements are disabled.
 	 */
 	public function test_th_elements_use_text_align_left_without_improvements(): void {
-		update_option( 'woocommerce_feature_email_improvements_enabled', 'no' );
+		update_option( 'poocommerce_feature_email_improvements_enabled', 'no' );
 
 		$content = $this->render_order_details_template();
 
@@ -66,7 +66,7 @@ class WC_Email_Order_Details_RTL_Test extends \WC_Unit_Test_Case {
 	 */
 	public function test_th_elements_use_css_classes_in_rtl_with_improvements(): void {
 		$GLOBALS['wp_locale']->text_direction = 'rtl';
-		update_option( 'woocommerce_feature_email_improvements_enabled', 'yes' );
+		update_option( 'poocommerce_feature_email_improvements_enabled', 'yes' );
 
 		$content = $this->render_order_details_template();
 
@@ -80,7 +80,7 @@ class WC_Email_Order_Details_RTL_Test extends \WC_Unit_Test_Case {
 	 */
 	public function test_th_elements_use_css_classes_in_rtl_without_improvements(): void {
 		$GLOBALS['wp_locale']->text_direction = 'rtl';
-		update_option( 'woocommerce_feature_email_improvements_enabled', 'no' );
+		update_option( 'poocommerce_feature_email_improvements_enabled', 'no' );
 
 		$content = $this->render_order_details_template();
 

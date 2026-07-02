@@ -3,7 +3,7 @@
  */
 import { useSelect } from '@wordpress/data';
 import { store as WP_BLOCKS_STORE } from '@wordpress/blocks';
-import { isSiteEditorPage } from '@woocommerce/utils';
+import { isSiteEditorPage } from '@poocommerce/utils';
 
 /**
  * Internal dependencies
@@ -69,14 +69,14 @@ export function setQueryAttribute(
 
 // This is a feature flag to enable the custom inherit Global Query implementation.
 // This is not intended to be a permanent feature flag, but rather a temporary.
-// https://github.com/woocommerce/woocommerce-blocks/pull/7382
+// https://github.com/poocommerce/poocommerce-blocks/pull/7382
 export const isCustomInheritGlobalQueryImplementationEnabled = false;
 
 export function isWooInheritQueryEnabled(
 	attributes: ProductQueryBlock[ 'attributes' ]
 ) {
 	return isCustomInheritGlobalQueryImplementationEnabled
-		? attributes.query.__woocommerceInherit
+		? attributes.query.__poocommerceInherit
 		: attributes.query.inherit;
 }
 

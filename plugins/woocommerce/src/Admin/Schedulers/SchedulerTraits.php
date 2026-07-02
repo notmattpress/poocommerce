@@ -3,7 +3,7 @@
  * Traits for scheduling actions and dependencies.
  */
 
-namespace Automattic\WooCommerce\Admin\Schedulers;
+namespace Automattic\PooCommerce\Admin\Schedulers;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -143,7 +143,7 @@ trait SchedulerTraits {
 		 * @param int    $batch_size Batch size.
 		 * @param string $action Batch action name.
 		 */
-		return apply_filters( 'woocommerce_analytics_regenerate_batch_size', $batch_size, static::$name, $action );
+		return apply_filters( 'poocommerce_analytics_regenerate_batch_size', $batch_size, static::$name, $action );
 	}
 
 	/**
@@ -299,7 +299,7 @@ trait SchedulerTraits {
 		if (
 			// Skip scheduling if Action Scheduler tables have not been initialized.
 			! get_option( 'schema-ActionScheduler_StoreSchema' ) ||
-			apply_filters( 'woocommerce_analytics_disable_action_scheduling', false )
+			apply_filters( 'poocommerce_analytics_disable_action_scheduling', false )
 		) {
 			call_user_func_array( array( static::class, $action_name ), $args );
 			return;

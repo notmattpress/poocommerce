@@ -2,8 +2,8 @@
  * External dependencies
  */
 import { PluginArea } from '@wordpress/plugins';
-import { CURRENT_USER_IS_ADMIN } from '@woocommerce/settings';
-import BlockErrorBoundary from '@woocommerce/base-components/block-error-boundary';
+import { CURRENT_USER_IS_ADMIN } from '@poocommerce/settings';
+import BlockErrorBoundary from '@poocommerce/base-components/block-error-boundary';
 /**
  * Internal dependencies
  */
@@ -37,7 +37,7 @@ export const CheckoutProvider = ( { children, redirectUrl } ) => {
 							CURRENT_USER_IS_ADMIN ? null : () => null
 						}
 					>
-						<PluginArea scope="woocommerce-checkout" />
+						<PluginArea scope="poocommerce-checkout" />
 					</BlockErrorBoundary>
 					<CheckoutProcessor />
 				</PaymentEventsProvider>

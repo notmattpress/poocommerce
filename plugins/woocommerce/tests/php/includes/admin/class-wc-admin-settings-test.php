@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 /**
  * Tests for WC_Admin_Settings.
  *
- * @package WooCommerce\Tests\Admin
+ * @package PooCommerce\Tests\Admin
  */
 class WC_Admin_Settings_Test extends WC_Unit_Test_Case {
 
@@ -301,7 +301,7 @@ class WC_Admin_Settings_Test extends WC_Unit_Test_Case {
 		$current_tab = 'settings_ui_redirect_test';
 		$this->login_as_administrator();
 
-		$nonce = wp_create_nonce( 'woocommerce-settings' );
+		$nonce = wp_create_nonce( 'poocommerce-settings' );
 
 		$_POST['_wpnonce']    = $nonce;
 		$_POST['save']        = 'Save changes';

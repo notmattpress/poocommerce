@@ -1,7 +1,7 @@
 <?php
 declare( strict_types=1 );
 
-use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Enums\OrderStatus;
 
 /**
  * Integration tests for the POST /wc/v4/refunds/preview endpoint.
@@ -30,7 +30,7 @@ class WC_REST_Refunds_V4_Preview_Tests extends WC_REST_Unit_Test_Case {
 	 */
 	public static function enable_rest_api_v4_feature() {
 		add_filter(
-			'woocommerce_admin_features',
+			'poocommerce_admin_features',
 			function ( $features ) {
 				$features[] = 'rest-api-v4';
 				return $features;
@@ -43,7 +43,7 @@ class WC_REST_Refunds_V4_Preview_Tests extends WC_REST_Unit_Test_Case {
 	 */
 	public static function disable_rest_api_v4_feature() {
 		add_filter(
-			'woocommerce_admin_features',
+			'poocommerce_admin_features',
 			function ( $features ) {
 				$features = array_diff( $features, array( 'rest-api-v4' ) );
 				return $features;
@@ -108,8 +108,8 @@ class WC_REST_Refunds_V4_Preview_Tests extends WC_REST_Unit_Test_Case {
 		$this->created_orders = array();
 
 		global $wpdb;
-		$wpdb->query( "DELETE FROM {$wpdb->prefix}woocommerce_tax_rate_locations" );
-		$wpdb->query( "DELETE FROM {$wpdb->prefix}woocommerce_tax_rates" );
+		$wpdb->query( "DELETE FROM {$wpdb->prefix}poocommerce_tax_rate_locations" );
+		$wpdb->query( "DELETE FROM {$wpdb->prefix}poocommerce_tax_rates" );
 
 		parent::tearDown();
 		$this->disable_rest_api_v4_feature();
@@ -586,7 +586,7 @@ class WC_REST_Refunds_V4_Preview_Tests extends WC_REST_Unit_Test_Case {
 		$data = $response->get_data();
 
 		$schema_properties = wc_get_container()
-			->get( \Automattic\WooCommerce\Internal\RestApi\Routes\V4\Refunds\Schema\RefundPreviewSchema::class )
+			->get( \Automattic\PooCommerce\Internal\RestApi\Routes\V4\Refunds\Schema\RefundPreviewSchema::class )
 			->get_item_schema_properties();
 
 		$this->assertSchemaKeysMatchData( $schema_properties, $data, 'root' );
@@ -651,7 +651,7 @@ class WC_REST_Refunds_V4_Preview_Tests extends WC_REST_Unit_Test_Case {
 		$item_id = $this->get_first_line_item_id( $order );
 
 		// Stub DataUtils so validate_preview_line_items passes but build_refund_preview throws.
-		$stub = new class() extends \Automattic\WooCommerce\Internal\RestApi\Routes\V4\Refunds\DataUtils {
+		$stub = new class() extends \Automattic\PooCommerce\Internal\RestApi\Routes\V4\Refunds\DataUtils {
 			/**
 			 * Validation is forced to pass so the controller reaches the build step.
 			 *
@@ -677,11 +677,11 @@ class WC_REST_Refunds_V4_Preview_Tests extends WC_REST_Unit_Test_Case {
 			}
 			// phpcs:enable Squiz.Commenting.FunctionComment.InvalidNoReturn
 		};
-		wc_get_container()->get( \Automattic\WooCommerce\Internal\RestApi\Routes\V4\Refunds\Controller::class )
+		wc_get_container()->get( \Automattic\PooCommerce\Internal\RestApi\Routes\V4\Refunds\Controller::class )
 			->init(
-				wc_get_container()->get( \Automattic\WooCommerce\Internal\RestApi\Routes\V4\Refunds\Schema\RefundSchema::class ),
-				wc_get_container()->get( \Automattic\WooCommerce\Internal\RestApi\Routes\V4\Refunds\Schema\RefundPreviewSchema::class ),
-				wc_get_container()->get( \Automattic\WooCommerce\Internal\RestApi\Routes\V4\Refunds\CollectionQuery::class ),
+				wc_get_container()->get( \Automattic\PooCommerce\Internal\RestApi\Routes\V4\Refunds\Schema\RefundSchema::class ),
+				wc_get_container()->get( \Automattic\PooCommerce\Internal\RestApi\Routes\V4\Refunds\Schema\RefundPreviewSchema::class ),
+				wc_get_container()->get( \Automattic\PooCommerce\Internal\RestApi\Routes\V4\Refunds\CollectionQuery::class ),
 				$stub
 			);
 
@@ -701,12 +701,12 @@ class WC_REST_Refunds_V4_Preview_Tests extends WC_REST_Unit_Test_Case {
 			$this->assertEquals( 'invalid_preview_request', $data['code'] );
 		} finally {
 			// Restore the real DataUtils for subsequent tests in this run.
-			wc_get_container()->get( \Automattic\WooCommerce\Internal\RestApi\Routes\V4\Refunds\Controller::class )
+			wc_get_container()->get( \Automattic\PooCommerce\Internal\RestApi\Routes\V4\Refunds\Controller::class )
 				->init(
-					wc_get_container()->get( \Automattic\WooCommerce\Internal\RestApi\Routes\V4\Refunds\Schema\RefundSchema::class ),
-					wc_get_container()->get( \Automattic\WooCommerce\Internal\RestApi\Routes\V4\Refunds\Schema\RefundPreviewSchema::class ),
-					wc_get_container()->get( \Automattic\WooCommerce\Internal\RestApi\Routes\V4\Refunds\CollectionQuery::class ),
-					wc_get_container()->get( \Automattic\WooCommerce\Internal\RestApi\Routes\V4\Refunds\DataUtils::class )
+					wc_get_container()->get( \Automattic\PooCommerce\Internal\RestApi\Routes\V4\Refunds\Schema\RefundSchema::class ),
+					wc_get_container()->get( \Automattic\PooCommerce\Internal\RestApi\Routes\V4\Refunds\Schema\RefundPreviewSchema::class ),
+					wc_get_container()->get( \Automattic\PooCommerce\Internal\RestApi\Routes\V4\Refunds\CollectionQuery::class ),
+					wc_get_container()->get( \Automattic\PooCommerce\Internal\RestApi\Routes\V4\Refunds\DataUtils::class )
 				);
 		}
 	}

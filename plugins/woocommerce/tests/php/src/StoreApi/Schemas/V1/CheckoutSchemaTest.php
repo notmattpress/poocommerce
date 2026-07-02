@@ -1,15 +1,15 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\StoreApi\Schemas\V1;
+namespace Automattic\PooCommerce\Tests\StoreApi\Schemas\V1;
 
-use Automattic\WooCommerce\StoreApi\Schemas\V1\CheckoutSchema;
-use Automattic\WooCommerce\StoreApi\Schemas\ExtendSchema;
-use Automattic\WooCommerce\StoreApi\SchemaController;
-use Automattic\WooCommerce\StoreApi\Formatters;
-use Automattic\WooCommerce\StoreApi\Formatters\MoneyFormatter;
-use Automattic\WooCommerce\StoreApi\Formatters\HtmlFormatter;
-use Automattic\WooCommerce\StoreApi\Formatters\CurrencyFormatter;
+use Automattic\PooCommerce\StoreApi\Schemas\V1\CheckoutSchema;
+use Automattic\PooCommerce\StoreApi\Schemas\ExtendSchema;
+use Automattic\PooCommerce\StoreApi\SchemaController;
+use Automattic\PooCommerce\StoreApi\Formatters;
+use Automattic\PooCommerce\StoreApi\Formatters\MoneyFormatter;
+use Automattic\PooCommerce\StoreApi\Formatters\HtmlFormatter;
+use Automattic\PooCommerce\StoreApi\Formatters\CurrencyFormatter;
 use WC_Unit_Test_Case;
 
 /**
@@ -21,8 +21,8 @@ use WC_Unit_Test_Case;
  * unslashed. Calling wp_unslash() on that data silently drops real
  * backslashes the user typed (e.g. "apt 4\").
  *
- * @see https://github.com/woocommerce/woocommerce/issues/58214
- * @see https://github.com/woocommerce/woocommerce/pull/65643#pullrequestreview-4485832478
+ * @see https://github.com/poocommerce/poocommerce/issues/58214
+ * @see https://github.com/poocommerce/poocommerce/pull/65643#pullrequestreview-4485832478
  */
 class CheckoutSchemaTest extends WC_Unit_Test_Case {
 
@@ -48,7 +48,7 @@ class CheckoutSchemaTest extends WC_Unit_Test_Case {
 
 		add_filter( 'doing_it_wrong_trigger_error', '__return_false' );
 
-		woocommerce_register_additional_checkout_field(
+		poocommerce_register_additional_checkout_field(
 			array(
 				'id'       => $this->field_id,
 				'label'    => 'Government ID',
@@ -72,7 +72,7 @@ class CheckoutSchemaTest extends WC_Unit_Test_Case {
 	 * Tear down after test.
 	 */
 	public function tearDown(): void {
-		__internal_woocommerce_blocks_deregister_checkout_field( $this->field_id );
+		__internal_poocommerce_blocks_deregister_checkout_field( $this->field_id );
 		remove_filter( 'doing_it_wrong_trigger_error', '__return_false' );
 
 		parent::tearDown();
