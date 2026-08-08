@@ -1,12 +1,12 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "woocommerce/product-reviews-title",
+	"name": "poocommerce/product-reviews-title",
 	"title": "Reviews Title",
-	"category": "woocommerce",
-	"ancestor": [ "woocommerce/product-reviews" ],
+	"category": "poocommerce",
+	"ancestor": [ "poocommerce/product-reviews" ],
 	"description": "Displays a title with the number of reviews.",
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"usesContext": [ "postId", "postType" ],
 	"attributes": {
 		"textAlign": {

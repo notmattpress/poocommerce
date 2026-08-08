@@ -1,14 +1,14 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails;
+namespace Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails;
 
 /**
  * Refreshes never-edited editing scratchpads (unpublished `woo_email` posts)
  * from the current file template, so the editor always opens on the content
  * customers would receive. Edited scratchpads are never touched.
  *
- * @package Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails
+ * @package Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails
  * @since 11.1.0
  *
  * @internal

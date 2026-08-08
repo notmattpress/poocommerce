@@ -38,7 +38,7 @@ export const SearchableChipSelectControl = forwardRef<
 		<div className={ className }>
 			<div
 				id={ labelId }
-				className="woocommerce-searchable-chip-select__label"
+				className="poocommerce-searchable-chip-select__label"
 			>
 				{ label }
 			</div>
@@ -51,7 +51,7 @@ export const SearchableChipSelectControl = forwardRef<
 			{ description && (
 				<div
 					id={ descriptionId }
-					className="woocommerce-searchable-chip-select__description"
+					className="poocommerce-searchable-chip-select__description"
 				>
 					{ description }
 				</div>

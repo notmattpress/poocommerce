@@ -2,18 +2,18 @@
  * External dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { WC_BLOCKS_IMAGE_URL } from '@woocommerce/block-settings';
+import { WC_BLOCKS_IMAGE_URL } from '@poocommerce/block-settings';
 
 export const previewCategories = [
 	{
 		id: 1,
-		name: __( 'Clothing', 'woocommerce' ),
+		name: __( 'Clothing', 'poocommerce' ),
 		slug: 'clothing',
 		parent: 0,
 		count: 10,
 		description: `<p>${ __(
 			'Branded t-shirts, jumpers, pants and more!',
-			'woocommerce'
+			'poocommerce'
 		) }</p>\n`,
 		image: {
 			id: 1,

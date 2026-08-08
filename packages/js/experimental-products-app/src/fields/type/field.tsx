@@ -11,17 +11,17 @@ import type { ProductEntityRecord } from '../types';
 
 const fieldDefinition = {
 	type: 'text',
-	label: __( 'Product type', 'woocommerce' ),
+	label: __( 'Product type', 'poocommerce' ),
 	enableSorting: false,
 	filterBy: {
 		operators: [ 'isAny', 'isNone' ],
 	},
 	elements: [
-		{ label: __( 'Simple', 'woocommerce' ), value: 'simple' },
-		{ label: __( 'Variable', 'woocommerce' ), value: 'variable' },
-		{ label: __( 'Grouped', 'woocommerce' ), value: 'grouped' },
-		{ label: __( 'Affiliate', 'woocommerce' ), value: 'external' },
-		{ label: __( 'Variation', 'woocommerce' ), value: 'variation' },
+		{ label: __( 'Simple', 'poocommerce' ), value: 'simple' },
+		{ label: __( 'Variable', 'poocommerce' ), value: 'variable' },
+		{ label: __( 'Grouped', 'poocommerce' ), value: 'grouped' },
+		{ label: __( 'Affiliate', 'poocommerce' ), value: 'external' },
+		{ label: __( 'Variation', 'poocommerce' ), value: 'variation' },
 	],
 } satisfies Partial< Field< ProductEntityRecord > >;
 

@@ -7,25 +7,25 @@
  * Note: actually terminating a pending-cancellation contract at the date (moving it
  * terminal) is a follow-up slice; the current dispatcher only refuses to charge it.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine
+ * @package Automattic\PooCommerce\SubscriptionsEngine
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Tests\Integration\Integration\Renewal;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Tests\Integration\Integration\Renewal;
 
 use EngineIntegrationTestCase;
 use WC_Order;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\Contract;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\ContractStatus;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Gateway\GatewayCapabilities;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Checkout\OrderLinkage;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Renewal\RenewalEngine;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Renewal\RenewalIntent;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage\ContractRepository;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\Contract;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\ContractStatus;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Gateway\GatewayCapabilities;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Checkout\OrderLinkage;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Renewal\RenewalEngine;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Renewal\RenewalIntent;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage\ContractRepository;
 
 /**
- * @covers \Automattic\WooCommerce\SubscriptionsEngine\Integration\Renewal\RenewalEngine
+ * @covers \Automattic\PooCommerce\SubscriptionsEngine\Integration\Renewal\RenewalEngine
  */
 class StatusAwareDueScanTest extends EngineIntegrationTestCase {
 

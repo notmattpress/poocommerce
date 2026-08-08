@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Internal\LegacyPhpApi;
+namespace Automattic\PooCommerce\Tests\Internal\LegacyPhpApi;
 
-use Automattic\WooCommerce\Api\Infrastructure\Main;
-use Automattic\WooCommerce\Internal\Api\Settings;
-use Automattic\WooCommerce\Internal\Features\FeaturesController;
+use Automattic\PooCommerce\Api\Infrastructure\Main;
+use Automattic\PooCommerce\Internal\Api\Settings;
+use Automattic\PooCommerce\Internal\Features\FeaturesController;
 use WC_Unit_Test_Case;
 
 /**

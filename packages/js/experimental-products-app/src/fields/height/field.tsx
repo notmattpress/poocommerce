@@ -14,7 +14,7 @@ import { createDimensionField } from '../components/dimension';
 
 const fieldDefinition = {
 	type: 'text',
-	label: __( 'Height', 'woocommerce' ),
+	label: __( 'Height', 'poocommerce' ),
 	enableSorting: false,
 	enableHiding: false,
 	filterBy: false,

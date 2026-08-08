@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\Utils;
+namespace Automattic\PooCommerce\Tests\Blocks\Utils;
 
-use Automattic\WooCommerce\Blocks\Utils\BlocksSharedState;
+use Automattic\PooCommerce\Blocks\Utils\BlocksSharedState;
 
 /**
  * Tests for the BlocksSharedState class.
@@ -15,7 +15,7 @@ class BlocksSharedStateTest extends \WC_Unit_Test_Case {
 	 *
 	 * @var string
 	 */
-	private string $consent = 'I acknowledge that using private APIs means my theme or plugin will inevitably break in the next version of WooCommerce';
+	private string $consent = 'I acknowledge that using private APIs means my theme or plugin will inevitably break in the next version of PooCommerce';
 
 	/**
 	 * Set up each test.
@@ -29,7 +29,7 @@ class BlocksSharedStateTest extends \WC_Unit_Test_Case {
 	 * Tear down each test.
 	 */
 	public function tearDown(): void {
-		remove_all_filters( 'woocommerce_cart_contents_count' );
+		remove_all_filters( 'poocommerce_cart_contents_count' );
 		$this->reset_shared_state();
 		parent::tearDown();
 	}
@@ -55,7 +55,7 @@ class BlocksSharedStateTest extends \WC_Unit_Test_Case {
 
 		$config_data->setAccessible( true );
 		$data = $config_data->getValue( $interactivity );
-		unset( $data['woocommerce'] );
+		unset( $data['poocommerce'] );
 		$config_data->setValue( $interactivity, $data );
 	}
 
@@ -65,7 +65,7 @@ class BlocksSharedStateTest extends \WC_Unit_Test_Case {
 	public function test_no_filter_returns_empty_non_optimistic_properties(): void {
 		BlocksSharedState::load_cart_state( $this->consent );
 
-		$config = wp_interactivity_config( 'woocommerce' );
+		$config = wp_interactivity_config( 'poocommerce' );
 
 		$this->assertArrayHasKey( 'nonOptimisticProperties', $config );
 		$this->assertSame( array(), $config['nonOptimisticProperties'] );
@@ -75,11 +75,11 @@ class BlocksSharedStateTest extends \WC_Unit_Test_Case {
 	 * @testdox nonOptimisticProperties contains items_count when a third-party filter is registered.
 	 */
 	public function test_third_party_filter_detected(): void {
-		add_filter( 'woocommerce_cart_contents_count', fn( $count ) => $count + 1 );
+		add_filter( 'poocommerce_cart_contents_count', fn( $count ) => $count + 1 );
 
 		BlocksSharedState::load_cart_state( $this->consent );
 
-		$config = wp_interactivity_config( 'woocommerce' );
+		$config = wp_interactivity_config( 'poocommerce' );
 
 		$this->assertArrayHasKey( 'nonOptimisticProperties', $config );
 		$this->assertContains( 'cart.items_count', $config['nonOptimisticProperties'] );
@@ -91,12 +91,12 @@ class BlocksSharedStateTest extends \WC_Unit_Test_Case {
 	public function test_filter_added_then_removed_returns_empty(): void {
 		$callback = fn( $count ) => $count + 1;
 
-		add_filter( 'woocommerce_cart_contents_count', $callback );
-		remove_filter( 'woocommerce_cart_contents_count', $callback );
+		add_filter( 'poocommerce_cart_contents_count', $callback );
+		remove_filter( 'poocommerce_cart_contents_count', $callback );
 
 		BlocksSharedState::load_cart_state( $this->consent );
 
-		$config = wp_interactivity_config( 'woocommerce' );
+		$config = wp_interactivity_config( 'poocommerce' );
 
 		$this->assertArrayHasKey( 'nonOptimisticProperties', $config );
 		$this->assertSame( array(), $config['nonOptimisticProperties'] );

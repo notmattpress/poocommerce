@@ -1,8 +1,8 @@
 <?php
-namespace Automattic\WooCommerce\Internal\Admin\Orders;
+namespace Automattic\PooCommerce\Internal\Admin\Orders;
 
-use Automattic\WooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 
 /**
  * When {@see OrdersTableDataStore} is in use, this class takes care of redirecting admins from CPT-based URLs
@@ -193,7 +193,7 @@ class PostsRedirectionController {
 	}
 
 	/**
-	 * Rewrites legacy post type menu items to point to the HPOS orders page when the main WooCommerce menu is not visible.
+	 * Rewrites legacy post type menu items to point to the HPOS orders page when the main PooCommerce menu is not visible.
 	 *
 	 * @since 10.3.0
 	 */
@@ -205,7 +205,7 @@ class PostsRedirectionController {
 			return;
 		}
 
-		if ( \WC_Admin_Menus::can_view_woocommerce_menu_item() ) {
+		if ( \WC_Admin_Menus::can_view_poocommerce_menu_item() ) {
 			return;
 		}
 

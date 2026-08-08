@@ -3,13 +3,13 @@
  * Base class for all the WP posts to order table migrator.
  */
 
-namespace Automattic\WooCommerce\Database\Migrations;
+namespace Automattic\PooCommerce\Database\Migrations;
 
 /**
  * Base class for implementing WP posts to order tables migrations handlers.
  * It mainly contains methods to deal with error handling.
  *
- * @package Automattic\WooCommerce\Database\Migrations
+ * @package Automattic\PooCommerce\Database\Migrations
  */
 abstract class TableMigrator {
 

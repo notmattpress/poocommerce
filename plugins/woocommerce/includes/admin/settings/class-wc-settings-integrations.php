@@ -1,8 +1,8 @@
 <?php
 /**
- * WooCommerce Integration Settings
+ * PooCommerce Integration Settings
  *
- * @package     WooCommerce\Admin
+ * @package     PooCommerce\Admin
  * @version     2.1.0
  */
 
@@ -22,7 +22,7 @@ if ( ! class_exists( 'WC_Settings_Integrations', false ) ) :
 		 */
 		public function __construct() {
 			$this->id    = 'integration';
-			$this->label = __( 'Integration', 'woocommerce' );
+			$this->label = __( 'Integration', 'poocommerce' );
 
 			if ( isset( WC()->integrations ) && WC()->integrations->get_integrations() ) {
 				parent::__construct();

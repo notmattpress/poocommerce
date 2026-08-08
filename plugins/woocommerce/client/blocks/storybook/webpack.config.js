@@ -42,18 +42,18 @@ module.exports = ( { config: storybookConfig } ) => {
 	storybookConfig.resolve.alias = {
 		...storybookConfig.resolve.alias,
 		...aliases,
-		'@woocommerce/block-settings': require.resolve(
-			'./__mocks__/woocommerce-block-settings.js'
+		'@poocommerce/block-settings': require.resolve(
+			'./__mocks__/poocommerce-block-settings.js'
 		),
-		'@woocommerce/base-hooks': require.resolve(
-			'./__mocks__/woocommerce-base-hooks.js'
+		'@poocommerce/base-hooks': require.resolve(
+			'./__mocks__/poocommerce-base-hooks.js'
 		),
 		'wordpress-components': require.resolve(
 			'../node_modules/wordpress-components'
 		),
 	};
 
-	// Resolve `@woocommerce/*` monorepo packages from source via the `wc-source`
+	// Resolve `@poocommerce/*` monorepo packages from source via the `wc-source`
 	// export condition, mirroring the blocks' main webpack resolve. Required now
 	// that the package JS build outputs are no longer produced by a build cascade.
 	storybookConfig.resolve.conditionNames = [ 'wc-source', '...' ];
@@ -88,18 +88,18 @@ module.exports = ( { config: storybookConfig } ) => {
 			)
 	);
 
-	// Storybook's default babel rule excludes node_modules, but `@woocommerce/*`
+	// Storybook's default babel rule excludes node_modules, but `@poocommerce/*`
 	// packages now resolve to their TypeScript source (symlinked under
 	// node_modules), so that source must be transpiled. Added after the filter
 	// above so it isn't stripped. Uses the project's babel.config.js. Scoped to
 	// Storybook — does not touch the shared plugin webpack config.
 	storybookConfig.module.rules.push( {
 		test: /\.(j|t)sx?$/,
-		// pnpm resolves workspace packages to their real path, so `@woocommerce/*`
+		// pnpm resolves workspace packages to their real path, so `@poocommerce/*`
 		// source appears as `packages/js/<pkg>/src` (matched here) rather than the
-		// `node_modules/@woocommerce/<pkg>` symlink.
+		// `node_modules/@poocommerce/<pkg>` symlink.
 		include:
-			/[\/\\](?:packages[\/\\]js|node_modules[\/\\]@woocommerce)[\/\\][^\/\\]+[\/\\]src[\/\\]/,
+			/[\/\\](?:packages[\/\\]js|node_modules[\/\\]@poocommerce)[\/\\][^\/\\]+[\/\\]src[\/\\]/,
 		loader: 'babel-loader',
 	} );
 

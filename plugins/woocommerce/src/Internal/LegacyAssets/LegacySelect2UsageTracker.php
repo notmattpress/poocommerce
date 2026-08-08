@@ -1,21 +1,21 @@
 <?php
 /**
- * Tracks usage of WooCommerce's bundled legacy Select2 handles.
+ * Tracks usage of PooCommerce's bundled legacy Select2 handles.
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\LegacyAssets;
+namespace Automattic\PooCommerce\Internal\LegacyAssets;
 
 use Automattic\Woocommerce_Analytics\WC_Analytics_Tracking;
-use Automattic\WooCommerce\Internal\RegisterHooksInterface;
+use Automattic\PooCommerce\Internal\RegisterHooksInterface;
 use WP_Scripts;
 use WC_Site_Tracking;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Tracks extensions that still depend on the legacy Select2 handles bundled by WooCommerce.
+ * Tracks extensions that still depend on the legacy Select2 handles bundled by PooCommerce.
  */
 class LegacySelect2UsageTracker implements RegisterHooksInterface {
 
@@ -195,7 +195,7 @@ class LegacySelect2UsageTracker implements RegisterHooksInterface {
 	}
 
 	/**
-	 * Add a storefront event to the WooCommerce Analytics client queue.
+	 * Add a storefront event to the PooCommerce Analytics client queue.
 	 *
 	 * @param string                $event_name Event name.
 	 * @param array<string, string> $properties Event properties.
@@ -212,14 +212,14 @@ class LegacySelect2UsageTracker implements RegisterHooksInterface {
 	}
 
 	/**
-	 * Whether the WooCommerce Analytics storefront tracker is initialized.
+	 * Whether the PooCommerce Analytics storefront tracker is initialized.
 	 *
 	 * @return bool
 	 *
 	 * @since 11.0.0
 	 */
 	protected function is_frontend_tracking_available(): bool {
-		return did_action( 'woocommerce_analytics_init' )
+		return did_action( 'poocommerce_analytics_init' )
 			&& class_exists( WC_Analytics_Tracking::class )
 			&& is_callable( array( WC_Analytics_Tracking::class, 'add_event_to_queue' ) );
 	}

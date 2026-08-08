@@ -4,16 +4,16 @@
  *
  * Handles requests to the /settings/emails endpoints.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\RestApi\Routes\V4\Settings\Emails;
+namespace Automattic\PooCommerce\Internal\RestApi\Routes\V4\Settings\Emails;
 
 use WP_Error;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\AbstractController;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Settings\Emails\Schema\EmailsSettingsSchema;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\AbstractController;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Settings\Emails\Schema\EmailsSettingsSchema;
 use WC_Emails;
 use WP_REST_Server;
 use WP_REST_Request;
@@ -64,7 +64,7 @@ class Controller extends AbstractController {
 					'permission_callback' => array( $this, 'get_items_permissions_check' ),
 					'args'                => array(
 						'post_id' => array(
-							'description' => __( 'Filter by template post ID.', 'woocommerce' ),
+							'description' => __( 'Filter by template post ID.', 'poocommerce' ),
 							'type'        => 'integer',
 						),
 					),
@@ -80,7 +80,7 @@ class Controller extends AbstractController {
 			array(
 				'args'   => array(
 					'email_id' => array(
-						'description' => __( 'Email template ID.', 'woocommerce' ),
+						'description' => __( 'Email template ID.', 'poocommerce' ),
 						'type'        => 'string',
 					),
 				),
@@ -110,7 +110,7 @@ class Controller extends AbstractController {
 		if ( ! wc_rest_check_manager_permissions( 'settings', 'read' ) ) {
 			return new WP_Error(
 				'rest_forbidden',
-				__( 'Sorry, you are not allowed to access email settings.', 'woocommerce' ),
+				__( 'Sorry, you are not allowed to access email settings.', 'poocommerce' ),
 				array( 'status' => rest_authorization_required_code() )
 			);
 		}
@@ -137,7 +137,7 @@ class Controller extends AbstractController {
 		if ( ! wc_rest_check_manager_permissions( 'settings', 'edit' ) ) {
 			return new WP_Error(
 				'rest_forbidden',
-				__( 'Sorry, you are not allowed to edit email settings.', 'woocommerce' ),
+				__( 'Sorry, you are not allowed to edit email settings.', 'poocommerce' ),
 				array( 'status' => rest_authorization_required_code() )
 			);
 		}
@@ -168,7 +168,7 @@ class Controller extends AbstractController {
 			return rest_ensure_response( $items );
 		} catch ( \Exception $e ) {
 			return new WP_Error(
-				'woocommerce_rest_emails_settings_error',
+				'poocommerce_rest_emails_settings_error',
 				$e->getMessage(),
 				array( 'status' => 500 )
 			);
@@ -187,8 +187,8 @@ class Controller extends AbstractController {
 
 		if ( ! $email ) {
 			return new WP_Error(
-				'woocommerce_rest_email_not_found',
-				__( 'Email template not found.', 'woocommerce' ),
+				'poocommerce_rest_email_not_found',
+				__( 'Email template not found.', 'poocommerce' ),
 				array( 'status' => 404 )
 			);
 		}
@@ -198,7 +198,7 @@ class Controller extends AbstractController {
 			return rest_ensure_response( $response );
 		} catch ( \Exception $e ) {
 			return new WP_Error(
-				'woocommerce_rest_email_settings_error',
+				'poocommerce_rest_email_settings_error',
 				$e->getMessage(),
 				array( 'status' => 500 )
 			);
@@ -217,8 +217,8 @@ class Controller extends AbstractController {
 
 		if ( ! $email ) {
 			return new WP_Error(
-				'woocommerce_rest_email_not_found',
-				__( 'Email template not found.', 'woocommerce' ),
+				'poocommerce_rest_email_not_found',
+				__( 'Email template not found.', 'poocommerce' ),
 				array( 'status' => 404 )
 			);
 		}
@@ -228,7 +228,7 @@ class Controller extends AbstractController {
 		if ( ! is_array( $params ) || empty( $params ) ) {
 			return new WP_Error(
 				'rest_invalid_param',
-				__( 'Invalid or empty request body.', 'woocommerce' ),
+				__( 'Invalid or empty request body.', 'poocommerce' ),
 				array( 'status' => 400 )
 			);
 		}
@@ -262,8 +262,8 @@ class Controller extends AbstractController {
 		$updated_email = $this->get_email_by_id( $email_id );
 		if ( ! $updated_email ) {
 			return new WP_Error(
-				'woocommerce_rest_email_update_error',
-				__( 'Failed to retrieve updated email settings.', 'woocommerce' ),
+				'poocommerce_rest_email_update_error',
+				__( 'Failed to retrieve updated email settings.', 'poocommerce' ),
 				array( 'status' => 500 )
 			);
 		}
@@ -271,13 +271,13 @@ class Controller extends AbstractController {
 		// Trigger action for settings update.
 		if ( ! empty( $updated_fields ) ) {
 			/**
-			 * Fires when WooCommerce email settings are updated.
+			 * Fires when PooCommerce email settings are updated.
 			 *
 			 * @param array  $updated_fields Array of updated field IDs.
 			 * @param string $rest_base      The REST base of the settings.
 			 * @since 10.2.0
 			 */
-			do_action( 'woocommerce_settings_updated', $updated_fields, $this->rest_base );
+			do_action( 'poocommerce_settings_updated', $updated_fields, $this->rest_base );
 		}
 
 		try {
@@ -285,7 +285,7 @@ class Controller extends AbstractController {
 			return rest_ensure_response( $response );
 		} catch ( \Exception $e ) {
 			return new WP_Error(
-				'woocommerce_rest_email_settings_error',
+				'poocommerce_rest_email_settings_error',
 				$e->getMessage(),
 				array( 'status' => 500 )
 			);

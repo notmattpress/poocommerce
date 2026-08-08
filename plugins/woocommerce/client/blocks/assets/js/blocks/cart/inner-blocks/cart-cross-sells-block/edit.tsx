@@ -13,13 +13,13 @@ export const Edit = (): JSX.Element => {
 		[
 			'core/heading',
 			{
-				content: __( 'You may be interested in…', 'woocommerce' ),
+				content: __( 'You may be interested in…', 'poocommerce' ),
 				level: 2,
 				fontSize: 'large',
 			},
 			[],
 		],
-		[ 'woocommerce/cart-cross-sells-products-block', {}, [] ],
+		[ 'poocommerce/cart-cross-sells-products-block', {}, [] ],
 	] as TemplateArray;
 
 	return (

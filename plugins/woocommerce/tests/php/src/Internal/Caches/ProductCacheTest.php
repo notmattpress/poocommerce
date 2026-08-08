@@ -1,11 +1,11 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Caches;
+namespace Automattic\PooCommerce\Tests\Internal\Caches;
 
-use Automattic\WooCommerce\Internal\Caches\ProductCache;
-use Automattic\WooCommerce\Internal\Caches\ProductCacheController;
-use Automattic\WooCommerce\Utilities\FeaturesUtil;
+use Automattic\PooCommerce\Internal\Caches\ProductCache;
+use Automattic\PooCommerce\Internal\Caches\ProductCacheController;
+use Automattic\PooCommerce\Utilities\FeaturesUtil;
 use WC_Data;
 use WC_Helper_Product;
 
@@ -167,8 +167,8 @@ class ProductCacheTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_integration_with_feature_enabled() {
 		// Enable the feature for this test.
-		$original_value = get_option( 'woocommerce_feature_' . ProductCacheController::FEATURE_NAME . '_enabled' );
-		update_option( 'woocommerce_feature_' . ProductCacheController::FEATURE_NAME . '_enabled', 'yes' );
+		$original_value = get_option( 'poocommerce_feature_' . ProductCacheController::FEATURE_NAME . '_enabled' );
+		update_option( 'poocommerce_feature_' . ProductCacheController::FEATURE_NAME . '_enabled', 'yes' );
 
 		try {
 			// Create a product with meta.
@@ -203,9 +203,9 @@ class ProductCacheTest extends \WC_Unit_Test_Case {
 		} finally {
 			// Restore original option value.
 			if ( false === $original_value ) {
-				delete_option( 'woocommerce_feature_' . ProductCacheController::FEATURE_NAME . '_enabled' );
+				delete_option( 'poocommerce_feature_' . ProductCacheController::FEATURE_NAME . '_enabled' );
 			} else {
-				update_option( 'woocommerce_feature_' . ProductCacheController::FEATURE_NAME . '_enabled', $original_value );
+				update_option( 'poocommerce_feature_' . ProductCacheController::FEATURE_NAME . '_enabled', $original_value );
 			}
 		}
 	}

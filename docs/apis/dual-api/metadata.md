@@ -20,7 +20,7 @@ class SomeType { /* ... */ }
 
 Core ships two convenience subclasses:
 
-- `#[Internal]` — `name = 'internal'`, `value = true`. For WooCommerce-core-only elements.
+- `#[Internal]` — `name = 'internal'`, `value = true`. For PooCommerce-core-only elements.
 - `#[Experimental]` — `name = 'experimental'`, `value = true`.
 
 Duplicate names on the same target are a build-time error (no silent merge or last-wins). Type-level metadata is **not** auto-propagated to fields; consumers apply the "subfields inherit" rule themselves if they want it.
@@ -32,7 +32,7 @@ A metadata subclass can mirror its marking into the human-readable description, 
 - `#[Internal]` prefixes the description with `[Internal] ` and supplies a default body when none exists.
 - `#[Experimental]` does the same with `[Experimental] `.
 
-When several transforming attributes apply to one element, their transforms chain in PHP source order (last-in-source wraps outermost), and the text flows through the standard `__( ..., 'woocommerce' )` translation pipeline. The plain `#[Metadata]` base does not modify descriptions. To define your own description-mirroring category, subclass `Metadata` and override `transform_description()`; see the [Attributes reference](./reference/attributes.md).
+When several transforming attributes apply to one element, their transforms chain in PHP source order (last-in-source wraps outermost), and the text flows through the standard `__( ..., 'poocommerce' )` translation pipeline. The plain `#[Metadata]` base does not modify descriptions. To define your own description-mirroring category, subclass `Metadata` and override `transform_description()`; see the [Attributes reference](./reference/attributes.md).
 
 ## Discovery via GraphQL: `_apiMetadata`
 
@@ -46,7 +46,7 @@ Each `MetadataTarget` carries two parallel slices: the collected metadata `entri
 
 ### Access is gated
 
-`_apiMetadata` is gated like introspection, see [Authentication and authorization](./authentication-and-authorization.md). The resolver consults `can_query_metadata()` on the principal if present, otherwise falls back to `can_introspect()`, otherwise denies; the `woocommerce_graphql_can_query_metadata` filter can override. This prevents anonymous callers from enumerating the schema's authorization gates.
+`_apiMetadata` is gated like introspection, see [Authentication and authorization](./authentication-and-authorization.md). The resolver consults `can_query_metadata()` on the principal if present, otherwise falls back to `can_introspect()`, otherwise denies; the `poocommerce_graphql_can_query_metadata` filter can override. This prevents anonymous callers from enumerating the schema's authorization gates.
 
 ### Opting a target out
 
@@ -54,7 +54,7 @@ Apply `#[HiddenFromMetadataQuery]` to a class or property to omit it (and its de
 
 ## Discovery via PHP: `SchemaHandle`
 
-For in-process inspection, `GraphQLControllerBase::get_schema()` returns an opaque `SchemaHandle` (`Automattic\WooCommerce\Api\Utils\SchemaHandle`) with:
+For in-process inspection, `GraphQLControllerBase::get_schema()` returns an opaque `SchemaHandle` (`Automattic\PooCommerce\Api\Utils\SchemaHandle`) with:
 
 - `get_all_metadata(): array`: every metadata row in the schema.
 - `find_metadata( ?string $name, ?string $type, ?string $field ): array`: the same filter-narrows semantics as the GraphQL field.

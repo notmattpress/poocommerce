@@ -7,19 +7,19 @@
  * - /reports/[report]/export/[id]/status
  */
 
-namespace Automattic\WooCommerce\Admin\API\Reports\Export;
+namespace Automattic\PooCommerce\Admin\API\Reports\Export;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\ReportExporter;
+use Automattic\PooCommerce\Admin\ReportExporter;
 
 /**
  * Reports Export controller.
  *
  * @internal
- * @extends \Automattic\WooCommerce\Admin\API\Reports\Controller
+ * @extends \Automattic\PooCommerce\Admin\API\Reports\Controller
  */
-class Controller extends \Automattic\WooCommerce\Admin\API\Reports\Controller {
+class Controller extends \Automattic\PooCommerce\Admin\API\Reports\Controller {
 
 	/**
 	 * Route base.
@@ -68,12 +68,12 @@ class Controller extends \Automattic\WooCommerce\Admin\API\Reports\Controller {
 	protected function get_export_collection_params() {
 		$params                = array();
 		$params['report_args'] = array(
-			'description'       => __( 'Parameters to pass on to the exported report.', 'woocommerce' ),
+			'description'       => __( 'Parameters to pass on to the exported report.', 'poocommerce' ),
 			'type'              => 'object',
 			'validate_callback' => 'rest_validate_request_arg', // @todo: use each controller's schema?
 		);
 		$params['email']       = array(
-			'description'       => __( 'When true, email a link to download the export to the requesting user.', 'woocommerce' ),
+			'description'       => __( 'When true, email a link to download the export to the requesting user.', 'poocommerce' ),
 			'type'              => 'boolean',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
@@ -92,19 +92,19 @@ class Controller extends \Automattic\WooCommerce\Admin\API\Reports\Controller {
 			'type'       => 'object',
 			'properties' => array(
 				'status'    => array(
-					'description' => __( 'Export status.', 'woocommerce' ),
+					'description' => __( 'Export status.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'message'   => array(
-					'description' => __( 'Export status message.', 'woocommerce' ),
+					'description' => __( 'Export status message.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'export_id' => array(
-					'description' => __( 'Export ID.', 'woocommerce' ),
+					'description' => __( 'Export ID.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
@@ -127,13 +127,13 @@ class Controller extends \Automattic\WooCommerce\Admin\API\Reports\Controller {
 			'type'       => 'object',
 			'properties' => array(
 				'percent_complete' => array(
-					'description' => __( 'Percentage complete.', 'woocommerce' ),
+					'description' => __( 'Percentage complete.', 'poocommerce' ),
 					'type'        => 'int',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'download_url'     => array(
-					'description' => __( 'Export download URL.', 'woocommerce' ),
+					'description' => __( 'Export download URL.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
@@ -156,7 +156,7 @@ class Controller extends \Automattic\WooCommerce\Admin\API\Reports\Controller {
 		$send_email  = isset( $request['email'] ) ? $request['email'] : false;
 
 		$default_export_id = str_replace( '.', '', microtime( true ) );
-		$export_id         = apply_filters( 'woocommerce_admin_export_id', $default_export_id );
+		$export_id         = apply_filters( 'poocommerce_admin_export_id', $default_export_id );
 		$export_id         = (string) sanitize_file_name( $export_id );
 
 		$total_rows = ReportExporter::queue_report_export( $export_id, $report_type, $report_args, $send_email );
@@ -164,7 +164,7 @@ class Controller extends \Automattic\WooCommerce\Admin\API\Reports\Controller {
 		if ( 0 === $total_rows ) {
 			return rest_ensure_response(
 				array(
-					'message' => __( 'There is no data to export for the given request.', 'woocommerce' ),
+					'message' => __( 'There is no data to export for the given request.', 'poocommerce' ),
 				)
 			);
 		}
@@ -173,7 +173,7 @@ class Controller extends \Automattic\WooCommerce\Admin\API\Reports\Controller {
 
 		$response = rest_ensure_response(
 			array(
-				'message'   => __( 'Your report file is being generated.', 'woocommerce' ),
+				'message'   => __( 'Your report file is being generated.', 'poocommerce' ),
 				'export_id' => $export_id,
 			)
 		);
@@ -205,8 +205,8 @@ class Controller extends \Automattic\WooCommerce\Admin\API\Reports\Controller {
 
 		if ( false === $percentage ) {
 			return new \WP_Error(
-				'woocommerce_admin_reports_export_invalid_id',
-				__( 'Sorry, there is no export with that ID.', 'woocommerce' ),
+				'poocommerce_admin_reports_export_invalid_id',
+				__( 'Sorry, there is no export with that ID.', 'poocommerce' ),
 				array( 'status' => 404 )
 			);
 		}

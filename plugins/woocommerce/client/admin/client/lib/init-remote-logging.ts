@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { init } from '@woocommerce/remote-logging';
+import { init } from '@poocommerce/remote-logging';
 
 export const initRemoteLogging = () => {
 	init( {

@@ -16,7 +16,7 @@ const SAME_AS_PARENT = 'parent';
 
 export const fieldExtensions: Partial< Field< ProductEntityRecord > > = {
 	type: 'text',
-	label: __( 'Tax class', 'woocommerce' ),
+	label: __( 'Tax class', 'poocommerce' ),
 	enableSorting: false,
 	filterBy: false,
 	getValue: ( { item } ) => item.tax_class ?? '',
@@ -24,14 +24,14 @@ export const fieldExtensions: Partial< Field< ProductEntityRecord > > = {
 		const options = [
 			{
 				value: SAME_AS_PARENT,
-				label: __( 'Same as parent', 'woocommerce' ),
+				label: __( 'Same as parent', 'poocommerce' ),
 			},
-			{ value: 'standard', label: __( 'Standard', 'woocommerce' ) },
+			{ value: 'standard', label: __( 'Standard', 'poocommerce' ) },
 			{
 				value: 'reduced-rate',
-				label: __( 'Reduced rate', 'woocommerce' ),
+				label: __( 'Reduced rate', 'poocommerce' ),
 			},
-			{ value: 'zero-rate', label: __( 'Zero rate', 'woocommerce' ) },
+			{ value: 'zero-rate', label: __( 'Zero rate', 'poocommerce' ) },
 		];
 
 		const apiValue = data.tax_class ?? '';

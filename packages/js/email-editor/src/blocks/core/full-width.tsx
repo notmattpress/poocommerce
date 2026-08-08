@@ -22,7 +22,7 @@ const COLUMN_BLOCKS = [ 'core/column', 'core/columns' ];
 
 // User blocks live inside these wrappers, which add no inset of their own. We
 // skip them so a full-width block breaks out of the padded template group above.
-const PASSTHROUGH_BLOCKS = [ 'core/post-content', 'woocommerce/email-content' ];
+const PASSTHROUGH_BLOCKS = [ 'core/post-content', 'poocommerce/email-content' ];
 
 /**
  * Checks whether the value is zero (0, 0px, 0em, 0%, ...)
@@ -177,7 +177,7 @@ const withFullWidthClassName = createHigherOrderComponent(
 export function enableFullWidthBlocks(): void {
 	addFilterForEmail(
 		'editor.BlockListBlock',
-		'woocommerce-email-editor/full-width-blocks',
+		'poocommerce-email-editor/full-width-blocks',
 		withFullWidthClassName
 	);
 }

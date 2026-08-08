@@ -30,31 +30,31 @@ export default function LikertScale(
 		{
 			value: 1,
 			emoji: '😔',
-			label: __( 'Strongly disagree', 'woocommerce' ),
+			label: __( 'Strongly disagree', 'poocommerce' ),
 		},
 		{
 			value: 2,
 			emoji: '🙁',
-			label: __( 'Disagree', 'woocommerce' ),
+			label: __( 'Disagree', 'poocommerce' ),
 		},
 		{
 			value: 3,
 			emoji: '😐',
-			label: __( 'Neutral', 'woocommerce' ),
+			label: __( 'Neutral', 'poocommerce' ),
 		},
 		{
 			value: 4,
 			emoji: '🙂',
-			label: __( 'Agree', 'woocommerce' ),
+			label: __( 'Agree', 'poocommerce' ),
 		},
 		{
 			value: 5,
 			emoji: '😍',
-			label: __( 'Strongly agree', 'woocommerce' ),
+			label: __( 'Strongly agree', 'poocommerce' ),
 		},
 	];
 
-	const classes = clsx( 'woocommerce-marketplace__likert-scale', {
+	const classes = clsx( 'poocommerce-marketplace__likert-scale', {
 		'validation-failed': validationFailed,
 	} );
 
@@ -71,7 +71,7 @@ export default function LikertScale(
 					return (
 						<li
 							key={ key }
-							className="woocommerce-marketplace__likert-scale-item"
+							className="poocommerce-marketplace__likert-scale-item"
 						>
 							<input
 								type="radio"
@@ -82,10 +82,10 @@ export default function LikertScale(
 								className="screen-reader-text"
 							/>
 							<label htmlFor={ key }>
-								<div className="woocommerce-marketplace__likert-scale-icon">
+								<div className="poocommerce-marketplace__likert-scale-icon">
 									{ option.emoji }
 								</div>
-								<div className="woocommerce-marketplace__likert-scale-text">
+								<div className="poocommerce-marketplace__likert-scale-text">
 									{ option.label }
 								</div>
 							</label>

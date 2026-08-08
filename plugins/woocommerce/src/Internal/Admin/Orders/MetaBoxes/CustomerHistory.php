@@ -1,12 +1,12 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\Admin\Orders\MetaBoxes;
+namespace Automattic\PooCommerce\Internal\Admin\Orders\MetaBoxes;
 
-use Automattic\WooCommerce\Admin\API\Reports\Customers\Query as CustomersQuery;
-use Automattic\WooCommerce\Admin\Overrides\Order as AdminOrder;
-use Automattic\WooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Admin\API\Reports\Customers\Query as CustomersQuery;
+use Automattic\PooCommerce\Admin\Overrides\Order as AdminOrder;
+use Automattic\PooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 use WC_Order;
 
 /**
@@ -88,11 +88,11 @@ class CustomerHistory {
 		if ( ! empty( $excluded_labels ) ) {
 			$tooltip = sprintf(
 				/* translators: %s: localized list of order status names, e.g. "pending payment, failed, and cancelled" */
-				__( 'Total number of orders for this customer, excluding %s orders, including the current one.', 'woocommerce' ),
+				__( 'Total number of orders for this customer, excluding %s orders, including the current one.', 'poocommerce' ),
 				wp_sprintf_l( '%l', $excluded_labels )
 			);
 		} else {
-			$tooltip = __( 'Total number of orders for this customer, including the current one.', 'woocommerce' );
+			$tooltip = __( 'Total number of orders for this customer, including the current one.', 'poocommerce' );
 		}
 
 		return array(
@@ -253,7 +253,7 @@ class CustomerHistory {
 			return $this->excluded_statuses;
 		}
 
-		$excluded_statuses = get_option( 'woocommerce_excluded_report_order_statuses', array( 'pending', 'failed', 'cancelled' ) );
+		$excluded_statuses = get_option( 'poocommerce_excluded_report_order_statuses', array( 'pending', 'failed', 'cancelled' ) );
 		if ( ! is_array( $excluded_statuses ) ) {
 			$excluded_statuses = array( 'pending', 'failed', 'cancelled' );
 		}
@@ -265,7 +265,7 @@ class CustomerHistory {
 		 * @since 4.0.0
 		 * @param array $excluded_statuses Order statuses to exclude.
 		 */
-		$excluded_statuses = apply_filters( 'woocommerce_analytics_excluded_order_statuses', $excluded_statuses );
+		$excluded_statuses = apply_filters( 'poocommerce_analytics_excluded_order_statuses', $excluded_statuses );
 		if ( ! is_array( $excluded_statuses ) ) {
 			$excluded_statuses = array( 'auto-draft', 'trash', 'pending', 'failed', 'cancelled' );
 		}

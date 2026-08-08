@@ -1,9 +1,9 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\RestApi\Routes\V4\Settings\PaymentGateways;
+namespace Automattic\PooCommerce\Tests\Internal\RestApi\Routes\V4\Settings\PaymentGateways;
 
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Settings\PaymentGateways\Controller;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Settings\PaymentGateways\Controller;
 use WC_Gateway_BACS;
 use WC_Gateway_Cheque;
 use WC_Gateway_COD;
@@ -204,7 +204,7 @@ class PaymentGatewaysSettingsControllerTest extends WC_Unit_Test_Case {
 
 		// Assert.
 		$this->assertSame( 404, $response->get_status() );
-		$this->assertSame( 'woocommerce_rest_payment_gateway_invalid_id', $response->get_data()['code'] );
+		$this->assertSame( 'poocommerce_rest_payment_gateway_invalid_id', $response->get_data()['code'] );
 	}
 
 	/**
@@ -249,7 +249,7 @@ class PaymentGatewaysSettingsControllerTest extends WC_Unit_Test_Case {
 
 		// Assert.
 		$this->assertSame( 404, $response->get_status() );
-		$this->assertSame( 'woocommerce_rest_payment_gateway_invalid_id', $response->get_data()['code'] );
+		$this->assertSame( 'poocommerce_rest_payment_gateway_invalid_id', $response->get_data()['code'] );
 	}
 
 	/**
@@ -296,7 +296,7 @@ class PaymentGatewaysSettingsControllerTest extends WC_Unit_Test_Case {
 		$this->assertTrue( $data['enabled'] );
 
 		// Verify persisted state.
-		$saved_settings = get_option( 'woocommerce_bacs_settings' );
+		$saved_settings = get_option( 'poocommerce_bacs_settings' );
 		$this->assertSame( 'yes', $saved_settings['enabled'] );
 	}
 
@@ -316,7 +316,7 @@ class PaymentGatewaysSettingsControllerTest extends WC_Unit_Test_Case {
 		$this->assertSame( 'Pay via bank transfer.', $data['description'] );
 
 		// Verify persisted state.
-		$saved_settings = get_option( 'woocommerce_bacs_settings' );
+		$saved_settings = get_option( 'poocommerce_bacs_settings' );
 		$this->assertSame( 'Pay via bank transfer.', $saved_settings['description'] );
 	}
 
@@ -339,7 +339,7 @@ class PaymentGatewaysSettingsControllerTest extends WC_Unit_Test_Case {
 		$this->assertTrue( $data['enabled'] );
 
 		// Verify persisted state.
-		$saved_settings = get_option( 'woocommerce_bacs_settings' );
+		$saved_settings = get_option( 'poocommerce_bacs_settings' );
 		$this->assertSame( 'yes', $saved_settings['enabled'] );
 	}
 
@@ -360,7 +360,7 @@ class PaymentGatewaysSettingsControllerTest extends WC_Unit_Test_Case {
 		$this->assertTrue( $data['enabled'] );
 
 		// Verify persisted state matches top-level value.
-		$saved_settings = get_option( 'woocommerce_bacs_settings' );
+		$saved_settings = get_option( 'poocommerce_bacs_settings' );
 		$this->assertSame( 'yes', $saved_settings['enabled'] );
 	}
 
@@ -380,7 +380,7 @@ class PaymentGatewaysSettingsControllerTest extends WC_Unit_Test_Case {
 		$this->assertSame( 'Wire Transfer', $data['title'] );
 
 		// Verify persisted state.
-		$saved_settings = get_option( 'woocommerce_bacs_settings' );
+		$saved_settings = get_option( 'poocommerce_bacs_settings' );
 		$this->assertSame( 'Wire Transfer', $saved_settings['title'] );
 	}
 
@@ -389,7 +389,7 @@ class PaymentGatewaysSettingsControllerTest extends WC_Unit_Test_Case {
 	 */
 	public function test_update_payment_gateway_with_top_level_order() {
 		// Arrange.
-		delete_option( 'woocommerce_gateway_order' );
+		delete_option( 'poocommerce_gateway_order' );
 
 		// Act.
 		$request = new WP_REST_Request( 'PUT', self::ENDPOINT . '/bacs' );
@@ -403,7 +403,7 @@ class PaymentGatewaysSettingsControllerTest extends WC_Unit_Test_Case {
 		$this->assertSame( 3, $data['order'] );
 
 		// Verify persisted state.
-		$gateway_order = get_option( 'woocommerce_gateway_order' );
+		$gateway_order = get_option( 'poocommerce_gateway_order' );
 		$this->assertSame( 3, $gateway_order['bacs'] );
 	}
 
@@ -412,7 +412,7 @@ class PaymentGatewaysSettingsControllerTest extends WC_Unit_Test_Case {
 	 */
 	public function test_update_payment_gateway_with_order() {
 		// Arrange.
-		delete_option( 'woocommerce_gateway_order' );
+		delete_option( 'poocommerce_gateway_order' );
 
 		// Act.
 		$request = new WP_REST_Request( 'PUT', self::ENDPOINT . '/bacs' );
@@ -431,7 +431,7 @@ class PaymentGatewaysSettingsControllerTest extends WC_Unit_Test_Case {
 		$this->assertSame( 5, $data['order'] );
 
 		// Verify the order was saved.
-		$gateway_order = get_option( 'woocommerce_gateway_order' );
+		$gateway_order = get_option( 'poocommerce_gateway_order' );
 		$this->assertIsArray( $gateway_order );
 		$this->assertArrayHasKey( 'bacs', $gateway_order );
 		$this->assertSame( 5, $gateway_order['bacs'] );
@@ -618,7 +618,7 @@ class PaymentGatewaysSettingsControllerTest extends WC_Unit_Test_Case {
 		$this->assertSame( '12345678', $saved_details[0]['account_number'] );
 
 		// Verify the account details were persisted to the database option.
-		$saved_option = get_option( 'woocommerce_bacs_accounts' );
+		$saved_option = get_option( 'poocommerce_bacs_accounts' );
 		$this->assertIsArray( $saved_option );
 		$this->assertCount( 1, $saved_option );
 		$this->assertSame( $account_details[0]['account_name'], $saved_option[0]['account_name'] );
@@ -753,7 +753,7 @@ class PaymentGatewaysSettingsControllerTest extends WC_Unit_Test_Case {
 		$this->assertSame( $password, $gateway->settings['api_password'], 'Password with %Ec sequence should be preserved' );
 
 		// Verify DB persistence — the value that reached the database must also be intact.
-		$stored = get_option( 'woocommerce_mock_password_settings', array() );
+		$stored = get_option( 'poocommerce_mock_password_settings', array() );
 		$this->assertSame( $password, $stored['api_password'] ?? null, 'Password should be persisted to database without corruption' );
 	}
 
@@ -784,7 +784,7 @@ class PaymentGatewaysSettingsControllerTest extends WC_Unit_Test_Case {
 		$this->assertSame( '<b>bold</b>secret%E0pass', $gateway->settings['api_password'], 'HTML-like characters should be preserved in password fields' );
 
 		// Verify DB persistence.
-		$stored = get_option( 'woocommerce_mock_password_settings', array() );
+		$stored = get_option( 'poocommerce_mock_password_settings', array() );
 		$this->assertSame( '<b>bold</b>secret%E0pass', $stored['api_password'] ?? null, 'Password should be persisted to database without corruption' );
 	}
 
@@ -815,7 +815,7 @@ class PaymentGatewaysSettingsControllerTest extends WC_Unit_Test_Case {
 		$this->assertSame( 'pass<word123', $gateway->settings['api_password'], 'A lone < must not truncate the password' );
 
 		// Verify DB persistence.
-		$stored = get_option( 'woocommerce_mock_password_settings', array() );
+		$stored = get_option( 'poocommerce_mock_password_settings', array() );
 		$this->assertSame( 'pass<word123', $stored['api_password'] ?? null, 'Password should be persisted to database without corruption' );
 	}
 
@@ -842,7 +842,7 @@ class PaymentGatewaysSettingsControllerTest extends WC_Unit_Test_Case {
 		$this->assertSame( 'my%20password', $gateway->settings['api_password'], 'Password should be trimmed but percent sequences preserved' );
 
 		// Verify DB persistence.
-		$stored = get_option( 'woocommerce_mock_password_settings', array() );
+		$stored = get_option( 'poocommerce_mock_password_settings', array() );
 		$this->assertSame( 'my%20password', $stored['api_password'] ?? null, 'Password should be persisted to database without corruption' );
 	}
 
@@ -872,7 +872,7 @@ class PaymentGatewaysSettingsControllerTest extends WC_Unit_Test_Case {
 		$this->assertSame( '123456', $gateway->settings['api_password'], 'Numeric password value should be coerced to string, not blanked' );
 
 		// Verify DB persistence.
-		$stored = get_option( 'woocommerce_mock_password_settings', array() );
+		$stored = get_option( 'poocommerce_mock_password_settings', array() );
 		$this->assertSame( '123456', $stored['api_password'] ?? null, 'Password should be persisted to database without corruption' );
 	}
 

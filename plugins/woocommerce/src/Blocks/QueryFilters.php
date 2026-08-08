@@ -1,30 +1,30 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Blocks;
+namespace Automattic\PooCommerce\Blocks;
 
-use Automattic\WooCommerce\Internal\ProductFilters\FilterDataProvider;
-use Automattic\WooCommerce\Internal\ProductFilters\QueryClauses;
+use Automattic\PooCommerce\Internal\ProductFilters\FilterDataProvider;
+use Automattic\PooCommerce\Internal\ProductFilters\QueryClauses;
 
 /**
  * Process the query data for filtering purposes.
  *
- * Do not delete this file until https://github.com/woocommerce/woocommerce/issues/52311 is resolved.
+ * Do not delete this file until https://github.com/poocommerce/poocommerce/issues/52311 is resolved.
  * The upgrade flow can still load stale autoloader manifests that point to this file.
  *
- * @deprecated 11.0.0 Use QueryClauses and FilterDataProvider instead. This class will be removed in WooCommerce 12.0.
+ * @deprecated 11.0.0 Use QueryClauses and FilterDataProvider instead. This class will be removed in PooCommerce 12.0.
  */
 final class QueryFilters {
 	/**
 	 * Constructor.
 	 *
-	 * @deprecated 11.0.0 Use QueryClauses and FilterDataProvider instead. This class will be removed in WooCommerce 12.0.
+	 * @deprecated 11.0.0 Use QueryClauses and FilterDataProvider instead. This class will be removed in PooCommerce 12.0.
 	 */
 	public function __construct() {
 		wc_deprecated_function(
 			__CLASS__,
 			'11.0.0',
-			QueryClauses::class . ' and ' . FilterDataProvider::class . '. This class will be removed in WooCommerce 12.0'
+			QueryClauses::class . ' and ' . FilterDataProvider::class . '. This class will be removed in PooCommerce 12.0'
 		);
 	}
 
@@ -37,7 +37,7 @@ final class QueryFilters {
 		wc_deprecated_function(
 			__METHOD__,
 			'11.0.0',
-			QueryClauses::class . ' and ' . FilterDataProvider::class . '. This class will be removed in WooCommerce 12.0'
+			QueryClauses::class . ' and ' . FilterDataProvider::class . '. This class will be removed in PooCommerce 12.0'
 		);
 	}
 
@@ -52,7 +52,7 @@ final class QueryFilters {
 		wc_deprecated_function(
 			__METHOD__,
 			'11.0.0',
-			QueryClauses::class . '::add_query_clauses_for_main_query. This class will be removed in WooCommerce 12.0'
+			QueryClauses::class . '::add_query_clauses_for_main_query. This class will be removed in PooCommerce 12.0'
 		);
 
 		return wc_get_container()->get( QueryClauses::class )->add_query_clauses_for_main_query( $args, $wp_query );
@@ -69,7 +69,7 @@ final class QueryFilters {
 		wc_deprecated_function(
 			__METHOD__,
 			'11.0.0',
-			QueryClauses::class . '::add_query_clauses. This class will be removed in WooCommerce 12.0'
+			QueryClauses::class . '::add_query_clauses. This class will be removed in PooCommerce 12.0'
 		);
 
 		return wc_get_container()->get( QueryClauses::class )->add_query_clauses( $args, $wp_query );
@@ -85,7 +85,7 @@ final class QueryFilters {
 		wc_deprecated_function(
 			__METHOD__,
 			'11.0.0',
-			FilterDataProvider::class . '::with( ' . QueryClauses::class . ' )->get_filtered_price. This class will be removed in WooCommerce 12.0'
+			FilterDataProvider::class . '::with( ' . QueryClauses::class . ' )->get_filtered_price. This class will be removed in PooCommerce 12.0'
 		);
 
 		$container = wc_get_container();
@@ -103,7 +103,7 @@ final class QueryFilters {
 		wc_deprecated_function(
 			__METHOD__,
 			'11.0.0',
-			FilterDataProvider::class . '::with( ' . QueryClauses::class . ' )->get_stock_status_counts. This class will be removed in WooCommerce 12.0'
+			FilterDataProvider::class . '::with( ' . QueryClauses::class . ' )->get_stock_status_counts. This class will be removed in PooCommerce 12.0'
 		);
 
 		$container = wc_get_container();
@@ -121,7 +121,7 @@ final class QueryFilters {
 		wc_deprecated_function(
 			__METHOD__,
 			'11.0.0',
-			FilterDataProvider::class . '::with( ' . QueryClauses::class . ' )->get_rating_counts. This class will be removed in WooCommerce 12.0'
+			FilterDataProvider::class . '::with( ' . QueryClauses::class . ' )->get_rating_counts. This class will be removed in PooCommerce 12.0'
 		);
 
 		$container = wc_get_container();
@@ -140,7 +140,7 @@ final class QueryFilters {
 		wc_deprecated_function(
 			__METHOD__,
 			'11.0.0',
-			FilterDataProvider::class . '::with( ' . QueryClauses::class . ' )->get_attribute_counts. This class will be removed in WooCommerce 12.0'
+			FilterDataProvider::class . '::with( ' . QueryClauses::class . ' )->get_attribute_counts. This class will be removed in PooCommerce 12.0'
 		);
 
 		$container = wc_get_container();

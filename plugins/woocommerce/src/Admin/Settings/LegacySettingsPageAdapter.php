@@ -5,7 +5,7 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Admin\Settings;
+namespace Automattic\PooCommerce\Admin\Settings;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -17,4 +17,4 @@ defined( 'ABSPATH' ) || exit;
  *
  * @since 10.9.0
  */
-class LegacySettingsPageAdapter extends \Automattic\WooCommerce\Internal\Admin\Settings\LegacySettingsPageAdapter {}
+class LegacySettingsPageAdapter extends \Automattic\PooCommerce\Internal\Admin\Settings\LegacySettingsPageAdapter {}

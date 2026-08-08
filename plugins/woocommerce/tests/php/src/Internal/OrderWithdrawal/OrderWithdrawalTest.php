@@ -1,16 +1,16 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\OrderWithdrawal;
+namespace Automattic\PooCommerce\Tests\Internal\OrderWithdrawal;
 
-use Automattic\WooCommerce\Admin\Notes\Note;
-use Automattic\WooCommerce\Admin\Notes\Notes;
-use Automattic\WooCommerce\Internal\Features\FeaturesController;
-use Automattic\WooCommerce\Internal\OrderWithdrawal\OrderWithdrawalController;
-use Automattic\WooCommerce\Internal\OrderWithdrawal\OrderWithdrawalFormProcessor;
-use Automattic\WooCommerce\Internal\OrderWithdrawal\OrderWithdrawalFormState;
-use Automattic\WooCommerce\Internal\OrderWithdrawal\OrderWithdrawalFormView;
-use Automattic\WooCommerce\Internal\OrderWithdrawal\OrderWithdrawalFeatureHighlightNotification;
+use Automattic\PooCommerce\Admin\Notes\Note;
+use Automattic\PooCommerce\Admin\Notes\Notes;
+use Automattic\PooCommerce\Internal\Features\FeaturesController;
+use Automattic\PooCommerce\Internal\OrderWithdrawal\OrderWithdrawalController;
+use Automattic\PooCommerce\Internal\OrderWithdrawal\OrderWithdrawalFormProcessor;
+use Automattic\PooCommerce\Internal\OrderWithdrawal\OrderWithdrawalFormState;
+use Automattic\PooCommerce\Internal\OrderWithdrawal\OrderWithdrawalFormView;
+use Automattic\PooCommerce\Internal\OrderWithdrawal\OrderWithdrawalFeatureHighlightNotification;
 use WC_Order;
 use WC_Rate_Limiter;
 use WC_Unit_Test_Case;
@@ -20,10 +20,10 @@ use WC_Unit_Test_Case;
  */
 class OrderWithdrawalTest extends WC_Unit_Test_Case {
 
-	private const FEATURE_OPTION                      = 'woocommerce_feature_order_withdrawal_enabled';
-	private const ENDPOINT_OPTION                     = 'woocommerce_myaccount_order_withdrawal_endpoint';
-	private const FLUSH_QUEUE_OPTION                  = 'woocommerce_queue_flush_rewrite_rules';
-	private const MISSING_OPTION_MARK                 = '__woocommerce_order_withdrawal_missing_option__';
+	private const FEATURE_OPTION                      = 'poocommerce_feature_order_withdrawal_enabled';
+	private const ENDPOINT_OPTION                     = 'poocommerce_myaccount_order_withdrawal_endpoint';
+	private const FLUSH_QUEUE_OPTION                  = 'poocommerce_queue_flush_rewrite_rules';
+	private const MISSING_OPTION_MARK                 = '__poocommerce_order_withdrawal_missing_option__';
 	private const ORDER_WITHDRAWAL_REQUESTED_META_KEY = '_order_withdrawal_requested';
 	private const INBOX_NOTE_NAME_PREFIX              = 'wc-order-withdrawal-requested-order-';
 	private const RATE_LIMIT_PREFIX                   = 'order_withdrawal_';
@@ -72,7 +72,7 @@ class OrderWithdrawalTest extends WC_Unit_Test_Case {
 	private bool $had_remote_addr = false;
 
 	/**
-	 * Original WooCommerce session.
+	 * Original PooCommerce session.
 	 *
 	 * @var \WC_Session|null
 	 */
@@ -255,7 +255,7 @@ class OrderWithdrawalTest extends WC_Unit_Test_Case {
 			return $order_number;
 		};
 
-		add_filter( 'woocommerce_order_number', $filter, 10, 2 );
+		add_filter( 'poocommerce_order_number', $filter, 10, 2 );
 
 		try {
 			$this->prepare_post_request(
@@ -270,7 +270,7 @@ class OrderWithdrawalTest extends WC_Unit_Test_Case {
 			$this->assertTrue( $this->order_has_note_containing( $order, self::ORDER_NOTE_WITHDRAWAL_REQUESTED ), 'The custom-number matched order should receive a withdrawal note.' );
 			$this->assert_order_withdrawal_requested( $order );
 		} finally {
-			remove_filter( 'woocommerce_order_number', $filter, 10 );
+			remove_filter( 'poocommerce_order_number', $filter, 10 );
 			$capture['remove']();
 		}
 	}
@@ -325,7 +325,7 @@ class OrderWithdrawalTest extends WC_Unit_Test_Case {
 			return $order_number;
 		};
 
-		add_filter( 'woocommerce_order_number', $filter, 10, 2 );
+		add_filter( 'poocommerce_order_number', $filter, 10, 2 );
 
 		try {
 			$this->prepare_post_request(
@@ -345,7 +345,7 @@ class OrderWithdrawalTest extends WC_Unit_Test_Case {
 			$this->assert_order_withdrawal_requested( $target_order );
 			$this->assert_order_withdrawal_not_requested( $different_order );
 		} finally {
-			remove_filter( 'woocommerce_order_number', $filter, 10 );
+			remove_filter( 'poocommerce_order_number', $filter, 10 );
 			$capture['remove']();
 		}
 	}
@@ -654,7 +654,7 @@ class OrderWithdrawalTest extends WC_Unit_Test_Case {
 		$note->set_content( 'This note should not be deleted.' );
 		$note->set_type( Note::E_WC_ADMIN_NOTE_INFORMATIONAL );
 		$note->set_name( $note_name );
-		$note->set_source( 'woocommerce-admin' );
+		$note->set_source( 'poocommerce-admin' );
 		$note->save();
 
 		try {
@@ -677,17 +677,17 @@ class OrderWithdrawalTest extends WC_Unit_Test_Case {
 		try {
 			$controller->register();
 
-			$this->assertNotFalse( has_action( 'woocommerce_before_delete_order', array( $this->sut, 'delete_order_withdrawal_inbox_note_for_order' ) ) );
+			$this->assertNotFalse( has_action( 'poocommerce_before_delete_order', array( $this->sut, 'delete_order_withdrawal_inbox_note_for_order' ) ) );
 			$this->assertNotFalse( has_action( 'before_delete_post', array( $this->sut, 'delete_order_withdrawal_inbox_note_for_order' ) ) );
 		} finally {
 			remove_action( FeaturesController::FEATURE_ENABLED_CHANGED_ACTION, array( $controller, 'maybe_flush_rewrite_rules' ), 10 );
-			remove_filter( 'woocommerce_get_query_vars', array( $controller, 'add_query_var' ), 10 );
-			remove_filter( 'woocommerce_endpoint_order-withdrawal_title', array( $controller, 'get_endpoint_title' ), 10 );
-			remove_filter( 'woocommerce_settings_pages', array( $controller, 'add_endpoint_setting' ), 10 );
-			remove_action( 'woocommerce_account_order-withdrawal_endpoint', array( $controller, 'render_view' ), 10 );
-			remove_action( 'woocommerce_before_delete_order', array( $this->sut, 'delete_order_withdrawal_inbox_note_for_order' ), 10 );
+			remove_filter( 'poocommerce_get_query_vars', array( $controller, 'add_query_var' ), 10 );
+			remove_filter( 'poocommerce_endpoint_order-withdrawal_title', array( $controller, 'get_endpoint_title' ), 10 );
+			remove_filter( 'poocommerce_settings_pages', array( $controller, 'add_endpoint_setting' ), 10 );
+			remove_action( 'poocommerce_account_order-withdrawal_endpoint', array( $controller, 'render_view' ), 10 );
+			remove_action( 'poocommerce_before_delete_order', array( $this->sut, 'delete_order_withdrawal_inbox_note_for_order' ), 10 );
 			remove_action( 'before_delete_post', array( $this->sut, 'delete_order_withdrawal_inbox_note_for_order' ), 10 );
-			remove_action( 'woocommerce_privacy_remove_order_personal_data', array( $this->sut, 'delete_order_withdrawal_inbox_note_for_order' ), 10 );
+			remove_action( 'poocommerce_privacy_remove_order_personal_data', array( $this->sut, 'delete_order_withdrawal_inbox_note_for_order' ), 10 );
 		}
 	}
 
@@ -709,18 +709,18 @@ class OrderWithdrawalTest extends WC_Unit_Test_Case {
 
 			$controller->maybe_register_feature_highlight_notification();
 
-			$this->assertFalse( has_action( 'update_option_woocommerce_coming_soon', array( $notification, 'maybe_add_note_when_store_goes_live' ) ), 'The feature highlight notification should not listen for coming-soon changes when the feature is enabled.' );
+			$this->assertFalse( has_action( 'update_option_poocommerce_coming_soon', array( $notification, 'maybe_add_note_when_store_goes_live' ) ), 'The feature highlight notification should not listen for coming-soon changes when the feature is enabled.' );
 			$this->assertFalse( has_action( 'wc_admin_daily', array( $notification, 'possibly_add_note' ) ), 'The feature highlight notification should not run daily when the feature is enabled.' );
 		} finally {
 			remove_action( 'init', array( $controller, 'maybe_register_feature_highlight_notification' ), 10 );
 			remove_action( FeaturesController::FEATURE_ENABLED_CHANGED_ACTION, array( $controller, 'maybe_flush_rewrite_rules' ), 10 );
-			remove_filter( 'woocommerce_get_query_vars', array( $controller, 'add_query_var' ), 10 );
-			remove_filter( 'woocommerce_endpoint_order-withdrawal_title', array( $controller, 'get_endpoint_title' ), 10 );
-			remove_filter( 'woocommerce_settings_pages', array( $controller, 'add_endpoint_setting' ), 10 );
-			remove_action( 'woocommerce_account_order-withdrawal_endpoint', array( $controller, 'render_view' ), 10 );
-			remove_action( 'woocommerce_before_delete_order', array( $this->sut, 'delete_order_withdrawal_inbox_note_for_order' ), 10 );
+			remove_filter( 'poocommerce_get_query_vars', array( $controller, 'add_query_var' ), 10 );
+			remove_filter( 'poocommerce_endpoint_order-withdrawal_title', array( $controller, 'get_endpoint_title' ), 10 );
+			remove_filter( 'poocommerce_settings_pages', array( $controller, 'add_endpoint_setting' ), 10 );
+			remove_action( 'poocommerce_account_order-withdrawal_endpoint', array( $controller, 'render_view' ), 10 );
+			remove_action( 'poocommerce_before_delete_order', array( $this->sut, 'delete_order_withdrawal_inbox_note_for_order' ), 10 );
 			remove_action( 'before_delete_post', array( $this->sut, 'delete_order_withdrawal_inbox_note_for_order' ), 10 );
-			remove_action( 'woocommerce_privacy_remove_order_personal_data', array( $this->sut, 'delete_order_withdrawal_inbox_note_for_order' ), 10 );
+			remove_action( 'poocommerce_privacy_remove_order_personal_data', array( $this->sut, 'delete_order_withdrawal_inbox_note_for_order' ), 10 );
 		}
 	}
 

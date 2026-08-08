@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\GraphQL;
+namespace Automattic\PooCommerce\Vendor\GraphQL;
 
-use Automattic\WooCommerce\Vendor\GraphQL\Executor\Promise\Adapter\SyncPromise;
-use Automattic\WooCommerce\Vendor\GraphQL\Executor\Promise\Adapter\SyncPromiseQueue;
+use Automattic\PooCommerce\Vendor\GraphQL\Executor\Promise\Adapter\SyncPromise;
+use Automattic\PooCommerce\Vendor\GraphQL\Executor\Promise\Adapter\SyncPromiseQueue;
 
 /**
  * User-facing promise class for deferred field resolution.

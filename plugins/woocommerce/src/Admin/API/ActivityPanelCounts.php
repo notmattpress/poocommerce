@@ -7,7 +7,7 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Admin\API;
+namespace Automattic\PooCommerce\Admin\API;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -139,7 +139,7 @@ class ActivityPanelCounts extends \WC_REST_Data_Controller {
 		$params                   = array();
 		$params['context']        = $this->get_context_param( array( 'default' => 'view' ) );
 		$params['order_statuses'] = array(
-			'description'       => __( 'Order statuses counted as "to fulfill".', 'woocommerce' ),
+			'description'       => __( 'Order statuses counted as "to fulfill".', 'poocommerce' ),
 			'type'              => 'array',
 			'items'             => array( 'type' => 'string' ),
 			'default'           => $this->get_default_order_statuses(),
@@ -147,14 +147,14 @@ class ActivityPanelCounts extends \WC_REST_Data_Controller {
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 		$params['review_status']  = array(
-			'description'       => __( 'Review status counted as "to moderate".', 'woocommerce' ),
+			'description'       => __( 'Review status counted as "to moderate".', 'poocommerce' ),
 			'type'              => 'string',
 			'default'           => 'hold',
 			'sanitize_callback' => 'sanitize_key',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 		$params['product_status'] = array(
-			'description'       => __( 'Product post status used for the low stock count.', 'woocommerce' ),
+			'description'       => __( 'Product post status used for the low stock count.', 'poocommerce' ),
 			'type'              => 'string',
 			'default'           => 'publish',
 			'sanitize_callback' => 'sanitize_key',
@@ -171,7 +171,7 @@ class ActivityPanelCounts extends \WC_REST_Data_Controller {
 	 * @return array
 	 */
 	private function get_default_order_statuses() {
-		$actionable = get_option( 'woocommerce_actionable_order_statuses', false );
+		$actionable = get_option( 'poocommerce_actionable_order_statuses', false );
 
 		// Any array is respected as-is, including an explicitly empty one: the merchant
 		// intentionally cleared all actionable statuses, so there is nothing to fulfill,
@@ -192,15 +192,15 @@ class ActivityPanelCounts extends \WC_REST_Data_Controller {
 			'type'       => 'object',
 			'properties' => array(
 				'orders_to_fulfill_count'     => array(
-					'description' => __( 'Number of orders to fulfill. Null if the underlying sub-request failed.', 'woocommerce' ),
+					'description' => __( 'Number of orders to fulfill. Null if the underlying sub-request failed.', 'poocommerce' ),
 					'type'        => array( 'integer', 'null' ),
 				),
 				'reviews_to_moderate_count'   => array(
-					'description' => __( 'Number of reviews awaiting moderation. Null if the underlying sub-request failed.', 'woocommerce' ),
+					'description' => __( 'Number of reviews awaiting moderation. Null if the underlying sub-request failed.', 'poocommerce' ),
 					'type'        => array( 'integer', 'null' ),
 				),
 				'products_low_in_stock_count' => array(
-					'description' => __( 'Number of products low in stock. Null if the underlying sub-request failed.', 'woocommerce' ),
+					'description' => __( 'Number of products low in stock. Null if the underlying sub-request failed.', 'poocommerce' ),
 					'type'        => array( 'integer', 'null' ),
 				),
 			),

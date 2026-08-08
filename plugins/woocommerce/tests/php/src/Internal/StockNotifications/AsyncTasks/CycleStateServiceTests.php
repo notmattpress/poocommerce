@@ -2,9 +2,9 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\StockNotifications\AsyncTasks;
+namespace Automattic\PooCommerce\Tests\Internal\StockNotifications\AsyncTasks;
 
-use Automattic\WooCommerce\Internal\StockNotifications\AsyncTasks\CycleStateService;
+use Automattic\PooCommerce\Internal\StockNotifications\AsyncTasks\CycleStateService;
 
 /**
  * CycleStateServiceTests data tests.

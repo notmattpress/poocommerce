@@ -55,8 +55,8 @@ function getVariationActiveStatus(
 
 export function getVariationActiveLabel( value: VariationActiveValue ) {
 	return value === ACTIVE_VALUE
-		? __( 'Active', 'woocommerce' )
-		: __( 'Inactive', 'woocommerce' );
+		? __( 'Active', 'poocommerce' )
+		: __( 'Inactive', 'poocommerce' );
 }
 
 export function VariationActiveBadge( {
@@ -73,12 +73,12 @@ export function VariationActiveBadge( {
 
 const fieldDefinition = {
 	type: 'text',
-	label: __( 'Status', 'woocommerce' ),
+	label: __( 'Status', 'poocommerce' ),
 	enableSorting: false,
 	filterBy: false,
 	elements: [
-		{ value: ACTIVE_VALUE, label: __( 'Active', 'woocommerce' ) },
-		{ value: INACTIVE_VALUE, label: __( 'Inactive', 'woocommerce' ) },
+		{ value: ACTIVE_VALUE, label: __( 'Active', 'poocommerce' ) },
+		{ value: INACTIVE_VALUE, label: __( 'Inactive', 'poocommerce' ) },
 	],
 } satisfies Partial< Field< ProductEntityRecord > >;
 

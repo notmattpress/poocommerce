@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Tests\Blocks\BlockTypes;
 
 use WC_Unit_Test_Case;
 
@@ -30,14 +30,14 @@ class ProductFilterAttributeTest extends WC_Unit_Test_Case {
 	public function setUp(): void {
 		parent::setUp();
 
-		add_filter( 'woocommerce_pre_product_filter_data', array( $this, 'filter_product_filter_data' ), 10, 4 );
+		add_filter( 'poocommerce_pre_product_filter_data', array( $this, 'filter_product_filter_data' ), 10, 4 );
 	}
 
 	/**
 	 * Tear down test fixtures.
 	 */
 	public function tearDown(): void {
-		remove_filter( 'woocommerce_pre_product_filter_data', array( $this, 'filter_product_filter_data' ), 10 );
+		remove_filter( 'poocommerce_pre_product_filter_data', array( $this, 'filter_product_filter_data' ), 10 );
 
 		foreach ( $this->attribute_ids as $attribute_id ) {
 			wc_delete_attribute( $attribute_id );
@@ -53,15 +53,15 @@ class ProductFilterAttributeTest extends WC_Unit_Test_Case {
 	/**
 	 * @testdox Should render empty output when the attribute ID references a deleted taxonomy.
 	 *
-	 * Regression test for https://github.com/woocommerce/woocommerce/issues/63791.
+	 * Regression test for https://github.com/poocommerce/poocommerce/issues/63791.
 	 */
 	public function test_render_returns_empty_for_deleted_attribute(): void {
 		$non_existent_attribute_id = 999999;
 
 		$block_markup = sprintf(
-			'<!-- wp:woocommerce/product-filter-attribute {"attributeId":%d,"queryType":"or","sortOrder":"name-asc"} -->
-			<div class="wp-block-woocommerce-product-filter-attribute"></div>
-			<!-- /wp:woocommerce/product-filter-attribute -->',
+			'<!-- wp:poocommerce/product-filter-attribute {"attributeId":%d,"queryType":"or","sortOrder":"name-asc"} -->
+			<div class="wp-block-poocommerce-product-filter-attribute"></div>
+			<!-- /wp:poocommerce/product-filter-attribute -->',
 			$non_existent_attribute_id
 		);
 
@@ -120,7 +120,7 @@ class ProductFilterAttributeTest extends WC_Unit_Test_Case {
 	 */
 	private function render_attribute_filter_with_checkbox_list( int $attribute_id ): string {
 		$attribute_block = array(
-			'blockName'    => 'woocommerce/product-filter-attribute',
+			'blockName'    => 'poocommerce/product-filter-attribute',
 			'attrs'        => array(
 				'attributeId' => $attribute_id,
 				'hideEmpty'   => false,
@@ -129,7 +129,7 @@ class ProductFilterAttributeTest extends WC_Unit_Test_Case {
 			),
 			'innerBlocks'  => array(
 				array(
-					'blockName'    => 'woocommerce/product-filter-checkbox-list',
+					'blockName'    => 'poocommerce/product-filter-checkbox-list',
 					'attrs'        => array(),
 					'innerBlocks'  => array(),
 					'innerHTML'    => '',
@@ -140,7 +140,7 @@ class ProductFilterAttributeTest extends WC_Unit_Test_Case {
 			'innerContent' => array( null ),
 		);
 		$parsed_block    = array(
-			'blockName'    => 'woocommerce/product-filters',
+			'blockName'    => 'poocommerce/product-filters',
 			'attrs'        => array( 'showFilterDrawer' => false ),
 			'innerBlocks'  => array( $attribute_block ),
 			'innerHTML'    => '',

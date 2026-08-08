@@ -50,17 +50,17 @@ export class AppErrorBoundary extends Component<
 	render() {
 		if ( this.state.hasError ) {
 			return (
-				<EmptyState.Root className="woocommerce-experimental-products-app-error">
+				<EmptyState.Root className="poocommerce-experimental-products-app-error">
 					<EmptyState.Title>
 						{ __(
 							'Oops, the experimental products experience ran into a problem',
-							'woocommerce'
+							'poocommerce'
 						) }
 					</EmptyState.Title>
-					<EmptyState.Description className="woocommerce-experimental-products-app-error__description">
+					<EmptyState.Description className="poocommerce-experimental-products-app-error__description">
 						{ __(
 							'This experience is still experimental. Please report the issue on GitHub or share feedback in the survey so we can improve it.',
-							'woocommerce'
+							'poocommerce'
 						) }
 					</EmptyState.Description>
 					<EmptyState.Actions>
@@ -73,7 +73,7 @@ export class AppErrorBoundary extends Component<
 							>
 								{ __(
 									'Report an issue on GitHub',
-									'woocommerce'
+									'poocommerce'
 								) }
 							</Button>
 							<Button
@@ -84,14 +84,14 @@ export class AppErrorBoundary extends Component<
 							>
 								{ __(
 									'Share feedback in survey',
-									'woocommerce'
+									'poocommerce'
 								) }
 							</Button>
 							<Button
 								onClick={ this.handleReload }
 								variant="secondary"
 							>
-								{ __( 'Reload page', 'woocommerce' ) }
+								{ __( 'Reload page', 'poocommerce' ) }
 							</Button>
 						</Stack>
 					</EmptyState.Actions>

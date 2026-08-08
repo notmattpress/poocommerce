@@ -5,10 +5,10 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Caches;
+namespace Automattic\PooCommerce\Tests\Internal\Caches;
 
-use Automattic\WooCommerce\Internal\Caches\OrdersVersionStringInvalidator;
-use Automattic\WooCommerce\Internal\Caches\VersionStringGenerator;
+use Automattic\PooCommerce\Internal\Caches\OrdersVersionStringInvalidator;
+use Automattic\PooCommerce\Internal\Caches\VersionStringGenerator;
 use WC_Unit_Test_Case;
 
 /**
@@ -44,8 +44,8 @@ class OrdersVersionStringInvalidatorTest extends WC_Unit_Test_Case {
 	 * Tear down test fixtures.
 	 */
 	public function tearDown(): void {
-		delete_option( 'woocommerce_feature_rest_api_caching_enabled' );
-		delete_option( 'woocommerce_rest_api_enable_backend_caching' );
+		delete_option( 'poocommerce_feature_rest_api_caching_enabled' );
+		delete_option( 'poocommerce_rest_api_enable_backend_caching' );
 		parent::tearDown();
 	}
 
@@ -55,8 +55,8 @@ class OrdersVersionStringInvalidatorTest extends WC_Unit_Test_Case {
 	 * @return OrdersVersionStringInvalidator The initialized invalidator.
 	 */
 	private function get_invalidator_with_hooks_enabled(): OrdersVersionStringInvalidator {
-		update_option( 'woocommerce_feature_rest_api_caching_enabled', 'yes' );
-		update_option( 'woocommerce_rest_api_enable_backend_caching', 'yes' );
+		update_option( 'poocommerce_feature_rest_api_caching_enabled', 'yes' );
+		update_option( 'poocommerce_rest_api_enable_backend_caching', 'yes' );
 
 		$invalidator = new OrdersVersionStringInvalidator();
 		$invalidator->init();
@@ -104,40 +104,40 @@ class OrdersVersionStringInvalidatorTest extends WC_Unit_Test_Case {
 	public function test_hooks_registered_when_feature_and_setting_enabled(): void {
 		$invalidator = $this->get_invalidator_with_hooks_enabled();
 
-		$this->assertNotFalse( has_action( 'woocommerce_new_order', array( $invalidator, 'handle_woocommerce_new_order' ) ) );
-		$this->assertNotFalse( has_action( 'woocommerce_update_order', array( $invalidator, 'handle_woocommerce_update_order' ) ) );
-		$this->assertNotFalse( has_action( 'woocommerce_order_status_changed', array( $invalidator, 'handle_woocommerce_order_status_changed' ) ) );
-		$this->assertNotFalse( has_action( 'woocommerce_order_refunded', array( $invalidator, 'handle_woocommerce_order_refunded' ) ) );
+		$this->assertNotFalse( has_action( 'poocommerce_new_order', array( $invalidator, 'handle_poocommerce_new_order' ) ) );
+		$this->assertNotFalse( has_action( 'poocommerce_update_order', array( $invalidator, 'handle_poocommerce_update_order' ) ) );
+		$this->assertNotFalse( has_action( 'poocommerce_order_status_changed', array( $invalidator, 'handle_poocommerce_order_status_changed' ) ) );
+		$this->assertNotFalse( has_action( 'poocommerce_order_refunded', array( $invalidator, 'handle_poocommerce_order_refunded' ) ) );
 	}
 
 	/**
 	 * @testdox Hooks are not registered when feature is disabled.
 	 */
 	public function test_hooks_not_registered_when_feature_disabled(): void {
-		update_option( 'woocommerce_feature_rest_api_caching_enabled', 'no' );
-		update_option( 'woocommerce_rest_api_enable_backend_caching', 'yes' );
+		update_option( 'poocommerce_feature_rest_api_caching_enabled', 'no' );
+		update_option( 'poocommerce_rest_api_enable_backend_caching', 'yes' );
 
 		$invalidator = new OrdersVersionStringInvalidator();
 		$invalidator->init();
 
-		$this->assertFalse( has_action( 'woocommerce_new_order', array( $invalidator, 'handle_woocommerce_new_order' ) ) );
-		$this->assertFalse( has_action( 'woocommerce_update_order', array( $invalidator, 'handle_woocommerce_update_order' ) ) );
-		$this->assertFalse( has_action( 'woocommerce_order_status_changed', array( $invalidator, 'handle_woocommerce_order_status_changed' ) ) );
+		$this->assertFalse( has_action( 'poocommerce_new_order', array( $invalidator, 'handle_poocommerce_new_order' ) ) );
+		$this->assertFalse( has_action( 'poocommerce_update_order', array( $invalidator, 'handle_poocommerce_update_order' ) ) );
+		$this->assertFalse( has_action( 'poocommerce_order_status_changed', array( $invalidator, 'handle_poocommerce_order_status_changed' ) ) );
 	}
 
 	/**
 	 * @testdox Hooks are not registered when backend caching setting is disabled.
 	 */
 	public function test_hooks_not_registered_when_backend_caching_disabled(): void {
-		update_option( 'woocommerce_feature_rest_api_caching_enabled', 'yes' );
-		update_option( 'woocommerce_rest_api_enable_backend_caching', 'no' );
+		update_option( 'poocommerce_feature_rest_api_caching_enabled', 'yes' );
+		update_option( 'poocommerce_rest_api_enable_backend_caching', 'no' );
 
 		$invalidator = new OrdersVersionStringInvalidator();
 		$invalidator->init();
 
-		$this->assertFalse( has_action( 'woocommerce_new_order', array( $invalidator, 'handle_woocommerce_new_order' ) ) );
-		$this->assertFalse( has_action( 'woocommerce_update_order', array( $invalidator, 'handle_woocommerce_update_order' ) ) );
-		$this->assertFalse( has_action( 'woocommerce_order_status_changed', array( $invalidator, 'handle_woocommerce_order_status_changed' ) ) );
+		$this->assertFalse( has_action( 'poocommerce_new_order', array( $invalidator, 'handle_poocommerce_new_order' ) ) );
+		$this->assertFalse( has_action( 'poocommerce_update_order', array( $invalidator, 'handle_poocommerce_update_order' ) ) );
+		$this->assertFalse( has_action( 'poocommerce_order_status_changed', array( $invalidator, 'handle_poocommerce_order_status_changed' ) ) );
 	}
 
 	/**
@@ -372,8 +372,8 @@ class OrdersVersionStringInvalidatorTest extends WC_Unit_Test_Case {
 		$this->assertNotNull( $order_refunds_version_before, 'Order refunds list version string should exist before deletion' );
 
 		$refund->delete( true );
-		// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment -- Test code.
-		do_action( 'woocommerce_refund_deleted', $refund_id, $order_id );
+		// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment -- Test code.
+		do_action( 'poocommerce_refund_deleted', $refund_id, $order_id );
 
 		$order_version_after         = $this->version_generator->get_version( "order_{$order_id}", false );
 		$refund_version_after        = $this->version_generator->get_version( "refund_{$refund_id}", false );
@@ -403,15 +403,15 @@ class OrdersVersionStringInvalidatorTest extends WC_Unit_Test_Case {
 		$mock_order->method( 'get_type' )->willReturn( 'shop_order' );
 		$mock_order->method( 'get_customer_id' )->willReturn( 1 );
 
-		$this->sut->handle_woocommerce_new_order( $order_id, $mock_order );
+		$this->sut->handle_poocommerce_new_order( $order_id, $mock_order );
 
 		$this->assertNull(
 			$this->version_generator->get_version( "order_{$order_id}", false ),
-			'Order version should be invalidated by handle_woocommerce_new_order'
+			'Order version should be invalidated by handle_poocommerce_new_order'
 		);
 		$this->assertNull(
 			$this->version_generator->get_version( 'list_orders', false ),
-			'Orders list version should be invalidated by handle_woocommerce_new_order'
+			'Orders list version should be invalidated by handle_poocommerce_new_order'
 		);
 	}
 }

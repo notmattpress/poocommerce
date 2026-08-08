@@ -20,7 +20,7 @@ import {
 
 const fieldDefinition = {
 	type: 'datetime',
-	label: __( 'Start sale on', 'woocommerce' ),
+	label: __( 'Start sale on', 'poocommerce' ),
 	enableSorting: false,
 	enableHiding: false,
 	filterBy: false,

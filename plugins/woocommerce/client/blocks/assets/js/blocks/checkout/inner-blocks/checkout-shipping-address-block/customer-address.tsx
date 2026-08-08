@@ -2,16 +2,16 @@
  * External dependencies
  */
 import { useCallback, useEffect, useState } from '@wordpress/element';
-import { Form } from '@woocommerce/base-components/cart-checkout';
+import { Form } from '@poocommerce/base-components/cart-checkout';
 import {
 	useCheckoutAddress,
 	useStoreEvents,
 	useCustomerData,
-} from '@woocommerce/base-context';
-import type { ShippingAddress } from '@woocommerce/settings';
+} from '@poocommerce/base-context';
+import type { ShippingAddress } from '@poocommerce/settings';
 import { useSelect } from '@wordpress/data';
-import { validationStore } from '@woocommerce/block-data';
-import { ADDRESS_FORM_KEYS } from '@woocommerce/block-settings';
+import { validationStore } from '@poocommerce/block-data';
+import { ADDRESS_FORM_KEYS } from '@poocommerce/block-settings';
 
 /**
  * Internal dependencies

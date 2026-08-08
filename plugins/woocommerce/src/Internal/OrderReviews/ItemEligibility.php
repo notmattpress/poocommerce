@@ -5,7 +5,7 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\OrderReviews;
+namespace Automattic\PooCommerce\Internal\OrderReviews;
 
 use WC_Order;
 use WC_Order_Item;
@@ -105,7 +105,7 @@ class ItemEligibility {
 	 */
 	final public function init(): void {
 		add_filter(
-			'woocommerce_review_order_eligible_items',
+			'poocommerce_review_order_eligible_items',
 			array( self::class, 'exclude_fully_refunded_items' ),
 			10,
 			2
@@ -116,7 +116,7 @@ class ItemEligibility {
 		// render indistinguishably from one for "Size: Medium" on the parent
 		// product page.
 		add_action(
-			'woocommerce_review_before_comment_text',
+			'poocommerce_review_before_comment_text',
 			array( self::class, 'render_variation_summary' )
 		);
 	}
@@ -124,7 +124,7 @@ class ItemEligibility {
 	/**
 	 * Echo the variation summary snapshot for a review comment, when present.
 	 *
-	 * Wired onto `woocommerce_review_before_comment_text` so the snapshot
+	 * Wired onto `poocommerce_review_before_comment_text` so the snapshot
 	 * stored in `_review_variation_summary` (set by the Customer Review
 	 * Request submission flow) appears immediately above the review body on
 	 * the single-product Reviews tab. Comments without the meta render
@@ -140,7 +140,7 @@ class ItemEligibility {
 			return;
 		}
 
-		echo '<p class="woocommerce-review__variation-summary">' . esc_html( $summary ) . '</p>';
+		echo '<p class="poocommerce-review__variation-summary">' . esc_html( $summary ) . '</p>';
 	}
 
 	/**
@@ -362,7 +362,7 @@ class ItemEligibility {
 	 * Walks the same eligible-items list and per-item decisions the page
 	 * renders, so the answer matches what `customer-review-order.php` would
 	 * show: items with `STATUS_SKIP` (reviews disabled on the product, or
-	 * site-wide via `woocommerce_enable_reviews`) and items already reviewed
+	 * site-wide via `poocommerce_enable_reviews`) and items already reviewed
 	 * on this order are excluded. Any remaining `STATUS_FORM` row without a
 	 * matching review counts as actionable.
 	 *
@@ -387,7 +387,7 @@ class ItemEligibility {
 		 * @param WC_Order_Item[] $items Order line items.
 		 * @param WC_Order        $order The order being inspected.
 		 */
-		$items = (array) apply_filters( 'woocommerce_review_order_eligible_items', $order->get_items(), $order );
+		$items = (array) apply_filters( 'poocommerce_review_order_eligible_items', $order->get_items(), $order );
 		self::preload_for_items( $items, $order );
 
 		foreach ( $items as $item ) {
@@ -409,7 +409,7 @@ class ItemEligibility {
 	/**
 	 * Drop fully-refunded line items from the eligible-items list.
 	 *
-	 * Default callback wired onto `woocommerce_review_order_eligible_items`
+	 * Default callback wired onto `poocommerce_review_order_eligible_items`
 	 * so the page never shows a row for a product the customer no longer
 	 * owns. A line item is considered fully refunded when the absolute
 	 * refunded quantity is greater than or equal to the item's ordered

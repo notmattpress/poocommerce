@@ -1,6 +1,6 @@
 interface Window {
 	_wpCollaborationEnabled?: boolean;
-	WooCommerceEmailEditor: {
+	PooCommerceEmailEditor: {
 		current_wp_user_email: string;
 		user_theme_post_id: number;
 		urls: {
@@ -19,6 +19,6 @@ interface Window {
 // Consumers should replace this identifier with their own text domain string
 // at bundle time via `webpack.DefinePlugin` (or an equivalent). See
 // `development.md` for a build configuration example. When the substitution
-// is not configured, the package falls back to `'woocommerce'` at runtime
+// is not configured, the package falls back to `'poocommerce'` at runtime
 // (see `src/index.ts`).
 declare const __i18n_text_domain__: string;

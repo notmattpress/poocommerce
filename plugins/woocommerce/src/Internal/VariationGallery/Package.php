@@ -5,15 +5,15 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\VariationGallery;
+namespace Automattic\PooCommerce\Internal\VariationGallery;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
  * Variation gallery package entry point.
  *
- * Registered in `\Automattic\WooCommerce\Packages::$merged_packages` against
- * the `woocommerce-additional-variation-images` slug, so this class is the
+ * Registered in `\Automattic\PooCommerce\Packages::$merged_packages` against
+ * the `poocommerce-additional-variation-images` slug, so this class is the
  * single bootstrap surface for the merged variation gallery feature.
  */
 class Package {
@@ -21,12 +21,12 @@ class Package {
 	/**
 	 * Action Scheduler hook for DB update callbacks.
 	 */
-	private const UPDATE_CALLBACK_HOOK = 'woocommerce_run_update_callback';
+	private const UPDATE_CALLBACK_HOOK = 'poocommerce_run_update_callback';
 
 	/**
 	 * Action Scheduler group for DB update callbacks.
 	 */
-	private const UPDATE_CALLBACK_GROUP = 'woocommerce-db-updates';
+	private const UPDATE_CALLBACK_GROUP = 'poocommerce-db-updates';
 
 	/**
 	 * The feature id used by `FeaturesController` (Settings → Advanced → Features).
@@ -36,12 +36,12 @@ class Package {
 	/**
 	 * Option backing the variation gallery feature toggle.
 	 */
-	public const ENABLE_OPTION_NAME = 'wc_feature_woocommerce_additional_variation_images_enabled';
+	public const ENABLE_OPTION_NAME = 'wc_feature_poocommerce_additional_variation_images_enabled';
 
 	/**
-	 * `woocommerce_remote_variant_assignment` option name.
+	 * `poocommerce_remote_variant_assignment` option name.
 	 */
-	private const REMOTE_VARIANT_OPTION_NAME = 'woocommerce_remote_variant_assignment';
+	private const REMOTE_VARIANT_OPTION_NAME = 'poocommerce_remote_variant_assignment';
 
 	/**
 	 * Highest variant bucket in the canary cohort. Range is 1-120, so

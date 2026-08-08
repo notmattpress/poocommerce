@@ -227,7 +227,7 @@ const UnsavedChangesModal = ( {
 			>
 				<Dialog.Header>
 					<Dialog.Title>
-						{ __( 'You have unsaved changes', 'woocommerce' ) }
+						{ __( 'You have unsaved changes', 'poocommerce' ) }
 					</Dialog.Title>
 					<Dialog.CloseIcon />
 				</Dialog.Header>
@@ -235,20 +235,20 @@ const UnsavedChangesModal = ( {
 					<Dialog.Description>
 						{ __(
 							"If you leave now, your changes won't be saved.",
-							'woocommerce'
+							'poocommerce'
 						) }
 					</Dialog.Description>
 				</Dialog.Content>
 				<Dialog.Footer className="wc-settings-ui__unsaved-changes-actions">
 					<UIButton variant="minimal" onClick={ onDiscard }>
-						{ __( 'Discard', 'woocommerce' ) }
+						{ __( 'Discard', 'poocommerce' ) }
 					</UIButton>
 					<UIButton
 						loading={ isSaving }
 						disabled={ isSaving }
 						onClick={ onSave }
 					>
-						{ __( 'Save', 'woocommerce' ) }
+						{ __( 'Save', 'poocommerce' ) }
 					</UIButton>
 				</Dialog.Footer>
 			</Dialog.Popup>
@@ -414,7 +414,7 @@ export class SettingsUIErrorBoundary extends Component<
 					<Notice.Description>
 						{ __(
 							'Something went wrong while rendering this settings page. Reload the page with the settings UI feature disabled to use the classic settings screen.',
-							'woocommerce'
+							'poocommerce'
 						) }
 					</Notice.Description>
 				</Notice.Root>
@@ -456,7 +456,7 @@ const ShellHeader = ( {
 		shell.breadcrumbs && shell.breadcrumbs.length > 0 ? (
 			<nav
 				className="wc-settings-ui-shell__breadcrumbs"
-				aria-label={ __( 'Breadcrumbs', 'woocommerce' ) }
+				aria-label={ __( 'Breadcrumbs', 'poocommerce' ) }
 			>
 				{ shell.breadcrumbs.map( ( breadcrumb, index ) => (
 					<span
@@ -488,7 +488,7 @@ const ShellHeader = ( {
 	return (
 		<NavigableRegion
 			className="wc-settings-ui-shell"
-			ariaLabel={ title || __( 'Settings', 'woocommerce' ) }
+			ariaLabel={ title || __( 'Settings', 'poocommerce' ) }
 		>
 			{ showHeader ? (
 				<Stack
@@ -533,7 +533,7 @@ const ShellHeader = ( {
 					{ shell.navigation && shell.navigation.length > 0 ? (
 						<nav
 							className="wc-settings-ui-shell__tabs"
-							aria-label={ __( 'Settings pages', 'woocommerce' ) }
+							aria-label={ __( 'Settings pages', 'poocommerce' ) }
 						>
 							{ shell.navigation.map( ( item ) => (
 								<a
@@ -556,7 +556,7 @@ const ShellHeader = ( {
 							className="wc-settings-ui-shell__tabs"
 							aria-label={ __(
 								'Settings sections',
-								'woocommerce'
+								'poocommerce'
 							) }
 						>
 							{ shell.sectionNavigation.map( ( item ) => (
@@ -666,7 +666,7 @@ export const SettingsUIPage = ( {
 
 			allowNavigation();
 
-			const saveButton = form.querySelector( '.woocommerce-save-button' );
+			const saveButton = form.querySelector( '.poocommerce-save-button' );
 
 			if ( saveButton instanceof HTMLButtonElement ) {
 				form.requestSubmit( saveButton );
@@ -710,7 +710,7 @@ export const SettingsUIPage = ( {
 		if ( ! handler ) {
 			setSaveNotice( {
 				status: 'error',
-				message: __( 'Unable to save settings.', 'woocommerce' ),
+				message: __( 'Unable to save settings.', 'poocommerce' ),
 			} );
 			return false;
 		}
@@ -734,14 +734,14 @@ export const SettingsUIPage = ( {
 				status: 'success',
 				message:
 					result?.notice ||
-					__( 'Settings saved successfully.', 'woocommerce' ),
+					__( 'Settings saved successfully.', 'poocommerce' ),
 			} );
 			return true;
 		} catch ( saveError ) {
 			const message =
 				saveError instanceof Error && saveError.message
 					? saveError.message
-					: __( 'Unable to save settings.', 'woocommerce' );
+					: __( 'Unable to save settings.', 'poocommerce' );
 			setSaveNotice( { status: 'error', message } );
 			return false;
 		} finally {
@@ -888,11 +888,11 @@ export const SettingsUIPage = ( {
 		saveStrategy.adapter === 'form_post' ? getAllFields( schema ) : [];
 
 	const showHeader = schema.shell?.header === 'visible';
-	const saveButtonLabel = __( 'Save', 'woocommerce' );
+	const saveButtonLabel = __( 'Save', 'poocommerce' );
 	const saveButton =
 		saveStrategy.adapter !== 'none' ? (
 			<Button
-				className="woocommerce-save-button"
+				className="poocommerce-save-button"
 				variant="primary"
 				type={
 					saveStrategy.adapter === 'form_post' ? 'submit' : 'button'

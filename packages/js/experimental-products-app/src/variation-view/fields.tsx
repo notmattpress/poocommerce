@@ -39,13 +39,13 @@ export const variationFields = REUSED_VARIATION_FIELD_IDS.map( ( id ) => {
 			...field,
 			render( { item }: { item: VariationEntityRecord } ) {
 				return (
-					<span className="woocommerce-variation-name">
-						<span className="woocommerce-variation-name__label">
+					<span className="poocommerce-variation-name">
+						<span className="poocommerce-variation-name__label">
 							{ item.name }
 						</span>
 						{ item.status === 'private' && (
 							<Badge intent="none">
-								{ __( 'Inactive', 'woocommerce' ) }
+								{ __( 'Inactive', 'poocommerce' ) }
 							</Badge>
 						) }
 					</span>

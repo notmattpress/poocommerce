@@ -1,12 +1,12 @@
-# WooCommerce Monorepo - AI Agents Documentation
+# PooCommerce Monorepo - AI Agents Documentation
 
 ## Project Overview
 
-WooCommerce is a WordPress e-commerce plugin organized as a monorepo with:
+PooCommerce is a WordPress e-commerce plugin organized as a monorepo with:
 
-- **Backend**: PHP in `plugins/woocommerce/` (PSR-4, WordPress standards)
-- **Admin Client**: React/TypeScript in `plugins/woocommerce/client/admin/`
-- **Payment Settings**: Specialized React/TypeScript module in `plugins/woocommerce/client/admin/client/settings-payments/`
+- **Backend**: PHP in `plugins/poocommerce/` (PSR-4, WordPress standards)
+- **Admin Client**: React/TypeScript in `plugins/poocommerce/client/admin/`
+- **Payment Settings**: Specialized React/TypeScript module in `plugins/poocommerce/client/admin/client/settings-payments/`
 
 ## Navigation Guide
 
@@ -22,28 +22,28 @@ WooCommerce is a WordPress e-commerce plugin organized as a monorepo with:
 
 The `.ai/skills/` directory contains procedural HOW-TO instructions:
 
-- **`woocommerce-backend-dev`** - Backend PHP conventions and unit tests. **Invoke before writing any PHP test files.**
-- **`woocommerce-dev-cycle`** - Testing and linting workflows (PHP, JS, markdown)
-- **`woocommerce-local-env`** - Local environment setup, wp-env commands, and WooCommerce build watchers
-- **`woocommerce-copy-guidelines`** - UI text standards (sentence case rules)
-- **`woocommerce-code-review`** - Code review standards and critical violations to flag
-- **`woocommerce-markdown`** - Markdown writing and editing guidelines
-- **`woocommerce-git-commit`** - Commit changes with conventional messages and smart grouping
-- **`woocommerce-git-draft-pr`** - Create draft PRs with proper template, changelog, and milestone handling
-- **`woocommerce-email-editor`** - Email editor development setup and Mailpit configuration
-- **`woocommerce-performance`** - Performance guardrails. **Invoke when writing or reviewing PHP code.**
+- **`poocommerce-backend-dev`** - Backend PHP conventions and unit tests. **Invoke before writing any PHP test files.**
+- **`poocommerce-dev-cycle`** - Testing and linting workflows (PHP, JS, markdown)
+- **`poocommerce-local-env`** - Local environment setup, wp-env commands, and PooCommerce build watchers
+- **`poocommerce-copy-guidelines`** - UI text standards (sentence case rules)
+- **`poocommerce-code-review`** - Code review standards and critical violations to flag
+- **`poocommerce-markdown`** - Markdown writing and editing guidelines
+- **`poocommerce-git-commit`** - Commit changes with conventional messages and smart grouping
+- **`poocommerce-git-draft-pr`** - Create draft PRs with proper template, changelog, and milestone handling
+- **`poocommerce-email-editor`** - Email editor development setup and Mailpit configuration
+- **`poocommerce-performance`** - Performance guardrails. **Invoke when writing or reviewing PHP code.**
 
 ## Project Architecture
 
 ### Directory Structure
 
 ```text
-plugins/woocommerce/
+plugins/poocommerce/
 ├── src/                    # Modern PHP code (PSR-4, DI container)
 │   ├── Internal/           # Internal classes (default location)
 │   └── [Public classes]    # Public API classes
 ├── includes/               # Legacy WordPress code
-│   └── class-woocommerce.php  # Main plugin class
+│   └── class-poocommerce.php  # Main plugin class
 ├── tests/php/              # PHPUnit tests
 │   ├── includes/           # Tests for legacy code
 │   └── src/                # Tests for modern code
@@ -55,22 +55,22 @@ plugins/woocommerce/
 
 **Modern vs Legacy Code:**
 
-- `plugins/woocommerce/src/` - Modern PHP with dependency injection, PSR-4 autoloading
-- `plugins/woocommerce/includes/` - Legacy WordPress patterns, modify only when necessary
+- `plugins/poocommerce/src/` - Modern PHP with dependency injection, PSR-4 autoloading
+- `plugins/poocommerce/includes/` - Legacy WordPress patterns, modify only when necessary
 
 **Namespace:**
 
-- Root namespace: `Automattic\WooCommerce`
-- Internal classes: `Automattic\WooCommerce\Internal\*`
+- Root namespace: `Automattic\PooCommerce`
+- Internal classes: `Automattic\PooCommerce\Internal\*`
 
 **Dependency Injection:**
 
-- Classes in `plugins/woocommerce/src/` use DI container (`$container->get()`)
+- Classes in `plugins/poocommerce/src/` use DI container (`$container->get()`)
 - Dependencies injected via `init()` method
 
 **Version Management:**
 
-- Current version in `plugins/woocommerce/includes/class-woocommerce.php` → `$version` property
+- Current version in `plugins/poocommerce/includes/class-poocommerce.php` → `$version` property
 - Used for `@since` annotations (remove `-dev` suffix)
 - When changing template files (PHP files used to display UI on the front-end) the version in their header should be updated to the current version, without the `-dev` suffix.
 
@@ -85,7 +85,7 @@ plugins/woocommerce/
 ## Development Workflow
 
 1. Make code changes
-2. Run relevant tests (see `woocommerce-dev-cycle` skill)
+2. Run relevant tests (see `poocommerce-dev-cycle` skill)
 3. Run linting and fix all errors and warnings before committing (see Pre-commit Checks)
 4. Run PHPStan for PHP changes (see below)
 5. Commit only after tests pass and all checks are clean
@@ -98,15 +98,15 @@ plugins/woocommerce/
 
 ```sh
 # Lint the changed PHP files
-pnpm --filter=@woocommerce/plugin-woocommerce lint:php:changes
+pnpm --filter=@poocommerce/plugin-poocommerce lint:php:changes
 
 # Lint the full branch diff (phpcs-changed — catches warnings the per-file pass can miss across commits)
-pnpm --filter=@woocommerce/plugin-woocommerce lint:changes:branch
+pnpm --filter=@poocommerce/plugin-poocommerce lint:changes:branch
 ```
 
 Fix every `phpcs` **error and warning** before committing — the CI **Lint** job treats warnings as failures, so an unaddressed warning turns the check red. If a finding is intentionally suppressed, add a brief inline justification. Re-run `lint:changes:branch` after any commit rewrite, since it compares the whole branch against trunk.
 
-Also run PHPStan on modified PHP files (from the `plugins/woocommerce` directory):
+Also run PHPStan on modified PHP files (from the `plugins/poocommerce` directory):
 
 ```sh
 composer exec -- phpstan analyse path/to/modified/File.php --memory-limit=2G
@@ -122,10 +122,10 @@ composer exec -- phpstan analyse path/to/modified/File.php --memory-limit=2G
 pnpm --filter=<project> changelog add
 ```
 
-Example for WooCommerce Core:
+Example for PooCommerce Core:
 
 ```sh
-pnpm --filter=@woocommerce/plugin-woocommerce changelog add
+pnpm --filter=@poocommerce/plugin-poocommerce changelog add
 ```
 
 This command prompts for the change type and description. Run it once per affected package before creating any PR.
@@ -147,29 +147,29 @@ For bug fixes, always reference the PR that introduced the bug using: `Bug intro
 ## Testing Environment
 
 - PHP tests run in Docker via `wp-env`
-- WordPress and WooCommerce auto-installed
+- WordPress and PooCommerce auto-installed
 - Uses PHPUnit 9.6.24 with PHP 8.1
 
-For detailed test commands, see `woocommerce-dev-cycle` skill.
+For detailed test commands, see `poocommerce-dev-cycle` skill.
 
 ## Known Constraints
 
 - `includes/` directory changes should be minimal (legacy code)
-- All new backend code goes in `plugins/woocommerce/src/Internal/` by default
+- All new backend code goes in `plugins/poocommerce/src/Internal/` by default
 - Never create standalone functions (always use class methods)
 - Tests require Docker environment
 
 ## Backward Compatibility
 
-Any change to a **public or externally exposed** class, interface, function, or method signature is **high-risk** and **must state its backward-compatibility impact in the PR description** — regardless of whether the symbol lives in the `Internal` namespace. The `Internal` namespace is not a guarantee that a symbol is safe to change: third-party code implements and consumes some of these contracts in practice (for example, the WooCommerce Stripe Gateway implements `Internal\ProductFeed\Feed\FeedInterface`).
+Any change to a **public or externally exposed** class, interface, function, or method signature is **high-risk** and **must state its backward-compatibility impact in the PR description** — regardless of whether the symbol lives in the `Internal` namespace. The `Internal` namespace is not a guarantee that a symbol is safe to change: third-party code implements and consumes some of these contracts in practice (for example, the PooCommerce Stripe Gateway implements `Internal\ProductFeed\Feed\FeedInterface`).
 
-Treat a symbol as **externally exposed** when it is implemented or consumed outside `plugins/woocommerce/` — by extensions, other plugins, or themes — even if it lives under `Internal`. When in doubt, assume it is exposed and state the BC impact.
+Treat a symbol as **externally exposed** when it is implemented or consumed outside `plugins/poocommerce/` — by extensions, other plugins, or themes — even if it lives under `Internal`. When in doubt, assume it is exposed and state the BC impact.
 
 **Adding a method to an interface that external code can implement must be flagged explicitly.** It is a backward-incompatible change: existing implementers fatal on load because they no longer satisfy the contract. Likewise, **removing a required method from an interface is breaking** for existing implementers (they carry a now-dead method, which static analysis such as PHPStan will flag). Prefer a non-breaking alternative — add the method to the concrete class rather than the interface, introduce a separate new interface, or supply a default implementation via an abstract base class.
 
 **Deprecate, don't rename.** For existing public symbols (classes, interfaces, methods, constants, hooks), never rename or remove them in place. Mark the old symbol `@deprecated`, introduce the replacement alongside it, and keep both working through a deprecation window so external consumers have time to migrate.
 
-> This rule exists because WooCommerce 10.9.0 was reverted on WP Cloud: PR #64394 added a required `get_entry_count(): int` method to `FeedInterface`, fataling older WooCommerce Stripe Gateway versions that implement it. Fixed in PR #65965.
+> This rule exists because PooCommerce 10.9.0 was reverted on WP Cloud: PR #64394 added a required `get_entry_count(): int` method to `FeedInterface`, fataling older PooCommerce Stripe Gateway versions that implement it. Fixed in PR #65965.
 
 ### The compatibility surface is wider than PHP signatures
 
@@ -179,9 +179,9 @@ WordPress exposes more contracts than class and function signatures. The followi
 
 **Never trust data that flows through hooks.** Keep hook callback parameters untyped and validate or coerce the value before passing it to strictly typed code, since any callback can receive a value another one produced. And when firing a filter, validate the final return value before using it, since any callback in the chain can return the wrong thing.
 
-**Overridable classes are contracts too, including which internal methods get called.** Extensions subclass WooCommerce data stores and handler classes and override individual methods. Adding a fast path or skip that avoids calling an overridable method silently disables those overrides even though no signature changed: the extension's code simply stops running. When optimizing such a class, ensure overridable methods are still invoked on every code path, or treat the change as breaking and test against extensions known to override it.
+**Overridable classes are contracts too, including which internal methods get called.** Extensions subclass PooCommerce data stores and handler classes and override individual methods. Adding a fast path or skip that avoids calling an overridable method silently disables those overrides even though no signature changed: the extension's code simply stops running. When optimizing such a class, ensure overridable methods are still invoked on every code path, or treat the change as breaking and test against extensions known to override it.
 
-**Registered script and style handles are public contracts.** Third-party code enqueues WooCommerce handles and lists them as dependencies, including handles that were only ever registered incidentally. Renaming a handle breaks those consumers. To rename with a compatibility window, register the legacy handle as an alias that depends on the new handle (the same pattern WordPress core uses for `jquery` → `jquery-core`); do not register the same file under both handles, or pages with mixed consumers will load it twice.
+**Registered script and style handles are public contracts.** Third-party code enqueues PooCommerce handles and lists them as dependencies, including handles that were only ever registered incidentally. Renaming a handle breaks those consumers. To rename with a compatibility window, register the legacy handle as an alias that depends on the new handle (the same pattern WordPress core uses for `jquery` → `jquery-core`); do not register the same file under both handles, or pages with mixed consumers will load it twice.
 
 **Do not assume global state.** Code can run in admin, REST, CLI, cron, webhook, and front-end contexts, and not all of them set the globals a front-end request does (`$post`, `$wp_query`, an initialized session or cart). A newly introduced read of a global, or of `WC()->…` state, in a path reachable outside a standard request is a fatal or a silent misbehavior in the contexts that do not set it. Guard the exact dependency explicitly: use `function_exists`/`class_exists` for symbols, `isset` for variables, `did_action` for lifecycle state, and verify that `WC()` and the required component are initialized before dereferencing `WC()->…`.
 
@@ -222,7 +222,7 @@ Consult the [Gutenberg Block Metadata reference](https://developer.wordpress.org
 
 ## Interactivity API Stores
 
-Most WooCommerce Interactivity API stores are **private by design**. Exception: the `woocommerce/product-filters` store is public for Product Filters inner-block extensibility.
+Most PooCommerce Interactivity API stores are **private by design**. Exception: the `poocommerce/product-filters` store is public for Product Filters inner-block extensibility.
 
 For private stores:
 
@@ -230,7 +230,7 @@ For private stores:
 - Removing or changing store state/selectors is **not a breaking change**
 - No backwards compatibility is required for store internals
 - If another store needs to be extensible in the future, it will be split into private (internal) and public (API) stores
-- General stores (namespace `woocommerce`) may become public eventually, but currently remain private
+- General stores (namespace `poocommerce`) may become public eventually, but currently remain private
 
 Reference: [WordPress Interactivity API - Private Stores](https://developer.wordpress.org/block-editor/reference-guides/interactivity-api/api-reference#private-stores)
 
@@ -249,11 +249,11 @@ pnpm lint:php:changes
 pnpm lint:php:fix -- path/to/file.php
 ```
 
-For complete command reference and workflows, see `woocommerce-dev-cycle` skill.
+For complete command reference and workflows, see `poocommerce-dev-cycle` skill.
 
 ## Monorepo Context
 
-This is part of the WooCommerce monorepo:
+This is part of the PooCommerce monorepo:
 
 - Multiple packages managed with pnpm workspaces
 - Root-level scripts coordinate across packages
@@ -261,13 +261,13 @@ This is part of the WooCommerce monorepo:
 
 ## Historical Context
 
-**Why two code styles?** The `plugins/woocommerce/includes/` directory predates modern PHP practices. New code uses PSR-4 and dependency injection in `plugins/woocommerce/src/`.
+**Why two code styles?** The `plugins/poocommerce/includes/` directory predates modern PHP practices. New code uses PSR-4 and dependency injection in `plugins/poocommerce/src/`.
 
 **Why DI container?** Improves testability and maintainability compared to legacy global state patterns.
 
 ## Automated Code Reviews
 
-For code review standards and critical violations to flag, use the **`woocommerce-code-review` skill**.
+For code review standards and critical violations to flag, use the **`poocommerce-code-review` skill**.
 
 ## Notes for AI Agents
 

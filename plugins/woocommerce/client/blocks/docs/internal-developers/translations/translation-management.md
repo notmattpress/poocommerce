@@ -1,6 +1,6 @@
 # Translation management
 
-As mentioned in [Translation basics](../../internal-developers/translations/translation-basics.md), all translations are managed using [GlotPress](https://wordpress.org/plugins/glotpress/). The translations of the WooCommerce Blocks plugin can be found on <https://translate.wordpress.org/projects/wp-plugins/woo-gutenberg-products-block/>.
+As mentioned in [Translation basics](../../internal-developers/translations/translation-basics.md), all translations are managed using [GlotPress](https://wordpress.org/plugins/glotpress/). The translations of the PooCommerce Blocks plugin can be found on <https://translate.wordpress.org/projects/wp-plugins/woo-gutenberg-products-block/>.
 
 ## Roles
 
@@ -22,14 +22,14 @@ A Project Translation Editor can:
 -   change existing translations
 -   add new translations
 
-PTE permissions need to be requested via <https://make.wordpress.org/polyglots/>. If you're a developer of the WooCommerce Blocks plugin, you can request PTE permissions using the following template:
+PTE permissions need to be requested via <https://make.wordpress.org/polyglots/>. If you're a developer of the PooCommerce Blocks plugin, you can request PTE permissions using the following template:
 
 ```text
-PTE Request for WooCommerce Blocks
+PTE Request for PooCommerce Blocks
 
-I am the plugin co-author for WooCommerce Blocks, and I’d like to be able to approve translation for our plugin. Please add my WordPress.org user account as translation editor for their respective locales:
+I am the plugin co-author for PooCommerce Blocks, and I’d like to be able to approve translation for our plugin. Please add my WordPress.org user account as translation editor for their respective locales:
 
-Name: WooCommerce Blocks
+Name: PooCommerce Blocks
 URL: https://wordpress.org/plugins/woo-gutenberg-products-block/
 
 o #ar – @username

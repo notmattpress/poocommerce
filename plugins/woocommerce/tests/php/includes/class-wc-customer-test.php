@@ -2,7 +2,7 @@
 /**
  * Unit tests for WC_Customer class.
  *
- * @package WooCommerce\Tests.
+ * @package PooCommerce\Tests.
  */
 
 declare( strict_types = 1 );

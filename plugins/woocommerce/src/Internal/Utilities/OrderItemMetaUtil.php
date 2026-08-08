@@ -1,14 +1,14 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\Utilities;
+namespace Automattic\PooCommerce\Internal\Utilities;
 
 use WC_Order_Item;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Helpers for the order item meta keys WooCommerce manages internally.
+ * Helpers for the order item meta keys PooCommerce manages internally.
  *
  * @since 11.0.0
  */
@@ -27,7 +27,7 @@ final class OrderItemMetaUtil {
 		 * @param string[] $hidden_keys Hidden order item meta keys.
 		 */
 		return apply_filters(
-			'woocommerce_hidden_order_itemmeta',
+			'poocommerce_hidden_order_itemmeta',
 			array(
 				'_qty',
 				'_tax_class',

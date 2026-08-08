@@ -1,14 +1,14 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Utilities;
+namespace Automattic\PooCommerce\Tests\Internal\Utilities;
 
-use Automattic\WooCommerce\Internal\Utilities\BlocksUtil;
+use Automattic\PooCommerce\Internal\Utilities\BlocksUtil;
 
 /**
  * Class BlocksUtilTest.
  *
- * @package Automattic\WooCommerce\Tests\Internal\Utilities
+ * @package Automattic\PooCommerce\Tests\Internal\Utilities
  */
 class BlocksUtilTest extends \WC_Unit_Test_Case {
 

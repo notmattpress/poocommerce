@@ -2,13 +2,13 @@
 /**
  * Generates an array of feature flags, based on the config used by the client application.
  *
- * @package WooCommerce\Admin
+ * @package PooCommerce\Admin
  */
 
 /**
  * Get phase for feature flags
  * - development: All features should be enabled in development.
- * - core: Stable features for WooCommerce core merge.
+ * - core: Stable features for PooCommerce core merge.
  */
 
 $phase = getenv( 'WC_ADMIN_PHASE' );

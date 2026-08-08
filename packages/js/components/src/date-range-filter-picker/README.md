@@ -11,7 +11,7 @@ import {
 	getCurrentDates,
 	isoDateFormat,
 	loadLocaleData,
-} from '@woocommerce/date';
+} from '@poocommerce/date';
 
 /**
  * External dependencies

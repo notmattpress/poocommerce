@@ -3,11 +3,11 @@
  */
 import { store } from '@wordpress/interactivity';
 import type { AsyncAction, TypeYield } from '@wordpress/interactivity';
-import type { CurrencyResponse } from '@woocommerce/types';
-import type { Store as StoreNotices } from '@woocommerce/stores/store-notices';
+import type { CurrencyResponse } from '@poocommerce/types';
+import type { Store as StoreNotices } from '@poocommerce/stores/store-notices';
 
 /**
- * Mirror of `Automattic\WooCommerce\StoreApi\Schemas\V1\ShopperListItemSchema::get_properties()`.
+ * Mirror of `Automattic\PooCommerce\StoreApi\Schemas\V1\ShopperListItemSchema::get_properties()`.
  *
  * Keep this in sync with the schema. State here must not include any UI-derived
  * fields — display values belong in block-private stores or PHP SSR.
@@ -172,7 +172,7 @@ async function restRequest< T >(
 // `wp_interactivity_state`. State for those fields comes purely from PHP. Same
 // reason the cart store doesn't ship state defaults — see cart.ts.
 const { state, actions } = store< Store >(
-	'woocommerce/shopper-lists',
+	'poocommerce/shopper-lists',
 	{
 		actions: {
 			*loadList( slug: string ): AsyncAction< void > {
@@ -291,9 +291,9 @@ const { state, actions } = store< Store >(
 
 			// Mirrors `cart.ts::showNoticeError`.
 			*showNoticeError( error: Error ): AsyncAction< void > {
-				yield import( '@woocommerce/stores/store-notices' );
+				yield import( '@poocommerce/stores/store-notices' );
 				const { actions: noticeActions } = store< StoreNotices >(
-					'woocommerce/store-notices',
+					'poocommerce/store-notices',
 					{},
 					{ lock: universalLock }
 				);

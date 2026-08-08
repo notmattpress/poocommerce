@@ -2,11 +2,11 @@
 /**
  * WC_Cache_Helper class.
  *
- * @package WooCommerce\Classes
+ * @package PooCommerce\Classes
  */
 
-use Automattic\WooCommerce\Caching\CacheNameSpaceTrait;
-use Automattic\WooCommerce\Enums\DefaultCustomerAddress;
+use Automattic\PooCommerce\Caching\CacheNameSpaceTrait;
+use Automattic\PooCommerce\Enums\DefaultCustomerAddress;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -54,12 +54,12 @@ class WC_Cache_Helper {
 		// Optimization note: this is the earliest stage at which we can bulk-prime pages data. As a result, we
 		// prime data for all pages used in is_page checks across the core, even if only a subset is required here.
 		$pages                    = array( 'cart', 'checkout', 'coming_soon', 'myaccount', 'shop', 'terms' );
-		$woocommerce_page_options = array_map( static fn ( string $page ) => sprintf( 'woocommerce_%s_page_id', $page ), $pages );
-		wp_prime_option_caches( $woocommerce_page_options );
-		$woocommerce_page_ids = array_combine( $pages, array_map( static fn ( string $page ) => wc_get_page_id( $page ), $pages ) );
-		_prime_post_caches( array_values( array_filter( $woocommerce_page_ids ) ), false, false );
+		$poocommerce_page_options = array_map( static fn ( string $page ) => sprintf( 'poocommerce_%s_page_id', $page ), $pages );
+		wp_prime_option_caches( $poocommerce_page_options );
+		$poocommerce_page_ids = array_combine( $pages, array_map( static fn ( string $page ) => wc_get_page_id( $page ), $pages ) );
+		_prime_post_caches( array_values( array_filter( $poocommerce_page_ids ) ), false, false );
 
-		$page_ids = array_filter( array( $woocommerce_page_ids['cart'], $woocommerce_page_ids['checkout'], $woocommerce_page_ids['myaccount'] ) );
+		$page_ids = array_filter( array( $poocommerce_page_ids['cart'], $poocommerce_page_ids['checkout'], $poocommerce_page_ids['myaccount'] ) );
 		if ( ! is_page( $page_ids ) ) {
 			return $headers;
 		}
@@ -183,7 +183,7 @@ class WC_Cache_Helper {
 		 * @param array       $location      The location/address data.
 		 * @param WC_Customer $customer      The current customer object.
 		 */
-		return apply_filters( 'woocommerce_geolocation_ajax_get_location_hash', $location_hash, $location, $customer );
+		return apply_filters( 'poocommerce_geolocation_ajax_get_location_hash', $location_hash, $location, $customer );
 	}
 
 	/**
@@ -192,7 +192,7 @@ class WC_Cache_Helper {
 	 * This prevents caching of the wrong data for this request.
 	 */
 	public static function geolocation_ajax_redirect() {
-		if ( DefaultCustomerAddress::GEOLOCATION_AJAX === get_option( 'woocommerce_default_customer_address' ) && ! is_checkout() && ! is_cart() && ! is_account_page() && ! is_robots() && ! wp_doing_ajax() && empty( $_POST ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
+		if ( DefaultCustomerAddress::GEOLOCATION_AJAX === get_option( 'poocommerce_default_customer_address' ) && ! is_checkout() && ! is_cart() && ! is_account_page() && ! is_robots() && ! wp_doing_ajax() && empty( $_POST ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
 			$location_hash = self::geolocation_ajax_get_location_hash();
 			$current_hash  = isset( $_GET['v'] ) ? wc_clean( wp_unslash( $_GET['v'] ) ) : ''; // WPCS: sanitization ok, input var ok, CSRF ok.
 			if ( empty( $current_hash ) || $current_hash !== $location_hash ) {
@@ -216,7 +216,7 @@ class WC_Cache_Helper {
 	}
 
 	/**
-	 * Updates the `woocommerce_geo_hash` cookie, which is used to help ensure we display
+	 * Updates the `poocommerce_geo_hash` cookie, which is used to help ensure we display
 	 * the correct pricing etc to customers, according to their billing country.
 	 *
 	 * Note that:
@@ -228,8 +228,8 @@ class WC_Cache_Helper {
 	 *    ensuring we update the cookie any time the billing country is changed.
 	 */
 	public static function update_geolocation_hash() {
-		if ( DefaultCustomerAddress::GEOLOCATION_AJAX === get_option( 'woocommerce_default_customer_address' ) ) {
-			wc_setcookie( 'woocommerce_geo_hash', static::geolocation_ajax_get_location_hash(), time() + HOUR_IN_SECONDS );
+		if ( DefaultCustomerAddress::GEOLOCATION_AJAX === get_option( 'poocommerce_default_customer_address' ) ) {
+			wc_setcookie( 'poocommerce_geo_hash', static::geolocation_ajax_get_location_hash(), time() + HOUR_IN_SECONDS );
 		}
 	}
 
@@ -246,7 +246,7 @@ class WC_Cache_Helper {
 	 * to append a unique string (based on time()) to each transient. When transients
 	 * are invalidated, the transient version will increment and data will be regenerated.
 	 *
-	 * Raised in issue https://github.com/woocommerce/woocommerce/issues/5777.
+	 * Raised in issue https://github.com/poocommerce/poocommerce/issues/5777.
 	 * Adapted from ideas in http://tollmanz.com/invalidation-schemes/.
 	 *
 	 * @param  string  $group   Name for the group of transients we need to invalidate.
@@ -297,7 +297,7 @@ class WC_Cache_Helper {
 				<p>
 				<?php
 				/* translators: 1: key 2: URL */
-				echo wp_kses_post( sprintf( __( 'In order for <strong>database caching</strong> to work with WooCommerce you must add %1$s to the "Ignored Query Strings" option in <a href="%2$s">W3 Total Cache settings</a>.', 'woocommerce' ), '<code>_wc_session_</code>', esc_url( admin_url( 'admin.php?page=w3tc_dbcache' ) ) ) );
+				echo wp_kses_post( sprintf( __( 'In order for <strong>database caching</strong> to work with PooCommerce you must add %1$s to the "Ignored Query Strings" option in <a href="%2$s">W3 Total Cache settings</a>.', 'poocommerce' ), '<code>_wc_session_</code>', esc_url( admin_url( 'admin.php?page=w3tc_dbcache' ) ) ) );
 				?>
 				</p>
 			</div>
@@ -306,7 +306,7 @@ class WC_Cache_Helper {
 	}
 
 	/**
-	 * Clean term caches added by WooCommerce.
+	 * Clean term caches added by PooCommerce.
 	 *
 	 * @since 3.3.4
 	 * @param array|int $ids Array of ids or single ID to clear cache for.
@@ -344,7 +344,7 @@ class WC_Cache_Helper {
 		if ( ! wp_using_ext_object_cache() && ! empty( $version ) ) {
 			global $wpdb;
 
-			$limit = apply_filters( 'woocommerce_delete_version_transients_limit', 1000 );
+			$limit = apply_filters( 'poocommerce_delete_version_transients_limit', 1000 );
 
 			if ( ! $limit ) {
 				return;

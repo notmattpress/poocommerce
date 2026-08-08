@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Api\Infrastructure\Schema;
+namespace Automattic\PooCommerce\Api\Infrastructure\Schema;
 
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\Type as WebonyxType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\Type as WebonyxType;
 
 /**
  * Static facade for GraphQL scalar types and type modifiers referenced by

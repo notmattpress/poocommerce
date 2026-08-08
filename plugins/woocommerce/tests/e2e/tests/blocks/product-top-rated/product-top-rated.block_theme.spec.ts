@@ -1,11 +1,11 @@
 /**
  * External dependencies
  */
-import { expect, test } from '@woocommerce/e2e-utils';
+import { expect, test } from '@poocommerce/e2e-utils';
 
 const blockData = {
 	name: 'Top Rated Products',
-	slug: 'woocommerce/product-top-rated',
+	slug: 'poocommerce/product-top-rated',
 };
 
 test.describe( `${ blockData.slug } Block`, () => {

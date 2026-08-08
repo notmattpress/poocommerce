@@ -12,7 +12,7 @@ import type { ProductEntityRecord } from '../types';
 
 const fieldDefinition = {
 	type: 'boolean',
-	label: __( 'Track inventory', 'woocommerce' ),
+	label: __( 'Track inventory', 'poocommerce' ),
 	enableSorting: false,
 	enableHiding: false,
 	filterBy: false,

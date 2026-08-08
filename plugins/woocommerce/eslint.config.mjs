@@ -10,7 +10,7 @@ import playwright from 'eslint-plugin-playwright';
 /**
  * Internal dependencies
  */
-import woocommerce from '@woocommerce/eslint-config';
+import poocommerce from '@poocommerce/eslint-config';
 import noRawPlaywrightTestImport from './tests/e2e/rules/blocks/no-raw-playwright-test-import.js';
 
 const __dirname = path.dirname( fileURLToPath( import.meta.url ) );
@@ -38,10 +38,10 @@ export default [
 	] ),
 	/*
 	 * The eslintrc this replaces declared neither `extends` nor `root`: it
-	 * inherited WooCommerce's preset by cascading to the repo root config. Flat
+	 * inherited PooCommerce's preset by cascading to the repo root config. Flat
 	 * config does not cascade, so spread it explicitly.
 	 */
-	...woocommerce,
+	...poocommerce,
 	{
 		/*
 		 * The eslintrc set `parser: '@babel/eslint-parser'`. That parser's v7 line
@@ -115,7 +115,7 @@ export default [
 			'jest/valid-title': 'off',
 			'testing-library/await-async-utils': 'off',
 			/*
-			 * The e2e tests use dependencies from the parent woocommerce package
+			 * The e2e tests use dependencies from the parent poocommerce package
 			 * (that directory has no package.json of its own). Point packageDir at
 			 * directories that do contain one: eslint-plugin-import throws on the
 			 * first missing entry and aborts the whole dependency merge.
@@ -163,7 +163,7 @@ export default [
 			'rulesdir/no-raw-playwright-test-import': 'error',
 			// Since we're restoring the database for each test, hooks other
 			// than `beforeEach` don't make sense.
-			// See https://github.com/woocommerce/woocommerce/pull/46432.
+			// See https://github.com/poocommerce/poocommerce/pull/46432.
 			'playwright/no-hooks': [ 'error', { allow: [ 'beforeEach' ] } ],
 			'no-restricted-syntax': [
 				'error',

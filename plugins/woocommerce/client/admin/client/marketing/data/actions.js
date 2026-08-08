@@ -86,7 +86,7 @@ export function* loadInstalledPluginsAfterActivation( activatedPluginSlug ) {
 			error,
 			__(
 				'There was an error loading installed extensions.',
-				'woocommerce'
+				'poocommerce'
 			)
 		);
 	}
@@ -110,7 +110,7 @@ export function* activateInstalledPlugin( pluginSlug ) {
 				'success',
 				__(
 					'The extension has been successfully activated.',
-					'woocommerce'
+					'poocommerce'
 				)
 			);
 			// Deliberately load the new plugin data in a new request.
@@ -123,7 +123,7 @@ export function* activateInstalledPlugin( pluginSlug ) {
 			error,
 			__(
 				'There was an error trying to activate the extension.',
-				'woocommerce'
+				'poocommerce'
 			)
 		);
 		yield removeActivatingPlugin( pluginSlug );

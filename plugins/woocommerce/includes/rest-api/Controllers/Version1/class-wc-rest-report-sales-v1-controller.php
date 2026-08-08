@@ -6,7 +6,7 @@
  *
  * @author   WooThemes
  * @category API
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @since    3.0.0
  */
 
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * REST API Report Sales controller class.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @extends WC_REST_Controller
  */
 class WC_REST_Report_Sales_V1_Controller extends WC_REST_Controller {
@@ -66,7 +66,7 @@ class WC_REST_Report_Sales_V1_Controller extends WC_REST_Controller {
 	 */
 	public function get_items_permissions_check( $request ) {
 		if ( ! wc_rest_check_manager_permissions( 'reports', 'read' ) ) {
-			return new WP_Error( 'woocommerce_rest_cannot_view', __( 'Sorry, you cannot list resources.', 'woocommerce' ), array( 'status' => rest_authorization_required_code() ) );
+			return new WP_Error( 'poocommerce_rest_cannot_view', __( 'Sorry, you cannot list resources.', 'poocommerce' ), array( 'status' => rest_authorization_required_code() ) );
 		}
 
 		return true;
@@ -234,7 +234,7 @@ class WC_REST_Report_Sales_V1_Controller extends WC_REST_Controller {
 		 * @param stdClass         $data     The original report object.
 		 * @param WP_REST_Request  $request  Request used to generate the response.
 		 */
-		return apply_filters( 'woocommerce_rest_prepare_report_sales', $response, (object) $sales_data, $request );
+		return apply_filters( 'poocommerce_rest_prepare_report_sales', $response, (object) $sales_data, $request );
 	}
 
 	/**
@@ -287,67 +287,67 @@ class WC_REST_Report_Sales_V1_Controller extends WC_REST_Controller {
 			'type'       => 'object',
 			'properties' => array(
 				'total_sales' => array(
-					'description' => __( 'Gross sales in the period.', 'woocommerce' ),
+					'description' => __( 'Gross sales in the period.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
 				'net_sales' => array(
-					'description' => __( 'Net sales in the period.', 'woocommerce' ),
+					'description' => __( 'Net sales in the period.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
 				'average_sales' => array(
-					'description' => __( 'Average net daily sales.', 'woocommerce' ),
+					'description' => __( 'Average net daily sales.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
 				'total_orders' => array(
-					'description' => __( 'Total of orders placed.', 'woocommerce' ),
+					'description' => __( 'Total of orders placed.', 'poocommerce' ),
 					'type'        => 'integer',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
 				'total_items' => array(
-					'description' => __( 'Total of items purchased.', 'woocommerce' ),
+					'description' => __( 'Total of items purchased.', 'poocommerce' ),
 					'type'        => 'integer',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
 				'total_tax' => array(
-					'description' => __( 'Total charged for taxes.', 'woocommerce' ),
+					'description' => __( 'Total charged for taxes.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
 				'total_shipping' => array(
-					'description' => __( 'Total charged for shipping.', 'woocommerce' ),
+					'description' => __( 'Total charged for shipping.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
 				'total_refunds' => array(
-					'description' => __( 'Total of refunded orders.', 'woocommerce' ),
+					'description' => __( 'Total of refunded orders.', 'poocommerce' ),
 					'type'        => 'integer',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
 				'total_discount' => array(
-					'description' => __( 'Total of coupons used.', 'woocommerce' ),
+					'description' => __( 'Total of coupons used.', 'poocommerce' ),
 					'type'        => 'integer',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
 				'totals_grouped_by' => array(
-					'description' => __( 'Group type.', 'woocommerce' ),
+					'description' => __( 'Group type.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
 				'totals' => array(
-					'description' => __( 'Totals.', 'woocommerce' ),
+					'description' => __( 'Totals.', 'poocommerce' ),
 					'type'        => 'array',
 					'items'       => array(
 						'type'    => 'array',
@@ -370,7 +370,7 @@ class WC_REST_Report_Sales_V1_Controller extends WC_REST_Controller {
 		return array(
 			'context' => $this->get_context_param( array( 'default' => 'view' ) ),
 			'period' => array(
-				'description'       => __( 'Report period.', 'woocommerce' ),
+				'description'       => __( 'Report period.', 'poocommerce' ),
 				'type'              => 'string',
 				'enum'              => array( 'week', 'month', 'last_month', 'year' ),
 				'validate_callback' => 'rest_validate_request_arg',
@@ -378,7 +378,7 @@ class WC_REST_Report_Sales_V1_Controller extends WC_REST_Controller {
 			),
 			'date_min' => array(
 				/* translators: %s: date format */
-				'description'       => sprintf( __( 'Return sales for a specific start date, the date need to be in the %s format.', 'woocommerce' ), 'YYYY-MM-DD' ),
+				'description'       => sprintf( __( 'Return sales for a specific start date, the date need to be in the %s format.', 'poocommerce' ), 'YYYY-MM-DD' ),
 				'type'              => 'string',
 				'format'            => 'date',
 				'validate_callback' => 'wc_rest_validate_reports_request_arg',
@@ -386,7 +386,7 @@ class WC_REST_Report_Sales_V1_Controller extends WC_REST_Controller {
 			),
 			'date_max' => array(
 				/* translators: %s: date format */
-				'description'       => sprintf( __( 'Return sales for a specific end date, the date need to be in the %s format.', 'woocommerce' ), 'YYYY-MM-DD' ),
+				'description'       => sprintf( __( 'Return sales for a specific end date, the date need to be in the %s format.', 'poocommerce' ), 'YYYY-MM-DD' ),
 				'type'              => 'string',
 				'format'            => 'date',
 				'validate_callback' => 'wc_rest_validate_reports_request_arg',

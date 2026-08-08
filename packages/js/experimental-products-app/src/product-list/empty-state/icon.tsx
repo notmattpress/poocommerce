@@ -12,7 +12,7 @@ export function ProductListEmptyStateIcon() {
 			fill="none"
 			xmlns="http://www.w3.org/2000/svg"
 			role="img"
-			aria-label={ __( 'No products', 'woocommerce' ) }
+			aria-label={ __( 'No products', 'poocommerce' ) }
 		>
 			<g style={ { mixBlendMode: 'multiply' } }>
 				<g clipPath="url(#products-empty-state-clip)">

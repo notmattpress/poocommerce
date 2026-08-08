@@ -3,10 +3,10 @@
  */
 import clsx from 'clsx';
 import { __ } from '@wordpress/i18n';
-import { FormStep } from '@woocommerce/blocks-components';
-import { useShippingData } from '@woocommerce/base-context/hooks';
+import { FormStep } from '@poocommerce/blocks-components';
+import { useShippingData } from '@poocommerce/base-context/hooks';
 import { useDispatch, useSelect } from '@wordpress/data';
-import { checkoutStore } from '@woocommerce/block-data';
+import { checkoutStore } from '@poocommerce/block-data';
 
 /**
  * Internal dependencies
@@ -41,9 +41,9 @@ const Block = ( { className }: { className?: string } ): JSX.Element => {
 					needsShipping
 						? __(
 								'Notes about your order, e.g. special notes for delivery.',
-								'woocommerce'
+								'poocommerce'
 						  )
-						: __( 'Notes about your order.', 'woocommerce' )
+						: __( 'Notes about your order.', 'poocommerce' )
 				}
 				value={ orderNotes }
 			/>

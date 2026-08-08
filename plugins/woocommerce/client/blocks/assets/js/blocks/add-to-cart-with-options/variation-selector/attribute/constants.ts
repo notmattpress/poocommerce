@@ -11,7 +11,7 @@ import type { VisualAttributeTerm } from '../../../../base/utils/visual-attribut
 
 export const ATTRIBUTE_ITEM_TEMPLATE: TemplateArray = [
 	[
-		'woocommerce/add-to-cart-with-options-variation-selector-attribute',
+		'poocommerce/add-to-cart-with-options-variation-selector-attribute',
 		{},
 		[
 			[
@@ -34,12 +34,12 @@ export const ATTRIBUTE_ITEM_TEMPLATE: TemplateArray = [
 				},
 				[
 					[
-						'woocommerce/add-to-cart-with-options-variation-selector-attribute-name',
+						'poocommerce/add-to-cart-with-options-variation-selector-attribute-name',
 						{
 							fontSize: 'medium',
 						},
 					],
-					[ 'woocommerce/product-filter-chips' ],
+					[ 'poocommerce/product-filter-chips' ],
 				],
 			],
 		],
@@ -50,23 +50,23 @@ export const DEFAULT_ATTRIBUTES = [
 	{
 		id: 1,
 		taxonomy: 'pa_color',
-		name: __( 'Color', 'woocommerce' ),
+		name: __( 'Color', 'poocommerce' ),
 		has_variations: true,
 		terms: [
-			{ id: -1, slug: 'blue', name: __( 'Blue', 'woocommerce' ) },
-			{ id: -2, slug: 'red', name: __( 'Red', 'woocommerce' ) },
-			{ id: -3, slug: 'green', name: __( 'Green', 'woocommerce' ) },
+			{ id: -1, slug: 'blue', name: __( 'Blue', 'poocommerce' ) },
+			{ id: -2, slug: 'red', name: __( 'Red', 'poocommerce' ) },
+			{ id: -3, slug: 'green', name: __( 'Green', 'poocommerce' ) },
 		],
 	},
 	{
 		id: 2,
 		taxonomy: 'pa_size',
-		name: __( 'Size', 'woocommerce' ),
+		name: __( 'Size', 'poocommerce' ),
 		has_variations: true,
 		terms: [
-			{ id: 1, slug: 'sm', name: __( 'Small', 'woocommerce' ) },
-			{ id: 2, slug: 'md', name: __( 'Medium', 'woocommerce' ) },
-			{ id: 3, slug: 'lg', name: __( 'Large', 'woocommerce' ) },
+			{ id: 1, slug: 'sm', name: __( 'Small', 'poocommerce' ) },
+			{ id: 2, slug: 'md', name: __( 'Medium', 'poocommerce' ) },
+			{ id: 3, slug: 'lg', name: __( 'Large', 'poocommerce' ) },
 		],
 	},
 ] as const;

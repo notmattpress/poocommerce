@@ -17,7 +17,7 @@ import { TaxonomyEdit } from '../components/taxonomy-edit';
 
 const fieldDefinition = {
 	type: 'array',
-	label: __( 'Tags', 'woocommerce' ),
+	label: __( 'Tags', 'poocommerce' ),
 	enableSorting: false,
 	filterBy: {
 		operators: [ 'isAny', 'isNone' ],
@@ -57,7 +57,7 @@ export const fieldExtensions: Partial< Field< ProductEntityRecord > > = {
 			{ ...props }
 			taxonomy="product_tag"
 			fieldProperty="tags"
-			searchPlaceholder={ __( 'Search or create tags', 'woocommerce' ) }
+			searchPlaceholder={ __( 'Search or create tags', 'poocommerce' ) }
 			serverSearchThreshold={ 100 }
 			// @ts-expect-error wcSettings is a global variable injected by Woo core, and it doesn't have proper typings.
 			termCount={ window.wcSettings?.tagCount }

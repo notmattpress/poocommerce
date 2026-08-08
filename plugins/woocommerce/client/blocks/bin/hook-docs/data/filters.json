@@ -2,7 +2,7 @@
     "$schema": "https://raw.githubusercontent.com/wp-hooks/generator/0.9.0/schema.json",
     "hooks": [
         {
-            "name": "__experimental_woocommerce_blocks_add_data_attributes_to_block",
+            "name": "__experimental_poocommerce_blocks_add_data_attributes_to_block",
             "file": "BlockTypesController.php",
             "type": "filter",
             "doc": {
@@ -27,7 +27,7 @@
             "args": 1
         },
         {
-            "name": "__experimental_woocommerce_blocks_add_data_attributes_to_namespace",
+            "name": "__experimental_poocommerce_blocks_add_data_attributes_to_namespace",
             "file": "BlockTypesController.php",
             "type": "filter",
             "doc": {
@@ -52,7 +52,7 @@
             "args": 1
         },
         {
-            "name": "__experimental_woocommerce_blocks_payment_gateway_features_list",
+            "name": "__experimental_poocommerce_blocks_payment_gateway_features_list",
             "file": "Payments/Integrations/PayPal.php",
             "type": "filter",
             "doc": {
@@ -170,7 +170,7 @@
             "args": 1
         },
         {
-            "name": "woocommerce_add_cart_item",
+            "name": "poocommerce_add_cart_item",
             "file": "StoreApi/Utilities/CartController.php",
             "type": "filter",
             "doc": {
@@ -183,7 +183,7 @@
                     },
                     {
                         "name": "internal",
-                        "content": "Matches filter name in WooCommerce core."
+                        "content": "Matches filter name in PooCommerce core."
                     },
                     {
                         "name": "param",
@@ -214,7 +214,7 @@
             "args": 2
         },
         {
-            "name": "woocommerce_add_cart_item_data",
+            "name": "poocommerce_add_cart_item_data",
             "file": "StoreApi/Utilities/CartController.php",
             "type": "filter",
             "doc": {
@@ -227,7 +227,7 @@
                     },
                     {
                         "name": "internal",
-                        "content": "Matches filter name in WooCommerce core."
+                        "content": "Matches filter name in PooCommerce core."
                     },
                     {
                         "name": "param",
@@ -274,7 +274,7 @@
             "args": 4
         },
         {
-            "name": "woocommerce_add_to_cart_quantity",
+            "name": "poocommerce_add_to_cart_quantity",
             "file": "BlockTypes/ProductButton.php",
             "type": "filter",
             "doc": {
@@ -289,7 +289,7 @@
                         "name": "param",
                         "content": "The default quantity.",
                         "types": [
-                            "\\Automattic\\WooCommerce\\Blocks\\BlockTypes\\number"
+                            "\\Automattic\\PooCommerce\\Blocks\\BlockTypes\\number"
                         ],
                         "variable": "$default_quantity"
                     },
@@ -297,7 +297,7 @@
                         "name": "param",
                         "content": "The product id.",
                         "types": [
-                            "\\Automattic\\WooCommerce\\Blocks\\BlockTypes\\number"
+                            "\\Automattic\\PooCommerce\\Blocks\\BlockTypes\\number"
                         ],
                         "variable": "$product_id"
                     }
@@ -307,7 +307,7 @@
             "args": 2
         },
         {
-            "name": "woocommerce_add_to_cart_sold_individually_quantity",
+            "name": "poocommerce_add_to_cart_sold_individually_quantity",
             "file": "StoreApi/Utilities/CartController.php",
             "type": "filter",
             "doc": {
@@ -320,7 +320,7 @@
                     },
                     {
                         "name": "internal",
-                        "content": "Matches filter name in WooCommerce core."
+                        "content": "Matches filter name in PooCommerce core."
                     },
                     {
                         "name": "param",
@@ -375,7 +375,7 @@
             "args": 5
         },
         {
-            "name": "woocommerce_add_to_cart_validation",
+            "name": "poocommerce_add_to_cart_validation",
             "file": "StoreApi/Utilities/CartController.php",
             "type": "filter",
             "doc": {
@@ -443,12 +443,12 @@
             "args": 5
         },
         {
-            "name": "woocommerce_adjust_non_base_location_prices",
+            "name": "poocommerce_adjust_non_base_location_prices",
             "file": "StoreApi/Utilities/ProductQuery.php",
             "type": "filter",
             "doc": {
                 "description": "Filters if taxes should be removed from locations outside the store base location.",
-                "long_description": "The woocommerce_adjust_non_base_location_prices filter can stop base taxes being taken off when dealing with out of base locations. e.g. If a product costs 10 including tax, all users will pay 10 regardless of location and taxes.",
+                "long_description": "The poocommerce_adjust_non_base_location_prices filter can stop base taxes being taken off when dealing with out of base locations. e.g. If a product costs 10 including tax, all users will pay 10 regardless of location and taxes.",
                 "tags": [
                     {
                         "name": "since",
@@ -456,7 +456,7 @@
                     },
                     {
                         "name": "internal",
-                        "content": "Matches filter name in WooCommerce core."
+                        "content": "Matches filter name in PooCommerce core."
                     },
                     {
                         "name": "param",
@@ -474,12 +474,12 @@
                         ]
                     }
                 ],
-                "long_description_html": "<p>The woocommerce_adjust_non_base_location_prices filter can stop base taxes being taken off when dealing with out of base locations. e.g. If a product costs 10 including tax, all users will pay 10 regardless of location and taxes.</p>"
+                "long_description_html": "<p>The poocommerce_adjust_non_base_location_prices filter can stop base taxes being taken off when dealing with out of base locations. e.g. If a product costs 10 including tax, all users will pay 10 regardless of location and taxes.</p>"
             },
             "args": 1
         },
         {
-            "name": "woocommerce_apply_base_tax_for_local_pickup",
+            "name": "poocommerce_apply_base_tax_for_local_pickup",
             "file": "Shipping/ShippingController.php",
             "type": "filter",
             "doc": {
@@ -491,7 +491,7 @@
             "args": 1
         },
         {
-            "name": "woocommerce_apply_individual_use_coupon",
+            "name": "poocommerce_apply_individual_use_coupon",
             "file": "StoreApi/Utilities/CartController.php",
             "type": "filter",
             "doc": {
@@ -504,7 +504,7 @@
                     },
                     {
                         "name": "internal",
-                        "content": "Matches filter name in WooCommerce core."
+                        "content": "Matches filter name in PooCommerce core."
                     },
                     {
                         "name": "param",
@@ -543,7 +543,7 @@
             "args": 3
         },
         {
-            "name": "woocommerce_apply_with_individual_use_coupon",
+            "name": "poocommerce_apply_with_individual_use_coupon",
             "file": "StoreApi/Utilities/CartController.php",
             "type": "filter",
             "doc": {
@@ -556,7 +556,7 @@
                     },
                     {
                         "name": "internal",
-                        "content": "Matches filter name in WooCommerce core."
+                        "content": "Matches filter name in PooCommerce core."
                     },
                     {
                         "name": "param",
@@ -603,7 +603,7 @@
             "args": 4
         },
         {
-            "name": "woocommerce_blocks_hook_compatibility_additional_data",
+            "name": "poocommerce_blocks_hook_compatibility_additional_data",
             "file": "Templates/AbstractTemplateCompatibility.php",
             "type": "filter",
             "doc": {
@@ -628,7 +628,7 @@
             "args": 1
         },
         {
-            "name": "woocommerce_blocks_product_grid_is_cacheable",
+            "name": "poocommerce_blocks_product_grid_is_cacheable",
             "file": "BlockTypes/AbstractProductGrid.php",
             "type": "filter",
             "doc": {
@@ -668,7 +668,7 @@
             "args": 2
         },
         {
-            "name": "woocommerce_blocks_product_grid_item_html",
+            "name": "poocommerce_blocks_product_grid_item_html",
             "file": "BlockTypes/AbstractProductGrid.php",
             "type": "filter",
             "doc": {
@@ -716,7 +716,7 @@
             "args": 3
         },
         {
-            "name": "woocommerce_blocks_register_script_dependencies",
+            "name": "poocommerce_blocks_register_script_dependencies",
             "file": "Assets/Api.php",
             "type": "filter",
             "doc": {
@@ -756,7 +756,7 @@
             "args": 2
         },
         {
-            "name": "woocommerce_cart_contents_changed",
+            "name": "poocommerce_cart_contents_changed",
             "file": "StoreApi/Utilities/CartController.php",
             "type": "filter",
             "doc": {
@@ -769,7 +769,7 @@
                     },
                     {
                         "name": "internal",
-                        "content": "Matches filter name in WooCommerce core."
+                        "content": "Matches filter name in PooCommerce core."
                     },
                     {
                         "name": "param",
@@ -792,7 +792,7 @@
             "args": 1
         },
         {
-            "name": "woocommerce_cart_item_permalink",
+            "name": "poocommerce_cart_item_permalink",
             "file": "StoreApi/Schemas/V1/CartItemSchema.php",
             "type": "filter",
             "doc": {
@@ -833,7 +833,7 @@
             "args": 3
         },
         {
-            "name": "woocommerce_disable_compatibility_layer",
+            "name": "poocommerce_disable_compatibility_layer",
             "file": "Templates/AbstractTemplateCompatibility.php",
             "type": "filter",
             "doc": {
@@ -849,7 +849,7 @@
                         "name": "param",
                         "content": "",
                         "types": [
-                            "\\Automattic\\WooCommerce\\Blocks\\Templates\\boolean."
+                            "\\Automattic\\PooCommerce\\Blocks\\Templates\\boolean."
                         ],
                         "variable": ""
                     }
@@ -859,7 +859,7 @@
             "args": 1
         },
         {
-            "name": "woocommerce_disable_compatibility_layer",
+            "name": "poocommerce_disable_compatibility_layer",
             "file": "Templates/AbstractTemplateCompatibility.php",
             "type": "filter",
             "doc": {
@@ -875,7 +875,7 @@
                         "name": "param",
                         "content": "",
                         "types": [
-                            "\\Automattic\\WooCommerce\\Blocks\\Templates\\boolean."
+                            "\\Automattic\\PooCommerce\\Blocks\\Templates\\boolean."
                         ],
                         "variable": ""
                     }
@@ -885,7 +885,7 @@
             "args": 1
         },
         {
-            "name": "woocommerce_ga_disable_tracking",
+            "name": "poocommerce_ga_disable_tracking",
             "file": "Domain/Services/GoogleAnalytics.php",
             "type": "filter",
             "doc": {
@@ -914,7 +914,7 @@
             "args": 1
         },
         {
-            "name": "woocommerce_get_item_data",
+            "name": "poocommerce_get_item_data",
             "file": "StoreApi/Schemas/V1/CartItemSchema.php",
             "type": "filter",
             "doc": {
@@ -927,7 +927,7 @@
                     },
                     {
                         "name": "internal",
-                        "content": "Matches filter name in WooCommerce core."
+                        "content": "Matches filter name in PooCommerce core."
                     },
                     {
                         "name": "param",
@@ -958,7 +958,7 @@
             "args": 2
         },
         {
-            "name": "woocommerce_loop_add_to_cart_args",
+            "name": "poocommerce_loop_add_to_cart_args",
             "file": "BlockTypes/ProductButton.php",
             "type": "filter",
             "doc": {
@@ -975,7 +975,7 @@
             "args": 2
         },
         {
-            "name": "woocommerce_loop_add_to_cart_link",
+            "name": "poocommerce_loop_add_to_cart_link",
             "file": "BlockTypes/ProductButton.php",
             "type": "filter",
             "doc": {
@@ -1000,7 +1000,7 @@
             "args": 3
         },
         {
-            "name": "woocommerce_new_customer_data",
+            "name": "poocommerce_new_customer_data",
             "file": "StoreApi/Routes/V1/Checkout.php",
             "type": "filter",
             "doc": {
@@ -1032,7 +1032,7 @@
             "args": 1
         },
         {
-            "name": "woocommerce_pay_order_product_has_enough_stock",
+            "name": "poocommerce_pay_order_product_has_enough_stock",
             "file": "StoreApi/Utilities/OrderController.php",
             "type": "filter",
             "doc": {
@@ -1073,7 +1073,7 @@
             "args": 3
         },
         {
-            "name": "woocommerce_pay_order_product_in_stock",
+            "name": "poocommerce_pay_order_product_in_stock",
             "file": "StoreApi/Utilities/OrderController.php",
             "type": "filter",
             "doc": {
@@ -1114,7 +1114,7 @@
             "args": 3
         },
         {
-            "name": "woocommerce_registration_errors",
+            "name": "poocommerce_registration_errors",
             "file": "StoreApi/Routes/V1/Checkout.php",
             "type": "filter",
             "doc": {
@@ -1127,7 +1127,7 @@
                     },
                     {
                         "name": "internal",
-                        "content": "Matches filter name in WooCommerce core."
+                        "content": "Matches filter name in PooCommerce core."
                     },
                     {
                         "name": "param",
@@ -1166,12 +1166,12 @@
             "args": 3
         },
         {
-            "name": "woocommerce_shared_settings",
+            "name": "poocommerce_shared_settings",
             "file": "Assets/AssetDataRegistry.php",
             "type": "filter",
             "doc": {
                 "description": "Filters the array of shared settings.",
-                "long_description": "Low level hook for registration of new data late in the cycle. This is deprecated. Instead, use the data api:\n ```php Automattic\\WooCommerce\\Blocks\\Package::container()->get( Automattic\\WooCommerce\\Blocks\\Assets\\AssetDataRegistry::class )->add( $key, $value ) ```",
+                "long_description": "Low level hook for registration of new data late in the cycle. This is deprecated. Instead, use the data api:\n ```php Automattic\\PooCommerce\\Blocks\\Package::container()->get( Automattic\\PooCommerce\\Blocks\\Assets\\AssetDataRegistry::class )->add( $key, $value ) ```",
                 "tags": [
                     {
                         "name": "since",
@@ -1197,12 +1197,12 @@
                         ]
                     }
                 ],
-                "long_description_html": "<p>Low level hook for registration of new data late in the cycle. This is deprecated. Instead, use the data api:</p> <pre><code class=\"language-php\">Automattic\\WooCommerce\\Blocks\\Package::container()-&gt;get( Automattic\\WooCommerce\\Blocks\\Assets\\AssetDataRegistry::class )-&gt;add( $key, $value )</code></pre>"
+                "long_description_html": "<p>Low level hook for registration of new data late in the cycle. This is deprecated. Instead, use the data api:</p> <pre><code class=\"language-php\">Automattic\\PooCommerce\\Blocks\\Package::container()-&gt;get( Automattic\\PooCommerce\\Blocks\\Assets\\AssetDataRegistry::class )-&gt;add( $key, $value )</code></pre>"
             },
             "args": 1
         },
         {
-            "name": "woocommerce_shipping_package_name",
+            "name": "poocommerce_shipping_package_name",
             "file": "StoreApi/Utilities/CartController.php",
             "type": "filter",
             "doc": {
@@ -1215,7 +1215,7 @@
                     },
                     {
                         "name": "internal",
-                        "content": "Matches filter name in WooCommerce core."
+                        "content": "Matches filter name in PooCommerce core."
                     },
                     {
                         "name": "param",
@@ -1235,7 +1235,7 @@
                     },
                     {
                         "name": "param",
-                        "content": "Shipping package from WooCommerce.",
+                        "content": "Shipping package from PooCommerce.",
                         "types": [
                             "array"
                         ],
@@ -1254,7 +1254,7 @@
             "args": 3
         },
         {
-            "name": "woocommerce_shipping_{$this->id}_is_available",
+            "name": "poocommerce_shipping_{$this->id}_is_available",
             "file": "Shipping/PickupLocation.php",
             "type": "filter",
             "doc": {
@@ -1266,11 +1266,11 @@
             "args": 3
         },
         {
-            "name": "woocommerce_show_page_title",
+            "name": "poocommerce_show_page_title",
             "file": "BlockTypes/ClassicTemplate.php",
             "type": "filter",
             "doc": {
-                "description": "Hook: woocommerce_show_page_title",
+                "description": "Hook: poocommerce_show_page_title",
                 "long_description": "Allows controlling the display of the page title.",
                 "tags": [
                     {
@@ -1283,7 +1283,7 @@
             "args": 1
         },
         {
-            "name": "woocommerce_single_product_image_thumbnail_html",
+            "name": "poocommerce_single_product_image_thumbnail_html",
             "file": "BlockTypes/ProductGalleryThumbnails.php",
             "type": "filter",
             "doc": {
@@ -1316,12 +1316,12 @@
             "args": 2
         },
         {
-            "name": "woocommerce_store_api_add_to_cart_data",
+            "name": "poocommerce_store_api_add_to_cart_data",
             "file": "StoreApi/Routes/V1/CartAddItem.php",
             "type": "filter",
             "doc": {
                 "description": "Filters cart item data sent via the API before it is passed to the cart controller.",
-                "long_description": "This hook filters cart items. It allows the request data to be changed, for example, quantity, or supplemental cart item data, before it is passed into CartController::add_to_cart and stored to session.\n CartController::add_to_cart only expects the keys id, quantity, variation, and cart_item_data, so other values may be ignored. CartController::add_to_cart (and core) do already have a filter hook called woocommerce_add_cart_item, but this does not have access to the original Store API request like this hook does.",
+                "long_description": "This hook filters cart items. It allows the request data to be changed, for example, quantity, or supplemental cart item data, before it is passed into CartController::add_to_cart and stored to session.\n CartController::add_to_cart only expects the keys id, quantity, variation, and cart_item_data, so other values may be ignored. CartController::add_to_cart (and core) do already have a filter hook called poocommerce_add_cart_item, but this does not have access to the original Store API request like this hook does.",
                 "tags": [
                     {
                         "name": "since",
@@ -1343,12 +1343,12 @@
                         ]
                     }
                 ],
-                "long_description_html": "<p>This hook filters cart items. It allows the request data to be changed, for example, quantity, or supplemental cart item data, before it is passed into CartController::add_to_cart and stored to session.</p> <p>CartController::add_to_cart only expects the keys id, quantity, variation, and cart_item_data, so other values may be ignored. CartController::add_to_cart (and core) do already have a filter hook called woocommerce_add_cart_item, but this does not have access to the original Store API request like this hook does.</p>"
+                "long_description_html": "<p>This hook filters cart items. It allows the request data to be changed, for example, quantity, or supplemental cart item data, before it is passed into CartController::add_to_cart and stored to session.</p> <p>CartController::add_to_cart only expects the keys id, quantity, variation, and cart_item_data, so other values may be ignored. CartController::add_to_cart (and core) do already have a filter hook called poocommerce_add_cart_item, but this does not have access to the original Store API request like this hook does.</p>"
             },
             "args": 2
         },
         {
-            "name": "woocommerce_store_api_disable_nonce_check",
+            "name": "poocommerce_store_api_disable_nonce_check",
             "file": "StoreApi/Routes/V1/AbstractCartRoute.php",
             "type": "filter",
             "doc": {
@@ -1380,7 +1380,7 @@
             "args": 1
         },
         {
-            "name": "woocommerce_store_api_product_quantity_limit",
+            "name": "poocommerce_store_api_product_quantity_limit",
             "file": "StoreApi/Utilities/QuantityLimits.php",
             "type": "filter",
             "doc": {
@@ -1420,7 +1420,7 @@
             "args": 2
         },
         {
-            "name": "woocommerce_store_api_product_quantity_{$value_type}",
+            "name": "poocommerce_store_api_product_quantity_{$value_type}",
             "file": "StoreApi/Utilities/QuantityLimits.php",
             "type": "filter",
             "doc": {
@@ -1469,7 +1469,7 @@
             "args": 3
         },
         {
-            "name": "woocommerce_store_api_rate_limit_options",
+            "name": "poocommerce_store_api_rate_limit_options",
             "file": "StoreApi/Utilities/RateLimits.php",
             "type": "filter",
             "doc": {

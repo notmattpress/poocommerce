@@ -6,7 +6,7 @@ import { store as coreStore } from '@wordpress/core-data';
 import { resolveSelect } from '@wordpress/data';
 import { useEffect, useMemo, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import type { Product } from '@woocommerce/data';
+import type { Product } from '@poocommerce/data';
 
 /**
  * Internal dependencies
@@ -25,7 +25,7 @@ type ProductSelectorProps = {
 const SEARCH_DELAY_MS = 250;
 
 function getProductToken( product: Pick< Product, 'id' | 'name' > ) {
-	return `${ product.name || __( '(Untitled product)', 'woocommerce' ) } (#${
+	return `${ product.name || __( '(Untitled product)', 'poocommerce' ) } (#${
 		product.id
 	})`;
 }
@@ -163,7 +163,7 @@ export function ProductSelector( {
 					>
 						<Spinner />
 						{ description ||
-							__( 'Loading products…', 'woocommerce' ) }
+							__( 'Loading products…', 'poocommerce' ) }
 					</span>
 				) : (
 					description

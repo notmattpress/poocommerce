@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Blocks\Patterns;
+namespace Automattic\PooCommerce\Tests\Blocks\Patterns;
 
-use Automattic\WooCommerce\Blocks\Patterns\PTKClient;
-use Automattic\WooCommerce\Blocks\Patterns\PTKPatternsStore;
+use Automattic\PooCommerce\Blocks\Patterns\PTKClient;
+use Automattic\PooCommerce\Blocks\Patterns\PTKPatternsStore;
 use WP_Error;
 
 /**
@@ -34,7 +34,7 @@ class PTKPatternsStoreTest extends \WP_UnitTestCase {
 		parent::setUp();
 
 		// Clean up any existing actions before each test.
-		as_unschedule_all_actions( 'fetch_patterns', array(), 'woocommerce' );
+		as_unschedule_all_actions( 'fetch_patterns', array(), 'poocommerce' );
 
 		$this->ptk_client    = $this->createMock( PTKClient::class );
 		$this->pattern_store = new PTKPatternsStore( $this->ptk_client );
@@ -47,11 +47,11 @@ class PTKPatternsStoreTest extends \WP_UnitTestCase {
 	 */
 	public function tearDown(): void {
 		// Unschedule all fetch_patterns actions to avoid test pollution.
-		as_unschedule_all_actions( 'fetch_patterns', array(), 'woocommerce' );
+		as_unschedule_all_actions( 'fetch_patterns', array(), 'poocommerce' );
 
 		// Clean up options.
 		delete_option( PTKPatternsStore::OPTION_NAME );
-		delete_option( 'woocommerce_allow_tracking' );
+		delete_option( 'poocommerce_allow_tracking' );
 
 		parent::tearDown();
 	}
@@ -133,21 +133,21 @@ class PTKPatternsStoreTest extends \WP_UnitTestCase {
 		update_option( PTKPatternsStore::OPTION_NAME, $expected_patterns, false );
 
 		// Schedule an action so we can verify it gets unscheduled.
-		as_schedule_single_action( time(), 'fetch_patterns', array(), 'woocommerce' );
-		$this->assertTrue( as_has_scheduled_action( 'fetch_patterns', array(), 'woocommerce' ) );
+		as_schedule_single_action( time(), 'fetch_patterns', array(), 'poocommerce' );
+		$this->assertTrue( as_has_scheduled_action( 'fetch_patterns', array(), 'poocommerce' ) );
 
 		$this->pattern_store->flush_cached_patterns();
 
 		$patterns = get_option( PTKPatternsStore::OPTION_NAME );
 		$this->assertFalse( $patterns );
-		$this->assertFalse( as_has_scheduled_action( 'fetch_patterns', array(), 'woocommerce' ), 'All fetch_patterns actions should be unscheduled' );
+		$this->assertFalse( as_has_scheduled_action( 'fetch_patterns', array(), 'poocommerce' ), 'All fetch_patterns actions should be unscheduled' );
 	}
 
 	/**
 	 * Test patterns cache is flushed when tracking is not allowed.
 	 */
 	public function test_patterns_cache_is_flushed_when_tracking_is_not_allowed() {
-		update_option( 'woocommerce_allow_tracking', 'no' );
+		update_option( 'poocommerce_allow_tracking', 'no' );
 		$expected_patterns = array(
 			array(
 				'ID'           => 14870,
@@ -177,7 +177,7 @@ class PTKPatternsStoreTest extends \WP_UnitTestCase {
 	 * Test fetching patterns is scheduled when tracking is allowed.
 	 */
 	public function test_fetching_patterns_is_schedule_when_tracking_is_allowed() {
-		update_option( 'woocommerce_allow_tracking', 'yes' );
+		update_option( 'poocommerce_allow_tracking', 'yes' );
 		$expected_patterns = array(
 			array(
 				'ID'         => 14870,
@@ -197,14 +197,14 @@ class PTKPatternsStoreTest extends \WP_UnitTestCase {
 
 		$this->pattern_store->flush_or_fetch_patterns();
 
-		$this->assertTrue( as_has_scheduled_action( 'fetch_patterns', array(), 'woocommerce' ) );
+		$this->assertTrue( as_has_scheduled_action( 'fetch_patterns', array(), 'poocommerce' ) );
 	}
 
 	/**
 	 * Test fetch patterns should not set the patterns cache when fetching patterns fails.
 	 */
 	public function test_fetch_patterns_should_not_set_the_patterns_cache_when_fetching_patterns_fails() {
-		update_option( 'woocommerce_allow_tracking', 'yes' );
+		update_option( 'poocommerce_allow_tracking', 'yes' );
 		$this->ptk_client
 			->expects( $this->once() )
 			->method( 'fetch_patterns' )
@@ -220,7 +220,7 @@ class PTKPatternsStoreTest extends \WP_UnitTestCase {
 	 * Test fetch patterns should set the patterns cache after fetching patterns if tracking is allowed.
 	 */
 	public function test_fetch_patterns_should_set_the_patterns_cache_after_fetching_patterns() {
-		update_option( 'woocommerce_allow_tracking', 'yes' );
+		update_option( 'poocommerce_allow_tracking', 'yes' );
 		$expected_patterns = array(
 			array(
 				'ID'           => 14870,
@@ -253,7 +253,7 @@ class PTKPatternsStoreTest extends \WP_UnitTestCase {
 	 * Test fetch_patterns should register testimonials category as reviews.
 	 */
 	public function test_fetch_patterns_should_register_testimonials_category_as_reviews() {
-		update_option( 'woocommerce_allow_tracking', 'yes' );
+		update_option( 'poocommerce_allow_tracking', 'yes' );
 		$ptk_patterns = array(
 			array(
 				'ID'           => 14870,
@@ -307,8 +307,8 @@ class PTKPatternsStoreTest extends \WP_UnitTestCase {
 	/**
 	 * Test fetch_patterns should filter out the patterns with dependencies.
 	 */
-	public function test_fetch_patterns_should_filter_out_the_patterns_with_dependencies_diff_than_woocommerce() {
-		update_option( 'woocommerce_allow_tracking', 'yes' );
+	public function test_fetch_patterns_should_filter_out_the_patterns_with_dependencies_diff_than_poocommerce() {
+		update_option( 'poocommerce_allow_tracking', 'yes' );
 		$ptk_patterns = array(
 			array(
 				'ID'         => 1,
@@ -337,10 +337,10 @@ class PTKPatternsStoreTest extends \WP_UnitTestCase {
 			),
 			array(
 				'ID'           => 3,
-				'title'        => 'Jetpack and WooCommerce dep',
+				'title'        => 'Jetpack and PooCommerce dep',
 				'name'         => 'review-a-quote-with-scattered-images',
 				'html'         => '<!-- /wp:spacer -->',
-				'dependencies' => [ 'woocommerce', 'jetpack' ],
+				'dependencies' => [ 'poocommerce', 'jetpack' ],
 				'categories'   => array(
 					'reviews' => array(
 						'slug'  => 'reviews',
@@ -350,10 +350,10 @@ class PTKPatternsStoreTest extends \WP_UnitTestCase {
 			),
 			array(
 				'ID'           => 4,
-				'title'        => 'WooCommerce dep',
+				'title'        => 'PooCommerce dep',
 				'name'         => 'review-a-quote-with-scattered-images',
 				'html'         => '<!-- /wp:spacer -->',
-				'dependencies' => [ 'woocommerce' ],
+				'dependencies' => [ 'poocommerce' ],
 				'categories'   => array(
 					'reviews' => array(
 						'slug'  => 'reviews',
@@ -391,9 +391,9 @@ class PTKPatternsStoreTest extends \WP_UnitTestCase {
 			),
 			array(
 				'ID'           => 4,
-				'title'        => 'WooCommerce dep',
+				'title'        => 'PooCommerce dep',
 				'name'         => 'review-a-quote-with-scattered-images',
-				'dependencies' => [ 'woocommerce' ],
+				'dependencies' => [ 'poocommerce' ],
 				'html'         => '<!-- /wp:spacer -->',
 				'categories'   => array(
 					'reviews' => array(
@@ -437,39 +437,39 @@ class PTKPatternsStoreTest extends \WP_UnitTestCase {
 	 * Test ensure_recurring_fetch_patterns_if_enabled schedules recurring action when tracking is enabled.
 	 */
 	public function test_ensure_recurring_fetch_patterns_schedules_recurring_action_when_tracking_enabled() {
-		update_option( 'woocommerce_allow_tracking', 'yes' );
+		update_option( 'poocommerce_allow_tracking', 'yes' );
 
 		$this->pattern_store->ensure_recurring_fetch_patterns_if_enabled();
 
-		$this->assertTrue( as_has_scheduled_action( 'fetch_patterns', array(), 'woocommerce' ), 'fetch_patterns action should be scheduled' );
+		$this->assertTrue( as_has_scheduled_action( 'fetch_patterns', array(), 'poocommerce' ), 'fetch_patterns action should be scheduled' );
 	}
 
 	/**
 	 * Test ensure_recurring_fetch_patterns_if_enabled does not schedule when tracking is disabled.
 	 */
 	public function test_ensure_recurring_fetch_patterns_does_not_schedule_when_tracking_disabled() {
-		update_option( 'woocommerce_allow_tracking', 'no' );
+		update_option( 'poocommerce_allow_tracking', 'no' );
 
 		$this->pattern_store->ensure_recurring_fetch_patterns_if_enabled();
 
-		$this->assertFalse( as_has_scheduled_action( 'fetch_patterns', array(), 'woocommerce' ), 'fetch_patterns action should not be scheduled when tracking is disabled' );
+		$this->assertFalse( as_has_scheduled_action( 'fetch_patterns', array(), 'poocommerce' ), 'fetch_patterns action should not be scheduled when tracking is disabled' );
 	}
 
 	/**
 	 * Test flush_cached_patterns unschedules all actions including recurring ones.
 	 */
 	public function test_flush_cached_patterns_unschedules_all_actions() {
-		update_option( 'woocommerce_allow_tracking', 'yes' );
+		update_option( 'poocommerce_allow_tracking', 'yes' );
 
 		// Schedule both single and recurring actions.
-		as_schedule_single_action( time(), 'fetch_patterns', array(), 'woocommerce' );
-		as_schedule_recurring_action( time(), DAY_IN_SECONDS, 'fetch_patterns', array(), 'woocommerce' );
+		as_schedule_single_action( time(), 'fetch_patterns', array(), 'poocommerce' );
+		as_schedule_recurring_action( time(), DAY_IN_SECONDS, 'fetch_patterns', array(), 'poocommerce' );
 
-		$this->assertTrue( as_has_scheduled_action( 'fetch_patterns', array(), 'woocommerce' ), 'Actions should be scheduled' );
+		$this->assertTrue( as_has_scheduled_action( 'fetch_patterns', array(), 'poocommerce' ), 'Actions should be scheduled' );
 
 		$this->pattern_store->flush_cached_patterns();
 
-		$this->assertFalse( as_has_scheduled_action( 'fetch_patterns', array(), 'woocommerce' ), 'All fetch_patterns actions should be unscheduled after flush' );
+		$this->assertFalse( as_has_scheduled_action( 'fetch_patterns', array(), 'poocommerce' ), 'All fetch_patterns actions should be unscheduled after flush' );
 	}
 
 	/**
@@ -482,8 +482,8 @@ class PTKPatternsStoreTest extends \WP_UnitTestCase {
 		global $wp_actions;
 
 		// Schedule an action.
-		as_schedule_single_action( time(), 'fetch_patterns', array(), 'woocommerce' );
-		$this->assertTrue( as_has_scheduled_action( 'fetch_patterns', array(), 'woocommerce' ), 'Action should be scheduled initially' );
+		as_schedule_single_action( time(), 'fetch_patterns', array(), 'poocommerce' );
+		$this->assertTrue( as_has_scheduled_action( 'fetch_patterns', array(), 'poocommerce' ), 'Action should be scheduled initially' );
 
 		// Save the original action_scheduler_init count.
 		$original_count = $wp_actions['action_scheduler_init'] ?? 0;
@@ -504,7 +504,7 @@ class PTKPatternsStoreTest extends \WP_UnitTestCase {
 		$this->assertFalse( $patterns, 'Patterns option should be deleted immediately' );
 
 		// The action should still be scheduled (unscheduling is deferred).
-		$this->assertTrue( as_has_scheduled_action( 'fetch_patterns', array(), 'woocommerce' ), 'Action should still be scheduled before action_scheduler_init fires' );
+		$this->assertTrue( as_has_scheduled_action( 'fetch_patterns', array(), 'poocommerce' ), 'Action should still be scheduled before action_scheduler_init fires' );
 
 		/**
 		 * Simulate action_scheduler_init firing.
@@ -515,7 +515,7 @@ class PTKPatternsStoreTest extends \WP_UnitTestCase {
 		do_action( 'action_scheduler_init' );
 
 		// After action_scheduler_init fires, the action should be unscheduled.
-		$this->assertFalse( as_has_scheduled_action( 'fetch_patterns', array(), 'woocommerce' ), 'Action should be unscheduled after action_scheduler_init fires' );
+		$this->assertFalse( as_has_scheduled_action( 'fetch_patterns', array(), 'poocommerce' ), 'Action should be unscheduled after action_scheduler_init fires' );
 
 		// Restore the original action count.
 		$wp_actions['action_scheduler_init'] = $original_count; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited

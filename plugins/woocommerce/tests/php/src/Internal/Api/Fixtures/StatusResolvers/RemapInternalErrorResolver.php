@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Internal\Api\Fixtures\StatusResolvers;
+namespace Automattic\PooCommerce\Tests\Internal\Api\Fixtures\StatusResolvers;
 
 /**
  * Test resolver that remaps INTERNAL_ERROR responses to HTTP 503 and leaves

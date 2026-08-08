@@ -87,7 +87,7 @@ subscribe( () => {
 		previousCart !== cartData
 	) {
 		window.dispatchEvent(
-			// Question: What are the usual names for WooCommerce events?
+			// Question: What are the usual names for PooCommerce events?
 			new CustomEvent( 'wc-blocks_store_sync_required', {
 				detail: { type: 'from_@wordpress/data' },
 			} )

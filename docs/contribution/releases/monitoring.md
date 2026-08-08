@@ -1,10 +1,10 @@
 ---
-post_title: WooCommerce Release Monitoring
+post_title: PooCommerce Release Monitoring
 sidebar_label: Release Monitoring
 sidebar_position: 7
 ---
 
-# WooCommerce Release Monitoring
+# PooCommerce Release Monitoring
 
 After the release, the release lead should continue to monitor the following for any bugs directly related to the latest version.  Monitoring should continue for 3 days after a major release and 1 day for a point release.
 
@@ -12,11 +12,11 @@ If there are questions whether a specific issue is critical enough to warrant a 
 
 ## WordPress.org Forums
 
-Check newly created threads on the [WordPress.org Forums](https://wordpress.org/support/plugin/woocommerce/) for any issues that appear to be caused by the latest update.
+Check newly created threads on the [WordPress.org Forums](https://wordpress.org/support/plugin/poocommerce/) for any issues that appear to be caused by the latest update.
 
-## WooCommerce GitHub Repository Issues
+## PooCommerce GitHub Repository Issues
 
-Watch the [Newest Created Issues](https://github.com/woocommerce/woocommerce/issues?q=is%3Aissue%20state%3Aopen%20sort%3Acreated-desc) and verify that none are critical.
+Watch the [Newest Created Issues](https://github.com/poocommerce/poocommerce/issues?q=is%3Aissue%20state%3Aopen%20sort%3Acreated-desc) and verify that none are critical.
 
 ## Handling Critical Issues
 

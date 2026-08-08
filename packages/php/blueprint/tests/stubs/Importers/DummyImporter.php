@@ -1,10 +1,10 @@
 <?php
 
-namespace Automattic\WooCommerce\Blueprint\Tests\stubs\Importers;
+namespace Automattic\PooCommerce\Blueprint\Tests\stubs\Importers;
 
-use Automattic\WooCommerce\Blueprint\StepProcessor;
-use Automattic\WooCommerce\Blueprint\StepProcessorResult;
-use Automattic\WooCommerce\Blueprint\Tests\stubs\Steps\DummyStep;
+use Automattic\PooCommerce\Blueprint\StepProcessor;
+use Automattic\PooCommerce\Blueprint\StepProcessorResult;
+use Automattic\PooCommerce\Blueprint\Tests\stubs\Steps\DummyStep;
 
 /**
  * Dummy importer class.

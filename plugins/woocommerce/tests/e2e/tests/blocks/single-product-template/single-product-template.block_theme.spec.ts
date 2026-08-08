@@ -1,12 +1,12 @@
 /**
  * External dependencies
  */
-import { test, expect } from '@woocommerce/e2e-utils';
+import { test, expect } from '@poocommerce/e2e-utils';
 
 const products = [
 	{
 		product: 'Album',
-		// Copy-pasted by WooCommerce Core Legacy Template.
+		// Copy-pasted by PooCommerce Core Legacy Template.
 		classes: [
 			'product',
 			'type-product',
@@ -23,7 +23,7 @@ const products = [
 	},
 	{
 		product: 'Hoodie',
-		// Copy-pasted by WooCommerce Core Legacy Template.
+		// Copy-pasted by PooCommerce Core Legacy Template.
 		classes: [
 			'product',
 			'type-product',

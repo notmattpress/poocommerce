@@ -1,16 +1,16 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails;
+namespace Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails;
 
-use Automattic\WooCommerce\Utilities\FeaturesUtil;
+use Automattic\PooCommerce\Utilities\FeaturesUtil;
 
 /**
  * Class WCTransactionalEmails
  *
- * Handles the initialization and management of WooCommerce transactional emails.
+ * Handles the initialization and management of PooCommerce transactional emails.
  *
- * @package Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails
+ * @package Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails
  */
 class WCTransactionalEmails {
 
@@ -75,7 +75,7 @@ class WCTransactionalEmails {
 	}
 
 	/**
-	 * Get the Core WooCommerce transactional emails for the block editor.
+	 * Get the Core PooCommerce transactional emails for the block editor.
 	 *
 	 * @return array
 	 */
@@ -89,11 +89,11 @@ class WCTransactionalEmails {
 		 * @return array
 		 * @since 9.9.0
 		 */
-		return apply_filters( 'woocommerce_transactional_emails_for_block_editor', $emails );
+		return apply_filters( 'poocommerce_transactional_emails_for_block_editor', $emails );
 	}
 
 	/**
-	 * Initialize email templates on WooCommerce admin pages.
+	 * Initialize email templates on PooCommerce admin pages.
 	 *
 	 * @deprecated 11.1.0 Email posts are no longer generated on admin page loads; they are created lazily when the user opens the editor. No-op, will be removed in a future version.
 	 * @return void

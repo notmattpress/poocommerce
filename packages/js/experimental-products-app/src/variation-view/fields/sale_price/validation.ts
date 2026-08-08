@@ -25,7 +25,7 @@ export function validateSalePrice( item: ProductEntityRecord ): string | null {
 	if ( salePrice >= regularPrice ) {
 		return __(
 			'Sale price must be lower than the regular price.',
-			'woocommerce'
+			'poocommerce'
 		);
 	}
 

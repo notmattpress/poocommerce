@@ -2,10 +2,10 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Enums;
+namespace Automattic\PooCommerce\Enums;
 
 /**
- * Enum class for the possible values of the `woocommerce_weight_unit` option,
+ * Enum class for the possible values of the `poocommerce_weight_unit` option,
  * which determines the weight unit used throughout the store.
  *
  * @since 11.0.0

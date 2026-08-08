@@ -3,11 +3,11 @@
  */
 import { __ } from '@wordpress/i18n';
 import { Button } from '@wordpress/components';
-import { Form, H, TextControl } from '@woocommerce/components';
-import { optionsStore } from '@woocommerce/data';
+import { Form, H, TextControl } from '@poocommerce/components';
+import { optionsStore } from '@poocommerce/data';
 import { registerPlugin } from '@wordpress/plugins';
 import { useDispatch, useSelect } from '@wordpress/data';
-import { WooPaymentGatewaySetup } from '@woocommerce/onboarding';
+import { WooPaymentGatewaySetup } from '@poocommerce/onboarding';
 
 const initialFormValues = {
 	account_name: '',
@@ -31,7 +31,7 @@ const BacsPaymentGatewaySetup = () => {
 		if ( ! values.account_number && ! values.iban ) {
 			errors.account_number = errors.iban = __(
 				'Please enter an account number or IBAN',
-				'woocommerce'
+				'poocommerce'
 			);
 		}
 
@@ -40,10 +40,10 @@ const BacsPaymentGatewaySetup = () => {
 
 	const updateSettings = async ( values, markConfigured ) => {
 		const update = await updateOptions( {
-			woocommerce_bacs_settings: {
+			poocommerce_bacs_settings: {
 				enabled: 'yes',
 			},
-			woocommerce_bacs_accounts: [ values ],
+			poocommerce_bacs_accounts: [ values ],
 		} );
 
 		if ( update.success ) {
@@ -52,7 +52,7 @@ const BacsPaymentGatewaySetup = () => {
 				'success',
 				__(
 					'Direct bank transfer details added successfully',
-					'woocommerce'
+					'poocommerce'
 				)
 			);
 			return;
@@ -62,7 +62,7 @@ const BacsPaymentGatewaySetup = () => {
 			'error',
 			__(
 				'There was a problem saving your payment settings',
-				'woocommerce'
+				'poocommerce'
 			)
 		);
 	};
@@ -85,21 +85,21 @@ const BacsPaymentGatewaySetup = () => {
 										<H>
 											{ __(
 												'Add your bank details',
-												'woocommerce'
+												'poocommerce'
 											) }
 										</H>
 										<p>
 											{ __(
 												'These details are required to receive payments via bank transfer',
-												'woocommerce'
+												'poocommerce'
 											) }
 										</p>
-										<div className="woocommerce-task-payment-method__fields">
+										<div className="poocommerce-task-payment-method__fields">
 											<TextControl
 												__nextHasNoMarginBottom
 												label={ __(
 													'Account name',
-													'woocommerce'
+													'poocommerce'
 												) }
 												required
 												{ ...getInputProps(
@@ -110,7 +110,7 @@ const BacsPaymentGatewaySetup = () => {
 												__nextHasNoMarginBottom
 												label={ __(
 													'Account number',
-													'woocommerce'
+													'poocommerce'
 												) }
 												required
 												{ ...getInputProps(
@@ -121,7 +121,7 @@ const BacsPaymentGatewaySetup = () => {
 												__nextHasNoMarginBottom
 												label={ __(
 													'Bank name',
-													'woocommerce'
+													'poocommerce'
 												) }
 												required
 												{ ...getInputProps(
@@ -132,7 +132,7 @@ const BacsPaymentGatewaySetup = () => {
 												__nextHasNoMarginBottom
 												label={ __(
 													'Sort code',
-													'woocommerce'
+													'poocommerce'
 												) }
 												required
 												{ ...getInputProps(
@@ -143,7 +143,7 @@ const BacsPaymentGatewaySetup = () => {
 												__nextHasNoMarginBottom
 												label={ __(
 													'IBAN',
-													'woocommerce'
+													'poocommerce'
 												) }
 												required
 												{ ...getInputProps( 'iban' ) }
@@ -152,7 +152,7 @@ const BacsPaymentGatewaySetup = () => {
 												__nextHasNoMarginBottom
 												label={ __(
 													'BIC / Swift',
-													'woocommerce'
+													'poocommerce'
 												) }
 												required
 												{ ...getInputProps( 'bic' ) }
@@ -163,7 +163,7 @@ const BacsPaymentGatewaySetup = () => {
 											isBusy={ isUpdating }
 											onClick={ handleSubmit }
 										>
-											{ __( 'Save', 'woocommerce' ) }
+											{ __( 'Save', 'poocommerce' ) }
 										</Button>
 									</>
 								);
@@ -178,5 +178,5 @@ const BacsPaymentGatewaySetup = () => {
 
 registerPlugin( 'wc-admin-payment-gateway-setup-bacs', {
 	render: BacsPaymentGatewaySetup,
-	scope: 'woocommerce-tasks',
+	scope: 'poocommerce-tasks',
 } );

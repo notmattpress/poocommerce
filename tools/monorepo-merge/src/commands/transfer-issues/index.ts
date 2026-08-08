@@ -54,7 +54,7 @@ export default class TransferIssues extends Command {
 	static flags = {
 		destination: Flags.string( {
 			description: 'The destination repository to transfer into.',
-			default: 'woocommerce/woocommerce',
+			default: 'poocommerce/poocommerce',
 		} ),
 		searchFilter: Flags.string( {
 			description:

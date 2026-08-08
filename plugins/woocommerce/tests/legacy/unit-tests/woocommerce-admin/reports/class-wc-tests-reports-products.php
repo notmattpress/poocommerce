@@ -2,20 +2,20 @@
 /**
  * Reports product stats tests.
  *
- * @package WooCommerce\Admin\Tests\Orders
+ * @package PooCommerce\Admin\Tests\Orders
  * @todo Finish up unit testing to verify bug-free product reports.
  */
 
-use Automattic\WooCommerce\Admin\API\Reports\GenericQuery;
-use Automattic\WooCommerce\Admin\API\Reports\Products\DataStore as ProductsDataStore;
-use Automattic\WooCommerce\Admin\API\Reports\TimeInterval;
-use Automattic\WooCommerce\Admin\ReportCSVExporter;
-use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Admin\API\Reports\GenericQuery;
+use Automattic\PooCommerce\Admin\API\Reports\Products\DataStore as ProductsDataStore;
+use Automattic\PooCommerce\Admin\API\Reports\TimeInterval;
+use Automattic\PooCommerce\Admin\ReportCSVExporter;
+use Automattic\PooCommerce\Enums\OrderStatus;
 
 /**
  * Reports product stats tests class
  *
- * @package WooCommerce\Admin\Tests\Orders
+ * @package PooCommerce\Admin\Tests\Orders
  * @todo Finish up unit testing to verify bug-free product reports.
  */
 class WC_Admin_Tests_Reports_Products extends WC_Unit_Test_Case {
@@ -26,7 +26,7 @@ class WC_Admin_Tests_Reports_Products extends WC_Unit_Test_Case {
 		parent::setUp();
 
 		// Force new logic of full refund in analytics/products.
-		delete_option( 'woocommerce_analytics_uses_old_full_refund_data' );
+		delete_option( 'poocommerce_analytics_uses_old_full_refund_data' );
 	}
 
 	/**
@@ -34,7 +34,7 @@ class WC_Admin_Tests_Reports_Products extends WC_Unit_Test_Case {
 	 */
 	public function tearDown(): void {
 		// Clean in case any test changes options.
-		delete_option( 'woocommerce_analytics_uses_old_full_refund_data' );
+		delete_option( 'poocommerce_analytics_uses_old_full_refund_data' );
 		parent::tearDown();
 	}
 
@@ -448,13 +448,13 @@ class WC_Admin_Tests_Reports_Products extends WC_Unit_Test_Case {
 	public function test_sync_monetary_only_refund_with_float_quantities() {
 		WC_Helper_Reports::reset_stats_dbs();
 
-		// Simulate a decimal-quantity setup (e.g. WCPOS), which swaps WooCommerce's default
+		// Simulate a decimal-quantity setup (e.g. WCPOS), which swaps PooCommerce's default
 		// intval coercion for floatval so that stock amounts become floats. Removing intval first
 		// makes the float coercion deterministic rather than relying on same-priority filter order.
-		remove_filter( 'woocommerce_stock_amount', 'intval' );
-		add_filter( 'woocommerce_stock_amount', 'floatval' );
+		remove_filter( 'poocommerce_stock_amount', 'intval' );
+		add_filter( 'poocommerce_stock_amount', 'floatval' );
 
-		// Use try/finally so the filters are always restored to WooCommerce's default, even if an
+		// Use try/finally so the filters are always restored to PooCommerce's default, even if an
 		// assertion fails or sync_order_products() throws (the regression this test guards against),
 		// to avoid leaking the float coercion into later tests.
 		try {
@@ -494,9 +494,9 @@ class WC_Admin_Tests_Reports_Products extends WC_Unit_Test_Case {
 
 			$this->assertTrue( $result, 'Syncing the refund should complete without a Division by zero error' );
 		} finally {
-			remove_filter( 'woocommerce_stock_amount', 'floatval' );
-			// Restore WooCommerce's default coercion for later tests.
-			add_filter( 'woocommerce_stock_amount', 'intval' );
+			remove_filter( 'poocommerce_stock_amount', 'floatval' );
+			// Restore PooCommerce's default coercion for later tests.
+			add_filter( 'poocommerce_stock_amount', 'intval' );
 		}
 	}
 
@@ -705,7 +705,7 @@ class WC_Admin_Tests_Reports_Products extends WC_Unit_Test_Case {
 
 	/**
 	 * Test that filters get properly parsed for CSV exports.
-	 * See: https://github.com/woocommerce/woocommerce-admin/issues/5503.
+	 * See: https://github.com/poocommerce/poocommerce-admin/issues/5503.
 	 *
 	 * @since 3.5.0
 	 */
@@ -790,8 +790,8 @@ class WC_Admin_Tests_Reports_Products extends WC_Unit_Test_Case {
 		WC_Helper_Reports::reset_stats_dbs();
 
 		// Enable Tax.
-		update_option( 'woocommerce_prices_include_tax', 'no' );
-		update_option( 'woocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_prices_include_tax', 'no' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
 
 		// Create a 10% tax rate.
 		$tax_rate = array(
@@ -898,8 +898,8 @@ class WC_Admin_Tests_Reports_Products extends WC_Unit_Test_Case {
 		WC_Helper_Reports::reset_stats_dbs();
 
 		// Enable Tax.
-		update_option( 'woocommerce_prices_include_tax', 'no' );
-		update_option( 'woocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_prices_include_tax', 'no' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
 
 		// Create a 10% tax rate.
 		$tax_rate = array(
@@ -1043,8 +1043,8 @@ class WC_Admin_Tests_Reports_Products extends WC_Unit_Test_Case {
 		WC_Helper_Reports::reset_stats_dbs();
 
 		// Enable Tax.
-		update_option( 'woocommerce_prices_include_tax', 'no' );
-		update_option( 'woocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_prices_include_tax', 'no' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
 
 		// Create a 10% tax rate for all countries.
 		$tax_rate = array(

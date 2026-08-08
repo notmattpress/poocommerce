@@ -35,7 +35,7 @@ describe( 'CompareFilter', () => {
 		};
 	} );
 	it( 'should render the example from the storybook', () => {
-		const path = '/story/woocommerce-admin-components-comparefilter--basic';
+		const path = '/story/poocommerce-admin-components-comparefilter--basic';
 
 		expect( function () {
 			render( <Basic path={ path } /> );

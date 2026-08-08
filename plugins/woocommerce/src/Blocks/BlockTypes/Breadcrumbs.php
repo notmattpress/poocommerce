@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\Utils\StyleAttributesUtils;
+use Automattic\PooCommerce\Blocks\Utils\StyleAttributesUtils;
 use WP_Block;
 
 /**
@@ -29,7 +29,7 @@ class Breadcrumbs extends AbstractBlock {
 	 */
 	protected function render( $attributes, $content, $block ) {
 		ob_start();
-		woocommerce_breadcrumb();
+		poocommerce_breadcrumb();
 		$breadcrumb = ob_get_clean();
 
 		if ( ! $breadcrumb ) {
@@ -44,7 +44,7 @@ class Breadcrumbs extends AbstractBlock {
 
 		$wrapper_attributes = get_block_wrapper_attributes(
 			array(
-				'class' => 'woocommerce wc-block-breadcrumbs ' . trim( $classes_and_styles['classes'] ),
+				'class' => 'poocommerce wc-block-breadcrumbs ' . trim( $classes_and_styles['classes'] ),
 				'style' => trim( $classes_and_styles['styles'] ),
 			)
 		);
@@ -128,7 +128,7 @@ class Breadcrumbs extends AbstractBlock {
 	 */
 	private function get_theme_font_size_classes_and_styles() {
 		$theme_font_size = wp_get_global_styles(
-			array( 'blocks', 'woocommerce/breadcrumbs', 'typography', 'fontSize' )
+			array( 'blocks', 'poocommerce/breadcrumbs', 'typography', 'fontSize' )
 		);
 
 		if ( ! is_string( $theme_font_size ) || '' === $theme_font_size ) {

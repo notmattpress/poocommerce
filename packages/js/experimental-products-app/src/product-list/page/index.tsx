@@ -42,14 +42,14 @@ export function ProductListPageHeader( {
 	toolbar,
 }: ProductListPageHeaderProps ) {
 	return (
-		<header className="woocommerce-product-list-page__header">
+		<header className="poocommerce-product-list-page__header">
 			<Stack direction="row" justify="space-between" gap="sm">
 				<Stack direction="row" gap="sm" align="center" justify="start">
-					<h2 className="woocommerce-product-list-page__header-title">
+					<h2 className="poocommerce-product-list-page__header-title">
 						{ title }
 					</h2>
 					<a
-						className="woocommerce-product-list-page__feedback-link"
+						className="poocommerce-product-list-page__feedback-link"
 						href={ FEEDBACK_URL }
 						target="_blank"
 						rel="noopener noreferrer"
@@ -57,7 +57,7 @@ export function ProductListPageHeader( {
 						<Badge intent="none">
 							{ __(
 								'Experimental · Share feedback',
-								'woocommerce'
+								'poocommerce'
 							) }
 						</Badge>
 					</a>
@@ -65,14 +65,14 @@ export function ProductListPageHeader( {
 				<Stack
 					direction="row"
 					gap="sm"
-					className="woocommerce-product-list-page__header-actions"
+					className="poocommerce-product-list-page__header-actions"
 					align="center"
 				>
 					{ actions }
 				</Stack>
 			</Stack>
 			{ subTitle && (
-				<p className="woocommerce-product-list-page__header-subtitle">
+				<p className="poocommerce-product-list-page__header-subtitle">
 					{ subTitle }
 				</p>
 			) }

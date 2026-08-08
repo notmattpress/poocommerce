@@ -2,9 +2,9 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Caches;
+namespace Automattic\PooCommerce\Caches;
 
-use Automattic\WooCommerce\Internal\Utilities\ProductUtil;
+use Automattic\PooCommerce\Internal\Utilities\ProductUtil;
 use WC_Product;
 use WP_Post;
 
@@ -15,7 +15,7 @@ use WP_Post;
  */
 class ProductCountCacheService {
 
-	public const BACKGROUND_EVENT_HOOK = 'woocommerce_refresh_product_count_cache';
+	public const BACKGROUND_EVENT_HOOK = 'poocommerce_refresh_product_count_cache';
 
 	/**
 	 * ProductCountCache instance.
@@ -61,7 +61,7 @@ class ProductCountCacheService {
 			add_action( 'deactivate_' . WC_PLUGIN_BASENAME, array( $this, 'unschedule_background_actions' ) );
 		}
 
-		// Until persistent counters reactivated, disable callbacks for woocommerce_new_product, transition_post_status, before_delete_post hooks.
+		// Until persistent counters reactivated, disable callbacks for poocommerce_new_product, transition_post_status, before_delete_post hooks.
 	}
 
 	/**

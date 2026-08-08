@@ -5,12 +5,12 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\VariationGallery;
+namespace Automattic\PooCommerce\Internal\VariationGallery;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Migrate legacy variation gallery meta into WooCommerce's native variation gallery prop.
+ * Migrate legacy variation gallery meta into PooCommerce's native variation gallery prop.
  */
 class Migration {
 

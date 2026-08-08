@@ -2,7 +2,7 @@
  * External dependencies
  */
 import type { Field } from '@wordpress/dataviews';
-import { getSetting } from '@woocommerce/settings';
+import { getSetting } from '@poocommerce/settings';
 
 /**
  * Internal dependencies
@@ -42,7 +42,7 @@ jest.mock( '@dnd-kit/react/sortable', () => ( {
 	} ),
 } ) );
 
-jest.mock( '@woocommerce/settings', () => ( {
+jest.mock( '@poocommerce/settings', () => ( {
 	CURRENCY: {
 		code: 'USD',
 		symbol: '$',

@@ -25,13 +25,13 @@ const program = new Command( 'profile' )
 	.argument( '<id>', 'Workflow Id or filename.' )
 	.option(
 		'-o --owner <owner>',
-		'Repository owner. Default: woocommerce',
-		'woocommerce'
+		'Repository owner. Default: poocommerce',
+		'poocommerce'
 	)
 	.option(
 		'-n --name <name>',
-		'Repository name. Default: woocommerce',
-		'woocommerce'
+		'Repository name. Default: poocommerce',
+		'poocommerce'
 	)
 	.option( '-s --show-steps' )
 	.action( async ( start, end, id, { owner, name, showSteps } ) => {

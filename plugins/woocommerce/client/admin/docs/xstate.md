@@ -2,7 +2,7 @@
 
 XState is a state management framework for Javascript applications. It is based on the concept of [finite state machines](https://en.wikipedia.org/wiki/Finite-state_machine) and statecharts.
 
-In order to help you visualize and debug the state machines within WooCommerce Core, XState provides a [visualizer](https://stately.ai/viz) that you can use in your browser.
+In order to help you visualize and debug the state machines within PooCommerce Core, XState provides a [visualizer](https://stately.ai/viz) that you can use in your browser.
 
 
 ## Enabling the visualizer

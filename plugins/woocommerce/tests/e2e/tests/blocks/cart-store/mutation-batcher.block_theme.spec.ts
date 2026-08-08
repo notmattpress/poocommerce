@@ -14,7 +14,7 @@
 /**
  * External dependencies
  */
-import { expect, test as base } from '@woocommerce/e2e-utils';
+import { expect, test as base } from '@poocommerce/e2e-utils';
 
 const test = base.extend( {} );
 
@@ -41,8 +41,8 @@ test.describe( 'Mutation Batcher', () => {
 			const unlockKey =
 				'I acknowledge that using a private store means my plugin will inevitably break on the next store release.';
 
-			await import( '@woocommerce/stores/woocommerce/cart' );
-			const { actions } = store( 'woocommerce', {}, { lock: unlockKey } );
+			await import( '@poocommerce/stores/poocommerce/cart' );
+			const { actions } = store( 'poocommerce', {}, { lock: unlockKey } );
 
 			// Each await breaks the microtick — each call becomes its own batch.
 			await actions.addCartItem( { id: 18, quantityToAdd: 1 } );
@@ -73,8 +73,8 @@ test.describe( 'Mutation Batcher', () => {
 			const unlockKey =
 				'I acknowledge that using a private store means my plugin will inevitably break on the next store release.';
 
-			await import( '@woocommerce/stores/woocommerce/cart' );
-			const { actions } = store( 'woocommerce', {}, { lock: unlockKey } );
+			await import( '@poocommerce/stores/poocommerce/cart' );
+			const { actions } = store( 'poocommerce', {}, { lock: unlockKey } );
 
 			// Batch 1: two sync calls
 			const p1 = actions.addCartItem( { id: 21, quantityToAdd: 1 } );
@@ -106,9 +106,9 @@ test.describe( 'Mutation Batcher', () => {
 			const unlockKey =
 				'I acknowledge that using a private store means my plugin will inevitably break on the next store release.';
 
-			await import( '@woocommerce/stores/woocommerce/cart' );
+			await import( '@poocommerce/stores/poocommerce/cart' );
 			const { actions, state } = store(
-				'woocommerce',
+				'poocommerce',
 				{},
 				{ lock: unlockKey }
 			);
@@ -212,9 +212,9 @@ test.describe( 'Mutation Batcher', () => {
 				const unlockKey =
 					'I acknowledge that using a private store means my plugin will inevitably break on the next store release.';
 
-				await import( '@woocommerce/stores/woocommerce/cart' );
+				await import( '@poocommerce/stores/poocommerce/cart' );
 				const { actions, state } = store(
-					'woocommerce',
+					'poocommerce',
 					{},
 					{ lock: unlockKey }
 				);
@@ -241,9 +241,9 @@ test.describe( 'Mutation Batcher', () => {
 				const unlockKey =
 					'I acknowledge that using a private store means my plugin will inevitably break on the next store release.';
 
-				await import( '@woocommerce/stores/woocommerce/cart' );
+				await import( '@poocommerce/stores/poocommerce/cart' );
 				const { actions, state } = store(
-					'woocommerce',
+					'poocommerce',
 					{},
 					{ lock: unlockKey }
 				);
@@ -317,9 +317,9 @@ test.describe( 'Mutation Batcher', () => {
 				const unlockKey =
 					'I acknowledge that using a private store means my plugin will inevitably break on the next store release.';
 
-				await import( '@woocommerce/stores/woocommerce/cart' );
+				await import( '@poocommerce/stores/poocommerce/cart' );
 				const { actions, state } = store(
-					'woocommerce',
+					'poocommerce',
 					{},
 					{ lock: unlockKey }
 				);
@@ -349,9 +349,9 @@ test.describe( 'Mutation Batcher', () => {
 				const unlockKey =
 					'I acknowledge that using a private store means my plugin will inevitably break on the next store release.';
 
-				await import( '@woocommerce/stores/woocommerce/cart' );
+				await import( '@poocommerce/stores/poocommerce/cart' );
 				const { actions, state } = store(
-					'woocommerce',
+					'poocommerce',
 					{},
 					{ lock: unlockKey }
 				);
@@ -422,9 +422,9 @@ test.describe( 'Mutation Batcher', () => {
 				const unlockKey =
 					'I acknowledge that using a private store means my plugin will inevitably break on the next store release.';
 
-				await import( '@woocommerce/stores/woocommerce/cart' );
+				await import( '@poocommerce/stores/poocommerce/cart' );
 				const { actions, state } = store(
-					'woocommerce',
+					'poocommerce',
 					{},
 					{ lock: unlockKey }
 				);
@@ -451,9 +451,9 @@ test.describe( 'Mutation Batcher', () => {
 				const unlockKey =
 					'I acknowledge that using a private store means my plugin will inevitably break on the next store release.';
 
-				await import( '@woocommerce/stores/woocommerce/cart' );
+				await import( '@poocommerce/stores/poocommerce/cart' );
 				const { actions, state } = store(
-					'woocommerce',
+					'poocommerce',
 					{},
 					{ lock: unlockKey }
 				);

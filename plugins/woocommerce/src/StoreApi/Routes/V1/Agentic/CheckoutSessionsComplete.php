@@ -1,23 +1,23 @@
 <?php
 declare(strict_types=1);
-namespace Automattic\WooCommerce\StoreApi\Routes\V1\Agentic;
+namespace Automattic\PooCommerce\StoreApi\Routes\V1\Agentic;
 
-use Automattic\WooCommerce\StoreApi\Routes\V1\AbstractCartRoute;
-use Automattic\WooCommerce\StoreApi\Routes\V1\Agentic\Enums\OrderMetaKey;
-use Automattic\WooCommerce\StoreApi\Routes\V1\Agentic\Enums\SessionKey;
-use Automattic\WooCommerce\Internal\Agentic\Enums\Specs\ErrorCode;
-use Automattic\WooCommerce\Internal\Agentic\Enums\Specs\CheckoutSessionStatus;
-use Automattic\WooCommerce\StoreApi\Routes\V1\Agentic\Error;
-use Automattic\WooCommerce\StoreApi\SchemaController;
-use Automattic\WooCommerce\StoreApi\Schemas\V1\AbstractSchema;
-use Automattic\WooCommerce\StoreApi\Schemas\V1\Agentic\CheckoutSessionSchema;
-use Automattic\WooCommerce\StoreApi\Utilities\CartController;
-use Automattic\WooCommerce\StoreApi\Utilities\CartTokenUtils;
-use Automattic\WooCommerce\StoreApi\Utilities\OrderController;
-use Automattic\WooCommerce\StoreApi\Utilities\AgenticCheckoutUtils;
-use Automattic\WooCommerce\StoreApi\Utilities\CheckoutTrait;
-use Automattic\WooCommerce\StoreApi\Payments\PaymentResult;
-use Automattic\WooCommerce\StoreApi\Exceptions\RouteException;
+use Automattic\PooCommerce\StoreApi\Routes\V1\AbstractCartRoute;
+use Automattic\PooCommerce\StoreApi\Routes\V1\Agentic\Enums\OrderMetaKey;
+use Automattic\PooCommerce\StoreApi\Routes\V1\Agentic\Enums\SessionKey;
+use Automattic\PooCommerce\Internal\Agentic\Enums\Specs\ErrorCode;
+use Automattic\PooCommerce\Internal\Agentic\Enums\Specs\CheckoutSessionStatus;
+use Automattic\PooCommerce\StoreApi\Routes\V1\Agentic\Error;
+use Automattic\PooCommerce\StoreApi\SchemaController;
+use Automattic\PooCommerce\StoreApi\Schemas\V1\AbstractSchema;
+use Automattic\PooCommerce\StoreApi\Schemas\V1\Agentic\CheckoutSessionSchema;
+use Automattic\PooCommerce\StoreApi\Utilities\CartController;
+use Automattic\PooCommerce\StoreApi\Utilities\CartTokenUtils;
+use Automattic\PooCommerce\StoreApi\Utilities\OrderController;
+use Automattic\PooCommerce\StoreApi\Utilities\AgenticCheckoutUtils;
+use Automattic\PooCommerce\StoreApi\Utilities\CheckoutTrait;
+use Automattic\PooCommerce\StoreApi\Payments\PaymentResult;
+use Automattic\PooCommerce\StoreApi\Exceptions\RouteException;
 
 /**
  * CheckoutSessionsComplete class.
@@ -102,7 +102,7 @@ class CheckoutSessionsComplete extends AbstractCartRoute {
 		return [
 			'args'   => [
 				'checkout_session_id' => [
-					'description' => __( 'The checkout session ID (Cart-Token JWT).', 'woocommerce' ),
+					'description' => __( 'The checkout session ID (Cart-Token JWT).', 'poocommerce' ),
 					'type'        => 'string',
 				],
 			],
@@ -127,15 +127,15 @@ class CheckoutSessionsComplete extends AbstractCartRoute {
 		return [
 			'buyer'        => $shared_params['buyer'],
 			'payment_data' => [
-				'description' => __( 'Payment data including token and provider.', 'woocommerce' ),
+				'description' => __( 'Payment data including token and provider.', 'poocommerce' ),
 				'type'        => 'object',
 				'properties'  => [
 					'token'           => [
-						'description' => __( 'Payment token from the payment provider.', 'woocommerce' ),
+						'description' => __( 'Payment token from the payment provider.', 'poocommerce' ),
 						'type'        => 'string',
 					],
 					'provider'        => [
-						'description' => __( 'Payment provider identifier.', 'woocommerce' ),
+						'description' => __( 'Payment provider identifier.', 'poocommerce' ),
 						'type'        => 'string',
 						'enum'        => [ 'stripe' ],
 					],
@@ -164,8 +164,8 @@ class CheckoutSessionsComplete extends AbstractCartRoute {
 		// Additional check for cart token validity.
 		if ( ! $this->has_cart_token( $request ) ) {
 			return new \WP_Error(
-				'woocommerce_rest_invalid_checkout_session',
-				__( 'Invalid or expired checkout session ID.', 'woocommerce' ),
+				'poocommerce_rest_invalid_checkout_session',
+				__( 'Invalid or expired checkout session ID.', 'poocommerce' ),
 				array( 'status' => 404 )
 			);
 		}
@@ -223,7 +223,7 @@ class CheckoutSessionsComplete extends AbstractCartRoute {
 		if ( CheckoutSessionStatus::READY_FOR_PAYMENT !== $current_status ) {
 			$message = sprintf(
 				/* translators: %s: current session status */
-				__( 'Checkout session is not ready for payment. Current status: %s', 'woocommerce' ),
+				__( 'Checkout session is not ready for payment. Current status: %s', 'poocommerce' ),
 				$current_status
 			);
 			return Error::invalid_request( ErrorCode::INVALID, $message )->to_rest_response();
@@ -333,7 +333,7 @@ class CheckoutSessionsComplete extends AbstractCartRoute {
 		 */
 		if ( 'failure' === $payment_result->status || 'error' === $payment_result->status ) {
 			// Clear IN_PROGRESS status to allow retry.
-			$message = $payment_result->message ?? __( 'Payment was declined.', 'woocommerce' );
+			$message = $payment_result->message ?? __( 'Payment was declined.', 'poocommerce' );
 			$message = wp_specialchars_decode( $message, ENT_QUOTES );
 			return Error::processing_error( ErrorCode::PAYMENT_DECLINED, $message )->to_rest_response();
 		}
@@ -392,8 +392,8 @@ class CheckoutSessionsComplete extends AbstractCartRoute {
 
 		if ( empty( $available_gateways ) ) {
 			throw new RouteException(
-				'woocommerce_checkout_session_no_payment_gateway_available',
-				esc_html__( 'No payment gateway available.', 'woocommerce' ),
+				'poocommerce_checkout_session_no_payment_gateway_available',
+				esc_html__( 'No payment gateway available.', 'poocommerce' ),
 				400
 			);
 		}
@@ -403,8 +403,8 @@ class CheckoutSessionsComplete extends AbstractCartRoute {
 
 		if ( null === $gateway ) {
 			throw new RouteException(
-				'woocommerce_checkout_session_no_agentic_payment_gateway_available',
-				esc_html__( 'No agentic-supported payment gateway available.', 'woocommerce' ),
+				'poocommerce_checkout_session_no_agentic_payment_gateway_available',
+				esc_html__( 'No agentic-supported payment gateway available.', 'poocommerce' ),
 				400
 			);
 		}

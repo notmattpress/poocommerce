@@ -1,4 +1,4 @@
 Significance: patch
 Type: update
 
-Keep WooCommerce Admin analytics and scheduled imports enabled without legacy feature flags.
+Keep PooCommerce Admin analytics and scheduled imports enabled without legacy feature flags.

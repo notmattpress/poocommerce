@@ -5,13 +5,13 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Admin\Settings;
+namespace Automattic\PooCommerce\Internal\Admin\Settings;
 
-use Automattic\WooCommerce\Admin\Features\Features;
-use Automattic\WooCommerce\Admin\PageController;
-use Automattic\WooCommerce\Admin\Settings\SettingsSectionRegistry;
-use Automattic\WooCommerce\Admin\Settings\SettingsSectionUIPageProviderInterface;
-use Automattic\WooCommerce\Admin\Settings\SettingsUIPageInterface;
+use Automattic\PooCommerce\Admin\Features\Features;
+use Automattic\PooCommerce\Admin\PageController;
+use Automattic\PooCommerce\Admin\Settings\SettingsSectionRegistry;
+use Automattic\PooCommerce\Admin\Settings\SettingsSectionUIPageProviderInterface;
+use Automattic\PooCommerce\Admin\Settings\SettingsUIPageInterface;
 
 /**
  * Resolves and caches Settings UI state for the active settings request.
@@ -129,7 +129,7 @@ class SettingsUIRequestContext {
 	 * @return SettingsUIRequestContext|null
 	 */
 	public static function get_current(): ?SettingsUIRequestContext {
-		if ( ! PageController::is_settings_page() || ! Features::is_enabled( 'settings-ui' ) || ! current_user_can( 'manage_woocommerce' ) ) {
+		if ( ! PageController::is_settings_page() || ! Features::is_enabled( 'settings-ui' ) || ! current_user_can( 'manage_poocommerce' ) ) {
 			return null;
 		}
 
@@ -175,7 +175,7 @@ class SettingsUIRequestContext {
 	}
 
 	/**
-	 * Get the current WooCommerce settings tab.
+	 * Get the current PooCommerce settings tab.
 	 *
 	 * @return string
 	 */
@@ -197,7 +197,7 @@ class SettingsUIRequestContext {
 	}
 
 	/**
-	 * Get the current WooCommerce settings section.
+	 * Get the current PooCommerce settings section.
 	 *
 	 * Reads $_REQUEST to match how the legacy $current_section global is derived,
 	 * so context resolution and legacy settings rendering agree on the section.
@@ -333,7 +333,7 @@ class SettingsUIRequestContext {
 
 		return '' !== $this->script_handles_failure_reason
 			? $this->script_handles_failure_reason
-			: __( 'Settings UI script handles could not be resolved.', 'woocommerce' );
+			: __( 'Settings UI script handles could not be resolved.', 'poocommerce' );
 	}
 
 	/**
@@ -414,7 +414,7 @@ class SettingsUIRequestContext {
 						__METHOD__,
 						sprintf(
 							/* translators: 1: settings page id, 2: settings section id, 3: failure reason. */
-							esc_html__( 'The native Settings UI page for page "%1$s" section "%2$s" could not be resolved. Falling back to the default settings adapter. Reason: %3$s', 'woocommerce' ),
+							esc_html__( 'The native Settings UI page for page "%1$s" section "%2$s" could not be resolved. Falling back to the default settings adapter. Reason: %3$s', 'poocommerce' ),
 							esc_html( $settings_page->get_id() ),
 							esc_html( self::get_section_key( $section ) ),
 							esc_html( get_class( $e ) . ': ' . $e->getMessage() )
@@ -452,7 +452,7 @@ class SettingsUIRequestContext {
 			if ( $e instanceof \Exception ) {
 				$this->script_handles_failure_reason = sprintf(
 					/* translators: %s: exception message. */
-					__( 'Settings UI script handles could not be resolved: %s', 'woocommerce' ),
+					__( 'Settings UI script handles could not be resolved: %s', 'poocommerce' ),
 					$e->getMessage()
 				);
 			}

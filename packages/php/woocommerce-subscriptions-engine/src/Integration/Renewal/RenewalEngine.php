@@ -13,7 +13,7 @@
  *
  * Completion is driven by the renewal order's paid state, not the charge call's return, so
  * synchronous and asynchronous gateways share one path: {@see self::complete_from_order()}
- * runs both as a post-charge reconciliation and from `woocommerce_payment_complete` / the
+ * runs both as a post-charge reconciliation and from `poocommerce_payment_complete` / the
  * failed transition, and every settlement lands through an atomic status compare-and-set so
  * it happens exactly once. A charge with no terminal outcome yet (an async method awaiting
  * confirmation) settles the cycle `processing`, which the lease never reclaims and the scan
@@ -22,12 +22,12 @@
  * The batch dispatcher drives renewals off the due-index; no per-contract Action
  * Scheduler rows exist.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine\Integration\Renewal
+ * @package Automattic\PooCommerce\SubscriptionsEngine\Integration\Renewal
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Integration\Renewal;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Integration\Renewal;
 
 use DateTimeImmutable;
 use DateTimeZone;
@@ -35,24 +35,24 @@ use InvalidArgumentException;
 use Throwable;
 use WC_Order;
 use WC_Order_Item_Product;
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\Contract;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\ContractStatus;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\Cycle;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\CycleStatus;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\Plan;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Gateway\GatewayCapabilities;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Renewal\RenewalCalculator;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Support\ScalarCoercion;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\ValueObject\BillingPolicy;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\ValueObject\PlanSnapshot;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\ValueObject\PricingPolicy;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Checkout\OrderLinkage;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Gateway\CapabilityRegistry;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage\ContractRepository;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage\DuplicateCycleException;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage\RenewalCandidate;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage\PlanRepository;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\Contract;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\ContractStatus;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\Cycle;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\CycleStatus;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\Plan;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Gateway\GatewayCapabilities;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Renewal\RenewalCalculator;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Support\ScalarCoercion;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\ValueObject\BillingPolicy;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\ValueObject\PlanSnapshot;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\ValueObject\PricingPolicy;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Checkout\OrderLinkage;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Gateway\CapabilityRegistry;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage\ContractRepository;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage\DuplicateCycleException;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage\RenewalCandidate;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage\PlanRepository;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -64,18 +64,18 @@ final class RenewalEngine {
 	/**
 	 * Action fired after a renewal order is created, with `( $renewal_order, $contract )`.
 	 */
-	public const RENEWAL_ORDER_CREATED_ACTION = 'woocommerce_subscriptions_engine_renewal_order_created';
+	public const RENEWAL_ORDER_CREATED_ACTION = 'poocommerce_subscriptions_engine_renewal_order_created';
 
 	/**
 	 * Action fired after a renewal cycle is billed and the schedule advanced, with
 	 * `( $contract, $cycle, $renewal_order )`.
 	 */
-	public const RENEWAL_BILLED_ACTION = 'woocommerce_subscriptions_engine_renewal_billed';
+	public const RENEWAL_BILLED_ACTION = 'poocommerce_subscriptions_engine_renewal_billed';
 
 	/**
 	 * Logger source tag.
 	 */
-	protected const LOG_SOURCE = 'woocommerce-subscriptions-engine';
+	protected const LOG_SOURCE = 'poocommerce-subscriptions-engine';
 
 	/**
 	 * Crash-recovery lease window, in seconds. When a cycle is claimed `pending` its
@@ -129,15 +129,15 @@ final class RenewalEngine {
 	 * run.
 	 */
 	public function register_hooks(): void {
-		add_action( 'woocommerce_payment_complete', array( $this, 'handle_order_settled' ), 10, 1 );
-		add_action( 'woocommerce_order_status_failed', array( $this, 'handle_order_settled' ), 10, 1 );
+		add_action( 'poocommerce_payment_complete', array( $this, 'handle_order_settled' ), 10, 1 );
+		add_action( 'poocommerce_order_status_failed', array( $this, 'handle_order_settled' ), 10, 1 );
 
 		// payment_complete() never fires for a renewal settled by hand - an admin marking a
 		// cash-on-delivery-style order processing/completed. Listen to the paid-status
 		// transitions too; the CAS settle keeps the double-fire (payment_complete plus its
 		// own status transition) idempotent.
 		foreach ( wc_get_is_paid_statuses() as $paid_status ) {
-			add_action( 'woocommerce_order_status_' . $paid_status, array( $this, 'handle_order_settled' ), 10, 1 );
+			add_action( 'poocommerce_order_status_' . $paid_status, array( $this, 'handle_order_settled' ), 10, 1 );
 		}
 	}
 
@@ -875,7 +875,7 @@ final class RenewalEngine {
 			array(
 				'customer_id' => $contract->get_customer_id(),
 				'status'      => OrderStatus::CHECKOUT_DRAFT,
-				'created_via' => 'woocommerce_subscriptions_engine_renewal',
+				'created_via' => 'poocommerce_subscriptions_engine_renewal',
 			)
 		);
 
@@ -1046,7 +1046,7 @@ final class RenewalEngine {
 	/**
 	 * Attempt the gateway charge for `$renewal_order`.
 	 *
-	 * Fires `woocommerce_subscriptions_engine_scheduled_payment_{gateway}` so the
+	 * Fires `poocommerce_subscriptions_engine_scheduled_payment_{gateway}` so the
 	 * registered gateway integration captures against the stored token; the engine does
 	 * not charge itself. A gateway that registers no handler leaves the order `pending`
 	 * (uncharged) - the safe state when it cannot actually charge.
@@ -1074,7 +1074,7 @@ final class RenewalEngine {
 			 * @param float    $amount        The amount to charge.
 			 * @param WC_Order $renewal_order The renewal order being charged.
 			 */
-			do_action( 'woocommerce_subscriptions_engine_scheduled_payment_' . $gateway_id, $amount, $renewal_order );
+			do_action( 'poocommerce_subscriptions_engine_scheduled_payment_' . $gateway_id, $amount, $renewal_order );
 		} catch ( Throwable $e ) {
 			// A throwing gateway handler must not leave the AS action in a retry-forever
 			// loop. Log and move on; the order stays pending for dunning to pick up.

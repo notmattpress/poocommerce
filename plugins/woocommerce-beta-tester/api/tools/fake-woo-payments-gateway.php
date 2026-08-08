@@ -1,6 +1,6 @@
 <?php
 /**
- * Fake WooCommercePayments account data for testing purposes.
+ * Fake PooCommercePayments account data for testing purposes.
  *
  * @package WC_Beta_Tester
  * */
@@ -8,7 +8,7 @@
 defined( 'ABSPATH' ) || exit();
 
 
-register_woocommerce_admin_test_helper_rest_route(
+register_poocommerce_admin_test_helper_rest_route(
 	'/tools/fake-wcpay-completion/v1',
 	'tools_get_fake_wcpay_completion_status',
 	array(
@@ -16,7 +16,7 @@ register_woocommerce_admin_test_helper_rest_route(
 	)
 );
 
-register_woocommerce_admin_test_helper_rest_route(
+register_poocommerce_admin_test_helper_rest_route(
 	'/tools/fake-wcpay-completion/v1',
 	'tools_set_fake_wcpay_completion',
 	array(
@@ -56,8 +56,8 @@ if (
 	'yes' === get_option( 'wc_beta_tester_fake_wcpay_completion', 'no' ) &&
 	class_exists( 'WC_Payment_Gateway_WCPay' )
 ) {
-	add_filter( 'woocommerce_payment_gateways', 'tools_fake_wcpay' );
-	add_filter( 'woocommerce_available_payment_gateways', 'tools_fake_wcpay' );
+	add_filter( 'poocommerce_payment_gateways', 'tools_fake_wcpay' );
+	add_filter( 'poocommerce_available_payment_gateways', 'tools_fake_wcpay' );
 
 	require_once dirname( __FILE__ ) . '/class-fake-wcpayments.php';
 
@@ -67,7 +67,7 @@ if (
 	 * @param array $gateways List of available payment gateways.
 	 */
 	function tools_fake_wcpay( $gateways ) {
-		$gateways['woocommerce_payments'] = new Fake_WCPayments();
+		$gateways['poocommerce_payments'] = new Fake_WCPayments();
 		return $gateways;
 	}
 }

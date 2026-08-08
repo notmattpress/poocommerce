@@ -8,9 +8,9 @@ wp_cli="wp-env --config .wp-env.e2e.json run cli"
 # Remove the database snapshot if it exists.
 $wp_cli -- rm -f blocks_e2e.sql
 # Run the main script in the container for better performance.
-$wp_cli -- bash wp-content/plugins/woocommerce/blocks-bin/playwright/scripts/index.sh
+$wp_cli -- bash wp-content/plugins/poocommerce/blocks-bin/playwright/scripts/index.sh
 # Disable the LYS Coming Soon banner.
-$wp_cli -- wp option update woocommerce_coming_soon 'no'
+$wp_cli -- wp option update poocommerce_coming_soon 'no'
 # Dismiss the site editor welcome guide for the admin user so it does not
 # block interactions during tests. The preference is stored in user meta and
 # will be included in the database snapshot that is restored between tests.

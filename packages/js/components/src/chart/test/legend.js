@@ -61,7 +61,7 @@ describe( 'Chart', () => {
 		const { container } = render(
 			<Chart data={ data } legendPosition="bottom" />
 		);
-		const footer = container.querySelector( '.woocommerce-chart__footer' );
+		const footer = container.querySelector( '.poocommerce-chart__footer' );
 		expect(
 			within( footer ).queryByText( '[D3Legend]' )
 		).toBeInTheDocument();
@@ -71,7 +71,7 @@ describe( 'Chart', () => {
 		const { container } = render(
 			<Chart data={ data } legendPosition="side" />
 		);
-		const body = container.querySelector( '.woocommerce-chart__body' );
+		const body = container.querySelector( '.poocommerce-chart__body' );
 		expect(
 			within( body ).queryByText( '[D3Legend]' )
 		).toBeInTheDocument();
@@ -81,7 +81,7 @@ describe( 'Chart', () => {
 		const { container } = render(
 			<Chart data={ data } legendPosition="top" />
 		);
-		const top = container.querySelector( '.woocommerce-chart__header' );
+		const top = container.querySelector( '.poocommerce-chart__header' );
 		expect( within( top ).queryByText( '[D3Legend]' ) ).toBeInTheDocument();
 	} );
 } );

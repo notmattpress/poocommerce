@@ -1,13 +1,13 @@
 <?php
 
-namespace Automattic\WooCommerce\Vendor\Sabberworm\CSS\CSSList;
+namespace Automattic\PooCommerce\Vendor\Sabberworm\CSS\CSSList;
 
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\OutputFormat;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\Parsing\ParserState;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\Parsing\SourceException;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\Property\Selector;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\RuleSet\DeclarationBlock;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\RuleSet\RuleSet;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\OutputFormat;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\Parsing\ParserState;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\Parsing\SourceException;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\Property\Selector;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\RuleSet\DeclarationBlock;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\RuleSet\RuleSet;
 
 /**
  * This class represents the root of a parsed CSS file. It contains all top-level CSS contents: mostly declaration

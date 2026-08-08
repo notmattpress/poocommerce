@@ -3,7 +3,7 @@ export const SetupProgress = ( {
 	setupCompletePercent,
 } ) => (
 	<svg
-		className="woocommerce-layout__activity-panel-tab-icon setup-progress"
+		className="poocommerce-layout__activity-panel-tab-icon setup-progress"
 		viewBox="0 0 25 25"
 	>
 		<path

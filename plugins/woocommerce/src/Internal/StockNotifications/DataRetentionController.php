@@ -2,9 +2,9 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\StockNotifications;
+namespace Automattic\PooCommerce\Internal\StockNotifications;
 
-use Automattic\WooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
+use Automattic\PooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
 
 /**
  * Controller for managing data retention of customer stock notifications.
@@ -20,13 +20,13 @@ class DataRetentionController {
 	 */
 	public function __construct() {
 		add_action( self::DAILY_TASK_HOOK, array( $this, 'do_wc_customer_stock_notifications_daily' ) );
-		add_action( 'update_option_woocommerce_customer_stock_notifications_unverified_deletions_days_threshold', array( $this, 'schedule_or_unschedule_daily_task' ), 10, 2 );
-		add_action( 'add_option_woocommerce_customer_stock_notifications_unverified_deletions_days_threshold', array( $this, 'schedule_or_unschedule_daily_task' ), 10, 2 );
+		add_action( 'update_option_poocommerce_customer_stock_notifications_unverified_deletions_days_threshold', array( $this, 'schedule_or_unschedule_daily_task' ), 10, 2 );
+		add_action( 'add_option_poocommerce_customer_stock_notifications_unverified_deletions_days_threshold', array( $this, 'schedule_or_unschedule_daily_task' ), 10, 2 );
 		register_deactivation_hook( WC_PLUGIN_FILE, array( $this, 'clear_daily_task' ) );
 	}
 
 	/**
-	 * Tasks to run when WooCommerce is installed or updated.
+	 * Tasks to run when PooCommerce is installed or updated.
 	 *
 	 * @return void
 	 */

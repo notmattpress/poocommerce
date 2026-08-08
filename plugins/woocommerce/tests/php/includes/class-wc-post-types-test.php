@@ -2,7 +2,7 @@
 /**
  * Tests for WC_Post_Types.
  *
- * @package WooCommerce\Tests\PostTypes
+ * @package PooCommerce\Tests\PostTypes
  */
 
 declare( strict_types = 1 );
@@ -25,7 +25,7 @@ class WC_Post_Types_Test extends WC_Unit_Test_Case {
 	public function setUp(): void {
 		parent::setUp();
 
-		$this->original_theme_support = get_option( 'current_theme_supports_woocommerce', '__missing__' );
+		$this->original_theme_support = get_option( 'current_theme_supports_poocommerce', '__missing__' );
 	}
 
 	/**
@@ -33,9 +33,9 @@ class WC_Post_Types_Test extends WC_Unit_Test_Case {
 	 */
 	public function tearDown(): void {
 		if ( '__missing__' === $this->original_theme_support ) {
-			delete_option( 'current_theme_supports_woocommerce' );
+			delete_option( 'current_theme_supports_poocommerce' );
 		} else {
-			update_option( 'current_theme_supports_woocommerce', $this->original_theme_support );
+			update_option( 'current_theme_supports_poocommerce', $this->original_theme_support );
 		}
 
 		parent::tearDown();
@@ -56,7 +56,7 @@ class WC_Post_Types_Test extends WC_Unit_Test_Case {
 		string $stored_support,
 		bool $expected
 	): void {
-		update_option( 'current_theme_supports_woocommerce', $stored_support );
+		update_option( 'current_theme_supports_poocommerce', $stored_support );
 
 		$method = new ReflectionMethod( WC_Post_Types::class, 'should_register_product_archive' );
 		$method->setAccessible( true );

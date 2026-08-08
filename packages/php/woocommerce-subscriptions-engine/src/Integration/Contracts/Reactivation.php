@@ -13,24 +13,24 @@
  * math is delegated to the clock-free {@see RenewalCalculator}, so the engine keeps a
  * single cadence path and Core takes no clock.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine\Integration\Contracts
+ * @package Automattic\PooCommerce\SubscriptionsEngine\Integration\Contracts
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Integration\Contracts;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Integration\Contracts;
 
 use DateTimeImmutable;
 use DateTimeZone;
 use DomainException;
 use RuntimeException;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\Contract;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\ContractStatus;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\Plan;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Renewal\RenewalCalculator;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\ValueObject\BillingPolicy;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage\ContractRepository;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage\PlanRepository;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\Contract;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\ContractStatus;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\Plan;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Renewal\RenewalCalculator;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\ValueObject\BillingPolicy;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage\ContractRepository;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage\PlanRepository;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -42,7 +42,7 @@ final class Reactivation {
 	/**
 	 * Action fired after a contract is reactivated, with `( $contract )`.
 	 */
-	public const CONTRACT_REACTIVATED_ACTION = 'woocommerce_subscriptions_engine_contract_reactivated';
+	public const CONTRACT_REACTIVATED_ACTION = 'poocommerce_subscriptions_engine_contract_reactivated';
 
 	/**
 	 * Bound on the forward roll so a pathological policy (or a very long-held contract)
@@ -53,7 +53,7 @@ final class Reactivation {
 	/**
 	 * Log source, matching the package's shared logging channel.
 	 */
-	private const LOG_SOURCE = 'woocommerce-subscriptions-engine';
+	private const LOG_SOURCE = 'poocommerce-subscriptions-engine';
 
 	/**
 	 * Contract repository.

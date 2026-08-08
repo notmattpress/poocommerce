@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { CURRENT_USER_IS_ADMIN } from '@woocommerce/settings';
+import { CURRENT_USER_IS_ADMIN } from '@poocommerce/settings';
 import { Children, cloneElement } from '@wordpress/element';
 // It is very important to export this directly from the build module to avoid introducing side-effects
 // from importing the index of the @wordpress/components package.

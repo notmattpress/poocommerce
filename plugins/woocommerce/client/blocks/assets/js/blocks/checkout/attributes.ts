@@ -1,9 +1,9 @@
 /**
  * External dependencies
  */
-import { getSetting } from '@woocommerce/settings';
+import { getSetting } from '@poocommerce/settings';
 
-export const blockName = 'woocommerce/checkout';
+export const blockName = 'poocommerce/checkout';
 export const blockAttributes = {
 	hasDarkControls: {
 		type: 'boolean',

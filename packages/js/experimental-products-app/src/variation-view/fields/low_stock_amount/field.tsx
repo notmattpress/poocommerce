@@ -12,7 +12,7 @@ import type { ProductEntityRecord } from '../types';
 
 export const fieldExtensions: Partial< Field< ProductEntityRecord > > = {
 	type: 'integer',
-	label: __( 'Low stock threshold', 'woocommerce' ),
+	label: __( 'Low stock threshold', 'poocommerce' ),
 	enableSorting: false,
 	filterBy: false,
 	isVisible: ( item ) => !! item.manage_stock,
@@ -28,7 +28,7 @@ export const fieldExtensions: Partial< Field< ProductEntityRecord > > = {
 				value={
 					value === null || value === undefined ? '' : String( value )
 				}
-				placeholder={ __( 'Store wide threshold', 'woocommerce' ) }
+				placeholder={ __( 'Store wide threshold', 'poocommerce' ) }
 				onChange={ ( next ) => {
 					const parsed =
 						next === '' ? undefined : parseInt( next, 10 );

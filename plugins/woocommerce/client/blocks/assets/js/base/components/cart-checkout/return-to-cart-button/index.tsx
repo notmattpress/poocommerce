@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { CART_URL } from '@woocommerce/block-settings';
+import { CART_URL } from '@poocommerce/block-settings';
 import { Icon, arrowLeft } from '@wordpress/icons';
 
 /**

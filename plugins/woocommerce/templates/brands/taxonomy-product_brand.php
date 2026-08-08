@@ -1,9 +1,9 @@
 <?php // phpcs:ignore WordPress.Files.FileName.NotHyphenatedLowercase for backwards compatibility.
 
 /**
- * Use the WooCommerce archive template for brand taxonomy pages
+ * Use the PooCommerce archive template for brand taxonomy pages
  *
- * @package WooCommerce\Templates
+ * @package PooCommerce\Templates
  * @version 9.4.0
  */
 

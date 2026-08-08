@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Api\Queries\Coupons;
+namespace Automattic\PooCommerce\Tests\Api\Queries\Coupons;
 
-use Automattic\WooCommerce\Api\Queries\Coupons\GetCoupon;
+use Automattic\PooCommerce\Api\Queries\Coupons\GetCoupon;
 use WC_Helper_Coupon;
 use WC_Unit_Test_Case;
 

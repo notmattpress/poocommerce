@@ -1,9 +1,9 @@
 // This is a copy of the Gutenberg styles with the selectors modified.
 // https://github.com/WordPress/gutenberg/blob/8aa998526984a3e9d547cd638840f8314bad9d81/packages/edit-site/src/components/site-hub/style.scss
-// See https://github.com/woocommerce/woocommerce/issues/48377
+// See https://github.com/poocommerce/poocommerce/issues/48377
 @import "_variables.scss";
 
-.woocommerce-edit-site-site-hub {
+.poocommerce-edit-site-site-hub {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -12,21 +12,21 @@
 	height: $grid-unit-70;
 }
 
-.woocommerce-edit-site-site-hub__actions {
+.poocommerce-edit-site-site-hub__actions {
 	flex-shrink: 0;
 }
 
-.woocommerce-edit-site-site-hub__view-mode-toggle-container {
+.poocommerce-edit-site-site-hub__view-mode-toggle-container {
 	height: $header-height;
 	width: $header-height;
 	flex-shrink: 0;
 
-	&.has-transparent-background .woocommerce-edit-site-layout__view-mode-toggle-icon {
+	&.has-transparent-background .poocommerce-edit-site-layout__view-mode-toggle-icon {
 		background: transparent;
 	}
 }
 
-.woocommerce-edit-site-site-hub__title .components-button {
+.poocommerce-edit-site-site-hub__title .components-button {
 	color: $gray-200;
 	display: block;
 	flex-grow: 1;
@@ -81,7 +81,7 @@
 	}
 }
 
-.woocommerce-edit-site-site-hub_toggle-command-center {
+.poocommerce-edit-site-site-hub_toggle-command-center {
 	color: $gray-200;
 
 	&:hover,

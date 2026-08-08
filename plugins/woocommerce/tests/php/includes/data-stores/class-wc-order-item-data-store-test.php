@@ -2,12 +2,12 @@
 
 declare( strict_types=1 );
 
-use Automattic\WooCommerce\Internal\CostOfGoodsSold\CogsAwareUnitTestSuiteTrait;
+use Automattic\PooCommerce\Internal\CostOfGoodsSold\CogsAwareUnitTestSuiteTrait;
 
 /**
  * Tests for the Abstract_WC_Order_Item_Type_Data_Store  class.
  *
- * @package WooCommerce\Tests\Order_Item
+ * @package PooCommerce\Tests\Order_Item
  */
 class WC_Order_Item_Data_Store_Test extends WC_Unit_Test_Case {
 
@@ -36,8 +36,8 @@ class WC_Order_Item_Data_Store_Test extends WC_Unit_Test_Case {
 		parent::tearDown();
 		$this->disable_cogs_feature();
 
-		remove_all_filters( 'woocommerce_save_order_item_cogs_value' );
-		remove_all_filters( 'woocommerce_load_order_item_cogs_value' );
+		remove_all_filters( 'poocommerce_save_order_item_cogs_value' );
+		remove_all_filters( 'poocommerce_load_order_item_cogs_value' );
 	}
 
 	/**
@@ -91,7 +91,7 @@ class WC_Order_Item_Data_Store_Test extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox It's possible to modify the Cost of Goods Sold value that gets persisted for an order item using the 'woocommerce_save_order_item_cogs_value' filter, returning null suppresses the saving.
+	 * @testdox It's possible to modify the Cost of Goods Sold value that gets persisted for an order item using the 'poocommerce_save_order_item_cogs_value' filter, returning null suppresses the saving.
 	 *
 	 * @testWith [56.78, "56.78"]
 	 *           [null, "12.34"]
@@ -110,7 +110,7 @@ class WC_Order_Item_Data_Store_Test extends WC_Unit_Test_Case {
 		$item->save();
 
 		add_filter(
-			'woocommerce_save_order_item_cogs_value',
+			'poocommerce_save_order_item_cogs_value',
 			function ( $cogs_value, $item ) use ( &$received_filter_cogs_value, &$received_filter_item, $filter_return_value ) {
 				$received_filter_cogs_value = $cogs_value;
 				$received_filter_item       = $item;
@@ -182,7 +182,7 @@ class WC_Order_Item_Data_Store_Test extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox It's possible to modify the Cost of Goods Sold value that gets loaded from the database for an order item using the 'woocommerce_load_order_item_cogs_value' filter.
+	 * @testdox It's possible to modify the Cost of Goods Sold value that gets loaded from the database for an order item using the 'poocommerce_load_order_item_cogs_value' filter.
 	 */
 	public function test_loaded_cogs_value_can_be_modified_via_filter() {
 		$received_filter_cogs_value = null;
@@ -195,7 +195,7 @@ class WC_Order_Item_Data_Store_Test extends WC_Unit_Test_Case {
 		self::$order_item_data_store->add_metadata( $item->get_id(), '_cogs_value', '12.34', true );
 
 		add_filter(
-			'woocommerce_load_order_item_cogs_value',
+			'poocommerce_load_order_item_cogs_value',
 			function ( $cogs_value, $item ) use ( &$received_filter_cogs_value, &$received_filter_item ) {
 				$received_filter_cogs_value = $cogs_value;
 				$received_filter_item       = $item;

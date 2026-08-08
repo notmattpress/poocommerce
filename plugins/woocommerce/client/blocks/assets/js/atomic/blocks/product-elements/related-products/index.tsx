@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { box as icon } from '@wordpress/icons';
-import { registerProductBlockType } from '@woocommerce/atomic-utils';
+import { registerProductBlockType } from '@poocommerce/atomic-utils';
 
 /**
  * Internal dependencies

@@ -2,10 +2,10 @@
 /**
  * Unit tests for WC_Discounts class.
  *
- * @package WooCommerce\Tests.
+ * @package PooCommerce\Tests.
  */
 
-use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Enums\OrderStatus;
 
 /**
   * Class WC_Discounts_Tests.
@@ -28,7 +28,7 @@ class WC_Discounts_Tests extends WC_Unit_Test_Case {
 	 * Helper method to create limited coupon.
 	 */
 	private function create_limited_coupon() {
-		update_option( 'woocommerce_hold_stock_minutes', 60 );
+		update_option( 'poocommerce_hold_stock_minutes', 60 );
 		return WC_Helper_Coupon::create_coupon(
 			'coupon4one' . microtime( true ) . wp_generate_password( 6, false, false ),
 			array(
@@ -131,7 +131,7 @@ class WC_Discounts_Tests extends WC_Unit_Test_Case {
 	 * @testdox is_coupon_valid rejects a coupon when the cart subtotal is below its minimum spend.
 	 */
 	public function test_is_coupon_valid_rejects_below_minimum_spend() {
-		update_option( 'woocommerce_calc_taxes', 'no' );
+		update_option( 'poocommerce_calc_taxes', 'no' );
 		WC()->cart->empty_cart();
 
 		$product = WC_Helper_Product::create_simple_product( true, array( 'regular_price' => 20 ) );
@@ -158,7 +158,7 @@ class WC_Discounts_Tests extends WC_Unit_Test_Case {
 	 * @testdox is_coupon_valid rejects a product/category-restricted coupon when the cart has none of its products.
 	 */
 	public function test_is_coupon_valid_rejects_non_included_product() {
-		update_option( 'woocommerce_calc_taxes', 'no' );
+		update_option( 'poocommerce_calc_taxes', 'no' );
 		WC()->cart->empty_cart();
 
 		$included = WC_Helper_Product::create_simple_product( true, array( 'regular_price' => 20 ) );
@@ -191,7 +191,7 @@ class WC_Discounts_Tests extends WC_Unit_Test_Case {
 	 * Closes the gap left by the e2e "excluded product/category" test, which never applied the excluded coupon.
 	 */
 	public function test_is_coupon_valid_rejects_excluded_product() {
-		update_option( 'woocommerce_calc_taxes', 'no' );
+		update_option( 'poocommerce_calc_taxes', 'no' );
 		WC()->cart->empty_cart();
 
 		$excluded = WC_Helper_Product::create_simple_product( true, array( 'regular_price' => 20 ) );
@@ -217,7 +217,7 @@ class WC_Discounts_Tests extends WC_Unit_Test_Case {
 	 * @testdox is_coupon_valid rejects an email-restricted coupon for a non-matching customer.
 	 */
 	public function test_is_coupon_valid_rejects_disallowed_email() {
-		update_option( 'woocommerce_calc_taxes', 'no' );
+		update_option( 'poocommerce_calc_taxes', 'no' );
 		WC()->cart->empty_cart();
 
 		$product = WC_Helper_Product::create_simple_product( true, array( 'regular_price' => 20 ) );
@@ -241,7 +241,7 @@ class WC_Discounts_Tests extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox The woocommerce_coupon_is_valid_for_product_ids filter can bypass or force product ID validation.
+	 * @testdox The poocommerce_coupon_is_valid_for_product_ids filter can bypass or force product ID validation.
 	 */
 	public function test_product_ids_validation_filter() {
 		$in_cart     = WC_Helper_Product::create_simple_product();
@@ -263,9 +263,9 @@ class WC_Discounts_Tests extends WC_Unit_Test_Case {
 		$this->assertWPError( $result, 'A coupon restricted to a product not in the cart should be invalid.' );
 		$this->assertStringContainsString( 'is not applicable to selected products', $result->get_error_message(), 'The failure should come from the product_ids check.' );
 
-		add_filter( 'woocommerce_coupon_is_valid_for_product_ids', '__return_true' );
+		add_filter( 'poocommerce_coupon_is_valid_for_product_ids', '__return_true' );
 		$this->assertTrue( $discounts->is_coupon_valid( $coupon ), 'Returning true from the filter should bypass the product ID restriction.' );
-		remove_filter( 'woocommerce_coupon_is_valid_for_product_ids', '__return_true' );
+		remove_filter( 'poocommerce_coupon_is_valid_for_product_ids', '__return_true' );
 
 		$this->assertWPError( $discounts->is_coupon_valid( $coupon ), 'Normal validation should resume once the filter is removed.' );
 
@@ -280,15 +280,15 @@ class WC_Discounts_Tests extends WC_Unit_Test_Case {
 		$valid_coupon->save();
 
 		$this->assertTrue( $discounts->is_coupon_valid( $valid_coupon ), 'A coupon restricted to a product in the cart should be valid.' );
-		add_filter( 'woocommerce_coupon_is_valid_for_product_ids', '__return_false' );
+		add_filter( 'poocommerce_coupon_is_valid_for_product_ids', '__return_false' );
 		$result = $discounts->is_coupon_valid( $valid_coupon );
 		$this->assertWPError( $result, 'Returning false from the filter should force rejection.' );
 		$this->assertStringContainsString( 'is not applicable to selected products', $result->get_error_message(), 'Forced rejection should surface the product_ids error.' );
-		remove_filter( 'woocommerce_coupon_is_valid_for_product_ids', '__return_false' );
+		remove_filter( 'poocommerce_coupon_is_valid_for_product_ids', '__return_false' );
 	}
 
 	/**
-	 * @testdox The woocommerce_coupon_is_valid_for_product_categories filter can bypass or force category validation.
+	 * @testdox The poocommerce_coupon_is_valid_for_product_categories filter can bypass or force category validation.
 	 */
 	public function test_product_categories_validation_filter() {
 		$product = WC_Helper_Product::create_simple_product();
@@ -310,9 +310,9 @@ class WC_Discounts_Tests extends WC_Unit_Test_Case {
 		$this->assertWPError( $result, 'A coupon restricted to a category none of the cart items belong to should be invalid.' );
 		$this->assertStringContainsString( 'is not applicable to selected products', $result->get_error_message(), 'The failure should come from the product_categories check.' );
 
-		add_filter( 'woocommerce_coupon_is_valid_for_product_categories', '__return_true' );
+		add_filter( 'poocommerce_coupon_is_valid_for_product_categories', '__return_true' );
 		$this->assertTrue( $discounts->is_coupon_valid( $coupon ), 'Returning true from the filter should bypass the category restriction.' );
-		remove_filter( 'woocommerce_coupon_is_valid_for_product_categories', '__return_true' );
+		remove_filter( 'poocommerce_coupon_is_valid_for_product_categories', '__return_true' );
 
 		// Force-reject a coupon that is otherwise valid for the cart's categories.
 		$stocked_term = wp_insert_term( 'coupon-cat-stocked-' . uniqid(), 'product_cat' );
@@ -333,15 +333,15 @@ class WC_Discounts_Tests extends WC_Unit_Test_Case {
 		$valid_coupon->save();
 
 		$this->assertTrue( $discounts->is_coupon_valid( $valid_coupon ), 'A coupon whose category is in the cart should be valid.' );
-		add_filter( 'woocommerce_coupon_is_valid_for_product_categories', '__return_false' );
+		add_filter( 'poocommerce_coupon_is_valid_for_product_categories', '__return_false' );
 		$result = $discounts->is_coupon_valid( $valid_coupon );
 		$this->assertWPError( $result, 'Returning false from the filter should force rejection.' );
 		$this->assertStringContainsString( 'is not applicable to selected products', $result->get_error_message(), 'Forced rejection should surface the product_categories error.' );
-		remove_filter( 'woocommerce_coupon_is_valid_for_product_categories', '__return_false' );
+		remove_filter( 'poocommerce_coupon_is_valid_for_product_categories', '__return_false' );
 	}
 
 	/**
-	 * @testdox The woocommerce_coupon_is_valid_for_excluded_items filter can bypass or force excluded item validation.
+	 * @testdox The poocommerce_coupon_is_valid_for_excluded_items filter can bypass or force excluded item validation.
 	 */
 	public function test_excluded_items_validation_filter() {
 		$product = WC_Helper_Product::create_simple_product();
@@ -363,9 +363,9 @@ class WC_Discounts_Tests extends WC_Unit_Test_Case {
 		$this->assertWPError( $result, 'A product coupon whose only cart item is excluded should be invalid.' );
 		$this->assertStringContainsString( 'is not applicable to selected products', $result->get_error_message(), 'The failure should come from the excluded_items check.' );
 
-		add_filter( 'woocommerce_coupon_is_valid_for_excluded_items', '__return_true' );
+		add_filter( 'poocommerce_coupon_is_valid_for_excluded_items', '__return_true' );
 		$this->assertTrue( $discounts->is_coupon_valid( $coupon ), 'Returning true from the filter should bypass the excluded item restriction.' );
-		remove_filter( 'woocommerce_coupon_is_valid_for_excluded_items', '__return_true' );
+		remove_filter( 'poocommerce_coupon_is_valid_for_excluded_items', '__return_true' );
 
 		// Force-reject an unrestricted product coupon that is otherwise valid for the cart items.
 		$valid_coupon = new WC_Coupon();
@@ -378,15 +378,15 @@ class WC_Discounts_Tests extends WC_Unit_Test_Case {
 		$valid_coupon->save();
 
 		$this->assertTrue( $discounts->is_coupon_valid( $valid_coupon ), 'An unrestricted product coupon should be valid for the cart.' );
-		add_filter( 'woocommerce_coupon_is_valid_for_excluded_items', '__return_false' );
+		add_filter( 'poocommerce_coupon_is_valid_for_excluded_items', '__return_false' );
 		$result = $discounts->is_coupon_valid( $valid_coupon );
 		$this->assertWPError( $result, 'Returning false from the filter should force rejection.' );
 		$this->assertStringContainsString( 'is not applicable to selected products', $result->get_error_message(), 'Forced rejection should surface the excluded_items error.' );
-		remove_filter( 'woocommerce_coupon_is_valid_for_excluded_items', '__return_false' );
+		remove_filter( 'poocommerce_coupon_is_valid_for_excluded_items', '__return_false' );
 	}
 
 	/**
-	 * @testdox The woocommerce_coupon_is_valid_for_sale_items filter can bypass or force sale item validation.
+	 * @testdox The poocommerce_coupon_is_valid_for_sale_items filter can bypass or force sale item validation.
 	 */
 	public function test_sale_items_validation_filter() {
 		$product = WC_Helper_Product::create_simple_product();
@@ -411,9 +411,9 @@ class WC_Discounts_Tests extends WC_Unit_Test_Case {
 		$this->assertWPError( $result, 'A coupon excluding sale items should be invalid when the cart holds a sale item.' );
 		$this->assertStringContainsString( 'is not valid for sale items', $result->get_error_message(), 'The failure should come from the sale_items check.' );
 
-		add_filter( 'woocommerce_coupon_is_valid_for_sale_items', '__return_true' );
+		add_filter( 'poocommerce_coupon_is_valid_for_sale_items', '__return_true' );
 		$this->assertTrue( $discounts->is_coupon_valid( $coupon ), 'Returning true from the filter should bypass the sale item restriction.' );
-		remove_filter( 'woocommerce_coupon_is_valid_for_sale_items', '__return_true' );
+		remove_filter( 'poocommerce_coupon_is_valid_for_sale_items', '__return_true' );
 
 		// Force-reject a sale-exclusion coupon that is otherwise valid (cart holds no sale items).
 		WC()->cart->empty_cart();
@@ -434,15 +434,15 @@ class WC_Discounts_Tests extends WC_Unit_Test_Case {
 		$valid_coupon->save();
 
 		$this->assertTrue( $discounts->is_coupon_valid( $valid_coupon ), 'A sale-exclusion coupon should be valid when the cart has no sale items.' );
-		add_filter( 'woocommerce_coupon_is_valid_for_sale_items', '__return_false' );
+		add_filter( 'poocommerce_coupon_is_valid_for_sale_items', '__return_false' );
 		$result = $discounts->is_coupon_valid( $valid_coupon );
 		$this->assertWPError( $result, 'Returning false from the filter should force rejection.' );
 		$this->assertStringContainsString( 'is not valid for sale items', $result->get_error_message(), 'Forced rejection should surface the sale_items error.' );
-		remove_filter( 'woocommerce_coupon_is_valid_for_sale_items', '__return_false' );
+		remove_filter( 'poocommerce_coupon_is_valid_for_sale_items', '__return_false' );
 	}
 
 	/**
-	 * @testdox The woocommerce_coupon_is_valid_for_excluded_product_ids filter can bypass excluded product ID validation.
+	 * @testdox The poocommerce_coupon_is_valid_for_excluded_product_ids filter can bypass excluded product ID validation.
 	 */
 	public function test_excluded_product_ids_validation_filter() {
 		$product = WC_Helper_Product::create_simple_product();
@@ -464,9 +464,9 @@ class WC_Discounts_Tests extends WC_Unit_Test_Case {
 		$this->assertWPError( $result, 'A coupon excluding the only cart product should be invalid.' );
 		$this->assertStringContainsString( 'is not applicable to the products', $result->get_error_message(), 'The failure should come from the excluded_product_ids check.' );
 
-		add_filter( 'woocommerce_coupon_is_valid_for_excluded_product_ids', '__return_true' );
+		add_filter( 'poocommerce_coupon_is_valid_for_excluded_product_ids', '__return_true' );
 		$this->assertTrue( $discounts->is_coupon_valid( $coupon ), 'Returning true from the filter should bypass the excluded product restriction.' );
-		remove_filter( 'woocommerce_coupon_is_valid_for_excluded_product_ids', '__return_true' );
+		remove_filter( 'poocommerce_coupon_is_valid_for_excluded_product_ids', '__return_true' );
 
 		// Force-reject when no cart item matched: the generic message is used, not a dangling empty list.
 		$unmatched_coupon = new WC_Coupon();
@@ -480,16 +480,16 @@ class WC_Discounts_Tests extends WC_Unit_Test_Case {
 		$unmatched_coupon->save();
 
 		$this->assertTrue( $discounts->is_coupon_valid( $unmatched_coupon ), 'A coupon excluding a product not in the cart is valid by default.' );
-		add_filter( 'woocommerce_coupon_is_valid_for_excluded_product_ids', '__return_false' );
+		add_filter( 'poocommerce_coupon_is_valid_for_excluded_product_ids', '__return_false' );
 		$result = $discounts->is_coupon_valid( $unmatched_coupon );
 		$this->assertWPError( $result, 'Returning false should reject even when no excluded product is in the cart.' );
 		$this->assertStringContainsString( 'is not applicable to selected products', $result->get_error_message(), 'With no matched products the generic message is used.' );
 		$this->assertStringNotContainsString( 'products: .', $result->get_error_message(), 'The rejection message should not contain an empty product list.' );
-		remove_filter( 'woocommerce_coupon_is_valid_for_excluded_product_ids', '__return_false' );
+		remove_filter( 'poocommerce_coupon_is_valid_for_excluded_product_ids', '__return_false' );
 	}
 
 	/**
-	 * @testdox The woocommerce_coupon_is_valid_for_excluded_product_categories filter can bypass or force excluded category validation.
+	 * @testdox The poocommerce_coupon_is_valid_for_excluded_product_categories filter can bypass or force excluded category validation.
 	 */
 	public function test_excluded_product_categories_validation_filter() {
 		$term    = wp_insert_term( 'excl-cat-' . uniqid(), 'product_cat' );
@@ -514,9 +514,9 @@ class WC_Discounts_Tests extends WC_Unit_Test_Case {
 		$this->assertWPError( $result, 'A coupon excluding the cart product\'s category should be invalid.' );
 		$this->assertStringContainsString( 'is not applicable to the categories', $result->get_error_message(), 'The failure should come from the excluded_product_categories check.' );
 
-		add_filter( 'woocommerce_coupon_is_valid_for_excluded_product_categories', '__return_true' );
+		add_filter( 'poocommerce_coupon_is_valid_for_excluded_product_categories', '__return_true' );
 		$this->assertTrue( $discounts->is_coupon_valid( $coupon ), 'Returning true from the filter should bypass the excluded category restriction.' );
-		remove_filter( 'woocommerce_coupon_is_valid_for_excluded_product_categories', '__return_true' );
+		remove_filter( 'poocommerce_coupon_is_valid_for_excluded_product_categories', '__return_true' );
 
 		// Force-reject when no cart item is in the excluded category: the generic message is used.
 		$unused_term      = wp_insert_term( 'excl-cat-unused-' . uniqid(), 'product_cat' );
@@ -531,10 +531,10 @@ class WC_Discounts_Tests extends WC_Unit_Test_Case {
 		$unmatched_coupon->save();
 
 		$this->assertTrue( $discounts->is_coupon_valid( $unmatched_coupon ), 'A coupon excluding a category not in the cart is valid by default.' );
-		add_filter( 'woocommerce_coupon_is_valid_for_excluded_product_categories', '__return_false' );
+		add_filter( 'poocommerce_coupon_is_valid_for_excluded_product_categories', '__return_false' );
 		$result = $discounts->is_coupon_valid( $unmatched_coupon );
 		$this->assertWPError( $result, 'Returning false should reject even when no excluded category is in the cart.' );
 		$this->assertStringContainsString( 'is not applicable to selected products', $result->get_error_message(), 'With no matched categories the generic message is used.' );
-		remove_filter( 'woocommerce_coupon_is_valid_for_excluded_product_categories', '__return_false' );
+		remove_filter( 'poocommerce_coupon_is_valid_for_excluded_product_categories', '__return_false' );
 	}
 }

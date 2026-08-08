@@ -3,18 +3,18 @@
  * Class for implementing migration from wp_posts and wp_postmeta to custom order tables.
  */
 
-namespace Automattic\WooCommerce\Database\Migrations\CustomOrderTable;
+namespace Automattic\PooCommerce\Database\Migrations\CustomOrderTable;
 
-use Automattic\WooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
-use Automattic\WooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
-use Automattic\WooCommerce\Utilities\ArrayUtil;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
+use Automattic\PooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
+use Automattic\PooCommerce\Utilities\ArrayUtil;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 
 /**
  * This is the main class used to perform the complete migration of orders
  * from the posts table to the custom orders table.
  *
- * @package Automattic\WooCommerce\Database\Migrations\CustomOrderTable
+ * @package Automattic\PooCommerce\Database\Migrations\CustomOrderTable
  */
 class PostsToOrdersMigrationController {
 
@@ -28,7 +28,7 @@ class PostsToOrdersMigrationController {
 	/**
 	 * Array of objects used to perform the migration.
 	 *
-	 * @var \Automattic\WooCommerce\Database\Migrations\TableMigrator[]
+	 * @var \Automattic\PooCommerce\Database\Migrations\TableMigrator[]
 	 */
 	private $all_migrators;
 

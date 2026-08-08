@@ -1,11 +1,11 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\OrderWithdrawal;
+namespace Automattic\PooCommerce\Tests\Internal\OrderWithdrawal;
 
-use Automattic\WooCommerce\Admin\Notes\Note;
-use Automattic\WooCommerce\Admin\Notes\Notes;
-use Automattic\WooCommerce\Internal\OrderWithdrawal\OrderWithdrawalFeatureHighlightNotification;
+use Automattic\PooCommerce\Admin\Notes\Note;
+use Automattic\PooCommerce\Admin\Notes\Notes;
+use Automattic\PooCommerce\Internal\OrderWithdrawal\OrderWithdrawalFeatureHighlightNotification;
 use WC_Unit_Test_Case;
 
 /**
@@ -13,12 +13,12 @@ use WC_Unit_Test_Case;
  */
 class OrderWithdrawalFeatureHighlightNotificationTest extends WC_Unit_Test_Case {
 
-	private const FEATURE_OPTION              = 'woocommerce_feature_order_withdrawal_enabled';
-	private const COMING_SOON_OPTION          = 'woocommerce_coming_soon';
-	private const ALLOWED_COUNTRIES_OPTION    = 'woocommerce_allowed_countries';
-	private const ALL_EXCEPT_COUNTRIES_OPTION = 'woocommerce_all_except_countries';
-	private const SPECIFIC_COUNTRIES_OPTION   = 'woocommerce_specific_allowed_countries';
-	private const MISSING_OPTION_MARK         = '__woocommerce_order_withdrawal_missing_option__';
+	private const FEATURE_OPTION              = 'poocommerce_feature_order_withdrawal_enabled';
+	private const COMING_SOON_OPTION          = 'poocommerce_coming_soon';
+	private const ALLOWED_COUNTRIES_OPTION    = 'poocommerce_allowed_countries';
+	private const ALL_EXCEPT_COUNTRIES_OPTION = 'poocommerce_all_except_countries';
+	private const SPECIFIC_COUNTRIES_OPTION   = 'poocommerce_specific_allowed_countries';
+	private const MISSING_OPTION_MARK         = '__poocommerce_order_withdrawal_missing_option__';
 
 	private const OPTION_NAMES = array(
 		self::FEATURE_OPTION,

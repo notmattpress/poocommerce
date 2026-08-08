@@ -1,4 +1,4 @@
-declare module '@woocommerce/settings' {
+declare module '@poocommerce/settings' {
 	export declare const CURRENCY: {
 		code: string;
 		precision: number;

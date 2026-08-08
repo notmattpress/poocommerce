@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { CURRENCY } from '@woocommerce/settings';
+import { CURRENCY } from '@poocommerce/settings';
 
 type CurrencyObject = {
 	code: string;

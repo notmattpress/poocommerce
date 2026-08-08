@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { STATES } from '@woocommerce/block-settings';
+import { STATES } from '@poocommerce/block-settings';
 
 /**
  * Internal dependencies

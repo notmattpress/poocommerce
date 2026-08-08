@@ -16,7 +16,7 @@ export const Item = forwardRef< HTMLDivElement, SearchableChipSelectItemProps >(
 			<BaseCombobox.Item
 				ref={ ref }
 				className={ clsx(
-					'woocommerce-searchable-chip-select__item',
+					'poocommerce-searchable-chip-select__item',
 					className
 				) }
 				{ ...restProps }

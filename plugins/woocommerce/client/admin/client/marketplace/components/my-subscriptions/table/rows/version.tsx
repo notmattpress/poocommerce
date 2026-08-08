@@ -4,7 +4,7 @@ interface VersionProps {
 
 export default function Version( props: VersionProps ) {
 	return (
-		<span className="woocommerce-marketplace__my-subscriptions-version">
+		<span className="poocommerce-marketplace__my-subscriptions-version">
 			{ props.span }
 		</span>
 	);

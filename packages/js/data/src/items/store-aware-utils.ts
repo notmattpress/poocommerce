@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { appendTimestamp, getCurrentDates } from '@woocommerce/date';
+import { appendTimestamp, getCurrentDates } from '@poocommerce/date';
 import { select as wpSelect } from '@wordpress/data';
 /**
  * Internal dependencies

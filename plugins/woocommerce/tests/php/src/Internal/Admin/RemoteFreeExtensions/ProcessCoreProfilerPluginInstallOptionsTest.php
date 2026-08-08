@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\RemoteFreeExtensions;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\RemoteFreeExtensions;
 
 use Mockery;
 use WC_Unit_Test_Case;
-use Automattic\WooCommerce\Internal\Admin\RemoteFreeExtensions\ProcessCoreProfilerPluginInstallOptions;
+use Automattic\PooCommerce\Internal\Admin\RemoteFreeExtensions\ProcessCoreProfilerPluginInstallOptions;
 
 /**
  * Class ProcessCoreProfilerPluginInstallOptionsTest

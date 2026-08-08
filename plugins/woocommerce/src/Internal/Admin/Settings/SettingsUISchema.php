@@ -5,9 +5,9 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Admin\Settings;
+namespace Automattic\PooCommerce\Internal\Admin\Settings;
 
-use Automattic\WooCommerce\Internal\Utilities\ArrayUtil;
+use Automattic\PooCommerce\Internal\Utilities\ArrayUtil;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -251,7 +251,7 @@ class SettingsUISchema {
 				__METHOD__,
 				sprintf(
 					/* translators: %s: comma-separated field ids. */
-					esc_html__( 'A Settings UI schema provider supplied non-string option, field, or visibility values that WooCommerce converted for compatibility: %s. Update the provider to supply string values.', 'woocommerce' ),
+					esc_html__( 'A Settings UI schema provider supplied non-string option, field, or visibility values that PooCommerce converted for compatibility: %s. Update the provider to supply string values.', 'poocommerce' ),
 					esc_html( implode( ', ', array_unique( $converted_fields ) ) )
 				),
 				'11.0.0'
@@ -515,7 +515,7 @@ class SettingsUISchema {
 		$class_names = isset( $setting['class'] ) && is_string( $setting['class'] ) ? explode( ' ', $setting['class'] ) : array();
 		if ( in_array( 'manage_stock_field', $class_names, true ) ) {
 			return array(
-				'controller' => 'woocommerce_manage_stock',
+				'controller' => 'poocommerce_manage_stock',
 				'value'      => true,
 			);
 		}

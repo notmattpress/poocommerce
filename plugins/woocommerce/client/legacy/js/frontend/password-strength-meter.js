@@ -66,7 +66,7 @@ jQuery( function ( $ ) {
 		 * @param {Object} field
 		 */
 		includeMeter: function ( wrapper, field ) {
-			var meter = wrapper.find( '.woocommerce-password-strength' );
+			var meter = wrapper.find( '.poocommerce-password-strength' );
 
 			if ( '' === field.val() ) {
 				meter.hide();
@@ -74,7 +74,7 @@ jQuery( function ( $ ) {
 				field.removeAttr( 'aria-describedby' );
 			} else if ( 0 === meter.length ) {
 				var meter =
-					'<div id="password_strength" class="woocommerce-password-strength" role="alert"></div>';
+					'<div id="password_strength" class="poocommerce-password-strength" role="alert"></div>';
 				var wrapper = field.parent();
 				// If the field is inside a password-input, inject the meter after the password-input.
 				if ( wrapper.is( '.password-input' ) ) {
@@ -98,10 +98,10 @@ jQuery( function ( $ ) {
 		 * @return {Int}
 		 */
 		checkPasswordStrength: function ( wrapper, field ) {
-			var meter = wrapper.find( '.woocommerce-password-strength' ),
-				hint = wrapper.find( '.woocommerce-password-hint' ),
+			var meter = wrapper.find( '.poocommerce-password-strength' ),
+				hint = wrapper.find( '.poocommerce-password-hint' ),
 				hint_html =
-					'<small class="woocommerce-password-hint">' +
+					'<small class="poocommerce-password-hint">' +
 					wc_password_strength_meter_params.i18n_password_hint +
 					'</small>',
 				strength = wp.passwordStrength.meter(

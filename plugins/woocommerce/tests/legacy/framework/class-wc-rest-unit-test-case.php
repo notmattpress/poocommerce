@@ -4,7 +4,7 @@
  *
  * Provides REST API specific methods and setup/teardown.
  *
- * @package WooCommerce\Tests
+ * @package PooCommerce\Tests
  * @since 3.0
  */
 
@@ -111,7 +111,7 @@ class WC_Lazy_REST_Server extends WP_Test_Spy_REST_Server {
 			WC_Unit_Test_Case::with_rest_route_context(
 				$route,
 				static function () {
-					// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
+					// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
 					do_action( 'rest_api_init' );
 				}
 			);
@@ -203,7 +203,7 @@ class WC_REST_Unit_Test_Case extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Establish WordPress REST defaults without registering WooCommerce routes.
+	 * Establish WordPress REST defaults without registering PooCommerce routes.
 	 */
 	private function initialize_rest_api_defaults(): void {
 		self::do_isolated_rest_api_init( array( 'rest_api_default_filters' ) );

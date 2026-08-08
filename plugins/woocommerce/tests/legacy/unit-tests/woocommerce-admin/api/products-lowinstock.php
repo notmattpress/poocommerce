@@ -2,11 +2,11 @@
 /**
  * Products REST API Test
  *
- * @package WooCommerce\Admin\Tests\API
+ * @package PooCommerce\Admin\Tests\API
  */
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Enums\ProductStatus;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Enums\ProductStatus;
 
 /**
  * WC Tests API ProductsLowInStock
@@ -110,7 +110,7 @@ class WC_Admin_Tests_API_ProductsLowInStock extends WC_REST_Unit_Test_Case {
 		wp_set_current_user( $this->user );
 
 		// Set global low stock amount.
-		update_option( 'woocommerce_notify_low_stock_amount', 5 );
+		update_option( 'poocommerce_notify_low_stock_amount', 5 );
 
 		// Create three products without custom low stock amounts.
 		$product1 = WC_Helper_Product::create_simple_product();

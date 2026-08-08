@@ -5,7 +5,7 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal;
+namespace Automattic\PooCommerce\Internal;
 
 use WC_Product;
 
@@ -16,7 +16,7 @@ use WC_Product;
  * The Action Scheduler events that update `_price` at the sale boundaries can run
  * late (up to one runner interval); until they do, the stored price disagrees with
  * the sale dates and the wrong price is shown and charged. The
- * `woocommerce_product_get_price` filter registered here returns the date-correct
+ * `poocommerce_product_get_price` filter registered here returns the date-correct
  * price for that window. It applies in 'view' context only and writes nothing, so
  * 'edit'-context reads (saves, CRUD, the product edit form, the boundary events)
  * and the stored `_price` are untouched.
@@ -32,7 +32,7 @@ class ScheduledSalePriceReconciler implements RegisterHooksInterface {
 	 * Register hooks and filters.
 	 */
 	public function register(): void {
-		add_filter( 'woocommerce_product_get_price', array( $this, 'reconcile_price' ), 99, 2 );
+		add_filter( 'poocommerce_product_get_price', array( $this, 'reconcile_price' ), 99, 2 );
 	}
 
 	/**
@@ -94,7 +94,7 @@ class ScheduledSalePriceReconciler implements RegisterHooksInterface {
 
 		// Pure date-window check, intentionally inline rather than calling is_on_sale() to
 		// avoid recursing through plugins that read get_price() from a
-		// woocommerce_product_is_on_sale callback.
+		// poocommerce_product_is_on_sale callback.
 		$now           = time();
 		$within_window = ! ( ( $date_from && $date_from->getTimestamp() > $now ) || ( $date_to && $date_to->getTimestamp() < $now ) );
 

@@ -1,11 +1,11 @@
 /**
  * External dependencies
  */
-import { COLLECTIONS_STORE_KEY as storeKey } from '@woocommerce/block-data';
+import { COLLECTIONS_STORE_KEY as storeKey } from '@poocommerce/block-data';
 import { useSelect } from '@wordpress/data';
 import { useRef } from '@wordpress/element';
-import { useShallowEqual, useThrowError } from '@woocommerce/base-hooks';
-import { isError } from '@woocommerce/types';
+import { useShallowEqual, useThrowError } from '@poocommerce/base-hooks';
+import { isError } from '@poocommerce/types';
 import { __ } from '@wordpress/i18n';
 
 /**
@@ -107,7 +107,7 @@ export const useCollection = < T >(
 							? ( error as { message: string } ).message
 							: __(
 									'Something went wrong while loading data.',
-									'woocommerce'
+									'poocommerce'
 							  );
 					throwError( new Error( message ) );
 				}

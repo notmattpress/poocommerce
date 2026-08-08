@@ -2,17 +2,17 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\EmailEditor\PersonalizationTags;
+namespace Automattic\PooCommerce\Internal\EmailEditor\PersonalizationTags;
 
-use Automattic\WooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tag;
-use Automattic\WooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tags_Registry;
-use Automattic\WooCommerce\Internal\EmailEditor\Integration;
+use Automattic\PooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tag;
+use Automattic\PooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tags_Registry;
+use Automattic\PooCommerce\Internal\EmailEditor\Integration;
 use WC_Email;
 
 /**
  * Provider for unsubscribe-link personalization tags.
  *
- * Exposes `woocommerce/email-unsubscribe-url` so any email class that
+ * Exposes `poocommerce/email-unsubscribe-url` so any email class that
  * implements `get_unsubscribe_url()` (currently only the checkout-recovery
  * email) can surface a signed unsubscribe link inside the block-editor
  * template without having to register its own tag.
@@ -34,9 +34,9 @@ class UnsubscribeTagsProvider extends AbstractTagProvider {
 	public function register_tags( Personalization_Tags_Registry $registry ): void {
 		$registry->register(
 			new Personalization_Tag(
-				__( 'Unsubscribe URL', 'woocommerce' ),
-				'woocommerce/email-unsubscribe-url',
-				__( 'Unsubscribe', 'woocommerce' ),
+				__( 'Unsubscribe URL', 'poocommerce' ),
+				'poocommerce/email-unsubscribe-url',
+				__( 'Unsubscribe', 'poocommerce' ),
 				function ( array $context ): string {
 					$wc_email = $context['wc_email'] ?? null;
 					if ( ! $wc_email instanceof WC_Email ) {

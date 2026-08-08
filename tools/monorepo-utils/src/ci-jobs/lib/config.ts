@@ -348,7 +348,7 @@ export interface TestJobConfig extends BaseJobConfig {
 	onlyForDependencies?: string[];
 
 	/**
-	 * Indicates whether the job consumes the shared WooCommerce plugin build
+	 * Indicates whether the job consumes the shared PooCommerce plugin build
 	 * instead of building the plugin from source in its own matrix entry.
 	 */
 	usesSharedPluginBuild?: boolean;

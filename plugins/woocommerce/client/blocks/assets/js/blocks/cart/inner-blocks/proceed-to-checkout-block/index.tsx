@@ -12,7 +12,7 @@ import { Edit, Save } from './edit';
 import './style.scss';
 import metadata from './block.json';
 
-registerBlockType( 'woocommerce/proceed-to-checkout-block', {
+registerBlockType( 'poocommerce/proceed-to-checkout-block', {
 	apiVersion: metadata.apiVersion,
 	title: metadata.title,
 	icon: {

@@ -1,14 +1,14 @@
 <?php
 declare( strict_types=1 );
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\RestApi\UnitTests\HPOSToggleTrait;
-use Automattic\WooCommerce\Tests\Helpers\MetaDataAssertionTrait;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Refunds\Controller as RefundsController;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Refunds\Schema\RefundPreviewSchema;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Refunds\Schema\RefundSchema;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Refunds\CollectionQuery;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Refunds\DataUtils;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\RestApi\UnitTests\HPOSToggleTrait;
+use Automattic\PooCommerce\Tests\Helpers\MetaDataAssertionTrait;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Refunds\Controller as RefundsController;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Refunds\Schema\RefundPreviewSchema;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Refunds\Schema\RefundSchema;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Refunds\CollectionQuery;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Refunds\DataUtils;
 
 /**
  * Refunds Controller tests for V4 REST API.
@@ -85,7 +85,7 @@ class WC_REST_Refunds_V4_Controller_Tests extends WC_REST_Unit_Test_Case {
 	}
 
 	/**
-	 * Delete WooCommerce class fixtures through their data stores.
+	 * Delete PooCommerce class fixtures through their data stores.
 	 */
 	public static function wpTearDownAfterClass(): void {
 		self::enable_direct_product_attribute_lookup_updates();
@@ -116,7 +116,7 @@ class WC_REST_Refunds_V4_Controller_Tests extends WC_REST_Unit_Test_Case {
 	 */
 	public static function enable_rest_api_v4_feature() {
 		add_filter(
-			'woocommerce_admin_features',
+			'poocommerce_admin_features',
 			function ( $features ) {
 				$features[] = 'rest-api-v4';
 				return $features;
@@ -129,7 +129,7 @@ class WC_REST_Refunds_V4_Controller_Tests extends WC_REST_Unit_Test_Case {
 	 */
 	public static function disable_rest_api_v4_feature() {
 		add_filter(
-			'woocommerce_admin_features',
+			'poocommerce_admin_features',
 			function ( $features ) {
 				$features = array_diff( $features, array( 'rest-api-v4' ) );
 				return $features;
@@ -1134,7 +1134,7 @@ class WC_REST_Refunds_V4_Controller_Tests extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_refunds_create_validation_error_under_refunding(): void {
 		// Enable tax calculations.
-		update_option( 'woocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
 
 		// Create a tax rate.
 		$tax_rate_id = WC_Tax::_insert_tax_rate(
@@ -1354,7 +1354,7 @@ class WC_REST_Refunds_V4_Controller_Tests extends WC_REST_Unit_Test_Case {
 	 * the 2DP rounded values that were used to build the original total.
 	 * This causes the base to be calculated as $50.01 instead of $50.00.
 	 *
-	 * @link https://github.com/woocommerce/woocommerce/issues/XXXXX
+	 * @link https://github.com/poocommerce/poocommerce/issues/XXXXX
 	 */
 	public function test_refunds_create_with_automatic_tax_extraction_rounding_precision(): void {
 		// Create three non-compound tax rates matching California-style setup.
@@ -1418,7 +1418,7 @@ class WC_REST_Refunds_V4_Controller_Tests extends WC_REST_Unit_Test_Case {
 			)
 		);
 
-		// Set taxes as they would be calculated by WooCommerce (forward calculation).
+		// Set taxes as they would be calculated by PooCommerce (forward calculation).
 		// County: 50 × 0.01 = 0.50.
 		// Special: 50 × 0.0325 = 1.625 → stored/displayed as 1.63.
 		// State: 50 × 0.0625 = 3.125 → stored/displayed as 3.13.
@@ -1955,10 +1955,10 @@ class WC_REST_Refunds_V4_Controller_Tests extends WC_REST_Unit_Test_Case {
 		// Capture original option values so we can restore them in finally —
 		// tearDown doesn't reset these globally and leakage breaks subsequent
 		// tests that assume the default tax config.
-		$original_calc_taxes         = get_option( 'woocommerce_calc_taxes', 'no' );
-		$original_prices_include_tax = get_option( 'woocommerce_prices_include_tax', 'no' );
-		update_option( 'woocommerce_calc_taxes', 'yes' );
-		update_option( 'woocommerce_prices_include_tax', 'no' );
+		$original_calc_taxes         = get_option( 'poocommerce_calc_taxes', 'no' );
+		$original_prices_include_tax = get_option( 'poocommerce_prices_include_tax', 'no' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_prices_include_tax', 'no' );
 
 		try {
 			$product = WC_Helper_Product::create_simple_product();
@@ -2029,8 +2029,8 @@ class WC_REST_Refunds_V4_Controller_Tests extends WC_REST_Unit_Test_Case {
 			$this->created_refunds[] = $data['id'];
 			$product->delete( true );
 		} finally {
-			update_option( 'woocommerce_calc_taxes', $original_calc_taxes );
-			update_option( 'woocommerce_prices_include_tax', $original_prices_include_tax );
+			update_option( 'poocommerce_calc_taxes', $original_calc_taxes );
+			update_option( 'poocommerce_prices_include_tax', $original_prices_include_tax );
 		}
 	}
 
@@ -2136,11 +2136,11 @@ class WC_REST_Refunds_V4_Controller_Tests extends WC_REST_Unit_Test_Case {
 			)
 		);
 
-		$original_calc_taxes         = get_option( 'woocommerce_calc_taxes', 'no' );
-		$original_prices_include_tax = get_option( 'woocommerce_prices_include_tax', 'no' );
-		update_option( 'woocommerce_calc_taxes', 'yes' );
+		$original_calc_taxes         = get_option( 'poocommerce_calc_taxes', 'no' );
+		$original_prices_include_tax = get_option( 'poocommerce_prices_include_tax', 'no' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
 		// Actually exercise a tax-inclusive store (the test name now matches reality).
-		update_option( 'woocommerce_prices_include_tax', 'yes' );
+		update_option( 'poocommerce_prices_include_tax', 'yes' );
 
 		try {
 			$dispatch_refund = function ( array $line_item_overrides ) use ( $tax_rate_id ): array {
@@ -2233,8 +2233,8 @@ class WC_REST_Refunds_V4_Controller_Tests extends WC_REST_Unit_Test_Case {
 			);
 			$this->assertEquals( '10.00', $data_simplified['line_items'][0]['refund_tax'][0]['refund_total'] );
 		} finally {
-			update_option( 'woocommerce_calc_taxes', $original_calc_taxes );
-			update_option( 'woocommerce_prices_include_tax', $original_prices_include_tax );
+			update_option( 'poocommerce_calc_taxes', $original_calc_taxes );
+			update_option( 'poocommerce_prices_include_tax', $original_prices_include_tax );
 		}
 	}
 
@@ -2610,9 +2610,9 @@ class WC_REST_Refunds_V4_Controller_Tests extends WC_REST_Unit_Test_Case {
 			)
 		);
 
-		$original_prices_include_tax = get_option( 'woocommerce_prices_include_tax', 'no' );
-		update_option( 'woocommerce_calc_taxes', 'yes' );
-		update_option( 'woocommerce_prices_include_tax', 'yes' );
+		$original_prices_include_tax = get_option( 'poocommerce_prices_include_tax', 'no' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_prices_include_tax', 'yes' );
 
 		try {
 			// Product price $110 entered tax-inclusive; tax-exclusive total is $100, tax is $10.
@@ -2683,7 +2683,7 @@ class WC_REST_Refunds_V4_Controller_Tests extends WC_REST_Unit_Test_Case {
 			$product->delete( true );
 		} finally {
 			// Restore the option so a failing assertion above can't leak state into other tests.
-			update_option( 'woocommerce_prices_include_tax', $original_prices_include_tax );
+			update_option( 'poocommerce_prices_include_tax', $original_prices_include_tax );
 		}
 	}
 
@@ -2890,10 +2890,10 @@ class WC_REST_Refunds_V4_Controller_Tests extends WC_REST_Unit_Test_Case {
 			)
 		);
 
-		$original_calc_taxes         = get_option( 'woocommerce_calc_taxes', 'no' );
-		$original_prices_include_tax = get_option( 'woocommerce_prices_include_tax', 'no' );
-		update_option( 'woocommerce_calc_taxes', 'yes' );
-		update_option( 'woocommerce_prices_include_tax', 'yes' );
+		$original_calc_taxes         = get_option( 'poocommerce_calc_taxes', 'no' );
+		$original_prices_include_tax = get_option( 'poocommerce_prices_include_tax', 'no' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_prices_include_tax', 'yes' );
 
 		try {
 			$product = WC_Helper_Product::create_simple_product();
@@ -2961,8 +2961,8 @@ class WC_REST_Refunds_V4_Controller_Tests extends WC_REST_Unit_Test_Case {
 
 			$product->delete( true );
 		} finally {
-			update_option( 'woocommerce_calc_taxes', $original_calc_taxes );
-			update_option( 'woocommerce_prices_include_tax', $original_prices_include_tax );
+			update_option( 'poocommerce_calc_taxes', $original_calc_taxes );
+			update_option( 'poocommerce_prices_include_tax', $original_prices_include_tax );
 		}
 	}
 
@@ -3184,10 +3184,10 @@ class WC_REST_Refunds_V4_Controller_Tests extends WC_REST_Unit_Test_Case {
 			)
 		);
 
-		$original_calc_taxes         = get_option( 'woocommerce_calc_taxes', 'no' );
-		$original_prices_include_tax = get_option( 'woocommerce_prices_include_tax', 'no' );
-		update_option( 'woocommerce_calc_taxes', 'yes' );
-		update_option( 'woocommerce_prices_include_tax', 'no' );
+		$original_calc_taxes         = get_option( 'poocommerce_calc_taxes', 'no' );
+		$original_prices_include_tax = get_option( 'poocommerce_prices_include_tax', 'no' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_prices_include_tax', 'no' );
 
 		try {
 			$product = WC_Helper_Product::create_simple_product();
@@ -3254,8 +3254,8 @@ class WC_REST_Refunds_V4_Controller_Tests extends WC_REST_Unit_Test_Case {
 
 			$product->delete( true );
 		} finally {
-			update_option( 'woocommerce_calc_taxes', $original_calc_taxes );
-			update_option( 'woocommerce_prices_include_tax', $original_prices_include_tax );
+			update_option( 'poocommerce_calc_taxes', $original_calc_taxes );
+			update_option( 'poocommerce_prices_include_tax', $original_prices_include_tax );
 		}
 	}
 
@@ -3354,7 +3354,7 @@ class WC_REST_Refunds_V4_Controller_Tests extends WC_REST_Unit_Test_Case {
 		$line_item = reset( $items );
 
 		$captured_line_items = null;
-		$hook                = 'woocommerce_rest_api_v4_refunds_created';
+		$hook                = 'poocommerce_rest_api_v4_refunds_created';
 		$listener            = function ( $refund, $captured_request ) use ( &$captured_line_items ) {
 			$captured_line_items = $captured_request['line_items'];
 		};
@@ -3414,7 +3414,7 @@ class WC_REST_Refunds_V4_Controller_Tests extends WC_REST_Unit_Test_Case {
 		$line_item = reset( $items );
 
 		$captured_line_items = null;
-		$hook                = 'woocommerce_rest_api_v4_refunds_created';
+		$hook                = 'poocommerce_rest_api_v4_refunds_created';
 		$listener            = function ( $refund, $captured_request ) use ( &$captured_line_items ) {
 			$captured_line_items = $captured_request['line_items'];
 		};
@@ -3518,8 +3518,8 @@ class WC_REST_Refunds_V4_Controller_Tests extends WC_REST_Unit_Test_Case {
 			)
 		);
 
-		update_option( 'woocommerce_calc_taxes', 'yes' );
-		update_option( 'woocommerce_prices_include_tax', 'no' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_prices_include_tax', 'no' );
 
 		$product = WC_Helper_Product::create_simple_product();
 		$product->set_regular_price( 100.00 );
@@ -3899,8 +3899,8 @@ class WC_REST_Refunds_V4_Controller_Tests extends WC_REST_Unit_Test_Case {
 	 * @testdox Auto-compute follows the store's zero-decimal price setting and the final unit refund absorbs the rounding remainder.
 	 */
 	public function test_refunds_create_auto_compute_zero_decimal_currency(): void {
-		$original_decimals = get_option( 'woocommerce_price_num_decimals', '2' );
-		update_option( 'woocommerce_price_num_decimals', '0' );
+		$original_decimals = get_option( 'poocommerce_price_num_decimals', '2' );
+		update_option( 'poocommerce_price_num_decimals', '0' );
 
 		try {
 			list( $order, $item ) = $this->create_order_with_exact_line( 3, 1000.00, 1000.00, 1000.00 );
@@ -3949,7 +3949,7 @@ class WC_REST_Refunds_V4_Controller_Tests extends WC_REST_Unit_Test_Case {
 			$order_b = wc_get_order( $order_b->get_id() );
 			$this->assertEqualsWithDelta( 0.0, (float) $order_b->get_remaining_refund_amount(), 0.001, 'The final 334 refund consumes the 1000 line exactly — no stranded currency unit' );
 		} finally {
-			update_option( 'woocommerce_price_num_decimals', $original_decimals );
+			update_option( 'poocommerce_price_num_decimals', $original_decimals );
 		}
 	}
 
@@ -3971,10 +3971,10 @@ class WC_REST_Refunds_V4_Controller_Tests extends WC_REST_Unit_Test_Case {
 			)
 		);
 
-		$original_calc_taxes         = get_option( 'woocommerce_calc_taxes', 'no' );
-		$original_prices_include_tax = get_option( 'woocommerce_prices_include_tax', 'no' );
-		update_option( 'woocommerce_calc_taxes', 'yes' );
-		update_option( 'woocommerce_prices_include_tax', 'no' );
+		$original_calc_taxes         = get_option( 'poocommerce_calc_taxes', 'no' );
+		$original_prices_include_tax = get_option( 'poocommerce_prices_include_tax', 'no' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_prices_include_tax', 'no' );
 
 		try {
 			// 3 × 9.99 = 29.97, tax at 8.875% = 2.66, grand total 32.63.
@@ -4032,8 +4032,8 @@ class WC_REST_Refunds_V4_Controller_Tests extends WC_REST_Unit_Test_Case {
 			$order = wc_get_order( $order->get_id() );
 			$this->assertEqualsWithDelta( 0.0, (float) $order->get_remaining_refund_amount(), 0.001, 'Qty-2 then qty-1 must leave nothing unrefunded' );
 		} finally {
-			update_option( 'woocommerce_calc_taxes', $original_calc_taxes );
-			update_option( 'woocommerce_prices_include_tax', $original_prices_include_tax );
+			update_option( 'poocommerce_calc_taxes', $original_calc_taxes );
+			update_option( 'poocommerce_prices_include_tax', $original_prices_include_tax );
 		}
 	}
 
@@ -4055,10 +4055,10 @@ class WC_REST_Refunds_V4_Controller_Tests extends WC_REST_Unit_Test_Case {
 			)
 		);
 
-		$original_calc_taxes         = get_option( 'woocommerce_calc_taxes', 'no' );
-		$original_prices_include_tax = get_option( 'woocommerce_prices_include_tax', 'no' );
-		update_option( 'woocommerce_calc_taxes', 'yes' );
-		update_option( 'woocommerce_prices_include_tax', 'yes' );
+		$original_calc_taxes         = get_option( 'poocommerce_calc_taxes', 'no' );
+		$original_prices_include_tax = get_option( 'poocommerce_prices_include_tax', 'no' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_prices_include_tax', 'yes' );
 
 		try {
 			// 5 × 9.99 displayed (tax-inclusive) = 49.95; stored net 40.61 + 9.34 tax.
@@ -4092,8 +4092,8 @@ class WC_REST_Refunds_V4_Controller_Tests extends WC_REST_Unit_Test_Case {
 			$this->assertEqualsWithDelta( 19.98, (float) $response->get_data()['total'], 0.001, 'Qty-2 refund must equal 2 × the displayed 9.99 price' );
 			$this->created_refunds[] = $response->get_data()['id'];
 		} finally {
-			update_option( 'woocommerce_calc_taxes', $original_calc_taxes );
-			update_option( 'woocommerce_prices_include_tax', $original_prices_include_tax );
+			update_option( 'poocommerce_calc_taxes', $original_calc_taxes );
+			update_option( 'poocommerce_prices_include_tax', $original_prices_include_tax );
 		}
 	}
 
@@ -4128,10 +4128,10 @@ class WC_REST_Refunds_V4_Controller_Tests extends WC_REST_Unit_Test_Case {
 			)
 		);
 
-		$original_calc_taxes         = get_option( 'woocommerce_calc_taxes', 'no' );
-		$original_prices_include_tax = get_option( 'woocommerce_prices_include_tax', 'no' );
-		update_option( 'woocommerce_calc_taxes', 'yes' );
-		update_option( 'woocommerce_prices_include_tax', 'no' );
+		$original_calc_taxes         = get_option( 'poocommerce_calc_taxes', 'no' );
+		$original_prices_include_tax = get_option( 'poocommerce_prices_include_tax', 'no' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_prices_include_tax', 'no' );
 
 		try {
 			// 3 × 50 = 150; GST 5% = 7.50; compound PST 7% of 157.50 = 11.03; grand total 168.53.
@@ -4170,8 +4170,8 @@ class WC_REST_Refunds_V4_Controller_Tests extends WC_REST_Unit_Test_Case {
 			}
 			$this->assertEqualsWithDelta( 112.35, (float) $line['refund_total'] + $tax_sum, 0.001, 'Net + per-rate taxes must reassemble the tax-inclusive amount' );
 		} finally {
-			update_option( 'woocommerce_calc_taxes', $original_calc_taxes );
-			update_option( 'woocommerce_prices_include_tax', $original_prices_include_tax );
+			update_option( 'poocommerce_calc_taxes', $original_calc_taxes );
+			update_option( 'poocommerce_prices_include_tax', $original_prices_include_tax );
 		}
 	}
 
@@ -4484,7 +4484,7 @@ class WC_REST_Refunds_V4_Controller_Tests extends WC_REST_Unit_Test_Case {
 		);
 
 		// Force whole-number currency precision deterministically. update_option on
-		// woocommerce_price_num_decimals does not reliably propagate to
+		// poocommerce_price_num_decimals does not reliably propagate to
 		// wc_get_price_decimals() within a single request in the test environment.
 		$zero_decimals = static function () {
 			return 0;
@@ -4717,9 +4717,9 @@ class WC_REST_Refunds_V4_Controller_Tests extends WC_REST_Unit_Test_Case {
 			)
 		);
 
-		$original_prices_include_tax = get_option( 'woocommerce_prices_include_tax', 'no' );
-		update_option( 'woocommerce_calc_taxes', 'yes' );
-		update_option( 'woocommerce_prices_include_tax', 'yes' );
+		$original_prices_include_tax = get_option( 'poocommerce_prices_include_tax', 'no' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_prices_include_tax', 'yes' );
 
 		try {
 			$product = WC_Helper_Product::create_simple_product();
@@ -4789,7 +4789,7 @@ class WC_REST_Refunds_V4_Controller_Tests extends WC_REST_Unit_Test_Case {
 
 			$product->delete( true );
 		} finally {
-			update_option( 'woocommerce_prices_include_tax', $original_prices_include_tax );
+			update_option( 'poocommerce_prices_include_tax', $original_prices_include_tax );
 		}
 	}
 

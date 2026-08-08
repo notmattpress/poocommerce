@@ -1,6 +1,6 @@
 # Block Registration for Email Editor
 
-This guide explains how to register WordPress blocks to support email rendering in the WooCommerce Email Editor. The email editor extends WordPress Gutenberg blocks with email-specific rendering capabilities, allowing blocks to generate HTML that is compatible with email clients.
+This guide explains how to register WordPress blocks to support email rendering in the PooCommerce Email Editor. The email editor extends WordPress Gutenberg blocks with email-specific rendering capabilities, allowing blocks to generate HTML that is compatible with email clients.
 
 ## Table of Contents
 
@@ -21,7 +21,7 @@ This guide explains how to register WordPress blocks to support email rendering 
 
 ## Overview
 
-The WooCommerce Email Editor allows WordPress blocks to be rendered in email-compatible HTML. To make a block compatible with email rendering, you need to:
+The PooCommerce Email Editor allows WordPress blocks to be rendered in email-compatible HTML. To make a block compatible with email rendering, you need to:
 
 1. **Enable email support** by setting `supports.email = true` in the block configuration
 2. **Provide an email render callback** that generates email-compatible HTML
@@ -141,9 +141,9 @@ For more complex blocks, you can create a dedicated renderer class that extends 
 
 namespace My_Plugin\Email\Renderer;
 
-use Automattic\WooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks\Abstract_Block_Renderer;
-use Automattic\WooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Rendering_Context;
-use Automattic\WooCommerce\EmailEditor\Integrations\Utils\Table_Wrapper_Helper;
+use Automattic\PooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks\Abstract_Block_Renderer;
+use Automattic\PooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Rendering_Context;
+use Automattic\PooCommerce\EmailEditor\Integrations\Utils\Table_Wrapper_Helper;
 
 /**
  * Email renderer for custom block.
@@ -216,7 +216,7 @@ public function render( string $block_content, array $parsed_block, Rendering_Co
 Email clients have limited CSS support, so using table-based layouts is recommended. The `Table_Wrapper_Helper` provides utilities for creating email-compatible table structures:
 
 ```php
-use Automattic\WooCommerce\EmailEditor\Integrations\Utils\Table_Wrapper_Helper;
+use Automattic\PooCommerce\EmailEditor\Integrations\Utils\Table_Wrapper_Helper;
 
 // Basic table wrapper
 $html = Table_Wrapper_Helper::render_table_wrapper( $content );

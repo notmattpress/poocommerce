@@ -3,7 +3,7 @@
  */
 import { getCurrencyObject, formatCurrency } from './currency';
 
-jest.mock( '@woocommerce/settings', () => ( {
+jest.mock( '@poocommerce/settings', () => ( {
 	CURRENCY: {
 		code: 'USD',
 		symbol: '$',
@@ -15,7 +15,7 @@ jest.mock( '@woocommerce/settings', () => ( {
 } ) );
 
 const getCurrencyMock = () =>
-	jest.requireMock( '@woocommerce/settings' ).CURRENCY;
+	jest.requireMock( '@poocommerce/settings' ).CURRENCY;
 
 describe( 'getCurrencyObject', () => {
 	afterEach( () => {

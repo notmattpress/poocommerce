@@ -3,7 +3,7 @@
  */
 import { __ } from '@wordpress/i18n';
 import { createInterpolateElement } from '@wordpress/element';
-import { UpgradeDowngradeNotice } from '@woocommerce/editor-components/upgrade-downgrade-notice';
+import { UpgradeDowngradeNotice } from '@poocommerce/editor-components/upgrade-downgrade-notice';
 
 /**
  * Internal dependencies
@@ -20,23 +20,23 @@ export const UpgradeNotice = ( {
 	const notice = showAddToCartWithOptionsCompatibilityNotice
 		? __(
 				'The classic Product Image Gallery block is not compatible with the Add to Cart + Options block in this template. Switch to the new Product Gallery block for a better experience.',
-				'woocommerce'
+				'poocommerce'
 		  )
 		: createInterpolateElement(
 				__(
 					'Upgrade to the <strongText /> for more flexibility.',
-					'woocommerce'
+					'poocommerce'
 				),
 				{
 					strongText: (
 						<strong>
-							{ __( `Product Gallery block`, 'woocommerce' ) }
+							{ __( `Product Gallery block`, 'poocommerce' ) }
 						</strong>
 					),
 				}
 		  );
 
-	const buttonLabel = __( 'Use the Product Gallery block', 'woocommerce' );
+	const buttonLabel = __( 'Use the Product Gallery block', 'poocommerce' );
 
 	return (
 		<UpgradeDowngradeNotice

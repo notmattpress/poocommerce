@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Api\Infrastructure;
+namespace Automattic\PooCommerce\Api\Infrastructure;
 
-use Automattic\WooCommerce\Api\Infrastructure\Schema\ResolveInfo;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\ArgumentNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\FieldNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\FragmentDefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\FragmentSpreadNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\InlineFragmentNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\SelectionSetNode;
+use Automattic\PooCommerce\Api\Infrastructure\Schema\ResolveInfo;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\ArgumentNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\FieldNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\FragmentDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\FragmentSpreadNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\InlineFragmentNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\SelectionSetNode;
 
 /**
  * Extracts a unified query info tree from a GraphQL ResolveInfo.
@@ -177,10 +177,10 @@ class QueryInfoExtractor {
 	private static function resolve_argument_value( ArgumentNode $arg, array $variable_values ): mixed {
 		$value_node = $arg->value;
 
-		if ( $value_node instanceof \Automattic\WooCommerce\Vendor\GraphQL\Language\AST\VariableNode ) {
+		if ( $value_node instanceof \Automattic\PooCommerce\Vendor\GraphQL\Language\AST\VariableNode ) {
 			return $variable_values[ $value_node->name->value ] ?? null;
 		}
 
-		return \Automattic\WooCommerce\Vendor\GraphQL\Utils\AST::valueFromASTUntyped( $value_node, $variable_values );
+		return \Automattic\PooCommerce\Vendor\GraphQL\Utils\AST::valueFromASTUntyped( $value_node, $variable_values );
 	}
 }

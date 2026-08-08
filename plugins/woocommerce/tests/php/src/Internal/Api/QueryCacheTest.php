@@ -1,12 +1,12 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Api;
+namespace Automattic\PooCommerce\Tests\Internal\Api;
 
-use Automattic\WooCommerce\Api\Infrastructure\Main;
-use Automattic\WooCommerce\Internal\Api\QueryCache;
-use Automattic\WooCommerce\Internal\Api\OpcacheFileExpiry;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\DocumentNode;
+use Automattic\PooCommerce\Api\Infrastructure\Main;
+use Automattic\PooCommerce\Internal\Api\QueryCache;
+use Automattic\PooCommerce\Internal\Api\OpcacheFileExpiry;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\DocumentNode;
 use WC_Unit_Test_Case;
 
 /**
@@ -52,7 +52,7 @@ class QueryCacheTest extends WC_Unit_Test_Case {
 	public function tearDown(): void {
 		delete_option( Main::OPTION_OBJECT_CACHE_ENABLED );
 		delete_option( Main::OPTION_OPCACHE_ENABLED );
-		remove_all_filters( 'woocommerce_graphql_opcache_cache_dir' );
+		remove_all_filters( 'poocommerce_graphql_opcache_cache_dir' );
 		foreach ( $this->temp_dirs_to_clean as $dir ) {
 			$this->rrmdir( $dir );
 		}
@@ -366,7 +366,7 @@ class QueryCacheTest extends WC_Unit_Test_Case {
 		$this->temp_files_to_clean[] = $not_a_dir;
 
 		add_filter(
-			'woocommerce_graphql_opcache_cache_dir',
+			'poocommerce_graphql_opcache_cache_dir',
 			static function () use ( $not_a_dir ) {
 				return $not_a_dir;
 			}
@@ -433,7 +433,7 @@ class QueryCacheTest extends WC_Unit_Test_Case {
 		mkdir( $dir, 0700, true );
 
 		add_filter(
-			'woocommerce_graphql_opcache_cache_dir',
+			'poocommerce_graphql_opcache_cache_dir',
 			static function () use ( $dir ) {
 				return $dir;
 			}

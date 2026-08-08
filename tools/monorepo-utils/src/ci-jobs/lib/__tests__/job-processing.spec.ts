@@ -1076,8 +1076,8 @@ describe( 'Job Processing', () => {
 
 			const jobs = await createJobsForChanges(
 				{
-					name: '@woocommerce/plugin-woocommerce',
-					path: 'plugins/woocommerce',
+					name: '@poocommerce/plugin-poocommerce',
+					path: 'plugins/poocommerce',
 					ciConfig: {
 						jobs: [
 							{
@@ -1099,7 +1099,7 @@ describe( 'Job Processing', () => {
 					dependencies: [],
 				},
 				{
-					'@woocommerce/plugin-woocommerce': [ 'test.js' ],
+					'@poocommerce/plugin-poocommerce': [ 'test.js' ],
 				},
 				{}
 			);
@@ -1113,8 +1113,8 @@ describe( 'Job Processing', () => {
 
 			const jobs = await createJobsForChanges(
 				{
-					name: '@woocommerce/plugin-woocommerce',
-					path: 'plugins/woocommerce',
+					name: '@poocommerce/plugin-poocommerce',
+					path: 'plugins/poocommerce',
 					ciConfig: {
 						jobs: [
 							{
@@ -1135,7 +1135,7 @@ describe( 'Job Processing', () => {
 					dependencies: [],
 				},
 				{
-					'@woocommerce/plugin-woocommerce': [ 'test.js' ],
+					'@poocommerce/plugin-poocommerce': [ 'test.js' ],
 				},
 				{}
 			);

@@ -3,7 +3,7 @@
  * Handles product form section related methods.
  */
 
-namespace Automattic\WooCommerce\Internal\Admin\ProductForm;
+namespace Automattic\PooCommerce\Internal\Admin\ProductForm;
 
 /**
  * Section class.
@@ -33,7 +33,7 @@ class Section extends Component {
 			throw new \Exception(
 				sprintf(
 				/* translators: 1: Missing arguments list. */
-					esc_html__( 'You are missing required arguments of WooCommerce ProductForm Section: %1$s', 'woocommerce' ),
+					esc_html__( 'You are missing required arguments of PooCommerce ProductForm Section: %1$s', 'poocommerce' ),
 					join( ', ', $missing_arguments )
 				)
 			);

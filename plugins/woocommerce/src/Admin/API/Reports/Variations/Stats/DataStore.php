@@ -3,14 +3,14 @@
  * API\Reports\Products\Stats\DataStore class file.
  */
 
-namespace Automattic\WooCommerce\Admin\API\Reports\Variations\Stats;
+namespace Automattic\PooCommerce\Admin\API\Reports\Variations\Stats;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\API\Reports\Variations\DataStore as VariationsDataStore;
-use Automattic\WooCommerce\Admin\API\Reports\DataStoreInterface;
-use Automattic\WooCommerce\Admin\API\Reports\TimeInterval;
-use Automattic\WooCommerce\Admin\API\Reports\StatsDataStoreTrait;
+use Automattic\PooCommerce\Admin\API\Reports\Variations\DataStore as VariationsDataStore;
+use Automattic\PooCommerce\Admin\API\Reports\DataStoreInterface;
+use Automattic\PooCommerce\Admin\API\Reports\TimeInterval;
+use Automattic\PooCommerce\Admin\API\Reports\StatsDataStoreTrait;
 
 /**
  * API\Reports\Variations\Stats\DataStore.
@@ -77,7 +77,7 @@ class DataStore extends VariationsDataStore implements DataStoreInterface {
 		$products_from_clause       = '';
 		$where_subquery             = array();
 		$order_product_lookup_table = self::get_db_table_name();
-		$order_item_meta_table      = $wpdb->prefix . 'woocommerce_order_itemmeta';
+		$order_item_meta_table      = $wpdb->prefix . 'poocommerce_order_itemmeta';
 
 		$included_products = $this->get_included_products( $query_args );
 		if ( $included_products ) {
@@ -138,7 +138,7 @@ class DataStore extends VariationsDataStore implements DataStoreInterface {
 	 * @return boolean
 	 */
 	protected function should_exclude_simple_products( array $query_args ) {
-		return apply_filters( 'experimental_woocommerce_analytics_variations_stats_should_exclude_simple_products', true, $query_args );
+		return apply_filters( 'experimental_poocommerce_analytics_variations_stats_should_exclude_simple_products', true, $query_args );
 	}
 
 	/**
@@ -224,7 +224,7 @@ class DataStore extends VariationsDataStore implements DataStoreInterface {
 		$totals[0]['segments'] = $segmenter->get_totals_segments( $totals_query, $table_name );
 
 		if ( null === $totals ) {
-			return new \WP_Error( 'woocommerce_analytics_variations_stats_result_failed', __( 'Sorry, fetching revenue data failed.', 'woocommerce' ) );
+			return new \WP_Error( 'poocommerce_analytics_variations_stats_result_failed', __( 'Sorry, fetching revenue data failed.', 'poocommerce' ) );
 		}
 
 		$this->interval_query->add_sql_clause( 'order_by', $this->get_sql_clause( 'order_by' ) );
@@ -242,7 +242,7 @@ class DataStore extends VariationsDataStore implements DataStoreInterface {
 		/* phpcs:enable */
 
 		if ( null === $intervals ) {
-			return new \WP_Error( 'woocommerce_analytics_variations_stats_result_failed', __( 'Sorry, fetching revenue data failed.', 'woocommerce' ) );
+			return new \WP_Error( 'poocommerce_analytics_variations_stats_result_failed', __( 'Sorry, fetching revenue data failed.', 'poocommerce' ) );
 		}
 
 		$totals = (object) $this->cast_numbers( $totals[0] );

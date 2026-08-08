@@ -112,11 +112,11 @@ describe( 'SettingsPaymentsBacs', () => {
 
 		it( 'uses the business location set on the Payments settings screen', () => {
 			setWcSettings( {
-				woocommerce_payments_nox_profile: {
+				poocommerce_payments_nox_profile: {
 					business_country_code: 'TN',
 				},
 				preloadSettings: {
-					general: { woocommerce_default_country: 'US:CA' },
+					general: { poocommerce_default_country: 'US:CA' },
 				},
 			} );
 
@@ -130,7 +130,7 @@ describe( 'SettingsPaymentsBacs', () => {
 		it( "falls back to the store's base country, without its state suffix", () => {
 			setWcSettings( {
 				preloadSettings: {
-					general: { woocommerce_default_country: 'US:CA' },
+					general: { poocommerce_default_country: 'US:CA' },
 				},
 			} );
 
@@ -143,11 +143,11 @@ describe( 'SettingsPaymentsBacs', () => {
 
 		it( 'ignores locations that are stored empty', () => {
 			setWcSettings( {
-				woocommerce_payments_nox_profile: {
+				poocommerce_payments_nox_profile: {
 					business_country_code: '',
 				},
 				preloadSettings: {
-					general: { woocommerce_default_country: '' },
+					general: { poocommerce_default_country: '' },
 				},
 			} );
 
@@ -160,11 +160,11 @@ describe( 'SettingsPaymentsBacs', () => {
 
 		it( 'ignores locations that are not strings', () => {
 			setWcSettings( {
-				woocommerce_payments_nox_profile: {
+				poocommerce_payments_nox_profile: {
 					business_country_code: { country: 'TN' },
 				},
 				preloadSettings: {
-					general: { woocommerce_default_country: true },
+					general: { poocommerce_default_country: true },
 				},
 			} );
 
@@ -177,13 +177,13 @@ describe( 'SettingsPaymentsBacs', () => {
 
 		it( 'falls through an unusable business location to the store', () => {
 			setWcSettings( {
-				woocommerce_payments_nox_profile: {
+				poocommerce_payments_nox_profile: {
 					business_country_code: { country: 'TN' },
 				},
 				preloadSettings: {
 					// Deliberately not US, so this cannot be confused with
 					// the last-resort fallback at the end of the chain.
-					general: { woocommerce_default_country: 'GB' },
+					general: { poocommerce_default_country: 'GB' },
 				},
 			} );
 
@@ -216,7 +216,7 @@ describe( 'SettingsPaymentsBacs', () => {
 		const { container } = render( <SettingsPaymentsBacs /> );
 
 		expect(
-			container.querySelectorAll( '.woocommerce-field-placeholder' )
+			container.querySelectorAll( '.poocommerce-field-placeholder' )
 				.length
 		).toBeGreaterThan( 0 );
 		expect( screen.queryByLabelText( 'Title' ) ).not.toBeInTheDocument();
@@ -267,7 +267,7 @@ describe( 'SettingsPaymentsBacs', () => {
 		} );
 
 		expect( updateOptions ).toHaveBeenCalledWith( {
-			woocommerce_bacs_accounts: [
+			poocommerce_bacs_accounts: [
 				{
 					account_name: 'Main account',
 					account_number: '12345678',

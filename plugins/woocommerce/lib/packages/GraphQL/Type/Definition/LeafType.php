@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\GraphQL\Type\Definition;
+namespace Automattic\PooCommerce\Vendor\GraphQL\Type\Definition;
 
-use Automattic\WooCommerce\Vendor\GraphQL\Error\Error;
-use Automattic\WooCommerce\Vendor\GraphQL\Error\SerializationError;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\Node;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\ValueNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\Error;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\SerializationError;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\Node;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\ValueNode;
 
 /*
 export type GraphQLLeafType =
@@ -42,7 +42,7 @@ interface LeafType
     public function parseValue($value);
 
     /**
-     * Parses an externally provided literal value (hardcoded in Automattic\WooCommerce\Vendor\GraphQL query) to use as an input.
+     * Parses an externally provided literal value (hardcoded in Automattic\PooCommerce\Vendor\GraphQL query) to use as an input.
      *
      * Should throw an exception with a client-friendly message on invalid value nodes, @see ClientAware.
      *

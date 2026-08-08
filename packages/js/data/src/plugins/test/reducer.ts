@@ -60,7 +60,7 @@ describe( 'plugins reducer', () => {
 			},
 			{
 				type: TYPES.UPDATE_ACTIVE_PLUGINS,
-				active: [ 'woocommerce-services' ],
+				active: [ 'poocommerce-services' ],
 			} as Actions
 		);
 
@@ -71,7 +71,7 @@ describe( 'plugins reducer', () => {
 		/* eslint-enable dot-notation */
 
 		expect( state.active ).toHaveLength( 2 );
-		expect( state.active[ 1 ] ).toBe( 'woocommerce-services' );
+		expect( state.active[ 1 ] ).toBe( 'poocommerce-services' );
 	} );
 
 	it( 'should handle UPDATE_INSTALLED_PLUGINS with replace', () => {
@@ -108,7 +108,7 @@ describe( 'plugins reducer', () => {
 			},
 			{
 				type: TYPES.UPDATE_INSTALLED_PLUGINS,
-				installed: [ 'woocommerce-services' ],
+				installed: [ 'poocommerce-services' ],
 			} as Actions
 		);
 
@@ -119,7 +119,7 @@ describe( 'plugins reducer', () => {
 		/* eslint-enable dot-notation */
 
 		expect( state.installed ).toHaveLength( 2 );
-		expect( state.installed[ 1 ] ).toBe( 'woocommerce-services' );
+		expect( state.installed[ 1 ] ).toBe( 'poocommerce-services' );
 	} );
 
 	it( 'should handle SET_IS_REQUESTING', () => {

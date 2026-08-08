@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { PlainExpressPaymentMethods } from '@woocommerce/types';
+import { PlainExpressPaymentMethods } from '@poocommerce/types';
 
 /**
  * Internal dependencies

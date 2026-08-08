@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Abilities\REST;
+namespace Automattic\PooCommerce\Tests\Internal\Abilities\REST;
 
-use Automattic\WooCommerce\Internal\Abilities\REST\RestAbilityFactory;
+use Automattic\PooCommerce\Internal\Abilities\REST\RestAbilityFactory;
 use WC_Unit_Test_Case;
 
 /**
@@ -58,7 +58,7 @@ class RestAbilityFactoryTest extends WC_Unit_Test_Case {
 		$this->original_wp_abilities_api_categories_init_action_count = $wp_actions['wp_abilities_api_categories_init'] ?? null;
 
 		if ( ! function_exists( 'wp_register_ability' ) ) {
-			$abilities_bootstrap = WP_PLUGIN_DIR . '/woocommerce/vendor/wordpress/abilities-api/includes/bootstrap.php';
+			$abilities_bootstrap = WP_PLUGIN_DIR . '/poocommerce/vendor/wordpress/abilities-api/includes/bootstrap.php';
 			if ( file_exists( $abilities_bootstrap ) ) {
 				require_once $abilities_bootstrap;
 			}
@@ -155,14 +155,14 @@ class RestAbilityFactoryTest extends WC_Unit_Test_Case {
 			$category = wp_register_ability_category(
 				$category_id,
 				array(
-					'label'       => 'WooCommerce REST API',
-					'description' => 'REST API operations for WooCommerce resources.',
+					'label'       => 'PooCommerce REST API',
+					'description' => 'REST API operations for PooCommerce resources.',
 				)
 			);
 		};
 
 		add_action( 'wp_abilities_api_categories_init', $callback );
-		do_action( 'wp_abilities_api_categories_init' ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment -- Test bootstrap for Abilities API registration.
+		do_action( 'wp_abilities_api_categories_init' ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment -- Test bootstrap for Abilities API registration.
 		remove_action( 'wp_abilities_api_categories_init', $callback );
 
 		if ( null !== $category ) {
@@ -242,14 +242,14 @@ class RestAbilityFactoryTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Should mark REST-derived abilities for the deprecated WooCommerce MCP endpoint.
+	 * @testdox Should mark REST-derived abilities for the deprecated PooCommerce MCP endpoint.
 	 */
 	public function test_register_controller_abilities_marks_rest_abilities_for_deprecated_mcp(): void {
 		$this->assertTrue( function_exists( 'wp_register_ability' ), 'Abilities API should be available.' );
 		$this->assertTrue( class_exists( \WC_REST_Products_Controller::class ), 'Products REST controller should be available.' );
-		$this->ensure_test_ability_category( 'woocommerce-rest' );
+		$this->ensure_test_ability_category( 'poocommerce-rest' );
 
-		$ability_id = 'woocommerce/rest-factory-metadata-test';
+		$ability_id = 'poocommerce/rest-factory-metadata-test';
 		$config     = array(
 			'controller' => \WC_REST_Products_Controller::class,
 			'route'      => '/wc/v3/products',
@@ -271,7 +271,7 @@ class RestAbilityFactoryTest extends WC_Unit_Test_Case {
 		};
 
 		add_action( 'wp_abilities_api_init', $callback );
-		do_action( 'wp_abilities_api_init' ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment -- Test bootstrap for Abilities API registration.
+		do_action( 'wp_abilities_api_init' ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment -- Test bootstrap for Abilities API registration.
 		remove_action( 'wp_abilities_api_init', $callback );
 
 		$ability = wp_get_ability( $ability_id );
@@ -279,7 +279,7 @@ class RestAbilityFactoryTest extends WC_Unit_Test_Case {
 		$this->assertNotNull( $ability, 'REST-derived test ability should register successfully.' );
 		$this->registered_ability_ids[] = $ability_id;
 		$this->assertTrue( $ability->get_meta_item( 'show_in_rest', false ), 'REST-derived abilities should remain exposed through the Abilities REST API.' );
-		$this->assertTrue( $ability->get_meta_item( RestAbilityFactory::EXPOSE_IN_DEPRECATED_MCP_META_KEY, false ), 'REST-derived abilities should opt in to the deprecated WooCommerce MCP endpoint.' );
+		$this->assertTrue( $ability->get_meta_item( RestAbilityFactory::EXPOSE_IN_DEPRECATED_MCP_META_KEY, false ), 'REST-derived abilities should opt in to the deprecated PooCommerce MCP endpoint.' );
 	}
 
 	// ── Bug 1: date-time type conversion (issue #62764) ──
@@ -900,7 +900,7 @@ class RestAbilityFactoryTest extends WC_Unit_Test_Case {
 	/**
 	 * @testdox Should admit cross-scalar values for fields whose declared type disagrees with the actual response.
 	 *
-	 * Documents the motivating bug: several WooCommerce REST controllers declare a
+	 * Documents the motivating bug: several PooCommerce REST controllers declare a
 	 * scalar type that does not match what they return — `shipping_class_id` is
 	 * declared `string` but returned as `int`, `meta_data[].display_value` is
 	 * declared `string` but can be array/object, etc. The widened union admits

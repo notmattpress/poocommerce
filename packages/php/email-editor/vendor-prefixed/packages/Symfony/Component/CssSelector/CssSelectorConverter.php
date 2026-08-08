@@ -9,14 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Automattic\WooCommerce\EmailEditorVendor\Symfony\Component\CssSelector;
+namespace Automattic\PooCommerce\EmailEditorVendor\Symfony\Component\CssSelector;
 
-use Automattic\WooCommerce\EmailEditorVendor\Symfony\Component\CssSelector\Parser\Shortcut\ClassParser;
-use Automattic\WooCommerce\EmailEditorVendor\Symfony\Component\CssSelector\Parser\Shortcut\ElementParser;
-use Automattic\WooCommerce\EmailEditorVendor\Symfony\Component\CssSelector\Parser\Shortcut\EmptyStringParser;
-use Automattic\WooCommerce\EmailEditorVendor\Symfony\Component\CssSelector\Parser\Shortcut\HashParser;
-use Automattic\WooCommerce\EmailEditorVendor\Symfony\Component\CssSelector\XPath\Extension\HtmlExtension;
-use Automattic\WooCommerce\EmailEditorVendor\Symfony\Component\CssSelector\XPath\Translator;
+use Automattic\PooCommerce\EmailEditorVendor\Symfony\Component\CssSelector\Parser\Shortcut\ClassParser;
+use Automattic\PooCommerce\EmailEditorVendor\Symfony\Component\CssSelector\Parser\Shortcut\ElementParser;
+use Automattic\PooCommerce\EmailEditorVendor\Symfony\Component\CssSelector\Parser\Shortcut\EmptyStringParser;
+use Automattic\PooCommerce\EmailEditorVendor\Symfony\Component\CssSelector\Parser\Shortcut\HashParser;
+use Automattic\PooCommerce\EmailEditorVendor\Symfony\Component\CssSelector\XPath\Extension\HtmlExtension;
+use Automattic\PooCommerce\EmailEditorVendor\Symfony\Component\CssSelector\XPath\Translator;
 
 /**
  * CssSelectorConverter is the main entry point of the component and can convert CSS

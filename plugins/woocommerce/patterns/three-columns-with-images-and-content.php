@@ -1,15 +1,15 @@
 <?php
 /**
  * Title: Three Columns with Images and Content
- * Slug: woocommerce-blocks/three-columns-with-images-and-content
- * Categories: WooCommerce, Services
+ * Slug: poocommerce-blocks/three-columns-with-images-and-content
+ * Categories: PooCommerce, Services
  */
 
 declare(strict_types=1);
 
-$header        = __( 'Our services', 'woocommerce' );
-$product_title = __( 'Create anything', 'woocommerce' );
-$description   = __( 'Navigating life\'s intricate fabric, choices unfold paths to the extraordinary, demanding creativity, curiosity, and courage for a truly fulfilling journey.', 'woocommerce' );
+$header        = __( 'Our services', 'poocommerce' );
+$product_title = __( 'Create anything', 'poocommerce' );
+$description   = __( 'Navigating life\'s intricate fabric, choices unfold paths to the extraordinary, demanding creativity, curiosity, and courage for a truly fulfilling journey.', 'poocommerce' );
 $image_0       = plugins_url( 'assets/images/pattern-placeholders/table-wood-house-chair-floor-window.jpg', WC_PLUGIN_FILE );
 $image_1       = plugins_url( 'assets/images/pattern-placeholders/hand-light-architecture-wood-white-house.jpg', WC_PLUGIN_FILE );
 $image_2       = plugins_url( 'assets/images/pattern-placeholders/Image-table-wood-chair-stool-interior-restaurant.jpg', WC_PLUGIN_FILE );

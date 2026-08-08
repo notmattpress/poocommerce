@@ -3,9 +3,9 @@
  */
 import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { CheckoutProvider } from '@woocommerce/base-context';
-import { useCheckoutAddress } from '@woocommerce/base-context/hooks';
-import { ADDRESS_FORM_KEYS } from '@woocommerce/block-settings';
+import { CheckoutProvider } from '@poocommerce/base-context';
+import { useCheckoutAddress } from '@poocommerce/base-context/hooks';
+import { ADDRESS_FORM_KEYS } from '@poocommerce/block-settings';
 
 /**
  * Internal dependencies

@@ -1,9 +1,9 @@
 <?php
 /**
- * WooCommerce Product Editor Product Template compatibility shim.
+ * PooCommerce Product Editor Product Template compatibility shim.
  */
 
-namespace Automattic\WooCommerce\Admin\Features\ProductBlockEditor;
+namespace Automattic\PooCommerce\Admin\Features\ProductBlockEditor;
 
 /**
  * Removed product editor product template value object.
@@ -187,7 +187,7 @@ class ProductTemplate {
 		self::$removal_warning_logged = true;
 
 		wc_get_logger()->warning(
-			'Automattic\WooCommerce\Admin\Features\ProductBlockEditor\ProductTemplate is a temporary compatibility shim and will be removed soon. Product editor extension APIs were deprecated in WooCommerce 10.9.0, and the product block editor was removed in WooCommerce 11.0.0 with no replacement.',
+			'Automattic\PooCommerce\Admin\Features\ProductBlockEditor\ProductTemplate is a temporary compatibility shim and will be removed soon. Product editor extension APIs were deprecated in PooCommerce 10.9.0, and the product block editor was removed in PooCommerce 11.0.0 with no replacement.',
 			array( 'source' => 'product-block-editor' )
 		);
 	}

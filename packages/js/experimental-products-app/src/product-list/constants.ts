@@ -42,22 +42,22 @@ export const PRODUCT_LIST_TABS: Array< {
 } > = [
 	{
 		value: 'all',
-		label: __( 'All', 'woocommerce' ),
+		label: __( 'All', 'poocommerce' ),
 	},
 	{
 		value: 'publish',
-		label: __( 'Published', 'woocommerce' ),
+		label: __( 'Published', 'poocommerce' ),
 	},
 	{
 		value: 'draft',
-		label: __( 'Draft', 'woocommerce' ),
+		label: __( 'Draft', 'poocommerce' ),
 	},
 	{
 		value: 'pending',
-		label: __( 'Pending review', 'woocommerce' ),
+		label: __( 'Pending review', 'poocommerce' ),
 	},
 	{
 		value: 'trash',
-		label: __( 'Trash', 'woocommerce' ),
+		label: __( 'Trash', 'poocommerce' ),
 	},
 ];

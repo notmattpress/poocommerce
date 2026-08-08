@@ -2,19 +2,19 @@
 /**
  * Settings section registry tests.
  *
- * @package WooCommerce\Tests\Admin\Settings
+ * @package PooCommerce\Tests\Admin\Settings
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Admin\Settings;
+namespace Automattic\PooCommerce\Tests\Admin\Settings;
 
-use Automattic\WooCommerce\Admin\Settings\SettingsSection;
-use Automattic\WooCommerce\Admin\Settings\SettingsSectionInterface;
-use Automattic\WooCommerce\Admin\Settings\SettingsSectionRegistry;
-use Automattic\WooCommerce\Admin\Settings\SettingsUIPageInterface;
-use Automattic\WooCommerce\Internal\Admin\Settings\SettingsUIRequestContext;
-use Automattic\WooCommerce\Internal\Admin\Settings\SettingsUISchema;
+use Automattic\PooCommerce\Admin\Settings\SettingsSection;
+use Automattic\PooCommerce\Admin\Settings\SettingsSectionInterface;
+use Automattic\PooCommerce\Admin\Settings\SettingsSectionRegistry;
+use Automattic\PooCommerce\Admin\Settings\SettingsUIPageInterface;
+use Automattic\PooCommerce\Internal\Admin\Settings\SettingsUIRequestContext;
+use Automattic\PooCommerce\Internal\Admin\Settings\SettingsUISchema;
 use WC_Unit_Test_Case;
 
 /**
@@ -79,7 +79,7 @@ class SettingsSectionRegistryTest extends WC_Unit_Test_Case {
 		$current_section = $this->original_current_section;
 		$current_tab     = $this->original_current_tab;
 
-		remove_filter( 'woocommerce_admin_features', array( $this, 'enable_settings_ui_feature' ) );
+		remove_filter( 'poocommerce_admin_features', array( $this, 'enable_settings_ui_feature' ) );
 		SettingsSectionRegistry::get_instance()->unregister_all();
 		SettingsUIRequestContext::reset();
 
@@ -96,12 +96,12 @@ class SettingsSectionRegistryTest extends WC_Unit_Test_Case {
 			$registry->register( $section );
 		};
 
-		add_action( 'woocommerce_settings_sections_registration', $action );
+		add_action( 'poocommerce_settings_sections_registration', $action );
 
 		try {
 			$sections = $page->get_sections();
 		} finally {
-			remove_action( 'woocommerce_settings_sections_registration', $action );
+			remove_action( 'poocommerce_settings_sections_registration', $action );
 		}
 
 		$this->assertArrayHasKey( 'acme_payments', $sections, 'Registered section should be exposed by its parent page.' );
@@ -294,7 +294,7 @@ class SettingsSectionRegistryTest extends WC_Unit_Test_Case {
 		$listener = static function ( $exception ) use ( &$caught ): void {
 			$caught[] = $exception;
 		};
-		add_action( 'woocommerce_caught_exception', $listener );
+		add_action( 'poocommerce_caught_exception', $listener );
 
 		$page      = $this->get_parent_page();
 		$exception = new \RuntimeException( 'Unable to resolve native settings UI page.' );
@@ -303,7 +303,7 @@ class SettingsSectionRegistryTest extends WC_Unit_Test_Case {
 		try {
 			$settings_ui_page = SettingsUIRequestContext::for_settings_page( $page, 'acme_payments' )->get_settings_ui_page();
 		} finally {
-			remove_action( 'woocommerce_caught_exception', $listener );
+			remove_action( 'poocommerce_caught_exception', $listener );
 		}
 
 		$this->assertInstanceOf( SettingsUIPageInterface::class, $settings_ui_page );
@@ -358,7 +358,7 @@ class SettingsSectionRegistryTest extends WC_Unit_Test_Case {
 	 * @testdox Should render a registered section through the settings UI when the feature is enabled.
 	 */
 	public function test_renders_registered_section_with_settings_ui(): void {
-		add_filter( 'woocommerce_admin_features', array( $this, 'enable_settings_ui_feature' ) );
+		add_filter( 'poocommerce_admin_features', array( $this, 'enable_settings_ui_feature' ) );
 		SettingsSectionRegistry::get_instance()->register( $this->get_registered_section() );
 
 		global $current_section;
@@ -378,7 +378,7 @@ class SettingsSectionRegistryTest extends WC_Unit_Test_Case {
 	 * @testdox Should render a registered section native Settings UI page when provided.
 	 */
 	public function test_renders_registered_section_native_settings_ui_page(): void {
-		add_filter( 'woocommerce_admin_features', array( $this, 'enable_settings_ui_feature' ) );
+		add_filter( 'poocommerce_admin_features', array( $this, 'enable_settings_ui_feature' ) );
 		SettingsSectionRegistry::get_instance()->register( $this->get_registered_section_with_native_settings_ui_page() );
 
 		global $current_section;
@@ -398,7 +398,7 @@ class SettingsSectionRegistryTest extends WC_Unit_Test_Case {
 	 * @testdox Should suppress legacy section navigation for registered section native Settings UI pages.
 	 */
 	public function test_suppresses_legacy_section_navigation_for_registered_native_settings_ui_page(): void {
-		add_filter( 'woocommerce_admin_features', array( $this, 'enable_settings_ui_feature' ) );
+		add_filter( 'poocommerce_admin_features', array( $this, 'enable_settings_ui_feature' ) );
 		SettingsSectionRegistry::get_instance()->register( $this->get_registered_section_with_native_settings_ui_page() );
 
 		$output = $this->render_settings_view_for_checkout_section( 'acme_payments' );
@@ -411,7 +411,7 @@ class SettingsSectionRegistryTest extends WC_Unit_Test_Case {
 	 * @testdox Should hide the top-level tabs for drill-down Settings UI pages.
 	 */
 	public function test_hides_top_level_tabs_for_drill_down_settings_ui_pages(): void {
-		add_filter( 'woocommerce_admin_features', array( $this, 'enable_settings_ui_feature' ) );
+		add_filter( 'poocommerce_admin_features', array( $this, 'enable_settings_ui_feature' ) );
 		SettingsSectionRegistry::get_instance()->register( $this->get_registered_section_with_native_settings_ui_page() );
 
 		$output = $this->render_settings_view_for_checkout_section( 'acme_payments' );
@@ -428,7 +428,7 @@ class SettingsSectionRegistryTest extends WC_Unit_Test_Case {
 	 * @param string $failure_stage Settings UI resolution stage that should fail.
 	 */
 	public function test_preserves_classic_navigation_when_registered_drill_down_falls_back( string $failure_stage ): void {
-		add_filter( 'woocommerce_admin_features', array( $this, 'enable_settings_ui_feature' ) );
+		add_filter( 'poocommerce_admin_features', array( $this, 'enable_settings_ui_feature' ) );
 		SettingsSectionRegistry::get_instance()->register( $this->get_registered_section_with_native_settings_ui_page( null, null, $failure_stage ) );
 		$this->setExpectedIncorrectUsage( 'WC_Settings_Page::output' );
 
@@ -461,13 +461,13 @@ class SettingsSectionRegistryTest extends WC_Unit_Test_Case {
 			++$calls;
 			throw new \Error( 'Broken settings section registration.' );
 		};
-		add_action( 'woocommerce_settings_sections_registration', $action );
+		add_action( 'poocommerce_settings_sections_registration', $action );
 
 		try {
 			$sections      = SettingsSectionRegistry::get_instance()->get_sections_for_page( 'checkout' );
 			$second_lookup = SettingsSectionRegistry::get_instance()->get_sections_for_page( 'checkout' );
 		} finally {
-			remove_action( 'woocommerce_settings_sections_registration', $action );
+			remove_action( 'poocommerce_settings_sections_registration', $action );
 		}
 
 		$this->assertSame( array(), $sections );
@@ -935,11 +935,11 @@ class SettingsSectionRegistryTest extends WC_Unit_Test_Case {
 			'general'  => 'General',
 			'checkout' => 'Payments',
 		);
-		$original_sections_hook = $this->replace_hook_callbacks( 'woocommerce_sections_checkout' );
-		$original_settings_hook = $this->replace_hook_callbacks( 'woocommerce_settings_checkout' );
+		$original_sections_hook = $this->replace_hook_callbacks( 'poocommerce_sections_checkout' );
+		$original_settings_hook = $this->replace_hook_callbacks( 'poocommerce_settings_checkout' );
 
-		add_action( 'woocommerce_sections_checkout', array( $page, 'output_sections' ) );
-		add_action( 'woocommerce_settings_checkout', array( $page, 'output' ) );
+		add_action( 'poocommerce_sections_checkout', array( $page, 'output_sections' ) );
+		add_action( 'poocommerce_settings_checkout', array( $page, 'output' ) );
 
 		$buffer_level = ob_get_level();
 		ob_start();
@@ -952,8 +952,8 @@ class SettingsSectionRegistryTest extends WC_Unit_Test_Case {
 			while ( ob_get_level() > $buffer_level ) {
 				ob_end_clean();
 			}
-			$this->restore_hook_callbacks( 'woocommerce_sections_checkout', $original_sections_hook );
-			$this->restore_hook_callbacks( 'woocommerce_settings_checkout', $original_settings_hook );
+			$this->restore_hook_callbacks( 'poocommerce_sections_checkout', $original_sections_hook );
+			$this->restore_hook_callbacks( 'poocommerce_settings_checkout', $original_settings_hook );
 			$this->replace_wc_admin_settings_pages( $original_settings );
 		}
 	}

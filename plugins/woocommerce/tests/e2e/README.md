@@ -1,4 +1,4 @@
-# WooCommerce Playwright End-to-End Tests
+# PooCommerce Playwright End-to-End Tests
 
 This is the documentation for the e2e testing setup based on Playwright and `wp-env`.
 
@@ -14,7 +14,7 @@ This is the documentation for the e2e testing setup based on Playwright and `wp-
 ## Pre-requisites
 
 - Go through
-  the [WooCommerce Monorepo prerequisites](https://github.com/woocommerce/woocommerce/blob/trunk/README.md#prerequisites)
+  the [PooCommerce Monorepo prerequisites](https://github.com/poocommerce/poocommerce/blob/trunk/README.md#prerequisites)
   first, including the commands to get everything working.
 - Install Docker and Docker Compose ([Installation instructions](https://docs.docker.com/engine/install/)).
 
@@ -34,8 +34,8 @@ End-to-end tests are powered by Playwright. By default, the test site is spun up
 Start in the repository root folder:
 
 - `pnpm install` (installs dependencies; PNPM uses the pinned Node version automatically)
-- `pnpm --filter='@woocommerce/plugin-woocommerce' build` (builds WooCommerce locally)
-- `cd plugins/woocommerce` (changes into the WooCommerce plugin folder)
+- `pnpm --filter='@poocommerce/plugin-poocommerce' build` (builds PooCommerce locally)
+- `cd plugins/poocommerce` (changes into the PooCommerce plugin folder)
 - `pnpm env:e2e` (starts the `wp-env` based E2E test environment)
 - `pnpm test:e2e` (runs all the tests in headless mode)
 
@@ -46,7 +46,7 @@ To re-create the environment for a fresh state:
 You can refer to the pnpm scripts in the `package.json` file for more commands. Check out the `env:some-command` scripts
 for managing the `wp-env` environment.
 
-Other ways of running tests (make sure you are in the `plugins/woocommerce` folder):
+Other ways of running tests (make sure you are in the `plugins/poocommerce` folder):
 
 - `pnpm test:e2e` (usual, headless run)
 - `pnpm test:e2e --headed` (headed -- displaying browser window and test interactions)
@@ -55,7 +55,7 @@ Other ways of running tests (make sure you are in the `plugins/woocommerce` fold
 - `pnpm test:e2e ./tests/e2e/tests/merchant` (runs all tests that are found in the `merchant` folder)
 - `pnpm test:e2e --ui` (open tests in [Playwright UI mode](https://playwright.dev/docs/test-ui-mode)).
 
-To see all the Playwright options, make sure you are in the `plugins/woocommerce` folder and
+To see all the Playwright options, make sure you are in the `plugins/poocommerce` folder and
 run `pnpm playwright test --help`
 
 > [!TIP]
@@ -70,7 +70,7 @@ run `pnpm playwright test --help`
 
 ## Test environment
 
-The e2e test environment configuration can be found in the `.wp-env.e2e.json` file in the `plugins/woocommerce`
+The e2e test environment configuration can be found in the `.wp-env.e2e.json` file in the `plugins/poocommerce`
 folder (the `.wp-env.json` file configures the separate dev environment, and `.wp-env.test.json` the lean PHP-unit environment).
 
 For more information on how to configure the test environment for `wp-env`, please check out
@@ -175,25 +175,25 @@ Some E2E suites need fixture mechanisms that can't be expressed cleanly with RES
 
 Every always-on or externally downloaded helper is a **self-contained folder** at `tests/e2e/test-plugins/<slug>/<slug>.php` (the main file matches the folder name), with a full plugin header (`Plugin Name`, `Description`, `Version`, `Requires PHP`, `Author`). Never bind-mount an individual `.php` file — mount a folder or download a zip. The per-test block plugins under `blocks/` are single files, but their whole parent folder is mounted at once (see below).
 
-Keep `Requires PHP` at the **lowest PHP version any E2E environment runs** (currently `7.4`, the same floor as WooCommerce itself) and keep the helper's code compatible with it. WordPress silently refuses to load a plugin whose `Requires PHP` is higher than the running version: it still reports as active, but none of its hooks run and its REST routes return `rest_no_route` (404).
+Keep `Requires PHP` at the **lowest PHP version any E2E environment runs** (currently `7.4`, the same floor as PooCommerce itself) and keep the helper's code compatible with it. WordPress silently refuses to load a plugin whose `Requires PHP` is higher than the running version: it still reports as active, but none of its hooks run and its REST routes return `rest_no_route` (404).
 
 How a helper is wired up depends on when it needs to be active:
 
 - **Always-on helpers** are listed in `.wp-env.e2e.json`'s `plugins` array, which mounts the folder **and auto-activates** it. Do not add a manual `wp plugin activate …` line for these. Current always-on helpers:
-    - `woocommerce-e2e-test-helper` — the general-purpose helper bundle, covering three concerns in one plugin:
+    - `poocommerce-e2e-test-helper` — the general-purpose helper bundle, covering three concerns in one plugin:
         - **Filter setter** — registers WordPress filters from an `e2e-filters` cookie so tests can override filtered values on the fly.
         - **Process waiting actions** — runs the Action Scheduler queue synchronously when a request carries the `?process-waiting-actions` query param (used by the analytics suite so order data lands in reports immediately).
         - **Test helper REST API** — endpoints (`e2e-feature-flags`, `e2e-options`, `e2e-environment`, `e2e-theme`) for toggling feature flags, setting/deleting options, reading environment info and switching themes during a test.
     - `wc-email-template-sync-test-helper` — see below (email template sync fixtures for RSM-146).
-- **Per-test block plugins** live in `tests/e2e/test-plugins/blocks/`, mounted (not auto-activated) via the `woocommerce-blocks-test-plugins` mapping. Each is activated and deactivated by the spec that needs it (e.g. `wp plugin activate woocommerce-blocks-test-plugins/<file>.php`), because they change store behavior globally and must not be on for every test.
+- **Per-test block plugins** live in `tests/e2e/test-plugins/blocks/`, mounted (not auto-activated) via the `poocommerce-blocks-test-plugins` mapping. Each is activated and deactivated by the spec that needs it (e.g. `wp plugin activate poocommerce-blocks-test-plugins/<file>.php`), because they change store behavior globally and must not be on for every test.
 
-`woocommerce-cleanup` also lives under `test-plugins/`, but it is **not** in the wp-env `plugins` array — it's an on-demand site-reset tool installed only by the external (non-wp-env) setup path, `bin/test-env-setup-external.sh`.
+`poocommerce-cleanup` also lives under `test-plugins/`, but it is **not** in the wp-env `plugins` array — it's an on-demand site-reset tool installed only by the external (non-wp-env) setup path, `bin/test-env-setup-external.sh`.
 
 ### `wc-email-template-sync-test-helper`
 
 Powers the `tests/email-editor/update-propagation/` suite (RSM-146). Exposes:
 
-- Option-driven filter overrides for `woocommerce_email_block_template_html`, `woocommerce_email_template_sync_opted_in_emails`, and `woocommerce_transactional_emails_for_block_editor`.
+- Option-driven filter overrides for `poocommerce_email_block_template_html`, `poocommerce_email_template_sync_opted_in_emails`, and `poocommerce_transactional_emails_for_block_editor`.
 - A server-side Tracks event recorder, controlled by option `wc_test_tracks_enabled`.
 - A fake `WC_Email` subclass (`fake_thirdparty`) gated by option `wc_test_fake_third_party_email_enabled` for third-party-email scope tests.
 - REST endpoints under `/wp-json/wc-email-test-helper/v1/` for seeding posts, triggering sweeps and backfill synchronously, draining the Tracks log, and writing typed option values.
@@ -229,11 +229,11 @@ By default, they are saved inside the `test-results` folder.
 ### Viewing the Playwright HTML report
 
 Use the `playwright show-report $PATH_TO_PLAYWRIGHT_HTML_REPORT` command to open the report. For example, assuming that
-you're at the root of the WooCommerce monorepo, and that you did not specify a custom location for the report, you would
+you're at the root of the PooCommerce monorepo, and that you did not specify a custom location for the report, you would
 use the following commands:
 
 ```bash
-cd plugins/woocommerce
+cd plugins/poocommerce
 pnpm exec playwright show-report tests/e2e/test-results/playwright-report
 ```
 
@@ -251,14 +251,14 @@ the [Allure Framework](https://github.com/allure-framework), particularly:
 Use the `allure generate` command to generate an HTML report from the `allure-results` directory created at the end of
 the test run. Then, use the `allure open` command to open it on your browser. For example, assuming that:
 
-- You're at the root of the WooCommerce monorepo
-- You want to generate the `allure-report` folder in `plugins/woocommerce/tests/e2e/test-results`
+- You're at the root of the PooCommerce monorepo
+- You want to generate the `allure-report` folder in `plugins/poocommerce/tests/e2e/test-results`
 
 Then you would need to use the following commands:
 
 ```bash
-pnpm exec allure generate --clean plugins/woocommerce/tests/e2e/test-results/allure-results --output plugins/woocommerce/tests/e2e/test-results/allure-report
-pnpm exec allure open plugins/woocommerce/tests/e2e/test-results/allure-report
+pnpm exec allure generate --clean plugins/poocommerce/tests/e2e/test-results/allure-results --output plugins/poocommerce/tests/e2e/test-results/allure-report
+pnpm exec allure open plugins/poocommerce/tests/e2e/test-results/allure-report
 ```
 
 A browser window should open the Allure report.

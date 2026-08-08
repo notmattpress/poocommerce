@@ -9,7 +9,7 @@ jest.mock( '@wordpress/core-data', () => ( {
 	useEntityRecord: jest.fn( () => ( {
 		record: {
 			values: {
-				woocommerce_dimension_unit: 'cm',
+				poocommerce_dimension_unit: 'cm',
 			},
 		},
 		isResolving: false,

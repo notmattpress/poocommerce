@@ -3,8 +3,8 @@
  */
 import { render, screen, act } from '@testing-library/react';
 import { addFilter, removeFilter } from '@wordpress/hooks';
-import { recordPageView } from '@woocommerce/tracks';
-import * as navigation from '@woocommerce/navigation';
+import { recordPageView } from '@poocommerce/tracks';
+import * as navigation from '@poocommerce/navigation';
 
 /**
  * Internal dependencies
@@ -33,8 +33,8 @@ jest.mock( '@wordpress/data', () => ( {
 	} ),
 } ) );
 
-jest.mock( '@woocommerce/data', () => {
-	const originalModule = jest.requireActual( '@woocommerce/data' );
+jest.mock( '@poocommerce/data', () => {
+	const originalModule = jest.requireActual( '@poocommerce/data' );
 	return {
 		...originalModule,
 		useUser: jest.fn().mockReturnValue( { currentUserCan: () => true } ),
@@ -42,13 +42,13 @@ jest.mock( '@woocommerce/data', () => {
 	};
 } );
 
-jest.mock( '@woocommerce/customer-effort-score', () => ( {
+jest.mock( '@poocommerce/customer-effort-score', () => ( {
 	CustomerEffortScoreModalContainer: () => null,
 	triggerExitPageCesSurvey: jest.fn(),
 } ) );
 
-jest.mock( '@woocommerce/components', () => ( {
-	...jest.requireActual( '@woocommerce/components' ),
+jest.mock( '@poocommerce/components', () => ( {
+	...jest.requireActual( '@poocommerce/components' ),
 	Spinner: jest.fn( () => <div>spinner</div> ),
 } ) );
 
@@ -59,16 +59,16 @@ jest.mock( '~/utils/admin-settings', () => {
 	return {
 		...adminSetting,
 		getAdminSetting: jest.fn().mockImplementation( ( name, ...args ) => {
-			if ( name === 'woocommerceTranslation' ) {
-				return 'WooCommerce';
+			if ( name === 'poocommerceTranslation' ) {
+				return 'PooCommerce';
 			}
 			return adminSetting.getAdminSetting( name, ...args );
 		} ),
 	};
 } );
 
-jest.mock( '@woocommerce/navigation', () => ( {
-	...jest.requireActual( '@woocommerce/navigation' ),
+jest.mock( '@poocommerce/navigation', () => ( {
+	...jest.requireActual( '@poocommerce/navigation' ),
 	getHistory: jest.fn(),
 } ) );
 
@@ -125,7 +125,7 @@ describe( 'Layout', () => {
 		} );
 
 		it( 'should render the page added after the initial filter has been run, not show the error message', () => {
-			const namespace = `woocommerce/woocommerce/test_${ PAGES_FILTER }`;
+			const namespace = `poocommerce/poocommerce/test_${ PAGES_FILTER }`;
 			const path = '/test/greeting';
 
 			mockPath( path );

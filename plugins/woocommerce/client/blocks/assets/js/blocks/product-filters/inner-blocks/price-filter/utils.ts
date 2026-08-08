@@ -1,14 +1,14 @@
 /**
  * External dependencies
  */
-import { getCurrencyFromPriceResponse } from '@woocommerce/price-format';
+import { getCurrencyFromPriceResponse } from '@poocommerce/price-format';
 import {
 	objectHasProp,
 	Currency,
 	isString,
 	type CurrencyResponse,
 	type WCStoreV1ProductsCollectionProps,
-} from '@woocommerce/types';
+} from '@poocommerce/types';
 
 function formatPriceInt( price: string | number, currency: Currency ) {
 	const priceInt = typeof price === 'number' ? price : parseInt( price, 10 );

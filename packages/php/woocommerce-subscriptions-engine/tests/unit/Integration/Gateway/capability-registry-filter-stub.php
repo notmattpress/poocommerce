@@ -11,12 +11,12 @@
  * Kept in its own file (not the *Test.php class file) so the PSR-12 "one
  * namespace per file" / "functions separate from OO" sniffs stay satisfied.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine
+ * @package Automattic\PooCommerce\SubscriptionsEngine
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Integration\Gateway;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Integration\Gateway;
 
 if ( ! function_exists( __NAMESPACE__ . '\\apply_filters' ) ) {
 	/**
@@ -28,15 +28,15 @@ if ( ! function_exists( __NAMESPACE__ . '\\apply_filters' ) ) {
 	 * @return mixed Configured override, or `$value` unchanged.
 	 */
 	function apply_filters( string $hook, $value, ...$args ) {
-		if ( ! isset( $GLOBALS['woocommerce_subscriptions_engine_test_apply_filters_calls'] ) || ! is_array( $GLOBALS['woocommerce_subscriptions_engine_test_apply_filters_calls'] ) ) {
-			$GLOBALS['woocommerce_subscriptions_engine_test_apply_filters_calls'] = array();
+		if ( ! isset( $GLOBALS['poocommerce_subscriptions_engine_test_apply_filters_calls'] ) || ! is_array( $GLOBALS['poocommerce_subscriptions_engine_test_apply_filters_calls'] ) ) {
+			$GLOBALS['poocommerce_subscriptions_engine_test_apply_filters_calls'] = array();
 		}
-		$GLOBALS['woocommerce_subscriptions_engine_test_apply_filters_calls'][] = array(
+		$GLOBALS['poocommerce_subscriptions_engine_test_apply_filters_calls'][] = array(
 			'hook'  => $hook,
 			'value' => $value,
 			'args'  => $args,
 		);
 
-		return $GLOBALS['woocommerce_subscriptions_engine_test_apply_filters_return'] ?? $value;
+		return $GLOBALS['poocommerce_subscriptions_engine_test_apply_filters_return'] ?? $value;
 	}
 }

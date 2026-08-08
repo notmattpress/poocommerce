@@ -149,8 +149,8 @@ export function AttributeTable( {
 		<section
 			className={
 				hasSeparator
-					? 'woocommerce-variation-attributes woocommerce-variation-attributes--has-separator'
-					: 'woocommerce-variation-attributes'
+					? 'poocommerce-variation-attributes poocommerce-variation-attributes--has-separator'
+					: 'poocommerce-variation-attributes'
 			}
 		>
 			{ notice }
@@ -158,33 +158,33 @@ export function AttributeTable( {
 				direction="row"
 				align="center"
 				justify="space-between"
-				className="woocommerce-variation-attributes__header"
+				className="poocommerce-variation-attributes__header"
 			>
 				<Stack
 					direction="row"
 					align="center"
 					gap="xs"
-					className="woocommerce-variation-attributes__title-group"
+					className="poocommerce-variation-attributes__title-group"
 				>
-					<h3 className="woocommerce-variation-attributes__title">
+					<h3 className="poocommerce-variation-attributes__title">
 						{ title }
 					</h3>
 					<Tooltip text={ helpText }>
 						<span
-							className="woocommerce-variation-attributes__help"
+							className="poocommerce-variation-attributes__help"
 							tabIndex={ 0 }
-							aria-label={ __( 'Help', 'woocommerce' ) }
+							aria-label={ __( 'Help', 'poocommerce' ) }
 						>
 							<Icon icon={ help } size={ 20 } />
 						</span>
 					</Tooltip>
 				</Stack>
 				<Button variant="outline" onClick={ noop }>
-					{ __( 'Edit', 'woocommerce' ) }
+					{ __( 'Edit', 'poocommerce' ) }
 				</Button>
 			</Stack>
-			<div className="woocommerce-variation-attributes__body">
-				<div className="woocommerce-variation-attributes__dataview">
+			<div className="poocommerce-variation-attributes__body">
+				<div className="poocommerce-variation-attributes__dataview">
 					<DataViews
 						data={ pageRows }
 						fields={ fields }

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\Pelago\Emogrifier\HtmlProcessor;
+namespace Automattic\PooCommerce\Vendor\Pelago\Emogrifier\HtmlProcessor;
 
 /**
  * Normalizes HTML:

@@ -15,10 +15,10 @@ import { ProductSelector } from '../components/product-selector';
 const LINKED_PRODUCT_STATUSES: ProductStatus[] = [ 'publish', 'draft' ];
 
 const fieldDefinition = {
-	label: __( 'Upsells', 'woocommerce' ),
+	label: __( 'Upsells', 'poocommerce' ),
 	description: __(
 		'Suggest higher-value or premium versions of this item to encourage upgrades. These will be shown on the same page as this product.',
-		'woocommerce'
+		'poocommerce'
 	),
 	enableSorting: false,
 	enableHiding: false,

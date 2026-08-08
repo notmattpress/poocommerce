@@ -13,7 +13,7 @@ import { DatePicker, parseDateTimeLocal } from '../components/date-picker';
 
 const fieldDefinition = {
 	type: 'datetime',
-	label: __( 'End sale on', 'woocommerce' ),
+	label: __( 'End sale on', 'poocommerce' ),
 	enableSorting: false,
 	enableHiding: false,
 	filterBy: false,

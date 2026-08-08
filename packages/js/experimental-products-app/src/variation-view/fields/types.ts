@@ -4,7 +4,7 @@
 import type {
 	Product,
 	ProductStatus as WooProductStatus,
-} from '@woocommerce/data';
+} from '@poocommerce/data';
 
 export type ProductEntityRecord = Omit< Product, 'categories' | 'tags' > & {
 	cost_of_goods_sold?: {
@@ -61,7 +61,7 @@ export type ProductStatus = WooProductStatus;
 
 export type SettingsEntityRecord = {
 	values?: {
-		woocommerce_dimension_unit?: string;
-		woocommerce_weight_unit?: string;
+		poocommerce_dimension_unit?: string;
+		poocommerce_weight_unit?: string;
 	};
 };

@@ -5,12 +5,12 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Internal\RestApi\Routes\V4\Refunds;
+namespace Automattic\PooCommerce\Internal\RestApi\Routes\V4\Refunds;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Utilities\NumberUtil;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Utilities\NumberUtil;
 use WC_Order;
 use WC_Order_Item_Fee;
 use WC_Order_Item_Product;
@@ -23,7 +23,7 @@ use WP_Http;
  *
  * Class DataUtils
  *
- * @package Automattic\WooCommerce\Internal\RestApi\Routes\V4\Refunds
+ * @package Automattic\PooCommerce\Internal\RestApi\Routes\V4\Refunds
  */
 class DataUtils {
 	/**
@@ -178,7 +178,7 @@ class DataUtils {
 		if ( ! in_array( $order->get_status(), self::REFUNDABLE_STATUSES, true ) ) {
 			return new WP_Error(
 				'order_not_refundable',
-				__( 'This order cannot be refunded.', 'woocommerce' ),
+				__( 'This order cannot be refunded.', 'poocommerce' ),
 				array( 'status' => WP_Http::UNPROCESSABLE_ENTITY )
 			);
 		}
@@ -190,7 +190,7 @@ class DataUtils {
 		if ( (float) $order->get_remaining_refund_amount() <= 0 ) {
 			return new WP_Error(
 				'order_not_refundable',
-				__( 'This order has already been fully refunded.', 'woocommerce' ),
+				__( 'This order has already been fully refunded.', 'poocommerce' ),
 				array( 'status' => WP_Http::UNPROCESSABLE_ENTITY )
 			);
 		}
@@ -209,7 +209,7 @@ class DataUtils {
 			if ( ! $line_item_id ) {
 				return new WP_Error(
 					'missing_line_item_id',
-					__( 'Line item ID is required.', 'woocommerce' ),
+					__( 'Line item ID is required.', 'poocommerce' ),
 					array( 'status' => WP_Http::BAD_REQUEST )
 				);
 			}
@@ -220,7 +220,7 @@ class DataUtils {
 			if ( isset( $seen_ids[ $line_item_id ] ) ) {
 				return new WP_Error(
 					'duplicate_line_item',
-					__( 'Each line item may appear only once per request.', 'woocommerce' ),
+					__( 'Each line item may appear only once per request.', 'poocommerce' ),
 					array( 'status' => WP_Http::BAD_REQUEST )
 				);
 			}
@@ -232,7 +232,7 @@ class DataUtils {
 			if ( ! $item || $item->get_order_id() !== $order->get_id() ) {
 				return new WP_Error(
 					'line_item_not_found',
-					__( 'Line item not found.', 'woocommerce' ),
+					__( 'Line item not found.', 'poocommerce' ),
 					array( 'status' => WP_Http::BAD_REQUEST )
 				);
 			}
@@ -240,7 +240,7 @@ class DataUtils {
 			if ( ! $item instanceof \WC_Order_Item_Product && ! $item instanceof \WC_Order_Item_Fee && ! $item instanceof \WC_Order_Item_Shipping ) {
 				return new WP_Error(
 					'unsupported_item_type',
-					__( 'Line item is not a product, fee, or shipping line.', 'woocommerce' ),
+					__( 'Line item is not a product, fee, or shipping line.', 'poocommerce' ),
 					array( 'status' => WP_Http::BAD_REQUEST )
 				);
 			}
@@ -262,14 +262,14 @@ class DataUtils {
 			if ( $refund_total_missing && isset( $line_item['refund_tax'] ) ) {
 				return new WP_Error(
 					'invalid_line_item',
-					__( 'refund_tax cannot be combined with an auto-computed refund_total. Provide refund_total explicitly when supplying refund_tax.', 'woocommerce' )
+					__( 'refund_tax cannot be combined with an auto-computed refund_total. Provide refund_total explicitly when supplying refund_tax.', 'poocommerce' )
 				);
 			}
 
 			if ( $refund_total_missing && ( ! isset( $line_item['quantity'] ) || ! is_int( $line_item['quantity'] ) || $line_item['quantity'] < 1 ) ) {
 				return new WP_Error(
 					'missing_quantity_or_refund_total',
-					__( 'Line item quantity must be a positive integer when refund_total is omitted.', 'woocommerce' ),
+					__( 'Line item quantity must be a positive integer when refund_total is omitted.', 'poocommerce' ),
 					array( 'status' => WP_Http::BAD_REQUEST )
 				);
 			}
@@ -282,7 +282,7 @@ class DataUtils {
 			if ( ! $refund_total_missing && isset( $line_item['quantity'] ) && ( ! is_int( $line_item['quantity'] ) || $line_item['quantity'] < 0 ) ) {
 				return new WP_Error(
 					'invalid_quantity',
-					__( 'Line item quantity must be a non-negative integer.', 'woocommerce' ),
+					__( 'Line item quantity must be a non-negative integer.', 'poocommerce' ),
 					array( 'status' => WP_Http::BAD_REQUEST )
 				);
 			}
@@ -297,7 +297,7 @@ class DataUtils {
 					'invalid_line_item',
 					sprintf(
 						/* translators: %d: line item id */
-						__( 'Cannot auto-compute refund for line item %d: source quantity is zero. Provide an explicit refund_total.', 'woocommerce' ),
+						__( 'Cannot auto-compute refund for line item %d: source quantity is zero. Provide an explicit refund_total.', 'poocommerce' ),
 						(int) $line_item_id
 					)
 				);
@@ -317,7 +317,7 @@ class DataUtils {
 						'quantity_exceeds_refundable',
 						sprintf(
 							/* translators: %d: remaining refundable quantity */
-							__( 'Line item quantity cannot be greater than the remaining refundable quantity (%d).', 'woocommerce' ),
+							__( 'Line item quantity cannot be greater than the remaining refundable quantity (%d).', 'poocommerce' ),
 							$remaining_qty
 						),
 						array( 'status' => WP_Http::UNPROCESSABLE_ENTITY )
@@ -326,7 +326,7 @@ class DataUtils {
 			} elseif ( isset( $line_item['quantity'] ) && $line_item['quantity'] > 1 ) {
 				return new WP_Error(
 					'invalid_quantity',
-					__( 'Shipping and fee line items must be refunded with quantity of 1.', 'woocommerce' ),
+					__( 'Shipping and fee line items must be refunded with quantity of 1.', 'poocommerce' ),
 					array( 'status' => WP_Http::BAD_REQUEST )
 				);
 			}
@@ -350,7 +350,7 @@ class DataUtils {
 				if ( (float) $line_item['refund_total'] * $signed_line_total < 0 ) {
 					return new WP_Error(
 						'invalid_refund_total',
-						__( 'Refund total has the wrong sign for this line item.', 'woocommerce' ),
+						__( 'Refund total has the wrong sign for this line item.', 'poocommerce' ),
 						array( 'status' => WP_Http::BAD_REQUEST )
 					);
 				}
@@ -375,7 +375,7 @@ class DataUtils {
 				if ( 0.0 === (float) NumberUtil::round( $line_refund_gross, $price_decimals ) ) {
 					return new WP_Error(
 						'invalid_refund_total',
-						__( 'refund_total must be a number greater than zero.', 'woocommerce' ),
+						__( 'refund_total must be a number greater than zero.', 'poocommerce' ),
 						array( 'status' => WP_Http::BAD_REQUEST )
 					);
 				}
@@ -393,7 +393,7 @@ class DataUtils {
 						'refund_total_exceeds_line',
 						sprintf(
 							/* translators: %s: line item total including tax */
-							__( 'refund_total cannot exceed the line item total including tax (%s).', 'woocommerce' ),
+							__( 'refund_total cannot exceed the line item total including tax (%s).', 'poocommerce' ),
 							wc_format_decimal( $item_total_with_tax, $price_decimals )
 						),
 						array( 'status' => WP_Http::UNPROCESSABLE_ENTITY )
@@ -408,7 +408,7 @@ class DataUtils {
 				if ( $remaining_total <= 0 ) {
 					return new WP_Error(
 						'line_item_already_refunded',
-						__( 'This line item has already been fully refunded.', 'woocommerce' ),
+						__( 'This line item has already been fully refunded.', 'poocommerce' ),
 						array( 'status' => WP_Http::UNPROCESSABLE_ENTITY )
 					);
 				}
@@ -417,7 +417,7 @@ class DataUtils {
 						'refund_total_exceeds_remaining',
 						sprintf(
 							/* translators: %s: remaining refundable amount */
-							__( 'refund_total cannot exceed the remaining refundable amount for this line item (%s).', 'woocommerce' ),
+							__( 'refund_total cannot exceed the remaining refundable amount for this line item (%s).', 'poocommerce' ),
 							wc_format_decimal( $remaining_total, $price_decimals )
 						),
 						array( 'status' => WP_Http::UNPROCESSABLE_ENTITY )
@@ -433,7 +433,7 @@ class DataUtils {
 
 					foreach ( $line_item['refund_tax'] as $refund_tax ) {
 						if ( ! isset( $refund_tax['id'], $refund_tax['refund_total'] ) ) {
-							return new WP_Error( 'invalid_line_item', __( 'Tax id and refund_total are required.', 'woocommerce' ) );
+							return new WP_Error( 'invalid_line_item', __( 'Tax id and refund_total are required.', 'poocommerce' ) );
 						}
 						$tax_id           = $refund_tax['id'];
 						$tax_refund_total = $refund_tax['refund_total'];
@@ -443,7 +443,7 @@ class DataUtils {
 								'invalid_line_item',
 								sprintf(
 								/* translators: %s: tax IDs */
-									__( 'Line item tax not found. Must be: %s.', 'woocommerce' ),
+									__( 'Line item tax not found. Must be: %s.', 'poocommerce' ),
 									implode( ', ', $allowed_tax_ids )
 								)
 							);
@@ -462,7 +462,7 @@ class DataUtils {
 						if ( $requested_tax * $stored_tax < 0 ) {
 							return new WP_Error(
 								'invalid_refund_amount',
-								__( 'Refund tax total has the wrong sign for this line item.', 'woocommerce' ),
+								__( 'Refund tax total has the wrong sign for this line item.', 'poocommerce' ),
 								array( 'status' => WP_Http::BAD_REQUEST )
 							);
 						}
@@ -483,7 +483,7 @@ class DataUtils {
 								'invalid_refund_amount',
 								sprintf(
 								/* translators: %s: remaining refundable tax total */
-									__( 'Refund tax total cannot be greater than the remaining refundable tax for this line item (%s).', 'woocommerce' ),
+									__( 'Refund tax total cannot be greater than the remaining refundable tax for this line item (%s).', 'poocommerce' ),
 									wc_format_decimal( $remaining_tax, $price_decimals )
 								)
 							);
@@ -1000,7 +1000,7 @@ class DataUtils {
 		if ( empty( $line_items ) ) {
 			return new WP_Error(
 				'missing_line_items',
-				__( 'At least one line item is required.', 'woocommerce' ),
+				__( 'At least one line item is required.', 'poocommerce' ),
 				array( 'status' => WP_Http::BAD_REQUEST )
 			);
 		}
@@ -1008,7 +1008,7 @@ class DataUtils {
 		if ( ! in_array( $order->get_status(), self::REFUNDABLE_STATUSES, true ) ) {
 			return new WP_Error(
 				'order_not_refundable',
-				__( 'This order cannot be refunded.', 'woocommerce' ),
+				__( 'This order cannot be refunded.', 'poocommerce' ),
 				array( 'status' => WP_Http::UNPROCESSABLE_ENTITY )
 			);
 		}
@@ -1016,7 +1016,7 @@ class DataUtils {
 		if ( (float) $order->get_remaining_refund_amount() <= 0 ) {
 			return new WP_Error(
 				'order_not_refundable',
-				__( 'This order has already been fully refunded.', 'woocommerce' ),
+				__( 'This order has already been fully refunded.', 'poocommerce' ),
 				array( 'status' => WP_Http::UNPROCESSABLE_ENTITY )
 			);
 		}
@@ -1029,7 +1029,7 @@ class DataUtils {
 			if ( ! $line_item_id ) {
 				return new WP_Error(
 					'missing_line_item_id',
-					__( 'Line item ID is required.', 'woocommerce' ),
+					__( 'Line item ID is required.', 'poocommerce' ),
 					array( 'status' => WP_Http::BAD_REQUEST )
 				);
 			}
@@ -1040,7 +1040,7 @@ class DataUtils {
 			if ( isset( $seen_ids[ $line_item_id ] ) ) {
 				return new WP_Error(
 					'duplicate_line_item',
-					__( 'Each line item may appear only once per request.', 'woocommerce' ),
+					__( 'Each line item may appear only once per request.', 'poocommerce' ),
 					array( 'status' => WP_Http::BAD_REQUEST )
 				);
 			}
@@ -1053,7 +1053,7 @@ class DataUtils {
 			if ( ! $item || $item->get_order_id() !== $order->get_id() ) {
 				return new WP_Error(
 					'line_item_not_found',
-					__( 'Line item not found.', 'woocommerce' ),
+					__( 'Line item not found.', 'poocommerce' ),
 					array( 'status' => WP_Http::BAD_REQUEST )
 				);
 			}
@@ -1061,7 +1061,7 @@ class DataUtils {
 			if ( ! $item instanceof WC_Order_Item_Product && ! $item instanceof WC_Order_Item_Fee && ! $item instanceof WC_Order_Item_Shipping ) {
 				return new WP_Error(
 					'unsupported_item_type',
-					__( 'Line item is not a product, fee, or shipping line.', 'woocommerce' ),
+					__( 'Line item is not a product, fee, or shipping line.', 'poocommerce' ),
 					array( 'status' => WP_Http::BAD_REQUEST )
 				);
 			}
@@ -1074,7 +1074,7 @@ class DataUtils {
 			if ( $has_refund_total && ! is_numeric( $line_item['refund_total'] ) ) {
 				return new WP_Error(
 					'invalid_refund_total',
-					__( 'refund_total must be a number greater than zero.', 'woocommerce' ),
+					__( 'refund_total must be a number greater than zero.', 'poocommerce' ),
 					array( 'status' => WP_Http::BAD_REQUEST )
 				);
 			}
@@ -1084,7 +1084,7 @@ class DataUtils {
 			if ( ! $has_quantity && ! $has_refund_total ) {
 				return new WP_Error(
 					'missing_quantity_or_refund_total',
-					__( 'Either a positive integer quantity or a numeric refund_total is required.', 'woocommerce' ),
+					__( 'Either a positive integer quantity or a numeric refund_total is required.', 'poocommerce' ),
 					array( 'status' => WP_Http::BAD_REQUEST )
 				);
 			}
@@ -1103,7 +1103,7 @@ class DataUtils {
 				if ( $refund_total * $signed_line_total < 0 ) {
 					return new WP_Error(
 						'invalid_refund_total',
-						__( 'Refund total has the wrong sign for this line item.', 'woocommerce' ),
+						__( 'Refund total has the wrong sign for this line item.', 'poocommerce' ),
 						array( 'status' => WP_Http::BAD_REQUEST )
 					);
 				}
@@ -1112,7 +1112,7 @@ class DataUtils {
 				if ( 0.0 === (float) NumberUtil::round( $refund_total, $price_decimals ) ) {
 					return new WP_Error(
 						'invalid_refund_total',
-						__( 'refund_total must be a number greater than zero.', 'woocommerce' ),
+						__( 'refund_total must be a number greater than zero.', 'poocommerce' ),
 						array( 'status' => WP_Http::BAD_REQUEST )
 					);
 				}
@@ -1124,7 +1124,7 @@ class DataUtils {
 						'refund_total_exceeds_line',
 						sprintf(
 							/* translators: %s: line item total including tax */
-							__( 'refund_total cannot exceed the line item total including tax (%s).', 'woocommerce' ),
+							__( 'refund_total cannot exceed the line item total including tax (%s).', 'poocommerce' ),
 							wc_format_decimal( $item_total_with_tax, $price_decimals )
 						),
 						array( 'status' => WP_Http::UNPROCESSABLE_ENTITY )
@@ -1141,7 +1141,7 @@ class DataUtils {
 				if ( $remaining_total <= 0 ) {
 					return new WP_Error(
 						'line_item_already_refunded',
-						__( 'This line item has already been fully refunded.', 'woocommerce' ),
+						__( 'This line item has already been fully refunded.', 'poocommerce' ),
 						array( 'status' => WP_Http::UNPROCESSABLE_ENTITY )
 					);
 				}
@@ -1150,7 +1150,7 @@ class DataUtils {
 						'refund_total_exceeds_remaining',
 						sprintf(
 							/* translators: %s: remaining refundable amount */
-							__( 'refund_total cannot exceed the remaining refundable amount for this line item (%s).', 'woocommerce' ),
+							__( 'refund_total cannot exceed the remaining refundable amount for this line item (%s).', 'poocommerce' ),
 							wc_format_decimal( $remaining_total, $price_decimals )
 						),
 						array( 'status' => WP_Http::UNPROCESSABLE_ENTITY )
@@ -1171,7 +1171,7 @@ class DataUtils {
 							'quantity_exceeds_refundable',
 							sprintf(
 								/* translators: %d: remaining refundable quantity */
-								__( 'Requested quantity exceeds remaining refundable quantity (%d).', 'woocommerce' ),
+								__( 'Requested quantity exceeds remaining refundable quantity (%d).', 'poocommerce' ),
 								$remaining_qty
 							),
 							array( 'status' => WP_Http::UNPROCESSABLE_ENTITY )
@@ -1181,7 +1181,7 @@ class DataUtils {
 					// Shipping and fee lines carry a single refundable unit.
 					return new WP_Error(
 						'invalid_quantity',
-						__( 'Shipping and fee line items must be refunded with quantity of 1.', 'woocommerce' ),
+						__( 'Shipping and fee line items must be refunded with quantity of 1.', 'poocommerce' ),
 						array( 'status' => WP_Http::BAD_REQUEST )
 					);
 				}
@@ -1199,7 +1199,7 @@ class DataUtils {
 				if ( $remaining_total <= 0 ) {
 					return new WP_Error(
 						'line_item_already_refunded',
-						__( 'This line item has already been fully refunded.', 'woocommerce' ),
+						__( 'This line item has already been fully refunded.', 'poocommerce' ),
 						array( 'status' => WP_Http::UNPROCESSABLE_ENTITY )
 					);
 				}

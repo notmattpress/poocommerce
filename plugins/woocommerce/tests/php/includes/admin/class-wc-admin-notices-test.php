@@ -14,7 +14,7 @@ class WC_Admin_Notices_Test extends WP_Ajax_UnitTestCase {
 
 		include_once WC_ABSPATH . 'includes/admin/class-wc-admin-notices.php';
 
-		if ( ! has_action( 'wp_ajax_woocommerce_hide_notice', array( 'WC_Admin_Notices', 'ajax_hide_notice' ) ) ) {
+		if ( ! has_action( 'wp_ajax_poocommerce_hide_notice', array( 'WC_Admin_Notices', 'ajax_hide_notice' ) ) ) {
 			WC_Admin_Notices::init();
 		}
 
@@ -41,19 +41,19 @@ class WC_Admin_Notices_Test extends WP_Ajax_UnitTestCase {
 		$callback          = function () use ( &$hide_action_fired ) {
 			$hide_action_fired = true;
 		};
-		add_action( 'woocommerce_hide_test_notice_notice', $callback );
+		add_action( 'poocommerce_hide_test_notice_notice', $callback );
 
 		$_POST['wc-hide-notice']   = 'test_notice';
-		$_POST['_wc_notice_nonce'] = wp_create_nonce( 'woocommerce_hide_notices_nonce' );
+		$_POST['_wc_notice_nonce'] = wp_create_nonce( 'poocommerce_hide_notices_nonce' );
 
-		$response = $this->do_ajax( 'woocommerce_hide_notice' );
+		$response = $this->do_ajax( 'poocommerce_hide_notice' );
 
-		remove_action( 'woocommerce_hide_test_notice_notice', $callback );
+		remove_action( 'poocommerce_hide_test_notice_notice', $callback );
 
 		$this->assertTrue( $response['success'], 'The AJAX response should indicate success' );
 		$this->assertFalse( WC_Admin_Notices::has_notice( 'test_notice' ), 'The notice should no longer be present' );
 		$this->assertTrue( WC_Admin_Notices::user_has_dismissed_notice( 'test_notice' ), 'The dismissal should be recorded in user meta' );
-		$this->assertTrue( $hide_action_fired, 'The woocommerce_hide_{name}_notice action should have fired' );
+		$this->assertTrue( $hide_action_fired, 'The poocommerce_hide_{name}_notice action should have fired' );
 	}
 
 	/**
@@ -69,7 +69,7 @@ class WC_Admin_Notices_Test extends WP_Ajax_UnitTestCase {
 		$this->expectException( 'WPAjaxDieStopException' );
 
 		try {
-			$this->_handleAjax( 'woocommerce_hide_notice' );
+			$this->_handleAjax( 'poocommerce_hide_notice' );
 		} finally {
 			$this->assertTrue( WC_Admin_Notices::has_notice( 'test_notice' ), 'The notice should still be present' );
 		}
@@ -83,9 +83,9 @@ class WC_Admin_Notices_Test extends WP_Ajax_UnitTestCase {
 		WC_Admin_Notices::add_notice( 'test_notice' );
 
 		$_POST['wc-hide-notice']   = 'test_notice';
-		$_POST['_wc_notice_nonce'] = wp_create_nonce( 'woocommerce_hide_notices_nonce' );
+		$_POST['_wc_notice_nonce'] = wp_create_nonce( 'poocommerce_hide_notices_nonce' );
 
-		$response = $this->do_ajax( 'woocommerce_hide_notice' );
+		$response = $this->do_ajax( 'poocommerce_hide_notice' );
 
 		$this->assertFalse( $response['success'], 'The AJAX response should indicate failure' );
 		$this->assertTrue( WC_Admin_Notices::has_notice( 'test_notice' ), 'The notice should still be present' );
@@ -98,9 +98,9 @@ class WC_Admin_Notices_Test extends WP_Ajax_UnitTestCase {
 	public function test_ajax_hide_notice_requires_notice_name(): void {
 		$this->_setRole( 'administrator' );
 
-		$_POST['_wc_notice_nonce'] = wp_create_nonce( 'woocommerce_hide_notices_nonce' );
+		$_POST['_wc_notice_nonce'] = wp_create_nonce( 'poocommerce_hide_notices_nonce' );
 
-		$response = $this->do_ajax( 'woocommerce_hide_notice' );
+		$response = $this->do_ajax( 'poocommerce_hide_notice' );
 
 		$this->assertFalse( $response['success'], 'The AJAX response should indicate failure' );
 	}

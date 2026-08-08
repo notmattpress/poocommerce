@@ -6,7 +6,7 @@
 	"plugins": [
 		".",
 		"./tests/e2e/test-plugins/wc-email-template-sync-test-helper",
-		"./tests/e2e/test-plugins/woocommerce-e2e-test-helper",
+		"./tests/e2e/test-plugins/poocommerce-e2e-test-helper",
 		"https://downloads.wordpress.org/plugin/akismet.zip",
 		"https://github.com/WP-API/Basic-Auth/archive/master.zip",
 		"https://downloads.wordpress.org/plugin/wp-mail-logging.zip",
@@ -45,9 +45,9 @@
 		"wp-content/themes/twentytwentyfour-child__block-notices-template": "./tests/e2e/themes/blocks/twentytwentyfour-child__block-notices-template",
 		"wp-content/themes/twentytwentyfour-child__classic-notices-template": "./tests/e2e/themes/blocks/twentytwentyfour-child__classic-notices-template",
 		"wp-content/themes/twentytwentyfour": "https://downloads.wordpress.org/theme/twentytwentyfour.latest-stable.zip",
-		"wp-content/plugins/woocommerce/blocks-bin": "./client/blocks/bin",
-		"wp-content/plugins/woocommerce/blocks-bin/playwright": "./tests/e2e/bin/blocks",
-		"wp-content/plugins/woocommerce-blocks-test-plugins": "./tests/e2e/test-plugins/blocks",
-		"wp-content/plugins/woocommerce/i18n/languages": "./i18n/languages"
+		"wp-content/plugins/poocommerce/blocks-bin": "./client/blocks/bin",
+		"wp-content/plugins/poocommerce/blocks-bin/playwright": "./tests/e2e/bin/blocks",
+		"wp-content/plugins/poocommerce-blocks-test-plugins": "./tests/e2e/test-plugins/blocks",
+		"wp-content/plugins/poocommerce/i18n/languages": "./i18n/languages"
 	}
 }

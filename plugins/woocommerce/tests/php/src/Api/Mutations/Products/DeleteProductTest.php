@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Api\Mutations\Products;
+namespace Automattic\PooCommerce\Tests\Api\Mutations\Products;
 
-use Automattic\WooCommerce\Api\ApiException;
-use Automattic\WooCommerce\Api\Mutations\Products\DeleteProduct;
+use Automattic\PooCommerce\Api\ApiException;
+use Automattic\PooCommerce\Api\Mutations\Products\DeleteProduct;
 use WC_Helper_Product;
 use WC_Unit_Test_Case;
 
@@ -32,7 +32,7 @@ class DeleteProductTest extends WC_Unit_Test_Case {
 	 * Tear down.
 	 */
 	public function tearDown(): void {
-		remove_all_filters( 'woocommerce_pre_delete_product' );
+		remove_all_filters( 'poocommerce_pre_delete_product' );
 		parent::tearDown();
 	}
 
@@ -87,24 +87,24 @@ class DeleteProductTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox execute() returns false when woocommerce_pre_delete_product short-circuits to false.
+	 * @testdox execute() returns false when poocommerce_pre_delete_product short-circuits to false.
 	 */
 	public function test_execute_returns_false_when_pre_delete_filter_returns_false(): void {
 		$product = WC_Helper_Product::create_simple_product();
 
-		add_filter( 'woocommerce_pre_delete_product', '__return_false' );
+		add_filter( 'poocommerce_pre_delete_product', '__return_false' );
 
 		$this->assertFalse( $this->sut->execute( $product->get_id(), true ) );
 	}
 
 	/**
-	 * @testdox execute() surfaces a WP_Error from woocommerce_pre_delete_product as an INTERNAL_ERROR ApiException.
+	 * @testdox execute() surfaces a WP_Error from poocommerce_pre_delete_product as an INTERNAL_ERROR ApiException.
 	 */
 	public function test_execute_translates_wp_error_to_api_exception(): void {
 		$product = WC_Helper_Product::create_simple_product();
 
 		add_filter(
-			'woocommerce_pre_delete_product',
+			'poocommerce_pre_delete_product',
 			static function () {
 				return new \WP_Error( 'wc_delete_failed', 'Something went wrong.' );
 			}

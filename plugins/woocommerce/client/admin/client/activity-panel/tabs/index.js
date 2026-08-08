@@ -26,7 +26,7 @@ export const Tabs = ( {
 		<NavigableMenu
 			role="tablist"
 			orientation="horizontal"
-			className="woocommerce-layout__activity-panel-tabs"
+			className="poocommerce-layout__activity-panel-tabs"
 		>
 			{ tabs &&
 				tabs.map( ( tab, i ) => {

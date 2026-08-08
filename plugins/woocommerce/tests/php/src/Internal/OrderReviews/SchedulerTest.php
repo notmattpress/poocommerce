@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\OrderReviews;
+namespace Automattic\PooCommerce\Tests\Internal\OrderReviews;
 
-use Automattic\WooCommerce\Internal\OrderReviews\Scheduler;
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
+use Automattic\PooCommerce\Internal\OrderReviews\Scheduler;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
 use WC_Email_Customer_Review_Request;
 use WC_Helper_Product;
 use WC_Order;
@@ -14,7 +14,7 @@ use WC_Unit_Test_Case;
 /**
  * Scheduler test.
  *
- * @covers \Automattic\WooCommerce\Internal\OrderReviews\Scheduler
+ * @covers \Automattic\PooCommerce\Internal\OrderReviews\Scheduler
  */
 class SchedulerTest extends WC_Unit_Test_Case {
 	/**
@@ -38,7 +38,7 @@ class SchedulerTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Delete the shared product through the WooCommerce data store.
+	 * Delete the shared product through the PooCommerce data store.
 	 */
 	public static function wpTearDownAfterClass(): void {
 		self::enable_direct_product_attribute_lookup_updates();
@@ -63,7 +63,7 @@ class SchedulerTest extends WC_Unit_Test_Case {
 		// the Scheduler from the container (singleton across the test run)
 		// and call init() to wire hooks. Re-init WC_Emails so the
 		// review-request email class lands in the mailer map.
-		update_option( 'woocommerce_feature_customer_review_request_enabled', 'yes' );
+		update_option( 'poocommerce_feature_customer_review_request_enabled', 'yes' );
 		wc_get_container()->get( Scheduler::class )->init();
 		WC()->mailer()->init();
 
@@ -75,9 +75,9 @@ class SchedulerTest extends WC_Unit_Test_Case {
 	 */
 	public function tearDown(): void {
 		$this->set_review_email_enabled( false );
-		remove_all_filters( 'woocommerce_should_send_review_request' );
-		remove_all_filters( 'woocommerce_review_request_delay_seconds' );
-		delete_option( 'woocommerce_feature_customer_review_request_enabled' );
+		remove_all_filters( 'poocommerce_should_send_review_request' );
+		remove_all_filters( 'poocommerce_review_request_delay_seconds' );
+		delete_option( 'poocommerce_feature_customer_review_request_enabled' );
 
 		parent::tearDown();
 	}
@@ -134,8 +134,8 @@ class SchedulerTest extends WC_Unit_Test_Case {
 		$order->update_status( 'completed' );
 		$first = (int) wc_get_order( $order->get_id() )->get_meta( Scheduler::SCHEDULED_META_KEY );
 
-		// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment -- Existing core hook, fired here only to simulate a second completed-notification (e.g. status toggled back and forth).
-		do_action( 'woocommerce_order_status_completed', $order->get_id() );
+		// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment -- Existing core hook, fired here only to simulate a second completed-notification (e.g. status toggled back and forth).
+		do_action( 'poocommerce_order_status_completed', $order->get_id() );
 		$second = (int) wc_get_order( $order->get_id() )->get_meta( Scheduler::SCHEDULED_META_KEY );
 
 		$this->assertSame( $first, $second, 'Scheduled-at meta should not change on re-completion.' );
@@ -171,13 +171,13 @@ class SchedulerTest extends WC_Unit_Test_Case {
 	/**
 	 * @testdox Scheduling is skipped when site-wide reviews are disabled.
 	 *
-	 * The `woocommerce_enable_reviews=no` setting removes `comments` support
+	 * The `poocommerce_enable_reviews=no` setting removes `comments` support
 	 * from the product post type so `comments_open()` returns false for every
 	 * product, which `ItemEligibility::has_actionable_items()` reads.
 	 */
 	public function test_skips_when_site_wide_reviews_disabled(): void {
-		$previous = get_option( 'woocommerce_enable_reviews', 'yes' );
-		update_option( 'woocommerce_enable_reviews', 'no' );
+		$previous = get_option( 'poocommerce_enable_reviews', 'yes' );
+		update_option( 'poocommerce_enable_reviews', 'no' );
 		// `comments` post-type support is registered at init based on the
 		// option, so reflect the option change for the rest of this test.
 		remove_post_type_support( 'product', 'comments' );
@@ -189,7 +189,7 @@ class SchedulerTest extends WC_Unit_Test_Case {
 			$this->assertFalse( (bool) as_next_scheduled_action( Scheduler::ACTION_HOOK, array( $order->get_id() ) ) );
 			$this->assertEmpty( wc_get_order( $order->get_id() )->get_meta( Scheduler::SCHEDULED_META_KEY ) );
 		} finally {
-			update_option( 'woocommerce_enable_reviews', $previous );
+			update_option( 'poocommerce_enable_reviews', $previous );
 			if ( 'yes' === $previous ) {
 				add_post_type_support( 'product', 'comments' );
 			}
@@ -227,10 +227,10 @@ class SchedulerTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox woocommerce_should_send_review_request=false skips scheduling.
+	 * @testdox poocommerce_should_send_review_request=false skips scheduling.
 	 */
 	public function test_opt_out_filter_skips_scheduling(): void {
-		add_filter( 'woocommerce_should_send_review_request', '__return_false' );
+		add_filter( 'poocommerce_should_send_review_request', '__return_false' );
 
 		$order = $this->create_pending_order();
 		$order->update_status( 'completed' );
@@ -302,13 +302,13 @@ class SchedulerTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox The woocommerce_review_order_eligible_statuses filter keeps the action queued through transitions inside the widened set.
+	 * @testdox The poocommerce_review_order_eligible_statuses filter keeps the action queued through transitions inside the widened set.
 	 */
 	public function test_status_changed_respects_eligible_statuses_filter(): void {
 		$widen = static function () {
 			return array( 'completed', 'processing' );
 		};
-		add_filter( 'woocommerce_review_order_eligible_statuses', $widen );
+		add_filter( 'poocommerce_review_order_eligible_statuses', $widen );
 
 		try {
 			$order = $this->create_pending_order();
@@ -323,7 +323,7 @@ class SchedulerTest extends WC_Unit_Test_Case {
 			$order->update_status( 'on-hold' );
 			$this->assertFalse( (bool) as_next_scheduled_action( Scheduler::ACTION_HOOK, array( $order->get_id() ) ) );
 		} finally {
-			remove_filter( 'woocommerce_review_order_eligible_statuses', $widen );
+			remove_filter( 'poocommerce_review_order_eligible_statuses', $widen );
 		}
 	}
 

@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Api\Mutations\Coupons;
+namespace Automattic\PooCommerce\Api\Mutations\Coupons;
 
-use Automattic\WooCommerce\Api\Attributes\Description;
-use Automattic\WooCommerce\Api\Attributes\RequiredCapability;
-use Automattic\WooCommerce\Api\InputTypes\Coupons\CreateCouponInput;
-use Automattic\WooCommerce\Api\Utils\Coupons\CouponMapper;
-use Automattic\WooCommerce\Api\Types\Coupons\Coupon;
+use Automattic\PooCommerce\Api\Attributes\Description;
+use Automattic\PooCommerce\Api\Attributes\RequiredCapability;
+use Automattic\PooCommerce\Api\InputTypes\Coupons\CreateCouponInput;
+use Automattic\PooCommerce\Api\Utils\Coupons\CouponMapper;
+use Automattic\PooCommerce\Api\Types\Coupons\Coupon;
 
 /**
  * Mutation to create a new coupon.
  */
 #[Description( 'Create a new coupon.' )]
-#[RequiredCapability( 'manage_woocommerce' )]
+#[RequiredCapability( 'manage_poocommerce' )]
 class CreateCoupon {
 	/**
 	 * Execute the mutation.

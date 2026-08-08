@@ -138,7 +138,7 @@ const data = {
   ]
 };
 
-WooCommerce.post("products/22/variations", data)
+PooCommerce.post("products/22/variations", data)
   .then((response) => {
     console.log(response.data);
   })
@@ -165,7 +165,7 @@ $data = [
     ]
 ];
 
-print_r($woocommerce->post('products/22/variations', $data));
+print_r($poocommerce->post('products/22/variations', $data));
 ?>
 ```
 
@@ -206,7 +206,7 @@ data = {
   ]
 }
 
-woocommerce.post("products/22/variations", data).parsed_response
+poocommerce.post("products/22/variations", data).parsed_response
 ```
 
   </TabItem>
@@ -315,7 +315,7 @@ curl https://example.com/wp-json/wc/v2/products/22/variations/732 \
   <TabItem value="js" label="JavaScript">
 
 ```javascript
-WooCommerce.get("products/22/variations/732")
+PooCommerce.get("products/22/variations/732")
   .then((response) => {
     console.log(response.data);
   })
@@ -328,7 +328,7 @@ WooCommerce.get("products/22/variations/732")
   <TabItem value="php" label="PHP">
 
 ```php
-<?php print_r($woocommerce->get('products/22/variations/732')); ?>
+<?php print_r($poocommerce->get('products/22/variations/732')); ?>
 ```
 
   </TabItem>
@@ -342,7 +342,7 @@ print(wcapi.get("products/22/variations/732").json())
   <TabItem value="ruby" label="Ruby">
 
 ```ruby
-woocommerce.get("products/22/variations/732").parsed_response
+poocommerce.get("products/22/variations/732").parsed_response
 ```
 
   </TabItem>
@@ -451,7 +451,7 @@ curl https://example.com/wp-json/wc/v2/products/22/variations \
   <TabItem value="js" label="JavaScript">
 
 ```javascript
-WooCommerce.get("products/22/variations")
+PooCommerce.get("products/22/variations")
   .then((response) => {
     console.log(response.data);
   })
@@ -464,7 +464,7 @@ WooCommerce.get("products/22/variations")
   <TabItem value="php" label="PHP">
 
 ```php
-<?php print_r($woocommerce->get('products/22/variations')); ?>
+<?php print_r($poocommerce->get('products/22/variations')); ?>
 ```
 
   </TabItem>
@@ -478,7 +478,7 @@ print(wcapi.get("products/22/variations").json())
   <TabItem value="ruby" label="Ruby">
 
 ```ruby
-woocommerce.get("products/22/variations").parsed_response
+poocommerce.get("products/22/variations").parsed_response
 ```
 
   </TabItem>
@@ -709,7 +709,7 @@ const data = {
   regular_price: "10.00"
 };
 
-WooCommerce.put("products/22/variations/733", data)
+PooCommerce.put("products/22/variations/733", data)
   .then((response) => {
     console.log(response.data);
   })
@@ -727,7 +727,7 @@ $data = [
     'regular_price' => '10.00'
 ];
 
-print_r($woocommerce->put('products/22/variations/733', $data));
+print_r($poocommerce->put('products/22/variations/733', $data));
 ?>
 ```
 
@@ -750,7 +750,7 @@ data = {
   regular_price: "10.00"
 }
 
-woocommerce.put("products/22/variations/733", data).parsed_response
+poocommerce.put("products/22/variations/733", data).parsed_response
 ```
 
   </TabItem>
@@ -859,7 +859,7 @@ curl -X DELETE https://example.com/wp-json/wc/v2/products/22/variations/733?forc
   <TabItem value="js" label="JavaScript">
 
 ```javascript
-WooCommerce.delete("products/22/variations/733", {
+PooCommerce.delete("products/22/variations/733", {
   force: true
 })
   .then((response) => {
@@ -874,7 +874,7 @@ WooCommerce.delete("products/22/variations/733", {
   <TabItem value="php" label="PHP">
 
 ```php
-<?php print_r($woocommerce->delete('products/22/variations/733', ['force' => true])); ?>
+<?php print_r($poocommerce->delete('products/22/variations/733', ['force' => true])); ?>
 ```
 
   </TabItem>
@@ -888,7 +888,7 @@ print(wcapi.delete("products/22/variations/733", params={"force": True}).json())
   <TabItem value="ruby" label="Ruby">
 
 ```ruby
-woocommerce.delete("products/22/variations/733", force: true).parsed_response
+poocommerce.delete("products/22/variations/733", force: true).parsed_response
 ```
 
   </TabItem>
@@ -1070,7 +1070,7 @@ const data = {
   ]
 };
 
-WooCommerce.post("products/22/variations/batch", data)
+PooCommerce.post("products/22/variations/batch", data)
   .then((response) => {
     console.log(response.data);
   })
@@ -1116,7 +1116,7 @@ $data = [
     ]
 ];
 
-print_r($woocommerce->post('products/22/variations/batch', $data));
+print_r($poocommerce->post('products/22/variations/batch', $data));
 ?>
 ```
 
@@ -1195,7 +1195,7 @@ data = {
   ]
 }
 
-woocommerce.post("products/22/variations/batch", data).parsed_response
+poocommerce.post("products/22/variations/batch", data).parsed_response
 ```
 
   </TabItem>
@@ -1250,7 +1250,7 @@ woocommerce.post("products/22/variations/batch", data).parsed_response
         "date_created_gmt": "2017-03-23T04:19:40",
         "date_modified": "2017-03-22T22:19:40",
         "date_modified_gmt": "2017-03-23T04:19:40",
-        "src": "https://example.com/wp-content/plugins/woocommerce/assets/images/placeholder.png",
+        "src": "https://example.com/wp-content/plugins/poocommerce/assets/images/placeholder.png",
         "name": "Placeholder",
         "alt": "Placeholder",
         "position": 0
@@ -1328,7 +1328,7 @@ woocommerce.post("products/22/variations/batch", data).parsed_response
         "date_created_gmt": "2017-03-23T04:19:42",
         "date_modified": "2017-03-22T22:19:42",
         "date_modified_gmt": "2017-03-23T04:19:42",
-        "src": "https://example.com/wp-content/plugins/woocommerce/assets/images/placeholder.png",
+        "src": "https://example.com/wp-content/plugins/poocommerce/assets/images/placeholder.png",
         "name": "Placeholder",
         "alt": "Placeholder",
         "position": 0

@@ -1,14 +1,14 @@
 ---
-post_title: WooCommerce Security Patch Support Policy
+post_title: PooCommerce Security Patch Support Policy
 sidebar_label: Security Support
 sidebar_position: 10
 ---
 
 # Security Patch Support Policy
 
-WooCommerce provides security patches for the **last 21 major versions**. If the current stable WooCommerce version is 11.0, that means version **9.0 and newer**.
+PooCommerce provides security patches for the **last 21 major versions**. If the current stable PooCommerce version is 11.0, that means version **9.0 and newer**.
 
-"Major version" follows WooCommerce's release numbering (`10.8`, `10.9`, `11.0`, ...), not semantic versioning. At the current release cadence, 21 major versions correspond to roughly two years of releases.
+"Major version" follows PooCommerce's release numbering (`10.8`, `10.9`, `11.0`, ...), not semantic versioning. At the current release cadence, 21 major versions correspond to roughly two years of releases.
 
 ## What this means
 

@@ -23,7 +23,7 @@ import {
 
 const fieldDefinition = {
 	type: 'boolean',
-	label: __( 'Schedule sale', 'woocommerce' ),
+	label: __( 'Schedule sale', 'poocommerce' ),
 	enableSorting: false,
 	enableHiding: false,
 	filterBy: false,
@@ -134,19 +134,19 @@ export const fieldExtensions: Partial< Field< ProductEntityRecord > > = {
 		);
 
 		return (
-			<div className="woocommerce-schedule-sale-control">
+			<div className="poocommerce-schedule-sale-control">
 				<CheckboxControl
 					label={ field.label }
 					checked={ checked }
 					onChange={ handleScheduleChange }
 				/>
 				{ checked && (
-					<div className="woocommerce-schedule-sale-control__dates">
+					<div className="poocommerce-schedule-sale-control__dates">
 						<DatePicker
 							data={ data }
 							onChange={ handleDateOnSaleFromChange }
 							field={ {
-								label: __( 'Start sale on', 'woocommerce' ),
+								label: __( 'Start sale on', 'poocommerce' ),
 							} }
 							fieldKey="date_on_sale_from"
 							min={ today }
@@ -155,7 +155,7 @@ export const fieldExtensions: Partial< Field< ProductEntityRecord > > = {
 							data={ data }
 							onChange={ onChange }
 							field={ {
-								label: __( 'End sale on', 'woocommerce' ),
+								label: __( 'End sale on', 'poocommerce' ),
 							} }
 							fieldKey="date_on_sale_to"
 							min={ minDateOnSaleTo }

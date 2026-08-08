@@ -3,7 +3,7 @@
  */
 import { useSelect } from '@wordpress/data';
 import { addFilter, hasFilter } from '@wordpress/hooks';
-import type { EditorBlock } from '@woocommerce/types';
+import type { EditorBlock } from '@poocommerce/types';
 
 /**
  * Internal dependencies
@@ -44,10 +44,10 @@ const withViewSwitcher =
 		);
 	};
 
-if ( ! hasFilter( 'editor.BlockEdit', 'woocommerce/with-view-switcher' ) ) {
+if ( ! hasFilter( 'editor.BlockEdit', 'poocommerce/with-view-switcher' ) ) {
 	addFilter(
 		'editor.BlockEdit',
-		'woocommerce/with-view-switcher',
+		'poocommerce/with-view-switcher',
 		withViewSwitcher,
 		11
 	);

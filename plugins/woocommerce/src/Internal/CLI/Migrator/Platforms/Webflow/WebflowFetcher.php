@@ -2,14 +2,14 @@
 /**
  * Webflow Fetcher
  *
- * @package Automattic\WooCommerce\Internal\CLI\Migrator\Platforms\Webflow
+ * @package Automattic\PooCommerce\Internal\CLI\Migrator\Platforms\Webflow
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\CLI\Migrator\Platforms\Webflow;
+namespace Automattic\PooCommerce\Internal\CLI\Migrator\Platforms\Webflow;
 
-use Automattic\WooCommerce\Internal\CLI\Migrator\Interfaces\PlatformFetcherInterface;
+use Automattic\PooCommerce\Internal\CLI\Migrator\Interfaces\PlatformFetcherInterface;
 
 defined( 'ABSPATH' ) || exit;
 

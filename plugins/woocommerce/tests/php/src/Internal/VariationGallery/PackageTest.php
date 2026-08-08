@@ -1,10 +1,10 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\VariationGallery;
+namespace Automattic\PooCommerce\Tests\Internal\VariationGallery;
 
-use Automattic\WooCommerce\Internal\VariationGallery\Migration;
-use Automattic\WooCommerce\Internal\VariationGallery\Package;
+use Automattic\PooCommerce\Internal\VariationGallery\Migration;
+use Automattic\PooCommerce\Internal\VariationGallery\Package;
 
 /**
  * Tests for the variation gallery package bootstrap.
@@ -17,18 +17,18 @@ class PackageTest extends \WC_Unit_Test_Case {
 	 */
 	public function tearDown(): void {
 		WC()->queue()->cancel_all(
-			'woocommerce_run_update_callback',
+			'poocommerce_run_update_callback',
 			$this->get_migration_action_args(),
-			'woocommerce-db-updates'
+			'poocommerce-db-updates'
 		);
 		WC()->queue()->cancel_all(
-			'woocommerce_run_update_callback',
+			'poocommerce_run_update_callback',
 			$this->get_unrelated_update_action_args(),
-			'woocommerce-db-updates'
+			'poocommerce-db-updates'
 		);
 		delete_option( Migration::COMPLETED_OPTION );
 		delete_option( Package::ENABLE_OPTION_NAME );
-		delete_option( 'woocommerce_remote_variant_assignment' );
+		delete_option( 'poocommerce_remote_variant_assignment' );
 
 		parent::tearDown();
 	}
@@ -38,7 +38,7 @@ class PackageTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_is_enabled_returns_true_when_option_explicitly_yes(): void {
 		update_option( Package::ENABLE_OPTION_NAME, 'yes' );
-		update_option( 'woocommerce_remote_variant_assignment', 99 );
+		update_option( 'poocommerce_remote_variant_assignment', 99 );
 
 		$this->assertTrue( Package::is_enabled() );
 	}
@@ -48,7 +48,7 @@ class PackageTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_is_enabled_returns_false_when_option_explicitly_no(): void {
 		update_option( Package::ENABLE_OPTION_NAME, 'no' );
-		update_option( 'woocommerce_remote_variant_assignment', 1 );
+		update_option( 'poocommerce_remote_variant_assignment', 1 );
 
 		$this->assertFalse( Package::is_enabled() );
 	}
@@ -58,7 +58,7 @@ class PackageTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_is_enabled_returns_true_for_canary_cohort_when_option_unset(): void {
 		delete_option( Package::ENABLE_OPTION_NAME );
-		update_option( 'woocommerce_remote_variant_assignment', 1 );
+		update_option( 'poocommerce_remote_variant_assignment', 1 );
 
 		$this->assertTrue( Package::is_enabled() );
 	}
@@ -68,7 +68,7 @@ class PackageTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_is_enabled_returns_true_for_canary_cohort_boundary_when_option_unset(): void {
 		delete_option( Package::ENABLE_OPTION_NAME );
-		update_option( 'woocommerce_remote_variant_assignment', Package::CANARY_MAX_VARIANT );
+		update_option( 'poocommerce_remote_variant_assignment', Package::CANARY_MAX_VARIANT );
 
 		$this->assertTrue( Package::is_enabled() );
 	}
@@ -78,7 +78,7 @@ class PackageTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_is_enabled_returns_false_for_control_cohort_when_option_unset(): void {
 		delete_option( Package::ENABLE_OPTION_NAME );
-		update_option( 'woocommerce_remote_variant_assignment', Package::CANARY_MAX_VARIANT + 1 );
+		update_option( 'poocommerce_remote_variant_assignment', Package::CANARY_MAX_VARIANT + 1 );
 
 		$this->assertFalse( Package::is_enabled() );
 	}
@@ -88,7 +88,7 @@ class PackageTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_is_enabled_returns_false_when_option_and_variant_unset(): void {
 		delete_option( Package::ENABLE_OPTION_NAME );
-		delete_option( 'woocommerce_remote_variant_assignment' );
+		delete_option( 'poocommerce_remote_variant_assignment' );
 
 		$this->assertFalse( Package::is_enabled() );
 	}
@@ -97,11 +97,11 @@ class PackageTest extends \WC_Unit_Test_Case {
 	 * @testdox is_in_canary_cohort reports membership independently of the feature option.
 	 */
 	public function test_is_in_canary_cohort_is_independent_of_option_value(): void {
-		update_option( 'woocommerce_remote_variant_assignment', 1 );
+		update_option( 'poocommerce_remote_variant_assignment', 1 );
 		update_option( Package::ENABLE_OPTION_NAME, 'no' );
 		$this->assertTrue( Package::is_in_canary_cohort() );
 
-		update_option( 'woocommerce_remote_variant_assignment', Package::CANARY_MAX_VARIANT + 1 );
+		update_option( 'poocommerce_remote_variant_assignment', Package::CANARY_MAX_VARIANT + 1 );
 		update_option( Package::ENABLE_OPTION_NAME, 'yes' );
 		$this->assertFalse( Package::is_in_canary_cohort() );
 	}
@@ -114,9 +114,9 @@ class PackageTest extends \WC_Unit_Test_Case {
 
 		$this->assertNotNull(
 			WC()->queue()->get_next(
-				'woocommerce_run_update_callback',
+				'poocommerce_run_update_callback',
 				$this->get_migration_action_args(),
-				'woocommerce-db-updates'
+				'poocommerce-db-updates'
 			)
 		);
 	}
@@ -126,25 +126,25 @@ class PackageTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_maybe_schedule_migration_does_not_duplicate_existing_migration(): void {
 		WC()->queue()->add(
-			'woocommerce_run_update_callback',
+			'poocommerce_run_update_callback',
 			$this->get_unrelated_update_action_args(),
-			'woocommerce-db-updates'
+			'poocommerce-db-updates'
 		);
 		WC()->queue()->add(
-			'woocommerce_run_update_callback',
+			'poocommerce_run_update_callback',
 			$this->get_migration_action_args(),
-			'woocommerce-db-updates'
+			'poocommerce-db-updates'
 		);
 
 		Package::maybe_schedule_migration();
 
 		$scheduled = WC()->queue()->search(
 			array(
-				'hook'     => 'woocommerce_run_update_callback',
+				'hook'     => 'poocommerce_run_update_callback',
 				'args'     => $this->get_migration_action_args(),
 				'status'   => \ActionScheduler_Store::STATUS_PENDING,
 				'per_page' => -1,
-				'group'    => 'woocommerce-db-updates',
+				'group'    => 'poocommerce-db-updates',
 			),
 			'ids'
 		);
@@ -162,9 +162,9 @@ class PackageTest extends \WC_Unit_Test_Case {
 
 		$this->assertNull(
 			WC()->queue()->get_next(
-				'woocommerce_run_update_callback',
+				'poocommerce_run_update_callback',
 				$this->get_migration_action_args(),
-				'woocommerce-db-updates'
+				'poocommerce-db-updates'
 			)
 		);
 	}

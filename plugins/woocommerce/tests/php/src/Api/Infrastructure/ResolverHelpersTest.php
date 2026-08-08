@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Api\Infrastructure;
+namespace Automattic\PooCommerce\Tests\Api\Infrastructure;
 
-use Automattic\WooCommerce\Api\ApiException;
-use Automattic\WooCommerce\Api\Infrastructure\ResolverHelpers;
-use Automattic\WooCommerce\Api\Pagination\PaginationParams;
-use Automattic\WooCommerce\Vendor\GraphQL\Error\Error as GraphQLError;
+use Automattic\PooCommerce\Api\ApiException;
+use Automattic\PooCommerce\Api\Infrastructure\ResolverHelpers;
+use Automattic\PooCommerce\Api\Pagination\PaginationParams;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\Error as GraphQLError;
 use WC_Unit_Test_Case;
 
 /**

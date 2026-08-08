@@ -6,7 +6,7 @@ import type {
 	ProductQuery,
 	ProductStatus,
 	ProductType,
-} from '@woocommerce/data';
+} from '@poocommerce/data';
 
 type ProductStockStatus = 'instock' | 'outofstock' | 'onbackorder';
 

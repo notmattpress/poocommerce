@@ -168,14 +168,14 @@ describe( 'TemplateCanvasAffordance', () => {
 		await waitFor( () => {
 			expect(
 				iframe.contentDocument?.getElementById(
-					'woocommerce-email-editor-template-area-affordance-slot'
+					'poocommerce-email-editor-template-area-affordance-slot'
 				)
 			).toBeInTheDocument();
 		} );
 
 		expect(
 			iframe.contentDocument?.querySelector(
-				'.woocommerce-email-editor-template-area-affordance__frame'
+				'.poocommerce-email-editor-template-area-affordance__frame'
 			)
 		).toBeInTheDocument();
 		expect( iframe.contentDocument?.body ).not.toHaveTextContent(
@@ -192,14 +192,14 @@ describe( 'TemplateCanvasAffordance', () => {
 		await waitFor( () => {
 			expect(
 				iframe.contentDocument?.querySelector(
-					'.woocommerce-email-editor-template-area-affordance__frame'
+					'.poocommerce-email-editor-template-area-affordance__frame'
 				)
 			).toBeInTheDocument();
 		} );
 
 		fireEvent.click(
 			iframe.contentDocument?.querySelector(
-				'.woocommerce-email-editor-template-area-affordance__frame'
+				'.poocommerce-email-editor-template-area-affordance__frame'
 			) as HTMLButtonElement
 		);
 
@@ -221,25 +221,25 @@ describe( 'TemplateCanvasAffordance', () => {
 		await waitFor( () => {
 			expect(
 				iframe.contentDocument?.querySelector(
-					'.woocommerce-email-editor-template-area-affordance__frame'
+					'.poocommerce-email-editor-template-area-affordance__frame'
 				)
 			).toBeInTheDocument();
 		} );
 
 		fireEvent.click(
 			iframe.contentDocument?.querySelector(
-				'.woocommerce-email-editor-template-area-affordance__frame'
+				'.poocommerce-email-editor-template-area-affordance__frame'
 			) as HTMLButtonElement
 		);
 
 		expect(
 			iframe.contentDocument?.querySelector(
-				'.woocommerce-email-editor-template-area-affordance__frame'
+				'.poocommerce-email-editor-template-area-affordance__frame'
 			)
 		).toHaveStyle( { top: '83px' } );
 		expect(
 			iframe.contentDocument?.querySelector(
-				'.woocommerce-email-editor-template-area-affordance'
+				'.poocommerce-email-editor-template-area-affordance'
 			)
 		).toHaveStyle( { top: '30px' } );
 	} );
@@ -257,7 +257,7 @@ describe( 'TemplateCanvasAffordance', () => {
 
 		expect(
 			iframe.contentDocument?.getElementById(
-				'woocommerce-email-editor-template-area-affordance-slot'
+				'poocommerce-email-editor-template-area-affordance-slot'
 			)
 		).not.toBeInTheDocument();
 	} );
@@ -272,7 +272,7 @@ describe( 'TemplateCanvasAffordance', () => {
 
 		expect(
 			iframe.contentDocument?.getElementById(
-				'woocommerce-email-editor-template-area-affordance-slot'
+				'poocommerce-email-editor-template-area-affordance-slot'
 			)
 		).not.toBeInTheDocument();
 	} );
@@ -286,20 +286,20 @@ describe( 'TemplateCanvasAffordance', () => {
 		await waitFor( () => {
 			expect(
 				iframe.contentDocument?.querySelector(
-					'.woocommerce-email-editor-template-area-affordance__frame'
+					'.poocommerce-email-editor-template-area-affordance__frame'
 				)
 			).toBeInTheDocument();
 		} );
 
 		fireEvent.click(
 			iframe.contentDocument?.querySelector(
-				'.woocommerce-email-editor-template-area-affordance__frame'
+				'.poocommerce-email-editor-template-area-affordance__frame'
 			) as HTMLButtonElement
 		);
 
 		fireEvent.click(
 			iframe.contentDocument?.querySelector(
-				'.woocommerce-email-editor-template-area-affordance__button'
+				'.poocommerce-email-editor-template-area-affordance__button'
 			) as HTMLButtonElement
 		);
 
@@ -322,7 +322,7 @@ describe( 'TemplateCanvasAffordance', () => {
 		await waitFor( () => {
 			expect(
 				iframe.contentDocument?.getElementById(
-					'woocommerce-email-editor-template-area-affordance-slot'
+					'poocommerce-email-editor-template-area-affordance-slot'
 				)
 			).not.toBeInTheDocument();
 		} );

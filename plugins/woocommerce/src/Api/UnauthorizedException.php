@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Api;
+namespace Automattic\PooCommerce\Api;
 
 /**
  * Thrown to deny access with a 401 Unauthorized status.

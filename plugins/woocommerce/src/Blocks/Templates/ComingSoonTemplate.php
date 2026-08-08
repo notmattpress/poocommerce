@@ -1,5 +1,5 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\Templates;
+namespace Automattic\PooCommerce\Blocks\Templates;
 
 /**
  * ComingSoonTemplate class.
@@ -21,7 +21,7 @@ class ComingSoonTemplate extends AbstractPageTemplate {
 	 * @return string
 	 */
 	public function get_template_title() {
-		return _x( 'Page: Coming soon', 'Template name', 'woocommerce' );
+		return _x( 'Page: Coming soon', 'Template name', 'poocommerce' );
 	}
 
 	/**
@@ -30,7 +30,7 @@ class ComingSoonTemplate extends AbstractPageTemplate {
 	 * @return string
 	 */
 	public function get_template_description() {
-		return __( 'Let your shoppers know your site or part of your site is under construction.', 'woocommerce' );
+		return __( 'Let your shoppers know your site or part of your site is under construction.', 'poocommerce' );
 	}
 
 	/**

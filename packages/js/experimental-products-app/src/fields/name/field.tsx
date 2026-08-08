@@ -12,7 +12,7 @@ import { type ProductEntityRecord } from '../types';
 
 const fieldDefinition = {
 	type: 'text',
-	label: __( 'Name', 'woocommerce' ),
+	label: __( 'Name', 'poocommerce' ),
 	enableSorting: false,
 	filterBy: false,
 	enableHiding: false,
@@ -20,7 +20,7 @@ const fieldDefinition = {
 
 export const fieldExtensions: Partial< Field< ProductEntityRecord > > = {
 	...fieldDefinition,
-	header: <span>{ __( 'Product', 'woocommerce' ) }</span>,
+	header: <span>{ __( 'Product', 'poocommerce' ) }</span>,
 	isValid: {
 		required: true,
 	},

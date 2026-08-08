@@ -1,9 +1,9 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\Templates;
+namespace Automattic\PooCommerce\Blocks\Templates;
 
-use Automattic\WooCommerce\Blocks\SharedStores\ProductsStore;
-use Automattic\WooCommerce\Blocks\Templates\SingleProductTemplateCompatibility;
-use Automattic\WooCommerce\Blocks\Utils\BlockTemplateUtils;
+use Automattic\PooCommerce\Blocks\SharedStores\ProductsStore;
+use Automattic\PooCommerce\Blocks\Templates\SingleProductTemplateCompatibility;
+use Automattic\PooCommerce\Blocks\Utils\BlockTemplateUtils;
 
 /**
  * SingleProductTemplate class.
@@ -33,7 +33,7 @@ class SingleProductTemplate extends AbstractTemplate {
 	 * @return string
 	 */
 	public function get_template_title() {
-		return _x( 'Single Product', 'Template name', 'woocommerce' );
+		return _x( 'Single Product', 'Template name', 'poocommerce' );
 	}
 
 	/**
@@ -42,7 +42,7 @@ class SingleProductTemplate extends AbstractTemplate {
 	 * @return string
 	 */
 	public function get_template_description() {
-		return __( 'Displays a single product.', 'woocommerce' );
+		return __( 'Displays a single product.', 'poocommerce' );
 	}
 
 	/**
@@ -57,7 +57,7 @@ class SingleProductTemplate extends AbstractTemplate {
 
 			$product = wc_get_product( $post->ID );
 			if ( $product ) {
-				$consent = 'I acknowledge that using experimental APIs means my theme or plugin will inevitably break in the next version of WooCommerce';
+				$consent = 'I acknowledge that using experimental APIs means my theme or plugin will inevitably break in the next version of PooCommerce';
 
 				// Load the product data into the products store so derived
 				// state closures can resolve it during server-side rendering.
@@ -67,7 +67,7 @@ class SingleProductTemplate extends AbstractTemplate {
 				// closures (mainProductInContext, productVariationInContext, productInContext)
 				// are registered by ProductsStore::register_state().
 				wp_interactivity_state(
-					'woocommerce/products',
+					'poocommerce/products',
 					array(
 						'productId'   => $product->get_id(),
 						'variationId' => null,
@@ -89,7 +89,7 @@ class SingleProductTemplate extends AbstractTemplate {
 				if ( str_contains( $template->slug, self::SLUG ) ) {
 					// We don't want to add the compatibility layer on the Editor Side.
 					// The second condition is necessary to not apply the compatibility layer on the REST API. Gutenberg uses the REST API to clone the template.
-					// More details: https://github.com/woocommerce/woocommerce-blocks/issues/9662.
+					// More details: https://github.com/poocommerce/poocommerce-blocks/issues/9662.
 					if ( ( ! is_admin() && ! ( defined( 'REST_REQUEST' ) && REST_REQUEST ) ) && ! BlockTemplateUtils::template_has_legacy_template_block( $template ) ) {
 						// Add the product class to the body. We should move this to a more appropriate place.
 						add_filter(
@@ -134,16 +134,16 @@ class SingleProductTemplate extends AbstractTemplate {
 		// We want to replace the first single product template block with the password form. We also want to remove all other single product template blocks.
 		// This array doesn't contains all the blocks. For example, it missing the breadcrumbs blocks: it doesn't make sense replace the breadcrumbs with the password form.
 		$single_product_template_blocks = array(
-			'woocommerce/product-image-gallery',
-			'woocommerce/product-details',
-			'woocommerce/add-to-cart-form',
-			'woocommerce/product-meta',
-			'woocommerce/product-rating',
-			'woocommerce/product-price',
-			'woocommerce/related-products',
-			'woocommerce/add-to-cart-with-options',
-			'woocommerce/product-gallery',
-			'woocommerce/product-collection',
+			'poocommerce/product-image-gallery',
+			'poocommerce/product-details',
+			'poocommerce/add-to-cart-form',
+			'poocommerce/product-meta',
+			'poocommerce/product-rating',
+			'poocommerce/product-price',
+			'poocommerce/related-products',
+			'poocommerce/add-to-cart-with-options',
+			'poocommerce/product-gallery',
+			'poocommerce/product-collection',
 			'core/post-title',
 			'core/post-excerpt',
 		);
@@ -151,7 +151,7 @@ class SingleProductTemplate extends AbstractTemplate {
 		return array_reduce(
 			$parsed_blocks,
 			function ( $carry, $block ) use ( $single_product_template_blocks ) {
-				if ( in_array( $block['blockName'], $single_product_template_blocks, true ) || ( 'core/pattern' === $block['blockName'] && isset( $block['attrs']['slug'] ) && 'woocommerce-blocks/related-products' === $block['attrs']['slug'] ) ) {
+				if ( in_array( $block['blockName'], $single_product_template_blocks, true ) || ( 'core/pattern' === $block['blockName'] && isset( $block['attrs']['slug'] ) && 'poocommerce-blocks/related-products' === $block['attrs']['slug'] ) ) {
 					if ( $carry['is_already_replaced'] ) {
 						return array(
 							'blocks'              => $carry['blocks'],

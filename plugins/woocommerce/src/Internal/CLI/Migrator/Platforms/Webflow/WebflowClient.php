@@ -2,12 +2,12 @@
 /**
  * Webflow Client
  *
- * @package Automattic\WooCommerce\Internal\CLI\Migrator\Platforms\Webflow
+ * @package Automattic\PooCommerce\Internal\CLI\Migrator\Platforms\Webflow
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\CLI\Migrator\Platforms\Webflow;
+namespace Automattic\PooCommerce\Internal\CLI\Migrator\Platforms\Webflow;
 
 defined( 'ABSPATH' ) || exit;
 

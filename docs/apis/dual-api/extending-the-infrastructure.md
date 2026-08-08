@@ -8,17 +8,17 @@ sidebar_position: 9
 
 This document is for maintainers of the dual-API infrastructure itself (the build tooling and the engine-integration layer), not for code-API authors. It is intentionally a high-level map; **the code itself is the primary source of truth** for the details. Key entry points:
 
-- Build tooling: `plugins/woocommerce/bin/api-builder/` (`ApiBuilder.php`, templates under `code-templates/`, `StalenessChecker.php`).
-- Engine surface: `plugins/woocommerce/src/Api/Infrastructure/Schema/` and its `README.md`.
-- Runtime helpers: `plugins/woocommerce/src/Api/Infrastructure/` (`GraphQLControllerBase`, `ResolverHelpers`, `MetadataController`, `QueryInfoExtractor`).
+- Build tooling: `plugins/poocommerce/bin/api-builder/` (`ApiBuilder.php`, templates under `code-templates/`, `StalenessChecker.php`).
+- Engine surface: `plugins/poocommerce/src/Api/Infrastructure/Schema/` and its `README.md`.
+- Runtime helpers: `plugins/poocommerce/src/Api/Infrastructure/` (`GraphQLControllerBase`, `ResolverHelpers`, `MetadataController`, `QueryInfoExtractor`).
 
 ## The engine-decoupling surface
 
-The GraphQL engine (currently `webonyx/graphql-php`, vendored as `Automattic\WooCommerce\Vendor\GraphQL\*`) is treated as a replaceable implementation detail. The contract that makes this possible:
+The GraphQL engine (currently `webonyx/graphql-php`, vendored as `Automattic\PooCommerce\Vendor\GraphQL\*`) is treated as a replaceable implementation detail. The contract that makes this possible:
 
 > **Generated code, and any public signature on an `Api\Infrastructure\*` class, may reference the `Schema\*` surface but never `Vendor\GraphQL\*` directly.**
 
-`src/Api/Infrastructure/Schema/` is the single point of contact with the engine. Generated resolvers, types, and root types import only from there. This matters because plugins commit their generated trees to their own repos: routing every engine reference through this surface means a future engine swap in WooCommerce doesn't break already-committed plugin code. Method *bodies* may touch vendor symbols: that's WooCommerce's concern when the engine changes, not the plugin's.
+`src/Api/Infrastructure/Schema/` is the single point of contact with the engine. Generated resolvers, types, and root types import only from there. This matters because plugins commit their generated trees to their own repos: routing every engine reference through this surface means a future engine swap in PooCommerce doesn't break already-committed plugin code. Method *bodies* may touch vendor symbols: that's PooCommerce's concern when the engine changes, not the plugin's.
 
 The surface uses three patterns (see `Schema/README.md`):
 

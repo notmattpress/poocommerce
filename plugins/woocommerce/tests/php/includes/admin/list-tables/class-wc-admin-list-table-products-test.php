@@ -2,19 +2,19 @@
 /**
  * Unit tests for the products admin list table.
  *
- * @package WooCommerce\Tests\Admin
+ * @package PooCommerce\Tests\Admin
  */
 
 declare( strict_types = 1 );
 
-use Automattic\WooCommerce\Enums\ProductStockStatus;
+use Automattic\PooCommerce\Enums\ProductStockStatus;
 
 require_once WC_ABSPATH . 'includes/admin/list-tables/class-wc-admin-list-table-products.php';
 
 /**
  * WC_Admin_List_Table_Products tests.
  *
- * @package WooCommerce\Tests\Admin
+ * @package PooCommerce\Tests\Admin
  */
 class WC_Admin_List_Table_Products_Test extends WC_Unit_Test_Case {
 
@@ -30,7 +30,7 @@ class WC_Admin_List_Table_Products_Test extends WC_Unit_Test_Case {
 	 */
 	public function setUp(): void {
 		parent::setUp();
-		$this->original_manage_stock = get_option( 'woocommerce_manage_stock' );
+		$this->original_manage_stock = get_option( 'poocommerce_manage_stock' );
 	}
 
 	/**
@@ -38,9 +38,9 @@ class WC_Admin_List_Table_Products_Test extends WC_Unit_Test_Case {
 	 */
 	public function tearDown(): void {
 		if ( false === $this->original_manage_stock ) {
-			delete_option( 'woocommerce_manage_stock' );
+			delete_option( 'poocommerce_manage_stock' );
 		} else {
-			update_option( 'woocommerce_manage_stock', $this->original_manage_stock );
+			update_option( 'poocommerce_manage_stock', $this->original_manage_stock );
 		}
 
 		parent::tearDown();
@@ -50,7 +50,7 @@ class WC_Admin_List_Table_Products_Test extends WC_Unit_Test_Case {
 	 * @testdox Products list out-of-stock filter includes variable products with out-of-stock variations.
 	 */
 	public function test_out_of_stock_filter_includes_variable_products_with_out_of_stock_variations() {
-		update_option( 'woocommerce_manage_stock', 'no' );
+		update_option( 'poocommerce_manage_stock', 'no' );
 
 		$simple_out_of_stock = WC_Helper_Product::create_simple_product();
 		$simple_out_of_stock->set_manage_stock( false );

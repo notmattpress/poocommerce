@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\GraphQL\Language;
+namespace Automattic\PooCommerce\Vendor\GraphQL\Language;
 
 class Source
 {
@@ -16,7 +16,7 @@ class Source
      * A representation of source input to GraphQL.
      *
      * `name` and `locationOffset` are optional. They are useful for clients who
-     * store Automattic\WooCommerce\Vendor\GraphQL documents in source files; for example, if the Automattic\WooCommerce\Vendor\GraphQL input
+     * store Automattic\PooCommerce\Vendor\GraphQL documents in source files; for example, if the Automattic\PooCommerce\Vendor\GraphQL input
      * starts at line 40 in a file named Foo.graphql, it might be useful for name to
      * be "Foo.graphql" and location to be `{ line: 40, column: 0 }`.
      * line and column in locationOffset are 1-indexed
@@ -26,7 +26,7 @@ class Source
         $this->body = $body;
         $this->length = mb_strlen($body, 'UTF-8');
         $this->name = $name === '' || $name === null
-            ? 'Automattic\WooCommerce\Vendor\GraphQL request'
+            ? 'Automattic\PooCommerce\Vendor\GraphQL request'
             : $name;
         $this->locationOffset = $location ?? new SourceLocation(1, 1);
     }

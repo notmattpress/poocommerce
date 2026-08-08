@@ -1,11 +1,11 @@
 /**
  * External dependencies
  */
-import { expect, test } from '@woocommerce/e2e-utils';
+import { expect, test } from '@poocommerce/e2e-utils';
 
 const blockData = {
 	name: 'Catalog Sorting',
-	slug: 'woocommerce/catalog-sorting',
+	slug: 'poocommerce/catalog-sorting',
 	class: '.wc-block-catalog-sorting',
 };
 

@@ -6,26 +6,26 @@ sidebar_position: 7
 
 # Settings UI
 
-The settings UI is an experimental, opt-in path for rendering WooCommerce settings pages with React while keeping the existing `WC_Settings_Page` registration and save flow.
+The settings UI is an experimental, opt-in path for rendering PooCommerce settings pages with React while keeping the existing `WC_Settings_Page` registration and save flow.
 
 It is designed for extension authors who want to migrate incrementally. PHP still owns page registration, settings schema, permissions, script dependencies, and persistence. React owns field rendering and client-side interaction.
 
 ## Status
 
-> **The settings UI is experimental.** Until it is marked as stable, the PHP API under `Automattic\WooCommerce\Admin\Settings`, the schema format, and the `@woocommerce/settings-ui` package can change in backwards-incompatible ways in any release. Expect to update integrations between WooCommerce versions.
+> **The settings UI is experimental.** Until it is marked as stable, the PHP API under `Automattic\PooCommerce\Admin\Settings`, the schema format, and the `@poocommerce/settings-ui` package can change in backwards-incompatible ways in any release. Expect to update integrations between PooCommerce versions.
 
 -   The settings UI is behind the `settings-ui` feature flag.
 -   With the flag disabled, settings pages keep the legacy PHP renderer.
 -   With the flag enabled, a settings page still has to opt in explicitly.
--   Saves use the existing WooCommerce settings form POST flow by default.
--   The public PHP API is available under `Automattic\WooCommerce\Admin\Settings`.
+-   Saves use the existing PooCommerce settings form POST flow by default.
+-   The public PHP API is available under `Automattic\PooCommerce\Admin\Settings`.
 
 ## Build a settings UI integration
 
 A complete integration has the same pieces whether it is a full settings tab or a section inside an existing tab:
 
 1. Choose the location: a new `WC_Settings_Page` tab, or a registered section under an existing tab.
-2. Define fields in PHP using the WooCommerce settings array. This remains the source of truth for labels, descriptions, defaults, option ids, and fallback rendering.
+2. Define fields in PHP using the PooCommerce settings array. This remains the source of truth for labels, descriptions, defaults, option ids, and fallback rendering.
 3. Add Settings UI metadata to fields that need custom React rendering, such as a stable `component` name.
 4. Return any script handles that register those custom components before the settings UI mounts.
 5. Use the default `form_post` save adapter unless the field is display-only or manages persistence separately.
@@ -37,7 +37,7 @@ For local testing, enable the feature with a small mu-plugin:
 ```php
 <?php
 add_filter(
-	'woocommerce_admin_features',
+	'poocommerce_admin_features',
 	static function ( array $features ): array {
 		$features[] = 'settings-ui';
 		return array_values( array_unique( $features ) );
@@ -53,8 +53,8 @@ For pages that only need native fields, use `LegacySettingsPageAdapter`:
 
 ```php
 <?php
-use Automattic\WooCommerce\Admin\Settings\LegacySettingsPageAdapter;
-use Automattic\WooCommerce\Admin\Settings\SettingsUIPageInterface;
+use Automattic\PooCommerce\Admin\Settings\LegacySettingsPageAdapter;
+use Automattic\PooCommerce\Admin\Settings\SettingsUIPageInterface;
 
 class My_Plugin_Settings_Page extends WC_Settings_Page {
 	public function __construct() {
@@ -70,18 +70,18 @@ class My_Plugin_Settings_Page extends WC_Settings_Page {
 }
 ```
 
-WooCommerce only uses the adapter when the `settings-ui` feature flag is enabled. Returning an adapter does not change the page while the feature flag is disabled.
+PooCommerce only uses the adapter when the `settings-ui` feature flag is enabled. Returning an adapter does not change the page while the feature flag is disabled.
 
 ## Register a section under an existing settings tab
 
-Extensions can register a complete settings section under an existing WooCommerce settings tab. The section object defines where the section lives, how it is labelled, which fields it renders, which scripts power custom React components, and how fields are saved.
+Extensions can register a complete settings section under an existing PooCommerce settings tab. The section object defines where the section lives, how it is labelled, which fields it renders, which scripts power custom React components, and how fields are saved.
 
-This is useful for payment providers or integrations that should live inside a Core-owned tab such as **WooCommerce > Settings > Payments**.
+This is useful for payment providers or integrations that should live inside a Core-owned tab such as **PooCommerce > Settings > Payments**.
 
 ```php
 <?php
-use Automattic\WooCommerce\Admin\Settings\SettingsSection;
-use Automattic\WooCommerce\Admin\Settings\SettingsSectionRegistry;
+use Automattic\PooCommerce\Admin\Settings\SettingsSection;
+use Automattic\PooCommerce\Admin\Settings\SettingsSectionRegistry;
 
 final class My_Plugin_Settings_Section extends SettingsSection {
 	public function get_parent_page_id(): string {
@@ -128,14 +128,14 @@ final class My_Plugin_Settings_Section extends SettingsSection {
 }
 
 add_action(
-	'woocommerce_settings_sections_registration',
+	'poocommerce_settings_sections_registration',
 	function ( SettingsSectionRegistry $registry ): void {
 		$registry->register( new My_Plugin_Settings_Section() );
 	}
 );
 ```
 
-WooCommerce creates the settings UI adapter for registered sections internally. When the settings UI feature flag is disabled, WooCommerce falls back to the legacy settings returned by `get_settings()`. Saves continue through the existing WooCommerce settings form flow and section-specific hooks such as `woocommerce_update_options_checkout_my_plugin`.
+PooCommerce creates the settings UI adapter for registered sections internally. When the settings UI feature flag is disabled, PooCommerce falls back to the legacy settings returned by `get_settings()`. Saves continue through the existing PooCommerce settings form flow and section-specific hooks such as `poocommerce_update_options_checkout_my_plugin`.
 
 Use a section id that does not conflict with an existing section on the same settings tab. For the `checkout` tab, ids that match existing payment gateway sections are reserved.
 
@@ -145,8 +145,8 @@ Sections with custom navigation, save handlers, or native Settings UI schemas ca
 
 ```php
 <?php
-use Automattic\WooCommerce\Admin\Settings\SettingsSection;
-use Automattic\WooCommerce\Admin\Settings\SettingsUIPageInterface;
+use Automattic\PooCommerce\Admin\Settings\SettingsSection;
+use Automattic\PooCommerce\Admin\Settings\SettingsUIPageInterface;
 
 final class My_Plugin_Settings_Section extends SettingsSection {
 	// Other settings section methods omitted for brevity.
@@ -157,7 +157,7 @@ final class My_Plugin_Settings_Section extends SettingsSection {
 }
 ```
 
-When `get_settings_ui_page()` returns a `SettingsUIPageInterface`, WooCommerce uses it directly for the registered section. Returning `null` keeps the default behavior: WooCommerce converts the section's legacy `get_settings()` array into a Settings UI schema.
+When `get_settings_ui_page()` returns a `SettingsUIPageInterface`, PooCommerce uses it directly for the registered section. Returning `null` keeps the default behavior: PooCommerce converts the section's legacy `get_settings()` array into a Settings UI schema.
 
 ### Section navigation on native pages
 
@@ -222,7 +222,7 @@ array(
 Then register that component from JavaScript:
 
 ```ts
-import { registerSettingsExtension } from '@woocommerce/settings-ui';
+import { registerSettingsExtension } from '@poocommerce/settings-ui';
 import { PaymentMethodPicker } from './payment-method-picker';
 
 registerSettingsExtension( {
@@ -245,7 +245,7 @@ Custom component scripts must load before the settings app mounts. Return their 
 
 ```php
 <?php
-use Automattic\WooCommerce\Admin\Settings\LegacySettingsPageAdapter;
+use Automattic\PooCommerce\Admin\Settings\LegacySettingsPageAdapter;
 
 final class My_Plugin_Settings_UI_Page extends LegacySettingsPageAdapter {
 	public function get_script_handles( string $section ): array {
@@ -262,7 +262,7 @@ The settings UI supports two save adapters:
 
 | Adapter     | Behavior                                                             |
 | ----------- | -------------------------------------------------------------------- |
-| `form_post` | Serializes hidden inputs for the existing WooCommerce settings form. |
+| `form_post` | Serializes hidden inputs for the existing PooCommerce settings form. |
 | `none`      | Does not submit a value. Use for display-only fields.                |
 
 The legacy adapter uses `form_post` by default. A field can override its save behavior:
@@ -307,7 +307,7 @@ Descriptions are sanitized with `wp_kses_post()`. Actions are structured data wi
 
 ## Page header
 
-The shell header (the page title, badges, breadcrumbs, and the top save button) is reserved for drill-down pages. WooCommerce decides this from the page registration, so a page cannot change it through its schema:
+The shell header (the page title, badges, breadcrumbs, and the top save button) is reserved for drill-down pages. PooCommerce decides this from the page registration, so a page cannot change it through its schema:
 
 - Pages registered at the top level of settings, whether a `WC_Settings_Page` tab or a registered section, render without the header. The top-level settings tabs stay visible, pages with sections keep the classic section links, and the save button appears at the bottom of the page.
 - Sections of the Payments tab render as drill-down pages. The header replaces the top-level settings tabs, and its breadcrumbs default to a link back to the Payments tab when the schema does not provide any. The save button renders in the header.
@@ -328,7 +328,7 @@ $schema['shell']['badges']   = array(
 
 `intent` is decorative styling only — it conveys meaning through color. The badge `label` must be self-descriptive so screen-reader and color-blind users get the same information (e.g. prefer `"Active"` or `"Beta"` over generic text). Unknown `intent` values fall back to `default`.
 
-## Reference migration in WooCommerce core
+## Reference migration in PooCommerce core
 
 The Products settings page is the Core reference migration. With `settings-ui` enabled, the Products tab renders through the settings UI. With the flag disabled, it renders through the existing legacy settings UI.
 

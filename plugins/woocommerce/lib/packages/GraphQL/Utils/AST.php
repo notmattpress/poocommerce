@@ -1,43 +1,43 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\GraphQL\Utils;
+namespace Automattic\PooCommerce\Vendor\GraphQL\Utils;
 
-use Automattic\WooCommerce\Vendor\GraphQL\Error\Error;
-use Automattic\WooCommerce\Vendor\GraphQL\Error\InvariantViolation;
-use Automattic\WooCommerce\Vendor\GraphQL\Error\SerializationError;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\BooleanValueNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\DefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\DocumentNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\EnumValueNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\FloatValueNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\IntValueNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\ListTypeNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\ListValueNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\Location;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\NamedTypeNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\NameNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\Node;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\NodeKind;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\NodeList;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\NonNullTypeNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\NullValueNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\ObjectFieldNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\ObjectValueNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\OperationDefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\StringValueNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\ValueNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\VariableNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\EnumType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\IDType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\InputObjectType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\InputType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\LeafType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\ListOfType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\NonNull;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\NullableType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\ScalarType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\Type;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Schema;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\Error;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\InvariantViolation;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\SerializationError;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\BooleanValueNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\DefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\DocumentNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\EnumValueNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\FloatValueNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\IntValueNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\ListTypeNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\ListValueNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\Location;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\NamedTypeNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\NameNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\Node;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\NodeKind;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\NodeList;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\NonNullTypeNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\NullValueNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\ObjectFieldNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\ObjectValueNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\OperationDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\StringValueNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\ValueNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\VariableNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\EnumType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\IDType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\InputObjectType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\InputType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\LeafType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\ListOfType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\NonNull;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\NullableType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\ScalarType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\Type;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Schema;
 
 /**
  * Various utilities dealing with AST.
@@ -45,7 +45,7 @@ use Automattic\WooCommerce\Vendor\GraphQL\Type\Schema;
 class AST
 {
     /**
-     * Convert representation of AST as an associative array to instance of Automattic\WooCommerce\Vendor\GraphQL\Language\AST\Node.
+     * Convert representation of AST as an associative array to instance of Automattic\PooCommerce\Vendor\GraphQL\Language\AST\Node.
      *
      * For example:
      *
@@ -122,12 +122,12 @@ class AST
     }
 
     /**
-     * Produces a Automattic\WooCommerce\Vendor\GraphQL Value AST given a PHP value.
+     * Produces a Automattic\PooCommerce\Vendor\GraphQL Value AST given a PHP value.
      *
-     * Optionally, a Automattic\WooCommerce\Vendor\GraphQL type may be provided, which will be used to
+     * Optionally, a Automattic\PooCommerce\Vendor\GraphQL type may be provided, which will be used to
      * disambiguate between value primitives.
      *
-     * | PHP Value     | Automattic\WooCommerce\Vendor\GraphQL Value        |
+     * | PHP Value     | Automattic\PooCommerce\Vendor\GraphQL Value        |
      * | ------------- | -------------------- |
      * | Object        | Input Object         |
      * | Assoc Array   | Input Object         |
@@ -167,7 +167,7 @@ class AST
             return new NullValueNode([]);
         }
 
-        // Convert PHP iterables to Automattic\WooCommerce\Vendor\GraphQL list. If the GraphQLType is a list, but
+        // Convert PHP iterables to Automattic\PooCommerce\Vendor\GraphQL list. If the GraphQLType is a list, but
         // the value is not an array, convert the value using the list's item type.
         if ($type instanceof ListOfType) {
             $itemType = $type->getWrappedType();
@@ -281,15 +281,15 @@ class AST
     }
 
     /**
-     * Produces a PHP value given a Automattic\WooCommerce\Vendor\GraphQL Value AST.
+     * Produces a PHP value given a Automattic\PooCommerce\Vendor\GraphQL Value AST.
      *
-     * A Automattic\WooCommerce\Vendor\GraphQL type must be provided, which will be used to interpret different
-     * Automattic\WooCommerce\Vendor\GraphQL Value literals.
+     * A Automattic\PooCommerce\Vendor\GraphQL type must be provided, which will be used to interpret different
+     * Automattic\PooCommerce\Vendor\GraphQL Value literals.
      *
      * Returns `null` when the value could not be validly coerced according to
      * the provided type.
      *
-     * | Automattic\WooCommerce\Vendor\GraphQL Value        | PHP Value     |
+     * | Automattic\PooCommerce\Vendor\GraphQL Value        | PHP Value     |
      * | -------------------- | ------------- |
      * | Input Object         | Assoc Array   |
      * | List                 | Array         |
@@ -314,7 +314,7 @@ class AST
 
         if ($valueNode === null) {
             // When there is no AST, then there is also no value.
-            // Importantly, this is different from returning the Automattic\WooCommerce\Vendor\GraphQL null value.
+            // Importantly, this is different from returning the Automattic\PooCommerce\Vendor\GraphQL null value.
             return $undefined;
         }
 
@@ -476,12 +476,12 @@ class AST
     }
 
     /**
-     * Produces a PHP value given a Automattic\WooCommerce\Vendor\GraphQL Value AST.
+     * Produces a PHP value given a Automattic\PooCommerce\Vendor\GraphQL Value AST.
      *
      * Unlike `valueFromAST()`, no type is provided. The resulting PHP value
-     * will reflect the provided Automattic\WooCommerce\Vendor\GraphQL value AST.
+     * will reflect the provided Automattic\PooCommerce\Vendor\GraphQL value AST.
      *
-     * | Automattic\WooCommerce\Vendor\GraphQL Value        | PHP Value     |
+     * | Automattic\PooCommerce\Vendor\GraphQL Value        | PHP Value     |
      * | -------------------- | ------------- |
      * | Input Object         | Assoc Array   |
      * | List                 | Array         |
@@ -610,7 +610,7 @@ class AST
     /**
      * Provided a collection of ASTs, presumably each from different files,
      * concatenate the ASTs together into batched AST, useful for validating many
-     * Automattic\WooCommerce\Vendor\GraphQL source files which together represent one conceptual application.
+     * Automattic\PooCommerce\Vendor\GraphQL source files which together represent one conceptual application.
      *
      * @param array<DocumentNode> $documents
      *

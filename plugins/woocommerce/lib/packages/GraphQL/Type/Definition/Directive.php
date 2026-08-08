@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\GraphQL\Type\Definition;
+namespace Automattic\PooCommerce\Vendor\GraphQL\Type\Definition;
 
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\DirectiveDefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\DirectiveLocation;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\DirectiveDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\DirectiveLocation;
 
 /**
  * @phpstan-import-type ArgumentListConfig from Argument
@@ -138,7 +138,7 @@ class Directive
     {
         return self::$internalDirectives[self::DEPRECATED_NAME] ??= new self([
             'name' => self::DEPRECATED_NAME,
-            'description' => 'Marks an element of a Automattic\WooCommerce\Vendor\GraphQL schema as no longer supported.',
+            'description' => 'Marks an element of a Automattic\PooCommerce\Vendor\GraphQL schema as no longer supported.',
             'locations' => [
                 DirectiveLocation::FIELD_DEFINITION,
                 DirectiveLocation::ENUM_VALUE,

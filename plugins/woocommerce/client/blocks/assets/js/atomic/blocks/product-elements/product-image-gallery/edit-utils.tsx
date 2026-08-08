@@ -3,7 +3,7 @@
  */
 import { createBlock } from '@wordpress/blocks';
 import { dispatch, select } from '@wordpress/data';
-import { findBlock } from '@woocommerce/utils';
+import { findBlock } from '@poocommerce/utils';
 
 /**
  * Internal dependencies
@@ -19,7 +19,7 @@ export const upgradeToBlockifiedProductGallery = ( blockClientId: string ) => {
 	} );
 
 	if ( foundBlock ) {
-		const newBlock = createBlock( 'woocommerce/product-gallery' );
+		const newBlock = createBlock( 'poocommerce/product-gallery' );
 
 		dispatch( 'core/block-editor' ).replaceBlock( blockClientId, newBlock );
 

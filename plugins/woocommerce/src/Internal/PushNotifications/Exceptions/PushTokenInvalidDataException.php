@@ -5,7 +5,7 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\PushNotifications\Exceptions;
+namespace Automattic\PooCommerce\Internal\PushNotifications\Exceptions;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -26,7 +26,7 @@ class PushTokenInvalidDataException extends WC_Data_Exception {
 	 */
 	public function __construct( string $message ) {
 		parent::__construct(
-			'woocommerce_invalid_data',
+			'poocommerce_invalid_data',
 			$message,
 			WP_Http::BAD_REQUEST
 		);

@@ -5,10 +5,10 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\AbandonedCartRecovery;
+namespace Automattic\PooCommerce\Internal\AbandonedCartRecovery;
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Internal\Orders\OrderNoteGroup;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Internal\Orders\OrderNoteGroup;
 use WC_Email_Customer_Abandoned_Cart_Recovery;
 use WC_Order;
 
@@ -16,23 +16,23 @@ use WC_Order;
  * Schedules and cancels the automated abandoned-cart recovery email via Action Scheduler.
  *
  * Listens for new orders in an abandoned-checkout status to enqueue a single
- * `woocommerce_send_abandoned_cart_recovery_notification` action that fires
+ * `poocommerce_send_abandoned_cart_recovery_notification` action that fires
  * after `WC_Email_Customer_Abandoned_Cart_Recovery::AUTO_SEND_DELAY_SECONDS`.
  * The pending action is cancelled when the order transitions out of the
  * eligible-status set or is trashed/deleted, so a customer who completes
  * checkout before the delay elapses never receives the nudge. Eligibility runs
- * through the same `woocommerce_abandoned_cart_recovery_eligible_statuses`
+ * through the same `poocommerce_abandoned_cart_recovery_eligible_statuses`
  * filter the send/manual paths use, with a default scoped to `pending` —
  * {@see get_eligible_statuses()}.
  *
  * Per-order idempotency is enforced two ways: a scheduled-at meta key blocks
  * re-scheduling for the same order, and the trigger-time send gate refuses to
  * dispatch when `META_KEY_SENT_AT` is already populated. Together these handle
- * duplicate `woocommerce_new_order` fires, duplicate AS action firings, and
+ * duplicate `poocommerce_new_order` fires, duplicate AS action firings, and
  * the race between a manual send and the still-pending automated send.
  *
  * The container auto-calls `init()` after instantiation; resolution is driven
- * by `WooCommerce::maybe_init_abandoned_cart_recovery()`, hooked on `init`
+ * by `PooCommerce::maybe_init_abandoned_cart_recovery()`, hooked on `init`
  * priority 1.
  *
  * @internal Just for internal use.
@@ -48,7 +48,7 @@ class Scheduler {
 	 * resolves the email class through the mailer and performs the actual send
 	 * when the hook fires.
 	 */
-	public const ACTION_HOOK = 'woocommerce_send_abandoned_cart_recovery_notification';
+	public const ACTION_HOOK = 'poocommerce_send_abandoned_cart_recovery_notification';
 
 	/**
 	 * Order meta key storing the unix timestamp the email is scheduled for.
@@ -78,12 +78,12 @@ class Scheduler {
 	 * @internal
 	 */
 	final public function init(): void {
-		add_action( 'woocommerce_new_order', array( $this, 'handle_new_order' ), 10, 2 );
+		add_action( 'poocommerce_new_order', array( $this, 'handle_new_order' ), 10, 2 );
 		// Catch every transition out of the eligible set so the pending send
 		// is unscheduled regardless of which status the order moves to.
-		add_action( 'woocommerce_order_status_changed', array( $this, 'handle_status_changed' ), 10, 4 );
-		add_action( 'woocommerce_trash_order', array( $this, 'handle_cancellation' ), 10, 1 );
-		add_action( 'woocommerce_before_delete_order', array( $this, 'handle_cancellation' ), 10, 2 );
+		add_action( 'poocommerce_order_status_changed', array( $this, 'handle_status_changed' ), 10, 4 );
+		add_action( 'poocommerce_trash_order', array( $this, 'handle_cancellation' ), 10, 1 );
+		add_action( 'poocommerce_before_delete_order', array( $this, 'handle_cancellation' ), 10, 2 );
 		add_action( self::ACTION_HOOK, array( $this, 'handle_scheduled_send' ), 10, 1 );
 	}
 
@@ -98,7 +98,7 @@ class Scheduler {
 	 * @internal
 	 *
 	 * @param int           $order_id The new order ID.
-	 * @param WC_Order|null $order    The order object passed by `woocommerce_new_order`;
+	 * @param WC_Order|null $order    The order object passed by `poocommerce_new_order`;
 	 *                                falls back to a lookup only when absent.
 	 */
 	public function handle_new_order( int $order_id, $order = null ): void {
@@ -145,7 +145,7 @@ class Scheduler {
 
 	/**
 	 * Unschedule the pending recovery send whenever the order leaves the
-	 * eligible-status set. `woocommerce_order_status_changed` fires for every
+	 * eligible-status set. `poocommerce_order_status_changed` fires for every
 	 * transition, so a single listener covers all statuses in one place, and
 	 * transitions inside a filter-widened eligible set keep the send queued.
 	 *
@@ -179,8 +179,8 @@ class Scheduler {
 	/**
 	 * Cancel any pending recovery-send action and clear the scheduled-at meta.
 	 *
-	 * Hooked directly into `woocommerce_trash_order` and
-	 * `woocommerce_before_delete_order` for the trash/delete lifecycle events,
+	 * Hooked directly into `poocommerce_trash_order` and
+	 * `poocommerce_before_delete_order` for the trash/delete lifecycle events,
 	 * and called from `handle_status_changed()` for every transition out of
 	 * `pending`.
 	 *
@@ -237,7 +237,7 @@ class Scheduler {
 		}
 
 		$order->add_order_note(
-			__( 'Abandoned cart recovery email sent automatically.', 'woocommerce' ),
+			__( 'Abandoned cart recovery email sent automatically.', 'poocommerce' ),
 			0,
 			false,
 			array( 'note_group' => OrderNoteGroup::EMAIL_NOTIFICATION )
@@ -258,7 +258,7 @@ class Scheduler {
 		 * @since 11.0.0
 		 */
 		return (array) apply_filters(
-			'woocommerce_abandoned_cart_recovery_eligible_statuses',
+			'poocommerce_abandoned_cart_recovery_eligible_statuses',
 			array( OrderStatus::PENDING ),
 			$order
 		);

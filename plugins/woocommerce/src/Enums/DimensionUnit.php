@@ -2,10 +2,10 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Enums;
+namespace Automattic\PooCommerce\Enums;
 
 /**
- * Enum class for the possible values of the 'woocommerce_dimension_unit' option.
+ * Enum class for the possible values of the 'poocommerce_dimension_unit' option.
  *
  * @since 11.0.0
  */

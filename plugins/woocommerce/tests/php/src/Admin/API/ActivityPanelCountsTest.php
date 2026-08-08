@@ -2,15 +2,15 @@
 /**
  * Test the API controller class that handles the /activity-panel/counts REST response.
  *
- * @package WooCommerce\Admin\Tests\Admin\API
+ * @package PooCommerce\Admin\Tests\Admin\API
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Admin\API;
+namespace Automattic\PooCommerce\Tests\Admin\API;
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Enums\ProductStatus;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Enums\ProductStatus;
 use WC_Helper_Order;
 use WC_Helper_Product;
 use WC_REST_Unit_Test_Case;
@@ -93,9 +93,9 @@ class ActivityPanelCountsTest extends WC_REST_Unit_Test_Case {
 	}
 
 	/**
-	 * Test that a user without manage_woocommerce is denied.
+	 * Test that a user without manage_poocommerce is denied.
 	 */
-	public function test_permission_denied_for_user_without_manage_woocommerce() {
+	public function test_permission_denied_for_user_without_manage_poocommerce() {
 		$subscriber = $this->factory->user->create( array( 'role' => 'subscriber' ) );
 		wp_set_current_user( $subscriber );
 
@@ -192,7 +192,7 @@ class ActivityPanelCountsTest extends WC_REST_Unit_Test_Case {
 	private function reregister_routes() {
 		$this->server              = new WP_REST_Server();
 		$GLOBALS['wp_rest_server'] = $this->server;
-		// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment -- Re-firing a core hook to re-register routes in the test, not defining one.
+		// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment -- Re-firing a core hook to re-register routes in the test, not defining one.
 		do_action( 'rest_api_init' );
 	}
 
@@ -210,7 +210,7 @@ class ActivityPanelCountsTest extends WC_REST_Unit_Test_Case {
 		WC_Helper_Order::create_order( 1, null, array( 'status' => OrderStatus::PROCESSING ) );
 
 		// Merchant cleared every actionable status.
-		update_option( 'woocommerce_actionable_order_statuses', array() );
+		update_option( 'poocommerce_actionable_order_statuses', array() );
 		$this->reregister_routes();
 
 		$request  = new WP_REST_Request( 'GET', self::ENDPOINT );
@@ -234,7 +234,7 @@ class ActivityPanelCountsTest extends WC_REST_Unit_Test_Case {
 		WC_Helper_Order::create_order( 1, null, array( 'status' => OrderStatus::COMPLETED ) );
 		WC_Helper_Order::create_order( 1, null, array( 'status' => OrderStatus::COMPLETED ) );
 
-		update_option( 'woocommerce_actionable_order_statuses', array( OrderStatus::COMPLETED ) );
+		update_option( 'poocommerce_actionable_order_statuses', array( OrderStatus::COMPLETED ) );
 		$this->reregister_routes();
 
 		$request  = new WP_REST_Request( 'GET', self::ENDPOINT );

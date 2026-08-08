@@ -1,14 +1,14 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\ProductFeed\Integrations\POSCatalog;
+namespace Automattic\PooCommerce\Tests\Internal\ProductFeed\Integrations\POSCatalog;
 
 use PHPUnit\Framework\MockObject\MockObject;
-use Automattic\WooCommerce\Internal\ProductFeed\Feed\FeedValidatorInterface;
-use Automattic\WooCommerce\Internal\ProductFeed\Integrations\POSCatalog\AsyncGenerator;
-use Automattic\WooCommerce\Internal\ProductFeed\Integrations\POSCatalog\POSIntegration;
-use Automattic\WooCommerce\Internal\ProductFeed\Integrations\POSCatalog\ProductMapper;
-use Automattic\WooCommerce\Internal\ProductFeed\Storage\JsonFileFeed;
+use Automattic\PooCommerce\Internal\ProductFeed\Feed\FeedValidatorInterface;
+use Automattic\PooCommerce\Internal\ProductFeed\Integrations\POSCatalog\AsyncGenerator;
+use Automattic\PooCommerce\Internal\ProductFeed\Integrations\POSCatalog\POSIntegration;
+use Automattic\PooCommerce\Internal\ProductFeed\Integrations\POSCatalog\ProductMapper;
+use Automattic\PooCommerce\Internal\ProductFeed\Storage\JsonFileFeed;
 use ReflectionClass;
 use WC_Helper_Product;
 
@@ -66,11 +66,11 @@ class AsyncGeneratorTest extends \WC_Unit_Test_Case {
 
 		delete_option( self::OPTION_KEY );
 		delete_option( self::OPTION_KEY . '_chunk_size' );
-		remove_all_filters( 'woocommerce_product_feed_chunk_size' );
-		remove_all_filters( 'woocommerce_product_feed_batch_size' );
+		remove_all_filters( 'poocommerce_product_feed_chunk_size' );
+		remove_all_filters( 'poocommerce_product_feed_batch_size' );
 		// Always clear the timeout filter here so a failed assertion in a test that registers it cannot
 		// leak it into later tests in the same process (tearDown runs even when a test fails).
-		remove_all_filters( 'woocommerce_product_feed_in_progress_timeout' );
+		remove_all_filters( 'poocommerce_product_feed_in_progress_timeout' );
 		$this->test_container->reset_all_replacements();
 	}
 
@@ -284,9 +284,9 @@ class AsyncGeneratorTest extends \WC_Unit_Test_Case {
 
 		// With a 10 second timeout, a 30 second old heartbeat is considered stale.
 		$callback = fn() => 10;
-		add_filter( 'woocommerce_product_feed_in_progress_timeout', $callback );
+		add_filter( 'poocommerce_product_feed_in_progress_timeout', $callback );
 		$this->assertFalse( $method->invoke( $this->sut, $status ) );
-		remove_filter( 'woocommerce_product_feed_in_progress_timeout', $callback );
+		remove_filter( 'poocommerce_product_feed_in_progress_timeout', $callback );
 	}
 
 	/**
@@ -329,9 +329,9 @@ class AsyncGeneratorTest extends \WC_Unit_Test_Case {
 		// ...but raising the per-batch budget raises the derived stuck timeout (3x) with it, so the same
 		// heartbeat is no longer considered stuck.
 		$callback = fn() => 20 * MINUTE_IN_SECONDS;
-		add_filter( 'woocommerce_product_feed_batch_time_limit', $callback );
+		add_filter( 'poocommerce_product_feed_batch_time_limit', $callback );
 		$this->assertTrue( $method->invoke( $this->sut, $status ) );
-		remove_filter( 'woocommerce_product_feed_batch_time_limit', $callback );
+		remove_filter( 'poocommerce_product_feed_batch_time_limit', $callback );
 	}
 
 	/**
@@ -398,8 +398,8 @@ class AsyncGeneratorTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_feed_generation_reports_progress_between_chunks() {
 		// One product per database batch, two products per chunk.
-		add_filter( 'woocommerce_product_feed_batch_size', fn() => 1 );
-		add_filter( 'woocommerce_product_feed_chunk_size', fn() => 2 );
+		add_filter( 'poocommerce_product_feed_batch_size', fn() => 1 );
+		add_filter( 'poocommerce_product_feed_chunk_size', fn() => 2 );
 
 		$this->setup_real_feed_integration();
 
@@ -432,8 +432,8 @@ class AsyncGeneratorTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_feed_generation_completes_across_multiple_chunks() {
 		// Force the smallest possible chunks: one product per database batch, one batch per chunk.
-		add_filter( 'woocommerce_product_feed_batch_size', fn() => 1 );
-		add_filter( 'woocommerce_product_feed_chunk_size', fn() => 1 );
+		add_filter( 'poocommerce_product_feed_batch_size', fn() => 1 );
+		add_filter( 'poocommerce_product_feed_chunk_size', fn() => 1 );
 
 		// Use a real feed so the chunked file lifecycle is exercised, with lightweight mapper/validator.
 		$this->setup_real_feed_integration();
@@ -476,8 +476,8 @@ class AsyncGeneratorTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_feed_generation_tracks_cumulative_entries_written_across_chunks() {
 		// One product per database batch, one batch per chunk: three products means three chunks.
-		add_filter( 'woocommerce_product_feed_batch_size', fn() => 1 );
-		add_filter( 'woocommerce_product_feed_chunk_size', fn() => 1 );
+		add_filter( 'poocommerce_product_feed_batch_size', fn() => 1 );
+		add_filter( 'poocommerce_product_feed_chunk_size', fn() => 1 );
 
 		$this->setup_real_feed_integration();
 
@@ -507,8 +507,8 @@ class AsyncGeneratorTest extends \WC_Unit_Test_Case {
 	 * a "unique" enqueue would be blocked here and generation would stall after the first chunk.
 	 */
 	public function test_feed_generation_schedules_next_chunk_despite_existing_action() {
-		add_filter( 'woocommerce_product_feed_batch_size', fn() => 1 );
-		add_filter( 'woocommerce_product_feed_chunk_size', fn() => 1 );
+		add_filter( 'poocommerce_product_feed_batch_size', fn() => 1 );
+		add_filter( 'poocommerce_product_feed_chunk_size', fn() => 1 );
 
 		$this->setup_real_feed_integration();
 
@@ -663,8 +663,8 @@ class AsyncGeneratorTest extends \WC_Unit_Test_Case {
 	 * and that the poll after that starts a fresh generation.
 	 */
 	public function test_feed_generation_fails_when_partial_file_missing() {
-		add_filter( 'woocommerce_product_feed_batch_size', fn() => 1 );
-		add_filter( 'woocommerce_product_feed_chunk_size', fn() => 1 );
+		add_filter( 'poocommerce_product_feed_batch_size', fn() => 1 );
+		add_filter( 'poocommerce_product_feed_chunk_size', fn() => 1 );
 
 		$this->setup_real_feed_integration();
 

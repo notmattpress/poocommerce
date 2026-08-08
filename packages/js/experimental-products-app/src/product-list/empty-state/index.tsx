@@ -21,10 +21,10 @@ function getEmptyStateCopy(
 ): EmptyStateCopy {
 	if ( isSearchOrFilterResult ) {
 		return {
-			title: __( 'No products match your filters', 'woocommerce' ),
+			title: __( 'No products match your filters', 'poocommerce' ),
 			description: __(
 				'Try clearing some filters or adjusting your search query.',
-				'woocommerce'
+				'poocommerce'
 			),
 		};
 	}
@@ -32,43 +32,43 @@ function getEmptyStateCopy(
 	switch ( tab ) {
 		case 'publish':
 			return {
-				title: __( 'No products published yet', 'woocommerce' ),
+				title: __( 'No products published yet', 'poocommerce' ),
 				description: __(
 					'Check your drafts or add a new product to start selling.',
-					'woocommerce'
+					'poocommerce'
 				),
 			};
 		case 'draft':
 			return {
-				title: __( 'No draft products yet', 'woocommerce' ),
+				title: __( 'No draft products yet', 'poocommerce' ),
 				description: __(
 					'Any products you save as drafts will be listed here.',
-					'woocommerce'
+					'poocommerce'
 				),
 			};
 		case 'pending':
 			return {
-				title: __( 'No products awaiting review', 'woocommerce' ),
+				title: __( 'No products awaiting review', 'poocommerce' ),
 				description: __(
 					'Products submitted for review will appear here.',
-					'woocommerce'
+					'poocommerce'
 				),
 			};
 		case 'trash':
 			return {
-				title: __( 'No products in trash', 'woocommerce' ),
+				title: __( 'No products in trash', 'poocommerce' ),
 				description: __(
 					'Deleted products will move here, where you can restore or remove them permanently.',
-					'woocommerce'
+					'poocommerce'
 				),
 			};
 		case 'all':
 		default:
 			return {
-				title: __( 'No products yet', 'woocommerce' ),
+				title: __( 'No products yet', 'poocommerce' ),
 				description: __(
 					'All your products will appear here.',
-					'woocommerce'
+					'poocommerce'
 				),
 			};
 	}
@@ -91,18 +91,18 @@ export function ProductListEmptyState( {
 	);
 
 	return (
-		<EmptyState.Root className="woocommerce-product-list__empty-state">
+		<EmptyState.Root className="poocommerce-product-list__empty-state">
 			<EmptyState.Visual>
 				<ProductListEmptyStateIcon />
 			</EmptyState.Visual>
 			<EmptyState.Title>{ title }</EmptyState.Title>
-			<EmptyState.Description className="woocommerce-product-list__empty-state-description">
+			<EmptyState.Description className="poocommerce-product-list__empty-state-description">
 				{ description }
 			</EmptyState.Description>
 			{ isSearchOrFilterResult && onClearFilters && (
 				<EmptyState.Actions>
 					<Button variant="outline" onClick={ onClearFilters }>
-						{ __( 'Clear filters', 'woocommerce' ) }
+						{ __( 'Clear filters', 'poocommerce' ) }
 					</Button>
 				</EmptyState.Actions>
 			) }

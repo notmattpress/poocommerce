@@ -4,9 +4,9 @@
 import { __ } from '@wordpress/i18n';
 import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
 import { PanelBody, ExternalLink } from '@wordpress/components';
-import { ADMIN_URL } from '@woocommerce/settings';
-import Noninteractive from '@woocommerce/base-components/noninteractive';
-import { SHIPPING_ENABLED } from '@woocommerce/block-settings';
+import { ADMIN_URL } from '@poocommerce/settings';
+import Noninteractive from '@poocommerce/base-components/noninteractive';
+import { SHIPPING_ENABLED } from '@poocommerce/block-settings';
 
 /**
  * Internal dependencies
@@ -32,18 +32,18 @@ export const Edit = ( {
 			<InspectorControls>
 				{ !! SHIPPING_ENABLED && (
 					<PanelBody
-						title={ __( 'Shipping Calculations', 'woocommerce' ) }
+						title={ __( 'Shipping Calculations', 'poocommerce' ) }
 					>
 						<p className="wc-block-checkout__controls-text">
 							{ __(
 								'Options that control shipping can be managed in your store settings.',
-								'woocommerce'
+								'poocommerce'
 							) }
 						</p>
 						<ExternalLink
 							href={ `${ ADMIN_URL }admin.php?page=wc-settings&tab=shipping&section=options` }
 						>
-							{ __( 'Manage shipping options', 'woocommerce' ) }
+							{ __( 'Manage shipping options', 'poocommerce' ) }
 						</ExternalLink>{ ' ' }
 					</PanelBody>
 				) }

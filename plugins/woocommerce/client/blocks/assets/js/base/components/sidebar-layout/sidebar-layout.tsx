@@ -2,7 +2,7 @@
  * External dependencies
  */
 import clsx from 'clsx';
-import { ContainerWidthContextProvider } from '@woocommerce/base-context';
+import { ContainerWidthContextProvider } from '@poocommerce/base-context';
 
 /**
  * Internal dependencies

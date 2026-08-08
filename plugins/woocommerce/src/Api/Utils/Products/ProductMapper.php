@@ -2,25 +2,25 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Api\Utils\Products;
+namespace Automattic\PooCommerce\Api\Utils\Products;
 
-use Automattic\WooCommerce\Api\Enums\Products\ProductStatus;
-use Automattic\WooCommerce\Api\Enums\Products\ProductType;
-use Automattic\WooCommerce\Api\Enums\Products\StockStatus;
-use Automattic\WooCommerce\Api\Pagination\Connection;
-use Automattic\WooCommerce\Api\Pagination\Edge;
-use Automattic\WooCommerce\Api\Pagination\IdCursorFilter;
-use Automattic\WooCommerce\Api\Pagination\PageInfo;
-use Automattic\WooCommerce\Api\Pagination\PaginationParams;
-use Automattic\WooCommerce\Api\Types\Products\ExternalProduct;
-use Automattic\WooCommerce\Api\Types\Products\ProductAttribute;
-use Automattic\WooCommerce\Api\Types\Products\ProductDimensions;
-use Automattic\WooCommerce\Api\Types\Products\ProductImage;
-use Automattic\WooCommerce\Api\Types\Products\ProductReview;
-use Automattic\WooCommerce\Api\Types\Products\ProductVariation;
-use Automattic\WooCommerce\Api\Types\Products\SelectedAttribute;
-use Automattic\WooCommerce\Api\Types\Products\SimpleProduct;
-use Automattic\WooCommerce\Api\Types\Products\VariableProduct;
+use Automattic\PooCommerce\Api\Enums\Products\ProductStatus;
+use Automattic\PooCommerce\Api\Enums\Products\ProductType;
+use Automattic\PooCommerce\Api\Enums\Products\StockStatus;
+use Automattic\PooCommerce\Api\Pagination\Connection;
+use Automattic\PooCommerce\Api\Pagination\Edge;
+use Automattic\PooCommerce\Api\Pagination\IdCursorFilter;
+use Automattic\PooCommerce\Api\Pagination\PageInfo;
+use Automattic\PooCommerce\Api\Pagination\PaginationParams;
+use Automattic\PooCommerce\Api\Types\Products\ExternalProduct;
+use Automattic\PooCommerce\Api\Types\Products\ProductAttribute;
+use Automattic\PooCommerce\Api\Types\Products\ProductDimensions;
+use Automattic\PooCommerce\Api\Types\Products\ProductImage;
+use Automattic\PooCommerce\Api\Types\Products\ProductReview;
+use Automattic\PooCommerce\Api\Types\Products\ProductVariation;
+use Automattic\PooCommerce\Api\Types\Products\SelectedAttribute;
+use Automattic\PooCommerce\Api\Types\Products\SimpleProduct;
+use Automattic\PooCommerce\Api\Types\Products\VariableProduct;
 
 /**
  * Maps a WC_Product to the appropriate product DTO.
@@ -29,7 +29,7 @@ class ProductMapper {
 	/**
 	 * Map a WC_Product to the appropriate product DTO based on its type.
 	 *
-	 * @param \WC_Product $wc_product The WooCommerce product object.
+	 * @param \WC_Product $wc_product The PooCommerce product object.
 	 * @param ?array      $query_info Unified query info tree from the GraphQL request.
 	 * @return object
 	 */
@@ -237,7 +237,7 @@ class ProductMapper {
 	 * Populate the common fields shared by all product types.
 	 *
 	 * @param object      $product    The product DTO to populate.
-	 * @param \WC_Product $wc_product The WooCommerce product object.
+	 * @param \WC_Product $wc_product The PooCommerce product object.
 	 * @param ?array      $query_info Unified query info tree from the GraphQL request.
 	 */
 	private static function populate_common_fields(
@@ -314,7 +314,7 @@ class ProductMapper {
 	}
 
 	/**
-	 * Map WooCommerce stock status string to the int-backed StockStatus enum.
+	 * Map PooCommerce stock status string to the int-backed StockStatus enum.
 	 *
 	 * @param string $wc_status The WC stock status string.
 	 * @return StockStatus

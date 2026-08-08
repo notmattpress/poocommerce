@@ -1,19 +1,19 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\Settings\PaymentsProviders\WooPayments;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\Settings\PaymentsProviders\WooPayments;
 
 use Automattic\Jetpack\Connection\Manager as WPCOM_Connection_Manager;
 use Automattic\Jetpack\Constants;
-use Automattic\WooCommerce\Internal\Admin\Settings\Payments;
-use Automattic\WooCommerce\Internal\Admin\Settings\PaymentsProviders;
-use Automattic\WooCommerce\Internal\Admin\Settings\PaymentsProviders\WooPayments\WooPaymentsService;
-use Automattic\WooCommerce\Internal\Admin\Settings\PaymentsProviders\WooPayments\WooPaymentsRestController;
-use Automattic\WooCommerce\Internal\Admin\Settings\Utils;
-use Automattic\WooCommerce\Proxies\LegacyProxy;
-use Automattic\WooCommerce\Testing\Tools\DependencyManagement\MockableLegacyProxy;
-use Automattic\WooCommerce\Testing\Tools\TestingContainer;
-use Automattic\WooCommerce\Tests\Internal\Admin\Settings\Mocks\FakePaymentGateway;
+use Automattic\PooCommerce\Internal\Admin\Settings\Payments;
+use Automattic\PooCommerce\Internal\Admin\Settings\PaymentsProviders;
+use Automattic\PooCommerce\Internal\Admin\Settings\PaymentsProviders\WooPayments\WooPaymentsService;
+use Automattic\PooCommerce\Internal\Admin\Settings\PaymentsProviders\WooPayments\WooPaymentsRestController;
+use Automattic\PooCommerce\Internal\Admin\Settings\Utils;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\Testing\Tools\DependencyManagement\MockableLegacyProxy;
+use Automattic\PooCommerce\Testing\Tools\TestingContainer;
+use Automattic\PooCommerce\Tests\Internal\Admin\Settings\Mocks\FakePaymentGateway;
 use PHPUnit\Framework\MockObject\MockObject;
 use WC_Unit_Test_Case;
 use WP_REST_Request;
@@ -193,7 +193,7 @@ class WooPaymentsRestControllerIntegrationTest extends WC_Unit_Test_Case {
 
 		// Use this instance to set different states depending on your specific test needs.
 		$this->mock_gateway = new FakePaymentGateway(
-			'woocommerce_payments',
+			'poocommerce_payments',
 			array(
 				'enabled'                     => false,
 				'account_connected'           => false,
@@ -203,8 +203,8 @@ class WooPaymentsRestControllerIntegrationTest extends WC_Unit_Test_Case {
 				'onboarding_started'          => false,
 				'onboarding_completed'        => false,
 				'onboarding_test_mode'        => false,
-				'plugin_slug'                 => 'woocommerce-payments',
-				'plugin_file'                 => 'woocommerce-payments/woocommerce-payments.php',
+				'plugin_slug'                 => 'poocommerce-payments',
+				'plugin_file'                 => 'poocommerce-payments/poocommerce-payments.php',
 				'recommended_payment_methods' => array(
 					array(
 						'id'          => 'card',
@@ -293,7 +293,7 @@ class WooPaymentsRestControllerIntegrationTest extends WC_Unit_Test_Case {
 
 		$this->gateways_mock_ref = function ( \WC_Payment_Gateways $wc_payment_gateways ) {
 			$mock_gateways = array(
-				'woocommerce_payments' => $this->mock_gateway,
+				'poocommerce_payments' => $this->mock_gateway,
 			);
 			$order         = 99999;
 			foreach ( $mock_gateways as $gateway_id => $fake_gateway ) {
@@ -375,8 +375,8 @@ class WooPaymentsRestControllerIntegrationTest extends WC_Unit_Test_Case {
 	 */
 	private static function get_restored_option_names(): array {
 		return array(
-			'woocommerce_default_country',
-			'woocommerce_currency',
+			'poocommerce_default_country',
+			'poocommerce_currency',
 		);
 	}
 
@@ -396,7 +396,7 @@ class WooPaymentsRestControllerIntegrationTest extends WC_Unit_Test_Case {
 	 */
 	private static function get_transactional_option_names(): array {
 		return array(
-			'woocommerce_gateway_order',
+			'poocommerce_gateway_order',
 			WooPaymentsService::NOX_PROFILE_OPTION_KEY,
 			WooPaymentsService::NOX_ONBOARDING_LOCKED_KEY,
 		);
@@ -501,7 +501,7 @@ class WooPaymentsRestControllerIntegrationTest extends WC_Unit_Test_Case {
 		// Arrange.
 		// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
 		$filter_callback = fn( $caps ) => array(
-			'manage_woocommerce' => false, // This is needed.
+			'manage_poocommerce' => false, // This is needed.
 			'install_plugins'    => true,  // This is not needed.
 		);
 		add_filter( 'user_has_cap', $filter_callback );
@@ -525,7 +525,7 @@ class WooPaymentsRestControllerIntegrationTest extends WC_Unit_Test_Case {
 		$country_code = 'US';
 		// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
 		$filter_callback = fn( $caps ) => array(
-			'manage_woocommerce' => true,  // This is needed.
+			'manage_poocommerce' => true,  // This is needed.
 			'install_plugins'    => false, // This is not needed.
 		);
 		add_filter( 'user_has_cap', $filter_callback );
@@ -578,7 +578,7 @@ class WooPaymentsRestControllerIntegrationTest extends WC_Unit_Test_Case {
 	public function test_get_onboarding_details_with_no_location() {
 		// Arrange.
 		$country_code = 'LI'; // Liechtenstein.
-		update_option( 'woocommerce_default_country', $country_code ); // Liechtenstein.
+		update_option( 'poocommerce_default_country', $country_code ); // Liechtenstein.
 
 		// Act.
 		$request  = new WP_REST_Request( 'POST', self::ENDPOINT . '/onboarding' );

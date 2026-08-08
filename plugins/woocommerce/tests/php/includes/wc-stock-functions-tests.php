@@ -2,11 +2,11 @@
 /**
  * Unit tests for wc-stock-functions.php.
  *
- * @package WooCommerce\Tests\Functions\Stock
+ * @package PooCommerce\Tests\Functions\Stock
  */
 
-use Automattic\WooCommerce\Checkout\Helpers\ReserveStock;
-use Automattic\WooCommerce\Enums\OrderInternalStatus;
+use Automattic\PooCommerce\Checkout\Helpers\ReserveStock;
+use Automattic\PooCommerce\Enums\OrderInternalStatus;
 
 /**
  * Class WC_Stock_Functions_Tests.
@@ -92,9 +92,9 @@ class WC_Stock_Functions_Tests extends \WC_Unit_Test_Case {
 	 */
 	private function with_stock_reservation_options( $hold_stock_minutes, $callback ) {
 		$option_names         = array(
-			'woocommerce_hold_stock_minutes',
-			'woocommerce_manage_stock',
-			'woocommerce_schema_version',
+			'poocommerce_hold_stock_minutes',
+			'poocommerce_manage_stock',
+			'poocommerce_schema_version',
 		);
 		$missing_option_value = new stdClass();
 		$original_options     = array();
@@ -107,9 +107,9 @@ class WC_Stock_Functions_Tests extends \WC_Unit_Test_Case {
 			);
 		}
 
-		update_option( 'woocommerce_hold_stock_minutes', $hold_stock_minutes );
-		update_option( 'woocommerce_manage_stock', 'yes' );
-		update_option( 'woocommerce_schema_version', 430 );
+		update_option( 'poocommerce_hold_stock_minutes', $hold_stock_minutes );
+		update_option( 'poocommerce_manage_stock', 'yes' );
+		update_option( 'poocommerce_schema_version', 430 );
 
 		try {
 			return $callback();
@@ -137,12 +137,12 @@ class WC_Stock_Functions_Tests extends \WC_Unit_Test_Case {
 			return 0;
 		};
 
-		add_filter( 'woocommerce_order_hold_stock_minutes', $capture_minutes );
+		add_filter( 'poocommerce_order_hold_stock_minutes', $capture_minutes );
 
 		try {
 			$reserve_stock_callback();
 		} finally {
-			remove_filter( 'woocommerce_order_hold_stock_minutes', $capture_minutes );
+			remove_filter( 'poocommerce_order_hold_stock_minutes', $capture_minutes );
 		}
 
 		return $captured_minutes;
@@ -410,7 +410,7 @@ class WC_Stock_Functions_Tests extends \WC_Unit_Test_Case {
 		$site_wide_low_stock_amount = 3;
 
 		// Set the store-wide default.
-		update_option( 'woocommerce_notify_low_stock_amount', strval( $site_wide_low_stock_amount ) );
+		update_option( 'poocommerce_notify_low_stock_amount', strval( $site_wide_low_stock_amount ) );
 
 		// Simple product, set low stock amount.
 		$product = WC_Helper_Product::create_simple_product(
@@ -432,7 +432,7 @@ class WC_Stock_Functions_Tests extends \WC_Unit_Test_Case {
 		$site_wide_low_stock_amount = 3;
 
 		// Set the store-wide default.
-		update_option( 'woocommerce_notify_low_stock_amount', strval( $site_wide_low_stock_amount ) );
+		update_option( 'poocommerce_notify_low_stock_amount', strval( $site_wide_low_stock_amount ) );
 
 		// Simple product, don't set low stock amount.
 		$product = WC_Helper_Product::create_simple_product(
@@ -455,7 +455,7 @@ class WC_Stock_Functions_Tests extends \WC_Unit_Test_Case {
 		$variation_low_stock_amount = 7;
 
 		// Set the store-wide default.
-		update_option( 'woocommerce_notify_low_stock_amount', strval( $site_wide_low_stock_amount ) );
+		update_option( 'poocommerce_notify_low_stock_amount', strval( $site_wide_low_stock_amount ) );
 
 		// Parent low stock amount NOT set.
 		$variable_product = WC_Helper_Product::create_variation_product();
@@ -492,7 +492,7 @@ class WC_Stock_Functions_Tests extends \WC_Unit_Test_Case {
 		$variation_low_stock_amount = 7;
 
 		// Set the store-wide default.
-		update_option( 'woocommerce_notify_low_stock_amount', strval( $site_wide_low_stock_amount ) );
+		update_option( 'poocommerce_notify_low_stock_amount', strval( $site_wide_low_stock_amount ) );
 
 		// Set the parent low stock amount.
 		$variable_product = WC_Helper_Product::create_variation_product();
@@ -519,7 +519,7 @@ class WC_Stock_Functions_Tests extends \WC_Unit_Test_Case {
 		$parent_low_stock_amount    = 5;
 
 		// Set the store-wide default.
-		update_option( 'woocommerce_notify_low_stock_amount', strval( $site_wide_low_stock_amount ) );
+		update_option( 'poocommerce_notify_low_stock_amount', strval( $site_wide_low_stock_amount ) );
 
 		// Set the parent low stock amount.
 		$variable_product = WC_Helper_Product::create_variation_product();
@@ -542,7 +542,7 @@ class WC_Stock_Functions_Tests extends \WC_Unit_Test_Case {
 		$site_wide_low_stock_amount = 3;
 
 		// Set the store-wide default.
-		update_option( 'woocommerce_notify_low_stock_amount', strval( $site_wide_low_stock_amount ) );
+		update_option( 'poocommerce_notify_low_stock_amount', strval( $site_wide_low_stock_amount ) );
 
 		// Set the parent low stock amount.
 		$variable_product = WC_Helper_Product::create_variation_product();

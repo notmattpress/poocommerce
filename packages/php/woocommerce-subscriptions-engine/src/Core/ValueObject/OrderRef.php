@@ -1,16 +1,16 @@
 <?php
 /**
- * OrderRef - an immutable reference to a WooCommerce order by id.
+ * OrderRef - an immutable reference to a PooCommerce order by id.
  *
  * The Core zone never loads a live order object; it holds a reference and
  * commands effects through the Orders host binding in the integration layer.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine\Core\ValueObject
+ * @package Automattic\PooCommerce\SubscriptionsEngine\Core\ValueObject
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Core\ValueObject;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Core\ValueObject;
 
 defined( 'ABSPATH' ) || exit;
 

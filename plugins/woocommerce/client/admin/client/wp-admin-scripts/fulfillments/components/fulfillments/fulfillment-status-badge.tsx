@@ -23,13 +23,13 @@ export default function FulfillmentStatusBadge( {
 
 	return (
 		<div
-			className={ `woocommerce-fulfillment-status-badge woocommerce-fulfillment-status-badge__${ fulfillment.status }` }
+			className={ `poocommerce-fulfillment-status-badge poocommerce-fulfillment-status-badge__${ fulfillment.status }` }
 			style={ {
 				backgroundColor: fulfillmentStatus.background_color,
 				color: fulfillmentStatus.text_color,
 			} }
 			role="status"
-			aria-label={ `${ __( 'Fulfillment status:', 'woocommerce' ) } ${
+			aria-label={ `${ __( 'Fulfillment status:', 'poocommerce' ) } ${
 				fulfillmentStatus.label
 			}` }
 		>

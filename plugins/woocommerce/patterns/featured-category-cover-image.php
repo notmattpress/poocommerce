@@ -1,15 +1,15 @@
 <?php
 /**
  * Title: Featured Category Cover Image
- * Slug: woocommerce-blocks/featured-category-cover-image
- * Categories: WooCommerce, Intro
+ * Slug: poocommerce-blocks/featured-category-cover-image
+ * Categories: PooCommerce, Intro
  */
 
 $image1 = plugins_url( 'assets/images/pattern-placeholders/table-wood-house-chair-floor-window.jpg', WC_PLUGIN_FILE );
 
-$category_title = __( 'Sit back and relax', 'woocommerce' );
-$description    = __( 'With a wide range of designer chairs to elevate your living space.', 'woocommerce' );
-$button         = __( 'Shop chairs', 'woocommerce' );
+$category_title = __( 'Sit back and relax', 'poocommerce' );
+$description    = __( 'With a wide range of designer chairs to elevate your living space.', 'poocommerce' );
+$button         = __( 'Shop chairs', 'poocommerce' );
 ?>
 
 <!-- wp:group {"metadata":{"name":"Featured Category Cover Image"}, "align":"full","style":{"spacing":{"padding":{"top":"calc( 0.5 * var(--wp--style--root--padding-right, var(--wp--custom--gap--horizontal)))","bottom":"calc( 0.5 * var(--wp--style--root--padding-right, var(--wp--custom--gap--horizontal)))","left":"var(--wp--style--root--padding-left, var(--wp--custom--gap--horizontal))","right":"var(--wp--style--root--padding-right, var(--wp--custom--gap--horizontal))"},"margin":{"top":"0","bottom":"0"}}},"layout":{"type":"constrained","justifyContent":"center"}} -->

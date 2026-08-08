@@ -1,14 +1,14 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "woocommerce/accordion-header",
+	"name": "poocommerce/accordion-header",
 	"title": "Accordion Header",
-	"category": "woocommerce",
-	"keywords": [ "WooCommerce" ],
+	"category": "poocommerce",
+	"keywords": [ "PooCommerce" ],
 	"description": "Accordion header.",
 	"example": {},
 	"__experimental": true,
-	"parent": [ "woocommerce/accordion-item" ],
+	"parent": [ "poocommerce/accordion-item" ],
 	"supports": {
 		"anchor": true,
 		"color": {
@@ -94,5 +94,5 @@
 			"default": "right"
 		}
 	},
-	"textdomain": "woocommerce"
+	"textdomain": "poocommerce"
 }

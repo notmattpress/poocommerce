@@ -3,10 +3,10 @@
  *
  * Consumers are expected to substitute this identifier with their own text
  * domain at bundle time via `webpack.DefinePlugin` (see `development.md`).
- * When the substitution is not configured, this assigns `'woocommerce'` to
+ * When the substitution is not configured, this assigns `'poocommerce'` to
  * the global so `__()` / `_x()` / `_n()` / `_nx()` calls inside the package
  * don't throw `ReferenceError` at runtime — strings then resolve under the
- * `woocommerce` text domain (matching the package's pre-1.11 behaviour).
+ * `poocommerce` text domain (matching the package's pre-1.11 behaviour).
  *
  * When `DefinePlugin` is configured the typeof check is statically replaced
  * with `typeof "<consumer-domain>" === 'undefined'`, which evaluates to
@@ -14,7 +14,7 @@
  * minifier and has zero runtime cost.
  */
 if ( typeof __i18n_text_domain__ === 'undefined' ) {
-	window.__i18n_text_domain__ = 'woocommerce';
+	window.__i18n_text_domain__ = 'poocommerce';
 }
 
 /**
@@ -41,7 +41,7 @@ export {
  *
  * @example
  * ```jsx
- * import { useIsEmailEditor, usePreviewTemplates, useEmailCss } from '@woocommerce/email-editor';
+ * import { useIsEmailEditor, usePreviewTemplates, useEmailCss } from '@poocommerce/email-editor';
  *
  * function EmailComponent() {
  *   // Check if we're in the email editor context
@@ -124,7 +124,7 @@ export {
 
 /**
  * This method is used to initialize the email editor.
- * This method expects some data set on the global window object set on window.WooCommerceEmailEditor
+ * This method expects some data set on the global window object set on window.PooCommerceEmailEditor
  *
  * {
  *    "current_post_type": "", // The post type of the current post.
@@ -166,7 +166,7 @@ export function initializeEditor( htmlId: string ) {
  *
  * @example
  * ```jsx
- * import { ExperimentalEmailEditor } from '@woocommerce/email-editor';
+ * import { ExperimentalEmailEditor } from '@poocommerce/email-editor';
  *
  * <ExperimentalEmailEditor
  *   postId="123"
@@ -192,7 +192,7 @@ export type {
 /**
  * The registerEntityAction and unregisterEntityAction are used to register and unregister entity actions.
  * These use Gutenberg's private APIs and are highly unstable.
- * DO NOT USE OUTSIDE WooCommerce.
+ * DO NOT USE OUTSIDE PooCommerce.
  *
  * If necessary, import the unlock module and access the private APIs for your use case.
  */
@@ -210,7 +210,7 @@ export { registerEntityAction, unregisterEntityAction } from './private-apis';
  *
  * @example
  * ```jsx
- * import { SendPreviewEmail } from '@woocommerce/email-editor';
+ * import { SendPreviewEmail } from '@poocommerce/email-editor';
  *
  * // The component manages its own modal state through the email editor store
  * <SendPreviewEmail />
@@ -238,7 +238,7 @@ export { SendPreviewEmail } from './components/preview';
  *
  * @example
  * ```jsx
- * import { RichTextWithButton } from '@woocommerce/email-editor';
+ * import { RichTextWithButton } from '@poocommerce/email-editor';
  *
  * <RichTextWithButton
  *   label="Email Subject"
@@ -269,11 +269,11 @@ export { RichTextWithButton } from './components/personalization-tags/rich-text-
  * These functions provide analytics and usage tracking capabilities for the email editor.
  * All events are prefixed with 'email_editor_events_' and can be disabled via configuration.
  *
- * @see {@link https://github.com/woocommerce/woocommerce/blob/0bed6cbba7e599c6535b777f6dc1e0009b05cb08/packages/js/email-editor/src/telemetry-tracking.md} for more information on the event tracking system.
+ * @see {@link https://github.com/poocommerce/poocommerce/blob/0bed6cbba7e599c6535b777f6dc1e0009b05cb08/packages/js/email-editor/src/telemetry-tracking.md} for more information on the event tracking system.
  *
  * @example
  * ```jsx
- * import { recordEvent, recordEventOnce, isEventTrackingEnabled } from '@woocommerce/email-editor';
+ * import { recordEvent, recordEventOnce, isEventTrackingEnabled } from '@poocommerce/email-editor';
  *
  * // Record a user action
  * recordEvent('button_clicked', { buttonType: 'save', location: 'toolbar' });
@@ -382,15 +382,15 @@ export {
  *
  * @example
  * ```jsx
- * import { EmailActionsFill, TemplateSelection } from '@woocommerce/email-editor';
+ * import { EmailActionsFill, TemplateSelection } from '@poocommerce/email-editor';
  * import { registerPlugin, unregisterPlugin } from '@wordpress/plugins';
  *
  * // Remove the default TemplateSelection from the Settings panel
- * unregisterPlugin( 'woocommerce-email-editor-template-selection' );
+ * unregisterPlugin( 'poocommerce-email-editor-template-selection' );
  *
  * // Render TemplateSelection in a custom location via registerPlugin
  * registerPlugin( 'my-custom-template-selection', {
- *   scope: 'woocommerce-email-editor',
+ *   scope: 'poocommerce-email-editor',
  *   render: () => (
  *     <EmailActionsFill>
  *       <TemplateSelection />
@@ -413,15 +413,15 @@ export { EmailActionsFill } from './components/sidebar/settings-panel';
  *
  * @example
  * ```jsx
- * import { EmailActionsFill, TemplateSelection } from '@woocommerce/email-editor';
+ * import { EmailActionsFill, TemplateSelection } from '@poocommerce/email-editor';
  * import { registerPlugin, unregisterPlugin } from '@wordpress/plugins';
  *
  * // Remove the default TemplateSelection from the Settings panel
- * unregisterPlugin( 'woocommerce-email-editor-template-selection' );
+ * unregisterPlugin( 'poocommerce-email-editor-template-selection' );
  *
  * // Render TemplateSelection in a custom location
  * registerPlugin( 'my-custom-template-selection', {
- *   scope: 'woocommerce-email-editor',
+ *   scope: 'poocommerce-email-editor',
  *   render: () => (
  *     <EmailActionsFill>
  *       <TemplateSelection />

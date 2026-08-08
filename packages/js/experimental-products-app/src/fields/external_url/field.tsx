@@ -12,10 +12,10 @@ import type { ProductEntityRecord } from '../types';
 
 const fieldDefinition = {
 	type: 'url',
-	label: __( 'External URL', 'woocommerce' ),
+	label: __( 'External URL', 'poocommerce' ),
 	description: __(
 		'Add the affiliate link to the store where customers can buy this product.',
-		'woocommerce'
+		'poocommerce'
 	),
 	enableSorting: false,
 	enableHiding: false,

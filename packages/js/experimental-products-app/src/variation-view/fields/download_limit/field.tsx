@@ -12,7 +12,7 @@ import type { ProductEntityRecord } from '../types';
 
 export const fieldExtensions: Partial< Field< ProductEntityRecord > > = {
 	type: 'integer',
-	label: __( 'Download limit', 'woocommerce' ),
+	label: __( 'Download limit', 'poocommerce' ),
 	enableSorting: false,
 	filterBy: false,
 	isVisible: ( item ) => !! item.downloadable,
@@ -21,7 +21,7 @@ export const fieldExtensions: Partial< Field< ProductEntityRecord > > = {
 		const isLimited = ( data.download_limit ?? -1 ) !== -1;
 		return (
 			<div
-				className="woocommerce-fields-field__download-limit"
+				className="poocommerce-fields-field__download-limit"
 				style={ {
 					display: 'flex',
 					flexDirection: 'column',
@@ -33,7 +33,7 @@ export const fieldExtensions: Partial< Field< ProductEntityRecord > > = {
 					__nextHasNoMarginBottom
 					label={ __(
 						'Limit downloads per customer',
-						'woocommerce'
+						'poocommerce'
 					) }
 					checked={ isLimited }
 					onChange={ ( checked ) => {

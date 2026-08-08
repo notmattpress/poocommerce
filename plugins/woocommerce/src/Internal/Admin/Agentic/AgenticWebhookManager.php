@@ -1,18 +1,18 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Internal\Admin\Agentic;
+namespace Automattic\PooCommerce\Internal\Admin\Agentic;
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Internal\RegisterHooksInterface;
-use Automattic\WooCommerce\StoreApi\Routes\V1\Agentic\Enums\OrderMetaKey;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Internal\RegisterHooksInterface;
+use Automattic\PooCommerce\StoreApi\Routes\V1\Agentic\Enums\OrderMetaKey;
 use WC_Order;
 use WC_Webhook;
 
 /**
  * AgenticWebhookManager class
  *
- * Integrates Agentic Commerce Protocol webhooks with WooCommerce's native webhook system.
+ * Integrates Agentic Commerce Protocol webhooks with PooCommerce's native webhook system.
  * Defines custom action topics and handles filtering/transformation for ACP compliance.
  *
  * @since 10.3.0
@@ -23,7 +23,7 @@ class AgenticWebhookManager implements RegisterHooksInterface {
 	 *
 	 * @var string
 	 */
-	const WEBHOOK_ACTION = 'woocommerce_agentic_order_changed';
+	const WEBHOOK_ACTION = 'poocommerce_agentic_order_changed';
 
 	/**
 	 * Topic that will be used for webhooks.
@@ -64,21 +64,21 @@ class AgenticWebhookManager implements RegisterHooksInterface {
 	 */
 	public function register() {
 
-		add_filter( 'woocommerce_webhook_topics', array( $this, 'register_webhook_topic_names' ) );
+		add_filter( 'poocommerce_webhook_topics', array( $this, 'register_webhook_topic_names' ) );
 
 		// Hook into order lifecycle events to fire our custom actions.
-		add_action( 'woocommerce_new_order', array( $this, 'handle_order_created' ), 999, 2 ); // Hook late to give a chance for other plugins to modify.
-		add_action( 'woocommerce_order_status_changed', array( $this, 'handle_order_status_changed' ), 10, 4 );
-		add_action( 'woocommerce_order_refunded', array( $this, 'handle_order_refunded' ), 10, 1 );
+		add_action( 'poocommerce_new_order', array( $this, 'handle_order_created' ), 999, 2 ); // Hook late to give a chance for other plugins to modify.
+		add_action( 'poocommerce_order_status_changed', array( $this, 'handle_order_status_changed' ), 10, 4 );
+		add_action( 'poocommerce_order_refunded', array( $this, 'handle_order_refunded' ), 10, 1 );
 
 		// Customize webhook payload for our topics.
-		add_filter( 'woocommerce_webhook_payload', array( $this, 'customize_webhook_payload' ), 10, 4 );
+		add_filter( 'poocommerce_webhook_payload', array( $this, 'customize_webhook_payload' ), 10, 4 );
 
 		// Customize webhook HTTP arguments for our topics.
-		add_filter( 'woocommerce_webhook_http_args', array( $this, 'customize_webhook_http_args' ), 10, 3 );
+		add_filter( 'poocommerce_webhook_http_args', array( $this, 'customize_webhook_http_args' ), 10, 3 );
 
 		// When the webhook is delivered (or not), mark the first event as delivered.
-		add_action( 'woocommerce_webhook_delivery', array( $this, 'mark_first_event_delivered' ), 10, 5 );
+		add_action( 'poocommerce_webhook_delivery', array( $this, 'mark_first_event_delivered' ), 10, 5 );
 	}
 
 	/**
@@ -88,7 +88,7 @@ class AgenticWebhookManager implements RegisterHooksInterface {
 	 * @return array Modified topics.
 	 */
 	public function register_webhook_topic_names( $topics ): array {
-		$topics[ self::WEBHOOK_TOPIC ] = __( 'Agentic Commerce Protocol: Order created or updated', 'woocommerce' );
+		$topics[ self::WEBHOOK_TOPIC ] = __( 'Agentic Commerce Protocol: Order created or updated', 'poocommerce' );
 		return $topics;
 	}
 
@@ -247,10 +247,10 @@ class AgenticWebhookManager implements RegisterHooksInterface {
 			return $http_args;
 		}
 
-		// Compute HMAC signature per ACP webhook spec using WooCommerce's built-in method.
+		// Compute HMAC signature per ACP webhook spec using PooCommerce's built-in method.
 		// The signature must be computed over the raw request body.
 		if ( isset( $http_args['body'] ) && ! empty( $webhook->get_secret() ) ) {
-			// Use WooCommerce's signature generation to ensure consistency.
+			// Use PooCommerce's signature generation to ensure consistency.
 			$signature = $webhook->generate_signature( $http_args['body'] );
 
 			// Add Merchant-Signature header per ACP webhook specification.

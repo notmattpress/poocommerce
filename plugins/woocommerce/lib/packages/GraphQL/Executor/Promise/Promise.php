@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\GraphQL\Executor\Promise;
+namespace Automattic\PooCommerce\Vendor\GraphQL\Executor\Promise;
 
 use Amp\Future as AmpFuture;
 use Amp\Promise as AmpPromise;
-use Automattic\WooCommerce\Vendor\GraphQL\Error\InvariantViolation;
-use Automattic\WooCommerce\Vendor\GraphQL\Executor\Promise\Adapter\SyncPromise;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\InvariantViolation;
+use Automattic\PooCommerce\Vendor\GraphQL\Executor\Promise\Adapter\SyncPromise;
 use React\Promise\PromiseInterface as ReactPromise;
 
 /**

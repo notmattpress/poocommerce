@@ -5,7 +5,7 @@ import { ComponentProps } from 'react';
 import { Button, ButtonGroup, Modal } from '@wordpress/components';
 import { useContext, useState } from '@wordpress/element';
 import { __, sprintf } from '@wordpress/i18n';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -50,7 +50,7 @@ export default function ConnectButton( props: ConnectProps ) {
 					props.subscription.product_key,
 					sprintf(
 						// translators: %s is the product name.
-						__( '%s successfully connected.', 'woocommerce' ),
+						__( '%s successfully connected.', 'poocommerce' ),
 						props.subscription.product_name
 					),
 					NoticeStatus.Success
@@ -92,7 +92,7 @@ export default function ConnectButton( props: ConnectProps ) {
 				const connectError = error as ConnectError;
 				const baseNoticeMessage = sprintf(
 					// translators: %s is the product name.
-					__( '%s couldn’t be connected.', 'woocommerce' ),
+					__( '%s couldn’t be connected.', 'poocommerce' ),
 					props.subscription.product_name
 				);
 				const noticeMessage = getConnectionErrorMessage(
@@ -105,7 +105,7 @@ export default function ConnectButton( props: ConnectProps ) {
 					? [ action ]
 					: [
 							{
-								label: __( 'Try again', 'woocommerce' ),
+								label: __( 'Try again', 'poocommerce' ),
 								onClick: () => {
 									trackConnectErrorActionClicked(
 										'try_again',
@@ -141,8 +141,8 @@ export default function ConnectButton( props: ConnectProps ) {
 					sprintf(
 						// translators: %s is the product name.
 						__(
-							'%s is connected to WooCommerce.com but failed to activate the local plugin.',
-							'woocommerce'
+							'%s is connected to PooCommerce.com but failed to activate the local plugin.',
+							'poocommerce'
 						),
 						props.subscription.product_name
 					),
@@ -158,37 +158,37 @@ export default function ConnectButton( props: ConnectProps ) {
 		}
 		return (
 			<Modal
-				title={ __( 'Activate the Plugin', 'woocommerce' ) }
+				title={ __( 'Activate the Plugin', 'poocommerce' ) }
 				onRequestClose={ () => refreshSubscriptionsList() }
 				focusOnMount={ true }
-				className="woocommerce-marketplace__header-account-modal"
+				className="poocommerce-marketplace__header-account-modal"
 				style={ { borderRadius: 4 } }
-				overlayClassName="woocommerce-marketplace__header-account-modal-overlay"
+				overlayClassName="poocommerce-marketplace__header-account-modal-overlay"
 			>
-				<p className="woocommerce-marketplace__header-account-modal-text">
+				<p className="poocommerce-marketplace__header-account-modal-text">
 					<span
 						dangerouslySetInnerHTML={ sanitizeHTML(
 							sprintf(
 								// translators: %s is the product name.
 								__(
 									'<b>%s</b> is installed but not activated on this store. Would you like to activate it now?',
-									'woocommerce'
+									'poocommerce'
 								),
 								props.subscription.product_name
 							)
 						) }
 					/>
 				</p>
-				<ButtonGroup className="woocommerce-marketplace__header-account-modal-button-group">
+				<ButtonGroup className="poocommerce-marketplace__header-account-modal-button-group">
 					<Button
 						onClick={ () => refreshSubscriptionsList() }
 						variant="tertiary"
-						className="woocommerce-marketplace__header-account-modal-button"
+						className="poocommerce-marketplace__header-account-modal-button"
 					>
-						{ __( 'No', 'woocommerce' ) }
+						{ __( 'No', 'poocommerce' ) }
 					</Button>
 					<Button onClick={ activatePlugin } variant="primary">
-						{ __( 'Yes', 'woocommerce' ) }
+						{ __( 'Yes', 'poocommerce' ) }
 					</Button>
 				</ButtonGroup>
 			</Modal>
@@ -204,7 +204,7 @@ export default function ConnectButton( props: ConnectProps ) {
 				isBusy={ isConnecting }
 				disabled={ isConnecting }
 			>
-				{ __( 'Connect', 'woocommerce' ) }
+				{ __( 'Connect', 'poocommerce' ) }
 			</Button>
 		</>
 	);

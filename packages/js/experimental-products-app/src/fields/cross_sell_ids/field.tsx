@@ -15,10 +15,10 @@ import { ProductSelector } from '../components/product-selector';
 const LINKED_PRODUCT_STATUSES: ProductStatus[] = [ 'publish', 'draft' ];
 
 const fieldDefinition = {
-	label: __( 'Cross-sells', 'woocommerce' ),
+	label: __( 'Cross-sells', 'poocommerce' ),
 	description: __(
 		"Recommend related or complementary items to encourage additional purchases. These will be shown in the customer's shopping cart.",
-		'woocommerce'
+		'poocommerce'
 	),
 	enableSorting: false,
 	enableHiding: false,

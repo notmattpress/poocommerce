@@ -7,11 +7,11 @@ import {
 	wpCLI,
 	TemplateCompiler,
 	BLOCK_THEME_SLUG,
-} from '@woocommerce/e2e-utils';
+} from '@poocommerce/e2e-utils';
 
 const blockData = {
 	name: 'Filter by Rating',
-	slug: 'woocommerce/rating-filter',
+	slug: 'poocommerce/rating-filter',
 	urlSearchParamWhenFilterIsApplied: 'rating_filter=1',
 };
 
@@ -28,7 +28,7 @@ test.describe( `${ blockData.name } Block`, () => {
 	test.beforeEach( async ( { admin, editor } ) => {
 		await admin.createNewPost();
 		await editor.insertBlock( {
-			name: 'woocommerce/filter-wrapper',
+			name: 'poocommerce/filter-wrapper',
 			attributes: {
 				filterType: 'rating-filter',
 				heading: 'Filter By Rating',
@@ -39,7 +39,7 @@ test.describe( `${ blockData.name } Block`, () => {
 
 	test( "should allow changing the block's title", async ( { editor } ) => {
 		const textSelector =
-			'.wp-block-woocommerce-filter-wrapper .wp-block-heading';
+			'.wp-block-poocommerce-filter-wrapper .wp-block-heading';
 
 		const title = 'New Title';
 
@@ -114,7 +114,7 @@ test.describe( `${ blockData.name } Block - with PHP classic template`, () => {
 		} );
 
 		await editor.insertBlock( {
-			name: 'woocommerce/filter-wrapper',
+			name: 'poocommerce/filter-wrapper',
 			attributes: {
 				filterType: 'rating-filter',
 				heading: 'Filter By Rating',
@@ -131,7 +131,7 @@ test.describe( `${ blockData.name } Block - with PHP classic template`, () => {
 
 	test( 'should show all products', async ( { frontendUtils, page } ) => {
 		const legacyTemplate = await frontendUtils.getBlockByName(
-			'woocommerce/legacy-template'
+			'poocommerce/legacy-template'
 		);
 
 		const products = legacyTemplate
@@ -154,7 +154,7 @@ test.describe( `${ blockData.name } Block - with PHP classic template`, () => {
 			.click();
 
 		const legacyTemplate = await frontendUtils.getBlockByName(
-			'woocommerce/legacy-template'
+			'poocommerce/legacy-template'
 		);
 
 		const products = legacyTemplate
@@ -175,7 +175,7 @@ test.describe( `${ blockData.name } Block - with Product Collection`, () => {
 
 		await page.goto( '/shop' );
 		const products = page
-			.locator( '.wp-block-woocommerce-product-template' )
+			.locator( '.wp-block-poocommerce-product-template' )
 			.getByRole( 'listitem' );
 
 		await expect( products ).toHaveCount( 16 );
@@ -197,7 +197,7 @@ test.describe( `${ blockData.name } Block - with Product Collection`, () => {
 		);
 
 		const products = page
-			.locator( '.wp-block-woocommerce-product-template' )
+			.locator( '.wp-block-poocommerce-product-template' )
 			.getByRole( 'listitem' );
 
 		await expect( products ).toHaveCount( 1 );
@@ -218,7 +218,7 @@ test.describe( `${ blockData.name } Block - with Product Collection`, () => {
 		} );
 
 		const ratingFilterControls = await editor.getBlockByName(
-			'woocommerce/rating-filter'
+			'poocommerce/rating-filter'
 		);
 		await expect( ratingFilterControls ).toBeVisible();
 		await editor.selectBlocks( ratingFilterControls );
@@ -240,7 +240,7 @@ test.describe( `${ blockData.name } Block - with Product Collection`, () => {
 		);
 
 		const products = page
-			.locator( '.wp-block-woocommerce-product-template' )
+			.locator( '.wp-block-poocommerce-product-template' )
 			.getByRole( 'listitem' );
 
 		await expect( products ).toHaveCount( 1 );

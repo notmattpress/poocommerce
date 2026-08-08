@@ -1,11 +1,11 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin;
+namespace Automattic\PooCommerce\Tests\Internal\Admin;
 
-use Automattic\WooCommerce\Internal\Admin\Analytics;
-use Automattic\WooCommerce\Internal\Admin\FeaturePlugin;
-use Automattic\WooCommerce\Internal\Features\FeaturesController;
+use Automattic\PooCommerce\Internal\Admin\Analytics;
+use Automattic\PooCommerce\Internal\Admin\FeaturePlugin;
+use Automattic\PooCommerce\Internal\Features\FeaturesController;
 use WC_Unit_Test_Case;
 
 /**
@@ -17,8 +17,8 @@ class FeaturePluginTest extends WC_Unit_Test_Case {
 	 */
 	public function tearDown(): void {
 		delete_option( Analytics::TOGGLE_OPTION_NAME );
-		remove_filter( 'woocommerce_admin_disabled', '__return_true', PHP_INT_MAX );
-		remove_filter( 'woocommerce_admin_features', array( $this, 'disable_analytics_feature' ), PHP_INT_MAX );
+		remove_filter( 'poocommerce_admin_disabled', '__return_true', PHP_INT_MAX );
+		remove_filter( 'poocommerce_admin_features', array( $this, 'disable_analytics_feature' ), PHP_INT_MAX );
 
 		parent::tearDown();
 	}
@@ -90,42 +90,42 @@ class FeaturePluginTest extends WC_Unit_Test_Case {
 
 			return $disabled;
 		};
-		add_filter( 'woocommerce_admin_disabled', $filter, PHP_INT_MAX );
+		add_filter( 'poocommerce_admin_disabled', $filter, PHP_INT_MAX );
 
 		try {
 			$this->assertFalse( $this->is_analytics_enabled_during_bootstrap(), 'The disabled Analytics option should keep the bootstrap gate disabled.' );
 		} finally {
-			remove_filter( 'woocommerce_admin_disabled', $filter, PHP_INT_MAX );
+			remove_filter( 'poocommerce_admin_disabled', $filter, PHP_INT_MAX );
 		}
 
 		$this->assertSame( 1, $filter_call_count, 'The bootstrap gate should preserve the canonical legacy-filter evaluation order.' );
 	}
 
 	/**
-	 * @testdox The bootstrap analytics gate respects the legacy WooCommerce Admin disabled filter.
+	 * @testdox The bootstrap analytics gate respects the legacy PooCommerce Admin disabled filter.
 	 */
 	public function test_analytics_gate_respects_admin_disabled_filter(): void {
-		add_filter( 'woocommerce_admin_disabled', '__return_true', PHP_INT_MAX );
+		add_filter( 'poocommerce_admin_disabled', '__return_true', PHP_INT_MAX );
 
-		$this->assertFalse( $this->is_analytics_enabled_during_bootstrap(), 'Disabling WooCommerce Admin should disable the Analytics bootstrap gate.' );
+		$this->assertFalse( $this->is_analytics_enabled_during_bootstrap(), 'Disabling PooCommerce Admin should disable the Analytics bootstrap gate.' );
 	}
 
 	/**
 	 * @testdox The bootstrap analytics gate respects removal from the legacy feature list.
 	 */
 	public function test_analytics_gate_respects_legacy_feature_filter(): void {
-		add_filter( 'woocommerce_admin_features', array( $this, 'disable_analytics_feature' ), PHP_INT_MAX );
+		add_filter( 'poocommerce_admin_features', array( $this, 'disable_analytics_feature' ), PHP_INT_MAX );
 
 		$this->assertFalse( $this->is_analytics_enabled_during_bootstrap(), 'Removing Analytics from the legacy feature list should disable its bootstrap gate.' );
 	}
 
 	/**
-	 * @testdox The bootstrap analytics gate does not translate WooCommerce strings.
+	 * @testdox The bootstrap analytics gate does not translate PooCommerce strings.
 	 */
 	public function test_analytics_gate_does_not_translate_strings(): void {
 		$translation_count = 0;
 		$gettext_filter    = static function ( $translation, $text, $domain ) use ( &$translation_count ) {
-			if ( 'woocommerce' === $domain ) {
+			if ( 'poocommerce' === $domain ) {
 				++$translation_count;
 			}
 
@@ -139,7 +139,7 @@ class FeaturePluginTest extends WC_Unit_Test_Case {
 			remove_filter( 'gettext', $gettext_filter, 10 );
 		}
 
-		$this->assertSame( 0, $translation_count, 'The bootstrap gate should not translate WooCommerce feature definitions.' );
+		$this->assertSame( 0, $translation_count, 'The bootstrap gate should not translate PooCommerce feature definitions.' );
 	}
 
 	/**

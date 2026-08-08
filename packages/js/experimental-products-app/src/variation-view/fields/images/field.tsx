@@ -37,8 +37,8 @@ const toProductImage = (
 ): ProductEntityRecord[ 'images' ][ number ] => {
 	const sizes = att.media_details?.sizes || att.sizes;
 	const thumbnailUrl =
-		sizes?.woocommerce_thumbnail?.source_url ||
-		sizes?.woocommerce_thumbnail?.url ||
+		sizes?.poocommerce_thumbnail?.source_url ||
+		sizes?.poocommerce_thumbnail?.url ||
 		sizes?.thumbnail?.source_url ||
 		sizes?.thumbnail?.url ||
 		'';
@@ -87,19 +87,19 @@ function SortableImage( {
 			ref={ ref }
 			role="group"
 			aria-label={ image.name }
-			className={ clsx( 'woocommerce-fields-controls__image-wrapper', {
+			className={ clsx( 'poocommerce-fields-controls__image-wrapper', {
 				'is-dragging': isDragging,
 			} ) }
 		>
 			<img className="product-image" src={ previewSrc } alt={ alt } />
-			<div className="woocommerce-fields-controls__image-overlay" />
+			<div className="poocommerce-fields-controls__image-overlay" />
 			{ showDragHandle && (
-				<div className="woocommerce-fields-controls__image-drag-handle-container">
+				<div className="poocommerce-fields-controls__image-drag-handle-container">
 					<IconButton
 						ref={ handleRef }
 						icon={ dragHandle }
-						label={ __( 'Drag to reorder', 'woocommerce' ) }
-						className="woocommerce-fields-controls__image-drag-handle"
+						label={ __( 'Drag to reorder', 'poocommerce' ) }
+						className="poocommerce-fields-controls__image-drag-handle"
 						variant="minimal"
 						size="small"
 						tone="neutral"
@@ -109,11 +109,11 @@ function SortableImage( {
 			{ ! isDragging && (
 				<IconButton
 					icon={ closeSmall }
-					label={ __( 'Remove image', 'woocommerce' ) }
+					label={ __( 'Remove image', 'poocommerce' ) }
 					onClick={ onRemove }
 					onPointerDown={ stopPropagation }
 					onKeyDown={ stopPropagation }
-					className="woocommerce-fields-controls__image-remove-button"
+					className="poocommerce-fields-controls__image-remove-button"
 					variant="minimal"
 					size="small"
 					tone="neutral"
@@ -124,7 +124,7 @@ function SortableImage( {
 }
 
 const fieldDefinition = {
-	label: __( 'Images', 'woocommerce' ),
+	label: __( 'Images', 'poocommerce' ),
 	enableSorting: false,
 	filterBy: false,
 } satisfies Partial< Field< ProductEntityRecord > >;
@@ -159,8 +159,8 @@ export const fieldExtensions: Partial< Field< ProductEntityRecord > > = {
 		}, [ data.images, isVariation ] );
 		const [ images, setImages ] = useState( dataImages );
 		const uploadLabel = isVariation
-			? __( 'Add image', 'woocommerce' )
-			: __( 'Add images', 'woocommerce' );
+			? __( 'Add image', 'poocommerce' )
+			: __( 'Add images', 'poocommerce' );
 
 		useEffect( () => {
 			setImages( dataImages );
@@ -244,13 +244,13 @@ export const fieldExtensions: Partial< Field< ProductEntityRecord > > = {
 		}, [ images, handleRemoveImage ] );
 
 		return (
-			<div className="woocommerce-fields-control__images">
+			<div className="poocommerce-fields-control__images">
 				<BaseControl.VisualLabel>
 					{ field.label }
 				</BaseControl.VisualLabel>
 				<DragDropProvider onDragEnd={ handleDragEnd }>
-					<div className="woocommerce-fields-control__featured-image">
-						<div className="woocommerce-fields-controls__featured-image-uploaded-images">
+					<div className="poocommerce-fields-control__featured-image">
+						<div className="poocommerce-fields-controls__featured-image-uploaded-images">
 							{ images.map( ( image, index ) => {
 								const onRemove = removeCallbacks.get(
 									image.id
@@ -274,7 +274,7 @@ export const fieldExtensions: Partial< Field< ProductEntityRecord > > = {
 								);
 							} ) }
 						</div>
-						<div className="woocommerce-fields-control__featured-image-actions">
+						<div className="poocommerce-fields-control__featured-image-actions">
 							<MediaUpload
 								allowedTypes={ [ 'image' ] }
 								multiple={ isVariation ? false : 'add' }

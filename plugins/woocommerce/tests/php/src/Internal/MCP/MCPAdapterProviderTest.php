@@ -5,12 +5,12 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\MCP;
+namespace Automattic\PooCommerce\Tests\Internal\MCP;
 
-use Automattic\WooCommerce\Internal\Abilities\AbilitiesRegistry;
-use Automattic\WooCommerce\Internal\Abilities\REST\RestAbilityFactory;
-use Automattic\WooCommerce\Internal\MCP\MCPAdapterProvider;
-use Automattic\WooCommerce\Utilities\FeaturesUtil;
+use Automattic\PooCommerce\Internal\Abilities\AbilitiesRegistry;
+use Automattic\PooCommerce\Internal\Abilities\REST\RestAbilityFactory;
+use Automattic\PooCommerce\Internal\MCP\MCPAdapterProvider;
+use Automattic\PooCommerce\Utilities\FeaturesUtil;
 
 /**
  * Tests for the MCPAdapterProvider class.
@@ -90,7 +90,7 @@ class MCPAdapterProviderTest extends \WC_Unit_Test_Case {
 
 		// Bootstrap the WordPress Abilities API for tests.
 		if ( ! function_exists( 'wp_register_ability' ) ) {
-			$abilities_bootstrap = WP_PLUGIN_DIR . '/woocommerce/vendor/wordpress/abilities-api/includes/bootstrap.php';
+			$abilities_bootstrap = WP_PLUGIN_DIR . '/poocommerce/vendor/wordpress/abilities-api/includes/bootstrap.php';
 			if ( file_exists( $abilities_bootstrap ) ) {
 				require_once $abilities_bootstrap;
 			}
@@ -98,7 +98,7 @@ class MCPAdapterProviderTest extends \WC_Unit_Test_Case {
 
 		// Bootstrap the MCP Adapter for tests.
 		if ( ! class_exists( 'WP\\MCP\\Core\\McpAdapter' ) ) {
-			$mcp_bootstrap = WP_PLUGIN_DIR . '/woocommerce/vendor/wordpress/mcp-adapter/includes/Autoloader.php';
+			$mcp_bootstrap = WP_PLUGIN_DIR . '/poocommerce/vendor/wordpress/mcp-adapter/includes/Autoloader.php';
 			if ( file_exists( $mcp_bootstrap ) ) {
 				require_once $mcp_bootstrap;
 				// Initialize the autoloader.
@@ -135,8 +135,8 @@ class MCPAdapterProviderTest extends \WC_Unit_Test_Case {
 		}
 
 		// Reset any filters that might have been added.
-		remove_all_filters( 'woocommerce_mcp_include_ability' );
-		remove_all_filters( 'woocommerce_mcp_allow_insecure_transport' );
+		remove_all_filters( 'poocommerce_mcp_include_ability' );
+		remove_all_filters( 'poocommerce_mcp_allow_insecure_transport' );
 		remove_all_filters( 'mcp_validation_enabled' );
 
 		foreach ( $this->registered_ability_ids as $ability_id ) {
@@ -158,7 +158,7 @@ class MCPAdapterProviderTest extends \WC_Unit_Test_Case {
 		remove_action( 'mcp_adapter_init', array( $this->sut, 'initialize_mcp_server' ), 10 );
 
 		// Clean up feature flag options.
-		delete_option( 'woocommerce_feature_mcp_integration_enabled' );
+		delete_option( 'poocommerce_feature_mcp_integration_enabled' );
 
 		if ( null !== $this->original_wp_abilities_api_init_action_count ) {
 			$wp_actions['wp_abilities_api_init'] = $this->original_wp_abilities_api_init_action_count; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
@@ -186,7 +186,7 @@ class MCPAdapterProviderTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_maybe_initialize_respects_feature_flag_disabled(): void {
 		// Ensure MCP feature is disabled via option.
-		update_option( 'woocommerce_feature_mcp_integration_enabled', 'no' );
+		update_option( 'poocommerce_feature_mcp_integration_enabled', 'no' );
 
 		$this->sut->maybe_initialize();
 
@@ -199,7 +199,7 @@ class MCPAdapterProviderTest extends \WC_Unit_Test_Case {
 	public function test_maybe_initialize_respects_feature_flag_enabled(): void {
 
 		// Enable MCP feature via option.
-		update_option( 'woocommerce_feature_mcp_integration_enabled', 'yes' );
+		update_option( 'poocommerce_feature_mcp_integration_enabled', 'yes' );
 
 		$this->sut->maybe_initialize();
 
@@ -211,7 +211,7 @@ class MCPAdapterProviderTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_prevents_double_initialization(): void {
 		// Enable MCP feature via option.
-		update_option( 'woocommerce_feature_mcp_integration_enabled', 'yes' );
+		update_option( 'poocommerce_feature_mcp_integration_enabled', 'yes' );
 
 		$this->sut->maybe_initialize();
 		$first_initialized = $this->sut->is_initialized();
@@ -224,14 +224,14 @@ class MCPAdapterProviderTest extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Should include marked deprecated WooCommerce MCP abilities across namespaces.
+	 * @testdox Should include marked deprecated PooCommerce MCP abilities across namespaces.
 	 */
-	public function test_get_woocommerce_mcp_abilities_includes_marked_abilities_across_namespaces(): void {
-		$exposed_woocommerce_ability = 'woocommerce/test-deprecated-products-a';
+	public function test_get_poocommerce_mcp_abilities_includes_marked_abilities_across_namespaces(): void {
+		$exposed_poocommerce_ability = 'poocommerce/test-deprecated-products-a';
 		$exposed_external_ability    = 'custom-plugin/test-deprecated-orders-a';
 
 		$this->register_test_ability(
-			$exposed_woocommerce_ability,
+			$exposed_poocommerce_ability,
 			array(
 				RestAbilityFactory::EXPOSE_IN_DEPRECATED_MCP_META_KEY => true,
 			)
@@ -248,24 +248,24 @@ class MCPAdapterProviderTest extends \WC_Unit_Test_Case {
 			->willReturn(
 				array(
 					'unregistered-plugin/not-available',
-					$exposed_woocommerce_ability,
+					$exposed_poocommerce_ability,
 					$exposed_external_ability,
 				)
 			);
 
-		$result = $this->get_woocommerce_mcp_abilities();
+		$result = $this->get_poocommerce_mcp_abilities();
 
-		$this->assertCount( 2, $result, 'Should only return abilities explicitly exposed in the deprecated WooCommerce MCP endpoint.' );
-		$this->assertContains( $exposed_woocommerce_ability, $result, 'Should include marked WooCommerce abilities.' );
+		$this->assertCount( 2, $result, 'Should only return abilities explicitly exposed in the deprecated PooCommerce MCP endpoint.' );
+		$this->assertContains( $exposed_poocommerce_ability, $result, 'Should include marked PooCommerce abilities.' );
 		$this->assertContains( $exposed_external_ability, $result, 'Should include marked abilities from other namespaces.' );
 		$this->assertSame( array( 0, 1 ), array_keys( $result ), 'Should re-index array after filtering.' );
 	}
 
 	/**
-	 * @testdox Should exclude unmarked WooCommerce abilities from the deprecated MCP endpoint.
+	 * @testdox Should exclude unmarked PooCommerce abilities from the deprecated MCP endpoint.
 	 */
-	public function test_get_woocommerce_mcp_abilities_excludes_unmarked_woocommerce_abilities(): void {
-		$unmarked_ability = 'woocommerce/test-unmarked';
+	public function test_get_poocommerce_mcp_abilities_excludes_unmarked_poocommerce_abilities(): void {
+		$unmarked_ability = 'poocommerce/test-unmarked';
 
 		$this->register_test_ability(
 			$unmarked_ability,
@@ -280,17 +280,17 @@ class MCPAdapterProviderTest extends \WC_Unit_Test_Case {
 				)
 			);
 
-		$result = $this->get_woocommerce_mcp_abilities();
+		$result = $this->get_poocommerce_mcp_abilities();
 
-		$this->assertEmpty( $result, 'Should exclude unmarked WooCommerce abilities.' );
+		$this->assertEmpty( $result, 'Should exclude unmarked PooCommerce abilities.' );
 	}
 
 	/**
 	 * @testdox Should require strict boolean metadata for deprecated MCP endpoint exposure.
 	 */
-	public function test_get_woocommerce_mcp_abilities_excludes_false_or_non_boolean_exposure_metadata(): void {
-		$opted_out_ability        = 'woocommerce/test-opted-out';
-		$invalid_exposure_ability = 'woocommerce/test-invalid-exposure';
+	public function test_get_poocommerce_mcp_abilities_excludes_false_or_non_boolean_exposure_metadata(): void {
+		$opted_out_ability        = 'poocommerce/test-opted-out';
+		$invalid_exposure_ability = 'poocommerce/test-invalid-exposure';
 
 		$this->register_test_ability(
 			$opted_out_ability,
@@ -314,16 +314,16 @@ class MCPAdapterProviderTest extends \WC_Unit_Test_Case {
 				)
 			);
 
-		$result = $this->get_woocommerce_mcp_abilities();
+		$result = $this->get_poocommerce_mcp_abilities();
 
 		$this->assertEmpty( $result, 'Should exclude false and non-boolean exposure metadata.' );
 	}
 
 	/**
-	 * @testdox Should respect custom filters for deprecated WooCommerce MCP ability inclusion.
+	 * @testdox Should respect custom filters for deprecated PooCommerce MCP ability inclusion.
 	 */
-	public function test_get_woocommerce_mcp_abilities_respects_custom_filter(): void {
-		$deprecated_ability = 'woocommerce/test-custom-filter-deprecated';
+	public function test_get_poocommerce_mcp_abilities_respects_custom_filter(): void {
+		$deprecated_ability = 'poocommerce/test-custom-filter-deprecated';
 
 		$this->register_test_ability(
 			$deprecated_ability,
@@ -345,9 +345,9 @@ class MCPAdapterProviderTest extends \WC_Unit_Test_Case {
 
 		// Add custom filter to include abilities from custom-plugin namespace.
 		add_filter(
-			'woocommerce_mcp_include_ability',
+			'poocommerce_mcp_include_ability',
 			function ( $should_include, $ability_id ) {
-				if ( 'woocommerce/test-custom-filter-deprecated' === $ability_id ) {
+				if ( 'poocommerce/test-custom-filter-deprecated' === $ability_id ) {
 					return false;
 				}
 				if ( str_starts_with( $ability_id, 'custom-plugin/' ) ) {
@@ -359,7 +359,7 @@ class MCPAdapterProviderTest extends \WC_Unit_Test_Case {
 			2
 		);
 
-		$result = $this->get_woocommerce_mcp_abilities();
+		$result = $this->get_poocommerce_mcp_abilities();
 
 		$this->assertCount( 1, $result, 'Should only return abilities included by the custom filter.' );
 		$this->assertContains( 'custom-plugin/special-action', $result, 'Should include abilities opted in by filter.' );
@@ -383,7 +383,7 @@ class MCPAdapterProviderTest extends \WC_Unit_Test_Case {
 		$this->assertFalse( $this->sut->is_initialized(), 'Should start as not initialized' );
 
 		// Enable MCP feature via option.
-		update_option( 'woocommerce_feature_mcp_integration_enabled', 'yes' );
+		update_option( 'poocommerce_feature_mcp_integration_enabled', 'yes' );
 
 		$this->sut->maybe_initialize();
 		$this->assertTrue( $this->sut->is_initialized(), 'Should track initialized state' );
@@ -398,7 +398,7 @@ class MCPAdapterProviderTest extends \WC_Unit_Test_Case {
 			->method( 'get_abilities_ids' )
 			->willReturn( array() );
 
-		$result = $this->get_woocommerce_mcp_abilities();
+		$result = $this->get_poocommerce_mcp_abilities();
 
 		$this->assertEmpty( $result, 'Should handle empty abilities array correctly' );
 	}
@@ -417,19 +417,19 @@ class MCPAdapterProviderTest extends \WC_Unit_Test_Case {
 				)
 			);
 
-		$result = $this->get_woocommerce_mcp_abilities();
+		$result = $this->get_poocommerce_mcp_abilities();
 
 		$this->assertEmpty( $result, 'Should filter out all unregistered abilities.' );
 	}
 
 	/**
-	 * Get WooCommerce MCP abilities through the private provider method.
+	 * Get PooCommerce MCP abilities through the private provider method.
 	 *
 	 * @return array
 	 */
-	private function get_woocommerce_mcp_abilities(): array {
+	private function get_poocommerce_mcp_abilities(): array {
 		$reflection = new \ReflectionClass( $this->sut );
-		$method     = $reflection->getMethod( 'get_woocommerce_mcp_abilities' );
+		$method     = $reflection->getMethod( 'get_poocommerce_mcp_abilities' );
 		$method->setAccessible( true );
 
 		return $method->invoke( $this->sut );
@@ -442,7 +442,7 @@ class MCPAdapterProviderTest extends \WC_Unit_Test_Case {
 	 * @param array  $meta Ability meta.
 	 */
 	private function register_test_ability( string $ability_id, array $meta ): void {
-		$this->ensure_test_ability_category( 'woocommerce-rest' );
+		$this->ensure_test_ability_category( 'poocommerce-rest' );
 		$this->ensure_abilities_registry_initialized();
 
 		$ability  = null;
@@ -455,7 +455,7 @@ class MCPAdapterProviderTest extends \WC_Unit_Test_Case {
 				array(
 					'label'               => 'Test ability',
 					'description'         => 'Test ability.',
-					'category'            => 'woocommerce-rest',
+					'category'            => 'poocommerce-rest',
 					'input_schema'        => array( 'type' => 'object' ),
 					'output_schema'       => array( 'type' => 'object' ),
 					'execute_callback'    => static function () {
@@ -475,7 +475,7 @@ class MCPAdapterProviderTest extends \WC_Unit_Test_Case {
 		};
 
 		add_action( 'wp_abilities_api_init', $callback );
-		do_action( 'wp_abilities_api_init' ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment -- Test bootstrap for Abilities API registration.
+		do_action( 'wp_abilities_api_init' ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment -- Test bootstrap for Abilities API registration.
 		remove_action( 'wp_abilities_api_init', $callback );
 
 		$this->assertNotWPError( $ability, 'Test ability should register successfully.' );
@@ -510,14 +510,14 @@ class MCPAdapterProviderTest extends \WC_Unit_Test_Case {
 			$category = wp_register_ability_category(
 				$category_id,
 				array(
-					'label'       => 'WooCommerce REST API',
-					'description' => 'REST API operations for WooCommerce resources.',
+					'label'       => 'PooCommerce REST API',
+					'description' => 'REST API operations for PooCommerce resources.',
 				)
 			);
 		};
 
 		add_action( 'wp_abilities_api_categories_init', $callback );
-		do_action( 'wp_abilities_api_categories_init' ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment -- Test bootstrap for Abilities API registration.
+		do_action( 'wp_abilities_api_categories_init' ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment -- Test bootstrap for Abilities API registration.
 		remove_action( 'wp_abilities_api_categories_init', $callback );
 
 		if ( null !== $category ) {

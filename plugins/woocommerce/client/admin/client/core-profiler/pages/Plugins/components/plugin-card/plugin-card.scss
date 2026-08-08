@@ -1,5 +1,5 @@
 
-.woocommerce-profiler-plugins-plugin-card {
+.poocommerce-profiler-plugins-plugin-card {
 	max-width: 500px;
 	border: 1px solid #e0e0e0;
 	box-sizing: border-box;
@@ -34,7 +34,7 @@
 		width: 100%;
 	}
 
-	.woocommerce-profiler__checkbox {
+	.poocommerce-profiler__checkbox {
 		@media screen and (max-width: $break-xlarge) {
 			height: 28px;
 			display: flex;
@@ -71,7 +71,7 @@
 		}
 	}
 
-	.woocommerce-profiler-plugins-plugin-card-main {
+	.poocommerce-profiler-plugins-plugin-card-main {
 		display: flex;
 		padding: 0;
 		align-items: center;
@@ -83,7 +83,7 @@
 			align-items: flex-start;
 		}
 
-		.woocommerce-profiler-plugins-plugin-card-logo {
+		.poocommerce-profiler-plugins-plugin-card-logo {
 			width: 31px;
 
 			@media screen and (max-width: $break-xlarge) {
@@ -96,7 +96,7 @@
 		}
 	}
 
-	.woocommerce-profiler-plugins-plugin-card-content {
+	.poocommerce-profiler-plugins-plugin-card-content {
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
@@ -107,7 +107,7 @@
 		gap: 2px;
 	}
 
-	.woocommerce-profiler-plugins-plugin-card-text {
+	.poocommerce-profiler-plugins-plugin-card-text {
 		margin: 0;
 		display: flex;
 		white-space: nowrap;
@@ -151,11 +151,11 @@
 		}
 	}
 
-	.woocommerce-profiler-plugins-plugin-card-text-header {
+	.poocommerce-profiler-plugins-plugin-card-text-header {
 		display: flex;
 		gap: 8px;
 
-		.woocommerce-profiler-plugins-plugin-card-title {
+		.poocommerce-profiler-plugins-plugin-card-title {
 			margin: 0;
 			padding: 0;
 			overflow: hidden;

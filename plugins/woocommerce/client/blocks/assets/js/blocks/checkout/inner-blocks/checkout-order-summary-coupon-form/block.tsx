@@ -1,10 +1,10 @@
 /**
  * External dependencies
  */
-import { TotalsCoupon } from '@woocommerce/base-components/cart-checkout';
-import { useStoreCartCoupons } from '@woocommerce/base-context/hooks';
-import { getSetting } from '@woocommerce/settings';
-import { TotalsWrapper } from '@woocommerce/blocks-components';
+import { TotalsCoupon } from '@poocommerce/base-components/cart-checkout';
+import { useStoreCartCoupons } from '@poocommerce/base-context/hooks';
+import { getSetting } from '@poocommerce/settings';
+import { TotalsWrapper } from '@poocommerce/blocks-components';
 
 const Block = ( {
 	className = '',

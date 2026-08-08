@@ -4,9 +4,9 @@
  * OrdersTableQuery class file.
  */
 
-namespace Automattic\WooCommerce\Internal\DataStores\Orders;
+namespace Automattic\PooCommerce\Internal\DataStores\Orders;
 
-use Automattic\WooCommerce\Internal\Utilities\DatabaseUtil;
+use Automattic\PooCommerce\Internal\Utilities\DatabaseUtil;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -206,7 +206,7 @@ class OrdersTableQuery {
 	}
 
 	/**
-	 * Lets the `woocommerce_hpos_pre_query` filter override the query.
+	 * Lets the `poocommerce_hpos_pre_query` filter override the query.
 	 *
 	 * @return boolean Whether the query was overridden or not.
 	 */
@@ -231,7 +231,7 @@ class OrdersTableQuery {
 		 * @param OrdersTableQuery   $query The OrdersTableQuery instance.
 		 * @param string             $sql   Fully built SQL query.
 		 */
-		$pre_query = apply_filters( 'woocommerce_hpos_pre_query', null, $this, $this->sql );
+		$pre_query = apply_filters( 'poocommerce_hpos_pre_query', null, $this, $this->sql );
 		if ( ! $pre_query || ! isset( $pre_query[0] ) || ! is_array( $pre_query[0] ) ) {
 			return false;
 		}
@@ -281,7 +281,7 @@ class OrdersTableQuery {
 
 			'customer_user'       => 'customer_id',
 			'order_currency'      => 'currency',
-			'order_version'       => 'woocommerce_version',
+			'order_version'       => 'poocommerce_version',
 			'cart_discount'       => 'discount_total_amount',
 			'cart_discount_tax'   => 'discount_tax_amount',
 			'order_shipping'      => 'shipping_total_amount',
@@ -289,7 +289,7 @@ class OrdersTableQuery {
 			'order_tax'           => 'tax_amount',
 
 			// Translate from WC_Order_Query to table structure.
-			'version'             => 'woocommerce_version',
+			'version'             => 'poocommerce_version',
 			'date_modified'       => 'date_updated',
 			'date_modified_gmt'   => 'date_updated_gmt',
 			'discount_total'      => 'discount_total_amount',
@@ -352,7 +352,7 @@ class OrdersTableQuery {
 			$date      = new \WC_DateTime( "@{$date}", new \DateTimeZone( 'UTC' ) );
 			$precision = 'second';
 		} elseif ( ! is_a( $date, 'WC_DateTime' ) ) {
-			// For backwards compat (see https://developer.woocommerce.com/docs/extensions/core-concepts/wc-get-orders/#date)
+			// For backwards compat (see https://developer.poocommerce.com/docs/extensions/core-concepts/wc-get-orders/#date)
 			// only YYYY-MM-DD is considered for date values. Timestamps do support second precision.
 			$date      = wc_string_to_datetime( date( 'Y-m-d', strtotime( $date ) ) );
 			$precision = 'day';
@@ -385,7 +385,7 @@ class OrdersTableQuery {
 	private function local_time_to_gmt_date_query( $dates_raw, $operator ) {
 		$result = array();
 
-		// Convert YYYY-MM-DD to UTC timestamp. Per https://developer.woocommerce.com/docs/extensions/core-concepts/wc-get-orders/#date only date is relevant (time is ignored).
+		// Convert YYYY-MM-DD to UTC timestamp. Per https://developer.poocommerce.com/docs/extensions/core-concepts/wc-get-orders/#date only date is relevant (time is ignored).
 		foreach ( $dates_raw as &$raw_date ) {
 			$raw_date = is_numeric( $raw_date ) ? $raw_date : strtotime( get_gmt_from_date( date( 'Y-m-d', strtotime( $raw_date ) ) ) );
 		}
@@ -501,7 +501,7 @@ class OrdersTableQuery {
 				$date_key = $local_to_gmt_date_keys[ $date_key ];
 
 				if ( ! is_numeric( $dates_raw[0] ) && ( ! isset( $dates_raw[1] ) || ! is_numeric( $dates_raw[1] ) ) ) {
-					// Only non-numeric args can be considered local time. Timestamps are assumed to be UTC per https://developer.woocommerce.com/docs/extensions/core-concepts/wc-get-orders/#date.
+					// Only non-numeric args can be considered local time. Timestamps are assumed to be UTC per https://developer.poocommerce.com/docs/extensions/core-concepts/wc-get-orders/#date.
 					$date_queries[] = array_merge(
 						array(
 							'column' => $date_key,
@@ -890,7 +890,7 @@ class OrdersTableQuery {
 			 * @param OrdersTableQuery $query   The OrdersTableQuery instance (passed by reference).
 			 * @param array            $args    Query args.
 			 */
-			$clauses = (array) apply_filters_ref_array( 'woocommerce_orders_table_query_clauses', array( $pieces, &$this, $this->args ) );
+			$clauses = (array) apply_filters_ref_array( 'poocommerce_orders_table_query_clauses', array( $pieces, &$this, $this->args ) );
 
 			$fields  = $clauses['fields'] ?? '';
 			$join    = $clauses['join'] ?? '';
@@ -926,13 +926,13 @@ class OrdersTableQuery {
 			 * @param OrdersTableQuery $query The OrdersTableQuery instance (passed by reference).
 			 * @param array            $args  Query args.
 			 */
-			$filtered_sql = apply_filters_ref_array( 'woocommerce_orders_table_query_sql', array( $this->sql, &$this, $this->args ) );
+			$filtered_sql = apply_filters_ref_array( 'poocommerce_orders_table_query_sql', array( $this->sql, &$this, $this->args ) );
 		}
 
 		if ( $filtered_sql === $this->sql ) {
 			// On large HPOS stores this multi-status, date-ordered query can get a slow plan (scanning millions of
 			// rows); rewriting it as a UNION of single-status queries lets the type_status_date index serve each
-			// branch. Only attempted when no 'woocommerce_orders_table_query_sql' callback changed the query. See
+			// branch. Only attempted when no 'poocommerce_orders_table_query_sql' callback changed the query. See
 			// OrdersTableStatusUnionQuery.
 			$status_union_sql = ( new OrdersTableStatusUnionQuery( $this ) )->get_sql(
 				compact( 'fields', 'join', 'where', 'groupby', 'orderby', 'limits' ),
@@ -980,7 +980,7 @@ class OrdersTableQuery {
 			 * @param string           $where Prepared WHERE clause.
 			 * @param string           $groupby Prepared GROUP BY clause.
 			 */
-			$this->count_sql = apply_filters_ref_array( 'woocommerce_orders_table_query_count_sql', array( $this->count_sql, &$this, $this->args, $fields, $join, $where, $groupby ) );
+			$this->count_sql = apply_filters_ref_array( 'poocommerce_orders_table_query_count_sql', array( $this->count_sql, &$this, $this->args, $fields, $join, $where, $groupby ) );
 		}
 	}
 
@@ -1050,7 +1050,7 @@ class OrdersTableQuery {
 
 		if ( $this->tables['orders'] === $alias ) {
 			// translators: %s is a table name.
-			throw new \Exception( sprintf( __( '%s can not be used as a table alias in OrdersTableQuery', 'woocommerce' ), $alias ) );
+			throw new \Exception( sprintf( __( '%s can not be used as a table alias in OrdersTableQuery', 'poocommerce' ), $alias ) );
 		}
 
 		if ( empty( $on ) ) {
@@ -1064,7 +1064,7 @@ class OrdersTableQuery {
 		if ( isset( $this->join[ $alias ] ) ) {
 			if ( ! $alias_once ) {
 				// translators: %s is a table name.
-				throw new \Exception( sprintf( __( 'Can not re-use table alias "%s" in OrdersTableQuery.', 'woocommerce' ), $alias ) );
+				throw new \Exception( sprintf( __( 'Can not re-use table alias "%s" in OrdersTableQuery.', 'poocommerce' ), $alias ) );
 			}
 
 			return;
@@ -1294,7 +1294,7 @@ class OrdersTableQuery {
 		$fields = array_filter(
 			array(
 				'created_via',
-				'woocommerce_version',
+				'poocommerce_version',
 				'prices_include_tax',
 				'order_key',
 				'discount_total_amount',
@@ -1516,7 +1516,7 @@ class OrdersTableQuery {
 	public function get_table_name( string $table_id = '' ): string {
 		if ( ! isset( $this->tables[ $table_id ] ) ) {
 			// Translators: %s is a table identifier.
-			throw new \Exception( sprintf( __( 'Invalid table id: %s.', 'woocommerce' ), $table_id ) );
+			throw new \Exception( sprintf( __( 'Invalid table id: %s.', 'poocommerce' ), $table_id ) );
 		}
 
 		return $this->tables[ $table_id ];

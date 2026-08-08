@@ -25,7 +25,7 @@ class Template_HTML_Overrides {
 	 */
 	public function register(): void {
 		add_filter(
-			'woocommerce_email_block_template_html',
+			'poocommerce_email_block_template_html',
 			array( $this, 'maybe_override' ),
 			100,
 			2

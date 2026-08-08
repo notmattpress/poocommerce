@@ -3,12 +3,12 @@
 ###################################################################################################
 # Import sample products and regenerate product lookup tables
 ###################################################################################################
-# Resolve the active WooCommerce plugin directory instead of assuming a fixed
+# Resolve the active PooCommerce plugin directory instead of assuming a fixed
 # folder name. Locally and on PR CI the plugin is source-mapped as
-# `woocommerce`, but in nightly it is installed from the release zip as
-# `woocommerce-trunk-nightly`, so a hardcoded path would not exist there.
+# `poocommerce`, but in nightly it is installed from the release zip as
+# `poocommerce-trunk-nightly`, so a hardcoded path would not exist there.
 wc_abspath=$(wp eval 'echo defined("WC_ABSPATH") ? WC_ABSPATH : "";')
-[ -n "$wc_abspath" ] || { echo "Could not resolve WC_ABSPATH; is WooCommerce active?" >&2; exit 1; }
+[ -n "$wc_abspath" ] || { echo "Could not resolve WC_ABSPATH; is PooCommerce active?" >&2; exit 1; }
 wp import "${wc_abspath}sample-data/sample_products.xml" --authors=skip
 wp wc tool run regenerate_product_lookup_tables --user=1
 
@@ -35,7 +35,7 @@ wp wc product update $beanie_product_id --tags="[ { \"id\": $tag_id } ]" --user=
 
 # Create a brand, so we can add tests for brand-related blocks and templates.
 album_product_id=$(wp post list --post_type=product --field=ID --name="Album" --format=ids)
-brand_id=$(wp term create product_brand "WooCommerce" --slug="woocommerce" --description="Official WooCommerce products" --porcelain)
+brand_id=$(wp term create product_brand "PooCommerce" --slug="poocommerce" --description="Official PooCommerce products" --porcelain)
 wp post term set $hoodie_product_id product_brand $brand_id --by=id
 wp post term set $beanie_product_id product_brand $brand_id --by=id
 wp post term set $album_product_id product_brand $brand_id --by=id

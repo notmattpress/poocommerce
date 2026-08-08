@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { Country } from '@woocommerce/data';
+import { Country } from '@poocommerce/data';
 import { decodeEntities } from '@wordpress/html-entities';
 
 /**

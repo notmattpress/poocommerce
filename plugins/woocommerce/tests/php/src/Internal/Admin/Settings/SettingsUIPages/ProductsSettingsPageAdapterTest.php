@@ -2,14 +2,14 @@
 /**
  * ProductsSettingsPageAdapter tests.
  *
- * @package WooCommerce\Tests\Internal\Admin\Settings\SettingsUIPages
+ * @package PooCommerce\Tests\Internal\Admin\Settings\SettingsUIPages
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\Settings\SettingsUIPages;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\Settings\SettingsUIPages;
 
-use Automattic\WooCommerce\Internal\Admin\Settings\SettingsUIPages\ProductsSettingsPageAdapter;
+use Automattic\PooCommerce\Internal\Admin\Settings\SettingsUIPages\ProductsSettingsPageAdapter;
 use WC_Unit_Test_Case;
 
 /**
@@ -52,7 +52,7 @@ class ProductsSettingsPageAdapterTest extends WC_Unit_Test_Case {
 						'title' => 'Shop pages',
 					),
 					array(
-						'id'    => 'woocommerce_shop_page_id',
+						'id'    => 'poocommerce_shop_page_id',
 						'type'  => 'single_select_page',
 						'title' => 'Shop page',
 					),
@@ -68,7 +68,7 @@ class ProductsSettingsPageAdapterTest extends WC_Unit_Test_Case {
 		$schema  = $adapter->get_schema( '' );
 		$field   = $schema['groups']['catalog_options']['fields'][0];
 
-		$this->assertSame( 'woocommerce_shop_page_id', $field['id'] );
+		$this->assertSame( 'poocommerce_shop_page_id', $field['id'] );
 		$this->assertContains(
 			array(
 				'label' => 'Shop',

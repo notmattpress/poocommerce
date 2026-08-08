@@ -5,9 +5,9 @@
  * Handles requests to /notice/
  */
 
-namespace Automattic\WooCommerce\Admin\API;
+namespace Automattic\PooCommerce\Admin\API;
 
-use Automattic\WooCommerce\Admin\PluginsHelper;
+use Automattic\PooCommerce\Admin\PluginsHelper;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -95,6 +95,6 @@ class Notice extends \WC_REST_Data_Controller {
 	 * @return bool
 	 */
 	public function get_permission(): bool {
-		return current_user_can( 'manage_woocommerce' );
+		return current_user_can( 'manage_poocommerce' );
 	}
 }

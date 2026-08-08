@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Internal\PushNotifications;
+namespace Automattic\PooCommerce\Tests\Internal\PushNotifications;
 
 use Automattic\Jetpack\Connection\Manager as JetpackConnectionManager;
-use Automattic\WooCommerce\Internal\PushNotifications\Entities\PushToken;
-use Automattic\WooCommerce\Internal\PushNotifications\PushNotifications;
-use Automattic\WooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\Internal\PushNotifications\Entities\PushToken;
+use Automattic\PooCommerce\Internal\PushNotifications\PushNotifications;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
 use Exception;
 use PHPUnit\Framework\MockObject\MockObject;
 use WC_Logger;
@@ -16,7 +16,7 @@ use WC_Unit_Test_Case;
 /**
  * PushNotifications test.
  *
- * @covers \Automattic\WooCommerce\Internal\PushNotifications\PushNotifications
+ * @covers \Automattic\PooCommerce\Internal\PushNotifications\PushNotifications
  */
 class PushNotificationsTest extends WC_Unit_Test_Case {
 	/**
@@ -77,7 +77,7 @@ class PushNotificationsTest extends WC_Unit_Test_Case {
 
 	/**
 	 * @testdox Tests the functionality can be manually disabled via the
-	 * woocommerce_enhanced_push_notifications_disabled filter, skipping the Jetpack connection check.
+	 * poocommerce_enhanced_push_notifications_disabled filter, skipping the Jetpack connection check.
 	 */
 	public function test_it_can_tell_push_notifications_should_not_be_enabled_when_disabled_via_filter() {
 		$this->set_up_jetpack_connection_manager_mock( array( 'is_connected' ) );
@@ -86,13 +86,13 @@ class PushNotificationsTest extends WC_Unit_Test_Case {
 			->expects( $this->never() )
 			->method( 'is_connected' );
 
-		add_filter( 'woocommerce_enhanced_push_notifications_disabled', '__return_true' );
+		add_filter( 'poocommerce_enhanced_push_notifications_disabled', '__return_true' );
 
 		$push_notifications = new PushNotifications();
 
 		$this->assertFalse( $push_notifications->should_be_enabled() );
 
-		remove_filter( 'woocommerce_enhanced_push_notifications_disabled', '__return_true' );
+		remove_filter( 'poocommerce_enhanced_push_notifications_disabled', '__return_true' );
 	}
 
 	/**

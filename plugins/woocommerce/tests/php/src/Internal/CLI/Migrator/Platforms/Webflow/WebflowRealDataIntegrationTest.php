@@ -14,15 +14,15 @@
  * inventory, etc.) are covered by WebflowMapperTest. This test focuses on
  * what only an end-to-end run exercises.
  *
- * @package Automattic\WooCommerce\Tests\Internal\CLI\Migrator\Platforms\Webflow
+ * @package Automattic\PooCommerce\Tests\Internal\CLI\Migrator\Platforms\Webflow
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\CLI\Migrator\Platforms\Webflow;
+namespace Automattic\PooCommerce\Tests\Internal\CLI\Migrator\Platforms\Webflow;
 
-use Automattic\WooCommerce\Internal\CLI\Migrator\Platforms\Webflow\WebflowFetcher;
-use Automattic\WooCommerce\Internal\CLI\Migrator\Platforms\Webflow\WebflowMapper;
+use Automattic\PooCommerce\Internal\CLI\Migrator\Platforms\Webflow\WebflowFetcher;
+use Automattic\PooCommerce\Internal\CLI\Migrator\Platforms\Webflow\WebflowMapper;
 use WC_Unit_Test_Case;
 
 /**
@@ -336,7 +336,7 @@ class WebflowRealDataIntegrationTest extends WC_Unit_Test_Case {
 	 * Test that variations sharing one image URL produce one images[] entry that every
 	 * variation keys into via image_original_id.
 	 *
-	 * This is the importer contract the assessment doc calls out: WooCommerceProductImporter
+	 * This is the importer contract the assessment doc calls out: PooCommerceProductImporter
 	 * builds an `original_id => attachment_id` map from `images[]`, and variations resolve
 	 * their image via that map. If a variation references an `image_original_id` not in
 	 * `images[]`, the importer can't set the variation's image.

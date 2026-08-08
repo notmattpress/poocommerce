@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\StoreApi\Utilities;
+namespace Automattic\PooCommerce\Tests\Blocks\StoreApi\Utilities;
 
-use Automattic\WooCommerce\StoreApi\Exceptions\RouteException;
-use Automattic\WooCommerce\StoreApi\Utilities\NoticeHandler;
+use Automattic\PooCommerce\StoreApi\Exceptions\RouteException;
+use Automattic\PooCommerce\StoreApi\Utilities\NoticeHandler;
 
 /**
  * NoticeHandler unit tests.
@@ -12,7 +12,7 @@ use Automattic\WooCommerce\StoreApi\Utilities\NoticeHandler;
 class NoticeHandlerTests extends \WC_Unit_Test_Case {
 
 	/**
-	 * Clear the WooCommerce notice queue.
+	 * Clear the PooCommerce notice queue.
 	 *
 	 * Notices live on the WC session singleton, which neither the per-test database
 	 * transaction nor the hook restore touches, so they have to be cleared explicitly or

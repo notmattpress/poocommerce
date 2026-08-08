@@ -1,6 +1,6 @@
 <?php
 
-namespace Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Property;
+namespace Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Property;
 
 class KeyframeSelector extends Selector
 {

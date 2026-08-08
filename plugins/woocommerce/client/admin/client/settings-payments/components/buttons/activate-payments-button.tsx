@@ -4,7 +4,7 @@
 import { __ } from '@wordpress/i18n';
 import { Button } from '@wordpress/components';
 import { useState } from '@wordpress/element';
-import { PaymentsProviderIncentive } from '@woocommerce/data';
+import { PaymentsProviderIncentive } from '@poocommerce/data';
 import apiFetch from '@wordpress/api-fetch';
 
 /**
@@ -63,7 +63,7 @@ interface ActivatePaymentsButtonProps {
 export const ActivatePaymentsButton = ( {
 	acceptIncentive,
 	installingPlugin,
-	buttonText = __( 'Activate payments', 'woocommerce' ),
+	buttonText = __( 'Activate payments', 'poocommerce' ),
 	incentive = null,
 	setOnboardingModalOpen,
 	onboardingType,

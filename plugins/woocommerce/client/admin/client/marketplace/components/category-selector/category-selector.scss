@@ -1,6 +1,6 @@
 @import "../../stylesheets/_variables.scss";
 
-.woocommerce-marketplace__category-selector {
+.poocommerce-marketplace__category-selector {
 	position: relative;
 	display: flex;
 	align-items: stretch;
@@ -9,7 +9,7 @@
 	scrollbar-width: none;
 }
 
-.woocommerce-marketplace__category-item {
+.poocommerce-marketplace__category-item {
 	cursor: pointer;
 	white-space: nowrap;
 	margin-bottom: 0;
@@ -19,7 +19,7 @@
 	}
 }
 
-.woocommerce-marketplace__category-item-button {
+.poocommerce-marketplace__category-item-button {
 	display: flex;
 	align-items: center;
 	cursor: pointer;
@@ -47,31 +47,31 @@
 	}
 }
 
-.woocommerce-marketplace__category-item-content {
+.poocommerce-marketplace__category-item-content {
 	.components-popover__content {
 		min-width: 200px;
 	}
 }
 
-.woocommerce-marketplace__category-selector--full-width {
+.poocommerce-marketplace__category-selector--full-width {
 	display: none;
 }
 
 @media screen and (max-width: $break-medium) {
-	.woocommerce-marketplace__category-selector--full-width {
+	.poocommerce-marketplace__category-selector--full-width {
 		display: flex;
 	}
 
-	.woocommerce-marketplace__category-selector {
+	.poocommerce-marketplace__category-selector {
 		display: none;
 	}
 }
 
-.woocommerce-marketplace__category-dropdown {
+.poocommerce-marketplace__category-dropdown {
 	width: 100%;
 }
 
-.woocommerce-marketplace__category-dropdown-button {
+.poocommerce-marketplace__category-dropdown-button {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -86,7 +86,7 @@
 	text-align: left;
 }
 
-.woocommerce-marketplace__category-dropdown-content {
+.poocommerce-marketplace__category-dropdown-content {
 	background-color: $white;
 	color: $gray-900;
 	font-size: 13px;
@@ -98,12 +98,12 @@
 	}
 }
 
-.woocommerce-marketplace__category-dropdown-list {
+.poocommerce-marketplace__category-dropdown-list {
 	margin: 0;
 	line-height: 20px;
 }
 
-.woocommerce-marketplace__category-dropdown-item {
+.poocommerce-marketplace__category-dropdown-item {
 	border-radius: 2px;
 
 	&:hover {
@@ -111,7 +111,7 @@
 	}
 }
 
-.woocommerce-marketplace__category-dropdown-item-button {
+.poocommerce-marketplace__category-dropdown-item-button {
 	border: none;
 	cursor: pointer;
 	background-color: inherit;
@@ -127,7 +127,7 @@
 	}
 }
 
-.woocommerce-marketplace__category-navigation-button {
+.poocommerce-marketplace__category-navigation-button {
 	border: none;
 	position: absolute;
 	top: 0;
@@ -137,13 +137,13 @@
 	cursor: pointer;
 }
 
-.woocommerce-marketplace__category-navigation-button--prev {
+.poocommerce-marketplace__category-navigation-button--prev {
 	background: linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
 	left: 0;
 	text-align: left;
 }
 
-.woocommerce-marketplace__category-navigation-button--next {
+.poocommerce-marketplace__category-navigation-button--next {
 	background: linear-gradient(to left, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
 	right: 0;
 	text-align: right;

@@ -219,7 +219,7 @@
             }
           }
         ],
-        "option_name": "woocommerce_onboarding_profile",
+        "option_name": "poocommerce_onboarding_profile",
         "operation": "!contains",
         "value": "cbd-other-hemp-derived-products",
         "default": []
@@ -228,14 +228,14 @@
     "order": 1,
     "is_built_by_wc": true,
     "min_wp_version": "5.9",
-    "key": "woocommerce-payments",
+    "key": "poocommerce-payments",
     "label": "Get paid with WooPayments",
-    "image_url": "https://woocommerce.com/wp-content/plugins/wccom-plugins/obw-free-extensions/images/core-profiler/logo-woo-rebrand-2.svg",
-    "learn_more_link": "https://woocommerce.com/products/woocommerce-payments",
+    "image_url": "https://poocommerce.com/wp-content/plugins/wccom-plugins/obw-free-extensions/images/core-profiler/logo-woo-rebrand-2.svg",
+    "learn_more_link": "https://poocommerce.com/products/poocommerce-payments",
     "install_priority": 5
   },
   {
-    "name": "WooCommerce Shipping",
+    "name": "PooCommerce Shipping",
     "description": "Print USPS and DHL labels directly from your dashboard and save on shipping.",
     "is_visible": [
       {
@@ -245,10 +245,10 @@
       }
     ],
     "is_built_by_wc": true,
-    "key": "woocommerce-services:shipping",
-    "label": "Print shipping labels with WooCommerce Shipping",
-    "image_url": "https://woocommerce.com/wp-content/plugins/wccom-plugins/obw-free-extensions/images/core-profiler/logo-woo-rebrand-2.svg",
-    "learn_more_link": "https://woocommerce.com/woocommerce-shipping",
+    "key": "poocommerce-services:shipping",
+    "label": "Print shipping labels with PooCommerce Shipping",
+    "image_url": "https://poocommerce.com/wp-content/plugins/wccom-plugins/obw-free-extensions/images/core-profiler/logo-woo-rebrand-2.svg",
+    "learn_more_link": "https://poocommerce.com/poocommerce-shipping",
     "install_priority": 3
   },
   {
@@ -272,10 +272,10 @@
     ],
     "is_built_by_wc": true,
     "min_wp_version": "5.9",
-    "key": "woocommerce-payments",
+    "key": "poocommerce-payments",
     "label": "Get paid with WooPayments",
-    "image_url": "https://woocommerce.com/wp-content/plugins/wccom-plugins/obw-free-extensions/images/core-profiler/logo-woo-rebrand-2.svg",
-    "learn_more_link": "https://woocommerce.com/products/woocommerce-payments",
+    "image_url": "https://poocommerce.com/wp-content/plugins/wccom-plugins/obw-free-extensions/images/core-profiler/logo-woo-rebrand-2.svg",
+    "learn_more_link": "https://poocommerce.com/products/poocommerce-payments",
     "install_priority": 5
   },
   {

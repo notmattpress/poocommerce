@@ -2,7 +2,7 @@
 /**
  * Tests for WC_Form_Handler.
  *
- * @package WooCommerce\Tests\FormHandler
+ * @package PooCommerce\Tests\FormHandler
  */
 
 declare( strict_types = 1 );
@@ -27,7 +27,7 @@ class WC_Form_Handler_Test extends WC_Unit_Test_Case {
 	private array $original_request = array();
 
 	/**
-	 * Original WooCommerce session.
+	 * Original PooCommerce session.
 	 *
 	 * @var WC_Session|null
 	 */

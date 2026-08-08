@@ -4,15 +4,15 @@
 import { EmailEditorSettings, EmailTheme, EmailEditorUrls } from './types';
 
 function getEditorSettings(): EmailEditorSettings {
-	return window.WooCommerceEmailEditor.editor_settings as EmailEditorSettings;
+	return window.PooCommerceEmailEditor.editor_settings as EmailEditorSettings;
 }
 
 function getEditorTheme(): EmailTheme {
-	return window.WooCommerceEmailEditor.editor_theme as EmailTheme;
+	return window.PooCommerceEmailEditor.editor_theme as EmailTheme;
 }
 
 function getUrls(): EmailEditorUrls {
-	return window.WooCommerceEmailEditor.urls as EmailEditorUrls;
+	return window.PooCommerceEmailEditor.urls as EmailEditorUrls;
 }
 
 /**
@@ -20,9 +20,9 @@ function getUrls(): EmailEditorUrls {
  * This function is used by the initializeEditor function to maintain backward compatibility.
  */
 export function getEditorConfigFromWindow() {
-	if ( ! window.WooCommerceEmailEditor ) {
+	if ( ! window.PooCommerceEmailEditor ) {
 		throw new Error(
-			'WooCommerceEmailEditor global object is not available. This is required for the email editor to work.'
+			'PooCommerceEmailEditor global object is not available. This is required for the email editor to work.'
 		);
 	}
 
@@ -30,17 +30,17 @@ export function getEditorConfigFromWindow() {
 	const editorTheme = getEditorTheme();
 	const urls = getUrls();
 	const currentWpUserEmail =
-		window.WooCommerceEmailEditor.current_wp_user_email;
-	const userThemePostId = window.WooCommerceEmailEditor.user_theme_post_id;
+		window.PooCommerceEmailEditor.current_wp_user_email;
+	const userThemePostId = window.PooCommerceEmailEditor.user_theme_post_id;
 
 	if ( ! editorSettings ) {
 		throw new Error(
-			'window.WooCommerceEmailEditor.editor_settings is required.'
+			'window.PooCommerceEmailEditor.editor_settings is required.'
 		);
 	}
 	if ( ! editorTheme ) {
 		throw new Error(
-			'window.WooCommerceEmailEditor.editor_theme is required.'
+			'window.PooCommerceEmailEditor.editor_theme is required.'
 		);
 	}
 	if (
@@ -49,7 +49,7 @@ export function getEditorConfigFromWindow() {
 		typeof urls.listings !== 'string'
 	) {
 		throw new Error(
-			'window.WooCommerceEmailEditor.urls.back and .listings are required strings.'
+			'window.PooCommerceEmailEditor.urls.back and .listings are required strings.'
 		);
 	}
 

@@ -5,7 +5,7 @@
  * Handles requests to /data
  */
 
-namespace Automattic\WooCommerce\Admin\API;
+namespace Automattic\PooCommerce\Admin\API;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -36,7 +36,7 @@ class Data extends \WC_REST_Data_Controller {
 			$this->prepare_item_for_response(
 				(object) array(
 					'slug'        => 'download-ips',
-					'description' => __( 'An endpoint used for searching download logs for a specific IP address.', 'woocommerce' ),
+					'description' => __( 'An endpoint used for searching download logs for a specific IP address.', 'poocommerce' ),
 				),
 				$request
 			)

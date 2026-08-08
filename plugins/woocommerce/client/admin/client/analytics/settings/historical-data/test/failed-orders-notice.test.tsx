@@ -19,7 +19,7 @@ jest.mock( '@wordpress/data', () => ( {
 	} ) ),
 } ) );
 
-jest.mock( '@woocommerce/settings', () => ( {
+jest.mock( '@poocommerce/settings', () => ( {
 	getAdminLink: jest.fn(
 		( path: string ) => `https://example.com/wp-admin/${ path }`
 	),
@@ -169,7 +169,7 @@ describe( 'FailedOrdersNotice', () => {
 				// @wordpress/api-fetch rejects with the parsed REST error
 				// object — a plain object, not an Error instance.
 				return Promise.reject( {
-					code: 'woocommerce_rest_analytics_retry_failed',
+					code: 'poocommerce_rest_analytics_retry_failed',
 					message:
 						'The failed orders could not be scheduled for re-import. Check the order import log for details.',
 				} );

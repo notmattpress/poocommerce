@@ -1,7 +1,7 @@
 <?php
-namespace Automattic\WooCommerce\StoreApi\Routes\V1;
+namespace Automattic\PooCommerce\StoreApi\Routes\V1;
 
-use Automattic\WooCommerce\StoreApi\Exceptions\RouteException;
+use Automattic\PooCommerce\StoreApi\Exceptions\RouteException;
 
 /**
  * CartCouponsByCode class.
@@ -48,7 +48,7 @@ class CartCouponsByCode extends AbstractCartRoute {
 		return [
 			'args'        => [
 				'code' => [
-					'description' => __( 'Unique identifier for the coupon within the cart.', 'woocommerce' ),
+					'description' => __( 'Unique identifier for the coupon within the cart.', 'poocommerce' ),
 					'type'        => 'string',
 				],
 			],
@@ -79,7 +79,7 @@ class CartCouponsByCode extends AbstractCartRoute {
 	 */
 	protected function get_route_response( \WP_REST_Request $request ) {
 		if ( ! $this->cart_controller->has_coupon( $request['code'] ) ) {
-			throw new RouteException( 'woocommerce_rest_cart_coupon_invalid_code', esc_html__( 'Coupon does not exist in the cart.', 'woocommerce' ), 404 );
+			throw new RouteException( 'poocommerce_rest_cart_coupon_invalid_code', esc_html__( 'Coupon does not exist in the cart.', 'poocommerce' ), 404 );
 		}
 
 		return $this->prepare_item_for_response( $request['code'], $request );
@@ -94,7 +94,7 @@ class CartCouponsByCode extends AbstractCartRoute {
 	 */
 	protected function get_route_delete_response( \WP_REST_Request $request ) {
 		if ( ! $this->cart_controller->has_coupon( $request['code'] ) ) {
-			throw new RouteException( 'woocommerce_rest_cart_coupon_invalid_code', esc_html__( 'Coupon does not exist in the cart.', 'woocommerce' ), 404 );
+			throw new RouteException( 'poocommerce_rest_cart_coupon_invalid_code', esc_html__( 'Coupon does not exist in the cart.', 'poocommerce' ), 404 );
 		}
 
 		$cart = $this->cart_controller->get_cart_instance();

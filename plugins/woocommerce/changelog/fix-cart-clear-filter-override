@@ -1,5 +1,5 @@
 Significance: patch
 Type: fix
-Comment: Allow woocommerce_should_clear_cart_after_payment to override cart hash mismatch checks.
+Comment: Allow poocommerce_should_clear_cart_after_payment to override cart hash mismatch checks.
 
 

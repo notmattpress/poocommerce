@@ -41,7 +41,7 @@ export function RawStylesSidebar(): JSX.Element {
 					name="email-styles-sidebar"
 					icon={ styles }
 					title={ __( 'Styles', __i18n_text_domain__ ) }
-					className="woocommerce-email-editor-styles-panel"
+					className="poocommerce-email-editor-styles-panel"
 				>
 					<Navigator initialPath="/">
 						<Navigator.Screen path="/">

@@ -5,7 +5,7 @@ import { createRoot } from '@wordpress/element';
 import {
 	withCurrentUserHydration,
 	withSettingsHydration,
-} from '@woocommerce/data';
+} from '@poocommerce/data';
 
 /**
  * Internal dependencies

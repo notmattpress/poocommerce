@@ -12,19 +12,19 @@ import type { ProductEntityRecord } from '../types';
 
 export const fieldExtensions: Partial< Field< ProductEntityRecord > > = {
 	type: 'text',
-	label: __( 'Allow backorders', 'woocommerce' ),
+	label: __( 'Allow backorders', 'poocommerce' ),
 	enableSorting: false,
 	filterBy: false,
 	isVisible: ( item ) => !! item.manage_stock,
 	getValue: ( { item } ) => item.backorders ?? 'no',
 	Edit: ( { data, onChange, field } ) => {
 		const options = [
-			{ value: 'no', label: __( 'Do not allow', 'woocommerce' ) },
+			{ value: 'no', label: __( 'Do not allow', 'poocommerce' ) },
 			{
 				value: 'notify',
-				label: __( 'Allow but notify customer', 'woocommerce' ),
+				label: __( 'Allow but notify customer', 'poocommerce' ),
 			},
-			{ value: 'yes', label: __( 'Allow', 'woocommerce' ) },
+			{ value: 'yes', label: __( 'Allow', 'poocommerce' ) },
 		];
 		const selected = options.find(
 			( o ) => o.value === ( data.backorders ?? 'no' )

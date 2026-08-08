@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Admin\Features\Fulfillments;
+namespace Automattic\PooCommerce\Admin\Features\Fulfillments;
 
-use Automattic\WooCommerce\Admin\Features\Fulfillments\DataStore\FulfillmentsDataStore;
-use Automattic\WooCommerce\Internal\Features\FeaturesController;
-use Automattic\WooCommerce\Internal\Utilities\DatabaseUtil;
+use Automattic\PooCommerce\Admin\Features\Fulfillments\DataStore\FulfillmentsDataStore;
+use Automattic\PooCommerce\Internal\Features\FeaturesController;
+use Automattic\PooCommerce\Internal\Utilities\DatabaseUtil;
 
 /**
  * Class FulfillmentsController
@@ -30,15 +30,15 @@ class FulfillmentsController {
 	 * @return void
 	 */
 	public function register() {
-		add_filter( 'woocommerce_data_stores', array( $this, 'register_data_stores' ) );
+		add_filter( 'poocommerce_data_stores', array( $this, 'register_data_stores' ) );
 		add_action( 'init', array( $this, 'initialize_fulfillments' ), 10, 0 );
 	}
 
 	/**
-	 * Register the fulfillments data store via the woocommerce_data_stores filter.
+	 * Register the fulfillments data store via the poocommerce_data_stores filter.
 	 *
 	 * This allows extensions to replace the data store with a custom implementation
-	 * by filtering 'woocommerce_data_stores' or 'woocommerce_order-fulfillment_data_store'.
+	 * by filtering 'poocommerce_data_stores' or 'poocommerce_order-fulfillment_data_store'.
 	 *
 	 * @param array $data_stores Data stores.
 	 * @return array
@@ -49,10 +49,10 @@ class FulfillmentsController {
 		}
 
 		// Check the option directly instead of using FeaturesController::feature_is_enabled()
-		// because the woocommerce_data_stores filter can fire before the 'init' action
+		// because the poocommerce_data_stores filter can fire before the 'init' action
 		// (e.g. from WC Payments during 'plugins_loaded'), and feature_is_enabled() would
 		// trigger translation loading too early, causing _load_textdomain_just_in_time warnings.
-		if ( 'yes' !== get_option( 'woocommerce_feature_fulfillments_enabled', 'no' ) ) {
+		if ( 'yes' !== get_option( 'poocommerce_feature_fulfillments_enabled', 'no' ) ) {
 			return $data_stores;
 		}
 
@@ -100,10 +100,10 @@ class FulfillmentsController {
 			array(),
 			array(
 				'labels'            => array(
-					'name'          => __( 'Shipping providers', 'woocommerce' ),
-					'singular_name' => __( 'Shipping provider', 'woocommerce' ),
-					'add_new_item'  => __( 'Add new shipping provider', 'woocommerce' ),
-					'edit_item'     => __( 'Edit shipping provider', 'woocommerce' ),
+					'name'          => __( 'Shipping providers', 'poocommerce' ),
+					'singular_name' => __( 'Shipping provider', 'poocommerce' ),
+					'add_new_item'  => __( 'Add new shipping provider', 'poocommerce' ),
+					'edit_item'     => __( 'Edit shipping provider', 'poocommerce' ),
 				),
 				'public'            => false,
 				'show_ui'           => false,
@@ -126,7 +126,7 @@ class FulfillmentsController {
 	private function maybe_create_db_tables(): void {
 		global $wpdb;
 
-		if ( get_option( 'woocommerce_fulfillments_db_tables_created', false ) ) {
+		if ( get_option( 'poocommerce_fulfillments_db_tables_created', false ) ) {
 			// Verify the tables actually exist (the option may be stale after DB resets in tests).
 			$table_exists = $wpdb->get_var( "SHOW TABLES LIKE '{$wpdb->prefix}wc_order_fulfillments'" );
 			if ( $table_exists ) {
@@ -177,7 +177,7 @@ class FulfillmentsController {
 		$database_util->dbdelta( $schema );
 
 		// Update the option to indicate that the tables have been created.
-		update_option( 'woocommerce_fulfillments_db_tables_created', true );
+		update_option( 'poocommerce_fulfillments_db_tables_created', true );
 	}
 
 	/**

@@ -12,7 +12,7 @@ import { createVariationDimensionField } from '../components/dimension';
 
 const fieldDefinition = {
 	type: 'text',
-	label: __( 'Width', 'woocommerce' ),
+	label: __( 'Width', 'poocommerce' ),
 	enableSorting: false,
 	enableHiding: false,
 	filterBy: false,

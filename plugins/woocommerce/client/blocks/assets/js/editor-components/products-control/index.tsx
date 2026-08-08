@@ -2,17 +2,17 @@
  * External dependencies
  */
 import { __, _n, sprintf } from '@wordpress/i18n';
-import { SearchListControl } from '@woocommerce/editor-components/search-list-control';
-import { withSearchedProducts } from '@woocommerce/block-hocs';
-import ErrorMessage from '@woocommerce/editor-components/error-placeholder/error-message';
+import { SearchListControl } from '@poocommerce/editor-components/search-list-control';
+import { withSearchedProducts } from '@poocommerce/block-hocs';
+import ErrorMessage from '@poocommerce/editor-components/error-placeholder/error-message';
 import { decodeEntities } from '@wordpress/html-entities';
-import { convertProductResponseItemToSearchItem } from '@woocommerce/utils';
-import type { ProductResponseItem } from '@woocommerce/types';
-import type { ErrorObject } from '@woocommerce/editor-components/error-placeholder';
+import { convertProductResponseItemToSearchItem } from '@poocommerce/utils';
+import type { ProductResponseItem } from '@poocommerce/types';
+import type { ErrorObject } from '@poocommerce/editor-components/error-placeholder';
 import type {
 	SearchListItem,
 	SearchListMessages,
-} from '@woocommerce/editor-components/search-list-control/types';
+} from '@poocommerce/editor-components/search-list-control/types';
 import type { ComponentType } from 'react';
 
 interface ProductsControlProps {
@@ -35,9 +35,9 @@ const ProductsControl = ( {
 	isCompact = false,
 }: ProductsControlProps ): JSX.Element => {
 	const messages: Partial< SearchListMessages > = {
-		clear: __( 'Clear all products', 'woocommerce' ),
-		noItems: __( "Your store doesn't have any products.", 'woocommerce' ),
-		search: __( 'Search for products to display', 'woocommerce' ),
+		clear: __( 'Clear all products', 'poocommerce' ),
+		noItems: __( "Your store doesn't have any products.", 'poocommerce' ),
+		search: __( 'Search for products to display', 'poocommerce' ),
 		selected: ( n: number ) =>
 			sprintf(
 				/* translators: %d is the number of selected products. */
@@ -45,11 +45,11 @@ const ProductsControl = ( {
 					'%d product selected',
 					'%d products selected',
 					n,
-					'woocommerce'
+					'poocommerce'
 				),
 				n
 			),
-		updated: __( 'Product search results updated.', 'woocommerce' ),
+		updated: __( 'Product search results updated.', 'poocommerce' ),
 	};
 
 	if ( error ) {
@@ -60,7 +60,7 @@ const ProductsControl = ( {
 
 	return (
 		<SearchListControl
-			className="woocommerce-products"
+			className="poocommerce-products"
 			list={ productList.map( ( product ) => {
 				const formattedSku = product.details?.sku
 					? ' (' + product.details.sku + ')'

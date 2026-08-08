@@ -2,7 +2,7 @@
 /**
  * Class WC_Data file.
  *
- * @package WooCommerce\Tests\Abstracts
+ * @package PooCommerce\Tests\Abstracts
  */
 
 /**

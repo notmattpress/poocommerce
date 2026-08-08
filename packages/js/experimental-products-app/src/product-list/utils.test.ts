@@ -31,40 +31,40 @@ describe( 'product list utils', () => {
 		it( 'preserves existing query args when adding new params', () => {
 			expect(
 				getProductListNavigationPath(
-					'woocommerce-products-dashboard?post_type=product',
+					'poocommerce-products-dashboard?post_type=product',
 					{
 						activeView: 'draft',
 					}
 				)
 			).toBe(
-				'woocommerce-products-dashboard?post_type=product&activeView=draft'
+				'poocommerce-products-dashboard?post_type=product&activeView=draft'
 			);
 		} );
 
 		it( 'removes invalid undefined params from the existing query and new params', () => {
 			expect(
 				getProductListNavigationPath(
-					'woocommerce-products-dashboard?undefined=%2F&post_type=product',
+					'poocommerce-products-dashboard?undefined=%2F&post_type=product',
 					{
 						undefined: '/',
 						activeView: 'draft',
 					}
 				)
 			).toBe(
-				'woocommerce-products-dashboard?post_type=product&activeView=draft'
+				'poocommerce-products-dashboard?post_type=product&activeView=draft'
 			);
 		} );
 
 		it( 'removes existing query args when a param is set to undefined', () => {
 			expect(
 				getProductListNavigationPath(
-					'woocommerce-products-dashboard?post_type=product&postId=12&quickEdit=true',
+					'poocommerce-products-dashboard?post_type=product&postId=12&quickEdit=true',
 					{
 						postId: undefined,
 						quickEdit: undefined,
 					}
 				)
-			).toBe( 'woocommerce-products-dashboard?post_type=product' );
+			).toBe( 'poocommerce-products-dashboard?post_type=product' );
 		} );
 	} );
 

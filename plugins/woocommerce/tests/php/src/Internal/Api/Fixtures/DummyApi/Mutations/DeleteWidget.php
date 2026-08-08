@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Mutations;
+namespace Automattic\PooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Mutations;
 
-use Automattic\WooCommerce\Api\Attributes\Description;
-use Automattic\WooCommerce\Api\Attributes\RequiredCapability;
-use Automattic\WooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Store;
-use Automattic\WooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Types\OperationResult;
+use Automattic\PooCommerce\Api\Attributes\Description;
+use Automattic\PooCommerce\Api\Attributes\RequiredCapability;
+use Automattic\PooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Store;
+use Automattic\PooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Types\OperationResult;
 
 #[Description( 'Delete a widget' )]
 #[RequiredCapability( 'manage_options' )]

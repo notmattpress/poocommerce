@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\GraphQL\Type;
+namespace Automattic\PooCommerce\Vendor\GraphQL\Type;
 
 class TypeKind
 {

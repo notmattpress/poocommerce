@@ -9,11 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Automattic\WooCommerce\EmailEditorVendor\Symfony\Component\CssSelector\Parser\Shortcut;
+namespace Automattic\PooCommerce\EmailEditorVendor\Symfony\Component\CssSelector\Parser\Shortcut;
 
-use Automattic\WooCommerce\EmailEditorVendor\Symfony\Component\CssSelector\Node\ElementNode;
-use Automattic\WooCommerce\EmailEditorVendor\Symfony\Component\CssSelector\Node\SelectorNode;
-use Automattic\WooCommerce\EmailEditorVendor\Symfony\Component\CssSelector\Parser\ParserInterface;
+use Automattic\PooCommerce\EmailEditorVendor\Symfony\Component\CssSelector\Node\ElementNode;
+use Automattic\PooCommerce\EmailEditorVendor\Symfony\Component\CssSelector\Node\SelectorNode;
+use Automattic\PooCommerce\EmailEditorVendor\Symfony\Component\CssSelector\Parser\ParserInterface;
 
 /**
  * CSS selector class parser shortcut.

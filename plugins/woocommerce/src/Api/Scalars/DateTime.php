@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Api\Scalars;
+namespace Automattic\PooCommerce\Api\Scalars;
 
-use Automattic\WooCommerce\Api\Attributes\Description;
+use Automattic\PooCommerce\Api\Attributes\Description;
 
 /**
  * Custom scalar for ISO 8601 date/time values.

@@ -40,24 +40,24 @@ type VariationEditDrawerProps = {
 function getSaveNoticeMessage( successCount: number, failedCount: number ) {
 	if ( failedCount === 0 ) {
 		if ( successCount === 1 ) {
-			return __( 'Variation saved.', 'woocommerce' );
+			return __( 'Variation saved.', 'poocommerce' );
 		}
 
 		return sprintf(
 			/* translators: %d number of saved variations. */
-			__( '%d variations saved.', 'woocommerce' ),
+			__( '%d variations saved.', 'poocommerce' ),
 			successCount
 		);
 	}
 
 	if ( successCount === 0 ) {
 		if ( failedCount === 1 ) {
-			return __( 'Failed to save variation.', 'woocommerce' );
+			return __( 'Failed to save variation.', 'poocommerce' );
 		}
 
 		return sprintf(
 			/* translators: %d number of variations that could not be saved. */
-			__( 'Failed to save %d variations.', 'woocommerce' ),
+			__( 'Failed to save %d variations.', 'poocommerce' ),
 			failedCount
 		);
 	}
@@ -66,7 +66,7 @@ function getSaveNoticeMessage( successCount: number, failedCount: number ) {
 		/* translators: 1: successful variation count, 2: failed variation count. */
 		__(
 			'Saved %1$d variations. %2$d variations could not be saved.',
-			'woocommerce'
+			'poocommerce'
 		),
 		successCount,
 		failedCount
@@ -231,7 +231,7 @@ export function VariationEditDrawer( {
 		selectedProducts.length === requestedProductIds.length &&
 		selectedProducts.length > 0;
 
-	let title = __( 'Edit variation', 'woocommerce' );
+	let title = __( 'Edit variation', 'poocommerce' );
 
 	if ( isReady ) {
 		if ( selectedProducts.length === 1 ) {
@@ -241,7 +241,7 @@ export function VariationEditDrawer( {
 			// @ts-expect-error This code is a POC. It needs to be refactored.
 			title = sprintf(
 				/* translators: %d number of selected variations. */
-				__( 'Edit %d variations', 'woocommerce' ),
+				__( 'Edit %d variations', 'poocommerce' ),
 				selectedProducts.length
 			);
 		}
@@ -375,36 +375,36 @@ export function VariationEditDrawer( {
 	return (
 		<Drawer.Root open={ isOpen } swipeDirection="right">
 			<Drawer.Popup
-				className="woocommerce-product-edit__drawer"
+				className="poocommerce-product-edit__drawer"
 				portal={
-					<Drawer.Portal className="woocommerce-product-edit__drawer-portal" />
+					<Drawer.Portal className="poocommerce-product-edit__drawer-portal" />
 				}
 				style={ { width: 450 } }
 			>
-				<Drawer.Header className="woocommerce-product-edit__header">
-					<Drawer.Title className="woocommerce-product-edit__title">
+				<Drawer.Header className="poocommerce-product-edit__header">
+					<Drawer.Title className="poocommerce-product-edit__title">
 						{ title }
 					</Drawer.Title>
 					<Drawer.CloseIcon
 						onClick={ closeDrawer }
-						label={ __( 'Close', 'woocommerce' ) }
+						label={ __( 'Close', 'poocommerce' ) }
 					/>
 				</Drawer.Header>
 
-				<Drawer.Content className="woocommerce-product-edit">
+				<Drawer.Content className="poocommerce-product-edit">
 					{ hasNoRequestedProducts && (
-						<div className="woocommerce-product-edit__empty-state">
+						<div className="poocommerce-product-edit__empty-state">
 							<p>
 								{ __(
 									'Select one or more variations to edit them here.',
-									'woocommerce'
+									'poocommerce'
 								) }
 							</p>
 						</div>
 					) }
 
 					{ ! hasNoRequestedProducts && isResolving && (
-						<div className="woocommerce-product-edit__loading">
+						<div className="poocommerce-product-edit__loading">
 							<Spinner />
 						</div>
 					) }
@@ -412,11 +412,11 @@ export function VariationEditDrawer( {
 					{ ! hasNoRequestedProducts &&
 						! isResolving &&
 						hasMissingProducts && (
-							<div className="woocommerce-product-edit__empty-state">
+							<div className="poocommerce-product-edit__empty-state">
 								<p>
 									{ __(
 										'Select one or more variations to edit them here.',
-										'woocommerce'
+										'poocommerce'
 									) }
 								</p>
 							</div>
@@ -432,13 +432,13 @@ export function VariationEditDrawer( {
 				</Drawer.Content>
 
 				{ isReady && (
-					<Drawer.Footer className="woocommerce-product-edit__footer">
+					<Drawer.Footer className="poocommerce-product-edit__footer">
 						<Button
 							variant="tertiary"
 							onClick={ closeDrawer }
 							disabled={ isSaving }
 						>
-							{ __( 'Cancel', 'woocommerce' ) }
+							{ __( 'Cancel', 'poocommerce' ) }
 						</Button>
 						<Button
 							variant="primary"
@@ -446,7 +446,7 @@ export function VariationEditDrawer( {
 							isBusy={ isSaving }
 							disabled={ isSaving || ! hasEdits }
 						>
-							{ __( 'Save', 'woocommerce' ) }
+							{ __( 'Save', 'poocommerce' ) }
 						</Button>
 					</Drawer.Footer>
 				) }

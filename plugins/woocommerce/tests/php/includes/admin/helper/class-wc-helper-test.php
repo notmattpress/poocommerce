@@ -29,10 +29,10 @@ class WC_Helper_Test extends \WC_Unit_Test_Case {
 	 * Clean up transients used by WC_Helper.
 	 */
 	private function cleanup_helper_transients(): void {
-		delete_transient( '_woocommerce_helper_subscriptions' );
-		delete_transient( '_woocommerce_helper_product_usage_notice_rules' );
-		delete_transient( '_woocommerce_helper_notices' );
-		delete_transient( '_woocommerce_helper_connection_data' );
+		delete_transient( '_poocommerce_helper_subscriptions' );
+		delete_transient( '_poocommerce_helper_product_usage_notice_rules' );
+		delete_transient( '_poocommerce_helper_notices' );
+		delete_transient( '_poocommerce_helper_connection_data' );
 	}
 
 	/**
@@ -90,7 +90,7 @@ class WC_Helper_Test extends \WC_Unit_Test_Case {
 	 * @testdox get_subscriptions should delete corrupted string transient and return empty array.
 	 */
 	public function test_get_subscriptions_handles_corrupted_string_transient(): void {
-		set_transient( '_woocommerce_helper_subscriptions', 'corrupted_string_data', HOUR_IN_SECONDS );
+		set_transient( '_poocommerce_helper_subscriptions', 'corrupted_string_data', HOUR_IN_SECONDS );
 
 		// Mock API to prevent actual network call - return WP_Error to trigger empty array return.
 		$http_mock = function () {
@@ -106,7 +106,7 @@ class WC_Helper_Test extends \WC_Unit_Test_Case {
 		$this->assertEmpty( $result, 'Result should be empty array on API error' );
 
 		// Verify corrupted string is no longer in transient (replaced with empty array).
-		$transient_value = get_transient( '_woocommerce_helper_subscriptions' );
+		$transient_value = get_transient( '_poocommerce_helper_subscriptions' );
 		$this->assertNotEquals( 'corrupted_string_data', $transient_value, 'Corrupted string transient should have been replaced' );
 		$this->assertIsArray( $transient_value, 'Transient should now be an array' );
 	}
@@ -122,7 +122,7 @@ class WC_Helper_Test extends \WC_Unit_Test_Case {
 				'connections' => array(),
 			),
 		);
-		set_transient( '_woocommerce_helper_subscriptions', $valid_data, HOUR_IN_SECONDS );
+		set_transient( '_poocommerce_helper_subscriptions', $valid_data, HOUR_IN_SECONDS );
 
 		$result = WC_Helper::get_subscriptions();
 
@@ -133,7 +133,7 @@ class WC_Helper_Test extends \WC_Unit_Test_Case {
 	 * @testdox get_subscriptions should filter malformed cached entries without modifying valid subscriptions.
 	 */
 	public function test_get_subscriptions_filters_malformed_cached_entries(): void {
-		set_transient( '_woocommerce_helper_subscriptions', $this->get_mixed_subscription_data(), HOUR_IN_SECONDS );
+		set_transient( '_poocommerce_helper_subscriptions', $this->get_mixed_subscription_data(), HOUR_IN_SECONDS );
 
 		$result = WC_Helper::get_subscriptions();
 
@@ -162,7 +162,7 @@ class WC_Helper_Test extends \WC_Unit_Test_Case {
 			->with(
 				'warning',
 				sprintf(
-					'Filtered %d malformed subscription entries from the WooCommerce.com API response.',
+					'Filtered %d malformed subscription entries from the PooCommerce.com API response.',
 					$filtered_count
 				),
 				array( 'source' => 'helper' )
@@ -194,7 +194,7 @@ class WC_Helper_Test extends \WC_Unit_Test_Case {
 		$this->assertSame( $this->get_valid_subscription_data(), $result, 'Only valid API subscriptions should be returned unchanged' );
 		$this->assertSame(
 			$this->get_valid_subscription_data(),
-			get_transient( '_woocommerce_helper_subscriptions' ),
+			get_transient( '_poocommerce_helper_subscriptions' ),
 			'Only valid API subscriptions should be cached'
 		);
 	}
@@ -203,12 +203,12 @@ class WC_Helper_Test extends \WC_Unit_Test_Case {
 	 * @testdox get_cached_connection_data should return false for corrupted string transient.
 	 */
 	public function test_get_cached_connection_data_handles_corrupted_string_transient(): void {
-		set_transient( '_woocommerce_helper_connection_data', 'corrupted_string', HOUR_IN_SECONDS );
+		set_transient( '_poocommerce_helper_connection_data', 'corrupted_string', HOUR_IN_SECONDS );
 
 		$result = WC_Helper::get_cached_connection_data();
 
 		$this->assertFalse( $result, 'Corrupted transient should return false' );
-		$this->assertFalse( get_transient( '_woocommerce_helper_connection_data' ), 'Corrupted transient should be deleted' );
+		$this->assertFalse( get_transient( '_poocommerce_helper_connection_data' ), 'Corrupted transient should be deleted' );
 	}
 
 	/**
@@ -216,7 +216,7 @@ class WC_Helper_Test extends \WC_Unit_Test_Case {
 	 */
 	public function test_get_cached_connection_data_returns_valid_array(): void {
 		$valid_data = array( 'url' => 'https://example.com' );
-		set_transient( '_woocommerce_helper_connection_data', $valid_data, HOUR_IN_SECONDS );
+		set_transient( '_poocommerce_helper_connection_data', $valid_data, HOUR_IN_SECONDS );
 
 		$result = WC_Helper::get_cached_connection_data();
 
@@ -227,7 +227,7 @@ class WC_Helper_Test extends \WC_Unit_Test_Case {
 	 * @testdox get_cached_connection_data should return false when transient does not exist.
 	 */
 	public function test_get_cached_connection_data_returns_false_for_missing_transient(): void {
-		delete_transient( '_woocommerce_helper_connection_data' );
+		delete_transient( '_poocommerce_helper_connection_data' );
 
 		$result = WC_Helper::get_cached_connection_data();
 
@@ -238,7 +238,7 @@ class WC_Helper_Test extends \WC_Unit_Test_Case {
 	 * @testdox get_product_usage_notice_rules should delete corrupted transient and fetch fresh data.
 	 */
 	public function test_get_product_usage_notice_rules_handles_corrupted_transient(): void {
-		set_transient( '_woocommerce_helper_product_usage_notice_rules', 'corrupted_data', HOUR_IN_SECONDS );
+		set_transient( '_poocommerce_helper_product_usage_notice_rules', 'corrupted_data', HOUR_IN_SECONDS );
 
 		// Mock API to return empty array.
 		$http_mock = function () {
@@ -257,7 +257,7 @@ class WC_Helper_Test extends \WC_Unit_Test_Case {
 	 * @testdox get_notices should delete corrupted transient and return empty array.
 	 */
 	public function test_get_notices_handles_corrupted_transient(): void {
-		set_transient( '_woocommerce_helper_notices', 'corrupted_data', HOUR_IN_SECONDS );
+		set_transient( '_poocommerce_helper_notices', 'corrupted_data', HOUR_IN_SECONDS );
 
 		// Mock API to return non-200 response.
 		$http_mock = function () {
@@ -280,7 +280,7 @@ class WC_Helper_Test extends \WC_Unit_Test_Case {
 	 * @testdox get_subscription_list_data should handle non-array subscriptions gracefully.
 	 */
 	public function test_get_subscription_list_data_handles_non_array_subscriptions(): void {
-		set_transient( '_woocommerce_helper_subscriptions', 'corrupted', HOUR_IN_SECONDS );
+		set_transient( '_poocommerce_helper_subscriptions', 'corrupted', HOUR_IN_SECONDS );
 
 		// Mock API to prevent network call.
 		$http_mock = function () {
@@ -300,7 +300,7 @@ class WC_Helper_Test extends \WC_Unit_Test_Case {
 	 */
 	public function test_get_subscription_list_data_handles_malformed_entries(): void {
 		set_transient(
-			'_woocommerce_helper_subscriptions',
+			'_poocommerce_helper_subscriptions',
 			array(
 				'corrupted',
 				array( 'product_key' => 'missing-id' ),
@@ -332,7 +332,7 @@ class WC_Helper_Test extends \WC_Unit_Test_Case {
 	 * @testdox get_installed_subscriptions should return empty array when subscriptions are corrupted.
 	 */
 	public function test_get_installed_subscriptions_handles_corrupted_subscriptions(): void {
-		set_transient( '_woocommerce_helper_subscriptions', 'corrupted', HOUR_IN_SECONDS );
+		set_transient( '_poocommerce_helper_subscriptions', 'corrupted', HOUR_IN_SECONDS );
 
 		// Mock API to prevent network call.
 		$http_mock = function () {
@@ -356,7 +356,7 @@ class WC_Helper_Test extends \WC_Unit_Test_Case {
 	 * @testdox get_subscription should return false when subscriptions are corrupted.
 	 */
 	public function test_get_subscription_handles_corrupted_subscriptions(): void {
-		set_transient( '_woocommerce_helper_subscriptions', 'corrupted', HOUR_IN_SECONDS );
+		set_transient( '_poocommerce_helper_subscriptions', 'corrupted', HOUR_IN_SECONDS );
 
 		// Mock API to prevent network call.
 		$http_mock = function () {
@@ -375,7 +375,7 @@ class WC_Helper_Test extends \WC_Unit_Test_Case {
 	 * @testdox has_host_plan_orders should return false when subscriptions are corrupted.
 	 */
 	public function test_has_host_plan_orders_handles_corrupted_subscriptions(): void {
-		set_transient( '_woocommerce_helper_subscriptions', 'corrupted', HOUR_IN_SECONDS );
+		set_transient( '_poocommerce_helper_subscriptions', 'corrupted', HOUR_IN_SECONDS );
 
 		// Mock API to prevent network call.
 		$http_mock = function () {
@@ -401,7 +401,7 @@ class WC_Helper_Test extends \WC_Unit_Test_Case {
 				'included_in_host_plan' => true,
 			),
 		);
-		set_transient( '_woocommerce_helper_subscriptions', $subscriptions, HOUR_IN_SECONDS );
+		set_transient( '_poocommerce_helper_subscriptions', $subscriptions, HOUR_IN_SECONDS );
 
 		$result = WC_Woo_Helper_Connection::has_host_plan_orders();
 
@@ -419,7 +419,7 @@ class WC_Helper_Test extends \WC_Unit_Test_Case {
 				'included_in_host_plan' => false,
 			),
 		);
-		set_transient( '_woocommerce_helper_subscriptions', $subscriptions, HOUR_IN_SECONDS );
+		set_transient( '_poocommerce_helper_subscriptions', $subscriptions, HOUR_IN_SECONDS );
 
 		$result = WC_Woo_Helper_Connection::has_host_plan_orders();
 
@@ -430,7 +430,7 @@ class WC_Helper_Test extends \WC_Unit_Test_Case {
 	 * Test that woo plugins are loaded correctly even if incorrect cache is initially set.
 	 */
 	public function test_get_local_woo_plugins_without_woo_header_cache() {
-		$woocommerce_key = 'sample-woo-plugin.php';
+		$poocommerce_key = 'sample-woo-plugin.php';
 
 		remove_filter( 'extra_plugin_headers', 'wc_enable_wc_plugin_headers' );
 		wp_clean_plugins_cache( false );
@@ -448,7 +448,7 @@ class WC_Helper_Test extends \WC_Unit_Test_Case {
 		// Restore previous state.
 		wp_clean_plugins_cache( false );
 
-		$this->assertArrayHasKey( $woocommerce_key, $woo_plugins );
+		$this->assertArrayHasKey( $poocommerce_key, $woo_plugins );
 	}
 
 	/**

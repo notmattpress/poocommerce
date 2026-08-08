@@ -11,7 +11,7 @@ if ! command -v composer >/dev/null 2>&1; then
 fi
 
 # Skip if we are not in the monorepo
-if [ ! -f "../../../../plugins/woocommerce/vendor/bin/mozart" ]; then
+if [ ! -f "../../../../plugins/poocommerce/vendor/bin/mozart" ]; then
   echo "❌ We are not in the monorepo. Skipping vendor-prefixed setup."
   exit 0 # Returning 0 incase we are in CI environment
 fi

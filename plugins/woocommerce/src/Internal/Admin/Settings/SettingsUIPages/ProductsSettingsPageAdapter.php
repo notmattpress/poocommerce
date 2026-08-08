@@ -5,14 +5,14 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Admin\Settings\SettingsUIPages;
+namespace Automattic\PooCommerce\Internal\Admin\Settings\SettingsUIPages;
 
-use Automattic\WooCommerce\Admin\Settings\LegacySettingsPageAdapter;
+use Automattic\PooCommerce\Admin\Settings\LegacySettingsPageAdapter;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Adapts the WooCommerce Products settings page for the settings UI renderer.
+ * Adapts the PooCommerce Products settings page for the settings UI renderer.
  *
  * @since 10.9.0
  */
@@ -27,12 +27,12 @@ final class ProductsSettingsPageAdapter extends LegacySettingsPageAdapter {
 	public function get_schema( string $section ): array {
 		$schema = parent::get_schema( $section );
 
-		$schema['shell']['title'] = __( 'Product settings', 'woocommerce' );
+		$schema['shell']['title'] = __( 'Product settings', 'poocommerce' );
 
 		if ( '' === $section ) {
 			$schema = $this->with_field_options(
 				$schema,
-				'woocommerce_shop_page_id',
+				'poocommerce_shop_page_id',
 				$this->get_page_options()
 			);
 		}
@@ -87,7 +87,7 @@ final class ProductsSettingsPageAdapter extends LegacySettingsPageAdapter {
 
 		$options = array(
 			array(
-				'label' => __( 'Select a page...', 'woocommerce' ),
+				'label' => __( 'Select a page...', 'poocommerce' ),
 				'value' => '',
 			),
 		);

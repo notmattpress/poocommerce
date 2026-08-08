@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { useSlot } from '@woocommerce/experimental';
+import { useSlot } from '@poocommerce/experimental';
 
 /**
  * Internal dependencies
@@ -19,7 +19,7 @@ export const ExperimentalWooTaskListFooter = () => {
 		return null;
 	}
 	return (
-		<div className="woocommerce-tasklist__footer">
+		<div className="poocommerce-tasklist__footer">
 			<ExperimentalWooTaskListFooterItem.Slot />
 		</div>
 	);

@@ -29,7 +29,7 @@ import {
 
 const VARIATIONS_PANEL_SELECTOR = '#variable_product_options';
 const VARIATIONS_TAB_SELECTOR =
-	'#woocommerce-product-data ul.product_data_tabs a[href="#variable_product_options"]';
+	'#poocommerce-product-data ul.product_data_tabs a[href="#variable_product_options"]';
 
 function openVariationsTab() {
 	const tabLink = document.querySelector< HTMLAnchorElement >(
@@ -73,7 +73,7 @@ function openVariationsTab() {
 		.forEach( ( item ) => {
 			item.style.display = item === panel ? 'block' : 'none';
 		} );
-	panel.dispatchEvent( new Event( 'woocommerce_tab_shown' ) );
+	panel.dispatchEvent( new Event( 'poocommerce_tab_shown' ) );
 }
 
 function ProductAttributesNotice() {
@@ -88,7 +88,7 @@ function ProductAttributesNotice() {
 			}
 
 			const link = target.closest< HTMLAnchorElement >(
-				'.woocommerce-variation-attributes__notice a[href="#variable_product_options"]'
+				'.poocommerce-variation-attributes__notice a[href="#variable_product_options"]'
 			);
 
 			if ( ! link ) {
@@ -118,18 +118,18 @@ function ProductAttributesNotice() {
 		<Notice
 			status="info"
 			isDismissible
-			className="woocommerce-variation-attributes__notice"
+			className="poocommerce-variation-attributes__notice"
 			onRemove={ () => setIsVisible( false ) }
 		>
 			{ createInterpolateElement(
 				__(
 					'Attributes used for variations have moved to the <variationsLink />.',
-					'woocommerce'
+					'poocommerce'
 				),
 				{
 					variationsLink: (
 						<a href="#variable_product_options">
-							{ __( 'Variations tab', 'woocommerce' ) }
+							{ __( 'Variations tab', 'poocommerce' ) }
 						</a>
 					),
 				}
@@ -174,13 +174,13 @@ export function ProductAttributes( { productId }: VariationAttributesProps ) {
 			getRows={ getProductAttributeRows }
 			helpText={ __(
 				'Product attributes describe details customers can use to search, filter, and compare products.',
-				'woocommerce'
+				'poocommerce'
 			) }
-			nameLabel={ __( 'Name', 'woocommerce' ) }
+			nameLabel={ __( 'Name', 'poocommerce' ) }
 			notice={ notice }
 			productId={ productId }
 			styles={ DEFAULT_PRODUCT_ATTRIBUTE_LAYOUT_STYLES }
-			title={ __( 'Product attributes', 'woocommerce' ) }
+			title={ __( 'Product attributes', 'poocommerce' ) }
 		/>
 	);
 }
@@ -193,13 +193,13 @@ export function VariationAttributes( { productId }: VariationAttributesProps ) {
 			hasSeparator
 			helpText={ __(
 				'Edit attribute values to update combinations. Customers see attributes in the order shown, with the default value pre-selected on the product page.',
-				'woocommerce'
+				'poocommerce'
 			) }
 			hideWhenEmpty
-			nameLabel={ __( 'Attribute', 'woocommerce' ) }
+			nameLabel={ __( 'Attribute', 'poocommerce' ) }
 			productId={ productId }
 			styles={ DEFAULT_VARIATION_ATTRIBUTE_LAYOUT_STYLES }
-			title={ __( 'Variation attributes', 'woocommerce' ) }
+			title={ __( 'Variation attributes', 'poocommerce' ) }
 		/>
 	);
 }

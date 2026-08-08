@@ -49,8 +49,8 @@ function openMediaLibrary(
 		return;
 	}
 	const frame = window.wp.media( {
-		title: __( 'Choose a file', 'woocommerce' ),
-		button: { text: __( 'Choose file', 'woocommerce' ) },
+		title: __( 'Choose a file', 'poocommerce' ),
+		button: { text: __( 'Choose file', 'poocommerce' ) },
 		multiple: false,
 	} );
 	frame.on( 'select', () => {
@@ -115,21 +115,21 @@ function DownloadableFilesEdit( {
 	const canDelete = downloads.length > 1;
 
 	return (
-		<div className="woocommerce-fields-downloadable-files">
+		<div className="poocommerce-fields-downloadable-files">
 			{ downloads.map( ( download, index ) => (
 				<div
 					key={ download._key }
-					className="woocommerce-fields-downloadable-files__entry"
+					className="poocommerce-fields-downloadable-files__entry"
 				>
 					{ index > 0 && (
-						<hr className="woocommerce-fields-downloadable-files__separator" />
+						<hr className="poocommerce-fields-downloadable-files__separator" />
 					) }
 
-					<div className="woocommerce-fields-downloadable-files__url-row">
+					<div className="poocommerce-fields-downloadable-files__url-row">
 						<TextControl
 							__nextHasNoMarginBottom
 							__next40pxDefaultSize
-							label={ __( 'URL', 'woocommerce' ) }
+							label={ __( 'URL', 'poocommerce' ) }
 							type="url"
 							placeholder="https://"
 							value={ download.file }
@@ -138,7 +138,7 @@ function DownloadableFilesEdit( {
 							}
 						/>
 						<Button
-							className="woocommerce-fields-downloadable-files__choose-button"
+							className="poocommerce-fields-downloadable-files__choose-button"
 							variant="secondary"
 							__next40pxDefaultSize
 							onClick={ () =>
@@ -151,15 +151,15 @@ function DownloadableFilesEdit( {
 								} )
 							}
 						>
-							{ __( 'Choose file', 'woocommerce' ) }
+							{ __( 'Choose file', 'poocommerce' ) }
 						</Button>
 					</div>
 
-					<div className="woocommerce-fields-downloadable-files__name-row">
+					<div className="poocommerce-fields-downloadable-files__name-row">
 						<TextControl
 							__nextHasNoMarginBottom
 							__next40pxDefaultSize
-							label={ __( 'Name', 'woocommerce' ) }
+							label={ __( 'Name', 'poocommerce' ) }
 							value={ download.name }
 							onChange={ ( val ) =>
 								updateEntry( index, { name: val } )
@@ -167,11 +167,11 @@ function DownloadableFilesEdit( {
 						/>
 						{ canDelete && (
 							<Button
-								className="woocommerce-fields-downloadable-files__delete-button"
+								className="poocommerce-fields-downloadable-files__delete-button"
 								variant="secondary"
 								__next40pxDefaultSize
 								icon={ trash }
-								label={ __( 'Remove file', 'woocommerce' ) }
+								label={ __( 'Remove file', 'poocommerce' ) }
 								onClick={ () => removeEntry( index ) }
 							/>
 						) }
@@ -180,7 +180,7 @@ function DownloadableFilesEdit( {
 			) ) }
 
 			<Button
-				className="woocommerce-fields-downloadable-files__add-button"
+				className="poocommerce-fields-downloadable-files__add-button"
 				variant="tertiary"
 				__next40pxDefaultSize
 				onClick={ () =>
@@ -190,14 +190,14 @@ function DownloadableFilesEdit( {
 					] )
 				}
 			>
-				{ __( '+ Add file', 'woocommerce' ) }
+				{ __( '+ Add file', 'poocommerce' ) }
 			</Button>
 		</div>
 	);
 }
 
 export const fieldExtensions: Partial< Field< ProductEntityRecord > > = {
-	label: __( 'Downloadable files', 'woocommerce' ),
+	label: __( 'Downloadable files', 'poocommerce' ),
 	enableSorting: false,
 	enableHiding: false,
 	filterBy: false,

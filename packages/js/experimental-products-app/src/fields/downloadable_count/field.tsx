@@ -20,19 +20,19 @@ export const fieldExtensions: Partial< Field< ProductEntityRecord > > = {
 	...fieldDefinition,
 	render: ( { item } ) => {
 		if ( ! item.downloadable ) {
-			return <span>{ __( 'Not downloadable', 'woocommerce' ) }</span>;
+			return <span>{ __( 'Not downloadable', 'poocommerce' ) }</span>;
 		}
 
 		const downloads = Array.isArray( item.downloads ) ? item.downloads : [];
 		const count = downloads.length;
 
 		if ( count === 0 ) {
-			return <span>{ __( 'No files', 'woocommerce' ) }</span>;
+			return <span>{ __( 'No files', 'poocommerce' ) }</span>;
 		}
 
 		const label = sprintf(
 			/* translators: %d: number of downloadable files */
-			_n( '%d file', '%d files', count, 'woocommerce' ),
+			_n( '%d file', '%d files', count, 'poocommerce' ),
 			count
 		);
 

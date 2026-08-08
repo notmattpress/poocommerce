@@ -2,18 +2,18 @@
 /**
  * Agentic Checkout Sessions Complete Tests.
  *
- * @package Automattic\WooCommerce\Tests\Blocks\StoreApi\Routes
+ * @package Automattic\PooCommerce\Tests\Blocks\StoreApi\Routes
  */
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Blocks\StoreApi\Routes;
+namespace Automattic\PooCommerce\Tests\Blocks\StoreApi\Routes;
 
-use Automattic\WooCommerce\StoreApi\Routes\V1\Agentic\Enums\SessionKey;
-use Automattic\WooCommerce\Tests\Blocks\Helpers\FixtureData;
-use Automattic\WooCommerce\Enums\ProductStockStatus;
-use Automattic\WooCommerce\StoreApi\RoutesController;
-use Automattic\WooCommerce\Tests\Internal\Admin\Agentic\AgenticTestHelpers;
+use Automattic\PooCommerce\StoreApi\Routes\V1\Agentic\Enums\SessionKey;
+use Automattic\PooCommerce\Tests\Blocks\Helpers\FixtureData;
+use Automattic\PooCommerce\Enums\ProductStockStatus;
+use Automattic\PooCommerce\StoreApi\RoutesController;
+use Automattic\PooCommerce\Tests\Internal\Admin\Agentic\AgenticTestHelpers;
 
 /**
  * CheckoutSessionsComplete Controller Tests.
@@ -53,7 +53,7 @@ class CheckoutSessionsComplete extends ControllerTestCase {
 	}
 
 	/**
-	 * Delete class products through WooCommerce data stores.
+	 * Delete class products through PooCommerce data stores.
 	 */
 	public static function wpTearDownAfterClass(): void {
 		self::delete_class_fixture_products( self::$product_ids );
@@ -85,9 +85,9 @@ class CheckoutSessionsComplete extends ControllerTestCase {
 	 */
 	protected function setUp(): void {
 		parent::setUp();
-		$this->snapshot_option_state( 'woocommerce_checkout_phone_field' );
-		$this->snapshot_option_state( 'woocommerce_feature_agentic_checkout_enabled' );
-		update_option( 'woocommerce_checkout_phone_field', 'optional' );
+		$this->snapshot_option_state( 'poocommerce_checkout_phone_field' );
+		$this->snapshot_option_state( 'poocommerce_feature_agentic_checkout_enabled' );
+		update_option( 'poocommerce_checkout_phone_field', 'optional' );
 
 		// Reset customer and cart FIRST before anything else.
 		wc_empty_cart();
@@ -99,7 +99,7 @@ class CheckoutSessionsComplete extends ControllerTestCase {
 		}
 
 		// Enable the agentic_checkout feature.
-		update_option( 'woocommerce_feature_agentic_checkout_enabled', 'yes' );
+		update_option( 'poocommerce_feature_agentic_checkout_enabled', 'yes' );
 
 		// Set up Jetpack blog token authentication.
 		$this->mock_jetpack_blog_token_auth();
@@ -111,8 +111,8 @@ class CheckoutSessionsComplete extends ControllerTestCase {
 
 		// Register mock agentic payment gateway.
 		$this->mock_gateway = new MockAgenticPaymentGateway();
-		add_filter( 'woocommerce_payment_gateways', array( $this, 'add_mock_gateway' ) );
-		add_filter( 'woocommerce_available_payment_gateways', array( $this, 'add_mock_gateway' ) );
+		add_filter( 'poocommerce_payment_gateways', array( $this, 'add_mock_gateway' ) );
+		add_filter( 'poocommerce_available_payment_gateways', array( $this, 'add_mock_gateway' ) );
 
 		wc_get_container()->get( RoutesController::class )->register_all_routes();
 	}
@@ -133,8 +133,8 @@ class CheckoutSessionsComplete extends ControllerTestCase {
 			$this->reset_jetpack_auth_state();
 
 		} finally {
-			remove_filter( 'woocommerce_payment_gateways', array( $this, 'add_mock_gateway' ) );
-			remove_filter( 'woocommerce_available_payment_gateways', array( $this, 'add_mock_gateway' ) );
+			remove_filter( 'poocommerce_payment_gateways', array( $this, 'add_mock_gateway' ) );
+			remove_filter( 'poocommerce_available_payment_gateways', array( $this, 'add_mock_gateway' ) );
 			try {
 				parent::tearDown();
 			} finally {
@@ -937,8 +937,8 @@ class MockAgenticPaymentGateway extends \WC_Payment_Gateway {
 		$this->method_title       = 'Mock Agentic Gateway';
 		$this->method_description = 'Mock Gateway for agentic commerce testing';
 		$this->supports           = array(
-			\Automattic\WooCommerce\Enums\PaymentGatewayFeature::PRODUCTS,
-			\Automattic\WooCommerce\Enums\PaymentGatewayFeature::AGENTIC_COMMERCE,
+			\Automattic\PooCommerce\Enums\PaymentGatewayFeature::PRODUCTS,
+			\Automattic\PooCommerce\Enums\PaymentGatewayFeature::AGENTIC_COMMERCE,
 		);
 
 		$this->init_form_fields();

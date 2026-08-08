@@ -36,13 +36,13 @@ export default function FulfillmentCard( {
 
 	return (
 		<div
-			className={ `woocommerce-fulfillment-card woocommerce-fulfillment-card__size-${ size }` }
+			className={ `poocommerce-fulfillment-card poocommerce-fulfillment-card__size-${ size }` }
 		>
 			<div
 				className={ [
-					'woocommerce-fulfillment-card__header',
+					'poocommerce-fulfillment-card__header',
 					isCollapsable
-						? 'woocommerce-fulfillment-card__header--clickable'
+						? 'poocommerce-fulfillment-card__header--clickable'
 						: '',
 				].join( ' ' ) }
 				{ ...( isCollapsable
@@ -62,8 +62,8 @@ export default function FulfillmentCard( {
 						onClick={ () => setIsOpen( ! isOpen ) }
 						aria-label={
 							isOpen
-								? __( 'Collapse section', 'woocommerce' )
-								: __( 'Expand section', 'woocommerce' )
+								? __( 'Collapse section', 'poocommerce' )
+								: __( 'Expand section', 'poocommerce' )
 						}
 						aria-expanded={ isOpen }
 					>
@@ -79,7 +79,7 @@ export default function FulfillmentCard( {
 			{ isOpen && hasChildren && (
 				<div
 					className={ [
-						'woocommerce-fulfillment-card__body',
+						'poocommerce-fulfillment-card__body',
 						isCollapsable ? '' : 'no-collapse',
 					].join( ' ' ) }
 				>

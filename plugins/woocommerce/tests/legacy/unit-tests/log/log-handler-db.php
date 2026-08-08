@@ -2,7 +2,7 @@
 
 /**
  * Class WC_Tests_Log_Handler_DB
- * @package WooCommerce\Tests\Log
+ * @package PooCommerce\Tests\Log
  * @since 3.0.0
  */
 class WC_Tests_Log_Handler_DB extends WC_Unit_Test_Case {
@@ -40,7 +40,7 @@ class WC_Tests_Log_Handler_DB extends WC_Unit_Test_Case {
 
 		$this->handler->handle( $time, 'debug', 'context_test', $context );
 
-		$log_entries = $wpdb->get_results( "SELECT timestamp, level, message, source, context FROM {$wpdb->prefix}woocommerce_log", ARRAY_A );
+		$log_entries = $wpdb->get_results( "SELECT timestamp, level, message, source, context FROM {$wpdb->prefix}poocommerce_log", ARRAY_A );
 
 		$expected_ts = date( 'Y-m-d H:i:s', $time );
 		$expected    = array(
@@ -125,12 +125,12 @@ class WC_Tests_Log_Handler_DB extends WC_Unit_Test_Case {
 
 		$this->handler->handle( $time, 'debug', '', array() );
 
-		$log_entries = $wpdb->get_results( "SELECT timestamp, level, message, source FROM {$wpdb->prefix}woocommerce_log" );
+		$log_entries = $wpdb->get_results( "SELECT timestamp, level, message, source FROM {$wpdb->prefix}poocommerce_log" );
 		$this->assertCount( 1, $log_entries );
 
 		WC_Log_Handler_DB::flush();
 
-		$log_entries = $wpdb->get_results( "SELECT timestamp, level, message, source FROM {$wpdb->prefix}woocommerce_log" );
+		$log_entries = $wpdb->get_results( "SELECT timestamp, level, message, source FROM {$wpdb->prefix}poocommerce_log" );
 		$this->assertCount( 0, $log_entries );
 	}
 
@@ -143,7 +143,7 @@ class WC_Tests_Log_Handler_DB extends WC_Unit_Test_Case {
 
 		$this->handler->delete_logs_before_timestamp( $time );
 
-		$log_count = $wpdb->get_var( "SELECT count(*) FROM {$wpdb->prefix}woocommerce_log" );
+		$log_count = $wpdb->get_var( "SELECT count(*) FROM {$wpdb->prefix}poocommerce_log" );
 		$this->assertEquals( 1, $log_count );
 	}
 

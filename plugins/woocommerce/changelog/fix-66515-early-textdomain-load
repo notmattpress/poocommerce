@@ -1,4 +1,4 @@
 Significance: patch
 Type: fix
 
-Prevent early WooCommerce translation loading from breaking redirects when debugging is enabled.
+Prevent early PooCommerce translation loading from breaking redirects when debugging is enabled.

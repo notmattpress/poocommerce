@@ -28,9 +28,9 @@ const ShippingSummaryRender = ( { item }: { item: ProductEntityRecord } ) => {
 	const width = item.dimensions?.width;
 	const height = item.dimensions?.height;
 	const weight = item.weight;
-	const weightUnit = storeProductsSettings?.values?.woocommerce_weight_unit;
+	const weightUnit = storeProductsSettings?.values?.poocommerce_weight_unit;
 	const dimensionUnit =
-		storeProductsSettings?.values?.woocommerce_dimension_unit;
+		storeProductsSettings?.values?.poocommerce_dimension_unit;
 
 	// Return null if no shipping info available
 	if ( ! length && ! width && ! height && ! weight ) {

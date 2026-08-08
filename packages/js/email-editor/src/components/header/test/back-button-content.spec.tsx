@@ -93,7 +93,7 @@ describe( 'BackButtonContent', () => {
 		const { container } = render( <BackButtonContent /> );
 		expect(
 			container.querySelector(
-				'.woocommerce-email-editor__view-mode-toggle'
+				'.poocommerce-email-editor__view-mode-toggle'
 			)
 		).toBeInTheDocument();
 	} );
@@ -118,7 +118,7 @@ describe( 'BackButtonContent', () => {
 		const { container } = renderInSlot( 64 );
 		expect(
 			container.querySelector(
-				'.woocommerce-email-editor__view-mode-toggle'
+				'.poocommerce-email-editor__view-mode-toggle'
 			)
 		).toBeInTheDocument();
 	} );
@@ -127,7 +127,7 @@ describe( 'BackButtonContent', () => {
 		const { container, getByRole } = renderInSlot( 32 );
 		expect(
 			container.querySelector(
-				'.woocommerce-email-editor__view-mode-toggle'
+				'.poocommerce-email-editor__view-mode-toggle'
 			)
 		).not.toBeInTheDocument();
 		expect(
@@ -143,14 +143,14 @@ describe( 'BackButtonContent', () => {
 		).toHaveAttribute( 'data-icon', 'chevronRight' );
 	} );
 
-	it( 'should apply woocommerce_email_editor_close_content filter to render custom component', () => {
+	it( 'should apply poocommerce_email_editor_close_content filter to render custom component', () => {
 		// Mock the filter to return a custom component
 		const CustomComponent = () => (
 			<span data-testid="custom-back-button">Custom Back Button</span>
 		);
 
 		applyFiltersMock.mockImplementation( ( hook, defaultValue ) => {
-			if ( hook === 'woocommerce_email_editor_close_content' ) {
+			if ( hook === 'poocommerce_email_editor_close_content' ) {
 				return CustomComponent;
 			}
 			return defaultValue;
@@ -167,7 +167,7 @@ describe( 'BackButtonContent', () => {
 		// Verify default component is NOT rendered
 		expect(
 			container.querySelector(
-				'.woocommerce-email-editor__view-mode-toggle'
+				'.poocommerce-email-editor__view-mode-toggle'
 			)
 		).not.toBeInTheDocument();
 	} );

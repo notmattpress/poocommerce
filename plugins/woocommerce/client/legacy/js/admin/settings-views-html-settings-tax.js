@@ -1,7 +1,7 @@
 /* global htmlSettingsTaxLocalizeScript, ajaxurl */
 
 /**
- * Used by woocommerce/includes/admin/settings/views/html-settings-tax.php
+ * Used by poocommerce/includes/admin/settings/views/html-settings-tax.php
  */
 ( function( $, data, wp, ajaxurl ) {
 	$( function() {
@@ -20,7 +20,7 @@
 			$save_button       = $( ':input[name="save"]' ),
 			$pagination        = $( '#rates-pagination, #rates-bottom-pagination' ),
 			$search_field      = $( '#rates-search .wc-tax-rates-search-field' ),
-			$submit            = $( '.woocommerce-save-button[type=submit]' ),
+			$submit            = $( '.poocommerce-save-button[type=submit]' ),
 			/**
 			 * Filter a list of { value, label } items against the autocomplete term,
 			 * matching both the stored code (`value`) and the display name (`label`)
@@ -145,7 +145,7 @@
 					Backbone.ajax({
 						method: 'POST',
 						dataType: 'json',
-						url: ajaxurl + ( ajaxurl.indexOf( '?' ) > 0 ? '&' : '?' ) + 'action=woocommerce_tax_rates_save_changes',
+						url: ajaxurl + ( ajaxurl.indexOf( '?' ) > 0 ? '&' : '?' ) + 'action=poocommerce_tax_rates_save_changes',
 						data: {
 							current_class: data.current_class,
 							wc_tax_nonce: data.wc_tax_nonce,

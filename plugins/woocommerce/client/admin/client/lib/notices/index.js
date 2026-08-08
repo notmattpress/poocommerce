@@ -53,7 +53,7 @@ export function createNoticesFromResponse( response ) {
 		// String matches Gutenberg's existing offline copy — reuses their translations.
 		createNotice(
 			'error',
-			__( 'Updating failed. You are probably offline.', 'woocommerce' )
+			__( 'Updating failed. You are probably offline.', 'poocommerce' )
 		);
 		return;
 	}

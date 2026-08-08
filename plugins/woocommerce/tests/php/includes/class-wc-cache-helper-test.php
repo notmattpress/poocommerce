@@ -81,7 +81,7 @@ class WC_Cache_Helper_Tests extends WC_Unit_Test_Case {
 	 */
 	public function test_geolocation_ajax_get_location_hash( string $expected, array $location ) {
 		WC()->session->set( 'customer', null );
-		update_option( 'woocommerce_default_country', $location['country'] );
+		update_option( 'poocommerce_default_country', $location['country'] );
 
 		$session = new WC_Customer( 0, true );
 		$session->set_billing_location( $location['country'], $location['state'], $location['postcode'], $location['city'] );
@@ -179,12 +179,12 @@ class WC_Cache_Helper_Tests extends WC_Unit_Test_Case {
 		};
 
 		wp_cache_set( 'wc_orders_cache_prefix', $invalid_prefix, 'orders' );
-		add_action( 'woocommerce_invalid_cache_prefix_detected', $callback, 10, 2 );
+		add_action( 'poocommerce_invalid_cache_prefix_detected', $callback, 10, 2 );
 
 		try {
 			WC_Cache_Helper::get_cache_prefix( 'orders' );
 		} finally {
-			remove_action( 'woocommerce_invalid_cache_prefix_detected', $callback, 10 );
+			remove_action( 'poocommerce_invalid_cache_prefix_detected', $callback, 10 );
 		}
 
 		$this->assertCount( 1, $detected );

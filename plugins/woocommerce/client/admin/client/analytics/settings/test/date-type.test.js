@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { render, screen, fireEvent } from '@testing-library/react';
-import { useSettings } from '@woocommerce/data';
+import { useSettings } from '@poocommerce/data';
 
 /**
  * Internal dependencies
@@ -10,11 +10,11 @@ import { useSettings } from '@woocommerce/data';
 import Settings from '../index';
 import { config } from '../config';
 
-jest.mock( '@woocommerce/data', () => ( {
+jest.mock( '@poocommerce/data', () => ( {
 	useSettings: jest.fn(),
 } ) );
 
-jest.mock( '@woocommerce/tracks', () => ( {
+jest.mock( '@poocommerce/tracks', () => ( {
 	recordEvent: jest.fn(),
 } ) );
 
@@ -42,7 +42,7 @@ describe( 'Analytics settings - date type', () => {
 			updateAndPersistSettings: mockUpdateAndPersistSettings,
 			updateSettings: jest.fn(),
 			wcAdminSettings: {
-				woocommerce_date_type: 'date_completed',
+				poocommerce_date_type: 'date_completed',
 			},
 		} );
 	} );
@@ -52,7 +52,7 @@ describe( 'Analytics settings - date type', () => {
 	} );
 
 	it( 'defines date_paid as the default value, matching reports behavior', () => {
-		expect( config.woocommerce_date_type.defaultValue ).toBe( 'date_paid' );
+		expect( config.poocommerce_date_type.defaultValue ).toBe( 'date_paid' );
 	} );
 
 	it( 'renders the date type selector with the saved value', () => {
@@ -75,7 +75,7 @@ describe( 'Analytics settings - date type', () => {
 		expect( mockUpdateAndPersistSettings ).toHaveBeenCalledWith(
 			'wcAdminSettings',
 			expect.objectContaining( {
-				woocommerce_date_type: 'date_paid',
+				poocommerce_date_type: 'date_paid',
 			} )
 		);
 	} );

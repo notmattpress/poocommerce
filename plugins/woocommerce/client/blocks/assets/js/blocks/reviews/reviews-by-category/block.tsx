@@ -3,7 +3,7 @@
  */
 import { __ } from '@wordpress/i18n';
 import { InspectorControls } from '@wordpress/block-editor';
-import ProductCategoryControl from '@woocommerce/editor-components/product-category-control';
+import ProductCategoryControl from '@poocommerce/editor-components/product-category-control';
 import { Icon, commentContent } from '@wordpress/icons';
 import {
 	Button,
@@ -47,7 +47,7 @@ const ReviewsByCategoryEditor = ( {
 		return (
 			<InspectorControls key="inspector">
 				<ToolsPanel
-					label={ __( 'Content', 'woocommerce' ) }
+					label={ __( 'Content', 'poocommerce' ) }
 					resetAll={ () =>
 						setAttributes( {
 							showProductName: true,
@@ -62,7 +62,7 @@ const ReviewsByCategoryEditor = ( {
 				>
 					<ToolsPanelItem
 						hasValue={ () => ! attributes.showProductName }
-						label={ __( 'Product name', 'woocommerce' ) }
+						label={ __( 'Product name', 'poocommerce' ) }
 						onDeselect={ () =>
 							setAttributes( { showProductName: true } )
 						}
@@ -70,7 +70,7 @@ const ReviewsByCategoryEditor = ( {
 					>
 						<ToggleControl
 							__nextHasNoMarginBottom
-							label={ __( 'Product name', 'woocommerce' ) }
+							label={ __( 'Product name', 'poocommerce' ) }
 							checked={ attributes.showProductName }
 							onChange={ () =>
 								setAttributes( {
@@ -86,7 +86,7 @@ const ReviewsByCategoryEditor = ( {
 					) }
 				</ToolsPanel>
 				<ToolsPanel
-					label={ __( 'List Settings', 'woocommerce' ) }
+					label={ __( 'List Settings', 'poocommerce' ) }
 					resetAll={ () =>
 						setAttributes( {
 							showOrderby: true,
@@ -100,14 +100,14 @@ const ReviewsByCategoryEditor = ( {
 					{ getSharedReviewListControls( attributes, setAttributes ) }
 				</ToolsPanel>
 				<ToolsPanel
-					label={ __( 'Category', 'woocommerce' ) }
+					label={ __( 'Category', 'poocommerce' ) }
 					resetAll={ () => setAttributes( { categoryIds: [] } ) }
 				>
 					<ToolsPanelItem
 						hasValue={ () =>
 							( attributes.categoryIds || [] ).length > 0
 						}
-						label={ __( 'Category', 'woocommerce' ) }
+						label={ __( 'Category', 'poocommerce' ) }
 						onDeselect={ () =>
 							setAttributes( { categoryIds: [] } )
 						}
@@ -134,7 +134,7 @@ const ReviewsByCategoryEditor = ( {
 			debouncedSpeak(
 				__(
 					'Now displaying a preview of the reviews for the products in the selected categories.',
-					'woocommerce'
+					'poocommerce'
 				)
 			);
 		};
@@ -147,12 +147,12 @@ const ReviewsByCategoryEditor = ( {
 						className="block-editor-block-icon"
 					/>
 				}
-				label={ __( 'Reviews by Category', 'woocommerce' ) }
+				label={ __( 'Reviews by Category', 'poocommerce' ) }
 				className="wc-block-reviews-by-category"
 			>
 				{ __(
 					'Show product reviews from specific categories.',
-					'woocommerce'
+					'poocommerce'
 				) }
 				<div className="wc-block-reviews__selection">
 					<ProductCategoryControl
@@ -164,7 +164,7 @@ const ReviewsByCategoryEditor = ( {
 						showReviewCount={ true }
 					/>
 					<Button variant="primary" onClick={ onDone }>
-						{ __( 'Done', 'woocommerce' ) }
+						{ __( 'Done', 'poocommerce' ) }
 					</Button>
 				</div>
 			</Placeholder>
@@ -175,7 +175,7 @@ const ReviewsByCategoryEditor = ( {
 		return renderEditMode();
 	}
 
-	const buttonTitle = __( 'Edit selected categories', 'woocommerce' );
+	const buttonTitle = __( 'Edit selected categories', 'poocommerce' );
 
 	return (
 		<>
@@ -189,7 +189,7 @@ const ReviewsByCategoryEditor = ( {
 						className="block-editor-block-icon"
 					/>
 				}
-				name={ __( 'Reviews by Category', 'woocommerce' ) }
+				name={ __( 'Reviews by Category', 'poocommerce' ) }
 				noReviewsPlaceholder={ NoReviewsPlaceholder }
 			/>
 		</>

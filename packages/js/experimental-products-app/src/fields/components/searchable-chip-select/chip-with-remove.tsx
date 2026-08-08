@@ -22,22 +22,22 @@ export const ChipWithRemove = forwardRef<
 		<BaseCombobox.Chip
 			ref={ ref }
 			className={ clsx(
-				'woocommerce-searchable-chip-select__chip',
+				'poocommerce-searchable-chip-select__chip',
 				className
 			) }
 			{ ...restProps }
 		>
 			{ prefix && (
-				<span className="woocommerce-searchable-chip-select__chip-prefix">
+				<span className="poocommerce-searchable-chip-select__chip-prefix">
 					{ prefix }
 				</span>
 			) }
-			<span className="woocommerce-searchable-chip-select__chip-content">
+			<span className="poocommerce-searchable-chip-select__chip-content">
 				{ children }
 			</span>
 			<BaseCombobox.ChipRemove
-				className="woocommerce-searchable-chip-select__chip-remove"
-				aria-label={ __( 'Remove', 'woocommerce' ) }
+				className="poocommerce-searchable-chip-select__chip-remove"
+				aria-label={ __( 'Remove', 'poocommerce' ) }
 			>
 				<span aria-hidden="true">×</span>
 			</BaseCombobox.ChipRemove>

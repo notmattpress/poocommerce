@@ -3,7 +3,7 @@
  */
 import type { Field, FormField } from '@wordpress/dataviews';
 import { __ } from '@wordpress/i18n';
-import { getSetting } from '@woocommerce/settings';
+import { getSetting } from '@poocommerce/settings';
 
 /**
  * Internal dependencies
@@ -110,39 +110,39 @@ function createProductEditFormGroup(
 const DOWNLOADABLE_FILES_FORM_FIELD: ProductEditFormField =
 	createProductEditFormGroup(
 		'downloadable-files-fields',
-		__( 'Downloadable files', 'woocommerce' ),
+		__( 'Downloadable files', 'poocommerce' ),
 		[ 'downloadable' ]
 	);
 
 const SIMPLE_PRODUCT_EDIT_FORM_FIELDS = [
 	createProductEditFormGroup(
 		'general-fields',
-		__( 'General', 'woocommerce' ),
+		__( 'General', 'poocommerce' ),
 		[ 'name', 'product_status', 'catalog_visibility' ]
 	),
-	createProductEditFormGroup( 'price-fields', __( 'Price', 'woocommerce' ), [
+	createProductEditFormGroup( 'price-fields', __( 'Price', 'poocommerce' ), [
 		'regular_price',
 		'sale_price',
 		'schedule_sale',
 		'cost_of_goods_sold',
 	] ),
-	createProductEditFormGroup( 'image-fields', __( 'Images', 'woocommerce' ), [
+	createProductEditFormGroup( 'image-fields', __( 'Images', 'poocommerce' ), [
 		'images',
 	] ),
 	DOWNLOADABLE_FILES_FORM_FIELD,
 	createProductEditFormGroup(
 		'inventory-fields',
-		__( 'Inventory', 'woocommerce' ),
+		__( 'Inventory', 'poocommerce' ),
 		[ 'sku', 'manage_stock', 'stock', 'stock_quantity' ]
 	),
 	createProductEditFormGroup(
 		'product-organization-fields',
-		__( 'Product organization', 'woocommerce' ),
+		__( 'Product organization', 'poocommerce' ),
 		[ 'categories', 'brands', 'tags', 'featured' ]
 	),
 	createProductEditFormGroup(
 		'shipping-fields',
-		__( 'Shipping', 'woocommerce' ),
+		__( 'Shipping', 'poocommerce' ),
 		[ 'shipping_class', DIMENSIONS_FORM_FIELD, 'weight' ]
 	),
 ] satisfies ProductEditFormField[];
@@ -150,27 +150,27 @@ const SIMPLE_PRODUCT_EDIT_FORM_FIELDS = [
 const VARIATION_PRODUCT_EDIT_FORM_FIELDS = [
 	createProductEditFormGroup(
 		'general-fields',
-		__( 'General', 'woocommerce' ),
+		__( 'General', 'poocommerce' ),
 		[ 'variation_active' ]
 	),
-	createProductEditFormGroup( 'price-fields', __( 'Price', 'woocommerce' ), [
+	createProductEditFormGroup( 'price-fields', __( 'Price', 'poocommerce' ), [
 		'regular_price',
 		'sale_price',
 		'schedule_sale',
 		'cost_of_goods_sold',
 	] ),
-	createProductEditFormGroup( 'image-fields', __( 'Images', 'woocommerce' ), [
+	createProductEditFormGroup( 'image-fields', __( 'Images', 'poocommerce' ), [
 		'images',
 	] ),
 	DOWNLOADABLE_FILES_FORM_FIELD,
 	createProductEditFormGroup(
 		'inventory-fields',
-		__( 'Inventory', 'woocommerce' ),
+		__( 'Inventory', 'poocommerce' ),
 		[ 'sku', 'manage_stock', 'stock', 'stock_quantity' ]
 	),
 	createProductEditFormGroup(
 		'shipping-fields',
-		__( 'Shipping', 'woocommerce' ),
+		__( 'Shipping', 'poocommerce' ),
 		[ 'shipping_class', DIMENSIONS_FORM_FIELD, 'weight' ]
 	),
 ] satisfies ProductEditFormField[];
@@ -178,25 +178,25 @@ const VARIATION_PRODUCT_EDIT_FORM_FIELDS = [
 const VARIABLE_PRODUCT_EDIT_FORM_FIELDS = [
 	createProductEditFormGroup(
 		'general-fields',
-		__( 'General', 'woocommerce' ),
+		__( 'General', 'poocommerce' ),
 		[ 'name', 'product_status', 'catalog_visibility' ]
 	),
-	createProductEditFormGroup( 'image-fields', __( 'Images', 'woocommerce' ), [
+	createProductEditFormGroup( 'image-fields', __( 'Images', 'poocommerce' ), [
 		'images',
 	] ),
 	createProductEditFormGroup(
 		'inventory-fields',
-		__( 'Inventory', 'woocommerce' ),
+		__( 'Inventory', 'poocommerce' ),
 		[ 'sku', 'manage_stock', 'stock' ]
 	),
 	createProductEditFormGroup(
 		'product-organization-fields',
-		__( 'Product organization', 'woocommerce' ),
+		__( 'Product organization', 'poocommerce' ),
 		[ 'categories', 'brands', 'tags', 'featured' ]
 	),
 	createProductEditFormGroup(
 		'shipping-fields',
-		__( 'Shipping', 'woocommerce' ),
+		__( 'Shipping', 'poocommerce' ),
 		[ 'shipping_class', DIMENSIONS_FORM_FIELD, 'weight' ]
 	),
 ] satisfies ProductEditFormField[];
@@ -204,30 +204,30 @@ const VARIABLE_PRODUCT_EDIT_FORM_FIELDS = [
 const EXTERNAL_PRODUCT_EDIT_FORM_FIELDS = [
 	createProductEditFormGroup(
 		'general-fields',
-		__( 'General', 'woocommerce' ),
+		__( 'General', 'poocommerce' ),
 		[ 'name', 'product_status', 'catalog_visibility' ]
 	),
-	createProductEditFormGroup( 'price-fields', __( 'Price', 'woocommerce' ), [
+	createProductEditFormGroup( 'price-fields', __( 'Price', 'poocommerce' ), [
 		'regular_price',
 		'sale_price',
 		'schedule_sale',
 	] ),
-	createProductEditFormGroup( 'image-fields', __( 'Images', 'woocommerce' ), [
+	createProductEditFormGroup( 'image-fields', __( 'Images', 'poocommerce' ), [
 		'images',
 	] ),
 	createProductEditFormGroup(
 		'buy-button-fields',
-		__( 'Buy button', 'woocommerce' ),
+		__( 'Buy button', 'poocommerce' ),
 		[ 'external_url', 'button_text' ]
 	),
 	createProductEditFormGroup(
 		'inventory-fields',
-		__( 'Inventory', 'woocommerce' ),
+		__( 'Inventory', 'poocommerce' ),
 		[ 'sku' ]
 	),
 	createProductEditFormGroup(
 		'product-organization-fields',
-		__( 'Product organization', 'woocommerce' ),
+		__( 'Product organization', 'poocommerce' ),
 		[ 'categories', 'brands', 'tags', 'featured' ]
 	),
 ] satisfies ProductEditFormField[];
@@ -235,20 +235,20 @@ const EXTERNAL_PRODUCT_EDIT_FORM_FIELDS = [
 const GROUPED_PRODUCT_EDIT_FORM_FIELDS = [
 	createProductEditFormGroup(
 		'general-fields',
-		__( 'General', 'woocommerce' ),
+		__( 'General', 'poocommerce' ),
 		[ 'name', 'product_status', 'catalog_visibility', 'grouped_products' ]
 	),
-	createProductEditFormGroup( 'image-fields', __( 'Images', 'woocommerce' ), [
+	createProductEditFormGroup( 'image-fields', __( 'Images', 'poocommerce' ), [
 		'images',
 	] ),
 	createProductEditFormGroup(
 		'inventory-fields',
-		__( 'Inventory', 'woocommerce' ),
+		__( 'Inventory', 'poocommerce' ),
 		[ 'sku' ]
 	),
 	createProductEditFormGroup(
 		'product-organization-fields',
-		__( 'Product organization', 'woocommerce' ),
+		__( 'Product organization', 'poocommerce' ),
 		[ 'categories', 'brands', 'tags', 'featured' ]
 	),
 ] satisfies ProductEditFormField[];

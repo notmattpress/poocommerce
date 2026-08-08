@@ -28,16 +28,16 @@ const stockStatusBadgeIntent: Record<
 };
 
 const fieldDefinition = {
-	label: __( 'Stock', 'woocommerce' ),
+	label: __( 'Stock', 'poocommerce' ),
 	enableSorting: false,
 	enableHiding: false,
 	filterBy: {
 		operators: [ 'isAny' ],
 	},
 	elements: [
-		{ label: __( 'In stock', 'woocommerce' ), value: 'instock' },
-		{ label: __( 'Out of stock', 'woocommerce' ), value: 'outofstock' },
-		{ label: __( 'On backorder', 'woocommerce' ), value: 'onbackorder' },
+		{ label: __( 'In stock', 'poocommerce' ), value: 'instock' },
+		{ label: __( 'Out of stock', 'poocommerce' ), value: 'outofstock' },
+		{ label: __( 'On backorder', 'poocommerce' ), value: 'onbackorder' },
 	],
 } satisfies Partial< Field< ProductEntityRecord > >;
 
@@ -62,7 +62,7 @@ export const fieldExtensions: Partial< Field< ProductEntityRecord > > = {
 				: match.label;
 
 		return (
-			<div className="woocommerce-fields-field__stock">
+			<div className="poocommerce-fields-field__stock">
 				<Badge intent={ stockStatusBadgeIntent[ match.value ] }>
 					{ stockLabel }
 				</Badge>
@@ -80,7 +80,7 @@ export const fieldExtensions: Partial< Field< ProductEntityRecord > > = {
 
 		return (
 			<SelectControl
-				label={ __( 'Stock status', 'woocommerce' ) }
+				label={ __( 'Stock status', 'poocommerce' ) }
 				placeholder={ field.placeholder }
 				value={ selectedOption }
 				items={ options }

@@ -22,7 +22,7 @@ interface ProductShippingClass {
 
 const fieldDefinition = {
 	type: 'text',
-	label: __( 'Shipping Class', 'woocommerce' ),
+	label: __( 'Shipping Class', 'poocommerce' ),
 	enableSorting: false,
 	enableHiding: false,
 	filterBy: false,
@@ -31,7 +31,7 @@ const fieldDefinition = {
 export const fieldExtensions: Partial< Field< ProductEntityRecord > > = {
 	...fieldDefinition,
 	id: 'shipping_class',
-	label: __( 'Shipping Class', 'woocommerce' ),
+	label: __( 'Shipping Class', 'poocommerce' ),
 	enableSorting: false,
 	type: 'text',
 	getValue: ( { item } ) =>
@@ -53,7 +53,7 @@ export const fieldExtensions: Partial< Field< ProductEntityRecord > > = {
 
 		const shippingClassOptions = [
 			{
-				label: __( 'No shipping class', 'woocommerce' ),
+				label: __( 'No shipping class', 'poocommerce' ),
 				value: '',
 			},
 			...( shippingClasses?.length

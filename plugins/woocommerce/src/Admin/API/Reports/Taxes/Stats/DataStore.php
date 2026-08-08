@@ -3,14 +3,14 @@
  * API\Reports\Taxes\Stats\DataStore class file.
  */
 
-namespace Automattic\WooCommerce\Admin\API\Reports\Taxes\Stats;
+namespace Automattic\PooCommerce\Admin\API\Reports\Taxes\Stats;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\API\Reports\DataStore as ReportsDataStore;
-use Automattic\WooCommerce\Admin\API\Reports\DataStoreInterface;
-use Automattic\WooCommerce\Admin\API\Reports\TimeInterval;
-use Automattic\WooCommerce\Admin\API\Reports\StatsDataStoreTrait;
+use Automattic\PooCommerce\Admin\API\Reports\DataStore as ReportsDataStore;
+use Automattic\PooCommerce\Admin\API\Reports\DataStoreInterface;
+use Automattic\PooCommerce\Admin\API\Reports\TimeInterval;
+use Automattic\PooCommerce\Admin\API\Reports\StatsDataStoreTrait;
 
 /**
  * API\Reports\Taxes\Stats\DataStore.
@@ -79,7 +79,7 @@ class DataStore extends ReportsDataStore implements DataStoreInterface {
 	/**
 	 * Updates the database query with parameters used for Taxes Stats report
 	 *
-	 * @see Automattic\WooCommerce\Admin\API\Reports\Taxes\DataStore::add_sql_query_params()
+	 * @see Automattic\PooCommerce\Admin\API\Reports\Taxes\DataStore::add_sql_query_params()
 	 * @param array $query_args       Query arguments supplied by the user.
 	 */
 	protected function update_sql_query_params( $query_args ) {
@@ -125,7 +125,7 @@ class DataStore extends ReportsDataStore implements DataStoreInterface {
 				tax_rate_state,
 				tax_rate_name,
 				tax_rate_priority
-			FROM {$wpdb->prefix}woocommerce_tax_rates
+			FROM {$wpdb->prefix}poocommerce_tax_rates
 		";
 		if ( ! empty( $args['include'] ) ) {
 			$args['include'] = (array) $args['include'];
@@ -196,7 +196,7 @@ class DataStore extends ReportsDataStore implements DataStoreInterface {
 		);
 
 		if ( null === $totals ) {
-			return new \WP_Error( 'woocommerce_analytics_taxes_stats_result_failed', __( 'Sorry, fetching revenue data failed.', 'woocommerce' ) );
+			return new \WP_Error( 'poocommerce_analytics_taxes_stats_result_failed', __( 'Sorry, fetching revenue data failed.', 'poocommerce' ) );
 		}
 
 		// phpcs:ignore Generic.Commenting.Todo.TaskFound
@@ -232,7 +232,7 @@ class DataStore extends ReportsDataStore implements DataStoreInterface {
 		);
 
 		if ( null === $intervals ) {
-			return new \WP_Error( 'woocommerce_analytics_taxes_stats_result_failed', __( 'Sorry, fetching tax data failed.', 'woocommerce' ) );
+			return new \WP_Error( 'poocommerce_analytics_taxes_stats_result_failed', __( 'Sorry, fetching tax data failed.', 'poocommerce' ) );
 		}
 
 		$totals = (object) $this->cast_numbers( $totals[0] );

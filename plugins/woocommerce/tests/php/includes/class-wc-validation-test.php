@@ -2,7 +2,7 @@
 /**
  * Validation functions tests
  *
- * @package WooCommerce\Tests\Validation.
+ * @package PooCommerce\Tests\Validation.
  */
 
 /**
@@ -36,7 +36,7 @@ class WC_Validation_Test extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * The woocommerce_validate_phone filter can override the validation result.
+	 * The poocommerce_validate_phone filter can override the validation result.
 	 */
 	public function test_is_phone_filter_can_override_result(): void {
 		$callback = function ( $valid, $phone, $country ) {
@@ -53,13 +53,13 @@ class WC_Validation_Test extends \WC_Unit_Test_Case {
 			return $valid;
 		};
 
-		add_filter( 'woocommerce_validate_phone', $callback, 10, 3 );
+		add_filter( 'poocommerce_validate_phone', $callback, 10, 3 );
 		try {
 			$this->assertTrue( WC_Validation::is_phone( '+۹۸۹۱۵۱۱۱۲۲۳۳', 'IR' ) );
 			$this->assertTrue( WC_Validation::is_phone( '۰۰۹۸۹۱۵۱۱۱۲۲۳۳', 'IR' ) );
 			$this->assertTrue( WC_Validation::is_phone( '۰۹۱۵۱۱۱۲۲۳۳', 'IR' ) );
 		} finally {
-			remove_filter( 'woocommerce_validate_phone', $callback, 10 );
+			remove_filter( 'poocommerce_validate_phone', $callback, 10 );
 		}
 	}
 
