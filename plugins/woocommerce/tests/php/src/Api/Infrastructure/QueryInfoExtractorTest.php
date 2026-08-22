@@ -8,16 +8,16 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Api\Infrastructure;
+namespace Automattic\PooCommerce\Tests\Api\Infrastructure;
 
-use Automattic\WooCommerce\Api\Infrastructure\QueryInfoExtractor;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\DocumentNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\FieldNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\FragmentDefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\OperationDefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\SelectionSetNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\Parser;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\ResolveInfo;
+use Automattic\PooCommerce\Api\Infrastructure\QueryInfoExtractor;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\DocumentNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\FieldNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\FragmentDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\OperationDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\SelectionSetNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\Parser;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\ResolveInfo;
 use WC_Unit_Test_Case;
 
 /**

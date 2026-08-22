@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1);
 
-namespace Automattic\WooCommerce\Admin\API\Reports;
+namespace Automattic\PooCommerce\Admin\API\Reports;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -12,8 +12,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Trait to call filters on `get_data` methods for data stores.
  *
- * It calls the filters `woocommerce_analytics_{$this->context}_query_args` and
- * `woocommerce_analytics_{$this->context}_select_query` on the `get_data` method.
+ * It calls the filters `poocommerce_analytics_{$this->context}_query_args` and
+ * `poocommerce_analytics_{$this->context}_select_query` on the `get_data` method.
  *
  * Example:
  * <pre><code class="language-php">class MyStatsDataStore extends DataStore implements DataStoreInterface {
@@ -44,7 +44,7 @@ trait FilteredGetDataTrait {
 		 * @since 9.3.0
 		 * @param array $query_args Query parameters.
 		 */
-		$args    = apply_filters( "woocommerce_analytics_{$this->context}_query_args", $query_args );
+		$args    = apply_filters( "poocommerce_analytics_{$this->context}_query_args", $query_args );
 		$results = parent::get_data( $args );
 		/**
 		 * Called after the data is fetched.
@@ -53,6 +53,6 @@ trait FilteredGetDataTrait {
 		 * @since 9.3.0
 		 * @param stdClass|WP_Error $results The results of the query.
 		 */
-		return apply_filters( "woocommerce_analytics_{$this->context}_select_query", $results, $args );
+		return apply_filters( "poocommerce_analytics_{$this->context}_select_query", $results, $args );
 	}
 }

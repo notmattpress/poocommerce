@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Api\Infrastructure;
+namespace Automattic\PooCommerce\Api\Infrastructure;
 
-use Automattic\WooCommerce\Api\Infrastructure\Schema\CustomScalarType;
-use Automattic\WooCommerce\Api\Infrastructure\Schema\Error;
-use Automattic\WooCommerce\Api\Infrastructure\Schema\ObjectType;
-use Automattic\WooCommerce\Api\Infrastructure\Schema\ResolveInfo;
-use Automattic\WooCommerce\Api\Infrastructure\Schema\Type;
-use Automattic\WooCommerce\Api\Utils\SchemaHandle;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\BooleanValueNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\FloatValueNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\IntValueNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\NullValueNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\StringValueNode;
+use Automattic\PooCommerce\Api\Infrastructure\Schema\CustomScalarType;
+use Automattic\PooCommerce\Api\Infrastructure\Schema\Error;
+use Automattic\PooCommerce\Api\Infrastructure\Schema\ObjectType;
+use Automattic\PooCommerce\Api\Infrastructure\Schema\ResolveInfo;
+use Automattic\PooCommerce\Api\Infrastructure\Schema\Type;
+use Automattic\PooCommerce\Api\Utils\SchemaHandle;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\BooleanValueNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\FloatValueNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\IntValueNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\NullValueNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\StringValueNode;
 
 /**
  * Hand-written controller that contributes the `_apiMetadata` root query
@@ -80,24 +80,24 @@ class MetadataController {
 			'type'        => Type::nonNull( Type::listOf( Type::nonNull( self::get_target_type() ) ) ),
 			'description' => __(
 				'Lists metadata attached to elements of this schema. All filter arguments are optional; supplying multiple narrows the result. Use this to discover internal-use APIs, beta features, ownership, etc., or to ask "can I use this specific element?".',
-				'woocommerce'
+				'poocommerce'
 			),
 			'args'        => array(
 				'name'      => array(
 					'type'        => Type::string(),
-					'description' => __( 'Match rows that carry a metadata entry with this name. Surviving rows have their entries trimmed to the matching one.', 'woocommerce' ),
+					'description' => __( 'Match rows that carry a metadata entry with this name. Surviving rows have their entries trimmed to the matching one.', 'poocommerce' ),
 				),
 				'type'      => array(
 					'type'        => Type::string(),
-					'description' => __( 'Match rows whose target type equals this name.', 'woocommerce' ),
+					'description' => __( 'Match rows whose target type equals this name.', 'poocommerce' ),
 				),
 				'field'     => array(
 					'type'        => Type::string(),
-					'description' => __( 'Match rows whose target field equals this name.', 'woocommerce' ),
+					'description' => __( 'Match rows whose target field equals this name.', 'poocommerce' ),
 				),
 				'attribute' => array(
 					'type'        => Type::string(),
-					'description' => __( 'Match rows whose authorization carries an attribute with this class short name. Surviving rows have their authorization trimmed to the matching descriptors.', 'woocommerce' ),
+					'description' => __( 'Match rows whose authorization carries an attribute with this class short name. Surviving rows have their authorization trimmed to the matching descriptors.', 'poocommerce' ),
 				),
 			),
 			'resolve'     => array( self::class, 'resolve' ),
@@ -175,7 +175,7 @@ class MetadataController {
 	 *     leaking schema shape and gate descriptors by default.
 	 *
 	 * The principal-derived decision is then passed through the
-	 * {@see 'woocommerce_graphql_can_query_metadata'} filter so sites
+	 * {@see 'poocommerce_graphql_can_query_metadata'} filter so sites
 	 * can grant or revoke access without subclassing the principal —
 	 * useful for per-request rules (specific IPs, headers, query
 	 * parameters, etc.).
@@ -218,7 +218,7 @@ class MetadataController {
 			 * @param bool   $allowed   Whether the principal may query `_apiMetadata`.
 			 * @param object $principal The resolved principal.
 			 */
-			$allowed = apply_filters( 'woocommerce_graphql_can_query_metadata', $allowed, $principal );
+			$allowed = apply_filters( 'poocommerce_graphql_can_query_metadata', $allowed, $principal );
 		} catch ( \Throwable $e ) {
 			return false;
 		}
@@ -254,32 +254,32 @@ class MetadataController {
 					'name'        => 'MetadataTarget',
 					'description' => __(
 						'One element of the schema with its attached metadata. Type-level rows have `field`, `argument` and `enumValue` set to null; field-level rows set `field` (and `argument` when the target is a field argument); enum-value rows set `enumValue`.',
-						'woocommerce'
+						'poocommerce'
 					),
 					'fields'      => fn() => array(
 						'type'          => array(
 							'type'        => Type::nonNull( Type::string() ),
-							'description' => __( 'Name of the GraphQL type this row describes.', 'woocommerce' ),
+							'description' => __( 'Name of the GraphQL type this row describes.', 'poocommerce' ),
 						),
 						'field'         => array(
 							'type'        => Type::string(),
-							'description' => __( 'Field name when this row describes a field (or a field argument); null for type-level rows.', 'woocommerce' ),
+							'description' => __( 'Field name when this row describes a field (or a field argument); null for type-level rows.', 'poocommerce' ),
 						),
 						'argument'      => array(
 							'type'        => Type::string(),
-							'description' => __( 'Argument name when this row describes a field argument; null otherwise.', 'woocommerce' ),
+							'description' => __( 'Argument name when this row describes a field argument; null otherwise.', 'poocommerce' ),
 						),
 						'enumValue'     => array(
 							'type'        => Type::string(),
-							'description' => __( 'Enum value name when this row describes one specific enum value; null otherwise.', 'woocommerce' ),
+							'description' => __( 'Enum value name when this row describes one specific enum value; null otherwise.', 'poocommerce' ),
 						),
 						'entries'       => array(
 							'type'        => Type::nonNull( Type::listOf( Type::nonNull( self::get_entry_type() ) ) ),
-							'description' => __( 'Metadata entries attached to the target.', 'woocommerce' ),
+							'description' => __( 'Metadata entries attached to the target.', 'poocommerce' ),
 						),
 						'authorization' => array(
 							'type'        => Type::nonNull( Type::listOf( Type::nonNull( self::get_auth_entry_type() ) ) ),
-							'description' => __( 'Authorization attributes attached to the target (e.g. `RequiredCapability`, `PublicAccess`, or plugin-defined). Empty when the target carries no authorization attributes.', 'woocommerce' ),
+							'description' => __( 'Authorization attributes attached to the target (e.g. `RequiredCapability`, `PublicAccess`, or plugin-defined). Empty when the target carries no authorization attributes.', 'poocommerce' ),
 						),
 					),
 				)
@@ -298,15 +298,15 @@ class MetadataController {
 			self::$auth_entry_type = new ObjectType(
 				array(
 					'name'        => 'AuthEntry',
-					'description' => __( 'One authorization attribute attached to a schema target.', 'woocommerce' ),
+					'description' => __( 'One authorization attribute attached to a schema target.', 'poocommerce' ),
 					'fields'      => fn() => array(
 						'attribute' => array(
 							'type'        => Type::nonNull( Type::string() ),
-							'description' => __( 'Short class name of the authorization attribute (e.g. `RequiredCapability`).', 'woocommerce' ),
+							'description' => __( 'Short class name of the authorization attribute (e.g. `RequiredCapability`).', 'poocommerce' ),
 						),
 						'args'      => array(
 							'type'        => Type::nonNull( Type::listOf( self::get_value_scalar() ) ),
-							'description' => __( 'Constructor arguments supplied at the usage site, in source order. Element type is the same scalar union as `MetadataValue`.', 'woocommerce' ),
+							'description' => __( 'Constructor arguments supplied at the usage site, in source order. Element type is the same scalar union as `MetadataValue`.', 'poocommerce' ),
 						),
 					),
 				)
@@ -323,18 +323,18 @@ class MetadataController {
 			self::$entry_type = new ObjectType(
 				array(
 					'name'        => 'MetadataEntry',
-					'description' => __( 'One metadata entry: a `name` plus a scalar `value`.', 'woocommerce' ),
+					'description' => __( 'One metadata entry: a `name` plus a scalar `value`.', 'poocommerce' ),
 					'fields'      => fn() => array(
 						'name'  => array(
 							'type'        => Type::nonNull( Type::string() ),
-							'description' => __( 'Identifier of the entry (e.g. `internal`, `beta`).', 'woocommerce' ),
+							'description' => __( 'Identifier of the entry (e.g. `internal`, `beta`).', 'poocommerce' ),
 						),
 						'value' => array(
 							// Nullable: `MetadataValue` itself permits a null payload (e.g.
 							// `#[Metadata( 'deprecated_reason', null )]`), so the wrapping
 							// must allow it through.
 							'type'        => self::get_value_scalar(),
-							'description' => __( 'Scalar payload associated with the entry. Null when the metadata entry carries a null value.', 'woocommerce' ),
+							'description' => __( 'Scalar payload associated with the entry. Null when the metadata entry carries a null value.', 'poocommerce' ),
 						),
 					),
 				)
@@ -358,7 +358,7 @@ class MetadataController {
 					'name'         => 'MetadataValue',
 					'description'  => __(
 						'Scalar payload of a metadata entry. Accepts a string, integer, float, boolean, or null.',
-						'woocommerce'
+						'poocommerce'
 					),
 					// Resolvers return the raw PHP scalar; webonyx serialises it as JSON directly.
 					'serialize'    => static fn( $value ) => $value,

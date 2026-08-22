@@ -2,13 +2,13 @@
 /**
  * Base Location state rule processor tests.
  *
- * @package WooCommerce\Admin\Tests\RemoteSpecs
+ * @package PooCommerce\Admin\Tests\RemoteSpecs
  */
 
 declare( strict_types = 1 );
 
-use Automattic\WooCommerce\Admin\RemoteSpecs\RuleProcessors\BaseLocationStateRuleProcessor;
-use Automattic\WooCommerce\Internal\Admin\Onboarding\OnboardingProfile;
+use Automattic\PooCommerce\Admin\RemoteSpecs\RuleProcessors\BaseLocationStateRuleProcessor;
+use Automattic\PooCommerce\Internal\Admin\Onboarding\OnboardingProfile;
 
 /**
  * class WC_Admin_Tests_RemoteSpecs_RuleProcessors_BaseLocationStateRuleProcessor
@@ -35,8 +35,8 @@ class WC_Admin_Tests_RemoteSpecs_RuleProcessors_BaseLocationStateRuleProcessor e
 	 */
 	public function tearDown(): void {
 		parent::tearDown();
-		update_option( 'woocommerce_store_address', '' );
-		update_option( 'woocommerce_default_country', 'US:CA' );
+		update_option( 'poocommerce_store_address', '' );
+		update_option( 'poocommerce_default_country', 'US:CA' );
 		update_option( OnboardingProfile::DATA_OPTION, array() );
 	}
 
@@ -46,7 +46,7 @@ class WC_Admin_Tests_RemoteSpecs_RuleProcessors_BaseLocationStateRuleProcessor e
 	 * @group fast
 	 */
 	public function test_spec_fails_if_country_is_not_set() {
-		update_option( 'woocommerce_default_country', '' );
+		update_option( 'poocommerce_default_country', '' );
 
 		$processor = new BaseLocationStateRuleProcessor();
 		$result    = $processor->process( $this->get_rule(), new stdClass() );
@@ -60,7 +60,7 @@ class WC_Admin_Tests_RemoteSpecs_RuleProcessors_BaseLocationStateRuleProcessor e
 	 * @group fast
 	 */
 	public function test_spec_passes_if_location_is_the_same() {
-		update_option( 'woocommerce_default_country', 'US:CA' );
+		update_option( 'poocommerce_default_country', 'US:CA' );
 
 		$processor = new BaseLocationStateRuleProcessor();
 		$result    = $processor->process( $this->get_rule(), new stdClass() );

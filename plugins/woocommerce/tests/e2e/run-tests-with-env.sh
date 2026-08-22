@@ -83,7 +83,7 @@ echo "Arguments: $*"
 title
 
 # Activate the `wc-source` conditional export so Playwright resolves
-# `@woocommerce/*` workspace packages to their TypeScript source instead of
+# `@poocommerce/*` workspace packages to their TypeScript source instead of
 # their built `build/index.js`. Playwright bundles esbuild and transpiles
 # imported `.ts` on the fly, so this skips the pre-build step for these
 # packages. `--conditions` stacks with NODE_OPTIONS already in the env.

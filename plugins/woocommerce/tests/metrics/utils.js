@@ -21,7 +21,7 @@ export function readFile( filePath ) {
 }
 
 const WOO_BLOCKS_ASSETS_PATH =
-	'/wp-content/plugins/woocommerce/assets/client/blocks/';
+	'/wp-content/plugins/poocommerce/assets/client/blocks/';
 const KB = 1024;
 
 function roundSize( value ) {

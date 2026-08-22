@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Automattic\WooCommerce\Vendor\Symfony\Component\CssSelector\XPath\Extension;
+namespace Automattic\PooCommerce\Vendor\Symfony\Component\CssSelector\XPath\Extension;
 
 /**
  * XPath expression translator extension interface.

@@ -1,17 +1,17 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\StoreApi\Schemas;
+namespace Automattic\PooCommerce\Tests\Blocks\StoreApi\Schemas;
 
-use Automattic\WooCommerce\Internal\ShopperLists\ShopperList;
-use Automattic\WooCommerce\Internal\ShopperLists\ShopperListItem;
-use Automattic\WooCommerce\StoreApi\Formatters;
-use Automattic\WooCommerce\StoreApi\Formatters\CurrencyFormatter;
-use Automattic\WooCommerce\StoreApi\Formatters\HtmlFormatter;
-use Automattic\WooCommerce\StoreApi\Formatters\MoneyFormatter;
-use Automattic\WooCommerce\StoreApi\SchemaController;
-use Automattic\WooCommerce\StoreApi\Schemas\ExtendSchema;
-use Automattic\WooCommerce\StoreApi\Schemas\V1\ShopperListSchema;
+use Automattic\PooCommerce\Internal\ShopperLists\ShopperList;
+use Automattic\PooCommerce\Internal\ShopperLists\ShopperListItem;
+use Automattic\PooCommerce\StoreApi\Formatters;
+use Automattic\PooCommerce\StoreApi\Formatters\CurrencyFormatter;
+use Automattic\PooCommerce\StoreApi\Formatters\HtmlFormatter;
+use Automattic\PooCommerce\StoreApi\Formatters\MoneyFormatter;
+use Automattic\PooCommerce\StoreApi\SchemaController;
+use Automattic\PooCommerce\StoreApi\Schemas\ExtendSchema;
+use Automattic\PooCommerce\StoreApi\Schemas\V1\ShopperListSchema;
 use WC_Unit_Test_Case;
 
 /**
@@ -39,7 +39,7 @@ class ShopperListSchemaTest extends WC_Unit_Test_Case {
 		// `saved-for-later` depends on the `cart_save_for_later` feature
 		// flag. Filter the option read so `ShopperList::get_by_slug()`
 		// returns a list without writing the option to the database.
-		add_filter( 'pre_option_woocommerce_cart_save_for_later_enabled', array( $this, 'filter_save_for_later_enabled' ) );
+		add_filter( 'pre_option_poocommerce_cart_save_for_later_enabled', array( $this, 'filter_save_for_later_enabled' ) );
 
 		parent::setUp();
 
@@ -60,7 +60,7 @@ class ShopperListSchemaTest extends WC_Unit_Test_Case {
 	public function tearDown(): void {
 		wp_delete_user( $this->user_id );
 		$this->sut = null;
-		remove_filter( 'pre_option_woocommerce_cart_save_for_later_enabled', array( $this, 'filter_save_for_later_enabled' ) );
+		remove_filter( 'pre_option_poocommerce_cart_save_for_later_enabled', array( $this, 'filter_save_for_later_enabled' ) );
 		parent::tearDown();
 	}
 

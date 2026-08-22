@@ -4,11 +4,11 @@
  * admin notes.
  */
 
-namespace Automattic\WooCommerce\Admin\Notes;
+namespace Automattic\PooCommerce\Admin\Notes;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\DeprecatedClassFacade;
+use Automattic\PooCommerce\Admin\DeprecatedClassFacade;
 
 // phpcs:disable Generic.Files.OneObjectStructurePerFile.MultipleFound
 
@@ -36,7 +36,7 @@ class WC_Admin_Note extends DeprecatedClassFacade {
 	 *
 	 * @var string
 	 */
-	protected static $facade_over_classname = 'Automattic\WooCommerce\Admin\Notes\Note';
+	protected static $facade_over_classname = 'Automattic\PooCommerce\Admin\Notes\Note';
 
 	/**
 	 * The version that this class was deprecated in.
@@ -66,7 +66,7 @@ class WC_Admin_Notes extends DeprecatedClassFacade {
 	 *
 	 * @var string
 	 */
-	protected static $facade_over_classname = 'Automattic\WooCommerce\Admin\Notes\Notes';
+	protected static $facade_over_classname = 'Automattic\PooCommerce\Admin\Notes\Notes';
 
 	/**
 	 * The version that this class was deprecated in.
@@ -87,7 +87,7 @@ class WC_Admin_Notes_Customize_Store_With_Blocks extends DeprecatedClassFacade {
 	 *
 	 * @var string
 	 */
-	protected static $facade_over_classname = 'Automattic\WooCommerce\Internal\Admin\Notes\CustomizeStoreWithBlocks';
+	protected static $facade_over_classname = 'Automattic\PooCommerce\Internal\Admin\Notes\CustomizeStoreWithBlocks';
 
 	/**
 	 * The version that this class was deprecated in.
@@ -108,7 +108,7 @@ class WC_Admin_Notes_Edit_Products_On_The_Move extends DeprecatedClassFacade {
 	 *
 	 * @var string
 	 */
-	protected static $facade_over_classname = 'Automattic\WooCommerce\Internal\Admin\Notes\EditProductsOnTheMove';
+	protected static $facade_over_classname = 'Automattic\PooCommerce\Internal\Admin\Notes\EditProductsOnTheMove';
 
 	/**
 	 * The version that this class was deprecated in.
@@ -129,7 +129,7 @@ class WC_Admin_Notes_EU_VAT_Number extends DeprecatedClassFacade {
 	 *
 	 * @var string
 	 */
-	protected static $facade_over_classname = 'Automattic\WooCommerce\Internal\Admin\Notes\EUVATNumber';
+	protected static $facade_over_classname = 'Automattic\PooCommerce\Internal\Admin\Notes\EUVATNumber';
 
 	/**
 	 * The version that this class was deprecated in.
@@ -150,7 +150,7 @@ class WC_Admin_Notes_Facebook_Marketing_Expert extends DeprecatedClassFacade {
 	 *
 	 * @var string
 	 */
-	protected static $facade_over_classname = 'Automattic\WooCommerce\Admin\Notes\FacebookMarketingExpert';
+	protected static $facade_over_classname = 'Automattic\PooCommerce\Admin\Notes\FacebookMarketingExpert';
 
 	/**
 	 * The version that this class was deprecated in.
@@ -171,7 +171,7 @@ class WC_Admin_Notes_First_Product extends DeprecatedClassFacade {
 	 *
 	 * @var string
 	 */
-	protected static $facade_over_classname = 'Automattic\WooCommerce\Internal\Admin\Notes\FirstProduct';
+	protected static $facade_over_classname = 'Automattic\PooCommerce\Internal\Admin\Notes\FirstProduct';
 
 	/**
 	 * The version that this class was deprecated in.
@@ -192,7 +192,7 @@ class WC_Admin_Notes_Giving_Feedback_Notes extends DeprecatedClassFacade {
 	 *
 	 * @var string
 	 */
-	protected static $facade_over_classname = 'Automattic\WooCommerce\Internal\Admin\Notes\GivingFeedbackNotes';
+	protected static $facade_over_classname = 'Automattic\PooCommerce\Internal\Admin\Notes\GivingFeedbackNotes';
 
 	/**
 	 * The version that this class was deprecated in.
@@ -213,7 +213,7 @@ class WC_Admin_Notes_Install_JP_And_WCS_Plugins extends DeprecatedClassFacade {
 	 *
 	 * @var string
 	 */
-	protected static $facade_over_classname = 'Automattic\WooCommerce\Internal\Admin\Notes\InstallJPAndWCSPlugins';
+	protected static $facade_over_classname = 'Automattic\PooCommerce\Internal\Admin\Notes\InstallJPAndWCSPlugins';
 
 	/**
 	 * The version that this class was deprecated in.
@@ -234,7 +234,7 @@ class WC_Admin_Notes_Launch_Checklist extends DeprecatedClassFacade {
 	 *
 	 * @var string
 	 */
-	protected static $facade_over_classname = 'Automattic\WooCommerce\Internal\Admin\Notes\LaunchChecklist';
+	protected static $facade_over_classname = 'Automattic\PooCommerce\Internal\Admin\Notes\LaunchChecklist';
 
 	/**
 	 * The version that this class was deprecated in.
@@ -255,7 +255,7 @@ class WC_Admin_Notes_Migrate_From_Shopify extends DeprecatedClassFacade {
 	 *
 	 * @var string
 	 */
-	protected static $facade_over_classname = 'Automattic\WooCommerce\Internal\Admin\Notes\MigrateFromShopify';
+	protected static $facade_over_classname = 'Automattic\PooCommerce\Internal\Admin\Notes\MigrateFromShopify';
 
 	/**
 	 * The version that this class was deprecated in.
@@ -276,7 +276,7 @@ class WC_Admin_Notes_Mobile_App extends DeprecatedClassFacade {
 	 *
 	 * @var string
 	 */
-	protected static $facade_over_classname = 'Automattic\WooCommerce\Internal\Admin\Notes\MobileApp';
+	protected static $facade_over_classname = 'Automattic\PooCommerce\Internal\Admin\Notes\MobileApp';
 
 	/**
 	 * The version that this class was deprecated in.
@@ -297,7 +297,7 @@ class WC_Admin_Notes_New_Sales_Record extends DeprecatedClassFacade {
 	 *
 	 * @var string
 	 */
-	protected static $facade_over_classname = 'Automattic\WooCommerce\Internal\Admin\Notes\NewSalesRecord';
+	protected static $facade_over_classname = 'Automattic\PooCommerce\Internal\Admin\Notes\NewSalesRecord';
 
 	/**
 	 * The version that this class was deprecated in.
@@ -318,7 +318,7 @@ class WC_Admin_Notes_Onboarding_Email_Marketing extends DeprecatedClassFacade {
 	 *
 	 * @var string
 	 */
-	protected static $facade_over_classname = 'Automattic\WooCommerce\Admin\Notes\OnboardingEmailMarketing';
+	protected static $facade_over_classname = 'Automattic\PooCommerce\Admin\Notes\OnboardingEmailMarketing';
 
 	/**
 	 * The version that this class was deprecated in.
@@ -339,7 +339,7 @@ class WC_Admin_Notes_Onboarding_Payments extends DeprecatedClassFacade {
 	 *
 	 * @var string
 	 */
-	protected static $facade_over_classname = 'Automattic\WooCommerce\Internal\Admin\Notes\OnboardingPayments';
+	protected static $facade_over_classname = 'Automattic\PooCommerce\Internal\Admin\Notes\OnboardingPayments';
 
 	/**
 	 * The version that this class was deprecated in.
@@ -360,7 +360,7 @@ class WC_Admin_Notes_Online_Clothing_Store extends DeprecatedClassFacade {
 	 *
 	 * @var string
 	 */
-	protected static $facade_over_classname = 'Automattic\WooCommerce\Internal\Admin\Notes\OnlineClothingStore';
+	protected static $facade_over_classname = 'Automattic\PooCommerce\Internal\Admin\Notes\OnlineClothingStore';
 
 	/**
 	 * The version that this class was deprecated in.
@@ -381,7 +381,7 @@ class WC_Admin_Notes_Order_Milestones extends DeprecatedClassFacade {
 	 *
 	 * @var string
 	 */
-	protected static $facade_over_classname = 'Automattic\WooCommerce\Internal\Admin\Notes\OrderMilestones';
+	protected static $facade_over_classname = 'Automattic\PooCommerce\Internal\Admin\Notes\OrderMilestones';
 
 	/**
 	 * The version that this class was deprecated in.
@@ -402,7 +402,7 @@ class WC_Admin_Notes_Performance_On_Mobile extends DeprecatedClassFacade {
 	 *
 	 * @var string
 	 */
-	protected static $facade_over_classname = 'Automattic\WooCommerce\Internal\Admin\Notes\PerformanceOnMobile';
+	protected static $facade_over_classname = 'Automattic\PooCommerce\Internal\Admin\Notes\PerformanceOnMobile';
 
 	/**
 	 * The version that this class was deprecated in.
@@ -423,7 +423,7 @@ class WC_Admin_Notes_Personalize_Store extends DeprecatedClassFacade {
 	 *
 	 * @var string
 	 */
-	protected static $facade_over_classname = 'Automattic\WooCommerce\Internal\Admin\Notes\PersonalizeStore';
+	protected static $facade_over_classname = 'Automattic\PooCommerce\Internal\Admin\Notes\PersonalizeStore';
 
 	/**
 	 * The version that this class was deprecated in.
@@ -444,7 +444,7 @@ class WC_Admin_Notes_Real_Time_Order_Alerts extends DeprecatedClassFacade {
 	 *
 	 * @var string
 	 */
-	protected static $facade_over_classname = 'Automattic\WooCommerce\Internal\Admin\Notes\RealTimeOrderAlerts';
+	protected static $facade_over_classname = 'Automattic\PooCommerce\Internal\Admin\Notes\RealTimeOrderAlerts';
 
 	/**
 	 * The version that this class was deprecated in.
@@ -465,7 +465,7 @@ class WC_Admin_Notes_Selling_Online_Courses extends DeprecatedClassFacade {
 	 *
 	 * @var string
 	 */
-	protected static $facade_over_classname = 'Automattic\WooCommerce\Internal\Admin\Notes\SellingOnlineCourses';
+	protected static $facade_over_classname = 'Automattic\PooCommerce\Internal\Admin\Notes\SellingOnlineCourses';
 
 	/**
 	 * The version that this class was deprecated in.
@@ -486,7 +486,7 @@ class WC_Admin_Notes_Tracking_Opt_In extends DeprecatedClassFacade {
 	 *
 	 * @var string
 	 */
-	protected static $facade_over_classname = 'Automattic\WooCommerce\Internal\Admin\Notes\TrackingOptIn';
+	protected static $facade_over_classname = 'Automattic\PooCommerce\Internal\Admin\Notes\TrackingOptIn';
 
 	/**
 	 * The version that this class was deprecated in.
@@ -507,7 +507,7 @@ class WC_Admin_Notes_Woo_Subscriptions_Notes extends DeprecatedClassFacade {
 	 *
 	 * @var string
 	 */
-	protected static $facade_over_classname = 'Automattic\WooCommerce\Internal\Admin\Notes\WooSubscriptionsNotes';
+	protected static $facade_over_classname = 'Automattic\PooCommerce\Internal\Admin\Notes\WooSubscriptionsNotes';
 
 	/**
 	 * The version that this class was deprecated in.
@@ -518,17 +518,17 @@ class WC_Admin_Notes_Woo_Subscriptions_Notes extends DeprecatedClassFacade {
 }
 
 /**
- * WC_Admin_Notes_WooCommerce_Payments.
+ * WC_Admin_Notes_PooCommerce_Payments.
  *
- * @deprecated since 4.8.0, use WooCommercePayments
+ * @deprecated since 4.8.0, use PooCommercePayments
  */
-class WC_Admin_Notes_WooCommerce_Payments extends DeprecatedClassFacade {
+class WC_Admin_Notes_PooCommerce_Payments extends DeprecatedClassFacade {
 	/**
 	 * The name of the non-deprecated class that this facade covers.
 	 *
 	 * @var string
 	 */
-	protected static $facade_over_classname = 'Automattic\WooCommerce\Internal\Admin\Notes\WooCommercePayments';
+	protected static $facade_over_classname = 'Automattic\PooCommerce\Internal\Admin\Notes\PooCommercePayments';
 
 	/**
 	 * The version that this class was deprecated in.
@@ -539,17 +539,17 @@ class WC_Admin_Notes_WooCommerce_Payments extends DeprecatedClassFacade {
 }
 
 /**
- * WC_Admin_Notes_WooCommerce_Subscriptions.
+ * WC_Admin_Notes_PooCommerce_Subscriptions.
  *
- * @deprecated since 4.8.0, use WooCommerceSubscriptions
+ * @deprecated since 4.8.0, use PooCommerceSubscriptions
  */
-class WC_Admin_Notes_WooCommerce_Subscriptions extends DeprecatedClassFacade {
+class WC_Admin_Notes_PooCommerce_Subscriptions extends DeprecatedClassFacade {
 	/**
 	 * The name of the non-deprecated class that this facade covers.
 	 *
 	 * @var string
 	 */
-	protected static $facade_over_classname = 'Automattic\WooCommerce\Internal\Admin\Notes\WooCommerceSubscriptions';
+	protected static $facade_over_classname = 'Automattic\PooCommerce\Internal\Admin\Notes\PooCommerceSubscriptions';
 
 	/**
 	 * The version that this class was deprecated in.

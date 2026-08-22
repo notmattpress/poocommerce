@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\GraphQL\Executor\Promise\Adapter;
+namespace Automattic\PooCommerce\Vendor\GraphQL\Executor\Promise\Adapter;
 
-use Automattic\WooCommerce\Vendor\GraphQL\Error\InvariantViolation;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\InvariantViolation;
 
 /**
  * Synchronous promise implementation following Promises A+ spec.
@@ -11,7 +11,7 @@ use Automattic\WooCommerce\Vendor\GraphQL\Error\InvariantViolation;
  * - Lightweight closures in queue (fast execution)
  * - Heavy payload (callbacks) stored on promise objects and cleared after use
  *
- * Library users should use @see \Automattic\WooCommerce\Vendor\GraphQL\Deferred to create promises.
+ * Library users should use @see \Automattic\PooCommerce\Vendor\GraphQL\Deferred to create promises.
  *
  * @phpstan-type Executor callable(): mixed
  */

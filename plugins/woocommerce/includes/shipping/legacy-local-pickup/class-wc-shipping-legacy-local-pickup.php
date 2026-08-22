@@ -2,7 +2,7 @@
 /**
  * Class WC_Shipping_Legacy_Local_Pickup file.
  *
- * @package WooCommerce\Shipping
+ * @package PooCommerce\Shipping
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @deprecated  2.6.0
  * @version     2.3.0
- * @package     WooCommerce\Classes\Shipping
+ * @package     PooCommerce\Classes\Shipping
  */
 class WC_Shipping_Legacy_Local_Pickup extends WC_Shipping_Method {
 
@@ -32,9 +32,9 @@ class WC_Shipping_Legacy_Local_Pickup extends WC_Shipping_Method {
 	 */
 	public function __construct() {
 		$this->id           = 'legacy_local_pickup';
-		$this->method_title = __( 'Local pickup (legacy)', 'woocommerce' );
+		$this->method_title = __( 'Local pickup (legacy)', 'poocommerce' );
 		/* translators: %s: Admin shipping settings URL */
-		$this->method_description = '<strong>' . sprintf( __( 'This method is deprecated in 2.6.0 and will be removed in future versions - we recommend disabling it and instead setting up a new rate within your <a href="%s">Shipping zones</a>.', 'woocommerce' ), admin_url( 'admin.php?page=wc-settings&tab=shipping' ) ) . '</strong>';
+		$this->method_description = '<strong>' . sprintf( __( 'This method is deprecated in 2.6.0 and will be removed in future versions - we recommend disabling it and instead setting up a new rate within your <a href="%s">Shipping zones</a>.', 'poocommerce' ), admin_url( 'admin.php?page=wc-settings&tab=shipping' ) ) . '</strong>';
 		$this->init();
 	}
 
@@ -77,7 +77,7 @@ class WC_Shipping_Legacy_Local_Pickup extends WC_Shipping_Method {
 		$this->countries    = $this->get_option( 'countries' );
 
 		// Actions.
-		add_action( 'woocommerce_update_options_shipping_' . $this->id, array( $this, 'process_admin_options' ) );
+		add_action( 'poocommerce_update_options_shipping_' . $this->id, array( $this, 'process_admin_options' ) );
 	}
 
 	/**
@@ -100,45 +100,45 @@ class WC_Shipping_Legacy_Local_Pickup extends WC_Shipping_Method {
 	public function init_form_fields() {
 		$this->form_fields = array(
 			'enabled'      => array(
-				'title'   => __( 'Enable', 'woocommerce' ),
+				'title'   => __( 'Enable', 'poocommerce' ),
 				'type'    => 'checkbox',
-				'label'   => __( 'Once disabled, this legacy method will no longer be available.', 'woocommerce' ),
+				'label'   => __( 'Once disabled, this legacy method will no longer be available.', 'poocommerce' ),
 				'default' => 'no',
 			),
 			'title'        => array(
-				'title'       => __( 'Title', 'woocommerce' ),
+				'title'       => __( 'Title', 'poocommerce' ),
 				'type'        => 'text',
-				'description' => __( 'This controls the title which the user sees during checkout.', 'woocommerce' ),
-				'default'     => __( 'Local pickup', 'woocommerce' ),
+				'description' => __( 'This controls the title which the user sees during checkout.', 'poocommerce' ),
+				'default'     => __( 'Local pickup', 'poocommerce' ),
 				'desc_tip'    => true,
 			),
 			'codes'        => array(
-				'title'       => __( 'Allowed ZIP/post codes', 'woocommerce' ),
+				'title'       => __( 'Allowed ZIP/post codes', 'poocommerce' ),
 				'type'        => 'text',
-				'desc_tip'    => __( 'What ZIP/post codes are available for local pickup?', 'woocommerce' ),
+				'desc_tip'    => __( 'What ZIP/post codes are available for local pickup?', 'poocommerce' ),
 				'default'     => '',
-				'description' => __( 'Separate codes with a comma. Accepts wildcards, e.g. <code>P*</code> will match a postcode of PE30. Also accepts a pattern, e.g. <code>NG1___</code> would match NG1 1AA but not NG10 1AA', 'woocommerce' ),
+				'description' => __( 'Separate codes with a comma. Accepts wildcards, e.g. <code>P*</code> will match a postcode of PE30. Also accepts a pattern, e.g. <code>NG1___</code> would match NG1 1AA but not NG10 1AA', 'poocommerce' ),
 				'placeholder' => 'e.g. 12345, 56789',
 			),
 			'availability' => array(
-				'title'   => __( 'Method availability', 'woocommerce' ),
+				'title'   => __( 'Method availability', 'poocommerce' ),
 				'type'    => 'select',
 				'default' => 'all',
 				'class'   => 'availability wc-enhanced-select',
 				'options' => array(
-					'all'      => __( 'All allowed countries', 'woocommerce' ),
-					'specific' => __( 'Specific countries', 'woocommerce' ),
+					'all'      => __( 'All allowed countries', 'poocommerce' ),
+					'specific' => __( 'Specific countries', 'poocommerce' ),
 				),
 			),
 			'countries'    => array(
-				'title'             => __( 'Specific countries', 'woocommerce' ),
+				'title'             => __( 'Specific countries', 'poocommerce' ),
 				'type'              => 'multiselect',
 				'class'             => 'wc-enhanced-select',
 				'css'               => 'width: 400px;',
 				'default'           => '',
 				'options'           => WC()->countries->get_shipping_countries(),
 				'custom_attributes' => array(
-					'data-placeholder' => __( 'Select some countries', 'woocommerce' ),
+					'data-placeholder' => __( 'Select some countries', 'poocommerce' ),
 				),
 			),
 		);
@@ -223,7 +223,7 @@ class WC_Shipping_Legacy_Local_Pickup extends WC_Shipping_Method {
 			}
 		}
 
-		return apply_filters( 'woocommerce_shipping_' . $this->id . '_is_available', $is_available, $package, $this );
+		return apply_filters( 'poocommerce_shipping_' . $this->id . '_is_available', $is_available, $package, $this );
 	}
 
 	/**

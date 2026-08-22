@@ -2,7 +2,7 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\CustomerEmailVerification;
+namespace Automattic\PooCommerce\Internal\CustomerEmailVerification;
 
 use WP_User;
 
@@ -12,7 +12,7 @@ defined( 'ABSPATH' ) || exit;
  * Listens for account events that should change a customer's email-verification status.
  *
  * Completing a password reset proves the customer controls their inbox, so it marks the
- * email verified. This fires for both WordPress core resets (wp-login.php) and WooCommerce
+ * email verified. This fires for both WordPress core resets (wp-login.php) and PooCommerce
  * resets (lost-password and the new-account set-password link), all of which are email-based
  * and dispatch the core `after_password_reset` action.
  *

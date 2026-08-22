@@ -1,17 +1,17 @@
 <?php
 /**
- * Plugin Name: WooCommerce Blocks Test Locale Hide Country
- * Description: Uses woocommerce_get_country_locale to hide the country field and other address fields.
- * Plugin URI: https://github.com/woocommerce/woocommerce
- * Author: WooCommerce
+ * Plugin Name: PooCommerce Blocks Test Locale Hide Country
+ * Description: Uses poocommerce_get_country_locale to hide the country field and other address fields.
+ * Plugin URI: https://github.com/poocommerce/poocommerce
+ * Author: PooCommerce
  *
- * @package woocommerce-blocks-test-locale-hide-country
+ * @package poocommerce-blocks-test-locale-hide-country
  */
 
 declare(strict_types=1);
 
 add_filter(
-	'woocommerce_get_country_locale',
+	'poocommerce_get_country_locale',
 	function ( $locales ) {
 		$hidden_fields = array( 'country', 'city', 'postcode', 'address_1', 'address_2', 'state', 'phone' );
 		foreach ( $locales as $country => $locale ) {

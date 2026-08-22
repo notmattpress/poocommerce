@@ -27,24 +27,24 @@ export const OverwriteConfirmationModal = ( {
 	}
 	return (
 		<Modal
-			title={ __( 'Review what this Blueprint will do', 'woocommerce' ) }
+			title={ __( 'Review what this Blueprint will do', 'poocommerce' ) }
 			onRequestClose={ onClose }
-			className="woocommerce-blueprint-overwrite-modal"
+			className="poocommerce-blueprint-overwrite-modal"
 			isDismissible={ ! isImporting }
 		>
-			<p className="woocommerce-blueprint-overwrite-modal__description">
+			<p className="poocommerce-blueprint-overwrite-modal__description">
 				{ overwrittenItems.length
 					? __(
-							'Importing the file will overwrite the current configuration for the following items in WooCommerce Settings:',
-							'woocommerce'
+							'Importing the file will overwrite the current configuration for the following items in PooCommerce Settings:',
+							'poocommerce'
 					  )
 					: __(
-							'Importing the file will overwrite the current configuration in WooCommerce Settings.',
-							'woocommerce'
+							'Importing the file will overwrite the current configuration in PooCommerce Settings.',
+							'poocommerce'
 					  ) }
 			</p>
 
-			<ul className="woocommerce-blueprint-overwrite-modal__list">
+			<ul className="poocommerce-blueprint-overwrite-modal__list">
 				{ overwrittenItems.map( ( item ) => (
 					<li key={ item }>{ item }</li>
 				) ) }
@@ -52,10 +52,10 @@ export const OverwriteConfirmationModal = ( {
 
 			{ !! additionalActions.length && (
 				<>
-					<p className="woocommerce-blueprint-overwrite-modal__description woocommerce-blueprint-overwrite-modal__description--actions">
-						{ __( 'It will also:', 'woocommerce' ) }
+					<p className="poocommerce-blueprint-overwrite-modal__description poocommerce-blueprint-overwrite-modal__description--actions">
+						{ __( 'It will also:', 'poocommerce' ) }
 					</p>
-					<ul className="woocommerce-blueprint-overwrite-modal__list">
+					<ul className="poocommerce-blueprint-overwrite-modal__list">
 						{ additionalActions.map( ( action ) => (
 							<li key={ action }>{ action }</li>
 						) ) }
@@ -66,26 +66,26 @@ export const OverwriteConfirmationModal = ( {
 			<Notice
 				status="warning"
 				isDismissible={ false }
-				className="woocommerce-blueprint-overwrite-modal__trust-notice"
+				className="poocommerce-blueprint-overwrite-modal__trust-notice"
 			>
 				{ __(
 					'A Blueprint runs with your administrator access, so it can change anything on your site — including data that is not listed above. Only import files from a source you trust.',
-					'woocommerce'
+					'poocommerce'
 				) }
 			</Notice>
 
-			<div className="woocommerce-blueprint-overwrite-modal__actions">
+			<div className="poocommerce-blueprint-overwrite-modal__actions">
 				<Button
-					className="woocommerce-blueprint-overwrite-modal__actions-cancel"
+					className="poocommerce-blueprint-overwrite-modal__actions-cancel"
 					variant="tertiary"
 					onClick={ onClose }
 					disabled={ isImporting }
 				>
-					{ __( 'Cancel', 'woocommerce' ) }
+					{ __( 'Cancel', 'poocommerce' ) }
 				</Button>
 				<Button
 					className={ clsx(
-						'woocommerce-blueprint-overwrite-modal__actions-import',
+						'poocommerce-blueprint-overwrite-modal__actions-import',
 						{
 							'is-importing': isImporting,
 						}
@@ -96,7 +96,7 @@ export const OverwriteConfirmationModal = ( {
 					{ isImporting ? (
 						<Spinner />
 					) : (
-						__( 'Import', 'woocommerce' )
+						__( 'Import', 'poocommerce' )
 					) }
 				</Button>
 			</div>

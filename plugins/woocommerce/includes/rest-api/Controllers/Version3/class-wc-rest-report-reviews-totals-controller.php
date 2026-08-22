@@ -4,7 +4,7 @@
  *
  * Handles requests to the /reports/reviews/count endpoint.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @since   3.5.0
  */
 
@@ -13,7 +13,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * REST API Reports Reviews Totals controller class.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @extends WC_REST_Reports_Controller
  */
 class WC_REST_Report_Reviews_Totals_Controller extends WC_REST_Reports_Controller {
@@ -54,7 +54,7 @@ class WC_REST_Report_Reviews_Totals_Controller extends WC_REST_Reports_Controlle
 			$data[] = array(
 				'slug'  => 'rated_' . $i . '_out_of_5',
 				/* translators: %s: average rating */
-				'name'  => sprintf( __( 'Rated %s out of 5', 'woocommerce' ), $i ),
+				'name'  => sprintf( __( 'Rated %s out of 5', 'poocommerce' ), $i ),
 				'total' => (int) get_comments( $query_data ),
 			);
 		}
@@ -92,7 +92,7 @@ class WC_REST_Report_Reviews_Totals_Controller extends WC_REST_Reports_Controlle
 		 * @param object           $report   The original report object.
 		 * @param WP_REST_Request  $request  Request used to generate the response.
 		 */
-		return apply_filters( 'woocommerce_rest_prepare_report_reviews_count', $response, $report, $request );
+		return apply_filters( 'poocommerce_rest_prepare_report_reviews_count', $response, $report, $request );
 	}
 
 	/**
@@ -107,19 +107,19 @@ class WC_REST_Report_Reviews_Totals_Controller extends WC_REST_Reports_Controlle
 			'type'       => 'object',
 			'properties' => array(
 				'slug'  => array(
-					'description' => __( 'An alphanumeric identifier for the resource.', 'woocommerce' ),
+					'description' => __( 'An alphanumeric identifier for the resource.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
 				'name'  => array(
-					'description' => __( 'Review type name.', 'woocommerce' ),
+					'description' => __( 'Review type name.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
 				'total' => array(
-					'description' => __( 'Amount of reviews.', 'woocommerce' ),
+					'description' => __( 'Amount of reviews.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view' ),
 					'readonly'    => true,

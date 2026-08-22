@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Mutations;
+namespace Automattic\PooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Mutations;
 
-use Automattic\WooCommerce\Api\Attributes\Description;
-use Automattic\WooCommerce\Api\Attributes\Name;
-use Automattic\WooCommerce\Api\Attributes\PublicAccess;
+use Automattic\PooCommerce\Api\Attributes\Description;
+use Automattic\PooCommerce\Api\Attributes\Name;
+use Automattic\PooCommerce\Api\Attributes\PublicAccess;
 
 /**
  * Mutation that returns a scalar (int) — exercises the generator's "wrap a

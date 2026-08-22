@@ -6,7 +6,7 @@ import { page } from '@wordpress/icons';
 import {
 	BLOCK_DESCRIPTION,
 	BLOCK_TITLE,
-} from '@woocommerce/atomic-blocks/product-elements/summary/constants';
+} from '@poocommerce/atomic-blocks/product-elements/summary/constants';
 
 /**
  * Internal dependencies
@@ -14,7 +14,7 @@ import {
 import { registerElementVariation } from './utils';
 
 export const CORE_NAME = 'core/post-excerpt';
-export const VARIATION_NAME = 'woocommerce/product-query/product-summary';
+export const VARIATION_NAME = 'poocommerce/product-query/product-summary';
 
 registerElementVariation( CORE_NAME, {
 	blockDescription: BLOCK_DESCRIPTION,

@@ -1,16 +1,16 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Blocks;
+namespace Automattic\PooCommerce\Blocks;
 
-use Automattic\WooCommerce\Blocks\Assets\AssetDataRegistry;
-use Automattic\WooCommerce\Blocks\Assets\Api as AssetApi;
-use Automattic\WooCommerce\Blocks\Integrations\IntegrationRegistry;
-use Automattic\WooCommerce\Blocks\BlockTypes\Cart;
-use Automattic\WooCommerce\Blocks\BlockTypes\Checkout;
-use Automattic\WooCommerce\Blocks\BlockTypes\MiniCartContents;
-use Automattic\WooCommerce\Internal\Features\BlockEditorUnifiedAssets;
-use Automattic\WooCommerce\Internal\ShopperLists\ShopperListsController;
+use Automattic\PooCommerce\Blocks\Assets\AssetDataRegistry;
+use Automattic\PooCommerce\Blocks\Assets\Api as AssetApi;
+use Automattic\PooCommerce\Blocks\Integrations\IntegrationRegistry;
+use Automattic\PooCommerce\Blocks\BlockTypes\Cart;
+use Automattic\PooCommerce\Blocks\BlockTypes\Checkout;
+use Automattic\PooCommerce\Blocks\BlockTypes\MiniCartContents;
+use Automattic\PooCommerce\Internal\Features\BlockEditorUnifiedAssets;
+use Automattic\PooCommerce\Internal\ShopperLists\ShopperListsController;
 
 /**
  * BlockTypesController class.
@@ -35,11 +35,11 @@ final class BlockTypesController {
 	protected $asset_data_registry;
 
 	/**
-	 * Holds the registered blocks that have WooCommerce blocks as their parents.
+	 * Holds the registered blocks that have PooCommerce blocks as their parents.
 	 *
 	 * @var array List of registered blocks.
 	 */
-	private $registered_blocks_with_woocommerce_parents;
+	private $registered_blocks_with_poocommerce_parents;
 
 	/**
 	 * Whether register_blocks() has run in this request.
@@ -68,29 +68,29 @@ final class BlockTypesController {
 	/**
 	 * Initialize class features.
 	 */
-	protected function init() { // phpcs:ignore WooCommerce.Functions.InternalInjectionMethod.MissingPublic
+	protected function init() { // phpcs:ignore PooCommerce.Functions.InternalInjectionMethod.MissingPublic
 		add_action( 'init', array( $this, 'register_blocks' ) );
 		add_action( 'wp_loaded', array( $this, 'register_block_patterns' ) );
 		add_filter( 'block_categories_all', array( $this, 'register_block_categories' ), 10, 2 );
 		add_filter( 'render_block', array( $this, 'add_data_attributes' ), 10, 2 );
-		add_action( 'woocommerce_login_form_end', array( $this, 'redirect_to_field' ) );
+		add_action( 'poocommerce_login_form_end', array( $this, 'redirect_to_field' ) );
 		add_filter( 'widget_types_to_hide_from_legacy_widget_block', array( $this, 'hide_legacy_widgets_with_block_equivalent' ) );
 		add_filter( 'block_type_metadata_settings', array( $this, 'use_single_block_editor_style' ), 10, 2 );
 		add_filter( 'register_block_type_args', array( $this, 'enqueue_block_style_for_classic_themes' ), 10, 2 );
 		add_filter( 'block_core_breadcrumbs_post_type_settings', array( $this, 'set_product_breadcrumbs_preferred_taxonomy' ), 10, 3 );
-		add_filter( 'block_core_breadcrumbs_items', array( $this, 'apply_woocommerce_breadcrumb_filters' ), 10, 1 );
+		add_filter( 'block_core_breadcrumbs_items', array( $this, 'apply_poocommerce_breadcrumb_filters' ), 10, 1 );
 	}
 
 	/**
-	 * Get registered blocks that have WooCommerce blocks as their parents. Adds the value to the
-	 * `registered_blocks_with_woocommerce_parents` cache if `init` has been fired.
+	 * Get registered blocks that have PooCommerce blocks as their parents. Adds the value to the
+	 * `registered_blocks_with_poocommerce_parents` cache if `init` has been fired.
 	 *
-	 * @return array Registered blocks with WooCommerce blocks as parents.
+	 * @return array Registered blocks with PooCommerce blocks as parents.
 	 */
-	public function get_registered_blocks_with_woocommerce_parent() {
+	public function get_registered_blocks_with_poocommerce_parent() {
 		// If init has run and the cache is already set, return it.
-		if ( did_action( 'init' ) && ! empty( $this->registered_blocks_with_woocommerce_parents ) ) {
-			return $this->registered_blocks_with_woocommerce_parents;
+		if ( did_action( 'init' ) && ! empty( $this->registered_blocks_with_poocommerce_parents ) ) {
+			return $this->registered_blocks_with_poocommerce_parents;
 		}
 
 		$registered_blocks = \WP_Block_Type_Registry::get_instance()->get_all_registered();
@@ -99,7 +99,7 @@ final class BlockTypesController {
 			return array();
 		}
 
-		$this->registered_blocks_with_woocommerce_parents = array_filter(
+		$this->registered_blocks_with_poocommerce_parents = array_filter(
 			$registered_blocks,
 			function ( $block ) {
 				if ( empty( $block->parent ) ) {
@@ -108,16 +108,16 @@ final class BlockTypesController {
 				if ( ! is_array( $block->parent ) ) {
 					$block->parent = array( $block->parent );
 				}
-				$woocommerce_blocks = array_filter(
+				$poocommerce_blocks = array_filter(
 					$block->parent,
 					function ( $parent_block_name ) {
-						return 'woocommerce' === strtok( $parent_block_name, '/' );
+						return 'poocommerce' === strtok( $parent_block_name, '/' );
 					}
 				);
-				return ! empty( $woocommerce_blocks );
+				return ! empty( $poocommerce_blocks );
 			}
 		);
-		return $this->registered_blocks_with_woocommerce_parents;
+		return $this->registered_blocks_with_poocommerce_parents;
 	}
 
 	/**
@@ -142,7 +142,7 @@ final class BlockTypesController {
 	 *
 	 * Covers only the AbstractBlock-based block types that register_blocks() registers — blocks registered
 	 * through other paths are not tracked. Used by the on-demand registration on the
-	 * woocommerce_short_description filter (see Bootstrap::maybe_register_blocks_from_content) to avoid
+	 * poocommerce_short_description filter (see Bootstrap::maybe_register_blocks_from_content) to avoid
 	 * re-registering the block set when eager registration already ran on init.
 	 *
 	 * @since 11.1.0
@@ -154,7 +154,7 @@ final class BlockTypesController {
 	}
 
 	/**
-	 * Register block metadata collections for WooCommerce blocks.
+	 * Register block metadata collections for PooCommerce blocks.
 	 *
 	 * This method handles the registration of block metadata by using WordPress's block metadata
 	 * collection registration system. It includes a temporary workaround for WordPress 6.7's
@@ -204,43 +204,43 @@ final class BlockTypesController {
 	 */
 	public function register_block_patterns() {
 		register_block_pattern(
-			'woocommerce/order-confirmation-totals-heading',
+			'poocommerce/order-confirmation-totals-heading',
 			array(
 				'title'    => '',
 				'inserter' => false,
-				'content'  => '<!-- wp:heading {"level":2,"style":{"typography":{"fontSize":"24px"}}} --><h2 class="wp-block-heading" style="font-size:24px">' . esc_html__( 'Order details', 'woocommerce' ) . '</h2><!-- /wp:heading -->',
+				'content'  => '<!-- wp:heading {"level":2,"style":{"typography":{"fontSize":"24px"}}} --><h2 class="wp-block-heading" style="font-size:24px">' . esc_html__( 'Order details', 'poocommerce' ) . '</h2><!-- /wp:heading -->',
 			)
 		);
 		register_block_pattern(
-			'woocommerce/order-confirmation-downloads-heading',
+			'poocommerce/order-confirmation-downloads-heading',
 			array(
 				'title'    => '',
 				'inserter' => false,
-				'content'  => '<!-- wp:heading {"level":2,"style":{"typography":{"fontSize":"24px"}}} --><h2 class="wp-block-heading" style="font-size:24px">' . esc_html__( 'Downloads', 'woocommerce' ) . '</h2><!-- /wp:heading -->',
+				'content'  => '<!-- wp:heading {"level":2,"style":{"typography":{"fontSize":"24px"}}} --><h2 class="wp-block-heading" style="font-size:24px">' . esc_html__( 'Downloads', 'poocommerce' ) . '</h2><!-- /wp:heading -->',
 			)
 		);
 		register_block_pattern(
-			'woocommerce/order-confirmation-shipping-heading',
+			'poocommerce/order-confirmation-shipping-heading',
 			array(
 				'title'    => '',
 				'inserter' => false,
-				'content'  => '<!-- wp:heading {"level":2,"style":{"typography":{"fontSize":"24px"}}} --><h2 class="wp-block-heading" style="font-size:24px">' . esc_html__( 'Shipping address', 'woocommerce' ) . '</h2><!-- /wp:heading -->',
+				'content'  => '<!-- wp:heading {"level":2,"style":{"typography":{"fontSize":"24px"}}} --><h2 class="wp-block-heading" style="font-size:24px">' . esc_html__( 'Shipping address', 'poocommerce' ) . '</h2><!-- /wp:heading -->',
 			)
 		);
 		register_block_pattern(
-			'woocommerce/order-confirmation-billing-heading',
+			'poocommerce/order-confirmation-billing-heading',
 			array(
 				'title'    => '',
 				'inserter' => false,
-				'content'  => '<!-- wp:heading {"level":2,"style":{"typography":{"fontSize":"24px"}}} --><h2 class="wp-block-heading" style="font-size:24px">' . esc_html__( 'Billing address', 'woocommerce' ) . '</h2><!-- /wp:heading -->',
+				'content'  => '<!-- wp:heading {"level":2,"style":{"typography":{"fontSize":"24px"}}} --><h2 class="wp-block-heading" style="font-size:24px">' . esc_html__( 'Billing address', 'poocommerce' ) . '</h2><!-- /wp:heading -->',
 			)
 		);
 		register_block_pattern(
-			'woocommerce/order-confirmation-additional-fields-heading',
+			'poocommerce/order-confirmation-additional-fields-heading',
 			array(
 				'title'    => '',
 				'inserter' => false,
-				'content'  => '<!-- wp:heading {"level":2,"style":{"typography":{"fontSize":"24px"}}} --><h2 class="wp-block-heading" style="font-size:24px">' . esc_html__( 'Additional information', 'woocommerce' ) . '</h2><!-- /wp:heading -->',
+				'content'  => '<!-- wp:heading {"level":2,"style":{"typography":{"fontSize":"24px"}}} --><h2 class="wp-block-heading" style="font-size:24px">' . esc_html__( 'Additional information', 'poocommerce' ) . '</h2><!-- /wp:heading -->',
 			)
 		);
 	}
@@ -249,28 +249,28 @@ final class BlockTypesController {
 	 * Register block categories
 	 *
 	 * Used in combination with the `block_categories_all` filter, to append
-	 * WooCommerce Blocks related categories to the Gutenberg editor.
+	 * PooCommerce Blocks related categories to the Gutenberg editor.
 	 *
 	 * @param array $categories The array of already registered categories.
 	 */
 	public function register_block_categories( $categories ) {
-		$woocommerce_block_categories = array(
+		$poocommerce_block_categories = array(
 			array(
-				'slug'  => 'woocommerce',
-				'title' => __( 'WooCommerce', 'woocommerce' ),
+				'slug'  => 'poocommerce',
+				'title' => __( 'PooCommerce', 'poocommerce' ),
 			),
 			array(
-				'slug'  => 'woocommerce-product-elements',
-				'title' => __( 'WooCommerce Product Elements', 'woocommerce' ),
+				'slug'  => 'poocommerce-product-elements',
+				'title' => __( 'PooCommerce Product Elements', 'poocommerce' ),
 			),
 		);
 
-		return array_merge( $categories, $woocommerce_block_categories );
+		return array_merge( $categories, $poocommerce_block_categories );
 	}
 
 	/**
 	 * Check if a block should have data attributes appended on render. If it's in an allowed namespace, or the block
-	 * has explicitly been added to the allowed block list, or if one of the block's parents is in the WooCommerce
+	 * has explicitly been added to the allowed block list, or if one of the block's parents is in the PooCommerce
 	 * namespace it can have data attributes.
 	 *
 	 * @param string $block_name Name of the block to check.
@@ -289,7 +289,7 @@ final class BlockTypesController {
 		 *
 		 * @param array $allowed_namespaces List of namespaces.
 		 */
-		$allowed_namespaces = array_merge( array( 'woocommerce', 'woocommerce-checkout' ), (array) apply_filters( '__experimental_woocommerce_blocks_add_data_attributes_to_namespace', array() ) );
+		$allowed_namespaces = array_merge( array( 'poocommerce', 'poocommerce-checkout' ), (array) apply_filters( '__experimental_poocommerce_blocks_add_data_attributes_to_namespace', array() ) );
 
 		/**
 		 * Filters the list of allowed Block Names
@@ -300,9 +300,9 @@ final class BlockTypesController {
 		 *
 		 * @param array $allowed_namespaces List of namespaces.
 		 */
-		$allowed_blocks = (array) apply_filters( '__experimental_woocommerce_blocks_add_data_attributes_to_block', array() );
+		$allowed_blocks = (array) apply_filters( '__experimental_poocommerce_blocks_add_data_attributes_to_block', array() );
 
-		$blocks_with_woo_parents   = $this->get_registered_blocks_with_woocommerce_parent();
+		$blocks_with_woo_parents   = $this->get_registered_blocks_with_poocommerce_parent();
 		$block_has_woo_parent      = in_array( $block_name, array_keys( $blocks_with_woo_parents ), true );
 		$in_allowed_namespace_list = in_array( $block_namespace, $allowed_namespaces, true );
 		$in_allowed_block_list     = in_array( $block_name, $allowed_blocks, true );
@@ -311,7 +311,7 @@ final class BlockTypesController {
 	}
 
 	/**
-	 * Add data- attributes to blocks when rendered if the block is under the woocommerce/ namespace.
+	 * Add data- attributes to blocks when rendered if the block is under the poocommerce/ namespace.
 	 *
 	 * @param string $content Block content.
 	 * @param array  $block Parsed block data.
@@ -373,19 +373,19 @@ final class BlockTypesController {
 	 * and prevent them from showing as an option in the Legacy Widget block.
 	 *
 	 * @param array $widget_types An array of widgets hidden in core.
-	 * @return array $widget_types An array including the WooCommerce widgets to hide.
+	 * @return array $widget_types An array including the PooCommerce widgets to hide.
 	 */
 	public function hide_legacy_widgets_with_block_equivalent( $widget_types ) {
 		array_push(
 			$widget_types,
-			'woocommerce_product_search',
-			'woocommerce_product_categories',
-			'woocommerce_recent_reviews',
-			'woocommerce_product_tag_cloud',
-			'woocommerce_price_filter',
-			'woocommerce_layered_nav',
-			'woocommerce_layered_nav_filters',
-			'woocommerce_rating_filter'
+			'poocommerce_product_search',
+			'poocommerce_product_categories',
+			'poocommerce_recent_reviews',
+			'poocommerce_product_tag_cloud',
+			'poocommerce_price_filter',
+			'poocommerce_layered_nav',
+			'poocommerce_layered_nav_filters',
+			'poocommerce_rating_filter'
 		);
 
 		return $widget_types;
@@ -559,12 +559,12 @@ final class BlockTypesController {
 		 *
 		 * @param array $block_types List of block types.
 		 */
-		return apply_filters( 'woocommerce_get_block_types', $block_types );
+		return apply_filters( 'poocommerce_get_block_types', $block_types );
 	}
 
 	/**
 	 * By default, when the classic theme is used, block style is always
-	 * enqueued even if the block is not used on the page. We want WooCommerce
+	 * enqueued even if the block is not used on the page. We want PooCommerce
 	 * store to always performant so we have to manually enqueue the block style
 	 * on-demand for classic themes.
 	 *
@@ -594,7 +594,7 @@ final class BlockTypesController {
 		}
 
 		if (
-			false === strpos( $block_name, 'woocommerce/' ) ||
+			false === strpos( $block_name, 'poocommerce/' ) ||
 			( empty( $args['style_handles'] ) && empty( $args['style'] )
 			)
 		) {
@@ -620,9 +620,9 @@ final class BlockTypesController {
 	}
 
 	/**
-	 * Use one shared editor stylesheet for WooCommerce blocks.
+	 * Use one shared editor stylesheet for PooCommerce blocks.
 	 *
-	 * WordPress loads `style` handles in both the frontend and editor. WooCommerce
+	 * WordPress loads `style` handles in both the frontend and editor. PooCommerce
 	 * keeps those per-block handles for frontend performance, but removes them in
 	 * admin so the block editor loads the combined stylesheet only.
 	 *
@@ -637,7 +637,7 @@ final class BlockTypesController {
 		if (
 			! BlockEditorUnifiedAssets::is_enabled() ||
 			! is_admin() ||
-			! $this->is_woocommerce_block_metadata( $metadata ) ) {
+			! $this->is_poocommerce_block_metadata( $metadata ) ) {
 			return $settings;
 		}
 
@@ -650,13 +650,13 @@ final class BlockTypesController {
 	}
 
 	/**
-	 * Check whether block metadata belongs to a block bundled with WooCommerce.
+	 * Check whether block metadata belongs to a block bundled with PooCommerce.
 	 *
 	 * @param array $metadata Block metadata.
 	 *
-	 * @return bool Whether the metadata file is in the WooCommerce blocks directory.
+	 * @return bool Whether the metadata file is in the PooCommerce blocks directory.
 	 */
-	private function is_woocommerce_block_metadata( $metadata ) {
+	private function is_poocommerce_block_metadata( $metadata ) {
 		static $blocks_path = null;
 
 		if ( null === $blocks_path ) {
@@ -691,14 +691,14 @@ final class BlockTypesController {
 	}
 
 	/**
-	 * Apply WooCommerce compatibility behavior to Core breadcrumb items.
+	 * Apply PooCommerce compatibility behavior to Core breadcrumb items.
 	 *
 	 * @internal
 	 *
 	 * @param array $items Array of breadcrumb items from Core.
 	 * @return array Modified breadcrumb items.
 	 */
-	public function apply_woocommerce_breadcrumb_filters( $items ) {
-		return Package::container()->get( CoreBreadcrumbsCompatibility::class )->apply_woocommerce_breadcrumb_filters( $items );
+	public function apply_poocommerce_breadcrumb_filters( $items ) {
+		return Package::container()->get( CoreBreadcrumbsCompatibility::class )->apply_poocommerce_breadcrumb_filters( $items );
 	}
 }

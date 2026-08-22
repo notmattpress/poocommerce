@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Types;
+namespace Automattic\PooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Types;
 
-use Automattic\WooCommerce\Api\Attributes\Description;
-use Automattic\WooCommerce\Api\Attributes\Name;
-use Automattic\WooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Interfaces\Named;
+use Automattic\PooCommerce\Api\Attributes\Description;
+use Automattic\PooCommerce\Api\Attributes\Name;
+use Automattic\PooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Interfaces\Named;
 
 /**
  * A second concrete implementation of {@see Named}, used to verify that

@@ -19,7 +19,7 @@ import { isRestApiError } from '../types';
 const dispatch =
 	controls && controls.dispatch ? controls.dispatch : depreciatedDispatch;
 
-// [class-wc-rest-setting-options-controller.php](https://github.com/woocommerce/woocommerce/blob/28926968bdcd2b504e16761a483388f85ee0c151/plugins/woocommerce/includes/rest-api/Controllers/Version3/class-wc-rest-setting-options-controller.php#L158-L248)
+// [class-wc-rest-setting-options-controller.php](https://github.com/poocommerce/poocommerce/blob/28926968bdcd2b504e16761a483388f85ee0c151/plugins/poocommerce/includes/rest-api/Controllers/Version3/class-wc-rest-setting-options-controller.php#L158-L248)
 type RawSetting = {
 	id: string;
 	group_id: string;

@@ -52,7 +52,7 @@ const assertBlockComponent = ( options, optionName ) => {
 /**
  * Register a Block Component.
  *
- * WooCommerce Blocks allows React Components to be used on the frontend of the store in place of
+ * PooCommerce Blocks allows React Components to be used on the frontend of the store in place of
  * Blocks instead of just serving static content.
  *
  * Registering a Block Component allows you to define which React Component should be used in place

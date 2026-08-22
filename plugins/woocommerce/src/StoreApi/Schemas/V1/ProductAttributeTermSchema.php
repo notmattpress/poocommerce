@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\StoreApi\Schemas\V1;
+namespace Automattic\PooCommerce\StoreApi\Schemas\V1;
 
-use Automattic\WooCommerce\Internal\ProductAttributes\VisualAttributeTermMeta;
+use Automattic\PooCommerce\Internal\ProductAttributes\VisualAttributeTermMeta;
 
 /**
  * ProductAttributeTermSchema class.
@@ -50,7 +50,7 @@ class ProductAttributeTermSchema extends TermSchema {
 	 */
 	private function get_visual_property_schema(): array {
 		return array(
-			'description' => __( 'Experimental visual swatch data for wc-visual attribute terms.', 'woocommerce' ),
+			'description' => __( 'Experimental visual swatch data for wc-visual attribute terms.', 'poocommerce' ),
 			'type'        => 'object',
 			'context'     => array( 'view', 'edit' ),
 			'readonly'    => true,

@@ -9,9 +9,9 @@ declare(strict_types=1);
  * the LICENSE file that was distributed with this source code.
  */
 
-namespace Automattic\WooCommerce\Vendor\League\ISO3166;
+namespace Automattic\PooCommerce\Vendor\League\ISO3166;
 
-use Automattic\WooCommerce\Vendor\League\ISO3166\Exception\DomainException;
+use Automattic\PooCommerce\Vendor\League\ISO3166\Exception\DomainException;
 
 final class ISO3166DataValidator
 {
@@ -32,7 +32,7 @@ final class ISO3166DataValidator
     /**
      * @param array<string, mixed> $entry
      *
-     * @throws \Automattic\WooCommerce\Vendor\League\ISO3166\Exception\DomainException if given data entry does not have all the required keys
+     * @throws \Automattic\PooCommerce\Vendor\League\ISO3166\Exception\DomainException if given data entry does not have all the required keys
      */
     private function assertEntryHasRequiredKeys(array $entry): void
     {

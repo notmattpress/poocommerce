@@ -6,12 +6,12 @@
  * Copyright (c) 2019 Jevon Wright
  * MIT License
  *
- * @package Automattic\WooCommerce\EmailEditor
+ * @package Automattic\PooCommerce\EmailEditor
  */
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\EmailEditor\Engine\Renderer;
+namespace Automattic\PooCommerce\EmailEditor\Engine\Renderer;
 
 /**
  * Converts HTML into plain text format suitable for email display

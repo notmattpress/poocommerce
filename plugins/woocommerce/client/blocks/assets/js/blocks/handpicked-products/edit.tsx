@@ -36,7 +36,7 @@ export const EditBlock = ( props: Props ): JSX.Element => {
 							icon: 'edit',
 							title: __(
 								'Edit selected products',
-								'woocommerce'
+								'poocommerce'
 							),
 							onClick: () => setIsEditing( ! isEditing ),
 							isActive: isEditing,

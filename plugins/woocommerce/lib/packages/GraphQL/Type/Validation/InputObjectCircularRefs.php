@@ -1,13 +1,13 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\GraphQL\Type\Validation;
+namespace Automattic\PooCommerce\Vendor\GraphQL\Type\Validation;
 
-use Automattic\WooCommerce\Vendor\GraphQL\Error\InvariantViolation;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\InputValueDefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\InputObjectField;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\InputObjectType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\NonNull;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\SchemaValidationContext;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\InvariantViolation;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\InputValueDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\InputObjectField;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\InputObjectType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\NonNull;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\SchemaValidationContext;
 
 class InputObjectCircularRefs
 {

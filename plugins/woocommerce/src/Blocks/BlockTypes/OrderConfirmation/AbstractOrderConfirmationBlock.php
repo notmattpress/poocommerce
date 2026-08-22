@@ -1,9 +1,9 @@
 <?php
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes\OrderConfirmation;
+namespace Automattic\PooCommerce\Blocks\BlockTypes\OrderConfirmation;
 
-use Automattic\WooCommerce\Blocks\BlockTypes\AbstractBlock;
-use Automattic\WooCommerce\Blocks\Utils\StyleAttributesUtils;
+use Automattic\PooCommerce\Blocks\BlockTypes\AbstractBlock;
+use Automattic\PooCommerce\Blocks\Utils\StyleAttributesUtils;
 
 /**
  * AbstractOrderConfirmationBlock class.
@@ -18,7 +18,7 @@ abstract class AbstractOrderConfirmationBlock extends AbstractBlock {
 	 */
 	protected function get_hook_content( $hook, $args ) {
 		ob_start();
-		// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
+		// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
 		do_action_ref_array( $hook, $args );
 		return ob_get_clean();
 	}
@@ -106,7 +106,7 @@ abstract class AbstractOrderConfirmationBlock extends AbstractBlock {
 			 *
 			 * @since 8.4.0
 			 */
-			$verify_known_shoppers = apply_filters( 'woocommerce_order_received_verify_known_shoppers', true );
+			$verify_known_shoppers = apply_filters( 'poocommerce_order_received_verify_known_shoppers', true );
 
 			// If verification for known shoppers is disabled, we can show the order details.
 			if ( ! $verify_known_shoppers ) {
@@ -126,7 +126,7 @@ abstract class AbstractOrderConfirmationBlock extends AbstractBlock {
 	 * @return boolean
 	 */
 	protected function allow_guest_checkout() {
-		return 'yes' === get_option( 'woocommerce_enable_guest_checkout' );
+		return 'yes' === get_option( 'poocommerce_enable_guest_checkout' );
 	}
 
 	/**
@@ -157,7 +157,7 @@ abstract class AbstractOrderConfirmationBlock extends AbstractBlock {
 		 * @param \WC_Order $order        The order for which this grace period is being assessed.
 		 * @param string   $context      Indicates the context in which we might verify the email address. Typically 'order-pay' or 'order-received'.
 		 */
-		$verification_grace_period = (int) apply_filters( 'woocommerce_order_email_verification_grace_period', 10 * MINUTE_IN_SECONDS, $order, 'order-received' );
+		$verification_grace_period = (int) apply_filters( 'poocommerce_order_email_verification_grace_period', 10 * MINUTE_IN_SECONDS, $order, 'order-received' );
 		$date_created              = $order->get_date_created();
 
 		return is_a( $date_created, \WC_DateTime::class ) && time() - $date_created->getTimestamp() <= $verification_grace_period;
@@ -218,7 +218,7 @@ abstract class AbstractOrderConfirmationBlock extends AbstractBlock {
 		 * @param WC_Order $order                       The relevant order.
 		 * @param string   $context                     The context under which we are performing this check.
 		 */
-		return (bool) apply_filters( 'woocommerce_order_email_verification_required', true, $order, 'order-received' );
+		return (bool) apply_filters( 'poocommerce_order_email_verification_required', true, $order, 'order-received' );
 	}
 
 	/**

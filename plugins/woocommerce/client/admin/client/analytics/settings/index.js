@@ -5,9 +5,9 @@ import { __ } from '@wordpress/i18n';
 import { Button } from '@wordpress/components';
 import { Fragment, useEffect, useRef, useState } from '@wordpress/element';
 import { useDispatch } from '@wordpress/data';
-import { SectionHeader, ScrollTo } from '@woocommerce/components';
-import { itemsStore, reportsStore, useSettings } from '@woocommerce/data';
-import { recordEvent } from '@woocommerce/tracks';
+import { SectionHeader, ScrollTo } from '@poocommerce/components';
+import { itemsStore, reportsStore, useSettings } from '@poocommerce/data';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -45,7 +45,7 @@ const Settings = ( { query } ) => {
 			if ( isDirty ) {
 				event.returnValue = __(
 					'You have unsaved changes. If you proceed, they will be lost.',
-					'woocommerce'
+					'poocommerce'
 				);
 				return event.returnValue;
 			}
@@ -69,7 +69,7 @@ const Settings = ( { query } ) => {
 					'success',
 					__(
 						'Your settings have been successfully saved.',
-						'woocommerce'
+						'poocommerce'
 					)
 				);
 			} else {
@@ -77,7 +77,7 @@ const Settings = ( { query } ) => {
 					'error',
 					__(
 						'There was an error saving your settings. Please try again.',
-						'woocommerce'
+						'poocommerce'
 					)
 				);
 			}
@@ -97,7 +97,7 @@ const Settings = ( { query } ) => {
 			window.confirm(
 				__(
 					'Are you sure you want to reset all settings to default values?',
-					'woocommerce'
+					'poocommerce'
 				)
 			)
 		) {
@@ -195,9 +195,9 @@ const Settings = ( { query } ) => {
 	return (
 		<Fragment>
 			<SectionHeader
-				title={ __( 'Analytics settings', 'woocommerce' ) }
+				title={ __( 'Analytics settings', 'poocommerce' ) }
 			/>
-			<div className="woocommerce-settings__wrapper">
+			<div className="poocommerce-settings__wrapper">
 				{ Object.keys( config ).map( ( setting ) => (
 					<Setting
 						handleChange={ handleInputChange }
@@ -207,16 +207,16 @@ const Settings = ( { query } ) => {
 						{ ...config[ setting ] }
 					/>
 				) ) }
-				<div className="woocommerce-settings__actions">
+				<div className="poocommerce-settings__actions">
 					<Button variant="secondary" onClick={ resetDefaults }>
-						{ __( 'Reset defaults', 'woocommerce' ) }
+						{ __( 'Reset defaults', 'poocommerce' ) }
 					</Button>
 					<Button
 						variant="primary"
 						isBusy={ isRequesting }
 						onClick={ saveChanges }
 					>
-						{ __( 'Save settings', 'woocommerce' ) }
+						{ __( 'Save settings', 'poocommerce' ) }
 					</Button>
 				</div>
 			</div>

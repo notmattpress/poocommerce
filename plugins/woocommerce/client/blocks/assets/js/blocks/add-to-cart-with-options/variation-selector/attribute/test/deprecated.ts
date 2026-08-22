@@ -46,9 +46,9 @@ jest.mock( '@wordpress/blocks', () => {
 } );
 
 const LEGACY_ATTRIBUTE_OPTIONS_BLOCK =
-	'woocommerce/add-to-cart-with-options-variation-selector-attribute-options';
-const INNER_CHIPS = 'woocommerce/product-filter-chips';
-const INNER_DROPDOWN = 'woocommerce/dropdown';
+	'poocommerce/add-to-cart-with-options-variation-selector-attribute-options';
+const INNER_CHIPS = 'poocommerce/product-filter-chips';
+const INNER_DROPDOWN = 'poocommerce/dropdown';
 
 const { isEligible, migrate } = deprecated[ 0 ];
 
@@ -75,7 +75,7 @@ function createLegacyMissingBlock( originalContent = '' ): BlockInstance {
 function createAttributeNameBlock(): BlockInstance {
 	return createTestBlock( {
 		clientId: 'attribute-name',
-		name: 'woocommerce/add-to-cart-with-options-variation-selector-attribute-name',
+		name: 'poocommerce/add-to-cart-with-options-variation-selector-attribute-name',
 	} );
 }
 
@@ -129,7 +129,7 @@ describe( 'Variation Selector Attribute block deprecation', () => {
 			const innerBlocks = [
 				createAttributeNameBlock(),
 				createLegacyMissingBlock(
-					'<!-- wp:woocommerce/add-to-cart-with-options-variation-selector-attribute-options {"optionStyle":"dropdown"} /-->'
+					'<!-- wp:poocommerce/add-to-cart-with-options-variation-selector-attribute-options {"optionStyle":"dropdown"} /-->'
 				),
 			];
 
@@ -147,7 +147,7 @@ describe( 'Variation Selector Attribute block deprecation', () => {
 			} );
 			expect( migratedInnerBlocks ).toHaveLength( 2 );
 			expect( migratedInnerBlocks[ 0 ].name ).toBe(
-				'woocommerce/add-to-cart-with-options-variation-selector-attribute-name'
+				'poocommerce/add-to-cart-with-options-variation-selector-attribute-name'
 			);
 			expect( migratedInnerBlocks[ 1 ].name ).toBe( INNER_DROPDOWN );
 		} );
@@ -158,7 +158,7 @@ describe( 'Variation Selector Attribute block deprecation', () => {
 			};
 			const innerBlocks = [
 				createLegacyMissingBlock(
-					'<!-- wp:woocommerce/add-to-cart-with-options-variation-selector-attribute-options {"optionStyle":"pills"} /-->'
+					'<!-- wp:poocommerce/add-to-cart-with-options-variation-selector-attribute-options {"optionStyle":"pills"} /-->'
 				),
 			];
 
@@ -202,7 +202,7 @@ describe( 'Variation Selector Attribute block deprecation', () => {
 				createGroupWithInnerBlocks( [
 					createAttributeNameBlock(),
 					createLegacyMissingBlock(
-						'<!-- wp:woocommerce/add-to-cart-with-options-variation-selector-attribute-options {"optionStyle":"dropdown"} /-->'
+						'<!-- wp:poocommerce/add-to-cart-with-options-variation-selector-attribute-options {"optionStyle":"dropdown"} /-->'
 					),
 				] ),
 			];
@@ -217,7 +217,7 @@ describe( 'Variation Selector Attribute block deprecation', () => {
 			expect( migratedInnerBlocks[ 0 ].name ).toBe( 'core/group' );
 			expect( migratedInnerBlocks[ 0 ].innerBlocks ).toHaveLength( 2 );
 			expect( migratedInnerBlocks[ 0 ].innerBlocks[ 0 ].name ).toBe(
-				'woocommerce/add-to-cart-with-options-variation-selector-attribute-name'
+				'poocommerce/add-to-cart-with-options-variation-selector-attribute-name'
 			);
 			expect( migratedInnerBlocks[ 0 ].innerBlocks[ 1 ].name ).toBe(
 				INNER_DROPDOWN

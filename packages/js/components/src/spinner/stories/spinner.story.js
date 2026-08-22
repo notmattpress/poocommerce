@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { Spinner } from '@woocommerce/components';
+import { Spinner } from '@poocommerce/components';
 
 export const Basic = () => (
 	<div>

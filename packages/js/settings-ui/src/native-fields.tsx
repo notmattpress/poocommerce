@@ -161,7 +161,7 @@ export const NativeSettingsField = ( {
 			: [
 					{
 						value: selectValue,
-						label: __( 'Select', 'woocommerce' ),
+						label: __( 'Select', 'poocommerce' ),
 						disabled: true,
 					},
 					...options,

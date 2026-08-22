@@ -4,7 +4,7 @@
 import {
 	checkoutRef,
 	sparseCheckoutRepo,
-} from '@woocommerce/monorepo-utils/src/core/git';
+} from '@poocommerce/monorepo-utils/src/core/git';
 import { readFile } from 'fs/promises';
 import { join } from 'path';
 import semver from 'semver';
@@ -17,8 +17,8 @@ import { ContributorData, getContributorData } from './github-api';
 const OTHER_WATCHED_PACKAGES = [
 	{
 		displayName: 'ActionScheduler',
-		packagist: 'woocommerce/action-scheduler',
-		org: 'woocommerce',
+		packagist: 'poocommerce/action-scheduler',
+		org: 'poocommerce',
 		repo: 'action-scheduler',
 		versionPrefix: '',
 	},
@@ -29,16 +29,16 @@ export const generateContributors = async (
 	previousVersion: string
 ) => {
 	const repoPath = await sparseCheckoutRepo(
-		'https://github.com/woocommerce/woocommerce.git',
-		'woocommerce',
-		[ 'plugins/woocommerce' ]
+		'https://github.com/poocommerce/poocommerce.git',
+		'poocommerce',
+		[ 'plugins/poocommerce' ]
 	);
 
 	await checkoutRef( repoPath, currentVersion );
 
 	const currentComposer = JSON.parse(
 		await readFile(
-			join( repoPath, 'plugins/woocommerce/composer.json' ),
+			join( repoPath, 'plugins/poocommerce/composer.json' ),
 			'utf-8'
 		)
 	);
@@ -47,7 +47,7 @@ export const generateContributors = async (
 
 	const previousComposer = JSON.parse(
 		await readFile(
-			join( repoPath, 'plugins/woocommerce/composer.json' ),
+			join( repoPath, 'plugins/poocommerce/composer.json' ),
 			'utf-8'
 		)
 	);
@@ -56,8 +56,8 @@ export const generateContributors = async (
 	const previousRequire = previousComposer.require;
 
 	const coreContributors = await getContributorData(
-		'woocommerce',
-		'woocommerce',
+		'poocommerce',
+		'poocommerce',
 		previousVersion,
 		currentVersion
 	);
@@ -83,9 +83,9 @@ export const generateContributors = async (
 	}
 
 	return {
-		'WooCommerce Core': coreContributors,
+		'PooCommerce Core': coreContributors,
 		ActionScheduler: dependencyContributors.ActionScheduler || [],
-		'WooCommerce Blocks':
-			dependencyContributors[ 'WooCommerce Blocks' ] || [],
+		'PooCommerce Blocks':
+			dependencyContributors[ 'PooCommerce Blocks' ] || [],
 	};
 };

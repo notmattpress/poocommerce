@@ -2,7 +2,7 @@
 /**
  * List tables.
  *
- * @package  WooCommerce\Admin
+ * @package  PooCommerce\Admin
  * @version  3.3.0
  */
 

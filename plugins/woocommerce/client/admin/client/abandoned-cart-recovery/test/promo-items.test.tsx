@@ -3,7 +3,7 @@
  */
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 import { useDispatch } from '@wordpress/data';
 
 /**
@@ -12,7 +12,7 @@ import { useDispatch } from '@wordpress/data';
 import AutomateWooItem from '../automatewoo-item';
 import MailPoetItem from '../mailpoet-item';
 
-jest.mock( '@woocommerce/tracks', () => ( {
+jest.mock( '@poocommerce/tracks', () => ( {
 	recordEvent: jest.fn(),
 } ) );
 
@@ -37,7 +37,7 @@ describe( 'AutomateWooItem', () => {
 			screen.getByRole( 'link', { name: /learn more/i } )
 		).toHaveAttribute(
 			'href',
-			expect.stringContaining( 'woocommerce.com/products/automatewoo' )
+			expect.stringContaining( 'poocommerce.com/products/automatewoo' )
 		);
 	} );
 

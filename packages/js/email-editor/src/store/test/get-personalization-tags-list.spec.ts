@@ -24,10 +24,10 @@ jest.mock( '@wordpress/blocks', () => ( {
 
 const makeTag = ( name: string, postTypes: string[] ): PersonalizationTag => ( {
 	name,
-	token: `[woocommerce/${ name }]`,
+	token: `[poocommerce/${ name }]`,
 	category: 'Test',
 	attributes: [],
-	valueToInsert: `[woocommerce/${ name }]`,
+	valueToInsert: `[poocommerce/${ name }]`,
 	postTypes,
 } );
 

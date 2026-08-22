@@ -41,7 +41,7 @@ class WC_My_Account_Orders_Template_Test extends WC_Unit_Test_Case {
 		$order = $this->create_order_with_status( 'processing' );
 
 		$this->add_test_filter(
-			'woocommerce_account_orders_column_content_order-status',
+			'poocommerce_account_orders_column_content_order-status',
 			static function ( string $column_content ): string {
 				return $column_content . '<span class="first-filter">First filter</span>';
 			},
@@ -49,7 +49,7 @@ class WC_My_Account_Orders_Template_Test extends WC_Unit_Test_Case {
 			1
 		);
 		$this->add_test_filter(
-			'woocommerce_account_orders_column_content_order-status',
+			'poocommerce_account_orders_column_content_order-status',
 			static function ( string $column_content ): string {
 				return $column_content . '<span class="second-filter">Second filter</span>';
 			},
@@ -69,13 +69,13 @@ class WC_My_Account_Orders_Template_Test extends WC_Unit_Test_Case {
 	 * @testdox Non-stringable filtered column content falls back to default output with a doing-it-wrong notice.
 	 */
 	public function test_non_string_filtered_column_content_falls_back_to_default_output(): void {
-		$this->setExpectedIncorrectUsage( 'woocommerce_account_orders_column_content_order-status' );
+		$this->setExpectedIncorrectUsage( 'poocommerce_account_orders_column_content_order-status' );
 
 		$order            = $this->create_order_with_status( 'processing' );
 		$filtered_content = null;
 
 		$this->add_test_filter(
-			'woocommerce_account_orders_column_content_order-status',
+			'poocommerce_account_orders_column_content_order-status',
 			static function () use ( &$filtered_content ) {
 				return $filtered_content;
 			}
@@ -96,7 +96,7 @@ class WC_My_Account_Orders_Template_Test extends WC_Unit_Test_Case {
 		$order = $this->create_order_with_status( 'processing' );
 
 		$this->add_test_filter(
-			'woocommerce_account_orders_column_content_order-status',
+			'poocommerce_account_orders_column_content_order-status',
 			static function (): string {
 				return '';
 			}
@@ -105,7 +105,7 @@ class WC_My_Account_Orders_Template_Test extends WC_Unit_Test_Case {
 		$html = $this->render_orders_template( $order );
 
 		$this->assertStringNotContainsString( 'Processing', $html, 'An empty string is valid content and should not fall back to the default output.' );
-		$this->assertStringContainsString( 'woocommerce-orders-table__cell-order-status', $html, 'The emptied column should still render its cell.' );
+		$this->assertStringContainsString( 'poocommerce-orders-table__cell-order-status', $html, 'The emptied column should still render its cell.' );
 	}
 
 	/**
@@ -126,7 +126,7 @@ class WC_My_Account_Orders_Template_Test extends WC_Unit_Test_Case {
 
 		$filtered_content = null;
 		$this->add_test_filter(
-			'woocommerce_account_orders_column_content_order-status',
+			'poocommerce_account_orders_column_content_order-status',
 			static function () use ( &$filtered_content ) {
 				return $filtered_content;
 			}
@@ -150,7 +150,7 @@ class WC_My_Account_Orders_Template_Test extends WC_Unit_Test_Case {
 		$received_content = null;
 
 		$this->add_test_filter(
-			'woocommerce_account_orders_column_content_order-status',
+			'poocommerce_account_orders_column_content_order-status',
 			static function ( string $column_content ) use ( &$filter_calls, &$received_content ): string {
 				++$filter_calls;
 				$received_content = $column_content;
@@ -158,7 +158,7 @@ class WC_My_Account_Orders_Template_Test extends WC_Unit_Test_Case {
 			}
 		);
 		$this->add_test_action(
-			'woocommerce_my_account_my_orders_column_order-status',
+			'poocommerce_my_account_my_orders_column_order-status',
 			static function (): void {
 				echo '<span class="legacy-status">Legacy status</span>';
 			}
@@ -187,7 +187,7 @@ class WC_My_Account_Orders_Template_Test extends WC_Unit_Test_Case {
 		$filtered_column_id = null;
 
 		$this->add_test_filter(
-			'woocommerce_account_orders_column_content_' . $column_id,
+			'poocommerce_account_orders_column_content_' . $column_id,
 			static function ( string $content, WC_Order $current_order, string $current_column_id ) use ( &$filtered_content, &$filtered_order, &$filtered_column_id ): string {
 				$filtered_content   = $content;
 				$filtered_order     = $current_order;
@@ -217,20 +217,20 @@ class WC_My_Account_Orders_Template_Test extends WC_Unit_Test_Case {
 		$legacy_action_calls = 0;
 
 		$this->add_test_filter(
-			'woocommerce_account_orders_columns',
+			'poocommerce_account_orders_columns',
 			static function ( array $columns ): array {
 				$columns['order-type'] = 'Order type';
 				return $columns;
 			}
 		);
 		$this->add_test_action(
-			'woocommerce_account_orders_column_order-type',
+			'poocommerce_account_orders_column_order-type',
 			static function () use ( &$legacy_action_calls ): void {
 				++$legacy_action_calls;
 			}
 		);
 		$this->add_test_filter(
-			'woocommerce_account_orders_column_content_order-type',
+			'poocommerce_account_orders_column_content_order-type',
 			static function (): string {
 				return '<span class="filtered-order-type">Filtered order type</span>';
 			}
@@ -250,14 +250,14 @@ class WC_My_Account_Orders_Template_Test extends WC_Unit_Test_Case {
 		$received_content = null;
 
 		$this->add_test_filter(
-			'woocommerce_account_orders_columns',
+			'poocommerce_account_orders_columns',
 			static function ( array $columns ): array {
 				$columns['order-custom'] = 'Custom';
 				return $columns;
 			}
 		);
 		$this->add_test_filter(
-			'woocommerce_account_orders_column_content_order-custom',
+			'poocommerce_account_orders_column_content_order-custom',
 			static function ( string $column_content ) use ( &$received_content ): string {
 				$received_content = $column_content;
 				return $column_content;
@@ -278,7 +278,7 @@ class WC_My_Account_Orders_Template_Test extends WC_Unit_Test_Case {
 		$html = $this->render_orders_template( $order, array( PHP_INT_MAX, $order->get_id() ) );
 
 		$this->assertStringContainsString( 'View order number ' . $order->get_order_number(), $html, 'The valid order row should render.' );
-		$this->assertSame( 1, substr_count( $html, '<tr class="woocommerce-orders-table__row' ), 'The unresolvable order row should be skipped.' );
+		$this->assertSame( 1, substr_count( $html, '<tr class="poocommerce-orders-table__row' ), 'The unresolvable order row should be skipped.' );
 	}
 
 	/**
@@ -291,8 +291,8 @@ class WC_My_Account_Orders_Template_Test extends WC_Unit_Test_Case {
 			'order number'  => array( 'order-number', 'View order number' ),
 			'order date'    => array( 'order-date', '<time datetime=' ),
 			'order status'  => array( 'order-status', 'Processing' ),
-			'order total'   => array( 'order-total', 'woocommerce-Price-amount' ),
-			'order actions' => array( 'order-actions', 'woocommerce-button' ),
+			'order total'   => array( 'order-total', 'poocommerce-Price-amount' ),
+			'order actions' => array( 'order-actions', 'poocommerce-button' ),
 		);
 	}
 

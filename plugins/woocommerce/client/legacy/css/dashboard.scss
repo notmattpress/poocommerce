@@ -1,6 +1,6 @@
 /**
  * dashboard.scss
- * Styles for WooCommerce dashboard widgets, only loaded on the dashboard itself.
+ * Styles for PooCommerce dashboard widgets, only loaded on the dashboard itself.
  */
 
 /**
@@ -35,7 +35,7 @@
 	}
 }
 
-ul.woocommerce_stats {
+ul.poocommerce_stats {
 	overflow: hidden;
 	zoom: 1;
 
@@ -68,7 +68,7 @@ ul.woocommerce_stats {
 	}
 }
 
-#woocommerce_dashboard_status {
+#poocommerce_dashboard_status {
 
 	.inside {
 		padding: 0;
@@ -207,7 +207,7 @@ ul.woocommerce_stats {
 	}
 }
 
-#woocommerce_dashboard_recent_reviews {
+#poocommerce_dashboard_recent_reviews {
 
 	#wc-recent-reviews-widget-content > p {
 		margin-bottom: 0;
@@ -267,7 +267,7 @@ ul.woocommerce_stats {
 		line-height: 1.5;
 		margin-left: 0.5em;
 		width: 5.4em;
-		font-family: "WooCommerce" !important;
+		font-family: "PooCommerce" !important;
 
 		&::before {
 			content: "\e021\e021\e021\e021\e021";
@@ -302,7 +302,7 @@ ul.woocommerce_stats {
 }
 
 #dash-right-now li.product-count a::before {
-	font-family: "WooCommerce";
+	font-family: "PooCommerce";
 	content: "\e01d";
 }
 

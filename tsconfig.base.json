@@ -36,9 +36,9 @@
 	"files": [],
 	
 	"references": [
-		{ "path": "./plugins/woocommerce/" },
-		{ "path": "./plugins/woocommerce/client/admin" },
-		{ "path": "./plugins/woocommerce/client/blocks" },
+		{ "path": "./plugins/poocommerce/" },
+		{ "path": "./plugins/poocommerce/client/admin" },
+		{ "path": "./plugins/poocommerce/client/blocks" },
 		{ "path": "./packages/js/api" },
 		{ "path": "./packages/js/components" },
 		{ "path": "./packages/js/csv-export" },

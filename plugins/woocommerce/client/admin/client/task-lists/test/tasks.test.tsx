@@ -3,8 +3,8 @@
  */
 import { render, act, cleanup, waitFor } from '@testing-library/react';
 import { useDispatch, useSelect } from '@wordpress/data';
-import { recordEvent } from '@woocommerce/tracks';
-import { getHistory, getNewPath } from '@woocommerce/navigation';
+import { recordEvent } from '@poocommerce/tracks';
+import { getHistory, getNewPath } from '@poocommerce/navigation';
 import userEvent from '@testing-library/user-event';
 
 /**
@@ -27,10 +27,10 @@ jest.mock( '@wordpress/data', () => {
 	};
 } );
 
-jest.mock( '@woocommerce/explat' );
-jest.mock( '@woocommerce/tracks' );
-jest.mock( '@woocommerce/navigation', () => ( {
-	...jest.requireActual( '@woocommerce/navigation' ),
+jest.mock( '@poocommerce/explat' );
+jest.mock( '@poocommerce/tracks' );
+jest.mock( '@poocommerce/navigation', () => ( {
+	...jest.requireActual( '@poocommerce/navigation' ),
 	getHistory: jest.fn(),
 	getNewPath: jest.fn().mockReturnValue( 'home-path' ),
 } ) );

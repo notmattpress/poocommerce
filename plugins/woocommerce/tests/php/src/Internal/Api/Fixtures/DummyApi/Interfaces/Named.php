@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Interfaces;
+namespace Automattic\PooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Interfaces;
 
-use Automattic\WooCommerce\Api\Attributes\Description;
+use Automattic\PooCommerce\Api\Attributes\Description;
 
 /**
  * Interface trait that gives a type a human-readable label.

@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { render, screen, fireEvent } from '@testing-library/react';
-import { getSetting } from '@woocommerce/settings';
+import { getSetting } from '@poocommerce/settings';
 
 /**
  * Internal dependencies
@@ -11,12 +11,12 @@ import {
 	getEditorStorageKey,
 	getFrontendStorageKey,
 	UNSCOPED_STORAGE_KEY,
-} from '@woocommerce/editor-components/incompatible-extension-notice/storage';
+} from '@poocommerce/editor-components/incompatible-extension-notice/storage';
 import { IncompatibleExtensionsFrontendNotice } from '../incompatible-extensions-notice';
 
 let mockIsAdmin = true;
 
-jest.mock( '@woocommerce/settings', () => ( {
+jest.mock( '@poocommerce/settings', () => ( {
 	getSetting: jest.fn(),
 	// A getter, not a value: the viewer changes between renders.
 	get CURRENT_USER_IS_ADMIN() {
@@ -27,15 +27,15 @@ jest.mock( '@woocommerce/settings', () => ( {
 } ) );
 
 // Use the real localStorage-backed hook (via its source module) without pulling
-// in the heavy `@woocommerce/base-hooks` barrel, so dismissal is exercised
+// in the heavy `@poocommerce/base-hooks` barrel, so dismissal is exercised
 // against real localStorage rather than a mock.
-jest.mock( '@woocommerce/base-hooks', () => ( {
+jest.mock( '@poocommerce/base-hooks', () => ( {
 	useLocalStorageState: jest.requireActual(
 		'../../../base/hooks/use-local-storage-state'
 	).useLocalStorageState,
 } ) );
 
-jest.mock( '@woocommerce/base-components/notice-banner', () => ( {
+jest.mock( '@poocommerce/base-components/notice-banner', () => ( {
 	__esModule: true,
 	default: ( {
 		children,
@@ -91,7 +91,7 @@ describe( 'IncompatibleExtensionsFrontendNotice', () => {
 	describe( 'rendering', () => {
 		it( 'does not render when there are no incompatible extensions', () => {
 			const { container } = render(
-				<IncompatibleExtensionsFrontendNotice block="woocommerce/checkout" />
+				<IncompatibleExtensionsFrontendNotice block="poocommerce/checkout" />
 			);
 			expect( container ).toBeEmptyDOMElement();
 		} );
@@ -102,7 +102,7 @@ describe( 'IncompatibleExtensionsFrontendNotice', () => {
 			] );
 
 			render(
-				<IncompatibleExtensionsFrontendNotice block="woocommerce/checkout" />
+				<IncompatibleExtensionsFrontendNotice block="poocommerce/checkout" />
 			);
 
 			expect( screen.getByTestId( 'notice-banner' ) ).toHaveAttribute(
@@ -122,7 +122,7 @@ describe( 'IncompatibleExtensionsFrontendNotice', () => {
 			] );
 
 			render(
-				<IncompatibleExtensionsFrontendNotice block="woocommerce/cart" />
+				<IncompatibleExtensionsFrontendNotice block="poocommerce/cart" />
 			);
 
 			expect(
@@ -139,7 +139,7 @@ describe( 'IncompatibleExtensionsFrontendNotice', () => {
 			] );
 
 			render(
-				<IncompatibleExtensionsFrontendNotice block="woocommerce/checkout" />
+				<IncompatibleExtensionsFrontendNotice block="poocommerce/checkout" />
 			);
 
 			expect( screen.getByRole( 'list' ) ).toBeInTheDocument();
@@ -159,7 +159,7 @@ describe( 'IncompatibleExtensionsFrontendNotice', () => {
 			] );
 
 			render(
-				<IncompatibleExtensionsFrontendNotice block="woocommerce/checkout" />
+				<IncompatibleExtensionsFrontendNotice block="poocommerce/checkout" />
 			);
 			fireEvent.click( screen.getByTestId( 'dismiss-button' ) );
 
@@ -175,7 +175,7 @@ describe( 'IncompatibleExtensionsFrontendNotice', () => {
 			] );
 
 			render(
-				<IncompatibleExtensionsFrontendNotice block="woocommerce/checkout" />
+				<IncompatibleExtensionsFrontendNotice block="poocommerce/checkout" />
 			);
 			fireEvent.click( screen.getByTestId( 'dismiss-button' ) );
 
@@ -193,7 +193,7 @@ describe( 'IncompatibleExtensionsFrontendNotice', () => {
 			] );
 
 			const { container } = render(
-				<IncompatibleExtensionsFrontendNotice block="woocommerce/checkout" />
+				<IncompatibleExtensionsFrontendNotice block="poocommerce/checkout" />
 			);
 
 			expect( container ).toBeEmptyDOMElement();
@@ -207,7 +207,7 @@ describe( 'IncompatibleExtensionsFrontendNotice', () => {
 			] );
 
 			const { container } = render(
-				<IncompatibleExtensionsFrontendNotice block="woocommerce/checkout" />
+				<IncompatibleExtensionsFrontendNotice block="poocommerce/checkout" />
 			);
 
 			expect( container ).toBeEmptyDOMElement();
@@ -223,7 +223,7 @@ describe( 'IncompatibleExtensionsFrontendNotice', () => {
 				{ id: 'plugin-one', title: 'Plugin One' },
 			] );
 			const { container, unmount } = render(
-				<IncompatibleExtensionsFrontendNotice block="woocommerce/checkout" />
+				<IncompatibleExtensionsFrontendNotice block="poocommerce/checkout" />
 			);
 			expect( container ).toBeEmptyDOMElement();
 			expect( storedSlugs() ).toEqual( [ 'plugin-one' ] );
@@ -235,7 +235,7 @@ describe( 'IncompatibleExtensionsFrontendNotice', () => {
 				{ id: 'plugin-two', title: 'Plugin Two' },
 			] );
 			render(
-				<IncompatibleExtensionsFrontendNotice block="woocommerce/checkout" />
+				<IncompatibleExtensionsFrontendNotice block="poocommerce/checkout" />
 			);
 
 			expect( screen.getByTestId( 'notice-banner' ) ).toBeInTheDocument();
@@ -252,7 +252,7 @@ describe( 'IncompatibleExtensionsFrontendNotice', () => {
 			] );
 
 			render(
-				<IncompatibleExtensionsFrontendNotice block="woocommerce/checkout" />
+				<IncompatibleExtensionsFrontendNotice block="poocommerce/checkout" />
 			);
 
 			expect( screen.getByTestId( 'notice-banner' ) ).toBeInTheDocument();
@@ -272,7 +272,7 @@ describe( 'IncompatibleExtensionsFrontendNotice', () => {
 			] );
 
 			render(
-				<IncompatibleExtensionsFrontendNotice block="woocommerce/checkout" />
+				<IncompatibleExtensionsFrontendNotice block="poocommerce/checkout" />
 			);
 
 			// Nothing readable was acknowledged, so the banner is still owed.
@@ -287,7 +287,7 @@ describe( 'IncompatibleExtensionsFrontendNotice', () => {
 			] );
 
 			render(
-				<IncompatibleExtensionsFrontendNotice block="woocommerce/checkout" />
+				<IncompatibleExtensionsFrontendNotice block="poocommerce/checkout" />
 			);
 
 			expect( screen.getByTestId( 'notice-banner' ) ).toBeInTheDocument();
@@ -300,7 +300,7 @@ describe( 'IncompatibleExtensionsFrontendNotice', () => {
 			] );
 
 			const { container } = render(
-				<IncompatibleExtensionsFrontendNotice block="woocommerce/cart" />
+				<IncompatibleExtensionsFrontendNotice block="poocommerce/cart" />
 			);
 
 			expect( container ).toBeEmptyDOMElement();
@@ -317,7 +317,7 @@ describe( 'IncompatibleExtensionsFrontendNotice', () => {
 	describe( 'migration from the unscoped storage key', () => {
 		const renderCheckout = () =>
 			render(
-				<IncompatibleExtensionsFrontendNotice block="woocommerce/checkout" />
+				<IncompatibleExtensionsFrontendNotice block="poocommerce/checkout" />
 			);
 
 		it( 'stays dismissed for a merchant who dismissed before the rename', () => {
@@ -337,7 +337,7 @@ describe( 'IncompatibleExtensionsFrontendNotice', () => {
 		it( 'migrates the storefront slugs out of a value the editor also wrote', () => {
 			seedLegacy( [
 				'test-plugin',
-				{ 'woocommerce/checkout': [ 'test-plugin', 'gateway-a' ] },
+				{ 'poocommerce/checkout': [ 'test-plugin', 'gateway-a' ] },
 			] );
 			setIncompatibleExtensions( [
 				{ id: 'test-plugin', title: 'Test Plugin' },
@@ -371,7 +371,7 @@ describe( 'IncompatibleExtensionsFrontendNotice', () => {
 		it( 'never writes to the legacy key', () => {
 			const legacy = JSON.stringify( [
 				'test-plugin',
-				{ 'woocommerce/checkout': [ 'test-plugin' ] },
+				{ 'poocommerce/checkout': [ 'test-plugin' ] },
 			] );
 			window.localStorage.setItem( legacyKey, legacy );
 			setIncompatibleExtensions( [
@@ -394,7 +394,7 @@ describe( 'IncompatibleExtensionsFrontendNotice', () => {
 	describe( 'when the list of incompatible extensions is not available', () => {
 		const renderCheckout = () =>
 			render(
-				<IncompatibleExtensionsFrontendNotice block="woocommerce/checkout" />
+				<IncompatibleExtensionsFrontendNotice block="poocommerce/checkout" />
 			);
 
 		it( 'leaves the acknowledgement alone when the setting is missing', () => {

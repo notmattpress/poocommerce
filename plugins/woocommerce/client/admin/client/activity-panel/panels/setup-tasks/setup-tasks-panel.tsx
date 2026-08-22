@@ -11,7 +11,7 @@ type QueryTypeProps = {
 
 export const SetupTasksPanel = ( { query }: QueryTypeProps ) => {
 	return (
-		<div className="woocommerce-setup-panel">
+		<div className="poocommerce-setup-panel">
 			<TaskLists query={ query } />
 		</div>
 	);

@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Api\Types\Coupons;
+namespace Automattic\PooCommerce\Api\Types\Coupons;
 
-use Automattic\WooCommerce\Api\Attributes\ArrayOf;
-use Automattic\WooCommerce\Api\Attributes\Description;
-use Automattic\WooCommerce\Api\Attributes\ScalarType;
-use Automattic\WooCommerce\Api\Enums\Coupons\CouponStatus;
-use Automattic\WooCommerce\Api\Enums\Coupons\DiscountType;
-use Automattic\WooCommerce\Api\Interfaces\ObjectWithId;
-use Automattic\WooCommerce\Api\Scalars\DateTime;
+use Automattic\PooCommerce\Api\Attributes\ArrayOf;
+use Automattic\PooCommerce\Api\Attributes\Description;
+use Automattic\PooCommerce\Api\Attributes\ScalarType;
+use Automattic\PooCommerce\Api\Enums\Coupons\CouponStatus;
+use Automattic\PooCommerce\Api\Enums\Coupons\DiscountType;
+use Automattic\PooCommerce\Api\Interfaces\ObjectWithId;
+use Automattic\PooCommerce\Api\Scalars\DateTime;
 
 /**
- * Output type representing a WooCommerce coupon.
+ * Output type representing a PooCommerce coupon.
  */
-#[Description( 'Represents a WooCommerce discount coupon.' )]
+#[Description( 'Represents a PooCommerce discount coupon.' )]
 class Coupon {
 	use ObjectWithId;
 
@@ -28,7 +28,7 @@ class Coupon {
 	#[Description( 'The type of discount.' )]
 	public DiscountType $discount_type;
 
-	#[Description( 'The raw discount type as stored in WooCommerce. Useful when discount_type is OTHER (e.g. plugin-added types like recurring_percent or sign_up_fee).' )]
+	#[Description( 'The raw discount type as stored in PooCommerce. Useful when discount_type is OTHER (e.g. plugin-added types like recurring_percent or sign_up_fee).' )]
 	public string $raw_discount_type;
 
 	#[Description( 'The discount amount.' )]

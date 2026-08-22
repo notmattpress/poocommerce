@@ -1,17 +1,17 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\GraphQL\Server;
+namespace Automattic\PooCommerce\Vendor\GraphQL\Server;
 
-use Automattic\WooCommerce\Vendor\GraphQL\Error\InvariantViolation;
-use Automattic\WooCommerce\Vendor\GraphQL\Executor\ExecutionResult;
-use Automattic\WooCommerce\Vendor\GraphQL\Executor\Promise\Promise;
-use Automattic\WooCommerce\Vendor\GraphQL\Utils\Utils;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\InvariantViolation;
+use Automattic\PooCommerce\Vendor\GraphQL\Executor\ExecutionResult;
+use Automattic\PooCommerce\Vendor\GraphQL\Executor\Promise\Promise;
+use Automattic\PooCommerce\Vendor\GraphQL\Utils\Utils;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamInterface;
 
 /**
- * Automattic\WooCommerce\Vendor\GraphQL server compatible with both: [express-graphql](https://github.com/graphql/express-graphql)
+ * Automattic\PooCommerce\Vendor\GraphQL server compatible with both: [express-graphql](https://github.com/graphql/express-graphql)
  * and [Apollo Server](https://github.com/apollographql/graphql-server).
  * Usage Example:.
  *
@@ -22,16 +22,16 @@ use Psr\Http\Message\StreamInterface;
  *
  * Or using [ServerConfig](class-reference.md#graphqlserverserverconfig) instance:
  *
- *     $config = Automattic\WooCommerce\Vendor\GraphQL\Server\ServerConfig::create()
+ *     $config = Automattic\PooCommerce\Vendor\GraphQL\Server\ServerConfig::create()
  *         ->setSchema($mySchema)
  *         ->setContext($myContext);
  *
- *     $server = new Automattic\WooCommerce\Vendor\GraphQL\Server\StandardServer($config);
+ *     $server = new Automattic\PooCommerce\Vendor\GraphQL\Server\StandardServer($config);
  *     $server->handleRequest();
  *
  * See [dedicated section in docs](executing-queries.md#using-server) for details.
  *
- * @see \Automattic\WooCommerce\Vendor\GraphQL\Tests\Server\StandardServerTest
+ * @see \Automattic\PooCommerce\Vendor\GraphQL\Tests\Server\StandardServerTest
  */
 class StandardServer
 {
@@ -87,7 +87,7 @@ class StandardServer
     }
 
     /**
-     * Executes a Automattic\WooCommerce\Vendor\GraphQL operation and returns an execution result
+     * Executes a Automattic\PooCommerce\Vendor\GraphQL operation and returns an execution result
      * (or promise when promise adapter is different from SyncPromiseAdapter).
      *
      * When $parsedBody is not set, it uses PHP globals to parse a request.
@@ -147,7 +147,7 @@ class StandardServer
     }
 
     /**
-     * Executes Automattic\WooCommerce\Vendor\GraphQL operation and returns execution result
+     * Executes Automattic\PooCommerce\Vendor\GraphQL operation and returns execution result
      * (or promise when promise adapter is different from SyncPromiseAdapter).
      *
      * @throws \Exception

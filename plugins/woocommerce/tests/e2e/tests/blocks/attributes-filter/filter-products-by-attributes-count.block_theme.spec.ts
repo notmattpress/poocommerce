@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { test as base, expect, PostCompiler } from '@woocommerce/e2e-utils';
+import { test as base, expect, PostCompiler } from '@poocommerce/e2e-utils';
 
 const test = base.extend< {
 	postCompiler: PostCompiler;

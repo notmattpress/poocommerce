@@ -2,11 +2,11 @@
 /**
  * Settings API Tests.
  *
- * @package WooCommerce\Tests\API
+ * @package PooCommerce\Tests\API
  * @since 3.0.0
  */
 
-use Automattic\WooCommerce\Utilities\ArrayUtil;
+use Automattic\PooCommerce\Utilities\ArrayUtil;
 use DMS\PHPUnitExtensions\ArraySubset\ArraySubsetAsserts;
 
 /**
@@ -22,7 +22,7 @@ class Settings_V2 extends WC_REST_Unit_Test_Case {
 		parent::setUp();
 		$this->initialize_rest_api_routes();
 		$this->endpoint = new WC_REST_Setting_Options_Controller();
-		\Automattic\WooCommerce\RestApi\UnitTests\Helpers\SettingsHelper::register();
+		\Automattic\PooCommerce\RestApi\UnitTests\Helpers\SettingsHelper::register();
 		$this->user = $this->factory->user->create(
 			array(
 				'role' => 'administrator',
@@ -134,12 +134,12 @@ class Settings_V2 extends WC_REST_Unit_Test_Case {
 	public function test_get_groups_none_registered() {
 		wp_set_current_user( $this->user );
 
-		remove_all_filters( 'woocommerce_settings_groups' );
+		remove_all_filters( 'poocommerce_settings_groups' );
 
 		$response = $this->server->dispatch( new WP_REST_Request( 'GET', '/wc/v2/settings' ) );
 		$this->assertEquals( 500, $response->get_status() );
 
-		\Automattic\WooCommerce\RestApi\UnitTests\Helpers\SettingsHelper::register();
+		\Automattic\PooCommerce\RestApi\UnitTests\Helpers\SettingsHelper::register();
 	}
 
 	/**
@@ -166,7 +166,7 @@ class Settings_V2 extends WC_REST_Unit_Test_Case {
 	 * @since 3.0.0
 	 */
 	public function test_get_setting_schema() {
-		$request    = new WP_REST_Request( 'OPTIONS', '/wc/v2/settings/test/woocommerce_shop_page_display' );
+		$request    = new WP_REST_Request( 'OPTIONS', '/wc/v2/settings/test/poocommerce_shop_page_display' );
 		$response   = $this->server->dispatch( $request );
 		$data       = $response->get_data();
 		$properties = $data['schema']['properties'];
@@ -206,7 +206,7 @@ class Settings_V2 extends WC_REST_Unit_Test_Case {
 		$response = $this->server->dispatch( new WP_REST_Request( 'GET', '/wc/v2/settings/test' ) );
 		$data     = $response->get_data();
 		$this->assertEquals( 1, count( $data ) );
-		$this->assertEquals( 'woocommerce_shop_page_display', $data[0]['id'] );
+		$this->assertEquals( 'poocommerce_shop_page_display', $data[0]['id'] );
 		$this->assertEmpty( $data[0]['value'] );
 	}
 
@@ -231,12 +231,12 @@ class Settings_V2 extends WC_REST_Unit_Test_Case {
 		wp_set_current_user( $this->user );
 
 		// test defaults first.
-		$response = $this->server->dispatch( new WP_REST_Request( 'GET', '/wc/v2/settings/test/woocommerce_shop_page_display' ) );
+		$response = $this->server->dispatch( new WP_REST_Request( 'GET', '/wc/v2/settings/test/poocommerce_shop_page_display' ) );
 		$data     = $response->get_data();
 		$this->assertEquals( '', $data['value'] );
 
 		// test updating shop display setting.
-		$request = new WP_REST_Request( 'PUT', sprintf( '/wc/v2/settings/%s/%s', 'test', 'woocommerce_shop_page_display' ) );
+		$request = new WP_REST_Request( 'PUT', sprintf( '/wc/v2/settings/%s/%s', 'test', 'poocommerce_shop_page_display' ) );
 		$request->set_body_params(
 			array(
 				'value' => 'both',
@@ -246,9 +246,9 @@ class Settings_V2 extends WC_REST_Unit_Test_Case {
 		$data     = $response->get_data();
 
 		$this->assertEquals( 'both', $data['value'] );
-		$this->assertEquals( 'both', get_option( 'woocommerce_shop_page_display' ) );
+		$this->assertEquals( 'both', get_option( 'poocommerce_shop_page_display' ) );
 
-		$request = new WP_REST_Request( 'PUT', sprintf( '/wc/v2/settings/%s/%s', 'test', 'woocommerce_shop_page_display' ) );
+		$request = new WP_REST_Request( 'PUT', sprintf( '/wc/v2/settings/%s/%s', 'test', 'poocommerce_shop_page_display' ) );
 		$request->set_body_params(
 			array(
 				'value' => 'subcategories',
@@ -258,9 +258,9 @@ class Settings_V2 extends WC_REST_Unit_Test_Case {
 		$data     = $response->get_data();
 
 		$this->assertEquals( 'subcategories', $data['value'] );
-		$this->assertEquals( 'subcategories', get_option( 'woocommerce_shop_page_display' ) );
+		$this->assertEquals( 'subcategories', get_option( 'poocommerce_shop_page_display' ) );
 
-		$request = new WP_REST_Request( 'PUT', sprintf( '/wc/v2/settings/%s/%s', 'test', 'woocommerce_shop_page_display' ) );
+		$request = new WP_REST_Request( 'PUT', sprintf( '/wc/v2/settings/%s/%s', 'test', 'poocommerce_shop_page_display' ) );
 		$request->set_body_params(
 			array(
 				'value' => '',
@@ -270,7 +270,7 @@ class Settings_V2 extends WC_REST_Unit_Test_Case {
 		$data     = $response->get_data();
 
 		$this->assertEquals( '', $data['value'] );
-		$this->assertEquals( '', get_option( 'woocommerce_shop_page_display' ) );
+		$this->assertEquals( '', get_option( 'poocommerce_shop_page_display' ) );
 	}
 
 	/**
@@ -292,7 +292,7 @@ class Settings_V2 extends WC_REST_Unit_Test_Case {
 			array(
 				'update' => array(
 					array(
-						'id'    => 'woocommerce_shop_page_display',
+						'id'    => 'poocommerce_shop_page_display',
 						'value' => 'both',
 					),
 				),
@@ -302,7 +302,7 @@ class Settings_V2 extends WC_REST_Unit_Test_Case {
 		$data     = $response->get_data();
 
 		$this->assertEquals( 'both', $data['update'][0]['value'] );
-		$this->assertEquals( 'both', get_option( 'woocommerce_shop_page_display' ) );
+		$this->assertEquals( 'both', get_option( 'poocommerce_shop_page_display' ) );
 
 		// test updating one, but making sure the other value stays the same.
 		$request = new WP_REST_Request( 'POST', '/wc/v2/settings/test/batch' );
@@ -310,7 +310,7 @@ class Settings_V2 extends WC_REST_Unit_Test_Case {
 			array(
 				'update' => array(
 					array(
-						'id'    => 'woocommerce_shop_page_display',
+						'id'    => 'poocommerce_shop_page_display',
 						'value' => 'subcategories',
 					),
 				),
@@ -319,7 +319,7 @@ class Settings_V2 extends WC_REST_Unit_Test_Case {
 		$response = $this->server->dispatch( $request );
 		$data     = $response->get_data();
 		$this->assertEquals( 'subcategories', $data['update'][0]['value'] );
-		$this->assertEquals( 'subcategories', get_option( 'woocommerce_shop_page_display' ) );
+		$this->assertEquals( 'subcategories', get_option( 'poocommerce_shop_page_display' ) );
 	}
 
 	/**
@@ -331,7 +331,7 @@ class Settings_V2 extends WC_REST_Unit_Test_Case {
 		wp_set_current_user( $this->user );
 
 		// test getting an invalid setting from a group that does not exist.
-		$response = $this->server->dispatch( new WP_REST_Request( 'GET', '/wc/v2/settings/not-real/woocommerce_shop_page_display' ) );
+		$response = $this->server->dispatch( new WP_REST_Request( 'GET', '/wc/v2/settings/not-real/poocommerce_shop_page_display' ) );
 		$data     = $response->get_data();
 		$this->assertEquals( 404, $response->get_status() );
 
@@ -341,12 +341,12 @@ class Settings_V2 extends WC_REST_Unit_Test_Case {
 		$this->assertEquals( 404, $response->get_status() );
 
 		// test getting a valid setting.
-		$response = $this->server->dispatch( new WP_REST_Request( 'GET', '/wc/v2/settings/test/woocommerce_shop_page_display' ) );
+		$response = $this->server->dispatch( new WP_REST_Request( 'GET', '/wc/v2/settings/test/poocommerce_shop_page_display' ) );
 		$data     = $response->get_data();
 
 		$this->assertEquals( 200, $response->get_status() );
 
-		$this->assertEquals( 'woocommerce_shop_page_display', $data['id'] );
+		$this->assertEquals( 'poocommerce_shop_page_display', $data['id'] );
 		$this->assertEquals( 'Shop page display', $data['label'] );
 		$this->assertEquals( '', $data['default'] );
 		$this->assertEquals( 'select', $data['type'] );
@@ -361,7 +361,7 @@ class Settings_V2 extends WC_REST_Unit_Test_Case {
 	public function test_get_setting_without_permission() {
 		wp_set_current_user( 0 );
 
-		$response = $this->server->dispatch( new WP_REST_Request( 'GET', '/wc/v2/settings/test/woocommerce_shop_page_display' ) );
+		$response = $this->server->dispatch( new WP_REST_Request( 'GET', '/wc/v2/settings/test/poocommerce_shop_page_display' ) );
 		$this->assertEquals( 401, $response->get_status() );
 	}
 
@@ -399,14 +399,14 @@ class Settings_V2 extends WC_REST_Unit_Test_Case {
 		$controller
 			->expects( $this->any() )
 			->method( 'get_group_settings' )
-			->will( $this->returnValue( \Automattic\WooCommerce\RestApi\UnitTests\Helpers\SettingsHelper::register_test_settings( array() ) ) );
+			->will( $this->returnValue( \Automattic\PooCommerce\RestApi\UnitTests\Helpers\SettingsHelper::register_test_settings( array() ) ) );
 
 		$controller
 			->expects( $this->any() )
 			->method( 'is_setting_type_valid' )
 			->will( $this->returnValue( false ) );
 
-		$result = $controller->get_setting( 'test', 'woocommerce_shop_page_display' );
+		$result = $controller->get_setting( 'test', 'poocommerce_shop_page_display' );
 
 		$this->assertWPError( $result );
 	}
@@ -419,7 +419,7 @@ class Settings_V2 extends WC_REST_Unit_Test_Case {
 	public function test_update_setting_without_permission() {
 		wp_set_current_user( 0 );
 
-		$request = new WP_REST_Request( 'PUT', sprintf( '/wc/v2/settings/%s/%s', 'test', 'woocommerce_shop_page_display' ) );
+		$request = new WP_REST_Request( 'PUT', sprintf( '/wc/v2/settings/%s/%s', 'test', 'poocommerce_shop_page_display' ) );
 		$request->set_body_params(
 			array(
 				'value' => 'subcategories',
@@ -443,7 +443,7 @@ class Settings_V2 extends WC_REST_Unit_Test_Case {
 			array(
 				'update' => array(
 					array(
-						'id'    => 'woocommerce_shop_page_display',
+						'id'    => 'poocommerce_shop_page_display',
 						'value' => 'subcategories',
 					),
 				),
@@ -486,7 +486,7 @@ class Settings_V2 extends WC_REST_Unit_Test_Case {
 		$this->assertTrue( is_array( $data ) );
 		$data_download_required_login = null;
 		foreach ( $data as $setting ) {
-			if ( 'woocommerce_downloads_require_login' === $setting['id'] ) {
+			if ( 'poocommerce_downloads_require_login' === $setting['id'] ) {
 				$data_download_required_login = $setting;
 				break;
 			}
@@ -495,7 +495,7 @@ class Settings_V2 extends WC_REST_Unit_Test_Case {
 		$this->assertEmpty(
 			ArrayUtil::deep_assoc_array_diff(
 				array(
-					'id'          => 'woocommerce_downloads_require_login',
+					'id'          => 'poocommerce_downloads_require_login',
 					'label'       => 'Access restriction',
 					'description' => 'Downloads require login',
 					'type'        => 'checkbox',
@@ -505,7 +505,7 @@ class Settings_V2 extends WC_REST_Unit_Test_Case {
 					'_links'      => array(
 						'self'       => array(
 							array(
-								'href' => rest_url( '/wc/v2/settings/products/woocommerce_downloads_require_login' ),
+								'href' => rest_url( '/wc/v2/settings/products/poocommerce_downloads_require_login' ),
 							),
 						),
 						'collection' => array(
@@ -520,13 +520,13 @@ class Settings_V2 extends WC_REST_Unit_Test_Case {
 		);
 
 		// test get single.
-		$response = $this->server->dispatch( new WP_REST_Request( 'GET', '/wc/v2/settings/products/woocommerce_dimension_unit' ) );
+		$response = $this->server->dispatch( new WP_REST_Request( 'GET', '/wc/v2/settings/products/poocommerce_dimension_unit' ) );
 		$data     = $response->get_data();
 
 		$this->assertEquals( 'in', $data['default'] );
 
 		// test update.
-		$request = new WP_REST_Request( 'PUT', sprintf( '/wc/v2/settings/%s/%s', 'products', 'woocommerce_dimension_unit' ) );
+		$request = new WP_REST_Request( 'PUT', sprintf( '/wc/v2/settings/%s/%s', 'products', 'poocommerce_dimension_unit' ) );
 		$request->set_body_params(
 			array(
 				'value' => 'yd',
@@ -536,7 +536,7 @@ class Settings_V2 extends WC_REST_Unit_Test_Case {
 		$data     = $response->get_data();
 
 		$this->assertEquals( 'yd', $data['value'] );
-		$this->assertEquals( 'yd', get_option( 'woocommerce_dimension_unit' ) );
+		$this->assertEquals( 'yd', get_option( 'poocommerce_dimension_unit' ) );
 	}
 
 	/**
@@ -703,7 +703,7 @@ class Settings_V2 extends WC_REST_Unit_Test_Case {
 		wp_set_current_user( $this->user );
 
 		// not a valid option.
-		$request = new WP_REST_Request( 'PUT', sprintf( '/wc/v2/settings/%s/%s', 'shipping', 'woocommerce_ship_to_destination' ) );
+		$request = new WP_REST_Request( 'PUT', sprintf( '/wc/v2/settings/%s/%s', 'shipping', 'poocommerce_ship_to_destination' ) );
 		$request->set_body_params(
 			array(
 				'value' => 'billing2',
@@ -713,7 +713,7 @@ class Settings_V2 extends WC_REST_Unit_Test_Case {
 		$this->assertEquals( 400, $response->get_status() );
 
 		// valid.
-		$request = new WP_REST_Request( 'PUT', sprintf( '/wc/v2/settings/%s/%s', 'shipping', 'woocommerce_ship_to_destination' ) );
+		$request = new WP_REST_Request( 'PUT', sprintf( '/wc/v2/settings/%s/%s', 'shipping', 'poocommerce_ship_to_destination' ) );
 		$request->set_body_params(
 			array(
 				'value' => 'billing',
@@ -731,11 +731,11 @@ class Settings_V2 extends WC_REST_Unit_Test_Case {
 	public function test_validation_multiselect() {
 		wp_set_current_user( $this->user );
 
-		$response = $this->server->dispatch( new WP_REST_Request( 'GET', sprintf( '/wc/v2/settings/%s/%s', 'general', 'woocommerce_specific_allowed_countries' ) ) );
+		$response = $this->server->dispatch( new WP_REST_Request( 'GET', sprintf( '/wc/v2/settings/%s/%s', 'general', 'poocommerce_specific_allowed_countries' ) ) );
 		$setting  = $response->get_data();
 		$this->assertEmpty( $setting['value'] );
 
-		$request = new WP_REST_Request( 'PUT', sprintf( '/wc/v2/settings/%s/%s', 'general', 'woocommerce_specific_allowed_countries' ) );
+		$request = new WP_REST_Request( 'PUT', sprintf( '/wc/v2/settings/%s/%s', 'general', 'poocommerce_specific_allowed_countries' ) );
 		$request->set_body_params(
 			array(
 				'value' => array( 'AX', 'DZ', 'MMM' ),
@@ -754,12 +754,12 @@ class Settings_V2 extends WC_REST_Unit_Test_Case {
 	public function test_validation_select() {
 		wp_set_current_user( $this->user );
 
-		$response = $this->server->dispatch( new WP_REST_Request( 'GET', sprintf( '/wc/v2/settings/%s/%s', 'products', 'woocommerce_weight_unit' ) ) );
+		$response = $this->server->dispatch( new WP_REST_Request( 'GET', sprintf( '/wc/v2/settings/%s/%s', 'products', 'poocommerce_weight_unit' ) ) );
 		$setting  = $response->get_data();
 		$this->assertEquals( 'lbs', $setting['value'] );
 
 		// invalid.
-		$request = new WP_REST_Request( 'PUT', sprintf( '/wc/v2/settings/%s/%s', 'products', 'woocommerce_weight_unit' ) );
+		$request = new WP_REST_Request( 'PUT', sprintf( '/wc/v2/settings/%s/%s', 'products', 'poocommerce_weight_unit' ) );
 		$request->set_body_params(
 			array(
 				'value' => 'pounds', // invalid, should be lbs.
@@ -769,7 +769,7 @@ class Settings_V2 extends WC_REST_Unit_Test_Case {
 		$this->assertEquals( 400, $response->get_status() );
 
 		// valid.
-		$request = new WP_REST_Request( 'PUT', sprintf( '/wc/v2/settings/%s/%s', 'products', 'woocommerce_weight_unit' ) );
+		$request = new WP_REST_Request( 'PUT', sprintf( '/wc/v2/settings/%s/%s', 'products', 'poocommerce_weight_unit' ) );
 		$request->set_body_params(
 			array(
 				'value' => 'kg', // valid.
@@ -787,9 +787,9 @@ class Settings_V2 extends WC_REST_Unit_Test_Case {
 	 *
 	 * @since 3.0.7
 	 */
-	public function test_woocommerce_default_country() {
+	public function test_poocommerce_default_country() {
 		wp_set_current_user( $this->user );
-		$response = $this->server->dispatch( new WP_REST_Request( 'GET', '/wc/v2/settings/general/woocommerce_default_country' ) );
+		$response = $this->server->dispatch( new WP_REST_Request( 'GET', '/wc/v2/settings/general/poocommerce_default_country' ) );
 		$setting  = $response->get_data();
 
 		$this->assertEquals( 'select', $setting['type'] );
@@ -802,18 +802,18 @@ class Settings_V2 extends WC_REST_Unit_Test_Case {
 	 *
 	 * @since 3.1.1
 	 */
-	public function test_woocommerce_store_address() {
+	public function test_poocommerce_store_address() {
 		wp_set_current_user( $this->user );
-		update_option( 'woocommerce_store_address', rand( 1000, 9999 ) );
+		update_option( 'poocommerce_store_address', rand( 1000, 9999 ) );
 
-		$response = $this->server->dispatch( new WP_REST_Request( 'GET', '/wc/v2/settings/general/woocommerce_store_address' ) );
+		$response = $this->server->dispatch( new WP_REST_Request( 'GET', '/wc/v2/settings/general/poocommerce_store_address' ) );
 		$setting  = $response->get_data();
 		$this->assertEquals( 'text', $setting['type'] );
 
 		// Repalce the old value with something uniquely new.
 		$old_value = $setting['value'];
 		$new_value = $old_value . ' ' . rand( 1000, 9999 );
-		$request   = new WP_REST_Request( 'PUT', '/wc/v2/settings/general/woocommerce_store_address' );
+		$request   = new WP_REST_Request( 'PUT', '/wc/v2/settings/general/poocommerce_store_address' );
 		$request->set_body_params(
 			array(
 				'value' => $new_value,
@@ -824,7 +824,7 @@ class Settings_V2 extends WC_REST_Unit_Test_Case {
 		$this->assertEquals( $new_value, $setting['value'] );
 
 		// Put the original value back.
-		$request = new WP_REST_Request( 'PUT', '/wc/v2/settings/general/woocommerce_store_address' );
+		$request = new WP_REST_Request( 'PUT', '/wc/v2/settings/general/poocommerce_store_address' );
 		$request->set_body_params(
 			array(
 				'value' => $old_value,
@@ -840,18 +840,18 @@ class Settings_V2 extends WC_REST_Unit_Test_Case {
 	 *
 	 * @since 3.1.1
 	 */
-	public function test_woocommerce_store_address_2() {
+	public function test_poocommerce_store_address_2() {
 		wp_set_current_user( $this->user );
-		update_option( 'woocommerce_store_address_2', rand( 1000, 9999 ) );
+		update_option( 'poocommerce_store_address_2', rand( 1000, 9999 ) );
 
-		$response = $this->server->dispatch( new WP_REST_Request( 'GET', '/wc/v2/settings/general/woocommerce_store_address_2' ) );
+		$response = $this->server->dispatch( new WP_REST_Request( 'GET', '/wc/v2/settings/general/poocommerce_store_address_2' ) );
 		$setting  = $response->get_data();
 		$this->assertEquals( 'text', $setting['type'] );
 
 		// Repalce the old value with something uniquely new.
 		$old_value = $setting['value'];
 		$new_value = $old_value . ' ' . rand( 1000, 9999 );
-		$request   = new WP_REST_Request( 'PUT', '/wc/v2/settings/general/woocommerce_store_address_2' );
+		$request   = new WP_REST_Request( 'PUT', '/wc/v2/settings/general/poocommerce_store_address_2' );
 		$request->set_body_params(
 			array(
 				'value' => $new_value,
@@ -862,7 +862,7 @@ class Settings_V2 extends WC_REST_Unit_Test_Case {
 		$this->assertEquals( $new_value, $setting['value'] );
 
 		// Put the original value back.
-		$request = new WP_REST_Request( 'PUT', '/wc/v2/settings/general/woocommerce_store_address_2' );
+		$request = new WP_REST_Request( 'PUT', '/wc/v2/settings/general/poocommerce_store_address_2' );
 		$request->set_body_params(
 			array(
 				'value' => $old_value,
@@ -878,18 +878,18 @@ class Settings_V2 extends WC_REST_Unit_Test_Case {
 	 *
 	 * @since 3.1.1
 	 */
-	public function test_woocommerce_store_city() {
+	public function test_poocommerce_store_city() {
 		wp_set_current_user( $this->user );
-		update_option( 'woocommerce_store_city', rand( 1000, 9999 ) );
+		update_option( 'poocommerce_store_city', rand( 1000, 9999 ) );
 
-		$response = $this->server->dispatch( new WP_REST_Request( 'GET', '/wc/v2/settings/general/woocommerce_store_city' ) );
+		$response = $this->server->dispatch( new WP_REST_Request( 'GET', '/wc/v2/settings/general/poocommerce_store_city' ) );
 		$setting  = $response->get_data();
 		$this->assertEquals( 'text', $setting['type'] );
 
 		// Repalce the old value with something uniquely new.
 		$old_value = $setting['value'];
 		$new_value = $old_value . ' ' . rand( 1000, 9999 );
-		$request   = new WP_REST_Request( 'PUT', '/wc/v2/settings/general/woocommerce_store_city' );
+		$request   = new WP_REST_Request( 'PUT', '/wc/v2/settings/general/poocommerce_store_city' );
 		$request->set_body_params(
 			array(
 				'value' => $new_value,
@@ -900,7 +900,7 @@ class Settings_V2 extends WC_REST_Unit_Test_Case {
 		$this->assertEquals( $new_value, $setting['value'] );
 
 		// Put the original value back.
-		$request = new WP_REST_Request( 'PUT', '/wc/v2/settings/general/woocommerce_store_city' );
+		$request = new WP_REST_Request( 'PUT', '/wc/v2/settings/general/poocommerce_store_city' );
 		$request->set_body_params(
 			array(
 				'value' => $old_value,
@@ -916,18 +916,18 @@ class Settings_V2 extends WC_REST_Unit_Test_Case {
 	 *
 	 * @since 3.1.1
 	 */
-	public function test_woocommerce_store_postcode() {
+	public function test_poocommerce_store_postcode() {
 		wp_set_current_user( $this->user );
-		update_option( 'woocommerce_store_postcode', rand( 1000, 9999 ) );
+		update_option( 'poocommerce_store_postcode', rand( 1000, 9999 ) );
 
-		$response = $this->server->dispatch( new WP_REST_Request( 'GET', '/wc/v2/settings/general/woocommerce_store_postcode' ) );
+		$response = $this->server->dispatch( new WP_REST_Request( 'GET', '/wc/v2/settings/general/poocommerce_store_postcode' ) );
 		$setting  = $response->get_data();
 		$this->assertEquals( 'text', $setting['type'] );
 
 		// Repalce the old value with something uniquely new.
 		$old_value = $setting['value'];
 		$new_value = $old_value . ' ' . rand( 1000, 9999 );
-		$request   = new WP_REST_Request( 'PUT', '/wc/v2/settings/general/woocommerce_store_postcode' );
+		$request   = new WP_REST_Request( 'PUT', '/wc/v2/settings/general/poocommerce_store_postcode' );
 		$request->set_body_params(
 			array(
 				'value' => $new_value,
@@ -938,7 +938,7 @@ class Settings_V2 extends WC_REST_Unit_Test_Case {
 		$this->assertEquals( $new_value, $setting['value'] );
 
 		// Put the original value back.
-		$request = new WP_REST_Request( 'PUT', '/wc/v2/settings/general/woocommerce_store_postcode' );
+		$request = new WP_REST_Request( 'PUT', '/wc/v2/settings/general/poocommerce_store_postcode' );
 		$request->set_body_params(
 			array(
 				'value' => $old_value,

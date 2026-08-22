@@ -1,4 +1,4 @@
-declare module '@woocommerce/settings' {
+declare module '@poocommerce/settings' {
 	export declare function getAdminLink( path: string ): string;
 	export declare function getSetting< T >(
 		name: string,

@@ -1,7 +1,7 @@
 Layout
 ======
 
-This component handles the layout of the WooCommerce app. This also controls the routing, and which component should be shown on each page.
+This component handles the layout of the PooCommerce app. This also controls the routing, and which component should be shown on each page.
 
 ## Layout
 

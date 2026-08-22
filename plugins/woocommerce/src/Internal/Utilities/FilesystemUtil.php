@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\Utilities;
+namespace Automattic\PooCommerce\Internal\Utilities;
 
 use Automattic\Jetpack\Constants;
-use Automattic\WooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
 use Exception;
 use WP_Filesystem_Base;
 use WP_Filesystem_Direct;
@@ -106,7 +106,7 @@ class FilesystemUtil {
 
 		_doing_it_wrong(
 			__METHOD__,
-			esc_html__( 'WP_Filesystem_Direct could not be loaded. Falling back to the configured FS_METHOD; operations on the uploads directory may fail if FS_METHOD is misconfigured.', 'woocommerce' ),
+			esc_html__( 'WP_Filesystem_Direct could not be loaded. Falling back to the configured FS_METHOD; operations on the uploads directory may fail if FS_METHOD is misconfigured.', 'poocommerce' ),
 			'11.0.0'
 		);
 
@@ -246,7 +246,7 @@ class FilesystemUtil {
 					// A fixed cooldown is used instead of exponential backoff since this handles a non-critical
 					// edge case (broken FTP filesystem during logging) that most sites will never encounter.
 					set_transient( self::FTP_INIT_FAILURE_TRANSIENT, true, self::FTP_INIT_COOLDOWN_MINUTES * MINUTE_IN_SECONDS );
-					error_log( sprintf( 'WooCommerce: FTP filesystem connection failed. Please check your FTP credentials. Retrying in %d minutes.', self::FTP_INIT_COOLDOWN_MINUTES ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
+					error_log( sprintf( 'PooCommerce: FTP filesystem connection failed. Please check your FTP credentials. Retrying in %d minutes.', self::FTP_INIT_COOLDOWN_MINUTES ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
 				} else {
 					delete_transient( self::FTP_INIT_FAILURE_TRANSIENT );
 				}
@@ -309,7 +309,7 @@ class FilesystemUtil {
 		}
 
 		if ( ! $is_valid_file ) {
-			throw new \Exception( esc_html__( 'File path is not a valid upload path.', 'woocommerce' ) );
+			throw new \Exception( esc_html__( 'File path is not a valid upload path.', 'poocommerce' ) );
 		}
 	}
 

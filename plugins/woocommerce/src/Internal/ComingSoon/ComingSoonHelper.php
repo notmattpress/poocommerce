@@ -1,7 +1,7 @@
 <?php
-namespace Automattic\WooCommerce\Internal\ComingSoon;
+namespace Automattic\PooCommerce\Internal\ComingSoon;
 
-use Automattic\WooCommerce\Admin\WCAdminHelper;
+use Automattic\PooCommerce\Admin\WCAdminHelper;
 
 /**
  * Provides helper methods for coming soon functionality.
@@ -12,21 +12,21 @@ class ComingSoonHelper {
 	 * Returns true when the entire site is live.
 	 */
 	public function is_site_live(): bool {
-		return 'yes' !== get_option( 'woocommerce_coming_soon' );
+		return 'yes' !== get_option( 'poocommerce_coming_soon' );
 	}
 
 	/**
 	 * Returns true when the entire site is coming soon mode.
 	 */
 	public function is_site_coming_soon(): bool {
-		return 'yes' === get_option( 'woocommerce_coming_soon' ) && 'yes' !== get_option( 'woocommerce_store_pages_only' );
+		return 'yes' === get_option( 'poocommerce_coming_soon' ) && 'yes' !== get_option( 'poocommerce_store_pages_only' );
 	}
 
 	/**
 	 * Returns true when only the store pages are in coming soon mode.
 	 */
 	public function is_store_coming_soon(): bool {
-		return 'yes' === get_option( 'woocommerce_coming_soon' ) && 'yes' === get_option( 'woocommerce_store_pages_only' );
+		return 'yes' === get_option( 'poocommerce_coming_soon' ) && 'yes' === get_option( 'poocommerce_store_pages_only' );
 	}
 
 	/**

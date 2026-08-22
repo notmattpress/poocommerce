@@ -1,12 +1,12 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\GraphQL\Language;
+namespace Automattic\PooCommerce\Vendor\GraphQL\Language;
 
 /**
  * Represents a range of characters represented by a lexical token
  * within a Source.
  *
- * @see \Automattic\WooCommerce\Vendor\GraphQL\Tests\Language\TokenTest
+ * @see \Automattic\PooCommerce\Vendor\GraphQL\Tests\Language\TokenTest
  */
 class Token
 {

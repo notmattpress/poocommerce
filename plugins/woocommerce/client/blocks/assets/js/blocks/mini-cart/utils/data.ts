@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import type { ColorPaletteOption } from '@woocommerce/editor-components/color-panel/types';
+import type { ColorPaletteOption } from '@poocommerce/editor-components/color-panel/types';
 
 /**
  * Internal dependencies

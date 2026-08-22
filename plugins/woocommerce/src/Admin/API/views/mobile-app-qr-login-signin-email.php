@@ -37,7 +37,7 @@ if ( '' !== $device_brand && '' !== $device_model ) {
 } elseif ( '' !== $device_os ) {
 	$display_name = $device_os;
 } else {
-	$display_name = __( 'WooCommerce mobile app', 'woocommerce' );
+	$display_name = __( 'PooCommerce mobile app', 'poocommerce' );
 }
 
 $os_line   = trim( $device_os . ( '' !== $device_os_version ? ' ' . $device_os_version : '' ) );
@@ -48,7 +48,7 @@ $timestamp = (string) wp_date(
 
 $preheader = sprintf(
 	/* translators: 1: device name. 2: site name. */
-	__( '%1$s just signed in to the WooCommerce mobile app for %2$s.', 'woocommerce' ),
+	__( '%1$s just signed in to the PooCommerce mobile app for %2$s.', 'poocommerce' ),
 	$display_name,
 	$site_name
 );
@@ -99,7 +99,7 @@ $language           = esc_attr( get_bloginfo( 'language' ) );
 <?php if ( '' !== $app_version ) : ?>
 	<?php
 	/* translators: %s: mobile app version, e.g. "24.7.0". */
-	$app_version_line = sprintf( esc_html__( 'App version %s', 'woocommerce' ), esc_html( $app_version ) );
+	$app_version_line = sprintf( esc_html__( 'App version %s', 'poocommerce' ), esc_html( $app_version ) );
 	?>
 <p style="margin:0 0 4px 0; font-family:<?php echo esc_attr( $font_stack ); ?>; font-size:14px; line-height:1.5; color:<?php echo esc_attr( $text_secondary ); ?>;"><?php echo $app_version_line; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- already escaped above. ?></p>
 <?php endif; ?>
@@ -111,24 +111,24 @@ $language           = esc_attr( get_bloginfo( 'language' ) );
 </tr>
 <tr>
 <td style="padding:28px 40px 0 40px;">
-<h2 style="margin:0 0 8px 0; font-family:<?php echo esc_attr( $font_stack ); ?>; font-size:18px; line-height:1.4; font-weight:600; color:<?php echo esc_attr( $text_primary ); ?>;"><?php esc_html_e( 'Was this you?', 'woocommerce' ); ?></h2>
-<p style="margin:0 0 24px 0; font-family:<?php echo esc_attr( $font_stack ); ?>; font-size:14px; line-height:1.6; color:<?php echo esc_attr( $text_secondary ); ?>;"><?php esc_html_e( "If you recognise this sign-in, you don't need to do anything. If it wasn't you, revoke access immediately to remove this device.", 'woocommerce' ); ?></p>
+<h2 style="margin:0 0 8px 0; font-family:<?php echo esc_attr( $font_stack ); ?>; font-size:18px; line-height:1.4; font-weight:600; color:<?php echo esc_attr( $text_primary ); ?>;"><?php esc_html_e( 'Was this you?', 'poocommerce' ); ?></h2>
+<p style="margin:0 0 24px 0; font-family:<?php echo esc_attr( $font_stack ); ?>; font-size:14px; line-height:1.6; color:<?php echo esc_attr( $text_secondary ); ?>;"><?php esc_html_e( "If you recognise this sign-in, you don't need to do anything. If it wasn't you, revoke access immediately to remove this device.", 'poocommerce' ); ?></p>
 </td>
 </tr>
 <tr>
 <td style="padding:0 40px 32px 40px;">
 <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:separate;">
 <tr>
-<td align="center" bgcolor="<?php echo esc_attr( $brand_purple_50 ); ?>" style="border-radius:6px; padding:14px 32px; mso-padding-alt:14px 32px;"><a href="<?php echo esc_url( $applications_url ); ?>" style="font-family:<?php echo esc_attr( $font_stack ); ?>; font-size:15px; font-weight:600; line-height:1; color:#ffffff; text-decoration:none;"><?php esc_html_e( 'Revoke access', 'woocommerce' ); ?></a></td>
+<td align="center" bgcolor="<?php echo esc_attr( $brand_purple_50 ); ?>" style="border-radius:6px; padding:14px 32px; mso-padding-alt:14px 32px;"><a href="<?php echo esc_url( $applications_url ); ?>" style="font-family:<?php echo esc_attr( $font_stack ); ?>; font-size:15px; font-weight:600; line-height:1; color:#ffffff; text-decoration:none;"><?php esc_html_e( 'Revoke access', 'poocommerce' ); ?></a></td>
 </tr>
 </table>
 </td>
 </tr>
 <?php
 $manage_link  = '<a href="' . esc_url( $applications_url ) . '" style="color:' . esc_attr( $brand_purple_70 ) . '; text-decoration:underline;">';
-$manage_link .= esc_html__( 'Users → Profile → Application Passwords', 'woocommerce' ) . '</a>';
+$manage_link .= esc_html__( 'Users → Profile → Application Passwords', 'poocommerce' ) . '</a>';
 /* translators: %s: HTML link to the Application Passwords screen. */
-$manage_line = sprintf( esc_html__( 'You can manage all connected devices anytime under %s.', 'woocommerce' ), $manage_link );
+$manage_line = sprintf( esc_html__( 'You can manage all connected devices anytime under %s.', 'poocommerce' ), $manage_link );
 ?>
 <tr>
 <td style="padding:0 40px 32px 40px; border-top:1px solid <?php echo esc_attr( $divider ); ?>;">

@@ -8,13 +8,13 @@ import { applyFilters } from '@wordpress/hooks';
  */
 import { NavigationState } from './types';
 
-const MENU_ITEMS_HOOK = 'woocommerce_navigation_menu_items' as const;
+const MENU_ITEMS_HOOK = 'poocommerce_navigation_menu_items' as const;
 
 export const getMenuItems = ( state: NavigationState ) => {
 	/**
 	 * Navigation Menu Items.
 	 *
-	 * @filter woocommerce_navigation_menu_items
+	 * @filter poocommerce_navigation_menu_items
 	 * @param {Array.<Object>} menuItems Array of Navigation menu items.
 	 */
 	return applyFilters( MENU_ITEMS_HOOK, state.menuItems );

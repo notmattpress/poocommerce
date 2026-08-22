@@ -1,9 +1,9 @@
 <?php
 
 declare( strict_types = 1 );
-namespace Automattic\WooCommerce\Tests\Internal\StockNotifications\Utilities;
+namespace Automattic\PooCommerce\Tests\Internal\StockNotifications\Utilities;
 
-use Automattic\WooCommerce\Internal\StockNotifications\Utilities\UtmHelper;
+use Automattic\PooCommerce\Internal\StockNotifications\Utilities\UtmHelper;
 
 /**
  * Tests for UtmHelper.

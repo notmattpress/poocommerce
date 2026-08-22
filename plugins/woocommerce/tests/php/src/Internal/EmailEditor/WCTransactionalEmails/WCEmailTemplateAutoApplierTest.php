@@ -2,15 +2,15 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\EmailEditor\WCTransactionalEmails;
+namespace Automattic\PooCommerce\Tests\Internal\EmailEditor\WCTransactionalEmails;
 
-use Automattic\WooCommerce\Internal\EmailEditor\Integration;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateAutoApplier;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateDivergenceDetector;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateSyncRegistry;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateSyncTracker;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsGenerator;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsManager;
+use Automattic\PooCommerce\Internal\EmailEditor\Integration;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateAutoApplier;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateDivergenceDetector;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateSyncRegistry;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateSyncTracker;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsGenerator;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsManager;
 
 /**
  * Tests for the WCEmailTemplateAutoApplier class.
@@ -43,7 +43,7 @@ class WCEmailTemplateAutoApplierTest extends \WC_Unit_Test_Case {
 	public function setUp(): void {
 		parent::setUp();
 
-		update_option( 'woocommerce_feature_block_email_editor_enabled', 'yes' );
+		update_option( 'poocommerce_feature_block_email_editor_enabled', 'yes' );
 		update_option( WCEmailTemplateDivergenceDetector::BACKFILL_COMPLETE_OPTION, 'yes' );
 
 		// Reuse the divergence-detector fixture file — same shape, same @version header.
@@ -70,14 +70,14 @@ class WCEmailTemplateAutoApplierTest extends \WC_Unit_Test_Case {
 
 		remove_filter( 'theme_woo_email_templates', array( $this, 'whitelist_email_page_template' ) );
 		remove_filter( 'theme_templates', array( $this, 'whitelist_email_page_template' ) );
-		remove_all_filters( 'woocommerce_transactional_emails_for_block_editor' );
-		remove_all_filters( 'woocommerce_email_content_post_data' );
+		remove_all_filters( 'poocommerce_transactional_emails_for_block_editor' );
+		remove_all_filters( 'poocommerce_email_content_post_data' );
 
 		WCEmailTemplateSyncRegistry::reset_cache();
 		WCEmailTemplateAutoApplier::set_logger( null );
 
 		delete_option( WCEmailTemplateDivergenceDetector::BACKFILL_COMPLETE_OPTION );
-		update_option( 'woocommerce_feature_block_email_editor_enabled', 'no' );
+		update_option( 'poocommerce_feature_block_email_editor_enabled', 'no' );
 
 		parent::tearDown();
 	}
@@ -107,11 +107,11 @@ class WCEmailTemplateAutoApplierTest extends \WC_Unit_Test_Case {
 		$email        = $emails_by_id[ $email_id ];
 
 		// Simulate a core-template change by mutating the canonical content via the
-		// woocommerce_email_content_post_data filter for the duration of this test —
+		// poocommerce_email_content_post_data filter for the duration of this test —
 		// keeps the stored hash from RSM-137 stamping intact while making the
 		// auto-applier's recomputed canonical hash differ.
 		add_filter(
-			'woocommerce_email_content_post_data',
+			'poocommerce_email_content_post_data',
 			static function ( array $post_data ) use ( $email_id ): array {
 				if ( ( $post_data['post_name'] ?? '' ) === $email_id ) {
 					$post_data['post_content'] = (string) ( $post_data['post_content'] ?? '' ) . "\n<!-- new core release -->";
@@ -158,7 +158,7 @@ class WCEmailTemplateAutoApplierTest extends \WC_Unit_Test_Case {
 
 		// Simulate a core-template change so the auto-apply has something to write.
 		add_filter(
-			'woocommerce_email_content_post_data',
+			'poocommerce_email_content_post_data',
 			static function ( array $post_data ) use ( $email_id ): array {
 				if ( ( $post_data['post_name'] ?? '' ) === $email_id ) {
 					$post_data['post_content'] = (string) ( $post_data['post_content'] ?? '' ) . "\n<!-- new core release -->";
@@ -288,7 +288,7 @@ class WCEmailTemplateAutoApplierTest extends \WC_Unit_Test_Case {
 		$email        = $emails_by_id[ $email_id ];
 
 		// Drop the email out of the block-editor opt-in filter for the rest of the test.
-		remove_all_filters( 'woocommerce_transactional_emails_for_block_editor' );
+		remove_all_filters( 'poocommerce_transactional_emails_for_block_editor' );
 		WCEmailTemplateSyncRegistry::reset_cache();
 
 		$pre_call_content = (string) get_post( $post_id )->post_content;
@@ -440,7 +440,7 @@ class WCEmailTemplateAutoApplierTest extends \WC_Unit_Test_Case {
 		// email's persisted state.
 		$post_id = wp_insert_post(
 			array(
-				'post_type'    => \Automattic\WooCommerce\Internal\EmailEditor\Integration::EMAIL_POST_TYPE,
+				'post_type'    => \Automattic\PooCommerce\Internal\EmailEditor\Integration::EMAIL_POST_TYPE,
 				'post_status'  => 'publish',
 				'post_name'    => $email_id,
 				'post_title'   => 'Non-sync-enabled fixture',
@@ -450,7 +450,7 @@ class WCEmailTemplateAutoApplierTest extends \WC_Unit_Test_Case {
 		$this->assertIsInt( $post_id );
 
 		// Drop the email out of the registry so apply_to_post sees null sync_config.
-		remove_all_filters( 'woocommerce_transactional_emails_for_block_editor' );
+		remove_all_filters( 'poocommerce_transactional_emails_for_block_editor' );
 		WCEmailTemplateSyncRegistry::reset_cache();
 
 		$expected_canonical = WCTransactionalEmailPostsGenerator::compute_canonical_post_content( $email );
@@ -581,7 +581,7 @@ class WCEmailTemplateAutoApplierTest extends \WC_Unit_Test_Case {
 
 	/**
 	 * Calling schedule() twice in the same request (e.g. once from
-	 * woocommerce_updated and once from BACKFILL_COMPLETE_ACTION) must not
+	 * poocommerce_updated and once from BACKFILL_COMPLETE_ACTION) must not
 	 * enqueue two pending actions.
 	 */
 	public function test_schedule_does_not_double_enqueue(): void {
@@ -845,7 +845,7 @@ class WCEmailTemplateAutoApplierTest extends \WC_Unit_Test_Case {
 		$content_before = (string) get_post( $post_id )->post_content;
 
 		// Drop the email out of the registry.
-		remove_all_filters( 'woocommerce_transactional_emails_for_block_editor' );
+		remove_all_filters( 'poocommerce_transactional_emails_for_block_editor' );
 		WCEmailTemplateSyncRegistry::reset_cache();
 
 		$captured = array();
@@ -960,7 +960,7 @@ class WCEmailTemplateAutoApplierTest extends \WC_Unit_Test_Case {
 		 *
 		 * @since 10.8.0
 		 */
-		do_action( 'woocommerce_email_template_divergence_sweep_complete' );
+		do_action( 'poocommerce_email_template_divergence_sweep_complete' );
 
 		$this->assertTrue(
 			(bool) as_has_scheduled_action(
@@ -983,10 +983,10 @@ class WCEmailTemplateAutoApplierTest extends \WC_Unit_Test_Case {
 	 * is shaped: [ 'level' => 'info'|'warning'|'error', 'message' => string, 'context' => array ].
 	 *
 	 * @param array<int, array<string, mixed>> $sink Reference to the array that will receive entries.
-	 * @return \Automattic\WooCommerce\EmailEditor\Engine\Logger\Email_Editor_Logger_Interface
+	 * @return \Automattic\PooCommerce\EmailEditor\Engine\Logger\Email_Editor_Logger_Interface
 	 */
-	private function build_recording_logger( array &$sink ): \Automattic\WooCommerce\EmailEditor\Engine\Logger\Email_Editor_Logger_Interface {
-		return new class( $sink ) implements \Automattic\WooCommerce\EmailEditor\Engine\Logger\Email_Editor_Logger_Interface {
+	private function build_recording_logger( array &$sink ): \Automattic\PooCommerce\EmailEditor\Engine\Logger\Email_Editor_Logger_Interface {
+		return new class( $sink ) implements \Automattic\PooCommerce\EmailEditor\Engine\Logger\Email_Editor_Logger_Interface {
 			/** @var array<int, array<string, mixed>> */
 			private array $sink;
 
@@ -1119,7 +1119,7 @@ class WCEmailTemplateAutoApplierTest extends \WC_Unit_Test_Case {
 		$this->injected_email_keys[] = $class_key;
 
 		add_filter(
-			'woocommerce_transactional_emails_for_block_editor',
+			'poocommerce_transactional_emails_for_block_editor',
 			static function ( array $emails ) use ( $email_id ): array {
 				if ( ! in_array( $email_id, $emails, true ) ) {
 					$emails[] = $email_id;

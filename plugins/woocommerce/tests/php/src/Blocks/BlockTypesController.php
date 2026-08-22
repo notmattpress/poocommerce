@@ -1,12 +1,12 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks;
+namespace Automattic\PooCommerce\Tests\Blocks;
 
-use Automattic\WooCommerce\Blocks\Assets\Api;
-use Automattic\WooCommerce\Blocks\BlockTypesController as TestedBlockTypesController;
-use Automattic\WooCommerce\Blocks\Package;
-use Automattic\WooCommerce\Tests\Blocks\Mocks\AssetDataRegistryMock;
+use Automattic\PooCommerce\Blocks\Assets\Api;
+use Automattic\PooCommerce\Blocks\BlockTypesController as TestedBlockTypesController;
+use Automattic\PooCommerce\Blocks\Package;
+use Automattic\PooCommerce\Tests\Blocks\Mocks\AssetDataRegistryMock;
 use WC_Unit_Test_Case;
 
 /**
@@ -59,11 +59,11 @@ class BlockTypesController extends WC_Unit_Test_Case {
 			]
 		);
 
-		// A block that will be allowed because it has a parent with a woocommerce namespace.
+		// A block that will be allowed because it has a parent with a poocommerce namespace.
 		register_block_type(
 			'child-of-woo/block-name',
 			[
-				'parent' => [ 'woocommerce/checkout-contact-information-block' ],
+				'parent' => [ 'poocommerce/checkout-contact-information-block' ],
 			]
 		);
 
@@ -71,7 +71,7 @@ class BlockTypesController extends WC_Unit_Test_Case {
 		$this->assertFalse( $answer );
 
 		add_filter(
-			'__experimental_woocommerce_blocks_add_data_attributes_to_block',
+			'__experimental_poocommerce_blocks_add_data_attributes_to_block',
 			function ( $blocks ) {
 				$blocks[] = 'namespace/allowed-block-name';
 				return $blocks;
@@ -81,7 +81,7 @@ class BlockTypesController extends WC_Unit_Test_Case {
 		$this->assertTrue( $answer );
 
 		add_filter(
-			'__experimental_woocommerce_blocks_add_data_attributes_to_namespace',
+			'__experimental_poocommerce_blocks_add_data_attributes_to_namespace',
 			function ( $namespaces ) {
 				$namespaces[] = 'allowed-namespace';
 				return $namespaces;

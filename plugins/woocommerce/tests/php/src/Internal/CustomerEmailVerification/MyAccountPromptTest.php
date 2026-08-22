@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\CustomerEmailVerification;
+namespace Automattic\PooCommerce\Tests\Internal\CustomerEmailVerification;
 
-use Automattic\WooCommerce\Internal\CustomerEmailVerification\EmailVerificationService;
-use Automattic\WooCommerce\Internal\CustomerEmailVerification\VerificationController;
+use Automattic\PooCommerce\Internal\CustomerEmailVerification\EmailVerificationService;
+use Automattic\PooCommerce\Internal\CustomerEmailVerification\VerificationController;
 use WC_Unit_Test_Case;
 
 /**
@@ -180,17 +180,17 @@ class MyAccountPromptTest extends WC_Unit_Test_Case {
 		$user_id = wc_create_new_customer( 'send-trigger@example.com', 'sendtrigger', 'pw' );
 		wp_set_current_user( $user_id );
 
-		$_GET['_wpnonce'] = wp_create_nonce( 'woocommerce-send-verification-email' );
+		$_GET['_wpnonce'] = wp_create_nonce( 'poocommerce-send-verification-email' );
 
 		$notification_fired = false;
 		$listener           = static function () use ( &$notification_fired ) {
 			$notification_fired = true;
 		};
-		add_action( 'woocommerce_customer_verify_email_notification', $listener );
+		add_action( 'poocommerce_customer_verify_email_notification', $listener );
 
 		$this->dispatch_send_request();
 
-		remove_action( 'woocommerce_customer_verify_email_notification', $listener );
+		remove_action( 'poocommerce_customer_verify_email_notification', $listener );
 		unset( $_GET['_wpnonce'] );
 
 		$this->assertTrue( $notification_fired, 'Notification hook should fire for a valid send request' );
@@ -209,11 +209,11 @@ class MyAccountPromptTest extends WC_Unit_Test_Case {
 		$listener           = static function () use ( &$notification_fired ) {
 			$notification_fired = true;
 		};
-		add_action( 'woocommerce_customer_verify_email_notification', $listener );
+		add_action( 'poocommerce_customer_verify_email_notification', $listener );
 
 		$this->dispatch_send_request();
 
-		remove_action( 'woocommerce_customer_verify_email_notification', $listener );
+		remove_action( 'poocommerce_customer_verify_email_notification', $listener );
 		unset( $_GET['_wpnonce'] );
 
 		$this->assertFalse( $notification_fired, 'Notification hook should not fire when the nonce is invalid' );
@@ -230,17 +230,17 @@ class MyAccountPromptTest extends WC_Unit_Test_Case {
 		$listener           = static function () use ( &$notification_count ) {
 			++$notification_count;
 		};
-		add_action( 'woocommerce_customer_verify_email_notification', $listener );
+		add_action( 'poocommerce_customer_verify_email_notification', $listener );
 
 		// First send (no existing key).
-		$_GET['_wpnonce'] = wp_create_nonce( 'woocommerce-send-verification-email' );
+		$_GET['_wpnonce'] = wp_create_nonce( 'poocommerce-send-verification-email' );
 		$this->dispatch_send_request();
 
 		// Second send — key was just created (seconds_since_last_key < 60).
-		$_GET['_wpnonce'] = wp_create_nonce( 'woocommerce-send-verification-email' );
+		$_GET['_wpnonce'] = wp_create_nonce( 'poocommerce-send-verification-email' );
 		$throttled        = $this->dispatch_send_request();
 
-		remove_action( 'woocommerce_customer_verify_email_notification', $listener );
+		remove_action( 'poocommerce_customer_verify_email_notification', $listener );
 		unset( $_GET['_wpnonce'] );
 
 		$this->assertSame( 1, $notification_count, 'Notification should fire exactly once despite two send attempts within the rate-limit window' );

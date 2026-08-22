@@ -1,17 +1,17 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\Domain\Services;
+namespace Automattic\PooCommerce\Tests\Blocks\Domain\Services;
 
-use Automattic\WooCommerce\Blocks\Domain\Services\CheckoutFields;
-use Automattic\WooCommerce\Blocks\Domain\Services\CheckoutFieldsFrontend;
-use Automattic\WooCommerce\Blocks\Package;
+use Automattic\PooCommerce\Blocks\Domain\Services\CheckoutFields;
+use Automattic\PooCommerce\Blocks\Domain\Services\CheckoutFieldsFrontend;
+use Automattic\PooCommerce\Blocks\Package;
 use Exception;
 use WC_Customer;
 use WP_Error;
 
 /**
- * Test \Automattic\WooCommerce\Blocks\Domain\Services\Hydration class.
+ * Test \Automattic\PooCommerce\Blocks\Domain\Services\Hydration class.
  */
 class CheckoutFieldsFrontendTest extends \WC_Unit_Test_Case {
 	/**
@@ -41,9 +41,9 @@ class CheckoutFieldsFrontendTest extends \WC_Unit_Test_Case {
 	public function setUp(): void {
 		parent::setUp();
 
-		add_filter( 'woocommerce_add_notice', [ $this, 'capture_notice' ] );
-		add_filter( 'woocommerce_add_error', [ $this, 'capture_error' ] );
-		add_filter( 'woocommerce_add_success', [ $this, 'capture_success' ] );
+		add_filter( 'poocommerce_add_notice', [ $this, 'capture_notice' ] );
+		add_filter( 'poocommerce_add_error', [ $this, 'capture_error' ] );
+		add_filter( 'poocommerce_add_success', [ $this, 'capture_success' ] );
 
 		$this->sut        = Package::container()->get( CheckoutFieldsFrontend::class );
 		$this->controller = Package::container()->get( CheckoutFields::class );
@@ -54,7 +54,7 @@ class CheckoutFieldsFrontendTest extends \WC_Unit_Test_Case {
 	 */
 	public function tearDown(): void {
 		foreach ( $this->registered_fields as $field_id ) {
-			__internal_woocommerce_blocks_deregister_checkout_field( $field_id );
+			__internal_poocommerce_blocks_deregister_checkout_field( $field_id );
 		}
 		$this->registered_fields = [];
 
@@ -67,7 +67,7 @@ class CheckoutFieldsFrontendTest extends \WC_Unit_Test_Case {
 	 * @param array $args Field registration arguments.
 	 */
 	private function register_checkout_field( array $args ): void {
-		woocommerce_register_additional_checkout_field( $args );
+		poocommerce_register_additional_checkout_field( $args );
 		$this->registered_fields[] = $args['id'];
 	}
 
@@ -124,17 +124,17 @@ class CheckoutFieldsFrontendTest extends \WC_Unit_Test_Case {
 			throw new Exception( $hash ); // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
 		};
 
-		add_filter( 'woocommerce_customer_data_store', $mock_data_store );
+		add_filter( 'poocommerce_customer_data_store', $mock_data_store );
 
 		global $mocked_messages;
 		$mocked_messages = [];
 
 		$this->sut->save_account_form_fields( 12345 );
 
-		remove_filter( 'woocommerce_customer_data_store', $mock_data_store );
+		remove_filter( 'poocommerce_customer_data_store', $mock_data_store );
 
 		$this->assertCount( 1, $mocked_messages );
-		$this->assertEquals( sprintf( __( 'An error occurred while saving account details: %s', 'woocommerce' ), $hash ), $mocked_messages[0]['message'] ); // phpcs:ignore WordPress.WP.I18n.MissingTranslatorsComment
+		$this->assertEquals( sprintf( __( 'An error occurred while saving account details: %s', 'poocommerce' ), $hash ), $mocked_messages[0]['message'] ); // phpcs:ignore WordPress.WP.I18n.MissingTranslatorsComment
 		$this->assertEquals( 'error', $mocked_messages[0]['type'] );
 	}
 
@@ -204,7 +204,7 @@ class CheckoutFieldsFrontendTest extends \WC_Unit_Test_Case {
 		global $mocked_messages;
 		$mocked_messages = [];
 
-		add_action( 'woocommerce_blocks_validate_location_contact_fields', $e_thrower );
+		add_action( 'poocommerce_blocks_validate_location_contact_fields', $e_thrower );
 
 		$this->sut->save_account_form_fields( 1 );
 
@@ -214,7 +214,7 @@ class CheckoutFieldsFrontendTest extends \WC_Unit_Test_Case {
 		$value = $this->controller->get_field_from_object( 'mynamespace/required_field', new WC_Customer( 1 ) );
 		$this->assertEquals( '', $value );
 
-		remove_action( 'woocommerce_blocks_validate_location_contact_fields', $e_thrower );
+		remove_action( 'poocommerce_blocks_validate_location_contact_fields', $e_thrower );
 	}
 
 	/**

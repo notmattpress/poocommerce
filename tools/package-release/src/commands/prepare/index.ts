@@ -168,12 +168,12 @@ export default class PackagePrepare extends Command {
 				JSON.stringify( json, null, '\t' ) + '\n'
 			);
 
-			// if preparing a php package and the package is used in the woocommerce plugin
+			// if preparing a php package and the package is used in the poocommerce plugin
 			// also update the version in the plugin's composer.json and composer.lock
 			// this is done to ensure jetpack autoloader fetches the correct version of the package
 			if ( packageType === 'php' ) {
 				try {
-					// will throw an error if the package is not used in the woocommerce plugin
+					// will throw an error if the package is not used in the poocommerce plugin
 					execSync(
 						`composer show ${ json.name } --no-scripts --direct --quiet`,
 						{
@@ -190,7 +190,7 @@ export default class PackagePrepare extends Command {
 						}
 					);
 				} catch ( error ) {
-					// Ignore the error - package is not used in the woocommerce plugin.
+					// Ignore the error - package is not used in the poocommerce plugin.
 				}
 			}
 		} catch ( e ) {

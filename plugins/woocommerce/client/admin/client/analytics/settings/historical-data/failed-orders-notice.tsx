@@ -11,7 +11,7 @@ import {
 import apiFetch from '@wordpress/api-fetch';
 import { Button, Notice } from '@wordpress/components';
 import { useDispatch } from '@wordpress/data';
-import { getAdminLink } from '@woocommerce/settings';
+import { getAdminLink } from '@poocommerce/settings';
 
 const LOG_URL_PATH =
 	'admin.php?page=wc-status&tab=logs&source=wc-analytics-order-import';
@@ -100,7 +100,7 @@ function FailedOrdersNotice() {
 				'error',
 				getErrorMessage(
 					err,
-					__( 'Failed to retry order imports.', 'woocommerce' )
+					__( 'Failed to retry order imports.', 'poocommerce' )
 				)
 			);
 		} finally {
@@ -111,7 +111,7 @@ function FailedOrdersNotice() {
 	const logLink = (
 		<a
 			href={ getAdminLink( LOG_URL_PATH ) }
-			aria-label={ __( 'View the order import log', 'woocommerce' ) }
+			aria-label={ __( 'View the order import log', 'poocommerce' ) }
 		/>
 	);
 
@@ -120,14 +120,14 @@ function FailedOrdersNotice() {
 			? /* translators: %d: number of failed orders currently stored (additional failures were dropped past the storage limit). <link> is a link to the order import log. */
 			  __(
 					'More than %d orders failed to import. To recover all missed orders, run the import above with "Skip previously imported customers and orders" checked. <link>View the log</link> for details.',
-					'woocommerce'
+					'poocommerce'
 			  )
 			: /* translators: %d: number of failed orders. <link> is a link to the order import log. */
 			  _n(
 					'%d order failed to import. <link>View the log</link> for details.',
 					'%d orders failed to import. <link>View the log</link> for details.',
 					failedCount,
-					'woocommerce'
+					'poocommerce'
 			  );
 
 	const message = createInterpolateElement(
@@ -137,7 +137,7 @@ function FailedOrdersNotice() {
 
 	return (
 		<Notice
-			className="woocommerce-settings-historical-data__failed-orders"
+			className="poocommerce-settings-historical-data__failed-orders"
 			status="warning"
 			isDismissible={ false }
 		>
@@ -149,7 +149,7 @@ function FailedOrdersNotice() {
 				aria-disabled={ isRetrying }
 				onClick={ handleRetry }
 			>
-				{ __( 'Retry failed imports', 'woocommerce' ) }
+				{ __( 'Retry failed imports', 'poocommerce' ) }
 			</Button>
 		</Notice>
 	);

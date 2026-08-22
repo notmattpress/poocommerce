@@ -1,18 +1,18 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\GraphQL\Type\Definition;
+namespace Automattic\PooCommerce\Vendor\GraphQL\Type\Definition;
 
-use Automattic\WooCommerce\Vendor\GraphQL\Error\Error;
-use Automattic\WooCommerce\Vendor\GraphQL\Error\InvariantViolation;
-use Automattic\WooCommerce\Vendor\GraphQL\Executor\Values;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\FieldNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\FragmentDefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\FragmentSpreadNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\InlineFragmentNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\OperationDefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\SelectionSetNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Introspection;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Schema;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\Error;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\InvariantViolation;
+use Automattic\PooCommerce\Vendor\GraphQL\Executor\Values;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\FieldNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\FragmentDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\FragmentSpreadNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\InlineFragmentNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\OperationDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\SelectionSetNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Introspection;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Schema;
 
 /**
  * Structure containing information useful for field resolution process.
@@ -254,24 +254,24 @@ class ResolveInfo
      *     'id' => [
      *         'id' => [
      *              'args' => [],
-     *              'type' => Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\IntType Object ( ... )),
+     *              'type' => Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\IntType Object ( ... )),
      *         ],
      *     ],
      *     'nested' => [
      *         'nested' => [
      *             'args' => [],
-     *             'type' => Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\ObjectType Object ( ... )),
+     *             'type' => Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\ObjectType Object ( ... )),
      *             'selectionSet' => [
      *                 'nested1' => [
      *                     'nested1' => [
      *                          'args' => [
      *                              'myArg' => 1,
      *                          ],
-     *                          'type' => Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\StringType Object ( ... )),
+     *                          'type' => Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\StringType Object ( ... )),
      *                      ],
      *                      'nested1Bis' => [
      *                          'args' => [],
-     *                          'type' => Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\StringType Object ( ... )),
+     *                          'type' => Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\StringType Object ( ... )),
      *                      ],
      *                 ],
      *             ],
@@ -280,7 +280,7 @@ class ResolveInfo
      *     'alias1' => [
      *         'alias1' => [
      *             'args' => [],
-     *             'type' => Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\ObjectType Object ( ... )),
+     *             'type' => Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\ObjectType Object ( ... )),
      *             'selectionSet' => [
      *                 'nested1' => [
      *                     'nested1' => [
@@ -288,7 +288,7 @@ class ResolveInfo
      *                              'myArg' => 2,
      *                              'mySecondAg' => "test",
      *                          ],
-     *                          'type' => Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\StringType Object ( ... )),
+     *                          'type' => Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\StringType Object ( ... )),
      *                      ],
      *                 ],
      *             ],
@@ -299,28 +299,28 @@ class ResolveInfo
      *              'args' => [
      *                  'myArg' => 3,
      *              ],
-     *              'type' => Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\UnionType Object ( ... )),
+     *              'type' => Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\UnionType Object ( ... )),
      *              'unions' => [
      *                  'Nested' => [
-     *                      'type' => Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\ObjectType Object ( ... )),
+     *                      'type' => Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\ObjectType Object ( ... )),
      *                      'selectionSet' => [
      *                          'nested1' => [
      *                              'nested1' => [
      *                                  'args' => [
      *                                      'myArg' => 4,
      *                                  ],
-     *                                  'type' => Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\StringType Object ( ... )),
+     *                                  'type' => Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\StringType Object ( ... )),
      *                              ],
      *                          ],
      *                      ],
      *                  ],
      *                  'MyCustomObject' => [
-     *                       'type' => Automattic\WooCommerce\Vendor\GraphQL\Tests\Type\TestClasses\MyCustomType Object ( ... )),
+     *                       'type' => Automattic\PooCommerce\Vendor\GraphQL\Tests\Type\TestClasses\MyCustomType Object ( ... )),
      *                       'selectionSet' => [
      *                           'nested3' => [
      *                               'nested3' => [
      *                                   'args' => [],
-     *                                   'type' => Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\StringType Object ( ... )),
+     *                                   'type' => Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\StringType Object ( ... )),
      *                               ],
      *                           ],
      *                       ],

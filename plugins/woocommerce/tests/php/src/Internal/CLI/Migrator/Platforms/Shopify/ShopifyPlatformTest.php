@@ -2,17 +2,17 @@
 /**
  * Shopify Platform Test
  *
- * @package Automattic\WooCommerce\Tests\Internal\CLI\Migrator\Platforms\Shopify
+ * @package Automattic\PooCommerce\Tests\Internal\CLI\Migrator\Platforms\Shopify
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\CLI\Migrator\Platforms\Shopify;
+namespace Automattic\PooCommerce\Tests\Internal\CLI\Migrator\Platforms\Shopify;
 
-use Automattic\WooCommerce\Internal\CLI\Migrator\Core\PlatformRegistry;
-use Automattic\WooCommerce\Internal\CLI\Migrator\Platforms\Shopify\ShopifyFetcher;
-use Automattic\WooCommerce\Internal\CLI\Migrator\Platforms\Shopify\ShopifyMapper;
-use Automattic\WooCommerce\Internal\CLI\Migrator\Platforms\Shopify\ShopifyPlatform;
+use Automattic\PooCommerce\Internal\CLI\Migrator\Core\PlatformRegistry;
+use Automattic\PooCommerce\Internal\CLI\Migrator\Platforms\Shopify\ShopifyFetcher;
+use Automattic\PooCommerce\Internal\CLI\Migrator\Platforms\Shopify\ShopifyMapper;
+use Automattic\PooCommerce\Internal\CLI\Migrator\Platforms\Shopify\ShopifyPlatform;
 
 /**
  * Test cases for Shopify platform registration and integration.
@@ -34,7 +34,7 @@ class ShopifyPlatformTest extends \WC_Unit_Test_Case {
 	public function tearDown(): void {
 		parent::tearDown();
 		// Remove all filters to ensure clean state.
-		remove_all_filters( 'woocommerce_migrator_platforms' );
+		remove_all_filters( 'poocommerce_migrator_platforms' );
 	}
 
 	/**
@@ -72,7 +72,7 @@ class ShopifyPlatformTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_shopify_platform_init_registers_filter() {
 		// Start fresh - remove existing filters.
-		remove_all_filters( 'woocommerce_migrator_platforms' );
+		remove_all_filters( 'poocommerce_migrator_platforms' );
 
 		$registry  = new PlatformRegistry();
 		$platforms = $registry->get_platforms();
@@ -126,7 +126,7 @@ class ShopifyPlatformTest extends \WC_Unit_Test_Case {
 	public function test_filter_integration() {
 		// Test that our platform is added to existing platforms.
 		add_filter(
-			'woocommerce_migrator_platforms',
+			'poocommerce_migrator_platforms',
 			function ( $platforms ) {
 				$platforms['existing-platform'] = array(
 					'name'    => 'Existing Platform',

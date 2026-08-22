@@ -3,7 +3,7 @@ export const NAMESPACE = '/wc-analytics';
 export const WC_ADMIN_NAMESPACE = '/wc-admin';
 export const WCS_NAMESPACE = '/wc/v1'; // WCS endpoints like Stripe are not available on later /wc versions
 
-// WordPress & WooCommerce both set a hard limit of 100 for the per_page parameter
+// WordPress & PooCommerce both set a hard limit of 100 for the per_page parameter
 export const MAX_PER_PAGE = 100;
 
 export const SECOND = 1000;

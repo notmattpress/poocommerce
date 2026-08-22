@@ -1,11 +1,11 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\Schedulers;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\Schedulers;
 
-use Automattic\WooCommerce\Internal\Admin\Schedulers\OrdersScheduler;
-use Automattic\WooCommerce\Admin\API\Reports\Orders\Stats\DataStore as OrdersStatsDataStore;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Internal\Admin\Schedulers\OrdersScheduler;
+use Automattic\PooCommerce\Admin\API\Reports\Orders\Stats\DataStore as OrdersStatsDataStore;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 use WC_Unit_Test_Case;
 
 /**
@@ -97,7 +97,7 @@ class OrdersSchedulerTest extends WC_Unit_Test_Case {
 		$custom_interval = 6 * HOUR_IN_SECONDS;
 		$filter_called   = false;
 		add_filter(
-			'woocommerce_analytics_import_interval',
+			'poocommerce_analytics_import_interval',
 			function () use ( $custom_interval, &$filter_called ) {
 				$filter_called = true;
 				return $custom_interval;
@@ -275,7 +275,7 @@ class OrdersSchedulerTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Should allow the woocommerce_analytics_is_test_order filter to mark a normal order as a test order.
+	 * @testdox Should allow the poocommerce_analytics_is_test_order filter to mark a normal order as a test order.
 	 */
 	public function test_is_test_order_filter_can_override(): void {
 		$order = \WC_Helper_Order::create_order();
@@ -284,15 +284,15 @@ class OrdersSchedulerTest extends WC_Unit_Test_Case {
 		$this->assertFalse( OrdersScheduler::is_test_order( $order ) );
 
 		// Override via filter to mark it as test.
-		add_filter( 'woocommerce_analytics_is_test_order', '__return_true' );
+		add_filter( 'poocommerce_analytics_is_test_order', '__return_true' );
 
 		$this->assertTrue( OrdersScheduler::is_test_order( $order ) );
 
-		remove_filter( 'woocommerce_analytics_is_test_order', '__return_true' );
+		remove_filter( 'poocommerce_analytics_is_test_order', '__return_true' );
 	}
 
 	/**
-	 * @testdox Should allow the woocommerce_analytics_is_test_order filter to include a test order in analytics.
+	 * @testdox Should allow the poocommerce_analytics_is_test_order filter to include a test order in analytics.
 	 */
 	public function test_is_test_order_filter_can_allow_test_order(): void {
 		$order = \WC_Helper_Order::create_order();
@@ -303,11 +303,11 @@ class OrdersSchedulerTest extends WC_Unit_Test_Case {
 		$this->assertTrue( OrdersScheduler::is_test_order( $order ) );
 
 		// Override via filter to allow it.
-		add_filter( 'woocommerce_analytics_is_test_order', '__return_false' );
+		add_filter( 'poocommerce_analytics_is_test_order', '__return_false' );
 
 		$this->assertFalse( OrdersScheduler::is_test_order( $order ) );
 
-		remove_filter( 'woocommerce_analytics_is_test_order', '__return_false' );
+		remove_filter( 'poocommerce_analytics_is_test_order', '__return_false' );
 	}
 
 	/**
@@ -352,14 +352,14 @@ class OrdersSchedulerTest extends WC_Unit_Test_Case {
 			$received_order = $filter_order;
 			return $is_test;
 		};
-		add_filter( 'woocommerce_analytics_is_test_order', $filter_callback, 10, 2 );
+		add_filter( 'poocommerce_analytics_is_test_order', $filter_callback, 10, 2 );
 
 		OrdersScheduler::is_test_order( $refund );
 
 		$this->assertNotNull( $received_order );
 		$this->assertEquals( $order->get_id(), $received_order->get_id() );
 
-		remove_filter( 'woocommerce_analytics_is_test_order', $filter_callback );
+		remove_filter( 'poocommerce_analytics_is_test_order', $filter_callback );
 	}
 
 	/**
@@ -410,9 +410,9 @@ class OrdersSchedulerTest extends WC_Unit_Test_Case {
 		};
 
 		OrdersScheduler::clear_queued_actions();
-		add_filter( 'woocommerce_analytics_is_test_order', $throwing_filter, 10, 2 );
+		add_filter( 'poocommerce_analytics_is_test_order', $throwing_filter, 10, 2 );
 		OrdersScheduler::process_pending_batch( $cursor_date, $cursor_id );
-		remove_filter( 'woocommerce_analytics_is_test_order', $throwing_filter, 10 );
+		remove_filter( 'poocommerce_analytics_is_test_order', $throwing_filter, 10 );
 
 		// Cursor must advance past the failing order so it is not retried on the next run.
 		$this->assertSame( $order->get_id(), (int) get_option( OrdersScheduler::LAST_PROCESSED_ORDER_ID_OPTION ) );
@@ -447,9 +447,9 @@ class OrdersSchedulerTest extends WC_Unit_Test_Case {
 		};
 
 		OrdersScheduler::clear_queued_actions();
-		add_filter( 'woocommerce_analytics_is_test_order', $throwing_filter, 10, 2 );
+		add_filter( 'poocommerce_analytics_is_test_order', $throwing_filter, 10, 2 );
 		OrdersScheduler::process_pending_batch( $cursor_date, $cursor_id );
-		remove_filter( 'woocommerce_analytics_is_test_order', $throwing_filter, 10 );
+		remove_filter( 'poocommerce_analytics_is_test_order', $throwing_filter, 10 );
 
 		// Cursor should be at order_b (the last order processed, even though it failed),
 		// not at order_a or at the initial position.
@@ -514,7 +514,7 @@ class OrdersSchedulerTest extends WC_Unit_Test_Case {
 	/**
 	 * @testdox Trashing an order schedules an import that syncs the trash status to wp_wc_order_stats.
 	 *
-	 * @see https://github.com/woocommerce/woocommerce/issues/44371
+	 * @see https://github.com/poocommerce/poocommerce/issues/44371
 	 */
 	public function test_trash_order_schedules_import_that_syncs_status_to_order_stats(): void {
 		global $wpdb;
@@ -562,7 +562,7 @@ class OrdersSchedulerTest extends WC_Unit_Test_Case {
 	/**
 	 * @testdox Untrashing an order schedules an import that restores the status in wp_wc_order_stats.
 	 *
-	 * @see https://github.com/woocommerce/woocommerce/issues/44371
+	 * @see https://github.com/poocommerce/poocommerce/issues/44371
 	 */
 	public function test_untrash_order_schedules_import_that_restores_status_in_order_stats(): void {
 		global $wpdb;
@@ -615,11 +615,11 @@ class OrdersSchedulerTest extends WC_Unit_Test_Case {
 	/**
 	 * @testdox Untrashing syncs the restored status even when action scheduling runs synchronously.
 	 *
-	 * woocommerce_untrash_order fires before the restored status is saved, so an inline
+	 * poocommerce_untrash_order fires before the restored status is saved, so an inline
 	 * import recorded wc-trash — and nothing corrected it, since the data store
-	 * suppresses woocommerce_update_order for trash transitions.
+	 * suppresses poocommerce_update_order for trash transitions.
 	 *
-	 * @see https://github.com/woocommerce/woocommerce/issues/44371
+	 * @see https://github.com/poocommerce/poocommerce/issues/44371
 	 */
 	public function test_untrash_syncs_restored_status_when_action_scheduling_is_synchronous(): void {
 		global $wpdb;
@@ -631,7 +631,7 @@ class OrdersSchedulerTest extends WC_Unit_Test_Case {
 		update_option( OrdersScheduler::SCHEDULED_IMPORT_OPTION, 'no' );
 
 		// Force schedule_action() down its synchronous fallback.
-		add_filter( 'woocommerce_analytics_disable_action_scheduling', '__return_true' );
+		add_filter( 'poocommerce_analytics_disable_action_scheduling', '__return_true' );
 
 		$read_status = static function ( $id ) use ( $wpdb ) {
 			return $wpdb->get_var(
@@ -646,7 +646,7 @@ class OrdersSchedulerTest extends WC_Unit_Test_Case {
 			$order_id = $order->get_id();
 			OrdersScheduler::import( $order_id );
 
-			// Trash. woocommerce_trash_order fires after the status is persisted, so the
+			// Trash. poocommerce_trash_order fires after the status is persisted, so the
 			// synchronous import records it correctly without any queue run.
 			$order->delete( false );
 			$this->assertSame( 'wc-trash', $read_status( $order_id ), 'Trashing should sync wc-trash synchronously.' );
@@ -663,7 +663,7 @@ class OrdersSchedulerTest extends WC_Unit_Test_Case {
 				'Untrashing should sync the restored status, not wc-trash, on the synchronous path.'
 			);
 		} finally {
-			remove_filter( 'woocommerce_analytics_disable_action_scheduling', '__return_true' );
+			remove_filter( 'poocommerce_analytics_disable_action_scheduling', '__return_true' );
 		}
 	}
 
@@ -715,7 +715,7 @@ class OrdersSchedulerTest extends WC_Unit_Test_Case {
 
 		// Run inline so each import is observable. Must precede the fixture: otherwise
 		// saving queues a real action and has_existing_jobs() suppresses what we count.
-		add_filter( 'woocommerce_analytics_disable_action_scheduling', '__return_true' );
+		add_filter( 'poocommerce_analytics_disable_action_scheduling', '__return_true' );
 
 		$order = \WC_Helper_Order::create_order();
 		$order->set_status( 'completed' );
@@ -729,7 +729,7 @@ class OrdersSchedulerTest extends WC_Unit_Test_Case {
 				++$imports;
 			}
 		};
-		add_action( 'woocommerce_order_scheduler_after_import_order', $callback );
+		add_action( 'poocommerce_order_scheduler_after_import_order', $callback );
 
 		try {
 			$order->delete( false );
@@ -739,8 +739,8 @@ class OrdersSchedulerTest extends WC_Unit_Test_Case {
 			wp_untrash_post( $order_id );
 			$this->assertSame( 1, $imports, 'Restoring a CPT order should schedule exactly one import.' );
 		} finally {
-			remove_filter( 'woocommerce_analytics_disable_action_scheduling', '__return_true' );
-			remove_action( 'woocommerce_order_scheduler_after_import_order', $callback );
+			remove_filter( 'poocommerce_analytics_disable_action_scheduling', '__return_true' );
+			remove_action( 'poocommerce_order_scheduler_after_import_order', $callback );
 		}
 	}
 
@@ -759,7 +759,7 @@ class OrdersSchedulerTest extends WC_Unit_Test_Case {
 		}
 
 		update_option( OrdersScheduler::SCHEDULED_IMPORT_OPTION, 'no' );
-		add_filter( 'woocommerce_analytics_disable_action_scheduling', '__return_true' );
+		add_filter( 'poocommerce_analytics_disable_action_scheduling', '__return_true' );
 
 		$read_status = static function ( $id ) use ( $wpdb ) {
 			return $wpdb->get_var(
@@ -784,18 +784,18 @@ class OrdersSchedulerTest extends WC_Unit_Test_Case {
 				'Restoring should sync the restored status under CPT on the synchronous path.'
 			);
 		} finally {
-			remove_filter( 'woocommerce_analytics_disable_action_scheduling', '__return_true' );
+			remove_filter( 'poocommerce_analytics_disable_action_scheduling', '__return_true' );
 		}
 	}
 
 	/**
 	 * @testdox maybe_schedule_import_on_post_trash_change is a no-op when HPOS is the authoritative store.
 	 *
-	 * When HPOS is active the woocommerce_trash_order/woocommerce_untrash_order hooks
+	 * When HPOS is active the poocommerce_trash_order/poocommerce_untrash_order hooks
 	 * already schedule the import. The trashed_post/untrashed_post hooks then fire for
 	 * the same order, so this handler must early-return to avoid a redundant import.
 	 *
-	 * @see https://github.com/woocommerce/woocommerce/issues/44371
+	 * @see https://github.com/poocommerce/poocommerce/issues/44371
 	 */
 	public function test_maybe_schedule_import_on_post_trash_change_skips_when_hpos_active(): void {
 		if ( ! OrderUtil::custom_orders_table_usage_is_enabled() ) {
@@ -825,7 +825,7 @@ class OrdersSchedulerTest extends WC_Unit_Test_Case {
 	 * In scheduled import mode no per-order action is created on trash; the batch
 	 * cursor query must include trashed orders so the transition is synced.
 	 *
-	 * @see https://github.com/woocommerce/woocommerce/issues/44371
+	 * @see https://github.com/poocommerce/poocommerce/issues/44371
 	 */
 	public function test_process_pending_batch_picks_up_trashed_order(): void {
 		global $wpdb;
@@ -859,7 +859,7 @@ class OrdersSchedulerTest extends WC_Unit_Test_Case {
 	 * effect. Reports join wc_order_stats and hide the order, but Analytics > Customers
 	 * counts the lookup table directly, so the customer would linger with no orders.
 	 *
-	 * @see https://github.com/woocommerce/woocommerce/pull/64157
+	 * @see https://github.com/poocommerce/poocommerce/pull/64157
 	 */
 	public function test_never_imported_trashed_order_does_not_create_customer(): void {
 		global $wpdb;
@@ -877,13 +877,13 @@ class OrdersSchedulerTest extends WC_Unit_Test_Case {
 		$callback           = function () use ( &$new_customer_fired ) {
 			++$new_customer_fired;
 		};
-		add_action( 'woocommerce_analytics_new_customer', $callback );
+		add_action( 'poocommerce_analytics_new_customer', $callback );
 
 		// Trash without ever importing, then let the batch pick it up.
 		$order->delete( false );
 		OrdersScheduler::process_pending_batch( '2020-01-01 00:00:00', 0 );
 
-		remove_action( 'woocommerce_analytics_new_customer', $callback );
+		remove_action( 'poocommerce_analytics_new_customer', $callback );
 
 		$customers_after = (int) $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->prefix}wc_customer_lookup" );
 
@@ -923,12 +923,12 @@ class OrdersSchedulerTest extends WC_Unit_Test_Case {
 		$callback           = function () use ( &$new_customer_fired ) {
 			++$new_customer_fired;
 		};
-		add_action( 'woocommerce_analytics_new_customer', $callback );
+		add_action( 'poocommerce_analytics_new_customer', $callback );
 
 		$order->delete( false );
 		OrdersScheduler::import( $order_id );
 
-		remove_action( 'woocommerce_analytics_new_customer', $callback );
+		remove_action( 'poocommerce_analytics_new_customer', $callback );
 
 		$this->assertSame( 0, $new_customer_fired, 'Trashing a partially imported order should not create another analytics customer.' );
 		$this->assertSame(
@@ -1156,9 +1156,9 @@ class OrdersSchedulerTest extends WC_Unit_Test_Case {
 		};
 
 		OrdersScheduler::clear_queued_actions();
-		add_filter( 'woocommerce_analytics_is_test_order', $throwing_filter, 10, 2 );
+		add_filter( 'poocommerce_analytics_is_test_order', $throwing_filter, 10, 2 );
 		OrdersScheduler::process_pending_batch( '2000-01-01 00:00:00', $cursor_id );
-		remove_filter( 'woocommerce_analytics_is_test_order', $throwing_filter, 10 );
+		remove_filter( 'poocommerce_analytics_is_test_order', $throwing_filter, 10 );
 
 		$failed = OrdersScheduler::get_failed_order_imports();
 		$this->assertContains( $order->get_id(), $failed['ids'] );

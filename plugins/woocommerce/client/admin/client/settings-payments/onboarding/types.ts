@@ -5,7 +5,7 @@ import { type ReactNode } from 'react';
 import {
 	type RecommendedPaymentMethod,
 	type PaymentsProvider,
-} from '@woocommerce/data';
+} from '@poocommerce/data';
 
 /**
  * Internal dependencies
@@ -13,7 +13,7 @@ import {
 import {
 	Country,
 	MccsDisplayTreeItem,
-} from './providers/woopayments/steps/business-verification/types'; // To-do: Maybe move to @woocommerce/data
+} from './providers/woopayments/steps/business-verification/types'; // To-do: Maybe move to @poocommerce/data
 
 /**
  * Error object returned from the onboarding backend.

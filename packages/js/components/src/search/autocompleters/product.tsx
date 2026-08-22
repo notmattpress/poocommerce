@@ -16,7 +16,7 @@ import { AutoCompleter } from './types';
 
 const completer: AutoCompleter = {
 	name: 'products',
-	className: 'woocommerce-search__product-result',
+	className: 'poocommerce-search__product-result',
 	options( search ) {
 		const query = search
 			? {
@@ -38,11 +38,11 @@ const completer: AutoCompleter = {
 	},
 	getFreeTextOptions( query ) {
 		const label = (
-			<span key="name" className="woocommerce-search__result-name">
+			<span key="name" className="poocommerce-search__result-name">
 				{ interpolateComponents( {
 					mixedString: __(
 						'All products with titles that include {{query /}}',
-						'woocommerce'
+						'poocommerce'
 					),
 					components: {
 						query: (
@@ -68,14 +68,14 @@ const completer: AutoCompleter = {
 			<Fragment>
 				<ProductImage
 					key="thumbnail"
-					className="woocommerce-search__result-thumbnail"
+					className="poocommerce-search__result-thumbnail"
 					product={ product }
 					width={ 18 }
 					alt=""
 				/>
 				<span
 					key="name"
-					className="woocommerce-search__result-name"
+					className="poocommerce-search__result-name"
 					aria-label={ product.name }
 				>
 					{ match?.suggestionBeforeMatch }

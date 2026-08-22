@@ -5,18 +5,18 @@ import { __ } from '@wordpress/i18n';
 import { Card, CardBody, CardHeader } from '@wordpress/components';
 import { Component } from '@wordpress/element';
 import { compose } from '@wordpress/compose';
-import { EmptyTable, AnalyticsError, TableCard } from '@woocommerce/components';
+import { EmptyTable, AnalyticsError, TableCard } from '@poocommerce/components';
 import { withSelect } from '@wordpress/data';
 import PropTypes from 'prop-types';
-import { getPersistedQuery } from '@woocommerce/navigation';
+import { getPersistedQuery } from '@poocommerce/navigation';
 import {
 	getFilterQuery,
 	getLeaderboard,
 	settingsStore,
-} from '@woocommerce/data';
-import { CurrencyContext } from '@woocommerce/currency';
-import { formatValue } from '@woocommerce/number';
-import { Text } from '@woocommerce/experimental';
+} from '@poocommerce/data';
+import { CurrencyContext } from '@poocommerce/currency';
+import { formatValue } from '@poocommerce/number';
+import { Text } from '@poocommerce/experimental';
 
 /**
  * Internal dependencies
@@ -34,7 +34,7 @@ export class Leaderboard extends Component {
 		 * The format property is used for numeric columns and is optional.
 		 * The `value` property type is specified as string in the API schema
 		 * and it's extensible from other extensions. Therefore, even if the
-		 * actual type of numeric columns returned by WooCommerce's own API is
+		 * actual type of numeric columns returned by PooCommerce's own API is
 		 * number, there is no guarantee the value will be a number.
 		 */
 		if ( formattable.has( column.format ) && isFinite( column.value ) ) {
@@ -84,7 +84,7 @@ export class Leaderboard extends Component {
 
 	render() {
 		const { isRequesting, isError, totalRows, title } = this.props;
-		const classes = 'woocommerce-leaderboard';
+		const classes = 'poocommerce-leaderboard';
 
 		if ( isError ) {
 			return <AnalyticsError className={ classes } />;
@@ -109,7 +109,7 @@ export class Leaderboard extends Component {
 						<EmptyTable>
 							{ __(
 								'No data recorded for the selected time period.',
-								'woocommerce'
+								'poocommerce'
 							) }
 						</EmptyTable>
 					</CardBody>
@@ -185,7 +185,7 @@ Leaderboard.contextType = CurrencyContext;
 export default compose(
 	withSelect( ( select, props ) => {
 		const { id, query, totalRows, filters } = props;
-		const { woocommerce_default_date_range: defaultDateRange } = select(
+		const { poocommerce_default_date_range: defaultDateRange } = select(
 			settingsStore
 		).getSetting( 'wc_admin', 'wcAdminSettings' );
 		const filterQuery = getFilterQuery( { filters, query } );

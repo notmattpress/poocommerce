@@ -2,9 +2,9 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Caches;
+namespace Automattic\PooCommerce\Internal\Caches;
 
-use Automattic\WooCommerce\Internal\Utilities\ProductUtil;
+use Automattic\PooCommerce\Internal\Utilities\ProductUtil;
 
 /**
  * Coalesces repeated product transient deletions during bulk write operations.

@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Enums\OrderStatus;
 
 /**
  * WC_Email_Customer_Abandoned_Cart_Recovery test.
@@ -43,7 +43,7 @@ class WC_Email_Customer_Abandoned_Cart_Recovery_Test extends \WC_Unit_Test_Case 
 	public function setUp(): void {
 		parent::setUp();
 
-		update_option( 'woocommerce_feature_abandoned_cart_recovery_enabled', 'yes' );
+		update_option( 'poocommerce_feature_abandoned_cart_recovery_enabled', 'yes' );
 
 		$this->original_active_plugins = (array) get_option( 'active_plugins', array() );
 
@@ -59,8 +59,8 @@ class WC_Email_Customer_Abandoned_Cart_Recovery_Test extends \WC_Unit_Test_Case 
 	 * doesn't leak state into unrelated test classes.
 	 */
 	public function tearDown(): void {
-		delete_option( 'woocommerce_feature_abandoned_cart_recovery_enabled' );
-		delete_option( 'woocommerce_customer_abandoned_cart_recovery_settings' );
+		delete_option( 'poocommerce_feature_abandoned_cart_recovery_enabled' );
+		delete_option( 'poocommerce_customer_abandoned_cart_recovery_settings' );
 		update_option( 'active_plugins', $this->original_active_plugins );
 
 		if ( $this->admin_user_id ) {
@@ -69,7 +69,7 @@ class WC_Email_Customer_Abandoned_Cart_Recovery_Test extends \WC_Unit_Test_Case 
 			$this->admin_user_id = 0;
 		}
 
-		remove_all_actions( 'woocommerce_send_abandoned_cart_recovery_notification' );
+		remove_all_actions( 'poocommerce_send_abandoned_cart_recovery_notification' );
 
 		parent::tearDown();
 	}
@@ -167,7 +167,7 @@ class WC_Email_Customer_Abandoned_Cart_Recovery_Test extends \WC_Unit_Test_Case 
 	 * @testdox get_recovery_url() returns the order's pay endpoint once a valid order is bound to the email.
 	 */
 	public function test_recovery_url_uses_order_pay_endpoint(): void {
-		$order = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 		$this->sut->trigger( $order->get_id() );
 
 		$url = $this->sut->get_recovery_url();
@@ -183,21 +183,21 @@ class WC_Email_Customer_Abandoned_Cart_Recovery_Test extends \WC_Unit_Test_Case 
 	}
 
 	/**
-	 * @testdox The woocommerce_abandoned_cart_recovery_url filter can replace the generated URL so a follow-up can swap in a tokenized URL without touching templates.
+	 * @testdox The poocommerce_abandoned_cart_recovery_url filter can replace the generated URL so a follow-up can swap in a tokenized URL without touching templates.
 	 */
 	public function test_recovery_url_is_filterable(): void {
-		$order = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 		$this->sut->trigger( $order->get_id() );
 
 		$override = static function () {
 			return 'https://example.test/custom-recovery';
 		};
-		add_filter( 'woocommerce_abandoned_cart_recovery_url', $override );
+		add_filter( 'poocommerce_abandoned_cart_recovery_url', $override );
 
 		try {
 			$this->assertSame( 'https://example.test/custom-recovery', $this->sut->get_recovery_url() );
 		} finally {
-			remove_filter( 'woocommerce_abandoned_cart_recovery_url', $override );
+			remove_filter( 'poocommerce_abandoned_cart_recovery_url', $override );
 		}
 	}
 
@@ -218,7 +218,7 @@ class WC_Email_Customer_Abandoned_Cart_Recovery_Test extends \WC_Unit_Test_Case 
 		$this->sut->update_option( 'enabled', 'yes' );
 		$this->sut->enabled = 'yes';
 
-		$order = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 
 		$this->sut->trigger( $order->get_id() );
 
@@ -239,7 +239,7 @@ class WC_Email_Customer_Abandoned_Cart_Recovery_Test extends \WC_Unit_Test_Case 
 		$this->sut->update_option( 'enabled', 'no' );
 		$this->sut->enabled = 'no';
 
-		$order = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 
 		$mailer = tests_retrieve_phpmailer_instance();
 		$before = count( $mailer->mock_sent );
@@ -256,7 +256,7 @@ class WC_Email_Customer_Abandoned_Cart_Recovery_Test extends \WC_Unit_Test_Case 
 		$this->sut->update_option( 'enabled', 'yes' );
 		$this->sut->enabled = 'yes';
 
-		$order = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 		$order = $this->age_order_past_threshold( $order );
 
 		$mailer = tests_retrieve_phpmailer_instance();
@@ -275,7 +275,7 @@ class WC_Email_Customer_Abandoned_Cart_Recovery_Test extends \WC_Unit_Test_Case 
 		$this->sut->update_option( 'enabled', 'yes' );
 		$this->sut->enabled = 'yes';
 
-		$order = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 		$order = $this->age_order_past_threshold( $order );
 
 		$before_ts = time();
@@ -296,7 +296,7 @@ class WC_Email_Customer_Abandoned_Cart_Recovery_Test extends \WC_Unit_Test_Case 
 		$this->sut->update_option( 'enabled', 'yes' );
 		$this->sut->enabled = 'yes';
 
-		$order = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 		$order = $this->age_order_past_threshold( $order );
 		$order->update_meta_data( WC_Email_Customer_Abandoned_Cart_Recovery::META_KEY_SENT_AT, (string) time() );
 		$order->save();
@@ -316,7 +316,7 @@ class WC_Email_Customer_Abandoned_Cart_Recovery_Test extends \WC_Unit_Test_Case 
 		$this->sut->update_option( 'enabled', 'no' );
 		$this->sut->enabled = 'no';
 
-		$order = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 
 		$this->sut->trigger( $order->get_id() );
 
@@ -325,16 +325,16 @@ class WC_Email_Customer_Abandoned_Cart_Recovery_Test extends \WC_Unit_Test_Case 
 	}
 
 	/**
-	 * @testdox trigger() is a no-op when the woocommerce_abandoned_cart_recovery_suppress filter returns true.
+	 * @testdox trigger() is a no-op when the poocommerce_abandoned_cart_recovery_suppress filter returns true.
 	 */
 	public function test_trigger_is_suppressed_when_filter_returns_true(): void {
 		$this->sut->update_option( 'enabled', 'yes' );
 		$this->sut->enabled = 'yes';
 
-		$order = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 
 		$override = static fn() => true;
-		add_filter( 'woocommerce_abandoned_cart_recovery_suppress', $override );
+		add_filter( 'poocommerce_abandoned_cart_recovery_suppress', $override );
 
 		$mailer = tests_retrieve_phpmailer_instance();
 		$before = count( $mailer->mock_sent );
@@ -342,7 +342,7 @@ class WC_Email_Customer_Abandoned_Cart_Recovery_Test extends \WC_Unit_Test_Case 
 			$this->sut->trigger( $order->get_id() );
 			$after = count( $mailer->mock_sent );
 		} finally {
-			remove_filter( 'woocommerce_abandoned_cart_recovery_suppress', $override );
+			remove_filter( 'poocommerce_abandoned_cart_recovery_suppress', $override );
 		}
 
 		$this->assertSame( $before, $after, 'Filter-suppressed abandoned cart recovery email must not dispatch.' );
@@ -355,7 +355,7 @@ class WC_Email_Customer_Abandoned_Cart_Recovery_Test extends \WC_Unit_Test_Case 
 		$this->sut->update_option( 'enabled', 'yes' );
 		$this->sut->enabled = 'yes';
 
-		$order = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 		$order->set_status( 'completed' );
 		$order->save();
 
@@ -368,13 +368,13 @@ class WC_Email_Customer_Abandoned_Cart_Recovery_Test extends \WC_Unit_Test_Case 
 	}
 
 	/**
-	 * @testdox The woocommerce_abandoned_cart_recovery_eligible_statuses filter widens the eligible set for trigger().
+	 * @testdox The poocommerce_abandoned_cart_recovery_eligible_statuses filter widens the eligible set for trigger().
 	 */
 	public function test_trigger_eligible_statuses_filter_can_widen(): void {
 		$this->sut->update_option( 'enabled', 'yes' );
 		$this->sut->enabled = 'yes';
 
-		$order = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 		$order->set_status( 'failed' );
 		$order->save();
 		$order = $this->age_order_past_threshold( $order );
@@ -382,7 +382,7 @@ class WC_Email_Customer_Abandoned_Cart_Recovery_Test extends \WC_Unit_Test_Case 
 		$widen = static function () {
 			return array( 'pending', 'failed' );
 		};
-		add_filter( 'woocommerce_abandoned_cart_recovery_eligible_statuses', $widen );
+		add_filter( 'poocommerce_abandoned_cart_recovery_eligible_statuses', $widen );
 
 		$mailer = tests_retrieve_phpmailer_instance();
 		$before = count( $mailer->mock_sent );
@@ -390,7 +390,7 @@ class WC_Email_Customer_Abandoned_Cart_Recovery_Test extends \WC_Unit_Test_Case 
 			$this->sut->trigger( $order->get_id() );
 			$after = count( $mailer->mock_sent );
 		} finally {
-			remove_filter( 'woocommerce_abandoned_cart_recovery_eligible_statuses', $widen );
+			remove_filter( 'poocommerce_abandoned_cart_recovery_eligible_statuses', $widen );
 		}
 
 		$this->assertSame( $before + 1, $after, 'Widened filter must allow non-default statuses to receive the email.' );
@@ -468,7 +468,7 @@ class WC_Email_Customer_Abandoned_Cart_Recovery_Test extends \WC_Unit_Test_Case 
 	public function test_register_order_action_adds_entry_for_pending_order(): void {
 		$this->become_admin();
 
-		$order = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 		$order = $this->age_order_past_threshold( $order );
 
 		$actions = $this->sut->register_order_action( array(), $order );
@@ -483,7 +483,7 @@ class WC_Email_Customer_Abandoned_Cart_Recovery_Test extends \WC_Unit_Test_Case 
 	public function test_register_order_action_adds_entry_for_checkout_draft_order(): void {
 		$this->become_admin();
 
-		$order = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 		$order->set_status( OrderStatus::CHECKOUT_DRAFT );
 		$order->save();
 		$order = $this->age_order_past_threshold( $order );
@@ -499,7 +499,7 @@ class WC_Email_Customer_Abandoned_Cart_Recovery_Test extends \WC_Unit_Test_Case 
 	public function test_register_order_action_skips_recent_orders(): void {
 		$this->become_admin();
 
-		$order = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 
 		$actions = $this->sut->register_order_action( array(), $order );
 
@@ -512,7 +512,7 @@ class WC_Email_Customer_Abandoned_Cart_Recovery_Test extends \WC_Unit_Test_Case 
 	public function test_register_order_action_skips_non_abandoned_orders(): void {
 		$this->become_admin();
 
-		$order = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 		$order->set_status( OrderStatus::PROCESSING );
 		$order->save();
 
@@ -530,7 +530,7 @@ class WC_Email_Customer_Abandoned_Cart_Recovery_Test extends \WC_Unit_Test_Case 
 
 		// Age the order past the threshold so the capability check — not the
 		// recent-order gate — is what removes the action from the list.
-		$order = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 		$order = $this->age_order_past_threshold( $order );
 
 		$actions = $this->sut->register_order_action( array(), $order );
@@ -558,7 +558,7 @@ class WC_Email_Customer_Abandoned_Cart_Recovery_Test extends \WC_Unit_Test_Case 
 		$this->sut->update_option( 'enabled', 'yes' );
 		$this->sut->enabled = 'yes';
 
-		$order = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 		$order = $this->age_order_past_threshold( $order );
 
 		$mailer = tests_retrieve_phpmailer_instance();
@@ -590,7 +590,7 @@ class WC_Email_Customer_Abandoned_Cart_Recovery_Test extends \WC_Unit_Test_Case 
 		$this->sut->update_option( 'enabled', 'yes' );
 		$this->sut->enabled = 'yes';
 
-		$order = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 		$order->set_status( OrderStatus::CHECKOUT_DRAFT );
 		$order->save();
 		$order = $this->age_order_past_threshold( $order );
@@ -611,7 +611,7 @@ class WC_Email_Customer_Abandoned_Cart_Recovery_Test extends \WC_Unit_Test_Case 
 		$this->sut->update_option( 'enabled', 'yes' );
 		$this->sut->enabled = 'yes';
 
-		$order = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 
 		$mailer = tests_retrieve_phpmailer_instance();
 		$before = count( $mailer->mock_sent );
@@ -631,7 +631,7 @@ class WC_Email_Customer_Abandoned_Cart_Recovery_Test extends \WC_Unit_Test_Case 
 		$this->sut->update_option( 'enabled', 'yes' );
 		$this->sut->enabled = 'yes';
 
-		$order = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 		$order->set_status( OrderStatus::COMPLETED );
 		$order->save();
 
@@ -655,7 +655,7 @@ class WC_Email_Customer_Abandoned_Cart_Recovery_Test extends \WC_Unit_Test_Case 
 
 		// Age the order past the threshold so the capability check — not the
 		// recent-order gate — is what blocks the dispatch.
-		$order = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 		$order = $this->age_order_past_threshold( $order );
 
 		$mailer = tests_retrieve_phpmailer_instance();
@@ -674,7 +674,7 @@ class WC_Email_Customer_Abandoned_Cart_Recovery_Test extends \WC_Unit_Test_Case 
 		$this->sut->update_option( 'enabled', 'no' );
 		$this->sut->enabled = 'no';
 
-		$order = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 		$order = $this->age_order_past_threshold( $order );
 
 		$actions = $this->sut->register_order_action( array(), $order );
@@ -683,21 +683,21 @@ class WC_Email_Customer_Abandoned_Cart_Recovery_Test extends \WC_Unit_Test_Case 
 	}
 
 	/**
-	 * @testdox register_order_action() hides the action when the woocommerce_abandoned_cart_recovery_suppress filter returns true, so merchants don't click a no-op item.
+	 * @testdox register_order_action() hides the action when the poocommerce_abandoned_cart_recovery_suppress filter returns true, so merchants don't click a no-op item.
 	 */
 	public function test_register_order_action_skips_when_suppressed(): void {
 		$this->become_admin();
 		$this->sut->update_option( 'enabled', 'yes' );
 		$this->sut->enabled = 'yes';
 
-		$order = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 		$order = $this->age_order_past_threshold( $order );
 
-		add_filter( 'woocommerce_abandoned_cart_recovery_suppress', '__return_true' );
+		add_filter( 'poocommerce_abandoned_cart_recovery_suppress', '__return_true' );
 		try {
 			$actions = $this->sut->register_order_action( array(), $order );
 		} finally {
-			remove_filter( 'woocommerce_abandoned_cart_recovery_suppress', '__return_true' );
+			remove_filter( 'poocommerce_abandoned_cart_recovery_suppress', '__return_true' );
 		}
 
 		$this->assertArrayNotHasKey( WC_Email_Customer_Abandoned_Cart_Recovery::MANUAL_RECOVERY_EMAIL_SEND_ACTION, $actions );
@@ -711,7 +711,7 @@ class WC_Email_Customer_Abandoned_Cart_Recovery_Test extends \WC_Unit_Test_Case 
 		$this->sut->update_option( 'enabled', 'yes' );
 		$this->sut->enabled = 'yes';
 
-		$order = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 		$order = $this->age_order_past_threshold( $order );
 		$order->update_meta_data( WC_Email_Customer_Abandoned_Cart_Recovery::META_KEY_SENT_AT, (string) time() );
 		$order->save();
@@ -729,7 +729,7 @@ class WC_Email_Customer_Abandoned_Cart_Recovery_Test extends \WC_Unit_Test_Case 
 		$this->sut->update_option( 'enabled', 'yes' );
 		$this->sut->enabled = 'yes';
 
-		$order = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 		$order = $this->age_order_past_threshold( $order );
 		$order->update_meta_data( WC_Email_Customer_Abandoned_Cart_Recovery::META_KEY_SENT_AT, (string) ( time() - HOUR_IN_SECONDS ) );
 		$order->save();
@@ -760,7 +760,7 @@ class WC_Email_Customer_Abandoned_Cart_Recovery_Test extends \WC_Unit_Test_Case 
 		$this->sut->update_option( 'enabled', 'no' );
 		$this->sut->enabled = 'no';
 
-		$order = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 		$order = $this->age_order_past_threshold( $order );
 
 		$mailer = tests_retrieve_phpmailer_instance();
@@ -792,7 +792,7 @@ class WC_Email_Customer_Abandoned_Cart_Recovery_Test extends \WC_Unit_Test_Case 
 	 * @return WC_Order Reloaded order with empty billing email.
 	 */
 	private function create_order_without_recipient(): WC_Order {
-		$order = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 		$order->set_customer_id( 0 );
 		$order->set_billing_email( '' );
 		$order->save();
@@ -842,24 +842,24 @@ class WC_Email_Customer_Abandoned_Cart_Recovery_Test extends \WC_Unit_Test_Case 
 	}
 
 	/**
-	 * @testdox handle_recovery_email_send() is a no-op when the woocommerce_abandoned_cart_recovery_suppress filter returns true — avoids writing a misleading order note when trigger() would also bail.
+	 * @testdox handle_recovery_email_send() is a no-op when the poocommerce_abandoned_cart_recovery_suppress filter returns true — avoids writing a misleading order note when trigger() would also bail.
 	 */
 	public function test_handle_recovery_email_send_bails_when_suppressed(): void {
 		$this->become_admin();
 		$this->sut->update_option( 'enabled', 'yes' );
 		$this->sut->enabled = 'yes';
 
-		$order = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 		$order = $this->age_order_past_threshold( $order );
 
 		$mailer = tests_retrieve_phpmailer_instance();
 		$before = count( $mailer->mock_sent );
 
-		add_filter( 'woocommerce_abandoned_cart_recovery_suppress', '__return_true' );
+		add_filter( 'poocommerce_abandoned_cart_recovery_suppress', '__return_true' );
 		try {
 			$this->sut->handle_recovery_email_send( $order );
 		} finally {
-			remove_filter( 'woocommerce_abandoned_cart_recovery_suppress', '__return_true' );
+			remove_filter( 'poocommerce_abandoned_cart_recovery_suppress', '__return_true' );
 		}
 
 		$this->assertSame( $before, count( $mailer->mock_sent ), 'Suppressed email must not dispatch from manual handler.' );
@@ -882,10 +882,10 @@ class WC_Email_Customer_Abandoned_Cart_Recovery_Test extends \WC_Unit_Test_Case 
 		$this->sut->update_option( 'enabled', 'yes' );
 		$this->sut->enabled = 'yes';
 
-		$order = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 		$order = $this->age_order_past_threshold( $order );
 
-		$repository = wc_get_container()->get( \Automattic\WooCommerce\Internal\Email\Unsubscribes\Storage::class );
+		$repository = wc_get_container()->get( \Automattic\PooCommerce\Internal\Email\Unsubscribes\Storage::class );
 		$repository->mark_unsubscribed( $order->get_billing_email(), 'customer_abandoned_cart_recovery' );
 
 		try {
@@ -907,10 +907,10 @@ class WC_Email_Customer_Abandoned_Cart_Recovery_Test extends \WC_Unit_Test_Case 
 	public function test_register_order_action_skips_unsubscribed_recipient(): void {
 		$this->become_admin();
 
-		$order = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 		$order = $this->age_order_past_threshold( $order );
 
-		$repository = wc_get_container()->get( \Automattic\WooCommerce\Internal\Email\Unsubscribes\Storage::class );
+		$repository = wc_get_container()->get( \Automattic\PooCommerce\Internal\Email\Unsubscribes\Storage::class );
 		$repository->mark_unsubscribed( $order->get_billing_email(), 'customer_abandoned_cart_recovery' );
 
 		try {
@@ -930,10 +930,10 @@ class WC_Email_Customer_Abandoned_Cart_Recovery_Test extends \WC_Unit_Test_Case 
 		$this->sut->update_option( 'enabled', 'yes' );
 		$this->sut->enabled = 'yes';
 
-		$order = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 		$order = $this->age_order_past_threshold( $order );
 
-		$repository = wc_get_container()->get( \Automattic\WooCommerce\Internal\Email\Unsubscribes\Storage::class );
+		$repository = wc_get_container()->get( \Automattic\PooCommerce\Internal\Email\Unsubscribes\Storage::class );
 		$repository->mark_unsubscribed( $order->get_billing_email(), 'customer_abandoned_cart_recovery' );
 
 		try {
@@ -963,13 +963,13 @@ class WC_Email_Customer_Abandoned_Cart_Recovery_Test extends \WC_Unit_Test_Case 
 	public function test_get_unsubscribe_url(): void {
 		$this->assertSame( '', $this->sut->get_unsubscribe_url(), 'No order bound — no URL.' );
 
-		$order = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 		$this->sut->trigger( $order->get_id() );
 
 		$url = $this->sut->get_unsubscribe_url();
 
 		$this->assertNotEmpty( $url );
-		$this->assertStringContainsString( \Automattic\WooCommerce\Internal\Email\Unsubscribes\Endpoint::QUERY_VAR . '=' . $order->get_id(), $url );
+		$this->assertStringContainsString( \Automattic\PooCommerce\Internal\Email\Unsubscribes\Endpoint::QUERY_VAR . '=' . $order->get_id(), $url );
 		$this->assertStringContainsString( 'sig=', $url );
 	}
 }

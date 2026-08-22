@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Api\Pagination;
+namespace Automattic\PooCommerce\Api\Pagination;
 
 /**
  * Represents a Relay-style paginated connection.

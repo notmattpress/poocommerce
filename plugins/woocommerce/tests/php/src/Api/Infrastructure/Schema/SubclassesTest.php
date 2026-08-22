@@ -2,24 +2,24 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Api\Infrastructure\Schema;
+namespace Automattic\PooCommerce\Tests\Api\Infrastructure\Schema;
 
-use Automattic\WooCommerce\Api\Infrastructure\Schema\CustomScalarType;
-use Automattic\WooCommerce\Api\Infrastructure\Schema\EnumType;
-use Automattic\WooCommerce\Api\Infrastructure\Schema\Error;
-use Automattic\WooCommerce\Api\Infrastructure\Schema\InputObjectType;
-use Automattic\WooCommerce\Api\Infrastructure\Schema\InterfaceType;
-use Automattic\WooCommerce\Api\Infrastructure\Schema\ObjectType;
-use Automattic\WooCommerce\Api\Infrastructure\Schema\Schema;
-use Automattic\WooCommerce\Api\Infrastructure\Schema\Type;
-use Automattic\WooCommerce\Vendor\GraphQL\Error\ClientAware;
-use Automattic\WooCommerce\Vendor\GraphQL\Error\Error as WebonyxError;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\CustomScalarType as WebonyxCustomScalarType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\EnumType as WebonyxEnumType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\InputObjectType as WebonyxInputObjectType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\InterfaceType as WebonyxInterfaceType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\ObjectType as WebonyxObjectType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Schema as WebonyxSchema;
+use Automattic\PooCommerce\Api\Infrastructure\Schema\CustomScalarType;
+use Automattic\PooCommerce\Api\Infrastructure\Schema\EnumType;
+use Automattic\PooCommerce\Api\Infrastructure\Schema\Error;
+use Automattic\PooCommerce\Api\Infrastructure\Schema\InputObjectType;
+use Automattic\PooCommerce\Api\Infrastructure\Schema\InterfaceType;
+use Automattic\PooCommerce\Api\Infrastructure\Schema\ObjectType;
+use Automattic\PooCommerce\Api\Infrastructure\Schema\Schema;
+use Automattic\PooCommerce\Api\Infrastructure\Schema\Type;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\ClientAware;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\Error as WebonyxError;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\CustomScalarType as WebonyxCustomScalarType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\EnumType as WebonyxEnumType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\InputObjectType as WebonyxInputObjectType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\InterfaceType as WebonyxInterfaceType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\ObjectType as WebonyxObjectType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Schema as WebonyxSchema;
 use WC_Unit_Test_Case;
 
 /**

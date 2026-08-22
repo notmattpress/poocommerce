@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { expect, test as base, guestFile, wpCLI } from '@woocommerce/e2e-utils';
+import { expect, test as base, guestFile, wpCLI } from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -24,10 +24,10 @@ test.describe( 'Custom Place Order Button', () => {
 
 	test.beforeEach( async ( { requestUtils } ) => {
 		await requestUtils.activatePlugin(
-			'woocommerce-blocks-test-custom-place-order-button'
+			'poocommerce-blocks-test-custom-place-order-button'
 		);
 		await wpCLI(
-			'option set woocommerce_test-custom-button_settings --format=json \'{"enabled":"yes"}\''
+			'option set poocommerce_test-custom-button_settings --format=json \'{"enabled":"yes"}\''
 		);
 	} );
 

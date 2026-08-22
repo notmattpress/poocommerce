@@ -95,7 +95,7 @@ function ResizableFrame( {
 	const frameRef = useRef( null );
 	const resizableHandleHelpId = useInstanceId(
 		ResizableFrame,
-		'woocommerce-edit-site-resizable-frame-handle-help'
+		'poocommerce-edit-site-resizable-frame-handle-help'
 	);
 	const defaultAspectRatio = defaultSize.width / defaultSize.height;
 
@@ -209,12 +209,12 @@ function ResizableFrame( {
 			key="handle"
 			role="separator"
 			aria-orientation="vertical"
-			className={ clsx( 'woocommerce-edit-site-resizable-frame__handle', {
+			className={ clsx( 'poocommerce-edit-site-resizable-frame__handle', {
 				'is-resizing': isResizing,
 			} ) }
 			variants={ resizeHandleVariants }
 			animate={ currentResizeHandleVariant }
-			aria-label={ __( 'Drag to resize', 'woocommerce' ) }
+			aria-label={ __( 'Drag to resize', 'poocommerce' ) }
 			aria-describedby={ resizableHandleHelpId }
 			aria-valuenow={
 				frameRef.current?.resizable?.offsetWidth || undefined
@@ -230,10 +230,10 @@ function ResizableFrame( {
 				isHandleVisibleByDefault &&
 				! hasHandlerDragged && (
 					<Popover
-						className="woocommerce-assembler-hub__resizable-frame__drag-handler"
+						className="poocommerce-assembler-hub__resizable-frame__drag-handler"
 						position="middle right"
 					>
-						{ __( 'Drag to resize', 'woocommerce' ) }
+						{ __( 'Drag to resize', 'poocommerce' ) }
 					</Popover>
 				)
 			}
@@ -285,7 +285,7 @@ function ResizableFrame( {
 						) : (
 							<Tooltip
 								position="middle right"
-								text={ __( 'Drag to resize', 'woocommerce' ) }
+								text={ __( 'Drag to resize', 'poocommerce' ) }
 							>
 								{ resizeHandler }
 							</Tooltip>
@@ -293,7 +293,7 @@ function ResizableFrame( {
 						<div hidden id={ resizableHandleHelpId }>
 							{ __(
 								'Use left and right arrow keys to resize the canvas. Hold shift to resize in larger increments.',
-								'woocommerce'
+								'poocommerce'
 							) }
 						</div>
 					</>
@@ -302,7 +302,7 @@ function ResizableFrame( {
 			onResizeStart={ handleResizeStart }
 			onResize={ handleResize }
 			onResizeStop={ handleResizeStop }
-			className={ clsx( 'woocommerce-edit-site-resizable-frame__inner', {
+			className={ clsx( 'poocommerce-edit-site-resizable-frame__inner', {
 				'is-resizing': isResizing,
 			} ) }
 		>

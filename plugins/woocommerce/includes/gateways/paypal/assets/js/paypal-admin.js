@@ -6,20 +6,20 @@ jQuery( function( $ ) {
 	 */
 	var wc_paypal_admin = {
 		isTestMode: function() {
-			return $( '#woocommerce_paypal_testmode' ).is( ':checked' );
+			return $( '#poocommerce_paypal_testmode' ).is( ':checked' );
 		},
 
 		/**
 		 * Initialize.
 		 */
 		init: function() {
-			$( document.body ).on( 'change', '#woocommerce_paypal_testmode', function() {
-				var test_api_username = $( '#woocommerce_paypal_sandbox_api_username' ).parents( 'tr' ).eq( 0 ),
-					test_api_password = $( '#woocommerce_paypal_sandbox_api_password' ).parents( 'tr' ).eq( 0 ),
-					test_api_signature = $( '#woocommerce_paypal_sandbox_api_signature' ).parents( 'tr' ).eq( 0 ),
-					live_api_username = $( '#woocommerce_paypal_api_username' ).parents( 'tr' ).eq( 0 ),
-					live_api_password = $( '#woocommerce_paypal_api_password' ).parents( 'tr' ).eq( 0 ),
-					live_api_signature = $( '#woocommerce_paypal_api_signature' ).parents( 'tr' ).eq( 0 );
+			$( document.body ).on( 'change', '#poocommerce_paypal_testmode', function() {
+				var test_api_username = $( '#poocommerce_paypal_sandbox_api_username' ).parents( 'tr' ).eq( 0 ),
+					test_api_password = $( '#poocommerce_paypal_sandbox_api_password' ).parents( 'tr' ).eq( 0 ),
+					test_api_signature = $( '#poocommerce_paypal_sandbox_api_signature' ).parents( 'tr' ).eq( 0 ),
+					live_api_username = $( '#poocommerce_paypal_api_username' ).parents( 'tr' ).eq( 0 ),
+					live_api_password = $( '#poocommerce_paypal_api_password' ).parents( 'tr' ).eq( 0 ),
+					live_api_signature = $( '#poocommerce_paypal_api_signature' ).parents( 'tr' ).eq( 0 );
 
 				if ( $( this ).is( ':checked' ) ) {
 					test_api_username.show();
@@ -38,7 +38,7 @@ jQuery( function( $ ) {
 				}
 			} );
 
-			$( '#woocommerce_paypal_testmode' ).trigger( 'change' );
+			$( '#poocommerce_paypal_testmode' ).trigger( 'change' );
 		}
 	};
 

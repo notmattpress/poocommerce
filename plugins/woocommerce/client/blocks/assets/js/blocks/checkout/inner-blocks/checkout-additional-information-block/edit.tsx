@@ -2,11 +2,11 @@
  * External dependencies
  */
 import { useBlockProps } from '@wordpress/block-editor';
-import { FormStepBlock } from '@woocommerce/blocks/checkout/form-step';
+import { FormStepBlock } from '@poocommerce/blocks/checkout/form-step';
 import clsx from 'clsx';
-import { ORDER_FORM_KEYS } from '@woocommerce/block-settings';
-import { useCheckoutAddress } from '@woocommerce/base-context';
-import { useFormFields } from '@woocommerce/base-components/cart-checkout';
+import { ORDER_FORM_KEYS } from '@poocommerce/block-settings';
+import { useCheckoutAddress } from '@poocommerce/base-context';
+import { useFormFields } from '@poocommerce/base-components/cart-checkout';
 
 /**
  * Internal dependencies

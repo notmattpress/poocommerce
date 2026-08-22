@@ -1,9 +1,9 @@
 <?php
 
-use Automattic\WooCommerce\Enums\ProductStatus;
-use Automattic\WooCommerce\Enums\ProductType;
-use Automattic\WooCommerce\Internal\CostOfGoodsSold\CogsAwareUnitTestSuiteTrait;
-use Automattic\WooCommerce\Tests\Helpers\MetaDataAssertionTrait;
+use Automattic\PooCommerce\Enums\ProductStatus;
+use Automattic\PooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Internal\CostOfGoodsSold\CogsAwareUnitTestSuiteTrait;
+use Automattic\PooCommerce\Tests\Helpers\MetaDataAssertionTrait;
 
 /**
  * class WC_REST_Products_Controller_Tests.
@@ -42,7 +42,7 @@ class WC_REST_Products_Controller_Tests extends WC_Unit_Test_Case {
 	protected static $fixture_user;
 
 	/**
-	 * Saves the `woocommerce_hide_out_of_stock_items` option value for restoration after tests that modify it.
+	 * Saves the `poocommerce_hide_out_of_stock_items` option value for restoration after tests that modify it.
 	 * @var mixed
 	 */
 	protected $original_hid_out_of_stock_value;
@@ -55,7 +55,7 @@ class WC_REST_Products_Controller_Tests extends WC_Unit_Test_Case {
 		$this->clear_rest_server();
 		unset( $this->server, $this->endpoint );
 		$this->disable_cogs_feature();
-		update_option( 'woocommerce_hide_out_of_stock_items', $this->original_hid_out_of_stock_value );
+		update_option( 'poocommerce_hide_out_of_stock_items', $this->original_hid_out_of_stock_value );
 	}
 
 	/**
@@ -150,7 +150,7 @@ class WC_REST_Products_Controller_Tests extends WC_Unit_Test_Case {
 		$this->user     = self::$fixture_user;
 		wp_set_current_user( $this->user );
 
-		$this->original_hid_out_of_stock_value = get_option( 'woocommerce_hide_out_of_stock_items' );
+		$this->original_hid_out_of_stock_value = get_option( 'poocommerce_hide_out_of_stock_items' );
 	}
 
 	/**
@@ -255,7 +255,7 @@ class WC_REST_Products_Controller_Tests extends WC_Unit_Test_Case {
 
 		$expected_response_fields = $this->get_expected_response_fields( $with_cogs_enabled );
 
-		$product  = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
+		$product  = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
 		$response = $this->server->dispatch( new WP_REST_Request( 'GET', '/wc/v3/products/' . $product->get_id() ) );
 
 		$this->assertEquals( 200, $response->get_status() );
@@ -298,7 +298,7 @@ class WC_REST_Products_Controller_Tests extends WC_Unit_Test_Case {
 		}
 
 		$expected_response_fields = $this->get_expected_response_fields( $with_cogs_enabled );
-		$product                  = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
+		$product                  = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
 
 		foreach ( $expected_response_fields as $field ) {
 			$request = new WP_REST_Request( 'GET', '/wc/v3/products/' . $product->get_id() );
@@ -1627,7 +1627,7 @@ class WC_REST_Products_Controller_Tests extends WC_Unit_Test_Case {
 		$failed_creation_response_data = $failed_creation_response->get_data();
 
 		$this->assertEquals( 400, $failed_creation_response->get_status(), 'Product creation attempt with duplicate SKU should return HTTP 400.' );
-		$this->assertEquals( 'woocommerce_rest_product_not_created', $failed_creation_response_data['code'] );
+		$this->assertEquals( 'poocommerce_rest_product_not_created', $failed_creation_response_data['code'] );
 
 		$attachments_after_failed_attempt = count(
 			get_posts(
@@ -1974,7 +1974,7 @@ class WC_REST_Products_Controller_Tests extends WC_Unit_Test_Case {
 	 * are properly updated when hide out of stock is disabled.
 	 */
 	public function test_batch_create_updates_term_counts() {
-		update_option( 'woocommerce_hide_out_of_stock_items', 'no' );
+		update_option( 'poocommerce_hide_out_of_stock_items', 'no' );
 		$term         = wp_insert_term( 'BatchTestCategory', 'product_cat' );
 		$term_id      = $term['term_id'];
 		$count_before = (int) get_term_meta( $term_id, 'product_count_product_cat', true );
@@ -2006,7 +2006,7 @@ class WC_REST_Products_Controller_Tests extends WC_Unit_Test_Case {
 	 * the term counts are not increased when hide out of stock is enabled.
 	 */
 	public function test_batch_create_out_of_stock_obeys_hide_setting() {
-		update_option( 'woocommerce_hide_out_of_stock_items', 'yes' );
+		update_option( 'poocommerce_hide_out_of_stock_items', 'yes' );
 		$term         = wp_insert_term( 'BatchTestCategory', 'product_cat' );
 		$term_id      = $term['term_id'];
 		$count_before = (int) get_term_meta( $term_id, 'product_count_product_cat', true );
@@ -2038,7 +2038,7 @@ class WC_REST_Products_Controller_Tests extends WC_Unit_Test_Case {
 	 * decrements term counts when hide out of stock is enabled.
 	 */
 	public function test_batch_update_stock_status_affects_term_counts() {
-		update_option( 'woocommerce_hide_out_of_stock_items', 'yes' );
+		update_option( 'poocommerce_hide_out_of_stock_items', 'yes' );
 
 		$product = WC_Helper_Product::create_simple_product();
 		$term    = wp_insert_term( 'BatchTestCategory', 'product_cat' );
@@ -2072,7 +2072,7 @@ class WC_REST_Products_Controller_Tests extends WC_Unit_Test_Case {
 	 * decrements term counts when products are changed to draft status.
 	 */
 	public function test_batch_update_status_affects_term_counts() {
-		update_option( 'woocommerce_hide_out_of_stock_items', 'yes' );
+		update_option( 'poocommerce_hide_out_of_stock_items', 'yes' );
 
 		$product = WC_Helper_Product::create_simple_product();
 		$term    = wp_insert_term( 'BatchTestCategory', 'product_cat' );
@@ -2106,7 +2106,7 @@ class WC_REST_Products_Controller_Tests extends WC_Unit_Test_Case {
 	 * are properly decremented immediately.
 	 */
 	public function test_batch_delete_product_updates_term_counts() {
-		update_option( 'woocommerce_hide_out_of_stock_items', 'yes' );
+		update_option( 'poocommerce_hide_out_of_stock_items', 'yes' );
 
 		$product = WC_Helper_Product::create_simple_product();
 		$term    = wp_insert_term( 'BatchTestCategory', 'product_cat' );

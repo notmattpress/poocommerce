@@ -1,11 +1,11 @@
-.woocommerce-layout__activity-panel {
+.poocommerce-layout__activity-panel {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
 	height: $header-height;
 }
 
-.woocommerce-layout__activity-panel-tabs {
+.poocommerce-layout__activity-panel-tabs {
 	width: 100%;
 	display: flex;
 	height: $header-height;
@@ -20,7 +20,7 @@
 		width: 18px;
 		height: 18px;
 
-		&.woocommerce-layout__activity-panel-tab-icon {
+		&.poocommerce-layout__activity-panel-tab-icon {
 			fill: none;
 
 			rect,
@@ -30,13 +30,13 @@
 		}
 	}
 
-	.woocommerce-layout__homescreen-display-options {
-		svg.woocommerce-layout__activity-panel-tab-icon {
+	.poocommerce-layout__homescreen-display-options {
+		svg.poocommerce-layout__activity-panel-tab-icon {
 			height: 14px;
 		}
 	}
 
-	.woocommerce-layout__homescreen-extension-tasklist-toggle {
+	.poocommerce-layout__homescreen-extension-tasklist-toggle {
 		min-width: 205px;
 	}
 
@@ -52,7 +52,7 @@
 		}
 	}
 
-	.woocommerce-layout__activity-panel-tab {
+	.poocommerce-layout__activity-panel-tab {
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
@@ -129,7 +129,7 @@
 		}
 	}
 
-	.woocommerce-layout__activity-panel-popover {
+	.poocommerce-layout__activity-panel-popover {
 		margin-top: 0;
 		z-index: 1001; // One higher than the other activity panels.
 
@@ -158,7 +158,7 @@
 	}
 }
 
-.woocommerce-layout__activity-panel-wrapper {
+.poocommerce-layout__activity-panel-wrapper {
 	// Suppress the browser's default focus outline on click focus (the blue
 	// ring with slight rounded corners). Keyboard nav still gets it via
 	// :focus-visible so a11y is preserved.
@@ -166,7 +166,7 @@
 		outline: none;
 	}
 
-	height: calc(100vh - var(--woocommerce-admin-header-height) - #{$adminbar-height-mobile});
+	height: calc(100vh - var(--poocommerce-admin-header-height) - #{$adminbar-height-mobile});
 	background: $gray-100;
 	width: 430px;
 	@include breakpoint( "<782px" ) {
@@ -176,22 +176,22 @@
 	@include activity-panel-slide();
 	position: fixed;
 	right: 0;
-	top: calc(var(--woocommerce-admin-header-height) + #{$adminbar-height-mobile + $header-border-width});
+	top: calc(var(--poocommerce-admin-header-height) + #{$adminbar-height-mobile + $header-border-width});
 	z-index: 1000;
 	overflow-x: hidden;
 	overflow-y: auto;
 
 	@include breakpoint( ">782px" ) {
-		height: calc(100vh - var(--woocommerce-admin-header-height) - #{$adminbar-height});
-		top: calc(var(--woocommerce-admin-header-height) + #{$adminbar-height + $header-border-width});
+		height: calc(100vh - var(--poocommerce-admin-header-height) - #{$adminbar-height});
+		top: calc(var(--poocommerce-admin-header-height) + #{$adminbar-height + $header-border-width});
 	}
 	.is-wp-toolbar-disabled & {
-		height: calc(100vh - var(--woocommerce-admin-header-height));
-		top: calc(var(--woocommerce-admin-header-height) + #{$header-border-width});
+		height: calc(100vh - var(--poocommerce-admin-header-height));
+		top: calc(var(--poocommerce-admin-header-height) + #{$header-border-width});
 	}
-	.has-woocommerce-navigation & {
-		height: calc(100vh - var(--woocommerce-admin-header-height));
-		top: var(--woocommerce-admin-header-height);
+	.has-poocommerce-navigation & {
+		height: calc(100vh - var(--poocommerce-admin-header-height));
+		top: var(--poocommerce-admin-header-height);
 	}
 
 	&.is-open {
@@ -208,12 +208,12 @@
 		}
 	}
 
-	.woocommerce-empty-content {
+	.poocommerce-empty-content {
 		padding-left: $gap-large;
 		padding-right: $gap-large;
 	}
 }
 
-.woocommerce-layout__notice-list-hide {
+.poocommerce-layout__notice-list-hide {
 	display: none;
 }

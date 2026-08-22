@@ -146,7 +146,7 @@ test.describe( 'Settings UI feature flag', { tag: [ tags.NOT_E2E ] }, () => {
 		await page.goto( settingsUrl );
 
 		await expect( page.getByRole( 'textbox' ) ).toHaveCount( 0 );
-		await expect( page.locator( '.woocommerce-save-button' ) ).toHaveCount(
+		await expect( page.locator( '.poocommerce-save-button' ) ).toHaveCount(
 			0
 		);
 		const classicAction = page.getByRole( 'link', {

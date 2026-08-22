@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\CustomerEmailVerification;
+namespace Automattic\PooCommerce\Tests\Internal\CustomerEmailVerification;
 
-use Automattic\WooCommerce\Internal\CustomerEmailVerification\EmailVerificationService;
-use Automattic\WooCommerce\Internal\CustomerEmailVerification\VerificationEventListener;
+use Automattic\PooCommerce\Internal\CustomerEmailVerification\EmailVerificationService;
+use Automattic\PooCommerce\Internal\CustomerEmailVerification\VerificationEventListener;
 use WC_Unit_Test_Case;
 
 /**
@@ -32,7 +32,7 @@ class ImplicitVerificationTest extends WC_Unit_Test_Case {
 
 	/**
 	 * Completing a password reset fires the core after_password_reset action, which both
-	 * WordPress core and WooCommerce dispatch. The listener should mark the email verified.
+	 * WordPress core and PooCommerce dispatch. The listener should mark the email verified.
 	 *
 	 * @testdox A completed password reset marks the customer's email as verified.
 	 */

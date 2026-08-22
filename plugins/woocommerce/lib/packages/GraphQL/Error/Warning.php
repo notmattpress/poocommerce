@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\GraphQL\Error;
+namespace Automattic\PooCommerce\Vendor\GraphQL\Error;
 
 /**
  * Encapsulates warnings produced by the library.

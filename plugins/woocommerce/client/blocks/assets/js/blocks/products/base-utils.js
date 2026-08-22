@@ -13,7 +13,7 @@ import addToCartButtonMetadata from '../../atomic/blocks/product-elements/button
  */
 export const DEFAULT_PRODUCT_LIST_LAYOUT = [
 	[
-		'woocommerce/product-image',
+		'poocommerce/product-image',
 		{
 			style: {
 				dimensions: {
@@ -22,10 +22,10 @@ export const DEFAULT_PRODUCT_LIST_LAYOUT = [
 			},
 		},
 	],
-	[ 'woocommerce/product-title' ],
-	[ 'woocommerce/product-price' ],
-	[ 'woocommerce/product-rating' ],
-	[ 'woocommerce/product-button' ],
+	[ 'poocommerce/product-title' ],
+	[ 'poocommerce/product-price' ],
+	[ 'poocommerce/product-rating' ],
+	[ 'poocommerce/product-button' ],
 ];
 
 /**
@@ -51,7 +51,7 @@ export const getProductLayoutConfig = ( innerBlocks ) => {
 				/**
 				 * Add custom width class to Add to cart button,
 				 * This is needed to support "Width Setting" controls available in
-				 * "woocommerce/product-button" block.
+				 * "poocommerce/product-button" block.
 				 */
 				...( block.name === addToCartButtonMetadata.name && {
 					className: clsx( block.attributes.className, {

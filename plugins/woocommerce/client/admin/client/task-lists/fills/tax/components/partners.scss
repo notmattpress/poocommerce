@@ -1,9 +1,9 @@
-.woocommerce-tax-partners__partners {
+.poocommerce-tax-partners__partners {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 
 
-	&.woocommerce-tax-partners__partners-count-1 {
+	&.poocommerce-tax-partners__partners-count-1 {
 		grid-template-columns: 1fr;
 	}
 
@@ -12,12 +12,12 @@
 	}
 }
 
-.woocommerce-tax-partners__partners-count-1 .woocommerce-tax-partners__partners {
+.poocommerce-tax-partners__partners-count-1 .poocommerce-tax-partners__partners {
 	grid-template-columns: 1fr;
 	justify-items: center;
 }
 
-.woocommerce-tax-partners {
+.poocommerce-tax-partners {
 	.components-card__body.is-size-medium {
 		padding: $gap-larger;
 	}
@@ -28,7 +28,7 @@
 	}
 }
 
-.woocommerce-tax-partners__other-actions {
+.poocommerce-tax-partners__other-actions {
 	text-align: center;
 	list-style: none;
 	display: flex;

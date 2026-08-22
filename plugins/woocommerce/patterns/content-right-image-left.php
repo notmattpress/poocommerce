@@ -1,16 +1,16 @@
 <?php
 /**
  * Title: Content Right with Image Left
- * Slug: woocommerce-blocks/content-right-with-image-left
- * Categories: WooCommerce, About
+ * Slug: poocommerce-blocks/content-right-with-image-left
+ * Categories: PooCommerce, About
  */
 
 declare(strict_types=1);
 
 
-$header  = __( 'Committed to a greener lifestyle', 'woocommerce' );
-$content = __( "Our passion is crafting mindful moments with locally sourced, organic, and sustainable products. We're more than a store; we're your path to a community-driven, eco-friendly lifestyle that embraces premium quality.", 'woocommerce' );
-$button  = __( 'Meet us', 'woocommerce' );
+$header  = __( 'Committed to a greener lifestyle', 'poocommerce' );
+$content = __( "Our passion is crafting mindful moments with locally sourced, organic, and sustainable products. We're more than a store; we're your path to a community-driven, eco-friendly lifestyle that embraces premium quality.", 'poocommerce' );
+$button  = __( 'Meet us', 'poocommerce' );
 $image_0 = plugins_url( 'assets/images/pattern-placeholders/drinkware-liquid-tableware-dishware-bottle-fluid.jpg', WC_PLUGIN_FILE );
 
 ?>

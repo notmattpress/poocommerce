@@ -2,13 +2,13 @@
 /**
  * Consent management for WP Consent API integration
  *
- * @package automattic/woocommerce-analytics
+ * @package automattic/poocommerce-analytics
  */
 
 namespace Automattic\Woocommerce_Analytics;
 
 /**
- * Manages consent checking for WooCommerce Analytics
+ * Manages consent checking for PooCommerce Analytics
  */
 class Consent_Manager {
 

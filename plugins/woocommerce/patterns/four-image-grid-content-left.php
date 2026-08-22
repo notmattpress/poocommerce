@@ -1,14 +1,14 @@
 <?php
 /**
  * Title: Four Image Grid Content Left
- * Slug: woocommerce-blocks/four-image-grid-content-left
- * Categories: WooCommerce, About
+ * Slug: poocommerce-blocks/four-image-grid-content-left
+ * Categories: PooCommerce, About
  */
 declare(strict_types=1);
 
-$header  = __( 'Create anything', 'woocommerce' );
-$content = __( 'Navigating life\'s intricate fabric, choices unfold paths to the extraordinary, demanding creativity, curiosity, and courage for a truly fulfilling journey.', 'woocommerce' );
-$button  = __( 'Get Started', 'woocommerce' );
+$header  = __( 'Create anything', 'poocommerce' );
+$content = __( 'Navigating life\'s intricate fabric, choices unfold paths to the extraordinary, demanding creativity, curiosity, and courage for a truly fulfilling journey.', 'poocommerce' );
+$button  = __( 'Get Started', 'poocommerce' );
 
 $image_0 = plugins_url( 'assets/images/pattern-placeholders/sun-glass-vase-green-ceramic-shelf.jpg', WC_PLUGIN_FILE );
 $image_1 = plugins_url( 'assets/images/pattern-placeholders/white-vase-decoration-pattern-ceramic-lamp.jpg', WC_PLUGIN_FILE );

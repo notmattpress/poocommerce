@@ -2,10 +2,10 @@
 /**
  * Unit tests for the WC_Admin_Functions_Test class
  *
- * @package WooCommerce\Tests\Admin
+ * @package PooCommerce\Tests\Admin
  */
 
-use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Enums\OrderStatus;
 
 /**
  * Class WC_Admin_Functions_Test
@@ -47,7 +47,7 @@ class WC_Admin_Functions_Test extends \WC_Unit_Test_Case {
 	/**
 	 * Test adjust line item function when order does not have meta `_reduced_stock` already.
 	 *
-	 * @link https://github.com/woocommerce/woocommerce/issues/27445.
+	 * @link https://github.com/poocommerce/poocommerce/issues/27445.
 	 */
 	public function test_wc_maybe_adjust_line_item_product_stock() {
 		$product = WC_Helper_Product::create_simple_product();
@@ -74,7 +74,7 @@ class WC_Admin_Functions_Test extends \WC_Unit_Test_Case {
 	/**
 	 * Test adjust line item function when order item is deleted after a full refund with restock.
 	 *
-	 * @link https://github.com/woocommerce/woocommerce/issues/27504.
+	 * @link https://github.com/poocommerce/poocommerce/issues/27504.
 	 */
 	public function test_admin_delete_order_item_after_full_refund_restock() {
 		$product = WC_Helper_Product::create_simple_product();
@@ -129,7 +129,7 @@ class WC_Admin_Functions_Test extends \WC_Unit_Test_Case {
 	/**
 	 * Test adjust line item function when order item is deleted after a full refund with no restock.
 	 *
-	 * @link https://github.com/woocommerce/woocommerce/issues/27504.
+	 * @link https://github.com/poocommerce/poocommerce/issues/27504.
 	 */
 	public function test_admin_delete_order_item_after_full_refund_no_restock() {
 		$product = WC_Helper_Product::create_simple_product();
@@ -182,7 +182,7 @@ class WC_Admin_Functions_Test extends \WC_Unit_Test_Case {
 	/**
 	 * Test adjust line item function when order item is deleted after a partial refund with restock.
 	 *
-	 * @link https://github.com/woocommerce/woocommerce/issues/27504.
+	 * @link https://github.com/poocommerce/poocommerce/issues/27504.
 	 */
 	public function test_admin_delete_order_item_after_partial_refund_restock() {
 		$product = WC_Helper_Product::create_simple_product();
@@ -237,7 +237,7 @@ class WC_Admin_Functions_Test extends \WC_Unit_Test_Case {
 	/**
 	 * Test adjust line item function when order item is deleted after a partial refund with no restock.
 	 *
-	 * @link https://github.com/woocommerce/woocommerce/issues/27504.
+	 * @link https://github.com/poocommerce/poocommerce/issues/27504.
 	 */
 	public function test_admin_delete_order_item_after_partial_refund_no_restock() {
 		$product = WC_Helper_Product::create_simple_product();
@@ -292,7 +292,7 @@ class WC_Admin_Functions_Test extends \WC_Unit_Test_Case {
 	/**
 	 * Test adjust line item function when order item is refunded with restock and then update order.
 	 *
-	 * @link https://github.com/woocommerce/woocommerce/issues/29502.
+	 * @link https://github.com/poocommerce/poocommerce/issues/29502.
 	 */
 	public function test_admin_refund_with_restock_and_update_order() {
 		$product = WC_Helper_Product::create_simple_product();
@@ -351,7 +351,7 @@ class WC_Admin_Functions_Test extends \WC_Unit_Test_Case {
 	/**
 	 * Test adjust line item function when order item is refunded without restock and then update order.
 	 *
-	 * @link https://github.com/woocommerce/woocommerce/issues/29502.
+	 * @link https://github.com/poocommerce/poocommerce/issues/29502.
 	 */
 	public function test_admin_refund_without_restock_and_update_order() {
 		$product = WC_Helper_Product::create_simple_product();
@@ -499,7 +499,7 @@ class WC_Admin_Functions_Test extends \WC_Unit_Test_Case {
 	/**
 	 * Test adjust line item function when backorders are NOT enabled.
 	 * Tests the scenario where stock adjustments are made when backorders are disabled.
-	 * WooCommerce should still handle the stock adjustment calculations correctly.
+	 * PooCommerce should still handle the stock adjustment calculations correctly.
 	 */
 	public function test_wc_maybe_adjust_line_item_product_stock_no_backorders() {
 		$product = WC_Helper_Product::create_simple_product();
@@ -539,7 +539,7 @@ class WC_Admin_Functions_Test extends \WC_Unit_Test_Case {
 	/**
 	 * @testdox wc_save_order_items() should skip reserved meta keys while still saving valid custom meta.
 	 *
-	 * @link https://github.com/woocommerce/woocommerce/issues/62328
+	 * @link https://github.com/poocommerce/poocommerce/issues/62328
 	 */
 	public function test_wc_save_order_items_skips_reserved_meta_keys() {
 		$order               = WC_Helper_Order::create_order();
@@ -585,7 +585,7 @@ class WC_Admin_Functions_Test extends \WC_Unit_Test_Case {
 	/**
 	 * @testdox wc_save_order_items() should use the shipping method title when the posted shipping title is empty.
 	 *
-	 * @link https://github.com/woocommerce/woocommerce/issues/36049
+	 * @link https://github.com/poocommerce/poocommerce/issues/36049
 	 */
 	public function test_wc_save_order_items_uses_shipping_method_title_when_posted_shipping_title_is_empty(): void {
 		$order         = WC_Helper_Order::create_order();
@@ -615,20 +615,20 @@ class WC_Admin_Functions_Test extends \WC_Unit_Test_Case {
 	/**
 	 * @testdox wc_save_order_items() should preserve an existing shipping line named Shipping.
 	 *
-	 * @link https://github.com/woocommerce/woocommerce/issues/66847
+	 * @link https://github.com/poocommerce/poocommerce/issues/66847
 	 */
 	public function test_wc_save_order_items_preserves_existing_shipping_line_named_shipping(): void {
 		$order         = WC_Helper_Order::create_order();
 		$shipping_item = new WC_Order_Item_Shipping();
 		$shipping_item->set_order_id( $order->get_id() );
 		$shipping_item->set_method_id( 'flat_rate' );
-		$shipping_item->set_method_title( __( 'Shipping', 'woocommerce' ) );
+		$shipping_item->set_method_title( __( 'Shipping', 'poocommerce' ) );
 		$item_id = $shipping_item->save();
 
 		$items = array(
 			'shipping_method_id'    => array( $item_id ),
 			'shipping_method'       => array( $item_id => 'flat_rate' ),
-			'shipping_method_title' => array( $item_id => __( 'Shipping', 'woocommerce' ) ),
+			'shipping_method_title' => array( $item_id => __( 'Shipping', 'poocommerce' ) ),
 			'shipping_cost'         => array( $item_id => 0 ),
 			'shipping_taxes'        => array( $item_id => array() ),
 		);
@@ -638,7 +638,7 @@ class WC_Admin_Functions_Test extends \WC_Unit_Test_Case {
 		$saved_item = new WC_Order_Item_Shipping( $item_id );
 
 		$this->assertSame(
-			__( 'Shipping', 'woocommerce' ),
+			__( 'Shipping', 'poocommerce' ),
 			$saved_item->get_name(),
 			'Existing shipping lines named Shipping should not be replaced with the generic method title'
 		);

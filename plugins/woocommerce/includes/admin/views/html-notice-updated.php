@@ -2,7 +2,7 @@
 /**
  * Admin View: Notice - Updated.
  *
- * @package WooCommerce\Admin
+ * @package PooCommerce\Admin
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -10,8 +10,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 ?>
-<div id="message" class="updated woocommerce-message wc-connect woocommerce-message--success">
-	<a class="woocommerce-message-close notice-dismiss" href="<?php echo esc_url( wp_nonce_url( add_query_arg( 'wc-hide-notice', 'update', remove_query_arg( 'do_update_woocommerce' ) ), 'woocommerce_hide_notices_nonce', '_wc_notice_nonce' ) ); ?>"><?php esc_html_e( 'Dismiss', 'woocommerce' ); ?></a>
+<div id="message" class="updated poocommerce-message wc-connect poocommerce-message--success">
+	<a class="poocommerce-message-close notice-dismiss" href="<?php echo esc_url( wp_nonce_url( add_query_arg( 'wc-hide-notice', 'update', remove_query_arg( 'do_update_poocommerce' ) ), 'poocommerce_hide_notices_nonce', '_wc_notice_nonce' ) ); ?>"><?php esc_html_e( 'Dismiss', 'poocommerce' ); ?></a>
 
-	<p><?php esc_html_e( 'WooCommerce database update complete. Thank you for updating to the latest version!', 'woocommerce' ); ?></p>
+	<p><?php esc_html_e( 'PooCommerce database update complete. Thank you for updating to the latest version!', 'poocommerce' ); ?></p>
 </div>

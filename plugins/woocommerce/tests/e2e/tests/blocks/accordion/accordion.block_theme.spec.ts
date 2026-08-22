@@ -1,24 +1,24 @@
 /**
  * External dependencies
  */
-import { expect, test } from '@woocommerce/e2e-utils';
+import { expect, test } from '@poocommerce/e2e-utils';
 
 const blockData = {
-	slug: 'woocommerce/accordion-group',
+	slug: 'poocommerce/accordion-group',
 };
 
 const accordionInnerBlocks = [
 	{
-		name: 'woocommerce/accordion-item',
+		name: 'poocommerce/accordion-item',
 		innerBlocks: [
 			{
-				name: 'woocommerce/accordion-header',
+				name: 'poocommerce/accordion-header',
 				attributes: {
 					title: 'First Accordion Header',
 				},
 			},
 			{
-				name: 'woocommerce/accordion-panel',
+				name: 'poocommerce/accordion-panel',
 				innerBlocks: [
 					{
 						name: 'core/paragraph',
@@ -31,16 +31,16 @@ const accordionInnerBlocks = [
 		],
 	},
 	{
-		name: 'woocommerce/accordion-item',
+		name: 'poocommerce/accordion-item',
 		innerBlocks: [
 			{
-				name: 'woocommerce/accordion-header',
+				name: 'poocommerce/accordion-header',
 				attributes: {
 					title: 'Second Accordion Header',
 				},
 			},
 			{
-				name: 'woocommerce/accordion-panel',
+				name: 'poocommerce/accordion-panel',
 				innerBlocks: [
 					{
 						name: 'core/paragraph',
@@ -71,7 +71,7 @@ test.describe( `${ blockData.slug } Block - Deprecation`, () => {
 			'This test requires WordPress 6.9 or later'
 		);
 
-		// Insert WooCommerce accordion block with inner blocks and content.
+		// Insert PooCommerce accordion block with inner blocks and content.
 		await editor.insertBlock( {
 			name: blockData.slug,
 			innerBlocks: accordionInnerBlocks,
@@ -91,7 +91,7 @@ test.describe( `${ blockData.slug } Block - Deprecation`, () => {
 		} );
 		await page.goto( `/?p=${ postId }&preview=true` );
 		const legacyAccordionFrontend = frontendUtils.page.locator(
-			'.wp-block-woocommerce-accordion-group'
+			'.wp-block-poocommerce-accordion-group'
 		);
 		await expect( legacyAccordionFrontend ).toBeVisible();
 
@@ -125,45 +125,45 @@ test.describe( `${ blockData.slug } Block - Deprecation`, () => {
 		const coreAccordion = await editor.getBlockByName( 'core/accordion' );
 		await expect( coreAccordion ).toBeVisible();
 
-		// Verify the WooCommerce accordion block is no longer present.
+		// Verify the PooCommerce accordion block is no longer present.
 		const wooAccordion = editor.canvas.locator(
-			'[data-type="woocommerce/accordion-group"]'
+			'[data-type="poocommerce/accordion-group"]'
 		);
 		await expect( wooAccordion ).toHaveCount( 0 );
 
 		// Verify all inner blocks are converted correctly.
-		// Check that accordion items exist (woocommerce/accordion-item → core/accordion-item).
+		// Check that accordion items exist (poocommerce/accordion-item → core/accordion-item).
 		const coreAccordionItems = editor.canvas.locator(
 			'[data-type="core/accordion-item"]'
 		);
 		const itemCount = await coreAccordionItems.count();
 		expect( itemCount ).toBeGreaterThan( 0 );
 
-		// Check accordion headings (woocommerce/accordion-header → core/accordion-heading).
+		// Check accordion headings (poocommerce/accordion-header → core/accordion-heading).
 		const coreAccordionHeadings = editor.canvas.locator(
 			'[data-type="core/accordion-heading"]'
 		);
 		await expect( coreAccordionHeadings ).toHaveCount( itemCount );
 
-		// Check accordion panels (woocommerce/accordion-panel → core/accordion-panel).
+		// Check accordion panels (poocommerce/accordion-panel → core/accordion-panel).
 		const coreAccordionPanels = editor.canvas.locator(
 			'[data-type="core/accordion-panel"]'
 		);
 		await expect( coreAccordionPanels ).toHaveCount( itemCount );
 
-		// Verify no WooCommerce accordion inner blocks remain.
+		// Verify no PooCommerce accordion inner blocks remain.
 		const wooAccordionItems = editor.canvas.locator(
-			'[data-type="woocommerce/accordion-item"]'
+			'[data-type="poocommerce/accordion-item"]'
 		);
 		await expect( wooAccordionItems ).toHaveCount( 0 );
 
 		const wooAccordionHeaders = editor.canvas.locator(
-			'[data-type="woocommerce/accordion-header"]'
+			'[data-type="poocommerce/accordion-header"]'
 		);
 		await expect( wooAccordionHeaders ).toHaveCount( 0 );
 
 		const wooAccordionPanels = editor.canvas.locator(
-			'[data-type="woocommerce/accordion-panel"]'
+			'[data-type="poocommerce/accordion-panel"]'
 		);
 		await expect( wooAccordionPanels ).toHaveCount( 0 );
 
@@ -191,7 +191,7 @@ test.describe( `${ blockData.slug } Block - Deprecation`, () => {
 			'This test is only for WordPress 6.8 or earlier'
 		);
 
-		// Insert WooCommerce accordion block with inner blocks and content.
+		// Insert PooCommerce accordion block with inner blocks and content.
 		await editor.insertBlock( {
 			name: blockData.slug,
 			innerBlocks: accordionInnerBlocks,

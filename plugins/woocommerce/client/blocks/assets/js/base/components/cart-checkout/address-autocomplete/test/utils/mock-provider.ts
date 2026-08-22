@@ -8,7 +8,7 @@
 /**
  * External dependencies
  */
-import type { ClientAddressAutocompleteProvider } from '@woocommerce/types';
+import type { ClientAddressAutocompleteProvider } from '@poocommerce/types';
 
 export const MOCK_PROVIDER_ID = 'mock-test-provider';
 

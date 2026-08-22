@@ -150,17 +150,17 @@ export const NumberSpinControl = ( {
 	const incrementLabel = label
 		? sprintf(
 				// translators: %s: the label of the number field being stepped.
-				__( 'Increment %s', 'woocommerce' ),
+				__( 'Increment %s', 'poocommerce' ),
 				label
 		  )
-		: __( 'Increment', 'woocommerce' );
+		: __( 'Increment', 'poocommerce' );
 	const decrementLabel = label
 		? sprintf(
 				// translators: %s: the label of the number field being stepped.
-				__( 'Decrement %s', 'woocommerce' ),
+				__( 'Decrement %s', 'poocommerce' ),
 				label
 		  )
-		: __( 'Decrement', 'woocommerce' );
+		: __( 'Decrement', 'poocommerce' );
 
 	return (
 		<BaseControl

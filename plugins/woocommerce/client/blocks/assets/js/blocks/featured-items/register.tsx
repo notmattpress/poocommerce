@@ -6,7 +6,7 @@
  */
 import { InnerBlocks } from '@wordpress/block-editor';
 import { registerBlockType } from '@wordpress/blocks';
-import { getSetting } from '@woocommerce/settings';
+import { getSetting } from '@poocommerce/settings';
 import type { FunctionComponent } from 'react';
 import type { BlockConfiguration } from '@wordpress/blocks';
 

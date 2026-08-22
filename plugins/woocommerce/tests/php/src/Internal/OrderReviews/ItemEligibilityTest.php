@@ -1,11 +1,11 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\OrderReviews;
+namespace Automattic\PooCommerce\Tests\Internal\OrderReviews;
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Internal\OrderReviews\ItemEligibility;
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Internal\OrderReviews\ItemEligibility;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
 use WC_Helper_Product;
 use WC_Order_Item_Product;
 use WC_Unit_Test_Case;
@@ -13,7 +13,7 @@ use WC_Unit_Test_Case;
 /**
  * Tests for ItemEligibility.
  *
- * @covers \Automattic\WooCommerce\Internal\OrderReviews\ItemEligibility
+ * @covers \Automattic\PooCommerce\Internal\OrderReviews\ItemEligibility
  */
 class ItemEligibilityTest extends WC_Unit_Test_Case {
 
@@ -22,7 +22,7 @@ class ItemEligibilityTest extends WC_Unit_Test_Case {
 	 */
 	public function setUp(): void {
 		parent::setUp();
-		update_option( 'woocommerce_feature_customer_review_request_enabled', 'yes' );
+		update_option( 'poocommerce_feature_customer_review_request_enabled', 'yes' );
 	}
 
 	/**
@@ -30,7 +30,7 @@ class ItemEligibilityTest extends WC_Unit_Test_Case {
 	 */
 	public function tearDown(): void {
 		ItemEligibility::reset_cache();
-		delete_option( 'woocommerce_feature_customer_review_request_enabled' );
+		delete_option( 'poocommerce_feature_customer_review_request_enabled' );
 		parent::tearDown();
 	}
 
@@ -308,14 +308,14 @@ class ItemEligibilityTest extends WC_Unit_Test_Case {
 	 */
 	public function test_has_actionable_items_false_when_site_wide_reviews_disabled(): void {
 		$built    = $this->make_order();
-		$previous = get_option( 'woocommerce_enable_reviews', 'yes' );
-		update_option( 'woocommerce_enable_reviews', 'no' );
+		$previous = get_option( 'poocommerce_enable_reviews', 'yes' );
+		update_option( 'poocommerce_enable_reviews', 'no' );
 		remove_post_type_support( 'product', 'comments' );
 
 		try {
 			$this->assertFalse( ItemEligibility::has_actionable_items( $built['order'] ) );
 		} finally {
-			update_option( 'woocommerce_enable_reviews', $previous );
+			update_option( 'poocommerce_enable_reviews', $previous );
 			if ( 'yes' === $previous ) {
 				add_post_type_support( 'product', 'comments' );
 			}

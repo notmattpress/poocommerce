@@ -53,9 +53,9 @@ registerBlockType( metadata, {
 				blocks: [ 'core/legacy-widget' ],
 				// We can't transform if raw instance isn't shown in the REST API.
 				isMatch: ( { idBase, instance }: AllReviewsEditorProps ) =>
-					idBase === 'woocommerce_recent_reviews' && !! instance?.raw,
+					idBase === 'poocommerce_recent_reviews' && !! instance?.raw,
 				transform: ( { instance } ) =>
-					createBlock( 'woocommerce/all-reviews', {
+					createBlock( 'poocommerce/all-reviews', {
 						reviewsOnPageLoad: instance.raw.number,
 						imageType: 'product',
 						showLoadMore: false,

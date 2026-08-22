@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Api\Types\Coupons;
+namespace Automattic\PooCommerce\Api\Types\Coupons;
 
-use Automattic\WooCommerce\Api\Attributes\Description;
+use Automattic\PooCommerce\Api\Attributes\Description;
 
 /**
  * Result of a coupon deletion operation.

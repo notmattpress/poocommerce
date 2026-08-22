@@ -2,7 +2,7 @@
 /**
  * Third-party block email template fixture (no @version header).
  *
- * @package Automattic\WooCommerce\Tests\Internal\EmailEditor\WCTransactionalEmails\fixtures
+ * @package Automattic\PooCommerce\Tests\Internal\EmailEditor\WCTransactionalEmails\fixtures
  */
 
 declare( strict_types=1 );

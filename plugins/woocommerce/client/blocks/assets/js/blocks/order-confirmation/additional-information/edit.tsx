@@ -17,7 +17,7 @@ const Edit = (): JSX.Element => {
 	return (
 		<div { ...blockProps }>
 			<div className="wc-block-order-confirmation-additional-information-placeholder">
-				{ __( 'Additional Information for your order', 'woocommerce' ) }
+				{ __( 'Additional Information for your order', 'poocommerce' ) }
 			</div>
 		</div>
 	);

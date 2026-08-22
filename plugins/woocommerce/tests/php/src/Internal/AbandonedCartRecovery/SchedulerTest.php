@@ -1,12 +1,12 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\AbandonedCartRecovery;
+namespace Automattic\PooCommerce\Tests\Internal\AbandonedCartRecovery;
 
-use Automattic\WooCommerce\Caches\OrderCache;
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Internal\AbandonedCartRecovery\Scheduler;
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
+use Automattic\PooCommerce\Caches\OrderCache;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Internal\AbandonedCartRecovery\Scheduler;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
 use WC_Email_Customer_Abandoned_Cart_Recovery;
 use WC_Order;
 use WC_Unit_Test_Case;
@@ -14,7 +14,7 @@ use WC_Unit_Test_Case;
 /**
  * Scheduler test.
  *
- * @covers \Automattic\WooCommerce\Internal\AbandonedCartRecovery\Scheduler
+ * @covers \Automattic\PooCommerce\Internal\AbandonedCartRecovery\Scheduler
  */
 class SchedulerTest extends WC_Unit_Test_Case {
 
@@ -48,7 +48,7 @@ class SchedulerTest extends WC_Unit_Test_Case {
 	public function setUp(): void {
 		parent::setUp();
 
-		update_option( 'woocommerce_feature_abandoned_cart_recovery_enabled', 'yes' );
+		update_option( 'poocommerce_feature_abandoned_cart_recovery_enabled', 'yes' );
 		$this->original_active_plugins = (array) get_option( 'active_plugins', array() );
 
 		$bootstrap = \WC_Unit_Tests_Bootstrap::instance();
@@ -77,8 +77,8 @@ class SchedulerTest extends WC_Unit_Test_Case {
 	public function tearDown(): void {
 		remove_action( Scheduler::ACTION_HOOK, array( $this->sut, 'handle_scheduled_send' ), 10 );
 
-		delete_option( 'woocommerce_feature_abandoned_cart_recovery_enabled' );
-		delete_option( 'woocommerce_customer_abandoned_cart_recovery_settings' );
+		delete_option( 'poocommerce_feature_abandoned_cart_recovery_enabled' );
+		delete_option( 'poocommerce_customer_abandoned_cart_recovery_settings' );
 		update_option( 'active_plugins', $this->original_active_plugins );
 
 		as_unschedule_all_actions( Scheduler::ACTION_HOOK );
@@ -91,7 +91,7 @@ class SchedulerTest extends WC_Unit_Test_Case {
 	 */
 	public function test_init_registers_hooks(): void {
 		// setUp() pre-registers ACTION_HOOK so the dispatch test works without
-		// init() (which would also wire woocommerce_new_order and auto-fire on
+		// init() (which would also wire poocommerce_new_order and auto-fire on
 		// every OrderHelper::create_order). Tear that fixture shortcut down
 		// here so this test asserts the production wiring rather than passing
 		// on the setUp registration.
@@ -106,10 +106,10 @@ class SchedulerTest extends WC_Unit_Test_Case {
 		// Re-invoke here so the assertions exercise the production wiring.
 		$this->sut->init();
 
-		$this->assertNotFalse( has_action( 'woocommerce_new_order', array( $this->sut, 'handle_new_order' ) ) );
-		$this->assertNotFalse( has_action( 'woocommerce_order_status_changed', array( $this->sut, 'handle_status_changed' ) ) );
-		$this->assertNotFalse( has_action( 'woocommerce_trash_order', array( $this->sut, 'handle_cancellation' ) ) );
-		$this->assertNotFalse( has_action( 'woocommerce_before_delete_order', array( $this->sut, 'handle_cancellation' ) ) );
+		$this->assertNotFalse( has_action( 'poocommerce_new_order', array( $this->sut, 'handle_new_order' ) ) );
+		$this->assertNotFalse( has_action( 'poocommerce_order_status_changed', array( $this->sut, 'handle_status_changed' ) ) );
+		$this->assertNotFalse( has_action( 'poocommerce_trash_order', array( $this->sut, 'handle_cancellation' ) ) );
+		$this->assertNotFalse( has_action( 'poocommerce_before_delete_order', array( $this->sut, 'handle_cancellation' ) ) );
 		$this->assertNotFalse( has_action( Scheduler::ACTION_HOOK, array( $this->sut, 'handle_scheduled_send' ) ) );
 	}
 
@@ -323,11 +323,11 @@ class SchedulerTest extends WC_Unit_Test_Case {
 		$order->set_status( OrderStatus::PENDING );
 		$order->save();
 
-		add_filter( 'woocommerce_abandoned_cart_recovery_suppress', '__return_true' );
+		add_filter( 'poocommerce_abandoned_cart_recovery_suppress', '__return_true' );
 		try {
 			$this->sut->handle_new_order( $order->get_id() );
 		} finally {
-			remove_filter( 'woocommerce_abandoned_cart_recovery_suppress', '__return_true' );
+			remove_filter( 'poocommerce_abandoned_cart_recovery_suppress', '__return_true' );
 		}
 
 		$fresh = wc_get_order( $order->get_id() );
@@ -419,7 +419,7 @@ class SchedulerTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox handle_new_order() honors the woocommerce_abandoned_cart_recovery_eligible_statuses filter: an order created in a widened status (e.g. failed) is scheduled, matching the send/manual paths.
+	 * @testdox handle_new_order() honors the poocommerce_abandoned_cart_recovery_eligible_statuses filter: an order created in a widened status (e.g. failed) is scheduled, matching the send/manual paths.
 	 */
 	public function test_handle_new_order_schedules_for_filter_widened_status(): void {
 		$widen = static function ( $statuses ) {
@@ -432,11 +432,11 @@ class SchedulerTest extends WC_Unit_Test_Case {
 		$order->set_status( OrderStatus::FAILED );
 		$order->save();
 
-		add_filter( 'woocommerce_abandoned_cart_recovery_eligible_statuses', $widen );
+		add_filter( 'poocommerce_abandoned_cart_recovery_eligible_statuses', $widen );
 		try {
 			$this->sut->handle_new_order( $order->get_id() );
 		} finally {
-			remove_filter( 'woocommerce_abandoned_cart_recovery_eligible_statuses', $widen );
+			remove_filter( 'poocommerce_abandoned_cart_recovery_eligible_statuses', $widen );
 		}
 
 		$fresh = wc_get_order( $order->get_id() );
@@ -458,11 +458,11 @@ class SchedulerTest extends WC_Unit_Test_Case {
 			return $statuses;
 		};
 
-		add_filter( 'woocommerce_abandoned_cart_recovery_eligible_statuses', $widen );
+		add_filter( 'poocommerce_abandoned_cart_recovery_eligible_statuses', $widen );
 		try {
 			$this->sut->handle_status_changed( $order->get_id(), OrderStatus::PENDING, OrderStatus::FAILED );
 		} finally {
-			remove_filter( 'woocommerce_abandoned_cart_recovery_eligible_statuses', $widen );
+			remove_filter( 'poocommerce_abandoned_cart_recovery_eligible_statuses', $widen );
 		}
 
 		$fresh = wc_get_order( $order->get_id() );
@@ -484,11 +484,11 @@ class SchedulerTest extends WC_Unit_Test_Case {
 			return $statuses;
 		};
 
-		add_filter( 'woocommerce_abandoned_cart_recovery_eligible_statuses', $widen );
+		add_filter( 'poocommerce_abandoned_cart_recovery_eligible_statuses', $widen );
 		try {
 			$this->sut->handle_status_changed( $order->get_id(), OrderStatus::FAILED, OrderStatus::PROCESSING );
 		} finally {
-			remove_filter( 'woocommerce_abandoned_cart_recovery_eligible_statuses', $widen );
+			remove_filter( 'poocommerce_abandoned_cart_recovery_eligible_statuses', $widen );
 		}
 
 		$fresh = wc_get_order( $order->get_id() );
@@ -524,7 +524,7 @@ class SchedulerTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox A store-api order is scheduled through the real production wiring when it exits checkout-draft: the data store re-fires woocommerce_new_order on the draft → pending transition.
+	 * @testdox A store-api order is scheduled through the real production wiring when it exits checkout-draft: the data store re-fires poocommerce_new_order on the draft → pending transition.
 	 */
 	public function test_store_api_draft_to_pending_transition_schedules_via_hooks(): void {
 		$order = OrderHelper::create_order();
@@ -541,7 +541,7 @@ class SchedulerTest extends WC_Unit_Test_Case {
 		$fresh = wc_get_order( $order->get_id() );
 		$this->assertNotEmpty(
 			$fresh->get_meta( Scheduler::SCHEDULED_META_KEY ),
-			'The checkout-draft → pending transition must schedule the send via the re-fired woocommerce_new_order hook.'
+			'The checkout-draft → pending transition must schedule the send via the re-fired poocommerce_new_order hook.'
 		);
 		$this->assertNotFalse( as_next_scheduled_action( Scheduler::ACTION_HOOK, array( $order->get_id() ) ) );
 	}
@@ -573,11 +573,11 @@ class SchedulerTest extends WC_Unit_Test_Case {
 			return $statuses;
 		};
 
-		add_filter( 'woocommerce_abandoned_cart_recovery_eligible_statuses', $capture_order, 10, 2 );
+		add_filter( 'poocommerce_abandoned_cart_recovery_eligible_statuses', $capture_order, 10, 2 );
 		try {
 			$this->sut->handle_status_changed( $order->get_id(), OrderStatus::PENDING, OrderStatus::PROCESSING, $order );
 		} finally {
-			remove_filter( 'woocommerce_abandoned_cart_recovery_eligible_statuses', $capture_order );
+			remove_filter( 'poocommerce_abandoned_cart_recovery_eligible_statuses', $capture_order );
 		}
 
 		$this->assertSame( $order, $filtered_order, 'Eligibility checks must receive the order instance supplied by the hook.' );
@@ -617,7 +617,7 @@ class SchedulerTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox handle_cancellation() unschedules and clears the meta when no order object is supplied and it falls back to a lookup — the `woocommerce_trash_order` path — so a deleted-then-restored order doesn't fire a stale send.
+	 * @testdox handle_cancellation() unschedules and clears the meta when no order object is supplied and it falls back to a lookup — the `poocommerce_trash_order` path — so a deleted-then-restored order doesn't fire a stale send.
 	 */
 	public function test_handle_cancellation_clears_state_when_order_object_is_null(): void {
 		$order = $this->schedule_for_pending_order();

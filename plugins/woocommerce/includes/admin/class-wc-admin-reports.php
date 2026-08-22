@@ -6,7 +6,7 @@
  *
  * @author      WooThemes
  * @category    Admin
- * @package     WooCommerce\Admin\Reports
+ * @package     PooCommerce\Admin\Reports
  * @version     2.0.0
  */
 
@@ -27,8 +27,8 @@ class WC_Admin_Reports {
 	 * Register the hook handlers for integrating with admin.
 	 */
 	public static function register_hook_handlers() {
-		add_filter( 'woocommerce_after_dashboard_status_widget_parameter', array( __CLASS__, 'get_report_instance' ) );
-		add_filter( 'woocommerce_dashboard_status_widget_reports', array( __CLASS__, 'replace_dashboard_status_widget_reports' ) );
+		add_filter( 'poocommerce_after_dashboard_status_widget_parameter', array( __CLASS__, 'get_report_instance' ) );
+		add_filter( 'poocommerce_dashboard_status_widget_reports', array( __CLASS__, 'replace_dashboard_status_widget_reports' ) );
 	}
 
 	/**
@@ -38,8 +38,8 @@ class WC_Admin_Reports {
 	 * @since 10.6.0
 	 */
 	public static function register_orders_hook_handlers(): void {
-		add_action( 'woocommerce_delete_shop_order_transients', array( __CLASS__, 'delete_legacy_reports_transients' ), 10, 1 );
-		add_action( 'woocommerce_delete_legacy_report_transients', array( __CLASS__, 'delete_legacy_reports_transients' ), 10, 2 );
+		add_action( 'poocommerce_delete_shop_order_transients', array( __CLASS__, 'delete_legacy_reports_transients' ), 10, 1 );
+		add_action( 'poocommerce_delete_legacy_report_transients', array( __CLASS__, 'delete_legacy_reports_transients' ), 10, 2 );
 	}
 
 	/**
@@ -58,9 +58,9 @@ class WC_Admin_Reports {
 			static $skip_consequent;
 
 			// Schedule the deletion, cap the execution to single pending event at any given time.
-			$schedule = ! $skip_consequent && ! as_has_scheduled_action( 'woocommerce_delete_legacy_report_transients', null, 'woocommerce' );
+			$schedule = ! $skip_consequent && ! as_has_scheduled_action( 'poocommerce_delete_legacy_report_transients', null, 'poocommerce' );
 			if ( $schedule ) {
-				as_schedule_single_action( time() + MINUTE_IN_SECONDS, 'woocommerce_delete_legacy_report_transients', array( $order_id, false ), 'woocommerce' );
+				as_schedule_single_action( time() + MINUTE_IN_SECONDS, 'poocommerce_delete_legacy_report_transients', array( $order_id, false ), 'poocommerce' );
 			}
 			$skip_consequent = true;
 
@@ -132,34 +132,34 @@ class WC_Admin_Reports {
 	public static function get_reports() {
 		$reports = array(
 			'orders'    => array(
-				'title'   => __( 'Orders', 'woocommerce' ),
+				'title'   => __( 'Orders', 'poocommerce' ),
 				'reports' => array(
 					'sales_by_date'     => array(
-						'title'       => __( 'Sales by date', 'woocommerce' ),
+						'title'       => __( 'Sales by date', 'poocommerce' ),
 						'description' => '',
 						'hide_title'  => true,
 						'callback'    => array( __CLASS__, 'get_report' ),
 					),
 					'sales_by_product'  => array(
-						'title'       => __( 'Sales by product', 'woocommerce' ),
+						'title'       => __( 'Sales by product', 'poocommerce' ),
 						'description' => '',
 						'hide_title'  => true,
 						'callback'    => array( __CLASS__, 'get_report' ),
 					),
 					'sales_by_category' => array(
-						'title'       => __( 'Sales by category', 'woocommerce' ),
+						'title'       => __( 'Sales by category', 'poocommerce' ),
 						'description' => '',
 						'hide_title'  => true,
 						'callback'    => array( __CLASS__, 'get_report' ),
 					),
 					'coupon_usage'      => array(
-						'title'       => __( 'Coupons by date', 'woocommerce' ),
+						'title'       => __( 'Coupons by date', 'poocommerce' ),
 						'description' => '',
 						'hide_title'  => true,
 						'callback'    => array( __CLASS__, 'get_report' ),
 					),
 					'downloads'         => array(
-						'title'       => __( 'Customer downloads', 'woocommerce' ),
+						'title'       => __( 'Customer downloads', 'poocommerce' ),
 						'description' => '',
 						'hide_title'  => true,
 						'callback'    => array( __CLASS__, 'get_report' ),
@@ -167,16 +167,16 @@ class WC_Admin_Reports {
 				),
 			),
 			'customers' => array(
-				'title'   => __( 'Customers', 'woocommerce' ),
+				'title'   => __( 'Customers', 'poocommerce' ),
 				'reports' => array(
 					'customers'     => array(
-						'title'       => __( 'Customers vs. guests', 'woocommerce' ),
+						'title'       => __( 'Customers vs. guests', 'poocommerce' ),
 						'description' => '',
 						'hide_title'  => true,
 						'callback'    => array( __CLASS__, 'get_report' ),
 					),
 					'customer_list' => array(
-						'title'       => __( 'Customer list', 'woocommerce' ),
+						'title'       => __( 'Customer list', 'poocommerce' ),
 						'description' => '',
 						'hide_title'  => true,
 						'callback'    => array( __CLASS__, 'get_report' ),
@@ -184,22 +184,22 @@ class WC_Admin_Reports {
 				),
 			),
 			'stock'     => array(
-				'title'   => __( 'Stock', 'woocommerce' ),
+				'title'   => __( 'Stock', 'poocommerce' ),
 				'reports' => array(
 					'low_in_stock' => array(
-						'title'       => __( 'Low in stock', 'woocommerce' ),
+						'title'       => __( 'Low in stock', 'poocommerce' ),
 						'description' => '',
 						'hide_title'  => true,
 						'callback'    => array( __CLASS__, 'get_report' ),
 					),
 					'out_of_stock' => array(
-						'title'       => __( 'Out of stock', 'woocommerce' ),
+						'title'       => __( 'Out of stock', 'poocommerce' ),
 						'description' => '',
 						'hide_title'  => true,
 						'callback'    => array( __CLASS__, 'get_report' ),
 					),
 					'most_stocked' => array(
-						'title'       => __( 'Most stocked', 'woocommerce' ),
+						'title'       => __( 'Most stocked', 'poocommerce' ),
 						'description' => '',
 						'hide_title'  => true,
 						'callback'    => array( __CLASS__, 'get_report' ),
@@ -210,16 +210,16 @@ class WC_Admin_Reports {
 
 		if ( wc_tax_enabled() ) {
 			$reports['taxes'] = array(
-				'title'   => __( 'Taxes', 'woocommerce' ),
+				'title'   => __( 'Taxes', 'poocommerce' ),
 				'reports' => array(
 					'taxes_by_code' => array(
-						'title'       => __( 'Taxes by code', 'woocommerce' ),
+						'title'       => __( 'Taxes by code', 'poocommerce' ),
 						'description' => '',
 						'hide_title'  => true,
 						'callback'    => array( __CLASS__, 'get_report' ),
 					),
 					'taxes_by_date' => array(
-						'title'       => __( 'Taxes by date', 'woocommerce' ),
+						'title'       => __( 'Taxes by date', 'poocommerce' ),
 						'description' => '',
 						'hide_title'  => true,
 						'callback'    => array( __CLASS__, 'get_report' ),
@@ -229,7 +229,7 @@ class WC_Admin_Reports {
 		}
 
 		/**
-		 * Filter the list and add reports to the legacy _WooCommerce > Reports_.
+		 * Filter the list and add reports to the legacy _PooCommerce > Reports_.
 		 *
 		 * Array items should be in the format of
 		 *
@@ -246,26 +246,26 @@ class WC_Admin_Reports {
 		 *     ),
 		 * );
 		 *
-		 * This filter has a colliding name with the one in Automattic\WooCommerce\Admin\API\Reports\Controller.
-		 * To make sure your code runs in the context of the legacy _WooCommerce > Reports_ screen, and not the REST endpoint,
+		 * This filter has a colliding name with the one in Automattic\PooCommerce\Admin\API\Reports\Controller.
+		 * To make sure your code runs in the context of the legacy _PooCommerce > Reports_ screen, and not the REST endpoint,
 		 * use the following:
 		 *
-		 * add_filter( 'woocommerce_admin_reports',
+		 * add_filter( 'poocommerce_admin_reports',
 		 *     function( $reports ) {
 		 *         if ( is_admin() ) {
 		 *             // ...
 		 *
 		 * @param array $reports The associative array of reports.
 		 */
-		$reports = apply_filters( 'woocommerce_admin_reports', $reports );
-		$reports = apply_filters( 'woocommerce_reports_charts', $reports ); // Backwards compatibility.
+		$reports = apply_filters( 'poocommerce_admin_reports', $reports );
+		$reports = apply_filters( 'poocommerce_reports_charts', $reports ); // Backwards compatibility.
 
 		foreach ( $reports as $key => &$report_group ) {
 			if ( isset( $report_group['charts'] ) ) {
 				$report_group['reports'] = $report_group['charts'];
 			}
 
-			// Silently ignore reports given for the filter in Automattic\WooCommerce\Admin\API\Reports\Controller.
+			// Silently ignore reports given for the filter in Automattic\PooCommerce\Admin\API\Reports\Controller.
 			if ( ! isset( $report_group['reports'] ) ) {
 				unset( $reports[ $key ] );
 				continue;

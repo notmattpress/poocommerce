@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\StoreApi\Routes\V1;
+namespace Automattic\PooCommerce\StoreApi\Routes\V1;
 
-use Automattic\WooCommerce\Internal\ShopperLists\ShopperList;
-use Automattic\WooCommerce\StoreApi\Exceptions\RouteException;
+use Automattic\PooCommerce\Internal\ShopperLists\ShopperList;
+use Automattic\PooCommerce\StoreApi\Exceptions\RouteException;
 
 /**
  * DELETE /shopper-lists/{slug}/items/{key}.
@@ -54,11 +54,11 @@ class ShopperListItemsByKey extends AbstractRoute {
 		return array(
 			'args'   => array(
 				'slug' => array(
-					'description' => __( 'Stable slug for the list.', 'woocommerce' ),
+					'description' => __( 'Stable slug for the list.', 'poocommerce' ),
 					'type'        => 'string',
 				),
 				'key'  => array(
-					'description' => __( 'Item key.', 'woocommerce' ),
+					'description' => __( 'Item key.', 'poocommerce' ),
 					'type'        => 'string',
 				),
 			),
@@ -88,11 +88,11 @@ class ShopperListItemsByKey extends AbstractRoute {
 		$list = ShopperList::get_by_slug( (string) $request['slug'] );
 
 		if ( ! $list ) {
-			throw new RouteException( 'woocommerce_rest_shopper_list_not_found', esc_html__( 'Your saved list isn\'t available right now.', 'woocommerce' ), 404 );
+			throw new RouteException( 'poocommerce_rest_shopper_list_not_found', esc_html__( 'Your saved list isn\'t available right now.', 'poocommerce' ), 404 );
 		}
 
 		if ( ! $list->remove_item( (string) $request['key'] ) ) {
-			throw new RouteException( 'woocommerce_rest_shopper_list_item_not_found', esc_html__( 'That item isn\'t in your saved list anymore.', 'woocommerce' ), 404 );
+			throw new RouteException( 'poocommerce_rest_shopper_list_item_not_found', esc_html__( 'That item isn\'t in your saved list anymore.', 'poocommerce' ), 404 );
 		}
 
 		$list->save();

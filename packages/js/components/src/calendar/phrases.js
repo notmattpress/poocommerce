@@ -4,59 +4,59 @@
 import { __, sprintf } from '@wordpress/i18n';
 
 export default {
-	calendarLabel: __( 'Calendar', 'woocommerce' ),
-	closeDatePicker: __( 'Close', 'woocommerce' ),
+	calendarLabel: __( 'Calendar', 'poocommerce' ),
+	closeDatePicker: __( 'Close', 'poocommerce' ),
 	focusStartDate: __(
 		'Interact with the calendar and select start and end dates.',
-		'woocommerce'
+		'poocommerce'
 	),
-	clearDate: __( 'Clear Date', 'woocommerce' ),
-	clearDates: __( 'Clear Dates', 'woocommerce' ),
+	clearDate: __( 'Clear Date', 'poocommerce' ),
+	clearDates: __( 'Clear Dates', 'poocommerce' ),
 	jumpToPrevMonth: __(
 		'Move backward to switch to the previous month.',
-		'woocommerce'
+		'poocommerce'
 	),
 	jumpToNextMonth: __(
 		'Move forward to switch to the next month.',
-		'woocommerce'
+		'poocommerce'
 	),
-	enterKey: __( 'Enter key', 'woocommerce' ),
-	leftArrowRightArrow: __( 'Right and left arrow keys', 'woocommerce' ),
-	upArrowDownArrow: __( 'up and down arrow keys', 'woocommerce' ),
-	pageUpPageDown: __( 'page up and page down keys', 'woocommerce' ),
-	homeEnd: __( 'Home and end keys', 'woocommerce' ),
-	escape: __( 'Escape key', 'woocommerce' ),
-	questionMark: __( 'Question mark', 'woocommerce' ),
-	selectFocusedDate: __( 'Select the date in focus.', 'woocommerce' ),
+	enterKey: __( 'Enter key', 'poocommerce' ),
+	leftArrowRightArrow: __( 'Right and left arrow keys', 'poocommerce' ),
+	upArrowDownArrow: __( 'up and down arrow keys', 'poocommerce' ),
+	pageUpPageDown: __( 'page up and page down keys', 'poocommerce' ),
+	homeEnd: __( 'Home and end keys', 'poocommerce' ),
+	escape: __( 'Escape key', 'poocommerce' ),
+	questionMark: __( 'Question mark', 'poocommerce' ),
+	selectFocusedDate: __( 'Select the date in focus.', 'poocommerce' ),
 	moveFocusByOneDay: __(
 		'Move backward (left) and forward (right) by one day.',
-		'woocommerce'
+		'poocommerce'
 	),
 	moveFocusByOneWeek: __(
 		'Move backward (up) and forward (down) by one week.',
-		'woocommerce'
+		'poocommerce'
 	),
-	moveFocusByOneMonth: __( 'Switch months.', 'woocommerce' ),
+	moveFocusByOneMonth: __( 'Switch months.', 'poocommerce' ),
 	moveFocustoStartAndEndOfWeek: __(
 		'Go to the first or last day of a week.',
-		'woocommerce'
+		'poocommerce'
 	),
-	returnFocusToInput: __( 'Return to the date input field.', 'woocommerce' ),
+	returnFocusToInput: __( 'Return to the date input field.', 'poocommerce' ),
 	keyboardNavigationInstructions: __(
 		'Press the down arrow key to interact with the calendar and select a date.',
-		'woocommerce'
+		'poocommerce'
 	),
 	chooseAvailableStartDate: ( { date } ) =>
 		/* translators: %s: start date */
-		sprintf( __( 'Select %s as a start date.', 'woocommerce' ), date ),
+		sprintf( __( 'Select %s as a start date.', 'poocommerce' ), date ),
 	chooseAvailableEndDate: ( { date } ) =>
 		/* translators: %s: end date */
-		sprintf( __( 'Select %s as an end date.', 'woocommerce' ), date ),
+		sprintf( __( 'Select %s as an end date.', 'poocommerce' ), date ),
 	chooseAvailableDate: ( { date } ) => date,
 	dateIsUnavailable: ( { date } ) =>
 		/* translators: %s: unavailable date which was selected */
-		sprintf( __( '%s is not selectable.', 'woocommerce' ), date ),
+		sprintf( __( '%s is not selectable.', 'poocommerce' ), date ),
 	dateIsSelected: ( { date } ) =>
 		/* translators: %s: selected date successfully */
-		sprintf( __( 'Selected. %s', 'woocommerce' ), date ),
+		sprintf( __( 'Selected. %s', 'poocommerce' ), date ),
 };

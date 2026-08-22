@@ -6,12 +6,12 @@ import {
 	expect,
 	BlockData,
 	BLOCK_THEME_SLUG,
-} from '@woocommerce/e2e-utils';
+} from '@poocommerce/e2e-utils';
 
 // Block is soft-deprecated, meaning that it's hidden from the inserter.
 const blockData: BlockData = {
 	name: 'Related Products',
-	slug: 'woocommerce/related-products',
+	slug: 'poocommerce/related-products',
 	mainClass: '.wc-block-related-products',
 	selectors: {
 		frontend: {},
@@ -72,7 +72,7 @@ test.describe( `${ blockData.name } Block`, () => {
 		// (but it's a Product Collection variation).
 		await editor.insertBlockUsingGlobalInserter( blockData.name );
 
-		// Verifying by slug - it's expected it's NOT woocommerce/related-products.
+		// Verifying by slug - it's expected it's NOT poocommerce/related-products.
 		await expect(
 			await editor.getBlockByName( blockData.slug )
 		).toBeHidden();

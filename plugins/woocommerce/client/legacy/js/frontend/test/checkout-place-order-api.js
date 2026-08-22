@@ -33,7 +33,7 @@ describe( 'createCheckoutPlaceOrderApi', () => {
 			} ),
 			removeClass: jest.fn( ( cls ) => {
 				cls.split( ' ' ).forEach( ( c ) => termsRowClasses.delete( c ) );
-				if ( cls.includes( 'woocommerce-invalid' ) ) {
+				if ( cls.includes( 'poocommerce-invalid' ) ) {
 					formInvalidElements.delete( 'terms-row' );
 				}
 				return $termsRow;
@@ -69,7 +69,7 @@ describe( 'createCheckoutPlaceOrderApi', () => {
 				if ( selector === '.input-text, select, input:checkbox' ) {
 					return { trigger: jest.fn() };
 				}
-				if ( selector === '.woocommerce-invalid:visible' ) {
+				if ( selector === '.poocommerce-invalid:visible' ) {
 					// Visible invalid fields only (e.g. the terms row). Hidden
 					// invalid fields are deliberately excluded.
 					return {
@@ -80,7 +80,7 @@ describe( 'createCheckoutPlaceOrderApi', () => {
 						} ) ),
 					};
 				}
-				if ( selector === '.woocommerce-invalid' ) {
+				if ( selector === '.poocommerce-invalid' ) {
 					// Unfiltered query (includes hidden fields). The implementation
 					// must NOT use this to gate submission; counting hidden invalid
 					// fields here is the regression these tests guard against.
@@ -245,7 +245,7 @@ describe( 'createCheckoutPlaceOrderApi', () => {
 			const result = await capturedApi.validate();
 
 			expect( result.hasError ).toBe( true );
-			expect( $termsRow.addClass ).toHaveBeenCalledWith( 'woocommerce-invalid' );
+			expect( $termsRow.addClass ).toHaveBeenCalledWith( 'poocommerce-invalid' );
 		} );
 
 		test( 'should return hasError: false when terms checkbox is checked', async () => {
@@ -261,7 +261,7 @@ describe( 'createCheckoutPlaceOrderApi', () => {
 			$termsCheckbox.setChecked( false );
 			await capturedApi.validate();
 
-			expect( $termsRow.addClass ).toHaveBeenCalledWith( 'woocommerce-invalid' );
+			expect( $termsRow.addClass ).toHaveBeenCalledWith( 'poocommerce-invalid' );
 
 			// clearing the mock history so the expectations are clearer.
 			$termsRow.removeClass.mockClear();
@@ -272,9 +272,9 @@ describe( 'createCheckoutPlaceOrderApi', () => {
 			const result = await capturedApi.validate();
 
 			// Should have cleared the invalid state first
-			expect( $termsRow.removeClass ).toHaveBeenCalledWith( 'woocommerce-invalid' );
+			expect( $termsRow.removeClass ).toHaveBeenCalledWith( 'poocommerce-invalid' );
 			// Should NOT have re-added the invalid class
-			expect( $termsRow.addClass ).not.toHaveBeenCalledWith( 'woocommerce-invalid' );
+			expect( $termsRow.addClass ).not.toHaveBeenCalledWith( 'poocommerce-invalid' );
 			// Should pass validation
 			expect( result.hasError ).toBe( false );
 		} );
@@ -316,9 +316,9 @@ describe( 'createCheckoutPlaceOrderApi', () => {
 			await capturedApi.validate();
 
 			expect( $form.find ).toHaveBeenCalledWith(
-				'.woocommerce-invalid:visible'
+				'.poocommerce-invalid:visible'
 			);
-			expect( $form.find ).not.toHaveBeenCalledWith( '.woocommerce-invalid' );
+			expect( $form.find ).not.toHaveBeenCalledWith( '.poocommerce-invalid' );
 		} );
 	} );
 } );

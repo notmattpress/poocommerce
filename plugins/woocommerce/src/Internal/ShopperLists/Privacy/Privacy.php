@@ -1,12 +1,12 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\ShopperLists\Privacy;
+namespace Automattic\PooCommerce\Internal\ShopperLists\Privacy;
 
-use Automattic\WooCommerce\Internal\ShopperLists\ShopperList;
-use Automattic\WooCommerce\Internal\ShopperLists\ShopperListItem;
-use Automattic\WooCommerce\Internal\ShopperLists\ShopperListsController;
-use Automattic\WooCommerce\Internal\Utilities\Users;
+use Automattic\PooCommerce\Internal\ShopperLists\ShopperList;
+use Automattic\PooCommerce\Internal\ShopperLists\ShopperListItem;
+use Automattic\PooCommerce\Internal\ShopperLists\ShopperListsController;
+use Automattic\PooCommerce\Internal\Utilities\Users;
 
 /**
  * GDPR/CCPA privacy exporter and eraser for shopper lists.
@@ -18,12 +18,12 @@ class Privacy extends \WC_Abstract_Privacy {
 	/**
 	 * Identifier used to register both the exporter and the eraser with WP.
 	 */
-	private const REGISTRATION_ID = 'woocommerce-shopper-lists';
+	private const REGISTRATION_ID = 'poocommerce-shopper-lists';
 
 	/**
 	 * Prefix for the per-list-type WP data group IDs.
 	 */
-	private const GROUP_ID_PREFIX = 'woocommerce-shopper-lists-';
+	private const GROUP_ID_PREFIX = 'poocommerce-shopper-lists-';
 
 	/**
 	 * Constructor.
@@ -40,7 +40,7 @@ class Privacy extends \WC_Abstract_Privacy {
 	 * @internal
 	 */
 	public function register_exporters_and_erasers(): void {
-		$label = __( 'WooCommerce Shopper Lists', 'woocommerce' );
+		$label = __( 'PooCommerce Shopper Lists', 'poocommerce' );
 
 		$this->add_exporter( self::REGISTRATION_ID, $label, array( $this, 'export_data' ) );
 		$this->add_eraser( self::REGISTRATION_ID, $label, array( $this, 'erase_data' ) );
@@ -77,7 +77,7 @@ class Privacy extends \WC_Abstract_Privacy {
 			$group_id    = self::GROUP_ID_PREFIX . $slug;
 			$group_label = sprintf(
 				/* translators: %s: shopper-list slug. */
-				__( 'Shopper List: %s', 'woocommerce' ),
+				__( 'Shopper List: %s', 'poocommerce' ),
 				$slug
 			);
 			foreach ( $list->get_items() as $item ) {
@@ -129,7 +129,7 @@ class Privacy extends \WC_Abstract_Privacy {
 			$response['items_removed'] = true;
 			$response['messages'][]    = sprintf(
 				/* translators: %s: shopper-list slug. */
-				__( 'Shopper List: %s', 'woocommerce' ),
+				__( 'Shopper List: %s', 'poocommerce' ),
 				$slug
 			);
 		}
@@ -152,41 +152,41 @@ class Privacy extends \WC_Abstract_Privacy {
 
 		$rows = array(
 			array(
-				'name'  => __( 'Product ID', 'woocommerce' ),
+				'name'  => __( 'Product ID', 'poocommerce' ),
 				'value' => (string) $item->get_product_id(),
 			),
 			array(
-				'name'  => __( 'Product', 'woocommerce' ),
+				'name'  => __( 'Product', 'poocommerce' ),
 				'value' => $title,
 			),
 		);
 
 		if ( $item->get_variation_id() > 0 ) {
 			$rows[]     = array(
-				'name'  => __( 'Variation ID', 'woocommerce' ),
+				'name'  => __( 'Variation ID', 'poocommerce' ),
 				'value' => (string) $item->get_variation_id(),
 			);
 			$attributes = wc_get_formatted_variation( $item->get_variation_attributes(), true );
 			if ( '' !== $attributes ) {
 				$rows[] = array(
-					'name'  => __( 'Variation', 'woocommerce' ),
+					'name'  => __( 'Variation', 'poocommerce' ),
 					'value' => $attributes,
 				);
 			}
 		}
 
 		$rows[] = array(
-			'name'  => __( 'Quantity', 'woocommerce' ),
+			'name'  => __( 'Quantity', 'poocommerce' ),
 			'value' => (string) $item->get_quantity(),
 		);
 		$rows[] = array(
-			'name'  => __( 'Date Added', 'woocommerce' ),
+			'name'  => __( 'Date Added', 'poocommerce' ),
 			'value' => $item->get_date_added_gmt(),
 		);
 
 		if ( $item->is_live() && $product instanceof \WC_Product ) {
 			$rows[] = array(
-				'name'  => __( 'URL', 'woocommerce' ),
+				'name'  => __( 'URL', 'poocommerce' ),
 				'value' => $product->get_permalink(),
 			);
 		}

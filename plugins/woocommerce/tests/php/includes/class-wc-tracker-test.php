@@ -2,17 +2,17 @@
 /**
  * Unit tests for the WC_Tracker class.
  *
- * @package WooCommerce\Tests\WC_Tracker.
+ * @package PooCommerce\Tests\WC_Tracker.
  */
 
 declare(strict_types=1);
 
-use Automattic\WooCommerce\Caches\OrderCountCache;
-use Automattic\WooCommerce\Enums\OrderInternalStatus;
-use Automattic\WooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
-use Automattic\WooCommerce\Internal\Features\FeaturesController;
-use Automattic\WooCommerce\Utilities\OrderUtil;
-use Automattic\WooCommerce\Utilities\PluginUtil;
+use Automattic\PooCommerce\Caches\OrderCountCache;
+use Automattic\PooCommerce\Enums\OrderInternalStatus;
+use Automattic\PooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
+use Automattic\PooCommerce\Internal\Features\FeaturesController;
+use Automattic\PooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Utilities\PluginUtil;
 
 // phpcs:disable Squiz.Classes.ClassFileName.NoMatch, Squiz.Classes.ValidClassName.NotCamelCaps -- Backward compatibility.
 // phpcs:disable Generic.Files.OneObjectStructurePerFile.MultipleFound -- Ignoring test doubles.
@@ -45,9 +45,9 @@ class WC_Tracker_Test extends \WC_Unit_Test_Case {
 	public function test_wc_admin_disabled_get_tracking_data() {
 		$posted_data = null;
 
-		// Test the case for woocommerce_admin_disabled filter returning true.
+		// Test the case for poocommerce_admin_disabled filter returning true.
 		add_filter(
-			'woocommerce_admin_disabled',
+			'poocommerce_admin_disabled',
 			// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
 			function ( $default_value ) {
 				return true;
@@ -67,7 +67,7 @@ class WC_Tracker_Test extends \WC_Unit_Test_Case {
 		WC_Tracker::send_tracking_data( true );
 		$tracking_data = json_decode( $posted_data['body'], true );
 
-		// Test the default case of no filter for set for woocommerce_admin_disabled.
+		// Test the default case of no filter for set for poocommerce_admin_disabled.
 		$this->assertArrayHasKey( 'wc_admin_disabled', $tracking_data );
 		$this->assertEquals( 'yes', $tracking_data['wc_admin_disabled'] );
 	}
@@ -78,7 +78,7 @@ class WC_Tracker_Test extends \WC_Unit_Test_Case {
 	public function test_wc_admin_not_disabled_get_tracking_data() {
 		$posted_data = null;
 		// Bypass time delay so we can invoke send_tracking_data again.
-		update_option( 'woocommerce_tracker_last_send', strtotime( '-2 weeks' ) );
+		update_option( 'poocommerce_tracker_last_send', strtotime( '-2 weeks' ) );
 
 		add_filter(
 			'pre_http_request',
@@ -93,7 +93,7 @@ class WC_Tracker_Test extends \WC_Unit_Test_Case {
 		WC_Tracker::send_tracking_data( true );
 		$tracking_data = json_decode( $posted_data['body'], true );
 
-		// Test the default case of no filter for set for woocommerce_admin_disabled.
+		// Test the default case of no filter for set for poocommerce_admin_disabled.
 		$this->assertArrayHasKey( 'wc_admin_disabled', $tracking_data );
 		$this->assertEquals( 'no', $tracking_data['wc_admin_disabled'] );
 	}
@@ -122,7 +122,7 @@ class WC_Tracker_Test extends \WC_Unit_Test_Case {
 		update_option( 'active_plugins', array( 'plugin1', 'plugin2' ) );
 
 		$pluginutil_mock = $this->createMock( PluginUtil::class );
-		$pluginutil_mock->method( 'is_woocommerce_aware_plugin' )
+		$pluginutil_mock->method( 'is_poocommerce_aware_plugin' )
 			->willReturnCallback( fn ( $plugin ) => 'plugin1' === $plugin ? false : true );
 
 		$featurescontroller_mock = $this->createMock( FeaturesController::class );
@@ -296,7 +296,7 @@ class WC_Tracker_Test extends \WC_Unit_Test_Case {
 		$order_table    = OrdersTableDataStore::get_orders_table_name();
 		$order_columns  = 'id, status, currency, type, total_amount, date_created_gmt, date_updated_gmt, payment_method';
 		$detail_table   = OrdersTableDataStore::get_operational_data_table_name();
-		$detail_columns = 'order_id, created_via, woocommerce_version, recorded_sales';
+		$detail_columns = 'order_id, created_via, poocommerce_version, recorded_sales';
 
 		$order_query         = $wpdb->prepare(
 			"INSERT INTO {$order_table} ({$order_columns}) VALUES " . implode( ', ', $order_rows ), // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare, WordPress.DB.PreparedSQL.NotPrepared -- Table and columns are selected above; placeholders are generated above.
@@ -345,7 +345,7 @@ class WC_Tracker_Test extends \WC_Unit_Test_Case {
 			$this->assertEquals( $order_details['currency'], 'USD' );
 			$this->assertEquals( floatval( $order_details['total_amount'] ), 10.0 );
 			$this->assertEquals( $order_details['recorded_sales'], 'yes' );
-			$this->assertEquals( $order_details['woocommerce_version'], WOOCOMMERCE_VERSION );
+			$this->assertEquals( $order_details['poocommerce_version'], WOOCOMMERCE_VERSION );
 		}
 
 		// Check order rank for last 20 orders.
@@ -355,7 +355,7 @@ class WC_Tracker_Test extends \WC_Unit_Test_Case {
 			$this->assertEquals( $order_details['currency'], 'USD' );
 			$this->assertEquals( floatval( $order_details['total_amount'] ), 10.00 );
 			$this->assertEquals( $order_details['recorded_sales'], 'yes' );
-			$this->assertEquals( $order_details['woocommerce_version'], WOOCOMMERCE_VERSION );
+			$this->assertEquals( $order_details['poocommerce_version'], WOOCOMMERCE_VERSION );
 		}
 	}
 
@@ -413,15 +413,15 @@ class WC_Tracker_Test extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testDox Test woocommerce_install_admin_timestamp is included in tracking data.
+	 * @testDox Test poocommerce_install_admin_timestamp is included in tracking data.
 	 */
 	public function test_get_tracking_data_admin_install_timestamp() {
 		$time = time();
-		update_option( 'woocommerce_admin_install_timestamp', $time );
+		update_option( 'poocommerce_admin_install_timestamp', $time );
 		$tracking_data = WC_Tracker::get_tracking_data();
 		$this->assertArrayHasKey( 'admin_install_timestamp', $tracking_data['settings'] );
 		$this->assertEquals( $tracking_data['settings']['admin_install_timestamp'], $time );
-		delete_option( 'woocommerce_admin_install_timestamp' );
+		delete_option( 'poocommerce_admin_install_timestamp' );
 	}
 
 	/**
@@ -432,56 +432,56 @@ class WC_Tracker_Test extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testDox Test woocommerce_allow_tracking related data is included in tracking snapshot.
+	 * @testDox Test poocommerce_allow_tracking related data is included in tracking snapshot.
 	 */
-	public function test_tracking_data_woocommerce_allow_tracking() {
-		$current_woocommerce_allow_tracking = get_option( 'woocommerce_allow_tracking', 'no' );
+	public function test_tracking_data_poocommerce_allow_tracking() {
+		$current_poocommerce_allow_tracking = get_option( 'poocommerce_allow_tracking', 'no' );
 
 		// Clear everything.
-		update_option( 'woocommerce_allow_tracking', 'no' );
-		delete_option( 'woocommerce_allow_tracking_last_modified' );
-		delete_option( 'woocommerce_allow_tracking_first_optin' );
+		update_option( 'poocommerce_allow_tracking', 'no' );
+		delete_option( 'poocommerce_allow_tracking_last_modified' );
+		delete_option( 'poocommerce_allow_tracking_first_optin' );
 
 		$tracking_data = WC_Tracker::get_tracking_data();
-		$this->assertArrayHasKey( 'woocommerce_allow_tracking', $tracking_data );
-		$this->assertArrayHasKey( 'woocommerce_allow_tracking_last_modified', $tracking_data );
-		$this->assertArrayHasKey( 'woocommerce_allow_tracking_first_optin', $tracking_data );
+		$this->assertArrayHasKey( 'poocommerce_allow_tracking', $tracking_data );
+		$this->assertArrayHasKey( 'poocommerce_allow_tracking_last_modified', $tracking_data );
+		$this->assertArrayHasKey( 'poocommerce_allow_tracking_first_optin', $tracking_data );
 
-		$this->assertEquals( $tracking_data['woocommerce_allow_tracking'], 'no' );
-		$this->assertEquals( $tracking_data['woocommerce_allow_tracking_last_modified'], 'unknown' );
-		$this->assertEquals( $tracking_data['woocommerce_allow_tracking_first_optin'], 'unknown' );
+		$this->assertEquals( $tracking_data['poocommerce_allow_tracking'], 'no' );
+		$this->assertEquals( $tracking_data['poocommerce_allow_tracking_last_modified'], 'unknown' );
+		$this->assertEquals( $tracking_data['poocommerce_allow_tracking_first_optin'], 'unknown' );
 
 		$before = time();
-		update_option( 'woocommerce_allow_tracking', 'yes' );
+		update_option( 'poocommerce_allow_tracking', 'yes' );
 		$tracking_data = WC_Tracker::get_tracking_data();
-		$this->assertEquals( $tracking_data['woocommerce_allow_tracking'], 'yes' );
-		$this->assertGreaterThanOrEqual( $before, (int) $tracking_data['woocommerce_allow_tracking_last_modified'] );
-		$this->assertGreaterThanOrEqual( $before, (int) $tracking_data['woocommerce_allow_tracking_first_optin'] );
+		$this->assertEquals( $tracking_data['poocommerce_allow_tracking'], 'yes' );
+		$this->assertGreaterThanOrEqual( $before, (int) $tracking_data['poocommerce_allow_tracking_last_modified'] );
+		$this->assertGreaterThanOrEqual( $before, (int) $tracking_data['poocommerce_allow_tracking_first_optin'] );
 
 		// first_optin is recorded once on the first opt-in and must never change afterwards.
-		$first_optin = (int) get_option( 'woocommerce_allow_tracking_first_optin' );
+		$first_optin = (int) get_option( 'poocommerce_allow_tracking_first_optin' );
 
 		// last_modified must be refreshed to the current time on every tracking change. Capturing the
 		// time immediately before each update keeps this deterministic without waiting on the clock.
 		$before = time();
-		update_option( 'woocommerce_allow_tracking', 'no' );
+		update_option( 'poocommerce_allow_tracking', 'no' );
 		$tracking_data = WC_Tracker::get_tracking_data();
 
-		$this->assertEquals( $tracking_data['woocommerce_allow_tracking'], 'no' );
-		$this->assertGreaterThanOrEqual( $before, (int) $tracking_data['woocommerce_allow_tracking_last_modified'] );
-		$this->assertEquals( $first_optin, (int) $tracking_data['woocommerce_allow_tracking_first_optin'] );
+		$this->assertEquals( $tracking_data['poocommerce_allow_tracking'], 'no' );
+		$this->assertGreaterThanOrEqual( $before, (int) $tracking_data['poocommerce_allow_tracking_last_modified'] );
+		$this->assertEquals( $first_optin, (int) $tracking_data['poocommerce_allow_tracking_first_optin'] );
 
 		$before = time();
-		update_option( 'woocommerce_allow_tracking', 'yes' );
+		update_option( 'poocommerce_allow_tracking', 'yes' );
 		$tracking_data = WC_Tracker::get_tracking_data();
-		$this->assertEquals( $tracking_data['woocommerce_allow_tracking'], 'yes' );
-		$this->assertGreaterThanOrEqual( $before, (int) $tracking_data['woocommerce_allow_tracking_last_modified'] );
-		$this->assertEquals( $first_optin, (int) $tracking_data['woocommerce_allow_tracking_first_optin'] );
+		$this->assertEquals( $tracking_data['poocommerce_allow_tracking'], 'yes' );
+		$this->assertGreaterThanOrEqual( $before, (int) $tracking_data['poocommerce_allow_tracking_last_modified'] );
+		$this->assertEquals( $first_optin, (int) $tracking_data['poocommerce_allow_tracking_first_optin'] );
 
 		// Restore everything as it was.
-		update_option( 'woocommerce_allow_tracking', $current_woocommerce_allow_tracking );
-		delete_option( 'woocommerce_allow_tracking_last_modified' );
-		delete_option( 'woocommerce_allow_tracking_first_optin' );
+		update_option( 'poocommerce_allow_tracking', $current_poocommerce_allow_tracking );
+		delete_option( 'poocommerce_allow_tracking_last_modified' );
+		delete_option( 'poocommerce_allow_tracking_first_optin' );
 	}
 
 	/**
@@ -489,7 +489,7 @@ class WC_Tracker_Test extends \WC_Unit_Test_Case {
 	 */
 	public function test_get_address_autocomplete_info() {
 		// Test when address autocomplete is disabled (default).
-		update_option( 'woocommerce_address_autocomplete_enabled', 'no' );
+		update_option( 'poocommerce_address_autocomplete_enabled', 'no' );
 		$data = WC_Tracker::get_address_autocomplete_info();
 		$this->assertEquals( 'no', $data['enabled'] );
 		$this->assertIsArray( $data['providers'] );
@@ -497,7 +497,7 @@ class WC_Tracker_Test extends \WC_Unit_Test_Case {
 		$this->assertEquals( '', $data['preferred_provider'] );
 
 		// Test when address autocomplete is enabled but no providers registered.
-		update_option( 'woocommerce_address_autocomplete_enabled', 'yes' );
+		update_option( 'poocommerce_address_autocomplete_enabled', 'yes' );
 		$data = WC_Tracker::get_address_autocomplete_info();
 		// Should be disabled if no providers are available.
 		$this->assertEquals( 'no', $data['enabled'] );
@@ -506,9 +506,9 @@ class WC_Tracker_Test extends \WC_Unit_Test_Case {
 
 		// Test with a single registered provider and preferred provider set.
 		$this->register_mock_address_provider();
-		update_option( 'woocommerce_address_autocomplete_provider', 'mock-address-provider' );
+		update_option( 'poocommerce_address_autocomplete_provider', 'mock-address-provider' );
 
-		update_option( 'woocommerce_address_autocomplete_enabled', 'yes' );
+		update_option( 'poocommerce_address_autocomplete_enabled', 'yes' );
 		$data = WC_Tracker::get_address_autocomplete_info();
 		$this->assertEquals( 'yes', $data['enabled'] );
 		$this->assertIsArray( $data['providers'] );
@@ -518,11 +518,11 @@ class WC_Tracker_Test extends \WC_Unit_Test_Case {
 		$this->assertEquals( 'mock-address-provider', $data['preferred_provider'] );
 
 		// Clean up before testing multiple providers.
-		remove_all_filters( 'woocommerce_address_providers' );
+		remove_all_filters( 'poocommerce_address_providers' );
 
 		// Test with multiple registered providers and different preferred provider.
 		$this->register_multiple_mock_address_providers();
-		update_option( 'woocommerce_address_autocomplete_provider', 'mock-address-provider-two' );
+		update_option( 'poocommerce_address_autocomplete_provider', 'mock-address-provider-two' );
 
 		$data = WC_Tracker::get_address_autocomplete_info();
 		$this->assertEquals( 'yes', $data['enabled'] );
@@ -534,15 +534,15 @@ class WC_Tracker_Test extends \WC_Unit_Test_Case {
 		$this->assertEquals( 'mock-address-provider-two', $data['preferred_provider'] );
 
 		// Test with invalid preferred provider (not in the list).
-		update_option( 'woocommerce_address_autocomplete_provider', 'non-existent-provider' );
+		update_option( 'poocommerce_address_autocomplete_provider', 'non-existent-provider' );
 		$data = WC_Tracker::get_address_autocomplete_info();
 		// Should fall back to the first provider when the preferred provider doesn't exist.
 		$this->assertEquals( 'mock-address-provider', $data['preferred_provider'] );
 
 		// Test with multiple registered providers but feature disabled.
 		$this->register_multiple_mock_address_providers();
-		update_option( 'woocommerce_address_autocomplete_enabled', 'no' );
-		update_option( 'woocommerce_address_autocomplete_provider', 'mock-address-provider-two' );
+		update_option( 'poocommerce_address_autocomplete_enabled', 'no' );
+		update_option( 'poocommerce_address_autocomplete_provider', 'mock-address-provider-two' );
 
 		$data = WC_Tracker::get_address_autocomplete_info();
 		$this->assertEquals( 'no', $data['enabled'] );
@@ -554,17 +554,17 @@ class WC_Tracker_Test extends \WC_Unit_Test_Case {
 		$this->assertEquals( '', $data['preferred_provider'] );
 
 		// Test with invalid preferred provider (not in the list) when feature is disabled.
-		update_option( 'woocommerce_address_autocomplete_provider', 'non-existent-provider' );
+		update_option( 'poocommerce_address_autocomplete_provider', 'non-existent-provider' );
 		$data = WC_Tracker::get_address_autocomplete_info();
 		// Should not fall back to the first provider when the preferred provider doesn't exist.
 		$this->assertEquals( '', $data['preferred_provider'] );
 
 		// Clean up.
-		delete_option( 'woocommerce_address_autocomplete_enabled' );
-		delete_option( 'woocommerce_address_autocomplete_provider' );
-		remove_all_filters( 'woocommerce_address_providers' );
+		delete_option( 'poocommerce_address_autocomplete_enabled' );
+		delete_option( 'poocommerce_address_autocomplete_provider' );
+		remove_all_filters( 'poocommerce_address_providers' );
 		// Re-init address providers to ensure class is clean for other tests.
-		wc_get_container()->get( \Automattic\WooCommerce\Internal\AddressProvider\AddressProviderController::class )->init();
+		wc_get_container()->get( \Automattic\PooCommerce\Internal\AddressProvider\AddressProviderController::class )->init();
 	}
 
 	/**
@@ -573,7 +573,7 @@ class WC_Tracker_Test extends \WC_Unit_Test_Case {
 	private function register_mock_address_provider() {
 		// Register the provider instance.
 		add_filter(
-			'woocommerce_address_providers',
+			'poocommerce_address_providers',
 			function ( $providers ) {
 				$providers[] = new WC_Tracker_Test_MockAddressProvider();
 				return $providers;
@@ -587,7 +587,7 @@ class WC_Tracker_Test extends \WC_Unit_Test_Case {
 	private function register_multiple_mock_address_providers() {
 		// Register multiple provider instances with different IDs.
 		add_filter(
-			'woocommerce_address_providers',
+			'poocommerce_address_providers',
 			function ( $providers ) {
 				$providers[] = new WC_Tracker_Test_MockAddressProvider( 'mock-address-provider', 'Mock Address Provider' );
 				$providers[] = new WC_Tracker_Test_MockAddressProvider( 'mock-address-provider-two', 'Mock Address Provider Two' );

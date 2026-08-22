@@ -41,7 +41,7 @@ const data = {
 	force_email_update: true,
 };
 
-WooCommerce.post( 'orders/723/actions/send_order_details', data )
+PooCommerce.post( 'orders/723/actions/send_order_details', data )
 	.then( ( response ) => {
 		console.log( response.data );
 	} )
@@ -60,7 +60,7 @@ $data = [
     'force_email_update' => true,
 ];
 
-print_r($woocommerce->post('orders/723/actions/send_order_details', $data));
+print_r($poocommerce->post('orders/723/actions/send_order_details', $data));
 ?>
 ```
 
@@ -85,7 +85,7 @@ data = {
     "force_email_update": true
 }
 
-woocommerce.post("orders/723/actions/send_order_details", data).parsed_response
+poocommerce.post("orders/723/actions/send_order_details", data).parsed_response
 ```
 
   </TabItem>
@@ -102,7 +102,7 @@ woocommerce.post("orders/723/actions/send_order_details", data).parsed_response
 
 ```json
 {
-	"code": "woocommerce_rest_missing_email",
+	"code": "poocommerce_rest_missing_email",
 	"message": "Order does not have an email address.",
 	"data": {
 		"status": 400
@@ -141,7 +141,7 @@ const data = {
 	force_email_update: true,
 };
 
-WooCommerce.post( 'orders/723/actions/send_email', data )
+PooCommerce.post( 'orders/723/actions/send_email', data )
 	.then( ( response ) => {
 		console.log( response.data );
 	} )
@@ -161,7 +161,7 @@ $data = [
     'force_email_update' => true,
 ];
 
-print_r($woocommerce->post('orders/723/actions/send_email', $data));
+print_r($poocommerce->post('orders/723/actions/send_email', $data));
 ?>
 ```
 
@@ -188,7 +188,7 @@ data = {
     "force_email_update": true
 }
 
-woocommerce.post("orders/723/actions/send_email", data).parsed_response
+poocommerce.post("orders/723/actions/send_email", data).parsed_response
 ```
 
   </TabItem>
@@ -205,7 +205,7 @@ woocommerce.post("orders/723/actions/send_email", data).parsed_response
 
 ```json
 {
-	"code": "woocommerce_rest_invalid_email_template",
+	"code": "poocommerce_rest_invalid_email_template",
 	"message": "customer_completed_order is not a valid template for this order.",
 	"data": {
 		"status": 400
@@ -233,7 +233,7 @@ curl -X GET https://example.com/wp-json/wc/v3/orders/723/actions/email_templates
   <TabItem value="js" label="JavaScript">
 
 ```javascript
-WooCommerce.get( 'orders/723/actions/email_templates' )
+PooCommerce.get( 'orders/723/actions/email_templates' )
 	.then( ( response ) => {
 		console.log( response.data );
 	} )
@@ -247,7 +247,7 @@ WooCommerce.get( 'orders/723/actions/email_templates' )
 
 ```php
 <?php
-print_r($woocommerce->get('orders/723/actions/email_templates'));
+print_r($poocommerce->get('orders/723/actions/email_templates'));
 ?>
 ```
 
@@ -262,7 +262,7 @@ print(wcapi.get("orders/723/actions/email_templates").json())
   <TabItem value="ruby" label="Ruby">
 
 ```ruby
-woocommerce.post("orders/723/actions/email_templates").parsed_response
+poocommerce.post("orders/723/actions/email_templates").parsed_response
 ```
 
   </TabItem>

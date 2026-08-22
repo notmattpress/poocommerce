@@ -6,13 +6,13 @@ import { applyFilters } from '@wordpress/hooks';
 import moment from 'moment';
 import { Spinner } from '@wordpress/components';
 
-const HISTORICAL_DATA_STATUS_FILTER = 'woocommerce_admin_import_status';
+const HISTORICAL_DATA_STATUS_FILTER = 'poocommerce_admin_import_status';
 
 function HistoricalDataStatus( { importDate, status } ) {
 	/**
 	 * Historical data import statuses.
 	 *
-	 * @filter woocommerce_admin_import_status
+	 * @filter poocommerce_admin_import_status
 	 *
 	 * @param {Object} statuses              Import statuses.
 	 * @param {string} statuses.nothing      Nothing to import.
@@ -24,32 +24,32 @@ function HistoricalDataStatus( { importDate, status } ) {
 	 * @param {string} statuses.finished     Message displayed after import.
 	 */
 	const statusLabels = applyFilters( HISTORICAL_DATA_STATUS_FILTER, {
-		nothing: __( 'Nothing To Import', 'woocommerce' ),
-		ready: __( 'Ready To Import', 'woocommerce' ),
+		nothing: __( 'Nothing To Import', 'poocommerce' ),
+		ready: __( 'Ready To Import', 'poocommerce' ),
 		initializing: [
-			__( 'Initializing', 'woocommerce' ),
+			__( 'Initializing', 'poocommerce' ),
 			<Spinner key="spinner" />,
 		],
 		customers: [
-			__( 'Importing Customers', 'woocommerce' ),
+			__( 'Importing Customers', 'poocommerce' ),
 			<Spinner key="spinner" />,
 		],
 		orders: [
-			__( 'Importing Orders', 'woocommerce' ),
+			__( 'Importing Orders', 'poocommerce' ),
 			<Spinner key="spinner" />,
 		],
 		finalizing: [
-			__( 'Finalizing', 'woocommerce' ),
+			__( 'Finalizing', 'poocommerce' ),
 			<Spinner key="spinner" />,
 		],
 		finished:
 			importDate === -1
-				? __( 'All historical data imported', 'woocommerce' )
+				? __( 'All historical data imported', 'poocommerce' )
 				: sprintf(
 						/* translators: %s: YYYY-MM-DD formatted date */
 						__(
 							'Historical data from %s onward imported',
-							'woocommerce'
+							'poocommerce'
 						),
 						// @todo The date formatting should be localized ( 'll' ), but this is currently broken in Gutenberg.
 						// See https://github.com/WordPress/gutenberg/issues/12626 for details.
@@ -58,8 +58,8 @@ function HistoricalDataStatus( { importDate, status } ) {
 	} );
 
 	return (
-		<span className="woocommerce-settings-historical-data__status">
-			{ __( 'Status:', 'woocommerce' ) + ' ' }
+		<span className="poocommerce-settings-historical-data__status">
+			{ __( 'Status:', 'poocommerce' ) + ' ' }
 			{ statusLabels[ status ] }
 		</span>
 	);

@@ -1,29 +1,29 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\GraphQL\Utils;
+namespace Automattic\PooCommerce\Vendor\GraphQL\Utils;
 
-use Automattic\WooCommerce\Vendor\GraphQL\Error\Error;
-use Automattic\WooCommerce\Vendor\GraphQL\Error\InvariantViolation;
-use Automattic\WooCommerce\Vendor\GraphQL\Error\SerializationError;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\StringValueNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\BlockString;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\Printer;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\Argument;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\Directive;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\EnumType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\EnumValueDefinition;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\FieldDefinition;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\ImplementingType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\InputObjectField;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\InputObjectType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\InterfaceType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\NamedType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\ObjectType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\ScalarType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\Type;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\UnionType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Introspection;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Schema;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\Error;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\InvariantViolation;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\SerializationError;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\StringValueNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\BlockString;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\Printer;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\Argument;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\Directive;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\EnumType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\EnumValueDefinition;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\FieldDefinition;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\ImplementingType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\InputObjectField;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\InputObjectType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\InterfaceType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\NamedType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\ObjectType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\ScalarType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\Type;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\UnionType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Introspection;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Schema;
 
 /**
  * Prints the contents of a Schema in schema definition language.
@@ -38,7 +38,7 @@ use Automattic\WooCommerce\Vendor\GraphQL\Type\Schema;
  *   sortTypes?: bool,
  * }
  *
- * @see \Automattic\WooCommerce\Vendor\GraphQL\Tests\Utils\SchemaPrinterTest
+ * @see \Automattic\PooCommerce\Vendor\GraphQL\Tests\Utils\SchemaPrinterTest
  */
 class SchemaPrinter
 {
@@ -191,7 +191,7 @@ class SchemaPrinter
     }
 
     /**
-     * Automattic\WooCommerce\Vendor\GraphQL schema define root types for each type of operation. These types are
+     * Automattic\PooCommerce\Vendor\GraphQL schema define root types for each type of operation. These types are
      * the same as any other type and can be named in any manner, however there is
      * a common naming convention:.
      *

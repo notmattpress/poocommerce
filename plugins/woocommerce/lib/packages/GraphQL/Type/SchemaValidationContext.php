@@ -1,49 +1,49 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\GraphQL\Type;
+namespace Automattic\PooCommerce\Vendor\GraphQL\Type;
 
-use Automattic\WooCommerce\Vendor\GraphQL\Error\Error;
-use Automattic\WooCommerce\Vendor\GraphQL\Error\InvariantViolation;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\DirectiveDefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\DirectiveNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\EnumTypeDefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\EnumTypeExtensionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\FieldDefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\InputObjectTypeDefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\InputObjectTypeExtensionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\InputValueDefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\InterfaceTypeDefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\InterfaceTypeExtensionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\ListTypeNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\NamedTypeNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\Node;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\NodeList;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\NonNullTypeNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\ObjectTypeDefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\ObjectTypeExtensionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\SchemaDefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\SchemaExtensionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\TypeNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\UnionTypeDefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\UnionTypeExtensionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\DirectiveLocation;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\Argument;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\Directive;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\EnumType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\EnumValueDefinition;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\FieldDefinition;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\ImplementingType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\InputObjectField;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\InputObjectType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\InterfaceType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\NamedType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\ObjectType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\ScalarType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\Type;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\UnionType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Validation\InputObjectCircularRefs;
-use Automattic\WooCommerce\Vendor\GraphQL\Utils\TypeComparators;
-use Automattic\WooCommerce\Vendor\GraphQL\Utils\Utils;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\Error;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\InvariantViolation;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\DirectiveDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\DirectiveNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\EnumTypeDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\EnumTypeExtensionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\FieldDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\InputObjectTypeDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\InputObjectTypeExtensionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\InputValueDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\InterfaceTypeDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\InterfaceTypeExtensionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\ListTypeNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\NamedTypeNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\Node;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\NodeList;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\NonNullTypeNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\ObjectTypeDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\ObjectTypeExtensionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\SchemaDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\SchemaExtensionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\TypeNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\UnionTypeDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\UnionTypeExtensionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\DirectiveLocation;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\Argument;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\Directive;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\EnumType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\EnumValueDefinition;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\FieldDefinition;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\ImplementingType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\InputObjectField;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\InputObjectType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\InterfaceType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\NamedType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\ObjectType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\ScalarType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\Type;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\UnionType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Validation\InputObjectCircularRefs;
+use Automattic\PooCommerce\Vendor\GraphQL\Utils\TypeComparators;
+use Automattic\PooCommerce\Vendor\GraphQL\Utils\Utils;
 
 class SchemaValidationContext
 {
@@ -108,7 +108,7 @@ class SchemaValidationContext
 
         $directives = $this->schema->getDirectives();
         foreach ($directives as $directive) {
-            // Ensure all directives are in fact Automattic\WooCommerce\Vendor\GraphQL directives.
+            // Ensure all directives are in fact Automattic\PooCommerce\Vendor\GraphQL directives.
             // @phpstan-ignore-next-line The generic type says this should not happen, but a user may use it wrong nonetheless
             if (! $directive instanceof Directive) {
                 $notDirective = Utils::printSafe($directive);
@@ -227,7 +227,7 @@ class SchemaValidationContext
     {
         $typeMap = $this->schema->getTypeMap();
         foreach ($typeMap as $type) {
-            // Ensure all provided types are in fact Automattic\WooCommerce\Vendor\GraphQL type.
+            // Ensure all provided types are in fact Automattic\PooCommerce\Vendor\GraphQL type.
             // @phpstan-ignore-next-line The generic type says this should not happen, but a user may use it wrong nonetheless
             if (! $type instanceof NamedType) {
                 $notNamedType = Utils::printSafe($type);
@@ -236,7 +236,7 @@ class SchemaValidationContext
                     ? $type->astNode
                     : null;
 
-                $this->reportError("Expected Automattic\WooCommerce\Vendor\GraphQL named type but got: {$notNamedType}.", $node);
+                $this->reportError("Expected Automattic\PooCommerce\Vendor\GraphQL named type but got: {$notNamedType}.", $node);
                 continue;
             }
 

@@ -2,7 +2,7 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\ShopperLists;
+namespace Automattic\PooCommerce\Internal\ShopperLists;
 
 /**
  * Shared markup helpers for blocks that render a shopper-list item card
@@ -234,7 +234,7 @@ final class ShopperListRenderer {
 	public static function render_interactivity_notices_region( string $wrapper_class ): string {
 		ob_start();
 		?>
-		<div class="<?php echo esc_attr( $wrapper_class ); ?> wc-block-components-notices" data-wp-interactive="woocommerce/store-notices" data-wp-bind--hidden="!context.notices.length" hidden>
+		<div class="<?php echo esc_attr( $wrapper_class ); ?> wc-block-components-notices" data-wp-interactive="poocommerce/store-notices" data-wp-bind--hidden="!context.notices.length" hidden>
 			<template data-wp-each--notice="context.notices" data-wp-each-key="context.notice.id">
 				<div
 					class="wc-block-components-notice-banner"
@@ -252,7 +252,7 @@ final class ShopperListRenderer {
 						type="button"
 						data-wp-bind--hidden="!context.notice.dismissible"
 						class="wc-block-components-button wp-element-button wc-block-components-notice-banner__dismiss contained"
-						aria-label="<?php esc_attr_e( 'Dismiss this notice', 'woocommerce' ); ?>"
+						aria-label="<?php esc_attr_e( 'Dismiss this notice', 'poocommerce' ); ?>"
 						data-wp-on--click="actions.removeNotice"
 					>
 						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">

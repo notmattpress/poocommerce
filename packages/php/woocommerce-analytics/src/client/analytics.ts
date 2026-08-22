@@ -15,7 +15,7 @@ import type { AnalyticsConfig } from './types/shared';
 const debug = debugFactory( 'wc-analytics:analytics' );
 
 /**
- * Analytics class for WooCommerce Analytics.
+ * Analytics class for PooCommerce Analytics.
  */
 export class Analytics {
 	private isInitialized: boolean;

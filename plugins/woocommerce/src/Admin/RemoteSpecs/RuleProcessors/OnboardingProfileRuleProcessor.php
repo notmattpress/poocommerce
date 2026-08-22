@@ -4,7 +4,7 @@
  * onboarding profile.
  */
 
-namespace Automattic\WooCommerce\Admin\RemoteSpecs\RuleProcessors;
+namespace Automattic\PooCommerce\Admin\RemoteSpecs\RuleProcessors;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -23,7 +23,7 @@ class OnboardingProfileRuleProcessor implements RuleProcessorInterface {
 	 * @return bool The result of the operation.
 	 */
 	public function process( $rule, $stored_state ) {
-		$onboarding_profile = get_option( 'woocommerce_onboarding_profile' );
+		$onboarding_profile = get_option( 'poocommerce_onboarding_profile' );
 
 		if ( empty( $onboarding_profile ) || ! is_array( $onboarding_profile ) ) {
 			return false;

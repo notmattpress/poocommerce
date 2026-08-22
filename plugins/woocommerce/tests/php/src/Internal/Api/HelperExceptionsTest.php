@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Internal\Api;
+namespace Automattic\PooCommerce\Tests\Internal\Api;
 
-use Automattic\WooCommerce\Api\ApiException;
-use Automattic\WooCommerce\Api\ForbiddenException;
-use Automattic\WooCommerce\Api\InvalidTokenException;
-use Automattic\WooCommerce\Api\NotFoundException;
-use Automattic\WooCommerce\Api\UnauthorizedException;
-use Automattic\WooCommerce\Api\ValidationException;
+use Automattic\PooCommerce\Api\ApiException;
+use Automattic\PooCommerce\Api\ForbiddenException;
+use Automattic\PooCommerce\Api\InvalidTokenException;
+use Automattic\PooCommerce\Api\NotFoundException;
+use Automattic\PooCommerce\Api\UnauthorizedException;
+use Automattic\PooCommerce\Api\ValidationException;
 use WC_Unit_Test_Case;
 
 /**
@@ -18,7 +18,7 @@ use WC_Unit_Test_Case;
  * the throw site.
  *
  * The actual code → status mapping that turns these into HTTP responses lives
- * in {@see \Automattic\WooCommerce\Api\Infrastructure\GraphQLControllerBase} and is
+ * in {@see \Automattic\PooCommerce\Api\Infrastructure\GraphQLControllerBase} and is
  * exercised end-to-end via {@see SecurityTest::test_invalid_token_error_code_maps_to_401()}
  * and similar; this file just verifies the exception classes themselves carry
  * the right metadata.

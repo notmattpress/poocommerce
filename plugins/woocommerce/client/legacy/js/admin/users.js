@@ -36,13 +36,13 @@ jQuery( function ( $ ) {
 				$parent = $state.parent(),
 				input_name = $state.attr( 'name' ),
 				input_id = $state.attr( 'id' ),
-				stickstatefield = 'woocommerce.stickState-' + country,
+				stickstatefield = 'poocommerce.stickState-' + country,
 				value = $this.data( stickstatefield ) ? $this.data( stickstatefield ) : $state.val(),
 				placeholder = $state.attr( 'placeholder' ),
 				$newstate;
 
 			if ( stickValue ){
-				$this.data( 'woocommerce.stickState-' + country, value );
+				$this.data( 'poocommerce.stickState-' + country, value );
 			}
 
 			// Remove the previous DOM element
@@ -83,8 +83,8 @@ jQuery( function ( $ ) {
 			}
 
 			// This event has a typo - deprecated in 2.5.0
-			$( document.body ).trigger( 'contry-change.woocommerce', [country, $( this ).closest( 'div' )] );
-			$( document.body ).trigger( 'country-change.woocommerce', [country, $( this ).closest( 'div' )] );
+			$( document.body ).trigger( 'contry-change.poocommerce', [country, $( this ).closest( 'div' )] );
+			$( document.body ).trigger( 'country-change.poocommerce', [country, $( this ).closest( 'div' )] );
 		},
 
 		change_state: function() {
@@ -94,7 +94,7 @@ jQuery( function ( $ ) {
 				$country = $this.parents( '.form-table' ).find( ':input.js_field-country' ),
 				country  = $country.val();
 
-			$country.data( 'woocommerce.stickState-' + country, state );
+			$country.data( 'poocommerce.stickState-' + country, state );
 		},
 
 		copy_billing: function( event ) {

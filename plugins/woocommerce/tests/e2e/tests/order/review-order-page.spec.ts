@@ -12,7 +12,7 @@ import {
 	ApiClient,
 	WC_API_PATH,
 	WP_API_PATH,
-} from '@woocommerce/e2e-utils-playwright';
+} from '@poocommerce/e2e-utils-playwright';
 
 /**
  * Internal dependencies
@@ -30,7 +30,7 @@ type SeededOrder = {
 // `restApi` is admin basic-auth.
 
 const FEATURE_FLAG_OPTION =
-	'woocommerce_feature_customer_review_request_enabled';
+	'poocommerce_feature_customer_review_request_enabled';
 
 test.describe(
 	'Customer Review Request — Review Order page',
@@ -54,7 +54,7 @@ test.describe(
 			await deleteOption(
 				request,
 				baseURL || '',
-				'woocommerce_review_order_page_id'
+				'poocommerce_review_order_page_id'
 			);
 
 			const { data } = await restApi.get(
@@ -85,7 +85,7 @@ test.describe(
 		// the label triggers the radio without needing { force: true }.
 		const rateRow = ( row: Locator, stars: number ) =>
 			row
-				.locator( 'label.woocommerce-star-rating__star' )
+				.locator( 'label.poocommerce-star-rating__star' )
 				.filter( {
 					hasText: new RegExp( `${ stars } out of 5 stars` ),
 				} )
@@ -291,14 +291,14 @@ test.describe(
 					} )
 				).toBeVisible();
 				await expect(
-					page.locator( '.woocommerce-review-order__meta' )
+					page.locator( '.poocommerce-review-order__meta' )
 				).toContainText( `Order #${ order.id }` );
 
-				const rows = page.locator( '.woocommerce-review-order__item' );
+				const rows = page.locator( '.poocommerce-review-order__item' );
 				await expect( rows ).toHaveCount( 2 );
 
 				const submit = page.locator(
-					'.woocommerce-review-order__submit'
+					'.poocommerce-review-order__submit'
 				);
 				await expect( submit ).toBeDisabled();
 
@@ -308,7 +308,7 @@ test.describe(
 
 				// The dynamic caption reflects the chosen rating.
 				await expect(
-					firstRow.locator( '.woocommerce-star-rating__caption' )
+					firstRow.locator( '.poocommerce-star-rating__caption' )
 				).not.toBeEmpty();
 				await expect( submit ).toBeEnabled();
 
@@ -323,7 +323,7 @@ test.describe(
 				).toBeVisible();
 				// Meta line stays visible alongside the thank-you view.
 				await expect(
-					page.locator( '.woocommerce-review-order__meta' )
+					page.locator( '.poocommerce-review-order__meta' )
 				).toBeVisible();
 
 				// Verify the saved review via REST.
@@ -356,9 +356,9 @@ test.describe(
 			try {
 				await page.goto( url );
 
-				const rows = page.locator( '.woocommerce-review-order__item' );
+				const rows = page.locator( '.poocommerce-review-order__item' );
 				const submit = page.locator(
-					'.woocommerce-review-order__submit'
+					'.poocommerce-review-order__submit'
 				);
 				const rowA = rows.nth( 0 );
 
@@ -377,7 +377,7 @@ test.describe(
 				await page.goto( url );
 
 				const rowsAfter = page.locator(
-					'.woocommerce-review-order__item'
+					'.poocommerce-review-order__item'
 				);
 				await expect( rowsAfter ).toHaveCount( 2 );
 
@@ -396,11 +396,11 @@ test.describe(
 
 				// Submit is disabled until a row diverges from its initial state.
 				await expect(
-					page.locator( '.woocommerce-review-order__submit' )
+					page.locator( '.poocommerce-review-order__submit' )
 				).toBeDisabled();
 				await rateRow( rowsAfter.nth( 1 ), 5 );
 				await expect(
-					page.locator( '.woocommerce-review-order__submit' )
+					page.locator( '.poocommerce-review-order__submit' )
 				).toBeEnabled();
 			} finally {
 				await cleanupOrder( restApi, order.id );
@@ -423,12 +423,12 @@ test.describe(
 			try {
 				await page.goto( reviewOrderUrl( order ) );
 
-				const rows = page.locator( '.woocommerce-review-order__item' );
+				const rows = page.locator( '.poocommerce-review-order__item' );
 				await expect( rows ).toHaveCount( 1 );
 				await expect( rows.nth( 0 ) ).toContainText( 'CRR Reviewable' );
 
 				const notice = page.locator(
-					'.woocommerce-review-order__notice'
+					'.poocommerce-review-order__notice'
 				);
 				await expect( notice ).toBeVisible();
 				await expect( notice ).toContainText(
@@ -436,7 +436,7 @@ test.describe(
 				);
 
 				await page
-					.locator( '.woocommerce-review-order__notice-dismiss' )
+					.locator( '.poocommerce-review-order__notice-dismiss' )
 					.click();
 				await expect( notice ).toBeHidden();
 			} finally {
@@ -466,10 +466,10 @@ test.describe(
 					} )
 				).toBeVisible();
 				await expect(
-					page.locator( '.woocommerce-review-order__form' )
+					page.locator( '.poocommerce-review-order__form' )
 				).toHaveCount( 0 );
 				await expect(
-					page.locator( '.woocommerce-review-order__submit' )
+					page.locator( '.poocommerce-review-order__submit' )
 				).toHaveCount( 0 );
 			} finally {
 				await cleanupOrder( restApi, order.id );
@@ -493,15 +493,15 @@ test.describe(
 				await page.goto( reviewOrderUrl( order ) );
 
 				const row = page
-					.locator( '.woocommerce-review-order__item' )
+					.locator( '.poocommerce-review-order__item' )
 					.first();
 				await row.locator( 'textarea' ).fill( 'Loved it.' );
 				await page
-					.locator( '.woocommerce-review-order__submit' )
+					.locator( '.poocommerce-review-order__submit' )
 					.click();
 
 				const error = row.locator(
-					'.woocommerce-review-order__item-rating-error'
+					'.poocommerce-review-order__item-rating-error'
 				);
 				await expect( error ).toBeVisible();
 				await expect( error ).toContainText(
@@ -520,7 +520,7 @@ test.describe(
 
 				// Submitting now succeeds.
 				await page
-					.locator( '.woocommerce-review-order__submit' )
+					.locator( '.poocommerce-review-order__submit' )
 					.click();
 				await expect(
 					page.getByRole( 'heading', {
@@ -545,19 +545,19 @@ test.describe(
 			try {
 				await page.goto( reviewOrderUrl( order ) );
 
-				const rows = page.locator( '.woocommerce-review-order__item' );
+				const rows = page.locator( '.poocommerce-review-order__item' );
 				await expect( rows ).toHaveCount( 2 );
 
 				// Both rows show the variation attribute summary inside the title.
 				await expect(
 					rows
 						.nth( 0 )
-						.locator( '.woocommerce-review-order__item-variation' )
+						.locator( '.poocommerce-review-order__item-variation' )
 				).toContainText( /Size:\s*Small/i );
 				await expect(
 					rows
 						.nth( 1 )
-						.locator( '.woocommerce-review-order__item-variation' )
+						.locator( '.poocommerce-review-order__item-variation' )
 				).toContainText( /Size:\s*Medium/i );
 			} finally {
 				await cleanupOrder( restApi, order.id );
@@ -577,7 +577,7 @@ test.describe(
 			try {
 				await page.goto( reviewOrderUrl( order ) );
 
-				const rows = page.locator( '.woocommerce-review-order__item' );
+				const rows = page.locator( '.poocommerce-review-order__item' );
 
 				// Submit only the Small variation.
 				await rateRow( rows.nth( 0 ), 5 );
@@ -587,7 +587,7 @@ test.describe(
 					.fill( 'Small fit great.' );
 
 				await page
-					.locator( '.woocommerce-review-order__submit' )
+					.locator( '.poocommerce-review-order__submit' )
 					.click();
 				await expect(
 					page.getByRole( 'heading', {
@@ -601,17 +601,17 @@ test.describe(
 				// the whole form and the thank-you state would persist.
 				await page.goto( reviewOrderUrl( order ) );
 				await expect(
-					page.locator( '.woocommerce-review-order__item' )
+					page.locator( '.poocommerce-review-order__item' )
 				).toHaveCount( 2 );
 				await expect(
 					page
-						.locator( '.woocommerce-review-order__item' )
+						.locator( '.poocommerce-review-order__item' )
 						.nth( 0 )
 						.locator( 'textarea' )
 				).toHaveValue( 'Small fit great.' );
 				await expect(
 					page
-						.locator( '.woocommerce-review-order__item' )
+						.locator( '.poocommerce-review-order__item' )
 						.nth( 1 )
 						.locator( 'textarea' )
 				).toHaveValue( '' );

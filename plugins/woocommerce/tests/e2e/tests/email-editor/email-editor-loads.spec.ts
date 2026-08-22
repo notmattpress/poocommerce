@@ -6,7 +6,7 @@ import { ADMIN_STATE_PATH } from '../../playwright.config';
 import { disableEmailEditor } from './helpers/enable-email-editor-feature';
 import { accessTheEmailEditor } from '../../utils/email';
 
-test.describe( 'WooCommerce Email Editor Core', () => {
+test.describe( 'PooCommerce Email Editor Core', () => {
 	test.use( { storageState: ADMIN_STATE_PATH } );
 
 	test.afterAll( async ( { baseURL } ) => {
@@ -28,7 +28,7 @@ test.describe( 'WooCommerce Email Editor Core', () => {
 		await expect(
 			page.locator( '#email_notification_settings-description' )
 		).toContainText(
-			'Manage email notifications sent from WooCommerce below'
+			'Manage email notifications sent from PooCommerce below'
 		);
 	} );
 
@@ -49,7 +49,7 @@ test.describe( 'WooCommerce Email Editor Core', () => {
 				.locator( 'iframe[name="editor-canvas"]' )
 				.contentFrame()
 				.getByLabel( 'Block: Heading' )
-		).toContainText( `New order: #[woocommerce/order-number]` );
+		).toContainText( `New order: #[poocommerce/order-number]` );
 	} );
 
 	test( 'Can preview in new tab', async ( { page } ) => {
@@ -99,7 +99,7 @@ test.describe( 'WooCommerce Email Editor Core', () => {
 		).toBeEnabled();
 		await page.getByRole( 'button', { name: 'Send test email' } ).click();
 		await expect(
-			page.locator( '.woocommerce-send-preview-modal-notice-error' )
+			page.locator( '.poocommerce-send-preview-modal-notice-error' )
 		).toContainText( 'Sorry, we were unable to send this email.' );
 		await page.getByRole( 'button', { name: 'Close' } ).click();
 	} );

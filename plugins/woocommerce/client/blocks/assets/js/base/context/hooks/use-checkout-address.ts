@@ -7,12 +7,12 @@ import {
 	ShippingAddress,
 	BillingAddress,
 	getSetting,
-} from '@woocommerce/settings';
+} from '@poocommerce/settings';
 import { useCallback, useMemo } from '@wordpress/element';
-import { emptyHiddenAddressFields } from '@woocommerce/base-utils';
-import { useShallowEqual } from '@woocommerce/base-hooks';
+import { emptyHiddenAddressFields } from '@poocommerce/base-utils';
+import { useShallowEqual } from '@poocommerce/base-hooks';
 import { useDispatch, useSelect } from '@wordpress/data';
-import { checkoutStore } from '@woocommerce/block-data';
+import { checkoutStore } from '@poocommerce/block-data';
 
 /**
  * Internal dependencies

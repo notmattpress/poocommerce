@@ -1,14 +1,14 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Caching;
+namespace Automattic\PooCommerce\Tests\Caching;
 
 use WC_Helper_Product;
 use WC_Product_Simple;
-use Automattic\WooCommerce\Caches\ProductCountCache;
-use Automattic\WooCommerce\Caches\ProductCountCacheService;
-use Automattic\WooCommerce\Enums\ProductStatus;
-use Automattic\WooCommerce\Internal\Utilities\ProductUtil;
+use Automattic\PooCommerce\Caches\ProductCountCache;
+use Automattic\PooCommerce\Caches\ProductCountCacheService;
+use Automattic\PooCommerce\Enums\ProductStatus;
+use Automattic\PooCommerce\Internal\Utilities\ProductUtil;
 
 /**
  * Class ProductCountCacheServiceTest.
@@ -278,7 +278,7 @@ final class ProductCountCacheServiceTest extends \WC_Unit_Test_Case {
 	public function test_background_actions_scheduled(): void {
 		$product_count_cache_service = wc_get_container()->get( ProductCountCacheService::class );
 		$product_count_cache_service->schedule_background_actions();
-		$this->assertTrue( as_has_scheduled_action( 'woocommerce_refresh_product_count_cache' ) );
+		$this->assertTrue( as_has_scheduled_action( 'poocommerce_refresh_product_count_cache' ) );
 	}
 
 	/**

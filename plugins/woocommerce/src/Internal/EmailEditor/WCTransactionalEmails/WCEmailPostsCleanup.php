@@ -2,11 +2,11 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails;
+namespace Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails;
 
-use Automattic\WooCommerce\EmailEditor\Engine\Logger\Email_Editor_Logger_Interface;
-use Automattic\WooCommerce\Internal\EmailEditor\Integration;
-use Automattic\WooCommerce\Internal\EmailEditor\Logger;
+use Automattic\PooCommerce\EmailEditor\Engine\Logger\Email_Editor_Logger_Interface;
+use Automattic\PooCommerce\Internal\EmailEditor\Integration;
+use Automattic\PooCommerce\Internal\EmailEditor\Logger;
 
 /**
  * One-time cleanup of never-customized `woo_email` posts (WOOPLUG-6171).
@@ -19,13 +19,13 @@ use Automattic\WooCommerce\Internal\EmailEditor\Logger;
  * site's current locale. Customized posts are left untouched and are stamped
  * with the `_wc_email_type` meta that lazily created posts carry.
  *
- * Runs once per site via WooCommerce's db-updates pipeline (see
- * {@see \WC_Install::$db_updates}); the `woocommerce_db_version` fence
+ * Runs once per site via PooCommerce's db-updates pipeline (see
+ * {@see \WC_Install::$db_updates}); the `poocommerce_db_version` fence
  * guarantees single execution and re-runs converge because deleted mappings
  * are gone. A single synchronous pass is sufficient — the post set is bounded
  * by the number of registered transactional emails.
  *
- * @package Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails
+ * @package Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails
  * @since 11.1.0
  */
 class WCEmailPostsCleanup {
@@ -42,7 +42,7 @@ class WCEmailPostsCleanup {
 	 * Always returns `false` (one-shot), matching the contract
 	 * {@see \WC_Install::run_update_callback_end()} expects.
 	 *
-	 * @param Email_Editor_Logger_Interface|null $logger Logger to report to; defaults to the WooCommerce logger.
+	 * @param Email_Editor_Logger_Interface|null $logger Logger to report to; defaults to the PooCommerce logger.
 	 * @return bool Always false.
 	 *
 	 * @since 11.1.0
@@ -84,7 +84,7 @@ class WCEmailPostsCleanup {
 				// A trashed copy no longer affects rendering; treat it as "revert to
 				// default". The email editor UI never trashes woo_email posts (its
 				// delete action permanently deletes via the
-				// `woocommerce_email_editor_trash_modal_should_permanently_delete`
+				// `poocommerce_email_editor_trash_modal_should_permanently_delete`
 				// filter), so a trashed post slipped past that guard out-of-band.
 				if ( 'trash' === $post->post_status ) {
 					if ( wp_delete_post( $post->ID, true ) ) {
@@ -212,12 +212,12 @@ class WCEmailPostsCleanup {
 	/**
 	 * Derive the email type from a mapping option name.
 	 *
-	 * @param string $option_name Option name, e.g. `woocommerce_email_templates_customer_new_account_post_id`.
+	 * @param string $option_name Option name, e.g. `poocommerce_email_templates_customer_new_account_post_id`.
 	 * @return string|null The email type, e.g. `customer_new_account`, or null when
 	 *                     the name doesn't match the mapping shape exactly.
 	 */
 	private static function email_type_from_option_name( string $option_name ): ?string {
-		if ( 1 !== preg_match( '/^woocommerce_email_templates_(.+)_post_id$/', $option_name, $matches ) ) {
+		if ( 1 !== preg_match( '/^poocommerce_email_templates_(.+)_post_id$/', $option_name, $matches ) ) {
 			return null;
 		}
 

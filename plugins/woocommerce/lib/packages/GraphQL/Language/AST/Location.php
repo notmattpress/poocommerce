@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\GraphQL\Language\AST;
+namespace Automattic\PooCommerce\Vendor\GraphQL\Language\AST;
 
-use Automattic\WooCommerce\Vendor\GraphQL\Language\Source;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\Token;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\Source;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\Token;
 
 /**
  * Contains a range of UTF-8 character offsets and token references that

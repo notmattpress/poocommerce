@@ -3,7 +3,7 @@
  * Handles storage and retrieval of a task list section
  */
 
-namespace Automattic\WooCommerce\Admin\Features\OnboardingTasks;
+namespace Automattic\PooCommerce\Admin\Features\OnboardingTasks;
 
 /**
  * Task List section class.

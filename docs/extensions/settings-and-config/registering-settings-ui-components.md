@@ -8,7 +8,7 @@ sidebar_position: 8
 
 > **The settings UI is experimental** and subject to change. See the [settings UI status](./settings-ui.md#status) for details.
 
-Use custom components when a WooCommerce settings field needs plugin-specific React UI that cannot be represented by a native field type.
+Use custom components when a PooCommerce settings field needs plugin-specific React UI that cannot be represented by a native field type.
 
 For most fields, prefer the native renderer. Custom components are best for specialized selectors, previews, or validation flows.
 
@@ -33,10 +33,10 @@ The `component` value is a name, not a script handle. It lets the PHP schema say
 
 ## Register JavaScript components
 
-Register components with `registerSettingsExtension()` from `@woocommerce/settings-ui`:
+Register components with `registerSettingsExtension()` from `@poocommerce/settings-ui`:
 
 ```ts
-import { registerSettingsExtension } from '@woocommerce/settings-ui';
+import { registerSettingsExtension } from '@poocommerce/settings-ui';
 import { PaymentMethodPicker } from './payment-method-picker';
 
 registerSettingsExtension( {
@@ -84,7 +84,7 @@ Call `onChange()` with the next field value. The settings UI handles hidden inpu
 ## Example component
 
 ```tsx
-import type { SettingsFieldComponentProps } from '@woocommerce/settings-ui';
+import type { SettingsFieldComponentProps } from '@poocommerce/settings-ui';
 
 export const PaymentMethodPicker = ( {
 	field,
@@ -176,7 +176,7 @@ For a section registered under an existing tab, return the handle from the secti
 
 ```php
 <?php
-use Automattic\WooCommerce\Admin\Settings\SettingsSection;
+use Automattic\PooCommerce\Admin\Settings\SettingsSection;
 
 final class My_Plugin_Settings_Section extends SettingsSection {
 	// Other settings section methods omitted for brevity.
@@ -191,7 +191,7 @@ For a full settings tab that opts in through a `WC_Settings_Page` adapter, retur
 
 ```php
 <?php
-use Automattic\WooCommerce\Admin\Settings\LegacySettingsPageAdapter;
+use Automattic\PooCommerce\Admin\Settings\LegacySettingsPageAdapter;
 
 final class My_Plugin_Settings_UI_Page extends LegacySettingsPageAdapter {
 	public function get_script_handles( string $section ): array {
@@ -200,10 +200,10 @@ final class My_Plugin_Settings_UI_Page extends LegacySettingsPageAdapter {
 }
 ```
 
-WooCommerce loads the settings UI package first, then your script, then mounts the settings app.
+PooCommerce loads the settings UI package first, then your script, then mounts the settings app.
 
 ## Failure and fallback behavior
 
-WooCommerce validates server-observable schema metadata and declared script handles before rendering the Settings UI mount. An invalid schema or a script handle that is not registered and enqueued renders the complete classic settings page in the same response.
+PooCommerce validates server-observable schema metadata and declared script handles before rendering the Settings UI mount. An invalid schema or a script handle that is not registered and enqueued renders the complete classic settings page in the same response.
 
 PHP cannot inspect the component registry in the browser. The Settings UI fails closed when an explicitly required component has no registry fallback, when a field without an explicit component has no registered or native renderer, or when a component throws while rendering. It renders no editable fallback control and no Save action. The error notice offers a **Use classic settings** action that reloads the same page and section with `wc_settings_ui=classic` for that request. The action does not disable the feature flag, persist a preference, or reload automatically.

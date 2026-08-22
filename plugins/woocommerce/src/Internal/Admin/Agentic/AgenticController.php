@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Internal\Admin\Agentic;
+namespace Automattic\PooCommerce\Internal\Admin\Agentic;
 
 use Automattic\Jetpack\Constants;
-use Automattic\WooCommerce\Internal\RegisterHooksInterface;
-use Automattic\WooCommerce\Utilities\FeaturesUtil;
+use Automattic\PooCommerce\Internal\RegisterHooksInterface;
+use Automattic\PooCommerce\Utilities\FeaturesUtil;
 
 /**
  * AgenticController class
@@ -27,10 +27,10 @@ class AgenticController implements RegisterHooksInterface {
 			return;
 		}
 
-		// We want to run on init for translations but before woocommerce_init so that
+		// We want to run on init for translations but before poocommerce_init so that
 		// we can hook the new integration settings page. We should be able to simplify
 		// this by just hooking here when we no longer need to check if the feature is enabled.
-		add_action( 'before_woocommerce_init', array( $this, 'on_init' ) );
+		add_action( 'before_poocommerce_init', array( $this, 'on_init' ) );
 	}
 
 	/**

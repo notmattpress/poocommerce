@@ -10,4 +10,4 @@
 import '../../../packages/js/components/src/style.scss';
 import '../../../packages/js/experimental/src/style.scss';
 import '../../../packages/js/onboarding/src/style.scss';
-import '../../../plugins/woocommerce/client/admin/client/stylesheets/_index.scss';
+import '../../../plugins/poocommerce/client/admin/client/stylesheets/_index.scss';

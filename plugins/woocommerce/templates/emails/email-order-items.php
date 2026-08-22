@@ -2,20 +2,20 @@
 /**
  * Email Order Items
  *
- * This template can be overridden by copying it to yourtheme/woocommerce/emails/email-order-items.php.
+ * This template can be overridden by copying it to yourtheme/poocommerce/emails/email-order-items.php.
  *
- * HOWEVER, on occasion WooCommerce will need to update template files and you
+ * HOWEVER, on occasion PooCommerce will need to update template files and you
  * (the theme developer) will need to copy the new files to your theme to
  * maintain compatibility. We try to do this as little as possible, but it does
  * happen. When this occurs the version of the template file will be bumped and
  * the readme will list any important changes.
  *
- * @see     https://woocommerce.com/document/template-structure/
- * @package WooCommerce\Templates\Emails
+ * @see     https://poocommerce.com/document/template-structure/
+ * @package PooCommerce\Templates\Emails
  * @version 11.0.0
  */
 
-use Automattic\WooCommerce\Utilities\FeaturesUtil;
+use Automattic\PooCommerce\Utilities\FeaturesUtil;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -38,7 +38,7 @@ foreach ( $items as $item_id => $item ) :
 	 * @param WC_Order_Item_Product $item    The item being displayed.
 	 * @since 2.1.0
 	 */
-	if ( ! apply_filters( 'woocommerce_order_item_visible', true, $item ) ) {
+	if ( ! apply_filters( 'poocommerce_order_item_visible', true, $item ) ) {
 		continue;
 	}
 
@@ -56,7 +56,7 @@ foreach ( $items as $item_id => $item ) :
 	 * @param WC_Order              $order The order object.
 	 * @since 2.1.0
 	 */
-	$order_item_class = apply_filters( 'woocommerce_order_item_class', 'order_item', $item, $order );
+	$order_item_class = apply_filters( 'poocommerce_order_item_class', 'order_item', $item, $order );
 	?>
 	<tr class="<?php echo esc_attr( $order_item_class ); ?>">
 		<td class="td font-family text-align-left" style="vertical-align: <?php echo $block_email_editor_enabled ? 'top' : 'middle'; ?>; word-wrap:break-word;">
@@ -77,7 +77,7 @@ foreach ( $items as $item_id => $item ) :
 							 * @param WC_Order_Item_Product $item  The item being displayed.
 							 * @since 2.1.0
 							 */
-							echo '<td class="email-order-item-thumbnail" style="width: ' . esc_attr( $thumbnail_width ) . 'px;">' . wp_kses_post( apply_filters( 'woocommerce_order_item_thumbnail', $image, $item ) ) . '</td>';
+							echo '<td class="email-order-item-thumbnail" style="width: ' . esc_attr( $thumbnail_width ) . 'px;">' . wp_kses_post( apply_filters( 'poocommerce_order_item_thumbnail', $image, $item ) ) . '</td>';
 						}
 						?>
 						<td>
@@ -89,7 +89,7 @@ foreach ( $items as $item_id => $item ) :
 							 * @param WC_Order_Item_Product $item      The item being displayed.
 							 * @since 2.1.0
 							 */
-							$order_item_name = apply_filters( 'woocommerce_order_item_name', $item->get_name(), $item, false );
+							$order_item_name = apply_filters( 'poocommerce_order_item_name', $item->get_name(), $item, false );
 							echo wp_kses_post( "<h3 style='font-size: inherit;font-weight: inherit;'>{$order_item_name}</h3>" );
 
 							// SKU.
@@ -106,7 +106,7 @@ foreach ( $items as $item_id => $item ) :
 							 * @param bool                  $plain_text Whether the email is plain text or not.
 							 * @since 2.3.0
 							 */
-							do_action( 'woocommerce_order_item_meta_start', $item_id, $item, $order, $plain_text );
+							do_action( 'poocommerce_order_item_meta_start', $item_id, $item, $order, $plain_text );
 
 							$item_meta = wc_display_item_meta(
 								$item,
@@ -145,7 +145,7 @@ foreach ( $items as $item_id => $item ) :
 							 * @param bool                  $plain_text Whether the email is plain text or not.
 							 * @since 2.3.0
 							 */
-							do_action( 'woocommerce_order_item_meta_end', $item_id, $item, $order, $plain_text );
+							do_action( 'poocommerce_order_item_meta_end', $item_id, $item, $order, $plain_text );
 
 							?>
 						</td>
@@ -163,7 +163,7 @@ foreach ( $items as $item_id => $item ) :
 					 * @param WC_Order_Item_Product $item  The item being displayed.
 					 * @since 2.1.0
 					 */
-					echo wp_kses_post( apply_filters( 'woocommerce_order_item_thumbnail', $image, $item ) );
+					echo wp_kses_post( apply_filters( 'poocommerce_order_item_thumbnail', $image, $item ) );
 				}
 
 				/**
@@ -173,7 +173,7 @@ foreach ( $items as $item_id => $item ) :
 				 * @param WC_Order_Item_Product $item      The item being displayed.
 				 * @since 2.1.0
 				 */
-				echo wp_kses_post( apply_filters( 'woocommerce_order_item_name', $item->get_name(), $item, false ) );
+				echo wp_kses_post( apply_filters( 'poocommerce_order_item_name', $item->get_name(), $item, false ) );
 
 				// SKU.
 				if ( $show_sku && $sku ) {
@@ -189,7 +189,7 @@ foreach ( $items as $item_id => $item ) :
 				 * @param bool                  $plain_text Whether the email is plain text or not.
 				 * @since 2.3.0
 				 */
-				do_action( 'woocommerce_order_item_meta_start', $item_id, $item, $order, $plain_text );
+				do_action( 'poocommerce_order_item_meta_start', $item_id, $item, $order, $plain_text );
 
 				wc_display_item_meta(
 					$item,
@@ -207,7 +207,7 @@ foreach ( $items as $item_id => $item ) :
 				 * @param bool                  $plain_text Whether the email is plain text or not.
 				 * @since 2.3.0
 				 */
-				do_action( 'woocommerce_order_item_meta_end', $item_id, $item, $order, $plain_text );
+				do_action( 'poocommerce_order_item_meta_end', $item_id, $item, $order, $plain_text );
 			}
 			?>
 		</td>
@@ -229,7 +229,7 @@ foreach ( $items as $item_id => $item ) :
 			 * @param WC_Order_Item_Product $item        Item object.
 			 * @return string
 			 */
-			$quantity = apply_filters( 'woocommerce_email_order_item_quantity', $qty_display, $item );
+			$quantity = apply_filters( 'poocommerce_email_order_item_quantity', $qty_display, $item );
 			if ( '' !== $quantity ) {
 				$quantity_prefix = $email_improvements_enabled ? '&times;' : '';
 				echo wp_kses_post( $quantity_prefix . $quantity );

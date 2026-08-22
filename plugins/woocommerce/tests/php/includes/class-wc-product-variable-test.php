@@ -300,7 +300,7 @@ class WC_Product_Variable_Test extends \WC_Unit_Test_Case {
 
 		// Ensure the store-level cache is not interfering the test.
 		$invalidate_cache = static fn ( array $hash ) => array( ...$hash, wp_rand() );
-		add_filter( 'woocommerce_get_variation_prices_hash', $invalidate_cache );
+		add_filter( 'poocommerce_get_variation_prices_hash', $invalidate_cache );
 
 		try {
 			// First call: price data will be initially populated, including sorting. 3 is a number of sort calls on initial cache population.
@@ -339,27 +339,27 @@ class WC_Product_Variable_Test extends \WC_Unit_Test_Case {
 			$sut->get_variation_prices();
 			$this->assertSame( 6, $sut->sort_count );
 		} finally {
-			remove_filter( 'woocommerce_get_variation_prices_hash', $invalidate_cache );
+			remove_filter( 'poocommerce_get_variation_prices_hash', $invalidate_cache );
 		}
 
 		$product->delete( true );
 	}
 
 	/**
-	 * @testdox get_variation_prices returns a valid array structure when the woocommerce_variation_prices filter returns malformed data (null or false), restoring the pre-refactor foreach behaviour that tolerated non-array filter output.
+	 * @testdox get_variation_prices returns a valid array structure when the poocommerce_variation_prices filter returns malformed data (null or false), restoring the pre-refactor foreach behaviour that tolerated non-array filter output.
 	 * @dataProvider provider_malformed_variation_prices_filter_values
 	 *
-	 * @param mixed $malformed_value The malformed value for returning via woocommerce_get_variation_prices_hash filter.
+	 * @param mixed $malformed_value The malformed value for returning via poocommerce_get_variation_prices_hash filter.
 	 */
 	public function test_get_variation_prices_tolerates_malformed_filter_output( $malformed_value ): void {
 		$product = WC_Helper_Product::create_variation_product();
 
-		// Bust the transient so read_price_data() always reaches the woocommerce_variation_prices filter.
+		// Bust the transient so read_price_data() always reaches the poocommerce_variation_prices filter.
 		$invalidate_cache = static fn( array $hash ) => array( ...$hash, wp_rand() );
-		add_filter( 'woocommerce_get_variation_prices_hash', $invalidate_cache );
+		add_filter( 'poocommerce_get_variation_prices_hash', $invalidate_cache );
 
 		$bad_filter = static fn() => $malformed_value;
-		add_filter( 'woocommerce_variation_prices', $bad_filter );
+		add_filter( 'poocommerce_variation_prices', $bad_filter );
 
 		$this->setExpectedIncorrectUsage( 'WC_Product_Variable_Data_Store_CPT::read_price_data' );
 
@@ -367,8 +367,8 @@ class WC_Product_Variable_Test extends \WC_Unit_Test_Case {
 			$prices = $product->get_variation_prices();
 			$this->assertSame( $malformed_value, $prices );
 		} finally {
-			remove_filter( 'woocommerce_variation_prices', $bad_filter );
-			remove_filter( 'woocommerce_get_variation_prices_hash', $invalidate_cache );
+			remove_filter( 'poocommerce_variation_prices', $bad_filter );
+			remove_filter( 'poocommerce_get_variation_prices_hash', $invalidate_cache );
 		}
 
 		$product->delete( true );

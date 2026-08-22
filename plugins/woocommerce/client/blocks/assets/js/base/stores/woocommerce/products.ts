@@ -2,16 +2,16 @@
  * External dependencies
  */
 import { store, getContext } from '@wordpress/interactivity';
-import type { ProductResponseItem } from '@woocommerce/types';
-import type { SelectedAttributes } from '@woocommerce/stores/woocommerce/cart';
+import type { ProductResponseItem } from '@poocommerce/types';
+import type { SelectedAttributes } from '@poocommerce/stores/poocommerce/cart';
 
 /**
  * Per-element selection for the current product/variation.
  *
  * The "current" product can be set in two ways:
- * - Globally, via `wp_interactivity_state( 'woocommerce/products', [ ... ] )`
+ * - Globally, via `wp_interactivity_state( 'poocommerce/products', [ ... ] )`
  *   (used by SingleProductTemplate — one product per page).
- * - Per-element, via `data-wp-context="woocommerce/products::{ ... }"` on a
+ * - Per-element, via `data-wp-context="poocommerce/products::{ ... }"` on a
  *   wrapper element (used by SingleProduct so each product in a loop gets
  *   its own IDs).
  *
@@ -103,7 +103,7 @@ const attributeNamesMatch = ( a: string, b: string ): boolean =>
 	normalizeAttributeName( a ) === normalizeAttributeName( b );
 
 /**
- * The woocommerce/products store.
+ * The poocommerce/products store.
  *
  * Server-hydrated cache of product and variation data in Store API format
  * (`ProductResponseItem`). PHP loaders populate `products` / `productVariations`;
@@ -115,7 +115,7 @@ const attributeNamesMatch = ( a: string, b: string ): boolean =>
  * See ./README.md for the complete model, loaders, and consumer patterns.
  */
 const { state: productsState } = store< ProductsStore >(
-	'woocommerce/products',
+	'poocommerce/products',
 	{
 		state: {
 			products: {},
@@ -178,7 +178,7 @@ const { state: productsState } = store< ProductsStore >(
 
 			get mainProductInContext(): ProductResponseItem | null {
 				const context = getContext< ProductContext >(
-					'woocommerce/products'
+					'poocommerce/products'
 				);
 				const productId =
 					context && 'productId' in context
@@ -193,7 +193,7 @@ const { state: productsState } = store< ProductsStore >(
 
 			get productVariationInContext(): ProductResponseItem | null {
 				const context = getContext< ProductContext >(
-					'woocommerce/products'
+					'poocommerce/products'
 				);
 				const variationId =
 					context && 'variationId' in context

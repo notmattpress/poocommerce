@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Api\Mutations\Coupons;
+namespace Automattic\PooCommerce\Tests\Api\Mutations\Coupons;
 
-use Automattic\WooCommerce\Api\ApiException;
-use Automattic\WooCommerce\Api\Enums\Coupons\CouponStatus;
-use Automattic\WooCommerce\Api\Enums\Coupons\DiscountType;
-use Automattic\WooCommerce\Api\InputTypes\Coupons\UpdateCouponInput;
-use Automattic\WooCommerce\Api\Mutations\Coupons\UpdateCoupon;
+use Automattic\PooCommerce\Api\ApiException;
+use Automattic\PooCommerce\Api\Enums\Coupons\CouponStatus;
+use Automattic\PooCommerce\Api\Enums\Coupons\DiscountType;
+use Automattic\PooCommerce\Api\InputTypes\Coupons\UpdateCouponInput;
+use Automattic\PooCommerce\Api\Mutations\Coupons\UpdateCoupon;
 use WC_Coupon;
 use WC_Helper_Coupon;
 use WC_Unit_Test_Case;

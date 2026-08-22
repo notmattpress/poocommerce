@@ -1,8 +1,8 @@
 <?php
 /**
- * Manages WooCommerce plugin updating on the Plugins screen.
+ * Manages PooCommerce plugin updating on the Plugins screen.
  *
- * @package     WooCommerce\Admin
+ * @package     PooCommerce\Admin
  * @version     3.2.0
  */
 
@@ -32,7 +32,7 @@ class WC_Plugins_Screen_Updates extends WC_Plugin_Updates {
 	 * Constructor.
 	 */
 	public function __construct() {
-		add_action( 'in_plugin_update_message-woocommerce/woocommerce.php', array( $this, 'in_plugin_update_message' ), 10, 2 );
+		add_action( 'in_plugin_update_message-poocommerce/poocommerce.php', array( $this, 'in_plugin_update_message' ), 10, 2 );
 	}
 
 	/**
@@ -68,13 +68,13 @@ class WC_Plugins_Screen_Updates extends WC_Plugin_Updates {
 			add_action( 'admin_print_footer_scripts', array( $this, 'plugin_screen_modal_js' ) );
 		}
 
-		echo apply_filters( 'woocommerce_in_plugin_update_message', $this->upgrade_notice ? '</p>' . wp_kses_post( $this->upgrade_notice ) . '<p class="dummy">' : '' ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped
+		echo apply_filters( 'poocommerce_in_plugin_update_message', $this->upgrade_notice ? '</p>' . wp_kses_post( $this->upgrade_notice ) . '<p class="dummy">' : '' ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped
 	}
 
 	/**
 	 * Get the upgrade notice from WordPress.org.
 	 *
-	 * @param  string $version WooCommerce new version.
+	 * @param  string $version PooCommerce new version.
 	 * @return string
 	 */
 	protected function get_upgrade_notice( $version ) {
@@ -82,7 +82,7 @@ class WC_Plugins_Screen_Updates extends WC_Plugin_Updates {
 		$upgrade_notice = get_transient( $transient_name );
 
 		if ( false === $upgrade_notice ) {
-			$response = wp_safe_remote_get( 'https://plugins.svn.wordpress.org/woocommerce/trunk/readme.txt' );
+			$response = wp_safe_remote_get( 'https://plugins.svn.wordpress.org/poocommerce/trunk/readme.txt' );
 
 			if ( ! is_wp_error( $response ) && ! empty( $response['body'] ) ) {
 				$upgrade_notice = $this->parse_update_notice( $response['body'], $version );
@@ -95,8 +95,8 @@ class WC_Plugins_Screen_Updates extends WC_Plugin_Updates {
 	/**
 	 * Parse update notice from readme file.
 	 *
-	 * @param  string $content WooCommerce readme file content.
-	 * @param  string $new_version WooCommerce new version.
+	 * @param  string $content PooCommerce readme file content.
+	 * @param  string $new_version PooCommerce new version.
 	 * @return string
 	 */
 	private function parse_update_notice( $content, $new_version ) {
@@ -141,7 +141,7 @@ class WC_Plugins_Screen_Updates extends WC_Plugin_Updates {
 		?>
 		<script>
 			( function( $ ) {
-				var $update_box = $( '#woocommerce-update' );
+				var $update_box = $( '#poocommerce-update' );
 				var $update_link = $update_box.find('a.update-link').first();
 				var update_url = $update_link.attr( 'href' );
 

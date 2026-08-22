@@ -1,9 +1,9 @@
 <?php declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Admin\Features;
+namespace Automattic\PooCommerce\Admin\Features;
 
-use Automattic\WooCommerce\Admin\WCAdminHelper;
-use Automattic\WooCommerce\Internal\Admin\WCAdminUser;
+use Automattic\PooCommerce\Admin\WCAdminHelper;
+use Automattic\PooCommerce\Internal\Admin\WCAdminUser;
 
 
 /**
@@ -15,32 +15,32 @@ class LaunchYourStore {
 	 * Constructor.
 	 */
 	public function __construct() {
-		add_action( 'woocommerce_update_options_site-visibility', array( $this, 'save_site_visibility_options' ) );
-		add_filter( 'woocommerce_admin_shared_settings', array( $this, 'preload_settings' ) );
+		add_action( 'poocommerce_update_options_site-visibility', array( $this, 'save_site_visibility_options' ) );
+		add_filter( 'poocommerce_admin_shared_settings', array( $this, 'preload_settings' ) );
 		add_action( 'wp_footer', array( $this, 'maybe_add_coming_soon_banner_on_frontend' ) );
 		add_action( 'init', array( $this, 'register_launch_your_store_user_meta_fields' ) );
-		add_filter( 'woocommerce_tracks_event_properties', array( $this, 'append_coming_soon_global_tracks' ), 10, 2 );
-		add_action( 'wp_login', array( $this, 'reset_woocommerce_coming_soon_banner_dismissed' ), 10, 2 );
-		add_filter( 'woocommerce_admin_get_user_data_fields', array( $this, 'add_user_data_fields' ) );
+		add_filter( 'poocommerce_tracks_event_properties', array( $this, 'append_coming_soon_global_tracks' ), 10, 2 );
+		add_action( 'wp_login', array( $this, 'reset_poocommerce_coming_soon_banner_dismissed' ), 10, 2 );
+		add_filter( 'poocommerce_admin_get_user_data_fields', array( $this, 'add_user_data_fields' ) );
 	}
 
 	/**
-	 * Save values submitted from WooCommerce -> Settings -> General.
+	 * Save values submitted from PooCommerce -> Settings -> General.
 	 *
 	 * @return void
 	 */
 	public function save_site_visibility_options() {
 		$nonce = isset( $_REQUEST['_wpnonce'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['_wpnonce'] ) ) : '';
-		if ( empty( $nonce ) || ! wp_verify_nonce( $nonce, 'woocommerce-settings' ) ) {
+		if ( empty( $nonce ) || ! wp_verify_nonce( $nonce, 'poocommerce-settings' ) ) {
 			return;
 		}
 
 		// options to allowed update and their allowed values.
 		$options = array(
-			'woocommerce_coming_soon'      => array( 'yes', 'no' ),
-			'woocommerce_store_pages_only' => array( 'yes', 'no' ),
-			'woocommerce_private_link'     => array( 'yes', 'no' ),
-			'woocommerce_feature_site_visibility_badge_enabled' => array( 'yes', 'no' ),
+			'poocommerce_coming_soon'      => array( 'yes', 'no' ),
+			'poocommerce_store_pages_only' => array( 'yes', 'no' ),
+			'poocommerce_private_link'     => array( 'yes', 'no' ),
+			'poocommerce_feature_site_visibility_badge_enabled' => array( 'yes', 'no' ),
 		);
 
 		$event_data = array();
@@ -79,8 +79,8 @@ class LaunchYourStore {
 	public function append_coming_soon_global_tracks( $event_properties ) {
 		if ( is_array( $event_properties ) ) {
 			$coming_soon = 'no';
-			if ( 'yes' === get_option( 'woocommerce_coming_soon', 'no' ) ) {
-				if ( 'yes' === get_option( 'woocommerce_store_pages_only', 'no' ) ) {
+			if ( 'yes' === get_option( 'poocommerce_coming_soon', 'no' ) ) {
+				if ( 'yes' === get_option( 'poocommerce_store_pages_only', 'no' ) ) {
 					$coming_soon = 'store';
 				} else {
 					$coming_soon = 'site';
@@ -105,7 +105,7 @@ class LaunchYourStore {
 		}
 
 		$current_screen  = get_current_screen();
-		$is_setting_page = $current_screen && 'woocommerce_page_wc-settings' === $current_screen->id;
+		$is_setting_page = $current_screen && 'poocommerce_page_wc-settings' === $current_screen->id;
 
 		// phpcs:disable WordPress.Security.NonceVerification.Recommended
 		$is_woopayments_connect = isset( $_GET['path'] ) &&
@@ -116,15 +116,15 @@ class LaunchYourStore {
 
 		if ( $is_setting_page || $is_woopayments_connect ) {
 			// Regnerate the share key if it's not set.
-			add_option( 'woocommerce_share_key', wp_generate_password( 32, false ) );
+			add_option( 'poocommerce_share_key', wp_generate_password( 32, false ) );
 
 			$settings['siteVisibilitySettings'] = array(
 				'shop_permalink'               => get_permalink( wc_get_page_id( 'shop' ) ),
-				'woocommerce_coming_soon'      => get_option( 'woocommerce_coming_soon' ),
-				'woocommerce_store_pages_only' => get_option( 'woocommerce_store_pages_only' ),
-				'woocommerce_private_link'     => get_option( 'woocommerce_private_link' ),
-				'woocommerce_share_key'        => get_option( 'woocommerce_share_key' ),
-				'woocommerce_feature_site_visibility_badge_enabled' => get_option( 'woocommerce_feature_site_visibility_badge_enabled', 'yes' ),
+				'poocommerce_coming_soon'      => get_option( 'poocommerce_coming_soon' ),
+				'poocommerce_store_pages_only' => get_option( 'poocommerce_store_pages_only' ),
+				'poocommerce_private_link'     => get_option( 'poocommerce_private_link' ),
+				'poocommerce_share_key'        => get_option( 'poocommerce_share_key' ),
+				'poocommerce_feature_site_visibility_badge_enabled' => get_option( 'poocommerce_feature_site_visibility_badge_enabled', 'yes' ),
 			);
 		}
 
@@ -149,7 +149,7 @@ class LaunchYourStore {
 	 * Add 'coming soon' banner on the frontend when the following conditions met.
 	 *
 	 * - User must be either an admin or store editor (must be logged in).
-	 * - 'woocommerce_coming_soon' option value must be 'yes'
+	 * - 'poocommerce_coming_soon' option value must be 'yes'
 	 * - The page must not be the Coming soon page itself.
 	 */
 	public function maybe_add_coming_soon_banner_on_frontend() {
@@ -165,7 +165,7 @@ class LaunchYourStore {
 
 		$has_dismissed_banner = WCAdminUser::get_user_data_field( $current_user_id, self::BANNER_DISMISS_USER_META_KEY )
 				// Remove this check in WC 9.4.
-				|| get_user_meta( $current_user_id, 'woocommerce_' . self::BANNER_DISMISS_USER_META_KEY, true ) === 'yes';
+				|| get_user_meta( $current_user_id, 'poocommerce_' . self::BANNER_DISMISS_USER_META_KEY, true ) === 'yes';
 		if ( $has_dismissed_banner ) {
 			return false;
 		}
@@ -174,12 +174,12 @@ class LaunchYourStore {
 			return false;
 		}
 
-		// 'woocommerce_coming_soon' must be 'yes'
-		if ( get_option( 'woocommerce_coming_soon', 'no' ) !== 'yes' ) {
+		// 'poocommerce_coming_soon' must be 'yes'
+		if ( get_option( 'poocommerce_coming_soon', 'no' ) !== 'yes' ) {
 			return false;
 		}
 
-		$store_pages_only = get_option( 'woocommerce_store_pages_only' ) === 'yes';
+		$store_pages_only = get_option( 'poocommerce_store_pages_only' ) === 'yes';
 		if ( $store_pages_only && ! WCAdminHelper::is_current_page_store_page() ) {
 			return false;
 		}
@@ -194,7 +194,7 @@ class LaunchYourStore {
 				"
 			This page is in \"Coming soon\" mode and is only visible to you and those who have permission. To make it public to everyone,&nbsp;<a href='%s'>change visibility settings</a>.
 		",
-				'woocommerce'
+				'poocommerce'
 			),
 			$link
 		);
@@ -214,7 +214,7 @@ class LaunchYourStore {
 
 		register_meta(
 			'user',
-			'woocommerce_launch_your_store_tour_hidden',
+			'poocommerce_launch_your_store_tour_hidden',
 			array(
 				'type'         => 'string',
 				'description'  => 'Indicate whether the user has dismissed the site visibility tour on the home screen.',
@@ -225,7 +225,7 @@ class LaunchYourStore {
 
 		register_meta(
 			'user',
-			'woocommerce_coming_soon_banner_dismissed',
+			'poocommerce_coming_soon_banner_dismissed',
 			array(
 				'type'         => 'string',
 				'description'  => 'Indicate whether the user has dismissed the coming soon notice or not.',
@@ -252,14 +252,14 @@ class LaunchYourStore {
 	}
 
 	/**
-	 * Reset 'woocommerce_coming_soon_banner_dismissed' user meta to 'no'.
+	 * Reset 'poocommerce_coming_soon_banner_dismissed' user meta to 'no'.
 	 *
 	 * Runs when a user logs-in successfully.
 	 *
 	 * @param string $user_login user login.
 	 * @param object $user user object.
 	 */
-	public function reset_woocommerce_coming_soon_banner_dismissed( $user_login, $user ) {
+	public function reset_poocommerce_coming_soon_banner_dismissed( $user_login, $user ) {
 		$existing_meta = WCAdminUser::get_user_data_field( $user->ID, self::BANNER_DISMISS_USER_META_KEY );
 		if ( 'yes' === $existing_meta ) {
 			WCAdminUser::update_user_data_field( $user->ID, self::BANNER_DISMISS_USER_META_KEY, 'no' );

@@ -3,8 +3,8 @@
  * External dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { getCurrency } from '@woocommerce/price-format';
-import { Currency } from '@woocommerce/types';
+import { getCurrency } from '@poocommerce/price-format';
+import { Currency } from '@poocommerce/types';
 import { useState } from '@wordpress/element';
 import {
 	// @ts-expect-error Using experimental features
@@ -148,7 +148,7 @@ const PriceTextField: React.FC< PriceTextFieldProps > = ( {
 			prefix={
 				<InputControlPrefixWrapper>{ label }</InputControlPrefixWrapper>
 			}
-			placeholder={ __( 'Auto', 'woocommerce' ) }
+			placeholder={ __( 'Auto', 'poocommerce' ) }
 			hideLabelFromVision
 			type="text"
 			style={ {

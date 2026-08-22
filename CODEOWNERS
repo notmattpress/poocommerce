@@ -1,71 +1,71 @@
 # Monorepo CI.
-/.github/ @woocommerce/monorepo
+/.github/ @poocommerce/monorepo
 
 # Monorepo tooling folders.
-/packages/js/e2e-utils-playwright/ @woocommerce/monorepo
+/packages/js/e2e-utils-playwright/ @poocommerce/monorepo
 
 # Files in root of repository
-/changelog.txt @woocommerce/monorepo
-/pnpm-lock.yaml @woocommerce/monorepo
+/changelog.txt @poocommerce/monorepo
+/pnpm-lock.yaml @poocommerce/monorepo
 
-# Docs resources, which gets published to https://developer.woocommerce.com
-/docs/ @woocommerce/developer-advocacy
+# Docs resources, which gets published to https://developer.poocommerce.com
+/docs/ @poocommerce/developer-advocacy
 
 # Interactivity API - public stores
-/plugins/woocommerce/client/blocks/assets/js/base/stores/ @woocommerce/billow
-/plugins/woocommerce/src/Blocks/Utils/BlocksSharedState.php @woocommerce/billow
+/plugins/poocommerce/client/blocks/assets/js/base/stores/ @poocommerce/billow
+/plugins/poocommerce/src/Blocks/Utils/BlocksSharedState.php @poocommerce/billow
 
 # Core cart and checkout related files
-/plugins/woocommerce/includes/class-wc-cart*.php @woocommerce/rubik
-/plugins/woocommerce/includes/class-wc-checkout*.php @woocommerce/rubik
-/plugins/woocommerce/includes/wc-cart-functions.php @woocommerce/rubik
-/plugins/woocommerce/includes/class-wc-session-handler.php @woocommerce/rubik
+/plugins/poocommerce/includes/class-wc-cart*.php @poocommerce/rubik
+/plugins/poocommerce/includes/class-wc-checkout*.php @poocommerce/rubik
+/plugins/poocommerce/includes/wc-cart-functions.php @poocommerce/rubik
+/plugins/poocommerce/includes/class-wc-session-handler.php @poocommerce/rubik
 
 # Store API and internal REST routes
-/plugins/woocommerce/src/StoreApi/ @woocommerce/rubik
-/plugins/woocommerce/src/Internal/RestApi/ @woocommerce/rubik
+/plugins/poocommerce/src/StoreApi/ @poocommerce/rubik
+/plugins/poocommerce/src/Internal/RestApi/ @poocommerce/rubik
 
 # Cart Checkout Blocks
-/plugins/woocommerce/client/blocks/assets/js/blocks/cart @woocommerce/rubik
-/plugins/woocommerce/client/blocks/assets/js/blocks/cart-checkout-shared @woocommerce/rubik
-/plugins/woocommerce/client/blocks/assets/js/blocks/checkout @woocommerce/rubik
-/plugins/woocommerce/client/blocks/assets/js/blocks/mini-cart @woocommerce/rubik
-/plugins/woocommerce/client/blocks/assets/js/blocks/order-confirmation @woocommerce/rubik
-/plugins/woocommerce/client/blocks/packages/public-api/blocks-checkout @woocommerce/rubik
+/plugins/poocommerce/client/blocks/assets/js/blocks/cart @poocommerce/rubik
+/plugins/poocommerce/client/blocks/assets/js/blocks/cart-checkout-shared @poocommerce/rubik
+/plugins/poocommerce/client/blocks/assets/js/blocks/checkout @poocommerce/rubik
+/plugins/poocommerce/client/blocks/assets/js/blocks/mini-cart @poocommerce/rubik
+/plugins/poocommerce/client/blocks/assets/js/blocks/order-confirmation @poocommerce/rubik
+/plugins/poocommerce/client/blocks/packages/public-api/blocks-checkout @poocommerce/rubik
 
 # Cart and checkout data stores
-/plugins/woocommerce/client/blocks/packages/public-api/block-data/cart @woocommerce/rubik
-/plugins/woocommerce/client/blocks/packages/public-api/block-data/checkout @woocommerce/rubik
-/plugins/woocommerce/client/blocks/packages/public-api/block-data/payment @woocommerce/rubik
+/plugins/poocommerce/client/blocks/packages/public-api/block-data/cart @poocommerce/rubik
+/plugins/poocommerce/client/blocks/packages/public-api/block-data/checkout @poocommerce/rubik
+/plugins/poocommerce/client/blocks/packages/public-api/block-data/payment @poocommerce/rubik
 
 # Order admin page (edit screen, list table, order meta boxes)
-/plugins/woocommerce/src/Internal/Admin/Orders/ @woocommerce/rubik
-/plugins/woocommerce/includes/admin/meta-boxes/class-wc-meta-box-order-*.php @woocommerce/rubik
-/plugins/woocommerce/includes/admin/meta-boxes/views/html-order-*.php @woocommerce/rubik
+/plugins/poocommerce/src/Internal/Admin/Orders/ @poocommerce/rubik
+/plugins/poocommerce/includes/admin/meta-boxes/class-wc-meta-box-order-*.php @poocommerce/rubik
+/plugins/poocommerce/includes/admin/meta-boxes/views/html-order-*.php @poocommerce/rubik
 
 # Shopper Lists (wishlist, saved for later)
-/plugins/woocommerce/src/Internal/ShopperLists/ @woocommerce/rubik
-/plugins/woocommerce/src/Blocks/BlockTypes/Wishlist.php @woocommerce/rubik
-/plugins/woocommerce/src/Blocks/BlockTypes/AddToWishlistButton.php @woocommerce/rubik
-/plugins/woocommerce/src/Blocks/BlockTypes/SavedForLater.php @woocommerce/rubik
-/plugins/woocommerce/client/blocks/assets/js/blocks/wishlist @woocommerce/rubik
-/plugins/woocommerce/client/blocks/assets/js/blocks/add-to-wishlist-button @woocommerce/rubik
-/plugins/woocommerce/client/blocks/assets/js/blocks/saved-for-later @woocommerce/rubik
-/plugins/woocommerce/client/blocks/assets/js/blocks/shopper-lists @woocommerce/rubik
+/plugins/poocommerce/src/Internal/ShopperLists/ @poocommerce/rubik
+/plugins/poocommerce/src/Blocks/BlockTypes/Wishlist.php @poocommerce/rubik
+/plugins/poocommerce/src/Blocks/BlockTypes/AddToWishlistButton.php @poocommerce/rubik
+/plugins/poocommerce/src/Blocks/BlockTypes/SavedForLater.php @poocommerce/rubik
+/plugins/poocommerce/client/blocks/assets/js/blocks/wishlist @poocommerce/rubik
+/plugins/poocommerce/client/blocks/assets/js/blocks/add-to-wishlist-button @poocommerce/rubik
+/plugins/poocommerce/client/blocks/assets/js/blocks/saved-for-later @poocommerce/rubik
+/plugins/poocommerce/client/blocks/assets/js/blocks/shopper-lists @poocommerce/rubik
 
 # Stock notifications (back-in-stock)
-/plugins/woocommerce/src/Internal/StockNotifications/ @woocommerce/rubik
+/plugins/poocommerce/src/Internal/StockNotifications/ @poocommerce/rubik
 
 # Customer email verification
-/plugins/woocommerce/src/Internal/CustomerEmailVerification/ @woocommerce/rubik
+/plugins/poocommerce/src/Internal/CustomerEmailVerification/ @poocommerce/rubik
 
 # Email Editor packages
-/packages/js/email-editor/ @woocommerce/ballade
-/packages/php/email-editor/ @woocommerce/ballade
+/packages/js/email-editor/ @poocommerce/ballade
+/packages/php/email-editor/ @poocommerce/ballade
 
 # Email Editor integrations
-/plugins/woocommerce/src/Internal/EmailEditor/ @woocommerce/ballade
-/plugins/woocommerce/client/admin/client/wp-admin-scripts/email-editor-integration/ @woocommerce/ballade
+/plugins/poocommerce/src/Internal/EmailEditor/ @poocommerce/ballade
+/plugins/poocommerce/client/admin/client/wp-admin-scripts/email-editor-integration/ @poocommerce/ballade
 
 # Subscriptions Engine packages
-/packages/php/woocommerce-subscriptions-engine/ @woocommerce/chronos
+/packages/php/poocommerce-subscriptions-engine/ @poocommerce/chronos

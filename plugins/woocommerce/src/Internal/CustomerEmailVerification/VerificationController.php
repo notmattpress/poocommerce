@@ -1,7 +1,7 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\CustomerEmailVerification;
+namespace Automattic\PooCommerce\Internal\CustomerEmailVerification;
 
 /**
  * Drives the customer email-verification UI on My Account and processes its verify-links.
@@ -41,7 +41,7 @@ class VerificationController {
 	/**
 	 * Nonce action used to protect the send-verification request.
 	 */
-	private const SEND_NONCE_ACTION = 'woocommerce-send-verification-email';
+	private const SEND_NONCE_ACTION = 'poocommerce-send-verification-email';
 
 	/**
 	 * Query param used to trigger the send-verification request.
@@ -80,8 +80,8 @@ class VerificationController {
 	 */
 	public function __construct() {
 		add_action( 'template_redirect', array( $this, 'maybe_process_request' ) );
-		add_action( 'woocommerce_before_account_orders', array( $this, 'print_result_notice' ), 5 );
-		add_action( 'woocommerce_before_account_orders', array( $this, 'render_prompt' ) );
+		add_action( 'poocommerce_before_account_orders', array( $this, 'print_result_notice' ), 5 );
+		add_action( 'poocommerce_before_account_orders', array( $this, 'render_prompt' ) );
 	}
 
 	/**
@@ -150,7 +150,7 @@ class VerificationController {
 		// Logged out (including any prefetcher): never verify, never consume the key. Render the My
 		// Account login; the verify params stay in the URL so signing in returns here to complete it.
 		if ( ! $current_user_id ) {
-			wc_add_notice( __( 'You need to be logged in to confirm your email address.', 'woocommerce' ), 'notice' );
+			wc_add_notice( __( 'You need to be logged in to confirm your email address.', 'poocommerce' ), 'notice' );
 			return;
 		}
 
@@ -262,7 +262,7 @@ class VerificationController {
 			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- display-only, no state change.
 			if ( ! isset( $_GET[ self::NOTICE_PARAM ] ) ) {
 				wc_print_notice(
-					esc_html__( 'Confirm your email address to check for past orders. A confirmation link was sent recently — please check your inbox.', 'woocommerce' ),
+					esc_html__( 'Confirm your email address to check for past orders. A confirmation link was sent recently — please check your inbox.', 'poocommerce' ),
 					'notice'
 				);
 			}
@@ -276,9 +276,9 @@ class VerificationController {
 
 		$notice = sprintf(
 			'<a href="%2$s" class="button wc-forward">%3$s</a> %1$s',
-			esc_html__( 'Confirm your email address to check for past orders and link them to your account.', 'woocommerce' ),
+			esc_html__( 'Confirm your email address to check for past orders and link them to your account.', 'poocommerce' ),
 			esc_url( $send_url ),
-			esc_html__( 'Confirm email address', 'woocommerce' )
+			esc_html__( 'Confirm email address', 'poocommerce' )
 		);
 
 		wc_print_notice( $notice, 'notice' );
@@ -312,17 +312,17 @@ class VerificationController {
 	private function result_notice( string $code ): ?array {
 		switch ( $code ) {
 			case 'sent':
-				return array( __( 'A confirmation link has been sent to your email address. Please check your inbox.', 'woocommerce' ), 'success' );
+				return array( __( 'A confirmation link has been sent to your email address. Please check your inbox.', 'poocommerce' ), 'success' );
 			case 'throttled':
-				return array( __( 'A confirmation link was sent recently. Please check your inbox, or wait a moment before requesting a new one.', 'woocommerce' ), 'notice' );
+				return array( __( 'A confirmation link was sent recently. Please check your inbox, or wait a moment before requesting a new one.', 'poocommerce' ), 'notice' );
 			case 'confirmed':
-				return array( __( 'Your email address has been confirmed.', 'woocommerce' ), 'success' );
+				return array( __( 'Your email address has been confirmed.', 'poocommerce' ), 'success' );
 			case 'expired':
-				return array( __( 'This confirmation link is invalid or has expired. Please request a new one.', 'woocommerce' ), 'error' );
+				return array( __( 'This confirmation link is invalid or has expired. Please request a new one.', 'poocommerce' ), 'error' );
 			case 'mismatch':
-				return array( __( 'Unable to confirm this email while you are logged in to a different account. Please log out and open the link again.', 'woocommerce' ), 'error' );
+				return array( __( 'Unable to confirm this email while you are logged in to a different account. Please log out and open the link again.', 'poocommerce' ), 'error' );
 			case 'invalid':
-				return array( __( 'Invalid request. Please try again.', 'woocommerce' ), 'error' );
+				return array( __( 'Invalid request. Please try again.', 'poocommerce' ), 'error' );
 			default:
 				return null;
 		}
@@ -384,6 +384,6 @@ class VerificationController {
 		 *
 		 * @since 11.0.0
 		 */
-		do_action( 'woocommerce_customer_verify_email_notification', $user_id, $verify_url );
+		do_action( 'poocommerce_customer_verify_email_notification', $user_id, $verify_url );
 	}
 }

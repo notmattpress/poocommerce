@@ -6,7 +6,7 @@ sidebar_position: 3
 
 # Relay-style pagination
 
-List queries in the dual API paginate with **cursor-based connections** following the [Relay Cursor Connections specification](https://relay.dev/graphql/connections.htm). You write a command that returns a `Connection`; the builder generates the matching GraphQL `Connection`, `Edge`, and shared `PageInfo` types. The building blocks live in `Automattic\WooCommerce\Api\Pagination` and are reused by core and plugins alike.
+List queries in the dual API paginate with **cursor-based connections** following the [Relay Cursor Connections specification](https://relay.dev/graphql/connections.htm). You write a command that returns a `Connection`; the builder generates the matching GraphQL `Connection`, `Edge`, and shared `PageInfo` types. The building blocks live in `Automattic\PooCommerce\Api\Pagination` and are reused by core and plugins alike.
 
 ## The connection shape
 
@@ -73,7 +73,7 @@ coupons(first: Int, last: Int, after: String, before: String, status: CouponStat
 
 Bounds are enforced: `first`/`last` must be between `0` and `PaginationParams::MAX_PAGE_SIZE`; a negative or over-cap value throws `INVALID_ARGUMENT` (HTTP 400). When neither `first` nor `last` is given, `PaginationParams::get_default_page_size()` applies. The same bounds are enforced on nested connection fields via `PaginationParams::validate_args()`, so a deeply nested `first: 1000` can't slip past the cap.
 
-These maximum and default page sizes are currently hardcoded to 100, but may become configurable in future versions of WooCommerce.
+These maximum and default page sizes are currently hardcoded to 100, but may become configurable in future versions of PooCommerce.
 
 ## Cursors
 
@@ -116,4 +116,4 @@ Connection fields contribute to a query's computed complexity: a connection's co
 
 ## Reusing the building blocks
 
-`Connection`, `Edge`, `PageInfo`, and `PaginationParams` are part of the public `Api\Pagination` surface, so a plugin can return them directly without redefining its own. The [`woocommerce-simple-events`](https://github.com/woocommerce/woocommerce-simple-events) plugin's `eventsConnection` query is a minimal, in-memory working example (it builds edges over the full set and calls `slice()`); core's `ListCoupons` shows the `WP_Query` + `IdCursorFilter` database path.
+`Connection`, `Edge`, `PageInfo`, and `PaginationParams` are part of the public `Api\Pagination` surface, so a plugin can return them directly without redefining its own. The [`poocommerce-simple-events`](https://github.com/poocommerce/poocommerce-simple-events) plugin's `eventsConnection` query is a minimal, in-memory working example (it builds edges over the full set and calls `slice()`); core's `ListCoupons` shows the `WP_Query` + `IdCursorFilter` database path.

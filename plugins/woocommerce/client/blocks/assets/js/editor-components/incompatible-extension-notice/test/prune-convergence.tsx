@@ -27,8 +27,8 @@ const STORE = 'test/prune-convergence-payment';
 
 let mockIncompatibleExtensions: Array< { id: string; title: string } > = [];
 
-jest.mock( '@woocommerce/settings', () => ( {
-	...jest.requireActual( '@woocommerce/settings' ),
+jest.mock( '@poocommerce/settings', () => ( {
+	...jest.requireActual( '@poocommerce/settings' ),
 	get CURRENT_SITE_ID() {
 		return 1;
 	},
@@ -40,14 +40,14 @@ jest.mock( '@woocommerce/settings', () => ( {
 			return mockIncompatibleExtensions;
 		}
 		return jest
-			.requireActual( '@woocommerce/settings' )
+			.requireActual( '@poocommerce/settings' )
 			.getSetting( name, ...rest );
 	} ),
 } ) );
 
 // Point the hook's payment store at a real registered store so the genuine
 // `useSelect` subscription drives re-renders.
-jest.mock( '@woocommerce/block-data', () => ( {
+jest.mock( '@poocommerce/block-data', () => ( {
 	__esModule: true,
 	paymentStore: 'test/prune-convergence-payment',
 } ) );
@@ -120,7 +120,7 @@ const store = createReduxStore( STORE, {
 } );
 register( store );
 
-const CHECKOUT = 'woocommerce/checkout';
+const CHECKOUT = 'poocommerce/checkout';
 
 const Harness = () => {
 	useCombinedIncompatibilityNotice( CHECKOUT );

@@ -2,14 +2,14 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\PushNotifications\Dispatchers;
+namespace Automattic\PooCommerce\Internal\PushNotifications\Dispatchers;
 
 defined( 'ABSPATH' ) || exit;
 
 use Automattic\Jetpack\Connection\Client as Jetpack_Connection_Client;
-use Automattic\WooCommerce\Internal\PushNotifications\Entities\PushToken;
-use Automattic\WooCommerce\Internal\PushNotifications\Notifications\Notification;
-use Automattic\WooCommerce\Internal\PushNotifications\PushNotifications;
+use Automattic\PooCommerce\Internal\PushNotifications\Entities\PushToken;
+use Automattic\PooCommerce\Internal\PushNotifications\Notifications\Notification;
+use Automattic\PooCommerce\Internal\PushNotifications\PushNotifications;
 use Jetpack_Options;
 use WP_Error;
 use WP_Http;

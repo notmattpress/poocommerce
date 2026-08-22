@@ -1,4 +1,4 @@
-.woocommerce-product-attributes__operator {
+.poocommerce-product-attributes__operator {
 	.components-base-control__help {
 		@include visually-hidden;
 	}
@@ -9,10 +9,10 @@
 	}
 }
 
-.woocommerce-search-list__item.woocommerce-product-attributes__item {
+.poocommerce-search-list__item.poocommerce-product-attributes__item {
 	&.is-searching,
 	&.is-skip-level {
-		.woocommerce-search-list__item-prefix::after {
+		.poocommerce-search-list__item-prefix::after {
 			content: ":";
 		}
 	}

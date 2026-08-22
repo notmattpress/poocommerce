@@ -1,16 +1,16 @@
 <?php
 
-namespace Automattic\WooCommerce\Blueprint\Exporters;
+namespace Automattic\PooCommerce\Blueprint\Exporters;
 
-use Automattic\WooCommerce\Blueprint\Steps\InstallTheme;
-use Automattic\WooCommerce\Blueprint\UseWPFunctions;
+use Automattic\PooCommerce\Blueprint\Steps\InstallTheme;
+use Automattic\PooCommerce\Blueprint\UseWPFunctions;
 
 /**
  * Class ExportInstallThemeSteps
  *
  * Exporter for the InstallTheme step.
  *
- * @package Automattic\WooCommerce\Blueprint\Exporters
+ * @package Automattic\PooCommerce\Blueprint\Exporters
  */
 class ExportInstallThemeSteps implements StepExporter {
 	use UseWPFunctions;

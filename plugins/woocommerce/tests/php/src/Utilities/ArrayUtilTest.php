@@ -1,8 +1,8 @@
 <?php
 
-namespace Automattic\WooCommerce\Tests\Utilities;
+namespace Automattic\PooCommerce\Tests\Utilities;
 
-use Automattic\WooCommerce\Utilities\ArrayUtil;
+use Automattic\PooCommerce\Utilities\ArrayUtil;
 
 /**
  * A collection of tests for the array utility class.

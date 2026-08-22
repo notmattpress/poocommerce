@@ -22,14 +22,14 @@ let mockPaymentMethodsLoaded = true;
 // Incompatible extensions returned from settings, controllable per render.
 // `undefined` stands for the setting never reaching the payload, which is not
 // the same thing as an empty list: the Cart and Checkout blocks register it
-// themselves, so a `woocommerce_shared_settings` callback that trims the
+// themselves, so a `poocommerce_shared_settings` callback that trims the
 // settings drops it and `getSetting` falls back to what the caller passed.
 let mockIncompatibleExtensions:
 	| Array< { id: string; title: string } >
 	| undefined = [];
 
-jest.mock( '@woocommerce/settings', () => ( {
-	...jest.requireActual( '@woocommerce/settings' ),
+jest.mock( '@poocommerce/settings', () => ( {
+	...jest.requireActual( '@poocommerce/settings' ),
 	CURRENT_SITE_ID: 1,
 	IS_MULTISITE: false,
 	getSetting: jest.fn().mockImplementation( ( name: string, ...rest ) => {
@@ -37,7 +37,7 @@ jest.mock( '@woocommerce/settings', () => ( {
 			return mockIncompatibleExtensions;
 		}
 		return jest
-			.requireActual( '@woocommerce/settings' )
+			.requireActual( '@poocommerce/settings' )
 			.getSetting( name, ...rest );
 	} ),
 } ) );
@@ -57,8 +57,8 @@ import { getEditorStorageKey, UNSCOPED_STORAGE_KEY } from '../storage';
 	} ) )
 );
 
-const CHECKOUT = 'woocommerce/checkout';
-const CART = 'woocommerce/cart';
+const CHECKOUT = 'poocommerce/checkout';
+const CART = 'poocommerce/cart';
 
 // Returns whether the notice is visible for the given block on a fresh mount
 // (fresh mount == a page reload, since state is seeded from localStorage).

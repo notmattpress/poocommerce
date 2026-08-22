@@ -2,13 +2,13 @@
 /**
  * Unit tests for the WC_Product_CSV_Importer_Test class.
  *
- * @package WooCommerce\Tests\Importer.
+ * @package PooCommerce\Tests\Importer.
  */
 
 declare( strict_types=1 );
 
-use Automattic\WooCommerce\Enums\ProductStatus;
-use Automattic\WooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Enums\ProductStatus;
+use Automattic\PooCommerce\Enums\ProductType;
 
 /**
  * Class WC_Product_CSV_Importer_Test
@@ -217,7 +217,7 @@ class WC_Product_CSV_Importer_Test extends \WC_Unit_Test_Case {
 		$product->set_attributes( array( $attribute ) );
 		$product->save();
 
-		add_filter( 'woocommerce_product_import_create_variation_of_existing_product', '__return_false' );
+		add_filter( 'poocommerce_product_import_create_variation_of_existing_product', '__return_false' );
 
 		$csv_file = __DIR__ . '/import-adding-variations-26256-data.csv';
 		$args     = array(
@@ -237,7 +237,7 @@ class WC_Product_CSV_Importer_Test extends \WC_Unit_Test_Case {
 		$importer = new WC_Product_CSV_Importer( $csv_file, $args );
 		$data     = $importer->import();
 
-		remove_filter( 'woocommerce_product_import_create_variation_of_existing_product', '__return_false' );
+		remove_filter( 'poocommerce_product_import_create_variation_of_existing_product', '__return_false' );
 
 		$this->assertEquals( array( $product->get_id() ), $data['updated'], 'Expected the existing parent product to be updated' );
 		$this->assertEmpty( $data['imported_variations'], 'Expected 0 imported variations, got ' . count( $data['imported_variations'] ) );
@@ -256,7 +256,7 @@ class WC_Product_CSV_Importer_Test extends \WC_Unit_Test_Case {
 		$product->save();
 		wp_trash_post( $product->get_id() );
 
-		add_filter( 'woocommerce_product_import_create_variation_of_existing_product', '__return_true' );
+		add_filter( 'poocommerce_product_import_create_variation_of_existing_product', '__return_true' );
 
 		$csv_file = trailingslashit( get_temp_dir() ) . 'import-26256-trashed-parent.csv';
 		file_put_contents( $csv_file, "Type,SKU,Name,Parent\nvariation,IMPORT-26256-L,Import 26256 Tee - L,IMPORT-26256-PARENT\n" ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents -- Test fixture written to the temp dir.
@@ -275,7 +275,7 @@ class WC_Product_CSV_Importer_Test extends \WC_Unit_Test_Case {
 		$data     = $importer->import();
 		wp_delete_file( $csv_file );
 
-		remove_filter( 'woocommerce_product_import_create_variation_of_existing_product', '__return_true' );
+		remove_filter( 'poocommerce_product_import_create_variation_of_existing_product', '__return_true' );
 
 		$this->assertEmpty( $data['imported_variations'], 'Expected 0 imported variations, got ' . count( $data['imported_variations'] ) );
 		$this->assertCount( 1, $data['skipped'], 'Expected 1 skipped product, got ' . count( $data['skipped'] ) );
@@ -293,7 +293,7 @@ class WC_Product_CSV_Importer_Test extends \WC_Unit_Test_Case {
 		$product->set_sku( 'IMPORT-26256-PARENT' );
 		$product->save();
 
-		add_filter( 'woocommerce_product_import_create_variation_of_existing_product', '__return_true' );
+		add_filter( 'poocommerce_product_import_create_variation_of_existing_product', '__return_true' );
 
 		$csv_file = trailingslashit( get_temp_dir() ) . 'import-26256-simple-parent.csv';
 		file_put_contents( $csv_file, "Type,SKU,Name,Parent\nvariation,IMPORT-26256-L,Import 26256 Simple - L,IMPORT-26256-PARENT\n" ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents -- Test fixture written to the temp dir.
@@ -312,7 +312,7 @@ class WC_Product_CSV_Importer_Test extends \WC_Unit_Test_Case {
 		$data     = $importer->import();
 		wp_delete_file( $csv_file );
 
-		remove_filter( 'woocommerce_product_import_create_variation_of_existing_product', '__return_true' );
+		remove_filter( 'poocommerce_product_import_create_variation_of_existing_product', '__return_true' );
 
 		$this->assertEmpty( $data['imported_variations'], 'Expected 0 imported variations, got ' . count( $data['imported_variations'] ) );
 		$this->assertCount( 1, $data['skipped'], 'Expected 1 skipped product, got ' . count( $data['skipped'] ) );
@@ -336,7 +336,7 @@ class WC_Product_CSV_Importer_Test extends \WC_Unit_Test_Case {
 		$product->set_attributes( array( $attribute ) );
 		$product->save();
 
-		add_filter( 'woocommerce_product_import_create_variation_of_existing_product', '__return_true' );
+		add_filter( 'poocommerce_product_import_create_variation_of_existing_product', '__return_true' );
 
 		$csv_file = trailingslashit( get_temp_dir() ) . 'import-26256-no-sku.csv';
 		file_put_contents( $csv_file, "ID,Type,SKU,Name,Parent\n,variation,,Import 26256 Tee - L,IMPORT-26256-PARENT\n999999999,variation,,Import 26256 Tee - M,IMPORT-26256-PARENT\n" ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents -- Test fixture written to the temp dir.
@@ -356,7 +356,7 @@ class WC_Product_CSV_Importer_Test extends \WC_Unit_Test_Case {
 		$data     = $importer->import();
 		wp_delete_file( $csv_file );
 
-		remove_filter( 'woocommerce_product_import_create_variation_of_existing_product', '__return_true' );
+		remove_filter( 'poocommerce_product_import_create_variation_of_existing_product', '__return_true' );
 
 		$this->assertEmpty( $data['imported_variations'], 'Expected 0 imported variations, got ' . count( $data['imported_variations'] ) );
 		$this->assertCount( 2, $data['skipped'], 'Expected 2 skipped products, got ' . count( $data['skipped'] ) );
@@ -394,7 +394,7 @@ class WC_Product_CSV_Importer_Test extends \WC_Unit_Test_Case {
 			)
 		);
 
-		add_filter( 'woocommerce_product_import_create_variation_of_existing_product', '__return_true' );
+		add_filter( 'poocommerce_product_import_create_variation_of_existing_product', '__return_true' );
 
 		$csv_file = trailingslashit( get_temp_dir() ) . 'import-26256-foreign-id.csv';
 		file_put_contents( $csv_file, "ID,Type,SKU,Name,Parent\n{$page_id},variation,IMPORT-26256-L,Import 26256 Tee - L,IMPORT-26256-PARENT\n" ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents -- Test fixture written to the temp dir.
@@ -414,7 +414,7 @@ class WC_Product_CSV_Importer_Test extends \WC_Unit_Test_Case {
 		$data     = $importer->import();
 		wp_delete_file( $csv_file );
 
-		remove_filter( 'woocommerce_product_import_create_variation_of_existing_product', '__return_true' );
+		remove_filter( 'poocommerce_product_import_create_variation_of_existing_product', '__return_true' );
 
 		$this->assertEmpty( $data['imported_variations'], 'Expected 0 imported variations, got ' . count( $data['imported_variations'] ) );
 		$this->assertCount( 1, $data['skipped'], 'Expected 1 skipped product, got ' . count( $data['skipped'] ) );
@@ -441,7 +441,7 @@ class WC_Product_CSV_Importer_Test extends \WC_Unit_Test_Case {
 
 		$nonexistent_id = $product->get_id() + 1000;
 
-		add_filter( 'woocommerce_product_import_create_variation_of_existing_product', '__return_true' );
+		add_filter( 'poocommerce_product_import_create_variation_of_existing_product', '__return_true' );
 
 		$csv_file = trailingslashit( get_temp_dir() ) . 'import-26256-nonexistent-id.csv';
 		file_put_contents( $csv_file, "ID,Type,SKU,Name,Parent\n{$nonexistent_id},variation,IMPORT-26256-L,Import 26256 Tee - L,IMPORT-26256-PARENT\n" ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents -- Test fixture written to the temp dir.
@@ -461,7 +461,7 @@ class WC_Product_CSV_Importer_Test extends \WC_Unit_Test_Case {
 		$data     = $importer->import();
 		wp_delete_file( $csv_file );
 
-		remove_filter( 'woocommerce_product_import_create_variation_of_existing_product', '__return_true' );
+		remove_filter( 'poocommerce_product_import_create_variation_of_existing_product', '__return_true' );
 
 		$this->assertEmpty( $data['imported_variations'], 'Expected 0 imported variations, got ' . count( $data['imported_variations'] ) );
 		$this->assertCount( 1, $data['skipped'], 'Expected 1 skipped product, got ' . count( $data['skipped'] ) );
@@ -485,7 +485,7 @@ class WC_Product_CSV_Importer_Test extends \WC_Unit_Test_Case {
 		$product->set_attributes( array( $attribute ) );
 		$product->save();
 
-		add_filter( 'woocommerce_product_import_create_variation_of_existing_product', '__return_true' );
+		add_filter( 'poocommerce_product_import_create_variation_of_existing_product', '__return_true' );
 
 		$csv_file = __DIR__ . '/import-adding-variations-26256-data.csv';
 		$args     = array(
@@ -505,7 +505,7 @@ class WC_Product_CSV_Importer_Test extends \WC_Unit_Test_Case {
 		$importer = new WC_Product_CSV_Importer( $csv_file, $args );
 		$data     = $importer->import();
 
-		remove_filter( 'woocommerce_product_import_create_variation_of_existing_product', '__return_true' );
+		remove_filter( 'poocommerce_product_import_create_variation_of_existing_product', '__return_true' );
 
 		$this->assertCount( 1, $data['imported_variations'], 'Expected 1 imported variation, got ' . count( $data['imported_variations'] ) );
 		$this->assertEmpty( $data['imported'], 'Expected 0 imported products, got ' . count( $data['imported'] ) );

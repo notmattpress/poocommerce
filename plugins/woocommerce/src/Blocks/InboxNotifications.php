@@ -1,13 +1,13 @@
 <?php
-namespace Automattic\WooCommerce\Blocks;
+namespace Automattic\PooCommerce\Blocks;
 
-use Automattic\WooCommerce\Admin\Notes\Note;
-use Automattic\WooCommerce\Admin\Notes\Notes;
+use Automattic\PooCommerce\Admin\Notes\Note;
+use Automattic\PooCommerce\Admin\Notes\Notes;
 
 /**
- * A class used to display inbox messages to merchants in the WooCommerce Admin dashboard.
+ * A class used to display inbox messages to merchants in the PooCommerce Admin dashboard.
  *
- * @package Automattic\WooCommerce\Blocks
+ * @package Automattic\PooCommerce\Blocks
  * @since x.x.x
  */
 class InboxNotifications {

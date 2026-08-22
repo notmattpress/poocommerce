@@ -55,7 +55,7 @@ const COUNTRY_CODES = [
 	'US',
 ];
 
-// Preserve WooCommerce's existing explicit validation behaviour where it is
+// Preserve PooCommerce's existing explicit validation behaviour where it is
 // intentionally different from the upstream package. These overrides are
 // applied only while generating the shared artifact.
 const COMPATIBILITY_OVERRIDES = {

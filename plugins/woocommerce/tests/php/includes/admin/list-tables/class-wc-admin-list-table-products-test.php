@@ -2,19 +2,19 @@
 /**
  * Unit tests for the products admin list table.
  *
- * @package WooCommerce\Tests\Admin
+ * @package PooCommerce\Tests\Admin
  */
 
 declare( strict_types = 1 );
 
-use Automattic\WooCommerce\Enums\ProductStockStatus;
+use Automattic\PooCommerce\Enums\ProductStockStatus;
 
 require_once WC_ABSPATH . 'includes/admin/list-tables/class-wc-admin-list-table-products.php';
 
 /**
  * WC_Admin_List_Table_Products tests.
  *
- * @package WooCommerce\Tests\Admin
+ * @package PooCommerce\Tests\Admin
  */
 class WC_Admin_List_Table_Products_Test extends WC_Unit_Test_Case {
 
@@ -44,7 +44,7 @@ class WC_Admin_List_Table_Products_Test extends WC_Unit_Test_Case {
 	 */
 	public function setUp(): void {
 		parent::setUp();
-		$this->original_manage_stock = get_option( 'woocommerce_manage_stock' );
+		$this->original_manage_stock = get_option( 'poocommerce_manage_stock' );
 		$this->original_typenow      = $GLOBALS['typenow'] ?? null;
 		$GLOBALS['typenow']          = 'product'; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 		$this->sut                   = new WC_Admin_List_Table_Products();
@@ -55,9 +55,9 @@ class WC_Admin_List_Table_Products_Test extends WC_Unit_Test_Case {
 	 */
 	public function tearDown(): void {
 		if ( false === $this->original_manage_stock ) {
-			delete_option( 'woocommerce_manage_stock' );
+			delete_option( 'poocommerce_manage_stock' );
 		} else {
-			update_option( 'woocommerce_manage_stock', $this->original_manage_stock );
+			update_option( 'poocommerce_manage_stock', $this->original_manage_stock );
 		}
 
 		if ( null === $this->original_typenow ) {
@@ -176,7 +176,7 @@ class WC_Admin_List_Table_Products_Test extends WC_Unit_Test_Case {
 	/**
 	 * @testdox Product title ranking uses the same translated stopwords as product inclusion.
 	 */
-	public function test_product_search_uses_woocommerce_stopwords_for_title_ranking(): void {
+	public function test_product_search_uses_poocommerce_stopwords_for_title_ranking(): void {
 		$token       = wp_generate_password( 8, false );
 		$search_term = 'Night the ' . $token;
 
@@ -186,7 +186,7 @@ class WC_Admin_List_Table_Products_Test extends WC_Unit_Test_Case {
 				return $translation;
 			}
 
-			return 'woocommerce' === $domain ? 'the' : 'about';
+			return 'poocommerce' === $domain ? 'the' : 'about';
 		};
 		add_filter( 'gettext_with_context', $translate_stopwords, 10, 4 );
 
@@ -648,7 +648,7 @@ class WC_Admin_List_Table_Products_Test extends WC_Unit_Test_Case {
 	 * @testdox Products list out-of-stock filter includes variable products with out-of-stock variations.
 	 */
 	public function test_out_of_stock_filter_includes_variable_products_with_out_of_stock_variations() {
-		update_option( 'woocommerce_manage_stock', 'no' );
+		update_option( 'poocommerce_manage_stock', 'no' );
 
 		$simple_out_of_stock = WC_Helper_Product::create_simple_product();
 		$simple_out_of_stock->set_manage_stock( false );
@@ -876,7 +876,7 @@ class WC_Admin_List_Table_Products_Test extends WC_Unit_Test_Case {
 	 * @testdox Out-of-stock filtering works for callbacks that read the lookup alias without joining it.
 	 */
 	public function test_out_of_stock_filter_supports_callbacks_relying_on_the_lookup_join(): void {
-		update_option( 'woocommerce_manage_stock', 'no' );
+		update_option( 'poocommerce_manage_stock', 'no' );
 
 		$out_of_stock = WC_Helper_Product::create_simple_product();
 		$out_of_stock->set_manage_stock( false );

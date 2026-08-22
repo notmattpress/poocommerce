@@ -3,7 +3,7 @@
  */
 import apiFetch from '@wordpress/api-fetch';
 import clsx from 'clsx';
-import { getSetting } from '@woocommerce/settings';
+import { getSetting } from '@poocommerce/settings';
 
 export const getSortArgs = ( sortValue ) => {
 	const reviewRatingsEnabled = getSetting( 'reviewRatingsEnabled', true );

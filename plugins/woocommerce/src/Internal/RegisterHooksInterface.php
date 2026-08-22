@@ -1,12 +1,12 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal;
+namespace Automattic\PooCommerce\Internal;
 
 /**
  * Interface RegisterHooksInterface
  *
- * The following must be added at the end of the 'init_hooks' method in the 'WooCommerce' class
+ * The following must be added at the end of the 'init_hooks' method in the 'PooCommerce' class
  * for each class implementing this interface:
  * $container->get( <full class name>::class )->register();
  *

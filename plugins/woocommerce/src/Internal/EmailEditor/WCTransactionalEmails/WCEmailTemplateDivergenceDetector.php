@@ -2,15 +2,15 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails;
+namespace Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails;
 
-use Automattic\WooCommerce\EmailEditor\Engine\Logger\Email_Editor_Logger_Interface;
-use Automattic\WooCommerce\Internal\EmailEditor\Integration;
-use Automattic\WooCommerce\Internal\EmailEditor\Logger;
+use Automattic\PooCommerce\EmailEditor\Engine\Logger\Email_Editor_Logger_Interface;
+use Automattic\PooCommerce\Internal\EmailEditor\Integration;
+use Automattic\PooCommerce\Internal\EmailEditor\Logger;
 
 /**
  * Detects divergence between generated `woo_email` posts and their source block
- * email templates after WooCommerce is upgraded.
+ * email templates after PooCommerce is upgraded.
  *
  * For every sync-enabled email (see {@see WCEmailTemplateSyncRegistry}) that has
  * a generated post carrying the `_wc_email_template_source_hash` stamp written by
@@ -28,7 +28,7 @@ use Automattic\WooCommerce\Internal\EmailEditor\Logger;
  * Hash input parity with the stamping path is guaranteed by construction because
  * both paths route through {@see WCTransactionalEmailPostsGenerator::compute_canonical_post_content()}.
  *
- * @package Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails
+ * @package Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails
  * @since 10.8.0
  */
 class WCEmailTemplateDivergenceDetector {
@@ -40,7 +40,7 @@ class WCEmailTemplateDivergenceDetector {
 	 *
 	 * @var string
 	 */
-	public const BACKFILL_COMPLETE_OPTION = 'woocommerce_email_template_sync_backfill_complete';
+	public const BACKFILL_COMPLETE_OPTION = 'poocommerce_email_template_sync_backfill_complete';
 
 	/**
 	 * Cached classification of "does the post currently differ from the
@@ -262,12 +262,12 @@ class WCEmailTemplateDivergenceDetector {
 	}
 
 	/**
-	 * Stamp {@see self::BACKFILL_COMPLETE_OPTION} on fresh WooCommerce installs.
+	 * Stamp {@see self::BACKFILL_COMPLETE_OPTION} on fresh PooCommerce installs.
 	 *
 	 * The RSM-149 backfill runs as a 10.8 db-update migration callback. Fresh
 	 * installs on 10.9 (or any later release) never cross the 10.8 db-update
 	 * boundary — {@see \WC_Install::needs_db_update()} short-circuits on a null
-	 * `woocommerce_db_version` — so the migration never runs and the backfill
+	 * `poocommerce_db_version` — so the migration never runs and the backfill
 	 * option never flips. Without this fix, {@see self::run_sweep()} would
 	 * early-return on every subsequent WC upgrade for the lifetime of the site
 	 * and Tracks instrumentation would be silently dead.
@@ -276,7 +276,7 @@ class WCEmailTemplateDivergenceDetector {
 	 * the generator creates is already 10.9-stamped at creation. The migration
 	 * is trivially complete; recording that here is the truthful statement.
 	 *
-	 * Hooked on `woocommerce_newly_installed`, the WP-style public action
+	 * Hooked on `poocommerce_newly_installed`, the WP-style public action
 	 * contract WC fires from {@see \WC_Install::newly_installed()} after the
 	 * fresh-install flag flips.
 	 *
@@ -291,7 +291,7 @@ class WCEmailTemplateDivergenceDetector {
 	/**
 	 * Run the post-upgrade divergence sweep.
 	 *
-	 * Intended to be hooked on `woocommerce_updated`, which fires once per WC
+	 * Intended to be hooked on `poocommerce_updated`, which fires once per WC
 	 * upgrade inside {@see \WC_Install::check_version()} under a distributed
 	 * install lock — that guarantees the sweep runs at most once per upgrade
 	 * without any additional fence option or cache lock on our side.
@@ -343,14 +343,14 @@ class WCEmailTemplateDivergenceDetector {
 		 * Fires once after the post-upgrade divergence sweep finishes classifying
 		 * every sync-registered email post.
 		 *
-		 * Hooked by {@see \Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateAutoApplier::schedule()}
+		 * Hooked by {@see \Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateAutoApplier::schedule()}
 		 * to enqueue the batched auto-apply job for posts classified as
 		 * `core_updated_uncustomized`. Fires unconditionally — auto-applier
 		 * short-circuits when no candidates exist.
 		 *
 		 * @since 10.8.0
 		 */
-		do_action( 'woocommerce_email_template_divergence_sweep_complete' );
+		do_action( 'poocommerce_email_template_divergence_sweep_complete' );
 	}
 
 	/**

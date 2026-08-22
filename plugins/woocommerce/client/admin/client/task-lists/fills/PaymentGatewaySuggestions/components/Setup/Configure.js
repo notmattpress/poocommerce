@@ -4,11 +4,11 @@
 import { __, sprintf } from '@wordpress/i18n';
 import { Button } from '@wordpress/components';
 import { useDispatch, useSelect } from '@wordpress/data';
-import { PAYMENT_GATEWAYS_STORE_NAME } from '@woocommerce/data';
-import { DynamicForm } from '@woocommerce/components';
-import { WooPaymentGatewayConfigure } from '@woocommerce/onboarding';
-import { useSlot } from '@woocommerce/experimental';
-import { recordEvent } from '@woocommerce/tracks';
+import { PAYMENT_GATEWAYS_STORE_NAME } from '@poocommerce/data';
+import { DynamicForm } from '@poocommerce/components';
+import { WooPaymentGatewayConfigure } from '@poocommerce/onboarding';
+import { useSlot } from '@poocommerce/experimental';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -47,7 +47,7 @@ export const Configure = ( { markConfigured, paymentGateway } ) => {
 
 	const { createNotice } = useDispatch( 'core/notices' );
 	const { updatePaymentGateway } = useDispatch( PAYMENT_GATEWAYS_STORE_NAME );
-	const slot = useSlot( `woocommerce_payment_gateway_configure_${ id }` );
+	const slot = useSlot( `poocommerce_payment_gateway_configure_${ id }` );
 	const hasFills = Boolean( slot?.fills?.length );
 
 	const { isUpdating } = useSelect( ( select ) => {
@@ -72,7 +72,7 @@ export const Configure = ( { markConfigured, paymentGateway } ) => {
 						'success',
 						sprintf(
 							/* translators: %s = title of the payment gateway */
-							__( '%s configured successfully', 'woocommerce' ),
+							__( '%s configured successfully', 'poocommerce' ),
 							title
 						)
 					);
@@ -83,7 +83,7 @@ export const Configure = ( { markConfigured, paymentGateway } ) => {
 					'error',
 					__(
 						'There was a problem saving your payment settings',
-						'woocommerce'
+						'poocommerce'
 					)
 				);
 			} );
@@ -97,7 +97,7 @@ export const Configure = ( { markConfigured, paymentGateway } ) => {
 			fields={ fields }
 			isBusy={ isUpdating }
 			onSubmit={ handleSubmit }
-			submitLabel={ __( 'Continue', 'woocommerce' ) }
+			submitLabel={ __( 'Continue', 'poocommerce' ) }
 			validate={ ( values ) => validateFields( values, fields ) }
 		/>
 	);
@@ -130,7 +130,7 @@ export const Configure = ( { markConfigured, paymentGateway } ) => {
 					}
 					href={ connectionUrl }
 				>
-					{ __( 'Connect', 'woocommerce' ) }
+					{ __( 'Connect', 'poocommerce' ) }
 				</Button>
 			</>
 		);
@@ -151,12 +151,12 @@ export const Configure = ( { markConfigured, paymentGateway } ) => {
 				<p>
 					{ __(
 						'You can manage this payment gateway’s settings by clicking the button below',
-						'woocommerce'
+						'poocommerce'
 					) }
 				</p>
 			) }
 			<Button isPrimary href={ settingsUrl }>
-				{ __( 'Get started', 'woocommerce' ) }
+				{ __( 'Get started', 'poocommerce' ) }
 			</Button>
 		</>
 	);

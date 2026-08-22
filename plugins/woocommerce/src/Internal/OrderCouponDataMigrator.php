@@ -1,10 +1,10 @@
 <?php
 
-namespace Automattic\WooCommerce\Internal;
+namespace Automattic\PooCommerce\Internal;
 
-use Automattic\WooCommerce\Internal\BatchProcessing\BatchProcessingController;
-use Automattic\WooCommerce\Internal\BatchProcessing\BatchProcessorInterface;
-use Automattic\WooCommerce\Utilities\StringUtil;
+use Automattic\PooCommerce\Internal\BatchProcessing\BatchProcessingController;
+use Automattic\PooCommerce\Internal\BatchProcessing\BatchProcessorInterface;
+use Automattic\PooCommerce\Utilities\StringUtil;
 use \Exception;
 
 /**
@@ -20,7 +20,7 @@ class OrderCouponDataMigrator implements BatchProcessorInterface, RegisterHooksI
 	 * Register hooks for the class.
 	 */
 	public function register() {
-		add_filter( 'woocommerce_debug_tools', array( $this, 'handle_woocommerce_debug_tools' ), 999, 1 );
+		add_filter( 'poocommerce_debug_tools', array( $this, 'handle_poocommerce_debug_tools' ), 999, 1 );
 	}
 
 	/**
@@ -51,7 +51,7 @@ class OrderCouponDataMigrator implements BatchProcessorInterface, RegisterHooksI
 
 		return $wpdb->get_var(
 			$wpdb->prepare(
-				"SELECT COUNT(*) FROM {$wpdb->prefix}woocommerce_order_itemmeta WHERE meta_key=%s",
+				"SELECT COUNT(*) FROM {$wpdb->prefix}poocommerce_order_itemmeta WHERE meta_key=%s",
 				'coupon_data'
 			)
 		);
@@ -59,7 +59,7 @@ class OrderCouponDataMigrator implements BatchProcessorInterface, RegisterHooksI
 
 	/**
 	 * Returns the next batch of items that need to be processed.
-	 * A batch in this context is a list of 'meta_id' values from the wp_woocommerce_order_itemmeta table.
+	 * A batch in this context is a list of 'meta_id' values from the wp_poocommerce_order_itemmeta table.
 	 *
 	 * @param int $size Maximum size of the batch to be returned.
 	 *
@@ -70,7 +70,7 @@ class OrderCouponDataMigrator implements BatchProcessorInterface, RegisterHooksI
 
 		$meta_ids = $wpdb->get_col(
 			$wpdb->prepare(
-				"SELECT meta_id FROM {$wpdb->prefix}woocommerce_order_itemmeta WHERE meta_key=%s ORDER BY meta_id ASC LIMIT %d",
+				"SELECT meta_id FROM {$wpdb->prefix}poocommerce_order_itemmeta WHERE meta_key=%s ORDER BY meta_id ASC LIMIT %d",
 				'coupon_data',
 				$size
 			)
@@ -97,7 +97,7 @@ class OrderCouponDataMigrator implements BatchProcessorInterface, RegisterHooksI
 
 		$meta_ids_and_values = $wpdb->get_results(
 			//phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-			"SELECT meta_id,meta_value FROM {$wpdb->prefix}woocommerce_order_itemmeta WHERE meta_id IN $meta_ids",
+			"SELECT meta_id,meta_value FROM {$wpdb->prefix}poocommerce_order_itemmeta WHERE meta_id IN $meta_ids",
 			ARRAY_N
 		);
 
@@ -130,7 +130,7 @@ class OrderCouponDataMigrator implements BatchProcessorInterface, RegisterHooksI
 
 		//phpcs:disable WordPress.DB.SlowDBQuery
 		$wpdb->update(
-			"{$wpdb->prefix}woocommerce_order_itemmeta",
+			"{$wpdb->prefix}poocommerce_order_itemmeta",
 			array(
 				'meta_key'   => 'coupon_info',
 				'meta_value' => $temp_coupon->get_short_info(),
@@ -159,35 +159,35 @@ class OrderCouponDataMigrator implements BatchProcessorInterface, RegisterHooksI
 	 * @param array $tools Old tools array.
 	 * @return array Updated tools array.
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 */
-	public function handle_woocommerce_debug_tools( array $tools ): array {
+	public function handle_poocommerce_debug_tools( array $tools ): array {
 		$batch_processor = wc_get_container()->get( BatchProcessingController::class );
 		$pending_count   = $this->get_total_pending_count();
 
 		if ( 0 === $pending_count ) {
 			$tools['start_convert_order_coupon_data'] = array(
-				'name'     => __( 'Start converting order coupon data to the simplified format', 'woocommerce' ),
-				'button'   => __( 'Start converting', 'woocommerce' ),
+				'name'     => __( 'Start converting order coupon data to the simplified format', 'poocommerce' ),
+				'button'   => __( 'Start converting', 'poocommerce' ),
 				'disabled' => true,
-				'desc'     => __( 'This will convert <code>coupon_data</code> order item meta entries to simplified <code>coupon_info</code> entries. The conversion will happen overtime in the background (via Action Scheduler). There are currently no entries to convert.', 'woocommerce' ),
+				'desc'     => __( 'This will convert <code>coupon_data</code> order item meta entries to simplified <code>coupon_info</code> entries. The conversion will happen overtime in the background (via Action Scheduler). There are currently no entries to convert.', 'poocommerce' ),
 			);
 		} elseif ( $batch_processor->is_enqueued( self::class ) ) {
 			$tools['stop_convert_order_coupon_data'] = array(
-				'name'     => __( 'Stop converting order coupon data to the simplified format', 'woocommerce' ),
-				'button'   => __( 'Stop converting', 'woocommerce' ),
+				'name'     => __( 'Stop converting order coupon data to the simplified format', 'poocommerce' ),
+				'button'   => __( 'Stop converting', 'poocommerce' ),
 				'desc'     =>
 					/* translators: %d=count of entries pending conversion */
-					sprintf( __( 'This will stop the background process that converts <code>coupon_data</code> order item meta entries to simplified <code>coupon_info</code> entries. There are currently %d entries that can be converted.', 'woocommerce' ), $pending_count ),
+					sprintf( __( 'This will stop the background process that converts <code>coupon_data</code> order item meta entries to simplified <code>coupon_info</code> entries. There are currently %d entries that can be converted.', 'poocommerce' ), $pending_count ),
 				'callback' => array( $this, 'dequeue' ),
 			);
 		} else {
 			$tools['start_converting_order_coupon_data'] = array(
-				'name'     => __( 'Convert order coupon data to the simplified format', 'woocommerce' ),
-				'button'   => __( 'Start converting', 'woocommerce' ),
+				'name'     => __( 'Convert order coupon data to the simplified format', 'poocommerce' ),
+				'button'   => __( 'Start converting', 'poocommerce' ),
 				'desc'     =>
 					/* translators: %d=count of entries pending conversion */
-					sprintf( __( 'This will convert <code>coupon_data</code> order item meta entries to simplified <code>coupon_info</code> entries. The conversion will happen overtime in the background (via Action Scheduler). There are currently %d entries that can be converted.', 'woocommerce' ), $pending_count ),
+					sprintf( __( 'This will convert <code>coupon_data</code> order item meta entries to simplified <code>coupon_info</code> entries. The conversion will happen overtime in the background (via Action Scheduler). There are currently %d entries that can be converted.', 'poocommerce' ), $pending_count ),
 				'callback' => array( $this, 'enqueue' ),
 			);
 		}
@@ -200,16 +200,16 @@ class OrderCouponDataMigrator implements BatchProcessorInterface, RegisterHooksI
 	 *
 	 * @return string Informative string to show after the tool is triggered in UI.
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 */
 	public function enqueue(): string {
 		$batch_processor = wc_get_container()->get( BatchProcessingController::class );
 		if ( $batch_processor->is_enqueued( self::class ) ) {
-			return __( 'Background process for coupon meta conversion already started, nothing done.', 'woocommerce' );
+			return __( 'Background process for coupon meta conversion already started, nothing done.', 'poocommerce' );
 		}
 
 		$batch_processor->enqueue_processor( self::class );
-		return __( 'Background process for coupon meta conversion started', 'woocommerce' );
+		return __( 'Background process for coupon meta conversion started', 'poocommerce' );
 	}
 
 	/**
@@ -217,15 +217,15 @@ class OrderCouponDataMigrator implements BatchProcessorInterface, RegisterHooksI
 	 *
 	 * @return string Informative string to show after the tool is triggered in UI.
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 */
 	public function dequeue(): string {
 		$batch_processor = wc_get_container()->get( BatchProcessingController::class );
 		if ( ! $batch_processor->is_enqueued( self::class ) ) {
-			return __( 'Background process for coupon meta conversion not started, nothing done.', 'woocommerce' );
+			return __( 'Background process for coupon meta conversion not started, nothing done.', 'poocommerce' );
 		}
 
 		$batch_processor->remove_processor( self::class );
-		return __( 'Background process for coupon meta conversion stopped', 'woocommerce' );
+		return __( 'Background process for coupon meta conversion stopped', 'poocommerce' );
 	}
 }

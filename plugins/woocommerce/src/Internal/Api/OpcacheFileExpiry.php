@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Internal\Api;
+namespace Automattic\PooCommerce\Internal\Api;
 
-use Automattic\WooCommerce\Api\Infrastructure\Main;
-use Automattic\WooCommerce\Api\Infrastructure\ResolverHelpers;
+use Automattic\PooCommerce\Api\Infrastructure\Main;
+use Automattic\PooCommerce\Api\Infrastructure\ResolverHelpers;
 
 /**
  * Deletes expired OPcache cache files via Action Scheduler.
@@ -15,12 +15,12 @@ class OpcacheFileExpiry {
 	/**
 	 * Action Scheduler hook name for the cleanup job.
 	 */
-	public const ACTION_HOOK = 'woocommerce_graphql_opcache_cleanup';
+	public const ACTION_HOOK = 'poocommerce_graphql_opcache_cleanup';
 
 	/**
 	 * Action Scheduler group for the cleanup job.
 	 */
-	public const ACTION_GROUP = 'woocommerce-graphql';
+	public const ACTION_GROUP = 'poocommerce-graphql';
 
 	/**
 	 * Object-cache key used to short-circuit {@see self::ensure_scheduled()}.

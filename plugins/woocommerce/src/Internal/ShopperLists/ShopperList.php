@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\ShopperLists;
+namespace Automattic\PooCommerce\Internal\ShopperLists;
 
-use Automattic\WooCommerce\Internal\Utilities\Users;
+use Automattic\PooCommerce\Internal\Utilities\Users;
 
 /**
  * A user's saved list of products.

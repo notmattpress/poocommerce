@@ -5,7 +5,7 @@ import type {
 	ProductResponseItem,
 	CartResponseItem,
 	StoreCart,
-} from '@woocommerce/types';
+} from '@poocommerce/types';
 
 interface ImpressionItem extends Gtag.Item {
 	list_name?: string;

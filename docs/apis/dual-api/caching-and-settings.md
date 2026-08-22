@@ -6,7 +6,7 @@ sidebar_position: 6
 
 # Settings and caching
 
-WooCommerce core's GraphQL endpoint is configured under **WooCommerce → Settings → Advanced → GraphQL**. The section appears only when the `dual_code_graphql_api` feature flag is on.
+PooCommerce core's GraphQL endpoint is configured under **PooCommerce → Settings → Advanced → GraphQL**. The section appears only when the `dual_code_graphql_api` feature flag is on.
 
 These settings are **site-wide, not per-endpoint**: every setting below except **Endpoint URL** applies to *every* dual-API endpoint on the site, including those registered by plugins. See [Scope: what applies where](#scope-what-applies-where).
 
@@ -14,14 +14,14 @@ These settings are **site-wide, not per-endpoint**: every setting below except *
 
 | Setting | Option name (`Main::` constant) | Type | Default | Effect |
 | --- | --- | --- | --- | --- |
-| Endpoint URL | `woocommerce_graphql_endpoint_url` (`OPTION_ENDPOINT_URL`) | text | `wc/graphql` | **Core's `/wc/graphql` only.** Path under `/wp-json/`. Must be at least two segments (`namespace/route`); validated and normalized on save. Plugins set their own route when they register an endpoint, so this setting does not affect them. |
-| Enable GET endpoint | `woocommerce_graphql_get_endpoint_enabled` (`OPTION_GET_ENDPOINT_ENABLED`) | checkbox | `yes` | When off, the endpoint accepts POST only; GET returns 404. Mutations are always rejected over GET. |
-| Maximum query depth | `woocommerce_graphql_max_query_depth` (`OPTION_MAX_QUERY_DEPTH`) | number | `15` | Rejects queries nested deeper than this during validation. Falls back to default when unset or non-positive. |
-| Maximum query complexity | `woocommerce_graphql_max_query_complexity` (`OPTION_MAX_QUERY_COMPLEXITY`) | number | `1000` | Rejects queries whose computed complexity score exceeds this. Connection fields multiply child cost by page size. |
-| Parsed query cache TTL | `woocommerce_graphql_query_cache_ttl` (`OPTION_QUERY_CACHE_TTL`) | number | `86400` | Seconds before cached parsed queries expire (object cache and APQ paths). |
-| Enable OPcache-based caching | `woocommerce_graphql_opcache_enabled` (`OPTION_OPCACHE_ENABLED`) | checkbox | `yes` | Cache parsed ASTs as PHP files served from OPcache shared memory. |
-| Enable ObjectCache-based caching | `woocommerce_graphql_object_cache_enabled` (`OPTION_OBJECT_CACHE_ENABLED`) | checkbox | `yes` | Cache parsed ASTs in the WP object cache. |
-| Enable APQ caching | `woocommerce_graphql_apq_enabled` (`OPTION_APQ_ENABLED`) | checkbox | `yes` | Support the Apollo Automatic Persisted Queries protocol (`persistedQuery` extension). When off, hash-only requests are rejected. |
+| Endpoint URL | `poocommerce_graphql_endpoint_url` (`OPTION_ENDPOINT_URL`) | text | `wc/graphql` | **Core's `/wc/graphql` only.** Path under `/wp-json/`. Must be at least two segments (`namespace/route`); validated and normalized on save. Plugins set their own route when they register an endpoint, so this setting does not affect them. |
+| Enable GET endpoint | `poocommerce_graphql_get_endpoint_enabled` (`OPTION_GET_ENDPOINT_ENABLED`) | checkbox | `yes` | When off, the endpoint accepts POST only; GET returns 404. Mutations are always rejected over GET. |
+| Maximum query depth | `poocommerce_graphql_max_query_depth` (`OPTION_MAX_QUERY_DEPTH`) | number | `15` | Rejects queries nested deeper than this during validation. Falls back to default when unset or non-positive. |
+| Maximum query complexity | `poocommerce_graphql_max_query_complexity` (`OPTION_MAX_QUERY_COMPLEXITY`) | number | `1000` | Rejects queries whose computed complexity score exceeds this. Connection fields multiply child cost by page size. |
+| Parsed query cache TTL | `poocommerce_graphql_query_cache_ttl` (`OPTION_QUERY_CACHE_TTL`) | number | `86400` | Seconds before cached parsed queries expire (object cache and APQ paths). |
+| Enable OPcache-based caching | `poocommerce_graphql_opcache_enabled` (`OPTION_OPCACHE_ENABLED`) | checkbox | `yes` | Cache parsed ASTs as PHP files served from OPcache shared memory. |
+| Enable ObjectCache-based caching | `poocommerce_graphql_object_cache_enabled` (`OPTION_OBJECT_CACHE_ENABLED`) | checkbox | `yes` | Cache parsed ASTs in the WP object cache. |
+| Enable APQ caching | `poocommerce_graphql_apq_enabled` (`OPTION_APQ_ENABLED`) | checkbox | `yes` | Support the Apollo Automatic Persisted Queries protocol (`persistedQuery` extension). When off, hash-only requests are rejected. |
 
 The depth and complexity metrics are observable on a request by appending `?_debug=1` (when the principal may use debug mode); the response carries `extensions.debug.depth` and `extensions.debug.complexity`.
 
@@ -44,17 +44,17 @@ Parsing a GraphQL query into an AST is the expensive, repeatable step, so the fr
 Notes:
 
 - The cache key/version is tied to the query string and the parser version, so there's no correctness TTL concern on the file backend; the configurable TTL applies to the object-cache and APQ paths.
-- OPcache writes are atomic (temp file + `rename()`), drop a deny-all `.htaccess`, and pre-warm the bytecode. Expired files are cleaned up via a scheduled `woocommerce_graphql_opcache_cleanup` action.
+- OPcache writes are atomic (temp file + `rename()`), drop a deny-all `.htaccess`, and pre-warm the bytecode. Expired files are cleaned up via a scheduled `poocommerce_graphql_opcache_cleanup` action.
 - APQ always uses the object cache for hash-only lookups, regardless of the standard-query toggles, preserving persisted-query semantics.
 
 ## Relevant filters
 
 | Filter | Signature | Purpose |
 | --- | --- | --- |
-| `woocommerce_graphql_opcache_cache_dir` | `( string $dir )` | Override the OPcache file directory (default `{uploads}/wc-graphql-cache/v<n>`). Empty strings and stream wrappers are rejected. |
-| `woocommerce_graphql_can_introspect` | `( bool, ?object $principal, \WP_REST_Request )` | Gate native introspection. See [Authentication and authorization](./authentication-and-authorization.md). |
-| `woocommerce_graphql_can_use_debug_mode` | `( bool, ?object $principal, \WP_REST_Request )` | Gate debug mode. |
-| `woocommerce_graphql_can_query_metadata` | `( bool, ?object $principal, \WP_REST_Request )` | Gate `_apiMetadata`. See [Metadata](./metadata.md). |
+| `poocommerce_graphql_opcache_cache_dir` | `( string $dir )` | Override the OPcache file directory (default `{uploads}/wc-graphql-cache/v<n>`). Empty strings and stream wrappers are rejected. |
+| `poocommerce_graphql_can_introspect` | `( bool, ?object $principal, \WP_REST_Request )` | Gate native introspection. See [Authentication and authorization](./authentication-and-authorization.md). |
+| `poocommerce_graphql_can_use_debug_mode` | `( bool, ?object $principal, \WP_REST_Request )` | Gate debug mode. |
+| `poocommerce_graphql_can_query_metadata` | `( bool, ?object $principal, \WP_REST_Request )` | Gate `_apiMetadata`. See [Metadata](./metadata.md). |
 
 ## Customizing the response HTTP status
 

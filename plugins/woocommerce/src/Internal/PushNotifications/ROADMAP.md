@@ -1,11 +1,11 @@
-# WooCommerce-driven Push Notification: Roadmap
+# PooCommerce-driven Push Notification: Roadmap
 
-This document is intended to describe the purpose and planned changes for the WooCommerce: Self-driven Push Notifications project, to assist folks in reviewing related PRs and understanding the wider context of the changes.
+This document is intended to describe the purpose and planned changes for the PooCommerce: Self-driven Push Notifications project, to assist folks in reviewing related PRs and understanding the wider context of the changes.
 
 The following terms have been used in this post to mean:
 
 - **"WPCOM"**: WordPress.com hosted infrastructure, including the public API, databases, and asynchronous jobs system
-- **"Remote WooCommerce Site"**: the blog running WordPress and WooCommerce, which could be self-hosted, a WordPress.com hosted simple site, a WP Cloud hosted site, etc
+- **"Remote PooCommerce Site"**: the blog running WordPress and PooCommerce, which could be self-hosted, a WordPress.com hosted simple site, a WP Cloud hosted site, etc
 
 ## Contents
 
@@ -28,22 +28,22 @@ The following terms have been used in this post to mean:
 - Notes
     - Failures/retries
     - Users who don't connect Jetpack
-    - Users who don't upgrade WooCommerce
+    - Users who don't upgrade PooCommerce
     - WordPress.com Notification Control Center preferences
 
 ## Goals
 
-We are adding the ability for WooCommerce to trigger its own Android and iOS push notifications. The reasons are discussed in more detail in this post, but briefly, the goals of this will be:
+We are adding the ability for PooCommerce to trigger its own Android and iOS push notifications. The reasons are discussed in more detail in this post, but briefly, the goals of this will be:
 
 - The Jetpack Sync plugin will no longer be required to enable push notifications for sites
 - Reduced complexity and easier debugging of the push notifications send process (which currently requires tracking orders/reviews through multiple systems)
 - Ability to send notifications to site users who do not have a connected WordPress.com account (e.g. shop managers)
 - Improved ease of adding new notifications (which currently requires changes in the apps, WPCOM, and Jetpack Sync)
-- WooCommerce notifications not creating noise in the WordPress.com masterbar
+- PooCommerce notifications not creating noise in the WordPress.com masterbar
 
 The new functionality will be available for sites that:
 
-- Have the Jetpack connection plugin installed (which now ships with WooCommerce Core)
+- Have the Jetpack connection plugin installed (which now ships with PooCommerce Core)
 - Have an active Jetpack connection
 - Have the wc_push_notifications feature enabled
 
@@ -51,7 +51,7 @@ The new functionality will be available for sites that:
 
 ### Before
 
-This section summarises the way WooCommerce push notifications currently work.
+This section summarises the way PooCommerce push notifications currently work.
 
 **Push token registration:**
 
@@ -62,9 +62,9 @@ This section summarises the way WooCommerce push notifications currently work.
 
 **Push notification trigger/send:**
 
-1. Order is placed on remote WooCommerce site (or review is created)
-2. Remote WooCommerce site triggers a Jetpack Sync request
-3. Order is sync'ed from the remote WooCommerce site to WPCOM
+1. Order is placed on remote PooCommerce site (or review is created)
+2. Remote PooCommerce site triggers a Jetpack Sync request
+3. Order is sync'ed from the remote PooCommerce site to WPCOM
 4. If WPCOM detects that a notification has not already been sent for the order (via meta), then a WPCOM note is created and a push notification is triggered for this note
 5. The push notifications infra generates a payload from the note, and sends it via FCM (Android, browsers) or APNS (Apple) to registered tokens belonging to any admins or shop managers of that site
 
@@ -76,19 +76,19 @@ This section summarises the way WooCommerce push notifications currently work.
 
 ### After
 
-This section summarises the way WooCommerce push notifications will work when this project is complete.
+This section summarises the way PooCommerce push notifications will work when this project is complete.
 
 **Push token registration:**
 
 1. User logs into site on app
 2. App retrieves a push token from the device
-3. App tries to register token with remote WooCommerce site - if it fails (e.g. because Woo version not supported, or Jetpack not connected), it registers the token with WPCOM instead
+3. App tries to register token with remote PooCommerce site - if it fails (e.g. because Woo version not supported, or Jetpack not connected), it registers the token with WPCOM instead
 4. Whichever location it end up stored in, deduplication still occurs
 
 **Push notification trigger/send:**
 
-1. Order is placed on remote WooCommerce site (or review is created)
-2. Remote WooCommerce site recognises from hooks that a notification should be triggered
+1. Order is placed on remote PooCommerce site (or review is created)
+2. Remote PooCommerce site recognises from hooks that a notification should be triggered
 3. Internal async request is made in the checkout (or review) request shutdown to trigger the notifications
 4. Internal async endpoint makes a request to a new WPCOM endpoint to send the notifications
 5. WPCOM validates the data and returns errors if it can't attempt to send the notification
@@ -109,7 +109,7 @@ This section summarises the way WooCommerce push notifications will work when th
     - **Token**: the token string that can be used to send a notification to a specific device
     - **Device UUID**: a unique identifier representing the device, randomly generated by the app
     - **Platform**: the platform the device belongs to, these match values used in the WPCOM push notifications infra: `apple`, `android`, or `browser`
-    - **Origin**: an environment-specific string representing the app that sent the token, `com.woocommerce.android`, `com.woocommerce.android:dev`, `com.automattic.woocommerce`, or `com.automattic.woocommerce:dev`
+    - **Origin**: an environment-specific string representing the app that sent the token, `com.poocommerce.android`, `com.poocommerce.android:dev`, `com.automattic.poocommerce`, or `com.automattic.poocommerce:dev`
 - **Usage**:
     - Register/create push token endpoint: lookup by user ID, save new entry/update existing entry by token ID, retrieve meta by token ID, save meta
     - Unregister/delete push token endpoint: lookup by token ID, delete by token ID
@@ -159,7 +159,7 @@ This library will be in the `src/Internal` directory and is not intended to be u
    - Feature class that will load relevant files if the push notification functionality should be enabled (i.e. if Jetpack connected and feature is enabled)
 
 2. **Add token registration/unregistration endpoint:**
-   - This will be used to register and unregister push tokens generated by the device on the remote WooCommerce site
+   - This will be used to register and unregister push tokens generated by the device on the remote PooCommerce site
    - It will validate token and device UUID formats, and enum values for app platform and origin
    - If a token already exists for this user with either a matching device UUID or token value, it will update the existing version, not create a duplicate
    - It will authorize access for authenticated users with a valid role (admin, shop manager)
@@ -181,7 +181,7 @@ This library will be in the `src/Internal` directory and is not intended to be u
    - Will allow access via WP Admin and via the app
 
 6. **Add send functionality:**
-   - Will respond to `woocommerce_new_order` and `woocommerce_order_status_changed` to send a new order notification for orders with one of the following statuses: processing, on-hold, completed, pre-order, pre-ordered, partial-payment
+   - Will respond to `poocommerce_new_order` and `poocommerce_order_status_changed` to send a new order notification for orders with one of the following statuses: processing, on-hold, completed, pre-order, pre-ordered, partial-payment
    - Will respond to `comment_post` to send a review notification for comments of the type review
    - Triggered notifications will be 'remembered' during the request, and then sent asynchronously to an internal endpoint during the request shutdown process - this should avoid delaying/slowing the current request for the user. The process will generate and store a token with an expiry, that will be verified and consumed by the internal async endpoint
    - The internal async endpoint will send the notifications to a new WPCOM endpoint (authenticating using the Jetpack site token) which will do some validation before sending the notification through the WPCOM push notifications infra
@@ -198,8 +198,8 @@ This library will be in the `src/Internal` directory and is not intended to be u
    - Will be processed in the same way as other notifications
 
 9. **Update notification setting controls:**
-   - WooCommerce notifications for compatible sites will be hidden in the notification controls in WordPress.com
-   - WooCommerce notifications controls will be added in WooCommerce Core settings
+   - PooCommerce notifications for compatible sites will be hidden in the notification controls in WordPress.com
+   - PooCommerce notifications controls will be added in PooCommerce Core settings
    - Will use the notifications preferences endpoint mentioned above
 
 ## Notes
@@ -207,18 +207,18 @@ This library will be in the `src/Internal` directory and is not intended to be u
 ### Failures/retries
 
 - Due to WPCOM sending notifications asynchronously, a successful response from the WPCOM send endpoint does not mean the notification was successfully sent to APNS/FCM, only that WPCOM committed to making the request
-- Failures to send to APNS/FCM will be handled by WPCOM's retry system, failures to send to WPCOM will be handled by WooCommerce's retry system.
+- Failures to send to APNS/FCM will be handled by WPCOM's retry system, failures to send to WPCOM will be handled by PooCommerce's retry system.
 - A successful response from FCM/APNS doesn't mean the notification was successfully delivered, only that FCM/APNS committed to trying to deliver it. We can't control/detect whether the notification was actually delivered from the server side, or the reason if it wasn't.
 
 ### Users who don't connect Jetpack
 
 These users won't receive push notifications - this is the same as the existing behaviour, which also requires a Jetpack connection.
 
-### Users who don't upgrade WooCommerce
+### Users who don't upgrade PooCommerce
 
 - Notifications for these users will be processed in the existing way - via Jetpack sync
-- Some users may have old and updated WooCommerce stores, meaning that they have tokens in both systems. We investigated avoiding duplicate notifications for these users here
+- Some users may have old and updated PooCommerce stores, meaning that they have tokens in both systems. We investigated avoiding duplicate notifications for these users here
 
 ### WordPress.com Notification Control Center preferences
 
-- These will still be respected for all WooCommerce notifications, as it is part of our duplicate notification avoidance strategy
+- These will still be respected for all PooCommerce notifications, as it is part of our duplicate notification avoidance strategy

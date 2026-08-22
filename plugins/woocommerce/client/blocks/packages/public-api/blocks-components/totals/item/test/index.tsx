@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { render, screen } from '@testing-library/react';
-import type { Currency } from '@woocommerce/types';
+import type { Currency } from '@poocommerce/types';
 
 /**
  * Internal dependencies

@@ -229,7 +229,7 @@ If an order action cannot be performed, an error response will be returned. This
 
 ```json
 {
-	"code": "woocommerce_rest_invalid_order",
+	"code": "poocommerce_rest_invalid_order",
 	"message": "Invalid order ID or key provided.",
 	"data": {
 		"status": 401

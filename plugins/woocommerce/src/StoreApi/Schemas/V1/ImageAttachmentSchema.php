@@ -1,5 +1,5 @@
 <?php
-namespace Automattic\WooCommerce\StoreApi\Schemas\V1;
+namespace Automattic\PooCommerce\StoreApi\Schemas\V1;
 
 /**
  * ImageAttachmentSchema class.
@@ -27,49 +27,49 @@ class ImageAttachmentSchema extends AbstractSchema {
 	public function get_properties() {
 		return [
 			'id'               => [
-				'description' => __( 'Image ID.', 'woocommerce' ),
+				'description' => __( 'Image ID.', 'poocommerce' ),
 				'type'        => 'integer',
 				'context'     => [ 'view', 'edit', 'embed' ],
 			],
 			'src'              => [
-				'description' => __( 'Full size image URL.', 'woocommerce' ),
+				'description' => __( 'Full size image URL.', 'poocommerce' ),
 				'type'        => 'string',
 				'format'      => 'uri',
 				'context'     => [ 'view', 'edit', 'embed' ],
 			],
 			'thumbnail'        => [
-				'description' => __( 'Thumbnail URL.', 'woocommerce' ),
+				'description' => __( 'Thumbnail URL.', 'poocommerce' ),
 				'type'        => 'string',
 				'format'      => 'uri',
 				'context'     => [ 'view', 'edit', 'embed' ],
 			],
 			'srcset'           => [
-				'description' => __( 'Full size image srcset for responsive images.', 'woocommerce' ),
+				'description' => __( 'Full size image srcset for responsive images.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => [ 'view', 'edit', 'embed' ],
 			],
 			'sizes'            => [
-				'description' => __( 'Full size image sizes for responsive images.', 'woocommerce' ),
+				'description' => __( 'Full size image sizes for responsive images.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => [ 'view', 'edit', 'embed' ],
 			],
 			'thumbnail_srcset' => [
-				'description' => __( 'Thumbnail srcset for responsive images.', 'woocommerce' ),
+				'description' => __( 'Thumbnail srcset for responsive images.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => [ 'view', 'edit', 'embed' ],
 			],
 			'thumbnail_sizes'  => [
-				'description' => __( 'Thumbnail sizes for responsive images.', 'woocommerce' ),
+				'description' => __( 'Thumbnail sizes for responsive images.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => [ 'view', 'edit', 'embed' ],
 			],
 			'name'             => [
-				'description' => __( 'Image name.', 'woocommerce' ),
+				'description' => __( 'Image name.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => [ 'view', 'edit', 'embed' ],
 			],
 			'alt'              => [
-				'description' => __( 'Image alternative text.', 'woocommerce' ),
+				'description' => __( 'Image alternative text.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => [ 'view', 'edit', 'embed' ],
 			],
@@ -77,7 +77,7 @@ class ImageAttachmentSchema extends AbstractSchema {
 	}
 
 	/**
-	 * Convert a WooCommerce product into an object suitable for the response.
+	 * Convert a PooCommerce product into an object suitable for the response.
 	 *
 	 * @param int $attachment_id Image attachment ID.
 	 * @return object|null
@@ -93,7 +93,7 @@ class ImageAttachmentSchema extends AbstractSchema {
 			return null;
 		}
 
-		$thumbnail = wp_get_attachment_image_src( $attachment_id, 'woocommerce_thumbnail' );
+		$thumbnail = wp_get_attachment_image_src( $attachment_id, 'poocommerce_thumbnail' );
 
 		return (object) [
 			'id'               => (int) $attachment_id,
@@ -101,8 +101,8 @@ class ImageAttachmentSchema extends AbstractSchema {
 			'thumbnail'        => current( $thumbnail ),
 			'srcset'           => (string) wp_get_attachment_image_srcset( $attachment_id, 'full' ),
 			'sizes'            => (string) wp_get_attachment_image_sizes( $attachment_id, 'full' ),
-			'thumbnail_srcset' => (string) wp_get_attachment_image_srcset( $attachment_id, 'woocommerce_thumbnail' ),
-			'thumbnail_sizes'  => (string) wp_get_attachment_image_sizes( $attachment_id, 'woocommerce_thumbnail' ),
+			'thumbnail_srcset' => (string) wp_get_attachment_image_srcset( $attachment_id, 'poocommerce_thumbnail' ),
+			'thumbnail_sizes'  => (string) wp_get_attachment_image_sizes( $attachment_id, 'poocommerce_thumbnail' ),
 			'name'             => get_the_title( $attachment_id ),
 			'alt'              => get_post_meta( $attachment_id, '_wp_attachment_image_alt', true ),
 		];

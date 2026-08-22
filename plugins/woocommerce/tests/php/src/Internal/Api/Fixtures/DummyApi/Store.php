@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Internal\Api\Fixtures\DummyApi;
+namespace Automattic\PooCommerce\Tests\Internal\Api\Fixtures\DummyApi;
 
-use Automattic\WooCommerce\Api\Attributes\Ignore;
-use Automattic\WooCommerce\Api\Pagination\Connection;
-use Automattic\WooCommerce\Api\Pagination\Edge;
-use Automattic\WooCommerce\Api\Pagination\PageInfo;
-use Automattic\WooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Enums\Color;
-use Automattic\WooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Enums\Priority;
-use Automattic\WooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Types\Gadget;
-use Automattic\WooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Types\Widget;
-use Automattic\WooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Types\WidgetReview;
+use Automattic\PooCommerce\Api\Attributes\Ignore;
+use Automattic\PooCommerce\Api\Pagination\Connection;
+use Automattic\PooCommerce\Api\Pagination\Edge;
+use Automattic\PooCommerce\Api\Pagination\PageInfo;
+use Automattic\PooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Enums\Color;
+use Automattic\PooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Enums\Priority;
+use Automattic\PooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Types\Gadget;
+use Automattic\PooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Types\Widget;
+use Automattic\PooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Types\WidgetReview;
 
 /**
  * In-memory fixture data backing the dummy queries / mutations.

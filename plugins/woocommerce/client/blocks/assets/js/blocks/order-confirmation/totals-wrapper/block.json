@@ -1,11 +1,11 @@
 {
-	"name": "woocommerce/order-confirmation-totals-wrapper",
+	"name": "poocommerce/order-confirmation-totals-wrapper",
 	"version": "1.0.0",
 	"title": "Order Totals Section",
 	"description": "Display the order details section.",
-	"category": "woocommerce",
+	"category": "poocommerce",
 	"keywords": [
-		"WooCommerce"
+		"PooCommerce"
 	],
 	"attributes": {
 		"heading": {
@@ -28,7 +28,7 @@
 			}
 		}
 	},
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"apiVersion": 3,
 	"$schema": "https://schemas.wp.org/trunk/block.json"
 }

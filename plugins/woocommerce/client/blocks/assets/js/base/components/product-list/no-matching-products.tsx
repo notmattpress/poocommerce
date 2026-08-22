@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { useInnerBlockLayoutContext } from '@woocommerce/shared-context';
+import { useInnerBlockLayoutContext } from '@poocommerce/shared-context';
 import { Icon, search } from '@wordpress/icons';
 
 /**
@@ -22,16 +22,16 @@ const NoMatchingProducts = ( {
 				size={ 100 }
 			/>
 			<strong className={ `${ parentClassName }__no-products-title` }>
-				{ __( 'No products found', 'woocommerce' ) }
+				{ __( 'No products found', 'poocommerce' ) }
 			</strong>
 			<p className={ `${ parentClassName }__no-products-description` }>
 				{ __(
 					'We were unable to find any results based on your search.',
-					'woocommerce'
+					'poocommerce'
 				) }
 			</p>
 			<button onClick={ resetCallback }>
-				{ __( 'Reset Search', 'woocommerce' ) }
+				{ __( 'Reset Search', 'poocommerce' ) }
 			</button>
 		</div>
 	);

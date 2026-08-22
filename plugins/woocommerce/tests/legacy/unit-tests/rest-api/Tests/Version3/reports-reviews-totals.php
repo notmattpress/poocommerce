@@ -2,7 +2,7 @@
 /**
  * Tests for the reports reviews totals REST API.
  *
- * @package WooCommerce\Tests\API
+ * @package PooCommerce\Tests\API
  * @since 3.5.0
  */
 
@@ -56,7 +56,7 @@ class WC_Tests_API_Reports_Reviews_Totals extends WC_REST_Unit_Test_Case {
 			$data[] = array(
 				'slug'  => 'rated_' . $i . '_out_of_5',
 				/* translators: %s: average rating */
-				'name'  => sprintf( __( 'Rated %s out of 5', 'woocommerce' ), $i ),
+				'name'  => sprintf( __( 'Rated %s out of 5', 'poocommerce' ), $i ),
 				'total' => (int) get_comments( $query_data ),
 			);
 		}
@@ -84,7 +84,7 @@ class WC_Tests_API_Reports_Reviews_Totals extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_product_review_schema() {
 		wp_set_current_user( $this->user );
-		$product    = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
+		$product    = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
 		$request    = new WP_REST_Request( 'OPTIONS', '/wc/v3/reports/reviews/totals' );
 		$response   = $this->server->dispatch( $request );
 		$data       = $response->get_data();

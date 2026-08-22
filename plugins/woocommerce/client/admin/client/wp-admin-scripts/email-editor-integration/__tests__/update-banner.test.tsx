@@ -110,7 +110,7 @@ describe( 'UpdateBanner', () => {
 		} );
 
 		expect(
-			screen.getByText( 'WooCommerce updated this template.' )
+			screen.getByText( 'PooCommerce updated this template.' )
 		).toBeInTheDocument();
 		// Expand toggle is hidden in the fallback variant.
 		expect(

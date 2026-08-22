@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Internal\Api;
+namespace Automattic\PooCommerce\Internal\Api;
 
-use Automattic\WooCommerce\Api\Infrastructure\Main;
-use Automattic\WooCommerce\Api\Infrastructure\ResolverHelpers;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\DocumentNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\Parser;
-use Automattic\WooCommerce\Vendor\GraphQL\Utils\AST;
+use Automattic\PooCommerce\Api\Infrastructure\Main;
+use Automattic\PooCommerce\Api\Infrastructure\ResolverHelpers;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\DocumentNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\Parser;
+use Automattic\PooCommerce\Vendor\GraphQL\Utils\AST;
 
 /**
  * Caches parsed GraphQL ASTs and implements the Apollo Automatic Persisted
@@ -195,7 +195,7 @@ class QueryCache {
 	private function parse( string $query ) {
 		try {
 			return Parser::parse( $query, array( 'noLocation' => true ) );
-		} catch ( \Automattic\WooCommerce\Vendor\GraphQL\Error\SyntaxError $e ) {
+		} catch ( \Automattic\PooCommerce\Vendor\GraphQL\Error\SyntaxError $e ) {
 			return $this->error_response( 'GraphQL syntax error: ' . $e->getMessage(), 'GRAPHQL_PARSE_ERROR' );
 		}
 	}
@@ -299,7 +299,7 @@ class QueryCache {
 		 *
 		 * @param string $dir Default cache directory under wp-uploads.
 		 */
-		$dir = (string) apply_filters( 'woocommerce_graphql_opcache_cache_dir', $default );
+		$dir = (string) apply_filters( 'poocommerce_graphql_opcache_cache_dir', $default );
 
 		// Reject stream wrappers (e.g. phar://, http://) to keep file_put_contents,
 		// rename, and include constrained to local filesystem paths.

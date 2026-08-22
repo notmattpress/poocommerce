@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Api\InputTypes\Products;
+namespace Automattic\PooCommerce\Api\InputTypes\Products;
 
-use Automattic\WooCommerce\Api\Attributes\Description;
-use Automattic\WooCommerce\Api\Enums\Products\ProductStatus;
-use Automattic\WooCommerce\Api\Enums\Products\ProductType;
-use Automattic\WooCommerce\Api\InputTypes\TracksProvidedFields;
+use Automattic\PooCommerce\Api\Attributes\Description;
+use Automattic\PooCommerce\Api\Enums\Products\ProductStatus;
+use Automattic\PooCommerce\Api\Enums\Products\ProductType;
+use Automattic\PooCommerce\Api\InputTypes\TracksProvidedFields;
 
 /**
  * Shared fields for product creation and update input types.

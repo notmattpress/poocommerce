@@ -2,10 +2,10 @@
 /**
  * Testing WC_Widget_Layered_Nav functionality.
  *
- * @package WooCommerce\Tests\Widgets
+ * @package PooCommerce\Tests\Widgets
  */
 
-use Automattic\WooCommerce\Enums\ProductStockStatus;
+use Automattic\PooCommerce\Enums\ProductStockStatus;
 
 /**
  * Class for testing WC_Widget_Layered_Nav functionality.

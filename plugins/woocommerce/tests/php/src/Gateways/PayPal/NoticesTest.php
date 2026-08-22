@@ -1,15 +1,15 @@
 <?php
 /**
- * Unit tests for Automattic\WooCommerce\Gateways\PayPal\Notices class.
+ * Unit tests for Automattic\PooCommerce\Gateways\PayPal\Notices class.
  *
- * @package WooCommerce\Tests\Gateways\PayPal
+ * @package PooCommerce\Tests\Gateways\PayPal
  */
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Gateways\PayPal;
+namespace Automattic\PooCommerce\Tests\Gateways\PayPal;
 
-use Automattic\WooCommerce\Gateways\PayPal\Notices;
+use Automattic\PooCommerce\Gateways\PayPal\Notices;
 
 /**
  * Class NoticesTest.
@@ -95,8 +95,8 @@ class NoticesTest extends \WC_Unit_Test_Case {
 		delete_user_meta( get_current_user_id(), 'dismissed_paypal_unsupported_currency_notice' );
 
 		// Reset options.
-		delete_option( 'woocommerce_paypal_settings' );
-		delete_option( 'woocommerce_paypal_account_restricted_status' );
+		delete_option( 'poocommerce_paypal_settings' );
+		delete_option( 'poocommerce_paypal_account_restricted_status' );
 
 		// Reset the gateway singleton to null.
 		\WC_Gateway_Paypal::set_instance( null );
@@ -162,7 +162,7 @@ class NoticesTest extends \WC_Unit_Test_Case {
 		$output = ob_get_clean();
 
 		if ( $should_display ) {
-			$this->assertStringContainsString( 'WooCommerce has upgraded your PayPal integration from PayPal Standard to PayPal Payments (PPCP), for a more reliable and modern checkout experience.', $output );
+			$this->assertStringContainsString( 'PooCommerce has upgraded your PayPal integration from PayPal Standard to PayPal Payments (PPCP), for a more reliable and modern checkout experience.', $output );
 		} else {
 			$this->assertEmpty( $output );
 		}
@@ -178,7 +178,7 @@ class NoticesTest extends \WC_Unit_Test_Case {
 		$notices->add_paypal_notices();
 		$output = ob_get_clean();
 
-		$this->assertStringContainsString( 'WooCommerce has upgraded your PayPal integration from PayPal Standard to PayPal Payments (PPCP), for a more reliable and modern checkout experience.', $output );
+		$this->assertStringContainsString( 'PooCommerce has upgraded your PayPal integration from PayPal Standard to PayPal Payments (PPCP), for a more reliable and modern checkout experience.', $output );
 		$this->assertStringContainsString( 'notice notice-warning', $output );
 		$this->assertStringContainsString( 'wc-hide-notice=paypal_migration_completed', $output );
 	}
@@ -202,7 +202,7 @@ class NoticesTest extends \WC_Unit_Test_Case {
 	 * Test that account restricted notice is displayed when flag is set.
 	 */
 	public function test_account_restricted_notice_displayed_when_flag_set() {
-		update_option( 'woocommerce_paypal_account_restricted_status', 'yes' );
+		update_option( 'poocommerce_paypal_account_restricted_status', 'yes' );
 		$this->mock_gateway_available();
 
 		$notices = new Notices();
@@ -236,7 +236,7 @@ class NoticesTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_account_restricted_notice_not_displayed_when_dismissed() {
 		// Set account restriction flag.
-		update_option( 'woocommerce_paypal_account_restricted_status', 'yes' );
+		update_option( 'poocommerce_paypal_account_restricted_status', 'yes' );
 		$this->create_mock_gateway();
 		update_user_meta( $this->admin_user_id, 'dismissed_paypal_account_restricted_notice', true );
 
@@ -283,9 +283,9 @@ class NoticesTest extends \WC_Unit_Test_Case {
 	 * @param bool   $should_display Whether the notice should display.
 	 */
 	public function test_unsupported_currency_notice_respects_currency( $currency, $should_display ) {
-		$store_currency = get_option( 'woocommerce_currency' );
+		$store_currency = get_option( 'poocommerce_currency' );
 		// Set the currency.
-		update_option( 'woocommerce_currency', $currency );
+		update_option( 'poocommerce_currency', $currency );
 
 		$notices = new Notices();
 
@@ -301,16 +301,16 @@ class NoticesTest extends \WC_Unit_Test_Case {
 		}
 
 		// Reset currency.
-		update_option( 'woocommerce_currency', $store_currency );
+		update_option( 'poocommerce_currency', $store_currency );
 	}
 
 	/**
 	 * Test that unsupported currency notice is not displayed when dismissed.
 	 */
 	public function test_unsupported_currency_notice_not_displayed_when_dismissed() {
-		$store_currency = get_option( 'woocommerce_currency' );
+		$store_currency = get_option( 'poocommerce_currency' );
 		// Set the currency.
-		update_option( 'woocommerce_currency', 'TRY' );
+		update_option( 'poocommerce_currency', 'TRY' );
 		update_user_meta( $this->admin_user_id, 'dismissed_paypal_unsupported_currency_notice', true );
 
 		$notices = new Notices();
@@ -322,7 +322,7 @@ class NoticesTest extends \WC_Unit_Test_Case {
 		$this->assertStringNotContainsString( 'PayPal Standard does not support your store currency', $output );
 
 		// Reset currency.
-		update_option( 'woocommerce_currency', $store_currency );
+		update_option( 'poocommerce_currency', $store_currency );
 	}
 
 	/**
@@ -330,12 +330,12 @@ class NoticesTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_set_account_restriction_flag() {
 		// Ensure the flag is not set initially.
-		update_option( 'woocommerce_paypal_account_restricted_status', 'no' );
+		update_option( 'poocommerce_paypal_account_restricted_status', 'no' );
 
 		Notices::set_account_restriction_flag();
 
 		// Verify the flag was set.
-		$this->assertEquals( 'yes', get_option( 'woocommerce_paypal_account_restricted_status', 'no' ) );
+		$this->assertEquals( 'yes', get_option( 'poocommerce_paypal_account_restricted_status', 'no' ) );
 	}
 
 	/**
@@ -343,17 +343,17 @@ class NoticesTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_set_account_restriction_flag_when_already_set() {
 		// Set the flag initially.
-		update_option( 'woocommerce_paypal_account_restricted_status', 'yes' );
+		update_option( 'poocommerce_paypal_account_restricted_status', 'yes' );
 
 		// Track calls to update_option for this specific option.
 		$update_calls  = 0;
 		$track_updates = function ( $value, $old_value, $option ) use ( &$update_calls ) {
-			if ( 'woocommerce_paypal_account_restricted_status' === $option ) {
+			if ( 'poocommerce_paypal_account_restricted_status' === $option ) {
 				++$update_calls;
 			}
 			return $value;
 		};
-		add_filter( 'pre_update_option_woocommerce_paypal_account_restricted_status', $track_updates, 10, 3 );
+		add_filter( 'pre_update_option_poocommerce_paypal_account_restricted_status', $track_updates, 10, 3 );
 
 		// Call set again - should not change the value.
 		Notices::set_account_restriction_flag();
@@ -362,10 +362,10 @@ class NoticesTest extends \WC_Unit_Test_Case {
 		$this->assertEquals( 0, $update_calls, 'update_option should not be called when flag is already set' );
 
 		// Verify the flag is still 'yes'.
-		$this->assertEquals( 'yes', get_option( 'woocommerce_paypal_account_restricted_status', 'no' ) );
+		$this->assertEquals( 'yes', get_option( 'poocommerce_paypal_account_restricted_status', 'no' ) );
 
 		// Clean up.
-		remove_filter( 'pre_update_option_woocommerce_paypal_account_restricted_status', $track_updates );
+		remove_filter( 'pre_update_option_poocommerce_paypal_account_restricted_status', $track_updates );
 	}
 
 	/**
@@ -373,12 +373,12 @@ class NoticesTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_clear_account_restriction_flag() {
 		// Set the flag initially.
-		update_option( 'woocommerce_paypal_account_restricted_status', 'yes' );
+		update_option( 'poocommerce_paypal_account_restricted_status', 'yes' );
 
 		Notices::clear_account_restriction_flag();
 
 		// Verify the flag was cleared.
-		$this->assertEquals( 'no', get_option( 'woocommerce_paypal_account_restricted_status', 'no' ) );
+		$this->assertEquals( 'no', get_option( 'poocommerce_paypal_account_restricted_status', 'no' ) );
 	}
 
 	/**
@@ -386,17 +386,17 @@ class NoticesTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_clear_account_restriction_flag_when_already_cleared() {
 		// Ensure the flag is not set initially.
-		update_option( 'woocommerce_paypal_account_restricted_status', 'no' );
+		update_option( 'poocommerce_paypal_account_restricted_status', 'no' );
 
 		// Track calls to update_option for this specific option.
 		$update_calls  = 0;
 		$track_updates = function ( $value, $old_value, $option ) use ( &$update_calls ) {
-			if ( 'woocommerce_paypal_account_restricted_status' === $option ) {
+			if ( 'poocommerce_paypal_account_restricted_status' === $option ) {
 				++$update_calls;
 			}
 			return $value;
 		};
-		add_filter( 'pre_update_option_woocommerce_paypal_account_restricted_status', $track_updates, 10, 3 );
+		add_filter( 'pre_update_option_poocommerce_paypal_account_restricted_status', $track_updates, 10, 3 );
 
 		// Call clear again - should not change the value.
 		Notices::clear_account_restriction_flag();
@@ -405,10 +405,10 @@ class NoticesTest extends \WC_Unit_Test_Case {
 		$this->assertEquals( 0, $update_calls, 'update_option should not be called when flag is already cleared' );
 
 		// Verify the flag is still 'no'.
-		$this->assertEquals( 'no', get_option( 'woocommerce_paypal_account_restricted_status', 'no' ) );
+		$this->assertEquals( 'no', get_option( 'poocommerce_paypal_account_restricted_status', 'no' ) );
 
 		// Clean up.
-		remove_filter( 'pre_update_option_woocommerce_paypal_account_restricted_status', $track_updates );
+		remove_filter( 'pre_update_option_poocommerce_paypal_account_restricted_status', $track_updates );
 	}
 
 	/**
@@ -452,7 +452,7 @@ class NoticesTest extends \WC_Unit_Test_Case {
 		$this->mock_gateway_available();
 
 		// Mock the screen.
-		set_current_screen( 'woocommerce_page_wc-settings' );
+		set_current_screen( 'poocommerce_page_wc-settings' );
 		global $current_tab, $current_section;
 		$current_tab     = 'checkout';
 		$current_section = '';
@@ -474,7 +474,7 @@ class NoticesTest extends \WC_Unit_Test_Case {
 		$this->mock_gateway_available();
 
 		// Mock the screen with wrong tab.
-		set_current_screen( 'woocommerce_page_wc-settings' );
+		set_current_screen( 'poocommerce_page_wc-settings' );
 		global $current_tab, $current_section;
 		$current_tab     = 'general';
 		$current_section = '';
@@ -492,11 +492,11 @@ class NoticesTest extends \WC_Unit_Test_Case {
 	 * Test that multiple notices can be displayed simultaneously.
 	 */
 	public function test_multiple_notices_displayed_simultaneously() {
-		update_option( 'woocommerce_paypal_account_restricted_status', 'yes' );
+		update_option( 'poocommerce_paypal_account_restricted_status', 'yes' );
 		$this->mock_gateway_available();
 
-		$store_currency = get_option( 'woocommerce_currency' );
-		update_option( 'woocommerce_currency', 'TRY' );
+		$store_currency = get_option( 'poocommerce_currency' );
+		update_option( 'poocommerce_currency', 'TRY' );
 
 		$notices = new Notices();
 
@@ -512,7 +512,7 @@ class NoticesTest extends \WC_Unit_Test_Case {
 		$this->assertStringContainsString( 'PayPal Standard does not support your store currency', $output );
 
 		// Reset currency.
-		update_option( 'woocommerce_currency', $store_currency );
+		update_option( 'poocommerce_currency', $store_currency );
 	}
 
 	/**
@@ -520,7 +520,7 @@ class NoticesTest extends \WC_Unit_Test_Case {
 	 */
 	private function mock_gateway_available() {
 		update_option(
-			'woocommerce_paypal_settings',
+			'poocommerce_paypal_settings',
 			array(
 				'enabled'      => 'yes',
 				'_should_load' => 'yes',
@@ -533,7 +533,7 @@ class NoticesTest extends \WC_Unit_Test_Case {
 	 */
 	private function mock_gateway_not_available() {
 		update_option(
-			'woocommerce_paypal_settings',
+			'poocommerce_paypal_settings',
 			array(
 				'enabled'      => 'no',
 				'_should_load' => 'no',

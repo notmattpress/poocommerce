@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Api\Infrastructure\Schema;
+namespace Automattic\PooCommerce\Api\Infrastructure\Schema;
 
 /**
  * Stable subclass of the underlying GraphQL engine's ObjectType, used by
@@ -15,11 +15,11 @@ namespace Automattic\WooCommerce\Api\Infrastructure\Schema;
  *
  * The wrapper also recognises a `metadata` key — an associative array
  * mapping metadata `name` => scalar `value` — that ApiBuilder emits for
- * types carrying {@see \Automattic\WooCommerce\Api\Attributes\Metadata}
+ * types carrying {@see \Automattic\PooCommerce\Api\Attributes\Metadata}
  * attributes. The engine ignores unknown config keys, so this rides through
  * untouched and is surfaced by {@see self::get_metadata()}.
  */
-class ObjectType extends \Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\ObjectType {
+class ObjectType extends \Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\ObjectType {
 	/**
 	 * Type-level metadata entries declared in the config, keyed by name.
 	 *

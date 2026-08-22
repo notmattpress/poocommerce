@@ -1,30 +1,30 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\GraphQL\Utils;
+namespace Automattic\PooCommerce\Vendor\GraphQL\Utils;
 
-use Automattic\WooCommerce\Vendor\GraphQL\Error\InvariantViolation;
-use Automattic\WooCommerce\Vendor\GraphQL\Error\SyntaxError;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\Parser;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\CustomScalarType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\Directive;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\EnumType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\FieldDefinition;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\InputObjectField;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\InputObjectType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\InputType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\InterfaceType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\ListOfType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\NamedType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\NonNull;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\ObjectType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\OutputType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\ScalarType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\Type;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\UnionType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Introspection;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Schema;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\SchemaConfig;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\TypeKind;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\InvariantViolation;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\SyntaxError;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\Parser;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\CustomScalarType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\Directive;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\EnumType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\FieldDefinition;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\InputObjectField;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\InputObjectType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\InputType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\InterfaceType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\ListOfType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\NamedType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\NonNull;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\ObjectType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\OutputType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\ScalarType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\Type;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\UnionType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Introspection;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Schema;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\SchemaConfig;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\TypeKind;
 
 /**
  * @phpstan-import-type UnnamedFieldDefinitionConfig from FieldDefinition
@@ -35,13 +35,13 @@ use Automattic\WooCommerce\Vendor\GraphQL\Type\TypeKind;
  * }
  *
  *    - assumeValid:
- *          When building a schema from a Automattic\WooCommerce\Vendor\GraphQL service's introspection result, it
+ *          When building a schema from a Automattic\PooCommerce\Vendor\GraphQL service's introspection result, it
  *          might be safe to assume the schema is valid. Set to true to assume the
  *          produced schema is valid.
  *
  *          Default: false
  *
- * @see \Automattic\WooCommerce\Vendor\GraphQL\Tests\Utils\BuildClientSchemaTest
+ * @see \Automattic\PooCommerce\Vendor\GraphQL\Tests\Utils\BuildClientSchemaTest
  */
 class BuildClientSchema
 {
@@ -74,7 +74,7 @@ class BuildClientSchema
      * Build a schema for use by client tools.
      *
      * Given the result of a client running the introspection query, creates and
-     * returns a \Automattic\WooCommerce\Vendor\GraphQL\Type\Schema instance which can be then used with all graphql-php
+     * returns a \Automattic\PooCommerce\Vendor\GraphQL\Type\Schema instance which can be then used with all graphql-php
      * tools, but cannot be used to execute a query, as introspection does not
      * represent the "resolver", "parse" or "serialize" functions or any other
      * server-internal mechanisms.
@@ -336,7 +336,7 @@ class BuildClientSchema
      */
     private function buildImplementationsList(array $implementingIntrospection): array
     {
-        // TODO: Temporary workaround until Automattic\WooCommerce\Vendor\GraphQL ecosystem will fully support 'interfaces' on interface types.
+        // TODO: Temporary workaround until Automattic\PooCommerce\Vendor\GraphQL ecosystem will fully support 'interfaces' on interface types.
         if (
             array_key_exists('interfaces', $implementingIntrospection)
             && $implementingIntrospection['interfaces'] === null

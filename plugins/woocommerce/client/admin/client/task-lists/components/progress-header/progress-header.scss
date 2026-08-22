@@ -1,6 +1,6 @@
 $progress-complete-color: var(--wp-admin-theme-color);
 
-.woocommerce-task-progress-header {
+.poocommerce-task-progress-header {
 	position: relative;
 	min-height: 28px;
 
@@ -21,7 +21,7 @@ $progress-complete-color: var(--wp-admin-theme-color);
 		padding-right: $gap-larger;
 	}
 
-	.woocommerce-task-progress-header__progress-bar {
+	.poocommerce-task-progress-header__progress-bar {
 		-webkit-appearance: none;
 		-moz-appearance: none;
 		appearance: none;
@@ -54,19 +54,19 @@ $progress-complete-color: var(--wp-admin-theme-color);
 		}
 	}
 
-	.woocommerce-card__menu {
+	.poocommerce-card__menu {
 		position: absolute;
 		right: 0;
 		// Align the 24px icon with the paragraph while preserving a 36px focus target.
 		top: -6px;
 		width: $gap-larger;
 
-		.woocommerce-ellipsis-menu,
-		.woocommerce-ellipsis-menu__toggle {
+		.poocommerce-ellipsis-menu,
+		.poocommerce-ellipsis-menu__toggle {
 			height: $gap-larger;
 		}
 
-		.woocommerce-ellipsis-menu__toggle {
+		.poocommerce-ellipsis-menu__toggle {
 			align-items: center;
 			border-radius: 0;
 			display: inline-flex;
@@ -83,7 +83,7 @@ $progress-complete-color: var(--wp-admin-theme-color);
 	}
 
 	// Styles for the activity/setup panel.
-	@at-root .woocommerce-setup-panel & {
+	@at-root .poocommerce-setup-panel & {
 		padding: $gap;
 
 		h1 {
@@ -95,7 +95,7 @@ $progress-complete-color: var(--wp-admin-theme-color);
 			font-size: 16px;
 		}
 
-		.woocommerce-card__menu {
+		.poocommerce-card__menu {
 			top: 17px;
 		}
 	}
@@ -106,7 +106,7 @@ $progress-complete-color: var(--wp-admin-theme-color);
 	}
 }
 
-h1.woocommerce-task-progress-header__title {
+h1.poocommerce-task-progress-header__title {
 	padding-top: 4px;
 
 	@include breakpoint( "<782px" ) {

@@ -5,8 +5,8 @@ import { __, sprintf } from '@wordpress/i18n';
 import { addQueryArgs } from '@wordpress/url';
 import apiFetch from '@wordpress/api-fetch';
 import { identity } from 'lodash';
-import { getIdsFromQuery } from '@woocommerce/navigation';
-import { NAMESPACE } from '@woocommerce/data';
+import { getIdsFromQuery } from '@poocommerce/navigation';
+import { NAMESPACE } from '@poocommerce/data';
 
 /**
  * Internal dependencies
@@ -114,7 +114,7 @@ export function getVariationName( { attributes, name } ) {
 					attributeName.slice( 1 );
 				option = sprintf(
 					// translators: %s: the attribute name.
-					__( 'Any %s', 'woocommerce' ),
+					__( 'Any %s', 'poocommerce' ),
 					attributeName
 				);
 			}

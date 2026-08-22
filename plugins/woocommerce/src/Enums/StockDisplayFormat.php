@@ -2,10 +2,10 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Enums;
+namespace Automattic\PooCommerce\Enums;
 
 /**
- * Enum class for the possible values of the 'woocommerce_stock_format' option.
+ * Enum class for the possible values of the 'poocommerce_stock_format' option.
  *
  * @since 11.1.0
  */

@@ -5,9 +5,9 @@ import { __ } from '@wordpress/i18n';
 import { useSelect, useDispatch } from '@wordpress/data';
 import { Children, useState } from '@wordpress/element';
 import { CardFooter } from '@wordpress/components';
-import { Text } from '@woocommerce/experimental';
-import { pluginsStore, PluginNames } from '@woocommerce/data';
-import { getAdminLink } from '@woocommerce/settings';
+import { Text } from '@poocommerce/experimental';
+import { pluginsStore, PluginNames } from '@poocommerce/data';
+import { getAdminLink } from '@poocommerce/settings';
 
 /**
  * Internal dependencies
@@ -66,20 +66,20 @@ export const AbandonedCartRecoveryRecommendationsList = ( {
 	children: React.ReactNode;
 } ) => {
 	const { isDismissed, onDismiss } = useOptionDismiss(
-		'woocommerce_abandoned_cart_recovery_recommendations_hidden'
+		'poocommerce_abandoned_cart_recovery_recommendations_hidden'
 	);
 
 	return (
 		<DismissableList
-			className="woocommerce-recommended-abandoned-cart-recovery-extensions"
+			className="poocommerce-recommended-abandoned-cart-recovery-extensions"
 			isDismissed={ isDismissed }
 		>
 			<DismissableListHeading onDismiss={ onDismiss }>
 				<Text variant="title.small" as="p" size="20" lineHeight="28px">
-					{ __( 'Recover more abandoned carts', 'woocommerce' ) }
+					{ __( 'Recover more abandoned carts', 'poocommerce' ) }
 				</Text>
 				<Text
-					className="woocommerce-recommended-abandoned-cart-recovery__header-heading"
+					className="poocommerce-recommended-abandoned-cart-recovery__header-heading"
 					variant="caption"
 					as="p"
 					size="12"
@@ -87,21 +87,21 @@ export const AbandonedCartRecoveryRecommendationsList = ( {
 				>
 					{ __(
 						'Add multi-step recovery flows, customer segmentation, and ongoing email marketing to win back more shoppers.',
-						'woocommerce'
+						'poocommerce'
 					) }
 				</Text>
 			</DismissableListHeading>
-			<ul className="woocommerce-list">
+			<ul className="poocommerce-list">
 				{ Children.map( children, ( item ) => (
-					<li className="woocommerce-list__item">{ item }</li>
+					<li className="poocommerce-list__item">{ item }</li>
 				) ) }
 			</ul>
 			<CardFooter>
 				<TrackedLink
 					message={ __(
 						// translators: {{Link}} is a placeholder for a html element.
-						'Visit {{Link}}the WooCommerce Marketplace{{/Link}} to find more email marketing and customer engagement solutions.',
-						'woocommerce'
+						'Visit {{Link}}the PooCommerce Marketplace{{/Link}} to find more email marketing and customer engagement solutions.',
+						'poocommerce'
 					) }
 					targetUrl={ getAdminLink(
 						'admin.php?page=wc-admin&tab=extensions&path=/extensions&category=marketing'

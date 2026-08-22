@@ -2,7 +2,7 @@
 /**
  * REST API: WC_Analytics_Tracking_Proxy class
  *
- * @package automattic/woocommerce-analytics
+ * @package automattic/poocommerce-analytics
  */
 
 namespace Automattic\Woocommerce_Analytics;
@@ -21,7 +21,7 @@ class WC_Analytics_Tracking_Proxy extends \WC_REST_Controller {
 	 *
 	 * @var string
 	 */
-	protected $namespace = 'woocommerce-analytics/v1';
+	protected $namespace = 'poocommerce-analytics/v1';
 
 	/**
 	 * Route base.

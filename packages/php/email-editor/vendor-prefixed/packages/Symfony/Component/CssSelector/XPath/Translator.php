@@ -9,14 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Automattic\WooCommerce\EmailEditorVendor\Symfony\Component\CssSelector\XPath;
+namespace Automattic\PooCommerce\EmailEditorVendor\Symfony\Component\CssSelector\XPath;
 
-use Automattic\WooCommerce\EmailEditorVendor\Symfony\Component\CssSelector\Exception\ExpressionErrorException;
-use Automattic\WooCommerce\EmailEditorVendor\Symfony\Component\CssSelector\Node\FunctionNode;
-use Automattic\WooCommerce\EmailEditorVendor\Symfony\Component\CssSelector\Node\NodeInterface;
-use Automattic\WooCommerce\EmailEditorVendor\Symfony\Component\CssSelector\Node\SelectorNode;
-use Automattic\WooCommerce\EmailEditorVendor\Symfony\Component\CssSelector\Parser\Parser;
-use Automattic\WooCommerce\EmailEditorVendor\Symfony\Component\CssSelector\Parser\ParserInterface;
+use Automattic\PooCommerce\EmailEditorVendor\Symfony\Component\CssSelector\Exception\ExpressionErrorException;
+use Automattic\PooCommerce\EmailEditorVendor\Symfony\Component\CssSelector\Node\FunctionNode;
+use Automattic\PooCommerce\EmailEditorVendor\Symfony\Component\CssSelector\Node\NodeInterface;
+use Automattic\PooCommerce\EmailEditorVendor\Symfony\Component\CssSelector\Node\SelectorNode;
+use Automattic\PooCommerce\EmailEditorVendor\Symfony\Component\CssSelector\Parser\Parser;
+use Automattic\PooCommerce\EmailEditorVendor\Symfony\Component\CssSelector\Parser\ParserInterface;
 
 /**
  * XPath expression translator interface.

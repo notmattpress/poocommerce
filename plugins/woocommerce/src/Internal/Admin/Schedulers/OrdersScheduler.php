@@ -3,20 +3,20 @@
  * Order syncing related functions and actions.
  */
 
-namespace Automattic\WooCommerce\Internal\Admin\Schedulers;
+namespace Automattic\PooCommerce\Internal\Admin\Schedulers;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\API\Reports\Cache as ReportsCache;
-use Automattic\WooCommerce\Admin\API\Reports\Coupons\DataStore as CouponsDataStore;
-use Automattic\WooCommerce\Admin\API\Reports\Customers\DataStore as CustomersDataStore;
-use Automattic\WooCommerce\Admin\API\Reports\Orders\DataStore as OrderDataStore;
-use Automattic\WooCommerce\Admin\API\Reports\Orders\Stats\DataStore as OrdersStatsDataStore;
-use Automattic\WooCommerce\Admin\API\Reports\Products\DataStore as ProductsDataStore;
-use Automattic\WooCommerce\Admin\API\Reports\Taxes\DataStore as TaxesDataStore;
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Admin\API\Reports\Cache as ReportsCache;
+use Automattic\PooCommerce\Admin\API\Reports\Coupons\DataStore as CouponsDataStore;
+use Automattic\PooCommerce\Admin\API\Reports\Customers\DataStore as CustomersDataStore;
+use Automattic\PooCommerce\Admin\API\Reports\Orders\DataStore as OrderDataStore;
+use Automattic\PooCommerce\Admin\API\Reports\Orders\Stats\DataStore as OrdersStatsDataStore;
+use Automattic\PooCommerce\Admin\API\Reports\Products\DataStore as ProductsDataStore;
+use Automattic\PooCommerce\Admin\API\Reports\Taxes\DataStore as TaxesDataStore;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 
 /**
  * OrdersScheduler Class.
@@ -40,7 +40,7 @@ class OrdersScheduler extends ImportScheduler {
 	 *
 	 * @var string
 	 */
-	const LAST_PROCESSED_ORDER_DATE_OPTION = 'woocommerce_admin_scheduler_last_processed_order_modified_date';
+	const LAST_PROCESSED_ORDER_DATE_OPTION = 'poocommerce_admin_scheduler_last_processed_order_modified_date';
 
 	/**
 	 * Option name for storing the last processed order ID.
@@ -51,14 +51,14 @@ class OrdersScheduler extends ImportScheduler {
 	 *
 	 * @var string
 	 */
-	const LAST_PROCESSED_ORDER_ID_OPTION = 'woocommerce_admin_scheduler_last_processed_order_id';
+	const LAST_PROCESSED_ORDER_ID_OPTION = 'poocommerce_admin_scheduler_last_processed_order_id';
 
 	/**
 	 * Option name for storing whether to enable scheduled order import.
 	 *
 	 * @var string
 	 */
-	const SCHEDULED_IMPORT_OPTION = 'woocommerce_analytics_scheduled_import';
+	const SCHEDULED_IMPORT_OPTION = 'poocommerce_analytics_scheduled_import';
 
 	/**
 	 * Legacy option name before the rename in 10.5.0.
@@ -68,7 +68,7 @@ class OrdersScheduler extends ImportScheduler {
 	 *
 	 * @var string
 	 */
-	const LEGACY_IMMEDIATE_IMPORT_OPTION = 'woocommerce_analytics_immediate_import';
+	const LEGACY_IMMEDIATE_IMPORT_OPTION = 'poocommerce_analytics_immediate_import';
 
 	/**
 	 * Default value for the scheduled import option.
@@ -104,7 +104,7 @@ class OrdersScheduler extends ImportScheduler {
 	 *
 	 * @var string
 	 */
-	const FAILED_ORDER_IMPORTS_OPTION = 'woocommerce_admin_analytics_failed_order_imports';
+	const FAILED_ORDER_IMPORTS_OPTION = 'poocommerce_admin_analytics_failed_order_imports';
 
 	/**
 	 * Maximum number of failed order IDs to store.
@@ -120,23 +120,23 @@ class OrdersScheduler extends ImportScheduler {
 	 */
 	public static function init() {
 		// Activate WC_Order extension.
-		\Automattic\WooCommerce\Admin\Overrides\Order::add_filters();
-		\Automattic\WooCommerce\Admin\Overrides\OrderRefund::add_filters();
+		\Automattic\PooCommerce\Admin\Overrides\Order::add_filters();
+		\Automattic\PooCommerce\Admin\Overrides\OrderRefund::add_filters();
 
 		if ( self::is_scheduled_import_enabled() ) {
 			// Schedule recurring batch processor.
 			add_action( 'action_scheduler_ensure_recurring_actions', array( __CLASS__, 'schedule_recurring_batch_processor' ) );
 		} else {
 			// Schedule import immediately on order create/update/delete.
-			add_action( 'woocommerce_update_order', array( __CLASS__, 'possibly_schedule_import' ) );
-			add_filter( 'woocommerce_create_order', array( __CLASS__, 'possibly_schedule_import' ) );
-			add_action( 'woocommerce_refund_created', array( __CLASS__, 'possibly_schedule_import' ) );
-			add_action( 'woocommerce_schedule_import', array( __CLASS__, 'possibly_schedule_import' ) );
+			add_action( 'poocommerce_update_order', array( __CLASS__, 'possibly_schedule_import' ) );
+			add_filter( 'poocommerce_create_order', array( __CLASS__, 'possibly_schedule_import' ) );
+			add_action( 'poocommerce_refund_created', array( __CLASS__, 'possibly_schedule_import' ) );
+			add_action( 'poocommerce_schedule_import', array( __CLASS__, 'possibly_schedule_import' ) );
 
-			// Trash and untrash bypass woocommerce_update_order. CPT emits both the Woo
+			// Trash and untrash bypass poocommerce_update_order. CPT emits both the Woo
 			// and the post hooks for one operation, so each handler takes a single store.
-			add_action( 'woocommerce_trash_order', array( __CLASS__, 'maybe_schedule_import_on_trash' ) );
-			add_action( 'woocommerce_order_status_changed', array( __CLASS__, 'maybe_schedule_import_on_untrash' ), 10, 2 );
+			add_action( 'poocommerce_trash_order', array( __CLASS__, 'maybe_schedule_import_on_trash' ) );
+			add_action( 'poocommerce_order_status_changed', array( __CLASS__, 'maybe_schedule_import_on_untrash' ), 10, 2 );
 			add_action( 'trashed_post', array( __CLASS__, 'maybe_schedule_import_on_post_trash_change' ) );
 			add_action( 'untrashed_post', array( __CLASS__, 'maybe_schedule_import_on_post_trash_change' ) );
 		}
@@ -163,7 +163,7 @@ class OrdersScheduler extends ImportScheduler {
 	 */
 	public static function get_dependencies() {
 		return array(
-			'import_batch_init' => \Automattic\WooCommerce\Internal\Admin\Schedulers\CustomersScheduler::get_action( 'import_batch_init' ),
+			'import_batch_init' => \Automattic\PooCommerce\Internal\Admin\Schedulers\CustomersScheduler::get_action( 'import_batch_init' ),
 		);
 	}
 
@@ -354,7 +354,7 @@ AND status NOT IN ( 'wc-auto-draft', 'trash', 'auto-draft' )
 			return $order_id;
 		}
 
-		if ( ! OrderUtil::is_order( $order_id, array( 'shop_order' ) ) && 'woocommerce_refund_created' !== current_filter() && 'woocommerce_schedule_import' !== current_filter() ) {
+		if ( ! OrderUtil::is_order( $order_id, array( 'shop_order' ) ) && 'poocommerce_refund_created' !== current_filter() && 'poocommerce_schedule_import' !== current_filter() ) {
 			return $order_id;
 		}
 
@@ -435,7 +435,7 @@ AND status NOT IN ( 'wc-auto-draft', 'trash', 'auto-draft' )
 		 * @since 10.3.0
 		 * @param int $order_id Order or refund ID.
 		 */
-		do_action( 'woocommerce_order_scheduler_after_import_order', $order_id );
+		do_action( 'poocommerce_order_scheduler_after_import_order', $order_id );
 	}
 
 	/**
@@ -489,10 +489,10 @@ AND status NOT IN ( 'wc-auto-draft', 'trash', 'auto-draft' )
 	}
 
 	/**
-	 * Driven off the status transition rather than woocommerce_untrash_order, which
+	 * Driven off the status transition rather than poocommerce_untrash_order, which
 	 * fires before the restored status is saved — so an import running synchronously
 	 * would record wc-trash, and nothing corrects it because the data store suppresses
-	 * woocommerce_update_order for trash transitions.
+	 * poocommerce_update_order for trash transitions.
 	 *
 	 * CPT reaches this via its own save, so it is handled by untrashed_post instead.
 	 *
@@ -724,7 +724,7 @@ AND status NOT IN ( 'wc-auto-draft', 'trash', 'auto-draft' )
 		 * @since 10.4.0
 		 * @param int $interval The import interval in seconds. Default is 12 hours.
 		 */
-		return apply_filters( 'woocommerce_analytics_import_interval', 12 * HOUR_IN_SECONDS );
+		return apply_filters( 'poocommerce_analytics_import_interval', 12 * HOUR_IN_SECONDS );
 	}
 
 	/**
@@ -865,7 +865,7 @@ AND status NOT IN ( 'wc-auto-draft', 'trash', 'auto-draft' )
 		 *
 		 * @since 10.7.0
 		 */
-		return apply_filters( 'woocommerce_analytics_is_test_order', $is_test, $check_order );
+		return apply_filters( 'poocommerce_analytics_is_test_order', $is_test, $check_order );
 	}
 
 	/**

@@ -1,15 +1,15 @@
 <?php
 /**
- * WooCommerce Admin Unsecured Files Note.
+ * PooCommerce Admin Unsecured Files Note.
  *
  * Adds a warning about potentially unsecured files.
  */
 
-namespace Automattic\WooCommerce\Internal\Admin\Notes;
+namespace Automattic\PooCommerce\Internal\Admin\Notes;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\Notes\Note;
+use Automattic\PooCommerce\Admin\Notes\Note;
 
 if ( ! class_exists( Note::class ) ) {
 	class_alias( WC_Admin_Note::class, Note::class );
@@ -32,29 +32,29 @@ class UnsecuredReportFiles {
 	 */
 	public static function get_note() {
 		$note = new Note();
-		$note->set_title( __( 'Potentially unsecured files were found in your uploads directory', 'woocommerce' ) );
+		$note->set_title( __( 'Potentially unsecured files were found in your uploads directory', 'poocommerce' ) );
 		$note->set_content(
 			sprintf(
 				/* translators: 1: opening analytics docs link tag. 2: closing link tag */
-				__( 'Files that may contain %1$sstore analytics%2$s reports were found in your uploads directory - we recommend assessing and deleting any such files.', 'woocommerce' ),
-				'<a href="https://woocommerce.com/document/woocommerce-analytics/" target="_blank">',
+				__( 'Files that may contain %1$sstore analytics%2$s reports were found in your uploads directory - we recommend assessing and deleting any such files.', 'poocommerce' ),
+				'<a href="https://poocommerce.com/document/poocommerce-analytics/" target="_blank">',
 				'</a>'
 			)
 		);
 		$note->set_content_data( (object) array() );
 		$note->set_type( Note::E_WC_ADMIN_NOTE_ERROR );
 		$note->set_name( self::NOTE_NAME );
-		$note->set_source( 'woocommerce-admin' );
+		$note->set_source( 'poocommerce-admin' );
 		$note->add_action(
 			'learn-more',
-			__( 'Learn more', 'woocommerce' ),
-			'https://developer.woocommerce.com/2021/09/22/important-security-patch-released-in-woocommerce/',
+			__( 'Learn more', 'poocommerce' ),
+			'https://developer.poocommerce.com/2021/09/22/important-security-patch-released-in-poocommerce/',
 			Note::E_WC_ADMIN_NOTE_UNACTIONED,
 			true
 		);
 		$note->add_action(
 			'dismiss',
-			__( 'Dismiss', 'woocommerce' ),
+			__( 'Dismiss', 'poocommerce' ),
 			wc_admin_url(),
 			Note::E_WC_ADMIN_NOTE_ACTIONED,
 			false

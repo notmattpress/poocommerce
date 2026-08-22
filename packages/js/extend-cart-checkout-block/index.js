@@ -10,9 +10,9 @@
  * wp-prettier 3, which 2.18.2 predates.
  */
 const devDependencies = {
-	'@woocommerce/dependency-extraction-webpack-plugin': 'latest',
+	'@poocommerce/dependency-extraction-webpack-plugin': 'latest',
 	/* v4 is the first Flat Config release; the scaffolded eslint.config.mjs requires it. */
-	'@woocommerce/eslint-plugin': '^4.0.0',
+	'@poocommerce/eslint-plugin': '^4.0.0',
 	'@wordpress/prettier-config': 'latest',
 	'@wordpress/scripts': 'latest',
 };

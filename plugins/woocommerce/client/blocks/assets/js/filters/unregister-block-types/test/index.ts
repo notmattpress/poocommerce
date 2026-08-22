@@ -42,21 +42,21 @@ describe( 'unregister block types', () => {
 		'unregisters only post-editor block types in the deny list in %s',
 		( adminPage ) => {
 			loadFilter( adminPage, [
-				'woocommerce/breadcrumbs',
-				'woocommerce/product-reviews',
-				'woocommerce/product-search',
+				'poocommerce/breadcrumbs',
+				'poocommerce/product-reviews',
+				'poocommerce/product-search',
 				'myplugin/client-only',
 			] );
 
 			expect( unregisterBlockType ).toHaveBeenCalledTimes( 2 );
 			expect( unregisterBlockType ).toHaveBeenCalledWith(
-				'woocommerce/breadcrumbs'
+				'poocommerce/breadcrumbs'
 			);
 			expect( unregisterBlockType ).toHaveBeenCalledWith(
-				'woocommerce/product-reviews'
+				'poocommerce/product-reviews'
 			);
 			expect( unregisterBlockType ).not.toHaveBeenCalledWith(
-				'woocommerce/product-search'
+				'poocommerce/product-search'
 			);
 			expect( unregisterBlockType ).not.toHaveBeenCalledWith(
 				'myplugin/client-only'
@@ -68,16 +68,16 @@ describe( 'unregister block types', () => {
 		[ 'widgets.php', 'widgets-php', undefined ],
 		[ 'the Customizer', undefined, 'customize' ],
 	] )(
-		'unregisters WooCommerce blocks outside the widget-editor allow list in %s',
+		'unregisters PooCommerce blocks outside the widget-editor allow list in %s',
 		( _context, adminPage, pageNow ) => {
 			loadFilter(
 				adminPage,
 				[
-					'woocommerce/product-search',
-					'woocommerce/product-filters',
-					'woocommerce/checkout',
-					'woocommerce/order-confirmation-status',
-					'woocommerce/new-widget-compatible-block',
+					'poocommerce/product-search',
+					'poocommerce/product-filters',
+					'poocommerce/checkout',
+					'poocommerce/order-confirmation-status',
+					'poocommerce/new-widget-compatible-block',
 					'myplugin/client-only',
 				],
 				pageNow
@@ -85,19 +85,19 @@ describe( 'unregister block types', () => {
 
 			expect( unregisterBlockType ).toHaveBeenCalledTimes( 3 );
 			expect( unregisterBlockType ).toHaveBeenCalledWith(
-				'woocommerce/checkout'
+				'poocommerce/checkout'
 			);
 			expect( unregisterBlockType ).toHaveBeenCalledWith(
-				'woocommerce/order-confirmation-status'
+				'poocommerce/order-confirmation-status'
 			);
 			expect( unregisterBlockType ).not.toHaveBeenCalledWith(
-				'woocommerce/product-search'
+				'poocommerce/product-search'
 			);
 			expect( unregisterBlockType ).not.toHaveBeenCalledWith(
-				'woocommerce/product-filters'
+				'poocommerce/product-filters'
 			);
 			expect( unregisterBlockType ).toHaveBeenCalledWith(
-				'woocommerce/new-widget-compatible-block'
+				'poocommerce/new-widget-compatible-block'
 			);
 			expect( unregisterBlockType ).not.toHaveBeenCalledWith(
 				'myplugin/client-only'
@@ -109,8 +109,8 @@ describe( 'unregister block types', () => {
 		'does not unregister blocks in unrestricted editor contexts (%s)',
 		( adminPage ) => {
 			loadFilter( adminPage, [
-				'woocommerce/breadcrumbs',
-				'woocommerce/checkout',
+				'poocommerce/breadcrumbs',
+				'poocommerce/checkout',
 				'myplugin/client-only',
 			] );
 

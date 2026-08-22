@@ -26,12 +26,12 @@ export default function MetadataViewer( { fulfillment }: MetadataViewerProps ) {
 			header={
 				<>
 					<PostListIcon />
-					<h3>{ __( 'Fulfillment details', 'woocommerce' ) }</h3>
+					<h3>{ __( 'Fulfillment details', 'poocommerce' ) }</h3>
 				</>
 			}
 		>
 			{ publicMetadata.length === 0 && (
-				<p>{ __( 'No metadata available.', 'woocommerce' ) }</p>
+				<p>{ __( 'No metadata available.', 'poocommerce' ) }</p>
 			) }
 			{ publicMetadata.length > 0 && (
 				<MetaList

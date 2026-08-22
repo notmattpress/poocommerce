@@ -1,7 +1,7 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Jetpack;
+namespace Automattic\PooCommerce\Internal\Jetpack;
 
 use Automattic\Jetpack\Connection\Manager;
 use WP_Error;
@@ -26,7 +26,7 @@ class JetpackConnection {
 	 */
 	public static function get_manager() {
 		if ( ! self::$manager instanceof Manager ) {
-			self::$manager = new Manager( 'woocommerce' );
+			self::$manager = new Manager( 'poocommerce' );
 		}
 
 		return self::$manager;

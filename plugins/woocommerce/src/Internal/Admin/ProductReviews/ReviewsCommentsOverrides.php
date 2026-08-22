@@ -1,6 +1,6 @@
 <?php
 
-namespace Automattic\WooCommerce\Internal\Admin\ProductReviews;
+namespace Automattic\PooCommerce\Internal\Admin\ProductReviews;
 
 use WP_Comment_Query;
 use WP_Screen;
@@ -23,7 +23,7 @@ class ReviewsCommentsOverrides {
 	 * @param array|mixed $args {@see WP_Comment_Query} query args.
 	 * @return array
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 */
 	public function exclude_reviews_from_comments( $args ): array {
 		$screen = get_current_screen();

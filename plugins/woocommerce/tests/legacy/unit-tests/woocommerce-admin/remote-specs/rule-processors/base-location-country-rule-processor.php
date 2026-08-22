@@ -2,13 +2,13 @@
 /**
  * Base Location country rule processor tests.
  *
- * @package WooCommerce\Admin\Tests\RemoteSpecs
+ * @package PooCommerce\Admin\Tests\RemoteSpecs
  */
 
 declare( strict_types = 1 );
 
-use Automattic\WooCommerce\Admin\RemoteSpecs\RuleProcessors\BaseLocationCountryRuleProcessor;
-use Automattic\WooCommerce\Internal\Admin\Onboarding\OnboardingProfile;
+use Automattic\PooCommerce\Admin\RemoteSpecs\RuleProcessors\BaseLocationCountryRuleProcessor;
+use Automattic\PooCommerce\Internal\Admin\Onboarding\OnboardingProfile;
 
 /**
  * class WC_Admin_Tests_RemoteSpecs_RuleProcessors_BaseLocationCountryRuleProcessor
@@ -52,10 +52,10 @@ class WC_Admin_Tests_RemoteSpecs_RuleProcessors_BaseLocationCountryRuleProcessor
 		$this->store_address      = '';
 		$this->onboarding_profile = array();
 		$this->option_filters     = array(
-			'woocommerce_default_country'  => function () {
+			'poocommerce_default_country'  => function () {
 				return $this->default_country;
 			},
-			'woocommerce_store_address'    => function () {
+			'poocommerce_store_address'    => function () {
 				return $this->store_address;
 			},
 			OnboardingProfile::DATA_OPTION => function () {
