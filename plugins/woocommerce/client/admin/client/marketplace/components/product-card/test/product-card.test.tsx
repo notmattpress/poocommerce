@@ -4,18 +4,18 @@
 import { render } from '@testing-library/react';
 import React from 'react';
 
-jest.mock( '@woocommerce/navigation', () => ( {
+jest.mock( '@poocommerce/navigation', () => ( {
 	getNewPath: jest.fn( () => '/new-path' ),
 	navigateTo: jest.fn(),
 	useQuery: jest.fn( () => ( {} ) ),
 } ) );
 
-jest.mock( '@woocommerce/tracks', () => ( {
+jest.mock( '@poocommerce/tracks', () => ( {
 	recordEvent: jest.fn(),
 	queueRecordEvent: jest.fn(),
 } ) );
 
-jest.mock( '@woocommerce/data', () => ( {
+jest.mock( '@poocommerce/data', () => ( {
 	useUser: jest.fn( () => ( {
 		user: null,
 		currentUserCan: jest.fn( () => false ),
@@ -41,7 +41,7 @@ const context = {
 		quality_badge: {
 			enabled: true,
 			label: 'Excellence Verified',
-			tooltip: 'Verified against WooCommerce standards.',
+			tooltip: 'Verified against PooCommerce standards.',
 		},
 	},
 } as unknown as MarketplaceContextType;
@@ -80,7 +80,7 @@ function renderCard( cardType: ProductCardType ) {
 }
 
 function getBadge( container: HTMLElement ) {
-	return container.querySelector( '.woocommerce-marketplace__quality-badge' );
+	return container.querySelector( '.poocommerce-marketplace__quality-badge' );
 }
 
 describe( 'ProductCard quality badge placement', () => {
@@ -88,10 +88,10 @@ describe( 'ProductCard quality badge placement', () => {
 		const { container } = renderCard( ProductCardType.compact );
 		const badge = getBadge( container );
 		const meta = container.querySelector(
-			'.woocommerce-marketplace__product-card__meta'
+			'.poocommerce-marketplace__product-card__meta'
 		);
 		const footer = container.querySelector(
-			'.woocommerce-marketplace__product-card__footer'
+			'.poocommerce-marketplace__product-card__footer'
 		);
 
 		expect( badge ).not.toBeNull();
@@ -99,7 +99,7 @@ describe( 'ProductCard quality badge placement', () => {
 		expect( footer?.contains( badge ) ).toBe( false );
 
 		const title = container.querySelector(
-			'.woocommerce-marketplace__product-card__title'
+			'.poocommerce-marketplace__product-card__title'
 		);
 		expect( title?.nextElementSibling ).toBe( badge );
 		expect( badge?.nextElementSibling ).toBe( footer );
@@ -109,10 +109,10 @@ describe( 'ProductCard quality badge placement', () => {
 		const { container } = renderCard( ProductCardType.regular );
 		const badge = getBadge( container );
 		const footer = container.querySelector(
-			'.woocommerce-marketplace__product-card__footer'
+			'.poocommerce-marketplace__product-card__footer'
 		);
 		const price = container.querySelector(
-			'.woocommerce-marketplace__product-card__price'
+			'.poocommerce-marketplace__product-card__price'
 		);
 
 		expect( badge ).not.toBeNull();

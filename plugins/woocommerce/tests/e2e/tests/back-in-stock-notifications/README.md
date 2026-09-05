@@ -26,8 +26,8 @@ Covers the scenarios from the original plugin test plan that have a target in co
 - The form's show/hide is asserted on the `hidden` class rather than on
   visibility. That class is the contract `back-in-stock-form.js` drives; whether
   it actually hides the form depends on the theme, since
-  `.woocommerce .wc_bis_form.hidden { display: none }` ships in `woocommerce.css`
-  (the `woocommerce-general` handle), which bundled themes such as Twenty
+  `.poocommerce .wc_bis_form.hidden { display: none }` ships in `poocommerce.css`
+  (the `poocommerce-general` handle), which bundled themes such as Twenty
   Twenty-Three replace with their own stylesheet.
 - The parent-level opt-out is asserted on the product page only. On render,
   `maybe_render_form()` passes the parent from `global $product` to
@@ -36,20 +36,20 @@ Covers the scenarios from the original plugin test plan that have a target in co
   form's absence makes unreachable from the UI.
 - The plugin's "already signed up for this variation" scenario has no core
   target: that message is only rendered when the
-  `woocommerce_customer_stock_notifications_personalization_enabled` filter is
+  `poocommerce_customer_stock_notifications_personalization_enabled` filter is
   enabled (it defaults to `false`) and it resolves against the parent product on
   a variable PDP, not the selected variation.
 
 ## Configuration-branch notes
 
 - The signup nonce is only verified when the
-  `woocommerce_customer_stock_notifications_personalization_enabled` filter is
+  `poocommerce_customer_stock_notifications_personalization_enabled` filter is
   on and the shopper is logged in (or an account is required), so guest forms
   survive HTML caching. The nonce test turns personalization on through the
   test helper's `e2e-filters` cookie (`setFilterValue()`), which is why it runs
   in the logged-in describe.
 - Verify-link expiry is a filter
-  (`woocommerce_customer_stock_notifications_verification_expiration_time_threshold`),
+  (`poocommerce_customer_stock_notifications_verification_expiration_time_threshold`),
   not an option, so `expireVerificationLinks()` sets it to a negative value
   through the same cookie. Both tests clear the cookie afterwards with
   `clearFilters()`.
@@ -80,15 +80,15 @@ respective feature tickets:
 
 ## Prerequisites
 
-- BIS is gated by the `customer_stock_notifications` feature toggle (WooCommerce
+- BIS is gated by the `customer_stock_notifications` feature toggle (PooCommerce
   → Settings → Advanced → Features → Experimental), enabled for the tests env
-  via `plugins/woocommerce/tests/e2e/bin/test-env-setup.sh`. If you bring
-  the env up manually, set `woocommerce_feature_customer_stock_notifications_enabled`
+  via `plugins/poocommerce/tests/e2e/bin/test-env-setup.sh`. If you bring
+  the env up manually, set `poocommerce_feature_customer_stock_notifications_enabled`
   to `'yes'`.
 - The tests assume the WP Mail Logging plugin is installed and active (it is,
   via the `.wp-env.e2e.json` plugins list).
-- `woocommerce-e2e-test-helper` zeroes
-  `woocommerce_customer_stock_notifications_first_batch_delay`, so a restock
+- `poocommerce-e2e-test-helper` zeroes
+  `poocommerce_customer_stock_notifications_first_batch_delay`, so a restock
   dispatches its batch immediately instead of a minute later. Without it the
   back-in-stock specs time out with no email.
 - Run these under `core-serial` (`--project=core-serial`). They set global

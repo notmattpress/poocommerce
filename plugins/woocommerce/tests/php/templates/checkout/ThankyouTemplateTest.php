@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Templates\Checkout;
+namespace Automattic\PooCommerce\Tests\Templates\Checkout;
 
-use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Enums\OrderStatus;
 use WC_Order;
 use WC_Unit_Test_Case;
 
@@ -23,7 +23,7 @@ class ThankyouTemplateTest extends WC_Unit_Test_Case {
 		$received_order   = null;
 
 		add_filter(
-			'woocommerce_thankyou_order_failed_text',
+			'poocommerce_thankyou_order_failed_text',
 			static function ( $message, $filtered_order ) use ( &$received_message, &$received_order ) {
 				$received_message = $message;
 				$received_order   = $filtered_order;
@@ -46,7 +46,7 @@ class ThankyouTemplateTest extends WC_Unit_Test_Case {
 	 */
 	public function test_empty_failed_message_filter_return_remains_empty(): void {
 		add_filter(
-			'woocommerce_thankyou_order_failed_text',
+			'poocommerce_thankyou_order_failed_text',
 			static function () {
 				return '';
 			}
@@ -55,7 +55,7 @@ class ThankyouTemplateTest extends WC_Unit_Test_Case {
 		$html = $this->render_thankyou_template( $this->create_failed_order() );
 
 		$this->assertStringContainsString(
-			'<p class="woocommerce-notice woocommerce-notice--error woocommerce-thankyou-order-failed"></p>',
+			'<p class="poocommerce-notice poocommerce-notice--error poocommerce-thankyou-order-failed"></p>',
 			$html,
 			'The failed-message element should remain empty.'
 		);
@@ -66,7 +66,7 @@ class ThankyouTemplateTest extends WC_Unit_Test_Case {
 	 */
 	public function test_invalid_failed_message_filter_return_falls_back_to_default(): void {
 		add_filter(
-			'woocommerce_thankyou_order_failed_text',
+			'poocommerce_thankyou_order_failed_text',
 			static function () {
 				return array( 'invalid' );
 			}
@@ -82,7 +82,7 @@ class ThankyouTemplateTest extends WC_Unit_Test_Case {
 	 */
 	public function test_failed_message_preserves_safe_post_html_and_removes_unsafe_markup(): void {
 		add_filter(
-			'woocommerce_thankyou_order_failed_text',
+			'poocommerce_thankyou_order_failed_text',
 			static function () {
 				return '<strong>Retry</strong> or <a href="https://example.com/help" onclick="alert(1)">contact support</a><script>alert(1)</script>';
 			}
@@ -103,7 +103,7 @@ class ThankyouTemplateTest extends WC_Unit_Test_Case {
 		$legacy_filter_calls = 0;
 
 		add_filter(
-			'woocommerce_thankyou_order_received_text',
+			'poocommerce_thankyou_order_received_text',
 			static function () use ( &$legacy_filter_calls ) {
 				++$legacy_filter_calls;
 				return 'Unexpected success copy';

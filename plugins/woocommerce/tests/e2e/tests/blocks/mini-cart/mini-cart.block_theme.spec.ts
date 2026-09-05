@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { test, expect, BlockData, wpCLI } from '@woocommerce/e2e-utils';
+import { test, expect, BlockData, wpCLI } from '@poocommerce/e2e-utils';
 import type { Page } from '@playwright/test';
 
 /**
@@ -11,7 +11,7 @@ import { REGULAR_PRICED_PRODUCT_NAME } from '../checkout/constants';
 
 const blockData: BlockData = {
 	name: 'Mini-Cart',
-	slug: 'woocommerce/mini-cart',
+	slug: 'poocommerce/mini-cart',
 	mainClass: '.wc-block-minicart',
 	selectors: {
 		frontend: {},
@@ -24,7 +24,7 @@ test.describe( `${ blockData.name } Block`, () => {
 		try {
 			// iAPI Mini Cart.
 			const miniCartTitleBlock = page.locator(
-				'[data-block-name="woocommerce/mini-cart-title-block"]'
+				'[data-block-name="poocommerce/mini-cart-title-block"]'
 			);
 			await expect( miniCartTitleBlock ).toBeVisible( { timeout: 1000 } );
 			const titleText = await miniCartTitleBlock.innerText();
@@ -199,7 +199,7 @@ test.describe( `${ blockData.name } Block`, () => {
 
 		// Register listeners before navigating so nothing that happens during
 		// the mini-cart's render is missed. This product has no variation and
-		// no `woocommerce_get_item_data` additions (no fixture plugin is
+		// no `poocommerce_get_item_data` additions (no fixture plugin is
 		// activated in this describe block), which is the plain rendering
 		// path the item-data/separator getters must not throw on.
 		page.on( 'pageerror', ( error ) => {
@@ -403,7 +403,7 @@ test.describe( `${ blockData.name } Block (admin)`, () => {
 
 		// Select the mini-cart block to get access to its parent (the header row).
 		const miniCartBlock = editor.canvas.locator(
-			'[data-type="woocommerce/mini-cart"]'
+			'[data-type="poocommerce/mini-cart"]'
 		);
 		await miniCartBlock.click();
 
@@ -517,7 +517,7 @@ test.describe( `${ blockData.name } Block (item data)`, () => {
 	// Activate in beforeEach because the DB is reset after every test.
 	test.beforeEach( async ( { requestUtils } ) => {
 		await requestUtils.activatePlugin(
-			'woocommerce-blocks-test-item-data-display'
+			'poocommerce-blocks-test-item-data-display'
 		);
 	} );
 
@@ -686,7 +686,7 @@ test.describe( `${ blockData.name } Block (item data - malformed trailing entrie
 	// Activate in beforeEach because the DB is reset after every test.
 	test.beforeEach( async ( { requestUtils } ) => {
 		await requestUtils.activatePlugin(
-			'woocommerce-blocks-test-item-data-display-malformed'
+			'poocommerce-blocks-test-item-data-display-malformed'
 		);
 	} );
 
@@ -796,7 +796,7 @@ test.describe( `${ blockData.name } Block (item data - hidden trailing entries)`
 	// Activate in beforeEach because the DB is reset after every test.
 	test.beforeEach( async ( { requestUtils } ) => {
 		await requestUtils.activatePlugin(
-			'woocommerce-blocks-test-item-data-display-hidden'
+			'poocommerce-blocks-test-item-data-display-hidden'
 		);
 	} );
 
@@ -896,7 +896,7 @@ test.describe( `${ blockData.name } Block (item data - mixed trailing entries)`,
 	// Activate in beforeEach because the DB is reset after every test.
 	test.beforeEach( async ( { requestUtils } ) => {
 		await requestUtils.activatePlugin(
-			'woocommerce-blocks-test-item-data-display-mixed'
+			'poocommerce-blocks-test-item-data-display-mixed'
 		);
 	} );
 

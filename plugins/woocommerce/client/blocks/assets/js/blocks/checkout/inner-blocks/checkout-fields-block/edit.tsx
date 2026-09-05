@@ -3,8 +3,8 @@
  */
 import clsx from 'clsx';
 import { useBlockProps, InnerBlocks } from '@wordpress/block-editor';
-import { Main } from '@woocommerce/base-components/sidebar-layout';
-import { innerBlockAreas } from '@woocommerce/blocks-checkout';
+import { Main } from '@poocommerce/base-components/sidebar-layout';
+import { innerBlockAreas } from '@poocommerce/blocks-checkout';
 import type { TemplateArray } from '@wordpress/blocks';
 
 /**
@@ -35,18 +35,18 @@ export const Edit = ( {
 	const { showFormStepNumbers } = useCheckoutBlockContext();
 
 	const defaultTemplate = [
-		[ 'woocommerce/checkout-express-payment-block', {}, [] ],
-		[ 'woocommerce/checkout-contact-information-block', {}, [] ],
-		[ 'woocommerce/checkout-shipping-method-block', {}, [] ],
-		[ 'woocommerce/checkout-pickup-options-block', {}, [] ],
-		[ 'woocommerce/checkout-shipping-address-block', {}, [] ],
-		[ 'woocommerce/checkout-billing-address-block', {}, [] ],
-		[ 'woocommerce/checkout-shipping-methods-block', {}, [] ],
-		[ 'woocommerce/checkout-payment-block', {}, [] ],
-		[ 'woocommerce/checkout-additional-information-block', {}, [] ],
-		[ 'woocommerce/checkout-order-note-block', {}, [] ],
-		[ 'woocommerce/checkout-terms-block', {}, [] ],
-		[ 'woocommerce/checkout-actions-block', {}, [] ],
+		[ 'poocommerce/checkout-express-payment-block', {}, [] ],
+		[ 'poocommerce/checkout-contact-information-block', {}, [] ],
+		[ 'poocommerce/checkout-shipping-method-block', {}, [] ],
+		[ 'poocommerce/checkout-pickup-options-block', {}, [] ],
+		[ 'poocommerce/checkout-shipping-address-block', {}, [] ],
+		[ 'poocommerce/checkout-billing-address-block', {}, [] ],
+		[ 'poocommerce/checkout-shipping-methods-block', {}, [] ],
+		[ 'poocommerce/checkout-payment-block', {}, [] ],
+		[ 'poocommerce/checkout-additional-information-block', {}, [] ],
+		[ 'poocommerce/checkout-order-note-block', {}, [] ],
+		[ 'poocommerce/checkout-terms-block', {}, [] ],
+		[ 'poocommerce/checkout-actions-block', {}, [] ],
 	].filter( Boolean ) as unknown as TemplateArray;
 
 	useForcedLayout( {

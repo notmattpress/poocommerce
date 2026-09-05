@@ -60,7 +60,7 @@ const data = {
   shipping: false
 };
 
-WooCommerce.post("taxes", data)
+PooCommerce.post("taxes", data)
   .then((response) => {
     console.log(response.data);
   })
@@ -82,7 +82,7 @@ $data = [
     'shipping' => false
 ];
 
-print_r($woocommerce->post('taxes', $data));
+print_r($poocommerce->post('taxes', $data));
 ?>
 ```
 
@@ -113,7 +113,7 @@ data = {
   shipping: false
 }
 
-woocommerce.post("taxes", data).parsed_response
+poocommerce.post("taxes", data).parsed_response
 ```
 
   </TabItem>
@@ -170,7 +170,7 @@ curl https://example.com/wp-json/wc/v1/taxes/72 \
   <TabItem value="js" label="JavaScript">
 
 ```javascript
-WooCommerce.get("taxes/72")
+PooCommerce.get("taxes/72")
   .then((response) => {
     console.log(response.data);
   })
@@ -183,7 +183,7 @@ WooCommerce.get("taxes/72")
   <TabItem value="php" label="PHP">
 
 ```php
-<?php print_r($woocommerce->get('taxes/72')); ?>
+<?php print_r($poocommerce->get('taxes/72')); ?>
 ```
 
   </TabItem>
@@ -197,7 +197,7 @@ print(wcapi.get("taxes/72").json())
   <TabItem value="ruby" label="Ruby">
 
 ```ruby
-woocommerce.get("taxes/72").parsed_response
+poocommerce.get("taxes/72").parsed_response
 ```
 
   </TabItem>
@@ -254,7 +254,7 @@ curl https://example.com/wp-json/wc/v1/taxes \
   <TabItem value="js" label="JavaScript">
 
 ```javascript
-WooCommerce.get("taxes")
+PooCommerce.get("taxes")
   .then((response) => {
     console.log(response.data);
   })
@@ -267,7 +267,7 @@ WooCommerce.get("taxes")
   <TabItem value="php" label="PHP">
 
 ```php
-<?php print_r($woocommerce->get('taxes')); ?>
+<?php print_r($poocommerce->get('taxes')); ?>
 ```
 
   </TabItem>
@@ -281,7 +281,7 @@ print(wcapi.get("taxes").json())
   <TabItem value="ruby" label="Ruby">
 
 ```ruby
-woocommerce.get("taxes").parsed_response
+poocommerce.get("taxes").parsed_response
 ```
 
   </TabItem>
@@ -593,7 +593,7 @@ const data = {
   name: "US Tax"
 };
 
-WooCommerce.put("taxes/72", data)
+PooCommerce.put("taxes/72", data)
   .then((response) => {
     console.log(response.data);
   })
@@ -611,7 +611,7 @@ $data = [
     'name' => 'US Tax'
 ];
 
-print_r($woocommerce->put('taxes/72', $data));
+print_r($poocommerce->put('taxes/72', $data));
 ?>
 ```
 
@@ -634,7 +634,7 @@ data = {
   name: "US Tax"
 }
 
-woocommerce.put("taxes/72", data).parsed_response
+poocommerce.put("taxes/72", data).parsed_response
 ```
 
   </TabItem>
@@ -691,7 +691,7 @@ curl -X DELETE https://example.com/wp-json/wc/v1/taxes/72?force=true \
   <TabItem value="js" label="JavaScript">
 
 ```javascript
-WooCommerce.delete("taxes/72", {
+PooCommerce.delete("taxes/72", {
   force: true
 })
   .then((response) => {
@@ -706,7 +706,7 @@ WooCommerce.delete("taxes/72", {
   <TabItem value="php" label="PHP">
 
 ```php
-<?php print_r($woocommerce->delete('taxes/72', ['force' => true])); ?>
+<?php print_r($poocommerce->delete('taxes/72', ['force' => true])); ?>
 ```
 
   </TabItem>
@@ -720,7 +720,7 @@ print(wcapi.delete("taxes/72", params={"force": True}).json())
   <TabItem value="ruby" label="Ruby">
 
 ```ruby
-woocommerce.delete("taxes/72", force: true).parsed_response
+poocommerce.delete("taxes/72", force: true).parsed_response
 ```
 
   </TabItem>
@@ -1566,7 +1566,7 @@ const data = {
   ]
 };
 
-WooCommerce.post("taxes/batch", data)
+PooCommerce.post("taxes/batch", data)
   .then((response) => {
     console.log(response.data);
   })
@@ -1969,7 +1969,7 @@ $data = [
     ]
 ];
 
-print_r($woocommerce->post('taxes/batch', $data));
+print_r($poocommerce->post('taxes/batch', $data));
 ?>
 ```
 
@@ -2762,7 +2762,7 @@ data = {
   ]
 }
 
-woocommerce.post("taxes/batch", data).parsed_response
+poocommerce.post("taxes/batch", data).parsed_response
 ```
 
   </TabItem>

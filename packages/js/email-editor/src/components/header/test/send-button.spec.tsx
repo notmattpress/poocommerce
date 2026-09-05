@@ -75,7 +75,7 @@ describe( 'SendButton', () => {
 		applyFiltersMock.mockImplementationOnce(
 			( hook: string, value: unknown, ...args: unknown[] ) => {
 				if (
-					hook === 'woocommerce_email_editor_send_button_disabled'
+					hook === 'poocommerce_email_editor_send_button_disabled'
 				) {
 					const flags = args[ 0 ] as {
 						hasEmptyContent: boolean;
@@ -90,7 +90,7 @@ describe( 'SendButton', () => {
 		const { getByRole } = render( <SendButton /> );
 		expect( getByRole( 'button' ) ).not.toBeDisabled();
 		expect( applyFiltersMock ).toHaveBeenCalledWith(
-			'woocommerce_email_editor_send_button_disabled',
+			'poocommerce_email_editor_send_button_disabled',
 			true,
 			{
 				hasEmptyContent: false,
@@ -106,7 +106,7 @@ describe( 'SendButton', () => {
 		applyFiltersMock.mockImplementationOnce(
 			( hook: string, value: unknown ) => {
 				if (
-					hook === 'woocommerce_email_editor_send_button_disabled'
+					hook === 'poocommerce_email_editor_send_button_disabled'
 				) {
 					return 'not-a-boolean';
 				}

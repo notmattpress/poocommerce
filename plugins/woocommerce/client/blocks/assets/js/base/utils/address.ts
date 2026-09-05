@@ -1,25 +1,25 @@
 /**
  * External dependencies
  */
-import prepareFormFields from '@woocommerce/base-components/cart-checkout/form/prepare-form-fields';
+import prepareFormFields from '@poocommerce/base-components/cart-checkout/form/prepare-form-fields';
 import {
 	ADDRESS_FORM_KEYS,
 	COUNTRIES,
 	STATES,
-} from '@woocommerce/block-settings';
+} from '@poocommerce/block-settings';
 import {
 	AddressForm,
 	BillingAddress,
 	defaultFields,
 	ShippingAddress,
-} from '@woocommerce/settings';
+} from '@poocommerce/settings';
 import {
 	isObject,
 	isString,
 	type CartResponseBillingAddress,
 	type CartResponseShippingAddress,
 	type AddressFieldsForShippingRates as AddressFieldsForShippingRatesType,
-} from '@woocommerce/types';
+} from '@poocommerce/types';
 import { decodeEntities } from '@wordpress/html-entities';
 
 export const addressFieldsForShippingRates: AddressFieldsForShippingRatesType =

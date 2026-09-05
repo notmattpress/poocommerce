@@ -2,12 +2,12 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\PushNotifications\Traits;
+namespace Automattic\PooCommerce\Internal\PushNotifications\Traits;
 
 defined( 'ABSPATH' ) || exit;
 
 use Automattic\Jetpack\Connection\Rest_Authentication;
-use Automattic\WooCommerce\Internal\PushNotifications\PushNotifications;
+use Automattic\PooCommerce\Internal\PushNotifications\PushNotifications;
 use WP_Error;
 use WP_REST_Request;
 
@@ -15,7 +15,7 @@ use WP_REST_Request;
  * Shared "is this caller an authenticated push-notifications user?" check for
  * REST controllers in the PushNotifications module.
  *
- * Implementing classes must extend {@see \Automattic\WooCommerce\Internal\RestApiControllerBase}
+ * Implementing classes must extend {@see \Automattic\PooCommerce\Internal\RestApiControllerBase}
  * so that `check_permission()` is available.
  */
 trait AuthorizesPushNotificationRequests {
@@ -31,8 +31,8 @@ trait AuthorizesPushNotificationRequests {
 	public function authorize_as_authenticated( WP_REST_Request $request ) {
 		if ( ! get_current_user_id() ) {
 			return new WP_Error(
-				'woocommerce_rest_cannot_view',
-				__( 'Sorry, you are not allowed to do that.', 'woocommerce' ),
+				'poocommerce_rest_cannot_view',
+				__( 'Sorry, you are not allowed to do that.', 'poocommerce' ),
 				array( 'status' => rest_authorization_required_code() )
 			);
 		}
@@ -69,8 +69,8 @@ trait AuthorizesPushNotificationRequests {
 		}
 
 		return new WP_Error(
-			'woocommerce_rest_cannot_view',
-			__( 'Sorry, you are not allowed to do that.', 'woocommerce' ),
+			'poocommerce_rest_cannot_view',
+			__( 'Sorry, you are not allowed to do that.', 'poocommerce' ),
 			array( 'status' => rest_authorization_required_code() )
 		);
 	}

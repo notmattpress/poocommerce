@@ -2,7 +2,7 @@
  * External dependencies
  */
 import * as wpDataFunctions from '@wordpress/data';
-import { EventObserversType } from '@woocommerce/base-context';
+import { EventObserversType } from '@poocommerce/base-context';
 
 /**
  * Internal dependencies

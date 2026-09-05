@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { fireEvent, render } from '@testing-library/react';
-import { useUserPreferences } from '@woocommerce/data';
+import { useUserPreferences } from '@poocommerce/data';
 
 /**
  * Internal dependencies
@@ -30,14 +30,14 @@ const DEFAULT_SECTIONS = [
 	},
 ];
 
-// Reassigned by the tests that need the `woocommerce_dashboard_default_sections`
+// Reassigned by the tests that need the `poocommerce_dashboard_default_sections`
 // filter to have returned something else. Read through a getter so the mock is
 // resolved when the dashboard dereferences it, not when the module is imported.
 let mockDefaultSections = DEFAULT_SECTIONS;
 
 jest.mock( '../default-sections', () => ( {
 	__esModule: true,
-	DEFAULT_SECTIONS_FILTER: 'woocommerce_dashboard_default_sections',
+	DEFAULT_SECTIONS_FILTER: 'poocommerce_dashboard_default_sections',
 	get default() {
 		return mockDefaultSections;
 	},
@@ -58,7 +58,7 @@ jest.mock( '../../analytics/components/report-header', () => ( {
 	ReportHeader: () => null,
 } ) );
 
-jest.mock( '@woocommerce/data', () => ( {
+jest.mock( '@poocommerce/data', () => ( {
 	settingsStore: 'wc/admin/settings',
 	useUserPreferences: jest.fn(),
 } ) );

@@ -128,7 +128,7 @@ foreach ( $composer_projects as $project_path ) {
 
 // Support centralizing the changelogs for multiple components and validating them together.
 $project_component_map = array(
-	'plugins/woocommerce/client/blocks' => 'plugins/woocommerce',
+	'plugins/poocommerce/client/blocks' => 'plugins/poocommerce',
 );
 
 // Process the diff.

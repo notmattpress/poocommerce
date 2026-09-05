@@ -1,10 +1,10 @@
-# WooCommerce Tests
+# PooCommerce Tests
 
-This document discusses unit tests. See [the e2e README](https://github.com/woocommerce/woocommerce/blob/trunk/plugins/woocommerce/tests/e2e/README.md) to learn how to setup testing environment for running e2e tests and run them.
+This document discusses unit tests. See [the e2e README](https://github.com/poocommerce/poocommerce/blob/trunk/plugins/poocommerce/tests/e2e/README.md) to learn how to setup testing environment for running e2e tests and run them.
 
 ## Table of contents
 
-- [WooCommerce Tests](#woocommerce-tests)
+- [PooCommerce Tests](#poocommerce-tests)
     - [Table of contents](#table-of-contents)
     - [Set up Test Environment](#set-up-test-environment)
         - [wp-env (recommended)](#wp-env-recommended)
@@ -27,7 +27,7 @@ You can set up the local testing environment by either using `wp-env` or by inst
 Run the following command to set up the environment:
 
 ```sh
-pnpm --filter=@woocommerce/plugin-woocommerce env:dev
+pnpm --filter=@poocommerce/plugin-poocommerce env:dev
 ```
 
 ### Manual setup
@@ -39,11 +39,11 @@ To run the tests, you need to create a test database. You can:
 - Access a database on a server
 - Connect to your local database on your machine
 - Use a solution like VVV - if you are using VVV you might need to `vagrant ssh` first
-- Run a throwaway database in docker with this one-liner: `docker run --rm --name woocommerce_test_db -p 3306:3306 -e MYSQL_ROOT_PASSWORD=woocommerce_test_password -d mysql:8.0.32`. ( Use `tests/bin/install.sh woocommerce_tests root woocommerce_test_password 0.0.0.0` in next step)
+- Run a throwaway database in docker with this one-liner: `docker run --rm --name poocommerce_test_db -p 3306:3306 -e MYSQL_ROOT_PASSWORD=poocommerce_test_password -d mysql:8.0.32`. ( Use `tests/bin/install.sh poocommerce_tests root poocommerce_test_password 0.0.0.0` in next step)
 
 #### Setup instructions
 
-Once you have database, from the WooCommerce root directory "cd" into `plugins/woocommerce` directory and run the following:
+Once you have database, from the PooCommerce root directory "cd" into `plugins/poocommerce` directory and run the following:
 
 1. Install [PHPUnit](http://phpunit.de/) via Composer by running: `composer install`
 2. Install WordPress and the WP Unit Test lib using the `install.sh` script:
@@ -57,9 +57,9 @@ You may need to quote strings with backslashes to prevent them from being proces
 Example:
 
 ```sh
-tests/bin/install.sh woocommerce_tests root root
+tests/bin/install.sh poocommerce_tests root root
 
-# woocommerce_tests is the database name and root is both the MySQL user and its password.
+# poocommerce_tests is the database name and root is both the MySQL user and its password.
 ```
 
 **Important**: The `<db-name>` database will be created if it doesn't exist and all data will be removed during testing.
@@ -69,47 +69,47 @@ tests/bin/install.sh woocommerce_tests root root
 To run the tests, you can use the following command:
 
 ```sh
-pnpm --filter=@woocommerce/plugin-woocommerce test:unit:env
+pnpm --filter=@poocommerce/plugin-poocommerce test:unit:env
 
 # or 
 
-pnpm --filter=@woocommerce/plugin-woocommerce test:unit  # if you are not using wp-env
+pnpm --filter=@poocommerce/plugin-poocommerce test:unit  # if you are not using wp-env
 ```
 
 You can run specific tests by providing the `--filter` option. For example, to run only the tests in a specific class:
 
 ```sh
-pnpm --filter=@woocommerce/plugin-woocommerce test:unit:env -- --filter=TestClassName
+pnpm --filter=@poocommerce/plugin-poocommerce test:unit:env -- --filter=TestClassName
 ```
 
 For example, to test `WC_Admin_Tests_RemoteInboxNotifications_PluginVersionRuleProcessor` class:
 
 ```sh
-pnpm --filter=@woocommerce/plugin-woocommerce test:unit:env -- --filter=WC_Admin_Tests_RemoteInboxNotifications_PluginVersionRuleProcessor
+pnpm --filter=@poocommerce/plugin-poocommerce test:unit:env -- --filter=WC_Admin_Tests_RemoteInboxNotifications_PluginVersionRuleProcessor
 ```
 
 A text code coverage summary can be displayed using the `--coverage-text` option:
 
 ```sh
-pnpm --filter=@woocommerce/plugin-woocommerce test:unit:env -- --coverage-text
+pnpm --filter=@poocommerce/plugin-poocommerce test:unit:env -- --coverage-text
 ```
 
 You can also watch for changes and re-run tests automatically by using the following command:
 
 ```sh
-pnpm --filter=@woocommerce/plugin-woocommerce test:unit:env:watch
+pnpm --filter=@poocommerce/plugin-poocommerce test:unit:env:watch
 ```
 
 By default, all tests will be run. You can also run specific tests by providing the `--filter` option. For example, to run only the tests in a specific class:
 
 ```sh
-pnpm --filter=@woocommerce/plugin-woocommerce test:unit:env:watch -- --filter=TestClassName
+pnpm --filter=@poocommerce/plugin-poocommerce test:unit:env:watch -- --filter=TestClassName
 ```
 
 or you can pass `--list-groups` to list all the available test groups:
 
 ```sh
-pnpm --filter=@woocommerce/plugin-woocommerce test:unit:env:watch -- --list-groups
+pnpm --filter=@poocommerce/plugin-poocommerce test:unit:env:watch -- --list-groups
 ```
 
 ### Troubleshooting
@@ -117,7 +117,7 @@ pnpm --filter=@woocommerce/plugin-woocommerce test:unit:env:watch -- --list-grou
 In case you're unable to run the unit tests, you might see an error message similar to:
 
 ```sh
-Fatal error: require_once(): Failed opening required '/var/folders/qr/3cnz_5_j3j1cljph_246ty1h0000gn/T/wordpress-tests-lib/includes/functions.php' (include_path='.:/usr/local/Cellar/php@7.4/7.4.23/share/php@7.4/pear') in /Users/nielslange/Plugins/woocommerce/tests/legacy/bootstrap.php on line 59
+Fatal error: require_once(): Failed opening required '/var/folders/qr/3cnz_5_j3j1cljph_246ty1h0000gn/T/wordpress-tests-lib/includes/functions.php' (include_path='.:/usr/local/Cellar/php@7.4/7.4.23/share/php@7.4/pear') in /Users/nielslange/Plugins/poocommerce/tests/legacy/bootstrap.php on line 59
 ```
 
 If you run into this problem, simply delete the WordPress test directory and run the installer again. In this particular case, you'd run the following commands:
@@ -127,7 +127,7 @@ rm -rf /var/folders/qr/3cnz_5_j3j1cljph_246ty1h0000gn/T/wordpress-tests-lib
 ```
 
 ```sh
-tests/bin/install.sh woocommerce_tests_1 root root
+tests/bin/install.sh poocommerce_tests_1 root root
 ```
 
 Or if you run into this error:
@@ -143,10 +143,10 @@ rm -rf /var/folders/qr/3cnz_5_j3j1cljph_246ty1h0000gn/T/wordpress
 ```
 
 ```sh
-tests/bin/install.sh woocommerce_tests_1 root root
+tests/bin/install.sh poocommerce_tests_1 root root
 ```
 
-Note that `woocommerce_tests` changed to `woocommerce_tests_1` as the `woocommerce_tests` database already exists due to the prior command.
+Note that `poocommerce_tests` changed to `poocommerce_tests_1` as the `poocommerce_tests` database already exists due to the prior command.
 
 ## Guide for Writing Unit Tests
 
@@ -158,20 +158,20 @@ There are three different unit test directories:
 
 Each test file should correspond to an associated source file and be named accordingly:
 
-- For `src` code: The base namespace for tests is `Automattic\WooCommerce\Tests`. A class named `Automattic\WooCommerce\TheNamespace\TheClass` should have a test named `Automattic\WooCommerce\Tests\TheNamespace\TheClassTest`.
+- For `src` code: The base namespace for tests is `Automattic\PooCommerce\Tests`. A class named `Automattic\PooCommerce\TheNamespace\TheClass` should have a test named `Automattic\PooCommerce\Tests\TheNamespace\TheClassTest`.
 - For `includes` code:
     - When testing classes: use the same approach as for `src` except that namespaces are not used. So a `WC_Something` class in `includes/somefolder/class-wc-something.php` should have its tests in `tests/src/internal/somefolder/class-wc-something-test.php`.
     - When testing functions: use one test file per functions group file, for example `wc-formatting-functions-test.php` for code in the `wc-formatting-functions.php` file.
 
 
-See also [the guidelines for writing unit tests for `src` code](https://github.com/woocommerce/woocommerce/tree/trunk/plugins/woocommerce/src/README.md#writing-unit-tests) and [the guidelines for `includes` code](https://github.com/woocommerce/woocommerce/tree/trunk/plugins/woocommerce/includes/README.md#writing-unit-tests).
+See also [the guidelines for writing unit tests for `src` code](https://github.com/poocommerce/poocommerce/tree/trunk/plugins/poocommerce/src/README.md#writing-unit-tests) and [the guidelines for `includes` code](https://github.com/poocommerce/poocommerce/tree/trunk/plugins/poocommerce/includes/README.md#writing-unit-tests).
 
 General guidelines for all the unit tests:
 
 - Each test method should cover a single method or function with one or more assertions
 - A single method or function can have multiple associated test methods if it's a large or complex method
 - Use the test coverage HTML report (under `tmp/coverage/index.html`) to examine which lines your tests are covering and aim for 100% coverage
-- For code that cannot be tested (e.g. they require a certain PHP version), you can exclude them from coverage using a comment: `// @codeCoverageIgnoreStart` and `// @codeCoverageIgnoreEnd`. For example, see [`wc_round_tax_total()`](https://github.com/woocommerce/woocommerce/blob/35f83867736713955fa2c4f463a024578bb88795/includes/wc-formatting-functions.php#L208-L219)
+- For code that cannot be tested (e.g. they require a certain PHP version), you can exclude them from coverage using a comment: `// @codeCoverageIgnoreStart` and `// @codeCoverageIgnoreEnd`. For example, see [`wc_round_tax_total()`](https://github.com/poocommerce/poocommerce/blob/35f83867736713955fa2c4f463a024578bb88795/includes/wc-formatting-functions.php#L208-L219)
 - In addition to covering each line of a method/function, make sure to test common input and edge cases.
 - Prefer `assertSame()` where possible as it tests both type and value
 - Remember that only methods prefixed with `test` will be run so use helper methods liberally to keep test methods small and reduce code duplication. If there is a common helper method used in multiple test files, consider adding it to the `WC_Unit_Test_Case` class so it can be shared by all test cases
@@ -191,7 +191,7 @@ The full suite runs in a few minutes because every test pays only for what it as
     The same ladder applies to products and other entities: full helper → minimal production API call → boundary seeding.
 - **Respect the selected base class.** Tests that extend `WP_UnitTestCase` directly or indirectly and call the parent lifecycle run each test in a `$wpdb` transaction. Rollback covers writes through that connection to transactional tables; it does not cover writes made before the parent setup starts the transaction, class fixtures, explicit commits or DDL, non-transactional tables, other connections, files, external services, or process state. An override must call the parent setup — `parent::setUp()` or `parent::set_up()`, matching the method it overrides — before any write the rollback must cover. Plain PHPUnit does not provide this rollback; inspect other custom bases for their own lifecycle. Never use `TRUNCATE TABLE`: its implicit commit breaks isolation; use `DELETE FROM` when deletion is required.
 - **Share immutable fixtures at class level.** For these WordPress base classes, catalogs that no test mutates belong in `wpSetUpBeforeClass()`, reloaded per test with fresh object instances (`wc_get_product()` etc.). Per-test mutations are contained by the transaction rollback and the per-test object-cache flush. Clean up class-created data in `wpTearDownAfterClass()`.
-- **Clean only state the base class does not own.** WordPress parent teardown restores its hook snapshot and the globals it manages; `WC_Unit_Test_Case` also resets its documented WooCommerce singleton state. Inspect other bases before relying on or duplicating cleanup. Resetting preloaded state during test arrangement is not teardown cleanup.
+- **Clean only state the base class does not own.** WordPress parent teardown restores its hook snapshot and the globals it manages; `WC_Unit_Test_Case` also resets its documented PooCommerce singleton state. Inspect other bases before relying on or duplicating cleanup. Resetting preloaded state during test arrangement is not teardown cleanup.
 - **Seed at the boundary the code reads.** If the code under test only reads persisted rows (aggregate SQL, lookup tables, migration sources), fixtures may insert those rows directly — with exactly the columns production writes and collision-safe IDs. Keep at least one real write-path (CRUD) test per area so the sync path stays covered.
 - **Register only the REST surface you exercise.** `WC_REST_Unit_Test_Case` registers routes lazily per namespace; scoped tests can use `WC_Unit_Test_Case::create_rest_server_with_routes()`. Avoid re-firing the full `rest_api_init` per test.
 - **Never sleep, never fetch.** Control timestamps through the object setters instead of `sleep()`, and mock HTTP through the framework's interception layer (`$this->http_responder`, local fixture files) so the suite is deterministic and passes without network access.
@@ -201,8 +201,8 @@ The `SpeedTrapListener` reports tests slower than one second at the end of each 
 
 ## Automated Tests
 
-Tests are automatically run with [GitHub Actions](https://github.com/woocommerce/woocommerce/actions/workflows/ci.yml) for each commit and pull request.
+Tests are automatically run with [GitHub Actions](https://github.com/poocommerce/poocommerce/actions/workflows/ci.yml) for each commit and pull request.
 
 ## Code Coverage
 
-Code coverage is available on [Codecov](https://codecov.io/gh/woocommerce/woocommerce/) which receives updated data after each build.
+Code coverage is available on [Codecov](https://codecov.io/gh/poocommerce/poocommerce/) which receives updated data after each build.

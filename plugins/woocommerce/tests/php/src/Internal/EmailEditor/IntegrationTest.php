@@ -1,12 +1,12 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\EmailEditor;
+namespace Automattic\PooCommerce\Tests\Internal\EmailEditor;
 
-use Automattic\WooCommerce\Internal\EmailEditor\Integration;
-use Automattic\WooCommerce\Internal\EmailEditor\Package;
-use Automattic\WooCommerce\Internal\EmailEditor\PageRenderer;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsManager;
+use Automattic\PooCommerce\Internal\EmailEditor\Integration;
+use Automattic\PooCommerce\Internal\EmailEditor\Package;
+use Automattic\PooCommerce\Internal\EmailEditor\PageRenderer;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsManager;
 use WC_Unit_Test_Case;
 
 /**
@@ -41,7 +41,7 @@ class IntegrationTest extends WC_Unit_Test_Case {
 	public function setUp(): void {
 		parent::setUp();
 
-		add_option( 'woocommerce_feature_block_email_editor_enabled', 'yes' );
+		add_option( 'poocommerce_feature_block_email_editor_enabled', 'yes' );
 		wc_get_container()->get( Package::class )->init();
 
 		$this->sut           = wc_get_container()->get( Integration::class );
@@ -67,7 +67,7 @@ class IntegrationTest extends WC_Unit_Test_Case {
 		}
 
 		$this->posts_manager->clear_caches();
-		update_option( 'woocommerce_feature_block_email_editor_enabled', 'no' );
+		update_option( 'poocommerce_feature_block_email_editor_enabled', 'no' );
 		unset( $GLOBALS['current_screen'] );
 
 		parent::tearDown();
@@ -83,7 +83,7 @@ class IntegrationTest extends WC_Unit_Test_Case {
 
 		$this->assertSame(
 			$post->ID,
-			(int) get_option( 'woocommerce_email_templates_customer_processing_order_post_id' ),
+			(int) get_option( 'poocommerce_email_templates_customer_processing_order_post_id' ),
 			'Publishing an auto-draft must write the option mapping'
 		);
 	}
@@ -98,7 +98,7 @@ class IntegrationTest extends WC_Unit_Test_Case {
 
 		$this->assertSame(
 			$post->ID,
-			(int) get_option( 'woocommerce_email_templates_customer_completed_order_post_id' ),
+			(int) get_option( 'poocommerce_email_templates_customer_completed_order_post_id' ),
 			'Publishing a draft must write the option mapping'
 		);
 	}
@@ -116,7 +116,7 @@ class IntegrationTest extends WC_Unit_Test_Case {
 
 		$this->assertSame(
 			$other_post_id,
-			(int) get_option( 'woocommerce_email_templates_customer_new_account_post_id' ),
+			(int) get_option( 'poocommerce_email_templates_customer_new_account_post_id' ),
 			'A publish-to-publish transition (post update) must not rewrite the mapping'
 		);
 	}
@@ -131,7 +131,7 @@ class IntegrationTest extends WC_Unit_Test_Case {
 		$this->sut->save_email_mapping_on_publish( 'publish', 'draft', $post );
 
 		$this->assertFalse(
-			get_option( 'woocommerce_email_templates_customer_note_post_id' ),
+			get_option( 'poocommerce_email_templates_customer_note_post_id' ),
 			'Posts of other post types must not produce a mapping'
 		);
 	}
@@ -145,7 +145,7 @@ class IntegrationTest extends WC_Unit_Test_Case {
 		$this->sut->save_email_mapping_on_publish( 'publish', 'auto-draft', $post );
 
 		$this->assertFalse(
-			get_option( 'woocommerce_email_templates_not_a_registered_email_type_post_id' ),
+			get_option( 'poocommerce_email_templates_not_a_registered_email_type_post_id' ),
 			'An unregistered email type in the meta must not produce a mapping'
 		);
 	}
@@ -186,7 +186,7 @@ class IntegrationTest extends WC_Unit_Test_Case {
 
 		$this->assertSame(
 			$post->ID,
-			(int) get_option( 'woocommerce_email_templates_new_order_post_id' ),
+			(int) get_option( 'poocommerce_email_templates_new_order_post_id' ),
 			'Publishing via wp_update_post must write the mapping through the transition_post_status hook'
 		);
 	}
@@ -259,10 +259,10 @@ class IntegrationTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Postless send-preview permission requires manage_woocommerce and a registered email type.
+	 * @testdox Postless send-preview permission requires manage_poocommerce and a registered email type.
 	 */
 	public function test_postless_send_preview_permission(): void {
-		$request = new \WP_REST_Request( 'POST', '/woocommerce-email-editor/v1/send_preview_email' );
+		$request = new \WP_REST_Request( 'POST', '/poocommerce-email-editor/v1/send_preview_email' );
 		$request->set_param( 'emailType', 'customer_processing_order' );
 
 		$admin_id = $this->factory()->user->create( array( 'role' => 'administrator' ) );
@@ -275,12 +275,12 @@ class IntegrationTest extends WC_Unit_Test_Case {
 		$subscriber_id = $this->factory()->user->create( array( 'role' => 'subscriber' ) );
 		wp_set_current_user( $subscriber_id );
 		$request->set_param( 'emailType', 'customer_processing_order' );
-		$this->assertFalse( $this->sut->authorize_postless_send_preview( false, $request ), 'Users without manage_woocommerce must be rejected' );
+		$this->assertFalse( $this->sut->authorize_postless_send_preview( false, $request ), 'Users without manage_poocommerce must be rejected' );
 	}
 
 	/**
 	 * Third-party get_subject() implementations may assume send-time state and
-	 * throw outside a real send (e.g. WooCommerce Bookings dereferences its
+	 * throw outside a real send (e.g. PooCommerce Bookings dereferences its
 	 * booking object). The preview must survive that and fall back to the title.
 	 *
 	 * @testdox Postless send-preview survives a get_subject() that throws outside a send.
@@ -321,19 +321,19 @@ class IntegrationTest extends WC_Unit_Test_Case {
 		$append_marker = static function ( $template_html ) {
 			return $template_html . "\n<!-- wp:paragraph --><p>FRESH_TEMPLATE_MARKER</p><!-- /wp:paragraph -->";
 		};
-		add_filter( 'woocommerce_email_block_template_html', $append_marker );
+		add_filter( 'poocommerce_email_block_template_html', $append_marker );
 
 		try {
 			$this->invoke_maybe_refresh_scratchpad( $post_id );
 		} finally {
-			remove_filter( 'woocommerce_email_block_template_html', $append_marker );
+			remove_filter( 'poocommerce_email_block_template_html', $append_marker );
 		}
 
 		$refreshed = get_post( $post_id );
 		$this->assertStringContainsString( 'FRESH_TEMPLATE_MARKER', $refreshed->post_content, 'Opening the editor must refresh an untouched scratchpad to the current file template' );
 		$this->assertSame(
 			sha1( (string) $refreshed->post_content ),
-			get_post_meta( $post_id, \Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateDivergenceDetector::SOURCE_HASH_META_KEY, true ),
+			get_post_meta( $post_id, \Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateDivergenceDetector::SOURCE_HASH_META_KEY, true ),
 			'The source hash must be restamped so the scratchpad still counts as never-edited'
 		);
 	}
@@ -358,12 +358,12 @@ class IntegrationTest extends WC_Unit_Test_Case {
 		$append_marker = static function ( $template_html ) {
 			return $template_html . "\n<!-- wp:paragraph --><p>FRESH_TEMPLATE_MARKER</p><!-- /wp:paragraph -->";
 		};
-		add_filter( 'woocommerce_email_block_template_html', $append_marker );
+		add_filter( 'poocommerce_email_block_template_html', $append_marker );
 
 		try {
 			$this->invoke_maybe_refresh_scratchpad( $post_id );
 		} finally {
-			remove_filter( 'woocommerce_email_block_template_html', $append_marker );
+			remove_filter( 'poocommerce_email_block_template_html', $append_marker );
 		}
 
 		$this->assertSame( $edited_content, get_post( $post_id )->post_content, 'An edited scratchpad must never be refreshed' );
@@ -389,12 +389,12 @@ class IntegrationTest extends WC_Unit_Test_Case {
 		$append_marker = static function ( $template_html ) {
 			return $template_html . "\n<!-- wp:paragraph --><p>FRESH_TEMPLATE_MARKER</p><!-- /wp:paragraph -->";
 		};
-		add_filter( 'woocommerce_email_block_template_html', $append_marker );
+		add_filter( 'poocommerce_email_block_template_html', $append_marker );
 
 		try {
 			$this->invoke_maybe_refresh_scratchpad( $post_id );
 		} finally {
-			remove_filter( 'woocommerce_email_block_template_html', $append_marker );
+			remove_filter( 'poocommerce_email_block_template_html', $append_marker );
 		}
 
 		$this->assertSame( $published_content, get_post( $post_id )->post_content, 'A published post must never be refreshed' );
@@ -410,7 +410,7 @@ class IntegrationTest extends WC_Unit_Test_Case {
 		$email = $this->posts_manager->get_email_by_id( $email_id );
 		$this->assertNotNull( $email, 'The core transactional email must resolve' );
 
-		return ( new \Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsGenerator() )->create_draft( $email );
+		return ( new \Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsGenerator() )->create_draft( $email );
 	}
 
 	/**
@@ -457,7 +457,7 @@ class IntegrationTest extends WC_Unit_Test_Case {
 		$this->injected_email_keys[] = $class_key;
 
 		add_filter(
-			'woocommerce_transactional_emails_for_block_editor',
+			'poocommerce_transactional_emails_for_block_editor',
 			static function ( array $emails ) use ( $email_id ): array {
 				if ( ! in_array( $email_id, $emails, true ) ) {
 					$emails[] = $email_id;
@@ -506,9 +506,9 @@ class IntegrationTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox The preview page dies for users without manage_woocommerce.
+	 * @testdox The preview page dies for users without manage_poocommerce.
 	 */
-	public function test_preview_page_requires_manage_woocommerce(): void {
+	public function test_preview_page_requires_manage_poocommerce(): void {
 		$subscriber_id = $this->factory()->user->create( array( 'role' => 'subscriber' ) );
 		wp_set_current_user( $subscriber_id );
 
@@ -545,25 +545,25 @@ class IntegrationTest extends WC_Unit_Test_Case {
 	private function bootstrap_email_editor(): void {
 		// setUp's add_option() no-ops when a previous tearDown left the option
 		// at 'no'; the editor bootstrap requires the feature to be enabled.
-		update_option( 'woocommerce_feature_block_email_editor_enabled', 'yes' );
+		update_option( 'poocommerce_feature_block_email_editor_enabled', 'yes' );
 		wc_get_container()->get( Integration::class )->initialize();
 
 		// The DI container runs TemplatesController::init() only on first
 		// instantiation; when an earlier test resolved it, the WP test
 		// framework's per-test filter restoration removed its registration
 		// hook, so re-add it for the cached instance.
-		$templates_controller = wc_get_container()->get( \Automattic\WooCommerce\Internal\EmailEditor\EmailTemplates\TemplatesController::class );
-		if ( false === has_filter( 'woocommerce_email_editor_register_templates', array( $templates_controller, 'register_templates' ) ) ) {
+		$templates_controller = wc_get_container()->get( \Automattic\PooCommerce\Internal\EmailEditor\EmailTemplates\TemplatesController::class );
+		if ( false === has_filter( 'poocommerce_email_editor_register_templates', array( $templates_controller, 'register_templates' ) ) ) {
 			$templates_controller->init();
 		}
-		\Automattic\WooCommerce\EmailEditor\Email_Editor_Container::container()->get( \Automattic\WooCommerce\EmailEditor\Bootstrap::class )->initialize();
+		\Automattic\PooCommerce\EmailEditor\Email_Editor_Container::container()->get( \Automattic\PooCommerce\EmailEditor\Bootstrap::class )->initialize();
 	}
 
 	/**
 	 * Skip the test when the environment doesn't meet the editor's requirements.
 	 */
 	private function skip_if_unsupported_environment(): void {
-		$dependency_check = \Automattic\WooCommerce\EmailEditor\Email_Editor_Container::container()->get( \Automattic\WooCommerce\EmailEditor\Engine\Dependency_Check::class );
+		$dependency_check = \Automattic\PooCommerce\EmailEditor\Email_Editor_Container::container()->get( \Automattic\PooCommerce\EmailEditor\Engine\Dependency_Check::class );
 		if ( ! $dependency_check->are_dependencies_met() ) {
 			$this->markTestSkipped( 'The test environment does not fulfill minimal requirements for the block email editor.' );
 		}

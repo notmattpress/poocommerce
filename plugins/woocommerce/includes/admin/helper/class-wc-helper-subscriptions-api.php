@@ -1,8 +1,8 @@
 <?php
 /**
- * WooCommerce Admin Helper - React admin interface
+ * PooCommerce Admin Helper - React admin interface
  *
- * @package WooCommerce\Admin\Helper
+ * @package PooCommerce\Admin\Helper
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * WC_Helper_Subscriptions_API
  *
  * The main entry-point for all things related to the Marketplace Subscriptions API.
- * The Subscriptions API manages WooCommerce.com Subscriptions.
+ * The Subscriptions API manages PooCommerce.com Subscriptions.
  */
 class WC_Helper_Subscriptions_API {
 
@@ -128,15 +128,15 @@ class WC_Helper_Subscriptions_API {
 	}
 
 	/**
-	 * The Extensions page can only be accessed by users with the manage_woocommerce
+	 * The Extensions page can only be accessed by users with the manage_poocommerce
 	 * capability. So the API mimics that behavior.
 	 */
 	public static function get_permission() {
-		return current_user_can( 'manage_woocommerce' );
+		return current_user_can( 'manage_poocommerce' );
 	}
 
 	/**
-	 * Fetch subscriptions from WooCommerce.com and serve them
+	 * Fetch subscriptions from PooCommerce.com and serve them
 	 * as JSON.
 	 */
 	public static function get_subscriptions() {
@@ -154,7 +154,7 @@ class WC_Helper_Subscriptions_API {
 	}
 
 	/**
-	 * Refresh account and subscriptions from WooCommerce.com and serve subscriptions
+	 * Refresh account and subscriptions from PooCommerce.com and serve subscriptions
 	 * as JSON.
 	 */
 	public static function refresh() {
@@ -165,7 +165,7 @@ class WC_Helper_Subscriptions_API {
 			WC_Helper::fetch_helper_connection_info();
 
 			// get_subscriptions() swallows Helper API failures and returns an empty
-			// array, so a refresh that could not reach WooCommerce.com would
+			// array, so a refresh that could not reach PooCommerce.com would
 			// otherwise report success over an empty list. Surface the recorded
 			// failure instead. Checked before serving, since serving exits.
 			$api_error = WC_Helper::get_api_error();
@@ -174,9 +174,9 @@ class WC_Helper_Subscriptions_API {
 				wp_send_json_error(
 					array(
 						'message' => $api_error['message'],
-						// The upstream WooCommerce.com status, carried in the body
+						// The upstream PooCommerce.com status, carried in the body
 						// rather than used as the response status. The failure is
-						// between this store and WooCommerce.com, so relaying it
+						// between this store and PooCommerce.com, so relaying it
 						// would have this endpoint claim the caller was rate
 						// limited or unauthorized when neither is true.
 						'code'    => $api_error['code'],
@@ -197,7 +197,7 @@ class WC_Helper_Subscriptions_API {
 	}
 
 	/**
-	 * Connect a WooCommerce.com subscription.
+	 * Connect a PooCommerce.com subscription.
 	 *
 	 * @param WP_REST_Request $request Request object.
 	 */
@@ -227,13 +227,13 @@ class WC_Helper_Subscriptions_API {
 		if ( $success ) {
 			wp_send_json_success(
 				array(
-					'message' => __( 'Your subscription has been connected.', 'woocommerce' ),
+					'message' => __( 'Your subscription has been connected.', 'poocommerce' ),
 				)
 			);
 		} else {
 			wp_send_json_error(
 				array(
-					'message' => __( 'There was an error connecting your subscription. Please try again.', 'woocommerce' ),
+					'message' => __( 'There was an error connecting your subscription. Please try again.', 'poocommerce' ),
 				),
 				400
 			);
@@ -241,7 +241,7 @@ class WC_Helper_Subscriptions_API {
 	}
 
 	/**
-	 * Activate a plugin for a WooCommerce.com subscription.
+	 * Activate a plugin for a PooCommerce.com subscription.
 	 *
 	 * @param WP_REST_Request $request Request object.
 	 */
@@ -260,13 +260,13 @@ class WC_Helper_Subscriptions_API {
 		if ( $success ) {
 			wp_send_json_success(
 				array(
-					'message' => __( 'The plugin for your subscription has been activated.', 'woocommerce' ),
+					'message' => __( 'The plugin for your subscription has been activated.', 'poocommerce' ),
 				)
 			);
 		} else {
 			wp_send_json_error(
 				array(
-					'message' => __( 'The plugin for your subscription couldn\'t be activated.', 'woocommerce' ),
+					'message' => __( 'The plugin for your subscription couldn\'t be activated.', 'poocommerce' ),
 				),
 				400
 			);
@@ -274,7 +274,7 @@ class WC_Helper_Subscriptions_API {
 	}
 
 	/**
-	 * Disconnect a WooCommerce.com subscription.
+	 * Disconnect a PooCommerce.com subscription.
 	 *
 	 * @param WP_REST_Request $request Request object.
 	 */
@@ -293,13 +293,13 @@ class WC_Helper_Subscriptions_API {
 		if ( $success ) {
 			wp_send_json_success(
 				array(
-					'message' => __( 'Your subscription has been disconnected.', 'woocommerce' ),
+					'message' => __( 'Your subscription has been disconnected.', 'poocommerce' ),
 				)
 			);
 		} else {
 			wp_send_json_error(
 				array(
-					'message' => __( 'There was an error disconnecting your subscription. Please try again.', 'woocommerce' ),
+					'message' => __( 'There was an error disconnecting your subscription. Please try again.', 'poocommerce' ),
 				),
 				400
 			);
@@ -307,7 +307,7 @@ class WC_Helper_Subscriptions_API {
 	}
 
 	/**
-	 * Activate a WooCommerce.com product.
+	 * Activate a PooCommerce.com product.
 	 * This activates the plugin/theme on the site.
 	 *
 	 * @param WP_REST_Request $request Request object.
@@ -319,7 +319,7 @@ class WC_Helper_Subscriptions_API {
 		if ( ! is_array( $subscription ) ) {
 			wp_send_json_error(
 				array(
-					'message' => __( 'We couldn\'t find a subscription for this product.', 'woocommerce' ),
+					'message' => __( 'We couldn\'t find a subscription for this product.', 'poocommerce' ),
 				),
 				400
 			);
@@ -328,7 +328,7 @@ class WC_Helper_Subscriptions_API {
 		if ( true !== $subscription['local']['installed'] || ! isset( $subscription['local']['active'] ) ) {
 			wp_send_json_error(
 				array(
-					'message' => __( 'This product is not installed.', 'woocommerce' ),
+					'message' => __( 'This product is not installed.', 'poocommerce' ),
 				),
 				400
 			);
@@ -337,7 +337,7 @@ class WC_Helper_Subscriptions_API {
 		if ( true === $subscription['local']['active'] ) {
 			wp_send_json_success(
 				array(
-					'message' => __( 'This product is already active.', 'woocommerce' ),
+					'message' => __( 'This product is already active.', 'poocommerce' ),
 				),
 			);
 		}
@@ -345,18 +345,18 @@ class WC_Helper_Subscriptions_API {
 		if ( ! in_array( $subscription['product_type'] ?? null, array( 'plugin', 'theme' ), true ) ) {
 			wp_send_json_error(
 				array(
-					'message' => __( 'This product type is not supported.', 'woocommerce' ),
+					'message' => __( 'This product type is not supported.', 'poocommerce' ),
 				),
 				400
 			);
 		}
 
 		if ( 'plugin' === $subscription['product_type'] ) {
-			// manage_woocommerce (checked by get_permission() above) doesn't imply activate_plugins.
+			// manage_poocommerce (checked by get_permission() above) doesn't imply activate_plugins.
 			if ( ! current_user_can( 'activate_plugins' ) ) {
 				wp_send_json_error(
 					array(
-						'message' => __( 'You do not have permission to activate plugins.', 'woocommerce' ),
+						'message' => __( 'You do not have permission to activate plugins.', 'poocommerce' ),
 					),
 					403
 				);
@@ -365,7 +365,7 @@ class WC_Helper_Subscriptions_API {
 			if ( is_wp_error( $success ) ) {
 				wp_send_json_error(
 					array(
-						'message' => __( 'There was an error activating this plugin.', 'woocommerce' ),
+						'message' => __( 'There was an error activating this plugin.', 'poocommerce' ),
 					),
 					400
 				);
@@ -374,7 +374,7 @@ class WC_Helper_Subscriptions_API {
 			if ( ! current_user_can( 'switch_themes' ) ) {
 				wp_send_json_error(
 					array(
-						'message' => __( 'You do not have permission to switch themes.', 'woocommerce' ),
+						'message' => __( 'You do not have permission to switch themes.', 'poocommerce' ),
 					),
 					403
 				);
@@ -384,7 +384,7 @@ class WC_Helper_Subscriptions_API {
 			if ( $subscription['local']['slug'] !== $theme->get_stylesheet() ) {
 				wp_send_json_error(
 					array(
-						'message' => __( 'There was an error activating this theme.', 'woocommerce' ),
+						'message' => __( 'There was an error activating this theme.', 'poocommerce' ),
 					),
 					400
 				);
@@ -393,13 +393,13 @@ class WC_Helper_Subscriptions_API {
 
 		wp_send_json_success(
 			array(
-				'message' => __( 'This product has been activated.', 'woocommerce' ),
+				'message' => __( 'This product has been activated.', 'poocommerce' ),
 			),
 		);
 	}
 
 	/**
-	 * Get the install URL for a WooCommerce.com product.
+	 * Get the install URL for a PooCommerce.com product.
 	 *
 	 * @param WP_REST_Request $request Request object.
 	 */
@@ -410,7 +410,7 @@ class WC_Helper_Subscriptions_API {
 		if ( ! $subscription ) {
 			wp_send_json_error(
 				array(
-					'message' => __( 'We couldn\'t find a subscription for this product.', 'woocommerce' ),
+					'message' => __( 'We couldn\'t find a subscription for this product.', 'poocommerce' ),
 				),
 				400
 			);
@@ -419,7 +419,7 @@ class WC_Helper_Subscriptions_API {
 		if ( true === $subscription['local']['installed'] ) {
 			wp_send_json_success(
 				array(
-					'message' => __( 'This product is already installed.', 'woocommerce' ),
+					'message' => __( 'This product is already installed.', 'poocommerce' ),
 				),
 			);
 		}
@@ -432,7 +432,7 @@ class WC_Helper_Subscriptions_API {
 		if ( ! $install_url ) {
 			wp_send_json_error(
 				array(
-					'message' => __( 'There was an error getting the install URL for this product.', 'woocommerce' ),
+					'message' => __( 'There was an error getting the install URL for this product.', 'poocommerce' ),
 				),
 				400
 			);

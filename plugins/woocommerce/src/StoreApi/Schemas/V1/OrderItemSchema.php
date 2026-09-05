@@ -1,7 +1,7 @@
 <?php
-namespace Automattic\WooCommerce\StoreApi\Schemas\V1;
+namespace Automattic\PooCommerce\StoreApi\Schemas\V1;
 
-use Automattic\WooCommerce\StoreApi\Utilities\ProductItemTrait;
+use Automattic\PooCommerce\StoreApi\Utilities\ProductItemTrait;
 
 /**
  * OrderItemSchema class.
@@ -44,7 +44,7 @@ class OrderItemSchema extends ItemSchema {
 		$properties = parent::get_properties();
 
 		$properties['item_data'] = [
-			'description' => __( 'Metadata related to the item.', 'woocommerce' ),
+			'description' => __( 'Metadata related to the item.', 'poocommerce' ),
 			'type'        => 'array',
 			'context'     => [ 'view', 'edit' ],
 			'readonly'    => true,
@@ -52,31 +52,31 @@ class OrderItemSchema extends ItemSchema {
 				'type'       => 'object',
 				'properties' => [
 					'id'            => [
-						'description' => __( 'Order item metadata ID. Null for entries an extension added that have no stored metadata row.', 'woocommerce' ),
+						'description' => __( 'Order item metadata ID. Null for entries an extension added that have no stored metadata row.', 'poocommerce' ),
 						'type'        => [ 'integer', 'null' ],
 						'context'     => [ 'view', 'edit' ],
 						'readonly'    => true,
 					],
 					'key'           => [
-						'description' => __( 'Metadata key.', 'woocommerce' ),
+						'description' => __( 'Metadata key.', 'poocommerce' ),
 						'type'        => 'string',
 						'context'     => [ 'view', 'edit' ],
 						'readonly'    => true,
 					],
 					'value'         => [
-						'description' => __( 'Metadata value.', 'woocommerce' ),
+						'description' => __( 'Metadata value.', 'poocommerce' ),
 						'type'        => 'string',
 						'context'     => [ 'view', 'edit' ],
 						'readonly'    => true,
 					],
 					'display_key'   => [
-						'description' => __( 'Metadata key, formatted for display.', 'woocommerce' ),
+						'description' => __( 'Metadata key, formatted for display.', 'poocommerce' ),
 						'type'        => 'string',
 						'context'     => [ 'view', 'edit' ],
 						'readonly'    => true,
 					],
 					'display_value' => [
-						'description' => __( 'Metadata value, formatted for display.', 'woocommerce' ),
+						'description' => __( 'Metadata value, formatted for display.', 'poocommerce' ),
 						'type'        => 'string',
 						'context'     => [ 'view', 'edit' ],
 						'readonly'    => true,
@@ -100,7 +100,7 @@ class OrderItemSchema extends ItemSchema {
 		$formatted_meta_data = $order_item->get_all_formatted_meta_data();
 		$item_data           = [];
 
-		// A `woocommerce_order_item_get_formatted_meta_data` callback can return anything, and a bad
+		// A `poocommerce_order_item_get_formatted_meta_data` callback can return anything, and a bad
 		// one must not take the endpoint down.
 		if ( ! is_array( $formatted_meta_data ) ) {
 			return $item_data;
@@ -180,7 +180,7 @@ class OrderItemSchema extends ItemSchema {
 			$product_properties['sku']                = $product->get_sku();
 			$product_properties['permalink']          = $product->get_permalink();
 			$product_properties['catalog_visibility'] = $product->get_catalog_visibility();
-			$product_properties['prices']             = $this->prepare_product_price_response( $product, get_option( 'woocommerce_tax_display_cart' ) );
+			$product_properties['prices']             = $this->prepare_product_price_response( $product, get_option( 'poocommerce_tax_display_cart' ) );
 			$product_properties['sold_individually']  = $product->is_sold_individually();
 			$product_properties['images']             = $this->get_images( $product );
 

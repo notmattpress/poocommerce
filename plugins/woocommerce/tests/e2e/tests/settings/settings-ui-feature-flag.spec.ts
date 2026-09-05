@@ -144,7 +144,7 @@ test.describe( 'Settings UI feature flag', { tag: [ tags.NOT_E2E ] }, () => {
 			// the extensions earlier specs install can exhaust the CLI
 			// container's memory before the command runs.
 			await wpCLI(
-				`wp option update woocommerce_weight_unit ${ originalUnit } --skip-plugins --skip-themes`
+				`wp option update poocommerce_weight_unit ${ originalUnit } --skip-plugins --skip-themes`
 			);
 		}
 	} );
@@ -214,7 +214,7 @@ test.describe( 'Settings UI feature flag', { tag: [ tags.NOT_E2E ] }, () => {
 		await page.goto( settingsUrl );
 
 		await expect( page.getByRole( 'textbox' ) ).toHaveCount( 0 );
-		await expect( page.locator( '.woocommerce-save-button' ) ).toHaveCount(
+		await expect( page.locator( '.poocommerce-save-button' ) ).toHaveCount(
 			0
 		);
 		const classicAction = page.getByRole( 'link', {

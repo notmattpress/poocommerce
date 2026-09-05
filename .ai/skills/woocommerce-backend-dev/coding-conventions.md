@@ -76,12 +76,12 @@ Follow [WordPress Coding Standards](https://developer.wordpress.org/coding-stand
 
 ## Enum Constants Instead of Magic Strings
 
-Enumerated string vocabularies (order statuses, product types, stock statuses, settings option values...) have constants in `final` classes under `Automattic\WooCommerce\Enums` (`plugins/woocommerce/src/Enums/`, see its `README.md`). Reference the constant, not the raw string literal.
+Enumerated string vocabularies (order statuses, product types, stock statuses, settings option values...) have constants in `final` classes under `Automattic\PooCommerce\Enums` (`plugins/poocommerce/src/Enums/`, see its `README.md`). Reference the constant, not the raw string literal.
 
 **Good:**
 
 ```php
-use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Enums\OrderStatus;
 
 if ( OrderStatus::COMPLETED === $order->get_status() ) {
 ```

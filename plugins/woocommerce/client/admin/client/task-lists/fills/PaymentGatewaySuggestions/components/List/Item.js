@@ -4,9 +4,9 @@
 import clsx from 'clsx';
 import { Fragment } from '@wordpress/element';
 import { CardBody, CardMedia, CardDivider } from '@wordpress/components';
-import { SetupRequired } from '@woocommerce/onboarding';
-import { Pill } from '@woocommerce/components';
-import { Text, useSlot } from '@woocommerce/experimental';
+import { SetupRequired } from '@poocommerce/onboarding';
+import { Pill } from '@poocommerce/components';
+import { Text, useSlot } from '@poocommerce/experimental';
 import { __ } from '@wordpress/i18n';
 
 /**
@@ -35,9 +35,9 @@ export const Item = ( { isRecommended, markConfigured, paymentGateway } ) => {
 	} = paymentGateway;
 
 	const connectSlot = useSlot(
-		`woocommerce_payment_gateway_configure_${ id }`
+		`poocommerce_payment_gateway_configure_${ id }`
 	);
-	const setupSlot = useSlot( `woocommerce_payment_gateway_setup_${ id }` );
+	const setupSlot = useSlot( `poocommerce_payment_gateway_setup_${ id }` );
 
 	const hasFills =
 		Boolean( connectSlot?.fills?.length ) ||
@@ -49,10 +49,10 @@ export const Item = ( { isRecommended, markConfigured, paymentGateway } ) => {
 	const showRecommended = isRecommended && needsSetup;
 
 	const classes = clsx(
-		'woocommerce-task-payment',
-		'woocommerce-task-card',
-		needsSetup && 'woocommerce-task-payment-not-configured',
-		'woocommerce-task-payment-' + id
+		'poocommerce-task-payment',
+		'poocommerce-task-card',
+		needsSetup && 'poocommerce-task-payment-not-configured',
+		'poocommerce-task-payment-' + id
 	);
 
 	return (
@@ -70,27 +70,27 @@ export const Item = ( { isRecommended, markConfigured, paymentGateway } ) => {
 						}
 					/>
 				</CardMedia>
-				<div className="woocommerce-task-payment__description">
-					<Text as="h3" className="woocommerce-task-payment__title">
+				<div className="poocommerce-task-payment__description">
+					<Text as="h3" className="poocommerce-task-payment__title">
 						<span>{ title }</span>
 						{ showRecommended && (
 							<Pill
 								className={ ! isLocalPartner && 'pill-green' }
 							>
 								{ isLocalPartner
-									? __( 'Local Partner', 'woocommerce' )
-									: __( 'Recommended', 'woocommerce' ) }
+									? __( 'Local Partner', 'poocommerce' )
+									: __( 'Recommended', 'poocommerce' ) }
 							</Pill>
 						) }
 						{ isInstalled && needsSetup && !! plugins.length && (
 							<SetupRequired />
 						) }
 					</Text>
-					<div className="woocommerce-task-payment__content">
+					<div className="poocommerce-task-payment__content">
 						{ content }
 					</div>
 					{ transactionProcessors && (
-						<div className="woocommerce-task-payment__transaction-processors_images">
+						<div className="poocommerce-task-payment__transaction-processors_images">
 							{ Object.keys( transactionProcessors ).map(
 								( key ) => {
 									return (
@@ -105,7 +105,7 @@ export const Item = ( { isRecommended, markConfigured, paymentGateway } ) => {
 						</div>
 					) }
 				</div>
-				<div className="woocommerce-task-payment__footer">
+				<div className="poocommerce-task-payment__footer">
 					<Action
 						manageUrl={ manageUrl }
 						id={ id }

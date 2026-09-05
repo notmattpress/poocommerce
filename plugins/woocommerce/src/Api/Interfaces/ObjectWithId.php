@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Api\Interfaces;
+namespace Automattic\PooCommerce\Api\Interfaces;
 
-use Automattic\WooCommerce\Api\Attributes\Description;
+use Automattic\PooCommerce\Api\Attributes\Description;
 
 /**
  * Interface trait for objects that have a numeric ID.

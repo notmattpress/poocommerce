@@ -2,12 +2,12 @@
 /**
  * Tests for the WC_Admin_Post_Types class.
  *
- * @package WooCommerce\Tests\Admin
+ * @package PooCommerce\Tests\Admin
  */
 
 declare( strict_types = 1 );
 
-use Automattic\WooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Enums\ProductType;
 
 /**
  * Class WC_Admin_Post_Types_Test.
@@ -292,8 +292,8 @@ class WC_Admin_Post_Types_Test extends WC_Unit_Test_Case {
 	private function quick_edit( WC_Product $product, array $request_data ): void {
 		$_REQUEST = array_merge(
 			array(
-				'woocommerce_quick_edit'       => '1',
-				'woocommerce_quick_edit_nonce' => wp_create_nonce( 'woocommerce_quick_edit_nonce' ),
+				'poocommerce_quick_edit'       => '1',
+				'poocommerce_quick_edit_nonce' => wp_create_nonce( 'poocommerce_quick_edit_nonce' ),
 				'_stock_status'                => 'instock',
 			),
 			$request_data

@@ -2,7 +2,7 @@
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2.0.0](https://www.npmjs.com/package/@woocommerce/expression-evaluation/v/2.0.0) - 2026-06-11 
+## [2.0.0](https://www.npmjs.com/package/@poocommerce/expression-evaluation/v/2.0.0) - 2026-06-11 
 
 -   Major - Update @wordpress/* dependencies to WordPress 6.8 minimum. [#64114]
 -   Major - Updated declared dependencies to React 18 and WordPress 6.6. [#53531]
@@ -29,9 +29,9 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 -   Patch - Update pnpm to 9.1.0. [#47385]
 -   Patch - Update wireit to 0.14.10. [#54996]
 
-## [1.0.0](https://www.npmjs.com/package/@woocommerce/expression-evaluation/v/1.0.0) - 2023-11-27 
+## [1.0.0](https://www.npmjs.com/package/@poocommerce/expression-evaluation/v/1.0.0) - 2023-11-27 
 
--   Minor - Initial @woocommerce/expression-evaluation package. [#40556]
+-   Minor - Initial @poocommerce/expression-evaluation package. [#40556]
 -   Minor - Support arrays with key/value pair objects in expressions (like post meta data). [#41594]
 
-[See legacy changelogs for previous versions](https://github.com/woocommerce/woocommerce/blob/68581955106947918d2b17607a01bdfdf22288a9/packages/js/expression-evaluation/CHANGELOG.md).
+[See legacy changelogs for previous versions](https://github.com/poocommerce/poocommerce/blob/68581955106947918d2b17607a01bdfdf22288a9/packages/js/expression-evaluation/CHANGELOG.md).

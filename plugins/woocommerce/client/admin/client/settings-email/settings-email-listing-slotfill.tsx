@@ -6,8 +6,8 @@ import { registerPlugin } from '@wordpress/plugins';
 import { useEffect, useState } from '@wordpress/element';
 import { dispatch } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
-import { getAdminLink } from '@woocommerce/settings';
-import { recordEvent } from '@woocommerce/tracks';
+import { getAdminLink } from '@poocommerce/settings';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -115,9 +115,9 @@ const EditTemplateButton = ( {
 			<Button
 				variant="primary"
 				href={ editTemplateUrl }
-				className="woocommerce-email-listing-edit-template-button"
+				className="poocommerce-email-listing-edit-template-button"
 			>
-				{ __( 'Edit template', 'woocommerce' ) }
+				{ __( 'Edit template', 'poocommerce' ) }
 			</Button>
 		);
 	}
@@ -144,7 +144,7 @@ const EditTemplateButton = ( {
 		void dispatch( 'core/notices' ).createErrorNotice(
 			__(
 				'Could not prepare the email template for editing. Please try again.',
-				'woocommerce'
+				'poocommerce'
 			)
 		);
 	};
@@ -155,9 +155,9 @@ const EditTemplateButton = ( {
 			isBusy={ isCreatingPost }
 			disabled={ isCreatingPost }
 			onClick={ handleClick }
-			className="woocommerce-email-listing-edit-template-button"
+			className="poocommerce-email-listing-edit-template-button"
 		>
-			{ __( 'Edit template', 'woocommerce' ) }
+			{ __( 'Edit template', 'poocommerce' ) }
 		</Button>
 	);
 };
@@ -206,12 +206,12 @@ export const EmailListingFill: React.FC< {
 		<Fill>
 			<div
 				id="email_notification_settings-description"
-				className="woocommerce-email-listing-description"
+				className="poocommerce-email-listing-description"
 			>
 				<p>
 					{ __(
-						"Manage email notifications sent from WooCommerce below or click on 'Edit template' to customize your email template design.",
-						'woocommerce'
+						"Manage email notifications sent from PooCommerce below or click on 'Edit template' to customize your email template design.",
+						'poocommerce'
 					) }
 				</p>
 				<EditTemplateButton
@@ -288,8 +288,8 @@ export const registerSettingsEmailListingFill = () => {
 			: [];
 	} catch ( e ) {}
 
-	registerPlugin( 'woocommerce-admin-settings-email-listing', {
-		scope: 'woocommerce-email-listing',
+	registerPlugin( 'poocommerce-admin-settings-email-listing', {
+		scope: 'poocommerce-email-listing',
 		render: () => (
 			<EmailListingFill
 				emailTypes={ emailTypes }

@@ -1,4 +1,4 @@
-/* global woocommerce_admin_meta_boxes_coupon */
+/* global poocommerce_admin_meta_boxes_coupon */
 jQuery(function( $ ) {
 
 	/**
@@ -47,7 +47,7 @@ jQuery(function( $ ) {
 			button.href = '#';
 			button.className = 'button generate-coupon-code';
 			button.textContent =
-				woocommerce_admin_meta_boxes_coupon.generate_button_text;
+				poocommerce_admin_meta_boxes_coupon.generate_button_text;
 
 			$title.after(button);
 		},
@@ -60,12 +60,12 @@ jQuery(function( $ ) {
 			var $coupon_code_field = $( '#title' ),
 				$coupon_code_label = $( '#title-prompt-text' ),
 			    $result = '';
-			for ( var i = 0; i < woocommerce_admin_meta_boxes_coupon.char_length; i++ ) {
-				$result += woocommerce_admin_meta_boxes_coupon.characters.charAt(
-					Math.floor( Math.random() * woocommerce_admin_meta_boxes_coupon.characters.length )
+			for ( var i = 0; i < poocommerce_admin_meta_boxes_coupon.char_length; i++ ) {
+				$result += poocommerce_admin_meta_boxes_coupon.characters.charAt(
+					Math.floor( Math.random() * poocommerce_admin_meta_boxes_coupon.characters.length )
 				);
 			}
-			$result = woocommerce_admin_meta_boxes_coupon.prefix + $result + woocommerce_admin_meta_boxes_coupon.suffix;
+			$result = poocommerce_admin_meta_boxes_coupon.prefix + $result + poocommerce_admin_meta_boxes_coupon.suffix;
 			$coupon_code_field.trigger( 'focus' ).val( $result );
 			$coupon_code_label.addClass( 'screen-reader-text' );
 		}

@@ -2,19 +2,19 @@
 /**
  * Unit tests for the ContractStatus state machine.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine
+ * @package Automattic\PooCommerce\SubscriptionsEngine
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Tests\Unit\Core\Entity;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Tests\Unit\Core\Entity;
 
 use DomainException;
 use PHPUnit\Framework\TestCase;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\ContractStatus;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\ContractStatus;
 
 /**
- * @covers \Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\ContractStatus
+ * @covers \Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\ContractStatus
  */
 class ContractStatusTest extends TestCase {
 

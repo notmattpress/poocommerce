@@ -2,15 +2,15 @@
 /**
  * Tests for the Analytics report exporter.
  *
- * @package WooCommerce\Tests\Admin
+ * @package PooCommerce\Tests\Admin
  */
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Admin;
+namespace Automattic\PooCommerce\Tests\Admin;
 
-use Automattic\WooCommerce\Admin\ReportCSVExporter;
-use Automattic\WooCommerce\Admin\ReportExporter;
+use Automattic\PooCommerce\Admin\ReportCSVExporter;
+use Automattic\PooCommerce\Admin\ReportExporter;
 use WC_Unit_Test_Case;
 
 /**
@@ -149,7 +149,7 @@ class ReportExporterTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Cleanup runs from the daily WooCommerce Admin event.
+	 * @testdox Cleanup runs from the daily PooCommerce Admin event.
 	 */
 	public function test_cleanup_is_hooked_to_the_daily_event(): void {
 		$this->assertSame(

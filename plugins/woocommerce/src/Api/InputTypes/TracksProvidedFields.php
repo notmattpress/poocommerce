@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Api\InputTypes;
+namespace Automattic\PooCommerce\Api\InputTypes;
 
 /**
  * Trait for input types to track which fields were explicitly provided in the GraphQL request.

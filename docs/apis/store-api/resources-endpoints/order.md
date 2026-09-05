@@ -20,7 +20,7 @@ Returns the full order object response (see [Order Response](#order-response)).
 
 Order endpoints return responses in the same format as `/cart`; an order object which includes order items, applied coupons, shipping addresses and rates, and non-sensitive customer data.
 
-One difference worth calling out is `item_data`. Order items carry stored order item metadata; cart items carry display data from the `woocommerce_get_item_data` filter. Both are lists, but the entries hold different properties. See [Item data](#item-data).
+One difference worth calling out is `item_data`. Order items carry stored order item metadata; cart items carry display data from the `poocommerce_get_item_data` filter. Both are lists, but the entries hold different properties. See [Item data](#item-data).
 
 ### Order Response
 
@@ -239,7 +239,7 @@ Each order item carries its metadata in `item_data`, a list of entries:
 
 | Property | Type | Description |
 | --- | --- | --- |
-| `id` | integer \| null | The order item metadata row ID. `null` when an extension added the entry through `woocommerce_order_item_get_formatted_meta_data` without a stored row behind it. |
+| `id` | integer \| null | The order item metadata row ID. `null` when an extension added the entry through `poocommerce_order_item_get_formatted_meta_data` without a stored row behind it. |
 | `key` | string | Metadata key. |
 | `value` | string | Metadata value. |
 | `display_key` | string | Key, formatted for display. |
@@ -255,7 +255,7 @@ If an order action cannot be performed, an error response will be returned. This
 
 ```json
 {
-	"code": "woocommerce_rest_invalid_order",
+	"code": "poocommerce_rest_invalid_order",
 	"message": "Invalid order ID or key provided.",
 	"data": {
 		"status": 401

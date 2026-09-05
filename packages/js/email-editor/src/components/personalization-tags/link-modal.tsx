@@ -18,7 +18,7 @@ const LinkModal = ( { onInsert, isOpened, closeCallback, tag } ) => {
 			size="small"
 			title={ __( 'Insert Link', __i18n_text_domain__ ) }
 			onRequestClose={ closeCallback }
-			className="woocommerce-personalization-tags-modal"
+			className="poocommerce-personalization-tags-modal"
 		>
 			<TextControl
 				label={ __( 'Link Text', __i18n_text_domain__ ) }

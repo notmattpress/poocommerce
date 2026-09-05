@@ -55,7 +55,7 @@ jest.mock( '@wordpress/data', () => ( {
 	} ),
 } ) );
 
-jest.mock( '@woocommerce/utils', () => ( {
+jest.mock( '@poocommerce/utils', () => ( {
 	getInnerBlockByName: ( block: MockBlock | null, name: string ) => {
 		if ( ! block ) {
 			return null;
@@ -67,7 +67,7 @@ jest.mock( '@woocommerce/utils', () => ( {
 			}
 
 			const nestedBlock = jest
-				.requireMock( '@woocommerce/utils' )
+				.requireMock( '@poocommerce/utils' )
 				.getInnerBlockByName( innerBlock, name );
 
 			if ( nestedBlock ) {
@@ -114,12 +114,12 @@ jest.mock( '@wordpress/components', () => {
 } );
 
 const makeBlockType = ( overrides: Partial< MockBlockType > ) => ( {
-	name: 'woocommerce/product-filter-chips',
+	name: 'poocommerce/product-filter-chips',
 	title: 'Chips',
-	ancestor: [ 'woocommerce/product-filter-attribute' ],
-	usesContext: [ 'woocommerce/selectableItems' ],
+	ancestor: [ 'poocommerce/product-filter-attribute' ],
+	usesContext: [ 'poocommerce/selectableItems' ],
 	supports: {
-		woocommerce: {
+		poocommerce: {
 			innerBlockDisplayStyle: true,
 		},
 	},
@@ -131,7 +131,7 @@ describe( 'DisplayStyleSwitcher', () => {
 		mockBlockTypes = [];
 		mockParentBlock = {
 			clientId: 'parent-client-id',
-			name: 'woocommerce/product-filter-attribute',
+			name: 'poocommerce/product-filter-attribute',
 			innerBlocks: [],
 		};
 		mockCreateBlock.mockClear();
@@ -142,30 +142,30 @@ describe( 'DisplayStyleSwitcher', () => {
 	it( 'includes only blocks with display style support, matching ancestor, and matching context', () => {
 		mockBlockTypes = [
 			makeBlockType( {
-				name: 'woocommerce/product-filter-chips',
+				name: 'poocommerce/product-filter-chips',
 				title: 'Chips',
 			} ),
 			makeBlockType( {
-				name: 'woocommerce/no-support',
+				name: 'poocommerce/no-support',
 				title: 'No support',
 				supports: {},
 			} ),
 			makeBlockType( {
-				name: 'woocommerce/wrong-ancestor',
+				name: 'poocommerce/wrong-ancestor',
 				title: 'Wrong ancestor',
-				ancestor: [ 'woocommerce/other-parent' ],
+				ancestor: [ 'poocommerce/other-parent' ],
 			} ),
 			makeBlockType( {
-				name: 'woocommerce/wrong-context',
+				name: 'poocommerce/wrong-context',
 				title: 'Wrong context',
-				usesContext: [ 'woocommerce/removableItems' ],
+				usesContext: [ 'poocommerce/removableItems' ],
 			} ),
 		];
 
 		render(
 			<DisplayStyleSwitcher
 				clientId="parent-client-id"
-				currentStyle="woocommerce/product-filter-chips"
+				currentStyle="poocommerce/product-filter-chips"
 				onChange={ jest.fn() }
 			/>
 		);
@@ -185,21 +185,21 @@ describe( 'DisplayStyleSwitcher', () => {
 	it( 'replaces the actual display style block when the attribute is stale', () => {
 		mockBlockTypes = [
 			makeBlockType( {
-				name: 'woocommerce/product-filter-chips',
+				name: 'poocommerce/product-filter-chips',
 				title: 'Chips',
 			} ),
 			makeBlockType( {
-				name: 'woocommerce/product-filter-checkbox-list',
+				name: 'poocommerce/product-filter-checkbox-list',
 				title: 'List',
 			} ),
 		];
 		mockParentBlock = {
 			clientId: 'parent-client-id',
-			name: 'woocommerce/product-filter-attribute',
+			name: 'poocommerce/product-filter-attribute',
 			innerBlocks: [
 				{
 					clientId: 'chips-client-id',
-					name: 'woocommerce/product-filter-chips',
+					name: 'poocommerce/product-filter-chips',
 					attributes: { chipText: 'blue' },
 					innerBlocks: [],
 				},
@@ -209,7 +209,7 @@ describe( 'DisplayStyleSwitcher', () => {
 		render(
 			<DisplayStyleSwitcher
 				clientId="parent-client-id"
-				currentStyle="woocommerce/missing-style"
+				currentStyle="poocommerce/missing-style"
 				onChange={ jest.fn() }
 			/>
 		);
@@ -217,7 +217,7 @@ describe( 'DisplayStyleSwitcher', () => {
 		fireEvent.click( screen.getByRole( 'button', { name: 'List' } ) );
 
 		expect( mockReplaceBlock ).toHaveBeenCalledWith( 'chips-client-id', {
-			name: 'woocommerce/product-filter-checkbox-list',
+			name: 'poocommerce/product-filter-checkbox-list',
 			attributes: {},
 		} );
 		expect( mockInsertBlock ).not.toHaveBeenCalled();
@@ -226,21 +226,21 @@ describe( 'DisplayStyleSwitcher', () => {
 	it( 'restores attributes using the actual display style block name', () => {
 		mockBlockTypes = [
 			makeBlockType( {
-				name: 'woocommerce/product-filter-chips',
+				name: 'poocommerce/product-filter-chips',
 				title: 'Chips',
 			} ),
 			makeBlockType( {
-				name: 'woocommerce/product-filter-checkbox-list',
+				name: 'poocommerce/product-filter-checkbox-list',
 				title: 'List',
 			} ),
 		];
 		mockParentBlock = {
 			clientId: 'parent-client-id',
-			name: 'woocommerce/product-filter-attribute',
+			name: 'poocommerce/product-filter-attribute',
 			innerBlocks: [
 				{
 					clientId: 'style-client-id',
-					name: 'woocommerce/product-filter-chips',
+					name: 'poocommerce/product-filter-chips',
 					attributes: { chipText: 'blue' },
 					innerBlocks: [],
 				},
@@ -250,7 +250,7 @@ describe( 'DisplayStyleSwitcher', () => {
 		const { rerender } = render(
 			<DisplayStyleSwitcher
 				clientId="parent-client-id"
-				currentStyle="woocommerce/missing-style"
+				currentStyle="poocommerce/missing-style"
 				onChange={ jest.fn() }
 			/>
 		);
@@ -259,11 +259,11 @@ describe( 'DisplayStyleSwitcher', () => {
 
 		mockParentBlock = {
 			clientId: 'parent-client-id',
-			name: 'woocommerce/product-filter-attribute',
+			name: 'poocommerce/product-filter-attribute',
 			innerBlocks: [
 				{
 					clientId: 'style-client-id',
-					name: 'woocommerce/product-filter-checkbox-list',
+					name: 'poocommerce/product-filter-checkbox-list',
 					attributes: {},
 					innerBlocks: [],
 				},
@@ -275,7 +275,7 @@ describe( 'DisplayStyleSwitcher', () => {
 		rerender(
 			<DisplayStyleSwitcher
 				clientId="parent-client-id"
-				currentStyle="woocommerce/product-filter-checkbox-list"
+				currentStyle="poocommerce/product-filter-checkbox-list"
 				onChange={ jest.fn() }
 			/>
 		);
@@ -283,7 +283,7 @@ describe( 'DisplayStyleSwitcher', () => {
 		fireEvent.click( screen.getByRole( 'button', { name: 'Chips' } ) );
 
 		expect( mockCreateBlock ).toHaveBeenCalledWith(
-			'woocommerce/product-filter-chips',
+			'poocommerce/product-filter-chips',
 			{ chipText: 'blue' }
 		);
 	} );
@@ -291,16 +291,16 @@ describe( 'DisplayStyleSwitcher', () => {
 	it( 'uses fallback placement when no display style block exists', () => {
 		mockBlockTypes = [
 			makeBlockType( {
-				name: 'woocommerce/product-filter-chips',
+				name: 'poocommerce/product-filter-chips',
 				title: 'Chips',
 				ancestor: [
-					'woocommerce/add-to-cart-with-options-variation-selector-attribute',
+					'poocommerce/add-to-cart-with-options-variation-selector-attribute',
 				],
 			} ),
 		];
 		mockParentBlock = {
 			clientId: 'parent-client-id',
-			name: 'woocommerce/add-to-cart-with-options-variation-selector-attribute',
+			name: 'poocommerce/add-to-cart-with-options-variation-selector-attribute',
 			innerBlocks: [
 				{
 					clientId: 'group-client-id',
@@ -313,7 +313,7 @@ describe( 'DisplayStyleSwitcher', () => {
 		render(
 			<DisplayStyleSwitcher
 				clientId="parent-client-id"
-				currentStyle="woocommerce/product-filter-chips"
+				currentStyle="poocommerce/product-filter-chips"
 				getFallbackDisplayStyleInsertionPoint={ () => ( {
 					rootClientId: 'group-client-id',
 					index: 0,
@@ -326,7 +326,7 @@ describe( 'DisplayStyleSwitcher', () => {
 
 		expect( mockInsertBlock ).toHaveBeenCalledWith(
 			{
-				name: 'woocommerce/product-filter-chips',
+				name: 'poocommerce/product-filter-chips',
 				attributes: {},
 			},
 			0,
@@ -338,22 +338,22 @@ describe( 'DisplayStyleSwitcher', () => {
 	it( 'uses fallback placement when resetting without a display style block', () => {
 		mockBlockTypes = [
 			makeBlockType( {
-				name: 'woocommerce/product-filter-chips',
+				name: 'poocommerce/product-filter-chips',
 				title: 'Chips',
 				ancestor: [
-					'woocommerce/add-to-cart-with-options-variation-selector-attribute',
+					'poocommerce/add-to-cart-with-options-variation-selector-attribute',
 				],
 			} ),
 		];
 		mockParentBlock = {
 			clientId: 'parent-client-id',
-			name: 'woocommerce/add-to-cart-with-options-variation-selector-attribute',
+			name: 'poocommerce/add-to-cart-with-options-variation-selector-attribute',
 			innerBlocks: [],
 		};
 
 		resetDisplayStyleBlock(
 			'parent-client-id',
-			'woocommerce/product-filter-chips',
+			'poocommerce/product-filter-chips',
 			() => ( {
 				rootClientId: 'group-client-id',
 				index: 0,
@@ -362,7 +362,7 @@ describe( 'DisplayStyleSwitcher', () => {
 
 		expect( mockInsertBlock ).toHaveBeenCalledWith(
 			{
-				name: 'woocommerce/product-filter-chips',
+				name: 'poocommerce/product-filter-chips',
 				attributes: {},
 			},
 			0,

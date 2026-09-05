@@ -5,7 +5,7 @@
  * Handles requests to /coupons/*
  */
 
-namespace Automattic\WooCommerce\Admin\API;
+namespace Automattic\PooCommerce\Admin\API;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -32,7 +32,7 @@ class Coupons extends \WC_REST_Coupons_Controller {
 	public function get_collection_params() {
 		$params           = parent::get_collection_params();
 		$params['search'] = array(
-			'description'       => __( 'Limit results to coupons with codes matching a given string.', 'woocommerce' ),
+			'description'       => __( 'Limit results to coupons with codes matching a given string.', 'poocommerce' ),
 			'type'              => 'string',
 			'validate_callback' => 'rest_validate_request_arg',
 		);

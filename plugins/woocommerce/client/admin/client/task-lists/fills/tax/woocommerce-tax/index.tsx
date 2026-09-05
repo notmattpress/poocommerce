@@ -3,8 +3,8 @@
  */
 import { difference } from 'lodash';
 import { useSelect } from '@wordpress/data';
-import { Spinner } from '@woocommerce/components';
-import { pluginsStore, settingsStore } from '@woocommerce/data';
+import { Spinner } from '@poocommerce/components';
+import { pluginsStore, settingsStore } from '@poocommerce/data';
 
 /**
  * Internal dependencies
@@ -17,7 +17,7 @@ import {
 import { AutomatedTaxes } from './automated-taxes';
 import { Setup } from './setup';
 
-export const WooCommerceTax = ( {
+export const PooCommerceTax = ( {
 	isPending,
 	onAutomate,
 	onManual,

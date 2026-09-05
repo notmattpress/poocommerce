@@ -2,17 +2,17 @@
  * External dependencies
  */
 import { render, screen, waitFor, act } from '@testing-library/react';
-import { previewCart } from '@woocommerce/resource-previews';
+import { previewCart } from '@poocommerce/resource-previews';
 import { dispatch } from '@wordpress/data';
-import { CART_STORE_KEY as storeKey } from '@woocommerce/block-data';
-import { server, http, HttpResponse } from '@woocommerce/test-utils/msw';
-import { registerCheckoutFilters } from '@woocommerce/blocks-checkout';
+import { CART_STORE_KEY as storeKey } from '@poocommerce/block-data';
+import { server, http, HttpResponse } from '@poocommerce/test-utils/msw';
+import { registerCheckoutFilters } from '@poocommerce/blocks-checkout';
 
 /**
  * Internal dependencies
  */
-import { defaultCartState } from '@woocommerce/block-data/cart/default-state';
-import { allSettings } from '@woocommerce/settings';
+import { defaultCartState } from '@poocommerce/block-data/cart/default-state';
+import { allSettings } from '@poocommerce/settings';
 
 import Cart from '../block';
 

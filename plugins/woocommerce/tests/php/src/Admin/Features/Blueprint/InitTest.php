@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Admin\Features\Blueprint;
+namespace Automattic\PooCommerce\Tests\Admin\Features\Blueprint;
 
-use Automattic\WooCommerce\Admin\Features\Blueprint\Exporters\ExportWCPaymentGateways;
-use Automattic\WooCommerce\Admin\Features\Blueprint\Init;
-use Automattic\WooCommerce\Tests\Admin\Features\Blueprint\Stubs\DummyExporter;
-use Automattic\WooCommerce\Tests\Admin\Features\Blueprint\Stubs\ThemeStub;
+use Automattic\PooCommerce\Admin\Features\Blueprint\Exporters\ExportWCPaymentGateways;
+use Automattic\PooCommerce\Admin\Features\Blueprint\Init;
+use Automattic\PooCommerce\Tests\Admin\Features\Blueprint\Stubs\DummyExporter;
+use Automattic\PooCommerce\Tests\Admin\Features\Blueprint\Stubs\ThemeStub;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryTestCase;
 
 /**
  * Class InitTest
  *
- * @package Automattic\WooCommerce\Tests\Admin\Features\Blueprint
+ * @package Automattic\PooCommerce\Tests\Admin\Features\Blueprint
  */
 class InitTest extends MockeryTestCase {
 	/**
@@ -205,8 +205,8 @@ class InitTest extends MockeryTestCase {
 		$expected = array(
 			array(
 				'id'          => 'settings',
-				'description' => 'Includes WooCommerce settings except payment settings, which must be configured manually after import.',
-				'label'       => 'WooCommerce Settings',
+				'description' => 'Includes PooCommerce settings except payment settings, which must be configured manually after import.',
+				'label'       => 'PooCommerce Settings',
 				'icon'        => 'settings',
 				'items'       => array(
 					array(

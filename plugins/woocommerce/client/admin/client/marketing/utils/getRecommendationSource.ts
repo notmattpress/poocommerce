@@ -6,12 +6,12 @@ import { getAdminSetting } from '~/utils/admin-settings';
 /**
  * Get the source of the marketing recommendations.
  *
- * When the marketplace suggestions feature is turned on, the source is 'woocommerce.com'. Otherwise, it is 'plugin-woocommerce'.
+ * When the marketplace suggestions feature is turned on, the source is 'poocommerce.com'. Otherwise, it is 'plugin-poocommerce'.
  */
 export const getRecommendationSource = () => {
 	if ( getAdminSetting( 'allowMarketplaceSuggestions', false ) ) {
-		return 'woocommerce.com';
+		return 'poocommerce.com';
 	}
 
-	return 'plugin-woocommerce';
+	return 'plugin-poocommerce';
 };

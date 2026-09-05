@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\Admin\Orders;
+namespace Automattic\PooCommerce\Internal\Admin\Orders;
 
 use WC_Order;
 use WC_Order_Item;
@@ -29,7 +29,7 @@ class ItemQuantityLimits {
 	 * @param WC_Order_Item         $item    Line item being edited.
 	 * @param WC_Product|false|null $product The item's product when the caller already
 	 *                                       resolved it; null to resolve it here.
-	 * @return string Numeric string, filtered through 'woocommerce_quantity_input_min_admin'.
+	 * @return string Numeric string, filtered through 'poocommerce_quantity_input_min_admin'.
 	 */
 	public function get_quantity_input_min( WC_Order_Item $item, $product = null ): string {
 		if ( null === $product ) {
@@ -43,7 +43,7 @@ class ItemQuantityLimits {
 		 *
 		 * @since 5.8.0
 		 */
-		$min = apply_filters( 'woocommerce_quantity_input_min_admin', $default, $product, 'edit' );
+		$min = apply_filters( 'poocommerce_quantity_input_min_admin', $default, $product, 'edit' );
 
 		// A callback can return anything; fall back to the default on non-numeric values.
 		return is_numeric( $min ) ? (string) $min : $default;
@@ -64,7 +64,7 @@ class ItemQuantityLimits {
 		 *
 		 * @since 5.8.0
 		 */
-		$min = apply_filters( 'woocommerce_quantity_input_min_admin', '0', $product, 'add' );
+		$min = apply_filters( 'poocommerce_quantity_input_min_admin', '0', $product, 'add' );
 
 		// A callback can return anything; fall back to the default on non-numeric values.
 		$min = is_numeric( $min ) ? (float) $min : 0.0;
@@ -92,7 +92,7 @@ class ItemQuantityLimits {
 			return;
 		}
 
-		$has_min_filter = has_filter( 'woocommerce_quantity_input_min_admin' );
+		$has_min_filter = has_filter( 'poocommerce_quantity_input_min_admin' );
 		$order_items    = null;
 
 		foreach ( $items['order_item_qty'] as $item_id => $posted_qty ) {
@@ -143,7 +143,7 @@ class ItemQuantityLimits {
 				html_entity_decode(
 					sprintf(
 						/* translators: 1: product or order item name, 2: minimum quantity accepted */
-						__( 'The quantity of "%1$s" must be %2$s or higher.', 'woocommerce' ),
+						__( 'The quantity of "%1$s" must be %2$s or higher.', 'poocommerce' ),
 						$name,
 						wc_format_localized_decimal( (string) $min )
 					),

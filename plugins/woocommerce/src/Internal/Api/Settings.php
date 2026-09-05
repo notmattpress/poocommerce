@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Internal\Api;
+namespace Automattic\PooCommerce\Internal\Api;
 
-use Automattic\WooCommerce\Api\Infrastructure\GraphQLControllerBase;
-use Automattic\WooCommerce\Api\Infrastructure\Main;
+use Automattic\PooCommerce\Api\Infrastructure\GraphQLControllerBase;
+use Automattic\PooCommerce\Api\Infrastructure\Main;
 
 /**
  * Settings handling for the GraphQL API.
  *
- * Registers the "GraphQL" section under WooCommerce - Settings - Advanced.
+ * Registers the "GraphQL" section under PooCommerce - Settings - Advanced.
  * Only active when Main::is_enabled() returns true (feature flag on and
  * PHP 8.1+), so the section is hidden when the feature is disabled.
  */
@@ -24,10 +24,10 @@ class Settings {
 	 * Register the filter hooks that expose the GraphQL settings section.
 	 */
 	public function register(): void {
-		add_filter( 'woocommerce_get_sections_advanced', array( $this, 'add_section' ) );
-		add_filter( 'woocommerce_get_settings_advanced', array( $this, 'add_settings' ), 10, 2 );
+		add_filter( 'poocommerce_get_sections_advanced', array( $this, 'add_section' ) );
+		add_filter( 'poocommerce_get_settings_advanced', array( $this, 'add_settings' ), 10, 2 );
 		add_filter(
-			'woocommerce_admin_settings_sanitize_option_' . Main::OPTION_ENDPOINT_URL,
+			'poocommerce_admin_settings_sanitize_option_' . Main::OPTION_ENDPOINT_URL,
 			array( $this, 'sanitize_endpoint_url' ),
 			10,
 			3
@@ -42,7 +42,7 @@ class Settings {
 	 */
 	public function add_section( array $sections ): array {
 		if ( Main::is_enabled() ) {
-			$sections[ self::SECTION_ID ] = __( 'GraphQL', 'woocommerce' );
+			$sections[ self::SECTION_ID ] = __( 'GraphQL', 'poocommerce' );
 		}
 		return $sections;
 	}
@@ -61,66 +61,66 @@ class Settings {
 
 		return array(
 			array(
-				'title' => __( 'GraphQL', 'woocommerce' ),
-				'desc'  => __( 'Configure the WooCommerce GraphQL API.', 'woocommerce' ),
+				'title' => __( 'GraphQL', 'poocommerce' ),
+				'desc'  => __( 'Configure the PooCommerce GraphQL API.', 'poocommerce' ),
 				'type'  => 'title',
-				'id'    => 'woocommerce_graphql_options',
+				'id'    => 'poocommerce_graphql_options',
 			),
 			array(
-				'title'    => __( 'Endpoint URL', 'woocommerce' ),
-				'desc'     => __( 'Path relative to /wp-json/ where the GraphQL endpoint is exposed. Needs at least two segments (namespace/route), e.g. wc/graphql.', 'woocommerce' ),
+				'title'    => __( 'Endpoint URL', 'poocommerce' ),
+				'desc'     => __( 'Path relative to /wp-json/ where the GraphQL endpoint is exposed. Needs at least two segments (namespace/route), e.g. wc/graphql.', 'poocommerce' ),
 				'desc_tip' => true,
 				'id'       => Main::OPTION_ENDPOINT_URL,
 				'default'  => GraphQLControllerBase::DEFAULT_ENDPOINT_URL,
 				'type'     => 'text',
 			),
 			array(
-				'title'   => __( 'Enable GET endpoint', 'woocommerce' ),
-				'desc'    => __( 'Allow GraphQL queries over GET in addition to POST', 'woocommerce' ),
+				'title'   => __( 'Enable GET endpoint', 'poocommerce' ),
+				'desc'    => __( 'Allow GraphQL queries over GET in addition to POST', 'poocommerce' ),
 				'id'      => Main::OPTION_GET_ENDPOINT_ENABLED,
 				'default' => 'yes',
 				'type'    => 'checkbox',
 			),
 			array(
-				'title'             => __( 'Maximum query depth', 'woocommerce' ),
-				'desc'              => __( 'Reject queries whose selection nesting exceeds this depth.', 'woocommerce' ),
+				'title'             => __( 'Maximum query depth', 'poocommerce' ),
+				'desc'              => __( 'Reject queries whose selection nesting exceeds this depth.', 'poocommerce' ),
 				'id'                => Main::OPTION_MAX_QUERY_DEPTH,
 				'default'           => (string) GraphQLControllerBase::DEFAULT_MAX_QUERY_DEPTH,
 				'type'              => 'number',
 				'custom_attributes' => array( 'min' => '1' ),
 			),
 			array(
-				'title'             => __( 'Maximum query complexity', 'woocommerce' ),
-				'desc'              => __( 'Reject queries whose computed complexity score exceeds this value.', 'woocommerce' ),
+				'title'             => __( 'Maximum query complexity', 'poocommerce' ),
+				'desc'              => __( 'Reject queries whose computed complexity score exceeds this value.', 'poocommerce' ),
 				'id'                => Main::OPTION_MAX_QUERY_COMPLEXITY,
 				'default'           => (string) GraphQLControllerBase::DEFAULT_MAX_QUERY_COMPLEXITY,
 				'type'              => 'number',
 				'custom_attributes' => array( 'min' => '1' ),
 			),
 			array(
-				'title'   => __( 'Enable OPcache-based caching', 'woocommerce' ),
-				'desc'    => __( 'Cache parsed queries on disk as PHP files so OPcache can serve them from shared memory. Falls back to the object cache when the filesystem is not writable.', 'woocommerce' ),
+				'title'   => __( 'Enable OPcache-based caching', 'poocommerce' ),
+				'desc'    => __( 'Cache parsed queries on disk as PHP files so OPcache can serve them from shared memory. Falls back to the object cache when the filesystem is not writable.', 'poocommerce' ),
 				'id'      => Main::OPTION_OPCACHE_ENABLED,
 				'default' => 'yes',
 				'type'    => 'checkbox',
 			),
 			array(
-				'title'   => __( 'Enable ObjectCache-based caching', 'woocommerce' ),
-				'desc'    => __( 'Cache parsed queries in the WP object cache', 'woocommerce' ),
+				'title'   => __( 'Enable ObjectCache-based caching', 'poocommerce' ),
+				'desc'    => __( 'Cache parsed queries in the WP object cache', 'poocommerce' ),
 				'id'      => Main::OPTION_OBJECT_CACHE_ENABLED,
 				'default' => 'yes',
 				'type'    => 'checkbox',
 			),
 			array(
-				'title'   => __( 'Enable APQ caching', 'woocommerce' ),
-				'desc'    => __( 'Cache parsed queries using the Apollo Automatic Persisted Queries protocol', 'woocommerce' ),
+				'title'   => __( 'Enable APQ caching', 'poocommerce' ),
+				'desc'    => __( 'Cache parsed queries using the Apollo Automatic Persisted Queries protocol', 'poocommerce' ),
 				'id'      => Main::OPTION_APQ_ENABLED,
 				'default' => 'yes',
 				'type'    => 'checkbox',
 			),
 			array(
-				'title'             => __( 'Parsed query cache TTL', 'woocommerce' ),
-				'desc'              => __( 'Time in seconds before cached parsed queries expire.', 'woocommerce' ),
+				'title'             => __( 'Parsed query cache TTL', 'poocommerce' ),
+				'desc'              => __( 'Time in seconds before cached parsed queries expire.', 'poocommerce' ),
 				'id'                => Main::OPTION_QUERY_CACHE_TTL,
 				'default'           => (string) QueryCache::DEFAULT_CACHE_TTL,
 				'type'              => 'number',
@@ -128,7 +128,7 @@ class Settings {
 			),
 			array(
 				'type' => 'sectionend',
-				'id'   => 'woocommerce_graphql_options',
+				'id'   => 'poocommerce_graphql_options',
 			),
 		);
 	}
@@ -159,13 +159,13 @@ class Settings {
 		$normalized = trim( $raw_value, '/' );
 
 		if ( '' === $normalized ) {
-			\WC_Admin_Settings::add_error( __( 'GraphQL endpoint URL cannot be empty.', 'woocommerce' ) );
+			\WC_Admin_Settings::add_error( __( 'GraphQL endpoint URL cannot be empty.', 'poocommerce' ) );
 			return $fallback;
 		}
 
 		$parts = explode( '/', $normalized );
 		if ( count( $parts ) < 2 ) {
-			\WC_Admin_Settings::add_error( __( 'GraphQL endpoint URL needs at least two segments, e.g. wc/graphql.', 'woocommerce' ) );
+			\WC_Admin_Settings::add_error( __( 'GraphQL endpoint URL needs at least two segments, e.g. wc/graphql.', 'poocommerce' ) );
 			return $fallback;
 		}
 
@@ -174,7 +174,7 @@ class Settings {
 				\WC_Admin_Settings::add_error(
 					sprintf(
 						/* translators: %s: the invalid path segment */
-						__( 'GraphQL endpoint URL segment "%s" contains invalid characters. Use letters, digits, underscores, and hyphens only.', 'woocommerce' ),
+						__( 'GraphQL endpoint URL segment "%s" contains invalid characters. Use letters, digits, underscores, and hyphens only.', 'poocommerce' ),
 						$part
 					)
 				);

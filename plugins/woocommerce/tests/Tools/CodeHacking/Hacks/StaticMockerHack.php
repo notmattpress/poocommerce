@@ -2,10 +2,10 @@
 /**
  * StaticMockerHack class file.
  *
- * @package WooCommerce\Testing
+ * @package PooCommerce\Testing
  */
 
-namespace Automattic\WooCommerce\Testing\Tools\CodeHacking\Hacks;
+namespace Automattic\PooCommerce\Testing\Tools\CodeHacking\Hacks;
 
 /**
  * Hack to mock public static methods and properties.

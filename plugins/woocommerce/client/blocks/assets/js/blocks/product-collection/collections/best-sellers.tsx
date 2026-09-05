@@ -17,9 +17,9 @@ import { setEmailEditorPreviewState } from '../utils';
 
 const collection = {
 	name: CoreCollectionNames.BEST_SELLERS,
-	title: __( 'Best Sellers', 'woocommerce' ),
+	title: __( 'Best Sellers', 'poocommerce' ),
 	icon: <Icon icon={ chartBar } />,
-	description: __( 'Recommend your best-selling products.', 'woocommerce' ),
+	description: __( 'Recommend your best-selling products.', 'poocommerce' ),
 	keywords: [ 'best selling' ],
 	scope: [ 'inserter', 'block' ] as BlockVariationScope[],
 };
@@ -44,7 +44,7 @@ const heading: InnerBlockTemplate = [
 	{
 		textAlign: 'center',
 		level: 2,
-		content: __( 'Best selling products', 'woocommerce' ),
+		content: __( 'Best selling products', 'poocommerce' ),
 		style: { spacing: { margin: { bottom: '1rem' } } },
 	},
 ];

@@ -2,7 +2,7 @@
 /**
  * Onboarding Themes REST API Test
  *
- * @package WooCommerce\Admin\Tests\API
+ * @package PooCommerce\Admin\Tests\API
  */
 
 /**
@@ -91,7 +91,7 @@ class WC_Admin_Tests_API_Onboarding_Themes extends WC_REST_Unit_Test_Case {
 			remove_filter( 'themes_api', $api_filter, 10 );
 		}
 
-		$this->assertEquals( 'woocommerce_rest_theme_install', $data['code'] );
+		$this->assertEquals( 'poocommerce_rest_theme_install', $data['code'] );
 		$this->assertSame( 1, $api_calls );
 	}
 
@@ -134,6 +134,6 @@ class WC_Admin_Tests_API_Onboarding_Themes extends WC_REST_Unit_Test_Case {
 		$response = $this->server->dispatch( $request );
 		$data     = $response->get_data();
 
-		$this->assertEquals( 'woocommerce_rest_invalid_theme', $data['code'] );
+		$this->assertEquals( 'poocommerce_rest_invalid_theme', $data['code'] );
 	}
 }

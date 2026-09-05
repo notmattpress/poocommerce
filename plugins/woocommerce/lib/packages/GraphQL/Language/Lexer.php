@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\GraphQL\Language;
+namespace Automattic\PooCommerce\Vendor\GraphQL\Language;
 
-use Automattic\WooCommerce\Vendor\GraphQL\Error\SyntaxError;
-use Automattic\WooCommerce\Vendor\GraphQL\Utils\Utils;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\SyntaxError;
+use Automattic\PooCommerce\Vendor\GraphQL\Utils\Utils;
 
 /**
  * A lexer is a stateful stream generator, it returns the next token in the Source when advanced.
@@ -14,7 +14,7 @@ use Automattic\WooCommerce\Vendor\GraphQL\Utils\Utils;
  *
  * @phpstan-import-type ParserOptions from Parser
  *
- * @see \Automattic\WooCommerce\Vendor\GraphQL\Tests\Language\LexerTest
+ * @see \Automattic\PooCommerce\Vendor\GraphQL\Tests\Language\LexerTest
  */
 class Lexer
 {

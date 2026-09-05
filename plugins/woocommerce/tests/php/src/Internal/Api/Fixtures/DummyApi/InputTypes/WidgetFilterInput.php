@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Internal\Api\Fixtures\DummyApi\InputTypes;
+namespace Automattic\PooCommerce\Tests\Internal\Api\Fixtures\DummyApi\InputTypes;
 
-use Automattic\WooCommerce\Api\Attributes\Description;
-use Automattic\WooCommerce\Api\Attributes\Name;
-use Automattic\WooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Enums\Color;
+use Automattic\PooCommerce\Api\Attributes\Description;
+use Automattic\PooCommerce\Api\Attributes\Name;
+use Automattic\PooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Enums\Color;
 
 /**
  * Filter input applied to widget listings. Used as an unrolled #[Unroll]

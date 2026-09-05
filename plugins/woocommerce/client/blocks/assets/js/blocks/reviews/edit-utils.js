@@ -4,7 +4,7 @@
 import { __ } from '@wordpress/i18n';
 import { createInterpolateElement } from '@wordpress/element';
 import { BlockControls } from '@wordpress/block-editor';
-import { getAdminLink, getSetting } from '@woocommerce/settings';
+import { getAdminLink, getSetting } from '@poocommerce/settings';
 import {
 	Notice,
 	ToggleControl,
@@ -58,14 +58,14 @@ export const getSharedReviewContentControls = ( attributes, setAttributes ) => {
 		<>
 			<ToolsPanelItem
 				hasValue={ () => ! attributes.showReviewRating }
-				label={ __( 'Product rating', 'woocommerce' ) }
+				label={ __( 'Product rating', 'poocommerce' ) }
 				onDeselect={ () => setAttributes( { showReviewRating: true } ) }
 				isShownByDefault
 			>
 				<div className="wc-block-reviews__tools-panel-item-container">
 					<ToggleControl
 						__nextHasNoMarginBottom
-						label={ __( 'Product rating', 'woocommerce' ) }
+						label={ __( 'Product rating', 'poocommerce' ) }
 						checked={ attributes.showReviewRating }
 						onChange={ () =>
 							setAttributes( {
@@ -81,7 +81,7 @@ export const getSharedReviewContentControls = ( attributes, setAttributes ) => {
 							{ createInterpolateElement(
 								__(
 									'Product rating is disabled in your <a>store settings</a>.',
-									'woocommerce'
+									'poocommerce'
 								),
 								{
 									a: (
@@ -102,13 +102,13 @@ export const getSharedReviewContentControls = ( attributes, setAttributes ) => {
 			</ToolsPanelItem>
 			<ToolsPanelItem
 				hasValue={ () => ! attributes.showReviewerName }
-				label={ __( 'Reviewer name', 'woocommerce' ) }
+				label={ __( 'Reviewer name', 'poocommerce' ) }
 				onDeselect={ () => setAttributes( { showReviewerName: true } ) }
 				isShownByDefault
 			>
 				<ToggleControl
 					__nextHasNoMarginBottom
-					label={ __( 'Reviewer name', 'woocommerce' ) }
+					label={ __( 'Reviewer name', 'poocommerce' ) }
 					checked={ attributes.showReviewerName }
 					onChange={ () =>
 						setAttributes( {
@@ -119,13 +119,13 @@ export const getSharedReviewContentControls = ( attributes, setAttributes ) => {
 			</ToolsPanelItem>
 			<ToolsPanelItem
 				hasValue={ () => ! attributes.showReviewDate }
-				label={ __( 'Review date', 'woocommerce' ) }
+				label={ __( 'Review date', 'poocommerce' ) }
 				onDeselect={ () => setAttributes( { showReviewDate: true } ) }
 				isShownByDefault
 			>
 				<ToggleControl
 					__nextHasNoMarginBottom
-					label={ __( 'Review date', 'woocommerce' ) }
+					label={ __( 'Review date', 'poocommerce' ) }
 					checked={ attributes.showReviewDate }
 					onChange={ () =>
 						setAttributes( {
@@ -136,7 +136,7 @@ export const getSharedReviewContentControls = ( attributes, setAttributes ) => {
 			</ToolsPanelItem>
 			<ToolsPanelItem
 				hasValue={ () => ! attributes.showReviewContent }
-				label={ __( 'Review content', 'woocommerce' ) }
+				label={ __( 'Review content', 'poocommerce' ) }
 				onDeselect={ () =>
 					setAttributes( { showReviewContent: true } )
 				}
@@ -144,7 +144,7 @@ export const getSharedReviewContentControls = ( attributes, setAttributes ) => {
 			>
 				<ToggleControl
 					__nextHasNoMarginBottom
-					label={ __( 'Review content', 'woocommerce' ) }
+					label={ __( 'Review content', 'poocommerce' ) }
 					checked={ attributes.showReviewContent }
 					onChange={ () =>
 						setAttributes( {
@@ -158,7 +158,7 @@ export const getSharedReviewContentControls = ( attributes, setAttributes ) => {
 					! attributes.showReviewImage ||
 					attributes.imageType !== 'reviewer'
 				}
-				label={ __( 'Image', 'woocommerce' ) }
+				label={ __( 'Image', 'poocommerce' ) }
 				onDeselect={ () =>
 					setAttributes( {
 						showReviewImage: true,
@@ -170,7 +170,7 @@ export const getSharedReviewContentControls = ( attributes, setAttributes ) => {
 				<div className="wc-block-reviews__tools-panel-item-container">
 					<ToggleControl
 						__nextHasNoMarginBottom
-						label={ __( 'Image', 'woocommerce' ) }
+						label={ __( 'Image', 'poocommerce' ) }
 						checked={ attributes.showReviewImage }
 						onChange={ () =>
 							setAttributes( {
@@ -181,7 +181,7 @@ export const getSharedReviewContentControls = ( attributes, setAttributes ) => {
 					{ attributes.showReviewImage && (
 						<>
 							<ToggleGroupControl
-								label={ __( 'Review image', 'woocommerce' ) }
+								label={ __( 'Review image', 'poocommerce' ) }
 								isBlock
 								value={ attributes.imageType }
 								onChange={ ( value ) =>
@@ -192,12 +192,12 @@ export const getSharedReviewContentControls = ( attributes, setAttributes ) => {
 									value="reviewer"
 									label={ __(
 										'Reviewer photo',
-										'woocommerce'
+										'poocommerce'
 									) }
 								/>
 								<ToggleGroupControlOption
 									value="product"
-									label={ __( 'Product', 'woocommerce' ) }
+									label={ __( 'Product', 'poocommerce' ) }
 								/>
 							</ToggleGroupControl>
 							{ attributes.imageType === 'reviewer' &&
@@ -209,7 +209,7 @@ export const getSharedReviewContentControls = ( attributes, setAttributes ) => {
 										{ createInterpolateElement(
 											__(
 												'Reviewer photo is disabled in your <a>site settings</a>.',
-												'woocommerce'
+												'poocommerce'
 											),
 											{
 												a: (
@@ -245,26 +245,26 @@ export const getSharedReviewListControls = (
 		<>
 			<ToolsPanelItem
 				hasValue={ () => attributes.orderby !== 'most-recent' }
-				label={ __( 'Default sort order', 'woocommerce' ) }
+				label={ __( 'Default sort order', 'poocommerce' ) }
 				onDeselect={ () => setAttributes( { orderby: 'most-recent' } ) }
 				isShownByDefault
 			>
 				<SelectControl
 					__next40pxDefaultSize
 					__nextHasNoMarginBottom
-					label={ __( 'Default sort order', 'woocommerce' ) }
+					label={ __( 'Default sort order', 'poocommerce' ) }
 					value={ attributes.orderby }
 					options={ [
 						{
-							label: __( 'Most recent', 'woocommerce' ),
+							label: __( 'Most recent', 'poocommerce' ),
 							value: 'most-recent',
 						},
 						{
-							label: __( 'Highest rating', 'woocommerce' ),
+							label: __( 'Highest rating', 'poocommerce' ),
 							value: 'highest-rating',
 						},
 						{
-							label: __( 'Lowest rating', 'woocommerce' ),
+							label: __( 'Lowest rating', 'poocommerce' ),
 							value: 'lowest-rating',
 						},
 					] }
@@ -273,13 +273,13 @@ export const getSharedReviewListControls = (
 			</ToolsPanelItem>
 			<ToolsPanelItem
 				hasValue={ () => ! attributes.showOrderby }
-				label={ __( 'Show "Order by" dropdown', 'woocommerce' ) }
+				label={ __( 'Show "Order by" dropdown', 'poocommerce' ) }
 				onDeselect={ () => setAttributes( { showOrderby: true } ) }
 				isShownByDefault
 			>
 				<ToggleControl
 					__nextHasNoMarginBottom
-					label={ __( 'Show "Order by" dropdown', 'woocommerce' ) }
+					label={ __( 'Show "Order by" dropdown', 'poocommerce' ) }
 					checked={ attributes.showOrderby }
 					onChange={ () =>
 						setAttributes( {
@@ -292,7 +292,7 @@ export const getSharedReviewListControls = (
 				hasValue={ () =>
 					attributes.reviewsOnPageLoad !== DEFAULT_REVIEW_COUNT
 				}
-				label={ __( 'Number of reviews', 'woocommerce' ) }
+				label={ __( 'Number of reviews', 'poocommerce' ) }
 				onDeselect={ () =>
 					setAttributes( {
 						reviewsOnPageLoad: DEFAULT_REVIEW_COUNT,
@@ -302,7 +302,7 @@ export const getSharedReviewListControls = (
 			>
 				<InputControl
 					__next40pxDefaultSize
-					label={ __( 'Number of reviews', 'woocommerce' ) }
+					label={ __( 'Number of reviews', 'poocommerce' ) }
 					value={ String( attributes.reviewsOnPageLoad ) }
 					onChange={ ( value ) => {
 						setAttributes( {
@@ -320,7 +320,7 @@ export const getSharedReviewListControls = (
 					hasValue={ () =>
 						( attributes.offset ?? defaultOffset ) !== defaultOffset
 					}
-					label={ __( 'Offset', 'woocommerce' ) }
+					label={ __( 'Offset', 'poocommerce' ) }
 					onDeselect={ () =>
 						setAttributes( { offset: defaultOffset } )
 					}
@@ -336,10 +336,10 @@ export const getSharedReviewListControls = (
 								  }
 								: state
 						}
-						label={ __( 'Offset', 'woocommerce' ) }
+						label={ __( 'Offset', 'poocommerce' ) }
 						help={ __(
 							'Number of reviews to skip',
-							'woocommerce'
+							'poocommerce'
 						) }
 						value={ attributes.offset ?? defaultOffset }
 						onChange={ ( value ) => {
@@ -367,7 +367,7 @@ export const getSharedReviewListControls = (
 					! attributes.showLoadMore ||
 					attributes.reviewsOnLoadMore !== DEFAULT_REVIEW_COUNT
 				}
-				label={ __( 'Show "Load more" button', 'woocommerce' ) }
+				label={ __( 'Show "Load more" button', 'poocommerce' ) }
 				onDeselect={ () =>
 					setAttributes( {
 						showLoadMore: true,
@@ -379,7 +379,7 @@ export const getSharedReviewListControls = (
 				<div className="wc-block-reviews__tools-panel-item-container">
 					<ToggleControl
 						__nextHasNoMarginBottom
-						label={ __( 'Show "Load more" button', 'woocommerce' ) }
+						label={ __( 'Show "Load more" button', 'poocommerce' ) }
 						checked={ attributes.showLoadMore }
 						onChange={ () =>
 							setAttributes( {
@@ -390,7 +390,7 @@ export const getSharedReviewListControls = (
 					{ attributes.showLoadMore && (
 						<InputControl
 							__next40pxDefaultSize
-							label={ __( 'Load more reviews', 'woocommerce' ) }
+							label={ __( 'Load more reviews', 'poocommerce' ) }
 							value={ String( attributes.reviewsOnLoadMore ) }
 							onChange={ ( value ) =>
 								setAttributes( {

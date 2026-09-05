@@ -2,8 +2,8 @@
  * External dependencies
  */
 import type { BlockAttributes } from '@wordpress/blocks';
-import { registerProductBlockType } from '@woocommerce/atomic-utils';
-import { isEmptyObject } from '@woocommerce/types';
+import { registerProductBlockType } from '@poocommerce/atomic-utils';
+import { isEmptyObject } from '@poocommerce/types';
 
 /**
  * Internal dependencies

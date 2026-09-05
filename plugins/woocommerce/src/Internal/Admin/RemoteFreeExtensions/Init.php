@@ -3,12 +3,12 @@
  * Handles running payment method specs
  */
 
-namespace Automattic\WooCommerce\Internal\Admin\RemoteFreeExtensions;
+namespace Automattic\PooCommerce\Internal\Admin\RemoteFreeExtensions;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Internal\Admin\RemoteFreeExtensions\DefaultFreeExtensions;
-use Automattic\WooCommerce\Admin\RemoteSpecs\RemoteSpecsEngine;
+use Automattic\PooCommerce\Internal\Admin\RemoteFreeExtensions\DefaultFreeExtensions;
+use Automattic\PooCommerce\Admin\RemoteSpecs\RemoteSpecsEngine;
 
 /**
  * Remote Payment Methods engine.
@@ -20,7 +20,7 @@ class Init extends RemoteSpecsEngine {
 	 * Constructor.
 	 */
 	public function __construct() {
-		add_action( 'woocommerce_updated', array( __CLASS__, 'delete_specs_transient' ) );
+		add_action( 'poocommerce_updated', array( __CLASS__, 'delete_specs_transient' ) );
 	}
 
 	/**
@@ -76,7 +76,7 @@ class Init extends RemoteSpecsEngine {
 	 * Get specs or fetch remotely if they don't exist.
 	 */
 	public static function get_specs() {
-		if ( 'no' === get_option( 'woocommerce_show_marketplace_suggestions', 'yes' ) ) {
+		if ( 'no' === get_option( 'poocommerce_show_marketplace_suggestions', 'yes' ) ) {
 			return DefaultFreeExtensions::get_all();
 		}
 		$specs = RemoteFreeExtensionsDataSourcePoller::get_instance()->get_specs_from_data_sources();

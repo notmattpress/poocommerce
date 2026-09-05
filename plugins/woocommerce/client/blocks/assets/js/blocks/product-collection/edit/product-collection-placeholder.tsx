@@ -8,7 +8,7 @@ import {
 } from '@wordpress/block-editor';
 import { Placeholder } from '@wordpress/components';
 import { useDispatch } from '@wordpress/data';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -46,7 +46,7 @@ const ProductCollectionPlaceholder = (
 				className="wc-blocks-product-collection__placeholder"
 				instructions={ __(
 					'What products do you want to show?',
-					'woocommerce'
+					'poocommerce'
 				) }
 			>
 				<CollectionChooser onCollectionClick={ onCollectionClick } />

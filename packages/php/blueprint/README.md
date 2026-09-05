@@ -12,7 +12,7 @@ Blueprint lets you export your WordPress site configuration to a JSON file and i
 You can export a site configuration using the `ExportSchema` class:
 
 ```php
-use Automattic\WooCommerce\Blueprint\ExportSchema;
+use Automattic\PooCommerce\Blueprint\ExportSchema;
 
 // Optionally pass custom exporters, or leave empty for built-in exporters.
 $export_schema = new ExportSchema();
@@ -32,7 +32,7 @@ file_put_contents('blueprint.json', json_encode($schema, JSON_PRETTY_PRINT));
 You can import a previously exported JSON file using the `ImportSchema` class:
 
 ```php
-use Automattic\WooCommerce\Blueprint\ImportSchema;
+use Automattic\PooCommerce\Blueprint\ImportSchema;
 
 // Load the JSON file:
 $import_schema = ImportSchema::create_from_file('blueprint.json');
@@ -48,7 +48,7 @@ $results = $import_schema->import();
 To import a single step from a JSON definition, use the `ImportStep` class:
 
 ```php
-use Automattic\WooCommerce\Blueprint\ImportStep;
+use Automattic\PooCommerce\Blueprint\ImportStep;
 
 $step_definition = json_decode(
   '{"step":"setSiteOptions","options":{"option1":"value1"}}'
@@ -59,7 +59,7 @@ $result = $import_step->import();
 
 ## Data Format
 
-A Blueprint JSON file contains all the information needed to configure a WordPress or WooCommerce site. The format is fully compatible with [WordPress Blueprint data format](https://wordpress.github.io/wordpress-playground/blueprints/data-format/).
+A Blueprint JSON file contains all the information needed to configure a WordPress or PooCommerce site. The format is fully compatible with [WordPress Blueprint data format](https://wordpress.github.io/wordpress-playground/blueprints/data-format/).
 
 The following is an example of a Blueprint JSON file:
 
@@ -70,22 +70,22 @@ The following is an example of a Blueprint JSON file:
     {
       "step": "setSiteOptions",
       "options": {
-        "woocommerce_store_address": "123 Main St",
-        "woocommerce_store_address_2": "Suite 100",
-        "woocommerce_store_city": "Sample City",
-        "woocommerce_default_country": "US:CA",
-        "woocommerce_store_postcode": "90001",
-        "woocommerce_all_except_countries": [],
-        "woocommerce_specific_allowed_countries": [],
-        "woocommerce_specific_ship_to_countries": [],
-        "woocommerce_calc_taxes": "yes"
+        "poocommerce_store_address": "123 Main St",
+        "poocommerce_store_address_2": "Suite 100",
+        "poocommerce_store_city": "Sample City",
+        "poocommerce_default_country": "US:CA",
+        "poocommerce_store_postcode": "90001",
+        "poocommerce_all_except_countries": [],
+        "poocommerce_specific_allowed_countries": [],
+        "poocommerce_specific_ship_to_countries": [],
+        "poocommerce_calc_taxes": "yes"
       }
     }
   ]
 }
 ```
 
-You can include as many steps as needed, each representing a different part of your WooCommerce or WordPress configuration. This is the format you get when exporting, and what you provide when importing a Blueprint.
+You can include as many steps as needed, each representing a different part of your PooCommerce or WordPress configuration. This is the format you get when exporting, and what you provide when importing a Blueprint.
 
 
 ## Built-in Steps
@@ -109,7 +109,7 @@ Blueprint comes with several built-in steps for common site operations:
 *PHP (creating a step):*
 
 ```php
-use Automattic\WooCommerce\Blueprint\Steps\SetSiteOptions;
+use Automattic\PooCommerce\Blueprint\Steps\SetSiteOptions;
 
 $step = new SetSiteOptions([
     'option1' => 'value1',
@@ -143,15 +143,15 @@ You can extend Blueprint by adding custom exporters, importers, or steps. This a
 ## Example: Adding a Custom Exporter
 
 > [!IMPORTANT]
-> Custom exporters added via the `wooblueprint_exporters` filter are **not currently supported in the WooCommerce Blueprint admin UI** (`/wp-admin/admin.php?page=wc-settings&tab=advanced&section=blueprint`). They can only be used via PHP or WP-CLI. We will be working on this in the future.
+> Custom exporters added via the `wooblueprint_exporters` filter are **not currently supported in the PooCommerce Blueprint admin UI** (`/wp-admin/admin.php?page=wc-settings&tab=advanced&section=blueprint`). They can only be used via PHP or WP-CLI. We will be working on this in the future.
 
-1. Create a new class that extends `Automattic\WooCommerce\Blueprint\Exporters\StepExporter`.
+1. Create a new class that extends `Automattic\PooCommerce\Blueprint\Exporters\StepExporter`.
 
 ```php
 <?php
 
-use Automattic\WooCommerce\Blueprint\Exporters\StepExporter;
-use Automattic\WooCommerce\Blueprint\Steps\Step;
+use Automattic\PooCommerce\Blueprint\Exporters\StepExporter;
+use Automattic\PooCommerce\Blueprint\Steps\Step;
 
 class MyCustomExporter extends StepExporter {
     public function export( array $data ): Step {
@@ -171,8 +171,8 @@ class MyCustomExporter extends StepExporter {
 
 ```php
 
-use Automattic\WooCommerce\Blueprint\Exporters\StepExporter;
-use Automattic\WooCommerce\Blueprint\Steps\Step;
+use Automattic\PooCommerce\Blueprint\Exporters\StepExporter;
+use Automattic\PooCommerce\Blueprint\Steps\Step;
 
 class MyCustomExporter extends StepExporter {
     public function export(): Step {
@@ -194,8 +194,8 @@ class MyCustomExporter extends StepExporter {
 filter.
 
 ```php
-use Automattic\WooCommerce\Blueprint\Exporters\StepExporter;
-use Automattic\WooCommerce\Blueprint\Steps\Step;
+use Automattic\PooCommerce\Blueprint\Exporters\StepExporter;
+use Automattic\PooCommerce\Blueprint\Steps\Step;
 
 class MyCustomExporter extends StepExporter {
     public function export(): Step {
@@ -242,9 +242,9 @@ Output:
 If you have multiple exporters for the same step type, implement the `HasAlias` interface to give each exporter a unique alias. This helps distinguish them in the export UI or API.
 
 ```php
-use Automattic\WooCommerce\Blueprint\Exporters\StepExporter;
-use Automattic\WooCommerce\Blueprint\Exporters\HasAlias;
-use Automattic\WooCommerce\Blueprint\Steps\SetSiteOptions;
+use Automattic\PooCommerce\Blueprint\Exporters\StepExporter;
+use Automattic\PooCommerce\Blueprint\Exporters\HasAlias;
+use Automattic\PooCommerce\Blueprint\Steps\SetSiteOptions;
 
 class ProfilerOptionsExporter implements StepExporter, HasAlias {
     public function export() {
@@ -275,7 +275,7 @@ In most cases, the default importers will be sufficient. However, if you need to
 1. To add a custom importer, you need to define a new step first. Extend the abstract `Step` class. Steps represent actions that can be exported/imported.
 
 ```php
-use Automattic\WooCommerce\Blueprint\Steps\Step;
+use Automattic\PooCommerce\Blueprint\Steps\Step;
 
 class MyCustomStep extends Step {
     private $my_data;
@@ -307,8 +307,8 @@ class MyCustomStep extends Step {
 2. Then, you need to implement the `StepProcessor` interface. Importers process step data during import.
 
 ```php
-use Automattic\WooCommerce\Blueprint\StepProcessor;
-use Automattic\WooCommerce\Blueprint\StepProcessorResult;
+use Automattic\PooCommerce\Blueprint\StepProcessor;
+use Automattic\PooCommerce\Blueprint\StepProcessorResult;
 
 class MyCustomImporter implements StepProcessor {
     public function process($schema): StepProcessorResult {

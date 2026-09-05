@@ -1,7 +1,7 @@
-# Claude Code Documentation for WooCommerce Blocks
+# Claude Code Documentation for PooCommerce Blocks
 
-**Scope**: All WooCommerce blocks — storefront, cart, checkout, product displays, filters, mini cart, order confirmation. Covers editor UI (JS/TS), frontend rendering (PHP + Interactivity API), and supporting services (payments, shipping, patterns).
-**pnpm filter**: `@woocommerce/block-library` (internal workspace package, not published)
+**Scope**: All PooCommerce blocks — storefront, cart, checkout, product displays, filters, mini cart, order confirmation. Covers editor UI (JS/TS), frontend rendering (PHP + Interactivity API), and supporting services (payments, shipping, patterns).
+**pnpm filter**: `@poocommerce/block-library` (internal workspace package, not published)
 
 **See also:**
 
@@ -16,24 +16,24 @@
 # All commands use --filter shorthand. Run from monorepo root.
 
 # Test
-pnpm --filter=@woocommerce/block-library test:js                      # Jest unit tests
-pnpm --filter=@woocommerce/block-library test:js -- path/to/test      # Specific test file
-pnpm --filter=@woocommerce/block-library test:watch                   # Jest watch mode
-pnpm --filter=@woocommerce/block-library test:update                  # Update snapshots
-pnpm --filter=@woocommerce/block-library test:e2e                     # Playwright E2E tests
+pnpm --filter=@poocommerce/block-library test:js                      # Jest unit tests
+pnpm --filter=@poocommerce/block-library test:js -- path/to/test      # Specific test file
+pnpm --filter=@poocommerce/block-library test:watch                   # Jest watch mode
+pnpm --filter=@poocommerce/block-library test:update                  # Update snapshots
+pnpm --filter=@poocommerce/block-library test:e2e                     # Playwright E2E tests
 
 # Lint (target specific files only)
 npx eslint --fix path/to/file.tsx                                      # Fix JS/TS file
-pnpm --filter=@woocommerce/block-library lint:css                      # Stylelint for SCSS
-pnpm --filter=@woocommerce/block-library ts:check                     # TypeScript type checking
+pnpm --filter=@poocommerce/block-library lint:css                      # Stylelint for SCSS
+pnpm --filter=@poocommerce/block-library ts:check                     # TypeScript type checking
 
 # Environment
-pnpm --filter=@woocommerce/block-library env:start                    # Start wp-env + setup
-pnpm --filter=@woocommerce/block-library env:restart                  # Clean restart
+pnpm --filter=@poocommerce/block-library env:start                    # Start wp-env + setup
+pnpm --filter=@poocommerce/block-library env:restart                  # Clean restart
 
 # Analysis
-pnpm --filter=@woocommerce/block-library knip                         # Find unused code (dead code detector)
-pnpm --filter=@woocommerce/block-library analyze-bundles              # Webpack bundle analysis
+pnpm --filter=@poocommerce/block-library knip                         # Find unused code (dead code detector)
+pnpm --filter=@poocommerce/block-library analyze-bundles              # Webpack bundle analysis
 ```
 
 ## Directory Structure
@@ -46,7 +46,7 @@ client/blocks/
 │   ├── blocks/              # ~56 block implementations (cart, checkout, product-*, filter-*)
 │   ├── atomic/              # Atomic/primitive blocks (product elements)
 │   ├── base/                # Shared components, context, hooks, stores
-│   │   └── stores/woocommerce/  # Interactivity API stores (LOCKED)
+│   │   └── stores/poocommerce/  # Interactivity API stores (LOCKED)
 │   ├── editor-components/   # 33+ shared editor UI components
 │   ├── extensions/          # Extension integrations
 │   └── utils/               # Utility functions
@@ -90,7 +90,7 @@ src/Blocks/
 └── Utils/                   # StyleAttributes, CartCheckout, MiniCart utils
 ```
 
-**Namespace**: `Automattic\WooCommerce\Blocks`
+**Namespace**: `Automattic\PooCommerce\Blocks`
 
 ## PHP Block Class Hierarchy
 
@@ -135,13 +135,13 @@ $this->asset_data_registry->add('reviewRatingsEnabled', wc_review_ratings_enable
 
 ### Interactivity API Stores
 
-Most WooCommerce Interactivity API stores are private by design. Exception: the `woocommerce/product-filters` store is public for Product Filters inner-block extensibility.
+Most PooCommerce Interactivity API stores are private by design. Exception: the `poocommerce/product-filters` store is public for Product Filters inner-block extensibility.
 
 For private stores:
 
 - Not intended for third-party extension
 - Removing/changing store state is NOT a breaking change
-- `assets/js/base/stores/woocommerce/` contains cart, product-data, products stores
+- `assets/js/base/stores/poocommerce/` contains cart, product-data, products stores
 - Cart store uses mutation batching for performance
 
 ### IntegrationRegistry (Extension API)
@@ -149,7 +149,7 @@ For private stores:
 External plugins hook into blocks via `IntegrationInterface`:
 
 ```php
-add_action('woocommerce_blocks_cart_block_registration', function($registry) {
+add_action('poocommerce_blocks_cart_block_registration', function($registry) {
     $registry->register(new MyIntegration());
 });
 ```
@@ -169,25 +169,25 @@ The mapping lives in `bin/webpack-helpers.js` (`wcDepMap`):
 
 | Import | Global | Script handle |
 | ------ | ------ | ------------- |
-| `@woocommerce/blocks-checkout` | `wc.blocksCheckout` | `wc-blocks-checkout` |
-| `@woocommerce/blocks-checkout-events` | `wc.blocksCheckoutEvents` | `wc-blocks-checkout-events` |
-| `@woocommerce/blocks-components` | `wc.blocksComponents` | `wc-blocks-components` |
-| `@woocommerce/blocks-registry` | `wc.wcBlocksRegistry` | `wc-blocks-registry` |
-| `@woocommerce/block-data` | `wc.wcBlocksData` | `wc-blocks-data-store` |
-| `@woocommerce/price-format` | `wc.priceFormat` | `wc-price-format` |
-| `@woocommerce/settings` | `wc.wcSettings` | `wc-settings` |
-| `@woocommerce/shared-context` | `wc.wcBlocksSharedContext` | `wc-blocks-shared-context` |
-| `@woocommerce/shared-hocs` | `wc.wcBlocksSharedHocs` | `wc-blocks-shared-hocs` |
-| `@woocommerce/types` | `wc.wcTypes` | `wc-types` |
+| `@poocommerce/blocks-checkout` | `wc.blocksCheckout` | `wc-blocks-checkout` |
+| `@poocommerce/blocks-checkout-events` | `wc.blocksCheckoutEvents` | `wc-blocks-checkout-events` |
+| `@poocommerce/blocks-components` | `wc.blocksComponents` | `wc-blocks-components` |
+| `@poocommerce/blocks-registry` | `wc.wcBlocksRegistry` | `wc-blocks-registry` |
+| `@poocommerce/block-data` | `wc.wcBlocksData` | `wc-blocks-data-store` |
+| `@poocommerce/price-format` | `wc.priceFormat` | `wc-price-format` |
+| `@poocommerce/settings` | `wc.wcSettings` | `wc-settings` |
+| `@poocommerce/shared-context` | `wc.wcBlocksSharedContext` | `wc-blocks-shared-context` |
+| `@poocommerce/shared-hocs` | `wc.wcBlocksSharedHocs` | `wc-blocks-shared-hocs` |
+| `@poocommerce/types` | `wc.wcTypes` | `wc-types` |
 
-`@woocommerce/blocks-checkout-events` is a pub/sub event emitter for checkout lifecycle hooks (`onCheckoutValidation`, `onCheckoutSuccess`, `onCheckoutFail`). Third-party extensions use it to run validation or react to checkout outcomes. Source: `packages/public-api/blocks-checkout-events/`.
+`@poocommerce/blocks-checkout-events` is a pub/sub event emitter for checkout lifecycle hooks (`onCheckoutValidation`, `onCheckoutSuccess`, `onCheckoutFail`). Third-party extensions use it to run validation or react to checkout outcomes. Source: `packages/public-api/blocks-checkout-events/`.
 
 Third-party extensions consume these as externals. Stable package-root exports
 are public API, so changing them without a deprecation path is a breaking
 change. Deep imports and exports prefixed with `__experimental` or `__unstable`
 are not stable unless separately documented.
 
-`@woocommerce/entities` is externalized as `wc.wcEntities` to share one runtime
+`@poocommerce/entities` is externalized as `wc.wcEntities` to share one runtime
 instance, but it remains internal under `packages/internal/entities/`. Its
 externalized build does not make it public API.
 
@@ -200,9 +200,9 @@ Webpack is configured with **11 separate configs** in `bin/webpack-configs.js`:
 
 - Core, Main, Frontend, Extensions, Payments, Styling, Site Editor, Interactivity, Cart/Checkout Frontend, Dependency Detection
 
-Webpack writes directly to `plugins/woocommerce/assets/client/blocks/` so PHP enqueues run against the final asset locations with no copy step. TypeScript uses **60+ path aliases** defined in `tsconfig.base.json`.
+Webpack writes directly to `plugins/poocommerce/assets/client/blocks/` so PHP enqueues run against the final asset locations with no copy step. TypeScript uses **60+ path aliases** defined in `tsconfig.base.json`.
 
-`@woocommerce/entities` resolves to pure entity helpers that are bundled into consumers and can be tree-shaken. The `wc-entities` entry registers those entities as a side effect. It temporarily retains deprecated utility exports on `wc.wcEntities` for backward compatibility. Manual registration helpers also remain available as deprecated compatibility wrappers.
+`@poocommerce/entities` resolves to pure entity helpers that are bundled into consumers and can be tree-shaken. The `wc-entities` entry registers those entities as a side effect. It temporarily retains deprecated utility exports on `wc.wcEntities` for backward compatibility. Manual registration helpers also remain available as deprecated compatibility wrappers.
 
 ## Testing
 
@@ -228,8 +228,8 @@ Webpack writes directly to `plugins/woocommerce/assets/client/blocks/` so PHP en
 
 ## Gotchas
 
-- **ESLint config** has custom WooCommerce rules and lodash import restrictions - use the local `.eslintrc.js`, not the monorepo root
+- **ESLint config** has custom PooCommerce rules and lodash import restrictions - use the local `.eslintrc.js`, not the monorepo root
 - **`side-effects` in package.json** is extensive - many files cannot be tree-shaken (CSS, block registrations, filters)
 - **StoreApi lives outside Blocks** at `src/StoreApi/`, not `src/Blocks/StoreApi/`
-- **Two DI containers** exist: `src/Blocks/Registry/Container.php` (blocks-specific, legacy) and the main WooCommerce DI container in `src/`
+- **Two DI containers** exist: `src/Blocks/Registry/Container.php` (blocks-specific, legacy) and the main PooCommerce DI container in `src/`
 - **`Package.php`** at the Blocks root is a back-compat facade - real entry point is `Domain/Bootstrap.php`

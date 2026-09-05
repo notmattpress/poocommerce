@@ -2,15 +2,15 @@
 /**
  * WCAdminHelper tests
  *
- * @package WooCommerce\Admin\Tests\WCAdminHelper
+ * @package PooCommerce\Admin\Tests\WCAdminHelper
  */
 
-use Automattic\WooCommerce\Admin\WCAdminHelper;
+use Automattic\PooCommerce\Admin\WCAdminHelper;
 
 /**
  * WC_Admin_Tests_Admin_Helper Class
  *
- * @package WooCommerce\Admin\Tests\WCAdminHelper
+ * @package PooCommerce\Admin\Tests\WCAdminHelper
  */
 class WC_Admin_Tests_Admin_Helper extends WC_Unit_Test_Case {
 
@@ -22,7 +22,7 @@ class WC_Admin_Tests_Admin_Helper extends WC_Unit_Test_Case {
 	private static $original_permalink_structure;
 
 	/**
-	 * Store original WooCommerce permalinks for restoration.
+	 * Store original PooCommerce permalinks for restoration.
 	 *
 	 * @var array
 	 */
@@ -52,7 +52,7 @@ class WC_Admin_Tests_Admin_Helper extends WC_Unit_Test_Case {
 
 		// Store original permalink structure for restoration.
 		self::$original_permalink_structure = get_option( 'permalink_structure' );
-		self::$original_wc_permalinks       = get_option( 'woocommerce_permalinks', array() );
+		self::$original_wc_permalinks       = get_option( 'poocommerce_permalinks', array() );
 		global $wp_rewrite;
 		$wp_rewrite->set_permalink_structure( '/%postname%/' );
 
@@ -68,7 +68,7 @@ class WC_Admin_Tests_Admin_Helper extends WC_Unit_Test_Case {
 		// Restore original permalink structure.
 		global $wp_rewrite;
 		$wp_rewrite->set_permalink_structure( self::$original_permalink_structure );
-		update_option( 'woocommerce_permalinks', self::$original_wc_permalinks );
+		update_option( 'poocommerce_permalinks', self::$original_wc_permalinks );
 
 		// Flush rewrite rules one final time.
 		$wp_rewrite->flush_rules();
@@ -82,7 +82,7 @@ class WC_Admin_Tests_Admin_Helper extends WC_Unit_Test_Case {
 	 */
 	public function setUp(): void {
 		parent::setUp();
-		$direct_update_mode = get_option( 'woocommerce_attribute_lookup_direct_updates' );
+		$direct_update_mode = get_option( 'poocommerce_attribute_lookup_direct_updates' );
 		self::enable_direct_product_attribute_lookup_updates();
 		try {
 			// Create a product.
@@ -96,7 +96,7 @@ class WC_Admin_Tests_Admin_Helper extends WC_Unit_Test_Case {
 
 		$this->assertSame(
 			$direct_update_mode,
-			get_option( 'woocommerce_attribute_lookup_direct_updates' ),
+			get_option( 'poocommerce_attribute_lookup_direct_updates' ),
 			'The direct attribute lookup update mode was not restored after fixture creation.'
 		);
 	}
@@ -107,7 +107,7 @@ class WC_Admin_Tests_Admin_Helper extends WC_Unit_Test_Case {
 	 * @return void
 	 */
 	public function tearDown(): void {
-		$direct_update_mode = get_option( 'woocommerce_attribute_lookup_direct_updates' );
+		$direct_update_mode = get_option( 'poocommerce_attribute_lookup_direct_updates' );
 		try {
 			// Clean up product.
 			self::enable_direct_product_attribute_lookup_updates();
@@ -119,7 +119,7 @@ class WC_Admin_Tests_Admin_Helper extends WC_Unit_Test_Case {
 
 			$this->assertSame(
 				$direct_update_mode,
-				get_option( 'woocommerce_attribute_lookup_direct_updates' ),
+				get_option( 'poocommerce_attribute_lookup_direct_updates' ),
 				'The direct attribute lookup update mode was not restored after fixture cleanup.'
 			);
 		} finally {
@@ -138,8 +138,8 @@ class WC_Admin_Tests_Admin_Helper extends WC_Unit_Test_Case {
 		$this->assertEmpty(
 			$queue->search(
 				array(
-					'hook'   => 'woocommerce_run_product_attribute_lookup_update_callback',
-					'args'   => array( $this->product_id, \Automattic\WooCommerce\Internal\ProductAttributesLookup\LookupDataStore::ACTION_INSERT ),
+					'hook'   => 'poocommerce_run_product_attribute_lookup_update_callback',
+					'args'   => array( $this->product_id, \Automattic\PooCommerce\Internal\ProductAttributesLookup\LookupDataStore::ACTION_INSERT ),
 					'status' => ActionScheduler_Store::STATUS_PENDING,
 				),
 				'ids'
@@ -408,7 +408,7 @@ class WC_Admin_Tests_Admin_Helper extends WC_Unit_Test_Case {
 		global $wp_rewrite;
 		// Set permalink structure to plain .
 		$wp_rewrite->set_permalink_structure( '' );
-		delete_option( 'woocommerce_permalinks' );
+		delete_option( 'poocommerce_permalinks' );
 		$wp_rewrite->flush_rules();
 
 		$test_data = $this->get_store_page_test_data();
@@ -425,12 +425,12 @@ class WC_Admin_Tests_Admin_Helper extends WC_Unit_Test_Case {
 	 */
 	public function test_is_current_page_store_page_when_store_page_is_not_set() {
 		// unset shop page.
-		add_filter( 'woocommerce_get_shop_page_id', '__return_false' );
+		add_filter( 'poocommerce_get_shop_page_id', '__return_false' );
 
 		$this->go_to( home_url( '/?post_type=product' ) );
 		$this->assertTrue( WCAdminHelper::is_current_page_store_page(), 'Failed to identify product archive as store page' );
 
-		remove_filter( 'woocommerce_get_shop_page_id', '__return_false' );
+		remove_filter( 'poocommerce_get_shop_page_id', '__return_false' );
 	}
 
 	/**
@@ -482,7 +482,7 @@ class WC_Admin_Tests_Admin_Helper extends WC_Unit_Test_Case {
 		);
 
 		// update the checkout page to the new page.
-		update_option( 'woocommerce_checkout_page_id', $page_id );
+		update_option( 'poocommerce_checkout_page_id', $page_id );
 
 		global $wp_rewrite;
 		$wp_rewrite->init();

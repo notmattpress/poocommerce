@@ -23,7 +23,7 @@ declare(strict_types=1);
 namespace <?php echo $namespace; ?>;
 
 use <?php echo $enum_fqcn; ?> as <?php echo $enum_alias; ?>;
-use Automattic\WooCommerce\Api\Infrastructure\Schema\EnumType;
+use Automattic\PooCommerce\Api\Infrastructure\Schema\EnumType;
 
 class <?php echo $class_name; ?> {
 	private static ?EnumType $instance = null;
@@ -34,7 +34,7 @@ class <?php echo $class_name; ?> {
 				array(
 					'name' => '<?php echo $graphql_name; ?>',
 <?php if ( $description !== '' ) : ?>
-					'description' => __( '<?php echo $escaped_description; ?>', 'woocommerce' ),
+					'description' => __( '<?php echo $escaped_description; ?>', 'poocommerce' ),
 <?php endif; ?>
 <?php if ( ! empty( $metadata ) ) : ?>
 					'metadata' => array(
@@ -48,7 +48,7 @@ class <?php echo $class_name; ?> {
 						'<?php echo $val['graphql_name']; ?>' => array(
 							'value' => <?php echo $enum_alias; ?>::<?php echo $val['case_name']; ?>,
 	<?php if ( ! empty( $val['description'] ) ) : ?>
-							'description' => __( '<?php echo addslashes( $val['description'] ); ?>', 'woocommerce' ),
+							'description' => __( '<?php echo addslashes( $val['description'] ); ?>', 'poocommerce' ),
 <?php endif; ?>
 	<?php if ( ! empty( $val['deprecation_reason'] ) ) : ?>
 							'deprecationReason' => '<?php echo addslashes( $val['deprecation_reason'] ); ?>',

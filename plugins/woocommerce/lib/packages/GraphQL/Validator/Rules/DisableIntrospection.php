@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\GraphQL\Validator\Rules;
+namespace Automattic\PooCommerce\Vendor\GraphQL\Validator\Rules;
 
-use Automattic\WooCommerce\Vendor\GraphQL\Error\Error;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\FieldNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\NodeKind;
-use Automattic\WooCommerce\Vendor\GraphQL\Validator\QueryValidationContext;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\Error;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\FieldNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\NodeKind;
+use Automattic\PooCommerce\Vendor\GraphQL\Validator\QueryValidationContext;
 
 class DisableIntrospection extends QuerySecurityRule
 {
@@ -44,7 +44,7 @@ class DisableIntrospection extends QuerySecurityRule
 
     public static function introspectionDisabledMessage(): string
     {
-        return 'Automattic\WooCommerce\Vendor\GraphQL introspection is not allowed, but the query contained __schema or __type';
+        return 'Automattic\PooCommerce\Vendor\GraphQL introspection is not allowed, but the query contained __schema or __type';
     }
 
     protected function isEnabled(): bool

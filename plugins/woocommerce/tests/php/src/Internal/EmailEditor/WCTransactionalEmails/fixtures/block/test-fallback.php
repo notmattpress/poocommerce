@@ -2,7 +2,7 @@
 /**
  * Fallback block email template fixture used to verify the plain -> block path derivation.
  *
- * @package Automattic\WooCommerce\Tests\Internal\EmailEditor\WCTransactionalEmails\fixtures
+ * @package Automattic\PooCommerce\Tests\Internal\EmailEditor\WCTransactionalEmails\fixtures
  * @version 2.0.0
  */
 

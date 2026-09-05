@@ -22,13 +22,13 @@ const OrderStatus = ( {
 	orderStatusMap,
 	labelPositionToLeft = false,
 } ) => {
-	const indicatorClasses = clsx( 'woocommerce-order-status__indicator', {
+	const indicatorClasses = clsx( 'poocommerce-order-status__indicator', {
 		[ 'is-' + status ]: true,
 	} );
 	const label = orderStatusMap[ status ] || status;
 
 	return (
-		<div className={ clsx( 'woocommerce-order-status', className ) }>
+		<div className={ clsx( 'poocommerce-order-status', className ) }>
 			{ labelPositionToLeft ? (
 				<Fragment>
 					{ label }

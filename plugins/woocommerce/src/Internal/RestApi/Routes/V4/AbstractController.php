@@ -4,12 +4,12 @@
  *
  * Extends WP_REST_Controller. Implements functionality that applies to all route controllers.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\RestApi\Routes\V4;
+namespace Automattic\PooCommerce\Internal\RestApi\Routes\V4;
 
 use WP_Error;
 use WP_Http;
@@ -20,7 +20,7 @@ use WP_REST_Request;
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Abstract REST Controller for WooCommerce REST API V4.
+ * Abstract REST Controller for PooCommerce REST API V4.
  *
  * Provides common functionality for all V4 route controllers including
  * schema generation, error handling, and hook management.
@@ -130,7 +130,7 @@ abstract class AbstractController extends WP_REST_Controller {
 	/**
 	 * Get the item response.
 	 *
-	 * @param mixed           $item    WooCommerce representation of the item.
+	 * @param mixed           $item    PooCommerce representation of the item.
 	 * @param WP_REST_Request $request Request object.
 	 * @return array The item response.
 	 * @since 10.2.0
@@ -180,25 +180,25 @@ abstract class AbstractController extends WP_REST_Controller {
 	/**
 	 * Get the hook prefix for actions and filters.
 	 *
-	 * Example: woocommerce_rest_api_v4_orders_
+	 * Example: poocommerce_rest_api_v4_orders_
 	 *
 	 * @return string The hook prefix.
 	 * @since 10.2.0
 	 */
 	protected function get_hook_prefix(): string {
-		return 'woocommerce_rest_api_v4_' . str_replace( '-', '_', $this->rest_base ) . '_';
+		return 'poocommerce_rest_api_v4_' . str_replace( '-', '_', $this->rest_base ) . '_';
 	}
 
 	/**
 	 * Get the error prefix for errors.
 	 *
-	 * Example: woocommerce_rest_api_v4_orders_
+	 * Example: poocommerce_rest_api_v4_orders_
 	 *
 	 * @return string The error prefix.
 	 * @since 10.2.0
 	 */
 	protected function get_error_prefix(): string {
-		return 'woocommerce_rest_api_v4_' . str_replace( '-', '_', $this->rest_base ) . '_';
+		return 'poocommerce_rest_api_v4_' . str_replace( '-', '_', $this->rest_base ) . '_';
 	}
 
 	/**
@@ -217,7 +217,7 @@ abstract class AbstractController extends WP_REST_Controller {
 		}
 
 		if ( empty( $error_message ) ) {
-			$error_message = __( 'An error occurred while processing your request.', 'woocommerce' );
+			$error_message = __( 'An error occurred while processing your request.', 'poocommerce' );
 		}
 
 		return new WP_Error(
@@ -241,7 +241,7 @@ abstract class AbstractController extends WP_REST_Controller {
 	 */
 	protected function get_route_error_response_from_object( WP_Error $error_object, int $http_status_code = WP_Http::BAD_REQUEST, array $additional_data = array() ): WP_Error {
 		if ( ! $error_object instanceof WP_Error ) {
-			return $this->get_route_error_response( 'invalid_error_object', __( 'Invalid error object provided.', 'woocommerce' ), $http_status_code, $additional_data );
+			return $this->get_route_error_response( 'invalid_error_object', __( 'Invalid error object provided.', 'poocommerce' ), $http_status_code, $additional_data );
 		}
 
 		$error_object->add_data( array_merge( $additional_data, array( 'status' => $http_status_code ) ) );
@@ -258,23 +258,23 @@ abstract class AbstractController extends WP_REST_Controller {
 		$errors = array(
 			'GET'    => array(
 				'code'    => $this->get_error_prefix() . 'cannot_view',
-				'message' => __( 'Sorry, you cannot view resources.', 'woocommerce' ),
+				'message' => __( 'Sorry, you cannot view resources.', 'poocommerce' ),
 			),
 			'POST'   => array(
 				'code'    => $this->get_error_prefix() . 'cannot_create',
-				'message' => __( 'Sorry, you cannot create resources.', 'woocommerce' ),
+				'message' => __( 'Sorry, you cannot create resources.', 'poocommerce' ),
 			),
 			'PUT'    => array(
 				'code'    => $this->get_error_prefix() . 'cannot_update',
-				'message' => __( 'Sorry, you cannot update resources.', 'woocommerce' ),
+				'message' => __( 'Sorry, you cannot update resources.', 'poocommerce' ),
 			),
 			'PATCH'  => array(
 				'code'    => $this->get_error_prefix() . 'cannot_update',
-				'message' => __( 'Sorry, you cannot update resources.', 'woocommerce' ),
+				'message' => __( 'Sorry, you cannot update resources.', 'poocommerce' ),
 			),
 			'DELETE' => array(
 				'code'    => $this->get_error_prefix() . 'cannot_delete',
-				'message' => __( 'Sorry, you cannot delete resources.', 'woocommerce' ),
+				'message' => __( 'Sorry, you cannot delete resources.', 'poocommerce' ),
 			),
 		);
 
@@ -297,13 +297,13 @@ abstract class AbstractController extends WP_REST_Controller {
 	 */
 	protected function get_route_error_by_code( string $error_code ): WP_Error {
 		$error_messages    = array(
-			self::INVALID_ID          => __( 'Invalid ID.', 'woocommerce' ),
-			self::RESOURCE_EXISTS     => __( 'Resource already exists.', 'woocommerce' ),
-			self::CANNOT_CREATE       => __( 'Cannot create resource.', 'woocommerce' ),
-			self::CANNOT_DELETE       => __( 'Cannot delete resource.', 'woocommerce' ),
-			self::CANNOT_UPDATE       => __( 'Cannot update resource.', 'woocommerce' ),
-			self::CANNOT_TRASH        => __( 'Cannot trash resource.', 'woocommerce' ),
-			self::TRASH_NOT_SUPPORTED => __( 'Trash not supported.', 'woocommerce' ),
+			self::INVALID_ID          => __( 'Invalid ID.', 'poocommerce' ),
+			self::RESOURCE_EXISTS     => __( 'Resource already exists.', 'poocommerce' ),
+			self::CANNOT_CREATE       => __( 'Cannot create resource.', 'poocommerce' ),
+			self::CANNOT_DELETE       => __( 'Cannot delete resource.', 'poocommerce' ),
+			self::CANNOT_UPDATE       => __( 'Cannot update resource.', 'poocommerce' ),
+			self::CANNOT_TRASH        => __( 'Cannot trash resource.', 'poocommerce' ),
+			self::TRASH_NOT_SUPPORTED => __( 'Trash not supported.', 'poocommerce' ),
 		);
 		$http_status_codes = array(
 			self::INVALID_ID          => WP_Http::NOT_FOUND,
@@ -316,7 +316,7 @@ abstract class AbstractController extends WP_REST_Controller {
 		);
 		return $this->get_route_error_response(
 			$this->get_error_prefix() . $error_code,
-			$error_messages[ $error_code ] ?? __( 'An error occurred while processing your request.', 'woocommerce' ),
+			$error_messages[ $error_code ] ?? __( 'An error occurred while processing your request.', 'poocommerce' ),
 			$http_status_codes[ $error_code ] ?? WP_Http::BAD_REQUEST
 		);
 	}

@@ -2,7 +2,7 @@
 /**
  * Fake third-party email for E2E scenarios 15-16.
  *
- * Registered conditionally via the woocommerce_email_classes filter in the
+ * Registered conditionally via the poocommerce_email_classes filter in the
  * main plugin file. Stays dormant unless wc_test_fake_third_party_email_enabled='yes'.
  *
  * @package WC_Email_Template_Sync_Test_Helper

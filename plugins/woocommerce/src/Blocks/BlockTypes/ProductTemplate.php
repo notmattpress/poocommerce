@@ -1,8 +1,8 @@
 <?php
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\BlockTypes\ProductCollection\Utils as ProductCollectionUtils;
+use Automattic\PooCommerce\Blocks\BlockTypes\ProductCollection\Utils as ProductCollectionUtils;
 use WP_Block;
 
 /**
@@ -119,7 +119,7 @@ class ProductTemplate extends AbstractBlock {
 
 			// Load product into the shared products store.
 			wc_interactivity_api_load_product(
-				'I acknowledge that using experimental APIs means my theme or plugin will inevitably break in the next version of WooCommerce',
+				'I acknowledge that using experimental APIs means my theme or plugin will inevitably break in the next version of PooCommerce',
 				$product_id
 			);
 			$product_context_directive = wp_interactivity_data_wp_context(
@@ -127,11 +127,11 @@ class ProductTemplate extends AbstractBlock {
 					'productId'   => $product_id,
 					'variationId' => null,
 				),
-				'woocommerce/products'
+				'poocommerce/products'
 			);
 
 			$li_directives = '
-				data-wp-interactive="woocommerce/product-collection"
+				data-wp-interactive="poocommerce/product-collection"
 				' . $product_context_directive . '
 				data-wp-key="product-item-' . $product_id . '"
 			';
@@ -201,7 +201,7 @@ class ProductTemplate extends AbstractBlock {
 	 * @return array
 	 */
 	public function add_block_type_metadata_settings( $settings, $metadata ) {
-		if ( ! empty( $metadata['name'] ) && 'woocommerce/product-template' === $metadata['name'] ) {
+		if ( ! empty( $metadata['name'] ) && 'poocommerce/product-template' === $metadata['name'] ) {
 			$settings['skip_inner_blocks'] = true;
 		}
 		return $settings;

@@ -1,19 +1,19 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\GraphQL\Validator\Rules;
+namespace Automattic\PooCommerce\Vendor\GraphQL\Validator\Rules;
 
-use Automattic\WooCommerce\Vendor\GraphQL\Error\Error;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\NodeKind;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\SchemaDefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\SchemaExtensionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\Visitor;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\VisitorOperation;
-use Automattic\WooCommerce\Vendor\GraphQL\Validator\SDLValidationContext;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\Error;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\NodeKind;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\SchemaDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\SchemaExtensionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\Visitor;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\VisitorOperation;
+use Automattic\PooCommerce\Vendor\GraphQL\Validator\SDLValidationContext;
 
 /**
  * Unique operation types.
  *
- * A Automattic\WooCommerce\Vendor\GraphQL document is only valid if it has only one type per operation.
+ * A Automattic\PooCommerce\Vendor\GraphQL document is only valid if it has only one type per operation.
  */
 class UniqueOperationTypes extends ValidationRule
 {

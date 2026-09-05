@@ -1,19 +1,19 @@
 <?php
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\WCPayPromotion;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\WCPayPromotion;
 
-use Automattic\WooCommerce\Admin\Features\PaymentGatewaySuggestions\EvaluateSuggestion;
-use Automattic\WooCommerce\Admin\RemoteSpecs\DataSourcePoller;
+use Automattic\PooCommerce\Admin\Features\PaymentGatewaySuggestions\EvaluateSuggestion;
+use Automattic\PooCommerce\Admin\RemoteSpecs\DataSourcePoller;
 
-use Automattic\WooCommerce\Internal\Admin\WCPayPromotion\DefaultPromotions;
-use Automattic\WooCommerce\Internal\Admin\WCPayPromotion\Init as WCPayPromotion;
-use Automattic\WooCommerce\Internal\Admin\WCPayPromotion\WCPayPromotionDataSourcePoller;
+use Automattic\PooCommerce\Internal\Admin\WCPayPromotion\DefaultPromotions;
+use Automattic\PooCommerce\Internal\Admin\WCPayPromotion\Init as WCPayPromotion;
+use Automattic\PooCommerce\Internal\Admin\WCPayPromotion\WCPayPromotionDataSourcePoller;
 use WC_Unit_Test_Case;
 
 /**
  * class WC_Admin_Tests_WCPayPromotion_Init
  *
- * @covers \Automattic\WooCommerce\Internal\Admin\WCPayPromotion\Init
+ * @covers \Automattic\PooCommerce\Internal\Admin\WCPayPromotion\Init
  */
 class InitTest extends WC_Unit_Test_Case {
 
@@ -23,9 +23,9 @@ class InitTest extends WC_Unit_Test_Case {
 	public function setUp(): void {
 		parent::setUp();
 
-		delete_option( 'woocommerce_show_marketplace_suggestions' );
+		delete_option( 'poocommerce_show_marketplace_suggestions' );
 		add_filter(
-			'transient_woocommerce_admin_' . WCPayPromotionDataSourcePoller::ID . '_specs',
+			'transient_poocommerce_admin_' . WCPayPromotionDataSourcePoller::ID . '_specs',
 			function ( $value ) {
 				if ( $value ) {
 					return $value;
@@ -47,8 +47,8 @@ class InitTest extends WC_Unit_Test_Case {
 	 */
 	public function tearDown(): void {
 		WCPayPromotion::delete_specs_transient();
-		remove_all_filters( 'transient_woocommerce_admin_' . WCPayPromotionDataSourcePoller::ID . '_specs' );
-		update_option( 'woocommerce_default_country', 'US' );
+		remove_all_filters( 'transient_poocommerce_admin_' . WCPayPromotionDataSourcePoller::ID . '_specs' );
+		update_option( 'poocommerce_default_country', 'US' );
 
 		parent::tearDown();
 	}
@@ -58,7 +58,7 @@ class InitTest extends WC_Unit_Test_Case {
 	 */
 	public function test_use_default_specs_when_remote_specs_empty() {
 		// Arrange.
-		remove_all_filters( 'transient_woocommerce_admin_' . WCPayPromotionDataSourcePoller::ID . '_specs' );
+		remove_all_filters( 'transient_poocommerce_admin_' . WCPayPromotionDataSourcePoller::ID . '_specs' );
 		add_filter(
 			DataSourcePoller::FILTER_NAME,
 			function () {
@@ -82,7 +82,7 @@ class InitTest extends WC_Unit_Test_Case {
 	 */
 	public function test_use_default_specs_when_marketplace_suggestions_off() {
 		// Arrange.
-		update_option( 'woocommerce_show_marketplace_suggestions', 'no' );
+		update_option( 'poocommerce_show_marketplace_suggestions', 'no' );
 
 		// Act.
 		$specs    = WCPayPromotion::get_specs();
@@ -106,7 +106,7 @@ class InitTest extends WC_Unit_Test_Case {
 			),
 		);
 		set_transient(
-			'woocommerce_admin_' . WCPayPromotionDataSourcePoller::ID . '_specs',
+			'poocommerce_admin_' . WCPayPromotionDataSourcePoller::ID . '_specs',
 			array(
 				'en_US' => $expected_promotions,
 			)
@@ -126,9 +126,9 @@ class InitTest extends WC_Unit_Test_Case {
 	 */
 	public function test_matching_promotions() {
 		// Arrange.
-		update_option( 'woocommerce_default_country', 'US' );
+		update_option( 'poocommerce_default_country', 'US' );
 		set_transient(
-			'woocommerce_admin_' . WCPayPromotionDataSourcePoller::ID . '_specs',
+			'poocommerce_admin_' . WCPayPromotionDataSourcePoller::ID . '_specs',
 			array(
 				'en_US' => array(
 					array(
@@ -166,9 +166,9 @@ class InitTest extends WC_Unit_Test_Case {
 	public function test_non_matching_promotions() {
 		// Arrange.
 		// Use a bogus country code so no suggestions match.
-		update_option( 'woocommerce_default_country', 'XX' );
+		update_option( 'poocommerce_default_country', 'XX' );
 		set_transient(
-			'woocommerce_admin_' . WCPayPromotionDataSourcePoller::ID . '_specs',
+			'poocommerce_admin_' . WCPayPromotionDataSourcePoller::ID . '_specs',
 			array(
 				'en_US' => array(
 					array(
@@ -204,7 +204,7 @@ class InitTest extends WC_Unit_Test_Case {
 	public function test_specs_locale_transient() {
 		// Arrange.
 		set_transient(
-			'woocommerce_admin_' . WCPayPromotionDataSourcePoller::ID . '_specs',
+			'poocommerce_admin_' . WCPayPromotionDataSourcePoller::ID . '_specs',
 			array(
 				'en_US' => array(
 					array(
@@ -238,11 +238,11 @@ class InitTest extends WC_Unit_Test_Case {
 	 */
 	public function test_empty_remote_promotions_fallback_to_defaults() {
 		// Arrange.
-		update_option( 'woocommerce_default_country', 'US' );
-		update_option( 'woocommerce_show_marketplace_suggestions', 'yes' );
+		update_option( 'poocommerce_default_country', 'US' );
+		update_option( 'poocommerce_show_marketplace_suggestions', 'yes' );
 		// Make sure there are no specs in the transient.
 		set_transient(
-			'woocommerce_admin_' . WCPayPromotionDataSourcePoller::ID . '_specs',
+			'poocommerce_admin_' . WCPayPromotionDataSourcePoller::ID . '_specs',
 			array(
 				'en_US' => array(),
 			)
@@ -297,7 +297,7 @@ class InitTest extends WC_Unit_Test_Case {
 
 		// Act.
 		$promotions                = WCPayPromotion::get_promotions();
-		$stored_specs_in_transient = get_transient( 'woocommerce_admin_' . WCPayPromotionDataSourcePoller::ID . '_specs' );
+		$stored_specs_in_transient = get_transient( 'poocommerce_admin_' . WCPayPromotionDataSourcePoller::ID . '_specs' );
 
 		// Assert.
 		$default_specs      = DefaultPromotions::get_all();
@@ -306,13 +306,13 @@ class InitTest extends WC_Unit_Test_Case {
 		$this->assertTrue( count( $stored_specs_in_transient['en_US'] ) === 0 );
 		$this->assertEquals( $default_promotions, $promotions );
 
-		$expires = (int) get_transient( '_transient_timeout_woocommerce_admin_' . WCPayPromotionDataSourcePoller::ID . '_specs' );
+		$expires = (int) get_transient( '_transient_timeout_poocommerce_admin_' . WCPayPromotionDataSourcePoller::ID . '_specs' );
 		$this->assertTrue( ( $expires - time() ) <= 3 * HOUR_IN_SECONDS );
 
 		// Clean up.
 		remove_all_filters( WCPayPromotionDataSourcePoller::FILTER_NAME );
 		remove_all_filters( WCPayPromotionDataSourcePoller::FILTER_NAME_SPECS );
 		remove_all_filters( 'pre_http_request' );
-		remove_all_filters( 'woocommerce_admin_payment_gateway_suggestion_specs' );
+		remove_all_filters( 'poocommerce_admin_payment_gateway_suggestion_specs' );
 	}
 }

@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { render, act } from '@testing-library/react';
-import * as mockUtils from '@woocommerce/editor-components/utils';
+import * as mockUtils from '@poocommerce/editor-components/utils';
 
 /**
  * Internal dependencies
@@ -10,7 +10,7 @@ import * as mockUtils from '@woocommerce/editor-components/utils';
 import withProductVariations from '../with-product-variations';
 import * as mockBaseUtils from '../../base/utils/errors';
 
-jest.mock( '@woocommerce/editor-components/utils', () => ( {
+jest.mock( '@poocommerce/editor-components/utils', () => ( {
 	getProductVariationsWithTotal: jest.fn(),
 } ) );
 

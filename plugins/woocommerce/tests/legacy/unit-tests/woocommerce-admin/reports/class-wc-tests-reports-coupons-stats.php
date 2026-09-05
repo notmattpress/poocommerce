@@ -2,12 +2,12 @@
 /**
  * Reports coupons stats tests.
  *
- * @package WooCommerce\Admin\Tests\CouponsStats
+ * @package PooCommerce\Admin\Tests\CouponsStats
  */
 
-use Automattic\WooCommerce\Admin\API\Reports\Coupons\Stats\DataStore as CouponsStatsDataStore;
-use Automattic\WooCommerce\Admin\API\Reports\GenericQuery;
-use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Admin\API\Reports\Coupons\Stats\DataStore as CouponsStatsDataStore;
+use Automattic\PooCommerce\Admin\API\Reports\GenericQuery;
+use Automattic\PooCommerce\Enums\OrderStatus;
 
 /**
  * Class WC_Admin_Tests_Reports_Coupons_Stats

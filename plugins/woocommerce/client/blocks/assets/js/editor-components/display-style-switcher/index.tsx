@@ -8,7 +8,7 @@ import {
 } from '@wordpress/blocks';
 import { useState } from '@wordpress/element';
 import { dispatch, select, useDispatch } from '@wordpress/data';
-import { getInnerBlockByName } from '@woocommerce/utils';
+import { getInnerBlockByName } from '@poocommerce/utils';
 import {
 	// eslint-disable-next-line @wordpress/no-unsafe-wp-apis
 	__experimentalToggleGroupControl as ToggleGroupControl,
@@ -16,7 +16,7 @@ import {
 	__experimentalToggleGroupControlOption as ToggleGroupControlOption,
 } from '@wordpress/components';
 
-const SELECTABLE_ITEMS_CONTEXT = 'woocommerce/selectableItems';
+const SELECTABLE_ITEMS_CONTEXT = 'poocommerce/selectableItems';
 
 type DisplayStyleInsertionPoint = {
 	rootClientId: string;
@@ -24,7 +24,7 @@ type DisplayStyleInsertionPoint = {
 };
 
 type DisplayStyleBlockSupport = {
-	woocommerce?: {
+	poocommerce?: {
 		innerBlockDisplayStyle?: unknown;
 	};
 };
@@ -70,7 +70,7 @@ function getBlockTypeList(
 function hasInnerBlockDisplayStyleSupport(
 	blockType: DisplayStyleBlockType
 ): boolean {
-	return blockType.supports?.woocommerce?.innerBlockDisplayStyle === true;
+	return blockType.supports?.poocommerce?.innerBlockDisplayStyle === true;
 }
 
 function isDisplayStyleCandidate(

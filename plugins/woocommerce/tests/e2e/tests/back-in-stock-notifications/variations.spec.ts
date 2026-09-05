@@ -116,7 +116,7 @@ test.describe(
 				// The notice names the variation rather than the parent
 				// product, which is what shows the signup was recorded against
 				// the variation the shopper picked.
-				// `wptexturize` turns the hyphen WooCommerce generated the
+				// `wptexturize` turns the hyphen PooCommerce generated the
 				// variation title with into an en dash by the time the notice
 				// is printed, so match either.
 				await expect(

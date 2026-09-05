@@ -1,11 +1,11 @@
 /**
  * External dependencies
  */
-import { expect, test } from '@woocommerce/e2e-utils';
+import { expect, test } from '@poocommerce/e2e-utils';
 
 const blockData = {
 	name: 'Product Results Count',
-	slug: 'woocommerce/product-results-count',
+	slug: 'poocommerce/product-results-count',
 	class: '.wc-block-product-results-count',
 };
 

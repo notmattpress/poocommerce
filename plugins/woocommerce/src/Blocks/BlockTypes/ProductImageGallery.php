@@ -1,7 +1,7 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\Utils\StyleAttributesUtils;
+use Automattic\PooCommerce\Blocks\Utils\StyleAttributesUtils;
 
 /**
  * ProductImageGallery class.
@@ -49,7 +49,7 @@ class ProductImageGallery extends AbstractBlock {
 	 * Note: This enqueue logic is intentionally duplicated in ClassicTemplate.php
 	 * to keep legacy blocks independent and allow for separate deprecation paths.
 	 *
-	 * @see https://github.com/woocommerce/woocommerce/pull/60223
+	 * @see https://github.com/poocommerce/poocommerce/pull/60223
 	 */
 	public function enqueue_legacy_assets() {
 		// Legacy script dependencies for backward compatibility.
@@ -107,22 +107,22 @@ class ProductImageGallery extends AbstractBlock {
 			return '';
 		}
 
-		add_filter( 'woocommerce_single_product_zoom_enabled', '__return_true' );
-		add_filter( 'woocommerce_single_product_photoswipe_enabled', '__return_true' );
-		add_filter( 'woocommerce_single_product_flexslider_enabled', '__return_true' );
+		add_filter( 'poocommerce_single_product_zoom_enabled', '__return_true' );
+		add_filter( 'poocommerce_single_product_photoswipe_enabled', '__return_true' );
+		add_filter( 'poocommerce_single_product_flexslider_enabled', '__return_true' );
 
 		ob_start();
-		woocommerce_show_product_sale_flash();
+		poocommerce_show_product_sale_flash();
 		$sale_badge_html = ob_get_clean();
 
 		ob_start();
-		woocommerce_show_product_images();
+		poocommerce_show_product_images();
 		$product_image_gallery_html = ob_get_clean();
 
 		$product   = $previous_product;
 		$classname = StyleAttributesUtils::get_classes_by_attributes( $attributes, array( 'extra_classes' ) );
 		return sprintf(
-			'<div class="wp-block-woocommerce-product-image-gallery %1$s">%2$s %3$s</div>',
+			'<div class="wp-block-poocommerce-product-image-gallery %1$s">%2$s %3$s</div>',
 			esc_attr( $classname ),
 			$sale_badge_html,
 			$product_image_gallery_html

@@ -1,14 +1,14 @@
 <?php
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Admin\Features\Features;
-use Automattic\WooCommerce\Blocks\Assets\Api as AssetApi;
-use Automattic\WooCommerce\Blocks\Assets\AssetDataRegistry;
-use Automattic\WooCommerce\Blocks\Integrations\IntegrationRegistry;
-use Automattic\WooCommerce\Enums\ProductStatus;
-use Automattic\WooCommerce\Internal\Features\BlockEditorUnifiedAssets;
-use Automattic\WooCommerce\Internal\Utilities\ProductUtil;
+use Automattic\PooCommerce\Admin\Features\Features;
+use Automattic\PooCommerce\Blocks\Assets\Api as AssetApi;
+use Automattic\PooCommerce\Blocks\Assets\AssetDataRegistry;
+use Automattic\PooCommerce\Blocks\Integrations\IntegrationRegistry;
+use Automattic\PooCommerce\Enums\ProductStatus;
+use Automattic\PooCommerce\Internal\Features\BlockEditorUnifiedAssets;
+use Automattic\PooCommerce\Internal\Utilities\ProductUtil;
 use WP_Block;
 
 /**
@@ -21,7 +21,7 @@ abstract class AbstractBlock {
 	 *
 	 * @var string
 	 */
-	protected $namespace = 'woocommerce';
+	protected $namespace = 'poocommerce';
 
 	/**
 	 * Block name within this namespace.
@@ -134,7 +134,7 @@ abstract class AbstractBlock {
 	 */
 	protected function initialize() {
 		if ( empty( $this->block_name ) ) {
-			_doing_it_wrong( __METHOD__, esc_html__( 'Block name is required.', 'woocommerce' ), '4.5.0' );
+			_doing_it_wrong( __METHOD__, esc_html__( 'Block name is required.', 'poocommerce' ), '4.5.0' );
 			return false;
 		}
 		$this->integration_registry->initialize( $this->block_name . '_block' );
@@ -281,7 +281,7 @@ abstract class AbstractBlock {
 	 * @return string[] $chunks list of chunks to load.
 	 */
 	protected function get_chunks_paths( $chunks_folder ) {
-		$build_path = \Automattic\WooCommerce\Blocks\Package::get_path() . 'assets/client/blocks/';
+		$build_path = \Automattic\PooCommerce\Blocks\Package::get_path() . 'assets/client/blocks/';
 		$blocks     = [];
 		if ( ! is_dir( $build_path . $chunks_folder ) ) {
 			return [];
@@ -525,7 +525,7 @@ abstract class AbstractBlock {
 				 * enter 'characters_excluding_spaces' or 'characters_including_spaces'. Otherwise, enter 'words'.
 				 * Do not translate into your own language.
 				 */
-				'wordCountType' => _x( 'words', 'Word count type. Do not translate!', 'woocommerce' ),
+				'wordCountType' => _x( 'words', 'Word count type. Do not translate!', 'poocommerce' ),
 			];
 			if ( is_admin() && ! WC()->is_rest_api_request() ) {
 				$product_counts     = wc_get_container()->get( ProductUtil::class )->get_counts_for_type( 'product' );
@@ -564,7 +564,7 @@ abstract class AbstractBlock {
 		 * @param string $context   Context, can be edit or view.
 		 */
 		$routes = apply_filters(
-			'woocommerce_blocks_pre_get_routes_from_namespace',
+			'poocommerce_blocks_pre_get_routes_from_namespace',
 			array(),
 			$namespace,
 			'view'

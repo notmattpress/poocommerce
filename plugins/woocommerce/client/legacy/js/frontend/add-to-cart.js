@@ -137,7 +137,7 @@ jQuery( function( $ ) {
 	 */
 	AddToCartHandler.prototype.onRemoveFromCart = function( e ) {
 		var $thisbutton = $( this ),
-			$row        = $thisbutton.closest( '.woocommerce-mini-cart-item' );
+			$row        = $thisbutton.closest( '.poocommerce-mini-cart-item' );
 
 		e.data.addToCartHandler.$liveRegion
 			.text( '' )

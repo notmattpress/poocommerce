@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Internal\PushNotifications;
+namespace Automattic\PooCommerce\Tests\Internal\PushNotifications;
 
 use Automattic\Jetpack\Connection\Manager as JetpackConnectionManager;
-use Automattic\WooCommerce\Internal\PushNotifications\Controllers\PushNotificationStatusRestController;
-use Automattic\WooCommerce\Internal\PushNotifications\Controllers\PushTokenRestController;
-use Automattic\WooCommerce\Internal\PushNotifications\Entities\PushToken;
-use Automattic\WooCommerce\Internal\PushNotifications\PushNotifications;
-use Automattic\WooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\Internal\PushNotifications\Controllers\PushNotificationStatusRestController;
+use Automattic\PooCommerce\Internal\PushNotifications\Controllers\PushTokenRestController;
+use Automattic\PooCommerce\Internal\PushNotifications\Entities\PushToken;
+use Automattic\PooCommerce\Internal\PushNotifications\PushNotifications;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
 use Exception;
 use PHPUnit\Framework\MockObject\MockObject;
 use WC_Logger;
@@ -18,7 +18,7 @@ use WC_Unit_Test_Case;
 /**
  * PushNotifications test.
  *
- * @covers \Automattic\WooCommerce\Internal\PushNotifications\PushNotifications
+ * @covers \Automattic\PooCommerce\Internal\PushNotifications\PushNotifications
  */
 class PushNotificationsTest extends WC_Unit_Test_Case {
 	/**
@@ -79,7 +79,7 @@ class PushNotificationsTest extends WC_Unit_Test_Case {
 
 	/**
 	 * @testdox Tests the functionality can be manually disabled via the
-	 * woocommerce_enhanced_push_notifications_disabled filter, skipping the Jetpack connection check.
+	 * poocommerce_enhanced_push_notifications_disabled filter, skipping the Jetpack connection check.
 	 */
 	public function test_it_can_tell_push_notifications_should_not_be_enabled_when_disabled_via_filter() {
 		$this->set_up_jetpack_connection_manager_mock( array( 'is_connected' ) );
@@ -88,13 +88,13 @@ class PushNotificationsTest extends WC_Unit_Test_Case {
 			->expects( $this->never() )
 			->method( 'is_connected' );
 
-		add_filter( 'woocommerce_enhanced_push_notifications_disabled', '__return_true' );
+		add_filter( 'poocommerce_enhanced_push_notifications_disabled', '__return_true' );
 
 		$push_notifications = new PushNotifications();
 
 		$this->assertFalse( $push_notifications->should_be_enabled() );
 
-		remove_filter( 'woocommerce_enhanced_push_notifications_disabled', '__return_true' );
+		remove_filter( 'poocommerce_enhanced_push_notifications_disabled', '__return_true' );
 	}
 
 	/**
@@ -240,14 +240,14 @@ class PushNotificationsTest extends WC_Unit_Test_Case {
 		$push_notifications->on_init();
 
 		// The status controller registers on rest_api_init rather than during
-		// on_init, so a front-end request does not resolve it for nothing. WooCommerce
+		// on_init, so a front-end request does not resolve it for nothing. PooCommerce
 		// applies the namespaces filter on rest_api_init at priority 10, and the
 		// controller registers at priority 0, so it is always in place in time.
-		// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment -- Triggering a WordPress core hook, not defining one.
+		// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment -- Triggering a WordPress core hook, not defining one.
 		do_action( 'rest_api_init' );
 
-		// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment -- Triggering an existing filter from RestApiControllerBase, not defining one.
-		$namespaces = apply_filters( 'woocommerce_rest_api_get_rest_namespaces', array( 'wc/v3' => array() ) );
+		// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment -- Triggering an existing filter from RestApiControllerBase, not defining one.
+		$namespaces = apply_filters( 'poocommerce_rest_api_get_rest_namespaces', array( 'wc/v3' => array() ) );
 		$registered = array_values( $namespaces['wc/v3'] );
 
 		$this->assertContains( PushNotificationStatusRestController::class, $registered );

@@ -1,12 +1,12 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\OrderWithdrawal;
+namespace Automattic\PooCommerce\Internal\OrderWithdrawal;
 
-use Automattic\WooCommerce\Admin\Notes\Note;
-use Automattic\WooCommerce\Admin\Notes\Notes;
-use Automattic\WooCommerce\Internal\Orders\OrderNoteGroup;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Admin\Notes\Note;
+use Automattic\PooCommerce\Admin\Notes\Notes;
+use Automattic\PooCommerce\Internal\Orders\OrderNoteGroup;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 use Throwable;
 use WC_Geolocation;
 use WC_Order;
@@ -19,8 +19,8 @@ use WC_Rate_Limiter;
  */
 final class OrderWithdrawalFormProcessor {
 
-	public const NONCE_ACTION   = 'woocommerce_order_withdrawal';
-	public const NONCE_FIELD    = 'woocommerce-order-withdrawal-nonce';
+	public const NONCE_ACTION   = 'poocommerce_order_withdrawal';
+	public const NONCE_FIELD    = 'poocommerce-order-withdrawal-nonce';
 	public const ACTION_FIELD   = 'order_withdrawal_action';
 	public const ACTION_REVIEW  = 'review';
 	public const ACTION_CONFIRM = 'confirm';
@@ -62,7 +62,7 @@ final class OrderWithdrawalFormProcessor {
 		}
 
 		if ( ! $this->has_valid_nonce() ) {
-			wc_add_notice( __( 'We could not verify your request. Please try again.', 'woocommerce' ), 'error' );
+			wc_add_notice( __( 'We could not verify your request. Please try again.', 'poocommerce' ), 'error' );
 			return new OrderWithdrawalFormState( $screen, $data, $errors );
 		}
 
@@ -209,33 +209,33 @@ final class OrderWithdrawalFormProcessor {
 		$errors = array();
 
 		if ( '' === $data[ self::FIELD_FIRST_NAME ] ) {
-			$errors[ self::FIELD_FIRST_NAME ] = __( 'First name is a required field.', 'woocommerce' );
+			$errors[ self::FIELD_FIRST_NAME ] = __( 'First name is a required field.', 'poocommerce' );
 		}
 
 		if ( '' === $data[ self::FIELD_LAST_NAME ] ) {
-			$errors[ self::FIELD_LAST_NAME ] = __( 'Last name is a required field.', 'woocommerce' );
+			$errors[ self::FIELD_LAST_NAME ] = __( 'Last name is a required field.', 'poocommerce' );
 		}
 
 		if ( '' === $data[ self::FIELD_EMAIL ] || ! is_email( $data[ self::FIELD_EMAIL ] ) ) {
-			$errors[ self::FIELD_EMAIL ] = __( 'Enter a valid email address.', 'woocommerce' );
+			$errors[ self::FIELD_EMAIL ] = __( 'Enter a valid email address.', 'poocommerce' );
 		}
 
 		if ( '' === $data[ self::FIELD_EMAIL_CONFIRMATION ] ) {
-			$errors[ self::FIELD_EMAIL_CONFIRMATION ] = __( 'Confirm email address is a required field.', 'woocommerce' );
+			$errors[ self::FIELD_EMAIL_CONFIRMATION ] = __( 'Confirm email address is a required field.', 'poocommerce' );
 		} elseif ( 0 !== strcasecmp( $data[ self::FIELD_EMAIL ], $data[ self::FIELD_EMAIL_CONFIRMATION ] ) ) {
-			$errors[ self::FIELD_EMAIL_CONFIRMATION ] = __( 'Email addresses do not match.', 'woocommerce' );
+			$errors[ self::FIELD_EMAIL_CONFIRMATION ] = __( 'Email addresses do not match.', 'poocommerce' );
 		}
 
 		if ( '' === $data[ self::FIELD_ORDER_NUMBER ] ) {
-			$errors[ self::FIELD_ORDER_NUMBER ] = __( 'Order number is a required field.', 'woocommerce' );
+			$errors[ self::FIELD_ORDER_NUMBER ] = __( 'Order number is a required field.', 'poocommerce' );
 		}
 
 		if ( ! in_array( $data[ self::FIELD_WITHDRAWAL_TYPE ], array( self::WITHDRAWAL_TYPE_FULL, self::WITHDRAWAL_TYPE_SPECIFIC ), true ) ) {
-			$errors[ self::FIELD_WITHDRAWAL_TYPE ] = __( 'Choose what you want to withdraw.', 'woocommerce' );
+			$errors[ self::FIELD_WITHDRAWAL_TYPE ] = __( 'Choose what you want to withdraw.', 'poocommerce' );
 		}
 
 		if ( self::WITHDRAWAL_TYPE_SPECIFIC === $data[ self::FIELD_WITHDRAWAL_TYPE ] && '' === $data[ self::FIELD_ADDITIONAL_DETAILS ] ) {
-			$errors[ self::FIELD_ADDITIONAL_DETAILS ] = __( 'List the specific items you want to withdraw.', 'woocommerce' );
+			$errors[ self::FIELD_ADDITIONAL_DETAILS ] = __( 'List the specific items you want to withdraw.', 'poocommerce' );
 		}
 
 		return $errors;
@@ -265,7 +265,7 @@ final class OrderWithdrawalFormProcessor {
 		}
 
 		if ( ! $this->apply_rate_limits( $rate_limit_ids ) ) {
-			wc_add_notice( __( 'We could not submit your withdrawal request. Please try again or contact us if the problem continues.', 'woocommerce' ), 'error' );
+			wc_add_notice( __( 'We could not submit your withdrawal request. Please try again or contact us if the problem continues.', 'poocommerce' ), 'error' );
 
 			return false;
 		}
@@ -274,7 +274,7 @@ final class OrderWithdrawalFormProcessor {
 
 		if ( $matched_order && $this->has_order_withdrawal_request( $matched_order ) ) {
 			wc_add_notice(
-				__( 'A withdrawal request has already been submitted for this order. Please contact us if you need help or want to make changes.', 'woocommerce' ),
+				__( 'A withdrawal request has already been submitted for this order. Please contact us if you need help or want to make changes.', 'poocommerce' ),
 				'error'
 			);
 
@@ -284,7 +284,7 @@ final class OrderWithdrawalFormProcessor {
 		}
 
 		if ( ! $this->send_order_withdrawal_emails( $data, $matched_order ) ) {
-			wc_add_notice( __( 'We could not submit your withdrawal request. Please try again or contact us if the problem continues.', 'woocommerce' ), 'error' );
+			wc_add_notice( __( 'We could not submit your withdrawal request. Please try again or contact us if the problem continues.', 'poocommerce' ), 'error' );
 			$this->apply_rate_limits( $rate_limit_ids, -1 );
 
 			return false;
@@ -307,7 +307,7 @@ final class OrderWithdrawalFormProcessor {
 	private function check_rate_limits( array $rate_limit_ids ): bool {
 		foreach ( $rate_limit_ids as $rate_limit_id ) {
 			if ( WC_Rate_Limiter::retried_too_soon( $rate_limit_id ) ) {
-				wc_add_notice( __( 'Please wait before submitting another withdrawal request.', 'woocommerce' ), 'error' );
+				wc_add_notice( __( 'Please wait before submitting another withdrawal request.', 'poocommerce' ), 'error' );
 
 				return false;
 			}
@@ -461,7 +461,7 @@ final class OrderWithdrawalFormProcessor {
 	private function add_order_withdrawal_note( WC_Order $order, array $data ): void {
 		$note = sprintf(
 			/* translators: %s: withdrawal type label. */
-			__( 'Order withdrawal requested. Withdrawal type: %s.', 'woocommerce' ),
+			__( 'Order withdrawal requested. Withdrawal type: %s.', 'poocommerce' ),
 			$this->get_withdrawal_type_label( $data[ self::FIELD_WITHDRAWAL_TYPE ] )
 		);
 
@@ -475,7 +475,7 @@ final class OrderWithdrawalFormProcessor {
 	}
 
 	/**
-	 * Add a withdrawal request notification to the merchant's WooCommerce inbox.
+	 * Add a withdrawal request notification to the merchant's PooCommerce inbox.
 	 *
 	 * @param WC_Order $matched_order Matched order.
 	 */
@@ -483,7 +483,7 @@ final class OrderWithdrawalFormProcessor {
 		try {
 			$content = sprintf(
 				/* translators: %s: order number. */
-				__( 'A customer submitted an order withdrawal request for order #%s. Review the matched order to confirm the request details.', 'woocommerce' ),
+				__( 'A customer submitted an order withdrawal request for order #%s. Review the matched order to confirm the request details.', 'poocommerce' ),
 				$matched_order->get_order_number()
 			);
 
@@ -495,19 +495,19 @@ final class OrderWithdrawalFormProcessor {
 			$note->set_title(
 				sprintf(
 					/* translators: %s: order number. */
-					__( 'Order withdrawal request for #%s', 'woocommerce' ),
+					__( 'Order withdrawal request for #%s', 'poocommerce' ),
 					$matched_order->get_order_number()
 				)
 			);
 			$note->set_content( $content );
 			$note->set_type( Note::E_WC_ADMIN_NOTE_INFORMATIONAL );
 			$note->set_name( self::INBOX_NOTE_NAME_PREFIX . $matched_order->get_id() );
-			$note->set_source( 'woocommerce-admin' );
+			$note->set_source( 'poocommerce-admin' );
 
 			$order_url = $matched_order->get_edit_order_url();
 
 			if ( '' !== $order_url ) {
-				$note->add_action( 'view-order', __( 'View order', 'woocommerce' ), $order_url );
+				$note->add_action( 'view-order', __( 'View order', 'poocommerce' ), $order_url );
 			}
 
 			$note->save();
@@ -566,7 +566,7 @@ final class OrderWithdrawalFormProcessor {
 	private function get_withdrawal_window_warning_message(): string {
 		return sprintf(
 			/* translators: 1: number of days since the order was placed. 2: length of the withdrawal window in days. */
-			__( 'This order is older than %1$d days. Only orders within %2$d days of delivery are eligible for withdrawal.', 'woocommerce' ),
+			__( 'This order is older than %1$d days. Only orders within %2$d days of delivery are eligible for withdrawal.', 'poocommerce' ),
 			self::WITHDRAWAL_WINDOW_IN_DAYS,
 			self::WITHDRAWAL_WINDOW_IN_DAYS
 		);
@@ -634,11 +634,11 @@ final class OrderWithdrawalFormProcessor {
 	 * @param int                  $submitted_at Unix timestamp for the submission.
 	 */
 	private function send_customer_order_withdrawal_email( array $data, int $submitted_at ): bool {
-		$subject = __( 'We received your withdrawal request', 'woocommerce' );
-		$heading = __( 'We received your withdrawal request', 'woocommerce' );
-		$body    = '<p>' . esc_html__( 'We have received your request to withdraw from the order below.', 'woocommerce' ) . '</p>';
+		$subject = __( 'We received your withdrawal request', 'poocommerce' );
+		$heading = __( 'We received your withdrawal request', 'poocommerce' );
+		$body    = '<p>' . esc_html__( 'We have received your request to withdraw from the order below.', 'poocommerce' ) . '</p>';
 		$body   .= $this->get_email_details_html( $data, $submitted_at );
-		$body   .= '<p>' . esc_html__( 'We will review your request and contact you about next steps, including any refund due.', 'woocommerce' ) . '</p>';
+		$body   .= '<p>' . esc_html__( 'We will review your request and contact you about next steps, including any refund due.', 'poocommerce' ) . '</p>';
 
 		return wc_mail(
 			$data[ self::FIELD_EMAIL ],
@@ -663,16 +663,16 @@ final class OrderWithdrawalFormProcessor {
 
 		$subject = sprintf(
 			/* translators: %s: order number. */
-			__( 'Order withdrawal request for order %s', 'woocommerce' ),
+			__( 'Order withdrawal request for order %s', 'poocommerce' ),
 			$data[ self::FIELD_ORDER_NUMBER ]
 		);
-		$heading = __( 'Order withdrawal request received', 'woocommerce' );
-		$body    = '<p>' . esc_html__( 'A customer submitted an order withdrawal request.', 'woocommerce' ) . '</p>';
+		$heading = __( 'Order withdrawal request received', 'poocommerce' );
+		$body    = '<p>' . esc_html__( 'A customer submitted an order withdrawal request.', 'poocommerce' ) . '</p>';
 
 		if ( $matched_order instanceof WC_Order ) {
-			$body .= '<p>' . esc_html__( 'WooCommerce matched this request to an order and added an order note.', 'woocommerce' ) . '</p>';
+			$body .= '<p>' . esc_html__( 'PooCommerce matched this request to an order and added an order note.', 'poocommerce' ) . '</p>';
 		} else {
-			$body .= '<p>' . esc_html__( 'WooCommerce could not match this request to an order automatically, so no order note was added.', 'woocommerce' ) . '</p>';
+			$body .= '<p>' . esc_html__( 'PooCommerce could not match this request to an order automatically, so no order note was added.', 'poocommerce' ) . '</p>';
 		}
 
 		$body .= $this->get_email_details_html( $data, $submitted_at );
@@ -688,7 +688,7 @@ final class OrderWithdrawalFormProcessor {
 				'<p>%s</p>',
 				sprintf(
 					/* translators: %d: order ID. */
-					esc_html__( 'Matched order ID: %d', 'woocommerce' ),
+					esc_html__( 'Matched order ID: %d', 'poocommerce' ),
 					$matched_order->get_id()
 				)
 			);
@@ -697,7 +697,7 @@ final class OrderWithdrawalFormProcessor {
 				$body .= sprintf(
 					'<p><a href="%1$s">%2$s</a></p>',
 					esc_url( $order_url ),
-					esc_html__( 'View matched order', 'woocommerce' )
+					esc_html__( 'View matched order', 'poocommerce' )
 				);
 			}
 		}
@@ -729,7 +729,7 @@ final class OrderWithdrawalFormProcessor {
 	}
 
 	/**
-	 * Wrap an email body in the WooCommerce email template.
+	 * Wrap an email body in the PooCommerce email template.
 	 *
 	 * @param string $heading Email heading.
 	 * @param string $body    Email body.
@@ -747,7 +747,7 @@ final class OrderWithdrawalFormProcessor {
 	private function get_email_details_html( array $data, int $submitted_at ): string {
 		$date_format        = (string) get_option( 'date_format' );
 		$time_format        = (string) get_option( 'time_format' );
-		$additional_details = '' === $data[ self::FIELD_ADDITIONAL_DETAILS ] ? __( 'None provided', 'woocommerce' ) : $data[ self::FIELD_ADDITIONAL_DETAILS ];
+		$additional_details = '' === $data[ self::FIELD_ADDITIONAL_DETAILS ] ? __( 'None provided', 'poocommerce' ) : $data[ self::FIELD_ADDITIONAL_DETAILS ];
 		$submitted_at_text  = wp_date( trim( $date_format . ' ' . $time_format ), $submitted_at );
 
 		if ( false === $submitted_at_text ) {
@@ -755,12 +755,12 @@ final class OrderWithdrawalFormProcessor {
 		}
 
 		$rows = array(
-			__( 'Submitted', 'woocommerce' )          => $submitted_at_text,
-			__( 'Name', 'woocommerce' )               => $this->get_customer_name( $data ),
-			__( 'Email address', 'woocommerce' )      => $data[ self::FIELD_EMAIL ],
-			__( 'Order number', 'woocommerce' )       => $data[ self::FIELD_ORDER_NUMBER ],
-			__( 'Withdrawing', 'woocommerce' )        => $this->get_withdrawal_type_label( $data[ self::FIELD_WITHDRAWAL_TYPE ] ),
-			__( 'Additional details', 'woocommerce' ) => $additional_details,
+			__( 'Submitted', 'poocommerce' )          => $submitted_at_text,
+			__( 'Name', 'poocommerce' )               => $this->get_customer_name( $data ),
+			__( 'Email address', 'poocommerce' )      => $data[ self::FIELD_EMAIL ],
+			__( 'Order number', 'poocommerce' )       => $data[ self::FIELD_ORDER_NUMBER ],
+			__( 'Withdrawing', 'poocommerce' )        => $this->get_withdrawal_type_label( $data[ self::FIELD_WITHDRAWAL_TYPE ] ),
+			__( 'Additional details', 'poocommerce' ) => $additional_details,
 		);
 
 		$html = '<ul>';
@@ -794,8 +794,8 @@ final class OrderWithdrawalFormProcessor {
 	 */
 	private function get_withdrawal_type_label( string $withdrawal_type ): string {
 		$options = array(
-			self::WITHDRAWAL_TYPE_FULL     => __( 'The full order', 'woocommerce' ),
-			self::WITHDRAWAL_TYPE_SPECIFIC => __( 'Specific items only', 'woocommerce' ),
+			self::WITHDRAWAL_TYPE_FULL     => __( 'The full order', 'poocommerce' ),
+			self::WITHDRAWAL_TYPE_SPECIFIC => __( 'Specific items only', 'poocommerce' ),
 		);
 
 		return $options[ $withdrawal_type ] ?? '';

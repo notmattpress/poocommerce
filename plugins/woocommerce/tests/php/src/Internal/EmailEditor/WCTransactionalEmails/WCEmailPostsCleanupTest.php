@@ -1,14 +1,14 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\EmailEditor\WCTransactionalEmails;
+namespace Automattic\PooCommerce\Tests\Internal\EmailEditor\WCTransactionalEmails;
 
-use Automattic\WooCommerce\EmailEditor\Engine\Logger\Email_Editor_Logger_Interface;
-use Automattic\WooCommerce\Internal\EmailEditor\Integration;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailPostsCleanup;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateDivergenceDetector;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsGenerator;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsManager;
+use Automattic\PooCommerce\EmailEditor\Engine\Logger\Email_Editor_Logger_Interface;
+use Automattic\PooCommerce\Internal\EmailEditor\Integration;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailPostsCleanup;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateDivergenceDetector;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsGenerator;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsManager;
 
 /**
  * Tests for the WOOPLUG-6171 one-shot email posts cleanup migration.
@@ -41,7 +41,7 @@ class WCEmailPostsCleanupTest extends \WC_Unit_Test_Case {
 	public function setUp(): void {
 		parent::setUp();
 
-		update_option( 'woocommerce_feature_block_email_editor_enabled', 'yes' );
+		update_option( 'poocommerce_feature_block_email_editor_enabled', 'yes' );
 
 		// Eagerly boot \WC_Emails so the \WC_Email class is autoloaded before any
 		// test reflects on it via getMockBuilder() / onlyMethods().
@@ -58,11 +58,11 @@ class WCEmailPostsCleanupTest extends \WC_Unit_Test_Case {
 	public function tearDown(): void {
 		$this->cleanup_injected_emails();
 
-		remove_all_filters( 'woocommerce_email_block_template_html' );
+		remove_all_filters( 'poocommerce_email_block_template_html' );
 
 		$this->posts_manager->clear_caches();
 		delete_transient( WCEmailPostsCleanup::LEGACY_GENERATION_TRANSIENT );
-		update_option( 'woocommerce_feature_block_email_editor_enabled', 'no' );
+		update_option( 'poocommerce_feature_block_email_editor_enabled', 'no' );
 
 		parent::tearDown();
 	}
@@ -100,7 +100,7 @@ class WCEmailPostsCleanupTest extends \WC_Unit_Test_Case {
 		// Core template moves after the post was stamped: canonical no longer matches
 		// the stored content, but the source hash still does — untouched by the merchant.
 		add_filter(
-			'woocommerce_email_block_template_html',
+			'poocommerce_email_block_template_html',
 			static function ( $template_html ) {
 				return $template_html . "\n<!-- wp:paragraph --><p>Core template moved on.</p><!-- /wp:paragraph -->";
 			}
@@ -170,7 +170,7 @@ class WCEmailPostsCleanupTest extends \WC_Unit_Test_Case {
 
 		// The canonical render moves too, so a canonical match cannot save the post either.
 		add_filter(
-			'woocommerce_email_block_template_html',
+			'poocommerce_email_block_template_html',
 			static function ( $template_html ) {
 				return $template_html . "\n<!-- wp:paragraph --><p>Core template moved on.</p><!-- /wp:paragraph -->";
 			}
@@ -359,7 +359,7 @@ class WCEmailPostsCleanupTest extends \WC_Unit_Test_Case {
 		// third-party filter); render_block_template_html() does not catch
 		// filter exceptions.
 		add_filter(
-			'woocommerce_email_block_template_html',
+			'poocommerce_email_block_template_html',
 			static function ( $template_html, $email ) use ( $throwing_email_id ) {
 				if ( $email instanceof \WC_Email && $throwing_email_id === $email->id ) {
 					throw new \RuntimeException( 'Broken third-party template filter.' );
@@ -388,7 +388,7 @@ class WCEmailPostsCleanupTest extends \WC_Unit_Test_Case {
 	public function test_ignores_options_only_resembling_the_mapping_shape(): void {
 		// `_` is a single-character wildcard in SQL LIKE, so this dashed
 		// third-party option matches the scan pattern but is not a mapping.
-		$lookalike_option = 'woocommerce-email-templates-foo-post-id';
+		$lookalike_option = 'poocommerce-email-templates-foo-post-id';
 		update_option( $lookalike_option, 999999 );
 
 		WCEmailPostsCleanup::run();
@@ -496,7 +496,7 @@ class WCEmailPostsCleanupTest extends \WC_Unit_Test_Case {
 	 * @return string Option name.
 	 */
 	private function option_name( string $email_id ): string {
-		return 'woocommerce_email_templates_' . $email_id . '_post_id';
+		return 'poocommerce_email_templates_' . $email_id . '_post_id';
 	}
 
 	/**

@@ -1,9 +1,9 @@
-.woocommerce-segmented-selection {
+.poocommerce-segmented-selection {
 	width: 100%;
 	color: $gray-700;
 }
 
-.woocommerce-segmented-selection__container {
+.poocommerce-segmented-selection__container {
 	width: 100%;
 	grid-template-columns: 1fr 1fr;
 	display: grid;
@@ -12,7 +12,7 @@
 	background-color: $gray-400;
 }
 
-.woocommerce-segmented-selection__item {
+.poocommerce-segmented-selection__item {
 	&:nth-child(2n) {
 		border-left: 1px solid $gray-400;
 		border-top: 1px solid $gray-400;
@@ -27,7 +27,7 @@
 	}
 }
 
-.woocommerce-segmented-selection__label {
+.poocommerce-segmented-selection__label {
 	background-color: $gray-100;
 	padding: $gap-small $gap-small $gap-small $gap-larger;
 	position: relative;
@@ -43,16 +43,16 @@
 	}
 }
 
-.woocommerce-segmented-selection__input {
+.poocommerce-segmented-selection__input {
 	opacity: 0;
 	position: absolute;
 	left: -9999px;
 
-	&:active + label .woocommerce-segmented-selection__label {
+	&:active + label .poocommerce-segmented-selection__label {
 		background-color: $gray-200;
 	}
 
-	&:checked + label .woocommerce-segmented-selection__label {
+	&:checked + label .poocommerce-segmented-selection__label {
 		background-color: $studio-white;
 		font-weight: 600;
 
@@ -67,7 +67,7 @@
 		}
 	}
 
-	&:focus + label .woocommerce-segmented-selection__label {
+	&:focus + label .poocommerce-segmented-selection__label {
 		box-shadow: inset 0 0 0 1px $wp-admin-sidebar;
 	}
 }

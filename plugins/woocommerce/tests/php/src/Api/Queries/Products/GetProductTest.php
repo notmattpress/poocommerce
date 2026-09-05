@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Api\Queries\Products;
+namespace Automattic\PooCommerce\Tests\Api\Queries\Products;
 
-use Automattic\WooCommerce\Api\Queries\Products\GetProduct;
-use Automattic\WooCommerce\Api\UnauthorizedException;
+use Automattic\PooCommerce\Api\Queries\Products\GetProduct;
+use Automattic\PooCommerce\Api\UnauthorizedException;
 use WC_Helper_Product;
 use WC_Unit_Test_Case;
 

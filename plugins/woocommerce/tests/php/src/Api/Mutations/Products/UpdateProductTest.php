@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Api\Mutations\Products;
+namespace Automattic\PooCommerce\Tests\Api\Mutations\Products;
 
-use Automattic\WooCommerce\Api\ApiException;
-use Automattic\WooCommerce\Api\Enums\Products\ProductStatus;
-use Automattic\WooCommerce\Api\InputTypes\Products\DimensionsInput;
-use Automattic\WooCommerce\Api\InputTypes\Products\UpdateProductInput;
-use Automattic\WooCommerce\Api\Mutations\Products\UpdateProduct;
+use Automattic\PooCommerce\Api\ApiException;
+use Automattic\PooCommerce\Api\Enums\Products\ProductStatus;
+use Automattic\PooCommerce\Api\InputTypes\Products\DimensionsInput;
+use Automattic\PooCommerce\Api\InputTypes\Products\UpdateProductInput;
+use Automattic\PooCommerce\Api\Mutations\Products\UpdateProduct;
 use WC_Helper_Product;
 use WC_Unit_Test_Case;
 

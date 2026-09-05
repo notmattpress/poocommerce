@@ -2,12 +2,12 @@
 /**
  * ComparisonOperation Tests
  *
- * @package WooCommerce\Admin\Tests\RemoteInboxNotification
+ * @package PooCommerce\Admin\Tests\RemoteInboxNotification
  */
 
 declare( strict_types = 1 );
 
-use Automattic\WooCommerce\Admin\RemoteSpecs\RuleProcessors\ComparisonOperation;
+use Automattic\PooCommerce\Admin\RemoteSpecs\RuleProcessors\ComparisonOperation;
 
 /**
  * class WC_Admin_Tests_RemoteSpecs_RuleProcessors_Comparison_Operation

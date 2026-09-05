@@ -32,11 +32,11 @@ class WC_Countries_Test extends \WC_Unit_Test_Case {
 			$locale['ES']['postcode']['hidden'] = $hidden;
 			return $locale;
 		};
-		add_filter( 'woocommerce_get_country_locale', $locale_filter );
+		add_filter( 'poocommerce_get_country_locale', $locale_filter );
 
 		$fields = ( new WC_Countries() )->get_address_fields( 'ES', 'billing_' );
 
-		remove_filter( 'woocommerce_get_country_locale', $locale_filter );
+		remove_filter( 'poocommerce_get_country_locale', $locale_filter );
 
 		$this->assertSame( $hidden, $fields['billing_postcode']['hidden'], 'The locale hidden flag should survive the merge with the default fields.' );
 	}

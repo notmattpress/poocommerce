@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Admin\API\Reports\Orders\Stats;
+namespace Automattic\PooCommerce\Tests\Admin\API\Reports\Orders\Stats;
 
-use Automattic\WooCommerce\Admin\API\Reports\Orders\Stats\DataStore as OrdersStatsDataStore;
-use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Admin\API\Reports\Orders\Stats\DataStore as OrdersStatsDataStore;
+use Automattic\PooCommerce\Enums\OrderStatus;
 use WC_Helper_Order;
 use WC_Helper_Queue;
 use WC_Helper_Reports;
@@ -19,7 +19,7 @@ class DataStoreRefundFiltersTest extends OrdersStatsTestCase {
 	 * Remove the full-refund data format option after each test, including failed ones.
 	 */
 	public function tearDown(): void {
-		delete_option( 'woocommerce_analytics_uses_old_full_refund_data' );
+		delete_option( 'poocommerce_analytics_uses_old_full_refund_data' );
 		parent::tearDown();
 	}
 
@@ -144,7 +144,7 @@ class DataStoreRefundFiltersTest extends OrdersStatsTestCase {
 	 */
 	public function test_populate_and_query_refunds_with_old_full_refund_data(): void {
 		WC_Helper_Reports::reset_stats_dbs();
-		update_option( 'woocommerce_analytics_uses_old_full_refund_data', 'yes' );
+		update_option( 'poocommerce_analytics_uses_old_full_refund_data', 'yes' );
 
 		$order = $this->create_orders_with_full_refund_via_status_change();
 

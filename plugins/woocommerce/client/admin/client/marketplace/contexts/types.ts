@@ -13,7 +13,7 @@ export type { NoticeAction, NoticeOptions } from '~/lib/notices/types';
  * importing a component that imports the context back.
  */
 export const REFRESH_SUBSCRIPTIONS_NOTICE_ID =
-	'woocommerce-marketplace-refresh-subscriptions';
+	'poocommerce-marketplace-refresh-subscriptions';
 
 export interface SearchResultsCountType {
 	extensions: number;

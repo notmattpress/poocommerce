@@ -2,7 +2,7 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\PushNotifications\Notifications;
+namespace Automattic\PooCommerce\Internal\PushNotifications\Notifications;
 
 use InvalidArgumentException;
 

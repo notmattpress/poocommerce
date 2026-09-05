@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\EmailEditorVendor\Pelago\Emogrifier;
+namespace Automattic\PooCommerce\EmailEditorVendor\Pelago\Emogrifier;
 
-use Automattic\WooCommerce\EmailEditorVendor\Pelago\Emogrifier\Css\CssDocument;
-use Automattic\WooCommerce\EmailEditorVendor\Pelago\Emogrifier\HtmlProcessor\AbstractHtmlProcessor;
-use Automattic\WooCommerce\EmailEditorVendor\Pelago\Emogrifier\Utilities\CssConcatenator;
-use Automattic\WooCommerce\EmailEditorVendor\Pelago\Emogrifier\Utilities\DeclarationBlockParser;
-use Automattic\WooCommerce\EmailEditorVendor\Pelago\Emogrifier\Utilities\Preg;
-use Automattic\WooCommerce\EmailEditorVendor\Symfony\Component\CssSelector\CssSelectorConverter;
-use Automattic\WooCommerce\EmailEditorVendor\Symfony\Component\CssSelector\Exception\ParseException;
+use Automattic\PooCommerce\EmailEditorVendor\Pelago\Emogrifier\Css\CssDocument;
+use Automattic\PooCommerce\EmailEditorVendor\Pelago\Emogrifier\HtmlProcessor\AbstractHtmlProcessor;
+use Automattic\PooCommerce\EmailEditorVendor\Pelago\Emogrifier\Utilities\CssConcatenator;
+use Automattic\PooCommerce\EmailEditorVendor\Pelago\Emogrifier\Utilities\DeclarationBlockParser;
+use Automattic\PooCommerce\EmailEditorVendor\Pelago\Emogrifier\Utilities\Preg;
+use Automattic\PooCommerce\EmailEditorVendor\Symfony\Component\CssSelector\CssSelectorConverter;
+use Automattic\PooCommerce\EmailEditorVendor\Symfony\Component\CssSelector\Exception\ParseException;
 
 /**
  * This class provides functions for converting CSS styles into inline style attributes in your HTML code.

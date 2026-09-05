@@ -2,14 +2,14 @@
 /**
  * ProductTermCacheInvalidator tests.
  *
- * @package WooCommerce\Tests\Internal\Caches
+ * @package PooCommerce\Tests\Internal\Caches
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Caches;
+namespace Automattic\PooCommerce\Tests\Internal\Caches;
 
-use Automattic\WooCommerce\Internal\Caches\ProductTermCacheInvalidator;
+use Automattic\PooCommerce\Internal\Caches\ProductTermCacheInvalidator;
 use WC_Cache_Helper;
 use WC_Helper_Product;
 use WC_Product;

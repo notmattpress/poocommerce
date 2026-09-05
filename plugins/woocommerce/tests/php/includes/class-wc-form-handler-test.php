@@ -2,12 +2,12 @@
 /**
  * Tests for WC_Form_Handler.
  *
- * @package WooCommerce\Tests\FormHandler
+ * @package PooCommerce\Tests\FormHandler
  */
 
 declare( strict_types = 1 );
 
-use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Enums\OrderStatus;
 
 /**
  * WC_Form_Handler tests.
@@ -43,7 +43,7 @@ class WC_Form_Handler_Test extends WC_Unit_Test_Case {
 	private array $original_request = array();
 
 	/**
-	 * Original WooCommerce session.
+	 * Original PooCommerce session.
 	 *
 	 * @var WC_Session|null
 	 */
@@ -135,9 +135,9 @@ class WC_Form_Handler_Test extends WC_Unit_Test_Case {
 			return $filtered_endpoint . '?' . $query;
 		};
 
-		add_filter( 'woocommerce_get_cancel_order_url_raw', $filter );
+		add_filter( 'poocommerce_get_cancel_order_url_raw', $filter );
 		$this->prepare_cancel_order_request( $order );
-		remove_filter( 'woocommerce_get_cancel_order_url_raw', $filter );
+		remove_filter( 'poocommerce_get_cancel_order_url_raw', $filter );
 
 		$this->dispatch_cancel_order_expecting_redirect( wp_make_link_relative( $filtered_endpoint ) );
 

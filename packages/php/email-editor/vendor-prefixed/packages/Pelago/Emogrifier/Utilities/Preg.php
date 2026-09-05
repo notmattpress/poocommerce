@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\EmailEditorVendor\Pelago\Emogrifier\Utilities;
+namespace Automattic\PooCommerce\EmailEditorVendor\Pelago\Emogrifier\Utilities;
 
 /**
  * PHP's `preg_*` functions can return `false` on failure.

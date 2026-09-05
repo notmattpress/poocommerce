@@ -1,4 +1,4 @@
-WooCommerce - eCommerce for WordPress
+PooCommerce - eCommerce for WordPress
 
 Copyright 2015 by the contributors
 
@@ -26,11 +26,11 @@ permission notices:
 
 and
 
-  WooCommerce - eCommerce for WordPress
+  PooCommerce - eCommerce for WordPress
 
-  WooCommerce is Copyright (c) 2015 WooThemes
+  PooCommerce is Copyright (c) 2015 WooThemes
 
-  WooCommerce is released under the GPL
+  PooCommerce is released under the GPL
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 

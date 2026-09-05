@@ -1,19 +1,19 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\GraphQL\Type\Definition;
+namespace Automattic\PooCommerce\Vendor\GraphQL\Type\Definition;
 
-use Automattic\WooCommerce\Vendor\GraphQL\Deferred;
-use Automattic\WooCommerce\Vendor\GraphQL\Error\Error;
-use Automattic\WooCommerce\Vendor\GraphQL\Error\InvariantViolation;
-use Automattic\WooCommerce\Vendor\GraphQL\Executor\Executor;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\ObjectTypeDefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\ObjectTypeExtensionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Utils\Utils;
+use Automattic\PooCommerce\Vendor\GraphQL\Deferred;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\Error;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\InvariantViolation;
+use Automattic\PooCommerce\Vendor\GraphQL\Executor\Executor;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\ObjectTypeDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\ObjectTypeExtensionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Utils\Utils;
 
 /**
  * Object Type Definition.
  *
- * Most Automattic\WooCommerce\Vendor\GraphQL types you define will be object types.
+ * Most Automattic\PooCommerce\Vendor\GraphQL types you define will be object types.
  * Object types have a name, but most importantly describe their fields.
  *
  * Example:
@@ -21,10 +21,10 @@ use Automattic\WooCommerce\Vendor\GraphQL\Utils\Utils;
  *     $AddressType = new ObjectType([
  *         'name' => 'Address',
  *         'fields' => [
- *             'street' => Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\Type::string(),
- *             'number' => Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\Type::int(),
+ *             'street' => Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\Type::string(),
+ *             'number' => Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\Type::int(),
  *             'formatted' => [
- *                 'type' => Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\Type::string(),
+ *                 'type' => Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\Type::string(),
  *                 'resolve' => fn (AddressModel $address): string => "{$address->number} {$address->street}",
  *             ],
  *         ],
@@ -40,7 +40,7 @@ use Automattic\WooCommerce\Vendor\GraphQL\Utils\Utils;
  *     $PersonType = new ObjectType([
  *         'name' => 'Person',
  *         'fields' => fn (): array => [
- *             'name' => Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\Type::string(),
+ *             'name' => Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\Type::string(),
  *             'bestFriend' => $PersonType,
  *         ],
  *     ]);
@@ -115,7 +115,7 @@ class ObjectType extends Type implements OutputType, CompositeType, NullableType
     {
         if (! $type instanceof self) {
             $notObjectType = Utils::printSafe($type);
-            throw new InvariantViolation("Expected {$notObjectType} to be a Automattic\WooCommerce\Vendor\GraphQL Object type.");
+            throw new InvariantViolation("Expected {$notObjectType} to be a Automattic\PooCommerce\Vendor\GraphQL Object type.");
         }
 
         return $type;

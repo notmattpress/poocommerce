@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\GraphQL\Validator\Rules;
+namespace Automattic\PooCommerce\Vendor\GraphQL\Validator\Rules;
 
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\Node;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\VisitorOperation;
-use Automattic\WooCommerce\Vendor\GraphQL\Validator\ValidationContext;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\Node;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\VisitorOperation;
+use Automattic\PooCommerce\Vendor\GraphQL\Validator\ValidationContext;
 
 /**
  * @see Node, VisitorOperation

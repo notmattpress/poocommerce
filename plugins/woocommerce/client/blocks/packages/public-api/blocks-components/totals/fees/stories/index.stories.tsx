@@ -6,7 +6,7 @@ import {
 	currenciesAPIShape,
 	currencies,
 	currencyControl,
-} from '@woocommerce/storybook-controls';
+} from '@poocommerce/storybook-controls';
 
 /**
  * Internal dependencies

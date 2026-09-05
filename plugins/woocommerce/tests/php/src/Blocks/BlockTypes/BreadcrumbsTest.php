@@ -2,7 +2,7 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Tests\Blocks\BlockTypes;
 
 use WP_Theme_JSON_Data;
 use WP_UnitTestCase;
@@ -44,7 +44,7 @@ class BreadcrumbsTest extends WP_UnitTestCase {
 	 */
 	private function render_breadcrumbs( string $attrs_json = '' ): string {
 		$attrs = '' !== $attrs_json ? ' ' . $attrs_json : '';
-		return do_blocks( "<!-- wp:woocommerce/breadcrumbs{$attrs} /-->" );
+		return do_blocks( "<!-- wp:poocommerce/breadcrumbs{$attrs} /-->" );
 	}
 
 	/**
@@ -64,7 +64,7 @@ class BreadcrumbsTest extends WP_UnitTestCase {
 			'wp_theme_json_data_user',
 			function ( $theme_json ) use ( $font_size ) {
 				$data = $theme_json->get_data();
-				$data['styles']['blocks']['woocommerce/breadcrumbs']['typography']['fontSize'] = $font_size;
+				$data['styles']['blocks']['poocommerce/breadcrumbs']['typography']['fontSize'] = $font_size;
 				return new WP_Theme_JSON_Data( $data, 'user' );
 			}
 		);

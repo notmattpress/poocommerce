@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Api\Mutations\Coupons;
+namespace Automattic\PooCommerce\Api\Mutations\Coupons;
 
-use Automattic\WooCommerce\Api\ApiException;
-use Automattic\WooCommerce\Api\Attributes\Description;
-use Automattic\WooCommerce\Api\Attributes\RequiredCapability;
-use Automattic\WooCommerce\Api\InputTypes\Coupons\UpdateCouponInput;
-use Automattic\WooCommerce\Api\Utils\Coupons\CouponMapper;
-use Automattic\WooCommerce\Api\Types\Coupons\Coupon;
+use Automattic\PooCommerce\Api\ApiException;
+use Automattic\PooCommerce\Api\Attributes\Description;
+use Automattic\PooCommerce\Api\Attributes\RequiredCapability;
+use Automattic\PooCommerce\Api\InputTypes\Coupons\UpdateCouponInput;
+use Automattic\PooCommerce\Api\Utils\Coupons\CouponMapper;
+use Automattic\PooCommerce\Api\Types\Coupons\Coupon;
 
 /**
  * Mutation to update an existing coupon.
  */
 #[Description( 'Update an existing coupon.' )]
-#[RequiredCapability( 'manage_woocommerce' )]
+#[RequiredCapability( 'manage_poocommerce' )]
 class UpdateCoupon {
 	/**
 	 * Execute the mutation.

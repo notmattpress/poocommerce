@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Api\Queries\Products;
+namespace Automattic\PooCommerce\Tests\Api\Queries\Products;
 
-use Automattic\WooCommerce\Api\Enums\Products\ProductStatus;
-use Automattic\WooCommerce\Api\Enums\Products\ProductType;
-use Automattic\WooCommerce\Api\Enums\Products\StockStatus;
-use Automattic\WooCommerce\Api\InputTypes\Products\ProductFilterInput;
-use Automattic\WooCommerce\Api\Pagination\IdCursorFilter;
-use Automattic\WooCommerce\Api\Pagination\PaginationParams;
-use Automattic\WooCommerce\Api\Queries\Products\ListProducts;
+use Automattic\PooCommerce\Api\Enums\Products\ProductStatus;
+use Automattic\PooCommerce\Api\Enums\Products\ProductType;
+use Automattic\PooCommerce\Api\Enums\Products\StockStatus;
+use Automattic\PooCommerce\Api\InputTypes\Products\ProductFilterInput;
+use Automattic\PooCommerce\Api\Pagination\IdCursorFilter;
+use Automattic\PooCommerce\Api\Pagination\PaginationParams;
+use Automattic\PooCommerce\Api\Queries\Products\ListProducts;
 use ReflectionClass;
 use WC_Helper_Product;
 use WC_Unit_Test_Case;

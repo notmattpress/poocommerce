@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Api\Queries\Coupons;
+namespace Automattic\PooCommerce\Api\Queries\Coupons;
 
-use Automattic\WooCommerce\Api\Attributes\ConnectionOf;
-use Automattic\WooCommerce\Api\Attributes\Description;
-use Automattic\WooCommerce\Api\Attributes\Name;
-use Automattic\WooCommerce\Api\Attributes\RequiredCapability;
-use Automattic\WooCommerce\Api\Enums\Coupons\CouponStatus;
-use Automattic\WooCommerce\Api\Pagination\Connection;
-use Automattic\WooCommerce\Api\Pagination\Edge;
-use Automattic\WooCommerce\Api\Pagination\IdCursorFilter;
-use Automattic\WooCommerce\Api\Pagination\PageInfo;
-use Automattic\WooCommerce\Api\Pagination\PaginationParams;
-use Automattic\WooCommerce\Api\Types\Coupons\Coupon;
-use Automattic\WooCommerce\Api\Utils\Coupons\CouponMapper;
+use Automattic\PooCommerce\Api\Attributes\ConnectionOf;
+use Automattic\PooCommerce\Api\Attributes\Description;
+use Automattic\PooCommerce\Api\Attributes\Name;
+use Automattic\PooCommerce\Api\Attributes\RequiredCapability;
+use Automattic\PooCommerce\Api\Enums\Coupons\CouponStatus;
+use Automattic\PooCommerce\Api\Pagination\Connection;
+use Automattic\PooCommerce\Api\Pagination\Edge;
+use Automattic\PooCommerce\Api\Pagination\IdCursorFilter;
+use Automattic\PooCommerce\Api\Pagination\PageInfo;
+use Automattic\PooCommerce\Api\Pagination\PaginationParams;
+use Automattic\PooCommerce\Api\Types\Coupons\Coupon;
+use Automattic\PooCommerce\Api\Utils\Coupons\CouponMapper;
 
 #[Name( 'coupons' )]
 #[Description( 'List coupons with cursor-based pagination.' )]

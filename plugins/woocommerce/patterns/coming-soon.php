@@ -1,16 +1,16 @@
 <?php
 /**
  * Title: Coming Soon
- * Slug: woocommerce/coming-soon
- * Categories: WooCommerce
+ * Slug: poocommerce/coming-soon
+ * Categories: PooCommerce
  * Inserter: false
  *
- * @package WooCommerce\Blocks
+ * @package PooCommerce\Blocks
  */
 
-$store_pages_only = 'yes' === get_option( 'woocommerce_store_pages_only', 'no' );
+$store_pages_only = 'yes' === get_option( 'poocommerce_store_pages_only', 'no' );
 $default_pattern  = $store_pages_only ? 'coming-soon-store-only' : 'page-coming-soon-default';
 
 ?>
 
-<!-- wp:pattern {"slug":"woocommerce/<?php echo $default_pattern; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>"} /-->
+<!-- wp:pattern {"slug":"poocommerce/<?php echo $default_pattern; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>"} /-->

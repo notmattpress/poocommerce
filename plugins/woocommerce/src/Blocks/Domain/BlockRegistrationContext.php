@@ -5,10 +5,10 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Blocks\Domain;
+namespace Automattic\PooCommerce\Blocks\Domain;
 
 /**
- * Decides whether WooCommerce block types and patterns should be registered for the current request.
+ * Decides whether PooCommerce block types and patterns should be registered for the current request.
  *
  * Runs during bootstrap on `plugins_loaded`, before the main query is parsed, so it inspects only $_SERVER,
  * $_GET and constants set before wp-load — not query-dependent helpers such as is_favicon()/is_robots().
@@ -26,19 +26,19 @@ class BlockRegistrationContext {
 	 */
 	public function should_register(): bool {
 		/**
-		 * Filters whether WooCommerce should register its block types and patterns for the current request.
+		 * Filters whether PooCommerce should register its block types and patterns for the current request.
 		 *
-		 * Registration is skipped on known non-rendering contexts (the Store API and other WooCommerce REST
+		 * Registration is skipped on known non-rendering contexts (the Store API and other PooCommerce REST
 		 * namespaces, cron, AJAX, XML-RPC, favicon, robots.txt and XML sitemaps) as a performance optimisation.
 		 * Product and variation descriptions rendered through do_blocks are already handled on demand (see the
-		 * woocommerce_short_description hook in Bootstrap), so this filter is only needed to opt back in when an
-		 * extension renders WooCommerce blocks some other way in one of those contexts.
+		 * poocommerce_short_description hook in Bootstrap), so this filter is only needed to opt back in when an
+		 * extension renders PooCommerce blocks some other way in one of those contexts.
 		 *
 		 * @since 11.1.0
 		 *
 		 * @param bool $should_register Whether block types and patterns should be registered for this request.
 		 */
-		return (bool) apply_filters( 'woocommerce_should_register_blocks', $this->is_rendering_request() );
+		return (bool) apply_filters( 'poocommerce_should_register_blocks', $this->is_rendering_request() );
 	}
 
 	/**
@@ -52,7 +52,7 @@ class BlockRegistrationContext {
 	 */
 	private function is_rendering_request(): bool {
 		// The Store API returns data, not rendered pages; description blocks are registered on demand instead
-		// (see the woocommerce_short_description hook in Bootstrap).
+		// (see the poocommerce_short_description hook in Bootstrap).
 		if ( wc()->is_store_api_request() ) {
 			return false;
 		}
@@ -79,15 +79,15 @@ class BlockRegistrationContext {
 			return false;
 		}
 
-		// WooCommerce REST namespaces render no blocks (Store API handled above). wp/v2 is left registering for
+		// PooCommerce REST namespaces render no blocks (Store API handled above). wp/v2 is left registering for
 		// the block and site editors.
-		if ( $this->is_woocommerce_rest_request() ) {
+		if ( $this->is_poocommerce_rest_request() ) {
 			return false;
 		}
 
-		// WooCommerce's own admin pages (Settings, Status, Analytics, Orders, ...) render no blocks. Core admin
+		// PooCommerce's own admin pages (Settings, Status, Analytics, Orders, ...) render no blocks. Core admin
 		// screens and the block/site editor are intentionally left registering.
-		if ( $this->is_woocommerce_admin_page() ) {
+		if ( $this->is_poocommerce_admin_page() ) {
 			return false;
 		}
 
@@ -95,15 +95,15 @@ class BlockRegistrationContext {
 	}
 
 	/**
-	 * Whether the request targets a WooCommerce-owned admin page (admin.php?page=wc-*).
+	 * Whether the request targets a PooCommerce-owned admin page (admin.php?page=wc-*).
 	 *
-	 * These are WooCommerce's own settings/status/analytics screens, which render no blocks. Only WooCommerce's
+	 * These are PooCommerce's own settings/status/analytics screens, which render no blocks. Only PooCommerce's
 	 * own pages are matched; core admin screens and the block/site editor are left registering. $pagenow is set
 	 * in wp-includes/vars.php before the plugins_loaded action, so it is available here.
 	 *
 	 * @return bool
 	 */
-	private function is_woocommerce_admin_page(): bool {
+	private function is_poocommerce_admin_page(): bool {
 		if ( ! is_admin() ) {
 			return false;
 		}
@@ -121,9 +121,9 @@ class BlockRegistrationContext {
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Reading the page slug only, no state change.
 		$page = sanitize_key( wp_unslash( $_GET['page'] ) );
 
-		// WooCommerce-owned admin page slugs. The WooCommerce Admin SPA (home, analytics, marketing) all use the
+		// PooCommerce-owned admin page slugs. The PooCommerce Admin SPA (home, analytics, marketing) all use the
 		// wc-admin slug with a path query parameter.
-		$woocommerce_pages = array(
+		$poocommerce_pages = array(
 			'wc-admin',
 			'wc-settings',
 			'wc-orders',
@@ -132,7 +132,7 @@ class BlockRegistrationContext {
 			'wc-addons',
 		);
 
-		return in_array( $page, $woocommerce_pages, true );
+		return in_array( $page, $poocommerce_pages, true );
 	}
 
 	/**
@@ -172,17 +172,17 @@ class BlockRegistrationContext {
 	}
 
 	/**
-	 * Whether the request targets a WooCommerce-owned REST namespace other than the Store API, in either pretty
+	 * Whether the request targets a PooCommerce-owned REST namespace other than the Store API, in either pretty
 	 * (/wp-json/<namespace>) or plain (?rest_route=/<namespace>) permalink form.
 	 *
 	 * @return bool
 	 */
-	private function is_woocommerce_rest_request(): bool {
+	private function is_poocommerce_rest_request(): bool {
 		if ( empty( $_SERVER['REQUEST_URI'] ) ) {
 			return false;
 		}
 
-		// WooCommerce-owned namespaces that render no blocks; mirrors wc_rest_should_load_namespace() (add new
+		// PooCommerce-owned namespaces that render no blocks; mirrors wc_rest_should_load_namespace() (add new
 		// versions here too). Store API (wc/store) is handled above; the trailing slash prevents matching a
 		// longer, unrelated namespace.
 		$namespaces = array(

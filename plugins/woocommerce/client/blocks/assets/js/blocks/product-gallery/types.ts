@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import type { WooCommerceConfig } from '@woocommerce/stores/woocommerce/cart';
+import type { PooCommerceConfig } from '@poocommerce/stores/poocommerce/cart';
 
 export interface ProductGalleryBlockAttributes {
 	hoverZoom: boolean;
@@ -24,7 +24,7 @@ export type ProductImageSet = VariationImageSet & {
 	variations?: Record< number, VariationImageSet >;
 };
 
-export type ProductGalleryConfig = WooCommerceConfig & {
+export type ProductGalleryConfig = PooCommerceConfig & {
 	products?: Record< string, ProductImageSet >;
 };
 

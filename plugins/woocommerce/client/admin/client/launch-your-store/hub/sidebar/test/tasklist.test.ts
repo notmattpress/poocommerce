@@ -7,7 +7,7 @@ jest.mock(
 	} )
 );
 
-jest.mock( '@woocommerce/navigation', () => ( {
+jest.mock( '@poocommerce/navigation', () => ( {
 	getNewPath: jest.fn(),
 	navigateTo: jest.fn(),
 } ) );
@@ -16,11 +16,11 @@ jest.mock( '@wordpress/hooks', () => ( {
 	applyFilters: jest.fn( ( _filter, value ) => value ),
 } ) );
 
-jest.mock( '@woocommerce/tracks', () => ( {
+jest.mock( '@poocommerce/tracks', () => ( {
 	recordEvent: jest.fn(),
 } ) );
 
-jest.mock( '@woocommerce/onboarding', () => ( {
+jest.mock( '@poocommerce/onboarding', () => ( {
 	accessTaskReferralStorage: jest.fn( () => ( {
 		setWithExpiry: jest.fn(),
 	} ) ),
@@ -30,7 +30,7 @@ jest.mock( '@woocommerce/onboarding', () => ( {
 	} ) ),
 } ) );
 
-jest.mock( '@woocommerce/settings', () => ( {
+jest.mock( '@poocommerce/settings', () => ( {
 	getAdminLink: jest.fn( ( path ) => path ),
 } ) );
 
@@ -38,8 +38,8 @@ jest.mock( '~/settings-payments/utils', () => ( {
 	recordPaymentsOnboardingEvent: jest.fn(),
 } ) );
 
-// Mock the entire @woocommerce/data module to avoid complex initialization.
-jest.mock( '@woocommerce/data', () => ( {
+// Mock the entire @poocommerce/data module to avoid complex initialization.
+jest.mock( '@poocommerce/data', () => ( {
 	onboardingStore: 'onboarding-store',
 } ) );
 
@@ -59,7 +59,7 @@ import { getPaymentsTaskFromLysTasklist } from '../tasklist';
 
 /**
  * TaskType interface for tests.
- * Matches the structure from @woocommerce/data.
+ * Matches the structure from @poocommerce/data.
  */
 interface TaskType {
 	id: string;

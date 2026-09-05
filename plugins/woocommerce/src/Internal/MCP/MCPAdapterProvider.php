@@ -5,17 +5,17 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\MCP;
+namespace Automattic\PooCommerce\Internal\MCP;
 
-use Automattic\WooCommerce\Utilities\FeaturesUtil;
-use Automattic\WooCommerce\Internal\Abilities\AbilitiesRegistry;
-use Automattic\WooCommerce\Internal\Abilities\REST\RestAbilityFactory;
-use Automattic\WooCommerce\Internal\MCP\Transport\WooCommerceRestTransport;
+use Automattic\PooCommerce\Utilities\FeaturesUtil;
+use Automattic\PooCommerce\Internal\Abilities\AbilitiesRegistry;
+use Automattic\PooCommerce\Internal\Abilities\REST\RestAbilityFactory;
+use Automattic\PooCommerce\Internal\MCP\Transport\PooCommerceRestTransport;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * MCP Adapter Provider class for WooCommerce.
+ * MCP Adapter Provider class for PooCommerce.
  *
  * Manages MCP (Model Context Protocol) adapter initialization and server configuration.
  * Abilities should be registered separately using the WordPress Abilities API.
@@ -27,7 +27,7 @@ class MCPAdapterProvider {
 	 *
 	 * @var string
 	 */
-	const MCP_NAMESPACE = 'woocommerce';
+	const MCP_NAMESPACE = 'poocommerce';
 
 	/**
 	 * MCP server route.
@@ -78,12 +78,12 @@ class MCPAdapterProvider {
 	 * Initialize the MCP adapter.
 	 */
 	private function initialize_mcp_adapter(): void {
-		// Check if MCP adapter class exists (should be autoloaded by WooCommerce's composer).
+		// Check if MCP adapter class exists (should be autoloaded by PooCommerce's composer).
 		if ( ! class_exists( 'WP\MCP\Core\McpAdapter' ) ) {
 			if ( function_exists( 'wc_get_logger' ) ) {
 				wc_get_logger()->warning(
 					'MCP adapter class not found. Skipping MCP initialization.',
-					array( 'source' => 'woocommerce-mcp' )
+					array( 'source' => 'poocommerce-mcp' )
 				);
 			}
 			return;
@@ -108,7 +108,7 @@ class MCPAdapterProvider {
 	 */
 	public function initialize_mcp_server( $adapter ): void {
 		// Get filtered abilities for MCP server.
-		$abilities_ids = $this->get_woocommerce_mcp_abilities();
+		$abilities_ids = $this->get_poocommerce_mcp_abilities();
 
 		// Bail if no abilities are available.
 		if ( empty( $abilities_ids ) ) {
@@ -127,13 +127,13 @@ class MCPAdapterProvider {
 		try {
 			// Create MCP server.
 			$adapter->create_server(
-				'woocommerce-mcp',
+				'poocommerce-mcp',
 				self::MCP_NAMESPACE,
 				self::MCP_ROUTE,
-				__( 'WooCommerce MCP Server', 'woocommerce' ),
-				__( 'AI-accessible WooCommerce operations via MCP', 'woocommerce' ),
+				__( 'PooCommerce MCP Server', 'poocommerce' ),
+				__( 'AI-accessible PooCommerce operations via MCP', 'poocommerce' ),
 				'1.0.0',
-				array( WooCommerceRestTransport::class ),
+				array( PooCommerceRestTransport::class ),
 				\WP\MCP\Infrastructure\ErrorHandling\ErrorLogMcpErrorHandler::class,
 				\WP\MCP\Infrastructure\Observability\NullMcpObservabilityHandler::class,
 				$abilities_ids,
@@ -142,7 +142,7 @@ class MCPAdapterProvider {
 			if ( function_exists( 'wc_get_logger' ) ) {
 				wc_get_logger()->error(
 					'MCP server initialization failed: ' . $e->getMessage(),
-					array( 'source' => 'woocommerce-mcp' )
+					array( 'source' => 'poocommerce-mcp' )
 				);
 			}
 		} finally {
@@ -152,14 +152,14 @@ class MCPAdapterProvider {
 	}
 
 	/**
-	 * Get WooCommerce abilities for MCP server.
+	 * Get PooCommerce abilities for MCP server.
 	 *
 	 * Filters abilities to include only those explicitly exposed to the deprecated
-	 * WooCommerce MCP endpoint, with a filter to override inclusion decisions.
+	 * PooCommerce MCP endpoint, with a filter to override inclusion decisions.
 	 *
 	 * @return array Array of ability IDs for MCP server.
 	 */
-	private function get_woocommerce_mcp_abilities(): array {
+	private function get_poocommerce_mcp_abilities(): array {
 		// Get all abilities from the registry.
 		$abilities_registry = wc_get_container()->get( AbilitiesRegistry::class );
 		$all_abilities_ids  = $abilities_registry->get_abilities_ids();
@@ -177,14 +177,14 @@ class MCPAdapterProvider {
 				 * @since 10.3.0
 				 *
 				 * @param bool   $include    Whether to include the ability by default. True when the ability has
-				 *                            `expose_in_deprecated_woocommerce_mcp => true` in its metadata
+				 *                            `expose_in_deprecated_poocommerce_mcp => true` in its metadata
 				 *                            (set automatically on REST-derived abilities by RestAbilityFactory).
 				 *                            Migration note: this value no longer represents whether the ability uses
-				 *                            the `woocommerce/` namespace.
+				 *                            the `poocommerce/` namespace.
 				 *                            Return unchanged to keep the default, or return true/false to override.
 				 * @param string $ability_id The ability ID.
 				 */
-				return apply_filters( 'woocommerce_mcp_include_ability', $include, $ability_id );
+				return apply_filters( 'poocommerce_mcp_include_ability', $include, $ability_id );
 			}
 		);
 
@@ -193,10 +193,10 @@ class MCPAdapterProvider {
 	}
 
 	/**
-	 * Check if an ability should be included in the deprecated WooCommerce MCP endpoint.
+	 * Check if an ability should be included in the deprecated PooCommerce MCP endpoint.
 	 *
-	 * REST-derived abilities can opt in to the deprecated WooCommerce MCP endpoint.
-	 * Require explicit metadata so semantic/domain abilities can use WooCommerce
+	 * REST-derived abilities can opt in to the deprecated PooCommerce MCP endpoint.
+	 * Require explicit metadata so semantic/domain abilities can use PooCommerce
 	 * namespaces without expanding the deprecated MCP tool list.
 	 * This intentionally allows abilities from any namespace to opt in to the
 	 * deprecated endpoint while keeping namespace and transport exposure separate.

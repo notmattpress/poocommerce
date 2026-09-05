@@ -2,11 +2,11 @@
  * External dependencies
  */
 import domReady from '@wordpress/dom-ready';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 domReady( () => {
 	const enableAutorenewLink = document.querySelectorAll(
-		'.woocommerce-enable-autorenew'
+		'.poocommerce-enable-autorenew'
 	);
 
 	if ( enableAutorenewLink.length > 0 ) {

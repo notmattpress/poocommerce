@@ -4,10 +4,10 @@
  */
 import clsx from 'clsx';
 import { useBlockProps } from '@wordpress/block-editor';
-import { innerBlockAreas } from '@woocommerce/blocks-checkout';
+import { innerBlockAreas } from '@poocommerce/blocks-checkout';
 import { useSelect } from '@wordpress/data';
-import { checkoutStore as checkoutStoreDescriptor } from '@woocommerce/block-data';
-import { LOCAL_PICKUP_ENABLED } from '@woocommerce/block-settings';
+import { checkoutStore as checkoutStoreDescriptor } from '@poocommerce/block-data';
+import { LOCAL_PICKUP_ENABLED } from '@poocommerce/block-settings';
 import { Disabled } from '@wordpress/components';
 
 /**

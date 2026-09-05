@@ -2,13 +2,13 @@
 
 ## Table of contents <!-- omit in toc -->
 
--   [Notices in WooCommerce Blocks](#notices-in-woocommerce-blocks)
+-   [Notices in PooCommerce Blocks](#notices-in-poocommerce-blocks)
     -   [`StoreNoticesContainer`](#storenoticescontainer)
--   [Snackbar notices in WooCommerce Blocks](#snackbar-notices-in-woocommerce-blocks)
+-   [Snackbar notices in PooCommerce Blocks](#snackbar-notices-in-poocommerce-blocks)
 
-## Notices in WooCommerce Blocks
+## Notices in PooCommerce Blocks
 
-WooCommerce Blocks uses the [`@wordpress/notices`](https://github.com/WordPress/gutenberg/blob/d9eb36d80e05b4e45b1ad8462c8bace4e9cf1f6f/docs/reference-guides/data/data-core-notices.md) package to display notices in the frontend. For more information on the actions and selectors available on this data store, please review [the `@wordpress/notices` documentation](https://github.com/WordPress/gutenberg/blob/d9eb36d80e05b4e45b1ad8462c8bace4e9cf1f6f/docs/reference-guides/data/data-core-notices.md)
+PooCommerce Blocks uses the [`@wordpress/notices`](https://github.com/WordPress/gutenberg/blob/d9eb36d80e05b4e45b1ad8462c8bace4e9cf1f6f/docs/reference-guides/data/data-core-notices.md) package to display notices in the frontend. For more information on the actions and selectors available on this data store, please review [the `@wordpress/notices` documentation](https://github.com/WordPress/gutenberg/blob/d9eb36d80e05b4e45b1ad8462c8bace4e9cf1f6f/docs/reference-guides/data/data-core-notices.md)
 
 ### `StoreNoticesContainer`
 
@@ -47,9 +47,9 @@ const AddressForm = () => {
 };
 ```
 
-## Snackbar notices in WooCommerce Blocks
+## Snackbar notices in PooCommerce Blocks
 
-WooCommerce Blocks also shows snackbar notices, to add a snackbar notice you need to create a notice with `type:snackbar` in the options object.
+PooCommerce Blocks also shows snackbar notices, to add a snackbar notice you need to create a notice with `type:snackbar` in the options object.
 
 ```js
 const { dispatch } = window.wp.data;

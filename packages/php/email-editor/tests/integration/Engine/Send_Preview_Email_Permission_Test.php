@@ -1,12 +1,12 @@
 <?php
 /**
- * This file is part of the WooCommerce Email Editor package
+ * This file is part of the PooCommerce Email Editor package
  *
- * @package Automattic\WooCommerce\EmailEditor
+ * @package Automattic\PooCommerce\EmailEditor
  */
 
 declare(strict_types = 1);
-namespace Automattic\WooCommerce\EmailEditor\Engine;
+namespace Automattic\PooCommerce\EmailEditor\Engine;
 
 /**
  * Integration test for the send_preview_email endpoint permission callback.
@@ -32,7 +32,7 @@ class Send_Preview_Email_Permission_Test extends \Email_Editor_Integration_Test_
 	 *
 	 * @var string
 	 */
-	private const ROUTE = '/woocommerce-email-editor/v1/send_preview_email';
+	private const ROUTE = '/poocommerce-email-editor/v1/send_preview_email';
 
 	/**
 	 * Post type registered for the email editor in these tests.
@@ -86,7 +86,7 @@ class Send_Preview_Email_Permission_Test extends \Email_Editor_Integration_Test_
 			);
 			return $post_types;
 		};
-		add_filter( 'woocommerce_email_editor_post_types', $this->post_register_callback );
+		add_filter( 'poocommerce_email_editor_post_types', $this->post_register_callback );
 		$this->email_editor->initialize();
 
 		global $wp_rest_server;
@@ -102,7 +102,7 @@ class Send_Preview_Email_Permission_Test extends \Email_Editor_Integration_Test_
 	 */
 	public function tearDown(): void {
 		parent::tearDown();
-		remove_filter( 'woocommerce_email_editor_post_types', $this->post_register_callback );
+		remove_filter( 'poocommerce_email_editor_post_types', $this->post_register_callback );
 		global $wp_rest_server;
 		$wp_rest_server = null;
 	}

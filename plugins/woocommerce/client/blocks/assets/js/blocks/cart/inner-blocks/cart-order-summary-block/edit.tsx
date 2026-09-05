@@ -3,11 +3,11 @@
  */
 import { useBlockProps, InnerBlocks } from '@wordpress/block-editor';
 import type { TemplateArray } from '@wordpress/blocks';
-import { innerBlockAreas } from '@woocommerce/blocks-checkout';
+import { innerBlockAreas } from '@poocommerce/blocks-checkout';
 import { __ } from '@wordpress/i18n';
-import { TotalsFooterItem } from '@woocommerce/base-components/cart-checkout';
-import { getCurrencyFromPriceResponse } from '@woocommerce/price-format';
-import { useStoreCart } from '@woocommerce/base-context/hooks';
+import { TotalsFooterItem } from '@poocommerce/base-components/cart-checkout';
+import { getCurrencyFromPriceResponse } from '@poocommerce/price-format';
+import { useStoreCart } from '@poocommerce/base-context/hooks';
 
 /**
  * Internal dependencies
@@ -27,14 +27,14 @@ export const Edit = ( { clientId }: { clientId: string } ): JSX.Element => {
 	);
 	const defaultTemplate = [
 		[
-			'woocommerce/cart-order-summary-heading-block',
+			'poocommerce/cart-order-summary-heading-block',
 			{
-				content: __( 'Cart totals', 'woocommerce' ),
+				content: __( 'Cart totals', 'poocommerce' ),
 			},
 			[],
 		],
-		[ 'woocommerce/cart-order-summary-coupon-form-block', {}, [] ],
-		[ 'woocommerce/cart-order-summary-totals-block', {}, [] ],
+		[ 'poocommerce/cart-order-summary-coupon-form-block', {}, [] ],
+		[ 'poocommerce/cart-order-summary-totals-block', {}, [] ],
 	] as TemplateArray;
 
 	useForcedLayout( {

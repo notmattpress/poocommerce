@@ -2,14 +2,14 @@
 
 defined( 'ABSPATH' ) || exit;
 
-register_woocommerce_admin_test_helper_rest_route(
+register_poocommerce_admin_test_helper_rest_route(
 	'/tools/get-cron-list/v1',
 	'tools_get_cron_list',
 	array(
 		'methods' => 'GET',
 	)
 );
-register_woocommerce_admin_test_helper_rest_route(
+register_poocommerce_admin_test_helper_rest_route(
 	'/tools/trigger-selected-cron/v1',
 	'trigger_selected_cron',
 	array(
@@ -30,7 +30,7 @@ register_woocommerce_admin_test_helper_rest_route(
 );
 
 /**
- * A tool to list the crons for WooCommerce Admin.
+ * A tool to list the crons for PooCommerce Admin.
  */
 function tools_get_cron_list() {
 	$crons  = _get_cron_array();

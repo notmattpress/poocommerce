@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Api\Infrastructure\Schema;
+namespace Automattic\PooCommerce\Tests\Api\Infrastructure\Schema;
 
-use Automattic\WooCommerce\Api\Infrastructure\Schema\AST\StringValueNode as AliasedStringValueNode;
-use Automattic\WooCommerce\Api\Infrastructure\Schema\ResolveInfo as AliasedResolveInfo;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\StringValueNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\ResolveInfo;
+use Automattic\PooCommerce\Api\Infrastructure\Schema\AST\StringValueNode as AliasedStringValueNode;
+use Automattic\PooCommerce\Api\Infrastructure\Schema\ResolveInfo as AliasedResolveInfo;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\StringValueNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\ResolveInfo;
 use WC_Unit_Test_Case;
 
 /**

@@ -5,9 +5,9 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\StoreApi\Routes;
+namespace Automattic\PooCommerce\Tests\Blocks\StoreApi\Routes;
 
-use Automattic\WooCommerce\Tests\Blocks\Helpers\ValidateSchema;
+use Automattic\PooCommerce\Tests\Blocks\Helpers\ValidateSchema;
 
 /**
  * Order Route Tests.
@@ -158,7 +158,7 @@ class Order extends ControllerTestCase {
 		$response = rest_get_server()->dispatch( $request );
 		$this->assertEquals( 200, $response->get_status() );
 
-		$routes     = new \Automattic\WooCommerce\StoreApi\RoutesController( new \Automattic\WooCommerce\StoreApi\SchemaController( $this->mock_extend ) );
+		$routes     = new \Automattic\PooCommerce\StoreApi\RoutesController( new \Automattic\PooCommerce\StoreApi\SchemaController( $this->mock_extend ) );
 		$controller = $routes->get( 'order', 'v1' );
 		$validate   = new ValidateSchema( $controller->get_item_schema() );
 
@@ -225,7 +225,7 @@ class Order extends ControllerTestCase {
 		$item->save();
 
 		add_filter(
-			'woocommerce_order_item_get_formatted_meta_data',
+			'poocommerce_order_item_get_formatted_meta_data',
 			function ( $formatted_meta ) {
 				foreach ( $formatted_meta as $meta ) {
 					$meta->custom_field = 'from-extension';
@@ -258,7 +258,7 @@ class Order extends ControllerTestCase {
 		$item->save();
 
 		add_filter(
-			'woocommerce_order_item_get_formatted_meta_data',
+			'poocommerce_order_item_get_formatted_meta_data',
 			function () {
 				return 'not-an-array';
 			}
@@ -286,7 +286,7 @@ class Order extends ControllerTestCase {
 		$item->save();
 
 		add_filter(
-			'woocommerce_order_item_get_formatted_meta_data',
+			'poocommerce_order_item_get_formatted_meta_data',
 			function ( $formatted_meta ) {
 				$formatted_meta[999] = 'scalar-entry';
 				return $formatted_meta;
@@ -317,7 +317,7 @@ class Order extends ControllerTestCase {
 		$item->save();
 
 		add_filter(
-			'woocommerce_order_item_get_formatted_meta_data',
+			'poocommerce_order_item_get_formatted_meta_data',
 			function ( $formatted_meta ) {
 				$formatted_meta['not-a-row-id'] = (object) array(
 					'key'           => 'Injected',
@@ -356,7 +356,7 @@ class Order extends ControllerTestCase {
 		$item->save();
 
 		add_filter(
-			'woocommerce_order_item_get_formatted_meta_data',
+			'poocommerce_order_item_get_formatted_meta_data',
 			function ( $formatted_meta ) {
 				$formatted_meta[] = new \WC_Meta_Data(
 					array(
@@ -396,7 +396,7 @@ class Order extends ControllerTestCase {
 		$item->save();
 
 		add_filter(
-			'woocommerce_order_item_get_formatted_meta_data',
+			'poocommerce_order_item_get_formatted_meta_data',
 			function ( $formatted_meta ) {
 				$formatted_meta[] = new class() {
 					/**
@@ -463,7 +463,7 @@ class Order extends ControllerTestCase {
 		$item->save();
 
 		add_filter(
-			'woocommerce_order_item_get_formatted_meta_data',
+			'poocommerce_order_item_get_formatted_meta_data',
 			function ( $formatted_meta ) {
 				$formatted_meta[] = (object) array(
 					'key'           => 'Appended',

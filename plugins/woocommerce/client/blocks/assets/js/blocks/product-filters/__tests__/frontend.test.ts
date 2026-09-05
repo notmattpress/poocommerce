@@ -263,7 +263,7 @@ describe( 'product filters interactivity store', () => {
 				mockGetServerContext.mockReturnValue( context );
 
 				mockGetConfig.mockImplementation( ( key: string ) => {
-					if ( key === 'woocommerce/product-filters' ) {
+					if ( key === 'poocommerce/product-filters' ) {
 						return {
 							canonicalUrl,
 						};
@@ -339,7 +339,7 @@ describe( 'product filters interactivity store', () => {
 		mockGetServerContext.mockReturnValue( context );
 
 		mockGetConfig.mockImplementation( ( key: string ) => {
-			if ( key === 'woocommerce/product-filters' ) {
+			if ( key === 'poocommerce/product-filters' ) {
 				return { canonicalUrl, forcePageReload: true };
 			}
 			return {};
@@ -396,7 +396,7 @@ describe( 'product filters interactivity store', () => {
 			mockGetServerContext.mockReturnValue( context );
 
 			mockGetConfig.mockImplementation( ( key: string ) => {
-				if ( key === 'woocommerce/product-filters' ) {
+				if ( key === 'poocommerce/product-filters' ) {
 					return {
 						canonicalUrl: 'https://example.com/shop/',
 						forcePageReload: configForcePageReload,

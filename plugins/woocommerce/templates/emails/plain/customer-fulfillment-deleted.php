@@ -2,16 +2,16 @@
 /**
  * Customer fulfillment deleted email (plain text)
  *
- * This template can be overridden by copying it to yourtheme/woocommerce/emails/plain/customer-fulfillment-deleted.php.
+ * This template can be overridden by copying it to yourtheme/poocommerce/emails/plain/customer-fulfillment-deleted.php.
  *
- * HOWEVER, on occasion WooCommerce will need to update template files and you
+ * HOWEVER, on occasion PooCommerce will need to update template files and you
  * (the theme developer) will need to copy the new files to your theme to
  * maintain compatibility. We try to do this as little as possible, but it does
  * happen. When this occurs the version of the template file will be bumped and
  * the readme will list any important changes.
  *
- * @see https://woocommerce.com/document/template-structure/
- * @package WooCommerce\Templates\Emails\Plain
+ * @see https://poocommerce.com/document/template-structure/
+ * @package PooCommerce\Templates\Emails\Plain
  * @version 10.1.0
  */
 
@@ -21,7 +21,7 @@ echo "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n";
 echo esc_html( wp_strip_all_tags( $email_heading ) );
 echo "\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n\n";
 
-echo esc_html__( 'We wanted to let you know that one of the previously fulfilled shipments from your order has been removed from our system. This may have been due to a correction or an update in our fulfillment records. Don’t worry — this won’t affect any items you’ve already received.', 'woocommerce' ) . "\n\n";
+echo esc_html__( 'We wanted to let you know that one of the previously fulfilled shipments from your order has been removed from our system. This may have been due to a correction or an update in our fulfillment records. Don’t worry — this won’t affect any items you’ve already received.', 'poocommerce' ) . "\n\n";
 
 /**
  * Display fulfillment details.
@@ -32,7 +32,7 @@ echo esc_html__( 'We wanted to let you know that one of the previously fulfilled
  *
  * @since 10.1.0
  */
-do_action( 'woocommerce_email_fulfillment_details', $order, $fulfillment, $sent_to_admin, $plain_text, $email );
+do_action( 'poocommerce_email_fulfillment_details', $order, $fulfillment, $sent_to_admin, $plain_text, $email );
 
 echo "\n----------------------------------------\n\n";
 
@@ -43,7 +43,7 @@ echo "\n----------------------------------------\n\n";
  *
  * @since 10.1.0
  */
-do_action( 'woocommerce_email_fulfillment_meta', $order, $fulfillment, $sent_to_admin, $plain_text, $email );
+do_action( 'poocommerce_email_fulfillment_meta', $order, $fulfillment, $sent_to_admin, $plain_text, $email );
 
 /**
  * Display customer details and email address.
@@ -53,7 +53,7 @@ do_action( 'woocommerce_email_fulfillment_meta', $order, $fulfillment, $sent_to_
  *
  * @since 2.5.0
  */
-do_action( 'woocommerce_email_customer_details', $order, $sent_to_admin, $plain_text, $email );
+do_action( 'poocommerce_email_customer_details', $order, $sent_to_admin, $plain_text, $email );
 
 echo "\n\n----------------------------------------\n\n";
 
@@ -70,4 +70,4 @@ if ( $additional_content ) {
  *
  * @since 2.5.0
  */
-echo wp_kses_post( apply_filters( 'woocommerce_email_footer_text', get_option( 'woocommerce_email_footer_text' ) ) );
+echo wp_kses_post( apply_filters( 'poocommerce_email_footer_text', get_option( 'poocommerce_email_footer_text' ) ) );

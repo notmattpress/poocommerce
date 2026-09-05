@@ -4,7 +4,7 @@
  * timezone is absent
  *
  * @since   3.0.0
- * @package WooCommerce\Classes
+ * @package PooCommerce\Classes
  */
 
 defined( 'ABSPATH' ) || exit;

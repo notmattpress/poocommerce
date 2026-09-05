@@ -12,7 +12,7 @@ import { renderSlotFill, getFillProps } from '../../../slot/test-utils';
 const defaultSlotProps = {
 	extensions: {},
 	cart: {},
-	context: 'woocommerce/checkout',
+	context: 'poocommerce/checkout',
 };
 
 describe( 'ExperimentalOrderMeta', () => {
@@ -43,7 +43,7 @@ describe( 'ExperimentalOrderMeta', () => {
 	it( 'passes extensions, cart, and context via fillProps', () => {
 		const extensions = { 'my-extension': { key: 'value' } };
 		const cart = { items: [], totals: {} };
-		const context = 'woocommerce/cart';
+		const context = 'poocommerce/cart';
 
 		const fillProps = getFillProps( ExperimentalOrderMeta, {
 			extensions,

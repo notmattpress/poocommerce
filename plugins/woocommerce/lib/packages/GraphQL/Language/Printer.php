@@ -1,71 +1,71 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\GraphQL\Language;
+namespace Automattic\PooCommerce\Vendor\GraphQL\Language;
 
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\ArgumentNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\BooleanValueNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\DirectiveDefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\DirectiveNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\DocumentNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\EnumTypeDefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\EnumTypeExtensionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\EnumValueDefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\EnumValueNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\FieldDefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\FieldNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\FloatValueNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\FragmentDefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\FragmentSpreadNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\InlineFragmentNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\InputObjectTypeDefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\InputObjectTypeExtensionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\InputValueDefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\InterfaceTypeDefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\InterfaceTypeExtensionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\IntValueNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\ListTypeNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\ListValueNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\NamedTypeNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\NameNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\Node;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\NodeList;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\NonNullTypeNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\NullValueNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\ObjectFieldNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\ObjectTypeDefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\ObjectTypeExtensionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\ObjectValueNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\OperationDefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\OperationTypeDefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\ScalarTypeDefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\ScalarTypeExtensionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\SchemaDefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\SchemaExtensionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\SelectionSetNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\StringValueNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\UnionTypeDefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\UnionTypeExtensionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\VariableDefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\VariableNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\ArgumentNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\BooleanValueNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\DirectiveDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\DirectiveNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\DocumentNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\EnumTypeDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\EnumTypeExtensionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\EnumValueDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\EnumValueNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\FieldDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\FieldNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\FloatValueNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\FragmentDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\FragmentSpreadNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\InlineFragmentNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\InputObjectTypeDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\InputObjectTypeExtensionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\InputValueDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\InterfaceTypeDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\InterfaceTypeExtensionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\IntValueNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\ListTypeNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\ListValueNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\NamedTypeNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\NameNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\Node;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\NodeList;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\NonNullTypeNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\NullValueNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\ObjectFieldNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\ObjectTypeDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\ObjectTypeExtensionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\ObjectValueNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\OperationDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\OperationTypeDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\ScalarTypeDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\ScalarTypeExtensionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\SchemaDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\SchemaExtensionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\SelectionSetNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\StringValueNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\UnionTypeDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\UnionTypeExtensionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\VariableDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\VariableNode;
 
 /**
- * Prints AST to string. Capable of printing Automattic\WooCommerce\Vendor\GraphQL queries and Type definition language.
+ * Prints AST to string. Capable of printing Automattic\PooCommerce\Vendor\GraphQL queries and Type definition language.
  * Useful for pretty-printing queries or printing back AST for logging, documentation, etc.
  *
  * Usage example:
  *
  * ```php
  * $query = 'query myQuery {someField}';
- * $ast = Automattic\WooCommerce\Vendor\GraphQL\Language\Parser::parse($query);
- * $printed = Automattic\WooCommerce\Vendor\GraphQL\Language\Printer::doPrint($ast);
+ * $ast = Automattic\PooCommerce\Vendor\GraphQL\Language\Parser::parse($query);
+ * $printed = Automattic\PooCommerce\Vendor\GraphQL\Language\Printer::doPrint($ast);
  * ```
  *
- * @see \Automattic\WooCommerce\Vendor\GraphQL\Tests\Language\PrinterTest
+ * @see \Automattic\PooCommerce\Vendor\GraphQL\Tests\Language\PrinterTest
  */
 class Printer
 {
     /**
-     * Converts the AST of a Automattic\WooCommerce\Vendor\GraphQL node to a string.
+     * Converts the AST of a Automattic\PooCommerce\Vendor\GraphQL node to a string.
      *
      * Handles both executable definitions and schema definitions.
      *

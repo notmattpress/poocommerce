@@ -2,12 +2,12 @@
 /**
  * CodGatewaySettingsSchema class.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\RestApi\Routes\V4\Settings\PaymentGateways\Schema;
+namespace Automattic\PooCommerce\Internal\RestApi\Routes\V4\Settings\PaymentGateways\Schema;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -44,48 +44,48 @@ class CodGatewaySettingsSchema extends AbstractPaymentGatewaySettingsSchema {
 		// Design-aligned overrides for core fields.
 		$core_field_overrides = array(
 			'enabled'            => array(
-				'label' => __( 'Enable/Disable', 'woocommerce' ),
+				'label' => __( 'Enable/Disable', 'poocommerce' ),
 				'type'  => 'checkbox',
-				'desc'  => __( 'Enable Cash on delivery at checkout', 'woocommerce' ),
+				'desc'  => __( 'Enable Cash on delivery at checkout', 'poocommerce' ),
 			),
 			'title'              => array(
-				'label' => __( 'Checkout label', 'woocommerce' ),
+				'label' => __( 'Checkout label', 'poocommerce' ),
 				'type'  => 'text',
-				'desc'  => __( 'Shown to customers on the payment methods list at checkout.', 'woocommerce' ),
+				'desc'  => __( 'Shown to customers on the payment methods list at checkout.', 'poocommerce' ),
 			),
 			'description'        => array(
-				'label' => __( 'Checkout instructions', 'woocommerce' ),
+				'label' => __( 'Checkout instructions', 'poocommerce' ),
 				'type'  => 'text',
-				'desc'  => __( 'Shown below the checkout label.', 'woocommerce' ),
+				'desc'  => __( 'Shown below the checkout label.', 'poocommerce' ),
 			),
 			'order'              => array(
-				'label' => __( 'Order', 'woocommerce' ),
+				'label' => __( 'Order', 'poocommerce' ),
 				'type'  => 'number',
-				'desc'  => __( 'Determines the display order of payment gateways during checkout.', 'woocommerce' ),
+				'desc'  => __( 'Determines the display order of payment gateways during checkout.', 'poocommerce' ),
 			),
 			'instructions'       => array(
-				'label' => __( 'Order confirmation instructions', 'woocommerce' ),
+				'label' => __( 'Order confirmation instructions', 'poocommerce' ),
 				'type'  => 'text',
-				'desc'  => __( 'Shown on the order confirmation page and in order emails.', 'woocommerce' ),
+				'desc'  => __( 'Shown on the order confirmation page and in order emails.', 'poocommerce' ),
 			),
 			'enable_for_methods' => array(
-				'label'   => __( 'Available for shipping methods', 'woocommerce' ),
+				'label'   => __( 'Available for shipping methods', 'poocommerce' ),
 				'type'    => 'multiselect',
-				'desc'    => __( 'Choose which shipping methods support Cash on delivery.', 'woocommerce' ),
+				'desc'    => __( 'Choose which shipping methods support Cash on delivery.', 'poocommerce' ),
 				'options' => $this->load_shipping_method_options(),
 			),
 			'enable_for_virtual' => array(
-				'label' => __( 'Accept for virtual orders', 'woocommerce' ),
+				'label' => __( 'Accept for virtual orders', 'poocommerce' ),
 				'type'  => 'checkbox',
-				'desc'  => __( 'Accept COD if the order is virtual', 'woocommerce' ),
+				'desc'  => __( 'Accept COD if the order is virtual', 'poocommerce' ),
 			),
 		);
 
 		$fields = $this->build_fields_from_form_fields( $gateway, $core_field_overrides );
 
 		$group = array(
-			'title'       => __( 'Cash on delivery settings', 'woocommerce' ),
-			'description' => __( 'Manage how Cash on delivery appears at checkout and in order emails.', 'woocommerce' ),
+			'title'       => __( 'Cash on delivery settings', 'poocommerce' ),
+			'description' => __( 'Manage how Cash on delivery appears at checkout and in order emails.', 'poocommerce' ),
 			'order'       => 1,
 			'fields'      => $fields,
 		);
@@ -126,7 +126,7 @@ class CodGatewaySettingsSchema extends AbstractPaymentGatewaySettingsSchema {
 			$options[ $method->get_method_title() ] = array();
 
 			// Translators: %1$s shipping method name.
-			$options[ $method->get_method_title() ][ $method->id ] = sprintf( __( 'Any &quot;%1$s&quot; method', 'woocommerce' ), $method->get_method_title() );
+			$options[ $method->get_method_title() ][ $method->id ] = sprintf( __( 'Any &quot;%1$s&quot; method', 'poocommerce' ), $method->get_method_title() );
 
 			foreach ( $zones as $zone ) {
 
@@ -141,10 +141,10 @@ class CodGatewaySettingsSchema extends AbstractPaymentGatewaySettingsSchema {
 					$option_id = $shipping_method_instance->get_rate_id();
 
 					// Translators: %1$s shipping method title, %2$s shipping method id.
-					$option_instance_title = sprintf( __( '%1$s (#%2$s)', 'woocommerce' ), $shipping_method_instance->get_title(), $shipping_method_instance_id );
+					$option_instance_title = sprintf( __( '%1$s (#%2$s)', 'poocommerce' ), $shipping_method_instance->get_title(), $shipping_method_instance_id );
 
 					// Translators: %1$s zone name, %2$s shipping method instance name.
-					$option_title = sprintf( __( '%1$s &ndash; %2$s', 'woocommerce' ), $zone->get_id() ? $zone->get_zone_name() : __( 'Other locations', 'woocommerce' ), $option_instance_title );
+					$option_title = sprintf( __( '%1$s &ndash; %2$s', 'poocommerce' ), $zone->get_id() ? $zone->get_zone_name() : __( 'Other locations', 'poocommerce' ), $option_instance_title );
 
 					$options[ $method->get_method_title() ][ $option_id ] = $option_title;
 				}

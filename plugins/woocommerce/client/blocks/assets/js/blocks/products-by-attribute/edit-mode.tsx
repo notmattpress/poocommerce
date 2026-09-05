@@ -4,7 +4,7 @@
 import { __ } from '@wordpress/i18n';
 import { Button, Placeholder } from '@wordpress/components';
 import { category, Icon } from '@wordpress/icons';
-import ProductAttributeTermControl from '@woocommerce/editor-components/product-attribute-term-control';
+import ProductAttributeTermControl from '@poocommerce/editor-components/product-attribute-term-control';
 
 /**
  * Internal dependencies
@@ -30,19 +30,19 @@ export const ProductsByAttributeEditMode = (
 	const onDone = () => {
 		setIsEditing( ! isEditing );
 		debouncedSpeak(
-			__( 'Showing Products by Attribute block preview.', 'woocommerce' )
+			__( 'Showing Products by Attribute block preview.', 'poocommerce' )
 		);
 	};
 
 	return (
 		<Placeholder
 			icon={ <Icon icon={ category } /> }
-			label={ __( 'Products by Attribute', 'woocommerce' ) }
+			label={ __( 'Products by Attribute', 'poocommerce' ) }
 			className="wc-block-products-grid wc-block-products-by-attribute"
 		>
 			{ __(
 				'Display a grid of products from your selected attributes.',
-				'woocommerce'
+				'poocommerce'
 			) }
 			<div className="wc-block-products-by-attribute__selection">
 				<ProductAttributeTermControl
@@ -62,7 +62,7 @@ export const ProductsByAttributeEditMode = (
 					}
 				/>
 				<Button variant="primary" onClick={ onDone }>
-					{ __( 'Done', 'woocommerce' ) }
+					{ __( 'Done', 'poocommerce' ) }
 				</Button>
 			</div>
 		</Placeholder>

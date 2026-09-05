@@ -1,16 +1,16 @@
 <?php
 /**
- * WooCommerce Admin Performance on mobile note.
+ * PooCommerce Admin Performance on mobile note.
  *
  * Adds a note to download the mobile app, performance on mobile.
  */
 
-namespace Automattic\WooCommerce\Internal\Admin\Notes;
+namespace Automattic\PooCommerce\Internal\Admin\Notes;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\Notes\Note;
-use Automattic\WooCommerce\Admin\Notes\NoteTraits;
+use Automattic\PooCommerce\Admin\Notes\Note;
+use Automattic\PooCommerce\Admin\Notes\NoteTraits;
 
 /**
  * Performance_On_Mobile
@@ -51,16 +51,16 @@ class PerformanceOnMobile {
 
 		$note = new Note();
 
-		$note->set_title( __( 'Track your store performance on mobile', 'woocommerce' ) );
-		$note->set_content( __( 'Monitor your sales and high performing products with the Woo app.', 'woocommerce' ) );
+		$note->set_title( __( 'Track your store performance on mobile', 'poocommerce' ) );
+		$note->set_content( __( 'Monitor your sales and high performing products with the Woo app.', 'poocommerce' ) );
 		$note->set_content_data( (object) array() );
 		$note->set_type( Note::E_WC_ADMIN_NOTE_INFORMATIONAL );
 		$note->set_name( self::NOTE_NAME );
-		$note->set_source( 'woocommerce-admin' );
+		$note->set_source( 'poocommerce-admin' );
 		$note->add_action(
 			'learn-more',
-			__( 'Learn more', 'woocommerce' ),
-			'https://woocommerce.com/mobile/?utm_source=inbox&utm_medium=product'
+			__( 'Learn more', 'poocommerce' ),
+			'https://poocommerce.com/mobile/?utm_source=inbox&utm_medium=product'
 		);
 
 		return $note;

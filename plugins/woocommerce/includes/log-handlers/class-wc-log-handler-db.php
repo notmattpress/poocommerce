@@ -2,7 +2,7 @@
 /**
  * Class WC_Log_Handler_DB file.
  *
- * @package WooCommerce\Log Handlers
+ * @package PooCommerce\Log Handlers
  */
 
 use Automattic\Jetpack\Constants;
@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @class          WC_Log_Handler_DB
  * @version        1.0.0
- * @package        WooCommerce\Classes\Log_Handlers
+ * @package        PooCommerce\Classes\Log_Handlers
  */
 class WC_Log_Handler_DB extends WC_Log_Handler {
 
@@ -91,7 +91,7 @@ class WC_Log_Handler_DB extends WC_Log_Handler {
 			$insert['context'] = wp_json_encode( $context, JSON_PRETTY_PRINT );
 		}
 
-		return false !== $wpdb->insert( "{$wpdb->prefix}woocommerce_log", $insert, $format );
+		return false !== $wpdb->insert( "{$wpdb->prefix}poocommerce_log", $insert, $format );
 	}
 
 	/**
@@ -102,7 +102,7 @@ class WC_Log_Handler_DB extends WC_Log_Handler {
 	public static function flush() {
 		global $wpdb;
 
-		return $wpdb->query( "TRUNCATE TABLE {$wpdb->prefix}woocommerce_log" );
+		return $wpdb->query( "TRUNCATE TABLE {$wpdb->prefix}poocommerce_log" );
 	}
 
 	/**
@@ -116,7 +116,7 @@ class WC_Log_Handler_DB extends WC_Log_Handler {
 
 		return $wpdb->query(
 			$wpdb->prepare(
-				"DELETE FROM {$wpdb->prefix}woocommerce_log WHERE source = %s",
+				"DELETE FROM {$wpdb->prefix}poocommerce_log WHERE source = %s",
 				$source
 			)
 		);
@@ -143,7 +143,7 @@ class WC_Log_Handler_DB extends WC_Log_Handler {
 			// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 			$wpdb->prepare(
 				"
-					DELETE FROM {$wpdb->prefix}woocommerce_log
+					DELETE FROM {$wpdb->prefix}poocommerce_log
 					WHERE log_id IN {$query_in}
 				",
 				$log_ids
@@ -173,7 +173,7 @@ class WC_Log_Handler_DB extends WC_Log_Handler {
 
 		$wpdb->query(
 			$wpdb->prepare(
-				"DELETE FROM {$wpdb->prefix}woocommerce_log WHERE timestamp < %s",
+				"DELETE FROM {$wpdb->prefix}poocommerce_log WHERE timestamp < %s",
 				date( 'Y-m-d H:i:s', $timestamp )
 			)
 		);

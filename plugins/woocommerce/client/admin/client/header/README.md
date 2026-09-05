@@ -12,8 +12,8 @@ render: function() {
 	return (
 		<Header
 			sections={ [
-				[ '/analytics', __( 'Analytics', 'woocommerce' ) ],
-				__( 'Report Title', 'woocommerce' ),
+				[ '/analytics', __( 'Analytics', 'poocommerce' ) ],
+				__( 'Report Title', 'poocommerce' ),
 			] }
 		/>
   	);
@@ -22,7 +22,7 @@ render: function() {
 
 ## Props
 
-* `sections` (required): Used to generate breadcrumbs. Accepts a single items or an array of items. To make an item a link, wrap it in an array with a relative link (example: `[ '/analytics', __( 'Analytics', 'woocommerce' ) ]` ).
+* `sections` (required): Used to generate breadcrumbs. Accepts a single items or an array of items. To make an item a link, wrap it in an array with a relative link (example: `[ '/analytics', __( 'Analytics', 'poocommerce' ) ]` ).
 * `isEmbedded`: Boolean describing if the header is embedded on an existing wp-admin page. False if rendered as part of a full react page.
 
 Activity Panel

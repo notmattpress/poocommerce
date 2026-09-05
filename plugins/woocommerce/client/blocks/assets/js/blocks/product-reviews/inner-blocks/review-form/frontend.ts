@@ -7,7 +7,7 @@ import {
 	getElement,
 	store,
 } from '@wordpress/interactivity';
-import type { HTMLElementEvent } from '@woocommerce/types';
+import type { HTMLElementEvent } from '@poocommerce/types';
 
 type ServerState = {
 	state: {
@@ -97,7 +97,7 @@ const productReviewsFormStore = {
 			}
 		},
 		handleSubmit( event: HTMLElementEvent< HTMLFormElement > ) {
-			const config = getConfig( 'woocommerce/product-reviews' );
+			const config = getConfig( 'poocommerce/product-reviews' );
 			if ( ! config.reviewRatingEnabled ) {
 				return;
 			}
@@ -135,7 +135,7 @@ const productReviewsFormStore = {
 };
 
 const { state } = store< ServerState & typeof productReviewsFormStore >(
-	'woocommerce/product-reviews',
+	'poocommerce/product-reviews',
 	productReviewsFormStore,
 	{
 		lock: 'I acknowledge that using a private store means my plugin will inevitably break on the next store release.',

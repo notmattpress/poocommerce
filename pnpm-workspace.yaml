@@ -54,7 +54,7 @@ catalogs:
         '@wordpress/warning': 3.33.1
         '@wordpress/wordcount': 4.33.1
 
-    # `@wordpress/*` runtime packages that WooCommerce needs to bundle because
+    # `@wordpress/*` runtime packages that PooCommerce needs to bundle because
     # they are not provided as WordPress script externals.
 	# https://github.com/WordPress/gutenberg/blob/e1d5efda04d8a8d868f220392f89f68cf37f1893/packages/dependency-extraction-webpack-plugin/lib/util.js#L2-L14
     wp-bundled:
@@ -85,9 +85,9 @@ packages:
     - 'packages/js/*'
     - 'packages/php/*'
     - 'plugins/*'
-    - 'plugins/woocommerce/client/admin'
-    - 'plugins/woocommerce/client/blocks'
-    - 'plugins/woocommerce/client/legacy'
+    - 'plugins/poocommerce/client/admin'
+    - 'plugins/poocommerce/client/blocks'
+    - 'plugins/poocommerce/client/legacy'
     - 'tools/monorepo-merge'
     - 'tools/code-analyzer'
     - 'tools/compare-perf'
@@ -112,7 +112,7 @@ virtualStoreDirMaxLength: 60
 minimumReleaseAge: 1440
 minimumReleaseAgeExclude:
     - '@automattic/*'
-    - '@woocommerce/*'
+    - '@poocommerce/*'
     - '@wordpress/*'
 
 # Require explicit approval for dependency build scripts (postinstall, etc).

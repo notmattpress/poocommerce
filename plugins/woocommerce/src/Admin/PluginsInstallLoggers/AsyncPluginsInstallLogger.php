@@ -1,6 +1,6 @@
 <?php
 
-namespace Automattic\WooCommerce\Admin\PluginsInstallLoggers;
+namespace Automattic\PooCommerce\Admin\PluginsInstallLoggers;
 
 /**
  * A logger to log plugin installation progress in real time to an option.
@@ -159,7 +159,7 @@ class AsyncPluginsInstallLogger implements PluginsInstallLogger {
 
 	private function get_plugin_track_key( $id ) {
 		$slug = explode( ':', $id )[0];
-		$key  = preg_match( '/^woocommerce(-|_)payments$/', $slug )
+		$key  = preg_match( '/^poocommerce(-|_)payments$/', $slug )
 			? 'wcpay'
 			: explode( ':', str_replace( '-', '_', $slug ) )[0];
 		return $key;

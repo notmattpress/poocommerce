@@ -2,26 +2,26 @@
 /**
  * Integration tests for the plans REST controller.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine
+ * @package Automattic\PooCommerce\SubscriptionsEngine
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Tests\Integration\Api\Rest;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Tests\Integration\Api\Rest;
 
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\Plan;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\Plan;
 use EngineIntegrationTestCase;
 use WP_REST_Request;
 use WP_REST_Response;
 
 /**
- * @covers \Automattic\WooCommerce\SubscriptionsEngine\Api\Rest\PlansController
+ * @covers \Automattic\PooCommerce\SubscriptionsEngine\Api\Rest\PlansController
  */
 class PlansControllerTest extends EngineIntegrationTestCase {
 
 	private const BASE = '/wc/v3/subscriptions-engine/plans';
 
-	private const EXTENSION_SLUG = 'woocommerce-subscriptions-lite';
+	private const EXTENSION_SLUG = 'poocommerce-subscriptions-lite';
 
 	/**
 	 * Admin user id.
@@ -45,7 +45,7 @@ class PlansControllerTest extends EngineIntegrationTestCase {
 		parent::tearDown();
 	}
 
-	public function test_collection_requires_manage_woocommerce(): void {
+	public function test_collection_requires_manage_poocommerce(): void {
 		wp_set_current_user( 0 );
 
 		$response = $this->request( 'GET', self::BASE, array(), array( 'extension_slug' => self::EXTENSION_SLUG ) );
@@ -280,7 +280,7 @@ class PlansControllerTest extends EngineIntegrationTestCase {
 			)
 		);
 		$this->assertSame( 400, $created->get_status() );
-		$this->assertSame( 'woocommerce_subscriptions_engine_invalid_plan', $this->response_data( $created )['code'] );
+		$this->assertSame( 'poocommerce_subscriptions_engine_invalid_plan', $this->response_data( $created )['code'] );
 
 		$id      = $this->create_plan( 'Patch target' );
 		$patched = $this->request(
@@ -292,7 +292,7 @@ class PlansControllerTest extends EngineIntegrationTestCase {
 			)
 		);
 		$this->assertSame( 400, $patched->get_status() );
-		$this->assertSame( 'woocommerce_subscriptions_engine_invalid_plan', $this->response_data( $patched )['code'] );
+		$this->assertSame( 'poocommerce_subscriptions_engine_invalid_plan', $this->response_data( $patched )['code'] );
 
 		// The rejected PATCH left the plan untouched.
 		$fetched = $this->request( 'GET', self::BASE . '/' . $id, array(), array( 'extension_slug' => self::EXTENSION_SLUG ) );
@@ -304,9 +304,9 @@ class PlansControllerTest extends EngineIntegrationTestCase {
 		wp_set_current_user( $this->admin_id );
 
 		$first_id  = $this->create_plan( 'First', self::EXTENSION_SLUG );
-		$second_id = $this->create_plan( 'Second', 'woocommerce-subscriptions-test' );
+		$second_id = $this->create_plan( 'Second', 'poocommerce-subscriptions-test' );
 
-		$list = $this->request( 'GET', self::BASE, array(), array( 'extension_slug' => implode( ',', array( self::EXTENSION_SLUG, 'woocommerce-subscriptions-test' ) ) ) );
+		$list = $this->request( 'GET', self::BASE, array(), array( 'extension_slug' => implode( ',', array( self::EXTENSION_SLUG, 'poocommerce-subscriptions-test' ) ) ) );
 		$this->assertSame( 200, $list->get_status() );
 		$this->assertSame( '2', $list->get_headers()['X-WP-Total'] );
 		$response_data = $this->response_data( $list );
@@ -317,16 +317,16 @@ class PlansControllerTest extends EngineIntegrationTestCase {
 		$this->assertSame( $first_id, $this->int_value( $first_data, 'id' ) );
 		$this->assertSame( self::EXTENSION_SLUG, $first_data['extension_slug'] );
 		$this->assertSame( $second_id, $this->int_value( $second_data, 'id' ) );
-		$this->assertSame( 'woocommerce-subscriptions-test', $second_data['extension_slug'] );
+		$this->assertSame( 'poocommerce-subscriptions-test', $second_data['extension_slug'] );
 	}
 
 	public function test_list_trims_and_deduplicates_extension_slugs(): void {
 		wp_set_current_user( $this->admin_id );
 
 		$first_id  = $this->create_plan( 'First', self::EXTENSION_SLUG );
-		$second_id = $this->create_plan( 'Second', 'woocommerce-subscriptions-test' );
+		$second_id = $this->create_plan( 'Second', 'poocommerce-subscriptions-test' );
 
-		$list = $this->request( 'GET', self::BASE, array(), array( 'extension_slug' => self::EXTENSION_SLUG . ', ' . self::EXTENSION_SLUG . ',woocommerce-subscriptions-test' ) );
+		$list = $this->request( 'GET', self::BASE, array(), array( 'extension_slug' => self::EXTENSION_SLUG . ', ' . self::EXTENSION_SLUG . ',poocommerce-subscriptions-test' ) );
 
 		$this->assertSame( 200, $list->get_status() );
 		$this->assertSame( '2', $list->get_headers()['X-WP-Total'] );
@@ -358,7 +358,7 @@ class PlansControllerTest extends EngineIntegrationTestCase {
 		wp_set_current_user( $this->admin_id );
 
 		$first_id  = $this->create_plan( 'First', self::EXTENSION_SLUG );
-		$second_id = $this->create_plan( 'Second', 'woocommerce-subscriptions-test' );
+		$second_id = $this->create_plan( 'Second', 'poocommerce-subscriptions-test' );
 
 		$list = $this->request( 'GET', self::BASE, array(), array( 'extension_slug' => 'any' ) );
 		$this->assertSame( 200, $list->get_status() );
@@ -371,7 +371,7 @@ class PlansControllerTest extends EngineIntegrationTestCase {
 		$this->assertSame( $first_id, $this->int_value( $first_data, 'id' ) );
 		$this->assertSame( self::EXTENSION_SLUG, $first_data['extension_slug'] );
 		$this->assertSame( $second_id, $this->int_value( $second_data, 'id' ) );
-		$this->assertSame( 'woocommerce-subscriptions-test', $second_data['extension_slug'] );
+		$this->assertSame( 'poocommerce-subscriptions-test', $second_data['extension_slug'] );
 	}
 
 	public function test_list_can_order_by_status(): void {
@@ -411,7 +411,7 @@ class PlansControllerTest extends EngineIntegrationTestCase {
 
 		$id = $this->create_plan( 'Scoped' );
 
-		foreach ( array( 'any', self::EXTENSION_SLUG . ',woocommerce-subscriptions-test' ) as $extension_slug ) {
+		foreach ( array( 'any', self::EXTENSION_SLUG . ',poocommerce-subscriptions-test' ) as $extension_slug ) {
 			$this->assertSame( 400, $this->request( 'GET', self::BASE . '/' . $id, array(), array( 'extension_slug' => $extension_slug ) )->get_status() );
 			$this->assertSame(
 				400,
@@ -441,7 +441,7 @@ class PlansControllerTest extends EngineIntegrationTestCase {
 	public function test_create_rejects_wildcard_and_list_extension_slugs(): void {
 		wp_set_current_user( $this->admin_id );
 
-		foreach ( array( 'any', self::EXTENSION_SLUG . ',woocommerce-subscriptions-test' ) as $extension_slug ) {
+		foreach ( array( 'any', self::EXTENSION_SLUG . ',poocommerce-subscriptions-test' ) as $extension_slug ) {
 			$response = $this->request(
 				'POST',
 				self::BASE,
@@ -492,7 +492,7 @@ class PlansControllerTest extends EngineIntegrationTestCase {
 		}
 
 		$this->assertSame( 500, $response->get_status() );
-		$this->assertSame( 'woocommerce_subscriptions_engine_plan_update_failed', $this->response_data( $response )['code'] );
+		$this->assertSame( 'poocommerce_subscriptions_engine_plan_update_failed', $this->response_data( $response )['code'] );
 	}
 
 	public function test_archive_restore_and_reorder(): void {

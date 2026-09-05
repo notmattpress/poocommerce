@@ -4,11 +4,11 @@
  *
  * Shows the 'my account' section where the customer can view past orders and update their information.
  *
- * @package WooCommerce\Shortcodes\My_Account
+ * @package PooCommerce\Shortcodes\My_Account
  * @version 2.0.0
  */
 
-use Automattic\WooCommerce\Internal\OrderWithdrawal\OrderWithdrawalController;
+use Automattic\PooCommerce\Internal\OrderWithdrawal\OrderWithdrawalController;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -69,7 +69,7 @@ class WC_Shortcode_My_Account {
 	 * Add notices to the my account page.
 	 *
 	 * Historically a filter has existed to render a message above the my account page content while the user is
-	 * logged out. See `woocommerce_my_account_message`.
+	 * logged out. See `poocommerce_my_account_message`.
 	 */
 	private static function my_account_add_notices() {
 		global $wp;
@@ -80,7 +80,7 @@ class WC_Shortcode_My_Account {
 			 *
 			 * @since 2.6.0
 			 */
-			$message = apply_filters( 'woocommerce_my_account_message', '' );
+			$message = apply_filters( 'poocommerce_my_account_message', '' );
 
 			if ( ! empty( $message ) ) {
 				wc_add_notice( $message );
@@ -89,13 +89,13 @@ class WC_Shortcode_My_Account {
 
 		// After password reset, add confirmation message.
 		if ( ! empty( $_GET['password-reset'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-			wc_add_notice( __( 'Your password has been reset successfully.', 'woocommerce' ) );
+			wc_add_notice( __( 'Your password has been reset successfully.', 'poocommerce' ) );
 		}
 
 		// After logging out without a nonce, add confirmation message.
 		if ( isset( $wp->query_vars['customer-logout'] ) && is_user_logged_in() ) {
 			/* translators: %s: logout url */
-			wc_add_notice( sprintf( __( 'Are you sure you want to log out? <a href="%s">Confirm and log out</a>', 'woocommerce' ), wc_logout_url() ) );
+			wc_add_notice( sprintf( __( 'Are you sure you want to log out? <a href="%s">Confirm and log out</a>', 'poocommerce' ), wc_logout_url() ) );
 		}
 
 		// Suppress the nag during the resend cooldown so it doesn't contradict the "we emailed you" confirmation.
@@ -109,10 +109,10 @@ class WC_Shortcode_My_Account {
 			wc_add_notice(
 				sprintf(
 					/* translators: %1$s and %2$s are opening and closing anchor tags for the resend-link button. */
-					__( '%1$sResend%2$s', 'woocommerce' ),
+					__( '%1$sResend%2$s', 'poocommerce' ),
 					'<a href="' . esc_url( $resend_url ) . '" class="button wc-forward">',
 					'</a>'
-				) . ' ' . __( 'Your account is using a temporary password. We emailed you a link to change your password.', 'woocommerce' ),
+				) . ' ' . __( 'Your account is using a temporary password. We emailed you a link to change your password.', 'poocommerce' ),
 				'notice'
 			);
 		}
@@ -129,7 +129,7 @@ class WC_Shortcode_My_Account {
 				'order_count' => 15, // @deprecated 2.6.0. Keep for backward compatibility.
 			),
 			$atts,
-			'woocommerce_my_account'
+			'poocommerce_my_account'
 		);
 
 		wc_get_template(
@@ -151,7 +151,7 @@ class WC_Shortcode_My_Account {
 
 		if ( ! $order || ! current_user_can( 'view_order', $order_id ) ) {
 			wc_print_notice(
-				esc_html__( 'Invalid order.', 'woocommerce' ) . ' <a href="' . esc_url( wc_get_page_permalink( 'myaccount' ) ) . '" class="wc-forward">' . esc_html__( 'My account', 'woocommerce' ) . '</a>',
+				esc_html__( 'Invalid order.', 'poocommerce' ) . ' <a href="' . esc_url( wc_get_page_permalink( 'myaccount' ) ) . '" class="wc-forward">' . esc_html__( 'My account', 'poocommerce' ) . '</a>',
 				'error'
 			);
 			return;
@@ -228,14 +228,14 @@ class WC_Shortcode_My_Account {
 				}
 			}
 
-			$address[ $key ]['value'] = apply_filters( 'woocommerce_my_account_edit_address_field_value', $value, $key, $load_address );
+			$address[ $key ]['value'] = apply_filters( 'poocommerce_my_account_edit_address_field_value', $value, $key, $load_address );
 		}
 
 		wc_get_template(
 			'myaccount/form-edit-address.php',
 			array(
 				'load_address' => $load_address,
-				'address'      => apply_filters( 'woocommerce_address_to_edit', $address, $load_address ),
+				'address'      => apply_filters( 'poocommerce_address_to_edit', $address, $load_address ),
 			)
 		);
 	}
@@ -297,7 +297,7 @@ class WC_Shortcode_My_Account {
 
 		if ( empty( $login ) ) {
 
-			wc_add_notice( __( 'Enter a username or email address.', 'woocommerce' ), 'error' );
+			wc_add_notice( __( 'Enter a username or email address.', 'poocommerce' ), 'error' );
 
 			return false;
 
@@ -307,7 +307,7 @@ class WC_Shortcode_My_Account {
 		}
 
 		// If no user found, check if it login is email and lookup user based on email.
-		if ( ! $user_data && is_email( $login ) && apply_filters( 'woocommerce_get_username_from_email', true ) ) {
+		if ( ! $user_data && is_email( $login ) && apply_filters( 'poocommerce_get_username_from_email', true ) ) {
 			$user_data = get_user_by( 'email', $login );
 		}
 
@@ -322,7 +322,7 @@ class WC_Shortcode_My_Account {
 		}
 
 		if ( ! $user_data ) {
-			wc_add_notice( __( 'Invalid username or email.', 'woocommerce' ), 'error' );
+			wc_add_notice( __( 'Invalid username or email.', 'poocommerce' ), 'error' );
 
 			return false;
 		}
@@ -336,7 +336,7 @@ class WC_Shortcode_My_Account {
 
 		if ( ! $allow ) {
 
-			wc_add_notice( __( 'Password reset is not allowed for this user', 'woocommerce' ), 'error' );
+			wc_add_notice( __( 'Password reset is not allowed for this user', 'poocommerce' ), 'error' );
 
 			return false;
 
@@ -352,7 +352,7 @@ class WC_Shortcode_My_Account {
 
 		// Send email notification.
 		WC()->mailer(); // Load email classes.
-		do_action( 'woocommerce_reset_password_notification', $user_login, $key );
+		do_action( 'poocommerce_reset_password_notification', $user_login, $key );
 
 		return true;
 	}
@@ -371,7 +371,7 @@ class WC_Shortcode_My_Account {
 		$user = check_password_reset_key( $key, $login );
 
 		if ( is_wp_error( $user ) ) {
-			wc_add_notice( __( 'This key is invalid or has already been used. Please reset your password again if needed.', 'woocommerce' ), 'error' );
+			wc_add_notice( __( 'This key is invalid or has already been used. Please reset your password again if needed.', 'poocommerce' ), 'error' );
 			return false;
 		}
 
@@ -387,7 +387,7 @@ class WC_Shortcode_My_Account {
 	 * @param string  $new_pass New password for the user in plaintext.
 	 */
 	public static function reset_password( $user, $new_pass ) {
-		// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
+		// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
 		do_action( 'password_reset', $user, $new_pass );
 
 		wp_set_password( $new_pass, $user->ID );
@@ -396,8 +396,8 @@ class WC_Shortcode_My_Account {
 		delete_user_meta( $user->ID, WC_Form_Handler::SET_PASSWORD_RESEND_META );
 
 		// WordPress core hooks wp_password_change_notification() onto after_password_reset. Detach it around
-		// the action so it doesn't duplicate the notification WooCommerce sends directly below (guarded by the
-		// woocommerce_disable_password_change_notification filter), then restore it to its original priority.
+		// the action so it doesn't duplicate the notification PooCommerce sends directly below (guarded by the
+		// poocommerce_disable_password_change_notification filter), then restore it to its original priority.
 		$core_notification_priority = has_action( 'after_password_reset', 'wp_password_change_notification' );
 		if ( false !== $core_notification_priority ) {
 			remove_action( 'after_password_reset', 'wp_password_change_notification', $core_notification_priority );
@@ -405,7 +405,7 @@ class WC_Shortcode_My_Account {
 
 		try {
 			/**
-			 * Fires after the user's password has been reset via WooCommerce.
+			 * Fires after the user's password has been reset via PooCommerce.
 			 *
 			 * This provides parity with WordPress core's reset_password() function.
 			 *
@@ -423,8 +423,8 @@ class WC_Shortcode_My_Account {
 		self::set_reset_password_cookie();
 		wc_set_customer_auth_cookie( $user->ID );
 
-		// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
-		if ( ! apply_filters( 'woocommerce_disable_password_change_notification', false ) ) {
+		// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
+		if ( ! apply_filters( 'poocommerce_disable_password_change_notification', false ) ) {
 			wp_password_change_notification( $user );
 		}
 	}
@@ -453,11 +453,11 @@ class WC_Shortcode_My_Account {
 			wp_safe_redirect( wc_get_page_permalink( 'myaccount' ) );
 			exit();
 		} else {
-			do_action( 'before_woocommerce_add_payment_method' );
+			do_action( 'before_poocommerce_add_payment_method' );
 
 			wc_get_template( 'myaccount/form-add-payment-method.php' );
 
-			do_action( 'after_woocommerce_add_payment_method' );
+			do_action( 'after_poocommerce_add_payment_method' );
 		}
 	}
 }

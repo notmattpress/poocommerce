@@ -1,7 +1,7 @@
-# Claude Code Documentation for WooCommerce Admin Client
+# Claude Code Documentation for PooCommerce Admin Client
 
 **Scope**: React/TypeScript development, Jest testing, Webpack builds
-**Location**: `plugins/woocommerce/client/admin`
+**Location**: `plugins/poocommerce/client/admin`
 
 **See also:**
 
@@ -39,7 +39,7 @@ For module-specific patterns (like settings-payments), see the module's CLAUDE.m
 
 ## Overview
 
-The WooCommerce Admin client is a React-based application that provides the modern admin interface for WooCommerce.
+The PooCommerce Admin client is a React-based application that provides the modern admin interface for PooCommerce.
 It includes:
 
 - Analytics dashboards and reports
@@ -160,7 +160,7 @@ even when you pass file arguments. Use `npx eslint` directly for per-file lintin
 **JavaScript Linting Configuration:**
 
 - **Tool**: ESLint 8.x
-- **Config**: Uses `@woocommerce/eslint-plugin`
+- **Config**: Uses `@poocommerce/eslint-plugin`
 - **Files**: `./client/**/*.{js,ts,tsx}`
 - **Cache**: `node_modules/.cache/eslint`
 - **Note**: ESLint may show warnings from other files during scans; ignore them
@@ -282,7 +282,7 @@ The repository uses lint-staged for pre-commit checks:
 
 ### Data Layer / UI Separation (Monorepo Pattern)
 
-WooCommerce uses a strict separation between data layer and UI layer:
+PooCommerce uses a strict separation between data layer and UI layer:
 
 **Data layer** (in `packages/js/data/`):
 
@@ -317,7 +317,7 @@ When rendering disabled/unsupported features, pass minimal props to prevent inad
 ## Accessibility (WAI-ARIA)
 
 All UI components must follow WAI-ARIA guidelines. This section captures only the
-WooCommerce-specific guidance; for the general rules (semantic HTML first, ARIA
+PooCommerce-specific guidance; for the general rules (semantic HTML first, ARIA
 patterns for dialogs/forms/status, focus management, jest-axe) follow the
 [WordPress Accessibility Handbook](https://make.wordpress.org/accessibility/handbook/)
 and the [WAI-ARIA Authoring Practices](https://www.w3.org/WAI/ARIA/apg/).
@@ -326,7 +326,7 @@ and the [WAI-ARIA Authoring Practices](https://www.w3.org/WAI/ARIA/apg/).
 `getByRole` (interactive elements) → `getByLabelText` (form inputs) → `getByText`
 → `getByTitle`. Prefer these over `data-testid` so tests assert the accessible name.
 
-### Common WooCommerce Admin Patterns
+### Common PooCommerce Admin Patterns
 
 **WordPress Components:**
 
@@ -547,4 +547,4 @@ The package includes CI configuration in `config.ci`:
 - Add tests for new components and features
 - Keep dependencies up to date but test thoroughly
 - Use workspace dependencies (`workspace:*`) for internal packages
-- Respect the monorepo structure - this package depends on other WooCommerce packages
+- Respect the monorepo structure - this package depends on other PooCommerce packages

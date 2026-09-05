@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Api;
+namespace Automattic\PooCommerce\Api;
 
 /**
  * Exception for API errors with error codes and extensions.

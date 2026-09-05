@@ -1,17 +1,17 @@
 <?php
 /**
- * This file is part of the WooCommerce Email Editor package
+ * This file is part of the PooCommerce Email Editor package
  *
- * @package Automattic\WooCommerce\EmailEditor
+ * @package Automattic\PooCommerce\EmailEditor
  */
 
 declare( strict_types = 1 );
-namespace Automattic\WooCommerce\EmailEditor\Tests\Integration\Integrations\Core\Renderer\Blocks;
+namespace Automattic\PooCommerce\EmailEditor\Tests\Integration\Integrations\Core\Renderer\Blocks;
 
-use Automattic\WooCommerce\EmailEditor\Engine\Email_Editor;
-use Automattic\WooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Rendering_Context;
-use Automattic\WooCommerce\EmailEditor\Engine\Theme_Controller;
-use Automattic\WooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks\Gallery;
+use Automattic\PooCommerce\EmailEditor\Engine\Email_Editor;
+use Automattic\PooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Rendering_Context;
+use Automattic\PooCommerce\EmailEditor\Engine\Theme_Controller;
+use Automattic\PooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks\Gallery;
 
 /**
  * Integration test for Gallery class
@@ -482,9 +482,9 @@ class Gallery_Test extends \Email_Editor_Integration_Test_Case {
 			);
 			return $url;
 		};
-		add_filter( 'woocommerce_email_editor_gallery_cropped_image_url', $filter, 10, 5 );
+		add_filter( 'poocommerce_email_editor_gallery_cropped_image_url', $filter, 10, 5 );
 		$this->gallery_renderer->render( '', $parsed_gallery, $this->rendering_context );
-		remove_filter( 'woocommerce_email_editor_gallery_cropped_image_url', $filter, 10 );
+		remove_filter( 'poocommerce_email_editor_gallery_cropped_image_url', $filter, 10 );
 
 		$this->assertCount( 3, $received, 'The filter runs once per gallery image.' );
 		$this->assertSame( 'https://example.com/image1.jpg', $received[0]['url'] );
@@ -505,9 +505,9 @@ class Gallery_Test extends \Email_Editor_Integration_Test_Case {
 		$filter = function ( $url, $aspect_ratio, $width, $height ) {
 			return $url . '?resize=' . $width . ',' . $height . '&crop=1';
 		};
-		add_filter( 'woocommerce_email_editor_gallery_cropped_image_url', $filter, 10, 4 );
+		add_filter( 'poocommerce_email_editor_gallery_cropped_image_url', $filter, 10, 4 );
 		$rendered = $this->gallery_renderer->render( '', $parsed_gallery, $this->rendering_context );
-		remove_filter( 'woocommerce_email_editor_gallery_cropped_image_url', $filter, 10 );
+		remove_filter( 'poocommerce_email_editor_gallery_cropped_image_url', $filter, 10 );
 
 		// The rewritten (cropped) URL is used.
 		$this->assertStringContainsString( 'crop=1', $rendered );
@@ -607,9 +607,9 @@ class Gallery_Test extends \Email_Editor_Integration_Test_Case {
 			$widths[] = $width;
 			return $url;
 		};
-		add_filter( 'woocommerce_email_editor_gallery_cropped_image_url', $filter, 10, 3 );
+		add_filter( 'poocommerce_email_editor_gallery_cropped_image_url', $filter, 10, 3 );
 		$this->gallery_renderer->render( '', $parsed_gallery, $this->rendering_context );
-		remove_filter( 'woocommerce_email_editor_gallery_cropped_image_url', $filter, 10 );
+		remove_filter( 'poocommerce_email_editor_gallery_cropped_image_url', $filter, 10 );
 
 		$this->assertCount( 4, $widths, 'The filter runs once per gallery image.' );
 		// The first three images share a full row (one-third width each); the fourth is alone in the

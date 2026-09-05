@@ -2,7 +2,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-register_woocommerce_admin_test_helper_rest_route(
+register_poocommerce_admin_test_helper_rest_route(
 	'/tools/set-wccom-request-errors/v1',
 	'tools_set_wccom_request_errors',
 	array(
@@ -17,7 +17,7 @@ register_woocommerce_admin_test_helper_rest_route(
 	)
 );
 
-register_woocommerce_admin_test_helper_rest_route(
+register_poocommerce_admin_test_helper_rest_route(
 	'/tools/get-wccom-request-errors/v1',
 	'tools_get_wccom_request_errors',
 	array(

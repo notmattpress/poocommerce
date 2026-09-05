@@ -3,16 +3,16 @@
  * API\Reports\Taxes\DataStore class file.
  */
 
-namespace Automattic\WooCommerce\Admin\API\Reports\Taxes;
+namespace Automattic\PooCommerce\Admin\API\Reports\Taxes;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\API\Reports\DataStore as ReportsDataStore;
-use Automattic\WooCommerce\Admin\API\Reports\DataStoreInterface;
-use Automattic\WooCommerce\Admin\API\Reports\TimeInterval;
-use Automattic\WooCommerce\Admin\API\Reports\SqlQuery;
-use Automattic\WooCommerce\Admin\API\Reports\Cache as ReportsCache;
-use Automattic\WooCommerce\Enums\OrderItemType;
+use Automattic\PooCommerce\Admin\API\Reports\DataStore as ReportsDataStore;
+use Automattic\PooCommerce\Admin\API\Reports\DataStoreInterface;
+use Automattic\PooCommerce\Admin\API\Reports\TimeInterval;
+use Automattic\PooCommerce\Admin\API\Reports\SqlQuery;
+use Automattic\PooCommerce\Admin\API\Reports\Cache as ReportsCache;
+use Automattic\PooCommerce\Enums\OrderItemType;
 
 /**
  * API\Reports\Taxes\DataStore.
@@ -76,7 +76,7 @@ class DataStore extends ReportsDataStore implements DataStoreInterface {
 	 * @override ReportsDataStore::__construct()
 	 */
 	public function __construct() {
-		$this->date_column_name = $this->sanitize_date_column_name( get_option( 'woocommerce_date_type' ), 'date_paid' );
+		$this->date_column_name = $this->sanitize_date_column_name( get_option( 'poocommerce_date_type' ), 'date_paid' );
 		parent::__construct();
 	}
 
@@ -89,26 +89,26 @@ class DataStore extends ReportsDataStore implements DataStoreInterface {
 		global $wpdb;
 		$table_name = self::get_db_table_name();
 
-		// Using wp_woocommerce_tax_rates table limits the result to only the existing tax rates and
+		// Using wp_poocommerce_tax_rates table limits the result to only the existing tax rates and
 		// omits the historical records which differs from the purpose of wp_wc_order_tax_lookup table.
-		// So in order to get the same data present in wp_woocommerce_tax_rates without breaking the
-		// API contract the values are now retrieved from wp_woocommerce_order_items and wp_woocommerce_order_itemmeta.
-		// And given that country, state and priority are not separate columns within the woocommerce_order_items,
+		// So in order to get the same data present in wp_poocommerce_tax_rates without breaking the
+		// API contract the values are now retrieved from wp_poocommerce_order_items and wp_poocommerce_order_itemmeta.
+		// And given that country, state and priority are not separate columns within the poocommerce_order_items,
 		// a split to order_item_name column value is required to separate those values. This is not ideal,
 		// but given this query is paginated and cached, then it is not a big deal. There is always room for
 		// improvements here.
 		$this->report_columns = array(
 			'tax_rate_id'  => "{$table_name}.tax_rate_id",
-			'name'         => "SUBSTRING_INDEX(SUBSTRING_INDEX({$wpdb->prefix}woocommerce_order_items.order_item_name,'-',-2), '-', 1) as name",
+			'name'         => "SUBSTRING_INDEX(SUBSTRING_INDEX({$wpdb->prefix}poocommerce_order_items.order_item_name,'-',-2), '-', 1) as name",
 			'tax_rate'     => 'CAST(itemmeta_rate_percent.meta_value AS DECIMAL(7,4)) as tax_rate',
-			'country'      => "SUBSTRING_INDEX({$wpdb->prefix}woocommerce_order_items.order_item_name,'-',1) as country",
-			'state'        => "SUBSTRING_INDEX(SUBSTRING_INDEX({$wpdb->prefix}woocommerce_order_items.order_item_name,'-',-3), '-', 1) as state",
-			'priority'     => "SUBSTRING_INDEX({$wpdb->prefix}woocommerce_order_items.order_item_name,'-',-1) as priority",
+			'country'      => "SUBSTRING_INDEX({$wpdb->prefix}poocommerce_order_items.order_item_name,'-',1) as country",
+			'state'        => "SUBSTRING_INDEX(SUBSTRING_INDEX({$wpdb->prefix}poocommerce_order_items.order_item_name,'-',-3), '-', 1) as state",
+			'priority'     => "SUBSTRING_INDEX({$wpdb->prefix}poocommerce_order_items.order_item_name,'-',-1) as priority",
 			'total_tax'    => 'SUM(total_tax) as total_tax',
 			'order_tax'    => 'SUM(order_tax) as order_tax',
 			'shipping_tax' => 'SUM(shipping_tax) as shipping_tax',
 			// parent_id stays unqualified: wc_order_stats is the only joined table carrying it, and
-			// this string is carried by the public woocommerce_admin_report_columns filter, so it must
+			// this string is carried by the public poocommerce_admin_report_columns filter, so it must
 			// match the released form for extension callbacks that inspect or rewrite it.
 			'orders_count' => "COUNT( DISTINCT ( CASE WHEN parent_id = 0 THEN {$table_name}.order_id END ) ) as orders_count",
 		);
@@ -118,7 +118,7 @@ class DataStore extends ReportsDataStore implements DataStoreInterface {
 	 * Set up all the hooks for maintaining and populating table data.
 	 */
 	public static function init() {
-		add_action( 'woocommerce_analytics_delete_order_stats', array( __CLASS__, 'sync_on_order_delete' ), 15 );
+		add_action( 'poocommerce_analytics_delete_order_stats', array( __CLASS__, 'sync_on_order_delete' ), 15 );
 	}
 
 	/**
@@ -135,15 +135,15 @@ class DataStore extends ReportsDataStore implements DataStoreInterface {
 		// configured date column (date_paid by default) and the status subquery relies on it.
 		$this->subquery->add_sql_clause( 'join', "JOIN {$wpdb->prefix}wc_order_stats ON {$table_name}.order_id = {$wpdb->prefix}wc_order_stats.order_id" );
 
-		$this->subquery->add_sql_clause( 'join', "JOIN {$wpdb->prefix}woocommerce_order_items ON {$table_name}.order_id = {$wpdb->prefix}woocommerce_order_items.order_id AND {$wpdb->prefix}woocommerce_order_items.order_item_type = 'tax'" );
-		$this->subquery->add_sql_clause( 'join', "JOIN {$wpdb->prefix}woocommerce_order_itemmeta itemmeta_rate_id ON itemmeta_rate_id.order_item_id = {$wpdb->prefix}woocommerce_order_items.order_item_id AND itemmeta_rate_id.meta_key = 'rate_id'" );
-		$this->subquery->add_sql_clause( 'join', "JOIN {$wpdb->prefix}woocommerce_order_itemmeta itemmeta_rate_percent ON itemmeta_rate_percent.order_item_id = {$wpdb->prefix}woocommerce_order_items.order_item_id AND itemmeta_rate_percent.meta_key = 'rate_percent'" );
+		$this->subquery->add_sql_clause( 'join', "JOIN {$wpdb->prefix}poocommerce_order_items ON {$table_name}.order_id = {$wpdb->prefix}poocommerce_order_items.order_id AND {$wpdb->prefix}poocommerce_order_items.order_item_type = 'tax'" );
+		$this->subquery->add_sql_clause( 'join', "JOIN {$wpdb->prefix}poocommerce_order_itemmeta itemmeta_rate_id ON itemmeta_rate_id.order_item_id = {$wpdb->prefix}poocommerce_order_items.order_item_id AND itemmeta_rate_id.meta_key = 'rate_id'" );
+		$this->subquery->add_sql_clause( 'join', "JOIN {$wpdb->prefix}poocommerce_order_itemmeta itemmeta_rate_percent ON itemmeta_rate_percent.order_item_id = {$wpdb->prefix}poocommerce_order_items.order_item_id AND itemmeta_rate_percent.meta_key = 'rate_percent'" );
 	}
 
 	/**
 	 * Updates the database query with parameters used for Taxes report: categories and order status.
 	 *
-	 * @see Automattic\WooCommerce\Admin\API\Reports\Taxes\Stats\DataStore::update_sql_query_params()
+	 * @see Automattic\PooCommerce\Admin\API\Reports\Taxes\Stats\DataStore::update_sql_query_params()
 	 * @param array $query_args Query arguments supplied by the user.
 	 */
 	protected function add_sql_query_params( $query_args ) {
@@ -173,7 +173,7 @@ class DataStore extends ReportsDataStore implements DataStoreInterface {
 		 * how the report read them all along. OrderTaxLookupMigrator rebuilds them in the
 		 * background.
 		 */
-		$this->subquery->add_sql_clause( 'where', "AND ( {$order_tax_lookup_table}.order_item_id = 0 OR {$order_tax_lookup_table}.order_item_id = {$wpdb->prefix}woocommerce_order_items.order_item_id )" );
+		$this->subquery->add_sql_clause( 'where', "AND ( {$order_tax_lookup_table}.order_item_id = 0 OR {$order_tax_lookup_table}.order_item_id = {$wpdb->prefix}poocommerce_order_items.order_item_id )" );
 
 		if ( isset( $query_args['taxes'] ) && ! empty( $query_args['taxes'] ) ) {
 			$allowed_taxes = self::get_filtered_ids( $query_args, 'taxes' );
@@ -287,7 +287,7 @@ class DataStore extends ReportsDataStore implements DataStoreInterface {
 		global $wpdb;
 
 		if ( 'tax_code' === $order_by ) {
-			return "{$wpdb->prefix}woocommerce_order_items.order_item_name";
+			return "{$wpdb->prefix}poocommerce_order_items.order_item_name";
 		} elseif ( 'rate' === $order_by ) {
 			return 'tax_rate';
 		}
@@ -315,7 +315,7 @@ class DataStore extends ReportsDataStore implements DataStoreInterface {
 	 * `OrderTaxLookupMigrator` reads this too: a rebuild over such a table would write every row
 	 * back at zero while stepping the cursor past it, so it waits instead.
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 * @since 11.2.0
 	 *
 	 * @return bool
@@ -486,7 +486,7 @@ class DataStore extends ReportsDataStore implements DataStoreInterface {
 			 *
 			 * @since 4.0.0
 			 */
-			do_action( 'woocommerce_analytics_update_tax', $tax_item->get_rate_id(), $order->get_id() );
+			do_action( 'poocommerce_analytics_update_tax', $tax_item->get_rate_id(), $order->get_id() );
 		}
 
 		return true;
@@ -508,7 +508,7 @@ class DataStore extends ReportsDataStore implements DataStoreInterface {
 		 * @param int $tax_rate_id Tax Rate ID.
 		 * @param int $order_id    Order ID.
 		 */
-		do_action( 'woocommerce_analytics_delete_tax', 0, $order_id );
+		do_action( 'poocommerce_analytics_delete_tax', 0, $order_id );
 
 		ReportsCache::invalidate();
 	}
@@ -524,6 +524,6 @@ class DataStore extends ReportsDataStore implements DataStoreInterface {
 		$this->subquery->add_sql_clause( 'select', self::get_db_table_name() . '.tax_rate_id' );
 		$this->subquery->add_sql_clause( 'from', self::get_db_table_name() );
 		$this->subquery->add_sql_clause( 'group_by', self::get_db_table_name() . '.tax_rate_id' );
-		$this->subquery->add_sql_clause( 'group_by', ", {$wpdb->prefix}woocommerce_order_items.order_item_name, itemmeta_rate_percent.meta_value" );
+		$this->subquery->add_sql_clause( 'group_by', ", {$wpdb->prefix}poocommerce_order_items.order_item_name, itemmeta_rate_percent.meta_value" );
 	}
 }

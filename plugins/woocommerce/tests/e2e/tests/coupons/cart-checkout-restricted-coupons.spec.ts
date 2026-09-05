@@ -6,7 +6,7 @@ import {
 	addAProductToCart,
 	getOrderIdFromUrl,
 	WC_API_PATH,
-} from '@woocommerce/e2e-utils-playwright';
+} from '@poocommerce/e2e-utils-playwright';
 import { faker } from '@faker-js/faker';
 
 /**
@@ -25,7 +25,7 @@ const includedProductName = 'Included test product';
 const includedCategoryName = 'Included Category';
 
 // Coupon codes are global: suffix each with a random token so a run never
-// collides with a concurrent or leftover coupon of the same code. WooCommerce
+// collides with a concurrent or leftover coupon of the same code. PooCommerce
 // stores codes lowercased, so keep the suffix lowercase for the error-message
 // assertions (which echo the stored code) to match.
 const couponSuffix = faker.string.alphanumeric( 8 ).toLowerCase();
@@ -78,14 +78,14 @@ test.describe(
 
 			await restApi.post( `${ WC_API_PATH }/settings/general/batch`, {
 				update: [
-					{ id: 'woocommerce_store_address', value: 'addr 1' },
-					{ id: 'woocommerce_store_city', value: 'San Francisco' },
-					{ id: 'woocommerce_default_country', value: 'US:CA' },
-					{ id: 'woocommerce_store_postcode', value: '94107' },
+					{ id: 'poocommerce_store_address', value: 'addr 1' },
+					{ id: 'poocommerce_store_city', value: 'San Francisco' },
+					{ id: 'poocommerce_default_country', value: 'US:CA' },
+					{ id: 'poocommerce_store_postcode', value: '94107' },
 				],
 			} );
 			await restApi.put(
-				`${ WC_API_PATH }/settings/general/woocommerce_currency`,
+				`${ WC_API_PATH }/settings/general/poocommerce_currency`,
 				{ value: 'USD' }
 			);
 			// COD is enabled globally in site setup; guard defensively in case it

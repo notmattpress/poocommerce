@@ -2,21 +2,21 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\StockNotifications;
+namespace Automattic\PooCommerce\Internal\StockNotifications;
 
-use Automattic\WooCommerce\Internal\DataStores\StockNotifications\StockNotificationsDataStore;
-use Automattic\WooCommerce\Internal\Features\FeaturesController;
-use Automattic\WooCommerce\Internal\RegisterHooksInterface;
-use Automattic\WooCommerce\Internal\StockNotifications\Emails\EmailActionController;
-use Automattic\WooCommerce\Internal\StockNotifications\StockSyncController;
-use Automattic\WooCommerce\Internal\StockNotifications\Privacy\PrivacyEraser;
-use Automattic\WooCommerce\Internal\StockNotifications\Emails\EmailManager;
-use Automattic\WooCommerce\Internal\StockNotifications\AsyncTasks\NotificationsProcessor;
-use Automattic\WooCommerce\Internal\StockNotifications\Admin\AdminManager;
-use Automattic\WooCommerce\Internal\StockNotifications\Frontend\ProductPageIntegration;
-use Automattic\WooCommerce\Internal\StockNotifications\Frontend\FormHandlerService;
-use Automattic\WooCommerce\Internal\StockNotifications\Frontend\NotificationManagementService;
-use Automattic\WooCommerce\Utilities\FeaturesUtil;
+use Automattic\PooCommerce\Internal\DataStores\StockNotifications\StockNotificationsDataStore;
+use Automattic\PooCommerce\Internal\Features\FeaturesController;
+use Automattic\PooCommerce\Internal\RegisterHooksInterface;
+use Automattic\PooCommerce\Internal\StockNotifications\Emails\EmailActionController;
+use Automattic\PooCommerce\Internal\StockNotifications\StockSyncController;
+use Automattic\PooCommerce\Internal\StockNotifications\Privacy\PrivacyEraser;
+use Automattic\PooCommerce\Internal\StockNotifications\Emails\EmailManager;
+use Automattic\PooCommerce\Internal\StockNotifications\AsyncTasks\NotificationsProcessor;
+use Automattic\PooCommerce\Internal\StockNotifications\Admin\AdminManager;
+use Automattic\PooCommerce\Internal\StockNotifications\Frontend\ProductPageIntegration;
+use Automattic\PooCommerce\Internal\StockNotifications\Frontend\FormHandlerService;
+use Automattic\PooCommerce\Internal\StockNotifications\Frontend\NotificationManagementService;
+use Automattic\PooCommerce\Utilities\FeaturesUtil;
 
 /**
  * The controller for the stock notifications.
@@ -34,7 +34,7 @@ class StockNotifications implements RegisterHooksInterface {
 	 * Declared as `option_key` in the feature definition, so this constant is the
 	 * single source of truth rather than a copy of a derived name.
 	 */
-	public const ENABLE_OPTION_NAME = 'woocommerce_feature_customer_stock_notifications_enabled';
+	public const ENABLE_OPTION_NAME = 'poocommerce_feature_customer_stock_notifications_enabled';
 
 	/**
 	 * Register the hooks that must exist regardless of the feature's state.
@@ -47,12 +47,12 @@ class StockNotifications implements RegisterHooksInterface {
 	 */
 	public function register(): void {
 		add_action( 'init', array( $this, 'maybe_init_services' ), 1 );
-		add_action( 'woocommerce_installed', array( $this, 'on_install_or_update' ) );
+		add_action( 'poocommerce_installed', array( $this, 'on_install_or_update' ) );
 		add_action( FeaturesController::FEATURE_ENABLED_CHANGED_ACTION, array( $this, 'on_feature_enabled_changed' ), 10, 2 );
 	}
 
 	/**
-	 * Set up the data retention tasks when WooCommerce is installed or updated.
+	 * Set up the data retention tasks when PooCommerce is installed or updated.
 	 */
 	public function on_install_or_update() {
 		if ( ! FeaturesUtil::feature_is_enabled( self::FEATURE_NAME ) ) {
@@ -84,7 +84,7 @@ class StockNotifications implements RegisterHooksInterface {
 		$enabled = filter_var( $enabled, FILTER_VALIDATE_BOOLEAN );
 
 		// The My Account endpoint appears or disappears with the feature.
-		update_option( 'woocommerce_queue_flush_rewrite_rules', 'yes' );
+		update_option( 'poocommerce_queue_flush_rewrite_rules', 'yes' );
 
 		$data_retention_controller = wc_get_container()->get( DataRetentionController::class );
 
@@ -99,7 +99,7 @@ class StockNotifications implements RegisterHooksInterface {
 	 * Wire up the services, unless the feature is disabled.
 	 *
 	 * Runs on `init` priority 1: after the textdomain is loaded, and before
-	 * `WC_Install::check_version()` (priority 5) fires `woocommerce_installed`.
+	 * `WC_Install::check_version()` (priority 5) fires `poocommerce_installed`.
 	 *
 	 * @internal
 	 */
@@ -108,7 +108,7 @@ class StockNotifications implements RegisterHooksInterface {
 			return;
 		}
 
-		add_filter( 'woocommerce_data_stores', array( $this, 'register_data_stores' ) );
+		add_filter( 'poocommerce_data_stores', array( $this, 'register_data_stores' ) );
 
 		$container = wc_get_container();
 		$container->get( EmailManager::class );

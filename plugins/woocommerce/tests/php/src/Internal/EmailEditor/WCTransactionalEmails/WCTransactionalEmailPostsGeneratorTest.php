@@ -2,14 +2,14 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\EmailEditor\WCTransactionalEmails;
+namespace Automattic\PooCommerce\Tests\Internal\EmailEditor\WCTransactionalEmails;
 
-use Automattic\WooCommerce\Internal\EmailEditor\EmailTemplates\WooEmailTemplate;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateDivergenceDetector;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateSyncRegistry;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmails;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsGenerator;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsManager;
+use Automattic\PooCommerce\Internal\EmailEditor\EmailTemplates\WooEmailTemplate;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateDivergenceDetector;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateSyncRegistry;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmails;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsGenerator;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsManager;
 
 /**
  * Tests for the WCTransactionalEmailPostsGenerator class.
@@ -44,7 +44,7 @@ class WCTransactionalEmailPostsGeneratorTest extends \WC_Unit_Test_Case {
 	 */
 	public function setUp(): void {
 		parent::setUp();
-		add_option( 'woocommerce_feature_block_email_editor_enabled', 'yes' );
+		add_option( 'poocommerce_feature_block_email_editor_enabled', 'yes' );
 		$this->email_generator  = new WCTransactionalEmailPostsGenerator();
 		$this->template_manager = WCTransactionalEmailPostsManager::get_instance();
 		$this->fixtures_base    = __DIR__ . '/fixtures/';
@@ -141,7 +141,7 @@ class WCTransactionalEmailPostsGeneratorTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_create_draft_forces_draft_status_over_filter(): void {
 		add_filter(
-			'woocommerce_email_content_post_data',
+			'poocommerce_email_content_post_data',
 			static function ( array $post_data ): array {
 				$post_data['post_status'] = 'publish';
 				return $post_data;
@@ -157,7 +157,7 @@ class WCTransactionalEmailPostsGeneratorTest extends \WC_Unit_Test_Case {
 		$this->assertSame(
 			'draft',
 			get_post_status( $post_id ),
-			'The post status is system-owned and must not be overridable by the woocommerce_email_content_post_data filter.'
+			'The post status is system-owned and must not be overridable by the poocommerce_email_content_post_data filter.'
 		);
 	}
 
@@ -333,7 +333,7 @@ class WCTransactionalEmailPostsGeneratorTest extends \WC_Unit_Test_Case {
 		$this->injected_email_keys[] = $class_key;
 
 		add_filter(
-			'woocommerce_transactional_emails_for_block_editor',
+			'poocommerce_transactional_emails_for_block_editor',
 			static function ( array $emails ) use ( $email_id ): array {
 				if ( ! in_array( $email_id, $emails, true ) ) {
 					$emails[] = $email_id;
@@ -432,12 +432,12 @@ class WCTransactionalEmailPostsGeneratorTest extends \WC_Unit_Test_Case {
 			$this->injected_email_keys = array();
 		}
 
-		remove_all_filters( 'woocommerce_transactional_emails_for_block_editor' );
-		remove_all_filters( 'woocommerce_email_content_post_data' );
+		remove_all_filters( 'poocommerce_transactional_emails_for_block_editor' );
+		remove_all_filters( 'poocommerce_email_content_post_data' );
 
 		WCEmailTemplateSyncRegistry::reset_cache();
 
 		parent::tearDown();
-		update_option( 'woocommerce_feature_block_email_editor_enabled', 'no' );
+		update_option( 'poocommerce_feature_block_email_editor_enabled', 'no' );
 	}
 }

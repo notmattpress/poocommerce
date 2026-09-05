@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\TransientFiles;
+namespace Automattic\PooCommerce\Tests\Internal\TransientFiles;
 
 /**
  * A stream wrapper backed by a local directory, for testing code that runs on installs where the

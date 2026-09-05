@@ -1,15 +1,15 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "woocommerce/add-to-wishlist-button",
+	"name": "poocommerce/add-to-wishlist-button",
 	"version": "1.0.0",
 	"title": "Add to Wishlist Button",
 	"description": "Lets shoppers add the current product to their wishlist from the single-product page.",
-	"category": "woocommerce",
-	"keywords": [ "WooCommerce", "Wishlist" ],
-	"textdomain": "woocommerce",
+	"category": "poocommerce",
+	"keywords": [ "PooCommerce", "Wishlist" ],
+	"textdomain": "poocommerce",
 	"usesContext": [ "postId" ],
-	"ancestor": [ "woocommerce/add-to-cart-with-options" ],
+	"ancestor": [ "poocommerce/add-to-cart-with-options" ],
 	"supports": {
 		"interactivity": true,
 		"html": false,
@@ -28,6 +28,6 @@
 			"background": true
 		}
 	},
-	"viewScriptModule": "woocommerce/add-to-wishlist-button",
-	"style": [ "file:../woocommerce/add-to-wishlist-button-style.css" ]
+	"viewScriptModule": "poocommerce/add-to-wishlist-button",
+	"style": [ "file:../poocommerce/add-to-wishlist-button-style.css" ]
 }

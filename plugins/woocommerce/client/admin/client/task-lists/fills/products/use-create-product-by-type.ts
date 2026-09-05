@@ -2,9 +2,9 @@
  * External dependencies
  */
 import { useDispatch } from '@wordpress/data';
-import { itemsStore } from '@woocommerce/data';
-import { navigateTo } from '@woocommerce/navigation';
-import { getAdminLink } from '@woocommerce/settings';
+import { itemsStore } from '@poocommerce/data';
+import { navigateTo } from '@poocommerce/navigation';
+import { getAdminLink } from '@poocommerce/settings';
 import { useState } from '@wordpress/element';
 
 /**

@@ -2,14 +2,14 @@
 /**
  * POS Product Visibility Sync class.
  *
- * @package Automattic\WooCommerce\Internal\ProductFeed\Integrations\POSCatalog
+ * @package Automattic\PooCommerce\Internal\ProductFeed\Integrations\POSCatalog
  */
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Internal\ProductFeed\Integrations\POSCatalog;
+namespace Automattic\PooCommerce\Internal\ProductFeed\Integrations\POSCatalog;
 
-use Automattic\WooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Enums\ProductType;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -35,7 +35,7 @@ class POSProductVisibilitySync {
 	 * @return void
 	 */
 	public function register_hooks(): void {
-		add_action( 'woocommerce_new_product_variation', array( $this, 'inherit_parent_pos_visibility' ), 10, 2 );
+		add_action( 'poocommerce_new_product_variation', array( $this, 'inherit_parent_pos_visibility' ), 10, 2 );
 	}
 
 	/**

@@ -1,12 +1,12 @@
 <?php
 
-use Automattic\WooCommerce\Enums\ProductTaxStatus;
-use Automattic\WooCommerce\Utilities\ArrayUtil;
+use Automattic\PooCommerce\Enums\ProductTaxStatus;
+use Automattic\PooCommerce\Utilities\ArrayUtil;
 
 /**
  * Shipping Zones API Tests
  *
- * @package WooCommerce\Tests\API
+ * @package PooCommerce\Tests\API
  * @since 3.5.0
  */
 class WC_Tests_API_Shipping_Zones extends WC_REST_Unit_Test_Case {
@@ -168,7 +168,7 @@ class WC_Tests_API_Shipping_Zones extends WC_REST_Unit_Test_Case {
 		$response = $this->server->dispatch( $request );
 		$data     = $response->get_data();
 		$this->assertEquals( 403, $response->get_status() );
-		$this->assertSame( 'woocommerce_rest_shipping_zone_invalid_zone', $data['code'] );
+		$this->assertSame( 'poocommerce_rest_shipping_zone_invalid_zone', $data['code'] );
 		$this->assertSame( 'The "locations not covered by your other zones" zone cannot be updated.', $data['message'] );
 
 		$request = new WP_REST_Request( 'PUT', '/wc/v3/shipping/zones/0/locations' );
@@ -177,7 +177,7 @@ class WC_Tests_API_Shipping_Zones extends WC_REST_Unit_Test_Case {
 		$response = $this->server->dispatch( $request );
 		$data     = $response->get_data();
 		$this->assertEquals( 403, $response->get_status() );
-		$this->assertSame( 'woocommerce_rest_shipping_zone_locations_invalid_zone', $data['code'] );
+		$this->assertSame( 'poocommerce_rest_shipping_zone_locations_invalid_zone', $data['code'] );
 		$this->assertSame( 'The "locations not covered by your other zones" zone cannot be updated.', $data['message'] );
 	}
 
@@ -194,7 +194,7 @@ class WC_Tests_API_Shipping_Zones extends WC_REST_Unit_Test_Case {
 	}
 
 	/**
-	 * Test /shipping/zones while Shipping is disabled in WooCommerce.
+	 * Test /shipping/zones while Shipping is disabled in PooCommerce.
 	 *
 	 * @since 3.5.0
 	 */
@@ -386,7 +386,7 @@ class WC_Tests_API_Shipping_Zones extends WC_REST_Unit_Test_Case {
 
 		$response = $this->server->dispatch( new WP_REST_Request( 'GET', '/wc/v3/shipping/zones/' . $zone->get_id() ) );
 		$this->assertEquals( 404, $response->get_status() );
-		$this->assertSame( 'woocommerce_rest_shipping_zone_invalid', $response->get_data()['code'] );
+		$this->assertSame( 'poocommerce_rest_shipping_zone_invalid', $response->get_data()['code'] );
 	}
 
 	/**

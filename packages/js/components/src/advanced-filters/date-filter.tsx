@@ -6,7 +6,7 @@ import { SelectControl } from '@wordpress/components';
 import { find, partial } from 'lodash';
 import clsx from 'clsx';
 import { __, _x } from '@wordpress/i18n';
-import { isoDateFormat, toMoment } from '@woocommerce/date';
+import { isoDateFormat, toMoment } from '@poocommerce/date';
 import moment from 'moment';
 import type { Moment } from 'moment';
 import type { ReactNode } from 'react';
@@ -21,8 +21,8 @@ import {
 } from './utils';
 import type { FilterComponentProps, FilterConfig, FilterRule } from './types';
 
-const dateStringFormat = __( 'MMM D, YYYY', 'woocommerce' );
-const dateFormat = __( 'MM/DD/YYYY', 'woocommerce' );
+const dateStringFormat = __( 'MMM D, YYYY', 'poocommerce' );
+const dateFormat = __( 'MM/DD/YYYY', 'poocommerce' );
 
 export type DateFilterProps = FilterComponentProps;
 
@@ -74,7 +74,7 @@ class DateFilter extends Component< DateFilterProps, DateFilterState > {
 		return _x(
 			'<after/><span> and </span><before/>',
 			'Date range inputs arranged on a single line',
-			'woocommerce'
+			'poocommerce'
 		);
 	}
 
@@ -270,7 +270,7 @@ class DateFilter extends Component< DateFilterProps, DateFilterState > {
 					__next40pxDefaultSize
 					className={ clsx(
 						className,
-						'woocommerce-filters-advanced__rule'
+						'poocommerce-filters-advanced__rule'
 					) }
 					options={ rules }
 					value={ rule }
@@ -282,7 +282,7 @@ class DateFilter extends Component< DateFilterProps, DateFilterState > {
 				<div
 					className={ clsx(
 						className,
-						'woocommerce-filters-advanced__input-range',
+						'poocommerce-filters-advanced__input-range',
 						{
 							'is-between': rule === 'between',
 						}
@@ -295,7 +295,7 @@ class DateFilter extends Component< DateFilterProps, DateFilterState > {
 
 		return (
 			<fieldset
-				className="woocommerce-filters-advanced__line-item"
+				className="poocommerce-filters-advanced__line-item"
 				tabIndex={ 0 }
 			>
 				<legend className="screen-reader-text">
@@ -303,7 +303,7 @@ class DateFilter extends Component< DateFilterProps, DateFilterState > {
 				</legend>
 				<div
 					className={ clsx(
-						'woocommerce-filters-advanced__fieldset',
+						'poocommerce-filters-advanced__fieldset',
 						{
 							'is-english': isEnglish,
 						}

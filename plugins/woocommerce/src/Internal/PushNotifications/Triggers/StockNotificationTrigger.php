@@ -2,16 +2,16 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\PushNotifications\Triggers;
+namespace Automattic\PooCommerce\Internal\PushNotifications\Triggers;
 
-use Automattic\WooCommerce\Internal\PushNotifications\Notifications\StockNotification;
-use Automattic\WooCommerce\Internal\PushNotifications\Services\PendingNotificationStore;
+use Automattic\PooCommerce\Internal\PushNotifications\Notifications\StockNotification;
+use Automattic\PooCommerce\Internal\PushNotifications\Services\PendingNotificationStore;
 use WC_Product;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Listens for WooCommerce stock events and feeds stock notifications into
+ * Listens for PooCommerce stock events and feeds stock notifications into
  * the PendingNotificationStore.
  *
  * @since 10.9.0
@@ -25,13 +25,13 @@ class StockNotificationTrigger {
 	 * @since 10.9.0
 	 */
 	public function register(): void {
-		add_action( 'woocommerce_low_stock', array( $this, 'on_low_stock' ) );
-		add_action( 'woocommerce_no_stock', array( $this, 'on_no_stock' ) );
-		add_action( 'woocommerce_product_on_backorder', array( $this, 'on_backorder' ) );
+		add_action( 'poocommerce_low_stock', array( $this, 'on_low_stock' ) );
+		add_action( 'poocommerce_no_stock', array( $this, 'on_no_stock' ) );
+		add_action( 'poocommerce_product_on_backorder', array( $this, 'on_backorder' ) );
 	}
 
 	/**
-	 * Handles the woocommerce_low_stock hook.
+	 * Handles the poocommerce_low_stock hook.
 	 *
 	 * Captures the product's stock quantity at this moment so the dispatcher,
 	 * which runs in a separate process and re-fetches the product, doesn't
@@ -52,7 +52,7 @@ class StockNotificationTrigger {
 	}
 
 	/**
-	 * Handles the woocommerce_no_stock hook.
+	 * Handles the poocommerce_no_stock hook.
 	 *
 	 * @param WC_Product $product The product that is out of stock.
 	 * @return void
@@ -64,7 +64,7 @@ class StockNotificationTrigger {
 	}
 
 	/**
-	 * Handles the woocommerce_product_on_backorder hook.
+	 * Handles the poocommerce_product_on_backorder hook.
 	 *
 	 * @param array $args Backorder event data.
 	 * @phpstan-param array{product: WC_Product, order_id: int, quantity: int|float} $args

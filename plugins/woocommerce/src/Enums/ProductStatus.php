@@ -2,7 +2,7 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Enums;
+namespace Automattic\PooCommerce\Enums;
 
 /**
  * Enum class for all the product statuses.
@@ -64,7 +64,7 @@ final class ProductStatus {
 	 * self::AUTO_DRAFT and self::TRASH itself. What separates them is who decides. WordPress sets
 	 * self::AUTO_DRAFT, self::TRASH and self::FUTURE; an author chooses the rest.
 	 *
-	 * WooCommerce has no narrower helper, and get_post_statuses() is not one: it is unfiltered and
+	 * PooCommerce has no narrower helper, and get_post_statuses() is not one: it is unfiltered and
 	 * lists only draft, pending, private and publish. Narrow this list yourself for a particular
 	 * editor or REST schema.
 	 *

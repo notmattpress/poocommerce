@@ -6,7 +6,7 @@ sidebar_position: 5
 
 # Reference: exceptions
 
-Throwing an exception from `execute()` or `authorize()` is how the code API surfaces errors. The framework translates each into a GraphQL error with a machine-readable `extensions.code` and a matching HTTP status. All built-in exceptions live in `Automattic\WooCommerce\Api`.
+Throwing an exception from `execute()` or `authorize()` is how the code API surfaces errors. The framework translates each into a GraphQL error with a machine-readable `extensions.code` and a matching HTTP status. All built-in exceptions live in `Automattic\PooCommerce\Api`.
 
 ## The base: `ApiException`
 
@@ -54,7 +54,7 @@ Extend `ApiException` (or a subclass when its behavior fits) and pin your own co
 ```php
 namespace Automattic\MyPlugin\Api;
 
-use Automattic\WooCommerce\Api\ApiException;
+use Automattic\PooCommerce\Api\ApiException;
 
 class QuotaExceededException extends ApiException {
     public function __construct( string $message = 'Quota exceeded.', array $extensions = array(), ?\Throwable $previous = null ) {

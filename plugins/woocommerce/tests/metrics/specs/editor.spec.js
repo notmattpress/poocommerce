@@ -89,7 +89,7 @@ test.describe( 'Editor Performance', () => {
 						BROWSER_IDLE_WAIT
 					);
 
-					// Measure WooCommerce editor assets.
+					// Measure PooCommerce editor assets.
 					const wooEditorAssetMetrics =
 						await stopWooEditorAssetMetrics();
 

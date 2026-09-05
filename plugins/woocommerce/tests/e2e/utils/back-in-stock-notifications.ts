@@ -6,7 +6,7 @@ import {
 	createClient,
 	WC_API_PATH,
 	type ApiClient,
-} from '@woocommerce/e2e-utils-playwright';
+} from '@poocommerce/e2e-utils-playwright';
 
 /**
  * Internal dependencies
@@ -25,12 +25,12 @@ import { ADMIN_STATE_PATH, CUSTOMER_STATE_PATH } from '../playwright.config';
  * The external plugin used `wc_bis_*` slugs; core uses these.
  */
 export const BIS_OPTIONS = {
-	allowSignups: 'woocommerce_customer_stock_notifications_allow_signups',
+	allowSignups: 'poocommerce_customer_stock_notifications_allow_signups',
 	doubleOptIn:
-		'woocommerce_customer_stock_notifications_require_double_opt_in',
-	requireAccount: 'woocommerce_customer_stock_notifications_require_account',
+		'poocommerce_customer_stock_notifications_require_double_opt_in',
+	requireAccount: 'poocommerce_customer_stock_notifications_require_account',
 	createAccountOnSignup:
-		'woocommerce_customer_stock_notifications_create_account_on_signup',
+		'poocommerce_customer_stock_notifications_create_account_on_signup',
 } as const;
 
 /**
@@ -39,7 +39,7 @@ export const BIS_OPTIONS = {
  * @see src/Internal/Features/FeaturesController.php
  */
 export const BIS_FEATURE_OPTION =
-	'woocommerce_feature_customer_stock_notifications_enabled';
+	'poocommerce_feature_customer_stock_notifications_enabled';
 
 /**
  * Fail early, with the fix, when the env can't run these specs.
@@ -59,9 +59,9 @@ export async function assertBISEnvReady(): Promise< void > {
 		},
 		{
 			command: 'wp plugin list --status=active --field=name',
-			expected: /^woocommerce-e2e-test-helper$/m,
+			expected: /^poocommerce-e2e-test-helper$/m,
 			problem:
-				'the "woocommerce-e2e-test-helper" plugin is not active, so the notifications batch delay is not zeroed',
+				'the "poocommerce-e2e-test-helper" plugin is not active, so the notifications batch delay is not zeroed',
 		},
 	];
 
@@ -463,7 +463,7 @@ export function bisTargetProductInput( page: Page ) {
 /**
  * Pick a variation on a variable product page and wait for core's variation AJAX to settle.
  *
- * The BIS form only reacts once WooCommerce has fetched the variation and fired
+ * The BIS form only reacts once PooCommerce has fetched the variation and fired
  * `found_variation`, so the wait is on core's own hidden `variation_id` input.
  * `.single_variation_wrap` cannot stand in for it — `VariationForm` shows that
  * wrapper at init, before any variation is picked — and waiting on core's state
@@ -696,7 +696,7 @@ export async function deleteCustomer(
 export async function expireVerificationLinks( page: Page ): Promise< void > {
 	await setFilterValue(
 		page,
-		'woocommerce_customer_stock_notifications_verification_expiration_time_threshold',
+		'poocommerce_customer_stock_notifications_verification_expiration_time_threshold',
 		-1
 	);
 }

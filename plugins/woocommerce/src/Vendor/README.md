@@ -4,4 +4,4 @@ The namespace of this folder belongs to our dummy [lib package](./../lib/README.
 No files should be added here!
 
 These are **internal** dependencies and **should not** be considered backwards compatible! Developers should not
-use these files outside of WooCommerce Core as they are subject to change.
+use these files outside of PooCommerce Core as they are subject to change.

@@ -2,15 +2,15 @@
 /**
  * Tests for the Analytics report export email.
  *
- * @package WooCommerce\Tests\Admin
+ * @package PooCommerce\Tests\Admin
  */
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Admin;
+namespace Automattic\PooCommerce\Tests\Admin;
 
-use Automattic\WooCommerce\Admin\ReportCSVEmail;
-use Automattic\WooCommerce\Admin\ReportExporter;
+use Automattic\PooCommerce\Admin\ReportCSVEmail;
+use Automattic\PooCommerce\Admin\ReportExporter;
 use WC_Unit_Test_Case;
 
 /**
@@ -28,7 +28,7 @@ class ReportCSVEmailTest extends WC_Unit_Test_Case {
 
 		foreach ( array(
 			'report_type'  => 'Orders',
-			'download_url' => 'https://example.org/?action=woocommerce_admin_download_report_csv&filename=wc-orders-report-export',
+			'download_url' => 'https://example.org/?action=poocommerce_admin_download_report_csv&filename=wc-orders-report-export',
 		) as $name => $value ) {
 			$property = new \ReflectionProperty( ReportCSVEmail::class, $name );
 			$property->setAccessible( true );

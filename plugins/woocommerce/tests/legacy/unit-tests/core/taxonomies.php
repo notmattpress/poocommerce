@@ -2,7 +2,7 @@
 /**
  * Taxonomy tests class.
  *
- * @package WooCommerce\Tests\Core
+ * @package PooCommerce\Tests\Core
  */
 
 /**

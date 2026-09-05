@@ -2,13 +2,13 @@
  * External dependencies
  */
 import { find, get } from 'lodash';
-import { flattenFilters } from '@woocommerce/navigation';
+import { flattenFilters } from '@poocommerce/navigation';
 import { format as formatDate } from '@wordpress/date';
 import {
 	containsLeapYear,
 	getPreviousDate,
 	isLeapYear,
-} from '@woocommerce/date';
+} from '@poocommerce/date';
 
 export const DEFAULT_FILTER = 'all';
 

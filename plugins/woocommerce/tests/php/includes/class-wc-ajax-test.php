@@ -2,15 +2,15 @@
 /**
  * Class WC_AJAX_Test file.
  *
- * @package WooCommerce\Tests\WC_AJAX.
+ * @package PooCommerce\Tests\WC_AJAX.
  */
 
 declare( strict_types = 1 );
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Internal\Orders\CouponsController;
-use Automattic\WooCommerce\Internal\Orders\TaxesController;
-use Automattic\WooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Internal\Orders\CouponsController;
+use Automattic\PooCommerce\Internal\Orders\TaxesController;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
 
 /**
  * Class WC_AJAX_Test file.
@@ -125,7 +125,7 @@ class WC_AJAX_Test extends \WP_Ajax_UnitTestCase {
 		$output_buffering_level = ob_get_level();
 
 		try {
-			$this->_handleAjax( 'woocommerce_update_api_key' );
+			$this->_handleAjax( 'poocommerce_update_api_key' );
 		} catch ( WPAjaxDieContinueException $e ) {
 			unset( $e );
 		} finally {
@@ -172,9 +172,9 @@ class WC_AJAX_Test extends \WP_Ajax_UnitTestCase {
 
 		try {
 			switch_theme( 'twentytwentyfour' );
-			delete_option( 'woocommerce_feature_wc_visual_attribute_enabled' );
+			delete_option( 'poocommerce_feature_wc_visual_attribute_enabled' );
 			$this->assertTrue(
-				wc_get_container()->get( \Automattic\WooCommerce\Internal\Features\FeaturesController::class )->change_feature_enable( 'wc-visual-attribute', true ),
+				wc_get_container()->get( \Automattic\PooCommerce\Internal\Features\FeaturesController::class )->change_feature_enable( 'wc-visual-attribute', true ),
 				'The visual attribute feature should be toggled on.'
 			);
 
@@ -205,7 +205,7 @@ class WC_AJAX_Test extends \WP_Ajax_UnitTestCase {
 			$_POST['wc_visual_attribute_type'] = 'color';
 			$_POST['term_color']               = '#336699';
 
-			$visual_response = $this->do_ajax( 'woocommerce_add_new_attribute' );
+			$visual_response = $this->do_ajax( 'poocommerce_add_new_attribute' );
 			$visual_term_id  = isset( $visual_response['term_id'] ) ? absint( $visual_response['term_id'] ) : 0;
 
 			$this->assertNotEmpty( $visual_term_id, 'The visual attribute term should be created.' );
@@ -230,7 +230,7 @@ class WC_AJAX_Test extends \WP_Ajax_UnitTestCase {
 			$_POST['term_color']               = '#445566';
 			$_POST['term_image']               = (string) $image_id;
 
-			$color_type_response = $this->do_ajax( 'woocommerce_add_new_attribute' );
+			$color_type_response = $this->do_ajax( 'poocommerce_add_new_attribute' );
 			$color_type_term_id  = isset( $color_type_response['term_id'] ) ? absint( $color_type_response['term_id'] ) : 0;
 
 			$this->assertNotEmpty( $color_type_term_id, 'The visual attribute term with selected color type should be created.' );
@@ -244,7 +244,7 @@ class WC_AJAX_Test extends \WP_Ajax_UnitTestCase {
 			$_POST['term_color']               = '#abcdef';
 			$_POST['term_image']               = (string) $image_id;
 
-			$image_response = $this->do_ajax( 'woocommerce_add_new_attribute' );
+			$image_response = $this->do_ajax( 'poocommerce_add_new_attribute' );
 			$image_term_id  = isset( $image_response['term_id'] ) ? absint( $image_response['term_id'] ) : 0;
 
 			$this->assertNotEmpty( $image_term_id, 'The visual attribute term with image should be created.' );
@@ -256,7 +256,7 @@ class WC_AJAX_Test extends \WP_Ajax_UnitTestCase {
 			$_POST['term']       = 'Plain ' . $suffix;
 			$_POST['term_color'] = '#abcdef';
 
-			$text_response = $this->do_ajax( 'woocommerce_add_new_attribute' );
+			$text_response = $this->do_ajax( 'poocommerce_add_new_attribute' );
 			$text_term_id  = isset( $text_response['term_id'] ) ? absint( $text_response['term_id'] ) : 0;
 
 			$this->assertNotEmpty( $text_term_id, 'The text attribute term should be created.' );
@@ -300,7 +300,7 @@ class WC_AJAX_Test extends \WP_Ajax_UnitTestCase {
 				unset( $wc_product_attributes[ $taxonomy ] );
 			}
 
-			delete_option( 'woocommerce_feature_wc_visual_attribute_enabled' );
+			delete_option( 'poocommerce_feature_wc_visual_attribute_enabled' );
 			switch_theme( $original_theme );
 		}//end try
 	}
@@ -332,7 +332,7 @@ class WC_AJAX_Test extends \WP_Ajax_UnitTestCase {
 				return $terms;
 			};
 
-			add_filter( 'woocommerce_json_search_found_product_attribute_terms', $filter_callback, 20, 2 );
+			add_filter( 'poocommerce_json_search_found_product_attribute_terms', $filter_callback, 20, 2 );
 
 			$exact_query_count = 0;
 			$this->track_exact_taxonomy_term_queries_for_test( $fixture['taxonomy'], '6', $exact_query_count );
@@ -371,7 +371,7 @@ class WC_AJAX_Test extends \WP_Ajax_UnitTestCase {
 
 			// WP_Term_Query documents an empty string as its own "no offset" default.
 			add_filter(
-				'woocommerce_product_attribute_terms',
+				'poocommerce_product_attribute_terms',
 				static function ( $args ) {
 					$args['offset'] = '';
 
@@ -496,7 +496,7 @@ class WC_AJAX_Test extends \WP_Ajax_UnitTestCase {
 				return $args;
 			};
 
-			add_filter( 'woocommerce_product_attribute_terms', $filter_callback );
+			add_filter( 'poocommerce_product_attribute_terms', $filter_callback );
 
 			$exact_query_count = 0;
 			$this->track_exact_taxonomy_term_queries_for_test( $fixture['taxonomy'], '6', $exact_query_count );
@@ -644,7 +644,7 @@ class WC_AJAX_Test extends \WP_Ajax_UnitTestCase {
 			$fixture    = $this->create_attribute_taxonomy_fixture_for_test( $term_names );
 
 			add_filter(
-				'woocommerce_product_attribute_terms',
+				'poocommerce_product_attribute_terms',
 				$filter_callback
 			);
 
@@ -983,7 +983,7 @@ class WC_AJAX_Test extends \WP_Ajax_UnitTestCase {
 				'orderby'  => $orderby,
 			);
 
-			$response = $this->do_ajax( 'woocommerce_json_search_taxonomy_terms' );
+			$response = $this->do_ajax( 'poocommerce_json_search_taxonomy_terms' );
 
 			if ( ! is_array( $response ) ) {
 				throw new RuntimeException( 'The taxonomy term AJAX response should be an array.' );
@@ -1002,10 +1002,10 @@ class WC_AJAX_Test extends \WP_Ajax_UnitTestCase {
 	 * Test coupon and recalculation of totals sequences when product prices are tax inclusive.
 	 */
 	public function test_apply_coupon_with_tax_inclusive_settings() {
-		update_option( 'woocommerce_prices_include_tax', 'yes' );
-		update_option( 'woocommerce_tax_based_on', 'base' );
-		update_option( 'woocommerce_calc_taxes', 'yes' );
-		update_option( 'woocommerce_default_country', 'IN:AP' );
+		update_option( 'poocommerce_prices_include_tax', 'yes' );
+		update_option( 'poocommerce_tax_based_on', 'base' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_default_country', 'IN:AP' );
 
 		$tax_rate = array(
 			'tax_rate_country' => 'IN',
@@ -1107,7 +1107,7 @@ class WC_AJAX_Test extends \WP_Ajax_UnitTestCase {
 			$_GET['page']     = 1;
 			$_GET['per_page'] = 1;
 
-			$response = $this->do_ajax( 'woocommerce_json_search_tax_rates' );
+			$response = $this->do_ajax( 'poocommerce_json_search_tax_rates' );
 
 			$this->assertSame( 1, $response['pagination']['page'] );
 			$this->assertSame( 1, $response['pagination']['per_page'] );
@@ -1119,7 +1119,7 @@ class WC_AJAX_Test extends \WP_Ajax_UnitTestCase {
 			$this->assertSame( $first_rate_id, $response['results'][0]['id'] );
 
 			$_GET['page'] = 2;
-			$response     = $this->do_ajax( 'woocommerce_json_search_tax_rates' );
+			$response     = $this->do_ajax( 'poocommerce_json_search_tax_rates' );
 
 			$this->assertSame( 2, $response['pagination']['page'] );
 			$this->assertFalse( $response['pagination']['has_next'] );
@@ -1128,7 +1128,7 @@ class WC_AJAX_Test extends \WP_Ajax_UnitTestCase {
 			$this->assertSame( $second_rate_id, $response['results'][0]['id'] );
 
 			$_GET['page'] = 99;
-			$response     = $this->do_ajax( 'woocommerce_json_search_tax_rates' );
+			$response     = $this->do_ajax( 'poocommerce_json_search_tax_rates' );
 
 			$this->assertSame( 2, $response['pagination']['page'] );
 			$this->assertCount( 1, $response['results'] );
@@ -1136,7 +1136,7 @@ class WC_AJAX_Test extends \WP_Ajax_UnitTestCase {
 
 			$_GET['term'] = '10001';
 			$_GET['page'] = 1;
-			$response     = $this->do_ajax( 'woocommerce_json_search_tax_rates' );
+			$response     = $this->do_ajax( 'poocommerce_json_search_tax_rates' );
 
 			$this->assertSame( 1, $response['pagination']['page'] );
 			$this->assertSame( 1, $response['pagination']['per_page'] );
@@ -1149,10 +1149,10 @@ class WC_AJAX_Test extends \WP_Ajax_UnitTestCase {
 			$this->assertSame( '8.875%', $response['results'][0]['rate_percent'] );
 		} finally {
 			unset( $_GET['security'], $_GET['term'], $_GET['page'], $_GET['per_page'] );
-			$wpdb->delete( $wpdb->prefix . 'woocommerce_tax_rate_locations', array( 'tax_rate_id' => $first_rate_id ) );
-			$wpdb->delete( $wpdb->prefix . 'woocommerce_tax_rate_locations', array( 'tax_rate_id' => $second_rate_id ) );
-			$wpdb->delete( $wpdb->prefix . 'woocommerce_tax_rates', array( 'tax_rate_id' => $first_rate_id ) );
-			$wpdb->delete( $wpdb->prefix . 'woocommerce_tax_rates', array( 'tax_rate_id' => $second_rate_id ) );
+			$wpdb->delete( $wpdb->prefix . 'poocommerce_tax_rate_locations', array( 'tax_rate_id' => $first_rate_id ) );
+			$wpdb->delete( $wpdb->prefix . 'poocommerce_tax_rate_locations', array( 'tax_rate_id' => $second_rate_id ) );
+			$wpdb->delete( $wpdb->prefix . 'poocommerce_tax_rates', array( 'tax_rate_id' => $first_rate_id ) );
+			$wpdb->delete( $wpdb->prefix . 'poocommerce_tax_rates', array( 'tax_rate_id' => $second_rate_id ) );
 			wp_set_current_user( 0 );
 		}
 	}
@@ -1202,7 +1202,7 @@ class WC_AJAX_Test extends \WP_Ajax_UnitTestCase {
 			$_GET['per_page'] = 100;
 
 			$_GET['term'] = 'Standard';
-			$response     = $this->do_ajax( 'woocommerce_json_search_tax_rates' );
+			$response     = $this->do_ajax( 'poocommerce_json_search_tax_rates' );
 			$rate_ids     = array_column( $response['results'], 'id' );
 
 			$this->assertContains( $standard_rate_id, $rate_ids );
@@ -1217,7 +1217,7 @@ class WC_AJAX_Test extends \WP_Ajax_UnitTestCase {
 			$this->assertSame( 'Standard', $standard_result['tax_class'] );
 
 			$_GET['term'] = 'Reduced rate';
-			$response     = $this->do_ajax( 'woocommerce_json_search_tax_rates' );
+			$response     = $this->do_ajax( 'poocommerce_json_search_tax_rates' );
 			$rate_ids     = array_column( $response['results'], 'id' );
 
 			$this->assertContains( $reduced_rate_id, $rate_ids );
@@ -1232,8 +1232,8 @@ class WC_AJAX_Test extends \WP_Ajax_UnitTestCase {
 			$this->assertSame( 'Reduced rate', $reduced_result['tax_class'] );
 		} finally {
 			unset( $_GET['security'], $_GET['term'], $_GET['page'], $_GET['per_page'] );
-			$wpdb->delete( $wpdb->prefix . 'woocommerce_tax_rates', array( 'tax_rate_id' => $standard_rate_id ) );
-			$wpdb->delete( $wpdb->prefix . 'woocommerce_tax_rates', array( 'tax_rate_id' => $reduced_rate_id ) );
+			$wpdb->delete( $wpdb->prefix . 'poocommerce_tax_rates', array( 'tax_rate_id' => $standard_rate_id ) );
+			$wpdb->delete( $wpdb->prefix . 'poocommerce_tax_rates', array( 'tax_rate_id' => $reduced_rate_id ) );
 			if ( $created_tax_class_slug ) {
 				WC_Tax::delete_tax_class_by( 'slug', $created_tax_class_slug );
 			}
@@ -1284,38 +1284,38 @@ class WC_AJAX_Test extends \WP_Ajax_UnitTestCase {
 
 			// The results table shows "8.875%", so that string has to find the rate.
 			$_GET['term'] = '8.875%';
-			$response     = $this->do_ajax( 'woocommerce_json_search_tax_rates' );
+			$response     = $this->do_ajax( 'poocommerce_json_search_tax_rates' );
 
 			$this->assertContains( $named_rate_id, array_column( $response['results'], 'id' ) );
 
 			// The full rate code is derived from several columns and must be searchable as shown.
 			$_GET['term'] = 'US-NY-DISPLAYED VALUE FIXTURE RATE-1';
-			$response     = $this->do_ajax( 'woocommerce_json_search_tax_rates' );
+			$response     = $this->do_ajax( 'poocommerce_json_search_tax_rates' );
 
 			$this->assertSame( 1, $response['pagination']['total'] );
 			$this->assertSame( $named_rate_id, $response['results'][0]['id'] );
 
 			$_GET['term'] = 'us-ny-displayed value';
-			$response     = $this->do_ajax( 'woocommerce_json_search_tax_rates' );
+			$response     = $this->do_ajax( 'poocommerce_json_search_tax_rates' );
 
 			$this->assertContains( $named_rate_id, array_column( $response['results'], 'id' ) );
 
 			// Rates without a name are shown under the store's tax or VAT label.
 			$_GET['term'] = WC()->countries->tax_or_vat();
-			$response     = $this->do_ajax( 'woocommerce_json_search_tax_rates' );
+			$response     = $this->do_ajax( 'poocommerce_json_search_tax_rates' );
 
 			$this->assertContains( $unnamed_rate_id, array_column( $response['results'], 'id' ) );
 
 			$_GET['term'] = 'ZZ-ZZ-TAX-1';
-			$response     = $this->do_ajax( 'woocommerce_json_search_tax_rates' );
+			$response     = $this->do_ajax( 'poocommerce_json_search_tax_rates' );
 
 			$this->assertSame( 1, $response['pagination']['total'] );
 			$this->assertSame( $unnamed_rate_id, $response['results'][0]['id'] );
 			$this->assertSame( 'ZZ-ZZ-TAX-1', $response['results'][0]['rate_code'] );
 		} finally {
 			unset( $_GET['security'], $_GET['term'], $_GET['page'], $_GET['per_page'] );
-			$wpdb->delete( $wpdb->prefix . 'woocommerce_tax_rates', array( 'tax_rate_id' => $named_rate_id ) );
-			$wpdb->delete( $wpdb->prefix . 'woocommerce_tax_rates', array( 'tax_rate_id' => $unnamed_rate_id ) );
+			$wpdb->delete( $wpdb->prefix . 'poocommerce_tax_rates', array( 'tax_rate_id' => $named_rate_id ) );
+			$wpdb->delete( $wpdb->prefix . 'poocommerce_tax_rates', array( 'tax_rate_id' => $unnamed_rate_id ) );
 			wp_set_current_user( 0 );
 		}
 	}
@@ -1358,7 +1358,7 @@ class WC_AJAX_Test extends \WP_Ajax_UnitTestCase {
 		);
 		WC_Tax::_update_tax_rate_postcodes( $second_rate_id, '10001,10002,10003' );
 
-		$expected_total = absint( $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->prefix}woocommerce_tax_rates" ) );
+		$expected_total = absint( $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->prefix}poocommerce_tax_rates" ) );
 
 		try {
 			$_GET['security'] = wp_create_nonce( 'search-tax-rates' );
@@ -1366,7 +1366,7 @@ class WC_AJAX_Test extends \WP_Ajax_UnitTestCase {
 			$_GET['page']     = 1;
 			$_GET['per_page'] = 100;
 
-			$response = $this->do_ajax( 'woocommerce_json_search_tax_rates' );
+			$response = $this->do_ajax( 'poocommerce_json_search_tax_rates' );
 			$rate_ids = array_column( $response['results'], 'id' );
 
 			// A rate with several postcodes must still be counted once.
@@ -1376,10 +1376,10 @@ class WC_AJAX_Test extends \WP_Ajax_UnitTestCase {
 			$this->assertSame( count( $rate_ids ), count( array_unique( $rate_ids ) ) );
 		} finally {
 			unset( $_GET['security'], $_GET['term'], $_GET['page'], $_GET['per_page'] );
-			$wpdb->delete( $wpdb->prefix . 'woocommerce_tax_rate_locations', array( 'tax_rate_id' => $first_rate_id ) );
-			$wpdb->delete( $wpdb->prefix . 'woocommerce_tax_rate_locations', array( 'tax_rate_id' => $second_rate_id ) );
-			$wpdb->delete( $wpdb->prefix . 'woocommerce_tax_rates', array( 'tax_rate_id' => $first_rate_id ) );
-			$wpdb->delete( $wpdb->prefix . 'woocommerce_tax_rates', array( 'tax_rate_id' => $second_rate_id ) );
+			$wpdb->delete( $wpdb->prefix . 'poocommerce_tax_rate_locations', array( 'tax_rate_id' => $first_rate_id ) );
+			$wpdb->delete( $wpdb->prefix . 'poocommerce_tax_rate_locations', array( 'tax_rate_id' => $second_rate_id ) );
+			$wpdb->delete( $wpdb->prefix . 'poocommerce_tax_rates', array( 'tax_rate_id' => $first_rate_id ) );
+			$wpdb->delete( $wpdb->prefix . 'poocommerce_tax_rates', array( 'tax_rate_id' => $second_rate_id ) );
 			wp_set_current_user( 0 );
 		}
 	}
@@ -1442,7 +1442,7 @@ class WC_AJAX_Test extends \WP_Ajax_UnitTestCase {
 		$_GET['security'] = wp_create_nonce( 'search-products' );
 
 		try {
-			$response = $this->do_ajax( 'woocommerce_json_search_products' );
+			$response = $this->do_ajax( 'poocommerce_json_search_products' );
 		} finally {
 			unset( $_GET['term'], $_GET['include'], $_GET['security'] );
 		}
@@ -1473,7 +1473,7 @@ class WC_AJAX_Test extends \WP_Ajax_UnitTestCase {
 	 * multisite context (it should generally not be possible to retrieve information about
 	 * users who have not been added to the current blog).
 	 *
-	 * @throws Automattic\WooCommerce\Internal\DependencyManagement\ContainerException If the LegacyProxy cannot be retrieved.
+	 * @throws Automattic\PooCommerce\Internal\DependencyManagement\ContainerException If the LegacyProxy cannot be retrieved.
 	 */
 	public function test_json_search_customers(): void {
 		$this->markTestSkipped( 'Skipping this test temporarily due to intermittent failures. Needs proper investigation.' );
@@ -1510,7 +1510,7 @@ class WC_AJAX_Test extends \WP_Ajax_UnitTestCase {
 		wp_set_current_user( $admin_id );
 		$_GET['term'] = $customer_id;
 
-		$response = $this->do_ajax( 'woocommerce_json_search_customers' );
+		$response = $this->do_ajax( 'poocommerce_json_search_customers' );
 		$this->assertEquals(
 			$customer_id,
 			key( $response ),
@@ -1520,7 +1520,7 @@ class WC_AJAX_Test extends \WP_Ajax_UnitTestCase {
 		// Let's repeat the test, but simulate being inside a multisite network where the user is not a member of the blog.
 		$is_member_of_blog = false;
 		$is_multisite      = true;
-		$response          = $this->do_ajax( 'woocommerce_json_search_customers' );
+		$response          = $this->do_ajax( 'poocommerce_json_search_customers' );
 		$this->assertEmpty(
 			$response,
 			'If an admin searches for a specific customer ID, and the customer is not part of the same blog, then it should NOT be possible to retrieve their details.'
@@ -1536,7 +1536,7 @@ class WC_AJAX_Test extends \WP_Ajax_UnitTestCase {
 	 * Describes the behavior of the `get_customer_details` ajax endpoint, particularly in relation to
 	 * permissions of the requesting user.
 	 *
-	 * @throws Automattic\WooCommerce\Internal\DependencyManagement\ContainerException If the LegacyProxy cannot be retrieved.
+	 * @throws Automattic\PooCommerce\Internal\DependencyManagement\ContainerException If the LegacyProxy cannot be retrieved.
 	 */
 	public function test_get_customer_details(): void {
 		// This class does not inherit from WC_Unit_Test_Case, so we're handling the legacy proxy mechanics ourselves.
@@ -1573,14 +1573,14 @@ class WC_AJAX_Test extends \WP_Ajax_UnitTestCase {
 		wp_set_current_user( $admin_id );
 		$_POST['user_id'] = $customer_id;
 
-		$response = $this->do_ajax( 'woocommerce_get_customer_details' );
+		$response = $this->do_ajax( 'poocommerce_get_customer_details' );
 		$this->assertIsArray(
 			$response,
 			'If the customer is part of the blog, an array of information is supplied.'
 		);
 
 		$is_member_of_blog = false;
-		$response          = $this->do_ajax( 'woocommerce_get_customer_details' );
+		$response          = $this->do_ajax( 'poocommerce_get_customer_details' );
 		$this->assertNull(
 			$response,
 			'If the customer is not part of the blog, we do not get back any customer information (in reality, the request was ended with wp_die).'
@@ -1588,7 +1588,7 @@ class WC_AJAX_Test extends \WP_Ajax_UnitTestCase {
 	}
 
 	/**
-	 * @testdox Should fire internal_woocommerce_cart_item_added_from_user_request when adding an item via AJAX.
+	 * @testdox Should fire internal_poocommerce_cart_item_added_from_user_request when adding an item via AJAX.
 	 */
 	public function test_add_to_cart_fires_cart_item_added_from_user_request(): void {
 		$product = WC_Helper_Product::create_simple_product();
@@ -1604,15 +1604,15 @@ class WC_AJAX_Test extends \WP_Ajax_UnitTestCase {
 			);
 		};
 
-		add_action( 'internal_woocommerce_cart_item_added_from_user_request', $callback, 10, 2 );
+		add_action( 'internal_poocommerce_cart_item_added_from_user_request', $callback, 10, 2 );
 
-		$this->do_ajax( 'woocommerce_add_to_cart' );
+		$this->do_ajax( 'poocommerce_add_to_cart' );
 
 		$this->assertNotEmpty( $captured_args, 'The action should have been fired' );
 		$this->assertSame( $product->get_id(), $captured_args['product_id'] );
 		$this->assertEquals( 3, $captured_args['quantity'] );
 
-		remove_action( 'internal_woocommerce_cart_item_added_from_user_request', $callback );
+		remove_action( 'internal_poocommerce_cart_item_added_from_user_request', $callback );
 
 		WC()->cart->empty_cart();
 		unset( $_POST['product_id'], $_POST['quantity'] );
@@ -1620,7 +1620,7 @@ class WC_AJAX_Test extends \WP_Ajax_UnitTestCase {
 	}
 
 	/**
-	 * @testdox Should fire internal_woocommerce_cart_item_added_from_user_request with variation ID when adding a variation via AJAX.
+	 * @testdox Should fire internal_poocommerce_cart_item_added_from_user_request with variation ID when adding a variation via AJAX.
 	 */
 	public function test_add_to_cart_fires_cart_item_added_from_user_request_for_variation(): void {
 		$product = new \WC_Product_Variable();
@@ -1646,15 +1646,15 @@ class WC_AJAX_Test extends \WP_Ajax_UnitTestCase {
 			);
 		};
 
-		add_action( 'internal_woocommerce_cart_item_added_from_user_request', $callback, 10, 2 );
+		add_action( 'internal_poocommerce_cart_item_added_from_user_request', $callback, 10, 2 );
 
-		$this->do_ajax( 'woocommerce_add_to_cart' );
+		$this->do_ajax( 'poocommerce_add_to_cart' );
 
 		$this->assertNotEmpty( $captured_args, 'The action should have been fired' );
 		$this->assertSame( $variation->get_id(), $captured_args['product_id'], 'The product_id should be the variation ID, not the parent product ID' );
 		$this->assertEquals( 2, $captured_args['quantity'] );
 
-		remove_action( 'internal_woocommerce_cart_item_added_from_user_request', $callback );
+		remove_action( 'internal_poocommerce_cart_item_added_from_user_request', $callback );
 
 		WC()->cart->empty_cart();
 		unset( $_POST['product_id'], $_POST['quantity'] );
@@ -1663,7 +1663,7 @@ class WC_AJAX_Test extends \WP_Ajax_UnitTestCase {
 	}
 
 	/**
-	 * @testdox Should fire internal_woocommerce_cart_item_removed_from_user_request when removing an item via AJAX.
+	 * @testdox Should fire internal_poocommerce_cart_item_removed_from_user_request when removing an item via AJAX.
 	 */
 	public function test_remove_from_cart_fires_cart_item_removed_from_user_request(): void {
 		$product = WC_Helper_Product::create_simple_product();
@@ -1681,15 +1681,15 @@ class WC_AJAX_Test extends \WP_Ajax_UnitTestCase {
 			);
 		};
 
-		add_action( 'internal_woocommerce_cart_item_removed_from_user_request', $callback, 10, 2 );
+		add_action( 'internal_poocommerce_cart_item_removed_from_user_request', $callback, 10, 2 );
 
-		$this->do_ajax( 'woocommerce_remove_from_cart' );
+		$this->do_ajax( 'poocommerce_remove_from_cart' );
 
 		$this->assertNotEmpty( $captured_args, 'The action should have been fired' );
 		$this->assertSame( $cart_item_key, $captured_args['cart_item_key'] );
 		$this->assertInstanceOf( WC_Cart::class, $captured_args['cart'] );
 
-		remove_action( 'internal_woocommerce_cart_item_removed_from_user_request', $callback );
+		remove_action( 'internal_poocommerce_cart_item_removed_from_user_request', $callback );
 
 		WC()->cart->empty_cart();
 		unset( $_POST['cart_item_key'] );
@@ -1746,7 +1746,7 @@ class WC_AJAX_Test extends \WP_Ajax_UnitTestCase {
 			// Note that _handleAjax makes use of output buffering, which the die
 			// handler usually cleans up; the finally block below closes only any
 			// buffer it leaves dangling so the buffer level stays balanced.
-			$this->_handleAjax( 'woocommerce_order_add_meta' );
+			$this->_handleAjax( 'poocommerce_order_add_meta' );
 		} catch ( WPAjaxDieContinueException $e ) {
 			unset( $e );
 		} finally {
@@ -1792,11 +1792,11 @@ class WC_AJAX_Test extends \WP_Ajax_UnitTestCase {
 		global $wpdb;
 
 		$this->_setRole( 'administrator' );
-		$this->setExpectedDeprecated( 'woocommerce_after_single_product_ordering' );
+		$this->setExpectedDeprecated( 'poocommerce_after_single_product_ordering' );
 
 		// Attach a listener to force the legacy branching path.
 		$legacy_hook = function () {};
-		add_action( 'woocommerce_after_single_product_ordering', $legacy_hook );
+		add_action( 'poocommerce_after_single_product_ordering', $legacy_hook );
 
 		$products = array();
 		for ( $i = 1; $i <= 5; ++$i ) {
@@ -1817,10 +1817,10 @@ class WC_AJAX_Test extends \WP_Ajax_UnitTestCase {
 		$_POST['previd']   = $previd_idx >= 0 ? $product_ids[ $previd_idx ] : 0;
 		$_POST['nextid']   = $nextid_idx >= 0 ? $product_ids[ $nextid_idx ] : 0;
 
-		$this->do_ajax( 'woocommerce_product_ordering' );
+		$this->do_ajax( 'poocommerce_product_ordering' );
 
 		unset( $_POST['security'], $_POST['id'], $_POST['previd'], $_POST['nextid'] );
-		remove_action( 'woocommerce_after_single_product_ordering', $legacy_hook );
+		remove_action( 'poocommerce_after_single_product_ordering', $legacy_hook );
 
 		foreach ( $product_ids as $idx => $product_id ) {
 			$actual = (int) $wpdb->get_var( $wpdb->prepare( "SELECT menu_order FROM {$wpdb->posts} WHERE ID = %d", $product_id ) );
@@ -1862,7 +1862,7 @@ class WC_AJAX_Test extends \WP_Ajax_UnitTestCase {
 		$_POST['previd']   = $previd_idx >= 0 ? $product_ids[ $previd_idx ] : 0;
 		$_POST['nextid']   = $nextid_idx >= 0 ? $product_ids[ $nextid_idx ] : 0;
 
-		$this->do_ajax( 'woocommerce_product_ordering' );
+		$this->do_ajax( 'poocommerce_product_ordering' );
 
 		unset( $_POST['security'], $_POST['id'], $_POST['previd'], $_POST['nextid'] );
 		foreach ( $product_ids as $idx => $product_id ) {
@@ -1873,11 +1873,11 @@ class WC_AJAX_Test extends \WP_Ajax_UnitTestCase {
 	}
 
 	/**
-	 * @testdox 'product_ordering' fires 'woocommerce_after_product_ordering' with the moved product ID and full positions map.
+	 * @testdox 'product_ordering' fires 'poocommerce_after_product_ordering' with the moved product ID and full positions map.
 	 */
 	public function test_product_ordering_fires_after_product_ordering_action(): void {
 		$this->_setRole( 'administrator' );
-		$this->setExpectedDeprecated( 'woocommerce_after_product_ordering' );
+		$this->setExpectedDeprecated( 'poocommerce_after_product_ordering' );
 
 		$products = array();
 		for ( $i = 1; $i <= 2; ++$i ) {
@@ -1902,7 +1902,7 @@ class WC_AJAX_Test extends \WP_Ajax_UnitTestCase {
 				'all_positions' => $all_positions,
 			);
 		};
-		add_action( 'woocommerce_after_product_ordering', $hook, 10, 2 );
+		add_action( 'poocommerce_after_product_ordering', $hook, 10, 2 );
 
 		// Move the last one to the front.
 		$_POST['security'] = wp_create_nonce( 'product-ordering' );
@@ -1910,12 +1910,12 @@ class WC_AJAX_Test extends \WP_Ajax_UnitTestCase {
 		$_POST['previd']   = 0;
 		$_POST['nextid']   = $product_ids[0];
 
-		$this->do_ajax( 'woocommerce_product_ordering' );
+		$this->do_ajax( 'poocommerce_product_ordering' );
 
 		unset( $_POST['security'], $_POST['id'], $_POST['previd'], $_POST['nextid'] );
-		remove_action( 'woocommerce_after_product_ordering', $hook, 10 );
+		remove_action( 'poocommerce_after_product_ordering', $hook, 10 );
 
-		$this->assertTrue( $hook_fired, 'woocommerce_after_product_ordering was not fired.' );
+		$this->assertTrue( $hook_fired, 'poocommerce_after_product_ordering was not fired.' );
 		$this->assertSame( $product_ids[1], $captured['sorting_id'] );
 		$this->assertSame(
 			array(
@@ -1968,19 +1968,19 @@ class WC_AJAX_Test extends \WP_Ajax_UnitTestCase {
 				'reindexed'  => $reindexed,
 			);
 		};
-		add_action( 'woocommerce_product_ordering_process_moved_products', $moved_hook, 10, 2 );
-		add_action( 'woocommerce_product_ordering_process_reindexed_products', $reindexed_hook, 10, 2 );
+		add_action( 'poocommerce_product_ordering_process_moved_products', $moved_hook, 10, 2 );
+		add_action( 'poocommerce_product_ordering_process_reindexed_products', $reindexed_hook, 10, 2 );
 
 		$_POST['security'] = wp_create_nonce( 'product-ordering' );
 		$_POST['id']       = $ids['Gamma'];
 		$_POST['previd']   = $ids['Delta'];
 		$_POST['nextid']   = $ids['Echo'];
 
-		$this->do_ajax( 'woocommerce_product_ordering' );
+		$this->do_ajax( 'poocommerce_product_ordering' );
 
 		unset( $_POST['security'], $_POST['id'], $_POST['previd'], $_POST['nextid'] );
-		remove_action( 'woocommerce_product_ordering_process_moved_products', $moved_hook, 10 );
-		remove_action( 'woocommerce_product_ordering_process_reindexed_products', $reindexed_hook, 10 );
+		remove_action( 'poocommerce_product_ordering_process_moved_products', $moved_hook, 10 );
+		remove_action( 'poocommerce_product_ordering_process_reindexed_products', $reindexed_hook, 10 );
 
 		$this->assertSame(
 			array(
@@ -2009,7 +2009,7 @@ class WC_AJAX_Test extends \WP_Ajax_UnitTestCase {
 	 * @testdox Refunding a 0% taxed line item via the AJAX handler preserves the 0-rate tax line on the refund order.
 	 */
 	public function test_refund_line_items_preserves_zero_rate_tax(): void {
-		update_option( 'woocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
 
 		$rate_id = WC_Tax::_insert_tax_rate(
 			array(
@@ -2048,7 +2048,7 @@ class WC_AJAX_Test extends \WP_Ajax_UnitTestCase {
 		$_POST['line_item_tax_totals'] = wp_json_encode( array( $item_id => array( $rate_id => 0 ) ) );
 		$_POST['api_refund']           = 'false';
 
-		$response = $this->do_ajax( 'woocommerce_refund_line_items' );
+		$response = $this->do_ajax( 'poocommerce_refund_line_items' );
 
 		$this->assertTrue( $response['success'] ?? false, 'The AJAX refund request should succeed.' );
 
@@ -2065,7 +2065,7 @@ class WC_AJAX_Test extends \WP_Ajax_UnitTestCase {
 
 		unset( $_POST['security'], $_POST['order_id'], $_POST['refund_amount'], $_POST['refunded_amount'], $_POST['refund_reason'], $_POST['line_item_qtys'], $_POST['line_item_totals'], $_POST['line_item_tax_totals'], $_POST['api_refund'] );
 		WC_Tax::_delete_tax_rate( $rate_id );
-		update_option( 'woocommerce_calc_taxes', 'no' );
+		update_option( 'poocommerce_calc_taxes', 'no' );
 	}
 
 	/**
@@ -2114,7 +2114,7 @@ class WC_AJAX_Test extends \WP_Ajax_UnitTestCase {
 		$_POST['line_item_tax_totals'] = wp_json_encode( $tax_totals );
 		$_POST['api_refund']           = 'false';
 
-		$response = $this->do_ajax( 'woocommerce_refund_line_items' );
+		$response = $this->do_ajax( 'poocommerce_refund_line_items' );
 
 		$this->assertTrue( $response['success'] ?? false, 'The AJAX refund request should succeed.' );
 
@@ -2137,20 +2137,20 @@ class WC_AJAX_Test extends \WP_Ajax_UnitTestCase {
 
 	/**
 	 * The ?wc-ajax=get_variation endpoint renders the matched variation's description through
-	 * wc_format_content(), which fires the woocommerce_short_description filter. Eager block registration is
-	 * skipped on AJAX requests, so Bootstrap registers WooCommerce block types on demand there — otherwise a
+	 * wc_format_content(), which fires the poocommerce_short_description filter. Eager block registration is
+	 * skipped on AJAX requests, so Bootstrap registers PooCommerce block types on demand there — otherwise a
 	 * block in a variation description would render empty. See Bootstrap::maybe_register_blocks_from_content.
 	 *
-	 * @testdox The get_variation AJAX endpoint registers WooCommerce block types on demand for a variation description block.
+	 * @testdox The get_variation AJAX endpoint registers PooCommerce block types on demand for a variation description block.
 	 */
 	public function test_get_variation_registers_block_types_on_demand_for_description(): void {
 		$registry = WP_Block_Type_Registry::get_instance();
 
-		// Snapshot and unregister WooCommerce blocks so this test mirrors a request whose eager registration
+		// Snapshot and unregister PooCommerce blocks so this test mirrors a request whose eager registration
 		// was skipped; on-demand registration should then re-register them when the description is rendered.
 		$snapshot = array();
 		foreach ( $registry->get_all_registered() as $name => $block_type ) {
-			if ( 0 === strpos( $name, 'woocommerce/' ) ) {
+			if ( 0 === strpos( $name, 'poocommerce/' ) ) {
 				$snapshot[ $name ] = $block_type;
 				$registry->unregister( $name );
 			}
@@ -2161,8 +2161,8 @@ class WC_AJAX_Test extends \WP_Ajax_UnitTestCase {
 		$this->set_register_blocks_has_run_flag( false );
 
 		// A foundational block register_blocks() always registers (not gated behind a theme/feature flag).
-		$sample = 'woocommerce/product-price';
-		$this->assertNotEmpty( $snapshot, 'The test bootstrap should have registered WooCommerce blocks to snapshot.' );
+		$sample = 'poocommerce/product-price';
+		$this->assertNotEmpty( $snapshot, 'The test bootstrap should have registered PooCommerce blocks to snapshot.' );
 
 		$posted_keys = array();
 
@@ -2170,7 +2170,7 @@ class WC_AJAX_Test extends \WP_Ajax_UnitTestCase {
 			$product   = WC_Helper_Product::create_variation_product();
 			$children  = $product->get_children();
 			$variation = wc_get_product( $children[0] );
-			$variation->set_description( '<!-- wp:woocommerce/product-price /-->' );
+			$variation->set_description( '<!-- wp:poocommerce/product-price /-->' );
 			$variation->save();
 
 			$_POST['product_id'] = $product->get_id();
@@ -2183,7 +2183,7 @@ class WC_AJAX_Test extends \WP_Ajax_UnitTestCase {
 
 			$this->assertFalse( $registry->is_registered( $sample ), 'Blocks should start unregistered for this test.' );
 
-			$response = $this->do_ajax( 'woocommerce_get_variation' );
+			$response = $this->do_ajax( 'poocommerce_get_variation' );
 
 			$this->assertIsArray( $response, 'The get_variation endpoint should return the matched variation.' );
 			$this->assertSame(
@@ -2210,7 +2210,7 @@ class WC_AJAX_Test extends \WP_Ajax_UnitTestCase {
 			}
 
 			foreach ( array_keys( $registry->get_all_registered() ) as $name ) {
-				if ( 0 === strpos( (string) $name, 'woocommerce/' ) ) {
+				if ( 0 === strpos( (string) $name, 'poocommerce/' ) ) {
 					$registry->unregister( $name );
 				}
 			}
@@ -2232,7 +2232,7 @@ class WC_AJAX_Test extends \WP_Ajax_UnitTestCase {
 	 * @param bool $has_run The flag value to set.
 	 */
 	private function set_register_blocks_has_run_flag( bool $has_run ): void {
-		$property = new \ReflectionProperty( \Automattic\WooCommerce\Blocks\BlockTypesController::class, 'register_blocks_has_run' );
+		$property = new \ReflectionProperty( \Automattic\PooCommerce\Blocks\BlockTypesController::class, 'register_blocks_has_run' );
 		$property->setAccessible( true );
 		$property->setValue( null, $has_run );
 	}
@@ -2256,7 +2256,7 @@ class WC_AJAX_Test extends \WP_Ajax_UnitTestCase {
 			),
 		);
 
-		$response = $this->do_ajax( 'woocommerce_add_order_item' );
+		$response = $this->do_ajax( 'poocommerce_add_order_item' );
 
 		$this->assertFalse( $response['success'] );
 
@@ -2283,7 +2283,7 @@ class WC_AJAX_Test extends \WP_Ajax_UnitTestCase {
 			),
 		);
 
-		$response = $this->do_ajax( 'woocommerce_add_order_item' );
+		$response = $this->do_ajax( 'poocommerce_add_order_item' );
 
 		$this->assertTrue( $response['success'] );
 
@@ -2314,7 +2314,7 @@ class WC_AJAX_Test extends \WP_Ajax_UnitTestCase {
 			)
 		);
 
-		$response = $this->do_ajax( 'woocommerce_save_order_items' );
+		$response = $this->do_ajax( 'poocommerce_save_order_items' );
 
 		$this->assertFalse( $response['success'] );
 
@@ -2344,7 +2344,7 @@ class WC_AJAX_Test extends \WP_Ajax_UnitTestCase {
 			)
 		);
 
-		$response = $this->do_ajax( 'woocommerce_save_order_items' );
+		$response = $this->do_ajax( 'poocommerce_save_order_items' );
 
 		$this->assertTrue( $response['success'] );
 
@@ -2376,7 +2376,7 @@ class WC_AJAX_Test extends \WP_Ajax_UnitTestCase {
 			)
 		);
 
-		$response = $this->do_ajax( 'woocommerce_remove_order_item' );
+		$response = $this->do_ajax( 'poocommerce_remove_order_item' );
 
 		$this->assertFalse( $response['success'] );
 

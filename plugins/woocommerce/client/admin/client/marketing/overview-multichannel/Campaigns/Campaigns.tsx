@@ -19,8 +19,8 @@ import {
 	Table,
 	TablePlaceholder,
 	Link,
-} from '@woocommerce/components';
-import { isWCAdmin } from '@woocommerce/navigation';
+} from '@poocommerce/components';
+import { isWCAdmin } from '@poocommerce/navigation';
 
 /**
  * Internal dependencies
@@ -32,20 +32,20 @@ import {
 import { useCampaignTypes, useCampaigns } from '~/marketing/hooks';
 import './Campaigns.scss';
 
-const tableCaption = __( 'Campaigns', 'woocommerce' );
+const tableCaption = __( 'Campaigns', 'poocommerce' );
 const tableHeaders = [
 	{
 		key: 'campaign',
-		label: __( 'Campaign', 'woocommerce' ),
+		label: __( 'Campaign', 'poocommerce' ),
 	},
 	{
 		key: 'cost',
-		label: __( 'Cost', 'woocommerce' ),
+		label: __( 'Cost', 'poocommerce' ),
 		isNumeric: true,
 	},
 	{
 		key: 'sales',
-		label: __( 'Sales', 'woocommerce' ),
+		label: __( 'Sales', 'poocommerce' ),
 		isNumeric: true,
 	},
 ];
@@ -81,19 +81,19 @@ export const Campaigns = () => {
 
 		if ( ! data ) {
 			return (
-				<CardBody className="woocommerce-marketing-campaigns-card__content">
+				<CardBody className="poocommerce-marketing-campaigns-card__content">
 					<Icon
-						className="woocommerce-marketing-campaigns-card__content-icon woocommerce-marketing-campaigns-card__content-icon--error"
+						className="poocommerce-marketing-campaigns-card__content-icon poocommerce-marketing-campaigns-card__content-icon--error"
 						icon={ cancelCircleFilled }
 						size={ 32 }
 					/>
-					<div className="woocommerce-marketing-campaigns-card__content-title">
-						{ __( 'An unexpected error occurred.', 'woocommerce' ) }
+					<div className="poocommerce-marketing-campaigns-card__content-title">
+						{ __( 'An unexpected error occurred.', 'poocommerce' ) }
 					</div>
-					<div className="woocommerce-marketing-campaigns-card-body__content-description">
+					<div className="poocommerce-marketing-campaigns-card-body__content-description">
 						{ __(
 							'Please try again later. Check the logs if the problem persists. ',
-							'woocommerce'
+							'poocommerce'
 						) }
 					</div>
 				</CardBody>
@@ -102,22 +102,22 @@ export const Campaigns = () => {
 
 		if ( data.length === 0 ) {
 			return (
-				<CardBody className="woocommerce-marketing-campaigns-card__content">
+				<CardBody className="poocommerce-marketing-campaigns-card__content">
 					<Icon
-						className="woocommerce-marketing-campaigns-card__content-icon woocommerce-marketing-campaigns-card__content-icon--empty"
+						className="poocommerce-marketing-campaigns-card__content-icon poocommerce-marketing-campaigns-card__content-icon--empty"
 						icon={ megaphone }
 						size={ 32 }
 					/>
-					<div className="woocommerce-marketing-campaigns-card__content-title">
+					<div className="poocommerce-marketing-campaigns-card__content-title">
 						{ __(
 							'Advertise with marketing campaigns',
-							'woocommerce'
+							'poocommerce'
 						) }
 					</div>
-					<div className="woocommerce-marketing-campaigns-card__content-description">
+					<div className="poocommerce-marketing-campaigns-card__content-description">
 						{ __(
-							'Easily create and manage marketing campaigns without leaving WooCommerce.',
-							'woocommerce'
+							'Easily create and manage marketing campaigns without leaving PooCommerce.',
+							'poocommerce'
 						) }
 					</div>
 				</CardBody>
@@ -133,7 +133,7 @@ export const Campaigns = () => {
 						{
 							display: (
 								<Flex gap={ 4 }>
-									<FlexItem className="woocommerce-marketing-campaigns-card__campaign-logo">
+									<FlexItem className="poocommerce-marketing-campaigns-card__campaign-logo">
 										<img
 											src={ el.icon }
 											alt={ el.channelName }
@@ -143,7 +143,7 @@ export const Campaigns = () => {
 									</FlexItem>
 									<FlexBlock>
 										<Flex direction="column" gap={ 1 }>
-											<FlexItem className="woocommerce-marketing-campaigns-card__campaign-title">
+											<FlexItem className="poocommerce-marketing-campaigns-card__campaign-title">
 												<Link
 													type={
 														isWCAdmin(
@@ -158,7 +158,7 @@ export const Campaigns = () => {
 												</Link>
 											</FlexItem>
 											{ !! el.description && (
-												<FlexItem className="woocommerce-marketing-campaigns-card__campaign-description">
+												<FlexItem className="poocommerce-marketing-campaigns-card__campaign-description">
 													{ el.description }
 												</FlexItem>
 											) }
@@ -179,17 +179,17 @@ export const Campaigns = () => {
 	const showFooter = !! ( total && total > perPage );
 
 	return (
-		<Card className="woocommerce-marketing-campaigns-card">
+		<Card className="poocommerce-marketing-campaigns-card">
 			<CardHeader>
 				<CardHeaderTitle>
-					{ __( 'Campaigns', 'woocommerce' ) }
+					{ __( 'Campaigns', 'poocommerce' ) }
 				</CardHeaderTitle>
 				{ showCreateCampaignButton && (
 					<Button
 						variant="secondary"
 						onClick={ () => setModalOpen( true ) }
 					>
-						{ __( 'Create new campaign', 'woocommerce' ) }
+						{ __( 'Create new campaign', 'poocommerce' ) }
 					</Button>
 				) }
 				{ isModalOpen && (
@@ -200,7 +200,7 @@ export const Campaigns = () => {
 			</CardHeader>
 			{ getContent() }
 			{ showFooter && (
-				<CardFooter className="woocommerce-marketing-campaigns-card__footer">
+				<CardFooter className="poocommerce-marketing-campaigns-card__footer">
 					<Pagination
 						showPerPagePicker={ false }
 						perPage={ perPage }

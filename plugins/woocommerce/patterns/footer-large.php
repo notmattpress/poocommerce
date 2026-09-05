@@ -1,8 +1,8 @@
 <?php
 /**
  * Title: Large Footer
- * Slug: woocommerce-blocks/footer-large
- * Categories: WooCommerce
+ * Slug: poocommerce-blocks/footer-large
+ * Categories: PooCommerce
  * Block Types: core/template-part/footer
  */
 ?>
@@ -16,11 +16,11 @@
 			<!-- wp:group {"style":{"spacing":{"blockGap":"8px"}},"layout":{"type":"flex","orientation":"vertical"}} -->
 			<div class="wp-block-group"><!-- wp:site-logo /-->
 				<!-- wp:heading {"level":5,"style":{"typography":{"textTransform":"none"},"spacing":{"margin":{"top":"40px"}}}} -->
-				<h5 class="wp-block-heading" style="margin-top:40px;text-transform:none"><?php esc_html_e( 'Join the community', 'woocommerce' ); ?></h5>
+				<h5 class="wp-block-heading" style="margin-top:40px;text-transform:none"><?php esc_html_e( 'Join the community', 'poocommerce' ); ?></h5>
 				<!-- /wp:heading -->
 
 				<!-- wp:paragraph {"style":{"spacing":{"margin":{"bottom":"40px"}}}} -->
-				<p style="margin-bottom:40px"><?php esc_html_e( 'Learn about new products and discounts', 'woocommerce' ); ?></p>
+				<p style="margin-bottom:40px"><?php esc_html_e( 'Learn about new products and discounts', 'poocommerce' ); ?></p>
 				<!-- /wp:paragraph -->
 
 				<!-- wp:social-links {"size":"has-small-icon-size","style":{"spacing":{"blockGap":{"left":"16px"}}},"className":"has-icon-color is-style-logos-only"} -->
@@ -62,13 +62,13 @@
 		<p class="has-text-align-center">
 			<?php
 			echo sprintf(
-			/* translators: Footer powered by text. %1$s being WordPress, %2$s being WooCommerce */
+			/* translators: Footer powered by text. %1$s being WordPress, %2$s being PooCommerce */
 				esc_html__(
 					'Powered by %1$s with %2$s',
-					'woocommerce'
+					'poocommerce'
 				),
 				'<a href="https://wordpress.org" target="_blank" rel="noreferrer nofollow">WordPress</a>',
-				'<a href="https://woocommerce.com" target="_blank" rel="noreferrer nofollow">WooCommerce</a>'
+				'<a href="https://poocommerce.com" target="_blank" rel="noreferrer nofollow">PooCommerce</a>'
 			);
 			?>
 		</p>

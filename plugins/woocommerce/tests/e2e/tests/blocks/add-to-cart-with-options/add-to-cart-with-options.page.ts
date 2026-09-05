@@ -7,13 +7,13 @@ import {
 	Editor,
 	Admin,
 	BLOCK_THEME_SLUG,
-} from '@woocommerce/e2e-utils';
+} from '@poocommerce/e2e-utils';
 
 class AddToCartWithOptionsPage {
 	private page: Page;
 	private admin: Admin;
 	private editor: Editor;
-	BLOCK_SLUG = 'woocommerce/add-to-cart-with-options';
+	BLOCK_SLUG = 'poocommerce/add-to-cart-with-options';
 	BLOCK_NAME = 'Add to Cart + Options (Beta)';
 	EDITOR_INNER_BLOCKS = {
 		simple: [
@@ -124,7 +124,7 @@ class AddToCartWithOptionsPage {
 
 	async updateAddToCartWithOptionsBlock() {
 		const addToCartFormBlock = await this.editor.getBlockByName(
-			'woocommerce/add-to-cart-form'
+			'poocommerce/add-to-cart-form'
 		);
 		if ( await addToCartFormBlock.isVisible() ) {
 			await this.editor.selectBlocks( addToCartFormBlock );
@@ -169,7 +169,7 @@ class AddToCartWithOptionsPage {
 		).toBeVisible();
 
 		const attributeTemplateBlock = await this.editor.getBlockByName(
-			'woocommerce/add-to-cart-with-options-variation-selector-attribute'
+			'poocommerce/add-to-cart-with-options-variation-selector-attribute'
 		);
 		await this.editor.selectBlocks( attributeTemplateBlock.first() );
 
@@ -206,9 +206,9 @@ class AddToCartWithOptionsPage {
 
 	async createPostWithProductBlock( product: string, variation?: string ) {
 		await this.admin.createNewPost();
-		await this.editor.insertBlock( { name: 'woocommerce/single-product' } );
+		await this.editor.insertBlock( { name: 'poocommerce/single-product' } );
 		const singleProductBlock = await this.editor.getBlockByName(
-			'woocommerce/single-product'
+			'poocommerce/single-product'
 		);
 
 		await singleProductBlock

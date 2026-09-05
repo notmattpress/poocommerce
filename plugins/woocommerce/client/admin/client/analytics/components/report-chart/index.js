@@ -7,21 +7,21 @@ import { format as formatDate } from '@wordpress/date';
 import { withSelect } from '@wordpress/data';
 import { get, isEqual } from 'lodash';
 import PropTypes from 'prop-types';
-import { Chart, AnalyticsError } from '@woocommerce/components';
+import { Chart, AnalyticsError } from '@poocommerce/components';
 import {
 	getReportChartData,
 	getTooltipValueFormat,
 	settingsStore,
 	reportsStore,
-} from '@woocommerce/data';
+} from '@poocommerce/data';
 import {
 	getAllowedIntervalsForQuery,
 	getCurrentDates,
 	getDateFormatsForInterval,
 	getIntervalForQuery,
 	getChartTypeForQuery,
-} from '@woocommerce/date';
-import { CurrencyContext } from '@woocommerce/currency';
+} from '@poocommerce/date';
+import { CurrencyContext } from '@poocommerce/currency';
 
 /**
  * Internal dependencies
@@ -346,7 +346,7 @@ export default compose(
 			props.mode ||
 			getChartMode( selectedFilter, query ) ||
 			'time-comparison';
-		const { woocommerce_default_date_range: defaultDateRange } = select(
+		const { poocommerce_default_date_range: defaultDateRange } = select(
 			settingsStore
 		).getSetting( 'wc_admin', 'wcAdminSettings' );
 

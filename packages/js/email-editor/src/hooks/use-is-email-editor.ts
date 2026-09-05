@@ -12,7 +12,7 @@ import { EmailTemplate } from '../store/types';
 /**
  * Store name of the WordPress editor store.
  * Using a hardcoded string allows us to avoid the import.
- * See: https://github.com/woocommerce/woocommerce/issues/47831
+ * See: https://github.com/poocommerce/poocommerce/issues/47831
  */
 const CORE_EDITOR_STORE = 'core/editor';
 

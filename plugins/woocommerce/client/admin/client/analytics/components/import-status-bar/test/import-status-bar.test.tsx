@@ -3,7 +3,7 @@
  */
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { useDispatch } from '@wordpress/data';
-import { useSettings } from '@woocommerce/data';
+import { useSettings } from '@poocommerce/data';
 
 /**
  * Internal dependencies
@@ -28,11 +28,11 @@ jest.mock( '@wordpress/date', () => ( {
 		return 'Nov 21 00:00';
 	} ),
 } ) );
-jest.mock( '@woocommerce/data', () => ( {
-	...jest.requireActual( '@woocommerce/data' ),
+jest.mock( '@poocommerce/data', () => ( {
+	...jest.requireActual( '@poocommerce/data' ),
 	useSettings: jest.fn().mockImplementation( () => ( {
 		wcAdminSettings: {
-			woocommerce_analytics_scheduled_import: 'yes',
+			poocommerce_analytics_scheduled_import: 'yes',
 		},
 	} ) ),
 } ) );
@@ -59,7 +59,7 @@ describe( 'ImportStatusBar', () => {
 		} );
 		mockUseSettings.mockReturnValue( {
 			wcAdminSettings: {
-				woocommerce_analytics_scheduled_import: 'yes',
+				poocommerce_analytics_scheduled_import: 'yes',
 			},
 		} as unknown as ReturnType< typeof useSettings > );
 	} );
@@ -83,7 +83,7 @@ describe( 'ImportStatusBar', () => {
 	it( 'should not render when mode is immediate', () => {
 		mockUseSettings.mockReturnValue( {
 			wcAdminSettings: {
-				woocommerce_analytics_scheduled_import: 'no',
+				poocommerce_analytics_scheduled_import: 'no',
 			},
 		} as unknown as ReturnType< typeof useSettings > );
 		// Mock useImportStatus to avoid destructuring error even though component returns early

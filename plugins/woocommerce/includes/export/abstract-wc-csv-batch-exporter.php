@@ -4,7 +4,7 @@
  *
  * Based on https://pippinsplugins.com/batch-processing-for-big-data/
  *
- * @package  WooCommerce\Export
+ * @package  PooCommerce\Export
  * @version  3.1.0
  */
 
@@ -134,7 +134,7 @@ abstract class WC_CSV_Batch_Exporter extends WC_CSV_Exporter {
 			wc_get_logger()->error(
 				sprintf(
 					/* translators: %s is file path. */
-					__( 'Unable to create or write to %s during CSV export. Please check file permissions.', 'woocommerce' ),
+					__( 'Unable to create or write to %s during CSV export. Please check file permissions.', 'poocommerce' ),
 					$this->get_file_path()
 				),
 				$log_context
@@ -152,7 +152,7 @@ abstract class WC_CSV_Batch_Exporter extends WC_CSV_Exporter {
 		 *
 		 * @param string $fopen_mode One of (r, r+, w, w+, a, a+, x, x+, c, c+), optionally followed by flags such as "b", "t" or "e". Defaults to "a" (append, write-only) for broad stream-wrapper compatibility.
 		 */
-		$fopen_mode = apply_filters( 'woocommerce_csv_exporter_fopen_mode', 'a' );
+		$fopen_mode = apply_filters( 'poocommerce_csv_exporter_fopen_mode', 'a' );
 		$fp         = fopen( $this->get_file_path(), $fopen_mode );
 
 		if ( $fp ) {
@@ -166,7 +166,7 @@ abstract class WC_CSV_Batch_Exporter extends WC_CSV_Exporter {
 				wc_get_logger()->error(
 					sprintf(
 						/* translators: %s: file path */
-						__( 'Failed to write CSV export data to %s. The exported file may be incomplete.', 'woocommerce' ),
+						__( 'Failed to write CSV export data to %s. The exported file may be incomplete.', 'poocommerce' ),
 						$this->get_file_path()
 					),
 					$log_context
@@ -180,7 +180,7 @@ abstract class WC_CSV_Batch_Exporter extends WC_CSV_Exporter {
 			wc_get_logger()->error(
 				sprintf(
 					/* translators: 1: file path, 2: fopen mode, 3: last PHP error message */
-					__( 'Unable to open file for writing: %1$s (mode: %2$s). Last PHP error: %3$s', 'woocommerce' ),
+					__( 'Unable to open file for writing: %1$s (mode: %2$s). Last PHP error: %3$s', 'poocommerce' ),
 					$this->get_file_path(),
 					$fopen_mode,
 					isset( $last_error['message'] ) ? $last_error['message'] : 'n/a'

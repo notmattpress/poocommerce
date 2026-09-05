@@ -19,7 +19,7 @@ let mockIsMultisite = false;
 // Exposed only so the tests below can prove the keys ignore it.
 let mockHomeUrl = 'http://example.com/';
 
-jest.mock( '@woocommerce/settings', () => ( {
+jest.mock( '@poocommerce/settings', () => ( {
 	// Getters, not values: the site under test changes between calls.
 	get CURRENT_SITE_ID() {
 		return mockSiteId;
@@ -102,13 +102,13 @@ describe( 'incompatible extension notice storage', () => {
 				UNSCOPED_STORAGE_KEY,
 				JSON.stringify( [
 					'ext-one',
-					{ 'woocommerce/cart': [ 'gw' ] },
+					{ 'poocommerce/cart': [ 'gw' ] },
 				] )
 			);
 
 			expect( readDismissalsFromBeforeScoping() ).toEqual( [
 				'ext-one',
-				{ 'woocommerce/cart': [ 'gw' ] },
+				{ 'poocommerce/cart': [ 'gw' ] },
 			] );
 		} );
 

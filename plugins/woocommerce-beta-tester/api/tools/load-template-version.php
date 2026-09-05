@@ -2,7 +2,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-register_woocommerce_admin_test_helper_rest_route(
+register_poocommerce_admin_test_helper_rest_route(
 	'/tools/load-template-version',
 	'tools_load_template_version',
 	array(
@@ -22,7 +22,7 @@ register_woocommerce_admin_test_helper_rest_route(
 	)
 );
 
-register_woocommerce_admin_test_helper_rest_route(
+register_poocommerce_admin_test_helper_rest_route(
 	'/tools/get-available-templates',
 	'tools_get_available_templates',
 	array(
@@ -30,7 +30,7 @@ register_woocommerce_admin_test_helper_rest_route(
 	)
 );
 
-register_woocommerce_admin_test_helper_rest_route(
+register_poocommerce_admin_test_helper_rest_route(
 	'/tools/get-available-versions',
 	'tools_get_available_versions',
 	array(
@@ -124,7 +124,7 @@ function tools_load_template_version( $request ) {
 	}
 
 	// Remove any customizations
-	$template = get_block_template( "woocommerce/woocommerce//{$template_name}", 'wp_template' );
+	$template = get_block_template( "poocommerce/poocommerce//{$template_name}", 'wp_template' );
 	if ( $template && isset( $template->wp_id ) ) {
 		$delete_result = wp_delete_post( $template->wp_id, true );
 		if ( false === $delete_result ) {
@@ -166,9 +166,9 @@ function tools_load_template_version( $request ) {
 	}
 
 	// Set template metadata and taxonomy terms
-	update_post_meta( $template_id, 'theme', 'woocommerce/woocommerce' );
+	update_post_meta( $template_id, 'theme', 'poocommerce/poocommerce' );
 	wp_set_object_terms( $template_id, 'wp_template', 'wp_template_type' );
-	wp_set_object_terms( $template_id, 'woocommerce/woocommerce', 'wp_theme' );
+	wp_set_object_terms( $template_id, 'poocommerce/poocommerce', 'wp_theme' );
 
 	return new \WP_REST_Response(
 		array(

@@ -7,7 +7,7 @@ import {
 	createClient,
 	WC_API_PATH,
 	WP_API_PATH,
-} from '@woocommerce/e2e-utils-playwright';
+} from '@poocommerce/e2e-utils-playwright';
 
 /**
  * Internal dependencies
@@ -70,7 +70,7 @@ test.beforeAll( async ( { baseURL } ) => {
 	await setOption(
 		request,
 		baseURL,
-		'woocommerce_feature_block_email_editor_enabled',
+		'poocommerce_feature_block_email_editor_enabled',
 		'yes'
 	);
 	// Start from a clean slate in case another spec left a post behind.
@@ -90,7 +90,7 @@ test.afterAll( async ( { baseURL } ) => {
 	await setOption(
 		request,
 		baseURL,
-		'woocommerce_feature_block_email_editor_enabled',
+		'poocommerce_feature_block_email_editor_enabled',
 		'no'
 	);
 } );

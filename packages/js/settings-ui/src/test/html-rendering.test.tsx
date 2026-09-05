@@ -254,7 +254,7 @@ describe( 'settings HTML rendering', () => {
 		);
 		expect( container.querySelector( 'input' ) ).toBeNull();
 		expect(
-			container.querySelector( '.woocommerce-save-button' )
+			container.querySelector( '.poocommerce-save-button' )
 		).toBeNull();
 		const classicAction = Array.from(
 			container.querySelectorAll( 'a' )
@@ -356,7 +356,7 @@ describe( 'settings HTML rendering', () => {
 		expect( errorRegion?.ownerDocument.activeElement ).toBe( errorRegion );
 		expect( container.querySelector( 'input' ) ).toBeNull();
 		expect(
-			container.querySelector( '.woocommerce-save-button' )
+			container.querySelector( '.poocommerce-save-button' )
 		).toBeNull();
 
 		act( () => root.unmount() );
@@ -663,7 +663,7 @@ describe( 'settings HTML rendering', () => {
 				'https://example.com/next'
 			);
 			expect( requestSubmit ).toHaveBeenCalledWith(
-				container.querySelector( '.woocommerce-save-button' )
+				container.querySelector( '.poocommerce-save-button' )
 			);
 		} finally {
 			act( () => root.unmount() );
@@ -1069,7 +1069,7 @@ describe( 'settings HTML rendering', () => {
 		);
 		expect( container.querySelector( 'input' ) ).toBeNull();
 		expect(
-			container.querySelector( '.woocommerce-save-button' )
+			container.querySelector( '.poocommerce-save-button' )
 		).toBeNull();
 
 		act( () => root.unmount() );
@@ -1113,7 +1113,7 @@ describe( 'settings HTML rendering', () => {
 		);
 		expect( container.querySelector( 'select' ) ).toBeNull();
 		expect(
-			container.querySelector( '.woocommerce-save-button' )
+			container.querySelector( '.poocommerce-save-button' )
 		).toBeNull();
 
 		act( () => root.unmount() );

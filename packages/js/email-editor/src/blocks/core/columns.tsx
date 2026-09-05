@@ -40,7 +40,7 @@ const columnsEditCallback = createHigherOrderComponent(
 function deactivateStackOnMobile() {
 	addFilterForEmail(
 		'editor.BlockEdit',
-		'woocommerce-email-editor/deactivate-stack-on-mobile',
+		'poocommerce-email-editor/deactivate-stack-on-mobile',
 		columnsEditCallback
 	);
 }

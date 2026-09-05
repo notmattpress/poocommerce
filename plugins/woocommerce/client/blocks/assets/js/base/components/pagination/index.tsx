@@ -3,7 +3,7 @@
  */
 import { __, sprintf } from '@wordpress/i18n';
 import clsx from 'clsx';
-import { Label } from '@woocommerce/blocks-components';
+import { Label } from '@poocommerce/blocks-components';
 
 /**
  * Internal dependencies
@@ -83,21 +83,21 @@ const Pagination = ( {
 			<Label
 				screenReaderLabel={ __(
 					'Navigate to another page',
-					'woocommerce'
+					'poocommerce'
 				) }
 			/>
 			{ displayNextAndPreviousArrows && (
 				<button
 					className="wc-block-pagination-page wc-block-components-pagination__page wc-block-components-pagination-page--arrow"
 					onClick={ () => onPageChange( currentPage - 1 ) }
-					title={ __( 'Previous page', 'woocommerce' ) }
+					title={ __( 'Previous page', 'poocommerce' ) }
 					disabled={ currentPage <= 1 }
 				>
 					<Label
 						label="&larr;"
 						screenReaderLabel={ __(
 							'Previous page',
-							'woocommerce'
+							'poocommerce'
 						) }
 					/>
 				</button>
@@ -121,7 +121,7 @@ const Pagination = ( {
 						label={ '1' }
 						screenReaderLabel={ sprintf(
 							/* translators: %d is the page number (1, 2, 3...). */
-							__( 'Page %d', 'woocommerce' ),
+							__( 'Page %d', 'poocommerce' ),
 							1
 						) }
 					/>
@@ -132,7 +132,7 @@ const Pagination = ( {
 					className="wc-block-pagination-ellipsis wc-block-components-pagination__ellipsis"
 					aria-hidden="true"
 				>
-					{ __( '…', 'woocommerce' ) }
+					{ __( '…', 'poocommerce' ) }
 				</span>
 			) }
 			{ pages.map( ( page ) => {
@@ -160,7 +160,7 @@ const Pagination = ( {
 							label={ page.toString() }
 							screenReaderLabel={ sprintf(
 								/* translators: %d is the page number (1, 2, 3...). */
-								__( 'Page %d', 'woocommerce' ),
+								__( 'Page %d', 'poocommerce' ),
 								page
 							) }
 						/>
@@ -172,7 +172,7 @@ const Pagination = ( {
 					className="wc-block-pagination-ellipsis wc-block-components-pagination__ellipsis"
 					aria-hidden="true"
 				>
-					{ __( '…', 'woocommerce' ) }
+					{ __( '…', 'poocommerce' ) }
 				</span>
 			) }
 			{ showLastPage && (
@@ -194,7 +194,7 @@ const Pagination = ( {
 						label={ totalPages.toString() }
 						screenReaderLabel={ sprintf(
 							/* translators: %d is the page number (1, 2, 3...). */
-							__( 'Page %d', 'woocommerce' ),
+							__( 'Page %d', 'poocommerce' ),
 							totalPages
 						) }
 					/>
@@ -204,12 +204,12 @@ const Pagination = ( {
 				<button
 					className="wc-block-pagination-page wc-block-components-pagination__page wc-block-components-pagination-page--arrow"
 					onClick={ () => onPageChange( currentPage + 1 ) }
-					title={ __( 'Next page', 'woocommerce' ) }
+					title={ __( 'Next page', 'poocommerce' ) }
 					disabled={ currentPage >= totalPages }
 				>
 					<Label
 						label="&rarr;"
-						screenReaderLabel={ __( 'Next page', 'woocommerce' ) }
+						screenReaderLabel={ __( 'Next page', 'poocommerce' ) }
 					/>
 				</button>
 			) }

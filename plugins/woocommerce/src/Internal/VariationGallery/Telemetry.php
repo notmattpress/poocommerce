@@ -5,9 +5,9 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\VariationGallery;
+namespace Automattic\PooCommerce\Internal\VariationGallery;
 
-use Automattic\WooCommerce\Internal\RegisterHooksInterface;
+use Automattic\PooCommerce\Internal\RegisterHooksInterface;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -20,7 +20,7 @@ class Telemetry implements RegisterHooksInterface {
 	public const EVENT_SAVE_FAILED         = 'variation_gallery_save_failed';
 	public const EVENT_MIGRATION_COMPLETED = 'variation_gallery_migration_completed';
 
-	private const LEGACY_PLUGIN_FILE = 'woocommerce-additional-variation-images/woocommerce-additional-variation-images.php';
+	private const LEGACY_PLUGIN_FILE = 'poocommerce-additional-variation-images/poocommerce-additional-variation-images.php';
 
 	/**
 	 * Register the tracker snapshot filter.
@@ -28,7 +28,7 @@ class Telemetry implements RegisterHooksInterface {
 	 * @return void
 	 */
 	public function register() {
-		add_filter( 'woocommerce_tracker_data', array( $this, 'add_snapshot_to_tracker_data' ), 10, 1 );
+		add_filter( 'poocommerce_tracker_data', array( $this, 'add_snapshot_to_tracker_data' ), 10, 1 );
 	}
 
 	/**

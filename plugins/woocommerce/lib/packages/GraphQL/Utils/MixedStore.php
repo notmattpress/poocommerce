@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\GraphQL\Utils;
+namespace Automattic\PooCommerce\Vendor\GraphQL\Utils;
 
 /**
  * Similar to PHP array, but allows any type of data to act as key (including arrays, objects, scalars).
@@ -11,7 +11,7 @@ namespace Automattic\WooCommerce\Vendor\GraphQL\Utils;
  *
  * @implements \ArrayAccess<mixed, TValue>
  *
- * @see \Automattic\WooCommerce\Vendor\GraphQL\Tests\Utils\MixedStoreTest
+ * @see \Automattic\PooCommerce\Vendor\GraphQL\Tests\Utils\MixedStoreTest
  */
 class MixedStore implements \ArrayAccess
 {

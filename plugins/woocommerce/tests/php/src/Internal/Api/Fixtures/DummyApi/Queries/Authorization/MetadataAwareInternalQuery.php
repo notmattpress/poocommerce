@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Queries\Authorization;
+namespace Automattic\PooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Queries\Authorization;
 
-use Automattic\WooCommerce\Api\Attributes\Description;
-use Automattic\WooCommerce\Api\Attributes\Internal;
-use Automattic\WooCommerce\Api\Attributes\Name;
-use Automattic\WooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Attributes\RequiresInternalFlag;
+use Automattic\PooCommerce\Api\Attributes\Description;
+use Automattic\PooCommerce\Api\Attributes\Internal;
+use Automattic\PooCommerce\Api\Attributes\Name;
+use Automattic\PooCommerce\Tests\Internal\Api\Fixtures\DummyApi\Attributes\RequiresInternalFlag;
 
 /**
  * Carries an `#[Internal]` metadata entry and is gated by

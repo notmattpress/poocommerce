@@ -3,7 +3,7 @@
  * storefront admin banner: the keys, their site scoping, and the containment
  * check.
  *
- * Dependencies are kept to `@woocommerce/settings` (a webpack external both
+ * Dependencies are kept to `@poocommerce/settings` (a webpack external both
  * surfaces already load); barrels that run code at import time stay out,
  * because the storefront bundle imports this module.
  */
@@ -11,7 +11,7 @@
 /**
  * External dependencies
  */
-import { CURRENT_SITE_ID, IS_MULTISITE } from '@woocommerce/settings';
+import { CURRENT_SITE_ID, IS_MULTISITE } from '@poocommerce/settings';
 
 /**
  * The key both surfaces shared before either of them was scoped to a site. It

@@ -11,8 +11,8 @@ import {
 	useLayoutEffect,
 } from '@wordpress/element';
 import clsx from 'clsx';
-import { FormattedMonetaryAmount } from '@woocommerce/blocks-components';
-import { Currency, isObject } from '@woocommerce/types';
+import { FormattedMonetaryAmount } from '@poocommerce/blocks-components';
+import { Currency, isObject } from '@poocommerce/types';
 import { useDebouncedCallback } from 'use-debounce';
 
 /**
@@ -356,7 +356,7 @@ const PriceSlider = ( {
 						className="wc-block-price-filter__range-input wc-block-price-filter__range-input--min wc-block-components-price-slider__range-input wc-block-components-price-slider__range-input--min"
 						aria-label={ __(
 							'Filter products by minimum price',
-							'woocommerce'
+							'poocommerce'
 						) }
 						aria-valuetext={ ariaReadableMinPrice }
 						value={
@@ -377,7 +377,7 @@ const PriceSlider = ( {
 						className="wc-block-price-filter__range-input wc-block-price-filter__range-input--max wc-block-components-price-slider__range-input wc-block-components-price-slider__range-input--max"
 						aria-label={ __(
 							'Filter products by maximum price',
-							'woocommerce'
+							'poocommerce'
 						) }
 						aria-valuetext={ ariaReadableMaxPrice }
 						value={
@@ -425,7 +425,7 @@ const PriceSlider = ( {
 								className="wc-block-components-price-slider__label"
 								htmlFor="minPriceInput"
 							>
-								{ __( 'Min. Price', 'woocommerce' ) }
+								{ __( 'Min. Price', 'poocommerce' ) }
 							</label>
 							<FormattedMonetaryAmount
 								{ ...commonFormattedMonetaryAmountInputProps }
@@ -433,7 +433,7 @@ const PriceSlider = ( {
 								className={ getInputClassName( 'min' ) }
 								aria-label={ __(
 									'Filter products by minimum price',
-									'woocommerce'
+									'poocommerce'
 								) }
 								isAllowed={ isValidMinValue( {
 									minConstraint,
@@ -464,7 +464,7 @@ const PriceSlider = ( {
 								className="wc-block-components-price-slider__label"
 								htmlFor="maxPriceInput"
 							>
-								{ __( 'Max. Price', 'woocommerce' ) }
+								{ __( 'Max. Price', 'poocommerce' ) }
 							</label>
 							<FormattedMonetaryAmount
 								{ ...commonFormattedMonetaryAmountInputProps }
@@ -472,7 +472,7 @@ const PriceSlider = ( {
 								className={ getInputClassName( 'max' ) }
 								aria-label={ __(
 									'Filter products by maximum price',
-									'woocommerce'
+									'poocommerce'
 								) }
 								isAllowed={ isValidMaxValue( {
 									maxConstraint,
@@ -526,7 +526,7 @@ const PriceSlider = ( {
 							} }
 							screenReaderLabel={ __(
 								'Reset price filter',
-								'woocommerce'
+								'poocommerce'
 							) }
 						/>
 					) }
@@ -538,7 +538,7 @@ const PriceSlider = ( {
 							onClick={ onSubmit }
 							screenReaderLabel={ __(
 								'Apply price filter',
-								'woocommerce'
+								'poocommerce'
 							) }
 						/>
 					) }

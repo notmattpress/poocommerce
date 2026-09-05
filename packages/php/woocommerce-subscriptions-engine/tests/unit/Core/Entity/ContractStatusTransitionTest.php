@@ -6,20 +6,20 @@
  * ContractStatus state machine, so illegal moves are rejected at the entity
  * boundary rather than being persisted.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine
+ * @package Automattic\PooCommerce\SubscriptionsEngine
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Tests\Unit\Core\Entity;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Tests\Unit\Core\Entity;
 
 use DomainException;
 use PHPUnit\Framework\TestCase;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\Contract;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\ContractStatus;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\Contract;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\ContractStatus;
 
 /**
- * @covers \Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\Contract::set_status
+ * @covers \Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\Contract::set_status
  */
 class ContractStatusTransitionTest extends TestCase {
 

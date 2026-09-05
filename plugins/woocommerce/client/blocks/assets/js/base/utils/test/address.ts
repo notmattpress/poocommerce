@@ -5,7 +5,7 @@ import {
 	emptyHiddenAddressFields,
 	hasAllFieldsForShippingRates,
 	formatShippingAddress,
-} from '@woocommerce/base-utils';
+} from '@poocommerce/base-utils';
 
 describe( 'emptyHiddenAddressFields', () => {
 	it( "Removes state from an address where the country doesn't use states", () => {

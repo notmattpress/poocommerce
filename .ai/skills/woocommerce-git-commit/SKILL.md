@@ -1,6 +1,6 @@
 ---
-name: woocommerce-git-commit
-description: Commit uncommitted changes with well-crafted messages following WooCommerce repo conventions. Use when the user says "commit", "commit changes", "commit this", "git commit", or "save my work".
+name: poocommerce-git-commit
+description: Commit uncommitted changes with well-crafted messages following PooCommerce repo conventions. Use when the user says "commit", "commit changes", "commit this", "git commit", or "save my work".
 ---
 
 # Commit Changes
@@ -63,7 +63,7 @@ Commit 1: Fix double margin-top in flex layout
          src/Blocks/EmailEditor/styles.css
 
 Commit 2: Add changelog entries for email editor fix
-  files: plugins/woocommerce/changelog/fix-email-margin
+  files: plugins/poocommerce/changelog/fix-email-margin
 ```
 
 ### 5. Execute
@@ -90,7 +90,7 @@ pnpm --filter=<project> changelog add --no-interaction -s patch -t fix -e "One u
 or write the file directly, in this format:
 
 - `Significance:` — `patch`, `minor`, or `major`.
-- `Type:` — one of the types declared in the package's `composer.json` under `extra.changelogger.types`. For WooCommerce Core: `fix`, `add`, `update`, `dev`, `tweak`, `performance`, `enhancement`.
+- `Type:` — one of the types declared in the package's `composer.json` under `extra.changelogger.types`. For PooCommerce Core: `fix`, `add`, `update`, `dev`, `tweak`, `performance`, `enhancement`.
 - **Body** — one user-facing sentence, after a blank line, describing what changed for merchants. This ships in the release changelog, so keep it short and leave out issue numbers, PR links, and implementation detail.
 - `Comment:` — **only** for entries that ship no body, to explain why there is no user-facing line. Almost always paired with `Type: dev`. Never use it alongside a body, and never as a place to record an issue reference.
 
@@ -120,4 +120,4 @@ Changes that touch no package (for example `.ai/skills/` or `AGENTS.md`) need no
 - No Co-Authored-By lines or self-attribution
 - Never push to remote
 - Never use `git add -A` or `git add .`
-- Do not run pre-commit lint/test checks — the `woocommerce-dev-cycle` skill handles that. Linting should be run *before* invoking this skill, not after. For PHP changes, don't commit until that skill's PHP lint has passed (warnings block CI).
+- Do not run pre-commit lint/test checks — the `poocommerce-dev-cycle` skill handles that. Linting should be run *before* invoking this skill, not after. For PHP changes, don't commit until that skill's PHP lint has passed (warnings block CI).

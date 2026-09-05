@@ -3,7 +3,7 @@
 set -euo pipefail
 
 # `wp site empty` does not remove shipping zone methods: they are rows in the
-# woocommerce_shipping_zone_methods table rather than posts or terms, so they
+# poocommerce_shipping_zone_methods table rather than posts or terms, so they
 # survive it. Creating them again on a re-seed leaves zone 0 with four methods
 # instead of two, at exit 0, and the specs that rely on the seeded shape then
 # fail somewhere far from the seed. Clear the zone first so this is re-runnable.

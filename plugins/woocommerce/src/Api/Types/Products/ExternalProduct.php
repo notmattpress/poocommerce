@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Api\Types\Products;
+namespace Automattic\PooCommerce\Api\Types\Products;
 
-use Automattic\WooCommerce\Api\Attributes\Description;
-use Automattic\WooCommerce\Api\Interfaces\Product;
+use Automattic\PooCommerce\Api\Attributes\Description;
+use Automattic\PooCommerce\Api\Interfaces\Product;
 
 /**
  * Output type representing an external/affiliate product.

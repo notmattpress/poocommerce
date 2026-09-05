@@ -153,7 +153,7 @@ describe( 'FulfillmentEditor', () => {
 		const { container } = render( <FulfillmentEditor { ...mockProps } /> );
 		fireEvent.click(
 			container.querySelector(
-				'.woocommerce-fulfillment-stored-fulfillment-list-item-header'
+				'.poocommerce-fulfillment-stored-fulfillment-list-item-header'
 			)
 		);
 		expect( mockProps.onExpand ).toHaveBeenCalled();
@@ -165,7 +165,7 @@ describe( 'FulfillmentEditor', () => {
 		);
 		fireEvent.click(
 			container.querySelector(
-				'.woocommerce-fulfillment-stored-fulfillment-list-item-header'
+				'.poocommerce-fulfillment-stored-fulfillment-list-item-header'
 			)
 		);
 		expect( mockProps.onCollapse ).toHaveBeenCalled();

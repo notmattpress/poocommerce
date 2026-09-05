@@ -2,7 +2,7 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Tests\Blocks\BlockTypes;
 
 use WP_UnitTestCase;
 
@@ -53,7 +53,7 @@ class CustomerAccountTest extends WP_UnitTestCase {
 	 * @return string Rendered markup.
 	 */
 	private function render_customer_account( string $attrs = '' ): string {
-		return do_blocks( "<!-- wp:woocommerce/customer-account {$attrs} /-->" );
+		return do_blocks( "<!-- wp:poocommerce/customer-account {$attrs} /-->" );
 	}
 
 	/**

@@ -20,7 +20,7 @@ import {
 	getNewPath,
 	getQueryFromActiveFilters,
 	getHistory,
-} from '@woocommerce/navigation';
+} from '@poocommerce/navigation';
 
 /**
  * Internal dependencies
@@ -95,8 +95,8 @@ type AdvancedFiltersState = {
 };
 
 const matches = [
-	{ value: 'all', label: __( 'All', 'woocommerce' ) },
-	{ value: 'any', label: __( 'Any', 'woocommerce' ) },
+	{ value: 'all', label: __( 'All', 'poocommerce' ) },
+	{ value: 'any', label: __( 'Any', 'poocommerce' ) },
 ];
 
 /**
@@ -223,13 +223,13 @@ class AdvancedFilters extends Component< Props, AdvancedFiltersState > {
 			select: (
 				<SelectControl
 					__next40pxDefaultSize
-					className="woocommerce-filters-advanced__title-select"
+					className="poocommerce-filters-advanced__title-select"
 					options={ matches }
 					value={ match }
 					onChange={ this.onMatchChange }
 					aria-label={ __(
 						'Choose to apply any or all filters',
-						'woocommerce'
+						'poocommerce'
 					) }
 				/>
 			),
@@ -357,7 +357,7 @@ class AdvancedFilters extends Component< Props, AdvancedFiltersState > {
 			activeFilters.length === 0;
 		const isEnglish = this.isEnglish();
 		return (
-			<Card className="woocommerce-filters-advanced" size="small">
+			<Card className="poocommerce-filters-advanced" size="small">
 				{ /* CardHeader forwards unknown props to Flex, so `justify` works but isn't typed. */ }
 				{ /* @ts-expect-error: justify is not a declared CardHeader prop. */ }
 				<CardHeader justify="flex-start">
@@ -377,7 +377,7 @@ class AdvancedFilters extends Component< Props, AdvancedFiltersState > {
 					// @ts-expect-error: size must be one of small, medium, large, xSmall, extraSmall.
 					<CardBody size="none">
 						<ul
-							className="woocommerce-filters-advanced__list"
+							className="poocommerce-filters-advanced__list"
 							ref={ this.filterListRef }
 						>
 							{ activeFilters
@@ -407,24 +407,24 @@ class AdvancedFilters extends Component< Props, AdvancedFiltersState > {
 				) }
 				{ availableFilters.length > 0 && (
 					<CardBody>
-						<div className="woocommerce-filters-advanced__add-filter">
+						<div className="poocommerce-filters-advanced__add-filter">
 							<Dropdown
-								className="woocommerce-filters-advanced__add-filter-dropdown"
+								className="poocommerce-filters-advanced__add-filter-dropdown"
 								popoverProps={ {
 									placement: 'bottom',
 								} }
 								renderToggle={ ( { isOpen, onToggle } ) => (
 									<Button
-										className="woocommerce-filters-advanced__add-button"
+										className="poocommerce-filters-advanced__add-button"
 										onClick={ onToggle }
 										aria-expanded={ isOpen }
 									>
 										<AddOutlineIcon />
-										{ __( 'Add a filter', 'woocommerce' ) }
+										{ __( 'Add a filter', 'poocommerce' ) }
 									</Button>
 								) }
 								renderContent={ ( { onClose } ) => (
-									<ul className="woocommerce-filters-advanced__add-dropdown">
+									<ul className="poocommerce-filters-advanced__add-dropdown">
 										{ availableFilters.map( ( filter ) => (
 											<li key={ filter.key }>
 												<Button
@@ -447,10 +447,10 @@ class AdvancedFilters extends Component< Props, AdvancedFiltersState > {
 				{ /* CardFooter forwards unknown props to Flex, so `align` works but isn't typed. */ }
 				{ /* @ts-expect-error: align is not a declared CardFooter prop. */ }
 				<CardFooter align="center">
-					<div className="woocommerce-filters-advanced__controls">
+					<div className="poocommerce-filters-advanced__controls">
 						{ updateDisabled && (
 							<Button isPrimary disabled>
-								{ __( 'Filter', 'woocommerce' ) }
+								{ __( 'Filter', 'poocommerce' ) }
 							</Button>
 						) }
 						{ ! updateDisabled && (
@@ -460,7 +460,7 @@ class AdvancedFilters extends Component< Props, AdvancedFiltersState > {
 								href={ updateHref }
 								onClick={ this.onFilter }
 							>
-								{ __( 'Filter', 'woocommerce' ) }
+								{ __( 'Filter', 'poocommerce' ) }
 							</Link>
 						) }
 						{ activeFilters.length > 0 && (
@@ -469,7 +469,7 @@ class AdvancedFilters extends Component< Props, AdvancedFiltersState > {
 								href={ this.getUpdateHref( [] ) }
 								onClick={ this.clearFilters }
 							>
-								{ __( 'Clear all filters', 'woocommerce' ) }
+								{ __( 'Clear all filters', 'poocommerce' ) }
 							</Link>
 						) }
 					</div>

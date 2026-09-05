@@ -2,12 +2,12 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\PushNotifications\Controllers;
+namespace Automattic\PooCommerce\Tests\Internal\PushNotifications\Controllers;
 
-use Automattic\WooCommerce\Internal\PushNotifications\Controllers\PushNotificationStatusRestController;
-use Automattic\WooCommerce\Internal\PushNotifications\Controllers\PushTokenRestController;
-use Automattic\WooCommerce\Internal\PushNotifications\Services\DriverAvailabilityService;
-use Automattic\WooCommerce\Tests\Internal\PushNotifications\Helpers\PushNotificationsTestTrait;
+use Automattic\PooCommerce\Internal\PushNotifications\Controllers\PushNotificationStatusRestController;
+use Automattic\PooCommerce\Internal\PushNotifications\Controllers\PushTokenRestController;
+use Automattic\PooCommerce\Internal\PushNotifications\Services\DriverAvailabilityService;
+use Automattic\PooCommerce\Tests\Internal\PushNotifications\Helpers\PushNotificationsTestTrait;
 use WC_Unit_Test_Case;
 use WP_Http;
 use WP_REST_Request;
@@ -17,7 +17,7 @@ use WP_UnitTest_Factory;
 /**
  * Tests for the PushNotificationStatusRestController class.
  *
- * @package WooCommerce\Tests\PushNotifications
+ * @package PooCommerce\Tests\PushNotifications
  */
 class PushNotificationStatusRestControllerTest extends WC_Unit_Test_Case {
 	use PushNotificationsTestTrait;
@@ -184,13 +184,13 @@ class PushNotificationStatusRestControllerTest extends WC_Unit_Test_Case {
 	public function test_get_status_reports_remote_proxy_unavailable_when_feature_filtered_off() {
 		wp_set_current_user( $this->user_id );
 		$this->mock_jetpack_connection_manager_is_connected( true );
-		add_filter( 'woocommerce_enhanced_push_notifications_disabled', '__return_true' );
+		add_filter( 'poocommerce_enhanced_push_notifications_disabled', '__return_true' );
 		$this->register_routes();
 
 		$request  = new WP_REST_Request( 'GET', '/wc-push-notifications/status' );
 		$response = $this->server->dispatch( $request );
 
-		remove_filter( 'woocommerce_enhanced_push_notifications_disabled', '__return_true' );
+		remove_filter( 'poocommerce_enhanced_push_notifications_disabled', '__return_true' );
 
 		$this->assertSame( WP_Http::OK, $response->get_status() );
 
@@ -228,7 +228,7 @@ class PushNotificationStatusRestControllerTest extends WC_Unit_Test_Case {
 	 *
 	 * Sibling controllers share the URL route namespace `wc-push-notifications`, but they must use
 	 * distinct class identifiers via `get_rest_api_namespace()` so that neither overwrites the
-	 * other in the `woocommerce_rest_api_get_rest_namespaces` filter output.
+	 * other in the `poocommerce_rest_api_get_rest_namespaces` filter output.
 	 */
 	public function test_does_not_overwrite_sibling_controller_in_rest_namespaces_filter() {
 		$status_controller     = new PushNotificationStatusRestController();
@@ -237,8 +237,8 @@ class PushNotificationStatusRestControllerTest extends WC_Unit_Test_Case {
 		$status_controller->register();
 		$push_token_controller->register();
 
-		// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment -- Triggering an existing filter from RestApiControllerBase, not defining one.
-		$namespaces = apply_filters( 'woocommerce_rest_api_get_rest_namespaces', array( 'wc/v3' => array() ) );
+		// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment -- Triggering an existing filter from RestApiControllerBase, not defining one.
+		$namespaces = apply_filters( 'poocommerce_rest_api_get_rest_namespaces', array( 'wc/v3' => array() ) );
 
 		$this->assertArrayHasKey( 'wc/v3', $namespaces );
 

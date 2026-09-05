@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Tests\Blocks\BlockTypes;
 
 use WC_Helper_Product;
 use WC_Unit_Test_Case;
@@ -45,7 +45,7 @@ class FeaturedProductTest extends WC_Unit_Test_Case {
 	/**
 	 * @testdox Should render the merchant-selected custom image when Image Fit is none.
 	 *
-	 * Regression test for https://github.com/woocommerce/woocommerce/issues/66765.
+	 * Regression test for https://github.com/poocommerce/poocommerce/issues/66765.
 	 */
 	public function test_renders_custom_media_image_when_image_fit_is_none(): void {
 		$product_image_id = $this->create_attachment();
@@ -89,7 +89,7 @@ class FeaturedProductTest extends WC_Unit_Test_Case {
 	private function render_featured_product( array $attributes ): string {
 		return do_blocks(
 			sprintf(
-				'<!-- wp:woocommerce/featured-product %s /-->',
+				'<!-- wp:poocommerce/featured-product %s /-->',
 				wp_json_encode( $attributes )
 			)
 		);

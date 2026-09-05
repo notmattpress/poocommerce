@@ -8,7 +8,7 @@ import {
 	PaymentGatewayProvider,
 	OfflinePmsGroupProvider,
 	PaymentsExtensionSuggestionProvider,
-} from '@woocommerce/data';
+} from '@poocommerce/data';
 import { Gridicon } from '@automattic/components';
 import { useNavigate } from 'react-router-dom';
 import { isRTL } from '@wordpress/i18n';
@@ -149,7 +149,7 @@ export const PaymentGatewayList = ( {
 								{ /* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */ }
 								<div
 									id={ offlinePmsGroup.id }
-									className="transitions-disabled woocommerce-list__item clickable-list-item enter-done"
+									className="transitions-disabled poocommerce-list__item clickable-list-item enter-done"
 									onClick={ () => {
 										navigate(
 											removeOriginFromURL(
@@ -159,8 +159,8 @@ export const PaymentGatewayList = ( {
 										);
 									} }
 								>
-									<div className="woocommerce-list__item-inner">
-										<div className="woocommerce-list__item-before">
+									<div className="poocommerce-list__item-inner">
+										<div className="poocommerce-list__item-before">
 											<DefaultDragHandle />
 											<img
 												src={ offlinePmsGroup.icon }
@@ -170,22 +170,22 @@ export const PaymentGatewayList = ( {
 												}
 											/>
 										</div>
-										<div className="woocommerce-list__item-text">
-											<span className="woocommerce-list__item-title">
+										<div className="poocommerce-list__item-text">
+											<span className="poocommerce-list__item-title">
 												{ offlinePmsGroup.title }
 											</span>
 											<span
-												className="woocommerce-list__item-content"
+												className="poocommerce-list__item-content"
 												// eslint-disable-next-line react/no-danger -- This string is sanitized by the PaymentGateway class.
 												dangerouslySetInnerHTML={ {
 													__html: offlinePmsGroup.description,
 												} }
 											/>
 										</div>
-										<div className="woocommerce-list__item-after centered no-buttons">
-											<div className="woocommerce-list__item-after__actions">
+										<div className="poocommerce-list__item-after centered no-buttons">
+											<div className="poocommerce-list__item-after__actions">
 												<a
-													className="woocommerce-list__item-after__actions__arrow"
+													className="poocommerce-list__item-after__actions__arrow"
 													href={
 														offlinePmsGroup
 															.management._links

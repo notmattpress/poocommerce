@@ -3,13 +3,13 @@
  * Controller Tests.
  */
 
-namespace Automattic\WooCommerce\Tests\Blocks\StoreApi\Routes;
+namespace Automattic\PooCommerce\Tests\Blocks\StoreApi\Routes;
 
-use Automattic\WooCommerce\Tests\Blocks\Helpers\FixtureData;
-use Automattic\WooCommerce\Blocks\Domain\Services\CheckoutFields;
-use Automattic\WooCommerce\Blocks\Package;
+use Automattic\PooCommerce\Tests\Blocks\Helpers\FixtureData;
+use Automattic\PooCommerce\Blocks\Domain\Services\CheckoutFields;
+use Automattic\PooCommerce\Blocks\Package;
 use WC_Gateway_BACS;
-use Automattic\WooCommerce\Enums\ProductStockStatus;
+use Automattic\PooCommerce\Enums\ProductStockStatus;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 
 /**
@@ -89,7 +89,7 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 	}
 
 	/**
-	 * Delete class products through WooCommerce data stores.
+	 * Delete class products through PooCommerce data stores.
 	 */
 	public static function wpTearDownAfterClass(): void {
 		self::delete_class_fixture_products( self::$product_ids );
@@ -100,7 +100,7 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 	 */
 	protected function setUp(): void {
 		parent::setUp();
-		update_option( 'woocommerce_checkout_phone_field', 'optional' );
+		update_option( 'poocommerce_checkout_phone_field', 'optional' );
 		add_filter( 'doing_it_wrong_trigger_error', '__return_false' );
 
 		$this->initialize_store_api_server();
@@ -127,7 +127,7 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 		unset( WC()->countries->locale );
 		WC()->cart->empty_cart();
 		WC()->session->destroy_session();
-		remove_all_filters( 'woocommerce_get_country_locale' );
+		remove_all_filters( 'poocommerce_get_country_locale' );
 		remove_all_actions( 'doing_it_wrong_run' );
 		remove_filter( 'doing_it_wrong_trigger_error', '__return_false' );
 		$this->unregister_fields();
@@ -185,12 +185,12 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 			),
 			array(
 				'id'       => 'plugin-namespace/leave-on-porch',
-				'label'    => __( 'Please leave my package on the porch if I\'m not home', 'woocommerce' ),
+				'label'    => __( 'Please leave my package on the porch if I\'m not home', 'poocommerce' ),
 				'location' => 'order',
 				'type'     => 'checkbox',
 			),
 		);
-		array_map( 'woocommerce_register_additional_checkout_field', $this->fields );
+		array_map( 'poocommerce_register_additional_checkout_field', $this->fields );
 	}
 
 	/**
@@ -198,7 +198,7 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 	 */
 	private function unregister_fields() {
 		$fields = $this->controller->get_additional_fields();
-		array_map( '__internal_woocommerce_blocks_deregister_checkout_field', array_keys( $fields ) );
+		array_map( '__internal_poocommerce_blocks_deregister_checkout_field', array_keys( $fields ) );
 	}
 
 	/**
@@ -317,7 +317,7 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 		$data = $response->get_data();
 		$this->assertEquals(
 			array(
-				'description' => __( 'Please leave my package on the porch if I\'m not home', 'woocommerce' ),
+				'description' => __( 'Please leave my package on the porch if I\'m not home', 'poocommerce' ),
 				'type'        => 'boolean',
 				'context'     => array(
 					'view',
@@ -335,7 +335,7 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 	 */
 	public function test_optional_field_in_schema() {
 		$id = 'plugin-namespace/optional-field';
-		\woocommerce_register_additional_checkout_field(
+		\poocommerce_register_additional_checkout_field(
 			array(
 				'id'       => $id,
 				'label'    => 'Optional Field',
@@ -362,18 +362,18 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 			print_r( $data['schema']['properties']['additional_fields'], true )
 		);
 
-		\__internal_woocommerce_blocks_deregister_checkout_field( $id );
+		\__internal_poocommerce_blocks_deregister_checkout_field( $id );
 	}
 
 	/**
 	 * Ensure an error is triggered when a field is registered without an ID.
 	 */
 	public function test_missing_id_in_registration() {
-		$this->setExpectedIncorrectUsage( 'woocommerce_register_additional_checkout_field' );
+		$this->setExpectedIncorrectUsage( 'poocommerce_register_additional_checkout_field' );
 		$doing_it_wrong_mocker = \Mockery::mock( 'ActionCallback' );
 		$doing_it_wrong_mocker->shouldReceive( 'doing_it_wrong_run' )->withArgs(
 			array(
-				'woocommerce_register_additional_checkout_field',
+				'poocommerce_register_additional_checkout_field',
 				'A checkout field cannot be registered without an id.',
 			)
 		)->once();
@@ -387,7 +387,7 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 			10,
 			2
 		);
-		\woocommerce_register_additional_checkout_field(
+		\poocommerce_register_additional_checkout_field(
 			array(
 				'label'    => 'Invalid ID',
 				'location' => 'order',
@@ -411,12 +411,12 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 	 * Ensure an error is triggered when a field is registered with an invalid ID.
 	 */
 	public function test_invalid_id_in_registration() {
-		$this->setExpectedIncorrectUsage( 'woocommerce_register_additional_checkout_field' );
+		$this->setExpectedIncorrectUsage( 'poocommerce_register_additional_checkout_field' );
 		$id                    = 'invalid-id';
 		$doing_it_wrong_mocker = \Mockery::mock( 'ActionCallback' );
 		$doing_it_wrong_mocker->shouldReceive( 'doing_it_wrong_run' )->withArgs(
 			array(
-				'woocommerce_register_additional_checkout_field',
+				'poocommerce_register_additional_checkout_field',
 				\esc_html( \sprintf( 'Unable to register field with id: "%s". A checkout field id must consist of namespace/name.', $id ) ),
 
 			)
@@ -431,7 +431,7 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 			10,
 			2
 		);
-		\woocommerce_register_additional_checkout_field(
+		\poocommerce_register_additional_checkout_field(
 			array(
 				'id'       => $id,
 				'label'    => 'Invalid ID',
@@ -456,12 +456,12 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 	 * Ensure an error is triggered when a field is registered without a label.
 	 */
 	public function test_missing_label_in_registration() {
-		$this->setExpectedIncorrectUsage( 'woocommerce_register_additional_checkout_field' );
+		$this->setExpectedIncorrectUsage( 'poocommerce_register_additional_checkout_field' );
 		$id                    = 'plugin-namespace/missing-label';
 		$doing_it_wrong_mocker = \Mockery::mock( 'ActionCallback' );
 		$doing_it_wrong_mocker->shouldReceive( 'doing_it_wrong_run' )->withArgs(
 			array(
-				'woocommerce_register_additional_checkout_field',
+				'poocommerce_register_additional_checkout_field',
 				\esc_html( \sprintf( 'Unable to register field with id: "%s". The field label is required.', $id ) ),
 			)
 		)->once();
@@ -475,7 +475,7 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 			10,
 			2
 		);
-		\woocommerce_register_additional_checkout_field(
+		\poocommerce_register_additional_checkout_field(
 			array(
 				'id'       => $id,
 				'location' => 'order',
@@ -499,12 +499,12 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 	 * Ensure an error is triggered when a field is registered without a location key.
 	 */
 	public function test_missing_location_in_registration() {
-		$this->setExpectedIncorrectUsage( 'woocommerce_register_additional_checkout_field' );
+		$this->setExpectedIncorrectUsage( 'poocommerce_register_additional_checkout_field' );
 		$id                    = 'plugin-namespace/missing-location';
 		$doing_it_wrong_mocker = \Mockery::mock( 'ActionCallback' );
 		$doing_it_wrong_mocker->shouldReceive( 'doing_it_wrong_run' )->withArgs(
 			array(
-				'woocommerce_register_additional_checkout_field',
+				'poocommerce_register_additional_checkout_field',
 				\esc_html( \sprintf( 'Unable to register field with id: "%s". The field location is required.', $id ) ),
 			)
 		)->once();
@@ -518,7 +518,7 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 			10,
 			2
 		);
-		\woocommerce_register_additional_checkout_field(
+		\poocommerce_register_additional_checkout_field(
 			array(
 				'id'    => $id,
 				'label' => 'Missing Location',
@@ -541,12 +541,12 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 	 * Ensure an error is triggered when a field is registered with an invalid location key (contact, address, additional).
 	 */
 	public function test_invalid_location_in_registration() {
-		$this->setExpectedIncorrectUsage( 'woocommerce_register_additional_checkout_field' );
+		$this->setExpectedIncorrectUsage( 'poocommerce_register_additional_checkout_field' );
 		$id                    = 'plugin-namespace/invalid-location';
 		$doing_it_wrong_mocker = \Mockery::mock( 'ActionCallback' );
 		$doing_it_wrong_mocker->shouldReceive( 'doing_it_wrong_run' )->withArgs(
 			array(
-				'woocommerce_register_additional_checkout_field',
+				'poocommerce_register_additional_checkout_field',
 				\esc_html( \sprintf( 'Unable to register field with id: "%s". The field location is invalid.', $id ) ),
 			)
 		)->once();
@@ -561,7 +561,7 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 			2
 		);
 
-		\woocommerce_register_additional_checkout_field(
+		\poocommerce_register_additional_checkout_field(
 			array(
 				'id'       => $id,
 				'label'    => 'Invalid Location',
@@ -587,12 +587,12 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 	 * Ensure an error is triggered when a field is registered with an existing id.
 	 */
 	public function test_already_registered_field() {
-		$this->setExpectedIncorrectUsage( 'woocommerce_register_additional_checkout_field' );
+		$this->setExpectedIncorrectUsage( 'poocommerce_register_additional_checkout_field' );
 		$id                    = 'plugin-namespace/gov-id';
 		$doing_it_wrong_mocker = \Mockery::mock( 'ActionCallback' );
 		$doing_it_wrong_mocker->shouldReceive( 'doing_it_wrong_run' )->withArgs(
 			array(
-				'woocommerce_register_additional_checkout_field',
+				'poocommerce_register_additional_checkout_field',
 				\esc_html( \sprintf( 'Unable to register field with id: "%s". The field is already registered.', $id ) ),
 			)
 		)->once();
@@ -607,7 +607,7 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 			2
 		);
 
-		\woocommerce_register_additional_checkout_field(
+		\poocommerce_register_additional_checkout_field(
 			array(
 				'id'       => $id,
 				'label'    => 'Government ID',
@@ -630,12 +630,12 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 	 * Ensure an error is triggered when a field is registered with an invalid type (text, select, checkbox).
 	 */
 	public function test_invalid_type_in_registration() {
-		$this->setExpectedIncorrectUsage( 'woocommerce_register_additional_checkout_field' );
+		$this->setExpectedIncorrectUsage( 'poocommerce_register_additional_checkout_field' );
 		$id                    = 'plugin-namespace/invalid-type';
 		$doing_it_wrong_mocker = \Mockery::mock( 'ActionCallback' );
 		$doing_it_wrong_mocker->shouldReceive( 'doing_it_wrong_run' )->withArgs(
 			array(
-				'woocommerce_register_additional_checkout_field',
+				'poocommerce_register_additional_checkout_field',
 				\esc_html(
 					sprintf(
 						'Unable to register field with id: "%s". Registering a field with type "%s" is not supported. The supported types are: %s.',
@@ -657,7 +657,7 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 			2
 		);
 
-		\woocommerce_register_additional_checkout_field(
+		\poocommerce_register_additional_checkout_field(
 			array(
 				'id'       => $id,
 				'label'    => 'Invalid Type',
@@ -683,12 +683,12 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 	 * Ensure an error is triggered when a field is registered with an invalid sanitize callback.
 	 */
 	public function test_invalid_sanitize_in_registration() {
-		$this->setExpectedIncorrectUsage( 'woocommerce_register_additional_checkout_field' );
+		$this->setExpectedIncorrectUsage( 'poocommerce_register_additional_checkout_field' );
 		$id                    = 'plugin-namespace/invalid-sanitize';
 		$doing_it_wrong_mocker = \Mockery::mock( 'ActionCallback' );
 		$doing_it_wrong_mocker->shouldReceive( 'doing_it_wrong_run' )->withArgs(
 			array(
-				'woocommerce_register_additional_checkout_field',
+				'poocommerce_register_additional_checkout_field',
 				\esc_html( sprintf( 'Unable to register field with id: "%s". %s', $id, 'The sanitize_callback must be a valid callback.' ) ),
 			)
 		)->once();
@@ -703,7 +703,7 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 			2
 		);
 
-		\woocommerce_register_additional_checkout_field(
+		\poocommerce_register_additional_checkout_field(
 			array(
 				'id'                => $id,
 				'label'             => 'Invalid Sanitize',
@@ -730,12 +730,12 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 	 * Ensure an error is triggered when a field is registered with an invalid validate callback.
 	 */
 	public function test_invalid_validate_in_registration() {
-		$this->setExpectedIncorrectUsage( 'woocommerce_register_additional_checkout_field' );
+		$this->setExpectedIncorrectUsage( 'poocommerce_register_additional_checkout_field' );
 		$id                    = 'plugin-namespace/invalid-validate';
 		$doing_it_wrong_mocker = \Mockery::mock( 'ActionCallback' );
 		$doing_it_wrong_mocker->shouldReceive( 'doing_it_wrong_run' )->withArgs(
 			array(
-				'woocommerce_register_additional_checkout_field',
+				'poocommerce_register_additional_checkout_field',
 				\esc_html( sprintf( 'Unable to register field with id: "%s". %s', $id, 'The validate_callback must be a valid callback.' ) ),
 			)
 		)->once();
@@ -750,7 +750,7 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 			2
 		);
 
-		\woocommerce_register_additional_checkout_field(
+		\poocommerce_register_additional_checkout_field(
 			array(
 				'id'                => $id,
 				'label'             => 'Invalid Validate',
@@ -777,12 +777,12 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 	 * Ensure an error is triggered when a field is registered with an invalid attributes prop.
 	 */
 	public function test_invalid_attribute_in_registration() {
-		$this->setExpectedIncorrectUsage( 'woocommerce_register_additional_checkout_field' );
+		$this->setExpectedIncorrectUsage( 'poocommerce_register_additional_checkout_field' );
 		$id                    = 'plugin-namespace/invalid-attribute';
 		$doing_it_wrong_mocker = \Mockery::mock( 'ActionCallback' );
 		$doing_it_wrong_mocker->shouldReceive( 'doing_it_wrong_run' )->withArgs(
 			array(
-				'woocommerce_register_additional_checkout_field',
+				'poocommerce_register_additional_checkout_field',
 				\esc_html( sprintf( 'An invalid attributes value was supplied when registering field with id: "%s". %s', $id, 'Attributes must be a non-empty array.' ) ),
 			)
 		)->once();
@@ -797,7 +797,7 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 			2
 		);
 
-		\woocommerce_register_additional_checkout_field(
+		\poocommerce_register_additional_checkout_field(
 			array(
 				'id'         => $id,
 				'label'      => 'Invalid Attribute',
@@ -837,7 +837,7 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 		);
 
 		// Unregister the field.
-		\__internal_woocommerce_blocks_deregister_checkout_field( $id );
+		\__internal_poocommerce_blocks_deregister_checkout_field( $id );
 
 		// Ensures the field isn't registered anymore.
 		$this->assertFalse( $this->controller->is_field( $id ), \sprintf( '%s is still registered', $id ) );
@@ -847,13 +847,13 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 	 * Ensure an error is triggered if a field is registered with invalid attributes values.
 	 */
 	public function test_invalid_attributes_values_in_registration() {
-		$this->setExpectedIncorrectUsage( 'woocommerce_register_additional_checkout_field' );
+		$this->setExpectedIncorrectUsage( 'poocommerce_register_additional_checkout_field' );
 		$id                    = 'plugin-namespace/invalid-attribute-values';
 		$invalid_attributes    = array( 'invalidAttribute' );
 		$doing_it_wrong_mocker = \Mockery::mock( 'ActionCallback' );
 		$doing_it_wrong_mocker->shouldReceive( 'doing_it_wrong_run' )->withArgs(
 			array(
-				'woocommerce_register_additional_checkout_field',
+				'poocommerce_register_additional_checkout_field',
 				\esc_html( sprintf( 'Invalid attribute found when registering field with id: "%s". Attributes: %s are not allowed.', $id, implode( ', ', $invalid_attributes ) ) ),
 			)
 		)->once();
@@ -868,7 +868,7 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 			2
 		);
 
-		\woocommerce_register_additional_checkout_field(
+		\poocommerce_register_additional_checkout_field(
 			array(
 				'id'         => $id,
 				'label'      => 'Invalid Attribute Values',
@@ -913,7 +913,7 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 			print_r( $data['schema']['properties']['additional_fields'], true )
 		);
 
-		\__internal_woocommerce_blocks_deregister_checkout_field( $id );
+		\__internal_poocommerce_blocks_deregister_checkout_field( $id );
 
 		// Ensures the field isn't registered anymore.
 		$this->assertFalse( $this->controller->is_field( $id ), \sprintf( '%s is still registered', $id ) );
@@ -923,12 +923,12 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 	 * Ensure an error is triggered when a select is registered without options prop.
 	 */
 	public function test_missing_select_options_in_registration() {
-		$this->setExpectedIncorrectUsage( 'woocommerce_register_additional_checkout_field' );
+		$this->setExpectedIncorrectUsage( 'poocommerce_register_additional_checkout_field' );
 		$id                    = 'plugin-namespace/missing-options';
 		$doing_it_wrong_mocker = \Mockery::mock( 'ActionCallback' );
 		$doing_it_wrong_mocker->shouldReceive( 'doing_it_wrong_run' )->withArgs(
 			array(
-				'woocommerce_register_additional_checkout_field',
+				'poocommerce_register_additional_checkout_field',
 				\esc_html( sprintf( 'Unable to register field with id: "%s". %s', $id, 'Fields of type "select" must have an array of "options".' ) ),
 			)
 		)->once();
@@ -943,7 +943,7 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 			2
 		);
 
-		\woocommerce_register_additional_checkout_field(
+		\poocommerce_register_additional_checkout_field(
 			array(
 				'id'       => $id,
 				'label'    => 'Missing Options',
@@ -969,12 +969,12 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 	 * Ensure an error is triggered when a select is registered with an invalid options array.
 	 */
 	public function test_invalid_select_options_in_registration() {
-		$this->setExpectedIncorrectUsage( 'woocommerce_register_additional_checkout_field' );
+		$this->setExpectedIncorrectUsage( 'poocommerce_register_additional_checkout_field' );
 		$id                    = 'plugin-namespace/invalid-options';
 		$doing_it_wrong_mocker = \Mockery::mock( 'ActionCallback' );
 		$doing_it_wrong_mocker->shouldReceive( 'doing_it_wrong_run' )->withArgs(
 			array(
-				'woocommerce_register_additional_checkout_field',
+				'poocommerce_register_additional_checkout_field',
 				\esc_html( sprintf( 'Unable to register field with id: "%s". %s', $id, 'Fields of type "select" must have an array of "options" and each option must contain a "value" and "label" member.' ) ),
 			)
 		)->once();
@@ -989,7 +989,7 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 			2
 		);
 
-		\woocommerce_register_additional_checkout_field(
+		\poocommerce_register_additional_checkout_field(
 			array(
 				'id'       => $id,
 				'label'    => 'Invalid Options',
@@ -1017,12 +1017,12 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 	 * Ensure an error is triggered when a select is registered with duplicate options.
 	 */
 	public function test_duplicate_select_options_in_registration() {
-		$this->setExpectedIncorrectUsage( 'woocommerce_register_additional_checkout_field' );
+		$this->setExpectedIncorrectUsage( 'poocommerce_register_additional_checkout_field' );
 		$id                    = 'plugin-namespace/duplicate-options';
 		$doing_it_wrong_mocker = \Mockery::mock( 'ActionCallback' );
 		$doing_it_wrong_mocker->shouldReceive( 'doing_it_wrong_run' )->withArgs(
 			array(
-				'woocommerce_register_additional_checkout_field',
+				'poocommerce_register_additional_checkout_field',
 				\esc_html( sprintf( 'Duplicate key found when registering field with id: "%s". The value in each option of "select" fields must be unique. Duplicate value "%s" found. The duplicate key will be removed.', $id, 'duplicate' ) ),
 			)
 		)->once();
@@ -1037,7 +1037,7 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 			2
 		);
 
-		\woocommerce_register_additional_checkout_field(
+		\poocommerce_register_additional_checkout_field(
 			array(
 				'id'       => $id,
 				'label'    => 'Duplicate Options',
@@ -1077,7 +1077,7 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 			print_r( $data['schema']['properties']['additional_fields'], true )
 		);
 
-		\__internal_woocommerce_blocks_deregister_checkout_field( $id );
+		\__internal_poocommerce_blocks_deregister_checkout_field( $id );
 
 		// Ensures the field isn't registered anymore.
 		$this->assertFalse( $this->controller->is_field( $id ), \sprintf( '%s is still registered', $id ) );
@@ -1087,12 +1087,12 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 	 * Ensure an error is triggered when a checkbox is registered with invalid required property.
 	 */
 	public function test_invalid_required_prop_checkbox() {
-		$this->setExpectedIncorrectUsage( 'woocommerce_register_additional_checkout_field' );
+		$this->setExpectedIncorrectUsage( 'poocommerce_register_additional_checkout_field' );
 		$id                    = 'plugin-namespace/checkbox-bad-required-value';
 		$doing_it_wrong_mocker = \Mockery::mock( 'ActionCallback' );
 		$doing_it_wrong_mocker->shouldReceive( 'doing_it_wrong_run' )->withArgs(
 			array(
-				'woocommerce_register_additional_checkout_field',
+				'poocommerce_register_additional_checkout_field',
 				\esc_html( sprintf( 'Unable to register field with id: "%s". required: Rules must be defined as an array.', $id ) ),
 			)
 		)->once();
@@ -1107,7 +1107,7 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 			2
 		);
 
-		\woocommerce_register_additional_checkout_field(
+		\poocommerce_register_additional_checkout_field(
 			array(
 				'id'       => $id,
 				'label'    => 'Checkbox Bad Required Value',
@@ -1136,7 +1136,7 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 			$data['schema']['properties']['additional_fields']['properties']
 		);
 
-		\__internal_woocommerce_blocks_deregister_checkout_field( $id );
+		\__internal_poocommerce_blocks_deregister_checkout_field( $id );
 
 		// Ensures the field isn't registered.
 		$this->assertFalse( $this->controller->is_field( $id ), \sprintf( '%s is still registered', $id ) );
@@ -1160,7 +1160,7 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 			2
 		);
 
-		\woocommerce_register_additional_checkout_field(
+		\poocommerce_register_additional_checkout_field(
 			array(
 				'id'       => $id,
 				'label'    => 'Checkbox Bad Required Value',
@@ -1189,7 +1189,7 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 			$data['schema']['properties']['additional_fields']['properties'][ $id ]['required']
 		);
 
-		\__internal_woocommerce_blocks_deregister_checkout_field( $id );
+		\__internal_poocommerce_blocks_deregister_checkout_field( $id );
 
 		// Ensures the field isn't registered.
 		$this->assertFalse( $this->controller->is_field( $id ), \sprintf( '%s is still registered', $id ) );
@@ -1199,12 +1199,12 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 	 * Ensure a warning is triggered when a checkbox is registered with an error_message, but it is not required.
 	 */
 	public function test_error_message_non_required_checkbox() {
-		$this->setExpectedIncorrectUsage( 'woocommerce_register_additional_checkout_field' );
+		$this->setExpectedIncorrectUsage( 'poocommerce_register_additional_checkout_field' );
 		$id                    = 'plugin-namespace/checkbox-non-required-error-message';
 		$doing_it_wrong_mocker = \Mockery::mock( 'ActionCallback' );
 		$doing_it_wrong_mocker->shouldReceive( 'doing_it_wrong_run' )->withArgs(
 			array(
-				'woocommerce_register_additional_checkout_field',
+				'poocommerce_register_additional_checkout_field',
 				\esc_html( sprintf( 'Passing an error message to a non-required checkbox "%s" will have no effect. The error message has been removed from the field.', $id ) ),
 			)
 		)->once();
@@ -1219,7 +1219,7 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 			2
 		);
 
-		\woocommerce_register_additional_checkout_field(
+		\poocommerce_register_additional_checkout_field(
 			array(
 				'id'            => $id,
 				'label'         => 'Checkbox Non Required Error message',
@@ -1253,7 +1253,7 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 			$data['schema']['properties']['additional_fields']['properties'][ $id ]['required']
 		);
 
-		\__internal_woocommerce_blocks_deregister_checkout_field( $id );
+		\__internal_poocommerce_blocks_deregister_checkout_field( $id );
 
 		// Ensures the field isn't registered.
 		$this->assertFalse( $this->controller->is_field( $id ), \sprintf( '%s is still registered', $id ) );
@@ -1263,12 +1263,12 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 	 * Ensure a warning is triggered when a checkbox is registered with an invalid required prop.
 	 */
 	public function test_error_message_bad_required_value_checkbox() {
-		$this->setExpectedIncorrectUsage( 'woocommerce_register_additional_checkout_field' );
+		$this->setExpectedIncorrectUsage( 'poocommerce_register_additional_checkout_field' );
 		$id                    = 'plugin-namespace/checkbox-non-required-error-message';
 		$doing_it_wrong_mocker = \Mockery::mock( 'ActionCallback' );
 		$doing_it_wrong_mocker->shouldReceive( 'doing_it_wrong_run' )->withArgs(
 			array(
-				'woocommerce_register_additional_checkout_field',
+				'poocommerce_register_additional_checkout_field',
 				\esc_html( sprintf( 'Unable to register field with id: "%s". required: Rules must be defined as an array.', $id ) ),
 			)
 		)->once();
@@ -1283,7 +1283,7 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 			2
 		);
 
-		\woocommerce_register_additional_checkout_field(
+		\poocommerce_register_additional_checkout_field(
 			array(
 				'id'            => $id,
 				'label'         => 'Checkbox Non Required Error message',
@@ -1313,7 +1313,7 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 			$data['schema']['properties']['additional_fields']['properties']
 		);
 
-		\__internal_woocommerce_blocks_deregister_checkout_field( $id );
+		\__internal_poocommerce_blocks_deregister_checkout_field( $id );
 
 		// Ensures the field isn't registered.
 		$this->assertFalse( $this->controller->is_field( $id ), \sprintf( '%s is still registered', $id ) );
@@ -1323,12 +1323,12 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 	 * Ensure a warning is triggered when a checkbox is registered with a non-string error_message.
 	 */
 	public function test_non_string_error_message_checkbox() {
-		$this->setExpectedIncorrectUsage( 'woocommerce_register_additional_checkout_field' );
+		$this->setExpectedIncorrectUsage( 'poocommerce_register_additional_checkout_field' );
 		$id                    = 'plugin-namespace/checkbox-non-string-error-message';
 		$doing_it_wrong_mocker = \Mockery::mock( 'ActionCallback' );
 		$doing_it_wrong_mocker->shouldReceive( 'doing_it_wrong_run' )->withArgs(
 			array(
-				'woocommerce_register_additional_checkout_field',
+				'poocommerce_register_additional_checkout_field',
 				\esc_html( sprintf( 'The error_message property for field with id: "%s" must be a string, you passed boolean. A default message will be shown.', $id ) ),
 			)
 		)->once();
@@ -1343,7 +1343,7 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 			2
 		);
 
-		\woocommerce_register_additional_checkout_field(
+		\poocommerce_register_additional_checkout_field(
 			array(
 				'id'            => $id,
 				'label'         => 'Checkbox Non Required Error message',
@@ -1377,7 +1377,7 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 			$data['schema']['properties']['additional_fields']['properties'][ $id ]['required']
 		);
 
-		\__internal_woocommerce_blocks_deregister_checkout_field( $id );
+		\__internal_poocommerce_blocks_deregister_checkout_field( $id );
 
 		// Ensures the field isn't registered.
 		$this->assertFalse( $this->controller->is_field( $id ), \sprintf( '%s is still registered', $id ) );
@@ -1387,12 +1387,12 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 	 * Ensure an error is triggered when a field is registered with hidden set to true.
 	 */
 	public function test_register_hidden_field_error() {
-		$this->setExpectedIncorrectUsage( 'woocommerce_register_additional_checkout_field' );
+		$this->setExpectedIncorrectUsage( 'poocommerce_register_additional_checkout_field' );
 		$id                    = 'plugin-namespace/hidden-field';
 		$doing_it_wrong_mocker = \Mockery::mock( 'ActionCallback' );
 		$doing_it_wrong_mocker->shouldReceive( 'doing_it_wrong_run' )->withArgs(
 			array(
-				'woocommerce_register_additional_checkout_field',
+				'poocommerce_register_additional_checkout_field',
 				\esc_html( sprintf( 'Registering a field with hidden set to true is not supported. The field "%s" will be registered as visible.', $id ) ),
 			)
 		)->once();
@@ -1407,7 +1407,7 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 			2
 		);
 
-		\woocommerce_register_additional_checkout_field(
+		\poocommerce_register_additional_checkout_field(
 			array(
 				'id'       => $id,
 				'label'    => 'Hidden Field',
@@ -1433,7 +1433,7 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 			)
 		);
 
-		\__internal_woocommerce_blocks_deregister_checkout_field( $id );
+		\__internal_poocommerce_blocks_deregister_checkout_field( $id );
 
 		// Ensures the field isn't registered.
 		$this->assertFalse( $this->controller->is_field( $id ), \sprintf( '%s is still registered', $id ) );
@@ -1545,7 +1545,7 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 	 */
 	public function test_placing_order_sanitize_text() {
 		$id = 'plugin-namespace/sanitize-text';
-		\woocommerce_register_additional_checkout_field(
+		\poocommerce_register_additional_checkout_field(
 			array(
 				'id'                => $id,
 				'label'             => 'Sanitize Text',
@@ -1602,7 +1602,7 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 		$this->assertEquals( 200, $response->get_status(), print_r( $data, true ) );
 		$this->assertEquals( 'sanitized-value', $additional_fields[ $id ], print_r( $data, true ) );
 
-		\__internal_woocommerce_blocks_deregister_checkout_field( $id );
+		\__internal_poocommerce_blocks_deregister_checkout_field( $id );
 
 		// Ensures the field isn't registered.
 		$this->assertFalse( $this->controller->is_field( $id ), \sprintf( '%s is still registered', $id ) );
@@ -1614,7 +1614,7 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 	 */
 	public function test_placing_order_preserves_backslashes_in_validation() {
 		$id = 'plugin-namespace/backslash-validate';
-		\woocommerce_register_additional_checkout_field(
+		\poocommerce_register_additional_checkout_field(
 			array(
 				'id'                => $id,
 				'label'             => 'Backslash Validate',
@@ -1670,7 +1670,7 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 
 		$this->assertEquals( 200, $response->get_status(), print_r( $data, true ) );
 
-		\__internal_woocommerce_blocks_deregister_checkout_field( $id );
+		\__internal_poocommerce_blocks_deregister_checkout_field( $id );
 	}
 
 	/**
@@ -1678,7 +1678,7 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 	 */
 	public function test_placing_order_validate_text() {
 		$id = 'plugin-namespace/validate-text';
-		\woocommerce_register_additional_checkout_field(
+		\poocommerce_register_additional_checkout_field(
 			array(
 				'id'                => $id,
 				'label'             => 'Validate Text',
@@ -1736,7 +1736,7 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 		$this->assertEquals( 400, $response->get_status(), print_r( $data, true ) );
 		$this->assertEquals( 'Invalid value provided.', $data['data']['params']['additional_fields'], print_r( $data, true ) );
 
-		\__internal_woocommerce_blocks_deregister_checkout_field( $id );
+		\__internal_poocommerce_blocks_deregister_checkout_field( $id );
 
 		// Ensures the field isn't registered.
 		$this->assertFalse( $this->controller->is_field( $id ), \sprintf( '%s is still registered', $id ) );
@@ -1747,7 +1747,7 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 	 */
 	public function test_sanitize_filter() {
 		$id = 'plugin-namespace/filter-sanitize';
-		\woocommerce_register_additional_checkout_field(
+		\poocommerce_register_additional_checkout_field(
 			array(
 				'id'       => $id,
 				'label'    => 'Filter Sanitize',
@@ -1757,7 +1757,7 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 		);
 
 		add_filter(
-			'woocommerce_sanitize_additional_field',
+			'poocommerce_sanitize_additional_field',
 			function ( $value, $key ) use ( $id ) {
 				if ( $key === $id ) {
 					return 'sanitized-' . $value;
@@ -1814,7 +1814,7 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 		$this->assertEquals( 200, $response->get_status(), print_r( $data, true ) );
 		$this->assertEquals( 'sanitized-value', $additional_fields[ $id ], print_r( $data, true ) );
 
-		\__internal_woocommerce_blocks_deregister_checkout_field( $id );
+		\__internal_poocommerce_blocks_deregister_checkout_field( $id );
 
 		// Ensures the field isn't registered.
 		$this->assertFalse( $this->controller->is_field( $id ), \sprintf( '%s is still registered', $id ) );
@@ -1825,7 +1825,7 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 	 */
 	public function test_validate_filter() {
 		$id = 'plugin-namespace/filter-validate';
-		\woocommerce_register_additional_checkout_field(
+		\poocommerce_register_additional_checkout_field(
 			array(
 				'id'       => $id,
 				'label'    => 'Filter Validate',
@@ -1836,7 +1836,7 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 		);
 
 		add_action(
-			'woocommerce_validate_additional_field',
+			'poocommerce_validate_additional_field',
 			function ( \WP_Error $errors, $key, $value ) use ( $id ) {
 				if ( $key === $id && 'invalid' === $value ) {
 					$errors->add( 'my_invalid_value', 'Invalid value provided.' );
@@ -1890,7 +1890,7 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 		$this->assertEquals( 400, $response->get_status(), print_r( $data, true ) );
 		$this->assertEquals( 'Invalid value provided.', $data['data']['params']['additional_fields'], print_r( $data, true ) );
 
-		\__internal_woocommerce_blocks_deregister_checkout_field( $id );
+		\__internal_poocommerce_blocks_deregister_checkout_field( $id );
 
 		// Ensures the field isn't registered.
 		$this->assertFalse( $this->controller->is_field( $id ), \sprintf( '%s is still registered', $id ) );
@@ -1902,7 +1902,7 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 	public function test_place_order_required_address_field() {
 		$id    = 'plugin-namespace/my-required-field';
 		$label = 'My Required Field';
-		\woocommerce_register_additional_checkout_field(
+		\poocommerce_register_additional_checkout_field(
 			array(
 				'id'       => $id,
 				'label'    => $label,
@@ -2046,7 +2046,7 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 
 		$this->assertEquals( 400, $response->get_status(), print_r( $data, true ) );
 
-		\__internal_woocommerce_blocks_deregister_checkout_field( $id );
+		\__internal_poocommerce_blocks_deregister_checkout_field( $id );
 
 		// Ensures the field isn't registered.
 		$this->assertFalse( $this->controller->is_field( $id ), \sprintf( '%s is still registered', $id ) );
@@ -2061,7 +2061,7 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 		WC()->cart->add_to_cart( $this->products[2]->get_id(), 2 );
 		$id    = 'plugin-namespace/my-required-field';
 		$label = 'My Required Field';
-		\woocommerce_register_additional_checkout_field(
+		\poocommerce_register_additional_checkout_field(
 			array(
 				'id'       => $id,
 				'label'    => $label,
@@ -2142,7 +2142,7 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 	 */
 	public function test_place_order_required_contact_field() {
 		$id = 'plugin-namespace/my-required-contact-field';
-		\woocommerce_register_additional_checkout_field(
+		\poocommerce_register_additional_checkout_field(
 			array(
 				'id'       => $id,
 				'label'    => 'My Required Field',
@@ -2195,7 +2195,7 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 		$this->assertEquals( 400, $response->get_status(), print_r( $data, true ) );
 		$this->assertEquals( \sprintf( '%s is not of type string.', $id ), $data['data']['params']['additional_fields'], print_r( $data, true ) );
 
-		\__internal_woocommerce_blocks_deregister_checkout_field( $id );
+		\__internal_poocommerce_blocks_deregister_checkout_field( $id );
 
 		// Ensures the field isn't registered.
 		$this->assertFalse( $this->controller->is_field( $id ), \sprintf( '%s is still registered', $id ) );
@@ -2379,7 +2379,7 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 	 */
 	public function test_reading_values_externally() {
 		$id = 'plugin-namespace/my-external-field';
-		\woocommerce_register_additional_checkout_field(
+		\poocommerce_register_additional_checkout_field(
 			array(
 				'id'       => $id,
 				'label'    => 'My Required Field',
@@ -2390,7 +2390,7 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 		);
 
 		add_filter(
-			"woocommerce_get_default_value_for_{$id}",
+			"poocommerce_get_default_value_for_{$id}",
 			function () {
 				return 'external-value';
 			},
@@ -2406,9 +2406,9 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 		$this->assertEquals( 200, $response->get_status(), print_r( $data, true ) );
 		$this->assertEquals( 'external-value', ( (array) $data['additional_fields'] )[ $id ], print_r( $data, true ) );
 
-		\__internal_woocommerce_blocks_deregister_checkout_field( $id );
+		\__internal_poocommerce_blocks_deregister_checkout_field( $id );
 
-		\remove_all_filters( "woocommerce_get_default_value_for_{$id}" );
+		\remove_all_filters( "poocommerce_get_default_value_for_{$id}" );
 	}
 
 	/**
@@ -2416,7 +2416,7 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 	 */
 	public function test_not_overwriting_values() {
 		$id = 'plugin-namespace/my-external-field';
-		\woocommerce_register_additional_checkout_field(
+		\poocommerce_register_additional_checkout_field(
 			array(
 				'id'       => $id,
 				'label'    => 'My Required Field',
@@ -2427,7 +2427,7 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 		);
 
 		add_filter(
-			"woocommerce_get_default_value_for_{$id}",
+			"poocommerce_get_default_value_for_{$id}",
 			function () {
 				return 'external-value';
 			},
@@ -2479,8 +2479,8 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 		$this->assertEquals( 200, $response->get_status(), print_r( $data, true ) );
 		$this->assertEquals( 'value', ( (array) $data['additional_fields'] )[ $id ], print_r( $data, true ) );
 
-		\__internal_woocommerce_blocks_deregister_checkout_field( $id );
-		\remove_all_filters( "woocommerce_get_default_value_for_{$id}" );
+		\__internal_poocommerce_blocks_deregister_checkout_field( $id );
+		\remove_all_filters( "poocommerce_get_default_value_for_{$id}" );
 	}
 
 
@@ -2491,7 +2491,7 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 	public function test_reacting_to_value_save() {
 		$this->unregister_fields();
 		$id = 'plugin-namespace/my-external-field';
-		\woocommerce_register_additional_checkout_field(
+		\poocommerce_register_additional_checkout_field(
 			array(
 				'id'       => $id,
 				'label'    => 'My Required Field',
@@ -2502,7 +2502,7 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 		);
 
 		$set_value_mocker = \Mockery::mock( 'ActionCallback' );
-		$set_value_mocker->shouldReceive( 'woocommerce_set_additional_field_value' )->withArgs(
+		$set_value_mocker->shouldReceive( 'poocommerce_set_additional_field_value' )->withArgs(
 			array(
 				$id,
 				'my-value',
@@ -2512,10 +2512,10 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 		)->atLeast( 1 );
 
 		add_action(
-			'woocommerce_set_additional_field_value',
+			'poocommerce_set_additional_field_value',
 			array(
 				$set_value_mocker,
-				'woocommerce_set_additional_field_value',
+				'poocommerce_set_additional_field_value',
 			),
 			10,
 			4
@@ -2563,10 +2563,10 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 		$this->assertEquals( 200, $response->get_status(), print_r( $data, true ) );
 
 		\remove_action(
-			'woocommerce_set_additional_field_value',
+			'poocommerce_set_additional_field_value',
 			array(
 				$set_value_mocker,
-				'woocommerce_set_additional_field_value',
+				'poocommerce_set_additional_field_value',
 			)
 		);
 	}
@@ -2589,9 +2589,9 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 	 * Test for errors when providing the wrong rules schema.
 	 */
 	public function test_invalid_rules_schema() {
-		$this->setExpectedIncorrectUsage( 'woocommerce_register_additional_checkout_field' );
-		$doing_it_wrong_mocker = $this->add_doing_it_wrong_error_mocker( 'woocommerce_register_additional_checkout_field', 'Unable to register field with id: "namespace/test-id". validation: Rules must be defined as an array.' );
-		\woocommerce_register_additional_checkout_field(
+		$this->setExpectedIncorrectUsage( 'poocommerce_register_additional_checkout_field' );
+		$doing_it_wrong_mocker = $this->add_doing_it_wrong_error_mocker( 'poocommerce_register_additional_checkout_field', 'Unable to register field with id: "namespace/test-id". validation: Rules must be defined as an array.' );
+		\poocommerce_register_additional_checkout_field(
 			array(
 				'id'         => 'namespace/test-id',
 				'label'      => 'Test Field',
@@ -2610,9 +2610,9 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 	 * Test for errors when providing the wrong validation rules schema.
 	 */
 	public function test_invalid_validation_rules_schema() {
-		$this->setExpectedIncorrectUsage( 'woocommerce_register_additional_checkout_field' );
-		$doing_it_wrong_mocker = $this->add_doing_it_wrong_error_mocker( 'woocommerce_register_additional_checkout_field', 'Unable to register field with id: "namespace/test-id". validation: The properties must match schema: {properties}' );
-		\woocommerce_register_additional_checkout_field(
+		$this->setExpectedIncorrectUsage( 'poocommerce_register_additional_checkout_field' );
+		$doing_it_wrong_mocker = $this->add_doing_it_wrong_error_mocker( 'poocommerce_register_additional_checkout_field', 'Unable to register field with id: "namespace/test-id". validation: The properties must match schema: {properties}' );
+		\poocommerce_register_additional_checkout_field(
 			array(
 				'id'         => 'namespace/test-id',
 				'label'      => 'Test Field',
@@ -2626,8 +2626,8 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 		);
 		remove_action( 'doing_it_wrong_run', array( $doing_it_wrong_mocker, 'doing_it_wrong_run' ), 10, 2 );
 
-		$doing_it_wrong_mocker = $this->add_doing_it_wrong_error_mocker( 'woocommerce_register_additional_checkout_field', 'Unable to register field with id: "namespace/test-id". validation: Rules must be defined as an array.' );
-		\woocommerce_register_additional_checkout_field(
+		$doing_it_wrong_mocker = $this->add_doing_it_wrong_error_mocker( 'poocommerce_register_additional_checkout_field', 'Unable to register field with id: "namespace/test-id". validation: Rules must be defined as an array.' );
+		\poocommerce_register_additional_checkout_field(
 			array(
 				'id'         => 'namespace/test-id',
 				'label'      => 'Test Field',
@@ -2649,7 +2649,7 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 		$doing_it_wrong_mocker = \Mockery::mock( 'ActionCallback' );
 		$doing_it_wrong_mocker->shouldReceive( 'doing_it_wrong_run' )->never();
 		add_action( 'doing_it_wrong_run', array( $doing_it_wrong_mocker, 'doing_it_wrong_run' ), 10, 2 );
-		\woocommerce_register_additional_checkout_field(
+		\poocommerce_register_additional_checkout_field(
 			array(
 				'id'         => 'namespace/test-id',
 				'label'      => 'Test Field',
@@ -2669,9 +2669,9 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 	 * Test for errors when providing the wrong required rules schema.
 	 */
 	public function test_invalid_required_rules_schema() {
-		$this->setExpectedIncorrectUsage( 'woocommerce_register_additional_checkout_field' );
-		$doing_it_wrong_mocker = $this->add_doing_it_wrong_error_mocker( 'woocommerce_register_additional_checkout_field', 'Unable to register field with id: "namespace/test-id". required: Rules must be defined as an array.' );
-		\woocommerce_register_additional_checkout_field(
+		$this->setExpectedIncorrectUsage( 'poocommerce_register_additional_checkout_field' );
+		$doing_it_wrong_mocker = $this->add_doing_it_wrong_error_mocker( 'poocommerce_register_additional_checkout_field', 'Unable to register field with id: "namespace/test-id". required: Rules must be defined as an array.' );
+		\poocommerce_register_additional_checkout_field(
 			array(
 				'id'       => 'namespace/test-id',
 				'label'    => 'Test Field',
@@ -2692,7 +2692,7 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 		$doing_it_wrong_mocker = \Mockery::mock( 'ActionCallback' );
 		$doing_it_wrong_mocker->shouldReceive( 'doing_it_wrong_run' )->never();
 		add_action( 'doing_it_wrong_run', array( $doing_it_wrong_mocker, 'doing_it_wrong_run' ), 10, 2 );
-		\woocommerce_register_additional_checkout_field(
+		\poocommerce_register_additional_checkout_field(
 			array(
 				'id'       => 'namespace/test-id',
 				'label'    => 'Test Field',
@@ -2728,7 +2728,7 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 		$id = 'plugin-namespace/conditional-hidden-field';
 
 		// Register field with conditional hidden rule based on country.
-		\woocommerce_register_additional_checkout_field(
+		\poocommerce_register_additional_checkout_field(
 			array(
 				'id'       => $id,
 				'label'    => 'VAT Number',
@@ -2860,7 +2860,7 @@ class AdditionalFields extends \WP_Test_REST_TestCase {
 		$this->reset_session();
 
 		// Clean up.
-		\__internal_woocommerce_blocks_deregister_checkout_field( $id );
+		\__internal_poocommerce_blocks_deregister_checkout_field( $id );
 		$this->assertFalse( $this->controller->is_field( $id ), sprintf( '%s is still registered', $id ) );
 	}
 }

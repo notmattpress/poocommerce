@@ -10,7 +10,7 @@ import {
 } from '@wordpress/element';
 import { select, useDispatch, useSelect } from '@wordpress/data';
 import { useEntityRecord } from '@wordpress/core-data';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies

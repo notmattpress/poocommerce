@@ -1,13 +1,13 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Api;
+namespace Automattic\PooCommerce\Tests\Internal\Api;
 
-use Automattic\WooCommerce\Api\Infrastructure\GraphQLControllerBase;
-use Automattic\WooCommerce\Api\Infrastructure\Main;
-use Automattic\WooCommerce\Internal\Api\QueryCache;
-use Automattic\WooCommerce\Internal\Api\Settings;
-use Automattic\WooCommerce\Internal\Features\FeaturesController;
+use Automattic\PooCommerce\Api\Infrastructure\GraphQLControllerBase;
+use Automattic\PooCommerce\Api\Infrastructure\Main;
+use Automattic\PooCommerce\Internal\Api\QueryCache;
+use Automattic\PooCommerce\Internal\Api\Settings;
+use Automattic\PooCommerce\Internal\Features\FeaturesController;
 use WC_Unit_Test_Case;
 
 /**
@@ -34,10 +34,10 @@ class SettingsTest extends WC_Unit_Test_Case {
 	 * Clean up filters and options registered by tests so global state doesn't leak.
 	 */
 	public function tearDown(): void {
-		remove_filter( 'woocommerce_get_sections_advanced', array( $this->sut, 'add_section' ) );
-		remove_filter( 'woocommerce_get_settings_advanced', array( $this->sut, 'add_settings' ), 10 );
+		remove_filter( 'poocommerce_get_sections_advanced', array( $this->sut, 'add_section' ) );
+		remove_filter( 'poocommerce_get_settings_advanced', array( $this->sut, 'add_settings' ), 10 );
 		remove_filter(
-			'woocommerce_admin_settings_sanitize_option_' . Main::OPTION_ENDPOINT_URL,
+			'poocommerce_admin_settings_sanitize_option_' . Main::OPTION_ENDPOINT_URL,
 			array( $this->sut, 'sanitize_endpoint_url' ),
 			10
 		);
@@ -59,18 +59,18 @@ class SettingsTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox register hooks add_section and add_settings into WooCommerce's advanced settings filters.
+	 * @testdox register hooks add_section and add_settings into PooCommerce's advanced settings filters.
 	 */
 	public function test_register_hooks_both_advanced_filters(): void {
 		$this->sut->register();
 
 		$this->assertNotFalse(
-			has_filter( 'woocommerce_get_sections_advanced', array( $this->sut, 'add_section' ) ),
-			'add_section should be hooked to woocommerce_get_sections_advanced.'
+			has_filter( 'poocommerce_get_sections_advanced', array( $this->sut, 'add_section' ) ),
+			'add_section should be hooked to poocommerce_get_sections_advanced.'
 		);
 		$this->assertNotFalse(
-			has_filter( 'woocommerce_get_settings_advanced', array( $this->sut, 'add_settings' ) ),
-			'add_settings should be hooked to woocommerce_get_settings_advanced.'
+			has_filter( 'poocommerce_get_settings_advanced', array( $this->sut, 'add_settings' ) ),
+			'add_settings should be hooked to poocommerce_get_settings_advanced.'
 		);
 	}
 

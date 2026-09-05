@@ -2,21 +2,21 @@
 /**
  * Update functions tests
  *
- * @package WooCommerce\Tests\Functions.
+ * @package PooCommerce\Tests\Functions.
  */
 
 use Automattic\Jetpack\Constants;
-use Automattic\WooCommerce\Admin\API\Reports\Cache as ReportsCache;
-use Automattic\WooCommerce\Admin\Notes\Note;
-use Automattic\WooCommerce\Admin\Notes\Notes;
-use Automattic\WooCommerce\Blocks\InboxNotifications;
-use Automattic\WooCommerce\Blocks\Options as BlockOptions;
-use Automattic\WooCommerce\Blocks\Utils\BlockTemplateUtils;
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Internal\Admin\OrderTaxLookupMigrator;
-use Automattic\WooCommerce\Internal\BatchProcessing\BatchProcessingController;
-use Automattic\WooCommerce\Internal\Features\FeaturesController;
-use Automattic\WooCommerce\Internal\VariationGallery\Package as VariationGalleryPackage;
+use Automattic\PooCommerce\Admin\API\Reports\Cache as ReportsCache;
+use Automattic\PooCommerce\Admin\Notes\Note;
+use Automattic\PooCommerce\Admin\Notes\Notes;
+use Automattic\PooCommerce\Blocks\InboxNotifications;
+use Automattic\PooCommerce\Blocks\Options as BlockOptions;
+use Automattic\PooCommerce\Blocks\Utils\BlockTemplateUtils;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Internal\Admin\OrderTaxLookupMigrator;
+use Automattic\PooCommerce\Internal\BatchProcessing\BatchProcessingController;
+use Automattic\PooCommerce\Internal\Features\FeaturesController;
+use Automattic\PooCommerce\Internal\VariationGallery\Package as VariationGalleryPackage;
 
 /**
  * Class WC_Core_Functions_Test
@@ -28,7 +28,7 @@ class WC_Update_Functions_Test extends \WC_Unit_Test_Case {
 	 */
 	public function tearDown(): void {
 		Constants::clear_single_constant( 'WOOCOMMERCE_BIS_ALPHA_ENABLED' );
-		delete_option( 'woocommerce_feature_customer_stock_notifications_enabled' );
+		delete_option( 'poocommerce_feature_customer_stock_notifications_enabled' );
 		parent::tearDown();
 	}
 
@@ -43,10 +43,10 @@ class WC_Update_Functions_Test extends \WC_Unit_Test_Case {
 			"ALTER TABLE `{$wpdb->prefix}wc_download_log`
 					ADD CONSTRAINT `wc_download_log_ib`
 					FOREIGN KEY (`permission_id`)
-					REFERENCES `{$wpdb->prefix}woocommerce_downloadable_product_permissions` (`permission_id`) ON DELETE CASCADE,
+					REFERENCES `{$wpdb->prefix}poocommerce_downloadable_product_permissions` (`permission_id`) ON DELETE CASCADE,
 					ADD CONSTRAINT `wc_download_log_ib_2`
 					FOREIGN KEY (`permission_id`)
-					REFERENCES `{$wpdb->prefix}woocommerce_downloadable_product_permissions` (`permission_id`) ON DELETE CASCADE"
+					REFERENCES `{$wpdb->prefix}poocommerce_downloadable_product_permissions` (`permission_id`) ON DELETE CASCADE"
 		);
 		$table_definition = $wpdb->get_var( "SHOW CREATE TABLE {$wpdb->prefix}wc_download_log", 1 );
 		$this->assertNotFalse( strpos( $table_definition, 'wc_download_log_ib' ) );
@@ -72,7 +72,7 @@ class WC_Update_Functions_Test extends \WC_Unit_Test_Case {
 			"ALTER TABLE `{$wpdb->prefix}wc_download_log`
 					ADD CONSTRAINT `fk_wc_download_log_permission_id`
 					FOREIGN KEY (`permission_id`)
-					REFERENCES `{$wpdb->prefix}woocommerce_downloadable_product_permissions` (`permission_id`) ON DELETE CASCADE"
+					REFERENCES `{$wpdb->prefix}poocommerce_downloadable_product_permissions` (`permission_id`) ON DELETE CASCADE"
 		);
 		$table_definition = $wpdb->get_var( "SHOW CREATE TABLE {$wpdb->prefix}wc_download_log", 1 );
 		$this->assertNotFalse( strpos( $table_definition, 'fk_wc_download_log_permission_id' ) );
@@ -97,7 +97,7 @@ class WC_Update_Functions_Test extends \WC_Unit_Test_Case {
 			"ALTER TABLE `{$wpdb->prefix}wc_download_log`
 					ADD CONSTRAINT `fk_{$wpdb->prefix}wc_download_log_permission_id`
 					FOREIGN KEY (`permission_id`)
-					REFERENCES `{$wpdb->prefix}woocommerce_downloadable_product_permissions` (`permission_id`) ON DELETE CASCADE"
+					REFERENCES `{$wpdb->prefix}poocommerce_downloadable_product_permissions` (`permission_id`) ON DELETE CASCADE"
 		);
 		$table_definition = $wpdb->get_var( "SHOW CREATE TABLE {$wpdb->prefix}wc_download_log", 1 );
 		$this->assertNotFalse( strpos( $table_definition, "fk_{$wpdb->prefix}wc_download_log_permission_id" ) );
@@ -112,76 +112,76 @@ class WC_Update_Functions_Test extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Test woocommerce_hooked_blocks_version option gets set to "no" when block hooks are disabled for unapproved block themes.
+	 * Test poocommerce_hooked_blocks_version option gets set to "no" when block hooks are disabled for unapproved block themes.
 	 *
 	 * @return void
 	 */
 	public function test_wc_update_920_add_wc_hooked_blocks_version_option_block_hooks_version_is_set_to_no() {
-		add_filter( 'woocommerce_hooked_blocks_theme_include_list', '__return_empty_array', 999, 1 );
+		add_filter( 'poocommerce_hooked_blocks_theme_include_list', '__return_empty_array', 999, 1 );
 
 		switch_theme( 'twentytwentytwo' );
 
-		delete_option( 'woocommerce_hooked_blocks_version' );
+		delete_option( 'poocommerce_hooked_blocks_version' );
 
 		include_once WC_ABSPATH . 'includes/wc-update-functions.php';
 
 		wc_update_920_add_wc_hooked_blocks_version_option();
 
-		$this->assertEquals( 'no', get_option( 'woocommerce_hooked_blocks_version' ) );
+		$this->assertEquals( 'no', get_option( 'poocommerce_hooked_blocks_version' ) );
 
-		remove_filter( 'woocommerce_hooked_blocks_theme_include_list', '__return_empty_array', 999, 1 );
+		remove_filter( 'poocommerce_hooked_blocks_theme_include_list', '__return_empty_array', 999, 1 );
 	}
 
 	/**
-	 * Test woocommerce_hooked_blocks_version option gets set to "8.4.0" for approved block themes.
+	 * Test poocommerce_hooked_blocks_version option gets set to "8.4.0" for approved block themes.
 	 *
 	 * @return void
 	 */
 	public function test_wc_update_920_add_wc_hooked_blocks_version_option_block_hooks_version_is_set_to_840() {
 		switch_theme( 'twentytwentytwo' );
 
-		delete_option( 'woocommerce_hooked_blocks_version' );
+		delete_option( 'poocommerce_hooked_blocks_version' );
 
 		include_once WC_ABSPATH . 'includes/wc-update-functions.php';
 
 		wc_update_920_add_wc_hooked_blocks_version_option();
 
-		$this->assertEquals( '8.4.0', get_option( 'woocommerce_hooked_blocks_version' ) );
+		$this->assertEquals( '8.4.0', get_option( 'poocommerce_hooked_blocks_version' ) );
 	}
 
 	/**
-	 * Test woocommerce_hooked_blocks_version option is not overwritten
+	 * Test poocommerce_hooked_blocks_version option is not overwritten
 	 *
 	 * @return void
 	 */
 	public function test_wc_update_920_add_wc_hooked_blocks_version_option_block_hooks_version_is_not_overwritten() {
 		switch_theme( 'twentytwentytwo' );
 
-		delete_option( 'woocommerce_hooked_blocks_version' );
-		add_option( 'woocommerce_hooked_blocks_version', '1.0.0' );
+		delete_option( 'poocommerce_hooked_blocks_version' );
+		add_option( 'poocommerce_hooked_blocks_version', '1.0.0' );
 
 		include_once WC_ABSPATH . 'includes/wc-update-functions.php';
 
 		wc_update_920_add_wc_hooked_blocks_version_option();
 
-		$this->assertEquals( '1.0.0', get_option( 'woocommerce_hooked_blocks_version' ) );
+		$this->assertEquals( '1.0.0', get_option( 'poocommerce_hooked_blocks_version' ) );
 	}
 
 	/**
-	 * Test woocommerce_hooked_blocks_version option is not overwritten
+	 * Test poocommerce_hooked_blocks_version option is not overwritten
 	 *
 	 * @return void
 	 */
 	public function test_wc_update_920_add_wc_hooked_blocks_version_option_block_hooks_version_not_present_for_classic_themes() {
 		switch_theme( 'storefront' );
 
-		delete_option( 'woocommerce_hooked_blocks_version' );
+		delete_option( 'poocommerce_hooked_blocks_version' );
 
 		include_once WC_ABSPATH . 'includes/wc-update-functions.php';
 
 		wc_update_920_add_wc_hooked_blocks_version_option();
 
-		$this->assertEquals( null, get_option( 'woocommerce_hooked_blocks_version', null ) );
+		$this->assertEquals( null, get_option( 'poocommerce_hooked_blocks_version', null ) );
 	}
 
 	/**
@@ -296,51 +296,51 @@ class WC_Update_Functions_Test extends \WC_Unit_Test_Case {
 	 * @testdox Migration converts legacy 'no' (not immediate) to new 'yes' (scheduled).
 	 */
 	public function test_migrate_analytics_import_option_legacy_no_becomes_yes(): void {
-		delete_option( 'woocommerce_analytics_scheduled_import' );
-		update_option( 'woocommerce_analytics_immediate_import', 'no' );
+		delete_option( 'poocommerce_analytics_scheduled_import' );
+		update_option( 'poocommerce_analytics_immediate_import', 'no' );
 
 		wc_update_1080_migrate_analytics_import_option();
 
-		$this->assertSame( 'yes', get_option( 'woocommerce_analytics_scheduled_import' ) );
-		$this->assertFalse( get_option( 'woocommerce_analytics_immediate_import' ) );
+		$this->assertSame( 'yes', get_option( 'poocommerce_analytics_scheduled_import' ) );
+		$this->assertFalse( get_option( 'poocommerce_analytics_immediate_import' ) );
 	}
 
 	/**
 	 * @testdox Migration converts legacy 'yes' (immediate) to new 'no' (not scheduled).
 	 */
 	public function test_migrate_analytics_import_option_legacy_yes_becomes_no(): void {
-		delete_option( 'woocommerce_analytics_scheduled_import' );
-		update_option( 'woocommerce_analytics_immediate_import', 'yes' );
+		delete_option( 'poocommerce_analytics_scheduled_import' );
+		update_option( 'poocommerce_analytics_immediate_import', 'yes' );
 
 		wc_update_1080_migrate_analytics_import_option();
 
-		$this->assertSame( 'no', get_option( 'woocommerce_analytics_scheduled_import' ) );
-		$this->assertFalse( get_option( 'woocommerce_analytics_immediate_import' ) );
+		$this->assertSame( 'no', get_option( 'poocommerce_analytics_scheduled_import' ) );
+		$this->assertFalse( get_option( 'poocommerce_analytics_immediate_import' ) );
 	}
 
 	/**
 	 * @testdox Migration does nothing when legacy option is absent.
 	 */
 	public function test_migrate_analytics_import_option_no_legacy_option(): void {
-		delete_option( 'woocommerce_analytics_immediate_import' );
-		delete_option( 'woocommerce_analytics_scheduled_import' );
+		delete_option( 'poocommerce_analytics_immediate_import' );
+		delete_option( 'poocommerce_analytics_scheduled_import' );
 
 		wc_update_1080_migrate_analytics_import_option();
 
-		$this->assertFalse( get_option( 'woocommerce_analytics_scheduled_import' ) );
+		$this->assertFalse( get_option( 'poocommerce_analytics_scheduled_import' ) );
 	}
 
 	/**
 	 * @testdox Migration preserves existing new option and deletes legacy.
 	 */
 	public function test_migrate_analytics_import_option_new_option_already_exists(): void {
-		update_option( 'woocommerce_analytics_scheduled_import', 'yes' );
-		update_option( 'woocommerce_analytics_immediate_import', 'yes' );
+		update_option( 'poocommerce_analytics_scheduled_import', 'yes' );
+		update_option( 'poocommerce_analytics_immediate_import', 'yes' );
 
 		wc_update_1080_migrate_analytics_import_option();
 
-		$this->assertSame( 'yes', get_option( 'woocommerce_analytics_scheduled_import' ) );
-		$this->assertFalse( get_option( 'woocommerce_analytics_immediate_import' ) );
+		$this->assertSame( 'yes', get_option( 'poocommerce_analytics_scheduled_import' ) );
+		$this->assertFalse( get_option( 'poocommerce_analytics_immediate_import' ) );
 	}
 
 	/**
@@ -349,13 +349,13 @@ class WC_Update_Functions_Test extends \WC_Unit_Test_Case {
 	public function test_wc_update_1100_enable_point_of_sale_feature(): void {
 		include_once WC_ABSPATH . 'includes/wc-update-functions.php';
 
-		update_option( 'woocommerce_feature_point_of_sale_enabled', 'no' );
+		update_option( 'poocommerce_feature_point_of_sale_enabled', 'no' );
 		wc_update_1100_enable_point_of_sale_feature();
-		$this->assertSame( 'yes', get_option( 'woocommerce_feature_point_of_sale_enabled' ) );
+		$this->assertSame( 'yes', get_option( 'poocommerce_feature_point_of_sale_enabled' ) );
 
-		delete_option( 'woocommerce_feature_point_of_sale_enabled' );
+		delete_option( 'poocommerce_feature_point_of_sale_enabled' );
 		wc_update_1100_enable_point_of_sale_feature();
-		$this->assertSame( 'yes', get_option( 'woocommerce_feature_point_of_sale_enabled' ) );
+		$this->assertSame( 'yes', get_option( 'poocommerce_feature_point_of_sale_enabled' ) );
 	}
 
 	/**
@@ -408,12 +408,12 @@ class WC_Update_Functions_Test extends \WC_Unit_Test_Case {
 		$this->assertArrayHasKey( '11.2.0', $db_updates );
 		$this->assertContains( 'wc_update_1120_migrate_stock_notifications_alpha_constant', $db_updates['11.2.0'] );
 
-		delete_option( 'woocommerce_feature_customer_stock_notifications_enabled' );
+		delete_option( 'poocommerce_feature_customer_stock_notifications_enabled' );
 		Constants::set_constant( 'WOOCOMMERCE_BIS_ALPHA_ENABLED', true );
 
 		wc_update_1120_migrate_stock_notifications_alpha_constant();
 
-		$this->assertSame( 'yes', get_option( 'woocommerce_feature_customer_stock_notifications_enabled' ) );
+		$this->assertSame( 'yes', get_option( 'poocommerce_feature_customer_stock_notifications_enabled' ) );
 	}
 
 	/**
@@ -422,18 +422,18 @@ class WC_Update_Functions_Test extends \WC_Unit_Test_Case {
 	public function test_wc_update_1120_migrate_stock_notifications_alpha_constant_without_opt_in(): void {
 		include_once WC_ABSPATH . 'includes/wc-update-functions.php';
 
-		delete_option( 'woocommerce_feature_customer_stock_notifications_enabled' );
+		delete_option( 'poocommerce_feature_customer_stock_notifications_enabled' );
 		Constants::clear_single_constant( 'WOOCOMMERCE_BIS_ALPHA_ENABLED' );
 
 		wc_update_1120_migrate_stock_notifications_alpha_constant();
 
-		$this->assertFalse( get_option( 'woocommerce_feature_customer_stock_notifications_enabled' ) );
+		$this->assertFalse( get_option( 'poocommerce_feature_customer_stock_notifications_enabled' ) );
 
 		Constants::set_constant( 'WOOCOMMERCE_BIS_ALPHA_ENABLED', false );
 
 		wc_update_1120_migrate_stock_notifications_alpha_constant();
 
-		$this->assertFalse( get_option( 'woocommerce_feature_customer_stock_notifications_enabled' ) );
+		$this->assertFalse( get_option( 'poocommerce_feature_customer_stock_notifications_enabled' ) );
 	}
 
 	/**
@@ -442,12 +442,12 @@ class WC_Update_Functions_Test extends \WC_Unit_Test_Case {
 	public function test_wc_update_1120_migrate_stock_notifications_alpha_constant_overwrites_seeded_option(): void {
 		include_once WC_ABSPATH . 'includes/wc-update-functions.php';
 
-		update_option( 'woocommerce_feature_customer_stock_notifications_enabled', 'no' );
+		update_option( 'poocommerce_feature_customer_stock_notifications_enabled', 'no' );
 		Constants::set_constant( 'WOOCOMMERCE_BIS_ALPHA_ENABLED', true );
 
 		wc_update_1120_migrate_stock_notifications_alpha_constant();
 
-		$this->assertSame( 'yes', get_option( 'woocommerce_feature_customer_stock_notifications_enabled' ) );
+		$this->assertSame( 'yes', get_option( 'poocommerce_feature_customer_stock_notifications_enabled' ) );
 	}
 
 	/**
@@ -456,7 +456,7 @@ class WC_Update_Functions_Test extends \WC_Unit_Test_Case {
 	public function test_wc_update_1120_migrate_stock_notifications_alpha_constant_fires_feature_enabled_changed(): void {
 		include_once WC_ABSPATH . 'includes/wc-update-functions.php';
 
-		update_option( 'woocommerce_feature_customer_stock_notifications_enabled', 'no' );
+		update_option( 'poocommerce_feature_customer_stock_notifications_enabled', 'no' );
 		Constants::set_constant( 'WOOCOMMERCE_BIS_ALPHA_ENABLED', true );
 
 		$changes  = array();
@@ -503,7 +503,7 @@ class WC_Update_Functions_Test extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Migration registers for WooCommerce 11.2.0 and deletes the retired Surface Cart and Checkout note.
+	 * @testdox Migration registers for PooCommerce 11.2.0 and deletes the retired Surface Cart and Checkout note.
 	 */
 	public function test_wc_update_1120_delete_surface_cart_checkout_note(): void {
 		include_once WC_ABSPATH . 'includes/wc-update-functions.php';
@@ -518,7 +518,7 @@ class WC_Update_Functions_Test extends \WC_Unit_Test_Case {
 		$note->set_content( 'Test content' );
 		$note->set_type( Note::E_WC_ADMIN_NOTE_INFORMATIONAL );
 		$note->set_source( 'PHPUNIT_TEST' );
-		$note->add_action( 'learn-more', 'Learn more', 'https://woocommerce.com/' );
+		$note->add_action( 'learn-more', 'Learn more', 'https://poocommerce.com/' );
 		$note->save();
 		$this->assertNotFalse( Notes::get_note_by_name( InboxNotifications::SURFACE_CART_CHECKOUT_NOTE_NAME ), 'The retired note fixture should exist before the update.' );
 
@@ -601,11 +601,11 @@ class WC_Update_Functions_Test extends \WC_Unit_Test_Case {
 			$this->assertSame( 'stale-value', ReportsCache::get( $cache_key ) );
 
 			$this->assertTrue( wc_update_11202_reset_refund_returning_customer_markers(), 'A batch with stale refund rows should request another run.' );
-			$this->assertSame( $refund->get_id(), (int) get_option( 'woocommerce_update_11202_last_refund_order_id' ), 'The last processed order ID should be stored between batches.' );
+			$this->assertSame( $refund->get_id(), (int) get_option( 'poocommerce_update_11202_last_refund_order_id' ), 'The last processed order ID should be stored between batches.' );
 			$this->assertSame( 'stale-value', ReportsCache::get( $cache_key ), 'The cache should stay valid until the last batch completes.' );
 
 			$this->assertFalse( wc_update_11202_reset_refund_returning_customer_markers(), 'A run with no stale refund rows should complete.' );
-			$this->assertFalse( get_option( 'woocommerce_update_11202_last_refund_order_id' ), 'The last processed order ID should be cleared on completion.' );
+			$this->assertFalse( get_option( 'poocommerce_update_11202_last_refund_order_id' ), 'The last processed order ID should be cleared on completion.' );
 			$this->assertFalse( ReportsCache::get( $cache_key ), 'The cache should be invalidated once the migration completes.' );
 		} finally {
 			delete_transient( $cache_key );

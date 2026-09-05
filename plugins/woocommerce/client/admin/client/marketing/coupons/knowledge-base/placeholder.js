@@ -4,7 +4,7 @@
 import './style.scss';
 
 const KnowledgebaseCardPostPlaceholder = ( index ) => {
-	const classNameBase = 'woocommerce-marketing-knowledgebase-card__post';
+	const classNameBase = 'poocommerce-marketing-knowledgebase-card__post';
 
 	return (
 		<div

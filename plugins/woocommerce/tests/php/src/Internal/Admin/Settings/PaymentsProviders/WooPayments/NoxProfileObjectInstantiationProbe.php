@@ -1,7 +1,7 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\Settings\PaymentsProviders\WooPayments;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\Settings\PaymentsProviders\WooPayments;
 
 /**
  * Probe for detecting NOX profile object instantiation.

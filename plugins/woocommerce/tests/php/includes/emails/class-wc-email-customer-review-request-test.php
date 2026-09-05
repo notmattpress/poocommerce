@@ -28,7 +28,7 @@ class WC_Email_Customer_Review_Request_Test extends \WC_Unit_Test_Case {
 	public function setUp(): void {
 		parent::setUp();
 
-		update_option( 'woocommerce_feature_customer_review_request_enabled', 'yes' );
+		update_option( 'poocommerce_feature_customer_review_request_enabled', 'yes' );
 
 		$bootstrap = \WC_Unit_Tests_Bootstrap::instance();
 		require_once $bootstrap->plugin_dir . '/includes/emails/class-wc-email.php';
@@ -46,7 +46,7 @@ class WC_Email_Customer_Review_Request_Test extends \WC_Unit_Test_Case {
 	 * enabled state into unrelated test classes that assume the default.
 	 */
 	public function tearDown(): void {
-		delete_option( 'woocommerce_feature_customer_review_request_enabled' );
+		delete_option( 'poocommerce_feature_customer_review_request_enabled' );
 
 		parent::tearDown();
 	}
@@ -55,10 +55,10 @@ class WC_Email_Customer_Review_Request_Test extends \WC_Unit_Test_Case {
 	 * Make sure the WC-managed Review Order page exists for tests that build a
 	 * URL through the endpoint. The bootstrap install seeds the page, but the
 	 * stored option can outlive the post across test runs, so re-create it
-	 * defensively if `woocommerce_review_order_page_id` doesn't resolve.
+	 * defensively if `poocommerce_review_order_page_id` doesn't resolve.
 	 */
 	private function ensure_review_order_page(): void {
-		$page_id = (int) get_option( 'woocommerce_review_order_page_id' );
+		$page_id = (int) get_option( 'poocommerce_review_order_page_id' );
 		if ( $page_id > 0 && get_post( $page_id ) instanceof \WP_Post ) {
 			return;
 		}
@@ -69,11 +69,11 @@ class WC_Email_Customer_Review_Request_Test extends \WC_Unit_Test_Case {
 				'post_name'    => 'review-order',
 				'post_status'  => 'publish',
 				'post_type'    => 'page',
-				'post_content' => '<!-- wp:shortcode -->[woocommerce_review_order]<!-- /wp:shortcode -->',
+				'post_content' => '<!-- wp:shortcode -->[poocommerce_review_order]<!-- /wp:shortcode -->',
 			)
 		);
 		if ( ! is_wp_error( $new_page_id ) && $new_page_id > 0 ) {
-			update_option( 'woocommerce_review_order_page_id', $new_page_id );
+			update_option( 'poocommerce_review_order_page_id', $new_page_id );
 		}
 	}
 
@@ -115,7 +115,7 @@ class WC_Email_Customer_Review_Request_Test extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox The woocommerce_review_request_delay_seconds filter wins over the admin setting.
+	 * @testdox The poocommerce_review_request_delay_seconds filter wins over the admin setting.
 	 */
 	public function test_delay_seconds_filter_overrides_setting(): void {
 		$this->sut->update_option( 'delay_days', '7' );
@@ -123,18 +123,18 @@ class WC_Email_Customer_Review_Request_Test extends \WC_Unit_Test_Case {
 		$override = static function () {
 			return 90;
 		};
-		add_filter( 'woocommerce_review_request_delay_seconds', $override );
+		add_filter( 'poocommerce_review_request_delay_seconds', $override );
 
 		$this->assertSame( 90, $this->sut->get_delay_seconds() );
 
-		remove_filter( 'woocommerce_review_request_delay_seconds', $override );
+		remove_filter( 'poocommerce_review_request_delay_seconds', $override );
 	}
 
 	/**
 	 * @testdox Review Order URL references the review-order endpoint and carries the order key.
 	 */
 	public function test_review_order_url_shape(): void {
-		$order = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 		$this->sut->trigger( $order->get_id() );
 
 		$url = $this->sut->get_review_order_url();
@@ -156,20 +156,20 @@ class WC_Email_Customer_Review_Request_Test extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox woocommerce_review_order_url filter can replace the generated URL.
+	 * @testdox poocommerce_review_order_url filter can replace the generated URL.
 	 */
 	public function test_review_order_url_filterable(): void {
-		$order = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 		$this->sut->trigger( $order->get_id() );
 
 		$override = static function () {
 			return 'https://example.test/custom';
 		};
-		add_filter( 'woocommerce_review_order_url', $override );
+		add_filter( 'poocommerce_review_order_url', $override );
 
 		$this->assertSame( 'https://example.test/custom', $this->sut->get_review_order_url() );
 
-		remove_filter( 'woocommerce_review_order_url', $override );
+		remove_filter( 'poocommerce_review_order_url', $override );
 	}
 
 	/**
@@ -201,7 +201,7 @@ class WC_Email_Customer_Review_Request_Test extends \WC_Unit_Test_Case {
 		$this->sut->update_option( 'enabled', 'yes' );
 		$this->sut->enabled = 'yes';
 
-		$order = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 
 		// First call populates recipient + placeholders from a valid order.
 		$this->sut->trigger( $order->get_id() );
@@ -221,7 +221,7 @@ class WC_Email_Customer_Review_Request_Test extends \WC_Unit_Test_Case {
 	 * @testdox trigger() is a no-op when the email is disabled (default state).
 	 */
 	public function test_trigger_is_noop_when_disabled(): void {
-		$order = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 
 		$mailer = tests_retrieve_phpmailer_instance();
 		$before = count( $mailer->mock_sent );
@@ -242,7 +242,7 @@ class WC_Email_Customer_Review_Request_Test extends \WC_Unit_Test_Case {
 		$this->sut->update_option( 'enabled', 'yes' );
 		$this->sut->enabled = 'yes';
 
-		$order = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 		$order->set_status( 'completed' );
 		$order->save();
 		$order->set_status( 'processing' );
@@ -271,7 +271,7 @@ class WC_Email_Customer_Review_Request_Test extends \WC_Unit_Test_Case {
 		$product->set_reviews_allowed( false );
 		$product->save();
 
-		$order = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order( 1, $product );
+		$order = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order( 1, $product );
 		$order->set_status( 'completed' );
 		$order->save();
 
@@ -284,20 +284,20 @@ class WC_Email_Customer_Review_Request_Test extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox The woocommerce_review_order_eligible_statuses filter widens the eligible set for trigger().
+	 * @testdox The poocommerce_review_order_eligible_statuses filter widens the eligible set for trigger().
 	 */
 	public function test_trigger_eligible_statuses_filter_can_widen(): void {
 		$this->sut->update_option( 'enabled', 'yes' );
 		$this->sut->enabled = 'yes';
 
-		$order = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 		$order->set_status( 'processing' );
 		$order->save();
 
 		$widen_statuses = static function () {
 			return array( 'completed', 'processing' );
 		};
-		add_filter( 'woocommerce_review_order_eligible_statuses', $widen_statuses );
+		add_filter( 'poocommerce_review_order_eligible_statuses', $widen_statuses );
 
 		$mailer = tests_retrieve_phpmailer_instance();
 		$before = count( $mailer->mock_sent );
@@ -305,7 +305,7 @@ class WC_Email_Customer_Review_Request_Test extends \WC_Unit_Test_Case {
 			$this->sut->trigger( $order->get_id() );
 			$after = count( $mailer->mock_sent );
 		} finally {
-			remove_filter( 'woocommerce_review_order_eligible_statuses', $widen_statuses );
+			remove_filter( 'poocommerce_review_order_eligible_statuses', $widen_statuses );
 		}
 
 		$this->assertSame( $before + 1, $after, 'Filter must allow non-default statuses to receive the email.' );

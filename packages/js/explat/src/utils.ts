@@ -4,7 +4,7 @@
 export const isDevelopmentMode = process.env.NODE_ENV === 'development';
 
 interface generalSettings {
-	woocommerce_default_country: string;
+	poocommerce_default_country: string;
 }
 
 interface preloadSettings {
@@ -12,7 +12,7 @@ interface preloadSettings {
 }
 
 interface preloadOptions {
-	woocommerce_admin_install_timestamp: string;
+	poocommerce_admin_install_timestamp: string;
 }
 
 interface admin {

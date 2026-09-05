@@ -20,12 +20,12 @@ if [ ! -z ${CI+y} ]; then
     exit $?
 fi
 
-# In nightly runs WooCommerce is mounted via a wp-env mapping so it installs
-# under the canonical `woocommerce` folder; mapped plugins are not
+# In nightly runs PooCommerce is mounted via a wp-env mapping so it installs
+# under the canonical `poocommerce` folder; mapped plugins are not
 # auto-activated, so activate it before any WC-dependent setup below (e.g. the
 # `customer` role user). Harmless when WC is already active (PR/source-mapped).
-echo -e 'Activate WooCommerce \n'
-$WP_CLI_PREFIX wp plugin activate woocommerce
+echo -e 'Activate PooCommerce \n'
+$WP_CLI_PREFIX wp plugin activate poocommerce
 
 echo -e 'Activate default theme \n'
 $WP_CLI_PREFIX wp theme activate twentytwentythree
@@ -42,7 +42,7 @@ $WP_CLI_PREFIX wp rewrite structure '/%postname%/' --hard
 
 echo -e 'Add Customer user \n'
 if ! $WP_CLI_PREFIX wp user get customer --field=ID >/dev/null 2>&1; then
-	$WP_CLI_PREFIX wp user create customer customer@woocommercecoree2etestsuite.com \
+	$WP_CLI_PREFIX wp user create customer customer@poocommercecoree2etestsuite.com \
 		--user_pass=password \
 		--role=customer \
 		--first_name='Jane' \
@@ -51,19 +51,19 @@ if ! $WP_CLI_PREFIX wp user get customer --field=ID >/dev/null 2>&1; then
 fi
 
 echo -e 'Enable Back in Stock Notifications feature \n'
-$WP_CLI_PREFIX wp option update woocommerce_feature_customer_stock_notifications_enabled 'yes'
+$WP_CLI_PREFIX wp option update poocommerce_feature_customer_stock_notifications_enabled 'yes'
 
 echo -e 'Update Blog Name \n'
-$WP_CLI_PREFIX wp option update blogname 'WooCommerce Core E2E Test Suite'
+$WP_CLI_PREFIX wp option update blogname 'PooCommerce Core E2E Test Suite'
 
 echo -e 'Preparing Test Files \n'
-$WP_CLI_PREFIX sudo cp /var/www/html/wp-content/plugins/woocommerce/tests/legacy/unit-tests/importer/sample.csv /var/www/sample.csv
+$WP_CLI_PREFIX sudo cp /var/www/html/wp-content/plugins/poocommerce/tests/legacy/unit-tests/importer/sample.csv /var/www/sample.csv
 
 ENABLE_TRACKING="${ENABLE_TRACKING:-0}"
 
 if [ $ENABLE_TRACKING == 1 ]; then
 	echo -e 'Enable tracking\n'
-	$WP_CLI_PREFIX wp option update woocommerce_allow_tracking 'yes'
+	$WP_CLI_PREFIX wp option update poocommerce_allow_tracking 'yes'
 fi
 
 echo -e 'Upload test images \n'

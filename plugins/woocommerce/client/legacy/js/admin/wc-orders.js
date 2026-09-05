@@ -14,8 +14,8 @@ jQuery( function( $ ) {
 			// WordPress 7.1 renders primary order cells as th instead of td.
 			".post-type-shop_order .wp-list-table tbody td:not(.check-column)",
 			".post-type-shop_order .wp-list-table tbody th:not(.check-column)",
-			".woocommerce_page_wc-orders .wp-list-table.orders tbody td:not(.check-column)",
-			".woocommerce_page_wc-orders .wp-list-table.orders tbody th:not(.check-column)"
+			".poocommerce_page_wc-orders .wp-list-table.orders tbody td:not(.check-column)",
+			".poocommerce_page_wc-orders .wp-list-table.orders tbody th:not(.check-column)"
 		]
 
 		$( document )
@@ -72,7 +72,7 @@ jQuery( function( $ ) {
 				url:     wc_orders_params.ajax_url,
 				data:    {
 					order_id: $order_id,
-					action  : 'woocommerce_get_order_details',
+					action  : 'poocommerce_get_order_details',
 					security: wc_orders_params.preview_nonce
 				},
 				type:    'GET',

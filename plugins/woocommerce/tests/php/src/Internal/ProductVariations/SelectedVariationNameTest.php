@@ -2,14 +2,14 @@
 /**
  * SelectedVariationName tests.
  *
- * @package WooCommerce\Tests\Internal\ProductVariations
+ * @package PooCommerce\Tests\Internal\ProductVariations
  */
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\ProductVariations;
+namespace Automattic\PooCommerce\Tests\Internal\ProductVariations;
 
-use Automattic\WooCommerce\Internal\ProductVariations\SelectedVariationName;
+use Automattic\PooCommerce\Internal\ProductVariations\SelectedVariationName;
 use WC_Data_Store;
 use WC_Helper_Product;
 use WC_Product_Variation;
@@ -52,7 +52,7 @@ class SelectedVariationNameTest extends WC_Unit_Test_Case {
 
 			return 'Filtered ' . $value;
 		};
-		add_filter( 'woocommerce_variation_option_name', $option_filter );
+		add_filter( 'poocommerce_variation_option_name', $option_filter );
 
 		try {
 			$stored_name = $variation->get_name();
@@ -108,7 +108,7 @@ class SelectedVariationNameTest extends WC_Unit_Test_Case {
 
 			return $should_include;
 		};
-		add_filter( 'woocommerce_product_variation_title_include_attributes', $title_policy_filter );
+		add_filter( 'poocommerce_product_variation_title_include_attributes', $title_policy_filter );
 
 		$name = $this->sut->get_product_name(
 			$variation,
@@ -138,7 +138,7 @@ class SelectedVariationNameTest extends WC_Unit_Test_Case {
 		$variation->set_attributes( $stored_attributes );
 
 		if ( $use_exclude_filter ) {
-			add_filter( 'woocommerce_product_variation_title_include_attributes', '__return_false' );
+			add_filter( 'poocommerce_product_variation_title_include_attributes', '__return_false' );
 		}
 
 		$this->assertSame( $product_name, $this->sut->get_product_name( $variation, $selected_attributes ) );
@@ -210,8 +210,8 @@ class SelectedVariationNameTest extends WC_Unit_Test_Case {
 
 			return $separator;
 		};
-		add_filter( 'woocommerce_variation_option_name', $option_filter );
-		add_filter( 'woocommerce_product_variation_title_attributes_separator', $separator_filter );
+		add_filter( 'poocommerce_variation_option_name', $option_filter );
+		add_filter( 'poocommerce_product_variation_title_attributes_separator', $separator_filter );
 
 		$name = $this->sut->get_product_name( $variation, array( 'attribute_finish' => 'gloss' ), true );
 
@@ -241,7 +241,7 @@ class SelectedVariationNameTest extends WC_Unit_Test_Case {
 		$variation->set_attributes( array( 'finish' => '' ) );
 
 		add_filter(
-			'woocommerce_product_variation_title_attributes_separator',
+			'poocommerce_product_variation_title_attributes_separator',
 			static function () {
 				return array( 'not', 'a', 'string' );
 			}

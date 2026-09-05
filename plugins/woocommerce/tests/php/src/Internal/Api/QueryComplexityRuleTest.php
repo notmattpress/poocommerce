@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Internal\Api;
+namespace Automattic\PooCommerce\Tests\Internal\Api;
 
-use Automattic\WooCommerce\Internal\Api\QueryComplexityRule;
-use Automattic\WooCommerce\Vendor\GraphQL\Error\Error;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\SelectionSetNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\Parser;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\CustomScalarType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\ObjectType;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\Type;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Schema;
-use Automattic\WooCommerce\Vendor\GraphQL\Validator\DocumentValidator;
+use Automattic\PooCommerce\Internal\Api\QueryComplexityRule;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\Error;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\SelectionSetNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\Parser;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\CustomScalarType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\ObjectType;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\Type;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Schema;
+use Automattic\PooCommerce\Vendor\GraphQL\Validator\DocumentValidator;
 use WC_Unit_Test_Case;
 
 /**
@@ -45,7 +45,7 @@ class QueryComplexityRuleTest extends WC_Unit_Test_Case {
 	 * scalar Counted (parseValue is instrumented)
 	 *
 	 * `items` carries a complexity callback multiplying the children's score
-	 * by `first`, like WooCommerce's connection fields do.
+	 * by `first`, like PooCommerce's connection fields do.
 	 */
 	private function build_schema(): Schema {
 		$counted = new CustomScalarType(

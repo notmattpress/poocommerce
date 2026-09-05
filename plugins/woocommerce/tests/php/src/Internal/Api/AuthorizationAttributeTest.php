@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Internal\Api;
+namespace Automattic\PooCommerce\Tests\Internal\Api;
 
-use Automattic\WooCommerce\Api\Attributes\PublicAccess;
-use Automattic\WooCommerce\Api\Attributes\RequiredCapability;
+use Automattic\PooCommerce\Api\Attributes\PublicAccess;
+use Automattic\PooCommerce\Api\Attributes\RequiredCapability;
 use WC_Unit_Test_Case;
 
 /**

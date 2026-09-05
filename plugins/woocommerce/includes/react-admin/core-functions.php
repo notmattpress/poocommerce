@@ -4,13 +4,13 @@
  *
  * Holds core functions for wc-admin.
  *
- * @package WooCommerce\Admin\Functions
+ * @package PooCommerce\Admin\Functions
  */
 
-use Automattic\WooCommerce\Internal\Admin\Settings;
+use Automattic\PooCommerce\Internal\Admin\Settings;
 
 /**
- * Format a number using the decimal and thousands separator settings in WooCommerce.
+ * Format a number using the decimal and thousands separator settings in PooCommerce.
  *
  * @param mixed $number Number to be formatted.
  * @return string
@@ -26,7 +26,7 @@ function wc_admin_number_format( $number ) {
 }
 
 /**
- * Retrieves a URL to relative path inside WooCommerce admin with
+ * Retrieves a URL to relative path inside PooCommerce admin with
  * the provided query parameters.
  *
  * @param  string $path Relative path of the desired page.
@@ -46,7 +46,7 @@ function wc_admin_url( $path = null, $query = array() ) {
 /**
  * Record an event using Tracks.
  *
- * @internal WooCommerce core only includes Tracks in admin, not the REST API, so we need to include it.
+ * @internal PooCommerce core only includes Tracks in admin, not the REST API, so we need to include it.
  * @param string $event_name Event name for tracks.
  * @param array  $properties Properties to pass along with event.
  */

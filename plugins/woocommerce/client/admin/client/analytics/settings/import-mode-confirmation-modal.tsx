@@ -26,21 +26,21 @@ export const ImportModeConfirmationModal = ( {
 
 	return (
 		<Modal
-			title={ __( 'Are you sure?', 'woocommerce' ) }
+			title={ __( 'Are you sure?', 'poocommerce' ) }
 			onRequestClose={ onClose }
-			className="woocommerce-analytics-import-mode-confirmation-modal"
+			className="poocommerce-analytics-import-mode-confirmation-modal"
 			size="medium"
 		>
 			<Flex direction="column" gap={ 6 }>
 				<Text>
 					{ __(
 						'Immediate updates to Analytics can impact your performance as it may slow busy stores.',
-						'woocommerce'
+						'poocommerce'
 					) }
 				</Text>
 				<Flex
 					direction="row"
-					className="woocommerce-analytics-import-mode-confirmation-modal__buttons"
+					className="poocommerce-analytics-import-mode-confirmation-modal__buttons"
 					justify="flex-end"
 				>
 					<Button
@@ -48,20 +48,20 @@ export const ImportModeConfirmationModal = ( {
 						onClick={ onClose }
 						aria-label={ __(
 							'Cancel import mode change',
-							'woocommerce'
+							'poocommerce'
 						) }
 					>
-						{ __( 'Cancel', 'woocommerce' ) }
+						{ __( 'Cancel', 'poocommerce' ) }
 					</Button>
 					<Button
 						variant="primary"
 						onClick={ onConfirm }
 						aria-label={ __(
 							'Confirm switching to immediate import mode',
-							'woocommerce'
+							'poocommerce'
 						) }
 					>
-						{ __( 'Confirm', 'woocommerce' ) }
+						{ __( 'Confirm', 'poocommerce' ) }
 					</Button>
 				</Flex>
 			</Flex>

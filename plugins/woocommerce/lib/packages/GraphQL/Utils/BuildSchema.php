@@ -1,26 +1,26 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\GraphQL\Utils;
+namespace Automattic\PooCommerce\Vendor\GraphQL\Utils;
 
-use Automattic\WooCommerce\Vendor\GraphQL\Error\Error;
-use Automattic\WooCommerce\Vendor\GraphQL\Error\InvariantViolation;
-use Automattic\WooCommerce\Vendor\GraphQL\Error\SyntaxError;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\DirectiveDefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\DocumentNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\Node;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\SchemaDefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\TypeDefinitionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\AST\TypeExtensionNode;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\Parser;
-use Automattic\WooCommerce\Vendor\GraphQL\Language\Source;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\Directive;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Definition\Type;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\Schema;
-use Automattic\WooCommerce\Vendor\GraphQL\Type\SchemaConfig;
-use Automattic\WooCommerce\Vendor\GraphQL\Validator\DocumentValidator;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\Error;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\InvariantViolation;
+use Automattic\PooCommerce\Vendor\GraphQL\Error\SyntaxError;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\DirectiveDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\DocumentNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\Node;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\SchemaDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\TypeDefinitionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\AST\TypeExtensionNode;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\Parser;
+use Automattic\PooCommerce\Vendor\GraphQL\Language\Source;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\Directive;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Definition\Type;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\Schema;
+use Automattic\PooCommerce\Vendor\GraphQL\Type\SchemaConfig;
+use Automattic\PooCommerce\Vendor\GraphQL\Validator\DocumentValidator;
 
 /**
- * Build instance of @see \Automattic\WooCommerce\Vendor\GraphQL\Type\Schema out of schema language definition (string or parsed AST).
+ * Build instance of @see \Automattic\PooCommerce\Vendor\GraphQL\Type\Schema out of schema language definition (string or parsed AST).
  *
  * See [schema definition language docs](schema-definition-language.md) for details.
  *
@@ -33,7 +33,7 @@ use Automattic\WooCommerce\Vendor\GraphQL\Validator\DocumentValidator;
  * }
  *
  * - assumeValid:
- *   When building a schema from a Automattic\WooCommerce\Vendor\GraphQL service's introspection result, it might be safe to assume the schema is valid.
+ *   When building a schema from a Automattic\PooCommerce\Vendor\GraphQL service's introspection result, it might be safe to assume the schema is valid.
  *   Set to true to assume the produced schema is valid.
  *   Default: false
  *
@@ -41,7 +41,7 @@ use Automattic\WooCommerce\Vendor\GraphQL\Validator\DocumentValidator;
  *   Set to true to assume the SDL is valid.
  *   Default: false
  *
- * @see \Automattic\WooCommerce\Vendor\GraphQL\Tests\Utils\BuildSchemaTest
+ * @see \Automattic\PooCommerce\Vendor\GraphQL\Tests\Utils\BuildSchemaTest
  */
 class BuildSchema
 {
@@ -119,11 +119,11 @@ class BuildSchema
     }
 
     /**
-     * This takes the AST of a schema from @see \Automattic\WooCommerce\Vendor\GraphQL\Language\Parser::parse().
+     * This takes the AST of a schema from @see \Automattic\PooCommerce\Vendor\GraphQL\Language\Parser::parse().
      *
      * If no schema definition is provided, then it will look for types named Query and Mutation.
      *
-     * Given that AST it constructs a @see \Automattic\WooCommerce\Vendor\GraphQL\Type\Schema. The resulting schema
+     * Given that AST it constructs a @see \Automattic\PooCommerce\Vendor\GraphQL\Type\Schema. The resulting schema
      * has no resolve methods, so execution will use default resolvers.
      *
      * @param array<string, bool> $options

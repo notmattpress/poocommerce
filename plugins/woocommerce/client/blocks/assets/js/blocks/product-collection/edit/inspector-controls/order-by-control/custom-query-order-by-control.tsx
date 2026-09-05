@@ -17,54 +17,54 @@ import OrderByControl from './order-by-control';
 
 const orderOptions = [
 	{
-		label: __( 'A → Z', 'woocommerce' ),
+		label: __( 'A → Z', 'poocommerce' ),
 		value: 'title/asc',
 	},
 	{
-		label: __( 'Z → A', 'woocommerce' ),
+		label: __( 'Z → A', 'poocommerce' ),
 		value: 'title/desc',
 	},
 	{
-		label: __( 'Newest to oldest', 'woocommerce' ),
+		label: __( 'Newest to oldest', 'poocommerce' ),
 		value: 'date/desc',
 	},
 	{
-		label: __( 'Oldest to newest', 'woocommerce' ),
+		label: __( 'Oldest to newest', 'poocommerce' ),
 		value: 'date/asc',
 	},
 	{
-		label: __( 'Price, high to low', 'woocommerce' ),
+		label: __( 'Price, high to low', 'poocommerce' ),
 		value: 'price/desc',
 	},
 	{
-		label: __( 'Price, low to high', 'woocommerce' ),
+		label: __( 'Price, low to high', 'poocommerce' ),
 		value: 'price/asc',
 	},
 	{
-		label: __( 'Sales, high to low', 'woocommerce' ),
+		label: __( 'Sales, high to low', 'poocommerce' ),
 		value: 'sales/desc',
 	},
 	{
-		label: __( 'Sales, low to high', 'woocommerce' ),
+		label: __( 'Sales, low to high', 'poocommerce' ),
 		value: 'sales/asc',
 	},
 	{
 		value: 'rating/desc',
-		label: __( 'Rating, high to low', 'woocommerce' ),
+		label: __( 'Rating, high to low', 'poocommerce' ),
 	},
 	{
 		value: 'rating/asc',
-		label: __( 'Rating, low to high', 'woocommerce' ),
+		label: __( 'Rating, low to high', 'poocommerce' ),
 	},
 	{
-		// In WooCommerce, "Manual (menu order + name)" refers to a custom ordering set by the store owner.
-		// Products can be manually arranged in the desired order in the WooCommerce admin panel.
+		// In PooCommerce, "Manual (menu order + name)" refers to a custom ordering set by the store owner.
+		// Products can be manually arranged in the desired order in the PooCommerce admin panel.
 		value: 'menu_order/asc',
-		label: __( 'Manual (menu order + name)', 'woocommerce' ),
+		label: __( 'Manual (menu order + name)', 'poocommerce' ),
 	},
 	{
 		value: 'random',
-		label: __( 'Random', 'woocommerce' ),
+		label: __( 'Random', 'poocommerce' ),
 	},
 ];
 
@@ -103,7 +103,7 @@ const CustomQueryOrderByControl = ( props: QueryControlProps ) => {
 			onDeselect={ deselectCallback }
 			help={ __(
 				'Set the products order in this collection.',
-				'woocommerce'
+				'poocommerce'
 			) }
 		/>
 	);

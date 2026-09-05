@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-use Automattic\WooCommerce\Admin\Notes\Note;
-use Automattic\WooCommerce\Caches\ProductCountCache;
-use Automattic\WooCommerce\Enums\ProductStatus;
-use Automattic\WooCommerce\RestApi\UnitTests\LoggerSpyTrait;
+use Automattic\PooCommerce\Admin\Notes\Note;
+use Automattic\PooCommerce\Caches\ProductCountCache;
+use Automattic\PooCommerce\Enums\ProductStatus;
+use Automattic\PooCommerce\RestApi\UnitTests\LoggerSpyTrait;
 
 /**
  * Class WC_Install_Test.
@@ -43,13 +43,13 @@ class WC_Install_Test extends \WC_Unit_Test_Case {
 		add_filter( 'query', array( $this, '_drop_temporary_tables' ) );
 
 		$this->assertContains( $original_table_name, $missing_tables );
-		$this->assertContains( $original_table_name, get_option( 'woocommerce_schema_missing_tables', array() ) );
+		$this->assertContains( $original_table_name, get_option( 'poocommerce_schema_missing_tables', array() ) );
 
 		// Ideally, no missing table anymore because we have switched back table name.
 		$missing_tables = \WC_Install::verify_base_tables();
 
 		$this->assertNotContains( $original_table_name, $missing_tables );
-		$this->assertSame( array(), get_option( 'woocommerce_schema_missing_tables', array() ) );
+		$this->assertSame( array(), get_option( 'poocommerce_schema_missing_tables', array() ) );
 	}
 
 
@@ -86,7 +86,7 @@ class WC_Install_Test extends \WC_Unit_Test_Case {
 
 		// Ideally, no missing table because verify base tables created the table as well.
 		$this->assertNotContains( $original_table_name, $missing_tables );
-		$this->assertSame( array(), get_option( 'woocommerce_schema_missing_tables', array() ) );
+		$this->assertSame( array(), get_option( 'poocommerce_schema_missing_tables', array() ) );
 	}
 
 	/**
@@ -94,12 +94,12 @@ class WC_Install_Test extends \WC_Unit_Test_Case {
 	 */
 	public function test_plugin_row_meta() {
 		// Simulate connection break.
-		delete_option( 'woocommerce_helper_data' );
+		delete_option( 'poocommerce_helper_data' );
 		$plugin_row_data = \WC_Install::plugin_row_meta( array(), WC_PLUGIN_BASENAME );
 
 		$this->assertNotContains( 'premium_support', array_keys( $plugin_row_data ) );
 
-		update_option( 'woocommerce_helper_data', array( 'auth' => 'random token' ) );
+		update_option( 'poocommerce_helper_data', array( 'auth' => 'random token' ) );
 		$plugin_row_data = \WC_Install::plugin_row_meta( array(), WC_PLUGIN_BASENAME );
 		$this->assertContains( 'premium_support', array_keys( $plugin_row_data ) );
 	}
@@ -325,11 +325,11 @@ class WC_Install_Test extends \WC_Unit_Test_Case {
 		};
 
 		// Make it straightforward to test different values for our key variables.
-		add_filter( 'option_woocommerce_version', $supply_version );
-		add_filter( 'woocommerce_get_shop_page_id', $supply_shop_id );
+		add_filter( 'option_poocommerce_version', $supply_version );
+		add_filter( 'poocommerce_get_shop_page_id', $supply_shop_id );
 		add_filter( 'wp_count_posts', $supply_post_count );
-		add_filter( 'pre_option_woocommerce_coming_soon', $supply_coming_soon );
-		add_filter( 'pre_option_woocommerce_task_list_completed_lists', $supply_completed_lists );
+		add_filter( 'pre_option_poocommerce_coming_soon', $supply_coming_soon );
+		add_filter( 'pre_option_poocommerce_task_list_completed_lists', $supply_completed_lists );
 
 		$this->assertTrue( WC_Install::is_new_install(), 'We are in a new install if the WC version is null.' );
 
@@ -364,11 +364,11 @@ class WC_Install_Test extends \WC_Unit_Test_Case {
 		$this->assertFalse( $counted_posts, 'For established stores (version and shop ID both set), we do not need to count the number of existing products.' );
 
 		// Cleanup.
-		remove_filter( 'option_woocommerce_version', $supply_version );
-		remove_filter( 'woocommerce_get_shop_page_id', $supply_shop_id );
+		remove_filter( 'option_poocommerce_version', $supply_version );
+		remove_filter( 'poocommerce_get_shop_page_id', $supply_shop_id );
 		remove_filter( 'wp_count_posts', $supply_post_count );
-		remove_filter( 'pre_option_woocommerce_coming_soon', $supply_coming_soon );
-		remove_filter( 'pre_option_woocommerce_task_list_completed_lists', $supply_completed_lists );
+		remove_filter( 'pre_option_poocommerce_coming_soon', $supply_coming_soon );
+		remove_filter( 'pre_option_poocommerce_task_list_completed_lists', $supply_completed_lists );
 	}
 
 	/**
@@ -390,14 +390,14 @@ class WC_Install_Test extends \WC_Unit_Test_Case {
 		};
 
 		if ( ! is_null( $auto_update ) ) {
-			add_filter( 'woocommerce_enable_auto_update_db', fn() => $auto_update );
+			add_filter( 'poocommerce_enable_auto_update_db', fn() => $auto_update );
 		}
 
-		update_option( 'woocommerce_db_version', $from_version );
+		update_option( 'poocommerce_db_version', $from_version );
 		$maybe_update_db->call( new WC_Install() );
 
 		// Did we schedule anything automatically?
-		$update_scheduled = ! is_null( WC()->queue()->get_next( 'woocommerce_run_update_callback', null, 'woocommerce-db-updates' ) );
+		$update_scheduled = ! is_null( WC()->queue()->get_next( 'poocommerce_run_update_callback', null, 'poocommerce-db-updates' ) );
 
 		if ( $auto_update || is_null( $auto_update ) ) {
 			$this->assertTrue( $update_scheduled );
@@ -417,12 +417,12 @@ class WC_Install_Test extends \WC_Unit_Test_Case {
 	 */
 	public function test_version_check_schedules_db_auto_update(): void {
 		// Simulate version older than WC()->version is installed.
-		update_option( 'woocommerce_db_version', '9.4.0' );
-		update_option( 'woocommerce_version', '9.4.0' );
+		update_option( 'poocommerce_db_version', '9.4.0' );
+		update_option( 'poocommerce_version', '9.4.0' );
 
 		WC_Install::check_version();
 
-		$this->assertNotNull( WC()->queue()->get_next( 'woocommerce_run_update_callback', null, 'woocommerce-db-updates' ) );
+		$this->assertNotNull( WC()->queue()->get_next( 'poocommerce_run_update_callback', null, 'poocommerce-db-updates' ) );
 	}
 
 	/**
@@ -469,9 +469,9 @@ class WC_Install_Test extends \WC_Unit_Test_Case {
 			return 'yes';
 		};
 
-		add_filter( 'option_woocommerce_version', $supply_version );
-		add_filter( 'woocommerce_get_shop_page_id', $supply_shop_id );
-		add_filter( 'pre_option_woocommerce_feature_fulfillments_enabled', $supply_feature_enabled );
+		add_filter( 'option_poocommerce_version', $supply_version );
+		add_filter( 'poocommerce_get_shop_page_id', $supply_shop_id );
+		add_filter( 'pre_option_poocommerce_feature_fulfillments_enabled', $supply_feature_enabled );
 
 		// Verify that is_new_install returns true.
 		$this->assertTrue( WC_Install::is_new_install(), 'is_new_install should return true for testing new installation.' );
@@ -489,9 +489,9 @@ class WC_Install_Test extends \WC_Unit_Test_Case {
 		$this->assertStringContainsString( 'KEY fulfillment_status (fulfillment_status),', $schema, 'Schema should include fulfillment_status index for new installations.' );
 
 		// Cleanup.
-		remove_filter( 'option_woocommerce_version', $supply_version );
-		remove_filter( 'woocommerce_get_shop_page_id', $supply_shop_id );
-		remove_filter( 'pre_option_woocommerce_feature_fulfillments_enabled', $supply_feature_enabled );
+		remove_filter( 'option_poocommerce_version', $supply_version );
+		remove_filter( 'poocommerce_get_shop_page_id', $supply_shop_id );
+		remove_filter( 'pre_option_poocommerce_feature_fulfillments_enabled', $supply_feature_enabled );
 	}
 
 	/**
@@ -501,7 +501,7 @@ class WC_Install_Test extends \WC_Unit_Test_Case {
 	 */
 	public function test_order_stats_schema_does_not_include_fulfillment_status_for_new_install_without_fulfillments_feature_enabled(): void {
 		// Ensure the fulfillments feature is disabled (a prior test class may have enabled it).
-		delete_option( 'woocommerce_feature_fulfillments_enabled' );
+		delete_option( 'poocommerce_feature_fulfillments_enabled' );
 
 		// Mock is_new_install to return true.
 		$version = false;
@@ -515,8 +515,8 @@ class WC_Install_Test extends \WC_Unit_Test_Case {
 			return $shop_id;
 		};
 
-		add_filter( 'option_woocommerce_version', $supply_version );
-		add_filter( 'woocommerce_get_shop_page_id', $supply_shop_id );
+		add_filter( 'option_poocommerce_version', $supply_version );
+		add_filter( 'poocommerce_get_shop_page_id', $supply_shop_id );
 
 		// Verify that is_new_install returns true.
 		$this->assertTrue( WC_Install::is_new_install(), 'is_new_install should return true for testing new installation.' );
@@ -534,8 +534,8 @@ class WC_Install_Test extends \WC_Unit_Test_Case {
 		$this->assertStringNotContainsString( 'KEY fulfillment_status (fulfillment_status),', $schema, 'Schema should NOT include fulfillment_status index for new installations without fulfillments feature enabled.' );
 
 		// Cleanup.
-		remove_filter( 'option_woocommerce_version', $supply_version );
-		remove_filter( 'woocommerce_get_shop_page_id', $supply_shop_id );
+		remove_filter( 'option_poocommerce_version', $supply_version );
+		remove_filter( 'poocommerce_get_shop_page_id', $supply_shop_id );
 	}
 
 	/**
@@ -556,15 +556,15 @@ class WC_Install_Test extends \WC_Unit_Test_Case {
 			return $shop_id;
 		};
 
-		add_filter( 'option_woocommerce_version', $supply_version );
-		add_filter( 'woocommerce_get_shop_page_id', $supply_shop_id );
+		add_filter( 'option_poocommerce_version', $supply_version );
+		add_filter( 'poocommerce_get_shop_page_id', $supply_shop_id );
 
 		// Mock has_fulfillment_status_column to return false (column does not exist).
 		$supply_column_status = function () {
 			return 'no';
 		};
 
-		add_filter( 'pre_option_' . \Automattic\WooCommerce\Admin\API\Reports\Orders\Stats\DataStore::OPTION_ORDER_STATS_TABLE_HAS_COLUMN_ORDER_FULFILLMENT_STATUS, $supply_column_status );
+		add_filter( 'pre_option_' . \Automattic\PooCommerce\Admin\API\Reports\Orders\Stats\DataStore::OPTION_ORDER_STATS_TABLE_HAS_COLUMN_ORDER_FULFILLMENT_STATUS, $supply_column_status );
 
 		// Verify that is_new_install returns false.
 		$this->assertFalse( WC_Install::is_new_install(), 'is_new_install should return false for testing existing installation.' );
@@ -579,9 +579,9 @@ class WC_Install_Test extends \WC_Unit_Test_Case {
 		$this->assertStringNotContainsString( 'fulfillment_status', $schema, 'Schema should NOT include fulfillment_status column for existing installations without the column.' );
 
 		// Cleanup.
-		remove_filter( 'option_woocommerce_version', $supply_version );
-		remove_filter( 'woocommerce_get_shop_page_id', $supply_shop_id );
-		remove_filter( 'pre_option_' . \Automattic\WooCommerce\Admin\API\Reports\Orders\Stats\DataStore::OPTION_ORDER_STATS_TABLE_HAS_COLUMN_ORDER_FULFILLMENT_STATUS, $supply_column_status );
+		remove_filter( 'option_poocommerce_version', $supply_version );
+		remove_filter( 'poocommerce_get_shop_page_id', $supply_shop_id );
+		remove_filter( 'pre_option_' . \Automattic\PooCommerce\Admin\API\Reports\Orders\Stats\DataStore::OPTION_ORDER_STATS_TABLE_HAS_COLUMN_ORDER_FULFILLMENT_STATUS, $supply_column_status );
 	}
 
 	/**
@@ -602,15 +602,15 @@ class WC_Install_Test extends \WC_Unit_Test_Case {
 			return $shop_id;
 		};
 
-		add_filter( 'option_woocommerce_version', $supply_version );
-		add_filter( 'woocommerce_get_shop_page_id', $supply_shop_id );
+		add_filter( 'option_poocommerce_version', $supply_version );
+		add_filter( 'poocommerce_get_shop_page_id', $supply_shop_id );
 
 		// Mock has_fulfillment_status_column to return true (column exists).
 		$supply_column_status = function () {
 			return 'yes';
 		};
 
-		add_filter( 'pre_option_' . \Automattic\WooCommerce\Admin\API\Reports\Orders\Stats\DataStore::OPTION_ORDER_STATS_TABLE_HAS_COLUMN_ORDER_FULFILLMENT_STATUS, $supply_column_status );
+		add_filter( 'pre_option_' . \Automattic\PooCommerce\Admin\API\Reports\Orders\Stats\DataStore::OPTION_ORDER_STATS_TABLE_HAS_COLUMN_ORDER_FULFILLMENT_STATUS, $supply_column_status );
 
 		// Verify that is_new_install returns false.
 		$this->assertFalse( WC_Install::is_new_install(), 'is_new_install should return false for testing existing installation.' );
@@ -625,9 +625,9 @@ class WC_Install_Test extends \WC_Unit_Test_Case {
 		$this->assertStringContainsString( 'fulfillment_status', $schema, 'Schema should include fulfillment_status column for existing installations that already have the column.' );
 
 		// Cleanup.
-		remove_filter( 'option_woocommerce_version', $supply_version );
-		remove_filter( 'woocommerce_get_shop_page_id', $supply_shop_id );
-		remove_filter( 'pre_option_' . \Automattic\WooCommerce\Admin\API\Reports\Orders\Stats\DataStore::OPTION_ORDER_STATS_TABLE_HAS_COLUMN_ORDER_FULFILLMENT_STATUS, $supply_column_status );
+		remove_filter( 'option_poocommerce_version', $supply_version );
+		remove_filter( 'poocommerce_get_shop_page_id', $supply_shop_id );
+		remove_filter( 'pre_option_' . \Automattic\PooCommerce\Admin\API\Reports\Orders\Stats\DataStore::OPTION_ORDER_STATS_TABLE_HAS_COLUMN_ORDER_FULFILLMENT_STATUS, $supply_column_status );
 	}
 
 	/**
@@ -636,7 +636,7 @@ class WC_Install_Test extends \WC_Unit_Test_Case {
 	public function test_get_action_scheduler_tables_matches_database_tables(): void {
 		global $wpdb;
 
-		// Action Scheduler is bundled with WooCommerce, so its tables exist in the test database. Comparing
+		// Action Scheduler is bundled with PooCommerce, so its tables exist in the test database. Comparing
 		// against the live schema (rather than re-listing the same hardcoded names the method returns) means
 		// this test fails if Action Scheduler ever adds, renames or drops a table and the method drifts out
 		// of sync, which would otherwise leave those tables behind on uninstall.
@@ -675,14 +675,14 @@ class WC_Install_Test extends \WC_Unit_Test_Case {
 	public function test_delete_placeholder_image_removes_attachment(): void {
 		$attachment_id = wp_insert_attachment(
 			array(
-				'post_title'     => 'woocommerce-placeholder',
+				'post_title'     => 'poocommerce-placeholder',
 				'post_mime_type' => 'image/webp',
 				'post_status'    => 'inherit',
 				'post_type'      => 'attachment',
 			)
 		);
-		update_post_meta( $attachment_id, '_wp_attached_file', 'woocommerce-placeholder.webp' );
-		update_option( 'woocommerce_placeholder_image', $attachment_id );
+		update_post_meta( $attachment_id, '_wp_attached_file', 'poocommerce-placeholder.webp' );
+		update_option( 'poocommerce_placeholder_image', $attachment_id );
 
 		WC_Install::delete_placeholder_image();
 
@@ -707,7 +707,7 @@ class WC_Install_Test extends \WC_Unit_Test_Case {
 			)
 		);
 		update_post_meta( $attachment_id, '_wp_attached_file', '2026/06/merchant-logo.png' );
-		update_option( 'woocommerce_placeholder_image', $attachment_id );
+		update_option( 'poocommerce_placeholder_image', $attachment_id );
 
 		WC_Install::delete_placeholder_image();
 
@@ -727,12 +727,12 @@ class WC_Install_Test extends \WC_Unit_Test_Case {
 		$content = $method->invoke( null );
 
 		$this->assertStringContainsString(
-			'<!-- wp:pattern {"slug":"woocommerce/cart-empty-message"} /-->',
+			'<!-- wp:pattern {"slug":"poocommerce/cart-empty-message"} /-->',
 			$content,
 			'The empty cart title should be stored as a pattern reference so it is translated at render time.'
 		);
 		$this->assertStringContainsString(
-			'<!-- wp:pattern {"slug":"woocommerce/cart-new-in-store-message"} /-->',
+			'<!-- wp:pattern {"slug":"poocommerce/cart-new-in-store-message"} /-->',
 			$content,
 			'The "New in store" heading should be stored as a pattern reference so it is translated at render time.'
 		);
@@ -754,16 +754,16 @@ class WC_Install_Test extends \WC_Unit_Test_Case {
 	public function test_empty_cart_message_patterns_render_expected_markup(): void {
 		$registry = WP_Block_Patterns_Registry::get_instance();
 		$this->assertTrue(
-			$registry->is_registered( 'woocommerce/cart-empty-message' ),
+			$registry->is_registered( 'poocommerce/cart-empty-message' ),
 			'The cart-empty-message pattern must be registered during bootstrap; the installed Cart page renders nothing for it otherwise.'
 		);
 		$this->assertTrue(
-			$registry->is_registered( 'woocommerce/cart-new-in-store-message' ),
+			$registry->is_registered( 'poocommerce/cart-new-in-store-message' ),
 			'The cart-new-in-store-message pattern must be registered during bootstrap; the installed Cart page renders nothing for it otherwise.'
 		);
 
 		$rendered = do_blocks(
-			'<!-- wp:pattern {"slug":"woocommerce/cart-empty-message"} /--><!-- wp:pattern {"slug":"woocommerce/cart-new-in-store-message"} /-->'
+			'<!-- wp:pattern {"slug":"poocommerce/cart-empty-message"} /--><!-- wp:pattern {"slug":"poocommerce/cart-new-in-store-message"} /-->'
 		);
 
 		$this->assertStringContainsString(

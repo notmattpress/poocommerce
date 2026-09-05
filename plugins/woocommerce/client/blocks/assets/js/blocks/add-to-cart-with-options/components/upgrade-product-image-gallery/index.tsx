@@ -5,8 +5,8 @@ import { __ } from '@wordpress/i18n';
 import { useState, useEffect } from '@wordpress/element';
 import { BlockInstance } from '@wordpress/blocks';
 import { select } from '@wordpress/data';
-import { UpgradeDowngradeNotice } from '@woocommerce/editor-components/upgrade-downgrade-notice';
-import { findBlock } from '@woocommerce/utils';
+import { UpgradeDowngradeNotice } from '@poocommerce/editor-components/upgrade-downgrade-notice';
+import { findBlock } from '@poocommerce/utils';
 
 /**
  * Internal dependencies
@@ -21,7 +21,7 @@ export const UpgradeProductImageGallery = () => {
 		const foundBlock = findBlock( {
 			blocks: select( 'core/block-editor' ).getBlocks(),
 			findCondition: ( block ) =>
-				block.name === 'woocommerce/product-image-gallery',
+				block.name === 'poocommerce/product-image-gallery',
 		} );
 		if ( foundBlock ) {
 			setProductImageGalleryBlock( foundBlock );
@@ -36,12 +36,12 @@ export const UpgradeProductImageGallery = () => {
 
 	const notice = __(
 		'This template contains the classic Product Image Gallery block which is not compatible with the Add to Cart + Options block. Switch to the new Product Gallery block for a better experience.',
-		'woocommerce'
+		'poocommerce'
 	);
 
 	const buttonLabel = __(
 		'Upgrade to the Product Gallery block',
-		'woocommerce'
+		'poocommerce'
 	);
 
 	return (

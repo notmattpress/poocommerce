@@ -3,16 +3,16 @@
  * Controller Tests.
  */
 
-namespace Automattic\WooCommerce\Tests\Blocks\StoreApi\Routes;
+namespace Automattic\PooCommerce\Tests\Blocks\StoreApi\Routes;
 
-use Automattic\WooCommerce\Tests\Blocks\Helpers\FixtureData;
-use Automattic\WooCommerce\Tests\Blocks\Helpers\ValidateSchema;
-use Automattic\WooCommerce\StoreApi\Authentication;
-use Automattic\WooCommerce\StoreApi\SessionHandler;
-use Automattic\WooCommerce\StoreApi\Utilities\CartTokenUtils;
-use Automattic\WooCommerce\StoreApi\Utilities\JsonWebToken;
+use Automattic\PooCommerce\Tests\Blocks\Helpers\FixtureData;
+use Automattic\PooCommerce\Tests\Blocks\Helpers\ValidateSchema;
+use Automattic\PooCommerce\StoreApi\Authentication;
+use Automattic\PooCommerce\StoreApi\SessionHandler;
+use Automattic\PooCommerce\StoreApi\Utilities\CartTokenUtils;
+use Automattic\PooCommerce\StoreApi\Utilities\JsonWebToken;
 use Spy_REST_Server;
-use Automattic\WooCommerce\Enums\ProductStockStatus;
+use Automattic\PooCommerce\Enums\ProductStockStatus;
 
 /**
  * Cart Controller Tests.
@@ -89,7 +89,7 @@ class Cart extends ControllerTestCase {
 	}
 
 	/**
-	 * Delete class products through WooCommerce data stores.
+	 * Delete class products through PooCommerce data stores.
 	 */
 	public static function wpTearDownAfterClass(): void {
 		try {
@@ -212,7 +212,7 @@ class Cart extends ControllerTestCase {
 			$request,
 			409,
 			array(
-				'code' => 'woocommerce_rest_cart_invalid_key',
+				'code' => 'poocommerce_rest_cart_invalid_key',
 			)
 		);
 	}
@@ -248,7 +248,7 @@ class Cart extends ControllerTestCase {
 			$request,
 			409,
 			array(
-				'code' => 'woocommerce_rest_cart_invalid_key',
+				'code' => 'poocommerce_rest_cart_invalid_key',
 			)
 		);
 	}
@@ -300,7 +300,7 @@ class Cart extends ControllerTestCase {
 		$action_callback->shouldReceive( 'do_customer_callback' )->once();
 
 		add_action(
-			'woocommerce_store_api_cart_update_customer_from_request',
+			'poocommerce_store_api_cart_update_customer_from_request',
 			array(
 				$action_callback,
 				'do_customer_callback',
@@ -327,7 +327,7 @@ class Cart extends ControllerTestCase {
 		);
 
 		remove_action(
-			'woocommerce_store_api_cart_update_customer_from_request',
+			'poocommerce_store_api_cart_update_customer_from_request',
 			array(
 				$action_callback,
 				'do_customer_callback',
@@ -609,7 +609,7 @@ class Cart extends ControllerTestCase {
 	 * Test conversion of cart item to rest response.
 	 */
 	public function test_prepare_item() {
-		$routes     = new \Automattic\WooCommerce\StoreApi\RoutesController( new \Automattic\WooCommerce\StoreApi\SchemaController( $this->mock_extend ) );
+		$routes     = new \Automattic\PooCommerce\StoreApi\RoutesController( new \Automattic\PooCommerce\StoreApi\SchemaController( $this->mock_extend ) );
 		$controller = $routes->get( 'cart', 'v1' );
 		$cart       = wc()->cart;
 		$response   = $controller->prepare_item_for_response( $cart, new \WP_REST_Request() );
@@ -630,7 +630,7 @@ class Cart extends ControllerTestCase {
 	 * Test schema matches responses.
 	 */
 	public function test_get_item_schema() {
-		$routes     = new \Automattic\WooCommerce\StoreApi\RoutesController( new \Automattic\WooCommerce\StoreApi\SchemaController( $this->mock_extend ) );
+		$routes     = new \Automattic\PooCommerce\StoreApi\RoutesController( new \Automattic\PooCommerce\StoreApi\SchemaController( $this->mock_extend ) );
 		$controller = $routes->get( 'cart', 'v1' );
 		$cart       = wc()->cart;
 		$response   = $controller->prepare_item_for_response( $cart, new \WP_REST_Request() );
@@ -1043,7 +1043,7 @@ class Cart extends ControllerTestCase {
 			$request,
 			400,
 			array(
-				'code' => 'woocommerce_rest_product_invalid_quantity',
+				'code' => 'poocommerce_rest_product_invalid_quantity',
 			)
 		);
 	}
@@ -1067,7 +1067,7 @@ class Cart extends ControllerTestCase {
 			$request,
 			400,
 			array(
-				'code' => 'woocommerce_rest_product_invalid_quantity',
+				'code' => 'poocommerce_rest_product_invalid_quantity',
 			)
 		);
 	}
@@ -1143,7 +1143,7 @@ class Cart extends ControllerTestCase {
 			$request,
 			400,
 			array(
-				'code' => 'woocommerce_rest_product_invalid_quantity',
+				'code' => 'poocommerce_rest_product_invalid_quantity',
 			)
 		);
 	}
@@ -1167,13 +1167,13 @@ class Cart extends ControllerTestCase {
 			$request,
 			400,
 			array(
-				'code' => 'woocommerce_rest_product_invalid_quantity',
+				'code' => 'poocommerce_rest_product_invalid_quantity',
 			)
 		);
 	}
 
 	/**
-	 * @testdox Should fire internal_woocommerce_cart_item_added_from_user_request when adding an item.
+	 * @testdox Should fire internal_poocommerce_cart_item_added_from_user_request when adding an item.
 	 */
 	public function test_add_item_fires_add_action(): void {
 		wc_empty_cart();
@@ -1186,7 +1186,7 @@ class Cart extends ControllerTestCase {
 			);
 		};
 
-		add_action( 'internal_woocommerce_cart_item_added_from_user_request', $callback, 10, 2 );
+		add_action( 'internal_poocommerce_cart_item_added_from_user_request', $callback, 10, 2 );
 
 		$request = new \WP_REST_Request( 'POST', '/wc/store/v1/cart/add-item' );
 		$request->set_header( 'Nonce', wp_create_nonce( 'wc_store_api' ) );
@@ -1203,11 +1203,11 @@ class Cart extends ControllerTestCase {
 		$this->assertSame( $this->products[0]->get_id(), $captured_args['product_id'] );
 		$this->assertEquals( 2, $captured_args['quantity'] );
 
-		remove_action( 'internal_woocommerce_cart_item_added_from_user_request', $callback );
+		remove_action( 'internal_poocommerce_cart_item_added_from_user_request', $callback );
 	}
 
 	/**
-	 * @testdox Should fire internal_woocommerce_cart_item_added_from_user_request with default quantity of 1 when quantity is omitted.
+	 * @testdox Should fire internal_poocommerce_cart_item_added_from_user_request with default quantity of 1 when quantity is omitted.
 	 */
 	public function test_add_item_fires_add_action_when_quantity_omitted(): void {
 		wc_empty_cart();
@@ -1220,7 +1220,7 @@ class Cart extends ControllerTestCase {
 			);
 		};
 
-		add_action( 'internal_woocommerce_cart_item_added_from_user_request', $callback, 10, 2 );
+		add_action( 'internal_poocommerce_cart_item_added_from_user_request', $callback, 10, 2 );
 
 		$request = new \WP_REST_Request( 'POST', '/wc/store/v1/cart/add-item' );
 		$request->set_header( 'Nonce', wp_create_nonce( 'wc_store_api' ) );
@@ -1236,11 +1236,11 @@ class Cart extends ControllerTestCase {
 		$this->assertSame( $this->products[0]->get_id(), $captured_args['product_id'] );
 		$this->assertEquals( 1, $captured_args['quantity'] );
 
-		remove_action( 'internal_woocommerce_cart_item_added_from_user_request', $callback );
+		remove_action( 'internal_poocommerce_cart_item_added_from_user_request', $callback );
 	}
 
 	/**
-	 * @testdox Should fire internal_woocommerce_cart_item_updated_from_user_request when updating item quantity.
+	 * @testdox Should fire internal_poocommerce_cart_item_updated_from_user_request when updating item quantity.
 	 */
 	public function test_update_item_fires_update_action(): void {
 		$captured_args = array();
@@ -1249,7 +1249,7 @@ class Cart extends ControllerTestCase {
 			$captured_args = compact( 'cart_item_key', 'quantity', 'old_quantity', 'cart' );
 		};
 
-		add_action( 'internal_woocommerce_cart_item_updated_from_user_request', $callback, 10, 4 );
+		add_action( 'internal_poocommerce_cart_item_updated_from_user_request', $callback, 10, 4 );
 
 		$request = new \WP_REST_Request( 'POST', '/wc/store/v1/cart/update-item' );
 		$request->set_header( 'Nonce', wp_create_nonce( 'wc_store_api' ) );
@@ -1268,11 +1268,11 @@ class Cart extends ControllerTestCase {
 		$this->assertEquals( 2, $captured_args['old_quantity'] );
 		$this->assertInstanceOf( \WC_Cart::class, $captured_args['cart'] );
 
-		remove_action( 'internal_woocommerce_cart_item_updated_from_user_request', $callback );
+		remove_action( 'internal_poocommerce_cart_item_updated_from_user_request', $callback );
 	}
 
 	/**
-	 * @testdox Should fire internal_woocommerce_cart_item_removed_from_user_request when removing a cart item.
+	 * @testdox Should fire internal_poocommerce_cart_item_removed_from_user_request when removing a cart item.
 	 */
 	public function test_remove_item_fires_remove_action(): void {
 		$captured_args = array();
@@ -1281,7 +1281,7 @@ class Cart extends ControllerTestCase {
 			$captured_args = compact( 'cart_item_key', 'cart' );
 		};
 
-		add_action( 'internal_woocommerce_cart_item_removed_from_user_request', $callback, 10, 2 );
+		add_action( 'internal_poocommerce_cart_item_removed_from_user_request', $callback, 10, 2 );
 
 		$request = new \WP_REST_Request( 'POST', '/wc/store/v1/cart/remove-item' );
 		$request->set_header( 'Nonce', wp_create_nonce( 'wc_store_api' ) );
@@ -1297,11 +1297,11 @@ class Cart extends ControllerTestCase {
 		$this->assertSame( $this->keys[0], $captured_args['cart_item_key'] );
 		$this->assertInstanceOf( \WC_Cart::class, $captured_args['cart'] );
 
-		remove_action( 'internal_woocommerce_cart_item_removed_from_user_request', $callback );
+		remove_action( 'internal_poocommerce_cart_item_removed_from_user_request', $callback );
 	}
 
 	/**
-	 * @testdox Should not fire internal_woocommerce_cart_item_updated_from_user_request when quantity is unchanged.
+	 * @testdox Should not fire internal_poocommerce_cart_item_updated_from_user_request when quantity is unchanged.
 	 */
 	public function test_update_item_with_same_quantity_does_not_fire_update_action(): void {
 		$action_fired = false;
@@ -1309,7 +1309,7 @@ class Cart extends ControllerTestCase {
 			$action_fired = true;
 		};
 
-		add_action( 'internal_woocommerce_cart_item_updated_from_user_request', $callback, 10, 4 );
+		add_action( 'internal_poocommerce_cart_item_updated_from_user_request', $callback, 10, 4 );
 
 		$request = new \WP_REST_Request( 'POST', '/wc/store/v1/cart/update-item' );
 		$request->set_header( 'Nonce', wp_create_nonce( 'wc_store_api' ) );
@@ -1324,11 +1324,11 @@ class Cart extends ControllerTestCase {
 
 		$this->assertFalse( $action_fired, 'The update action should not fire when quantity is unchanged' );
 
-		remove_action( 'internal_woocommerce_cart_item_updated_from_user_request', $callback );
+		remove_action( 'internal_poocommerce_cart_item_updated_from_user_request', $callback );
 	}
 
 	/**
-	 * @testdox Should fire internal_woocommerce_cart_item_added_from_user_request with the variation ID when adding a variable product.
+	 * @testdox Should fire internal_poocommerce_cart_item_added_from_user_request with the variation ID when adding a variable product.
 	 */
 	public function test_add_item_fires_add_action_with_variation_id(): void {
 		wc_empty_cart();
@@ -1356,7 +1356,7 @@ class Cart extends ControllerTestCase {
 			);
 		};
 
-		add_action( 'internal_woocommerce_cart_item_added_from_user_request', $callback, 10, 2 );
+		add_action( 'internal_poocommerce_cart_item_added_from_user_request', $callback, 10, 2 );
 
 		$request = new \WP_REST_Request( 'POST', '/wc/store/v1/cart/add-item' );
 		$request->set_header( 'Nonce', wp_create_nonce( 'wc_store_api' ) );
@@ -1373,11 +1373,11 @@ class Cart extends ControllerTestCase {
 		$this->assertSame( $variation->get_id(), $captured_args['product_id'], 'The product_id should be the variation ID, not the parent product ID' );
 		$this->assertEquals( 1, $captured_args['quantity'] );
 
-		remove_action( 'internal_woocommerce_cart_item_added_from_user_request', $callback );
+		remove_action( 'internal_poocommerce_cart_item_added_from_user_request', $callback );
 	}
 
 	/**
-	 * @testdox Should not fire internal_woocommerce_cart_item_updated_from_user_request when quantity is not set.
+	 * @testdox Should not fire internal_poocommerce_cart_item_updated_from_user_request when quantity is not set.
 	 */
 	public function test_update_item_without_quantity_does_not_fire_update_action(): void {
 		$action_fired = false;
@@ -1385,7 +1385,7 @@ class Cart extends ControllerTestCase {
 			$action_fired = true;
 		};
 
-		add_action( 'internal_woocommerce_cart_item_updated_from_user_request', $callback, 10, 4 );
+		add_action( 'internal_poocommerce_cart_item_updated_from_user_request', $callback, 10, 4 );
 
 		$request = new \WP_REST_Request( 'POST', '/wc/store/v1/cart/update-item' );
 		$request->set_header( 'Nonce', wp_create_nonce( 'wc_store_api' ) );
@@ -1399,19 +1399,19 @@ class Cart extends ControllerTestCase {
 
 		$this->assertFalse( $action_fired, 'The update action should not fire when quantity is not set' );
 
-		remove_action( 'internal_woocommerce_cart_item_updated_from_user_request', $callback );
+		remove_action( 'internal_poocommerce_cart_item_updated_from_user_request', $callback );
 	}
 
 	/**
-	 * @testdox Should fire internal_woocommerce_cart_item_updated_from_user_request with untruncated quantities on stores with decimal quantities.
+	 * @testdox Should fire internal_poocommerce_cart_item_updated_from_user_request with untruncated quantities on stores with decimal quantities.
 	 */
 	public function test_update_item_fires_update_action_with_float_quantity(): void {
-		remove_filter( 'woocommerce_stock_amount', 'intval' );
-		add_filter( 'woocommerce_stock_amount', 'floatval' );
+		remove_filter( 'poocommerce_stock_amount', 'intval' );
+		add_filter( 'poocommerce_stock_amount', 'floatval' );
 		$multiple_of_callback = function () {
 			return 0.5;
 		};
-		add_filter( 'woocommerce_store_api_product_quantity_multiple_of', $multiple_of_callback );
+		add_filter( 'poocommerce_store_api_product_quantity_multiple_of', $multiple_of_callback );
 
 		wc()->cart->set_quantity( $this->keys[0], 1.5 );
 
@@ -1421,7 +1421,7 @@ class Cart extends ControllerTestCase {
 			$captured_args = compact( 'cart_item_key', 'quantity', 'old_quantity', 'cart' );
 		};
 
-		add_action( 'internal_woocommerce_cart_item_updated_from_user_request', $callback, 10, 4 );
+		add_action( 'internal_poocommerce_cart_item_updated_from_user_request', $callback, 10, 4 );
 
 		$request = new \WP_REST_Request( 'POST', '/wc/store/v1/cart/update-item' );
 		$request->set_header( 'Nonce', wp_create_nonce( 'wc_store_api' ) );
@@ -1439,22 +1439,22 @@ class Cart extends ControllerTestCase {
 		$this->assertSame( 1.5, $captured_args['old_quantity'], 'The old quantity should not be truncated' );
 		$this->assertSame( 2.5, wc()->cart->get_cart_item( $this->keys[0] )['quantity'], 'The cart item quantity should be the untruncated value' );
 
-		remove_action( 'internal_woocommerce_cart_item_updated_from_user_request', $callback );
-		remove_filter( 'woocommerce_store_api_product_quantity_multiple_of', $multiple_of_callback );
-		remove_filter( 'woocommerce_stock_amount', 'floatval' );
-		add_filter( 'woocommerce_stock_amount', 'intval' );
+		remove_action( 'internal_poocommerce_cart_item_updated_from_user_request', $callback );
+		remove_filter( 'poocommerce_store_api_product_quantity_multiple_of', $multiple_of_callback );
+		remove_filter( 'poocommerce_stock_amount', 'floatval' );
+		add_filter( 'poocommerce_stock_amount', 'intval' );
 	}
 
 	/**
-	 * @testdox Should not fire internal_woocommerce_cart_item_updated_from_user_request when a decimal quantity is unchanged.
+	 * @testdox Should not fire internal_poocommerce_cart_item_updated_from_user_request when a decimal quantity is unchanged.
 	 */
 	public function test_update_item_with_same_float_quantity_does_not_fire_update_action(): void {
-		remove_filter( 'woocommerce_stock_amount', 'intval' );
-		add_filter( 'woocommerce_stock_amount', 'floatval' );
+		remove_filter( 'poocommerce_stock_amount', 'intval' );
+		add_filter( 'poocommerce_stock_amount', 'floatval' );
 		$multiple_of_callback = function () {
 			return 0.5;
 		};
-		add_filter( 'woocommerce_store_api_product_quantity_multiple_of', $multiple_of_callback );
+		add_filter( 'poocommerce_store_api_product_quantity_multiple_of', $multiple_of_callback );
 
 		wc()->cart->set_quantity( $this->keys[0], 1.5 );
 
@@ -1463,7 +1463,7 @@ class Cart extends ControllerTestCase {
 			$action_fired = true;
 		};
 
-		add_action( 'internal_woocommerce_cart_item_updated_from_user_request', $callback );
+		add_action( 'internal_poocommerce_cart_item_updated_from_user_request', $callback );
 
 		$request = new \WP_REST_Request( 'POST', '/wc/store/v1/cart/update-item' );
 		$request->set_header( 'Nonce', wp_create_nonce( 'wc_store_api' ) );
@@ -1478,14 +1478,14 @@ class Cart extends ControllerTestCase {
 
 		$this->assertFalse( $action_fired, 'The update action should not fire when a decimal quantity is unchanged' );
 
-		remove_action( 'internal_woocommerce_cart_item_updated_from_user_request', $callback );
-		remove_filter( 'woocommerce_store_api_product_quantity_multiple_of', $multiple_of_callback );
-		remove_filter( 'woocommerce_stock_amount', 'floatval' );
-		add_filter( 'woocommerce_stock_amount', 'intval' );
+		remove_action( 'internal_poocommerce_cart_item_updated_from_user_request', $callback );
+		remove_filter( 'poocommerce_store_api_product_quantity_multiple_of', $multiple_of_callback );
+		remove_filter( 'poocommerce_stock_amount', 'floatval' );
+		add_filter( 'poocommerce_stock_amount', 'intval' );
 	}
 
 	/**
-	 * @testdox Should fire internal_woocommerce_cart_item_updated_from_user_request with numeric quantities when the cart contains a string quantity.
+	 * @testdox Should fire internal_poocommerce_cart_item_updated_from_user_request with numeric quantities when the cart contains a string quantity.
 	 */
 	public function test_update_item_fires_update_action_with_numeric_quantities_for_string_cart_quantity(): void {
 		$cart_contents                               = wc()->cart->get_cart_contents();
@@ -1498,7 +1498,7 @@ class Cart extends ControllerTestCase {
 			$captured_args = compact( 'cart_item_key', 'quantity', 'old_quantity', 'cart' );
 		};
 
-		add_action( 'internal_woocommerce_cart_item_updated_from_user_request', $callback, 10, 4 );
+		add_action( 'internal_poocommerce_cart_item_updated_from_user_request', $callback, 10, 4 );
 
 		$request = new \WP_REST_Request( 'POST', '/wc/store/v1/cart/update-item' );
 		$request->set_header( 'Nonce', wp_create_nonce( 'wc_store_api' ) );
@@ -1515,11 +1515,11 @@ class Cart extends ControllerTestCase {
 		$this->assertSame( 3, $captured_args['quantity'], 'The new quantity should be a numeric value' );
 		$this->assertSame( 2, $captured_args['old_quantity'], 'The old quantity should be normalized to a numeric value' );
 
-		remove_action( 'internal_woocommerce_cart_item_updated_from_user_request', $callback );
+		remove_action( 'internal_poocommerce_cart_item_updated_from_user_request', $callback );
 	}
 
 	/**
-	 * @testdox Should fire internal_woocommerce_cart_item_added_from_user_request with a numeric quantity when a filter sets a string quantity.
+	 * @testdox Should fire internal_poocommerce_cart_item_added_from_user_request with a numeric quantity when a filter sets a string quantity.
 	 */
 	public function test_add_item_fires_add_action_with_numeric_quantity_for_string_quantity(): void {
 		wc_empty_cart();
@@ -1528,7 +1528,7 @@ class Cart extends ControllerTestCase {
 			$add_to_cart_data['quantity'] = '2';
 			return $add_to_cart_data;
 		};
-		add_filter( 'woocommerce_store_api_add_to_cart_data', $add_to_cart_data_callback );
+		add_filter( 'poocommerce_store_api_add_to_cart_data', $add_to_cart_data_callback );
 
 		$captured_args = array();
 		$callback      = function ( $product_id, $quantity ) use ( &$captured_args ) {
@@ -1538,7 +1538,7 @@ class Cart extends ControllerTestCase {
 			);
 		};
 
-		add_action( 'internal_woocommerce_cart_item_added_from_user_request', $callback, 10, 2 );
+		add_action( 'internal_poocommerce_cart_item_added_from_user_request', $callback, 10, 2 );
 
 		$request = new \WP_REST_Request( 'POST', '/wc/store/v1/cart/add-item' );
 		$request->set_header( 'Nonce', wp_create_nonce( 'wc_store_api' ) );
@@ -1554,8 +1554,8 @@ class Cart extends ControllerTestCase {
 		$this->assertNotEmpty( $captured_args, 'The add action should have been fired' );
 		$this->assertSame( 2, $captured_args['quantity'], 'The quantity should be normalized to a numeric value' );
 
-		remove_action( 'internal_woocommerce_cart_item_added_from_user_request', $callback );
-		remove_filter( 'woocommerce_store_api_add_to_cart_data', $add_to_cart_data_callback );
+		remove_action( 'internal_poocommerce_cart_item_added_from_user_request', $callback );
+		remove_filter( 'poocommerce_store_api_add_to_cart_data', $add_to_cart_data_callback );
 	}
 
 	/**
@@ -1566,10 +1566,10 @@ class Cart extends ControllerTestCase {
 
 		// The route restores the cart only when this action has not run yet, so reset
 		// the counter to put the process back into the state a REST request starts in.
-		unset( $GLOBALS['wp_actions']['woocommerce_load_cart_from_session'] );
+		unset( $GLOBALS['wp_actions']['poocommerce_load_cart_from_session'] );
 
 		add_filter(
-			'woocommerce_get_cart_item_from_session',
+			'poocommerce_get_cart_item_from_session',
 			static function () {
 				throw new \RuntimeException( 'Synthetic Store API cart-session failure.' );
 			}
@@ -1578,7 +1578,7 @@ class Cart extends ControllerTestCase {
 		$response = rest_get_server()->dispatch( new \WP_REST_Request( 'GET', '/wc/store/v1/cart' ) );
 
 		$this->assertSame( 500, $response->get_status(), 'A cart session failure should return a Store API error response.' );
-		$this->assertSame( 'woocommerce_rest_unknown_server_error', $response->get_data()['code'] );
+		$this->assertSame( 'poocommerce_rest_unknown_server_error', $response->get_data()['code'] );
 	}
 
 	/**
@@ -1587,7 +1587,7 @@ class Cart extends ControllerTestCase {
 	public function test_cart_session_failure_before_restore_returns_error_response() {
 		// This filter runs before `get_cart_from_session()` fires its action, so nothing
 		// stops the response headers attempting a second load of the failed cart.
-		unset( $GLOBALS['wp_actions']['woocommerce_load_cart_from_session'] );
+		unset( $GLOBALS['wp_actions']['poocommerce_load_cart_from_session'] );
 
 		// A REST request never runs `initialize_cart()`, so the route starts with no
 		// cart at all. The test bootstrap leaves one behind.
@@ -1595,7 +1595,7 @@ class Cart extends ControllerTestCase {
 		WC()->cart         = null;
 
 		add_filter(
-			'woocommerce_session_handler',
+			'poocommerce_session_handler',
 			static function () {
 				throw new \RuntimeException( 'Synthetic session handler failure.' );
 			}

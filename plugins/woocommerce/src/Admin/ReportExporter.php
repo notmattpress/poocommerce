@@ -3,13 +3,13 @@
  * Handles reports CSV export.
  */
 
-namespace Automattic\WooCommerce\Admin;
+namespace Automattic\PooCommerce\Admin;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-use Automattic\WooCommerce\Admin\Schedulers\SchedulerTraits;
+use Automattic\PooCommerce\Admin\Schedulers\SchedulerTraits;
 
 /**
  * ReportExporter Class.
@@ -32,12 +32,12 @@ class ReportExporter {
 	/**
 	 * Export status option name.
 	 */
-	const EXPORT_STATUS_OPTION = 'woocommerce_admin_report_export_status';
+	const EXPORT_STATUS_OPTION = 'poocommerce_admin_report_export_status';
 
 	/**
 	 * Export file download action.
 	 */
-	const DOWNLOAD_EXPORT_ACTION = 'woocommerce_admin_download_report_csv';
+	const DOWNLOAD_EXPORT_ACTION = 'poocommerce_admin_download_report_csv';
 
 	/**
 	 * How long a generated export stays available for download.
@@ -52,8 +52,8 @@ class ReportExporter {
 	 */
 	public static function get_scheduler_actions() {
 		return array(
-			'export_report'              => 'woocommerce_admin_report_export',
-			'email_report_download_link' => 'woocommerce_admin_email_report_download_link',
+			'export_report'              => 'poocommerce_admin_report_export',
+			'email_report_download_link' => 'poocommerce_admin_email_report_download_link',
 		);
 	}
 
@@ -225,7 +225,7 @@ class ReportExporter {
 	public static function download_export_file() {
 		/*
 		 * A read-only download of a report the requesting user is already allowed to view, gated on
-		 * the view_woocommerce_reports capability, so a nonce would only prevent nuisance CSRF. The
+		 * the view_poocommerce_reports capability, so a nonce would only prevent nuisance CSRF. The
 		 * action is compared verbatim against a fixed name, and set_filename() applies
 		 * sanitize_file_name(), which keeps the path inside the reports directory. A nonce is not an
 		 * option here either: nonces last 24 hours, and this link is emailed and kept for a week.
@@ -236,7 +236,7 @@ class ReportExporter {
 			self::DOWNLOAD_EXPORT_ACTION !== wp_unslash( $_GET['action'] ) ||
 			empty( $_GET['filename'] ) ||
 			! is_string( $_GET['filename'] ) ||
-			! current_user_can( 'view_woocommerce_reports' )
+			! current_user_can( 'view_poocommerce_reports' )
 		) {
 			return;
 		}
@@ -252,11 +252,11 @@ class ReportExporter {
 				esc_html(
 					sprintf(
 						/* translators: %s: length of time an export is kept, e.g. "1 week". */
-						__( 'This report export is no longer available. Exports are kept for %s, so please request a new one.', 'woocommerce' ),
+						__( 'This report export is no longer available. Exports are kept for %s, so please request a new one.', 'poocommerce' ),
 						human_time_diff( 0, self::EXPORT_RETENTION_PERIOD )
 					)
 				),
-				esc_html__( 'Report export unavailable', 'woocommerce' ),
+				esc_html__( 'Report export unavailable', 'poocommerce' ),
 				array( 'response' => 404 )
 			);
 		}

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Api\Infrastructure\Schema;
+namespace Automattic\PooCommerce\Api\Infrastructure\Schema;
 
 /**
  * Stable subclass of the underlying GraphQL engine's Error, used by
@@ -13,5 +13,5 @@ namespace Automattic\WooCommerce\Api\Infrastructure\Schema;
  * Behaviour is inherited verbatim, including the named `extensions`
  * argument that callers rely on to attach an error code.
  */
-class Error extends \Automattic\WooCommerce\Vendor\GraphQL\Error\Error {
+class Error extends \Automattic\PooCommerce\Vendor\GraphQL\Error\Error {
 }

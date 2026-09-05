@@ -1,16 +1,16 @@
 <?php
 /**
- * WooCommerce Admin Real Time Order Alerts Note.
+ * PooCommerce Admin Real Time Order Alerts Note.
  *
  * Adds a note to download the mobile app to monitor store activity.
  */
 
-namespace Automattic\WooCommerce\Internal\Admin\Notes;
+namespace Automattic\PooCommerce\Internal\Admin\Notes;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\Notes\Note;
-use Automattic\WooCommerce\Admin\Notes\NoteTraits;
+use Automattic\PooCommerce\Admin\Notes\Note;
+use Automattic\PooCommerce\Admin\Notes\NoteTraits;
 
 /**
  * Real_Time_Order_Alerts
@@ -42,16 +42,16 @@ class RealTimeOrderAlerts {
 			return;
 		}
 
-		$content = __( 'Get notifications about store activity, including new orders and product reviews directly on your mobile devices with the Woo app.', 'woocommerce' );
+		$content = __( 'Get notifications about store activity, including new orders and product reviews directly on your mobile devices with the Woo app.', 'poocommerce' );
 
 		$note = new Note();
-		$note->set_title( __( 'Get real-time order alerts anywhere', 'woocommerce' ) );
+		$note->set_title( __( 'Get real-time order alerts anywhere', 'poocommerce' ) );
 		$note->set_content( $content );
 		$note->set_content_data( (object) array() );
 		$note->set_type( Note::E_WC_ADMIN_NOTE_INFORMATIONAL );
 		$note->set_name( self::NOTE_NAME );
-		$note->set_source( 'woocommerce-admin' );
-		$note->add_action( 'learn-more', __( 'Learn more', 'woocommerce' ), 'https://woocommerce.com/mobile/?utm_source=inbox&utm_medium=product' );
+		$note->set_source( 'poocommerce-admin' );
+		$note->add_action( 'learn-more', __( 'Learn more', 'poocommerce' ), 'https://poocommerce.com/mobile/?utm_source=inbox&utm_medium=product' );
 		return $note;
 	}
 }

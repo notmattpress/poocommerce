@@ -1,16 +1,16 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin;
+namespace Automattic\PooCommerce\Tests\Internal\Admin;
 
-use Automattic\WooCommerce\Admin\API\Reports\Taxes\DataStore as TaxesDataStore;
-use Automattic\WooCommerce\Enums\OrderItemType;
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Internal\Admin\OrderTaxLookupMigrator;
-use Automattic\WooCommerce\Internal\Admin\Schedulers\OrdersScheduler;
-use Automattic\WooCommerce\Internal\BatchProcessing\BatchProcessingController;
-use Automattic\WooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Admin\API\Reports\Taxes\DataStore as TaxesDataStore;
+use Automattic\PooCommerce\Enums\OrderItemType;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Internal\Admin\OrderTaxLookupMigrator;
+use Automattic\PooCommerce\Internal\Admin\Schedulers\OrdersScheduler;
+use Automattic\PooCommerce\Internal\BatchProcessing\BatchProcessingController;
+use Automattic\PooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 use WC_Helper_Order;
 use WC_Helper_Queue;
 use WC_Helper_Reports;
@@ -32,7 +32,7 @@ class OrderTaxLookupMigratorTest extends WC_Unit_Test_Case {
 	private $sut;
 
 	/**
-	 * Original woocommerce_calc_taxes option value.
+	 * Original poocommerce_calc_taxes option value.
 	 *
 	 * @var string|false
 	 */
@@ -44,8 +44,8 @@ class OrderTaxLookupMigratorTest extends WC_Unit_Test_Case {
 	public function setUp(): void {
 		parent::setUp();
 
-		$this->original_calc_taxes = get_option( 'woocommerce_calc_taxes' );
-		update_option( 'woocommerce_calc_taxes', 'yes' );
+		$this->original_calc_taxes = get_option( 'poocommerce_calc_taxes' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
 
 		WC_Helper_Reports::reset_stats_dbs();
 		delete_option( OrderTaxLookupMigrator::CURSOR_OPTION );
@@ -58,7 +58,7 @@ class OrderTaxLookupMigratorTest extends WC_Unit_Test_Case {
 	 * Tear down test fixtures.
 	 */
 	public function tearDown(): void {
-		update_option( 'woocommerce_calc_taxes', $this->original_calc_taxes );
+		update_option( 'poocommerce_calc_taxes', $this->original_calc_taxes );
 		delete_option( OrderTaxLookupMigrator::CURSOR_OPTION );
 		delete_option( OrdersScheduler::FAILED_ORDER_IMPORTS_OPTION );
 		wc_get_container()->get( BatchProcessingController::class )->remove_processor( OrderTaxLookupMigrator::class );
@@ -241,7 +241,7 @@ class OrderTaxLookupMigratorTest extends WC_Unit_Test_Case {
 		$this->assertSame( array(), $this->sut->get_next_batch_to_process( 10 ), 'An order that cannot be loaded should not hold the pass up.' );
 		$this->assertSame( 0, $this->sut->get_total_pending_count(), 'Nothing should be left pending once the pass is through.' );
 
-		$tools = $this->sut->handle_woocommerce_debug_tools( array() );
+		$tools = $this->sut->handle_poocommerce_debug_tools( array() );
 		$this->assertTrue( $tools['rebuild_analytics_tax_data']['disabled'], 'The tool should not go on offering a run that cannot change anything.' );
 	}
 
@@ -323,7 +323,7 @@ class OrderTaxLookupMigratorTest extends WC_Unit_Test_Case {
 			$this->assertSame( 0, $this->sut->get_total_pending_count(), 'No order should count as pending while the rebuild cannot change it.' );
 			$this->assertFalse( get_option( OrderTaxLookupMigrator::CURSOR_OPTION ), 'The cursor should stay where it is.' );
 
-			$tools = $this->sut->handle_woocommerce_debug_tools( array() );
+			$tools = $this->sut->handle_poocommerce_debug_tools( array() );
 			$this->assertTrue( $tools['rebuild_analytics_tax_data']['disabled'], 'The tool should not offer a run that cannot change anything.' );
 			$this->assertStringContainsString( 'Verify base database tables', $tools['rebuild_analytics_tax_data']['desc'], 'The tool should say how to put the re-key right.' );
 		} finally {
@@ -453,13 +453,13 @@ class OrderTaxLookupMigratorTest extends WC_Unit_Test_Case {
 
 		$batch_processor = wc_get_container()->get( BatchProcessingController::class );
 
-		$tools = $this->sut->handle_woocommerce_debug_tools( array() );
+		$tools = $this->sut->handle_poocommerce_debug_tools( array() );
 		$this->assertArrayHasKey( 'rebuild_analytics_tax_data', $tools, 'A store with orders to rebuild should be offered the tool.' );
 
 		$this->sut->enqueue();
 		$this->assertTrue( $batch_processor->is_enqueued( OrderTaxLookupMigrator::class ), 'The tool should hand the rebuild to the batch processing controller.' );
 
-		$tools = $this->sut->handle_woocommerce_debug_tools( array() );
+		$tools = $this->sut->handle_poocommerce_debug_tools( array() );
 		$this->assertArrayHasKey( 'stop_rebuild_analytics_tax_data', $tools, 'A rebuild in progress should be offered a stop button.' );
 
 		$this->sut->dequeue();
@@ -472,7 +472,7 @@ class OrderTaxLookupMigratorTest extends WC_Unit_Test_Case {
 	public function test_tool_is_disabled_with_nothing_to_rebuild(): void {
 		$this->seed_order_with_tax_lines( $this->tax_lines_sharing_a_rate_id() );
 
-		$tools = $this->sut->handle_woocommerce_debug_tools( array() );
+		$tools = $this->sut->handle_poocommerce_debug_tools( array() );
 
 		$this->assertTrue( $tools['rebuild_analytics_tax_data']['disabled'], 'A store on the current shape should not be offered a rebuild.' );
 	}
