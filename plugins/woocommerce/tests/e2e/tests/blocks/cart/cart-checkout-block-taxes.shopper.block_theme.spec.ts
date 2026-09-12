@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { expect, test as base } from '@woocommerce/e2e-utils';
+import { expect, test as base } from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -31,7 +31,7 @@ test.describe( 'Shopper → Taxes', () => {
 		// Turn off tax display.
 		await requestUtils.rest( {
 			method: 'PUT',
-			path: 'wc/v3/settings/general/woocommerce_calc_taxes',
+			path: 'wc/v3/settings/general/poocommerce_calc_taxes',
 			data: { value: 'no' },
 		} );
 		await frontendUtils.goToShop();
@@ -40,7 +40,7 @@ test.describe( 'Shopper → Taxes', () => {
 		await frontendUtils.goToCart();
 
 		let cartSidebar = page.locator(
-			'.wp-block-woocommerce-cart-totals-block'
+			'.wp-block-poocommerce-cart-totals-block'
 		);
 		const taxRow = cartSidebar
 			.locator( '.wc-block-components-totals-taxes' )
@@ -50,7 +50,7 @@ test.describe( 'Shopper → Taxes', () => {
 		// Move to Checkout and look for Tax row.
 		await frontendUtils.goToCheckout();
 		let checkoutSidebar = page.locator(
-			'.wp-block-woocommerce-checkout-totals-block'
+			'.wp-block-poocommerce-checkout-totals-block'
 		);
 		const checkoutTaxRow = checkoutSidebar
 			.locator( '.wc-block-components-totals-taxes' )
@@ -69,7 +69,7 @@ test.describe( 'Shopper → Taxes', () => {
 		// Turn on tax display.
 		await requestUtils.rest( {
 			method: 'PUT',
-			path: 'wc/v3/settings/general/woocommerce_calc_taxes',
+			path: 'wc/v3/settings/general/poocommerce_calc_taxes',
 			data: { value: 'yes' },
 		} );
 		await frontendUtils.goToShop();
@@ -77,7 +77,7 @@ test.describe( 'Shopper → Taxes', () => {
 		await frontendUtils.addToCart( REGULAR_PRICED_PRODUCT_NAME );
 		await frontendUtils.goToCart();
 
-		cartSidebar = page.locator( '.wp-block-woocommerce-cart-totals-block' );
+		cartSidebar = page.locator( '.wp-block-poocommerce-cart-totals-block' );
 		const visibleTaxRow = cartSidebar
 			.locator( '.wc-block-components-totals-taxes' )
 			.getByText( 'Tax' );
@@ -86,7 +86,7 @@ test.describe( 'Shopper → Taxes', () => {
 		// Move to Checkout and look for Tax row.
 		await frontendUtils.goToCheckout();
 		checkoutSidebar = page.locator(
-			'.wp-block-woocommerce-checkout-totals-block'
+			'.wp-block-poocommerce-checkout-totals-block'
 		);
 		const visibleCheckoutTaxRow = checkoutSidebar
 			.locator( '.wc-block-components-totals-taxes' )

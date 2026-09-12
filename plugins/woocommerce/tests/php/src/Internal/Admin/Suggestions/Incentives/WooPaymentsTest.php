@@ -1,10 +1,10 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\Suggestions\Incentives;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\Suggestions\Incentives;
 
-use Automattic\WooCommerce\Internal\Admin\Suggestions\Incentives\Incentive;
-use Automattic\WooCommerce\Internal\Admin\Suggestions\Incentives\WooPayments;
+use Automattic\PooCommerce\Internal\Admin\Suggestions\Incentives\Incentive;
+use Automattic\PooCommerce\Internal\Admin\Suggestions\Incentives\WooPayments;
 use WC_Unit_Test_Case;
 
 /**
@@ -18,7 +18,7 @@ class WooPaymentsTest extends WC_Unit_Test_Case {
 	 *
 	 * @var string
 	 */
-	private const HAD_WOOPAYMENTS_OPTION = 'woocommerce_admin_pes_incentive_suggestion1_store_had_woopayments';
+	private const HAD_WOOPAYMENTS_OPTION = 'poocommerce_admin_pes_incentive_suggestion1_store_had_woopayments';
 
 	/**
 	 * The option storing the logic version that determined the store had WooPayments value.
@@ -234,7 +234,7 @@ class WooPaymentsTest extends WC_Unit_Test_Case {
 			->method( 'is_extension_active' );
 
 		// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
-		$filter_callback = fn( $caps ) => array( 'manage_woocommerce' => true );
+		$filter_callback = fn( $caps ) => array( 'manage_poocommerce' => true );
 		add_filter( 'user_has_cap', $filter_callback );
 
 		add_filter( 'pre_http_request', $this->response_mock_ref, 10, 3 );
@@ -304,7 +304,7 @@ class WooPaymentsTest extends WC_Unit_Test_Case {
 		add_filter( 'pre_http_request', $this->response_mock_ref, 10, 3 );
 
 		$order = \WC_Helper_Order::create_order();
-		$order->set_payment_method( 'woocommerce_payments' );
+		$order->set_payment_method( 'poocommerce_payments' );
 		$order->update_meta_data( '_wcpay_mode', 'test' );
 		$order->save();
 
@@ -332,7 +332,7 @@ class WooPaymentsTest extends WC_Unit_Test_Case {
 		add_filter( 'pre_http_request', $this->response_mock_ref, 10, 3 );
 
 		$order = \WC_Helper_Order::create_order();
-		$order->set_payment_method( 'woocommerce_payments' );
+		$order->set_payment_method( 'poocommerce_payments' );
 		$order->update_meta_data( '_wcpay_mode', 'prod' );
 		$order->save();
 
@@ -363,7 +363,7 @@ class WooPaymentsTest extends WC_Unit_Test_Case {
 		add_filter( 'pre_http_request', $this->response_mock_ref, 10, 3 );
 
 		$order = \WC_Helper_Order::create_order();
-		$order->set_payment_method( 'woocommerce_payments' );
+		$order->set_payment_method( 'poocommerce_payments' );
 		$order->save();
 
 		delete_option( self::HAD_WOOPAYMENTS_OPTION );
@@ -555,7 +555,7 @@ class WooPaymentsTest extends WC_Unit_Test_Case {
 
 		// A live-mode order that would determine a positive if the stored value were re-determined.
 		$order = \WC_Helper_Order::create_order();
-		$order->set_payment_method( 'woocommerce_payments' );
+		$order->set_payment_method( 'poocommerce_payments' );
 		$order->update_meta_data( '_wcpay_mode', 'prod' );
 		$order->save();
 

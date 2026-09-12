@@ -1,10 +1,10 @@
 <?php
 
 declare( strict_types = 1 );
-namespace Automattic\WooCommerce\Tests\Internal\StockNotifications\Admin;
+namespace Automattic\PooCommerce\Tests\Internal\StockNotifications\Admin;
 
-use Automattic\WooCommerce\Internal\StockNotifications\Admin\SettingsController;
-use Automattic\WooCommerce\Internal\StockNotifications\Frontend\MyAccountEndpoint;
+use Automattic\PooCommerce\Internal\StockNotifications\Admin\SettingsController;
+use Automattic\PooCommerce\Internal\StockNotifications\Frontend\MyAccountEndpoint;
 use WC_Settings_Advanced;
 use WC_Settings_Products;
 use WP_REST_Request;
@@ -64,11 +64,11 @@ class SettingsControllerTests extends \WC_Settings_Unit_Test_Case {
 
 		$expected = array(
 			'product_customer_stock_notifications_options' => array( 'title', 'sectionend' ),
-			'woocommerce_customer_stock_notifications_allow_signups' => 'checkbox',
-			'woocommerce_customer_stock_notifications_require_double_opt_in' => 'checkbox',
-			'woocommerce_customer_stock_notifications_require_account' => 'checkbox',
-			'woocommerce_customer_stock_notifications_create_account_on_signup' => 'checkbox',
-			'woocommerce_customer_stock_notifications_unverified_deletions_days_threshold' => 'number',
+			'poocommerce_customer_stock_notifications_allow_signups' => 'checkbox',
+			'poocommerce_customer_stock_notifications_require_double_opt_in' => 'checkbox',
+			'poocommerce_customer_stock_notifications_require_account' => 'checkbox',
+			'poocommerce_customer_stock_notifications_create_account_on_signup' => 'checkbox',
+			'poocommerce_customer_stock_notifications_unverified_deletions_days_threshold' => 'number',
 		);
 
 		$this->assertEquals( $expected, $setting_ids_and_types );
@@ -82,12 +82,12 @@ class SettingsControllerTests extends \WC_Settings_Unit_Test_Case {
 
 		$sut = new SettingsController();
 
-		$this->assertSame( 100, has_filter( 'woocommerce_get_sections_products', array( $sut, 'add_customer_stock_notifications_section' ) ) );
-		$this->assertSame( 100, has_filter( 'woocommerce_get_settings_products', array( $sut, 'add_customer_stock_notifications_settings' ) ) );
-		$this->assertSame( 100, has_filter( 'woocommerce_get_settings_advanced', array( $sut, 'add_my_account_endpoint_setting' ) ) );
+		$this->assertSame( 100, has_filter( 'poocommerce_get_sections_products', array( $sut, 'add_customer_stock_notifications_section' ) ) );
+		$this->assertSame( 100, has_filter( 'poocommerce_get_settings_products', array( $sut, 'add_customer_stock_notifications_settings' ) ) );
+		$this->assertSame( 100, has_filter( 'poocommerce_get_settings_advanced', array( $sut, 'add_my_account_endpoint_setting' ) ) );
 		$this->assertFalse( has_action( 'admin_notices', array( $sut, 'output_admin_notices' ) ) );
-		$this->assertFalse( has_action( 'woocommerce_product_options_stock_status', array( $sut, 'add_disable_stock_notifications_checkbox' ) ) );
-		$this->assertFalse( has_action( 'woocommerce_admin_process_product_object', array( $sut, 'process_product_object' ) ) );
+		$this->assertFalse( has_action( 'poocommerce_product_options_stock_status', array( $sut, 'add_disable_stock_notifications_checkbox' ) ) );
+		$this->assertFalse( has_action( 'poocommerce_admin_process_product_object', array( $sut, 'process_product_object' ) ) );
 	}
 
 	/**
@@ -99,12 +99,12 @@ class SettingsControllerTests extends \WC_Settings_Unit_Test_Case {
 
 		$sut = new SettingsController();
 
-		$this->assertSame( 100, has_filter( 'woocommerce_get_sections_products', array( $sut, 'add_customer_stock_notifications_section' ) ) );
-		$this->assertSame( 100, has_filter( 'woocommerce_get_settings_products', array( $sut, 'add_customer_stock_notifications_settings' ) ) );
-		$this->assertSame( 100, has_filter( 'woocommerce_get_settings_advanced', array( $sut, 'add_my_account_endpoint_setting' ) ) );
+		$this->assertSame( 100, has_filter( 'poocommerce_get_sections_products', array( $sut, 'add_customer_stock_notifications_section' ) ) );
+		$this->assertSame( 100, has_filter( 'poocommerce_get_settings_products', array( $sut, 'add_customer_stock_notifications_settings' ) ) );
+		$this->assertSame( 100, has_filter( 'poocommerce_get_settings_advanced', array( $sut, 'add_my_account_endpoint_setting' ) ) );
 		$this->assertSame( 10, has_action( 'admin_notices', array( $sut, 'output_admin_notices' ) ) );
-		$this->assertSame( 20, has_action( 'woocommerce_product_options_stock_status', array( $sut, 'add_disable_stock_notifications_checkbox' ) ) );
-		$this->assertSame( 10, has_action( 'woocommerce_admin_process_product_object', array( $sut, 'process_product_object' ) ) );
+		$this->assertSame( 20, has_action( 'poocommerce_product_options_stock_status', array( $sut, 'add_disable_stock_notifications_checkbox' ) ) );
+		$this->assertSame( 10, has_action( 'poocommerce_admin_process_product_object', array( $sut, 'process_product_object' ) ) );
 	}
 
 	/**
@@ -131,7 +131,7 @@ class SettingsControllerTests extends \WC_Settings_Unit_Test_Case {
 
 		$this->assertNotNull( $group_end, 'The account endpoints group should exist.' );
 		$this->assertLessThan( $group_end, $setting_index );
-		$this->assertSame( 'woocommerce_myaccount_downloads_endpoint', $ids[ $setting_index - 1 ], 'The endpoint setting should sit right after Downloads.' );
+		$this->assertSame( 'poocommerce_myaccount_downloads_endpoint', $ids[ $setting_index - 1 ], 'The endpoint setting should sit right after Downloads.' );
 		$this->assertSame( 'text', $settings[ $setting_index ]['type'] );
 		$this->assertSame( MyAccountEndpoint::ENDPOINT, $settings[ $setting_index ]['default'] );
 	}
@@ -140,7 +140,7 @@ class SettingsControllerTests extends \WC_Settings_Unit_Test_Case {
 	 * @testdox The My Account endpoint setting is sanitized as an endpoint slug on save.
 	 */
 	public function test_my_account_endpoint_setting_is_sanitized_on_save() {
-		$hook = 'woocommerce_admin_settings_sanitize_option_' . MyAccountEndpoint::ENDPOINT_OPTION;
+		$hook = 'poocommerce_admin_settings_sanitize_option_' . MyAccountEndpoint::ENDPOINT_OPTION;
 
 		$this->assertSame( 10, has_filter( $hook, 'wc_sanitize_endpoint_slug' ) );
 		$this->assertSame( 'restock-alerts', apply_filters( $hook, 'Restock Alerts' ) );

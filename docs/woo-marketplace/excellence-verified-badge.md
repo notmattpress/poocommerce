@@ -26,14 +26,14 @@ Products that don't earn the badge aren't penalized in any way. They keep their 
 The badge is built on four factors, and a product needs to do well on all of them:
 
 - **Secure**: scanned for vulnerabilities and malicious code.
-- **Compatible**: installs and runs cleanly on current WordPress and WooCommerce.
+- **Compatible**: installs and runs cleanly on current WordPress and PooCommerce.
 - **Maintained**: kept up to date with recent releases.
 - **Merchant-approved**: rated 4.0+ by real merchants.
 
 The first three are measured by the Quality Insights Toolkit (QIT). Here's what feeds each one:
 
 - **Secure**: WPScan, code security analysis, secret-leak detection, and malware scans.
-- **Compatible**: plugin metadata validation, the HPOS compatibility declaration, coding standards, and activation without fatal errors on current WordPress and WooCommerce versions.
+- **Compatible**: plugin metadata validation, the HPOS compatibility declaration, coding standards, and activation without fatal errors on current WordPress and PooCommerce versions.
 - **Maintained**: up-to-date "tested up to" headers, dependency vulnerability checks, and a passing end-to-end test package.
 
 For the full list of managed tests and what each one checks, see the [QIT documentation](https://qit.woo.com/docs/), specifically the Managed Tests and Test Packages sections.
@@ -48,11 +48,11 @@ Most products already meet several of the requirements, so there's no starting f
 
 **Start with validation**. It's the most common blocker and one of the easiest to fix. Validation checks plugin metadata: license headers and version requirements. These are small, well-defined changes that don't touch product logic.
 
-**Declare HPOS compatibility honestly.** Validation also checks the HPOS compatibility declaration, and this one is not a metadata edit. If a product handles orders, declare compatibility only once the order code supports HPOS. The declaration tells merchants what the product does, so setting it to true without the support behind it hides the warning WooCommerce would otherwise show them. Test order flows with HPOS enabled first — QIT accepts `--optional_features=hpos` — then declare. The [HPOS recipe book](/docs/features/orders/high-performance-order-storage/recipe-book/) covers what to check.
+**Declare HPOS compatibility honestly.** Validation also checks the HPOS compatibility declaration, and this one is not a metadata edit. If a product handles orders, declare compatibility only once the order code supports HPOS. The declaration tells merchants what the product does, so setting it to true without the support behind it hides the warning PooCommerce would otherwise show them. Test order flows with HPOS enabled first — QIT accepts `--optional_features=hpos` — then declare. The [HPOS recipe book](/docs/features/orders/high-performance-order-storage/recipe-book/) covers what to check.
 
-**Add a test package.** The check confirms that a product's own end-to-end suite runs and passes. The value goes beyond the badge: a real suite catches regressions before they reach merchants and makes it safer to ship updates as WordPress and WooCommerce evolve. A suite that genuinely exercises the product is worth far more than a placeholder.
+**Add a test package.** The check confirms that a product's own end-to-end suite runs and passes. The value goes beyond the badge: a real suite catches regressions before they reach merchants and makes it safer to ship updates as WordPress and PooCommerce evolve. A suite that genuinely exercises the product is worth far more than a placeholder.
 
-**Keep compatibility headers current**. The recent-work check looks for recent WordPress and WooCommerce versions in the "tested up to" headers. Update these with each release.
+**Keep compatibility headers current**. The recent-work check looks for recent WordPress and PooCommerce versions in the "tested up to" headers. Update these with each release.
 
 **Clear any security findings.** If WPScan, code security, or any malware scan flags something, treat it as a priority. These protect merchants directly.
 

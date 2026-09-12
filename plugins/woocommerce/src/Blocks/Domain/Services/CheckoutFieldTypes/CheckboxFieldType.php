@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1);
 
-namespace Automattic\WooCommerce\Blocks\Domain\Services\CheckoutFieldTypes;
+namespace Automattic\PooCommerce\Blocks\Domain\Services\CheckoutFieldTypes;
 
 /**
  * The "checkbox" additional checkout field type.
@@ -46,13 +46,13 @@ class CheckboxFieldType extends AbstractFieldType {
 	 * @return string
 	 */
 	public function format_value( $value, array $field ) {
-		return $value ? __( 'Yes', 'woocommerce' ) : __( 'No', 'woocommerce' );
+		return $value ? __( 'Yes', 'poocommerce' ) : __( 'No', 'poocommerce' );
 	}
 
 	/**
-	 * Sets the checked and unchecked values woocommerce_form_field() should submit.
+	 * Sets the checked and unchecked values poocommerce_form_field() should submit.
 	 *
-	 * @param array $form_field The woocommerce_form_field() arguments built from the field.
+	 * @param array $form_field The poocommerce_form_field() arguments built from the field.
 	 * @return array The updated arguments.
 	 */
 	public function prepare_form_field( array $form_field ): array {

@@ -2,7 +2,7 @@
 /**
  * REST API Products Catalog controller (compatibility stub).
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  */
 
 declare(strict_types=1);
@@ -17,8 +17,8 @@ defined( 'ABSPATH' ) || exit;
  * instantiate it instead of fataling on the deleted file. It registers nothing.
  *
  * 10.9 only added this entry when the `products-catalog-api` feature was enabled, which is off by
- * default — but the flag is flippable at runtime (WooCommerce Beta Tester, or any plugin filtering
- * `woocommerce_admin_get_feature_config`), and the feature config is resolved from the pre-swap
+ * default — but the flag is flippable at runtime (PooCommerce Beta Tester, or any plugin filtering
+ * `poocommerce_admin_get_feature_config`), and the feature config is resolved from the pre-swap
  * code, so trunk dropping the flag does not close the path.
  *
  * @deprecated 11.0.0

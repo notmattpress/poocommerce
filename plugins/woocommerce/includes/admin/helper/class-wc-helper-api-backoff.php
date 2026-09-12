@@ -1,8 +1,8 @@
 <?php
 /**
- * WooCommerce.com Helper API rate-limit backoff.
+ * PooCommerce.com Helper API rate-limit backoff.
  *
- * @package WooCommerce\Admin\Helper
+ * @package PooCommerce\Admin\Helper
  */
 
 declare(strict_types=1);
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * WC_Helper_API_Backoff Class
  *
- * Records and enforces a per-request-type backoff window when a WooCommerce.com
+ * Records and enforces a per-request-type backoff window when a PooCommerce.com
  * Helper API endpoint responds with a rate-limit status (HTTP 429), so the site
  * refrains from calling that endpoint again until the limit resets.
  *
@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * limit. When the header is absent, a per-type default window is applied
  * instead. `Retry-After` is used in preference to `X-RateLimit-Reset` because
  * it is a relative delta and therefore immune to clock skew between the site
- * and WooCommerce.com.
+ * and PooCommerce.com.
  *
  * A manual "Refresh" request (the Marketplace refresh button) always bypasses
  * and clears the backoff so the user can force a fresh request at any time.
@@ -36,17 +36,17 @@ class WC_Helper_API_Backoff {
 	 *
 	 * @var string
 	 */
-	const TRANSIENT_PREFIX = '_woocommerce_helper_backoff_';
+	const TRANSIENT_PREFIX = '_poocommerce_helper_backoff_';
 
 	/**
-	 * Request type: the WooCommerce.com update-check endpoint.
+	 * Request type: the PooCommerce.com update-check endpoint.
 	 *
 	 * @var string
 	 */
 	const REQUEST_TYPE_UPDATE_CHECK = 'update-check';
 
 	/**
-	 * Request type: the WooCommerce.com subscriptions endpoint.
+	 * Request type: the PooCommerce.com subscriptions endpoint.
 	 *
 	 * @var string
 	 */

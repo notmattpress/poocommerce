@@ -2,11 +2,11 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails;
+namespace Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails;
 
-use Automattic\WooCommerce\EmailEditor\Engine\Logger\Email_Editor_Logger_Interface;
-use Automattic\WooCommerce\Internal\EmailEditor\Integration;
-use Automattic\WooCommerce\Internal\EmailEditor\Logger;
+use Automattic\PooCommerce\EmailEditor\Engine\Logger\Email_Editor_Logger_Interface;
+use Automattic\PooCommerce\Internal\EmailEditor\Integration;
+use Automattic\PooCommerce\Internal\EmailEditor\Logger;
 
 /**
  * Applies a partial set of core template changes to a customised `woo_email`
@@ -52,7 +52,7 @@ use Automattic\WooCommerce\Internal\EmailEditor\Logger;
  * its own LCS and treats every text-divergent matched pair as a candidate
  * for `use_core`.
  *
- * @package Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails
+ * @package Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails
  * @since   10.9.0
  */
 class WCEmailTemplateSelectiveApplier {
@@ -110,7 +110,7 @@ class WCEmailTemplateSelectiveApplier {
 				'post_not_found',
 				sprintf(
 					/* translators: %d: post ID */
-					__( 'No woo_email post found for ID %d.', 'woocommerce' ),
+					__( 'No woo_email post found for ID %d.', 'poocommerce' ),
 					$post_id
 				),
 				array( 'status' => 404 )
@@ -122,7 +122,7 @@ class WCEmailTemplateSelectiveApplier {
 		if ( ! is_string( $email_id ) || '' === $email_id ) {
 			return new \WP_Error(
 				'email_not_found',
-				__( 'No email type associated with the given post ID.', 'woocommerce' ),
+				__( 'No email type associated with the given post ID.', 'poocommerce' ),
 				array( 'status' => 404 )
 			);
 		}
@@ -133,7 +133,7 @@ class WCEmailTemplateSelectiveApplier {
 				'not_sync_enabled',
 				sprintf(
 					/* translators: %s: email ID */
-					__( 'Email "%s" is not registered for template sync; selective apply is unavailable.', 'woocommerce' ),
+					__( 'Email "%s" is not registered for template sync; selective apply is unavailable.', 'poocommerce' ),
 					$email_id
 				),
 				array( 'status' => 422 )
@@ -147,7 +147,7 @@ class WCEmailTemplateSelectiveApplier {
 				'email_not_found',
 				sprintf(
 					/* translators: %s: email ID */
-					__( 'Email instance for "%s" is unavailable.', 'woocommerce' ),
+					__( 'Email instance for "%s" is unavailable.', 'poocommerce' ),
 					$email_id
 				),
 				array( 'status' => 404 )
@@ -158,7 +158,7 @@ class WCEmailTemplateSelectiveApplier {
 		if ( ! empty( $summary['is_fallback'] ) ) {
 			return new \WP_Error(
 				'no_actionable_summary',
-				__( 'No actionable diff is available for this post; refusing to apply.', 'woocommerce' ),
+				__( 'No actionable diff is available for this post; refusing to apply.', 'poocommerce' ),
 				array( 'status' => 422 )
 			);
 		}
@@ -182,7 +182,7 @@ class WCEmailTemplateSelectiveApplier {
 			);
 			return new \WP_Error(
 				'canonical_render_failed',
-				__( 'Failed to compute the canonical core render.', 'woocommerce' ),
+				__( 'Failed to compute the canonical core render.', 'poocommerce' ),
 				array( 'status' => 500 )
 			);
 		}//end try
@@ -319,7 +319,7 @@ class WCEmailTemplateSelectiveApplier {
 				'post_not_found',
 				sprintf(
 					/* translators: %d: post ID */
-					__( 'No woo_email post found for ID %d.', 'woocommerce' ),
+					__( 'No woo_email post found for ID %d.', 'poocommerce' ),
 					$post_id
 				),
 				array( 'status' => 404 )
@@ -330,7 +330,7 @@ class WCEmailTemplateSelectiveApplier {
 		if ( ! is_array( $snapshot ) || ! isset( $snapshot['revision_id'], $snapshot['content'] ) ) {
 			return new \WP_Error(
 				'undo_unavailable',
-				__( 'No pre-apply snapshot is available for this post.', 'woocommerce' ),
+				__( 'No pre-apply snapshot is available for this post.', 'poocommerce' ),
 				array( 'status' => 410 )
 			);
 		}
@@ -338,7 +338,7 @@ class WCEmailTemplateSelectiveApplier {
 		if ( (string) $snapshot['revision_id'] !== $revision_id ) {
 			return new \WP_Error(
 				'undo_unavailable',
-				__( 'The supplied revision ID does not match the latest snapshot for this post.', 'woocommerce' ),
+				__( 'The supplied revision ID does not match the latest snapshot for this post.', 'poocommerce' ),
 				array( 'status' => 410 )
 			);
 		}
@@ -633,7 +633,7 @@ class WCEmailTemplateSelectiveApplier {
 
 		// Final pass: explicit deprecated-namespace migration. Whenever a
 		// `wp:woo/email-content` block is found in the merged tree, rewrite
-		// it to the canonical `wp:woocommerce/email-content` form, including
+		// it to the canonical `wp:poocommerce/email-content` form, including
 		// the `wp-block-{old}` CSS class on the inner div so the comment and
 		// class stay consistent. The block's `attrs` and inner content are
 		// preserved — only the namespace label changes. This is unconditional
@@ -656,7 +656,7 @@ class WCEmailTemplateSelectiveApplier {
 
 	/**
 	 * Walk the merged tree and rewrite every `wp:woo/email-content` block to
-	 * the canonical `wp:woocommerce/email-content` form. Touches the
+	 * the canonical `wp:poocommerce/email-content` form. Touches the
 	 * `blockName` and the `wp-block-woo-email-content` CSS class in the
 	 * block's `innerHTML` and each `innerContent` segment. The block's
 	 * `attrs` and inner content are otherwise preserved.
@@ -680,12 +680,12 @@ class WCEmailTemplateSelectiveApplier {
 			}
 
 			if ( 'woo/email-content' === ( $block['blockName'] ?? null ) ) {
-				$block['blockName'] = 'woocommerce/email-content';
+				$block['blockName'] = 'poocommerce/email-content';
 
 				if ( isset( $block['innerHTML'] ) && is_string( $block['innerHTML'] ) ) {
 					$block['innerHTML'] = str_replace(
 						'wp-block-woo-email-content',
-						'wp-block-woocommerce-email-content',
+						'wp-block-poocommerce-email-content',
 						$block['innerHTML']
 					);
 				}
@@ -695,7 +695,7 @@ class WCEmailTemplateSelectiveApplier {
 						if ( is_string( $segment ) ) {
 							$block['innerContent'][ $i ] = str_replace(
 								'wp-block-woo-email-content',
-								'wp-block-woocommerce-email-content',
+								'wp-block-poocommerce-email-content',
 								$segment
 							);
 						}

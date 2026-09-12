@@ -9,14 +9,14 @@ import {
 	InnerBlocks,
 	InspectorControls,
 } from '@wordpress/block-editor';
-import BlockErrorBoundary from '@woocommerce/base-components/block-error-boundary';
-import { EditorProvider, CartProvider } from '@woocommerce/base-context';
-import { previewCart } from '@woocommerce/resource-previews';
-import { SlotFillProvider } from '@woocommerce/blocks-checkout';
+import BlockErrorBoundary from '@poocommerce/base-components/block-error-boundary';
+import { EditorProvider, CartProvider } from '@poocommerce/base-context';
+import { previewCart } from '@poocommerce/resource-previews';
+import { SlotFillProvider } from '@poocommerce/blocks-checkout';
 import { useEffect, useRef } from '@wordpress/element';
 import { getQueryArg } from '@wordpress/url';
 import { dispatch, select } from '@wordpress/data';
-import { usePreviewMode } from '@woocommerce/base-hooks';
+import { usePreviewMode } from '@poocommerce/base-hooks';
 
 /**
  * Internal dependencies
@@ -37,19 +37,19 @@ addClassToBody();
 
 // Array of allowed block names.
 const ALLOWED_BLOCKS = [
-	'woocommerce/filled-cart-block',
-	'woocommerce/empty-cart-block',
+	'poocommerce/filled-cart-block',
+	'poocommerce/empty-cart-block',
 ];
 
 export const Edit = ( { clientId, className, attributes, setAttributes } ) => {
 	const { hasDarkControls, currentView } = attributes;
 	const isPreviewMode = usePreviewMode();
 	const defaultTemplate = [
-		[ 'woocommerce/filled-cart-block', {}, [] ],
-		[ 'woocommerce/empty-cart-block', {}, [] ],
+		[ 'poocommerce/filled-cart-block', {}, [] ],
+		[ 'poocommerce/empty-cart-block', {}, [] ],
 	];
 	const blockProps = useBlockPropsWithLocking( {
-		className: clsx( className, 'wp-block-woocommerce-cart', {
+		className: clsx( className, 'wp-block-poocommerce-cart', {
 			'is-editor-preview': isPreviewMode,
 		} ),
 	} );
@@ -79,13 +79,13 @@ export const Edit = ( { clientId, className, attributes, setAttributes } ) => {
 				/>
 			</InspectorControls>
 			<BlockErrorBoundary
-				header={ __( 'Cart Block Error', 'woocommerce' ) }
+				header={ __( 'Cart Block Error', 'poocommerce' ) }
 				text={ __(
 					'There was an error whilst rendering the cart block. If this problem continues, try re-creating the block.',
-					'woocommerce'
+					'poocommerce'
 				) }
 				showErrorMessage={ true }
-				errorMessagePrefix={ __( 'Error message:', 'woocommerce' ) }
+				errorMessagePrefix={ __( 'Error message:', 'poocommerce' ) }
 			>
 				<EditorProvider
 					previewData={ { previewCart } }

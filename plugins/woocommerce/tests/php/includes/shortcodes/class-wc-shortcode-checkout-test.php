@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 /**
  * Tests for WC_Shortcode_Checkout.
  *
- * @package WooCommerce\Tests\Shortcodes
+ * @package PooCommerce\Tests\Shortcodes
  */
 
 /**
@@ -41,7 +41,7 @@ class WC_Shortcode_Checkout_Test extends WC_Unit_Test_Case {
 		WC_Shortcode_Checkout::output( array() );
 		$output = (string) ob_get_clean();
 
-		$this->assertStringNotContainsString( 'woocommerce-thankyou-order-details', $output );
+		$this->assertStringNotContainsString( 'poocommerce-thankyou-order-details', $output );
 		$this->assertStringNotContainsString( (string) $order->get_order_number(), $output );
 	}
 

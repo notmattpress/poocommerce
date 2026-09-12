@@ -1,9 +1,9 @@
 /**
- * Maybe modify decimal utility for WooCommerce shipping forms
+ * Maybe modify decimal utility for PooCommerce shipping forms
  */
 
 /**
- * Maybe modify decimal for WooCommerce shipping forms
+ * Maybe modify decimal for PooCommerce shipping forms
  *
  * @param {string} value - The value to modify
  * @param {Object} config - Configuration object with decimal separator

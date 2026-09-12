@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\StockNotifications\Emails;
+namespace Automattic\PooCommerce\Tests\Internal\StockNotifications\Emails;
 
-use Automattic\WooCommerce\Internal\StockNotifications\Emails\EmailTemplatesController;
+use Automattic\PooCommerce\Internal\StockNotifications\Emails\EmailTemplatesController;
 use WC_Helper_Product;
 use WC_Unit_Test_Case;
 

@@ -1,7 +1,7 @@
 /**
  * Patches @xstate5/react to resolve xstate from the xstate5 alias.
  *
- * See https://github.com/woocommerce/woocommerce/pull/45548 for context.
+ * See https://github.com/poocommerce/poocommerce/pull/45548 for context.
  */
 const path = require( 'path' );
 

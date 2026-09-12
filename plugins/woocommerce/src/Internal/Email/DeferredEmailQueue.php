@@ -2,10 +2,10 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\Email;
+namespace Automattic\PooCommerce\Internal\Email;
 
-use Automattic\WooCommerce\Internal\StockNotifications\Factory as StockNotificationFactory;
-use Automattic\WooCommerce\Internal\StockNotifications\Notification as StockNotification;
+use Automattic\PooCommerce\Internal\StockNotifications\Factory as StockNotificationFactory;
+use Automattic\PooCommerce\Internal\StockNotifications\Notification as StockNotification;
 
 /**
  * Handles deferred transactional email sending via Action Scheduler.
@@ -21,17 +21,17 @@ final class DeferredEmailQueue {
 	/**
 	 * Action Scheduler hook for processing a queued email.
 	 */
-	private const AS_HOOK = 'woocommerce_send_queued_transactional_email';
+	private const AS_HOOK = 'poocommerce_send_queued_transactional_email';
 
 	/**
 	 * Action Scheduler group for email actions.
 	 */
-	private const AS_GROUP = 'woocommerce-emails';
+	private const AS_GROUP = 'poocommerce-emails';
 
 	/**
 	 * Key for object references stored in queued email args.
 	 */
-	private const QUEUED_OBJECT_KEY = '__woocommerce_deferred_email_object';
+	private const QUEUED_OBJECT_KEY = '__poocommerce_deferred_email_object';
 
 	/**
 	 * Queue of email callbacks collected during the current request.

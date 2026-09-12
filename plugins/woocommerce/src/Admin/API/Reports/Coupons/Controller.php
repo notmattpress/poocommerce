@@ -5,13 +5,13 @@
  * Handles requests to the /reports/coupons endpoint.
  */
 
-namespace Automattic\WooCommerce\Admin\API\Reports\Coupons;
+namespace Automattic\PooCommerce\Admin\API\Reports\Coupons;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\API\Reports\GenericController;
-use Automattic\WooCommerce\Admin\API\Reports\ExportableInterface;
-use Automattic\WooCommerce\Admin\API\Reports\GenericQuery;
+use Automattic\PooCommerce\Admin\API\Reports\GenericController;
+use Automattic\PooCommerce\Admin\API\Reports\ExportableInterface;
+use Automattic\PooCommerce\Admin\API\Reports\GenericQuery;
 use WP_REST_Request;
 use WP_REST_Response;
 
@@ -83,7 +83,7 @@ class Controller extends GenericController implements ExportableInterface {
 		 * @param object           $report   The original report object.
 		 * @param WP_REST_Request  $request  Request used to generate the response.
 		 */
-		return apply_filters( 'woocommerce_rest_prepare_report_coupons', $response, $report, $request );
+		return apply_filters( 'poocommerce_rest_prepare_report_coupons', $response, $report, $request );
 	}
 
 	/**
@@ -114,19 +114,19 @@ class Controller extends GenericController implements ExportableInterface {
 			'type'       => 'object',
 			'properties' => array(
 				'coupon_id'     => array(
-					'description' => __( 'Coupon ID.', 'woocommerce' ),
+					'description' => __( 'Coupon ID.', 'poocommerce' ),
 					'type'        => 'integer',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'amount'        => array(
-					'description' => __( 'Net discount amount.', 'woocommerce' ),
+					'description' => __( 'Net discount amount.', 'poocommerce' ),
 					'type'        => 'number',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'orders_count'  => array(
-					'description' => __( 'Number of orders.', 'woocommerce' ),
+					'description' => __( 'Number of orders.', 'poocommerce' ),
 					'type'        => 'integer',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
@@ -136,38 +136,38 @@ class Controller extends GenericController implements ExportableInterface {
 						'type'        => 'string',
 						'readonly'    => true,
 						'context'     => array( 'view', 'edit' ),
-						'description' => __( 'Coupon code.', 'woocommerce' ),
+						'description' => __( 'Coupon code.', 'poocommerce' ),
 					),
 					'date_created'     => array(
 						'type'        => 'date-time',
 						'readonly'    => true,
 						'context'     => array( 'view', 'edit' ),
-						'description' => __( 'Coupon creation date.', 'woocommerce' ),
+						'description' => __( 'Coupon creation date.', 'poocommerce' ),
 					),
 					'date_created_gmt' => array(
 						'type'        => 'date-time',
 						'readonly'    => true,
 						'context'     => array( 'view', 'edit' ),
-						'description' => __( 'Coupon creation date in GMT.', 'woocommerce' ),
+						'description' => __( 'Coupon creation date in GMT.', 'poocommerce' ),
 					),
 					'date_expires'     => array(
 						'type'        => 'date-time',
 						'readonly'    => true,
 						'context'     => array( 'view', 'edit' ),
-						'description' => __( 'Coupon expiration date.', 'woocommerce' ),
+						'description' => __( 'Coupon expiration date.', 'poocommerce' ),
 					),
 					'date_expires_gmt' => array(
 						'type'        => 'date-time',
 						'readonly'    => true,
 						'context'     => array( 'view', 'edit' ),
-						'description' => __( 'Coupon expiration date in GMT.', 'woocommerce' ),
+						'description' => __( 'Coupon expiration date in GMT.', 'poocommerce' ),
 					),
 					'discount_type'    => array(
 						'type'        => 'string',
 						'readonly'    => true,
 						'context'     => array( 'view', 'edit' ),
 						'enum'        => array_keys( wc_get_coupon_types() ),
-						'description' => __( 'Coupon discount type.', 'woocommerce' ),
+						'description' => __( 'Coupon discount type.', 'poocommerce' ),
 					),
 				),
 			),
@@ -193,7 +193,7 @@ class Controller extends GenericController implements ExportableInterface {
 			)
 		);
 		$params['coupons']            = array(
-			'description'       => __( 'Limit result set to coupons assigned specific coupon IDs.', 'woocommerce' ),
+			'description'       => __( 'Limit result set to coupons assigned specific coupon IDs.', 'poocommerce' ),
 			'type'              => 'array',
 			'sanitize_callback' => 'wp_parse_id_list',
 			'validate_callback' => 'rest_validate_request_arg',
@@ -202,7 +202,7 @@ class Controller extends GenericController implements ExportableInterface {
 			),
 		);
 		$params['extended_info']      = array(
-			'description'       => __( 'Add additional piece of info about each coupon to the report.', 'woocommerce' ),
+			'description'       => __( 'Add additional piece of info about each coupon to the report.', 'poocommerce' ),
 			'type'              => 'boolean',
 			'default'           => false,
 			'sanitize_callback' => 'wc_string_to_bool',
@@ -219,12 +219,12 @@ class Controller extends GenericController implements ExportableInterface {
 	 */
 	public function get_export_columns() {
 		$export_columns = array(
-			'code'         => __( 'Coupon code', 'woocommerce' ),
-			'orders_count' => __( 'Orders', 'woocommerce' ),
-			'amount'       => __( 'Amount discounted', 'woocommerce' ),
-			'created'      => __( 'Created', 'woocommerce' ),
-			'expires'      => __( 'Expires', 'woocommerce' ),
-			'type'         => __( 'Type', 'woocommerce' ),
+			'code'         => __( 'Coupon code', 'poocommerce' ),
+			'orders_count' => __( 'Orders', 'poocommerce' ),
+			'amount'       => __( 'Amount discounted', 'poocommerce' ),
+			'created'      => __( 'Created', 'poocommerce' ),
+			'expires'      => __( 'Expires', 'poocommerce' ),
+			'type'         => __( 'Type', 'poocommerce' ),
 		);
 
 		/**
@@ -234,7 +234,7 @@ class Controller extends GenericController implements ExportableInterface {
 		 * @since 1.6.0
 		 */
 		return apply_filters(
-			'woocommerce_report_coupons_export_columns',
+			'poocommerce_report_coupons_export_columns',
 			$export_columns
 		);
 	}
@@ -247,7 +247,7 @@ class Controller extends GenericController implements ExportableInterface {
 	 */
 	public function prepare_item_for_export( $item ) {
 		$date_expires = empty( $item['extended_info']['date_expires'] )
-			? __( 'N/A', 'woocommerce' )
+			? __( 'N/A', 'poocommerce' )
 			: $item['extended_info']['date_expires'];
 
 		$export_item = array(
@@ -266,7 +266,7 @@ class Controller extends GenericController implements ExportableInterface {
 		 * @since 1.6.0
 		 */
 		return apply_filters(
-			'woocommerce_report_coupons_prepare_export_item',
+			'poocommerce_report_coupons_prepare_export_item',
 			$export_item,
 			$item
 		);

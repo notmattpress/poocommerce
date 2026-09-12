@@ -1,14 +1,14 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\StockNotifications\Utilities;
+namespace Automattic\PooCommerce\Tests\Internal\StockNotifications\Utilities;
 
-use Automattic\WooCommerce\Internal\StockNotifications\Utilities\EligibilityService;
-use Automattic\WooCommerce\Internal\StockNotifications\Utilities\StockManagementHelper;
-use Automattic\WooCommerce\Internal\StockNotifications\Notification;
-use Automattic\WooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
-use Automattic\WooCommerce\Enums\ProductStockStatus;
-use Automattic\WooCommerce\Tests\Internal\StockNotifications\StockNotificationsFeatureTrait;
+use Automattic\PooCommerce\Internal\StockNotifications\Utilities\EligibilityService;
+use Automattic\PooCommerce\Internal\StockNotifications\Utilities\StockManagementHelper;
+use Automattic\PooCommerce\Internal\StockNotifications\Notification;
+use Automattic\PooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
+use Automattic\PooCommerce\Enums\ProductStockStatus;
+use Automattic\PooCommerce\Tests\Internal\StockNotifications\StockNotificationsFeatureTrait;
 use WC_Helper_Product;
 
 /**

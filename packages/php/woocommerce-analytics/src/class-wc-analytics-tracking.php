@@ -1,11 +1,11 @@
 <?php
 /**
- * WooCommerce Analytics Tracking for tracking frontend events
+ * PooCommerce Analytics Tracking for tracking frontend events
  *
- * This class is designed to work without WooCommerce dependencies,
- * enabling it to run at the MU-plugin stage without loading WooCommerce to optimize performance.
+ * This class is designed to work without PooCommerce dependencies,
+ * enabling it to run at the MU-plugin stage without loading PooCommerce to optimize performance.
  *
- * @package automattic/woocommerce-analytics
+ * @package automattic/poocommerce-analytics
  */
 
 namespace Automattic\Woocommerce_Analytics;
@@ -15,7 +15,7 @@ use Automattic\Jetpack\Device_Detection\User_Agent_Info;
 use WP_Error;
 
 /**
- * WooCommerce Analytics Tracking class
+ * PooCommerce Analytics Tracking class
  */
 class WC_Analytics_Tracking {
 	/**
@@ -23,14 +23,14 @@ class WC_Analytics_Tracking {
 	 *
 	 * @var string
 	 */
-	const PREFIX = 'woocommerceanalytics_';
+	const PREFIX = 'poocommerceanalytics_';
 
 	/**
 	 * Option name for storing daily salt data.
 	 *
 	 * @var string
 	 */
-	const DAILY_SALT_OPTION = 'woocommerce_analytics_daily_salt';
+	const DAILY_SALT_OPTION = 'poocommerce_analytics_daily_salt';
 
 	/**
 	 * Property names a client is authoritative for on the proxy path.
@@ -335,14 +335,14 @@ class WC_Analytics_Tracking {
 			// first-party call site checks the return value, so for those events the
 			// log line is the only signal that one was dropped.
 			$error_message = sprintf(
-				'WooCommerce Analytics: dropped a %d byte pixel, over the %d byte limit.',
+				'PooCommerce Analytics: dropped a %d byte pixel, over the %d byte limit.',
 				strlen( $pixel_url ),
 				self::MAX_PIXEL_URL_LENGTH
 			);
 			if ( function_exists( 'wc_get_logger' ) ) {
-				wc_get_logger()->warning( $error_message, array( 'source' => 'woocommerce-analytics' ) );
+				wc_get_logger()->warning( $error_message, array( 'source' => 'poocommerce-analytics' ) );
 			} else {
-				// Fallback for MU-plugin stage when WooCommerce logger is not available.
+				// Fallback for MU-plugin stage when PooCommerce logger is not available.
 				// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
 				error_log( $error_message );
 			}
@@ -487,13 +487,13 @@ class WC_Analytics_Tracking {
 		$common_properties = self::get_common_properties();
 
 		/**
-		 * Allow defining custom event properties in WooCommerce Analytics.
+		 * Allow defining custom event properties in PooCommerce Analytics.
 		 *
 		 * On the proxy path (`$is_client_supplied`) a reserved name a callback returns
 		 * is discarded, because the server re-asserts its own value below. Names a
 		 * callback introduces are not reserved and are kept.
 		 *
-		 * @module woocommerce-analytics
+		 * @module poocommerce-analytics
 		 *
 		 * @since 12.5
 		 * @since 0.18.0 Added the `$is_client_supplied` parameter.
@@ -503,7 +503,7 @@ class WC_Analytics_Tracking {
 		 * @param bool   $is_client_supplied Whether the props came from an untrusted client.
 		 */
 		$properties = apply_filters(
-			'jetpack_woocommerce_analytics_event_props',
+			'jetpack_poocommerce_analytics_event_props',
 			array_merge( $common_properties, $event_properties ),
 			$event_name,
 			$is_client_supplied
@@ -918,7 +918,7 @@ class WC_Analytics_Tracking {
 	 * Get the blog details.
 	 *
 	 * This method is now standalone and doesn't rely on WC_Tracks parent class.
-	 * It still works with WooCommerce when available for additional details.
+	 * It still works with PooCommerce when available for additional details.
 	 *
 	 * @return array The blog details.
 	 */
@@ -936,21 +936,21 @@ class WC_Analytics_Tracking {
 			$jetpack_blog_id = \Jetpack_Options::get_option( 'id' );
 		}
 
-		// Get WooCommerce version if available.
+		// Get PooCommerce version if available.
 		// Check WC_VERSION constant first (most reliable), then fall back to option.
 		if ( defined( 'WC_VERSION' ) ) {
 			$wc_version = WC_VERSION;
 		} else {
-			$wc_version = get_option( 'woocommerce_version', '' );
+			$wc_version = get_option( 'poocommerce_version', '' );
 		}
 
 		// Get store ID from known option name.
-		$store_id = get_option( 'woocommerce_store_id', null );
+		$store_id = get_option( 'poocommerce_store_id', null );
 
 		// Get store currency - use WC function if available, otherwise fall back to option.
-		$store_currency = function_exists( 'get_woocommerce_currency' )
-		? get_woocommerce_currency()
-		: get_option( 'woocommerce_currency', 'USD' );
+		$store_currency = function_exists( 'get_poocommerce_currency' )
+		? get_poocommerce_currency()
+		: get_option( 'poocommerce_currency', 'USD' );
 
 		$blog_details = array(
 			'url'            => home_url(),
@@ -974,7 +974,7 @@ class WC_Analytics_Tracking {
 	 */
 	private static function get_session_details() {
 		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- JSON is decoded and validated below. We don't need to sanitize the cookie value because we're not outputting it but decoding it as JSON. Sanitization might break the JSON.
-		$raw_cookie = isset( $_COOKIE['woocommerceanalytics_session'] ) ? wp_unslash( $_COOKIE['woocommerceanalytics_session'] ) : '';
+		$raw_cookie = isset( $_COOKIE['poocommerceanalytics_session'] ) ? wp_unslash( $_COOKIE['poocommerceanalytics_session'] ) : '';
 
 		if ( ! $raw_cookie ) {
 			return array();

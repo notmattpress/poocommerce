@@ -9,7 +9,7 @@ const rootDir = path.resolve( __dirname, '../../' );
  * (private-APIs lock/unlock, data registries, blocks registry). Forcing them
  * to the workspace copy via `require.resolve` keeps them in sync.
  *
- * Pattern follows @woocommerce/internal-js-tests' `mapWpModules` approach.
+ * Pattern follows @poocommerce/internal-js-tests' `mapWpModules` approach.
  */
 const singletonWpModules = [
 	'@wordpress/private-apis',
@@ -56,66 +56,66 @@ module.exports = {
 		'@wordpress/core-data/build/(.*)$':
 			'<rootDir>/node_modules/@wordpress/core-data/build/$1',
 
-		'@woocommerce/atomic-blocks': 'assets/js/atomic/blocks',
-		'@woocommerce/atomic-utils': 'assets/js/atomic/utils',
-		'@woocommerce/icons': 'assets/js/icons',
-		'^@woocommerce/settings/(.*)$': 'packages/public-api/settings/$1',
-		'^@woocommerce/settings$': 'packages/public-api/settings',
-		'@woocommerce/blocks/(.*)$': 'assets/js/blocks/$1',
-		'@woocommerce/block-settings': 'assets/js/settings/blocks',
-		'@woocommerce/editor-components(.*)$': 'assets/js/editor-components/$1',
-		'^@woocommerce/blocks-registry/(.*)$':
+		'@poocommerce/atomic-blocks': 'assets/js/atomic/blocks',
+		'@poocommerce/atomic-utils': 'assets/js/atomic/utils',
+		'@poocommerce/icons': 'assets/js/icons',
+		'^@poocommerce/settings/(.*)$': 'packages/public-api/settings/$1',
+		'^@poocommerce/settings$': 'packages/public-api/settings',
+		'@poocommerce/blocks/(.*)$': 'assets/js/blocks/$1',
+		'@poocommerce/block-settings': 'assets/js/settings/blocks',
+		'@poocommerce/editor-components(.*)$': 'assets/js/editor-components/$1',
+		'^@poocommerce/blocks-registry/(.*)$':
 			'packages/public-api/blocks-registry/$1',
-		'^@woocommerce/blocks-registry$': 'packages/public-api/blocks-registry',
-		'^@woocommerce/blocks-checkout/(.*)$':
+		'^@poocommerce/blocks-registry$': 'packages/public-api/blocks-registry',
+		'^@poocommerce/blocks-checkout/(.*)$':
 			'packages/public-api/blocks-checkout/$1',
-		'^@woocommerce/blocks-checkout$': 'packages/public-api/blocks-checkout',
-		'^@woocommerce/blocks-checkout-events/(.*)$':
+		'^@poocommerce/blocks-checkout$': 'packages/public-api/blocks-checkout',
+		'^@poocommerce/blocks-checkout-events/(.*)$':
 			'packages/public-api/blocks-checkout-events/$1',
-		'^@woocommerce/blocks-checkout-events$':
+		'^@poocommerce/blocks-checkout-events$':
 			'packages/public-api/blocks-checkout-events',
-		'^@woocommerce/blocks-components/(.*)$':
+		'^@poocommerce/blocks-components/(.*)$':
 			'packages/public-api/blocks-components/$1',
-		'^@woocommerce/blocks-components$':
+		'^@poocommerce/blocks-components$':
 			'packages/public-api/blocks-components',
-		'^@woocommerce/price-format/(.*)$':
+		'^@poocommerce/price-format/(.*)$':
 			'packages/public-api/price-format/$1',
-		'^@woocommerce/price-format$': 'packages/public-api/price-format',
-		'@woocommerce/block-hocs(.*)$': 'assets/js/hocs/$1',
-		'@woocommerce/base-components(.*)$': 'assets/js/base/components/$1',
-		'@woocommerce/base-context(.*)$': 'assets/js/base/context/$1',
-		'@woocommerce/base-hocs(.*)$': 'assets/js/base/hocs/$1',
-		'@woocommerce/base-hooks(.*)$': 'assets/js/base/hooks/$1',
-		'@woocommerce/base-utils(.*)$': 'assets/js/base/utils',
-		'^@woocommerce/block-data/(.*)$': 'packages/public-api/block-data/$1',
-		'^@woocommerce/block-data$': 'packages/public-api/block-data',
-		'@woocommerce/resource-previews': 'assets/js/previews',
-		'^@woocommerce/shared-context/(.*)$':
+		'^@poocommerce/price-format$': 'packages/public-api/price-format',
+		'@poocommerce/block-hocs(.*)$': 'assets/js/hocs/$1',
+		'@poocommerce/base-components(.*)$': 'assets/js/base/components/$1',
+		'@poocommerce/base-context(.*)$': 'assets/js/base/context/$1',
+		'@poocommerce/base-hocs(.*)$': 'assets/js/base/hocs/$1',
+		'@poocommerce/base-hooks(.*)$': 'assets/js/base/hooks/$1',
+		'@poocommerce/base-utils(.*)$': 'assets/js/base/utils',
+		'^@poocommerce/block-data/(.*)$': 'packages/public-api/block-data/$1',
+		'^@poocommerce/block-data$': 'packages/public-api/block-data',
+		'@poocommerce/resource-previews': 'assets/js/previews',
+		'^@poocommerce/shared-context/(.*)$':
 			'packages/public-api/shared-context/$1',
-		'^@woocommerce/shared-context$': 'packages/public-api/shared-context',
-		'^@woocommerce/shared-hocs/(.*)$': 'packages/public-api/shared-hocs/$1',
-		'^@woocommerce/shared-hocs$': 'packages/public-api/shared-hocs',
-		'@woocommerce/blocks-test-utils/(.*)$': 'tests/utils/$1',
-		'@woocommerce/blocks-test-utils': 'tests/utils',
-		'^@woocommerce/types/(.*)$': 'packages/public-api/types/$1',
-		'^@woocommerce/types$': 'packages/public-api/types',
-		'@woocommerce/utils': 'assets/js/utils',
-		'@woocommerce/test-utils/msw': 'tests/js/config/msw-setup.js',
-		'^@woocommerce/entities/(.*)$': 'packages/internal/entities/$1',
-		'^@woocommerce/entities$': 'packages/internal/entities',
-		'@woocommerce/stores/(.*)$': 'assets/js/base/stores/$1',
+		'^@poocommerce/shared-context$': 'packages/public-api/shared-context',
+		'^@poocommerce/shared-hocs/(.*)$': 'packages/public-api/shared-hocs/$1',
+		'^@poocommerce/shared-hocs$': 'packages/public-api/shared-hocs',
+		'@poocommerce/blocks-test-utils/(.*)$': 'tests/utils/$1',
+		'@poocommerce/blocks-test-utils': 'tests/utils',
+		'^@poocommerce/types/(.*)$': 'packages/public-api/types/$1',
+		'^@poocommerce/types$': 'packages/public-api/types',
+		'@poocommerce/utils': 'assets/js/utils',
+		'@poocommerce/test-utils/msw': 'tests/js/config/msw-setup.js',
+		'^@poocommerce/entities/(.*)$': 'packages/internal/entities/$1',
+		'^@poocommerce/entities$': 'packages/internal/entities',
+		'@poocommerce/stores/(.*)$': 'assets/js/base/stores/$1',
 		'^react$': '<rootDir>/node_modules/react',
 		'^react-dom$': '<rootDir>/node_modules/react-dom',
-		// Catch-all for monorepo @woocommerce/* packages: route bare and
+		// Catch-all for monorepo @poocommerce/* packages: route bare and
 		// subpath imports through source so tests don't depend on built
 		// artifacts. Must come after all blocks-internal aliases above and
-		// before the generic build-module rewrite so @woocommerce/* subpaths
+		// before the generic build-module rewrite so @poocommerce/* subpaths
 		// land on src/ instead of build/.
-		'^@woocommerce/([^/]+)/(?:src|build|build-module|build-types)/(.+)$':
+		'^@poocommerce/([^/]+)/(?:src|build|build-module|build-types)/(.+)$':
 			'<rootDir>/../../../../packages/js/$1/src/$2',
-		'^@woocommerce/([^/]+)/(.+)$':
+		'^@poocommerce/([^/]+)/(.+)$':
 			'<rootDir>/../../../../packages/js/$1/src/$2',
-		'^@woocommerce/([^/]+)$': '<rootDir>/../../../../packages/js/$1/src',
+		'^@poocommerce/([^/]+)$': '<rootDir>/../../../../packages/js/$1/src',
 		'^(.+)/build-module/(.*)$': '$1/build/$2',
 	},
 	preset: '@wordpress/jest-preset-default',

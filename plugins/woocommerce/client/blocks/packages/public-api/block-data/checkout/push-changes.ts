@@ -1,11 +1,11 @@
 /**
  * External dependencies
  */
-import { debounce } from '@woocommerce/base-utils';
+import { debounce } from '@poocommerce/base-utils';
 import { select, dispatch } from '@wordpress/data';
-import type { OrderFormValues } from '@woocommerce/settings';
-import { ApiErrorResponse } from '@woocommerce/types';
-import { getSetting } from '@woocommerce/settings';
+import type { OrderFormValues } from '@poocommerce/settings';
+import { ApiErrorResponse } from '@poocommerce/types';
+import { getSetting } from '@poocommerce/settings';
 
 /**
  * Internal dependencies
@@ -48,7 +48,7 @@ const initialize = () => {
 		additionalFields: store.getAdditionalFields(),
 		activePaymentMethod: paymentStore.getActivePaymentMethod(),
 	};
-	localState.hasSession = document.cookie.includes( 'woocommerce_cart_hash' );
+	localState.hasSession = document.cookie.includes( 'poocommerce_cart_hash' );
 	localState.isInitialized = true;
 };
 

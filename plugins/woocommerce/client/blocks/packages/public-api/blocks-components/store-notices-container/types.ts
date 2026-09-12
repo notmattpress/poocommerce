@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import type { NoticeType } from '@woocommerce/types';
+import type { NoticeType } from '@poocommerce/types';
 
 export interface StoreNoticesContainerProps {
 	className?: string | undefined;

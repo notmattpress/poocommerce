@@ -1,9 +1,9 @@
 <?php
 /**
- * WooCommerce Admin: Feature plugin main class.
+ * PooCommerce Admin: Feature plugin main class.
  */
 
-namespace Automattic\WooCommerce\Admin;
+namespace Automattic\PooCommerce\Admin;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -18,7 +18,7 @@ class FeaturePlugin extends DeprecatedClassFacade {
 	 *
 	 * @var string
 	 */
-	protected static $facade_over_classname = 'Automattic\WooCommerce\Internal\Admin\FeaturePlugin';
+	protected static $facade_over_classname = 'Automattic\PooCommerce\Internal\Admin\FeaturePlugin';
 
 	/**
 	 * The version that this class was deprecated in.
@@ -44,7 +44,7 @@ class FeaturePlugin extends DeprecatedClassFacade {
 	}
 
 	/**
-	 * Init the feature plugin, only if we can detect both Gutenberg and WooCommerce.
+	 * Init the feature plugin, only if we can detect both Gutenberg and PooCommerce.
 	 *
 	 * @deprecated 6.4.0
 	 */

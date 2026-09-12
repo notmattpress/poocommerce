@@ -1,14 +1,14 @@
 <?php
 /**
- * This file is part of the WooCommerce Email Editor package
+ * This file is part of the PooCommerce Email Editor package
  *
- * @package Automattic\WooCommerce\EmailEditor
+ * @package Automattic\PooCommerce\EmailEditor
  */
 
 declare(strict_types=1);
-namespace Automattic\WooCommerce\EmailEditor\Engine;
+namespace Automattic\PooCommerce\EmailEditor\Engine;
 
-use Automattic\WooCommerce\EmailEditor\Engine\Logger\Email_Editor_Logger;
+use Automattic\PooCommerce\EmailEditor\Engine\Logger\Email_Editor_Logger;
 
 /**
  * Class responsible for managing email editor assets.
@@ -133,9 +133,9 @@ class Assets_Manager {
 	 *
 	 * Renders at most once per instance; repeated calls are no-ops.
 	 *
-	 * @param string $element_id Optional. The ID of the main container element. Default is 'woocommerce-email-editor'.
+	 * @param string $element_id Optional. The ID of the main container element. Default is 'poocommerce-email-editor'.
 	 */
-	public function render_email_editor_html( string $element_id = 'woocommerce-email-editor' ): void {
+	public function render_email_editor_html( string $element_id = 'poocommerce-email-editor' ): void {
 		// Integrations render from the `replace_editor` filter, which re-fires while
 		// admin-header.php runs whenever a plugin calls WP_Screen::get() from
 		// admin_enqueue_scripts; a second container echoed inside <head> breaks the page.
@@ -217,8 +217,8 @@ class Assets_Manager {
 
 		wp_localize_script(
 			$script_name,
-			'WooCommerceEmailEditor',
-			apply_filters( 'woocommerce_email_editor_script_localization_data', $localization_data )
+			'PooCommerceEmailEditor',
+			apply_filters( 'poocommerce_email_editor_script_localization_data', $localization_data )
 		);
 
 		$this->preload_rest_api_data( $post_id, $post_type );
@@ -265,7 +265,7 @@ class Assets_Manager {
 		 *
 		 * @since 11.2.0
 		 */
-		$routes = apply_filters( 'woocommerce_email_editor_preload_rest_api_routes', $routes, $post_type, $post_id );
+		$routes = apply_filters( 'poocommerce_email_editor_preload_rest_api_routes', $routes, $post_type, $post_id );
 
 		if ( ! is_array( $routes ) ) {
 			$routes = array();

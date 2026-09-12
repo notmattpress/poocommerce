@@ -40,7 +40,7 @@ if ( ! ( globalThis as { crypto?: { subtle?: unknown } } ).crypto?.subtle ) {
 
 // ---- recordEvent mock (Tracks) -------------------------------------------
 const recordEventMock = jest.fn();
-jest.mock( '@woocommerce/tracks', () => ( {
+jest.mock( '@poocommerce/tracks', () => ( {
 	recordEvent: ( ...args: unknown[] ) => recordEventMock( ...args ),
 } ) );
 

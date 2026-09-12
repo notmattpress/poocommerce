@@ -2,7 +2,7 @@
 
 ## Local Development
 
-There are two ways to develop this package as a part of the WooCommerce plugin:
+There are two ways to develop this package as a part of the PooCommerce plugin:
 
 ### 1. Using wp-env Mappings
 
@@ -15,7 +15,7 @@ You can extend your `.wp-env.override.json` file to map this package directly to
     "development": {
       "mappings": {
         ...
-        "wp-content/plugins/woocommerce/packages/email-editor": "../../packages/php/email-editor"
+        "wp-content/plugins/poocommerce/packages/email-editor": "../../packages/php/email-editor"
       }
     }
   }
@@ -24,12 +24,12 @@ You can extend your `.wp-env.override.json` file to map this package directly to
 
 ### 2. Using Build and Watch Commands
 
-Alternatively, you can use the watch command within the WooCommerce plugin to keep your changes synchronized during development:
+Alternatively, you can use the watch command within the PooCommerce plugin to keep your changes synchronized during development:
 
 Run the following command. It will watch for changes, rebuild assets if necessary, and sync the package files automatically:
 
 ```bash
-  pnpm --filter='@woocommerce/plugin-woocommerce' watch:build:admin
+  pnpm --filter='@poocommerce/plugin-poocommerce' watch:build:admin
 ```
 
 Press `Ctrl+C` in the terminal to stop watching.

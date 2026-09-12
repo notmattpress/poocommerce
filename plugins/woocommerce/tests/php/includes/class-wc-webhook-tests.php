@@ -214,9 +214,9 @@ class WC_Webhook_Test extends WC_Unit_Test_Case {
 		$delivered_ids = array();
 		$webhook       = $this->create_active_webhook( 'product.deleted' );
 
-		remove_action( 'woocommerce_webhook_process_delivery', 'wc_webhook_process_delivery', 10 );
+		remove_action( 'poocommerce_webhook_process_delivery', 'wc_webhook_process_delivery', 10 );
 		add_action(
-			'woocommerce_webhook_process_delivery',
+			'poocommerce_webhook_process_delivery',
 			function ( $delivering_webhook, $arg ) use ( $webhook, &$delivered_ids ) {
 				if ( $webhook === $delivering_webhook ) {
 					$delivered_ids[] = $arg;
@@ -244,9 +244,9 @@ class WC_Webhook_Test extends WC_Unit_Test_Case {
 		wp_trash_post( $product->get_id() );
 
 		$webhook = $this->create_active_webhook( 'product.restored' );
-		remove_action( 'woocommerce_webhook_process_delivery', 'wc_webhook_process_delivery', 10 );
+		remove_action( 'poocommerce_webhook_process_delivery', 'wc_webhook_process_delivery', 10 );
 		add_action(
-			'woocommerce_webhook_process_delivery',
+			'poocommerce_webhook_process_delivery',
 			function ( $delivering_webhook, $arg ) use ( $webhook, &$delivered_ids ) {
 				if ( $webhook === $delivering_webhook ) {
 					$delivered_ids[] = $arg;
@@ -285,7 +285,7 @@ class WC_Webhook_Test extends WC_Unit_Test_Case {
 	public function test_is_valid_resource() {
 		$webhook = new WC_Webhook();
 		$webhook->set_topic( 'order.created' );
-		$order                  = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order                  = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 		$call_is_valid_function = function ( $arg ) {
 			return $this->is_valid_resource( $arg );
 		};
@@ -298,7 +298,7 @@ class WC_Webhook_Test extends WC_Unit_Test_Case {
 	public function test_is_valid_resource_false() {
 		$webhook = new WC_Webhook();
 		$webhook->set_topic( 'order.created' );
-		$product                = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
+		$product                = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
 		$call_is_valid_function = function ( $arg ) {
 			return $this->is_valid_resource( $arg );
 		};
@@ -323,7 +323,7 @@ class WC_Webhook_Test extends WC_Unit_Test_Case {
 		$webhook->set_user_id( $admin_user_id_1 );
 		$webhook->save();
 
-		$order = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 
 		$payload = $webhook->build_payload( $order->get_id() );
 		$this->assertArrayNotHasKey( 'code', $payload );
@@ -384,12 +384,12 @@ class WC_Webhook_Test extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testDox The woocommerce_webhook_enable_delivery_log filter toggles delivery logging without affecting failure tracking.
+	 * @testDox The poocommerce_webhook_enable_delivery_log filter toggles delivery logging without affecting failure tracking.
 	 */
 	public function test_delivery_logging_respects_enable_delivery_log_filter() {
 		// Ensure logging is enabled and every level is handled so the delivery log write is observable.
-		update_option( 'woocommerce_logs_logging_enabled', 'yes' );
-		update_option( 'woocommerce_logs_level_threshold', 'none' );
+		update_option( 'poocommerce_logs_logging_enabled', 'yes' );
+		update_option( 'poocommerce_logs_level_threshold', 'none' );
 
 		$logged  = 0;
 		$log_spy = function ( $message, $level, $context ) use ( &$logged ) {
@@ -398,7 +398,7 @@ class WC_Webhook_Test extends WC_Unit_Test_Case {
 			}
 			return $message;
 		};
-		add_filter( 'woocommerce_logger_log_message', $log_spy, 10, 3 );
+		add_filter( 'poocommerce_logger_log_message', $log_spy, 10, 3 );
 
 		$webhook = new WC_Webhook();
 		$webhook->set_status( 'active' );
@@ -409,7 +409,7 @@ class WC_Webhook_Test extends WC_Unit_Test_Case {
 
 		$request = array(
 			'method'     => 'POST',
-			'user-agent' => 'WooCommerce',
+			'user-agent' => 'PooCommerce',
 			'headers'    => array(),
 			'body'       => '{}',
 		);
@@ -436,9 +436,9 @@ class WC_Webhook_Test extends WC_Unit_Test_Case {
 			$received_id = $webhook_id;
 			return $enable;
 		};
-		add_filter( 'woocommerce_webhook_enable_delivery_log', $id_spy, 10, 2 );
+		add_filter( 'poocommerce_webhook_enable_delivery_log', $id_spy, 10, 2 );
 		$webhook->log_delivery( 'delivery-default', $request, $success, 0.1 );
-		remove_filter( 'woocommerce_webhook_enable_delivery_log', $id_spy, 10 );
+		remove_filter( 'poocommerce_webhook_enable_delivery_log', $id_spy, 10 );
 
 		$this->assertSame( $webhook->get_id(), $received_id, 'The filter should receive the webhook ID.' );
 		$this->assertGreaterThan( 0, $logged, 'The delivery should be logged by default.' );
@@ -447,9 +447,9 @@ class WC_Webhook_Test extends WC_Unit_Test_Case {
 		$logged = 0;
 		$webhook->set_failure_count( 0 );
 		$webhook->save();
-		add_filter( 'woocommerce_webhook_enable_delivery_log', '__return_false' );
+		add_filter( 'poocommerce_webhook_enable_delivery_log', '__return_false' );
 		$webhook->log_delivery( 'delivery-disabled', $request, $failure, 0.1 );
-		remove_filter( 'woocommerce_webhook_enable_delivery_log', '__return_false' );
+		remove_filter( 'poocommerce_webhook_enable_delivery_log', '__return_false' );
 
 		$this->assertSame( 0, $logged, 'The delivery log should be suppressed when the filter returns false.' );
 		$this->assertGreaterThan(
@@ -458,7 +458,7 @@ class WC_Webhook_Test extends WC_Unit_Test_Case {
 			'Failure tracking must still run when delivery logging is disabled.'
 		);
 
-		remove_filter( 'woocommerce_logger_log_message', $log_spy, 10 );
+		remove_filter( 'poocommerce_logger_log_message', $log_spy, 10 );
 	}
 
 }

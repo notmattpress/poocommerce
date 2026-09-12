@@ -1,5 +1,5 @@
 /**
- * WooCommerce Status Widget Async Loading
+ * PooCommerce Status Widget Async Loading
  */
 jQuery(function($) {
     'use strict';
@@ -14,7 +14,7 @@ jQuery(function($) {
         $.ajax({
             url: wc_status_widget_params.ajax_url,
             data: {
-                action: 'woocommerce_load_status_widget',
+                action: 'poocommerce_load_status_widget',
                 security: wc_status_widget_params.security
             },
             type: 'GET',

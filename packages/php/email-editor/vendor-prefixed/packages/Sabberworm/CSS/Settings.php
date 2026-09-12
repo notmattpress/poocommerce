@@ -1,6 +1,6 @@
 <?php
 
-namespace Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS;
+namespace Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS;
 
 /**
  * Parser settings class.

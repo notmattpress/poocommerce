@@ -1,11 +1,11 @@
 <?php
 /**
- * Plugin Name: WooCommerce Blocks Test Cart Line Identity
+ * Plugin Name: PooCommerce Blocks Test Cart Line Identity
  * Description: Simulates a meta-differentiated cart line for blocks e2e tests by marking flagged add-to-cart requests.
- * Plugin URI: https://github.com/woocommerce/woocommerce
- * Author: WooCommerce
+ * Plugin URI: https://github.com/poocommerce/poocommerce
+ * Author: PooCommerce
  *
- * @package woocommerce-blocks-test-cart-line-identity
+ * @package poocommerce-blocks-test-cart-line-identity
  */
 
 /**
@@ -24,10 +24,10 @@
  * How to activate it.
  *
  * This is a test-only helper that ships no real behavior and modifies no
- * WooCommerce source: with the flag absent (its default state for every
+ * PooCommerce source: with the flag absent (its default state for every
  * untouched request) it is inert. An e2e test opts in by activating the plugin
  * via its WordPress slug — the @package value above,
- * "woocommerce-blocks-test-cart-line-identity" — e.g.
+ * "poocommerce-blocks-test-cart-line-identity" — e.g.
  * requestUtils.activatePlugin( ... ), as the sibling helper plugins here are.
  *
  * How a test uses it.
@@ -61,7 +61,7 @@ const CART_LINE_IDENTITY_FLAG = 'cart_line_identity_marker';
 const CART_LINE_IDENTITY_KEY = '_cart_line_identity';
 
 add_filter(
-	'woocommerce_add_cart_item_data',
+	'poocommerce_add_cart_item_data',
 	/**
 	 * Attach a unique cart_item_data marker to a flagged add-to-cart request.
 	 *

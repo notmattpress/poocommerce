@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { createClient } from '@woocommerce/e2e-utils-playwright';
+import { createClient } from '@poocommerce/e2e-utils-playwright';
 
 /**
  * Internal dependencies
@@ -81,7 +81,7 @@ export async function simulateCoreBump(
 ): Promise< void > {
 	// The detector's run_sweep() short-circuits when the backfill-complete fence is
 	// not 'yes'. Core-flows and round-trip tests assume the system is operating
-	// post-backfill (the fence is normally stamped by woocommerce_newly_installed,
+	// post-backfill (the fence is normally stamped by poocommerce_newly_installed,
 	// but fresh wp-env installs sometimes don't fire that action). Stamp it here so
 	// downstream triggerDetectionSweep() calls actually run.
 	await stampBackfillComplete();

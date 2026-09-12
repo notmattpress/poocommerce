@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Templates\SingleProduct;
+namespace Automattic\PooCommerce\Tests\Templates\SingleProduct;
 
 use WC_Helper_Product;
 use WC_Unit_Test_Case;
@@ -45,18 +45,18 @@ class SingleProductReviewsTemplateTest extends WC_Unit_Test_Case {
 			$received_title = $reviews_title;
 			return $reviews_title;
 		};
-		add_filter( 'woocommerce_reviews_title', $title_filter );
+		add_filter( 'poocommerce_reviews_title', $title_filter );
 
 		try {
 			$html = wc_get_template_html( 'single-product-reviews.php' );
 		} finally {
-			remove_filter( 'woocommerce_reviews_title', $title_filter );
+			remove_filter( 'poocommerce_reviews_title', $title_filter );
 			$GLOBALS['product'] = $previous_product;
 			WC_Helper_Product::delete_product( $product->get_id() );
 			wp_set_current_user( 0 );
 		}
 
-		preg_match( '#<h2 class="woocommerce-Reviews-title">(.*?)</h2>#s', $html, $heading_match );
+		preg_match( '#<h2 class="poocommerce-Reviews-title">(.*?)</h2>#s', $html, $heading_match );
 		$heading = $heading_match[1] ?? '';
 
 		$this->assertStringContainsString(
@@ -72,7 +72,7 @@ class SingleProductReviewsTemplateTest extends WC_Unit_Test_Case {
 		$this->assertSame(
 			'2 reviews for <span>Widget <strong>Deluxe</strong></span>',
 			$received_title,
-			'The woocommerce_reviews_title filter should receive the complete heading string.'
+			'The poocommerce_reviews_title filter should receive the complete heading string.'
 		);
 	}
 }

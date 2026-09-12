@@ -1,14 +1,14 @@
 <?php
 declare( strict_types = 1);
 
-namespace Automattic\WooCommerce\Blocks\Domain\Services;
+namespace Automattic\PooCommerce\Blocks\Domain\Services;
 
-use Automattic\WooCommerce\Blocks\Utils\CartCheckoutUtils;
-use Automattic\WooCommerce\Blocks\Assets\AssetDataRegistry;
-use Automattic\WooCommerce\Blocks\Domain\Services\CheckoutFieldsSchema\{
+use Automattic\PooCommerce\Blocks\Utils\CartCheckoutUtils;
+use Automattic\PooCommerce\Blocks\Assets\AssetDataRegistry;
+use Automattic\PooCommerce\Blocks\Domain\Services\CheckoutFieldsSchema\{
 	DocumentObject, Validation
 };
-use Automattic\WooCommerce\Blocks\Domain\Services\CheckoutFieldTypes\{
+use Automattic\PooCommerce\Blocks\Domain\Services\CheckoutFieldTypes\{
 	AbstractFieldType, CheckboxFieldType, DateFieldType, SelectFieldType, TextFieldType
 };
 use WC_Customer;
@@ -114,10 +114,10 @@ class CheckoutFields {
 	 * Initialize hooks.
 	 */
 	public function init() {
-		add_filter( 'woocommerce_get_country_locale_default', array( $this, 'update_default_locale_with_fields' ) );
-		add_action( 'woocommerce_blocks_checkout_enqueue_data', array( $this, 'add_fields_data' ) );
-		add_action( 'woocommerce_blocks_cart_enqueue_data', array( $this, 'add_fields_data' ) );
-		add_filter( 'woocommerce_customer_allowed_session_meta_keys', array( $this, 'add_session_meta_keys' ) );
+		add_filter( 'poocommerce_get_country_locale_default', array( $this, 'update_default_locale_with_fields' ) );
+		add_action( 'poocommerce_blocks_checkout_enqueue_data', array( $this, 'add_fields_data' ) );
+		add_action( 'poocommerce_blocks_cart_enqueue_data', array( $this, 'add_fields_data' ) );
+		add_filter( 'poocommerce_customer_allowed_session_meta_keys', array( $this, 'add_session_meta_keys' ) );
 	}
 
 	/**
@@ -209,7 +209,7 @@ class CheckoutFields {
 	public function register_checkout_field( $options ) {
 		// Warn when fields are registered before `after_setup_theme`. Registering that early can cause problems, such as loading translations before they're ready.
 		if ( ! did_action( 'after_setup_theme' ) && ! doing_action( 'after_setup_theme' ) ) {
-			_doing_it_wrong( 'woocommerce_register_additional_checkout_field', 'Additional checkout fields should be registered on the woocommerce_init action or later.', '11.0.0' );
+			_doing_it_wrong( 'poocommerce_register_additional_checkout_field', 'Additional checkout fields should be registered on the poocommerce_init action or later.', '11.0.0' );
 		}
 
 		// Check the options and show warnings if they're not supplied. Return early if an error that would prevent registration is encountered.
@@ -226,7 +226,7 @@ class CheckoutFields {
 				'id'                         => '',
 				'label'                      => '',
 				/* translators: %s Field label. */
-				'optionalLabel'              => sprintf( __( '%s (optional)', 'woocommerce' ), $options['label'] ),
+				'optionalLabel'              => sprintf( __( '%s (optional)', 'poocommerce' ), $options['label'] ),
 				'location'                   => '',
 				'type'                       => 'text',
 				'hidden'                     => false,
@@ -359,8 +359,8 @@ class CheckoutFields {
 
 				if ( is_wp_error( $validate_result ) ) {
 					/* translators: %s: is the field label */
-					$error_message = sprintf( __( 'Please provide a valid %s', 'woocommerce' ), $field['label'] );
-					$error_code    = 'woocommerce_invalid_checkout_field';
+					$error_message = sprintf( __( 'Please provide a valid %s', 'poocommerce' ), $field['label'] );
+					$error_code    = 'poocommerce_invalid_checkout_field';
 					$errors->add( $error_code, $error_message );
 				}
 
@@ -403,20 +403,20 @@ class CheckoutFields {
 	 */
 	private function validate_options( &$options ) {
 		if ( empty( $options['id'] ) ) {
-			_doing_it_wrong( 'woocommerce_register_additional_checkout_field', 'A checkout field cannot be registered without an id.', '8.6.0' );
+			_doing_it_wrong( 'poocommerce_register_additional_checkout_field', 'A checkout field cannot be registered without an id.', '8.6.0' );
 			return false;
 		}
 
 		// Having fewer than 2 after exploding around a / means there is no namespace.
 		if ( count( explode( '/', $options['id'] ) ) < 2 ) {
 			$message = sprintf( 'Unable to register field with id: "%s". %s', $options['id'], 'A checkout field id must consist of namespace/name.' );
-			_doing_it_wrong( 'woocommerce_register_additional_checkout_field', esc_html( $message ), '8.6.0' );
+			_doing_it_wrong( 'poocommerce_register_additional_checkout_field', esc_html( $message ), '8.6.0' );
 			return false;
 		}
 
 		if ( empty( $options['location'] ) ) {
 			$message = sprintf( 'Unable to register field with id: "%s". %s', $options['id'], 'The field location is required.' );
-			_doing_it_wrong( 'woocommerce_register_additional_checkout_field', esc_html( $message ), '8.6.0' );
+			_doing_it_wrong( 'poocommerce_register_additional_checkout_field', esc_html( $message ), '8.6.0' );
 			return false;
 		}
 
@@ -427,7 +427,7 @@ class CheckoutFields {
 
 		if ( ! in_array( $options['location'], array_keys( $this->fields_locations ), true ) ) {
 			$message = sprintf( 'Unable to register field with id: "%s". %s', $options['id'], 'The field location is invalid.' );
-			_doing_it_wrong( 'woocommerce_register_additional_checkout_field', esc_html( $message ), '8.6.0' );
+			_doing_it_wrong( 'poocommerce_register_additional_checkout_field', esc_html( $message ), '8.6.0' );
 			return false;
 		}
 
@@ -438,7 +438,7 @@ class CheckoutFields {
 		// Check to see if field is already in the array.
 		if ( ! empty( $this->additional_fields[ $id ] ) || in_array( $id, $this->fields_locations[ $location ], true ) ) {
 			$message = sprintf( 'Unable to register field with id: "%s". %s', $id, 'The field is already registered.' );
-			_doing_it_wrong( 'woocommerce_register_additional_checkout_field', esc_html( $message ), '8.6.0' );
+			_doing_it_wrong( 'poocommerce_register_additional_checkout_field', esc_html( $message ), '8.6.0' );
 			return false;
 		}
 
@@ -449,7 +449,7 @@ class CheckoutFields {
 				$options['type'],
 				implode( ', ', array_keys( $this->field_types ) )
 			);
-			_doing_it_wrong( 'woocommerce_register_additional_checkout_field', esc_html( $message ), '8.6.0' );
+			_doing_it_wrong( 'poocommerce_register_additional_checkout_field', esc_html( $message ), '8.6.0' );
 			return false;
 		}
 
@@ -536,9 +536,9 @@ class CheckoutFields {
 			 * @param string $field_key   Key of the field being sanitized.
 			 *
 			 * @since 8.6.0
-			 * @deprecated 8.7.0 Use woocommerce_sanitize_additional_field instead.
+			 * @deprecated 8.7.0 Use poocommerce_sanitize_additional_field instead.
 			 */
-			$field_value = apply_filters_deprecated( '__experimental_woocommerce_blocks_sanitize_additional_field', array( $field_value, $field_key ), '8.7.0', 'woocommerce_sanitize_additional_field', 'This action has been graduated, use woocommerce_sanitize_additional_field instead.' );
+			$field_value = apply_filters_deprecated( '__experimental_poocommerce_blocks_sanitize_additional_field', array( $field_value, $field_key ), '8.7.0', 'poocommerce_sanitize_additional_field', 'This action has been graduated, use poocommerce_sanitize_additional_field instead.' );
 
 			/**
 			 * Allow custom sanitization of an additional field.
@@ -548,7 +548,7 @@ class CheckoutFields {
 			 *
 			 * @since 8.7.0
 			 */
-			return apply_filters( 'woocommerce_sanitize_additional_field', $field_value, $field_key );
+			return apply_filters( 'poocommerce_sanitize_additional_field', $field_value, $field_key );
 
 		} catch ( \Throwable $e ) {
 			// One of the filters errored so skip it. This allows the checkout process to continue.
@@ -611,12 +611,12 @@ class CheckoutFields {
 					$errors->merge_from( $validate_callback_result );
 				} elseif ( false === $validate_callback_result ) {
 					/* translators: %s: is the field label */
-					$error_message = sprintf( __( 'Please provide a valid %s', 'woocommerce' ), $field['label'] );
-					$errors->add( 'woocommerce_invalid_checkout_field', $error_message );
+					$error_message = sprintf( __( 'Please provide a valid %s', 'poocommerce' ), $field['label'] );
+					$errors->add( 'poocommerce_invalid_checkout_field', $error_message );
 				}
 			}
 
-			wc_do_deprecated_action( '__experimental_woocommerce_blocks_validate_additional_field', array( $errors, $field['id'], $field_value ), '8.7.0', 'woocommerce_validate_additional_field', 'This action has been graduated, use woocommerce_validate_additional_field instead.' );
+			wc_do_deprecated_action( '__experimental_poocommerce_blocks_validate_additional_field', array( $errors, $field['id'], $field_value ), '8.7.0', 'poocommerce_validate_additional_field', 'This action has been graduated, use poocommerce_validate_additional_field instead.' );
 
 			/**
 			 * Pass an error object to allow validation of an additional field.
@@ -627,7 +627,7 @@ class CheckoutFields {
 			 *
 			 * @since 8.7.0
 			 */
-			do_action( 'woocommerce_validate_additional_field', $errors, $field['id'], $field_value );
+			do_action( 'poocommerce_validate_additional_field', $errors, $field['id'], $field_value );
 
 		} catch ( \Throwable $e ) {
 
@@ -762,7 +762,7 @@ class CheckoutFields {
 		$group    = $this->prepare_group_name( $group );
 
 		try {
-			wc_do_deprecated_action( '__experimental_woocommerce_blocks_validate_location_' . $location . '_fields', array( $errors, $fields, $group ), '8.9.0', 'woocommerce_blocks_validate_location_' . $location . '_fields', 'This action has been graduated, use woocommerce_blocks_validate_location_' . $location . '_fields instead.' );
+			wc_do_deprecated_action( '__experimental_poocommerce_blocks_validate_location_' . $location . '_fields', array( $errors, $fields, $group ), '8.9.0', 'poocommerce_blocks_validate_location_' . $location . '_fields', 'This action has been graduated, use poocommerce_blocks_validate_location_' . $location . '_fields instead.' );
 
 			/**
 			 * Pass an error object to allow validation of an additional field.
@@ -773,7 +773,7 @@ class CheckoutFields {
 			 *
 			 * @since 8.7.0
 			 */
-			do_action( 'woocommerce_blocks_validate_location_' . $location . '_fields', $errors, $fields, $group );
+			do_action( 'poocommerce_blocks_validate_location_' . $location . '_fields', $errors, $fields, $group );
 
 		} catch ( \Throwable $e ) {
 
@@ -782,7 +782,7 @@ class CheckoutFields {
 			trigger_error(
 				sprintf(
 					'The action %s encountered an error. The field location %s may not have any custom validation applied to it. %s',
-					esc_html( 'woocommerce_blocks_validate_' . $location . '_fields' ),
+					esc_html( 'poocommerce_blocks_validate_' . $location . '_fields' ),
 					esc_html( $location ),
 					esc_html( $e->getMessage() )
 				),
@@ -809,10 +809,10 @@ class CheckoutFields {
 
 		if ( ! $this->is_field( $key ) ) {
 			return new WP_Error(
-				'woocommerce_invalid_checkout_field',
+				'poocommerce_invalid_checkout_field',
 				\sprintf(
 				// translators: % is field key.
-					__( 'The field %s is invalid.', 'woocommerce' ),
+					__( 'The field %s is invalid.', 'poocommerce' ),
 					$key
 				)
 			);
@@ -820,10 +820,10 @@ class CheckoutFields {
 
 		if ( ! in_array( $key, $this->fields_locations[ $location ], true ) ) {
 			return new WP_Error(
-				'woocommerce_invalid_checkout_field_location',
+				'poocommerce_invalid_checkout_field_location',
 				\sprintf(
 				// translators: %1$s is field key, %2$s location.
-					__( 'The field %1$s is invalid for the location %2$s.', 'woocommerce' ),
+					__( 'The field %1$s is invalid for the location %2$s.', 'poocommerce' ),
 					$key,
 					$location
 				)
@@ -924,7 +924,7 @@ class CheckoutFields {
 				 * @param CheckoutFields $instance   The CheckoutFields instance.
 				 * @since 10.1.0
 				 */
-				return apply_filters( 'woocommerce_filter_fields_for_order_confirmation', ! empty( $field['show_in_order_confirmation'] ), $field, $fields, $context, $this );
+				return apply_filters( 'poocommerce_filter_fields_for_order_confirmation', ! empty( $field['show_in_order_confirmation'] ), $field, $fields, $context, $this );
 			}
 		);
 	}
@@ -983,12 +983,12 @@ class CheckoutFields {
 	}
 
 	/**
-	 * Applies type-specific arguments to a field before it is rendered with woocommerce_form_field().
+	 * Applies type-specific arguments to a field before it is rendered with poocommerce_form_field().
 	 *
 	 * Used by the server-rendered My Account forms: maps select options, sets checkbox submit values, and
 	 * resolves date min/max constraints into input attributes.
 	 *
-	 * @param array $form_field The woocommerce_form_field() arguments built from the field.
+	 * @param array $form_field The poocommerce_form_field() arguments built from the field.
 	 * @return array The updated arguments.
 	 */
 	public function prepare_form_field( array $form_field ): array {

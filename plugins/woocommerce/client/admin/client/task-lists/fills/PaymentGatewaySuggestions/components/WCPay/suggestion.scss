@@ -1,25 +1,25 @@
-.woocommerce-wcpay-suggestion {
-	.woocommerce-recommended-payments-banner {
+.poocommerce-wcpay-suggestion {
+	.poocommerce-recommended-payments-banner {
 		min-width: 100%;
 		margin-bottom: 24px;
 
-		.woocommerce-recommended-payments-banner__body {
+		.poocommerce-recommended-payments-banner__body {
 			padding: 30px 0 0 24px;
 			justify-content: space-between;
 		}
 
-		.woocommerce-recommended-payments-banner__text_container {
+		.poocommerce-recommended-payments-banner__text_container {
 			width: 305px;
 			margin-left: 0;
 		}
 
-		.woocommerce-recommended-payments-banner__footer {
+		.poocommerce-recommended-payments-banner__footer {
 			flex-direction: column;
 			align-items: flex-start;
 			padding: 20px 38.2px 30px 24px;
 		}
 
-		.woocommerce-recommended-payments-banner__footer_icon_container {
+		.poocommerce-recommended-payments-banner__footer_icon_container {
 			margin-top: 12px;
 			margin-left: -5px;
 
@@ -31,7 +31,7 @@
 		}
 	}
 
-	.woocommerce-wcpay-benefits {
+	.poocommerce-wcpay-benefits {
 		margin-bottom: 24px;
 	}
 }

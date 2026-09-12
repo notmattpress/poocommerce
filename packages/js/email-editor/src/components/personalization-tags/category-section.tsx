@@ -45,10 +45,10 @@ const CategorySection = ( {
 			{ categoriesToRender.map(
 				( [ category, items ]: [ string, PersonalizationTag[] ] ) => (
 					<div key={ category }>
-						<div className="woocommerce-personalization-tags-modal-category">
+						<div className="poocommerce-personalization-tags-modal-category">
 							{ category }
 						</div>
-						<div className="woocommerce-personalization-tags-modal-category-group">
+						<div className="poocommerce-personalization-tags-modal-category-group">
 							{ items.map( ( item ) => {
 								// Detects if the personalization tag is expected to return a URL by checking the token name,
 								// since personalization tags lack explicit return type definitions.
@@ -56,10 +56,10 @@ const CategorySection = ( {
 
 								return (
 									<div
-										className="woocommerce-personalization-tags-modal-category-group-item"
+										className="poocommerce-personalization-tags-modal-category-group-item"
 										key={ item.token }
 									>
-										<div className="woocommerce-personalization-tags-modal-item-text">
+										<div className="poocommerce-personalization-tags-modal-item-text">
 											<strong>{ item.name }</strong>
 											{ item.valueToInsert }
 										</div>

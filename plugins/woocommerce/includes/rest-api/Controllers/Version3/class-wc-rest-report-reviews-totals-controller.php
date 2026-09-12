@@ -4,7 +4,7 @@
  *
  * Handles requests to the /reports/reviews/count endpoint.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @since   3.5.0
  */
 
@@ -13,7 +13,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * REST API Reports Reviews Totals controller class.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @extends WC_REST_Reports_Controller
  */
 class WC_REST_Report_Reviews_Totals_Controller extends WC_REST_Reports_Controller {
@@ -43,7 +43,7 @@ class WC_REST_Report_Reviews_Totals_Controller extends WC_REST_Reports_Controlle
 
 		$counts = array_fill_keys( range( 1, 5 ), 0 );
 
-		// Same cache group and invalidation signal get_comments() used, so ratings written outside WooCommerce still refresh the totals.
+		// Same cache group and invalidation signal get_comments() used, so ratings written outside PooCommerce still refresh the totals.
 		$cache_key = 'wc_report_reviews_totals_' . wp_cache_get_last_changed( 'comment' );
 		$cached    = wp_cache_get( $cache_key, 'comment-queries' );
 
@@ -53,7 +53,7 @@ class WC_REST_Report_Reviews_Totals_Controller extends WC_REST_Reports_Controlle
 			/*
 			 * A single grouped aggregate in place of one COUNT query per rating. The clauses below are the
 			 * ones WP_Comment_Query::get_comment_ids() would build for the arguments this report used, and
-			 * they are passed through comments_clauses so WooCommerce's own callbacks -- the ones hiding
+			 * they are passed through comments_clauses so PooCommerce's own callbacks -- the ones hiding
 			 * order notes, webhook deliveries and action logs -- and any extension's keep applying.
 			 *
 			 * Two other comment query hooks cannot apply here. comments_pre_query substitutes a list of
@@ -123,7 +123,7 @@ class WC_REST_Report_Reviews_Totals_Controller extends WC_REST_Reports_Controlle
 			$data[] = array(
 				'slug'  => 'rated_' . $i . '_out_of_5',
 				/* translators: %s: average rating */
-				'name'  => sprintf( __( 'Rated %s out of 5', 'woocommerce' ), $i ),
+				'name'  => sprintf( __( 'Rated %s out of 5', 'poocommerce' ), $i ),
 				'total' => (int) $counts[ $i ],
 			);
 		}
@@ -161,7 +161,7 @@ class WC_REST_Report_Reviews_Totals_Controller extends WC_REST_Reports_Controlle
 		 * @param object           $report   The original report object.
 		 * @param WP_REST_Request  $request  Request used to generate the response.
 		 */
-		return apply_filters( 'woocommerce_rest_prepare_report_reviews_count', $response, $report, $request );
+		return apply_filters( 'poocommerce_rest_prepare_report_reviews_count', $response, $report, $request );
 	}
 
 	/**
@@ -176,19 +176,19 @@ class WC_REST_Report_Reviews_Totals_Controller extends WC_REST_Reports_Controlle
 			'type'       => 'object',
 			'properties' => array(
 				'slug'  => array(
-					'description' => __( 'An alphanumeric identifier for the resource.', 'woocommerce' ),
+					'description' => __( 'An alphanumeric identifier for the resource.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
 				'name'  => array(
-					'description' => __( 'Review type name.', 'woocommerce' ),
+					'description' => __( 'Review type name.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
 				'total' => array(
-					'description' => __( 'Amount of reviews.', 'woocommerce' ),
+					'description' => __( 'Amount of reviews.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view' ),
 					'readonly'    => true,

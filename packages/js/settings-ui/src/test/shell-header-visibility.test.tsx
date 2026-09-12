@@ -156,7 +156,7 @@ describe( 'settings UI shell header visibility', () => {
 		).toBe( 'Test page' );
 
 		const footerSaveButton = container.querySelector(
-			'.wc-settings-ui .wc-settings-ui__footer-actions .woocommerce-save-button'
+			'.wc-settings-ui .wc-settings-ui__footer-actions .poocommerce-save-button'
 		);
 		expect( footerSaveButton ).not.toBeNull();
 
@@ -181,7 +181,7 @@ describe( 'settings UI shell header visibility', () => {
 		expect( header ).not.toBeNull();
 		expect( header?.textContent ).toContain( 'Test page' );
 		expect(
-			header?.querySelector( '.woocommerce-save-button' )
+			header?.querySelector( '.poocommerce-save-button' )
 		).not.toBeNull();
 		expect(
 			container.querySelector( '.wc-settings-ui__footer-actions' )
@@ -200,7 +200,7 @@ describe( 'settings UI shell header visibility', () => {
 		);
 
 		expect(
-			container.querySelector( '.woocommerce-save-button' )
+			container.querySelector( '.poocommerce-save-button' )
 		).toBeNull();
 		expect(
 			container.querySelector( '.wc-settings-ui__footer-actions' )

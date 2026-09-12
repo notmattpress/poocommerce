@@ -3,7 +3,7 @@
  */
 import { __, sprintf } from '@wordpress/i18n';
 import { createInterpolateElement, useContext } from '@wordpress/element';
-import { getNewPath, navigateTo, useQuery } from '@woocommerce/navigation';
+import { getNewPath, navigateTo, useQuery } from '@poocommerce/navigation';
 import { Button } from '@wordpress/components';
 import clsx from 'clsx';
 
@@ -31,16 +31,16 @@ interface ProductsProps {
 
 const LABELS = {
 	[ ProductType.extension ]: {
-		label: __( 'extensions', 'woocommerce' ),
-		singularLabel: __( 'extension', 'woocommerce' ),
+		label: __( 'extensions', 'poocommerce' ),
+		singularLabel: __( 'extension', 'poocommerce' ),
 	},
 	[ ProductType.theme ]: {
-		label: __( 'themes', 'woocommerce' ),
-		singularLabel: __( 'theme', 'woocommerce' ),
+		label: __( 'themes', 'poocommerce' ),
+		singularLabel: __( 'theme', 'poocommerce' ),
 	},
 	[ ProductType.businessService ]: {
-		label: __( 'business services', 'woocommerce' ),
-		singularLabel: __( 'business service', 'woocommerce' ),
+		label: __( 'business services', 'poocommerce' ),
+		singularLabel: __( 'business service', 'poocommerce' ),
 	},
 };
 
@@ -66,16 +66,16 @@ export default function Products( props: ProductsProps ) {
 	const labelForClassName =
 		label === 'business services' ? 'business-services' : label;
 
-	const baseContainerClass = 'woocommerce-marketplace__search-';
+	const baseContainerClass = 'poocommerce-marketplace__search-';
 
 	const containerClassName = clsx( baseContainerClass + labelForClassName );
 	const viewAllButtonClassName = clsx(
-		'woocommerce-marketplace__view-all-button',
+		'poocommerce-marketplace__view-all-button',
 		baseContainerClass + 'button-' + labelForClassName
 	);
 
 	// The quality badge filter only applies to extensions; the component also
-	// renders nothing unless the WooCommerce.com API has the badge enabled.
+	// renders nothing unless the PooCommerce.com API has the badge enabled.
 	const showQualityBadgeFilter = props.type === ProductType.extension;
 	const hasNoResults = ! isLoading && products.length === 0;
 	const showCategorySelector = Boolean( props.categorySelector );
@@ -84,9 +84,9 @@ export default function Products( props: ProductsProps ) {
 	// The sub-header stays mounted across the loading/empty/loaded states so
 	// the filter toggle keeps keyboard focus while toggling triggers a refetch.
 	const subHeader = ( showQualityBadgeFilter || showCategorySelector ) && (
-		<nav className="woocommerce-marketplace__sub-header">
+		<nav className="poocommerce-marketplace__sub-header">
 			{ showQualityBadgeFilter && <QualityBadgeFilter /> }
-			<div className="woocommerce-marketplace__sub-header__categories">
+			<div className="poocommerce-marketplace__sub-header__categories">
 				{ showCategorySelector && (
 					<CategorySelector type={ props.type } />
 				) }
@@ -110,17 +110,17 @@ export default function Products( props: ProductsProps ) {
 
 	const productListClass = clsx(
 		showAllButton
-			? 'woocommerce-marketplace__product-list-content--collapsed'
+			? 'poocommerce-marketplace__product-list-content--collapsed'
 			: ''
 	);
 
 	return (
 		<div className={ containerClassName }>
 			{ searchTerm && (
-				<h2 className="woocommerce-marketplace__search-results-heading">
+				<h2 className="poocommerce-marketplace__search-results-heading">
 					{ sprintf(
 						/* translators: %s: the search term the merchant entered. */
-						__( 'Results for “%s”', 'woocommerce' ),
+						__( 'Results for “%s”', 'poocommerce' ),
 						searchTerm
 					) }
 				</h2>
@@ -148,17 +148,17 @@ export default function Products( props: ProductsProps ) {
 			{ ! isLoading && ! hasNoResults && props.type === 'theme' && (
 				<div
 					className={
-						'woocommerce-marketplace__browse-wp-theme-directory'
+						'poocommerce-marketplace__browse-wp-theme-directory'
 					}
 				>
 					<b key="wp-theme-directory-heading">
-						{ __( 'Didn’t find a theme you like?', 'woocommerce' ) }
+						{ __( 'Didn’t find a theme you like?', 'poocommerce' ) }
 					</b>
 					<span key="wp-theme-directory-copy">
 						{ createInterpolateElement(
 							__(
 								'Browse the <a>WordPress.org theme directory</a> to discover more.',
-								'woocommerce'
+								'poocommerce'
 							),
 							{
 								a: (
@@ -180,7 +180,7 @@ export default function Products( props: ProductsProps ) {
 				<Button
 					className={ viewAllButtonClassName }
 					variant="secondary"
-					text={ __( 'View all', 'woocommerce' ) }
+					text={ __( 'View all', 'poocommerce' ) }
 					onClick={ () => showSection( props.type ) }
 				/>
 			) }

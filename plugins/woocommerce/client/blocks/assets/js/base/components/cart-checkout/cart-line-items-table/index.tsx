@@ -3,11 +3,11 @@
  */
 import clsx from 'clsx';
 import { __ } from '@wordpress/i18n';
-import { CartResponseItem } from '@woocommerce/types';
+import { CartResponseItem } from '@poocommerce/types';
 import { createRef, useEffect, useRef } from '@wordpress/element';
 import type { RefObject } from 'react';
-import { CartLineItemsCartSkeleton } from '@woocommerce/base-components/skeleton/patterns/cart-line-items';
-import { DelayedContentWithSkeleton } from '@woocommerce/base-components/delayed-content-with-skeleton';
+import { CartLineItemsCartSkeleton } from '@poocommerce/base-components/skeleton/patterns/cart-line-items';
+import { DelayedContentWithSkeleton } from '@poocommerce/base-components/delayed-content-with-skeleton';
 
 /**
  * Internal dependencies
@@ -88,7 +88,7 @@ const CartLineItemsTable = ( {
 			tabIndex={ -1 }
 		>
 			<caption className="screen-reader-text">
-				<h2>{ __( 'Products in cart', 'woocommerce' ) }</h2>
+				<h2>{ __( 'Products in cart', 'poocommerce' ) }</h2>
 			</caption>
 			<thead>
 				<tr className="wc-block-cart-items__header">
@@ -98,21 +98,21 @@ const CartLineItemsTable = ( {
 						aria-hidden="true"
 						className="wc-block-cart-items__header-image"
 					>
-						<span>{ __( 'Product', 'woocommerce' ) }</span>
+						<span>{ __( 'Product', 'poocommerce' ) }</span>
 					</th>
 					<th
 						scope="col"
 						className="wc-block-cart-items__header-product"
 					>
 						<span className="screen-reader-text">
-							{ __( 'Details', 'woocommerce' ) }
+							{ __( 'Details', 'poocommerce' ) }
 						</span>
 					</th>
 					<th
 						scope="col"
 						className="wc-block-cart-items__header-total"
 					>
-						<span>{ __( 'Total', 'woocommerce' ) }</span>
+						<span>{ __( 'Total', 'poocommerce' ) }</span>
 					</th>
 				</tr>
 			</thead>

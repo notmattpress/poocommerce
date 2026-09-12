@@ -4,7 +4,7 @@
 import React, { useEffect, useMemo, useState } from '@wordpress/element';
 import { Button, Spinner } from '@wordpress/components';
 import { sprintf, __ } from '@wordpress/i18n';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 import type { ReactNode } from 'react';
 
 /**
@@ -127,30 +127,30 @@ export const QRLoginNumberMatchStep = ( {
 
 	const headline = sprintf(
 		/* translators: %s: device summary, e.g. "Pixel 10 · Android 16 · App version 24.6". */
-		__( 'Match this number on %s', 'woocommerce' ),
+		__( 'Match this number on %s', 'poocommerce' ),
 		deviceLine
 	);
 
 	return (
 		<div
-			className="woocommerce-qr-direct-login woocommerce-qr-direct-login--number-match"
+			className="poocommerce-qr-direct-login poocommerce-qr-direct-login--number-match"
 			role="group"
-			aria-label={ __( 'Confirm sign-in', 'woocommerce' ) }
+			aria-label={ __( 'Confirm sign-in', 'poocommerce' ) }
 		>
-			<p className="woocommerce-qr-direct-login__match-headline">
+			<p className="poocommerce-qr-direct-login__match-headline">
 				{ headline }
 			</p>
-			<p className="woocommerce-qr-direct-login__match-description">
+			<p className="poocommerce-qr-direct-login__match-description">
 				{ __(
 					'Tap the number that matches what you see on your phone.',
-					'woocommerce'
+					'poocommerce'
 				) }
 			</p>
 
 			<div
-				className="woocommerce-qr-direct-login__number-tiles"
+				className="poocommerce-qr-direct-login__number-tiles"
 				role="group"
-				aria-label={ __( 'Number-match candidates', 'woocommerce' ) }
+				aria-label={ __( 'Number-match candidates', 'poocommerce' ) }
 			>
 				{ numbers.map( ( candidate, index ) => {
 					// Only the tile that was tapped shows the busy state.
@@ -162,7 +162,7 @@ export const QRLoginNumberMatchStep = ( {
 						<Button
 							key={ `${ candidate }-${ index }` }
 							variant="secondary"
-							className="woocommerce-qr-direct-login__number-tile"
+							className="poocommerce-qr-direct-login__number-tile"
 							disabled={ tilesDisabled }
 							aria-disabled={ tilesDisabled }
 							isBusy={ isThisTilePending }
@@ -170,7 +170,7 @@ export const QRLoginNumberMatchStep = ( {
 								/* translators: %s: 3-digit candidate number. */
 								__(
 									'Confirm with the number %s',
-									'woocommerce'
+									'poocommerce'
 								),
 								candidate
 							) }
@@ -183,31 +183,31 @@ export const QRLoginNumberMatchStep = ( {
 			</div>
 
 			<p
-				className="woocommerce-qr-direct-login__match-countdown"
+				className="poocommerce-qr-direct-login__match-countdown"
 				aria-live={ expired ? 'polite' : 'off' }
 			>
 				{ expired
-					? __( 'This sign-in attempt has expired.', 'woocommerce' )
+					? __( 'This sign-in attempt has expired.', 'poocommerce' )
 					: sprintf(
 							/* translators: %d: seconds remaining before the challenge expires. */
-							__( 'Expires in %ds', 'woocommerce' ),
+							__( 'Expires in %ds', 'poocommerce' ),
 							secondsRemaining
 					  ) }
 			</p>
 
 			{ errorMessage && (
-				<p className="woocommerce-qr-direct-login__error" role="alert">
+				<p className="poocommerce-qr-direct-login__error" role="alert">
 					{ errorMessage }
 				</p>
 			) }
 
-			<div className="woocommerce-qr-direct-login__match-cancel-row">
-				<p className="woocommerce-qr-direct-login__match-cancel-text">
-					{ __( "I don't recognise this device", 'woocommerce' ) }
+			<div className="poocommerce-qr-direct-login__match-cancel-row">
+				<p className="poocommerce-qr-direct-login__match-cancel-text">
+					{ __( "I don't recognise this device", 'poocommerce' ) }
 				</p>
 				<Button
 					variant="secondary"
-					className="woocommerce-qr-direct-login__match-cancel-button"
+					className="poocommerce-qr-direct-login__match-cancel-button"
 					disabled={ tilesDisabled }
 					onClick={ () => {
 						recordEvent(
@@ -221,10 +221,10 @@ export const QRLoginNumberMatchStep = ( {
 					{ inFlight && pendingChoice === '' ? (
 						<>
 							<Spinner />
-							<span>{ __( 'Cancelling…', 'woocommerce' ) }</span>
+							<span>{ __( 'Cancelling…', 'poocommerce' ) }</span>
 						</>
 					) : (
-						__( 'Cancel login', 'woocommerce' )
+						__( 'Cancel login', 'poocommerce' )
 					) }
 				</Button>
 			</div>

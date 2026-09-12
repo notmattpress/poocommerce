@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { Button } from '@wordpress/components';
-import { Spinner } from '@woocommerce/components';
+import { Spinner } from '@poocommerce/components';
 import { __ } from '@wordpress/i18n';
 
 export const SendMagicLinkButton = ( {
@@ -21,7 +21,7 @@ export const SendMagicLinkButton = ( {
 			className="send-magic-link-button-contents"
 		>
 			<div className="send-magic-link-button-text">
-				{ __( '✨️ Send the sign-in link', 'woocommerce' ) }
+				{ __( '✨️ Send the sign-in link', 'poocommerce' ) }
 			</div>
 		</div>
 	</Button>

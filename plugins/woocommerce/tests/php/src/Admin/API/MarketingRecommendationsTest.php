@@ -2,12 +2,12 @@
 /**
  * Test the API controller class that handles the marketing recommendations REST response.
  *
- * @package WooCommerce\Admin\Tests\Admin\API
+ * @package PooCommerce\Admin\Tests\Admin\API
  */
 
-namespace Automattic\WooCommerce\Tests\Admin\API;
+namespace Automattic\PooCommerce\Tests\Admin\API;
 
-use Automattic\WooCommerce\Admin\Features\MarketingRecommendations\Init;
+use Automattic\PooCommerce\Admin\Features\MarketingRecommendations\Init;
 use WC_REST_Unit_Test_Case;
 use WP_REST_Request;
 
@@ -48,9 +48,9 @@ class MarketingRecommendationsTest extends WC_REST_Unit_Test_Case {
 		// Clear any existing cache first.
 		Init::delete_specs_transient();
 
-		// Mock the response from woocommerce.com API.
+		// Mock the response from poocommerce.com API.
 		$this->response_mock_ref = function( $preempt, $parsed_args, $url ) {
-			if ( str_contains( $url, 'https://woocommerce.com/wp-json/wccom/marketing-tab/1.3/recommendations.json' ) ) {
+			if ( str_contains( $url, 'https://poocommerce.com/wp-json/wccom/marketing-tab/1.3/recommendations.json' ) ) {
 				return array(
 					'success' => true,
 					'body'    => wp_json_encode(
@@ -58,9 +58,9 @@ class MarketingRecommendationsTest extends WC_REST_Unit_Test_Case {
 							array(
 								'title'          => 'Example Marketing Channel',
 								'description'    => 'List your products and create ads, etc.',
-								'url'            => 'https://woocommerce.com/products/example-channel',
+								'url'            => 'https://poocommerce.com/products/example-channel',
 								'direct_install' => true,
-								'icon'           => 'https://woocommerce.com/example.svg',
+								'icon'           => 'https://poocommerce.com/example.svg',
 								'product'        => 'example-channel',
 								'plugin'         => 'example-channel/example-channel.php',
 								'categories'     => array( Init::MARKETING_EXTENSION_CATEGORY_SLUG ),
@@ -75,9 +75,9 @@ class MarketingRecommendationsTest extends WC_REST_Unit_Test_Case {
 							array(
 								'title'          => 'Example Marketing Extension',
 								'description'    => 'Automate your customer communications, etc.',
-								'url'            => 'https://woocommerce.com/products/example-marketing-extension',
+								'url'            => 'https://poocommerce.com/products/example-marketing-extension',
 								'direct_install' => true,
-								'icon'           => 'https://woocommerce.com/example-marketing-extension.svg',
+								'icon'           => 'https://poocommerce.com/example-marketing-extension.svg',
 								'product'        => 'example-marketing-extension',
 								'plugin'         => 'example-marketing-extension/example-marketing-extension.php',
 								'categories'     => array( Init::MARKETING_EXTENSION_CATEGORY_SLUG ),
@@ -92,9 +92,9 @@ class MarketingRecommendationsTest extends WC_REST_Unit_Test_Case {
 							array(
 								'title'          => 'Example NON Marketing Extension',
 								'description'    => 'Handle coupons, etc.',
-								'url'            => 'https://woocommerce.com/products/example-random-extension',
+								'url'            => 'https://poocommerce.com/products/example-random-extension',
 								'direct_install' => true,
-								'icon'           => 'https://woocommerce.com/example-random-extension.svg',
+								'icon'           => 'https://poocommerce.com/example-random-extension.svg',
 								'product'        => 'example-random-extension',
 								'plugin'         => 'example-random-extension/example-random-extension.php',
 								'categories'     => array( 'coupons' ),

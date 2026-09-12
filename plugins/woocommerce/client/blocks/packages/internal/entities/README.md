@@ -1,18 +1,18 @@
-# WooCommerce Block Entities
+# PooCommerce Block Entities
 
-This module contains the entity helpers for WooCommerce. Entities provide a standardized way to interact with WordPress data stores and enable consistent data access patterns across the admin interface.
+This module contains the entity helpers for PooCommerce. Entities provide a standardized way to interact with WordPress data stores and enable consistent data access patterns across the admin interface.
 
 ## Overview
 
 The pure entity helpers in this directory are bundled into their consumers and can be tree-shaken. Registration lives separately in `../entity-registration` and builds as a dedicated script that loads consistently on every admin screen.
 
-For backward compatibility, the registration script continues to expose the runtime helpers on `wc.wcEntities`. That global API is deprecated as of WooCommerce 11.1.0 and emits a warning when a helper is called.
+For backward compatibility, the registration script continues to expose the runtime helpers on `wc.wcEntities`. That global API is deprecated as of PooCommerce 11.1.0 and emits a warning when a helper is called.
 
 ## Available Entities
 
 ### Product Entity
 
-The product entity provides access to WooCommerce product data through WordPress's core data store. It includes:
+The product entity provides access to PooCommerce product data through WordPress's core data store. It includes:
 
 -   **Constants**: Entity name, kind, and configuration
 -   **Types**: TypeScript interfaces for product data structures
@@ -35,7 +35,7 @@ import { registerProductEntity } from './entities/register-entities';
 registerProductEntity();
 ```
 
-These functions are deprecated as of WooCommerce 11.1.0 and emit a warning when called. Rely on the automatically loaded `wc-entities` script instead.
+These functions are deprecated as of PooCommerce 11.1.0 and emit a warning when called. Rely on the automatically loaded `wc-entities` script instead.
 
 ### Using Entity Hooks
 

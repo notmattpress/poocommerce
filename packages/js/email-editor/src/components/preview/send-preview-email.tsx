@@ -53,8 +53,8 @@ function RawSendPreviewEmail() {
 	const sendingMethodConfigurationLink = useMemo(
 		() =>
 			applyFilters(
-				'woocommerce_email_editor_check_sending_method_configuration_link',
-				`https://www.mailpoet.com/blog/mailpoet-smtp-plugin/?utm_source=woocommerce_email_editor&utm_medium=plugin&utm_source_platform=${ postType }`
+				'poocommerce_email_editor_check_sending_method_configuration_link',
+				`https://www.mailpoet.com/blog/mailpoet-smtp-plugin/?utm_source=poocommerce_email_editor&utm_medium=plugin&utm_source_platform=${ postType }`
 			) as string,
 		[ postType ]
 	);
@@ -78,13 +78,13 @@ function RawSendPreviewEmail() {
 
 	return (
 		<Modal
-			className="woocommerce-send-preview-email"
+			className="poocommerce-send-preview-email"
 			title={ __( 'Send a test email', __i18n_text_domain__ ) }
 			onRequestClose={ closeCallback }
 			focusOnMount={ false }
 		>
 			{ sendingPreviewStatus === SendingPreviewStatus.ERROR ? (
-				<div className="woocommerce-send-preview-modal-notice-error">
+				<div className="poocommerce-send-preview-modal-notice-error">
 					<p>
 						{ __(
 							'Sorry, we were unable to send this email.',
@@ -138,7 +138,7 @@ function RawSendPreviewEmail() {
 									link: (
 										// eslint-disable-next-line jsx-a11y/anchor-has-content, jsx-a11y/control-has-associated-label
 										<a
-											href={ `https://account.mailpoet.com/?s=1&g=1&utm_source=woocommerce_email_editor&utm_medium=plugin&utm_source_platform=${ postType }` }
+											href={ `https://account.mailpoet.com/?s=1&g=1&utm_source=poocommerce_email_editor&utm_medium=plugin&utm_source_platform=${ postType }` }
 											key="sign-up-for-free"
 											target="_blank"
 											rel="noopener noreferrer"
@@ -179,7 +179,7 @@ function RawSendPreviewEmail() {
 						);
 					}
 				} }
-				className="woocommerce-send-preview-email__send-to-field"
+				className="poocommerce-send-preview-email__send-to-field"
 				value={ previewToEmail }
 				type="email"
 				ref={ sendToRef }
@@ -188,7 +188,7 @@ function RawSendPreviewEmail() {
 				__nextHasNoMarginBottom
 			/>
 			{ sendingPreviewStatus === SendingPreviewStatus.SUCCESS ? (
-				<p className="woocommerce-send-preview-modal-notice-success">
+				<p className="poocommerce-send-preview-modal-notice-success">
 					<Icon icon={ check } style={ { fill: '#4AB866' } } />
 					{ __(
 						'Test email sent successfully!',
@@ -196,7 +196,7 @@ function RawSendPreviewEmail() {
 					) }
 				</p>
 			) : null }
-			<div className="woocommerce-send-preview-modal-footer">
+			<div className="poocommerce-send-preview-modal-footer">
 				<Button
 					variant="tertiary"
 					onClick={ () => {

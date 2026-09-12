@@ -1,6 +1,6 @@
 <?php
 
-namespace Automattic\WooCommerce\Vendor\Sabberworm\CSS\Value;
+namespace Automattic\PooCommerce\Vendor\Sabberworm\CSS\Value;
 
 abstract class PrimitiveValue extends Value
 {

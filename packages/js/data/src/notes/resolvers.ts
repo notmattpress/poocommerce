@@ -16,7 +16,7 @@ export function* getNotes( query: NoteQuery = {} ) {
 	const url = addQueryArgs( `${ NAMESPACE }/admin/notes`, query );
 
 	try {
-		yield checkUserCapability( 'manage_woocommerce' );
+		yield checkUserCapability( 'manage_poocommerce' );
 
 		const notes: Note[] = yield apiFetch( {
 			path: url,

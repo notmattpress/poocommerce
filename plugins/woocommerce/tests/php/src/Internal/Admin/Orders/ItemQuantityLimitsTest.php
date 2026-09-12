@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\Orders;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\Orders;
 
-use Automattic\WooCommerce\Internal\Admin\Orders\ItemQuantityLimits;
+use Automattic\PooCommerce\Internal\Admin\Orders\ItemQuantityLimits;
 use WC_Helper_Order;
 use WC_Unit_Test_Case;
 
@@ -51,7 +51,7 @@ class ItemQuantityLimitsTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox get_quantity_input_min applies the woocommerce_quantity_input_min_admin filter.
+	 * @testdox get_quantity_input_min applies the poocommerce_quantity_input_min_admin filter.
 	 */
 	public function test_min_is_filterable(): void {
 		$order = WC_Helper_Order::create_order();
@@ -60,9 +60,9 @@ class ItemQuantityLimitsTest extends WC_Unit_Test_Case {
 		$callback = function () {
 			return '-9999';
 		};
-		add_filter( 'woocommerce_quantity_input_min_admin', $callback );
+		add_filter( 'poocommerce_quantity_input_min_admin', $callback );
 		$min = $this->sut->get_quantity_input_min( $items[0] );
-		remove_filter( 'woocommerce_quantity_input_min_admin', $callback );
+		remove_filter( 'poocommerce_quantity_input_min_admin', $callback );
 
 		$this->assertSame( '-9999', $min );
 	}
@@ -175,9 +175,9 @@ class ItemQuantityLimitsTest extends WC_Unit_Test_Case {
 		$callback = function () {
 			return array( 'not-a-number' );
 		};
-		add_filter( 'woocommerce_quantity_input_min_admin', $callback );
+		add_filter( 'poocommerce_quantity_input_min_admin', $callback );
 		$min = $this->sut->get_quantity_input_min( $items[0] );
-		remove_filter( 'woocommerce_quantity_input_min_admin', $callback );
+		remove_filter( 'poocommerce_quantity_input_min_admin', $callback );
 
 		$this->assertSame( '0', $min );
 	}
@@ -193,9 +193,9 @@ class ItemQuantityLimitsTest extends WC_Unit_Test_Case {
 			$captured = array( $filter_product, $context );
 			return $min;
 		};
-		add_filter( 'woocommerce_quantity_input_min_admin', $callback, 10, 3 );
+		add_filter( 'poocommerce_quantity_input_min_admin', $callback, 10, 3 );
 		$this->sut->validate_new_item_quantity( 1.0, $product );
-		remove_filter( 'woocommerce_quantity_input_min_admin', $callback );
+		remove_filter( 'poocommerce_quantity_input_min_admin', $callback );
 
 		$this->assertSame( $product->get_id(), $captured[0]->get_id() );
 		$this->assertSame( 'add', $captured[1] );
@@ -205,8 +205,8 @@ class ItemQuantityLimitsTest extends WC_Unit_Test_Case {
 	 * @testdox validate_posted_item_quantities keeps decimal precision on stores that allow decimal stock.
 	 */
 	public function test_validate_posted_rejects_decimal_below_min(): void {
-		remove_filter( 'woocommerce_stock_amount', 'intval' );
-		add_filter( 'woocommerce_stock_amount', 'floatval' );
+		remove_filter( 'poocommerce_stock_amount', 'intval' );
+		add_filter( 'poocommerce_stock_amount', 'floatval' );
 
 		$order = WC_Helper_Order::create_order();
 		$items = array_values( $order->get_items() );

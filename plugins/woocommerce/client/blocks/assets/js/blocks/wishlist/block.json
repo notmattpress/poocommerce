@@ -1,13 +1,13 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "woocommerce/wishlist",
+	"name": "poocommerce/wishlist",
 	"version": "1.0.0",
 	"title": "Wishlist",
 	"description": "Display the shopper's wishlist.",
-	"category": "woocommerce",
-	"keywords": [ "WooCommerce", "Wishlist" ],
-	"textdomain": "woocommerce",
+	"category": "poocommerce",
+	"keywords": [ "PooCommerce", "Wishlist" ],
+	"textdomain": "poocommerce",
 	"attributes": {
 		"columnCount": {
 			"type": "number",
@@ -34,11 +34,11 @@
 			"background": true
 		}
 	},
-	"viewScriptModule": "woocommerce/wishlist",
+	"viewScriptModule": "poocommerce/wishlist",
 	"style": [
-		"file:../woocommerce/wishlist-style.css",
+		"file:../poocommerce/wishlist-style.css",
 		"wc-blocks-style-product-image",
-		"woocommerce-product-price-style",
-		"woocommerce-product-button-style"
+		"poocommerce-product-price-style",
+		"poocommerce-product-button-style"
 	]
 }

@@ -2,14 +2,14 @@
 /**
  * Webflow Client Test
  *
- * @package Automattic\WooCommerce\Tests\Internal\CLI\Migrator\Platforms\Webflow
+ * @package Automattic\PooCommerce\Tests\Internal\CLI\Migrator\Platforms\Webflow
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\CLI\Migrator\Platforms\Webflow;
+namespace Automattic\PooCommerce\Tests\Internal\CLI\Migrator\Platforms\Webflow;
 
-use Automattic\WooCommerce\Internal\CLI\Migrator\Platforms\Webflow\WebflowClient;
+use Automattic\PooCommerce\Internal\CLI\Migrator\Platforms\Webflow\WebflowClient;
 use WC_Unit_Test_Case;
 use WP_Error;
 

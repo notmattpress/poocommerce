@@ -2,11 +2,11 @@
 /**
  * Reports Interval Test
  *
- * @package WooCommerce\Admin\Tests\API
+ * @package PooCommerce\Admin\Tests\API
  * @since x.x.0
  */
 
-use Automattic\WooCommerce\Admin\API\Reports\TimeInterval;
+use Automattic\PooCommerce\Admin\API\Reports\TimeInterval;
 
 /**
  * Class WC_Admin_Tests_Reports_Interval_Stats

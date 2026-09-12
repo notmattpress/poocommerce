@@ -1,12 +1,12 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Admin\API\Reports\Orders\Stats;
+namespace Automattic\PooCommerce\Tests\Admin\API\Reports\Orders\Stats;
 
-use Automattic\WooCommerce\Admin\API\Reports\Orders\Stats\DataStore as OrdersStatsDataStore;
-use Automattic\WooCommerce\Caches\OrderCache;
-use Automattic\WooCommerce\Internal\Admin\Schedulers\OrdersScheduler;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Admin\API\Reports\Orders\Stats\DataStore as OrdersStatsDataStore;
+use Automattic\PooCommerce\Caches\OrderCache;
+use Automattic\PooCommerce\Internal\Admin\Schedulers\OrdersScheduler;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 use WC_Helper_Order;
 use WC_Unit_Test_Case;
 use WP_Error;
@@ -17,14 +17,14 @@ use WP_Error;
 class DataStoreTest extends WC_Unit_Test_Case {
 
 	/**
-	 * Previous woocommerce_db_version for restore.
+	 * Previous poocommerce_db_version for restore.
 	 *
 	 * @var mixed
 	 */
 	private $previous_db_version;
 
 	/**
-	 * Previous woocommerce_analytics_uses_old_full_refund_data for restore.
+	 * Previous poocommerce_analytics_uses_old_full_refund_data for restore.
 	 *
 	 * @var mixed
 	 */
@@ -35,8 +35,8 @@ class DataStoreTest extends WC_Unit_Test_Case {
 	 */
 	public function setUp(): void {
 		parent::setUp();
-		$this->previous_db_version           = get_option( 'woocommerce_db_version' );
-		$this->previous_old_full_refund_flag = get_option( 'woocommerce_analytics_uses_old_full_refund_data' );
+		$this->previous_db_version           = get_option( 'poocommerce_db_version' );
+		$this->previous_old_full_refund_flag = get_option( 'poocommerce_analytics_uses_old_full_refund_data' );
 	}
 
 	/**
@@ -44,14 +44,14 @@ class DataStoreTest extends WC_Unit_Test_Case {
 	 */
 	public function tearDown(): void {
 		if ( false !== $this->previous_db_version ) {
-			update_option( 'woocommerce_db_version', $this->previous_db_version );
+			update_option( 'poocommerce_db_version', $this->previous_db_version );
 		} else {
-			delete_option( 'woocommerce_db_version' );
+			delete_option( 'poocommerce_db_version' );
 		}
 		if ( false !== $this->previous_old_full_refund_flag ) {
-			update_option( 'woocommerce_analytics_uses_old_full_refund_data', $this->previous_old_full_refund_flag );
+			update_option( 'poocommerce_analytics_uses_old_full_refund_data', $this->previous_old_full_refund_flag );
 		} else {
-			delete_option( 'woocommerce_analytics_uses_old_full_refund_data' );
+			delete_option( 'poocommerce_analytics_uses_old_full_refund_data' );
 		}
 		parent::tearDown();
 	}
@@ -60,8 +60,8 @@ class DataStoreTest extends WC_Unit_Test_Case {
 	 * @testdox Lump-sum full refund without _refund_type stores parent product net in order stats.
 	 */
 	public function test_lump_sum_full_refund_without_refund_type_uses_parent_net_total(): void {
-		update_option( 'woocommerce_db_version', '10.2.0' );
-		update_option( 'woocommerce_analytics_uses_old_full_refund_data', 'no' );
+		update_option( 'poocommerce_db_version', '10.2.0' );
+		update_option( 'poocommerce_analytics_uses_old_full_refund_data', 'no' );
 
 		$order = WC_Helper_Order::create_order();
 		// Add cart tax so we assert tax and shipping are both stripped from net, not only shipping.
@@ -122,13 +122,13 @@ class DataStoreTest extends WC_Unit_Test_Case {
 	/**
 	 * @testdox A partial refund followed by a full refund does not double-count the returns amount.
 	 *
-	 * Regression test for https://github.com/woocommerce/woocommerce/issues/66217: the full-refund
+	 * Regression test for https://github.com/poocommerce/poocommerce/issues/66217: the full-refund
 	 * row used to store the whole parent order total again, ignoring the amount an earlier partial
 	 * refund had already recorded, so the Revenue report over-counted returns.
 	 */
 	public function test_partial_then_full_refund_does_not_double_count_returns(): void {
-		update_option( 'woocommerce_db_version', '10.2.0' );
-		update_option( 'woocommerce_analytics_uses_old_full_refund_data', 'no' );
+		update_option( 'poocommerce_db_version', '10.2.0' );
+		update_option( 'poocommerce_analytics_uses_old_full_refund_data', 'no' );
 
 		// Order: net 40 (4 x $10 product) + tax 5 + shipping 10 = 55 gross.
 		$order = WC_Helper_Order::create_order();
@@ -201,7 +201,7 @@ class DataStoreTest extends WC_Unit_Test_Case {
 	/**
 	 * @testdox A lump-sum refund of a never-paid order stores no paid or completed date, so date-filtered reports exclude it with its parent.
 	 *
-	 * Regression test for https://github.com/woocommerce/woocommerce/issues/37065: a failed
+	 * Regression test for https://github.com/poocommerce/poocommerce/issues/37065: a failed
 	 * (never-paid) order manually set to "refunded" produced a refund stats row with
 	 * date_paid and date_completed backfilled from its own creation date. The parent row
 	 * (both dates NULL) was excluded from date-filtered Revenue reports while the refund row
@@ -320,7 +320,7 @@ class DataStoreTest extends WC_Unit_Test_Case {
 	 * wc_order_stats and wc_order_product_lookup rows survived the deletion and
 	 * permanently skewed Revenue, Orders and Products reports.
 	 *
-	 * @see https://github.com/woocommerce/woocommerce/issues/48955
+	 * @see https://github.com/poocommerce/poocommerce/issues/48955
 	 */
 	public function test_deleting_refund_removes_analytics_rows(): void {
 		global $wpdb;
@@ -345,8 +345,8 @@ class DataStoreTest extends WC_Unit_Test_Case {
 		$this->assertNotInstanceOf( WP_Error::class, $refund );
 		$refund_id = $refund->get_id();
 
-		// Import both records, as the woocommerce_update_order and
-		// woocommerce_refund_created flows would.
+		// Import both records, as the poocommerce_update_order and
+		// poocommerce_refund_created flows would.
 		OrdersScheduler::import( $order_id );
 		OrdersScheduler::import( $refund_id );
 
@@ -394,11 +394,11 @@ class DataStoreTest extends WC_Unit_Test_Case {
 			$seen_ids[]    = $order_id;
 			$seen_customer = $customer_id;
 		};
-		add_action( 'woocommerce_analytics_delete_order_stats', $callback, 10, 2 );
+		add_action( 'poocommerce_analytics_delete_order_stats', $callback, 10, 2 );
 
 		OrdersStatsDataStore::delete_refund( 987654321 );
 
-		remove_action( 'woocommerce_analytics_delete_order_stats', $callback, 10 );
+		remove_action( 'poocommerce_analytics_delete_order_stats', $callback, 10 );
 
 		$this->assertSame( 1, $fired, 'delete_refund should fire the delete-stats cascade even when no stats row exists.' );
 		$this->assertSame( array( 987654321 ), $seen_ids, 'The cascade should carry the refund ID.' );
@@ -459,7 +459,7 @@ class DataStoreTest extends WC_Unit_Test_Case {
 	 * @testdox Deleting a CPT refund fires the analytics delete cascade exactly once.
 	 *
 	 * The CPT store deletes the post — running the cascade via delete_post — before
-	 * firing woocommerce_delete_order_refund, so delete_refund() must stand down or
+	 * firing poocommerce_delete_order_refund, so delete_refund() must stand down or
 	 * listeners see two events for one deletion.
 	 */
 	public function test_deleting_cpt_refund_fires_delete_cascade_once(): void {
@@ -496,11 +496,11 @@ class DataStoreTest extends WC_Unit_Test_Case {
 				++$fired;
 			}
 		};
-		add_action( 'woocommerce_analytics_delete_order_stats', $callback );
+		add_action( 'poocommerce_analytics_delete_order_stats', $callback );
 
 		$refund->delete( true );
 
-		remove_action( 'woocommerce_analytics_delete_order_stats', $callback );
+		remove_action( 'poocommerce_analytics_delete_order_stats', $callback );
 
 		$this->assertSame( 1, $fired, 'The delete cascade should fire exactly once per CPT refund deletion.' );
 
@@ -577,7 +577,7 @@ class DataStoreTest extends WC_Unit_Test_Case {
 			return $statuses;
 		};
 		add_filter( 'wc_order_statuses', $add_status );
-		update_option( 'woocommerce_excluded_report_order_statuses', array( 'pending', 'failed', 'cancelled', $long_status ) );
+		update_option( 'poocommerce_excluded_report_order_statuses', array( 'pending', 'failed', 'cancelled', $long_status ) );
 
 		$customer = \WC_Helper_Customer::create_customer( 'cust_long_status', 'pwd', 'long_status_customer@mail.com' );
 

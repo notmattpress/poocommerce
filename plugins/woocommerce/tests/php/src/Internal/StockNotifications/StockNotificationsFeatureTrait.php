@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\StockNotifications;
+namespace Automattic\PooCommerce\Tests\Internal\StockNotifications;
 
-use Automattic\WooCommerce\Internal\StockNotifications\StockNotifications;
+use Automattic\PooCommerce\Internal\StockNotifications\StockNotifications;
 
 /**
  * Enables the Back In Stock Notifications feature for a test's lifetime.
@@ -32,7 +32,7 @@ trait StockNotificationsFeatureTrait {
 	private function enable_stock_notifications_feature(): void {
 		$this->stock_notifications_original_feature_option = get_option( StockNotifications::ENABLE_OPTION_NAME, false );
 		update_option( StockNotifications::ENABLE_OPTION_NAME, 'yes' );
-		add_filter( 'woocommerce_data_stores', array( wc_get_container()->get( StockNotifications::class ), 'register_data_stores' ) );
+		add_filter( 'poocommerce_data_stores', array( wc_get_container()->get( StockNotifications::class ), 'register_data_stores' ) );
 	}
 
 	/**

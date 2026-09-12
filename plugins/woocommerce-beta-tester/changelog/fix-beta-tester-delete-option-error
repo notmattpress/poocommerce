@@ -1,4 +1,4 @@
 Significance: patch
 Type: fix
 
-Fix TypeError when deleting the simulate WooCommerce JS error option
+Fix TypeError when deleting the simulate PooCommerce JS error option

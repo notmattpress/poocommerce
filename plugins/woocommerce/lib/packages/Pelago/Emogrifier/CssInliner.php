@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\Pelago\Emogrifier;
+namespace Automattic\PooCommerce\Vendor\Pelago\Emogrifier;
 
-use Automattic\WooCommerce\Vendor\Pelago\Emogrifier\Css\CssDocument;
-use Automattic\WooCommerce\Vendor\Pelago\Emogrifier\HtmlProcessor\AbstractHtmlProcessor;
-use Automattic\WooCommerce\Vendor\Pelago\Emogrifier\Utilities\CssConcatenator;
-use Automattic\WooCommerce\Vendor\Pelago\Emogrifier\Utilities\DeclarationBlockParser;
-use Automattic\WooCommerce\Vendor\Pelago\Emogrifier\Utilities\Preg;
-use Automattic\WooCommerce\Vendor\Symfony\Component\CssSelector\CssSelectorConverter;
-use Automattic\WooCommerce\Vendor\Symfony\Component\CssSelector\Exception\ParseException;
+use Automattic\PooCommerce\Vendor\Pelago\Emogrifier\Css\CssDocument;
+use Automattic\PooCommerce\Vendor\Pelago\Emogrifier\HtmlProcessor\AbstractHtmlProcessor;
+use Automattic\PooCommerce\Vendor\Pelago\Emogrifier\Utilities\CssConcatenator;
+use Automattic\PooCommerce\Vendor\Pelago\Emogrifier\Utilities\DeclarationBlockParser;
+use Automattic\PooCommerce\Vendor\Pelago\Emogrifier\Utilities\Preg;
+use Automattic\PooCommerce\Vendor\Symfony\Component\CssSelector\CssSelectorConverter;
+use Automattic\PooCommerce\Vendor\Symfony\Component\CssSelector\Exception\ParseException;
 
 /**
  * This class provides functions for converting CSS styles into inline style attributes in your HTML code.

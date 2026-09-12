@@ -59,7 +59,7 @@ const reporter = [
 			outputFile: `ctrf-report-${ Date.now() }.json`,
 			branchName: process.env.GITHUB_REF_NAME || '',
 			commit: process.env.GITHUB_SHA || '',
-			appName: 'woocommerce-core',
+			appName: 'poocommerce-core',
 			repositoryName: process.env.GITHUB_REPOSITORY || '',
 		},
 	],
@@ -121,7 +121,7 @@ const blocksSetupProject = {
  * `core-parallel` by default, except the other-project folders in `nonCoreSpecs`.
  */
 const serialRunSpecs = [
-	// Toggles the global `woocommerce_analytics_scheduled_import` option to
+	// Toggles the global `poocommerce_analytics_scheduled_import` option to
 	// exercise the Settings-page scheduled/immediate switch. Kept serial because,
 	// as a standalone file, running it in `core-parallel` would race
 	// `analytics.spec.ts` — which also toggles that option — across workers.
@@ -132,15 +132,15 @@ const serialRunSpecs = [
 	// the order-import mode, and this serial job never runs concurrently with the
 	// parallel one.)
 	'**/tests/analytics/analytics-settings.spec.ts',
-	// Every spec sets the global `woocommerce_customer_stock_notifications_*`
+	// Every spec sets the global `poocommerce_customer_stock_notifications_*`
 	// options in beforeAll (allow_signups / double_opt_in / require_account) and
 	// deletes them in afterAll. Run in parallel the files demand conflicting global
 	// config and race on those options: concurrent identical writes make
 	// `update_option` return false (`e2e-options/update` 400 "Update option FAILED"),
 	// and one file's afterAll strips the signup form mid-test for the others.
 	'**/tests/back-in-stock-notifications/**/*.spec.ts',
-	// Flips the global `woocommerce_default_customer_address` (geolocation) and
-	// `woocommerce_enable_ajax_add_to_cart` settings, which change add-to-cart
+	// Flips the global `poocommerce_default_customer_address` (geolocation) and
+	// `poocommerce_enable_ajax_add_to_cart` settings, which change add-to-cart
 	// behavior for every other worker. (`cart.spec.ts` runs in core-parallel — it
 	// scopes its tax rate to a dedicated tax class instead of toggling global tax.)
 	'**/tests/cart/add-to-cart.spec.ts',
@@ -149,13 +149,13 @@ const serialRunSpecs = [
 	'**/tests/checkout/checkout-shortcode-custom-place-order-button.spec.ts',
 	// Every spec toggles a global email feature flag via `setOption`:
 	// `editor-tracking-selectors`/`settings-email-listing` flip
-	// `woocommerce_feature_block_email_editor_enabled`, while `account-emails`/
-	// `order-emails`/`settings-email` flip `woocommerce_feature_email_improvements_enabled`.
+	// `poocommerce_feature_block_email_editor_enabled`, while `account-emails`/
+	// `order-emails`/`settings-email` flip `poocommerce_feature_email_improvements_enabled`.
 	// Run in parallel they race on those options — one file's afterAll disables the
 	// editor (or flips improvements) mid-test for the others. Proven not parallel-safe:
 	// an email-only `core-parallel` run failed across all three clusters.
 	'**/tests/email/**/*.spec.ts',
-	// Each spec toggles the global `woocommerce_feature_block_email_editor_enabled`
+	// Each spec toggles the global `poocommerce_feature_block_email_editor_enabled`
 	// flag in beforeAll/afterAll; running the files concurrently races on that option
 	// (`e2e-options/update` returns 400 "Update option FAILED") and the first file's
 	// afterAll disables the editor mid-test for the others. Proven not parallel-safe.
@@ -163,7 +163,7 @@ const serialRunSpecs = [
 	// Mutate the global onboarding profile/options, site-visibility options and
 	// the active theme.
 	'**/tests/onboarding/**/*.spec.ts',
-	// Toggles the global `woocommerce_downloads_grant_access_after_payment` setting.
+	// Toggles the global `poocommerce_downloads_grant_access_after_payment` setting.
 	'**/tests/order/order-edit.spec.ts',
 	// Submits and deletes product reviews via the Review Order form while it runs;
 	// that concurrent churn on the shared reviews list makes `product-reviews`'
@@ -176,17 +176,17 @@ const serialRunSpecs = [
 	// Toggles the global out-of-stock catalog visibility setting while verifying
 	// that converted external products remain visible on the storefront.
 	'**/tests/product/product-grouped-stock-status.spec.ts',
-	// Mutate global WooCommerce settings (store address/currency/country, tax)
+	// Mutate global PooCommerce settings (store address/currency/country, tax)
 	// that other workers' cart/checkout/storefront specs depend on.
 	'**/tests/settings/settings-general.spec.ts',
-	// Mutates the global woocommerce_permalinks option (the product base) and
+	// Mutates the global poocommerce_permalinks option (the product base) and
 	// restores it in teardown.
 	'**/tests/settings/product-permalinks.spec.ts',
 	'**/tests/settings/settings-tax.spec.ts',
 	// Toggles the global `settings-ui` feature flag and resets all e2e feature flags
 	// in afterAll.
 	'**/tests/settings/settings-ui-feature-flag.spec.ts',
-	// Toggles the global `woocommerce_cart_redirect_after_add` setting, which
+	// Toggles the global `poocommerce_cart_redirect_after_add` setting, which
 	// changes add-to-cart behavior for every other worker — not parallel-safe.
 	'**/tests/shop/cart-redirection.spec.ts',
 	// Trashes and restores the global Shop page in a fixture; while trashed, every
@@ -196,7 +196,7 @@ const serialRunSpecs = [
 
 /**
  * Spec folders owned by other Playwright projects — excluded from both core projects.
- * PayPal tests don't run well in parallel (https://github.com/woocommerce/woocommerce/pull/63068);
+ * PayPal tests don't run well in parallel (https://github.com/poocommerce/poocommerce/pull/63068);
  * blocks specs need the `blocks setup` project and its storage state.
  */
 const nonCoreSpecs = [

@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { WC_API_PATH } from '@woocommerce/e2e-utils-playwright';
+import { WC_API_PATH } from '@poocommerce/e2e-utils-playwright';
 
 /**
  * Internal dependencies
@@ -17,7 +17,7 @@ import {
 import { logInFromMyAccount } from '../../utils/login';
 
 const MY_ACCOUNT_ENDPOINT = 'my-account/stock-notifications/';
-const TABLE = '.woocommerce-customer-stock-notifications-table';
+const TABLE = '.poocommerce-customer-stock-notifications-table';
 const PENDING_TABLE = `${ TABLE }--pending`;
 const ACTIVE_TABLE = `${ TABLE }--active`;
 
@@ -47,7 +47,7 @@ async function createTestCustomer( restApi ): Promise< TestCustomer > {
 	const response = await restApi.post< { id: number } >(
 		`${ WC_API_PATH }/customers`,
 		{
-			email: `${ username }@woocommercecoree2etestsuite.com`,
+			email: `${ username }@poocommercecoree2etestsuite.com`,
 			username,
 			password,
 		}

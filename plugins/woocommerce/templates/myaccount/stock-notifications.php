@@ -4,16 +4,16 @@
  *
  * Shows the current user's back in stock notifications on the account page.
  *
- * This template can be overridden by copying it to yourtheme/woocommerce/myaccount/stock-notifications.php.
+ * This template can be overridden by copying it to yourtheme/poocommerce/myaccount/stock-notifications.php.
  *
- * HOWEVER, on occasion WooCommerce will need to update template files and you
+ * HOWEVER, on occasion PooCommerce will need to update template files and you
  * (the theme developer) will need to copy the new files to your theme to
  * maintain compatibility. We try to do this as little as possible, but it does
  * happen. When this occurs the version of the template file will be bumped and
  * the readme will list any important changes.
  *
- * @see     https://woocommerce.com/document/template-structure/
- * @package WooCommerce\Templates
+ * @see     https://poocommerce.com/document/template-structure/
+ * @package PooCommerce\Templates
  * @version 11.2.0
  *
  * @var array  $pending_rows      Rows awaiting email confirmation (capped, not paginated). See row keys below.
@@ -68,14 +68,14 @@ $row_defaults = array(
 
 $tables = array(
 	'pending' => array(
-		'heading' => __( 'Awaiting confirmation', 'woocommerce' ),
-		'caption' => __( 'Stock notifications awaiting confirmation', 'woocommerce' ),
+		'heading' => __( 'Awaiting confirmation', 'poocommerce' ),
+		'caption' => __( 'Stock notifications awaiting confirmation', 'poocommerce' ),
 		'rows'    => $pending_rows,
 	),
 	'active'  => array(
 		// A store without double opt-in only ever has one table, so the heading is redundant there.
-		'heading' => $has_pending ? __( 'Active', 'woocommerce' ) : '',
-		'caption' => __( 'Active stock notifications', 'woocommerce' ),
+		'heading' => $has_pending ? __( 'Active', 'poocommerce' ) : '',
+		'caption' => __( 'Active stock notifications', 'poocommerce' ),
 		'rows'    => $active_rows,
 	),
 );
@@ -87,7 +87,7 @@ $tables = array(
  *
  * @param bool $has_items Whether there are any notifications to render.
  */
-do_action( 'woocommerce_before_account_customer_stock_notifications', $has_items );
+do_action( 'poocommerce_before_account_customer_stock_notifications', $has_items );
 ?>
 
 <?php foreach ( $tables as $table_key => $table ) : ?>
@@ -106,21 +106,21 @@ do_action( 'woocommerce_before_account_customer_stock_notifications', $has_items
 		 *
 		 * @param bool $has_pending Whether there are any pending notifications to render.
 		 */
-		do_action( 'woocommerce_before_account_customer_stock_notifications_pending', $has_pending );
+		do_action( 'poocommerce_before_account_customer_stock_notifications_pending', $has_pending );
 		?>
 	<?php endif; ?>
 
 	<?php if ( '' !== $table['heading'] ) : ?>
-		<h2 class="woocommerce-customer-stock-notifications-heading woocommerce-customer-stock-notifications-heading--<?php echo esc_attr( $table_key ); ?>"><?php echo esc_html( $table['heading'] ); ?></h2>
+		<h2 class="poocommerce-customer-stock-notifications-heading poocommerce-customer-stock-notifications-heading--<?php echo esc_attr( $table_key ); ?>"><?php echo esc_html( $table['heading'] ); ?></h2>
 	<?php endif; ?>
 
-	<table class="woocommerce-customer-stock-notifications-table woocommerce-customer-stock-notifications-table--<?php echo esc_attr( $table_key ); ?> woocommerce-MyAccount-customerStockNotifications shop_table shop_table_responsive">
+	<table class="poocommerce-customer-stock-notifications-table poocommerce-customer-stock-notifications-table--<?php echo esc_attr( $table_key ); ?> poocommerce-MyAccount-customerStockNotifications shop_table shop_table_responsive">
 		<caption class="screen-reader-text"><?php echo esc_html( $table['caption'] ); ?></caption>
 		<thead>
 			<tr>
-				<th scope="col" class="woocommerce-customer-stock-notifications-table__header woocommerce-customer-stock-notifications-table__header-product"><span class="nobr"><?php esc_html_e( 'Product', 'woocommerce' ); ?></span></th>
-				<th scope="col" class="woocommerce-customer-stock-notifications-table__header woocommerce-customer-stock-notifications-table__header-date"><span class="nobr"><?php esc_html_e( 'Date signed up', 'woocommerce' ); ?></span></th>
-				<th scope="col" class="woocommerce-customer-stock-notifications-table__header woocommerce-customer-stock-notifications-table__header-actions"><span class="nobr"><?php esc_html_e( 'Actions', 'woocommerce' ); ?></span></th>
+				<th scope="col" class="poocommerce-customer-stock-notifications-table__header poocommerce-customer-stock-notifications-table__header-product"><span class="nobr"><?php esc_html_e( 'Product', 'poocommerce' ); ?></span></th>
+				<th scope="col" class="poocommerce-customer-stock-notifications-table__header poocommerce-customer-stock-notifications-table__header-date"><span class="nobr"><?php esc_html_e( 'Date signed up', 'poocommerce' ); ?></span></th>
+				<th scope="col" class="poocommerce-customer-stock-notifications-table__header poocommerce-customer-stock-notifications-table__header-actions"><span class="nobr"><?php esc_html_e( 'Actions', 'poocommerce' ); ?></span></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -131,8 +131,8 @@ do_action( 'woocommerce_before_account_customer_stock_notifications', $has_items
 			}
 			$row = wp_parse_args( $row, $row_defaults );
 			?>
-			<tr class="woocommerce-customer-stock-notifications-table__row woocommerce-customer-stock-notifications-table__row--status-<?php echo esc_attr( $row['status'] ); ?>">
-				<td class="woocommerce-customer-stock-notifications-table__cell woocommerce-customer-stock-notifications-table__cell-product" data-title="<?php esc_attr_e( 'Product', 'woocommerce' ); ?>">
+			<tr class="poocommerce-customer-stock-notifications-table__row poocommerce-customer-stock-notifications-table__row--status-<?php echo esc_attr( $row['status'] ); ?>">
+				<td class="poocommerce-customer-stock-notifications-table__cell poocommerce-customer-stock-notifications-table__cell-product" data-title="<?php esc_attr_e( 'Product', 'poocommerce' ); ?>">
 					<?php
 					/*
 					 * A deleted product still gets a row, rather than being skipped, so the
@@ -144,26 +144,26 @@ do_action( 'woocommerce_before_account_customer_stock_notifications', $has_items
 					<?php elseif ( '' !== $row['product_name'] ) : ?>
 						<?php echo esc_html( $row['product_name'] ); ?>
 					<?php else : ?>
-						<?php esc_html_e( 'Product unavailable', 'woocommerce' ); ?>
+						<?php esc_html_e( 'Product unavailable', 'poocommerce' ); ?>
 					<?php endif; ?>
 
 					<?php if ( '' !== $row['variation'] ) : ?>
 						<div class="description"><?php echo esc_html( $row['variation'] ); ?></div>
 					<?php endif; ?>
 				</td>
-				<td class="woocommerce-customer-stock-notifications-table__cell woocommerce-customer-stock-notifications-table__cell-date" data-title="<?php esc_attr_e( 'Date signed up', 'woocommerce' ); ?>">
+				<td class="poocommerce-customer-stock-notifications-table__cell poocommerce-customer-stock-notifications-table__cell-date" data-title="<?php esc_attr_e( 'Date signed up', 'poocommerce' ); ?>">
 					<?php if ( '' !== $row['date_iso'] ) : ?>
 						<time datetime="<?php echo esc_attr( $row['date_iso'] ); ?>"><?php echo esc_html( $row['date_display'] ); ?></time>
 					<?php else : ?>
 						&mdash;
 					<?php endif; ?>
 				</td>
-				<td class="woocommerce-customer-stock-notifications-table__cell woocommerce-customer-stock-notifications-table__cell-actions actions" data-title="<?php esc_attr_e( 'Actions', 'woocommerce' ); ?>">
+				<td class="poocommerce-customer-stock-notifications-table__cell poocommerce-customer-stock-notifications-table__cell-actions actions" data-title="<?php esc_attr_e( 'Actions', 'poocommerce' ); ?>">
 					<?php if ( '' !== $row['resend_url'] ) : ?>
-						<a href="<?php echo esc_url( $row['resend_url'] ); ?>" class="woocommerce-button button woocommerce-customer-stock-notifications-action-link woocommerce-customer-stock-notifications-action-link--resend<?php echo esc_attr( $wp_button_class ); ?>" aria-label="<?php echo esc_attr( $row['resend_label'] ); ?>"><?php esc_html_e( 'Resend verification', 'woocommerce' ); ?></a>
+						<a href="<?php echo esc_url( $row['resend_url'] ); ?>" class="poocommerce-button button poocommerce-customer-stock-notifications-action-link poocommerce-customer-stock-notifications-action-link--resend<?php echo esc_attr( $wp_button_class ); ?>" aria-label="<?php echo esc_attr( $row['resend_label'] ); ?>"><?php esc_html_e( 'Resend verification', 'poocommerce' ); ?></a>
 					<?php endif; ?>
 					<?php if ( '' !== $row['cancel_url'] ) : ?>
-						<a href="<?php echo esc_url( $row['cancel_url'] ); ?>" class="woocommerce-button button woocommerce-customer-stock-notifications-action-link woocommerce-customer-stock-notifications-action-link--cancel<?php echo esc_attr( $wp_button_class ); ?>" aria-label="<?php echo esc_attr( $row['cancel_label'] ); ?>"><?php esc_html_e( 'Cancel', 'woocommerce' ); ?></a>
+						<a href="<?php echo esc_url( $row['cancel_url'] ); ?>" class="poocommerce-button button poocommerce-customer-stock-notifications-action-link poocommerce-customer-stock-notifications-action-link--cancel<?php echo esc_attr( $wp_button_class ); ?>" aria-label="<?php echo esc_attr( $row['cancel_label'] ); ?>"><?php esc_html_e( 'Cancel', 'poocommerce' ); ?></a>
 					<?php elseif ( '' === $row['resend_url'] ) : ?>
 						&mdash;
 					<?php endif; ?>
@@ -182,7 +182,7 @@ do_action( 'woocommerce_before_account_customer_stock_notifications', $has_items
 		 *
 		 * @param bool $has_pending Whether there were any pending notifications rendered.
 		 */
-		do_action( 'woocommerce_after_account_customer_stock_notifications_pending', $has_pending );
+		do_action( 'poocommerce_after_account_customer_stock_notifications_pending', $has_pending );
 		?>
 	<?php endif; ?>
 <?php endforeach; ?>
@@ -195,17 +195,17 @@ do_action( 'woocommerce_before_account_customer_stock_notifications', $has_items
 	 *
 	 * @since 11.2.0
 	 */
-	do_action( 'woocommerce_before_account_customer_stock_notifications_pagination' );
+	do_action( 'poocommerce_before_account_customer_stock_notifications_pagination' );
 	?>
 
 	<?php if ( '' !== $previous_page_url || '' !== $next_page_url ) : ?>
-		<div class="woocommerce-pagination woocommerce-pagination--without-numbers woocommerce-Pagination" role="navigation" aria-label="<?php esc_attr_e( 'Active stock notifications pagination', 'woocommerce' ); ?>">
+		<div class="poocommerce-pagination poocommerce-pagination--without-numbers poocommerce-Pagination" role="navigation" aria-label="<?php esc_attr_e( 'Active stock notifications pagination', 'poocommerce' ); ?>">
 			<?php if ( '' !== $previous_page_url ) : ?>
-				<a class="woocommerce-button woocommerce-button--previous woocommerce-Button woocommerce-Button--previous button<?php echo esc_attr( $wp_button_class ); ?>" href="<?php echo esc_url( $previous_page_url ); ?>"><?php esc_html_e( 'Previous', 'woocommerce' ); ?></a>
+				<a class="poocommerce-button poocommerce-button--previous poocommerce-Button poocommerce-Button--previous button<?php echo esc_attr( $wp_button_class ); ?>" href="<?php echo esc_url( $previous_page_url ); ?>"><?php esc_html_e( 'Previous', 'poocommerce' ); ?></a>
 			<?php endif; ?>
 
 			<?php if ( '' !== $next_page_url ) : ?>
-				<a class="woocommerce-button woocommerce-button--next woocommerce-Button woocommerce-Button--next button<?php echo esc_attr( $wp_button_class ); ?>" href="<?php echo esc_url( $next_page_url ); ?>"><?php esc_html_e( 'Next', 'woocommerce' ); ?></a>
+				<a class="poocommerce-button poocommerce-button--next poocommerce-Button poocommerce-Button--next button<?php echo esc_attr( $wp_button_class ); ?>" href="<?php echo esc_url( $next_page_url ); ?>"><?php esc_html_e( 'Next', 'poocommerce' ); ?></a>
 			<?php endif; ?>
 		</div>
 	<?php endif; ?>
@@ -214,7 +214,7 @@ do_action( 'woocommerce_before_account_customer_stock_notifications', $has_items
 
 <?php if ( ! $has_items ) : ?>
 
-	<?php wc_print_notice( esc_html__( "You haven't signed up for any back-in-stock notifications yet.", 'woocommerce' ) . ' <a class="woocommerce-Button wc-forward button' . esc_attr( $wp_button_class ) . '" href="' . esc_url( apply_filters( 'woocommerce_return_to_shop_redirect', $shop_url ) ) . '">' . esc_html__( 'Browse products', 'woocommerce' ) . '</a>', 'notice' ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment ?>
+	<?php wc_print_notice( esc_html__( "You haven't signed up for any back-in-stock notifications yet.", 'poocommerce' ) . ' <a class="poocommerce-Button wc-forward button' . esc_attr( $wp_button_class ) . '" href="' . esc_url( apply_filters( 'poocommerce_return_to_shop_redirect', $shop_url ) ) . '">' . esc_html__( 'Browse products', 'poocommerce' ) . '</a>', 'notice' ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment ?>
 
 <?php endif; ?>
 
@@ -226,4 +226,4 @@ do_action( 'woocommerce_before_account_customer_stock_notifications', $has_items
  *
  * @param bool $has_items Whether there were any notifications rendered.
  */
-do_action( 'woocommerce_after_account_customer_stock_notifications', $has_items );
+do_action( 'poocommerce_after_account_customer_stock_notifications', $has_items );

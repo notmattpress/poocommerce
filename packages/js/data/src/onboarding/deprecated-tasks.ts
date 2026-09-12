@@ -21,7 +21,7 @@ function getQuery() {
 }
 
 /**
- * A simple class to handle deprecated tasks using the woocommerce_admin_onboarding_task_list filter.
+ * A simple class to handle deprecated tasks using the poocommerce_admin_onboarding_task_list filter.
  */
 export class DeprecatedTasks {
 	filteredTasks: DeprecatedTaskType[];
@@ -33,21 +33,21 @@ export class DeprecatedTasks {
 		/**
 		 * **Deprecated** Filter Onboarding tasks.
 		 *
-		 * @filter woocommerce_admin_onboarding_task_list
+		 * @filter poocommerce_admin_onboarding_task_list
 		 * @deprecated
 		 * @param {Array} tasks Array of tasks.
 		 * @param {Array} query Url query parameters.
 		 */
 		this.filteredTasks = applyFilters(
-			'woocommerce_admin_onboarding_task_list',
+			'poocommerce_admin_onboarding_task_list',
 			[],
 			getQuery()
 		) as DeprecatedTaskType[];
 		if ( this.filteredTasks && this.filteredTasks.length > 0 ) {
-			deprecated( 'woocommerce_admin_onboarding_task_list', {
+			deprecated( 'poocommerce_admin_onboarding_task_list', {
 				version: '2.10.0',
 				alternative: 'TaskLists::add_task()',
-				plugin: '@woocommerce/data',
+				plugin: '@poocommerce/data',
 			} );
 		}
 		this.tasks = this.filteredTasks.reduce( ( org, task ) => {

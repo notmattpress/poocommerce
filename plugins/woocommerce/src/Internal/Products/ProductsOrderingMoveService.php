@@ -1,6 +1,6 @@
 <?php declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Products;
+namespace Automattic\PooCommerce\Internal\Products;
 
 /**
  * Repositions a single product within the catalog's menu_order sequence.
@@ -29,7 +29,7 @@ final class ProductsOrderingMoveService {
 	 * uninitialized or colliding. Indexed positions start at 1; menu_order = 0 is the sentinel for an unindexed product.
 	 *
 	 * Designed for an HVM with 500K+ products catalog operating in a clustered environment. To satisfy this setup:
-	 * - if on-the-spot re-indexing is triggered: see design notes in \Automattic\WooCommerce\Internal\Products\ProductsOrderingReindexService::reindex_products
+	 * - if on-the-spot re-indexing is triggered: see design notes in \Automattic\PooCommerce\Internal\Products\ProductsOrderingReindexService::reindex_products
 	 * - otherwise, the move takes 5 SQLs for any catalog size (4 of them PK-driven, hence nearly instant; operating on the targeted range of positions)
 	 *
 	 * @since 11.2.0
@@ -99,7 +99,7 @@ final class ProductsOrderingMoveService {
 		);
 		$updated_count += (int) $wpdb->update( $wpdb->posts, array( 'menu_order' => $map->new_position ), array( 'ID' => $map->product_id ) );
 		if ( $updated_count > 0 ) {
-			// Performance note: fires `clean_post_cache` action per product for extensions compatibility (WooCommerce v11.2).
+			// Performance note: fires `clean_post_cache` action per product for extensions compatibility (PooCommerce v11.2).
 			// Targeted wp_cache_delete_multiple + wp_cache_set_posts_last_changed is fast, but insufficient for extensibility surface.
 			array_walk( $range_ids, 'clean_post_cache' );
 		}

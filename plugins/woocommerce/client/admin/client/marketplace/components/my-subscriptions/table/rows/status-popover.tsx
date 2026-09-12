@@ -72,14 +72,14 @@ export default function StatusPopover( props: {
 			onMouseOut={ endHover }
 			onBlur={ endHover }
 			className={ clsx(
-				'woocommerce-marketplace__my-subscriptions__product-status',
-				`woocommerce-marketplace__my-subscriptions__product-status--${ props.level }`
+				'poocommerce-marketplace__my-subscriptions__product-status',
+				`poocommerce-marketplace__my-subscriptions__product-status--${ props.level }`
 			) }
 		>
 			{ props.text }
 			{ shouldShowExplanation() && (
 				<Popover
-					className="woocommerce-marketplace__my-subscriptions__popover"
+					className="poocommerce-marketplace__my-subscriptions__popover"
 					position="top center"
 					focusOnMount={ false }
 					onMouseOver={ startHover }

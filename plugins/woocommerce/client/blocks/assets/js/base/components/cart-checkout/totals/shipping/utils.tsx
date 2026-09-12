@@ -5,18 +5,18 @@ import { __ } from '@wordpress/i18n';
 import {
 	getTotalShippingValue,
 	isPackageRateCollectable,
-} from '@woocommerce/base-utils';
+} from '@poocommerce/base-utils';
 import {
 	isObject,
 	objectHasProp,
 	CartShippingRate,
 	CartResponseTotals,
-} from '@woocommerce/types';
+} from '@poocommerce/types';
 
 export const renderShippingTotalValue = ( values: CartResponseTotals ) => {
 	const totalShippingValue = getTotalShippingValue( values );
 	if ( totalShippingValue === 0 ) {
-		return <strong>{ __( 'Free', 'woocommerce' ) }</strong>;
+		return <strong>{ __( 'Free', 'poocommerce' ) }</strong>;
 	}
 	return totalShippingValue;
 };

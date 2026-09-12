@@ -2,7 +2,7 @@
 /**
  * WC_Breadcrumb class.
  *
- * @package WooCommerce\Classes
+ * @package PooCommerce\Classes
  * @version 2.3.0
  */
 
@@ -49,7 +49,7 @@ class WC_Breadcrumb {
 	 * @return array
 	 */
 	public function get_breadcrumb() {
-		return apply_filters( 'woocommerce_get_breadcrumb', $this->crumbs, $this );
+		return apply_filters( 'poocommerce_get_breadcrumb', $this->crumbs, $this );
 	}
 
 	/**
@@ -123,7 +123,7 @@ class WC_Breadcrumb {
 	 * @return void
 	 */
 	protected function add_crumbs_404() {
-		$this->add_crumb( __( 'Error 404', 'woocommerce' ) );
+		$this->add_crumb( __( 'Error 404', 'poocommerce' ) );
 	}
 
 	/**
@@ -163,7 +163,7 @@ class WC_Breadcrumb {
 				$post->ID,
 				'product_cat',
 				apply_filters(
-					'woocommerce_breadcrumb_product_terms_args',
+					'poocommerce_breadcrumb_product_terms_args',
 					array(
 						'orderby' => 'parent',
 						'order'   => 'DESC',
@@ -172,7 +172,7 @@ class WC_Breadcrumb {
 			);
 
 			if ( $terms ) {
-				$main_term = apply_filters( 'woocommerce_breadcrumb_main_term', $terms[0], $terms );
+				$main_term = apply_filters( 'poocommerce_breadcrumb_main_term', $terms[0], $terms );
 				$this->term_ancestors( $main_term->term_id, 'product_cat' );
 				$this->add_crumb( $main_term->name, get_term_link( $main_term ) );
 			}
@@ -254,7 +254,7 @@ class WC_Breadcrumb {
 		$this->prepend_shop_page();
 
 		/* translators: %s: product tag */
-		$this->add_crumb( sprintf( __( 'Products tagged &ldquo;%s&rdquo;', 'woocommerce' ), $current_term->name ), get_term_link( $current_term, 'product_tag' ) );
+		$this->add_crumb( sprintf( __( 'Products tagged &ldquo;%s&rdquo;', 'poocommerce' ), $current_term->name ), get_term_link( $current_term, 'product_tag' ) );
 	}
 
 	/**
@@ -318,7 +318,7 @@ class WC_Breadcrumb {
 		$queried_object = $GLOBALS['wp_query']->get_queried_object();
 
 		/* translators: %s: tag name */
-		$this->add_crumb( sprintf( __( 'Posts tagged &ldquo;%s&rdquo;', 'woocommerce' ), single_tag_title( '', false ) ), get_tag_link( $queried_object->term_id ) );
+		$this->add_crumb( sprintf( __( 'Posts tagged &ldquo;%s&rdquo;', 'poocommerce' ), single_tag_title( '', false ) ), get_tag_link( $queried_object->term_id ) );
 	}
 
 	/**
@@ -369,7 +369,7 @@ class WC_Breadcrumb {
 		$userdata = get_userdata( $author );
 
 		/* translators: %s: author name */
-		$this->add_crumb( sprintf( __( 'Author: %s', 'woocommerce' ), $userdata->display_name ) );
+		$this->add_crumb( sprintf( __( 'Author: %s', 'poocommerce' ), $userdata->display_name ) );
 	}
 
 	/**
@@ -415,7 +415,7 @@ class WC_Breadcrumb {
 	protected function search_trail() {
 		if ( is_search() ) {
 			/* translators: %s: search term */
-			$this->add_crumb( sprintf( __( 'Search results for &ldquo;%s&rdquo;', 'woocommerce' ), get_search_query() ), remove_query_arg( 'paged' ) );
+			$this->add_crumb( sprintf( __( 'Search results for &ldquo;%s&rdquo;', 'poocommerce' ), get_search_query() ), remove_query_arg( 'paged' ) );
 		}
 	}
 
@@ -425,9 +425,9 @@ class WC_Breadcrumb {
 	 * @return void
 	 */
 	protected function paged_trail() {
-		if ( get_query_var( 'paged' ) && 'subcategories' !== woocommerce_get_loop_display_mode() ) {
+		if ( get_query_var( 'paged' ) && 'subcategories' !== poocommerce_get_loop_display_mode() ) {
 			/* translators: %d: page number */
-			$this->add_crumb( sprintf( __( 'Page %d', 'woocommerce' ), get_query_var( 'paged' ) ) );
+			$this->add_crumb( sprintf( __( 'Page %d', 'poocommerce' ), get_query_var( 'paged' ) ) );
 		}
 	}
 }

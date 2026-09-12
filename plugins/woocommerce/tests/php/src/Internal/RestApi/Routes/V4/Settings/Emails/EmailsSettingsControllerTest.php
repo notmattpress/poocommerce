@@ -2,20 +2,20 @@
 /**
  * Emails Settings V4 controller unit tests.
  *
- * @package WooCommerce\Tests\Internal\RestApi\Routes\V4\Settings\Emails
+ * @package PooCommerce\Tests\Internal\RestApi\Routes\V4\Settings\Emails
  */
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Internal\RestApi\Routes\V4\Settings\Emails;
+namespace Automattic\PooCommerce\Tests\Internal\RestApi\Routes\V4\Settings\Emails;
 
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Settings\Emails\Controller;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Settings\Emails\Schema\EmailsSettingsSchema;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsGenerator;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsManager;
-use Automattic\WooCommerce\EmailEditor\Email_Editor_Container;
-use Automattic\WooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tags_Registry;
-use Automattic\WooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tag;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Settings\Emails\Controller;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Settings\Emails\Schema\EmailsSettingsSchema;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsGenerator;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsManager;
+use Automattic\PooCommerce\EmailEditor\Email_Editor_Container;
+use Automattic\PooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tags_Registry;
+use Automattic\PooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tag;
 use WC_Unit_Test_Case;
 use WP_REST_Request;
 use WP_REST_Server;
@@ -122,19 +122,19 @@ class EmailsSettingsControllerTest extends WC_Unit_Test_Case {
 			return $features;
 		};
 
-		add_filter( 'woocommerce_admin_features', $this->feature_filter );
-		$this->prev_options['woocommerce_feature_block_email_editor_enabled'] = get_option( 'woocommerce_feature_block_email_editor_enabled', null );
+		add_filter( 'poocommerce_admin_features', $this->feature_filter );
+		$this->prev_options['poocommerce_feature_block_email_editor_enabled'] = get_option( 'poocommerce_feature_block_email_editor_enabled', null );
 
 		parent::setUp();
 
 		// Enable block email editor feature.
-		update_option( 'woocommerce_feature_block_email_editor_enabled', 'yes' );
+		update_option( 'poocommerce_feature_block_email_editor_enabled', 'yes' );
 
 		// Register personalization tags for testing.
 		$container      = Email_Editor_Container::container();
 		$this->registry = $container->get( Personalization_Tags_Registry::class );
-		$this->register_personalization_tag( 'woocommerce', 'customer-first-name' );
-		$this->register_personalization_tag( 'woocommerce', 'order-number' );
+		$this->register_personalization_tag( 'poocommerce', 'customer-first-name' );
+		$this->register_personalization_tag( 'poocommerce', 'order-number' );
 		$this->register_personalization_tag( 'custom-plugin', 'test-field' );
 
 		// Manually initialize controller with schema that has the registry.
@@ -149,7 +149,7 @@ class EmailsSettingsControllerTest extends WC_Unit_Test_Case {
 		);
 
 		// Snapshot current option values to restore on tearDown.
-		$option_key                        = 'woocommerce_' . self::SAMPLE_EMAIL_ID . '_settings';
+		$option_key                        = 'poocommerce_' . self::SAMPLE_EMAIL_ID . '_settings';
 		$this->prev_options[ $option_key ] = get_option( $option_key, null );
 
 		// Initialize WC_Emails to ensure emails are registered.
@@ -173,12 +173,12 @@ class EmailsSettingsControllerTest extends WC_Unit_Test_Case {
 	 * Tear down.
 	 */
 	public function tearDown(): void {
-		$block_email_editor_option = $this->prev_options['woocommerce_feature_block_email_editor_enabled'];
-		unset( $this->prev_options['woocommerce_feature_block_email_editor_enabled'] );
+		$block_email_editor_option = $this->prev_options['poocommerce_feature_block_email_editor_enabled'];
+		unset( $this->prev_options['poocommerce_feature_block_email_editor_enabled'] );
 
 		try {
 			if ( isset( $this->feature_filter ) ) {
-				remove_filter( 'woocommerce_admin_features', $this->feature_filter );
+				remove_filter( 'poocommerce_admin_features', $this->feature_filter );
 			}
 
 			// Restore previous option values.
@@ -208,9 +208,9 @@ class EmailsSettingsControllerTest extends WC_Unit_Test_Case {
 					$instance_property->setValue( null, $this->previous_emails_instance );
 				} finally {
 					if ( null === $block_email_editor_option ) {
-						delete_option( 'woocommerce_feature_block_email_editor_enabled' );
+						delete_option( 'poocommerce_feature_block_email_editor_enabled' );
 					} else {
-						update_option( 'woocommerce_feature_block_email_editor_enabled', $block_email_editor_option );
+						update_option( 'poocommerce_feature_block_email_editor_enabled', $block_email_editor_option );
 					}
 					$this->previous_emails          = array();
 					$this->previous_emails_instance = null;
@@ -340,7 +340,7 @@ class EmailsSettingsControllerTest extends WC_Unit_Test_Case {
 		$this->assertTrue( $data['values']['enabled'] );
 
 		// Verify database was updated.
-		$option_key = 'woocommerce_' . self::SAMPLE_EMAIL_ID . '_settings';
+		$option_key = 'poocommerce_' . self::SAMPLE_EMAIL_ID . '_settings';
 		$settings   = get_option( $option_key, array() );
 		$this->assertEquals( 'Test Subject', $settings['subject'] );
 		$this->assertEquals( 'Test Heading', $settings['heading'] );
@@ -398,7 +398,7 @@ class EmailsSettingsControllerTest extends WC_Unit_Test_Case {
 		$this->assertFalse( $response->get_data()['values']['enabled'] );
 
 		// Verify database storage.
-		$option_key = 'woocommerce_' . self::SAMPLE_EMAIL_ID . '_settings';
+		$option_key = 'poocommerce_' . self::SAMPLE_EMAIL_ID . '_settings';
 		$settings   = get_option( $option_key, array() );
 		$this->assertEquals( 'no', $settings['enabled'] );
 	}
@@ -437,7 +437,7 @@ class EmailsSettingsControllerTest extends WC_Unit_Test_Case {
 		wp_set_current_user( self::$user_id );
 
 		// Store wrapped subject directly in database.
-		$wrapped_subject                  = 'Hello <!--[woocommerce/customer-first-name]-->';
+		$wrapped_subject                  = 'Hello <!--[poocommerce/customer-first-name]-->';
 		$this->email->settings['subject'] = $wrapped_subject;
 
 		// GET the email settings.
@@ -447,7 +447,7 @@ class EmailsSettingsControllerTest extends WC_Unit_Test_Case {
 
 		$this->assertEquals( 200, $response->get_status() );
 		// Verify subject is unwrapped.
-		$this->assertEquals( 'Hello [woocommerce/customer-first-name]', $data['values']['subject'] );
+		$this->assertEquals( 'Hello [poocommerce/customer-first-name]', $data['values']['subject'] );
 	}
 
 	/**
@@ -456,7 +456,7 @@ class EmailsSettingsControllerTest extends WC_Unit_Test_Case {
 	public function test_wrap_personalization_tags_on_update() {
 		wp_set_current_user( self::$user_id );
 
-		$unwrapped_subject = 'Hello [woocommerce/customer-first-name]';
+		$unwrapped_subject = 'Hello [poocommerce/customer-first-name]';
 
 		$request = new WP_REST_Request( 'PUT', '/wc/v4/settings/emails/' . self::SAMPLE_EMAIL_ID );
 		$request->set_header( 'Content-Type', 'application/json' );
@@ -475,7 +475,7 @@ class EmailsSettingsControllerTest extends WC_Unit_Test_Case {
 
 		// Verify database stores wrapped version.
 		$stored_subject = $this->get_stored_subject( self::SAMPLE_EMAIL_ID );
-		$this->assertEquals( 'Hello <!--[woocommerce/customer-first-name]-->', $stored_subject );
+		$this->assertEquals( 'Hello <!--[poocommerce/customer-first-name]-->', $stored_subject );
 	}
 
 	/**
@@ -483,7 +483,7 @@ class EmailsSettingsControllerTest extends WC_Unit_Test_Case {
 	 */
 	public function test_personalization_tags_support_multiple_prefixes() {
 		wp_set_current_user( self::$user_id );
-		$subject_with_multiple_prefixes = 'Hello [woocommerce/customer-first-name] [custom-plugin/test-field]';
+		$subject_with_multiple_prefixes = 'Hello [poocommerce/customer-first-name] [custom-plugin/test-field]';
 
 		$request = new WP_REST_Request( 'PUT', '/wc/v4/settings/emails/' . self::SAMPLE_EMAIL_ID );
 		$request->set_header( 'Content-Type', 'application/json' );
@@ -502,7 +502,7 @@ class EmailsSettingsControllerTest extends WC_Unit_Test_Case {
 
 		// Verify all prefixes are wrapped.
 		$stored_subject = $this->get_stored_subject( self::SAMPLE_EMAIL_ID );
-		$this->assertStringContainsString( '<!--[woocommerce/customer-first-name]-->', $stored_subject );
+		$this->assertStringContainsString( '<!--[poocommerce/customer-first-name]-->', $stored_subject );
 
 		// Custom plugin prefix should also be wrapped if registry is available.
 		$this->assertStringContainsString( '<!--[custom-plugin/test-field]-->', $stored_subject );
@@ -512,7 +512,7 @@ class EmailsSettingsControllerTest extends WC_Unit_Test_Case {
 		$response = $this->server->dispatch( $request );
 		$data     = $response->get_data();
 
-		$this->assertStringContainsString( '[woocommerce/customer-first-name]', $data['values']['subject'] );
+		$this->assertStringContainsString( '[poocommerce/customer-first-name]', $data['values']['subject'] );
 		$this->assertStringNotContainsString( '<!--', $data['values']['subject'] );
 		$this->assertStringNotContainsString( '-->', $data['values']['subject'] );
 	}
@@ -523,7 +523,7 @@ class EmailsSettingsControllerTest extends WC_Unit_Test_Case {
 	public function test_personalization_tags_no_double_wrapping() {
 		wp_set_current_user( self::$user_id );
 
-		$already_wrapped_subject = 'Hello <!--[woocommerce/customer-first-name]-->';
+		$already_wrapped_subject = 'Hello <!--[poocommerce/customer-first-name]-->';
 
 		$request = new WP_REST_Request( 'PUT', '/wc/v4/settings/emails/' . self::SAMPLE_EMAIL_ID );
 		$request->set_header( 'Content-Type', 'application/json' );
@@ -542,7 +542,7 @@ class EmailsSettingsControllerTest extends WC_Unit_Test_Case {
 
 		// Verify NOT double-wrapped.
 		$stored_subject = $this->get_stored_subject( self::SAMPLE_EMAIL_ID );
-		$this->assertEquals( 'Hello <!--[woocommerce/customer-first-name]-->', $stored_subject );
+		$this->assertEquals( 'Hello <!--[poocommerce/customer-first-name]-->', $stored_subject );
 		$this->assertStringNotContainsString( '<!--<!--', $stored_subject );
 		$this->assertStringNotContainsString( '-->-->', $stored_subject );
 	}
@@ -553,7 +553,7 @@ class EmailsSettingsControllerTest extends WC_Unit_Test_Case {
 	public function test_personalization_tags_mixed_wrapped_unwrapped() {
 		wp_set_current_user( self::$user_id );
 
-		$mixed_subject = 'Hello <!--[woocommerce/customer-first-name]--> and [woocommerce/order-number]';
+		$mixed_subject = 'Hello <!--[poocommerce/customer-first-name]--> and [poocommerce/order-number]';
 
 		$request = new WP_REST_Request( 'PUT', '/wc/v4/settings/emails/' . self::SAMPLE_EMAIL_ID );
 		$request->set_header( 'Content-Type', 'application/json' );
@@ -572,7 +572,7 @@ class EmailsSettingsControllerTest extends WC_Unit_Test_Case {
 
 		// Verify only unwrapped tag gets wrapped.
 		$stored_subject = $this->get_stored_subject( self::SAMPLE_EMAIL_ID );
-		$this->assertEquals( 'Hello <!--[woocommerce/customer-first-name]--> and <!--[woocommerce/order-number]-->', $stored_subject );
+		$this->assertEquals( 'Hello <!--[poocommerce/customer-first-name]--> and <!--[poocommerce/order-number]-->', $stored_subject );
 	}
 
 	/**
@@ -581,7 +581,7 @@ class EmailsSettingsControllerTest extends WC_Unit_Test_Case {
 	public function test_personalization_tags_case_insensitive() {
 		wp_set_current_user( self::$user_id );
 
-		$uppercase_subject = 'Hello [WooCommerce/customer-first-name]';
+		$uppercase_subject = 'Hello [PooCommerce/customer-first-name]';
 
 		$request = new WP_REST_Request( 'PUT', '/wc/v4/settings/emails/' . self::SAMPLE_EMAIL_ID );
 		$request->set_header( 'Content-Type', 'application/json' );
@@ -600,7 +600,7 @@ class EmailsSettingsControllerTest extends WC_Unit_Test_Case {
 
 		// Verify wrapped correctly despite uppercase.
 		$stored_subject = $this->get_stored_subject( self::SAMPLE_EMAIL_ID );
-		$this->assertStringContainsString( '<!--[WooCommerce/customer-first-name]-->', $stored_subject );
+		$this->assertStringContainsString( '<!--[PooCommerce/customer-first-name]-->', $stored_subject );
 	}
 
 	/**
@@ -609,7 +609,7 @@ class EmailsSettingsControllerTest extends WC_Unit_Test_Case {
 	public function test_personalization_tags_with_attributes() {
 		wp_set_current_user( self::$user_id );
 
-		$subject_with_attributes = 'Hello [woocommerce/customer-first-name default="Guest"]';
+		$subject_with_attributes = 'Hello [poocommerce/customer-first-name default="Guest"]';
 
 		$request = new WP_REST_Request( 'PUT', '/wc/v4/settings/emails/' . self::SAMPLE_EMAIL_ID );
 		$request->set_header( 'Content-Type', 'application/json' );
@@ -628,14 +628,14 @@ class EmailsSettingsControllerTest extends WC_Unit_Test_Case {
 
 		// Verify wrapped with attributes intact.
 		$stored_subject = $this->get_stored_subject( self::SAMPLE_EMAIL_ID );
-		$this->assertEquals( 'Hello <!--[woocommerce/customer-first-name default="Guest"]-->', $stored_subject );
+		$this->assertEquals( 'Hello <!--[poocommerce/customer-first-name default="Guest"]-->', $stored_subject );
 
 		// Verify unwraps back correctly.
 		$request  = new WP_REST_Request( 'GET', '/wc/v4/settings/emails/' . self::SAMPLE_EMAIL_ID );
 		$response = $this->server->dispatch( $request );
 		$data     = $response->get_data();
 
-		$this->assertEquals( 'Hello [woocommerce/customer-first-name default="Guest"]', $data['values']['subject'] );
+		$this->assertEquals( 'Hello [poocommerce/customer-first-name default="Guest"]', $data['values']['subject'] );
 	}
 
 	/**
@@ -644,7 +644,7 @@ class EmailsSettingsControllerTest extends WC_Unit_Test_Case {
 	public function test_personalization_tags_preheader_field_support() {
 		wp_set_current_user( self::$user_id );
 
-		$preheader_with_tag = 'Check your order [woocommerce/order-number]';
+		$preheader_with_tag = 'Check your order [poocommerce/order-number]';
 
 		$request = new WP_REST_Request( 'PUT', '/wc/v4/settings/emails/' . self::SAMPLE_EMAIL_ID );
 		$request->set_header( 'Content-Type', 'application/json' );
@@ -662,9 +662,9 @@ class EmailsSettingsControllerTest extends WC_Unit_Test_Case {
 		$this->assertEquals( 200, $response->get_status() );
 
 		// Verify preheader is wrapped.
-		$option_key = 'woocommerce_' . self::SAMPLE_EMAIL_ID . '_settings';
+		$option_key = 'poocommerce_' . self::SAMPLE_EMAIL_ID . '_settings';
 		$settings   = get_option( $option_key, array() );
-		$this->assertEquals( 'Check your order <!--[woocommerce/order-number]-->', $settings['preheader'] );
+		$this->assertEquals( 'Check your order <!--[poocommerce/order-number]-->', $settings['preheader'] );
 
 		// Verify GET unwraps preheader.
 		$request  = new WP_REST_Request( 'GET', '/wc/v4/settings/emails/' . self::SAMPLE_EMAIL_ID );
@@ -672,7 +672,7 @@ class EmailsSettingsControllerTest extends WC_Unit_Test_Case {
 		$data     = $response->get_data();
 
 		if ( isset( $data['values']['preheader'] ) ) {
-			$this->assertEquals( 'Check your order [woocommerce/order-number]', $data['values']['preheader'] );
+			$this->assertEquals( 'Check your order [poocommerce/order-number]', $data['values']['preheader'] );
 		}
 	}
 
@@ -867,7 +867,7 @@ class EmailsSettingsControllerTest extends WC_Unit_Test_Case {
 	 * @return string Stored subject.
 	 */
 	private function get_stored_subject( string $email_id ): string {
-		$option_key = 'woocommerce_' . $email_id . '_settings';
+		$option_key = 'poocommerce_' . $email_id . '_settings';
 		$settings   = get_option( $option_key, array() );
 		return $settings['subject'] ?? '';
 	}

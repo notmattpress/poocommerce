@@ -60,11 +60,11 @@ function tooltipText(
 ): string | null {
 	switch ( reason ) {
 		case 'dirty':
-			return __( 'Save your changes first.', 'woocommerce' );
+			return __( 'Save your changes first.', 'poocommerce' );
 		case 'read_only':
 			return __(
 				"You don't have permission to update this email.",
-				'woocommerce'
+				'poocommerce'
 			);
 		case 'has_conflicts':
 		case null:
@@ -82,12 +82,12 @@ function tooltipText(
  */
 function defaultSubtitle( summary: ChangeSummary | null ): string {
 	if ( summary === null || summary.is_fallback ) {
-		return __( 'WooCommerce updated this template.', 'woocommerce' );
+		return __( 'PooCommerce updated this template.', 'poocommerce' );
 	}
 	if ( summary.summary_lines.length === 0 ) {
 		return sprintf(
-			// translators: %s is a WooCommerce version number, e.g. "1.2.3".
-			__( 'WooCommerce %s refreshed this template.', 'woocommerce' ),
+			// translators: %s is a PooCommerce version number, e.g. "1.2.3".
+			__( 'PooCommerce %s refreshed this template.', 'poocommerce' ),
 			summary.version_to
 		);
 	}
@@ -174,12 +174,12 @@ export function UpdateBanner( {
 			>
 				<div className="wc-update-banner__body">
 					<div className="wc-update-banner__title">
-						{ __( 'Template updated', 'woocommerce' ) }
+						{ __( 'Template updated', 'poocommerce' ) }
 					</div>
 					<div className="wc-update-banner__subtitle">
 						{ __(
 							'Your customizations were preserved.',
-							'woocommerce'
+							'poocommerce'
 						) }
 					</div>
 				</div>
@@ -188,7 +188,7 @@ export function UpdateBanner( {
 					className="wc-update-banner__dismiss"
 					aria-label={ __(
 						'Dismiss for this session',
-						'woocommerce'
+						'poocommerce'
 					) }
 					onClick={ onAutoDismiss }
 				>
@@ -207,15 +207,15 @@ export function UpdateBanner( {
 			>
 				<div className="wc-update-banner__body">
 					<div className="wc-update-banner__title">
-						{ __( "Couldn't apply", 'woocommerce' ) }
+						{ __( "Couldn't apply", 'poocommerce' ) }
 					</div>
 				</div>
 				<div className="wc-update-banner__actions">
 					<Button variant="primary" onClick={ onApply }>
-						{ __( 'Try again', 'woocommerce' ) }
+						{ __( 'Try again', 'poocommerce' ) }
 					</Button>
 					<Button variant="tertiary" onClick={ onReview }>
-						{ __( 'Review changes', 'woocommerce' ) }
+						{ __( 'Review changes', 'poocommerce' ) }
 					</Button>
 				</div>
 				<button
@@ -223,7 +223,7 @@ export function UpdateBanner( {
 					className="wc-update-banner__dismiss"
 					aria-label={ __(
 						'Dismiss for this session',
-						'woocommerce'
+						'poocommerce'
 					) }
 					onClick={ onDismiss }
 				>
@@ -245,8 +245,8 @@ export function UpdateBanner( {
 	const tip = tooltipText( disabledReason );
 
 	const applyLabel = isApplying
-		? __( 'Applying…', 'woocommerce' )
-		: __( 'Apply', 'woocommerce' );
+		? __( 'Applying…', 'poocommerce' )
+		: __( 'Apply', 'poocommerce' );
 
 	// In the conflict variant the Apply slot becomes the primary
 	// "Review changes" CTA — a disabled Apply button would be the wrong
@@ -254,7 +254,7 @@ export function UpdateBanner( {
 	// conflicts in the review drawer.
 	const applySlot = isConflict ? (
 		<Button variant="primary" onClick={ onReview }>
-			{ __( 'Review changes', 'woocommerce' ) }
+			{ __( 'Review changes', 'poocommerce' ) }
 		</Button>
 	) : (
 		<MaybeTooltip tip={ tip }>
@@ -278,7 +278,7 @@ export function UpdateBanner( {
 				disabled={ ! canReview || isApplying }
 				aria-disabled={ ! canReview ? 'true' : undefined }
 			>
-				{ __( 'Review', 'woocommerce' ) }
+				{ __( 'Review', 'poocommerce' ) }
 			</Button>
 		</MaybeTooltip>
 	);
@@ -287,7 +287,7 @@ export function UpdateBanner( {
 		<div className="wc-update-banner" role="status" aria-live="polite">
 			<div className="wc-update-banner__body">
 				<div className="wc-update-banner__title">
-					{ __( 'Template update available', 'woocommerce' ) }
+					{ __( 'Template update available', 'poocommerce' ) }
 				</div>
 				<div className="wc-update-banner__subtitle">{ subtitle }</div>
 				{ hasExpandableChanges && (
@@ -300,14 +300,14 @@ export function UpdateBanner( {
 							onClick={ onToggleExpanded }
 						>
 							{ expanded
-								? __( 'Hide changes', 'woocommerce' )
+								? __( 'Hide changes', 'poocommerce' )
 								: sprintf(
 										/* translators: %d is the number of summary changes. */
 										_n(
 											'Show %d change',
 											'Show %d changes',
 											expandableLines.length,
-											'woocommerce'
+											'poocommerce'
 										),
 										expandableLines.length
 								  ) }
@@ -332,7 +332,7 @@ export function UpdateBanner( {
 			<button
 				type="button"
 				className="wc-update-banner__dismiss"
-				aria-label={ __( 'Dismiss for this session', 'woocommerce' ) }
+				aria-label={ __( 'Dismiss for this session', 'poocommerce' ) }
 				onClick={ onDismiss }
 				disabled={ isApplying }
 			>

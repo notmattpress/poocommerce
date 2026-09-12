@@ -10,7 +10,7 @@
 -   [Accessible font sizes](#accessible-font-sizes)
 -   [CSS specificity wars with 3rd party themes](#css-specificity-wars-with-3rd-party-themes)
 
-This living document serves to prescribe coding guidelines specific to the WooCommerce Blocks project. Base coding guidelines follow the [WordPress Coding Standards](https://make.wordpress.org/core/handbook/best-practices/coding-standards/) and [Gutenberg coding standards](https://developer.wordpress.org/block-editor/contributors/develop/coding-guidelines/). The following sections outline additional patterns and conventions used in the Blocks project.
+This living document serves to prescribe coding guidelines specific to the PooCommerce Blocks project. Base coding guidelines follow the [WordPress Coding Standards](https://make.wordpress.org/core/handbook/best-practices/coding-standards/) and [Gutenberg coding standards](https://developer.wordpress.org/block-editor/contributors/develop/coding-guidelines/). The following sections outline additional patterns and conventions used in the Blocks project.
 
 ## CSS Class Names
 
@@ -70,7 +70,7 @@ Naming is not strictly tied to the DOM so it **doesn’t matter how many nested 
 
 Prefer logical CSS properties that work well in LTR and RTL languages like `margin-inline-start`, or `inset-inline-end`, instead of physical properties like `margin-left` or `right`.
 
-Even though Blocks uses the internal `WebpackRTLPlugin` exported from `@woocommerce/internal-build/style-build` to generate specific CSS files for RTL languages, these might not be used if Gutenberg inlines the styles, so it shouldn't be trusted.
+Even though Blocks uses the internal `WebpackRTLPlugin` exported from `@poocommerce/internal-build/style-build` to generate specific CSS files for RTL languages, these might not be used if Gutenberg inlines the styles, so it shouldn't be trusted.
 
 ## SCSS File Naming Conventions for Blocks
 
@@ -155,9 +155,9 @@ Notice in the worst case scenario we would have increased selector specificity b
 
 ---
 
-[We're hiring!](https://woocommerce.com/careers/) Come work with us!
+[We're hiring!](https://poocommerce.com/careers/) Come work with us!
 
-🐞 Found a mistake, or have a suggestion? [Leave feedback about this document here.](https://github.com/woocommerce/woocommerce/issues/new?assignees=&labels=type%3A+documentation&template=suggestion-for-documentation-improvement-correction.md&title=Feedback%20on%20./docs/contributors/coding-guidelines.md)
+🐞 Found a mistake, or have a suggestion? [Leave feedback about this document here.](https://github.com/poocommerce/poocommerce/issues/new?assignees=&labels=type%3A+documentation&template=suggestion-for-documentation-improvement-correction.md&title=Feedback%20on%20./docs/contributors/coding-guidelines.md)
 
 <!-- /FEEDBACK -->
 

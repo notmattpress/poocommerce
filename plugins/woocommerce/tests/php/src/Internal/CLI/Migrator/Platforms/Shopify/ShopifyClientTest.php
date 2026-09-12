@@ -2,14 +2,14 @@
 /**
  * Shopify Client Test
  *
- * @package Automattic\WooCommerce\Tests\Internal\CLI\Migrator\Platforms\Shopify
+ * @package Automattic\PooCommerce\Tests\Internal\CLI\Migrator\Platforms\Shopify
  */
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Internal\CLI\Migrator\Platforms\Shopify;
+namespace Automattic\PooCommerce\Tests\Internal\CLI\Migrator\Platforms\Shopify;
 
-use Automattic\WooCommerce\Internal\CLI\Migrator\Platforms\Shopify\ShopifyClient;
+use Automattic\PooCommerce\Internal\CLI\Migrator\Platforms\Shopify\ShopifyClient;
 use WC_Unit_Test_Case;
 use WP_Error;
 

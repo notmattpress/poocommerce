@@ -2,12 +2,12 @@
 /**
  * OrderCouponSchema class.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\RestApi\Routes\V4\Orders\Schema;
+namespace Automattic\PooCommerce\Internal\RestApi\Routes\V4\Orders\Schema;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -38,43 +38,43 @@ class OrderCouponSchema extends AbstractLineItemSchema {
 	public function get_item_schema_properties(): array {
 		$schema = array(
 			'id'             => array(
-				'description' => __( 'Item ID.', 'woocommerce' ),
+				'description' => __( 'Item ID.', 'poocommerce' ),
 				'type'        => 'integer',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'readonly'    => true,
 			),
 			'code'           => array(
-				'description' => __( 'Coupon code.', 'woocommerce' ),
+				'description' => __( 'Coupon code.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'readonly'    => true,
 			),
 			'discount'       => array(
-				'description' => __( 'Discount total.', 'woocommerce' ),
+				'description' => __( 'Discount total.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'readonly'    => true,
 			),
 			'discount_tax'   => array(
-				'description' => __( 'Discount total tax.', 'woocommerce' ),
+				'description' => __( 'Discount total tax.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'readonly'    => true,
 			),
 			'discount_type'  => array(
-				'description' => __( 'Discount type.', 'woocommerce' ),
+				'description' => __( 'Discount type.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => array( 'view' ),
 				'readonly'    => true,
 			),
 			'nominal_amount' => array(
-				'description' => __( 'Discount amount as defined in the coupon (absolute value or a percent, depending on the discount type).', 'woocommerce' ),
+				'description' => __( 'Discount amount as defined in the coupon (absolute value or a percent, depending on the discount type).', 'poocommerce' ),
 				'type'        => 'number',
 				'context'     => array( 'view' ),
 				'readonly'    => true,
 			),
 			'free_shipping'  => array(
-				'description' => __( 'Whether the coupon grants free shipping or not.', 'woocommerce' ),
+				'description' => __( 'Whether the coupon grants free shipping or not.', 'poocommerce' ),
 				'type'        => 'boolean',
 				'context'     => array( 'view' ),
 				'readonly'    => true,

@@ -2,17 +2,17 @@
 /**
  * Shipping Zone Methods Controller.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\RestApi\Routes\V4\ShippingZoneMethod;
+namespace Automattic\PooCommerce\Internal\RestApi\Routes\V4\ShippingZoneMethod;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\AbstractController;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\ShippingZoneMethod\ShippingZoneMethodService;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\AbstractController;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\ShippingZoneMethod\ShippingZoneMethodService;
 use WC_Shipping_Zones;
 use WC_Shipping_Zone;
 use WP_Http;
@@ -87,7 +87,7 @@ class Controller extends AbstractController {
 				'schema' => array( $this, 'get_public_item_schema' ),
 				'args'   => array(
 					'id' => array(
-						'description' => __( 'Unique identifier for the resource.', 'woocommerce' ),
+						'description' => __( 'Unique identifier for the resource.', 'poocommerce' ),
 						'type'        => 'integer',
 					),
 				),
@@ -122,7 +122,7 @@ class Controller extends AbstractController {
 		if ( ! wc_shipping_enabled() ) {
 			return new WP_Error(
 				'rest_shipping_disabled',
-				__( 'Shipping is disabled.', 'woocommerce' ),
+				__( 'Shipping is disabled.', 'poocommerce' ),
 				array( 'status' => WP_Http::SERVICE_UNAVAILABLE )
 			);
 		}
@@ -279,7 +279,7 @@ class Controller extends AbstractController {
 		 * @param WP_REST_Response   $response The response data.
 		 * @param WP_REST_Request    $request  The request sent to the API.
 		 */
-		do_action( 'woocommerce_rest_delete_shipping_zone_method', $method, $zone, $response, $request );
+		do_action( 'poocommerce_rest_delete_shipping_zone_method', $method, $zone, $response, $request );
 
 		return $response;
 	}
@@ -313,15 +313,15 @@ class Controller extends AbstractController {
 	protected function get_route_error_by_code( string $error_code ): WP_Error {
 		$custom_errors = array(
 			self::INVALID_ZONE_ID     => array(
-				'message' => __( 'Invalid shipping zone ID.', 'woocommerce' ),
+				'message' => __( 'Invalid shipping zone ID.', 'poocommerce' ),
 				'status'  => WP_Http::NOT_FOUND,
 			),
 			self::INVALID_METHOD_TYPE => array(
-				'message' => __( 'Invalid shipping method type.', 'woocommerce' ),
+				'message' => __( 'Invalid shipping method type.', 'poocommerce' ),
 				'status'  => WP_Http::BAD_REQUEST,
 			),
 			self::ZONE_MISMATCH       => array(
-				'message' => __( 'Shipping method does not belong to the specified zone.', 'woocommerce' ),
+				'message' => __( 'Shipping method does not belong to the specified zone.', 'poocommerce' ),
 				'status'  => WP_Http::BAD_REQUEST,
 			),
 		);

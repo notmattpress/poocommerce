@@ -1,9 +1,9 @@
 {
-	"name": "woocommerce/product-stock-indicator",
+	"name": "poocommerce/product-stock-indicator",
 	"icon": "info",
 	"title": "Product Stock Indicator",
 	"description": "Let shoppers know when products are out of stock or on backorder. This block is hidden when products are in stock.",
-	"category": "woocommerce-product-elements",
+	"category": "poocommerce-product-elements",
 	"attributes": {
 		"isDescendantOfAllProducts": {
 			"type": "boolean",
@@ -33,14 +33,14 @@
 		}
 	},
 	"ancestor": [
-		"woocommerce/all-products",
-		"woocommerce/single-product",
-		"woocommerce/product-template",
+		"poocommerce/all-products",
+		"poocommerce/single-product",
+		"poocommerce/product-template",
 		"core/post-template"
 	],
 	"usesContext": [ "query", "queryId", "postId" ],
-	"keywords": [ "WooCommerce" ],
-	"textdomain": "woocommerce",
+	"keywords": [ "PooCommerce" ],
+	"textdomain": "poocommerce",
 	"apiVersion": 3,
 	"$schema": "https://schemas.wp.org/trunk/block.json"
 }

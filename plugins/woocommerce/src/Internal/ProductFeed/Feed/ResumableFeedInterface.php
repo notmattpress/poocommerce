@@ -2,12 +2,12 @@
 /**
  * Resumable Feed Interface.
  *
- * @package Automattic\WooCommerce\Internal\ProductFeed
+ * @package Automattic\PooCommerce\Internal\ProductFeed
  */
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Internal\ProductFeed\Feed;
+namespace Automattic\PooCommerce\Internal\ProductFeed\Feed;
 
 /**
  * Contract for feeds that can be written across multiple processes (chunked generation).

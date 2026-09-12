@@ -3,7 +3,7 @@ title: wc tool
 sidebar_label: wc tool
 ---
 
-Runs WooCommerce system status tools from the CLI.
+Runs PooCommerce system status tools from the CLI.
 
 ## wc tool list
 

@@ -2,9 +2,9 @@
  * External dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { optionsStore } from '@woocommerce/data';
+import { optionsStore } from '@poocommerce/data';
 import { dispatch, resolveSelect } from '@wordpress/data';
-import { getQuery } from '@woocommerce/navigation';
+import { getQuery } from '@poocommerce/navigation';
 
 /**
  * Internal dependencies
@@ -147,23 +147,23 @@ function getExitPageCESCopy( pageId: string ) {
 					pageId === 'editing_new_product' ? 'new_product' : pageId,
 				noticeLabel: __(
 					'How is your experience with editing products?',
-					'woocommerce'
+					'poocommerce'
 				),
 				title: __(
 					"How's your experience with editing products?",
-					'woocommerce'
+					'poocommerce'
 				),
 				description: __(
 					'We noticed you started editing a product, then left. How was it? Your feedback will help create a better experience for thousands of merchants like you.',
-					'woocommerce'
+					'poocommerce'
 				),
 				firstQuestion: __(
 					'The product editing screen is easy to use',
-					'woocommerce'
+					'poocommerce'
 				),
 				secondQuestion: __(
 					"The product editing screen's functionality meets my needs",
-					'woocommerce'
+					'poocommerce'
 				),
 			};
 		case 'product_add_view':
@@ -172,23 +172,23 @@ function getExitPageCESCopy( pageId: string ) {
 				action: pageId,
 				noticeLabel: __(
 					'How is your experience with creating products?',
-					'woocommerce'
+					'poocommerce'
 				),
 				title: __(
 					'How is your experience with creating products?',
-					'woocommerce'
+					'poocommerce'
 				),
 				description: __(
 					'We noticed you started creating a product, then left. How was it? Your feedback will help create a better experience for thousands of merchants like you.',
-					'woocommerce'
+					'poocommerce'
 				),
 				firstQuestion: __(
 					'The product creation screen is easy to use',
-					'woocommerce'
+					'poocommerce'
 				),
 				secondQuestion: __(
 					"The product creation screen's functionality meets my needs",
-					'woocommerce'
+					'poocommerce'
 				),
 			};
 		case 'settings_change':
@@ -197,23 +197,23 @@ function getExitPageCESCopy( pageId: string ) {
 				icon: '⚙️',
 				noticeLabel: __(
 					'Did you find the right setting?',
-					'woocommerce'
+					'poocommerce'
 				),
 				title: __(
 					'How’s your experience with settings?',
-					'woocommerce'
+					'poocommerce'
 				),
 				description: __(
 					'We noticed you started changing store settings, then left. How was it? Your feedback will help create a better experience for thousands of merchants like you.',
-					'woocommerce'
+					'poocommerce'
 				),
 				firstQuestion: __(
 					'The settings screen is easy to use',
-					'woocommerce'
+					'poocommerce'
 				),
 				secondQuestion: __(
 					"The settings screen's functionality meets my needs",
-					'woocommerce'
+					'poocommerce'
 				),
 			};
 		case 'shop_order_update':
@@ -222,23 +222,23 @@ function getExitPageCESCopy( pageId: string ) {
 				icon: '📦',
 				noticeLabel: __(
 					'How easy or difficult was it to update this order?',
-					'woocommerce'
+					'poocommerce'
 				),
 				title: __(
 					"How's your experience with orders?",
-					'woocommerce'
+					'poocommerce'
 				),
 				description: __(
 					'We noticed you started editing an order, then left. How was it? Your feedback will help create a better experience for thousands of merchants like you.',
-					'woocommerce'
+					'poocommerce'
 				),
 				firstQuestion: __(
 					'The order editing screen is easy to use',
-					'woocommerce'
+					'poocommerce'
 				),
 				secondQuestion: __(
 					"The order details screen's functionality meets my needs",
-					'woocommerce'
+					'poocommerce'
 				),
 			};
 		case 'import_products':
@@ -247,23 +247,23 @@ function getExitPageCESCopy( pageId: string ) {
 				icon: '🔄',
 				noticeLabel: __(
 					'How is your experience with importing products?',
-					'woocommerce'
+					'poocommerce'
 				),
 				title: __(
 					`How's your experience with importing products?`,
-					'woocommerce'
+					'poocommerce'
 				),
 				description: __(
 					'We noticed you started importing products, then left. How was it? Your feedback will help create a better experience for thousands of merchants like you.',
-					'woocommerce'
+					'poocommerce'
 				),
 				firstQuestion: __(
 					'The product import screen is easy to use',
-					'woocommerce'
+					'poocommerce'
 				),
 				secondQuestion: __(
 					"The product import screen's functionality meets my needs",
-					'woocommerce'
+					'poocommerce'
 				),
 			};
 		default:

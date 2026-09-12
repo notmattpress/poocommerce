@@ -2,7 +2,7 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\DependencyManagement\ExampleClasses;
+namespace Automattic\PooCommerce\Tests\Internal\DependencyManagement\ExampleClasses;
 
 /**
  * An example of a class other classes (that are themselves dependencies) depend on.

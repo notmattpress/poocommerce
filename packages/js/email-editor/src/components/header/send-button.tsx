@@ -35,7 +35,7 @@ export function SendButton() {
 
 	const defaultIsDisabled = hasEmptyContent || isEmailSent || isDirty;
 	const filteredIsDisabled = applyFilters(
-		'woocommerce_email_editor_send_button_disabled',
+		'poocommerce_email_editor_send_button_disabled',
 		defaultIsDisabled,
 		{ hasEmptyContent, isEmailSent, isDirty }
 	);
@@ -45,7 +45,7 @@ export function SendButton() {
 			: defaultIsDisabled;
 
 	const label = applyFilters(
-		'woocommerce_email_editor_send_button_label',
+		'poocommerce_email_editor_send_button_label',
 		__( 'Send', __i18n_text_domain__ )
 	) as string;
 
@@ -56,7 +56,7 @@ export function SendButton() {
 			onClick={ () => {
 				recordEvent( 'header_send_button_clicked' );
 				const action = applyFilters(
-					'woocommerce_email_editor_send_action_callback',
+					'poocommerce_email_editor_send_action_callback',
 					sendAction
 				) as () => void;
 				action();

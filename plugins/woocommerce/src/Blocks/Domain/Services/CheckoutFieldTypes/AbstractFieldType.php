@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1);
 
-namespace Automattic\WooCommerce\Blocks\Domain\Services\CheckoutFieldTypes;
+namespace Automattic\PooCommerce\Blocks\Domain\Services\CheckoutFieldTypes;
 
-use Automattic\WooCommerce\Blocks\Domain\Services\CheckoutFieldsSchema\Validation;
+use Automattic\PooCommerce\Blocks\Domain\Services\CheckoutFieldsSchema\Validation;
 use WP_Error;
 
 /**
@@ -145,10 +145,10 @@ abstract class AbstractFieldType {
 	public function default_validate( $value, $field ) {
 		if ( true === $field['required'] && empty( $value ) ) {
 			return new WP_Error(
-				'woocommerce_required_checkout_field',
+				'poocommerce_required_checkout_field',
 				sprintf(
 					// translators: %s is field key.
-					__( 'The field %s is required.', 'woocommerce' ),
+					__( 'The field %s is required.', 'poocommerce' ),
 					$field['id']
 				)
 			);
@@ -178,9 +178,9 @@ abstract class AbstractFieldType {
 	}
 
 	/**
-	 * Applies type-specific arguments to a field before it is rendered with woocommerce_form_field().
+	 * Applies type-specific arguments to a field before it is rendered with poocommerce_form_field().
 	 *
-	 * @param array $form_field The woocommerce_form_field() arguments built from the field.
+	 * @param array $form_field The poocommerce_form_field() arguments built from the field.
 	 * @return array The updated arguments.
 	 */
 	public function prepare_form_field( array $form_field ): array {
@@ -207,7 +207,7 @@ abstract class AbstractFieldType {
 	 * @return false
 	 */
 	protected function doing_it_wrong( string $message, string $version ): bool {
-		_doing_it_wrong( 'woocommerce_register_additional_checkout_field', esc_html( $message ), esc_html( $version ) );
+		_doing_it_wrong( 'poocommerce_register_additional_checkout_field', esc_html( $message ), esc_html( $version ) );
 		return false;
 	}
 }

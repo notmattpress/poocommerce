@@ -2,16 +2,16 @@
 /**
  * This template displays the recent product review widget on the WordPress dashboard.
  *
- * This template can be overridden by copying it to yourtheme/woocommerce/dashboard-widget-reviews.php
+ * This template can be overridden by copying it to yourtheme/poocommerce/dashboard-widget-reviews.php
  *
- * HOWEVER, on occasion WooCommerce will need to update template files and you
+ * HOWEVER, on occasion PooCommerce will need to update template files and you
  * (the theme developer) will need to copy the new files to your theme to
  * maintain compatibility. We try to do this as little as possible, but it does
  * happen. When this occurs the version of the template file will be bumped and
  * the readme will list any important changes.
  *
- * @see     https://woocommerce.com/document/template-structure/
- * @package WooCommerce\Templates
+ * @see     https://poocommerce.com/document/template-structure/
+ * @package PooCommerce\Templates
  * @version 11.0.0
  */
 
@@ -45,7 +45,7 @@ $review_author_display = wc_trim_string( $review_author, 24 );
 		<?php
 		$reviewed_by = sprintf(
 			// translators: %s: review author.
-			__( 'reviewed by %s', 'woocommerce' ),
+			__( 'reviewed by %s', 'poocommerce' ),
 			'<span title="' . esc_attr( $review_author ) . '">' . esc_html( $review_author_display ) . '</span>'
 		);
 

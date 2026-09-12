@@ -61,7 +61,7 @@ describe( 'getAutoCompleteValue', () => {
 	} );
 
 	it( 'survives a registered field supplying a non-string value', () => {
-		// woocommerce_register_additional_checkout_field() keeps unknown option
+		// poocommerce_register_additional_checkout_field() keeps unknown option
 		// values verbatim, so these reach the browser as-is.
 		const nonStrings = [ 123, true, [ 'address-line1' ], { a: 1 }, null ];
 

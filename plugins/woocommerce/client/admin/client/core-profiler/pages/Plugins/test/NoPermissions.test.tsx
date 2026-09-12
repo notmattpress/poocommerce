@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { render, screen, fireEvent } from '@testing-library/react';
-import { WCUser } from '@woocommerce/data';
+import { WCUser } from '@poocommerce/data';
 
 /**
  * Internal dependencies
@@ -25,11 +25,11 @@ describe( 'NoPermissions', () => {
 					is_visible: true,
 				},
 				{
-					key: 'woocommerce-payments',
-					name: 'WooCommerce Payments',
-					description: 'WooCommerce Payments description',
-					image_url: 'woocommerce-payments-image-url',
-					manage_url: 'woocommerce-payments-manage-url',
+					key: 'poocommerce-payments',
+					name: 'PooCommerce Payments',
+					description: 'PooCommerce Payments description',
+					image_url: 'poocommerce-payments-image-url',
+					manage_url: 'poocommerce-payments-manage-url',
 					is_built_by_wc: true,
 					is_visible: true,
 				},

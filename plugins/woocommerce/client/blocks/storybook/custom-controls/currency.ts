@@ -1,8 +1,8 @@
 /**
  * External dependencies
  */
-import { Currency, CurrencyResponse } from '@woocommerce/types';
-import { snakeCaseKeys } from '@woocommerce/base-utils';
+import { Currency, CurrencyResponse } from '@poocommerce/types';
+import { snakeCaseKeys } from '@poocommerce/base-utils';
 
 export const currencies: Record< string, Currency > = {
 	EUR: {

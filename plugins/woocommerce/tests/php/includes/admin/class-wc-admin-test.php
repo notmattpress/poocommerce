@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 /**
  * Tests for the WC_Admin class.
  *
- * @package WooCommerce\Tests\Admin
+ * @package PooCommerce\Tests\Admin
  */
 
 /**
@@ -66,7 +66,7 @@ class WC_Admin_Test extends WC_Unit_Test_Case {
 
 		// Missing/invalid nonce: falls back to the search page.
 		$_GET = array( // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-			'wc-install-plugin-redirect' => 'woocommerce-gateway-stripe',
+			'wc-install-plugin-redirect' => 'poocommerce-gateway-stripe',
 			'_wpnonce'                   => 'not-a-valid-nonce',
 		);
 		try {
@@ -90,15 +90,15 @@ class WC_Admin_Test extends WC_Unit_Test_Case {
 
 		// Valid, matching nonce for the allowed plugin: triggers the install.
 		$_GET = array( // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-			'wc-install-plugin-redirect' => 'woocommerce-gateway-stripe',
-			'_wpnonce'                   => wp_create_nonce( 'wc-install-plugin-redirect_woocommerce-gateway-stripe' ),
+			'wc-install-plugin-redirect' => 'poocommerce-gateway-stripe',
+			'_wpnonce'                   => wp_create_nonce( 'wc-install-plugin-redirect_poocommerce-gateway-stripe' ),
 		);
 		try {
 			$this->sut->admin_redirects();
 			$this->fail( 'Expected the redirect interception to throw.' );
 		} catch ( RuntimeException $e ) {
 			$this->assertStringContainsString( 'action=install-plugin', $e->getMessage() );
-			$this->assertStringContainsString( 'plugin=woocommerce-gateway-stripe', $e->getMessage() );
+			$this->assertStringContainsString( 'plugin=poocommerce-gateway-stripe', $e->getMessage() );
 		}
 	}
 }

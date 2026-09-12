@@ -2,12 +2,12 @@
 /**
  * Test the Store details Task.
  *
- * @package WooCommerce\Admin\Tests\OnboardingTasks\Tasks
+ * @package PooCommerce\Admin\Tests\OnboardingTasks\Tasks
  */
 
-use Automattic\WooCommerce\Internal\Admin\Onboarding\OnboardingProfile;
-use Automattic\WooCommerce\Admin\Features\OnboardingTasks\TaskList;
-use Automattic\WooCommerce\Admin\Features\OnboardingTasks\Tasks\StoreDetails;
+use Automattic\PooCommerce\Internal\Admin\Onboarding\OnboardingProfile;
+use Automattic\PooCommerce\Admin\Features\OnboardingTasks\TaskList;
+use Automattic\PooCommerce\Admin\Features\OnboardingTasks\Tasks\StoreDetails;
 
 /**
  * class WC_Admin_Tests_OnboardingTasks_TaskList
@@ -51,9 +51,9 @@ class WC_Admin_Tests_OnboardingTasks_Task_StoreDetails extends WC_Unit_Test_Case
 	 * Test get_title function of StoreDetails task.
 	 */
 	public function test_completed_task_get_title_with_use_completed_title_option() {
-		update_option( 'woocommerce_store_address', 'Market Street' );
-		update_option( 'woocommerce_store_city', 'San Francisco' );
-		update_option( 'woocommerce_store_postcode', '1234' );
+		update_option( 'poocommerce_store_address', 'Market Street' );
+		update_option( 'poocommerce_store_city', 'San Francisco' );
+		update_option( 'poocommerce_store_postcode', '1234' );
 		$this->task_list->options['use_completed_title'] = true;
 		$this->assertEquals( 'You added store details', $this->task->get_title() );
 	}

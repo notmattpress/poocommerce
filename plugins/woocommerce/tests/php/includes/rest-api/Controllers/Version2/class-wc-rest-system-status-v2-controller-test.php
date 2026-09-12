@@ -38,7 +38,7 @@ class WC_REST_System_Status_V2_Controller_Test extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_get_theme_info_detects_wc_get_template_filter_override(): void {
 		$template_to_override = 'cart/cart.php';
-		$override_path        = WC()->plugin_path() . '/includes/class-woocommerce.php';
+		$override_path        = WC()->plugin_path() . '/includes/class-poocommerce.php';
 
 		add_filter(
 			'wc_get_template',

@@ -18,13 +18,13 @@ Example: two text buttons to select edit modes for cart block.
 			onClick={ toggleFullCartMode }
 			isToggled={ isFullCartMode }
 		>
-			{ __( 'Full Cart', 'woocommerce' ) }
+			{ __( 'Full Cart', 'poocommerce' ) }
 		</TextToolbarButton>
 		<TextToolbarButton
 			onClick={ toggleFullCartMode }
 			isToggled={ ! isFullCartMode }
 		>
-			{ __( 'Empty Cart', 'woocommerce' ) }
+			{ __( 'Empty Cart', 'poocommerce' ) }
 		</TextToolbarButton>
 	</Toolbar>
 </BlockControls>
@@ -34,8 +34,8 @@ Example: two text buttons to select edit modes for cart block.
 
 ---
 
-[We're hiring!](https://woocommerce.com/careers/) Come work with us!
+[We're hiring!](https://poocommerce.com/careers/) Come work with us!
 
-🐞 Found a mistake, or have a suggestion? [Leave feedback about this document here.](https://github.com/woocommerce/woocommerce/issues/new?assignees=&labels=type%3A+documentation&template=suggestion-for-documentation-improvement-correction.md&title=Feedback%20on%20./docs/README.md)
+🐞 Found a mistake, or have a suggestion? [Leave feedback about this document here.](https://github.com/poocommerce/poocommerce/issues/new?assignees=&labels=type%3A+documentation&template=suggestion-for-documentation-improvement-correction.md&title=Feedback%20on%20./docs/README.md)
 
 <!-- /FEEDBACK -->

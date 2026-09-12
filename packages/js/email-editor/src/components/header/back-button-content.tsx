@@ -77,7 +77,7 @@ function useCloseAction() {
 			}
 		};
 		const action = applyFilters(
-			'woocommerce_email_editor_close_action_callback',
+			'poocommerce_email_editor_close_action_callback',
 			defaultAction
 		);
 		( typeof action === 'function' ? action : defaultAction )();
@@ -113,7 +113,7 @@ const FullscreenBackButtonContent = () => {
 
 	return (
 		<motion.div
-			className="woocommerce-email-editor__view-mode-toggle"
+			className="poocommerce-email-editor__view-mode-toggle"
 			transition={ {
 				duration: 0.2,
 			} }
@@ -129,9 +129,9 @@ const FullscreenBackButtonContent = () => {
 				onClick={ onClose }
 			>
 				<motion.div variants={ siteIconVariants }>
-					<div className="woocommerce-email-editor__view-mode-toggle-icon">
+					<div className="poocommerce-email-editor__view-mode-toggle-icon">
 						<Icon
-							className="woocommerce-email-editor-icon__icon"
+							className="poocommerce-email-editor-icon__icon"
 							icon={ wordpress }
 							size={ 48 }
 						/>
@@ -139,7 +139,7 @@ const FullscreenBackButtonContent = () => {
 				</motion.div>
 			</Button>
 			<motion.div
-				className="woocommerce-email-editor-icon"
+				className="poocommerce-email-editor-icon"
 				variants={ toggleHomeIconVariants }
 			>
 				<Icon icon={ arrowLeft } />
@@ -184,7 +184,7 @@ const DefaultBackButtonContent = () => {
 
 export const BackButtonContent = () => {
 	const BackButtonUsedContent = applyFilters(
-		'woocommerce_email_editor_close_content',
+		'poocommerce_email_editor_close_content',
 		DefaultBackButtonContent
 	) as React.ComponentType;
 

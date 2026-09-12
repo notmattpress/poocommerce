@@ -57,9 +57,9 @@ class WC_Helper_Shipping_Zones {
 	 */
 	public static function remove_mock_zones() {
 		global $wpdb;
-		$wpdb->query( "DELETE FROM {$wpdb->prefix}woocommerce_shipping_zone_methods;" );
-		$wpdb->query( "DELETE FROM {$wpdb->prefix}woocommerce_shipping_zone_locations;" );
-		$wpdb->query( "DELETE FROM {$wpdb->prefix}woocommerce_shipping_zones;" );
+		$wpdb->query( "DELETE FROM {$wpdb->prefix}poocommerce_shipping_zone_methods;" );
+		$wpdb->query( "DELETE FROM {$wpdb->prefix}poocommerce_shipping_zone_locations;" );
+		$wpdb->query( "DELETE FROM {$wpdb->prefix}poocommerce_shipping_zones;" );
 		WC_Cache_Helper::invalidate_cache_group( 'shipping_zones' );
 	}
 }

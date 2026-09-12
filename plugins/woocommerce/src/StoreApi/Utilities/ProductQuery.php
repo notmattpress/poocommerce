@@ -1,15 +1,15 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\StoreApi\Utilities;
+namespace Automattic\PooCommerce\StoreApi\Utilities;
 
-use Automattic\WooCommerce\Enums\ProductStatus;
-use Automattic\WooCommerce\Enums\ProductType;
-use Automattic\WooCommerce\Enums\CatalogVisibility;
-use Automattic\WooCommerce\Enums\TaxDisplayMode;
-use Automattic\WooCommerce\Internal\ProductFilters\Interfaces\QueryClausesGenerator;
-use Automattic\WooCommerce\Internal\Utilities\ProductUtil;
-use Automattic\WooCommerce\StoreApi\Exceptions\RouteException;
+use Automattic\PooCommerce\Enums\ProductStatus;
+use Automattic\PooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Enums\CatalogVisibility;
+use Automattic\PooCommerce\Enums\TaxDisplayMode;
+use Automattic\PooCommerce\Internal\ProductFilters\Interfaces\QueryClausesGenerator;
+use Automattic\PooCommerce\Internal\Utilities\ProductUtil;
+use Automattic\PooCommerce\StoreApi\Exceptions\RouteException;
 use WC_Tax;
 
 /**
@@ -262,8 +262,8 @@ class ProductQuery implements QueryClausesGenerator {
 
 			if ( ! $related_product || ! $related_product->is_visible() ) {
 				throw new RouteException(
-					'woocommerce_rest_product_not_found',
-					__( 'The related product ID is invalid or the product is not visible.', 'woocommerce' ), // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- REST API JSON response, not HTML.
+					'poocommerce_rest_product_not_found',
+					__( 'The related product ID is invalid or the product is not visible.', 'poocommerce' ), // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- REST API JSON response, not HTML.
 					404
 				);
 			}
@@ -463,7 +463,7 @@ class ProductQuery implements QueryClausesGenerator {
 		if ( $wp_query->get( 'stock_status' ) ) {
 			$args['join']   = $this->append_product_sorting_table_join( $args['join'] );
 			$args['where'] .= ' AND wc_product_meta_lookup.stock_status IN (\'' . implode( '\',\'', array_map( 'esc_sql', $wp_query->get( 'stock_status' ) ) ) . '\')';
-		} elseif ( 'yes' === get_option( 'woocommerce_hide_out_of_stock_items' ) ) {
+		} elseif ( 'yes' === get_option( 'poocommerce_hide_out_of_stock_items' ) ) {
 			$args['join']   = $this->append_product_sorting_table_join( $args['join'] );
 			$args['where'] .= ' AND wc_product_meta_lookup.stock_status NOT IN (\'outofstock\')';
 		}
@@ -561,7 +561,7 @@ class ProductQuery implements QueryClausesGenerator {
 	 * @return boolean
 	 */
 	protected function adjust_price_filters_for_displayed_taxes() {
-		$display  = get_option( 'woocommerce_tax_display_shop' );
+		$display  = get_option( 'poocommerce_tax_display_shop' );
 		$database = wc_prices_include_tax() ? TaxDisplayMode::INCLUSIVE : TaxDisplayMode::EXCLUSIVE;
 
 		return $display !== $database;
@@ -587,7 +587,7 @@ class ProductQuery implements QueryClausesGenerator {
 	 * @return float
 	 */
 	protected function adjust_price_filter_for_tax_class( $price_filter, $tax_class ) {
-		$tax_display    = get_option( 'woocommerce_tax_display_shop' );
+		$tax_display    = get_option( 'poocommerce_tax_display_shop' );
 		$tax_rates      = WC_Tax::get_rates( $tax_class );
 		$base_tax_rates = WC_Tax::get_base_tax_rates( $tax_class );
 
@@ -596,18 +596,18 @@ class ProductQuery implements QueryClausesGenerator {
 			/**
 			 * Filters if taxes should be removed from locations outside the store base location.
 			 *
-			 * The woocommerce_adjust_non_base_location_prices filter can stop base taxes being taken off when dealing
+			 * The poocommerce_adjust_non_base_location_prices filter can stop base taxes being taken off when dealing
 			 * with out of base locations. e.g. If a product costs 10 including tax, all users will pay 10
 			 * regardless of location and taxes.
 			 *
 			 * @since 2.6.0
 			 *
-			 * @internal Matches filter name in WooCommerce core.
+			 * @internal Matches filter name in PooCommerce core.
 			 *
 			 * @param boolean $adjust_non_base_location_prices True by default.
 			 * @return boolean
 			 */
-			$taxes = apply_filters( 'woocommerce_adjust_non_base_location_prices', true ) ? WC_Tax::calc_tax( $price_filter, $base_tax_rates, true ) : WC_Tax::calc_tax( $price_filter, $tax_rates, true );
+			$taxes = apply_filters( 'poocommerce_adjust_non_base_location_prices', true ) ? WC_Tax::calc_tax( $price_filter, $base_tax_rates, true ) : WC_Tax::calc_tax( $price_filter, $tax_rates, true );
 			return $price_filter - array_sum( $taxes );
 		}
 

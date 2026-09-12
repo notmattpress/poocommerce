@@ -1,8 +1,8 @@
 <?php
 
-namespace Automattic\WooCommerce\Blueprint\Tests\stubs\Steps;
+namespace Automattic\PooCommerce\Blueprint\Tests\stubs\Steps;
 
-use Automattic\WooCommerce\Blueprint\Steps\Step;
+use Automattic\PooCommerce\Blueprint\Steps\Step;
 
 /**
  * Dummy step class.

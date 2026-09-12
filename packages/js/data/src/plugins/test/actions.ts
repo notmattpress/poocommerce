@@ -224,9 +224,9 @@ describe( 'installPlugins error message', () => {
 
 	it( 'frames a permission error without repeating the plugin name', () => {
 		const error = runUntilThrow(
-			installPlugins( [ 'woocommerce-payments' ] ),
+			installPlugins( [ 'poocommerce-payments' ] ),
 			{
-				code: 'woocommerce_rest_cannot_update',
+				code: 'poocommerce_rest_cannot_update',
 				message: 'Sorry',
 				data: { status: 403 },
 			},
@@ -234,19 +234,19 @@ describe( 'installPlugins error message', () => {
 		);
 
 		expect( error?.message ).toBe(
-			'Could not install woocommerce-payments. You do not have permissions to manage plugins. Please contact your site administrator.'
+			'Could not install poocommerce-payments. You do not have permissions to manage plugins. Please contact your site administrator.'
 		);
 	} );
 
 	it( 'frames a connection error message', () => {
 		const error = runUntilThrow(
-			installPlugins( [ 'woocommerce-payments' ] ),
+			installPlugins( [ 'poocommerce-payments' ] ),
 			new Error( 'Failed to fetch' ),
 			true
 		);
 
 		expect( error?.message ).toBe(
-			'Could not install woocommerce-payments. Failed to fetch'
+			'Could not install poocommerce-payments. Failed to fetch'
 		);
 	} );
 
@@ -314,7 +314,7 @@ describe( 'installPlugins error message', () => {
 	} );
 
 	it( 'keeps a failure for a plugin the server added to the request', () => {
-		// woocommerce_admin_plugins_pre_install can add plugins server-side; their failures
+		// poocommerce_admin_plugins_pre_install can add plugins server-side; their failures
 		// come back in the same payload and must not vanish from the notice.
 		const error = runUntilThrow( installPlugins( [ 'a' ] ), {
 			data: { installed: [], results: {} },

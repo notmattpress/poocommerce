@@ -1,12 +1,12 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "woocommerce/add-to-cart-with-options-variation-description",
+	"name": "poocommerce/add-to-cart-with-options-variation-description",
 	"title": "Variation Description (Beta)",
 	"description": "Displays the description of the selected variation.",
-	"category": "woocommerce",
-	"textdomain": "woocommerce",
-	"ancestor": [ "woocommerce/add-to-cart-with-options" ],
+	"category": "poocommerce",
+	"textdomain": "poocommerce",
+	"ancestor": [ "poocommerce/add-to-cart-with-options" ],
 	"supports": {
 		"interactivity": true,
 		"html": false,
@@ -38,5 +38,5 @@
 			"style": true
 		}
 	},
-	"viewScriptModule": "woocommerce/product-elements"
+	"viewScriptModule": "poocommerce/product-elements"
 }

@@ -350,7 +350,7 @@ If a cart action cannot be performed, an error response will be returned. This w
 
 ```json
 {
-	"code": "woocommerce_rest_cart_invalid_product",
+	"code": "poocommerce_rest_cart_invalid_product",
 	"message": "This product cannot be added to the cart.",
 	"data": {
 		"status": 400
@@ -362,7 +362,7 @@ Some error responses indicate conflicts (error 409), for example, when an item c
 
 ```json
 {
-  "code": "woocommerce_rest_cart_invalid_key",
+  "code": "poocommerce_rest_cart_invalid_key",
   "message": "Cart item no longer exists or is invalid.",
   "data": {
     "status": 409,
@@ -395,10 +395,10 @@ curl --header "Nonce: 12345" --request POST https://example-store.com/wp-json/wc
 
 Returns the full [Cart Response](#cart-response) on success, or an [Error Response](#error-response) on failure.
 
-If you want to add supplemental cart item data before it is passed into `CartController::add_to_cart` use the [`woocommerce_store_api_add_to_cart_data`](https://github.com/woocommerce/woocommerce-blocks/blob/4d1c295a2bace9a4f6397cfd5469db31083d477a/docs/third-party-developers/extensibility/hooks/filters.md#woocommerce_store_api_add_to_cart_data) filter. For example:
+If you want to add supplemental cart item data before it is passed into `CartController::add_to_cart` use the [`poocommerce_store_api_add_to_cart_data`](https://github.com/poocommerce/poocommerce-blocks/blob/4d1c295a2bace9a4f6397cfd5469db31083d477a/docs/third-party-developers/extensibility/hooks/filters.md#poocommerce_store_api_add_to_cart_data) filter. For example:
 
 ```php
-add_filter( 'woocommerce_store_api_add_to_cart_data', function( $add_to_cart_data, \WP_REST_Request $request ) {
+add_filter( 'poocommerce_store_api_add_to_cart_data', function( $add_to_cart_data, \WP_REST_Request $request ) {
 	if ( ! empty( $request['custom-request-param'] ) ) {
 		$add_to_cart_data['cart_item_data']['custom-request-data'] = sanitize_text_field( $request['custom-request-param'] );
 	}

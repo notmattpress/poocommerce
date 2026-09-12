@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { test as base, expect, BLOCK_THEME_SLUG } from '@woocommerce/e2e-utils';
+import { test as base, expect, BLOCK_THEME_SLUG } from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -66,7 +66,7 @@ test.describe( 'Product Collection: Register Product Collection', () => {
 		while ( retryCount < maxRetries ) {
 			try {
 				await requestUtils.activatePlugin(
-					'woocommerce-blocks-test-register-product-collection'
+					'poocommerce-blocks-test-register-product-collection'
 				);
 
 				// Verify plugin is active by making a test request

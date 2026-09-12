@@ -59,7 +59,7 @@ const customer = {
 };
 
 // Reviews are ordered by when they were created.
-// source: plugins/woocommerce/tests/e2e/bin/blocks/scripts/parallel/reviews.sh
+// source: plugins/poocommerce/tests/e2e/bin/blocks/scripts/parallel/reviews.sh
 // Three distinct ratings so latest / highest / lowest are different reviews.
 const hoodieReviews = [
 	{

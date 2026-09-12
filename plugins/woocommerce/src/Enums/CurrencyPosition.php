@@ -2,10 +2,10 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Enums;
+namespace Automattic\PooCommerce\Enums;
 
 /**
- * Enum class for the possible values of the `woocommerce_currency_pos` option,
+ * Enum class for the possible values of the `poocommerce_currency_pos` option,
  * which determines where the currency symbol appears relative to the price.
  *
  * @since 11.0.0

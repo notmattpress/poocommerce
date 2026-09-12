@@ -8,12 +8,12 @@
  * Integration zone: WordPress-native. The flat `meta_key`/`meta_value` lookup round-trips
  * through both the HPOS and legacy order stores.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine\Integration\Checkout
+ * @package Automattic\PooCommerce\SubscriptionsEngine\Integration\Checkout
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Integration\Checkout;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Integration\Checkout;
 
 use WC_Order;
 

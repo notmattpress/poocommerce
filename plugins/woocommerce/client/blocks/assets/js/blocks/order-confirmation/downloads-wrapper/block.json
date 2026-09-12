@@ -1,11 +1,11 @@
 {
-	"name": "woocommerce/order-confirmation-downloads-wrapper",
+	"name": "poocommerce/order-confirmation-downloads-wrapper",
 	"version": "1.0.0",
 	"title": "Downloads Section",
 	"description": "Display the downloadable products section.",
-	"category": "woocommerce",
+	"category": "poocommerce",
 	"keywords": [
-		"WooCommerce"
+		"PooCommerce"
 	],
 	"attributes": {
 		"heading": {
@@ -28,7 +28,7 @@
 			}
 		}
 	},
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"apiVersion": 3,
 	"$schema": "https://schemas.wp.org/trunk/block.json"
 }

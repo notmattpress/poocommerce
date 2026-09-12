@@ -1,11 +1,11 @@
 <?php
 
-use Automattic\WooCommerce\Admin\Notes\Note;
+use Automattic\PooCommerce\Admin\Notes\Note;
 
 /**
  * DB Update test for wc_admin_update_300_update_is_read_from_last_read()
  *
- * @package WooCommerce\Admin\Tests\DBUpdates
+ * @package PooCommerce\Admin\Tests\DBUpdates
  */
 class WC_Admin_Tests_Update_Is_Read_From_Last_Read extends WC_Unit_Test_Case {
 	/**
@@ -26,7 +26,7 @@ class WC_Admin_Tests_Update_Is_Read_From_Last_Read extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Given woocommerce_admin_activity_panel_inbox_last_read does not exist
+	 * Given poocommerce_admin_activity_panel_inbox_last_read does not exist
 	 * When the update runs
 	 * Then it should not update is_read col
 	 */
@@ -35,7 +35,7 @@ class WC_Admin_Tests_Update_Is_Read_From_Last_Read extends WC_Unit_Test_Case {
 
 		$wpdb->query(
 			"
-			delete from {$wpdb->prefix}usermeta where meta_key = 'woocommerce_admin_activity_panel_inbox_last_read'
+			delete from {$wpdb->prefix}usermeta where meta_key = 'poocommerce_admin_activity_panel_inbox_last_read'
 		"
 		);
 
@@ -50,20 +50,20 @@ class WC_Admin_Tests_Update_Is_Read_From_Last_Read extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Give woocommerce_admin_activity_panel_inbox_last_read
+	 * Give poocommerce_admin_activity_panel_inbox_last_read
 	 * When the update runs
-	 * Then it should update notes where date_created value is less than woocommerce_admin_activity_panel_inbox_last_read
+	 * Then it should update notes where date_created value is less than poocommerce_admin_activity_panel_inbox_last_read
 	 */
 	public function test_it_updates_is_read_when_date_created_value_is_less_than_last_read() {
 		global $wpdb;
 		$time = time();
 
-		$meta_key = 'woocommerce_admin_activity_panel_inbox_last_read';
+		$meta_key = 'poocommerce_admin_activity_panel_inbox_last_read';
 
 		wp_set_current_user( $this->user );
 		$wpdb->query( "delete from {$wpdb->prefix}wc_admin_notes" );
 
-		// Note with date_created less than woocommerce_admin_activity_panel_inbox_last_read.
+		// Note with date_created less than poocommerce_admin_activity_panel_inbox_last_read.
 		$note = new Note();
 		$note->set_title( 'test1' );
 		$note->set_content( 'test1' );
@@ -71,7 +71,7 @@ class WC_Admin_Tests_Update_Is_Read_From_Last_Read extends WC_Unit_Test_Case {
 		$note->save();
 		$date_created_1 = gmdate( 'Y-m-d H:i:s', $time - 3600 );
 
-		// Note with date_created greater than woocommerce_admin_activity_panel_inbox_last_read.
+		// Note with date_created greater than poocommerce_admin_activity_panel_inbox_last_read.
 		$note = new Note();
 		$note->set_title( 'test2' );
 		$note->set_content( 'test2' );

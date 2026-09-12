@@ -6,13 +6,13 @@ import {
 	expect,
 	PostCompiler,
 	test as base,
-} from '@woocommerce/e2e-utils';
+} from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
  */
 
-const BLOCK_NAME = 'woocommerce/all-products';
+const BLOCK_NAME = 'poocommerce/all-products';
 
 const test = base.extend< { postCompiler: PostCompiler } >( {
 	postCompiler: async ( { requestUtils }, use ) => {
@@ -25,7 +25,7 @@ const test = base.extend< { postCompiler: PostCompiler } >( {
 } );
 
 test.describe( `${ BLOCK_NAME } Block`, () => {
-	// Check this regression: hhttps://github.com/woocommerce/woocommerce/pull/58741.
+	// Check this regression: hhttps://github.com/poocommerce/poocommerce/pull/58741.
 	// The block has a dependency on the Mini Cart block/Checkout/Cart blocks.
 	// This test checks that the block can be inserted and it is rendered on the frontend without the mini cart block.
 	test( 'block can be inserted and it is rendered on the frontend without the Mini-Cart block', async ( {
@@ -60,7 +60,7 @@ test.describe( `${ BLOCK_NAME } Block`, () => {
 	} );
 
 	// Regression coverage for legacy filter markup:
-	// https://github.com/woocommerce/woocommerce-blocks/pull/9954
+	// https://github.com/poocommerce/poocommerce-blocks/pull/9954
 	test( 'legacy filter blocks render and filter All Products', async ( {
 		page,
 		postCompiler,

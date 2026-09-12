@@ -1,4 +1,4 @@
-# WooCommerce Blocks - Patterns
+# PooCommerce Blocks - Patterns
 
 ## Naming Conventions for Patterns
 

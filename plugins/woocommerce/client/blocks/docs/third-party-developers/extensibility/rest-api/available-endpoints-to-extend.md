@@ -2,8 +2,8 @@
 
 > **⚠️ Document Moved**
 > 
-> This document has been moved to the main WooCommerce documentation repository. You can find the updated version at:
+> This document has been moved to the main PooCommerce documentation repository. You can find the updated version at:
 > 
-> **[Available Endpoints to Extend](https://github.com/woocommerce/woocommerce/tree/trunk/docs/apis/store-api/extending-store-api/available-endpoints-to-extend.md)**
+> **[Available Endpoints to Extend](https://github.com/poocommerce/poocommerce/tree/trunk/docs/apis/store-api/extending-store-api/available-endpoints-to-extend.md)**
 > 
 > Please update your bookmarks and references to the new location.

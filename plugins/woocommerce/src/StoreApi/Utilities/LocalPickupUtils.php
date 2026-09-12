@@ -1,5 +1,5 @@
 <?php
-namespace Automattic\WooCommerce\StoreApi\Utilities;
+namespace Automattic\PooCommerce\StoreApi\Utilities;
 
 /**
  * Util class for local pickup related functionality, this contains methods that need to be accessed from places besides
@@ -14,17 +14,17 @@ class LocalPickupUtils {
 	 */
 	public static function get_local_pickup_settings( $context = 'view' ) {
 		$pickup_location_settings = get_option(
-			'woocommerce_pickup_location_settings',
+			'poocommerce_pickup_location_settings',
 			[
 				'enabled'    => 'no',
-				'title'      => __( 'Pickup', 'woocommerce' ),
+				'title'      => __( 'Pickup', 'poocommerce' ),
 				'cost'       => '',
 				'tax_status' => 'taxable',
 			]
 		);
 
 		if ( empty( $pickup_location_settings['title'] ) ) {
-			$pickup_location_settings['title'] = __( 'Pickup', 'woocommerce' );
+			$pickup_location_settings['title'] = __( 'Pickup', 'poocommerce' );
 		}
 
 		if ( empty( $pickup_location_settings['enabled'] ) ) {
@@ -54,9 +54,9 @@ class LocalPickupUtils {
 	 */
 	public static function is_local_pickup_enabled() {
 		// Get option directly to avoid early translation function call.
-		// See https://github.com/woocommerce/woocommerce/pull/47113.
+		// See https://github.com/poocommerce/poocommerce/pull/47113.
 		$pickup_location_settings = get_option(
-			'woocommerce_pickup_location_settings',
+			'poocommerce_pickup_location_settings',
 			[
 				'enabled' => 'no',
 			]
@@ -163,7 +163,7 @@ class LocalPickupUtils {
 				),
 				'details'   => sprintf(
 					/* translators: %s: shipping method title */
-					__( 'Pickup location for %s', 'woocommerce' ),
+					__( 'Pickup location for %s', 'poocommerce' ),
 					$method->get_method_title()
 				),
 				'method_id' => $method->id,

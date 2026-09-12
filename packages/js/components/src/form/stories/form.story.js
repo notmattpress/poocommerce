@@ -9,7 +9,7 @@ import {
 	TextControl,
 } from '@wordpress/components';
 import { useState } from '@wordpress/element';
-import { Form, DateTimePickerControl } from '@woocommerce/components';
+import { Form, DateTimePickerControl } from '@poocommerce/components';
 import moment from 'moment';
 
 const validate = ( values ) => {

@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Automattic\WooCommerce\EmailEditorVendor\Symfony\Component\CssSelector\Node;
+namespace Automattic\PooCommerce\EmailEditorVendor\Symfony\Component\CssSelector\Node;
 
 /**
  * Represents a "<selector>[<namespace>|<attribute> <operator> <value>]" node.

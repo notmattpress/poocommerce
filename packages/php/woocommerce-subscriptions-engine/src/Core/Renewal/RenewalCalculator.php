@@ -14,18 +14,18 @@
  * deterministic and unit-testable. All cadence math delegates to
  * {@see BillingPolicy} so there is a single cadence path in the package.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine\Core\Renewal
+ * @package Automattic\PooCommerce\SubscriptionsEngine\Core\Renewal
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Core\Renewal;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Core\Renewal;
 
 use DateTimeImmutable;
 use DateTimeZone;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\Cycle;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\CycleStatus;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\ValueObject\BillingPolicy;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\Cycle;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\CycleStatus;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\ValueObject\BillingPolicy;
 
 defined( 'ABSPATH' ) || exit;
 

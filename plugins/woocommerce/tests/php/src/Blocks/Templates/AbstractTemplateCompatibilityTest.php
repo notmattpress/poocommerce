@@ -1,9 +1,9 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\Templates;
+namespace Automattic\PooCommerce\Tests\Blocks\Templates;
 
-use Automattic\WooCommerce\Blocks\Templates\AbstractTemplateCompatibility;
+use Automattic\PooCommerce\Blocks\Templates\AbstractTemplateCompatibility;
 use WP_UnitTestCase;
 
 /**
@@ -61,7 +61,7 @@ class AbstractTemplateCompatibilityTest extends WP_UnitTestCase {
 		$received_default = null;
 
 		add_filter(
-			'woocommerce_disable_compatibility_layer',
+			'poocommerce_disable_compatibility_layer',
 			function ( $should_disable ) use ( &$received_default ) {
 				$received_default = $should_disable;
 
@@ -81,7 +81,7 @@ class AbstractTemplateCompatibilityTest extends WP_UnitTestCase {
 	 * @testdox Keeps the compatibility layer enabled when an extension overrides a legacy template default to false.
 	 */
 	public function test_keeps_compatibility_layer_enabled_when_extension_overrides_legacy_default_to_false(): void {
-		add_filter( 'woocommerce_disable_compatibility_layer', '__return_false' );
+		add_filter( 'poocommerce_disable_compatibility_layer', '__return_false' );
 
 		$this->sut = $this->create_sut( true );
 		$this->sut->set_compatibility_layer_flag();
@@ -96,7 +96,7 @@ class AbstractTemplateCompatibilityTest extends WP_UnitTestCase {
 	 * @testdox Disables the compatibility layer when an extension overrides a blockified template default to true.
 	 */
 	public function test_disables_compatibility_layer_when_extension_overrides_blockified_default_to_true(): void {
-		add_filter( 'woocommerce_disable_compatibility_layer', '__return_true' );
+		add_filter( 'poocommerce_disable_compatibility_layer', '__return_true' );
 
 		$this->sut = $this->create_sut( false );
 		$this->sut->set_compatibility_layer_flag();
@@ -119,7 +119,7 @@ class AbstractTemplateCompatibilityTest extends WP_UnitTestCase {
 		 * @since 7.6.0
 		 * @param bool $is_disabled_compatibility_layer Whether the compatibility layer should be disabled.
 		 */
-		return apply_filters( 'woocommerce_disable_compatibility_layer', false );
+		return apply_filters( 'poocommerce_disable_compatibility_layer', false );
 	}
 
 	/**
@@ -188,8 +188,8 @@ class AbstractTemplateCompatibilityTest extends WP_UnitTestCase {
 	 * Removes filters registered during tests.
 	 */
 	private function remove_compatibility_layer_filters(): void {
-		remove_filter( 'woocommerce_disable_compatibility_layer', '__return_true' );
-		remove_filter( 'woocommerce_disable_compatibility_layer', '__return_false' );
-		remove_all_filters( 'woocommerce_disable_compatibility_layer' );
+		remove_filter( 'poocommerce_disable_compatibility_layer', '__return_true' );
+		remove_filter( 'poocommerce_disable_compatibility_layer', '__return_false' );
+		remove_all_filters( 'poocommerce_disable_compatibility_layer' );
 	}
 }

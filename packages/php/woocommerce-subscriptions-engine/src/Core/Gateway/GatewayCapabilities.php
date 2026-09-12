@@ -6,18 +6,18 @@
  * "I can process recurring charges," "I tolerate variable amounts," "I run my
  * own renewal schedule." This Core class owns the in-memory declarations and
  * the predicate over them; the WordPress-facing entry point lives in
- * {@see \Automattic\WooCommerce\SubscriptionsEngine\Integration\Gateway\CapabilityRegistry},
+ * {@see \Automattic\PooCommerce\SubscriptionsEngine\Integration\Gateway\CapabilityRegistry},
  * which delegates registration here and layers the live-gateway and filter
  * resolution steps on top.
  *
  * Core zone: WordPress-free by design. No WP/Woo symbols, no time functions.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine\Core\Gateway
+ * @package Automattic\PooCommerce\SubscriptionsEngine\Core\Gateway
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Core\Gateway;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Core\Gateway;
 
 use InvalidArgumentException;
 
@@ -104,7 +104,7 @@ final class GatewayCapabilities {
 	 * Re-declaration replaces: if a gateway declares twice, the second call wins
 	 * outright - we do not merge. Merging would make "I removed this capability"
 	 * impossible to express, and it mirrors the replace-not-merge semantics of
-	 * WooCommerce's own feature-compatibility declarations.
+	 * PooCommerce's own feature-compatibility declarations.
 	 *
 	 * @param string             $gateway_id   Gateway identifier.
 	 * @param array<int, string> $capabilities Capability flag strings; each must be one of {@see self::known_capabilities()}.

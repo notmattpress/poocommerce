@@ -2,11 +2,11 @@
 /**
  * Tests for the orders REST API.
  *
- * @package WooCommerce\Tests\API
+ * @package PooCommerce\Tests\API
  * @since 3.0.0
  */
 
-use Automattic\WooCommerce\Enums\ProductTaxStatus;
+use Automattic\PooCommerce\Enums\ProductTaxStatus;
 
 /**
  * Class WC_Tests_API_Orders_V2
@@ -105,14 +105,14 @@ class WC_Tests_API_Orders_V2 extends WC_REST_Unit_Test_Case {
 		$site_level_term_insertion_result = wp_insert_term( 'Site Level Value - Blue', $site_level_attribute_slug );
 		$site_level_term                  = get_term( $site_level_term_insertion_result['term_id'] );
 
-		$product   = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_variation_product();
+		$product   = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_variation_product();
 		$variation = wc_get_product( $product->get_children()[0] );
 
 		$line_item = new WC_Order_Item_Product();
 		$line_item->set_product( $variation );
 		$line_item->set_props( array( 'variation' => array( "attribute_{$site_level_attribute_slug}" => $site_level_term->slug ) ) );
 
-		$order = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 		$order->add_item( $line_item );
 		$order->save();
 
@@ -145,7 +145,7 @@ class WC_Tests_API_Orders_V2 extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_get_item() {
 		wp_set_current_user( $this->user );
-		$order = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 		$order->add_meta_data( 'key', 'value' );
 		$order->add_meta_data( 'key2', 'value2' );
 		$order->save();
@@ -191,7 +191,7 @@ class WC_Tests_API_Orders_V2 extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_get_item_refund_id() {
 		wp_set_current_user( $this->user );
-		$order    = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order    = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 		$refund   = wc_create_refund(
 			array(
 				'order_id' => $order->get_id(),
@@ -207,7 +207,7 @@ class WC_Tests_API_Orders_V2 extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_create_order() {
 		wp_set_current_user( $this->user );
-		$product = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
+		$product = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
 		$request = new WP_REST_Request( 'POST', '/wc/v2/orders' );
 		$request->set_body_params(
 			array(
@@ -302,7 +302,7 @@ class WC_Tests_API_Orders_V2 extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_create_update_order_payment_method_title_sanitize() {
 		wp_set_current_user( $this->user );
-		$product = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
+		$product = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
 
 		// Test when creating order.
 		$request = new WP_REST_Request( 'POST', '/wc/v3/orders' );
@@ -377,7 +377,7 @@ class WC_Tests_API_Orders_V2 extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_create_order_invalid_fields() {
 		wp_set_current_user( $this->user );
-		$product = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
+		$product = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
 
 		// Non-existent customer.
 		$request = new WP_REST_Request( 'POST', '/wc/v2/orders' );
@@ -449,7 +449,7 @@ class WC_Tests_API_Orders_V2 extends WC_REST_Unit_Test_Case {
 
 		$response = $this->server->dispatch( $request );
 		$data     = $response->get_data();
-		$this->assertEquals( 'woocommerce_rest_required_product_reference', $data['code'] );
+		$this->assertEquals( 'poocommerce_rest_required_product_reference', $data['code'] );
 		$this->assertEquals( 400, $response->get_status() );
 	}
 
@@ -460,7 +460,7 @@ class WC_Tests_API_Orders_V2 extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_update_order() {
 		wp_set_current_user( $this->user );
-		$order   = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order   = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 		$request = new WP_REST_Request( 'PUT', '/wc/v2/orders/' . $order->get_id() );
 		$request->set_body_params(
 			array(
@@ -487,7 +487,7 @@ class WC_Tests_API_Orders_V2 extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_update_order_remove_items() {
 		wp_set_current_user( $this->user );
-		$order = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 		$fee   = new WC_Order_Item_Fee();
 		$fee->set_props(
 			array(
@@ -527,8 +527,8 @@ class WC_Tests_API_Orders_V2 extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_update_order_after_delete_product() {
 		wp_set_current_user( $this->user );
-		$product = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
-		$order   = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order( 1, $product );
+		$product = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
+		$order   = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order( 1, $product );
 		$product->delete( true );
 
 		$request    = new WP_REST_Request( 'PUT', '/wc/v2/orders/' . $order->get_id() );
@@ -582,9 +582,9 @@ class WC_Tests_API_Orders_V2 extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_update_order_add_coupons() {
 		wp_set_current_user( $this->user );
-		$order      = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order      = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 		$order_item = current( $order->get_items() );
-		$coupon     = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\CouponHelper::create_coupon( 'fake-coupon' );
+		$coupon     = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\CouponHelper::create_coupon( 'fake-coupon' );
 		$coupon->set_amount( 5 );
 		$coupon->save();
 		$request = new WP_REST_Request( 'PUT', '/wc/v2/orders/' . $order->get_id() );
@@ -621,9 +621,9 @@ class WC_Tests_API_Orders_V2 extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_update_order_remove_coupons() {
 		wp_set_current_user( $this->user );
-		$order      = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order      = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 		$order_item = current( $order->get_items() );
-		$coupon     = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\CouponHelper::create_coupon( 'fake-coupon' );
+		$coupon     = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\CouponHelper::create_coupon( 'fake-coupon' );
 		$coupon->set_amount( 5 );
 		$coupon->save();
 
@@ -709,7 +709,7 @@ class WC_Tests_API_Orders_V2 extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_delete_order() {
 		wp_set_current_user( $this->user );
-		$order   = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order   = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 		$request = new WP_REST_Request( 'DELETE', '/wc/v2/orders/' . $order->get_id() );
 		$request->set_param( 'force', true );
 		$response = $this->server->dispatch( $request );
@@ -749,9 +749,9 @@ class WC_Tests_API_Orders_V2 extends WC_REST_Unit_Test_Case {
 	public function test_orders_batch() {
 		wp_set_current_user( $this->user );
 
-		$order1 = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
-		$order2 = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
-		$order3 = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order1 = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order2 = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order3 = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 
 		$request = new WP_REST_Request( 'POST', '/wc/v2/orders/batch' );
 		$request->set_body_params(
@@ -787,7 +787,7 @@ class WC_Tests_API_Orders_V2 extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_order_schema() {
 		wp_set_current_user( $this->user );
-		$order      = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order      = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 		$request    = new WP_REST_Request( 'OPTIONS', '/wc/v2/orders/' . $order->get_id() );
 		$response   = $this->server->dispatch( $request );
 		$data       = $response->get_data();
@@ -802,7 +802,7 @@ class WC_Tests_API_Orders_V2 extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_order_line_items_schema() {
 		wp_set_current_user( $this->user );
-		$order    = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order    = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 		$request  = new WP_REST_Request( 'OPTIONS', '/wc/v2/orders/' . $order->get_id() );
 		$response = $this->server->dispatch( $request );
 

@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { registerBlockType } from '@wordpress/blocks';
-import { productFilterActive } from '@woocommerce/icons';
+import { productFilterActive } from '@poocommerce/icons';
 
 /**
  * Internal dependencies

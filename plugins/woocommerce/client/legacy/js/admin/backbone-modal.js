@@ -3,7 +3,7 @@
 	'use strict';
 
 	/**
-	 * WooCommerce Backbone Modal plugin
+	 * PooCommerce Backbone Modal plugin
 	 *
 	 * @param {object} options
 	 */

@@ -2,9 +2,9 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\EmailEditor\WCTransactionalEmails;
+namespace Automattic\PooCommerce\Tests\Internal\EmailEditor\WCTransactionalEmails;
 
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmails;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmails;
 
 /**
  * Tests for the WCTransactionalEmails class.
@@ -15,7 +15,7 @@ class WCTransactionalEmailsTest extends \WC_Unit_Test_Case {
 	 */
 	public function setUp(): void {
 		parent::setUp();
-		add_option( 'woocommerce_feature_block_email_editor_enabled', 'yes' );
+		add_option( 'poocommerce_feature_block_email_editor_enabled', 'yes' );
 	}
 
 	/**
@@ -38,7 +38,7 @@ class WCTransactionalEmailsTest extends \WC_Unit_Test_Case {
 	 */
 	public function testGetTransactionalEmailsCanBeFiltered(): void {
 		add_filter(
-			'woocommerce_transactional_emails_for_block_editor',
+			'poocommerce_transactional_emails_for_block_editor',
 			function ( $emails ) {
 				$emails[] = 'custom_email';
 				return $emails;
@@ -55,7 +55,7 @@ class WCTransactionalEmailsTest extends \WC_Unit_Test_Case {
 	 */
 	public function testGetCoreTransactionalEmailsIgnoresBlockEditorFilter(): void {
 		add_filter(
-			'woocommerce_transactional_emails_for_block_editor',
+			'poocommerce_transactional_emails_for_block_editor',
 			function ( $emails ) {
 				$emails[] = 'custom_email';
 				return $emails;
@@ -83,6 +83,6 @@ class WCTransactionalEmailsTest extends \WC_Unit_Test_Case {
 	 */
 	public function tearDown(): void {
 		parent::tearDown();
-		update_option( 'woocommerce_feature_block_email_editor_enabled', 'no' );
+		update_option( 'poocommerce_feature_block_email_editor_enabled', 'no' );
 	}
 }

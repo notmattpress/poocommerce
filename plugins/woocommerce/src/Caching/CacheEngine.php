@@ -1,6 +1,6 @@
 <?php
 
-namespace Automattic\WooCommerce\Caching;
+namespace Automattic\PooCommerce\Caching;
 
 /**
  * Interface for cache engines used by objects inheriting from ObjectCache.

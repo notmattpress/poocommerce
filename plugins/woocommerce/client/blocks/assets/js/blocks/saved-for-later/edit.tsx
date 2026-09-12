@@ -18,8 +18,8 @@ import {
 	PLACEHOLDER_IMG_SRC,
 	getSettingWithCoercion,
 	getAdminLink,
-} from '@woocommerce/settings';
-import { isBoolean } from '@woocommerce/types';
+} from '@poocommerce/settings';
+import { isBoolean } from '@poocommerce/types';
 
 interface SavedForLaterAttributes {
 	columnCount?: number;
@@ -42,52 +42,52 @@ const DEFAULT_COLUMNS = 5;
 const TEMPLATE: [ string, Record< string, unknown > ][] = [
 	[
 		'core/heading',
-		{ content: __( 'Saved for later', 'woocommerce' ), level: 2 },
+		{ content: __( 'Saved for later', 'poocommerce' ), level: 2 },
 	],
 ];
 
 const PREVIEW_ITEMS = [
 	{
 		key: 'preview-1',
-		name: __( 'Sample product one', 'woocommerce' ),
-		variation: __( 'Size: M', 'woocommerce' ),
+		name: __( 'Sample product one', 'poocommerce' ),
+		variation: __( 'Size: M', 'poocommerce' ),
 		price: '$19.99',
-		quantity: __( 'Qty: 2', 'woocommerce' ),
+		quantity: __( 'Qty: 2', 'poocommerce' ),
 	},
 	{
 		key: 'preview-2',
-		name: __( 'Sample product two', 'woocommerce' ),
-		variation: __( 'Color: Blue', 'woocommerce' ),
+		name: __( 'Sample product two', 'poocommerce' ),
+		variation: __( 'Color: Blue', 'poocommerce' ),
 		price: '$29.99',
-		quantity: __( 'Qty: 1', 'woocommerce' ),
+		quantity: __( 'Qty: 1', 'poocommerce' ),
 	},
 	{
 		key: 'preview-3',
-		name: __( 'Sample product three', 'woocommerce' ),
+		name: __( 'Sample product three', 'poocommerce' ),
 		variation: '',
 		price: '$9.99',
-		quantity: __( 'Qty: 3', 'woocommerce' ),
+		quantity: __( 'Qty: 3', 'poocommerce' ),
 	},
 	{
 		key: 'preview-4',
-		name: __( 'Sample product four', 'woocommerce' ),
-		variation: __( 'Size: L', 'woocommerce' ),
+		name: __( 'Sample product four', 'poocommerce' ),
+		variation: __( 'Size: L', 'poocommerce' ),
 		price: '$24.99',
-		quantity: __( 'Qty: 1', 'woocommerce' ),
+		quantity: __( 'Qty: 1', 'poocommerce' ),
 	},
 	{
 		key: 'preview-5',
-		name: __( 'Sample product five', 'woocommerce' ),
+		name: __( 'Sample product five', 'poocommerce' ),
 		variation: '',
 		price: '$14.99',
-		quantity: __( 'Qty: 2', 'woocommerce' ),
+		quantity: __( 'Qty: 2', 'poocommerce' ),
 	},
 	{
 		key: 'preview-6',
-		name: __( 'Sample product six', 'woocommerce' ),
-		variation: __( 'Color: Red', 'woocommerce' ),
+		name: __( 'Sample product six', 'poocommerce' ),
+		variation: __( 'Color: Red', 'poocommerce' ),
 		price: '$39.99',
-		quantity: __( 'Qty: 1', 'woocommerce' ),
+		quantity: __( 'Qty: 1', 'poocommerce' ),
 	},
 ];
 
@@ -124,14 +124,14 @@ const Edit = ( { attributes, setAttributes }: EditProps ): JSX.Element => {
 			<div { ...blockProps }>
 				<Placeholder
 					icon={ <Icon icon={ starEmpty } /> }
-					label={ __( 'Saved for later', 'woocommerce' ) }
+					label={ __( 'Saved for later', 'poocommerce' ) }
 					instructions={ sprintf(
 						/* translators: %s: the feature name ("Save for Later in Cart"). */
 						__(
 							'The “%s” feature is off, so this block will not appear on your store.',
-							'woocommerce'
+							'poocommerce'
 						),
-						__( 'Save for Later in Cart', 'woocommerce' )
+						__( 'Save for Later in Cart', 'poocommerce' )
 					) }
 				>
 					<ExternalLink
@@ -140,8 +140,8 @@ const Edit = ( { attributes, setAttributes }: EditProps ): JSX.Element => {
 						) }
 					>
 						{ __(
-							'Enable it in WooCommerce settings',
-							'woocommerce'
+							'Enable it in PooCommerce settings',
+							'poocommerce'
 						) }
 					</ExternalLink>
 				</Placeholder>
@@ -152,11 +152,11 @@ const Edit = ( { attributes, setAttributes }: EditProps ): JSX.Element => {
 	return (
 		<>
 			<InspectorControls>
-				<PanelBody title={ __( 'Settings', 'woocommerce' ) }>
+				<PanelBody title={ __( 'Settings', 'poocommerce' ) }>
 					<RangeControl
 						__next40pxDefaultSize
 						__nextHasNoMarginBottom
-						label={ __( 'Columns', 'woocommerce' ) }
+						label={ __( 'Columns', 'poocommerce' ) }
 						value={ columnCount }
 						onChange={ ( value?: number ) => {
 							if ( typeof value !== 'number' ) {
@@ -193,7 +193,7 @@ const Edit = ( { attributes, setAttributes }: EditProps ): JSX.Element => {
 										/* translators: %s: product name. */
 										__(
 											'Remove %s from Saved for later list',
-											'woocommerce'
+											'poocommerce'
 										),
 										item.name
 									) }
@@ -229,7 +229,7 @@ const Edit = ( { attributes, setAttributes }: EditProps ): JSX.Element => {
 									className="wp-block-button__link wp-element-button add_to_cart_button wc-block-components-product-button__button"
 									disabled
 								>
-									{ __( 'Move to cart', 'woocommerce' ) }
+									{ __( 'Move to cart', 'poocommerce' ) }
 								</button>
 							</div>
 						</li>

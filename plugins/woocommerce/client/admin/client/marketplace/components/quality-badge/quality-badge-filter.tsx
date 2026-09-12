@@ -10,8 +10,8 @@ import {
 import { FormToggle, Icon } from '@wordpress/components';
 import { info } from '@wordpress/icons';
 import { useInstanceId } from '@wordpress/compose';
-import { recordEvent } from '@woocommerce/tracks';
-import { getNewPath, navigateTo, useQuery } from '@woocommerce/navigation';
+import { recordEvent } from '@poocommerce/tracks';
+import { getNewPath, navigateTo, useQuery } from '@poocommerce/navigation';
 
 /**
  * Internal dependencies
@@ -38,11 +38,11 @@ function QualityBadgeInfo( props: {
 			<button
 				ref={ setAnchor }
 				type="button"
-				className="woocommerce-marketplace__quality-badge-filter__info"
+				className="poocommerce-marketplace__quality-badge-filter__info"
 				aria-expanded={ isOpen }
 				aria-label={ sprintf(
-					// translators: %s: name of the quality badge, supplied by the WooCommerce.com API (e.g. "Excellence Verified").
-					__( 'About %s', 'woocommerce' ),
+					// translators: %s: name of the quality badge, supplied by the PooCommerce.com API (e.g. "Excellence Verified").
+					__( 'About %s', 'poocommerce' ),
 					props.label
 				) }
 				onClick={ () => setIsOpen( ! isOpen ) }
@@ -89,7 +89,7 @@ export function isQualityBadgeFilterActive(
 
 /**
  * "Show only <badge>" toggle for product listings. Renders nothing unless the
- * WooCommerce.com API reports the quality badge as enabled. The filter state
+ * PooCommerce.com API reports the quality badge as enabled. The filter state
  * lives in the `quality_badge` URL query parameter, which is forwarded to the
  * search API.
  */
@@ -98,7 +98,7 @@ export default function QualityBadgeFilter() {
 	const query = useQuery();
 	const toggleId = useInstanceId(
 		QualityBadgeFilter,
-		'woocommerce-marketplace-quality-badge-filter'
+		'poocommerce-marketplace-quality-badge-filter'
 	) as string;
 
 	const badge = iamSettings?.quality_badge;
@@ -118,21 +118,21 @@ export default function QualityBadgeFilter() {
 	};
 
 	return (
-		<div className="woocommerce-marketplace__quality-badge-filter">
+		<div className="poocommerce-marketplace__quality-badge-filter">
 			<QualityBadgeIcon size={ 18 } />
 			<label htmlFor={ toggleId }>
 				{ createInterpolateElement(
 					sprintf(
-						// translators: %s: name of the quality badge, supplied by the WooCommerce.com API (e.g. "Excellence Verified").
+						// translators: %s: name of the quality badge, supplied by the PooCommerce.com API (e.g. "Excellence Verified").
 						__(
 							'Show only <badgeName>%s</badgeName>',
-							'woocommerce'
+							'poocommerce'
 						),
 						badge.label
 					),
 					{
 						badgeName: (
-							<span className="woocommerce-marketplace__quality-badge-filter__name" />
+							<span className="poocommerce-marketplace__quality-badge-filter__name" />
 						),
 					}
 				) }

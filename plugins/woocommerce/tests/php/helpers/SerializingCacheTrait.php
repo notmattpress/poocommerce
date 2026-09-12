@@ -1,6 +1,6 @@
 <?php
 
-namespace Automattic\WooCommerce\RestApi\UnitTests;
+namespace Automattic\PooCommerce\RestApi\UnitTests;
 
 require_once __DIR__ . '/SerializingCacheProxy.php';
 

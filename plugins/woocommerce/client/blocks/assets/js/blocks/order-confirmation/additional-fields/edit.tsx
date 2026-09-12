@@ -5,8 +5,8 @@ import { useBlockProps } from '@wordpress/block-editor';
 import {
 	ORDER_FORM_FIELDS,
 	CONTACT_FORM_FIELDS,
-} from '@woocommerce/block-settings';
-import { AdditionalFieldsPlaceholder } from '@woocommerce/base-components/cart-checkout';
+} from '@poocommerce/block-settings';
+import { AdditionalFieldsPlaceholder } from '@poocommerce/base-components/cart-checkout';
 
 /**
  * Internal dependencies

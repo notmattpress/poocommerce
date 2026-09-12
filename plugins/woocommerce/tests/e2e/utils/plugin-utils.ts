@@ -250,8 +250,8 @@ export const deleteZip = async ( zipFilePath: string ) => {
  */
 export const installPluginThruWpCli = async ( pluginPath: string ) => {
 	const wpEnvPluginPath = pluginPath.replace(
-		/.*\/plugins\/woocommerce/,
-		'wp-content/plugins/woocommerce'
+		/.*\/plugins\/poocommerce/,
+		'wp-content/plugins/poocommerce'
 	);
 
 	await wpCLI( `ls  ${ wpEnvPluginPath }` );

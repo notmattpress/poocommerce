@@ -8,7 +8,7 @@ import type {
 } from '@wordpress/data/build-types/types';
 
 /**
- * Integration-layer UI state for the WooCommerce email editor.
+ * Integration-layer UI state for the PooCommerce email editor.
  *
  * Internal — consumers in this directory open/close the review drawer
  * (and any future integration-level UI state) via this store rather
@@ -26,7 +26,7 @@ import type {
  *
  * @internal
  */
-export const STORE_NAME = 'woocommerce/email-editor-integration';
+export const STORE_NAME = 'poocommerce/email-editor-integration';
 
 interface State {
 	isReviewDrawerOpen: boolean;
@@ -109,7 +109,7 @@ const config = { reducer, actions, selectors };
 /**
  * Register the integration store. Called once from the entrypoint;
  * guarded against double-registration so HMR / repeated boots are
- * safe (mirrors the pattern in the upstream `@woocommerce/email-editor`
+ * safe (mirrors the pattern in the upstream `@poocommerce/email-editor`
  * store).
  */
 export function registerStore(): void {

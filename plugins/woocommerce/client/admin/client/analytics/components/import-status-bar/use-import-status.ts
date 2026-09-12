@@ -49,7 +49,7 @@ export function useImportStatus(): UseImportStatusReturn {
 			setError(
 				err instanceof Error
 					? err.message
-					: __( 'Failed to fetch status', 'woocommerce' )
+					: __( 'Failed to fetch status', 'poocommerce' )
 			);
 		} finally {
 			setIsLoading( false );
@@ -72,7 +72,7 @@ export function useImportStatus(): UseImportStatusReturn {
 			setError(
 				err instanceof Error
 					? err.message
-					: __( 'Failed to trigger import', 'woocommerce' )
+					: __( 'Failed to trigger import', 'poocommerce' )
 			);
 			throw err; // Re-throw so component can handle it
 		} finally {

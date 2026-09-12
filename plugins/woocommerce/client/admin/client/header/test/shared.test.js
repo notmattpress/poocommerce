@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { render, screen } from '@testing-library/react';
-import { useSlot } from '@woocommerce/experimental';
+import { useSlot } from '@poocommerce/experimental';
 import React from 'react';
 
 /**
@@ -11,7 +11,7 @@ import React from 'react';
 import { getPageTitle, BaseHeader } from '../shared';
 
 // Mock dependencies
-jest.mock( '@woocommerce/experimental', () => ( {
+jest.mock( '@poocommerce/experimental', () => ( {
 	useSlot: jest.fn(),
 	Text: ( { children, className, as } ) => {
 		// Create the element with the proper role based on the 'as' prop
@@ -32,7 +32,7 @@ jest.mock( '@wordpress/html-entities', () => ( {
 	decodeEntities: ( content ) => content,
 } ) );
 
-jest.mock( '@woocommerce/admin-layout', () => ( {
+jest.mock( '@poocommerce/admin-layout', () => ( {
 	WC_HEADER_SLOT_NAME: 'wc-header',
 	WC_HEADER_PAGE_TITLE_SLOT_NAME: 'wc-header-page-title',
 	WooHeaderNavigationItem: {
@@ -69,7 +69,7 @@ describe( 'getPageTitle', () => {
 
 	test( "should get page title as the second item's second element if section length is 3 or more and second item has a second element", () => {
 		const sections = [
-			[ 'admin.php?page=wc-admin', 'WooCommerce' ],
+			[ 'admin.php?page=wc-admin', 'PooCommerce' ],
 			[ 'admin.php?page=wc-settings', 'Settings' ],
 			'Payments',
 		];
@@ -78,7 +78,7 @@ describe( 'getPageTitle', () => {
 
 	test( "should get page title as the last item if section length is 3 or more but second item doesn't have a second element", () => {
 		const sections = [
-			[ 'admin.php?page=wc-admin', 'WooCommerce' ],
+			[ 'admin.php?page=wc-admin', 'PooCommerce' ],
 			'Payments',
 		];
 		expect( getPageTitle( sections ) ).toBe( 'Payments' );
@@ -87,7 +87,7 @@ describe( 'getPageTitle', () => {
 	test( 'should handle all pagesWithTabs correctly', () => {
 		// Test wc-settings
 		const settingsSections = [
-			[ 'admin.php?page=wc-admin', 'WooCommerce' ],
+			[ 'admin.php?page=wc-admin', 'PooCommerce' ],
 			[ 'admin.php?page=wc-settings', 'Settings' ],
 			'General',
 		];
@@ -95,7 +95,7 @@ describe( 'getPageTitle', () => {
 
 		// Test wc-reports
 		const reportsSections = [
-			[ 'admin.php?page=wc-admin', 'WooCommerce' ],
+			[ 'admin.php?page=wc-admin', 'PooCommerce' ],
 			[ 'admin.php?page=wc-reports', 'Reports' ],
 			'Sales',
 		];
@@ -103,7 +103,7 @@ describe( 'getPageTitle', () => {
 
 		// Test wc-status
 		const statusSections = [
-			[ 'admin.php?page=wc-admin', 'WooCommerce' ],
+			[ 'admin.php?page=wc-admin', 'PooCommerce' ],
 			[ 'admin.php?page=wc-status', 'Status' ],
 			'System Status',
 		];
@@ -130,7 +130,7 @@ describe( 'BaseHeader', () => {
 		const props = {
 			isEmbedded: false,
 			query: {},
-			sections: [ 'WooCommerce' ],
+			sections: [ 'PooCommerce' ],
 			leftAlign: true,
 		};
 
@@ -138,18 +138,18 @@ describe( 'BaseHeader', () => {
 
 		// Check header class
 		const header = screen.getByRole( 'heading', { level: 1 } );
-		expect( header ).toHaveClass( 'woocommerce-layout__header-heading' );
-		expect( header ).toHaveClass( 'woocommerce-layout__header-left-align' );
+		expect( header ).toHaveClass( 'poocommerce-layout__header-heading' );
+		expect( header ).toHaveClass( 'poocommerce-layout__header-left-align' );
 
 		// Check page title
-		expect( header.textContent ).toBe( 'WooCommerce' );
+		expect( header.textContent ).toBe( 'PooCommerce' );
 	} );
 
 	test( 'should render with right alignment when leftAlign is false', () => {
 		const props = {
 			isEmbedded: false,
 			query: {},
-			sections: [ 'WooCommerce' ],
+			sections: [ 'PooCommerce' ],
 			leftAlign: false,
 		};
 
@@ -158,7 +158,7 @@ describe( 'BaseHeader', () => {
 		// Check header doesn't have left-align class
 		const header = screen.getByRole( 'heading', { level: 1 } );
 		expect( header ).not.toHaveClass(
-			'woocommerce-layout__header-left-align'
+			'poocommerce-layout__header-left-align'
 		);
 	} );
 
@@ -174,7 +174,7 @@ describe( 'BaseHeader', () => {
 		const props = {
 			isEmbedded: false,
 			query: {},
-			sections: [ 'WooCommerce' ],
+			sections: [ 'PooCommerce' ],
 		};
 
 		render( <BaseHeader { ...props } /> );
@@ -187,7 +187,7 @@ describe( 'BaseHeader', () => {
 		const props = {
 			isEmbedded: true,
 			query: { page: 'wc-admin' },
-			sections: [ 'WooCommerce' ],
+			sections: [ 'PooCommerce' ],
 		};
 
 		render( <BaseHeader { ...props } /> );
@@ -215,7 +215,7 @@ describe( 'BaseHeader', () => {
 		const props = {
 			isEmbedded: false,
 			query: {},
-			sections: [ 'WooCommerce' ],
+			sections: [ 'PooCommerce' ],
 			children: <div data-testid="child-component">Child Component</div>,
 		};
 

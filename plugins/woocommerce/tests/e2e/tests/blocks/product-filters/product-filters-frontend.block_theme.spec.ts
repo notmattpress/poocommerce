@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { TemplateCompiler, test as base, expect } from '@woocommerce/e2e-utils';
+import { TemplateCompiler, test as base, expect } from '@poocommerce/e2e-utils';
 
 const test = base.extend< { templateCompiler: TemplateCompiler } >( {
 	templateCompiler: async ( { requestUtils }, use ) => {
@@ -13,7 +13,7 @@ const test = base.extend< { templateCompiler: TemplateCompiler } >( {
 	},
 } );
 
-test.describe( 'woocommerce/product-filters - Frontend', () => {
+test.describe( 'poocommerce/product-filters - Frontend', () => {
 	test( 'preserves saved local categories in frontend filter counts', async ( {
 		page,
 		requestUtils,
@@ -101,48 +101,48 @@ test.describe( 'woocommerce/product-filters - Frontend', () => {
 			data: {
 				title: 'Local collection filter counts',
 				status: 'publish',
-				content: `<!-- wp:woocommerce/product-collection ${ collectionAttributes } -->
-<div class="wp-block-woocommerce-product-collection">
-	<!-- wp:woocommerce/product-filters {"overlayMode":"off"} -->
-	<div class="wp-block-woocommerce-product-filters wc-block-product-filters">
-		<!-- wp:woocommerce/product-filter-taxonomy {"taxonomy":"product_cat","showCounts":true,"hideEmpty":true} -->
-		<div class="wp-block-woocommerce-product-filter-taxonomy">
-			<!-- wp:woocommerce/product-filter-checkbox-list -->
-			<div class="wp-block-woocommerce-product-filter-checkbox-list wc-block-product-filter-checkbox-list"></div>
-			<!-- /wp:woocommerce/product-filter-checkbox-list -->
+				content: `<!-- wp:poocommerce/product-collection ${ collectionAttributes } -->
+<div class="wp-block-poocommerce-product-collection">
+	<!-- wp:poocommerce/product-filters {"overlayMode":"off"} -->
+	<div class="wp-block-poocommerce-product-filters wc-block-product-filters">
+		<!-- wp:poocommerce/product-filter-taxonomy {"taxonomy":"product_cat","showCounts":true,"hideEmpty":true} -->
+		<div class="wp-block-poocommerce-product-filter-taxonomy">
+			<!-- wp:poocommerce/product-filter-checkbox-list -->
+			<div class="wp-block-poocommerce-product-filter-checkbox-list wc-block-product-filter-checkbox-list"></div>
+			<!-- /wp:poocommerce/product-filter-checkbox-list -->
 		</div>
-		<!-- /wp:woocommerce/product-filter-taxonomy -->
-		<!-- wp:woocommerce/product-filter-rating {"showCounts":true} -->
-		<div class="wp-block-woocommerce-product-filter-rating">
-			<!-- wp:woocommerce/product-filter-checkbox-list -->
-			<div class="wp-block-woocommerce-product-filter-checkbox-list wc-block-product-filter-checkbox-list"></div>
-			<!-- /wp:woocommerce/product-filter-checkbox-list -->
+		<!-- /wp:poocommerce/product-filter-taxonomy -->
+		<!-- wp:poocommerce/product-filter-rating {"showCounts":true} -->
+		<div class="wp-block-poocommerce-product-filter-rating">
+			<!-- wp:poocommerce/product-filter-checkbox-list -->
+			<div class="wp-block-poocommerce-product-filter-checkbox-list wc-block-product-filter-checkbox-list"></div>
+			<!-- /wp:poocommerce/product-filter-checkbox-list -->
 		</div>
-		<!-- /wp:woocommerce/product-filter-rating -->
+		<!-- /wp:poocommerce/product-filter-rating -->
 	</div>
-	<!-- /wp:woocommerce/product-filters -->
-	<!-- wp:woocommerce/product-template -->
-		<!-- wp:post-title {"level":3,"isLink":true,"__woocommerceNamespace":"woocommerce/product-collection/product-title"} /-->
-	<!-- /wp:woocommerce/product-template -->
+	<!-- /wp:poocommerce/product-filters -->
+	<!-- wp:poocommerce/product-template -->
+		<!-- wp:post-title {"level":3,"isLink":true,"__poocommerceNamespace":"poocommerce/product-collection/product-title"} /-->
+	<!-- /wp:poocommerce/product-template -->
 </div>
-<!-- /wp:woocommerce/product-collection -->`,
+<!-- /wp:poocommerce/product-collection -->`,
 			},
 		} );
 
 		await page.goto( post.link );
 
 		const collection = page.locator(
-			'.wp-block-woocommerce-product-collection'
+			'.wp-block-poocommerce-product-collection'
 		);
 		const productTitles = collection.locator( '.wp-block-post-title' );
 		const categoryFilter = collection.locator(
-			'.wp-block-woocommerce-product-filter-taxonomy'
+			'.wp-block-poocommerce-product-filter-taxonomy'
 		);
 		const parentCheckbox = categoryFilter.getByRole( 'checkbox', {
 			name: /Collection parent/,
 		} );
 		const ratingFilter = collection.locator(
-			'.wp-block-woocommerce-product-filter-rating'
+			'.wp-block-poocommerce-product-filter-rating'
 		);
 
 		await expect( productTitles ).toHaveText( [ 'Direct parent product' ] );
@@ -319,7 +319,7 @@ test.describe( 'woocommerce/product-filters - Frontend', () => {
 			await page.goto( '/shop' );
 
 			const productFilters = page.locator(
-				'.wp-block-woocommerce-product-filters'
+				'.wp-block-poocommerce-product-filters'
 			);
 			await expect( productFilters ).toHaveCount( 2 );
 

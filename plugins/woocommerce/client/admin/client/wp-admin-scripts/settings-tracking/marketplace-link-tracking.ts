@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 const initMarketplaceLinkTracking = () => {
 	const container = document.querySelector( '.wc-settings-marketplace-link' );

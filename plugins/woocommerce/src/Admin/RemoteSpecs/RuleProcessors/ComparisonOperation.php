@@ -3,7 +3,7 @@
  * Compare two operands using the specified operation.
  */
 
-namespace Automattic\WooCommerce\Admin\RemoteSpecs\RuleProcessors;
+namespace Automattic\PooCommerce\Admin\RemoteSpecs\RuleProcessors;
 
 defined( 'ABSPATH' ) || exit;
 

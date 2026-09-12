@@ -1,7 +1,7 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\Domain\Services;
+namespace Automattic\PooCommerce\Blocks\Domain\Services;
 
-use Automattic\WooCommerce\Admin\DeprecatedClassFacade;
+use Automattic\PooCommerce\Admin\DeprecatedClassFacade;
 
 /**
  * Service class that used to handle feature flags. That functionality

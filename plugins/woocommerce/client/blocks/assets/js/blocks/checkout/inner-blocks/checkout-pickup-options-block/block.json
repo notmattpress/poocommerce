@@ -1,9 +1,9 @@
 {
-	"name": "woocommerce/checkout-pickup-options-block",
+	"name": "poocommerce/checkout-pickup-options-block",
 	"version": "1.0.0",
 	"title": "Pickup Method",
 	"description": "Shows local pickup locations.",
-	"category": "woocommerce",
+	"category": "poocommerce",
 	"supports": {
 		"align": false,
 		"html": false,
@@ -22,9 +22,9 @@
 		}
 	},
 	"parent": [
-		"woocommerce/checkout-fields-block"
+		"poocommerce/checkout-fields-block"
 	],
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3
 }

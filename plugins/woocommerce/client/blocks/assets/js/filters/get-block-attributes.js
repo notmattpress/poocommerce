@@ -12,7 +12,7 @@ import { addFilter } from '@wordpress/hooks';
  * @return {Object} Filtered block attributes.
  */
 const setBlockAttributeDefaults = ( blockAttributes, blockType ) => {
-	if ( blockType.name.startsWith( 'woocommerce/' ) ) {
+	if ( blockType.name.startsWith( 'poocommerce/' ) ) {
 		Object.keys( blockType.attributes ).map( ( key ) => {
 			if (
 				typeof blockAttributes[ key ] === 'undefined' &&
@@ -36,12 +36,12 @@ const setBlockAttributeDefaults = ( blockAttributes, blockType ) => {
  *
  * See https://github.com/WordPress/gutenberg/issues/7342
  *
- * To use this, the block name needs a `woocommerce/` prefix, and as well
+ * To use this, the block name needs a `poocommerce/` prefix, and as well
  * as defining `attributes` during block registration, you must also declare an
  * array called `defaults`. Defaults should be omitted from `attributes`.
  */
 addFilter(
 	'blocks.getBlockAttributes',
-	'woocommerce-blocks/get-block-attributes',
+	'poocommerce-blocks/get-block-attributes',
 	setBlockAttributeDefaults
 );

@@ -1,14 +1,14 @@
 <?php declare(strict_types = 1);
 
-namespace Automattic\WooCommerce\Internal\EmailEditor\EmailPatterns;
+namespace Automattic\PooCommerce\Internal\EmailEditor\EmailPatterns;
 
-use Automattic\WooCommerce\EmailEditor\Engine\Patterns\Abstract_Pattern;
-use Automattic\WooCommerce\Internal\EmailEditor\Integration;
+use Automattic\PooCommerce\EmailEditor\Engine\Patterns\Abstract_Pattern;
+use Automattic\PooCommerce\Internal\EmailEditor\Integration;
 
 /**
- * Pattern class for WooCommerce email content.
+ * Pattern class for PooCommerce email content.
  *
- * Provides a default content pattern that can be used in WooCommerce email templates.
+ * Provides a default content pattern that can be used in PooCommerce email templates.
  */
 class WooEmailContentPattern extends Abstract_Pattern {
 	/**
@@ -44,7 +44,7 @@ class WooEmailContentPattern extends Abstract_Pattern {
 	 *
 	 * @var string
 	 */
-	public $namespace = 'woocommerce';      // Required.
+	public $namespace = 'poocommerce';      // Required.
 
 	/**
 	 * List of supported post types.
@@ -67,9 +67,9 @@ class WooEmailContentPattern extends Abstract_Pattern {
 <p>Here comes content composed of supported core blocks and Woo transactional email block(s).</p>
 <!-- /wp:paragraph -->
 
-<!-- wp:woocommerce/email-content {"lock":{"move":false,"remove":true}} -->
-<div class="wp-block-woocommerce-email-content">##WOO_CONTENT##</div>
-<!-- /wp:woocommerce/email-content -->
+<!-- wp:poocommerce/email-content {"lock":{"move":false,"remove":true}} -->
+<div class="wp-block-poocommerce-email-content">##WOO_CONTENT##</div>
+<!-- /wp:poocommerce/email-content -->
 
 <!-- wp:buttons {"layout":{"justifyContent":"center"}} -->
 <div class="wp-block-buttons"><!-- wp:button {"style":{"color":{"background":"#873eff"}}} -->
@@ -86,6 +86,6 @@ class WooEmailContentPattern extends Abstract_Pattern {
 	 */
 	public function get_title(): string {
 		/* translators: Name of a content pattern used as starting content of an email */
-		return __( 'Woo Email Content Pattern', 'woocommerce' );
+		return __( 'Woo Email Content Pattern', 'poocommerce' );
 	}
 }

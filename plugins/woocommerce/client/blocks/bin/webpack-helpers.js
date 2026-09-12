@@ -8,140 +8,140 @@ const NODE_ENV = process.env.NODE_ENV || 'development';
 const CHECK_CIRCULAR_DEPS = process.env.CHECK_CIRCULAR_DEPS || false;
 const ASSET_CHECK = process.env.ASSET_CHECK === 'true';
 
-// See also @woocommerce/dependency-extraction-webpack-plugin/assets/packages and
+// See also @poocommerce/dependency-extraction-webpack-plugin/assets/packages and
 // docs/internal-developers/enqueueable-packages/README.md. They should stay in sync with this map.
 // The dependency extraction plugin will backfill any missing mapping here. Duplicates exist because
 // this file has switched between Woo and WordPress versions of the plugin.
 // As of 2026, it uses the Woo version to address pnpm peer dependency issues and support
 // filesystem cache.
 const wcDepMap = {
-	'@woocommerce/tracks': false, // Bundle; do not externalize
-	'@woocommerce/blocks-registry': [ 'wc', 'wcBlocksRegistry' ],
-	'@woocommerce/blocks-checkout-events': [ 'wc', 'blocksCheckoutEvents' ],
-	'@woocommerce/settings': [ 'wc', 'wcSettings' ],
-	'@woocommerce/block-data': [ 'wc', 'wcBlocksData' ],
-	'@woocommerce/data': [ 'wc', 'data' ],
-	'@woocommerce/shared-context': [ 'wc', 'wcBlocksSharedContext' ],
-	'@woocommerce/shared-hocs': [ 'wc', 'wcBlocksSharedHocs' ],
-	'@woocommerce/price-format': [ 'wc', 'priceFormat' ],
-	'@woocommerce/blocks-checkout': [ 'wc', 'blocksCheckout' ],
-	'@woocommerce/blocks-components': [ 'wc', 'blocksComponents' ],
-	'@woocommerce/types': [ 'wc', 'wcTypes' ],
-	'@woocommerce/sanitize': [ 'wc', 'sanitize' ],
-	'@woocommerce/entities': [ 'wc', 'wcEntities' ],
+	'@poocommerce/tracks': false, // Bundle; do not externalize
+	'@poocommerce/blocks-registry': [ 'wc', 'wcBlocksRegistry' ],
+	'@poocommerce/blocks-checkout-events': [ 'wc', 'blocksCheckoutEvents' ],
+	'@poocommerce/settings': [ 'wc', 'wcSettings' ],
+	'@poocommerce/block-data': [ 'wc', 'wcBlocksData' ],
+	'@poocommerce/data': [ 'wc', 'data' ],
+	'@poocommerce/shared-context': [ 'wc', 'wcBlocksSharedContext' ],
+	'@poocommerce/shared-hocs': [ 'wc', 'wcBlocksSharedHocs' ],
+	'@poocommerce/price-format': [ 'wc', 'priceFormat' ],
+	'@poocommerce/blocks-checkout': [ 'wc', 'blocksCheckout' ],
+	'@poocommerce/blocks-components': [ 'wc', 'blocksComponents' ],
+	'@poocommerce/types': [ 'wc', 'wcTypes' ],
+	'@poocommerce/sanitize': [ 'wc', 'sanitize' ],
+	'@poocommerce/entities': [ 'wc', 'wcEntities' ],
 };
 const wcHandleMap = {
-	'@woocommerce/tracks': false, // Bundle; no PHP handle needed
-	'@woocommerce/blocks-registry': 'wc-blocks-registry',
-	'@woocommerce/settings': 'wc-settings',
-	'@woocommerce/block-data': 'wc-blocks-data-store',
-	'@woocommerce/data': 'wc-store-data',
-	'@woocommerce/shared-context': 'wc-blocks-shared-context',
-	'@woocommerce/shared-hocs': 'wc-blocks-shared-hocs',
-	'@woocommerce/price-format': 'wc-price-format',
-	'@woocommerce/blocks-checkout': 'wc-blocks-checkout',
-	'@woocommerce/blocks-checkout-events': 'wc-blocks-checkout-events',
-	'@woocommerce/blocks-components': 'wc-blocks-components',
-	'@woocommerce/types': 'wc-types',
-	'@woocommerce/sanitize': 'wc-sanitize',
-	'@woocommerce/entities': 'wc-entities',
+	'@poocommerce/tracks': false, // Bundle; no PHP handle needed
+	'@poocommerce/blocks-registry': 'wc-blocks-registry',
+	'@poocommerce/settings': 'wc-settings',
+	'@poocommerce/block-data': 'wc-blocks-data-store',
+	'@poocommerce/data': 'wc-store-data',
+	'@poocommerce/shared-context': 'wc-blocks-shared-context',
+	'@poocommerce/shared-hocs': 'wc-blocks-shared-hocs',
+	'@poocommerce/price-format': 'wc-price-format',
+	'@poocommerce/blocks-checkout': 'wc-blocks-checkout',
+	'@poocommerce/blocks-checkout-events': 'wc-blocks-checkout-events',
+	'@poocommerce/blocks-components': 'wc-blocks-components',
+	'@poocommerce/types': 'wc-types',
+	'@poocommerce/sanitize': 'wc-sanitize',
+	'@poocommerce/entities': 'wc-entities',
 };
 
 const getAlias = ( options = {} ) => {
 	let { pathPart } = options;
 	pathPart = pathPart ? `${ pathPart }/` : '';
 	return {
-		'@woocommerce/atomic-blocks': path.resolve(
+		'@poocommerce/atomic-blocks': path.resolve(
 			__dirname,
 			`../assets/js/${ pathPart }atomic/blocks`
 		),
-		'@woocommerce/atomic-utils': path.resolve(
+		'@poocommerce/atomic-utils': path.resolve(
 			__dirname,
 			`../assets/js/${ pathPart }atomic/utils`
 		),
-		'@woocommerce/base-components': path.resolve(
+		'@poocommerce/base-components': path.resolve(
 			__dirname,
 			`../assets/js/${ pathPart }base/components/`
 		),
-		'@woocommerce/base-context': path.resolve(
+		'@poocommerce/base-context': path.resolve(
 			__dirname,
 			`../assets/js/${ pathPart }base/context/`
 		),
-		'@woocommerce/base-hocs': path.resolve(
+		'@poocommerce/base-hocs': path.resolve(
 			__dirname,
 			`../assets/js/${ pathPart }base/hocs/`
 		),
-		'@woocommerce/base-hooks': path.resolve(
+		'@poocommerce/base-hooks': path.resolve(
 			__dirname,
 			`../assets/js/${ pathPart }base/hooks/`
 		),
-		'@woocommerce/base-utils': path.resolve(
+		'@poocommerce/base-utils': path.resolve(
 			__dirname,
 			`../assets/js/${ pathPart }base/utils/`
 		),
-		'@woocommerce/block-data': path.resolve(
+		'@poocommerce/block-data': path.resolve(
 			__dirname,
 			`../packages/public-api/block-data`
 		),
-		'@woocommerce/blocks-checkout': path.resolve(
+		'@poocommerce/blocks-checkout': path.resolve(
 			__dirname,
 			`../packages/public-api/blocks-checkout`
 		),
-		'@woocommerce/blocks-checkout-events': path.resolve(
+		'@poocommerce/blocks-checkout-events': path.resolve(
 			__dirname,
 			`../packages/public-api/blocks-checkout-events`
 		),
-		'@woocommerce/blocks-components': path.resolve(
+		'@poocommerce/blocks-components': path.resolve(
 			__dirname,
 			`../packages/public-api/blocks-components`
 		),
-		'@woocommerce/blocks-registry': path.resolve(
+		'@poocommerce/blocks-registry': path.resolve(
 			__dirname,
 			`../packages/public-api/blocks-registry`
 		),
-		'@woocommerce/blocks': path.resolve(
+		'@poocommerce/blocks': path.resolve(
 			__dirname,
 			`../assets/js/${ pathPart }/blocks`
 		),
-		'@woocommerce/editor-components': path.resolve(
+		'@poocommerce/editor-components': path.resolve(
 			__dirname,
 			`../assets/js/${ pathPart }editor-components/`
 		),
-		'@woocommerce/block-hocs': path.resolve(
+		'@poocommerce/block-hocs': path.resolve(
 			__dirname,
 			`../assets/js/${ pathPart }hocs`
 		),
-		'@woocommerce/block-settings': path.resolve(
+		'@poocommerce/block-settings': path.resolve(
 			__dirname,
 			'../assets/js/settings/blocks'
 		),
-		'@woocommerce/icons': path.resolve( __dirname, `../assets/js/icons` ),
-		'@woocommerce/resource-previews': path.resolve(
+		'@poocommerce/icons': path.resolve( __dirname, `../assets/js/icons` ),
+		'@poocommerce/resource-previews': path.resolve(
 			__dirname,
 			`../assets/js/${ pathPart }previews/`
 		),
-		'@woocommerce/price-format': path.resolve(
+		'@poocommerce/price-format': path.resolve(
 			__dirname,
 			`../packages/public-api/price-format`
 		),
-		'@woocommerce/settings': path.resolve(
+		'@poocommerce/settings': path.resolve(
 			__dirname,
 			`../packages/public-api/settings`
 		),
-		'@woocommerce/shared-context': path.resolve(
+		'@poocommerce/shared-context': path.resolve(
 			__dirname,
 			`../packages/public-api/shared-context`
 		),
-		'@woocommerce/shared-hocs': path.resolve(
+		'@poocommerce/shared-hocs': path.resolve(
 			__dirname,
 			`../packages/public-api/shared-hocs`
 		),
-		'@woocommerce/types': path.resolve(
+		'@poocommerce/types': path.resolve(
 			__dirname,
 			`../packages/public-api/types/`
 		),
-		'@woocommerce/utils': path.resolve( __dirname, `../assets/js/utils/` ),
-		'@woocommerce/entities': path.resolve(
+		'@poocommerce/utils': path.resolve( __dirname, `../assets/js/utils/` ),
+		'@poocommerce/entities': path.resolve(
 			__dirname,
 			`../packages/internal/entities/`
 		),
@@ -153,7 +153,7 @@ const getAlias = ( options = {} ) => {
 // Activates the `"wc-source"` conditional export declared in each
 // `packages/js/*` package.json. Webpack walks the package's exports map and
 // picks `./src/index.ts` directly — eliminating the need to pre-build the few
-// `@woocommerce/*` packages that blocks bundles (i.e. not externalized via
+// `@poocommerce/*` packages that blocks bundles (i.e. not externalized via
 // `wcDepMap`). The condition is namespaced (`wc-` prefix) so it never collides
 // with third-party packages that publish their own `"source"` conditional
 // export. `'...'` extends the default webpack condition list.

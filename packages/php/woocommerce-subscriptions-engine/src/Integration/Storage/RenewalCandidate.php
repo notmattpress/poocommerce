@@ -8,18 +8,18 @@
  * and by {@see self::from_cycle()} on the single-contract paths (scheduled or manual),
  * where the caller has already loaded the head.
  *
- * A lean read-model, not the full {@see \Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\Cycle}:
+ * A lean read-model, not the full {@see \Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\Cycle}:
  * it carries only the head fields selection reads, so the scan does not hydrate snapshots
  * for a decision the money-path re-reads anyway.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage
+ * @package Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage;
 
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\Cycle;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\Cycle;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -43,7 +43,7 @@ final class RenewalCandidate {
 	private $head_count;
 
 	/**
-	 * Head cycle status string (a {@see \Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\CycleStatus} value).
+	 * Head cycle status string (a {@see \Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\CycleStatus} value).
 	 *
 	 * @var string
 	 */

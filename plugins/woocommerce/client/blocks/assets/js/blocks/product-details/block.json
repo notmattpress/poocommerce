@@ -1,11 +1,11 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "woocommerce/product-details",
+	"name": "poocommerce/product-details",
 	"title": "Product Details",
 	"description": "Display a product's description, attributes, and reviews",
-	"category": "woocommerce",
-	"textdomain": "woocommerce",
+	"category": "poocommerce",
+	"textdomain": "poocommerce",
 	"supports": {
 		"interactivity": {
 			"clientNavigation": true

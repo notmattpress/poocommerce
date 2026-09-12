@@ -162,11 +162,11 @@ export function InnerEditor( {
 			</div>
 		);
 	}
-	// In WordPress 6.8 WooCommerce commands are registered because Core does
+	// In WordPress 6.8 PooCommerce commands are registered because Core does
 	// not mount the global CommandMenu. Use that as a signal to render our own
 	// CommandMenu fallback. Core loads it starting in WordPress 6.9.
 	const isWordPress68 = allCommands.every( ( { name } ) =>
-		name.includes( 'woocommerce' )
+		name.includes( 'poocommerce' )
 	);
 
 	recordEventOnce( 'editor_layout_loaded' );
@@ -218,7 +218,7 @@ export function InnerEditor( {
 						}
 					/>
 					<BlockCompatibilityWarnings />
-					<PluginArea scope="woocommerce-email-editor" />
+					<PluginArea scope="poocommerce-email-editor" />
 				</Editor>
 			</ErrorBoundary>
 		</SlotFillProvider>

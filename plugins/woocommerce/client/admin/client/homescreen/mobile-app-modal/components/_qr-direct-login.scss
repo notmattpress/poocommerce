@@ -6,21 +6,21 @@
 // stylesheet — they aren't rendered by the standalone page.
 
 // QR + meta column layout while the code is on screen (READY state only).
-// We avoid scoping these rules to `.woocommerce-qr-direct-login` itself so the LOADING /
+// We avoid scoping these rules to `.poocommerce-qr-direct-login` itself so the LOADING /
 // EXPIRED / ERROR states keep their default stacked layout.
-.woocommerce-qr-direct-login.woocommerce-qr-direct-login--ready {
+.poocommerce-qr-direct-login.poocommerce-qr-direct-login--ready {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
 	gap: 24px;
 	flex-wrap: wrap;
 
-	.woocommerce-qr-direct-login__qr {
+	.poocommerce-qr-direct-login__qr {
 		flex: 0 0 auto;
 		display: flex;
 	}
 
-	.woocommerce-qr-direct-login__meta {
+	.poocommerce-qr-direct-login__meta {
 		flex: 1 1 auto;
 		display: flex;
 		flex-direction: column;
@@ -29,7 +29,7 @@
 		min-width: 0;
 	}
 
-	.woocommerce-qr-direct-login__timer {
+	.poocommerce-qr-direct-login__timer {
 		margin: 0;
 		font-size: 14px;
 		line-height: 1.5;
@@ -37,7 +37,7 @@
 	}
 }
 
-.woocommerce-qr-direct-login__error {
+.poocommerce-qr-direct-login__error {
 	margin: 0 0 12px;
 	color: $alert-red;
 	font-size: 13px;
@@ -48,13 +48,13 @@
 // SCANNED state: the merchant taps the 3-digit tile that matches what the
 // mobile app is showing, server validates with hash_equals(), and the flow
 // either advances to APPROVED → CONSUMED or terminates at REJECTED.
-.woocommerce-qr-direct-login.woocommerce-qr-direct-login--number-match {
+.poocommerce-qr-direct-login.poocommerce-qr-direct-login--number-match {
 	display: flex;
 	flex-direction: column;
 	align-items: stretch;
 	gap: 12px;
 
-	.woocommerce-qr-direct-login__match-headline {
+	.poocommerce-qr-direct-login__match-headline {
 		font-size: 14px;
 		font-weight: 600;
 		line-height: 1.5;
@@ -62,14 +62,14 @@
 		margin: 0;
 	}
 
-	.woocommerce-qr-direct-login__match-description {
+	.poocommerce-qr-direct-login__match-description {
 		font-size: 13px;
 		line-height: 1.5;
 		color: $gray-700;
 		margin: 0 0 4px;
 	}
 
-	.woocommerce-qr-direct-login__number-tiles {
+	.poocommerce-qr-direct-login__number-tiles {
 		display: flex;
 		flex-direction: row;
 		gap: 12px;
@@ -80,7 +80,7 @@
 		flex-wrap: wrap;
 	}
 
-	button.components-button.woocommerce-qr-direct-login__number-tile {
+	button.components-button.poocommerce-qr-direct-login__number-tile {
 		flex: 0 0 auto;
 		min-width: 92px;
 		height: 64px;
@@ -111,7 +111,7 @@
 		}
 	}
 
-	.woocommerce-qr-direct-login__match-countdown {
+	.poocommerce-qr-direct-login__match-countdown {
 		font-size: 13px;
 		line-height: 1.5;
 		color: $gray-700;
@@ -123,7 +123,7 @@
 	// red underlined link. A bare link doesn't read as the "wrong device,
 	// terminate session" affordance the merchant needs at this point in the
 	// flow, and visually it competes with the three number tiles above.
-	.woocommerce-qr-direct-login__match-cancel-row {
+	.poocommerce-qr-direct-login__match-cancel-row {
 		display: flex;
 		flex-direction: row;
 		align-items: center;
@@ -132,14 +132,14 @@
 		flex-wrap: wrap;
 	}
 
-	.woocommerce-qr-direct-login__match-cancel-text {
+	.poocommerce-qr-direct-login__match-cancel-text {
 		margin: 0;
 		font-size: 13px;
 		line-height: 1.5;
 		color: $gray-700;
 	}
 
-	button.components-button.woocommerce-qr-direct-login__match-cancel-button {
+	button.components-button.poocommerce-qr-direct-login__match-cancel-button {
 		// Inline spinner + label. The Spinner component renders a small
 		// circle; this gap prevents it from kissing the "Cancelling…" text.
 		display: inline-flex;
@@ -157,7 +157,7 @@
 // APPROVED transitional state — small inline spinner + caption while the
 // mobile app finishes the exchange. Stays compact so the modal layout
 // doesn't jump between SCANNED and CONSUMED.
-.woocommerce-qr-direct-login.woocommerce-qr-direct-login--approved {
+.poocommerce-qr-direct-login.poocommerce-qr-direct-login--approved {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
@@ -173,7 +173,7 @@
 
 // REJECTED terminal state. The "Sign-in denied" message and the Start over
 // button stack centered to match the rest of the column on both surfaces.
-.woocommerce-qr-direct-login.woocommerce-qr-direct-login--rejected {
+.poocommerce-qr-direct-login.poocommerce-qr-direct-login--rejected {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -192,13 +192,13 @@
 // `available: false` — typically because a security plugin or a custom
 // filter has disabled application passwords. Stacked column layout matches
 // the other terminal states (REJECTED, EXPIRED) for visual consistency.
-.woocommerce-qr-direct-login.woocommerce-qr-direct-login--unavailable {
+.poocommerce-qr-direct-login.poocommerce-qr-direct-login--unavailable {
 	display: flex;
 	flex-direction: column;
 	align-items: stretch;
 	gap: 16px;
 
-	.woocommerce-qr-direct-login__unavailable-notice {
+	.poocommerce-qr-direct-login__unavailable-notice {
 		// The default Notice has a left margin from the WP admin chrome
 		// that doesn't fit inside the modal column, so strip it. The
 		// Notice also centers its body text by default; left-align to match
@@ -207,7 +207,7 @@
 		text-align: left;
 	}
 
-	.woocommerce-qr-direct-login__why {
+	.poocommerce-qr-direct-login__why {
 		font-size: 13px;
 		line-height: 1.5;
 		color: #50575e;

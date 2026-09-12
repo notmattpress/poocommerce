@@ -4,8 +4,8 @@
 import clsx from 'clsx';
 import { Component } from '@wordpress/element';
 import PropTypes from 'prop-types';
-import { Text } from '@woocommerce/experimental';
-import { EllipsisMenu } from '@woocommerce/components';
+import { Text } from '@poocommerce/experimental';
+import { EllipsisMenu } from '@poocommerce/components';
 
 /**
  * Internal dependencies
@@ -17,8 +17,8 @@ class ActivityHeader extends Component {
 		const { className, menu, subtitle, title, unreadMessages } = this.props;
 		const cardClassName = clsx(
 			{
-				'woocommerce-layout__inbox-panel-header': subtitle,
-				'woocommerce-layout__activity-panel-header': ! subtitle,
+				'poocommerce-layout__inbox-panel-header': subtitle,
+				'poocommerce-layout__activity-panel-header': ! subtitle,
 			},
 			className
 		);
@@ -26,7 +26,7 @@ class ActivityHeader extends Component {
 
 		return (
 			<div className={ cardClassName }>
-				<div className="woocommerce-layout__inbox-title">
+				<div className="poocommerce-layout__inbox-title">
 					<Text size={ 16 } weight={ 600 } color="#23282d">
 						{ title }
 					</Text>
@@ -37,13 +37,13 @@ class ActivityHeader extends Component {
 						lineHeight="20px"
 					>
 						{ countUnread > 0 && (
-							<span className="woocommerce-layout__inbox-badge">
+							<span className="poocommerce-layout__inbox-badge">
 								{ unreadMessages }
 							</span>
 						) }
 					</Text>
 				</div>
-				<div className="woocommerce-layout__inbox-subtitle">
+				<div className="poocommerce-layout__inbox-subtitle">
 					{ subtitle && (
 						<Text variant="body.small" size="14" lineHeight="20px">
 							{ subtitle }
@@ -51,7 +51,7 @@ class ActivityHeader extends Component {
 					) }
 				</div>
 				{ menu && (
-					<div className="woocommerce-layout__activity-panel-header-menu">
+					<div className="poocommerce-layout__activity-panel-header-menu">
 						{ menu }
 					</div>
 				) }

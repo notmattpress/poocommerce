@@ -3,11 +3,11 @@
  */
 import { applyFilters } from '@wordpress/hooks';
 import { useEffect } from '@wordpress/element';
-import { triggerExitPageCesSurvey } from '@woocommerce/customer-effort-score';
+import { triggerExitPageCesSurvey } from '@poocommerce/customer-effort-score';
 import {
 	LayoutContextProvider,
 	getLayoutContextValue,
-} from '@woocommerce/admin-layout';
+} from '@poocommerce/admin-layout';
 import QueryString, { parse } from 'qs';
 
 /**
@@ -34,7 +34,7 @@ const EMBEDDED_BODY_COMPONENT_LIST: React.ElementType[] = [
 ];
 
 /**
- * This component is appended to the bottom of the WooCommerce non-react pages (like settings).
+ * This component is appended to the bottom of the PooCommerce non-react pages (like settings).
  * You can add a component by writing a Fill component from slot-fill with the `embedded-body-layout` name.
  *
  * Each Fill component receives QueryParams, consisting of a page, tab, and section string.
@@ -50,14 +50,14 @@ export const EmbeddedBodyLayout = () => {
 		queryParams = query;
 	}
 	/**
-	 * Filter an array of body components for WooCommerce non-react pages.
+	 * Filter an array of body components for PooCommerce non-react pages.
 	 *
-	 * @filter woocommerce_admin_embedded_layout_components
+	 * @filter poocommerce_admin_embedded_layout_components
 	 * @param {Array.<Node>} embeddedBodyComponentList Array of body components.
 	 * @param {Object}       query                     url query parameters.
 	 */
 	const componentList = applyFilters(
-		'woocommerce_admin_embedded_layout_components',
+		'poocommerce_admin_embedded_layout_components',
 		EMBEDDED_BODY_COMPONENT_LIST,
 		queryParams
 	) as React.ElementType< EmbeddedBodyProps >[];
@@ -65,8 +65,8 @@ export const EmbeddedBodyLayout = () => {
 	return (
 		<LayoutContextProvider value={ getLayoutContextValue( [ 'page' ] ) }>
 			<div
-				className="woocommerce-embedded-layout__primary"
-				id="woocommerce-embedded-layout__primary"
+				className="poocommerce-embedded-layout__primary"
+				id="poocommerce-embedded-layout__primary"
 			>
 				{ componentList.map( ( Comp, index ) => {
 					return <Comp key={ index } { ...queryParams } />;

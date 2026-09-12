@@ -4,10 +4,10 @@
  *
  * @class          WC_Logger
  * @version        2.0.0
- * @package        WooCommerce\Classes
+ * @package        PooCommerce\Classes
  */
 
-use Automattic\WooCommerce\Utilities\LoggingUtil;
+use Automattic\PooCommerce\Utilities\LoggingUtil;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -32,7 +32,7 @@ class WC_Logger implements WC_Logger_Interface {
 	/**
 	 * Constructor for the logger.
 	 *
-	 * @param array  $handlers Optional. Array of log handlers. If $handlers is not provided, the filter 'woocommerce_register_log_handlers' will be used to define the handlers. If $handlers is provided, the filter will not be applied and the handlers will be used directly.
+	 * @param array  $handlers Optional. Array of log handlers. If $handlers is not provided, the filter 'poocommerce_register_log_handlers' will be used to define the handlers. If $handlers is provided, the filter will not be applied and the handlers will be used directly.
 	 * @param string $threshold Optional. Define an explicit threshold. May be configured via  WC_LOG_THRESHOLD. By default, all logs will be processed.
 	 */
 	public function __construct( $handlers = null, $threshold = null ) {
@@ -64,7 +64,7 @@ class WC_Logger implements WC_Logger_Interface {
 			 *
 			 * @since 3.0.0
 			 */
-			$handlers = apply_filters( 'woocommerce_register_log_handlers', array( $handler_instance ) );
+			$handlers = apply_filters( 'poocommerce_register_log_handlers', array( $handler_instance ) );
 		}
 
 		$registered_handlers = array();
@@ -78,7 +78,7 @@ class WC_Logger implements WC_Logger_Interface {
 						__METHOD__,
 						sprintf(
 							/* translators: 1: class name 2: WC_Log_Handler_Interface */
-							__( 'The provided handler %1$s does not implement %2$s.', 'woocommerce' ),
+							__( 'The provided handler %1$s does not implement %2$s.', 'poocommerce' ),
 							'<code>' . esc_html( is_object( $handler ) ? get_class( $handler ) : $handler ) . '</code>',
 							'<code>WC_Log_Handler_Interface</code>'
 						),
@@ -134,7 +134,7 @@ class WC_Logger implements WC_Logger_Interface {
 	 * @return bool
 	 */
 	public function add( $handle, $message, $level = WC_Log_Levels::NOTICE ) {
-		$message = apply_filters( 'woocommerce_logger_add_message', $message, $handle );
+		$message = apply_filters( 'poocommerce_logger_add_message', $message, $handle );
 		$this->log(
 			$level,
 			$message,
@@ -143,7 +143,7 @@ class WC_Logger implements WC_Logger_Interface {
 				'_legacy' => true,
 			)
 		);
-		wc_do_deprecated_action( 'woocommerce_log_add', array( $handle, $message ), '3.0', 'This action has been deprecated with no alternative.' );
+		wc_do_deprecated_action( 'poocommerce_log_add', array( $handle, $message ), '3.0', 'This action has been deprecated with no alternative.' );
 		return true;
 	}
 
@@ -167,7 +167,7 @@ class WC_Logger implements WC_Logger_Interface {
 	public function log( $level, $message, $context = array() ) {
 		if ( ! WC_Log_Levels::is_valid_level( $level ) ) {
 			/* translators: 1: WC_Logger::log 2: level */
-			wc_doing_it_wrong( __METHOD__, sprintf( __( '%1$s was called with an invalid level "%2$s".', 'woocommerce' ), '<code>WC_Logger::log</code>', $level ), '3.0' );
+			wc_doing_it_wrong( __METHOD__, sprintf( __( '%1$s was called with an invalid level "%2$s".', 'poocommerce' ), '<code>WC_Logger::log</code>', $level ), '3.0' );
 		}
 
 		if ( $this->should_handle( $level ) ) {
@@ -183,7 +183,7 @@ class WC_Logger implements WC_Logger_Interface {
 				 * @param array  $context Additional information for log handlers.
 				 * @param object $handler The handler object, such as WC_Log_Handler_File. Available since 5.3.
 				 */
-				$filtered_message = apply_filters( 'woocommerce_logger_log_message', $message, $level, $context, $handler );
+				$filtered_message = apply_filters( 'poocommerce_logger_log_message', $message, $level, $context, $handler );
 
 				if ( null !== $filtered_message ) {
 					$handler->handle( $timestamp, $level, $filtered_message, $context );

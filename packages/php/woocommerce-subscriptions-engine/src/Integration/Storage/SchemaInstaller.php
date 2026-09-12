@@ -10,12 +10,12 @@
  * {@see self::maybe_install()} (a version-gated check on boot), as the engine is
  * bundled rather than independently activated.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage
+ * @package Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage;
 
 defined( 'ABSPATH' ) || exit;
 

@@ -4,12 +4,12 @@
 import { _n } from '@wordpress/i18n';
 import clsx from 'clsx';
 import { useRef, useEffect, RawHTML } from '@wordpress/element';
-import { sanitizeHTML } from '@woocommerce/sanitize';
+import { sanitizeHTML } from '@poocommerce/sanitize';
 import { useDispatch } from '@wordpress/data';
-import { usePrevious } from '@woocommerce/base-hooks';
+import { usePrevious } from '@poocommerce/base-hooks';
 import { decodeEntities } from '@wordpress/html-entities';
-import type { NoticeStatus, NoticeType } from '@woocommerce/types';
-import type { NoticeBannerProps } from '@woocommerce/base-components/notice-banner';
+import type { NoticeStatus, NoticeType } from '@poocommerce/types';
+import type { NoticeBannerProps } from '@poocommerce/base-components/notice-banner';
 
 /**
  * Internal dependencies
@@ -25,7 +25,7 @@ import StoreNotice from '../store-notice';
  *
  * `data-id` mirrors the classic notice templates, which expose the notice id on
  * each `li` via `wc_get_notice_data_attr()`. Store API errors surface their
- * error code as the notice id (e.g. `woocommerce_rest_cart_coupon_error`), so
+ * error code as the notice id (e.g. `poocommerce_rest_cart_coupon_error`), so
  * this gives themes and scripts the same per-notice hook the shortcode
  * checkout has.
  */
@@ -186,7 +186,7 @@ const StoreNotices = ( {
 											'Please fix the following error before continuing',
 											'Please fix the following errors before continuing',
 											uniqueNotices.length,
-											'woocommerce'
+											'poocommerce'
 									  )
 									: ''
 							}

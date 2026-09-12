@@ -1,6 +1,6 @@
 <?php
 declare( strict_types = 1 );
-namespace Automattic\WooCommerce\Tests\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Tests\Blocks\BlockTypes;
 
 /**
  * Tests that Cart and Checkout blocks disable WordPress emoji detection
@@ -43,7 +43,7 @@ class CartEmojiTest extends \WP_UnitTestCase {
 	 * Simulate what disable_wp_emoji() does: if the current post contains the
 	 * given block, remove emoji detection script and styles.
 	 *
-	 * @param string $block_name Full block name (e.g. 'woocommerce/cart').
+	 * @param string $block_name Full block name (e.g. 'poocommerce/cart').
 	 * @return void
 	 */
 	private function simulate_disable_wp_emoji( string $block_name ): void {
@@ -62,14 +62,14 @@ class CartEmojiTest extends \WP_UnitTestCase {
 		$page_id = $this->factory->post->create(
 			array(
 				'post_type'    => 'page',
-				'post_content' => '<!-- wp:woocommerce/cart --> <div class="wp-block-woocommerce-cart"></div> <!-- /wp:woocommerce/cart -->',
+				'post_content' => '<!-- wp:poocommerce/cart --> <div class="wp-block-poocommerce-cart"></div> <!-- /wp:poocommerce/cart -->',
 				'post_status'  => 'publish',
 			)
 		);
 
 		$this->go_to( get_permalink( $page_id ) );
 
-		$this->simulate_disable_wp_emoji( 'woocommerce/cart' );
+		$this->simulate_disable_wp_emoji( 'poocommerce/cart' );
 
 		$this->assertFalse(
 			has_action( 'wp_head', 'print_emoji_detection_script' ),
@@ -92,14 +92,14 @@ class CartEmojiTest extends \WP_UnitTestCase {
 		$page_id = $this->factory->post->create(
 			array(
 				'post_type'    => 'page',
-				'post_content' => '<!-- wp:woocommerce/checkout --> <div class="wp-block-woocommerce-checkout"></div> <!-- /wp:woocommerce/checkout -->',
+				'post_content' => '<!-- wp:poocommerce/checkout --> <div class="wp-block-poocommerce-checkout"></div> <!-- /wp:poocommerce/checkout -->',
 				'post_status'  => 'publish',
 			)
 		);
 
 		$this->go_to( get_permalink( $page_id ) );
 
-		$this->simulate_disable_wp_emoji( 'woocommerce/checkout' );
+		$this->simulate_disable_wp_emoji( 'poocommerce/checkout' );
 
 		$this->assertFalse(
 			has_action( 'wp_head', 'print_emoji_detection_script' ),
@@ -129,7 +129,7 @@ class CartEmojiTest extends \WP_UnitTestCase {
 
 		$this->go_to( get_permalink( $page_id ) );
 
-		$this->simulate_disable_wp_emoji( 'woocommerce/cart' );
+		$this->simulate_disable_wp_emoji( 'poocommerce/cart' );
 
 		$this->assertNotFalse(
 			has_action( 'wp_head', 'print_emoji_detection_script' ),

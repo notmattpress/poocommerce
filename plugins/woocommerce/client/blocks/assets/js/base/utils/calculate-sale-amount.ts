@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import type { CartItem } from '@woocommerce/types';
+import type { CartItem } from '@poocommerce/types';
 import { dinero, subtract, transformScale, toSnapshot } from 'dinero.js';
 import { USD } from 'dinero.js/currencies'; // USD is used as a placeholder currency for arithmetic; actual formatting is handled elsewhere.
 

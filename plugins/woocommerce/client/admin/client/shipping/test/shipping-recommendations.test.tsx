@@ -4,7 +4,7 @@
 import { render, screen } from '@testing-library/react';
 import { speak } from '@wordpress/a11y';
 import { useSelect, useDispatch } from '@wordpress/data';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -20,7 +20,7 @@ jest.mock( '@wordpress/data', () => ( {
 jest.mock( '~/components/tracked-link/tracked-link', () => ( {
 	TrackedLink: ( { textProps }: { textProps?: { className?: string } } ) => (
 		<span className={ textProps?.className }>
-			the WooCommerce Marketplace
+			the PooCommerce Marketplace
 		</span>
 	),
 } ) );
@@ -67,15 +67,15 @@ jest.mock( '~/guided-tours/shipping-tour', () => ( {
 		/>
 	),
 } ) );
-jest.mock( '../woocommerce-shipping-item', () => () => (
-	<div>WooCommerce Shipping</div>
+jest.mock( '../poocommerce-shipping-item', () => () => (
+	<div>PooCommerce Shipping</div>
 ) );
 jest.mock( '../shipstation-item', () => () => <div>ShipStation</div> );
 jest.mock( '../packlink-item', () => () => <div>Packlink PRO</div> );
 jest.mock( '../../lib/notices', () => ( {
 	createNoticesFromResponse: () => null,
 } ) );
-jest.mock( '@woocommerce/tracks', () => ( {
+jest.mock( '@poocommerce/tracks', () => ( {
 	recordEvent: jest.fn(),
 } ) );
 jest.mock( '@wordpress/a11y', () => ( {
@@ -87,7 +87,7 @@ const defaultSelectReturn = {
 	getInstalledPlugins: () => [],
 	getSettings: () => ( {
 		general: {
-			woocommerce_default_country: 'US',
+			poocommerce_default_country: 'US',
 		},
 	} ),
 	getProfileItems: () => ( {} ),
@@ -119,7 +119,7 @@ describe( 'ShippingRecommendations', () => {
 		render( <ShippingRecommendations /> );
 
 		expect(
-			screen.queryByText( 'WooCommerce Shipping' )
+			screen.queryByText( 'PooCommerce Shipping' )
 		).toBeInTheDocument();
 		expect( screen.queryByText( 'ShipStation' ) ).toBeInTheDocument();
 		expect( screen.getByTestId( 'shipping-tour' ) ).toHaveAttribute(
@@ -132,7 +132,7 @@ describe( 'ShippingRecommendations', () => {
 				context: 'settings',
 				country: 'US',
 				plugins:
-					'woocommerce-shipping,woocommerce-shipstation-integration',
+					'poocommerce-shipping,poocommerce-shipstation-integration',
 			}
 		);
 	} );
@@ -148,7 +148,7 @@ describe( 'ShippingRecommendations', () => {
 		const initialShippingTour = screen.getByTestId( 'shipping-tour' );
 
 		expect(
-			screen.queryByText( 'the WooCommerce Marketplace' )
+			screen.queryByText( 'the PooCommerce Marketplace' )
 		).not.toBeInTheDocument();
 		expect(
 			screen.queryByTestId( 'dismissable-list' )
@@ -176,7 +176,7 @@ describe( 'ShippingRecommendations', () => {
 				context: 'settings',
 				country: 'US',
 				plugins:
-					'woocommerce-shipping,woocommerce-shipstation-integration',
+					'poocommerce-shipping,poocommerce-shipstation-integration',
 			}
 		);
 	} );
@@ -191,7 +191,7 @@ describe( 'ShippingRecommendations', () => {
 		render( <ShippingRecommendations /> );
 
 		expect(
-			screen.queryByText( 'the WooCommerce Marketplace' )
+			screen.queryByText( 'the PooCommerce Marketplace' )
 		).not.toBeInTheDocument();
 		expect(
 			screen.queryByTestId( 'dismissable-list' )
@@ -217,7 +217,7 @@ describe( 'ShippingRecommendations', () => {
 
 		const { rerender } = render( <ShippingRecommendations /> );
 		const dismissalWrapper = document.querySelector(
-			'.woocommerce-dismissable-list__wrapper'
+			'.poocommerce-dismissable-list__wrapper'
 		);
 
 		expect( dismissalWrapper ).toBeInTheDocument();
@@ -230,7 +230,7 @@ describe( 'ShippingRecommendations', () => {
 		rerender( <ShippingRecommendations /> );
 
 		expect(
-			document.querySelector( '.woocommerce-dismissable-list__wrapper' )
+			document.querySelector( '.poocommerce-dismissable-list__wrapper' )
 		).toBe( dismissalWrapper );
 		expect( screen.getByTestId( 'dismissable-list' ) ).toHaveAttribute(
 			'data-dismissed',
@@ -242,7 +242,7 @@ describe( 'ShippingRecommendations', () => {
 		);
 		expect( dismissalWrapper ).toHaveFocus();
 		expect(
-			screen.getByText( 'the WooCommerce Marketplace' )
+			screen.getByText( 'the PooCommerce Marketplace' )
 		).toBeInTheDocument();
 	} );
 
@@ -255,7 +255,7 @@ describe( 'ShippingRecommendations', () => {
 		render( <ShippingRecommendations /> );
 
 		expect(
-			screen.queryByText( 'the WooCommerce Marketplace' )
+			screen.queryByText( 'the PooCommerce Marketplace' )
 		).not.toBeInTheDocument();
 		expect(
 			screen.queryByTestId( 'dismissable-list' )
@@ -281,11 +281,11 @@ describe( 'ShippingRecommendations', () => {
 		render( <ShippingRecommendations /> );
 
 		expect(
-			screen.queryByText( 'WooCommerce Shipping' )
+			screen.queryByText( 'PooCommerce Shipping' )
 		).not.toBeInTheDocument();
 		expect( screen.queryByText( 'ShipStation' ) ).not.toBeInTheDocument();
 		expect(
-			screen.queryByText( 'the WooCommerce Marketplace' )
+			screen.queryByText( 'the PooCommerce Marketplace' )
 		).toBeInTheDocument();
 		expect( screen.getByTestId( 'dismissable-list' ) ).toHaveAttribute(
 			'data-dismissed',
@@ -306,7 +306,7 @@ describe( 'ShippingRecommendations', () => {
 		mockSelect( {
 			getSettings: () => ( {
 				general: {
-					woocommerce_default_country: 'JP',
+					poocommerce_default_country: 'JP',
 				},
 			} ),
 		} );
@@ -314,10 +314,10 @@ describe( 'ShippingRecommendations', () => {
 		render( <ShippingRecommendations /> );
 
 		expect(
-			screen.queryByText( 'WooCommerce Shipping' )
+			screen.queryByText( 'PooCommerce Shipping' )
 		).not.toBeInTheDocument();
 		expect(
-			screen.queryByText( 'the WooCommerce Marketplace' )
+			screen.queryByText( 'the PooCommerce Marketplace' )
 		).toBeInTheDocument();
 		expect( screen.getByTestId( 'shipping-tour' ) ).toHaveAttribute(
 			'data-show-recommendations-step',
@@ -335,10 +335,10 @@ describe( 'ShippingRecommendations', () => {
 		render( <ShippingRecommendations /> );
 
 		expect(
-			screen.queryByText( 'WooCommerce Shipping' )
+			screen.queryByText( 'PooCommerce Shipping' )
 		).not.toBeInTheDocument();
 		expect(
-			screen.queryByText( 'the WooCommerce Marketplace' )
+			screen.queryByText( 'the PooCommerce Marketplace' )
 		).toBeInTheDocument();
 		expect( screen.getByTestId( 'shipping-tour' ) ).toHaveAttribute(
 			'data-show-recommendations-step',

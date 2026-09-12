@@ -1,17 +1,17 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\StockNotifications\Frontend;
+namespace Automattic\PooCommerce\Internal\StockNotifications\Frontend;
 
-use Automattic\WooCommerce\Internal\StockNotifications\Config;
-use Automattic\WooCommerce\Internal\StockNotifications\Emails\EmailManager;
-use Automattic\WooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
-use Automattic\WooCommerce\Internal\StockNotifications\Factory;
-use Automattic\WooCommerce\Internal\StockNotifications\Frontend\MyAccountEndpoint;
-use Automattic\WooCommerce\Internal\StockNotifications\Notification;
-use Automattic\WooCommerce\Internal\StockNotifications\NotificationQuery;
-use Automattic\WooCommerce\Internal\StockNotifications\Utilities\EligibilityService;
-use Automattic\WooCommerce\Internal\StockNotifications\Utilities\EmailNormalizer;
+use Automattic\PooCommerce\Internal\StockNotifications\Config;
+use Automattic\PooCommerce\Internal\StockNotifications\Emails\EmailManager;
+use Automattic\PooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
+use Automattic\PooCommerce\Internal\StockNotifications\Factory;
+use Automattic\PooCommerce\Internal\StockNotifications\Frontend\MyAccountEndpoint;
+use Automattic\PooCommerce\Internal\StockNotifications\Notification;
+use Automattic\PooCommerce\Internal\StockNotifications\NotificationQuery;
+use Automattic\PooCommerce\Internal\StockNotifications\Utilities\EligibilityService;
+use Automattic\PooCommerce\Internal\StockNotifications\Utilities\EmailNormalizer;
 
 /**
  * A class for handling the business logic of the signup process.
@@ -161,13 +161,13 @@ class SignupService {
 				}
 
 				/**
-				 * Action: woocommerce_customer_stock_notifications_signup
+				 * Action: poocommerce_customer_stock_notifications_signup
 				 *
 				 * @since 10.2.0
 				 *
 				 * @param Notification $notification The notification.
 				 */
-				do_action( 'woocommerce_customer_stock_notifications_signup', $notification );
+				do_action( 'poocommerce_customer_stock_notifications_signup', $notification );
 				return new SignupResult( self::SIGNUP_SUCCESS, $notification );
 			}
 		}
@@ -216,13 +216,13 @@ class SignupService {
 		}
 
 		/**
-		 * Action: woocommerce_customer_stock_notifications_signup
+		 * Action: poocommerce_customer_stock_notifications_signup
 		 *
 		 * @since 10.2.0
 		 *
 		 * @param Notification $notification The notification.
 		 */
-		do_action( 'woocommerce_customer_stock_notifications_signup', $notification );
+		do_action( 'poocommerce_customer_stock_notifications_signup', $notification );
 
 		if ( Config::requires_double_opt_in() && NotificationStatus::PENDING === $notification->get_status() ) {
 			$this->email_manager->send_verify_email( $notification );
@@ -323,7 +323,7 @@ class SignupService {
 				return null;
 			}
 
-			$password = 'yes' === get_option( 'woocommerce_registration_generate_password' ) ? '' : wp_generate_password();
+			$password = 'yes' === get_option( 'poocommerce_registration_generate_password' ) ? '' : wp_generate_password();
 			$user_id  = wc_create_new_customer( $user_email, $username, $password );
 			if ( is_a( $user_id, 'WP_Error' ) ) {
 				return null;
@@ -517,17 +517,17 @@ class SignupService {
 	public function get_error_message( string $error_code ): string {
 		switch ( $error_code ) {
 			case self::ERROR_INVALID_PRODUCT:
-				return wp_kses_post( __( 'Invalid product.', 'woocommerce' ) );
+				return wp_kses_post( __( 'Invalid product.', 'poocommerce' ) );
 			case self::ERROR_INVALID_USER:
-				return wp_kses_post( __( 'Invalid user.', 'woocommerce' ) );
+				return wp_kses_post( __( 'Invalid user.', 'poocommerce' ) );
 			case self::ERROR_INVALID_EMAIL:
-				return wp_kses_post( __( 'Invalid email address.', 'woocommerce' ) );
+				return wp_kses_post( __( 'Invalid email address.', 'poocommerce' ) );
 			case self::ERROR_INVALID_OPT_IN:
-				return wp_kses_post( __( 'To proceed, please consent to the creation of a new account with your e-mail.', 'woocommerce' ) );
+				return wp_kses_post( __( 'To proceed, please consent to the creation of a new account with your e-mail.', 'poocommerce' ) );
 			case self::ERROR_RATE_LIMITED:
-				return wp_kses_post( __( 'Please wait a moment before signing up again.', 'woocommerce' ) );
+				return wp_kses_post( __( 'Please wait a moment before signing up again.', 'poocommerce' ) );
 			default:
-				return wp_kses_post( __( 'Failed to sign up. Please try again.', 'woocommerce' ) );
+				return wp_kses_post( __( 'Failed to sign up. Please try again.', 'poocommerce' ) );
 		}
 	}
 
@@ -545,28 +545,28 @@ class SignupService {
 
 			case self::SIGNUP_SUCCESS:
 				/* translators: Product name */
-				$message = sprintf( esc_html__( 'You have successfully signed up! You will be notified when "%s" is back in stock.', 'woocommerce' ), $notification->get_product_name() );
+				$message = sprintf( esc_html__( 'You have successfully signed up! You will be notified when "%s" is back in stock.', 'poocommerce' ), $notification->get_product_name() );
 				break;
 
 			case self::SIGNUP_SUCCESS_DOUBLE_OPT_IN:
-				$message = esc_html__( 'Thanks for signing up! Please complete the sign-up process by following the verification link sent to your e-mail.', 'woocommerce' );
+				$message = esc_html__( 'Thanks for signing up! Please complete the sign-up process by following the verification link sent to your e-mail.', 'poocommerce' );
 				break;
 
 			case self::SIGNUP_SUCCESS_ACCOUNT_CREATED:
 				/* translators: Product name */
-				$message = sprintf( esc_html__( 'You have successfully signed up and will be notified when "%s" is back in stock! Note that a new account has been created for you; please check your e-mail for details.', 'woocommerce' ), $notification->get_product_name() );
+				$message = sprintf( esc_html__( 'You have successfully signed up and will be notified when "%s" is back in stock! Note that a new account has been created for you; please check your e-mail for details.', 'poocommerce' ), $notification->get_product_name() );
 				break;
 
 			case self::SIGNUP_SUCCESS_ACCOUNT_CREATED_DOUBLE_OPT_IN:
-				$message = esc_html__( 'Thanks for signing up! An account has been created for you. Please complete the sign-up process by following the verification link sent to your e-mail.', 'woocommerce' );
+				$message = esc_html__( 'Thanks for signing up! An account has been created for you. Please complete the sign-up process by following the verification link sent to your e-mail.', 'poocommerce' );
 				break;
 
 			case self::SIGNUP_ALREADY_JOINED:
-				$message = esc_html__( 'You have already joined this waitlist.', 'woocommerce' );
+				$message = esc_html__( 'You have already joined this waitlist.', 'poocommerce' );
 				break;
 
 			case self::SIGNUP_ALREADY_JOINED_DOUBLE_OPT_IN:
-				$notice_text     = esc_html__( 'You have already joined this waitlist. Please complete the sign-up process by following the verification link sent to your e-mail.', 'woocommerce' );
+				$notice_text     = esc_html__( 'You have already joined this waitlist. Please complete the sign-up process by following the verification link sent to your e-mail.', 'poocommerce' );
 				$url             = $this->notification_management_service->get_resend_verification_email_url( $notification );
 				$button_class    = wc_wp_theme_get_element_class_name( 'button' );
 				$wp_button_class = $button_class ? ' ' . $button_class : '';
@@ -574,7 +574,7 @@ class SignupService {
 					'<a href="%s" class="button wc-forward%s">%s</a> %s',
 					$url,
 					$wp_button_class,
-					esc_html_x( 'Resend verification', 'notice action', 'woocommerce' ),
+					esc_html_x( 'Resend verification', 'notice action', 'poocommerce' ),
 					$notice_text
 				);
 
@@ -589,7 +589,7 @@ class SignupService {
 		if ( is_user_logged_in() && ! $has_action_button && '' !== MyAccountEndpoint::get_endpoint_slug() ) {
 			$button_class    = \wc_wp_theme_get_element_class_name( 'button' );
 			$wp_button_class = $button_class ? ' ' . $button_class : '';
-			$message         = sprintf( '<a href="%s" class="button wc-forward%s">%s</a> %s', esc_url( \wc_get_account_endpoint_url( MyAccountEndpoint::ENDPOINT ) ), $wp_button_class, esc_html_x( 'Manage notifications', 'notice action', 'woocommerce' ), $message );
+			$message         = sprintf( '<a href="%s" class="button wc-forward%s">%s</a> %s', esc_url( \wc_get_account_endpoint_url( MyAccountEndpoint::ENDPOINT ) ), $wp_button_class, esc_html_x( 'Manage notifications', 'notice action', 'poocommerce' ), $message );
 		}
 
 		return $message;

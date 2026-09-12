@@ -13,9 +13,9 @@ import {
 	type BlockInstance,
 } from '@wordpress/blocks';
 import { useSelect } from '@wordpress/data';
-import { withProductDataContext } from '@woocommerce/shared-hocs';
-import { useProductDataContext } from '@woocommerce/shared-context';
-import { getSetting } from '@woocommerce/settings';
+import { withProductDataContext } from '@poocommerce/shared-hocs';
+import { useProductDataContext } from '@poocommerce/shared-context';
+import { getSetting } from '@poocommerce/settings';
 import clsx from 'clsx';
 
 /**
@@ -27,30 +27,30 @@ import { resolveAspectRatio } from '../../atomic/blocks/product-elements/image/u
 import type { BlockAttributes as ProductImageBlockAttributes } from '../../atomic/blocks/product-elements/image/types';
 
 const TEMPLATE: InnerBlockTemplate[] = [
-	[ 'woocommerce/product-gallery-thumbnails' ],
+	[ 'poocommerce/product-gallery-thumbnails' ],
 	[
-		'woocommerce/product-gallery-large-image',
+		'poocommerce/product-gallery-large-image',
 		{},
 		[
 			[
-				'woocommerce/product-image',
+				'poocommerce/product-image',
 				{
 					showProductLink: false,
 					showSaleBadge: false,
 				},
 			],
 			[
-				'woocommerce/product-sale-badge',
+				'poocommerce/product-sale-badge',
 				{
 					align: 'right',
 				},
 			],
-			[ 'woocommerce/product-gallery-large-image-next-previous' ],
+			[ 'poocommerce/product-gallery-large-image-next-previous' ],
 		],
 	],
 ];
 
-const PRODUCT_IMAGE_BLOCK_NAME = 'woocommerce/product-image';
+const PRODUCT_IMAGE_BLOCK_NAME = 'poocommerce/product-image';
 
 type ParsedAspectRatio = {
 	width: string;
@@ -188,8 +188,8 @@ export const Edit = withProductDataContext(
 				</InspectorControls>
 				<InnerBlocks
 					allowedBlocks={ [
-						'woocommerce/product-gallery-large-image',
-						'woocommerce/product-gallery-thumbnails',
+						'poocommerce/product-gallery-large-image',
+						'poocommerce/product-gallery-thumbnails',
 					] }
 					template={ TEMPLATE }
 				/>

@@ -2,12 +2,12 @@
 /**
  * Is WooExpress rule processor tests.
  *
- * @package WooCommerce\Admin\Tests\RemoteSpecs
+ * @package PooCommerce\Admin\Tests\RemoteSpecs
  */
 
 declare( strict_types = 1 );
 
-use Automattic\WooCommerce\Admin\RemoteSpecs\RuleProcessors\IsWooExpressRuleProcessor;
+use Automattic\PooCommerce\Admin\RemoteSpecs\RuleProcessors\IsWooExpressRuleProcessor;
 
 /**
  * class WC_Admin_Tests_RemoteSpecs_RuleProcessors_IsWooExpressRuleProcessor

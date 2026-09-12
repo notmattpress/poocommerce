@@ -2,9 +2,9 @@
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\Notes\Note;
+use Automattic\PooCommerce\Admin\Notes\Note;
 
-register_woocommerce_admin_test_helper_rest_route(
+register_poocommerce_admin_test_helper_rest_route(
 	'/admin-notes/add-note/v1',
 	'admin_notes_add_note'
 );

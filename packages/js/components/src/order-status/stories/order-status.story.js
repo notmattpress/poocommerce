@@ -2,12 +2,12 @@
  * External dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { OrderStatus } from '@woocommerce/components';
+import { OrderStatus } from '@poocommerce/components';
 
 const orderStatusMap = {
-	processing: __( 'Processing Order', 'woocommerce' ),
-	pending: __( 'Pending Order', 'woocommerce' ),
-	completed: __( 'Completed Order', 'woocommerce' ),
+	processing: __( 'Processing Order', 'poocommerce' ),
+	pending: __( 'Pending Order', 'poocommerce' ),
+	completed: __( 'Completed Order', 'poocommerce' ),
 };
 
 export const Basic = () => (

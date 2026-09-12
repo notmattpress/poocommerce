@@ -45,7 +45,7 @@ jQuery(function ($) {
 				return false;
 			}
 
-			// Clearing the cart and re-adding the item causes the current WooCommerce draft order to be lost.
+			// Clearing the cart and re-adding the item causes the current PooCommerce draft order to be lost.
 			// If the user is re-opening the payment modal and has not changed anything, do nothing;
 			// we want to resume the existing draft order if the cart has not changed.
 			if ( orderId && productPageCartData.id === productId && productPageCartData.quantity === quantity ) {
@@ -105,7 +105,7 @@ jQuery(function ($) {
 
 				let responseData;
 				try {
-					// Create a draft order in WooCommerce.
+					// Create a draft order in PooCommerce.
 					responseData = await window.wp.apiFetch( {
 						method: 'GET',
 						path: '/wc/store/v1/checkout',
@@ -116,7 +116,7 @@ jQuery(function ($) {
 
 					if ( ! responseData.order_id || ! responseData.order_key ) {
 						// eslint-disable-next-line no-console
-						console.error( 'Failed to create WooCommerce order', responseData );
+						console.error( 'Failed to create PooCommerce order', responseData );
 						return null;
 					}
 
@@ -187,18 +187,18 @@ jQuery(function ($) {
 			onError: function ( error ) {
 				const sanitizedErrorMessage = $( '<div>' ).text( error.message || paypal_standard.generic_error_message ).html();
 				const messageWrapper =
-					'<ul class="woocommerce-error" role="alert"><li>' +
+					'<ul class="poocommerce-error" role="alert"><li>' +
 						sanitizedErrorMessage +
 					'</li></ul>';
 
-				const $noticeContainer = $( '.woocommerce-notices-wrapper' ).first();
+				const $noticeContainer = $( '.poocommerce-notices-wrapper' ).first();
 
 				if ( ! $noticeContainer.length ) {
 					return;
 				}
 
 				$(
-					'.woocommerce-NoticeGroup-checkout, .woocommerce-error, .woocommerce-message'
+					'.poocommerce-NoticeGroup-checkout, .poocommerce-error, .poocommerce-message'
 				).remove();
 				$noticeContainer.prepend( messageWrapper );
 			},

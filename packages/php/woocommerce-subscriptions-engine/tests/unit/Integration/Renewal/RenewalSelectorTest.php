@@ -2,22 +2,22 @@
 /**
  * Unit tests for the read-only renewal cycle selector.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine
+ * @package Automattic\PooCommerce\SubscriptionsEngine
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Tests\Unit\Integration\Renewal;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Tests\Unit\Integration\Renewal;
 
 use DateTimeImmutable;
 use DateTimeZone;
 use PHPUnit\Framework\TestCase;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\CycleStatus;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Renewal\RenewalSelector;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage\RenewalCandidate;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\CycleStatus;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Renewal\RenewalSelector;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage\RenewalCandidate;
 
 /**
- * @covers \Automattic\WooCommerce\SubscriptionsEngine\Integration\Renewal\RenewalSelector
+ * @covers \Automattic\PooCommerce\SubscriptionsEngine\Integration\Renewal\RenewalSelector
  */
 class RenewalSelectorTest extends TestCase {
 

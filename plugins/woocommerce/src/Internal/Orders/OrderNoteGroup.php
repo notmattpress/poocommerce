@@ -2,7 +2,7 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\Orders;
+namespace Automattic\PooCommerce\Internal\Orders;
 
 /**
  * Enum class for order note groups. This is stored as meta data to categorize order notes.
@@ -61,17 +61,17 @@ final class OrderNoteGroup {
 	public static function get_default_group_title( string $group ): string {
 		switch ( $group ) {
 			case self::PRODUCT_STOCK:
-				return __( 'Product stock', 'woocommerce' );
+				return __( 'Product stock', 'poocommerce' );
 			case self::PAYMENT:
-				return __( 'Payment', 'woocommerce' );
+				return __( 'Payment', 'poocommerce' );
 			case self::EMAIL_NOTIFICATION:
-				return __( 'Email notification', 'woocommerce' );
+				return __( 'Email notification', 'poocommerce' );
 			case self::ERROR:
-				return __( 'Error', 'woocommerce' );
+				return __( 'Error', 'poocommerce' );
 			case self::FULFILLMENT:
-				return __( 'Fulfillment', 'woocommerce' );
+				return __( 'Fulfillment', 'poocommerce' );
 			default:
-				return __( 'Order updated', 'woocommerce' );
+				return __( 'Order updated', 'poocommerce' );
 		}
 	}
 }

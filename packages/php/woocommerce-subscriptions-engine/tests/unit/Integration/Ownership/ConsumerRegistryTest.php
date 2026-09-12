@@ -5,18 +5,18 @@
  * The registry is WordPress-free (only the file-access guard), so it loads and
  * runs in the autoloader-only unit bootstrap.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine
+ * @package Automattic\PooCommerce\SubscriptionsEngine
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Tests\Unit\Integration\Ownership;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Tests\Unit\Integration\Ownership;
 
 use PHPUnit\Framework\TestCase;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Ownership\ConsumerRegistry;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Ownership\ConsumerRegistry;
 
 /**
- * @covers \Automattic\WooCommerce\SubscriptionsEngine\Integration\Ownership\ConsumerRegistry
+ * @covers \Automattic\PooCommerce\SubscriptionsEngine\Integration\Ownership\ConsumerRegistry
  */
 class ConsumerRegistryTest extends TestCase {
 
@@ -71,8 +71,8 @@ class ConsumerRegistryTest extends TestCase {
 		ConsumerRegistry::register( "  \t\n" );
 		$this->assertTrue( ConsumerRegistry::is_empty(), 'A whitespace-only slug must not open the gate.' );
 
-		ConsumerRegistry::register( '  woocommerce-subscriptions-lite  ' );
-		$this->assertSame( array( 'woocommerce-subscriptions-lite' ), ConsumerRegistry::all(), 'The slug is stored trimmed.' );
+		ConsumerRegistry::register( '  poocommerce-subscriptions-lite  ' );
+		$this->assertSame( array( 'poocommerce-subscriptions-lite' ), ConsumerRegistry::all(), 'The slug is stored trimmed.' );
 	}
 
 	public function test_unregister_removes_only_the_named_consumer(): void {

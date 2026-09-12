@@ -8,14 +8,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 ?>
-<div class="wrap woocommerce">
+<div class="wrap poocommerce">
 	<?php if ( WC()->is_wc_admin_active() ) { ?>
 	<div id="message" class="error inline" style="margin-top:30px">
 		<p>
 			<strong>
 			<?php
 			/* translators: 1: Link URL */
-			echo wp_kses_post( sprintf( __( 'With the release of WooCommerce 4.0, these reports are being replaced. There is a new and better Analytics section available for users running WordPress 5.3+. Head on over to the <a href="%1$s">WooCommerce Analytics</a> or learn more about the new experience in the <a href="https://woocommerce.com/document/woocommerce-analytics/" target="_blank">WooCommerce Analytics documentation</a>.', 'woocommerce' ), esc_url( wc_admin_url( '&path=/analytics/overview' ) ) ) );
+			echo wp_kses_post( sprintf( __( 'With the release of PooCommerce 4.0, these reports are being replaced. There is a new and better Analytics section available for users running WordPress 5.3+. Head on over to the <a href="%1$s">PooCommerce Analytics</a> or learn more about the new experience in the <a href="https://poocommerce.com/document/poocommerce-analytics/" target="_blank">PooCommerce Analytics documentation</a>.', 'poocommerce' ), esc_url( wc_admin_url( '&path=/analytics/overview' ) ) ) );
 			?>
 			</strong>
 		</p>

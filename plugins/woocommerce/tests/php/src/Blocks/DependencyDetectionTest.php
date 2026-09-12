@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks;
+namespace Automattic\PooCommerce\Tests\Blocks;
 
-use Automattic\WooCommerce\Blocks\DependencyDetection;
+use Automattic\PooCommerce\Blocks\DependencyDetection;
 use WC_Unit_Test_Case;
 
 /**
@@ -60,85 +60,85 @@ class DependencyDetectionTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox is_woocommerce_script returns true for WooCommerce core client path.
+	 * @testdox is_poocommerce_script returns true for PooCommerce core client path.
 	 */
-	public function test_is_woocommerce_script_returns_true_for_client_path(): void {
+	public function test_is_poocommerce_script_returns_true_for_client_path(): void {
 		$wc_plugin_url = plugins_url( '/', WC_PLUGIN_FILE );
 		$url           = $wc_plugin_url . 'client/blocks/index.js';
-		$result        = $this->invoke_private_method( 'is_woocommerce_script', array( $url ) );
+		$result        = $this->invoke_private_method( 'is_poocommerce_script', array( $url ) );
 		$this->assertTrue( $result );
 	}
 
 	/**
-	 * @testdox is_woocommerce_script returns true for WooCommerce core assets path.
+	 * @testdox is_poocommerce_script returns true for PooCommerce core assets path.
 	 */
-	public function test_is_woocommerce_script_returns_true_for_assets_path(): void {
+	public function test_is_poocommerce_script_returns_true_for_assets_path(): void {
 		$wc_plugin_url = plugins_url( '/', WC_PLUGIN_FILE );
 		$url           = $wc_plugin_url . 'assets/js/frontend.js';
-		$result        = $this->invoke_private_method( 'is_woocommerce_script', array( $url ) );
+		$result        = $this->invoke_private_method( 'is_poocommerce_script', array( $url ) );
 		$this->assertTrue( $result );
 	}
 
 	/**
-	 * @testdox is_woocommerce_script returns true for WooCommerce core build path.
+	 * @testdox is_poocommerce_script returns true for PooCommerce core build path.
 	 */
-	public function test_is_woocommerce_script_returns_true_for_build_path(): void {
+	public function test_is_poocommerce_script_returns_true_for_build_path(): void {
 		$wc_plugin_url = plugins_url( '/', WC_PLUGIN_FILE );
 		$url           = $wc_plugin_url . 'build/bundle.js';
-		$result        = $this->invoke_private_method( 'is_woocommerce_script', array( $url ) );
+		$result        = $this->invoke_private_method( 'is_poocommerce_script', array( $url ) );
 		$this->assertTrue( $result );
 	}
 
 	/**
-	 * @testdox is_woocommerce_script returns true for WooCommerce core vendor path.
+	 * @testdox is_poocommerce_script returns true for PooCommerce core vendor path.
 	 */
-	public function test_is_woocommerce_script_returns_true_for_vendor_path(): void {
+	public function test_is_poocommerce_script_returns_true_for_vendor_path(): void {
 		$wc_plugin_url = plugins_url( '/', WC_PLUGIN_FILE );
 		$url           = $wc_plugin_url . 'vendor/some-lib.js';
-		$result        = $this->invoke_private_method( 'is_woocommerce_script', array( $url ) );
+		$result        = $this->invoke_private_method( 'is_poocommerce_script', array( $url ) );
 		$this->assertTrue( $result );
 	}
 
 	/**
-	 * @testdox is_woocommerce_script returns false for scripts in root directory (not in asset dirs).
+	 * @testdox is_poocommerce_script returns false for scripts in root directory (not in asset dirs).
 	 */
-	public function test_is_woocommerce_script_returns_false_for_root_scripts(): void {
+	public function test_is_poocommerce_script_returns_false_for_root_scripts(): void {
 		$wc_plugin_url = plugins_url( '/', WC_PLUGIN_FILE );
 		$url           = $wc_plugin_url . 'readme.js';
-		$result        = $this->invoke_private_method( 'is_woocommerce_script', array( $url ) );
+		$result        = $this->invoke_private_method( 'is_poocommerce_script', array( $url ) );
 		$this->assertFalse( $result );
 	}
 
 	/**
-	 * @testdox is_woocommerce_script returns false for WooCommerce extensions.
+	 * @testdox is_poocommerce_script returns false for PooCommerce extensions.
 	 */
-	public function test_is_woocommerce_script_returns_false_for_subscriptions(): void {
+	public function test_is_poocommerce_script_returns_false_for_subscriptions(): void {
 		$wc_plugin_url = plugins_url( '/', WC_PLUGIN_FILE );
-		// Replace /woocommerce/ with /woocommerce-subscriptions/ in the URL.
-		$url    = str_replace( '/woocommerce/', '/woocommerce-subscriptions/', $wc_plugin_url ) . 'assets/js/index.js';
-		$result = $this->invoke_private_method( 'is_woocommerce_script', array( $url ) );
+		// Replace /poocommerce/ with /poocommerce-subscriptions/ in the URL.
+		$url    = str_replace( '/poocommerce/', '/poocommerce-subscriptions/', $wc_plugin_url ) . 'assets/js/index.js';
+		$result = $this->invoke_private_method( 'is_poocommerce_script', array( $url ) );
 		$this->assertFalse( $result );
 	}
 
 	/**
-	 * @testdox is_woocommerce_script returns false for WooCommerce Payments.
+	 * @testdox is_poocommerce_script returns false for PooCommerce Payments.
 	 */
-	public function test_is_woocommerce_script_returns_false_for_payments(): void {
+	public function test_is_poocommerce_script_returns_false_for_payments(): void {
 		$wc_plugin_url = plugins_url( '/', WC_PLUGIN_FILE );
-		// Replace /woocommerce/ with /woocommerce-payments/ in the URL.
-		$url    = str_replace( '/woocommerce/', '/woocommerce-payments/', $wc_plugin_url ) . 'build/index.js';
-		$result = $this->invoke_private_method( 'is_woocommerce_script', array( $url ) );
+		// Replace /poocommerce/ with /poocommerce-payments/ in the URL.
+		$url    = str_replace( '/poocommerce/', '/poocommerce-payments/', $wc_plugin_url ) . 'build/index.js';
+		$result = $this->invoke_private_method( 'is_poocommerce_script', array( $url ) );
 		$this->assertFalse( $result );
 	}
 
 	/**
-	 * @testdox is_woocommerce_script returns false for third-party plugins.
+	 * @testdox is_poocommerce_script returns false for third-party plugins.
 	 */
-	public function test_is_woocommerce_script_returns_false_for_third_party(): void {
+	public function test_is_poocommerce_script_returns_false_for_third_party(): void {
 		$wc_plugin_url = plugins_url( '/', WC_PLUGIN_FILE );
-		// Replace /woocommerce/ with /my-plugin/ in the URL.
-		$url    = str_replace( '/woocommerce/', '/my-plugin/', $wc_plugin_url ) . 'assets/js/index.js';
-		$result = $this->invoke_private_method( 'is_woocommerce_script', array( $url ) );
+		// Replace /poocommerce/ with /my-plugin/ in the URL.
+		$url    = str_replace( '/poocommerce/', '/my-plugin/', $wc_plugin_url ) . 'assets/js/index.js';
+		$result = $this->invoke_private_method( 'is_poocommerce_script', array( $url ) );
 		$this->assertFalse( $result );
 	}
 
@@ -206,27 +206,27 @@ class DependencyDetectionTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox build_script_registry excludes WooCommerce core scripts.
+	 * @testdox build_script_registry excludes PooCommerce core scripts.
 	 */
-	public function test_build_script_registry_excludes_woocommerce_scripts(): void {
+	public function test_build_script_registry_excludes_poocommerce_scripts(): void {
 		$result = $this->invoke_private_method( 'build_script_registry', array() );
 
-		// Check that no WooCommerce core scripts are in the registry.
+		// Check that no PooCommerce core scripts are in the registry.
 		foreach ( $result as $url => $info ) {
 			$this->assertStringNotContainsString(
-				'/plugins/woocommerce/client/',
+				'/plugins/poocommerce/client/',
 				$url,
-				'WooCommerce client scripts should be excluded'
+				'PooCommerce client scripts should be excluded'
 			);
 			$this->assertStringNotContainsString(
-				'/plugins/woocommerce/assets/',
+				'/plugins/poocommerce/assets/',
 				$url,
-				'WooCommerce assets scripts should be excluded'
+				'PooCommerce assets scripts should be excluded'
 			);
 			$this->assertStringNotContainsString(
-				'/plugins/woocommerce/build/',
+				'/plugins/poocommerce/build/',
 				$url,
-				'WooCommerce build scripts should be excluded'
+				'PooCommerce build scripts should be excluded'
 			);
 		}
 	}
@@ -281,7 +281,7 @@ class DependencyDetectionTest extends WC_Unit_Test_Case {
 	 * @testdox output_early_proxy_setup outputs nothing when no tracked blocks are present.
 	 */
 	public function test_output_early_proxy_setup_outputs_nothing_without_tracked_blocks(): void {
-		// Create a post without any WooCommerce blocks.
+		// Create a post without any PooCommerce blocks.
 		$post_id = $this->factory->post->create(
 			array(
 				'post_content' => '<!-- wp:paragraph --><p>Hello World</p><!-- /wp:paragraph -->',

@@ -2,14 +2,14 @@
 /**
  * Product REST request preparation helpers.
  *
- * @package WooCommerce\Internal\RestApi
+ * @package PooCommerce\Internal\RestApi
  */
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\RestApi;
+namespace Automattic\PooCommerce\Internal\RestApi;
 
-use Automattic\WooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Enums\ProductType;
 
 /**
  * Shared product construction for REST write requests.
@@ -29,8 +29,8 @@ trait ProductRequestPreparationTrait {
 		if ( isset( $request['type'] ) && ! is_scalar( $request['type'] ) ) {
 			// Falling back to a default class here would silently rewrite the product's type on update.
 			return new \WP_Error(
-				"woocommerce_rest_invalid_{$this->post_type}_type",
-				__( 'Invalid product type.', 'woocommerce' ),
+				"poocommerce_rest_invalid_{$this->post_type}_type",
+				__( 'Invalid product type.', 'poocommerce' ),
 				array( 'status' => 400 )
 			);
 		}
@@ -46,9 +46,9 @@ trait ProductRequestPreparationTrait {
 
 			if ( ! $classname || ! class_exists( $classname ) ) {
 				// Fall back to the stored type rather than silently converting the product to simple.
-				// get_product_classname() resolves it through woocommerce_product_class, so a stored
+				// get_product_classname() resolves it through poocommerce_product_class, so a stored
 				// class registered only by that filter still wins. The requested type is not resolved
-				// that way. The string check guards woocommerce_product_type_query, which can return
+				// that way. The string check guards poocommerce_product_type_query, which can return
 				// any truthy value, and a non-string one would fatal while the class name is built.
 				$classname = is_string( $existing_product_type ) && '' !== $existing_product_type
 					? \WC_Product_Factory::get_product_classname( $id, $existing_product_type )
@@ -61,7 +61,7 @@ trait ProductRequestPreparationTrait {
 				// Convert only the core data store's own invalid-product failure for a nonzero
 				// target that is no longer a product post; absence of a post proves deletion
 				// there because wp_delete_post() invalidates the posts cache (unlike
-				// WooCommerce's products cache group). The throw site stands in for that
+				// PooCommerce's products cache group). The throw site stands in for that
 				// failure: a store that reads its own backend throws from its own file, so it
 				// is rethrown. A store that delegates to parent::read() throws from the core
 				// file instead and is converted, which is why the post-type check below has to
@@ -113,8 +113,8 @@ trait ProductRequestPreparationTrait {
 		// The pre-insert filter runs after the trait's guarantees, so the shape must be re-checked.
 		if ( ! $product instanceof \WC_Product ) {
 			return new \WP_Error(
-				"woocommerce_rest_{$this->post_type}_not_created",
-				__( 'Invalid product.', 'woocommerce' ),
+				"poocommerce_rest_{$this->post_type}_not_created",
+				__( 'Invalid product.', 'poocommerce' ),
 				array( 'status' => 400 )
 			);
 		}
@@ -130,10 +130,10 @@ trait ProductRequestPreparationTrait {
 	 */
 	private function get_invalid_product_id_error( bool $is_variation = false ): \WP_Error {
 		return new \WP_Error(
-			"woocommerce_rest_invalid_{$this->post_type}_id",
+			"poocommerce_rest_invalid_{$this->post_type}_id",
 			$is_variation
-				? __( 'To manipulate product variations you should use the /products/&lt;product_id&gt;/variations/&lt;id&gt; endpoint.', 'woocommerce' )
-				: __( 'Invalid product ID.', 'woocommerce' ),
+				? __( 'To manipulate product variations you should use the /products/&lt;product_id&gt;/variations/&lt;id&gt; endpoint.', 'poocommerce' )
+				: __( 'Invalid product ID.', 'poocommerce' ),
 			array( 'status' => 404 )
 		);
 	}

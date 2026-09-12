@@ -3,7 +3,7 @@
  * Represents a price with a currency.
  */
 
-namespace Automattic\WooCommerce\Admin\Marketing;
+namespace Automattic\PooCommerce\Admin\Marketing;
 
 /**
  * Price class

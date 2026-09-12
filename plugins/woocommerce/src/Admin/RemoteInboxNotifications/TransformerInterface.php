@@ -2,10 +2,10 @@
 /**
  * Interface for a transformer.
  *
- * @deprecated 9.4.0 Use \Automattic\WooCommerce\Admin\RemoteSpecs\Transformers\TransformerInterface instead.
+ * @deprecated 9.4.0 Use \Automattic\PooCommerce\Admin\RemoteSpecs\Transformers\TransformerInterface instead.
  */
 
-namespace Automattic\WooCommerce\Admin\RemoteInboxNotifications;
+namespace Automattic\PooCommerce\Admin\RemoteInboxNotifications;
 
 use stdClass;
 
@@ -14,9 +14,9 @@ use stdClass;
  *
  * Interface TransformerInterface
  *
- * @package Automattic\WooCommerce\Admin\RemoteInboxNotifications
+ * @package Automattic\PooCommerce\Admin\RemoteInboxNotifications
  *
- * @deprecated 9.4.0 Use \Automattic\WooCommerce\Admin\RemoteSpecs\Transformers\TransformerInterface instead.
+ * @deprecated 9.4.0 Use \Automattic\PooCommerce\Admin\RemoteSpecs\Transformers\TransformerInterface instead.
  */
 interface TransformerInterface {
 	/**

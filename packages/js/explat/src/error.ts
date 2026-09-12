@@ -19,7 +19,7 @@ export const logError = (
 			properties: {
 				...properties,
 				context: 'explat',
-				explat_client: 'woocommerce',
+				explat_client: 'poocommerce',
 			},
 		};
 

@@ -1,7 +1,7 @@
 <?php
 declare( strict_types=1 );
 
-use Automattic\WooCommerce\Enums\DefaultCustomerAddress;
+use Automattic\PooCommerce\Enums\DefaultCustomerAddress;
 
 /**
  * Tests for the WC_Countries class.
@@ -399,24 +399,24 @@ class WC_Countries_Test extends \WC_Unit_Test_Case {
 		remove_filter( 'determine_locale', array( $this, 'filter_active_locale' ) );
 		remove_filter( 'determine_locale', array( $this, 'filter_counted_active_locale' ) );
 		remove_filter( 'determine_locale', array( $this, 'filter_stateful_locale' ) );
-		remove_filter( 'woocommerce_countries', array( $this, 'filter_country_names' ) );
-		remove_filter( 'woocommerce_countries', array( $this, 'record_country_filter_call' ) );
-		remove_filter( 'woocommerce_countries', array( $this, 'filter_empty_geographical_data' ) );
-		remove_filter( 'woocommerce_states', array( $this, 'filter_state_names' ) );
-		remove_filter( 'woocommerce_states', array( $this, 'filter_empty_geographical_data' ) );
-		remove_filter( 'woocommerce_continents', array( $this, 'filter_continent_names' ) );
-		remove_filter( 'woocommerce_continents', array( $this, 'filter_empty_geographical_data' ) );
-		remove_filter( 'woocommerce_get_country_locale', array( $this, 'filter_country_locale' ) );
-		remove_filter( 'pre_option_woocommerce_allowed_countries', array( $this, 'return_all_countries' ) );
-		remove_filter( 'pre_option_woocommerce_ship_to_countries', array( $this, 'return_all_countries' ) );
+		remove_filter( 'poocommerce_countries', array( $this, 'filter_country_names' ) );
+		remove_filter( 'poocommerce_countries', array( $this, 'record_country_filter_call' ) );
+		remove_filter( 'poocommerce_countries', array( $this, 'filter_empty_geographical_data' ) );
+		remove_filter( 'poocommerce_states', array( $this, 'filter_state_names' ) );
+		remove_filter( 'poocommerce_states', array( $this, 'filter_empty_geographical_data' ) );
+		remove_filter( 'poocommerce_continents', array( $this, 'filter_continent_names' ) );
+		remove_filter( 'poocommerce_continents', array( $this, 'filter_empty_geographical_data' ) );
+		remove_filter( 'poocommerce_get_country_locale', array( $this, 'filter_country_locale' ) );
+		remove_filter( 'pre_option_poocommerce_allowed_countries', array( $this, 'return_all_countries' ) );
+		remove_filter( 'pre_option_poocommerce_ship_to_countries', array( $this, 'return_all_countries' ) );
 		remove_filter( 'locale', array( $this, 'read_geographical_data_in_locale_filter' ), 20 );
 		remove_filter( 'determine_locale', array( $this, 'read_geographical_data_in_locale_filter' ), 20 );
 		remove_filter( 'pre_determine_locale', array( $this, 'read_geographical_data_in_locale_filter' ), 20 );
-		remove_filter( 'woocommerce_countries', array( $this, 'determine_locale_while_building' ) );
-		remove_filter( 'woocommerce_states', array( $this, 'determine_locale_while_building' ) );
-		remove_filter( 'woocommerce_get_country_locale', array( $this, 'determine_locale_while_building' ) );
-		remove_filter( 'woocommerce_countries', array( $this, 'stamp_country_names_with_switched_locale' ) );
-		remove_filter( 'woocommerce_get_country_locale', array( $this, 'stamp_country_locale_with_switched_locale' ) );
+		remove_filter( 'poocommerce_countries', array( $this, 'determine_locale_while_building' ) );
+		remove_filter( 'poocommerce_states', array( $this, 'determine_locale_while_building' ) );
+		remove_filter( 'poocommerce_get_country_locale', array( $this, 'determine_locale_while_building' ) );
+		remove_filter( 'poocommerce_countries', array( $this, 'stamp_country_names_with_switched_locale' ) );
+		remove_filter( 'poocommerce_get_country_locale', array( $this, 'stamp_country_locale_with_switched_locale' ) );
 		remove_filter( 'get_available_languages', array( $this, 'add_available_test_locale' ) );
 		remove_filter( 'locale', array( $this, 'read_default_location_in_locale_filter' ), 20 );
 		remove_filter( 'determine_locale', array( $this, 'read_default_location_in_locale_filter' ), 20 );
@@ -514,7 +514,7 @@ class WC_Countries_Test extends \WC_Unit_Test_Case {
 	 */
 	public function test_country_locale_settings_rebuild_for_the_active_request_locale(): void {
 		add_filter( 'determine_locale', array( $this, 'filter_active_locale' ) );
-		add_filter( 'woocommerce_get_country_locale', array( $this, 'filter_country_locale' ) );
+		add_filter( 'poocommerce_get_country_locale', array( $this, 'filter_country_locale' ) );
 		$sut = new WC_Countries();
 
 		$this->assertSame( 'en_US', $sut->get_country_locale()['US']['postcode']['label'], 'Country locale settings should use the initial request locale.' );
@@ -596,7 +596,7 @@ class WC_Countries_Test extends \WC_Unit_Test_Case {
 	 */
 	public function test_country_loading_normalizes_a_falsey_locale_with_one_locale_read() {
 		add_filter( 'determine_locale', array( $this, 'filter_stateful_locale' ) );
-		add_filter( 'woocommerce_countries', array( $this, 'record_country_filter_call' ) );
+		add_filter( 'poocommerce_countries', array( $this, 'record_country_filter_call' ) );
 		$sut = new WC_Countries();
 
 		$sut->get_countries();
@@ -619,7 +619,7 @@ class WC_Countries_Test extends \WC_Unit_Test_Case {
 	public function test_country_loading_normalizes_invalid_filtered_locale( $invalid_locale ): void {
 		$this->active_locale = $invalid_locale;
 		add_filter( 'determine_locale', array( $this, 'filter_active_locale' ) );
-		add_filter( 'woocommerce_countries', array( $this, 'record_country_filter_call' ) );
+		add_filter( 'poocommerce_countries', array( $this, 'record_country_filter_call' ) );
 		$sut = new WC_Countries();
 
 		$sut->get_countries();
@@ -634,9 +634,9 @@ class WC_Countries_Test extends \WC_Unit_Test_Case {
 	 * @testdox Empty filtered geographical data preserves existing cache semantics (characterization, not locale coverage).
 	 */
 	public function test_empty_filtered_geographical_data_preserves_existing_cache_semantics(): void {
-		add_filter( 'woocommerce_countries', array( $this, 'filter_empty_geographical_data' ) );
-		add_filter( 'woocommerce_states', array( $this, 'filter_empty_geographical_data' ) );
-		add_filter( 'woocommerce_continents', array( $this, 'filter_empty_geographical_data' ) );
+		add_filter( 'poocommerce_countries', array( $this, 'filter_empty_geographical_data' ) );
+		add_filter( 'poocommerce_states', array( $this, 'filter_empty_geographical_data' ) );
+		add_filter( 'poocommerce_continents', array( $this, 'filter_empty_geographical_data' ) );
 		$sut = new WC_Countries();
 
 		$this->assertSame( array(), $sut->get_countries(), 'Countries should allow an empty filtered result.' );
@@ -647,9 +647,9 @@ class WC_Countries_Test extends \WC_Unit_Test_Case {
 		$this->assertSame( array(), $sut->get_continents(), 'Continents should allow a repeated empty filtered result.' );
 		$this->assertSame(
 			array(
-				'woocommerce_countries'  => 2,
-				'woocommerce_states'     => 1,
-				'woocommerce_continents' => 2,
+				'poocommerce_countries'  => 2,
+				'poocommerce_states'     => 1,
+				'poocommerce_continents' => 2,
 			),
 			$this->empty_geographical_filter_calls,
 			'Countries and continents should reload empty results while states cache them.'
@@ -722,7 +722,7 @@ class WC_Countries_Test extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox A locale filter that reads the default customer location gets it while WooCommerce reads allowed countries.
+	 * @testdox A locale filter that reads the default customer location gets it while PooCommerce reads allowed countries.
 	 *
 	 * @dataProvider provide_default_location_locale_filters
 	 *
@@ -730,10 +730,10 @@ class WC_Countries_Test extends \WC_Unit_Test_Case {
 	 * @param string $allowed_countries Allowed countries mode.
 	 */
 	public function test_locale_filter_reading_default_location_during_allowed_countries_lookup( $hook, $allowed_countries ): void {
-		update_option( 'woocommerce_allowed_countries', $allowed_countries );
-		update_option( 'woocommerce_specific_allowed_countries', array( 'US', 'CA' ) );
-		update_option( 'woocommerce_default_country', 'US:CA' );
-		update_option( 'woocommerce_default_customer_address', DefaultCustomerAddress::BASE );
+		update_option( 'poocommerce_allowed_countries', $allowed_countries );
+		update_option( 'poocommerce_specific_allowed_countries', array( 'US', 'CA' ) );
+		update_option( 'poocommerce_default_country', 'US:CA' );
+		update_option( 'poocommerce_default_customer_address', DefaultCustomerAddress::BASE );
 		$sut                      = new WC_Countries();
 		$this->original_countries = WC()->countries;
 		WC()->countries           = $sut;
@@ -835,11 +835,11 @@ class WC_Countries_Test extends \WC_Unit_Test_Case {
 			$sut->get_country_locale();
 			return $countries;
 		};
-		add_filter( 'woocommerce_countries', $callback );
+		add_filter( 'poocommerce_countries', $callback );
 
 		$sut->get_countries();
 
-		remove_filter( 'woocommerce_countries', $callback );
+		remove_filter( 'poocommerce_countries', $callback );
 
 		$this->assertArrayHasKey( 'DE', $sut->get_country_locale(), 'A lookup made while the country list is being built should not drop country locale entries.' );
 	}
@@ -862,11 +862,11 @@ class WC_Countries_Test extends \WC_Unit_Test_Case {
 			$nested = $sut->$method();
 			return $countries;
 		};
-		add_filter( 'woocommerce_countries', $callback );
+		add_filter( 'poocommerce_countries', $callback );
 
 		$sut->get_countries();
 
-		remove_filter( 'woocommerce_countries', $callback );
+		remove_filter( 'poocommerce_countries', $callback );
 
 		$this->assertSame( array(), $nested, 'A lookup made while the country list is being built should get no countries rather than null entries.' );
 		$this->assertSame( array( 'US', 'DE', 'CA' ), array_keys( $sut->$method() ), 'The list should be complete once the country list is built.' );
@@ -880,7 +880,7 @@ class WC_Countries_Test extends \WC_Unit_Test_Case {
 		$callback = function () {
 			throw new \Exception( 'Locale filter failure.' );
 		};
-		add_filter( 'woocommerce_get_country_locale_default', $callback );
+		add_filter( 'poocommerce_get_country_locale_default', $callback );
 
 		try {
 			$sut->get_country_locale();
@@ -889,7 +889,7 @@ class WC_Countries_Test extends \WC_Unit_Test_Case {
 			$this->assertSame( 'Locale filter failure.', $e->getMessage() );
 		}
 
-		remove_filter( 'woocommerce_get_country_locale_default', $callback );
+		remove_filter( 'poocommerce_get_country_locale_default', $callback );
 
 		$locale = $sut->get_country_locale();
 
@@ -906,8 +906,8 @@ class WC_Countries_Test extends \WC_Unit_Test_Case {
 	 */
 	public function test_switching_locales_keeps_per_locale_caches_with_a_geographical_locale_filter( $lookup ): void {
 		$this->use_locale_switcher_with( 'fr_FR' );
-		add_filter( 'woocommerce_countries', array( $this, 'stamp_country_names_with_switched_locale' ) );
-		add_filter( 'woocommerce_get_country_locale', array( $this, 'stamp_country_locale_with_switched_locale' ) );
+		add_filter( 'poocommerce_countries', array( $this, 'stamp_country_names_with_switched_locale' ) );
+		add_filter( 'poocommerce_get_country_locale', array( $this, 'stamp_country_locale_with_switched_locale' ) );
 		$sut = new WC_Countries();
 		$this->assert_switched_locale_stamps( $sut, 'site' );
 		$this->locale_filter_countries = $sut;
@@ -958,11 +958,11 @@ class WC_Countries_Test extends \WC_Unit_Test_Case {
 			$locale['ES']['postcode']['hidden'] = $hidden;
 			return $locale;
 		};
-		add_filter( 'woocommerce_get_country_locale', $locale_filter );
+		add_filter( 'poocommerce_get_country_locale', $locale_filter );
 
 		$fields = ( new WC_Countries() )->get_address_fields( 'ES', 'billing_' );
 
-		remove_filter( 'woocommerce_get_country_locale', $locale_filter );
+		remove_filter( 'poocommerce_get_country_locale', $locale_filter );
 
 		$this->assertSame( $hidden, $fields['billing_postcode']['hidden'], 'The locale hidden flag should survive the merge with the default fields.' );
 	}
@@ -988,7 +988,7 @@ class WC_Countries_Test extends \WC_Unit_Test_Case {
 
 		$this->assertTrue( $fields['billing_postcode']['hidden'] ?? false, 'Qatar addresses have no postcode, so the field should be hidden.' );
 		$this->assertFalse( $fields['billing_postcode']['required'], 'Qatar addresses have no postcode, so the field should not be required.' );
-		$this->assertFalse( $fields['billing_state']['required'], 'WooCommerce lists no subdivisions for Qatar, so the state should not be required.' );
+		$this->assertFalse( $fields['billing_state']['required'], 'PooCommerce lists no subdivisions for Qatar, so the state should not be required.' );
 		$this->assertFalse( $fields['billing_state']['hidden'] ?? false, 'Qatar follows the UAE, which keeps the state visible rather than hiding it like Bahrain and Kuwait.' );
 	}
 
@@ -1037,8 +1037,8 @@ class WC_Countries_Test extends \WC_Unit_Test_Case {
 	 */
 	public function provide_specific_country_list_methods() {
 		return array(
-			'allowed countries'  => array( 'get_allowed_countries', 'woocommerce_allowed_countries', 'woocommerce_specific_allowed_countries' ),
-			'shipping countries' => array( 'get_shipping_countries', 'woocommerce_ship_to_countries', 'woocommerce_specific_ship_to_countries' ),
+			'allowed countries'  => array( 'get_allowed_countries', 'poocommerce_allowed_countries', 'poocommerce_specific_allowed_countries' ),
+			'shipping countries' => array( 'get_shipping_countries', 'poocommerce_ship_to_countries', 'poocommerce_specific_ship_to_countries' ),
 		);
 	}
 
@@ -1049,8 +1049,8 @@ class WC_Countries_Test extends \WC_Unit_Test_Case {
 	 */
 	public function provide_specific_country_state_methods() {
 		return array(
-			'allowed states'  => array( 'get_allowed_country_states', 'woocommerce_allowed_countries', 'woocommerce_specific_allowed_countries' ),
-			'shipping states' => array( 'get_shipping_country_states', 'woocommerce_ship_to_countries', 'woocommerce_specific_ship_to_countries' ),
+			'allowed states'  => array( 'get_allowed_country_states', 'poocommerce_allowed_countries', 'poocommerce_specific_allowed_countries' ),
+			'shipping states' => array( 'get_shipping_country_states', 'poocommerce_ship_to_countries', 'poocommerce_specific_ship_to_countries' ),
 		);
 	}
 
@@ -1077,9 +1077,9 @@ class WC_Countries_Test extends \WC_Unit_Test_Case {
 	 */
 	public function provide_geographical_builds() {
 		return array(
-			'country list'            => array( 'woocommerce_countries', 'get_countries' ),
-			'state list'              => array( 'woocommerce_states', 'get_states' ),
-			'country locale settings' => array( 'woocommerce_get_country_locale', 'get_country_locale' ),
+			'country list'            => array( 'poocommerce_countries', 'get_countries' ),
+			'state list'              => array( 'poocommerce_states', 'get_states' ),
+			'country locale settings' => array( 'poocommerce_get_country_locale', 'get_country_locale' ),
 		);
 	}
 
@@ -1148,9 +1148,9 @@ class WC_Countries_Test extends \WC_Unit_Test_Case {
 	 * @param string       $prefix Prefix of the property values.
 	 */
 	private function assert_helpers_use_geographical_properties( WC_Countries $sut, $prefix ): void {
-		add_filter( 'pre_option_woocommerce_allowed_countries', array( $this, 'return_all_countries' ) );
-		add_filter( 'pre_option_woocommerce_ship_to_countries', array( $this, 'return_all_countries' ) );
-		update_option( 'woocommerce_default_country', 'US:CA' );
+		add_filter( 'pre_option_poocommerce_allowed_countries', array( $this, 'return_all_countries' ) );
+		add_filter( 'pre_option_poocommerce_ship_to_countries', array( $this, 'return_all_countries' ) );
+		update_option( 'poocommerce_default_country', 'US:CA' );
 
 		$this->assertSame( "$prefix US", $sut->get_allowed_countries()['US'], 'Allowed countries should use the countries property.' );
 		$this->assertSame( "$prefix US", $sut->get_shipping_countries()['US'], 'Shipping countries should use the countries property.' );
@@ -1184,11 +1184,11 @@ class WC_Countries_Test extends \WC_Unit_Test_Case {
 	 */
 	private function register_geographical_filters() {
 		add_filter( 'determine_locale', array( $this, 'filter_active_locale' ) );
-		add_filter( 'woocommerce_countries', array( $this, 'filter_country_names' ) );
-		add_filter( 'woocommerce_states', array( $this, 'filter_state_names' ) );
-		add_filter( 'woocommerce_continents', array( $this, 'filter_continent_names' ) );
-		add_filter( 'pre_option_woocommerce_allowed_countries', array( $this, 'return_all_countries' ) );
-		add_filter( 'pre_option_woocommerce_ship_to_countries', array( $this, 'return_all_countries' ) );
+		add_filter( 'poocommerce_countries', array( $this, 'filter_country_names' ) );
+		add_filter( 'poocommerce_states', array( $this, 'filter_state_names' ) );
+		add_filter( 'poocommerce_continents', array( $this, 'filter_continent_names' ) );
+		add_filter( 'pre_option_poocommerce_allowed_countries', array( $this, 'return_all_countries' ) );
+		add_filter( 'pre_option_poocommerce_ship_to_countries', array( $this, 'return_all_countries' ) );
 	}
 
 	/**

@@ -4,7 +4,7 @@
  *
  * Displays shopping cart widget.
  *
- * @package WooCommerce\Widgets
+ * @package PooCommerce\Widgets
  * @version 2.3.0
  */
 
@@ -19,20 +19,20 @@ class WC_Widget_Cart extends WC_Widget {
 	 * Constructor.
 	 */
 	public function __construct() {
-		$this->widget_cssclass    = 'woocommerce widget_shopping_cart';
-		$this->widget_description = __( 'Display the customer shopping cart.', 'woocommerce' );
-		$this->widget_id          = 'woocommerce_widget_cart';
-		$this->widget_name        = __( 'Cart', 'woocommerce' );
+		$this->widget_cssclass    = 'poocommerce widget_shopping_cart';
+		$this->widget_description = __( 'Display the customer shopping cart.', 'poocommerce' );
+		$this->widget_id          = 'poocommerce_widget_cart';
+		$this->widget_name        = __( 'Cart', 'poocommerce' );
 		$this->settings           = array(
 			'title'         => array(
 				'type'  => 'text',
-				'std'   => __( 'Cart', 'woocommerce' ),
-				'label' => __( 'Title', 'woocommerce' ),
+				'std'   => __( 'Cart', 'poocommerce' ),
+				'label' => __( 'Title', 'poocommerce' ),
 			),
 			'hide_if_empty' => array(
 				'type'  => 'checkbox',
 				'std'   => 0,
-				'label' => __( 'Hide if cart is empty', 'woocommerce' ),
+				'label' => __( 'Hide if cart is empty', 'poocommerce' ),
 			),
 		);
 
@@ -52,7 +52,7 @@ class WC_Widget_Cart extends WC_Widget {
 	 * @param array $instance Widget instance.
 	 */
 	public function widget( $args, $instance ) {
-		if ( apply_filters( 'woocommerce_widget_cart_is_hidden', is_cart() || is_checkout() ) ) {
+		if ( apply_filters( 'poocommerce_widget_cart_is_hidden', is_cart() || is_checkout() ) ) {
 			return;
 		}
 
@@ -61,7 +61,7 @@ class WC_Widget_Cart extends WC_Widget {
 		$hide_if_empty = empty( $instance['hide_if_empty'] ) ? 0 : 1;
 
 		if ( ! isset( $instance['title'] ) ) {
-			$instance['title'] = __( 'Cart', 'woocommerce' );
+			$instance['title'] = __( 'Cart', 'poocommerce' );
 		}
 
 		$this->widget_start( $args, $instance );
@@ -70,7 +70,7 @@ class WC_Widget_Cart extends WC_Widget {
 			echo '<div class="hide_cart_widget_if_empty">';
 		}
 
-		// Insert cart widget placeholder - code in woocommerce.js will update this on page load.
+		// Insert cart widget placeholder - code in poocommerce.js will update this on page load.
 		echo '<div class="widget_shopping_cart_content"></div>';
 
 		if ( $hide_if_empty ) {

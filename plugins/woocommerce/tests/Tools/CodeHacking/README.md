@@ -43,8 +43,8 @@ Create a file named `class-wc-tests-admin-foobar.php` in `tests/unit-tests/admin
 ```php
 <?php
 
-use Automattic\WooCommerce\Testing\Tools\CodeHacking\Hacks\FunctionsMockerHack;
-use Automattic\WooCommerce\Testing\Tools\CodeHacking\Hacks\StaticMockerHack;
+use Automattic\PooCommerce\Testing\Tools\CodeHacking\Hacks\FunctionsMockerHack;
+use Automattic\PooCommerce\Testing\Tools\CodeHacking\Hacks\StaticMockerHack;
 
 class WC_Tests_Admin_Foobar extends WC_Unit_Test_Case {
 	public function test_functions_mocking() {
@@ -156,7 +156,7 @@ One of these cases is the usage of the `copy` command to copy files. Since this 
 The code hacker owns PHP's `file` stream wrapper while it is enabled, so it cannot coexist with other tools that need that wrapper for themselves, such as mutation testing frameworks that swap mutated files in at include time. Set the `WC_TEST_DISABLE_CODE_HACKER` environment variable to any non-empty value to skip the code hacker for the whole run:
 
 ```sh
-pnpm wp-env:test run --env-cwd='wp-content/plugins/woocommerce' cli env WC_TEST_DISABLE_CODE_HACKER=1 tests/php/bin/run-phpunit.sh -c phpunit.xml --filter SomeTest
+pnpm wp-env:test run --env-cwd='wp-content/plugins/poocommerce' cli env WC_TEST_DISABLE_CODE_HACKER=1 tests/php/bin/run-phpunit.sh -c phpunit.xml --filter SomeTest
 ```
 
 The bootstrap prints a notice when it does this. Tests that mock functions or static methods, or that subclass `final` classes, fail without the code hacker, so narrow the run to test classes that do not rely on it.

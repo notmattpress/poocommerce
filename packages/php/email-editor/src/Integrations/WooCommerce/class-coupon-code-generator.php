@@ -1,20 +1,20 @@
 <?php
 /**
- * This file is part of the WooCommerce Email Editor package.
+ * This file is part of the PooCommerce Email Editor package.
  *
- * @package Automattic\WooCommerce\EmailEditor
+ * @package Automattic\PooCommerce\EmailEditor
  */
 
 declare( strict_types = 1 );
-namespace Automattic\WooCommerce\EmailEditor\Integrations\WooCommerce;
+namespace Automattic\PooCommerce\EmailEditor\Integrations\PooCommerce;
 
-use Automattic\WooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Rendering_Context;
-use Automattic\WooCommerce\EmailEditor\Integrations\WooCommerce\Renderer\Blocks\Coupon_Code;
+use Automattic\PooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Rendering_Context;
+use Automattic\PooCommerce\EmailEditor\Integrations\PooCommerce\Renderer\Blocks\Coupon_Code;
 
 /**
- * Generates WooCommerce coupons at email send time for the coupon-code block.
+ * Generates PooCommerce coupons at email send time for the coupon-code block.
  *
- * Hooks into the woocommerce_coupon_code_block_auto_generate filter to create
+ * Hooks into the poocommerce_coupon_code_block_auto_generate filter to create
  * a WC_Coupon from block attributes. This provides baseline auto-generation
  * that works without any additional plugins (e.g. MailPoet).
  *
@@ -32,11 +32,11 @@ class Coupon_Code_Generator {
 	 * Initialize the generator by registering the filter hook.
 	 */
 	public function init(): void {
-		add_filter( 'woocommerce_coupon_code_block_auto_generate', array( $this, 'generate_coupon' ), 10, 3 );
+		add_filter( 'poocommerce_coupon_code_block_auto_generate', array( $this, 'generate_coupon' ), 10, 3 );
 	}
 
 	/**
-	 * Generate a WooCommerce coupon from block attributes.
+	 * Generate a PooCommerce coupon from block attributes.
 	 *
 	 * @param string            $coupon_code       The coupon code (empty if not yet generated).
 	 * @param array             $attrs             Block attributes.
@@ -99,7 +99,7 @@ class Coupon_Code_Generator {
 			$coupon->set_usage_limit_per_user( is_numeric( $usage_limit_per_user ) ? (int) $usage_limit_per_user : 0 );
 
 			$coupon->set_description(
-				__( 'Auto-generated coupon by WooCommerce Email Editor', 'woocommerce' )
+				__( 'Auto-generated coupon by PooCommerce Email Editor', 'poocommerce' )
 			);
 
 			$coupon->save();
@@ -138,7 +138,7 @@ class Coupon_Code_Generator {
 	}
 
 	/**
-	 * Validate discount type against WooCommerce's registered types.
+	 * Validate discount type against PooCommerce's registered types.
 	 *
 	 * @param string $type The discount type to validate.
 	 * @return string A valid discount type.

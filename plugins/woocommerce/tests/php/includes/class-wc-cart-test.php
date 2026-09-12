@@ -2,12 +2,12 @@
 /**
  * Unit tests for the WC_Cart_Test class.
  *
- * @package WooCommerce\Tests\Cart.
+ * @package PooCommerce\Tests\Cart.
  */
 
-use Automattic\WooCommerce\Checkout\Helpers\ReserveStock;
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Tests\Blocks\Helpers\FixtureData;
+use Automattic\PooCommerce\Checkout\Helpers\ReserveStock;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Tests\Blocks\Helpers\FixtureData;
 
 /**
  * Class WC_Cart_Test
@@ -15,7 +15,7 @@ use Automattic\WooCommerce\Tests\Blocks\Helpers\FixtureData;
 class WC_Cart_Test extends \WC_Unit_Test_Case {
 
 	/**
-	 * Stores arguments received by the woocommerce_add_to_cart_quantity filter.
+	 * Stores arguments received by the poocommerce_add_to_cart_quantity filter.
 	 *
 	 * @var array
 	 */
@@ -47,7 +47,7 @@ class WC_Cart_Test extends \WC_Unit_Test_Case {
 			WC()->session->set( $key, null );
 		}
 
-		remove_filter( 'woocommerce_add_to_cart_quantity', array( $this, 'capture_add_to_cart_quantity_filter_args' ), 10 );
+		remove_filter( 'poocommerce_add_to_cart_quantity', array( $this, 'capture_add_to_cart_quantity_filter_args' ), 10 );
 	}
 
 	/**
@@ -304,7 +304,7 @@ class WC_Cart_Test extends \WC_Unit_Test_Case {
 
 			return 'Filtered ' . $value;
 		};
-		add_filter( 'woocommerce_variation_option_name', $option_filter );
+		add_filter( 'poocommerce_variation_option_name', $option_filter );
 
 		try {
 			list( , $cart_item ) = $this->add_variation_to_cart( $product, $variation );
@@ -384,7 +384,7 @@ class WC_Cart_Test extends \WC_Unit_Test_Case {
 
 			return 'pa_attribute_finish' === $attribute_name && 'gloss' === $value ? 'Polished' : $value;
 		};
-		add_filter( 'woocommerce_variation_option_name', $filter_option_name, 10, 3 );
+		add_filter( 'poocommerce_variation_option_name', $filter_option_name, 10, 3 );
 
 		$cart_item = array(
 			'data'      => $variation,
@@ -422,8 +422,8 @@ class WC_Cart_Test extends \WC_Unit_Test_Case {
 
 			return $is_in_name;
 		};
-		add_filter( 'woocommerce_variation_option_name', $option_filter );
-		add_filter( 'woocommerce_is_attribute_in_product_name', $attribute_filter );
+		add_filter( 'poocommerce_variation_option_name', $option_filter );
+		add_filter( 'poocommerce_is_attribute_in_product_name', $attribute_filter );
 
 		$cart_item = array(
 			'data'      => $variation,
@@ -449,7 +449,7 @@ class WC_Cart_Test extends \WC_Unit_Test_Case {
 		$option_filter = static function () use ( $filtered_value ) {
 			return $filtered_value;
 		};
-		add_filter( 'woocommerce_variation_option_name', $option_filter );
+		add_filter( 'poocommerce_variation_option_name', $option_filter );
 
 		$cart_item = array(
 			'data'      => $variation,
@@ -489,7 +489,7 @@ class WC_Cart_Test extends \WC_Unit_Test_Case {
 
 			return $value;
 		};
-		add_filter( 'woocommerce_variation_option_name', $option_filter );
+		add_filter( 'poocommerce_variation_option_name', $option_filter );
 
 		$cart_item = array(
 			'data'      => $variation,
@@ -629,18 +629,18 @@ class WC_Cart_Test extends \WC_Unit_Test_Case {
 		$replace_name = function () {
 			return 'Custom cart label';
 		};
-		add_filter( 'woocommerce_cart_item_name', $replace_name, 20 );
+		add_filter( 'poocommerce_cart_item_name', $replace_name, 20 );
 
 		try {
 			list( $cart_item_key, $cart_item ) = $this->add_variation_to_cart( $product, $variation );
 
 			$name = WC()->cart->get_item_product_name( $cart_item );
 			/**
-			 * This filter is documented in woocommerce/templates/cart/cart.php.
+			 * This filter is documented in poocommerce/templates/cart/cart.php.
 			 *
 			 * @since 2.1.0
 			 */
-			$rendered_name = apply_filters( 'woocommerce_cart_item_name', $name, $cart_item, (string) $cart_item_key );
+			$rendered_name = apply_filters( 'poocommerce_cart_item_name', $name, $cart_item, (string) $cart_item_key );
 
 			$this->assertSame( 'Custom cart label', $rendered_name );
 			$this->assertSame( 'Cart Replaced Name Product - huge, 1', $name );
@@ -792,21 +792,21 @@ class WC_Cart_Test extends \WC_Unit_Test_Case {
 		$product = WC_Helper_Product::create_simple_product();
 		WC()->cart->add_to_cart( $product->get_id(), 1 );
 
-		// Test with "woocommerce_ship_to_countries" disabled.
-		$default_ship_to_countries = get_option( 'woocommerce_ship_to_countries', '' );
-		update_option( 'woocommerce_ship_to_countries', 'disabled' );
+		// Test with "poocommerce_ship_to_countries" disabled.
+		$default_ship_to_countries = get_option( 'poocommerce_ship_to_countries', '' );
+		update_option( 'poocommerce_ship_to_countries', 'disabled' );
 		$this->assertFalse( WC()->cart->show_shipping() );
 
-		// Test with default "woocommerce_ship_to_countries" and "woocommerce_shipping_cost_requires_address".
-		update_option( 'woocommerce_ship_to_countries', $default_ship_to_countries );
+		// Test with default "poocommerce_ship_to_countries" and "poocommerce_shipping_cost_requires_address".
+		update_option( 'poocommerce_ship_to_countries', $default_ship_to_countries );
 		$this->assertTrue( WC()->cart->show_shipping() );
 
-		// Test with "woocommerce_shipping_cost_requires_address" enabled.
-		$default_shipping_cost_requires_address = get_option( 'woocommerce_shipping_cost_requires_address', 'no' );
-		update_option( 'woocommerce_shipping_cost_requires_address', 'yes' );
+		// Test with "poocommerce_shipping_cost_requires_address" enabled.
+		$default_shipping_cost_requires_address = get_option( 'poocommerce_shipping_cost_requires_address', 'no' );
+		update_option( 'poocommerce_shipping_cost_requires_address', 'yes' );
 		$this->assertFalse( WC()->cart->show_shipping() );
 
-		// Set address for shipping calculation required for "woocommerce_shipping_cost_requires_address".
+		// Set address for shipping calculation required for "poocommerce_shipping_cost_requires_address".
 		WC()->cart->get_customer()->set_shipping_country( 'US' );
 		WC()->cart->get_customer()->set_shipping_state( 'NY' );
 		WC()->cart->get_customer()->set_shipping_city( 'New York' );
@@ -828,7 +828,7 @@ class WC_Cart_Test extends \WC_Unit_Test_Case {
 			return $fields;
 		}
 		add_filter(
-			'woocommerce_shipping_fields',
+			'poocommerce_shipping_fields',
 			'make_shipping_fields_postcode_optional'
 		);
 		$this->assertTrue( WC()->cart->show_shipping() );
@@ -836,7 +836,7 @@ class WC_Cart_Test extends \WC_Unit_Test_Case {
 		WC()->cart->get_customer()->set_shipping_postcode( '12345' );
 		$this->assertTrue( WC()->cart->show_shipping() );
 
-		remove_all_filters( 'woocommerce_shipping_fields' );
+		remove_all_filters( 'poocommerce_shipping_fields' );
 		$this->assertTrue( WC()->cart->show_shipping() );
 		WC()->cart->get_customer()->set_shipping_postcode( '' );
 		$this->assertFalse( WC()->cart->show_shipping() );
@@ -854,7 +854,7 @@ class WC_Cart_Test extends \WC_Unit_Test_Case {
 			}
 			return $locales;
 		}
-		add_filter( 'woocommerce_get_country_locale', 'make_locale_postcode_optional' );
+		add_filter( 'poocommerce_get_country_locale', 'make_locale_postcode_optional' );
 
 		// Reset locales so they are regenerated with the new postcode optional.
 		WC()->countries->locale = null;
@@ -865,7 +865,7 @@ class WC_Cart_Test extends \WC_Unit_Test_Case {
 
 		// Check that both fields and locale filter work when both are in use together.
 		add_filter(
-			'woocommerce_shipping_fields',
+			'poocommerce_shipping_fields',
 			'make_shipping_fields_postcode_optional'
 		);
 		WC()->cart->get_customer()->set_shipping_postcode( '' );
@@ -876,8 +876,8 @@ class WC_Cart_Test extends \WC_Unit_Test_Case {
 		$this->assertTrue( WC()->cart->show_shipping() );
 
 		// Reset.
-		remove_all_filters( 'woocommerce_shipping_fields' );
-		remove_all_filters( 'woocommerce_get_country_locale' );
+		remove_all_filters( 'poocommerce_shipping_fields' );
+		remove_all_filters( 'poocommerce_get_country_locale' );
 
 		/**
 		 * Remove unwanted fields from checkout page.
@@ -893,7 +893,7 @@ class WC_Cart_Test extends \WC_Unit_Test_Case {
 			unset( $fields['shipping']['shipping_address_2'] );
 			return $fields;
 		}
-		add_filter( 'woocommerce_checkout_fields', 'remove_unwanted_fields_from_checkout_page' );
+		add_filter( 'poocommerce_checkout_fields', 'remove_unwanted_fields_from_checkout_page' );
 
 		WC()->cart->get_customer()->set_shipping_postcode( '' );
 		WC()->cart->get_customer()->set_shipping_city( '' );
@@ -902,9 +902,9 @@ class WC_Cart_Test extends \WC_Unit_Test_Case {
 		WC()->cart->get_customer()->set_shipping_city( 'San Francisco' );
 		$this->assertTrue( WC()->cart->show_shipping() );
 
-		remove_filter( 'woocommerce_checkout_fields', 'remove_unwanted_fields_from_checkout_page' );
+		remove_filter( 'poocommerce_checkout_fields', 'remove_unwanted_fields_from_checkout_page' );
 
-		update_option( 'woocommerce_shipping_cost_requires_address', $default_shipping_cost_requires_address );
+		update_option( 'poocommerce_shipping_cost_requires_address', $default_shipping_cost_requires_address );
 		$product->delete( true );
 		WC()->cart->get_customer()->set_shipping_country( 'GB' );
 		WC()->cart->get_customer()->set_shipping_state( '' );
@@ -917,21 +917,21 @@ class WC_Cart_Test extends \WC_Unit_Test_Case {
 	 * even when "Hide shipping costs until an address is entered" is enabled
 	 * and no customer address is set.
 	 *
-	 * This tests the fix for https://github.com/woocommerce/woocommerce/issues/62785
+	 * This tests the fix for https://github.com/poocommerce/poocommerce/issues/62785
 	 * where Local Pickup would not display in the Block Checkout when a third-party
 	 * plugin called calculate_totals() early with the shortcode cart context.
 	 */
 	public function test_show_shipping_returns_true_with_local_pickup_enabled_and_no_address() {
 		// Save original settings.
-		$default_shipping_cost_requires_address = get_option( 'woocommerce_shipping_cost_requires_address', 'no' );
-		$default_pickup_location_settings       = get_option( 'woocommerce_pickup_location_settings', array() );
+		$default_shipping_cost_requires_address = get_option( 'poocommerce_shipping_cost_requires_address', 'no' );
+		$default_pickup_location_settings       = get_option( 'poocommerce_pickup_location_settings', array() );
 
 		// Enable "Hide shipping costs until an address is entered".
-		update_option( 'woocommerce_shipping_cost_requires_address', 'yes' );
+		update_option( 'poocommerce_shipping_cost_requires_address', 'yes' );
 
 		// Enable Local Pickup.
 		update_option(
-			'woocommerce_pickup_location_settings',
+			'poocommerce_pickup_location_settings',
 			array(
 				'enabled' => 'yes',
 				'title'   => 'Pickup',
@@ -962,8 +962,8 @@ class WC_Cart_Test extends \WC_Unit_Test_Case {
 		);
 
 		// Clean up.
-		update_option( 'woocommerce_shipping_cost_requires_address', $default_shipping_cost_requires_address );
-		update_option( 'woocommerce_pickup_location_settings', $default_pickup_location_settings );
+		update_option( 'poocommerce_shipping_cost_requires_address', $default_shipping_cost_requires_address );
+		update_option( 'poocommerce_pickup_location_settings', $default_pickup_location_settings );
 		$product->delete( true );
 		WC()->cart->cart_context = 'shortcode'; // Reset to default.
 	}
@@ -972,8 +972,8 @@ class WC_Cart_Test extends \WC_Unit_Test_Case {
 	 * Test show_shipping for countries with various state/postcode requirement.
 	 */
 	public function test_show_shipping_for_countries_different_shipping_requirements() {
-		$default_shipping_cost_requires_address = get_option( 'woocommerce_shipping_cost_requires_address', 'no' );
-		update_option( 'woocommerce_shipping_cost_requires_address', 'yes' );
+		$default_shipping_cost_requires_address = get_option( 'poocommerce_shipping_cost_requires_address', 'no' );
+		update_option( 'poocommerce_shipping_cost_requires_address', 'yes' );
 
 		WC()->cart->empty_cart();
 		$this->assertFalse( WC()->cart->show_shipping() );
@@ -996,7 +996,7 @@ class WC_Cart_Test extends \WC_Unit_Test_Case {
 		$this->assertTrue( WC()->cart->show_shipping() );
 
 		// Reset.
-		update_option( 'woocommerce_shipping_cost_requires_address', $default_shipping_cost_requires_address );
+		update_option( 'poocommerce_shipping_cost_requires_address', $default_shipping_cost_requires_address );
 		$product->delete( true );
 		WC()->cart->get_customer()->set_shipping_country( 'GB' );
 		WC()->cart->get_customer()->set_shipping_state( '' );
@@ -1034,11 +1034,11 @@ class WC_Cart_Test extends \WC_Unit_Test_Case {
 	 * and ensures that get_coupon_discount_amount and get_coupon_discount_tax_amount
 	 * return the correct values regardless of case.
 	 *
-	 * @see https://github.com/woocommerce/woocommerce/issues/58864
+	 * @see https://github.com/poocommerce/poocommerce/issues/58864
 	 */
 	public function test_coupon_discount_amount_case_sensitivity() {
-		$old_calc_taxes = get_option( 'woocommerce_calc_taxes', 'no' );
-		update_option( 'woocommerce_calc_taxes', 'yes' );
+		$old_calc_taxes = get_option( 'poocommerce_calc_taxes', 'no' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
 
 		$tax_rate = array(
 			'tax_rate_country'  => '',
@@ -1099,7 +1099,7 @@ class WC_Cart_Test extends \WC_Unit_Test_Case {
 		$coupon->delete( true );
 
 		// Restore global state.
-		update_option( 'woocommerce_calc_taxes', $old_calc_taxes );
+		update_option( 'poocommerce_calc_taxes', $old_calc_taxes );
 		if ( $tax_rate_id ) {
 			WC_Tax::_delete_tax_rate( $tax_rate_id );
 		}
@@ -1302,10 +1302,10 @@ class WC_Cart_Test extends \WC_Unit_Test_Case {
 	 * @return WC_Product The product.
 	 */
 	private function create_stock_managed_product( int $stock_quantity ): WC_Product {
-		update_option( 'woocommerce_manage_stock', 'yes' );
-		update_option( 'woocommerce_hold_stock_minutes', 60 );
+		update_option( 'poocommerce_manage_stock', 'yes' );
+		update_option( 'poocommerce_hold_stock_minutes', 60 );
 		// ReserveStock is only enabled once the reserved-stock table has shipped (schema >= 430).
-		update_option( 'woocommerce_schema_version', 430 );
+		update_option( 'poocommerce_schema_version', 430 );
 
 		$product = WC_Helper_Product::create_simple_product();
 		$product->set_manage_stock( true );
@@ -1512,7 +1512,7 @@ class WC_Cart_Test extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Should allow woocommerce_should_clear_cart_after_payment to override the final clear cart value.
+	 * @testdox Should allow poocommerce_should_clear_cart_after_payment to override the final clear cart value.
 	 */
 	public function test_clear_cart_after_payment_filter_can_override_final_value(): void {
 		global $wp;
@@ -1536,13 +1536,13 @@ class WC_Cart_Test extends \WC_Unit_Test_Case {
 			$wp->query_vars['order-received'] = $order->get_id();
 			$_GET['key']                      = $order->get_order_key();
 
-			add_filter( 'woocommerce_should_clear_cart_after_payment', $filter );
+			add_filter( 'poocommerce_should_clear_cart_after_payment', $filter );
 
 			wc_clear_cart_after_payment();
 
 			$this->assertTrue( WC()->cart->is_empty(), 'Cart should be emptied when the filter overrides the final value.' );
 		} finally {
-			remove_filter( 'woocommerce_should_clear_cart_after_payment', $filter );
+			remove_filter( 'poocommerce_should_clear_cart_after_payment', $filter );
 			$wp->query_vars = $previous_query_vars;
 
 			if ( null === $previous_order_key ) {
@@ -1591,7 +1591,7 @@ class WC_Cart_Test extends \WC_Unit_Test_Case {
 		$this->assertNull( WC()->session->get( 'shipping_for_package_1' ) );
 		$this->assertNull( WC()->session->get( 'chosen_shipping_methods' ) );
 
-		remove_all_filters( 'woocommerce_cart_shipping_packages' );
+		remove_all_filters( 'poocommerce_cart_shipping_packages' );
 	}
 
 	/**
@@ -1632,7 +1632,7 @@ class WC_Cart_Test extends \WC_Unit_Test_Case {
 		$this->assertNull( WC()->session->get( 'shipping_for_package_1' ) );
 		$this->assertNull( WC()->session->get( 'chosen_shipping_methods' ) );
 
-		remove_all_filters( 'woocommerce_cart_shipping_packages' );
+		remove_all_filters( 'poocommerce_cart_shipping_packages' );
 	}
 
 	/**
@@ -1671,7 +1671,7 @@ class WC_Cart_Test extends \WC_Unit_Test_Case {
 		$this->assertNotEmpty( WC()->session->get( 'shipping_for_package_1' ) );
 		$this->assertNotEmpty( WC()->session->get( 'chosen_shipping_methods' ) );
 
-		remove_all_filters( 'woocommerce_cart_shipping_packages' );
+		remove_all_filters( 'poocommerce_cart_shipping_packages' );
 	}
 
 	/**
@@ -1708,7 +1708,7 @@ class WC_Cart_Test extends \WC_Unit_Test_Case {
 		$this->assertNull( WC()->session->get( 'shipping_for_package_1' ) );
 		$this->assertNull( WC()->session->get( 'chosen_shipping_methods' ) );
 
-		remove_all_filters( 'woocommerce_cart_shipping_packages' );
+		remove_all_filters( 'poocommerce_cart_shipping_packages' );
 	}
 
 	/**
@@ -1716,7 +1716,7 @@ class WC_Cart_Test extends \WC_Unit_Test_Case {
 	 */
 	private function simulate_two_packages() {
 		add_filter(
-			'woocommerce_cart_shipping_packages',
+			'poocommerce_cart_shipping_packages',
 			function ( $packages ) {
 				$packages[] = $packages[0];
 				return $packages;
@@ -1756,7 +1756,7 @@ class WC_Cart_Test extends \WC_Unit_Test_Case {
 		$cart_session->persistent_cart_update();
 
 		// Verify the product is in the persistent cart.
-		$saved_cart_meta = get_user_meta( $user_id, '_woocommerce_persistent_cart_' . get_current_blog_id(), true );
+		$saved_cart_meta = get_user_meta( $user_id, '_poocommerce_persistent_cart_' . get_current_blog_id(), true );
 		$this->assertIsArray( $saved_cart_meta );
 		$this->assertArrayHasKey( 'cart', $saved_cart_meta );
 		$this->assertArrayHasKey( $cart_item_key, $saved_cart_meta['cart'] );
@@ -1767,10 +1767,10 @@ class WC_Cart_Test extends \WC_Unit_Test_Case {
 		// Simulate product modification by manually altering the data_hash in the saved cart
 		// This simulates what happens when a product type changes (e.g., simple to variable)
 		// We'll set an incorrect data hash to trigger the mismatch.
-		$saved_cart_meta = get_user_meta( $user_id, '_woocommerce_persistent_cart_' . get_current_blog_id(), true );
+		$saved_cart_meta = get_user_meta( $user_id, '_poocommerce_persistent_cart_' . get_current_blog_id(), true );
 		if ( isset( $saved_cart_meta['cart'][ $cart_item_key ] ) ) {
 			$saved_cart_meta['cart'][ $cart_item_key ]['data_hash'] = 'modified_hash_' . time();
-			update_user_meta( $user_id, '_woocommerce_persistent_cart_' . get_current_blog_id(), $saved_cart_meta );
+			update_user_meta( $user_id, '_poocommerce_persistent_cart_' . get_current_blog_id(), $saved_cart_meta );
 		}
 
 		// Clear session cart but keep persistent cart.
@@ -1804,7 +1804,7 @@ class WC_Cart_Test extends \WC_Unit_Test_Case {
 		$this->assertCount( 0, WC()->cart->get_cart_contents(), 'Cart should be empty after modified product removal' );
 
 		// Verify the persistent cart is also updated (no longer contains the product).
-		$saved_cart_meta_after = get_user_meta( $user_id, '_woocommerce_persistent_cart_' . get_current_blog_id(), true );
+		$saved_cart_meta_after = get_user_meta( $user_id, '_poocommerce_persistent_cart_' . get_current_blog_id(), true );
 		if ( is_array( $saved_cart_meta_after ) && isset( $saved_cart_meta_after['cart'] ) ) {
 			$this->assertArrayNotHasKey( $cart_item_key, $saved_cart_meta_after['cart'], 'Persistent cart should not contain the removed product' );
 			$this->assertEmpty( $saved_cart_meta_after['cart'], 'Persistent cart should be empty after product removal' );
@@ -1867,7 +1867,7 @@ class WC_Cart_Test extends \WC_Unit_Test_Case {
 		$cart_session->persistent_cart_update();
 
 		// Verify the product is in the persistent cart.
-		$saved_cart_meta = get_user_meta( $user_id, '_woocommerce_persistent_cart_' . get_current_blog_id(), true );
+		$saved_cart_meta = get_user_meta( $user_id, '_poocommerce_persistent_cart_' . get_current_blog_id(), true );
 		$this->assertIsArray( $saved_cart_meta );
 		$this->assertArrayHasKey( 'cart', $saved_cart_meta );
 		$this->assertArrayHasKey( $cart_item_key, $saved_cart_meta['cart'] );
@@ -1908,7 +1908,7 @@ class WC_Cart_Test extends \WC_Unit_Test_Case {
 		$this->assertCount( 0, WC()->cart->get_cart_contents(), 'Cart should be empty after unpurchasable product removal' );
 
 		// Verify the persistent cart is also updated.
-		$saved_cart_meta_after = get_user_meta( $user_id, '_woocommerce_persistent_cart_' . get_current_blog_id(), true );
+		$saved_cart_meta_after = get_user_meta( $user_id, '_poocommerce_persistent_cart_' . get_current_blog_id(), true );
 		if ( is_array( $saved_cart_meta_after ) && isset( $saved_cart_meta_after['cart'] ) ) {
 			$this->assertArrayNotHasKey( $cart_item_key, $saved_cart_meta_after['cart'], 'Persistent cart should not contain the removed product' );
 			$this->assertEmpty( $saved_cart_meta_after['cart'], 'Persistent cart should be empty after product removal' );
@@ -1940,7 +1940,7 @@ class WC_Cart_Test extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Should fire internal_woocommerce_cart_item_updated_from_user_request when cart item quantity is updated via form.
+	 * @testdox Should fire internal_poocommerce_cart_item_updated_from_user_request when cart item quantity is updated via form.
 	 */
 	public function test_update_cart_action_fires_update_quantity_action(): void {
 		$product = WC_Helper_Product::create_simple_product();
@@ -1949,7 +1949,7 @@ class WC_Cart_Test extends \WC_Unit_Test_Case {
 		$cart_items    = WC()->cart->get_cart();
 		$cart_item_key = array_key_first( $cart_items );
 
-		$nonce = wp_create_nonce( 'woocommerce-cart' );
+		$nonce = wp_create_nonce( 'poocommerce-cart' );
 
 		$_POST['_wpnonce']       = $nonce;
 		$_REQUEST['_wpnonce']    = $nonce;
@@ -1965,7 +1965,7 @@ class WC_Cart_Test extends \WC_Unit_Test_Case {
 			$captured_args = compact( 'cart_item_key', 'quantity', 'old_quantity', 'cart' );
 		};
 
-		add_action( 'internal_woocommerce_cart_item_updated_from_user_request', $callback, 10, 4 );
+		add_action( 'internal_poocommerce_cart_item_updated_from_user_request', $callback, 10, 4 );
 
 		WC_Form_Handler::update_cart_action();
 
@@ -1975,14 +1975,14 @@ class WC_Cart_Test extends \WC_Unit_Test_Case {
 		$this->assertEquals( 2, $captured_args['old_quantity'] );
 		$this->assertInstanceOf( WC_Cart::class, $captured_args['cart'] );
 
-		remove_action( 'internal_woocommerce_cart_item_updated_from_user_request', $callback );
+		remove_action( 'internal_poocommerce_cart_item_updated_from_user_request', $callback );
 
 		unset( $_POST['_wpnonce'], $_REQUEST['_wpnonce'], $_POST['update_cart'], $_REQUEST['update_cart'], $_POST['cart'] );
 		$product->delete( true );
 	}
 
 	/**
-	 * @testdox Should not fire internal_woocommerce_cart_item_updated_from_user_request when quantity is unchanged.
+	 * @testdox Should not fire internal_poocommerce_cart_item_updated_from_user_request when quantity is unchanged.
 	 */
 	public function test_update_cart_action_does_not_fire_update_quantity_action_when_unchanged(): void {
 		$product = WC_Helper_Product::create_simple_product();
@@ -1991,7 +1991,7 @@ class WC_Cart_Test extends \WC_Unit_Test_Case {
 		$cart_items    = WC()->cart->get_cart();
 		$cart_item_key = array_key_first( $cart_items );
 
-		$nonce = wp_create_nonce( 'woocommerce-cart' );
+		$nonce = wp_create_nonce( 'poocommerce-cart' );
 
 		$_POST['_wpnonce']       = $nonce;
 		$_REQUEST['_wpnonce']    = $nonce;
@@ -2006,20 +2006,20 @@ class WC_Cart_Test extends \WC_Unit_Test_Case {
 			$hook_fired = true;
 		};
 
-		add_action( 'internal_woocommerce_cart_item_updated_from_user_request', $callback, 10, 4 );
+		add_action( 'internal_poocommerce_cart_item_updated_from_user_request', $callback, 10, 4 );
 
 		WC_Form_Handler::update_cart_action();
 
 		$this->assertFalse( $hook_fired, 'The update quantity action should not fire when the quantity is unchanged' );
 
-		remove_action( 'internal_woocommerce_cart_item_updated_from_user_request', $callback );
+		remove_action( 'internal_poocommerce_cart_item_updated_from_user_request', $callback );
 
 		unset( $_POST['_wpnonce'], $_REQUEST['_wpnonce'], $_POST['update_cart'], $_REQUEST['update_cart'], $_POST['cart'] );
 		$product->delete( true );
 	}
 
 	/**
-	 * @testdox Should fire internal_woocommerce_cart_item_removed_from_user_request when cart item is removed via form.
+	 * @testdox Should fire internal_poocommerce_cart_item_removed_from_user_request when cart item is removed via form.
 	 */
 	public function test_update_cart_action_fires_remove_item_action(): void {
 		$product = WC_Helper_Product::create_simple_product();
@@ -2028,7 +2028,7 @@ class WC_Cart_Test extends \WC_Unit_Test_Case {
 		$cart_items    = WC()->cart->get_cart();
 		$cart_item_key = array_key_first( $cart_items );
 
-		$nonce = wp_create_nonce( 'woocommerce-cart' );
+		$nonce = wp_create_nonce( 'poocommerce-cart' );
 
 		$_REQUEST['_wpnonce']    = $nonce;
 		$_GET['remove_item']     = $cart_item_key;
@@ -2040,7 +2040,7 @@ class WC_Cart_Test extends \WC_Unit_Test_Case {
 			$captured_args = compact( 'cart_item_key', 'cart' );
 		};
 
-		add_action( 'internal_woocommerce_cart_item_removed_from_user_request', $callback, 10, 2 );
+		add_action( 'internal_poocommerce_cart_item_removed_from_user_request', $callback, 10, 2 );
 
 		WC_Form_Handler::update_cart_action();
 
@@ -2048,14 +2048,14 @@ class WC_Cart_Test extends \WC_Unit_Test_Case {
 		$this->assertSame( $cart_item_key, $captured_args['cart_item_key'] );
 		$this->assertInstanceOf( WC_Cart::class, $captured_args['cart'] );
 
-		remove_action( 'internal_woocommerce_cart_item_removed_from_user_request', $callback );
+		remove_action( 'internal_poocommerce_cart_item_removed_from_user_request', $callback );
 
 		unset( $_REQUEST['_wpnonce'], $_GET['remove_item'], $_REQUEST['remove_item'] );
 		$product->delete( true );
 	}
 
 	/**
-	 * @testdox Should fire internal_woocommerce_cart_item_added_from_user_request when a simple product is added via the shortcode form.
+	 * @testdox Should fire internal_poocommerce_cart_item_added_from_user_request when a simple product is added via the shortcode form.
 	 */
 	public function test_add_to_cart_action_fires_cart_item_added_from_user_request(): void {
 		$product = WC_Helper_Product::create_simple_product();
@@ -2072,7 +2072,7 @@ class WC_Cart_Test extends \WC_Unit_Test_Case {
 			);
 		};
 
-		add_action( 'internal_woocommerce_cart_item_added_from_user_request', $callback, 10, 2 );
+		add_action( 'internal_poocommerce_cart_item_added_from_user_request', $callback, 10, 2 );
 
 		WC_Form_Handler::add_to_cart_action( false );
 
@@ -2080,14 +2080,14 @@ class WC_Cart_Test extends \WC_Unit_Test_Case {
 		$this->assertSame( $product->get_id(), $captured_args['product_id'] );
 		$this->assertEquals( 3, $captured_args['quantity'] );
 
-		remove_action( 'internal_woocommerce_cart_item_added_from_user_request', $callback );
+		remove_action( 'internal_poocommerce_cart_item_added_from_user_request', $callback );
 
 		unset( $_REQUEST['add-to-cart'], $_REQUEST['quantity'], $_POST['quantity'] );
 		$product->delete( true );
 	}
 
 	/**
-	 * @testdox Should fire internal_woocommerce_cart_item_added_from_user_request with the variation ID when a variable product is added via the shortcode form.
+	 * @testdox Should fire internal_poocommerce_cart_item_added_from_user_request with the variation ID when a variable product is added via the shortcode form.
 	 */
 	public function test_add_to_cart_action_fires_cart_item_added_from_user_request_for_variable_product(): void {
 		$product = new WC_Product_Variable();
@@ -2116,7 +2116,7 @@ class WC_Cart_Test extends \WC_Unit_Test_Case {
 			);
 		};
 
-		add_action( 'internal_woocommerce_cart_item_added_from_user_request', $callback, 10, 2 );
+		add_action( 'internal_poocommerce_cart_item_added_from_user_request', $callback, 10, 2 );
 
 		WC_Form_Handler::add_to_cart_action( false );
 
@@ -2124,7 +2124,7 @@ class WC_Cart_Test extends \WC_Unit_Test_Case {
 		$this->assertSame( $variation->get_id(), $captured_args['product_id'], 'The product_id should be the variation ID, not the parent product ID' );
 		$this->assertEquals( 2, $captured_args['quantity'] );
 
-		remove_action( 'internal_woocommerce_cart_item_added_from_user_request', $callback );
+		remove_action( 'internal_poocommerce_cart_item_added_from_user_request', $callback );
 
 		unset( $_REQUEST['add-to-cart'], $_REQUEST['variation_id'], $_REQUEST['quantity'], $_POST['quantity'], $_REQUEST['attribute_pa_color'] );
 		$variation->delete( true );
@@ -2147,10 +2147,10 @@ class WC_Cart_Test extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox woocommerce_add_to_cart_quantity filter should receive variation_id when a variable product is added to cart.
+	 * @testdox poocommerce_add_to_cart_quantity filter should receive variation_id when a variable product is added to cart.
 	 */
 	public function test_add_to_cart_quantity_filter_receives_variation_id() {
-		add_filter( 'woocommerce_add_to_cart_quantity', array( $this, 'capture_add_to_cart_quantity_filter_args' ), 10, 3 );
+		add_filter( 'poocommerce_add_to_cart_quantity', array( $this, 'capture_add_to_cart_quantity_filter_args' ), 10, 3 );
 
 		// Create a variable product and pick the first available variation to add.
 		$product    = WC_Helper_Product::create_variation_product();
@@ -2173,10 +2173,10 @@ class WC_Cart_Test extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox woocommerce_add_to_cart_quantity filter should receive 0 as variation_id when a simple product is added to cart.
+	 * @testdox poocommerce_add_to_cart_quantity filter should receive 0 as variation_id when a simple product is added to cart.
 	 */
 	public function test_add_to_cart_quantity_filter_receives_zero_variation_id_for_simple_product() {
-		add_filter( 'woocommerce_add_to_cart_quantity', array( $this, 'capture_add_to_cart_quantity_filter_args' ), 10, 3 );
+		add_filter( 'poocommerce_add_to_cart_quantity', array( $this, 'capture_add_to_cart_quantity_filter_args' ), 10, 3 );
 
 		$product = WC_Helper_Product::create_simple_product();
 
@@ -2193,7 +2193,7 @@ class WC_Cart_Test extends \WC_Unit_Test_Case {
 	 * Applying the same coupon a second time returns false and leaves the discount total unchanged.
 	 */
 	public function test_apply_same_coupon_twice_returns_false() {
-		update_option( 'woocommerce_calc_taxes', 'no' );
+		update_option( 'poocommerce_calc_taxes', 'no' );
 		WC()->cart->empty_cart();
 
 		$product = WC_Helper_Product::create_simple_product( true, array( 'regular_price' => 20 ) );
@@ -2239,7 +2239,7 @@ class WC_Cart_Test extends \WC_Unit_Test_Case {
 			$this->add_variation_to_cart( $product, $variation );
 
 			ob_start();
-			woocommerce_mini_cart();
+			poocommerce_mini_cart();
 			$html = ob_get_clean();
 
 			$this->assertStringContainsString( 'Mini Cart Any Product - huge, 1', $html, 'The merged name must render.' );

@@ -1,15 +1,15 @@
 <?php
 /**
  * Class Functions.
- * @package WooCommerce\Tests\Product
+ * @package PooCommerce\Tests\Product
  * @since 2.3
  */
 
-use Automattic\WooCommerce\Enums\ProductStatus;
-use Automattic\WooCommerce\Enums\ProductTaxStatus;
-use Automattic\WooCommerce\Enums\ProductType;
-use Automattic\WooCommerce\Enums\CatalogVisibility;
-use Automattic\WooCommerce\Enums\ProductStockStatus;
+use Automattic\PooCommerce\Enums\ProductStatus;
+use Automattic\PooCommerce\Enums\ProductTaxStatus;
+use Automattic\PooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Enums\CatalogVisibility;
+use Automattic\PooCommerce\Enums\ProductStockStatus;
 
 /**
  * WC_Tests_Product_Functions class.
@@ -1012,7 +1012,7 @@ class WC_Tests_Product_Functions extends WC_Unit_Test_Case {
 
 		// Test custom class attribute is honoured.
 		$attr = array( 'class' => 'custom-class' );
-		$this->assertStringContainsString( 'class="custom-class"', wc_placeholder_img( 'woocommerce_thumbnail', $attr ) );
+		$this->assertStringContainsString( 'class="custom-class"', wc_placeholder_img( 'poocommerce_thumbnail', $attr ) );
 	}
 
 	/**
@@ -1030,11 +1030,11 @@ class WC_Tests_Product_Functions extends WC_Unit_Test_Case {
 			return $image_html;
 		};
 
-		add_filter( 'woocommerce_placeholder_img', $filter, 10, 4 );
+		add_filter( 'poocommerce_placeholder_img', $filter, 10, 4 );
 		try {
-			wc_placeholder_img( 'woocommerce_thumbnail', $attr );
+			wc_placeholder_img( 'poocommerce_thumbnail', $attr );
 		} finally {
-			remove_filter( 'woocommerce_placeholder_img', $filter, 10 );
+			remove_filter( 'poocommerce_placeholder_img', $filter, 10 );
 		}
 
 		$this->assertSame( $attr, $captured_attr );
@@ -1044,7 +1044,7 @@ class WC_Tests_Product_Functions extends WC_Unit_Test_Case {
 	 * @testdox Should use the filtered placeholder source for an attachment placeholder.
 	 */
 	public function test_wc_placeholder_img_uses_filtered_src_for_attachment_placeholder() {
-		$option_name                = 'woocommerce_placeholder_image';
+		$option_name                = 'poocommerce_placeholder_image';
 		$original_placeholder_image = get_option( $option_name, false );
 		$placeholder_image_id       = self::factory()->attachment->create(
 			array(
@@ -1070,7 +1070,7 @@ class WC_Tests_Product_Functions extends WC_Unit_Test_Case {
 			)
 		);
 		update_option( $option_name, $placeholder_image_id );
-		add_filter( 'woocommerce_placeholder_img_src', $filter );
+		add_filter( 'poocommerce_placeholder_img_src', $filter );
 
 		try {
 			$image_html = wc_placeholder_img();
@@ -1078,24 +1078,24 @@ class WC_Tests_Product_Functions extends WC_Unit_Test_Case {
 			$this->assertStringContainsString( 'src="' . $placeholder_src . '"', $image_html );
 			$this->assertStringNotContainsString( 'srcset=', $image_html );
 
-			remove_filter( 'woocommerce_placeholder_img_src', $filter );
-			add_filter( 'woocommerce_placeholder_img_src', $passthrough_filter );
+			remove_filter( 'poocommerce_placeholder_img_src', $filter );
+			add_filter( 'poocommerce_placeholder_img_src', $passthrough_filter );
 
 			$this->assertSame(
 				wp_get_attachment_image(
 					$placeholder_image_id,
-					'woocommerce_thumbnail',
+					'poocommerce_thumbnail',
 					false,
 					array(
-						'class' => 'woocommerce-placeholder wp-post-image',
-						'alt'   => __( 'Placeholder', 'woocommerce' ),
+						'class' => 'poocommerce-placeholder wp-post-image',
+						'alt'   => __( 'Placeholder', 'poocommerce' ),
 					)
 				),
 				wc_placeholder_img()
 			);
 		} finally {
-			remove_filter( 'woocommerce_placeholder_img_src', $filter );
-			remove_filter( 'woocommerce_placeholder_img_src', $passthrough_filter );
+			remove_filter( 'poocommerce_placeholder_img_src', $filter );
+			remove_filter( 'poocommerce_placeholder_img_src', $passthrough_filter );
 			wp_delete_attachment( $placeholder_image_id, true );
 
 			if ( false === $original_placeholder_image ) {
@@ -1222,7 +1222,7 @@ class WC_Tests_Product_Functions extends WC_Unit_Test_Case {
 	public function test_wc_get_attachment_image_attributes() {
 		$image_attr = array(
 			'src'    => 'https://wc.local/wp-content/uploads/2018/02/single-1-250x250.jpg',
-			'class'  => 'attachment-woocommerce_thumbnail size-woocommerce_thumbnail',
+			'class'  => 'attachment-poocommerce_thumbnail size-poocommerce_thumbnail',
 			'alt'    => '',
 			'srcset' => 'https://wc.local/wp-content/uploads/2018/02/single-1-250x250.jpg 250w, https://wc.local/wp-content/uploads/2018/02/single-1-350x350.jpg 350w, https://wc.local/wp-content/uploads/2018/02/single-1-150x150.jpg 150w, https://wc.local/wp-content/uploads/2018/02/single-1-300x300.jpg 300w, https://wc.local/wp-content/uploads/2018/02/single-1-768x768.jpg 768w, https://wc.local/wp-content/uploads/2018/02/single-1-100x100.jpg 100w, https://wc.local/wp-content/uploads/2018/02/single-1.jpg 800w',
 			'sizes'  => '(max-width: 250px) 100vw, 250px',
@@ -1232,7 +1232,7 @@ class WC_Tests_Product_Functions extends WC_Unit_Test_Case {
 
 		$image_attr = array(
 			'src'    => '',
-			'class'  => 'attachment-woocommerce_thumbnail size-woocommerce_thumbnail',
+			'class'  => 'attachment-poocommerce_thumbnail size-poocommerce_thumbnail',
 			'alt'    => '',
 			'srcset' => '',
 			'sizes'  => '(max-width: 250px) 100vw, 250px',
@@ -1241,20 +1241,20 @@ class WC_Tests_Product_Functions extends WC_Unit_Test_Case {
 		$this->assertEquals( $image_attr, wc_get_attachment_image_attributes( $image_attr ) );
 
 		$image_attr    = array(
-			'src'    => 'https://wc.local/wp-content/woocommerce_uploads/my-image.jpg',
-			'class'  => 'attachment-woocommerce_thumbnail size-woocommerce_thumbnail',
+			'src'    => 'https://wc.local/wp-content/poocommerce_uploads/my-image.jpg',
+			'class'  => 'attachment-poocommerce_thumbnail size-poocommerce_thumbnail',
 			'alt'    => '',
-			'srcset' => 'https://wc.local/wp-content/woocommerce_uploads/my-image-250x250.jpg 250w, https://wc.local/wp-content/woocommerce_uploads/my-image-350x350 350w',
+			'srcset' => 'https://wc.local/wp-content/poocommerce_uploads/my-image-250x250.jpg 250w, https://wc.local/wp-content/poocommerce_uploads/my-image-350x350 350w',
 			'sizes'  => '(max-width: 250px) 100vw, 250px',
 		);
 		$expected_attr = array(
 			'src'    => WC()->plugin_url() . '/assets/images/placeholder.webp',
-			'class'  => 'attachment-woocommerce_thumbnail size-woocommerce_thumbnail',
+			'class'  => 'attachment-poocommerce_thumbnail size-poocommerce_thumbnail',
 			'alt'    => '',
 			'srcset' => '',
 			'sizes'  => '(max-width: 250px) 100vw, 250px',
 		);
-		// Test image hosted in woocommerce_uploads which is not allowed, think shops selling photos.
+		// Test image hosted in poocommerce_uploads which is not allowed, think shops selling photos.
 		$this->assertEquals( $expected_attr, wc_get_attachment_image_attributes( $image_attr ) );
 
 		unset( $image_attr, $expected_attr );
@@ -1267,7 +1267,7 @@ class WC_Tests_Product_Functions extends WC_Unit_Test_Case {
 	 */
 	public function test_wc_get_product_stock_status_options() {
 		$status_options = (array) apply_filters(
-			'woocommerce_product_stock_status_options',
+			'poocommerce_product_stock_status_options',
 			array(
 				ProductStockStatus::IN_STOCK     => 'In stock',
 				ProductStockStatus::OUT_OF_STOCK => 'Out of stock',
@@ -1283,8 +1283,8 @@ class WC_Tests_Product_Functions extends WC_Unit_Test_Case {
 	 */
 	public function test_wc_get_price_to_display() {
 		// Enable taxes.
-		update_option( 'woocommerce_calc_taxes', 'yes' );
-		update_option( 'woocommerce_prices_include_tax', 'no' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_prices_include_tax', 'no' );
 
 		$customer_location = WC_Tax::get_tax_location();
 
@@ -1307,8 +1307,8 @@ class WC_Tests_Product_Functions extends WC_Unit_Test_Case {
 		$product->set_regular_price( '100' );
 
 		// Display price included taxes at shop and cart.
-		update_option( 'woocommerce_tax_display_cart', 'incl' );
-		update_option( 'woocommerce_tax_display_shop', 'incl' );
+		update_option( 'poocommerce_tax_display_cart', 'incl' );
+		update_option( 'poocommerce_tax_display_shop', 'incl' );
 
 		$price_shop = wc_get_price_to_display(
 			$product,
@@ -1333,8 +1333,8 @@ class WC_Tests_Product_Functions extends WC_Unit_Test_Case {
 		$this->assertEquals( 120, $price_shop );
 
 		// Display price included taxes only at shop.
-		update_option( 'woocommerce_tax_display_cart', 'excl' );
-		update_option( 'woocommerce_tax_display_shop', 'incl' );
+		update_option( 'poocommerce_tax_display_cart', 'excl' );
+		update_option( 'poocommerce_tax_display_shop', 'incl' );
 
 		$price_shop = wc_get_price_to_display(
 			$product,
@@ -1358,8 +1358,8 @@ class WC_Tests_Product_Functions extends WC_Unit_Test_Case {
 		$this->assertEquals( 100, $price_shop );
 
 		// Display price included taxes only at cart.
-		update_option( 'woocommerce_tax_display_cart', 'incl' );
-		update_option( 'woocommerce_tax_display_shop', 'excl' );
+		update_option( 'poocommerce_tax_display_cart', 'incl' );
+		update_option( 'poocommerce_tax_display_shop', 'excl' );
 
 		$price_shop = wc_get_price_to_display(
 			$product,
@@ -1384,8 +1384,8 @@ class WC_Tests_Product_Functions extends WC_Unit_Test_Case {
 		$this->assertEquals( 120, $price_shop );
 
 		// Display price excluded taxes at shop and cart.
-		update_option( 'woocommerce_tax_display_cart', 'excl' );
-		update_option( 'woocommerce_tax_display_shop', 'excl' );
+		update_option( 'poocommerce_tax_display_cart', 'excl' );
+		update_option( 'poocommerce_tax_display_shop', 'excl' );
 
 		$price_shop = wc_get_price_to_display(
 			$product,

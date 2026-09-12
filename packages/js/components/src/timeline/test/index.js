@@ -78,11 +78,11 @@ describe( 'Timeline', () => {
 		);
 
 		expect(
-			container.querySelector( '.woocommerce-timeline-group__title' )
+			container.querySelector( '.poocommerce-timeline-group__title' )
 				.textContent
 		).toBe( 'localized:Europe/London:F j, Y:2020-01-20T23:45:00.000Z' );
 		expect(
-			container.querySelector( '.woocommerce-timeline-item__timestamp' )
+			container.querySelector( '.poocommerce-timeline-item__timestamp' )
 				.textContent
 		).toBe( 'localized:Europe/London:g:ia:2020-01-20T23:45:00.000Z' );
 	} );
@@ -107,11 +107,11 @@ describe( 'Timeline', () => {
 		);
 
 		expect(
-			container.querySelector( '.woocommerce-timeline-group__title' )
+			container.querySelector( '.poocommerce-timeline-group__title' )
 				.textContent
 		).toBe( 'site:F j, Y:2020-01-20T23:45:00.000Z' );
 		expect(
-			container.querySelector( '.woocommerce-timeline-item__timestamp' )
+			container.querySelector( '.poocommerce-timeline-item__timestamp' )
 				.textContent
 		).toBe( 'site:g:ia:2020-01-20T23:45:00.000Z' );
 	} );
@@ -140,11 +140,11 @@ describe( 'Timeline', () => {
 		);
 
 		expect(
-			container.querySelector( '.woocommerce-timeline-group__title' )
+			container.querySelector( '.poocommerce-timeline-group__title' )
 				.textContent
 		).toBe( 'browser:F j, Y:2020-01-20T23:45:00.000Z' );
 		expect(
-			container.querySelector( '.woocommerce-timeline-item__timestamp' )
+			container.querySelector( '.poocommerce-timeline-item__timestamp' )
 				.textContent
 		).toBe( 'browser:g:ia:2020-01-20T23:45:00.000Z' );
 	} );
@@ -173,11 +173,11 @@ describe( 'Timeline', () => {
 		);
 
 		expect(
-			container.querySelector( '.woocommerce-timeline-group__title' )
+			container.querySelector( '.poocommerce-timeline-group__title' )
 				.textContent
 		).toBe( 'browser:F j, Y:2020-01-20T23:45:00.000Z' );
 		expect(
-			container.querySelector( '.woocommerce-timeline-item__timestamp' )
+			container.querySelector( '.poocommerce-timeline-item__timestamp' )
 				.textContent
 		).toBe( 'browser:g:ia:2020-01-20T23:45:00.000Z' );
 	} );
@@ -208,11 +208,11 @@ describe( 'Timeline', () => {
 		);
 
 		expect(
-			container.querySelector( '.woocommerce-timeline-group__title' )
+			container.querySelector( '.poocommerce-timeline-group__title' )
 				.textContent
 		).toBe( 'browser:F j, Y:2020-01-20T23:45:00.000Z' );
 		expect(
-			container.querySelector( '.woocommerce-timeline-item__timestamp' )
+			container.querySelector( '.poocommerce-timeline-item__timestamp' )
 				.textContent
 		).toBe( 'browser:g:ia:2020-01-20T23:45:00.000Z' );
 	} );
@@ -256,7 +256,7 @@ describe( 'Timeline', () => {
 		);
 
 		const groupTitles = container.querySelectorAll(
-			'.woocommerce-timeline-group__title'
+			'.poocommerce-timeline-group__title'
 		);
 
 		expect( groupTitles ).toHaveLength( 1 );

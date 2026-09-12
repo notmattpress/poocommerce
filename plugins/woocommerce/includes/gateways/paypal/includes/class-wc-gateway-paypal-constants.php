@@ -4,9 +4,9 @@
  *
  * Provides constants for PayPal payment statuses, intents, and other PayPal-related values.
  *
- * @deprecated 10.5.0 Use Automattic\WooCommerce\Gateways\PayPal\Constants instead. This class will be removed in 11.0.0.
+ * @deprecated 10.5.0 Use Automattic\PooCommerce\Gateways\PayPal\Constants instead. This class will be removed in 11.0.0.
  * @version    10.3.0
- * @package    WooCommerce\Gateways
+ * @package    PooCommerce\Gateways
  */
 
 declare(strict_types=1);
@@ -15,25 +15,25 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-use Automattic\WooCommerce\Gateways\PayPal\Constants as PayPalConstants;
+use Automattic\PooCommerce\Gateways\PayPal\Constants as PayPalConstants;
 
 /**
  * WC_Gateway_Paypal_Constants Class.
  *
- * @deprecated 10.5.0 Use Automattic\WooCommerce\Gateways\PayPal\Constants instead. This class will be removed in 11.0.0.
+ * @deprecated 10.5.0 Use Automattic\PooCommerce\Gateways\PayPal\Constants instead. This class will be removed in 11.0.0.
  */
 class WC_Gateway_Paypal_Constants {
 	/**
 	 * PayPal proxy request timeout.
 	 *
-	 * @deprecated 10.5.0 Use Automattic\WooCommerce\Gateways\PayPal\Constants::WPCOM_PROXY_REQUEST_TIMEOUT instead.
+	 * @deprecated 10.5.0 Use Automattic\PooCommerce\Gateways\PayPal\Constants::WPCOM_PROXY_REQUEST_TIMEOUT instead.
 	 */
 	const WPCOM_PROXY_REQUEST_TIMEOUT = PayPalConstants::WPCOM_PROXY_REQUEST_TIMEOUT;
 
 	/**
 	 * PayPal payment statuses.
 	 *
-	 * @deprecated 10.5.0 Use Automattic\WooCommerce\Gateways\PayPal\Constants::STATUS_* instead.
+	 * @deprecated 10.5.0 Use Automattic\PooCommerce\Gateways\PayPal\Constants::STATUS_* instead.
 	 */
 	const STATUS_COMPLETED             = PayPalConstants::STATUS_COMPLETED;
 	const STATUS_APPROVED              = PayPalConstants::STATUS_APPROVED;
@@ -45,7 +45,7 @@ class WC_Gateway_Paypal_Constants {
 	/**
 	 * PayPal payment intents.
 	 *
-	 * @deprecated 10.5.0 Use Automattic\WooCommerce\Gateways\PayPal\Constants::INTENT_* instead.
+	 * @deprecated 10.5.0 Use Automattic\PooCommerce\Gateways\PayPal\Constants::INTENT_* instead.
 	 */
 	const INTENT_CAPTURE   = PayPalConstants::INTENT_CAPTURE;
 	const INTENT_AUTHORIZE = PayPalConstants::INTENT_AUTHORIZE;
@@ -53,7 +53,7 @@ class WC_Gateway_Paypal_Constants {
 	/**
 	 * PayPal payment actions.
 	 *
-	 * @deprecated 10.5.0 Use Automattic\WooCommerce\Gateways\PayPal\Constants::PAYMENT_ACTION_* instead.
+	 * @deprecated 10.5.0 Use Automattic\PooCommerce\Gateways\PayPal\Constants::PAYMENT_ACTION_* instead.
 	 */
 	const PAYMENT_ACTION_CAPTURE   = PayPalConstants::PAYMENT_ACTION_CAPTURE;
 	const PAYMENT_ACTION_AUTHORIZE = PayPalConstants::PAYMENT_ACTION_AUTHORIZE;
@@ -61,7 +61,7 @@ class WC_Gateway_Paypal_Constants {
 	/**
 	 * PayPal shipping preferences.
 	 *
-	 * @deprecated 10.5.0 Use Automattic\WooCommerce\Gateways\PayPal\Constants::SHIPPING_* instead.
+	 * @deprecated 10.5.0 Use Automattic\PooCommerce\Gateways\PayPal\Constants::SHIPPING_* instead.
 	 */
 	const SHIPPING_NO_SHIPPING          = PayPalConstants::SHIPPING_NO_SHIPPING;
 	const SHIPPING_GET_FROM_FILE        = PayPalConstants::SHIPPING_GET_FROM_FILE;
@@ -70,14 +70,14 @@ class WC_Gateway_Paypal_Constants {
 	/**
 	 * PayPal user actions.
 	 *
-	 * @deprecated 10.5.0 Use Automattic\WooCommerce\Gateways\PayPal\Constants::USER_ACTION_* instead.
+	 * @deprecated 10.5.0 Use Automattic\PooCommerce\Gateways\PayPal\Constants::USER_ACTION_* instead.
 	 */
 	const USER_ACTION_PAY_NOW = PayPalConstants::USER_ACTION_PAY_NOW;
 
 	/**
 	 * Maximum lengths for PayPal fields.
 	 *
-	 * @deprecated 10.5.0 Use Automattic\WooCommerce\Gateways\PayPal\Constants::PAYPAL_* instead.
+	 * @deprecated 10.5.0 Use Automattic\PooCommerce\Gateways\PayPal\Constants::PAYPAL_* instead.
 	 */
 	const PAYPAL_ORDER_ITEM_NAME_MAX_LENGTH = PayPalConstants::PAYPAL_ORDER_ITEM_NAME_MAX_LENGTH;
 	const PAYPAL_INVOICE_ID_MAX_LENGTH      = PayPalConstants::PAYPAL_INVOICE_ID_MAX_LENGTH;
@@ -91,7 +91,7 @@ class WC_Gateway_Paypal_Constants {
 	/**
 	 * Supported payment sources.
 	 *
-	 * @deprecated 10.5.0 Use Automattic\WooCommerce\Gateways\PayPal\Constants::PAYMENT_SOURCE_* instead.
+	 * @deprecated 10.5.0 Use Automattic\PooCommerce\Gateways\PayPal\Constants::PAYMENT_SOURCE_* instead.
 	 */
 	const PAYMENT_SOURCE_PAYPAL     = PayPalConstants::PAYMENT_SOURCE_PAYPAL;
 	const PAYMENT_SOURCE_VENMO      = PayPalConstants::PAYMENT_SOURCE_VENMO;
@@ -101,7 +101,7 @@ class WC_Gateway_Paypal_Constants {
 	/**
 	 * Fields to redact from logs.
 	 *
-	 * @deprecated 10.5.0 Use Automattic\WooCommerce\Gateways\PayPal\Constants::FIELDS_TO_REDACT instead.
+	 * @deprecated 10.5.0 Use Automattic\PooCommerce\Gateways\PayPal\Constants::FIELDS_TO_REDACT instead.
 	 * @var array
 	 */
 	const FIELDS_TO_REDACT = PayPalConstants::FIELDS_TO_REDACT;
@@ -109,7 +109,7 @@ class WC_Gateway_Paypal_Constants {
 	/**
 	 * List of currencies supported by PayPal (Orders API V2).
 	 *
-	 * @deprecated 10.5.0 Use Automattic\WooCommerce\Gateways\PayPal\Constants::SUPPORTED_CURRENCIES instead.
+	 * @deprecated 10.5.0 Use Automattic\PooCommerce\Gateways\PayPal\Constants::SUPPORTED_CURRENCIES instead.
 	 * @var array<string>
 	 */
 	const SUPPORTED_CURRENCIES = PayPalConstants::SUPPORTED_CURRENCIES;

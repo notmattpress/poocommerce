@@ -1,18 +1,18 @@
 <?php
 
-namespace Automattic\WooCommerce\Vendor\Sabberworm\CSS\RuleSet;
+namespace Automattic\PooCommerce\Vendor\Sabberworm\CSS\RuleSet;
 
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\Comment\Comment;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\Comment\Commentable;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\CSSElement;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\OutputFormat;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\Parsing\ParserState;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\Parsing\UnexpectedEOFException;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\Parsing\UnexpectedTokenException;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\Position\Position;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\Position\Positionable;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\Renderable;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\Rule\Rule;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\Comment\Comment;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\Comment\Commentable;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\CSSElement;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\OutputFormat;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\Parsing\ParserState;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\Parsing\UnexpectedEOFException;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\Parsing\UnexpectedTokenException;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\Position\Position;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\Position\Positionable;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\Renderable;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\Rule\Rule;
 
 /**
  * This class is a container for individual 'Rule's.

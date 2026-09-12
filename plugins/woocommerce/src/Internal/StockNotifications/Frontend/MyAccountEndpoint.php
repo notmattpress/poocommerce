@@ -5,13 +5,13 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\StockNotifications\Frontend;
+namespace Automattic\PooCommerce\Internal\StockNotifications\Frontend;
 
-use Automattic\WooCommerce\Internal\StockNotifications\Enums\NotificationCancellationSource;
-use Automattic\WooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
-use Automattic\WooCommerce\Internal\StockNotifications\Factory;
-use Automattic\WooCommerce\Internal\StockNotifications\Notification;
-use Automattic\WooCommerce\Internal\StockNotifications\NotificationQuery;
+use Automattic\PooCommerce\Internal\StockNotifications\Enums\NotificationCancellationSource;
+use Automattic\PooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
+use Automattic\PooCommerce\Internal\StockNotifications\Factory;
+use Automattic\PooCommerce\Internal\StockNotifications\Notification;
+use Automattic\PooCommerce\Internal\StockNotifications\NotificationQuery;
 
 /**
  * Registers the "Stock notifications" My Account endpoint and handles
@@ -31,7 +31,7 @@ class MyAccountEndpoint {
 	/**
 	 * Option holding the endpoint slug, editable under Settings > Advanced > Account endpoints.
 	 */
-	public const ENDPOINT_OPTION = 'woocommerce_myaccount_stock_notifications_endpoint';
+	public const ENDPOINT_OPTION = 'poocommerce_myaccount_stock_notifications_endpoint';
 
 	/**
 	 * Get the configured endpoint slug.
@@ -158,10 +158,10 @@ class MyAccountEndpoint {
 	 * Constructor.
 	 */
 	public function __construct() {
-		add_filter( 'woocommerce_get_query_vars', array( $this, 'register_query_var' ) );
-		add_filter( 'woocommerce_account_menu_items', array( $this, 'register_menu_item' ), 10, 2 );
-		add_filter( 'woocommerce_endpoint_' . self::ENDPOINT . '_title', array( $this, 'filter_endpoint_title' ) );
-		add_action( 'woocommerce_account_' . self::ENDPOINT . '_endpoint', array( $this, 'render_endpoint' ) );
+		add_filter( 'poocommerce_get_query_vars', array( $this, 'register_query_var' ) );
+		add_filter( 'poocommerce_account_menu_items', array( $this, 'register_menu_item' ), 10, 2 );
+		add_filter( 'poocommerce_endpoint_' . self::ENDPOINT . '_title', array( $this, 'filter_endpoint_title' ) );
+		add_action( 'poocommerce_account_' . self::ENDPOINT . '_endpoint', array( $this, 'render_endpoint' ) );
 		add_action( 'template_redirect', array( $this, 'maybe_handle_action' ) );
 	}
 
@@ -181,7 +181,7 @@ class MyAccountEndpoint {
 	/**
 	 * Register the stock notifications rewrite endpoint / query var.
 	 *
-	 * Hooking `woocommerce_get_query_vars` wires us into {@see \WC_Query::add_endpoints()}
+	 * Hooking `poocommerce_get_query_vars` wires us into {@see \WC_Query::add_endpoints()}
 	 * so WordPress registers the rewrite rule and our slug lands in `$wp->query_vars`.
 	 * `add_endpoints()` skips empty slugs, so a blank setting leaves the endpoint unregistered.
 	 *
@@ -218,7 +218,7 @@ class MyAccountEndpoint {
 		}
 
 		$new_item = array(
-			self::ENDPOINT => __( 'Stock notifications', 'woocommerce' ),
+			self::ENDPOINT => __( 'Stock notifications', 'poocommerce' ),
 		);
 
 		// Try to slot it in right after Downloads so it sits with the other lists.
@@ -253,7 +253,7 @@ class MyAccountEndpoint {
 	public function filter_endpoint_title( $title ) {
 		// Avoid parameter not used PHPCS errors.
 		unset( $title );
-		return __( 'Stock notifications', 'woocommerce' );
+		return __( 'Stock notifications', 'poocommerce' );
 	}
 
 	/**
@@ -286,8 +286,8 @@ class MyAccountEndpoint {
 	/**
 	 * Render the endpoint template.
 	 *
-	 * Hooked to `woocommerce_account_stock-notifications_endpoint`, mirroring
-	 * how `woocommerce_account_downloads` and `woocommerce_account_orders` hook up.
+	 * Hooked to `poocommerce_account_stock-notifications_endpoint`, mirroring
+	 * how `poocommerce_account_downloads` and `poocommerce_account_orders` hook up.
 	 *
 	 * @param string|int $current_page The current page number passed by WC (the value
 	 *                                 captured from the rewrite endpoint, e.g. `2` for
@@ -304,7 +304,7 @@ class MyAccountEndpoint {
 		 *
 		 * @param int $per_page Number of notifications shown per page. Default {@see self::DEFAULT_PER_PAGE}.
 		 */
-		$per_page = (int) apply_filters( 'woocommerce_account_customer_stock_notifications_per_page', self::DEFAULT_PER_PAGE );
+		$per_page = (int) apply_filters( 'poocommerce_account_customer_stock_notifications_per_page', self::DEFAULT_PER_PAGE );
 		$per_page = max( 1, $per_page );
 
 		/**
@@ -317,7 +317,7 @@ class MyAccountEndpoint {
 		 *
 		 * @param int $limit Maximum number of pending notifications shown. Default {@see self::DEFAULT_PER_PAGE}.
 		 */
-		$pending_limit = (int) apply_filters( 'woocommerce_account_customer_stock_notifications_pending_limit', self::DEFAULT_PER_PAGE );
+		$pending_limit = (int) apply_filters( 'poocommerce_account_customer_stock_notifications_pending_limit', self::DEFAULT_PER_PAGE );
 		$pending_limit = max( 1, $pending_limit );
 
 		$pending = $this->get_current_user_pending_notifications( $pending_limit );
@@ -484,12 +484,12 @@ class MyAccountEndpoint {
 		// phpcs:enable WordPress.Security.NonceVerification.Recommended
 
 		if ( ! wp_verify_nonce( $nonce, self::get_nonce_action( $action, $notification_id ) ) ) {
-			$this->redirect_with_error( __( 'This link has expired. Please reload the page and try again.', 'woocommerce' ), $page );
+			$this->redirect_with_error( __( 'This link has expired. Please reload the page and try again.', 'poocommerce' ), $page );
 		}
 
 		$notification = Factory::get_notification( $notification_id );
 		if ( ! $notification instanceof Notification || (int) $notification->get_user_id() !== get_current_user_id() ) {
-			$this->redirect_with_error( __( 'We were unable to process your request. Notification not found.', 'woocommerce' ), $page );
+			$this->redirect_with_error( __( 'We were unable to process your request. Notification not found.', 'poocommerce' ), $page );
 		}
 
 		$result = self::ACTION_RESEND === $action
@@ -518,7 +518,7 @@ class MyAccountEndpoint {
 		}
 
 		/* translators: %s: email address the verification email was sent to. */
-		return sprintf( __( 'Verification email sent to "%s". Please check your inbox!', 'woocommerce' ), $notification->get_user_email() );
+		return sprintf( __( 'Verification email sent to "%s". Please check your inbox!', 'poocommerce' ), $notification->get_user_email() );
 	}
 
 	/**
@@ -529,7 +529,7 @@ class MyAccountEndpoint {
 	 */
 	private function cancel( Notification $notification ) {
 		if ( ! self::is_cancellable( $notification ) ) {
-			return new \WP_Error( 'wc_bis_cancel_not_cancellable', __( 'That back in stock notification has already been cancelled.', 'woocommerce' ) );
+			return new \WP_Error( 'wc_bis_cancel_not_cancellable', __( 'That back in stock notification has already been cancelled.', 'poocommerce' ) );
 		}
 
 		$notification->set_status( NotificationStatus::CANCELLED );
@@ -542,16 +542,16 @@ class MyAccountEndpoint {
 		// reaches us as a successful save. Read the row back to confirm it really changed.
 		$saved = Factory::get_notification( $notification->get_id() );
 		if ( ! $saved instanceof Notification || NotificationStatus::CANCELLED !== $saved->get_status() ) {
-			return new \WP_Error( 'wc_bis_cancel_failed', __( 'We could not cancel that back in stock notification. Please try again.', 'woocommerce' ) );
+			return new \WP_Error( 'wc_bis_cancel_failed', __( 'We could not cancel that back in stock notification. Please try again.', 'poocommerce' ) );
 		}
 
 		$product_name = $notification->get_product_name();
 		if ( '' === $product_name ) {
-			return __( 'Back in stock notification cancelled.', 'woocommerce' );
+			return __( 'Back in stock notification cancelled.', 'poocommerce' );
 		}
 
 		/* translators: %s: product name */
-		return sprintf( __( 'Back in stock notification for "%s" cancelled.', 'woocommerce' ), $product_name );
+		return sprintf( __( 'Back in stock notification for "%s" cancelled.', 'poocommerce' ), $product_name );
 	}
 
 	/**

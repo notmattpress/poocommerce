@@ -18,7 +18,7 @@ the [Create Block Theme plugin](https://wordpress.org/plugins/create-block-theme
 
 ### Block templates
 
-WooCommerce comes with several [block templates](https://github.com/woocommerce/woocommerce/tree/trunk/plugins/woocommerce/templates/templates/blockified) by default. Those are:
+PooCommerce comes with several [block templates](https://github.com/poocommerce/poocommerce/tree/trunk/plugins/poocommerce/templates/templates/blockified) by default. Those are:
 
 - Single Product (`single-product.html`)
 - Product Catalog (`archive-product.html`)
@@ -33,7 +33,7 @@ WooCommerce comes with several [block templates](https://github.com/woocommerce/
 
 Block themes can customize those templates in the following ways:
 
-- It's possible to override the templates by creating a file with the same file name under the `/templates` folder. For example, if a block theme contains a `wp-content/themes/yourtheme/templates/single-product.html` template, it will take priority over the WooCommerce default Single Product template.
+- It's possible to override the templates by creating a file with the same file name under the `/templates` folder. For example, if a block theme contains a `wp-content/themes/yourtheme/templates/single-product.html` template, it will take priority over the PooCommerce default Single Product template.
 - Products by Category, Products by Tag and Products by Attribute templates fall back to the Product Catalog template. In other words, if a theme provides an `archive-product.html` template but doesn't provide a `taxonomy-product_cat.html` template, the Products by Category template will use the `archive-product.html` template. Same for the Products by Tag and Products by Attribute templates.
 - It's possible to create templates for specific products and taxonomies. For example, if the theme provides a template with file name of `single-product-cap.html`, that template will be used when rendering the product with slug `cap`. Similarly, themes can provide specific taxonomy templates: `taxonomy-product_cat-clothing.html` would be used in the product category with slug `clothing`.
 - Always keep in mind users can make modifications to the templates provided by the theme via the Site Editor.
@@ -42,38 +42,38 @@ Block themes can customize those templates in the following ways:
 
 The `page-cart.html` and `page-checkout.html` templates should render the content from the assigned Cart and Checkout pages. Add layout, headers, footers, and other template-level content around the page content, but keep the Cart and Checkout blocks in the corresponding page content.
 
-WooCommerce's default `page-cart.html` template uses the `woocommerce/page-content-wrapper` block with `woocommerce/store-notices`, `core/post-title`, and `core/post-content` inside it:
+PooCommerce's default `page-cart.html` template uses the `poocommerce/page-content-wrapper` block with `poocommerce/store-notices`, `core/post-title`, and `core/post-content` inside it:
 
 ```html
-<!-- wp:woocommerce/page-content-wrapper {"page":"cart"} -->
+<!-- wp:poocommerce/page-content-wrapper {"page":"cart"} -->
 <!-- wp:group {"tagName":"main","layout":{"type":"constrained"}} -->
 <main class="wp-block-group">
-    <!-- wp:woocommerce/store-notices /-->
+    <!-- wp:poocommerce/store-notices /-->
     <!-- wp:post-title {"align":"wide", "level":1} /-->
     <!-- wp:post-content {"align":"wide"} /-->
 </main>
 <!-- /wp:group -->
-<!-- /wp:woocommerce/page-content-wrapper -->
+<!-- /wp:poocommerce/page-content-wrapper -->
 ```
 
 The default `page-checkout.html` template uses the same wrapper and store notices, but renders page content without a page title:
 
 ```html
-<!-- wp:woocommerce/page-content-wrapper {"page":"checkout"} -->
+<!-- wp:poocommerce/page-content-wrapper {"page":"checkout"} -->
 <!-- wp:group {"tagName":"main","layout":{"type":"constrained"}} -->
 <main class="wp-block-group">
-    <!-- wp:woocommerce/store-notices /-->
+    <!-- wp:poocommerce/store-notices /-->
     <!-- wp:post-content {"align":"wide"} /-->
 </main>
 <!-- /wp:group -->
-<!-- /wp:woocommerce/page-content-wrapper -->
+<!-- /wp:poocommerce/page-content-wrapper -->
 ```
 
-Use the same pattern when overriding `page-cart.html` or `page-checkout.html` in a theme. Avoid placing `woocommerce/cart` or `woocommerce/checkout` directly in these template files as a replacement for `core/post-content`. If the template bypasses page content, the page editor can become out of sync with what shoppers see, and WooCommerce features that inspect the assigned page content may not detect the Cart or Checkout block correctly.
+Use the same pattern when overriding `page-cart.html` or `page-checkout.html` in a theme. Avoid placing `poocommerce/cart` or `poocommerce/checkout` directly in these template files as a replacement for `core/post-content`. If the template bypasses page content, the page editor can become out of sync with what shoppers see, and PooCommerce features that inspect the assigned page content may not detect the Cart or Checkout block correctly.
 
 ### Block template parts
 
-WooCommerce also comes with two specific [block template parts](https://github.com/woocommerce/woocommerce/tree/trunk/plugins/woocommerce/templates/parts):
+PooCommerce also comes with two specific [block template parts](https://github.com/poocommerce/poocommerce/tree/trunk/plugins/poocommerce/templates/parts):
 
 - Mini-Cart (`mini-cart.html`): used inside the Mini-Cart block drawer.
 - Checkout header (`checkout-header.html`): used as the header in the Checkout template.
@@ -82,7 +82,7 @@ Similarly to the templates, they can be overridden by themes by adding a file wi
 
 ### Global styles
 
-WooCommerce blocks rely on [global styles](https://developer.wordpress.org/themes/global-settings-and-styles/styles/) for their styling. Global styles can be defined by themes via `theme.json` or by users via Appearance > Editor > Styles and offer several advantages over plain CSS:
+PooCommerce blocks rely on [global styles](https://developer.wordpress.org/themes/global-settings-and-styles/styles/) for their styling. Global styles can be defined by themes via `theme.json` or by users via Appearance > Editor > Styles and offer several advantages over plain CSS:
 
 - Better performance, as only the required CSS is printed into the page, reducing the bundle size to render a page.
 - Can be easily customized by users via the UI.
@@ -97,7 +97,7 @@ For example, let's imagine you are building a theme and would like to customize 
 ```JSON
 "styles": {
 	"blocks": {
-		"woocommerce/product-price": {
+		"poocommerce/product-price": {
 			"color": {
 				"background": "#00cc00",
 				"text": "#fff"
@@ -115,6 +115,6 @@ For example, let's imagine you are building a theme and would like to customize 
 
 | Before | After |
 | --- | --- |
-| ![Product Collection block showing the Product Price block with default styles](https://github.com/woocommerce/woocommerce/assets/3616980/fbc11b83-f47b-4b25-bdeb-df798b251cce) | ![Product Collection block showing the Product Price styled with background and text colors and italic and bold typography](https://github.com/woocommerce/woocommerce/assets/3616980/c9730445-b9df-4e96-8204-a10896ac2c5a) |
+| ![Product Collection block showing the Product Price block with default styles](https://github.com/poocommerce/poocommerce/assets/3616980/fbc11b83-f47b-4b25-bdeb-df798b251cce) | ![Product Collection block showing the Product Price styled with background and text colors and italic and bold typography](https://github.com/poocommerce/poocommerce/assets/3616980/c9730445-b9df-4e96-8204-a10896ac2c5a) |
 
-You can find more [documentation on global styles](https://developer.wordpress.org/themes/global-settings-and-styles/styles/) in developer.wordpress.org. You can also find the [list of WooCommerce blocks and their names in the docs](/docs/block-development/reference/block-references).
+You can find more [documentation on global styles](https://developer.wordpress.org/themes/global-settings-and-styles/styles/) in developer.wordpress.org. You can also find the [list of PooCommerce blocks and their names in the docs](/docs/block-development/reference/block-references).

@@ -7,10 +7,10 @@ import {
 	expect,
 	getPostIdBySlug,
 	wpCLI,
-} from '@woocommerce/e2e-utils';
+} from '@poocommerce/e2e-utils';
 
 const blockData = {
-	slug: 'woocommerce/single-product',
+	slug: 'poocommerce/single-product',
 	productSlug: 'hoodie',
 };
 
@@ -25,7 +25,7 @@ class BlockUtils {
 
 	async configureSingleProductBlockForProduct( product: string ) {
 		const singleProductBlock = await this.editor.getBlockByName(
-			'woocommerce/single-product'
+			'poocommerce/single-product'
 		);
 
 		await singleProductBlock

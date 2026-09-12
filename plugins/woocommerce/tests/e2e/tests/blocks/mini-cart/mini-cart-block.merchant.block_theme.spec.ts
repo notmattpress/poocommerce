@@ -6,15 +6,15 @@ import {
 	expect,
 	BlockData,
 	BLOCK_THEME_SLUG,
-} from '@woocommerce/e2e-utils';
+} from '@poocommerce/e2e-utils';
 
 const blockData: BlockData = {
 	name: 'Mini-Cart',
-	slug: 'woocommerce/mini-cart',
+	slug: 'poocommerce/mini-cart',
 	mainClass: '.wc-block-minicart',
 	selectors: {
 		editor: {
-			block: '.wp-block-woocommerce-mini-cart',
+			block: '.wp-block-poocommerce-mini-cart',
 			insertButton: "//button//span[text()='Mini-Cart']",
 		},
 		frontend: {},
@@ -68,10 +68,10 @@ test.describe( 'Merchant → Mini Cart', () => {
 			await editor.openTemplate( { templateName: 'Mini-Cart' } );
 
 			const filledMiniCart = await editor.getBlockByName(
-				'woocommerce/filled-mini-cart-contents-block'
+				'poocommerce/filled-mini-cart-contents-block'
 			);
 			const emptyMiniCart = await editor.getBlockByName(
-				'woocommerce/empty-mini-cart-contents-block'
+				'poocommerce/empty-mini-cart-contents-block'
 			);
 
 			await expect( filledMiniCart ).toBeVisible();

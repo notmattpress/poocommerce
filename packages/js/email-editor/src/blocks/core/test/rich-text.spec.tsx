@@ -62,7 +62,7 @@ describe( 'extendRichTextFormats', () => {
 		// drop interactive formats entirely, which would hide the
 		// Personalization Tags toolbar button there.
 		expect( registerFormatTypeMock ).toHaveBeenCalledWith(
-			'woocommerce-email-editor/shortcode',
+			'poocommerce-email-editor/shortcode',
 			expect.objectContaining( {
 				interactive: false,
 				edit: expect.any( Function ),
@@ -75,7 +75,7 @@ describe( 'extendRichTextFormats', () => {
 		// programmatically via `applyFormat`, so unlike the shortcode format it
 		// has no toolbar `edit` component that the interactive flag could hide.
 		expect( registerFormatTypeMock ).toHaveBeenCalledWith(
-			'woocommerce-email-editor/link-shortcode',
+			'poocommerce-email-editor/link-shortcode',
 			expect.objectContaining( { interactive: true, edit: null } )
 		);
 	} );

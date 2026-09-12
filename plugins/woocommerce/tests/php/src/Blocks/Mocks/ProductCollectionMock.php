@@ -1,15 +1,15 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\Mocks;
+namespace Automattic\PooCommerce\Tests\Blocks\Mocks;
 
-use Automattic\WooCommerce\Blocks\BlockTypes\ProductCollection\Controller;
-use Automattic\WooCommerce\Blocks\BlockTypes\ProductCollection\QueryBuilder;
-use Automattic\WooCommerce\Blocks\BlockTypes\ProductCollection\HandlerRegistry;
-use Automattic\WooCommerce\Blocks\Package;
-use Automattic\WooCommerce\Blocks\Assets\Api;
-use Automattic\WooCommerce\Blocks\Assets\AssetDataRegistry;
-use Automattic\WooCommerce\Blocks\Integrations\IntegrationRegistry;
+use Automattic\PooCommerce\Blocks\BlockTypes\ProductCollection\Controller;
+use Automattic\PooCommerce\Blocks\BlockTypes\ProductCollection\QueryBuilder;
+use Automattic\PooCommerce\Blocks\BlockTypes\ProductCollection\HandlerRegistry;
+use Automattic\PooCommerce\Blocks\Package;
+use Automattic\PooCommerce\Blocks\Assets\Api;
+use Automattic\PooCommerce\Blocks\Assets\AssetDataRegistry;
+use Automattic\PooCommerce\Blocks\Integrations\IntegrationRegistry;
 
 // phpcs:disable Generic.CodeAnalysis.UselessOverridingMethod.Found
 

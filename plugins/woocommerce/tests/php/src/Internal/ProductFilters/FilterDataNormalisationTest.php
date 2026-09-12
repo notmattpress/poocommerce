@@ -1,16 +1,16 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Internal\ProductFilters;
+namespace Automattic\PooCommerce\Tests\Internal\ProductFilters;
 
-use Automattic\WooCommerce\Internal\ProductFilters\FilterData;
-use Automattic\WooCommerce\Internal\ProductFilters\Interfaces\QueryClausesGenerator;
-use Automattic\WooCommerce\Internal\ProductFilters\TaxonomyHierarchyData;
+use Automattic\PooCommerce\Internal\ProductFilters\FilterData;
+use Automattic\PooCommerce\Internal\ProductFilters\Interfaces\QueryClausesGenerator;
+use Automattic\PooCommerce\Internal\ProductFilters\TaxonomyHierarchyData;
 
 /**
  * Unit tests for FilterData::normalize_query_vars().
  *
- * @covers \Automattic\WooCommerce\Internal\ProductFilters\FilterData
+ * @covers \Automattic\PooCommerce\Internal\ProductFilters\FilterData
  */
 class FilterDataNormalisationTest extends \WC_Unit_Test_Case {
 

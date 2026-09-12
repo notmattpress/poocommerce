@@ -2,7 +2,7 @@
 /**
  * Tests for the tracking proxy REST route.
  *
- * @package automattic/woocommerce-analytics
+ * @package automattic/poocommerce-analytics
  */
 
 namespace Automattic\Woocommerce_Analytics;
@@ -22,7 +22,7 @@ class WC_Analytics_Tracking_Proxy_Test extends BaseTestCase {
 	 *
 	 * @var string
 	 */
-	const ROUTE = '/woocommerce-analytics/v1/track';
+	const ROUTE = '/poocommerce-analytics/v1/track';
 
 	/**
 	 * Snapshot of $_SERVER taken in set_up(), restored in tear_down(). The
@@ -40,7 +40,7 @@ class WC_Analytics_Tracking_Proxy_Test extends BaseTestCase {
 	 */
 	public function set_up(): void {
 		parent::set_up();
-		remove_all_filters( 'woocommerce_analytics_experimental_proxy_tracking_enabled' );
+		remove_all_filters( 'poocommerce_analytics_experimental_proxy_tracking_enabled' );
 		delete_option( Woocommerce_Analytics::PROXY_TRACKING_EVER_ENABLED_OPTION );
 		delete_option( Woocommerce_Analytics::PROXY_SPEED_MODULE_AUTHORIZED_OPTION );
 		$GLOBALS['wp_rest_server'] = null;
@@ -55,7 +55,7 @@ class WC_Analytics_Tracking_Proxy_Test extends BaseTestCase {
 	 * dispatch test into the next test.
 	 */
 	public function tear_down(): void {
-		remove_all_filters( 'woocommerce_analytics_experimental_proxy_tracking_enabled' );
+		remove_all_filters( 'poocommerce_analytics_experimental_proxy_tracking_enabled' );
 		delete_option( Woocommerce_Analytics::PROXY_TRACKING_EVER_ENABLED_OPTION );
 		delete_option( Woocommerce_Analytics::PROXY_SPEED_MODULE_AUTHORIZED_OPTION );
 		$GLOBALS['wp_rest_server'] = null;
@@ -136,7 +136,7 @@ class WC_Analytics_Tracking_Proxy_Test extends BaseTestCase {
 	 * has nowhere to post.
 	 */
 	public function test_route_is_registered_when_proxy_tracking_is_enabled(): void {
-		add_filter( 'woocommerce_analytics_experimental_proxy_tracking_enabled', '__return_true' );
+		add_filter( 'poocommerce_analytics_experimental_proxy_tracking_enabled', '__return_true' );
 		Woocommerce_Analytics::sync_proxy_tracking_state();
 
 		Woocommerce_Analytics::register_rest_routes();
@@ -165,15 +165,15 @@ class WC_Analytics_Tracking_Proxy_Test extends BaseTestCase {
 	public function test_track_events_strips_reserved_properties_through_the_rest_route(): void {
 		$_COOKIE['tk_ai']          = 'test-visitor-id-1234567890ab';
 		$_SERVER['REQUEST_METHOD'] = 'POST';
-		$_SERVER['REQUEST_URI']    = '/?rest_route=/woocommerce-analytics/v1/track';
+		$_SERVER['REQUEST_URI']    = '/?rest_route=/poocommerce-analytics/v1/track';
 
 		// Seeded so the assertions below prove the server's value replaced the
 		// forged one. Unseeded, store_id is absent from the pixel entirely and
 		// _via_ip is '', so an assertNotSame() would pass on absence alone.
 		$_SERVER['REMOTE_ADDR'] = '203.0.113.7';
-		update_option( 'woocommerce_store_id', 'real-store-id' );
+		update_option( 'poocommerce_store_id', 'real-store-id' );
 
-		add_filter( 'woocommerce_analytics_experimental_proxy_tracking_enabled', '__return_true' );
+		add_filter( 'poocommerce_analytics_experimental_proxy_tracking_enabled', '__return_true' );
 		Woocommerce_Analytics::sync_proxy_tracking_state();
 		Woocommerce_Analytics::register_rest_routes();
 
@@ -210,7 +210,7 @@ class WC_Analytics_Tracking_Proxy_Test extends BaseTestCase {
 	public function test_post_records_nothing_on_a_site_that_never_enabled_proxy_tracking(): void {
 		$_COOKIE['tk_ai']          = 'test-visitor-id-1234567890ab';
 		$_SERVER['REQUEST_METHOD'] = 'POST';
-		$_SERVER['REQUEST_URI']    = '/?rest_route=/woocommerce-analytics/v1/track';
+		$_SERVER['REQUEST_URI']    = '/?rest_route=/poocommerce-analytics/v1/track';
 
 		// No filter and no sync: proxy tracking has never been on here.
 		Woocommerce_Analytics::register_rest_routes();
@@ -230,12 +230,12 @@ class WC_Analytics_Tracking_Proxy_Test extends BaseTestCase {
 	public function test_post_is_refused_with_a_reason_once_the_feature_is_turned_off(): void {
 		$_COOKIE['tk_ai']          = 'test-visitor-id-1234567890ab';
 		$_SERVER['REQUEST_METHOD'] = 'POST';
-		$_SERVER['REQUEST_URI']    = '/?rest_route=/woocommerce-analytics/v1/track';
+		$_SERVER['REQUEST_URI']    = '/?rest_route=/poocommerce-analytics/v1/track';
 
 		// On, then off — the sticky option records that cached pages may exist.
-		add_filter( 'woocommerce_analytics_experimental_proxy_tracking_enabled', '__return_true' );
+		add_filter( 'poocommerce_analytics_experimental_proxy_tracking_enabled', '__return_true' );
 		Woocommerce_Analytics::sync_proxy_tracking_state();
-		remove_all_filters( 'woocommerce_analytics_experimental_proxy_tracking_enabled' );
+		remove_all_filters( 'poocommerce_analytics_experimental_proxy_tracking_enabled' );
 		Woocommerce_Analytics::sync_proxy_tracking_state();
 
 		Woocommerce_Analytics::register_rest_routes();
@@ -278,10 +278,10 @@ class WC_Analytics_Tracking_Proxy_Test extends BaseTestCase {
 	public function test_batch_strips_every_event_and_reports_per_event_results(): void {
 		$_COOKIE['tk_ai']          = 'test-visitor-id-1234567890ab';
 		$_SERVER['REQUEST_METHOD'] = 'POST';
-		$_SERVER['REQUEST_URI']    = '/?rest_route=/woocommerce-analytics/v1/track';
-		update_option( 'woocommerce_store_id', 'real-store-id' );
+		$_SERVER['REQUEST_URI']    = '/?rest_route=/poocommerce-analytics/v1/track';
+		update_option( 'poocommerce_store_id', 'real-store-id' );
 
-		add_filter( 'woocommerce_analytics_experimental_proxy_tracking_enabled', '__return_true' );
+		add_filter( 'poocommerce_analytics_experimental_proxy_tracking_enabled', '__return_true' );
 		Woocommerce_Analytics::sync_proxy_tracking_state();
 		Woocommerce_Analytics::register_rest_routes();
 
@@ -322,9 +322,9 @@ class WC_Analytics_Tracking_Proxy_Test extends BaseTestCase {
 	public function test_batch_size_is_capped(): void {
 		$_COOKIE['tk_ai']          = 'test-visitor-id-1234567890ab';
 		$_SERVER['REQUEST_METHOD'] = 'POST';
-		$_SERVER['REQUEST_URI']    = '/?rest_route=/woocommerce-analytics/v1/track';
+		$_SERVER['REQUEST_URI']    = '/?rest_route=/poocommerce-analytics/v1/track';
 
-		add_filter( 'woocommerce_analytics_experimental_proxy_tracking_enabled', '__return_true' );
+		add_filter( 'poocommerce_analytics_experimental_proxy_tracking_enabled', '__return_true' );
 		Woocommerce_Analytics::sync_proxy_tracking_state();
 		Woocommerce_Analytics::register_rest_routes();
 

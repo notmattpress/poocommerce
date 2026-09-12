@@ -4,16 +4,16 @@
 import { render } from '@testing-library/react';
 import React from 'react';
 
-jest.mock( '@woocommerce/navigation', () => ( {
+jest.mock( '@poocommerce/navigation', () => ( {
 	getNewPath: jest.fn( () => '/new-path' ),
 	navigateTo: jest.fn(),
 } ) );
 
-jest.mock( '@woocommerce/tracks', () => ( {
+jest.mock( '@poocommerce/tracks', () => ( {
 	recordEvent: jest.fn(),
 } ) );
 
-jest.mock( '@woocommerce/data', () => ( {
+jest.mock( '@poocommerce/data', () => ( {
 	useUser: jest.fn( () => ( {
 		user: null,
 		currentUserCan: jest.fn( () => false ),
@@ -71,12 +71,12 @@ describe( 'ProductCardFooter rating', () => {
 
 		expect(
 			container.querySelector(
-				'.woocommerce-marketplace__product-card__rating'
+				'.poocommerce-marketplace__product-card__rating'
 			)?.textContent
 		).toBe( '' );
 		expect(
 			container.querySelector(
-				'.woocommerce-marketplace__product-card__rating-icon'
+				'.poocommerce-marketplace__product-card__rating-icon'
 			)
 		).toBeNull();
 	} );
@@ -86,12 +86,12 @@ describe( 'ProductCardFooter rating', () => {
 
 		expect(
 			container.querySelector(
-				'.woocommerce-marketplace__product-card__rating'
+				'.poocommerce-marketplace__product-card__rating'
 			)?.textContent
 		).toBe( '' );
 		expect(
 			container.querySelector(
-				'.woocommerce-marketplace__product-card__rating-icon'
+				'.poocommerce-marketplace__product-card__rating-icon'
 			)
 		).toBeNull();
 	} );
@@ -101,12 +101,12 @@ describe( 'ProductCardFooter rating', () => {
 
 		expect(
 			container.querySelector(
-				'.woocommerce-marketplace__product-card__rating'
+				'.poocommerce-marketplace__product-card__rating'
 			)?.textContent
 		).toBe( '' );
 		expect(
 			container.querySelector(
-				'.woocommerce-marketplace__product-card__rating-icon'
+				'.poocommerce-marketplace__product-card__rating-icon'
 			)
 		).toBeNull();
 	} );

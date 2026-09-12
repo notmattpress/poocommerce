@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\Utils\ProductDescriptionUtils;
-use Automattic\WooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Blocks\Utils\ProductDescriptionUtils;
+use Automattic\PooCommerce\Enums\ProductType;
 
 /**
  * FeaturedProduct class.

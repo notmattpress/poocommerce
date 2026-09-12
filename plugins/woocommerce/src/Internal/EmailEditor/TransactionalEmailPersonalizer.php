@@ -2,15 +2,15 @@
 /**
  * Class for handling transactional email personalization.
  *
- * @package Automattic\WooCommerce\Internal\EmailEditor
+ * @package Automattic\PooCommerce\Internal\EmailEditor
  */
 
 declare(strict_types = 1);
 
-namespace Automattic\WooCommerce\Internal\EmailEditor;
+namespace Automattic\PooCommerce\Internal\EmailEditor;
 
-use Automattic\WooCommerce\EmailEditor\Email_Editor_Container;
-use Automattic\WooCommerce\EmailEditor\Engine\Personalizer;
+use Automattic\PooCommerce\EmailEditor\Email_Editor_Container;
+use Automattic\PooCommerce\EmailEditor\Engine\Personalizer;
 
 /**
  * Class TransactionalEmailPersonalizer that internally uses the Personalizer class.
@@ -37,7 +37,7 @@ class TransactionalEmailPersonalizer {
 	 * Personalize transactional email content with specific handling.
 	 *
 	 * @param string    $content The content to personalize.
-	 * @param \WC_Email $email The WooCommerce email object.
+	 * @param \WC_Email $email The PooCommerce email object.
 	 * @param string    $rendering_context The rendering context of the content — Personalizer::RENDERING_CONTEXT_HTML or Personalizer::RENDERING_CONTEXT_TEXT.
 	 * @return string The personalized content.
 	 */
@@ -47,9 +47,9 @@ class TransactionalEmailPersonalizer {
 	}
 
 	/**
-	 * Configure personalization context based on WooCommerce email object.
+	 * Configure personalization context based on PooCommerce email object.
 	 *
-	 * @param \WC_Email $email The WooCommerce email object.
+	 * @param \WC_Email $email The PooCommerce email object.
 	 * @return void
 	 */
 	public function configure_context_by_email( \WC_Email $email ): void {
@@ -62,7 +62,7 @@ class TransactionalEmailPersonalizer {
 	 * Adds new order specific context data.
 	 *
 	 * @param array     $previous_context Previous version of context data.
-	 * @param \WC_Email $email The WooCommerce email object.
+	 * @param \WC_Email $email The PooCommerce email object.
 	 * @return array Context data for personalization
 	 */
 	public function prepare_context_data( array $previous_context, \WC_Email $email ): array {
@@ -86,14 +86,14 @@ class TransactionalEmailPersonalizer {
 		 * Filters the context data for email personalization.
 		 *
 		 * This filter fires after core defaults are set, allowing extensions
-		 * to override values like wp_user for custom email types (e.g., WooCommerce Bookings).
+		 * to override values like wp_user for custom email types (e.g., PooCommerce Bookings).
 		 *
 		 * @since 10.5.0
 		 * @param array     $context Context data including core defaults.
-		 * @param \WC_Email $email The WooCommerce email object.
+		 * @param \WC_Email $email The PooCommerce email object.
 		 * @return array Context data for personalization
 		 */
-		$context = apply_filters( 'woocommerce_email_editor_integration_personalizer_context_data', $context, $email );
+		$context = apply_filters( 'poocommerce_email_editor_integration_personalizer_context_data', $context, $email );
 
 		if ( ! is_array( $context ) ) {
 			$context = $core_context;

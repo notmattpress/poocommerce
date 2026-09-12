@@ -5,9 +5,9 @@ import { __, sprintf } from '@wordpress/i18n';
 import { Placeholder, Spinner } from '@wordpress/components';
 import ErrorPlaceholder, {
 	ErrorObject,
-} from '@woocommerce/editor-components/error-placeholder';
+} from '@poocommerce/editor-components/error-placeholder';
 import { Icon, commentContent } from '@wordpress/icons';
-import { withProduct } from '@woocommerce/block-hocs';
+import { withProduct } from '@poocommerce/block-hocs';
 import { decodeEntities } from '@wordpress/html-entities';
 
 interface Product {
@@ -47,7 +47,7 @@ const NoReviewsPlaceholder = ( {
 		reason === 'offset'
 			? __(
 					'No reviews are visible with the current offset. Reduce the offset to display reviews.',
-					'woocommerce'
+					'poocommerce'
 			  )
 			: undefined;
 
@@ -60,7 +60,7 @@ const NoReviewsPlaceholder = ( {
 					/* translators: %s is the product name. */
 					__(
 						"This block lists reviews for a selected product. %s doesn't have any reviews yet, but they will show up here when it does.",
-						'woocommerce'
+						'poocommerce'
 					),
 					decodeEntities( product.name )
 				)
@@ -76,7 +76,7 @@ const NoReviewsPlaceholder = ( {
 					className="block-editor-block-icon"
 				/>
 			}
-			label={ __( 'Reviews by Product', 'woocommerce' ) }
+			label={ __( 'Reviews by Product', 'poocommerce' ) }
 		>
 			{ content }
 		</Placeholder>

@@ -1,12 +1,12 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\StoreApi\Schemas\V1;
+namespace Automattic\PooCommerce\StoreApi\Schemas\V1;
 
-use Automattic\WooCommerce\Internal\ShopperLists\ShopperList;
-use Automattic\WooCommerce\Internal\ShopperLists\ShopperListItem;
-use Automattic\WooCommerce\StoreApi\Schemas\ExtendSchema;
-use Automattic\WooCommerce\StoreApi\SchemaController;
+use Automattic\PooCommerce\Internal\ShopperLists\ShopperList;
+use Automattic\PooCommerce\Internal\ShopperLists\ShopperListItem;
+use Automattic\PooCommerce\StoreApi\Schemas\ExtendSchema;
+use Automattic\PooCommerce\StoreApi\SchemaController;
 
 /**
  * ShopperListSchema class.
@@ -60,26 +60,26 @@ class ShopperListSchema extends AbstractSchema {
 	public function get_properties() {
 		return array(
 			'slug'             => array(
-				'description' => __( 'Stable slug for the list.', 'woocommerce' ),
+				'description' => __( 'Stable slug for the list.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
 			),
 			'date_created_gmt' => array(
-				'description' => __( 'The date the list was created, as GMT.', 'woocommerce' ),
+				'description' => __( 'The date the list was created, as GMT.', 'poocommerce' ),
 				'type'        => 'string',
 				'format'      => 'date-time',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
 			),
 			'item_count'       => array(
-				'description' => __( 'Number of items currently in the list.', 'woocommerce' ),
+				'description' => __( 'Number of items currently in the list.', 'poocommerce' ),
 				'type'        => 'integer',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
 			),
 			'items'            => array(
-				'description' => __( 'List of saved items.', 'woocommerce' ),
+				'description' => __( 'List of saved items.', 'poocommerce' ),
 				'type'        => 'array',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,

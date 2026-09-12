@@ -2,19 +2,19 @@
 /**
  * Webflow Platform Registration
  *
- * @package Automattic\WooCommerce\Internal\CLI\Migrator\Platforms\Webflow
+ * @package Automattic\PooCommerce\Internal\CLI\Migrator\Platforms\Webflow
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\CLI\Migrator\Platforms\Webflow;
+namespace Automattic\PooCommerce\Internal\CLI\Migrator\Platforms\Webflow;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
  * WebflowPlatform class.
  *
- * Registers the Webflow source platform with the WooCommerce Migrator's
+ * Registers the Webflow source platform with the PooCommerce Migrator's
  * platform registry. Users authenticate with a Webflow Site Access Token.
  *
  * @internal
@@ -27,7 +27,7 @@ class WebflowPlatform {
 	 * @internal
 	 */
 	final public static function init(): void {
-		add_filter( 'woocommerce_migrator_platforms', array( self::class, 'register_platform' ) );
+		add_filter( 'poocommerce_migrator_platforms', array( self::class, 'register_platform' ) );
 	}
 
 	/**

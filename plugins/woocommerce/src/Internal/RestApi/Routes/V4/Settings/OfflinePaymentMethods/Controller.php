@@ -4,17 +4,17 @@
  *
  * Handles requests to the /settings/payments/offline-methods endpoint.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\RestApi\Routes\V4\Settings\OfflinePaymentMethods;
+namespace Automattic\PooCommerce\Internal\RestApi\Routes\V4\Settings\OfflinePaymentMethods;
 
-use Automattic\WooCommerce\Internal\Admin\Settings\Payments;
-use Automattic\WooCommerce\Internal\Admin\Settings\PaymentsProviders;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\AbstractController;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Settings\OfflinePaymentMethods\Schema\OfflinePaymentMethodSchema;
+use Automattic\PooCommerce\Internal\Admin\Settings\Payments;
+use Automattic\PooCommerce\Internal\Admin\Settings\PaymentsProviders;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\AbstractController;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Settings\OfflinePaymentMethods\Schema\OfflinePaymentMethodSchema;
 use WP_REST_Server;
 use WP_REST_Request;
 use WP_REST_Response;
@@ -77,7 +77,7 @@ class Controller extends AbstractController {
 						$this->get_collection_params(),
 						array(
 							'location' => array(
-								'description'       => __( 'Country code to retrieve offline payment methods for.', 'woocommerce' ),
+								'description'       => __( 'Country code to retrieve offline payment methods for.', 'poocommerce' ),
 								'type'              => 'string',
 								'required'          => false,
 								'sanitize_callback' => static function ( $value ) {
@@ -101,8 +101,8 @@ class Controller extends AbstractController {
 	public function get_items_permissions_check( $request ) {
 		if ( ! wc_rest_check_manager_permissions( 'payment_gateways', 'read' ) ) {
 			return new WP_Error(
-				'woocommerce_rest_cannot_read',
-				__( 'Sorry, you cannot list resources.', 'woocommerce' ),
+				'poocommerce_rest_cannot_read',
+				__( 'Sorry, you cannot list resources.', 'poocommerce' ),
 				array( 'status' => rest_authorization_required_code() )
 			);
 		}
@@ -121,7 +121,7 @@ class Controller extends AbstractController {
 			$offline_methods = $this->get_offline_payment_methods_data( $request );
 		} catch ( \Exception $e ) {
 			return new WP_Error(
-				'woocommerce_rest_offline_payment_methods_error',
+				'poocommerce_rest_offline_payment_methods_error',
 				$e->getMessage(),
 				array( 'status' => 500 )
 			);
@@ -134,8 +134,8 @@ class Controller extends AbstractController {
 		// Transform data to match the new format.
 		$response_data = array(
 			'id'          => 'payments/offline-methods',
-			'title'       => __( 'Offline Payment Methods', 'woocommerce' ),
-			'description' => __( 'Manage offline payment methods available for your store.', 'woocommerce' ),
+			'title'       => __( 'Offline Payment Methods', 'poocommerce' ),
+			'description' => __( 'Manage offline payment methods available for your store.', 'poocommerce' ),
 			'values'      => array(),
 			'groups'      => array(
 				'payment_methods' => array(),
@@ -145,8 +145,8 @@ class Controller extends AbstractController {
 		// Validate input is an array.
 		if ( ! is_array( $offline_methods ) ) {
 			return new WP_Error(
-				'woocommerce_rest_invalid_data',
-				__( 'Invalid payment methods data received.', 'woocommerce' ),
+				'poocommerce_rest_invalid_data',
+				__( 'Invalid payment methods data received.', 'poocommerce' ),
 				array( 'status' => 500 )
 			);
 		}
@@ -223,7 +223,7 @@ class Controller extends AbstractController {
 		try {
 			$providers = $this->payments->get_payment_providers( $location );
 		} catch ( \Exception $e ) {
-			return new \WP_Error( 'woocommerce_rest_payment_providers_error', $e->getMessage(), array( 'status' => 500 ) );
+			return new \WP_Error( 'poocommerce_rest_payment_providers_error', $e->getMessage(), array( 'status' => 500 ) );
 		}
 
 		if ( is_wp_error( $providers ) ) {

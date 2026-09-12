@@ -2,11 +2,11 @@
  * External dependencies
  */
 import { assertEvent, assign, fromCallback, fromPromise, setup } from 'xstate5';
-import { getQuery, navigateTo } from '@woocommerce/navigation';
-import { onboardingStore, type TaskListType } from '@woocommerce/data';
-import { recordEvent } from '@woocommerce/tracks';
+import { getQuery, navigateTo } from '@poocommerce/navigation';
+import { onboardingStore, type TaskListType } from '@poocommerce/data';
+import { recordEvent } from '@poocommerce/tracks';
 import { dispatch } from '@wordpress/data';
-import { getSetting } from '@woocommerce/settings';
+import { getSetting } from '@poocommerce/settings';
 
 /**
  * Internal dependencies

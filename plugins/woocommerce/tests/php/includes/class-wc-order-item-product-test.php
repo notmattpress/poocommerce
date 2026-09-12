@@ -2,13 +2,13 @@
 /**
  * Unit tests for the WC_Order_Item_Product class functionalities.
  *
- * @package WooCommerce\Tests
+ * @package PooCommerce\Tests
  */
 
 declare( strict_types=1 );
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Internal\CostOfGoodsSold\CogsAwareUnitTestSuiteTrait;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Internal\CostOfGoodsSold\CogsAwareUnitTestSuiteTrait;
 
 /**
  * WC_Order_Item_Product unit tests.
@@ -153,14 +153,14 @@ class WC_Order_Item_Product_Test extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Test the woocommerce_order_item_cogs_refunded_html filter invoked by get_cogs_refund_value_html.
+	 * @testdox Test the poocommerce_order_item_cogs_refunded_html filter invoked by get_cogs_refund_value_html.
 	 */
 	public function test_get_refund_html_with_filter() {
 		$this->enable_cogs_feature();
 
 		$refunded_cost = -12.34;
 		add_filter(
-			'woocommerce_order_item_cogs_refunded_html',
+			'poocommerce_order_item_cogs_refunded_html',
 			function ( $html, $refunded_cost, $item, $order ) {
 				return sprintf( 'cost: %s, item: %s, order: %s', $refunded_cost, $item->get_id(), $order->get_id() );
 			},
@@ -169,7 +169,7 @@ class WC_Order_Item_Product_Test extends WC_Unit_Test_Case {
 		);
 
 		$actual = $this->item->get_cogs_refund_value_html( $refunded_cost, );
-		remove_all_filters( 'woocommerce_order_item_cogs_refunded_html' );
+		remove_all_filters( 'poocommerce_order_item_cogs_refunded_html' );
 		$expected = sprintf( 'cost: %s, item: %s, order: %s', $refunded_cost, $this->item->get_id(), $this->order->get_id() );
 		$this->assertEquals( $expected, $actual );
 	}
@@ -346,7 +346,7 @@ class WC_Order_Item_Product_Test extends WC_Unit_Test_Case {
 	 * may have tax data stored as floats instead of arrays, causing:
 	 * "TypeError: array_map(): Argument #2 ($array) must be of type array, float given"
 	 *
-	 * @see https://github.com/woocommerce/woocommerce/issues/60233
+	 * @see https://github.com/poocommerce/poocommerce/issues/60233
 	 */
 	public function test_set_taxes_with_legacy_float_values_does_not_throw_error() {
 		$order = WC_Helper_Order::create_order();
@@ -394,7 +394,7 @@ class WC_Order_Item_Product_Test extends WC_Unit_Test_Case {
 		$item = new WC_Order_Item_Product();
 		$item->set_order_id( $order->get_id() );
 
-		// Serialized legacy data with floats (as stored in wp_woocommerce_order_itemmeta).
+		// Serialized legacy data with floats (as stored in wp_poocommerce_order_itemmeta).
 		// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_serialize -- Testing legacy serialized data format.
 		$serialized_legacy_data = serialize(
 			array(
@@ -600,7 +600,7 @@ class WC_Order_Item_Product_Test extends WC_Unit_Test_Case {
 			unset( $converted );
 			return array( 999 => $value );
 		};
-		add_filter( 'woocommerce_order_item_legacy_tax_conversion', $filter_callback, 10, 2 );
+		add_filter( 'poocommerce_order_item_legacy_tax_conversion', $filter_callback, 10, 2 );
 
 		// Legacy tax data as float.
 		$legacy_tax_data = array(
@@ -617,7 +617,7 @@ class WC_Order_Item_Product_Test extends WC_Unit_Test_Case {
 		$this->assertEquals( 50.00, (float) $taxes['total'][999] );
 
 		// Clean up filter.
-		remove_filter( 'woocommerce_order_item_legacy_tax_conversion', $filter_callback );
+		remove_filter( 'poocommerce_order_item_legacy_tax_conversion', $filter_callback );
 
 		// Clean up order.
 		$order->delete( true );

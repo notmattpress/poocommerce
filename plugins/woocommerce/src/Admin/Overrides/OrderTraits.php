@@ -5,11 +5,11 @@
  * WC Admin Order Trait class that houses shared functionality across order and refund classes.
  */
 
-namespace Automattic\WooCommerce\Admin\Overrides;
+namespace Automattic\PooCommerce\Admin\Overrides;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Enums\OrderItemType;
+use Automattic\PooCommerce\Enums\OrderItemType;
 
 /**
  * OrderTraits class.
@@ -25,7 +25,7 @@ trait OrderTraits {
 	 * @return float|int
 	 */
 	public function get_item_shipping_amount( $item, $order_items_count = null, $shipping_amount = null ) {
-		// Shipping amount loosely based on woocommerce code in includes/admin/meta-boxes/views/html-order-item(s).php
+		// Shipping amount loosely based on poocommerce code in includes/admin/meta-boxes/views/html-order-item(s).php
 		// distributed simply based on number of line items.
 		$product_qty = $item->get_quantity( 'edit' );
 
@@ -103,7 +103,7 @@ trait OrderTraits {
 	/**
 	 * Calculates coupon amount for specified line item/product.
 	 *
-	 * Coupon calculation based on woocommerce code in includes/admin/meta-boxes/views/html-order-item.php.
+	 * Coupon calculation based on poocommerce code in includes/admin/meta-boxes/views/html-order-item.php.
 	 *
 	 * @param WC_Order_Item $item Line item from order.
 	 *

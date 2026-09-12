@@ -1,9 +1,9 @@
 <?php declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Products;
+namespace Automattic\PooCommerce\Tests\Internal\Products;
 
-use Automattic\WooCommerce\Internal\Products\ProductsOrderingMoveService;
-use Automattic\WooCommerce\Internal\Products\ProductsOrderingReindexService;
+use Automattic\PooCommerce\Internal\Products\ProductsOrderingMoveService;
+use Automattic\PooCommerce\Internal\Products\ProductsOrderingReindexService;
 use WC_Unit_Test_Case;
 
 /**

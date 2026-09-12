@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1);
 
-namespace Automattic\WooCommerce\Blocks\Domain\Services;
+namespace Automattic\PooCommerce\Blocks\Domain\Services;
 
 use WC_Customer;
 use WC_Data;
@@ -73,7 +73,7 @@ trait CheckoutFieldsStorage {
 		 *
 		 * @since 8.9.0
 		 */
-		do_action( 'woocommerce_set_additional_field_value', $key, $value, $group, $wc_object );
+		do_action( 'poocommerce_set_additional_field_value', $key, $value, $group, $wc_object );
 		// Convert boolean values to strings because Data Stores will skip false values.
 		if ( is_bool( $value ) ) {
 			$value = $value ? '1' : '0';
@@ -105,7 +105,7 @@ trait CheckoutFieldsStorage {
 			 *
 			 * @since 8.9.0
 			 */
-			$value = apply_filters( "woocommerce_get_default_value_for_{$key}", null, $group, $wc_object );
+			$value = apply_filters( "poocommerce_get_default_value_for_{$key}", null, $group, $wc_object );
 		}
 
 		// We cast the value to a boolean if the field is a checkbox.
@@ -155,7 +155,7 @@ trait CheckoutFieldsStorage {
 				 *
 				 * @since 8.9.0
 				 */
-				$value = apply_filters( "woocommerce_get_default_value_for_{$missing_field}", null, $group, $wc_object );
+				$value = apply_filters( "poocommerce_get_default_value_for_{$missing_field}", null, $group, $wc_object );
 
 			if ( isset( $value ) ) {
 				$meta_data[ $missing_field ] = $value;

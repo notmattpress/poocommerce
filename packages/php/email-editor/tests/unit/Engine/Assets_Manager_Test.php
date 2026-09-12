@@ -1,14 +1,14 @@
 <?php
 /**
- * This file is part of the WooCommerce Email Editor package
+ * This file is part of the PooCommerce Email Editor package
  *
- * @package Automattic\WooCommerce\EmailEditor
+ * @package Automattic\PooCommerce\EmailEditor
  */
 
 declare(strict_types = 1);
-namespace Automattic\WooCommerce\EmailEditor\Engine;
+namespace Automattic\PooCommerce\EmailEditor\Engine;
 
-use Automattic\WooCommerce\EmailEditor\Engine\Logger\Email_Editor_Logger;
+use Automattic\PooCommerce\EmailEditor\Engine\Logger\Email_Editor_Logger;
 
 /**
  * Unit test class for Assets_Manager.
@@ -34,7 +34,7 @@ class Assets_Manager_Test extends \Email_Editor_Unit_Test {
 		ob_start();
 		$assets_manager->render_email_editor_html();
 		$first_output = ob_get_clean();
-		$this->assertStringContainsString( 'id="woocommerce-email-editor"', (string) $first_output, 'The first render call must output the editor container' );
+		$this->assertStringContainsString( 'id="poocommerce-email-editor"', (string) $first_output, 'The first render call must output the editor container' );
 
 		ob_start();
 		$assets_manager->render_email_editor_html();

@@ -2,7 +2,7 @@
 /**
  * Testing WC_Widget functionality.
  *
- * @package WooCommerce\Tests\Widgets
+ * @package PooCommerce\Tests\Widgets
  */
 
 /**
@@ -78,8 +78,8 @@ class WC_Tests_Widget extends WC_Unit_Test_Case {
 		};
 		$cookies            = $_COOKIE; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Preserve global test cookie state.
 
-		$_COOKIE['woocommerce_recently_viewed'] = implode( '|', $viewed_product_ids );
-		add_filter( 'woocommerce_recently_viewed_products_widget_query_args', $query_args_filter );
+		$_COOKIE['poocommerce_recently_viewed'] = implode( '|', $viewed_product_ids );
+		add_filter( 'poocommerce_recently_viewed_products_widget_query_args', $query_args_filter );
 
 		try {
 			$sut = new WC_Widget_Recently_Viewed();
@@ -97,7 +97,7 @@ class WC_Tests_Widget extends WC_Unit_Test_Case {
 				'The recently viewed widget query should preserve every product ID provided through the shared cookie.'
 			);
 		} finally {
-			remove_filter( 'woocommerce_recently_viewed_products_widget_query_args', $query_args_filter );
+			remove_filter( 'poocommerce_recently_viewed_products_widget_query_args', $query_args_filter );
 
 			$_COOKIE = $cookies;
 		}

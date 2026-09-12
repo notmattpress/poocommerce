@@ -2,7 +2,7 @@
 /**
  * Locales information
  *
- * @package WooCommerce\i18n
+ * @package PooCommerce\i18n
  * @version 5.7.0
  */
 

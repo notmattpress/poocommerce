@@ -2,10 +2,10 @@
 /**
  * Star-rating control partial.
  *
- * Theme-overridable. Copy to `yourtheme/woocommerce/order/star-rating.php`.
+ * Theme-overridable. Copy to `yourtheme/poocommerce/order/star-rating.php`.
  *
- * @see https://woocommerce.com/document/template-structure/
- * @package WooCommerce\Templates
+ * @see https://poocommerce.com/document/template-structure/
+ * @package PooCommerce\Templates
  * @version 10.8.0
  *
  * @var string             $name      Form field name (e.g. `reviews[123][rating]`).
@@ -24,19 +24,19 @@ $initial_caption = $selected > 0 && isset( $labels[ $selected ] ) ? $labels[ $se
 $reversed = array_reverse( $labels, true );
 ?>
 <div
-	class="woocommerce-star-rating"
+	class="poocommerce-star-rating"
 	role="radiogroup"
 	aria-labelledby="<?php echo esc_attr( $label_id ); ?>"
 	aria-describedby="<?php echo esc_attr( $caption_id ); ?>"
 >
-	<div class="woocommerce-star-rating__stars">
+	<div class="poocommerce-star-rating__stars">
 		<?php foreach ( $reversed as $value => $label ) : ?>
 			<?php
 			$input_id = $id_prefix . '-' . $value;
 			$checked  = $value === $selected;
 			?>
 			<input
-				class="woocommerce-star-rating__input"
+				class="poocommerce-star-rating__input"
 				type="radio"
 				id="<?php echo esc_attr( $input_id ); ?>"
 				name="<?php echo esc_attr( $name ); ?>"
@@ -44,19 +44,19 @@ $reversed = array_reverse( $labels, true );
 				data-label="<?php echo esc_attr( $label ); ?>"
 				<?php checked( $checked ); ?>
 			/>
-			<label class="woocommerce-star-rating__star" for="<?php echo esc_attr( $input_id ); ?>">
+			<label class="poocommerce-star-rating__star" for="<?php echo esc_attr( $input_id ); ?>">
 				<span class="screen-reader-text">
 					<?php
 					printf(
 						/* translators: 1: numeric star rating 2: label text e.g. "Good" */
-						esc_html__( '%1$d out of 5 stars: %2$s', 'woocommerce' ),
+						esc_html__( '%1$d out of 5 stars: %2$s', 'poocommerce' ),
 						(int) $value,
 						esc_html( $label )
 					);
 					?>
 				</span>
 				<svg
-					class="woocommerce-star-rating__icon"
+					class="poocommerce-star-rating__icon"
 					width="24"
 					height="24"
 					viewBox="0 0 24 24"
@@ -71,7 +71,7 @@ $reversed = array_reverse( $labels, true );
 
 	<span
 		id="<?php echo esc_attr( $caption_id ); ?>"
-		class="woocommerce-star-rating__caption"
+		class="poocommerce-star-rating__caption"
 		aria-live="polite"
 	><?php echo esc_html( $initial_caption ); ?></span>
 </div>

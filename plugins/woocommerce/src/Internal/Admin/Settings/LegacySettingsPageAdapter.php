@@ -5,9 +5,9 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Admin\Settings;
+namespace Automattic\PooCommerce\Internal\Admin\Settings;
 
-use Automattic\WooCommerce\Admin\Settings\SettingsUIPageInterface as PublicSettingsUIPageInterface;
+use Automattic\PooCommerce\Admin\Settings\SettingsUIPageInterface as PublicSettingsUIPageInterface;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -15,7 +15,7 @@ defined( 'ABSPATH' ) || exit;
  * Adapts a WC_Settings_Page instance into the settings UI page contract.
  *
  * Internal implementation of the legacy settings adapter. Extensions should use
- * Automattic\WooCommerce\Admin\Settings\LegacySettingsPageAdapter.
+ * Automattic\PooCommerce\Admin\Settings\LegacySettingsPageAdapter.
  *
  * @since 10.9.0
  */

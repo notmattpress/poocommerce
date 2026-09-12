@@ -75,16 +75,16 @@ export const Channels = forwardRef< ChannelsRef, ChannelsProps >(
 		);
 
 		return (
-			<Card className="woocommerce-marketing-channels-card">
+			<Card className="poocommerce-marketing-channels-card">
 				<CardHeader>
 					<CardHeaderTitle>
-						{ __( 'Channels', 'woocommerce' ) }
+						{ __( 'Channels', 'poocommerce' ) }
 					</CardHeaderTitle>
 					{ ! hasRegisteredChannels && (
 						<CardHeaderDescription>
 							{ __(
 								'Start by adding a channel to your store',
-								'woocommerce'
+								'poocommerce'
 							) }
 						</CardHeaderDescription>
 					) }
@@ -114,7 +114,7 @@ export const Channels = forwardRef< ChannelsRef, ChannelsProps >(
 											setExpanded( ! expanded )
 										}
 									>
-										{ __( 'Add channels', 'woocommerce' ) }
+										{ __( 'Add channels', 'poocommerce' ) }
 										<Icon
 											icon={
 												expanded

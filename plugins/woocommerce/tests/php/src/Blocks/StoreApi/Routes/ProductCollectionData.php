@@ -3,11 +3,11 @@
  * Controller Tests.
  */
 
-namespace Automattic\WooCommerce\Tests\Blocks\StoreApi\Routes;
+namespace Automattic\PooCommerce\Tests\Blocks\StoreApi\Routes;
 
-use Automattic\WooCommerce\Tests\Blocks\StoreApi\Routes\ControllerTestCase;
-use Automattic\WooCommerce\Tests\Blocks\Helpers\FixtureData;
-use Automattic\WooCommerce\Tests\Blocks\Helpers\ValidateSchema;
+use Automattic\PooCommerce\Tests\Blocks\StoreApi\Routes\ControllerTestCase;
+use Automattic\PooCommerce\Tests\Blocks\Helpers\FixtureData;
+use Automattic\PooCommerce\Tests\Blocks\Helpers\ValidateSchema;
 
 /**
  * Controller Tests.
@@ -44,7 +44,7 @@ class ProductCollectionData extends ControllerTestCase {
 	}
 
 	/**
-	 * Delete class products and their reviews through WooCommerce data stores.
+	 * Delete class products and their reviews through PooCommerce data stores.
 	 */
 	public static function wpTearDownAfterClass(): void {
 		self::delete_class_fixture_products( self::$product_ids );
@@ -84,7 +84,7 @@ class ProductCollectionData extends ControllerTestCase {
 		}
 
 		delete_transient( 'wc_attribute_taxonomies' );
-		\WC_Cache_Helper::invalidate_cache_group( 'woocommerce-attributes' );
+		\WC_Cache_Helper::invalidate_cache_group( 'poocommerce-attributes' );
 
 		parent::tearDown();
 	}
@@ -327,7 +327,7 @@ class ProductCollectionData extends ControllerTestCase {
 	 * Test collection params getter.
 	 */
 	public function test_get_collection_params() {
-		$routes     = new \Automattic\WooCommerce\StoreApi\RoutesController( new \Automattic\WooCommerce\StoreApi\SchemaController( $this->mock_extend ) );
+		$routes     = new \Automattic\PooCommerce\StoreApi\RoutesController( new \Automattic\PooCommerce\StoreApi\SchemaController( $this->mock_extend ) );
 		$controller = $routes->get( 'product-collection-data' );
 		$params     = $controller->get_collection_params();
 
@@ -440,7 +440,7 @@ class ProductCollectionData extends ControllerTestCase {
 				)
 			);
 		} finally {
-			remove_filter( 'woocommerce_pre_product_filter_data', $filter, 10 );
+			remove_filter( 'poocommerce_pre_product_filter_data', $filter, 10 );
 		}
 
 		$this->assertEquals( 200, $response->get_status() );
@@ -502,7 +502,7 @@ class ProductCollectionData extends ControllerTestCase {
 				)
 			);
 		} finally {
-			remove_filter( 'woocommerce_pre_product_filter_data', $filter, 10 );
+			remove_filter( 'poocommerce_pre_product_filter_data', $filter, 10 );
 		}
 
 		$this->assertEquals( 200, $response->get_status() );
@@ -564,7 +564,7 @@ class ProductCollectionData extends ControllerTestCase {
 				)
 			);
 		} finally {
-			remove_filter( 'woocommerce_pre_product_filter_data', $filter, 10 );
+			remove_filter( 'poocommerce_pre_product_filter_data', $filter, 10 );
 		}
 
 		$this->assertEquals( 200, $response->get_status() );
@@ -600,7 +600,7 @@ class ProductCollectionData extends ControllerTestCase {
 				)
 			);
 		} finally {
-			remove_filter( 'woocommerce_pre_product_filter_data', $filter, 10 );
+			remove_filter( 'poocommerce_pre_product_filter_data', $filter, 10 );
 		}
 
 		$this->assertEquals( 200, $response->get_status() );
@@ -635,7 +635,7 @@ class ProductCollectionData extends ControllerTestCase {
 				)
 			);
 		} finally {
-			remove_filter( 'woocommerce_pre_product_filter_data', $filter, 10 );
+			remove_filter( 'poocommerce_pre_product_filter_data', $filter, 10 );
 		}
 
 		$this->assertEquals( 200, $response->get_status() );
@@ -680,7 +680,7 @@ class ProductCollectionData extends ControllerTestCase {
 				)
 			);
 		} finally {
-			remove_filter( 'woocommerce_pre_product_filter_data', $filter, 10 );
+			remove_filter( 'poocommerce_pre_product_filter_data', $filter, 10 );
 		}
 
 		$this->assertEquals( 200, $response->get_status() );
@@ -753,7 +753,7 @@ class ProductCollectionData extends ControllerTestCase {
 	 * @return array
 	 */
 	private function get_collection_params(): array {
-		$routes     = new \Automattic\WooCommerce\StoreApi\RoutesController( new \Automattic\WooCommerce\StoreApi\SchemaController( $this->mock_extend ) );
+		$routes     = new \Automattic\PooCommerce\StoreApi\RoutesController( new \Automattic\PooCommerce\StoreApi\SchemaController( $this->mock_extend ) );
 		$controller = $routes->get( 'product-collection-data' );
 
 		return $controller->get_collection_params();
@@ -829,7 +829,7 @@ class ProductCollectionData extends ControllerTestCase {
 			return $results_by_call[ $call_index ] ?? array( 1000 + $call_index => $call_index + 1 );
 		};
 
-		add_filter( 'woocommerce_pre_product_filter_data', $filter, 10, 4 );
+		add_filter( 'poocommerce_pre_product_filter_data', $filter, 10, 4 );
 
 		return $filter;
 	}
@@ -850,7 +850,7 @@ class ProductCollectionData extends ControllerTestCase {
 		$category = wp_insert_term( 'Schema Test Category', 'product_cat' );
 		wp_set_post_terms( $product->get_id(), array( $category['term_id'] ), 'product_cat' );
 
-		$routes     = new \Automattic\WooCommerce\StoreApi\RoutesController( new \Automattic\WooCommerce\StoreApi\SchemaController( $this->mock_extend ) );
+		$routes     = new \Automattic\PooCommerce\StoreApi\RoutesController( new \Automattic\PooCommerce\StoreApi\SchemaController( $this->mock_extend ) );
 		$controller = $routes->get( 'product-collection-data' );
 		$schema     = $controller->get_item_schema();
 

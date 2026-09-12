@@ -9,10 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Automattic\WooCommerce\EmailEditorVendor\Symfony\Component\CssSelector\Parser\Handler;
+namespace Automattic\PooCommerce\EmailEditorVendor\Symfony\Component\CssSelector\Parser\Handler;
 
-use Automattic\WooCommerce\EmailEditorVendor\Symfony\Component\CssSelector\Parser\Reader;
-use Automattic\WooCommerce\EmailEditorVendor\Symfony\Component\CssSelector\Parser\TokenStream;
+use Automattic\PooCommerce\EmailEditorVendor\Symfony\Component\CssSelector\Parser\Reader;
+use Automattic\PooCommerce\EmailEditorVendor\Symfony\Component\CssSelector\Parser\TokenStream;
 
 /**
  * CSS selector comment handler.

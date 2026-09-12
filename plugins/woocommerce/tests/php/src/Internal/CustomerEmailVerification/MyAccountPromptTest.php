@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\CustomerEmailVerification;
+namespace Automattic\PooCommerce\Tests\Internal\CustomerEmailVerification;
 
-use Automattic\WooCommerce\Internal\CustomerEmailVerification\EmailVerificationService;
-use Automattic\WooCommerce\Internal\CustomerEmailVerification\VerificationController;
+use Automattic\PooCommerce\Internal\CustomerEmailVerification\EmailVerificationService;
+use Automattic\PooCommerce\Internal\CustomerEmailVerification\VerificationController;
 use WC_Unit_Test_Case;
 
 /**
@@ -40,8 +40,8 @@ class MyAccountPromptTest extends WC_Unit_Test_Case {
 		parent::setUp();
 		$this->service                        = wc_get_container()->get( EmailVerificationService::class );
 		$this->sut                            = wc_get_container()->get( VerificationController::class );
-		$this->previous_guest_checkout_option = get_option( 'woocommerce_enable_guest_checkout', null );
-		update_option( 'woocommerce_enable_guest_checkout', 'yes' );
+		$this->previous_guest_checkout_option = get_option( 'poocommerce_enable_guest_checkout', null );
+		update_option( 'poocommerce_enable_guest_checkout', 'yes' );
 	}
 
 	/**
@@ -50,7 +50,7 @@ class MyAccountPromptTest extends WC_Unit_Test_Case {
 	public function tearDown(): void {
 		wp_set_current_user( 0 );
 		wc_clear_notices();
-		$this->restore_option( 'woocommerce_enable_guest_checkout', $this->previous_guest_checkout_option );
+		$this->restore_option( 'poocommerce_enable_guest_checkout', $this->previous_guest_checkout_option );
 		parent::tearDown();
 	}
 
@@ -145,7 +145,7 @@ class MyAccountPromptTest extends WC_Unit_Test_Case {
 	public function test_should_show_prompt_returns_false_when_guest_checkout_is_disabled(): void {
 		$user_id = wc_create_new_customer( 'prompt-guest-disabled@example.com', 'promptguestdisabled', 'pw' );
 		wp_set_current_user( $user_id );
-		update_option( 'woocommerce_enable_guest_checkout', 'no' );
+		update_option( 'poocommerce_enable_guest_checkout', 'no' );
 
 		$this->assertFalse( $this->sut->should_show_prompt(), 'The prompt should not show when guest checkout is disabled.' );
 	}
@@ -157,7 +157,7 @@ class MyAccountPromptTest extends WC_Unit_Test_Case {
 		$user_id = wc_create_new_customer( 'prompt-email-disabled@example.com', 'promptemaildisabled', 'pw' );
 		wp_set_current_user( $user_id );
 
-		$option_name    = 'woocommerce_customer_verify_email_settings';
+		$option_name    = 'poocommerce_customer_verify_email_settings';
 		$previous_value = get_option( $option_name, null );
 		$email_settings = is_array( $previous_value ) ? $previous_value : array();
 
@@ -177,9 +177,9 @@ class MyAccountPromptTest extends WC_Unit_Test_Case {
 	public function test_should_show_prompt_allows_filter_to_override_guest_checkout_default(): void {
 		$user_id = wc_create_new_customer( 'prompt-guest-disabled-filtered@example.com', 'promptguestdisabledfiltered', 'pw' );
 		wp_set_current_user( $user_id );
-		update_option( 'woocommerce_enable_guest_checkout', 'no' );
+		update_option( 'poocommerce_enable_guest_checkout', 'no' );
 
-		add_filter( 'woocommerce_customer_email_verification_should_show_prompt', '__return_true' );
+		add_filter( 'poocommerce_customer_email_verification_should_show_prompt', '__return_true' );
 		$this->assertTrue( $this->sut->should_show_prompt(), 'The prompt default should be overrideable by filter.' );
 	}
 
@@ -214,7 +214,7 @@ class MyAccountPromptTest extends WC_Unit_Test_Case {
 		wp_set_current_user( $user_id );
 		$this->service->mark_verified( $user_id );
 
-		add_filter( 'woocommerce_customer_email_verification_should_show_prompt', '__return_true' );
+		add_filter( 'poocommerce_customer_email_verification_should_show_prompt', '__return_true' );
 		$this->assertFalse( $this->sut->should_show_prompt(), 'A verified customer should never see the prompt, even if a filter tries to force it on.' );
 	}
 
@@ -261,17 +261,17 @@ class MyAccountPromptTest extends WC_Unit_Test_Case {
 		$user_id = wc_create_new_customer( 'send-trigger@example.com', 'sendtrigger', 'pw' );
 		wp_set_current_user( $user_id );
 
-		$_GET['_wpnonce'] = wp_create_nonce( 'woocommerce-send-verification-email' );
+		$_GET['_wpnonce'] = wp_create_nonce( 'poocommerce-send-verification-email' );
 
 		$notification_fired = false;
 		$listener           = static function () use ( &$notification_fired ) {
 			$notification_fired = true;
 		};
-		add_action( 'woocommerce_customer_verify_email_notification', $listener );
+		add_action( 'poocommerce_customer_verify_email_notification', $listener );
 
 		$this->dispatch_send_request();
 
-		remove_action( 'woocommerce_customer_verify_email_notification', $listener );
+		remove_action( 'poocommerce_customer_verify_email_notification', $listener );
 		unset( $_GET['_wpnonce'] );
 
 		$this->assertTrue( $notification_fired, 'Notification hook should fire for a valid send request' );
@@ -290,11 +290,11 @@ class MyAccountPromptTest extends WC_Unit_Test_Case {
 		$listener           = static function () use ( &$notification_fired ) {
 			$notification_fired = true;
 		};
-		add_action( 'woocommerce_customer_verify_email_notification', $listener );
+		add_action( 'poocommerce_customer_verify_email_notification', $listener );
 
 		$this->dispatch_send_request();
 
-		remove_action( 'woocommerce_customer_verify_email_notification', $listener );
+		remove_action( 'poocommerce_customer_verify_email_notification', $listener );
 		unset( $_GET['_wpnonce'] );
 
 		$this->assertFalse( $notification_fired, 'Notification hook should not fire when the nonce is invalid' );
@@ -311,17 +311,17 @@ class MyAccountPromptTest extends WC_Unit_Test_Case {
 		$listener           = static function () use ( &$notification_count ) {
 			++$notification_count;
 		};
-		add_action( 'woocommerce_customer_verify_email_notification', $listener );
+		add_action( 'poocommerce_customer_verify_email_notification', $listener );
 
 		// First send (no existing key).
-		$_GET['_wpnonce'] = wp_create_nonce( 'woocommerce-send-verification-email' );
+		$_GET['_wpnonce'] = wp_create_nonce( 'poocommerce-send-verification-email' );
 		$this->dispatch_send_request();
 
 		// Second send — key was just created (seconds_since_last_key < 60).
-		$_GET['_wpnonce'] = wp_create_nonce( 'woocommerce-send-verification-email' );
+		$_GET['_wpnonce'] = wp_create_nonce( 'poocommerce-send-verification-email' );
 		$throttled        = $this->dispatch_send_request();
 
-		remove_action( 'woocommerce_customer_verify_email_notification', $listener );
+		remove_action( 'poocommerce_customer_verify_email_notification', $listener );
 		unset( $_GET['_wpnonce'] );
 
 		$this->assertSame( 1, $notification_count, 'Notification should fire exactly once despite two send attempts within the rate-limit window' );

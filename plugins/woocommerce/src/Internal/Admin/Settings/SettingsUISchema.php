@@ -5,9 +5,9 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Admin\Settings;
+namespace Automattic\PooCommerce\Internal\Admin\Settings;
 
-use Automattic\WooCommerce\Internal\Utilities\ArrayUtil;
+use Automattic\PooCommerce\Internal\Utilities\ArrayUtil;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -341,7 +341,7 @@ class SettingsUISchema {
 			__METHOD__,
 			$converted_fields,
 			/* translators: %s: comma-separated field ids. */
-			__( 'A Settings UI schema provider supplied non-string option, field, or visibility values that WooCommerce converted for compatibility: %s. Update the provider to supply string values.', 'woocommerce' ),
+			__( 'A Settings UI schema provider supplied non-string option, field, or visibility values that PooCommerce converted for compatibility: %s. Update the provider to supply string values.', 'poocommerce' ),
 			'11.0.0'
 		);
 
@@ -550,7 +550,7 @@ class SettingsUISchema {
 				self::class . '::canonicalize_schema_values',
 				$converted_fields,
 				/* translators: %s: comma-separated field ids. */
-				__( 'A Settings UI schema provider supplied legacy field values or metadata that WooCommerce converted for compatibility: %s. Update the provider to supply canonical values.', 'woocommerce' ),
+				__( 'A Settings UI schema provider supplied legacy field values or metadata that PooCommerce converted for compatibility: %s. Update the provider to supply canonical values.', 'poocommerce' ),
 				'11.2.0'
 			);
 		}
@@ -1577,7 +1577,7 @@ class SettingsUISchema {
 			throw self::invalid_schema( sprintf( 'Legacy form-post field "%s" has an unsupported name.', $field_name ) );
 		}
 
-		return woocommerce_settings_get_option( $field_name, $default );
+		return poocommerce_settings_get_option( $field_name, $default );
 	}
 
 	/**
@@ -1617,7 +1617,7 @@ class SettingsUISchema {
 		$class_names = isset( $setting['class'] ) && is_string( $setting['class'] ) ? explode( ' ', $setting['class'] ) : array();
 		if ( in_array( 'manage_stock_field', $class_names, true ) ) {
 			return array(
-				'controller' => 'woocommerce_manage_stock',
+				'controller' => 'poocommerce_manage_stock',
 				'value'      => true,
 			);
 		}
@@ -1676,7 +1676,7 @@ class SettingsUISchema {
 	}
 
 	/**
-	 * Get the initialized WooCommerce countries controller.
+	 * Get the initialized PooCommerce countries controller.
 	 *
 	 * @return \WC_Countries|null
 	 */
@@ -1685,9 +1685,9 @@ class SettingsUISchema {
 			return null;
 		}
 
-		$woocommerce = WC();
+		$poocommerce = WC();
 
-		return $woocommerce && $woocommerce->countries instanceof \WC_Countries ? $woocommerce->countries : null;
+		return $poocommerce && $poocommerce->countries instanceof \WC_Countries ? $poocommerce->countries : null;
 	}
 
 	/**
@@ -1709,7 +1709,7 @@ class SettingsUISchema {
 
 		$options = array(
 			array(
-				'label' => __( 'Select a page...', 'woocommerce' ),
+				'label' => __( 'Select a page...', 'poocommerce' ),
 				'value' => '',
 			),
 		);

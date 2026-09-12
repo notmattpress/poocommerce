@@ -6,7 +6,7 @@ import { getCookie } from './utils';
 import type { SessionCookieData } from './types/shared';
 
 /**
- * Session Manager for WooCommerce Analytics
+ * Session Manager for PooCommerce Analytics
  *
  */
 export default class SessionManager {

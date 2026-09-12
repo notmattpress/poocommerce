@@ -2,14 +2,14 @@
 /**
  * Product Mapper Interface.
  *
- * @package Automattic\WooCommerce\Internal\ProductFeed
+ * @package Automattic\PooCommerce\Internal\ProductFeed
  */
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Internal\ProductFeed\Feed;
+namespace Automattic\PooCommerce\Internal\ProductFeed\Feed;
 
-use Automattic\WooCommerce\Internal\ProductFeed\Mapping\ProductShapeMapperInterface;
+use Automattic\PooCommerce\Internal\ProductFeed\Mapping\ProductShapeMapperInterface;
 
 /**
  * Product Mapper Interface.

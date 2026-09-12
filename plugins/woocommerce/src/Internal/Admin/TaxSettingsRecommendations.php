@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Internal\Admin;
+namespace Automattic\PooCommerce\Internal\Admin;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -11,7 +11,7 @@ defined( 'ABSPATH' ) || exit;
  *
  * Handles dismissal of the recommended tax solutions card on the Tax settings
  * screen. The dismissal is stored site-wide in the
- * `woocommerce_settings_tax_recommendations_hidden` option, but is read and
+ * `poocommerce_settings_tax_recommendations_hidden` option, but is read and
  * written through a dedicated REST endpoint instead of the deprecated Options
  * REST API (whose allowlist is frozen). This keeps the dismissal working in all
  * environments, including non-production.
@@ -25,7 +25,7 @@ class TaxSettingsRecommendations {
 	 *
 	 * @var string
 	 */
-	const DISMISSED_OPTION_NAME = 'woocommerce_settings_tax_recommendations_hidden';
+	const DISMISSED_OPTION_NAME = 'poocommerce_settings_tax_recommendations_hidden';
 
 	/**
 	 * Class initialization, to be executed when the class is resolved by the container.
@@ -34,7 +34,7 @@ class TaxSettingsRecommendations {
 	 */
 	final public function init(): void {
 		add_action( 'rest_api_init', array( $this, 'register_routes' ) );
-		add_filter( 'woocommerce_admin_shared_settings', array( $this, 'preload_settings' ) );
+		add_filter( 'poocommerce_admin_shared_settings', array( $this, 'preload_settings' ) );
 	}
 
 	/**
@@ -61,10 +61,10 @@ class TaxSettingsRecommendations {
 	 * @return bool|\WP_Error
 	 */
 	public function permissions_check( \WP_REST_Request $request ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found, Squiz.Commenting.FunctionComment.IncorrectTypeHint
-		if ( ! current_user_can( 'manage_woocommerce' ) ) {
+		if ( ! current_user_can( 'manage_poocommerce' ) ) {
 			return new \WP_Error(
-				'woocommerce_rest_cannot_edit',
-				__( 'Sorry, you are not allowed to dismiss these recommendations.', 'woocommerce' ),
+				'poocommerce_rest_cannot_edit',
+				__( 'Sorry, you are not allowed to dismiss these recommendations.', 'poocommerce' ),
 				array( 'status' => rest_authorization_required_code() )
 			);
 		}
@@ -87,8 +87,8 @@ class TaxSettingsRecommendations {
 
 		if ( ! update_option( self::DISMISSED_OPTION_NAME, 'yes' ) ) {
 			return new \WP_Error(
-				'woocommerce_rest_tax_recommendations_dismiss_failed',
-				__( 'The dismissal could not be saved.', 'woocommerce' ),
+				'poocommerce_rest_tax_recommendations_dismiss_failed',
+				__( 'The dismissal could not be saved.', 'poocommerce' ),
 				array( 'status' => 500 )
 			);
 		}

@@ -13,7 +13,7 @@ import { AutoCompleter } from './types';
 
 const completer: AutoCompleter = {
 	name: 'usernames',
-	className: 'woocommerce-search__usernames-result',
+	className: 'poocommerce-search__usernames-result',
 	options( search ) {
 		const query = search
 			? {
@@ -38,7 +38,7 @@ const completer: AutoCompleter = {
 		return (
 			<span
 				key="name"
-				className="woocommerce-search__result-name"
+				className="poocommerce-search__result-name"
 				aria-label={ customer.username }
 			>
 				{ match?.suggestionBeforeMatch }

@@ -1,7 +1,7 @@
-/*global woocommerce_network_orders */
+/*global poocommerce_network_orders */
 (function( $, _, undefined ) {
 
-	if ( 'undefined' === typeof woocommerce_network_orders ) {
+	if ( 'undefined' === typeof poocommerce_network_orders ) {
 		return;
 	}
 
@@ -10,24 +10,24 @@
 		deferred = [], // Tracks the ajax deferreds.
 		$tbody = $( document.getElementById( 'network-orders-tbody' ) ),
 		template = _.template( $( document.getElementById( 'network-orders-row-template') ).text() ),
-		$loadingIndicator = $( document.getElementById( 'woocommerce-network-order-table-loading' ) ),
-		$orderTable = $( document.getElementById( 'woocommerce-network-order-table' ) ),
-		$noneFound = $( document.getElementById( 'woocommerce-network-orders-no-orders' ) );
+		$loadingIndicator = $( document.getElementById( 'poocommerce-network-order-table-loading' ) ),
+		$orderTable = $( document.getElementById( 'poocommerce-network-order-table' ) ),
+		$noneFound = $( document.getElementById( 'poocommerce-network-orders-no-orders' ) );
 
 	// No sites, so bail.
-	if ( ! woocommerce_network_orders.sites.length ) {
+	if ( ! poocommerce_network_orders.sites.length ) {
 		$loadingIndicator.removeClass( 'is-active' );
 		$orderTable.removeClass( 'is-active' );
 		$noneFound.addClass( 'is-active' );
 		return;
 	}
 
-	$.each( woocommerce_network_orders.sites, function( index, value ) {
+	$.each( poocommerce_network_orders.sites, function( index, value ) {
 		promises[ index ] = $.Deferred();
 		deferred.push( $.ajax( {
-			url : woocommerce_network_orders.order_endpoint,
+			url : poocommerce_network_orders.order_endpoint,
 			data: {
-				_wpnonce: woocommerce_network_orders.nonce,
+				_wpnonce: poocommerce_network_orders.nonce,
 				network_orders: true,
 				blog_id: value
 			},

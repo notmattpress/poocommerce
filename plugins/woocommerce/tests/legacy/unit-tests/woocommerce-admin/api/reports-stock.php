@@ -2,11 +2,11 @@
 /**
  * Reports Stock REST API Test
  *
- * @package WooCommerce\Admin\Tests\API
+ * @package PooCommerce\Admin\Tests\API
  * @since 3.5.0
  */
 
-use Automattic\WooCommerce\Enums\ProductStockStatus;
+use Automattic\PooCommerce\Enums\ProductStockStatus;
 
 /**
  * Class WC_Admin_Tests_API_Reports_Stock

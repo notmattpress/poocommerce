@@ -1,5 +1,5 @@
 ---
-post_title: WooCommerce Point Releases
+post_title: PooCommerce Point Releases
 sidebar_label: Point Releases
 sidebar_position: 2
 ---
@@ -7,10 +7,10 @@ sidebar_position: 2
 # Point Releases
 
 :::important
-The formal Point Release Request (PRR) issue template ([`new-prr-template.yml`](https://github.com/woocommerce/woocommerce/blob/trunk/.github/ISSUE_TEMPLATE/new-prr-template.yml)) is no longer required for point release fixes; it is preserved only for reference. In practice, coordinating directly with the release lead is sufficient to get fixes included in a point release, and is the most important step. The rest of this document covers what types of fixes qualify for point releases and how to prepare them in the repository.
+The formal Point Release Request (PRR) issue template ([`new-prr-template.yml`](https://github.com/poocommerce/poocommerce/blob/trunk/.github/ISSUE_TEMPLATE/new-prr-template.yml)) is no longer required for point release fixes; it is preserved only for reference. In practice, coordinating directly with the release lead is sufficient to get fixes included in a point release, and is the most important step. The rest of this document covers what types of fixes qualify for point releases and how to prepare them in the repository.
 :::
 
-Point releases are patch releases that address specific issues in an already-shipped WooCommerce version (for example `9.9.0 → 9.9.1`) without adding new functionality. They apply only to versions that are already in customer production environments.
+Point releases are patch releases that address specific issues in an already-shipped PooCommerce version (for example `9.9.0 → 9.9.1`) without adding new functionality. They apply only to versions that are already in customer production environments.
 
 ## What qualifies as a point release
 
@@ -66,6 +66,6 @@ Once the PR and any cherry-pick follow-ups have been reviewed, merged, and miles
 
 ### For the release lead: create the tracking issue and cut the release
 
-Run the [`Release: Create Tracking Issue`](https://github.com/woocommerce/woocommerce/actions/workflows/release-create-tracking-issue.yml) workflow for the target point release version (e.g. `9.9.1`). Do **not** reuse an existing tracking issue, even if a previous release in the same series was blocked. The workflow automatically nests the new Linear issue under the `[X.Y] Release tracking` parent for that release series, so the entire release series remains a single tree in Linear.
+Run the [`Release: Create Tracking Issue`](https://github.com/poocommerce/poocommerce/actions/workflows/release-create-tracking-issue.yml) workflow for the target point release version (e.g. `9.9.1`). Do **not** reuse an existing tracking issue, even if a previous release in the same series was blocked. The workflow automatically nests the new Linear issue under the `[X.Y] Release tracking` parent for that release series, so the entire release series remains a single tree in Linear.
 
 The tracking issue contains the version-specific checklist for cutting and publishing the release. Follow it from there. For underlying mechanics (workflows, draft releases, stable tag updates), refer to [Building and Publishing](/docs/contribution/releases/building-and-publishing).

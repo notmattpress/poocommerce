@@ -1,18 +1,18 @@
 <?php
 /**
- * This file is part of the WooCommerce Email Editor package
+ * This file is part of the PooCommerce Email Editor package
  *
- * @package Automattic\WooCommerce\EmailEditor
+ * @package Automattic\PooCommerce\EmailEditor
  */
 
 declare( strict_types = 1 );
-namespace Automattic\WooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks;
+namespace Automattic\PooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks;
 
-use Automattic\WooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Rendering_Context;
-use Automattic\WooCommerce\EmailEditor\Integrations\Utils\Table_Wrapper_Helper;
-use Automattic\WooCommerce\EmailEditor\Integrations\Utils\Styles_Helper;
-use Automattic\WooCommerce\EmailEditor\Integrations\Utils\Dom_Document_Helper;
-use Automattic\WooCommerce\EmailEditor\Integrations\Utils\Html_Processing_Helper;
+use Automattic\PooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Rendering_Context;
+use Automattic\PooCommerce\EmailEditor\Integrations\Utils\Table_Wrapper_Helper;
+use Automattic\PooCommerce\EmailEditor\Integrations\Utils\Styles_Helper;
+use Automattic\PooCommerce\EmailEditor\Integrations\Utils\Dom_Document_Helper;
+use Automattic\PooCommerce\EmailEditor\Integrations\Utils\Html_Processing_Helper;
 
 /**
  * Gallery block renderer.
@@ -252,7 +252,7 @@ class Gallery extends Abstract_Block_Renderer {
 	 *
 	 * Email clients can't crop client-side reliably (`object-fit`/`aspect-ratio` are unsupported in
 	 * Gmail), so the only way to truly honor the crop everywhere is to serve an already-cropped image
-	 * file. This method exposes the {@see 'woocommerce_email_editor_gallery_cropped_image_url'} filter
+	 * file. This method exposes the {@see 'poocommerce_email_editor_gallery_cropped_image_url'} filter
 	 * so integrations (e.g. Jetpack/Photon on WordPress.com) can rewrite the image URL to a
 	 * server-cropped version. When that happens, the image is given concrete `width`/`height`
 	 * dimensions so it renders correctly even in clients without CSS crop support.
@@ -310,7 +310,7 @@ class Gallery extends Abstract_Block_Renderer {
 		 * @param int    $height       Target display height derived from the aspect ratio in px (0 if unknown).
 		 * @param array  $image_attrs  Parsed attributes of the core/image block (id, sizeSlug, ...).
 		 */
-		$filtered_url = apply_filters( 'woocommerce_email_editor_gallery_cropped_image_url', $image_url, $aspect_ratio, $width, $height, $image_attrs );
+		$filtered_url = apply_filters( 'poocommerce_email_editor_gallery_cropped_image_url', $image_url, $aspect_ratio, $width, $height, $image_attrs );
 
 		// Extensions can return anything (arrays, WP_Error, objects). A crop happened only when an
 		// integration returned a *different*, non-empty string. Compare the raw filter result against

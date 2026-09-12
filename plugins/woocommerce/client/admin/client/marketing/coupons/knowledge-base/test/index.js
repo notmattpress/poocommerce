@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 import { render, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { createElement } from '@wordpress/element';
@@ -11,27 +11,27 @@ import { createElement } from '@wordpress/element';
  */
 import { KnowledgeBase } from '../index.js';
 
-jest.mock( '@woocommerce/tracks' );
+jest.mock( '@poocommerce/tracks' );
 
 const mockPosts = [
 	{
-		title: 'WooCommerce Blog Post 1',
+		title: 'PooCommerce Blog Post 1',
 		date: '2020-05-28T15:00:00',
-		link: 'https://woocommerce.com/posts/woo-blog-post-1/',
+		link: 'https://poocommerce.com/posts/woo-blog-post-1/',
 		author_name: 'John Doe',
 		author_avatar: 'https://avatar.domain/avatar1.png',
 	},
 	{
-		title: 'WooCommerce Blog Post 2',
+		title: 'PooCommerce Blog Post 2',
 		date: '2020-04-29T12:00:00',
-		link: 'https://woocommerce.com/posts/woo-blog-post-2/',
+		link: 'https://poocommerce.com/posts/woo-blog-post-2/',
 		author_name: 'Jane Doe',
 		author_avatar: 'https://avatar.domain/avatar2.png',
 	},
 	{
-		title: 'WooCommerce Blog Post 3',
+		title: 'PooCommerce Blog Post 3',
 		date: '2020-03-29T12:00:00',
-		link: 'https://woocommerce.com/posts/woo-blog-post-3/',
+		link: 'https://poocommerce.com/posts/woo-blog-post-3/',
 		author_name: 'Jim Doe',
 		author_avatar: 'https://avatar.domain/avatar3.png',
 	},
@@ -60,11 +60,11 @@ describe( 'Posts and not loading', () => {
 	it( 'should display default title and description', () => {
 		const { getByText } = knowledgeBaseWrapper;
 
-		expect( getByText( 'WooCommerce knowledge base' ) ).toBeInTheDocument();
+		expect( getByText( 'PooCommerce knowledge base' ) ).toBeInTheDocument();
 
 		expect(
 			getByText(
-				'Learn the ins and outs of successful marketing from the experts at WooCommerce.'
+				'Learn the ins and outs of successful marketing from the experts at PooCommerce.'
 			)
 		).toBeInTheDocument();
 	} );
@@ -73,7 +73,7 @@ describe( 'Posts and not loading', () => {
 		const { container } = knowledgeBaseWrapper;
 		expect(
 			container.getElementsByClassName(
-				'woocommerce-marketing-knowledgebase-card__posts'
+				'poocommerce-marketing-knowledgebase-card__posts'
 			)
 		).toHaveLength( 1 );
 	} );
@@ -81,7 +81,7 @@ describe( 'Posts and not loading', () => {
 	it( 'should display the slider', () => {
 		const { container } = knowledgeBaseWrapper;
 		expect(
-			container.getElementsByClassName( 'woocommerce-marketing-slider' )
+			container.getElementsByClassName( 'poocommerce-marketing-slider' )
 		).toHaveLength( 1 );
 	} );
 
@@ -89,13 +89,13 @@ describe( 'Posts and not loading', () => {
 		const { container } = knowledgeBaseWrapper;
 		expect(
 			container.getElementsByClassName(
-				'woocommerce-marketing-knowledgebase-card__page'
+				'poocommerce-marketing-knowledgebase-card__page'
 			)
 		).toHaveLength( 1 );
 
 		expect(
 			container.getElementsByClassName(
-				'woocommerce-marketing-knowledgebase-card__post'
+				'poocommerce-marketing-knowledgebase-card__post'
 			)
 		).toHaveLength( 2 );
 	} );
@@ -105,7 +105,7 @@ describe( 'Posts and not loading', () => {
 
 		expect( queryByText( 'No posts yet' ) ).toBeNull();
 		expect( queryByText( /Read /i ) ).toBeNull();
-		expect( queryByText( 'the WooCommerce blog' ) ).toBeNull();
+		expect( queryByText( 'the PooCommerce blog' ) ).toBeNull();
 		expect(
 			queryByText( / for more tips on marketing your store/i )
 		).toBeNull();
@@ -140,7 +140,7 @@ describe( 'No posts and loading', () => {
 		const { container } = knowledgeBaseWrapper;
 		expect(
 			container.querySelector(
-				'.is-loading.woocommerce-marketing-knowledgebase-card__post'
+				'.is-loading.poocommerce-marketing-knowledgebase-card__post'
 			)
 		).toBeTruthy();
 	} );
@@ -149,7 +149,7 @@ describe( 'No posts and loading', () => {
 		const { container } = knowledgeBaseWrapper;
 		expect(
 			container.getElementsByClassName(
-				'woocommerce-marketing-slider__slide'
+				'poocommerce-marketing-slider__slide'
 			)
 		).toHaveLength( 0 );
 	} );
@@ -158,7 +158,7 @@ describe( 'No posts and loading', () => {
 		const { container } = knowledgeBaseWrapper;
 		expect(
 			container.getElementsByClassName(
-				'woocommerce-marketing-knowledgebase-card__posts'
+				'poocommerce-marketing-knowledgebase-card__posts'
 			)
 		).toHaveLength( 1 );
 	} );
@@ -168,7 +168,7 @@ describe( 'No posts and loading', () => {
 
 		expect( queryByText( 'No posts yet' ) ).toBeNull();
 		expect( queryByText( /Read /i ) ).toBeNull();
-		expect( queryByText( 'the WooCommerce blog' ) ).toBeNull();
+		expect( queryByText( 'the PooCommerce blog' ) ).toBeNull();
 		expect(
 			queryByText( / for more tips on marketing your store/i )
 		).toBeNull();
@@ -213,7 +213,7 @@ describe( 'Error and not loading', () => {
 		const { container } = knowledgeBaseWrapper;
 		expect(
 			container.getElementsByClassName(
-				'woocommerce-marketing-knowledgebase-card__posts'
+				'poocommerce-marketing-knowledgebase-card__posts'
 			)
 		).toHaveLength( 0 );
 	} );
@@ -225,7 +225,7 @@ describe( 'Error and not loading', () => {
 			getByText( "Oops, our posts aren't loading right now" )
 		).toBeInTheDocument();
 		expect( getByText( /Read /i ) ).toBeInTheDocument();
-		expect( getByText( 'the WooCommerce blog' ) ).toBeInTheDocument();
+		expect( getByText( 'the PooCommerce blog' ) ).toBeInTheDocument();
 		expect(
 			getByText( / for more tips on marketing your store/i )
 		).toBeInTheDocument();
@@ -267,7 +267,7 @@ describe( 'No posts and not loading', () => {
 		const { container } = knowledgeBaseWrapper;
 		expect(
 			container.getElementsByClassName(
-				'woocommerce-marketing-knowledgebase-card__posts'
+				'poocommerce-marketing-knowledgebase-card__posts'
 			)
 		).toHaveLength( 0 );
 	} );
@@ -277,7 +277,7 @@ describe( 'No posts and not loading', () => {
 
 		expect( getByText( 'No posts yet' ) ).toBeInTheDocument();
 		expect( getByText( /Read /i ) ).toBeInTheDocument();
-		expect( getByText( 'the WooCommerce blog' ) ).toBeInTheDocument();
+		expect( getByText( 'the PooCommerce blog' ) ).toBeInTheDocument();
 		expect(
 			getByText( / for more tips on marketing your store/i )
 		).toBeInTheDocument();
@@ -313,7 +313,7 @@ describe( 'Clicking on a post', () => {
 		expect( recordEvent ).toHaveBeenCalledWith(
 			'marketing_knowledge_article',
 			{
-				title: 'WooCommerce Blog Post 1',
+				title: 'PooCommerce Blog Post 1',
 			}
 		);
 
@@ -323,7 +323,7 @@ describe( 'Clicking on a post', () => {
 		expect( recordEvent ).toHaveBeenCalledWith(
 			'marketing_knowledge_article',
 			{
-				title: 'WooCommerce Blog Post 2',
+				title: 'PooCommerce Blog Post 2',
 			}
 		);
 	} );
@@ -348,7 +348,7 @@ describe( 'Pagination', () => {
 		await waitFor( () =>
 			expect(
 				container.getElementsByClassName(
-					'woocommerce-marketing-slider animate-left'
+					'poocommerce-marketing-slider animate-left'
 				)
 			).toHaveLength( 1 )
 		);
@@ -369,7 +369,7 @@ describe( 'Pagination', () => {
 		await waitFor( () =>
 			expect(
 				container.getElementsByClassName(
-					'woocommerce-marketing-slider animate-right'
+					'poocommerce-marketing-slider animate-right'
 				)
 			).toHaveLength( 1 )
 		);
@@ -390,9 +390,9 @@ describe( 'Page with single post', () => {
 
 	const mockPost = [
 		{
-			title: 'WooCommerce Blog Post 1',
+			title: 'PooCommerce Blog Post 1',
 			date: '2020-05-28T15:00:00',
-			link: 'https://woocommerce.com/posts/woo-blog-post-1/',
+			link: 'https://poocommerce.com/posts/woo-blog-post-1/',
 			author_name: 'John Doe',
 			author_avatar: 'https://avatar.domain/avatar1.png',
 		},
@@ -419,7 +419,7 @@ describe( 'Page with single post', () => {
 		const { container } = knowledgeBaseWrapper;
 		expect(
 			container.getElementsByClassName(
-				'woocommerce-marketing-knowledgebase-card__post'
+				'poocommerce-marketing-knowledgebase-card__post'
 			)
 		).toHaveLength( 1 );
 	} );

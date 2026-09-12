@@ -104,10 +104,10 @@ describe( 'TreeSelectControl - Options Component', () => {
 		expect( unCheckedOption ).toBeTruthy();
 
 		const partiallyCheckedOptionWrapper = partiallyCheckedOption.closest(
-			'.woocommerce-tree-select-control__option'
+			'.poocommerce-tree-select-control__option'
 		);
 		const unCheckedOptionWrapper = unCheckedOption.closest(
-			'.woocommerce-tree-select-control__option'
+			'.poocommerce-tree-select-control__option'
 		);
 
 		expect( partiallyCheckedOptionWrapper ).toBeTruthy();

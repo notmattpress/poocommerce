@@ -1,15 +1,15 @@
 <?php
 /**
- * This file is part of the WooCommerce Email Editor package.
+ * This file is part of the PooCommerce Email Editor package.
  *
- * @package Automattic\WooCommerce\EmailEditor
+ * @package Automattic\PooCommerce\EmailEditor
  */
 
 declare(strict_types = 1);
 
-use Automattic\WooCommerce\EmailEditor\Engine\Email_Api_Controller;
-use Automattic\WooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tag;
-use Automattic\WooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tags_Registry;
+use Automattic\PooCommerce\EmailEditor\Engine\Email_Api_Controller;
+use Automattic\PooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tag;
+use Automattic\PooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tags_Registry;
 
 /**
  * Integration tests for Email_Api_Controller.
@@ -55,7 +55,7 @@ class Email_Api_Controller_Test extends Email_Editor_Integration_Test_Case {
 	 */
 	public function tearDown(): void {
 		parent::tearDown();
-		remove_all_actions( 'woocommerce_email_editor_personalization_tags_for_post' );
+		remove_all_actions( 'poocommerce_email_editor_personalization_tags_for_post' );
 	}
 
 	/**
@@ -69,7 +69,7 @@ class Email_Api_Controller_Test extends Email_Editor_Integration_Test_Case {
 		 *
 		 * @var WP_REST_Request<array<string, mixed>> $request
 		 */
-		$request = new WP_REST_Request( 'GET', '/woocommerce-email-editor/v1/personalization_tags' );
+		$request = new WP_REST_Request( 'GET', '/poocommerce-email-editor/v1/personalization_tags' );
 		return $request;
 	}
 
@@ -81,7 +81,7 @@ class Email_Api_Controller_Test extends Email_Editor_Integration_Test_Case {
 		$received_value = null;
 
 		add_action(
-			'woocommerce_email_editor_personalization_tags_for_post',
+			'poocommerce_email_editor_personalization_tags_for_post',
 			function ( $post_id ) use ( &$action_fired, &$received_value ) {
 				$action_fired   = true;
 				$received_value = $post_id;
@@ -105,7 +105,7 @@ class Email_Api_Controller_Test extends Email_Editor_Integration_Test_Case {
 		$received_value = null;
 
 		add_action(
-			'woocommerce_email_editor_personalization_tags_for_post',
+			'poocommerce_email_editor_personalization_tags_for_post',
 			function ( $post_id ) use ( &$action_fired, &$received_value ) {
 				$action_fired   = true;
 				$received_value = $post_id;
@@ -128,7 +128,7 @@ class Email_Api_Controller_Test extends Email_Editor_Integration_Test_Case {
 		$action_fired = false;
 
 		add_action(
-			'woocommerce_email_editor_personalization_tags_for_post',
+			'poocommerce_email_editor_personalization_tags_for_post',
 			function () use ( &$action_fired ) {
 				$action_fired = true;
 			}
@@ -148,7 +148,7 @@ class Email_Api_Controller_Test extends Email_Editor_Integration_Test_Case {
 		$action_fired = false;
 
 		add_action(
-			'woocommerce_email_editor_personalization_tags_for_post',
+			'poocommerce_email_editor_personalization_tags_for_post',
 			function () use ( &$action_fired ) {
 				$action_fired = true;
 			}
@@ -169,7 +169,7 @@ class Email_Api_Controller_Test extends Email_Editor_Integration_Test_Case {
 		$action_fired = false;
 
 		add_action(
-			'woocommerce_email_editor_personalization_tags_for_post',
+			'poocommerce_email_editor_personalization_tags_for_post',
 			function () use ( &$action_fired ) {
 				$action_fired = true;
 			}
@@ -190,7 +190,7 @@ class Email_Api_Controller_Test extends Email_Editor_Integration_Test_Case {
 		$action_fired = false;
 
 		add_action(
-			'woocommerce_email_editor_personalization_tags_for_post',
+			'poocommerce_email_editor_personalization_tags_for_post',
 			function () use ( &$action_fired ) {
 				$action_fired = true;
 			}

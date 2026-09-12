@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { productFilterOptions } from '@woocommerce/icons';
+import { productFilterOptions } from '@poocommerce/icons';
 import { registerBlockType } from '@wordpress/blocks';
 
 /**

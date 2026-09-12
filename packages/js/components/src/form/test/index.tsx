@@ -421,7 +421,7 @@ describe( 'Form', () => {
 		);
 
 		const controlRoot = container.querySelector(
-			'.woocommerce-date-time-picker-control'
+			'.poocommerce-date-time-picker-control'
 		);
 
 		const input = controlRoot?.querySelector( 'input' );

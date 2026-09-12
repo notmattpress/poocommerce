@@ -3,7 +3,7 @@
  */
 import { __ } from '@wordpress/i18n';
 import clsx from 'clsx';
-import { Label } from '@woocommerce/blocks-components';
+import { Label } from '@poocommerce/blocks-components';
 
 /**
  * Internal dependencies
@@ -24,9 +24,9 @@ const FilterSubmitButton = ( {
 	isLoading,
 	disabled,
 	/* translators: Submit button text for filters. */
-	label = __( 'Apply', 'woocommerce' ),
+	label = __( 'Apply', 'poocommerce' ),
 	onClick,
-	screenReaderLabel = __( 'Apply filter', 'woocommerce' ),
+	screenReaderLabel = __( 'Apply filter', 'poocommerce' ),
 }: FilterSubmitButtonProps ): JSX.Element => {
 	return (
 		<button

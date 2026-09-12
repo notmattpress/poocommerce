@@ -2,7 +2,7 @@
  * External dependencies
  */
 import type { ChangeEventHandler } from 'react';
-import type { ProductResponseItem } from '@woocommerce/types';
+import type { ProductResponseItem } from '@poocommerce/types';
 
 interface GenerateQueryProps {
 	sortValue: string;

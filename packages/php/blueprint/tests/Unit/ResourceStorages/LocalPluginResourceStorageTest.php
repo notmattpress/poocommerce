@@ -1,8 +1,8 @@
 <?php
 
-namespace Automattic\WooCommerce\Blueprint\Tests\Unit\ResourceStorages;
+namespace Automattic\PooCommerce\Blueprint\Tests\Unit\ResourceStorages;
 
-use Automattic\WooCommerce\Blueprint\ResourceStorages\LocalPluginResourceStorage;
+use Automattic\PooCommerce\Blueprint\ResourceStorages\LocalPluginResourceStorage;
 use PHPUnit\Framework\TestCase;
 
 /**

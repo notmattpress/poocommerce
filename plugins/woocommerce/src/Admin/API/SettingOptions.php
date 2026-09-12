@@ -5,11 +5,11 @@
  * Handles requests to /settings/{option}
  */
 
-namespace Automattic\WooCommerce\Admin\API;
+namespace Automattic\PooCommerce\Admin\API;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\API\Reports\Cache as ReportsCache;
+use Automattic\PooCommerce\Admin\API\Reports\Cache as ReportsCache;
 
 /**
  * Setting Options controller.

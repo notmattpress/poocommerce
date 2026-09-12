@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import type { AddToCartEventDetail } from '@woocommerce/types';
+import type { AddToCartEventDetail } from '@poocommerce/types';
 
 interface DispatchedEventProperties {
 	// Whether the event bubbles.

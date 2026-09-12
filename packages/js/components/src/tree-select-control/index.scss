@@ -16,8 +16,8 @@ $muriel-box-shadow-6dp: 0 3px 5px rgb(0 0 0 / 20%),
 $muriel-box-shadow-8dp: 0 5px 5px -3px rgb(0 0 0 / 20%),
 	0 8px 10px 1px rgb(0 0 0 / 14%), 0 3px 14px 2px rgb(0 0 0 / 12%);
 
-// The following is based on SelectControl from @woocommerce/components.
-.woocommerce-tree-select-control {
+// The following is based on SelectControl from @poocommerce/components.
+.poocommerce-tree-select-control {
 	position: relative;
 
 	&__label {
@@ -55,7 +55,7 @@ $muriel-box-shadow-8dp: 0 5px 5px -3px rgb(0 0 0 / 20%),
 			max-width: 100%;
 		}
 
-		.woocommerce-tree-select-control__control-input {
+		.poocommerce-tree-select-control__control-input {
 			font-size: 16px;
 			border: 0;
 			box-shadow: none;
@@ -105,19 +105,19 @@ $muriel-box-shadow-8dp: 0 5px 5px -3px rgb(0 0 0 / 20%),
 			.components-base-control__label {
 				cursor: default;
 			}
-			.woocommerce-tag__remove {
+			.poocommerce-tag__remove {
 				cursor: default;
 				pointer-events: none;
 			}
 		}
 	}
 
-	.woocommerce-tree-select-control__autofill-input {
+	.poocommerce-tree-select-control__autofill-input {
 		position: absolute;
 		z-index: -1;
 	}
 
-	.woocommerce-tree-select-control__tags {
+	.poocommerce-tree-select-control__tags {
 		position: relative;
 		margin: 0;
 
@@ -126,15 +126,15 @@ $muriel-box-shadow-8dp: 0 5px 5px -3px rgb(0 0 0 / 20%),
 		}
 	}
 
-	.woocommerce-tree-select-control__show-more {
+	.poocommerce-tree-select-control__show-more {
 		max-height: 24px;
 	}
 
-	.woocommerce-tag {
+	.poocommerce-tag {
 		max-height: 24px;
 	}
 
-	.woocommerce-tree-select-control__clear {
+	.poocommerce-tree-select-control__clear {
 		position: absolute;
 		right: 10px;
 		top: calc(50% - 10px);
@@ -144,7 +144,7 @@ $muriel-box-shadow-8dp: 0 5px 5px -3px rgb(0 0 0 / 20%),
 		}
 	}
 
-	.woocommerce-tree-select-control__tree {
+	.poocommerce-tree-select-control__tree {
 		background: $white;
 		display: flex;
 		flex-direction: column;
@@ -164,7 +164,7 @@ $muriel-box-shadow-8dp: 0 5px 5px -3px rgb(0 0 0 / 20%),
 		}
 	}
 
-	.woocommerce-tree-select-control__node {
+	.poocommerce-tree-select-control__node {
 
 		&.has-children {
 			border-bottom: 1px solid #eee;
@@ -175,16 +175,16 @@ $muriel-box-shadow-8dp: 0 5px 5px -3px rgb(0 0 0 / 20%),
 		}
 	}
 
-	.woocommerce-tree-select-control__children {
+	.poocommerce-tree-select-control__children {
 		padding-left: calc(#{$gap} * 2);
 	}
 
-	.woocommerce-tree-select-control__main {
+	.poocommerce-tree-select-control__main {
 		border-top: 1px solid $gray-200;
 		padding-left: 0;
 	}
 
-	.woocommerce-tree-select-control__option {
+	.poocommerce-tree-select-control__option {
 		font-size: 16px;
 		padding: 0 0 0 $gap-smaller;
 		flex: 1;
@@ -286,7 +286,7 @@ $muriel-box-shadow-8dp: 0 5px 5px -3px rgb(0 0 0 / 20%),
 		}
 	}
 
-	.woocommerce-tree-select-control__expander {
+	.poocommerce-tree-select-control__expander {
 		padding: $gap-smallest;
 		cursor: pointer;
 		margin-right: 0;
@@ -317,7 +317,7 @@ $muriel-box-shadow-8dp: 0 5px 5px -3px rgb(0 0 0 / 20%),
 			margin-top: -$gap-small;
 		}
 
-		.woocommerce-tree-select-control__control-input {
+		.poocommerce-tree-select-control__control-input {
 			padding-left: 12px;
 		}
 	}

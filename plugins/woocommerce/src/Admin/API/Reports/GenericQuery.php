@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1);
 
-namespace Automattic\WooCommerce\Admin\API\Reports;
+namespace Automattic\PooCommerce\Admin\API\Reports;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -31,7 +31,7 @@ class GenericQuery extends \WC_Object_Query {
 	/**
 	 * Specific query name.
 	 * Will be used to load the `report-{name}` data store,
-	 * and to call `woocommerce_analytics_{snake_case(name)}_*` filters.
+	 * and to call `poocommerce_analytics_{snake_case(name)}_*` filters.
 	 *
 	 * @var string
 	 */
@@ -60,8 +60,8 @@ class GenericQuery extends \WC_Object_Query {
 
 	/**
 	 * Get data from `report-{$name}` store, based on the current query vars.
-	 * Filters query vars through `woocommerce_analytics_{snake_case(name)}_query_args` filter.
-	 * Filters results through `woocommerce_analytics_{snake_case(name)}_select_query` filter.
+	 * Filters query vars through `poocommerce_analytics_{snake_case(name)}_query_args` filter.
+	 * Filters results through `poocommerce_analytics_{snake_case(name)}_select_query` filter.
 	 *
 	 * @return mixed filtered results from the data store.
 	 */
@@ -74,7 +74,7 @@ class GenericQuery extends \WC_Object_Query {
 		 *
 		 * @param array $query_args Query args.
 		 */
-		$args = apply_filters( "woocommerce_analytics_{$snake_name}_query_args", $this->get_query_vars() );
+		$args = apply_filters( "poocommerce_analytics_{$snake_name}_query_args", $this->get_query_vars() );
 
 		$data_store = \WC_Data_Store::load( "report-{$this->name}" );
 		$results    = $data_store->get_data( $args );
@@ -86,6 +86,6 @@ class GenericQuery extends \WC_Object_Query {
 		 * @param stdClass|WP_Error $results Results from the data store.
 		 * @param array             $args    Query args used to get the data (potentially filtered).
 		 */
-		return apply_filters( "woocommerce_analytics_{$snake_name}_select_query", $results, $args );
+		return apply_filters( "poocommerce_analytics_{$snake_name}_select_query", $results, $args );
 	}
 }

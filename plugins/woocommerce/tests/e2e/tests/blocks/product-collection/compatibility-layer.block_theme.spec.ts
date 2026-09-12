@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { test as base, expect } from '@woocommerce/e2e-utils';
+import { test as base, expect } from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -18,26 +18,26 @@ type Scenario = {
 const singleOccurrenceScenarios: Scenario[] = [
 	{
 		title: 'Before Main Content',
-		dataTestId: 'woocommerce_before_main_content',
-		content: 'Hook: woocommerce_before_main_content',
+		dataTestId: 'poocommerce_before_main_content',
+		content: 'Hook: poocommerce_before_main_content',
 		amount: 1,
 	},
 	{
 		title: 'After Main Content',
-		dataTestId: 'woocommerce_after_main_content',
-		content: 'Hook: woocommerce_after_main_content',
+		dataTestId: 'poocommerce_after_main_content',
+		content: 'Hook: poocommerce_after_main_content',
 		amount: 1,
 	},
 	{
 		title: 'Before Shop Loop',
-		dataTestId: 'woocommerce_before_shop_loop',
-		content: 'Hook: woocommerce_before_shop_loop',
+		dataTestId: 'poocommerce_before_shop_loop',
+		content: 'Hook: poocommerce_before_shop_loop',
 		amount: 1,
 	},
 	{
 		title: 'After Shop Loop',
-		dataTestId: 'woocommerce_after_shop_loop',
-		content: 'Hook: woocommerce_after_shop_loop',
+		dataTestId: 'poocommerce_after_shop_loop',
+		content: 'Hook: poocommerce_after_shop_loop',
 		amount: 1,
 	},
 ];
@@ -45,32 +45,32 @@ const singleOccurrenceScenarios: Scenario[] = [
 const multipleOccurrenceScenarios: Scenario[] = [
 	{
 		title: 'Before Shop Loop Item Title',
-		dataTestId: 'woocommerce_before_shop_loop_item_title',
-		content: 'Hook: woocommerce_before_shop_loop_item_title',
+		dataTestId: 'poocommerce_before_shop_loop_item_title',
+		content: 'Hook: poocommerce_before_shop_loop_item_title',
 		amount: 16,
 	},
 	{
 		title: 'Shop Loop Item Title',
-		dataTestId: 'woocommerce_shop_loop_item_title',
-		content: 'Hook: woocommerce_shop_loop_item_title',
+		dataTestId: 'poocommerce_shop_loop_item_title',
+		content: 'Hook: poocommerce_shop_loop_item_title',
 		amount: 16,
 	},
 	{
 		title: 'After Shop Loop Item Title',
-		dataTestId: 'woocommerce_after_shop_loop_item_title',
-		content: 'Hook: woocommerce_after_shop_loop_item_title',
+		dataTestId: 'poocommerce_after_shop_loop_item_title',
+		content: 'Hook: poocommerce_after_shop_loop_item_title',
 		amount: 16,
 	},
 	{
 		title: 'Before Shop Loop Item',
-		dataTestId: 'woocommerce_before_shop_loop_item',
-		content: 'Hook: woocommerce_before_shop_loop_item',
+		dataTestId: 'poocommerce_before_shop_loop_item',
+		content: 'Hook: poocommerce_before_shop_loop_item',
 		amount: 16,
 	},
 	{
 		title: 'After Shop Loop Item',
-		dataTestId: 'woocommerce_after_shop_loop_item',
-		content: 'Hook: woocommerce_after_shop_loop_item',
+		dataTestId: 'poocommerce_after_shop_loop_item',
+		content: 'Hook: poocommerce_after_shop_loop_item',
 		amount: 16,
 	},
 ];
@@ -89,7 +89,7 @@ const test = base.extend< { pageObject: ProductCollectionPage } >( {
 test.describe( 'Product Collection: Compatibility Layer', () => {
 	test.beforeEach( async ( { pageObject, requestUtils } ) => {
 		await requestUtils.activatePlugin(
-			'woocommerce-blocks-test-product-collection-compatibility-layer'
+			'poocommerce-blocks-test-product-collection-compatibility-layer'
 		);
 		await pageObject.goToProductCatalogFrontend();
 	} );

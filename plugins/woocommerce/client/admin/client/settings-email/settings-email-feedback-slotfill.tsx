@@ -17,11 +17,11 @@ const { Fill } = createSlotFill( SETTINGS_SLOT_FILL_CONSTANT );
 const EmailFeedbackFill = () => {
 	const description = __(
 		'Thank you for trying out our new email customization features. We’d love to hear your feedback on how we could improve the experience.',
-		'woocommerce'
+		'poocommerce'
 	);
 	const question = __(
 		'I was able to customize my email designs to match my store’s brand.',
-		'woocommerce'
+		'poocommerce'
 	);
 
 	return (
@@ -42,8 +42,8 @@ export const registerSettingsEmailFeedbackFill = () => {
 	if ( ! slotElement ) {
 		return null;
 	}
-	registerPlugin( 'woocommerce-admin-settings-email-feedback', {
-		scope: 'woocommerce-email-feedback-settings',
+	registerPlugin( 'poocommerce-admin-settings-email-feedback', {
+		scope: 'poocommerce-email-feedback-settings',
 		render: () => <EmailFeedbackFill />,
 	} );
 };

@@ -1,5 +1,5 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\Utils;
+namespace Automattic\PooCommerce\Blocks\Utils;
 
 use WP_Query;
 

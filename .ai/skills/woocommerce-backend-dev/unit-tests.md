@@ -12,7 +12,7 @@
 - [Group Similar Tests with @testWith or a Data Provider](#group-similar-tests-with-testwith-or-a-data-provider)
 - [Test Configuration](#test-configuration)
 - [Example: Payment Extension Suggestions Tests](#example-payment-extension-suggestions-tests)
-- [Mocking the WooCommerce Logger](#mocking-the-woocommerce-logger)
+- [Mocking the PooCommerce Logger](#mocking-the-poocommerce-logger)
 - [General Testing Best Practices](#general-testing-best-practices)
 
 ## Complete Test File Template
@@ -23,9 +23,9 @@ Use this template when creating new test files. It shows all conventions applied
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin;
+namespace Automattic\PooCommerce\Tests\Internal\Admin;
 
-use Automattic\WooCommerce\Internal\Admin\OrderProcessor;
+use Automattic\PooCommerce\Internal\Admin\OrderProcessor;
 use WC_Unit_Test_Case;
 
 /**
@@ -87,7 +87,7 @@ class OrderProcessorTest extends WC_Unit_Test_Case {
 | Element | Requirement |
 | ------- | ----------- |
 | `declare( strict_types = 1 )` | Required at file start |
-| Namespace | Match source location: `Automattic\WooCommerce\Tests\{path}` |
+| Namespace | Match source location: `Automattic\PooCommerce\Tests\{path}` |
 | Base class | Extend `WC_Unit_Test_Case` |
 | SUT variable | Use `$sut` with docblock "The System Under Test." |
 | Test docblock | Use `@testdox` with sentence ending in `.` |
@@ -102,7 +102,7 @@ Choose cleanup from the test's base class; PHPUnit alone provides no database is
 | Base class | Automatic isolation when parent setup/teardown runs |
 | --- | --- |
 | `WP_UnitTestCase` descendants, including `WP_HTTP_TestCase` and `WP_Test_REST_TestCase` | `$wpdb` transaction rollback, reset of the WordPress globals managed by the base, and hook snapshot restoration; the next setup flushes the object cache |
-| `WC_Unit_Test_Case` descendants, including `WC_REST_Unit_Test_Case` | All `WP_UnitTestCase` behavior plus WooCommerce cart/context, notices, and country-locale singleton cleanup |
+| `WC_Unit_Test_Case` descendants, including `WC_REST_Unit_Test_Case` | All `WP_UnitTestCase` behavior plus PooCommerce cart/context, notices, and country-locale singleton cleanup |
 | `PHPUnit\Framework\TestCase` | No WordPress transaction, hook restoration, or global cleanup |
 | Other custom base | Inspect its implementation; do not infer cleanup from PHPUnit or its name |
 
@@ -114,7 +114,7 @@ For a `WP_UnitTestCase` descendant, do not manually delete per-test products, co
 - An arrangement-time reset is valid when `setUp()` or the base class preloads state. Do not repeat cleanup already performed by the base.
 - If custom cleanup is required, guarantee `parent::tearDown()` runs. In a `WP_UnitTestCase` descendant, perform cleanup that can write through `$wpdb` before the parent rollback. Do not add an override that only calls the parent: `Generic.CodeAnalysis.UselessOverridingMethod` flags it, and the Lint job treats that warning as a failure.
 
-See [Performance and isolation principles](../../../plugins/woocommerce/tests/README.md#performance-and-isolation-principles) for fixture sizing and database constraints.
+See [Performance and isolation principles](../../../plugins/poocommerce/tests/README.md#performance-and-isolation-principles) for fixture sizing and database constraints.
 
 ## Test File Naming and Location
 
@@ -384,9 +384,9 @@ When working with payment extension suggestions:
 3. **Tests are separated by merchant type** (online vs offline) as they have different extension counts
 4. **Data providers use descriptive keys** (country names) for better test output
 
-## Mocking the WooCommerce Logger
+## Mocking the PooCommerce Logger
 
-When testing code that uses `wc_get_logger()` (directly or via `SafeGlobalFunctionProxy::wc_get_logger()`), use the `woocommerce_logging_class` filter to inject a fake logger.
+When testing code that uses `wc_get_logger()` (directly or via `SafeGlobalFunctionProxy::wc_get_logger()`), use the `poocommerce_logging_class` filter to inject a fake logger.
 
 ### Why the Filter Approach?
 
@@ -405,7 +405,7 @@ public function test_logs_warning_for_invalid_input(): void {
 
 	// Inject via filter - passing object bypasses cache.
 	add_filter(
-		'woocommerce_logging_class',
+		'poocommerce_logging_class',
 		static function () use ( $fake_logger ) {
 			return $fake_logger;
 		}
@@ -421,7 +421,7 @@ public function test_logs_warning_for_invalid_input(): void {
 
 | Aspect       | Detail                                                        |
 | ------------ | ------------------------------------------------------------- |
-| Filter name  | `woocommerce_logging_class`                                   |
+| Filter name  | `poocommerce_logging_class`                                   |
 | Return value | Object instance (not class name string)                       |
 | Interface    | Must implement `WC_Logger_Interface`                          |
 | Isolation    | `WP_UnitTestCase` parent teardown restores the filter snapshot |
@@ -433,7 +433,7 @@ See `PaymentGatewayTest.php:create_fake_logger()` for a complete implementation.
 ## General Testing Best Practices
 
 1. **Always run tests after making changes** to verify functionality
-2. **Use specific test filters** during development (see running-tests.md in the woocommerce-dev-cycle skill)
+2. **Use specific test filters** during development (see running-tests.md in the poocommerce-dev-cycle skill)
 3. **Write descriptive test names** that explain what is being tested
 4. **Use `@testWith` or a data provider** instead of several near-identical tests for the same logic
 5. **Include helpful assertion messages** for debugging when tests fail

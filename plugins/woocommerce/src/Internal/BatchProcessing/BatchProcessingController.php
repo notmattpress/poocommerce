@@ -7,7 +7,7 @@
  *
  * 1. Create a class that implements BatchProcessorInterface.
  *    The class must either be registered in the dependency injection container, or have a public parameterless constructor,
- *    or an instance must be provided via the 'woocommerce_get_batch_processor' filter.
+ *    or an instance must be provided via the 'poocommerce_get_batch_processor' filter.
  * 2. Whenever there's data to be processed invoke the 'enqueue_processor' method in this class,
  *    passing the class name of the processor.
  *
@@ -19,12 +19,12 @@
  * and to check if a given processor is enqueued/actually scheduled.
  */
 
-namespace Automattic\WooCommerce\Internal\BatchProcessing;
+namespace Automattic\PooCommerce\Internal\BatchProcessing;
 
 /**
  * Class BatchProcessingController
  *
- * @package Automattic\WooCommerce\Internal\BatchProcessing.
+ * @package Automattic\PooCommerce\Internal\BatchProcessing.
  */
 class BatchProcessingController {
 	/*
@@ -377,7 +377,7 @@ class BatchProcessingController {
 			 *
 			 * @param int $delay Time, in seconds, before the watchdog process will run. Defaults to 3600 (1 hour).
 			 */
-			$time += apply_filters( 'woocommerce_batch_processor_watchdog_delay_seconds', HOUR_IN_SECONDS );
+			$time += apply_filters( 'poocommerce_batch_processor_watchdog_delay_seconds', HOUR_IN_SECONDS );
 		}
 
 		if ( ! as_has_scheduled_action( self::WATCHDOG_ACTION_NAME ) ) {
@@ -591,7 +591,7 @@ class BatchProcessingController {
 		 *
 		 * @since 6.8.0.
 		 */
-		$processor = apply_filters( 'woocommerce_get_batch_processor', $processor, $processor_class_name );
+		$processor = apply_filters( 'poocommerce_get_batch_processor', $processor, $processor_class_name );
 		if ( ! isset( $processor ) && class_exists( $processor_class_name ) ) {
 			// This is a fallback for when the batch processor is not registered in the container.
 			$processor = new $processor_class_name();
@@ -706,7 +706,7 @@ class BatchProcessingController {
 		 * Q's single-batch action after our lock releases but before the sweep runs, in which case the sweep cancels
 		 * Q's action even though Q remains enqueued. Q is never lost from the option (the source of truth), so this is
 		 * a bounded scheduling delay, not a lost update: the watchdog we leave in place reschedules Q on its next run.
-		 * That recovery is bounded by the watchdog delay (woocommerce_batch_processor_watchdog_delay_seconds), not the
+		 * That recovery is bounded by the watchdog delay (poocommerce_batch_processor_watchdog_delay_seconds), not the
 		 * next request, because remove_or_retry_failed_processors() no-ops while any watchdog is already scheduled.
 		 */
 		if ( empty( $remaining_processors ) ) {

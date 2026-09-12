@@ -1,13 +1,13 @@
 <?php // phpcs:ignore WordPress.Files.FileName.InvalidClassFileName
 /**
- * Plugin Name: WooCommerce Analytics - Proxy Speed Module
- * Description: Speeds up WooCommerce Analytics' proxy by handling requests at MU-plugin stage and exiting early.
- * Plugin URI: https://woocommerce.com
- * Author: WooCommerce
+ * Plugin Name: PooCommerce Analytics - Proxy Speed Module
+ * Description: Speeds up PooCommerce Analytics' proxy by handling requests at MU-plugin stage and exiting early.
+ * Plugin URI: https://poocommerce.com
+ * Author: PooCommerce
  * Version: {{VERSION}}
- * Author URI: https://woocommerce.com
+ * Author URI: https://poocommerce.com
  *
- * Text Domain: woocommerce-analytics
+ * Text Domain: poocommerce-analytics
  *
  * This module intercepts proxy tracking requests at the MU-plugin stage (before regular plugins load)
  * and handles them completely, then exits. This dramatically reduces response time by avoiding
@@ -17,16 +17,16 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * WooCommerce Analytics Proxy Speed Module
+ * PooCommerce Analytics Proxy Speed Module
  */
-class WooCommerceAnalyticsProxySpeed {
+class PooCommerceAnalyticsProxySpeed {
 
 	/**
 	 * Path of the proxy request.
 	 *
 	 * @var string
 	 */
-	const PROXY_REQUEST_PATH = 'woocommerce-analytics/v1/track';
+	const PROXY_REQUEST_PATH = 'poocommerce-analytics/v1/track';
 
 	/**
 	 * Autoloader path - this placeholder is replaced during installation.
@@ -107,44 +107,44 @@ class WooCommerceAnalyticsProxySpeed {
 
 		// Validate the path was properly injected (not still a placeholder).
 		if ( strpos( $autoload_path, '{{' ) !== false ) {
-			error_log( 'WooCommerce Analytics Proxy Speed Module: Autoloader path placeholder was not replaced during installation.' ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
+			error_log( 'PooCommerce Analytics Proxy Speed Module: Autoloader path placeholder was not replaced during installation.' ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
 			return false;
 		}
 
 		if ( ! file_exists( $autoload_path ) ) {
-			error_log( 'WooCommerce Analytics Proxy Speed Module: Autoloader file not found at: ' . $autoload_path ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
+			error_log( 'PooCommerce Analytics Proxy Speed Module: Autoloader file not found at: ' . $autoload_path ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
 			return false;
 		}
 
 		try {
 			require_once $autoload_path;
 		} catch ( \Throwable $e ) {
-			error_log( 'WooCommerce Analytics Proxy Speed Module: Failed to load autoloader: ' . $e->getMessage() ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
+			error_log( 'PooCommerce Analytics Proxy Speed Module: Failed to load autoloader: ' . $e->getMessage() ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
 			return false;
 		}
 
 		if ( ! class_exists( '\Automattic\Woocommerce_Analytics\WC_Analytics_Tracking' ) ) {
-			error_log( 'WooCommerce Analytics Proxy Speed Module: WC_Analytics_Tracking class not found after loading autoloader.' ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
+			error_log( 'PooCommerce Analytics Proxy Speed Module: WC_Analytics_Tracking class not found after loading autoloader.' ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
 			return false;
 		}
 
 		// The autoloader resolves the highest version across active plugins, which can
 		// be older than the one that wrote this file. Fall back rather than fatal.
 		if ( ! method_exists( '\Automattic\Woocommerce_Analytics\WC_Analytics_Tracking', 'record_client_event' ) ) {
-			error_log( 'WooCommerce Analytics Proxy Speed Module: the loaded WC_Analytics_Tracking predates record_client_event().' ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
+			error_log( 'PooCommerce Analytics Proxy Speed Module: the loaded WC_Analytics_Tracking predates record_client_event().' ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
 			return false;
 		}
 
 		// Avoid a 500 when an older package lacks the bound constant.
 		if ( ! defined( '\Automattic\Woocommerce_Analytics\WC_Analytics_Tracking::MAX_CLIENT_EVENTS_PER_REQUEST' ) ) {
-			error_log( 'WooCommerce Analytics Proxy Speed Module: the loaded WC_Analytics_Tracking predates the client input bounds.' ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
+			error_log( 'PooCommerce Analytics Proxy Speed Module: the loaded WC_Analytics_Tracking predates the client input bounds.' ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
 			return false;
 		}
 
 		// Same skew, other class: process_proxy_request() reads this to decide whether
 		// to serve, and an older package lacking it throws where nothing can fall back.
 		if ( ! defined( '\Automattic\Woocommerce_Analytics::PROXY_SPEED_MODULE_AUTHORIZED_OPTION' ) ) {
-			error_log( 'WooCommerce Analytics Proxy Speed Module: the loaded Woocommerce_Analytics predates the speed module authorization option.' ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
+			error_log( 'PooCommerce Analytics Proxy Speed Module: the loaded Woocommerce_Analytics predates the speed module authorization option.' ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
 			return false;
 		}
 
@@ -182,7 +182,7 @@ class WooCommerceAnalyticsProxySpeed {
 		try {
 			$this->process_proxy_request();
 		} catch ( \Throwable $e ) {
-			error_log( 'WooCommerce Analytics Proxy Speed Module: Uncaught error in handle_proxy_request: ' . $e->getMessage() ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
+			error_log( 'PooCommerce Analytics Proxy Speed Module: Uncaught error in handle_proxy_request: ' . $e->getMessage() ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
 			$this->send_json_response(
 				array(
 					'success' => false,
@@ -342,4 +342,4 @@ class WooCommerceAnalyticsProxySpeed {
 	}
 }
 
-( new WooCommerceAnalyticsProxySpeed() )->init();
+( new PooCommerceAnalyticsProxySpeed() )->init();

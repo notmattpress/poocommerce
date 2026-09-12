@@ -35,18 +35,18 @@ class WC_Beta_Tester_Override_Coming_Soon_Options {
 			return;
 		}
 
-		$this->override_woocommerce_coming_soon_option( $mode );
-		$this->override_woocommerce_store_pages_only_option( $mode );
+		$this->override_poocommerce_coming_soon_option( $mode );
+		$this->override_poocommerce_store_pages_only_option( $mode );
 	}
 
 	/**
-	 * Override the woocommerce_coming_soon option.
+	 * Override the poocommerce_coming_soon option.
 	 *
 	 * @param string $mode The coming soon mode.
 	 */
-	private function override_woocommerce_coming_soon_option( $mode ) {
+	private function override_poocommerce_coming_soon_option( $mode ) {
 		add_filter(
-			'option_woocommerce_coming_soon',
+			'option_poocommerce_coming_soon',
 			function ( $value ) use ( $mode ) {
 				if ( 'site' === $mode || 'store' === $mode ) {
 					return 'yes';
@@ -57,13 +57,13 @@ class WC_Beta_Tester_Override_Coming_Soon_Options {
 	}
 
 	/**
-	 * Override the woocommerce_store_pages_only option.
+	 * Override the poocommerce_store_pages_only option.
 	 *
 	 * @param string $mode The coming soon mode.
 	 */
-	private function override_woocommerce_store_pages_only_option( $mode ) {
+	private function override_poocommerce_store_pages_only_option( $mode ) {
 		add_filter(
-			'option_woocommerce_store_pages_only',
+			'option_poocommerce_store_pages_only',
 			function ( $value ) use ( $mode ) {
 				if ( 'store' === $mode ) {
 					return 'yes';

@@ -2,14 +2,14 @@
  * External dependencies
  */
 import { act, screen, waitFor } from '@testing-library/react';
-import { registerCheckoutFilters } from '@woocommerce/blocks-checkout';
+import { registerCheckoutFilters } from '@poocommerce/blocks-checkout';
 import { type BlockAttributes } from '@wordpress/blocks';
 import { getByLabelText, getByRole } from '@testing-library/dom';
 import { userEvent } from '@testing-library/user-event';
 
 jest.mock( '@wordpress/data', () =>
 	// eslint-disable-next-line @typescript-eslint/no-var-requires -- Must use require due to Jest mock hoisting
-	require( '@woocommerce/blocks-test-utils/mock-editor-store' ).mockWordPressDataWithEditorStore()
+	require( '@poocommerce/blocks-test-utils/mock-editor-store' ).mockWordPressDataWithEditorStore()
 );
 
 /**
@@ -23,14 +23,14 @@ import '../index';
 import '../inner-blocks/index';
 
 async function setup( attributes: BlockAttributes ) {
-	const testBlock = [ { name: 'woocommerce/checkout', attributes } ];
+	const testBlock = [ { name: 'poocommerce/checkout', attributes } ];
 	return initializeEditor( testBlock );
 }
 
 describe( 'Checkout block editor integration', () => {
 	beforeAll( async () => {
 		// Register a checkout filter to allow `core/table` block in all Checkout inner blocks,
-		// add `core/audio` into the woocommerce/checkout-totals-block specifically
+		// add `core/audio` into the poocommerce/checkout-totals-block specifically
 		registerCheckoutFilters( 'woo-test-namespace', {
 			// @ts-expect-error - The types for the checkout filters are not defined.
 			additionalCartCheckoutInnerBlockTypes: (
@@ -39,7 +39,7 @@ describe( 'Checkout block editor integration', () => {
 				{ block }: { block: string }
 			) => {
 				value.push( 'core/table' );
-				if ( block === 'woocommerce/checkout-totals-block' ) {
+				if ( block === 'poocommerce/checkout-totals-block' ) {
 					value.push( 'core/audio' );
 				}
 				return value;

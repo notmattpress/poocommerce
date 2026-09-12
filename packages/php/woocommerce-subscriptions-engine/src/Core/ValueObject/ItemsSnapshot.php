@@ -8,12 +8,12 @@
  * kept as given. `schema_version` is the payload-FORMAT version (how to parse/upcast),
  * not a content version. WordPress-free Core zone.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine\Core\ValueObject
+ * @package Automattic\PooCommerce\SubscriptionsEngine\Core\ValueObject
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Core\ValueObject;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Core\ValueObject;
 
 use DomainException;
 

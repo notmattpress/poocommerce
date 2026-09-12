@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { ScrollTo } from '@woocommerce/components';
+import { ScrollTo } from '@poocommerce/components';
 
 export const Basic = () => (
 	<ScrollTo>

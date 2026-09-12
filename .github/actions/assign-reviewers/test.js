@@ -39,9 +39,9 @@ check( 'a wildcard matches a dotfile leaf, as minimatch did with { dot: true }',
 
 check( 'a dot opening a brace alternative still matches', () => {
 	// Regression: renaming dots after `{` and `,` broke this pattern.
-	const pattern = 'plugins/woocommerce/{.wordpress-org,i18n}/**/*';
-	assert.ok( matches( pattern, 'plugins/woocommerce/.wordpress-org/icon-128x128.png' ) );
-	assert.ok( matches( pattern, 'plugins/woocommerce/i18n/states.php' ) );
+	const pattern = 'plugins/poocommerce/{.wordpress-org,i18n}/**/*';
+	assert.ok( matches( pattern, 'plugins/poocommerce/.wordpress-org/icon-128x128.png' ) );
+	assert.ok( matches( pattern, 'plugins/poocommerce/i18n/states.php' ) );
 } );
 
 check( 'a brace group of extensions is not treated as a segment boundary', () => {
@@ -52,8 +52,8 @@ check( 'a brace group of extensions is not treated as a segment boundary', () =>
 } );
 
 check( 'a single star does not cross a directory boundary', () => {
-	assert.ok( matches( 'plugins/woocommerce/templates/*', 'plugins/woocommerce/templates/a.php' ) );
-	assert.ok( ! matches( 'plugins/woocommerce/templates/*', 'plugins/woocommerce/templates/cart/a.php' ) );
+	assert.ok( matches( 'plugins/poocommerce/templates/*', 'plugins/poocommerce/templates/a.php' ) );
+	assert.ok( ! matches( 'plugins/poocommerce/templates/*', 'plugins/poocommerce/templates/cart/a.php' ) );
 } );
 
 check( 'a double star matches at any depth, including none', () => {
@@ -124,7 +124,7 @@ const run = async ( { config, mode = 'changed-files', changed = [], requestRevie
 	await assignReviewers( {
 		github,
 		context: {
-			repo: { owner: 'woocommerce', repo: 'woocommerce' },
+			repo: { owner: 'poocommerce', repo: 'poocommerce' },
 			payload: { pull_request: { number: 1, user: { login: 'alice' } } },
 		},
 		core: { info() {}, warning: ( m ) => warnings.push( m ), setFailed: ( m ) => { failed = m; } },

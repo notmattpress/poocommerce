@@ -46,7 +46,7 @@ const v1 = {
 		// the default value is true (i.e. `undefined` meant `true`).
 		if ( showPrice !== false ) {
 			innerBlocks.unshift(
-				createBlock( 'woocommerce/product-price', {
+				createBlock( 'poocommerce/product-price', {
 					style: {
 						spacing: {
 							padding: {
@@ -61,7 +61,7 @@ const v1 = {
 
 		if ( showDesc !== false ) {
 			innerBlocks.unshift(
-				createBlock( 'woocommerce/product-summary', {
+				createBlock( 'poocommerce/product-summary', {
 					showDescriptionIfEmpty: true,
 					summaryLength: 80,
 					style: {
@@ -77,8 +77,8 @@ const v1 = {
 				level: 2,
 				isLink: false,
 				textAlign: 'center',
-				__woocommerceNamespace:
-					'woocommerce/product-collection/product-title',
+				__poocommerceNamespace:
+					'poocommerce/product-collection/product-title',
 			} )
 		);
 

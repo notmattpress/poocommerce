@@ -2,7 +2,7 @@
 /**
  * REST API Authentication
  *
- * @package  WooCommerce\RestApi
+ * @package  PooCommerce\RestApi
  * @since    2.6.0
  */
 
@@ -77,19 +77,19 @@ class WC_REST_Authentication {
 			|| ( null !== $resolved_route && $this->is_wc_namespace( $resolved_route ) );
 
 		/**
-		 * Filters whether the current request is a request to the WooCommerce REST API.
+		 * Filters whether the current request is a request to the PooCommerce REST API.
 		 *
 		 * @since 2.6.0
 		 *
-		 * @param bool $is_request_to_rest_api Whether the request is to a WooCommerce REST API endpoint.
+		 * @param bool $is_request_to_rest_api Whether the request is to a PooCommerce REST API endpoint.
 		 */
-		return apply_filters( 'woocommerce_rest_is_request_to_rest_api', $is_wc_route );
+		return apply_filters( 'poocommerce_rest_is_request_to_rest_api', $is_wc_route );
 	}
 
 	/**
-	 * Whether a route is in a namespace a WooCommerce API key may authenticate.
+	 * Whether a route is in a namespace a PooCommerce API key may authenticate.
 	 *
-	 * 'wc/' is WooCommerce; 'wc-' lets third party plugins use our authentication methods.
+	 * 'wc/' is PooCommerce; 'wc-' lets third party plugins use our authentication methods.
 	 *
 	 * @param string $route Route without the REST prefix or surrounding slashes.
 	 * @return bool
@@ -220,9 +220,9 @@ class WC_REST_Authentication {
 	 * Authenticate the user if authentication wasn't performed during the
 	 * determine_current_user action.
 	 *
-	 * Necessary in cases where wp_get_current_user() is called before WooCommerce is loaded.
+	 * Necessary in cases where wp_get_current_user() is called before PooCommerce is loaded.
 	 *
-	 * @see https://github.com/woocommerce/woocommerce/issues/26847
+	 * @see https://github.com/poocommerce/poocommerce/issues/26847
 	 *
 	 * @param WP_Error|null|bool $error Error data.
 	 * @return WP_Error|null|bool
@@ -259,7 +259,7 @@ class WC_REST_Authentication {
 	}
 
 	/**
-	 * Reject a request when a WooCommerce API key authenticated a route outside our namespaces.
+	 * Reject a request when a PooCommerce API key authenticated a route outside our namespaces.
 	 *
 	 * Scope is first judged from REQUEST_URI, during 'determine_current_user', before WordPress has
 	 * parsed the request, so at that point the route the request will be dispatched to is not settled
@@ -276,8 +276,8 @@ class WC_REST_Authentication {
 	public function reject_out_of_scope_route( $result ) {
 		if ( null !== $this->user && ! $this->is_resolved_route_in_scope() ) {
 			return new WP_Error(
-				'woocommerce_rest_authentication_error',
-				__( 'The provided API key cannot be used to access this endpoint.', 'woocommerce' ),
+				'poocommerce_rest_authentication_error',
+				__( 'The provided API key cannot be used to access this endpoint.', 'poocommerce' ),
 				array( 'status' => 401 )
 			);
 		}
@@ -300,7 +300,7 @@ class WC_REST_Authentication {
 			return true;
 		}
 
-		// Our own namespaces are always in scope for a WooCommerce key. The read/write permission
+		// Our own namespaces are always in scope for a PooCommerce key. The read/write permission
 		// check in check_user_permissions() still bounds what the key can do there.
 		if ( $this->is_wc_namespace( $resolved_route ) ) {
 			return true;
@@ -309,7 +309,7 @@ class WC_REST_Authentication {
 		/*
 		 * Any other namespace is in scope only when the request URI named this exact route.
 		 * WP::parse_request() can take rest_route from more than one place, so the dispatched route is
-		 * not necessarily the one woocommerce_rest_is_request_to_rest_api approved. WordPress also
+		 * not necessarily the one poocommerce_rest_is_request_to_rest_api approved. WordPress also
 		 * decodes rest_route through parse_str() while the URI route is read raw, so the decoded form
 		 * names the same route.
 		 */
@@ -380,7 +380,7 @@ class WC_REST_Authentication {
 
 		// Validate user secret.
 		if ( ! hash_equals( $this->user->consumer_secret, $consumer_secret ) ) { // @codingStandardsIgnoreLine
-			$this->set_error( new WP_Error( 'woocommerce_rest_authentication_error', __( 'Consumer secret is invalid.', 'woocommerce' ), array( 'status' => 401 ) ) );
+			$this->set_error( new WP_Error( 'poocommerce_rest_authentication_error', __( 'Consumer secret is invalid.', 'poocommerce' ), array( 'status' => 401 ) ) );
 
 			return false;
 		}
@@ -498,11 +498,11 @@ class WC_REST_Authentication {
 		if ( ! empty( $errors ) ) {
 			$message = sprintf(
 				/* translators: %s: amount of errors */
-				_n( 'Missing OAuth parameter %s', 'Missing OAuth parameters %s', count( $errors ), 'woocommerce' ),
+				_n( 'Missing OAuth parameter %s', 'Missing OAuth parameters %s', count( $errors ), 'poocommerce' ),
 				implode( ', ', $errors )
 			);
 
-			$this->set_error( new WP_Error( 'woocommerce_rest_authentication_missing_parameter', $message, array( 'status' => 401 ) ) );
+			$this->set_error( new WP_Error( 'poocommerce_rest_authentication_missing_parameter', $message, array( 'status' => 401 ) ) );
 
 			return array();
 		}
@@ -538,7 +538,7 @@ class WC_REST_Authentication {
 		$this->user = $this->get_user_data_by_consumer_key( $params['oauth_consumer_key'] );
 
 		if ( empty( $this->user ) ) {
-			$this->set_error( new WP_Error( 'woocommerce_rest_authentication_error', __( 'Consumer key is invalid.', 'woocommerce' ), array( 'status' => 401 ) ) );
+			$this->set_error( new WP_Error( 'poocommerce_rest_authentication_error', __( 'Consumer key is invalid.', 'poocommerce' ), array( 'status' => 401 ) ) );
 
 			return false;
 		}
@@ -582,7 +582,7 @@ class WC_REST_Authentication {
 
 		// Sort parameters.
 		if ( ! uksort( $params, 'strcmp' ) ) {
-			return new WP_Error( 'woocommerce_rest_authentication_error', __( 'Invalid signature - failed to sort parameters.', 'woocommerce' ), array( 'status' => 401 ) );
+			return new WP_Error( 'poocommerce_rest_authentication_error', __( 'Invalid signature - failed to sort parameters.', 'poocommerce' ), array( 'status' => 401 ) );
 		}
 
 		// Normalize parameter key/values.
@@ -591,7 +591,7 @@ class WC_REST_Authentication {
 		$string_to_sign = $http_method . '&' . $base_request_uri . '&' . $query_string;
 
 		if ( 'HMAC-SHA1' !== $params['oauth_signature_method'] && 'HMAC-SHA256' !== $params['oauth_signature_method'] ) {
-			return new WP_Error( 'woocommerce_rest_authentication_error', __( 'Invalid signature - signature method is invalid.', 'woocommerce' ), array( 'status' => 401 ) );
+			return new WP_Error( 'poocommerce_rest_authentication_error', __( 'Invalid signature - signature method is invalid.', 'poocommerce' ), array( 'status' => 401 ) );
 		}
 
 		$hash_algorithm = strtolower( str_replace( 'HMAC-', '', $params['oauth_signature_method'] ) );
@@ -599,7 +599,7 @@ class WC_REST_Authentication {
 		$signature      = base64_encode( hash_hmac( $hash_algorithm, $string_to_sign, $secret, true ) );
 
 		if ( ! hash_equals( $signature, $consumer_signature ) ) { // @codingStandardsIgnoreLine
-			return new WP_Error( 'woocommerce_rest_authentication_error', __( 'Invalid signature - provided signature does not match.', 'woocommerce' ), array( 'status' => 401 ) );
+			return new WP_Error( 'poocommerce_rest_authentication_error', __( 'Invalid signature - provided signature does not match.', 'poocommerce' ), array( 'status' => 401 ) );
 		}
 
 		return true;
@@ -675,7 +675,7 @@ class WC_REST_Authentication {
 		$valid_window = 15 * 60; // 15 minute window.
 
 		if ( ( $timestamp < time() - $valid_window ) || ( $timestamp > time() + $valid_window ) ) {
-			return new WP_Error( 'woocommerce_rest_authentication_error', __( 'Invalid timestamp.', 'woocommerce' ), array( 'status' => 401 ) );
+			return new WP_Error( 'poocommerce_rest_authentication_error', __( 'Invalid timestamp.', 'poocommerce' ), array( 'status' => 401 ) );
 		}
 
 		$used_nonces = maybe_unserialize( $user->nonces );
@@ -685,7 +685,7 @@ class WC_REST_Authentication {
 		}
 
 		if ( in_array( $nonce, $used_nonces, true ) ) {
-			return new WP_Error( 'woocommerce_rest_authentication_error', __( 'Invalid nonce - nonce has already been used.', 'woocommerce' ), array( 'status' => 401 ) );
+			return new WP_Error( 'poocommerce_rest_authentication_error', __( 'Invalid nonce - nonce has already been used.', 'poocommerce' ), array( 'status' => 401 ) );
 		}
 
 		$used_nonces[ $timestamp ] = $nonce;
@@ -700,7 +700,7 @@ class WC_REST_Authentication {
 		$used_nonces = maybe_serialize( $used_nonces );
 
 		$wpdb->update(
-			$wpdb->prefix . 'woocommerce_api_keys',
+			$wpdb->prefix . 'poocommerce_api_keys',
 			array( 'nonces' => $used_nonces ),
 			array( 'key_id' => $user->key_id ),
 			array( '%s' ),
@@ -724,7 +724,7 @@ class WC_REST_Authentication {
 			$wpdb->prepare(
 				"
 			SELECT key_id, user_id, permissions, consumer_key, consumer_secret, nonces
-			FROM {$wpdb->prefix}woocommerce_api_keys
+			FROM {$wpdb->prefix}poocommerce_api_keys
 			WHERE consumer_key = %s
 		",
 				$consumer_key
@@ -747,7 +747,7 @@ class WC_REST_Authentication {
 			case 'HEAD':
 			case 'GET':
 				if ( 'read' !== $permissions && 'read_write' !== $permissions ) {
-					return new WP_Error( 'woocommerce_rest_authentication_error', __( 'The API key provided does not have read permissions.', 'woocommerce' ), array( 'status' => 401 ) );
+					return new WP_Error( 'poocommerce_rest_authentication_error', __( 'The API key provided does not have read permissions.', 'poocommerce' ), array( 'status' => 401 ) );
 				}
 				break;
 			case 'POST':
@@ -755,14 +755,14 @@ class WC_REST_Authentication {
 			case 'PATCH':
 			case 'DELETE':
 				if ( 'write' !== $permissions && 'read_write' !== $permissions ) {
-					return new WP_Error( 'woocommerce_rest_authentication_error', __( 'The API key provided does not have write permissions.', 'woocommerce' ), array( 'status' => 401 ) );
+					return new WP_Error( 'poocommerce_rest_authentication_error', __( 'The API key provided does not have write permissions.', 'poocommerce' ), array( 'status' => 401 ) );
 				}
 				break;
 			case 'OPTIONS':
 				return true;
 
 			default:
-				return new WP_Error( 'woocommerce_rest_authentication_error', __( 'Unknown request method.', 'woocommerce' ), array( 'status' => 401 ) );
+				return new WP_Error( 'poocommerce_rest_authentication_error', __( 'Unknown request method.', 'poocommerce' ), array( 'status' => 401 ) );
 		}
 
 		return true;
@@ -811,12 +811,12 @@ class WC_REST_Authentication {
 		 *
 		 * @since 7.7.0
 		 */
-		if ( apply_filters( 'woocommerce_disable_rest_api_access_log', $do_not_record, $this->user->key_id, $this->user->user_id ) ) {
+		if ( apply_filters( 'poocommerce_disable_rest_api_access_log', $do_not_record, $this->user->key_id, $this->user->user_id ) ) {
 			return;
 		}
 
 		$wpdb->update(
-			$wpdb->prefix . 'woocommerce_api_keys',
+			$wpdb->prefix . 'poocommerce_api_keys',
 			array( 'last_access' => current_time( 'mysql' ) ),
 			array( 'key_id' => $this->user->key_id ),
 			array( '%s' ),
@@ -834,7 +834,7 @@ class WC_REST_Authentication {
 	 */
 	public function send_unauthorized_headers( $response ) {
 		if ( is_wp_error( $this->get_error() ) && 'basic_auth' === $this->auth_method ) {
-			$auth_message = __( 'WooCommerce API. Use a consumer key in the username field and a consumer secret in the password field.', 'woocommerce' );
+			$auth_message = __( 'PooCommerce API. Use a consumer key in the username field and a consumer secret in the password field.', 'poocommerce' );
 			$response->header( 'WWW-Authenticate', 'Basic realm="' . $auth_message . '"', true );
 		}
 

@@ -22,7 +22,7 @@ const edit = ( state: SettingsState, value: unknown ) =>
 	reducer(
 		state,
 		updateSettingsForGroup( GROUP, {
-			wcAdminSettings: { woocommerce_default_date_range: value },
+			wcAdminSettings: { poocommerce_default_date_range: value },
 		} )
 	);
 

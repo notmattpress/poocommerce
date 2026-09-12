@@ -5,9 +5,9 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Abilities;
+namespace Automattic\PooCommerce\Tests\Internal\Abilities;
 
-use Automattic\WooCommerce\Abilities\AbilityDefinition;
+use Automattic\PooCommerce\Abilities\AbilityDefinition;
 
 /**
  * Test extension ability definition.
@@ -34,7 +34,7 @@ class TestExtensionAbilityDefinition implements AbilityDefinition {
 		return array(
 			'label'               => 'Test extension ability',
 			'description'         => 'Test extension ability registered through the ability loader.',
-			'category'            => 'woocommerce',
+			'category'            => 'poocommerce',
 			'execute_callback'    => static function (): array {
 				return array(
 					'ok' => true,

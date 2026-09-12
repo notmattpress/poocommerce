@@ -35,15 +35,15 @@ export function EmailStatus( {
 	className,
 	recordEvent,
 }: EmailStatusProps ): JSX.Element {
-	const [ woocommerce_email_data ] = useEntityProp<
-		EmailWooCommerceData | undefined
-	>( 'postType', 'woo_email', 'woocommerce_data' );
+	const [ poocommerce_email_data ] = useEntityProp<
+		EmailPooCommerceData | undefined
+	>( 'postType', 'woo_email', 'poocommerce_data' );
 
-	const isManual = woocommerce_email_data?.is_manual;
+	const isManual = poocommerce_email_data?.is_manual;
 	let statusValue = 'enabled';
 	if ( isManual ) {
 		statusValue = 'manual';
-	} else if ( ! woocommerce_email_data?.enabled ) {
+	} else if ( ! poocommerce_email_data?.enabled ) {
 		statusValue = 'disabled';
 	}
 
@@ -55,18 +55,18 @@ export function EmailStatus( {
 		const editedPost = select( coreDataStore ).getEditedEntityRecord(
 			'postType',
 			'woo_email',
-			window.WooCommerceEmailEditor.current_post_id
+			window.PooCommerceEmailEditor.current_post_id
 		);
 
-		// @ts-expect-error Property 'woocommerce_data' does not exist on type 'Updatable<Attachment<any>>'.
-		const woocommerce_data = editedPost?.woocommerce_data || {};
+		// @ts-expect-error Property 'poocommerce_data' does not exist on type 'Updatable<Attachment<any>>'.
+		const poocommerce_data = editedPost?.poocommerce_data || {};
 		void dispatch( coreDataStore ).editEntityRecord(
 			'postType',
 			'woo_email',
-			window.WooCommerceEmailEditor.current_post_id,
+			window.PooCommerceEmailEditor.current_post_id,
 			{
-				woocommerce_data: {
-					...woocommerce_data,
+				poocommerce_data: {
+					...poocommerce_data,
 					enabled: newValue,
 				},
 			}
@@ -93,12 +93,12 @@ export function EmailStatus( {
 					className="block-editor-inspector-popover-header__heading"
 					style={ { margin: 0 } }
 				>
-					{ __( 'Status', 'woocommerce' ) }
+					{ __( 'Status', 'poocommerce' ) }
 				</h2>
 				<Button
 					size="small"
 					className="block-editor-inspector-popover-header__action"
-					label={ __( 'Close', 'woocommerce' ) }
+					label={ __( 'Close', 'poocommerce' ) }
 					icon={ closeSmall }
 					onClick={ onClose }
 				/>
@@ -125,7 +125,7 @@ export function EmailStatus( {
 		<PanelRow className={ className }>
 			<Flex justify="start">
 				<FlexItem className="editor-post-panel__row-label">
-					{ __( 'Email Status', 'woocommerce' ) }
+					{ __( 'Email Status', 'poocommerce' ) }
 				</FlexItem>
 				<FlexItem>
 					<Dropdown
@@ -143,7 +143,7 @@ export function EmailStatus( {
 								onClick={ onToggle }
 								aria-label={ sprintf(
 									// translators: %s: Current post status.
-									__( 'Change status: %s', 'woocommerce' ),
+									__( 'Change status: %s', 'poocommerce' ),
 									status.label
 								) }
 								aria-expanded={ isOpen }

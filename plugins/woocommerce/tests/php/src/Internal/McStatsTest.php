@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal;
+namespace Automattic\PooCommerce\Tests\Internal;
 
-use Automattic\WooCommerce\Internal\McStats;
+use Automattic\PooCommerce\Internal\McStats;
 
 /**
  * Test Mc Stats class
@@ -32,15 +32,15 @@ class McStatsTest extends \WC_Unit_Test_Case {
 		$check = $this->sut->get_group_query_args( 'group' );
 
 		$this->assertCount( 1, $check );
-		$this->assertArrayHasKey( 'x_woocommerce-group', $check );
-		$this->assertEquals( 'test,test2', $check['x_woocommerce-group'] );
+		$this->assertArrayHasKey( 'x_poocommerce-group', $check );
+		$this->assertEquals( 'test,test2', $check['x_poocommerce-group'] );
 	}
 	/**
 	 * @testdox Test that do_stats() doesn't output anything when tracking is disabled.
 	 */
 	public function test_do_stats_tracking_disabled() {
 		add_filter(
-			'option_woocommerce_allow_tracking',
+			'option_poocommerce_allow_tracking',
 			function () {
 				return 'no';
 			}
@@ -58,7 +58,7 @@ class McStatsTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_do_stats_tracking_enabled() {
 		add_filter(
-			'option_woocommerce_allow_tracking',
+			'option_poocommerce_allow_tracking',
 			function () {
 				return 'yes';
 			}
@@ -86,7 +86,7 @@ class McStatsTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_do_server_side_stat_tracking_disabled() {
 		add_filter(
-			'option_woocommerce_allow_tracking',
+			'option_poocommerce_allow_tracking',
 			function () {
 				return 'no';
 			}
@@ -101,7 +101,7 @@ class McStatsTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_do_server_side_stat_tracking_enabled() {
 		add_filter(
-			'option_woocommerce_allow_tracking',
+			'option_poocommerce_allow_tracking',
 			function () {
 				return 'yes';
 			}

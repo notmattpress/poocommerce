@@ -2,17 +2,17 @@
 /**
  * Webflow Platform Test
  *
- * @package Automattic\WooCommerce\Tests\Internal\CLI\Migrator\Platforms\Webflow
+ * @package Automattic\PooCommerce\Tests\Internal\CLI\Migrator\Platforms\Webflow
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\CLI\Migrator\Platforms\Webflow;
+namespace Automattic\PooCommerce\Tests\Internal\CLI\Migrator\Platforms\Webflow;
 
-use Automattic\WooCommerce\Internal\CLI\Migrator\Core\PlatformRegistry;
-use Automattic\WooCommerce\Internal\CLI\Migrator\Platforms\Webflow\WebflowFetcher;
-use Automattic\WooCommerce\Internal\CLI\Migrator\Platforms\Webflow\WebflowMapper;
-use Automattic\WooCommerce\Internal\CLI\Migrator\Platforms\Webflow\WebflowPlatform;
+use Automattic\PooCommerce\Internal\CLI\Migrator\Core\PlatformRegistry;
+use Automattic\PooCommerce\Internal\CLI\Migrator\Platforms\Webflow\WebflowFetcher;
+use Automattic\PooCommerce\Internal\CLI\Migrator\Platforms\Webflow\WebflowMapper;
+use Automattic\PooCommerce\Internal\CLI\Migrator\Platforms\Webflow\WebflowPlatform;
 
 /**
  * Test cases for Webflow platform registration.
@@ -24,7 +24,7 @@ class WebflowPlatformTest extends \WC_Unit_Test_Case {
 	 */
 	public function setUp(): void {
 		parent::setUp();
-		remove_all_filters( 'woocommerce_migrator_platforms' );
+		remove_all_filters( 'poocommerce_migrator_platforms' );
 		WebflowPlatform::init();
 	}
 
@@ -32,7 +32,7 @@ class WebflowPlatformTest extends \WC_Unit_Test_Case {
 	 * Clean up after each test.
 	 */
 	public function tearDown(): void {
-		remove_all_filters( 'woocommerce_migrator_platforms' );
+		remove_all_filters( 'poocommerce_migrator_platforms' );
 		parent::tearDown();
 	}
 

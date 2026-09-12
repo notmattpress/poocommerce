@@ -1,10 +1,10 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Utilities;
+namespace Automattic\PooCommerce\Utilities;
 
-use Automattic\WooCommerce\Internal\Admin\Logging\{ PageController, Settings };
-use Automattic\WooCommerce\Internal\Admin\Logging\FileV2\{ File, FileController };
+use Automattic\PooCommerce\Internal\Admin\Logging\{ PageController, Settings };
+use Automattic\PooCommerce\Internal\Admin\Logging\FileV2\{ File, FileController };
 
 /**
  * A class of utilities for dealing with logging.

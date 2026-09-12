@@ -14,11 +14,11 @@
  * the offline expectation from this entry.
  *
  * When editing: change entries deliberately, one country at a time, then run
- * `pnpm --filter=@woocommerce/plugin-woocommerce lint:php:fix -- <this file>`.
+ * `pnpm --filter=@poocommerce/plugin-poocommerce lint:php:fix -- <this file>`.
  * Re-verify against the sheet when a re-export lands or partner terms change,
  * and update the date above only when you have actually done so.
  *
- * @package WooCommerce\Tests
+ * @package PooCommerce\Tests
  */
 
 declare( strict_types = 1 );

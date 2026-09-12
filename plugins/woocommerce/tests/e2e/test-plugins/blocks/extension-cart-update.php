@@ -1,18 +1,18 @@
 <?php
 /**
- * Plugin Name: WooCommerce Blocks Test extensionCartUpdate
+ * Plugin Name: PooCommerce Blocks Test extensionCartUpdate
  * Description: Adds an extensionCartUpdate endpoint.
- * Plugin URI: https://github.com/woocommerce/woocommerce
- * Author: WooCommerce
+ * Plugin URI: https://github.com/poocommerce/poocommerce
+ * Author: PooCommerce
  *
- * @package woocommerce-blocks-test-extension-cart-update
+ * @package poocommerce-blocks-test-extension-cart-update
  */
 
-use Automattic\WooCommerce\StoreApi\Schemas\ExtendSchema;
-use Automattic\WooCommerce\StoreApi\StoreApi;
+use Automattic\PooCommerce\StoreApi\Schemas\ExtendSchema;
+use Automattic\PooCommerce\StoreApi\StoreApi;
 
 add_action(
-	'woocommerce_init',
+	'poocommerce_init',
 	function () {
 		$extend = StoreApi::container()->get( ExtendSchema::class );
 		if (
@@ -25,7 +25,7 @@ add_action(
 		) {
 			$extend->register_update_callback(
 				array(
-					'namespace' => 'woocommerce-blocks-test-extension-cart-update',
+					'namespace' => 'poocommerce-blocks-test-extension-cart-update',
 					'callback'  => function ( $data ) {
 						if ( ! empty( $data['test-name-change'] ) ) {
 							WC()->cart->get_customer()->set_shipping_first_name( 'Mr. Test' );

@@ -1,4 +1,4 @@
-// TODO: Propose @woocommerce/base-utils package to be shared between packages and use debounce from there.
+// TODO: Propose @poocommerce/base-utils package to be shared between packages and use debounce from there.
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type DebouncedFunction< T extends ( ...args: any[] ) => any > = ( (

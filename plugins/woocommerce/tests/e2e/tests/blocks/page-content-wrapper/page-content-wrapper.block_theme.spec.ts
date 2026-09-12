@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { test, expect, FrontendUtils } from '@woocommerce/e2e-utils';
+import { test, expect, FrontendUtils } from '@poocommerce/e2e-utils';
 
 // Instead of testing the block individually, we test the Cart and Checkout
 // templates, which make use of the block.

@@ -3,7 +3,7 @@
  * Tests for the reserved-property set that keeps client-supplied event
  * properties from overriding the ones the server derives.
  *
- * @package automattic/woocommerce-analytics
+ * @package automattic/poocommerce-analytics
  */
 
 namespace Automattic\Woocommerce_Analytics;
@@ -43,14 +43,14 @@ class WC_Analytics_Tracking_Reserved_Props_Test extends BaseTestCase {
 	 * Reset the process-global state WorDBless does not.
 	 *
 	 * Options and transients are cleared by `BaseTestCase`, so the seeded
-	 * `woocommerce_store_id` is already handled. The memoized reserved-name list,
+	 * `poocommerce_store_id` is already handled. The memoized reserved-name list,
 	 * the pixel queue and the cached IP are static properties WorDBless never
 	 * sees, and they would otherwise carry one test's environment into the next.
 	 * Runs unconditionally, so a failed assertion cannot skip the reset.
 	 */
 	public function tear_down(): void {
 		$_SERVER = $this->server_snapshot;
-		unset( $_COOKIE['tk_ai'], $_COOKIE['woocommerceanalytics_session'] );
+		unset( $_COOKIE['tk_ai'], $_COOKIE['poocommerceanalytics_session'] );
 		$this->reset_reserved_property_names();
 		$this->reset_pixel_batch_queue();
 		$this->reset_cached_ip();
@@ -235,7 +235,7 @@ class WC_Analytics_Tracking_Reserved_Props_Test extends BaseTestCase {
 	 * Both `store_id` and `_via_ip` are seeded with a real server-derived value
 	 * before the call, so the assertions prove the server's value replaced the
 	 * client's forged one, not merely that the forged one is absent. Under
-	 * WorDBless, `get_option( 'woocommerce_store_id', null )` is null and
+	 * WorDBless, `get_option( 'poocommerce_store_id', null )` is null and
 	 * `http_build_query()` drops null values, so an assertNotSame() against an
 	 * unseeded environment would pass on absence alone and miss a stripped-but-
 	 * not-substituted bug.
@@ -243,7 +243,7 @@ class WC_Analytics_Tracking_Reserved_Props_Test extends BaseTestCase {
 	public function test_record_client_event_drops_client_supplied_server_properties(): void {
 		$_COOKIE['tk_ai']       = 'test-visitor-id-1234567890ab';
 		$_SERVER['REMOTE_ADDR'] = '203.0.113.7';
-		update_option( 'woocommerce_store_id', 'real-store-id' );
+		update_option( 'poocommerce_store_id', 'real-store-id' );
 		$this->reset_pixel_batch_queue();
 
 		WC_Analytics_Tracking::record_client_event(
@@ -259,7 +259,7 @@ class WC_Analytics_Tracking_Reserved_Props_Test extends BaseTestCase {
 		$props = $this->get_queued_pixel_props();
 
 		$this->assertSame( '203.0.113.7', $props['_via_ip'] ?? null, '_via_ip must come from the server (REMOTE_ADDR), not the client.' );
-		$this->assertSame( 'real-store-id', $props['store_id'] ?? null, 'store_id must come from the server (woocommerce_store_id option), not the client.' );
+		$this->assertSame( 'real-store-id', $props['store_id'] ?? null, 'store_id must come from the server (poocommerce_store_id option), not the client.' );
 		$this->assertSame( 'test-visitor-id-1234567890ab', $props['_ui'] ?? null, '_ui must come from the tk_ai cookie.' );
 		$this->assertSame( '42', $props['pi'] ?? null, 'Event-specific properties must survive.' );
 
@@ -326,15 +326,15 @@ class WC_Analytics_Tracking_Reserved_Props_Test extends BaseTestCase {
 			$props['partner_tier'] = 'gold';
 			return $props;
 		};
-		add_filter( 'jetpack_woocommerce_analytics_event_props', $callback );
+		add_filter( 'jetpack_poocommerce_analytics_event_props', $callback );
 
 		$props = WC_Analytics_Tracking::get_properties(
-			'woocommerceanalytics_add_to_cart',
+			'poocommerceanalytics_add_to_cart',
 			array( 'partner_tier' => 'forged' ),
 			true
 		);
 
-		remove_filter( 'jetpack_woocommerce_analytics_event_props', $callback );
+		remove_filter( 'jetpack_poocommerce_analytics_event_props', $callback );
 
 		$this->assertSame( 'gold', $props['partner_tier'] );
 	}
@@ -351,15 +351,15 @@ class WC_Analytics_Tracking_Reserved_Props_Test extends BaseTestCase {
 			$props['partner_tier'] = isset( $props['partner_tier'] ) ? $props['partner_tier'] : 'gold';
 			return $props;
 		};
-		add_filter( 'jetpack_woocommerce_analytics_event_props', $callback );
+		add_filter( 'jetpack_poocommerce_analytics_event_props', $callback );
 
 		$props = WC_Analytics_Tracking::get_properties(
-			'woocommerceanalytics_add_to_cart',
+			'poocommerceanalytics_add_to_cart',
 			array( 'partner_tier' => 'forged' ),
 			true
 		);
 
-		remove_filter( 'jetpack_woocommerce_analytics_event_props', $callback );
+		remove_filter( 'jetpack_poocommerce_analytics_event_props', $callback );
 
 		$this->assertSame( 'forged', $props['partner_tier'], 'Known limitation: see the spec.' );
 	}
@@ -373,17 +373,17 @@ class WC_Analytics_Tracking_Reserved_Props_Test extends BaseTestCase {
 			$seen[] = array( $event_name, $is_client_supplied );
 			return $props;
 		};
-		add_filter( 'jetpack_woocommerce_analytics_event_props', $callback, 10, 3 );
+		add_filter( 'jetpack_poocommerce_analytics_event_props', $callback, 10, 3 );
 
-		WC_Analytics_Tracking::get_properties( 'woocommerceanalytics_add_to_cart', array(), true );
-		WC_Analytics_Tracking::get_properties( 'woocommerceanalytics_product_view', array(), false );
+		WC_Analytics_Tracking::get_properties( 'poocommerceanalytics_add_to_cart', array(), true );
+		WC_Analytics_Tracking::get_properties( 'poocommerceanalytics_product_view', array(), false );
 
-		remove_filter( 'jetpack_woocommerce_analytics_event_props', $callback, 10 );
+		remove_filter( 'jetpack_poocommerce_analytics_event_props', $callback, 10 );
 
 		$this->assertSame(
 			array(
-				array( 'woocommerceanalytics_add_to_cart', true ),
-				array( 'woocommerceanalytics_product_view', false ),
+				array( 'poocommerceanalytics_add_to_cart', true ),
+				array( 'poocommerceanalytics_product_view', false ),
 			),
 			$seen
 		);
@@ -393,21 +393,21 @@ class WC_Analytics_Tracking_Reserved_Props_Test extends BaseTestCase {
 	 * Reassert server-owned values after filters run on client properties.
 	 */
 	public function test_filter_callback_cannot_hand_a_reserved_property_back_to_the_client(): void {
-		update_option( 'woocommerce_store_id', 'real-store-id' );
+		update_option( 'poocommerce_store_id', 'real-store-id' );
 
 		$callback = function ( $props ) {
 			$props['store_id'] = isset( $props['store_id'] ) ? $props['store_id'] : 'unused';
 			return $props;
 		};
-		add_filter( 'jetpack_woocommerce_analytics_event_props', $callback );
+		add_filter( 'jetpack_poocommerce_analytics_event_props', $callback );
 
 		$props = WC_Analytics_Tracking::get_properties(
-			'woocommerceanalytics_add_to_cart',
+			'poocommerceanalytics_add_to_cart',
 			array( 'store_id' => 'someone-elses-store' ),
 			true
 		);
 
-		remove_filter( 'jetpack_woocommerce_analytics_event_props', $callback );
+		remove_filter( 'jetpack_poocommerce_analytics_event_props', $callback );
 
 		$this->assertSame( 'real-store-id', $props['store_id'] );
 	}
@@ -416,10 +416,10 @@ class WC_Analytics_Tracking_Reserved_Props_Test extends BaseTestCase {
 	 * Allow trusted callers to override common properties.
 	 */
 	public function test_reserved_properties_are_not_re_asserted_for_trusted_callers(): void {
-		update_option( 'woocommerce_store_id', 'real-store-id' );
+		update_option( 'poocommerce_store_id', 'real-store-id' );
 
 		$props = WC_Analytics_Tracking::get_properties(
-			'woocommerceanalytics_add_to_cart',
+			'poocommerceanalytics_add_to_cart',
 			array( 'store_id' => 'set-by-trusted-caller' ),
 			false
 		);
@@ -497,7 +497,7 @@ class WC_Analytics_Tracking_Reserved_Props_Test extends BaseTestCase {
 
 		$this->assertCount( WC_Analytics_Tracking::MAX_CLIENT_ARRAY_MEMBERS, $sanitized['pc'] );
 
-		$props = WC_Analytics_Tracking::get_properties( 'woocommerceanalytics_product_view', $sanitized, true );
+		$props = WC_Analytics_Tracking::get_properties( 'poocommerceanalytics_product_view', $sanitized, true );
 
 		$this->assertLessThan(
 			2000,
@@ -513,7 +513,7 @@ class WC_Analytics_Tracking_Reserved_Props_Test extends BaseTestCase {
 		$members = array_fill( 0, WC_Analytics_Tracking::MAX_CLIENT_ARRAY_MEMBERS + 5, 'a' );
 
 		$sanitized = WC_Analytics_Tracking::sanitize_client_properties( array( 'pc' => $members ) );
-		$props     = WC_Analytics_Tracking::get_properties( 'woocommerceanalytics_product_view', $sanitized, true );
+		$props     = WC_Analytics_Tracking::get_properties( 'poocommerceanalytics_product_view', $sanitized, true );
 
 		$this->assertSame(
 			rawurlencode( implode( ',', array_fill( 0, WC_Analytics_Tracking::MAX_CLIENT_ARRAY_MEMBERS, 'a' ) ) ),
@@ -536,7 +536,7 @@ class WC_Analytics_Tracking_Reserved_Props_Test extends BaseTestCase {
 
 		// Verify the final URL, not just the budget constant.
 		$_COOKIE['tk_ai'] = 'test-visitor-id-1234567890ab';
-		$props            = WC_Analytics_Tracking::get_properties( 'woocommerceanalytics_product_view', $sanitized, true );
+		$props            = WC_Analytics_Tracking::get_properties( 'poocommerceanalytics_product_view', $sanitized, true );
 
 		$this->assertLessThanOrEqual(
 			WC_Analytics_Tracking::MAX_PIXEL_URL_LENGTH,
@@ -588,7 +588,7 @@ class WC_Analytics_Tracking_Reserved_Props_Test extends BaseTestCase {
 		}
 
 		$sanitized = WC_Analytics_Tracking::sanitize_client_properties( $properties );
-		$props     = WC_Analytics_Tracking::get_properties( 'woocommerceanalytics_product_view', $sanitized, true );
+		$props     = WC_Analytics_Tracking::get_properties( 'poocommerceanalytics_product_view', $sanitized, true );
 
 		$this->assertLessThanOrEqual(
 			WC_Analytics_Tracking::MAX_PIXEL_URL_LENGTH,
@@ -833,7 +833,7 @@ class WC_Analytics_Tracking_Reserved_Props_Test extends BaseTestCase {
 	 */
 	public function test_a_non_scalar_session_value_writes_no_warning(): void {
 		$_COOKIE['tk_ai']                        = 'test-visitor-id-1234567890ab';
-		$_COOKIE['woocommerceanalytics_session'] = wp_slash(
+		$_COOKIE['poocommerceanalytics_session'] = wp_slash(
 			(string) wp_json_encode( array( 'is_engaged' => array( array( 'nested' ) ) ) )
 		);
 
@@ -856,7 +856,7 @@ class WC_Analytics_Tracking_Reserved_Props_Test extends BaseTestCase {
 	public function test_an_oversized_landing_page_stays_valid_json(): void {
 		$trail = array_fill( 0, 200, 'Category' );
 
-		$_COOKIE['woocommerceanalytics_session'] = wp_slash(
+		$_COOKIE['poocommerceanalytics_session'] = wp_slash(
 			(string) wp_json_encode( array( 'landing_page' => wp_json_encode( $trail ) ) )
 		);
 
@@ -922,7 +922,7 @@ class WC_Analytics_Tracking_Reserved_Props_Test extends BaseTestCase {
 	 */
 	public function test_mu_plugin_template_stays_in_step_with_the_package(): void {
 		$template = file_get_contents(
-			dirname( __DIR__, 2 ) . '/src/mu-plugin/woocommerce-analytics-proxy-speed-module-template.php'
+			dirname( __DIR__, 2 ) . '/src/mu-plugin/poocommerce-analytics-proxy-speed-module-template.php'
 		);
 
 		$this->assertStringContainsString(

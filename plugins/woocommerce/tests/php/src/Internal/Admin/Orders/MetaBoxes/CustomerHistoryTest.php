@@ -1,15 +1,15 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\Orders\MetaBoxes;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\Orders\MetaBoxes;
 
-use Automattic\WooCommerce\Admin\API\Reports\Customers\DataStore as CustomersDataStore;
-use Automattic\WooCommerce\Admin\API\Reports\Orders\Stats\DataStore as OrdersStatsDataStore;
-use Automattic\WooCommerce\Admin\Overrides\Order as AdminOrder;
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Internal\Admin\Orders\MetaBoxes\CustomerHistory;
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Admin\API\Reports\Customers\DataStore as CustomersDataStore;
+use Automattic\PooCommerce\Admin\API\Reports\Orders\Stats\DataStore as OrdersStatsDataStore;
+use Automattic\PooCommerce\Admin\Overrides\Order as AdminOrder;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Internal\Admin\Orders\MetaBoxes\CustomerHistory;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 use WC_Helper_Order;
 use WC_Unit_Test_Case;
 
@@ -102,7 +102,7 @@ class CustomerHistoryTest extends WC_Unit_Test_Case {
 			$this->restore_hpos_after_test = false;
 		}
 
-		delete_option( 'woocommerce_excluded_report_order_statuses' );
+		delete_option( 'poocommerce_excluded_report_order_statuses' );
 		foreach ( $this->added_filters as $added_filter ) {
 			remove_filter( $added_filter[0], $added_filter[1] );
 		}
@@ -112,7 +112,7 @@ class CustomerHistoryTest extends WC_Unit_Test_Case {
 			unset( $GLOBALS['wp_post_statuses']['wc-competition-completed'] );
 			$this->add_long_status_callback = null;
 		}
-		remove_filter( 'woocommerce_order_class', array( AdminOrder::class, 'order_class_name' ) );
+		remove_filter( 'poocommerce_order_class', array( AdminOrder::class, 'order_class_name' ) );
 		remove_filter( 'wc_allow_changing_orders_storage_while_sync_is_pending', '__return_true' );
 		parent::tearDown();
 	}
@@ -260,7 +260,7 @@ class CustomerHistoryTest extends WC_Unit_Test_Case {
 	public function test_excluded_long_custom_status_not_counted(): void {
 		list( $order_good, $long_status ) = $this->create_orders_with_long_custom_status();
 
-		update_option( 'woocommerce_excluded_report_order_statuses', array( 'pending', 'failed', 'cancelled', $long_status ) );
+		update_option( 'poocommerce_excluded_report_order_statuses', array( 'pending', 'failed', 'cancelled', $long_status ) );
 
 		ob_start();
 		$this->sut->output( $order_good );
@@ -509,7 +509,7 @@ class CustomerHistoryTest extends WC_Unit_Test_Case {
 	 */
 	public function test_tooltip_falls_back_when_default_excluded_statuses_filter_returns_non_array(): void {
 		OrderHelper::toggle_cot_feature_and_usage( true );
-		add_filter( 'woocommerce_analytics_settings_default_excluded_order_statuses', '__return_false' );
+		add_filter( 'poocommerce_analytics_settings_default_excluded_order_statuses', '__return_false' );
 
 		$customer_id = $this->factory->user->create();
 
@@ -521,7 +521,7 @@ class CustomerHistoryTest extends WC_Unit_Test_Case {
 		$this->sut->output( $order );
 		$output = ob_get_clean();
 
-		remove_filter( 'woocommerce_analytics_settings_default_excluded_order_statuses', '__return_false' );
+		remove_filter( 'poocommerce_analytics_settings_default_excluded_order_statuses', '__return_false' );
 
 		$this->assertStringContainsString( 'pending payment', $output, 'Tooltip should still mention "pending payment"' );
 		$this->assertStringContainsString( 'failed', $output, 'Tooltip should still mention "failed"' );
@@ -532,7 +532,7 @@ class CustomerHistoryTest extends WC_Unit_Test_Case {
 	 * @testdox Tooltip should reflect a custom status added by the default-statuses filter when the option was never saved.
 	 */
 	public function test_tooltip_reflects_default_excluded_statuses_filter(): void {
-		delete_option( 'woocommerce_excluded_report_order_statuses' );
+		delete_option( 'poocommerce_excluded_report_order_statuses' );
 		$add_label  = function ( $statuses ) {
 			$statuses['wc-custom-excluded'] = 'Custom Excluded';
 			return $statuses;
@@ -542,9 +542,9 @@ class CustomerHistoryTest extends WC_Unit_Test_Case {
 			return $statuses;
 		};
 		add_filter( 'wc_order_statuses', $add_label );
-		add_filter( 'woocommerce_analytics_settings_default_excluded_order_statuses', $add_custom );
+		add_filter( 'poocommerce_analytics_settings_default_excluded_order_statuses', $add_custom );
 		$this->added_filters[] = array( 'wc_order_statuses', $add_label );
-		$this->added_filters[] = array( 'woocommerce_analytics_settings_default_excluded_order_statuses', $add_custom );
+		$this->added_filters[] = array( 'poocommerce_analytics_settings_default_excluded_order_statuses', $add_custom );
 
 		$customer_id = $this->factory->user->create();
 
@@ -563,7 +563,7 @@ class CustomerHistoryTest extends WC_Unit_Test_Case {
 	 * @testdox Tooltip should reflect custom excluded statuses option.
 	 */
 	public function test_tooltip_reflects_custom_option(): void {
-		update_option( 'woocommerce_excluded_report_order_statuses', array( 'cancelled' ) );
+		update_option( 'poocommerce_excluded_report_order_statuses', array( 'cancelled' ) );
 
 		$customer_id = $this->factory->user->create();
 
@@ -575,7 +575,7 @@ class CustomerHistoryTest extends WC_Unit_Test_Case {
 		$this->sut->output( $order );
 		$output = ob_get_clean();
 
-		delete_option( 'woocommerce_excluded_report_order_statuses' );
+		delete_option( 'poocommerce_excluded_report_order_statuses' );
 
 		$this->assertStringContainsString( 'cancelled', $output, 'Tooltip should mention "cancelled"' );
 		$this->assertStringNotContainsString( 'pending payment', $output, 'Tooltip should not mention "pending payment"' );
@@ -590,7 +590,7 @@ class CustomerHistoryTest extends WC_Unit_Test_Case {
 			$statuses[] = 'on-hold';
 			return $statuses;
 		};
-		add_filter( 'woocommerce_analytics_excluded_order_statuses', $add_on_hold );
+		add_filter( 'poocommerce_analytics_excluded_order_statuses', $add_on_hold );
 
 		$customer_id = $this->factory->user->create();
 
@@ -602,7 +602,7 @@ class CustomerHistoryTest extends WC_Unit_Test_Case {
 		$this->sut->output( $order );
 		$output = ob_get_clean();
 
-		remove_filter( 'woocommerce_analytics_excluded_order_statuses', $add_on_hold );
+		remove_filter( 'poocommerce_analytics_excluded_order_statuses', $add_on_hold );
 
 		$this->assertStringContainsString( 'on hold', $output, 'Tooltip should mention "on hold"' );
 	}
@@ -633,7 +633,7 @@ class CustomerHistoryTest extends WC_Unit_Test_Case {
 			$statuses[] = 'checkout-draft';
 			return $statuses;
 		};
-		add_filter( 'woocommerce_analytics_excluded_order_statuses', $add_checkout_draft );
+		add_filter( 'poocommerce_analytics_excluded_order_statuses', $add_checkout_draft );
 
 		$customer_id = $this->factory->user->create();
 
@@ -645,7 +645,7 @@ class CustomerHistoryTest extends WC_Unit_Test_Case {
 		$this->sut->output( $order );
 		$output = ob_get_clean();
 
-		remove_filter( 'woocommerce_analytics_excluded_order_statuses', $add_checkout_draft );
+		remove_filter( 'poocommerce_analytics_excluded_order_statuses', $add_checkout_draft );
 
 		$this->assertStringNotContainsString( 'draft', $output, 'Tooltip should not mention "draft" for checkout-draft status' );
 	}
@@ -654,7 +654,7 @@ class CustomerHistoryTest extends WC_Unit_Test_Case {
 	 * @testdox Tooltip should show generic message when all statuses are removed from exclusion.
 	 */
 	public function test_tooltip_shows_no_exclusion_message_when_all_statuses_removed(): void {
-		add_filter( 'woocommerce_analytics_excluded_order_statuses', '__return_empty_array' );
+		add_filter( 'poocommerce_analytics_excluded_order_statuses', '__return_empty_array' );
 
 		$customer_id = $this->factory->user->create();
 
@@ -666,7 +666,7 @@ class CustomerHistoryTest extends WC_Unit_Test_Case {
 		$this->sut->output( $order );
 		$output = ob_get_clean();
 
-		remove_filter( 'woocommerce_analytics_excluded_order_statuses', '__return_empty_array' );
+		remove_filter( 'poocommerce_analytics_excluded_order_statuses', '__return_empty_array' );
 
 		$this->assertStringContainsString( 'Total number of orders for this customer, including the current one.', $output, 'Tooltip should use the no-exclusions fallback string' );
 		$this->assertStringNotContainsString( 'excluding', $output, 'Tooltip should not mention "excluding"' );
@@ -682,7 +682,7 @@ class CustomerHistoryTest extends WC_Unit_Test_Case {
 
 		// Register the Override\Order class so wc_get_order() returns an instance
 		// with get_report_customer_id(), which the CPT path requires.
-		\Automattic\WooCommerce\Admin\Overrides\Order::add_filters();
+		\Automattic\PooCommerce\Admin\Overrides\Order::add_filters();
 
 		$customer_id = $this->factory->user->create();
 
@@ -700,7 +700,7 @@ class CustomerHistoryTest extends WC_Unit_Test_Case {
 		$this->sut->output( $override_order );
 		$output = ob_get_clean();
 
-		remove_filter( 'woocommerce_order_class', array( \Automattic\WooCommerce\Admin\Overrides\Order::class, 'order_class_name' ) );
+		remove_filter( 'poocommerce_order_class', array( \Automattic\PooCommerce\Admin\Overrides\Order::class, 'order_class_name' ) );
 
 		$this->assertStringContainsString( 'order-attribution-total-orders', $output, 'Should render the metabox template' );
 		$this->assertMatchesRegularExpression( '/order-attribution-total-orders">\s*1\s*</', $output, 'Should show 1 order from analytics data' );
@@ -730,7 +730,7 @@ class CustomerHistoryTest extends WC_Unit_Test_Case {
 		$inject_logger = function () use ( $logger ) {
 			return $logger;
 		};
-		add_filter( 'woocommerce_logging_class', $inject_logger );
+		add_filter( 'poocommerce_logging_class', $inject_logger );
 
 		$this->assertInstanceOf( \WC_Order::class, $order, 'Test should pass a base order to the metabox' );
 		$this->assertNotInstanceOf( AdminOrder::class, $order, 'Test should not pass the admin override order to the metabox' );
@@ -740,7 +740,7 @@ class CustomerHistoryTest extends WC_Unit_Test_Case {
 			$this->sut->output( $order );
 			$output = ob_get_clean();
 		} finally {
-			remove_filter( 'woocommerce_logging_class', $inject_logger );
+			remove_filter( 'poocommerce_logging_class', $inject_logger );
 		}
 
 		$this->assertStringContainsString( 'order-attribution-total-orders', $output, 'Should render the metabox template' );
@@ -772,7 +772,7 @@ class CustomerHistoryTest extends WC_Unit_Test_Case {
 		$callback           = static function () use ( &$new_customer_fired ) {
 			++$new_customer_fired;
 		};
-		add_action( 'woocommerce_analytics_new_customer', $callback );
+		add_action( 'poocommerce_analytics_new_customer', $callback );
 
 		try {
 			ob_start();
@@ -793,7 +793,7 @@ class CustomerHistoryTest extends WC_Unit_Test_Case {
 			// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table name is provided by the data store.
 			$customers_after_import = (int) $wpdb->get_var( "SELECT COUNT(*) FROM {$customer_lookup_table}" );
 		} finally {
-			remove_action( 'woocommerce_analytics_new_customer', $callback );
+			remove_action( 'poocommerce_analytics_new_customer', $callback );
 		}
 
 		$this->assertStringContainsString( 'order-attribution-total-orders', $output, 'Should render the metabox template.' );

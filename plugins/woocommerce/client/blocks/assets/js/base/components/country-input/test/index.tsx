@@ -4,7 +4,7 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { useState } from '@wordpress/element';
-import { allSettings } from '@woocommerce/settings';
+import { allSettings } from '@poocommerce/settings';
 
 /**
  * Internal dependencies

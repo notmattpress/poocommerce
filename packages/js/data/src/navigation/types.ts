@@ -1,9 +1,9 @@
 /**
  * External dependencies
  */
-import { getPersistedQuery } from '@woocommerce/navigation';
+import { getPersistedQuery } from '@poocommerce/navigation';
 
-// https://github.com/woocommerce/woocommerce/blob/ecec9eaa76cb7b2e36f79175837b71f4f64996b1/plugins/woocommerce/src/Admin/Features/Navigation/Menu.php
+// https://github.com/poocommerce/poocommerce/blob/ecec9eaa76cb7b2e36f79175837b71f4f64996b1/plugins/poocommerce/src/Admin/Features/Navigation/Menu.php
 export type MenuItem = {
 	id: string;
 	title: string;

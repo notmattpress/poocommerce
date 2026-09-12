@@ -2,20 +2,20 @@
 /**
  * Customer review request email
  *
- * This template can be overridden by copying it to yourtheme/woocommerce/emails/customer-review-request.php.
+ * This template can be overridden by copying it to yourtheme/poocommerce/emails/customer-review-request.php.
  *
- * HOWEVER, on occasion WooCommerce will need to update template files and you
+ * HOWEVER, on occasion PooCommerce will need to update template files and you
  * (the theme developer) will need to copy the new files to your theme to
  * maintain compatibility. We try to do this as little as possible, but it does
  * happen. When this occurs the version of the template file will be bumped and
  * the readme will list any important changes.
  *
- * @see https://woocommerce.com/document/template-structure/
- * @package WooCommerce\Templates\Emails
+ * @see https://poocommerce.com/document/template-structure/
+ * @package PooCommerce\Templates\Emails
  * @version 10.8.0
  */
 
-use Automattic\WooCommerce\Utilities\FeaturesUtil;
+use Automattic\PooCommerce\Utilities\FeaturesUtil;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 $email_improvements_enabled = FeaturesUtil::feature_is_enabled( 'email_improvements' );
 
 /**
- * Hook for the woocommerce_email_header.
+ * Hook for the poocommerce_email_header.
  *
  * @param string   $email_heading The email heading.
  * @param WC_Email $email         The email object.
@@ -32,25 +32,25 @@ $email_improvements_enabled = FeaturesUtil::feature_is_enabled( 'email_improveme
  *
  * @hooked WC_Emails::email_header() Output the email header
  */
-do_action( 'woocommerce_email_header', $email_heading, $email ); ?>
+do_action( 'poocommerce_email_header', $email_heading, $email ); ?>
 
 <?php echo $email_improvements_enabled ? '<div class="email-introduction">' : ''; ?>
 <p>
 <?php
 if ( ! empty( $order->get_billing_first_name() ) ) {
 	/* translators: %s: Customer first name */
-	printf( esc_html__( 'Hi %s,', 'woocommerce' ), esc_html( $order->get_billing_first_name() ) );
+	printf( esc_html__( 'Hi %s,', 'poocommerce' ), esc_html( $order->get_billing_first_name() ) );
 } else {
-	printf( esc_html__( 'Hi,', 'woocommerce' ) );
+	printf( esc_html__( 'Hi,', 'poocommerce' ) );
 }
 ?>
 </p>
 
-<p><?php esc_html_e( 'We’d love to know what you thought of the products you ordered. Your review helps other shoppers make better decisions and helps us improve.', 'woocommerce' ); ?></p>
+<p><?php esc_html_e( 'We’d love to know what you thought of the products you ordered. Your review helps other shoppers make better decisions and helps us improve.', 'poocommerce' ); ?></p>
 
 <?php if ( ! empty( $review_order_url ) ) : ?>
 <p>
-	<a href="<?php echo esc_url( $review_order_url ); ?>"><?php esc_html_e( 'Leave a review', 'woocommerce' ); ?></a>
+	<a href="<?php echo esc_url( $review_order_url ); ?>"><?php esc_html_e( 'Leave a review', 'poocommerce' ); ?></a>
 </p>
 <?php endif; ?>
 <?php echo $email_improvements_enabled ? '</div>' : ''; ?>
@@ -61,7 +61,7 @@ if ( ! empty( $order->get_billing_first_name() ) ) {
 	$date_created = $order->get_date_created();
 	printf(
 	/* translators: 1: order number, 2: order date */
-		esc_html__( 'Order #%1$s (%2$s)', 'woocommerce' ),
+		esc_html__( 'Order #%1$s (%2$s)', 'poocommerce' ),
 		esc_html( $order->get_order_number() ),
 		esc_html( $date_created ? wc_format_datetime( $date_created ) : '' )
 	);
@@ -80,11 +80,11 @@ if ( $additional_content ) {
 }
 
 /**
- * Hook for the woocommerce_email_footer.
+ * Hook for the poocommerce_email_footer.
  *
  * @param WC_Email $email The email object.
  * @since 2.5.0
  *
  * @hooked WC_Emails::email_footer() Output the email footer
  */
-do_action( 'woocommerce_email_footer', $email );
+do_action( 'poocommerce_email_footer', $email );

@@ -2,7 +2,7 @@
 /**
  * Tests for wc_get_default_shipping_method_for_package().
  *
- * @package WooCommerce\Tests\Includes
+ * @package PooCommerce\Tests\Includes
  */
 
 declare( strict_types = 1 );
@@ -44,7 +44,7 @@ class WC_Cart_Default_Shipping_Method_Test extends WC_Unit_Test_Case {
 	 */
 	public function tearDown(): void {
 		$this->zone->delete( true );
-		update_option( 'woocommerce_shipping_cost_requires_address', 'no' );
+		update_option( 'poocommerce_shipping_cost_requires_address', 'no' );
 		WC()->cart->cart_context = 'shortcode';
 		parent::tearDown();
 	}
@@ -80,7 +80,7 @@ class WC_Cart_Default_Shipping_Method_Test extends WC_Unit_Test_Case {
 	 * @testdox Returns empty string when only pickup rates remain and hide-shipping-costs is enabled with no address.
 	 */
 	public function test_returns_empty_when_only_pickup_and_no_address(): void {
-		update_option( 'woocommerce_shipping_cost_requires_address', 'yes' );
+		update_option( 'poocommerce_shipping_cost_requires_address', 'yes' );
 		$this->clear_customer_address();
 
 		$package = $this->build_package( array( 'local_pickup:1' ) );
@@ -95,7 +95,7 @@ class WC_Cart_Default_Shipping_Method_Test extends WC_Unit_Test_Case {
 	 * @testdox Returns a shipping rate when both shipping and pickup rates exist.
 	 */
 	public function test_returns_shipping_rate_when_shipping_and_pickup_available(): void {
-		update_option( 'woocommerce_shipping_cost_requires_address', 'yes' );
+		update_option( 'poocommerce_shipping_cost_requires_address', 'yes' );
 		$this->clear_customer_address();
 
 		$package = $this->build_package( array( 'flat_rate:1', 'local_pickup:1' ) );
@@ -110,7 +110,7 @@ class WC_Cart_Default_Shipping_Method_Test extends WC_Unit_Test_Case {
 	 * @testdox Returns shipping rate when hide-shipping-costs is enabled but customer has a full address.
 	 */
 	public function test_returns_shipping_rate_when_setting_enabled_and_address_complete(): void {
-		update_option( 'woocommerce_shipping_cost_requires_address', 'yes' );
+		update_option( 'poocommerce_shipping_cost_requires_address', 'yes' );
 		WC()->customer->set_shipping_country( 'US' );
 		WC()->customer->set_shipping_state( 'CA' );
 		WC()->customer->set_shipping_postcode( '90210' );
@@ -128,7 +128,7 @@ class WC_Cart_Default_Shipping_Method_Test extends WC_Unit_Test_Case {
 	 * @testdox Preserves local pickup when it was previously chosen by the customer.
 	 */
 	public function test_preserves_chosen_local_pickup(): void {
-		update_option( 'woocommerce_shipping_cost_requires_address', 'no' );
+		update_option( 'poocommerce_shipping_cost_requires_address', 'no' );
 
 		$package = $this->build_package( array( 'flat_rate:1', 'local_pickup:1' ) );
 		$result  = wc_get_default_shipping_method_for_package( 0, $package, 'local_pickup:1' );
@@ -143,7 +143,7 @@ class WC_Cart_Default_Shipping_Method_Test extends WC_Unit_Test_Case {
 	 */
 	public function test_shortcode_context_unaffected(): void {
 		WC()->cart->cart_context = 'shortcode';
-		update_option( 'woocommerce_shipping_cost_requires_address', 'yes' );
+		update_option( 'poocommerce_shipping_cost_requires_address', 'yes' );
 		$this->clear_customer_address();
 
 		$package = $this->build_package( array( 'local_pickup:1' ) );

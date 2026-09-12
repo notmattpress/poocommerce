@@ -1,6 +1,6 @@
 <?php
 
-namespace Automattic\WooCommerce\Vendor\Sabberworm\CSS\Property;
+namespace Automattic\PooCommerce\Vendor\Sabberworm\CSS\Property;
 
 /**
  * Class representing a single CSS selector. Selectors have to be split by the comma prior to being passed into this

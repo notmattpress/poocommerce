@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { WC_API_PATH } from '@woocommerce/e2e-utils-playwright';
+import { WC_API_PATH } from '@poocommerce/e2e-utils-playwright';
 import type { Page } from '@playwright/test';
 
 /**
@@ -47,7 +47,7 @@ async function expectProductImageHelpTipNextTo(
 	// that DOM adjacency directly instead of comparing rendered coordinates,
 	// which vary with the platform font stack.
 	const helpTip = productImageBox.locator(
-		`#${ actionId } + .woocommerce-product-image-help-tip`
+		`#${ actionId } + .poocommerce-product-image-help-tip`
 	);
 
 	await expect( action ).toBeVisible();
@@ -143,7 +143,7 @@ test.describe( 'Products > Product Images', () => {
 		await addImageFromLibrary( page, 'image-02', 'Set product image' );
 		await expectProductImageHelpTipNextTo( page, 'Remove product image' );
 		await expect(
-			page.locator( '.woocommerce-product-image-help-tip' )
+			page.locator( '.poocommerce-product-image-help-tip' )
 		).toHaveCount( 1 );
 	} );
 
@@ -329,7 +329,7 @@ test.describe( 'Products > Product Images', () => {
 			await page.goto( productWithImage.permalink );
 			await expect(
 				page
-					.locator( `.woocommerce-product-gallery ol img` )
+					.locator( `.poocommerce-product-gallery ol img` )
 					.nth( images.length ),
 				'all gallery images should be visible'
 			).toBeVisible(); // +1 for the featured image
@@ -375,7 +375,7 @@ test.describe( 'Products > Product Images', () => {
 		await test.step( 'Verify product gallery', async () => {
 			// Verify gallery in store frontend
 			await page.goto( productWithGallery.permalink );
-			const selector = `.woocommerce-product-gallery ol img`;
+			const selector = `.poocommerce-product-gallery ol img`;
 			await expect(
 				page.locator( selector ).nth( imagesCount - 1 ),
 				'gallery images should be visible'

@@ -1,5 +1,5 @@
-# WooCommerce Dashboard
-The new dashboard in WooCommerce has been designed to allow you to keep track of the statistics and data that matter most to your site. Each section of the dashboard can be fully customized to meet the needs of your store, and also act as launching points to dive deeper into other Analytics Reports.
+# PooCommerce Dashboard
+The new dashboard in PooCommerce has been designed to allow you to keep track of the statistics and data that matter most to your site. Each section of the dashboard can be fully customized to meet the needs of your store, and also act as launching points to dive deeper into other Analytics Reports.
 
 The dashboard is comprised of three sections: Performance Indicators, Charts, and Leaderboards. The data presented in these sections are controlled by the Date Picker which appears at the top of the page. This lets you quickly look at data for a number of preset date ranges like week, month, quarter, and year to date, or to select a specific date range to view.
 
@@ -67,7 +67,7 @@ The charts section has a control which allows you to set the time interval to di
 | 1 day | 'day', 'hour' |
 
 ### Chart Type Option
-The last way you can customize the appearance of the charts is the ability to toggle between Line and Bar charts. Your selection chosen here will be saved to your user options and used on subsequent visits to the WooCommerce Dashboard.
+The last way you can customize the appearance of the charts is the ability to toggle between Line and Bar charts. Your selection chosen here will be saved to your user options and used on subsequent visits to the PooCommerce Dashboard.
 
 ## Leaderboard Section
 The final section on the Dashboard allows you to view four different "Leaderboards" for your store's statistics. Like the other two sections, you can also toggle the visibility of the leaderboards via the customization menu. By default you have the following four Leaderboards to choose from:

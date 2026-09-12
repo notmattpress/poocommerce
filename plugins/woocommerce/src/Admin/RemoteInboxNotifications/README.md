@@ -1,6 +1,6 @@
 # Remote Inbox Notifications
 
-This is a remote inbox notifications engine in WooCommerce admin, which polls some JSON feeds (see `DataSourcePoller.php`) containing specifications of remote inbox notifications, including rules that, when satisfied, display the notification in the WooCommerce Admin screens.
+This is a remote inbox notifications engine in PooCommerce admin, which polls some JSON feeds (see `DataSourcePoller.php`) containing specifications of remote inbox notifications, including rules that, when satisfied, display the notification in the PooCommerce Admin screens.
 
 The interesting entry points are the poller (`DataSourcePoller.php`) which fetches the rule specifications from a number of feeds, and the engine (`RemoteInboxNotificationsEngine.php`), both of which run daily as part of the `wc-admin-daily` cron task.
 

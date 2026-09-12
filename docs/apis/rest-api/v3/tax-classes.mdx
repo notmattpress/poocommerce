@@ -45,7 +45,7 @@ const data = {
 	name: 'Zero Rate',
 };
 
-WooCommerce.post( 'taxes/classes', data )
+PooCommerce.post( 'taxes/classes', data )
 	.then( ( response ) => {
 		console.log( response.data );
 	} )
@@ -63,7 +63,7 @@ $data = [
     'name' => 'Zero Rate'
 ];
 
-print_r($woocommerce->post('taxes/classes', $data));
+print_r($poocommerce->post('taxes/classes', $data));
 ?>
 ```
 
@@ -86,7 +86,7 @@ data = {
   name: "Zero Rate"
 }
 
-woocommerce.post("taxes/classes", data).parsed_response
+poocommerce.post("taxes/classes", data).parsed_response
 ```
 
   </TabItem>
@@ -129,7 +129,7 @@ curl https://example.com/wp-json/wc/v3/taxes/classes \
   <TabItem value="js" label="JavaScript">
 
 ```javascript
-WooCommerce.get( 'taxes/classes' )
+PooCommerce.get( 'taxes/classes' )
 	.then( ( response ) => {
 		console.log( response.data );
 	} )
@@ -142,7 +142,7 @@ WooCommerce.get( 'taxes/classes' )
   <TabItem value="php" label="PHP">
 
 ```php
-<?php print_r($woocommerce->get('taxes/classes')); ?>
+<?php print_r($poocommerce->get('taxes/classes')); ?>
 ```
 
   </TabItem>
@@ -156,7 +156,7 @@ print(wcapi.get("taxes/classes").json())
   <TabItem value="ruby" label="Ruby">
 
 ```ruby
-woocommerce.get("taxes/classes").parsed_response
+poocommerce.get("taxes/classes").parsed_response
 ```
 
   </TabItem>
@@ -227,7 +227,7 @@ curl -X DELETE https://example.com/wp-json/wc/v3/taxes/classes/zero-rate?force=t
   <TabItem value="js" label="JavaScript">
 
 ```javascript
-WooCommerce.delete( 'taxes/classes/zero-rate', {
+PooCommerce.delete( 'taxes/classes/zero-rate', {
 	force: true,
 } )
 	.then( ( response ) => {
@@ -242,7 +242,7 @@ WooCommerce.delete( 'taxes/classes/zero-rate', {
   <TabItem value="php" label="PHP">
 
 ```php
-<?php print_r($woocommerce->delete('taxes/classes/zero-rate', ['force' => true])); ?>
+<?php print_r($poocommerce->delete('taxes/classes/zero-rate', ['force' => true])); ?>
 ```
 
   </TabItem>
@@ -256,7 +256,7 @@ print(wcapi.delete("taxes/classes/zero-rate", params={"force": True}).json())
   <TabItem value="ruby" label="Ruby">
 
 ```ruby
-woocommerce.delete("taxes/classes/zero-rate", force: true).parsed_response
+poocommerce.delete("taxes/classes/zero-rate", force: true).parsed_response
 ```
 
   </TabItem>

@@ -17,16 +17,16 @@
  *
  * WordPress-free by construction: `$now` is passed in.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine\Integration\Renewal
+ * @package Automattic\PooCommerce\SubscriptionsEngine\Integration\Renewal
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Integration\Renewal;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Integration\Renewal;
 
 use DateTimeImmutable;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\CycleStatus;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage\RenewalCandidate;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\CycleStatus;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage\RenewalCandidate;
 
 defined( 'ABSPATH' ) || exit;
 

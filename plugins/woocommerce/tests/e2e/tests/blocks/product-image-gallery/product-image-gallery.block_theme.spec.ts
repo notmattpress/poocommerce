@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { devices } from '@playwright/test';
-import { test, expect, BLOCK_THEME_SLUG } from '@woocommerce/e2e-utils';
+import { test, expect, BLOCK_THEME_SLUG } from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -10,7 +10,7 @@ import { test, expect, BLOCK_THEME_SLUG } from '@woocommerce/e2e-utils';
 import AddToCartWithOptionsPage from '../add-to-cart-with-options/add-to-cart-with-options.page';
 
 const blockData = {
-	name: 'woocommerce/product-image-gallery',
+	name: 'poocommerce/product-image-gallery',
 	productPage: '/product/hoodie/',
 };
 
@@ -104,7 +104,7 @@ test.describe( `${ blockData.name } frontend`, () => {
 	} ) => {
 		await page.goto( blockData.productPage );
 
-		const gallery = page.locator( '.woocommerce-product-gallery' );
+		const gallery = page.locator( '.poocommerce-product-gallery' );
 		const viewport = page.locator( '.flex-viewport' );
 		const thumbnails = page.locator(
 			'.flex-control-nav.flex-control-thumbs img'

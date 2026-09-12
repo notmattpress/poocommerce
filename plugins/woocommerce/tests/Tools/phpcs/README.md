@@ -1,15 +1,15 @@
 # Local PHPCS sniffs
 
-Custom PHP_CodeSniffer sniffs for WooCommerce Core that are not part of the shared
-[`woocommerce/woocommerce-sniffs`](https://github.com/woocommerce/woocommerce-sniffs)
-package. They live here (rather than in `WooCommerce-Core`) so they can ship and evolve
+Custom PHP_CodeSniffer sniffs for PooCommerce Core that are not part of the shared
+[`poocommerce/poocommerce-sniffs`](https://github.com/poocommerce/poocommerce-sniffs)
+package. They live here (rather than in `PooCommerce-Core`) so they can ship and evolve
 with the codebase they guard.
 
-The sniffs are registered by relative path in `plugins/woocommerce/phpcs.xml`, and this
+The sniffs are registered by relative path in `plugins/poocommerce/phpcs.xml`, and this
 directory is excluded from being linted as product source (sniff classes must be named
-`XxxSniff.php`, which conflicts with the WooCommerce filename convention).
+`XxxSniff.php`, which conflicts with the PooCommerce filename convention).
 
-## `WooCommerceInternal.DB.IdentifierPlaceholder`
+## `PooCommerceInternal.DB.IdentifierPlaceholder`
 
 Flags the `%i` SQL identifier placeholder inside a `wpdb::prepare()` call when it is **not**
 guarded by `wpdb::has_cap( 'identifier_placeholders' )` in the same function.
@@ -43,14 +43,14 @@ user input.
 
 ### Verifying the sniff
 
-The fixture `WooCommerceInternal/Tests/DB/IdentifierPlaceholderUnitTest.inc` documents the
+The fixture `PooCommerceInternal/Tests/DB/IdentifierPlaceholderUnitTest.inc` documents the
 flagged and allowed cases. Run the sniff over it directly:
 
 ```sh
-cd plugins/woocommerce
+cd plugins/poocommerce
 bin/composer/phpcs/vendor/bin/phpcs -s \
-  --standard=tests/Tools/phpcs/WooCommerceInternal/ruleset.xml \
-  tests/Tools/phpcs/WooCommerceInternal/Tests/DB/IdentifierPlaceholderUnitTest.inc
+  --standard=tests/Tools/phpcs/PooCommerceInternal/ruleset.xml \
+  tests/Tools/phpcs/PooCommerceInternal/Tests/DB/IdentifierPlaceholderUnitTest.inc
 ```
 
 Only the two unguarded `%i` cases (cases 1 and 2) should be reported.

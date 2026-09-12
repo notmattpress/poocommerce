@@ -10,9 +10,9 @@ import {
 	store as blockEditorStore,
 } from '@wordpress/block-editor';
 import { useEffect, useRef } from '@wordpress/element';
-import { useProduct } from '@woocommerce/entities';
+import { useProduct } from '@poocommerce/entities';
 import type { BlockEditProps } from '@wordpress/blocks';
-import { ProductQueryContext as Context } from '@woocommerce/blocks/product-query/types';
+import { ProductQueryContext as Context } from '@poocommerce/blocks/product-query/types';
 import {
 	ToggleControl,
 	// eslint-disable-next-line @wordpress/no-unsafe-wp-apis
@@ -31,7 +31,7 @@ import { ImageSizeSettings } from './image-size-settings';
 
 const TEMPLATE = [
 	[
-		'woocommerce/product-sale-badge',
+		'poocommerce/product-sale-badge',
 		{
 			align: 'right',
 		},
@@ -63,7 +63,7 @@ const Edit = ( {
 				isInProductGallery:
 					select( blockEditorStore ).getBlockParentsByBlockName(
 						clientId,
-						'woocommerce/product-gallery'
+						'poocommerce/product-gallery'
 					).length > 0,
 			};
 		},
@@ -123,7 +123,7 @@ const Edit = ( {
 						setAttributes={ setAttributes }
 					/>
 					<ToolsPanel
-						label={ __( 'Content', 'woocommerce' ) }
+						label={ __( 'Content', 'poocommerce' ) }
 						resetAll={ () =>
 							setAttributes( {
 								showProductLink:
@@ -134,7 +134,7 @@ const Edit = ( {
 						<ToolsPanelItem
 							label={ __(
 								'Link to Product Page',
-								'woocommerce'
+								'poocommerce'
 							) }
 							hasValue={ () =>
 								showProductLink !==
@@ -152,11 +152,11 @@ const Edit = ( {
 								__nextHasNoMarginBottom
 								label={ __(
 									'Link to Product Page',
-									'woocommerce'
+									'poocommerce'
 								) }
 								help={ __(
 									'Links the image to the single product listing.',
-									'woocommerce'
+									'poocommerce'
 								) }
 								checked={ showProductLink }
 								onChange={ () =>

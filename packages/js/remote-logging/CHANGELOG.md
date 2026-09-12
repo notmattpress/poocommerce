@@ -2,7 +2,7 @@
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2.0.0](https://www.npmjs.com/package/@woocommerce/remote-logging/v/2.0.0) - 2026-06-11 
+## [2.0.0](https://www.npmjs.com/package/@poocommerce/remote-logging/v/2.0.0) - 2026-06-11 
 
 -   Major - Update @wordpress/* dependencies to WordPress 6.8 minimum. [#64114]
 -   Major - Updated declared dependencies to React 18 and WordPress 6.6. [#53531]
@@ -25,7 +25,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 -   Patch - Replaced wireit + tsc package build pipeline with a per-package esbuild script. [#65210]
 -   Patch - Update wireit to 0.14.10. [#54996]
 
-## [1.0.0](https://www.npmjs.com/package/@woocommerce/remote-logging/v/1.0.0) - 2024-09-09 
+## [1.0.0](https://www.npmjs.com/package/@poocommerce/remote-logging/v/1.0.0) - 2024-09-09 
 
 -   Patch - Fix wc asset url check [#50701]
 -   Minor - Add JS remote logging package [#49702]
@@ -38,4 +38,4 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 -   Patch - Fix pnpm version to 9.1.3 to avoid dependency installation issues. [#50828]
 -   Patch - Tweak logic for adding remote logging tool in beta tester [#50425]
 
-[See legacy changelogs for previous versions](https://github.com/woocommerce/woocommerce/blob/68581955106947918d2b17607a01bdfdf22288a9/packages/js/remote-logging/CHANGELOG.md).
+[See legacy changelogs for previous versions](https://github.com/poocommerce/poocommerce/blob/68581955106947918d2b17607a01bdfdf22288a9/packages/js/remote-logging/CHANGELOG.md).

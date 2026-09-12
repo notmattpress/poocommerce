@@ -2,13 +2,13 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\StockNotifications\Frontend;
+namespace Automattic\PooCommerce\Internal\StockNotifications\Frontend;
 
-use Automattic\WooCommerce\Internal\StockNotifications\Config;
-use Automattic\WooCommerce\Internal\StockNotifications\Utilities\EligibilityService;
-use Automattic\WooCommerce\Internal\StockNotifications\Frontend\MyAccountEndpoint;
-use Automattic\WooCommerce\Internal\StockNotifications\Frontend\SignupService;
-use Automattic\WooCommerce\Internal\StockNotifications\Notification;
+use Automattic\PooCommerce\Internal\StockNotifications\Config;
+use Automattic\PooCommerce\Internal\StockNotifications\Utilities\EligibilityService;
+use Automattic\PooCommerce\Internal\StockNotifications\Frontend\MyAccountEndpoint;
+use Automattic\PooCommerce\Internal\StockNotifications\Frontend\SignupService;
+use Automattic\PooCommerce\Internal\StockNotifications\Notification;
 use WC_Product;
 
 /**
@@ -19,7 +19,7 @@ class ProductPageIntegration {
 	/**
 	 * Name of the Add to Cart + Options block.
 	 */
-	private const ADD_TO_CART_WITH_OPTIONS_BLOCK = 'woocommerce/add-to-cart-with-options';
+	private const ADD_TO_CART_WITH_OPTIONS_BLOCK = 'poocommerce/add-to-cart-with-options';
 
 	/**
 	 * Runtime cache for preventing double rendering.
@@ -59,8 +59,8 @@ class ProductPageIntegration {
 	 * Constructor.
 	 */
 	public function __construct() {
-		add_action( 'woocommerce_simple_add_to_cart', array( $this, 'maybe_render_form' ), 30 );
-		add_action( 'woocommerce_after_add_to_cart_form', array( $this, 'maybe_render_form' ), 30 );
+		add_action( 'poocommerce_simple_add_to_cart', array( $this, 'maybe_render_form' ), 30 );
+		add_action( 'poocommerce_after_add_to_cart_form', array( $this, 'maybe_render_form' ), 30 );
 	}
 
 	/**
@@ -171,14 +171,14 @@ class ProductPageIntegration {
 		 * @param WC_Product  $product Product object.
 		 * @return string|null The message.
 		 */
-		$pre = apply_filters( 'woocommerce_customer_stock_notifications_account_required_message_html', null, $product );
+		$pre = apply_filters( 'poocommerce_customer_stock_notifications_account_required_message_html', null, $product );
 		if ( ! is_null( $pre ) ) {
 			echo wp_kses_post( $pre );
 			return;
 		}
 
-		$text = __( 'Please {login_link} to sign up for stock notifications.', 'woocommerce' );
-		$text = str_replace( '{login_link}', '<a href="' . esc_url( wc_get_account_endpoint_url( 'my-account' ) ) . '">' . _x( 'log in', 'back in stock form', 'woocommerce' ) . '</a>', $text );
+		$text = __( 'Please {login_link} to sign up for stock notifications.', 'poocommerce' );
+		$text = str_replace( '{login_link}', '<a href="' . esc_url( wc_get_account_endpoint_url( 'my-account' ) ) . '">' . _x( 'log in', 'back in stock form', 'poocommerce' ) . '</a>', $text );
 		wc_print_notice( $text, 'notice' );
 	}
 
@@ -201,7 +201,7 @@ class ProductPageIntegration {
 		 * @param Notification $notification Notification object.
 		 * @return string|null The message.
 		 */
-		$pre = apply_filters( 'woocommerce_customer_stock_notifications_already_signed_up_message_html', null, $product, $notification );
+		$pre = apply_filters( 'poocommerce_customer_stock_notifications_already_signed_up_message_html', null, $product, $notification );
 		if ( ! is_null( $pre ) ) {
 			echo wp_kses_post( $pre );
 			return;
@@ -209,12 +209,12 @@ class ProductPageIntegration {
 
 		// The endpoint can be switched off from Settings > Advanced, leaving nowhere to link to.
 		if ( '' === MyAccountEndpoint::get_endpoint_slug() ) {
-			wc_print_notice( __( 'You have already joined the waitlist!', 'woocommerce' ), 'notice' );
+			wc_print_notice( __( 'You have already joined the waitlist!', 'poocommerce' ), 'notice' );
 			return;
 		}
 
-		$text = __( 'You have already joined the waitlist! Click {manage_account_link} to manage your notifications.', 'woocommerce' );
-		$text = str_replace( '{manage_account_link}', '<a href="' . esc_url( wc_get_account_endpoint_url( MyAccountEndpoint::ENDPOINT ) ) . '">' . _x( 'here', 'back in stock form', 'woocommerce' ) . '</a>', $text );
+		$text = __( 'You have already joined the waitlist! Click {manage_account_link} to manage your notifications.', 'poocommerce' );
+		$text = str_replace( '{manage_account_link}', '<a href="' . esc_url( wc_get_account_endpoint_url( MyAccountEndpoint::ENDPOINT ) ) . '">' . _x( 'here', 'back in stock form', 'poocommerce' ) . '</a>', $text );
 		wc_print_notice( $text, 'notice' );
 	}
 
@@ -238,7 +238,7 @@ class ProductPageIntegration {
 		);
 
 		// When a variable has no purchasable variations, allow for signups on the parent product.
-		$is_visible = ! $product->is_type( 'variable' ) || ( 'yes' === get_option( 'woocommerce_hide_out_of_stock_items' ) && ! $product->has_purchasable_variations() );
+		$is_visible = ! $product->is_type( 'variable' ) || ( 'yes' === get_option( 'poocommerce_hide_out_of_stock_items' ) && ! $product->has_purchasable_variations() );
 
 		wc_get_template(
 			'single-product/back-in-stock-form.php',
@@ -269,6 +269,6 @@ class ProductPageIntegration {
 		 * @param bool $enabled Whether personalization is enabled.
 		 * @return bool
 		 */
-		return (bool) apply_filters( 'woocommerce_customer_stock_notifications_personalization_enabled', false );
+		return (bool) apply_filters( 'poocommerce_customer_stock_notifications_personalization_enabled', false );
 	}
 }

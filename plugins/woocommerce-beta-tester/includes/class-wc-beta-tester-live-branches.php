@@ -20,19 +20,19 @@ class WC_Beta_Tester_Live_Branches {
 	}
 
 	/**
-	 * Check if WooCommerce is installed.
+	 * Check if PooCommerce is installed.
 	 *
-	 * @return bool - True if WooCommerce is installed, false otherwise.
+	 * @return bool - True if PooCommerce is installed, false otherwise.
 	 */
-	private function woocommerce_is_installed() {
-		return class_exists( 'WooCommerce' );
+	private function poocommerce_is_installed() {
+		return class_exists( 'PooCommerce' );
 	}
 
 	/**
 	 * Register live branches scripts.
 	 */
 	public function register_scripts() {
-		if ( ! $this->woocommerce_is_installed() ) {
+		if ( ! $this->poocommerce_is_installed() ) {
 			return;
 		}
 
@@ -51,21 +51,21 @@ class WC_Beta_Tester_Live_Branches {
 		$script_url        = WC_Beta_Tester::instance()->plugin_url() . $script_path;
 
 		wp_register_script(
-			'woocommerce-beta-tester-live-branches',
+			'poocommerce-beta-tester-live-branches',
 			$script_url,
 			$script_asset['dependencies'],
 			$script_asset['version'],
 			true
 		);
 
-		wp_enqueue_script( 'woocommerce-beta-tester-live-branches' );
+		wp_enqueue_script( 'poocommerce-beta-tester-live-branches' );
 	}
 
 	/**
 	 * Register live branches page.
 	 */
 	public function register_page() {
-		if ( ! $this->woocommerce_is_installed() ) {
+		if ( ! $this->poocommerce_is_installed() ) {
 			return;
 		}
 
@@ -75,10 +75,10 @@ class WC_Beta_Tester_Live_Branches {
 
 		wc_admin_register_page(
 			array(
-				'id'         => 'woocommerce-beta-tester-live-branches',
-				'title'      => __( 'Live Branches', 'woocommerce-beta-tester' ),
+				'id'         => 'poocommerce-beta-tester-live-branches',
+				'title'      => __( 'Live Branches', 'poocommerce-beta-tester' ),
 				'path'       => '/live-branches',
-				'parent'     => 'woocommerce',
+				'parent'     => 'poocommerce',
 				'capability' => 'read',
 			)
 		);

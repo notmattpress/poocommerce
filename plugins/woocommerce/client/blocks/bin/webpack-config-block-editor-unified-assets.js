@@ -27,7 +27,7 @@ const { getSharedPlugins, getStylingConfig } = require( './webpack-configs' );
 const { sharedOptimizationConfig } = require( './webpack-shared-config' );
 
 const ROOT_DIR = path.resolve( __dirname, '../../../../../' );
-// Blocks' webpack writes directly to the WooCommerce plugin's
+// Blocks' webpack writes directly to the PooCommerce plugin's
 // `assets/client/blocks/` so PHP can enqueue files from their final location
 // without an intermediate rsync step.
 const BUILD_DIR = path.resolve( __dirname, '../../../assets/client/blocks' );
@@ -42,23 +42,23 @@ const OPTIMIZE_UNIFIED_EDITOR_STYLES_PLUGIN =
 	'OptimizeUnifiedEditorStylesPlugin';
 
 const editorExternalPackages = [
-	'@woocommerce/block-data',
-	'@woocommerce/blocks-checkout',
-	'@woocommerce/blocks-checkout-events',
-	'@woocommerce/blocks-components',
-	'@woocommerce/blocks-registry',
-	'@woocommerce/data',
-	'@woocommerce/entities',
-	'@woocommerce/price-format',
-	'@woocommerce/sanitize',
-	'@woocommerce/settings',
-	'@woocommerce/shared-context',
-	'@woocommerce/shared-hocs',
-	'@woocommerce/types',
+	'@poocommerce/block-data',
+	'@poocommerce/blocks-checkout',
+	'@poocommerce/blocks-checkout-events',
+	'@poocommerce/blocks-components',
+	'@poocommerce/blocks-registry',
+	'@poocommerce/data',
+	'@poocommerce/entities',
+	'@poocommerce/price-format',
+	'@poocommerce/sanitize',
+	'@poocommerce/settings',
+	'@poocommerce/shared-context',
+	'@poocommerce/shared-hocs',
+	'@poocommerce/types',
 ];
 
 const shouldBundleWooPackage = ( request ) =>
-	request.startsWith( '@woocommerce/' ) &&
+	request.startsWith( '@poocommerce/' ) &&
 	! editorExternalPackages.includes( request );
 
 const requestToUnifiedEditorExternal = ( request ) => {
@@ -78,47 +78,47 @@ const requestToUnifiedEditorHandle = ( request ) => {
 };
 
 const getUnifiedEditorPackageAliases = () => ( {
-	'@woocommerce/block-data': path.resolve(
+	'@poocommerce/block-data': path.resolve(
 		__dirname,
 		`../packages/public-api/block-data`
 	),
-	'@woocommerce/blocks-checkout': path.resolve(
+	'@poocommerce/blocks-checkout': path.resolve(
 		__dirname,
 		`../packages/public-api/blocks-checkout`
 	),
-	'@woocommerce/blocks-checkout-events': path.resolve(
+	'@poocommerce/blocks-checkout-events': path.resolve(
 		__dirname,
 		`../packages/public-api/blocks-checkout-events`
 	),
-	'@woocommerce/blocks-components': path.resolve(
+	'@poocommerce/blocks-components': path.resolve(
 		__dirname,
 		`../packages/public-api/blocks-components`
 	),
-	'@woocommerce/blocks-registry': path.resolve(
+	'@poocommerce/blocks-registry': path.resolve(
 		__dirname,
 		`../packages/public-api/blocks-registry`
 	),
-	'@woocommerce/data': path.resolve(
+	'@poocommerce/data': path.resolve(
 		__dirname,
 		`../../../../../packages/js/data/src/index.ts`
 	),
-	'@woocommerce/price-format': path.resolve(
+	'@poocommerce/price-format': path.resolve(
 		__dirname,
 		`../packages/public-api/price-format`
 	),
-	'@woocommerce/sanitize': path.resolve(
+	'@poocommerce/sanitize': path.resolve(
 		__dirname,
 		`../../../../../packages/js/sanitize/src/index.ts`
 	),
-	'@woocommerce/settings': path.resolve(
+	'@poocommerce/settings': path.resolve(
 		__dirname,
 		`../packages/public-api/settings`
 	),
-	'@woocommerce/shared-context': path.resolve(
+	'@poocommerce/shared-context': path.resolve(
 		__dirname,
 		`../packages/public-api/shared-context/`
 	),
-	'@woocommerce/shared-hocs': path.resolve(
+	'@poocommerce/shared-hocs': path.resolve(
 		__dirname,
 		`../packages/public-api/shared-hocs/`
 	),

@@ -378,7 +378,7 @@ class WC_Product_CSV_Importer_Controller_Test extends WC_Unit_Test_Case {
 			return 0;
 		};
 
-		add_filter( 'woocommerce_product_importer_default_time_limit', $spend_budget );
+		add_filter( 'poocommerce_product_importer_default_time_limit', $spend_budget );
 
 		try {
 			// A spent budget stops after the first placeholder and reports where to resume.
@@ -396,7 +396,7 @@ class WC_Product_CSV_Importer_Controller_Test extends WC_Unit_Test_Case {
 			$this->assertSame( $post_ids[2], $this->invoke_cleanup_after_import( $cursor ) );
 			$this->assertNull( $this->invoke_cleanup_after_import( $post_ids[2] ) );
 		} finally {
-			remove_filter( 'woocommerce_product_importer_default_time_limit', $spend_budget );
+			remove_filter( 'poocommerce_product_importer_default_time_limit', $spend_budget );
 		}
 
 		foreach ( $post_ids as $post_id ) {

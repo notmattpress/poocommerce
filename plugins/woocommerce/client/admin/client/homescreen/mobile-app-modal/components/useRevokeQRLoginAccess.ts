@@ -3,7 +3,7 @@
  */
 import { useCallback, useEffect, useRef, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import { WC_ADMIN_NAMESPACE } from '@woocommerce/data';
+import { WC_ADMIN_NAMESPACE } from '@poocommerce/data';
 import apiFetch from '@wordpress/api-fetch';
 
 /**
@@ -75,7 +75,7 @@ export const useRevokeQRLoginAccess = () => {
 				setErrorMessage(
 					__(
 						"You're sending requests too quickly. Please wait a moment and try again.",
-						'woocommerce'
+						'poocommerce'
 					)
 				);
 				return;
@@ -85,7 +85,7 @@ export const useRevokeQRLoginAccess = () => {
 				err.message ||
 					__(
 						'Failed to revoke access. Please try again or remove the application password manually under Users → Profile.',
-						'woocommerce'
+						'poocommerce'
 					)
 			);
 		} finally {

@@ -2,9 +2,9 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\CLI\Migrator\Commands;
+namespace Automattic\PooCommerce\Internal\CLI\Migrator\Commands;
 
-use Automattic\WooCommerce\Internal\CLI\Migrator\Core\PlatformRegistry;
+use Automattic\PooCommerce\Internal\CLI\Migrator\Core\PlatformRegistry;
 use WP_CLI;
 
 /**

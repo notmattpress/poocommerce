@@ -2,24 +2,24 @@
  * External dependencies
  */
 import { fireEvent, render } from '@testing-library/react';
-import { recordEvent } from '@woocommerce/tracks';
-import { getHistory } from '@woocommerce/navigation';
+import { recordEvent } from '@poocommerce/tracks';
+import { getHistory } from '@poocommerce/navigation';
 
 /**
  * Internal dependencies
  */
 import { BackButton } from '..';
 
-jest.mock( '@woocommerce/tracks', () => ( {
+jest.mock( '@poocommerce/tracks', () => ( {
 	recordEvent: jest.fn(),
 } ) );
 
 const push = jest.fn();
 
 // Only `getHistory` is stubbed — the rest of the module has to stay real,
-// because `@woocommerce/data` wires itself up against it on import.
-jest.mock( '@woocommerce/navigation', () => ( {
-	...jest.requireActual( '@woocommerce/navigation' ),
+// because `@poocommerce/data` wires itself up against it on import.
+jest.mock( '@poocommerce/navigation', () => ( {
+	...jest.requireActual( '@poocommerce/navigation' ),
 	getHistory: jest.fn(),
 } ) );
 
@@ -58,7 +58,7 @@ describe( 'BackButton', () => {
 			const { getByRole } = render( <BackButton href="/offline" /> );
 
 			expect(
-				getByRole( 'button', { name: 'WooCommerce Settings' } )
+				getByRole( 'button', { name: 'PooCommerce Settings' } )
 			).toBeInTheDocument();
 		} );
 	} );

@@ -4,7 +4,7 @@
  * Class WC_REST_Order_Refunds_Controller_Test.
  */
 
-use Automattic\WooCommerce\Tests\Helpers\MetaDataAssertionTrait;
+use Automattic\PooCommerce\Tests\Helpers\MetaDataAssertionTrait;
 
 /**
  * Tests for the V2 Order Refunds REST API controller.

@@ -2,15 +2,15 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\PushNotifications\Controllers;
+namespace Automattic\PooCommerce\Tests\Internal\PushNotifications\Controllers;
 
-use Automattic\WooCommerce\Internal\PushNotifications\Controllers\PushTokenRestController;
-use Automattic\WooCommerce\Internal\PushNotifications\DataStores\PushTokensDataStore;
-use Automattic\WooCommerce\Internal\PushNotifications\Entities\PushToken;
-use Automattic\WooCommerce\Internal\PushNotifications\Exceptions\PushTokenInvalidDataException;
-use Automattic\WooCommerce\Internal\PushNotifications\Exceptions\PushTokenNotFoundException;
-use Automattic\WooCommerce\Internal\PushNotifications\PushNotifications;
-use Automattic\WooCommerce\Tests\Internal\PushNotifications\Helpers\PushNotificationsTestTrait;
+use Automattic\PooCommerce\Internal\PushNotifications\Controllers\PushTokenRestController;
+use Automattic\PooCommerce\Internal\PushNotifications\DataStores\PushTokensDataStore;
+use Automattic\PooCommerce\Internal\PushNotifications\Entities\PushToken;
+use Automattic\PooCommerce\Internal\PushNotifications\Exceptions\PushTokenInvalidDataException;
+use Automattic\PooCommerce\Internal\PushNotifications\Exceptions\PushTokenNotFoundException;
+use Automattic\PooCommerce\Internal\PushNotifications\PushNotifications;
+use Automattic\PooCommerce\Tests\Internal\PushNotifications\Helpers\PushNotificationsTestTrait;
 use Exception;
 use RuntimeException;
 use ReflectionClass;
@@ -25,7 +25,7 @@ use WP_UnitTest_Factory;
 /**
  * Tests for the PushTokenRestController class.
  *
- * @package WooCommerce\Tests\PushNotifications
+ * @package PooCommerce\Tests\PushNotifications
  */
 class PushTokenRestControllerTest extends WC_Unit_Test_Case {
 	use PushNotificationsTestTrait;
@@ -421,7 +421,7 @@ class PushTokenRestControllerTest extends WC_Unit_Test_Case {
 
 		$data = $response->get_data();
 
-		$this->assertEquals( 'woocommerce_rest_cannot_view', $data['code'] );
+		$this->assertEquals( 'poocommerce_rest_cannot_view', $data['code'] );
 	}
 
 	/**
@@ -1026,7 +1026,7 @@ class PushTokenRestControllerTest extends WC_Unit_Test_Case {
 
 		$data = $response->get_data();
 
-		$this->assertEquals( 'woocommerce_invalid_push_token', $data['code'] );
+		$this->assertEquals( 'poocommerce_invalid_push_token', $data['code'] );
 		$this->assertEquals( 'Push token could not be found.', $data['message'] );
 	}
 
@@ -1046,7 +1046,7 @@ class PushTokenRestControllerTest extends WC_Unit_Test_Case {
 
 		$data = $response->get_data();
 
-		$this->assertEquals( 'woocommerce_invalid_push_token', $data['code'] );
+		$this->assertEquals( 'poocommerce_invalid_push_token', $data['code'] );
 		$this->assertEquals( 'Push token could not be found.', $data['message'] );
 	}
 
@@ -1082,7 +1082,7 @@ class PushTokenRestControllerTest extends WC_Unit_Test_Case {
 
 			$data = $response->get_data();
 
-			$this->assertEquals( 'woocommerce_internal_error', $data['code'] );
+			$this->assertEquals( 'poocommerce_internal_error', $data['code'] );
 			$this->assertEquals( 'Internal server error', $data['message'] );
 		} finally {
 			remove_filter( 'pre_delete_post', '__return_false' );
@@ -1137,7 +1137,7 @@ class PushTokenRestControllerTest extends WC_Unit_Test_Case {
 		$result = $controller->authorize_as_authenticated( $request );
 
 		$this->assertInstanceOf( WP_Error::class, $result );
-		$this->assertEquals( 'woocommerce_rest_cannot_view', $result->get_error_code() );
+		$this->assertEquals( 'poocommerce_rest_cannot_view', $result->get_error_code() );
 	}
 
 	/**
@@ -1264,7 +1264,7 @@ class PushTokenRestControllerTest extends WC_Unit_Test_Case {
 		$result = $method->invoke( $controller, $exception );
 
 		$this->assertInstanceOf( WP_Error::class, $result );
-		$this->assertEquals( 'woocommerce_internal_error', $result->get_error_code() );
+		$this->assertEquals( 'poocommerce_internal_error', $result->get_error_code() );
 		$this->assertEquals( 'Internal server error', $result->get_error_message() );
 		$this->assertEquals( WP_Http::INTERNAL_SERVER_ERROR, $result->get_error_data()['status'] );
 	}
@@ -1284,7 +1284,7 @@ class PushTokenRestControllerTest extends WC_Unit_Test_Case {
 		$result = $method->invoke( $controller, $exception );
 
 		$this->assertInstanceOf( WP_Error::class, $result );
-		$this->assertEquals( 'woocommerce_invalid_push_token', $result->get_error_code() );
+		$this->assertEquals( 'poocommerce_invalid_push_token', $result->get_error_code() );
 		$this->assertEquals( 'Push token could not be found.', $result->get_error_message() );
 		$this->assertEquals( WP_Http::NOT_FOUND, $result->get_error_data()['status'] );
 	}
@@ -1304,7 +1304,7 @@ class PushTokenRestControllerTest extends WC_Unit_Test_Case {
 		$result = $method->invoke( $controller, $exception );
 
 		$this->assertInstanceOf( WP_Error::class, $result );
-		$this->assertEquals( 'woocommerce_invalid_data', $result->get_error_code() );
+		$this->assertEquals( 'poocommerce_invalid_data', $result->get_error_code() );
 		$this->assertEquals( 'Invalid argument provided.', $result->get_error_message() );
 		$this->assertEquals( WP_Http::BAD_REQUEST, $result->get_error_data()['status'] );
 	}
@@ -1352,7 +1352,7 @@ class PushTokenRestControllerTest extends WC_Unit_Test_Case {
 		$result = $method->invoke( $controller, $exception );
 
 		$this->assertInstanceOf( WP_Error::class, $result );
-		$this->assertEquals( 'woocommerce_internal_error', $result->get_error_code() );
+		$this->assertEquals( 'poocommerce_internal_error', $result->get_error_code() );
 		$this->assertEquals( 'Internal server error', $result->get_error_message() );
 		$this->assertEquals( WP_Http::INTERNAL_SERVER_ERROR, $result->get_error_data()['status'] );
 	}
@@ -1429,7 +1429,7 @@ class PushTokenRestControllerTest extends WC_Unit_Test_Case {
 		$result = $controller->authorize_as_from_wpcom( $request );
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_rest_cannot_view', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_rest_cannot_view', $result->get_error_code() );
 	}
 
 	/**

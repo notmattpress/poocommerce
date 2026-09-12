@@ -5,21 +5,21 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities;
+namespace Automattic\PooCommerce\Internal\Abilities;
 
-use Automattic\WooCommerce\Abilities\AbilityDefinition;
-use Automattic\WooCommerce\Internal\Abilities\Domain\OrderAddNote;
-use Automattic\WooCommerce\Internal\Abilities\Domain\OrderUpdateStatus;
-use Automattic\WooCommerce\Internal\Abilities\Domain\OrdersQuery;
-use Automattic\WooCommerce\Internal\Abilities\Domain\ProductCreate;
-use Automattic\WooCommerce\Internal\Abilities\Domain\ProductDelete;
-use Automattic\WooCommerce\Internal\Abilities\Domain\ProductUpdate;
-use Automattic\WooCommerce\Internal\Abilities\Domain\ProductsQuery;
+use Automattic\PooCommerce\Abilities\AbilityDefinition;
+use Automattic\PooCommerce\Internal\Abilities\Domain\OrderAddNote;
+use Automattic\PooCommerce\Internal\Abilities\Domain\OrderUpdateStatus;
+use Automattic\PooCommerce\Internal\Abilities\Domain\OrdersQuery;
+use Automattic\PooCommerce\Internal\Abilities\Domain\ProductCreate;
+use Automattic\PooCommerce\Internal\Abilities\Domain\ProductDelete;
+use Automattic\PooCommerce\Internal\Abilities\Domain\ProductUpdate;
+use Automattic\PooCommerce\Internal\Abilities\Domain\ProductsQuery;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Hooks WooCommerce ability definitions into the WordPress Abilities API.
+ * Hooks PooCommerce ability definitions into the WordPress Abilities API.
  */
 class AbilitiesLoader {
 
@@ -31,7 +31,7 @@ class AbilitiesLoader {
 	private static bool $initialized = false;
 
 	/**
-	 * Canonical WooCommerce domain ability definition classes.
+	 * Canonical PooCommerce domain ability definition classes.
 	 *
 	 * @var array<int, class-string>
 	 */
@@ -50,7 +50,7 @@ class AbilitiesLoader {
 	 *
 	 * @var string
 	 */
-	private const LOG_SOURCE = 'woocommerce-abilities';
+	private const LOG_SOURCE = 'poocommerce-abilities';
 
 	/**
 	 * Core ability instances registered by this loader in the current request.
@@ -111,7 +111,7 @@ class AbilitiesLoader {
 
 			$is_core_ability = self::is_core_ability_definition_class( $class_name );
 
-			if ( self::is_reserved_woocommerce_ability_name( $ability_name ) && ! $is_core_ability ) {
+			if ( self::is_reserved_poocommerce_ability_name( $ability_name ) && ! $is_core_ability ) {
 				continue;
 			}
 
@@ -145,7 +145,7 @@ class AbilitiesLoader {
 	}
 
 	/**
-	 * Log when WooCommerce replaces a pre-existing registration in its reserved namespace.
+	 * Log when PooCommerce replaces a pre-existing registration in its reserved namespace.
 	 *
 	 * @param string       $ability_name Ability name.
 	 * @param class-string $class_name Ability definition class name.
@@ -156,18 +156,18 @@ class AbilitiesLoader {
 		}
 
 		wc_get_logger()->warning(
-			'WooCommerce unregistered a previously registered ability before registering its canonical definition.',
+			'PooCommerce unregistered a previously registered ability before registering its canonical definition.',
 			array(
 				'source'           => self::LOG_SOURCE,
 				'ability_name'     => $ability_name,
 				'definition_class' => $class_name,
-				'reserved_prefix'  => 'woocommerce/',
+				'reserved_prefix'  => 'poocommerce/',
 			)
 		);
 	}
 
 	/**
-	 * Check whether an ability definition class is provided by WooCommerce core.
+	 * Check whether an ability definition class is provided by PooCommerce core.
 	 *
 	 * @param class-string $class_name Ability definition class name.
 	 * @return bool
@@ -177,13 +177,13 @@ class AbilitiesLoader {
 	}
 
 	/**
-	 * Check whether an ability name uses WooCommerce's reserved namespace.
+	 * Check whether an ability name uses PooCommerce's reserved namespace.
 	 *
 	 * @param string $ability_name Ability name.
 	 * @return bool
 	 */
-	private static function is_reserved_woocommerce_ability_name( string $ability_name ): bool {
-		return 0 === strpos( $ability_name, 'woocommerce/' );
+	private static function is_reserved_poocommerce_ability_name( string $ability_name ): bool {
+		return 0 === strpos( $ability_name, 'poocommerce/' );
 	}
 
 	/**
@@ -193,7 +193,7 @@ class AbilitiesLoader {
 	 */
 	private static function get_ability_definition_classes(): array {
 		/**
-		 * Filter WooCommerce ability definition classes.
+		 * Filter PooCommerce ability definition classes.
 		 *
 		 * Extensions can append autoloadable classes that implement
 		 * {@see AbilityDefinition}. The loader will call get_name() and
@@ -205,7 +205,7 @@ class AbilitiesLoader {
 		 *
 		 * @param array<int, class-string> $classes Ability definition class names.
 		 */
-		$classes = apply_filters( 'woocommerce_ability_definition_classes', self::CORE_ABILITY_DEFINITION_CLASSES );
+		$classes = apply_filters( 'poocommerce_ability_definition_classes', self::CORE_ABILITY_DEFINITION_CLASSES );
 
 		if ( ! is_array( $classes ) ) {
 			$classes = array();

@@ -28,17 +28,17 @@ npm install -g markdownlint-cli
 
 ```bash
 # Check markdown file (run from repo root)
-markdownlint plugins/woocommerce/CLAUDE.md
+markdownlint plugins/poocommerce/CLAUDE.md
 
 # RECOMMENDED: Auto-fix issues first (handles most errors)
-markdownlint --fix plugins/woocommerce/CLAUDE.md
+markdownlint --fix plugins/poocommerce/CLAUDE.md
 
 # Check multiple files
-markdownlint packages/js/CLAUDE.md plugins/woocommerce/CLAUDE.md
+markdownlint packages/js/CLAUDE.md plugins/poocommerce/CLAUDE.md
 
 # Lint all CLAUDE.md files
-markdownlint packages/js/CLAUDE.md plugins/woocommerce/CLAUDE.md \
-  plugins/woocommerce/client/admin/CLAUDE.md
+markdownlint packages/js/CLAUDE.md plugins/poocommerce/CLAUDE.md \
+  plugins/poocommerce/client/admin/CLAUDE.md
 ```
 
 ## Important: Always Run from Repository Root
@@ -49,11 +49,11 @@ Using absolute paths bypasses the config and may show incorrect errors.
 
 ```bash
 # ✅ CORRECT - run from repo root
-cd /path/to/woocommerce
-markdownlint plugins/woocommerce/CLAUDE.md
+cd /path/to/poocommerce
+markdownlint plugins/poocommerce/CLAUDE.md
 
 # ❌ WRONG - bypasses config
-markdownlint /absolute/path/to/plugins/woocommerce/CLAUDE.md
+markdownlint /absolute/path/to/plugins/poocommerce/CLAUDE.md
 ```
 
 ## Recommended Workflow
@@ -89,15 +89,15 @@ Use UTF-8 box-drawing characters, not spaces, tabs, or ASCII art:
 ```markdown
 ✅ CORRECT - UTF-8 box-drawing:
 .ai/skills/
-├── woocommerce-backend/
+├── poocommerce-backend/
 │   ├── SKILL.md
 │   └── file-entities.md
-└── woocommerce-dev-cycle/
+└── poocommerce-dev-cycle/
     └── SKILL.md
 
 ❌ WRONG - ASCII art or spaces:
 .ai/skills/
-+-- woocommerce-backend/
++-- poocommerce-backend/
 |   +-- SKILL.md
     +-- file-entities.md
 ```

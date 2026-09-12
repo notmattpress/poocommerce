@@ -18,7 +18,7 @@ import { ProductFieldDefinition } from '../store/types';
  *
  * @example
  * ```js
- * import { registerProductField } from '@woocommerce/components'
+ * import { registerProductField } from '@poocommerce/components'
  *
  * registerProductFieldType( 'attributes-field', {
  * } );

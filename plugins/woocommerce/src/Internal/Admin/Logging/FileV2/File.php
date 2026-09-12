@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\Admin\Logging\FileV2;
+namespace Automattic\PooCommerce\Internal\Admin\Logging\FileV2;
 
 use Automattic\Jetpack\Constants;
-use Automattic\WooCommerce\Internal\Utilities\FilesystemUtil;
+use Automattic\PooCommerce\Internal\Utilities\FilesystemUtil;
 use Exception;
 
 /**

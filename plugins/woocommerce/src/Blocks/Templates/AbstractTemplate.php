@@ -1,6 +1,6 @@
 <?php
 declare( strict_types=1 );
-namespace Automattic\WooCommerce\Blocks\Templates;
+namespace Automattic\PooCommerce\Blocks\Templates;
 
 /**
  * AbstractTemplate class.

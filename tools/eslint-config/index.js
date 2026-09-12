@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-const woocommerce = require( '@woocommerce/eslint-plugin' );
+const poocommerce = require( '@poocommerce/eslint-plugin' );
 
 /*
  * Rules the ESLint v8 -> v10 upgrade newly surfaced, downgraded to warnings so
@@ -18,11 +18,11 @@ const woocommerce = require( '@woocommerce/eslint-plugin' );
  * those severities themselves and the later config object wins: client/blocks
  * (import/named, import/no-unresolved, import/no-duplicates,
  * react-hooks/exhaustive-deps, and the TypeScript no-unused-vars/no-shadow it
- * overrides) and plugins/woocommerce (the playwright rules, whose plugin is only
+ * overrides) and plugins/poocommerce (the playwright rules, whose plugin is only
  * registered for its e2e block).
  *
  * Restoring all of them is tracked in
- * https://github.com/woocommerce/woocommerce/issues/66078.
+ * https://github.com/poocommerce/poocommerce/issues/66078.
  */
 const RELAXED_RULES = {
 	// New in @wordpress/eslint-plugin 25, which re-enables what prettier disables.
@@ -117,7 +117,7 @@ const TYPE_AWARE_IGNORES = [
 /*
  * The monorepo's own ESLint Flat Config layer.
  *
- * `@woocommerce/eslint-plugin` is public and consumed by third-party extensions,
+ * `@poocommerce/eslint-plugin` is public and consumed by third-party extensions,
  * so it stays portable: no type-aware rules, no assumptions about a covering
  * tsconfig. This package is private and is where monorepo-only strictness goes,
  * so we never impose it on extension authors.
@@ -128,7 +128,7 @@ const TYPE_AWARE_IGNORES = [
  * public plugin.
  */
 module.exports = [
-	...woocommerce.configs.recommended,
+	...poocommerce.configs.recommended,
 	{
 		rules: RELAXED_RULES,
 	},

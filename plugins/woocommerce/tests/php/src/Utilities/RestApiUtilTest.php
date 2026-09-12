@@ -1,9 +1,9 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Utilities;
+namespace Automattic\PooCommerce\Tests\Utilities;
 
-use Automattic\WooCommerce\Utilities\RestApiUtil;
+use Automattic\PooCommerce\Utilities\RestApiUtil;
 
 /**
  * A collection of tests for the RestApiUtil lazy_load_namespace method.
@@ -25,7 +25,7 @@ class RestApiUtilTest extends \WC_Unit_Test_Case {
 		$this->rest_api_util = new RestApiUtil();
 
 		// Clear any existing filters.
-		remove_all_filters( 'woocommerce_rest_should_lazy_load_namespace' );
+		remove_all_filters( 'poocommerce_rest_should_lazy_load_namespace' );
 		remove_all_filters( 'rest_pre_dispatch' );
 	}
 
@@ -34,7 +34,7 @@ class RestApiUtilTest extends \WC_Unit_Test_Case {
 	 */
 	public function tearDown(): void {
 		// Clear any filters that may have been added during tests.
-		remove_all_filters( 'woocommerce_rest_should_lazy_load_namespace' );
+		remove_all_filters( 'poocommerce_rest_should_lazy_load_namespace' );
 		remove_all_filters( 'rest_pre_dispatch' );
 
 		// Clear global wp query vars.
@@ -55,7 +55,7 @@ class RestApiUtilTest extends \WC_Unit_Test_Case {
 		};
 
 		// Disable lazy loading via filter.
-		add_filter( 'woocommerce_rest_should_lazy_load_namespace', '__return_false' );
+		add_filter( 'poocommerce_rest_should_lazy_load_namespace', '__return_false' );
 
 		$this->rest_api_util->lazy_load_namespace( 'wc/v3', $callback );
 
@@ -71,7 +71,7 @@ class RestApiUtilTest extends \WC_Unit_Test_Case {
 		};
 
 		add_filter(
-			'woocommerce_rest_should_lazy_load_namespace',
+			'poocommerce_rest_should_lazy_load_namespace',
 			function ( $should_lazy_load, $route_namespace ) use ( &$filter_namespace ) {
 				$filter_namespace = $route_namespace;
 

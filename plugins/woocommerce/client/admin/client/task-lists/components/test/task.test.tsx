@@ -4,9 +4,9 @@
 import { render, act } from '@testing-library/react';
 import { useDispatch } from '@wordpress/data';
 import userEvent from '@testing-library/user-event';
-import { getHistory } from '@woocommerce/navigation';
-import { WooOnboardingTask } from '@woocommerce/onboarding';
-import { TaskType } from '@woocommerce/data';
+import { getHistory } from '@poocommerce/navigation';
+import { WooOnboardingTask } from '@poocommerce/onboarding';
+import { TaskType } from '@poocommerce/data';
 
 const task: TaskType = {
 	id: 'optional',
@@ -49,9 +49,9 @@ jest.mock( '@wordpress/data', () => {
 	};
 } );
 
-jest.mock( '@woocommerce/navigation', () => {
+jest.mock( '@poocommerce/navigation', () => {
 	// Require the original module to not be mocked...
-	const originalModule = jest.requireActual( '@woocommerce/navigation' );
+	const originalModule = jest.requireActual( '@poocommerce/navigation' );
 
 	return {
 		__esModule: true, // Use it when dealing with esModules
@@ -62,7 +62,7 @@ jest.mock( '@woocommerce/navigation', () => {
 	};
 } );
 
-jest.mock( '@woocommerce/onboarding', () => ( {
+jest.mock( '@poocommerce/onboarding', () => ( {
 	WooOnboardingTask: {
 		Slot: jest.fn(),
 	},

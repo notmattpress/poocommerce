@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import type { FormFields, Field } from '@woocommerce/settings';
+import type { FormFields, Field } from '@poocommerce/settings';
 
 /**
  * Type guard to check if a value is a valid Field object.

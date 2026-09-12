@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { __, sprintf } from '@wordpress/i18n';
-import { getSetting } from '@woocommerce/settings';
+import { getSetting } from '@poocommerce/settings';
 import { useCallback, useState, useEffect } from '@wordpress/element';
 import { ToggleControl } from '@wordpress/components';
 
@@ -84,11 +84,11 @@ const ProductStockControl = ( {
 				const helpText = checkedOptions.includes( option.value )
 					? /* translators: %s stock status. */ __(
 							'Stock status "%s" visible.',
-							'woocommerce'
+							'poocommerce'
 					  )
 					: /* translators: %s stock status. */ __(
 							'Stock status "%s" hidden.',
-							'woocommerce'
+							'poocommerce'
 					  );
 				return (
 					<ToggleControl

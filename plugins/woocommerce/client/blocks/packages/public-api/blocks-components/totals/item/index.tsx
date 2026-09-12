@@ -4,9 +4,9 @@
 import clsx from 'clsx';
 import { isValidElement } from '@wordpress/element';
 import type { ReactElement, ReactNode } from 'react';
-import type { Currency } from '@woocommerce/types';
-import { Skeleton } from '@woocommerce/base-components/skeleton';
-import { DelayedContentWithSkeleton } from '@woocommerce/base-components/delayed-content-with-skeleton';
+import type { Currency } from '@poocommerce/types';
+import { Skeleton } from '@poocommerce/base-components/skeleton';
+import { DelayedContentWithSkeleton } from '@poocommerce/base-components/delayed-content-with-skeleton';
 import { __ } from '@wordpress/i18n';
 
 /**
@@ -69,7 +69,7 @@ const TotalsItem = ( {
 							height="1em"
 							ariaMessage={ __(
 								'Loading price… ',
-								'woocommerce'
+								'poocommerce'
 							) }
 						/>
 					</>

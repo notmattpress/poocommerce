@@ -55,7 +55,7 @@ export const DynamicForm = ( {
 	onSubmit = () => {},
 	onChange = () => {},
 	validate = () => ( {} ),
-	submitLabel = __( 'Proceed', 'woocommerce' ),
+	submitLabel = __( 'Proceed', 'poocommerce' ),
 }: DynamicFormProps ) => {
 	// Support accepting fields in the format provided by the API (object), but transform to Array
 	const fields =
@@ -82,7 +82,7 @@ export const DynamicForm = ( {
 				handleSubmit: () => void;
 			} ) => {
 				return (
-					<div className="woocommerce-component_dynamic-form">
+					<div className="poocommerce-component_dynamic-form">
 						{ fields.map( ( field ) => {
 							if (
 								field.type &&

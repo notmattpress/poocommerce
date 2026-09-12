@@ -2,12 +2,12 @@
 /**
  * Unit tests for the base product class.
  *
- * @package WooCommerce\Tests\Product
+ * @package PooCommerce\Tests\Product
  */
 
 /**
  * Tests for Product class.
- * @package WooCommerce\Tests\Product
+ * @package PooCommerce\Tests\Product
  * @since 2.3
  */
 class WC_Tests_Product extends WC_Unit_Test_Case {
@@ -66,12 +66,12 @@ class WC_Tests_Product extends WC_Unit_Test_Case {
 	 *           [3, 4, false, "outofstock"]
 	 *
 	 * @param int    $stock_quantity Current stock quantity for the product.
-	 * @param int    $notify_no_stock_amount Value for the woocommerce_notify_no_stock_amount option.
+	 * @param int    $notify_no_stock_amount Value for the poocommerce_notify_no_stock_amount option.
 	 * @param bool   $accepts_backorders Whether the product accepts backorders or not.
 	 * @param string $expected_stock_status The expected stock status of the product after being saved.
 	 */
 	public function test_stock_status_on_save_when_managing_stock( $stock_quantity, $notify_no_stock_amount, $accepts_backorders, $expected_stock_status ) {
-		update_option( 'woocommerce_notify_no_stock_amount', $notify_no_stock_amount );
+		update_option( 'poocommerce_notify_no_stock_amount', $notify_no_stock_amount );
 		$this->product->set_backorders( $accepts_backorders ? 'yes' : 'no' );
 		$this->product->set_manage_stock( 'yes' );
 		$this->product->set_stock_status( '' );

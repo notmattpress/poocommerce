@@ -20,22 +20,22 @@ import { Icon, layout } from '@wordpress/icons';
 import { storeName } from '../../store';
 import { recordEvent } from '../../events';
 
-const SLOT_ID = 'woocommerce-email-editor-template-area-affordance-slot';
-const STYLE_ID = 'woocommerce-email-editor-template-area-affordance-style';
+const SLOT_ID = 'poocommerce-email-editor-template-area-affordance-slot';
+const STYLE_ID = 'poocommerce-email-editor-template-area-affordance-style';
 const BLOCK_SELECTOR = '[data-block], .block-editor-block-list__block';
 
 // The block-editor style.scss is bundled into the outer editor document, but
 // the affordance lives inside the canvas iframe. The iframe is a separate
 // document, so we inject the positional/visual rules into its <head> directly.
 const CANVAS_STYLES = `
-.woocommerce-email-editor-template-area-affordance-slot {
+.poocommerce-email-editor-template-area-affordance-slot {
 	box-sizing: border-box;
 	inset: 0 auto auto 0;
 	pointer-events: none;
 	position: absolute;
 	z-index: 29;
 }
-.woocommerce-email-editor-template-area-affordance {
+.poocommerce-email-editor-template-area-affordance {
 	align-items: stretch;
 	background: #fff;
 	border: 1px solid #1e1e1e;
@@ -49,7 +49,7 @@ const CANVAS_STYLES = `
 	position: absolute;
 	z-index: 30;
 }
-.woocommerce-email-editor-template-area-affordance__frame {
+.poocommerce-email-editor-template-area-affordance__frame {
 	appearance: none;
 	background: transparent;
 	border: 1.5px solid transparent;
@@ -62,13 +62,13 @@ const CANVAS_STYLES = `
 	position: absolute;
 	z-index: 29;
 }
-.woocommerce-email-editor-template-area-affordance__frame:hover,
-.woocommerce-email-editor-template-area-affordance__frame:focus-visible,
-.woocommerce-email-editor-template-area-affordance__frame.is-active {
+.poocommerce-email-editor-template-area-affordance__frame:hover,
+.poocommerce-email-editor-template-area-affordance__frame:focus-visible,
+.poocommerce-email-editor-template-area-affordance__frame.is-active {
 	border-color: var(--wp-components-color-accent, #3858e9);
 	outline: none;
 }
-.woocommerce-email-editor-template-area-affordance__label {
+.poocommerce-email-editor-template-area-affordance__label {
 	align-items: center;
 	border-right: 1px solid #ddd;
 	display: inline-flex;
@@ -78,10 +78,10 @@ const CANVAS_STYLES = `
 	padding: 0 16px;
 	white-space: nowrap;
 }
-.woocommerce-email-editor-template-area-affordance__label svg {
+.poocommerce-email-editor-template-area-affordance__label svg {
 	fill: currentColor;
 }
-.woocommerce-email-editor-template-area-affordance__button.components-button {
+.poocommerce-email-editor-template-area-affordance__button.components-button {
 	border-radius: 0;
 	box-shadow: none;
 	color: var(--wp-components-color-accent, #3858e9);
@@ -89,10 +89,10 @@ const CANVAS_STYLES = `
 	padding: 0 18px;
 	white-space: nowrap;
 }
-.woocommerce-email-editor-template-area-affordance__button.components-button:hover:not(:disabled) {
+.poocommerce-email-editor-template-area-affordance__button.components-button:hover:not(:disabled) {
 	color: var(--wp-components-color-accent, #3858e9);
 }
-.woocommerce-email-editor-template-area-affordance__button.components-button:focus-visible {
+.poocommerce-email-editor-template-area-affordance__button.components-button:focus-visible {
 	box-shadow: inset 0 0 0 1.5px var(--wp-components-color-accent, #3858e9);
 }
 `;
@@ -162,7 +162,7 @@ function getTemplateTarget( canvasDocument: Document ): Element | null {
 	// We can only confidently identify a template area when the template
 	// renders one of the well-known site-identity blocks. Falling back to
 	// arbitrary nearby blocks produced visually misleading highlights — see
-	// https://github.com/woocommerce/woocommerce/pull/64703#discussion (manual
+	// https://github.com/poocommerce/poocommerce/pull/64703#discussion (manual
 	// QA on the default Woo email template).
 	const templateBlock = canvasDocument.querySelector(
 		'[data-type="core/site-logo"], [data-type="core/site-title"], .wp-block-site-logo, .wp-block-site-title'
@@ -184,7 +184,7 @@ function createSlot( canvasDocument: Document ): HTMLDivElement {
 		slot = canvasDocument.createElement( 'div' );
 		slot.id = SLOT_ID;
 		slot.className =
-			'woocommerce-email-editor-template-area-affordance-slot';
+			'poocommerce-email-editor-template-area-affordance-slot';
 		canvasDocument.body.appendChild( slot );
 	}
 
@@ -448,10 +448,10 @@ export function TemplateCanvasAffordance() {
 				type="button"
 				className={
 					isActive
-						? 'woocommerce-email-editor-template-area-affordance__frame is-active'
-						: 'woocommerce-email-editor-template-area-affordance__frame'
+						? 'poocommerce-email-editor-template-area-affordance__frame is-active'
+						: 'poocommerce-email-editor-template-area-affordance__frame'
 				}
-				aria-label={ __( 'Template area', 'woocommerce' ) }
+				aria-label={ __( 'Template area', 'poocommerce' ) }
 				aria-expanded={ isActive }
 				aria-controls={ isActive ? toolbarId : undefined }
 				style={ position.frame }
@@ -459,19 +459,19 @@ export function TemplateCanvasAffordance() {
 			{ isActive && (
 				<div
 					id={ toolbarId }
-					className="woocommerce-email-editor-template-area-affordance"
+					className="poocommerce-email-editor-template-area-affordance"
 					style={ position.toolbar }
 				>
-					<span className="woocommerce-email-editor-template-area-affordance__label">
+					<span className="poocommerce-email-editor-template-area-affordance__label">
 						<Icon icon={ layout } size={ 24 } />
-						<span>{ __( 'Template', 'woocommerce' ) }</span>
+						<span>{ __( 'Template', 'poocommerce' ) }</span>
 					</span>
 					<Button
 						ref={ buttonRef }
-						className="woocommerce-email-editor-template-area-affordance__button"
+						className="poocommerce-email-editor-template-area-affordance__button"
 						variant="tertiary"
 					>
-						{ __( 'Edit template', 'woocommerce' ) }
+						{ __( 'Edit template', 'poocommerce' ) }
 					</Button>
 				</div>
 			) }

@@ -1,11 +1,11 @@
 <?php
 /**
- * Plugin Name: WooCommerce Blocks Test Update Price
+ * Plugin Name: PooCommerce Blocks Test Update Price
  * Description: Update price of products.
- * Plugin URI: https://github.com/woocommerce/woocommerce
- * Author: WooCommerce
+ * Plugin URI: https://github.com/poocommerce/poocommerce
+ * Author: PooCommerce
  *
- * @package woocommerce-blocks-test-update-price
+ * @package poocommerce-blocks-test-update-price
  */
 
 function calc_price( $cart_object ) {
@@ -14,4 +14,4 @@ function calc_price( $cart_object ) {
 	}
 }
 
-add_action( 'woocommerce_before_calculate_totals', 'calc_price' );
+add_action( 'poocommerce_before_calculate_totals', 'calc_price' );

@@ -1,7 +1,7 @@
 <?php
 /**
  * Classes WC_Deprecated_Filter_Hooks & WC_Deprecated_Action_Hooks.
- * @package WooCommerce\Tests\Util
+ * @package PooCommerce\Tests\Util
  * @since 3.0
  */
 
@@ -77,11 +77,11 @@ class WC_Tests_Deprecated_Hooks extends WC_Unit_Test_Case {
 	 * @since 3.0
 	 */
 	public function test_get_old_hooks() {
-		$old_filters = $this->handlers['filters']->get_old_hooks( 'woocommerce_structured_data_order' );
-		$old_actions = $this->handlers['actions']->get_old_hooks( 'woocommerce_new_order_item' );
+		$old_filters = $this->handlers['filters']->get_old_hooks( 'poocommerce_structured_data_order' );
+		$old_actions = $this->handlers['actions']->get_old_hooks( 'poocommerce_new_order_item' );
 
-		$this->assertContains( 'woocommerce_email_order_schema_markup', $old_filters );
-		$this->assertContains( 'woocommerce_order_add_shipping', $old_actions );
+		$this->assertContains( 'poocommerce_email_order_schema_markup', $old_filters );
+		$this->assertContains( 'poocommerce_order_add_shipping', $old_actions );
 	}
 
 	/**
@@ -90,8 +90,8 @@ class WC_Tests_Deprecated_Hooks extends WC_Unit_Test_Case {
 	 * @since 3.0
 	 */
 	public function test_hook_in() {
-		$this->assertTrue( (bool) has_filter( 'woocommerce_structured_data_order', array( $this->handlers['filters'], 'maybe_handle_deprecated_hook' ) ) );
-		$this->assertTrue( (bool) has_action( 'woocommerce_new_order_item', array( $this->handlers['actions'], 'maybe_handle_deprecated_hook' ) ) );
+		$this->assertTrue( (bool) has_filter( 'poocommerce_structured_data_order', array( $this->handlers['filters'], 'maybe_handle_deprecated_hook' ) ) );
+		$this->assertTrue( (bool) has_action( 'poocommerce_new_order_item', array( $this->handlers['actions'], 'maybe_handle_deprecated_hook' ) ) );
 	}
 
 	/**
@@ -139,10 +139,10 @@ class WC_Tests_Deprecated_Hooks extends WC_Unit_Test_Case {
 	public function test_filter_handler() {
 		$test_width = 1;
 
-		$this->setExpectedDeprecated( 'woocommerce_product_width' );
-		add_filter( 'woocommerce_product_width', array( $this, 'toggle_value' ) );
+		$this->setExpectedDeprecated( 'poocommerce_product_width' );
+		add_filter( 'poocommerce_product_width', array( $this, 'toggle_value' ) );
 
-		$new_width = apply_filters( 'woocommerce_product_get_width', $test_width );
+		$new_width = apply_filters( 'poocommerce_product_get_width', $test_width );
 		$this->assertEquals( 0, $new_width );
 	}
 
@@ -159,9 +159,9 @@ class WC_Tests_Deprecated_Hooks extends WC_Unit_Test_Case {
 		$test_item     = reset( $test_items );
 		$test_item_id  = $test_item->get_id();
 
-		$this->setExpectedDeprecated( 'woocommerce_order_edit_product' );
-		add_action( 'woocommerce_order_edit_product', array( $this, 'set_meta' ), 10, 2 );
-		do_action( 'woocommerce_update_order_item', $test_item_id, $test_item, $test_order_id );
+		$this->setExpectedDeprecated( 'poocommerce_order_edit_product' );
+		add_action( 'poocommerce_order_edit_product', array( $this, 'set_meta' ), 10, 2 );
+		do_action( 'poocommerce_update_order_item', $test_item_id, $test_item, $test_order_id );
 
 		$order_update_worked = (bool) get_post_meta( $test_order_id, 'wc_deprecated_hook_test_item1_meta', 1 );
 		$item_update_worked  = (bool) get_post_meta( $test_item_id, 'wc_deprecated_hook_test_item2_meta', 2 );
@@ -176,11 +176,11 @@ class WC_Tests_Deprecated_Hooks extends WC_Unit_Test_Case {
 	 * @since 3.0
 	 */
 	public function test_created_actions_deprecation() {
-		add_filter( 'woocommerce_payment_token_created', '__return_true' );
-		add_filter( 'woocommerce_create_product_variation', '__return_true' );
+		add_filter( 'poocommerce_payment_token_created', '__return_true' );
+		add_filter( 'poocommerce_create_product_variation', '__return_true' );
 
-		$this->setExpectedDeprecated( 'woocommerce_payment_token_created' );
-		$this->setExpectedDeprecated( 'woocommerce_create_product_variation' );
+		$this->setExpectedDeprecated( 'poocommerce_payment_token_created' );
+		$this->setExpectedDeprecated( 'poocommerce_create_product_variation' );
 
 		$token = WC_Helper_Payment_Token::create_stub_token( __FUNCTION__ );
 		$token->save();
@@ -188,9 +188,9 @@ class WC_Tests_Deprecated_Hooks extends WC_Unit_Test_Case {
 		$product = new WC_Product_Variation();
 		$product->save();
 
-		$this->assertEquals( 1, did_action( 'woocommerce_payment_token_created' ) );
-		$this->assertEquals( 1, did_action( 'woocommerce_new_payment_token' ) );
-		$this->assertEquals( 1, did_action( 'woocommerce_create_product_variation' ) );
-		$this->assertEquals( 1, did_action( 'woocommerce_new_product_variation' ) );
+		$this->assertEquals( 1, did_action( 'poocommerce_payment_token_created' ) );
+		$this->assertEquals( 1, did_action( 'poocommerce_new_payment_token' ) );
+		$this->assertEquals( 1, did_action( 'poocommerce_create_product_variation' ) );
+		$this->assertEquals( 1, did_action( 'poocommerce_new_product_variation' ) );
 	}
 }

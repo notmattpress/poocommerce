@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { render, screen, within } from '@testing-library/react';
-import { useUserPreferences } from '@woocommerce/data';
+import { useUserPreferences } from '@poocommerce/data';
 
 /**
  * Internal dependencies
@@ -28,8 +28,8 @@ jest.mock( '../activity-panel', () => ( {
 	ActivityPanel: jest.fn().mockReturnValue( <div>[ActivityPanel]</div> ),
 } ) );
 
-jest.mock( '@woocommerce/data', () => ( {
-	...jest.requireActual( '@woocommerce/data' ),
+jest.mock( '@poocommerce/data', () => ( {
+	...jest.requireActual( '@poocommerce/data' ),
 	useUserPreferences: jest.fn().mockReturnValue( {} ),
 } ) );
 
@@ -64,7 +64,7 @@ describe( 'Homescreen Layout', () => {
 
 		// Expect that we're rendering the "full" home screen (with columns).
 		const columns = container.querySelector(
-			'.woocommerce-homescreen-column'
+			'.poocommerce-homescreen-column'
 		);
 		expect( columns ).toBeInTheDocument();
 
@@ -87,7 +87,7 @@ describe( 'Homescreen Layout', () => {
 
 		// Expect that we're NOT rendering the "full" home screen (with columns).
 		const columns = container.querySelector(
-			'.woocommerce-homescreen-column'
+			'.poocommerce-homescreen-column'
 		);
 		expect( columns ).not.toBeInTheDocument();
 
@@ -146,7 +146,7 @@ describe( 'Homescreen Layout', () => {
 		// defaulting to the two column view.
 		expect(
 			container.getElementsByClassName(
-				'woocommerce-homescreen two-columns'
+				'poocommerce-homescreen two-columns'
 			)
 		).toHaveLength( 1 );
 	} );
@@ -167,7 +167,7 @@ describe( 'Homescreen Layout', () => {
 		// Expect that we're rendering the single column home screen.
 		// If a default layout prop isn't specified, the default falls back to single column view.
 		const homescreen = container.getElementsByClassName(
-			'woocommerce-homescreen'
+			'poocommerce-homescreen'
 		);
 		expect( homescreen ).toHaveLength( 1 );
 
@@ -190,7 +190,7 @@ describe( 'Homescreen Layout', () => {
 		// Expect that we're rendering the two-column home screen.
 		expect(
 			container.getElementsByClassName(
-				'woocommerce-homescreen two-columns'
+				'poocommerce-homescreen two-columns'
 			)
 		).toHaveLength( 1 );
 	} );
@@ -210,7 +210,7 @@ describe( 'Homescreen Layout', () => {
 		);
 
 		const columns = container.getElementsByClassName(
-			'woocommerce-homescreen-column'
+			'poocommerce-homescreen-column'
 		);
 		expect( columns ).toHaveLength( 2 );
 		const firstColumn = columns[ 0 ];
@@ -253,7 +253,7 @@ describe( 'Homescreen Layout', () => {
 		);
 
 		const columns = container.getElementsByClassName(
-			'woocommerce-homescreen-column'
+			'poocommerce-homescreen-column'
 		);
 		expect( columns ).toHaveLength( 2 );
 		const firstColumn = columns[ 0 ];

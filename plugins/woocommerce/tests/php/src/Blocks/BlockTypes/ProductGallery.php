@@ -2,7 +2,7 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Tests\Blocks\BlockTypes;
 
 use WC_Helper_Product;
 
@@ -25,9 +25,9 @@ class ProductGallery extends \WP_UnitTestCase {
 		parent::setUp();
 
 		$option_names = array(
-			'woocommerce_thumbnail_cropping',
-			'woocommerce_thumbnail_cropping_custom_width',
-			'woocommerce_thumbnail_cropping_custom_height',
+			'poocommerce_thumbnail_cropping',
+			'poocommerce_thumbnail_cropping_custom_width',
+			'poocommerce_thumbnail_cropping_custom_height',
 		);
 
 		foreach ( $option_names as $option_name ) {
@@ -116,27 +116,27 @@ class ProductGallery extends \WP_UnitTestCase {
 
 		return do_blocks(
 			sprintf(
-				'<!-- wp:woocommerce/single-product {"productId":%d} -->
-				<div class="wp-block-woocommerce-single-product woocommerce">
-					<!-- wp:woocommerce/product-gallery %s -->
-					<div class="wp-block-woocommerce-product-gallery wc-block-product-gallery">
-						<!-- wp:woocommerce/product-gallery-thumbnails /-->
+				'<!-- wp:poocommerce/single-product {"productId":%d} -->
+				<div class="wp-block-poocommerce-single-product poocommerce">
+					<!-- wp:poocommerce/product-gallery %s -->
+					<div class="wp-block-poocommerce-product-gallery wc-block-product-gallery">
+						<!-- wp:poocommerce/product-gallery-thumbnails /-->
 
-						<!-- wp:woocommerce/product-gallery-large-image -->
-						<div class="wp-block-woocommerce-product-gallery-large-image wc-block-product-gallery-large-image__inner-blocks">
-							<!-- wp:woocommerce/product-image %s /-->
+						<!-- wp:poocommerce/product-gallery-large-image -->
+						<div class="wp-block-poocommerce-product-gallery-large-image wc-block-product-gallery-large-image__inner-blocks">
+							<!-- wp:poocommerce/product-image %s /-->
 
-							<!-- wp:woocommerce/product-sale-badge {"align":"right"} /-->
+							<!-- wp:poocommerce/product-sale-badge {"align":"right"} /-->
 
-							<!-- wp:woocommerce/product-gallery-large-image-next-previous -->
-							<div class="wp-block-woocommerce-product-gallery-large-image-next-previous"></div>
-							<!-- /wp:woocommerce/product-gallery-large-image-next-previous -->
+							<!-- wp:poocommerce/product-gallery-large-image-next-previous -->
+							<div class="wp-block-poocommerce-product-gallery-large-image-next-previous"></div>
+							<!-- /wp:poocommerce/product-gallery-large-image-next-previous -->
 						</div>
-						<!-- /wp:woocommerce/product-gallery-large-image -->
+						<!-- /wp:poocommerce/product-gallery-large-image -->
 					</div>
-					<!-- /wp:woocommerce/product-gallery -->
+					<!-- /wp:poocommerce/product-gallery -->
 				</div>
-				<!-- /wp:woocommerce/single-product -->',
+				<!-- /wp:poocommerce/single-product -->',
 				$product_id,
 				$gallery_attributes,
 				$product_image_attributes
@@ -261,9 +261,9 @@ class ProductGallery extends \WP_UnitTestCase {
 	public function test_product_gallery_uses_store_thumbnail_ratio_for_thumbnail_product_image_sizing( string $image_sizing ): void {
 		$data = $this->create_product_with_gallery( 3 );
 
-		update_option( 'woocommerce_thumbnail_cropping', 'custom' );
-		update_option( 'woocommerce_thumbnail_cropping_custom_width', '5' );
-		update_option( 'woocommerce_thumbnail_cropping_custom_height', '8' );
+		update_option( 'poocommerce_thumbnail_cropping', 'custom' );
+		update_option( 'poocommerce_thumbnail_cropping_custom_width', '5' );
+		update_option( 'poocommerce_thumbnail_cropping_custom_height', '8' );
 
 		$markup = $this->render_product_gallery(
 			$data['product']->get_id(),
@@ -334,7 +334,7 @@ class ProductGallery extends \WP_UnitTestCase {
 		$markup = $this->render_product_gallery( $product->get_id() );
 
 		// Should contain placeholder image.
-		$this->assertStringContainsString( 'woocommerce-placeholder', $markup );
+		$this->assertStringContainsString( 'poocommerce-placeholder', $markup );
 
 		$this->cleanup_product_data( $product );
 	}

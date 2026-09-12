@@ -16,11 +16,11 @@ const Edit = (): JSX.Element => {
 
 	return (
 		<div { ...blockProps }>
-			<h1>{ __( 'Order received', 'woocommerce' ) }</h1>
+			<h1>{ __( 'Order received', 'poocommerce' ) }</h1>
 			<p>
 				{ __(
 					'Thank you. Your order has been received.',
-					'woocommerce'
+					'poocommerce'
 				) }
 			</p>
 		</div>

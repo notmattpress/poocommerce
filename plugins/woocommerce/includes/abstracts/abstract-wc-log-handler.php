@@ -3,7 +3,7 @@
  * Log handling functionality.
  *
  * @class WC_Log_Handler
- * @package WooCommerce\Abstracts
+ * @package PooCommerce\Abstracts
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Abstract WC Log Handler Class
  *
  * @version        1.0.0
- * @package        WooCommerce\Abstracts
+ * @package        PooCommerce\Abstracts
  */
 abstract class WC_Log_Handler implements WC_Log_Handler_Interface {
 
@@ -52,7 +52,7 @@ abstract class WC_Log_Handler implements WC_Log_Handler_Interface {
 		 * @param array  $args  The raw data that gets assembled into a log entry.
 		 */
 		return apply_filters(
-			'woocommerce_format_log_entry',
+			'poocommerce_format_log_entry',
 			$entry,
 			array(
 				'timestamp' => $timestamp,

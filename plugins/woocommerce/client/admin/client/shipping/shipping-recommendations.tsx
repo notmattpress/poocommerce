@@ -7,15 +7,15 @@ import {
 	pluginsStore,
 	settingsStore,
 	onboardingStore,
-} from '@woocommerce/data';
-import { recordEvent } from '@woocommerce/tracks';
+} from '@poocommerce/data';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
  */
 import { getCountryCode } from '~/dashboard/utils';
 import { useOptionDismiss } from '~/hooks/use-option-dismiss';
-import WooCommerceShippingItem from './woocommerce-shipping-item';
+import PooCommerceShippingItem from './poocommerce-shipping-item';
 import ShipStationItem from './shipstation-item';
 import PacklinkItem from './packlink-item';
 import {
@@ -27,10 +27,10 @@ import {
 import './shipping-recommendations.scss';
 import { ShippingTour } from '~/guided-tours/shipping-tour';
 
-type ExtensionId = 'woocommerce-shipping' | 'shipstation' | 'packlink';
+type ExtensionId = 'poocommerce-shipping' | 'shipstation' | 'packlink';
 
 const COUNTRY_EXTENSIONS_MAP: Record< string, ExtensionId[] > = {
-	US: [ 'woocommerce-shipping', 'shipstation' ],
+	US: [ 'poocommerce-shipping', 'shipstation' ],
 	CA: [ 'shipstation' ],
 	FR: [ 'packlink' ],
 	ES: [ 'packlink' ],
@@ -47,8 +47,8 @@ const COUNTRY_EXTENSIONS_MAP: Record< string, ExtensionId[] > = {
 };
 
 const EXTENSION_PLUGIN_SLUGS: Record< ExtensionId, string > = {
-	'woocommerce-shipping': 'woocommerce-shipping',
-	shipstation: 'woocommerce-shipstation-integration',
+	'poocommerce-shipping': 'poocommerce-shipping',
+	shipstation: 'poocommerce-shipstation-integration',
 	packlink: 'packlink-pro-shipping',
 };
 
@@ -89,7 +89,7 @@ const ShippingRecommendations = () => {
 			installedPlugins: getInstalledPlugins(),
 			activePlugins: getActivePlugins(),
 			countryCode: getCountryCode(
-				settings.general?.woocommerce_default_country
+				settings.general?.poocommerce_default_country
 			),
 			isSellingDigitalProductsOnly:
 				profileItems?.length === 1 && profileItems[ 0 ] === 'downloads',
@@ -134,7 +134,7 @@ const ShippingRecommendations = () => {
 		<ShippingRecommendationsMarketplaceLink
 			textProps={ {
 				as: 'p',
-				className: 'woocommerce-recommended-shipping__fallback-link',
+				className: 'poocommerce-recommended-shipping__fallback-link',
 			} }
 		/>
 	);
@@ -201,9 +201,9 @@ const ShippingRecommendations = () => {
 							plugins: visiblePluginSlugs,
 						};
 						switch ( ext ) {
-							case 'woocommerce-shipping':
+							case 'poocommerce-shipping':
 								return (
-									<WooCommerceShippingItem
+									<PooCommerceShippingItem
 										key={ ext }
 										isPluginInstalled={ isPluginInstalled }
 										isPluginActive={ isPluginActive }

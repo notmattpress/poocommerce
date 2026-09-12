@@ -1,15 +1,15 @@
 ---
-name: woocommerce-dev-cycle
-description: Run tests, linting, and quality checks for WooCommerce development. Use when running tests, fixing code style, or following the development workflow.
+name: poocommerce-dev-cycle
+description: Run tests, linting, and quality checks for PooCommerce development. Use when running tests, fixing code style, or following the development workflow.
 ---
 
-# WooCommerce Development Cycle
+# PooCommerce Development Cycle
 
-This skill provides guidance for the WooCommerce development workflow, including running tests, code quality checks, and troubleshooting.
+This skill provides guidance for the PooCommerce development workflow, including running tests, code quality checks, and troubleshooting.
 
 ## Instructions
 
-Follow these guidelines for WooCommerce development workflow:
+Follow these guidelines for PooCommerce development workflow:
 
 1. **Running tests**: See [running-tests.md](running-tests.md) for PHP and JavaScript test commands, test environment setup, and troubleshooting
 2. **Code quality**: See [code-quality.md](code-quality.md) for linting and code style fixes
@@ -33,4 +33,4 @@ The standard development workflow:
 - Use specific test filters to run relevant tests during development
 - Fix linting errors solely for code in your current branch
 - Test failures provide detailed output showing expected vs actual values
-- The test environment handles WordPress/WooCommerce setup automatically
+- The test environment handles WordPress/PooCommerce setup automatically

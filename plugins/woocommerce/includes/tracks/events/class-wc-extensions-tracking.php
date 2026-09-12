@@ -1,28 +1,28 @@
 <?php
 /**
- * WooCommerce Extensions Tracking
+ * PooCommerce Extensions Tracking
  *
- * @package WooCommerce\Tracks
+ * @package PooCommerce\Tracks
  */
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * This class adds actions to track usage of the WooCommerce Extensions page.
+ * This class adds actions to track usage of the PooCommerce Extensions page.
  */
 class WC_Extensions_Tracking {
 	/**
 	 * Init tracking.
 	 */
 	public function init() {
-		add_action( 'load-woocommerce_page_wc-addons', array( $this, 'track_extensions_page' ) );
-		add_action( 'woocommerce_helper_connect_start', array( $this, 'track_helper_connection_start' ) );
-		add_action( 'woocommerce_helper_denied', array( $this, 'track_helper_connection_cancelled' ) );
-		add_action( 'woocommerce_helper_connected', array( $this, 'track_helper_connection_complete' ) );
-		add_action( 'woocommerce_helper_disconnected', array( $this, 'track_helper_disconnected' ) );
-		add_action( 'woocommerce_helper_subscriptions_refresh', array( $this, 'track_helper_subscriptions_refresh' ) );
-		add_action( 'woocommerce_addon_installed', array( $this, 'track_addon_install' ), 10, 2 );
-		add_action( 'woocommerce_page_wc-addons_connection_error', array( $this, 'track_extensions_page_connection_error' ), 10, 1 );
+		add_action( 'load-poocommerce_page_wc-addons', array( $this, 'track_extensions_page' ) );
+		add_action( 'poocommerce_helper_connect_start', array( $this, 'track_helper_connection_start' ) );
+		add_action( 'poocommerce_helper_denied', array( $this, 'track_helper_connection_cancelled' ) );
+		add_action( 'poocommerce_helper_connected', array( $this, 'track_helper_connection_complete' ) );
+		add_action( 'poocommerce_helper_disconnected', array( $this, 'track_helper_disconnected' ) );
+		add_action( 'poocommerce_helper_subscriptions_refresh', array( $this, 'track_helper_subscriptions_refresh' ) );
+		add_action( 'poocommerce_addon_installed', array( $this, 'track_addon_install' ), 10, 2 );
+		add_action( 'poocommerce_page_wc-addons_connection_error', array( $this, 'track_extensions_page_connection_error' ), 10, 1 );
 	}
 
 	/**
@@ -128,8 +128,8 @@ class WC_Extensions_Tracking {
 			'section' => $section,
 		);
 
-		if ( 'woocommerce-payments' === $addon_id ) {
-			WC_Tracks::record_event( 'woocommerce_payments_install', $properties );
+		if ( 'poocommerce-payments' === $addon_id ) {
+			WC_Tracks::record_event( 'poocommerce_payments_install', $properties );
 		}
 	}
 }

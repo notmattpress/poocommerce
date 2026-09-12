@@ -3,9 +3,9 @@
  * Rule processor that performs a comparison operation against an option value.
  */
 
-namespace Automattic\WooCommerce\Admin\RemoteSpecs\RuleProcessors;
+namespace Automattic\PooCommerce\Admin\RemoteSpecs\RuleProcessors;
 
-use Automattic\WooCommerce\Admin\RemoteSpecs\RuleProcessors\Transformers\TransformerService;
+use Automattic\PooCommerce\Admin\RemoteSpecs\RuleProcessors\Transformers\TransformerService;
 
 defined( 'ABSPATH' ) || exit;
 

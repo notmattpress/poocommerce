@@ -4,7 +4,7 @@
 import { __, _x } from '@wordpress/i18n';
 import { applyFilters } from '@wordpress/hooks';
 import { dispatch } from '@wordpress/data';
-import { STORE_KEY as CES_STORE_KEY } from '@woocommerce/customer-effort-score';
+import { STORE_KEY as CES_STORE_KEY } from '@poocommerce/customer-effort-score';
 
 /**
  * Internal dependencies
@@ -12,11 +12,11 @@ import { STORE_KEY as CES_STORE_KEY } from '@woocommerce/customer-effort-score';
 import { getCategoryLabels } from '../../../lib/async-requests';
 
 const CATEGORY_REPORT_CHARTS_FILTER =
-	'woocommerce_admin_categories_report_charts';
+	'poocommerce_admin_categories_report_charts';
 const CATEGORY_REPORT_FILTERS_FILTER =
-	'woocommerce_admin_categories_report_filters';
+	'poocommerce_admin_categories_report_filters';
 const CATEGORY_REPORT_ADVANCED_FILTERS_FILTER =
-	'woocommerce_admin_category_report_advanced_filters';
+	'poocommerce_admin_category_report_advanced_filters';
 
 const { addCesSurveyForAnalytics } = dispatch( CES_STORE_KEY );
 
@@ -27,27 +27,27 @@ const { addCesSurveyForAnalytics } = dispatch( CES_STORE_KEY );
 /**
  * Category Report charts filter.
  *
- * @filter woocommerce_admin_categories_report_charts
+ * @filter poocommerce_admin_categories_report_charts
  * @param {Array.<chart>} charts Category Report charts.
  */
 export const charts = applyFilters( CATEGORY_REPORT_CHARTS_FILTER, [
 	{
 		key: 'items_sold',
-		label: __( 'Items sold', 'woocommerce' ),
+		label: __( 'Items sold', 'poocommerce' ),
 		order: 'desc',
 		orderby: 'items_sold',
 		type: 'number',
 	},
 	{
 		key: 'net_revenue',
-		label: __( 'Net sales', 'woocommerce' ),
+		label: __( 'Net sales', 'poocommerce' ),
 		order: 'desc',
 		orderby: 'net_revenue',
 		type: 'currency',
 	},
 	{
 		key: 'orders_count',
-		label: __( 'Orders', 'woocommerce' ),
+		label: __( 'Orders', 'poocommerce' ),
 		order: 'desc',
 		orderby: 'orders_count',
 		type: 'number',
@@ -57,7 +57,7 @@ export const charts = applyFilters( CATEGORY_REPORT_CHARTS_FILTER, [
 /**
  * Category Report Advanced Filters.
  *
- * @filter woocommerce_admin_category_report_advanced_filters
+ * @filter poocommerce_admin_category_report_advanced_filters
  * @param {Object} advancedFilters         Report Advanced Filters.
  * @param {string} advancedFilters.title   Interpolated component string for Advanced Filters title.
  * @param {Object} advancedFilters.filters An object specifying a report's Advanced Filters.
@@ -69,18 +69,18 @@ export const advancedFilters = applyFilters(
 		title: _x(
 			'Categories match <select/> filters',
 			'A sentence describing filters for Categories. See screen shot for context: https://cloudup.com/cSsUY9VeCVJ',
-			'woocommerce'
+			'poocommerce'
 		),
 	}
 );
 
 const filterValues = [
 	{
-		label: __( 'All categories', 'woocommerce' ),
+		label: __( 'All categories', 'poocommerce' ),
 		value: 'all',
 	},
 	{
-		label: __( 'Single category', 'woocommerce' ),
+		label: __( 'Single category', 'poocommerce' ),
 		value: 'select_category',
 		chartMode: 'item-comparison',
 		subFilters: [
@@ -96,16 +96,16 @@ const filterValues = [
 					labels: {
 						placeholder: __(
 							'Type to search for a category',
-							'woocommerce'
+							'poocommerce'
 						),
-						button: __( 'Single Category', 'woocommerce' ),
+						button: __( 'Single Category', 'poocommerce' ),
 					},
 				},
 			},
 		],
 	},
 	{
-		label: __( 'Comparison', 'woocommerce' ),
+		label: __( 'Comparison', 'poocommerce' ),
 		value: 'compare-categories',
 		chartMode: 'item-comparison',
 		settings: {
@@ -115,14 +115,14 @@ const filterValues = [
 			labels: {
 				helpText: __(
 					'Check at least two categories below to compare',
-					'woocommerce'
+					'poocommerce'
 				),
 				placeholder: __(
 					'Search for categories to compare',
-					'woocommerce'
+					'poocommerce'
 				),
-				title: __( 'Compare Categories', 'woocommerce' ),
-				update: __( 'Compare', 'woocommerce' ),
+				title: __( 'Compare Categories', 'poocommerce' ),
+				update: __( 'Compare', 'poocommerce' ),
 			},
 			onClick: addCesSurveyForAnalytics,
 		},
@@ -131,7 +131,7 @@ const filterValues = [
 
 if ( Object.keys( advancedFilters.filters ).length ) {
 	filterValues.push( {
-		label: __( 'Advanced filters', 'woocommerce' ),
+		label: __( 'Advanced filters', 'poocommerce' ),
 		value: 'advanced',
 	} );
 }
@@ -143,12 +143,12 @@ if ( Object.keys( advancedFilters.filters ).length ) {
 /**
  * Category Report Filters.
  *
- * @filter woocommerce_admin_categories_report_filters
+ * @filter poocommerce_admin_categories_report_filters
  * @param {Array.<filter>} filters Report filters.
  */
 export const filters = applyFilters( CATEGORY_REPORT_FILTERS_FILTER, [
 	{
-		label: __( 'Show', 'woocommerce' ),
+		label: __( 'Show', 'poocommerce' ),
 		staticParams: [ 'chartType', 'paged', 'per_page' ],
 		param: 'filter',
 		showFilters: () => true,

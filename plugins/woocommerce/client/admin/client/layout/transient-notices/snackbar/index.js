@@ -119,7 +119,7 @@ function Snackbar(
 			onKeyPress={ ! explicitDismiss ? dismissMe : noop }
 			aria-label={
 				! explicitDismiss
-					? __( 'Dismiss this notice', 'woocommerce' )
+					? __( 'Dismiss this notice', 'poocommerce' )
 					: ''
 			}
 		>

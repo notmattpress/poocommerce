@@ -1,5 +1,5 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\Integrations;
+namespace Automattic\PooCommerce\Blocks\Integrations;
 
 /**
  * Integration.Interface

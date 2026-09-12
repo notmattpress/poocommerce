@@ -1,4 +1,4 @@
-/* global jQuery, woocommerce_admin_system_status, wcSetClipboard, wcClearClipboard */
+/* global jQuery, poocommerce_admin_system_status, wcSetClipboard, wcClearClipboard */
 jQuery( function ( $ ) {
 	/**
 	 * Users country and state fields
@@ -11,7 +11,7 @@ jQuery( function ( $ ) {
 			$( document.body )
 				.on(
 					'click',
-					'a.help_tip, a.woocommerce-help-tip, woocommerce-product-type-tip',
+					'a.help_tip, a.poocommerce-help-tip, poocommerce-product-type-tip',
 					this.preventTipTipClick
 				)
 				.on( 'click', 'a.debug-report', this.generateReport )
@@ -30,7 +30,7 @@ jQuery( function ( $ ) {
 		maybePollTools: function() {
 			if (
 				this.toolsPollTimer ||
-				! woocommerce_admin_system_status.tools_url ||
+				! poocommerce_admin_system_status.tools_url ||
 				! this.shouldPollTools()
 			) {
 				return;
@@ -38,7 +38,7 @@ jQuery( function ( $ ) {
 
 			this.toolsPollTimer = window.setInterval(
 				$.proxy( this.pollTools, this ),
-				parseInt( woocommerce_admin_system_status.tools_poll_interval, 10 ) || 10000
+				parseInt( poocommerce_admin_system_status.tools_poll_interval, 10 ) || 10000
 			);
 		},
 
@@ -65,7 +65,7 @@ jQuery( function ( $ ) {
 			this.toolsPollInProgress = true;
 
 			var self = this;
-			var toolsUrl = woocommerce_admin_system_status.tools_url;
+			var toolsUrl = poocommerce_admin_system_status.tools_url;
 			var pollUrl = toolsUrl + ( toolsUrl.indexOf( '?' ) === -1 ? '?' : '&' ) + 'wc_status_tools_poll=' + Date.now();
 
 			$.get( pollUrl )
@@ -261,11 +261,11 @@ jQuery( function ( $ ) {
 
 	$( '.wc_status_table' ).on( 'click', '.run-tool input.button', function( evt ) {
 		evt.stopImmediatePropagation();
-		return window.confirm( woocommerce_admin_system_status.run_tool_confirmation );
+		return window.confirm( poocommerce_admin_system_status.run_tool_confirmation );
 	});
 
 	$( '#log-viewer-select' ).on( 'click', 'h2 a.page-title-action', function( evt ) {
 		evt.stopImmediatePropagation();
-		return window.confirm( woocommerce_admin_system_status.delete_log_confirmation );
+		return window.confirm( poocommerce_admin_system_status.delete_log_confirmation );
 	});
 });

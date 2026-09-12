@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { Command, Option } from '@commander-js/extra-typings';
-import { Logger } from '@woocommerce/monorepo-utils/src/core/logger';
+import { Logger } from '@poocommerce/monorepo-utils/src/core/logger';
 import { join } from 'path';
 
 /**

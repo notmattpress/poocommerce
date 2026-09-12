@@ -2,7 +2,7 @@
 /**
  * Setup customize items.
  *
- * @package WooCommerce\Admin\Customize
+ * @package PooCommerce\Admin\Customize
  * @version 3.1.0
  */
 
@@ -28,7 +28,7 @@ if ( ! class_exists( 'WC_Admin_Customize', false ) ) :
 
 		/**
 		 * Register customize new nav menu item types.
-		 * This will register WooCommerce account endpoints as a nav menu item type.
+		 * This will register PooCommerce account endpoints as a nav menu item type.
 		 *
 		 * @since  3.1.0
 		 * @param  array $item_types Menu item types.
@@ -36,10 +36,10 @@ if ( ! class_exists( 'WC_Admin_Customize', false ) ) :
 		 */
 		public function register_customize_nav_menu_item_types( $item_types ) {
 			$item_types[] = array(
-				'title'      => __( 'WooCommerce Endpoints', 'woocommerce' ),
-				'type_label' => __( 'WooCommerce Endpoint', 'woocommerce' ),
-				'type'       => 'woocommerce_nav',
-				'object'     => 'woocommerce_endpoint',
+				'title'      => __( 'PooCommerce Endpoints', 'poocommerce' ),
+				'type_label' => __( 'PooCommerce Endpoint', 'poocommerce' ),
+				'type'       => 'poocommerce_nav',
+				'object'     => 'poocommerce_endpoint',
 			);
 
 			return $item_types;
@@ -56,7 +56,7 @@ if ( ! class_exists( 'WC_Admin_Customize', false ) ) :
 		 * @return array
 		 */
 		public function register_customize_nav_menu_items( $items = array(), $type = '', $object = '', $page = 0 ) {
-			if ( 'woocommerce_endpoint' !== $object ) {
+			if ( 'poocommerce_endpoint' !== $object ) {
 				return $items;
 			}
 
@@ -74,15 +74,15 @@ if ( ! class_exists( 'WC_Admin_Customize', false ) ) :
 			}
 
 			// Include missing lost password.
-			$endpoints['lost-password'] = __( 'Lost password', 'woocommerce' );
+			$endpoints['lost-password'] = __( 'Lost password', 'poocommerce' );
 
-			$endpoints = apply_filters( 'woocommerce_custom_nav_menu_items', $endpoints );
+			$endpoints = apply_filters( 'poocommerce_custom_nav_menu_items', $endpoints );
 
 			foreach ( $endpoints as $endpoint => $title ) {
 				$items[] = array(
 					'id'         => $endpoint,
 					'title'      => $title,
-					'type_label' => __( 'Custom Link', 'woocommerce' ),
+					'type_label' => __( 'Custom Link', 'poocommerce' ),
 					'url'        => esc_url_raw( wc_get_account_endpoint_url( $endpoint ) ),
 				);
 			}

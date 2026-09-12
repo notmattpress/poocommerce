@@ -2,7 +2,7 @@
 /**
  * Handles storage and retrieval of shipping zones
  *
- * @package WooCommerce\Classes
+ * @package PooCommerce\Classes
  * @version 3.3.0
  * @since   2.6.0
  */
@@ -81,7 +81,7 @@ class WC_Shipping_Zones {
 			if ( $shadowing_zone ) {
 				$zones[ $zone['zone_id'] ]['zone_order_conflict_warning'] = sprintf(
 					/* translators: %1$s: Higher-priority shipping zone name. */
-					__( 'This zone will not be matched because "%1$s" covers the same region earlier in the list. Move this zone above "%1$s" to make it available.', 'woocommerce' ),
+					__( 'This zone will not be matched because "%1$s" covers the same region earlier in the list. Move this zone above "%1$s" to make it available.', 'poocommerce' ),
 					$shadowing_zone['zone_name']
 				);
 			}

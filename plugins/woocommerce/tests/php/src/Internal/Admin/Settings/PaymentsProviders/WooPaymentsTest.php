@@ -1,20 +1,20 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\Settings\PaymentsProviders;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\Settings\PaymentsProviders;
 
 use Automattic\Jetpack\Connection\Manager as WPCOM_Connection_Manager;
 use Automattic\Jetpack\Constants;
-use Automattic\WooCommerce\Admin\PluginsHelper;
-use Automattic\WooCommerce\Internal\Admin\Settings\PaymentsProviders;
-use Automattic\WooCommerce\Internal\Admin\Settings\PaymentsProviders\PaymentGateway;
-use Automattic\WooCommerce\Internal\Admin\Settings\PaymentsProviders\WooPayments;
-use Automattic\WooCommerce\Internal\Admin\Settings\PaymentsProviders\WooPayments\WooPaymentsRestController;
-use Automattic\WooCommerce\Internal\Admin\Settings\PaymentsProviders\WooPayments\WooPaymentsService;
-use Automattic\WooCommerce\Proxies\LegacyProxy;
-use Automattic\WooCommerce\Testing\Tools\DependencyManagement\MockableLegacyProxy;
-use Automattic\WooCommerce\Testing\Tools\TestingContainer;
-use Automattic\WooCommerce\Tests\Internal\Admin\Settings\Mocks\FakePaymentGateway;
+use Automattic\PooCommerce\Admin\PluginsHelper;
+use Automattic\PooCommerce\Internal\Admin\Settings\PaymentsProviders;
+use Automattic\PooCommerce\Internal\Admin\Settings\PaymentsProviders\PaymentGateway;
+use Automattic\PooCommerce\Internal\Admin\Settings\PaymentsProviders\WooPayments;
+use Automattic\PooCommerce\Internal\Admin\Settings\PaymentsProviders\WooPayments\WooPaymentsRestController;
+use Automattic\PooCommerce\Internal\Admin\Settings\PaymentsProviders\WooPayments\WooPaymentsService;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\Testing\Tools\DependencyManagement\MockableLegacyProxy;
+use Automattic\PooCommerce\Testing\Tools\TestingContainer;
+use Automattic\PooCommerce\Tests\Internal\Admin\Settings\Mocks\FakePaymentGateway;
 use PHPUnit\Framework\MockObject\MockObject;
 use WC_Unit_Test_Case;
 
@@ -101,7 +101,7 @@ class WooPaymentsTest extends WC_Unit_Test_Case {
 	public function test_get_details_without_country_code() {
 		// Arrange.
 		$fake_gateway = new FakePaymentGateway(
-			'woocommerce_payments',
+			'poocommerce_payments',
 			array(
 				'enabled'                     => true,
 				'account_connected'           => true,
@@ -111,8 +111,8 @@ class WooPaymentsTest extends WC_Unit_Test_Case {
 				'onboarding_started'          => true,
 				'onboarding_completed'        => true,
 				'test_mode_onboarding'        => true,
-				'plugin_slug'                 => 'woocommerce-payments',
-				'plugin_file'                 => 'woocommerce-payments/woocommerce-payments.php',
+				'plugin_slug'                 => 'poocommerce-payments',
+				'plugin_file'                 => 'poocommerce-payments/poocommerce-payments.php',
 				'method_title'                => 'WooPayments has a very long title that should be truncated after some length like this',
 				'method_description'          => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
 				'supports'                    => array( 'products', 'something', 'bogus' ),
@@ -196,7 +196,7 @@ class WooPaymentsTest extends WC_Unit_Test_Case {
 
 			// Assert - Use targeted assertions for resilient testing.
 			// Basic gateway details.
-			$this->assertSame( 'woocommerce_payments', $gateway_details['id'] );
+			$this->assertSame( 'poocommerce_payments', $gateway_details['id'] );
 			$this->assertSame( 999, $gateway_details['_order'] );
 			$this->assertSame( 'WooPayments has a very long title that should be truncated after some length', $gateway_details['title'] );
 			$this->assertStringStartsWith( 'Lorem ipsum dolor sit amet', $gateway_details['description'] );
@@ -221,8 +221,8 @@ class WooPaymentsTest extends WC_Unit_Test_Case {
 			// Plugin.
 			$this->assertArrayHasKey( 'plugin', $gateway_details );
 			$this->assertSame( PaymentsProviders::EXTENSION_TYPE_WPORG, $gateway_details['plugin']['_type'] );
-			$this->assertSame( 'woocommerce-payments', $gateway_details['plugin']['slug'] );
-			$this->assertSame( 'woocommerce-payments/woocommerce-payments', $gateway_details['plugin']['file'] );
+			$this->assertSame( 'poocommerce-payments', $gateway_details['plugin']['slug'] );
+			$this->assertSame( 'poocommerce-payments/poocommerce-payments', $gateway_details['plugin']['file'] );
 			$this->assertSame( PaymentsProviders::EXTENSION_ACTIVE, $gateway_details['plugin']['status'] );
 
 			// Onboarding - Type.
@@ -298,15 +298,15 @@ class WooPaymentsTest extends WC_Unit_Test_Case {
 	public function test_get_details_with_country_code_integrates_service() {
 		// Arrange.
 		$fake_gateway = new FakePaymentGateway(
-			'woocommerce_payments',
+			'poocommerce_payments',
 			array(
 				'enabled'              => true,
 				'account_connected'    => true,
 				'onboarding_started'   => true,
 				'onboarding_completed' => false,
 				'test_mode_onboarding' => false,
-				'plugin_slug'          => 'woocommerce-payments',
-				'plugin_file'          => 'woocommerce-payments/woocommerce-payments.php',
+				'plugin_slug'          => 'poocommerce-payments',
+				'plugin_file'          => 'poocommerce-payments/poocommerce-payments.php',
 			),
 		);
 
@@ -397,14 +397,14 @@ class WooPaymentsTest extends WC_Unit_Test_Case {
 	public function test_get_details_with_country_code_handles_service_error() {
 		// Arrange.
 		$fake_gateway = new FakePaymentGateway(
-			'woocommerce_payments',
+			'poocommerce_payments',
 			array(
 				'enabled'              => true,
 				'account_connected'    => true,
 				'onboarding_started'   => true,
 				'onboarding_completed' => false,
-				'plugin_slug'          => 'woocommerce-payments',
-				'plugin_file'          => 'woocommerce-payments/woocommerce-payments.php',
+				'plugin_slug'          => 'poocommerce-payments',
+				'plugin_file'          => 'poocommerce-payments/poocommerce-payments.php',
 			),
 		);
 
@@ -461,7 +461,7 @@ class WooPaymentsTest extends WC_Unit_Test_Case {
 	 */
 	public function test_is_onboarding_supported_with_supported_country() {
 		// Arrange.
-		$fake_gateway = new FakePaymentGateway( 'woocommerce_payments', array() );
+		$fake_gateway = new FakePaymentGateway( 'poocommerce_payments', array() );
 
 		// Act.
 		$is_supported = $this->sut->is_onboarding_supported( $fake_gateway, 'US' );
@@ -480,7 +480,7 @@ class WooPaymentsTest extends WC_Unit_Test_Case {
 	public function test_is_onboarding_supported_with_unsupported_country() {
 		// Arrange.
 		$fake_gateway = new FakePaymentGateway(
-			'woocommerce_payments',
+			'poocommerce_payments',
 			array(
 				'onboarding_supported' => null, // Ensure gateway doesn't provide info.
 			)
@@ -498,7 +498,7 @@ class WooPaymentsTest extends WC_Unit_Test_Case {
 	 */
 	public function test_is_onboarding_supported_without_country_code() {
 		// Arrange.
-		$fake_gateway = new FakePaymentGateway( 'woocommerce_payments', array() );
+		$fake_gateway = new FakePaymentGateway( 'poocommerce_payments', array() );
 
 		// Act.
 		$is_supported = $this->sut->is_onboarding_supported( $fake_gateway, '' );
@@ -513,7 +513,7 @@ class WooPaymentsTest extends WC_Unit_Test_Case {
 	public function test_is_onboarding_supported_defers_to_gateway_method() {
 		// Arrange - Create a gateway that provides the is_onboarding_supported method.
 		$fake_gateway = new FakePaymentGateway(
-			'woocommerce_payments',
+			'poocommerce_payments',
 			array(
 				'onboarding_supported' => false,
 			)
@@ -531,7 +531,7 @@ class WooPaymentsTest extends WC_Unit_Test_Case {
 	 */
 	public function test_get_onboarding_not_supported_message() {
 		// Arrange.
-		$fake_gateway = new FakePaymentGateway( 'woocommerce_payments', array() );
+		$fake_gateway = new FakePaymentGateway( 'poocommerce_payments', array() );
 
 		// Act.
 		$message = $this->sut->get_onboarding_not_supported_message( $fake_gateway, 'XX' );
@@ -548,7 +548,7 @@ class WooPaymentsTest extends WC_Unit_Test_Case {
 	public function test_get_onboarding_not_supported_message_defers_to_gateway_method() {
 		// Arrange - Create a gateway with a custom message.
 		$fake_gateway = new FakePaymentGateway(
-			'woocommerce_payments',
+			'poocommerce_payments',
 			array(
 				'onboarding_not_supported_message' => 'Custom unsupported message from gateway',
 			)
@@ -567,12 +567,12 @@ class WooPaymentsTest extends WC_Unit_Test_Case {
 	public function test_get_details_includes_supported_state() {
 		// Arrange.
 		$fake_gateway = new FakePaymentGateway(
-			'woocommerce_payments',
+			'poocommerce_payments',
 			array(
 				'enabled'           => true,
 				'account_connected' => true,
-				'plugin_slug'       => 'woocommerce-payments',
-				'plugin_file'       => 'woocommerce-payments/woocommerce-payments.php',
+				'plugin_slug'       => 'poocommerce-payments',
+				'plugin_file'       => 'poocommerce-payments/poocommerce-payments.php',
 			),
 		);
 
@@ -612,7 +612,7 @@ class WooPaymentsTest extends WC_Unit_Test_Case {
 	 */
 	public function test_is_onboarding_supported_with_supported_country_when_gateway_unknown() {
 		$fake_gateway = new FakePaymentGateway(
-			'woocommerce_payments',
+			'poocommerce_payments',
 			array( 'onboarding_supported' => null )
 		);
 
@@ -625,14 +625,14 @@ class WooPaymentsTest extends WC_Unit_Test_Case {
 	public function test_get_details_with_unsupported_country() {
 		// Arrange - Create a gateway that doesn't support onboarding for a specific country.
 		$fake_gateway = new FakePaymentGateway(
-			'woocommerce_payments',
+			'poocommerce_payments',
 			array(
 				'enabled'                          => true,
 				'account_connected'                => true,
 				'onboarding_supported'             => false,
 				'onboarding_not_supported_message' => 'WooPayments is not available in your country.',
-				'plugin_slug'                      => 'woocommerce-payments',
-				'plugin_file'                      => 'woocommerce-payments/woocommerce-payments.php',
+				'plugin_slug'                      => 'poocommerce-payments',
+				'plugin_file'                      => 'poocommerce-payments/poocommerce-payments.php',
 			)
 		);
 
@@ -678,7 +678,7 @@ class WooPaymentsTest extends WC_Unit_Test_Case {
 			array(
 				PluginsHelper::class => array(
 					'get_plugin_data' => function ( $plugin_file ) {
-						if ( 'woocommerce-payments/woocommerce-payments.php' === $plugin_file ) {
+						if ( 'poocommerce-payments/poocommerce-payments.php' === $plugin_file ) {
 							return array(
 								'Version' => '10.0.0', // Compatible version >= 9.3.0.
 							);
@@ -691,9 +691,9 @@ class WooPaymentsTest extends WC_Unit_Test_Case {
 
 		// Arrange - Extension suggestion for installed WooPayments with compatible version.
 		$extension_suggestion = array(
-			'id'         => 'woocommerce-payments',
+			'id'         => 'poocommerce-payments',
 			'plugin'     => array(
-				'file'   => 'woocommerce-payments/woocommerce-payments',
+				'file'   => 'poocommerce-payments/poocommerce-payments',
 				'status' => PaymentsProviders::EXTENSION_ACTIVE,
 			),
 			'onboarding' => array(),
@@ -728,7 +728,7 @@ class WooPaymentsTest extends WC_Unit_Test_Case {
 			array(
 				PluginsHelper::class => array(
 					'get_plugin_data' => function ( $plugin_file ) {
-						if ( 'woocommerce-payments/woocommerce-payments.php' === $plugin_file ) {
+						if ( 'poocommerce-payments/poocommerce-payments.php' === $plugin_file ) {
 							return array(
 								'Version' => '3.0.0', // Below minimum.
 							);
@@ -740,9 +740,9 @@ class WooPaymentsTest extends WC_Unit_Test_Case {
 		);
 
 		$extension_suggestion = array(
-			'id'         => 'woocommerce-payments',
+			'id'         => 'poocommerce-payments',
 			'plugin'     => array(
-				'file'   => 'woocommerce-payments/woocommerce-payments',
+				'file'   => 'poocommerce-payments/poocommerce-payments',
 				'status' => PaymentsProviders::EXTENSION_ACTIVE,
 			),
 			'onboarding' => array(),
@@ -763,7 +763,7 @@ class WooPaymentsTest extends WC_Unit_Test_Case {
 	public function test_enhance_extension_suggestion_when_not_installed() {
 		// Arrange - Extension suggestion for not-yet-installed WooPayments.
 		$extension_suggestion = array(
-			'id'         => 'woocommerce-payments',
+			'id'         => 'poocommerce-payments',
 			'plugin'     => array(
 				'file'   => '',
 				'status' => PaymentsProviders::EXTENSION_NOT_INSTALLED,
@@ -793,7 +793,7 @@ class WooPaymentsTest extends WC_Unit_Test_Case {
 			->willReturn( false );
 
 		$extension_suggestion = array(
-			'id'         => 'woocommerce-payments',
+			'id'         => 'poocommerce-payments',
 			'plugin'     => array(
 				'file'   => '',
 				'status' => PaymentsProviders::EXTENSION_NOT_INSTALLED,
@@ -836,7 +836,7 @@ class WooPaymentsTest extends WC_Unit_Test_Case {
 	public function test_needs_setup_when_account_not_connected() {
 		// Arrange - Gateway without account connection.
 		$fake_gateway = new FakePaymentGateway(
-			'woocommerce_payments',
+			'poocommerce_payments',
 			array(
 				'enabled'           => true,
 				'account_connected' => false,
@@ -856,7 +856,7 @@ class WooPaymentsTest extends WC_Unit_Test_Case {
 	public function test_needs_setup_with_test_drive_account() {
 		// Arrange - Gateway with connected account.
 		$fake_gateway = new FakePaymentGateway(
-			'woocommerce_payments',
+			'poocommerce_payments',
 			array(
 				'enabled'           => true,
 				'account_connected' => true,
@@ -886,7 +886,7 @@ class WooPaymentsTest extends WC_Unit_Test_Case {
 	public function test_needs_setup_delegates_to_parent_when_normal_account() {
 		// Arrange - Gateway with connected account that needs setup (per parent logic).
 		$fake_gateway = new FakePaymentGateway(
-			'woocommerce_payments',
+			'poocommerce_payments',
 			array(
 				'enabled'           => true,
 				'account_connected' => true,
@@ -917,7 +917,7 @@ class WooPaymentsTest extends WC_Unit_Test_Case {
 	public function test_needs_setup_returns_false_when_setup_complete() {
 		// Arrange - Gateway fully configured.
 		$fake_gateway = new FakePaymentGateway(
-			'woocommerce_payments',
+			'poocommerce_payments',
 			array(
 				'enabled'           => true,
 				'account_connected' => true,
@@ -947,7 +947,7 @@ class WooPaymentsTest extends WC_Unit_Test_Case {
 	 */
 	public function test_is_in_test_mode_when_woopayments_reports_test() {
 		// Arrange.
-		$fake_gateway = new FakePaymentGateway( 'woocommerce_payments', array() );
+		$fake_gateway = new FakePaymentGateway( 'poocommerce_payments', array() );
 
 		// Arrange - Mock WooPayments mode to return test mode.
 		$this->mock_woopayments_mode
@@ -966,7 +966,7 @@ class WooPaymentsTest extends WC_Unit_Test_Case {
 	 */
 	public function test_is_in_test_mode_when_woopayments_reports_live() {
 		// Arrange.
-		$fake_gateway = new FakePaymentGateway( 'woocommerce_payments', array() );
+		$fake_gateway = new FakePaymentGateway( 'poocommerce_payments', array() );
 
 		// Arrange - Mock WooPayments mode to return live mode.
 		$this->mock_woopayments_mode
@@ -986,7 +986,7 @@ class WooPaymentsTest extends WC_Unit_Test_Case {
 	public function test_is_in_test_mode_delegates_to_parent_when_woopayments_unavailable() {
 		// Arrange - Gateway with test mode flag.
 		$fake_gateway = new FakePaymentGateway(
-			'woocommerce_payments',
+			'poocommerce_payments',
 			array(
 				'test_mode' => true,
 			)
@@ -1016,7 +1016,7 @@ class WooPaymentsTest extends WC_Unit_Test_Case {
 	 */
 	public function test_is_in_dev_mode_when_woopayments_reports_dev() {
 		// Arrange.
-		$fake_gateway = new FakePaymentGateway( 'woocommerce_payments', array() );
+		$fake_gateway = new FakePaymentGateway( 'poocommerce_payments', array() );
 
 		// Arrange - Mock WooPayments mode to return dev mode.
 		$this->mock_woopayments_mode
@@ -1035,7 +1035,7 @@ class WooPaymentsTest extends WC_Unit_Test_Case {
 	 */
 	public function test_is_in_dev_mode_when_woopayments_reports_not_dev() {
 		// Arrange.
-		$fake_gateway = new FakePaymentGateway( 'woocommerce_payments', array() );
+		$fake_gateway = new FakePaymentGateway( 'poocommerce_payments', array() );
 
 		// Arrange - Mock WooPayments mode to return not dev mode.
 		$this->mock_woopayments_mode
@@ -1055,7 +1055,7 @@ class WooPaymentsTest extends WC_Unit_Test_Case {
 	public function test_is_in_dev_mode_delegates_to_parent_when_woopayments_unavailable() {
 		// Arrange - Gateway with dev mode flag.
 		$fake_gateway = new FakePaymentGateway(
-			'woocommerce_payments',
+			'poocommerce_payments',
 			array(
 				'dev_mode' => true,
 			)
@@ -1085,7 +1085,7 @@ class WooPaymentsTest extends WC_Unit_Test_Case {
 	 */
 	public function test_is_in_test_mode_onboarding_when_woopayments_reports_test_mode() {
 		// Arrange.
-		$fake_gateway = new FakePaymentGateway( 'woocommerce_payments', array() );
+		$fake_gateway = new FakePaymentGateway( 'poocommerce_payments', array() );
 
 		// Arrange - Mock WooPayments mode to return test mode onboarding.
 		$this->mock_woopayments_mode
@@ -1104,7 +1104,7 @@ class WooPaymentsTest extends WC_Unit_Test_Case {
 	 */
 	public function test_is_in_test_mode_onboarding_when_woopayments_reports_not_test_mode() {
 		// Arrange.
-		$fake_gateway = new FakePaymentGateway( 'woocommerce_payments', array() );
+		$fake_gateway = new FakePaymentGateway( 'poocommerce_payments', array() );
 
 		// Arrange - Mock WooPayments mode to return not test mode onboarding.
 		$this->mock_woopayments_mode
@@ -1124,7 +1124,7 @@ class WooPaymentsTest extends WC_Unit_Test_Case {
 	public function test_is_in_test_mode_onboarding_delegates_to_parent_when_woopayments_unavailable() {
 		// Arrange - Gateway with test mode onboarding flag.
 		$fake_gateway = new FakePaymentGateway(
-			'woocommerce_payments',
+			'poocommerce_payments',
 			array(
 				'test_mode_onboarding' => true,
 			)
@@ -1155,7 +1155,7 @@ class WooPaymentsTest extends WC_Unit_Test_Case {
 	public function test_get_onboarding_url_with_connected_account() {
 		// Arrange - Gateway with connected account.
 		$fake_gateway = new FakePaymentGateway(
-			'woocommerce_payments',
+			'poocommerce_payments',
 			array(
 				'enabled'           => true,
 				'account_connected' => true,
@@ -1181,7 +1181,7 @@ class WooPaymentsTest extends WC_Unit_Test_Case {
 	public function test_get_onboarding_url_coming_soon_mode_already_selling_online() {
 		// Arrange - Gateway without connected account.
 		$fake_gateway = new FakePaymentGateway(
-			'woocommerce_payments',
+			'poocommerce_payments',
 			array(
 				'enabled'           => true,
 				'account_connected' => false,
@@ -1189,11 +1189,11 @@ class WooPaymentsTest extends WC_Unit_Test_Case {
 		);
 
 		// Arrange - Store in coming soon mode.
-		update_option( 'woocommerce_coming_soon', 'yes' );
+		update_option( 'poocommerce_coming_soon', 'yes' );
 
 		// Arrange - Onboarding profile: already selling online.
 		update_option(
-			'woocommerce_onboarding_profile',
+			'poocommerce_onboarding_profile',
 			array(
 				'business_choice'       => 'im_already_selling',
 				'selling_online_answer' => 'yes_im_selling_online',
@@ -1210,8 +1210,8 @@ class WooPaymentsTest extends WC_Unit_Test_Case {
 			$this->assertStringNotContainsString( 'auto_start_test_drive_onboarding=true', $onboarding_url );
 		} finally {
 			// Clean up.
-			delete_option( 'woocommerce_coming_soon' );
-			delete_option( 'woocommerce_onboarding_profile' );
+			delete_option( 'poocommerce_coming_soon' );
+			delete_option( 'poocommerce_onboarding_profile' );
 		}
 	}
 
@@ -1221,7 +1221,7 @@ class WooPaymentsTest extends WC_Unit_Test_Case {
 	public function test_get_onboarding_url_coming_soon_mode_selling_both() {
 		// Arrange - Gateway without connected account.
 		$fake_gateway = new FakePaymentGateway(
-			'woocommerce_payments',
+			'poocommerce_payments',
 			array(
 				'enabled'           => true,
 				'account_connected' => false,
@@ -1229,11 +1229,11 @@ class WooPaymentsTest extends WC_Unit_Test_Case {
 		);
 
 		// Arrange - Store in coming soon mode.
-		update_option( 'woocommerce_coming_soon', 'yes' );
+		update_option( 'poocommerce_coming_soon', 'yes' );
 
 		// Arrange - Onboarding profile: selling both online and offline.
 		update_option(
-			'woocommerce_onboarding_profile',
+			'poocommerce_onboarding_profile',
 			array(
 				'business_choice'       => 'im_already_selling',
 				'selling_online_answer' => 'im_selling_both_online_and_offline',
@@ -1250,8 +1250,8 @@ class WooPaymentsTest extends WC_Unit_Test_Case {
 			$this->assertStringNotContainsString( 'auto_start_test_drive_onboarding=true', $onboarding_url );
 		} finally {
 			// Clean up.
-			delete_option( 'woocommerce_coming_soon' );
-			delete_option( 'woocommerce_onboarding_profile' );
+			delete_option( 'poocommerce_coming_soon' );
+			delete_option( 'poocommerce_onboarding_profile' );
 		}
 	}
 
@@ -1261,7 +1261,7 @@ class WooPaymentsTest extends WC_Unit_Test_Case {
 	public function test_get_onboarding_url_coming_soon_mode_other_profile() {
 		// Arrange - Gateway without connected account.
 		$fake_gateway = new FakePaymentGateway(
-			'woocommerce_payments',
+			'poocommerce_payments',
 			array(
 				'enabled'           => true,
 				'account_connected' => false,
@@ -1269,11 +1269,11 @@ class WooPaymentsTest extends WC_Unit_Test_Case {
 		);
 
 		// Arrange - Store in coming soon mode.
-		update_option( 'woocommerce_coming_soon', 'yes' );
+		update_option( 'poocommerce_coming_soon', 'yes' );
 
 		// Arrange - Onboarding profile: not already selling.
 		update_option(
-			'woocommerce_onboarding_profile',
+			'poocommerce_onboarding_profile',
 			array(
 				'business_choice' => 'im_just_starting',
 			)
@@ -1289,8 +1289,8 @@ class WooPaymentsTest extends WC_Unit_Test_Case {
 			$this->assertStringContainsString( 'auto_start_test_drive_onboarding=true', $onboarding_url );
 		} finally {
 			// Clean up.
-			delete_option( 'woocommerce_coming_soon' );
-			delete_option( 'woocommerce_onboarding_profile' );
+			delete_option( 'poocommerce_coming_soon' );
+			delete_option( 'poocommerce_onboarding_profile' );
 		}
 	}
 
@@ -1431,7 +1431,7 @@ class WooPaymentsTest extends WC_Unit_Test_Case {
 				),
 				PluginsHelper::class  => array(
 					'get_plugin_data' => function ( $plugin_file ) {
-						if ( 'woocommerce-payments/woocommerce-payments.php' === $plugin_file ) {
+						if ( 'poocommerce-payments/poocommerce-payments.php' === $plugin_file ) {
 							return array(
 								'Version' => '4.0.0',
 							);

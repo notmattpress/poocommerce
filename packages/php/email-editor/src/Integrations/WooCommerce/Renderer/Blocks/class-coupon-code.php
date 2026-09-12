@@ -1,23 +1,23 @@
 <?php
 /**
- * This file is part of the WooCommerce Email Editor package.
+ * This file is part of the PooCommerce Email Editor package.
  *
- * @package Automattic\WooCommerce\EmailEditor
+ * @package Automattic\PooCommerce\EmailEditor
  */
 
 declare( strict_types = 1 );
-namespace Automattic\WooCommerce\EmailEditor\Integrations\WooCommerce\Renderer\Blocks;
+namespace Automattic\PooCommerce\EmailEditor\Integrations\PooCommerce\Renderer\Blocks;
 
-use Automattic\WooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Rendering_Context;
-use Automattic\WooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks\Abstract_Block_Renderer;
-use Automattic\WooCommerce\EmailEditor\Integrations\Utils\Table_Wrapper_Helper;
+use Automattic\PooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Rendering_Context;
+use Automattic\PooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks\Abstract_Block_Renderer;
+use Automattic\PooCommerce\EmailEditor\Integrations\Utils\Table_Wrapper_Helper;
 
 /**
- * Renders the woocommerce/coupon-code block for email.
+ * Renders the poocommerce/coupon-code block for email.
  *
  * For "existing" source, the block content passes through unchanged.
  * For "createNew" source, the placeholder (XXXX-XXXXXX-XXXX) is replaced
- * with a generated coupon code via the woocommerce_coupon_code_block_auto_generate filter.
+ * with a generated coupon code via the poocommerce_coupon_code_block_auto_generate filter.
  */
 class Coupon_Code extends Abstract_Block_Renderer {
 
@@ -39,10 +39,10 @@ class Coupon_Code extends Abstract_Block_Renderer {
 			/**
 			 * Filters the auto-generated coupon code for the coupon-code block.
 			 *
-			 * Integrators (MailPoet, WooCommerce, third-party plugins) hook into this filter
-			 * to generate a WooCommerce coupon at send time and return its code.
+			 * Integrators (MailPoet, PooCommerce, third-party plugins) hook into this filter
+			 * to generate a PooCommerce coupon at send time and return its code.
 			 *
-			 * @hook woocommerce_coupon_code_block_auto_generate
+			 * @hook poocommerce_coupon_code_block_auto_generate
 			 * @since 10.6.0
 			 *
 			 * @param string            $coupon_code       The coupon code. Empty by default.
@@ -52,7 +52,7 @@ class Coupon_Code extends Abstract_Block_Renderer {
 			 * @return string The generated coupon code. Return empty string to suppress the block output.
 			 */
 			$coupon_code = apply_filters(
-				'woocommerce_coupon_code_block_auto_generate',
+				'poocommerce_coupon_code_block_auto_generate',
 				'',
 				$attrs,
 				$rendering_context

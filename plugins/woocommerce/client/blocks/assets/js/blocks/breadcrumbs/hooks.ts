@@ -36,7 +36,7 @@ export function useBreadcrumbsThemeFontSize(): string | undefined {
 			globalStylesKey
 		] as EditorSettingsWithGlobalStyles;
 
-		return globalStyles?.blocks?.[ 'woocommerce/breadcrumbs' ]?.typography
+		return globalStyles?.blocks?.[ 'poocommerce/breadcrumbs' ]?.typography
 			?.fontSize;
 	}, [] );
 }

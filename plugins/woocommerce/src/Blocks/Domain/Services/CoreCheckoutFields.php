@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1);
 
-namespace Automattic\WooCommerce\Blocks\Domain\Services;
+namespace Automattic\PooCommerce\Blocks\Domain\Services;
 
-use Automattic\WooCommerce\Blocks\Utils\CartCheckoutUtils;
+use Automattic\PooCommerce\Blocks\Utils\CartCheckoutUtils;
 
 /**
  * Defines the core checkout fields: the address, contact, and order fields every store starts with.
@@ -39,10 +39,10 @@ class CoreCheckoutFields {
 	public static function get_fields() {
 		return [
 			'email'      => [
-				'label'          => __( 'Email address', 'woocommerce' ),
+				'label'          => __( 'Email address', 'poocommerce' ),
 				'optionalLabel'  => __(
 					'Email address (optional)',
-					'woocommerce'
+					'poocommerce'
 				),
 				'required'       => true,
 				'hidden'         => false,
@@ -52,10 +52,10 @@ class CoreCheckoutFields {
 				'index'          => 0,
 			],
 			'country'    => [
-				'label'         => __( 'Country/Region', 'woocommerce' ),
+				'label'         => __( 'Country/Region', 'poocommerce' ),
 				'optionalLabel' => __(
 					'Country/Region (optional)',
-					'woocommerce'
+					'poocommerce'
 				),
 				'required'      => true,
 				'hidden'        => false,
@@ -63,10 +63,10 @@ class CoreCheckoutFields {
 				'index'         => 1,
 			],
 			'first_name' => [
-				'label'          => __( 'First name', 'woocommerce' ),
+				'label'          => __( 'First name', 'poocommerce' ),
 				'optionalLabel'  => __(
 					'First name (optional)',
-					'woocommerce'
+					'poocommerce'
 				),
 				'required'       => true,
 				'hidden'         => false,
@@ -75,10 +75,10 @@ class CoreCheckoutFields {
 				'index'          => 10,
 			],
 			'last_name'  => [
-				'label'          => __( 'Last name', 'woocommerce' ),
+				'label'          => __( 'Last name', 'poocommerce' ),
 				'optionalLabel'  => __(
 					'Last name (optional)',
-					'woocommerce'
+					'poocommerce'
 				),
 				'required'       => true,
 				'hidden'         => false,
@@ -87,10 +87,10 @@ class CoreCheckoutFields {
 				'index'          => 20,
 			],
 			'company'    => [
-				'label'          => __( 'Company', 'woocommerce' ),
+				'label'          => __( 'Company', 'poocommerce' ),
 				'optionalLabel'  => __(
 					'Company (optional)',
-					'woocommerce'
+					'poocommerce'
 				),
 				'required'       => 'required' === CartCheckoutUtils::get_company_field_visibility(),
 				'hidden'         => 'hidden' === CartCheckoutUtils::get_company_field_visibility(),
@@ -99,10 +99,10 @@ class CoreCheckoutFields {
 				'index'          => 30,
 			],
 			'address_1'  => [
-				'label'          => __( 'Address', 'woocommerce' ),
+				'label'          => __( 'Address', 'poocommerce' ),
 				'optionalLabel'  => __(
 					'Address (optional)',
-					'woocommerce'
+					'poocommerce'
 				),
 				'required'       => true,
 				'hidden'         => false,
@@ -111,10 +111,10 @@ class CoreCheckoutFields {
 				'index'          => 40,
 			],
 			'address_2'  => [
-				'label'          => __( 'Apartment, suite, etc.', 'woocommerce' ),
+				'label'          => __( 'Apartment, suite, etc.', 'poocommerce' ),
 				'optionalLabel'  => __(
 					'Apartment, suite, etc. (optional)',
-					'woocommerce'
+					'poocommerce'
 				),
 				'required'       => 'required' === CartCheckoutUtils::get_address_2_field_visibility(),
 				'hidden'         => 'hidden' === CartCheckoutUtils::get_address_2_field_visibility(),
@@ -123,10 +123,10 @@ class CoreCheckoutFields {
 				'index'          => 50,
 			],
 			'city'       => [
-				'label'          => __( 'City', 'woocommerce' ),
+				'label'          => __( 'City', 'poocommerce' ),
 				'optionalLabel'  => __(
 					'City (optional)',
-					'woocommerce'
+					'poocommerce'
 				),
 				'required'       => true,
 				'hidden'         => false,
@@ -135,10 +135,10 @@ class CoreCheckoutFields {
 				'index'          => 70,
 			],
 			'state'      => [
-				'label'          => __( 'State/County', 'woocommerce' ),
+				'label'          => __( 'State/County', 'poocommerce' ),
 				'optionalLabel'  => __(
 					'State/County (optional)',
-					'woocommerce'
+					'poocommerce'
 				),
 				'required'       => true,
 				'hidden'         => false,
@@ -147,10 +147,10 @@ class CoreCheckoutFields {
 				'index'          => 80,
 			],
 			'postcode'   => [
-				'label'          => __( 'Postal code', 'woocommerce' ),
+				'label'          => __( 'Postal code', 'poocommerce' ),
 				'optionalLabel'  => __(
 					'Postal code (optional)',
-					'woocommerce'
+					'poocommerce'
 				),
 				'required'       => true,
 				'hidden'         => false,
@@ -159,10 +159,10 @@ class CoreCheckoutFields {
 				'index'          => 90,
 			],
 			'phone'      => [
-				'label'          => __( 'Phone', 'woocommerce' ),
+				'label'          => __( 'Phone', 'poocommerce' ),
 				'optionalLabel'  => __(
 					'Phone (optional)',
-					'woocommerce'
+					'poocommerce'
 				),
 				'required'       => 'required' === CartCheckoutUtils::get_phone_field_visibility(),
 				'hidden'         => 'hidden' === CartCheckoutUtils::get_phone_field_visibility(),

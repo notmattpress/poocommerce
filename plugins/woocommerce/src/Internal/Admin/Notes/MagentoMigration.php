@@ -1,17 +1,17 @@
 <?php
 /**
- * WooCommerce Admin note on how to migrate from Magento.
+ * PooCommerce Admin note on how to migrate from Magento.
  */
 
-namespace Automattic\WooCommerce\Internal\Admin\Notes;
+namespace Automattic\PooCommerce\Internal\Admin\Notes;
 
-use Automattic\WooCommerce\Internal\Admin\Onboarding\OnboardingProfile;
+use Automattic\PooCommerce\Internal\Admin\Onboarding\OnboardingProfile;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\Features\Onboarding;
-use Automattic\WooCommerce\Admin\Notes\Note;
-use Automattic\WooCommerce\Admin\Notes\NoteTraits;
+use Automattic\PooCommerce\Admin\Features\Onboarding;
+use Automattic\PooCommerce\Admin\Notes\Note;
+use Automattic\PooCommerce\Admin\Notes\NoteTraits;
 
 /**
  * MagentoMigration
@@ -32,7 +32,7 @@ class MagentoMigration {
 	 */
 	public function __construct() {
 		add_action( 'update_option_' . OnboardingProfile::DATA_OPTION, array( __CLASS__, 'possibly_add_note' ) );
-		add_action( 'woocommerce_admin_magento_migration_note', array( __CLASS__, 'save_note' ) );
+		add_action( 'poocommerce_admin_magento_migration_note', array( __CLASS__, 'save_note' ) );
 	}
 
 	/**
@@ -59,7 +59,7 @@ class MagentoMigration {
 			return;
 		}
 
-		WC()->queue()->schedule_single( time() + ( 5 * MINUTE_IN_SECONDS ), 'woocommerce_admin_magento_migration_note' );
+		WC()->queue()->schedule_single( time() + ( 5 * MINUTE_IN_SECONDS ), 'poocommerce_admin_magento_migration_note' );
 	}
 
 	/**
@@ -83,16 +83,16 @@ class MagentoMigration {
 	public static function get_note() {
 		$note = new Note();
 
-		$note->set_title( __( 'How to Migrate from Magento to WooCommerce', 'woocommerce' ) );
-		$note->set_content( __( 'Changing platforms might seem like a big hurdle to overcome, but it is easier than you might think to move your products, customers, and orders to WooCommerce. This article will help you with going through this process.', 'woocommerce' ) );
+		$note->set_title( __( 'How to Migrate from Magento to PooCommerce', 'poocommerce' ) );
+		$note->set_content( __( 'Changing platforms might seem like a big hurdle to overcome, but it is easier than you might think to move your products, customers, and orders to PooCommerce. This article will help you with going through this process.', 'poocommerce' ) );
 		$note->set_content_data( (object) array() );
 		$note->set_type( Note::E_WC_ADMIN_NOTE_INFORMATIONAL );
 		$note->set_name( self::NOTE_NAME );
-		$note->set_source( 'woocommerce-admin' );
+		$note->set_source( 'poocommerce-admin' );
 		$note->add_action(
 			'learn-more',
-			__( 'Learn more', 'woocommerce' ),
-			'https://woocommerce.com/posts/how-migrate-from-magento-to-woocommerce/?utm_source=inbox'
+			__( 'Learn more', 'poocommerce' ),
+			'https://poocommerce.com/posts/how-migrate-from-magento-to-poocommerce/?utm_source=inbox'
 		);
 
 		return $note;

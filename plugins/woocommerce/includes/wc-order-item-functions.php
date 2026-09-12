@@ -1,10 +1,10 @@
 <?php
 /**
- * WooCommerce Order Item Functions
+ * PooCommerce Order Item Functions
  *
  * Functions for order specific things.
  *
- * @package WooCommerce\Functions
+ * @package PooCommerce\Functions
  * @version 3.4.0
  */
 
@@ -36,7 +36,7 @@ function wc_add_order_item( $order_id, $item_array ) {
 	$item_id    = $data_store->add_order_item( $order_id, $item_array );
 	$item       = WC_Order_Factory::get_order_item( $item_id );
 
-	do_action( 'woocommerce_new_order_item', $item_id, $item, $order_id );
+	do_action( 'poocommerce_new_order_item', $item_id, $item, $order_id );
 
 	return $item_id;
 }
@@ -59,7 +59,7 @@ function wc_update_order_item( $item_id, $args ) {
 		return false;
 	}
 
-	do_action( 'woocommerce_update_order_item', $item_id, $args );
+	do_action( 'poocommerce_update_order_item', $item_id, $args );
 
 	return true;
 }
@@ -81,17 +81,17 @@ function wc_delete_order_item( $item_id ) {
 
 	$data_store = WC_Data_Store::load( 'order-item' );
 
-	do_action( 'woocommerce_before_delete_order_item', $item_id );
+	do_action( 'poocommerce_before_delete_order_item', $item_id );
 
 	$data_store->delete_order_item( $item_id );
 
-	do_action( 'woocommerce_delete_order_item', $item_id );
+	do_action( 'poocommerce_delete_order_item', $item_id );
 
 	return true;
 }
 
 /**
- * WooCommerce Order Item Meta API - Update term meta.
+ * PooCommerce Order Item Meta API - Update term meta.
  *
  * @param int    $item_id    Item ID.
  * @param string $meta_key   Meta key.
@@ -111,7 +111,7 @@ function wc_update_order_item_meta( $item_id, $meta_key, $meta_value, $prev_valu
 }
 
 /**
- * WooCommerce Order Item Meta API - Add term meta.
+ * PooCommerce Order Item Meta API - Add term meta.
  *
  * @param int    $item_id    Item ID.
  * @param string $meta_key   Meta key.
@@ -133,7 +133,7 @@ function wc_add_order_item_meta( $item_id, $meta_key, $meta_value, $unique = fal
 }
 
 /**
- * WooCommerce Order Item Meta API - Delete term meta.
+ * PooCommerce Order Item Meta API - Delete term meta.
  *
  * @param int    $item_id    Item ID.
  * @param string $meta_key   Meta key.
@@ -153,7 +153,7 @@ function wc_delete_order_item_meta( $item_id, $meta_key, $meta_value = '', $dele
 }
 
 /**
- * WooCommerce Order Item Meta API - Get term meta.
+ * PooCommerce Order Item Meta API - Get term meta.
  *
  * @param int    $item_id Item ID.
  * @param string $key     Meta key.

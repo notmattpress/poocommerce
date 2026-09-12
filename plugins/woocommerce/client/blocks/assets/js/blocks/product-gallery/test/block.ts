@@ -107,7 +107,7 @@ afterEach( () => server.resetHandlers() );
 afterAll( () => server.close() );
 
 async function setup( attributes = {} ) {
-	const productImageBlock = createBlock( 'woocommerce/product-image', {
+	const productImageBlock = createBlock( 'poocommerce/product-image', {
 		showProductLink: false,
 		showSaleBadge: false,
 		aspectRatio: '16/9',
@@ -115,19 +115,19 @@ async function setup( attributes = {} ) {
 	} );
 
 	const viewerBlock = createBlock(
-		'woocommerce/product-gallery-large-image',
+		'poocommerce/product-gallery-large-image',
 		{},
 		[
 			productImageBlock,
-			createBlock( 'woocommerce/product-sale-badge', { align: 'right' } ),
+			createBlock( 'poocommerce/product-sale-badge', { align: 'right' } ),
 			createBlock(
-				'woocommerce/product-gallery-large-image-next-previous'
+				'poocommerce/product-gallery-large-image-next-previous'
 			),
 		]
 	);
 
 	const thumbnailsBlock = createBlock(
-		'woocommerce/product-gallery-thumbnails'
+		'poocommerce/product-gallery-thumbnails'
 	);
 
 	const productGalleryBlock = createBlock(
@@ -141,7 +141,7 @@ async function setup( attributes = {} ) {
 
 	const singleProductBlock = [
 		{
-			name: 'woocommerce/single-product',
+			name: 'poocommerce/single-product',
 			attributes: {
 				productId: '123',
 			},

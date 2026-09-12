@@ -1,12 +1,12 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Admin\API\Reports\Orders\Stats;
+namespace Automattic\PooCommerce\Tests\Admin\API\Reports\Orders\Stats;
 
-use Automattic\WooCommerce\Admin\API\Reports\Orders\Stats\DataStore as OrdersStatsDataStore;
-use Automattic\WooCommerce\Admin\API\Reports\Orders\Stats\Query as OrdersStatsQuery;
-use Automattic\WooCommerce\Admin\API\Reports\TimeInterval;
-use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Admin\API\Reports\Orders\Stats\DataStore as OrdersStatsDataStore;
+use Automattic\PooCommerce\Admin\API\Reports\Orders\Stats\Query as OrdersStatsQuery;
+use Automattic\PooCommerce\Admin\API\Reports\TimeInterval;
+use Automattic\PooCommerce\Enums\OrderStatus;
 use DateTime;
 use WC_Coupon;
 use WC_Helper_Coupon;
@@ -359,10 +359,10 @@ class DataStoreBasicsTest extends OrdersStatsTestCase {
 	/**
 	 * @testdox Lookup tables are cleaned after deleting an order.
 	 *
-	 * @covers \Automattic\WooCommerce\Admin\API\Reports\Orders\Stats\DataStore::delete_order
-	 * @covers \Automattic\WooCommerce\Admin\API\Reports\Products\DataStore::sync_on_order_delete
-	 * @covers \Automattic\WooCommerce\Admin\API\Reports\Coupons\DataStore::sync_on_order_delete
-	 * @covers \Automattic\WooCommerce\Admin\API\Reports\Taxes\DataStore::sync_on_order_delete
+	 * @covers \Automattic\PooCommerce\Admin\API\Reports\Orders\Stats\DataStore::delete_order
+	 * @covers \Automattic\PooCommerce\Admin\API\Reports\Products\DataStore::sync_on_order_delete
+	 * @covers \Automattic\PooCommerce\Admin\API\Reports\Coupons\DataStore::sync_on_order_delete
+	 * @covers \Automattic\PooCommerce\Admin\API\Reports\Taxes\DataStore::sync_on_order_delete
 	 */
 	public function test_order_deletion(): void {
 		global $wpdb;
@@ -377,12 +377,12 @@ class DataStoreBasicsTest extends OrdersStatsTestCase {
 		);
 
 		// Enable taxes.
-		$default_calc_taxes       = get_option( 'woocommerce_calc_taxes', 'no' );
-		$default_customer_address = get_option( 'woocommerce_default_customer_address', 'geolocation' );
-		$default_tax_based_on     = get_option( 'woocommerce_tax_based_on', 'shipping' );
-		update_option( 'woocommerce_calc_taxes', 'yes' );
-		update_option( 'woocommerce_default_customer_address', 'base' );
-		update_option( 'woocommerce_tax_based_on', 'base' );
+		$default_calc_taxes       = get_option( 'poocommerce_calc_taxes', 'no' );
+		$default_customer_address = get_option( 'poocommerce_default_customer_address', 'geolocation' );
+		$default_tax_based_on     = get_option( 'poocommerce_tax_based_on', 'shipping' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_default_customer_address', 'base' );
+		update_option( 'poocommerce_tax_based_on', 'base' );
 
 		$tax_id = WC_Tax::_insert_tax_rate(
 			array(
@@ -449,8 +449,8 @@ class DataStoreBasicsTest extends OrdersStatsTestCase {
 		}
 
 		// Reset taxes settings.
-		update_option( 'woocommerce_calc_taxes', $default_calc_taxes );
-		update_option( 'woocommerce_default_customer_address', $default_customer_address );
-		update_option( 'woocommerce_tax_based_on', $default_tax_based_on );
+		update_option( 'poocommerce_calc_taxes', $default_calc_taxes );
+		update_option( 'poocommerce_default_customer_address', $default_customer_address );
+		update_option( 'poocommerce_tax_based_on', $default_tax_based_on );
 	}
 }

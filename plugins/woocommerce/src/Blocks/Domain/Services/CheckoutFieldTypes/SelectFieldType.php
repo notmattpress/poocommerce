@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1);
 
-namespace Automattic\WooCommerce\Blocks\Domain\Services\CheckoutFieldTypes;
+namespace Automattic\PooCommerce\Blocks\Domain\Services\CheckoutFieldTypes;
 
 /**
  * The "select" additional checkout field type.
@@ -65,9 +65,9 @@ class SelectFieldType extends AbstractFieldType {
 	}
 
 	/**
-	 * Maps the registered options to the value => label format woocommerce_form_field() expects.
+	 * Maps the registered options to the value => label format poocommerce_form_field() expects.
 	 *
-	 * @param array $form_field The woocommerce_form_field() arguments built from the field.
+	 * @param array $form_field The poocommerce_form_field() arguments built from the field.
 	 * @return array The updated arguments.
 	 */
 	public function prepare_form_field( array $form_field ): array {

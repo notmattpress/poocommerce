@@ -1,12 +1,12 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\POS;
+namespace Automattic\PooCommerce\Internal\POS;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Internal\Features\FeaturesController;
-use Automattic\WooCommerce\Internal\RegisterHooksInterface;
+use Automattic\PooCommerce\Internal\Features\FeaturesController;
+use Automattic\PooCommerce\Internal\RegisterHooksInterface;
 
 /**
  * Feature orchestrator for the POS staff + attribution iteration.
@@ -46,7 +46,7 @@ class POSController implements RegisterHooksInterface {
 	 *
 	 * The feature-flag check is deferred to `on_init` because `feature_is_enabled()`
 	 * walks `FeaturesController::init_feature_definitions()`, which contains
-	 * `__( ..., 'woocommerce' )` calls. Evaluating those before `init` triggers
+	 * `__( ..., 'poocommerce' )` calls. Evaluating those before `init` triggers
 	 * WP 6.7's "translation loading … too early" notice (and the headers-already-sent
 	 * cascade that follows).
 	 *

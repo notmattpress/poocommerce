@@ -3,18 +3,18 @@ title: wc com
 sidebar_label: wc com
 ---
 
-Interacts with extensions from the WooCommerce.com marketplace via CLI.
+Interacts with extensions from the PooCommerce.com marketplace via CLI.
 
 ## wc com connect
 
-Connect the store to WooCommerce.com with an application password.
+Connect the store to PooCommerce.com with an application password.
 
-- `--password` - WooCommerce.com application password. If omitted, the command prompts for it.
+- `--password` - PooCommerce.com application password. If omitted, the command prompts for it.
 - `--force` - Disconnect the site first and force a new connection if the site is already connected.
 
 ## wc com disconnect
 
-Disconnect the store from WooCommerce.com.
+Disconnect the store from PooCommerce.com.
 
 - `--yes` - Do not prompt for confirmation.
 
@@ -36,7 +36,7 @@ List extensions owned by the connected site.
 
 ## wc com extension install `<extension>...`
 
-Install one or more plugins from the WooCommerce.com marketplace.
+Install one or more plugins from the PooCommerce.com marketplace.
 
 - `--force` - If set, the command will overwrite any installed version of the extension without prompting for confirmation.
 - `--activate` - If set, the plugin will be activated after installation.

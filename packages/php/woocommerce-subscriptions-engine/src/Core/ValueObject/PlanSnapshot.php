@@ -9,16 +9,16 @@
  * {@see self::from_payload()}. `schema_version` is the payload-FORMAT version (how to
  * parse/upcast), not the plan's content version. WordPress-free Core zone.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine\Core\ValueObject
+ * @package Automattic\PooCommerce\SubscriptionsEngine\Core\ValueObject
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Core\ValueObject;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Core\ValueObject;
 
 use DomainException;
 use InvalidArgumentException;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Support\ScalarCoercion;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Support\ScalarCoercion;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -107,7 +107,7 @@ final class PlanSnapshot {
 	 * Sourced from the `billing_policy` entry captured at signup, NOT the live plan -
 	 * so a consumer reads the cadence a contract is billed under straight off the
 	 * snapshot, even after the plan it came from is edited or deleted, with no live
-	 * {@see \Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage\PlanRepository}
+	 * {@see \Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage\PlanRepository}
 	 * join. Returns null when the payload carries no (or an unreadable) billing policy,
 	 * so a caller degrades to "no cadence" rather than fataling.
 	 */

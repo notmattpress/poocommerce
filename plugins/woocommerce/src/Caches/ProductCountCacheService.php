@@ -2,9 +2,9 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Caches;
+namespace Automattic\PooCommerce\Caches;
 
-use Automattic\WooCommerce\Internal\Utilities\ProductUtil;
+use Automattic\PooCommerce\Internal\Utilities\ProductUtil;
 use WC_Product;
 use WP_Post;
 
@@ -15,7 +15,7 @@ use WP_Post;
  */
 class ProductCountCacheService {
 
-	public const BACKGROUND_EVENT_HOOK = 'woocommerce_refresh_product_count_cache';
+	public const BACKGROUND_EVENT_HOOK = 'poocommerce_refresh_product_count_cache';
 
 	/**
 	 * ProductCountCache instance.
@@ -61,7 +61,7 @@ class ProductCountCacheService {
 			add_action( 'deactivate_' . WC_PLUGIN_BASENAME, array( $this, 'unschedule_background_actions' ) );
 		}
 
-		// transition_post_status owns all mid-lifecycle status changes; woocommerce_new_product corrects for creation-time
+		// transition_post_status owns all mid-lifecycle status changes; poocommerce_new_product corrects for creation-time
 		// ephemeral transitions before the final status is committed; before_delete_post closes the lifecycle.
 		add_action( 'transition_post_status', array( $this, 'update_on_product_status_changed' ), 10, 3 );
 		add_action( 'before_delete_post', array( $this, 'update_on_product_deleted' ), 10, 2 );
@@ -112,7 +112,7 @@ class ProductCountCacheService {
 	 */
 	public function update_on_new_product( int $product_id, WC_Product $product ): void {
 		// This was implemented to address a potential concurrency issue, but upon review, it was determined to be a false positive.
-		// - Specifically, cache warming by a concurrent request between transition_post_status and woocommerce_new_product was considered.
+		// - Specifically, cache warming by a concurrent request between transition_post_status and poocommerce_new_product was considered.
 		// - However, this scenario is a false positive because it occurs within the same PHP process, where hooks are executed sequentially.
 	}
 

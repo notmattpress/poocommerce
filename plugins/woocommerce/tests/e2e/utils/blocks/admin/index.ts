@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { Page } from '@playwright/test';
-import { expect } from '@woocommerce/e2e-utils';
+import { expect } from '@poocommerce/e2e-utils';
 import {
 	Admin as CoreAdmin,
 	PageUtils,

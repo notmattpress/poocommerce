@@ -1,7 +1,7 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\Payments\Integrations;
+namespace Automattic\PooCommerce\Blocks\Payments\Integrations;
 
-use Automattic\WooCommerce\Blocks\Assets\Api;
+use Automattic\PooCommerce\Blocks\Assets\Api;
 use WC_Gateway_COD;
 
 /**
@@ -37,7 +37,7 @@ final class CashOnDelivery extends AbstractPaymentMethodType {
 	 * Initializes the payment method type.
 	 */
 	public function initialize() {
-		$this->settings = get_option( 'woocommerce_cod_settings', [] );
+		$this->settings = get_option( 'poocommerce_cod_settings', [] );
 	}
 
 	/**

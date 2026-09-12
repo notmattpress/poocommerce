@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { render, screen } from '@testing-library/react';
-import { type RecommendedPaymentMethod } from '@woocommerce/data';
+import { type RecommendedPaymentMethod } from '@poocommerce/data';
 import { type ReactNode } from 'react';
 
 type MockComponentProps = {

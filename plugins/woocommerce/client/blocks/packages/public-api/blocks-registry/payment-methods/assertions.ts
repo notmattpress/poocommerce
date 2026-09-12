@@ -6,7 +6,7 @@ import type { ReactNode } from 'react';
 import type {
 	PaymentMethodConfiguration,
 	ExpressPaymentMethodConfiguration,
-} from '@woocommerce/types';
+} from '@poocommerce/types';
 
 export const assertValidPaymentMethodComponent = (
 	component: () => unknown,

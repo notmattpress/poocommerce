@@ -2,9 +2,9 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\StockNotifications\Frontend;
+namespace Automattic\PooCommerce\Tests\Internal\StockNotifications\Frontend;
 
-use Automattic\WooCommerce\Internal\StockNotifications\Frontend\SignupRateLimiter;
+use Automattic\PooCommerce\Internal\StockNotifications\Frontend\SignupRateLimiter;
 use WC_Unit_Test_Case;
 
 /**
@@ -247,7 +247,7 @@ class SignupRateLimiterTests extends WC_Unit_Test_Case {
 
 		$fired = array();
 		add_action(
-			'woocommerce_customer_stock_notifications_signup_rate_limit_exceeded',
+			'poocommerce_customer_stock_notifications_signup_rate_limit_exceeded',
 			static function ( $rate_limit_id, $user_email ) use ( &$fired ) {
 				$fired[] = array( $rate_limit_id, $user_email );
 			},
@@ -440,7 +440,7 @@ class SignupRateLimiterTests extends WC_Unit_Test_Case {
 	 */
 	private function set_options( $options ): void {
 		add_filter(
-			'woocommerce_customer_stock_notifications_signup_rate_limit_options',
+			'poocommerce_customer_stock_notifications_signup_rate_limit_options',
 			static function ( $defaults ) use ( $options ) {
 				return is_array( $options ) ? array_merge( $defaults, $options ) : $options;
 			}

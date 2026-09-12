@@ -1,12 +1,12 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\OrderWithdrawal;
+namespace Automattic\PooCommerce\Internal\OrderWithdrawal;
 
-use Automattic\WooCommerce\Internal\Features\FeaturesController;
-use Automattic\WooCommerce\Internal\OrderWithdrawal\Emails\OrderWithdrawalEmailPreview;
-use Automattic\WooCommerce\Internal\RegisterHooksInterface;
-use Automattic\WooCommerce\Utilities\FeaturesUtil;
+use Automattic\PooCommerce\Internal\Features\FeaturesController;
+use Automattic\PooCommerce\Internal\OrderWithdrawal\Emails\OrderWithdrawalEmailPreview;
+use Automattic\PooCommerce\Internal\RegisterHooksInterface;
+use Automattic\PooCommerce\Utilities\FeaturesUtil;
 
 /**
  * Registers the order withdrawal endpoint and related feature-gated UI.
@@ -18,7 +18,7 @@ final class OrderWithdrawalController implements RegisterHooksInterface {
 	private const FEATURE_ID      = 'order_withdrawal';
 	private const ENDPOINT_KEY    = 'order-withdrawal';
 	private const ENDPOINT_SLUG   = 'withdraw-order';
-	private const ENDPOINT_OPTION = 'woocommerce_myaccount_order_withdrawal_endpoint';
+	private const ENDPOINT_OPTION = 'poocommerce_myaccount_order_withdrawal_endpoint';
 
 	/**
 	 * Form processor.
@@ -59,7 +59,7 @@ final class OrderWithdrawalController implements RegisterHooksInterface {
 	 *
 	 * @since 11.1.0
 	 */
-	final public function init( OrderWithdrawalFormProcessor $form_processor, OrderWithdrawalFormView $form_view, OrderWithdrawalFeatureHighlightNotification $feature_highlight_notification, OrderWithdrawalEmailPreview $email_preview ): void { // phpcs:ignore Generic.CodeAnalysis.UnnecessaryFinalModifier.Found -- Required by WooCommerce injection method rules.
+	final public function init( OrderWithdrawalFormProcessor $form_processor, OrderWithdrawalFormView $form_view, OrderWithdrawalFeatureHighlightNotification $feature_highlight_notification, OrderWithdrawalEmailPreview $email_preview ): void { // phpcs:ignore Generic.CodeAnalysis.UnnecessaryFinalModifier.Found -- Required by PooCommerce injection method rules.
 		$this->form_processor                 = $form_processor;
 		$this->form_view                      = $form_view;
 		$this->feature_highlight_notification = $feature_highlight_notification;
@@ -82,19 +82,19 @@ final class OrderWithdrawalController implements RegisterHooksInterface {
 	 * @since 11.1.0
 	 */
 	public function register_feature_hooks(): void {
-		add_action( 'woocommerce_before_delete_order', array( $this->form_processor, 'delete_order_withdrawal_inbox_note_for_order' ), 10, 1 );
+		add_action( 'poocommerce_before_delete_order', array( $this->form_processor, 'delete_order_withdrawal_inbox_note_for_order' ), 10, 1 );
 		add_action( 'before_delete_post', array( $this->form_processor, 'delete_order_withdrawal_inbox_note_for_order' ), 10, 1 );
-		add_action( 'woocommerce_privacy_remove_order_personal_data', array( $this->form_processor, 'delete_order_withdrawal_inbox_note_for_order' ), 10, 1 );
+		add_action( 'poocommerce_privacy_remove_order_personal_data', array( $this->form_processor, 'delete_order_withdrawal_inbox_note_for_order' ), 10, 1 );
 
 		if ( ! $this->is_enabled() ) {
 			$this->feature_highlight_notification->register();
 			return;
 		}
 
-		add_filter( 'woocommerce_get_query_vars', array( $this, 'add_query_var' ), 10, 1 );
-		add_filter( 'woocommerce_endpoint_' . self::ENDPOINT_KEY . '_title', array( $this, 'get_endpoint_title' ), 10, 1 );
-		add_filter( 'woocommerce_settings_pages', array( $this, 'add_endpoint_setting' ), 10, 1 );
-		add_action( 'woocommerce_account_' . self::ENDPOINT_KEY . '_endpoint', array( $this, 'render_view' ) );
+		add_filter( 'poocommerce_get_query_vars', array( $this, 'add_query_var' ), 10, 1 );
+		add_filter( 'poocommerce_endpoint_' . self::ENDPOINT_KEY . '_title', array( $this, 'get_endpoint_title' ), 10, 1 );
+		add_filter( 'poocommerce_settings_pages', array( $this, 'add_endpoint_setting' ), 10, 1 );
+		add_action( 'poocommerce_account_' . self::ENDPOINT_KEY . '_endpoint', array( $this, 'render_view' ) );
 
 		$this->email_preview->register();
 	}
@@ -130,7 +130,7 @@ final class OrderWithdrawalController implements RegisterHooksInterface {
 	 */
 	public function maybe_flush_rewrite_rules( string $feature_id ): void {
 		if ( self::FEATURE_ID === $feature_id ) {
-			update_option( 'woocommerce_queue_flush_rewrite_rules', 'yes' );
+			update_option( 'poocommerce_queue_flush_rewrite_rules', 'yes' );
 		}
 	}
 
@@ -165,7 +165,7 @@ final class OrderWithdrawalController implements RegisterHooksInterface {
 	 * @since 11.1.0
 	 */
 	public function get_endpoint_title( $title ): string {
-		return __( 'Withdraw from contract', 'woocommerce' );
+		return __( 'Withdraw from contract', 'poocommerce' );
 	}
 
 	/**
@@ -182,8 +182,8 @@ final class OrderWithdrawalController implements RegisterHooksInterface {
 		}
 
 		$endpoint_setting = array(
-			'title'    => __( 'Order withdrawal', 'woocommerce' ),
-			'desc'     => __( 'Endpoint for the order withdrawal page.', 'woocommerce' ),
+			'title'    => __( 'Order withdrawal', 'poocommerce' ),
+			'desc'     => __( 'Endpoint for the order withdrawal page.', 'poocommerce' ),
 			'id'       => self::ENDPOINT_OPTION,
 			'type'     => 'text',
 			'default'  => self::ENDPOINT_SLUG,

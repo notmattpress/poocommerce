@@ -12,7 +12,7 @@ export const Tab = ( {
 	isPanelOpen,
 	onTabClick,
 } ) => {
-	const className = clsx( 'woocommerce-layout__activity-panel-tab', {
+	const className = clsx( 'poocommerce-layout__activity-panel-tab', {
 		'is-active': isPanelOpen && selected,
 	} );
 

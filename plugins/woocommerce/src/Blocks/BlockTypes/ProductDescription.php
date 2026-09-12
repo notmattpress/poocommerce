@@ -1,8 +1,8 @@
 <?php
 declare(strict_types=1);
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\Utils\ProductDescriptionUtils;
+use Automattic\PooCommerce\Blocks\Utils\ProductDescriptionUtils;
 
 /**
  * ProductDescription class.
@@ -45,7 +45,7 @@ class ProductDescription extends AbstractBlock {
 				 * This filter is documented in wp-includes/post-template.php.
 				 * We follow core/content block to replace ]]> with ]&gt;
 				 */
-				// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
+				// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
 				return apply_filters( 'the_content', str_replace( ']]>', ']]&gt;', $product->get_description() ) );
 			}
 		);

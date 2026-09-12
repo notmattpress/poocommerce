@@ -7,12 +7,12 @@
  * live payment token; the Payments host binding resolves the reference when a
  * charge is attempted.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine\Core\ValueObject
+ * @package Automattic\PooCommerce\SubscriptionsEngine\Core\ValueObject
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Core\ValueObject;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Core\ValueObject;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -32,7 +32,7 @@ final class InstrumentRef {
 	private $token_id;
 
 	/**
-	 * Gateway code (for example 'woocommerce_payments').
+	 * Gateway code (for example 'poocommerce_payments').
 	 *
 	 * @var string|null
 	 */

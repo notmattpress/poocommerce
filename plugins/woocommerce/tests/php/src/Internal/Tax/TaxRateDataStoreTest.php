@@ -2,9 +2,9 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Tax;
+namespace Automattic\PooCommerce\Tests\Internal\Tax;
 
-use Automattic\WooCommerce\Internal\Tax\TaxRateDataStore;
+use Automattic\PooCommerce\Internal\Tax\TaxRateDataStore;
 
 /**
  * Tests for TaxRateDataStore.

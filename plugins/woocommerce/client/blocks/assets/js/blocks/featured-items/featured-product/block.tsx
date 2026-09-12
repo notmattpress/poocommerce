@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { withProduct } from '@woocommerce/block-hocs';
+import { withProduct } from '@poocommerce/block-hocs';
 import { withSpokenMessages } from '@wordpress/components';
 import { compose } from '@wordpress/compose';
 import { __ } from '@wordpress/i18n';
@@ -21,25 +21,25 @@ import { withUpdateButtonAttributes } from '../with-update-button-attributes';
 
 const GENERIC_CONFIG = {
 	icon: starEmpty,
-	label: __( 'Featured Product', 'woocommerce' ),
+	label: __( 'Featured Product', 'poocommerce' ),
 };
 
 const BLOCK_CONTROL_CONFIG = {
 	...GENERIC_CONFIG,
-	cropLabel: __( 'Edit product image', 'woocommerce' ),
-	editLabel: __( 'Edit selected product', 'woocommerce' ),
+	cropLabel: __( 'Edit product image', 'poocommerce' ),
+	editLabel: __( 'Edit selected product', 'poocommerce' ),
 };
 
 const CONTENT_CONFIG = {
 	...GENERIC_CONFIG,
-	emptyMessage: __( 'No product is selected.', 'woocommerce' ),
-	noSelectionButtonLabel: __( 'Select a product', 'woocommerce' ),
+	emptyMessage: __( 'No product is selected.', 'poocommerce' ),
+	noSelectionButtonLabel: __( 'Select a product', 'poocommerce' ),
 };
 
 const EDIT_MODE_CONFIG = {
 	...GENERIC_CONFIG,
-	description: __( 'Highlight a product or variation.', 'woocommerce' ),
-	editLabel: __( 'Showing Featured Product block preview.', 'woocommerce' ),
+	description: __( 'Highlight a product or variation.', 'poocommerce' ),
+	editLabel: __( 'Showing Featured Product block preview.', 'poocommerce' ),
 };
 
 export default compose( [

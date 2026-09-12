@@ -1,14 +1,14 @@
 <?php
 /**
- * This file is part of the WooCommerce Email Editor package.
+ * This file is part of the PooCommerce Email Editor package.
  *
- * @package Automattic\WooCommerce\EmailEditor
+ * @package Automattic\PooCommerce\EmailEditor
  */
 
 declare(strict_types = 1);
-namespace Automattic\WooCommerce\EmailEditor\Engine;
+namespace Automattic\PooCommerce\EmailEditor\Engine;
 
-use Automattic\WooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Preset_Variable_Resolver;
+use Automattic\PooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Preset_Variable_Resolver;
 use WP_Block_Template;
 use WP_Post;
 use WP_Theme_JSON;
@@ -86,7 +86,7 @@ class Theme_Controller {
 			$theme->merge( $site_theme );
 		}
 
-		return apply_filters( 'woocommerce_email_editor_theme_json', $theme );
+		return apply_filters( 'poocommerce_email_editor_theme_json', $theme );
 	}
 
 	/**
@@ -241,7 +241,7 @@ class Theme_Controller {
 		}
 
 		if ( $post ) {
-			$post_theme      = (array) get_post_meta( $post->ID, 'woocommerce_email_theme', true );
+			$post_theme      = (array) get_post_meta( $post->ID, 'poocommerce_email_theme', true );
 			$post_styles     = (array) ( $post_theme['styles'] ?? array() );
 			$post_elements   = $post_styles['elements'] ?? array();
 			$elements_styles = array_replace_recursive( (array) $elements_styles, (array) $post_elements );

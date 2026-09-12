@@ -3,7 +3,7 @@ title: wc product
 sidebar_label: wc product
 ---
 
-Manage WooCommerce product resources.
+Manage PooCommerce product resources.
 
 ## wc product list
 

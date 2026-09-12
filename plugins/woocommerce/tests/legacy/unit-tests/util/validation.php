@@ -2,7 +2,7 @@
 /**
  * Unit tests for validation.
  *
- * @package WooCommerce\Tests\Util
+ * @package PooCommerce\Tests\Util
  */
 
 /**
@@ -241,16 +241,16 @@ class WC_Tests_Validation extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Test that is_phone_format() ignores the woocommerce_validate_phone filter while is_phone() honors it.
+	 * Test that is_phone_format() ignores the poocommerce_validate_phone filter while is_phone() honors it.
 	 */
 	public function test_is_phone_format_ignores_validate_phone_filter() {
-		add_filter( 'woocommerce_validate_phone', '__return_false' );
+		add_filter( 'poocommerce_validate_phone', '__return_false' );
 
 		try {
 			$this->assertTrue( WC_Validation::is_phone_format( '+00 000 00 00 000' ) );
 			$this->assertFalse( WC_Validation::is_phone( '+00 000 00 00 000' ) );
 		} finally {
-			remove_filter( 'woocommerce_validate_phone', '__return_false' );
+			remove_filter( 'poocommerce_validate_phone', '__return_false' );
 		}
 	}
 }

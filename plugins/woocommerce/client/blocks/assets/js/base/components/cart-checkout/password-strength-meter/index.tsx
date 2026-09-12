@@ -4,7 +4,7 @@
 import { sprintf, __ } from '@wordpress/i18n';
 import { useInstanceId } from '@wordpress/compose';
 import { passwordStrength } from 'check-password-strength';
-import { usePrevious } from '@woocommerce/base-hooks';
+import { usePrevious } from '@poocommerce/base-hooks';
 import { useEffect } from '@wordpress/element';
 import clsx from 'clsx';
 
@@ -22,11 +22,11 @@ declare global {
 }
 
 const scoreDescriptions = [
-	__( 'Too weak', 'woocommerce' ),
-	__( 'Weak', 'woocommerce' ),
-	__( 'Medium', 'woocommerce' ),
-	__( 'Strong', 'woocommerce' ),
-	__( 'Very strong', 'woocommerce' ),
+	__( 'Too weak', 'poocommerce' ),
+	__( 'Weak', 'poocommerce' ),
+	__( 'Medium', 'poocommerce' ),
+	__( 'Strong', 'poocommerce' ),
+	__( 'Very strong', 'poocommerce' ),
 ];
 
 export const getPasswordStrength = ( password: string ) => {
@@ -82,7 +82,7 @@ export const PasswordStrengthMeter = ( {
 } ): React.ReactElement | null => {
 	const instanceId = useInstanceId(
 		PasswordStrengthMeter,
-		'woocommerce-password-strength-meter'
+		'poocommerce-password-strength-meter'
 	) as string;
 
 	let strength = -1;
@@ -110,7 +110,7 @@ export const PasswordStrengthMeter = ( {
 				htmlFor={ instanceId + '-meter' }
 				className="screen-reader-text"
 			>
-				{ __( 'Password strength', 'woocommerce' ) }
+				{ __( 'Password strength', 'poocommerce' ) }
 			</label>
 			<meter
 				id={ instanceId + '-meter' }
@@ -131,7 +131,7 @@ export const PasswordStrengthMeter = ( {
 							/* translators: %s: Password strength */
 							__(
 								'Password strength: %1$s (%2$d characters long)',
-								'woocommerce'
+								'poocommerce'
 							),
 							scoreDescriptions[ strength ],
 							password.length

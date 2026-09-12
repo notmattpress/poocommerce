@@ -1,10 +1,10 @@
 <?php
 /**
- * WooCommerce Order Step Logging Functions
+ * PooCommerce Order Step Logging Functions
  *
  * Tracks the steps of the checkout process for place order debugging.
  *
- * @package WooCommerce\Functions
+ * @package PooCommerce\Functions
  * @version 9.7.0
  */
 
@@ -12,9 +12,9 @@ declare( strict_types=1 );
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Internal\BatchProcessing\BatchProcessingController;
-use Automattic\WooCommerce\Internal\Logging\OrderLogsDeletionProcessor;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Internal\BatchProcessing\BatchProcessingController;
+use Automattic\PooCommerce\Internal\Logging\OrderLogsDeletionProcessor;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 
 /**
  * Log an order-related message. This is not public API and should not be used by plugins or themes.
@@ -46,7 +46,7 @@ function wc_log_order_step( string $message, ?array $context = null, bool $final
 			 *
 			 * @since 11.0.1
 			 */
-			$logging_active = (bool) apply_filters( 'woocommerce_order_step_logging_enabled', true );
+			$logging_active = (bool) apply_filters( 'poocommerce_order_step_logging_enabled', true );
 		}
 
 		if ( ! $logging_active ) {

@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-use Automattic\WooCommerce\Tests\Helpers\ImageAttachmentTrait;
+use Automattic\PooCommerce\Tests\Helpers\ImageAttachmentTrait;
 
 /**
  * Tests for the WC_Regenerate_Images class.
@@ -53,16 +53,16 @@ class WC_Regenerate_Images_Test extends WC_Unit_Test_Case {
 		$this->assertArrayNotHasKey( 'test_api_meta', wp_get_attachment_metadata( $attachment_id ), 'The filter should hide the key from readers' );
 		$this->assertArrayHasKey( 'test_api_meta', wp_get_attachment_metadata( $attachment_id, true ), 'The stored value should keep the key' );
 
-		$thumbnail = $this->delete_attachment_size( $attachment_id, 'woocommerce_thumbnail' );
+		$thumbnail = $this->delete_attachment_size( $attachment_id, 'poocommerce_thumbnail' );
 
 		$this->assertFileDoesNotExist( $thumbnail, 'The size should be missing before regeneration runs' );
 
 		// Full size dimensions, which is what image_downsize() returns when the size is missing.
 		$image    = array( wp_get_attachment_url( $attachment_id ), 900, 300, false );
-		$returned = WC_Regenerate_Images::maybe_resize_image( $image, $attachment_id, 'woocommerce_thumbnail', false );
+		$returned = WC_Regenerate_Images::maybe_resize_image( $image, $attachment_id, 'poocommerce_thumbnail', false );
 
 		// The registered size, not wc_get_image_size(), is what regeneration produces.
-		$target = wp_get_registered_image_subsizes()['woocommerce_thumbnail'];
+		$target = wp_get_registered_image_subsizes()['poocommerce_thumbnail'];
 
 		$this->assertSame(
 			array( (int) $target['width'], (int) $target['height'] ),
@@ -70,7 +70,7 @@ class WC_Regenerate_Images_Test extends WC_Unit_Test_Case {
 			'The resized image should be returned, not the original'
 		);
 
-		$this->assert_size_exists( $attachment_id, 'woocommerce_thumbnail' );
+		$this->assert_size_exists( $attachment_id, 'poocommerce_thumbnail' );
 
 		$stored = get_post_meta( $attachment_id, '_wp_attachment_metadata', true );
 

@@ -1,19 +1,19 @@
 <?php
 /**
- * Base test case for all WooCommerce tests.
+ * Base test case for all PooCommerce tests.
  *
- * @package WooCommerce\Tests
+ * @package PooCommerce\Tests
  */
 
-use Automattic\WooCommerce\Proxies\LegacyProxy;
-use Automattic\WooCommerce\Testing\Tools\CodeHacking\CodeHacker;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\Testing\Tools\CodeHacking\CodeHacker;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 use PHPUnit\Framework\Constraint\IsType;
 
 /**
  * WC Unit Test Case.
  *
- * Provides WooCommerce-specific setup/tear down/assert methods, custom factories,
+ * Provides PooCommerce-specific setup/tear down/assert methods, custom factories,
  * and helper functions.
  *
  * @since 2.2
@@ -62,7 +62,7 @@ class WC_Unit_Test_Case extends WP_HTTP_TestCase {
 		}
 
 		if ( 0 === self::$direct_product_attribute_lookup_updates_depth++ ) {
-			add_filter( 'pre_option_woocommerce_attribute_lookup_direct_updates', self::$direct_product_attribute_lookup_updates_filter );
+			add_filter( 'pre_option_poocommerce_attribute_lookup_direct_updates', self::$direct_product_attribute_lookup_updates_filter );
 		}
 	}
 
@@ -71,7 +71,7 @@ class WC_Unit_Test_Case extends WP_HTTP_TestCase {
 	 */
 	protected static function disable_direct_product_attribute_lookup_updates(): void {
 		if ( self::$direct_product_attribute_lookup_updates_depth > 0 && 0 === --self::$direct_product_attribute_lookup_updates_depth ) {
-			remove_filter( 'pre_option_woocommerce_attribute_lookup_direct_updates', self::$direct_product_attribute_lookup_updates_filter );
+			remove_filter( 'pre_option_poocommerce_attribute_lookup_direct_updates', self::$direct_product_attribute_lookup_updates_filter );
 		}
 	}
 
@@ -132,7 +132,7 @@ class WC_Unit_Test_Case extends WP_HTTP_TestCase {
 		$this->factory = new WC_Unit_Test_Factory();
 
 		// Setup mock WC session handler.
-		add_filter( 'woocommerce_session_handler', array( $this, 'set_mock_session_handler' ) );
+		add_filter( 'poocommerce_session_handler', array( $this, 'set_mock_session_handler' ) );
 
 		$this->setOutputCallback( array( $this, 'filter_output' ) );
 
@@ -178,7 +178,7 @@ class WC_Unit_Test_Case extends WP_HTTP_TestCase {
 	 */
 	protected function clear_wc_singleton_state(): void {
 		if ( isset( WC()->cart ) ) {
-			// Emptying the cart writes to the session via the woocommerce_cart_emptied
+			// Emptying the cart writes to the session via the poocommerce_cart_emptied
 			// callbacks, so only do it when that singleton is present too — tests may
 			// legitimately null it out.
 			if ( isset( WC()->session ) ) {
@@ -197,7 +197,7 @@ class WC_Unit_Test_Case extends WP_HTTP_TestCase {
 
 		if ( isset( WC()->countries ) ) {
 			// The locale is cached on first read. A test that reads it while a
-			// woocommerce_get_country_locale filter is attached leaves the filtered
+			// poocommerce_get_country_locale filter is attached leaves the filtered
 			// value behind, because the hook restore removes the filter but not the
 			// cache it produced.
 			WC()->countries->locale = array();
@@ -236,7 +236,7 @@ class WC_Unit_Test_Case extends WP_HTTP_TestCase {
 	/**
 	 * Run a callback with $wp->query_vars['rest_route'] temporarily set (or unset).
 	 *
-	 * WooCommerce registers REST namespaces lazily based on the requested route,
+	 * PooCommerce registers REST namespaces lazily based on the requested route,
 	 * so this lets fixture code scope rest_api_init work to one namespace, or
 	 * force full registration by passing null.
 	 *
@@ -688,10 +688,10 @@ class WC_Unit_Test_Case extends WP_HTTP_TestCase {
 		global $wpdb;
 
 		$order_tables = array_merge(
-			array_values( \Automattic\WooCommerce\Internal\DataStores\Orders\OrdersTableDataStore::get_all_table_names_with_id() ),
+			array_values( \Automattic\PooCommerce\Internal\DataStores\Orders\OrdersTableDataStore::get_all_table_names_with_id() ),
 			array(
-				"{$wpdb->prefix}woocommerce_order_items",
-				"{$wpdb->prefix}woocommerce_order_itemmeta",
+				"{$wpdb->prefix}poocommerce_order_items",
+				"{$wpdb->prefix}poocommerce_order_itemmeta",
 			)
 		);
 

@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { test, expect } from '@playwright/test';
-import { createClient } from '@woocommerce/e2e-utils-playwright';
+import { createClient } from '@poocommerce/e2e-utils-playwright';
 
 /**
  * Update-propagation: backward compatibility.
@@ -52,7 +52,7 @@ import {
 } from './helpers/classifications';
 
 const BACKFILL_COMPLETE_OPTION =
-	'woocommerce_email_template_sync_backfill_complete';
+	'poocommerce_email_template_sync_backfill_complete';
 
 // One-shot Tracks guard added by RSM-145: fires _backfill_completed at most
 // once per site. Must be cleared alongside BACKFILL_COMPLETE_OPTION so the
@@ -84,7 +84,7 @@ test.describe( 'Update propagation — backward compatibility', () => {
 	} );
 
 	test.beforeEach( async ( { baseURL } ) => {
-		// RSM-145 stamps this option on fresh installs via woocommerce_newly_installed
+		// RSM-145 stamps this option on fresh installs via poocommerce_newly_installed
 		// to suppress backfill on greenfield environments. BC scenarios need a clean
 		// "pre-RSM-137" environment, so clear the option-fence before each test.
 		await resetBackfillFence( baseURL! );

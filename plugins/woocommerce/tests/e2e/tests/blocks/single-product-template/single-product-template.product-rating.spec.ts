@@ -1,10 +1,10 @@
 /**
  * External dependencies
  */
-import { test, expect, getPostIdBySlug, wpCLI } from '@woocommerce/e2e-utils';
+import { test, expect, getPostIdBySlug, wpCLI } from '@poocommerce/e2e-utils';
 
 const blockData = {
-	slug: 'woocommerce/single-product',
+	slug: 'poocommerce/single-product',
 	productSlug: 'hoodie',
 };
 

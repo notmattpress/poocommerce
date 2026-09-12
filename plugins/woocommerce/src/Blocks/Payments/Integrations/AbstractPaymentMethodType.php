@@ -1,7 +1,7 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\Payments\Integrations;
+namespace Automattic\PooCommerce\Blocks\Payments\Integrations;
 
-use Automattic\WooCommerce\Blocks\Payments\PaymentMethodTypeInterface;
+use Automattic\PooCommerce\Blocks\Payments\PaymentMethodTypeInterface;
 
 /**
  * AbstractPaymentMethodType class.

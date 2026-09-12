@@ -6,7 +6,7 @@ import {
 	expect,
 	guestFile,
 	BLOCK_THEME_SLUG,
-} from '@woocommerce/e2e-utils';
+} from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -79,7 +79,7 @@ test.describe( 'Shopper (logged-in) → Order Confirmation', () => {
 		await page.goto( orderReceivedURL );
 		// Confirm downloads section is visible
 		const DownloadSection = page.locator(
-			'[data-block-name="woocommerce/order-confirmation-downloads"]'
+			'[data-block-name="poocommerce/order-confirmation-downloads"]'
 		);
 		await expect( DownloadSection ).toBeVisible();
 
@@ -107,14 +107,14 @@ test.describe( 'Shopper (logged-in) → Order Confirmation', () => {
 		// Confirm order details are not visible
 		await checkoutPageObject.verifyOrderConfirmationDetails( false );
 
-		await test.step( 'Logout the user and revisit the order received page to verify that details are displayed when woocommerce_order_received_verify_known_shoppers is disabled', async () => {
+		await test.step( 'Logout the user and revisit the order received page to verify that details are displayed when poocommerce_order_received_verify_known_shoppers is disabled', async () => {
 			await requestUtils.activatePlugin(
-				'woocommerce-blocks-test-order-confirmation-filters'
+				'poocommerce-blocks-test-order-confirmation-filters'
 			);
 			await page.goto( '/my-account' );
 			await page
 				.locator(
-					'li.woocommerce-MyAccount-navigation-link--customer-logout a'
+					'li.poocommerce-MyAccount-navigation-link--customer-logout a'
 				)
 				.click();
 			await expect(
@@ -188,7 +188,7 @@ test.describe( 'Shopper (guest) → Order Confirmation → Create Account', () =
 		// If delayed account creation is off, no form is shown.
 		await requestUtils.rest( {
 			method: 'PUT',
-			path: 'wc/v3/settings/account/woocommerce_enable_delayed_account_creation',
+			path: 'wc/v3/settings/account/poocommerce_enable_delayed_account_creation',
 			data: { value: 'no' },
 		} );
 		await page.reload();
@@ -197,7 +197,7 @@ test.describe( 'Shopper (guest) → Order Confirmation → Create Account', () =
 		// Turn on delayed account creation.
 		await requestUtils.rest( {
 			method: 'PUT',
-			path: 'wc/v3/settings/account/woocommerce_enable_delayed_account_creation',
+			path: 'wc/v3/settings/account/poocommerce_enable_delayed_account_creation',
 			data: { value: 'yes' },
 		} );
 		await page.reload();
@@ -208,7 +208,7 @@ test.describe( 'Shopper (guest) → Order Confirmation → Create Account', () =
 		// Configure so password field is visible.
 		await requestUtils.rest( {
 			method: 'PUT',
-			path: 'wc/v3/settings/account/woocommerce_registration_generate_password',
+			path: 'wc/v3/settings/account/poocommerce_registration_generate_password',
 			data: { value: 'no' },
 		} );
 		await page.reload();

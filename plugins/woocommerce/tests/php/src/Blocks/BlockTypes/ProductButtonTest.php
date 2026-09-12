@@ -2,7 +2,7 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Tests\Blocks\BlockTypes;
 
 use WC_Helper_Product;
 use WC_Unit_Test_Case;
@@ -21,9 +21,9 @@ class ProductButtonTest extends WC_Unit_Test_Case {
 		$product->save();
 
 		$markup = do_blocks(
-			'<!-- wp:woocommerce/single-product {"productId":' . $product->get_id() . '} -->' .
-			'<!-- wp:woocommerce/product-button /-->' .
-			'<!-- /wp:woocommerce/single-product -->'
+			'<!-- wp:poocommerce/single-product {"productId":' . $product->get_id() . '} -->' .
+			'<!-- wp:poocommerce/product-button /-->' .
+			'<!-- /wp:poocommerce/single-product -->'
 		);
 
 		$this->assertStringContainsString( 'Buy now&lt;style&gt;.hidden { display: none; }&lt;/style&gt;', $markup, 'The button text should be escaped.' );

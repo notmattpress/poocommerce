@@ -34,7 +34,7 @@ import { checkoutCustomerLogin } from '../requests/shopper/checkout-customer-log
 // median and p(90) for directional signals, not p(95).
 //
 // Requires a clean Apache baseline — restart the WordPress container between runs:
-//   bash plugins/woocommerce/tests/performance/utils/init-environment.sh
+//   bash plugins/poocommerce/tests/performance/utils/init-environment.sh
 //
 // Comparing runs: a single run is sufficient for directional confidence at this load level.
 // Run 2–3 times if you want variance bounds on noisy signals (checkout p(90)).

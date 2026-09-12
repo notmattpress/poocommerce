@@ -1,11 +1,11 @@
 /**
  * External dependencies
  */
-import { Logger } from '@woocommerce/monorepo-utils/src/core/logger';
+import { Logger } from '@poocommerce/monorepo-utils/src/core/logger';
 import {
 	cloneRepoShallow,
 	generateDiff,
-} from '@woocommerce/monorepo-utils/src/core/git';
+} from '@poocommerce/monorepo-utils/src/core/git';
 import { execSync } from 'child_process';
 
 /**

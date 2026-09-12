@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 /**
  * Tests for wc-template-functions.php.
  *
- * @package WooCommerce\Tests\Includes
+ * @package PooCommerce\Tests\Includes
  */
 class WC_Template_Functions_Tests extends \WC_Unit_Test_Case {
 	/**
@@ -22,7 +22,7 @@ class WC_Template_Functions_Tests extends \WC_Unit_Test_Case {
 
 		ob_start();
 		try {
-			woocommerce_template_loop_add_to_cart();
+			poocommerce_template_loop_add_to_cart();
 
 			return (string) ob_get_clean();
 		} finally {
@@ -85,7 +85,7 @@ class WC_Template_Functions_Tests extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox woocommerce_get_product_subcategories caches results under the expected key.
+	 * @testdox poocommerce_get_product_subcategories caches results under the expected key.
 	 */
 	public function test_subcategories_are_cached_under_expected_key(): void {
 		$parent_id = $this->create_category_tree();
@@ -94,7 +94,7 @@ class WC_Template_Functions_Tests extends \WC_Unit_Test_Case {
 		// Cache should be empty before the call.
 		$this->assertFalse( wp_cache_get( $cache_key, 'product_cat' ) );
 
-		$result = woocommerce_get_product_subcategories( $parent_id );
+		$result = poocommerce_get_product_subcategories( $parent_id );
 
 		// Cache should be populated after the call.
 		$cached = wp_cache_get( $cache_key, 'product_cat' );
@@ -104,7 +104,7 @@ class WC_Template_Functions_Tests extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox woocommerce_get_product_subcategories does not cache when taxonomy is cleared by filter.
+	 * @testdox poocommerce_get_product_subcategories does not cache when taxonomy is cleared by filter.
 	 */
 	public function test_cache_is_skipped_when_taxonomy_is_cleared(): void {
 		$parent_id = $this->create_category_tree();
@@ -114,20 +114,20 @@ class WC_Template_Functions_Tests extends \WC_Unit_Test_Case {
 			$args['taxonomy'] = '';
 			return $args;
 		};
-		add_filter( 'woocommerce_product_subcategories_args', $filter );
+		add_filter( 'poocommerce_product_subcategories_args', $filter );
 
-		$result = woocommerce_get_product_subcategories( $parent_id );
+		$result = poocommerce_get_product_subcategories( $parent_id );
 
 		// Cache should remain empty because taxonomy was cleared.
 		$this->assertFalse( wp_cache_get( $cache_key, 'product_cat' ) );
 		// Result should be empty too (query with empty taxonomy returns nothing).
 		$this->assertEmpty( $result );
 
-		remove_filter( 'woocommerce_product_subcategories_args', $filter );
+		remove_filter( 'poocommerce_product_subcategories_args', $filter );
 	}
 
 	/**
-	 * @testdox woocommerce_get_product_subcategories does not cache when taxonomy is missing after filter.
+	 * @testdox poocommerce_get_product_subcategories does not cache when taxonomy is missing after filter.
 	 */
 	public function test_cache_is_skipped_when_taxonomy_is_missing(): void {
 		$parent_id = $this->create_category_tree();
@@ -137,18 +137,18 @@ class WC_Template_Functions_Tests extends \WC_Unit_Test_Case {
 			unset( $args['taxonomy'] );
 			return $args;
 		};
-		add_filter( 'woocommerce_product_subcategories_args', $filter );
+		add_filter( 'poocommerce_product_subcategories_args', $filter );
 
-		woocommerce_get_product_subcategories( $parent_id );
+		poocommerce_get_product_subcategories( $parent_id );
 
 		// Cache should remain empty because taxonomy was removed.
 		$this->assertFalse( wp_cache_get( $cache_key, 'product_cat' ) );
 
-		remove_filter( 'woocommerce_product_subcategories_args', $filter );
+		remove_filter( 'poocommerce_product_subcategories_args', $filter );
 	}
 
 	/**
-	 * @testdox woocommerce_get_product_subcategories caches normally after filter is removed.
+	 * @testdox poocommerce_get_product_subcategories caches normally after filter is removed.
 	 */
 	public function test_cache_works_normally_after_filter_removed(): void {
 		$parent_id = $this->create_category_tree();
@@ -159,13 +159,13 @@ class WC_Template_Functions_Tests extends \WC_Unit_Test_Case {
 			$args['taxonomy'] = '';
 			return $args;
 		};
-		add_filter( 'woocommerce_product_subcategories_args', $filter );
-		woocommerce_get_product_subcategories( $parent_id );
+		add_filter( 'poocommerce_product_subcategories_args', $filter );
+		poocommerce_get_product_subcategories( $parent_id );
 		$this->assertFalse( wp_cache_get( $cache_key, 'product_cat' ) );
-		remove_filter( 'woocommerce_product_subcategories_args', $filter );
+		remove_filter( 'poocommerce_product_subcategories_args', $filter );
 
 		// Second call without filter should cache normally.
-		$result = woocommerce_get_product_subcategories( $parent_id );
+		$result = poocommerce_get_product_subcategories( $parent_id );
 		$cached = wp_cache_get( $cache_key, 'product_cat' );
 		$this->assertNotFalse( $cached );
 		$this->assertCount( 3, $cached );
@@ -193,11 +193,11 @@ class WC_Template_Functions_Tests extends \WC_Unit_Test_Case {
 			return $args;
 		};
 
-		add_filter( 'woocommerce_loop_add_to_cart_args', $filter );
+		add_filter( 'poocommerce_loop_add_to_cart_args', $filter );
 		try {
 			$this->render_loop_add_to_cart( $product );
 		} finally {
-			remove_filter( 'woocommerce_loop_add_to_cart_args', $filter );
+			remove_filter( 'poocommerce_loop_add_to_cart_args', $filter );
 		}
 
 		$this->assertIsArray( $filtered_args );
@@ -233,7 +233,7 @@ class WC_Template_Functions_Tests extends \WC_Unit_Test_Case {
 
 		$original_permalink_structure = $wp_rewrite->permalink_structure;
 		$buffer_level                 = ob_get_level();
-		$previous_loop                = $GLOBALS['woocommerce_loop'] ?? null;
+		$previous_loop                = $GLOBALS['poocommerce_loop'] ?? null;
 		$pagination_args              = null;
 		$get_pagenum_link_filter      = static function ( $link, $pagenum ) {
 			return 'https://example.test/shop/page/' . $pagenum . '/';
@@ -254,23 +254,23 @@ class WC_Template_Functions_Tests extends \WC_Unit_Test_Case {
 			)
 		);
 		add_filter( 'get_pagenum_link', $get_pagenum_link_filter, 10, 2 );
-		add_filter( 'woocommerce_pagination_args', $pagination_args_filter );
+		add_filter( 'poocommerce_pagination_args', $pagination_args_filter );
 
 		ob_start();
 		try {
-			woocommerce_pagination();
+			poocommerce_pagination();
 			$markup = (string) ob_get_clean();
 		} finally {
 			while ( ob_get_level() > $buffer_level ) {
 				ob_end_clean();
 			}
 			remove_filter( 'get_pagenum_link', $get_pagenum_link_filter, 10 );
-			remove_filter( 'woocommerce_pagination_args', $pagination_args_filter );
+			remove_filter( 'poocommerce_pagination_args', $pagination_args_filter );
 			$wp_rewrite->set_permalink_structure( $original_permalink_structure );
 			if ( null === $previous_loop ) {
 				wc_reset_loop();
 			} else {
-				$GLOBALS['woocommerce_loop'] = $previous_loop;
+				$GLOBALS['poocommerce_loop'] = $previous_loop;
 			}
 		}
 

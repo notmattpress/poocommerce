@@ -2,13 +2,13 @@
 /**
  * Class WC_Abstract_Order file.
  *
- * @package WooCommerce\Tests\Abstracts
+ * @package PooCommerce\Tests\Abstracts
  */
 
-use Automattic\WooCommerce\Internal\CostOfGoodsSold\CogsAwareUnitTestSuiteTrait;
-use Automattic\WooCommerce\Testing\Tools\CodeHacking\Hacks\FunctionsMockerHack;
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Enums\ProductTaxStatus;
+use Automattic\PooCommerce\Internal\CostOfGoodsSold\CogsAwareUnitTestSuiteTrait;
+use Automattic\PooCommerce\Testing\Tools\CodeHacking\Hacks\FunctionsMockerHack;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Enums\ProductTaxStatus;
 
 // phpcs:disable Squiz.Classes.ClassFileName.NoMatch, Squiz.Classes.ValidClassName.NotCamelCaps -- Backward compatibility.
 /**
@@ -43,8 +43,8 @@ class WC_Abstract_Order_Test extends WC_Unit_Test_Case {
 	 * Test when rounding is different when doing per line and in subtotal.
 	 */
 	public function test_order_calculate_26582() {
-		update_option( 'woocommerce_prices_include_tax', 'yes' );
-		update_option( 'woocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_prices_include_tax', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
 		$tax_rate = array(
 			'tax_rate_country'  => '',
 			'tax_rate_state'    => '',
@@ -78,7 +78,7 @@ class WC_Abstract_Order_Test extends WC_Unit_Test_Case {
 	 * @param WC_Order $order Order object.
 	 */
 	private function order_calculate_rounding_line( $order ) {
-		update_option( 'woocommerce_tax_round_at_subtotal', 'no' );
+		update_option( 'poocommerce_tax_round_at_subtotal', 'no' );
 
 		$order->calculate_totals( true );
 
@@ -93,7 +93,7 @@ class WC_Abstract_Order_Test extends WC_Unit_Test_Case {
 	 * @param WC_Order $order Order object.
 	 */
 	private function order_calculate_rounding_subtotal( $order ) {
-		update_option( 'woocommerce_tax_round_at_subtotal', 'yes' );
+		update_option( 'poocommerce_tax_round_at_subtotal', 'yes' );
 
 		$order->calculate_totals( true );
 
@@ -106,10 +106,10 @@ class WC_Abstract_Order_Test extends WC_Unit_Test_Case {
 	 * Test that coupon taxes are not affected by logged in admin user.
 	 */
 	public function test_apply_coupon_for_correct_location_taxes() {
-		update_option( 'woocommerce_tax_round_at_subtotal', 'yes' );
-		update_option( 'woocommerce_prices_include_tax', 'yes' );
-		update_option( 'woocommerce_tax_based_on', 'billing' );
-		update_option( 'woocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_tax_round_at_subtotal', 'yes' );
+		update_option( 'poocommerce_prices_include_tax', 'yes' );
+		update_option( 'poocommerce_tax_based_on', 'billing' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
 
 		$password = wp_generate_password( 8, false, false );
 		$admin_id = wp_insert_user(
@@ -127,7 +127,7 @@ class WC_Abstract_Order_Test extends WC_Unit_Test_Case {
 		WC()->customer = null;
 		WC()->initialize_cart();
 
-		update_option( 'woocommerce_default_country', 'IN:AP' );
+		update_option( 'poocommerce_default_country', 'IN:AP' );
 
 		$tax_rate = array(
 			'tax_rate_country' => 'IN',
@@ -300,7 +300,7 @@ class WC_Abstract_Order_Test extends WC_Unit_Test_Case {
 
 	/**
 	 * Test apply_coupon() stores coupon meta data.
-	 * See: https://github.com/woocommerce/woocommerce/issues/28166.
+	 * See: https://github.com/poocommerce/poocommerce/issues/28166.
 	 */
 	public function test_apply_coupon_stores_meta_data() {
 		$coupon_code = 'coupon_test_meta_data';
@@ -321,7 +321,7 @@ class WC_Abstract_Order_Test extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Test remove_coupon fires woocommerce_order_removed_coupon hook with WC_Coupon object.
+	 * Test remove_coupon fires poocommerce_order_removed_coupon hook with WC_Coupon object.
 	 */
 	public function test_remove_coupon_fires_order_removed_coupon_hook() {
 		$coupon_code = 'remove_hook_test';
@@ -338,7 +338,7 @@ class WC_Abstract_Order_Test extends WC_Unit_Test_Case {
 		$hook_order  = null;
 
 		add_action(
-			'woocommerce_order_removed_coupon',
+			'poocommerce_order_removed_coupon',
 			function ( $coupon_obj, $order_obj ) use ( &$hook_fired, &$hook_coupon, &$hook_order ) {
 				$hook_fired  = true;
 				$hook_coupon = $coupon_obj;
@@ -352,13 +352,13 @@ class WC_Abstract_Order_Test extends WC_Unit_Test_Case {
 			$result = $order->remove_coupon( $coupon_code );
 
 			$this->assertTrue( $result );
-			$this->assertTrue( $hook_fired, 'woocommerce_order_removed_coupon hook did not fire.' );
+			$this->assertTrue( $hook_fired, 'poocommerce_order_removed_coupon hook did not fire.' );
 			$this->assertInstanceOf( WC_Coupon::class, $hook_coupon, 'First parameter should be a WC_Coupon instance.' );
 			$this->assertEquals( $coupon->get_code(), $hook_coupon->get_code(), 'Hook coupon code should match.' );
 			$this->assertSame( $order, $hook_order, 'Second parameter should be the same WC_Order instance.' );
 			$this->assertCount( 0, $order->get_items( 'coupon' ) );
 		} finally {
-			remove_all_actions( 'woocommerce_order_removed_coupon' );
+			remove_all_actions( 'poocommerce_order_removed_coupon' );
 		}
 	}
 
@@ -549,7 +549,7 @@ class WC_Abstract_Order_Test extends WC_Unit_Test_Case {
 	 * @return WC_Order
 	 */
 	private function create_taxed_order_with_manually_edited_total() {
-		update_option( 'woocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
 		WC_Tax::_insert_tax_rate(
 			array(
 				'tax_rate_country'  => '',
@@ -635,13 +635,13 @@ class WC_Abstract_Order_Test extends WC_Unit_Test_Case {
 	 * Test for get_discount_to_display which must return a value
 	 * with and without tax whatever the setting of the options.
 	 *
-	 * Issue :https://github.com/woocommerce/woocommerce/issues/36794
+	 * Issue :https://github.com/poocommerce/poocommerce/issues/36794
 	 */
 	public function test_get_discount_to_display() {
-		update_option( 'woocommerce_calc_taxes', 'yes' );
-		update_option( 'woocommerce_prices_include_tax', 'no' );
-		update_option( 'woocommerce_currency', 'USD' );
-		update_option( 'woocommerce_tax_display_cart', 'incl' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_prices_include_tax', 'no' );
+		update_option( 'poocommerce_currency', 'USD' );
+		update_option( 'poocommerce_tax_display_cart', 'incl' );
 
 		// Set dummy data.
 		$tax_rate = array(
@@ -672,7 +672,7 @@ class WC_Abstract_Order_Test extends WC_Unit_Test_Case {
 	 */
 	public function test_cache_does_not_interferes_with_order_object() {
 		add_action(
-			'woocommerce_new_order',
+			'poocommerce_new_order',
 			function ( $order_id ) {
 				// this makes the cache store a specific order class instance, but it's quickly replaced by a generic one
 				// as we're in the middle of a save and this gets executed before the logic in WC_Abstract_Order.
@@ -683,7 +683,7 @@ class WC_Abstract_Order_Test extends WC_Unit_Test_Case {
 		$order->save();
 
 		$order = wc_get_order( $order->get_id() );
-		$this->assertInstanceOf( Automattic\WooCommerce\Admin\Overrides\Order::class, $order );
+		$this->assertInstanceOf( Automattic\PooCommerce\Admin\Overrides\Order::class, $order );
 	}
 
 	/**
@@ -839,7 +839,7 @@ class WC_Abstract_Order_Test extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox The calculated value for Cost of Goods Sold can be modified using the 'woocommerce_calculated_order_cogs_value' filter.
+	 * @testdox The calculated value for Cost of Goods Sold can be modified using the 'poocommerce_calculated_order_cogs_value' filter.
 	 */
 	public function test_filter_can_be_used_to_alter_calculated_cogs_value() {
 		$filter_received_value = null;
@@ -852,7 +852,7 @@ class WC_Abstract_Order_Test extends WC_Unit_Test_Case {
 		$this->add_product_with_cogs_to_order( $order, 56.78, 3 );
 
 		add_filter(
-			'woocommerce_calculated_order_cogs_value',
+			'poocommerce_calculated_order_cogs_value',
 			function ( $value, $order ) use ( &$filter_received_value, &$filter_received_order ) {
 				$filter_received_value = $value;
 				$filter_received_order = $order;
@@ -926,7 +926,7 @@ class WC_Abstract_Order_Test extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Test the woocommerce_order_cogs_total_value_html filter invoked by get_cogs_total_value_html.
+	 * @testdox Test the poocommerce_order_cogs_total_value_html filter invoked by get_cogs_total_value_html.
 	 */
 	public function test_get_cogs_total_value_html_with_filter() {
 		$this->enable_cogs_feature();
@@ -934,7 +934,7 @@ class WC_Abstract_Order_Test extends WC_Unit_Test_Case {
 		$order = $this->get_order_with_fixed_cogs_total_value();
 
 		add_filter(
-			'woocommerce_order_cogs_total_value_html',
+			'poocommerce_order_cogs_total_value_html',
 			function ( $html, $amount, $the_order ) {
 				return sprintf( 'amount: %s, order: %s', $amount, $the_order->get_id() );
 			},
@@ -943,7 +943,7 @@ class WC_Abstract_Order_Test extends WC_Unit_Test_Case {
 		);
 
 		$actual = $order->get_cogs_total_value_html();
-		remove_all_filters( 'woocommerce_order_cogs_total_value_html' );
+		remove_all_filters( 'poocommerce_order_cogs_total_value_html' );
 		$expected = sprintf( 'amount: %s, order: %s', 12.34, $order->get_id() );
 		$this->assertEquals( $expected, $actual );
 	}
@@ -952,7 +952,7 @@ class WC_Abstract_Order_Test extends WC_Unit_Test_Case {
 	 * @testdox update_taxes persists cart and shipping tax totals as order tax items, and updates existing items in-place on a second call.
 	 */
 	public function test_update_taxes_persists_cart_and_shipping_tax_totals(): void {
-		update_option( 'woocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
 
 		// German standard 19% non-compound VAT rate.
 		$tax_rate    = array(
@@ -1037,13 +1037,13 @@ class WC_Abstract_Order_Test extends WC_Unit_Test_Case {
 	 * @param float $expected_shipping_tax   Expected shipping tax total.
 	 */
 	public function test_calculate_taxes_handles_inherited_shipping_tax_without_taxable_products( bool $add_non_taxable_product, bool $add_non_taxable_fee, float $expected_shipping_tax ): void {
-		$original_calc_taxes         = get_option( 'woocommerce_calc_taxes', 'no' );
-		$original_shipping_tax_class = get_option( 'woocommerce_shipping_tax_class', 'inherit' );
+		$original_calc_taxes         = get_option( 'poocommerce_calc_taxes', 'no' );
+		$original_shipping_tax_class = get_option( 'poocommerce_shipping_tax_class', 'inherit' );
 		$order                       = new WC_Order();
 		$product                     = null;
 
-		update_option( 'woocommerce_calc_taxes', 'yes' );
-		update_option( 'woocommerce_shipping_tax_class', 'inherit' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_shipping_tax_class', 'inherit' );
 
 		$tax_rate_id = WC_Tax::_insert_tax_rate(
 			array(
@@ -1086,8 +1086,8 @@ class WC_Abstract_Order_Test extends WC_Unit_Test_Case {
 			$this->assertSame( $expected_shipping_tax, (float) $order->get_shipping_tax() );
 		} finally {
 			WC_Tax::_delete_tax_rate( $tax_rate_id );
-			update_option( 'woocommerce_calc_taxes', $original_calc_taxes );
-			update_option( 'woocommerce_shipping_tax_class', $original_shipping_tax_class );
+			update_option( 'poocommerce_calc_taxes', $original_calc_taxes );
+			update_option( 'poocommerce_shipping_tax_class', $original_shipping_tax_class );
 			$order->delete( true );
 			if ( $product ) {
 				$product->delete( true );
@@ -1153,7 +1153,7 @@ class WC_Abstract_Order_Test extends WC_Unit_Test_Case {
 		global $wpdb;
 
 		$order          = WC_Helper_Order::create_order();
-		$query_fragment = "SELECT order_item_id FROM {$wpdb->prefix}woocommerce_order_items";
+		$query_fragment = "SELECT order_item_id FROM {$wpdb->prefix}poocommerce_order_items";
 		$query_filter   = static function ( $query ) use ( $query_fragment ) {
 			return false !== strpos( $query, $query_fragment ) ? 'INVALID SQL' : $query;
 		};
@@ -1179,14 +1179,14 @@ class WC_Abstract_Order_Test extends WC_Unit_Test_Case {
 		$caught_exception         = null;
 
 		add_filter( 'query', $query_filter );
-		add_filter( 'woocommerce_logging_class', $logger_filter );
+		add_filter( 'poocommerce_logging_class', $logger_filter );
 		try {
 			$order->remove_order_items();
 		} catch ( Exception $exception ) {
 			$caught_exception = $exception;
 		} finally {
 			remove_filter( 'query', $query_filter );
-			remove_filter( 'woocommerce_logging_class', $logger_filter );
+			remove_filter( 'poocommerce_logging_class', $logger_filter );
 			$wpdb->suppress_errors( $previous_suppress_errors );
 		}
 
@@ -1223,7 +1223,7 @@ class WC_Abstract_Order_Test extends WC_Unit_Test_Case {
 
 		$persisted_item_count = (int) $wpdb->get_var(
 			$wpdb->prepare(
-				"SELECT COUNT(*) FROM {$wpdb->prefix}woocommerce_order_items WHERE order_id = %d AND order_item_type = 'line_item'",
+				"SELECT COUNT(*) FROM {$wpdb->prefix}poocommerce_order_items WHERE order_id = %d AND order_item_type = 'line_item'",
 				$order->get_id()
 			)
 		);
@@ -1233,7 +1233,7 @@ class WC_Abstract_Order_Test extends WC_Unit_Test_Case {
 
 		$persisted_item_count = (int) $wpdb->get_var(
 			$wpdb->prepare(
-				"SELECT COUNT(*) FROM {$wpdb->prefix}woocommerce_order_items WHERE order_id = %d AND order_item_type = 'line_item'",
+				"SELECT COUNT(*) FROM {$wpdb->prefix}poocommerce_order_items WHERE order_id = %d AND order_item_type = 'line_item'",
 				$order->get_id()
 			)
 		);
@@ -1248,7 +1248,7 @@ class WC_Abstract_Order_Test extends WC_Unit_Test_Case {
 	public static function provide_failed_order_item_delete_queries(): array {
 		return array(
 			'item metadata delete' => array( 'DELETE itemmeta FROM' ),
-			'item row delete'      => array( 'DELETE FROM {prefix}woocommerce_order_items' ),
+			'item row delete'      => array( 'DELETE FROM {prefix}poocommerce_order_items' ),
 		);
 	}
 
@@ -1405,11 +1405,11 @@ class WC_Abstract_Order_Test extends WC_Unit_Test_Case {
 			return array();
 		};
 
-		add_filter( 'woocommerce_order_get_items', $hide_items );
+		add_filter( 'poocommerce_order_get_items', $hide_items );
 		try {
 			$order->remove_order_items();
 		} finally {
-			remove_filter( 'woocommerce_order_get_items', $hide_items );
+			remove_filter( 'poocommerce_order_get_items', $hide_items );
 		}
 
 		$order->save();
@@ -1439,7 +1439,7 @@ class WC_Abstract_Order_Test extends WC_Unit_Test_Case {
 
 		$order = WC_Helper_Order::create_order();
 		$wpdb->insert(
-			$wpdb->prefix . 'woocommerce_order_items',
+			$wpdb->prefix . 'poocommerce_order_items',
 			array(
 				'order_item_name' => 'Extension item',
 				'order_item_type' => 'extension_item',
@@ -1459,7 +1459,7 @@ class WC_Abstract_Order_Test extends WC_Unit_Test_Case {
 		$this->assertNull(
 			$wpdb->get_var(
 				$wpdb->prepare(
-					"SELECT order_item_id FROM {$wpdb->prefix}woocommerce_order_items WHERE order_item_id = %d",
+					"SELECT order_item_id FROM {$wpdb->prefix}poocommerce_order_items WHERE order_item_id = %d",
 					$extension_item_id
 				)
 			),
@@ -1468,7 +1468,7 @@ class WC_Abstract_Order_Test extends WC_Unit_Test_Case {
 		$this->assertNull(
 			$wpdb->get_var(
 				$wpdb->prepare(
-					"SELECT meta_id FROM {$wpdb->prefix}woocommerce_order_itemmeta WHERE order_item_id = %d",
+					"SELECT meta_id FROM {$wpdb->prefix}poocommerce_order_itemmeta WHERE order_item_id = %d",
 					$extension_item_id
 				)
 			),
@@ -1625,8 +1625,8 @@ class WC_Abstract_Order_Test extends WC_Unit_Test_Case {
 		$removed_hook       = static function ( $hook_order, $hook_type ) use ( &$removed_item_types ) {
 			$removed_item_types[] = $hook_type;
 		};
-		add_filter( 'woocommerce_order_data_store', $data_store_filter, PHP_INT_MAX );
-		add_action( 'woocommerce_removed_order_items', $removed_hook, 10, 2 );
+		add_filter( 'poocommerce_order_data_store', $data_store_filter, PHP_INT_MAX );
+		add_action( 'poocommerce_removed_order_items', $removed_hook, 10, 2 );
 
 		try {
 			$reflection = new ReflectionProperty( WC_Data::class, 'data_store' );
@@ -1649,8 +1649,8 @@ class WC_Abstract_Order_Test extends WC_Unit_Test_Case {
 			$this->assertSame( array( $type ), $custom_data_store->deleted_item_types, 'Saving should not invoke the custom delete_items() implementation again.' );
 			$this->assertSame( array( $type ), $removed_item_types, 'Saving should not fire the post-removal hook again.' );
 		} finally {
-			remove_filter( 'woocommerce_order_data_store', $data_store_filter, PHP_INT_MAX );
-			remove_action( 'woocommerce_removed_order_items', $removed_hook, 10 );
+			remove_filter( 'poocommerce_order_data_store', $data_store_filter, PHP_INT_MAX );
+			remove_action( 'poocommerce_removed_order_items', $removed_hook, 10 );
 		}
 	}
 
@@ -1695,7 +1695,7 @@ class WC_Abstract_Order_Test extends WC_Unit_Test_Case {
 		$data_store_filter = static function () use ( $custom_data_store ) {
 			return $custom_data_store;
 		};
-		add_filter( 'woocommerce_order_data_store', $data_store_filter, PHP_INT_MAX );
+		add_filter( 'poocommerce_order_data_store', $data_store_filter, PHP_INT_MAX );
 
 		try {
 			$reflection = new ReflectionProperty( WC_Data::class, 'data_store' );
@@ -1718,7 +1718,7 @@ class WC_Abstract_Order_Test extends WC_Unit_Test_Case {
 
 			$order->save();
 		} finally {
-			remove_filter( 'woocommerce_order_data_store', $data_store_filter, PHP_INT_MAX );
+			remove_filter( 'poocommerce_order_data_store', $data_store_filter, PHP_INT_MAX );
 		}
 
 		$this->assertSame( 0, $custom_data_store->delete_items_call_count, 'The legacy deletion override should not run during save().' );
@@ -1875,8 +1875,8 @@ class WC_Abstract_Order_Test extends WC_Unit_Test_Case {
 			);
 		};
 
-		add_action( 'woocommerce_remove_order_items', $pre_callback, 10, 2 );
-		add_action( 'woocommerce_removed_order_items', $post_callback, 10, 2 );
+		add_action( 'poocommerce_remove_order_items', $pre_callback, 10, 2 );
+		add_action( 'poocommerce_removed_order_items', $post_callback, 10, 2 );
 
 		try {
 			$order->remove_order_items( 'line_item' );
@@ -1884,12 +1884,12 @@ class WC_Abstract_Order_Test extends WC_Unit_Test_Case {
 			$this->assertSame(
 				$expected_log,
 				$pre_calls,
-				'woocommerce_remove_order_items should fire once when removal is requested.'
+				'poocommerce_remove_order_items should fire once when removal is requested.'
 			);
 			$this->assertSame(
 				array(),
 				$post_calls,
-				'woocommerce_removed_order_items should not fire until the deferred DB delete runs in save().'
+				'poocommerce_removed_order_items should not fire until the deferred DB delete runs in save().'
 			);
 
 			$order->save();
@@ -1897,11 +1897,11 @@ class WC_Abstract_Order_Test extends WC_Unit_Test_Case {
 			$this->assertSame(
 				$expected_log,
 				$post_calls,
-				'woocommerce_removed_order_items should fire once with the requested type after save() commits the delete.'
+				'poocommerce_removed_order_items should fire once with the requested type after save() commits the delete.'
 			);
 		} finally {
-			remove_action( 'woocommerce_remove_order_items', $pre_callback, 10 );
-			remove_action( 'woocommerce_removed_order_items', $post_callback, 10 );
+			remove_action( 'poocommerce_remove_order_items', $pre_callback, 10 );
+			remove_action( 'poocommerce_removed_order_items', $post_callback, 10 );
 		}//end try
 	}
 
@@ -1919,7 +1919,7 @@ class WC_Abstract_Order_Test extends WC_Unit_Test_Case {
 			);
 		};
 
-		add_action( 'woocommerce_removed_order_items', $post_callback, 10, 2 );
+		add_action( 'poocommerce_removed_order_items', $post_callback, 10, 2 );
 
 		try {
 			$order->remove_order_items();
@@ -1928,7 +1928,7 @@ class WC_Abstract_Order_Test extends WC_Unit_Test_Case {
 
 			$order->save();
 		} finally {
-			remove_action( 'woocommerce_removed_order_items', $post_callback, 10 );
+			remove_action( 'poocommerce_removed_order_items', $post_callback, 10 );
 		}
 
 		$this->assertSame(
@@ -1961,7 +1961,7 @@ class WC_Abstract_Order_Test extends WC_Unit_Test_Case {
 			}
 		};
 
-		add_action( 'woocommerce_removed_order_items', $callback, 10, 2 );
+		add_action( 'poocommerce_removed_order_items', $callback, 10, 2 );
 
 		try {
 			$order->save();
@@ -1976,7 +1976,7 @@ class WC_Abstract_Order_Test extends WC_Unit_Test_Case {
 
 			$order->save();
 		} finally {
-			remove_action( 'woocommerce_removed_order_items', $callback, 10 );
+			remove_action( 'poocommerce_removed_order_items', $callback, 10 );
 		}
 
 		$reloaded = wc_get_order( $order_id );
@@ -2001,12 +2001,12 @@ class WC_Abstract_Order_Test extends WC_Unit_Test_Case {
 		$pre_hook  = function ( $fired_order, $type ) use ( &$pre_calls ) {
 			$pre_calls[] = $type;
 		};
-		add_action( 'woocommerce_remove_order_items', $pre_hook, 10, 2 );
+		add_action( 'poocommerce_remove_order_items', $pre_hook, 10, 2 );
 
 		try {
 			$order->remove_order_items( array( 'line_item' ) );
 		} finally {
-			remove_action( 'woocommerce_remove_order_items', $pre_hook, 10 );
+			remove_action( 'poocommerce_remove_order_items', $pre_hook, 10 );
 		}
 
 		$this->assertSame(
@@ -2028,7 +2028,7 @@ class WC_Abstract_Order_Test extends WC_Unit_Test_Case {
 		};
 		$reflect = new ReflectionClass( $order );
 
-		add_filter( 'woocommerce_order_type_to_group', $adjust );
+		add_filter( 'poocommerce_order_type_to_group', $adjust );
 
 		try {
 			$items_prop = $reflect->getProperty( 'items' );
@@ -2052,7 +2052,7 @@ class WC_Abstract_Order_Test extends WC_Unit_Test_Case {
 				'Filter-registered group should be cleared to an empty array — not left with stale entries.'
 			);
 		} finally {
-			remove_filter( 'woocommerce_order_type_to_group', $adjust );
+			remove_filter( 'poocommerce_order_type_to_group', $adjust );
 		}
 	}
 

@@ -1,11 +1,11 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\Admin\Logging\FileV2;
+namespace Automattic\PooCommerce\Internal\Admin\Logging\FileV2;
 
 use Automattic\Jetpack\Constants;
-use Automattic\WooCommerce\Internal\Admin\Logging\Settings;
-use Automattic\WooCommerce\Internal\Utilities\FilesystemUtil;
+use Automattic\PooCommerce\Internal\Admin\Logging\Settings;
+use Automattic\PooCommerce\Internal\Utilities\FilesystemUtil;
 use Exception;
 use PclZip;
 use WC_Cache_Helper;
@@ -94,7 +94,7 @@ class FileController {
 		 *
 		 * @param int $file_size_limit The file size limit in bytes.
 		 */
-		$file_size_limit = apply_filters( 'woocommerce_log_file_size_limit', $default );
+		$file_size_limit = apply_filters( 'poocommerce_log_file_size_limit', $default );
 
 		if ( ! is_int( $file_size_limit ) || $file_size_limit < 1 ) {
 			return $default;
@@ -205,7 +205,7 @@ class FileController {
 		if ( false === $paths ) {
 			return new WP_Error(
 				'wc_log_directory_error',
-				__( 'Could not access the log file directory.', 'woocommerce' )
+				__( 'Could not access the log file directory.', 'poocommerce' )
 			);
 		}
 
@@ -366,14 +366,14 @@ class FileController {
 		if ( count( $result ) < 1 ) {
 			return new WP_Error(
 				'wc_log_file_error',
-				esc_html__( 'This file does not exist.', 'woocommerce' )
+				esc_html__( 'This file does not exist.', 'poocommerce' )
 			);
 		}
 
 		if ( count( $result ) > 1 ) {
 			return new WP_Error(
 				'wc_log_file_error',
-				esc_html__( 'Multiple files match this ID.', 'woocommerce' )
+				esc_html__( 'Multiple files match this ID.', 'poocommerce' )
 			);
 		}
 
@@ -487,7 +487,7 @@ class FileController {
 		if ( false === $paths ) {
 			return new WP_Error(
 				'wc_log_directory_error',
-				__( 'Could not access the log file directory.', 'woocommerce' )
+				__( 'Could not access the log file directory.', 'poocommerce' )
 			);
 		}
 
@@ -629,7 +629,7 @@ class FileController {
 		if ( count( $files ) < 1 ) {
 			return new WP_Error(
 				'wc_logs_invalid_file',
-				__( 'Could not access the specified files.', 'woocommerce' )
+				__( 'Could not access the specified files.', 'poocommerce' )
 			);
 		}
 
@@ -638,13 +638,13 @@ class FileController {
 		if ( ! is_dir( $temp_dir ) || ! wp_is_writable( $temp_dir ) ) {
 			return new WP_Error(
 				'wc_logs_invalid_directory',
-				__( 'Could not write to the temp directory. Try downloading files one at a time instead.', 'woocommerce' )
+				__( 'Could not write to the temp directory. Try downloading files one at a time instead.', 'poocommerce' )
 			);
 		}
 
 		require_once ABSPATH . 'wp-admin/includes/class-pclzip.php';
 
-		$path       = trailingslashit( $temp_dir ) . 'woocommerce_logs_' . gmdate( 'Y-m-d_H-i-s' ) . '.zip';
+		$path       = trailingslashit( $temp_dir ) . 'poocommerce_logs_' . gmdate( 'Y-m-d_H-i-s' ) . '.zip';
 		$file_paths = array_map(
 			fn( $file ) => $file->get_path(),
 			$files

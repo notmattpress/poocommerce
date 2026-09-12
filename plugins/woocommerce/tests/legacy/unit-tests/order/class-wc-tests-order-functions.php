@@ -2,19 +2,19 @@
 /**
  * Class WC_Tests_Order_Functions file.
  *
- * @package WooCommerce\Tests
+ * @package PooCommerce\Tests
  */
 
 use Automattic\Jetpack\Constants;
-use Automattic\WooCommerce\Enums\OrderInternalStatus;
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Enums\ProductTaxStatus;
-use Automattic\WooCommerce\Caches\OrderCountCache;
+use Automattic\PooCommerce\Enums\OrderInternalStatus;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Enums\ProductTaxStatus;
+use Automattic\PooCommerce\Caches\OrderCountCache;
 
 /**
  * Class Functions.
  *
- * @package WooCommerce\Tests\Order
+ * @package PooCommerce\Tests\Order
  * @since 2.3
  */
 class WC_Tests_Order_Functions extends WC_Unit_Test_Case {
@@ -55,13 +55,13 @@ class WC_Tests_Order_Functions extends WC_Unit_Test_Case {
 		$order_statuses = apply_filters(
 			'wc_order_statuses',
 			array(
-				OrderInternalStatus::PENDING    => _x( 'Pending payment', 'Order status', 'woocommerce' ),
-				OrderInternalStatus::PROCESSING => _x( 'Processing', 'Order status', 'woocommerce' ),
-				OrderInternalStatus::ON_HOLD    => _x( 'On hold', 'Order status', 'woocommerce' ),
-				OrderInternalStatus::COMPLETED  => _x( 'Completed', 'Order status', 'woocommerce' ),
-				OrderInternalStatus::CANCELLED  => _x( 'Cancelled', 'Order status', 'woocommerce' ),
-				OrderInternalStatus::REFUNDED   => _x( 'Refunded', 'Order status', 'woocommerce' ),
-				OrderInternalStatus::FAILED     => _x( 'Failed', 'Order status', 'woocommerce' ),
+				OrderInternalStatus::PENDING    => _x( 'Pending payment', 'Order status', 'poocommerce' ),
+				OrderInternalStatus::PROCESSING => _x( 'Processing', 'Order status', 'poocommerce' ),
+				OrderInternalStatus::ON_HOLD    => _x( 'On hold', 'Order status', 'poocommerce' ),
+				OrderInternalStatus::COMPLETED  => _x( 'Completed', 'Order status', 'poocommerce' ),
+				OrderInternalStatus::CANCELLED  => _x( 'Cancelled', 'Order status', 'poocommerce' ),
+				OrderInternalStatus::REFUNDED   => _x( 'Refunded', 'Order status', 'poocommerce' ),
+				OrderInternalStatus::FAILED     => _x( 'Failed', 'Order status', 'poocommerce' ),
 			)
 		);
 
@@ -85,8 +85,8 @@ class WC_Tests_Order_Functions extends WC_Unit_Test_Case {
 	 * @expectedIncorrectUsage wc_get_order_status_name
 	 */
 	public function test_wc_get_order_status_name() {
-		$this->assertEquals( _x( 'Pending payment', 'Order status', 'woocommerce' ), wc_get_order_status_name( OrderInternalStatus::PENDING ) );
-		$this->assertEquals( _x( 'Pending payment', 'Order status', 'woocommerce' ), wc_get_order_status_name( OrderStatus::PENDING ) );
+		$this->assertEquals( _x( 'Pending payment', 'Order status', 'poocommerce' ), wc_get_order_status_name( OrderInternalStatus::PENDING ) );
+		$this->assertEquals( _x( 'Pending payment', 'Order status', 'poocommerce' ), wc_get_order_status_name( OrderStatus::PENDING ) );
 
 		$this->assertEquals(
 			'Unexpected and unknown',
@@ -176,15 +176,15 @@ class WC_Tests_Order_Functions extends WC_Unit_Test_Case {
 	 */
 	public function test_wc_ship_to_billing_address_only() {
 
-		$default = get_option( 'woocommerce_ship_to_destination' );
+		$default = get_option( 'poocommerce_ship_to_destination' );
 
-		update_option( 'woocommerce_ship_to_destination', 'shipping' );
+		update_option( 'poocommerce_ship_to_destination', 'shipping' );
 		$this->assertFalse( wc_ship_to_billing_address_only() );
 
-		update_option( 'woocommerce_ship_to_destination', 'billing_only' );
+		update_option( 'poocommerce_ship_to_destination', 'billing_only' );
 		$this->assertTrue( wc_ship_to_billing_address_only() );
 
-		update_option( 'woocommerce_ship_to_destination', $default );
+		update_option( 'poocommerce_ship_to_destination', $default );
 	}
 
 	/**
@@ -249,7 +249,7 @@ class WC_Tests_Order_Functions extends WC_Unit_Test_Case {
 	 * @since 2.6
 	 */
 	public function test_wc_order_get_payment_tokens() {
-		if ( \Automattic\WooCommerce\Utilities\OrderUtil::custom_orders_table_usage_is_enabled() ) {
+		if ( \Automattic\PooCommerce\Utilities\OrderUtil::custom_orders_table_usage_is_enabled() ) {
 			$this->markTestSkipped( 'Test only works against Post Meta' );
 		}
 		$order = $this->create_order();
@@ -1393,7 +1393,7 @@ class WC_Tests_Order_Functions extends WC_Unit_Test_Case {
 	/**
 	 * Test create refund when additional fee is also refunded.
 	 *
-	 * @link https://github.com/woocommerce/woocommerce/issues/24238
+	 * @link https://github.com/poocommerce/poocommerce/issues/24238
 	 */
 	public function test_wc_create_refund_24238() {
 		$order = new WC_Order();
@@ -1477,7 +1477,7 @@ class WC_Tests_Order_Functions extends WC_Unit_Test_Case {
 		$force_epsilon_total = function () {
 			return 77.81999999;
 		};
-		add_filter( 'woocommerce_order_get_total', $force_epsilon_total );
+		add_filter( 'poocommerce_order_get_total', $force_epsilon_total );
 
 		wc_create_refund(
 			array(
@@ -1504,7 +1504,7 @@ class WC_Tests_Order_Functions extends WC_Unit_Test_Case {
 			)
 		);
 
-		remove_filter( 'woocommerce_order_get_total', $force_epsilon_total );
+		remove_filter( 'poocommerce_order_get_total', $force_epsilon_total );
 
 		$order = wc_get_order( $order->get_id() );
 		$this->assertEquals( OrderStatus::REFUNDED, $order->get_status(), 'The second refund consumes the rounded remainder and flips the order to refunded.' );
@@ -1514,7 +1514,7 @@ class WC_Tests_Order_Functions extends WC_Unit_Test_Case {
 	/**
 	 * @testdox Creating a refund advances the parent order modified date.
 	 *
-	 * @link https://github.com/woocommerce/woocommerce/issues/28969
+	 * @link https://github.com/poocommerce/poocommerce/issues/28969
 	 */
 	public function test_wc_create_refund_28969() {
 		$order = $this->create_order(
@@ -1528,7 +1528,7 @@ class WC_Tests_Order_Functions extends WC_Unit_Test_Case {
 		$order                 = wc_get_order( $order->get_id() );
 		$initial_date_modified = '2020-01-01 00:00:00';
 
-		if ( \Automattic\WooCommerce\Utilities\OrderUtil::custom_orders_table_usage_is_enabled() ) {
+		if ( \Automattic\PooCommerce\Utilities\OrderUtil::custom_orders_table_usage_is_enabled() ) {
 			$order->set_date_modified( $initial_date_modified );
 			$order->save();
 		} else {
@@ -1570,10 +1570,10 @@ class WC_Tests_Order_Functions extends WC_Unit_Test_Case {
 	/**
 	 * @testdox Refunding a 0% taxed line item preserves the 0-rate tax line on the refund order.
 	 *
-	 * @link https://github.com/woocommerce/woocommerce/issues/27118
+	 * @link https://github.com/poocommerce/poocommerce/issues/27118
 	 */
 	public function test_wc_create_refund_preserves_zero_rate_tax_27118() {
-		update_option( 'woocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
 
 		$rate_id = WC_Tax::_insert_tax_rate(
 			array(
@@ -1635,7 +1635,7 @@ class WC_Tests_Order_Functions extends WC_Unit_Test_Case {
 		);
 
 		WC_Tax::_delete_tax_rate( $rate_id );
-		update_option( 'woocommerce_calc_taxes', 'no' );
+		update_option( 'poocommerce_calc_taxes', 'no' );
 	}
 
 	/**
@@ -1843,11 +1843,11 @@ class WC_Tests_Order_Functions extends WC_Unit_Test_Case {
 	 */
 	public function test_wc_get_order_notes() {
 		$order = $this->create_order();
-		add_filter( 'woocommerce_email_log_add_order_note', '__return_false' );
+		add_filter( 'poocommerce_email_log_add_order_note', '__return_false' );
 		try {
 			$order->add_order_note( 'Customer note', 1 );
 		} finally {
-			remove_filter( 'woocommerce_email_log_add_order_note', '__return_false' );
+			remove_filter( 'poocommerce_email_log_add_order_note', '__return_false' );
 		}
 		$order->add_order_note( 'Internal note' );
 		$order->add_order_note( 'Another internal note' );
@@ -2017,7 +2017,7 @@ class WC_Tests_Order_Functions extends WC_Unit_Test_Case {
 		$this->assertEquals( 0, $coupon_data_store->get_usage_by_email( $coupon, 'a@b.com' ) );
 
 		add_filter(
-			'woocommerce_coupon_hold_minutes',
+			'poocommerce_coupon_hold_minutes',
 			function () {
 				return 0;
 			}
@@ -2044,7 +2044,7 @@ class WC_Tests_Order_Functions extends WC_Unit_Test_Case {
 		$this->assertEquals( 0, $coupon_data_store->get_tentative_usages_for_user( $coupon->get_id(), array( 'a@b.com' ) ) );
 
 		remove_filter(
-			'woocommerce_coupon_hold_minutes',
+			'poocommerce_coupon_hold_minutes',
 			function () {
 				return 0;
 			}
@@ -2060,12 +2060,12 @@ class WC_Tests_Order_Functions extends WC_Unit_Test_Case {
 		// Test custom key.
 		$key       = 'foo123bar';
 		$order_key = wc_generate_order_key( $key );
-		$expected  = 'wc_' . apply_filters( 'woocommerce_generate_order_key', 'order_' . $key );
+		$expected  = 'wc_' . apply_filters( 'poocommerce_generate_order_key', 'order_' . $key );
 		$this->assertEquals( $expected, $order_key );
 
 		// Test default key.
 		$order_key = wc_generate_order_key();
-		$prefix    = 'wc_' . apply_filters( 'woocommerce_generate_order_key', 'order_' );
+		$prefix    = 'wc_' . apply_filters( 'poocommerce_generate_order_key', 'order_' );
 		$this->assertStringStartsWith( $prefix, $order_key );
 		$this->assertEquals( 13, strlen( str_replace( $prefix, '', $order_key ) ) );
 	}

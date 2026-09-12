@@ -7,7 +7,7 @@ import {
 	isObserverResponse,
 	type ObserverResponse,
 	responseTypes,
-} from '@woocommerce/types';
+} from '@poocommerce/types';
 
 export type EventListener = (
 	data: unknown

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Gateways\PayPal;
+namespace Automattic\PooCommerce\Gateways\PayPal;
 
 use Automattic\Jetpack\Connection\Client as Jetpack_Connection_Client;
-use Automattic\WooCommerce\Gateways\PayPal\Constants as PayPalConstants;
+use Automattic\PooCommerce\Gateways\PayPal\Constants as PayPalConstants;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -44,7 +44,7 @@ final class TransactAccountManager {
 	 *
 	 * @since 10.5.0
 	 */
-	private const TRANSACT_MERCHANT_ACCOUNT_CACHE_KEY_LIVE = 'woocommerce_paypal_transact_merchant_account_live';
+	private const TRANSACT_MERCHANT_ACCOUNT_CACHE_KEY_LIVE = 'poocommerce_paypal_transact_merchant_account_live';
 
 	/**
 	 * Cache key for the merchant account in test mode.
@@ -53,7 +53,7 @@ final class TransactAccountManager {
 	 *
 	 * @since 10.5.0
 	 */
-	private const TRANSACT_MERCHANT_ACCOUNT_CACHE_KEY_TEST = 'woocommerce_paypal_transact_merchant_account_test';
+	private const TRANSACT_MERCHANT_ACCOUNT_CACHE_KEY_TEST = 'poocommerce_paypal_transact_merchant_account_test';
 
 	/**
 	 * Cache key for the provider account in live mode.
@@ -62,7 +62,7 @@ final class TransactAccountManager {
 	 *
 	 * @since 10.5.0
 	 */
-	private const TRANSACT_PROVIDER_ACCOUNT_CACHE_KEY_LIVE = 'woocommerce_paypal_transact_provider_account_live';
+	private const TRANSACT_PROVIDER_ACCOUNT_CACHE_KEY_LIVE = 'poocommerce_paypal_transact_provider_account_live';
 
 	/**
 	 * Cache key for the provider account in test mode.
@@ -71,7 +71,7 @@ final class TransactAccountManager {
 	 *
 	 * @since 10.5.0
 	 */
-	private const TRANSACT_PROVIDER_ACCOUNT_CACHE_KEY_TEST = 'woocommerce_paypal_transact_provider_account_test';
+	private const TRANSACT_PROVIDER_ACCOUNT_CACHE_KEY_TEST = 'poocommerce_paypal_transact_provider_account_test';
 
 	/**
 	 * The expiry time for the Transact account cache.

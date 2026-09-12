@@ -58,7 +58,7 @@ export const InboxNoteActionButton = ( {
 
 	return (
 		<Button
-			className="woocommerce-inbox-note__action-button"
+			className="poocommerce-inbox-note__action-button"
 			variant={ variant }
 			isBusy={ inAction }
 			disabled={ inAction }

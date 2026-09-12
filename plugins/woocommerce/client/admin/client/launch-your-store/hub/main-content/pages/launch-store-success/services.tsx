@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { pluginsStore, onboardingStore } from '@woocommerce/data';
+import { pluginsStore, onboardingStore } from '@poocommerce/data';
 import { resolveSelect } from '@wordpress/data';
 import { fromPromise } from 'xstate5';
 import apiFetch from '@wordpress/api-fetch';

@@ -1,8 +1,8 @@
 <?php
 
-namespace Automattic\WooCommerce\Tests\Internal\Utilities;
+namespace Automattic\PooCommerce\Tests\Internal\Utilities;
 
-use Automattic\WooCommerce\Internal\Utilities\URL;
+use Automattic\PooCommerce\Internal\Utilities\URL;
 use WC_Unit_Test_Case;
 
 /**
@@ -154,10 +154,10 @@ class URLTest extends WC_Unit_Test_Case {
 	public function all_parent_urL_expectations(): array {
 		return array(
 			array(
-				'https://local.web/wp-content/uploads/woocommerce_uploads/pdf_bucket/secret-sauce.pdf',
+				'https://local.web/wp-content/uploads/poocommerce_uploads/pdf_bucket/secret-sauce.pdf',
 				array(
-					'https://local.web/wp-content/uploads/woocommerce_uploads/pdf_bucket/',
-					'https://local.web/wp-content/uploads/woocommerce_uploads/',
+					'https://local.web/wp-content/uploads/poocommerce_uploads/pdf_bucket/',
+					'https://local.web/wp-content/uploads/poocommerce_uploads/',
 					'https://local.web/wp-content/uploads/',
 					'https://local.web/wp-content/',
 					'https://local.web/',

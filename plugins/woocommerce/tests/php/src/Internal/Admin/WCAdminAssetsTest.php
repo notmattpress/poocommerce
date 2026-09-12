@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin;
+namespace Automattic\PooCommerce\Tests\Internal\Admin;
 
-use Automattic\WooCommerce\Internal\Admin\WCAdminAssets;
+use Automattic\PooCommerce\Internal\Admin\WCAdminAssets;
 use WC_Unit_Test_Case;
 
 /**
@@ -24,14 +24,14 @@ class WCAdminAssetsTest extends WC_Unit_Test_Case {
 	public function setUp(): void {
 		parent::setUp();
 
-		add_filter( 'woocommerce_admin_features', array( $this, 'enable_minified_js_feature' ), 20 );
+		add_filter( 'poocommerce_admin_features', array( $this, 'enable_minified_js_feature' ), 20 );
 	}
 
 	/**
 	 * Tear down test fixtures.
 	 */
 	public function tearDown(): void {
-		remove_filter( 'woocommerce_admin_features', array( $this, 'enable_minified_js_feature' ), 20 );
+		remove_filter( 'poocommerce_admin_features', array( $this, 'enable_minified_js_feature' ), 20 );
 
 		if ( $this->temp_min_file && file_exists( $this->temp_min_file ) ) {
 			wp_delete_file( $this->temp_min_file );

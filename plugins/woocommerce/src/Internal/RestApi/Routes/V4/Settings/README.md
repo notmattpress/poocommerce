@@ -1,8 +1,8 @@
-# WooCommerce Settings REST API - v4
+# PooCommerce Settings REST API - v4
 
 > This is an internal API only. Do not use it in production.
 
-The WooCommerce Settings REST API provides a consistent interface for managing various WooCommerce settings. All settings endpoints share a common response schema that organizes settings into logical groups with standardized field types.
+The PooCommerce Settings REST API provides a consistent interface for managing various PooCommerce settings. All settings endpoints share a common response schema that organizes settings into logical groups with standardized field types.
 
 ## Response Schema
 

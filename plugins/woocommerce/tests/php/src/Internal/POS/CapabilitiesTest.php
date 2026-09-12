@@ -1,11 +1,11 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\POS;
+namespace Automattic\PooCommerce\Tests\Internal\POS;
 
-use Automattic\WooCommerce\Internal\POS\Capabilities;
-use Automattic\WooCommerce\Internal\POS\POSPreset;
-use Automattic\WooCommerce\Internal\Utilities\Users;
+use Automattic\PooCommerce\Internal\POS\Capabilities;
+use Automattic\PooCommerce\Internal\POS\POSPreset;
+use Automattic\PooCommerce\Internal\Utilities\Users;
 use WC_Unit_Test_Case;
 
 /**
@@ -18,16 +18,16 @@ use WC_Unit_Test_Case;
 class CapabilitiesTest extends WC_Unit_Test_Case {
 
 	/**
-	 * @testdox Every POS capability is woocommerce_pos_-prefixed, keeping it isolated from core caps.
+	 * @testdox Every POS capability is poocommerce_pos_-prefixed, keeping it isolated from core caps.
 	 */
-	public function test_all_caps_are_woocommerce_pos_prefixed(): void {
+	public function test_all_caps_are_poocommerce_pos_prefixed(): void {
 		foreach ( Capabilities::all_pos_capabilities() as $cap ) {
-			$this->assertStringStartsWith( 'woocommerce_pos_', $cap, "POS cap '{$cap}' must be woocommerce_pos_-prefixed." );
+			$this->assertStringStartsWith( 'poocommerce_pos_', $cap, "POS cap '{$cap}' must be poocommerce_pos_-prefixed." );
 		}
 	}
 
 	/**
-	 * @testdox all_pos_capabilities lists exactly the nine known woocommerce_pos_* caps.
+	 * @testdox all_pos_capabilities lists exactly the nine known poocommerce_pos_* caps.
 	 *
 	 * Asserts the full set (order-insensitive) so the test fails if any cap is
 	 * added, removed, or swapped — not just when the count changes.
@@ -69,7 +69,7 @@ class CapabilitiesTest extends WC_Unit_Test_Case {
 	/**
 	 * @testdox A fresh privileged WP role has no implicit POS access.
 	 *
-	 * POS access requires an explicitly granted woocommerce_pos_* cap; holding a privileged WP
+	 * POS access requires an explicitly granted poocommerce_pos_* cap; holding a privileged WP
 	 * role (administrator, shop_manager) grants none on its own.
 	 *
 	 * @dataProvider provider_privileged_roles
@@ -88,7 +88,7 @@ class CapabilitiesTest extends WC_Unit_Test_Case {
 	 * @testdox A multisite super admin has no implicit POS access until granted a cap.
 	 *
 	 * user_can() grants a super admin every capability on multisite, but POS access
-	 * is keyed on stored woocommerce_pos_* caps (WP_User::$allcaps), which omits the
+	 * is keyed on stored poocommerce_pos_* caps (WP_User::$allcaps), which omits the
 	 * runtime super-admin grant. A super admin therefore needs an explicit cap like
 	 * anyone else. Skips off multisite, where there is no super-admin concept.
 	 */
@@ -113,7 +113,7 @@ class CapabilitiesTest extends WC_Unit_Test_Case {
 		$user->add_cap( Capabilities::CAP_ISSUE_REFUNDS );
 		$this->assertTrue(
 			Capabilities::has_pos_access( $user_id ),
-			'A super admin gains POS access once granted an explicit woocommerce_pos_* cap.'
+			'A super admin gains POS access once granted an explicit poocommerce_pos_* cap.'
 		);
 
 		revoke_super_admin( $user_id );
@@ -121,10 +121,10 @@ class CapabilitiesTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox has_pos_access is true once the user holds any single woocommerce_pos_* cap.
+	 * @testdox has_pos_access is true once the user holds any single poocommerce_pos_* cap.
 	 *
 	 * Locks in the granular-caps semantics: a back-office refunds user holding
-	 * only `woocommerce_pos_issue_refunds` (no baseline `woocommerce_pos_process_sales`) still counts as
+	 * only `poocommerce_pos_issue_refunds` (no baseline `poocommerce_pos_process_sales`) still counts as
 	 * POS staff.
 	 */
 	public function test_has_pos_access_true_with_a_single_cap(): void {
@@ -138,7 +138,7 @@ class CapabilitiesTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox has_pos_access is false when the user holds no woocommerce_pos_* caps.
+	 * @testdox has_pos_access is false when the user holds no poocommerce_pos_* caps.
 	 */
 	public function test_has_pos_access_false_without_caps(): void {
 		$user_id = self::factory()->user->create( array( 'role' => 'subscriber' ) );
@@ -160,7 +160,7 @@ class CapabilitiesTest extends WC_Unit_Test_Case {
 	 * @testdox has_pos_access survives a role overwrite because access is cap-keyed.
 	 *
 	 * The wp-admin users.php "Change role to…" dropdown calls set_role(), which
-	 * replaces all roles. POS access must survive — individual woocommerce_pos_* caps added
+	 * replaces all roles. POS access must survive — individual poocommerce_pos_* caps added
 	 * via add_cap() are not cleared by set_role().
 	 */
 	public function test_has_pos_access_survives_set_role_overwrite(): void {
@@ -246,7 +246,7 @@ class CapabilitiesTest extends WC_Unit_Test_Case {
 	/**
 	 * @testdox pos_staff_user_query_args selects POS cap-holders and excludes others.
 	 *
-	 * Verifies the query matches the access definition (any woocommerce_pos_* cap), not the
+	 * Verifies the query matches the access definition (any poocommerce_pos_* cap), not the
 	 * preset meta: a cap-holder is returned and a fresh administrator is not.
 	 */
 	public function test_pos_staff_user_query_args_selects_cap_holders(): void {
@@ -257,8 +257,8 @@ class CapabilitiesTest extends WC_Unit_Test_Case {
 		$results = ( new \WP_User_Query( Capabilities::pos_staff_user_query_args() ) )->get_results();
 		$ids     = wp_list_pluck( $results, 'ID' );
 
-		$this->assertContains( $staff, $ids, 'A user holding a woocommerce_pos_* cap should be selected.' );
-		$this->assertNotContains( $outsider, $ids, 'An administrator without any woocommerce_pos_* cap should not be selected.' );
+		$this->assertContains( $staff, $ids, 'A user holding a poocommerce_pos_* cap should be selected.' );
+		$this->assertNotContains( $outsider, $ids, 'An administrator without any poocommerce_pos_* cap should not be selected.' );
 
 		wp_delete_user( $staff );
 		wp_delete_user( $outsider );
@@ -291,7 +291,7 @@ class CapabilitiesTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox set_pos_preset grants the preset's woocommerce_pos_* caps as real WP capabilities.
+	 * @testdox set_pos_preset grants the preset's poocommerce_pos_* caps as real WP capabilities.
 	 */
 	public function test_set_pos_preset_grants_preset_caps(): void {
 		$user_id = self::factory()->user->create( array( 'role' => 'subscriber' ) );
@@ -321,7 +321,7 @@ class CapabilitiesTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Clearing a preset strips every woocommerce_pos_* cap and deletes the preset meta.
+	 * @testdox Clearing a preset strips every poocommerce_pos_* cap and deletes the preset meta.
 	 */
 	public function test_set_pos_preset_clear_strips_caps_and_meta(): void {
 		$user_id = self::factory()->user->create( array( 'role' => 'subscriber' ) );
@@ -341,7 +341,7 @@ class CapabilitiesTest extends WC_Unit_Test_Case {
 	 * @testdox Clearing a preset leaves the user's non-POS capabilities untouched.
 	 *
 	 * The strip loop iterates only all_pos_capabilities(), so a directly-granted cap
-	 * outside the woocommerce_pos_* set must survive a clear — guarding against a regression to a
+	 * outside the poocommerce_pos_* set must survive a clear — guarding against a regression to a
 	 * blanket reset.
 	 */
 	public function test_set_pos_preset_clear_leaves_non_pos_caps_untouched(): void {
@@ -412,7 +412,7 @@ class CapabilitiesTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Preset meta without any woocommerce_pos_* cap does not grant POS access.
+	 * @testdox Preset meta without any poocommerce_pos_* cap does not grant POS access.
 	 *
 	 * The caps are the authorization signal, not the meta: a planted or partially
 	 * migrated preset meta value must not by itself confer access.

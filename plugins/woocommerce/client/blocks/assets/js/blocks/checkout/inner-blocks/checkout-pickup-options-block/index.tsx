@@ -12,7 +12,7 @@ import attributes from './attributes';
 import metadata from './block.json';
 import './style.scss';
 
-registerBlockType( 'woocommerce/checkout-pickup-options-block', {
+registerBlockType( 'poocommerce/checkout-pickup-options-block', {
 	apiVersion: metadata.apiVersion,
 	title: metadata.title,
 	icon: {

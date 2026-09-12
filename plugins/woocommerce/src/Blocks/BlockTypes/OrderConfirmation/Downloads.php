@@ -1,8 +1,8 @@
 <?php
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes\OrderConfirmation;
+namespace Automattic\PooCommerce\Blocks\BlockTypes\OrderConfirmation;
 
-use Automattic\WooCommerce\Blocks\Utils\StyleAttributesUtils;
+use Automattic\PooCommerce\Blocks\Utils\StyleAttributesUtils;
 
 /**
  * Downloads class.
@@ -126,8 +126,8 @@ class Downloads extends AbstractOrderConfirmationBlock {
 		foreach ( wc_get_account_downloads_columns() as $column_id => $column_name ) {
 			$return .= '<td class="' . esc_attr( $column_id ) . '" data-title="' . esc_attr( $column_name ) . '">';
 
-			if ( has_action( 'woocommerce_account_downloads_column_' . $column_id ) ) {
-				$return .= $this->get_hook_content( 'woocommerce_account_downloads_column_' . $column_id, [ $download ] );
+			if ( has_action( 'poocommerce_account_downloads_column_' . $column_id ) ) {
+				$return .= $this->get_hook_content( 'poocommerce_account_downloads_column_' . $column_id, [ $download ] );
 			} else {
 				switch ( $column_id ) {
 					case 'download-product':
@@ -138,16 +138,16 @@ class Downloads extends AbstractOrderConfirmationBlock {
 						}
 						break;
 					case 'download-file':
-						$return .= '<a href="' . esc_url( $download['download_url'] ) . '" class="woocommerce-MyAccount-downloads-file button alt">' . esc_html( $download['download_name'] ) . '</a>';
+						$return .= '<a href="' . esc_url( $download['download_url'] ) . '" class="poocommerce-MyAccount-downloads-file button alt">' . esc_html( $download['download_name'] ) . '</a>';
 						break;
 					case 'download-remaining':
-						$return .= is_numeric( $download['downloads_remaining'] ) ? esc_html( $download['downloads_remaining'] ) : esc_html__( '&infin;', 'woocommerce' );
+						$return .= is_numeric( $download['downloads_remaining'] ) ? esc_html( $download['downloads_remaining'] ) : esc_html__( '&infin;', 'poocommerce' );
 						break;
 					case 'download-expires':
 						if ( ! empty( $download['access_expires'] ) ) {
 							$return .= '<time datetime="' . esc_attr( gmdate( 'Y-m-d', strtotime( $download['access_expires'] ) ) ) . '" title="' . esc_attr( strtotime( $download['access_expires'] ) ) . '">' . esc_html( date_i18n( get_option( 'date_format' ), strtotime( $download['access_expires'] ) ) ) . '</time>';
 						} else {
-							$return .= esc_html__( 'Never', 'woocommerce' );
+							$return .= esc_html__( 'Never', 'poocommerce' );
 						}
 						break;
 				}

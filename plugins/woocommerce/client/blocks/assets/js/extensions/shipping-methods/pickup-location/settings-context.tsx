@@ -159,7 +159,7 @@ export const SettingsProvider = ( {
 				void dispatch( noticesStore ).createSuccessNotice(
 					__(
 						'Local Pickup settings have been saved.',
-						'woocommerce'
+						'poocommerce'
 					)
 				);
 			} )
@@ -168,7 +168,7 @@ export const SettingsProvider = ( {
 				void dispatch( noticesStore ).createErrorNotice(
 					__(
 						'There was an error saving your Local Pickup settings. Please try again.',
-						'woocommerce'
+						'poocommerce'
 					)
 				);
 			} )

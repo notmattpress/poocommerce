@@ -3,7 +3,7 @@
  * Settings helper.
  */
 
-namespace Automattic\WooCommerce\RestApi\UnitTests\Helpers;
+namespace Automattic\PooCommerce\RestApi\UnitTests\Helpers;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -18,8 +18,8 @@ class SettingsHelper {
 	 * @since 3.0.0
 	 */
 	public static function register() {
-		\add_filter( 'woocommerce_settings_groups', array( __CLASS__, 'register_groups' ) );
-		\add_filter( 'woocommerce_settings-test', array( __CLASS__, 'register_test_settings' ) );
+		\add_filter( 'poocommerce_settings_groups', array( __CLASS__, 'register_groups' ) );
+		\add_filter( 'poocommerce_settings-test', array( __CLASS__, 'register_test_settings' ) );
 	}
 
 	/**
@@ -65,7 +65,7 @@ class SettingsHelper {
 	 */
 	public static function register_test_settings( $settings ) {
 		$settings[] = array(
-			'id'          => 'woocommerce_shop_page_display',
+			'id'          => 'poocommerce_shop_page_display',
 			'label'       => 'Shop page display',
 			'description' => 'This controls what is shown on the product archive.',
 			'default'     => '',
@@ -75,7 +75,7 @@ class SettingsHelper {
 				'subcategories' => 'Show categories &amp; subcategories',
 				'both'          => 'Show both',
 			),
-			'option_key'  => 'woocommerce_shop_page_display',
+			'option_key'  => 'poocommerce_shop_page_display',
 		);
 		return $settings;
 	}

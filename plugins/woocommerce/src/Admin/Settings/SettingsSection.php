@@ -5,12 +5,12 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Admin\Settings;
+namespace Automattic\PooCommerce\Admin\Settings;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Base class for extensions that register a section under an existing WooCommerce settings page.
+ * Base class for extensions that register a section under an existing PooCommerce settings page.
  *
  * @since 10.9.0
  */

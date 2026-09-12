@@ -1,8 +1,8 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\Utils\ProductGalleryUtils;
-use Automattic\WooCommerce\Blocks\Utils\StyleAttributesUtils;
+use Automattic\PooCommerce\Blocks\Utils\ProductGalleryUtils;
+use Automattic\PooCommerce\Blocks\Utils\StyleAttributesUtils;
 
 /**
  * ProductImage class.
@@ -77,7 +77,7 @@ class ProductImage extends AbstractBlock {
 
 		$block = new \WP_Block(
 			array(
-				'blockName' => 'woocommerce/product-sale-badge',
+				'blockName' => 'poocommerce/product-sale-badge',
 				'attrs'     => array(
 					'align' => $align,
 				),
@@ -115,7 +115,7 @@ class ProductImage extends AbstractBlock {
 		}
 
 		return sprintf(
-			'<a href="%1$s" data-wp-on--click="woocommerce/product-collection::actions.viewProduct">%2$s%3$s%4$s</a>',
+			'<a href="%1$s" data-wp-on--click="poocommerce/product-collection::actions.viewProduct">%2$s%3$s%4$s</a>',
 			esc_url( $product_permalink ),
 			$on_sale_badge,
 			$product_image,
@@ -124,20 +124,20 @@ class ProductImage extends AbstractBlock {
 	}
 
 	/**
-	 * Get the store thumbnail aspect ratio from WooCommerce Customizer settings.
+	 * Get the store thumbnail aspect ratio from PooCommerce Customizer settings.
 	 *
 	 * @return string|null CSS aspect ratio value (e.g. "1/1", "4/3"), or null when uncropped.
 	 */
 	private function get_store_thumbnail_aspect_ratio() {
-		$cropping = get_option( 'woocommerce_thumbnail_cropping', '1:1' );
+		$cropping = get_option( 'poocommerce_thumbnail_cropping', '1:1' );
 
 		if ( 'uncropped' === $cropping ) {
 			return null;
 		}
 
 		if ( 'custom' === $cropping ) {
-			$width  = max( 1, (float) get_option( 'woocommerce_thumbnail_cropping_custom_width', '4' ) );
-			$height = max( 1, (float) get_option( 'woocommerce_thumbnail_cropping_custom_height', '3' ) );
+			$width  = max( 1, (float) get_option( 'poocommerce_thumbnail_cropping_custom_width', '4' ) );
+			$height = max( 1, (float) get_option( 'poocommerce_thumbnail_cropping_custom_height', '3' ) );
 
 			return $width . '/' . $height;
 		}
@@ -237,7 +237,7 @@ class ProductImage extends AbstractBlock {
 		 * @param int    $image_id     Target image ID.
 		 */
 		$loading_attr = apply_filters(
-			'woocommerce_product_image_loading_attr',
+			'poocommerce_product_image_loading_attr',
 			'lazy',
 			$target_image_id,
 		);
@@ -336,7 +336,7 @@ class ProductImage extends AbstractBlock {
 	 *                           not in the post content on editor load.
 	 */
 	protected function enqueue_data( array $attributes = [] ) {
-		$this->asset_data_registry->add( 'placeholderImgSrcFullSize', wc_placeholder_img_src( 'woocommerce_single' ) );
+		$this->asset_data_registry->add( 'placeholderImgSrcFullSize', wc_placeholder_img_src( 'poocommerce_single' ) );
 		$this->asset_data_registry->add( 'thumbnailAspectRatio', $this->get_store_thumbnail_aspect_ratio() );
 	}
 

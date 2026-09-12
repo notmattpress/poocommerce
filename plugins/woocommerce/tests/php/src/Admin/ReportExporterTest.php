@@ -2,15 +2,15 @@
 /**
  * Tests for the Analytics report exporter.
  *
- * @package WooCommerce\Tests\Admin
+ * @package PooCommerce\Tests\Admin
  */
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Admin;
+namespace Automattic\PooCommerce\Tests\Admin;
 
-use Automattic\WooCommerce\Admin\ReportCSVExporter;
-use Automattic\WooCommerce\Admin\ReportExporter;
+use Automattic\PooCommerce\Admin\ReportCSVExporter;
+use Automattic\PooCommerce\Admin\ReportExporter;
 use WC_Unit_Test_Case;
 
 /**
@@ -251,11 +251,11 @@ class ReportExporterTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox The date range label goes through the WooCommerce date format, so a store can filter it.
+	 * @testdox The date range label goes through the PooCommerce date format, so a store can filter it.
 	 */
-	public function test_date_range_label_uses_the_woocommerce_date_format(): void {
+	public function test_date_range_label_uses_the_poocommerce_date_format(): void {
 		update_option( 'date_format', 'F j, Y' );
-		add_filter( 'woocommerce_date_format', fn() => 'd/m/Y' );
+		add_filter( 'poocommerce_date_format', fn() => 'd/m/Y' );
 
 		$this->assertSame(
 			'01/06/2025 - 30/06/2025',
@@ -265,7 +265,7 @@ class ReportExporterTest extends WC_Unit_Test_Case {
 					'before' => '2025-06-30T23:59:59',
 				)
 			),
-			'The label should honour woocommerce_date_format like the rest of WooCommerce date output.'
+			'The label should honour poocommerce_date_format like the rest of PooCommerce date output.'
 		);
 	}
 
@@ -395,9 +395,9 @@ class ReportExporterTest extends WC_Unit_Test_Case {
 	 *
 	 * @testWith [{}]
 	 *           [{"action": "edit", "filename": "wc-products-report-export-1234567890"}]
-	 *           [{"action": "woocommerce_admin_download_report_csv"}]
-	 *           [{"action": "woocommerce_admin_download_report_csv", "filename": ""}]
-	 *           [{"action": "woocommerce_admin_download_report_csv", "filename": ["x"]}]
+	 *           [{"action": "poocommerce_admin_download_report_csv"}]
+	 *           [{"action": "poocommerce_admin_download_report_csv", "filename": ""}]
+	 *           [{"action": "poocommerce_admin_download_report_csv", "filename": ["x"]}]
 	 *
 	 * @param array $request Request parameters, as the download handler reads them.
 	 */
@@ -484,7 +484,7 @@ class ReportExporterTest extends WC_Unit_Test_Case {
 			'An export queued without report arguments should keep the original subject.'
 		);
 		$this->assertStringContainsString(
-			'action=woocommerce_admin_download_report_csv',
+			'action=poocommerce_admin_download_report_csv',
 			$sent['body'],
 			'An export queued without report arguments should still be emailed a download link.'
 		);
@@ -524,7 +524,7 @@ class ReportExporterTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Cleanup runs from the daily WooCommerce Admin event.
+	 * @testdox Cleanup runs from the daily PooCommerce Admin event.
 	 */
 	public function test_cleanup_is_hooked_to_the_daily_event(): void {
 		$this->assertSame(

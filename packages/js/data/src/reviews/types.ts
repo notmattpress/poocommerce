@@ -33,7 +33,7 @@ export interface ReviewObject {
 		/** Avatar URL with image size of 96 pixels. */
 		'96': string;
 	};
-	// _embedded type definition from test case https://github.com/woocommerce/woocommerce/blob/63aa382ffb82b0374a4cd1cf5fabf09e6b71043f/plugins/woocommerce-admin/client/homescreen/activity-panel/reviews/test/index.js#L23
+	// _embedded type definition from test case https://github.com/poocommerce/poocommerce/blob/63aa382ffb82b0374a4cd1cf5fabf09e6b71043f/plugins/poocommerce-admin/client/homescreen/activity-panel/reviews/test/index.js#L23
 	_embedded?: {
 		up?: Array< {
 			id: number;

@@ -1,12 +1,12 @@
 <?php
 /**
- * This file is part of the WooCommerce Email Editor package.
+ * This file is part of the PooCommerce Email Editor package.
  *
- * @package Automattic\WooCommerce\EmailEditor
+ * @package Automattic\PooCommerce\EmailEditor
  */
 
 declare( strict_types = 1 );
-namespace Automattic\WooCommerce\EmailEditor\Validator;
+namespace Automattic\PooCommerce\EmailEditor\Validator;
 
 use function wp_json_encode;
 use function rest_get_allowed_schema_keywords;

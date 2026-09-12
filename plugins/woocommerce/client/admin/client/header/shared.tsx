@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { useSlot, Text } from '@woocommerce/experimental';
+import { useSlot, Text } from '@poocommerce/experimental';
 import type { ReactNode } from 'react';
 import clsx from 'clsx';
 import { decodeEntities } from '@wordpress/html-entities';
@@ -10,7 +10,7 @@ import {
 	WooHeaderNavigationItem,
 	WooHeaderItem,
 	WooHeaderPageTitle,
-} from '@woocommerce/admin-layout';
+} from '@poocommerce/admin-layout';
 
 export const getPageTitle = ( sections: string[] ) => {
 	let pageTitle;
@@ -82,14 +82,14 @@ export const BaseHeader = ( {
 
 	return (
 		<div
-			className={ clsx( 'woocommerce-layout__header', {
+			className={ clsx( 'poocommerce-layout__header', {
 				// Chrome-only treatment: bar collapses to admin-bar height when
 				// the caller requests it (e.g. Edit Order, Edit Product, Add
 				// Product, where wp-admin renders its own title below).
 				'is-chrome-only': compact,
 			} ) }
 		>
-			<div className="woocommerce-layout__header-wrapper">
+			<div className="poocommerce-layout__header-wrapper">
 				<WooHeaderNavigationItem.Slot
 					fillProps={ { isEmbedded, query } }
 				/>
@@ -97,9 +97,9 @@ export const BaseHeader = ( {
 				{ shouldRenderTitle ? (
 					<Text
 						className={ clsx(
-							'woocommerce-layout__header-heading',
+							'poocommerce-layout__header-heading',
 							{
-								'woocommerce-layout__header-left-align':
+								'poocommerce-layout__header-left-align':
 									leftAlign,
 							}
 						) }
@@ -117,7 +117,7 @@ export const BaseHeader = ( {
 					// Spacer keeps WooHeaderItem.Slot pinned right when no
 					// title renders.
 					<div
-						className="woocommerce-layout__header-spacer"
+						className="poocommerce-layout__header-spacer"
 						aria-hidden="true"
 					/>
 				) }

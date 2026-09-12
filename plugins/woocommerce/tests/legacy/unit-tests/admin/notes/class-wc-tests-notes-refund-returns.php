@@ -2,10 +2,10 @@
 /**
  * Class WC_Notes_Refund_Returns file.
  *
- * @package WooCommerce\Tests\Admin\Notes
+ * @package PooCommerce\Tests\Admin\Notes
  */
 
-use Automattic\WooCommerce\Admin\Notes\Note;
+use Automattic\PooCommerce\Admin\Notes\Note;
 
 /**
  * Tests for the WC_Notes_Refund_Returns class.

@@ -2,21 +2,21 @@
 /**
  * Integration tests for PlanRepository.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine
+ * @package Automattic\PooCommerce\SubscriptionsEngine
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Tests\Integration\Integration\Storage;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Tests\Integration\Integration\Storage;
 
 use EngineIntegrationTestCase;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\Plan;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\ValueObject\BillingPolicy;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\ValueObject\PricingPolicy;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage\PlanRepository;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\Plan;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\ValueObject\BillingPolicy;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\ValueObject\PricingPolicy;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage\PlanRepository;
 
 /**
- * @covers \Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage\PlanRepository
+ * @covers \Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage\PlanRepository
  */
 class PlanRepositoryTest extends EngineIntegrationTestCase {
 

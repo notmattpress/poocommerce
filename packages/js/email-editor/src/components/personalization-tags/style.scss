@@ -1,11 +1,11 @@
 @import "~@wordpress/base-styles/colors";
 
-.woocommerce-personalization-tags-modal {
+.poocommerce-personalization-tags-modal {
 	p:first-child {
 		margin-top: 0;
 	}
 
-	.woocommerce-personalization-tags-modal-category {
+	.poocommerce-personalization-tags-modal-category {
 		display: inline-block;
 		font-size: 11px;
 		line-height: 16px;
@@ -14,18 +14,18 @@
 		text-transform: uppercase;
 	}
 
-	.woocommerce-personalization-tags-modal-category-group {
+	.poocommerce-personalization-tags-modal-category-group {
 		display: flex;
 		flex-direction: column;
 		gap: 10px;
 
-		.woocommerce-personalization-tags-modal-category-group-item {
+		.poocommerce-personalization-tags-modal-category-group-item {
 			align-items: stretch;
 			border-bottom: 1px solid var(--wp-components-color-gray-300, #ddd);
 			display: flex;
 			padding: 16px 0;
 
-			.woocommerce-personalization-tags-modal-item-text {
+			.poocommerce-personalization-tags-modal-item-text {
 				display: flex;
 				flex: 1;
 				flex-direction: column;
@@ -44,12 +44,12 @@
 		}
 	}
 
-	.woocommerce-personalization-tags-modal-menu {
+	.poocommerce-personalization-tags-modal-menu {
 		div[role="group"] {
 			display: flex;
 		}
 
-		.woocommerce-personalization-tags-modal-menu-item-active {
+		.poocommerce-personalization-tags-modal-menu-item-active {
 			color: #000;
 			font-weight: 700;
 		}
@@ -67,7 +67,7 @@
 			}
 		}
 
-		.woocommerce-personalization-tags-modal-menu-separator {
+		.poocommerce-personalization-tags-modal-menu-separator {
 			background-color: var(--wp-components-color-gray-700, #757575);
 			height: 16px;
 			margin: 10px 4px;
@@ -76,12 +76,12 @@
 	}
 }
 
-.woocommerce-personalization-tag-popover {
+.poocommerce-personalization-tag-popover {
 	align-items: center;
 	display: flex;
 	justify-content: center;
 
-	.woocommerce-personalization-tag-popover-content {
+	.poocommerce-personalization-tag-popover-content {
 		max-width: 350px;
 		min-width: auto;
 		width: 90vw;
@@ -91,7 +91,7 @@
 		}
 	}
 
-	.woocommerce-personalization-tag-popover-content-buttons {
+	.poocommerce-personalization-tag-popover-content-buttons {
 		margin: 16px;
 		text-align: right;
 
@@ -101,7 +101,7 @@
 	}
 }
 
-a.woocommerce-email-editor-personalization-tags-link {
+a.poocommerce-email-editor-personalization-tags-link {
 	color: linktext;
 	cursor: pointer;
 	text-decoration: underline;

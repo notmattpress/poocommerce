@@ -30,7 +30,7 @@ import { filterSetUrlAttribute } from './core/block-edit';
 import { enhanceSocialLinksBlock } from './core/social-links';
 import { enhanceSiteLogoBlock } from './core/site-logo';
 import { enableFullWidthBlocks } from './core/full-width';
-import { enableProductImageAlignment } from './woocommerce/product-image';
+import { enableProductImageAlignment } from './poocommerce/product-image';
 
 export { getAllowedBlockNames } from './utils';
 

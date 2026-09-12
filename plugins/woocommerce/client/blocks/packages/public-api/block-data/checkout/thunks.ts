@@ -5,7 +5,7 @@ import {
 	isValidValidationErrorsObject,
 	type CheckoutResponse,
 	isSuccessResponse,
-} from '@woocommerce/types';
+} from '@poocommerce/types';
 import { store as noticesStore } from '@wordpress/notices';
 import { dispatch as wpDispatch, select as wpSelect } from '@wordpress/data';
 import type {
@@ -18,7 +18,7 @@ import type {
 import {
 	CHECKOUT_EVENTS,
 	checkoutEventsEmitter,
-} from '@woocommerce/blocks-checkout-events';
+} from '@poocommerce/blocks-checkout-events';
 
 /**
  * Internal dependencies

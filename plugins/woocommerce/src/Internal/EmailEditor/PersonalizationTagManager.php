@@ -2,18 +2,18 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\EmailEditor;
+namespace Automattic\PooCommerce\Internal\EmailEditor;
 
-use Automattic\WooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tags_Registry;
-use Automattic\WooCommerce\Internal\EmailEditor\PersonalizationTags\CustomerTagsProvider;
-use Automattic\WooCommerce\Internal\EmailEditor\PersonalizationTags\OrderTagsProvider;
-use Automattic\WooCommerce\Internal\EmailEditor\PersonalizationTags\SiteTagsProvider;
-use Automattic\WooCommerce\Internal\EmailEditor\PersonalizationTags\StoreTagsProvider;
+use Automattic\PooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tags_Registry;
+use Automattic\PooCommerce\Internal\EmailEditor\PersonalizationTags\CustomerTagsProvider;
+use Automattic\PooCommerce\Internal\EmailEditor\PersonalizationTags\OrderTagsProvider;
+use Automattic\PooCommerce\Internal\EmailEditor\PersonalizationTags\SiteTagsProvider;
+use Automattic\PooCommerce\Internal\EmailEditor\PersonalizationTags\StoreTagsProvider;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Manages personalization tags for WooCommerce emails.
+ * Manages personalization tags for PooCommerce emails.
  *
  * @internal
  */
@@ -64,11 +64,11 @@ class PersonalizationTagManager {
 	 * @return void
 	 */
 	final public function init(): void {
-		add_filter( 'woocommerce_email_editor_register_personalization_tags', array( $this, 'register_personalization_tags' ) );
+		add_filter( 'poocommerce_email_editor_register_personalization_tags', array( $this, 'register_personalization_tags' ) );
 	}
 
 	/**
-	 * Register WooCommerce personalization tags with the registry.
+	 * Register PooCommerce personalization tags with the registry.
 	 *
 	 * @param Personalization_Tags_Registry $registry The personalization tags registry.
 	 * @return Personalization_Tags_Registry

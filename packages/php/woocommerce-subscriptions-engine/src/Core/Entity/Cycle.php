@@ -9,18 +9,18 @@
  * for non-counting cycles (e.g. a future trial). Money is a decimal-safe string;
  * timestamps are GMT strings (`Y-m-d H:i:s`).
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine\Core\Entity
+ * @package Automattic\PooCommerce\SubscriptionsEngine\Core\Entity
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Core\Entity;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Core\Entity;
 
 use DomainException;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Support\MoneyScale;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Support\ScalarCoercion;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\ValueObject\PlanSnapshot;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\ValueObject\ItemsSnapshot;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Support\MoneyScale;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Support\ScalarCoercion;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\ValueObject\PlanSnapshot;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\ValueObject\ItemsSnapshot;
 
 defined( 'ABSPATH' ) || exit;
 

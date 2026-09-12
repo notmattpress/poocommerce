@@ -10,5 +10,5 @@ function my_function_callback( $errors, $cart ) {
   }
 }
 
-add_action( 'woocommerce_store_api_cart_errors', 'my_function_callback', 10 );
+add_action( 'poocommerce_store_api_cart_errors', 'my_function_callback', 10 );
 ```

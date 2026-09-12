@@ -1,19 +1,19 @@
 <?php
 
-namespace Automattic\WooCommerce\Admin\Features\OnboardingTasks\Tasks;
+namespace Automattic\PooCommerce\Admin\Features\OnboardingTasks\Tasks;
 
-use Automattic\WooCommerce\Admin\Features\OnboardingTasks\Task;
-use Automattic\WooCommerce\Admin\Features\OnboardingTasks\TaskList;
-use Automattic\WooCommerce\Enums\ProductStatus;
-use Automattic\WooCommerce\Internal\Admin\Onboarding\OnboardingProfile;
-use Automattic\WooCommerce\Internal\Admin\WCAdminAssets;
-use Automattic\WooCommerce\Internal\Utilities\ProductUtil;
+use Automattic\PooCommerce\Admin\Features\OnboardingTasks\Task;
+use Automattic\PooCommerce\Admin\Features\OnboardingTasks\TaskList;
+use Automattic\PooCommerce\Enums\ProductStatus;
+use Automattic\PooCommerce\Internal\Admin\Onboarding\OnboardingProfile;
+use Automattic\PooCommerce\Internal\Admin\WCAdminAssets;
+use Automattic\PooCommerce\Internal\Utilities\ProductUtil;
 
 /**
  * Products Task
  */
 class Products extends Task {
-	const HAS_PRODUCT_TRANSIENT = 'woocommerce_product_task_has_product_transient';
+	const HAS_PRODUCT_TRANSIENT = 'poocommerce_product_task_has_product_transient';
 
 	/**
 	 * Whether a deferred revert check has already been scheduled for this request.
@@ -34,8 +34,8 @@ class Products extends Task {
 		// Onboarding tasks open a pre-created draft via post.php, which WordPress otherwise highlights as All Products.
 		add_filter( 'submenu_file', array( $this, 'highlight_add_product_menu' ) );
 
-		add_action( 'woocommerce_update_product', array( $this, 'maybe_set_has_product_transient' ), 10, 2 );
-		add_action( 'woocommerce_new_product', array( $this, 'maybe_set_has_product_transient' ), 10, 2 );
+		add_action( 'poocommerce_update_product', array( $this, 'maybe_set_has_product_transient' ), 10, 2 );
+		add_action( 'poocommerce_new_product', array( $this, 'maybe_set_has_product_transient' ), 10, 2 );
 		add_action( 'untrashed_post', array( $this, 'maybe_set_has_product_transient_on_untrashed_post' ) );
 
 		if ( ! $this->is_complete() ) {
@@ -90,7 +90,7 @@ class Products extends Task {
 	 * @return string
 	 */
 	public function get_image_alt() {
-		return __( 'Products illustration', 'woocommerce' );
+		return __( 'Products illustration', 'poocommerce' );
 	}
 
 	/**
@@ -102,10 +102,10 @@ class Products extends Task {
 		$onboarding_profile = get_option( OnboardingProfile::DATA_OPTION, array() );
 
 		if ( isset( $onboarding_profile['business_choice'] ) && 'im_already_selling' === $onboarding_profile['business_choice'] ) {
-			return __( 'Import your products', 'woocommerce' );
+			return __( 'Import your products', 'poocommerce' );
 		}
 
-		return __( 'Add your products', 'woocommerce' );
+		return __( 'Add your products', 'poocommerce' );
 	}
 
 	/**
@@ -116,7 +116,7 @@ class Products extends Task {
 	public function get_content() {
 		return __(
 			'Start by adding the first product to your store. You can add your products manually, via CSV, or import them from another service.',
-			'woocommerce'
+			'poocommerce'
 		);
 	}
 
@@ -126,7 +126,7 @@ class Products extends Task {
 	 * @return string
 	 */
 	public function get_time() {
-		return __( '1 minute per product', 'woocommerce' );
+		return __( '1 minute per product', 'poocommerce' );
 	}
 
 	/**

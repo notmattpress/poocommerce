@@ -2,11 +2,11 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\PushNotifications\DataStores;
+namespace Automattic\PooCommerce\Internal\PushNotifications\DataStores;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Internal\Utilities\Users;
+use Automattic\PooCommerce\Internal\Utilities\Users;
 use WC_Data_Exception;
 use WP_Http;
 
@@ -99,7 +99,7 @@ class NotificationPreferencesDataStore {
 		if ( false === $result ) {
 			// phpcs:disable WordPress.Security.EscapeOutput.ExceptionNotEscaped
 			throw new WC_Data_Exception(
-				'woocommerce_push_notification_preferences_save_failed',
+				'poocommerce_push_notification_preferences_save_failed',
 				'Failed to save push notification preferences.',
 				WP_Http::INTERNAL_SERVER_ERROR
 			);

@@ -1,6 +1,6 @@
 <?php
 
-namespace Automattic\WooCommerce\Blueprint\ResourceStorages;
+namespace Automattic\PooCommerce\Blueprint\ResourceStorages;
 
 /**
  * Class LocalPluginResourceStorage

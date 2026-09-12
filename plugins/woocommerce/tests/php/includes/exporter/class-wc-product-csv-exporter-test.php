@@ -2,11 +2,11 @@
 /**
  * Unit tests for the WC_Product_CSV_Exporter_Test class.
  *
- * @package WooCommerce\Tests\Exporter.
+ * @package PooCommerce\Tests\Exporter.
  */
 
-use Automattic\WooCommerce\Enums\ProductStatus;
-use Automattic\WooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Enums\ProductStatus;
+use Automattic\PooCommerce\Enums\ProductType;
 
 /**
  * Class WC_Product_CSV_Exporter_Test
@@ -86,7 +86,7 @@ class WC_Product_CSV_Exporter_Test extends \WC_Unit_Test_Case {
 
 		$this->product_ids = array_merge( array( $product->get_id() ), $product->get_children( 'edit' ) );
 
-		add_filter( 'woocommerce_product_export_product_query_args', array( $this, 'set_export_product_query_args' ) );
+		add_filter( 'poocommerce_product_export_product_query_args', array( $this, 'set_export_product_query_args' ) );
 
 		try {
 			$exporter = new WC_Product_CSV_Exporter();
@@ -97,7 +97,7 @@ class WC_Product_CSV_Exporter_Test extends \WC_Unit_Test_Case {
 				$this->assertEquals( -1, $row['published'] );
 			}
 		} finally {
-			remove_filter( 'woocommerce_product_export_product_query_args', array( $this, 'set_export_product_query_args' ) );
+			remove_filter( 'poocommerce_product_export_product_query_args', array( $this, 'set_export_product_query_args' ) );
 		}
 	}
 
@@ -111,7 +111,7 @@ class WC_Product_CSV_Exporter_Test extends \WC_Unit_Test_Case {
 
 		$this->product_ids = array( $product->get_id() );
 
-		add_filter( 'woocommerce_product_export_product_query_args', array( $this, 'set_export_product_query_args' ) );
+		add_filter( 'poocommerce_product_export_product_query_args', array( $this, 'set_export_product_query_args' ) );
 
 		try {
 			$exporter = new WC_Product_CSV_Exporter();
@@ -123,14 +123,14 @@ class WC_Product_CSV_Exporter_Test extends \WC_Unit_Test_Case {
 				$this->assertEquals( 2, $row['published'], 'Pending review products should not export as draft (-1).' );
 			}
 		} finally {
-			remove_filter( 'woocommerce_product_export_product_query_args', array( $this, 'set_export_product_query_args' ) );
+			remove_filter( 'poocommerce_product_export_product_query_args', array( $this, 'set_export_product_query_args' ) );
 		}
 	}
 
 	/**
 	 * @testdox exporting variable products with a category filter should not auto-include variations.
 	 *
-	 * See: https://github.com/woocommerce/woocommerce/issues/53155
+	 * See: https://github.com/poocommerce/poocommerce/issues/53155
 	 */
 	public function test_category_export_with_variable_type_excludes_variations(): void {
 		$fixture = $this->create_categorized_variation_product();
@@ -178,7 +178,7 @@ class WC_Product_CSV_Exporter_Test extends \WC_Unit_Test_Case {
 			return $fopen_mode;
 		};
 
-		add_filter( 'woocommerce_csv_exporter_fopen_mode', $capture_mode );
+		add_filter( 'poocommerce_csv_exporter_fopen_mode', $capture_mode );
 
 		$reflected_exporter = new ReflectionClass( WC_Product_CSV_Exporter::class );
 		$write_csv_data     = $reflected_exporter->getMethod( 'write_csv_data' );
@@ -194,7 +194,7 @@ class WC_Product_CSV_Exporter_Test extends \WC_Unit_Test_Case {
 			$this->assertSame( 'a', $captured_mode, 'The default fopen mode must be append-only; "a+" is rejected by stream wrappers that cannot seek.' );
 			$this->assertStringContainsString( "sku,name\n", $exporter->get_file(), 'Data passed to write_csv_data() should reach the export file.' );
 		} finally {
-			remove_filter( 'woocommerce_csv_exporter_fopen_mode', $capture_mode );
+			remove_filter( 'poocommerce_csv_exporter_fopen_mode', $capture_mode );
 
 			foreach ( array( $get_file_path->invoke( $exporter ), $get_headers_row_file_path->invoke( $exporter ) ) as $path ) {
 				if ( file_exists( $path ) ) {

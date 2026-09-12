@@ -33,13 +33,13 @@ async function setupWithSingleProduct(
 	productId: number
 ) {
 	const productDetailsBlock = createBlock(
-		'woocommerce/product-details',
+		'poocommerce/product-details',
 		attributes
 	);
 
 	const singleProductBlock = [
 		{
-			name: 'woocommerce/single-product',
+			name: 'poocommerce/single-product',
 			attributes: {
 				productId,
 			},
@@ -55,15 +55,15 @@ jest.mock( '@wordpress/data', () => ( {
 	useSelect: jest.fn(),
 } ) );
 
-jest.mock( '@woocommerce/settings', () => ( {
-	...jest.requireActual( '@woocommerce/settings' ),
+jest.mock( '@poocommerce/settings', () => ( {
+	...jest.requireActual( '@poocommerce/settings' ),
 	isWpVersion: jest.fn().mockReturnValue( false ),
 } ) );
 
 describe( 'Product Details block', () => {
 	test( 'registers only the approved style supports', () => {
 		expect(
-			getBlockType( 'woocommerce/product-details' )?.supports
+			getBlockType( 'poocommerce/product-details' )?.supports
 		).toEqual( {
 			interactivity: { clientNavigation: true },
 			align: [ 'wide', 'full' ],
@@ -80,15 +80,15 @@ describe( 'Product Details block', () => {
 
 	test( 'preserves unstyled serialization', () => {
 		expect(
-			serialize( createBlock( 'woocommerce/product-details' ) )
+			serialize( createBlock( 'poocommerce/product-details' ) )
 		).toBe(
-			'<!-- wp:woocommerce/product-details -->\n<div class="wp-block-woocommerce-product-details alignwide"></div>\n<!-- /wp:woocommerce/product-details -->'
+			'<!-- wp:poocommerce/product-details -->\n<div class="wp-block-poocommerce-product-details alignwide"></div>\n<!-- /wp:poocommerce/product-details -->'
 		);
 	} );
 
 	test( 'serializes preset and custom styles without text color', () => {
 		const content = serialize(
-			createBlock( 'woocommerce/product-details', {
+			createBlock( 'poocommerce/product-details', {
 				backgroundColor: 'contrast',
 				borderColor: 'accent-1',
 				style: {
@@ -112,7 +112,7 @@ describe( 'Product Details block', () => {
 
 	test( 'distinguishes explicit zero styles from reset styles', () => {
 		const zero = serialize(
-			createBlock( 'woocommerce/product-details', {
+			createBlock( 'poocommerce/product-details', {
 				style: {
 					border: { radius: '0', width: '0' },
 					spacing: { margin: { top: '0' }, padding: { bottom: '0' } },
@@ -124,7 +124,7 @@ describe( 'Product Details block', () => {
 		);
 		expect(
 			serialize(
-				createBlock( 'woocommerce/product-details', { style: {} } )
+				createBlock( 'poocommerce/product-details', { style: {} } )
 			)
 		).not.toContain( 'style=' );
 	} );
@@ -137,11 +137,11 @@ describe( 'Product Details block', () => {
 				// Check if the request is for dimension and weight units
 				if (
 					options ===
-					'woocommerce_dimension_unit,woocommerce_weight_unit'
+					'poocommerce_dimension_unit,poocommerce_weight_unit'
 				) {
 					return HttpResponse.json( {
-						woocommerce_dimension_unit: 'cm',
-						woocommerce_weight_unit: 'kg',
+						poocommerce_dimension_unit: 'cm',
+						poocommerce_weight_unit: 'kg',
 					} );
 				}
 				// Default response for other options requests

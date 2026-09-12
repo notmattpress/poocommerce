@@ -1,11 +1,11 @@
 ---
-post_title: WooCommerce core critical flows
+post_title: PooCommerce core critical flows
 sidebar_label: Core critical flows
 ---
 
-# WooCommerce core critical flows
+# PooCommerce core critical flows
 
-We have identified what we consider to be our most critical user flows within WooCommerce Core. These flows will help us focus and prioritize our testing efforts. They will also help us consider the impact of changes and priority of issues.
+We have identified what we consider to be our most critical user flows within PooCommerce Core. These flows will help us focus and prioritize our testing efforts. They will also help us consider the impact of changes and priority of issues.
 
 These flows will continually evolve as the platform evolves with flows updated, added or re-prioritised.
 
@@ -256,13 +256,13 @@ These flows will continually evolve as the platform evolves with flows updated, 
 
 | User Type | Flow Area | Flow Name              |
 | --------- | --------- | ---------------------- |
-| Merchant  | Plugins   | Can update WooCommerce |
+| Merchant  | Plugins   | Can update PooCommerce |
 
 ### Merchant - My Subscriptions
 
 | User Type | Flow Area        | Flow Name                               |
 | --------- | ---------------- | --------------------------------------- |
-| Merchant  | My Subscriptions | Can initiate WooCommerce.com Connection |
+| Merchant  | My Subscriptions | Can initiate PooCommerce.com Connection |
 
 ### Merchant - Pages
 

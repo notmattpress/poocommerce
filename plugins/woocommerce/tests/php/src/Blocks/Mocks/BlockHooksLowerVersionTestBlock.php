@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\Mocks;
+namespace Automattic\PooCommerce\Tests\Blocks\Mocks;
 
-use Automattic\WooCommerce\Blocks\Utils\BlockHooksTrait;
+use Automattic\PooCommerce\Blocks\Utils\BlockHooksTrait;
 
 /**
  * Mock block with an independent version cache for the lower-version test.

@@ -14,7 +14,7 @@ class WC_Importer_Tracking_Test extends \WC_Unit_Test_Case {
 		$this->clear_tracks_events();
 
 		include_once WC_ABSPATH . 'includes/tracks/events/class-wc-importer-tracking.php';
-		update_option( 'woocommerce_allow_tracking', 'yes' );
+		update_option( 'poocommerce_allow_tracking', 'yes' );
 		$importer_tracking = new WC_Importer_Tracking();
 		$importer_tracking->init();
 	}
@@ -25,7 +25,7 @@ class WC_Importer_Tracking_Test extends \WC_Unit_Test_Case {
 	 * @return void
 	 */
 	public function tearDown(): void {
-		update_option( 'woocommerce_allow_tracking', 'no' );
+		update_option( 'poocommerce_allow_tracking', 'no' );
 		unset(
 			$_REQUEST['step'],
 			$_REQUEST['_wpnonce'],
@@ -45,7 +45,7 @@ class WC_Importer_Tracking_Test extends \WC_Unit_Test_Case {
 	 */
 	public function test_import_complete_is_recorded_with_wpnonce() {
 		$_REQUEST['step']     = 'done';
-		$_REQUEST['_wpnonce'] = wp_create_nonce( 'woocommerce-csv-importer' );
+		$_REQUEST['_wpnonce'] = wp_create_nonce( 'poocommerce-csv-importer' );
 
 		do_action( 'product_page_product_importer' );
 
@@ -58,7 +58,7 @@ class WC_Importer_Tracking_Test extends \WC_Unit_Test_Case {
 	 */
 	public function test_import_complete_records_result_counts() {
 		$_REQUEST['step']                     = 'done';
-		$_REQUEST['_wpnonce']                 = wp_create_nonce( 'woocommerce-csv-importer' );
+		$_REQUEST['_wpnonce']                 = wp_create_nonce( 'poocommerce-csv-importer' );
 		$_GET['products-imported']            = '5';
 		$_GET['products-imported-variations'] = '3';
 		$_GET['products-updated']             = '2';

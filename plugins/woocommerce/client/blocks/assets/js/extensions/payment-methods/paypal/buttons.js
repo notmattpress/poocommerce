@@ -3,7 +3,7 @@
  */
 import { useState } from '@wordpress/element';
 import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
-import { getPaymentMethodData } from '@woocommerce/settings';
+import { getPaymentMethodData } from '@poocommerce/settings';
 import { dispatch } from '@wordpress/data';
 import apiFetch from '@wordpress/api-fetch';
 import { __ } from '@wordpress/i18n';
@@ -84,7 +84,7 @@ const PayPalButtonsContainer = ( {
 			return false;
 		}
 
-		// Clearing the cart and re-adding the item causes the current WooCommerce draft order to be lost.
+		// Clearing the cart and re-adding the item causes the current PooCommerce draft order to be lost.
 		// If the user is re-opening the payment modal and has not changed anything, do nothing;
 		// we want to resume the existing draft order if the cart has not changed.
 		if (
@@ -146,7 +146,7 @@ const PayPalButtonsContainer = ( {
 				}
 			}
 
-			// Create a draft order in WooCommerce.
+			// Create a draft order in PooCommerce.
 			responseData = await apiFetch( {
 				method: 'GET',
 				path: '/wc/store/v1/checkout',
@@ -158,7 +158,7 @@ const PayPalButtonsContainer = ( {
 			if ( ! responseData.order_id || ! responseData.order_key ) {
 				// eslint-disable-next-line no-console
 				console.error(
-					'Failed to create WooCommerce order',
+					'Failed to create PooCommerce order',
 					responseData
 				);
 				return null;
@@ -236,7 +236,7 @@ const PayPalButtonsContainer = ( {
 
 	const onError = ( error ) => {
 		const errorMessage =
-			error.message || __( 'An unknown error occurred', 'woocommerce' );
+			error.message || __( 'An unknown error occurred', 'poocommerce' );
 		dispatch( 'core/notices' ).createErrorNotice( errorMessage, {
 			context: pageType === 'checkout' ? 'wc/checkout' : 'wc/cart',
 		} );

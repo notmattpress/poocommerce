@@ -2,15 +2,15 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Email;
+namespace Automattic\PooCommerce\Tests\Internal\Email;
 
-use Automattic\WooCommerce\Internal\Email\EmailColors;
+use Automattic\PooCommerce\Internal\Email\EmailColors;
 use WC_Unit_Test_Case;
 
 /**
  * EmailColors test.
  *
- * @covers \Automattic\WooCommerce\Internal\Email\EmailColors
+ * @covers \Automattic\PooCommerce\Internal\Email\EmailColors
  */
 class EmailColorsTest extends WC_Unit_Test_Case {
 

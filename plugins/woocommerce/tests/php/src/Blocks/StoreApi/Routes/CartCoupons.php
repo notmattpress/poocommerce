@@ -3,11 +3,11 @@
  * Controller Tests.
  */
 
-namespace Automattic\WooCommerce\Tests\Blocks\StoreApi\Routes;
+namespace Automattic\PooCommerce\Tests\Blocks\StoreApi\Routes;
 
-use Automattic\WooCommerce\Tests\Blocks\StoreApi\Routes\ControllerTestCase;
-use Automattic\WooCommerce\Tests\Blocks\Helpers\FixtureData;
-use Automattic\WooCommerce\Tests\Blocks\Helpers\ValidateSchema;
+use Automattic\PooCommerce\Tests\Blocks\StoreApi\Routes\ControllerTestCase;
+use Automattic\PooCommerce\Tests\Blocks\Helpers\FixtureData;
+use Automattic\PooCommerce\Tests\Blocks\Helpers\ValidateSchema;
 
 /**
  * Cart Coupons Controller Tests.
@@ -60,8 +60,8 @@ class CartCoupons extends ControllerTestCase {
 	 * @testdox Sequential percentage coupons should be projected in application order with exact discount totals.
 	 */
 	public function test_get_items_projects_sequential_percentage_coupons_in_application_order(): void {
-		update_option( 'woocommerce_calc_discounts_sequentially', 'yes' );
-		update_option( 'woocommerce_calc_taxes', 'no' );
+		update_option( 'poocommerce_calc_discounts_sequentially', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'no' );
 		wc_empty_cart();
 
 		$this->product->set_regular_price( '100.00' );
@@ -209,7 +209,7 @@ class CartCoupons extends ControllerTestCase {
 	 * Test conversion of cart item to rest response.
 	 */
 	public function test_prepare_item() {
-		$routes     = new \Automattic\WooCommerce\StoreApi\RoutesController( new \Automattic\WooCommerce\StoreApi\SchemaController( $this->mock_extend ) );
+		$routes     = new \Automattic\PooCommerce\StoreApi\RoutesController( new \Automattic\PooCommerce\StoreApi\SchemaController( $this->mock_extend ) );
 		$controller = $routes->get( 'cart-coupons', 'v1' );
 
 		$response = $controller->prepare_item_for_response( $this->coupon->get_code(), new \WP_REST_Request() );
@@ -223,7 +223,7 @@ class CartCoupons extends ControllerTestCase {
 	 * Test schema matches responses.
 	 */
 	public function test_get_item_schema() {
-		$routes     = new \Automattic\WooCommerce\StoreApi\RoutesController( new \Automattic\WooCommerce\StoreApi\SchemaController( $this->mock_extend ) );
+		$routes     = new \Automattic\PooCommerce\StoreApi\RoutesController( new \Automattic\PooCommerce\StoreApi\SchemaController( $this->mock_extend ) );
 		$controller = $routes->get( 'cart-coupons', 'v1' );
 		$schema     = $controller->get_item_schema();
 		$response   = $controller->prepare_item_for_response( $this->coupon->get_code(), new \WP_REST_Request() );

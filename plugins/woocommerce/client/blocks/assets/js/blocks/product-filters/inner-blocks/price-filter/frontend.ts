@@ -1,9 +1,9 @@
 /**
  * External dependencies
  */
-import type { HTMLElementEvent } from '@woocommerce/types';
+import type { HTMLElementEvent } from '@poocommerce/types';
 import * as iAPI from '@wordpress/interactivity';
-import type { RangeInputParentStore } from '@woocommerce/types';
+import type { RangeInputParentStore } from '@poocommerce/types';
 
 /**
  * Internal dependencies

@@ -1,6 +1,6 @@
 <?php
 
-namespace Automattic\WooCommerce\Blueprint\Steps;
+namespace Automattic\PooCommerce\Blueprint\Steps;
 
 /**
  * Abstract class Step

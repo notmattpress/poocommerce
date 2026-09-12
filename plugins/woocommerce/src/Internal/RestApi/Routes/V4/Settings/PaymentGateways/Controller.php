@@ -4,19 +4,19 @@
  *
  * Handles requests to the /settings/payment-gateways endpoint.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\RestApi\Routes\V4\Settings\PaymentGateways;
+namespace Automattic\PooCommerce\Internal\RestApi\Routes\V4\Settings\PaymentGateways;
 
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\AbstractController;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Settings\PaymentGateways\Schema\AbstractPaymentGatewaySettingsSchema;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Settings\PaymentGateways\Schema\BacsGatewaySettingsSchema;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Settings\PaymentGateways\Schema\ChequeGatewaySettingsSchema;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Settings\PaymentGateways\Schema\CodGatewaySettingsSchema;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Settings\PaymentGateways\Schema\PaymentGatewaySettingsSchema;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\AbstractController;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Settings\PaymentGateways\Schema\AbstractPaymentGatewaySettingsSchema;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Settings\PaymentGateways\Schema\BacsGatewaySettingsSchema;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Settings\PaymentGateways\Schema\ChequeGatewaySettingsSchema;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Settings\PaymentGateways\Schema\CodGatewaySettingsSchema;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Settings\PaymentGateways\Schema\PaymentGatewaySettingsSchema;
 use WC_Payment_Gateway;
 use WP_REST_Server;
 use WP_REST_Request;
@@ -76,27 +76,27 @@ class Controller extends AbstractController {
 					'permission_callback' => array( $this, 'update_item_permissions_check' ),
 					'args'                => array(
 						'enabled'     => array(
-							'description' => __( 'Gateway enabled status.', 'woocommerce' ),
+							'description' => __( 'Gateway enabled status.', 'poocommerce' ),
 							'type'        => 'boolean',
 							'required'    => false,
 						),
 						'title'       => array(
-							'description' => __( 'Gateway title.', 'woocommerce' ),
+							'description' => __( 'Gateway title.', 'poocommerce' ),
 							'type'        => 'string',
 							'required'    => false,
 						),
 						'description' => array(
-							'description' => __( 'Gateway description.', 'woocommerce' ),
+							'description' => __( 'Gateway description.', 'poocommerce' ),
 							'type'        => 'string',
 							'required'    => false,
 						),
 						'order'       => array(
-							'description' => __( 'Gateway sort order.', 'woocommerce' ),
+							'description' => __( 'Gateway sort order.', 'poocommerce' ),
 							'type'        => 'integer',
 							'required'    => false,
 						),
 						'values'      => array(
-							'description' => __( 'Flat key-value mapping of all setting field values.', 'woocommerce' ),
+							'description' => __( 'Flat key-value mapping of all setting field values.', 'poocommerce' ),
 							'type'        => 'object',
 							'required'    => false,
 						),
@@ -105,7 +105,7 @@ class Controller extends AbstractController {
 				'schema' => array( $this, 'get_public_item_schema' ),
 				'args'   => array(
 					'id' => array(
-						'description' => __( 'Unique identifier for the resource.', 'woocommerce' ),
+						'description' => __( 'Unique identifier for the resource.', 'poocommerce' ),
 						'type'        => 'string',
 						'pattern'     => '^[\w-]+$',
 					),
@@ -125,7 +125,7 @@ class Controller extends AbstractController {
 		$payment_gateways = WC()->payment_gateways->payment_gateways();
 
 		if ( ! isset( $payment_gateways[ $id ] ) ) {
-			return new WP_Error( 'woocommerce_rest_payment_gateway_invalid_id', __( 'Invalid payment gateway ID.', 'woocommerce' ), array( 'status' => 404 ) );
+			return new WP_Error( 'poocommerce_rest_payment_gateway_invalid_id', __( 'Invalid payment gateway ID.', 'poocommerce' ), array( 'status' => 404 ) );
 		}
 
 		$gateway = $payment_gateways[ $id ];
@@ -208,8 +208,8 @@ class Controller extends AbstractController {
 
 		if ( ! $gateway ) {
 			return new WP_Error(
-				'woocommerce_rest_payment_gateway_invalid_id',
-				__( 'Invalid payment gateway ID.', 'woocommerce' ),
+				'poocommerce_rest_payment_gateway_invalid_id',
+				__( 'Invalid payment gateway ID.', 'poocommerce' ),
 				array( 'status' => 404 )
 			);
 		}
@@ -301,9 +301,9 @@ class Controller extends AbstractController {
 
 		// Save gateway order (deferred until after validation).
 		if ( null !== $order_to_update ) {
-			$gateway_order        = (array) get_option( 'woocommerce_gateway_order', array() );
+			$gateway_order        = (array) get_option( 'poocommerce_gateway_order', array() );
 			$gateway_order[ $id ] = $order_to_update;
-			update_option( 'woocommerce_gateway_order', $gateway_order );
+			update_option( 'poocommerce_gateway_order', $gateway_order );
 		}
 
 		// Update special fields.

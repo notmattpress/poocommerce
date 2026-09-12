@@ -9,7 +9,7 @@ declare(strict_types=1);
  * the LICENSE file that was distributed with this source code.
  */
 
-namespace Automattic\WooCommerce\Vendor\League\ISO3166;
+namespace Automattic\PooCommerce\Vendor\League\ISO3166;
 
 class ISO3166WithAliases implements ISO3166DataProvider
 {

@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 import { render, fireEvent, screen } from '@testing-library/react';
 import { MemoryRouter as Router } from 'react-router-dom';
 
@@ -10,7 +10,7 @@ import { MemoryRouter as Router } from 'react-router-dom';
  */
 import { SettingsPaymentsMain } from '../settings-payments-main';
 
-jest.mock( '@woocommerce/tracks', () => ( {
+jest.mock( '@poocommerce/tracks', () => ( {
 	recordEvent: jest.fn(),
 } ) );
 
@@ -69,7 +69,7 @@ describe( 'SettingsPaymentsMain', () => {
 		// Verify the link has the correct href attribute for external navigation
 		expect( morePaymentOptionsLink.closest( 'a' ) ).toHaveAttribute(
 			'href',
-			'https://woocommerce.com/product-category/woocommerce-extensions/payment-gateways/?utm_source=payments_recommendations'
+			'https://poocommerce.com/product-category/poocommerce-extensions/payment-gateways/?utm_source=payments_recommendations'
 		);
 
 		// Verify the link opens in a new tab

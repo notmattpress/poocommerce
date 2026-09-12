@@ -13,14 +13,14 @@ const ONBOARDING_ENDPOINT =
 const WOO_PAYMENTS_PROVIDER = {
 	_type: 'gateway',
 	_order: 1,
-	id: 'woocommerce_payments',
+	id: 'poocommerce_payments',
 	title: 'WooPayments',
 	description:
 		'Accept credit cards and other payment methods with WooPayments.',
 	icon: '',
 	plugin: {
-		slug: 'woocommerce-payments',
-		file: 'woocommerce-payments/woocommerce-payments.php',
+		slug: 'poocommerce-payments',
+		file: 'poocommerce-payments/poocommerce-payments.php',
 		status: 'active',
 	},
 	supports: [],
@@ -203,7 +203,7 @@ test.describe(
 			).toBeVisible( { timeout: 30000 } );
 
 			await page
-				.locator( '.woocommerce-list__item' )
+				.locator( '.poocommerce-list__item' )
 				.filter( { hasText: 'WooPayments' } )
 				.getByRole( 'button', { name: 'Complete setup' } )
 				.click();

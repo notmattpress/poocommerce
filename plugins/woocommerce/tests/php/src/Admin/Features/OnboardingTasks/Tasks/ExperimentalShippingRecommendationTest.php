@@ -2,12 +2,12 @@
 /**
  * Test the API controller class that handles the marketing campaigns REST response.
  *
- * @package WooCommerce\Admin\Tests\Admin\Features\OnboardingTasks\Tasks
+ * @package PooCommerce\Admin\Tests\Admin\Features\OnboardingTasks\Tasks
  */
 
-namespace Automattic\WooCommerce\Tests\Admin\Features\OnboardingTasks\Tasks;
+namespace Automattic\PooCommerce\Tests\Admin\Features\OnboardingTasks\Tasks;
 
-use Automattic\WooCommerce\Admin\Features\OnboardingTasks\Tasks\ExperimentalShippingRecommendation;
+use Automattic\PooCommerce\Admin\Features\OnboardingTasks\Tasks\ExperimentalShippingRecommendation;
 use WC_Unit_Test_Case;
 
 /**

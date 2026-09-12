@@ -2,7 +2,7 @@
 /**
  * Class Functions.
  *
- * @package WooCommerce\Tests\Integrations
+ * @package PooCommerce\Tests\Integrations
  */
 
 /**
@@ -30,7 +30,7 @@ class WC_Tests_MaxMind_Integration extends WC_Unit_Test_Case {
 		$this->database_service = $this->getMockBuilder( 'WC_Integration_maxMind_Database_Service' )
 			->disableOriginalConstructor()
 			->getMock();
-		add_filter( 'woocommerce_maxmind_geolocation_database_service', array( $this, 'override_integration_service' ) );
+		add_filter( 'poocommerce_maxmind_geolocation_database_service', array( $this, 'override_integration_service' ) );
 	}
 
 	/**
@@ -40,7 +40,7 @@ class WC_Tests_MaxMind_Integration extends WC_Unit_Test_Case {
 		unset( $GLOBALS['wp_filesystem'] );
 
 		remove_filter( 'filesystem_method', array( $this, 'override_filesystem_method' ) );
-		remove_filter( 'woocommerce_maxmind_geolocation_database_service', array( $this, 'override_integration_service' ) );
+		remove_filter( 'poocommerce_maxmind_geolocation_database_service', array( $this, 'override_integration_service' ) );
 
 		parent::tearDown();
 	}

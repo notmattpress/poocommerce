@@ -1,8 +1,8 @@
 <?php
 /**
  * Title: Large Header
- * Slug: woocommerce-blocks/header-large
- * Categories: WooCommerce
+ * Slug: poocommerce-blocks/header-large
+ * Categories: PooCommerce
  * Block Types: core/template-part/header
  */
 ?>
@@ -29,9 +29,9 @@
 			<div class="wp-block-column is-vertically-aligned-center">
 				<!-- wp:group {"style":{"spacing":{"blockGap":"0px"}},"layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"right"}} -->
 				<div class="wp-block-group">
-					<!-- wp:woocommerce/customer-account {"displayStyle":"icon_only","iconStyle":"line","iconClass":"wc-block-customer-account__account-icon"} /-->
+					<!-- wp:poocommerce/customer-account {"displayStyle":"icon_only","iconStyle":"line","iconClass":"wc-block-customer-account__account-icon"} /-->
 
-					<!-- wp:woocommerce/mini-cart {"hasHiddenPrice":true} /-->
+					<!-- wp:poocommerce/mini-cart {"hasHiddenPrice":true} /-->
 				</div>
 				<!-- /wp:group -->
 			</div>
@@ -47,7 +47,7 @@
 
 		<!-- wp:group {"style":{"spacing":{"padding":{"right":"0","left":"0"}}},"layout":{"type":"constrained"}} -->
 		<div class="wp-block-group" style="padding-right:0;padding-left:0">
-			<!-- wp:search {"label":"","showLabel":false,"placeholder":"<?php esc_html_e( 'Search', 'woocommerce' ); ?>","buttonText":"<?php esc_html_e( 'Search', 'woocommerce' ); ?>","buttonUseIcon":true,"query":{"post_type":"product"},"style":{"border":{"radius":"0px"}}} /-->
+			<!-- wp:search {"label":"","showLabel":false,"placeholder":"<?php esc_html_e( 'Search', 'poocommerce' ); ?>","buttonText":"<?php esc_html_e( 'Search', 'poocommerce' ); ?>","buttonUseIcon":true,"query":{"post_type":"product"},"style":{"border":{"radius":"0px"}}} /-->
 		</div>
 		<!-- /wp:group -->
 	</div>

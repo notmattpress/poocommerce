@@ -2,12 +2,12 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\PushNotifications\Dispatchers;
+namespace Automattic\PooCommerce\Tests\Internal\PushNotifications\Dispatchers;
 
-use Automattic\WooCommerce\Internal\PushNotifications\Dispatchers\InternalNotificationDispatcher;
-use Automattic\WooCommerce\Internal\PushNotifications\Notifications\NewOrderNotification;
-use Automattic\WooCommerce\Internal\PushNotifications\Notifications\NewReviewNotification;
-use Automattic\WooCommerce\StoreApi\Utilities\JsonWebToken;
+use Automattic\PooCommerce\Internal\PushNotifications\Dispatchers\InternalNotificationDispatcher;
+use Automattic\PooCommerce\Internal\PushNotifications\Notifications\NewOrderNotification;
+use Automattic\PooCommerce\Internal\PushNotifications\Notifications\NewReviewNotification;
+use Automattic\PooCommerce\StoreApi\Utilities\JsonWebToken;
 use WC_Unit_Test_Case;
 
 /**

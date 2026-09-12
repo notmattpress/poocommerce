@@ -3,7 +3,7 @@ title: wc shop_coupon
 sidebar_label: wc shop_coupon
 ---
 
-Manage WooCommerce shop coupon resources.
+Manage PooCommerce shop coupon resources.
 
 ## wc shop_coupon list
 

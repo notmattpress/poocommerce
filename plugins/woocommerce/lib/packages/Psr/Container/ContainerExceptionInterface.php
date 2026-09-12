@@ -1,6 +1,6 @@
 <?php
 
-namespace Automattic\WooCommerce\Vendor\Psr\Container;
+namespace Automattic\PooCommerce\Vendor\Psr\Container;
 
 use Throwable;
 

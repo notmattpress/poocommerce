@@ -11,12 +11,12 @@
  * the plan's content version). Integration layer: JSON encoding happens here, never
  * in `Core\`. No foreign keys (MySQL 5.6 floor).
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage
+ * @package Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage;
 
 defined( 'ABSPATH' ) || exit;
 

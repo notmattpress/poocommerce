@@ -2,10 +2,10 @@
 /**
  * Helper to upload files via the REST API.
  *
- * @package WooCommerce\Utilities
+ * @package PooCommerce\Utilities
  */
 
-namespace Automattic\WooCommerce\RestApi\Utilities;
+namespace Automattic\PooCommerce\RestApi\Utilities;
 
 /**
  * ImageAttachment class.
@@ -47,8 +47,8 @@ class ImageAttachment {
 		$upload = wc_rest_upload_image_from_url( esc_url_raw( $src ) );
 
 		if ( is_wp_error( $upload ) ) {
-			if ( ! apply_filters( 'woocommerce_rest_suppress_image_upload_error', false, $upload, $this->object_id, $images ) ) {
-				throw new \WC_REST_Exception( 'woocommerce_product_image_upload_error', $upload->get_error_message(), 400 );
+			if ( ! apply_filters( 'poocommerce_rest_suppress_image_upload_error', false, $upload, $this->object_id, $images ) ) {
+				throw new \WC_REST_Exception( 'poocommerce_product_image_upload_error', $upload->get_error_message(), 400 );
 			} else {
 				return;
 			}
@@ -58,7 +58,7 @@ class ImageAttachment {
 
 		if ( ! wp_attachment_is_image( $this->id ) ) {
 			/* translators: %s: image ID */
-			throw new \WC_REST_Exception( 'woocommerce_product_invalid_image_id', sprintf( __( '#%s is an invalid image ID.', 'woocommerce' ), $this->id ), 400 );
+			throw new \WC_REST_Exception( 'poocommerce_product_invalid_image_id', sprintf( __( '#%s is an invalid image ID.', 'poocommerce' ), $this->id ), 400 );
 		}
 	}
 

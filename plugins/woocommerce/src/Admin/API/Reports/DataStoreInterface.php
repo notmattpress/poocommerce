@@ -3,14 +3,14 @@
  * Reports Data Store Interface
  */
 
-namespace Automattic\WooCommerce\Admin\API\Reports;
+namespace Automattic\PooCommerce\Admin\API\Reports;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
 /**
- * WooCommerce Reports data store interface.
+ * PooCommerce Reports data store interface.
  *
  * @since 3.5.0
  */

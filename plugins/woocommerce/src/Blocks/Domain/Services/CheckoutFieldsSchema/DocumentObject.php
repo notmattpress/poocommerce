@@ -1,18 +1,18 @@
 <?php
 declare( strict_types = 1);
 
-namespace Automattic\WooCommerce\Blocks\Domain\Services\CheckoutFieldsSchema;
+namespace Automattic\PooCommerce\Blocks\Domain\Services\CheckoutFieldsSchema;
 
 use WC_Cart;
 use WC_Customer;
-use Automattic\WooCommerce\StoreApi\StoreApi;
-use Automattic\WooCommerce\StoreApi\SchemaController;
-use Automattic\WooCommerce\StoreApi\Schemas\V1\CartSchema;
-use Automattic\WooCommerce\StoreApi\Schemas\V1\BillingAddressSchema;
-use Automattic\WooCommerce\StoreApi\Schemas\V1\ShippingAddressSchema;
-use Automattic\WooCommerce\StoreApi\Utilities\LocalPickupUtils;
-use Automattic\WooCommerce\StoreApi\Utilities\CartController;
-use Automattic\WooCommerce\Utilities\NumberUtil;
+use Automattic\PooCommerce\StoreApi\StoreApi;
+use Automattic\PooCommerce\StoreApi\SchemaController;
+use Automattic\PooCommerce\StoreApi\Schemas\V1\CartSchema;
+use Automattic\PooCommerce\StoreApi\Schemas\V1\BillingAddressSchema;
+use Automattic\PooCommerce\StoreApi\Schemas\V1\ShippingAddressSchema;
+use Automattic\PooCommerce\StoreApi\Utilities\LocalPickupUtils;
+use Automattic\PooCommerce\StoreApi\Utilities\CartController;
+use Automattic\PooCommerce\Utilities\NumberUtil;
 
 /**
  * DocumentObject class.

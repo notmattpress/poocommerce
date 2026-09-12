@@ -26,12 +26,12 @@ class Opted_In_Overrides {
 	 */
 	public function register(): void {
 		add_filter(
-			'woocommerce_email_template_sync_opted_in_emails',
+			'poocommerce_email_template_sync_opted_in_emails',
 			array( $this, 'merge_opted_in' ),
 			100
 		);
 		add_filter(
-			'woocommerce_transactional_emails_for_block_editor',
+			'poocommerce_transactional_emails_for_block_editor',
 			array( $this, 'merge_transactional' ),
 			100
 		);

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Admin\Features\Blueprint\Stubs;
+namespace Automattic\PooCommerce\Tests\Admin\Features\Blueprint\Stubs;
 
 /**
  * Serializable WP_Theme-like test double.

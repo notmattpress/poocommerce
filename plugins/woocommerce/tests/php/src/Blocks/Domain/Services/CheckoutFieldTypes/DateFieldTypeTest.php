@@ -1,9 +1,9 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\Domain\Services\CheckoutFieldTypes;
+namespace Automattic\PooCommerce\Tests\Blocks\Domain\Services\CheckoutFieldTypes;
 
-use Automattic\WooCommerce\Blocks\Domain\Services\CheckoutFieldTypes\DateFieldType;
+use Automattic\PooCommerce\Blocks\Domain\Services\CheckoutFieldTypes\DateFieldType;
 use WP_Error;
 use WP_UnitTestCase;
 
@@ -66,7 +66,7 @@ class DateFieldTypeTest extends WP_UnitTestCase {
 	 * @param string $expected   A phrase expected in the registration error.
 	 */
 	public function test_invalid_constraints_are_registration_errors( string $key, string $constraint, string $expected ) {
-		$this->setExpectedIncorrectUsage( 'woocommerce_register_additional_checkout_field' );
+		$this->setExpectedIncorrectUsage( 'poocommerce_register_additional_checkout_field' );
 
 		$message = null;
 		add_action(
@@ -88,7 +88,7 @@ class DateFieldTypeTest extends WP_UnitTestCase {
 	 * @testdox A constraint that is not a string fails registration.
 	 */
 	public function test_registration_rejects_non_string_constraints() {
-		$this->setExpectedIncorrectUsage( 'woocommerce_register_additional_checkout_field' );
+		$this->setExpectedIncorrectUsage( 'poocommerce_register_additional_checkout_field' );
 
 		$this->assertFalse( $this->register( array( 'min' => 20260826 ) ) );
 		$this->assertFalse( $this->register( array( 'max' => new \DateInterval( 'P1D' ) ) ) );
@@ -151,7 +151,7 @@ class DateFieldTypeTest extends WP_UnitTestCase {
 			}
 		);
 		add_filter(
-			'woocommerce_logging_class',
+			'poocommerce_logging_class',
 			static function () use ( $logger ) {
 				return $logger;
 			}

@@ -2,7 +2,7 @@
 /**
  * Tests for the analytics payload injected into front-end page HTML.
  *
- * @package automattic/woocommerce-analytics
+ * @package automattic/poocommerce-analytics
  */
 
 namespace Automattic\Woocommerce_Analytics;
@@ -77,7 +77,7 @@ class Universal_Page_Output_Test extends BaseTestCase {
 		global $wp_query;
 
 		$this->original_globals = array(
-			'cookie'      => $_COOKIE['woocommerceanalytics_session'] ?? null,
+			'cookie'      => $_COOKIE['poocommerceanalytics_session'] ?? null,
 			'post'        => $GLOBALS['post'] ?? null,
 			'is_search'   => $wp_query->is_search,
 			'search_term' => $wp_query->get( 's' ),
@@ -89,7 +89,7 @@ class Universal_Page_Output_Test extends BaseTestCase {
 			$_SERVER[ $key ] = $value;
 		}
 
-		$_COOKIE['woocommerceanalytics_session'] = rawurlencode(
+		$_COOKIE['poocommerceanalytics_session'] = rawurlencode(
 			(string) wp_json_encode(
 				array(
 					'session_id'   => self::POISONED_SESSION_ID,
@@ -119,9 +119,9 @@ class Universal_Page_Output_Test extends BaseTestCase {
 		}
 
 		if ( $this->original_globals['cookie'] === null ) {
-			unset( $_COOKIE['woocommerceanalytics_session'] );
+			unset( $_COOKIE['poocommerceanalytics_session'] );
 		} else {
-			$_COOKIE['woocommerceanalytics_session'] = $this->original_globals['cookie'];
+			$_COOKIE['poocommerceanalytics_session'] = $this->original_globals['cookie'];
 		}
 
 		if ( $this->original_globals['post'] === null ) {
@@ -299,11 +299,11 @@ class Universal_Page_Output_Test extends BaseTestCase {
 	 * own uncached request instead.
 	 */
 	public function test_page_output_is_empty_under_proxy_tracking(): void {
-		add_filter( 'woocommerce_analytics_experimental_proxy_tracking_enabled', '__return_true' );
+		add_filter( 'poocommerce_analytics_experimental_proxy_tracking_enabled', '__return_true' );
 
 		$output = $this->render_analytics_data();
 
-		remove_filter( 'woocommerce_analytics_experimental_proxy_tracking_enabled', '__return_true' );
+		remove_filter( 'poocommerce_analytics_experimental_proxy_tracking_enabled', '__return_true' );
 
 		$this->assertStringContainsString(
 			'wcAnalytics.commonProps = [];',

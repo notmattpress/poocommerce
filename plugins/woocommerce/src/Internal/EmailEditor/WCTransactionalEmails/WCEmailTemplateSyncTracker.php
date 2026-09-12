@@ -2,7 +2,7 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails;
+namespace Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails;
 
 use WC_Tracks;
 
@@ -32,10 +32,10 @@ use WC_Tracks;
  *
  * The JS-side `_viewed`, `_applied` (`applied_from: 'editor_banner'`), and
  * `_dismissed` events are fired from RSM-141's banner code and the RSM-140
- * list cell directly via `recordEvent` from `@woocommerce/tracks`. The shared
+ * list cell directly via `recordEvent` from `@poocommerce/tracks`. The shared
  * payload shape is mirrored in `tracks/build-shared-payload.ts`.
  *
- * @package Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails
+ * @package Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails
  * @since 10.9.0
  */
 class WCEmailTemplateSyncTracker {
@@ -122,7 +122,7 @@ class WCEmailTemplateSyncTracker {
 	 * Fire one Tracks event, routed through the injected recorder when present.
 	 *
 	 * Wrapped in a try/catch so a throw from the Tracks pipeline (a third-party
-	 * `woocommerce_tracks_event_properties` filter that mishandles the payload,
+	 * `poocommerce_tracks_event_properties` filter that mishandles the payload,
 	 * a misconfigured Tracks client, etc.) cannot bubble up into the caller's
 	 * code path. Every consumer of this method is a fire-and-forget telemetry
 	 * surface — a logging failure must never turn a successful apply or
@@ -255,7 +255,7 @@ class WCEmailTemplateSyncTracker {
 	}
 
 	/**
-	 * Listener body for `woocommerce_email_template_sync_backfill_complete`.
+	 * Listener body for `poocommerce_email_template_sync_backfill_complete`.
 	 *
 	 * Fires `_backfill_completed` once per site. Payload is intentionally
 	 * minimal (per-case counters and elapsed_ms would require touching the
@@ -263,7 +263,7 @@ class WCEmailTemplateSyncTracker {
 	 *
 	 * - `posts_backfilled`: count of `woo_email` posts whose
 	 *   {@see WCEmailTemplateDivergenceDetector::BACKFILLED_META_KEY} flag is true.
-	 * - `wc_version`: current WooCommerce version string.
+	 * - `wc_version`: current PooCommerce version string.
 	 *
 	 * @return void
 	 *

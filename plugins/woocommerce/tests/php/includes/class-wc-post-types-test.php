@@ -2,7 +2,7 @@
 /**
  * Tests for WC_Post_Types.
  *
- * @package WooCommerce\Tests\PostTypes
+ * @package PooCommerce\Tests\PostTypes
  */
 
 declare( strict_types = 1 );
@@ -25,7 +25,7 @@ class WC_Post_Types_Test extends WC_Unit_Test_Case {
 	private $original_theme;
 
 	/**
-	 * Original WooCommerce theme support arguments.
+	 * Original PooCommerce theme support arguments.
 	 *
 	 * @var array|bool
 	 */
@@ -82,7 +82,7 @@ class WC_Post_Types_Test extends WC_Unit_Test_Case {
 		global $wp_rewrite;
 
 		$this->original_theme               = get_stylesheet();
-		$this->original_theme_support       = get_theme_support( 'woocommerce' );
+		$this->original_theme_support       = get_theme_support( 'poocommerce' );
 		$this->original_installing          = wp_installing();
 		$this->original_rewrite_rules       = $wp_rewrite->rules;
 		$this->original_permalink_structure = $wp_rewrite->permalink_structure;
@@ -90,7 +90,7 @@ class WC_Post_Types_Test extends WC_Unit_Test_Case {
 		$this->original_product_taxonomies  = get_object_taxonomies( 'product' );
 		$missing_option                     = new stdClass();
 
-		foreach ( array( 'current_theme_supports_woocommerce', 'woocommerce_queue_flush_rewrite_rules', 'rewrite_rules', 'permalink_structure' ) as $option_name ) {
+		foreach ( array( 'current_theme_supports_poocommerce', 'poocommerce_queue_flush_rewrite_rules', 'rewrite_rules', 'permalink_structure' ) as $option_name ) {
 			$value                                  = get_option( $option_name, $missing_option );
 			$this->original_options[ $option_name ] = array(
 				'exists' => $missing_option !== $value,
@@ -98,9 +98,9 @@ class WC_Post_Types_Test extends WC_Unit_Test_Case {
 			);
 		}
 
-		$this->flush_hook_was_registered = false !== has_action( 'woocommerce_after_register_post_type', array( 'WC_Post_Types', 'maybe_flush_rewrite_rules' ) );
+		$this->flush_hook_was_registered = false !== has_action( 'poocommerce_after_register_post_type', array( 'WC_Post_Types', 'maybe_flush_rewrite_rules' ) );
 
-		remove_action( 'woocommerce_after_register_post_type', array( 'WC_Post_Types', 'maybe_flush_rewrite_rules' ) );
+		remove_action( 'poocommerce_after_register_post_type', array( 'WC_Post_Types', 'maybe_flush_rewrite_rules' ) );
 		add_filter( 'flush_rewrite_rules_hard', '__return_false' );
 	}
 
@@ -122,9 +122,9 @@ class WC_Post_Types_Test extends WC_Unit_Test_Case {
 
 		if ( false !== $this->original_theme_support ) {
 			// phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- Restore the exact global state changed by the test.
-			$_wp_theme_features['woocommerce'] = $this->original_theme_support;
+			$_wp_theme_features['poocommerce'] = $this->original_theme_support;
 		} else {
-			unset( $_wp_theme_features['woocommerce'] );
+			unset( $_wp_theme_features['poocommerce'] );
 		}
 
 		unregister_post_type( 'product' );
@@ -145,7 +145,7 @@ class WC_Post_Types_Test extends WC_Unit_Test_Case {
 		$wp_rewrite->rules = $this->original_rewrite_rules;
 
 		if ( $this->flush_hook_was_registered ) {
-			add_action( 'woocommerce_after_register_post_type', array( 'WC_Post_Types', 'maybe_flush_rewrite_rules' ) );
+			add_action( 'poocommerce_after_register_post_type', array( 'WC_Post_Types', 'maybe_flush_rewrite_rules' ) );
 		}
 		remove_filter( 'flush_rewrite_rules_hard', '__return_false' );
 		wp_installing( $this->original_installing );
@@ -168,7 +168,7 @@ class WC_Post_Types_Test extends WC_Unit_Test_Case {
 		string $stored_support,
 		bool $expected
 	): void {
-		update_option( 'current_theme_supports_woocommerce', $stored_support );
+		update_option( 'current_theme_supports_poocommerce', $stored_support );
 
 		$method = new ReflectionMethod( WC_Post_Types::class, 'should_register_product_archive' );
 		$method->setAccessible( true );
@@ -201,8 +201,8 @@ class WC_Post_Types_Test extends WC_Unit_Test_Case {
 	public function test_installing_mode_preserves_theme_support_state_during_registration(): void {
 		$sentinel_rules = array( '^rewrite-state-verification/?$' => 'index.php?rewrite-state-verification=1' );
 		$this->prepare_unsupported_classic_theme();
-		update_option( 'current_theme_supports_woocommerce', 'yes' );
-		update_option( 'woocommerce_queue_flush_rewrite_rules', 'yes' );
+		update_option( 'current_theme_supports_poocommerce', 'yes' );
+		update_option( 'poocommerce_queue_flush_rewrite_rules', 'yes' );
 		update_option( 'rewrite_rules', $sentinel_rules );
 
 		$before_hook_count = 0;
@@ -215,16 +215,16 @@ class WC_Post_Types_Test extends WC_Unit_Test_Case {
 		};
 
 		$this->assertTrue( $this->flush_hook_was_registered, 'The queued flush callback should be registered on the post-type lifecycle hook.' );
-		add_action( 'woocommerce_after_register_post_type', array( 'WC_Post_Types', 'maybe_flush_rewrite_rules' ) );
-		add_action( 'woocommerce_register_post_type', $before_hook );
-		add_action( 'woocommerce_after_register_post_type', $after_hook );
+		add_action( 'poocommerce_after_register_post_type', array( 'WC_Post_Types', 'maybe_flush_rewrite_rules' ) );
+		add_action( 'poocommerce_register_post_type', $before_hook );
+		add_action( 'poocommerce_after_register_post_type', $after_hook );
 		wp_installing( true );
 
 		unregister_post_type( 'product' );
 		WC_Post_Types::register_post_types();
 
-		remove_action( 'woocommerce_register_post_type', $before_hook );
-		remove_action( 'woocommerce_after_register_post_type', $after_hook );
+		remove_action( 'poocommerce_register_post_type', $before_hook );
+		remove_action( 'poocommerce_after_register_post_type', $after_hook );
 
 		$this->assertTrue( post_type_exists( 'product' ), 'Product registration should continue while WordPress is installing.' );
 		$this->assertNotFalse(
@@ -233,8 +233,8 @@ class WC_Post_Types_Test extends WC_Unit_Test_Case {
 		);
 		$this->assertSame( 1, $before_hook_count, 'The pre-registration hook should still fire.' );
 		$this->assertSame( 1, $after_hook_count, 'The post-registration hook should still fire.' );
-		$this->assertSame( 'yes', get_option( 'current_theme_supports_woocommerce' ), 'Installing mode should not persist request-local missing theme support.' );
-		$this->assertSame( 'yes', get_option( 'woocommerce_queue_flush_rewrite_rules' ), 'Installing mode should preserve the queued flush for a normal request.' );
+		$this->assertSame( 'yes', get_option( 'current_theme_supports_poocommerce' ), 'Installing mode should not persist request-local missing theme support.' );
+		$this->assertSame( 'yes', get_option( 'poocommerce_queue_flush_rewrite_rules' ), 'Installing mode should preserve the queued flush for a normal request.' );
 		$this->assertSame( $sentinel_rules, get_option( 'rewrite_rules' ), 'Installing mode should not persist a replacement rewrite rule set.' );
 	}
 
@@ -243,15 +243,15 @@ class WC_Post_Types_Test extends WC_Unit_Test_Case {
 	 */
 	public function test_normal_request_tracks_theme_support_changes_during_registration(): void {
 		$this->prepare_unsupported_classic_theme();
-		update_option( 'current_theme_supports_woocommerce', 'yes' );
-		delete_option( 'woocommerce_queue_flush_rewrite_rules' );
+		update_option( 'current_theme_supports_poocommerce', 'yes' );
+		delete_option( 'poocommerce_queue_flush_rewrite_rules' );
 		wp_installing( false );
 
 		unregister_post_type( 'product' );
 		WC_Post_Types::register_post_types();
 
-		$this->assertSame( 'no', get_option( 'current_theme_supports_woocommerce' ), 'Normal requests should persist a legitimate theme support change.' );
-		$this->assertSame( 'yes', get_option( 'woocommerce_queue_flush_rewrite_rules' ), 'Normal requests should queue a rewrite flush after theme support changes.' );
+		$this->assertSame( 'no', get_option( 'current_theme_supports_poocommerce' ), 'Normal requests should persist a legitimate theme support change.' );
+		$this->assertSame( 'yes', get_option( 'poocommerce_queue_flush_rewrite_rules' ), 'Normal requests should queue a rewrite flush after theme support changes.' );
 	}
 
 	/**
@@ -265,7 +265,7 @@ class WC_Post_Types_Test extends WC_Unit_Test_Case {
 		unregister_post_type( 'product' );
 		WC_Post_Types::register_post_types();
 		update_option( 'rewrite_rules', $sentinel_rules );
-		update_option( 'woocommerce_queue_flush_rewrite_rules', 'yes' );
+		update_option( 'poocommerce_queue_flush_rewrite_rules', 'yes' );
 		wp_installing( false );
 
 		WC_Post_Types::maybe_flush_rewrite_rules();
@@ -278,9 +278,9 @@ class WC_Post_Types_Test extends WC_Unit_Test_Case {
 			}
 		);
 
-		$this->assertSame( 'no', get_option( 'woocommerce_queue_flush_rewrite_rules' ), 'Normal requests should consume the queued flush.' );
+		$this->assertSame( 'no', get_option( 'poocommerce_queue_flush_rewrite_rules' ), 'Normal requests should consume the queued flush.' );
 		$this->assertNotEmpty( $rules, 'Normal requests should persist regenerated rewrite rules.' );
-		$this->assertNotEmpty( $product_rules, 'Regenerated rules should include WooCommerce product rewrites.' );
+		$this->assertNotEmpty( $product_rules, 'Regenerated rules should include PooCommerce product rewrites.' );
 	}
 
 	/**
@@ -293,9 +293,9 @@ class WC_Post_Types_Test extends WC_Unit_Test_Case {
 
 		// Phase 1 - healthy baseline: supported theme, a third-party post type, complete persisted rules.
 		switch_theme( 'storefront' );
-		add_theme_support( 'woocommerce' );
-		update_option( 'current_theme_supports_woocommerce', 'yes' );
-		update_option( 'woocommerce_queue_flush_rewrite_rules', 'no' );
+		add_theme_support( 'poocommerce' );
+		update_option( 'current_theme_supports_poocommerce', 'yes' );
+		update_option( 'poocommerce_queue_flush_rewrite_rules', 'no' );
 		$this->register_third_party_post_type();
 		unregister_post_type( 'product' );
 		WC_Post_Types::register_post_types();
@@ -308,7 +308,7 @@ class WC_Post_Types_Test extends WC_Unit_Test_Case {
 		$this->assertGreaterThan( 0, $baseline_third_party, 'The baseline must contain the third-party rewrite rules.' );
 
 		// Phase 2 - installing mode: no theme, no third-party plugin, then the installer flush.
-		remove_theme_support( 'woocommerce' );
+		remove_theme_support( 'poocommerce' );
 		unregister_post_type( self::THIRD_PARTY_POST_TYPE );
 		wp_installing( true );
 
@@ -320,7 +320,7 @@ class WC_Post_Types_Test extends WC_Unit_Test_Case {
 		 *
 		 * @since 2.7.0
 		 */
-		do_action( 'woocommerce_flush_rewrite_rules' );
+		do_action( 'poocommerce_flush_rewrite_rules' );
 
 		wp_installing( false );
 
@@ -336,12 +336,12 @@ class WC_Post_Types_Test extends WC_Unit_Test_Case {
 		);
 		$this->assertSame(
 			'yes',
-			get_option( 'woocommerce_queue_flush_rewrite_rules' ),
+			get_option( 'poocommerce_queue_flush_rewrite_rules' ),
 			'An installer flush during installing mode should be deferred to the next normal request.'
 		);
 
 		// Phase 3 - next normal request with the theme and the third-party plugin back.
-		add_theme_support( 'woocommerce' );
+		add_theme_support( 'poocommerce' );
 		$this->register_third_party_post_type();
 		unregister_post_type( 'product' );
 		WC_Post_Types::register_post_types();
@@ -349,7 +349,7 @@ class WC_Post_Types_Test extends WC_Unit_Test_Case {
 
 		$this->assertSame(
 			'no',
-			get_option( 'woocommerce_queue_flush_rewrite_rules' ),
+			get_option( 'poocommerce_queue_flush_rewrite_rules' ),
 			'The next normal request should consume the deferred flush.'
 		);
 		$this->assertSame(
@@ -374,10 +374,10 @@ class WC_Post_Types_Test extends WC_Unit_Test_Case {
 		// update_option() skips every cache write while WordPress is installing, and a new PHP
 		// request does not clear a persistent object cache, so the queue has to be evicted wherever
 		// the option happens to be cached.
-		delete_option( 'woocommerce_queue_flush_rewrite_rules' );
-		add_option( 'woocommerce_queue_flush_rewrite_rules', 'no', '', $autoload );
+		delete_option( 'poocommerce_queue_flush_rewrite_rules' );
+		add_option( 'poocommerce_queue_flush_rewrite_rules', 'no', '', $autoload );
 
-		$this->assertSame( 'no', get_option( 'woocommerce_queue_flush_rewrite_rules' ), 'The queue should start cached and unset.' );
+		$this->assertSame( 'no', get_option( 'poocommerce_queue_flush_rewrite_rules' ), 'The queue should start cached and unset.' );
 
 		wp_installing( true );
 		WC_Post_Types::flush_rewrite_rules();
@@ -385,7 +385,7 @@ class WC_Post_Types_Test extends WC_Unit_Test_Case {
 
 		$this->assertSame(
 			'yes',
-			get_option( 'woocommerce_queue_flush_rewrite_rules' ),
+			get_option( 'poocommerce_queue_flush_rewrite_rules' ),
 			'The next request should read the queued flush rather than a stale cached value.'
 		);
 	}
@@ -415,13 +415,13 @@ class WC_Post_Types_Test extends WC_Unit_Test_Case {
 
 		// Give the neighbouring site its own settled state, read once so both option caches are warm.
 		switch_to_blog( $other_blog_id );
-		update_option( 'woocommerce_queue_flush_rewrite_rules', 'no' );
+		update_option( 'poocommerce_queue_flush_rewrite_rules', 'no' );
 		update_option( 'rewrite_rules', $sentinel_rules );
-		get_option( 'woocommerce_queue_flush_rewrite_rules' );
+		get_option( 'poocommerce_queue_flush_rewrite_rules' );
 		get_option( 'rewrite_rules' );
 		restore_current_blog();
 
-		update_option( 'woocommerce_queue_flush_rewrite_rules', 'no' );
+		update_option( 'poocommerce_queue_flush_rewrite_rules', 'no' );
 
 		wp_installing( true );
 		WC_Post_Types::flush_rewrite_rules();
@@ -429,13 +429,13 @@ class WC_Post_Types_Test extends WC_Unit_Test_Case {
 
 		$this->assertSame(
 			'yes',
-			get_option( 'woocommerce_queue_flush_rewrite_rules' ),
+			get_option( 'poocommerce_queue_flush_rewrite_rules' ),
 			'The site that raised the flush should carry the queue.'
 		);
 		$this->assertSame( $original_blog_id, get_current_blog_id(), 'Queueing the flush should not switch sites.' );
 
 		switch_to_blog( $other_blog_id );
-		$other_queue = get_option( 'woocommerce_queue_flush_rewrite_rules' );
+		$other_queue = get_option( 'poocommerce_queue_flush_rewrite_rules' );
 		$other_rules = get_option( 'rewrite_rules' );
 		restore_current_blog();
 
@@ -478,13 +478,13 @@ class WC_Post_Types_Test extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Switch to a classic theme without runtime WooCommerce support.
+	 * Switch to a classic theme without runtime PooCommerce support.
 	 */
 	private function prepare_unsupported_classic_theme(): void {
 		switch_theme( 'storefront' );
-		remove_theme_support( 'woocommerce' );
+		remove_theme_support( 'poocommerce' );
 
 		$this->assertFalse( wp_is_block_theme(), 'The test requires a classic theme.' );
-		$this->assertFalse( wc_current_theme_supports_woocommerce_or_fse(), 'The test requires missing runtime WooCommerce theme support.' );
+		$this->assertFalse( wc_current_theme_supports_poocommerce_or_fse(), 'The test requires missing runtime PooCommerce theme support.' );
 	}
 }

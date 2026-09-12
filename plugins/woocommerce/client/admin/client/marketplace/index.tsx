@@ -19,8 +19,8 @@ function MarketplaceComponents() {
 	const { selectedTab } = useContext( MarketplaceContext );
 
 	const classNames =
-		'woocommerce-marketplace' +
-		( selectedTab ? ' woocommerce-marketplace--' + selectedTab : '' );
+		'poocommerce-marketplace' +
+		( selectedTab ? ' poocommerce-marketplace--' + selectedTab : '' );
 
 	return (
 		<div className={ classNames }>

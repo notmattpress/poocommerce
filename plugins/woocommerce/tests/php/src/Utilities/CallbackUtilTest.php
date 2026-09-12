@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Utilities;
+namespace Automattic\PooCommerce\Tests\Utilities;
 
-use Automattic\WooCommerce\Tests\Utilities\CallbackUtilTestClasses\AnotherDummyCallbackClass;
-use Automattic\WooCommerce\Tests\Utilities\CallbackUtilTestClasses\DummyCallbackClass;
-use Automattic\WooCommerce\Tests\Utilities\CallbackUtilTestClasses\DummyCallbackClassWithDynamicProps;
-use Automattic\WooCommerce\Tests\Utilities\CallbackUtilTestClasses\DummyInvokableClass;
-use Automattic\WooCommerce\Utilities\CallbackUtil;
+use Automattic\PooCommerce\Tests\Utilities\CallbackUtilTestClasses\AnotherDummyCallbackClass;
+use Automattic\PooCommerce\Tests\Utilities\CallbackUtilTestClasses\DummyCallbackClass;
+use Automattic\PooCommerce\Tests\Utilities\CallbackUtilTestClasses\DummyCallbackClassWithDynamicProps;
+use Automattic\PooCommerce\Tests\Utilities\CallbackUtilTestClasses\DummyInvokableClass;
+use Automattic\PooCommerce\Utilities\CallbackUtil;
 
 /**
  * Tests for CallbackUtil class.
@@ -289,7 +289,7 @@ class CallbackUtilTest extends \WC_Unit_Test_Case {
 
 		$this->assertCount( 2, $signatures[10] );
 		$this->assertContains( 'my_function', $signatures[10] );
-		$this->assertContains( 'Automattic\WooCommerce\Tests\Utilities\CallbackUtilTestClasses\DummyCallbackClass::my_method', $signatures[10] );
+		$this->assertContains( 'Automattic\PooCommerce\Tests\Utilities\CallbackUtilTestClasses\DummyCallbackClass::my_method', $signatures[10] );
 
 		$this->assertCount( 1, $signatures[20] );
 		$this->assertContains( DummyCallbackClass::class . '::static_method', $signatures[20] );

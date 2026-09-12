@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\Utils;
+namespace Automattic\PooCommerce\Tests\Blocks\Utils;
 
-use Automattic\WooCommerce\Blocks\Utils\ProductDescriptionUtils;
+use Automattic\PooCommerce\Blocks\Utils\ProductDescriptionUtils;
 use WC_Helper_Product;
 
 /**

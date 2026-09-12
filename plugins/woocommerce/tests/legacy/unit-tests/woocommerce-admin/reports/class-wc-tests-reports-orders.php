@@ -2,12 +2,12 @@
 /**
  * Orders Report tests.
  *
- * @package WooCommerce\Admin\Tests\Orders
+ * @package PooCommerce\Admin\Tests\Orders
  */
 
-use Automattic\WooCommerce\Admin\API\Reports\Orders\DataStore as OrdersDataStore;
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Internal\Admin\Schedulers\OrdersScheduler;
+use Automattic\PooCommerce\Admin\API\Reports\Orders\DataStore as OrdersDataStore;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Internal\Admin\Schedulers\OrdersScheduler;
 
 /**
  * Class WC_Admin_Tests_Reports_Orders
@@ -433,7 +433,7 @@ class WC_Admin_Tests_Reports_Orders extends WC_Unit_Test_Case {
 
 	/**
 	 * Test that excluding specific coupons doesn't exclude orders without coupons.
-	 * See: https://github.com/woocommerce/woocommerce-admin/issues/6824.
+	 * See: https://github.com/poocommerce/poocommerce-admin/issues/6824.
 	 */
 	public function test_coupon_exclusion_includes_orders_without_coupons() {
 		global $wpdb;
@@ -554,7 +554,7 @@ class WC_Admin_Tests_Reports_Orders extends WC_Unit_Test_Case {
 	 * Refunds are stored without a customer type of their own, so they should report the customer
 	 * type of the order they refund instead of always being reported as returning.
 	 *
-	 * See: https://github.com/woocommerce/woocommerce/issues/33410.
+	 * See: https://github.com/poocommerce/poocommerce/issues/33410.
 	 */
 	public function test_refund_of_first_order_is_reported_as_new_customer() {
 		WC_Helper_Reports::reset_stats_dbs();

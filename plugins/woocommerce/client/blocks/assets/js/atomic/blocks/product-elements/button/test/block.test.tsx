@@ -5,7 +5,7 @@ import { render, screen } from '@testing-library/react';
 import {
 	useStoreAddToCart,
 	useStoreEvents,
-} from '@woocommerce/base-context/hooks';
+} from '@poocommerce/base-context/hooks';
 
 /**
  * Internal dependencies
@@ -13,18 +13,18 @@ import {
 import { AddToCartButton } from '../block';
 import type { AddToCartButtonAttributes } from '../types';
 
-jest.mock( '@woocommerce/base-context/hooks', () => ( {
+jest.mock( '@poocommerce/base-context/hooks', () => ( {
 	useStoreAddToCart: jest.fn(),
 	useStoreEvents: jest.fn(),
 } ) );
 
-jest.mock( '@woocommerce/base-hooks', () => ( {} ) );
+jest.mock( '@poocommerce/base-hooks', () => ( {} ) );
 
-jest.mock( '@woocommerce/block-settings', () => ( {
+jest.mock( '@poocommerce/block-settings', () => ( {
 	CART_URL: '/cart/',
 } ) );
 
-jest.mock( '@woocommerce/shared-hocs', () => ( {
+jest.mock( '@poocommerce/shared-hocs', () => ( {
 	withProductDataContext: ( component ) => component,
 } ) );
 
@@ -77,7 +77,7 @@ describe( 'AddToCartButton', () => {
 
 	it( 'keeps nofollow on cart action links', () => {
 		renderButton( {
-			collection: 'woocommerce/product-collection/cart-contents',
+			collection: 'poocommerce/product-collection/cart-contents',
 		} );
 
 		const link = screen.getByRole( 'link' );

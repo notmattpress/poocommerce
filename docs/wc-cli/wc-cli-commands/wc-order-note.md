@@ -3,7 +3,7 @@ title: wc order_note
 sidebar_label: wc order_note
 ---
 
-Manage WooCommerce order note resources.
+Manage PooCommerce order note resources.
 
 ## wc order_note list `<order_id>`
 

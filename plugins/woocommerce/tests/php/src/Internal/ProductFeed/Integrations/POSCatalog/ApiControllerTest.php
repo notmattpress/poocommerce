@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\ProductFeed\Integrations\POSCatalog;
+namespace Automattic\PooCommerce\Tests\Internal\ProductFeed\Integrations\POSCatalog;
 
-use Automattic\WooCommerce\Internal\ProductFeed\Integrations\POSCatalog\ApiController;
-use Automattic\WooCommerce\Internal\ProductFeed\Integrations\POSCatalog\AsyncGenerator;
+use Automattic\PooCommerce\Internal\ProductFeed\Integrations\POSCatalog\ApiController;
+use Automattic\PooCommerce\Internal\ProductFeed\Integrations\POSCatalog\AsyncGenerator;
 use PHPUnit\Framework\MockObject\MockObject;
 use WP_REST_Request;
 

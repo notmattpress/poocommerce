@@ -2,7 +2,7 @@
 /**
  * Class WC_Gateway_Paypal_API_Handler file.
  *
- * @package WooCommerce\Gateways
+ * @package PooCommerce\Gateways
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -64,7 +64,7 @@ class WC_Gateway_Paypal_API_Handler {
 			'CURRENCYCODE'    => $order->get_currency(),
 			'COMPLETETYPE'    => 'Complete',
 		);
-		return apply_filters( 'woocommerce_paypal_capture_request', $request, $order, $amount );
+		return apply_filters( 'poocommerce_paypal_capture_request', $request, $order, $amount );
 	}
 
 	/**
@@ -91,7 +91,7 @@ class WC_Gateway_Paypal_API_Handler {
 			$request['CURRENCYCODE'] = $order->get_currency();
 			$request['REFUNDTYPE']   = 'Partial';
 		}
-		return apply_filters( 'woocommerce_paypal_refund_request', $request, $order, $amount, $reason );
+		return apply_filters( 'poocommerce_paypal_refund_request', $request, $order, $amount, $reason );
 	}
 
 	/**
@@ -108,7 +108,7 @@ class WC_Gateway_Paypal_API_Handler {
 				'method'      => 'POST',
 				'body'        => self::get_capture_request( $order, $amount ),
 				'timeout'     => 70,
-				'user-agent'  => 'WooCommerce/' . WC()->version,
+				'user-agent'  => 'PooCommerce/' . WC()->version,
 				'httpversion' => '1.1',
 			)
 		);
@@ -141,7 +141,7 @@ class WC_Gateway_Paypal_API_Handler {
 				'method'      => 'POST',
 				'body'        => self::get_refund_request( $order, $amount, $reason ),
 				'timeout'     => 70,
-				'user-agent'  => 'WooCommerce/' . WC()->version,
+				'user-agent'  => 'PooCommerce/' . WC()->version,
 				'httpversion' => '1.1',
 			)
 		);

@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1);
 
-namespace Automattic\WooCommerce\Blocks\Domain\Services\CheckoutFieldTypes;
+namespace Automattic\PooCommerce\Blocks\Domain\Services\CheckoutFieldTypes;
 
-use Automattic\WooCommerce\Utilities\TimeUtil;
+use Automattic\PooCommerce\Utilities\TimeUtil;
 use WP_Error;
 
 /**
@@ -143,10 +143,10 @@ class DateFieldType extends AbstractFieldType {
 
 		if ( ! is_string( $value ) || ! TimeUtil::is_valid_date( $value, 'Y-m-d' ) ) {
 			return new WP_Error(
-				'woocommerce_invalid_checkout_field',
+				'poocommerce_invalid_checkout_field',
 				sprintf(
 					/* translators: %s: is the field label */
-					__( 'Please provide a valid %s in YYYY-MM-DD format.', 'woocommerce' ),
+					__( 'Please provide a valid %s in YYYY-MM-DD format.', 'poocommerce' ),
 					$field['label']
 				)
 			);
@@ -157,10 +157,10 @@ class DateFieldType extends AbstractFieldType {
 		// Both sides are YYYY-MM-DD, so a string comparison orders them correctly.
 		if ( $min && $value < $min ) {
 			return new WP_Error(
-				'woocommerce_invalid_checkout_field',
+				'poocommerce_invalid_checkout_field',
 				sprintf(
 					/* translators: 1: is the field label, 2: is the earliest date allowed */
-					__( 'Please provide a %1$s on or after %2$s.', 'woocommerce' ),
+					__( 'Please provide a %1$s on or after %2$s.', 'poocommerce' ),
 					$field['label'],
 					$this->format_value( $min, $field )
 				)
@@ -169,10 +169,10 @@ class DateFieldType extends AbstractFieldType {
 
 		if ( $max && $value > $max ) {
 			return new WP_Error(
-				'woocommerce_invalid_checkout_field',
+				'poocommerce_invalid_checkout_field',
 				sprintf(
 					/* translators: 1: is the field label, 2: is the latest date allowed */
-					__( 'Please provide a %1$s on or before %2$s.', 'woocommerce' ),
+					__( 'Please provide a %1$s on or before %2$s.', 'poocommerce' ),
 					$field['label'],
 					$this->format_value( $max, $field )
 				)
@@ -202,11 +202,11 @@ class DateFieldType extends AbstractFieldType {
 	}
 
 	/**
-	 * Adds the resolved min/max constraints as input attributes for woocommerce_form_field().
+	 * Adds the resolved min/max constraints as input attributes for poocommerce_form_field().
 	 *
 	 * These forms are rendered server side, so the constraints are resolved here rather than by the client.
 	 *
-	 * @param array $form_field The woocommerce_form_field() arguments built from the field.
+	 * @param array $form_field The poocommerce_form_field() arguments built from the field.
 	 * @return array The updated arguments.
 	 */
 	public function prepare_form_field( array $form_field ): array {

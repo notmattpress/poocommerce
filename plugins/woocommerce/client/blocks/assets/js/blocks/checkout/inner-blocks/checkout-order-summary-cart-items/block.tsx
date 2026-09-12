@@ -1,9 +1,9 @@
 /**
  * External dependencies
  */
-import { OrderSummary } from '@woocommerce/base-components/cart-checkout';
-import { useStoreCart } from '@woocommerce/base-context/hooks';
-import { TotalsWrapper } from '@woocommerce/blocks-components';
+import { OrderSummary } from '@poocommerce/base-components/cart-checkout';
+import { useStoreCart } from '@poocommerce/base-context/hooks';
+import { TotalsWrapper } from '@poocommerce/blocks-components';
 
 /**
  * Internal dependencies

@@ -1,18 +1,18 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin;
+namespace Automattic\PooCommerce\Tests\Internal\Admin;
 
-use Automattic\WooCommerce\Admin\RemoteInboxNotifications\RemoteInboxNotificationsEngine;
-use Automattic\WooCommerce\Internal\Admin\Events;
-use Automattic\WooCommerce\Internal\Admin\RemoteInboxNotifications;
+use Automattic\PooCommerce\Admin\RemoteInboxNotifications\RemoteInboxNotificationsEngine;
+use Automattic\PooCommerce\Internal\Admin\Events;
+use Automattic\PooCommerce\Internal\Admin\RemoteInboxNotifications;
 use WC_Unit_Test_Case;
 
 /**
  * Tests for the marketplace suggestions gating of remote inbox notifications.
  *
- * @covers \Automattic\WooCommerce\Internal\Admin\RemoteInboxNotifications
- * @covers \Automattic\WooCommerce\Internal\Admin\Events::is_remote_inbox_notifications_enabled
+ * @covers \Automattic\PooCommerce\Internal\Admin\RemoteInboxNotifications
+ * @covers \Automattic\PooCommerce\Internal\Admin\Events::is_remote_inbox_notifications_enabled
  */
 class RemoteInboxNotificationsTest extends WC_Unit_Test_Case {
 

@@ -5,7 +5,7 @@ sidebar_label: Prevent PO Box addresses in Checkout block
 
 # Prevent PO Box addresses in the Checkout block
 
-The Checkout block uses the Store API checkout flow, so shortcode checkout hooks such as `woocommerce_after_checkout_validation` do not run there. To validate orders submitted through the Checkout block, use the `woocommerce_checkout_validate_order_before_payment` hook.
+The Checkout block uses the Store API checkout flow, so shortcode checkout hooks such as `poocommerce_after_checkout_validation` do not run there. To validate orders submitted through the Checkout block, use the `poocommerce_checkout_validate_order_before_payment` hook.
 
 The following snippet checks the shipping address when one exists, and falls back to billing details when checkout does not include a separate shipping address. Add it with the Code Snippets plugin and set it to run everywhere.
 
@@ -30,11 +30,11 @@ function wc_prevent_checkout_block_po_box_addresses( $order, $errors ) {
 	if ( false !== strpos( $normalized_address, 'pobox' ) ) {
 		$errors->add(
 			'po_box_address',
-			__( 'Sorry, we cannot ship to PO Box addresses.', 'woocommerce' )
+			__( 'Sorry, we cannot ship to PO Box addresses.', 'poocommerce' )
 		);
 	}
 }
-add_action( 'woocommerce_checkout_validate_order_before_payment', 'wc_prevent_checkout_block_po_box_addresses', 10, 2 );
+add_action( 'poocommerce_checkout_validate_order_before_payment', 'wc_prevent_checkout_block_po_box_addresses', 10, 2 );
 ```
 
 For example, the snippet blocks address formats such as `PO Box 123`, `P.O. Box 123`, and `POBOX 123`.

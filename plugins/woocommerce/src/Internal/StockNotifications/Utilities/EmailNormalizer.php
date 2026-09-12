@@ -2,7 +2,7 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\StockNotifications\Utilities;
+namespace Automattic\PooCommerce\Internal\StockNotifications\Utilities;
 
 /**
  * Canonical form for customer emails stored in stock notifications.

@@ -11,7 +11,7 @@ import { PaymentsBannerWrapper } from './payment-settings-banner';
 import { SETTINGS_SLOT_FILL_CONSTANT } from '../settings/settings-slots';
 
 const { Fill } = createSlotFill( SETTINGS_SLOT_FILL_CONSTANT );
-const PLUGIN_ID = 'woocommerce-admin-paymentsgateways-settings-banner';
+const PLUGIN_ID = 'poocommerce-admin-paymentsgateways-settings-banner';
 
 const PaymentsBannerFill = () => {
 	return (
@@ -27,7 +27,7 @@ export const registerPaymentsSettingsBannerFill = () => {
 	}
 
 	registerPlugin( PLUGIN_ID, {
-		scope: 'woocommerce-payments-settings',
+		scope: 'poocommerce-payments-settings',
 		render: PaymentsBannerFill,
 	} );
 };

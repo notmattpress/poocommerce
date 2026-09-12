@@ -6,7 +6,7 @@
  * External dependencies
  */
 import { act, render, screen } from '@testing-library/react';
-import * as hooks from '@woocommerce/base-context/hooks';
+import * as hooks from '@poocommerce/base-context/hooks';
 import userEvent from '@testing-library/user-event';
 
 /**
@@ -15,9 +15,9 @@ import userEvent from '@testing-library/user-event';
 import AttributeFilterBlock from '../block';
 import { BlockAttributes } from '../types';
 
-jest.mock( '@woocommerce/base-context/hooks', () => ( {
+jest.mock( '@poocommerce/base-context/hooks', () => ( {
 	__esModule: true,
-	...jest.requireActual( '@woocommerce/base-context/hooks' ),
+	...jest.requireActual( '@poocommerce/base-context/hooks' ),
 } ) );
 
 const setWindowUrl = ( { url }: { url: string } ) => {

@@ -2,7 +2,7 @@
 /**
  * WP_CLI_Runner class file.
  *
- * @package WooCommerce\CLI
+ * @package PooCommerce\CLI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * https://github.com/wp-cli/restful
  *
  * @version 3.0.0
- * @package WooCommerce
+ * @package PooCommerce
  */
 class WC_CLI_Runner {
 	/**
@@ -76,7 +76,7 @@ class WC_CLI_Runner {
 			// Only register endpoints with schemas.
 			if ( empty( $route_data['schema']['title'] ) ) {
 				/* translators: %s: Route to a given WC-API endpoint */
-				WP_CLI::debug( sprintf( __( 'No schema title found for %s, skipping REST command registration.', 'woocommerce' ), $route ), 'wc' );
+				WP_CLI::debug( sprintf( __( 'No schema title found for %s, skipping REST command registration.', 'poocommerce' ), $route ), 'wc' );
 				continue;
 			}
 			// Ignore batch endpoints.
@@ -107,15 +107,15 @@ class WC_CLI_Runner {
 		// Define IDs that we are looking for in the routes (in addition to id)
 		// so that we can pass it to the rest command, and use it here to generate documentation.
 		$supported_ids = array(
-			'product_id'   => __( 'Product ID.', 'woocommerce' ),
-			'customer_id'  => __( 'Customer ID.', 'woocommerce' ),
-			'order_id'     => __( 'Order ID.', 'woocommerce' ),
-			'refund_id'    => __( 'Refund ID.', 'woocommerce' ),
-			'attribute_id' => __( 'Attribute ID.', 'woocommerce' ),
-			'zone_id'      => __( 'Zone ID.', 'woocommerce' ),
-			'instance_id'  => __( 'Instance ID.', 'woocommerce' ),
-			'id'           => __( 'The ID for the resource.', 'woocommerce' ),
-			'slug'         => __( 'The slug for the resource.', 'woocommerce' ),
+			'product_id'   => __( 'Product ID.', 'poocommerce' ),
+			'customer_id'  => __( 'Customer ID.', 'poocommerce' ),
+			'order_id'     => __( 'Order ID.', 'poocommerce' ),
+			'refund_id'    => __( 'Refund ID.', 'poocommerce' ),
+			'attribute_id' => __( 'Attribute ID.', 'poocommerce' ),
+			'zone_id'      => __( 'Zone ID.', 'poocommerce' ),
+			'instance_id'  => __( 'Instance ID.', 'poocommerce' ),
+			'id'           => __( 'The ID for the resource.', 'poocommerce' ),
+			'slug'         => __( 'The slug for the resource.', 'poocommerce' ),
 		);
 		$rest_command->set_supported_ids( $supported_ids );
 		$positional_args = array_keys( $supported_ids );
@@ -187,19 +187,19 @@ class WC_CLI_Runner {
 				$synopsis[] = array(
 					'name'        => 'fields',
 					'type'        => 'assoc',
-					'description' => __( 'Limit response to specific fields. Defaults to all fields.', 'woocommerce' ),
+					'description' => __( 'Limit response to specific fields. Defaults to all fields.', 'poocommerce' ),
 					'optional'    => true,
 				);
 				$synopsis[] = array(
 					'name'        => 'field',
 					'type'        => 'assoc',
-					'description' => __( 'Get the value of an individual field.', 'woocommerce' ),
+					'description' => __( 'Get the value of an individual field.', 'poocommerce' ),
 					'optional'    => true,
 				);
 				$synopsis[] = array(
 					'name'        => 'format',
 					'type'        => 'assoc',
-					'description' => __( 'Render response in a particular format.', 'woocommerce' ),
+					'description' => __( 'Render response in a particular format.', 'poocommerce' ),
 					'optional'    => true,
 					'default'     => 'table',
 					'options'     => array(
@@ -220,7 +220,7 @@ class WC_CLI_Runner {
 				$synopsis[] = array(
 					'name'        => 'porcelain',
 					'type'        => 'flag',
-					'description' => __( 'Output just the id when the operation is successful.', 'woocommerce' ),
+					'description' => __( 'Output just the id when the operation is successful.', 'poocommerce' ),
 					'optional'    => true,
 				);
 			}

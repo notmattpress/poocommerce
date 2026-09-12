@@ -5,22 +5,22 @@
  * the contract lapses at period end. (The immediate-cancel mode is covered through the
  * facade suite.)
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine
+ * @package Automattic\PooCommerce\SubscriptionsEngine
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Tests\Integration\Integration\Contracts;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Tests\Integration\Integration\Contracts;
 
 use DomainException;
 use EngineIntegrationTestCase;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\Contract;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\ContractStatus;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Contracts\Cancellation;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage\ContractRepository;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\Contract;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\ContractStatus;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Contracts\Cancellation;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage\ContractRepository;
 
 /**
- * @covers \Automattic\WooCommerce\SubscriptionsEngine\Integration\Contracts\Cancellation
+ * @covers \Automattic\PooCommerce\SubscriptionsEngine\Integration\Contracts\Cancellation
  */
 class CancellationTest extends EngineIntegrationTestCase {
 

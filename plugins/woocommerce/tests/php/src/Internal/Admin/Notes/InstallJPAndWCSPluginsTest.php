@@ -5,11 +5,11 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\Notes;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\Notes;
 
-use Automattic\WooCommerce\Admin\Notes\Note;
-use Automattic\WooCommerce\Internal\Admin\Notes\InstallJPAndWCSPlugins;
-use Automattic\WooCommerce\Internal\Admin\Notes\NoteActionForbiddenException;
+use Automattic\PooCommerce\Admin\Notes\Note;
+use Automattic\PooCommerce\Internal\Admin\Notes\InstallJPAndWCSPlugins;
+use Automattic\PooCommerce\Internal\Admin\Notes\NoteActionForbiddenException;
 use WC_Unit_Test_Case;
 
 /**

@@ -2,8 +2,8 @@
  * External dependencies
  */
 import { getQueryArg, getQueryArgs, addQueryArgs } from '@wordpress/url';
-import { getSettingWithCoercion } from '@woocommerce/settings';
-import { isBoolean } from '@woocommerce/types';
+import { getSettingWithCoercion } from '@poocommerce/settings';
+import { isBoolean } from '@poocommerce/types';
 
 const filteringForPhpTemplate = getSettingWithCoercion(
 	'isRenderingPhpTemplate',

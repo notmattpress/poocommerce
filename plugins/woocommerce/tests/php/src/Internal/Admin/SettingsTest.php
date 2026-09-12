@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin;
+namespace Automattic\PooCommerce\Tests\Internal\Admin;
 
-use Automattic\WooCommerce\Internal\Admin\Settings;
+use Automattic\PooCommerce\Internal\Admin\Settings;
 use WC_REST_Setting_Options_Controller;
 use WC_Unit_Test_Case;
 
@@ -51,9 +51,9 @@ class SettingsTest extends WC_Unit_Test_Case {
 	public function test_date_type_setting_has_date_paid_default(): void {
 		$sut = new Settings();
 
-		$date_type = $this->find_setting( $sut->add_settings( array() ), 'woocommerce_date_type' );
+		$date_type = $this->find_setting( $sut->add_settings( array() ), 'poocommerce_date_type' );
 
-		$this->assertNotNull( $date_type, 'The woocommerce_date_type setting should be registered in the wc_admin group' );
+		$this->assertNotNull( $date_type, 'The poocommerce_date_type setting should be registered in the wc_admin group' );
 		$this->assertSame( 'date_paid', $date_type['default'] ?? null, 'The date type default should match the date_paid fallback used by the reports data stores' );
 	}
 
@@ -61,11 +61,11 @@ class SettingsTest extends WC_Unit_Test_Case {
 	 * @testdox Should resolve the date type value to 'date_paid' when the option has never been saved.
 	 */
 	public function test_date_type_value_falls_back_to_date_paid_when_option_is_unset(): void {
-		delete_option( 'woocommerce_date_type' );
+		delete_option( 'poocommerce_date_type' );
 
-		$date_type = $this->find_setting( $this->get_wc_admin_group_settings(), 'woocommerce_date_type' );
+		$date_type = $this->find_setting( $this->get_wc_admin_group_settings(), 'poocommerce_date_type' );
 
-		$this->assertNotNull( $date_type, 'The woocommerce_date_type setting should be registered in the wc_admin group' );
+		$this->assertNotNull( $date_type, 'The poocommerce_date_type setting should be registered in the wc_admin group' );
 		$this->assertSame( 'date_paid', $date_type['value'], 'An unset date type option should resolve to the effective default, date_paid' );
 	}
 
@@ -73,11 +73,11 @@ class SettingsTest extends WC_Unit_Test_Case {
 	 * @testdox Should resolve the date type value to the saved option value when one exists.
 	 */
 	public function test_date_type_value_reflects_saved_option(): void {
-		update_option( 'woocommerce_date_type', 'date_completed' );
+		update_option( 'poocommerce_date_type', 'date_completed' );
 
-		$date_type = $this->find_setting( $this->get_wc_admin_group_settings(), 'woocommerce_date_type' );
+		$date_type = $this->find_setting( $this->get_wc_admin_group_settings(), 'poocommerce_date_type' );
 
-		$this->assertNotNull( $date_type, 'The woocommerce_date_type setting should be registered in the wc_admin group' );
+		$this->assertNotNull( $date_type, 'The poocommerce_date_type setting should be registered in the wc_admin group' );
 		$this->assertSame( 'date_completed', $date_type['value'], 'A saved date type option should be reflected as the setting value' );
 	}
 
@@ -85,8 +85,8 @@ class SettingsTest extends WC_Unit_Test_Case {
 	 * @testdox Should decode HTML entities in the currency separators exposed to the client.
 	 */
 	public function test_currency_settings_decode_separator_entities(): void {
-		update_option( 'woocommerce_price_thousand_sep', '&nbsp;' );
-		update_option( 'woocommerce_price_decimal_sep', '&#44;' );
+		update_option( 'poocommerce_price_thousand_sep', '&nbsp;' );
+		update_option( 'poocommerce_price_decimal_sep', '&#44;' );
 
 		$currency_settings = Settings::get_currency_settings();
 
@@ -99,7 +99,7 @@ class SettingsTest extends WC_Unit_Test_Case {
 	 */
 	public function test_default_excluded_order_statuses_without_filter(): void {
 		$settings = $this->sut->add_settings( array() );
-		$setting  = $this->find_setting( $settings, 'woocommerce_excluded_report_order_statuses' );
+		$setting  = $this->find_setting( $settings, 'poocommerce_excluded_report_order_statuses' );
 
 		$this->assertSame( array( 'pending', 'cancelled', 'failed' ), $setting['default'] );
 	}
@@ -109,31 +109,31 @@ class SettingsTest extends WC_Unit_Test_Case {
 	 */
 	public function test_default_actionable_order_statuses_without_filter(): void {
 		$settings = $this->sut->add_settings( array() );
-		$setting  = $this->find_setting( $settings, 'woocommerce_actionable_order_statuses' );
+		$setting  = $this->find_setting( $settings, 'poocommerce_actionable_order_statuses' );
 
 		$this->assertSame( array( 'processing', 'on-hold' ), $setting['default'] );
 	}
 
 	/**
-	 * @testdox woocommerce_analytics_settings_default_excluded_order_statuses lets a plugin activate a status by default.
+	 * @testdox poocommerce_analytics_settings_default_excluded_order_statuses lets a plugin activate a status by default.
 	 */
 	public function test_default_excluded_order_statuses_can_be_filtered(): void {
-		$this->add_default_status_filter( 'woocommerce_analytics_settings_default_excluded_order_statuses' );
+		$this->add_default_status_filter( 'poocommerce_analytics_settings_default_excluded_order_statuses' );
 
 		$settings = $this->sut->add_settings( array() );
-		$setting  = $this->find_setting( $settings, 'woocommerce_excluded_report_order_statuses' );
+		$setting  = $this->find_setting( $settings, 'poocommerce_excluded_report_order_statuses' );
 
 		$this->assertContains( 'refunded', $setting['default'] );
 	}
 
 	/**
-	 * @testdox woocommerce_analytics_settings_default_actionable_order_statuses lets a plugin activate a status by default.
+	 * @testdox poocommerce_analytics_settings_default_actionable_order_statuses lets a plugin activate a status by default.
 	 */
 	public function test_default_actionable_order_statuses_can_be_filtered(): void {
-		$this->add_default_status_filter( 'woocommerce_analytics_settings_default_actionable_order_statuses' );
+		$this->add_default_status_filter( 'poocommerce_analytics_settings_default_actionable_order_statuses' );
 
 		$settings = $this->sut->add_settings( array() );
-		$setting  = $this->find_setting( $settings, 'woocommerce_actionable_order_statuses' );
+		$setting  = $this->find_setting( $settings, 'poocommerce_actionable_order_statuses' );
 
 		$this->assertContains( 'refunded', $setting['default'] );
 	}
@@ -142,10 +142,10 @@ class SettingsTest extends WC_Unit_Test_Case {
 	 * @testdox A default order statuses filter returning an unknown status has that status dropped.
 	 */
 	public function test_default_order_statuses_filter_drops_unknown_status(): void {
-		$this->add_default_status_filter( 'woocommerce_analytics_settings_default_excluded_order_statuses' );
+		$this->add_default_status_filter( 'poocommerce_analytics_settings_default_excluded_order_statuses' );
 
 		$settings = $this->sut->add_settings( array() );
-		$setting  = $this->find_setting( $settings, 'woocommerce_excluded_report_order_statuses' );
+		$setting  = $this->find_setting( $settings, 'poocommerce_excluded_report_order_statuses' );
 
 		$this->assertNotContains( 'not-a-real-status', $setting['default'] );
 	}
@@ -154,11 +154,11 @@ class SettingsTest extends WC_Unit_Test_Case {
 	 * @testdox A default order statuses filter returning only unknown slugs falls back to the built-in default.
 	 */
 	public function test_default_order_statuses_filter_all_unknown_falls_back(): void {
-		add_filter( 'woocommerce_analytics_settings_default_excluded_order_statuses', array( $this, 'return_only_unknown_statuses' ) );
-		$this->added_filters[] = array( 'woocommerce_analytics_settings_default_excluded_order_statuses', array( $this, 'return_only_unknown_statuses' ) );
+		add_filter( 'poocommerce_analytics_settings_default_excluded_order_statuses', array( $this, 'return_only_unknown_statuses' ) );
+		$this->added_filters[] = array( 'poocommerce_analytics_settings_default_excluded_order_statuses', array( $this, 'return_only_unknown_statuses' ) );
 
 		$settings = $this->sut->add_settings( array() );
-		$setting  = $this->find_setting( $settings, 'woocommerce_excluded_report_order_statuses' );
+		$setting  = $this->find_setting( $settings, 'poocommerce_excluded_report_order_statuses' );
 
 		$this->assertSame( array( 'pending', 'cancelled', 'failed' ), $setting['default'] );
 	}
@@ -178,11 +178,11 @@ class SettingsTest extends WC_Unit_Test_Case {
 	 * @testdox A default order statuses filter returning a non-array falls back to the built-in default.
 	 */
 	public function test_default_order_statuses_filter_invalid_type_falls_back(): void {
-		add_filter( 'woocommerce_analytics_settings_default_excluded_order_statuses', '__return_false' );
-		$this->added_filters[] = array( 'woocommerce_analytics_settings_default_excluded_order_statuses', '__return_false' );
+		add_filter( 'poocommerce_analytics_settings_default_excluded_order_statuses', '__return_false' );
+		$this->added_filters[] = array( 'poocommerce_analytics_settings_default_excluded_order_statuses', '__return_false' );
 
 		$settings = $this->sut->add_settings( array() );
-		$setting  = $this->find_setting( $settings, 'woocommerce_excluded_report_order_statuses' );
+		$setting  = $this->find_setting( $settings, 'poocommerce_excluded_report_order_statuses' );
 
 		$this->assertSame( array( 'pending', 'cancelled', 'failed' ), $setting['default'] );
 	}
@@ -245,7 +245,7 @@ class SettingsTest extends WC_Unit_Test_Case {
 	 * @testdox A default order statuses filter is the source of truth for runtime consumers, not just the settings UI.
 	 */
 	public function test_default_excluded_order_statuses_accessor_applies_filter(): void {
-		$this->add_default_status_filter( 'woocommerce_analytics_settings_default_excluded_order_statuses' );
+		$this->add_default_status_filter( 'poocommerce_analytics_settings_default_excluded_order_statuses' );
 
 		$statuses = Settings::get_default_excluded_order_statuses();
 
@@ -256,7 +256,7 @@ class SettingsTest extends WC_Unit_Test_Case {
 	 * @testdox The actionable default accessor applies its filter.
 	 */
 	public function test_default_actionable_order_statuses_accessor_applies_filter(): void {
-		$this->add_default_status_filter( 'woocommerce_analytics_settings_default_actionable_order_statuses' );
+		$this->add_default_status_filter( 'poocommerce_analytics_settings_default_actionable_order_statuses' );
 
 		$statuses = Settings::get_default_actionable_order_statuses();
 
@@ -279,11 +279,11 @@ class SettingsTest extends WC_Unit_Test_Case {
 		$empty_filter = function () {
 			return array();
 		};
-		add_filter( 'woocommerce_analytics_settings_default_excluded_order_statuses', $empty_filter );
-		$this->added_filters[] = array( 'woocommerce_analytics_settings_default_excluded_order_statuses', $empty_filter );
+		add_filter( 'poocommerce_analytics_settings_default_excluded_order_statuses', $empty_filter );
+		$this->added_filters[] = array( 'poocommerce_analytics_settings_default_excluded_order_statuses', $empty_filter );
 
 		$settings = $this->sut->add_settings( array() );
-		$setting  = $this->find_setting( $settings, 'woocommerce_excluded_report_order_statuses' );
+		$setting  = $this->find_setting( $settings, 'poocommerce_excluded_report_order_statuses' );
 
 		$this->assertSame( array(), $setting['default'], 'An empty filtered default should stay empty in the UI.' );
 		$this->assertSame( array(), Settings::get_default_excluded_order_statuses(), 'The UI and runtime consumers should agree.' );

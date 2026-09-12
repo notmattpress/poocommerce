@@ -48,7 +48,7 @@ const resolveDuration = ( duration: string ): string => {
  * Resolves a date field's min/max constraint to a YYYY-MM-DD value for a date input.
  *
  * A constraint is either an absolute YYYY-MM-DD date or an ISO 8601-2 duration relative to today,
- * such as `P1D` or `-P18Y`. WooCommerce resolves the same expression in PHP when the submitted value is validated.
+ * such as `P1D` or `-P18Y`. PooCommerce resolves the same expression in PHP when the submitted value is validated.
  *
  * @param constraint The constraint as registered, or undefined when the field is unconstrained.
  * @return The resolved date, or undefined if there is no constraint or it could not be parsed.

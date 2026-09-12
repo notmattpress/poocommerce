@@ -1,11 +1,11 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Admin\API\Reports\Products;
+namespace Automattic\PooCommerce\Tests\Admin\API\Reports\Products;
 
-use Automattic\WooCommerce\Admin\API\Reports\Cache;
-use Automattic\WooCommerce\Admin\API\Reports\Orders\Stats\DataStore as OrdersStatsDataStore;
-use Automattic\WooCommerce\Admin\API\Reports\Products\DataStore as ProductsDataStore;
+use Automattic\PooCommerce\Admin\API\Reports\Cache;
+use Automattic\PooCommerce\Admin\API\Reports\Orders\Stats\DataStore as OrdersStatsDataStore;
+use Automattic\PooCommerce\Admin\API\Reports\Products\DataStore as ProductsDataStore;
 use WC_Helper_Product;
 use WC_Unit_Test_Case;
 
@@ -35,13 +35,13 @@ class DataStoreTest extends WC_Unit_Test_Case {
 	 */
 	public function tearDown(): void {
 		remove_filter( 'wc_order_statuses', array( $this, 'add_custom_status' ) );
-		delete_option( 'woocommerce_excluded_report_order_statuses' );
+		delete_option( 'poocommerce_excluded_report_order_statuses' );
 		unset( $GLOBALS['wp_post_statuses'][ 'wc-' . $this->long_status ] );
 		parent::tearDown();
 	}
 
 	/**
-	 * Register the custom status with WooCommerce.
+	 * Register the custom status with PooCommerce.
 	 *
 	 * @param array $statuses Registered order statuses.
 	 * @return array
@@ -98,7 +98,7 @@ class DataStoreTest extends WC_Unit_Test_Case {
 	public function test_excluded_long_custom_status_is_not_counted(): void {
 		$product_id = $this->create_synced_custom_status_order();
 
-		update_option( 'woocommerce_excluded_report_order_statuses', array( 'pending', 'failed', 'cancelled', $this->long_status ) );
+		update_option( 'poocommerce_excluded_report_order_statuses', array( 'pending', 'failed', 'cancelled', $this->long_status ) );
 
 		$data       = $this->get_product_report_data( $product_id );
 		$items_sold = array_sum( array_map( 'absint', array_column( $data->data, 'items_sold' ) ) );
@@ -112,7 +112,7 @@ class DataStoreTest extends WC_Unit_Test_Case {
 	public function test_non_excluded_long_custom_status_is_counted(): void {
 		$product_id = $this->create_synced_custom_status_order();
 
-		update_option( 'woocommerce_excluded_report_order_statuses', array( 'pending', 'failed', 'cancelled' ) );
+		update_option( 'poocommerce_excluded_report_order_statuses', array( 'pending', 'failed', 'cancelled' ) );
 
 		$data       = $this->get_product_report_data( $product_id );
 		$items_sold = array_sum( array_map( 'absint', array_column( $data->data, 'items_sold' ) ) );

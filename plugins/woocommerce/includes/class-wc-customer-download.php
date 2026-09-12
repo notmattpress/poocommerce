@@ -2,7 +2,7 @@
 /**
  * Class for customer download permissions.
  *
- * @package WooCommerce\Classes
+ * @package PooCommerce\Classes
  * @version 3.0.0
  * @since   3.0.0
  */
@@ -291,7 +291,7 @@ class WC_Customer_Download extends WC_Data implements ArrayAccess {
 
 		// Must have a permission_id to track download log.
 		if ( ! ( $this->get_id() > 0 ) ) {
-			throw new Exception( __( 'Invalid permission ID.', 'woocommerce' ) );
+			throw new Exception( __( 'Invalid permission ID.', 'poocommerce' ) );
 		}
 
 		// Increment download count, and decrement downloads remaining.
@@ -300,7 +300,7 @@ class WC_Customer_Download extends WC_Data implements ArrayAccess {
 		// Also, ensure downloads_remaining doesn't drop below zero.
 		$query = $wpdb->prepare(
 			"
-UPDATE {$wpdb->prefix}woocommerce_downloadable_product_permissions
+UPDATE {$wpdb->prefix}poocommerce_downloadable_product_permissions
 SET download_count = download_count + 1,
 downloads_remaining = IF( downloads_remaining = '', '', GREATEST( 0, downloads_remaining - 1 ) )
 WHERE permission_id = %d",

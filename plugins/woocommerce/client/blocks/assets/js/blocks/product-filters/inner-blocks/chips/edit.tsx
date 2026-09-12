@@ -4,8 +4,8 @@
 import { __ } from '@wordpress/i18n';
 import { Disabled } from '@wordpress/components';
 import clsx from 'clsx';
-import { decodeHtmlEntities } from '@woocommerce/utils';
-import { getSetting } from '@woocommerce/settings';
+import { decodeHtmlEntities } from '@poocommerce/utils';
+import { getSetting } from '@poocommerce/settings';
 import {
 	InspectorControls,
 	useBlockProps,
@@ -75,7 +75,7 @@ const Edit = ( props: EditProps ): JSX.Element => {
 		customSelectedChipBorder,
 	} = attributes;
 	const { isLoading = false, items = [] } =
-		context?.[ 'woocommerce/selectableItems' ] ?? {};
+		context?.[ 'poocommerce/selectableItems' ] ?? {};
 
 	const hasVisualSwatches = items.some( ( item ) => 'visual' in item );
 
@@ -186,7 +186,7 @@ const Edit = ( props: EditProps ): JSX.Element => {
 					</div>
 					{ ! isLoading && isLongList && (
 						<button className="wc-block-product-filter-chips__show-more">
-							{ __( 'Show more…', 'woocommerce' ) }
+							{ __( 'Show more…', 'poocommerce' ) }
 						</button>
 					) }
 				</Disabled>
@@ -201,7 +201,7 @@ const Edit = ( props: EditProps ): JSX.Element => {
 										{
 											label: __(
 												'Unselected Chip Text',
-												'woocommerce'
+												'poocommerce'
 											),
 											colorValue:
 												chipText.color ||
@@ -226,7 +226,7 @@ const Edit = ( props: EditProps ): JSX.Element => {
 							{
 								label: __(
 									'Unselected Chip Border',
-									'woocommerce'
+									'poocommerce'
 								),
 								colorValue:
 									chipBorder.color || customChipBorder,
@@ -248,7 +248,7 @@ const Edit = ( props: EditProps ): JSX.Element => {
 										{
 											label: __(
 												'Unselected Chip Background',
-												'woocommerce'
+												'poocommerce'
 											),
 											colorValue:
 												chipBackground.color ||
@@ -272,7 +272,7 @@ const Edit = ( props: EditProps ): JSX.Element => {
 										{
 											label: __(
 												'Selected Chip Text',
-												'woocommerce'
+												'poocommerce'
 											),
 											colorValue:
 												selectedChipText.color ||
@@ -300,7 +300,7 @@ const Edit = ( props: EditProps ): JSX.Element => {
 							{
 								label: __(
 									'Selected Chip Border',
-									'woocommerce'
+									'poocommerce'
 								),
 								colorValue:
 									selectedChipBorder.color ||
@@ -323,7 +323,7 @@ const Edit = ( props: EditProps ): JSX.Element => {
 										{
 											label: __(
 												'Selected Chip Background',
-												'woocommerce'
+												'poocommerce'
 											),
 											colorValue:
 												selectedChipBackground.color ||

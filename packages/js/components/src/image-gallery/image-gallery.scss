@@ -1,20 +1,20 @@
-.woocommerce-image-gallery {
+.poocommerce-image-gallery {
     img {
         display: block;
     }
 
-    .woocommerce-sortable, &__wrapper {
+    .poocommerce-sortable, &__wrapper {
         display: grid;
         grid-template-columns: inherit;
         grid-gap: $gap;
     }
 
-    .woocommerce-sortable__handle {
+    .poocommerce-sortable__handle {
         display: block;
         margin: 0;
     }
 
-    .woocommerce-sortable__item {
+    .poocommerce-sortable__item {
         &.is-dragging {
             position: absolute;
         }

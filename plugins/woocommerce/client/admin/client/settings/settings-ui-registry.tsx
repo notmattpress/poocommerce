@@ -3,7 +3,7 @@
  */
 import { createElement, createRoot } from '@wordpress/element';
 import type { ComponentType, ReactNode } from 'react';
-import type { SettingsUISchema } from '@woocommerce/settings-ui';
+import type { SettingsUISchema } from '@poocommerce/settings-ui';
 
 /**
  * Internal dependencies
@@ -47,7 +47,7 @@ export const registerSettingsUIScreens = () => {
 		) {
 			// eslint-disable-next-line no-console
 			console.warn(
-				'[WooCommerce settings UI] The wc-settings-ui script is missing.'
+				'[PooCommerce settings UI] The wc-settings-ui script is missing.'
 			);
 		}
 		return;
@@ -63,7 +63,7 @@ export const registerSettingsUIScreens = () => {
 			if ( ! schema ) {
 				// eslint-disable-next-line no-console
 				console.warn(
-					'[WooCommerce settings UI] Settings payload is missing.',
+					'[PooCommerce settings UI] Settings payload is missing.',
 					{ page, section }
 				);
 				return;

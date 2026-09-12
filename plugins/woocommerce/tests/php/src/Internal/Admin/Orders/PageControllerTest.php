@@ -1,11 +1,11 @@
 <?php
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\Orders {
+namespace Automattic\PooCommerce\Tests\Internal\Admin\Orders {
 
-	use Automattic\WooCommerce\Internal\Admin\Orders\PageController;
-	use Automattic\WooCommerce\RestApi\UnitTests\HPOSToggleTrait;
-	use Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
-	use Automattic\WooCommerce\Utilities\OrderUtil;
+	use Automattic\PooCommerce\Internal\Admin\Orders\PageController;
+	use Automattic\PooCommerce\RestApi\UnitTests\HPOSToggleTrait;
+	use Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
+	use Automattic\PooCommerce\Utilities\OrderUtil;
 
 	/**
 	 * Tests related to the HPOS orders admin pages controller.
@@ -204,7 +204,7 @@ namespace Automattic\WooCommerce\Tests\Internal\Admin\Orders {
 /**
  * Mocks for global functions used in PageController
  */
-namespace Automattic\WooCommerce\Internal\Admin\Orders {
+namespace Automattic\PooCommerce\Internal\Admin\Orders {
 	/**
 	 * The filter_input function will return NULL if we change the $_GET or $_POST variables at runtime, so we
 	 * need to override it in PageController's namespace when we want it to return a specific value for testing.

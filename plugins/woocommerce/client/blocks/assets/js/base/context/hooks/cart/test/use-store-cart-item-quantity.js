@@ -3,12 +3,12 @@
  */
 import { renderHook, act } from '@testing-library/react';
 import { createRegistry, RegistryProvider } from '@wordpress/data';
-import { CART_STORE_KEY, CHECKOUT_STORE_KEY } from '@woocommerce/block-data';
+import { CART_STORE_KEY, CHECKOUT_STORE_KEY } from '@poocommerce/block-data';
 
 /**
  * Internal dependencies
  */
-import { config as checkoutStoreConfig } from '@woocommerce/block-data/checkout';
+import { config as checkoutStoreConfig } from '@poocommerce/block-data/checkout';
 import * as mockUseStoreCart from '../use-store-cart';
 import { useStoreCartItemQuantity } from '../use-store-cart-item-quantity';
 
@@ -16,10 +16,10 @@ jest.mock( '../use-store-cart', () => ( {
 	useStoreCart: jest.fn(),
 } ) );
 
-jest.mock( '@woocommerce/block-data', () => {
-	const cart = jest.requireActual( '@woocommerce/block-data/cart' );
-	const checkout = jest.requireActual( '@woocommerce/block-data/checkout' );
-	const utils = jest.requireActual( '@woocommerce/block-data/utils' );
+jest.mock( '@poocommerce/block-data', () => {
+	const cart = jest.requireActual( '@poocommerce/block-data/cart' );
+	const checkout = jest.requireActual( '@poocommerce/block-data/checkout' );
+	const utils = jest.requireActual( '@poocommerce/block-data/utils' );
 
 	return {
 		__esModule: true,

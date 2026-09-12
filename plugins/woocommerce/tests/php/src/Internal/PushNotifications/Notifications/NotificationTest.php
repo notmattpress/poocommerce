@@ -2,12 +2,12 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\PushNotifications\Notifications;
+namespace Automattic\PooCommerce\Tests\Internal\PushNotifications\Notifications;
 
-use Automattic\WooCommerce\Internal\PushNotifications\Notifications\NewOrderNotification;
-use Automattic\WooCommerce\Internal\PushNotifications\Notifications\NewReviewNotification;
-use Automattic\WooCommerce\Internal\PushNotifications\Notifications\Notification;
-use Automattic\WooCommerce\Internal\PushNotifications\Notifications\StockNotification;
+use Automattic\PooCommerce\Internal\PushNotifications\Notifications\NewOrderNotification;
+use Automattic\PooCommerce\Internal\PushNotifications\Notifications\NewReviewNotification;
+use Automattic\PooCommerce\Internal\PushNotifications\Notifications\Notification;
+use Automattic\PooCommerce\Internal\PushNotifications\Notifications\StockNotification;
 use InvalidArgumentException;
 use WC_Unit_Test_Case;
 
@@ -59,9 +59,9 @@ class NotificationTest extends WC_Unit_Test_Case {
 
 	/**
 	 * @testdox from_array should create correct notification for $type type.
-	 * @testWith ["store_order", "Automattic\\WooCommerce\\Internal\\PushNotifications\\Notifications\\NewOrderNotification"]
-	 *           ["store_review", "Automattic\\WooCommerce\\Internal\\PushNotifications\\Notifications\\NewReviewNotification"]
-	 *           ["store_stock", "Automattic\\WooCommerce\\Internal\\PushNotifications\\Notifications\\StockNotification"]
+	 * @testWith ["store_order", "Automattic\\PooCommerce\\Internal\\PushNotifications\\Notifications\\NewOrderNotification"]
+	 *           ["store_review", "Automattic\\PooCommerce\\Internal\\PushNotifications\\Notifications\\NewReviewNotification"]
+	 *           ["store_stock", "Automattic\\PooCommerce\\Internal\\PushNotifications\\Notifications\\StockNotification"]
 	 *
 	 * @param string $type           The notification type.
 	 * @param string $expected_class The expected class name.

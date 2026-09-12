@@ -1,9 +1,9 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin;
+namespace Automattic\PooCommerce\Tests\Internal\Admin;
 
-use Automattic\WooCommerce\Internal\Admin\Loader;
+use Automattic\PooCommerce\Internal\Admin\Loader;
 use WC_Unit_Test_Case;
 
 /**

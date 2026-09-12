@@ -2,7 +2,7 @@
 /**
  * Tests for the functions in includes/wc-page-functions.php.
  *
- * @package WooCommerce\Tests\PageFunctions
+ * @package PooCommerce\Tests\PageFunctions
  */
 
 /**
@@ -36,7 +36,7 @@ class WC_Tests_Page_Functions extends WC_Unit_Test_Case {
 		$url = wc_get_endpoint_url( 'customer-logout', 'yes', 'https://' . WP_TESTS_DOMAIN . '/?foo=bar' );
 		$this->assertEquals( 'https://' . WP_TESTS_DOMAIN . '/customer-logout/yes/?foo=bar', $url );
 
-		// test added after issue https://github.com/woocommerce/woocommerce/issues/24240.
+		// test added after issue https://github.com/poocommerce/poocommerce/issues/24240.
 		update_option( 'permalink_structure', '/%postname%' );
 		$wp_rewrite->use_trailing_slashes = false;
 
@@ -54,7 +54,7 @@ class WC_Tests_Page_Functions extends WC_Unit_Test_Case {
 		$wp_query     = null; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 		$wp_the_query = null; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 		$post         = null; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
-		delete_option( 'woocommerce_myaccount_page_id' );
+		delete_option( 'poocommerce_myaccount_page_id' );
 		add_filter( 'the_title', 'wc_page_endpoint_title', 10, 2 );
 
 		parent::tearDown();
@@ -75,7 +75,7 @@ class WC_Tests_Page_Functions extends WC_Unit_Test_Case {
 				'post_name'   => 'my-account',
 			)
 		);
-		update_option( 'woocommerce_myaccount_page_id', $page_id );
+		update_option( 'poocommerce_myaccount_page_id', $page_id );
 
 		global $post, $wp, $wp_query, $wp_the_query;
 		$post = get_post( $page_id ); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited

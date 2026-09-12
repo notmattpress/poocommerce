@@ -1,6 +1,6 @@
-# WooCommerce CLI Migrator
+# PooCommerce CLI Migrator
 
-A command-line tool for migrating products from external e-commerce platforms to WooCommerce.
+A command-line tool for migrating products from external e-commerce platforms to PooCommerce.
 
 ## Available Commands
 
@@ -111,27 +111,27 @@ wp wc migrate products --assign-default-category --limit=100
 
 ### Components
 
-- **Platform Registry** ([`PlatformRegistry.php`](https://github.com/woocommerce/woocommerce/blob/trunk/plugins/woocommerce/src/Internal/CLI/Migrator/Core/PlatformRegistry.php)) - Manages registered migration platforms
-- **Credential Manager** ([`CredentialManager.php`](https://github.com/woocommerce/woocommerce/blob/trunk/plugins/woocommerce/src/Internal/CLI/Migrator/Core/CredentialManager.php)) - Handles platform credentials
-- **Products Controller** ([`ProductsController.php`](https://github.com/woocommerce/woocommerce/blob/trunk/plugins/woocommerce/src/Internal/CLI/Migrator/Core/ProductsController.php)) - Orchestrates product migration
-- **WooCommerce Product Importer** ([`WooCommerceProductImporter.php`](https://github.com/woocommerce/woocommerce/blob/trunk/plugins/woocommerce/src/Internal/CLI/Migrator/Core/WooCommerceProductImporter.php)) - Imports data to WooCommerce
+- **Platform Registry** ([`PlatformRegistry.php`](https://github.com/poocommerce/poocommerce/blob/trunk/plugins/poocommerce/src/Internal/CLI/Migrator/Core/PlatformRegistry.php)) - Manages registered migration platforms
+- **Credential Manager** ([`CredentialManager.php`](https://github.com/poocommerce/poocommerce/blob/trunk/plugins/poocommerce/src/Internal/CLI/Migrator/Core/CredentialManager.php)) - Handles platform credentials
+- **Products Controller** ([`ProductsController.php`](https://github.com/poocommerce/poocommerce/blob/trunk/plugins/poocommerce/src/Internal/CLI/Migrator/Core/ProductsController.php)) - Orchestrates product migration
+- **PooCommerce Product Importer** ([`PooCommerceProductImporter.php`](https://github.com/poocommerce/poocommerce/blob/trunk/plugins/poocommerce/src/Internal/CLI/Migrator/Core/PooCommerceProductImporter.php)) - Imports data to PooCommerce
 
 ### Platform Interface
 
 Each platform must implement:
 
-- **PlatformFetcherInterface** ([`PlatformFetcherInterface.php`](https://github.com/woocommerce/woocommerce/blob/trunk/plugins/woocommerce/src/Internal/CLI/Migrator/Interfaces/PlatformFetcherInterface.php)) - Data retrieval
-- **PlatformMapperInterface** ([`PlatformMapperInterface.php`](https://github.com/woocommerce/woocommerce/blob/trunk/plugins/woocommerce/src/Internal/CLI/Migrator/Interfaces/PlatformMapperInterface.php)) - Data transformation
+- **PlatformFetcherInterface** ([`PlatformFetcherInterface.php`](https://github.com/poocommerce/poocommerce/blob/trunk/plugins/poocommerce/src/Internal/CLI/Migrator/Interfaces/PlatformFetcherInterface.php)) - Data retrieval
+- **PlatformMapperInterface** ([`PlatformMapperInterface.php`](https://github.com/poocommerce/poocommerce/blob/trunk/plugins/poocommerce/src/Internal/CLI/Migrator/Interfaces/PlatformMapperInterface.php)) - Data transformation
 
 ## Supported Platforms
 
 | Platform | Status | Location |
 |----------|--------|----------|
-| **Shopify** | ✅ Production Ready | [`Platforms/Shopify/`](https://github.com/woocommerce/woocommerce/tree/trunk/plugins/woocommerce/src/Internal/CLI/Migrator/Platforms/Shopify/) |
+| **Shopify** | ✅ Production Ready | [`Platforms/Shopify/`](https://github.com/poocommerce/poocommerce/tree/trunk/plugins/poocommerce/src/Internal/CLI/Migrator/Platforms/Shopify/) |
 
 ## Creating a New Platform
 
-To add support for new platforms, create them as **external WordPress plugins** that register themselves using the `woocommerce_migrator_platforms` filter.
+To add support for new platforms, create them as **external WordPress plugins** that register themselves using the `poocommerce_migrator_platforms` filter.
 
 ### 1. Create Plugin Structure
 
@@ -151,13 +151,13 @@ In your main plugin file:
 <?php
 /**
  * Plugin Name: Your Platform Migrator
- * Description: Migrate from Your Platform to WooCommerce
+ * Description: Migrate from Your Platform to PooCommerce
  */
 
 add_action('init', function() {
-    if (!class_exists('WooCommerce')) return;
+    if (!class_exists('PooCommerce')) return;
     
-    add_filter('woocommerce_migrator_platforms', function($platforms) {
+    add_filter('poocommerce_migrator_platforms', function($platforms) {
         $platforms['yourplatform'] = [
             'name'        => 'Your Platform',
             'fetcher'     => 'YourNamespace\\YourPlatformFetcher',
@@ -176,7 +176,7 @@ add_action('init', function() {
 
 ```php
 <?php
-use Automattic\WooCommerce\Internal\CLI\Migrator\Interfaces\PlatformFetcherInterface;
+use Automattic\PooCommerce\Internal\CLI\Migrator\Interfaces\PlatformFetcherInterface;
 
 class YourPlatformFetcher implements PlatformFetcherInterface {
     private array $credentials;
@@ -200,7 +200,7 @@ class YourPlatformFetcher implements PlatformFetcherInterface {
 
 ```php
 <?php
-use Automattic\WooCommerce\Internal\CLI\Migrator\Interfaces\PlatformMapperInterface;
+use Automattic\PooCommerce\Internal\CLI\Migrator\Interfaces\PlatformMapperInterface;
 
 class YourPlatformMapper implements PlatformMapperInterface {
     public function map_product_data(object $source_product): array {
@@ -217,7 +217,7 @@ class YourPlatformMapper implements PlatformMapperInterface {
 
 ### Reference Implementation
 
-See the Shopify platform for a complete example: [`Platforms/Shopify/`](https://github.com/woocommerce/woocommerce/tree/trunk/plugins/woocommerce/src/Internal/CLI/Migrator/Platforms/Shopify/)
+See the Shopify platform for a complete example: [`Platforms/Shopify/`](https://github.com/poocommerce/poocommerce/tree/trunk/plugins/poocommerce/src/Internal/CLI/Migrator/Platforms/Shopify/)
 
 ## Required Data Structure
 

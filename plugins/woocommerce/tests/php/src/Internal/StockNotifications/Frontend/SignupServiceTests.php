@@ -1,17 +1,17 @@
 <?php
 
 declare( strict_types = 1 );
-namespace Automattic\WooCommerce\Tests\Internal\StockNotifications\Frontend;
+namespace Automattic\PooCommerce\Tests\Internal\StockNotifications\Frontend;
 
-use Automattic\WooCommerce\Internal\StockNotifications\Emails\EmailManager;
-use Automattic\WooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
-use Automattic\WooCommerce\Internal\StockNotifications\Frontend\NotificationManagementService;
-use Automattic\WooCommerce\Internal\StockNotifications\Frontend\SignupRateLimiter;
-use Automattic\WooCommerce\Internal\StockNotifications\Frontend\SignupService;
-use Automattic\WooCommerce\Internal\StockNotifications\Notification;
-use Automattic\WooCommerce\Internal\StockNotifications\Utilities\EligibilityService;
-use Automattic\WooCommerce\Internal\StockNotifications\Utilities\StockManagementHelper;
-use Automattic\WooCommerce\Tests\Internal\StockNotifications\StockNotificationsFeatureTrait;
+use Automattic\PooCommerce\Internal\StockNotifications\Emails\EmailManager;
+use Automattic\PooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
+use Automattic\PooCommerce\Internal\StockNotifications\Frontend\NotificationManagementService;
+use Automattic\PooCommerce\Internal\StockNotifications\Frontend\SignupRateLimiter;
+use Automattic\PooCommerce\Internal\StockNotifications\Frontend\SignupService;
+use Automattic\PooCommerce\Internal\StockNotifications\Notification;
+use Automattic\PooCommerce\Internal\StockNotifications\Utilities\EligibilityService;
+use Automattic\PooCommerce\Internal\StockNotifications\Utilities\StockManagementHelper;
+use Automattic\PooCommerce\Tests\Internal\StockNotifications\StockNotificationsFeatureTrait;
 use WC_Helper_Product;
 
 /**
@@ -52,7 +52,7 @@ class SignupServiceTests extends \WC_Unit_Test_Case {
 		$this->original_remote_addr = isset( $_SERVER['REMOTE_ADDR'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) ) : null;
 		$_SERVER['REMOTE_ADDR']     = '192.0.2.10';
 
-		update_option( 'woocommerce_customer_stock_notifications_allow_signups', 'yes' );
+		update_option( 'poocommerce_customer_stock_notifications_allow_signups', 'yes' );
 
 		$eligibility_service = new EligibilityService();
 		$eligibility_service->init( new StockManagementHelper() );
@@ -76,8 +76,8 @@ class SignupServiceTests extends \WC_Unit_Test_Case {
 			$_SERVER['REMOTE_ADDR'] = $this->original_remote_addr;
 		}
 
-		delete_option( 'woocommerce_customer_stock_notifications_allow_signups' );
-		delete_option( 'woocommerce_customer_stock_notifications_require_double_opt_in' );
+		delete_option( 'poocommerce_customer_stock_notifications_allow_signups' );
+		delete_option( 'poocommerce_customer_stock_notifications_require_double_opt_in' );
 
 		// DELETE rather than TRUNCATE so the outer WP_UnitTestCase transaction can still roll back.
 		// TRUNCATE is DDL and implicitly commits the surrounding transaction.
@@ -93,7 +93,7 @@ class SignupServiceTests extends \WC_Unit_Test_Case {
 	 * @testdox Should send the verify email when double opt-in is required and a new pending notification is created.
 	 */
 	public function test_verify_email_sent_when_double_opt_in_required() {
-		update_option( 'woocommerce_customer_stock_notifications_require_double_opt_in', 'yes' );
+		update_option( 'poocommerce_customer_stock_notifications_require_double_opt_in', 'yes' );
 
 		$product = $this->create_out_of_stock_product();
 
@@ -116,7 +116,7 @@ class SignupServiceTests extends \WC_Unit_Test_Case {
 	 * @testdox Should not send the verify email when double opt-in is disabled.
 	 */
 	public function test_verify_email_not_sent_when_double_opt_in_disabled() {
-		update_option( 'woocommerce_customer_stock_notifications_require_double_opt_in', 'no' );
+		update_option( 'poocommerce_customer_stock_notifications_require_double_opt_in', 'no' );
 
 		$product = $this->create_out_of_stock_product();
 
@@ -145,7 +145,7 @@ class SignupServiceTests extends \WC_Unit_Test_Case {
 	 * @testdox Should not create a notification or send an email for a rate limited signup.
 	 */
 	public function test_rate_limited_signup_creates_nothing() {
-		update_option( 'woocommerce_customer_stock_notifications_require_double_opt_in', 'yes' );
+		update_option( 'poocommerce_customer_stock_notifications_require_double_opt_in', 'yes' );
 
 		$product       = $this->create_out_of_stock_product();
 		$other_product = $this->create_out_of_stock_product();
@@ -167,7 +167,7 @@ class SignupServiceTests extends \WC_Unit_Test_Case {
 	 */
 	public function test_logged_in_signup_is_rate_limited_on_the_account_email() {
 		add_filter(
-			'woocommerce_customer_stock_notifications_signup_rate_limit_options',
+			'poocommerce_customer_stock_notifications_signup_rate_limit_options',
 			static function () {
 				return array(
 					'client_delay' => 0,
@@ -218,7 +218,7 @@ class SignupServiceTests extends \WC_Unit_Test_Case {
 	 * @testdox Should not consume the rate limit window when a pending double opt-in signup is already awaiting confirmation.
 	 */
 	public function test_pending_double_opt_in_signup_does_not_consume_the_rate_limit_window() {
-		update_option( 'woocommerce_customer_stock_notifications_require_double_opt_in', 'yes' );
+		update_option( 'poocommerce_customer_stock_notifications_require_double_opt_in', 'yes' );
 
 		$product       = $this->create_out_of_stock_product();
 		$other_product = $this->create_out_of_stock_product();
@@ -240,7 +240,7 @@ class SignupServiceTests extends \WC_Unit_Test_Case {
 	 * @testdox Should activate a pending notification without consuming the rate limit window when double opt-in is disabled.
 	 */
 	public function test_pending_signup_is_activated_and_does_not_consume_the_rate_limit_window_when_double_opt_in_disabled() {
-		update_option( 'woocommerce_customer_stock_notifications_require_double_opt_in', 'no' );
+		update_option( 'poocommerce_customer_stock_notifications_require_double_opt_in', 'no' );
 
 		$product       = $this->create_out_of_stock_product();
 		$other_product = $this->create_out_of_stock_product();
@@ -253,7 +253,7 @@ class SignupServiceTests extends \WC_Unit_Test_Case {
 
 		$signup_fired_count = 0;
 		add_action(
-			'woocommerce_customer_stock_notifications_signup',
+			'poocommerce_customer_stock_notifications_signup',
 			static function () use ( &$signup_fired_count ) {
 				++$signup_fired_count;
 			}
@@ -314,7 +314,7 @@ class SignupServiceTests extends \WC_Unit_Test_Case {
 	 * @testdox A second signup with a different-case email should be reported as already joined.
 	 */
 	public function test_signup_dedupes_case_variants(): void {
-		update_option( 'woocommerce_customer_stock_notifications_require_double_opt_in', 'no' );
+		update_option( 'poocommerce_customer_stock_notifications_require_double_opt_in', 'no' );
 
 		$product = $this->create_out_of_stock_product();
 

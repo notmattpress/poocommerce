@@ -2,8 +2,8 @@
  * External dependencies
  */
 import { registerPlugin } from '@wordpress/plugins';
-import { ExperimentalOrderMeta } from '@woocommerce/blocks-checkout';
-import { getSetting } from '@woocommerce/settings';
+import { ExperimentalOrderMeta } from '@poocommerce/blocks-checkout';
+import { getSetting } from '@poocommerce/settings';
 /**
  * Internal dependencies
  */
@@ -26,7 +26,7 @@ const render = () => {
 
 registerPlugin( '{{slug}}', {
 	render,
-	scope: 'woocommerce-checkout',
+	scope: 'poocommerce-checkout',
 } );
 
 registerFilters();

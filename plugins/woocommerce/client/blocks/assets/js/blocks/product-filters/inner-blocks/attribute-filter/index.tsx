@@ -1,9 +1,9 @@
 /**
  * External dependencies
  */
-import { productFilterAttribute } from '@woocommerce/icons';
-import { getSetting } from '@woocommerce/settings';
-import { AttributeSetting } from '@woocommerce/types';
+import { productFilterAttribute } from '@poocommerce/icons';
+import { getSetting } from '@poocommerce/settings';
+import { AttributeSetting } from '@poocommerce/types';
 import { registerBlockType } from '@wordpress/blocks';
 import { __, sprintf } from '@wordpress/i18n';
 
@@ -35,12 +35,12 @@ registerBlockType( metadata, {
 			name: `product-filter-attribute-${ attribute.attribute_name }`,
 			title: sprintf(
 				// translators: %s is the attribute label.
-				__( '%s Filter', 'woocommerce' ),
+				__( '%s Filter', 'poocommerce' ),
 				attribute.attribute_label
 			),
 			description: sprintf(
 				// translators: %s is the attribute label.
-				__( 'Let shoppers filter products by %s.', 'woocommerce' ),
+				__( 'Let shoppers filter products by %s.', 'poocommerce' ),
 				attribute.attribute_label.toLocaleLowerCase()
 			),
 			attributes: {

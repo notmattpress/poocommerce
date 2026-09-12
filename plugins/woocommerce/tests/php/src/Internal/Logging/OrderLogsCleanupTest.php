@@ -2,19 +2,19 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Logging;
+namespace Automattic\PooCommerce\Tests\Internal\Logging;
 
-use Automattic\WooCommerce\Internal\Admin\Logging\FileV2\FileController;
-use Automattic\WooCommerce\Internal\Admin\Logging\LogHandlerFileV2;
-use Automattic\WooCommerce\Internal\Admin\Logging\Settings;
-use Automattic\WooCommerce\Internal\DataStores\Orders\DataSynchronizer;
-use Automattic\WooCommerce\Internal\Logging\OrderLogsCleanupHelper;
-use Automattic\WooCommerce\Internal\Logging\OrderLogsDeletionProcessor;
-use Automattic\WooCommerce\Proxies\LegacyProxy;
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper;
-use Automattic\WooCommerce\RestApi\UnitTests\HPOSToggleTrait;
-use Automattic\WooCommerce\Testing\Tools\TestingContainer;
+use Automattic\PooCommerce\Internal\Admin\Logging\FileV2\FileController;
+use Automattic\PooCommerce\Internal\Admin\Logging\LogHandlerFileV2;
+use Automattic\PooCommerce\Internal\Admin\Logging\Settings;
+use Automattic\PooCommerce\Internal\DataStores\Orders\DataSynchronizer;
+use Automattic\PooCommerce\Internal\Logging\OrderLogsCleanupHelper;
+use Automattic\PooCommerce\Internal\Logging\OrderLogsDeletionProcessor;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper;
+use Automattic\PooCommerce\RestApi\UnitTests\HPOSToggleTrait;
+use Automattic\PooCommerce\Testing\Tools\TestingContainer;
 
 /**
  * Tests for the OrderLogsDeletionProcessor and OrderLogsCleanupHelper classes.
@@ -136,7 +136,7 @@ class OrderLogsCleanupTest extends \WC_Unit_Test_Case {
 		as_unschedule_all_actions( OrderLogsCleanupHelper::EXTENDED_CLEANUP_HOOK );
 		parent::tearDown();
 		if ( $this->data_store_filter_callback ) {
-				remove_filter( 'woocommerce_order_data_store', $this->data_store_filter_callback, 99999 );
+				remove_filter( 'poocommerce_order_data_store', $this->data_store_filter_callback, 99999 );
 				$this->data_store_filter_callback = null;
 		}
 	}
@@ -412,7 +412,7 @@ class OrderLogsCleanupTest extends \WC_Unit_Test_Case {
 		$this->data_store_filter_callback = function () use ( $data_store ) {
 			return $data_store;
 		};
-		add_filter( 'woocommerce_order_data_store', $this->data_store_filter_callback, 99999, 0 );
+		add_filter( 'poocommerce_order_data_store', $this->data_store_filter_callback, 99999, 0 );
 
 		$this->setup_hpos_and_reset_container( false );
 
@@ -570,7 +570,7 @@ class OrderLogsCleanupTest extends \WC_Unit_Test_Case {
 			'Only one batch should be deleted per run'
 		);
 		$this->assertTrue(
-			as_has_scheduled_action( OrderLogsCleanupHelper::EXTENDED_CLEANUP_HOOK, array(), 'woocommerce' ),
+			as_has_scheduled_action( OrderLogsCleanupHelper::EXTENDED_CLEANUP_HOOK, array(), 'poocommerce' ),
 			'A follow-up run should be scheduled while files remain'
 		);
 
@@ -583,7 +583,7 @@ class OrderLogsCleanupTest extends \WC_Unit_Test_Case {
 			'The follow-up run should delete the remaining files'
 		);
 		$this->assertFalse(
-			as_has_scheduled_action( OrderLogsCleanupHelper::EXTENDED_CLEANUP_HOOK, array(), 'woocommerce' ),
+			as_has_scheduled_action( OrderLogsCleanupHelper::EXTENDED_CLEANUP_HOOK, array(), 'poocommerce' ),
 			'No follow-up run should be scheduled once the backlog is drained'
 		);
 	}
@@ -614,7 +614,7 @@ class OrderLogsCleanupTest extends \WC_Unit_Test_Case {
 			'Only one batch should be cleaned up per run'
 		);
 		$this->assertTrue(
-			as_has_scheduled_action( OrderLogsCleanupHelper::EXTENDED_CLEANUP_HOOK, array(), 'woocommerce' ),
+			as_has_scheduled_action( OrderLogsCleanupHelper::EXTENDED_CLEANUP_HOOK, array(), 'poocommerce' ),
 			'A follow-up run should be scheduled while dangling orders remain'
 		);
 
@@ -677,7 +677,7 @@ class OrderLogsCleanupTest extends \WC_Unit_Test_Case {
 			array(
 				'hook'     => OrderLogsCleanupHelper::EXTENDED_CLEANUP_HOOK,
 				'args'     => array(),
-				'group'    => 'woocommerce',
+				'group'    => 'poocommerce',
 				'status'   => \ActionScheduler_Store::STATUS_PENDING,
 				'per_page' => 5,
 			),
@@ -752,12 +752,12 @@ class OrderLogsCleanupTest extends \WC_Unit_Test_Case {
 		// Drop the stale stat cache entry from before the touch.
 		clearstatcache();
 
-		update_option( 'woocommerce_logs_default_handler', \WC_Log_Handler_DB::class );
+		update_option( 'poocommerce_logs_default_handler', \WC_Log_Handler_DB::class );
 
 		try {
 			$this->sut_cleanup_helper->cleanup();
 		} finally {
-			delete_option( 'woocommerce_logs_default_handler' );
+			delete_option( 'poocommerce_logs_default_handler' );
 		}
 
 		$order_reloaded = wc_get_order( $order->get_id() );

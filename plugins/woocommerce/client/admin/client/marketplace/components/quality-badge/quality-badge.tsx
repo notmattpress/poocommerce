@@ -5,7 +5,7 @@ import { __, sprintf } from '@wordpress/i18n';
 import { useContext, useEffect, useState } from '@wordpress/element';
 import { Popover } from '@wordpress/components';
 import { speak } from '@wordpress/a11y';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -15,12 +15,12 @@ import { Product } from '../product-list/types';
 import { MarketplaceContext } from '../../contexts/marketplace-context';
 
 /**
- * Seal-with-checkmark icon, kept identical to the badge icon on WooCommerce.com.
+ * Seal-with-checkmark icon, kept identical to the badge icon on PooCommerce.com.
  */
 export function QualityBadgeIcon( { size = 12 }: { size?: number } ) {
 	return (
 		<svg
-			className="woocommerce-marketplace__quality-badge-icon"
+			className="poocommerce-marketplace__quality-badge-icon"
 			fill="none"
 			height={ size }
 			viewBox="0 0 16 16"
@@ -41,7 +41,7 @@ export function QualityBadgeIcon( { size = 12 }: { size?: number } ) {
 }
 
 /**
- * The docs URL comes from the WooCommerce.com API, which sanitizes it
+ * The docs URL comes from the PooCommerce.com API, which sanitizes it
  * server-side; accept only absolute https URLs anyway before rendering it
  * as a link target.
  */
@@ -55,7 +55,7 @@ function getSafeDocsUrl( value?: string ): string | undefined {
 }
 
 /**
- * Popover with the badge explanation and, when the WooCommerce.com API
+ * Popover with the badge explanation and, when the PooCommerce.com API
  * provides a docs URL, a "Learn more" link. Shared by the card chip and the
  * filter's info button; a popover (not a tooltip) so the link stays reachable
  * by pointer and keyboard.
@@ -86,7 +86,7 @@ export function QualityBadgePopover( props: {
 			if (
 				! target ||
 				target.closest(
-					'.woocommerce-marketplace__quality-badge-popover'
+					'.poocommerce-marketplace__quality-badge-popover'
 				) ||
 				anchor?.contains( target )
 			) {
@@ -101,7 +101,7 @@ export function QualityBadgePopover( props: {
 
 	return (
 		<Popover
-			className="woocommerce-marketplace__quality-badge-popover"
+			className="poocommerce-marketplace__quality-badge-popover"
 			anchor={ props.anchor }
 			placement="bottom"
 			// Focus the link when there is one; without it, focus stays on the
@@ -119,8 +119,8 @@ export function QualityBadgePopover( props: {
 					target="_blank"
 					rel="noreferrer"
 					aria-label={ sprintf(
-						// translators: %s: name of the quality badge, supplied by the WooCommerce.com API (e.g. "Excellence Verified").
-						__( 'Learn more about the %s badge', 'woocommerce' ),
+						// translators: %s: name of the quality badge, supplied by the PooCommerce.com API (e.g. "Excellence Verified").
+						__( 'Learn more about the %s badge', 'poocommerce' ),
 						props.label
 					) }
 					onClick={ () =>
@@ -140,7 +140,7 @@ export function QualityBadgePopover( props: {
 						}
 					} }
 				>
-					{ __( 'Learn more', 'woocommerce' ) }
+					{ __( 'Learn more', 'poocommerce' ) }
 				</a>
 			) }
 		</Popover>
@@ -149,7 +149,7 @@ export function QualityBadgePopover( props: {
 
 /**
  * Quality badge chip shown on product cards. Whether it renders and with what
- * copy is fully driven by the WooCommerce.com API: the per-product flag comes
+ * copy is fully driven by the PooCommerce.com API: the per-product flag comes
  * with the product data, the label/tooltip/docs URL from the IAM settings
  * endpoint. Clicking the chip opens the explanation popover.
  */
@@ -178,8 +178,8 @@ export default function QualityBadge( props: { product: Product } ) {
 	// Without explanation copy the chip is a plain, inert label.
 	if ( ! badge.tooltip ) {
 		return (
-			<div className="woocommerce-marketplace__quality-badge">
-				<span className="woocommerce-marketplace__quality-badge__chip">
+			<div className="poocommerce-marketplace__quality-badge">
+				<span className="poocommerce-marketplace__quality-badge__chip">
 					{ chipContent }
 				</span>
 			</div>
@@ -187,11 +187,11 @@ export default function QualityBadge( props: { product: Product } ) {
 	}
 
 	return (
-		<div className="woocommerce-marketplace__quality-badge">
+		<div className="poocommerce-marketplace__quality-badge">
 			<button
 				ref={ setAnchor }
 				type="button"
-				className="woocommerce-marketplace__quality-badge__chip"
+				className="poocommerce-marketplace__quality-badge__chip"
 				aria-expanded={ isOpen }
 				onClick={ () => setIsOpen( ! isOpen ) }
 				onKeyDown={ ( event ) => {

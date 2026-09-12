@@ -1,16 +1,16 @@
 /**
  * External dependencies
  */
-import { registerBlockComponent } from '@woocommerce/blocks-registry';
+import { registerBlockComponent } from '@poocommerce/blocks-registry';
 import { lazy } from '@wordpress/element';
-import { WC_BLOCKS_BUILD_URL } from '@woocommerce/block-settings';
+import { WC_BLOCKS_BUILD_URL } from '@poocommerce/block-settings';
 
 // Modify webpack publicPath at runtime based on location of WordPress Plugin.
 // eslint-disable-next-line no-undef,camelcase
 __webpack_public_path__ = WC_BLOCKS_BUILD_URL;
 
 registerBlockComponent( {
-	blockName: 'woocommerce/active-filters',
+	blockName: 'poocommerce/active-filters',
 	component: lazy(
 		() =>
 			import(
@@ -21,7 +21,7 @@ registerBlockComponent( {
 } );
 
 registerBlockComponent( {
-	blockName: 'woocommerce/price-filter',
+	blockName: 'poocommerce/price-filter',
 	component: lazy(
 		() =>
 			import(
@@ -32,7 +32,7 @@ registerBlockComponent( {
 } );
 
 registerBlockComponent( {
-	blockName: 'woocommerce/stock-filter',
+	blockName: 'poocommerce/stock-filter',
 	component: lazy(
 		() =>
 			import(
@@ -43,7 +43,7 @@ registerBlockComponent( {
 } );
 
 registerBlockComponent( {
-	blockName: 'woocommerce/attribute-filter',
+	blockName: 'poocommerce/attribute-filter',
 	component: lazy(
 		() =>
 			import(
@@ -54,7 +54,7 @@ registerBlockComponent( {
 } );
 
 registerBlockComponent( {
-	blockName: 'woocommerce/rating-filter',
+	blockName: 'poocommerce/rating-filter',
 	component: lazy(
 		() =>
 			import(

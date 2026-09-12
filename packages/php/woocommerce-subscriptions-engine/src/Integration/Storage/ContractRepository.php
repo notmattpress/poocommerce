@@ -11,22 +11,22 @@
  * There is no whole-graph `save()`. Snapshots are deduped by copy-forward (reuse the
  * previous cycle's snapshot id when plan / items are unchanged), via {@see SnapshotStore}.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage
+ * @package Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage;
 
 use DateTimeImmutable;
 use DateTimeZone;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\Contract;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\ContractStatus;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\Cycle;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\CycleStatus;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Support\ScalarCoercion;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\ValueObject\ItemsSnapshot;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\ValueObject\PlanSnapshot;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\Contract;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\ContractStatus;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\Cycle;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\CycleStatus;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Support\ScalarCoercion;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\ValueObject\ItemsSnapshot;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\ValueObject\PlanSnapshot;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -57,7 +57,7 @@ final class ContractRepository {
 	/**
 	 * Logger source tag.
 	 */
-	private const LOG_SOURCE = 'woocommerce-subscriptions-engine';
+	private const LOG_SOURCE = 'poocommerce-subscriptions-engine';
 
 	/**
 	 * The per-contract typed snapshot store.
@@ -341,7 +341,7 @@ final class ContractRepository {
 	 * or by a whitelisted `orderby`/`order`. Hydrated lightweight (row only, no children)
 	 * like {@see self::find_summary()}.
 	 *
-	 * Takes a WooCommerce-style args array (cf. `wc_get_orders()`) rather than positional
+	 * Takes a PooCommerce-style args array (cf. `wc_get_orders()`) rather than positional
 	 * paging args, so the shape widens to status / search / sort without a signature change.
 	 * The status + search filter is shared with {@see self::count()} via
 	 * {@see self::build_list_criteria()}, so a list page and its total count always agree.
@@ -747,7 +747,7 @@ final class ContractRepository {
 	 * row without a per-contract child read. An empty result means "this customer has no
 	 * matching contracts"; it is never null.
 	 *
-	 * Takes a WooCommerce-style args array (cf. {@see self::query()}) rather than positional
+	 * Takes a PooCommerce-style args array (cf. {@see self::query()}) rather than positional
 	 * args, so the shape can widen without a signature change. Ordered by id DESC (monotonic
 	 * with creation) so the list is newest-first and stable for paging.
 	 *
@@ -762,7 +762,7 @@ final class ContractRepository {
 	 *
 	 *     @type int    $limit  Maximum contracts to return. Default 20.
 	 *     @type int    $offset Rows to skip (for paging). Default 0.
-	 *     @type string $status Optional status filter (one of {@see \Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\ContractStatus}).
+	 *     @type string $status Optional status filter (one of {@see \Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\ContractStatus}).
 	 * }
 	 * @return array<int, Contract> Contracts the customer owns, newest first.
 	 */
@@ -1064,7 +1064,7 @@ final class ContractRepository {
 	 * non-1:1 reference (an aggregate order may serve many cycles), so this returns
 	 * every match. Snapshots are decoded for any in-flight cycle.
 	 *
-	 * @param int $order_id WooCommerce order id.
+	 * @param int $order_id PooCommerce order id.
 	 * @return array<int, Cycle> Cycles linked to the order, oldest first.
 	 */
 	public function find_cycles_by_order_id( int $order_id ): array {

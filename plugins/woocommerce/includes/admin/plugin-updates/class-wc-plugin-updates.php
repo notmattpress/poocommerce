@@ -2,7 +2,7 @@
 /**
  * Class for displaying plugin warning notifications and determining 3rd party plugin compatibility.
  *
- * @package     WooCommerce\Admin
+ * @package     PooCommerce\Admin
  * @version     3.2.0
  */
 
@@ -32,7 +32,7 @@ class WC_Plugin_Updates {
 	const VERSION_TESTED_HEADER = 'WC tested up to';
 
 	/**
-	 * The version for the update to WooCommerce.
+	 * The version for the update to PooCommerce.
 	 *
 	 * @var string
 	 */
@@ -112,7 +112,7 @@ class WC_Plugin_Updates {
 		}
 
 		/* translators: %s: version number */
-		$message = sprintf( __( "<strong>Heads up!</strong> The versions of the following plugins you're running haven't been tested with WooCommerce %s. Please update them or confirm compatibility before updating WooCommerce, or you may experience issues:", 'woocommerce' ), $new_version );
+		$message = sprintf( __( "<strong>Heads up!</strong> The versions of the following plugins you're running haven't been tested with PooCommerce %s. Please update them or confirm compatibility before updating PooCommerce, or you may experience issues:", 'poocommerce' ), $new_version );
 
 		ob_start();
 		include __DIR__ . '/views/html-notice-untested-extensions-inline.php';
@@ -149,7 +149,7 @@ class WC_Plugin_Updates {
 	 * of the $new_version, no plugins are returned, even if they don't explicitly declare compatibility
 	 * with the $new_version.
 	 *
-	 * @param string $new_version WooCommerce version to test against.
+	 * @param string $new_version PooCommerce version to test against.
 	 * @param string $release 'major', 'minor', or 'none'.
 	 * @return array of plugin info arrays
 	 */
@@ -159,7 +159,7 @@ class WC_Plugin_Updates {
 			return array();
 		}
 
-		$extensions        = array_merge( $this->get_plugins_with_header( self::VERSION_TESTED_HEADER ), $this->get_plugins_for_woocommerce() );
+		$extensions        = array_merge( $this->get_plugins_with_header( self::VERSION_TESTED_HEADER ), $this->get_plugins_for_poocommerce() );
 		$untested          = array();
 		$new_version_parts = explode( '.', $new_version );
 		$version           = $new_version_parts[0];
@@ -189,7 +189,7 @@ class WC_Plugin_Updates {
 					$untested[ $file ] = $plugin;
 				}
 			} else {
-				$plugin[ self::VERSION_TESTED_HEADER ] = __( 'unknown', 'woocommerce' );
+				$plugin[ self::VERSION_TESTED_HEADER ] = __( 'unknown', 'poocommerce' );
 				$untested[ $file ]                     = $plugin;
 			}
 		}
@@ -213,24 +213,24 @@ class WC_Plugin_Updates {
 			}
 		}
 
-		return apply_filters( 'woocommerce_get_plugins_with_header', $matches, $header, $plugins );
+		return apply_filters( 'poocommerce_get_plugins_with_header', $matches, $header, $plugins );
 	}
 
 	/**
-	 * Get plugins which "maybe" are for WooCommerce.
+	 * Get plugins which "maybe" are for PooCommerce.
 	 *
 	 * @return array of plugin info arrays
 	 */
-	protected function get_plugins_for_woocommerce() {
+	protected function get_plugins_for_poocommerce() {
 		$plugins = get_plugins();
 		$matches = array();
 
 		foreach ( $plugins as $file => $plugin ) {
-			if ( 'WooCommerce' !== $plugin['Name'] && ( stristr( $plugin['Name'], 'woocommerce' ) || stristr( $plugin['Description'], 'woocommerce' ) ) ) {
+			if ( 'PooCommerce' !== $plugin['Name'] && ( stristr( $plugin['Name'], 'poocommerce' ) || stristr( $plugin['Description'], 'poocommerce' ) ) ) {
 				$matches[ $file ] = $plugin;
 			}
 		}
 
-		return apply_filters( 'woocommerce_get_plugins_for_woocommerce', $matches, $plugins );
+		return apply_filters( 'poocommerce_get_plugins_for_poocommerce', $matches, $plugins );
 	}
 }

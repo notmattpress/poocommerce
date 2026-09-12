@@ -2,10 +2,10 @@
 /**
  * Admin View: Page - Status Tools
  *
- * @package WooCommerce
+ * @package PooCommerce
  */
 
-use Automattic\WooCommerce\Utilities\ArrayUtil;
+use Automattic\PooCommerce\Utilities\ArrayUtil;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;

@@ -1,12 +1,12 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\ShopperLists\Privacy;
+namespace Automattic\PooCommerce\Tests\Internal\ShopperLists\Privacy;
 
-use Automattic\WooCommerce\Internal\ShopperLists\Privacy\Privacy;
-use Automattic\WooCommerce\Internal\ShopperLists\ShopperList;
-use Automattic\WooCommerce\Internal\ShopperLists\ShopperListItem;
-use Automattic\WooCommerce\Internal\Utilities\Users;
+use Automattic\PooCommerce\Internal\ShopperLists\Privacy\Privacy;
+use Automattic\PooCommerce\Internal\ShopperLists\ShopperList;
+use Automattic\PooCommerce\Internal\ShopperLists\ShopperListItem;
+use Automattic\PooCommerce\Internal\Utilities\Users;
 use WC_Unit_Test_Case;
 
 /**
@@ -21,8 +21,8 @@ class PrivacyTests extends WC_Unit_Test_Case {
 	 * Map of shopper-list slug => feature option key.
 	 */
 	private const LIST_OPTIONS = array(
-		self::SAVED_FOR_LATER_SLUG => 'woocommerce_cart_save_for_later_enabled',
-		self::WISHLIST_SLUG        => 'woocommerce_product_wishlist_enabled',
+		self::SAVED_FOR_LATER_SLUG => 'poocommerce_cart_save_for_later_enabled',
+		self::WISHLIST_SLUG        => 'poocommerce_product_wishlist_enabled',
 	);
 
 	private const TEST_EMAIL = 'shopper-privacy@example.com';
@@ -82,7 +82,7 @@ class PrivacyTests extends WC_Unit_Test_Case {
 		foreach ( array_keys( self::LIST_OPTIONS ) as $slug ) {
 			$this->disable_list( $slug );
 		}
-		delete_option( 'woocommerce_queue_flush_rewrite_rules' );
+		delete_option( 'poocommerce_queue_flush_rewrite_rules' );
 		parent::tearDown();
 	}
 
@@ -111,12 +111,12 @@ class PrivacyTests extends WC_Unit_Test_Case {
 		$this->assertCount( 2, $result['data'] );
 
 		$group_ids = array_column( $result['data'], 'group_id' );
-		$this->assertContains( 'woocommerce-shopper-lists-saved-for-later', $group_ids );
-		$this->assertContains( 'woocommerce-shopper-lists-wishlist', $group_ids );
+		$this->assertContains( 'poocommerce-shopper-lists-saved-for-later', $group_ids );
+		$this->assertContains( 'poocommerce-shopper-lists-wishlist', $group_ids );
 
 		$labels = array_column( $result['data'], 'group_label', 'group_id' );
-		$this->assertSame( 'Shopper List: saved-for-later', $labels['woocommerce-shopper-lists-saved-for-later'] );
-		$this->assertSame( 'Shopper List: wishlist', $labels['woocommerce-shopper-lists-wishlist'] );
+		$this->assertSame( 'Shopper List: saved-for-later', $labels['poocommerce-shopper-lists-saved-for-later'] );
+		$this->assertSame( 'Shopper List: wishlist', $labels['poocommerce-shopper-lists-wishlist'] );
 
 		foreach ( $result['data'] as $entry ) {
 			$this->assertArrayHasKey( 'item_id', $entry );
@@ -146,7 +146,7 @@ class PrivacyTests extends WC_Unit_Test_Case {
 		$result = $this->sut->export_data( self::TEST_EMAIL );
 
 		$this->assertCount( 1, $result['data'] );
-		$this->assertSame( 'woocommerce-shopper-lists-saved-for-later', $result['data'][0]['group_id'] );
+		$this->assertSame( 'poocommerce-shopper-lists-saved-for-later', $result['data'][0]['group_id'] );
 	}
 
 	/**
@@ -301,7 +301,7 @@ class PrivacyTests extends WC_Unit_Test_Case {
 	 * @return array<string, mixed>
 	 */
 	private function find_first_entry_for_slug( array $result, string $slug ): array {
-		$group_id = 'woocommerce-shopper-lists-' . $slug;
+		$group_id = 'poocommerce-shopper-lists-' . $slug;
 		foreach ( $result['data'] as $entry ) {
 			if ( $group_id === $entry['group_id'] ) {
 				return $entry;

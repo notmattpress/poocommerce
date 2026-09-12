@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\BlockTypes\OrderConfirmation;
+namespace Automattic\PooCommerce\Tests\Blocks\BlockTypes\OrderConfirmation;
 
-use Automattic\WooCommerce\Blocks\BlockTypes\OrderConfirmation\Status as StatusBlock;
-use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Blocks\BlockTypes\OrderConfirmation\Status as StatusBlock;
+use Automattic\PooCommerce\Enums\OrderStatus;
 use WC_Gateway_Paypal;
 use WC_Order;
 use WC_Unit_Test_Case;
@@ -22,8 +22,8 @@ class StatusTest extends WC_Unit_Test_Case {
 	public function setUp(): void {
 		parent::setUp();
 
-		remove_all_filters( 'woocommerce_thankyou_order_failed_text' );
-		remove_all_filters( 'woocommerce_thankyou_order_received_text' );
+		remove_all_filters( 'poocommerce_thankyou_order_failed_text' );
+		remove_all_filters( 'poocommerce_thankyou_order_received_text' );
 	}
 
 	/**
@@ -38,7 +38,7 @@ class StatusTest extends WC_Unit_Test_Case {
 		$legacy_filter_result    = '<a href="https://example.com/legacy">Legacy replacement</a>';
 
 		add_filter(
-			'woocommerce_thankyou_order_failed_text',
+			'poocommerce_thankyou_order_failed_text',
 			static function ( $message, $filtered_order ) use ( &$new_filter_message, &$new_filter_order, $new_filter_result ) {
 				$new_filter_message = $message;
 				$new_filter_order   = $filtered_order;
@@ -48,7 +48,7 @@ class StatusTest extends WC_Unit_Test_Case {
 			2
 		);
 		add_filter(
-			'woocommerce_thankyou_order_received_text',
+			'poocommerce_thankyou_order_received_text',
 			static function ( ...$arguments ) use ( &$legacy_filter_arguments, $legacy_filter_result ) {
 				$legacy_filter_arguments = $arguments;
 				return $legacy_filter_result;
@@ -73,13 +73,13 @@ class StatusTest extends WC_Unit_Test_Case {
 	 */
 	public function test_empty_new_filter_result_is_final(): void {
 		add_filter(
-			'woocommerce_thankyou_order_failed_text',
+			'poocommerce_thankyou_order_failed_text',
 			static function () {
 				return '';
 			}
 		);
 		add_filter(
-			'woocommerce_thankyou_order_received_text',
+			'poocommerce_thankyou_order_received_text',
 			static function () {
 				return '<strong>Legacy replacement</strong>';
 			}
@@ -103,14 +103,14 @@ class StatusTest extends WC_Unit_Test_Case {
 		$legacy_filter_result = '<a href="https://example.com/legacy">Legacy replacement</a>';
 
 		add_filter(
-			'woocommerce_thankyou_order_failed_text',
+			'poocommerce_thankyou_order_failed_text',
 			static function ( $message ) use ( &$new_filter_message ) {
 				$new_filter_message = $message;
 				return array( 'invalid' );
 			}
 		);
 		add_filter(
-			'woocommerce_thankyou_order_received_text',
+			'poocommerce_thankyou_order_received_text',
 			static function () use ( $legacy_filter_result ) {
 				return $legacy_filter_result;
 			}
@@ -130,13 +130,13 @@ class StatusTest extends WC_Unit_Test_Case {
 		$new_filter_result = '<strong>New failure context</strong>';
 
 		add_filter(
-			'woocommerce_thankyou_order_failed_text',
+			'poocommerce_thankyou_order_failed_text',
 			static function () use ( $new_filter_result ) {
 				return $new_filter_result;
 			}
 		);
 		add_filter(
-			'woocommerce_thankyou_order_received_text',
+			'poocommerce_thankyou_order_received_text',
 			static function () {
 				return new \stdClass();
 			}
@@ -152,7 +152,7 @@ class StatusTest extends WC_Unit_Test_Case {
 	 */
 	public function test_empty_legacy_filter_result_remains_empty(): void {
 		add_filter(
-			'woocommerce_thankyou_order_received_text',
+			'poocommerce_thankyou_order_received_text',
 			static function () {
 				return '';
 			}
@@ -175,13 +175,13 @@ class StatusTest extends WC_Unit_Test_Case {
 		$legacy_filter_result = '<strong>Unconditional legacy replacement</strong>';
 
 		add_filter(
-			'woocommerce_thankyou_order_failed_text',
+			'poocommerce_thankyou_order_failed_text',
 			static function () use ( $new_filter_result ) {
 				return $new_filter_result;
 			}
 		);
 		add_filter(
-			'woocommerce_thankyou_order_received_text',
+			'poocommerce_thankyou_order_received_text',
 			static function ( $text ) use ( $legacy_filter_result ) {
 				unset( $text );
 				return $legacy_filter_result;
@@ -200,7 +200,7 @@ class StatusTest extends WC_Unit_Test_Case {
 	 */
 	public function test_final_message_preserves_safe_post_html_and_removes_unsafe_markup(): void {
 		add_filter(
-			'woocommerce_thankyou_order_received_text',
+			'poocommerce_thankyou_order_received_text',
 			static function () {
 				return '<strong>Retry</strong> or <a href="https://example.com/help" onclick="alert(1)">contact support</a><script>alert(1)</script>';
 			}
@@ -222,12 +222,12 @@ class StatusTest extends WC_Unit_Test_Case {
 		$paypal_gateway    = new WC_Gateway_Paypal();
 
 		add_filter(
-			'woocommerce_thankyou_order_failed_text',
+			'poocommerce_thankyou_order_failed_text',
 			static function () use ( $new_filter_result ) {
 				return $new_filter_result;
 			}
 		);
-		add_filter( 'woocommerce_thankyou_order_received_text', array( $paypal_gateway, 'order_received_text' ), 10, 2 );
+		add_filter( 'poocommerce_thankyou_order_received_text', array( $paypal_gateway, 'order_received_text' ), 10, 2 );
 
 		$html = $this->render_failed_order( $this->create_failed_order( WC_Gateway_Paypal::ID ) );
 

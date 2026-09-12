@@ -3,7 +3,7 @@
  * DiscountsUtil class file.
  */
 
-namespace Automattic\WooCommerce\Utilities;
+namespace Automattic\PooCommerce\Utilities;
 
 /**
  * The DiscountsUtil class provides utilities to assist discounts calculation and validation.

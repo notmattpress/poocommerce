@@ -8,8 +8,8 @@ import { fireEvent, render, screen } from '@testing-library/react';
  */
 import FormattedMonetaryAmount from '../index';
 
-jest.mock( '@woocommerce/settings', () => ( {
-	...jest.requireActual( '@woocommerce/settings' ),
+jest.mock( '@poocommerce/settings', () => ( {
+	...jest.requireActual( '@poocommerce/settings' ),
 	SITE_CURRENCY: {
 		code: 'EUR',
 		symbol: 'TEST',
@@ -161,7 +161,7 @@ describe( 'FormattedMonetaryAmount', () => {
 	} );
 
 	describe( 'onValueChange', () => {
-		/** @type {import('@woocommerce/types').Currency} */
+		/** @type {import('@poocommerce/types').Currency} */
 		const eurCurrency = {
 			code: 'EUR',
 			symbol: '€',

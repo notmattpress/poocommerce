@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Internal\ProductFilters;
+namespace Automattic\PooCommerce\Tests\Internal\ProductFilters;
 
-use Automattic\WooCommerce\Tests\Blocks\Helpers\FixtureData;
+use Automattic\PooCommerce\Tests\Blocks\Helpers\FixtureData;
 use WC_Product;
 use WC_Product_Variable;
-use Automattic\WooCommerce\Enums\ProductStockStatus;
+use Automattic\PooCommerce\Enums\ProductStockStatus;
 
 /**
  * Tests related to FilterClausesGenerator service.
@@ -139,9 +139,9 @@ abstract class AbstractProductFiltersTest extends \WC_Unit_Test_Case {
 	protected function set_up_product_filter_fixtures(): void {
 		$this->fixture_data = new FixtureData();
 
-		update_option( 'woocommerce_attribute_lookup_enabled', 'yes' );
-		update_option( 'woocommerce_calc_taxes', 'no' );
-		update_option( 'woocommerce_tax_display_shop', 'excl' );
+		update_option( 'poocommerce_attribute_lookup_enabled', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'no' );
+		update_option( 'poocommerce_tax_display_shop', 'excl' );
 
 		$this->remove_all_attributes();
 		$this->remove_all_products();
@@ -273,9 +273,9 @@ abstract class AbstractProductFiltersTest extends \WC_Unit_Test_Case {
 		$class_name = static::class;
 
 		self::$class_fixture_option_values[ $class_name ] = array(
-			'woocommerce_attribute_lookup_enabled' => get_option( 'woocommerce_attribute_lookup_enabled', null ),
-			'woocommerce_calc_taxes'               => get_option( 'woocommerce_calc_taxes', null ),
-			'woocommerce_tax_display_shop'         => get_option( 'woocommerce_tax_display_shop', null ),
+			'poocommerce_attribute_lookup_enabled' => get_option( 'poocommerce_attribute_lookup_enabled', null ),
+			'poocommerce_calc_taxes'               => get_option( 'poocommerce_calc_taxes', null ),
+			'poocommerce_tax_display_shop'         => get_option( 'poocommerce_tax_display_shop', null ),
 		);
 		static::enable_direct_product_attribute_lookup_updates();
 
@@ -313,10 +313,10 @@ abstract class AbstractProductFiltersTest extends \WC_Unit_Test_Case {
 	protected function use_class_product_filter_fixtures(): void {
 		$fixture_state = self::$class_fixture_state[ static::class ];
 
-		update_option( 'woocommerce_attribute_lookup_enabled', 'yes' );
-		update_option( 'woocommerce_calc_taxes', 'no' );
-		update_option( 'woocommerce_tax_display_shop', 'excl' );
-		\WC_Cache_Helper::invalidate_cache_group( 'woocommerce-attributes' );
+		update_option( 'poocommerce_attribute_lookup_enabled', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'no' );
+		update_option( 'poocommerce_tax_display_shop', 'excl' );
+		\WC_Cache_Helper::invalidate_cache_group( 'poocommerce-attributes' );
 		unregister_taxonomy( 'product_type' );
 		\WC_Post_Types::register_taxonomies();
 		foreach ( array_keys( wc_get_attribute_taxonomy_ids() ) as $attribute_name ) {
@@ -331,7 +331,7 @@ abstract class AbstractProductFiltersTest extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Delete a class-owned catalog through WooCommerce data stores.
+	 * Delete a class-owned catalog through PooCommerce data stores.
 	 */
 	protected static function delete_class_product_filter_fixtures(): void {
 		static::enable_direct_product_attribute_lookup_updates();
@@ -362,7 +362,7 @@ abstract class AbstractProductFiltersTest extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Delete product filter fixtures through WooCommerce data stores.
+	 * Delete product filter fixtures through PooCommerce data stores.
 	 */
 	protected function delete_product_filter_fixtures(): void {
 		$this->remove_all_attributes();
@@ -383,7 +383,7 @@ abstract class AbstractProductFiltersTest extends \WC_Unit_Test_Case {
 			unregister_taxonomy( $taxonomy_name );
 		}
 
-		\WC_Cache_Helper::invalidate_cache_group( 'woocommerce-attributes' );
+		\WC_Cache_Helper::invalidate_cache_group( 'poocommerce-attributes' );
 		\WC_Query::reset_chosen_attributes();
 		parent::tearDown();
 	}

@@ -2,9 +2,9 @@
  * Build the relative editor URL fragment that opens an email post's editor with
  * the review drawer auto-opened.
  *
- * Pair with `getAdminLink` from `@woocommerce/settings` to produce a full admin URL.
+ * Pair with `getAdminLink` from `@poocommerce/settings` to produce a full admin URL.
  *
- *   import { getAdminLink } from '@woocommerce/settings';
+ *   import { getAdminLink } from '@poocommerce/settings';
  *   import { buildEmailEditorReviewUrl } from './build-email-editor-review-url';
  *
  *   window.location.href = getAdminLink( buildEmailEditorReviewUrl( postId ) );

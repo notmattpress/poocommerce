@@ -9,7 +9,7 @@ The Filter by Price block includes a price slider which uses an accent color to 
 
 ![Price filter screenshot](https://user-images.githubusercontent.com/3616980/96570001-2053f900-12ca-11eb-8a75-8a54f243bda3.png)
 
-By default, it uses the WooCommerce purple shade, but it can be easily modified by themes with the following code:
+By default, it uses the PooCommerce purple shade, but it can be easily modified by themes with the following code:
 
 ```css
 .wc-block-components-price-slider__range-input-progress,
@@ -35,9 +35,9 @@ Notice the code snippet above uses a CSS custom property, so the default color m
 
 ---
 
-[We're hiring!](https://woocommerce.com/careers/) Come work with us!
+[We're hiring!](https://poocommerce.com/careers/) Come work with us!
 
-🐞 Found a mistake, or have a suggestion? [Leave feedback about this document here.](https://github.com/woocommerce/woocommerce/issues/new?assignees=&labels=type%3A+documentation&template=suggestion-for-documentation-improvement-correction.md&title=Feedback%20on%20./docs/designers/theming/filter-blocks.md)
+🐞 Found a mistake, or have a suggestion? [Leave feedback about this document here.](https://github.com/poocommerce/poocommerce/issues/new?assignees=&labels=type%3A+documentation&template=suggestion-for-documentation-improvement-correction.md&title=Feedback%20on%20./docs/designers/theming/filter-blocks.md)
 
 <!-- /FEEDBACK -->
 

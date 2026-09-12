@@ -21,14 +21,14 @@ const showDeprecationNotice = ( functionName: string ) => {
 	deprecated( `${ functionName }()`, {
 		since: '11.1.0',
 		alternative: 'automatic entity registration',
-		plugin: 'WooCommerce',
+		plugin: 'PooCommerce',
 		hint: 'Entities are registered automatically by the wc-entities script. Remove this call.',
 	} );
 	deprecationNoticesShown.add( functionName );
 };
 
 /**
- * @deprecated Since WooCommerce 11.1.0. Entities are registered automatically
+ * @deprecated Since PooCommerce 11.1.0. Entities are registered automatically
  * by the wc-entities script.
  */
 export const registerProductEntity = () => {
@@ -37,7 +37,7 @@ export const registerProductEntity = () => {
 };
 
 /**
- * @deprecated Since WooCommerce 11.1.0. Entities are registered automatically
+ * @deprecated Since PooCommerce 11.1.0. Entities are registered automatically
  * by the wc-entities script.
  */
 export const registerSettingsEntity = () => {

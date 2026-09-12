@@ -6,11 +6,11 @@ import {
 	BlockContextProvider,
 	useInnerBlocksProps,
 } from '@wordpress/block-editor';
-import { useCollectionData } from '@woocommerce/base-context/hooks';
+import { useCollectionData } from '@poocommerce/base-context/hooks';
 import { __ } from '@wordpress/i18n';
 import { useMemo } from '@wordpress/element';
-import { getSetting } from '@woocommerce/settings';
-import type { SelectableItemsContext } from '@woocommerce/types';
+import { getSetting } from '@poocommerce/settings';
+import type { SelectableItemsContext } from '@poocommerce/types';
 
 /**
  * Internal dependencies
@@ -30,7 +30,7 @@ const Edit = ( props: EditProps ) => {
 					'core/heading',
 					{
 						level: 3,
-						content: __( 'Availability', 'woocommerce' ),
+						content: __( 'Availability', 'poocommerce' ),
 						style: {
 							spacing: {
 								margin: {
@@ -41,7 +41,7 @@ const Edit = ( props: EditProps ) => {
 						},
 					},
 				],
-				[ 'woocommerce/product-filter-checkbox-list' ],
+				[ 'poocommerce/product-filter-checkbox-list' ],
 			],
 		}
 	);
@@ -90,10 +90,10 @@ const Edit = ( props: EditProps ) => {
 			<InitialDisabled>
 				<BlockContextProvider
 					value={ {
-						'woocommerce/selectableItems': {
+						'poocommerce/selectableItems': {
 							items,
 							selectionMode: 'multiple' as const,
-							storeNamespace: 'woocommerce/product-filters',
+							storeNamespace: 'poocommerce/product-filters',
 							isLoading,
 						} satisfies SelectableItemsContext< FilterItemFields >,
 					} }

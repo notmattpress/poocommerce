@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\RestApi\Routes\V4\Orders;
+namespace Automattic\PooCommerce\Tests\Internal\RestApi\Routes\V4\Orders;
 
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Orders\UpdateUtils;
-use Automattic\WooCommerce\Tests\Helpers\MetaDataAssertionTrait;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Orders\UpdateUtils;
+use Automattic\PooCommerce\Tests\Helpers\MetaDataAssertionTrait;
 use WC_Order;
 use WC_Unit_Test_Case;
 

@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Tests\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\BlockTypes\ProductCollection\QueryBuilder;
+use Automattic\PooCommerce\Blocks\BlockTypes\ProductCollection\QueryBuilder;
 use WC_Unit_Test_Case;
 use WP_Block;
 
@@ -132,7 +132,7 @@ class ProductFilterCollectionCountsTest extends WC_Unit_Test_Case {
 
 		$captured_query = null;
 		add_filter(
-			'woocommerce_pre_product_filter_data',
+			'poocommerce_pre_product_filter_data',
 			static function ( $counts, $filter_type, $count_query ) use ( &$captured_query, $is_attribute ) {
 				if ( ( $is_attribute ? 'attribute' : 'taxonomy' ) === $filter_type ) {
 					$captured_query = $count_query;
@@ -146,7 +146,7 @@ class ProductFilterCollectionCountsTest extends WC_Unit_Test_Case {
 
 		$block = new WP_Block(
 			array(
-				'blockName'    => $is_attribute ? 'woocommerce/product-filter-attribute' : 'woocommerce/product-filter-taxonomy',
+				'blockName'    => $is_attribute ? 'poocommerce/product-filter-attribute' : 'poocommerce/product-filter-taxonomy',
 				'attrs'        => $attributes,
 				'innerBlocks'  => array(),
 				'innerHTML'    => '',
