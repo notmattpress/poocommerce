@@ -1,12 +1,12 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin;
+namespace Automattic\PooCommerce\Tests\Internal\Admin;
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Internal\Admin\Analytics;
-use Automattic\WooCommerce\Internal\Admin\Schedulers\OrdersScheduler;
-use Automattic\WooCommerce\RestApi\UnitTests\LoggerSpyTrait;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Internal\Admin\Analytics;
+use Automattic\PooCommerce\Internal\Admin\Schedulers\OrdersScheduler;
+use Automattic\PooCommerce\RestApi\UnitTests\LoggerSpyTrait;
 use WC_Helper_Order;
 use WC_Order;
 use WC_Unit_Test_Case;
@@ -34,10 +34,10 @@ class AnalyticsTest extends WC_Unit_Test_Case {
 	public function setUp(): void {
 		parent::setUp();
 		$this->sut = Analytics::get_instance();
-		update_option( 'woocommerce_analytics_uses_old_full_refund_data', 'no' );
+		update_option( 'poocommerce_analytics_uses_old_full_refund_data', 'no' );
 		update_option( \WC_Install::INITIAL_INSTALLED_VERSION, '10.5.0' );
 
-		update_option( 'woocommerce_allow_tracking', 'yes' );
+		update_option( 'poocommerce_allow_tracking', 'yes' );
 		$this->clear_tracks_events();
 	}
 
@@ -49,7 +49,7 @@ class AnalyticsTest extends WC_Unit_Test_Case {
 			$this->clear_tracks_events();
 			// Action Scheduler actions are not covered by the options rollback.
 			as_unschedule_all_actions( Analytics::REFUND_DOUBLE_COUNT_FIX_HOOK );
-			as_unschedule_all_actions( 'woocommerce_analytics_refund_fix_batch' );
+			as_unschedule_all_actions( 'poocommerce_analytics_refund_fix_batch' );
 		} finally {
 			parent::tearDown();
 		}
@@ -174,13 +174,13 @@ class AnalyticsTest extends WC_Unit_Test_Case {
 	 */
 	private function set_batch_sizes( int $batch_size, int $range_size ): void {
 		add_filter(
-			'woocommerce_analytics_refund_double_count_batch_size',
+			'poocommerce_analytics_refund_double_count_batch_size',
 			function () use ( $batch_size ) {
 				return $batch_size;
 			}
 		);
 		add_filter(
-			'woocommerce_analytics_refund_double_count_range_size',
+			'poocommerce_analytics_refund_double_count_range_size',
 			function () use ( $range_size ) {
 				return $range_size;
 			}
@@ -357,7 +357,7 @@ class AnalyticsTest extends WC_Unit_Test_Case {
 	public function test_fix_counts_orders_it_could_not_repair(): void {
 		$order = $this->create_refunded_order( array( 20, 30 ) );
 		$this->double_count_latest_refund( $order );
-		add_filter( 'woocommerce_analytics_is_test_order', '__return_true' );
+		add_filter( 'poocommerce_analytics_is_test_order', '__return_true' );
 
 		$this->run_fix();
 
@@ -389,12 +389,12 @@ class AnalyticsTest extends WC_Unit_Test_Case {
 
 			return $classname;
 		};
-		add_filter( 'woocommerce_order_class', $explode, 10, 3 );
+		add_filter( 'poocommerce_order_class', $explode, 10, 3 );
 
 		try {
 			$batches = $this->run_fix();
 		} finally {
-			remove_filter( 'woocommerce_order_class', $explode, 10 );
+			remove_filter( 'poocommerce_order_class', $explode, 10 );
 		}
 
 		$this->assertSame( 1, $batches, 'The batch should finish rather than abandon the run' );
@@ -429,12 +429,12 @@ class AnalyticsTest extends WC_Unit_Test_Case {
 				throw new \RuntimeException( 'The order was repaired but the import did not finish' );
 			}
 		};
-		add_action( 'woocommerce_order_scheduler_after_import_order', $explode );
+		add_action( 'poocommerce_order_scheduler_after_import_order', $explode );
 
 		try {
 			$this->run_fix();
 		} finally {
-			remove_action( 'woocommerce_order_scheduler_after_import_order', $explode );
+			remove_action( 'poocommerce_order_scheduler_after_import_order', $explode );
 		}
 
 		$this->assertEqualsWithDelta( -50.0, $this->get_refunds_total( $order ), 0.001, 'The row is repaired before the throw' );
@@ -481,7 +481,7 @@ class AnalyticsTest extends WC_Unit_Test_Case {
 		// Write straight to the table, as another request would, leaving this request's option cache stale.
 		$cancelled = array_merge( Analytics::get_refund_double_count_state(), array( 'status' => 'cancelled' ) );
 		add_action(
-			'woocommerce_analytics_update_order_stats',
+			'poocommerce_analytics_update_order_stats',
 			function () use ( $wpdb, $cancelled ) {
 				$wpdb->update( $wpdb->options, array( 'option_value' => maybe_serialize( $cancelled ) ), array( 'option_name' => Analytics::REFUND_DOUBLE_COUNT_OPTION ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
 			}
@@ -514,7 +514,7 @@ class AnalyticsTest extends WC_Unit_Test_Case {
 			)
 		);
 		add_action(
-			'woocommerce_analytics_update_order_stats',
+			'poocommerce_analytics_update_order_stats',
 			function () use ( $wpdb, $newer_run ) {
 				$wpdb->update( $wpdb->options, array( 'option_value' => maybe_serialize( $newer_run ) ), array( 'option_name' => Analytics::REFUND_DOUBLE_COUNT_OPTION ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
 			}
@@ -621,7 +621,7 @@ class AnalyticsTest extends WC_Unit_Test_Case {
 	 * @testdox Does not register the tool for stores that still use the old full refund data.
 	 */
 	public function test_tool_is_hidden_for_old_refund_data_stores(): void {
-		update_option( 'woocommerce_analytics_uses_old_full_refund_data', 'yes' );
+		update_option( 'poocommerce_analytics_uses_old_full_refund_data', 'yes' );
 
 		$this->assertNull( $this->get_tool() );
 	}
@@ -705,8 +705,8 @@ class AnalyticsTest extends WC_Unit_Test_Case {
 
 	/**
 	 * @testdox Refuses to start a run while another run or the full refund data fix is in progress.
-	 * @testWith ["woocommerce_analytics_refund_double_count_fix_batch", "A fix is already in progress", "refused_running"]
-	 *           ["woocommerce_analytics_refund_fix_batch", "full refund data fix is still running", "refused_full_refund_fix"]
+	 * @testWith ["poocommerce_analytics_refund_double_count_fix_batch", "A fix is already in progress", "refused_running"]
+	 *           ["poocommerce_analytics_refund_fix_batch", "full refund data fix is still running", "refused_full_refund_fix"]
 	 *
 	 * @param string $pending_hook     Hook of the pending action.
 	 * @param string $expected_message Expected message fragment.
@@ -789,7 +789,7 @@ class AnalyticsTest extends WC_Unit_Test_Case {
 			}
 		);
 		$use_clearing_logger = fn() => $logger;
-		add_filter( 'woocommerce_logging_class', $use_clearing_logger, 20 );
+		add_filter( 'poocommerce_logging_class', $use_clearing_logger, 20 );
 
 		$thrown   = null;
 		$suppress = $wpdb->suppress_errors( true );
@@ -799,7 +799,7 @@ class AnalyticsTest extends WC_Unit_Test_Case {
 			$thrown = $exception;
 		} finally {
 			$wpdb->suppress_errors( $suppress );
-			remove_filter( 'woocommerce_logging_class', $use_clearing_logger, 20 );
+			remove_filter( 'poocommerce_logging_class', $use_clearing_logger, 20 );
 			remove_filter( 'query', $break_max_query );
 		}
 

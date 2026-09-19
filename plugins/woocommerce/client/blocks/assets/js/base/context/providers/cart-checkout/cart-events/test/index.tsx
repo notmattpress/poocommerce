@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { useCartEventsContext } from '@woocommerce/base-context';
+import { useCartEventsContext } from '@poocommerce/base-context';
 import { useEffect } from '@wordpress/element';
 import { act, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -12,7 +12,7 @@ import userEvent from '@testing-library/user-event';
 import { CartEventsProvider } from '../index';
 import Block from '../../../../../../blocks/cart/inner-blocks/proceed-to-checkout-block/block';
 
-jest.mock( '@woocommerce/base-context/hooks', () => ( {
+jest.mock( '@poocommerce/base-context/hooks', () => ( {
 	useStoreCart: jest.fn( () => ( {
 		cartIsLoading: false,
 		isLoadingRates: false,

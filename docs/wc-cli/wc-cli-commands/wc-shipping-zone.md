@@ -3,7 +3,7 @@ title: wc shipping_zone
 sidebar_label: wc shipping_zone
 ---
 
-Manage WooCommerce shipping zone resources.
+Manage PooCommerce shipping zone resources.
 
 ## wc shipping_zone list
 

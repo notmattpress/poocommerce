@@ -2,12 +2,12 @@
 /**
  * Class WC_Tests_Log_Handler_Email file.
  *
- * @package WooCommerce\Tests
+ * @package PooCommerce\Tests
  */
 
 /**
  * Class WC_Tests_Log_Handler_Email
- * @package WooCommerce\Tests\Log
+ * @package PooCommerce\Tests\Log
  * @since 3.0.0
  */
 class WC_Tests_Log_Handler_Email extends WC_Unit_Test_Case {
@@ -54,7 +54,7 @@ class WC_Tests_Log_Handler_Email extends WC_Unit_Test_Case {
 		$this->assertTrue( $result );
 		$this->assertEquals(
 			(
-				'You have received the following WooCommerce log messages:'
+				'You have received the following PooCommerce log messages:'
 				. PHP_EOL
 				. PHP_EOL
 				. gmdate( 'c', $time ) . ' EMERGENCY msg_emergency'
@@ -70,7 +70,7 @@ class WC_Tests_Log_Handler_Email extends WC_Unit_Test_Case {
 			$this->normalize_eol( $mailer->get_sent( 0 )->body )
 		);
 		$this->assertEquals(
-			"[{$site_name}] EMERGENCY: 2 WooCommerce log messages",
+			"[{$site_name}] EMERGENCY: 2 PooCommerce log messages",
 			$mailer->get_sent( 0 )->subject
 		);
 		$this->assertEquals( get_option( 'admin_email' ), $mailer->get_recipient( 'to' )->address );
@@ -81,7 +81,7 @@ class WC_Tests_Log_Handler_Email extends WC_Unit_Test_Case {
 		$this->assertTrue( $result );
 		$this->assertEquals(
 			(
-				'You have received the following WooCommerce log message:'
+				'You have received the following PooCommerce log message:'
 				. PHP_EOL
 				. PHP_EOL
 				. gmdate( 'c', $time ) . ' EMERGENCY msg_emergency'
@@ -130,12 +130,12 @@ class WC_Tests_Log_Handler_Email extends WC_Unit_Test_Case {
 		$this->assertTrue( $result );
 
 		$this->assertEquals(
-			"[{$site_name}] DEBUG: 1 WooCommerce log message",
+			"[{$site_name}] DEBUG: 1 PooCommerce log message",
 			$mailer->get_sent( 0 )->subject
 		);
 
 		$this->assertEquals(
-			"[{$site_name}] ALERT: 3 WooCommerce log messages",
+			"[{$site_name}] ALERT: 3 PooCommerce log messages",
 			$mailer->get_sent( 1 )->subject
 		);
 	}
@@ -259,7 +259,7 @@ class WC_Tests_Log_Handler_Email extends WC_Unit_Test_Case {
 
 		$this->assertEquals(
 			(
-				'You have received the following WooCommerce log message:'
+				'You have received the following PooCommerce log message:'
 				. PHP_EOL
 				. PHP_EOL
 				. gmdate( 'c', $time ) . ' EMERGENCY message 1'
@@ -275,7 +275,7 @@ class WC_Tests_Log_Handler_Email extends WC_Unit_Test_Case {
 
 		$this->assertEquals(
 			(
-				'You have received the following WooCommerce log message:'
+				'You have received the following PooCommerce log message:'
 				. PHP_EOL
 				. PHP_EOL
 				. gmdate( 'c', $time ) . ' EMERGENCY message 2'

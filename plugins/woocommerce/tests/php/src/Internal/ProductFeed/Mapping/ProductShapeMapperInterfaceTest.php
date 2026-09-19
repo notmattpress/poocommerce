@@ -1,17 +1,17 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\ProductFeed\Mapping;
+namespace Automattic\PooCommerce\Tests\Internal\ProductFeed\Mapping;
 
-use Automattic\WooCommerce\Internal\ProductFeed\Feed\FeedInterface;
-use Automattic\WooCommerce\Internal\ProductFeed\Feed\FeedValidatorInterface;
-use Automattic\WooCommerce\Internal\ProductFeed\Feed\ProductLoader;
-use Automattic\WooCommerce\Internal\ProductFeed\Feed\ProductMapperInterface;
-use Automattic\WooCommerce\Internal\ProductFeed\Feed\ProductWalker;
-use Automattic\WooCommerce\Internal\ProductFeed\Integrations\IntegrationInterface;
-use Automattic\WooCommerce\Internal\ProductFeed\Integrations\POSCatalog\ProductMapper;
-use Automattic\WooCommerce\Internal\ProductFeed\Mapping\ProductShapeMapperInterface;
-use Automattic\WooCommerce\Internal\ProductFeed\Utils\MemoryManager;
+use Automattic\PooCommerce\Internal\ProductFeed\Feed\FeedInterface;
+use Automattic\PooCommerce\Internal\ProductFeed\Feed\FeedValidatorInterface;
+use Automattic\PooCommerce\Internal\ProductFeed\Feed\ProductLoader;
+use Automattic\PooCommerce\Internal\ProductFeed\Feed\ProductMapperInterface;
+use Automattic\PooCommerce\Internal\ProductFeed\Feed\ProductWalker;
+use Automattic\PooCommerce\Internal\ProductFeed\Integrations\IntegrationInterface;
+use Automattic\PooCommerce\Internal\ProductFeed\Integrations\POSCatalog\ProductMapper;
+use Automattic\PooCommerce\Internal\ProductFeed\Mapping\ProductShapeMapperInterface;
+use Automattic\PooCommerce\Internal\ProductFeed\Utils\MemoryManager;
 use WC_Helper_Product;
 use WC_Product;
 

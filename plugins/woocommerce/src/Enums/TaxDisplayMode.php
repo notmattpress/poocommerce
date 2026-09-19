@@ -2,11 +2,11 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Enums;
+namespace Automattic\PooCommerce\Enums;
 
 /**
- * Enum class for the possible values of the `woocommerce_tax_display_shop` and
- * `woocommerce_tax_display_cart` options, which control whether prices are
+ * Enum class for the possible values of the `poocommerce_tax_display_shop` and
+ * `poocommerce_tax_display_cart` options, which control whether prices are
  * shown including or excluding tax.
  *
  * @since 11.0.0

@@ -2,13 +2,13 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Tests\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\Assets\Api;
-use Automattic\WooCommerce\Blocks\BlockTypes\ProductFilters as ProductFiltersBlock;
-use Automattic\WooCommerce\Blocks\Integrations\IntegrationRegistry;
-use Automattic\WooCommerce\Blocks\Package;
-use Automattic\WooCommerce\Tests\Blocks\Mocks\AssetDataRegistryMock;
+use Automattic\PooCommerce\Blocks\Assets\Api;
+use Automattic\PooCommerce\Blocks\BlockTypes\ProductFilters as ProductFiltersBlock;
+use Automattic\PooCommerce\Blocks\Integrations\IntegrationRegistry;
+use Automattic\PooCommerce\Blocks\Package;
+use Automattic\PooCommerce\Tests\Blocks\Mocks\AssetDataRegistryMock;
 
 /**
  * Tests for the ProductFilters block type.

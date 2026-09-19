@@ -38,7 +38,7 @@ When regex is truly necessary:
 ```javascript
 // Well-documented regex for a specific, complex pattern
 /**
- * Matches WooCommerce product SKU format:
+ * Matches PooCommerce product SKU format:
  * - Starts with 2-4 letters (category)
  * - Followed by 4-6 digits (product ID)
  * - Optional suffix with dash and 2-3 characters

@@ -24,7 +24,7 @@ export const ExistingImage = ( {
 	const [ backgroundColor, setBackgroundColor ] = useState( 'transparent' );
 
 	useEffect( () => {
-		const element = jQuery( '#woocommerce_email_body_background_color' );
+		const element = jQuery( '#poocommerce_email_body_background_color' );
 		if ( ! element.length ) {
 			return;
 		}
@@ -56,7 +56,7 @@ export const ExistingImage = ( {
 					<img
 						src={ imageUrl }
 						className="wc-settings-email-logo-image"
-						alt={ __( 'Image preview', 'woocommerce' ) }
+						alt={ __( 'Image preview', 'poocommerce' ) }
 					/>
 				</button>
 			</div>
@@ -64,13 +64,13 @@ export const ExistingImage = ( {
 				variant="secondary"
 				onClick={ () => selectImage( inputId, setImageUrl ) }
 			>
-				{ __( 'Change image', 'woocommerce' ) }
+				{ __( 'Change image', 'poocommerce' ) }
 			</Button>{ ' ' }
 			<Button
 				variant="tertiary"
 				onClick={ () => removeImage( inputId, setImageUrl ) }
 			>
-				{ __( 'Remove', 'woocommerce' ) }
+				{ __( 'Remove', 'poocommerce' ) }
 			</Button>
 		</div>
 	);

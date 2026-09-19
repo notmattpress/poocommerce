@@ -2,7 +2,7 @@
 /**
  * Tests for the lazy REST server used by WC_REST_Unit_Test_Case.
  *
- * @package WooCommerce\Tests\Framework
+ * @package PooCommerce\Tests\Framework
  */
 
 declare( strict_types = 1 );
@@ -24,7 +24,7 @@ class WC_Lazy_REST_Server_Test extends WC_REST_Unit_Test_Case {
 	 */
 	public function tearDown(): void {
 		if ( null !== $this->enable_v4_feature_callback ) {
-			remove_filter( 'woocommerce_admin_features', $this->enable_v4_feature_callback );
+			remove_filter( 'poocommerce_admin_features', $this->enable_v4_feature_callback );
 			$this->enable_v4_feature_callback = null;
 		}
 		parent::tearDown();
@@ -105,6 +105,6 @@ class WC_Lazy_REST_Server_Test extends WC_REST_Unit_Test_Case {
 			$features[] = 'rest-api-v4';
 			return $features;
 		};
-		add_filter( 'woocommerce_admin_features', $this->enable_v4_feature_callback );
+		add_filter( 'poocommerce_admin_features', $this->enable_v4_feature_callback );
 	}
 }

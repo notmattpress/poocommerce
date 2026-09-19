@@ -23,7 +23,7 @@ jest.mock( '@wordpress/data', () => {
 	};
 } );
 
-jest.mock( '@woocommerce/utils', () => {
+jest.mock( '@poocommerce/utils', () => {
 	return {
 		isSiteEditorPage: jest.fn().mockReturnValue( true ),
 	};

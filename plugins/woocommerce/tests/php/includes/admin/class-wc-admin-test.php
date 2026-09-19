@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 /**
  * Tests for the WC_Admin class.
  *
- * @package WooCommerce\Tests\Admin
+ * @package PooCommerce\Tests\Admin
  */
 
 /**
@@ -54,7 +54,7 @@ class WC_Admin_Test extends WC_Unit_Test_Case {
 				'post_name'   => 'my-account',
 			)
 		);
-		update_option( 'woocommerce_myaccount_page_id', $this->myaccount_page_id );
+		update_option( 'poocommerce_myaccount_page_id', $this->myaccount_page_id );
 
 		add_filter( 'wp_redirect', array( $this, 'intercept_redirect' ) );
 	}
@@ -94,7 +94,7 @@ class WC_Admin_Test extends WC_Unit_Test_Case {
 
 		// Missing/invalid nonce: falls back to the search page.
 		$_GET = array( // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-			'wc-install-plugin-redirect' => 'woocommerce-gateway-stripe',
+			'wc-install-plugin-redirect' => 'poocommerce-gateway-stripe',
 			'_wpnonce'                   => 'not-a-valid-nonce',
 		);
 		try {
@@ -118,15 +118,15 @@ class WC_Admin_Test extends WC_Unit_Test_Case {
 
 		// Valid, matching nonce for the allowed plugin: triggers the install.
 		$_GET = array( // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-			'wc-install-plugin-redirect' => 'woocommerce-gateway-stripe',
-			'_wpnonce'                   => wp_create_nonce( 'wc-install-plugin-redirect_woocommerce-gateway-stripe' ),
+			'wc-install-plugin-redirect' => 'poocommerce-gateway-stripe',
+			'_wpnonce'                   => wp_create_nonce( 'wc-install-plugin-redirect_poocommerce-gateway-stripe' ),
 		);
 		try {
 			$this->sut->admin_redirects();
 			$this->fail( 'Expected the redirect interception to throw.' );
 		} catch ( RuntimeException $e ) {
 			$this->assertStringContainsString( 'action=install-plugin', $e->getMessage() );
-			$this->assertStringContainsString( 'plugin=woocommerce-gateway-stripe', $e->getMessage() );
+			$this->assertStringContainsString( 'plugin=poocommerce-gateway-stripe', $e->getMessage() );
 		}
 	}
 
@@ -222,7 +222,7 @@ class WC_Admin_Test extends WC_Unit_Test_Case {
 	public function admin_access_capabilities_provider(): array {
 		return array(
 			'user granted edit_posts'           => array( 'edit_posts' ),
-			'user granted manage_woocommerce'   => array( 'manage_woocommerce' ),
+			'user granted manage_poocommerce'   => array( 'manage_poocommerce' ),
 			'user granted view_admin_dashboard' => array( 'view_admin_dashboard' ),
 		);
 	}
@@ -237,13 +237,13 @@ class WC_Admin_Test extends WC_Unit_Test_Case {
 			$received = $disabled;
 			return false;
 		};
-		add_filter( 'woocommerce_disable_admin_bar', $callback );
+		add_filter( 'poocommerce_disable_admin_bar', $callback );
 
 		try {
 			$this->assertSame( null, $this->invoke_prevent_admin_access( $customer_id, '/var/www/html/wp-admin/index.php' ), 'The disable-admin-bar filter should suppress the customer redirect.' );
 			$this->assertSame( true, $received, 'The disable-admin-bar filter should receive its default true value.' );
 		} finally {
-			remove_filter( 'woocommerce_disable_admin_bar', $callback );
+			remove_filter( 'poocommerce_disable_admin_bar', $callback );
 		}
 	}
 
@@ -257,13 +257,13 @@ class WC_Admin_Test extends WC_Unit_Test_Case {
 			$received = $prevent_access;
 			return false;
 		};
-		add_filter( 'woocommerce_prevent_admin_access', $callback );
+		add_filter( 'poocommerce_prevent_admin_access', $callback );
 
 		try {
 			$this->assertSame( null, $this->invoke_prevent_admin_access( $customer_id, '/var/www/html/wp-admin/index.php' ), 'The prevent-admin-access filter should suppress the computed customer denial.' );
 			$this->assertSame( true, $received, 'The prevent-admin-access filter should receive the computed customer denial.' );
 		} finally {
-			remove_filter( 'woocommerce_prevent_admin_access', $callback );
+			remove_filter( 'poocommerce_prevent_admin_access', $callback );
 		}
 	}
 
@@ -277,13 +277,13 @@ class WC_Admin_Test extends WC_Unit_Test_Case {
 			$received = $prevent_access;
 			return true;
 		};
-		add_filter( 'woocommerce_prevent_admin_access', $callback );
+		add_filter( 'poocommerce_prevent_admin_access', $callback );
 
 		try {
 			$this->assertSame( get_permalink( $this->myaccount_page_id ), $this->invoke_prevent_admin_access( $customer_id, '/var/www/html/wp-admin/admin-ajax.php' ), 'The prevent-admin-access filter should force an exact My Account redirect from an exempt request.' );
 			$this->assertSame( false, $received, 'The prevent-admin-access filter should receive false for an exempt request.' );
 		} finally {
-			remove_filter( 'woocommerce_prevent_admin_access', $callback );
+			remove_filter( 'poocommerce_prevent_admin_access', $callback );
 		}
 	}
 

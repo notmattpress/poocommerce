@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { Request } from '@playwright/test';
-import { test as base, expect, wpCLI, BASE_URL } from '@woocommerce/e2e-utils';
+import { test as base, expect, wpCLI, BASE_URL } from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -34,7 +34,7 @@ test.describe( 'Product Collection', () => {
 		await editor.insertBlock( {
 			name: 'core/query',
 			attributes: {
-				namespace: 'woocommerce/product-query',
+				namespace: 'poocommerce/product-query',
 			},
 		} );
 
@@ -253,7 +253,7 @@ test.describe( 'Product Collection', () => {
 			await expect( paginations ).toHaveCount( 1 );
 
 			const siblingBlock = await editor.getBlockByName(
-				'woocommerce/product-template'
+				'poocommerce/product-template'
 			);
 			await editor.selectBlocks( siblingBlock );
 			await editor.insertBlockUsingGlobalInserter( 'Pagination' );
@@ -384,7 +384,7 @@ test.describe( 'Product Collection', () => {
 		).toBeNull();
 	} );
 
-	// Tests for regressions of https://github.com/woocommerce/woocommerce/pull/47994
+	// Tests for regressions of https://github.com/poocommerce/poocommerce/pull/47994
 	test.describe( 'Product Collection should be visible after Refresh', () => {
 		test( 'Product Collection should be visible after Refresh in a Template', async ( {
 			page,
@@ -459,25 +459,25 @@ test.describe( 'Product Collection', () => {
 			templateTitle: 'Product Category',
 			slug: 'taxonomy-product_cat',
 			frontendPage: '/product-category/music/',
-			legacyBlockName: 'woocommerce/legacy-template',
+			legacyBlockName: 'poocommerce/legacy-template',
 		},
 		{
 			templateTitle: 'Product Tag',
 			slug: 'taxonomy-product_tag',
 			frontendPage: '/product-tag/recommended/',
-			legacyBlockName: 'woocommerce/legacy-template',
+			legacyBlockName: 'poocommerce/legacy-template',
 		},
 		{
 			templateTitle: 'Product Catalog',
 			slug: 'archive-product',
 			frontendPage: '/shop/',
-			legacyBlockName: 'woocommerce/legacy-template',
+			legacyBlockName: 'poocommerce/legacy-template',
 		},
 		{
 			templateTitle: 'Product Search Results',
 			slug: 'product-search-results',
 			frontendPage: '/?s=shirt&post_type=product',
-			legacyBlockName: 'woocommerce/legacy-template',
+			legacyBlockName: 'poocommerce/legacy-template',
 		},
 	];
 
@@ -524,7 +524,7 @@ test.describe( 'Product Collection', () => {
 
 					await page.goto( frontendPage );
 					const classicProducts = page.locator(
-						'.woocommerce-loop-product__title'
+						'.poocommerce-loop-product__title'
 					);
 					expect( await classicProducts.count() ).toBeGreaterThan(
 						0
@@ -547,7 +547,7 @@ test.describe( 'Product Collection', () => {
 			editor,
 		} ) => {
 			await wpCLI(
-				'option update woocommerce_default_catalog_orderby price'
+				'option update poocommerce_default_catalog_orderby price'
 			);
 
 			await pageObject.goToEditorTemplate();
@@ -579,7 +579,7 @@ test.describe( 'Product Collection', () => {
 			await expect( frontendProductTitle ).toContainText( 'Sunglasses' );
 
 			await wpCLI(
-				'option update woocommerce_default_catalog_orderby menu_order'
+				'option update poocommerce_default_catalog_orderby menu_order'
 			);
 		} );
 	} );

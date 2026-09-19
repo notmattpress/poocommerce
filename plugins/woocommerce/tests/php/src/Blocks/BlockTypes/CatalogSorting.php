@@ -2,7 +2,7 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Tests\Blocks\BlockTypes;
 
 /**
  * Tests for the CatalogSorting block type
@@ -30,7 +30,7 @@ class CatalogSorting extends \WP_UnitTestCase {
 	 * Tests that the Catalog Sorting block has the correct font size based on the default style attribute.
 	 */
 	public function test_catalog_sorting_has_small_font_size() {
-		$markup = do_blocks( '<!-- wp:woocommerce/catalog-sorting /-->' );
+		$markup = do_blocks( '<!-- wp:poocommerce/catalog-sorting /-->' );
 		$this->assertStringContainsString( 'has-small-font-size', $markup, 'The Catalog Sorting block has the correct font size.' );
 	}
 
@@ -38,15 +38,15 @@ class CatalogSorting extends \WP_UnitTestCase {
 	 * Tests that Interactivity API directive is added to the form element.
 	 */
 	public function test_form_has_interactive_directive() {
-		$markup = do_blocks( '<!-- wp:woocommerce/catalog-sorting /-->' );
-		$this->assertStringContainsString( 'data-wp-interactive="woocommerce/catalog-sorting"', $markup, 'Form should have data-wp-interactive directive.' );
+		$markup = do_blocks( '<!-- wp:poocommerce/catalog-sorting /-->' );
+		$this->assertStringContainsString( 'data-wp-interactive="poocommerce/catalog-sorting"', $markup, 'Form should have data-wp-interactive directive.' );
 	}
 
 	/**
 	 * Tests that form submit prevention directive is added to the form element.
 	 */
 	public function test_form_has_submit_prevention_directive() {
-		$markup = do_blocks( '<!-- wp:woocommerce/catalog-sorting /-->' );
+		$markup = do_blocks( '<!-- wp:poocommerce/catalog-sorting /-->' );
 		$this->assertStringContainsString( 'data-wp-on--submit="actions.preventSubmit"', $markup, 'Form should have submit prevention directive.' );
 	}
 
@@ -54,7 +54,7 @@ class CatalogSorting extends \WP_UnitTestCase {
 	 * Tests that change handler directive is added to the select element.
 	 */
 	public function test_select_has_change_handler_directive() {
-		$markup = do_blocks( '<!-- wp:woocommerce/catalog-sorting /-->' );
+		$markup = do_blocks( '<!-- wp:poocommerce/catalog-sorting /-->' );
 		$this->assertStringContainsString( 'data-wp-on--change="actions.handleSortChange"', $markup, 'Select should have change handler directive.' );
 	}
 
@@ -63,7 +63,7 @@ class CatalogSorting extends \WP_UnitTestCase {
 	 */
 	public function test_renders_empty_when_no_pagination() {
 		wc_set_loop_prop( 'is_paginated', false );
-		$markup = do_blocks( '<!-- wp:woocommerce/catalog-sorting /-->' );
+		$markup = do_blocks( '<!-- wp:poocommerce/catalog-sorting /-->' );
 		$this->assertEmpty( trim( $markup ), 'Block should not render when pagination is disabled.' );
 	}
 }

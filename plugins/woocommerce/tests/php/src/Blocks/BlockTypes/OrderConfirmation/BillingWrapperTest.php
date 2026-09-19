@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\BlockTypes\OrderConfirmation;
+namespace Automattic\PooCommerce\Tests\Blocks\BlockTypes\OrderConfirmation;
 
-use Automattic\WooCommerce\Blocks\BlockTypes\OrderConfirmation\BillingWrapper as BillingWrapperBlock;
-use Automattic\WooCommerce\Blocks\Shipping\PickupLocation;
+use Automattic\PooCommerce\Blocks\BlockTypes\OrderConfirmation\BillingWrapper as BillingWrapperBlock;
+use Automattic\PooCommerce\Blocks\Shipping\PickupLocation;
 use WC_Order;
 use WC_Order_Item_Product;
 use WC_Order_Item_Shipping;

@@ -1,10 +1,10 @@
 /**
  * External dependencies
  */
-import { TreeSelectControl } from '@woocommerce/components';
+import { TreeSelectControl } from '@poocommerce/components';
 import { __, sprintf } from '@wordpress/i18n';
 import type { Field } from '@wordpress/dataviews';
-import type { PaymentGateway } from '@woocommerce/data';
+import type { PaymentGateway } from '@poocommerce/data';
 
 /**
  * Internal dependencies
@@ -64,10 +64,10 @@ export const getShippingRestrictionFields = (
 	return [
 		{
 			id: 'enable_for_methods',
-			label: __( 'Enable for shipping methods', 'woocommerce' ),
+			label: __( 'Enable for shipping methods', 'poocommerce' ),
 			description: __(
 				'Select shipping methods for which this payment method is enabled.',
-				'woocommerce'
+				'poocommerce'
 			),
 			// Renders the shipping methods multi-select using the options
 			// that ship with the gateway.
@@ -89,10 +89,10 @@ export const getShippingRestrictionFields = (
 		},
 		{
 			id: 'enable_for_virtual',
-			label: __( 'Accept for virtual orders', 'woocommerce' ),
+			label: __( 'Accept for virtual orders', 'poocommerce' ),
 			description: sprintf(
 				/* translators: %s: payment method name, e.g. "cash on delivery". */
-				__( 'Accept %s if the order is virtual', 'woocommerce' ),
+				__( 'Accept %s if the order is virtual', 'poocommerce' ),
 				methodName
 			),
 			Edit: CheckboxEdit,

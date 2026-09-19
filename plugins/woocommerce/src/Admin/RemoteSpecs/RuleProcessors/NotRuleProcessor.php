@@ -3,7 +3,7 @@
  * Rule processor that negates the rules in the rule's operand.
  */
 
-namespace Automattic\WooCommerce\Admin\RemoteSpecs\RuleProcessors;
+namespace Automattic\PooCommerce\Admin\RemoteSpecs\RuleProcessors;
 
 defined( 'ABSPATH' ) || exit;
 

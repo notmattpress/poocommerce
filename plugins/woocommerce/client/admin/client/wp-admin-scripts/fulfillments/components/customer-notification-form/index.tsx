@@ -27,9 +27,9 @@ export default function CustomerNotificationBox( {
 
 	const headerStrings = useMemo( () => {
 		return {
-			fulfill: __( 'Fulfillment notification', 'woocommerce' ),
-			remove: __( 'Removal update', 'woocommerce' ),
-			update: __( 'Update notification', 'woocommerce' ),
+			fulfill: __( 'Fulfillment notification', 'poocommerce' ),
+			remove: __( 'Removal update', 'poocommerce' ),
+			update: __( 'Update notification', 'poocommerce' ),
 		};
 	}, [] );
 
@@ -37,15 +37,15 @@ export default function CustomerNotificationBox( {
 		return {
 			fulfill: __(
 				'Automatically send an email to the customer when the selected items are fulfilled.',
-				'woocommerce'
+				'poocommerce'
 			),
 			remove: __(
 				'Automatically send an email to the customer notifying that the fulfillment is cancelled.',
-				'woocommerce'
+				'poocommerce'
 			),
 			update: __(
 				'Automatically send an email to the customer when the fulfillment is updated.',
-				'woocommerce'
+				'poocommerce'
 			),
 		};
 	}, [] );
@@ -81,25 +81,25 @@ export default function CustomerNotificationBox( {
 				</>
 			}
 		>
-			<div className="woocommerce-fulfillment-notification-content">
+			<div className="poocommerce-fulfillment-notification-content">
 				<p
 					id={ descriptionId }
-					className="woocommerce-fulfillment-description"
+					className="poocommerce-fulfillment-description"
 				>
 					{ contentStrings[ type ] || contentStrings.fulfill }
 				</p>
 				{ type === 'update' && notifyCustomer && (
-					<div className="woocommerce-fulfillment-customer-note">
+					<div className="poocommerce-fulfillment-customer-note">
 						<TextareaControl
 							__nextHasNoMarginBottom
-							label={ __( 'Customer note', 'woocommerce' ) }
+							label={ __( 'Customer note', 'poocommerce' ) }
 							placeholder={ __(
 								'Add a note for the customer (optional)',
-								'woocommerce'
+								'poocommerce'
 							) }
 							help={ __(
 								'This note will be included in the update notification email sent to the customer.',
-								'woocommerce'
+								'poocommerce'
 							) }
 							value={ customerNote }
 							onChange={ ( value ) => setCustomerNote( value ) }

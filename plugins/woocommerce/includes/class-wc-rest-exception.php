@@ -1,10 +1,10 @@
 <?php
 /**
- * WooCommerce REST Exception Class
+ * PooCommerce REST Exception Class
  *
  * Extends Exception to provide additional data.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @since   2.6.0
  */
 

@@ -1,8 +1,8 @@
 <?php
 
-namespace Automattic\WooCommerce\Tests\Blocks\Patterns;
+namespace Automattic\PooCommerce\Tests\Blocks\Patterns;
 
-use Automattic\WooCommerce\Blocks\Patterns\PatternRegistry;
+use Automattic\PooCommerce\Blocks\Patterns\PatternRegistry;
 
 /**
  * Unit tests for the PatternRegistry class.

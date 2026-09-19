@@ -2,14 +2,14 @@
 /**
  * SettingsUISchema tests.
  *
- * @package WooCommerce\Tests\Internal\Admin\Settings
+ * @package PooCommerce\Tests\Internal\Admin\Settings
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\Settings;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\Settings;
 
-use Automattic\WooCommerce\Internal\Admin\Settings\SettingsUISchema;
+use Automattic\PooCommerce\Internal\Admin\Settings\SettingsUISchema;
 use WC_Unit_Test_Case;
 
 /**
@@ -54,7 +54,7 @@ class SettingsUISchemaTest extends WC_Unit_Test_Case {
 				'not a setting',
 				null,
 				array(
-					'id'    => 'woocommerce_test_text',
+					'id'    => 'poocommerce_test_text',
 					'type'  => 'text',
 					'title' => 'Test text',
 				),
@@ -62,14 +62,14 @@ class SettingsUISchemaTest extends WC_Unit_Test_Case {
 		);
 
 		$this->assertCount( 1, $schema['groups']['default']['fields'] );
-		$this->assertSame( 'woocommerce_test_text', $schema['groups']['default']['fields'][0]['id'] );
+		$this->assertSame( 'poocommerce_test_text', $schema['groups']['default']['fields'][0]['id'] );
 	}
 
 	/**
 	 * @testdox It groups fields that appear before the first title marker.
 	 */
 	public function test_from_legacy_settings_creates_default_group_for_fields_before_title(): void {
-		update_option( 'woocommerce_test_text', 'saved value' );
+		update_option( 'poocommerce_test_text', 'saved value' );
 
 		$schema = SettingsUISchema::from_legacy_settings(
 			'test',
@@ -77,7 +77,7 @@ class SettingsUISchemaTest extends WC_Unit_Test_Case {
 			'Test settings',
 			array(
 				array(
-					'id'    => 'woocommerce_test_text',
+					'id'    => 'poocommerce_test_text',
 					'type'  => 'text',
 					'title' => 'Test text',
 				),
@@ -87,7 +87,7 @@ class SettingsUISchemaTest extends WC_Unit_Test_Case {
 		$this->assertArrayHasKey( 'default', $schema['groups'] );
 		$this->assertSame( 'default', array_key_first( $schema['groups'] ) );
 		$this->assertArrayNotHasKey( 'order', $schema['groups']['default'], 'Internal group ordering should not leak into the schema.' );
-		$this->assertSame( 'woocommerce_test_text', $schema['groups']['default']['fields'][0]['id'] );
+		$this->assertSame( 'poocommerce_test_text', $schema['groups']['default']['fields'][0]['id'] );
 		$this->assertSame( 'saved value', $schema['groups']['default']['fields'][0]['value'] );
 	}
 
@@ -106,7 +106,7 @@ class SettingsUISchemaTest extends WC_Unit_Test_Case {
 					'title' => 'Group',
 				),
 				array(
-					'id'                => 'woocommerce_test_component',
+					'id'                => 'poocommerce_test_component',
 					'type'              => 'multiselect',
 					'title'             => 'Component field',
 					'component'         => 'test/component',
@@ -156,12 +156,12 @@ class SettingsUISchemaTest extends WC_Unit_Test_Case {
 					'id'      => 'group',
 					'type'    => 'title',
 					'title'   => 'Group',
-					'desc'    => 'Read the <a href="https://woocommerce.com">documentation</a><script>alert("x")</script>.',
+					'desc'    => 'Read the <a href="https://poocommerce.com">documentation</a><script>alert("x")</script>.',
 					'actions' => array(
 						array(
 							'id'      => 'learn-more',
 							'label'   => 'Learn more',
-							'href'    => 'https://woocommerce.com/documentation',
+							'href'    => 'https://poocommerce.com/documentation',
 							'variant' => 'secondary',
 							'target'  => '_blank',
 							'rel'     => 'noopener noreferrer',
@@ -173,7 +173,7 @@ class SettingsUISchemaTest extends WC_Unit_Test_Case {
 
 		$group = $schema['groups']['group'];
 
-		$this->assertSame( 'Read the <a href="https://woocommerce.com">documentation</a>alert("x").', $group['description'] );
+		$this->assertSame( 'Read the <a href="https://poocommerce.com">documentation</a>alert("x").', $group['description'] );
 		$this->assertArrayNotHasKey( 'actions', $group );
 	}
 
@@ -187,7 +187,7 @@ class SettingsUISchemaTest extends WC_Unit_Test_Case {
 			'Test settings',
 			array(
 				array(
-					'id'       => 'woocommerce_test_checkbox',
+					'id'       => 'poocommerce_test_checkbox',
 					'type'     => 'checkbox',
 					'title'    => 'Checkbox row',
 					'desc'     => 'Enable the test option',
@@ -212,7 +212,7 @@ class SettingsUISchemaTest extends WC_Unit_Test_Case {
 			'Test settings',
 			array(
 				array(
-					'id'       => 'woocommerce_test_select',
+					'id'       => 'poocommerce_test_select',
 					'type'     => 'select',
 					'title'    => 'Select field',
 					'desc'     => 'Select help text.',
@@ -237,10 +237,10 @@ class SettingsUISchemaTest extends WC_Unit_Test_Case {
 			'Test settings',
 			array(
 				array(
-					'id'         => 'woocommerce_test_nested',
+					'id'         => 'poocommerce_test_nested',
 					'type'       => 'text',
 					'title'      => 'Nested field',
-					'field_name' => 'woocommerce_test[nested]',
+					'field_name' => 'poocommerce_test[nested]',
 				),
 			)
 		);
@@ -248,7 +248,7 @@ class SettingsUISchemaTest extends WC_Unit_Test_Case {
 		$this->assertSame(
 			array(
 				'adapter'      => 'form_post',
-				'name'         => 'woocommerce_test[nested]',
+				'name'         => 'poocommerce_test[nested]',
 				'initialValue' => '',
 			),
 			$schema['groups']['default']['fields'][0]['save']
@@ -265,7 +265,7 @@ class SettingsUISchemaTest extends WC_Unit_Test_Case {
 			'Test settings',
 			array(
 				array(
-					'id'   => 'woocommerce_test_info',
+					'id'   => 'poocommerce_test_info',
 					'type' => 'info',
 					'text' => 'Read-only <strong>information</strong><script>alert("x")</script>.',
 				),
@@ -416,9 +416,9 @@ class SettingsUISchemaTest extends WC_Unit_Test_Case {
 	 * @testdox It leaves generated country options empty when the countries controller is unavailable.
 	 */
 	public function test_from_legacy_settings_handles_an_unavailable_countries_controller(): void {
-		$woocommerce            = WC();
-		$original_countries     = $woocommerce->countries;
-		$woocommerce->countries = null;
+		$poocommerce            = WC();
+		$original_countries     = $poocommerce->countries;
+		$poocommerce->countries = null;
 
 		try {
 			$schema = SettingsUISchema::from_legacy_settings(
@@ -437,7 +437,7 @@ class SettingsUISchemaTest extends WC_Unit_Test_Case {
 				)
 			);
 		} finally {
-			$woocommerce->countries = $original_countries;
+			$poocommerce->countries = $original_countries;
 		}
 
 		$fields = $schema['groups']['default']['fields'];
@@ -605,7 +605,7 @@ class SettingsUISchemaTest extends WC_Unit_Test_Case {
 			'Test settings',
 			array(
 				array(
-					'id'       => 'woocommerce_test_text',
+					'id'       => 'poocommerce_test_text',
 					'type'     => 'text',
 					'title'    => 'Text field',
 					'desc'     => 'Visible help text.',
@@ -627,21 +627,21 @@ class SettingsUISchemaTest extends WC_Unit_Test_Case {
 			'Test settings',
 			array(
 				array(
-					'id'              => 'woocommerce_enable_reviews',
+					'id'              => 'poocommerce_enable_reviews',
 					'type'            => 'checkbox',
 					'desc'            => 'Enable product reviews',
 					'checkboxgroup'   => 'start',
 					'show_if_checked' => 'option',
 				),
 				array(
-					'id'              => 'woocommerce_review_rating_required',
+					'id'              => 'poocommerce_review_rating_required',
 					'type'            => 'checkbox',
 					'desc'            => 'Star ratings should be required',
 					'checkboxgroup'   => 'end',
 					'show_if_checked' => 'yes',
 				),
 				array(
-					'id'    => 'woocommerce_hold_stock_minutes',
+					'id'    => 'poocommerce_hold_stock_minutes',
 					'type'  => 'number',
 					'title' => 'Hold stock',
 					'class' => 'manage_stock_field',
@@ -653,14 +653,14 @@ class SettingsUISchemaTest extends WC_Unit_Test_Case {
 
 		$this->assertSame(
 			array(
-				'controller' => 'woocommerce_enable_reviews',
+				'controller' => 'poocommerce_enable_reviews',
 				'value'      => true,
 			),
 			$fields[1]['visibility']
 		);
 		$this->assertSame(
 			array(
-				'controller' => 'woocommerce_manage_stock',
+				'controller' => 'poocommerce_manage_stock',
 				'value'      => true,
 			),
 			$fields[2]['visibility']
@@ -677,7 +677,7 @@ class SettingsUISchemaTest extends WC_Unit_Test_Case {
 			'Test settings',
 			array(
 				array(
-					'id'                => 'woocommerce_test_select',
+					'id'                => 'poocommerce_test_select',
 					'type'              => 'select',
 					'title'             => 'Select field',
 					'custom_attributes' => array(
@@ -2595,7 +2595,7 @@ class SettingsUISchemaTest extends WC_Unit_Test_Case {
 			$captured[ $option['id'] ] = $raw_value;
 			return $value;
 		};
-		add_filter( 'woocommerce_admin_settings_sanitize_option', $listener, 10, 3 );
+		add_filter( 'poocommerce_admin_settings_sanitize_option', $listener, 10, 3 );
 
 		try {
 			include_once WC_ABSPATH . 'includes/admin/class-wc-admin-settings.php';
@@ -2640,7 +2640,7 @@ class SettingsUISchemaTest extends WC_Unit_Test_Case {
 			$this->assertSame( '2026-08-03T13:45:00', get_option( 'acme_start' ) );
 			$this->assertSame( maybe_serialize( get_option( 'acme_settings' ) ), $this->get_raw_option_value( 'acme_settings' ) );
 		} finally {
-			remove_filter( 'woocommerce_admin_settings_sanitize_option', $listener, 10 );
+			remove_filter( 'poocommerce_admin_settings_sanitize_option', $listener, 10 );
 			update_option( 'timezone_string', $original_timezone );
 			foreach ( $option_names as $option_name ) {
 				delete_option( $option_name );
@@ -3215,14 +3215,14 @@ class SettingsUISchemaTest extends WC_Unit_Test_Case {
 			return $value;
 		};
 
-		add_filter( 'woocommerce_admin_settings_sanitize_option', $global, 10, 3 );
-		add_filter( 'woocommerce_admin_settings_sanitize_option_' . $option_name, $specific, 10, 3 );
+		add_filter( 'poocommerce_admin_settings_sanitize_option', $global, 10, 3 );
+		add_filter( 'poocommerce_admin_settings_sanitize_option_' . $option_name, $specific, 10, 3 );
 
 		try {
 			$this->assertTrue( \WC_Admin_Settings::save_fields( $settings, $post ) );
 		} finally {
-			remove_filter( 'woocommerce_admin_settings_sanitize_option', $global, 10 );
-			remove_filter( 'woocommerce_admin_settings_sanitize_option_' . $option_name, $specific, 10 );
+			remove_filter( 'poocommerce_admin_settings_sanitize_option', $global, 10 );
+			remove_filter( 'poocommerce_admin_settings_sanitize_option_' . $option_name, $specific, 10 );
 		}
 
 		$this->clear_option_caches( array( $option_name ) );

@@ -9,12 +9,12 @@
  * file that was distributed with this source code.
  */
 
-namespace Automattic\WooCommerce\Vendor\Symfony\Component\CssSelector\XPath\Extension;
+namespace Automattic\PooCommerce\Vendor\Symfony\Component\CssSelector\XPath\Extension;
 
-use Automattic\WooCommerce\Vendor\Symfony\Component\CssSelector\Exception\ExpressionErrorException;
-use Automattic\WooCommerce\Vendor\Symfony\Component\CssSelector\Node\FunctionNode;
-use Automattic\WooCommerce\Vendor\Symfony\Component\CssSelector\XPath\Translator;
-use Automattic\WooCommerce\Vendor\Symfony\Component\CssSelector\XPath\XPathExpr;
+use Automattic\PooCommerce\Vendor\Symfony\Component\CssSelector\Exception\ExpressionErrorException;
+use Automattic\PooCommerce\Vendor\Symfony\Component\CssSelector\Node\FunctionNode;
+use Automattic\PooCommerce\Vendor\Symfony\Component\CssSelector\XPath\Translator;
+use Automattic\PooCommerce\Vendor\Symfony\Component\CssSelector\XPath\XPathExpr;
 
 /**
  * XPath expression translator HTML extension.

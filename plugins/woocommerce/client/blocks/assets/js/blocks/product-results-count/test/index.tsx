@@ -34,7 +34,7 @@ const loadRegisteredBlock = (): RegisteredBlock => {
 
 	expect( registeredMetadata ).toEqual( metadata );
 	expect( registeredMetadata.name ).toBe(
-		'woocommerce/product-results-count'
+		'poocommerce/product-results-count'
 	);
 	expect( settings ).not.toHaveProperty( 'attributes' );
 

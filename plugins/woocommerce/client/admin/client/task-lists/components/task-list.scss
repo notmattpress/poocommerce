@@ -1,10 +1,10 @@
-.woocommerce-task-list__item {
-	&.woocommerce-list__item-enter {
+.poocommerce-task-list__item {
+	&.poocommerce-list__item-enter {
 		opacity: 0;
 		max-height: 0;
 	}
 
-	&.woocommerce-list__item-enter-active {
+	&.poocommerce-list__item-enter-active {
 		opacity: 1;
 		max-height: 100px;
 		transition:
@@ -12,12 +12,12 @@
 			max-height 500ms;
 	}
 
-	&.woocommerce-list__item-exit {
+	&.poocommerce-list__item-exit {
 		opacity: 1;
 		max-height: 100px;
 	}
 
-	&.woocommerce-list__item-exit-active {
+	&.poocommerce-list__item-exit-active {
 		opacity: 0;
 		max-height: 0;
 		transition:
@@ -26,33 +26,33 @@
 	}
 }
 
-.woocommerce-task-list--extended {
-	.woocommerce-task-list__item-skip {
+.poocommerce-task-list--extended {
+	.poocommerce-task-list__item-skip {
 		opacity: 0;
 		pointer-events: none;
 	}
 
-	.woocommerce-task-list__item:hover,
-	.woocommerce-task-list__item:focus-within {
-		.woocommerce-task-list__item-skip {
+	.poocommerce-task-list__item:hover,
+	.poocommerce-task-list__item:focus-within {
+		.poocommerce-task-list__item-skip {
 			opacity: 1;
 			pointer-events: auto;
 		}
 	}
 
 	@media (hover: none) {
-		.woocommerce-task-list__item-skip {
+		.poocommerce-task-list__item-skip {
 			opacity: 1;
 			pointer-events: auto;
 		}
 	}
 
-	.woocommerce-task-list__item-removed-message {
+	.poocommerce-task-list__item-removed-message {
 		color: $gray-700;
 		font-weight: 400;
 	}
 
-	.woocommerce-task-list__empty-state {
+	.poocommerce-task-list__empty-state {
 		align-items: center;
 		border-top: 1px solid $gray-100;
 		display: flex;
@@ -60,7 +60,7 @@
 		padding: $gap-large;
 		text-align: center;
 
-		.woocommerce-task-list__empty-state-image {
+		.poocommerce-task-list__empty-state-image {
 			display: block;
 			height: $grid-unit-60;
 			margin: 0 0 $gap-smaller;

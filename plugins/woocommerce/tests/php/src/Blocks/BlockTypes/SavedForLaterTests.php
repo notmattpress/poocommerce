@@ -1,14 +1,14 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Tests\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\Assets\Api;
-use Automattic\WooCommerce\Blocks\BlockTypes\SavedForLater;
-use Automattic\WooCommerce\Blocks\Package;
-use Automattic\WooCommerce\Internal\Features\FeaturesController;
-use Automattic\WooCommerce\Proxies\LegacyProxy;
-use Automattic\WooCommerce\Tests\Blocks\Mocks\AssetDataRegistryMock;
+use Automattic\PooCommerce\Blocks\Assets\Api;
+use Automattic\PooCommerce\Blocks\BlockTypes\SavedForLater;
+use Automattic\PooCommerce\Blocks\Package;
+use Automattic\PooCommerce\Internal\Features\FeaturesController;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\Tests\Blocks\Mocks\AssetDataRegistryMock;
 use ReflectionClass;
 use ReflectionMethod;
 use ReflectionProperty;
@@ -80,7 +80,7 @@ class SavedForLaterTests extends WP_UnitTestCase {
 	/**
 	 * @testdox block.json declares auto-injection after the Cart block via blockHooks.
 	 *
-	 * Auto-injection after `woocommerce/cart` is declared in block.json via
+	 * Auto-injection after `poocommerce/cart` is declared in block.json via
 	 * `blockHooks`. Registering it on the block type (rather than through the
 	 * `hooked_block_types` filter alone) is what makes the editor treat it as a
 	 * first-class hooked block and materialize it, instead of recording it as
@@ -93,8 +93,8 @@ class SavedForLaterTests extends WP_UnitTestCase {
 		$metadata = wp_json_file_decode( $block_json, array( 'associative' => true ) );
 		$this->assertIsArray( $metadata );
 		$this->assertArrayHasKey( 'blockHooks', $metadata );
-		$this->assertArrayHasKey( 'woocommerce/cart', $metadata['blockHooks'] );
-		$this->assertSame( 'after', $metadata['blockHooks']['woocommerce/cart'] );
+		$this->assertArrayHasKey( 'poocommerce/cart', $metadata['blockHooks'] );
+		$this->assertSame( 'after', $metadata['blockHooks']['poocommerce/cart'] );
 	}
 
 	/**
@@ -125,10 +125,10 @@ class SavedForLaterTests extends WP_UnitTestCase {
 		$this->features_controller->change_feature_enable( 'cart_save_for_later', false );
 
 		$settings = array(
-			'block_hooks' => array( 'woocommerce/cart' => 'after' ),
+			'block_hooks' => array( 'poocommerce/cart' => 'after' ),
 			'supports'    => array( 'interactivity' => true ),
 		);
-		$metadata = array( 'name' => 'woocommerce/saved-for-later' );
+		$metadata = array( 'name' => 'poocommerce/saved-for-later' );
 
 		$result = $this->sut->disable_when_feature_off( $settings, $metadata );
 
@@ -146,15 +146,15 @@ class SavedForLaterTests extends WP_UnitTestCase {
 		$this->features_controller->change_feature_enable( 'cart_save_for_later', true );
 
 		$settings = array(
-			'block_hooks' => array( 'woocommerce/cart' => 'after' ),
+			'block_hooks' => array( 'poocommerce/cart' => 'after' ),
 			'supports'    => array( 'interactivity' => true ),
 		);
-		$metadata = array( 'name' => 'woocommerce/saved-for-later' );
+		$metadata = array( 'name' => 'poocommerce/saved-for-later' );
 
 		$result = $this->sut->disable_when_feature_off( $settings, $metadata );
 
 		$this->assertArrayHasKey( 'block_hooks', $result );
-		$this->assertSame( 'after', $result['block_hooks']['woocommerce/cart'] );
+		$this->assertSame( 'after', $result['block_hooks']['poocommerce/cart'] );
 		$this->assertArrayNotHasKey( 'inserter', $result['supports'] );
 	}
 
@@ -167,7 +167,7 @@ class SavedForLaterTests extends WP_UnitTestCase {
 	public function test_disable_when_feature_off_ignores_other_blocks(): void {
 		$this->features_controller->change_feature_enable( 'cart_save_for_later', false );
 
-		$settings = array( 'block_hooks' => array( 'woocommerce/cart' => 'after' ) );
+		$settings = array( 'block_hooks' => array( 'poocommerce/cart' => 'after' ) );
 		$metadata = array( 'name' => 'core/paragraph' );
 
 		$this->assertSame( $settings, $this->sut->disable_when_feature_off( $settings, $metadata ) );
@@ -199,14 +199,14 @@ class SavedForLaterTests extends WP_UnitTestCase {
 	 */
 	public function test_hooked_block_attributes_seed_heading_inner_block(): void {
 		$parsed_hooked_block = array(
-			'blockName' => 'woocommerce/saved-for-later',
+			'blockName' => 'poocommerce/saved-for-later',
 			'attrs'     => array(),
 		);
-		$parsed_anchor_block = array( 'blockName' => 'woocommerce/cart' );
+		$parsed_anchor_block = array( 'blockName' => 'poocommerce/cart' );
 
 		$result = $this->sut->set_hooked_block_attributes(
 			$parsed_hooked_block,
-			'woocommerce/saved-for-later',
+			'poocommerce/saved-for-later',
 			'after',
 			$parsed_anchor_block
 		);
@@ -232,7 +232,7 @@ class SavedForLaterTests extends WP_UnitTestCase {
 	/**
 	 * @testdox The seeded heading is appended alongside inner blocks added by extensions.
 	 *
-	 * Extensions are free to hook `hooked_block_woocommerce/saved-for-later`
+	 * Extensions are free to hook `hooked_block_poocommerce/saved-for-later`
 	 * to add their own inner blocks at a different priority. Our heading must
 	 * still be seeded alongside, not in place of, what they added.
 	 */
@@ -245,16 +245,16 @@ class SavedForLaterTests extends WP_UnitTestCase {
 			'innerContent' => array( '<p>From another extension</p>' ),
 		);
 		$parsed_hooked_block = array(
-			'blockName'    => 'woocommerce/saved-for-later',
+			'blockName'    => 'poocommerce/saved-for-later',
 			'attrs'        => array(),
 			'innerBlocks'  => array( $existing_block ),
 			'innerContent' => array( null ),
 		);
-		$parsed_anchor_block = array( 'blockName' => 'woocommerce/cart' );
+		$parsed_anchor_block = array( 'blockName' => 'poocommerce/cart' );
 
 		$result = $this->sut->set_hooked_block_attributes(
 			$parsed_hooked_block,
-			'woocommerce/saved-for-later',
+			'poocommerce/saved-for-later',
 			'after',
 			$parsed_anchor_block
 		);
@@ -311,7 +311,7 @@ class SavedForLaterTests extends WP_UnitTestCase {
 
 		$previous_block_to_render            = \WP_Block_Supports::$block_to_render;
 		\WP_Block_Supports::$block_to_render = array(
-			'blockName' => 'woocommerce/saved-for-later',
+			'blockName' => 'poocommerce/saved-for-later',
 			'attrs'     => $attributes,
 		);
 
@@ -365,7 +365,7 @@ class SavedForLaterTests extends WP_UnitTestCase {
 
 		$previous_block_to_render            = \WP_Block_Supports::$block_to_render;
 		\WP_Block_Supports::$block_to_render = array(
-			'blockName' => 'woocommerce/saved-for-later',
+			'blockName' => 'poocommerce/saved-for-later',
 			'attrs'     => $attributes,
 		);
 

@@ -6,38 +6,38 @@
  * namespaced `apply_filters()` double (see capability-registry-filter-stub.php)
  * to exercise resolution steps 1 (Core declarations) and 3 (the override
  * filter). Step 2 - reading a live `WC_Payment_Gateway` instance's `$supports`
- * array off `WC()->payment_gateways()` - needs a booted WooCommerce and is
+ * array off `WC()->payment_gateways()` - needs a booted PooCommerce and is
  * covered by integration tests, not here.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine
+ * @package Automattic\PooCommerce\SubscriptionsEngine
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Tests\Unit\Integration\Gateway;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Tests\Unit\Integration\Gateway;
 
 use PHPUnit\Framework\TestCase;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Gateway\GatewayCapabilities;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Gateway\CapabilityRegistry;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Gateway\GatewayCapabilities;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Gateway\CapabilityRegistry;
 
 require_once __DIR__ . '/capability-registry-filter-stub.php';
 
 /**
- * @covers \Automattic\WooCommerce\SubscriptionsEngine\Integration\Gateway\CapabilityRegistry
+ * @covers \Automattic\PooCommerce\SubscriptionsEngine\Integration\Gateway\CapabilityRegistry
  */
 class CapabilityRegistryTest extends TestCase {
 
 	protected function setUp(): void {
 		parent::setUp();
 		GatewayCapabilities::reset();
-		$GLOBALS['woocommerce_subscriptions_engine_test_apply_filters_calls']  = array();
-		$GLOBALS['woocommerce_subscriptions_engine_test_apply_filters_return'] = null;
+		$GLOBALS['poocommerce_subscriptions_engine_test_apply_filters_calls']  = array();
+		$GLOBALS['poocommerce_subscriptions_engine_test_apply_filters_return'] = null;
 	}
 
 	protected function tearDown(): void {
 		GatewayCapabilities::reset();
-		$GLOBALS['woocommerce_subscriptions_engine_test_apply_filters_calls']  = array();
-		$GLOBALS['woocommerce_subscriptions_engine_test_apply_filters_return'] = null;
+		$GLOBALS['poocommerce_subscriptions_engine_test_apply_filters_calls']  = array();
+		$GLOBALS['poocommerce_subscriptions_engine_test_apply_filters_return'] = null;
 		parent::tearDown();
 	}
 
@@ -68,7 +68,7 @@ class CapabilityRegistryTest extends TestCase {
 
 		CapabilityRegistry::supports( 'dummy', GatewayCapabilities::RECURRING );
 
-		$calls = $GLOBALS['woocommerce_subscriptions_engine_test_apply_filters_calls'];
+		$calls = $GLOBALS['poocommerce_subscriptions_engine_test_apply_filters_calls'];
 		$this->assertIsArray( $calls );
 		$this->assertCount( 1, $calls );
 		$this->assertIsArray( $calls[0] );
@@ -81,19 +81,19 @@ class CapabilityRegistryTest extends TestCase {
 
 	public function test_filter_can_override_a_true_to_false(): void {
 		CapabilityRegistry::declare_compatibility( 'dummy', array( GatewayCapabilities::RECURRING ) );
-		$GLOBALS['woocommerce_subscriptions_engine_test_apply_filters_return'] = false;
+		$GLOBALS['poocommerce_subscriptions_engine_test_apply_filters_return'] = false;
 
 		$this->assertFalse( CapabilityRegistry::supports( 'dummy', GatewayCapabilities::RECURRING ) );
 	}
 
 	public function test_filter_can_override_a_false_to_true(): void {
-		$GLOBALS['woocommerce_subscriptions_engine_test_apply_filters_return'] = true;
+		$GLOBALS['poocommerce_subscriptions_engine_test_apply_filters_return'] = true;
 
 		$this->assertTrue( CapabilityRegistry::supports( 'undeclared', GatewayCapabilities::AMOUNT_CHANGES ) );
 	}
 
 	public function test_supports_casts_a_non_bool_filter_result(): void {
-		$GLOBALS['woocommerce_subscriptions_engine_test_apply_filters_return'] = '1';
+		$GLOBALS['poocommerce_subscriptions_engine_test_apply_filters_return'] = '1';
 
 		$result = CapabilityRegistry::supports( 'dummy', GatewayCapabilities::RECURRING );
 

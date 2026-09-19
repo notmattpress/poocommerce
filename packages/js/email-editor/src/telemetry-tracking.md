@@ -9,14 +9,14 @@ To enable tracking an integrator needs to add the following filters.
 ```js
 // enable email editor event tracking
 addFilter(
-	'woocommerce_email_editor_events_tracking_enabled',
+	'poocommerce_email_editor_events_tracking_enabled',
 	'your_plugin_namespace',
 	() => true
 );
 
 // process events tracked in the editor
 addAction(
-	'woocommerce_email_editor_events',
+	'poocommerce_email_editor_events',
 	'your_plugin_namespace',
 	( editorEvent ) => {
 		const { name, ...data } = editorEvent;

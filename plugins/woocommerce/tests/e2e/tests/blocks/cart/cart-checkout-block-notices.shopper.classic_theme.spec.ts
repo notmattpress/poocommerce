@@ -7,7 +7,7 @@ import {
 	wpCLI,
 	CLASSIC_THEME_SLUG,
 	CLASSIC_CHILD_THEME_WITH_BLOCK_NOTICES_FILTER_SLUG,
-} from '@woocommerce/e2e-utils';
+} from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -34,7 +34,7 @@ test.describe( 'Shopper → Notice Templates', () => {
 		const cartShortcodeID = cliOutput.stdout.match( /\d+/g )?.pop();
 
 		await wpCLI(
-			`option update woocommerce_cart_page_id ${ cartShortcodeID }`
+			`option update poocommerce_cart_page_id ${ cartShortcodeID }`
 		);
 
 		await frontendUtils.goToShop();

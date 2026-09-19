@@ -2,10 +2,10 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\Customers;
+namespace Automattic\PooCommerce\Internal\Customers;
 
-use Automattic\WooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 
 /**
  * Internal API for searching users/customers: no backward compatibility obligation.

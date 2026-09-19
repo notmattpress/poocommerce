@@ -1,8 +1,8 @@
-.woocommerce-fulfillment-shipment-information-options {
+.poocommerce-fulfillment-shipment-information-options {
 	width: 100%;
-	.woocommerce-fulfillment-shipment-information-option-tracking-number,
-	.woocommerce-fulfillment-shipment-information-option-manual-entry,
-	.woocommerce-fulfillment-shipment-information-option-no-info {
+	.poocommerce-fulfillment-shipment-information-option-tracking-number,
+	.poocommerce-fulfillment-shipment-information-option-manual-entry,
+	.poocommerce-fulfillment-shipment-information-option-no-info {
 		display: flex;
 		flex-direction: column;
 		padding: 20px 0;
@@ -18,16 +18,16 @@
 		}
 	}
 
-	.woocommerce-fulfillment-shipment-information-option-tracking-number {
+	.poocommerce-fulfillment-shipment-information-option-tracking-number {
 		padding: 12px 0 20px 0;
 	}
 
-	.woocommerce-fulfillment-shipment-information-option-no-info {
+	.poocommerce-fulfillment-shipment-information-option-no-info {
 		border-bottom: 0;
 		padding: 20px 0 12px 0;
 	}
 
-	.woocommerce-fulfillment-input-container {
+	.poocommerce-fulfillment-input-container {
 		display: flex;
 		flex-direction: column;
 		gap: 8px;
@@ -42,7 +42,7 @@
 			text-transform: uppercase;
 		}
 
-		.woocommerce-fulfillment-input-group {
+		.poocommerce-fulfillment-input-group {
 			display: flex;
 			flex-direction: row;
 			gap: 12px;
@@ -59,13 +59,13 @@
 				justify-content: space-between;
 			}
 
-			.woocommerce-fulfillment-shipment-provider-search-icon {
+			.poocommerce-fulfillment-shipment-provider-search-icon {
 				position: absolute;
 				right: 14px;
 				top: 36px;
 			}
 
-			.woocommerce-fulfillment-shipment-provider-icon {
+			.poocommerce-fulfillment-shipment-provider-icon {
 				width: 16px;
 				height: 16px;
 				display: flex;
@@ -86,7 +86,7 @@
 				}
 			}
 
-			.woocommerce-fulfillment-input {
+			.poocommerce-fulfillment-input {
 				width: 100%;
 				border-radius: 2px;
 				border: 1px solid #ddd;
@@ -113,7 +113,7 @@
 							background-color: var(--wp-admin-theme-color, #3858e9);
 						}
 
-						.woocommerce-fulfillment-shipping-provider-list-item {
+						.poocommerce-fulfillment-shipping-provider-list-item {
 							display: flex;
 							flex-direction: row;
 							gap: 8px;
@@ -121,11 +121,11 @@
 							justify-content: flex-start;
 							padding: 8px 0;
 
-							&.woocommerce-fulfillment-shipping-provider-list-item-other {
+							&.poocommerce-fulfillment-shipping-provider-list-item-other {
 								border-top: 1px solid #e0e0e0;
 							}
 
-							.woocommerce-fulfillment-shipping-provider-list-item-icon {
+							.poocommerce-fulfillment-shipping-provider-list-item-icon {
 								width: 24px;
 								height: 24px;
 								display: flex;
@@ -137,14 +137,14 @@
 									height: 16px;
 								}
 							}
-							.woocommerce-fulfillment-shipping-provider-list-item-label {
+							.poocommerce-fulfillment-shipping-provider-list-item-label {
 								flex: 1;
 								font-size: 13px;
 								line-height: 20px;
 								font-weight: 400;
 							}
 						}
-						&:has(.woocommerce-fulfillment-shipping-provider-list-item-other) {
+						&:has(.poocommerce-fulfillment-shipping-provider-list-item-other) {
 							position: sticky;
 							bottom: 0;
 						}

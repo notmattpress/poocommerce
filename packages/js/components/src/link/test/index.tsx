@@ -12,17 +12,17 @@ import { Link } from '..';
 describe( 'Link', () => {
 	it( 'should render `external` links', () => {
 		const { container } = render(
-			<Link href="https://woocommerce.com" type="external">
-				WooCommerce.com
+			<Link href="https://poocommerce.com" type="external">
+				PooCommerce.com
 			</Link>
 		);
 
 		expect( container.firstChild ).toMatchInlineSnapshot( `
 			<a
 			  data-link-type="external"
-			  href="https://woocommerce.com"
+			  href="https://poocommerce.com"
 			>
-			  WooCommerce.com
+			  PooCommerce.com
 			</a>
 		` );
 	} );
@@ -84,12 +84,12 @@ describe( 'Link', () => {
 	it( 'should allow custom props to be passed through', () => {
 		const { container } = render(
 			<Link
-				href="https://woocommerce.com"
+				href="https://poocommerce.com"
 				type="external"
 				className="foo"
 				target="bar"
 			>
-				WooCommerce.com
+				PooCommerce.com
 			</Link>
 		);
 
@@ -97,10 +97,10 @@ describe( 'Link', () => {
 			<a
 			  class="foo"
 			  data-link-type="external"
-			  href="https://woocommerce.com"
+			  href="https://poocommerce.com"
 			  target="bar"
 			>
-			  WooCommerce.com
+			  PooCommerce.com
 			</a>
 		` );
 	} );
@@ -114,15 +114,15 @@ describe( 'Link', () => {
 
 		render(
 			<Link
-				href="https://woocommerce.com"
+				href="https://poocommerce.com"
 				type="external"
 				onClick={ clickHandler }
 			>
-				WooCommerce.com
+				PooCommerce.com
 			</Link>
 		);
 
-		const testLink = screen.getByText( 'WooCommerce.com' );
+		const testLink = screen.getByText( 'PooCommerce.com' );
 
 		fireEvent.click( testLink );
 

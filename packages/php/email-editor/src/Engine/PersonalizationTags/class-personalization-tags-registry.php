@@ -1,15 +1,15 @@
 <?php
 /**
- * This file is part of the WooCommerce Email Editor package.
+ * This file is part of the PooCommerce Email Editor package.
  *
- * @package Automattic\WooCommerce\EmailEditor
+ * @package Automattic\PooCommerce\EmailEditor
  */
 
 declare(strict_types = 1);
 
-namespace Automattic\WooCommerce\EmailEditor\Engine\PersonalizationTags;
+namespace Automattic\PooCommerce\EmailEditor\Engine\PersonalizationTags;
 
-use Automattic\WooCommerce\EmailEditor\Engine\Logger\Email_Editor_Logger;
+use Automattic\PooCommerce\EmailEditor\Engine\Logger\Email_Editor_Logger;
 
 /**
  * Registry for personalization tags.
@@ -46,7 +46,7 @@ class Personalization_Tags_Registry {
 	 */
 	public function initialize(): void {
 		$this->logger->info( 'Initializing personalization tags registry' );
-		apply_filters( 'woocommerce_email_editor_register_personalization_tags', $this );
+		apply_filters( 'poocommerce_email_editor_register_personalization_tags', $this );
 		$this->logger->info( 'Personalization tags registry initialized', array( 'tags_count' => count( $this->tags ) ) );
 	}
 

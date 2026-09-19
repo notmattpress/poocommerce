@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import type { ProductsStore } from '@woocommerce/stores/woocommerce/products';
+import type { ProductsStore } from '@poocommerce/stores/poocommerce/products';
 
 /**
  * Internal dependencies
@@ -31,11 +31,11 @@ jest.mock(
 		getContext: mockGetContext,
 		getElement: mockGetElement,
 		store: jest.fn( ( namespace, descriptor ) => {
-			if ( namespace === 'woocommerce/products' ) {
+			if ( namespace === 'poocommerce/products' ) {
 				return { state: mockProductsState };
 			}
 
-			if ( namespace === 'woocommerce/product-collection' ) {
+			if ( namespace === 'poocommerce/product-collection' ) {
 				mockProductCollectionDescriptor = descriptor;
 				return descriptor;
 			}

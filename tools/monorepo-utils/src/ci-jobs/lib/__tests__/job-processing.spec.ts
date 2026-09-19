@@ -1238,14 +1238,14 @@ describe( 'Job Processing', () => {
 					},
 					dependencies: [
 						{
-							name: '@woocommerce/eslint-plugin',
+							name: '@poocommerce/eslint-plugin',
 							path: 'packages/js/eslint-plugin',
 							dependencies: [],
 						},
 					],
 				},
 				{
-					'@woocommerce/eslint-plugin': [ 'README.md' ],
+					'@poocommerce/eslint-plugin': [ 'README.md' ],
 				},
 				{}
 			);
@@ -1344,8 +1344,8 @@ describe( 'Job Processing', () => {
 
 			const jobs = await createJobsForChanges(
 				{
-					name: '@woocommerce/plugin-woocommerce',
-					path: 'plugins/woocommerce',
+					name: '@poocommerce/plugin-poocommerce',
+					path: 'plugins/poocommerce',
 					ciConfig: {
 						jobs: [
 							{
@@ -1367,7 +1367,7 @@ describe( 'Job Processing', () => {
 					dependencies: [],
 				},
 				{
-					'@woocommerce/plugin-woocommerce': [ 'test.js' ],
+					'@poocommerce/plugin-poocommerce': [ 'test.js' ],
 				},
 				{}
 			);
@@ -1381,8 +1381,8 @@ describe( 'Job Processing', () => {
 
 			const jobs = await createJobsForChanges(
 				{
-					name: '@woocommerce/plugin-woocommerce',
-					path: 'plugins/woocommerce',
+					name: '@poocommerce/plugin-poocommerce',
+					path: 'plugins/poocommerce',
 					ciConfig: {
 						jobs: [
 							{
@@ -1403,7 +1403,7 @@ describe( 'Job Processing', () => {
 					dependencies: [],
 				},
 				{
-					'@woocommerce/plugin-woocommerce': [ 'test.js' ],
+					'@poocommerce/plugin-poocommerce': [ 'test.js' ],
 				},
 				{}
 			);

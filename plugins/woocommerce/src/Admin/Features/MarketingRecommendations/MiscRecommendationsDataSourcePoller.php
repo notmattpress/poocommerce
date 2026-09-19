@@ -1,18 +1,18 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Admin\Features\MarketingRecommendations;
+namespace Automattic\PooCommerce\Admin\Features\MarketingRecommendations;
 
-use Automattic\WooCommerce\Admin\RemoteSpecs\DataSourcePoller;
+use Automattic\PooCommerce\Admin\RemoteSpecs\DataSourcePoller;
 use WC_Helper;
 
 /**
  * Specs data source poller class for misc recommendations.
  *
- * The misc recommendations are fetched from the WooCommerce.com API, the data structure looks like this:
+ * The misc recommendations are fetched from the PooCommerce.com API, the data structure looks like this:
  *
  * [
  *   {
- *     "id": "woocommerce-analytics",
+ *     "id": "poocommerce-analytics",
  *     "order_attribution_promotion_percentage": [
  *       [ "9.7", 100 ],
  *       [ "9.6", 60 ],
@@ -60,7 +60,7 @@ class MiscRecommendationsDataSourcePoller extends DataSourcePoller {
 	 */
 	public static function get_data_sources() {
 		return array(
-			WC_Helper::get_woocommerce_com_base_url() . 'wp-json/wccom/marketing-tab/misc/recommendations.json',
+			WC_Helper::get_poocommerce_com_base_url() . 'wp-json/wccom/marketing-tab/misc/recommendations.json',
 		);
 	}
 }

@@ -2,10 +2,10 @@
 /**
  * Singleton class trait.
  *
- * @package WooCommerce\Utilities
+ * @package PooCommerce\Utilities
  */
 
-namespace Automattic\WooCommerce\RestApi\Utilities;
+namespace Automattic\PooCommerce\RestApi\Utilities;
 
 /**
  * Singleton trait.
@@ -46,7 +46,7 @@ trait SingletonTrait {
 	 * Prevent unserializing.
 	 */
 	final public function __wakeup() {
-		wc_doing_it_wrong( __FUNCTION__, __( 'Unserializing instances of this class is forbidden.', 'woocommerce' ), '4.6' );
+		wc_doing_it_wrong( __FUNCTION__, __( 'Unserializing instances of this class is forbidden.', 'poocommerce' ), '4.6' );
 		die();
 	}
 }

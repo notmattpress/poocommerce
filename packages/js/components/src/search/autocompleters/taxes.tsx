@@ -15,7 +15,7 @@ import { AutoCompleter } from './types';
 
 const completer: AutoCompleter = {
 	name: 'taxes',
-	className: 'woocommerce-search__tax-result',
+	className: 'poocommerce-search__tax-result',
 	options( search ) {
 		// Request the full page (up to the `/wc-analytics/taxes` endpoint's
 		// `per_page` maximum) instead of the default of 10. The dropdown has no
@@ -38,11 +38,11 @@ const completer: AutoCompleter = {
 	},
 	getFreeTextOptions( query ) {
 		const label = (
-			<span key="name" className="woocommerce-search__result-name">
+			<span key="name" className="poocommerce-search__result-name">
 				{ interpolateComponents( {
 					mixedString: __(
 						'All taxes with codes that include {{query /}}',
-						'woocommerce'
+						'poocommerce'
 					),
 					components: {
 						query: (
@@ -67,7 +67,7 @@ const completer: AutoCompleter = {
 		return (
 			<span
 				key="name"
-				className="woocommerce-search__result-name"
+				className="poocommerce-search__result-name"
 				aria-label={ tax.code }
 			>
 				{ match?.suggestionBeforeMatch }

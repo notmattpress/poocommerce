@@ -1,11 +1,11 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\Domain\Services;
+namespace Automattic\PooCommerce\Tests\Blocks\Domain\Services;
 
-use Automattic\WooCommerce\Blocks\Domain\Services\CheckoutLink;
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\CouponHelper;
-use Automattic\WooCommerce\StoreApi\Utilities\CartTokenUtils;
+use Automattic\PooCommerce\Blocks\Domain\Services\CheckoutLink;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\CouponHelper;
+use Automattic\PooCommerce\StoreApi\Utilities\CartTokenUtils;
 
 /**
  * Unit tests for CheckoutLink.
@@ -68,14 +68,14 @@ class CheckoutLinkTest extends \WC_Unit_Test_Case {
 	private $original_user_id;
 
 	/**
-	 * Original WooCommerce session.
+	 * Original PooCommerce session.
 	 *
 	 * @var \WC_Session
 	 */
 	private $original_session;
 
 	/**
-	 * Original WooCommerce cart.
+	 * Original PooCommerce cart.
 	 *
 	 * @var \WC_Cart
 	 */
@@ -116,8 +116,8 @@ class CheckoutLinkTest extends \WC_Unit_Test_Case {
 			return 'https://example.org/test-checkout/';
 		};
 
-		add_filter( 'woocommerce_get_cart_url', $this->cart_url_filter );
-		add_filter( 'woocommerce_get_checkout_url', $this->checkout_url_filter );
+		add_filter( 'poocommerce_get_cart_url', $this->cart_url_filter );
+		add_filter( 'poocommerce_get_checkout_url', $this->checkout_url_filter );
 
 		$this->reset_runtime();
 	}
@@ -146,8 +146,8 @@ class CheckoutLinkTest extends \WC_Unit_Test_Case {
 				}
 			}
 		} finally {
-			remove_filter( 'woocommerce_get_cart_url', $this->cart_url_filter );
-			remove_filter( 'woocommerce_get_checkout_url', $this->checkout_url_filter );
+			remove_filter( 'poocommerce_get_cart_url', $this->cart_url_filter );
+			remove_filter( 'poocommerce_get_checkout_url', $this->checkout_url_filter );
 
 			$_GET    = $this->original_get;
 			$_COOKIE = $this->original_cookie;
@@ -174,12 +174,12 @@ class CheckoutLinkTest extends \WC_Unit_Test_Case {
 
 		$original_installing     = wp_installing();
 		$original_rules          = get_option( 'rewrite_rules', null );
-		$original_queue          = get_option( 'woocommerce_queue_flush_rewrite_rules', null );
+		$original_queue          = get_option( 'poocommerce_queue_flush_rewrite_rules', null );
 		$original_top_rules      = $wp_rewrite->extra_rules_top;
 		$persisted_rewrite_rules = array( '^third-party/?$' => 'index.php?third-party=1' );
 
 		update_option( 'rewrite_rules', $persisted_rewrite_rules );
-		update_option( 'woocommerce_queue_flush_rewrite_rules', 'no' );
+		update_option( 'poocommerce_queue_flush_rewrite_rules', 'no' );
 		wp_installing( true );
 
 		try {
@@ -188,17 +188,17 @@ class CheckoutLinkTest extends \WC_Unit_Test_Case {
 
 			wp_installing( false );
 
-			$this->assertSame( 'yes', get_option( 'woocommerce_queue_flush_rewrite_rules' ), 'Installing mode should queue the missing checkout-link rule.' );
+			$this->assertSame( 'yes', get_option( 'poocommerce_queue_flush_rewrite_rules' ), 'Installing mode should queue the missing checkout-link rule.' );
 			$this->assertArrayHasKey( '^checkout-link$', $wp_rewrite->extra_rules_top, 'The endpoint should still register its rule for the current request.' );
 		} finally {
 			wp_installing( false );
 			delete_option( 'rewrite_rules' );
-			delete_option( 'woocommerce_queue_flush_rewrite_rules' );
+			delete_option( 'poocommerce_queue_flush_rewrite_rules' );
 			if ( null !== $original_rules ) {
 				add_option( 'rewrite_rules', $original_rules );
 			}
 			if ( null !== $original_queue ) {
-				add_option( 'woocommerce_queue_flush_rewrite_rules', $original_queue );
+				add_option( 'poocommerce_queue_flush_rewrite_rules', $original_queue );
 			}
 			$wp_rewrite->extra_rules_top = $original_top_rules;
 			wp_installing( $original_installing );
@@ -382,7 +382,7 @@ class CheckoutLinkTest extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Reset WooCommerce cart and session state.
+	 * Reset PooCommerce cart and session state.
 	 *
 	 * @param int $user_id Current user ID.
 	 * @return void
@@ -392,7 +392,7 @@ class CheckoutLinkTest extends \WC_Unit_Test_Case {
 		$_GET = array();
 
 		foreach ( array_keys( $_COOKIE ) as $cookie_name ) {
-			if ( str_starts_with( $cookie_name, 'wp_woocommerce_session_' ) ) {
+			if ( str_starts_with( $cookie_name, 'wp_poocommerce_session_' ) ) {
 				unset( $_COOKIE[ $cookie_name ] );
 			}
 		}

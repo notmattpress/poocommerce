@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { renderFrontend } from '@woocommerce/base-utils';
+import { renderFrontend } from '@poocommerce/base-utils';
 
 /**
  * Internal dependencies
@@ -18,7 +18,7 @@ const getProps = ( el: HTMLElement ) => {
 
 renderFrontend( {
 	selector:
-		'.wp-block-woocommerce-attribute-filter:not(.wp-block-woocommerce-filter-wrapper .wp-block-woocommerce-attribute-filter)',
+		'.wp-block-poocommerce-attribute-filter:not(.wp-block-poocommerce-filter-wrapper .wp-block-poocommerce-attribute-filter)',
 	Block,
 	getProps,
 } );

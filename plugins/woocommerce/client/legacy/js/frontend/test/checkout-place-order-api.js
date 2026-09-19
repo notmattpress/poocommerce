@@ -58,7 +58,7 @@ describe( 'createCheckoutPlaceOrderApi', () => {
 			} ),
 			removeClass: jest.fn( ( cls ) => {
 				cls.split( ' ' ).forEach( ( c ) => termsRowClasses.delete( c ) );
-				if ( cls.includes( 'woocommerce-invalid' ) ) {
+				if ( cls.includes( 'poocommerce-invalid' ) ) {
 					formInvalidElements.delete( 'terms-row' );
 				}
 				return $termsRow;
@@ -111,7 +111,7 @@ describe( 'createCheckoutPlaceOrderApi', () => {
 				if ( selector === '.input-text, select, input:checkbox' ) {
 					return $checkoutFields;
 				}
-				if ( selector === '.woocommerce-invalid:visible' ) {
+				if ( selector === '.poocommerce-invalid:visible' ) {
 					// Visible invalid fields only (e.g. the terms row). Hidden
 					// invalid fields are deliberately excluded.
 					return {
@@ -122,7 +122,7 @@ describe( 'createCheckoutPlaceOrderApi', () => {
 						} ) ),
 					};
 				}
-				if ( selector === '.woocommerce-invalid' ) {
+				if ( selector === '.poocommerce-invalid' ) {
 					// Unfiltered query (includes hidden fields). The implementation
 					// must NOT use this to gate submission; counting hidden invalid
 					// fields here is the regression these tests guard against.
@@ -283,7 +283,7 @@ describe( 'createCheckoutPlaceOrderApi', () => {
 			} ),
 		};
 
-		// The clicked ".woocommerce-remove-coupon" element. remove_coupon reads
+		// The clicked ".poocommerce-remove-coupon" element. remove_coupon reads
 		// the code off it with data( 'coupon' ).
 		$removeCouponLink = {
 			length: 1,
@@ -309,18 +309,18 @@ describe( 'createCheckoutPlaceOrderApi', () => {
 			}
 			if (
 				selectorOrCallback ===
-				'.woocommerce-error, .woocommerce-message, .is-error, .is-success'
+				'.poocommerce-error, .poocommerce-message, .is-error, .is-success'
 			) {
 				return $allNotices;
 			}
 			if (
 				selectorOrCallback ===
-				'.woocommerce-NoticeGroup-updateOrderReview'
+				'.poocommerce-NoticeGroup-updateOrderReview'
 			) {
 				return $updateOrderReviewNotices;
 			}
 			if (
-				selectorOrCallback === '.woocommerce-NoticeGroup-checkout'
+				selectorOrCallback === '.poocommerce-NoticeGroup-checkout'
 			) {
 				return $checkoutNotices;
 			}
@@ -435,7 +435,7 @@ describe( 'createCheckoutPlaceOrderApi', () => {
 			const result = await capturedApi.validate();
 
 			expect( result.hasError ).toBe( true );
-			expect( $termsRow.addClass ).toHaveBeenCalledWith( 'woocommerce-invalid' );
+			expect( $termsRow.addClass ).toHaveBeenCalledWith( 'poocommerce-invalid' );
 		} );
 
 		test( 'should return hasError: false when terms checkbox is checked', async () => {
@@ -451,7 +451,7 @@ describe( 'createCheckoutPlaceOrderApi', () => {
 			$termsCheckbox.setChecked( false );
 			await capturedApi.validate();
 
-			expect( $termsRow.addClass ).toHaveBeenCalledWith( 'woocommerce-invalid' );
+			expect( $termsRow.addClass ).toHaveBeenCalledWith( 'poocommerce-invalid' );
 
 			// clearing the mock history so the expectations are clearer.
 			$termsRow.removeClass.mockClear();
@@ -462,9 +462,9 @@ describe( 'createCheckoutPlaceOrderApi', () => {
 			const result = await capturedApi.validate();
 
 			// Should have cleared the invalid state first
-			expect( $termsRow.removeClass ).toHaveBeenCalledWith( 'woocommerce-invalid' );
+			expect( $termsRow.removeClass ).toHaveBeenCalledWith( 'poocommerce-invalid' );
 			// Should NOT have re-added the invalid class
-			expect( $termsRow.addClass ).not.toHaveBeenCalledWith( 'woocommerce-invalid' );
+			expect( $termsRow.addClass ).not.toHaveBeenCalledWith( 'poocommerce-invalid' );
 			// Should pass validation
 			expect( result.hasError ).toBe( false );
 		} );
@@ -506,9 +506,9 @@ describe( 'createCheckoutPlaceOrderApi', () => {
 			await capturedApi.validate();
 
 			expect( $form.find ).toHaveBeenCalledWith(
-				'.woocommerce-invalid:visible'
+				'.poocommerce-invalid:visible'
 			);
-			expect( $form.find ).not.toHaveBeenCalledWith( '.woocommerce-invalid' );
+			expect( $form.find ).not.toHaveBeenCalledWith( '.poocommerce-invalid' );
 		} );
 	} );
 
@@ -598,7 +598,7 @@ describe( 'createCheckoutPlaceOrderApi', () => {
 		test( 'should encode apostrophes in remove coupon data', () => {
 			triggerDelegatedBodyEvent(
 				'click',
-				'.woocommerce-remove-coupon',
+				'.poocommerce-remove-coupon',
 				$removeCouponLink
 			);
 
@@ -645,12 +645,12 @@ describe( 'createCheckoutPlaceOrderApi', () => {
 				result: 'failure',
 				has_errors: false,
 				messages:
-					'<div class="woocommerce-message">Coupon applied.</div>',
+					'<div class="poocommerce-message">Coupon applied.</div>',
 			} );
 
 			expect( $form.prepend ).toHaveBeenCalledWith(
 				expect.stringContaining(
-					'woocommerce-NoticeGroup-updateOrderReview'
+					'poocommerce-NoticeGroup-updateOrderReview'
 				)
 			);
 			expect( $form.prepend ).toHaveBeenCalledWith(
@@ -667,7 +667,7 @@ describe( 'createCheckoutPlaceOrderApi', () => {
 				result: 'failure',
 				has_errors: true,
 				messages:
-					'<ul class="woocommerce-error"><li>Invalid address.</li></ul>',
+					'<ul class="poocommerce-error"><li>Invalid address.</li></ul>',
 			} );
 
 			expect( $form.prepend ).toHaveBeenCalledWith(
@@ -740,13 +740,13 @@ describe( 'createCheckoutPlaceOrderApi', () => {
 		} );
 
 		test( 'should clear a stale place-order notice when rendering a non-error one', () => {
-			// A failed place order leaves `.woocommerce-NoticeGroup-checkout` on the page.
+			// A failed place order leaves `.poocommerce-NoticeGroup-checkout` on the page.
 			// The next non-error notice supersedes it, but must leave every other notice.
 			sendCheckoutUpdateResponse( {
 				result: 'failure',
 				has_errors: false,
 				messages:
-					'<div class="woocommerce-message">Coupon applied.</div>',
+					'<div class="poocommerce-message">Coupon applied.</div>',
 			} );
 
 			expect( $checkoutNotices.remove ).toHaveBeenCalledTimes( 1 );
@@ -762,7 +762,7 @@ describe( 'createCheckoutPlaceOrderApi', () => {
 			sendCheckoutUpdateResponse( {
 				result: 'success',
 				messages:
-					'<div class="woocommerce-message">Third-party notice.</div>',
+					'<div class="poocommerce-message">Third-party notice.</div>',
 			} );
 
 			expect( $form.prepend ).not.toHaveBeenCalled();
@@ -817,7 +817,7 @@ describe( 'createCheckoutPlaceOrderApi', () => {
 			sendCheckoutUpdateResponse( {
 				result: 'failure',
 				messages:
-					'<ul class="woocommerce-error"><li>Invalid address.</li></ul>',
+					'<ul class="poocommerce-error"><li>Invalid address.</li></ul>',
 			} );
 
 			expect( $allNotices.remove ).toHaveBeenCalledTimes( 1 );

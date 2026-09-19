@@ -6,7 +6,7 @@ import {
 	test as base,
 	customerFile,
 	guestFile,
-} from '@woocommerce/e2e-utils';
+} from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -179,7 +179,7 @@ test.describe( 'Shopper → Store shipping disabled', () => {
 	test.beforeEach( async ( { requestUtils } ) => {
 		await requestUtils.rest( {
 			method: 'PUT',
-			path: 'wc/v3/settings/general/woocommerce_ship_to_countries',
+			path: 'wc/v3/settings/general/poocommerce_ship_to_countries',
 			data: { value: 'disabled' },
 		} );
 	} );

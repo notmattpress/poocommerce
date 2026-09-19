@@ -2,7 +2,7 @@
 /**
  * Class WC_Order_Item_Data_Store file.
  *
- * @package WooCommerce\DataStores
+ * @package PooCommerce\DataStores
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -27,7 +27,7 @@ class WC_Order_Item_Data_Store implements WC_Order_Item_Data_Store_Interface {
 	public function add_order_item( $order_id, $item ) {
 		global $wpdb;
 		$wpdb->insert(
-			$wpdb->prefix . 'woocommerce_order_items',
+			$wpdb->prefix . 'poocommerce_order_items',
 			array(
 				'order_item_name' => $item['order_item_name'],
 				'order_item_type' => $item['order_item_type'],
@@ -57,7 +57,7 @@ class WC_Order_Item_Data_Store implements WC_Order_Item_Data_Store_Interface {
 	 */
 	public function update_order_item( $item_id, $item ) {
 		global $wpdb;
-		$updated = $wpdb->update( $wpdb->prefix . 'woocommerce_order_items', $item, array( 'order_item_id' => $item_id ) );
+		$updated = $wpdb->update( $wpdb->prefix . 'poocommerce_order_items', $item, array( 'order_item_id' => $item_id ) );
 		$this->clear_caches( $item_id, null );
 		return $updated;
 	}
@@ -73,8 +73,8 @@ class WC_Order_Item_Data_Store implements WC_Order_Item_Data_Store_Interface {
 		$order_id = $this->get_order_id_by_order_item_id( $item_id );
 
 		global $wpdb;
-		$wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}woocommerce_order_items WHERE order_item_id = %d", $item_id ) );
-		$wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}woocommerce_order_itemmeta WHERE order_item_id = %d", $item_id ) );
+		$wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}poocommerce_order_items WHERE order_item_id = %d", $item_id ) );
+		$wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}poocommerce_order_itemmeta WHERE order_item_id = %d", $item_id ) );
 
 		$this->clear_caches( $item_id, $order_id );
 	}
@@ -145,7 +145,7 @@ class WC_Order_Item_Data_Store implements WC_Order_Item_Data_Store_Interface {
 		global $wpdb;
 		return (int) $wpdb->get_var(
 			$wpdb->prepare(
-				"SELECT order_id FROM {$wpdb->prefix}woocommerce_order_items WHERE order_item_id = %d",
+				"SELECT order_id FROM {$wpdb->prefix}poocommerce_order_items WHERE order_item_id = %d",
 				$item_id
 			)
 		);
@@ -162,7 +162,7 @@ class WC_Order_Item_Data_Store implements WC_Order_Item_Data_Store_Interface {
 		global $wpdb;
 		$order_item_type = $wpdb->get_var(
 			$wpdb->prepare(
-				"SELECT order_item_type FROM {$wpdb->prefix}woocommerce_order_items WHERE order_item_id = %d LIMIT 1;",
+				"SELECT order_item_type FROM {$wpdb->prefix}poocommerce_order_items WHERE order_item_id = %d LIMIT 1;",
 				$item_id
 			)
 		);

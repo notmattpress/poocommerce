@@ -39,7 +39,7 @@ const getProductCollectionContext = (): {
 	try {
 		return getContextFn< {
 			notices: NoticeWithId[];
-		} >( 'woocommerce/product-collection' );
+		} >( 'poocommerce/product-collection' );
 	} catch ( e ) {
 		return null;
 	}
@@ -81,7 +81,7 @@ const ICON_PATHS = {
 
 // Todo: export this store once the store is public.
 const { state } = store< Store >(
-	'woocommerce/store-notices',
+	'poocommerce/store-notices',
 	{
 		state: {
 			get role() {

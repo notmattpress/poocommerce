@@ -3,17 +3,17 @@
  * LookupDataStoreTest class file.
  */
 
-namespace Automattic\WooCommerce\Tests\Internal\ProductAttributesLookup;
+namespace Automattic\PooCommerce\Tests\Internal\ProductAttributesLookup;
 
-use Automattic\WooCommerce\Enums\CatalogVisibility;
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper;
-use Automattic\WooCommerce\Internal\ProductAttributesLookup\LookupDataStore;
-use Automattic\WooCommerce\Testing\Tools\FakeQueue;
-use Automattic\WooCommerce\Enums\ProductStockStatus;
+use Automattic\PooCommerce\Enums\CatalogVisibility;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper;
+use Automattic\PooCommerce\Internal\ProductAttributesLookup\LookupDataStore;
+use Automattic\PooCommerce\Testing\Tools\FakeQueue;
+use Automattic\PooCommerce\Enums\ProductStockStatus;
 
 /**
  * Tests for the LookupDataStore class.
- * @package Automattic\WooCommerce\Tests\Internal\ProductAttributesLookup
+ * @package Automattic\PooCommerce\Tests\Internal\ProductAttributesLookup
  */
 class LookupDataStoreTest extends \WC_Unit_Test_Case {
 
@@ -88,7 +88,7 @@ class LookupDataStoreTest extends \WC_Unit_Test_Case {
 		parent::setUp();
 
 		$this->lookup_table_name = $wpdb->prefix . 'wc_product_attributes_lookup';
-		delete_option( 'woocommerce_attribute_lookup_optimized_updates' );
+		delete_option( 'poocommerce_attribute_lookup_optimized_updates' );
 		$this->sut = new LookupDataStore();
 
 		$this->reset_legacy_proxy_mocks();
@@ -468,9 +468,9 @@ class LookupDataStoreTest extends \WC_Unit_Test_Case {
 					$product_id,
 					LookupDataStore::ACTION_DELETE,
 				),
-			'group'     => 'woocommerce-db-updates',
+			'group'     => 'poocommerce-db-updates',
 			'timestamp' => 101,
-			'hook'      => 'woocommerce_run_product_attribute_lookup_update_callback',
+			'hook'      => 'poocommerce_run_product_attribute_lookup_update_callback',
 		);
 		$this->assertEquals( $expected, $queue_calls[0] );
 	}
@@ -564,9 +564,9 @@ class LookupDataStoreTest extends \WC_Unit_Test_Case {
 					$product_id,
 					LookupDataStore::ACTION_DELETE,
 				),
-			'group'     => 'woocommerce-db-updates',
+			'group'     => 'poocommerce-db-updates',
 			'timestamp' => 101,
-			'hook'      => 'woocommerce_run_product_attribute_lookup_update_callback',
+			'hook'      => 'poocommerce_run_product_attribute_lookup_update_callback',
 		);
 
 		$this->assertEquals( $expected, $queue_calls[0] );
@@ -633,9 +633,9 @@ class LookupDataStoreTest extends \WC_Unit_Test_Case {
 					$variation_id,
 					LookupDataStore::ACTION_DELETE,
 				),
-			'group'     => 'woocommerce-db-updates',
+			'group'     => 'poocommerce-db-updates',
 			'timestamp' => 101,
-			'hook'      => 'woocommerce_run_product_attribute_lookup_update_callback',
+			'hook'      => 'poocommerce_run_product_attribute_lookup_update_callback',
 		);
 
 		$this->assertEquals( $expected, $queue_calls[0] );
@@ -671,9 +671,9 @@ class LookupDataStoreTest extends \WC_Unit_Test_Case {
 						1,
 						LookupDataStore::ACTION_DELETE,
 					),
-				'group'     => 'woocommerce-db-updates',
+				'group'     => 'poocommerce-db-updates',
 				'timestamp' => 101,
-				'hook'      => 'woocommerce_run_product_attribute_lookup_update_callback',
+				'hook'      => 'poocommerce_run_product_attribute_lookup_update_callback',
 			),
 			array(
 				'method'    => 'schedule_single',
@@ -682,9 +682,9 @@ class LookupDataStoreTest extends \WC_Unit_Test_Case {
 						2,
 						LookupDataStore::ACTION_DELETE,
 					),
-				'group'     => 'woocommerce-db-updates',
+				'group'     => 'poocommerce-db-updates',
 				'timestamp' => 101,
-				'hook'      => 'woocommerce_run_product_attribute_lookup_update_callback',
+				'hook'      => 'poocommerce_run_product_attribute_lookup_update_callback',
 			),
 		);
 
@@ -778,9 +778,9 @@ class LookupDataStoreTest extends \WC_Unit_Test_Case {
 					$product_id,
 					LookupDataStore::ACTION_UPDATE_STOCK,
 				),
-			'group'     => 'woocommerce-db-updates',
+			'group'     => 'poocommerce-db-updates',
 			'timestamp' => 101,
-			'hook'      => 'woocommerce_run_product_attribute_lookup_update_callback',
+			'hook'      => 'poocommerce_run_product_attribute_lookup_update_callback',
 		);
 		$this->assertEquals( $expected, $queue_calls[0] );
 	}
@@ -841,9 +841,9 @@ class LookupDataStoreTest extends \WC_Unit_Test_Case {
 					$change_variation_stock ? $variation_id : $product_id,
 					LookupDataStore::ACTION_UPDATE_STOCK,
 				),
-			'group'     => 'woocommerce-db-updates',
+			'group'     => 'poocommerce-db-updates',
 			'timestamp' => 101,
-			'hook'      => 'woocommerce_run_product_attribute_lookup_update_callback',
+			'hook'      => 'poocommerce_run_product_attribute_lookup_update_callback',
 		);
 
 		$this->assertEquals( $expected, $queue_calls[0] );
@@ -880,23 +880,23 @@ class LookupDataStoreTest extends \WC_Unit_Test_Case {
 	 * @testdox The shared fixture helper preserves nested direct-update scopes and restores the option afterward.
 	 */
 	public function test_direct_fixture_helper_restores_nested_update_mode(): void {
-		update_option( 'woocommerce_attribute_lookup_direct_updates', 'no' );
+		update_option( 'poocommerce_attribute_lookup_direct_updates', 'no' );
 
 		self::with_direct_product_attribute_lookup_updates(
 			function () {
-				$this->assertSame( 'yes', get_option( 'woocommerce_attribute_lookup_direct_updates' ) );
+				$this->assertSame( 'yes', get_option( 'poocommerce_attribute_lookup_direct_updates' ) );
 
 				self::with_direct_product_attribute_lookup_updates(
 					function () {
-						$this->assertSame( 'yes', get_option( 'woocommerce_attribute_lookup_direct_updates' ) );
+						$this->assertSame( 'yes', get_option( 'poocommerce_attribute_lookup_direct_updates' ) );
 					}
 				);
 
-				$this->assertSame( 'yes', get_option( 'woocommerce_attribute_lookup_direct_updates' ) );
+				$this->assertSame( 'yes', get_option( 'poocommerce_attribute_lookup_direct_updates' ) );
 			}
 		);
 
-		$this->assertSame( 'no', get_option( 'woocommerce_attribute_lookup_direct_updates' ) );
+		$this->assertSame( 'no', get_option( 'poocommerce_attribute_lookup_direct_updates' ) );
 	}
 
 	/**
@@ -990,7 +990,7 @@ class LookupDataStoreTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_on_product_changed_for_simple_product_with_direct_updates( $changeset, $expected_action, $use_optimized_db_access ) {
 		if ( $use_optimized_db_access ) {
-			update_option( 'woocommerce_attribute_lookup_optimized_updates', 'yes' );
+			update_option( 'poocommerce_attribute_lookup_optimized_updates', 'yes' );
 			$this->sut = new LookupDataStore();
 		}
 
@@ -1067,7 +1067,7 @@ class LookupDataStoreTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_on_variable_product_changed_for_variable_product_with_direct_updates( $changeset, $expected_action, $use_optimized_db_access ) {
 		if ( $use_optimized_db_access ) {
-			update_option( 'woocommerce_attribute_lookup_optimized_updates', 'yes' );
+			update_option( 'poocommerce_attribute_lookup_optimized_updates', 'yes' );
 			$this->sut = new LookupDataStore();
 		}
 
@@ -1176,7 +1176,7 @@ class LookupDataStoreTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_on_variation_changed_for_variable_product_with_direct_updates( $changeset, $expected_action, $use_optimized_db_access ) {
 		if ( $use_optimized_db_access ) {
-			update_option( 'woocommerce_attribute_lookup_optimized_updates', 'yes' );
+			update_option( 'poocommerce_attribute_lookup_optimized_updates', 'yes' );
 			$this->sut = new LookupDataStore();
 		}
 
@@ -1319,7 +1319,7 @@ class LookupDataStoreTest extends \WC_Unit_Test_Case {
 	 * @param bool $value True to set the option to 'yes', false for 'no'.
 	 */
 	private function set_direct_update_option( bool $value ) {
-		update_option( 'woocommerce_attribute_lookup_direct_updates', $value ? 'yes' : 'no' );
+		update_option( 'poocommerce_attribute_lookup_direct_updates', $value ? 'yes' : 'no' );
 	}
 
 	/**

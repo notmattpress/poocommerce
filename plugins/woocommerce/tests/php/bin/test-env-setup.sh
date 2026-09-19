@@ -8,4 +8,4 @@ WP_ENV_TEST_CMD="wp-env --config .wp-env.test.json"
 WP_CLI_PREFIX="${WP_CLI_PREFIX-$WP_ENV_TEST_CMD run cli}"
 
 echo -e 'Pre-place sample.csv fixture \n'
-$WP_CLI_PREFIX sudo cp /var/www/html/wp-content/plugins/woocommerce/tests/legacy/unit-tests/importer/sample.csv /var/www/sample.csv
+$WP_CLI_PREFIX sudo cp /var/www/html/wp-content/plugins/poocommerce/tests/legacy/unit-tests/importer/sample.csv /var/www/sample.csv

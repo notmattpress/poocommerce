@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { useContainerWidthContext } from '@woocommerce/base-context';
+import { useContainerWidthContext } from '@poocommerce/base-context';
 import { useId, useState } from '@wordpress/element';
 import type { HTMLAttributes, KeyboardEvent } from 'react';
 

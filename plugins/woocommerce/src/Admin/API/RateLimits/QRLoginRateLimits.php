@@ -2,14 +2,14 @@
 /**
  * Rate limiter for mobile app QR login endpoints.
  *
- * @package WooCommerce\Admin\API
+ * @package PooCommerce\Admin\API
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Admin\API\RateLimits;
+namespace Automattic\PooCommerce\Admin\API\RateLimits;
 
-use Automattic\WooCommerce\Admin\API\MobileAppQRLogin;
+use Automattic\PooCommerce\Admin\API\MobileAppQRLogin;
 use WC_Rate_Limiter;
 
 defined( 'ABSPATH' ) || exit;
@@ -17,7 +17,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Counter-based rate limiter for QR login endpoints.
  *
- * Uses WooCommerce's `wc_rate_limits` table and an atomic SQL upsert so
+ * Uses PooCommerce's `wc_rate_limits` table and an atomic SQL upsert so
  * concurrent requests cannot bypass a bucket by racing a transient get/set
  * sequence.
  *

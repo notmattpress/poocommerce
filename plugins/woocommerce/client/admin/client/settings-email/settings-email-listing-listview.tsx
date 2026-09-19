@@ -5,7 +5,7 @@ import { useState, useMemo } from '@wordpress/element';
 import { dispatch } from '@wordpress/data';
 import { pencil, external } from '@wordpress/icons';
 import { Icon } from '@wordpress/components';
-import { getAdminLink } from '@woocommerce/settings';
+import { getAdminLink } from '@poocommerce/settings';
 import { __ } from '@wordpress/i18n';
 // @ts-expect-error - We need to use this /wp see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-dataviews/#dataviews
 import { DataViews, View } from '@wordpress/dataviews/wp';
@@ -120,14 +120,14 @@ export const ListView = ( { emailTypes }: { emailTypes: EmailType[] } ) => {
 		return [
 			{
 				id: 'title',
-				label: __( 'Title', 'woocommerce' ),
+				label: __( 'Title', 'poocommerce' ),
 				enableHiding: false,
 				render: ( row: { item: EmailType } ) => {
 					return (
-						<div className="woocommerce-email-listing-title">
+						<div className="poocommerce-email-listing-title">
 							{ row.item.title }
 							<br />
-							<span className="woocommerce-email-listing-description">
+							<span className="poocommerce-email-listing-description">
 								{ row.item.description }
 							</span>
 						</div>
@@ -136,7 +136,7 @@ export const ListView = ( { emailTypes }: { emailTypes: EmailType[] } ) => {
 			},
 			{
 				id: 'recipients',
-				label: __( 'Recipient(s)', 'woocommerce' ),
+				label: __( 'Recipient(s)', 'poocommerce' ),
 				enableHiding: true,
 				filterBy: {
 					operators: [ 'isAny' ],
@@ -150,7 +150,7 @@ export const ListView = ( { emailTypes }: { emailTypes: EmailType[] } ) => {
 			},
 			{
 				id: 'status',
-				label: __( 'Status', 'woocommerce' ),
+				label: __( 'Status', 'poocommerce' ),
 				enableHiding: true,
 				filterBy: {
 					operators: [ 'isAny' ],
@@ -162,7 +162,7 @@ export const ListView = ( { emailTypes }: { emailTypes: EmailType[] } ) => {
 			},
 			{
 				id: 'updates',
-				label: __( 'Updates', 'woocommerce' ),
+				label: __( 'Updates', 'poocommerce' ),
 				enableHiding: true,
 				enableSorting: false,
 				getValue: ( { item }: { item: EmailType } ) =>
@@ -170,11 +170,11 @@ export const ListView = ( { emailTypes }: { emailTypes: EmailType[] } ) => {
 				elements: [
 					{
 						value: 'available',
-						label: __( 'Update available', 'woocommerce' ),
+						label: __( 'Update available', 'poocommerce' ),
 					},
 					{
 						value: 'none',
-						label: __( 'Up to date', 'woocommerce' ),
+						label: __( 'Up to date', 'poocommerce' ),
 					},
 				],
 				filterBy: {
@@ -192,7 +192,7 @@ export const ListView = ( { emailTypes }: { emailTypes: EmailType[] } ) => {
 		() => [
 			{
 				id: 'edit',
-				label: __( 'Edit', 'woocommerce' ),
+				label: __( 'Edit', 'poocommerce' ),
 				icon: <Icon icon={ pencil } />,
 				supportsBulk: false,
 				callback: async ( items: EmailType[] ) => {
@@ -219,14 +219,14 @@ export const ListView = ( { emailTypes }: { emailTypes: EmailType[] } ) => {
 					void dispatch( 'core/notices' ).createErrorNotice(
 						__(
 							'Could not prepare the email for editing. Please try again.',
-							'woocommerce'
+							'poocommerce'
 						)
 					);
 				},
 			},
 			{
 				id: 'preview',
-				label: __( 'Preview', 'woocommerce' ),
+				label: __( 'Preview', 'poocommerce' ),
 				icon: <Icon icon={ external } />,
 				supportsBulk: false,
 				// A published post previews through its permalink (the saved
@@ -254,9 +254,9 @@ export const ListView = ( { emailTypes }: { emailTypes: EmailType[] } ) => {
 			},
 			{
 				id: 'test',
-				label: __( 'Send test email', 'woocommerce' ),
+				label: __( 'Send test email', 'poocommerce' ),
 				supportsBulk: false,
-				modalHeader: __( 'Send a test email', 'woocommerce' ),
+				modalHeader: __( 'Send a test email', 'poocommerce' ),
 				RenderModal: ( {
 					items,
 					closeModal,
@@ -274,8 +274,8 @@ export const ListView = ( { emailTypes }: { emailTypes: EmailType[] } ) => {
 				id: 'change-status',
 				label: ( items: EmailType[] ) =>
 					items[ 0 ].status === 'enabled'
-						? __( 'Deactivate email', 'woocommerce' )
-						: __( 'Activate email', 'woocommerce' ),
+						? __( 'Deactivate email', 'poocommerce' )
+						: __( 'Activate email', 'poocommerce' ),
 				supportsBulk: false,
 				isEligible: ( item: EmailType ) =>
 					item.status === 'enabled' || item.status === 'disabled',

@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Utilities;
+namespace Automattic\PooCommerce\Tests\Internal\Utilities;
 
-use Automattic\WooCommerce\Internal\Utilities\ActionSchedulerUtil;
+use Automattic\PooCommerce\Internal\Utilities\ActionSchedulerUtil;
 use WC_Unit_Test_Case;
 
 /**
@@ -11,8 +11,8 @@ use WC_Unit_Test_Case;
  */
 class ActionSchedulerUtilTest extends WC_Unit_Test_Case {
 
-	private const HOOK  = 'woocommerce_action_scheduler_util_test';
-	private const GROUP = 'woocommerce_action_scheduler_util_test_group';
+	private const HOOK  = 'poocommerce_action_scheduler_util_test';
+	private const GROUP = 'poocommerce_action_scheduler_util_test_group';
 
 	/**
 	 * Tear down test fixtures.

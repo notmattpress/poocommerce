@@ -2,12 +2,12 @@
 /**
  * IdentifierPlaceholderSniff.
  *
- * @package WooCommerce\Tests\Tools\PHPCS
+ * @package PooCommerce\Tests\Tools\PHPCS
  */
 
 declare( strict_types=1 );
 
-namespace WooCommerceInternal\Sniffs\DB;
+namespace PooCommerceInternal\Sniffs\DB;
 
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;

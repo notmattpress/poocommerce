@@ -6,19 +6,19 @@ import { __, _n, sprintf } from '@wordpress/i18n';
 import {
 	SearchListControl,
 	SearchListItem,
-} from '@woocommerce/editor-components/search-list-control';
+} from '@poocommerce/editor-components/search-list-control';
 import { SelectControl } from '@wordpress/components';
 import { withInstanceId } from '@wordpress/compose';
-import useProductAttributes from '@woocommerce/base-context/hooks/use-product-attributes';
-import ErrorMessage from '@woocommerce/editor-components/error-placeholder/error-message';
-import ExpandableSearchListItem from '@woocommerce/editor-components/expandable-search-list-item/expandable-search-list-item';
+import useProductAttributes from '@poocommerce/base-context/hooks/use-product-attributes';
+import ErrorMessage from '@poocommerce/editor-components/error-placeholder/error-message';
+import ExpandableSearchListItem from '@poocommerce/editor-components/expandable-search-list-item/expandable-search-list-item';
 import {
 	RenderItemArgs,
 	SearchListControlProps,
 	SearchListItem as SearchListItemProps,
-} from '@woocommerce/editor-components/search-list-control/types';
-import { convertAttributeObjectToSearchItem } from '@woocommerce/utils';
-import type { AttributeObject, AttributeTerm } from '@woocommerce/types';
+} from '@poocommerce/editor-components/search-list-control/types';
+import { convertAttributeObjectToSearchItem } from '@poocommerce/utils';
+import type { AttributeObject, AttributeTerm } from '@poocommerce/types';
 
 /**
  * Internal dependencies
@@ -79,8 +79,8 @@ const ProductAttributeTermControl = ( {
 		const { item, search, depth = 0 } = args;
 		const count = item.count || 0;
 		const classes = [
-			'woocommerce-product-attributes__item',
-			'woocommerce-search-list__item',
+			'poocommerce-product-attributes__item',
+			'poocommerce-search-list__item',
 			{
 				'is-searching': search.length > 0,
 				'is-skip-level': depth === 0 && item.parent !== 0,
@@ -99,7 +99,7 @@ const ProductAttributeTermControl = ( {
 					name={ `attributes-${ instanceId }` }
 					countLabel={ sprintf(
 						/* translators: %d is the count of terms. */
-						_n( '%d term', '%d terms', count, 'woocommerce' ),
+						_n( '%d term', '%d terms', count, 'poocommerce' ),
 						count
 					) }
 					aria-label={ sprintf(
@@ -108,7 +108,7 @@ const ProductAttributeTermControl = ( {
 							'%1$s, has %2$d term',
 							'%1$s, has %2$d terms',
 							count,
-							'woocommerce'
+							'poocommerce'
 						),
 						item.name,
 						count
@@ -126,7 +126,7 @@ const ProductAttributeTermControl = ( {
 				className={ clsx( ...classes, 'has-count' ) }
 				countLabel={ sprintf(
 					/* translators: %d is the count of products. */
-					_n( '%d product', '%d products', count, 'woocommerce' ),
+					_n( '%d product', '%d products', count, 'poocommerce' ),
 					count
 				) }
 				aria-label={ sprintf(
@@ -135,7 +135,7 @@ const ProductAttributeTermControl = ( {
 						'%1$s, has %2$d product',
 						'%1$s, has %2$d products',
 						count,
-						'woocommerce'
+						'poocommerce'
 					),
 					itemName,
 					count
@@ -155,12 +155,12 @@ const ProductAttributeTermControl = ( {
 	}, [] as SearchListItemProps[] );
 
 	messages = {
-		clear: __( 'Clear all product attributes', 'woocommerce' ),
+		clear: __( 'Clear all product attributes', 'poocommerce' ),
 		noItems: __(
 			"Your store doesn't have any product attributes.",
-			'woocommerce'
+			'poocommerce'
 		),
-		search: __( 'Search for product attributes', 'woocommerce' ),
+		search: __( 'Search for product attributes', 'poocommerce' ),
 		selected: ( n: number ) =>
 			sprintf(
 				/* translators: %d is the count of attributes selected. */
@@ -168,13 +168,13 @@ const ProductAttributeTermControl = ( {
 					'%d attribute selected',
 					'%d attributes selected',
 					n,
-					'woocommerce'
+					'poocommerce'
 				),
 				n
 			),
 		updated: __(
 			'Product attribute search results updated.',
-			'woocommerce'
+			'poocommerce'
 		),
 		...messages,
 	};
@@ -186,7 +186,7 @@ const ProductAttributeTermControl = ( {
 	return (
 		<>
 			<SearchListControl
-				className="woocommerce-product-attributes"
+				className="poocommerce-product-attributes"
 				isCompact={ isCompact }
 				isHierarchical
 				isLoading={ isLoadingAttributes }
@@ -207,14 +207,14 @@ const ProductAttributeTermControl = ( {
 			{ !! onOperatorChange && (
 				<div hidden={ selected.length < 2 }>
 					<SelectControl
-						className="woocommerce-product-attributes__operator"
+						className="poocommerce-product-attributes__operator"
 						label={ __(
 							'Display products matching',
-							'woocommerce'
+							'poocommerce'
 						) }
 						help={ __(
 							'Pick at least two attributes to use this setting.',
-							'woocommerce'
+							'poocommerce'
 						) }
 						value={ operator }
 						onChange={ onOperatorChange }
@@ -222,14 +222,14 @@ const ProductAttributeTermControl = ( {
 							{
 								label: __(
 									'Any selected attributes',
-									'woocommerce'
+									'poocommerce'
 								),
 								value: 'any',
 							},
 							{
 								label: __(
 									'All selected attributes',
-									'woocommerce'
+									'poocommerce'
 								),
 								value: 'all',
 							},

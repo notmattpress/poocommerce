@@ -1,6 +1,6 @@
 /**
  * Internal dependencies
  */
-import woocommerce from '@woocommerce/eslint-config';
+import poocommerce from '@poocommerce/eslint-config';
 
-export default [ ...woocommerce ];
+export default [ ...poocommerce ];

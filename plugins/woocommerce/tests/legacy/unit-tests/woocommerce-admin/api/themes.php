@@ -2,7 +2,7 @@
 /**
  * Themes REST API Test
  *
- * @package WooCommerce\Admin\Tests\API
+ * @package PooCommerce\Admin\Tests\API
  */
 
 /**
@@ -48,7 +48,7 @@ class WC_Admin_Tests_API_Themes extends WC_REST_Unit_Test_Case {
 		$data     = $response->get_data();
 
 		$this->assertEquals( 500, $response->get_status() );
-		$this->assertEquals( 'woocommerce_rest_invalid_file', $data['code'] );
+		$this->assertEquals( 'poocommerce_rest_invalid_file', $data['code'] );
 	}
 
 	/**
@@ -62,7 +62,7 @@ class WC_Admin_Tests_API_Themes extends WC_REST_Unit_Test_Case {
 		$data     = $response->get_data();
 
 		$this->assertEquals( 403, $response->get_status() );
-		$this->assertEquals( 'woocommerce_rest_cannot_view', $data['code'] );
+		$this->assertEquals( 'poocommerce_rest_cannot_view', $data['code'] );
 	}
 
 

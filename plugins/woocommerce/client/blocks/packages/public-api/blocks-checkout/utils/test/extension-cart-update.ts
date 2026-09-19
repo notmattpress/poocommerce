@@ -2,8 +2,8 @@
  * External dependencies
  */
 import { dispatch } from '@wordpress/data';
-import { processErrorResponse } from '@woocommerce/block-data';
-import type { CartResponse, ExtensionCartUpdateArgs } from '@woocommerce/types';
+import { processErrorResponse } from '@poocommerce/block-data';
+import type { CartResponse, ExtensionCartUpdateArgs } from '@poocommerce/types';
 
 /**
  * Internal dependencies
@@ -15,7 +15,7 @@ jest.mock( '@wordpress/data', () => ( {
 	dispatch: jest.fn(),
 } ) );
 
-jest.mock( '@woocommerce/block-data', () => ( {
+jest.mock( '@poocommerce/block-data', () => ( {
 	processErrorResponse: jest.fn(),
 } ) );
 
@@ -103,7 +103,7 @@ describe( 'extensionCartUpdate', () => {
 
 	it( 'processes a special cart-extension error once and rejects that same error', async () => {
 		const error = {
-			code: 'woocommerce_rest_cart_extensions_error',
+			code: 'poocommerce_rest_cart_extensions_error',
 			message: 'The cart extension could not be processed.',
 		};
 		mockApplyExtensionCartUpdate.mockRejectedValueOnce( error );

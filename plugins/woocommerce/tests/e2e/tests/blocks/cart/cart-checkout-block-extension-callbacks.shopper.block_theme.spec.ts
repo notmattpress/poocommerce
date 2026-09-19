@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { expect, test } from '@woocommerce/e2e-utils';
+import { expect, test } from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -9,13 +9,13 @@ import { expect, test } from '@woocommerce/e2e-utils';
 import { REGULAR_PRICED_PRODUCT_NAME } from '../checkout/constants';
 
 test.describe( 'Shopper → Cart Extension Callbacks', () => {
-	test( 'Error code `woocommerce_rest_cart_extensions_error` creates notice', async ( {
+	test( 'Error code `poocommerce_rest_cart_extensions_error` creates notice', async ( {
 		frontendUtils,
 		requestUtils,
 		page,
 	} ) => {
 		await requestUtils.activatePlugin(
-			'woocommerce-blocks-test-cart-extensions'
+			'poocommerce-blocks-test-cart-extensions'
 		);
 
 		await frontendUtils.goToShop();

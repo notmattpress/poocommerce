@@ -6,10 +6,10 @@
 	"bin": {
 		"package-release": "./bin/run"
 	},
-	"homepage": "https://github.com/woocommerce/woocommerce",
+	"homepage": "https://github.com/poocommerce/poocommerce",
 	"license": "GPL-2.0-or-later",
 	"main": "dist/index.js",
-	"repository": "woocommerce/woocommerce",
+	"repository": "poocommerce/poocommerce",
 	"files": [
 		"/bin",
 		"/dist",
@@ -32,8 +32,8 @@
 	},
 	"devDependencies": {
 		"@types/node": "^24.1.0",
-		"@woocommerce/eslint-config": "workspace:*",
-		"@woocommerce/eslint-plugin": "workspace:*",
+		"@poocommerce/eslint-config": "workspace:*",
+		"@poocommerce/eslint-plugin": "workspace:*",
 		"eslint": "^10.0.0",
 		"oclif": "^4.23.30",
 		"shx": "^0.3.4",

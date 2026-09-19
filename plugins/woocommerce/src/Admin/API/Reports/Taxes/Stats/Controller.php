@@ -5,12 +5,12 @@
  * Handles requests to the /reports/taxes/stats endpoint.
  */
 
-namespace Automattic\WooCommerce\Admin\API\Reports\Taxes\Stats;
+namespace Automattic\PooCommerce\Admin\API\Reports\Taxes\Stats;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\API\Reports\GenericQuery;
-use Automattic\WooCommerce\Admin\API\Reports\GenericStatsController;
+use Automattic\PooCommerce\Admin\API\Reports\GenericQuery;
+use Automattic\PooCommerce\Admin\API\Reports\GenericStatsController;
 use WP_REST_Request;
 use WP_REST_Response;
 
@@ -33,7 +33,7 @@ class Controller extends GenericStatsController {
 	 * Constructor.
 	 */
 	public function __construct() {
-		add_filter( 'woocommerce_analytics_taxes_stats_select_query', array( $this, 'set_default_report_data' ) );
+		add_filter( 'poocommerce_analytics_taxes_stats_select_query', array( $this, 'set_default_report_data' ) );
 	}
 
 	/**
@@ -117,7 +117,7 @@ class Controller extends GenericStatsController {
 		 * @param object           $report   The original report object.
 		 * @param WP_REST_Request  $request  Request used to generate the response.
 		 */
-		return apply_filters( 'woocommerce_rest_prepare_report_taxes_stats', $response, $report, $request );
+		return apply_filters( 'poocommerce_rest_prepare_report_taxes_stats', $response, $report, $request );
 	}
 
 	/**
@@ -129,7 +129,7 @@ class Controller extends GenericStatsController {
 	protected function get_item_properties_schema() {
 		return array(
 			'total_tax'    => array(
-				'description' => __( 'Total tax.', 'woocommerce' ),
+				'description' => __( 'Total tax.', 'poocommerce' ),
 				'type'        => 'number',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
@@ -137,7 +137,7 @@ class Controller extends GenericStatsController {
 				'format'      => 'currency',
 			),
 			'order_tax'    => array(
-				'description' => __( 'Order tax.', 'woocommerce' ),
+				'description' => __( 'Order tax.', 'poocommerce' ),
 				'type'        => 'number',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
@@ -145,7 +145,7 @@ class Controller extends GenericStatsController {
 				'format'      => 'currency',
 			),
 			'shipping_tax' => array(
-				'description' => __( 'Shipping tax.', 'woocommerce' ),
+				'description' => __( 'Shipping tax.', 'poocommerce' ),
 				'type'        => 'number',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
@@ -153,13 +153,13 @@ class Controller extends GenericStatsController {
 				'format'      => 'currency',
 			),
 			'orders_count' => array(
-				'description' => __( 'Number of orders.', 'woocommerce' ),
+				'description' => __( 'Number of orders.', 'poocommerce' ),
 				'type'        => 'integer',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
 			),
 			'tax_codes'    => array(
-				'description' => __( 'Amount of tax codes.', 'woocommerce' ),
+				'description' => __( 'Amount of tax codes.', 'poocommerce' ),
 				'type'        => 'integer',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
@@ -196,7 +196,7 @@ class Controller extends GenericStatsController {
 			)
 		);
 		$params['taxes']           = array(
-			'description'       => __( 'Limit result set to all items that have the specified term assigned in the taxes taxonomy.', 'woocommerce' ),
+			'description'       => __( 'Limit result set to all items that have the specified term assigned in the taxes taxonomy.', 'poocommerce' ),
 			'type'              => 'array',
 			'sanitize_callback' => 'wp_parse_id_list',
 			'validate_callback' => 'rest_validate_request_arg',
@@ -205,7 +205,7 @@ class Controller extends GenericStatsController {
 			),
 		);
 		$params['segmentby']       = array(
-			'description'       => __( 'Segment the response by additional constraint.', 'woocommerce' ),
+			'description'       => __( 'Segment the response by additional constraint.', 'poocommerce' ),
 			'type'              => 'string',
 			'enum'              => array(
 				'tax_rate_id',

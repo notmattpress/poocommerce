@@ -11,12 +11,12 @@ import { addQueryArgs } from '@wordpress/url';
  */
 import { registerCommandWithTracking } from '../command-palette/register-command-with-tracking';
 
-const registerWooCommerceAnalyticsCommand = ( { label, path } ) => {
+const registerPooCommerceAnalyticsCommand = ( { label, path } ) => {
 	registerCommandWithTracking( {
-		name: `woocommerce${ path }`,
+		name: `poocommerce${ path }`,
 		label: sprintf(
 			// translators: %s is the title of the Analytics Page. This is used as a command in the Command Palette.
-			__( 'WooCommerce Analytics: %s', 'woocommerce' ),
+			__( 'PooCommerce Analytics: %s', 'poocommerce' ),
 			label
 		),
 		icon: chartBar,
@@ -38,7 +38,7 @@ domReady( () => {
 		const analyticsReports = window.wcCommandPaletteAnalytics.reports;
 
 		analyticsReports.forEach( ( analyticsReport ) => {
-			registerWooCommerceAnalyticsCommand( {
+			registerPooCommerceAnalyticsCommand( {
 				label: analyticsReport.title,
 				path: analyticsReport.path,
 			} );

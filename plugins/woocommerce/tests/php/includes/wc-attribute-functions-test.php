@@ -2,12 +2,12 @@
 /**
  * Attribute functions tests
  *
- * @package WooCommerce\Tests\Functions.
+ * @package PooCommerce\Tests\Functions.
  */
 
 declare( strict_types=1 );
 
-use Automattic\WooCommerce\Utilities\FeaturesUtil;
+use Automattic\PooCommerce\Utilities\FeaturesUtil;
 use PHPUnit\Framework\MockObject\Matcher\InvokedRecorder;
 
 /**
@@ -38,7 +38,7 @@ class WC_Attribute_Functions_Test extends \WC_Unit_Test_Case {
 			->method( '__invoke' )
 			->will( $this->returnArgument( 0 ) );
 
-		add_filter( 'woocommerce_attribute_taxonomies', $filter_mock );
+		add_filter( 'poocommerce_attribute_taxonomies', $filter_mock );
 		add_filter( 'sanitize_taxonomy_name', $filter_mock );
 	}
 
@@ -46,7 +46,7 @@ class WC_Attribute_Functions_Test extends \WC_Unit_Test_Case {
 	 * Tear down.
 	 */
 	public function tearDown(): void {
-		remove_all_filters( 'woocommerce_attribute_taxonomies' );
+		remove_all_filters( 'poocommerce_attribute_taxonomies' );
 		remove_all_filters( 'sanitize_taxonomy_name' );
 
 		parent::tearDown();
@@ -62,14 +62,14 @@ class WC_Attribute_Functions_Test extends \WC_Unit_Test_Case {
 		$this->assertEquals(
 			1,
 			$this->filter_recorder->getInvocationCount(),
-			'Filter `woocommerce_attribute_taxonomies` should have been triggered once after fetching all attribute taxonomies.'
+			'Filter `poocommerce_attribute_taxonomies` should have been triggered once after fetching all attribute taxonomies.'
 		);
 		$ids = wc_get_attribute_taxonomy_ids();
 		$this->assertEquals( array(), $ids );
 		$this->assertEquals(
 			1,
 			$this->filter_recorder->getInvocationCount(),
-			'Filter `woocommerce_attribute_taxonomies` should not be triggered a second time because the results should be loaded from the cache.'
+			'Filter `poocommerce_attribute_taxonomies` should not be triggered a second time because the results should be loaded from the cache.'
 		);
 	}
 
@@ -83,14 +83,14 @@ class WC_Attribute_Functions_Test extends \WC_Unit_Test_Case {
 		$this->assertEquals(
 			1,
 			$this->filter_recorder->getInvocationCount(),
-			'Filter `woocommerce_attribute_taxonomies` should have been triggered once after fetching all attribute taxonomies.'
+			'Filter `poocommerce_attribute_taxonomies` should have been triggered once after fetching all attribute taxonomies.'
 		);
 		$labels = wc_get_attribute_taxonomy_labels();
 		$this->assertEquals( array(), $labels );
 		$this->assertEquals(
 			1,
 			$this->filter_recorder->getInvocationCount(),
-			'Filter `woocommerce_attribute_taxonomies` should not be triggered a second time because the results should be loaded from the cache.'
+			'Filter `poocommerce_attribute_taxonomies` should not be triggered a second time because the results should be loaded from the cache.'
 		);
 	}
 
@@ -240,14 +240,14 @@ class WC_Attribute_Functions_Test extends \WC_Unit_Test_Case {
 			$hook_wc_attribute = $wc_product_attributes[ $taxonomy ] ?? null;
 		};
 
-		add_action( 'woocommerce_attribute_deleted', $deleted_callback, 10, 3 );
+		add_action( 'poocommerce_attribute_deleted', $deleted_callback, 10, 3 );
 
 		try {
 			$this->assertTrue( wc_delete_attribute( $attribute['id'] ), 'The attribute should be deleted successfully.' );
 			$this->assertSame( $attribute['wp_taxonomy'], $hook_taxonomy, 'The deletion hook should observe the original WordPress taxonomy.' );
-			$this->assertSame( $attribute['wc_attribute'], $hook_wc_attribute, 'The deletion hook should observe the original WooCommerce attribute entry.' );
+			$this->assertSame( $attribute['wc_attribute'], $hook_wc_attribute, 'The deletion hook should observe the original PooCommerce attribute entry.' );
 			$this->assertFalse( taxonomy_exists( $attribute['taxonomy'] ), 'The deleted attribute taxonomy should be unregistered after the deletion hook.' );
-			$this->assertArrayNotHasKey( $attribute['taxonomy'], $wc_product_attributes, 'The deleted WooCommerce attribute entry should be removed after the deletion hook.' );
+			$this->assertArrayNotHasKey( $attribute['taxonomy'], $wc_product_attributes, 'The deleted PooCommerce attribute entry should be removed after the deletion hook.' );
 			$this->assertFalse( taxonomy_is_product_attribute( $attribute['taxonomy'] ), 'The deleted taxonomy should no longer be reported as a product attribute.' );
 
 			$replacement_attribute_id = wc_create_attribute(
@@ -259,7 +259,7 @@ class WC_Attribute_Functions_Test extends \WC_Unit_Test_Case {
 
 			$this->assertIsInt( $replacement_attribute_id, 'The deleted attribute slug should be reusable in the same request.' );
 		} finally {
-			remove_action( 'woocommerce_attribute_deleted', $deleted_callback, 10 );
+			remove_action( 'poocommerce_attribute_deleted', $deleted_callback, 10 );
 			$this->clean_up_attribute_test_state(
 				array( $attribute['id'], $replacement_attribute_id ),
 				$attribute['taxonomy']
@@ -279,15 +279,15 @@ class WC_Attribute_Functions_Test extends \WC_Unit_Test_Case {
 			unregister_taxonomy( $taxonomy );
 		};
 
-		add_action( 'woocommerce_before_attribute_delete', $unregister_callback, 10, 3 );
+		add_action( 'poocommerce_before_attribute_delete', $unregister_callback, 10, 3 );
 
 		try {
 			$this->assertTrue( wc_delete_attribute( $attribute['id'] ), 'The attribute should still be deleted after its taxonomy is unregistered by a callback.' );
 			$this->assertFalse( taxonomy_exists( $attribute['taxonomy'] ), 'The pre-unregistered taxonomy should remain absent.' );
-			$this->assertArrayNotHasKey( $attribute['taxonomy'], $wc_product_attributes, 'The original WooCommerce attribute entry should still be removed.' );
+			$this->assertArrayNotHasKey( $attribute['taxonomy'], $wc_product_attributes, 'The original PooCommerce attribute entry should still be removed.' );
 			$this->assertFalse( taxonomy_is_product_attribute( $attribute['taxonomy'] ), 'The deleted taxonomy should no longer be reported as a product attribute.' );
 		} finally {
-			remove_action( 'woocommerce_before_attribute_delete', $unregister_callback, 10 );
+			remove_action( 'poocommerce_before_attribute_delete', $unregister_callback, 10 );
 			$this->clean_up_attribute_test_state( array( $attribute['id'] ), $attribute['taxonomy'] );
 		}
 	}
@@ -307,21 +307,21 @@ class WC_Attribute_Functions_Test extends \WC_Unit_Test_Case {
 
 			$wpdb->query(
 				$wpdb->prepare(
-					"DELETE FROM {$wpdb->prefix}woocommerce_attribute_taxonomies WHERE attribute_id = %d",
+					"DELETE FROM {$wpdb->prefix}poocommerce_attribute_taxonomies WHERE attribute_id = %d",
 					$id
 				)
 			); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- The test needs the outer deletion query to affect no rows.
 		};
 
-		add_action( 'woocommerce_before_attribute_delete', $before_delete_callback, 10, 3 );
+		add_action( 'poocommerce_before_attribute_delete', $before_delete_callback, 10, 3 );
 
 		try {
 			$this->assertFalse( wc_delete_attribute( $attribute['id'] ), 'The outer deletion should fail after the callback removes the database row.' );
 			$this->assertTrue( taxonomy_exists( $attribute['taxonomy'] ), 'A failed deletion should leave the taxonomy registered.' );
-			$this->assertArrayHasKey( $attribute['taxonomy'], $wc_product_attributes, 'A failed deletion should leave the WooCommerce attribute entry in place.' );
+			$this->assertArrayHasKey( $attribute['taxonomy'], $wc_product_attributes, 'A failed deletion should leave the PooCommerce attribute entry in place.' );
 			$this->assertTrue( taxonomy_is_product_attribute( $attribute['taxonomy'] ), 'A failed deletion should leave the taxonomy reported as a product attribute.' );
 		} finally {
-			remove_action( 'woocommerce_before_attribute_delete', $before_delete_callback, 10 );
+			remove_action( 'poocommerce_before_attribute_delete', $before_delete_callback, 10 );
 			$this->clean_up_attribute_test_state( array( $attribute['id'] ), $attribute['taxonomy'] );
 		}
 	}
@@ -469,10 +469,10 @@ class WC_Attribute_Functions_Test extends \WC_Unit_Test_Case {
 		try {
 			switch_theme( 'twentytwentyfour' );
 
-			delete_option( 'woocommerce_feature_wc_visual_attribute_enabled' );
+			delete_option( 'poocommerce_feature_wc_visual_attribute_enabled' );
 			$this->assertArrayNotHasKey( 'wc-visual', wc_get_attribute_types(), 'The visual attribute type should require the feature setting.' );
 			$this->assertTrue(
-				wc_get_container()->get( \Automattic\WooCommerce\Internal\Features\FeaturesController::class )->change_feature_enable( 'wc-visual-attribute', true ),
+				wc_get_container()->get( \Automattic\PooCommerce\Internal\Features\FeaturesController::class )->change_feature_enable( 'wc-visual-attribute', true ),
 				'The visual attribute feature should be toggled on.'
 			);
 			$this->assertArrayHasKey( 'wc-visual', wc_get_attribute_types(), 'The visual attribute type should be available in block themes.' );
@@ -500,7 +500,7 @@ class WC_Attribute_Functions_Test extends \WC_Unit_Test_Case {
 				wc_delete_attribute( $attribute_id );
 			}
 
-			delete_option( 'woocommerce_feature_wc_visual_attribute_enabled' );
+			delete_option( 'poocommerce_feature_wc_visual_attribute_enabled' );
 			switch_theme( $original_theme );
 		}//end try
 	}

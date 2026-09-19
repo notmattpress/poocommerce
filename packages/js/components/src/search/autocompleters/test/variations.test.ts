@@ -3,7 +3,7 @@
  */
 import variations from '../variations';
 
-jest.mock( '@woocommerce/navigation', () => ( {
+jest.mock( '@poocommerce/navigation', () => ( {
 	getQuery: jest.fn( () => ( {} ) ),
 } ) );
 

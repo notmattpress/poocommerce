@@ -5,7 +5,7 @@ import {
 	getHistory,
 	getQuery,
 	updateQueryString,
-} from '@woocommerce/navigation';
+} from '@poocommerce/navigation';
 import { AnyEventObject } from 'xstate5';
 
 /**

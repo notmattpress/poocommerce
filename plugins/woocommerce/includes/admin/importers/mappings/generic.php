@@ -2,7 +2,7 @@
 /**
  * Generic mappings
  *
- * @package WooCommerce\Admin\Importers
+ * @package PooCommerce\Admin\Importers
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -18,14 +18,14 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 function wc_importer_generic_mappings( $mappings ) {
 	$generic_mappings = array(
-		__( 'Title', 'woocommerce' )         => 'name',
-		__( 'Product Title', 'woocommerce' ) => 'name',
-		__( 'Price', 'woocommerce' )         => 'regular_price',
-		__( 'Parent SKU', 'woocommerce' )    => 'parent_id',
-		__( 'Quantity', 'woocommerce' )      => 'stock_quantity',
-		__( 'Menu order', 'woocommerce' )    => 'menu_order',
+		__( 'Title', 'poocommerce' )         => 'name',
+		__( 'Product Title', 'poocommerce' ) => 'name',
+		__( 'Price', 'poocommerce' )         => 'regular_price',
+		__( 'Parent SKU', 'poocommerce' )    => 'parent_id',
+		__( 'Quantity', 'poocommerce' )      => 'stock_quantity',
+		__( 'Menu order', 'poocommerce' )    => 'menu_order',
 	);
 
 	return array_merge( $mappings, $generic_mappings );
 }
-add_filter( 'woocommerce_csv_product_import_mapping_default_columns', 'wc_importer_generic_mappings' );
+add_filter( 'poocommerce_csv_product_import_mapping_default_columns', 'wc_importer_generic_mappings' );

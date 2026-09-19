@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\StoreApi\Routes\V1;
+namespace Automattic\PooCommerce\StoreApi\Routes\V1;
 
 /**
  * Stopgap CSRF guard for the write-capable shopper-lists routes.
@@ -72,23 +72,23 @@ trait ShopperListsNonceCheck {
 		 *
 		 * @param bool $disable_nonce_check If true, nonce checks will be disabled.
 		 */
-		if ( apply_filters( 'woocommerce_store_api_disable_nonce_check', false ) ) {
+		if ( apply_filters( 'poocommerce_store_api_disable_nonce_check', false ) ) {
 			return true;
 		}
 
 		$nonce = $request->get_header( 'Nonce' );
 		if ( null === $nonce || '' === $nonce ) {
 			return $this->get_route_error_response(
-				'woocommerce_rest_missing_nonce',
-				__( 'Missing the Nonce header. This endpoint requires a valid nonce.', 'woocommerce' ),
+				'poocommerce_rest_missing_nonce',
+				__( 'Missing the Nonce header. This endpoint requires a valid nonce.', 'poocommerce' ),
 				401
 			);
 		}
 
 		if ( ! wp_verify_nonce( $nonce, self::$store_api_nonce_action ) ) {
 			return $this->get_route_error_response(
-				'woocommerce_rest_invalid_nonce',
-				__( 'Nonce is invalid.', 'woocommerce' ),
+				'poocommerce_rest_invalid_nonce',
+				__( 'Nonce is invalid.', 'poocommerce' ),
 				403
 			);
 		}

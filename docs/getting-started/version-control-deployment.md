@@ -6,7 +6,7 @@ sidebar_position: 8
 
 # Version control and deployment
 
-Because WordPress and WooCommerce are both developer frameworks *and* content management systems, it’s important to plan ahead for how you will version control your code and deploy changes to a live environment. A common rule is that “code goes up, content goes down,” meaning that you’ll push your custom code up from a local or staging environment, but never the contents of your database or user-generated content that lives in the `wp-content/uploads` directory.
+Because WordPress and PooCommerce are both developer frameworks *and* content management systems, it’s important to plan ahead for how you will version control your code and deploy changes to a live environment. A common rule is that “code goes up, content goes down,” meaning that you’ll push your custom code up from a local or staging environment, but never the contents of your database or user-generated content that lives in the `wp-content/uploads` directory.
 
 ## Considerations
 

@@ -2,10 +2,10 @@
  * External dependencies
  */
 import { useSelect } from '@wordpress/data';
-import { useUser, optionsStore } from '@woocommerce/data';
+import { useUser, optionsStore } from '@poocommerce/data';
 
 const SHOW_MARKETPLACE_SUGGESTION_OPTION =
-	'woocommerce_show_marketplace_suggestions';
+	'poocommerce_show_marketplace_suggestions';
 
 const RecommendationsEligibilityWrapper = ( {
 	children,

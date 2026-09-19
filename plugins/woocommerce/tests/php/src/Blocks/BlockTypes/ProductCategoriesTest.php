@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Tests\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Tests\Helpers\ImageAttachmentTrait;
+use Automattic\PooCommerce\Tests\Helpers\ImageAttachmentTrait;
 use WC_Helper_Product;
 use WC_Unit_Test_Case;
 
@@ -55,7 +55,7 @@ class ProductCategoriesTest extends WC_Unit_Test_Case {
 	 * @return string Rendered markup.
 	 */
 	private function render_product_categories( string $attrs = '' ): string {
-		return do_blocks( "<!-- wp:woocommerce/product-categories {$attrs} /-->" );
+		return do_blocks( "<!-- wp:poocommerce/product-categories {$attrs} /-->" );
 	}
 
 	/**

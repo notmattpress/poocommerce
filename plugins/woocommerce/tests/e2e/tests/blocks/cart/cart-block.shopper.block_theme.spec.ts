@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { test as base, expect } from '@woocommerce/e2e-utils';
+import { test as base, expect } from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -177,7 +177,7 @@ test.describe( 'Shopper → Cart block', () => {
 		await frontendUtils.addToCart( SIMPLE_PHYSICAL_PRODUCT_NAME );
 		await frontendUtils.goToCart();
 		await page
-			.locator( '.wp-block-woocommerce-product-collection' )
+			.locator( '.wp-block-poocommerce-product-collection' )
 			.waitFor();
 		// Cap is the cross sells product that will be added to the cart
 		await page

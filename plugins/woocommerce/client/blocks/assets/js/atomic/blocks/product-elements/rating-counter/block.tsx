@@ -6,10 +6,10 @@ import clsx from 'clsx';
 import {
 	useInnerBlockLayoutContext,
 	useProductDataContext,
-} from '@woocommerce/shared-context';
-import { useStyleProps } from '@woocommerce/base-hooks';
-import { withProductDataContext } from '@woocommerce/shared-hocs';
-import { isNumber, ProductResponseItem } from '@woocommerce/types';
+} from '@poocommerce/shared-context';
+import { useStyleProps } from '@poocommerce/base-hooks';
+import { withProductDataContext } from '@poocommerce/shared-hocs';
+import { isNumber, ProductResponseItem } from '@poocommerce/types';
 import { Disabled } from '@wordpress/components';
 
 const getRatingCount = ( product: ProductResponseItem ) => {
@@ -30,11 +30,11 @@ const ReviewsCount = ( props: { reviews: number } ): JSX.Element => {
 					'(%s customer review)',
 					'(%s customer reviews)',
 					reviews,
-					'woocommerce'
+					'poocommerce'
 				),
 				reviews
 		  )
-		: __( '(X customer reviews)', 'woocommerce' );
+		: __( '(X customer reviews)', 'poocommerce' );
 
 	return (
 		<span className="wc-block-components-product-rating-counter__reviews_count">

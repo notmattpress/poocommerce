@@ -1,6 +1,6 @@
 {
-	"name": "woocommerce/block-library",
-	"description": "Dev tooling for WooCommerce Blocks. Only used to run `pnpm build:docs`, which regenerates the hook docs from the PHP sources in plugins/woocommerce/src.",
+	"name": "poocommerce/block-library",
+	"description": "Dev tooling for PooCommerce Blocks. Only used to run `pnpm build:docs`, which regenerates the hook docs from the PHP sources in plugins/poocommerce/src.",
 	"license": "GPL-3.0-or-later",
 	"prefer-stable": true,
 	"minimum-stability": "dev",

@@ -4,7 +4,7 @@ use function WP_CLI\Utils\esc_like;
 
 defined( 'ABSPATH' ) || exit;
 
-register_woocommerce_admin_test_helper_rest_route(
+register_poocommerce_admin_test_helper_rest_route(
 	'/options',
 	'wca_test_helper_get_options',
 	array(
@@ -31,7 +31,7 @@ register_woocommerce_admin_test_helper_rest_route(
 	)
 );
 
-register_woocommerce_admin_test_helper_rest_route(
+register_poocommerce_admin_test_helper_rest_route(
 	'/options/(?P<option_names>(.*)+)',
 	'wca_test_helper_delete_option',
 	array(
@@ -44,7 +44,7 @@ register_woocommerce_admin_test_helper_rest_route(
 	)
 );
 
-register_woocommerce_admin_test_helper_rest_route(
+register_poocommerce_admin_test_helper_rest_route(
 	'/options',
 	'wca_test_helper_update_option',
 	array(

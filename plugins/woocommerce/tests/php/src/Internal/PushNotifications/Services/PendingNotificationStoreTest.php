@@ -2,15 +2,15 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\PushNotifications\Services;
+namespace Automattic\PooCommerce\Tests\Internal\PushNotifications\Services;
 
-use Automattic\WooCommerce\Internal\PushNotifications\Dispatchers\InternalNotificationDispatcher;
-use Automattic\WooCommerce\Internal\PushNotifications\Notifications\NewOrderNotification;
-use Automattic\WooCommerce\Internal\PushNotifications\Notifications\NewReviewNotification;
-use Automattic\WooCommerce\Internal\PushNotifications\Notifications\StockNotification;
-use Automattic\WooCommerce\Internal\PushNotifications\Services\NotificationProcessor;
-use Automattic\WooCommerce\Internal\PushNotifications\Services\PendingNotificationStore;
-use Automattic\WooCommerce\Tests\Internal\PushNotifications\Helpers\PushNotificationsTestTrait;
+use Automattic\PooCommerce\Internal\PushNotifications\Dispatchers\InternalNotificationDispatcher;
+use Automattic\PooCommerce\Internal\PushNotifications\Notifications\NewOrderNotification;
+use Automattic\PooCommerce\Internal\PushNotifications\Notifications\NewReviewNotification;
+use Automattic\PooCommerce\Internal\PushNotifications\Notifications\StockNotification;
+use Automattic\PooCommerce\Internal\PushNotifications\Services\NotificationProcessor;
+use Automattic\PooCommerce\Internal\PushNotifications\Services\PendingNotificationStore;
+use Automattic\PooCommerce\Tests\Internal\PushNotifications\Helpers\PushNotificationsTestTrait;
 use WC_Unit_Test_Case;
 
 /**

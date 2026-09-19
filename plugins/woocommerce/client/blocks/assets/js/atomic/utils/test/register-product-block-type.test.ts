@@ -54,7 +54,7 @@ type RegisterProductBlockType =
 
 const blockSettings = {
 	title: 'Test product block',
-	category: 'woocommerce',
+	category: 'poocommerce',
 } as Partial< BlockConfiguration >;
 
 const loadRegistrationFunction = (): RegisterProductBlockType => {
@@ -88,17 +88,17 @@ describe( 'registerProductBlockType', () => {
 		};
 		jest.doMock( '@wordpress/blocks', getBlocksMock );
 		jest.doMock( '@wordpress/data', getDataMock );
-		jest.dontMock( '@woocommerce/atomic-utils' );
+		jest.dontMock( '@poocommerce/atomic-utils' );
 	} );
 
 	it( 'registers only post-editor-enabled blocks with the Single Product ancestor', () => {
 		const registerProductBlockType = loadRegistrationFunction();
 
-		registerProductBlockType( 'woocommerce/post-enabled', {
+		registerProductBlockType( 'poocommerce/post-enabled', {
 			...blockSettings,
 			isAvailableOnPostEditor: true,
 		} );
-		registerProductBlockType( 'woocommerce/post-disabled', {
+		registerProductBlockType( 'poocommerce/post-disabled', {
 			...blockSettings,
 			isAvailableOnPostEditor: false,
 		} );
@@ -106,9 +106,9 @@ describe( 'registerProductBlockType', () => {
 
 		expect( mockRegisterBlockType ).toHaveBeenCalledTimes( 1 );
 		expect( mockRegisterBlockType ).toHaveBeenCalledWith(
-			'woocommerce/post-enabled',
+			'poocommerce/post-enabled',
 			expect.objectContaining( {
-				ancestor: [ 'woocommerce/single-product' ],
+				ancestor: [ 'poocommerce/single-product' ],
 			} )
 		);
 		expect( mockUnsubscribe ).toHaveBeenCalledTimes( 1 );
@@ -121,16 +121,16 @@ describe( 'registerProductBlockType', () => {
 		const registerProductBlockType = loadRegistrationFunction();
 
 		registerProductBlockType(
-			'woocommerce/site-editor-block',
+			'poocommerce/site-editor-block',
 			blockSettings
 		);
 		mockContextSubscription();
 
 		expect( mockRegisterBlockType ).toHaveBeenCalledTimes( 1 );
 		expect( mockRegisterBlockType ).toHaveBeenCalledWith(
-			'woocommerce/site-editor-block',
+			'poocommerce/site-editor-block',
 			expect.objectContaining( {
-				ancestor: [ 'woocommerce/single-product' ],
+				ancestor: [ 'poocommerce/single-product' ],
 			} )
 		);
 		expect( mockUnregisterBlockType ).not.toHaveBeenCalled();
@@ -143,27 +143,27 @@ describe( 'registerProductBlockType', () => {
 		const registerProductBlockType = loadRegistrationFunction();
 
 		registerProductBlockType(
-			'woocommerce/transition-block',
+			'poocommerce/transition-block',
 			blockSettings
 		);
 		registerProductBlockType(
-			'woocommerce/transition-block',
+			'poocommerce/transition-block',
 			blockSettings
 		);
 		mockContextSubscription();
 
 		expect( mockRegisterBlockType ).toHaveBeenCalledTimes( 1 );
 
-		mockTemplateSlug = 'woocommerce//single-product';
+		mockTemplateSlug = 'poocommerce//single-product';
 		mockTemplateSubscription();
 
 		expect( mockUnregisterBlockType ).toHaveBeenNthCalledWith(
 			1,
-			'woocommerce/transition-block'
+			'poocommerce/transition-block'
 		);
 		expect( mockRegisterBlockType ).toHaveBeenNthCalledWith(
 			2,
-			'woocommerce/transition-block',
+			'poocommerce/transition-block',
 			expect.objectContaining( { ancestor: undefined } )
 		);
 
@@ -172,15 +172,15 @@ describe( 'registerProductBlockType', () => {
 
 		expect( mockUnregisterBlockType ).toHaveBeenNthCalledWith(
 			2,
-			'woocommerce/transition-block'
+			'poocommerce/transition-block'
 		);
 		expect( mockUnregisterBlockType ).toHaveBeenCalledTimes( 2 );
 		expect( mockRegisterBlockType ).toHaveBeenCalledTimes( 3 );
 		expect( mockRegisterBlockType ).toHaveBeenNthCalledWith(
 			3,
-			'woocommerce/transition-block',
+			'poocommerce/transition-block',
 			expect.objectContaining( {
-				ancestor: [ 'woocommerce/single-product' ],
+				ancestor: [ 'poocommerce/single-product' ],
 			} )
 		);
 	} );
@@ -198,30 +198,30 @@ describe( 'registerProductBlockType', () => {
 		};
 
 		registerProductBlockType(
-			'woocommerce/product-query',
+			'poocommerce/product-query',
 			variationSettings
 		);
 		mockContextSubscription();
 
 		expect( mockRegisterBlockVariation ).toHaveBeenCalledTimes( 1 );
 		expect( mockRegisterBlockVariation ).toHaveBeenCalledWith(
-			'woocommerce/product-query',
+			'poocommerce/product-query',
 			expect.objectContaining( {
 				name: 'related-products',
 				title: 'Related products',
 			} )
 		);
 
-		mockTemplateSlug = 'woocommerce//single-product';
+		mockTemplateSlug = 'poocommerce//single-product';
 		mockTemplateSubscription();
 
 		expect( mockUnregisterBlockVariation ).toHaveBeenCalledWith(
-			'woocommerce/product-query',
+			'poocommerce/product-query',
 			'related-products'
 		);
 		expect( mockRegisterBlockVariation ).toHaveBeenCalledTimes( 2 );
 		expect( mockRegisterBlockVariation ).toHaveBeenLastCalledWith(
-			'woocommerce/product-query',
+			'poocommerce/product-query',
 			expect.objectContaining( {
 				name: 'related-products',
 				title: 'Related products',
@@ -233,13 +233,13 @@ describe( 'registerProductBlockType', () => {
 
 		expect( mockUnregisterBlockVariation ).toHaveBeenNthCalledWith(
 			2,
-			'woocommerce/product-query',
+			'poocommerce/product-query',
 			'related-products'
 		);
 		expect( mockUnregisterBlockVariation ).toHaveBeenCalledTimes( 2 );
 		expect( mockRegisterBlockVariation ).toHaveBeenCalledTimes( 3 );
 		expect( mockRegisterBlockVariation ).toHaveBeenLastCalledWith(
-			'woocommerce/product-query',
+			'poocommerce/product-query',
 			expect.objectContaining( {
 				name: 'related-products',
 				title: 'Related products',
@@ -254,7 +254,7 @@ describe( 'product block registration call sites', () => {
 		jest.clearAllMocks();
 		jest.dontMock( '@wordpress/blocks' );
 		jest.dontMock( '@wordpress/data' );
-		jest.doMock( '@woocommerce/atomic-utils', () => ( {
+		jest.doMock( '@poocommerce/atomic-utils', () => ( {
 			registerProductBlockType: mockRegisterProductBlockTypeCallSite,
 		} ) );
 	} );
@@ -271,12 +271,12 @@ describe( 'product block registration call sites', () => {
 			2
 		);
 		expect( mockRegisterProductBlockTypeCallSite ).toHaveBeenCalledWith(
-			expect.objectContaining( { name: 'woocommerce/product-price' } ),
+			expect.objectContaining( { name: 'poocommerce/product-price' } ),
 			expect.objectContaining( { isAvailableOnPostEditor: true } )
 		);
 		expect( mockRegisterProductBlockTypeCallSite ).toHaveBeenCalledWith(
 			expect.objectContaining( {
-				name: 'woocommerce/product-image-gallery',
+				name: 'poocommerce/product-image-gallery',
 			} ),
 			expect.objectContaining( { isAvailableOnPostEditor: false } )
 		);
@@ -305,7 +305,7 @@ describe( 'product block registration call sites', () => {
 		);
 		expect( mockRegisterProductBlockTypeCallSite ).toHaveBeenCalledWith(
 			expect.objectContaining( {
-				name: 'woocommerce/related-products',
+				name: 'poocommerce/related-products',
 				supports: expect.objectContaining( { inserter: false } ),
 			} ),
 			expect.objectContaining( { isAvailableOnPostEditor: false } )
@@ -326,7 +326,7 @@ describe( 'product block registration call sites', () => {
 			1
 		);
 		expect( mockRegisterProductBlockTypeCallSite ).toHaveBeenCalledWith(
-			expect.objectContaining( { name: 'woocommerce/product-details' } ),
+			expect.objectContaining( { name: 'poocommerce/product-details' } ),
 			expect.objectContaining( { isAvailableOnPostEditor: true } )
 		);
 	} );

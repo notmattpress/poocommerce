@@ -22,7 +22,7 @@ import {
 jest.mock( '@wordpress/api-fetch', () => jest.fn() );
 
 const recordEventMock = jest.fn();
-jest.mock( '@woocommerce/tracks', () => ( {
+jest.mock( '@poocommerce/tracks', () => ( {
 	recordEvent: ( name: string, payload: Record< string, unknown > ) =>
 		recordEventMock( name, payload ),
 } ) );
@@ -123,7 +123,7 @@ describe( 'useSendTestEmail + SendTestEmailForm', () => {
 		);
 
 		expect( apiFetchMock ).toHaveBeenCalledWith( {
-			path: '/woocommerce-email-editor/v1/send_preview_email',
+			path: '/poocommerce-email-editor/v1/send_preview_email',
 			method: 'POST',
 			data: {
 				email: 'merchant@example.com',
@@ -146,7 +146,7 @@ describe( 'useSendTestEmail + SendTestEmailForm', () => {
 		);
 
 		expect( apiFetchMock ).toHaveBeenCalledWith( {
-			path: '/woocommerce-email-editor/v1/send_preview_email',
+			path: '/poocommerce-email-editor/v1/send_preview_email',
 			method: 'POST',
 			data: {
 				email: 'merchant@example.com',

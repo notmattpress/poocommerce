@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 /**
  * Formatting functions tests
  *
- * @package WooCommerce\Tests\Formatting.
+ * @package PooCommerce\Tests\Formatting.
  */
 
 /**
@@ -116,22 +116,22 @@ class WC_Formatting_Functions_Test extends \WC_Unit_Test_Case {
 	 */
 	public function data_provider_wc_format_option_price_separators(): array {
 		return array(
-			'thousand sep: comma'           => array( 'woocommerce_price_thousand_sep', ',', ',', false ),
-			'thousand sep: period'          => array( 'woocommerce_price_thousand_sep', '.', '.', false ),
-			'thousand sep: space'           => array( 'woocommerce_price_thousand_sep', ' ', ' ', false ),
-			'thousand sep: two spaces'      => array( 'woocommerce_price_thousand_sep', '  ', '  ', false ),
-			'thousand sep: empty'           => array( 'woocommerce_price_thousand_sep', '', '', false ),
-			'thousand sep: nbsp entity'     => array( 'woocommerce_price_thousand_sep', '&nbsp;', '&nbsp;', false ),
-			'thousand sep: comma entity'    => array( 'woocommerce_price_thousand_sep', '&#44;', '&#044;', false ),
-			'thousand sep: not submitted'   => array( 'woocommerce_price_thousand_sep', null, '|', false ),
-			'thousand sep: single digit'    => array( 'woocommerce_price_thousand_sep', '1', '|', true ),
-			'thousand sep: digit+symbol'    => array( 'woocommerce_price_thousand_sep', '1,', '|', true ),
-			'thousand sep: digit entity'    => array( 'woocommerce_price_thousand_sep', '&#49;', '|', true ),
-			'thousand sep: fullwidth digit' => array( 'woocommerce_price_thousand_sep', '１', '|', true ),
-			'thousand sep: array'           => array( 'woocommerce_price_thousand_sep', array( '1' ), '|', true ),
-			'decimal sep: period'           => array( 'woocommerce_price_decimal_sep', '.', '.', false ),
-			'decimal sep: single digit'     => array( 'woocommerce_price_decimal_sep', '2', '|', true ),
-			'decimal sep: arabic digit'     => array( 'woocommerce_price_decimal_sep', '٢', '|', true ),
+			'thousand sep: comma'           => array( 'poocommerce_price_thousand_sep', ',', ',', false ),
+			'thousand sep: period'          => array( 'poocommerce_price_thousand_sep', '.', '.', false ),
+			'thousand sep: space'           => array( 'poocommerce_price_thousand_sep', ' ', ' ', false ),
+			'thousand sep: two spaces'      => array( 'poocommerce_price_thousand_sep', '  ', '  ', false ),
+			'thousand sep: empty'           => array( 'poocommerce_price_thousand_sep', '', '', false ),
+			'thousand sep: nbsp entity'     => array( 'poocommerce_price_thousand_sep', '&nbsp;', '&nbsp;', false ),
+			'thousand sep: comma entity'    => array( 'poocommerce_price_thousand_sep', '&#44;', '&#044;', false ),
+			'thousand sep: not submitted'   => array( 'poocommerce_price_thousand_sep', null, '|', false ),
+			'thousand sep: single digit'    => array( 'poocommerce_price_thousand_sep', '1', '|', true ),
+			'thousand sep: digit+symbol'    => array( 'poocommerce_price_thousand_sep', '1,', '|', true ),
+			'thousand sep: digit entity'    => array( 'poocommerce_price_thousand_sep', '&#49;', '|', true ),
+			'thousand sep: fullwidth digit' => array( 'poocommerce_price_thousand_sep', '１', '|', true ),
+			'thousand sep: array'           => array( 'poocommerce_price_thousand_sep', array( '1' ), '|', true ),
+			'decimal sep: period'           => array( 'poocommerce_price_decimal_sep', '.', '.', false ),
+			'decimal sep: single digit'     => array( 'poocommerce_price_decimal_sep', '2', '|', true ),
+			'decimal sep: arabic digit'     => array( 'poocommerce_price_decimal_sep', '٢', '|', true ),
 		);
 	}
 
@@ -165,9 +165,9 @@ class WC_Formatting_Functions_Test extends \WC_Unit_Test_Case {
 	 * @testdox wc_format_option_price_separators should return an empty string when nothing is stored.
 	 */
 	public function test_wc_format_option_price_separators_returns_empty_string_when_nothing_stored(): void {
-		delete_option( 'woocommerce_price_thousand_sep' );
+		delete_option( 'poocommerce_price_thousand_sep' );
 
-		$result = wc_format_option_price_separators( '1', array( 'id' => 'woocommerce_price_thousand_sep' ), '1' );
+		$result = wc_format_option_price_separators( '1', array( 'id' => 'poocommerce_price_thousand_sep' ), '1' );
 
 		$this->assertSame( '', $result, 'A rejected separator should return an empty string when the option is not stored.' );
 	}
@@ -176,9 +176,9 @@ class WC_Formatting_Functions_Test extends \WC_Unit_Test_Case {
 	 * @testdox wc_format_option_price_separators should keep a stored empty separator on rejection.
 	 */
 	public function test_wc_format_option_price_separators_keeps_stored_empty_separator(): void {
-		update_option( 'woocommerce_price_thousand_sep', '' );
+		update_option( 'poocommerce_price_thousand_sep', '' );
 
-		$result = wc_format_option_price_separators( '1', array( 'id' => 'woocommerce_price_thousand_sep' ), '1' );
+		$result = wc_format_option_price_separators( '1', array( 'id' => 'poocommerce_price_thousand_sep' ), '1' );
 
 		$this->assertSame( '', $result, 'A deliberately empty separator should survive a rejected save.' );
 	}
@@ -187,9 +187,9 @@ class WC_Formatting_Functions_Test extends \WC_Unit_Test_Case {
 	 * @testdox wc_format_option_price_separators should discard a stored value that is not a string.
 	 */
 	public function test_wc_format_option_price_separators_discards_non_string_stored_value(): void {
-		update_option( 'woocommerce_price_thousand_sep', array( '1' ) );
+		update_option( 'poocommerce_price_thousand_sep', array( '1' ) );
 
-		$result = wc_format_option_price_separators( '1', array( 'id' => 'woocommerce_price_thousand_sep' ), '1' );
+		$result = wc_format_option_price_separators( '1', array( 'id' => 'poocommerce_price_thousand_sep' ), '1' );
 
 		$this->assertSame( '', $result, 'A stored value that is not a string should not be handed back.' );
 	}
@@ -221,16 +221,16 @@ class WC_Formatting_Functions_Test extends \WC_Unit_Test_Case {
 	 * @testdox wc_is_stock_amount_integer should return true when stock amounts are integers and false when they are floats.
 	 */
 	public function test_wc_is_stock_amount_integer() {
-		// Remove all filters from woocommerce_stock_amount.
-		remove_all_filters( 'woocommerce_stock_amount' );
+		// Remove all filters from poocommerce_stock_amount.
+		remove_all_filters( 'poocommerce_stock_amount' );
 
 		// Test with floatval applied to the filter.
-		add_filter( 'woocommerce_stock_amount', 'floatval' );
+		add_filter( 'poocommerce_stock_amount', 'floatval' );
 		$this->assertFalse( wc_is_stock_amount_integer(), 'Should return false when floatval is applied to stock amount filter.' );
 
 		// Remove floatval filter and add intval filter.
-		remove_all_filters( 'woocommerce_stock_amount' );
-		add_filter( 'woocommerce_stock_amount', 'intval' );
+		remove_all_filters( 'poocommerce_stock_amount' );
+		add_filter( 'poocommerce_stock_amount', 'intval' );
 		$this->assertTrue( wc_is_stock_amount_integer(), 'Should return true when intval is applied to stock amount filter.' );
 	}
 }

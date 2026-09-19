@@ -2,14 +2,14 @@
 /**
  * EmailSettingsSchema class.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\RestApi\Routes\V4\Settings\Email\Schema;
+namespace Automattic\PooCommerce\Internal\RestApi\Routes\V4\Settings\Email\Schema;
 
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\AbstractSchema;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\AbstractSchema;
 use WP_REST_Request;
 
 defined( 'ABSPATH' ) || exit;
@@ -40,54 +40,54 @@ class EmailSettingsSchema extends AbstractSchema {
 	public function get_item_schema_properties(): array {
 		return array(
 			'id'          => array(
-				'description' => __( 'Unique identifier for the settings group.', 'woocommerce' ),
+				'description' => __( 'Unique identifier for the settings group.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_CONTEXT,
 				'readonly'    => true,
 			),
 			'title'       => array(
-				'description' => __( 'Settings title.', 'woocommerce' ),
+				'description' => __( 'Settings title.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_CONTEXT,
 				'readonly'    => true,
 			),
 			'description' => array(
-				'description' => __( 'Settings description.', 'woocommerce' ),
+				'description' => __( 'Settings description.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_CONTEXT,
 				'readonly'    => true,
 			),
 			'values'      => array(
-				'description' => __( 'Flat key-value mapping of all setting field values.', 'woocommerce' ),
+				'description' => __( 'Flat key-value mapping of all setting field values.', 'poocommerce' ),
 				'type'        => 'object',
 				'context'     => self::VIEW_EDIT_CONTEXT,
 			),
 			'groups'      => array(
-				'description'          => __( 'Collection of setting groups.', 'woocommerce' ),
+				'description'          => __( 'Collection of setting groups.', 'poocommerce' ),
 				'type'                 => 'object',
 				'context'              => self::VIEW_EDIT_CONTEXT,
 				'additionalProperties' => array(
 					'type'        => 'object',
-					'description' => __( 'Settings group.', 'woocommerce' ),
+					'description' => __( 'Settings group.', 'poocommerce' ),
 					'properties'  => array(
 						'title'       => array(
-							'description' => __( 'Group title.', 'woocommerce' ),
+							'description' => __( 'Group title.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => self::VIEW_EDIT_CONTEXT,
 						),
 						'description' => array(
-							'description' => __( 'Group description.', 'woocommerce' ),
+							'description' => __( 'Group description.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => self::VIEW_EDIT_CONTEXT,
 						),
 						'order'       => array(
-							'description' => __( 'Display order for the group.', 'woocommerce' ),
+							'description' => __( 'Display order for the group.', 'poocommerce' ),
 							'type'        => 'integer',
 							'context'     => self::VIEW_EDIT_CONTEXT,
 							'readonly'    => true,
 						),
 						'fields'      => array(
-							'description' => __( 'Settings fields.', 'woocommerce' ),
+							'description' => __( 'Settings fields.', 'poocommerce' ),
 							'type'        => 'array',
 							'context'     => self::VIEW_EDIT_CONTEXT,
 							'items'       => $this->get_field_schema(),
@@ -108,28 +108,28 @@ class EmailSettingsSchema extends AbstractSchema {
 			'type'       => 'object',
 			'properties' => array(
 				'id'      => array(
-					'description' => __( 'Setting field ID.', 'woocommerce' ),
+					'description' => __( 'Setting field ID.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => self::VIEW_EDIT_CONTEXT,
 				),
 				'label'   => array(
-					'description' => __( 'Setting field label.', 'woocommerce' ),
+					'description' => __( 'Setting field label.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => self::VIEW_EDIT_CONTEXT,
 				),
 				'type'    => array(
-					'description' => __( 'Setting field type.', 'woocommerce' ),
+					'description' => __( 'Setting field type.', 'poocommerce' ),
 					'type'        => 'string',
 					'enum'        => array( 'text', 'email', 'checkbox', 'number', 'color', 'select' ),
 					'context'     => self::VIEW_EDIT_CONTEXT,
 				),
 				'desc'    => array(
-					'description' => __( 'Setting field description.', 'woocommerce' ),
+					'description' => __( 'Setting field description.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => self::VIEW_EDIT_CONTEXT,
 				),
 				'options' => array(
-					'description' => __( 'Available options for selectable fields.', 'woocommerce' ),
+					'description' => __( 'Available options for selectable fields.', 'poocommerce' ),
 					'type'        => 'object',
 					'context'     => self::VIEW_EDIT_CONTEXT,
 				),
@@ -189,7 +189,7 @@ class EmailSettingsSchema extends AbstractSchema {
 				$setting_id   = $setting['id'];
 				$setting_type = $setting['type'] ?? 'text';
 
-				// Map WooCommerce field types to REST API types.
+				// Map PooCommerce field types to REST API types.
 				$api_type = $this->map_setting_type_to_api_type( $setting_type );
 
 				// Build field definition.
@@ -234,8 +234,8 @@ class EmailSettingsSchema extends AbstractSchema {
 
 		$response = array(
 			'id'          => 'email',
-			'title'       => __( 'Email design', 'woocommerce' ),
-			'description' => __( 'Customize the look and feel of all you notification emails.', 'woocommerce' ),
+			'title'       => __( 'Email design', 'poocommerce' ),
+			'description' => __( 'Customize the look and feel of all you notification emails.', 'poocommerce' ),
 			'values'      => $values,
 			'groups'      => $groups,
 		);
@@ -248,9 +248,9 @@ class EmailSettingsSchema extends AbstractSchema {
 	}
 
 	/**
-	 * Map WooCommerce setting type to REST API type.
+	 * Map PooCommerce setting type to REST API type.
 	 *
-	 * @param string $setting_type WooCommerce setting type.
+	 * @param string $setting_type PooCommerce setting type.
 	 * @return string REST API type.
 	 */
 	private function map_setting_type_to_api_type( string $setting_type ): string {

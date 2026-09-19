@@ -2,14 +2,14 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\EmailEditor;
+namespace Automattic\PooCommerce\Internal\EmailEditor;
 
-use Automattic\WooCommerce\EmailEditor\Validator\Builder;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateChangeSummary;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateAutoApplier;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateSelectiveApplier;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsManager;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsGenerator;
+use Automattic\PooCommerce\EmailEditor\Validator\Builder;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateChangeSummary;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateAutoApplier;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateSelectiveApplier;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsManager;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsGenerator;
 use WC_Email;
 use WP_Error;
 use WP_REST_Request;
@@ -18,21 +18,21 @@ use WP_REST_Response;
 defined( 'ABSPATH' ) || exit;
 
 /**
- * API Controller for managing WooCommerce email templates via extending the post type API.
+ * API Controller for managing PooCommerce email templates via extending the post type API.
  *
  * @internal
  */
 class EmailApiController {
 
 	/**
-	 * The WooCommerce transactional email post manager.
+	 * The PooCommerce transactional email post manager.
 	 *
 	 * @var WCTransactionalEmailPostsManager|null
 	 */
 	private ?WCTransactionalEmailPostsManager $post_manager = null;
 
 	/**
-	 * The WooCommerce transactional email posts generator.
+	 * The PooCommerce transactional email posts generator.
 	 *
 	 * @var WCTransactionalEmailPostsGenerator|null
 	 */
@@ -92,7 +92,7 @@ class EmailApiController {
 	}
 
 	/**
-	 * Update WooCommerce specific option data by post name.
+	 * Update PooCommerce specific option data by post name.
 	 *
 	 * @param array    $data - Data that are stored in the wp_options table.
 	 * @param \WP_Post $post - WP_Post object.
@@ -160,7 +160,7 @@ class EmailApiController {
 		if ( ! empty( $invalid_recipients ) ) {
 			$error_message = sprintf(
 				// translators: %s will be replaced by comma-separated email addresses. For example, "invalidemail1@example.com,invalidemail2@example.com".
-				__( 'One or more Recipient email addresses are invalid: “%s”. Please enter valid email addresses separated by commas.', 'woocommerce' ),
+				__( 'One or more Recipient email addresses are invalid: “%s”. Please enter valid email addresses separated by commas.', 'poocommerce' ),
 				implode( ',', $invalid_recipients )
 			);
 			$error->add( 'invalid_recipient_email_address', $error_message );
@@ -171,7 +171,7 @@ class EmailApiController {
 		if ( ! empty( $invalid_cc ) ) {
 			$error_message = sprintf(
 				// translators: %s will be replaced by comma-separated email addresses. For example, "invalidemail1@example.com,invalidemail2@example.com".
-				__( 'One or more CC email addresses are invalid: “%s”. Please enter valid email addresses separated by commas.', 'woocommerce' ),
+				__( 'One or more CC email addresses are invalid: “%s”. Please enter valid email addresses separated by commas.', 'poocommerce' ),
 				implode( ',', $invalid_cc )
 			);
 			$error->add( 'invalid_cc_email_address', $error_message );
@@ -182,7 +182,7 @@ class EmailApiController {
 		if ( ! empty( $invalid_bcc ) ) {
 			$error_message = sprintf(
 				// translators: %s will be replaced by comma-separated email addresses. For example, "invalidemail1@example.com,invalidemail2@example.com".
-				__( 'One or more BCC email addresses are invalid: “%s”. Please enter valid email addresses separated by commas.', 'woocommerce' ),
+				__( 'One or more BCC email addresses are invalid: “%s”. Please enter valid email addresses separated by commas.', 'poocommerce' ),
 				implode( ',', $invalid_bcc )
 			);
 			$error->add( 'invalid_bcc_email_address', $error_message );
@@ -218,7 +218,7 @@ class EmailApiController {
 	}
 
 	/**
-	 * Get the schema for the WooCommerce email post data.
+	 * Get the schema for the PooCommerce email post data.
 	 *
 	 * @return array
 	 */
@@ -239,7 +239,7 @@ class EmailApiController {
 	}
 
 	/**
-	 * Get all WooCommerce emails.
+	 * Get all PooCommerce emails.
 	 *
 	 * @return \WC_Email[]
 	 */
@@ -267,17 +267,17 @@ class EmailApiController {
 	 */
 	public function register_routes(): void {
 		register_rest_route(
-			'woocommerce-email-editor/v1',
+			'poocommerce-email-editor/v1',
 			'/emails/(?P<id>\d+)/default-content',
 			array(
 				'methods'             => \WP_REST_Server::READABLE,
 				'callback'            => array( $this, 'get_default_content_response' ),
 				'permission_callback' => function () {
-					return current_user_can( 'manage_woocommerce' );
+					return current_user_can( 'manage_poocommerce' );
 				},
 				'args'                => array(
 					'id' => array(
-						'description'       => __( 'The ID of the woo_email post.', 'woocommerce' ),
+						'description'       => __( 'The ID of the woo_email post.', 'poocommerce' ),
 						'type'              => 'integer',
 						'required'          => true,
 						'sanitize_callback' => 'absint',
@@ -288,17 +288,17 @@ class EmailApiController {
 		);
 
 		register_rest_route(
-			'woocommerce-email-editor/v1',
+			'poocommerce-email-editor/v1',
 			'/emails/(?P<id>\d+)/reset',
 			array(
 				'methods'             => \WP_REST_Server::CREATABLE,
 				'callback'            => array( $this, 'reset_response' ),
 				'permission_callback' => function () {
-					return current_user_can( 'manage_woocommerce' );
+					return current_user_can( 'manage_poocommerce' );
 				},
 				'args'                => array(
 					'id' => array(
-						'description'       => __( 'The ID of the woo_email post.', 'woocommerce' ),
+						'description'       => __( 'The ID of the woo_email post.', 'poocommerce' ),
 						'type'              => 'integer',
 						'required'          => true,
 						'sanitize_callback' => 'absint',
@@ -309,17 +309,17 @@ class EmailApiController {
 		);
 
 		register_rest_route(
-			'woocommerce-email-editor/v1',
+			'poocommerce-email-editor/v1',
 			'/emails/(?P<id>\d+)/change-summary',
 			array(
 				'methods'             => \WP_REST_Server::READABLE,
 				'callback'            => array( $this, 'get_change_summary_response' ),
 				'permission_callback' => function () {
-					return current_user_can( 'manage_woocommerce' );
+					return current_user_can( 'manage_poocommerce' );
 				},
 				'args'                => array(
 					'id' => array(
-						'description'       => __( 'The ID of the woo_email post.', 'woocommerce' ),
+						'description'       => __( 'The ID of the woo_email post.', 'poocommerce' ),
 						'type'              => 'integer',
 						'required'          => true,
 						'sanitize_callback' => 'absint',
@@ -330,23 +330,23 @@ class EmailApiController {
 		);
 
 		register_rest_route(
-			'woocommerce-email-editor/v1',
+			'poocommerce-email-editor/v1',
 			'/emails/(?P<id>\d+)/apply',
 			array(
 				'methods'             => \WP_REST_Server::CREATABLE,
 				'callback'            => array( $this, 'apply_response' ),
 				'permission_callback' => function () {
-					return current_user_can( 'manage_woocommerce' );
+					return current_user_can( 'manage_poocommerce' );
 				},
 				'args'                => array(
 					'id'      => array(
-						'description'       => __( 'The ID of the woo_email post.', 'woocommerce' ),
+						'description'       => __( 'The ID of the woo_email post.', 'poocommerce' ),
 						'type'              => 'integer',
 						'required'          => true,
 						'sanitize_callback' => 'absint',
 					),
 					'choices' => array(
-						'description' => __( 'Per-conflict apply decisions: an array of {path, decision} entries. `decision` is `keep_yours` or `use_core`.', 'woocommerce' ),
+						'description' => __( 'Per-conflict apply decisions: an array of {path, decision} entries. `decision` is `keep_yours` or `use_core`.', 'poocommerce' ),
 						'type'        => 'array',
 						'required'    => false,
 						'default'     => array(),
@@ -357,23 +357,23 @@ class EmailApiController {
 		);
 
 		register_rest_route(
-			'woocommerce-email-editor/v1',
+			'poocommerce-email-editor/v1',
 			'/emails/(?P<id>\d+)/undo',
 			array(
 				'methods'             => \WP_REST_Server::CREATABLE,
 				'callback'            => array( $this, 'undo_response' ),
 				'permission_callback' => function () {
-					return current_user_can( 'manage_woocommerce' );
+					return current_user_can( 'manage_poocommerce' );
 				},
 				'args'                => array(
 					'id'          => array(
-						'description'       => __( 'The ID of the woo_email post.', 'woocommerce' ),
+						'description'       => __( 'The ID of the woo_email post.', 'poocommerce' ),
 						'type'              => 'integer',
 						'required'          => true,
 						'sanitize_callback' => 'absint',
 					),
 					'revision_id' => array(
-						'description' => __( 'The revision_id returned by the prior /apply call.', 'woocommerce' ),
+						'description' => __( 'The revision_id returned by the prior /apply call.', 'poocommerce' ),
 						'type'        => 'string',
 						'required'    => true,
 					),
@@ -395,7 +395,7 @@ class EmailApiController {
 			'type'       => 'object',
 			'properties' => array(
 				'content' => array(
-					'description' => __( 'The default block content for the email.', 'woocommerce' ),
+					'description' => __( 'The default block content for the email.', 'poocommerce' ),
 					'type'        => 'string',
 					'readonly'    => true,
 				),
@@ -413,8 +413,8 @@ class EmailApiController {
 	public function get_default_content_response( WP_REST_Request $request ) {
 		if ( ! ( $this->post_manager && $this->posts_generator ) ) {
 			return new WP_Error(
-				'woocommerce_email_editor_not_initialized',
-				__( 'Email editor is not initialized.', 'woocommerce' ),
+				'poocommerce_email_editor_not_initialized',
+				__( 'Email editor is not initialized.', 'poocommerce' ),
 				array( 'status' => 500 )
 			);
 		}
@@ -425,8 +425,8 @@ class EmailApiController {
 
 		if ( ! $email ) {
 			return new WP_Error(
-				'woocommerce_email_not_found',
-				__( 'No email found for the given post ID.', 'woocommerce' ),
+				'poocommerce_email_not_found',
+				__( 'No email found for the given post ID.', 'poocommerce' ),
 				array( 'status' => 404 )
 			);
 		}
@@ -449,27 +449,27 @@ class EmailApiController {
 			'type'       => 'object',
 			'properties' => array(
 				'content'     => array(
-					'description' => __( 'The canonical block content written to the post.', 'woocommerce' ),
+					'description' => __( 'The canonical block content written to the post.', 'poocommerce' ),
 					'type'        => 'string',
 					'readonly'    => true,
 				),
 				'version'     => array(
-					'description' => __( 'The core block template @version stamped on the post, or null when the email is not sync-enabled.', 'woocommerce' ),
+					'description' => __( 'The core block template @version stamped on the post, or null when the email is not sync-enabled.', 'poocommerce' ),
 					'type'        => array( 'string', 'null' ),
 					'readonly'    => true,
 				),
 				'source_hash' => array(
-					'description' => __( 'sha1 of the canonical block content stamped on the post, or null when the email is not sync-enabled.', 'woocommerce' ),
+					'description' => __( 'sha1 of the canonical block content stamped on the post, or null when the email is not sync-enabled.', 'poocommerce' ),
 					'type'        => array( 'string', 'null' ),
 					'readonly'    => true,
 				),
 				'synced_at'   => array(
-					'description' => __( 'UTC timestamp when the post was stamped (Y-m-d H:i:s), or null when the email is not sync-enabled.', 'woocommerce' ),
+					'description' => __( 'UTC timestamp when the post was stamped (Y-m-d H:i:s), or null when the email is not sync-enabled.', 'poocommerce' ),
 					'type'        => array( 'string', 'null' ),
 					'readonly'    => true,
 				),
 				'status'      => array(
-					'description' => __( 'The post-reset sync status (in_sync on success for sync-enabled emails, null otherwise).', 'woocommerce' ),
+					'description' => __( 'The post-reset sync status (in_sync on success for sync-enabled emails, null otherwise).', 'poocommerce' ),
 					'type'        => array( 'string', 'null' ),
 					'readonly'    => true,
 				),
@@ -502,8 +502,8 @@ class EmailApiController {
 	public function reset_response( WP_REST_Request $request ) {
 		if ( ! ( $this->post_manager && $this->posts_generator ) ) {
 			return new WP_Error(
-				'woocommerce_email_editor_not_initialized',
-				__( 'Email editor is not initialized.', 'woocommerce' ),
+				'poocommerce_email_editor_not_initialized',
+				__( 'Email editor is not initialized.', 'poocommerce' ),
 				array( 'status' => 500 )
 			);
 		}
@@ -514,8 +514,8 @@ class EmailApiController {
 
 		if ( ! $email ) {
 			return new WP_Error(
-				'woocommerce_email_not_found',
-				__( 'No email found for the given post ID.', 'woocommerce' ),
+				'poocommerce_email_not_found',
+				__( 'No email found for the given post ID.', 'poocommerce' ),
 				array( 'status' => 404 )
 			);
 		}
@@ -528,10 +528,10 @@ class EmailApiController {
 
 		if ( is_wp_error( $result ) ) {
 			return new WP_Error(
-				'woocommerce_email_reset_failed',
+				'poocommerce_email_reset_failed',
 				sprintf(
 					/* translators: %s: underlying error message */
-					__( 'Failed to reset email content: %s', 'woocommerce' ),
+					__( 'Failed to reset email content: %s', 'poocommerce' ),
 					$result->get_error_message()
 				),
 				array( 'status' => 500 )
@@ -553,17 +553,17 @@ class EmailApiController {
 			'type'       => 'object',
 			'properties' => array(
 				'version_from'       => array(
-					'description' => __( 'The template version stamped on the post (may be empty for pre-backfill posts).', 'woocommerce' ),
+					'description' => __( 'The template version stamped on the post (may be empty for pre-backfill posts).', 'poocommerce' ),
 					'type'        => 'string',
 					'readonly'    => true,
 				),
 				'version_to'         => array(
-					'description' => __( 'The current core template version recorded in the sync registry.', 'woocommerce' ),
+					'description' => __( 'The current core template version recorded in the sync registry.', 'poocommerce' ),
 					'type'        => 'string',
 					'readonly'    => true,
 				),
 				'added_blocks'       => array(
-					'description' => __( 'Blocks that would be added to the merchant post if the update were applied (in core, not in post). `name` is the post-alias-normalized block name (e.g. `core/heading`); `label` is its humanized form for display; `path` is the core-side index path through the parsed block tree.', 'woocommerce' ),
+					'description' => __( 'Blocks that would be added to the merchant post if the update were applied (in core, not in post). `name` is the post-alias-normalized block name (e.g. `core/heading`); `label` is its humanized form for display; `path` is the core-side index path through the parsed block tree.', 'poocommerce' ),
 					'type'        => 'array',
 					'items'       => array(
 						'type'       => 'object',
@@ -579,7 +579,7 @@ class EmailApiController {
 					'readonly'    => true,
 				),
 				'removed_blocks'     => array(
-					'description' => __( 'Blocks that would be removed from the merchant post if the update were applied (in post, not in core). Same fields as `added_blocks`; `path` is the post-side index path.', 'woocommerce' ),
+					'description' => __( 'Blocks that would be removed from the merchant post if the update were applied (in post, not in core). Same fields as `added_blocks`; `path` is the post-side index path.', 'poocommerce' ),
 					'type'        => 'array',
 					'items'       => array(
 						'type'       => 'object',
@@ -595,7 +595,7 @@ class EmailApiController {
 					'readonly'    => true,
 				),
 				'copy_changes'       => array(
-					'description' => __( 'Block-level copy edits, truncated to 120 chars per side. `before` is the merchant\'s current text; `after` is the canonical core text. `path` is the post-side index path.', 'woocommerce' ),
+					'description' => __( 'Block-level copy edits, truncated to 120 chars per side. `before` is the merchant\'s current text; `after` is the canonical core text. `path` is the post-side index path.', 'poocommerce' ),
 					'type'        => 'array',
 					'items'       => array(
 						'type'       => 'object',
@@ -614,7 +614,7 @@ class EmailApiController {
 					'readonly'    => true,
 				),
 				'structural_changes' => array(
-					'description' => __( 'Structural deltas (reorder / nest) between the two trees. `path` is omitted on `kind: "reorder"` entries.', 'woocommerce' ),
+					'description' => __( 'Structural deltas (reorder / nest) between the two trees. `path` is omitted on `kind: "reorder"` entries.', 'poocommerce' ),
 					'type'        => 'array',
 					'items'       => array(
 						'type'       => 'object',
@@ -630,18 +630,18 @@ class EmailApiController {
 					'readonly'    => true,
 				),
 				'summary_lines'      => array(
-					'description' => __( 'Pre-localized one-liners ready for direct render.', 'woocommerce' ),
+					'description' => __( 'Pre-localized one-liners ready for direct render.', 'poocommerce' ),
 					'type'        => 'array',
 					'items'       => array( 'type' => 'string' ),
 					'readonly'    => true,
 				),
 				'is_fallback'        => array(
-					'description' => __( 'True when the diff could not be produced and a generic message is returned instead.', 'woocommerce' ),
+					'description' => __( 'True when the diff could not be produced and a generic message is returned instead.', 'poocommerce' ),
 					'type'        => 'boolean',
 					'readonly'    => true,
 				),
 				'cache_hit'          => array(
-					'description' => __( 'Diagnostic flag indicating whether the response came from the transient cache.', 'woocommerce' ),
+					'description' => __( 'Diagnostic flag indicating whether the response came from the transient cache.', 'poocommerce' ),
 					'type'        => 'boolean',
 					'readonly'    => true,
 				),
@@ -675,8 +675,8 @@ class EmailApiController {
 	public function get_change_summary_response( WP_REST_Request $request ) {
 		if ( ! ( $this->post_manager && $this->posts_generator ) ) {
 			return new WP_Error(
-				'woocommerce_email_editor_not_initialized',
-				__( 'Email editor is not initialized.', 'woocommerce' ),
+				'poocommerce_email_editor_not_initialized',
+				__( 'Email editor is not initialized.', 'poocommerce' ),
 				array( 'status' => 500 )
 			);
 		}
@@ -687,8 +687,8 @@ class EmailApiController {
 
 		if ( ! $email ) {
 			return new WP_Error(
-				'woocommerce_email_not_found',
-				__( 'No email found for the given post ID.', 'woocommerce' ),
+				'poocommerce_email_not_found',
+				__( 'No email found for the given post ID.', 'poocommerce' ),
 				array( 'status' => 404 )
 			);
 		}
@@ -711,32 +711,32 @@ class EmailApiController {
 			'type'       => 'object',
 			'properties' => array(
 				'merged_content'     => array(
-					'description' => __( 'The merged block content written to the post. May differ from the input `post_content` even when every choice was `keep_yours` — the namespace-alias migration (see `aliases_migrated`) rewrites legacy block names unconditionally.', 'woocommerce' ),
+					'description' => __( 'The merged block content written to the post. May differ from the input `post_content` even when every choice was `keep_yours` — the namespace-alias migration (see `aliases_migrated`) rewrites legacy block names unconditionally.', 'poocommerce' ),
 					'type'        => 'string',
 					'readonly'    => true,
 				),
 				'revision_id'        => array(
-					'description' => __( 'A UUID identifying the pre-apply snapshot. Use as the revision_id on a subsequent /undo call.', 'woocommerce' ),
+					'description' => __( 'A UUID identifying the pre-apply snapshot. Use as the revision_id on a subsequent /undo call.', 'poocommerce' ),
 					'type'        => 'string',
 					'readonly'    => true,
 				),
 				'version_to'         => array(
-					'description' => __( 'The core template version stamped on the post after applying.', 'woocommerce' ),
+					'description' => __( 'The core template version stamped on the post after applying.', 'poocommerce' ),
 					'type'        => 'string',
 					'readonly'    => true,
 				),
 				'status'             => array(
-					'description' => __( 'The post-apply status (always `applied` on success).', 'woocommerce' ),
+					'description' => __( 'The post-apply status (always `applied` on success).', 'poocommerce' ),
 					'type'        => 'string',
 					'readonly'    => true,
 				),
 				'structural_skipped' => array(
-					'description' => __( 'True when one or more structural deltas (nest / reorder) existed in the diff but were not applied. v1 punts structural changes; the merchant\'s structure is preserved.', 'woocommerce' ),
+					'description' => __( 'True when one or more structural deltas (nest / reorder) existed in the diff but were not applied. v1 punts structural changes; the merchant\'s structure is preserved.', 'poocommerce' ),
 					'type'        => 'boolean',
 					'readonly'    => true,
 				),
 				'aliases_migrated'   => array(
-					'description' => __( 'List of deprecated block-name aliases rewritten to their canonical form during the apply (e.g. `["woo/email-content"]`). Empty when no migration was needed. Targeted to known deprecated aliases only.', 'woocommerce' ),
+					'description' => __( 'List of deprecated block-name aliases rewritten to their canonical form during the apply (e.g. `["woo/email-content"]`). Empty when no migration was needed. Targeted to known deprecated aliases only.', 'poocommerce' ),
 					'type'        => 'array',
 					'items'       => array( 'type' => 'string' ),
 					'readonly'    => true,
@@ -757,12 +757,12 @@ class EmailApiController {
 			'type'       => 'object',
 			'properties' => array(
 				'restored_content' => array(
-					'description' => __( 'The pre-apply post content that was restored.', 'woocommerce' ),
+					'description' => __( 'The pre-apply post content that was restored.', 'poocommerce' ),
 					'type'        => 'string',
 					'readonly'    => true,
 				),
 				'status'           => array(
-					'description' => __( 'The post-undo status (always `restored` on success).', 'woocommerce' ),
+					'description' => __( 'The post-undo status (always `restored` on success).', 'poocommerce' ),
 					'type'        => 'string',
 					'readonly'    => true,
 				),
@@ -790,8 +790,8 @@ class EmailApiController {
 	public function apply_response( WP_REST_Request $request ) {
 		if ( ! ( $this->post_manager && $this->posts_generator ) ) {
 			return new WP_Error(
-				'woocommerce_email_editor_not_initialized',
-				__( 'Email editor is not initialized.', 'woocommerce' ),
+				'poocommerce_email_editor_not_initialized',
+				__( 'Email editor is not initialized.', 'poocommerce' ),
 				array( 'status' => 500 )
 			);
 		}
@@ -802,8 +802,8 @@ class EmailApiController {
 
 		if ( ! $email ) {
 			return new WP_Error(
-				'woocommerce_email_not_found',
-				__( 'No email found for the given post ID.', 'woocommerce' ),
+				'poocommerce_email_not_found',
+				__( 'No email found for the given post ID.', 'poocommerce' ),
 				array( 'status' => 404 )
 			);
 		}
@@ -839,8 +839,8 @@ class EmailApiController {
 	public function undo_response( WP_REST_Request $request ) {
 		if ( ! ( $this->post_manager && $this->posts_generator ) ) {
 			return new WP_Error(
-				'woocommerce_email_editor_not_initialized',
-				__( 'Email editor is not initialized.', 'woocommerce' ),
+				'poocommerce_email_editor_not_initialized',
+				__( 'Email editor is not initialized.', 'poocommerce' ),
 				array( 'status' => 500 )
 			);
 		}
@@ -851,8 +851,8 @@ class EmailApiController {
 
 		if ( ! $email ) {
 			return new WP_Error(
-				'woocommerce_email_not_found',
-				__( 'No email found for the given post ID.', 'woocommerce' ),
+				'poocommerce_email_not_found',
+				__( 'No email found for the given post ID.', 'poocommerce' ),
 				array( 'status' => 404 )
 			);
 		}

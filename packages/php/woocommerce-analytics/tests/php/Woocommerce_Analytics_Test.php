@@ -2,7 +2,7 @@
 /**
  * Tests for the Woocommerce_Analytics class.
  *
- * @package automattic/woocommerce-analytics
+ * @package automattic/poocommerce-analytics
  */
 
 namespace Automattic\Woocommerce_Analytics;
@@ -11,9 +11,9 @@ use Automattic\Woocommerce_Analytics;
 use WorDBless\BaseTestCase;
 
 /**
- * WooCommerce test double.
+ * PooCommerce test double.
  */
-class WooCommerce_Test_Double {}
+class PooCommerce_Test_Double {}
 
 /**
  * Tests for the Woocommerce_Analytics class.
@@ -46,8 +46,8 @@ class Woocommerce_Analytics_Test extends BaseTestCase {
 		delete_transient( Woocommerce_Analytics::PROXY_SPEED_MODULE_VERSION_CHECK_TRANSIENT );
 
 		// Remove any filters that might interfere.
-		remove_all_filters( 'woocommerce_analytics_auto_install_proxy_speed_module' );
-		remove_all_filters( 'woocommerce_analytics_experimental_proxy_tracking_enabled' );
+		remove_all_filters( 'poocommerce_analytics_auto_install_proxy_speed_module' );
+		remove_all_filters( 'poocommerce_analytics_experimental_proxy_tracking_enabled' );
 	}
 
 	/**
@@ -64,7 +64,7 @@ class Woocommerce_Analytics_Test extends BaseTestCase {
 		delete_option( Woocommerce_Analytics::PROXY_SPEED_MODULE_AUTHORIZED_OPTION );
 		delete_option( Woocommerce_Analytics::PROXY_TRACKING_EVER_ENABLED_OPTION );
 		delete_transient( Woocommerce_Analytics::PROXY_SPEED_MODULE_VERSION_CHECK_TRANSIENT );
-		remove_all_filters( 'woocommerce_analytics_experimental_proxy_tracking_enabled' );
+		remove_all_filters( 'poocommerce_analytics_experimental_proxy_tracking_enabled' );
 
 		parent::tear_down();
 	}
@@ -156,8 +156,8 @@ class Woocommerce_Analytics_Test extends BaseTestCase {
 	public function test_maybe_update_proxy_speed_module_skips_when_version_matches(): void {
 		// Enable both flags: the module is only installed where the feature it
 		// accelerates is also on.
-		add_filter( 'woocommerce_analytics_auto_install_proxy_speed_module', '__return_true' );
-		add_filter( 'woocommerce_analytics_experimental_proxy_tracking_enabled', '__return_true' );
+		add_filter( 'poocommerce_analytics_auto_install_proxy_speed_module', '__return_true' );
+		add_filter( 'poocommerce_analytics_experimental_proxy_tracking_enabled', '__return_true' );
 
 		// Set version to match current.
 		update_option( Woocommerce_Analytics::PROXY_SPEED_MODULE_VERSION_OPTION, Woocommerce_Analytics::PACKAGE_VERSION );
@@ -168,8 +168,8 @@ class Woocommerce_Analytics_Test extends BaseTestCase {
 		// Version should remain the same (no update needed).
 		$this->assertSame( Woocommerce_Analytics::PACKAGE_VERSION, get_option( Woocommerce_Analytics::PROXY_SPEED_MODULE_VERSION_OPTION ) );
 
-		remove_filter( 'woocommerce_analytics_auto_install_proxy_speed_module', '__return_true' );
-		remove_filter( 'woocommerce_analytics_experimental_proxy_tracking_enabled', '__return_true' );
+		remove_filter( 'poocommerce_analytics_auto_install_proxy_speed_module', '__return_true' );
+		remove_filter( 'poocommerce_analytics_experimental_proxy_tracking_enabled', '__return_true' );
 	}
 
 	/**
@@ -179,7 +179,7 @@ class Woocommerce_Analytics_Test extends BaseTestCase {
 	 */
 	public function test_maybe_update_proxy_speed_module_removes_when_proxy_tracking_disabled(): void {
 		// The module's own flag stays on; only proxy tracking is off.
-		add_filter( 'woocommerce_analytics_auto_install_proxy_speed_module', '__return_true' );
+		add_filter( 'poocommerce_analytics_auto_install_proxy_speed_module', '__return_true' );
 
 		update_option( Woocommerce_Analytics::PROXY_SPEED_MODULE_VERSION_OPTION, Woocommerce_Analytics::PACKAGE_VERSION );
 
@@ -190,7 +190,7 @@ class Woocommerce_Analytics_Test extends BaseTestCase {
 			'The speed module must be uninstalled when proxy tracking is disabled.'
 		);
 
-		remove_filter( 'woocommerce_analytics_auto_install_proxy_speed_module', '__return_true' );
+		remove_filter( 'poocommerce_analytics_auto_install_proxy_speed_module', '__return_true' );
 	}
 
 	/**
@@ -198,7 +198,7 @@ class Woocommerce_Analytics_Test extends BaseTestCase {
 	 * module installed for a feature that is switched off.
 	 */
 	public function test_maybe_add_proxy_speed_module_requires_proxy_tracking_too(): void {
-		add_filter( 'woocommerce_analytics_auto_install_proxy_speed_module', '__return_true' );
+		add_filter( 'poocommerce_analytics_auto_install_proxy_speed_module', '__return_true' );
 
 		Woocommerce_Analytics::maybe_add_proxy_speed_module();
 
@@ -214,7 +214,7 @@ class Woocommerce_Analytics_Test extends BaseTestCase {
 			'An uninstalled module must not be authorized to serve.'
 		);
 
-		remove_filter( 'woocommerce_analytics_auto_install_proxy_speed_module', '__return_true' );
+		remove_filter( 'poocommerce_analytics_auto_install_proxy_speed_module', '__return_true' );
 	}
 
 	/**
@@ -223,8 +223,8 @@ class Woocommerce_Analytics_Test extends BaseTestCase {
 	 * because the ordering is not observable once both have succeeded.
 	 */
 	public function test_the_install_path_authorizes_before_it_writes_the_file(): void {
-		add_filter( 'woocommerce_analytics_experimental_proxy_tracking_enabled', '__return_true' );
-		add_filter( 'woocommerce_analytics_auto_install_proxy_speed_module', '__return_true' );
+		add_filter( 'poocommerce_analytics_experimental_proxy_tracking_enabled', '__return_true' );
+		add_filter( 'poocommerce_analytics_auto_install_proxy_speed_module', '__return_true' );
 		add_filter( 'filesystem_method', array( $this, 'force_unusable_filesystem' ) );
 
 		Woocommerce_Analytics::maybe_add_proxy_speed_module();
@@ -263,11 +263,11 @@ class Woocommerce_Analytics_Test extends BaseTestCase {
 	 * and an absent one is only safe while no module was ever authorized.
 	 */
 	public function test_revoking_an_authorized_module_writes_no(): void {
-		add_filter( 'woocommerce_analytics_experimental_proxy_tracking_enabled', '__return_true' );
-		add_filter( 'woocommerce_analytics_auto_install_proxy_speed_module', '__return_true' );
+		add_filter( 'poocommerce_analytics_experimental_proxy_tracking_enabled', '__return_true' );
+		add_filter( 'poocommerce_analytics_auto_install_proxy_speed_module', '__return_true' );
 		Woocommerce_Analytics::sync_proxy_tracking_state();
 
-		remove_all_filters( 'woocommerce_analytics_auto_install_proxy_speed_module' );
+		remove_all_filters( 'poocommerce_analytics_auto_install_proxy_speed_module' );
 		Woocommerce_Analytics::sync_proxy_tracking_state();
 
 		$this->assertSame(
@@ -302,7 +302,7 @@ class Woocommerce_Analytics_Test extends BaseTestCase {
 	 */
 	public function test_the_init_action_writes_the_state(): void {
 		remove_all_actions( 'init' );
-		add_filter( 'woocommerce_analytics_experimental_proxy_tracking_enabled', '__return_true' );
+		add_filter( 'poocommerce_analytics_experimental_proxy_tracking_enabled', '__return_true' );
 
 		Woocommerce_Analytics::should_track_store();
 		do_action( 'init' );
@@ -349,7 +349,7 @@ class Woocommerce_Analytics_Test extends BaseTestCase {
 			return true;
 		};
 
-		add_filter( 'woocommerce_analytics_auto_install_proxy_speed_module', $filter_cb );
+		add_filter( 'poocommerce_analytics_auto_install_proxy_speed_module', $filter_cb );
 
 		// Call the method - it will proceed past the filter check but may stop at other checks
 		// (e.g., filesystem init, WPMU_PLUGIN_DIR). The point is the filter is respected.
@@ -357,7 +357,7 @@ class Woocommerce_Analytics_Test extends BaseTestCase {
 
 		$this->assertTrue( $filter_called, 'The auto_install_proxy_speed_module filter should be checked.' );
 
-		remove_filter( 'woocommerce_analytics_auto_install_proxy_speed_module', $filter_cb );
+		remove_filter( 'poocommerce_analytics_auto_install_proxy_speed_module', $filter_cb );
 	}
 
 	/**
@@ -366,8 +366,8 @@ class Woocommerce_Analytics_Test extends BaseTestCase {
 	public function test_maybe_add_proxy_speed_module_skips_when_version_matches(): void {
 		// Both flags, or the method returns at its eligibility guard and the file
 		// assertion below holds whatever the version check does.
-		add_filter( 'woocommerce_analytics_experimental_proxy_tracking_enabled', '__return_true' );
-		add_filter( 'woocommerce_analytics_auto_install_proxy_speed_module', '__return_true' );
+		add_filter( 'poocommerce_analytics_experimental_proxy_tracking_enabled', '__return_true' );
+		add_filter( 'poocommerce_analytics_auto_install_proxy_speed_module', '__return_true' );
 
 		// Set version to match current.
 		update_option( Woocommerce_Analytics::PROXY_SPEED_MODULE_VERSION_OPTION, Woocommerce_Analytics::PACKAGE_VERSION );
@@ -387,7 +387,7 @@ class Woocommerce_Analytics_Test extends BaseTestCase {
 		);
 
 		// No file should be created since version matches.
-		$mu_plugin_file = $this->temp_mu_plugin_dir . '/woocommerce-analytics-proxy-speed-module.php';
+		$mu_plugin_file = $this->temp_mu_plugin_dir . '/poocommerce-analytics-proxy-speed-module.php';
 		$this->assertFileDoesNotExist( $mu_plugin_file );
 	}
 
@@ -397,8 +397,8 @@ class Woocommerce_Analytics_Test extends BaseTestCase {
 	 * stale `yes`. The sticky option survives: cached pages outlive both.
 	 */
 	public function test_removing_the_module_drops_its_authorization(): void {
-		add_filter( 'woocommerce_analytics_experimental_proxy_tracking_enabled', '__return_true' );
-		add_filter( 'woocommerce_analytics_auto_install_proxy_speed_module', '__return_true' );
+		add_filter( 'poocommerce_analytics_experimental_proxy_tracking_enabled', '__return_true' );
+		add_filter( 'poocommerce_analytics_auto_install_proxy_speed_module', '__return_true' );
 		Woocommerce_Analytics::sync_proxy_tracking_state();
 
 		$this->assertSame( 'yes', get_option( Woocommerce_Analytics::PROXY_SPEED_MODULE_AUTHORIZED_OPTION ) );
@@ -426,8 +426,8 @@ class Woocommerce_Analytics_Test extends BaseTestCase {
 	 * has to happen anyway, since it needs no filesystem at all.
 	 */
 	public function test_removal_revokes_even_when_the_filesystem_is_unavailable(): void {
-		add_filter( 'woocommerce_analytics_experimental_proxy_tracking_enabled', '__return_true' );
-		add_filter( 'woocommerce_analytics_auto_install_proxy_speed_module', '__return_true' );
+		add_filter( 'poocommerce_analytics_experimental_proxy_tracking_enabled', '__return_true' );
+		add_filter( 'poocommerce_analytics_auto_install_proxy_speed_module', '__return_true' );
 		Woocommerce_Analytics::sync_proxy_tracking_state();
 		update_option( Woocommerce_Analytics::PROXY_SPEED_MODULE_VERSION_OPTION, Woocommerce_Analytics::PACKAGE_VERSION );
 
@@ -464,8 +464,8 @@ class Woocommerce_Analytics_Test extends BaseTestCase {
 	public function test_reset_proxy_tracking_state_clears_both_options(): void {
 		// Both flags, or the sync leaves the authorization option absent and the
 		// second assertion below is true without anything having been cleared.
-		add_filter( 'woocommerce_analytics_experimental_proxy_tracking_enabled', '__return_true' );
-		add_filter( 'woocommerce_analytics_auto_install_proxy_speed_module', '__return_true' );
+		add_filter( 'poocommerce_analytics_experimental_proxy_tracking_enabled', '__return_true' );
+		add_filter( 'poocommerce_analytics_auto_install_proxy_speed_module', '__return_true' );
 		Woocommerce_Analytics::sync_proxy_tracking_state();
 
 		$this->assertSame( 'yes', get_option( Woocommerce_Analytics::PROXY_SPEED_MODULE_AUTHORIZED_OPTION ) );
@@ -498,14 +498,14 @@ class Woocommerce_Analytics_Test extends BaseTestCase {
 	 * has to read a persisted answer instead.
 	 */
 	public function test_sync_proxy_tracking_state_records_the_resolved_value(): void {
-		add_filter( 'woocommerce_analytics_experimental_proxy_tracking_enabled', '__return_true' );
-		add_filter( 'woocommerce_analytics_auto_install_proxy_speed_module', '__return_true' );
+		add_filter( 'poocommerce_analytics_experimental_proxy_tracking_enabled', '__return_true' );
+		add_filter( 'poocommerce_analytics_auto_install_proxy_speed_module', '__return_true' );
 
 		Woocommerce_Analytics::sync_proxy_tracking_state();
 
 		$this->assertSame( 'yes', get_option( Woocommerce_Analytics::PROXY_SPEED_MODULE_AUTHORIZED_OPTION ) );
 
-		remove_all_filters( 'woocommerce_analytics_experimental_proxy_tracking_enabled' );
+		remove_all_filters( 'poocommerce_analytics_experimental_proxy_tracking_enabled' );
 
 		Woocommerce_Analytics::sync_proxy_tracking_state();
 
@@ -550,7 +550,7 @@ class Woocommerce_Analytics_Test extends BaseTestCase {
 	 */
 	public function test_version_option_constant_is_defined(): void {
 		$this->assertSame(
-			'woocommerce_analytics_proxy_speed_module_version',
+			'poocommerce_analytics_proxy_speed_module_version',
 			Woocommerce_Analytics::PROXY_SPEED_MODULE_VERSION_OPTION
 		);
 	}
@@ -560,7 +560,7 @@ class Woocommerce_Analytics_Test extends BaseTestCase {
 	 */
 	public function test_version_check_transient_constant_is_defined(): void {
 		$this->assertSame(
-			'woocommerce_analytics_proxy_speed_module_version_check',
+			'poocommerce_analytics_proxy_speed_module_version_check',
 			Woocommerce_Analytics::PROXY_SPEED_MODULE_VERSION_CHECK_TRANSIENT
 		);
 	}

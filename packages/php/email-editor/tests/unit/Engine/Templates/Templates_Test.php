@@ -1,14 +1,14 @@
 <?php
 /**
- * This file is part of the WooCommerce Email Editor package.
+ * This file is part of the PooCommerce Email Editor package.
  *
- * @package Automattic\WooCommerce\EmailEditor
+ * @package Automattic\PooCommerce\EmailEditor
  */
 
 declare(strict_types=1);
 
-use Automattic\WooCommerce\EmailEditor\Engine\Templates\Templates;
-use Automattic\WooCommerce\EmailEditor\Engine\Templates\Templates_Registry;
+use Automattic\PooCommerce\EmailEditor\Engine\Templates\Templates;
+use Automattic\PooCommerce\EmailEditor\Engine\Templates\Templates_Registry;
 
 /**
  * Test cases for Templates::register_post_types_to_api().

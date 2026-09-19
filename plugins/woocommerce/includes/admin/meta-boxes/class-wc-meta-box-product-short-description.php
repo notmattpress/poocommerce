@@ -4,7 +4,7 @@
  *
  * Replaces the standard excerpt box.
  *
- * @package     WooCommerce\Admin\Meta Boxes
+ * @package     PooCommerce\Admin\Meta Boxes
  * @version     2.1.0
  */
 
@@ -32,6 +32,6 @@ class WC_Meta_Box_Product_Short_Description {
 			'editor_css'    => '<style>#wp-excerpt-editor-container .wp-editor-area{height:175px; width:100%;}</style>',
 		);
 
-		wp_editor( htmlspecialchars_decode( $post->post_excerpt, ENT_QUOTES ), 'excerpt', apply_filters( 'woocommerce_product_short_description_editor_settings', $settings ) );
+		wp_editor( htmlspecialchars_decode( $post->post_excerpt, ENT_QUOTES ), 'excerpt', apply_filters( 'poocommerce_product_short_description_editor_settings', $settings ) );
 	}
 }

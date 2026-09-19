@@ -2344,7 +2344,7 @@ test.describe.serial( 'Orders API tests', () => {
 
 			// Create an order with all possible numerical fields (taxes, fees, refunds, etc).
 			await request.put(
-				'./wp-json/wc/v3/settings/general/woocommerce_calc_taxes',
+				'./wp-json/wc/v3/settings/general/poocommerce_calc_taxes',
 				{
 					data: {
 						value: 'yes',

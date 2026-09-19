@@ -1,6 +1,6 @@
 /**
  * Deduplicate plugin references across config objects so that consumers can
- * spread configs (e.g. `...woocommerce.configs.recommended`) without hitting
+ * spread configs (e.g. `...poocommerce.configs.recommended`) without hitting
  * ESLint's "Cannot redefine plugin" error.
  *
  * When the same plugin namespace appears in multiple config objects, this
@@ -38,7 +38,7 @@ function dedupePlugins( configs ) {
 
 module.exports = {
 	meta: {
-		name: '@woocommerce/eslint-plugin',
+		name: '@poocommerce/eslint-plugin',
 		version: require( './package.json' ).version,
 	},
 	configs: {

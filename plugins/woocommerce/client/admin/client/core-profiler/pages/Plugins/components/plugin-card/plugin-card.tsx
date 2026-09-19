@@ -4,8 +4,8 @@
 import { CheckboxControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import clsx from 'clsx';
-import { Extension } from '@woocommerce/data';
-import { Link } from '@woocommerce/components';
+import { Extension } from '@poocommerce/data';
+import { Link } from '@poocommerce/components';
 import {
 	useMemo,
 	Children,
@@ -71,7 +71,7 @@ export const PluginCard = ( {
 
 	return (
 		<label
-			className={ clsx( 'woocommerce-profiler-plugins-plugin-card', {
+			className={ clsx( 'poocommerce-profiler-plugins-plugin-card', {
 				'is-installed': installed,
 				disabled,
 			} ) }
@@ -83,7 +83,7 @@ export const PluginCard = ( {
 				<CheckboxControl
 					__nextHasNoMarginBottom
 					id={ `${ pluginKey }-checkbox` }
-					className="woocommerce-profiler__checkbox"
+					className="poocommerce-profiler__checkbox"
 					disabled={ disabled }
 					checked={ checked }
 					onChange={ ( event ) => {
@@ -93,33 +93,33 @@ export const PluginCard = ( {
 					} }
 				/>
 			) }
-			<div className="woocommerce-profiler-plugins-plugin-card-main">
+			<div className="poocommerce-profiler-plugins-plugin-card-main">
 				{ imageUrl ? (
 					<img
-						className="woocommerce-profiler-plugins-plugin-card-logo"
+						className="poocommerce-profiler-plugins-plugin-card-logo"
 						src={ imageUrl }
 						alt={ pluginKey }
 					/>
 				) : null }
 
-				<div className="woocommerce-profiler-plugins-plugin-card-content">
+				<div className="poocommerce-profiler-plugins-plugin-card-content">
 					<div
 						className={ clsx(
-							'woocommerce-profiler-plugins-plugin-card-text-header',
+							'poocommerce-profiler-plugins-plugin-card-text-header',
 							{
 								installed,
 							}
 						) }
 					>
-						<h3 className="woocommerce-profiler-plugins-plugin-card-title">
+						<h3 className="poocommerce-profiler-plugins-plugin-card-title">
 							{ title }
 						</h3>
 						{ installed && (
-							<span>{ __( 'Installed', 'woocommerce' ) }</span>
+							<span>{ __( 'Installed', 'poocommerce' ) }</span>
 						) }
 					</div>
 
-					<div className="woocommerce-profiler-plugins-plugin-card-text">
+					<div className="poocommerce-profiler-plugins-plugin-card-text">
 						<p
 							dangerouslySetInnerHTML={ sanitizeHTML(
 								description
@@ -151,6 +151,6 @@ PluginCard.LearnMoreLink = ( {
 		target="_blank"
 		type="external"
 	>
-		{ __( 'Learn More', 'woocommerce' ) }
+		{ __( 'Learn More', 'poocommerce' ) }
 	</Link>
 );

@@ -10,15 +10,15 @@
  * internals stay refactorable. Strictly additive-only, like every `Api\`
  * surface.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine\Api
+ * @package Automattic\PooCommerce\SubscriptionsEngine\Api
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Api;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Api;
 
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\Plan;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage\PlanRepository;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\Plan;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage\PlanRepository;
 
 defined( 'ABSPATH' ) || exit;
 

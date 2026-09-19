@@ -2,15 +2,15 @@
 /**
  * Class WC_Settings_Emails_Test file.
  *
- * @package WooCommerce\Tests\Settings
+ * @package PooCommerce\Tests\Settings
  */
 
 declare( strict_types = 1 );
 
-use Automattic\WooCommerce\Internal\Admin\EmailPreview\EmailPreview;
-use Automattic\WooCommerce\Internal\Email\EmailColors;
-use Automattic\WooCommerce\Internal\Email\EmailFont;
-use Automattic\WooCommerce\Testing\Tools\CodeHacking\Hacks\StaticMockerHack;
+use Automattic\PooCommerce\Internal\Admin\EmailPreview\EmailPreview;
+use Automattic\PooCommerce\Internal\Email\EmailColors;
+use Automattic\PooCommerce\Internal\Email\EmailFont;
+use Automattic\PooCommerce\Testing\Tools\CodeHacking\Hacks\StaticMockerHack;
 
 require_once __DIR__ . '/class-wc-settings-unit-test-case.php';
 
@@ -37,7 +37,7 @@ class WC_Settings_Emails_Test extends WC_Settings_Unit_Test_Case {
 	/**
 	 * get_settings should trigger the appropriate filter depending on the requested section name.
 	 *
-	 * @testWith ["", "woocommerce_email_settings"]
+	 * @testWith ["", "poocommerce_email_settings"]
 	 *
 	 * @param string $section_name The section name to test getting the settings for.
 	 * @param string $filter_name The name of the filter that is expected to be triggered.
@@ -78,25 +78,25 @@ class WC_Settings_Emails_Test extends WC_Settings_Unit_Test_Case {
 			''                                        => array( 'email_notification', 'email_preview' ),
 			'email_recipient_options'                 => 'sectionend',
 			'email_options'                           => array( 'title', 'sectionend' ),
-			'woocommerce_email_from_name'             => 'text',
-			'woocommerce_email_from_address'          => 'email',
-			'woocommerce_email_reply_to_enabled'      => 'checkbox',
-			'woocommerce_email_reply_to_name'         => 'text',
-			'woocommerce_email_reply_to_address'      => 'email',
+			'poocommerce_email_from_name'             => 'text',
+			'poocommerce_email_from_address'          => 'email',
+			'poocommerce_email_reply_to_enabled'      => 'checkbox',
+			'poocommerce_email_reply_to_name'         => 'text',
+			'poocommerce_email_reply_to_address'      => 'email',
 			'email_template_options'                  => array( 'title', 'sectionend' ),
 			'previewing_new_templates'                => 'previewing_new_templates',
-			'woocommerce_email_header_image'          => 'email_image_url',
-			'woocommerce_email_header_image_width'    => 'number',
-			'woocommerce_email_header_alignment'      => 'select',
-			'woocommerce_email_font_family'           => 'email_font_family',
-			'woocommerce_email_footer_text'           => 'textarea',
+			'poocommerce_email_header_image'          => 'email_image_url',
+			'poocommerce_email_header_image_width'    => 'number',
+			'poocommerce_email_header_alignment'      => 'select',
+			'poocommerce_email_font_family'           => 'email_font_family',
+			'poocommerce_email_footer_text'           => 'textarea',
 			'email_color_palette'                     => array( 'email_color_palette', 'sectionend' ),
-			'woocommerce_email_base_color'            => 'color',
-			'woocommerce_email_background_color'      => 'color',
-			'woocommerce_email_body_background_color' => 'color',
-			'woocommerce_email_text_color'            => 'color',
-			'woocommerce_email_footer_text_color'     => 'color',
-			'woocommerce_email_auto_sync_with_theme'  => 'hidden',
+			'poocommerce_email_base_color'            => 'color',
+			'poocommerce_email_background_color'      => 'color',
+			'poocommerce_email_body_background_color' => 'color',
+			'poocommerce_email_text_color'            => 'color',
+			'poocommerce_email_footer_text_color'     => 'color',
+			'poocommerce_email_auto_sync_with_theme'  => 'hidden',
 			'email_improvements_button'               => 'email_improvements_button',
 		);
 
@@ -112,11 +112,11 @@ class WC_Settings_Emails_Test extends WC_Settings_Unit_Test_Case {
 		$default_colors = EmailColors::get_default_colors();
 
 		$expected = array(
-			'woocommerce_email_base_color'            => array( 'Accent', $default_colors['base'] ),
-			'woocommerce_email_background_color'      => array( 'Email background', $default_colors['bg'] ),
-			'woocommerce_email_body_background_color' => array( 'Content background', $default_colors['body_bg'] ),
-			'woocommerce_email_text_color'            => array( 'Heading & text', $default_colors['body_text'] ),
-			'woocommerce_email_footer_text_color'     => array( 'Secondary text', $default_colors['footer_text'] ),
+			'poocommerce_email_base_color'            => array( 'Accent', $default_colors['base'] ),
+			'poocommerce_email_background_color'      => array( 'Email background', $default_colors['bg'] ),
+			'poocommerce_email_body_background_color' => array( 'Content background', $default_colors['body_bg'] ),
+			'poocommerce_email_text_color'            => array( 'Heading & text', $default_colors['body_text'] ),
+			'poocommerce_email_footer_text_color'     => array( 'Secondary text', $default_colors['footer_text'] ),
 		);
 
 		foreach ( $expected as $id => $contract ) {
@@ -139,7 +139,7 @@ class WC_Settings_Emails_Test extends WC_Settings_Unit_Test_Case {
 	 */
 	public function test_email_font_family_setting_contract(): void {
 		$settings_by_id = $this->index_settings_by_id( ( new WC_Settings_Emails() )->get_settings_for_section( '' ) );
-		$setting        = $settings_by_id['woocommerce_email_font_family'];
+		$setting        = $settings_by_id['poocommerce_email_font_family'];
 
 		$this->assertSame( 'Font family', $setting['title'] );
 		$this->assertSame( 'email_font_family', $setting['type'] );
@@ -157,7 +157,7 @@ class WC_Settings_Emails_Test extends WC_Settings_Unit_Test_Case {
 		}
 
 		$document = $this->load_html_document( '<table>' . $output . '</table>' );
-		$select   = $this->get_element_by_id( $document, 'woocommerce_email_font_family' );
+		$select   = $this->get_element_by_id( $document, 'poocommerce_email_font_family' );
 
 		$options = $select->getElementsByTagName( 'option' );
 		$this->assertCount( count( EmailFont::$font ), $options );
@@ -180,7 +180,7 @@ class WC_Settings_Emails_Test extends WC_Settings_Unit_Test_Case {
 	 */
 	public function test_email_footer_setting_contract(): void {
 		$settings_by_id = $this->index_settings_by_id( ( new WC_Settings_Emails() )->get_settings_for_section( '' ) );
-		$setting        = $settings_by_id['woocommerce_email_footer_text'];
+		$setting        = $settings_by_id['poocommerce_email_footer_text'];
 
 		$this->assertSame( 'Footer text', $setting['title'] );
 		$this->assertSame( 'textarea', $setting['type'] );
@@ -199,8 +199,8 @@ class WC_Settings_Emails_Test extends WC_Settings_Unit_Test_Case {
 	 * @testdox A single email preview renders its exact type, content settings, URL, and sender values.
 	 */
 	public function test_email_preview_single_contract(): void {
-		update_option( 'woocommerce_email_from_name', 'Woo Test Store' );
-		update_option( 'woocommerce_email_from_address', 'orders@example.com' );
+		update_option( 'poocommerce_email_from_name', 'Woo Test Store' );
+		update_option( 'poocommerce_email_from_address', 'orders@example.com' );
 
 		$email = WC_Emails::instance()->get_emails()[ WC_Email_Customer_Processing_Order::class ];
 
@@ -229,11 +229,11 @@ class WC_Settings_Emails_Test extends WC_Settings_Unit_Test_Case {
 			json_decode( $mount->getAttribute( 'data-email-setting-ids' ), true )
 		);
 		$this->assertSame(
-			html_entity_decode( wp_nonce_url( admin_url( '?preview_woocommerce_mail=true' ), 'preview-mail' ) ),
+			html_entity_decode( wp_nonce_url( admin_url( '?preview_poocommerce_mail=true' ), 'preview-mail' ) ),
 			$mount->getAttribute( 'data-preview-url' )
 		);
-		$this->assertSame( 'Woo Test Store', $this->get_element_by_id( $document, 'woocommerce_email_from_name' )->getAttribute( 'value' ) );
-		$this->assertSame( 'orders@example.com', $this->get_element_by_id( $document, 'woocommerce_email_from_address' )->getAttribute( 'value' ) );
+		$this->assertSame( 'Woo Test Store', $this->get_element_by_id( $document, 'poocommerce_email_from_name' )->getAttribute( 'value' ) );
+		$this->assertSame( 'orders@example.com', $this->get_element_by_id( $document, 'poocommerce_email_from_address' )->getAttribute( 'value' ) );
 	}
 
 	/**
@@ -246,7 +246,7 @@ class WC_Settings_Emails_Test extends WC_Settings_Unit_Test_Case {
 	 * @param bool   $has_theme_json Whether that theme ships a theme.json.
 	 */
 	public function test_email_color_palette_mount_contract( string $theme, bool $has_theme_json ): void {
-		update_option( 'woocommerce_feature_email_improvements_enabled', 'yes' );
+		update_option( 'poocommerce_feature_email_improvements_enabled', 'yes' );
 		$original_theme = get_stylesheet();
 
 		// switch_theme() writes options the rollback reverts, but the active theme is
@@ -269,37 +269,37 @@ class WC_Settings_Emails_Test extends WC_Settings_Unit_Test_Case {
 
 		$this->assertSame( $expected_colors, json_decode( $mount->getAttribute( 'data-default-colors' ), true ) );
 		$this->assertSame( $has_theme_json, $mount->hasAttribute( 'data-has-theme-json' ) );
-		$this->assertSame( 'no', $this->get_element_by_id( $document, 'woocommerce_email_auto_sync_with_theme' )->getAttribute( 'value' ) );
+		$this->assertSame( 'no', $this->get_element_by_id( $document, 'poocommerce_email_auto_sync_with_theme' )->getAttribute( 'value' ) );
 	}
 
 	/**
 	 * @testdox get_settings('') should return reply-to settings when block email editor is enabled.
 	 */
 	public function test_get_default_settings_with_block_email_editor_enabled() {
-		$previous_value = get_option( 'woocommerce_feature_block_email_editor_enabled', null );
+		$previous_value = get_option( 'poocommerce_feature_block_email_editor_enabled', null );
 
 		try {
-			// Enable block email editor feature before any WooCommerce initialization.
-			update_option( 'woocommerce_feature_block_email_editor_enabled', 'yes' );
+			// Enable block email editor feature before any PooCommerce initialization.
+			update_option( 'poocommerce_feature_block_email_editor_enabled', 'yes' );
 
 			$sut                   = new WC_Settings_Emails();
 			$settings              = $sut->get_settings_for_section( '' );
 			$setting_ids_and_types = $this->get_ids_and_types( $settings );
 
 			// Verify reply-to fields are present.
-			$this->assertArrayHasKey( 'woocommerce_email_reply_to_enabled', $setting_ids_and_types );
-			$this->assertEquals( 'checkbox', $setting_ids_and_types['woocommerce_email_reply_to_enabled'] );
+			$this->assertArrayHasKey( 'poocommerce_email_reply_to_enabled', $setting_ids_and_types );
+			$this->assertEquals( 'checkbox', $setting_ids_and_types['poocommerce_email_reply_to_enabled'] );
 
-			$this->assertArrayHasKey( 'woocommerce_email_reply_to_name', $setting_ids_and_types );
-			$this->assertEquals( 'text', $setting_ids_and_types['woocommerce_email_reply_to_name'] );
+			$this->assertArrayHasKey( 'poocommerce_email_reply_to_name', $setting_ids_and_types );
+			$this->assertEquals( 'text', $setting_ids_and_types['poocommerce_email_reply_to_name'] );
 
-			$this->assertArrayHasKey( 'woocommerce_email_reply_to_address', $setting_ids_and_types );
-			$this->assertEquals( 'email', $setting_ids_and_types['woocommerce_email_reply_to_address'] );
+			$this->assertArrayHasKey( 'poocommerce_email_reply_to_address', $setting_ids_and_types );
+			$this->assertEquals( 'email', $setting_ids_and_types['poocommerce_email_reply_to_address'] );
 		} finally {
 			if ( null === $previous_value ) {
-				delete_option( 'woocommerce_feature_block_email_editor_enabled' );
+				delete_option( 'poocommerce_feature_block_email_editor_enabled' );
 			} else {
-				update_option( 'woocommerce_feature_block_email_editor_enabled', $previous_value );
+				update_option( 'poocommerce_feature_block_email_editor_enabled', $previous_value );
 			}
 		}
 	}
@@ -384,7 +384,7 @@ class WC_Settings_Emails_Test extends WC_Settings_Unit_Test_Case {
 		$sut->save();
 
 		$this->assertEquals( $expect_save_settings_for_current_section, $save_settings_for_current_section_invoked );
-		$this->assertEquals( '' === $section_name ? 0 : 1, did_action( 'woocommerce_update_options_email_new_order' ) );
+		$this->assertEquals( '' === $section_name ? 0 : 1, did_action( 'poocommerce_update_options_email_new_order' ) );
 	}
 
 	/**

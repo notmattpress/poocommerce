@@ -20,7 +20,7 @@ test.describe(
 		const visibilityOptions = { timeout: 30000 };
 
 		/**
-		 * Navigates to the WooCommerce settings page by clicking on the WooCommerce link in the WordPress admin menu.
+		 * Navigates to the PooCommerce settings page by clicking on the PooCommerce link in the WordPress admin menu.
 		 *
 		 * @param {Page} page The Playwright Page object representing the browser page to interact with.
 		 */
@@ -33,11 +33,11 @@ test.describe(
 
 			await page
 				.locator( '#adminmenu' )
-				.getByRole( 'link', { name: 'WooCommerce', exact: true } )
+				.getByRole( 'link', { name: 'PooCommerce', exact: true } )
 				.click();
 
 			const wcMenu = page.locator(
-				'#toplevel_page_woocommerce .wp-submenu'
+				'#toplevel_page_poocommerce .wp-submenu'
 			);
 			await expect( wcMenu ).toBeVisible();
 
@@ -47,7 +47,7 @@ test.describe(
 		}
 
 		/**
-		 * Navigates to the Payments settings page by first opening the WooCommerce settings and then clicking on the Payments tab.
+		 * Navigates to the Payments settings page by first opening the PooCommerce settings and then clicking on the Payments tab.
 		 *
 		 * @param {Page} page The Playwright Page object representing the browser page to interact with.
 		 */
@@ -82,7 +82,7 @@ test.describe(
 		/**
 		 * Temporary function to remove the disabled attribute from the Save changes button, as it is currently disabled by default and prevents saving changes in tests.
 		 * This should be removed once the underlying issue is resolved and the Save changes button can be enabled as expected.
-		 * See: https://github.com/woocommerce/woocommerce/issues/63498
+		 * See: https://github.com/poocommerce/poocommerce/issues/63498
 		 *
 		 * @param {Page} page The Playwright Page object representing the browser page to interact with.
 		 */
@@ -169,13 +169,13 @@ test.describe(
 			await page.reload();
 
 			const originalPayPalTitle = await page
-				.locator( '#woocommerce_paypal_title' )
+				.locator( '#poocommerce_paypal_title' )
 				.inputValue();
 
 			try {
 				await test.step( 'Update the title field', async () => {
 					await page
-						.locator( '#woocommerce_paypal_title' )
+						.locator( '#poocommerce_paypal_title' )
 						.fill( 'PayPal Custom Title ' + Date.now() );
 
 					// TODO: Temporarily removing the disabled attribute from the Save changes button.
@@ -195,7 +195,7 @@ test.describe(
 					// what unlocks `Enable PayPal Buttons` — but the field is missing
 					// from the page the save returns, so assert against the next load
 					// instead, which is the one a merchant actually reaches. Not a wait:
-					// see https://github.com/woocommerce/woocommerce/issues/68689.
+					// see https://github.com/poocommerce/poocommerce/issues/68689.
 					await page.reload();
 				} );
 
@@ -209,7 +209,7 @@ test.describe(
 			} finally {
 				await test.step( 'Revert title change', async () => {
 					await page
-						.locator( '#woocommerce_paypal_title' )
+						.locator( '#poocommerce_paypal_title' )
 						.fill( originalPayPalTitle );
 
 					// TODO: Temporarily removing the disabled attribute from the Save changes button.

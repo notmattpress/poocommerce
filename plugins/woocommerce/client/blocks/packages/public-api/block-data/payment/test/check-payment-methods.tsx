@@ -2,22 +2,22 @@
  * External dependencies
  */
 import * as wpDataFunctions from '@wordpress/data';
-import { previewCart } from '@woocommerce/resource-previews';
-import { paymentStore, cartStore } from '@woocommerce/block-data';
+import { previewCart } from '@poocommerce/resource-previews';
+import { paymentStore, cartStore } from '@poocommerce/block-data';
 import {
 	registerPaymentMethod,
 	registerExpressPaymentMethod,
 	__experimentalDeRegisterPaymentMethod,
 	__experimentalDeRegisterExpressPaymentMethod,
-} from '@woocommerce/blocks-registry';
-import { CanMakePaymentArgument } from '@woocommerce/types';
+} from '@poocommerce/blocks-registry';
+import { CanMakePaymentArgument } from '@poocommerce/types';
 
 /**
  * Internal dependencies
  */
 import { checkPaymentMethodsCanPay } from '../utils/check-payment-methods';
 
-jest.mock( '@woocommerce/utils', () => ( {
+jest.mock( '@poocommerce/utils', () => ( {
 	isSiteEditorPage: jest.fn().mockReturnValue( true ),
 } ) );
 

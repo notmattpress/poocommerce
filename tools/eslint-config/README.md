@@ -1,16 +1,16 @@
-# `@woocommerce/eslint-config`
+# `@poocommerce/eslint-config`
 
-The WooCommerce monorepo's internal ESLint Flat Config layer. This package is private and is never published: it exists so that monorepo-only lint decisions have somewhere to live that is not the public plugin.
+The PooCommerce monorepo's internal ESLint Flat Config layer. This package is private and is never published: it exists so that monorepo-only lint decisions have somewhere to live that is not the public plugin.
 
 ## Why this package exists
 
-WooCommerce's lint setup is split across two layers, and the split is the whole point of this package.
+PooCommerce's lint setup is split across two layers, and the split is the whole point of this package.
 
-| | [`@woocommerce/eslint-plugin`](../../packages/js/eslint-plugin/README.md) | `@woocommerce/eslint-config` |
+| | [`@poocommerce/eslint-plugin`](../../packages/js/eslint-plugin/README.md) | `@poocommerce/eslint-config` |
 | --- | --- | --- |
 | Published to npm | Yes | No (`private: true`) |
 | Consumed by | Third-party extensions, and this package | Packages inside this monorepo only |
-| Holds | The portable WooCommerce ruleset | Monorepo-only relaxations and strictness |
+| Holds | The portable PooCommerce ruleset | Monorepo-only relaxations and strictness |
 
 The public plugin is consumed by extension authors we cannot see or coordinate with, so it stays **portable**: it assumes no type information and no covering `tsconfig.json`, and its rule severities are deliberate upstream policy for every consumer. Anything that only makes sense inside this repository belongs here instead.
 
@@ -24,9 +24,9 @@ Each package in the monorepo has its own `eslint.config.mjs` that spreads this c
 /**
  * Internal dependencies
  */
-import woocommerce from '@woocommerce/eslint-config';
+import poocommerce from '@poocommerce/eslint-config';
 
-export default [ ...woocommerce ];
+export default [ ...poocommerce ];
 ```
 
 The export is a Flat Config array, so add your own configuration objects after it. Flat Config is last-wins — a later object overrides an earlier one:
@@ -35,10 +35,10 @@ The export is a Flat Config array, so add your own configuration objects after i
 /**
  * Internal dependencies
  */
-import woocommerce from '@woocommerce/eslint-config';
+import poocommerce from '@poocommerce/eslint-config';
 
 export default [
-	...woocommerce,
+	...poocommerce,
 	{
 		rules: {
 			'no-console': 'off',
@@ -47,18 +47,18 @@ export default [
 ];
 ```
 
-Add the package to the consuming package's `devDependencies` as `"@woocommerce/eslint-config": "workspace:*"`.
+Add the package to the consuming package's `devDependencies` as `"@poocommerce/eslint-config": "workspace:*"`.
 
 ## What it contains
 
-`index.js` spreads `@woocommerce/eslint-plugin`'s `recommended` config and then applies two sets of relaxations:
+`index.js` spreads `@poocommerce/eslint-plugin`'s `recommended` config and then applies two sets of relaxations:
 
 - **`RELAXED_RULES`** — applied globally.
 - **`RELAXED_TEST_RULES`** — applied only to test files. The `jest` and `testing-library` plugins are registered for test files only, so their rules must be relaxed in a block scoped the same way. Referencing them globally fails with `Could not find plugin`.
 
-Both sets are debt, not policy: they are `warn` because their violations are unfixed, not because `warn` is the intended severity. `index.js` annotates them with what causes them to fire. Restoring them to `error` is tracked in [#66078](https://github.com/woocommerce/woocommerce/issues/66078), and is best done a rule family at a time rather than in one sweep.
+Both sets are debt, not policy: they are `warn` because their violations are unfixed, not because `warn` is the intended severity. `index.js` annotates them with what causes them to fire. Restoring them to `error` is tracked in [#66078](https://github.com/poocommerce/poocommerce/issues/66078), and is best done a rule family at a time rather than in one sweep.
 
-Because Flat Config is last-wins, a package that sets a severity after spreading this config overrides what is set here, so this file is not the last word on any package's severities. Several do, most substantially `plugins/woocommerce/client/blocks/eslint.config.mjs` and `plugins/woocommerce/eslint.config.mjs` (the playwright rules, whose plugin is only registered for its e2e block). Check the package's own config before assuming a severity came from here.
+Because Flat Config is last-wins, a package that sets a severity after spreading this config overrides what is set here, so this file is not the last word on any package's severities. Several do, most substantially `plugins/poocommerce/client/blocks/eslint.config.mjs` and `plugins/poocommerce/eslint.config.mjs` (the playwright rules, whose plugin is only registered for its e2e block). Check the package's own config before assuming a severity came from here.
 
 ## Adding a rule
 
@@ -80,5 +80,5 @@ The plugin README's [Editors](../../packages/js/eslint-plugin/README.md#editors)
 
 ## See also
 
-- [`@woocommerce/eslint-plugin`](../../packages/js/eslint-plugin/README.md) — the public ruleset, including its Flat Config migration guide.
+- [`@poocommerce/eslint-plugin`](../../packages/js/eslint-plugin/README.md) — the public ruleset, including its Flat Config migration guide.
 - [ESLint Flat Config documentation](https://eslint.org/docs/latest/use/configure/configuration-files)

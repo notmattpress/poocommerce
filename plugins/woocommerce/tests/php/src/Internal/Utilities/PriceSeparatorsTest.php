@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Utilities;
+namespace Automattic\PooCommerce\Tests\Internal\Utilities;
 
-use Automattic\WooCommerce\Internal\Utilities\PriceSeparators;
+use Automattic\PooCommerce\Internal\Utilities\PriceSeparators;
 use WC_Unit_Test_Case;
 
 /**
@@ -19,8 +19,8 @@ class PriceSeparatorsTest extends WC_Unit_Test_Case {
 	 * @param string $expected The expected decoded separator.
 	 */
 	public function test_separators_are_decoded( string $stored, string $expected ): void {
-		update_option( 'woocommerce_price_thousand_sep', $stored );
-		update_option( 'woocommerce_price_decimal_sep', $stored );
+		update_option( 'poocommerce_price_thousand_sep', $stored );
+		update_option( 'poocommerce_price_decimal_sep', $stored );
 
 		$this->assertSame( $expected, PriceSeparators::get_thousand(), "Thousand separator stored as '{$stored}' should decode to '{$expected}'" );
 		$this->assertSame( $expected, PriceSeparators::get_decimal(), "Decimal separator stored as '{$stored}' should decode to '{$expected}'" );
@@ -46,8 +46,8 @@ class PriceSeparatorsTest extends WC_Unit_Test_Case {
 	 * @testdox Should preserve the core getters' fallbacks when the options are empty.
 	 */
 	public function test_empty_options_preserve_getter_fallbacks(): void {
-		update_option( 'woocommerce_price_thousand_sep', '' );
-		update_option( 'woocommerce_price_decimal_sep', '' );
+		update_option( 'poocommerce_price_thousand_sep', '' );
+		update_option( 'poocommerce_price_decimal_sep', '' );
 
 		$this->assertSame( '', PriceSeparators::get_thousand(), 'An empty thousand separator should stay empty' );
 		$this->assertSame( '.', PriceSeparators::get_decimal(), 'An empty decimal separator should fall back to a period, matching wc_get_price_decimal_separator()' );

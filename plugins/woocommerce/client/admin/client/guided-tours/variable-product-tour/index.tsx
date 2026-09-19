@@ -3,9 +3,9 @@
  */
 import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import { TourKit, TourKitTypes } from '@woocommerce/components';
-import { useUserPreferences } from '@woocommerce/data';
-import { recordEvent } from '@woocommerce/tracks';
+import { TourKit, TourKitTypes } from '@poocommerce/components';
+import { useUserPreferences } from '@poocommerce/data';
+import { recordEvent } from '@poocommerce/tracks';
 
 function getStepName(
 	steps: TourKitTypes.WooStep[],
@@ -31,15 +31,15 @@ export const VariableProductTour = () => {
 				},
 				meta: {
 					name: 'attributes',
-					heading: __( 'Start by adding attributes', 'woocommerce' ),
+					heading: __( 'Start by adding attributes', 'poocommerce' ),
 					descriptions: {
 						desktop: __(
 							'Add attributes like size and color for customers to choose from on the product page. We will use them to generate product variations.',
-							'woocommerce'
+							'poocommerce'
 						),
 					},
 					primaryButton: {
-						text: __( 'Got it', 'woocommerce' ),
+						text: __( 'Got it', 'poocommerce' ),
 					},
 				},
 			},

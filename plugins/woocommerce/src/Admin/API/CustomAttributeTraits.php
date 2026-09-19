@@ -3,7 +3,7 @@
  * Traits for handling custom product attributes and their terms.
  */
 
-namespace Automattic\WooCommerce\Admin\API;
+namespace Automattic\PooCommerce\Admin\API;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -25,8 +25,8 @@ trait CustomAttributeTraits {
 
 		if ( empty( $matching_attributes ) ) {
 			return new \WP_Error(
-				'woocommerce_rest_product_attribute_not_found',
-				__( 'No product attribute with that slug was found.', 'woocommerce' ),
+				'poocommerce_rest_product_attribute_not_found',
+				__( 'No product attribute with that slug was found.', 'poocommerce' ),
 				array( 'status' => 404 )
 			);
 		}

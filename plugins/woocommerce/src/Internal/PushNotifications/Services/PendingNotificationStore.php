@@ -2,15 +2,15 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\PushNotifications\Services;
+namespace Automattic\PooCommerce\Internal\PushNotifications\Services;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Internal\PushNotifications\DataStores\PushTokensDataStore;
-use Automattic\WooCommerce\Internal\PushNotifications\Dispatchers\InternalNotificationDispatcher;
-use Automattic\WooCommerce\Internal\PushNotifications\Notifications\Notification;
-use Automattic\WooCommerce\Internal\PushNotifications\Services\NotificationProcessor;
-use Automattic\WooCommerce\Internal\Utilities\ActionSchedulerUtil;
+use Automattic\PooCommerce\Internal\PushNotifications\DataStores\PushTokensDataStore;
+use Automattic\PooCommerce\Internal\PushNotifications\Dispatchers\InternalNotificationDispatcher;
+use Automattic\PooCommerce\Internal\PushNotifications\Notifications\Notification;
+use Automattic\PooCommerce\Internal\PushNotifications\Services\NotificationProcessor;
+use Automattic\PooCommerce\Internal\Utilities\ActionSchedulerUtil;
 
 /**
  * Store that collects notifications during a request and dispatches them all on

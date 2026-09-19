@@ -4,7 +4,7 @@
 import {
 	previewCart,
 	previewShippingRates,
-} from '@woocommerce/resource-previews';
+} from '@poocommerce/resource-previews';
 
 export * from '../../assets/js/base/hooks/index.js';
 export const useStoreCart = () => ( {

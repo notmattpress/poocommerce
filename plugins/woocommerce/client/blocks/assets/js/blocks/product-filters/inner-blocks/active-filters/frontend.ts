@@ -5,7 +5,7 @@ import { store, getContext, getConfig } from '@wordpress/interactivity';
 import type {
 	RemovableItem,
 	RemovableItemsParentStore,
-} from '@woocommerce/types';
+} from '@poocommerce/types';
 
 /**
  * Internal dependencies

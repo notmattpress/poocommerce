@@ -61,7 +61,7 @@ export function useTreeItem( {
 		shouldItemBeHighlighted,
 	} );
 
-	const subTreeId = `experimental-woocommerce-tree__group-${ useInstanceId(
+	const subTreeId = `experimental-poocommerce-tree__group-${ useInstanceId(
 		useTreeItem
 	) }`;
 
@@ -82,7 +82,7 @@ export function useTreeItem( {
 		treeItemProps: {
 			...props,
 			id:
-				'woocommerce-experimental-tree-control__menu-item-' +
+				'poocommerce-experimental-tree-control__menu-item-' +
 				item.index,
 			role: 'option',
 		},

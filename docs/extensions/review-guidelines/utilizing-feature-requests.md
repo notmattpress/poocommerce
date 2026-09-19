@@ -1,9 +1,9 @@
 ---
-post_title: Utilizing WooCommerce extension feature requests
+post_title: Utilizing PooCommerce extension feature requests
 sidebar_label: Utilizing feature requests
 ---
 
-# Utilizing WooCommerce extension feature requests
+# Utilizing PooCommerce extension feature requests
 
 It is important to keep track of all feature requests, and have some sort of system of record where anyone can see what kind of feedback the product is receiving over time. 
 

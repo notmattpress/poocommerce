@@ -37,10 +37,10 @@ import {
 } from '../../types';
 import {
 	LocationType,
-	type WooCommerceBlockLocation,
+	type PooCommerceBlockLocation,
 } from '../../../product-template/utils';
 
-jest.mock( '@woocommerce/editor-components/products-control', () => {
+jest.mock( '@poocommerce/editor-components/products-control', () => {
 	const React = jest.requireActual( 'react' );
 
 	return ( { onChange, selected } ) =>
@@ -56,7 +56,7 @@ jest.mock( '@woocommerce/editor-components/products-control', () => {
 		);
 } );
 
-jest.mock( '@woocommerce/editor-components/product-category-control', () => {
+jest.mock( '@poocommerce/editor-components/product-category-control', () => {
 	const React = jest.requireActual( 'react' );
 
 	return ( { onChange, selected } ) =>
@@ -72,7 +72,7 @@ jest.mock( '@woocommerce/editor-components/product-category-control', () => {
 		);
 } );
 
-jest.mock( '@woocommerce/editor-components/product-tag-control', () => {
+jest.mock( '@poocommerce/editor-components/product-tag-control', () => {
 	const React = jest.requireActual( 'react' );
 
 	return ( { onChange, selected } ) =>
@@ -88,7 +88,7 @@ jest.mock( '@woocommerce/editor-components/product-tag-control', () => {
 		);
 } );
 
-jest.mock( '@woocommerce/editor-components/product-brand-control', () => {
+jest.mock( '@poocommerce/editor-components/product-brand-control', () => {
 	const React = jest.requireActual( 'react' );
 
 	return ( { onChange, selected } ) =>
@@ -104,7 +104,7 @@ jest.mock( '@woocommerce/editor-components/product-brand-control', () => {
 		);
 } );
 
-jest.mock( '@woocommerce/editor-components/product-control', () => {
+jest.mock( '@poocommerce/editor-components/product-control', () => {
 	const React = jest.requireActual( 'react' );
 
 	return ( { onChange, selected } ) =>
@@ -121,7 +121,7 @@ jest.mock( '@woocommerce/editor-components/product-control', () => {
 } );
 
 jest.mock(
-	'@woocommerce/editor-components/product-attribute-term-control',
+	'@poocommerce/editor-components/product-attribute-term-control',
 	() => {
 		const React = jest.requireActual( 'react' );
 
@@ -139,8 +139,8 @@ jest.mock(
 	}
 );
 
-jest.mock( '@woocommerce/editor-components/utils', () => ( {
-	...jest.requireActual( '@woocommerce/editor-components/utils' ),
+jest.mock( '@poocommerce/editor-components/utils', () => ( {
+	...jest.requireActual( '@poocommerce/editor-components/utils' ),
 	getProduct: jest.fn( ( id: number ) =>
 		Promise.resolve( {
 			id,
@@ -301,7 +301,7 @@ describe( 'collection-specific picker contracts', () => {
 		expect( onSetAttributes ).toHaveBeenLastCalledWith( {
 			query: {
 				...attributes.query,
-				woocommerceHandPickedProducts: [ '71', '72' ],
+				poocommerceHandPickedProducts: [ '71', '72' ],
 			},
 		} );
 		expect( done ).toBeEnabled();
@@ -444,7 +444,7 @@ describe( 'Edit picker-state contracts', () => {
 		const setAttributes = jest.fn();
 		const empty = createAttributes( CoreCollectionNames.HAND_PICKED );
 		const selected = createAttributes( CoreCollectionNames.HAND_PICKED, {
-			woocommerceHandPickedProducts: [ '71', '72' ],
+			poocommerceHandPickedProducts: [ '71', '72' ],
 		} );
 		const { rerender } = renderInEditor(
 			<Edit { ...makeEditProps( empty, setAttributes ) } />
@@ -584,7 +584,7 @@ describe( 'linked-product reference contracts', () => {
 			<LinkedProductControl
 				query={ { ...DEFAULT_QUERY } }
 				setAttributes={ jest.fn() }
-				location={ { type: row.location } as WooCommerceBlockLocation }
+				location={ { type: row.location } as PooCommerceBlockLocation }
 				usesReference={ row.usesReference }
 			/>
 		);

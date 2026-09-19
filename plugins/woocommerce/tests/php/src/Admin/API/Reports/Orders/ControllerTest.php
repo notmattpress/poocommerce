@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Admin\API\Reports\Orders;
+namespace Automattic\PooCommerce\Tests\Admin\API\Reports\Orders;
 
-use Automattic\WooCommerce\Admin\API\Reports\Orders\Controller;
-use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Admin\API\Reports\Orders\Controller;
+use Automattic\PooCommerce\Enums\OrderStatus;
 use WC_Unit_Test_Case;
 
 /**

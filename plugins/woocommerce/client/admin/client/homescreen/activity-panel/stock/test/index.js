@@ -4,7 +4,7 @@
 import { render, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { createElement } from '@wordpress/element';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -24,7 +24,7 @@ describe( 'StockPanel', () => {
 
 		expect(
 			container.querySelectorAll(
-				'.woocommerce-stock-activity-card.is-loading'
+				'.poocommerce-stock-activity-card.is-loading'
 			)
 		).toHaveLength( 3 );
 	} );

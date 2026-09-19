@@ -1,7 +1,7 @@
 <?php
 /**
  * Data Store Tests: Tests WC_Coupon's WC_Data_Store.
- * @package WooCommerce\Tests\Coupon
+ * @package PooCommerce\Tests\Coupon
  */
 class WC_Tests_Coupon_Data_Store extends WC_Unit_Test_Case {
 
@@ -57,7 +57,7 @@ class WC_Tests_Coupon_Data_Store extends WC_Unit_Test_Case {
 	public function test_coupon_cache_deletion() {
 		$coupon      = WC_Helper_Coupon::create_coupon( 'test' );
 		$code        = $coupon->get_code();
-		$invalidator = wc_get_container()->get( \Automattic\WooCommerce\Internal\Caches\CouponCodeLookupInvalidator::class );
+		$invalidator = wc_get_container()->get( \Automattic\PooCommerce\Internal\Caches\CouponCodeLookupInvalidator::class );
 
 		// Prime the cache.
 		wc_get_coupon_id_by_code( $code );
@@ -84,7 +84,7 @@ class WC_Tests_Coupon_Data_Store extends WC_Unit_Test_Case {
 	public function test_coupon_cache_deletion_when_unpublished_during_save_post() {
 		$coupon      = WC_Helper_Coupon::create_coupon( 'save-post-draft' );
 		$code        = $coupon->get_code();
-		$invalidator = wc_get_container()->get( \Automattic\WooCommerce\Internal\Caches\CouponCodeLookupInvalidator::class );
+		$invalidator = wc_get_container()->get( \Automattic\PooCommerce\Internal\Caches\CouponCodeLookupInvalidator::class );
 
 		// Prime the cache.
 		wc_get_coupon_id_by_code( $code );

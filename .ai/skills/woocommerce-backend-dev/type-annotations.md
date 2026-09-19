@@ -11,7 +11,7 @@
 
 ## Overview
 
-WooCommerce uses PHPStan for static analysis. Beyond standard PHPDoc annotations (`@param`, `@return`, `@var`), use PHPStan-specific annotations to provide richer type information that enables better type inference.
+PooCommerce uses PHPStan for static analysis. Beyond standard PHPDoc annotations (`@param`, `@return`, `@var`), use PHPStan-specific annotations to provide richer type information that enables better type inference.
 
 ## When to Use PHPStan Annotations
 
@@ -214,8 +214,8 @@ private function create_or_update_draft_order( \WP_REST_Request $request ) {
 private function get_order_or_throw(): \WC_Order {
     if ( ! $this->order instanceof \WC_Order ) {
         throw new RouteException(
-            'woocommerce_rest_checkout_missing_order',
-            esc_html__( 'Unable to create order', 'woocommerce' ),
+            'poocommerce_rest_checkout_missing_order',
+            esc_html__( 'Unable to create order', 'poocommerce' ),
             500
         );
     }

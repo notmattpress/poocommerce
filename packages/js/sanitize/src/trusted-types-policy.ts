@@ -11,7 +11,7 @@ import { sanitizeHTML } from './sanitize';
 /**
  * The type for our trusted types policy.
  */
-export type WooCommerceSanitizePolicyType = Pick<
+export type PooCommerceSanitizePolicyType = Pick<
 	TrustedTypePolicy,
 	'name' | 'createHTML'
 >;
@@ -19,14 +19,14 @@ export type WooCommerceSanitizePolicyType = Pick<
 /**
  * Cached policy instance to ensure it's only created once.
  */
-let policyInstance: WooCommerceSanitizePolicyType | null | undefined;
+let policyInstance: PooCommerceSanitizePolicyType | null | undefined;
 
 /**
  * Get or create a trusted types policy for DOMPurify.
  *
  * @return TrustedTypePolicy object or null if not supported.
  */
-export function getTrustedTypesPolicy(): WooCommerceSanitizePolicyType | null {
+export function getTrustedTypesPolicy(): PooCommerceSanitizePolicyType | null {
 	if ( policyInstance !== undefined ) {
 		return policyInstance;
 	}
@@ -38,7 +38,7 @@ export function getTrustedTypesPolicy(): WooCommerceSanitizePolicyType | null {
 
 	try {
 		policyInstance = window.trustedTypes.createPolicy(
-			'woocommerce-sanitize',
+			'poocommerce-sanitize',
 			{
 				createHTML: ( input: string ): string => sanitizeHTML( input ),
 			}
@@ -47,7 +47,7 @@ export function getTrustedTypesPolicy(): WooCommerceSanitizePolicyType | null {
 		policyInstance = null;
 		// eslint-disable-next-line no-console
 		console.warn(
-			'Failed to create "woocommerce-sanitize" trusted type policy:',
+			'Failed to create "poocommerce-sanitize" trusted type policy:',
 			error
 		);
 	}

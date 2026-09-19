@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { render, screen, fireEvent } from '@testing-library/react';
-import AddressLine2Field from '@woocommerce/base-components/cart-checkout/form/address-line-2-field';
+import AddressLine2Field from '@poocommerce/base-components/cart-checkout/form/address-line-2-field';
 import { useState } from '@wordpress/element';
 
 describe( 'Address Line 2 Component', () => {

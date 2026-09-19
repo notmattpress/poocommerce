@@ -3,7 +3,7 @@
  */
 import apiFetch from '@wordpress/api-fetch';
 import { createRegistry } from '@wordpress/data';
-import type { CartShippingRate } from '@woocommerce/types';
+import type { CartShippingRate } from '@poocommerce/types';
 
 /**
  * Internal dependencies
@@ -47,7 +47,7 @@ const createPackages = ( selectedRateIds: string[] ) =>
 	);
 
 const rejectedSelection = {
-	code: 'woocommerce_rest_cart_shipping_rate_invalid',
+	code: 'poocommerce_rest_cart_shipping_rate_invalid',
 	message: 'Shipping rate rejected.',
 	data: { status: 400 },
 };

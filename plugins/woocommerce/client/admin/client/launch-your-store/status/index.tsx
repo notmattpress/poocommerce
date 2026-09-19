@@ -14,7 +14,7 @@ export const LaunchYourStoreStatus = () => {
 		useSiteVisibilityTour();
 
 	return (
-		<div className="woocommerce-lys-status">
+		<div className="poocommerce-lys-status">
 			{ shouldTourBeShown && showTour && (
 				<SiteVisibilityTour
 					onClose={ () => {

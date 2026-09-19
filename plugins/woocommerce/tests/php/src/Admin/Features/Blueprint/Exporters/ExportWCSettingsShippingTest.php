@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Admin\Features\Blueprint\Exporters;
+namespace Automattic\PooCommerce\Tests\Admin\Features\Blueprint\Exporters;
 
-use Automattic\WooCommerce\Admin\Features\Blueprint\Exporters\ExportWCSettingsShipping;
-use Automattic\WooCommerce\Admin\Features\Blueprint\SettingOptions;
-use Automattic\WooCommerce\Blueprint\Steps\RunSql;
+use Automattic\PooCommerce\Admin\Features\Blueprint\Exporters\ExportWCSettingsShipping;
+use Automattic\PooCommerce\Admin\Features\Blueprint\SettingOptions;
+use Automattic\PooCommerce\Blueprint\Steps\RunSql;
 use WC_Shipping_Zone;
 use WC_Unit_Test_Case;
 

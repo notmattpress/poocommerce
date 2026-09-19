@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\Shipping;
+namespace Automattic\PooCommerce\Tests\Blocks\Shipping;
 
-use Automattic\WooCommerce\Blocks\Shipping\PickupLocationsRestController;
+use Automattic\PooCommerce\Blocks\Shipping\PickupLocationsRestController;
 use WC_Unit_Test_Case;
 
 /**
@@ -26,7 +26,7 @@ class PickupLocationsRestControllerTest extends WC_Unit_Test_Case {
 	private $shop_manager_id;
 
 	/**
-	 * Editor user ID (no WooCommerce caps).
+	 * Editor user ID (no PooCommerce caps).
 	 *
 	 * @var int
 	 */
@@ -47,7 +47,7 @@ class PickupLocationsRestControllerTest extends WC_Unit_Test_Case {
 	 */
 	public function tearDown(): void {
 		wp_set_current_user( 0 );
-		delete_option( 'woocommerce_pickup_location_settings' );
+		delete_option( 'poocommerce_pickup_location_settings' );
 		delete_option( 'pickup_location_pickup_locations' );
 		parent::tearDown();
 	}
@@ -106,7 +106,7 @@ class PickupLocationsRestControllerTest extends WC_Unit_Test_Case {
 		$data     = $response->get_data();
 
 		$this->assertSame( $settings, $data['pickup_location_settings'], 'Response should echo back the saved method settings.' );
-		$this->assertSame( $settings, get_option( 'woocommerce_pickup_location_settings' ), 'Method settings should be persisted to the database.' );
+		$this->assertSame( $settings, get_option( 'poocommerce_pickup_location_settings' ), 'Method settings should be persisted to the database.' );
 	}
 
 	/**
@@ -179,7 +179,7 @@ class PickupLocationsRestControllerTest extends WC_Unit_Test_Case {
 		// it only proves anything next to `taxable`: together they separate "the
 		// status was kept" from "everything collapses to one status".
 		$this->assertSame( $tax_status, $data['pickup_location_settings']['tax_status'], 'The response should echo back the tax status that was saved.' );
-		$this->assertSame( $tax_status, get_option( 'woocommerce_pickup_location_settings' )['tax_status'], 'The saved tax status should be persisted unchanged.' );
+		$this->assertSame( $tax_status, get_option( 'poocommerce_pickup_location_settings' )['tax_status'], 'The saved tax status should be persisted unchanged.' );
 	}
 
 	/**
@@ -306,7 +306,7 @@ class PickupLocationsRestControllerTest extends WC_Unit_Test_Case {
 			'tax_status' => 'taxable',
 			'cost'       => '5.00',
 		);
-		update_option( 'woocommerce_pickup_location_settings', $original_settings );
+		update_option( 'poocommerce_pickup_location_settings', $original_settings );
 
 		$request = new \WP_REST_Request( 'POST', '/wc/v3/pickup-locations' );
 		$request->set_param( 'pickup_locations', array() );
@@ -315,7 +315,7 @@ class PickupLocationsRestControllerTest extends WC_Unit_Test_Case {
 
 		$this->assertSame(
 			$original_settings,
-			get_option( 'woocommerce_pickup_location_settings' ),
+			get_option( 'poocommerce_pickup_location_settings' ),
 			'Existing method settings should not be overwritten when only pickup_locations is sent.'
 		);
 	}
@@ -343,7 +343,7 @@ class PickupLocationsRestControllerTest extends WC_Unit_Test_Case {
 
 		$this->sut->update_settings( $request );
 
-		$saved = get_option( 'woocommerce_pickup_location_settings' );
+		$saved = get_option( 'poocommerce_pickup_location_settings' );
 
 		$this->assertIsArray( $saved );
 		$this->assertArrayHasKey( 'title', $saved );
@@ -451,7 +451,7 @@ class PickupLocationsRestControllerTest extends WC_Unit_Test_Case {
 
 		$this->sut->update_settings( $request );
 
-		$saved = get_option( 'woocommerce_pickup_location_settings' );
+		$saved = get_option( 'poocommerce_pickup_location_settings' );
 
 		$this->assertIsArray( $saved );
 		$this->assertArrayHasKey( 'cost', $saved );

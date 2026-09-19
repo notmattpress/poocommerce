@@ -4,7 +4,7 @@
  *
  * Handles requests to /ssr.
  *
- * @package WooCommerce\WCCom\API
+ * @package PooCommerce\WCCom\API
  * @since 8.6.0
  */
 

@@ -36,7 +36,7 @@ function pathKey( path: Array< number | string > ): string {
 const SectionDot = ( { tone }: { tone: 'warning' | 'brand' } ) => (
 	<span
 		aria-hidden="true"
-		className={ `woocommerce-review-drawer__dot woocommerce-review-drawer__dot--${ tone }` }
+		className={ `poocommerce-review-drawer__dot poocommerce-review-drawer__dot--${ tone }` }
 	/>
 );
 
@@ -64,16 +64,16 @@ const ChoiceCard = ( {
 		aria-checked={ active }
 		onClick={ onClick }
 		className={ [
-			'woocommerce-review-drawer__choice-card',
+			'poocommerce-review-drawer__choice-card',
 			active && 'is-active',
 		]
 			.filter( Boolean )
 			.join( ' ' ) }
 	>
-		<span className="woocommerce-review-drawer__choice-label">
+		<span className="poocommerce-review-drawer__choice-label">
 			{ label }
 		</span>
-		<span className="woocommerce-review-drawer__choice-hint">{ hint }</span>
+		<span className="poocommerce-review-drawer__choice-hint">{ hint }</span>
 	</button>
 );
 
@@ -99,19 +99,19 @@ const ConflictsGroup = ( {
 			'Needs your attention · %d conflict',
 			'Needs your attention · %d conflicts',
 			conflicts.length,
-			'woocommerce'
+			'poocommerce'
 		),
 		conflicts.length
 	);
 
 	return (
 		<section
-			className="woocommerce-review-drawer__group"
-			aria-labelledby="woocommerce-review-drawer-conflicts-heading"
+			className="poocommerce-review-drawer__group"
+			aria-labelledby="poocommerce-review-drawer-conflicts-heading"
 		>
 			<h3
-				id="woocommerce-review-drawer-conflicts-heading"
-				className="woocommerce-review-drawer__group-h"
+				id="poocommerce-review-drawer-conflicts-heading"
+				className="poocommerce-review-drawer__group-h"
 			>
 				<SectionDot tone="warning" />
 				{ heading }
@@ -123,7 +123,7 @@ const ConflictsGroup = ( {
 					conflict.total > 1
 						? sprintf(
 								/* translators: 1: block name; 2: occurrence; 3: total. */
-								__( '%1$s %2$d of %3$d', 'woocommerce' ),
+								__( '%1$s %2$d of %3$d', 'poocommerce' ),
 								conflict.block,
 								conflict.occurrence,
 								conflict.total
@@ -133,55 +133,55 @@ const ConflictsGroup = ( {
 				return (
 					<div
 						key={ key }
-						className="woocommerce-review-drawer__item"
+						className="poocommerce-review-drawer__item"
 					>
-						<div className="woocommerce-review-drawer__item-h">
-							<h4 className="woocommerce-review-drawer__item-title">
+						<div className="poocommerce-review-drawer__item-h">
+							<h4 className="poocommerce-review-drawer__item-title">
 								{ blockTitle }
 							</h4>
-							<span className="woocommerce-review-drawer__tag woocommerce-review-drawer__tag--conflict">
-								{ __( 'Conflict', 'woocommerce' ) }
+							<span className="poocommerce-review-drawer__tag poocommerce-review-drawer__tag--conflict">
+								{ __( 'Conflict', 'poocommerce' ) }
 							</span>
 						</div>
-						<p className="woocommerce-review-drawer__item-sub">
+						<p className="poocommerce-review-drawer__item-sub">
 							{ __(
 								'Core changed this text. Pick which version to keep.',
-								'woocommerce'
+								'poocommerce'
 							) }
 						</p>
 						<div
-							className="woocommerce-review-drawer__diff"
+							className="poocommerce-review-drawer__diff"
 							role="group"
-							aria-label={ __( 'Diff', 'woocommerce' ) }
+							aria-label={ __( 'Diff', 'poocommerce' ) }
 						>
-							<div className="woocommerce-review-drawer__diff-row woocommerce-review-drawer__diff-row--minus">
+							<div className="poocommerce-review-drawer__diff-row poocommerce-review-drawer__diff-row--minus">
 								{ conflict.before }
 							</div>
-							<div className="woocommerce-review-drawer__diff-row woocommerce-review-drawer__diff-row--plus">
+							<div className="poocommerce-review-drawer__diff-row poocommerce-review-drawer__diff-row--plus">
 								{ conflict.after }
 							</div>
 						</div>
 						<div
-							className="woocommerce-review-drawer__choice"
+							className="poocommerce-review-drawer__choice"
 							role="radiogroup"
 							aria-label={ __(
 								'Choose which version to apply',
-								'woocommerce'
+								'poocommerce'
 							) }
 						>
 							<ChoiceCard
-								label={ __( 'Keep yours', 'woocommerce' ) }
-								hint={ __( 'Default · safe', 'woocommerce' ) }
+								label={ __( 'Keep yours', 'poocommerce' ) }
+								hint={ __( 'Default · safe', 'poocommerce' ) }
 								active={ decision === 'keep_yours' }
 								onClick={ () =>
 									onChoose( conflict.path, 'keep_yours' )
 								}
 							/>
 							<ChoiceCard
-								label={ __( 'Use core', 'woocommerce' ) }
+								label={ __( 'Use core', 'poocommerce' ) }
 								hint={ __(
 									'Discard your edit',
-									'woocommerce'
+									'poocommerce'
 								) }
 								active={ decision === 'use_core' }
 								onClick={ () =>
@@ -205,23 +205,23 @@ const AutoResolvedItem = ( {
 	sub: string;
 	tag: AutoTag;
 } ) => (
-	<div className="woocommerce-review-drawer__item">
-		<div className="woocommerce-review-drawer__item-h">
-			<h4 className="woocommerce-review-drawer__item-title">{ title }</h4>
+	<div className="poocommerce-review-drawer__item">
+		<div className="poocommerce-review-drawer__item-h">
+			<h4 className="poocommerce-review-drawer__item-title">{ title }</h4>
 			<span
 				className={ [
-					'woocommerce-review-drawer__tag',
-					`woocommerce-review-drawer__tag--${
+					'poocommerce-review-drawer__tag',
+					`poocommerce-review-drawer__tag--${
 						tag === 'apply_core' ? 'apply-core' : 'keep-yours'
 					}`,
 				].join( ' ' ) }
 			>
 				{ tag === 'apply_core'
-					? __( 'Apply core', 'woocommerce' )
-					: __( 'Keep yours', 'woocommerce' ) }
+					? __( 'Apply core', 'poocommerce' )
+					: __( 'Keep yours', 'poocommerce' ) }
 			</span>
 		</div>
-		<p className="woocommerce-review-drawer__item-sub">{ sub }</p>
+		<p className="poocommerce-review-drawer__item-sub">{ sub }</p>
 	</div>
 );
 
@@ -248,19 +248,19 @@ const AutoResolvedGroup = ( {
 			'Auto-resolved · %d block',
 			'Auto-resolved · %d blocks',
 			total,
-			'woocommerce'
+			'poocommerce'
 		),
 		total
 	);
 
 	return (
 		<section
-			className="woocommerce-review-drawer__group"
-			aria-labelledby="woocommerce-review-drawer-auto-heading"
+			className="poocommerce-review-drawer__group"
+			aria-labelledby="poocommerce-review-drawer-auto-heading"
 		>
 			<h3
-				id="woocommerce-review-drawer-auto-heading"
-				className="woocommerce-review-drawer__group-h"
+				id="poocommerce-review-drawer-auto-heading"
+				className="poocommerce-review-drawer__group-h"
 			>
 				<SectionDot tone="brand" />
 				{ heading }
@@ -271,7 +271,7 @@ const AutoResolvedGroup = ( {
 					entry.total > 1
 						? sprintf(
 								/* translators: 1: block name; 2: occurrence; 3: total. */
-								__( '%1$s %2$d of %3$d', 'woocommerce' ),
+								__( '%1$s %2$d of %3$d', 'poocommerce' ),
 								entry.block,
 								entry.occurrence,
 								entry.total
@@ -285,7 +285,7 @@ const AutoResolvedGroup = ( {
 						title={ title }
 						sub={ __(
 							'Core updated this text. Your version was unchanged, so the update will apply.',
-							'woocommerce'
+							'poocommerce'
 						) }
 						tag="apply_core"
 					/>
@@ -297,7 +297,7 @@ const AutoResolvedGroup = ( {
 					title={ entry.label }
 					sub={ __(
 						'Added by core. Will appear in your email.',
-						'woocommerce'
+						'poocommerce'
 					) }
 					tag="apply_core"
 				/>
@@ -308,7 +308,7 @@ const AutoResolvedGroup = ( {
 					title={ entry.label }
 					sub={ __(
 						'Not in core. Your block is preserved.',
-						'woocommerce'
+						'poocommerce'
 					) }
 					tag="keep_yours"
 				/>
@@ -320,7 +320,7 @@ const AutoResolvedGroup = ( {
 						title={ change.description }
 						sub={ __(
 							'Structural change applied automatically.',
-							'woocommerce'
+							'poocommerce'
 						) }
 						tag="apply_core"
 					/>
@@ -338,7 +338,7 @@ const AutoResolvedGroup = ( {
  * Hand-rolled drawer (right-side, 480px, scrim, slide animation, focus
  * trap, Escape close) rendered via `createPortal` to `document.body` so
  * the fixed-position panel isn't trapped inside the `display: none`
- * `<PluginArea scope="woocommerce-email-editor">` wrapper. The choice
+ * `<PluginArea scope="poocommerce-email-editor">` wrapper. The choice
  * picker is the bespoke `ChoiceCard` two-up grid (the design's two-line
  * label + hint doesn't fit `ToggleGroupControl`'s single-label API);
  * tag pills and typography are plain `<span>` / `<h*>` / `<p>` styled
@@ -464,12 +464,12 @@ export const ReviewDrawer = ( {
 		: 0;
 
 	const subtitle = sprintf(
-		/* translators: 1: email name; 2: WooCommerce version; 3: number of changes. */
+		/* translators: 1: email name; 2: PooCommerce version; 3: number of changes. */
 		_n(
-			'%1$s · WooCommerce %2$s · %3$d change',
-			'%1$s · WooCommerce %2$s · %3$d changes',
+			'%1$s · PooCommerce %2$s · %3$d change',
+			'%1$s · PooCommerce %2$s · %3$d changes',
 			totalChanges,
-			'woocommerce'
+			'poocommerce'
 		),
 		emailTitle,
 		summary?.version_to ?? '',
@@ -478,7 +478,7 @@ export const ReviewDrawer = ( {
 
 	const applyLabel = sprintf(
 		/* translators: %d: total number of changes that will be applied. */
-		__( 'Apply (%d)', 'woocommerce' ),
+		__( 'Apply (%d)', 'poocommerce' ),
 		totalChanges
 	);
 
@@ -492,58 +492,58 @@ export const ReviewDrawer = ( {
 	return createPortal(
 		<>
 			<div
-				className="woocommerce-review-drawer__overlay"
+				className="poocommerce-review-drawer__overlay"
 				onClick={ () => onOpenChange( false ) }
 				role="presentation"
 				style={ { display: isOpen ? 'block' : 'none' } }
 				aria-hidden={ ! isOpen }
 			/>
-			<div className="woocommerce-review-drawer">
+			<div className="poocommerce-review-drawer">
 				<aside
 					ref={ drawerRef }
 					className={ [
-						'woocommerce-review-drawer__panel',
+						'poocommerce-review-drawer__panel',
 						isOpen ? 'is-open' : 'is-closed',
 					].join( ' ' ) }
 					role="dialog"
 					aria-modal="true"
-					aria-labelledby="woocommerce-review-drawer-title"
+					aria-labelledby="poocommerce-review-drawer-title"
 					aria-hidden={ ! isOpen }
 					tabIndex={ -1 }
 				>
-					<header className="woocommerce-review-drawer__header">
-						<div className="woocommerce-review-drawer__h-stack">
+					<header className="poocommerce-review-drawer__header">
+						<div className="poocommerce-review-drawer__h-stack">
 							<h2
-								id="woocommerce-review-drawer-title"
-								className="woocommerce-review-drawer__title"
+								id="poocommerce-review-drawer-title"
+								className="poocommerce-review-drawer__title"
 							>
 								{ __(
 									'Review template update',
-									'woocommerce'
+									'poocommerce'
 								) }
 							</h2>
-							<p className="woocommerce-review-drawer__subtitle">
+							<p className="poocommerce-review-drawer__subtitle">
 								{ subtitle }
 							</p>
 						</div>
 						<Button
 							icon={ closeSmall }
-							label={ __( 'Close', 'woocommerce' ) }
+							label={ __( 'Close', 'poocommerce' ) }
 							onClick={ () => onOpenChange( false ) }
-							className="woocommerce-review-drawer__close"
+							className="poocommerce-review-drawer__close"
 						/>
 					</header>
 
-					<div className="woocommerce-review-drawer__body">
+					<div className="poocommerce-review-drawer__body">
 						{ isLoading && (
 							<div
 								role="status"
 								aria-live="polite"
 								aria-label={ __(
 									'Loading diff',
-									'woocommerce'
+									'poocommerce'
 								) }
-								className="woocommerce-review-drawer__status"
+								className="poocommerce-review-drawer__status"
 							>
 								<Spinner />
 							</div>
@@ -552,21 +552,21 @@ export const ReviewDrawer = ( {
 						{ error && (
 							<div
 								role="alert"
-								className="woocommerce-review-drawer__status"
+								className="poocommerce-review-drawer__status"
 							>
 								{ __(
 									'Could not load the change summary.',
-									'woocommerce'
+									'poocommerce'
 								) }
 							</div>
 						) }
 
 						{ summary && summary.is_fallback && (
-							<div className="woocommerce-review-drawer__status">
+							<div className="poocommerce-review-drawer__status">
 								{ summary.summary_lines[ 0 ] ??
 									__(
 										'Template updated — see release notes.',
-										'woocommerce'
+										'poocommerce'
 									) }
 							</div>
 						) }
@@ -590,21 +590,21 @@ export const ReviewDrawer = ( {
 						) }
 					</div>
 
-					<footer className="woocommerce-review-drawer__footer">
-						<p className="woocommerce-review-drawer__foot-note">
+					<footer className="poocommerce-review-drawer__footer">
+						<p className="poocommerce-review-drawer__foot-note">
 							{ __(
 								'Revision recorded for rollback.',
-								'woocommerce'
+								'poocommerce'
 							) }
 						</p>
-						<div className="woocommerce-review-drawer__footer-actions">
+						<div className="poocommerce-review-drawer__footer-actions">
 							<Button
 								variant="tertiary"
 								onClick={ () => onOpenChange( false ) }
 								disabled={ isApplying }
 								__next40pxDefaultSize
 							>
-								{ __( 'Cancel', 'woocommerce' ) }
+								{ __( 'Cancel', 'poocommerce' ) }
 							</Button>
 							<Button
 								variant="primary"

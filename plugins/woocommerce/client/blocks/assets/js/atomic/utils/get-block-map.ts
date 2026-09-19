@@ -1,8 +1,8 @@
 /**
  * External dependencies
  */
-import { getRegisteredBlockComponents } from '@woocommerce/blocks-registry';
-import type { RegisteredBlockComponent } from '@woocommerce/types';
+import { getRegisteredBlockComponents } from '@poocommerce/blocks-registry';
+import type { RegisteredBlockComponent } from '@poocommerce/types';
 
 /**
  * Internal dependencies

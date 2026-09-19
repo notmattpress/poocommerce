@@ -1,9 +1,9 @@
 <?php
 
-namespace Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\RuleSet;
+namespace Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\RuleSet;
 
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\OutputFormat;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Property\AtRule;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\OutputFormat;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Property\AtRule;
 
 /**
  * This class represents rule sets for generic at-rules which are not covered by specific classes, i.e., not

@@ -4,14 +4,14 @@ declare( strict_types = 1 );
 /**
  * Tests for the WC_Coupon_Data_Store_CPT class.
  *
- * @package WooCommerce\Tests\DataStores
+ * @package PooCommerce\Tests\DataStores
  */
 
 /**
  * Class WC_Coupon_Data_Store_CPT_Test.
  *
- * Covers the woocommerce_coupon_updated_props action (per-save payload) and its
- * deprecated predecessor woocommerce_coupon_object_updated_props (payload
+ * Covers the poocommerce_coupon_updated_props action (per-save payload) and its
+ * deprecated predecessor poocommerce_coupon_object_updated_props (payload
  * accumulated across saves through one data store instance). Tests without a
  * listener on the deprecated action also implicitly verify that saving a coupon
  * triggers no deprecation notice, because the WordPress test case fails on any
@@ -20,7 +20,7 @@ declare( strict_types = 1 );
 class WC_Coupon_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 
 	/**
-	 * The payload of every woocommerce_coupon_updated_props fire, in order.
+	 * The payload of every poocommerce_coupon_updated_props fire, in order.
 	 *
 	 * @var array[]
 	 */
@@ -35,14 +35,14 @@ class WC_Coupon_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Record the payload of every woocommerce_coupon_updated_props fire.
+	 * Record the payload of every poocommerce_coupon_updated_props fire.
 	 *
 	 * Registered at priority 10 so that it observes the outer payload before any
 	 * listener registered at a later priority can trigger a nested save.
 	 */
 	private function capture_updated_props(): void {
 		add_action(
-			'woocommerce_coupon_updated_props',
+			'poocommerce_coupon_updated_props',
 			function ( $coupon, $updated_props ) {
 				$this->captured_payloads[] = $updated_props;
 			},
@@ -162,7 +162,7 @@ class WC_Coupon_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 		$nested_save_done = false;
 
 		add_action(
-			'woocommerce_coupon_updated_props',
+			'poocommerce_coupon_updated_props',
 			function ( $listener_coupon ) use ( &$nested_save_done ) {
 				if ( $nested_save_done ) {
 					return;
@@ -239,13 +239,13 @@ class WC_Coupon_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 	 * @testdox Should keep firing the deprecated action with its historical accumulated payload.
 	 */
 	public function test_deprecated_action_receives_accumulated_props(): void {
-		$this->setExpectedDeprecated( 'woocommerce_coupon_object_updated_props' );
+		$this->setExpectedDeprecated( 'poocommerce_coupon_object_updated_props' );
 
 		$coupon = $this->create_settled_coupon();
 
 		$received = array();
 		add_action(
-			'woocommerce_coupon_object_updated_props',
+			'poocommerce_coupon_object_updated_props',
 			function ( $coupon, $updated_props ) use ( &$received ) {
 				$received[] = $updated_props;
 			},
@@ -270,7 +270,7 @@ class WC_Coupon_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 	 * @testdox Should accumulate deprecated-action props across coupons when a store instance is shared.
 	 */
 	public function test_deprecated_action_accumulates_across_coupons_when_store_is_shared(): void {
-		$this->setExpectedDeprecated( 'woocommerce_coupon_object_updated_props' );
+		$this->setExpectedDeprecated( 'poocommerce_coupon_object_updated_props' );
 
 		$store = new WC_Coupon_Data_Store_CPT();
 
@@ -278,7 +278,7 @@ class WC_Coupon_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 		$store_filter = function () use ( $store ) {
 			return $store;
 		};
-		add_filter( 'woocommerce_coupon_data_store', $store_filter );
+		add_filter( 'poocommerce_coupon_data_store', $store_filter );
 
 		$fires = array();
 
@@ -289,7 +289,7 @@ class WC_Coupon_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 			$coupon_b->save();
 
 			add_action(
-				'woocommerce_coupon_object_updated_props',
+				'poocommerce_coupon_object_updated_props',
 				function ( $coupon, $accumulated_props ) use ( &$fires ) {
 					$fires[] = array(
 						'coupon_id'   => $coupon->get_id(),
@@ -306,7 +306,7 @@ class WC_Coupon_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 			$coupon_b->set_usage_limit( 3 );
 			$coupon_b->save();
 		} finally {
-			remove_filter( 'woocommerce_coupon_data_store', $store_filter );
+			remove_filter( 'poocommerce_coupon_data_store', $store_filter );
 		}
 
 		$this->assertCount( 2, $fires, 'Each coupon save should fire the deprecated action exactly once.' );
@@ -337,7 +337,7 @@ class WC_Coupon_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 		$store_filter = function () use ( $store ) {
 			return $store;
 		};
-		add_filter( 'woocommerce_coupon_data_store', $store_filter );
+		add_filter( 'poocommerce_coupon_data_store', $store_filter );
 
 		try {
 			$coupon = $this->create_settled_coupon();
@@ -348,7 +348,7 @@ class WC_Coupon_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 			$coupon->set_amount( 10 );
 			$coupon->save();
 		} finally {
-			remove_filter( 'woocommerce_coupon_data_store', $store_filter );
+			remove_filter( 'poocommerce_coupon_data_store', $store_filter );
 		}
 
 		$this->assertSame(

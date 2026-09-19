@@ -3,7 +3,7 @@ title: wc setting
 sidebar_label: wc setting
 ---
 
-Manage WooCommerce setting resources.
+Manage PooCommerce setting resources.
 
 ## wc setting get `<id>`
 

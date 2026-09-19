@@ -5,7 +5,7 @@ import { store, getContext, getElement } from '@wordpress/interactivity';
 import type {
 	SelectableItem,
 	SelectableItemsParentStore,
-} from '@woocommerce/types';
+} from '@poocommerce/types';
 
 /**
  * Internal dependencies
@@ -93,7 +93,7 @@ function initChipColors( element: HTMLElement ): void {
 }
 
 const { state }: ChipsStore = store< ChipsStore >(
-	'woocommerce/product-filter-chips',
+	'poocommerce/product-filter-chips',
 	{
 		state: {
 			get items(): ChipsItem[] {

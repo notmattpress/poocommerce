@@ -1,7 +1,7 @@
 <?php
-namespace Automattic\WooCommerce\StoreApi\Routes\V1;
+namespace Automattic\PooCommerce\StoreApi\Routes\V1;
 
-use Automattic\WooCommerce\StoreApi\Exceptions\RouteException;
+use Automattic\PooCommerce\StoreApi\Exceptions\RouteException;
 
 /**
  * CartCoupons class.
@@ -103,7 +103,7 @@ class CartCoupons extends AbstractCartRoute {
 	 */
 	protected function get_route_post_response( \WP_REST_Request $request ) {
 		if ( ! wc_coupons_enabled() ) {
-			throw new RouteException( 'woocommerce_rest_cart_coupon_disabled', __( 'Coupons are disabled.', 'woocommerce' ), 404 );
+			throw new RouteException( 'poocommerce_rest_cart_coupon_disabled', __( 'Coupons are disabled.', 'poocommerce' ), 404 );
 		}
 
 		try {

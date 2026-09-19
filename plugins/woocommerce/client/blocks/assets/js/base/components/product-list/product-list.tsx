@@ -4,17 +4,17 @@
 import { __, _n, sprintf } from '@wordpress/i18n';
 import fastDeepEqual from 'fast-deep-equal/es6';
 import clsx from 'clsx';
-import Pagination from '@woocommerce/base-components/pagination';
+import Pagination from '@poocommerce/base-components/pagination';
 import { useEffect } from '@wordpress/element';
-import { usePrevious } from '@woocommerce/base-hooks';
+import { usePrevious } from '@poocommerce/base-hooks';
 import {
 	useStoreEvents,
 	useStoreProducts,
 	useSynchronizedQueryState,
 	useQueryStateByKey,
-} from '@woocommerce/base-context/hooks';
-import withScrollToTop from '@woocommerce/base-hocs/with-scroll-to-top';
-import { useInnerBlockLayoutContext } from '@woocommerce/shared-context';
+} from '@poocommerce/base-context/hooks';
+import withScrollToTop from '@poocommerce/base-hocs/with-scroll-to-top';
+import { useInnerBlockLayoutContext } from '@poocommerce/shared-context';
 import { speak } from '@wordpress/a11y';
 
 /**
@@ -93,7 +93,7 @@ const announceLoadingCompletion = ( totalProducts: number ): void => {
 	}
 
 	if ( totalProducts === 0 ) {
-		speak( __( 'No products found', 'woocommerce' ) );
+		speak( __( 'No products found', 'poocommerce' ) );
 	} else {
 		speak(
 			sprintf(
@@ -102,7 +102,7 @@ const announceLoadingCompletion = ( totalProducts: number ): void => {
 					'%d product found',
 					'%d products found',
 					totalProducts,
-					'woocommerce'
+					'poocommerce'
 				),
 				totalProducts
 			)

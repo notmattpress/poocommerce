@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { queueRecordEvent } from '@woocommerce/tracks';
+import { queueRecordEvent } from '@poocommerce/tracks';
 // eslint-disable-next-line import/no-unresolved -- Provided by WordPress in the wp-admin runtime.
 import { store as commandsStore } from '@wordpress/commands';
 import { dispatch } from '@wordpress/data';
@@ -9,7 +9,7 @@ import domReady from '@wordpress/dom-ready';
 import { chartBar } from '@wordpress/icons';
 import { addQueryArgs } from '@wordpress/url';
 
-jest.mock( '@woocommerce/tracks', () => ( { queueRecordEvent: jest.fn() } ) );
+jest.mock( '@poocommerce/tracks', () => ( { queueRecordEvent: jest.fn() } ) );
 jest.mock( '@wordpress/commands', () => ( { store: 'commands-store' } ) );
 jest.mock( '@wordpress/data', () => ( { dispatch: jest.fn() } ) );
 jest.mock( '@wordpress/dom-ready', () => jest.fn() );
@@ -77,13 +77,13 @@ describe( 'Analytics Command Palette', () => {
 			} ) )
 		).toEqual( [
 			{
-				name: 'woocommerce/analytics/revenue',
-				label: 'WooCommerce Analytics: Revenue',
+				name: 'poocommerce/analytics/revenue',
+				label: 'PooCommerce Analytics: Revenue',
 				icon: chartBar,
 			},
 			{
-				name: 'woocommerce/analytics/orders',
-				label: 'WooCommerce Analytics: Orders',
+				name: 'poocommerce/analytics/orders',
+				label: 'PooCommerce Analytics: Orders',
 				icon: chartBar,
 			},
 		] );
@@ -100,7 +100,7 @@ describe( 'Analytics Command Palette', () => {
 		] );
 		expect( queueRecordEvent.mock.calls ).toEqual(
 			commands.map( ( command ) => [
-				'woocommerce_command_palette_submit',
+				'poocommerce_command_palette_submit',
 				{ name: command.name, origin: undefined },
 			] )
 		);

@@ -48,7 +48,7 @@ jest.mock( '../settings-email-listing-data', () => ( {
 	} ),
 } ) );
 
-jest.mock( '@woocommerce/settings', () => ( {
+jest.mock( '@poocommerce/settings', () => ( {
 	getAdminLink: ( path: string ) => `https://example.test/wp-admin/${ path }`,
 } ) );
 

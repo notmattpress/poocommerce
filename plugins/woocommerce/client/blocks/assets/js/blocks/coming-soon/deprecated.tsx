@@ -39,7 +39,7 @@ const v1 = {
 			return (
 				<div { ...blockProps }>
 					<InnerBlocks.Content />
-					<style>{ `.woocommerce-breadcrumb {display: none;}` }</style>
+					<style>{ `.poocommerce-breadcrumb {display: none;}` }</style>
 				</div>
 			);
 		}

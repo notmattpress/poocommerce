@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { type ElementType, useEffect, useState } from '@wordpress/element';
-import { EditorBlock } from '@woocommerce/types';
+import { EditorBlock } from '@poocommerce/types';
 import { __ } from '@wordpress/i18n';
 import { InspectorControls } from '@wordpress/block-editor';
 import {
@@ -48,20 +48,20 @@ const ProductSearchControls = ( props: ProductSearchBlockProps ) => {
 
 	return (
 		<InspectorControls group="styles">
-			<PanelBody title={ __( 'Styles', 'woocommerce' ) }>
+			<PanelBody title={ __( 'Styles', 'poocommerce' ) }>
 				<RadioControl
 					selected={ getSelectedRadioControlOption( buttonPosition ) }
 					options={ [
 						{
-							label: __( 'Input and button', 'woocommerce' ),
+							label: __( 'Input and button', 'poocommerce' ),
 							value: PositionOptions.INPUT_AND_BUTTON,
 						},
 						{
-							label: __( 'Input only', 'woocommerce' ),
+							label: __( 'Input only', 'poocommerce' ),
 							value: PositionOptions.NO_BUTTON,
 						},
 						{
-							label: __( 'Button only', 'woocommerce' ),
+							label: __( 'Button only', 'poocommerce' ),
 							value: PositionOptions.BUTTON_ONLY,
 						},
 					] }
@@ -86,7 +86,7 @@ const ProductSearchControls = ( props: ProductSearchBlockProps ) => {
 					<>
 						{ buttonPosition !== PositionOptions.BUTTON_ONLY && (
 							<ToggleGroupControl
-								label={ __( 'BUTTON POSITION', 'woocommerce' ) }
+								label={ __( 'BUTTON POSITION', 'poocommerce' ) }
 								isBlock
 								onChange={ ( value: ButtonPositionProps ) => {
 									setAttributes( {
@@ -99,16 +99,16 @@ const ProductSearchControls = ( props: ProductSearchBlockProps ) => {
 							>
 								<ToggleGroupControlOption
 									value={ PositionOptions.INSIDE }
-									label={ __( 'Inside', 'woocommerce' ) }
+									label={ __( 'Inside', 'poocommerce' ) }
 								/>
 								<ToggleGroupControlOption
 									value={ PositionOptions.OUTSIDE }
-									label={ __( 'Outside', 'woocommerce' ) }
+									label={ __( 'Outside', 'poocommerce' ) }
 								/>
 							</ToggleGroupControl>
 						) }
 						<ToggleGroupControl
-							label={ __( 'BUTTON APPEARANCE', 'woocommerce' ) }
+							label={ __( 'BUTTON APPEARANCE', 'poocommerce' ) }
 							isBlock
 							onChange={ ( value: boolean ) => {
 								setAttributes( {
@@ -119,17 +119,17 @@ const ProductSearchControls = ( props: ProductSearchBlockProps ) => {
 						>
 							<ToggleGroupControlOption
 								value={ false }
-								label={ __( 'Text', 'woocommerce' ) }
+								label={ __( 'Text', 'poocommerce' ) }
 							/>
 							<ToggleGroupControlOption
 								value={ true }
-								label={ __( 'Icon', 'woocommerce' ) }
+								label={ __( 'Icon', 'poocommerce' ) }
 							/>
 						</ToggleGroupControl>
 					</>
 				) }
 				<ToggleControl
-					label={ __( 'Show input label', 'woocommerce' ) }
+					label={ __( 'Show input label', 'poocommerce' ) }
 					checked={ showLabel }
 					onChange={ ( showInputLabel: boolean ) =>
 						setAttributes( {

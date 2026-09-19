@@ -5,7 +5,7 @@ sidebar_label: Checkout Utilities
 
 # Checkout Utilities
 
-Utility functions and React hooks for checkout functionality, available from `@woocommerce/blocks-checkout`.
+Utility functions and React hooks for checkout functionality, available from `@poocommerce/blocks-checkout`.
 
 ## `useValidateCheckout`
 
@@ -17,7 +17,7 @@ This hook is primarily used internally by the `PlaceOrderButton` component to pr
 
 ```jsx
 // Aliased import
-import { useValidateCheckout } from '@woocommerce/blocks-checkout';
+import { useValidateCheckout } from '@poocommerce/blocks-checkout';
 
 // Global import
 // const { useValidateCheckout } = wc.blocksCheckout;

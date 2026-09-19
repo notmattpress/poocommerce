@@ -1,8 +1,8 @@
 /**
  * External dependencies
  */
-import { ApiErrorResponse } from '@woocommerce/types';
-import { createNotice } from '@woocommerce/base-utils';
+import { ApiErrorResponse } from '@poocommerce/types';
+import { createNotice } from '@poocommerce/base-utils';
 
 /**
  * Internal dependencies
@@ -16,8 +16,8 @@ jest.mock( '@wordpress/notices', () => ( {
 	createNotice: jest.fn(),
 } ) );
 
-jest.mock( '@woocommerce/base-utils', () => ( {
-	...jest.requireActual( '@woocommerce/base-utils' ),
+jest.mock( '@poocommerce/base-utils', () => ( {
+	...jest.requireActual( '@poocommerce/base-utils' ),
 	createNotice: jest.fn(),
 } ) );
 
@@ -50,7 +50,7 @@ const errorResponse: ApiErrorResponse = {
 };
 
 const errorResponseWithoutContext: ApiErrorResponse = {
-	code: 'woocommerce_rest_cart_extensions_error',
+	code: 'poocommerce_rest_cart_extensions_error',
 	message: 'There is no such namespace registered: test-plugin.',
 	data: {
 		status: 400,
@@ -87,7 +87,7 @@ describe( 'getNoticeContextFromErrorResponse', () => {
 			getNoticeContextFromErrorResponse( errorResponseWithoutContext )
 		).toEqual( [
 			{
-				id: 'woocommerce_rest_cart_extensions_error',
+				id: 'poocommerce_rest_cart_extensions_error',
 				context: 'wc/cart',
 			},
 		] );
@@ -129,7 +129,7 @@ describe( 'processErrorResponse', () => {
 			'error',
 			'There is no such namespace registered: test-plugin.',
 			{
-				id: 'woocommerce_rest_cart_extensions_error',
+				id: 'poocommerce_rest_cart_extensions_error',
 				context: 'wc/cart',
 			}
 		);

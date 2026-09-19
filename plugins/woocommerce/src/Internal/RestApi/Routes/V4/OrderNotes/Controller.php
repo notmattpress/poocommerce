@@ -4,17 +4,17 @@
  *
  * Handles route registration, permissions, CRUD operations, and schema definition.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\RestApi\Routes\V4\OrderNotes;
+namespace Automattic\PooCommerce\Internal\RestApi\Routes\V4\OrderNotes;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\AbstractController;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\OrderNotes\Schema\OrderNoteSchema;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\AbstractController;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\OrderNotes\Schema\OrderNoteSchema;
 use WP_Http;
 use WP_Error;
 use WP_Comment;
@@ -88,7 +88,7 @@ class Controller extends AbstractController {
 				'schema' => array( $this, 'get_public_item_schema' ),
 				'args'   => array(
 					'order_id' => array(
-						'description'       => __( 'The order ID that notes belong to.', 'woocommerce' ),
+						'description'       => __( 'The order ID that notes belong to.', 'poocommerce' ),
 						'type'              => 'integer',
 						'validate_callback' => function ( $value ) {
 							return $this->is_valid_order_id( $value );
@@ -117,7 +117,7 @@ class Controller extends AbstractController {
 				'schema' => array( $this, 'get_public_item_schema' ),
 				'args'   => array(
 					'id' => array(
-						'description' => __( 'Unique identifier for the resource.', 'woocommerce' ),
+						'description' => __( 'Unique identifier for the resource.', 'poocommerce' ),
 						'type'        => 'integer',
 					),
 				),

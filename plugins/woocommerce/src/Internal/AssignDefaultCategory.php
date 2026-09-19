@@ -3,7 +3,7 @@
  * AssignDefaultCategory class file.
  */
 
-namespace Automattic\WooCommerce\Internal;
+namespace Automattic\PooCommerce\Internal;
 
 defined( 'ABSPATH' ) || exit;
 

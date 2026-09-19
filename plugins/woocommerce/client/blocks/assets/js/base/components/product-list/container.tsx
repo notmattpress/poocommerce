@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { useState, useEffect } from '@wordpress/element';
-import type { HTMLElementEvent } from '@woocommerce/types';
+import type { HTMLElementEvent } from '@poocommerce/types';
 
 /**
  * Internal dependencies

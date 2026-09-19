@@ -2,13 +2,13 @@
 /**
  * Unit tests for wc-product-functions.php.
  *
- * @package WooCommerce\Tests\Functions\Stock
+ * @package PooCommerce\Tests\Functions\Stock
  */
 
 declare( strict_types = 1 );
 
-use Automattic\WooCommerce\Testing\Tools\CodeHacking\Hacks\FunctionsMockerHack;
-use Automattic\WooCommerce\Testing\Tools\CodeHacking\Hacks\StaticMockerHack;
+use Automattic\PooCommerce\Testing\Tools\CodeHacking\Hacks\FunctionsMockerHack;
+use Automattic\PooCommerce\Testing\Tools\CodeHacking\Hacks\StaticMockerHack;
 
 // phpcs:disable Squiz.Classes.ClassFileName.NoMatch, Squiz.Classes.ValidClassName.NotCamelCaps -- Backward compatibility.
 /**
@@ -34,13 +34,13 @@ class WC_Product_Functions_Tests extends \WC_Unit_Test_Case {
 	 */
 	public function tearDown(): void {
 		if ( $this->reviews_setting_changed ) {
-			delete_option( 'woocommerce_product_lookup_table_is_generating' );
+			delete_option( 'poocommerce_product_lookup_table_is_generating' );
 			as_unschedule_all_actions( '', array(), 'wc_update_product_lookup_tables' );
 
 			if ( null === $this->original_reviews_setting ) {
-				delete_option( 'woocommerce_enable_reviews' );
+				delete_option( 'poocommerce_enable_reviews' );
 			} else {
-				update_option( 'woocommerce_enable_reviews', $this->original_reviews_setting );
+				update_option( 'poocommerce_enable_reviews', $this->original_reviews_setting );
 			}
 		}
 
@@ -59,7 +59,7 @@ class WC_Product_Functions_Tests extends \WC_Unit_Test_Case {
 	 *
 	 * @param bool     $pass_order Whether an order is passed to 'wc_get_price_excluding_tax' or not.
 	 * @param int|null $customer_id Id of the customer associated to the order.
-	 * @param bool     $set_filter Whether the 'woocommerce_adjust_non_base_location_prices' filter should be set to return false.
+	 * @param bool     $set_filter Whether the 'poocommerce_adjust_non_base_location_prices' filter should be set to return false.
 	 */
 	public function test_wc_get_price_excluding_tax_passes_order_customer_to_get_rates_if_order_is_available( $pass_order, $customer_id, $set_filter ) {
 		$customer_passed_to_get_rates                  = false;
@@ -67,7 +67,7 @@ class WC_Product_Functions_Tests extends \WC_Unit_Test_Case {
 		$customer_id_passed_to_wc_customer_constructor = false;
 
 		if ( $set_filter ) {
-			add_filter( 'woocommerce_adjust_non_base_location_prices', '__return_false' );
+			add_filter( 'poocommerce_adjust_non_base_location_prices', '__return_false' );
 		}
 
 		FunctionsMockerHack::add_function_mocks(
@@ -159,7 +159,7 @@ class WC_Product_Functions_Tests extends \WC_Unit_Test_Case {
 		// phpcs:enable Squiz.Commenting
 
 		if ( $set_filter ) {
-			remove_filter( 'woocommerce_adjust_non_base_location_prices', '__return_false' );
+			remove_filter( 'poocommerce_adjust_non_base_location_prices', '__return_false' );
 		}
 	}
 
@@ -199,7 +199,7 @@ class WC_Product_Functions_Tests extends \WC_Unit_Test_Case {
 
 		$wc_tax_enabled = wc_tax_enabled();
 		if ( ! $wc_tax_enabled ) {
-			update_option( 'woocommerce_calc_taxes', 'yes' );
+			update_option( 'poocommerce_calc_taxes', 'yes' );
 		}
 
 		$product         = WC_Helper_Product::create_simple_product();
@@ -228,7 +228,7 @@ class WC_Product_Functions_Tests extends \WC_Unit_Test_Case {
 		WC_Tax::_delete_tax_rate( $tax_rate_id );
 		WC_Helper_Product::delete_product( $product->get_id() );
 		if ( ! $wc_tax_enabled ) {
-			update_option( 'woocommerce_calc_taxes', 'no' );
+			update_option( 'poocommerce_calc_taxes', 'no' );
 		}
 	}
 
@@ -716,11 +716,11 @@ class WC_Product_Functions_Tests extends \WC_Unit_Test_Case {
 		$callback = function ( $price, $filtered_product ) use ( $product_id ) {
 			return ( $filtered_product instanceof WC_Product && $filtered_product->get_id() === $product_id ) ? '50' : $price;
 		};
-		add_filter( 'woocommerce_product_get_price', $callback, 50, 2 );
+		add_filter( 'poocommerce_product_get_price', $callback, 50, 2 );
 
 		$this->assertEquals( 50, wc_get_product( $product_id )->get_price(), 'A deliberate third-party price is respected, not reverted to the sale price.' );
 
-		remove_filter( 'woocommerce_product_get_price', $callback, 50 );
+		remove_filter( 'poocommerce_product_get_price', $callback, 50 );
 	}
 
 	/**
@@ -745,7 +745,7 @@ class WC_Product_Functions_Tests extends \WC_Unit_Test_Case {
 		$callback = function ( $price, $filtered_product ) use ( $product_id ) {
 			return ( $filtered_product instanceof WC_Product && $filtered_product->get_id() === $product_id ) ? '42' : $price;
 		};
-		add_filter( 'woocommerce_product_get_price', $callback, 50, 2 );
+		add_filter( 'poocommerce_product_get_price', $callback, 50, 2 );
 
 		$this->assertEquals(
 			42,
@@ -753,7 +753,7 @@ class WC_Product_Functions_Tests extends \WC_Unit_Test_Case {
 			'The third-party price wins over the scheduled-sale heal (which would otherwise return 20).'
 		);
 
-		remove_filter( 'woocommerce_product_get_price', $callback, 50 );
+		remove_filter( 'poocommerce_product_get_price', $callback, 50 );
 	}
 
 	/**
@@ -999,10 +999,10 @@ class WC_Product_Functions_Tests extends \WC_Unit_Test_Case {
 	 * @param string $reviews_setting The product reviews setting.
 	 */
 	private function set_reviews_setting_for_lookup_table_test( string $reviews_setting ): void {
-		$this->original_reviews_setting = get_option( 'woocommerce_enable_reviews', null );
+		$this->original_reviews_setting = get_option( 'poocommerce_enable_reviews', null );
 		$this->reviews_setting_changed  = true;
 		as_unschedule_all_actions( '', array(), 'wc_update_product_lookup_tables' );
-		update_option( 'woocommerce_enable_reviews', $reviews_setting );
+		update_option( 'poocommerce_enable_reviews', $reviews_setting );
 	}
 
 	/**
@@ -1026,12 +1026,12 @@ class WC_Product_Functions_Tests extends \WC_Unit_Test_Case {
 		$start_action = as_next_scheduled_action(
 			'wc_product_start_scheduled_sale',
 			array( 'product_id' => $product->get_id() ),
-			'woocommerce-sales'
+			'poocommerce-sales'
 		);
 		$end_action   = as_next_scheduled_action(
 			'wc_product_end_scheduled_sale',
 			array( 'product_id' => $product->get_id() ),
-			'woocommerce-sales'
+			'poocommerce-sales'
 		);
 
 		$this->assertNotFalse( $start_action, 'Start sale action should be scheduled' );
@@ -1056,7 +1056,7 @@ class WC_Product_Functions_Tests extends \WC_Unit_Test_Case {
 		$original_start = as_next_scheduled_action(
 			'wc_product_start_scheduled_sale',
 			array( 'product_id' => $product->get_id() ),
-			'woocommerce-sales'
+			'poocommerce-sales'
 		);
 
 		// Update the sale dates.
@@ -1068,7 +1068,7 @@ class WC_Product_Functions_Tests extends \WC_Unit_Test_Case {
 		$new_start_action = as_next_scheduled_action(
 			'wc_product_start_scheduled_sale',
 			array( 'product_id' => $product->get_id() ),
-			'woocommerce-sales'
+			'poocommerce-sales'
 		);
 
 		// The timestamp should have changed.
@@ -1120,7 +1120,7 @@ class WC_Product_Functions_Tests extends \WC_Unit_Test_Case {
 		$target_ts  = time() + 7200;
 
 		// Simulate a stale action left behind by a concurrent process that saw older sale dates.
-		as_schedule_single_action( $earlier_ts, 'wc_product_start_scheduled_sale', array( 'product_id' => $product->get_id() ), 'woocommerce-sales' );
+		as_schedule_single_action( $earlier_ts, 'wc_product_start_scheduled_sale', array( 'product_id' => $product->get_id() ), 'poocommerce-sales' );
 
 		// Not saved on purpose: saving would trigger the unschedule-all step and remove the stale action.
 		$product->set_date_on_sale_from( gmdate( 'Y-m-d H:i:s', $target_ts ) );
@@ -1171,7 +1171,7 @@ class WC_Product_Functions_Tests extends \WC_Unit_Test_Case {
 			array(
 				'hook'     => $hook,
 				'args'     => array( 'product_id' => $product_id ),
-				'group'    => 'woocommerce-sales',
+				'group'    => 'poocommerce-sales',
 				'status'   => \ActionScheduler_Store::STATUS_PENDING,
 				'per_page' => -1,
 			),
@@ -1196,11 +1196,11 @@ class WC_Product_Functions_Tests extends \WC_Unit_Test_Case {
 
 		// Verify no sale events are scheduled yet.
 		$this->assertFalse(
-			as_next_scheduled_action( 'wc_product_start_scheduled_sale', array( 'product_id' => $product->get_id() ), 'woocommerce-sales' ),
+			as_next_scheduled_action( 'wc_product_start_scheduled_sale', array( 'product_id' => $product->get_id() ), 'poocommerce-sales' ),
 			'No start action should be scheduled before meta write'
 		);
 
-		// Write sale date meta directly, bypassing WooCommerce CRUD.
+		// Write sale date meta directly, bypassing PooCommerce CRUD.
 		update_post_meta( $product->get_id(), '_sale_price_dates_from', $future_start );
 		update_post_meta( $product->get_id(), '_sale_price_dates_to', $future_end );
 
@@ -1208,12 +1208,12 @@ class WC_Product_Functions_Tests extends \WC_Unit_Test_Case {
 		$start_action = as_next_scheduled_action(
 			'wc_product_start_scheduled_sale',
 			array( 'product_id' => $product->get_id() ),
-			'woocommerce-sales'
+			'poocommerce-sales'
 		);
 		$end_action   = as_next_scheduled_action(
 			'wc_product_end_scheduled_sale',
 			array( 'product_id' => $product->get_id() ),
-			'woocommerce-sales'
+			'poocommerce-sales'
 		);
 
 		$this->assertNotFalse( $start_action, 'Start sale action should be scheduled after direct meta write' );
@@ -1242,7 +1242,7 @@ class WC_Product_Functions_Tests extends \WC_Unit_Test_Case {
 		$start_action = as_next_scheduled_action(
 			'wc_product_start_scheduled_sale',
 			array( 'product_id' => $variation_id ),
-			'woocommerce-sales'
+			'poocommerce-sales'
 		);
 
 		$this->assertNotFalse( $start_action, 'Start sale action should be scheduled for variation after direct meta write' );
@@ -1265,20 +1265,20 @@ class WC_Product_Functions_Tests extends \WC_Unit_Test_Case {
 
 		// Sanity check: events are scheduled.
 		$this->assertNotFalse(
-			as_next_scheduled_action( 'wc_product_start_scheduled_sale', array( 'product_id' => $product->get_id() ), 'woocommerce-sales' ),
+			as_next_scheduled_action( 'wc_product_start_scheduled_sale', array( 'product_id' => $product->get_id() ), 'poocommerce-sales' ),
 			'Start action should be scheduled after save'
 		);
 
-		// Delete sale date meta directly, bypassing WooCommerce CRUD.
+		// Delete sale date meta directly, bypassing PooCommerce CRUD.
 		delete_post_meta( $product->get_id(), '_sale_price_dates_from' );
 		delete_post_meta( $product->get_id(), '_sale_price_dates_to' );
 
 		$this->assertFalse(
-			as_next_scheduled_action( 'wc_product_start_scheduled_sale', array( 'product_id' => $product->get_id() ), 'woocommerce-sales' ),
+			as_next_scheduled_action( 'wc_product_start_scheduled_sale', array( 'product_id' => $product->get_id() ), 'poocommerce-sales' ),
 			'Start action should be cleared after sale date meta is deleted'
 		);
 		$this->assertFalse(
-			as_next_scheduled_action( 'wc_product_end_scheduled_sale', array( 'product_id' => $product->get_id() ), 'woocommerce-sales' ),
+			as_next_scheduled_action( 'wc_product_end_scheduled_sale', array( 'product_id' => $product->get_id() ), 'poocommerce-sales' ),
 			'End action should be cleared after sale date meta is deleted'
 		);
 	}
@@ -1299,7 +1299,7 @@ class WC_Product_Functions_Tests extends \WC_Unit_Test_Case {
 		remove_action( 'wc_product_start_scheduled_sale', $writer, 1 );
 
 		$this->assertFalse(
-			as_next_scheduled_action( 'wc_product_start_scheduled_sale', array( 'product_id' => $product->get_id() ), 'woocommerce-sales' ),
+			as_next_scheduled_action( 'wc_product_start_scheduled_sale', array( 'product_id' => $product->get_id() ), 'poocommerce-sales' ),
 			'Meta-hook scheduling should be suppressed while inside the AS sale start handler'
 		);
 	}
@@ -1320,7 +1320,7 @@ class WC_Product_Functions_Tests extends \WC_Unit_Test_Case {
 		remove_action( 'wc_product_end_scheduled_sale', $writer, 1 );
 
 		$this->assertFalse(
-			as_next_scheduled_action( 'wc_product_end_scheduled_sale', array( 'product_id' => $product->get_id() ), 'woocommerce-sales' ),
+			as_next_scheduled_action( 'wc_product_end_scheduled_sale', array( 'product_id' => $product->get_id() ), 'poocommerce-sales' ),
 			'Meta-hook scheduling should be suppressed while inside the AS sale end handler'
 		);
 	}
@@ -1342,28 +1342,28 @@ class WC_Product_Functions_Tests extends \WC_Unit_Test_Case {
 		update_post_meta( $post_id, '_sale_price_dates_from', $future_start );
 
 		$this->assertFalse(
-			as_next_scheduled_action( 'wc_product_start_scheduled_sale', array( 'product_id' => $post_id ), 'woocommerce-sales' ),
+			as_next_scheduled_action( 'wc_product_start_scheduled_sale', array( 'product_id' => $post_id ), 'poocommerce-sales' ),
 			'Sale events should not be scheduled for non-product post types'
 		);
 	}
 
 	/**
-	 * @testdox Guest order uses billing address tax rate when woocommerce_adjust_non_base_location_prices is false.
+	 * @testdox Guest order uses billing address tax rate when poocommerce_adjust_non_base_location_prices is false.
 	 */
 	public function test_wc_get_price_excluding_tax_guest_order_uses_billing_address() {
 		// Enable taxes.
 		$wc_tax_enabled = wc_tax_enabled();
 		if ( ! $wc_tax_enabled ) {
-			update_option( 'woocommerce_calc_taxes', 'yes' );
+			update_option( 'poocommerce_calc_taxes', 'yes' );
 		}
 
 		// Set prices to include tax.
-		$original_prices_include_tax = get_option( 'woocommerce_prices_include_tax' );
-		update_option( 'woocommerce_prices_include_tax', 'yes' );
+		$original_prices_include_tax = get_option( 'poocommerce_prices_include_tax' );
+		update_option( 'poocommerce_prices_include_tax', 'yes' );
 
 		// Set base country to Germany.
-		$original_base_country = get_option( 'woocommerce_default_country' );
-		update_option( 'woocommerce_default_country', 'DE' );
+		$original_base_country = get_option( 'poocommerce_default_country' );
+		update_option( 'poocommerce_default_country', 'DE' );
 
 		// Create German tax rate (19%) - this is the base/shop rate.
 		$german_tax_rate_id = WC_Tax::_insert_tax_rate(
@@ -1411,7 +1411,7 @@ class WC_Product_Functions_Tests extends \WC_Unit_Test_Case {
 		$order->save();
 
 		// Enable "same price everywhere" mode.
-		add_filter( 'woocommerce_adjust_non_base_location_prices', '__return_false' );
+		add_filter( 'poocommerce_adjust_non_base_location_prices', '__return_false' );
 
 		// Calculate the price excluding tax.
 		$price_excluding_tax = wc_get_price_excluding_tax( $product, array( 'order' => $order ) );
@@ -1426,15 +1426,15 @@ class WC_Product_Functions_Tests extends \WC_Unit_Test_Case {
 		$this->assertEquals( 83.33, round( $price_excluding_tax, 2 ), 'Price should use French tax rate (20%) to calculate net, not German base rate (19%)' );
 
 		// Clean up.
-		remove_filter( 'woocommerce_adjust_non_base_location_prices', '__return_false' );
+		remove_filter( 'poocommerce_adjust_non_base_location_prices', '__return_false' );
 		WC_Tax::_delete_tax_rate( $german_tax_rate_id );
 		WC_Tax::_delete_tax_rate( $french_tax_rate_id );
 		WC_Helper_Product::delete_product( $product->get_id() );
 		$order->delete( true );
-		update_option( 'woocommerce_prices_include_tax', $original_prices_include_tax );
-		update_option( 'woocommerce_default_country', $original_base_country );
+		update_option( 'poocommerce_prices_include_tax', $original_prices_include_tax );
+		update_option( 'poocommerce_default_country', $original_base_country );
 		if ( ! $wc_tax_enabled ) {
-			update_option( 'woocommerce_calc_taxes', 'no' );
+			update_option( 'poocommerce_calc_taxes', 'no' );
 		}
 	}
 
@@ -2364,7 +2364,7 @@ class WC_Product_Functions_Tests extends \WC_Unit_Test_Case {
 		);
 
 		// Set up permalink structure to include product_cat.
-		update_option( 'woocommerce_permalinks', array( 'product_base' => '/shop/%product_cat%' ) );
+		update_option( 'poocommerce_permalinks', array( 'product_base' => '/shop/%product_cat%' ) );
 		$product_post = get_post( $product->get_id() );
 
 		// Call wc_product_post_type_link directly to test the category selection.
@@ -2409,7 +2409,7 @@ class WC_Product_Functions_Tests extends \WC_Unit_Test_Case {
 			'product_cat'
 		);
 
-		update_option( 'woocommerce_permalinks', array( 'product_base' => '/shop/%product_cat%' ) );
+		update_option( 'poocommerce_permalinks', array( 'product_base' => '/shop/%product_cat%' ) );
 		$product_post = get_post( $product->get_id() );
 
 		$permalink = wc_product_post_type_link( '/shop/%product_cat%/' . $product_post->post_name . '/', $product_post );
@@ -2478,11 +2478,11 @@ class WC_Product_Functions_Tests extends \WC_Unit_Test_Case {
 			'product_cat'
 		);
 
-		$original_permalinks = get_option( 'woocommerce_permalinks' );
+		$original_permalinks = get_option( 'poocommerce_permalinks' );
 		$filter_callback     = null;
 
 		try {
-			update_option( 'woocommerce_permalinks', array( 'product_base' => '/shop/%product_cat%' ) );
+			update_option( 'poocommerce_permalinks', array( 'product_base' => '/shop/%product_cat%' ) );
 			$product_post = get_post( $product->get_id() );
 
 			// Simulate a plugin filter that removes a term without re-indexing the array.
@@ -2517,7 +2517,7 @@ class WC_Product_Functions_Tests extends \WC_Unit_Test_Case {
 			if ( null !== $filter_callback ) {
 				remove_filter( 'get_the_terms', $filter_callback, 10 );
 			}
-			update_option( 'woocommerce_permalinks', $original_permalinks );
+			update_option( 'poocommerce_permalinks', $original_permalinks );
 			WC_Helper_Product::delete_product( $product->get_id() );
 			wp_delete_term( $category2_term['term_id'], 'product_cat' );
 			wp_delete_term( $category1_term['term_id'], 'product_cat' );
@@ -2668,7 +2668,7 @@ class WC_Product_Functions_Tests extends \WC_Unit_Test_Case {
 	/**
 	 * @testdox Variable add-to-cart attaches a pristine gallery snapshot to the variation script.
 	 */
-	public function test_woocommerce_variable_add_to_cart_attaches_gallery_snapshot() {
+	public function test_poocommerce_variable_add_to_cart_attaches_gallery_snapshot() {
 		$inline_js = $this->capture_variable_add_to_cart_inline_js();
 
 		$this->assertStringContainsString( 'wc_variation_gallery_defaults', $inline_js );
@@ -2678,7 +2678,7 @@ class WC_Product_Functions_Tests extends \WC_Unit_Test_Case {
 		$this->assertNotEmpty( $matches, 'Inline JS should expose a JSON-encoded snapshot.' );
 		$decoded_snapshot = json_decode( $matches[1] );
 		$this->assertIsString( $decoded_snapshot );
-		$this->assertStringContainsString( 'woocommerce-product-gallery', $decoded_snapshot );
+		$this->assertStringContainsString( 'poocommerce-product-gallery', $decoded_snapshot );
 	}
 
 	/**
@@ -2699,7 +2699,7 @@ class WC_Product_Functions_Tests extends \WC_Unit_Test_Case {
 		$GLOBALS['product'] = $product; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 
 		ob_start();
-		woocommerce_variable_add_to_cart();
+		poocommerce_variable_add_to_cart();
 		ob_end_clean();
 
 		$before_data = $wp_scripts->registered['wc-add-to-cart-variation']->extra['before'] ?? array();
@@ -2714,7 +2714,7 @@ class WC_Product_Functions_Tests extends \WC_Unit_Test_Case {
 	 * @testdox Does not attach a featured image via SKU match when the current user cannot edit the product.
 	 */
 	public function test_wc_product_attach_featured_image_requires_edit_product_capability(): void {
-		update_option( 'woocommerce_product_match_featured_image_by_sku', 'yes' );
+		update_option( 'poocommerce_product_match_featured_image_by_sku', 'yes' );
 
 		$sku     = 'TEST-SKU-ATTACH-' . wp_generate_password( 8, false );
 		$product = WC_Helper_Product::create_simple_product();
@@ -2747,7 +2747,7 @@ class WC_Product_Functions_Tests extends \WC_Unit_Test_Case {
 			wp_delete_attachment( $attachment_id, true );
 			WC_Helper_Product::delete_product( $product->get_id() );
 			wp_delete_user( $subscriber_id );
-			delete_option( 'woocommerce_product_match_featured_image_by_sku' );
+			delete_option( 'poocommerce_product_match_featured_image_by_sku' );
 		}
 	}
 }

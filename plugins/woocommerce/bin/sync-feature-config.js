@@ -2,7 +2,7 @@
  * Copies includes/react-admin/feature-config.php into the plugin build served
  * by wp-env when WC_SHARED_PLUGIN_BUILD_PATH is set.
  *
- * In CI, jobs that consume the shared WooCommerce plugin build artifact serve
+ * In CI, jobs that consume the shared PooCommerce plugin build artifact serve
  * that artifact instead of the bind-mounted source checkout, so feature flag
  * changes made by regenerating feature-config.php in the source tree (e.g.
  * ci:legacy-minicart-flag-off) would never reach the site under test. This

@@ -1,5 +1,5 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
 use WC_Shortcode_Cart;
 use WC_Shortcode_Checkout;
@@ -42,7 +42,7 @@ class ClassicShortcode extends AbstractDynamicBlock {
 		 * We need to load the scripts here because when using block templates wp_head() gets run after the block
 		 * template. As a result we are trying to enqueue required scripts before we have even registered them.
 		 *
-		 * @see https://github.com/woocommerce/woocommerce-gutenberg-products-block/issues/5328#issuecomment-989013447
+		 * @see https://github.com/poocommerce/poocommerce-gutenberg-products-block/issues/5328#issuecomment-989013447
 		 */
 		if ( class_exists( 'WC_Frontend_Scripts' ) ) {
 			$frontend_scripts = new WC_Frontend_Scripts();
@@ -67,7 +67,7 @@ class ClassicShortcode extends AbstractDynamicBlock {
 	 * @return string space-separated list of classes.
 	 */
 	protected function get_container_classes( $attributes = array() ) {
-		$classes = array( 'woocommerce', 'wp-block-group' );
+		$classes = array( 'poocommerce', 'wp-block-group' );
 
 		if ( isset( $attributes['align'] ) ) {
 			$classes[] = "align{$attributes['align']}";

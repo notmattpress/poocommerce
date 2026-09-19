@@ -67,8 +67,8 @@ describe( 'PluginsTermsOfService', () => {
 						is_visible: false,
 					},
 					{
-						key: 'woocommerce-shipping',
-						name: 'WooCommerce Shipping',
+						key: 'poocommerce-shipping',
+						name: 'PooCommerce Shipping',
 						description: '',
 						image_url: '',
 						manage_url: '',
@@ -76,8 +76,8 @@ describe( 'PluginsTermsOfService', () => {
 						is_visible: false,
 					},
 					{
-						key: 'woocommerce-services:tax',
-						name: 'WooCommerce Tax',
+						key: 'poocommerce-services:tax',
+						name: 'PooCommerce Tax',
 						description: '',
 						image_url: '',
 						manage_url: '',
@@ -90,9 +90,9 @@ describe( 'PluginsTermsOfService', () => {
 		expect( screen.getByText( /By installing/ ) ).toMatchSnapshot();
 		expect( screen.getByText( 'Jetpack' ) ).toBeInTheDocument();
 		expect(
-			screen.getByText( 'WooCommerce Shipping' )
+			screen.getByText( 'PooCommerce Shipping' )
 		).toBeInTheDocument();
-		expect( screen.getByText( 'WooCommerce Tax' ) ).toBeInTheDocument();
+		expect( screen.getByText( 'PooCommerce Tax' ) ).toBeInTheDocument();
 		// add a snapshot test for the entire component
 		expect( screen.getByText( /By installing/ ) ).toMatchSnapshot();
 	} );

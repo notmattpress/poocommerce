@@ -1,7 +1,7 @@
-# WooCommerce Block Development
+# PooCommerce Block Development
 
-Welcome to the WooCommerce Block Development documentation!  
-This section is your starting point for learning how to build, customize, and extend blocks for WooCommerce.
+Welcome to the PooCommerce Block Development documentation!  
+This section is your starting point for learning how to build, customize, and extend blocks for PooCommerce.
 
 Whether you’re new to block development or looking to deepen your expertise, this guide will walk you through the process step by step, from the basics to advanced extensibility.
 

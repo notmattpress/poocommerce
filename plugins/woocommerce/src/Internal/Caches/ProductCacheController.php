@@ -5,9 +5,9 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Caches;
+namespace Automattic\PooCommerce\Internal\Caches;
 
-use Automattic\WooCommerce\Utilities\FeaturesUtil;
+use Automattic\PooCommerce\Utilities\FeaturesUtil;
 
 /**
  * Controller for product caching functionality.
@@ -93,9 +93,9 @@ class ProductCacheController {
 		// Handle direct stock/sales updates (which use direct SQL and cache manipulation, bypassing standard meta hooks)
 		// In the future, update WC_Product_Data_Store_CPT::update_product_stock() and update_product_sales() to trigger
 		// standard WordPress updated_post_meta hooks instead of requiring specific hooks here.
-		// We also skip 'woocommerce_updated_product_price' due to metas update in the corresponding methods.
-		add_action( 'woocommerce_updated_product_stock', array( $this, 'invalidate_product_cache' ), 10, 1 );
-		add_action( 'woocommerce_updated_product_sales', array( $this, 'invalidate_product_cache' ), 10, 1 );
+		// We also skip 'poocommerce_updated_product_price' due to metas update in the corresponding methods.
+		add_action( 'poocommerce_updated_product_stock', array( $this, 'invalidate_product_cache' ), 10, 1 );
+		add_action( 'poocommerce_updated_product_sales', array( $this, 'invalidate_product_cache' ), 10, 1 );
 	}
 
 	/**

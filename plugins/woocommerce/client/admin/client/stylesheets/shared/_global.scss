@@ -29,7 +29,7 @@
 	}
 }
 
-.woocommerce-layout {
+.poocommerce-layout {
 	select:hover {
 		color: $gray-900;
 	}
@@ -40,8 +40,8 @@
 	}
 
 	.components-panel__body > .components-panel__body-title,
-	.woocommerce-experimental-list__item,
-	.woocommerce-inbox-message {
+	.poocommerce-experimental-list__item,
+	.poocommerce-inbox-message {
 		&:hover {
 			background: $gray-0;
 		}
@@ -59,7 +59,7 @@
 	}
 }
 
-body.woocommerce-admin-page {
+body.poocommerce-admin-page {
 	// Prevent orphans
 	h1,
 	h2,

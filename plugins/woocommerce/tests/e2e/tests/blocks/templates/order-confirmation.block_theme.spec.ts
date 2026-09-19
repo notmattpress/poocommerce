@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { test, expect, BLOCK_THEME_SLUG } from '@woocommerce/e2e-utils';
+import { test, expect, BLOCK_THEME_SLUG } from '@poocommerce/e2e-utils';
 
 test.describe( 'Test the order confirmation template', () => {
 	test( 'Template can be opened in the site editor', async ( {

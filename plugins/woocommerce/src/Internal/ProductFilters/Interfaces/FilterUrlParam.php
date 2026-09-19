@@ -1,12 +1,12 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\ProductFilters\Interfaces;
+namespace Automattic\PooCommerce\Internal\ProductFilters\Interfaces;
 
 /**
  * Interface for filter URL parameters.
  *
- * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+ * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
  */
 interface FilterUrlParam {
 	/**

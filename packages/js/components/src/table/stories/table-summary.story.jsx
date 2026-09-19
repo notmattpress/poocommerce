@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { TableSummary } from '@woocommerce/components';
+import { TableSummary } from '@poocommerce/components';
 import { Card, CardFooter } from '@wordpress/components';
 
 /**

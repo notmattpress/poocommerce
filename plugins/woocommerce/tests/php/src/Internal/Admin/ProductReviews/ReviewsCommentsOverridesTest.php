@@ -1,8 +1,8 @@
 <?php
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\ProductReviews;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\ProductReviews;
 
-use Automattic\WooCommerce\Internal\Admin\ProductReviews\ReviewsCommentsOverrides;
+use Automattic\PooCommerce\Internal\Admin\ProductReviews\ReviewsCommentsOverrides;
 use ReflectionClass;
 use ReflectionException;
 use WC_Unit_Test_Case;
@@ -11,7 +11,7 @@ use WP_Screen;
 /**
  * Tests the product reviews overrides for the comments page.
  *
- * @covers \Automattic\WooCommerce\Internal\Admin\ProductReviews\ReviewsCommentsOverrides
+ * @covers \Automattic\PooCommerce\Internal\Admin\ProductReviews\ReviewsCommentsOverrides
  */
 class ReviewsCommentsOverridesTest extends WC_Unit_Test_Case {
 
@@ -40,7 +40,7 @@ class ReviewsCommentsOverridesTest extends WC_Unit_Test_Case {
 	/**
 	 * @testdox `exclude_reviews_from_comments` excludes product reviews from the comment query in the comments page.
 	 *
-	 * @covers \Automattic\WooCommerce\Internal\Admin\ProductReviews\ReviewsCommentsOverrides::exclude_reviews_from_comments()
+	 * @covers \Automattic\PooCommerce\Internal\Admin\ProductReviews\ReviewsCommentsOverrides::exclude_reviews_from_comments()
 	 *
 	 * @return void
 	 * @throws ReflectionException If the method doesn't exist.

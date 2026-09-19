@@ -1,6 +1,6 @@
 # Performance patterns for Store API responses
 
-This file is a thin wrapper over the `woocommerce-performance` skill, framed for Store API contexts. Read [`cache-priming.md`](../woocommerce-performance/cache-priming.md) in that skill for the underlying patterns; this file covers where to apply them in Store API code.
+This file is a thin wrapper over the `poocommerce-performance` skill, framed for Store API contexts. Read [`cache-priming.md`](../poocommerce-performance/cache-priming.md) in that skill for the underlying patterns; this file covers where to apply them in Store API code.
 
 ## When this matters
 
@@ -56,7 +56,7 @@ If the schema already primes, the route shouldn't prime again. Pick one — sche
 
 Products primed via `_prime_post_caches()` does **not** prime their thumbnail attachments. If your schema renders product images (most do), you need a second pass.
 
-See `woocommerce-performance/cache-priming.md` Pattern #2 for the canonical form. Adapted for Store API:
+See `poocommerce-performance/cache-priming.md` Pattern #2 for the canonical form. Adapted for Store API:
 
 ```php
 if ( ! empty( $product_ids ) ) {
@@ -88,15 +88,15 @@ When reviewing a new Store API schema, check whether each per-item operation has
 | `get_post_thumbnail_id()` + image rendering | Plus `_prime_post_caches( $thumbnail_ids, true, true )` |
 | `get_term( $id )` for taxonomy attributes | `_prime_term_caches( $term_ids )` (or use `update_term_cache = true` on the post prime) |
 | `get_user_meta()` per user in a list | `update_meta_cache( 'user', $user_ids )` |
-| Multiple `get_option()` calls | `wp_prime_option_caches( $keys )` — see `woocommerce-performance/options-cache-priming.md` |
+| Multiple `get_option()` calls | `wp_prime_option_caches( $keys )` — see `poocommerce-performance/options-cache-priming.md` |
 
 When in doubt, ask: "What's the per-item DB cost?" If a single response triggers N reads of the same kind, there's a prime opportunity.
 
 ## What this skill doesn't cover
 
-- **General priming patterns and edge cases** — see [`cache-priming.md`](../woocommerce-performance/cache-priming.md) in `woocommerce-performance`.
-- **Options priming** — see [`options-cache-priming.md`](../woocommerce-performance/options-cache-priming.md).
-- **OrderCache and other Woo-specific cache layers** — `woocommerce-performance/cache-priming.md` covers these.
+- **General priming patterns and edge cases** — see [`cache-priming.md`](../poocommerce-performance/cache-priming.md) in `poocommerce-performance`.
+- **Options priming** — see [`options-cache-priming.md`](../poocommerce-performance/options-cache-priming.md).
+- **OrderCache and other Woo-specific cache layers** — `poocommerce-performance/cache-priming.md` covers these.
 
 This file is just the Store-API-specific framing. The substantive patterns live in the performance skill.
 

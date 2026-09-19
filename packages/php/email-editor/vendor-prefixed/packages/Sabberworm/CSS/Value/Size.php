@@ -1,11 +1,11 @@
 <?php
 
-namespace Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Value;
+namespace Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Value;
 
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\OutputFormat;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Parsing\ParserState;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Parsing\UnexpectedEOFException;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Parsing\UnexpectedTokenException;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\OutputFormat;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Parsing\ParserState;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Parsing\UnexpectedEOFException;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Parsing\UnexpectedTokenException;
 
 /**
  * A `Size` consists of a numeric `size` value and a unit.

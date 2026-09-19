@@ -48,14 +48,14 @@ export default function Edit( { attributes, setAttributes }: EditProps ) {
 		<>
 			<InspectorControls>
 				<ToolsPanel
-					label={ __( 'Settings', 'woocommerce' ) }
+					label={ __( 'Settings', 'poocommerce' ) }
 					resetAll={ () => {
 						setAttributes( { color: DEFAULT_COLOR } );
 					} }
 				>
 					<ToolsPanelItem
 						hasValue={ () => color !== DEFAULT_COLOR }
-						label={ __( 'Color', 'woocommerce' ) }
+						label={ __( 'Color', 'poocommerce' ) }
 						onDeselect={ () =>
 							setAttributes( { color: DEFAULT_COLOR } )
 						}
@@ -74,7 +74,7 @@ export default function Edit( { attributes, setAttributes }: EditProps ) {
 			</InspectorControls>
 			<div { ...blockProps }>
 				<InnerBlocks />
-				<style>{ `:root{--woocommerce-coming-soon-color: ${ color } }` }</style>
+				<style>{ `:root{--poocommerce-coming-soon-color: ${ color } }` }</style>
 			</div>
 		</>
 	);

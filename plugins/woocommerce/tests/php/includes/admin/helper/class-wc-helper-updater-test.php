@@ -2,7 +2,7 @@
 /**
  * Unit tests for WC_Helper_Updater class
  *
- * @package WooCommerce\Tests\Admin\Helper
+ * @package PooCommerce\Tests\Admin\Helper
  */
 
 declare(strict_types=1);
@@ -19,8 +19,8 @@ class WC_Helper_Updater_Test extends WC_Unit_Test_Case {
 	private $mocked_updates = array(
 		123 => array(
 			'version'        => '2.0.0',
-			'url'            => 'https://woocommerce.com/products/test',
-			'package'        => 'https://woocommerce.com/package.zip',
+			'url'            => 'https://poocommerce.com/products/test',
+			'package'        => 'https://poocommerce.com/package.zip',
 			'slug'           => 'test-plugin',
 			'upgrade_notice' => 'New version available',
 		),
@@ -96,9 +96,9 @@ class WC_Helper_Updater_Test extends WC_Unit_Test_Case {
 	 * Clean up transients used by WC_Helper_Updater.
 	 */
 	private function cleanup_transients() {
-		delete_transient( '_woocommerce_helper_updates' );
-		delete_transient( '_woocommerce_helper_updates_count' );
-		delete_transient( '_woocommerce_helper_subscriptions' );
+		delete_transient( '_poocommerce_helper_updates' );
+		delete_transient( '_poocommerce_helper_updates_count' );
+		delete_transient( '_poocommerce_helper_subscriptions' );
 		delete_transient( WC_Helper_API_Backoff::TRANSIENT_PREFIX . WC_Helper_API_Backoff::REQUEST_TYPE_UPDATE_CHECK );
 	}
 
@@ -125,7 +125,7 @@ class WC_Helper_Updater_Test extends WC_Unit_Test_Case {
 	 */
 	public function test_update_data_entry_points_skip_malformed_subscriptions( string $entry_point ): void {
 		set_transient(
-			'_woocommerce_helper_subscriptions',
+			'_poocommerce_helper_subscriptions',
 			array(
 				'corrupted',
 				array( 'product_key' => 'missing-id' ),
@@ -212,7 +212,7 @@ class WC_Helper_Updater_Test extends WC_Unit_Test_Case {
 	 * Test that _update_check handles malformed transient data (i.e. string instead of array).
 	 */
 	public function test_update_check_handles_malformed_string_transient() {
-		set_transient( '_woocommerce_helper_updates', 'malformed_string_data', HOUR_IN_SECONDS );
+		set_transient( '_poocommerce_helper_updates', 'malformed_string_data', HOUR_IN_SECONDS );
 
 		// Mock WC_Helper and WC_Helper_API to avoid external dependencies.
 		add_filter( 'pre_http_request', array( $this, 'mock_helper_api_response' ), 10, 3 );
@@ -252,8 +252,8 @@ class WC_Helper_Updater_Test extends WC_Unit_Test_Case {
 			'products' => array(
 				123 => array(
 					'version'        => '1.2.3',
-					'url'            => 'https://woocommerce.com/products/test',
-					'package'        => 'https://woocommerce.com/package.zip',
+					'url'            => 'https://poocommerce.com/products/test',
+					'package'        => 'https://poocommerce.com/package.zip',
 					'slug'           => 'test-plugin',
 					'upgrade_notice' => 'Test upgrade notice',
 				),
@@ -261,7 +261,7 @@ class WC_Helper_Updater_Test extends WC_Unit_Test_Case {
 			'errors'   => array(),
 		);
 
-		set_transient( '_woocommerce_helper_updates', $cached_data, HOUR_IN_SECONDS );
+		set_transient( '_poocommerce_helper_updates', $cached_data, HOUR_IN_SECONDS );
 
 		// Should return cached products without making API call.
 		$result = $this->call_update_check( $payload );
@@ -285,7 +285,7 @@ class WC_Helper_Updater_Test extends WC_Unit_Test_Case {
 			'errors'   => array(),
 		);
 
-		set_transient( '_woocommerce_helper_updates', $cached_data, HOUR_IN_SECONDS );
+		set_transient( '_poocommerce_helper_updates', $cached_data, HOUR_IN_SECONDS );
 
 		$http_mock = static function () {
 			return array(
@@ -315,7 +315,7 @@ class WC_Helper_Updater_Test extends WC_Unit_Test_Case {
 		$this->assertSame( $cached_data['products'], $result, 'A rate-limited check should serve the previously cached products' );
 		$this->assertSame(
 			$cached_data,
-			get_transient( '_woocommerce_helper_updates' ),
+			get_transient( '_poocommerce_helper_updates' ),
 			'A 429 should leave the cached update data untouched rather than replacing it with an empty result'
 		);
 		$this->assertNotFalse(
@@ -349,7 +349,7 @@ class WC_Helper_Updater_Test extends WC_Unit_Test_Case {
 			'errors'   => array(),
 		);
 
-		set_transient( '_woocommerce_helper_updates', $cached_data, HOUR_IN_SECONDS );
+		set_transient( '_poocommerce_helper_updates', $cached_data, HOUR_IN_SECONDS );
 
 		// Mock API response for new payload.
 		add_filter( 'pre_http_request', array( $this, 'mock_helper_api_response' ), 10, 3 );
@@ -374,7 +374,7 @@ class WC_Helper_Updater_Test extends WC_Unit_Test_Case {
 	 */
 	public function test_update_check_handles_false_transient() {
 		// Ensure transient is false (cache miss).
-		delete_transient( '_woocommerce_helper_updates' );
+		delete_transient( '_poocommerce_helper_updates' );
 
 		add_filter( 'pre_http_request', array( $this, 'mock_helper_api_response' ), 10, 3 );
 
@@ -408,7 +408,7 @@ class WC_Helper_Updater_Test extends WC_Unit_Test_Case {
 	 */
 	public function test_update_check_handles_numeric_transient() {
 		// Set up transient with numeric value.
-		set_transient( '_woocommerce_helper_updates', 12345, HOUR_IN_SECONDS );
+		set_transient( '_poocommerce_helper_updates', 12345, HOUR_IN_SECONDS );
 
 		add_filter( 'pre_http_request', array( $this, 'mock_helper_api_response' ), 10, 3 );
 
@@ -433,7 +433,7 @@ class WC_Helper_Updater_Test extends WC_Unit_Test_Case {
 	 */
 	public function test_update_check_handles_null_transient() {
 		// Set up transient with null value (though WordPress would typically convert to false).
-		set_transient( '_woocommerce_helper_updates', null, HOUR_IN_SECONDS );
+		set_transient( '_poocommerce_helper_updates', null, HOUR_IN_SECONDS );
 
 		add_filter( 'pre_http_request', array( $this, 'mock_helper_api_response' ), 10, 3 );
 
@@ -458,19 +458,19 @@ class WC_Helper_Updater_Test extends WC_Unit_Test_Case {
 	 */
 	public function test_flush_updates_cache_clears_transients() {
 		// Set up transients.
-		set_transient( '_woocommerce_helper_updates', array( 'test' => 'data' ), HOUR_IN_SECONDS );
-		set_transient( '_woocommerce_helper_updates_count', 5, HOUR_IN_SECONDS );
+		set_transient( '_poocommerce_helper_updates', array( 'test' => 'data' ), HOUR_IN_SECONDS );
+		set_transient( '_poocommerce_helper_updates_count', 5, HOUR_IN_SECONDS );
 
 		// Verify transients are set.
-		$this->assertNotFalse( get_transient( '_woocommerce_helper_updates' ), 'Updates transient should be set' );
-		$this->assertNotFalse( get_transient( '_woocommerce_helper_updates_count' ), 'Count transient should be set' );
+		$this->assertNotFalse( get_transient( '_poocommerce_helper_updates' ), 'Updates transient should be set' );
+		$this->assertNotFalse( get_transient( '_poocommerce_helper_updates_count' ), 'Count transient should be set' );
 
 		// Flush cache.
 		WC_Helper_Updater::flush_updates_cache();
 
 		// Verify transients are cleared.
-		$this->assertFalse( get_transient( '_woocommerce_helper_updates' ), 'Updates transient should be cleared' );
-		$this->assertFalse( get_transient( '_woocommerce_helper_updates_count' ), 'Count transient should be cleared' );
+		$this->assertFalse( get_transient( '_poocommerce_helper_updates' ), 'Updates transient should be cleared' );
+		$this->assertFalse( get_transient( '_poocommerce_helper_updates_count' ), 'Count transient should be cleared' );
 	}
 
 	/**
@@ -478,15 +478,15 @@ class WC_Helper_Updater_Test extends WC_Unit_Test_Case {
 	 */
 	public function test_upgrader_process_complete_clears_count_transient() {
 		// Set up count transient.
-		set_transient( '_woocommerce_helper_updates_count', 5, HOUR_IN_SECONDS );
+		set_transient( '_poocommerce_helper_updates_count', 5, HOUR_IN_SECONDS );
 
-		$this->assertNotFalse( get_transient( '_woocommerce_helper_updates_count' ), 'Count transient should be set' );
+		$this->assertNotFalse( get_transient( '_poocommerce_helper_updates_count' ), 'Count transient should be set' );
 
 		// Trigger upgrader complete.
 		WC_Helper_Updater::upgrader_process_complete();
 
 		// Verify count transient is cleared.
-		$this->assertFalse( get_transient( '_woocommerce_helper_updates_count' ), 'Count transient should be cleared after upgrade' );
+		$this->assertFalse( get_transient( '_poocommerce_helper_updates_count' ), 'Count transient should be cleared after upgrade' );
 	}
 
 	/**
@@ -584,7 +584,7 @@ class WC_Helper_Updater_Test extends WC_Unit_Test_Case {
 			'products' => array(
 				123 => array(
 					'version' => '2.0.0',
-					'url'     => 'https://woocommerce.com/products/test',
+					'url'     => 'https://poocommerce.com/products/test',
 				),
 			),
 			'updated'  => time(),
@@ -618,10 +618,10 @@ class WC_Helper_Updater_Test extends WC_Unit_Test_Case {
 
 	/**
 	 * @testdox A forced auto-update flag reaches the plugin update item only when the package can be installed.
-	 * @testWith [true, "https://woocommerce.com/package.zip", true]
+	 * @testWith [true, "https://poocommerce.com/package.zip", true]
 	 *           [true, "", false]
-	 *           [true, "woocommerce-com-expired-123", false]
-	 *           [false, "https://woocommerce.com/package.zip", false]
+	 *           [true, "poocommerce-com-expired-123", false]
+	 *           [false, "https://poocommerce.com/package.zip", false]
 	 *
 	 * @param bool   $forced   Whether the update-check response flags the product for a forced auto-update.
 	 * @param string $package  Package the update_woo_com_subscription_details filter supplies, as Woo Update Manager does.
@@ -657,7 +657,7 @@ class WC_Helper_Updater_Test extends WC_Unit_Test_Case {
 	public function test_transient_update_plugins_validates_autoupdate_flag( $flag, bool $expected ): void {
 		$filename = $this->mock_local_woo_plugin();
 		$this->mock_update_check_autoupdate_flag( 123, $flag );
-		$this->mock_update_package( 'https://woocommerce.com/package.zip' );
+		$this->mock_update_package( 'https://poocommerce.com/package.zip' );
 
 		add_filter( 'pre_http_request', array( $this, 'mock_helper_api_response' ), 10, 3 );
 		try {
@@ -759,7 +759,7 @@ class WC_Helper_Updater_Test extends WC_Unit_Test_Case {
 			$from_update_data = $this->mocked_request_products;
 
 			// Drop the cached response so the second entry point has to ask the server too.
-			delete_transient( '_woocommerce_helper_updates' );
+			delete_transient( '_poocommerce_helper_updates' );
 			$this->mocked_request_products = null;
 
 			WC_Helper_Updater::get_available_extensions_downloads_data();
@@ -799,7 +799,7 @@ class WC_Helper_Updater_Test extends WC_Unit_Test_Case {
 			'errors'   => array(),
 		);
 
-		set_transient( '_woocommerce_helper_updates', $cached_data, HOUR_IN_SECONDS );
+		set_transient( '_poocommerce_helper_updates', $cached_data, HOUR_IN_SECONDS );
 
 		add_filter( 'pre_http_request', array( $this, 'mock_helper_api_response' ), 10, 3 );
 		try {
@@ -823,10 +823,10 @@ class WC_Helper_Updater_Test extends WC_Unit_Test_Case {
 
 	/**
 	 * @testdox A forced auto-update flag reaches the theme update item only when the package can be installed.
-	 * @testWith [true, "https://woocommerce.com/package.zip", true]
+	 * @testWith [true, "https://poocommerce.com/package.zip", true]
 	 *           [true, "", false]
-	 *           [true, "woocommerce-com-expired-456", false]
-	 *           [false, "https://woocommerce.com/package.zip", false]
+	 *           [true, "poocommerce-com-expired-456", false]
+	 *           [false, "https://poocommerce.com/package.zip", false]
 	 *
 	 * @param bool   $forced   Whether the update-check response flags the product for a forced auto-update.
 	 * @param string $package  Package the update_woo_com_subscription_details filter supplies, as Woo Update Manager does.
@@ -866,7 +866,7 @@ class WC_Helper_Updater_Test extends WC_Unit_Test_Case {
 
 		$product = array(
 			'version'        => '2.0.0',
-			'url'            => 'https://woocommerce.com/products/test-theme',
+			'url'            => 'https://poocommerce.com/products/test-theme',
 			'package'        => '',
 			'slug'           => 'woo-test-theme',
 			'upgrade_notice' => '',
@@ -960,7 +960,7 @@ class WC_Helper_Updater_Test extends WC_Unit_Test_Case {
 	private function mock_update_check_products( int $product_id, bool $forced ): void {
 		$product = array(
 			'version'        => '2.0.0',
-			'url'            => 'https://woocommerce.com/products/test',
+			'url'            => 'https://poocommerce.com/products/test',
 			'package'        => '',
 			'slug'           => 'test-plugin',
 			'upgrade_notice' => '',
@@ -1009,8 +1009,8 @@ class WC_Helper_Updater_Test extends WC_Unit_Test_Case {
 	 * @return array Mocked response.
 	 */
 	public function mock_helper_api_response( $preempt, $args, $url ) {
-		// Only mock WooCommerce.com API calls.
-		if ( strpos( $url, 'woocommerce.com' ) === false && strpos( $url, 'api.woocommerce.com' ) === false ) {
+		// Only mock PooCommerce.com API calls.
+		if ( strpos( $url, 'poocommerce.com' ) === false && strpos( $url, 'api.poocommerce.com' ) === false ) {
 			return $preempt;
 		}
 

@@ -3,21 +3,21 @@
  */
 import { renderHook } from '@testing-library/react';
 import { createRegistry, RegistryProvider } from '@wordpress/data';
-import type { FormType } from '@woocommerce/settings';
+import type { FormType } from '@poocommerce/settings';
 import Ajv from 'ajv';
 import { WPDataRegistry } from '@wordpress/data/build-types/registry';
 
 /**
  * Internal dependencies
  */
-import { CheckoutState } from '@woocommerce/block-data/checkout/default-state';
-import { PaymentState } from '@woocommerce/block-data/payment/default-state';
-import { CartState } from '@woocommerce/block-data/cart/default-state';
+import { CheckoutState } from '@poocommerce/block-data/checkout/default-state';
+import { PaymentState } from '@poocommerce/block-data/payment/default-state';
+import { CartState } from '@poocommerce/block-data/cart/default-state';
 import { useSchemaParser, type DocumentObject } from '../use-schema-parser';
 import checkoutSchema from './checkout-document-schema.json';
 
 // Mock the stores
-jest.mock( '@woocommerce/block-data', () => ( {
+jest.mock( '@poocommerce/block-data', () => ( {
 	__esModule: true,
 	cartStore: 'wc/store/cart',
 	checkoutStore: 'wc/store/checkout',

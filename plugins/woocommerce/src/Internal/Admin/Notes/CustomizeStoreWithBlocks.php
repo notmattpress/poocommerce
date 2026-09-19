@@ -1,18 +1,18 @@
 <?php
 /**
- * WooCommerce Admin: Customize your online store with WooCommerce blocks.
+ * PooCommerce Admin: Customize your online store with PooCommerce blocks.
  *
- * Adds a note to customize the client online store with WooCommerce blocks.
+ * Adds a note to customize the client online store with PooCommerce blocks.
  *
- * @package WooCommerce\Admin
+ * @package PooCommerce\Admin
  */
 
-namespace Automattic\WooCommerce\Internal\Admin\Notes;
+namespace Automattic\PooCommerce\Internal\Admin\Notes;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\Notes\Note;
-use Automattic\WooCommerce\Admin\Notes\NoteTraits;
+use Automattic\PooCommerce\Admin\Notes\Note;
+use Automattic\PooCommerce\Admin\Notes\NoteTraits;
 
 /**
  * Customize_Store_With_Blocks.
@@ -34,7 +34,7 @@ class CustomizeStoreWithBlocks {
 	 * @return Note
 	 */
 	public static function get_note() {
-		$onboarding_profile = get_option( 'woocommerce_onboarding_profile', array() );
+		$onboarding_profile = get_option( 'poocommerce_onboarding_profile', array() );
 
 		// Confirm that $onboarding_profile is set.
 		if ( empty( $onboarding_profile ) ) {
@@ -69,16 +69,16 @@ class CustomizeStoreWithBlocks {
 		}
 
 		$note = new Note();
-		$note->set_title( __( 'Customize your online store with WooCommerce blocks', 'woocommerce' ) );
-		$note->set_content( __( 'With our blocks, you can select and display products, categories, filters, and more virtually anywhere on your site — no need to use shortcodes or edit lines of code. Learn more about how to use each one of them.', 'woocommerce' ) );
+		$note->set_title( __( 'Customize your online store with PooCommerce blocks', 'poocommerce' ) );
+		$note->set_content( __( 'With our blocks, you can select and display products, categories, filters, and more virtually anywhere on your site — no need to use shortcodes or edit lines of code. Learn more about how to use each one of them.', 'poocommerce' ) );
 		$note->set_type( Note::E_WC_ADMIN_NOTE_INFORMATIONAL );
 		$note->set_name( self::NOTE_NAME );
 		$note->set_content_data( (object) array() );
-		$note->set_source( 'woocommerce-admin' );
+		$note->set_source( 'poocommerce-admin' );
 		$note->add_action(
 			'customize-store-with-blocks',
-			__( 'Learn more', 'woocommerce' ),
-			'https://woocommerce.com/posts/how-to-customize-your-online-store-with-woocommerce-blocks/?utm_source=inbox&utm_medium=product',
+			__( 'Learn more', 'poocommerce' ),
+			'https://poocommerce.com/posts/how-to-customize-your-online-store-with-poocommerce-blocks/?utm_source=inbox&utm_medium=product',
 			Note::E_WC_ADMIN_NOTE_ACTIONED
 		);
 		return $note;

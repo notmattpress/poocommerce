@@ -4,7 +4,7 @@
 import { __ } from '@wordpress/i18n';
 import { createBlock, registerBlockType } from '@wordpress/blocks';
 import { Icon } from '@wordpress/icons';
-import { sparkles } from '@woocommerce/icons';
+import { sparkles } from '@poocommerce/icons';
 
 /**
  * Internal dependencies
@@ -16,7 +16,7 @@ import { Edit } from './edit';
 import metadata from './block.json';
 
 registerBlockType( metadata, {
-	title: __( 'Newest Products', 'woocommerce' ),
+	title: __( 'Newest Products', 'poocommerce' ),
 	icon: {
 		src: (
 			<Icon
@@ -34,10 +34,10 @@ registerBlockType( metadata, {
 			{
 				type: 'block',
 				blocks: sharedAttributeBlockTypes.filter(
-					( value ) => value !== 'woocommerce/product-new'
+					( value ) => value !== 'poocommerce/product-new'
 				),
 				transform: ( attributes ) =>
-					createBlock( 'woocommerce/product-new', attributes ),
+					createBlock( 'poocommerce/product-new', attributes ),
 			},
 		],
 	},

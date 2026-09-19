@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { test as base, expect } from '@woocommerce/e2e-utils';
+import { test as base, expect } from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -90,7 +90,7 @@ test.describe( 'Product Collection: Extensibility Events', () => {
 
 			const { collection, productId } = await promise;
 			expect( collection ).toEqual(
-				'woocommerce/product-collection/featured'
+				'poocommerce/product-collection/featured'
 			);
 			expect( productId ).toEqual( expect.any( Number ) );
 		} );
@@ -100,7 +100,7 @@ test.describe( 'Product Collection: Extensibility Events', () => {
 
 			const { collection, productId } = await promise;
 			expect( collection ).toEqual(
-				'woocommerce/product-collection/featured'
+				'poocommerce/product-collection/featured'
 			);
 			expect( productId ).toEqual( expect.any( Number ) );
 		} );

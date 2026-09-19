@@ -14,23 +14,23 @@ import { applyFilters, removeFilter } from '@wordpress/hooks';
 import {
 	__experimentalRegisterProductCollection,
 	type ProductCollectionConfig,
-} from '@woocommerce/blocks-registry';
+} from '@poocommerce/blocks-registry';
 import {
 	ProductCollectionUIStatesInEditor,
 	type ProductCollectionAttributes,
 	type ProductCollectionEditComponentProps,
-} from '@woocommerce/blocks/product-collection/types';
-import { useProductCollectionUIState } from '@woocommerce/blocks/product-collection/utils';
+} from '@poocommerce/blocks/product-collection/types';
+import { useProductCollectionUIState } from '@poocommerce/blocks/product-collection/utils';
 import {
 	LocationType,
-	type WooCommerceBlockLocation,
-} from '@woocommerce/blocks/product-template/utils';
+	type PooCommerceBlockLocation,
+} from '@poocommerce/blocks/product-template/utils';
 
-const BLOCK_NAME = 'woocommerce/product-collection';
+const BLOCK_NAME = 'poocommerce/product-collection';
 const TEST_NAMESPACE = 'test-plugin/product-collection';
 
 type ProbeProps = ProductCollectionEditComponentProps & {
-	location: WooCommerceBlockLocation;
+	location: PooCommerceBlockLocation;
 };
 
 const attemptedCollectionNames = new Set< string >();
@@ -117,7 +117,7 @@ const renderFilteredState = ( {
 	registry,
 }: {
 	attributes: ProductCollectionAttributes;
-	location: WooCommerceBlockLocation;
+	location: PooCommerceBlockLocation;
 	registry: ReturnType< typeof createRegistry >;
 } ) => {
 	const FilteredStateProbe = applyFilters(
@@ -230,7 +230,7 @@ describe( '__experimentalRegisterProductCollection', () => {
 			name,
 			title: 'Complete collection',
 			description: 'A complete public collection.',
-			category: 'woocommerce',
+			category: 'poocommerce',
 			keywords: [ 'complete', 'collection' ],
 			scope: [ 'block' ],
 			innerBlocks,
@@ -248,7 +248,7 @@ describe( '__experimentalRegisterProductCollection', () => {
 					offset: 0,
 					pages: 0,
 					perPage: 0,
-					woocommerceOnSale: false,
+					poocommerceOnSale: false,
 				},
 			},
 		} );
@@ -258,7 +258,7 @@ describe( '__experimentalRegisterProductCollection', () => {
 			name,
 			title: 'Complete collection',
 			description: 'A complete public collection.',
-			category: 'woocommerce',
+			category: 'poocommerce',
 			keywords: [ 'complete', 'collection' ],
 			scope: [ 'block' ],
 			innerBlocks,
@@ -292,10 +292,10 @@ describe( '__experimentalRegisterProductCollection', () => {
 					search: '',
 					taxQuery: {},
 					timeFrame: undefined,
-					woocommerceAttributes: [],
-					woocommerceHandPickedProducts: [],
-					woocommerceOnSale: false,
-					woocommerceStockStatus: [],
+					poocommerceAttributes: [],
+					poocommerceHandPickedProducts: [],
+					poocommerceOnSale: false,
+					poocommerceStockStatus: [],
 				},
 				queryContextIncludes: [ 'collection' ],
 				tagName: 'div',
@@ -447,7 +447,7 @@ describe( '__experimentalRegisterProductCollection', () => {
 				const { getByTestId: getMatchingByTestId, unmount } =
 					renderFilteredState( {
 						attributes: getRegisteredAttributes( name ),
-						location: location as WooCommerceBlockLocation,
+						location: location as PooCommerceBlockLocation,
 						registry,
 					} );
 				expect(

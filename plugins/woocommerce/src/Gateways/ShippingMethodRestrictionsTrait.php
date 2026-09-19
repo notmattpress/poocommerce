@@ -2,7 +2,7 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Gateways;
+namespace Automattic\PooCommerce\Gateways;
 
 use Automattic\Jetpack\Constants;
 use WC_Cache_Helper;
@@ -63,23 +63,23 @@ trait ShippingMethodRestrictionsTrait {
 
 		return array(
 			'enable_for_methods' => array(
-				'title'             => __( 'Enable for shipping methods', 'woocommerce' ),
+				'title'             => __( 'Enable for shipping methods', 'poocommerce' ),
 				'type'              => 'multiselect',
 				'class'             => 'wc-enhanced-select',
 				'css'               => 'width: 400px;',
 				'default'           => '',
 				/* translators: %s: payment method title. */
-				'description'       => sprintf( __( 'If %s is only available for certain methods, set it up here. Leave blank to enable for all methods.', 'woocommerce' ), $method_title ),
+				'description'       => sprintf( __( 'If %s is only available for certain methods, set it up here. Leave blank to enable for all methods.', 'poocommerce' ), $method_title ),
 				'options'           => $this->load_shipping_method_options(),
 				'desc_tip'          => true,
 				'custom_attributes' => array(
-					'data-placeholder' => __( 'Select shipping methods', 'woocommerce' ),
+					'data-placeholder' => __( 'Select shipping methods', 'poocommerce' ),
 				),
 			),
 			'enable_for_virtual' => array(
-				'title'   => __( 'Accept for virtual orders', 'woocommerce' ),
+				'title'   => __( 'Accept for virtual orders', 'poocommerce' ),
 				/* translators: %s: payment method title. */
-				'label'   => sprintf( __( 'Accept %s if the order is virtual', 'woocommerce' ), $method_title ),
+				'label'   => sprintf( __( 'Accept %s if the order is virtual', 'poocommerce' ), $method_title ),
 				'type'    => 'checkbox',
 				'default' => 'yes',
 			),
@@ -235,7 +235,7 @@ trait ShippingMethodRestrictionsTrait {
 			}
 
 			// Translators: %1$s shipping method name.
-			$options[ $method->get_method_title() ][ $method->id ] = sprintf( __( 'Any &quot;%1$s&quot; method', 'woocommerce' ), $method->get_method_title() );
+			$options[ $method->get_method_title() ][ $method->id ] = sprintf( __( 'Any &quot;%1$s&quot; method', 'poocommerce' ), $method->get_method_title() );
 
 			foreach ( $zone_instances as list( $zone, $shipping_method_instances ) ) {
 
@@ -248,10 +248,10 @@ trait ShippingMethodRestrictionsTrait {
 					$option_id = $shipping_method_instance->get_rate_id();
 
 					// Translators: %1$s shipping method title, %2$s shipping method id.
-					$option_instance_title = sprintf( __( '%1$s (#%2$s)', 'woocommerce' ), $shipping_method_instance->get_title(), $shipping_method_instance_id );
+					$option_instance_title = sprintf( __( '%1$s (#%2$s)', 'poocommerce' ), $shipping_method_instance->get_title(), $shipping_method_instance_id );
 
 					// Translators: %1$s zone name, %2$s shipping method instance name.
-					$option_title = sprintf( __( '%1$s &ndash; %2$s', 'woocommerce' ), $zone->get_id() ? $zone->get_zone_name() : __( 'Other locations', 'woocommerce' ), $option_instance_title );
+					$option_title = sprintf( __( '%1$s &ndash; %2$s', 'poocommerce' ), $zone->get_id() ? $zone->get_zone_name() : __( 'Other locations', 'poocommerce' ), $option_instance_title );
 
 					$options[ $method->get_method_title() ][ $option_id ] = $option_title;
 				}

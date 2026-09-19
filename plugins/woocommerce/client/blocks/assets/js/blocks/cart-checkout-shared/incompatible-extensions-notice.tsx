@@ -3,15 +3,15 @@
  */
 import { __, sprintf } from '@wordpress/i18n';
 import { useEffect, useMemo } from '@wordpress/element';
-import { getSetting, CURRENT_USER_IS_ADMIN } from '@woocommerce/settings';
-import NoticeBanner from '@woocommerce/base-components/notice-banner';
-import { useLocalStorageState } from '@woocommerce/base-hooks';
+import { getSetting, CURRENT_USER_IS_ADMIN } from '@poocommerce/settings';
+import NoticeBanner from '@poocommerce/base-components/notice-banner';
+import { useLocalStorageState } from '@poocommerce/base-hooks';
 import {
 	getFrontendStorageKey,
 	isSubsetOf,
 	readDismissalsFromBeforeScoping,
 	readInitialDismissals,
-} from '@woocommerce/editor-components/incompatible-extension-notice/storage';
+} from '@poocommerce/editor-components/incompatible-extension-notice/storage';
 
 /**
  * The slugs the merchant acknowledged on the storefront before the keys were
@@ -58,7 +58,7 @@ const getIncompatibleExtensions = (): {
 };
 
 interface Props {
-	block: 'woocommerce/cart' | 'woocommerce/checkout';
+	block: 'poocommerce/cart' | 'poocommerce/checkout';
 }
 
 /**
@@ -136,9 +136,9 @@ const IncompatibleExtensionsBanner = ( { block }: Props ) => {
 
 	const extensionNames = Object.values( extensions );
 	const blockLabel =
-		block === 'woocommerce/cart'
-			? __( 'Cart', 'woocommerce' )
-			: __( 'Checkout', 'woocommerce' );
+		block === 'poocommerce/cart'
+			? __( 'Cart', 'poocommerce' )
+			: __( 'Checkout', 'poocommerce' );
 
 	const message =
 		count === 1
@@ -146,7 +146,7 @@ const IncompatibleExtensionsBanner = ( { block }: Props ) => {
 					/* translators: %1$s is extension name, %2$s is block name */
 					__(
 						'%1$s may not be compatible with the %2$s block.',
-						'woocommerce'
+						'poocommerce'
 					),
 					extensionNames[ 0 ],
 					blockLabel
@@ -155,7 +155,7 @@ const IncompatibleExtensionsBanner = ( { block }: Props ) => {
 					/* translators: %s is block name */
 					__(
 						'Some extensions may not be compatible with the %s block:',
-						'woocommerce'
+						'poocommerce'
 					),
 					blockLabel
 			  );
@@ -175,7 +175,7 @@ const IncompatibleExtensionsBanner = ( { block }: Props ) => {
 				</ul>
 			) }
 			<em>
-				{ __( '(Only administrators see this notice)', 'woocommerce' ) }
+				{ __( '(Only administrators see this notice)', 'poocommerce' ) }
 			</em>
 		</NoticeBanner>
 	);

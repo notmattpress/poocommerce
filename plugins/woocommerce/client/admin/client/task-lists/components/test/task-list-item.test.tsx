@@ -5,11 +5,11 @@ import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { SlotFillProvider } from '@wordpress/components';
 import { useDispatch } from '@wordpress/data';
-import { TaskItem, useSlot } from '@woocommerce/experimental';
-import { WooOnboardingTaskListItem } from '@woocommerce/onboarding';
-import { TaskType } from '@woocommerce/data';
-import { recordEvent } from '@woocommerce/tracks';
-import { navigateTo } from '@woocommerce/navigation';
+import { TaskItem, useSlot } from '@poocommerce/experimental';
+import { WooOnboardingTaskListItem } from '@poocommerce/onboarding';
+import { TaskType } from '@poocommerce/data';
+import { recordEvent } from '@poocommerce/tracks';
+import { navigateTo } from '@poocommerce/navigation';
 
 /**
  * Internal dependencies
@@ -23,7 +23,7 @@ jest.mock( '@wordpress/data', () => {
 		useDispatch: jest.fn(),
 	};
 } );
-jest.mock( '@woocommerce/admin-layout', () => {
+jest.mock( '@poocommerce/admin-layout', () => {
 	const mockContext = {
 		layoutPath: [ 'home' ],
 		layoutString: 'home',
@@ -31,7 +31,7 @@ jest.mock( '@woocommerce/admin-layout', () => {
 		isDescendantOf: () => false,
 	};
 	return {
-		...jest.requireActual( '@woocommerce/admin-layout' ),
+		...jest.requireActual( '@poocommerce/admin-layout' ),
 		useLayoutContext: jest.fn().mockReturnValue( mockContext ),
 		useExtendLayout: jest.fn().mockReturnValue( mockContext ),
 	};
@@ -48,12 +48,12 @@ const mockDispatch = {
 };
 ( useDispatch as jest.Mock ).mockReturnValue( mockDispatch );
 
-jest.mock( '@woocommerce/tracks', () => ( {
+jest.mock( '@poocommerce/tracks', () => ( {
 	recordEvent: jest.fn(),
 } ) );
 
-jest.mock( '@woocommerce/data', () => {
-	const originalModule = jest.requireActual( '@woocommerce/data' );
+jest.mock( '@poocommerce/data', () => {
+	const originalModule = jest.requireActual( '@poocommerce/data' );
 	return {
 		...originalModule,
 		useUserPreferences: jest.fn().mockReturnValue( {
@@ -62,8 +62,8 @@ jest.mock( '@woocommerce/data', () => {
 		} ),
 	};
 } );
-jest.mock( '@woocommerce/experimental', () => {
-	const originalModule = jest.requireActual( '@woocommerce/experimental' );
+jest.mock( '@poocommerce/experimental', () => {
+	const originalModule = jest.requireActual( '@poocommerce/experimental' );
 	return {
 		...originalModule,
 		useSlot: jest.fn(),
@@ -106,7 +106,7 @@ jest.mock( '@woocommerce/experimental', () => {
 			),
 	};
 } );
-jest.mock( '@woocommerce/navigation', () => {
+jest.mock( '@poocommerce/navigation', () => {
 	return {
 		getPersistedQuery: jest.fn().mockReturnValue( {} ),
 		navigateTo: jest.fn(),

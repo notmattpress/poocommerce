@@ -182,7 +182,7 @@ describe( 'getHiddenInputs', () => {
 				getHiddenInputs( field, 2, { initialCanonicalValue: 1 } )
 			).toEqual( [] );
 			expect( consoleError ).toHaveBeenCalledWith(
-				`[WooCommerce settings UI] ${ message }`,
+				`[PooCommerce settings UI] ${ message }`,
 				{ field }
 			);
 

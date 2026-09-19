@@ -1,63 +1,63 @@
 type DeprecatedWcAdminFeatureFlags = {
-	/** @deprecated Deprecated since WooCommerce 11.1. This WC Admin feature flag shim will be removed in a future version of WooCommerce. */
+	/** @deprecated Deprecated since PooCommerce 11.1. This WC Admin feature flag shim will be removed in a future version of PooCommerce. */
 	'activity-panels': boolean;
-	/** @deprecated Deprecated since WooCommerce 11.1. This WC Admin feature flag shim will be removed in a future version of WooCommerce. */
+	/** @deprecated Deprecated since PooCommerce 11.1. This WC Admin feature flag shim will be removed in a future version of PooCommerce. */
 	analytics: boolean;
-	/** @deprecated Deprecated since WooCommerce 11.1. This WC Admin feature flag shim will be removed in a future version of WooCommerce. */
+	/** @deprecated Deprecated since PooCommerce 11.1. This WC Admin feature flag shim will be removed in a future version of PooCommerce. */
 	'analytics-scheduled-import': boolean;
-	/** @deprecated Deprecated since WooCommerce 11.1. This WC Admin feature flag shim will be removed in a future version of WooCommerce. */
+	/** @deprecated Deprecated since PooCommerce 11.1. This WC Admin feature flag shim will be removed in a future version of PooCommerce. */
 	'experimental-iapi-mini-cart': boolean;
-	/** @deprecated Deprecated since WooCommerce 11.1. This WC Admin feature flag shim will be removed in a future version of WooCommerce. */
+	/** @deprecated Deprecated since PooCommerce 11.1. This WC Admin feature flag shim will be removed in a future version of PooCommerce. */
 	coupons: boolean;
-	/** @deprecated Deprecated since WooCommerce 11.1. This WC Admin feature flag shim will be removed in a future version of WooCommerce. */
+	/** @deprecated Deprecated since PooCommerce 11.1. This WC Admin feature flag shim will be removed in a future version of PooCommerce. */
 	'core-profiler': boolean;
-	/** @deprecated Deprecated since WooCommerce 11.1. This WC Admin feature flag shim will be removed in a future version of WooCommerce. */
+	/** @deprecated Deprecated since PooCommerce 11.1. This WC Admin feature flag shim will be removed in a future version of PooCommerce. */
 	'customize-store': boolean;
-	/** @deprecated Deprecated since WooCommerce 11.1. This WC Admin feature flag shim will be removed in a future version of WooCommerce. */
+	/** @deprecated Deprecated since PooCommerce 11.1. This WC Admin feature flag shim will be removed in a future version of PooCommerce. */
 	'customer-effort-score-tracks': boolean;
-	/** @deprecated Deprecated since WooCommerce 11.1. This WC Admin feature flag shim will be removed in a future version of WooCommerce. */
+	/** @deprecated Deprecated since PooCommerce 11.1. This WC Admin feature flag shim will be removed in a future version of PooCommerce. */
 	'import-products-task': boolean;
-	/** @deprecated Deprecated since WooCommerce 11.1. This WC Admin feature flag shim will be removed in a future version of WooCommerce. */
+	/** @deprecated Deprecated since PooCommerce 11.1. This WC Admin feature flag shim will be removed in a future version of PooCommerce. */
 	'experimental-fashion-sample-products': boolean;
-	/** @deprecated Deprecated since WooCommerce 11.1. This WC Admin feature flag shim will be removed in a future version of WooCommerce. */
+	/** @deprecated Deprecated since PooCommerce 11.1. This WC Admin feature flag shim will be removed in a future version of PooCommerce. */
 	'shipping-smart-defaults': boolean;
-	/** @deprecated Deprecated since WooCommerce 11.1. This WC Admin feature flag shim will be removed in a future version of WooCommerce. */
+	/** @deprecated Deprecated since PooCommerce 11.1. This WC Admin feature flag shim will be removed in a future version of PooCommerce. */
 	'shipping-setting-tour': boolean;
-	/** @deprecated Deprecated since WooCommerce 11.1. This WC Admin feature flag shim will be removed in a future version of WooCommerce. */
+	/** @deprecated Deprecated since PooCommerce 11.1. This WC Admin feature flag shim will be removed in a future version of PooCommerce. */
 	homescreen: boolean;
-	/** @deprecated Deprecated since WooCommerce 11.1. This WC Admin feature flag shim will be removed in a future version of WooCommerce. */
+	/** @deprecated Deprecated since PooCommerce 11.1. This WC Admin feature flag shim will be removed in a future version of PooCommerce. */
 	marketing: boolean;
-	/** @deprecated Deprecated since WooCommerce 11.1. This WC Admin feature flag shim will be removed in a future version of WooCommerce. */
+	/** @deprecated Deprecated since PooCommerce 11.1. This WC Admin feature flag shim will be removed in a future version of PooCommerce. */
 	'mobile-app-banner': boolean;
-	/** @deprecated Deprecated since WooCommerce 11.1. This WC Admin feature flag shim will be removed in a future version of WooCommerce. */
+	/** @deprecated Deprecated since PooCommerce 11.1. This WC Admin feature flag shim will be removed in a future version of PooCommerce. */
 	onboarding: boolean;
-	/** @deprecated Deprecated since WooCommerce 11.1. This WC Admin feature flag shim will be removed in a future version of WooCommerce. */
+	/** @deprecated Deprecated since PooCommerce 11.1. This WC Admin feature flag shim will be removed in a future version of PooCommerce. */
 	'onboarding-tasks': boolean;
-	/** @deprecated Deprecated since WooCommerce 11.1. This WC Admin feature flag shim will be removed in a future version of WooCommerce. */
+	/** @deprecated Deprecated since PooCommerce 11.1. This WC Admin feature flag shim will be removed in a future version of PooCommerce. */
 	'pattern-toolkit-full-composability': boolean;
-	/** @deprecated Deprecated since WooCommerce 11.1. This WC Admin feature flag shim will be removed in a future version of WooCommerce. */
+	/** @deprecated Deprecated since PooCommerce 11.1. This WC Admin feature flag shim will be removed in a future version of PooCommerce. */
 	'payment-gateway-suggestions': boolean;
-	/** @deprecated Deprecated since WooCommerce 11.1. This WC Admin feature flag shim will be removed in a future version of WooCommerce. */
+	/** @deprecated Deprecated since PooCommerce 11.1. This WC Admin feature flag shim will be removed in a future version of PooCommerce. */
 	'product-custom-fields': boolean;
-	/** @deprecated Deprecated since WooCommerce 11.1. This WC Admin feature flag shim will be removed in a future version of WooCommerce. */
+	/** @deprecated Deprecated since PooCommerce 11.1. This WC Admin feature flag shim will be removed in a future version of PooCommerce. */
 	printful: boolean;
-	/** @deprecated Deprecated since WooCommerce 11.1. This WC Admin feature flag shim will be removed in a future version of WooCommerce. */
+	/** @deprecated Deprecated since PooCommerce 11.1. This WC Admin feature flag shim will be removed in a future version of PooCommerce. */
 	'remote-inbox-notifications': boolean;
-	/** @deprecated Deprecated since WooCommerce 11.1. This WC Admin feature flag shim will be removed in a future version of WooCommerce. */
+	/** @deprecated Deprecated since PooCommerce 11.1. This WC Admin feature flag shim will be removed in a future version of PooCommerce. */
 	'remote-free-extensions': boolean;
-	/** @deprecated Deprecated since WooCommerce 11.1. This WC Admin feature flag shim will be removed in a future version of WooCommerce. */
+	/** @deprecated Deprecated since PooCommerce 11.1. This WC Admin feature flag shim will be removed in a future version of PooCommerce. */
 	'shipping-label-banner': boolean;
-	/** @deprecated Deprecated since WooCommerce 11.1. This WC Admin feature flag shim will be removed in a future version of WooCommerce. */
+	/** @deprecated Deprecated since PooCommerce 11.1. This WC Admin feature flag shim will be removed in a future version of PooCommerce. */
 	subscriptions: boolean;
-	/** @deprecated Deprecated since WooCommerce 11.1. This WC Admin feature flag shim will be removed in a future version of WooCommerce. */
+	/** @deprecated Deprecated since PooCommerce 11.1. This WC Admin feature flag shim will be removed in a future version of PooCommerce. */
 	'transient-notices': boolean;
-	/** @deprecated Deprecated since WooCommerce 11.1. This WC Admin feature flag shim will be removed in a future version of WooCommerce. */
+	/** @deprecated Deprecated since PooCommerce 11.1. This WC Admin feature flag shim will be removed in a future version of PooCommerce. */
 	'wc-pay-promotion': boolean;
-	/** @deprecated Deprecated since WooCommerce 11.1. This WC Admin feature flag shim will be removed in a future version of WooCommerce. */
+	/** @deprecated Deprecated since PooCommerce 11.1. This WC Admin feature flag shim will be removed in a future version of PooCommerce. */
 	'wc-pay-welcome-page': boolean;
-	/** @deprecated Deprecated since WooCommerce 11.1. This WC Admin feature flag shim will be removed in a future version of WooCommerce. */
+	/** @deprecated Deprecated since PooCommerce 11.1. This WC Admin feature flag shim will be removed in a future version of PooCommerce. */
 	'woo-mobile-welcome': boolean;
-	/** @deprecated Deprecated since WooCommerce 11.1. This WC Admin feature flag shim will be removed in a future version of WooCommerce. */
+	/** @deprecated Deprecated since PooCommerce 11.1. This WC Admin feature flag shim will be removed in a future version of PooCommerce. */
 	'launch-your-store': boolean;
 };
 
@@ -75,7 +75,7 @@ declare global {
 			siteTitle: string;
 			homeUrl: string;
 			admin: {
-				woocommerce_payments_nox_profile?: {
+				poocommerce_payments_nox_profile?: {
 					business_country_code: string;
 				};
 				wcpay_welcome_page_connect_nonce: string;
@@ -97,7 +97,7 @@ declare global {
 				};
 				preloadSettings?: {
 					general?: {
-						woocommerce_default_country: string;
+						poocommerce_default_country: string;
 					};
 				};
 				currentUserId: number;
@@ -154,7 +154,7 @@ declare global {
 		getUserSetting?: ( name: string ) => string | undefined;
 		setUserSetting?: ( name: string, value: string ) => void;
 		deleteUserSetting?: ( name: string ) => void;
-		woocommerce_admin: {
+		poocommerce_admin: {
 			ajax_url: string;
 			nonces: {
 				gateway_toggle?: string;

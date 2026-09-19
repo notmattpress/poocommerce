@@ -15,12 +15,12 @@ We do not currently accept free plugins that have no path to monetization. There
 
 The monetization model for your Marketplace listing should reflect the way your solution generates revenue:
 
-- **Standalone functionality plugins**: Plugins that extend WooCommerce with features not tied to an external system can be sold through the standard Marketplace license model, with billing handled directly through Woo.
-- **Integration plugins**: Plugins that connect WooCommerce to an external service or platform require a monetization approach that matches how the integrated system bills merchants.
+- **Standalone functionality plugins**: Plugins that extend PooCommerce with features not tied to an external system can be sold through the standard Marketplace license model, with billing handled directly through Woo.
+- **Integration plugins**: Plugins that connect PooCommerce to an external service or platform require a monetization approach that matches how the integrated system bills merchants.
 
 ## Standalone plugin licensing
 
-For plugins that add functionality to WooCommerce without connecting to an external service, we offer two listing options:
+For plugins that add functionality to PooCommerce without connecting to an external service, we offer two listing options:
 
 ### Paid license
 
@@ -39,7 +39,7 @@ Freemium is ideal for plugins where:
 
 ## Integration plugin requirements
 
-For plugins that integrate WooCommerce with an external system, we have specific expectations:
+For plugins that integrate PooCommerce with an external system, we have specific expectations:
 
 ### First-party development preferred
 
@@ -59,8 +59,8 @@ Plugins that connect to externally-billed services cannot use the standard paid 
 
 | Billing Model | Description | Best For |
 | --- | --- | --- |
-| **Billing API** (recommended) | Our API handles subscription billing on behalf of your service, with validation endpoints to confirm payment status and active subscriptions. Billing shifts to Woo, and you receive payouts based on the revenue share model. [View Billing API documentation →](https://woocommerce.com/document/billing-api-for-saas-products/) | SaaS providers who want Woo to manage the billing relationship with merchants. |
-| **Partnership Agreement** | An agreement that extends our [Marketplace Vendor Agreement](https://woocommerce.com/woo-vendor-agreement/) to accommodate solutions where billing occurs outside of WooCommerce. The plugin is listed free on the Marketplace. | Companies with existing billing relationships and infrastructure. |
+| **Billing API** (recommended) | Our API handles subscription billing on behalf of your service, with validation endpoints to confirm payment status and active subscriptions. Billing shifts to Woo, and you receive payouts based on the revenue share model. [View Billing API documentation →](https://poocommerce.com/document/billing-api-for-saas-products/) | SaaS providers who want Woo to manage the billing relationship with merchants. |
+| **Partnership Agreement** | An agreement that extends our [Marketplace Vendor Agreement](https://poocommerce.com/woo-vendor-agreement/) to accommodate solutions where billing occurs outside of PooCommerce. The plugin is listed free on the Marketplace. | Companies with existing billing relationships and infrastructure. |
 
 ### About the Partnership Agreement
 
@@ -78,14 +78,14 @@ If you sell your theme elsewhere with multi-site licenses or tiered packages, yo
 
 Business services (such as consulting, development, or managed services) require a formal agreement and prior approval from the Marketplace team before listing.
 
-If you offer business services that complement WooCommerce and would like to explore listing on the Marketplace, please [contact the Marketplace team](#questions-about-your-billing-structure) to discuss your offering and eligibility requirements.
+If you offer business services that complement PooCommerce and would like to explore listing on the Marketplace, please [contact the Marketplace team](#questions-about-your-billing-structure) to discuss your offering and eligibility requirements.
 
 ## Questions about your billing structure?
 
-If you're unsure which monetization model applies to your plugin, theme, or service, or if you'd like to discuss partnership options before submitting for review, please [contact the Marketplace team](https://woocommerce.com/partnerships-contact/). We recommend reaching out early in your planning process to ensure alignment before you invest significant development effort.
+If you're unsure which monetization model applies to your plugin, theme, or service, or if you'd like to discuss partnership options before submitting for review, please [contact the Marketplace team](https://poocommerce.com/partnerships-contact/). We recommend reaching out early in your planning process to ensure alignment before you invest significant development effort.
 
 ## Related resources
 
-- [Marketplace Vendor Agreement](https://woocommerce.com/woo-vendor-agreement/) — Standard terms for all Marketplace vendors
-- [Billing API for SaaS Products](https://woocommerce.com/document/billing-api-for-saas-products/) — Technical documentation for integrating with our billing system
-- [Submitting Your Product](https://woocommerce.com/document/submitting-your-product-to-the-woo-marketplace/) — Complete submission guidelines
+- [Marketplace Vendor Agreement](https://poocommerce.com/woo-vendor-agreement/) — Standard terms for all Marketplace vendors
+- [Billing API for SaaS Products](https://poocommerce.com/document/billing-api-for-saas-products/) — Technical documentation for integrating with our billing system
+- [Submitting Your Product](https://poocommerce.com/document/submitting-your-product-to-the-woo-marketplace/) — Complete submission guidelines

@@ -1,16 +1,16 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "woocommerce/product-specifications",
+	"name": "poocommerce/product-specifications",
 	"version": "1.0.0",
 	"title": "Product Specifications",
 	"description": "Display product weight, dimensions, and attributes.",
-	"category": "woocommerce",
+	"category": "poocommerce",
 	"keywords": [ "attributes", "weight", "dimensions", "additional information" ],
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"ancestor": [
-		"woocommerce/single-product",
-		"woocommerce/product-template",
+		"poocommerce/single-product",
+		"poocommerce/product-template",
 		"core/post-template"
 	],
 	"attributes": {

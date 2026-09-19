@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Admin\Features\Blueprint\Stubs;
+namespace Automattic\PooCommerce\Tests\Admin\Features\Blueprint\Stubs;
 
-use Automattic\WooCommerce\Blueprint\Exporters\StepExporter;
+use Automattic\PooCommerce\Blueprint\Exporters\StepExporter;
 
 /**
  * Dummy exporter for testing purposes.

@@ -2,16 +2,16 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\StockNotifications\AsyncTasks;
+namespace Automattic\PooCommerce\Internal\StockNotifications\AsyncTasks;
 
-use Automattic\WooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
-use Automattic\WooCommerce\Internal\StockNotifications\Enums\NotificationCancellationSource;
-use Automattic\WooCommerce\Internal\StockNotifications\Factory;
-use Automattic\WooCommerce\Internal\StockNotifications\Config;
-use Automattic\WooCommerce\Internal\StockNotifications\Notification;
-use Automattic\WooCommerce\Internal\StockNotifications\NotificationQuery;
-use Automattic\WooCommerce\Internal\StockNotifications\Emails\EmailManager;
-use Automattic\WooCommerce\Internal\StockNotifications\Utilities\EligibilityService;
+use Automattic\PooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
+use Automattic\PooCommerce\Internal\StockNotifications\Enums\NotificationCancellationSource;
+use Automattic\PooCommerce\Internal\StockNotifications\Factory;
+use Automattic\PooCommerce\Internal\StockNotifications\Config;
+use Automattic\PooCommerce\Internal\StockNotifications\Notification;
+use Automattic\PooCommerce\Internal\StockNotifications\NotificationQuery;
+use Automattic\PooCommerce\Internal\StockNotifications\Emails\EmailManager;
+use Automattic\PooCommerce\Internal\StockNotifications\Utilities\EligibilityService;
 use WC_Product;
 use Exception;
 
@@ -70,7 +70,7 @@ class JobManager {
 			}
 
 			/**
-			 * Filter: woocommerce_customer_stock_notifications_first_batch_delay
+			 * Filter: poocommerce_customer_stock_notifications_first_batch_delay
 			 *
 			 * @since 10.2.0
 			 *
@@ -79,7 +79,7 @@ class JobManager {
 			 * @param int   $delay       Delay time in seconds before first batch.
 			 * @param int   $product_id  Product ID being scheduled.
 			 */
-			$delay = (int) apply_filters( 'woocommerce_customer_stock_notifications_first_batch_delay', MINUTE_IN_SECONDS, $product_id );
+			$delay = (int) apply_filters( 'poocommerce_customer_stock_notifications_first_batch_delay', MINUTE_IN_SECONDS, $product_id );
 			$delay = max( 0, $delay );
 
 			$action_id = $this->queue->schedule_single(
@@ -124,14 +124,14 @@ class JobManager {
 		}
 
 		/**
-		 * Filter: woocommerce_customer_stock_notifications_next_batch_delay
+		 * Filter: poocommerce_customer_stock_notifications_next_batch_delay
 		 *
 		 * @since 10.2.0
 		 *
 		 * @param int   $delay       Delay time in seconds before next batch.
 		 * @param int   $product_id  Product ID being scheduled.
 		 */
-		$delay = (int) apply_filters( 'woocommerce_customer_stock_notifications_next_batch_delay', 0, $product_id );
+		$delay = (int) apply_filters( 'poocommerce_customer_stock_notifications_next_batch_delay', 0, $product_id );
 		$delay = max( 0, $delay );
 
 		if ( 0 === $delay ) {

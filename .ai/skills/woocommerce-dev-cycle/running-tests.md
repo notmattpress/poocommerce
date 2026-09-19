@@ -16,7 +16,7 @@
 
 ## PHP Unit Tests
 
-To run PHP unit tests in the WooCommerce plugin directory, use the following commands:
+To run PHP unit tests in the PooCommerce plugin directory, use the following commands:
 
 ### Basic Test Commands
 
@@ -81,7 +81,7 @@ pnpm run test:php:env -- --coverage-text
 
 ### How It Works
 
-Tests run in Docker via `wp-env` with auto-configured WordPress/WooCommerce (PHPUnit 9.6.24, PHP 8.1).
+Tests run in Docker via `wp-env` with auto-configured WordPress/PooCommerce (PHPUnit 9.6.24, PHP 8.1).
 
 ### Environment Setup
 
@@ -193,7 +193,7 @@ Test failures provide:
 
 ## Test Configuration
 
-Test configuration file: `plugins/woocommerce/phpunit.xml`
+Test configuration file: `plugins/poocommerce/phpunit.xml`
 
 This file contains:
 
@@ -242,7 +242,7 @@ Common issues:
 
 ## Notes
 
-- The test environment handles WordPress/WooCommerce setup automatically
+- The test environment handles WordPress/PooCommerce setup automatically
 - Extension counts in payment tests must match the actual implementation exactly
 - Test data providers are useful for testing multiple scenarios
 - Always check test output for helpful error messages

@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 /**
  * Tests for WC_Admin_Assets.
  *
- * @package WooCommerce\Tests\Admin
+ * @package PooCommerce\Tests\Admin
  */
 class WC_Admin_Assets_Test extends WC_Unit_Test_Case {
 
@@ -37,8 +37,8 @@ class WC_Admin_Assets_Test extends WC_Unit_Test_Case {
 	public function tearDown(): void {
 		try {
 			unset( $_GET['page'] );
-			wp_dequeue_script( 'woocommerce_admin' );
-			wp_dequeue_script( 'woocommerce_quick-edit' );
+			wp_dequeue_script( 'poocommerce_admin' );
+			wp_dequeue_script( 'poocommerce_quick-edit' );
 			wp_dequeue_script( 'jquery-ui-datepicker' );
 			wp_dequeue_script( 'heartbeat' );
 			// wp_localize_script() appends to a handle's data, and nothing resets wp_scripts() between tests.
@@ -68,7 +68,7 @@ class WC_Admin_Assets_Test extends WC_Unit_Test_Case {
 
 		$this->sut->admin_scripts();
 
-		$quick_edit = wp_scripts()->registered['woocommerce_quick-edit'];
+		$quick_edit = wp_scripts()->registered['poocommerce_quick-edit'];
 
 		$this->assertNotContains( 'jquery-ui-datepicker', $quick_edit->deps, 'Quick Edit should load even when another plugin deregisters the datepicker.' );
 		$this->assertTrue( wp_script_is( 'jquery-ui-datepicker', 'enqueued' ), 'The datepicker should still be requested when it is available.' );
@@ -76,10 +76,10 @@ class WC_Admin_Assets_Test extends WC_Unit_Test_Case {
 
 	/**
 	 * @testdox Should set up the lost connection notice and heartbeat correctly per screen, and never re-enqueue autosave.
-	 * @testWith ["woocommerce_page_wc-orders", "woocommerce_page_wc-orders", "", false, true]
+	 * @testWith ["poocommerce_page_wc-orders", "poocommerce_page_wc-orders", "", false, true]
 	 *           ["shop_order", "post", "shop_order", false, true]
 	 *           ["product", "post", "product", false, false]
-	 *           ["toplevel_page_woocommerce", "toplevel_page_woocommerce", "", true, false]
+	 *           ["toplevel_page_poocommerce", "toplevel_page_poocommerce", "", true, false]
 	 *
 	 * @param string $screen_id   Screen id.
 	 * @param string $base        Screen base.
@@ -97,8 +97,8 @@ class WC_Admin_Assets_Test extends WC_Unit_Test_Case {
 
 		$this->sut->admin_scripts();
 
-		$localized = wp_scripts()->get_data( 'woocommerce_admin', 'data' );
-		$this->assertIsString( $localized, 'woocommerce_admin should be localized on this screen' );
+		$localized = wp_scripts()->get_data( 'poocommerce_admin', 'data' );
+		$this->assertIsString( $localized, 'poocommerce_admin should be localized on this screen' );
 		$this->assertStringContainsString(
 			'"show_lost_connection_notice":"' . ( $expected ? '1' : '' ) . '"',
 			$localized,
@@ -119,7 +119,7 @@ class WC_Admin_Assets_Test extends WC_Unit_Test_Case {
 
 	/**
 	 * @testdox Should render the lost connection notice markup only where expected.
-	 * @testWith ["woocommerce_page_wc-orders", "woocommerce_page_wc-orders", "", true]
+	 * @testWith ["poocommerce_page_wc-orders", "poocommerce_page_wc-orders", "", true]
 	 *           ["shop_order", "post", "shop_order", true]
 	 *           ["product", "post", "product", false]
 	 *
@@ -154,7 +154,7 @@ class WC_Admin_Assets_Test extends WC_Unit_Test_Case {
 		$this->ensure_wp_admin_script_asset_registry( 'command-palette' );
 		$this->ensure_wp_admin_script_asset_registry( 'command-palette-analytics' );
 		add_filter(
-			'woocommerce_analytics_report_menu_items',
+			'poocommerce_analytics_report_menu_items',
 			static function () {
 				return array(
 					array(

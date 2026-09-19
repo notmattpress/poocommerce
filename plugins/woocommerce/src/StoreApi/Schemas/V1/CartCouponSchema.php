@@ -1,7 +1,7 @@
 <?php
-namespace Automattic\WooCommerce\StoreApi\Schemas\V1;
+namespace Automattic\PooCommerce\StoreApi\Schemas\V1;
 
-use Automattic\WooCommerce\StoreApi\Utilities\CartController;
+use Automattic\PooCommerce\StoreApi\Utilities\CartController;
 
 /**
  * CartCouponSchema class.
@@ -29,7 +29,7 @@ class CartCouponSchema extends AbstractSchema {
 	public function get_properties() {
 		return [
 			'code'          => [
-				'description' => __( 'The coupon\'s unique code.', 'woocommerce' ),
+				'description' => __( 'The coupon\'s unique code.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => [ 'view', 'edit' ],
 				'arg_options' => [
@@ -38,7 +38,7 @@ class CartCouponSchema extends AbstractSchema {
 				],
 			],
 			'discount_type' => [
-				'description' => __( 'The discount type for the coupon (e.g. percentage or fixed amount)', 'woocommerce' ),
+				'description' => __( 'The discount type for the coupon (e.g. percentage or fixed amount)', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => [ 'view', 'edit' ],
 				'arg_options' => [
@@ -46,7 +46,7 @@ class CartCouponSchema extends AbstractSchema {
 				],
 			],
 			'totals'        => [
-				'description' => __( 'Total amounts provided using the smallest unit of the currency.', 'woocommerce' ),
+				'description' => __( 'Total amounts provided using the smallest unit of the currency.', 'poocommerce' ),
 				'type'        => 'object',
 				'context'     => [ 'view', 'edit' ],
 				'readonly'    => true,
@@ -54,13 +54,13 @@ class CartCouponSchema extends AbstractSchema {
 					$this->get_store_currency_properties(),
 					[
 						'total_discount'     => [
-							'description' => __( 'Total discount applied by this coupon.', 'woocommerce' ),
+							'description' => __( 'Total discount applied by this coupon.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => [ 'view', 'edit' ],
 							'readonly'    => true,
 						],
 						'total_discount_tax' => [
-							'description' => __( 'Total tax removed due to discount applied by this coupon.', 'woocommerce' ),
+							'description' => __( 'Total tax removed due to discount applied by this coupon.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => [ 'view', 'edit' ],
 							'readonly'    => true,

@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { expect, test, CLASSIC_THEME_SLUG } from '@woocommerce/e2e-utils';
+import { expect, test, CLASSIC_THEME_SLUG } from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies

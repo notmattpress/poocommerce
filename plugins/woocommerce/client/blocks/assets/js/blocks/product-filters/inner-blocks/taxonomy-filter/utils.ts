@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { getSetting } from '@woocommerce/settings';
+import { getSetting } from '@poocommerce/settings';
 import { __ } from '@wordpress/i18n';
 
 /**
@@ -19,5 +19,5 @@ export function getTaxonomyLabel( taxonomy: string ) {
 	if ( match ) {
 		return match.label;
 	}
-	return __( 'Taxonomy', 'woocommerce' );
+	return __( 'Taxonomy', 'poocommerce' );
 }

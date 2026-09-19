@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { test, expect, guestFile } from '@woocommerce/e2e-utils';
+import { test, expect, guestFile } from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -92,7 +92,7 @@ test.describe( 'Cart Store', () => {
 		invalidateNextBatch = true;
 		await frontendUtils.addToCart( REGULAR_PRICED_PRODUCT_NAME );
 		expect( invalidResponseBody ).toContain(
-			'woocommerce_rest_invalid_nonce'
+			'poocommerce_rest_invalid_nonce'
 		);
 		await expect( page.getByText( 'Nonce is invalid.' ) ).toBeVisible();
 		expect( invalidBatchRequestNonce ).toBe( initialBatchRequestNonce );

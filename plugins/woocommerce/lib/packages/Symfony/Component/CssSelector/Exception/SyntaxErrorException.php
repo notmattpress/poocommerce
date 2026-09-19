@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Automattic\WooCommerce\Vendor\Symfony\Component\CssSelector\Exception;
+namespace Automattic\PooCommerce\Vendor\Symfony\Component\CssSelector\Exception;
 
-use Automattic\WooCommerce\Vendor\Symfony\Component\CssSelector\Parser\Token;
+use Automattic\PooCommerce\Vendor\Symfony\Component\CssSelector\Parser\Token;
 
 /**
  * ParseException is thrown when a CSS selector syntax is not valid.

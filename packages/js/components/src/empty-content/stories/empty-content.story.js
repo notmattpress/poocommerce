@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { EmptyContent } from '@woocommerce/components';
+import { EmptyContent } from '@poocommerce/components';
 
 export const Basic = () => (
 	<EmptyContent

@@ -3,7 +3,7 @@ title: wc product_variation
 sidebar_label: wc product_variation
 ---
 
-Manage WooCommerce product variation resources.
+Manage PooCommerce product variation resources.
 
 ## wc product_variation list `<product_id>`
 

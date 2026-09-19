@@ -5,7 +5,7 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Admin\EmailPreview;
+namespace Automattic\PooCommerce\Internal\Admin\EmailPreview;
 
 use WC_Order;
 

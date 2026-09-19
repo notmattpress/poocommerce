@@ -43,17 +43,17 @@ const fields: Array< {
 	{
 		label: 'Company',
 		name: 'company',
-		option: 'woocommerce_checkout_company_field',
+		option: 'poocommerce_checkout_company_field',
 	},
 	{
 		label: 'Address line 2',
 		name: 'address_2',
-		option: 'woocommerce_checkout_address_2_field',
+		option: 'poocommerce_checkout_address_2_field',
 	},
 	{
 		label: 'Phone',
 		name: 'phone',
-		option: 'woocommerce_checkout_phone_field',
+		option: 'poocommerce_checkout_phone_field',
 	},
 ];
 

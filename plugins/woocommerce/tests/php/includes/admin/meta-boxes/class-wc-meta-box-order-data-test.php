@@ -2,7 +2,7 @@
 /**
  * Tests for the order data meta box.
  *
- * @package WooCommerce\Tests\Admin
+ * @package PooCommerce\Tests\Admin
  */
 
 declare( strict_types = 1 );
@@ -70,12 +70,12 @@ class WC_Meta_Box_Order_Data_Test extends WC_Unit_Test_Case {
 	public function setUp(): void {
 		parent::setUp();
 
-		$this->had_shipping_calculation_option      = false !== get_option( 'woocommerce_calc_shipping', false );
-		$this->original_shipping_calculation_option = get_option( 'woocommerce_calc_shipping' );
+		$this->had_shipping_calculation_option      = false !== get_option( 'poocommerce_calc_shipping', false );
+		$this->original_shipping_calculation_option = get_option( 'poocommerce_calc_shipping' );
 		$this->had_global_order                     = array_key_exists( 'theorder', $GLOBALS );
 		$this->original_global_order                = $GLOBALS['theorder'] ?? null;
 
-		update_option( 'woocommerce_calc_shipping', 'yes' );
+		update_option( 'poocommerce_calc_shipping', 'yes' );
 	}
 
 	/**
@@ -83,7 +83,7 @@ class WC_Meta_Box_Order_Data_Test extends WC_Unit_Test_Case {
 	 */
 	public function tearDown(): void {
 		if ( $this->shipping_fields_filter ) {
-			remove_filter( 'woocommerce_admin_shipping_fields', $this->shipping_fields_filter );
+			remove_filter( 'poocommerce_admin_shipping_fields', $this->shipping_fields_filter );
 		}
 
 		foreach ( $this->orders as $order ) {
@@ -95,9 +95,9 @@ class WC_Meta_Box_Order_Data_Test extends WC_Unit_Test_Case {
 		}
 
 		if ( $this->had_shipping_calculation_option ) {
-			update_option( 'woocommerce_calc_shipping', $this->original_shipping_calculation_option );
+			update_option( 'poocommerce_calc_shipping', $this->original_shipping_calculation_option );
 		} else {
-			delete_option( 'woocommerce_calc_shipping' );
+			delete_option( 'poocommerce_calc_shipping' );
 		}
 
 		if ( $this->had_global_order ) {
@@ -137,13 +137,13 @@ class WC_Meta_Box_Order_Data_Test extends WC_Unit_Test_Case {
 
 			return (string) ob_get_clean();
 		};
-		add_filter( 'woocommerce_json_search_found_customers', $customer_filter );
+		add_filter( 'poocommerce_json_search_found_customers', $customer_filter );
 
 		try {
 			$registered_output = $render_order_data( $registered_order );
 			$guest_output      = $render_order_data( $guest_order );
 		} finally {
-			remove_filter( 'woocommerce_json_search_found_customers', $customer_filter );
+			remove_filter( 'poocommerce_json_search_found_customers', $customer_filter );
 		}
 
 		$this->assertCount( 2, $filter_inputs, 'The filter should run once for each rendered order.' );
@@ -182,12 +182,12 @@ class WC_Meta_Box_Order_Data_Test extends WC_Unit_Test_Case {
 
 			return false;
 		};
-		add_filter( 'woocommerce_hide_order_admin_shipping_details', $show_shipping_details, 10, 2 );
+		add_filter( 'poocommerce_hide_order_admin_shipping_details', $show_shipping_details, 10, 2 );
 
 		try {
 			$summary = $this->render_shipping_address_summary( $order );
 		} finally {
-			remove_filter( 'woocommerce_hide_order_admin_shipping_details', $show_shipping_details );
+			remove_filter( 'poocommerce_hide_order_admin_shipping_details', $show_shipping_details );
 		}
 
 		$this->assertStringContainsString( 'Virtual Customer', $summary );
@@ -469,12 +469,12 @@ class WC_Meta_Box_Order_Data_Test extends WC_Unit_Test_Case {
 
 			return $items;
 		};
-		add_filter( 'woocommerce_order_get_items', $inject_non_product_item );
+		add_filter( 'poocommerce_order_get_items', $inject_non_product_item );
 
 		try {
 			$summary = $this->render_shipping_address_summary( $order );
 		} finally {
-			remove_filter( 'woocommerce_order_get_items', $inject_non_product_item );
+			remove_filter( 'poocommerce_order_get_items', $inject_non_product_item );
 		}
 
 		$this->assertStringContainsString( '500 Billing Avenue', $summary );
@@ -533,14 +533,14 @@ class WC_Meta_Box_Order_Data_Test extends WC_Unit_Test_Case {
 		$normalize_address = static function () {
 			return 'Normalized address';
 		};
-		add_filter( 'woocommerce_order_get_billing_address_1', $normalize_address );
-		add_filter( 'woocommerce_order_get_shipping_address_1', $normalize_address );
+		add_filter( 'poocommerce_order_get_billing_address_1', $normalize_address );
+		add_filter( 'poocommerce_order_get_shipping_address_1', $normalize_address );
 
 		try {
 			$summary = $this->render_shipping_address_summary( $order );
 		} finally {
-			remove_filter( 'woocommerce_order_get_billing_address_1', $normalize_address );
-			remove_filter( 'woocommerce_order_get_shipping_address_1', $normalize_address );
+			remove_filter( 'poocommerce_order_get_billing_address_1', $normalize_address );
+			remove_filter( 'poocommerce_order_get_shipping_address_1', $normalize_address );
 		}
 
 		$this->assertStringContainsString( '742 Evergreen Terrace', $summary );
@@ -576,7 +576,7 @@ class WC_Meta_Box_Order_Data_Test extends WC_Unit_Test_Case {
 
 			return $fields;
 		};
-		add_filter( 'woocommerce_admin_shipping_fields', $this->shipping_fields_filter );
+		add_filter( 'poocommerce_admin_shipping_fields', $this->shipping_fields_filter );
 
 		$summary = $this->render_shipping_address_summary( $order );
 
@@ -597,7 +597,7 @@ class WC_Meta_Box_Order_Data_Test extends WC_Unit_Test_Case {
 
 			return $fields;
 		};
-		add_filter( 'woocommerce_admin_shipping_fields', $this->shipping_fields_filter );
+		add_filter( 'poocommerce_admin_shipping_fields', $this->shipping_fields_filter );
 
 		$summary = $this->render_shipping_address_summary( $order );
 

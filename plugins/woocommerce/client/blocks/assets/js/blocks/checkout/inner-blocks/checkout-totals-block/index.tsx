@@ -11,7 +11,7 @@ import { Edit, Save } from './edit';
 import './style.scss';
 import metadata from './block.json';
 
-registerBlockType( 'woocommerce/checkout-totals-block', {
+registerBlockType( 'poocommerce/checkout-totals-block', {
 	apiVersion: metadata.apiVersion,
 	title: metadata.title,
 	icon: {

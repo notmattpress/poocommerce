@@ -4,18 +4,18 @@
 import {
 	PlainPaymentMethods,
 	PlainExpressPaymentMethods,
-} from '@woocommerce/types';
+} from '@poocommerce/types';
 import type {
 	EmptyObjectType,
 	ObjectType,
 	FieldValidationStatus,
-} from '@woocommerce/types';
+} from '@poocommerce/types';
 import { DataRegistry } from '@wordpress/data';
 
 /**
  * Internal dependencies
  */
-import type { EventObserversType } from '@woocommerce/base-context/event-emit';
+import type { EventObserversType } from '@poocommerce/base-context/event-emit';
 import type { DispatchFromMap } from '../mapped-types';
 import * as actions from './actions';
 

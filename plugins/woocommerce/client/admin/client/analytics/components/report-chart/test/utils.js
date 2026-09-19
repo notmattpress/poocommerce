@@ -8,7 +8,7 @@ import {
 	getCurrentPeriod,
 	getLastPeriod,
 	getPreviousDate,
-} from '@woocommerce/date';
+} from '@poocommerce/date';
 
 /**
  * Internal dependencies

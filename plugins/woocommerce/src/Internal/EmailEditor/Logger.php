@@ -1,25 +1,25 @@
 <?php
 /**
- * This file is part of the WooCommerce package.
+ * This file is part of the PooCommerce package.
  *
- * @package Automattic\WooCommerce\Internal\EmailEditor
+ * @package Automattic\PooCommerce\Internal\EmailEditor
  */
 
 declare(strict_types = 1);
 
-namespace Automattic\WooCommerce\Internal\EmailEditor;
+namespace Automattic\PooCommerce\Internal\EmailEditor;
 
-use Automattic\WooCommerce\EmailEditor\Engine\Logger\Email_Editor_Logger_Interface;
+use Automattic\PooCommerce\EmailEditor\Engine\Logger\Email_Editor_Logger_Interface;
 use WC_Log_Levels;
 
 /**
- * WooCommerce logger adapter for the email editor.
+ * PooCommerce logger adapter for the email editor.
  *
- * This class adapts the WooCommerce logger to work with the email editor logging interface.
+ * This class adapts the PooCommerce logger to work with the email editor logging interface.
  */
 class Logger implements Email_Editor_Logger_Interface {
 	/**
-	 * The WooCommerce logger instance.
+	 * The PooCommerce logger instance.
 	 *
 	 * @var \WC_Logger_Interface
 	 */
@@ -28,7 +28,7 @@ class Logger implements Email_Editor_Logger_Interface {
 	/**
 	 * Constructor.
 	 *
-	 * @param \WC_Logger_Interface $wc_logger The WooCommerce logger instance.
+	 * @param \WC_Logger_Interface $wc_logger The PooCommerce logger instance.
 	 */
 	public function __construct( \WC_Logger_Interface $wc_logger ) {
 		$this->wc_logger = $wc_logger;
@@ -48,7 +48,7 @@ class Logger implements Email_Editor_Logger_Interface {
 		 *
 		 * @since 10.2.0
 		 */
-		$logging_threshold = apply_filters( 'woocommerce_email_editor_logging_threshold', WC_Log_Levels::WARNING );
+		$logging_threshold = apply_filters( 'poocommerce_email_editor_logging_threshold', WC_Log_Levels::WARNING );
 
 		return WC_Log_Levels::get_level_severity( $logging_threshold ) <= WC_Log_Levels::get_level_severity( $level );
 	}

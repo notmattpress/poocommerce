@@ -1,5 +1,5 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
 /**
  * ProductSearch class.
@@ -40,8 +40,8 @@ class ProductSearch extends AbstractBlock {
 				'hasLabel'    => true,
 				'align'       => '',
 				'className'   => '',
-				'label'       => __( 'Search', 'woocommerce' ),
-				'placeholder' => __( 'Search products…', 'woocommerce' ),
+				'label'       => __( 'Search', 'poocommerce' ),
+				'placeholder' => __( 'Search products…', 'poocommerce' ),
 			)
 		);
 
@@ -49,7 +49,7 @@ class ProductSearch extends AbstractBlock {
 		 * Product Search event.
 		 *
 		 * Listens for product search form submission, and on submission fires a WP Hook named
-		 * `experimental__woocommerce_blocks-product-search`. This can be used by tracking extensions such as Google
+		 * `experimental__poocommerce_blocks-product-search`. This can be used by tracking extensions such as Google
 		 * Analytics to track searches.
 		 */
 		$this->asset_api->add_inline_script(
@@ -63,7 +63,7 @@ class ProductSearch extends AbstractBlock {
 						const field = form.querySelector( '.wc-block-product-search__field' );
 
 						if ( field && field.value ) {
-							wp.hooks.doAction( 'experimental__woocommerce_blocks-product-search', { event: event, searchTerm: field.value } );
+							wp.hooks.doAction( 'experimental__poocommerce_blocks-product-search', { event: event, searchTerm: field.value } );
 						}
 					} );
 				}
@@ -108,7 +108,7 @@ class ProductSearch extends AbstractBlock {
 					<path d="M6 15l5-5-5-5 1-2 7 7-7 7z" />
 				</svg>
 			</button>',
-			esc_attr__( 'Search', 'woocommerce' )
+			esc_attr__( 'Search', 'poocommerce' )
 		);
 
 		$field_markup = '

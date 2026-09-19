@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\Checkout;
+namespace Automattic\PooCommerce\Internal\Checkout;
 
 use Opis\JsonSchema\Errors\ValidationError;
 use Opis\JsonSchema\JsonPointer;

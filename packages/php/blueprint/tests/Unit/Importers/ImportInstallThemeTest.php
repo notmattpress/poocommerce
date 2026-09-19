@@ -1,18 +1,18 @@
 <?php
 
-namespace Automattic\WooCommerce\Blueprint\Tests\Unit\Importers;
+namespace Automattic\PooCommerce\Blueprint\Tests\Unit\Importers;
 
-use Automattic\WooCommerce\Blueprint\Importers\ImportInstallTheme;
-use Automattic\WooCommerce\Blueprint\ResourceStorages;
-use Automattic\WooCommerce\Blueprint\StepProcessorResult;
-use Automattic\WooCommerce\Blueprint\Steps\InstallTheme;
+use Automattic\PooCommerce\Blueprint\Importers\ImportInstallTheme;
+use Automattic\PooCommerce\Blueprint\ResourceStorages;
+use Automattic\PooCommerce\Blueprint\StepProcessorResult;
+use Automattic\PooCommerce\Blueprint\Steps\InstallTheme;
 use Mockery;
 use PHPUnit\Framework\TestCase;
 
 /**
  * Test the ImportInstallTheme class.
  *
- * @package Automattic\WooCommerce\Blueprint\Tests\Unit\Importers
+ * @package Automattic\PooCommerce\Blueprint\Tests\Unit\Importers
  */
 class ImportInstallThemeTest extends TestCase {
 	/**

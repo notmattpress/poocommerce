@@ -2,14 +2,14 @@
 
 defined( 'ABSPATH' ) || exit;
 
-register_woocommerce_admin_test_helper_rest_route(
+register_poocommerce_admin_test_helper_rest_route(
 	'/tools/get-update-versions/v1',
 	'tools_get_wc_admin_versions',
 	array(
 		'methods' => 'GET',
 	)
 );
-register_woocommerce_admin_test_helper_rest_route(
+register_poocommerce_admin_test_helper_rest_route(
 	'/tools/trigger-selected-update-callbacks/v1',
 	'trigger_selected_update_callbacks',
 	array(
@@ -25,7 +25,7 @@ register_woocommerce_admin_test_helper_rest_route(
 );
 
 /**
- * A tool to get the list of WooCommerce Admin update versions.
+ * A tool to get the list of PooCommerce Admin update versions.
  */
 function tools_get_wc_admin_versions() {
 	$db_updates = \WC_Install::get_db_update_callbacks();

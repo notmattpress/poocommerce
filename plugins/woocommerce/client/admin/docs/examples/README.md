@@ -1,4 +1,4 @@
 Examples
 ==========
 
-This folder contains examples of extending various parts of WooCommerce Admin.
+This folder contains examples of extending various parts of PooCommerce Admin.

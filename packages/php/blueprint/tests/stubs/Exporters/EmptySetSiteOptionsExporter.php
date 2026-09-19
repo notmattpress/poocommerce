@@ -1,9 +1,9 @@
 <?php
 
-namespace Automattic\WooCommerce\Blueprint\Tests\stubs\Exporters;
+namespace Automattic\PooCommerce\Blueprint\Tests\stubs\Exporters;
 
-use Automattic\WooCommerce\Blueprint\Exporters\StepExporter;
-use Automattic\WooCommerce\Blueprint\Steps\SetSiteOptions;
+use Automattic\PooCommerce\Blueprint\Exporters\StepExporter;
+use Automattic\PooCommerce\Blueprint\Steps\SetSiteOptions;
 
 /**
  * Class EmptySetSiteOptionsExporter

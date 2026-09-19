@@ -1,5 +1,5 @@
 /**
- * Global type declarations for WooCommerce Analytics
+ * Global type declarations for PooCommerce Analytics
  */
 
 declare global {

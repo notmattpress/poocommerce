@@ -7,13 +7,13 @@ import { wpCLI } from '../utils/cli';
 
 const updatePayPalFixtureSettings = async ( shouldLoad: 'yes' | 'no' ) => {
 	await wpCLI(
-		`wp eval '$settings = get_option( "woocommerce_paypal_settings", array() ); if ( ! is_array( $settings ) ) { throw new RuntimeException( "woocommerce_paypal_settings must be an array." ); } $settings["enabled"] = "no"; $settings["transact_onboarding_complete"] = "no"; $settings["_should_load"] = "${ shouldLoad }"; update_option( "woocommerce_paypal_settings", $settings );'`
+		`wp eval '$settings = get_option( "poocommerce_paypal_settings", array() ); if ( ! is_array( $settings ) ) { throw new RuntimeException( "poocommerce_paypal_settings must be an array." ); } $settings["enabled"] = "no"; $settings["transact_onboarding_complete"] = "no"; $settings["_should_load"] = "${ shouldLoad }"; update_option( "poocommerce_paypal_settings", $settings );'`
 	);
 };
 
 const deletePayPalAccountOptions = async () => {
 	await wpCLI(
-		`wp eval 'delete_option( "woocommerce_paypal_transact_merchant_account_live" ); delete_option( "woocommerce_paypal_transact_merchant_account_test" ); delete_option( "woocommerce_paypal_transact_provider_account_live" ); delete_option( "woocommerce_paypal_transact_provider_account_test" );'`
+		`wp eval 'delete_option( "poocommerce_paypal_transact_merchant_account_live" ); delete_option( "poocommerce_paypal_transact_merchant_account_test" ); delete_option( "poocommerce_paypal_transact_provider_account_live" ); delete_option( "poocommerce_paypal_transact_provider_account_test" );'`
 	);
 };
 

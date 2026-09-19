@@ -18,10 +18,10 @@ import { Location } from '.';
 // Key is the country code, value is an object with keys as region/city names and values as WC region labels.
 const MAPPING: Record< string, Record< string, string > > = {
 	PH: {
-		'National Capital Region': __( 'Metro Manila', 'woocommerce' ),
+		'National Capital Region': __( 'Metro Manila', 'poocommerce' ),
 	},
 	IT: {
-		Rome: __( 'Roma', 'woocommerce' ),
+		Rome: __( 'Roma', 'poocommerce' ),
 	},
 };
 

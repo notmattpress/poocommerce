@@ -4,7 +4,7 @@ alwaysApply: false
 ---
 # Code Quality
 
-This rule provides guidance for best code quality practices and preventing bugs in WooCommerce.
+This rule provides guidance for best code quality practices and preventing bugs in PooCommerce.
 
 ## Best Practices
 

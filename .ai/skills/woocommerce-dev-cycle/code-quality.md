@@ -17,7 +17,7 @@
 
 ## Overview
 
-When making changes to the WooCommerce codebase, run these commands to ensure code quality and adherence to coding standards.
+When making changes to the PooCommerce codebase, run these commands to ensure code quality and adherence to coding standards.
 
 For detailed PHP linting patterns and common issues, see [php-linting-patterns.md](php-linting-patterns.md).
 
@@ -84,10 +84,10 @@ This command:
 
 ```bash
 # Check blocks JS/TS (includes prettier via eslint plugin)
-pnpm --filter=@woocommerce/block-library lint:js
+pnpm --filter=@poocommerce/block-library lint:js
 
 # Auto-fix blocks JS/TS issues
-pnpm --filter=@woocommerce/block-library lint:js-fix
+pnpm --filter=@poocommerce/block-library lint:js-fix
 ```
 
 For detailed JavaScript/TypeScript linting configuration and patterns, see `client/admin/CLAUDE.md`.
@@ -208,7 +208,7 @@ Before committing your changes:
 - [ ] Run `pnpm run lint:changes:branch:php`
 - [ ] Run `pnpm run lint:php:fix` if issues found
 - [ ] Run `pnpm run lint:changes:branch:js` if you modified JS files
-- [ ] Run `pnpm --filter=@woocommerce/block-library lint:js-fix` if you modified blocks JS/TS files
+- [ ] Run `pnpm --filter=@poocommerce/block-library lint:js-fix` if you modified blocks JS/TS files
 - [ ] Review all automatic fixes with `git diff`
 - [ ] Address any remaining issues that can't be auto-fixed
 - [ ] Run tests to ensure fixes didn't break functionality
@@ -227,7 +227,7 @@ Code quality checks fit into the overall development workflow:
 
 ### Running Other pnpm Scripts
 
-WooCommerce may have additional linting scripts. Check available scripts:
+PooCommerce may have additional linting scripts. Check available scripts:
 
 ```bash
 # See all available scripts

@@ -1,9 +1,9 @@
 <?php
 
-namespace Automattic\WooCommerce\Admin\Features\OnboardingTasks\Tasks;
+namespace Automattic\PooCommerce\Admin\Features\OnboardingTasks\Tasks;
 
-use Automattic\WooCommerce\Admin\Features\Onboarding;
-use Automattic\WooCommerce\Admin\Features\OnboardingTasks\Task;
+use Automattic\PooCommerce\Admin\Features\Onboarding;
+use Automattic\PooCommerce\Admin\Features\OnboardingTasks\Task;
 
 /**
  * Store Details Task
@@ -26,7 +26,7 @@ class StoreCreation extends Task {
 	 */
 	public function get_title() {
 		/* translators: Store name */
-		return sprintf( __( 'You created %s', 'woocommerce' ), get_bloginfo( 'name' ) );
+		return sprintf( __( 'You created %s', 'poocommerce' ), get_bloginfo( 'name' ) );
 	}
 
 	/**

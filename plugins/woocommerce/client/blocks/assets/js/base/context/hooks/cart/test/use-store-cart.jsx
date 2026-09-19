@@ -3,7 +3,7 @@
  */
 import { renderHook } from '@testing-library/react';
 import { createRegistry, RegistryProvider } from '@wordpress/data';
-import { CART_STORE_KEY as storeKey } from '@woocommerce/block-data';
+import { CART_STORE_KEY as storeKey } from '@poocommerce/block-data';
 
 /**
  * Internal dependencies
@@ -15,9 +15,9 @@ jest.mock( '../../../providers/editor-context', () => ( {
 	useEditorContext: jest.fn(),
 } ) );
 
-jest.mock( '@woocommerce/block-data', () => {
-	const constants = jest.requireActual( '@woocommerce/block-data/constants' );
-	const cart = jest.requireActual( '@woocommerce/block-data/cart' );
+jest.mock( '@poocommerce/block-data', () => {
+	const constants = jest.requireActual( '@poocommerce/block-data/constants' );
+	const cart = jest.requireActual( '@poocommerce/block-data/cart' );
 
 	return {
 		__esModule: true,

@@ -6,7 +6,7 @@ import {
 	expect,
 	guestFile,
 	BLOCK_THEME_SLUG,
-} from '@woocommerce/e2e-utils';
+} from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -84,7 +84,7 @@ test.describe( 'Shopper (logged-in) → Order Confirmation', () => {
 		await checkoutPageObject.verifyOrderConfirmationDetails( false );
 
 		await requestUtils.activatePlugin(
-			'woocommerce-blocks-test-order-confirmation-filters'
+			'poocommerce-blocks-test-order-confirmation-filters'
 		);
 		await page.goto( orderReceivedURL );
 		await checkoutPageObject.verifyOrderConfirmationDetails();
@@ -118,7 +118,7 @@ test.describe( 'Shopper (guest) → Order Confirmation → Create Account', () =
 		// If delayed account creation is off, no form is shown.
 		await requestUtils.rest( {
 			method: 'PUT',
-			path: 'wc/v3/settings/account/woocommerce_enable_delayed_account_creation',
+			path: 'wc/v3/settings/account/poocommerce_enable_delayed_account_creation',
 			data: { value: 'no' },
 		} );
 		await page.reload();
@@ -127,7 +127,7 @@ test.describe( 'Shopper (guest) → Order Confirmation → Create Account', () =
 		// Turn on delayed account creation.
 		await requestUtils.rest( {
 			method: 'PUT',
-			path: 'wc/v3/settings/account/woocommerce_enable_delayed_account_creation',
+			path: 'wc/v3/settings/account/poocommerce_enable_delayed_account_creation',
 			data: { value: 'yes' },
 		} );
 		await page.reload();
@@ -138,7 +138,7 @@ test.describe( 'Shopper (guest) → Order Confirmation → Create Account', () =
 		// Configure so password field is visible.
 		await requestUtils.rest( {
 			method: 'PUT',
-			path: 'wc/v3/settings/account/woocommerce_registration_generate_password',
+			path: 'wc/v3/settings/account/poocommerce_registration_generate_password',
 			data: { value: 'no' },
 		} );
 		await page.reload();
@@ -211,7 +211,7 @@ test.describe( 'Shopper → Order Confirmation → Downloadable Products', () =>
 		).toBeVisible();
 
 		const downloadsSection = checkoutPageObject.page.locator(
-			'[data-block-name="woocommerce/order-confirmation-downloads"]'
+			'[data-block-name="poocommerce/order-confirmation-downloads"]'
 		);
 		for ( const downloadName of [ 'Single 1', 'Single 2' ] ) {
 			const downloadLink = downloadsSection.getByRole( 'link', {

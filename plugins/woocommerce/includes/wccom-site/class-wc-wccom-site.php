@@ -1,8 +1,8 @@
 <?php
 /**
- * WooCommerce.com Product Installation.
+ * PooCommerce.com Product Installation.
  *
- * @package WooCommerce\WCCom
+ * @package PooCommerce\WCCom
  * @since   3.7.0
  */
 
@@ -14,7 +14,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * WC_WCCOM_Site Class
  *
- * Main class for WooCommerce.com connected site.
+ * Main class for PooCommerce.com connected site.
  */
 class WC_WCCOM_Site {
 
@@ -28,9 +28,9 @@ class WC_WCCOM_Site {
 	public static function load() {
 		self::includes();
 
-		add_action( 'woocommerce_wccom_install_products', array( 'WC_WCCOM_Site_Installer', 'install' ) );
+		add_action( 'poocommerce_wccom_install_products', array( 'WC_WCCOM_Site_Installer', 'install' ) );
 		add_filter( 'determine_current_user', array( __CLASS__, 'authenticate_wccom' ), 14 );
-		add_action( 'woocommerce_rest_api_get_rest_namespaces', array( __CLASS__, 'register_rest_namespace' ) );
+		add_action( 'poocommerce_rest_api_get_rest_namespaces', array( __CLASS__, 'register_rest_namespace' ) );
 	}
 
 	/**
@@ -44,7 +44,7 @@ class WC_WCCOM_Site {
 	}
 
 	/**
-	 * Authenticate WooCommerce.com request.
+	 * Authenticate PooCommerce.com request.
 	 *
 	 * @since 3.7.0
 	 * @param int|false $user_id User ID.
@@ -183,7 +183,7 @@ class WC_WCCOM_Site {
 	}
 
 	/**
-	 * Verify WooCommerce.com request from a given body and signature request.
+	 * Verify PooCommerce.com request from a given body and signature request.
 	 *
 	 * @since 3.7.0
 	 * @param string $body                Request body.

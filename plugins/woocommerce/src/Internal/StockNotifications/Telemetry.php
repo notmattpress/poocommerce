@@ -5,10 +5,10 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\StockNotifications;
+namespace Automattic\PooCommerce\Internal\StockNotifications;
 
-use Automattic\WooCommerce\Internal\DataStores\StockNotifications\StockNotificationsDataStore;
-use Automattic\WooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
+use Automattic\PooCommerce\Internal\DataStores\StockNotifications\StockNotificationsDataStore;
+use Automattic\PooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -21,7 +21,7 @@ class Telemetry {
 	 * Constructor.
 	 */
 	public function __construct() {
-		add_filter( 'woocommerce_tracker_data', array( $this, 'add_snapshot_to_tracker_data' ), 10, 1 );
+		add_filter( 'poocommerce_tracker_data', array( $this, 'add_snapshot_to_tracker_data' ), 10, 1 );
 	}
 
 	/**
@@ -68,7 +68,7 @@ class Telemetry {
 			'require_double_opt_in'               => Config::requires_double_opt_in() ? 'yes' : 'no',
 			'require_account'                     => Config::requires_account() ? 'yes' : 'no',
 			'unverified_deletions_days_threshold' => Config::get_unverified_deletion_days_threshold(),
-			'hide_out_of_stock_items'             => get_option( 'woocommerce_hide_out_of_stock_items', 'no' ),
+			'hide_out_of_stock_items'             => get_option( 'poocommerce_hide_out_of_stock_items', 'no' ),
 		);
 	}
 

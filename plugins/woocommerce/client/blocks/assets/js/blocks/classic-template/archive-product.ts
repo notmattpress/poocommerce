@@ -7,7 +7,7 @@ import {
 	INNER_BLOCKS_TEMPLATE as productCollectionInnerBlocksTemplate,
 	DEFAULT_ATTRIBUTES as productCollectionDefaultAttributes,
 	DEFAULT_QUERY as productCollectionDefaultQuery,
-} from '@woocommerce/blocks/product-collection/constants';
+} from '@poocommerce/blocks/product-collection/constants';
 import {
 	createBlock,
 	createBlocksFromInnerBlocksTemplate,
@@ -24,7 +24,7 @@ const createProductCollectionBlock = (
 	inheritedAttributes: InheritedAttributes
 ) =>
 	createBlock(
-		'woocommerce/product-collection',
+		'poocommerce/product-collection',
 		{
 			...productCollectionDefaultAttributes,
 			...inheritedAttributes,
@@ -43,16 +43,16 @@ const getBlockifiedTemplate = (
 	withTermDescription = false
 ) =>
 	[
-		createBlock( 'woocommerce/breadcrumbs', inheritedAttributes ),
+		createBlock( 'poocommerce/breadcrumbs', inheritedAttributes ),
 		createArchiveTitleBlock( 'archive-title', inheritedAttributes ),
 		withTermDescription
 			? createBlock( 'core/term-description', inheritedAttributes )
 			: null,
-		createBlock( 'woocommerce/store-notices', inheritedAttributes ),
+		createBlock( 'poocommerce/store-notices', inheritedAttributes ),
 		createRowBlock(
 			[
-				createBlock( 'woocommerce/product-results-count' ),
-				createBlock( 'woocommerce/catalog-sorting' ),
+				createBlock( 'poocommerce/product-results-count' ),
+				createBlock( 'poocommerce/catalog-sorting' ),
 			],
 			inheritedAttributes
 		),
@@ -68,12 +68,12 @@ const getDescription = ( templateTitle: string ) =>
 		/* translators: %s is the template title */
 		__(
 			'Transform this template into multiple blocks so you can add, remove, reorder, and customize your %s template.',
-			'woocommerce'
+			'poocommerce'
 		),
 		templateTitle
 	);
 
-const getButtonLabel = () => __( 'Transform into blocks', 'woocommerce' );
+const getButtonLabel = () => __( 'Transform into blocks', 'poocommerce' );
 
 const onClickCallback = ( {
 	clientId,
@@ -91,7 +91,7 @@ const onClickCallback = ( {
 			block.name === 'core/group' &&
 			block.innerBlocks.some(
 				( innerBlock ) =>
-					innerBlock.name === 'woocommerce/store-notices'
+					innerBlock.name === 'poocommerce/store-notices'
 			)
 	);
 
@@ -116,7 +116,7 @@ const onClickCallbackWithTermDescription = ( {
 			block.name === 'core/group' &&
 			block.innerBlocks.some(
 				( innerBlock ) =>
-					innerBlock.name === 'woocommerce/store-notices'
+					innerBlock.name === 'poocommerce/store-notices'
 			)
 	);
 

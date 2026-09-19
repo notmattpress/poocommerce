@@ -1,6 +1,6 @@
 <?php
 
-namespace Automattic\WooCommerce\Caching;
+namespace Automattic\PooCommerce\Caching;
 
 /**
  * Exception thrown by classes derived from ObjectCache.

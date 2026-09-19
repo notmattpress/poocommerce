@@ -4,7 +4,7 @@
 import { __ } from '@wordpress/i18n';
 import { useState } from '@wordpress/element';
 import type { UniqueIdentifier } from '@dnd-kit/core';
-import { isBoolean } from '@woocommerce/types';
+import { isBoolean } from '@poocommerce/types';
 import { ToggleControl, Button, ExternalLink } from '@wordpress/components';
 import styled from '@emotion/styled';
 
@@ -23,15 +23,15 @@ import { getUserFriendlyAddress } from './utils';
 
 const LocationSettingsDescription = () => (
 	<>
-		<h2>{ __( 'Pickup locations', 'woocommerce' ) }</h2>
+		<h2>{ __( 'Pickup locations', 'poocommerce' ) }</h2>
 		<p>
 			{ __(
 				'Define pickup locations for your customers to choose from during checkout.',
-				'woocommerce'
+				'poocommerce'
 			) }
 		</p>
-		<ExternalLink href="https://woocommerce.com/document/woocommerce-blocks-local-pickup/">
-			{ __( 'Learn more', 'woocommerce' ) }
+		<ExternalLink href="https://poocommerce.com/document/poocommerce-blocks-local-pickup/">
+			{ __( 'Learn more', 'poocommerce' ) }
 		</ExternalLink>
 	</>
 );
@@ -57,7 +57,7 @@ const LocationSettings = () => {
 	const tableColumns = [
 		{
 			name: 'name',
-			label: __( 'Pickup location', 'woocommerce' ),
+			label: __( 'Pickup location', 'poocommerce' ),
 			width: '50%',
 			renderCallback: ( row: SortableData ): JSX.Element => (
 				<>
@@ -70,7 +70,7 @@ const LocationSettings = () => {
 		},
 		{
 			name: 'enabled',
-			label: __( 'Enabled', 'woocommerce' ),
+			label: __( 'Enabled', 'poocommerce' ),
 			align: 'right',
 			renderCallback: ( row: SortableData ): JSX.Element => (
 				<ToggleControl
@@ -92,7 +92,7 @@ const LocationSettings = () => {
 						setEditingLocation( row.id );
 					} }
 				>
-					{ __( 'Edit', 'woocommerce' ) }
+					{ __( 'Edit', 'poocommerce' ) }
 				</button>
 			),
 		},
@@ -105,7 +105,7 @@ const LocationSettings = () => {
 				setEditingLocation( 'new' );
 			} }
 		>
-			{ __( 'Add pickup location', 'woocommerce' ) }
+			{ __( 'Add pickup location', 'poocommerce' ) }
 		</Button>
 	);
 
@@ -120,7 +120,7 @@ const LocationSettings = () => {
 				} }
 				placeholder={ __(
 					'When you add a pickup location, it will appear here.',
-					'woocommerce'
+					'poocommerce'
 				) }
 				footerContent={ FooterContent }
 			/>

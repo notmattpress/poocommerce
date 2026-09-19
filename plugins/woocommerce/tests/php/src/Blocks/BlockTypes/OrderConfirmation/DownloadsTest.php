@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\BlockTypes\OrderConfirmation;
+namespace Automattic\PooCommerce\Tests\Blocks\BlockTypes\OrderConfirmation;
 
-use Automattic\WooCommerce\Blocks\BlockTypes\OrderConfirmation\Downloads as DownloadsBlock;
-use Automattic\WooCommerce\Internal\ProductDownloads\ApprovedDirectories\Register as Download_Directories;
+use Automattic\PooCommerce\Blocks\BlockTypes\OrderConfirmation\Downloads as DownloadsBlock;
+use Automattic\PooCommerce\Internal\ProductDownloads\ApprovedDirectories\Register as Download_Directories;
 use WC_Order;
 use WC_Order_Item_Product;
 use WC_Product;
@@ -21,9 +21,9 @@ final class DownloadsTest extends WC_Unit_Test_Case {
 		$download_directories = wc_get_container()->get( Download_Directories::class );
 
 		$download_directories->set_mode( Download_Directories::MODE_DISABLED );
-		update_option( 'woocommerce_downloads_grant_access_after_payment', 'yes' );
+		update_option( 'poocommerce_downloads_grant_access_after_payment', 'yes' );
 		add_filter(
-			'woocommerce_downloadable_file_exists',
+			'poocommerce_downloadable_file_exists',
 			static function (): bool {
 				return true;
 			}
@@ -85,7 +85,7 @@ final class DownloadsTest extends WC_Unit_Test_Case {
 		$this->assertStringContainsString( 'wc-block-order-confirmation-downloads__table', $content );
 		$this->assertSame( 3, substr_count( $content, '<tr>' ), 'The table should contain one header row and two entitlement rows.' );
 		$this->assertSame( 2, substr_count( $content, '<td class="download-file"' ), 'Each entitlement should render a file cell.' );
-		$this->assertSame( 2, substr_count( $content, 'class="woocommerce-MyAccount-downloads-file button alt"' ), 'Each entitlement should render the expected download-link classes.' );
+		$this->assertSame( 2, substr_count( $content, 'class="poocommerce-MyAccount-downloads-file button alt"' ), 'Each entitlement should render the expected download-link classes.' );
 
 		foreach ( $downloads as $download ) {
 			$escaped_download_url = esc_url( $download['download_url'] );

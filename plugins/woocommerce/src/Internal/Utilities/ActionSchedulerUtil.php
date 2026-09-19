@@ -1,7 +1,7 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Utilities;
+namespace Automattic\PooCommerce\Internal\Utilities;
 
 /**
  * A class of utilities for dealing with Action Scheduler across the versions of it that may be loaded.
@@ -13,7 +13,7 @@ class ActionSchedulerUtil {
 	 *
 	 * Prefers `as_has_scheduled_action`, which only exists since Action Scheduler 3.3.0: another plugin
 	 * can load an older copy early enough to win the version race against the one bundled with
-	 * WooCommerce, and a bare call is then a fatal. Falls back to the much older `as_next_scheduled_action`,
+	 * PooCommerce, and a bare call is then a fatal. Falls back to the much older `as_next_scheduled_action`,
 	 * which on such a copy may report only pending actions, not in-progress ones - an accepted trade.
 	 *
 	 * Reports false when Action Scheduler is not loaded at all, indistinguishable from "nothing is
@@ -31,7 +31,7 @@ class ActionSchedulerUtil {
 	 */
 	public static function has_scheduled_action( string $hook, ?array $args = null, string $group = '' ): bool {
 		foreach ( array( 'as_has_scheduled_action', 'as_next_scheduled_action' ) as $function ) {
-			// PHPStan sees the Action Scheduler copy bundled with WooCommerce and concludes both functions
+			// PHPStan sees the Action Scheduler copy bundled with PooCommerce and concludes both functions
 			// always exist. The runtime case this guard exists for is precisely the one it cannot see.
 			// @phpstan-ignore-next-line function.alreadyNarrowedType -- see comment above.
 			if ( function_exists( $function ) ) {

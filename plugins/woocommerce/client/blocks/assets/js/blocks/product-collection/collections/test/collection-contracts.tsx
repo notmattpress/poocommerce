@@ -118,7 +118,7 @@ const collectionRows = [
 		scope: chooserScope,
 		query: {
 			...DEFAULT_QUERY,
-			woocommerceOnSale: true,
+			poocommerceOnSale: true,
 			perPage: 5,
 			pages: 1,
 		},

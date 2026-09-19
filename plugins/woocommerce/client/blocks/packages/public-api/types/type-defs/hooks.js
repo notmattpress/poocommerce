@@ -2,7 +2,7 @@
  * @typedef {import('./cart').CartData} CartData
  * @typedef {import('./shipping').ShippingAddress} CartShippingAddress
  * @typedef {import('./contexts').StoreNoticeObject} StoreNoticeObject
- * @typedef {import('@woocommerce/type-defs/billing').BillingData} CartBillingAddress
+ * @typedef {import('@poocommerce/type-defs/billing').BillingData} CartBillingAddress
  */
 
 /**

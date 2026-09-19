@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Tests\Blocks\BlockTypes;
 
 use WC_Unit_Test_Case;
 
@@ -12,7 +12,7 @@ class ProductFilterChipsTest extends WC_Unit_Test_Case {
 
 	/**
 	 * @testdox Typography is applied to the wrapper and border radius to chip items.
-	 * @covers \Automattic\WooCommerce\Blocks\BlockTypes\ProductFilterChips::render
+	 * @covers \Automattic\PooCommerce\Blocks\BlockTypes\ProductFilterChips::render
 	 */
 	public function test_renders_typography_on_wrapper_and_border_radius_on_items(): void {
 		$markup = $this->render_chips(
@@ -46,7 +46,7 @@ class ProductFilterChipsTest extends WC_Unit_Test_Case {
 
 	/**
 	 * @testdox Padding and border radius are not applied to visual swatch chip items.
-	 * @covers \Automattic\WooCommerce\Blocks\BlockTypes\ProductFilterChips::render
+	 * @covers \Automattic\PooCommerce\Blocks\BlockTypes\ProductFilterChips::render
 	 */
 	public function test_does_not_apply_padding_or_border_radius_to_swatch_items(): void {
 		$markup = $this->render_chips(
@@ -96,15 +96,15 @@ class ProductFilterChipsTest extends WC_Unit_Test_Case {
 	private function render_chips( array $attributes, array $items ): string {
 		$block = new \WP_Block(
 			array(
-				'blockName'    => 'woocommerce/product-filter-chips',
+				'blockName'    => 'poocommerce/product-filter-chips',
 				'attrs'        => array_merge( $attributes, array( 'className' => 'wc-block-product-filter-chips' ) ),
 				'innerContent' => array(),
 			),
 			array(
-				'woocommerce/selectableItems' => array(
+				'poocommerce/selectableItems' => array(
 					'items'          => $items,
 					'selectionMode'  => 'multiple',
-					'storeNamespace' => 'woocommerce/product-filters',
+					'storeNamespace' => 'poocommerce/product-filters',
 				),
 			)
 		);

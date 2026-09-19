@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { useIsEmailEditor } from '@woocommerce/email-editor';
+import { useIsEmailEditor } from '@poocommerce/email-editor';
 import { useEffect } from '@wordpress/element';
 
 /**

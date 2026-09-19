@@ -1,15 +1,15 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\CustomerEmailVerification\Emails;
+namespace Automattic\PooCommerce\Tests\Internal\CustomerEmailVerification\Emails;
 
-use Automattic\WooCommerce\Internal\CustomerEmailVerification\Emails\CustomerVerifyEmail;
+use Automattic\PooCommerce\Internal\CustomerEmailVerification\Emails\CustomerVerifyEmail;
 use WC_Unit_Test_Case;
 
 /**
  * Tests for CustomerVerifyEmail.
  *
- * @covers \Automattic\WooCommerce\Internal\CustomerEmailVerification\Emails\CustomerVerifyEmail
+ * @covers \Automattic\PooCommerce\Internal\CustomerEmailVerification\Emails\CustomerVerifyEmail
  */
 class CustomerVerifyEmailTest extends WC_Unit_Test_Case {
 

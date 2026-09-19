@@ -22,7 +22,7 @@ export const setFeatureEmailImprovementsFlag = async (
 	await setOption(
 		request,
 		baseURL,
-		'woocommerce_feature_email_improvements_enabled',
+		'poocommerce_feature_email_improvements_enabled',
 		value
 	);
 	// We need to delete the transient to prevent unwanted popups.

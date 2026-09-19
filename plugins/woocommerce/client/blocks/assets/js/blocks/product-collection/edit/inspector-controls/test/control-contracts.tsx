@@ -35,12 +35,12 @@ jest.mock( '@wordpress/block-editor', () => {
 	};
 } );
 
-jest.mock( '@woocommerce/email-editor', () => ( {
+jest.mock( '@poocommerce/email-editor', () => ( {
 	useIsEmailEditor: () => mockIsEmailEditor,
 } ) );
 
-jest.mock( '@woocommerce/settings', () => ( {
-	...jest.requireActual( '@woocommerce/settings' ),
+jest.mock( '@poocommerce/settings', () => ( {
+	...jest.requireActual( '@poocommerce/settings' ),
 	ADMIN_URL: 'https://example.test/wp-admin/',
 	getSetting: jest.fn( ( setting, defaultValue ) =>
 		setting === 'stockStatusOptions'
@@ -206,7 +206,7 @@ jest.mock( '@wordpress/components', () => {
 } );
 
 jest.mock(
-	'@woocommerce/editor-components/product-attribute-term-control',
+	'@poocommerce/editor-components/product-attribute-term-control',
 	() => ( props ) => {
 		const React = jest.requireActual( 'react' );
 		return React.createElement(
@@ -222,7 +222,7 @@ jest.mock(
 );
 
 jest.mock(
-	'@woocommerce/editor-components/product-category-control',
+	'@poocommerce/editor-components/product-category-control',
 	() => ( props ) => {
 		const React = jest.requireActual( 'react' );
 		return React.createElement(
@@ -237,7 +237,7 @@ jest.mock(
 );
 
 jest.mock(
-	'@woocommerce/editor-components/product-tag-control',
+	'@poocommerce/editor-components/product-tag-control',
 	() => ( props ) => {
 		const React = jest.requireActual( 'react' );
 		return React.createElement(
@@ -252,7 +252,7 @@ jest.mock(
 );
 
 jest.mock(
-	'@woocommerce/editor-components/product-brand-control',
+	'@poocommerce/editor-components/product-brand-control',
 	() => ( props ) => {
 		const React = jest.requireActual( 'react' );
 		return React.createElement(
@@ -266,15 +266,15 @@ jest.mock(
 	}
 );
 
-jest.mock( '@woocommerce/editor-components/utils', () => ( {
-	...jest.requireActual( '@woocommerce/editor-components/utils' ),
+jest.mock( '@poocommerce/editor-components/utils', () => ( {
+	...jest.requireActual( '@poocommerce/editor-components/utils' ),
 	getProducts: jest.fn().mockResolvedValue( [
 		{ id: 71, name: 'Beanie' },
 		{ id: 72, name: 'Cap' },
 	] ),
 } ) );
 
-jest.mock( '@woocommerce/tracks', () => ( {
+jest.mock( '@poocommerce/tracks', () => ( {
 	recordEvent: jest.fn(),
 } ) );
 
@@ -308,7 +308,7 @@ const renderInspector = ( {
 		isSelected: true,
 		isUsingReferencePreviewMode: false,
 		location: { type: LocationType.Site },
-		name: 'woocommerce/product-collection',
+		name: 'poocommerce/product-collection',
 		onReplace: jest.fn(),
 		openCollectionSelectionModal: jest.fn(),
 		setAttributes,
@@ -521,7 +521,7 @@ describe( 'Product Collection inspector control contracts', () => {
 	);
 
 	it.each( [
-		[ 'Show only products on sale', { woocommerceOnSale: true } ],
+		[ 'Show only products on sale', { poocommerceOnSale: true } ],
 		[ 'Show only featured products', { featured: true } ],
 	] as const )(
 		'writes the complete nested query from %s',
@@ -547,7 +547,7 @@ describe( 'Product Collection inspector control contracts', () => {
 		expect( setAttributes ).toHaveBeenLastCalledWith( {
 			query: {
 				...DEFAULT_QUERY,
-				woocommerceStockStatus: [ 'instock' ],
+				poocommerceStockStatus: [ 'instock' ],
 			},
 		} );
 
@@ -555,7 +555,7 @@ describe( 'Product Collection inspector control contracts', () => {
 		expect( setAttributes ).toHaveBeenLastCalledWith( {
 			query: {
 				...DEFAULT_QUERY,
-				woocommerceAttributes: [ { taxonomy: 'pa_color', termId: 41 } ],
+				poocommerceAttributes: [ { taxonomy: 'pa_color', termId: 41 } ],
 			},
 		} );
 	} );
@@ -675,7 +675,7 @@ describe( 'Product Collection inspector control contracts', () => {
 		expect( setAttributes ).toHaveBeenLastCalledWith( {
 			query: {
 				...DEFAULT_QUERY,
-				woocommerceHandPickedProducts: [ '72', '71' ],
+				poocommerceHandPickedProducts: [ '72', '71' ],
 			},
 		} );
 	} );

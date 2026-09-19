@@ -4,7 +4,7 @@
 import { Button, Card, CardBody } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { createElement, useEffect, useState } from '@wordpress/element';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -117,10 +117,10 @@ const PromoCard = ( {
 				{ promotion.cta_label?.en_US ?? '' }
 			</Button>
 			<Button
-				className="promo-cta-link woocommerce-admin-dismiss-notification"
+				className="promo-cta-link poocommerce-admin-dismiss-notification"
 				onClick={ handleDismiss }
 			>
-				{ __( 'Dismiss', 'woocommerce' ) }
+				{ __( 'Dismiss', 'poocommerce' ) }
 			</Button>
 		</div>
 	);

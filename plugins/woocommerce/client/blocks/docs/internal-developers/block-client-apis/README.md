@@ -8,9 +8,9 @@ This folder contains documentation for API interfaces for Blocks. In _most cases
 | [Unified editor assets](../enqueueable-packages/README.md) | Explains the default and experimental editor asset configurations, external package boundaries, and compatibility handles. |
 | [Notices](notices.md) | Explains how the notices system works and which methods can add and remove notices. |
 
-Some of the resources from this directory were migrated to WooCommerce Developer Documentation:
+Some of the resources from this directory were migrated to PooCommerce Developer Documentation:
 
-- [Checkout Flow and Events](https://developer.woocommerce.com/docs/cart-and-checkout-checkout-flow-and-events/)
+- [Checkout Flow and Events](https://developer.poocommerce.com/docs/cart-and-checkout-checkout-flow-and-events/)
 
 For more details about extensibility points in the blocks, you can reference the extensibility docs:
 

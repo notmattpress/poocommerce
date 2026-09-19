@@ -2,21 +2,21 @@
 /**
  * Unit tests for the Plan entity (pure-Core behavior: validation + pricing).
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine
+ * @package Automattic\PooCommerce\SubscriptionsEngine
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Tests\Unit\Core\Entity;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Tests\Unit\Core\Entity;
 
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\Plan;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\ValueObject\BillingPolicy;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\ValueObject\PricingPolicy;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\Plan;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\ValueObject\BillingPolicy;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\ValueObject\PricingPolicy;
 
 /**
- * @covers \Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\Plan
+ * @covers \Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\Plan
  */
 class PlanTest extends TestCase {
 

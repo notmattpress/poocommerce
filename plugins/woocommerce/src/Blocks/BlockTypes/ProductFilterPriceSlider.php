@@ -2,12 +2,12 @@
 /**
  * ProductFilterPriceSlider class.
  *
- * @package Automattic\WooCommerce\Blocks\BlockTypes
+ * @package Automattic\PooCommerce\Blocks\BlockTypes
  */
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
 /**
  * ProductFilterPriceSlider class.
@@ -32,11 +32,11 @@ class ProductFilterPriceSlider extends AbstractBlock {
 	 * @return string Rendered block type output.
 	 */
 	protected function render( $attributes, $content, $block ) {
-		if ( is_admin() || wp_doing_ajax() || empty( $block->context['woocommerce/rangeInput'] ) ) {
+		if ( is_admin() || wp_doing_ajax() || empty( $block->context['poocommerce/rangeInput'] ) ) {
 			return '';
 		}
 
-		$range_data = $block->context['woocommerce/rangeInput'];
+		$range_data = $block->context['poocommerce/rangeInput'];
 		$min_range  = $range_data['min'] ?? 0;
 		$max_range  = $range_data['max'] ?? 0;
 		$min_price  = $range_data['currentMin'] ?? $min_range;
@@ -60,7 +60,7 @@ class ProductFilterPriceSlider extends AbstractBlock {
 
 		$wrapper_attributes = get_block_wrapper_attributes(
 			array(
-				'data-wp-interactive' => 'woocommerce/product-filters',
+				'data-wp-interactive' => 'poocommerce/product-filters',
 				'data-wp-key'         => wp_unique_prefixed_id( $this->get_full_block_name() ),
 				'class'               => esc_attr( $classes ),
 				'style'               => esc_attr( $style ),
@@ -78,7 +78,7 @@ class ProductFilterPriceSlider extends AbstractBlock {
 		$range_style = "--low: $__low%; --high: $__high%";
 
 		wp_interactivity_state(
-			'woocommerce/product-filters',
+			'poocommerce/product-filters',
 			array(
 				'rangeStyle' => $range_style,
 			)
@@ -99,7 +99,7 @@ class ProductFilterPriceSlider extends AbstractBlock {
 					data-wp-bind--value="state.formattedMinPrice"
 					data-wp-on--focus="actions.selectInputContent"
 					data-wp-on--input="actions.debounceSetMinPrice"
-					aria-label="<?php esc_attr_e( 'Filter products by minimum price', 'woocommerce' ); ?>"
+					aria-label="<?php esc_attr_e( 'Filter products by minimum price', 'poocommerce' ); ?>"
 				/>
 			<?php else : ?>
 				<span data-wp-text="state.formattedMinPrice"></span>
@@ -130,7 +130,7 @@ class ProductFilterPriceSlider extends AbstractBlock {
 						data-wp-on--mouseup="actions.navigate"
 						data-wp-on--keyup="actions.navigate"
 						data-wp-on--touchend="actions.navigate"
-						aria-label="<?php esc_attr_e( 'Filter products by minimum price', 'woocommerce' ); ?>"
+						aria-label="<?php esc_attr_e( 'Filter products by minimum price', 'poocommerce' ); ?>"
 					/>
 					<input
 						type="range"
@@ -142,7 +142,7 @@ class ProductFilterPriceSlider extends AbstractBlock {
 						data-wp-on--mouseup="actions.navigate"
 						data-wp-on--keyup="actions.navigate"
 						data-wp-on--touchend="actions.navigate"
-						aria-label="<?php esc_attr_e( 'Filter products by maximum price', 'woocommerce' ); ?>"
+						aria-label="<?php esc_attr_e( 'Filter products by maximum price', 'poocommerce' ); ?>"
 					/>
 				</div>
 				<?php if ( ! $inline_input ) : ?>
@@ -156,7 +156,7 @@ class ProductFilterPriceSlider extends AbstractBlock {
 							data-wp-bind--value="state.formattedMaxPrice"
 							data-wp-on--focus="actions.selectInputContent"
 							data-wp-on--input="actions.debounceSetMaxPrice"
-							aria-label="<?php esc_attr_e( 'Filter products by maximum price', 'woocommerce' ); ?>"
+							aria-label="<?php esc_attr_e( 'Filter products by maximum price', 'poocommerce' ); ?>"
 						/>
 					<?php else : ?>
 					<span data-wp-text="state.formattedMaxPrice"></span>

@@ -1,19 +1,19 @@
 <?php
 /**
- * Integration-test bootstrap for the WooCommerce Subscriptions Engine.
+ * Integration-test bootstrap for the PooCommerce Subscriptions Engine.
  *
  * Loads the WordPress test framework, boots the engine package as a library,
  * and installs the baseline schema once up front so per-test transaction
  * rollback (provided by WP_UnitTestCase) keeps each test isolated without
  * re-running DDL.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine
+ * @package Automattic\PooCommerce\SubscriptionsEngine
  */
 
 declare( strict_types=1 );
 
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage\SchemaInstaller;
-use Automattic\WooCommerce\SubscriptionsEngine\Package;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage\SchemaInstaller;
+use Automattic\PooCommerce\SubscriptionsEngine\Package;
 
 // phpcs:disable Universal.Files.SeparateFunctionsFromOO.Mixed -- Bootstrap file mixes a class and procedural setup.
 
@@ -69,7 +69,7 @@ class SubscriptionsEngineTestsBootstrap {
 
 		require_once $this->wp_tests_dir . '/includes/bootstrap.php';
 
-		// Install WooCommerce so its tables and runtime (order classes, logger)
+		// Install PooCommerce so its tables and runtime (order classes, logger)
 		// are available to the engine's integration layer.
 		if ( class_exists( \WC_Install::class ) ) {
 			\WC_Install::install();
@@ -83,15 +83,15 @@ class SubscriptionsEngineTestsBootstrap {
 	}
 
 	/**
-	 * Load WooCommerce, then boot the engine as a library.
+	 * Load PooCommerce, then boot the engine as a library.
 	 */
 	public function load_dependencies(): void {
-		// WooCommerce first: the engine's integration layer depends on WC (orders,
+		// PooCommerce first: the engine's integration layer depends on WC (orders,
 		// gateways, logger). Guarded so the bootstrap does not fatal in an
-		// environment that has not mounted WooCommerce.
-		$woocommerce = WP_PLUGIN_DIR . '/woocommerce/woocommerce.php';
-		if ( file_exists( $woocommerce ) ) {
-			require_once $woocommerce;
+		// environment that has not mounted PooCommerce.
+		$poocommerce = WP_PLUGIN_DIR . '/poocommerce/poocommerce.php';
+		if ( file_exists( $poocommerce ) ) {
+			require_once $poocommerce;
 		}
 
 		// The engine is a library, not a standalone plugin: load it through its

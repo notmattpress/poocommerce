@@ -1,4 +1,4 @@
-.woocommerce-task-tax__automated-tax-control {
+.poocommerce-task-tax__automated-tax-control {
 	display: flex;
 	align-items: center;
 	margin-top: $gap;
@@ -8,7 +8,7 @@
 		margin-right: $gap-large;
 	}
 
-	.woocommerce-task-tax__automated-tax-control-inner {
+	.poocommerce-task-tax__automated-tax-control-inner {
 		border-top: 1px solid $studio-gray-5;
 		display: flex;
 		align-items: center;
@@ -23,21 +23,21 @@
 	}
 }
 
-.woocommerce-task-tax__success {
+.poocommerce-task-tax__success {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	padding: $gap-largest;
 	text-align: center;
 
-	.woocommerce-task-tax__success-icon {
+	.poocommerce-task-tax__success-icon {
 		font-size: 48px;
 		height: 48px;
 		align-items: center;
 		display: flex;
 	}
 
-	#woocommerce-task-tax__success-message {
+	#poocommerce-task-tax__success-message {
 		font-size: 32px;
 		font-weight: 400;
 	}

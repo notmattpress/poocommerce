@@ -5,8 +5,8 @@ import semver from 'semver';
 import { writeFile } from 'fs/promises';
 import { tmpdir } from 'os';
 import { join } from 'path';
-import { Logger } from '@woocommerce/monorepo-utils/src/core/logger';
-import { getEnvVar } from '@woocommerce/monorepo-utils/src/core/environment';
+import { Logger } from '@poocommerce/monorepo-utils/src/core/logger';
+import { getEnvVar } from '@poocommerce/monorepo-utils/src/core/environment';
 import { Command } from '@commander-js/extra-typings';
 import dotenv from 'dotenv';
 // @ts-expect-error - The enquirer types are incorrect.
@@ -57,7 +57,7 @@ const program = new Command()
 	.option(
 		'--tags <tags>',
 		'Comma separated list of tags to add to the post.',
-		'Releases,WooCommerce Core'
+		'Releases,PooCommerce Core'
 	)
 	.option(
 		'--siteId <siteId>',
@@ -73,7 +73,7 @@ const program = new Command()
 
 		const postTags = ( tags &&
 			tags.split( ',' ).map( ( tag ) => tag.trim() ) ) || [
-			'WooCommerce Core',
+			'PooCommerce Core',
 			'Releases',
 		];
 
@@ -135,8 +135,8 @@ const program = new Command()
 
 			const versionSearch =
 				prereleaseVersion === 1
-					? `WooCommerce ${ semverPreviousVersion.major }.${ semverPreviousVersion.minor }.${ semverPreviousVersion.patch }`
-					: `WooCommerce ${ semverPreviousVersion.major }.${ semverPreviousVersion.minor } Beta ${ semverPreviousVersion.prerelease[ 1 ] }`;
+					? `PooCommerce ${ semverPreviousVersion.major }.${ semverPreviousVersion.minor }.${ semverPreviousVersion.patch }`
+					: `PooCommerce ${ semverPreviousVersion.major }.${ semverPreviousVersion.minor } Beta ${ semverPreviousVersion.prerelease[ 1 ] }`;
 
 			Logger.startTask(
 				`Finding recent release posts with title: ${ versionSearch }`
@@ -146,7 +146,7 @@ const program = new Command()
 				( await searchForPostsByCategory(
 					siteId,
 					versionSearch,
-					'WooCommerce Core',
+					'PooCommerce Core',
 					authToken
 				) ) || [];
 
@@ -198,7 +198,7 @@ const program = new Command()
 					finalReleaseDate,
 					lastReleasePostUrl:
 						lastReleasePost?.URL ||
-						'https://developer.woocommerce.com/category/release-posts/',
+						'https://developer.poocommerce.com/category/release-posts/',
 				} );
 
 				if ( isOutputOnly ) {
@@ -214,13 +214,13 @@ const program = new Command()
 					Logger.startTask( 'Publishing draft release post' );
 					const { ID } = await createWpComDraftPost(
 						siteId,
-						`WooCommerce ${ semverVersion.major }.${ semverVersion.minor } Beta ${ prereleaseVersion } Released`,
+						`PooCommerce ${ semverVersion.major }.${ semverVersion.minor } Beta ${ prereleaseVersion } Released`,
 						html,
 						postTags,
 						authToken
 					);
 					Logger.notice(
-						`Release post created, edit it here: \nhttps://wordpress.com/post/developer.woocommerce.com/${ ID }`
+						`Release post created, edit it here: \nhttps://wordpress.com/post/developer.poocommerce.com/${ ID }`
 					);
 					Logger.endTask();
 				}

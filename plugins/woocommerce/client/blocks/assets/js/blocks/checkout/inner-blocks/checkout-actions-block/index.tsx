@@ -20,7 +20,7 @@ const blockConfig: BlockConfiguration = {
 	example: {
 		attributes: {
 			showPrice: true,
-			placeOrderButtonLabel: __( 'Place Order', 'woocommerce' ),
+			placeOrderButtonLabel: __( 'Place Order', 'poocommerce' ),
 			showReturnToCart: false,
 		},
 	},
@@ -37,4 +37,4 @@ const blockConfig: BlockConfiguration = {
 	edit: Edit,
 };
 
-registerBlockType( 'woocommerce/checkout-actions-block', blockConfig );
+registerBlockType( 'poocommerce/checkout-actions-block', blockConfig );

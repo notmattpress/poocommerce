@@ -3,7 +3,7 @@
  */
 import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { Extension } from '@woocommerce/data';
+import { Extension } from '@poocommerce/data';
 
 /**
  * Internal dependencies
@@ -13,7 +13,7 @@ import { computePluginsSelection, joinWithAnd, Plugins } from '../Plugins';
 const getPluginCheckbox = ( name: string ) => {
 	const card = screen
 		.getByRole( 'heading', { level: 3, name } )
-		.closest( '.woocommerce-profiler-plugins-plugin-card' );
+		.closest( '.poocommerce-profiler-plugins-plugin-card' );
 
 	expect( card ).not.toBeNull();
 
@@ -25,12 +25,12 @@ describe( 'Plugins Component', () => {
 	const mockContext = {
 		pluginsAvailable: [
 			{
-				slug: 'woocommerce-payments',
+				slug: 'poocommerce-payments',
 				name: 'WooPayments',
 				label: 'WooPayments',
 				is_activated: false,
 				description: '',
-				key: 'woocommerce-payments',
+				key: 'poocommerce-payments',
 				image_url: '',
 				manage_url: '',
 				is_built_by_wc: false,
@@ -38,8 +38,8 @@ describe( 'Plugins Component', () => {
 			},
 			{
 				slug: 'google-listings-and-ads',
-				name: 'Google for WooCommerce',
-				label: 'Google for WooCommerce',
+				name: 'Google for PooCommerce',
+				label: 'Google for PooCommerce',
 				is_activated: false,
 				description: '',
 				key: 'google-listings-and-ads',
@@ -98,7 +98,7 @@ describe( 'Plugins Component', () => {
 			screen.getByRole( 'heading', { level: 3, name: 'WooPayments' } )
 		).toBeInTheDocument();
 		expect(
-			screen.getByText( 'Google for WooCommerce' )
+			screen.getByText( 'Google for PooCommerce' )
 		).toBeInTheDocument();
 		expect( screen.getByText( 'Jetpack' ) ).toBeInTheDocument();
 		expect( screen.getByText( 'MailPoet' ) ).toBeInTheDocument();
@@ -114,12 +114,12 @@ describe( 'Plugins Component', () => {
 		);
 
 		expect( getPluginCheckbox( 'WooPayments' ) ).toBeChecked();
-		expect( getPluginCheckbox( 'Google for WooCommerce' ) ).toBeChecked();
+		expect( getPluginCheckbox( 'Google for PooCommerce' ) ).toBeChecked();
 		expect( getPluginCheckbox( 'MailPoet' ) ).toBeChecked();
 		expect(
 			screen
 				.getByText( 'Jetpack' )
-				.closest( '.woocommerce-profiler-plugins-plugin-card' )
+				.closest( '.poocommerce-profiler-plugins-plugin-card' )
 		).toHaveClass( 'is-installed' );
 	} );
 
@@ -140,7 +140,7 @@ describe( 'Plugins Component', () => {
 		expect(
 			screen
 				.getByRole( 'heading', { level: 3, name: 'WooPayments' } )
-				.closest( '.woocommerce-profiler-plugins-plugin-card' )
+				.closest( '.poocommerce-profiler-plugins-plugin-card' )
 		).toHaveTextContent( 'Installed' );
 
 		await userEvent.click( screen.getByText( 'Continue' ) );
@@ -157,7 +157,7 @@ describe( 'Plugins Component', () => {
 					...mockContext,
 					pluginsInstallationErrors: [
 						{
-							plugin: 'woocommerce-payments',
+							plugin: 'poocommerce-payments',
 							error: 'Installation failed',
 							errorDetails: {
 								data: {
@@ -169,7 +169,7 @@ describe( 'Plugins Component', () => {
 							},
 						},
 					],
-					pluginsSelected: [ 'woocommerce-payments', 'mailpoet:alt' ],
+					pluginsSelected: [ 'poocommerce-payments', 'mailpoet:alt' ],
 				} }
 				sendEvent={ mockSendEvent }
 				navigationProgress={ navigationProgress }
@@ -183,7 +183,7 @@ describe( 'Plugins Component', () => {
 		).toBeInTheDocument();
 		expect( getPluginCheckbox( 'WooPayments' ) ).toBeChecked();
 		expect(
-			getPluginCheckbox( 'Google for WooCommerce' )
+			getPluginCheckbox( 'Google for PooCommerce' )
 		).not.toBeChecked();
 		expect( getPluginCheckbox( 'MailPoet' ) ).toBeChecked();
 
@@ -193,12 +193,12 @@ describe( 'Plugins Component', () => {
 			type: 'PLUGINS_INSTALLATION_REQUESTED',
 			payload: {
 				pluginsShown: [
-					'woocommerce-payments',
+					'poocommerce-payments',
 					'google-listings-and-ads',
 					'jetpack',
 					'mailpoet',
 				],
-				pluginsSelected: [ 'woocommerce-payments', 'mailpoet' ],
+				pluginsSelected: [ 'poocommerce-payments', 'mailpoet' ],
 				pluginsUnselected: [ 'google-listings-and-ads' ],
 			},
 		} );
@@ -220,13 +220,13 @@ describe( 'Plugins Component', () => {
 			type: 'PLUGINS_INSTALLATION_REQUESTED',
 			payload: {
 				pluginsShown: [
-					'woocommerce-payments',
+					'poocommerce-payments',
 					'google-listings-and-ads',
 					'jetpack',
 					'mailpoet',
 				],
 				pluginsSelected: [
-					'woocommerce-payments',
+					'poocommerce-payments',
 					'google-listings-and-ads',
 				],
 				pluginsUnselected: [ 'mailpoet' ],

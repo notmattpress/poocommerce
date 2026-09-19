@@ -3,7 +3,7 @@
  */
 import { useBlockProps } from '@wordpress/block-editor';
 import { _n, sprintf } from '@wordpress/i18n';
-import { useStoreCart } from '@woocommerce/base-context';
+import { useStoreCart } from '@poocommerce/base-context';
 
 export const Edit = (): JSX.Element => {
 	const blockProps = useBlockProps();
@@ -13,7 +13,7 @@ export const Edit = (): JSX.Element => {
 		<span { ...blockProps }>
 			{ sprintf(
 				/* translators: %d is the count of items in the cart. */
-				_n( '(%d item)', '(%d items)', cartItemsCount, 'woocommerce' ),
+				_n( '(%d item)', '(%d items)', cartItemsCount, 'poocommerce' ),
 				cartItemsCount
 			) }
 		</span>

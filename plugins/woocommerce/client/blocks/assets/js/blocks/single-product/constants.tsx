@@ -2,8 +2,8 @@
  * External dependencies
  */
 import { Icon, mediaAndText } from '@wordpress/icons';
-import { getBlockMap } from '@woocommerce/atomic-utils';
-import { getSetting } from '@woocommerce/settings';
+import { getBlockMap } from '@poocommerce/atomic-utils';
+import { getSetting } from '@poocommerce/settings';
 import type { InnerBlockTemplate } from '@wordpress/blocks';
 
 /**
@@ -24,7 +24,7 @@ export const DEFAULT_INNER_BLOCKS: InnerBlockTemplate[] = [
 		'core/columns',
 		{},
 		[
-			[ 'core/column', {}, [ [ 'woocommerce/product-gallery' ] ] ],
+			[ 'core/column', {}, [ [ 'poocommerce/product-gallery' ] ] ],
 			[
 				'core/column',
 				{},
@@ -34,19 +34,19 @@ export const DEFAULT_INNER_BLOCKS: InnerBlockTemplate[] = [
 						{
 							headingLevel: 2,
 							isLink: true,
-							__woocommerceNamespace:
+							__poocommerceNamespace:
 								PRODUCT_TITLE_VARIATION_NAME,
 						},
 					],
-					[ 'woocommerce/product-rating' ],
-					[ 'woocommerce/product-price' ],
-					[ 'woocommerce/product-summary' ],
+					[ 'poocommerce/product-rating' ],
+					[ 'poocommerce/product-price' ],
+					[ 'poocommerce/product-summary' ],
 					[
 						getSetting( 'isBlockTheme', false )
-							? 'woocommerce/add-to-cart-with-options'
-							: 'woocommerce/add-to-cart-form',
+							? 'poocommerce/add-to-cart-with-options'
+							: 'poocommerce/add-to-cart-form',
 					],
-					[ 'woocommerce/product-meta' ],
+					[ 'poocommerce/product-meta' ],
 				],
 			],
 		],
@@ -58,11 +58,11 @@ export const ALLOWED_INNER_BLOCKS = [
 	'core/column',
 	'core/post-title',
 	'core/post-excerpt',
-	'woocommerce/add-to-cart-form',
-	'woocommerce/add-to-cart-with-options',
-	'woocommerce/product-meta',
-	'woocommerce/product-gallery',
-	'woocommerce/product-reviews',
-	'woocommerce/product-details',
+	'poocommerce/add-to-cart-form',
+	'poocommerce/add-to-cart-with-options',
+	'poocommerce/product-meta',
+	'poocommerce/product-gallery',
+	'poocommerce/product-reviews',
+	'poocommerce/product-details',
 	...Object.keys( getBlockMap( metadata.name ) ),
 ];

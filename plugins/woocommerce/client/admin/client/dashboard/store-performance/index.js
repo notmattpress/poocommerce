@@ -4,7 +4,7 @@
 import { __ } from '@wordpress/i18n';
 import { Component, Fragment } from '@wordpress/element';
 import { compose } from '@wordpress/compose';
-import { getPersistedQuery } from '@woocommerce/navigation';
+import { getPersistedQuery } from '@poocommerce/navigation';
 import { withSelect } from '@wordpress/data';
 import {
 	EllipsisMenu,
@@ -14,10 +14,10 @@ import {
 	SummaryList,
 	SummaryListPlaceholder,
 	SummaryNumber,
-} from '@woocommerce/components';
-import { getDateParamsFromQuery } from '@woocommerce/date';
-import { recordEvent } from '@woocommerce/tracks';
-import { CurrencyContext } from '@woocommerce/currency';
+} from '@poocommerce/components';
+import { getDateParamsFromQuery } from '@poocommerce/date';
+import { recordEvent } from '@poocommerce/tracks';
+import { CurrencyContext } from '@poocommerce/currency';
 
 /**
  * Internal dependencies
@@ -52,13 +52,13 @@ class StorePerformance extends Component {
 			<EllipsisMenu
 				label={ __(
 					'Choose which analytics to display and the section name',
-					'woocommerce'
+					'poocommerce'
 				) }
 				placement={ 'bottom-end' }
 				renderContent={ ( { onToggle } ) => (
 					<Fragment>
 						<MenuTitle>
-							{ __( 'Display stats:', 'woocommerce' ) }
+							{ __( 'Display stats:', 'poocommerce' ) }
 						</MenuTitle>
 						{ indicators.map( ( indicator, i ) => {
 							const checked = ! hiddenBlocks.includes(
@@ -127,8 +127,8 @@ class StorePerformance extends Component {
 		const { compare } = getDateParamsFromQuery( query, defaultDateRange );
 		const prevLabel =
 			compare === 'previous_period'
-				? __( 'Previous period:', 'woocommerce' )
-				: __( 'Previous year:', 'woocommerce' );
+				? __( 'Previous period:', 'poocommerce' )
+				: __( 'Previous year:', 'poocommerce' );
 		const { formatAmount, getCurrencyConfig } = this.context;
 		const currency = getCurrencyConfig();
 		return (
@@ -178,11 +178,11 @@ class StorePerformance extends Component {
 		return (
 			<Fragment>
 				<SectionHeader
-					title={ title || __( 'Store Performance', 'woocommerce' ) }
+					title={ title || __( 'Store Performance', 'poocommerce' ) }
 					menu={ this.renderMenu() }
 				/>
 				{ userIndicators.length > 0 && (
-					<div className="woocommerce-dashboard__store-performance">
+					<div className="poocommerce-dashboard__store-performance">
 						{ this.renderList() }
 					</div>
 				) }

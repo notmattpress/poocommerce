@@ -5,19 +5,19 @@ import { Slot, Fill } from '@wordpress/components';
 import {
 	createOrderedChildren,
 	sortFillsByOrder,
-} from '@woocommerce/components';
+} from '@poocommerce/components';
 
 export const EXPERIMENTAL_WC_TASKLIST_FOOTER_SLOT_NAME =
-	'experimental_woocommerce_tasklist_footer_item';
+	'experimental_poocommerce_tasklist_footer_item';
 /**
- * Create a Fill for extensions to add items to the WooCommerce Admin Task List footer.
+ * Create a Fill for extensions to add items to the PooCommerce Admin Task List footer.
  *
  * @slotFill ExperimentalWooTaskListFooterItem
- * @scope woocommerce-admin
+ * @scope poocommerce-admin
  * @example
  * const MyFooterItem = () => (
- * 	<Fill name="experimental_woocommerce_tasklist_footer_item">
- * 		<div className="woocommerce-experiments-placeholder-slotfill">
+ * 	<Fill name="experimental_poocommerce_tasklist_footer_item">
+ * 		<div className="poocommerce-experiments-placeholder-slotfill">
  * 			<div className="placeholder-slotfill-content">
  * 				Slotfill goes in here!
  * 			</div>
@@ -27,7 +27,7 @@ export const EXPERIMENTAL_WC_TASKLIST_FOOTER_SLOT_NAME =
  *
  * registerPlugin( 'my-extension', {
  * render: MyFooterItem,
- * scope: 'woocommerce-admin',
+ * scope: 'poocommerce-admin',
  * } );
  * @param {Object} param0
  * @param {Array}  param0.children - Node children.

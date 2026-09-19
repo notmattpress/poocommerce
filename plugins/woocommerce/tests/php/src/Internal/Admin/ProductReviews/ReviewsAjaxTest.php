@@ -2,11 +2,11 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\ProductReviews;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\ProductReviews;
 
 require_once ABSPATH . 'wp-admin/includes/ajax-actions.php';
 
-use Automattic\WooCommerce\Internal\Admin\ProductReviews\Reviews;
+use Automattic\PooCommerce\Internal\Admin\ProductReviews\Reviews;
 use WC_Helper_Product;
 use WP_Ajax_UnitTestCase;
 use WP_Comment;
@@ -16,8 +16,8 @@ use WPAjaxDieStopException;
 /**
  * Tests Product Reviews registered AJAX handlers.
  *
- * @covers \Automattic\WooCommerce\Internal\Admin\ProductReviews\Reviews::handle_edit_review
- * @covers \Automattic\WooCommerce\Internal\Admin\ProductReviews\Reviews::handle_reply_to_review
+ * @covers \Automattic\PooCommerce\Internal\Admin\ProductReviews\Reviews::handle_edit_review
+ * @covers \Automattic\PooCommerce\Internal\Admin\ProductReviews\Reviews::handle_reply_to_review
  */
 class ReviewsAjaxTest extends WP_Ajax_UnitTestCase {
 	/**

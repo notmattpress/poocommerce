@@ -1,9 +1,9 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Caches;
+namespace Automattic\PooCommerce\Internal\Caches;
 
-use Automattic\WooCommerce\Caching\ObjectCache;
+use Automattic\PooCommerce\Caching\ObjectCache;
 use WC_Product;
 
 /**
@@ -67,7 +67,7 @@ class ProductCache extends ObjectCache {
 	 * @param int             $expiration Expiration of the cached data in seconds from the current time, or DEFAULT_EXPIRATION to use the default value.
 	 *
 	 * @return bool True on success, false on error.
-	 * @throws \Automattic\WooCommerce\Caching\CacheException Invalid parameter, or null id was passed and get_object_id returns null too.
+	 * @throws \Automattic\PooCommerce\Caching\CacheException Invalid parameter, or null id was passed and get_object_id returns null too.
 	 */
 	public function set( $product, $id = null, int $expiration = self::DEFAULT_EXPIRATION ): bool {
 		if ( null !== $id ) {
@@ -109,7 +109,7 @@ class ProductCache extends ObjectCache {
 	 * @param callable|null $get_from_datastore_callback Optional callback to get the product if it's not cached, it must return a WC_Product or null.
 	 *
 	 * @return WC_Product|null Cached product, or null if it's not cached and can't be retrieved from datastore or via callback.
-	 * @throws \Automattic\WooCommerce\Caching\CacheException Invalid id parameter.
+	 * @throws \Automattic\PooCommerce\Caching\CacheException Invalid id parameter.
 	 */
 	public function get( $id, int $expiration = self::DEFAULT_EXPIRATION, ?callable $get_from_datastore_callback = null ): ?WC_Product {
 		$id      = (int) $id;

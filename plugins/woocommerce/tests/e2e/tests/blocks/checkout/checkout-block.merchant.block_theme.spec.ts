@@ -6,7 +6,7 @@ import {
 	expect,
 	BlockData,
 	BLOCK_THEME_SLUG,
-} from '@woocommerce/e2e-utils';
+} from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -16,11 +16,11 @@ import { REGULAR_PRICED_PRODUCT_NAME } from './constants';
 
 const blockData: BlockData = {
 	name: 'Checkout',
-	slug: 'woocommerce/checkout',
-	mainClass: '.wp-block-woocommerce-checkout',
+	slug: 'poocommerce/checkout',
+	mainClass: '.wp-block-poocommerce-checkout',
 	selectors: {
 		editor: {
-			block: '.wp-block-woocommerce-checkout',
+			block: '.wp-block-poocommerce-checkout',
 			insertButton: "//button//span[text()='Checkout']",
 		},
 		frontend: {},
@@ -101,7 +101,7 @@ test.describe( 'Merchant → Checkout', () => {
 	} ) => {
 		await editor.selectBlocks(
 			blockSelectorInEditor +
-				'  [data-type="woocommerce/checkout-terms-block"]'
+				'  [data-type="poocommerce/checkout-terms-block"]'
 		);
 		const requireTermsCheckbox = editor.page.getByRole( 'checkbox', {
 			name: 'Require checkbox',
@@ -143,7 +143,7 @@ test.describe( 'Merchant → Checkout', () => {
 			method: 'POST',
 			path: 'e2e-options/update',
 			data: {
-				option_name: 'woocommerce_checkout_company_field',
+				option_name: 'poocommerce_checkout_company_field',
 				option_value: 'hidden',
 			},
 		} );
@@ -156,11 +156,11 @@ test.describe( 'Merchant → Checkout', () => {
 		await editor.openDocumentSettingsSidebar();
 		await editor.selectBlocks(
 			blockSelectorInEditor +
-				'  [data-type="woocommerce/checkout-shipping-address-block"]'
+				'  [data-type="poocommerce/checkout-shipping-address-block"]'
 		);
 
 		const shippingAddressBlock = await editor.getBlockByName(
-			'woocommerce/checkout-shipping-address-block'
+			'poocommerce/checkout-shipping-address-block'
 		);
 		const shippingCompanyInput =
 			shippingAddressBlock.getByLabel( 'Company' );
@@ -201,7 +201,7 @@ test.describe( 'Merchant → Checkout', () => {
 		await editor.openDocumentSettingsSidebar();
 		await editor.selectBlocks(
 			blockSelectorInEditor +
-				'  [data-type="woocommerce/checkout-shipping-address-block"]'
+				'  [data-type="poocommerce/checkout-shipping-address-block"]'
 		);
 		await expect(
 			editor.page

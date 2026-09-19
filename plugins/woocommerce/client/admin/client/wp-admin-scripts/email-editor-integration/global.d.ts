@@ -4,7 +4,7 @@ declare module '*.json' {
 }
 
 interface Window {
-	WooCommerceEmailEditor: {
+	PooCommerceEmailEditor: {
 		current_post_type: string;
 		current_post_id: string;
 		email_types: {
@@ -20,14 +20,14 @@ interface Window {
 }
 
 /**
- * Shape of the `woocommerce_data` field on `woo_email` posts.
+ * Shape of the `poocommerce_data` field on `woo_email` posts.
  *
  * All string fields are nullable because the REST schema in
  * `src/Internal/EmailEditor/EmailApiController.php` declares them with
  * `Builder::string()->nullable()` and the PHP layer uses `null` as the
  * "unset" sentinel.
  */
-interface EmailWooCommerceData {
+interface EmailPooCommerceData {
 	recipient: string | null;
 	cc: string | null;
 	bcc: string | null;
@@ -42,11 +42,11 @@ interface EmailWooCommerceData {
 }
 
 /**
- * Shape of the `woocommerce_data` field on `wp_template` records used by the
+ * Shape of the `poocommerce_data` field on `wp_template` records used by the
  * email editor. Templates carry sender options rather than per-email form
  * fields.
  */
-interface TemplateWooCommerceData {
+interface TemplatePooCommerceData {
 	sender_settings?: {
 		from_address?: string;
 		from_name?: string;

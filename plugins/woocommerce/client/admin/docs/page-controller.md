@@ -1,12 +1,12 @@
-# WooCommerce Admin Page Controller
+# PooCommerce Admin Page Controller
 
-Pages rendered with React and pages that include the WooCommerce Admin header (containing the Activity Panel) need to be registered with the WooCommerce Admin Page Controller.
+Pages rendered with React and pages that include the PooCommerce Admin header (containing the Activity Panel) need to be registered with the PooCommerce Admin Page Controller.
 
-This is the API you will use to add your own React-powered page, or to include the WooCommerce Admin header on your plugin pages.
+This is the API you will use to add your own React-powered page, or to include the PooCommerce Admin header on your plugin pages.
 
 ## Connecting a PHP-powered Page
 
-To show the WooCommerce Admin header on existing PHP-powered admin pages (most plugin pages), use the `wc_admin_connect_page()` function.
+To show the PooCommerce Admin header on existing PHP-powered admin pages (most plugin pages), use the `wc_admin_connect_page()` function.
 
 Connecting pages uses five parameters to `wc_admin_connect_page()`:
 
@@ -19,30 +19,30 @@ Connecting pages uses five parameters to `wc_admin_connect_page()`:
 ### Examples
 
 ```php
-// WooCommerce > Settings > General (default tab).
+// PooCommerce > Settings > General (default tab).
 wc_admin_connect_page(
 	array(
-		'id'        => 'woocommerce-settings',
-		'screen_id' => 'woocommerce_page_wc-settings-general',
+		'id'        => 'poocommerce-settings',
+		'screen_id' => 'poocommerce_page_wc-settings-general',
 		'title'     => array(
-			__( 'Settings', 'woocommerce' ),
-			__( 'General', 'woocommerce' ),
+			__( 'Settings', 'poocommerce' ),
+			__( 'General', 'poocommerce' ),
 		),
 		'path'      => add_query_arg( 'page', 'wc-settings', 'admin.php' ),
 	)
 );
 ```
 
-The `WooCommerce > Settings > General` example shows how to set up multiple breadcrumb pieces for a page. When building the breadcrumbs, WooCommerce will attach a link to `path` to the first piece in the `title` array. All subsequent pieces are plain text (not linked).
+The `PooCommerce > Settings > General` example shows how to set up multiple breadcrumb pieces for a page. When building the breadcrumbs, PooCommerce will attach a link to `path` to the first piece in the `title` array. All subsequent pieces are plain text (not linked).
 
 ```php
-// WooCommerce > Settings > Payments.
+// PooCommerce > Settings > Payments.
 wc_admin_connect_page(
 	array(
-		'id'        => 'woocommerce-settings-payments',
-		'parent'    => 'woocommerce-settings',
-		'screen_id' => 'woocommerce_page_wc-settings-checkout',
-		'title'     => __( 'Payments', 'woocommerce' ),
+		'id'        => 'poocommerce-settings-payments',
+		'parent'    => 'poocommerce-settings',
+		'screen_id' => 'poocommerce_page_wc-settings-checkout',
+		'title'     => __( 'Payments', 'poocommerce' ),
 		'path'      => add_query_arg(
 			array(
 				'page' => 'wc-settings',
@@ -53,12 +53,12 @@ wc_admin_connect_page(
 	)
 );
 
-// WooCommerce > Orders.
+// PooCommerce > Orders.
 wc_admin_connect_page(
 	array(
-		'id'        => 'woocommerce-orders',
+		'id'        => 'poocommerce-orders',
 		'screen_id' => 'edit-shop_order',
-		'title'     => __( 'Orders', 'woocommerce' ),
+		'title'     => __( 'Orders', 'poocommerce' ),
 		'path'      => add_query_arg( 'post_type', 'shop_order', 'edit.php' ),
 	)
 );
@@ -66,7 +66,7 @@ wc_admin_connect_page(
 
 ## Determining Screen ID
 
-WooCommerce Admin implements it's own version of `get_current_screen()` to allow for more precise identification of admin pages.
+PooCommerce Admin implements it's own version of `get_current_screen()` to allow for more precise identification of admin pages.
 
 Some screen ID formats that the function will generate are:
 
@@ -75,9 +75,9 @@ Some screen ID formats that the function will generate are:
 -   `{$current_screen->action}-{$current_screen->action}` if no tab is present
 -   `{$current_screen->action}` if no action or tab is present
 
-WooCommerce Admin can recognize WooCommerce pages that have both tabs and sub sections. For example, `woocommerce_page_wc-settings-products-inventory` is the `WooCommerce > Settings > Products > Inventory` page.
+PooCommerce Admin can recognize PooCommerce pages that have both tabs and sub sections. For example, `poocommerce_page_wc-settings-products-inventory` is the `PooCommerce > Settings > Products > Inventory` page.
 
-If your plugin adds new pages with tabs and sub sections, use the `wc_admin_pages_with_tabs` and `wc_admin_page_tab_sections` filters to have WooCommerce Admin generate accurate screen IDs for them.
+If your plugin adds new pages with tabs and sub sections, use the `wc_admin_pages_with_tabs` and `wc_admin_page_tab_sections` filters to have PooCommerce Admin generate accurate screen IDs for them.
 
 You can also use the `wc_admin_current_screen_id` filter to make any changes necessary to the behavior.
 
@@ -102,7 +102,7 @@ Add our new report using the appropriate filter:
 ```javascript
 import { addFilter } from '@wordpress/hooks';
 
-addFilter( 'woocommerce_admin_reports_list', 'my-namespace', ( reports ) => {
+addFilter( 'poocommerce_admin_reports_list', 'my-namespace', ( reports ) => {
 	reports.push( {
 		report: 'example',
 		title: __( 'Example', 'my-textdomain' ),
@@ -120,16 +120,16 @@ function add_report_menu_item( $report_pages ) {
 	$report_pages[] = array(
 		'id'     => 'example-analytics-report',
 		'title'  => __( 'Example', 'my-textdomain' ),
-		'parent' => 'woocommerce-analytics',
+		'parent' => 'poocommerce-analytics',
 		'path'   => '/analytics/example',
 	);
 
 	return $report_pages;
 }
-add_filter( 'woocommerce_admin_report_menu_items', 'add_report_menu_item' );
+add_filter( 'poocommerce_admin_report_menu_items', 'add_report_menu_item' );
 ```
 
-### Example - Adding a New WooCommerce Admin Page
+### Example - Adding a New PooCommerce Admin Page
 
 Alternatively, register a regular page with the controller.
 
@@ -142,7 +142,7 @@ function add_extension_register_page() {
     wc_admin_register_page( array(
 		'id'       => 'my-example-page',
 		'title'    => __( 'My Example Page', 'my-textdomain' ),
-		'parent'   => 'woocommerce',
+		'parent'   => 'poocommerce',
 		'path'     => '/example',
 	) );
 }
@@ -158,7 +158,7 @@ import { __ } from '@wordpress/i18n';
 
 const MyExamplePage = () => <h1>My Example Extension</h1>;
 
-addFilter( 'woocommerce_admin_pages_list', 'my-namespace', ( pages ) => {
+addFilter( 'poocommerce_admin_pages_list', 'my-namespace', ( pages ) => {
 	pages.push( {
 		container: MyExamplePage,
 		path: '/example',
@@ -174,6 +174,6 @@ addFilter( 'woocommerce_admin_pages_list', 'my-namespace', ( pages ) => {
 
 ## Further Reading
 
--   Check out the [`PageController`](../woocommerce/src/Admin/PageController.php) class.
--   See how we're [connecting existing WooCommerce pages](../woocommerce/includes/react-admin/page-controller-functions.php).
--   See how we're [registering Analytics Reports](../woocommerce/src/Internal/Admin/Analytics.php).
+-   Check out the [`PageController`](../poocommerce/src/Admin/PageController.php) class.
+-   See how we're [connecting existing PooCommerce pages](../poocommerce/includes/react-admin/page-controller-functions.php).
+-   See how we're [registering Analytics Reports](../poocommerce/src/Internal/Admin/Analytics.php).

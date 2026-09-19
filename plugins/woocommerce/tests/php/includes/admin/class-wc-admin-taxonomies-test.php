@@ -2,7 +2,7 @@
 /**
  * Tests for WC_Admin_Taxonomies.
  *
- * @package WooCommerce\Tests\Admin
+ * @package PooCommerce\Tests\Admin
  */
 
 declare( strict_types = 1 );

@@ -2,7 +2,7 @@
  * External dependencies
  */
 import deprecated from '@wordpress/deprecated';
-import { FieldValidationStatus } from '@woocommerce/types';
+import { FieldValidationStatus } from '@poocommerce/types';
 
 /**
  * Internal dependencies
@@ -30,7 +30,7 @@ export const clearAllValidationErrors = () => {
 	deprecated( 'clearAllValidationErrors', {
 		version: '7.3.0',
 		alternative: 'clearValidationErrors',
-		link: 'https://github.com/woocommerce/woocommerce-blocks/pull/7601',
+		link: 'https://github.com/poocommerce/poocommerce-blocks/pull/7601',
 		hint: 'Calling `clearValidationErrors` with no arguments will clear all validation errors.',
 	} );
 

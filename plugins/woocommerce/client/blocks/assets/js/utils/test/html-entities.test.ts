@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { decodeHtmlEntities } from '@woocommerce/utils';
+import { decodeHtmlEntities } from '@poocommerce/utils';
 
 describe( 'decodeHtmlEntities', () => {
 	describe( 'Input validation', () => {
@@ -119,7 +119,7 @@ describe( 'decodeHtmlEntities', () => {
 		} );
 	} );
 
-	describe( 'WooCommerce-specific use cases', () => {
+	describe( 'PooCommerce-specific use cases', () => {
 		it( 'handles price formatting with thousand separators', () => {
 			const result1 = decodeHtmlEntities( '1&nbsp;000.50' );
 			expect( [ '1 000.50', '1\u00A0000.50' ] ).toContain( result1 );

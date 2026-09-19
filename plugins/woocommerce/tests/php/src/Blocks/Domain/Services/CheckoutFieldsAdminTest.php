@@ -1,11 +1,11 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\Domain\Services;
+namespace Automattic\PooCommerce\Tests\Blocks\Domain\Services;
 
-use Automattic\WooCommerce\Blocks\Domain\Services\CheckoutFields;
-use Automattic\WooCommerce\Blocks\Domain\Services\CheckoutFieldsAdmin;
-use Automattic\WooCommerce\Blocks\Package;
+use Automattic\PooCommerce\Blocks\Domain\Services\CheckoutFields;
+use Automattic\PooCommerce\Blocks\Domain\Services\CheckoutFieldsAdmin;
+use Automattic\PooCommerce\Blocks\Package;
 use WC_Order;
 use WC_Unit_Test_Case;
 
@@ -51,7 +51,7 @@ class CheckoutFieldsAdminTest extends WC_Unit_Test_Case {
 		$this->sut        = Package::container()->get( CheckoutFieldsAdmin::class );
 		$this->controller = Package::container()->get( CheckoutFields::class );
 
-		if ( false === has_filter( 'woocommerce_admin_billing_fields', array( $this->sut, 'admin_address_fields' ) ) ) {
+		if ( false === has_filter( 'poocommerce_admin_billing_fields', array( $this->sut, 'admin_address_fields' ) ) ) {
 			$this->sut->init();
 			$this->registered_hooks = true;
 		}
@@ -62,14 +62,14 @@ class CheckoutFieldsAdminTest extends WC_Unit_Test_Case {
 	 */
 	public function tearDown(): void {
 		foreach ( $this->registered_fields as $field_id ) {
-			__internal_woocommerce_blocks_deregister_checkout_field( $field_id );
+			__internal_poocommerce_blocks_deregister_checkout_field( $field_id );
 		}
 
 		if ( $this->registered_hooks ) {
-			remove_filter( 'woocommerce_admin_billing_fields', array( $this->sut, 'admin_address_fields' ), 10 );
-			remove_filter( 'woocommerce_admin_billing_fields', array( $this->sut, 'admin_contact_fields' ), 10 );
-			remove_filter( 'woocommerce_admin_shipping_fields', array( $this->sut, 'admin_address_fields' ), 10 );
-			remove_filter( 'woocommerce_admin_shipping_fields', array( $this->sut, 'admin_order_fields' ), 10 );
+			remove_filter( 'poocommerce_admin_billing_fields', array( $this->sut, 'admin_address_fields' ), 10 );
+			remove_filter( 'poocommerce_admin_billing_fields', array( $this->sut, 'admin_contact_fields' ), 10 );
+			remove_filter( 'poocommerce_admin_shipping_fields', array( $this->sut, 'admin_address_fields' ), 10 );
+			remove_filter( 'poocommerce_admin_shipping_fields', array( $this->sut, 'admin_order_fields' ), 10 );
 		}
 
 		parent::tearDown();
@@ -127,10 +127,10 @@ class CheckoutFieldsAdminTest extends WC_Unit_Test_Case {
 		$order->save();
 
 		$base_fields = array( 'state' => array( 'label' => 'State' ) );
-		// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment -- Firing an existing admin filter to exercise its callbacks, not declaring a new hook.
-		$billing_fields = apply_filters( 'woocommerce_admin_billing_fields', $base_fields, $order, 'edit' );
-		// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment -- Firing an existing admin filter to exercise its callbacks, not declaring a new hook.
-		$shipping_fields     = apply_filters( 'woocommerce_admin_shipping_fields', $base_fields, $order, 'edit' );
+		// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment -- Firing an existing admin filter to exercise its callbacks, not declaring a new hook.
+		$billing_fields = apply_filters( 'poocommerce_admin_billing_fields', $base_fields, $order, 'edit' );
+		// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment -- Firing an existing admin filter to exercise its callbacks, not declaring a new hook.
+		$shipping_fields     = apply_filters( 'poocommerce_admin_shipping_fields', $base_fields, $order, 'edit' );
 		$billing_address_id  = '_wc_billing/' . $address_field;
 		$shipping_address_id = '_wc_shipping/' . $address_field;
 		$contact_admin_id    = '_wc_other/' . $contact_field;
@@ -235,7 +235,7 @@ class CheckoutFieldsAdminTest extends WC_Unit_Test_Case {
 	 * @param array $field Field registration arguments.
 	 */
 	private function register_checkout_field( array $field ): void {
-		woocommerce_register_additional_checkout_field( $field );
+		poocommerce_register_additional_checkout_field( $field );
 		$this->registered_fields[] = $field['id'];
 	}
 

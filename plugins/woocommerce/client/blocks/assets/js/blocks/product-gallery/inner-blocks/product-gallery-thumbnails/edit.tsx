@@ -1,12 +1,12 @@
 /**
  * External dependencies
  */
-import { PLACEHOLDER_IMG_SRC } from '@woocommerce/settings';
-import type { ProductResponseImageItem } from '@woocommerce/types';
+import { PLACEHOLDER_IMG_SRC } from '@poocommerce/settings';
+import type { ProductResponseImageItem } from '@poocommerce/types';
 import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
 import type { BlockEditProps } from '@wordpress/blocks';
 import { useEffect, useRef, useState } from '@wordpress/element';
-import { useProduct } from '@woocommerce/entities';
+import { useProduct } from '@poocommerce/entities';
 import clsx from 'clsx';
 
 /**

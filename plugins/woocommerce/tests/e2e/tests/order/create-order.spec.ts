@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { Page } from '@playwright/test';
-import { WC_API_PATH } from '@woocommerce/e2e-utils-playwright';
+import { WC_API_PATH } from '@poocommerce/e2e-utils-playwright';
 
 /**
  * Internal dependencies
@@ -28,7 +28,7 @@ const taxRates = [
 async function getOrderIdFromPage( page: Page ) {
 	// get order ID from the page
 	const orderText = await page
-		.locator( 'h2.woocommerce-order-data__heading' )
+		.locator( 'h2.poocommerce-order-data__heading' )
 		.textContent();
 	const parts = orderText.match( /([0-9])\w+/ );
 	return parts[ 0 ];
@@ -163,7 +163,7 @@ const editOrderUrl = ( orderId: number | string ) =>
 		: `wp-admin/admin.php?page=wc-orders&action=edit&id=${ orderId }`;
 
 test.describe(
-	'WooCommerce Orders > Add new order',
+	'PooCommerce Orders > Add new order',
 	{ tag: [ tags.SERVICES, tags.HPOS ] },
 	() => {
 		test.beforeAll( async ( { restApi } ) => {
@@ -192,7 +192,7 @@ test.describe(
 						( error: { response: { data: { code: string } } } ) => {
 							if (
 								error.response.data.code ===
-								'woocommerce_rest_invalid_tax_class'
+								'poocommerce_rest_invalid_tax_class'
 							) {
 								// do nothing, probably the tax class was not created due to a failing test
 							} else {

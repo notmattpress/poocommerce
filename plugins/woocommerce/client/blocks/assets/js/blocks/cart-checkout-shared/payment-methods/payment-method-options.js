@@ -4,13 +4,13 @@
 import {
 	usePaymentMethodInterface,
 	useStoreEvents,
-} from '@woocommerce/base-context/hooks';
+} from '@poocommerce/base-context/hooks';
 import { cloneElement, useCallback } from '@wordpress/element';
-import { useEditorContext } from '@woocommerce/base-context';
-import { RadioControlAccordion } from '@woocommerce/blocks-components';
+import { useEditorContext } from '@poocommerce/base-context';
+import { RadioControlAccordion } from '@poocommerce/blocks-components';
 import { useDispatch, useSelect } from '@wordpress/data';
-import { getPaymentMethods } from '@woocommerce/blocks-registry';
-import { paymentStore } from '@woocommerce/block-data';
+import { getPaymentMethods } from '@poocommerce/blocks-registry';
+import { paymentStore } from '@poocommerce/block-data';
 
 /**
  * Internal dependencies

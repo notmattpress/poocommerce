@@ -1,14 +1,14 @@
 <?php
 /**
- * This file is part of the WooCommerce Email Editor package
+ * This file is part of the PooCommerce Email Editor package
  *
- * @package Automattic\WooCommerce\EmailEditor
+ * @package Automattic\PooCommerce\EmailEditor
  */
 
 declare( strict_types = 1 );
-namespace Automattic\WooCommerce\EmailEditor\Integrations\Utils;
+namespace Automattic\PooCommerce\EmailEditor\Integrations\Utils;
 
-use Automattic\WooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Rendering_Context;
+use Automattic\PooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Rendering_Context;
 use WP_Style_Engine;
 
 /**
@@ -123,7 +123,7 @@ class Styles_Helper {
 		$unsupported_props = array(
 			'margin' => array( 'spacing', 'margin' ),
 		);
-		$unsupported_props = apply_filters( 'woocommerce_email_editor_styles_unsupported_props', $unsupported_props );
+		$unsupported_props = apply_filters( 'poocommerce_email_editor_styles_unsupported_props', $unsupported_props );
 		foreach ( $unsupported_props as $path ) {
 			if ( ! is_array( $path ) || count( $path ) === 0 ) {
 				continue;

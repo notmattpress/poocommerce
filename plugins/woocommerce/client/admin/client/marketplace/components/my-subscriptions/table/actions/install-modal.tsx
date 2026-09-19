@@ -3,7 +3,7 @@
  */
 import { Button, ButtonGroup, Modal, Notice } from '@wordpress/components';
 import { __, sprintf } from '@wordpress/i18n';
-import { getNewPath, navigateTo, useQuery } from '@woocommerce/navigation';
+import { getNewPath, navigateTo, useQuery } from '@poocommerce/navigation';
 import {
 	useCallback,
 	useContext,
@@ -71,7 +71,7 @@ export default function InstallModal() {
 					/* translators: %s is the product key */
 					__(
 						'Could not find subscription with product key %s.',
-						'woocommerce'
+						'poocommerce'
 					),
 					installingProductKey
 				),
@@ -102,10 +102,10 @@ export default function InstallModal() {
 
 	const modalTitle = () => {
 		if ( isInstalled ) {
-			return __( 'You are ready to go!', 'woocommerce' );
+			return __( 'You are ready to go!', 'poocommerce' );
 		}
 
-		return __( 'Add to store', 'woocommerce' );
+		return __( 'Add to store', 'poocommerce' );
 	};
 
 	const modalContent = () => {
@@ -114,7 +114,7 @@ export default function InstallModal() {
 				<Notice status="warning" isDismissible={ false }>
 					{ __(
 						'In order to install a product, you need to first connect your account.',
-						'woocommerce'
+						'poocommerce'
 					) }
 				</Notice>
 			);
@@ -122,15 +122,15 @@ export default function InstallModal() {
 			const installContent = isInstalled
 				? __(
 						'Keep the momentum going and start setting up your extension.',
-						'woocommerce'
+						'poocommerce'
 				  )
 				: __(
 						'Would you like to install this extension?',
-						'woocommerce'
+						'poocommerce'
 				  );
 			return (
 				<>
-					<p className="woocommerce-marketplace__header-account-modal-text">
+					<p className="poocommerce-marketplace__header-account-modal-text">
 						{ installContent }
 					</p>
 					<ProductCard
@@ -154,20 +154,20 @@ export default function InstallModal() {
 					variant="secondary"
 					href={ subscription?.documentation_url }
 					target="_blank"
-					className="woocommerce-marketplace__header-account-modal-button"
+					className="poocommerce-marketplace__header-account-modal-button"
 					key={ 'docs' }
 				>
-					{ __( 'View docs', 'woocommerce' ) }
+					{ __( 'View docs', 'poocommerce' ) }
 				</Button>
 			);
 			buttons.push(
 				<Button
 					variant="primary"
 					href={ WP_ADMIN_PLUGIN_LIST_URL }
-					className="woocommerce-marketplace__header-account-modal-button"
+					className="poocommerce-marketplace__header-account-modal-button"
 					key={ 'plugin-list' }
 				>
-					{ __( 'View in Plugins', 'woocommerce' ) }
+					{ __( 'View in Plugins', 'poocommerce' ) }
 				</Button>
 			);
 		} else {
@@ -175,10 +175,10 @@ export default function InstallModal() {
 				<Button
 					variant="tertiary"
 					onClick={ onClose }
-					className="woocommerce-marketplace__header-account-modal-button"
+					className="poocommerce-marketplace__header-account-modal-button"
 					key={ 'cancel' }
 				>
-					{ __( 'Cancel', 'woocommerce' ) }
+					{ __( 'Cancel', 'poocommerce' ) }
 				</Button>
 			);
 
@@ -202,7 +202,7 @@ export default function InstallModal() {
 			}
 		}
 		return (
-			<ButtonGroup className="woocommerce-marketplace__header-account-modal-button-group">
+			<ButtonGroup className="poocommerce-marketplace__header-account-modal-button-group">
 				{ buttons }
 			</ButtonGroup>
 		);
@@ -217,9 +217,9 @@ export default function InstallModal() {
 			title={ modalTitle() }
 			onRequestClose={ onClose }
 			focusOnMount={ true }
-			className="woocommerce-marketplace__header-account-modal has-size-medium"
+			className="poocommerce-marketplace__header-account-modal has-size-medium"
 			style={ { borderRadius: 4 } }
-			overlayClassName="woocommerce-marketplace__header-account-modal-overlay"
+			overlayClassName="poocommerce-marketplace__header-account-modal-overlay"
 		>
 			{ modalContent() }
 			{ modalButtons() }

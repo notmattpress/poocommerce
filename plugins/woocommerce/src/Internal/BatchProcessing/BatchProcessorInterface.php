@@ -3,12 +3,12 @@
  * Interface for batch data processors. See the BatchProcessingController class for usage details.
  */
 
-namespace Automattic\WooCommerce\Internal\BatchProcessing;
+namespace Automattic\PooCommerce\Internal\BatchProcessing;
 
 /**
  * Interface BatchProcessorInterface
  *
- * @package Automattic\WooCommerce\Internal\BatchProcessing
+ * @package Automattic\PooCommerce\Internal\BatchProcessing
  */
 interface BatchProcessorInterface {
 

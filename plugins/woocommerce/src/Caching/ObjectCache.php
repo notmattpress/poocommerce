@@ -1,6 +1,6 @@
 <?php
 
-namespace Automattic\WooCommerce\Caching;
+namespace Automattic\PooCommerce\Caching;
 
 /**
  * Base class for caching objects (or associative arrays) that have a unique identifier.

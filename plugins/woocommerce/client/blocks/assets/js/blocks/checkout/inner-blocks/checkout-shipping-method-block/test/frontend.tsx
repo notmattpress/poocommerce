@@ -7,13 +7,13 @@ import { useDispatch, useSelect } from '@wordpress/data';
 /**
  * Internal dependencies
  */
-import { useShippingData } from '@woocommerce/base-context/hooks';
-import { useCheckoutBlockContext } from '@woocommerce/blocks/checkout/context';
+import { useShippingData } from '@poocommerce/base-context/hooks';
+import { useCheckoutBlockContext } from '@poocommerce/blocks/checkout/context';
 import FrontendBlock from '../frontend';
 
 let mockNeedsShipping = true;
 
-jest.mock( '@woocommerce/block-settings', () => {
+jest.mock( '@poocommerce/block-settings', () => {
 	const settings = {
 		shippingEnabled: true,
 		shippingMethodsExist: true,
@@ -25,7 +25,7 @@ jest.mock( '@woocommerce/block-settings', () => {
 	 ).checkoutShippingMethodTestSettings = settings;
 
 	return {
-		...jest.requireActual( '@woocommerce/block-settings' ),
+		...jest.requireActual( '@poocommerce/block-settings' ),
 		get SHIPPING_ENABLED() {
 			return settings.shippingEnabled;
 		},
@@ -36,8 +36,8 @@ jest.mock( '@woocommerce/block-settings', () => {
 	};
 } );
 
-jest.mock( '@woocommerce/settings', () => ( {
-	...jest.requireActual( '@woocommerce/settings' ),
+jest.mock( '@poocommerce/settings', () => ( {
+	...jest.requireActual( '@poocommerce/settings' ),
 	getSetting: jest.fn( ( key, defaultValue ) =>
 		key === 'collectableMethodIds' ? [ 'pickup_location' ] : defaultValue
 	),
@@ -49,11 +49,11 @@ jest.mock( '@wordpress/data', () => ( {
 	useSelect: jest.fn(),
 } ) );
 
-jest.mock( '@woocommerce/base-context/hooks', () => ( {
+jest.mock( '@poocommerce/base-context/hooks', () => ( {
 	useShippingData: jest.fn(),
 } ) );
 
-jest.mock( '@woocommerce/blocks/checkout/context', () => ( {
+jest.mock( '@poocommerce/blocks/checkout/context', () => ( {
 	useCheckoutBlockContext: jest.fn(),
 } ) );
 

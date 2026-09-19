@@ -2,11 +2,11 @@
 /**
  * Class WC_Email_Customer_Order_Withdrawal_Requested file.
  *
- * @package WooCommerce\Emails
+ * @package PooCommerce\Emails
  */
 
-use Automattic\WooCommerce\Internal\OrderWithdrawal\Emails\OrderWithdrawalEmailDataFormatter;
-use Automattic\WooCommerce\Internal\OrderWithdrawal\OrderWithdrawalFormProcessor;
+use Automattic\PooCommerce\Internal\OrderWithdrawal\Emails\OrderWithdrawalEmailDataFormatter;
+use Automattic\PooCommerce\Internal\OrderWithdrawal\OrderWithdrawalFormProcessor;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -16,7 +16,7 @@ if ( ! class_exists( 'WC_Email_Customer_Order_Withdrawal_Requested', false ) ) :
 	 * Customer order withdrawal request email.
 	 *
 	 * @class   WC_Email_Customer_Order_Withdrawal_Requested
-	 * @package WooCommerce\Classes\Emails
+	 * @package PooCommerce\Classes\Emails
 	 */
 	class WC_Email_Customer_Order_Withdrawal_Requested extends WC_Email {
 
@@ -47,8 +47,8 @@ if ( ! class_exists( 'WC_Email_Customer_Order_Withdrawal_Requested', false ) ) :
 		public function __construct() {
 			$this->id             = 'customer_order_withdrawal_requested';
 			$this->customer_email = true;
-			$this->title          = __( 'Order withdrawal request received', 'woocommerce' );
-			$this->description    = __( 'Sent to customers when their order withdrawal request is received.', 'woocommerce' );
+			$this->title          = __( 'Order withdrawal request received', 'poocommerce' );
+			$this->description    = __( 'Sent to customers when their order withdrawal request is received.', 'poocommerce' );
 			$this->email_group    = 'order-changes';
 			$this->template_html  = 'emails/customer-order-withdrawal-requested.php';
 			$this->template_plain = 'emails/plain/customer-order-withdrawal-requested.php';
@@ -67,7 +67,7 @@ if ( ! class_exists( 'WC_Email_Customer_Order_Withdrawal_Requested', false ) ) :
 		 * @return string
 		 */
 		public function get_default_subject() {
-			return __( 'We received your withdrawal request', 'woocommerce' );
+			return __( 'We received your withdrawal request', 'poocommerce' );
 		}
 
 		/**
@@ -76,7 +76,7 @@ if ( ! class_exists( 'WC_Email_Customer_Order_Withdrawal_Requested', false ) ) :
 		 * @return string
 		 */
 		public function get_default_heading() {
-			return __( 'We received your withdrawal request', 'woocommerce' );
+			return __( 'We received your withdrawal request', 'poocommerce' );
 		}
 
 		/**
@@ -85,7 +85,7 @@ if ( ! class_exists( 'WC_Email_Customer_Order_Withdrawal_Requested', false ) ) :
 		 * @return string
 		 */
 		public function get_default_additional_content() {
-			return __( 'We will review your request and contact you about next steps, including any refund due.', 'woocommerce' );
+			return __( 'We will review your request and contact you about next steps, including any refund due.', 'poocommerce' );
 		}
 
 		/**

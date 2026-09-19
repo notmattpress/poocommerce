@@ -1,14 +1,14 @@
 <?php
 /**
- * WooCommerce Admin SimpleInboxNote example class.
+ * PooCommerce Admin SimpleInboxNote example class.
  *
  * Adds an example note to the merchant's inbox.
  *
- * @package WooCommerce\Admin
+ * @package PooCommerce\Admin
  */
 
-use Automattic\WooCommerce\Admin\Notes\Note;
-use Automattic\WooCommerce\Admin\Notes\NoteTraits;
+use Automattic\PooCommerce\Admin\Notes\Note;
+use Automattic\PooCommerce\Admin\Notes\NoteTraits;
 
 /**
  * SimpleInboxNote class.
@@ -63,7 +63,7 @@ class SimpleInboxNote {
 		// collation doesn't support Unicode.
 		$note->set_content(
 			sprintf(
-				'This is your note example contents. You may enter up to 320 displayable characters here. For more information on character limit, visit our <a href="https://developer.woocommerce.com/2021/11/10/introducing-a-320-character-limit-to-inbox-notes/">blogpost</a>.'
+				'This is your note example contents. You may enter up to 320 displayable characters here. For more information on character limit, visit our <a href="https://developer.poocommerce.com/2021/11/10/introducing-a-320-character-limit-to-inbox-notes/">blogpost</a>.'
 			)
 		);
 

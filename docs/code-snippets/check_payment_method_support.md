@@ -2,14 +2,14 @@
 post_title: Check if a payment method support refunds, subscriptions or pre-orders
 sidebar_label: Payment method support for refunds, subscriptions, pre-orders
 
-current wccom url: https://woocommerce.com/document/check-if-payment-gateway-supports-refunds-subscriptions-preorders/
+current wccom url: https://poocommerce.com/document/check-if-payment-gateway-supports-refunds-subscriptions-preorders/
 ---
 
 # Check if a Payment Method Support Refunds, Subscriptions or Pre-orders
 
 If a payment method's documentation doesn’t clearly outline the supported features, you can often find what features are supported by looking at payment methods code.
 
-Payment methods can add support for certain features from WooCommerce and its extensions. For example, a payment method can support refunds, subscriptions or pre-orders functionality.
+Payment methods can add support for certain features from PooCommerce and its extensions. For example, a payment method can support refunds, subscriptions or pre-orders functionality.
 
 ## Simplify Commerce example
 
@@ -23,8 +23,8 @@ class WC_Gateway_Simplify_Commerce extends WC_Payment_Gateway {
         $this->id
                  = 'simplify_commerce';
         $this->method_title
-       = __( 'Simplify Commerce', 'woocommerce' );
-        $this->method_description = __( 'Take payments via Simplify Commerce - uses simplify.js to create card tokens and the Simplify Commerce SDK. Requires SSL when sandbox is disabled.', 'woocommerce' );
+       = __( 'Simplify Commerce', 'poocommerce' );
+        $this->method_description = __( 'Take payments via Simplify Commerce - uses simplify.js to create card tokens and the Simplify Commerce SDK. Requires SSL when sandbox is disabled.', 'poocommerce' );
         $this->has_fields         = true;
         $this->supports           = array(
             'subscriptions',

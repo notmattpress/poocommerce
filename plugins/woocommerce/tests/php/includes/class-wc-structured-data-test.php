@@ -177,7 +177,7 @@ class WC_Structured_Data_Test extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox woocommerce_structured_data_context receives the string grouping key and complete @type array.
+	 * @testdox poocommerce_structured_data_context receives the string grouping key and complete @type array.
 	 */
 	public function test_structured_data_context_receives_array_type_and_string_grouping_key(): void {
 		$markup           = array(
@@ -187,7 +187,7 @@ class WC_Structured_Data_Test extends \WC_Unit_Test_Case {
 		$filter_arguments = array();
 
 		add_filter(
-			'woocommerce_structured_data_context',
+			'poocommerce_structured_data_context',
 			static function ( $context, $data, $type, $value ) use ( &$filter_arguments ) {
 				$filter_arguments = array(
 					'type'  => $type,
@@ -366,8 +366,8 @@ class WC_Structured_Data_Test extends \WC_Unit_Test_Case {
 		$offer = $data[0]['offers'][0];
 
 		$this->assertEquals( '97.00', $offer['price'] );
-		$this->assertEquals( get_woocommerce_currency(), $offer['priceCurrency'] );
-		$this->assertEquals( get_woocommerce_currency(), $offer['priceSpecification'][0]['priceCurrency'] );
+		$this->assertEquals( get_poocommerce_currency(), $offer['priceCurrency'] );
+		$this->assertEquals( get_poocommerce_currency(), $offer['priceSpecification'][0]['priceCurrency'] );
 	}
 
 	/**
@@ -390,7 +390,7 @@ class WC_Structured_Data_Test extends \WC_Unit_Test_Case {
 		// The offer-level `price` should reflect the sale price, matching `priceSpecification[0]['price']`.
 		$this->assertEquals( '70.00', $offer['price'] );
 		$this->assertEquals( '70.00', $offer['priceSpecification'][0]['price'] );
-		$this->assertEquals( get_woocommerce_currency(), $offer['priceCurrency'] );
+		$this->assertEquals( get_poocommerce_currency(), $offer['priceCurrency'] );
 	}
 
 	/**
@@ -400,8 +400,8 @@ class WC_Structured_Data_Test extends \WC_Unit_Test_Case {
 	 */
 	public function test_product_structured_data_includes_vat_when_taxes_enabled(): void {
 		// Enable taxes.
-		update_option( 'woocommerce_calc_taxes', 'yes' );
-		update_option( 'woocommerce_tax_display_shop', 'incl' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_tax_display_shop', 'incl' );
 
 		// Create a simple product with a price.
 		$product = WC_Helper_Product::create_simple_product();
@@ -442,7 +442,7 @@ class WC_Structured_Data_Test extends \WC_Unit_Test_Case {
 	 */
 	public function test_product_structured_data_excludes_vat_when_taxes_disabled(): void {
 		// Disable taxes.
-		update_option( 'woocommerce_calc_taxes', 'no' );
+		update_option( 'poocommerce_calc_taxes', 'no' );
 
 		// Create a simple product with a price.
 		$product = WC_Helper_Product::create_simple_product();
@@ -484,8 +484,8 @@ class WC_Structured_Data_Test extends \WC_Unit_Test_Case {
 	 */
 	public function test_order_structured_data_includes_vat_when_taxes_enabled(): void {
 		// Enable taxes with prices inclusive of tax.
-		update_option( 'woocommerce_calc_taxes', 'yes' );
-		update_option( 'woocommerce_prices_include_tax', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_prices_include_tax', 'yes' );
 
 		// Create a simple product and order.
 		$product = WC_Helper_Product::create_simple_product();
@@ -521,7 +521,7 @@ class WC_Structured_Data_Test extends \WC_Unit_Test_Case {
 	 */
 	public function test_order_structured_data_excludes_vat_when_taxes_disabled(): void {
 		// Disable taxes.
-		update_option( 'woocommerce_calc_taxes', 'no' );
+		update_option( 'poocommerce_calc_taxes', 'no' );
 
 		// Create a simple product and order.
 		$product = WC_Helper_Product::create_simple_product();
@@ -576,7 +576,7 @@ class WC_Structured_Data_Test extends \WC_Unit_Test_Case {
 			$this->assertEquals( '16.00', $offer['price'] );
 			$this->assertArrayNotHasKey( 'lowPrice', $offer );
 			$this->assertArrayNotHasKey( 'highPrice', $offer );
-			$this->assertEquals( get_woocommerce_currency(), $offer['priceCurrency'] );
+			$this->assertEquals( get_poocommerce_currency(), $offer['priceCurrency'] );
 
 			// The variation is grouped under the parent product (Google `item_group_id`).
 			$this->assertEquals( $product->get_sku(), $data[0]['inProductGroupWithID'] );

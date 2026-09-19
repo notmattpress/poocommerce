@@ -1,8 +1,8 @@
-/* global woocommerce_settings_params, wp */
+/* global poocommerce_settings_params, wp */
 ( function ( $, params, wp ) {
 	$( function () {
 		// Sell Countries
-		$( 'select#woocommerce_allowed_countries' )
+		$( 'select#poocommerce_allowed_countries' )
 			.on( 'change', function () {
 				if ( 'specific' === $( this ).val() ) {
 					$( this ).closest( 'tr' ).next( 'tr' ).hide();
@@ -18,7 +18,7 @@
 			.trigger( 'change' );
 
 		// Ship Countries
-		$( 'select#woocommerce_ship_to_countries' )
+		$( 'select#poocommerce_ship_to_countries' )
 			.on( 'change', function () {
 				if ( 'specific' === $( this ).val() ) {
 					$( this ).closest( 'tr' ).next( 'tr' ).show();
@@ -29,7 +29,7 @@
 			.trigger( 'change' );
 
 		// Stock management
-		$( 'input#woocommerce_manage_stock' )
+		$( 'input#poocommerce_manage_stock' )
 			.on( 'change', function () {
 				if ( $( this ).is( ':checked' ) ) {
 					$( this )
@@ -125,14 +125,14 @@
 						return params.i18n_nav_warning;
 					};
 					changed = true;
-					$( '.woocommerce-save-button' ).removeAttr( 'disabled' );
+					$( '.poocommerce-save-button' ).removeAttr( 'disabled' );
 				}
 			} );
 
 			$( '.iris-picker' ).on( 'click', function () {
 				if ( ! changed ) {
 					changed = true;
-					$( '.woocommerce-save-button' ).removeAttr( 'disabled' );
+					$( '.poocommerce-save-button' ).removeAttr( 'disabled' );
 				}
 			} );
 
@@ -147,7 +147,7 @@
 		// The Settings UI page owns its dirty state and unsaved-changes prompt,
 		// so the classic tracking must leave its Save button alone.
 		const isSettingsUIPage = document.body.classList.contains(
-			'woocommerce-settings-ui-page'
+			'poocommerce-settings-ui-page'
 		);
 
 		if ( ! isSettingsUIPage ) {
@@ -169,9 +169,9 @@
 				if ( mutation.type === 'childList' ) {
 					if ( nodeListContainsFormElements( mutation.addedNodes ) ) {
 						editPrompt();
-						$( '.woocommerce-save-button' ).removeAttr( 'disabled' );
+						$( '.poocommerce-save-button' ).removeAttr( 'disabled' );
 					} else if ( nodeListContainsFormElements( mutation.removedNodes ) ) {
-						$( '.woocommerce-save-button' ).removeAttr( 'disabled' );
+						$( '.poocommerce-save-button' ).removeAttr( 'disabled' );
 					}
 				}
 			}
@@ -205,7 +205,7 @@
 		} );
 
 		// Select all/none
-		$( '.woocommerce' ).on( 'click', '.select_all', function () {
+		$( '.poocommerce' ).on( 'click', '.select_all', function () {
 			$( this )
 				.closest( 'td' )
 				.find( 'select option' )
@@ -214,7 +214,7 @@
 			return false;
 		} );
 
-		$( '.woocommerce' ).on( 'click', '.select_none', function () {
+		$( '.poocommerce' ).on( 'click', '.select_none', function () {
 			$( this )
 				.closest( 'td' )
 				.find( 'select option' )
@@ -275,7 +275,7 @@
 					.addClass( 'wc-move-disabled' )
 					.attr( { tabindex: '-1', 'aria-hidden': 'true' } );
 				if ( ! data.isInitialLoad ) {
-					$( '.woocommerce-save-button' ).removeAttr( 'disabled' );
+					$( '.poocommerce-save-button' ).removeAttr( 'disabled' );
 				}
 			} );
 
@@ -285,13 +285,13 @@
 
 		$( '.submit button' ).on( 'click', function () {
 			if (
-				$( 'select#woocommerce_allowed_countries' ).val() ===
+				$( 'select#poocommerce_allowed_countries' ).val() ===
 					'specific' &&
-				! $( '[name="woocommerce_specific_allowed_countries[]"]' ).val()
+				! $( '[name="poocommerce_specific_allowed_countries[]"]' ).val()
 			) {
 				if (
 					window.confirm(
-						woocommerce_settings_params.i18n_no_specific_countries_selected
+						poocommerce_settings_params.i18n_no_specific_countries_selected
 					)
 				) {
 					return true;
@@ -325,7 +325,7 @@
 			} );
 		} );
 
-		$( '.woocommerce-save-button.components-button' ).on( 'click', function ( e ) {
+		$( '.poocommerce-save-button.components-button' ).on( 'click', function ( e ) {
 			if ( ! $( this ).attr( 'disabled' ) ) {
 				$( this ).addClass( 'is-busy' );
 			}
@@ -339,7 +339,7 @@
 		 * Note that we can't avoid jQuery here, because of our current dependence on Select2
 		 * for various controls.
 		 */
-		document.querySelectorAll( 'body.woocommerce_page_wc-settings #mainform .conditional.description' ).forEach( description => {
+		document.querySelectorAll( 'body.poocommerce_page_wc-settings #mainform .conditional.description' ).forEach( description => {
 			const $underObservation = $( description.dataset.dependsOn );
 			const showIfEquals      = description.dataset.showIfEquals;
 
@@ -365,7 +365,7 @@
 			const body = document.body;
 			if (
 				! body.classList.contains('mobile') ||
-				! body.classList.contains('woocommerce_page_wc-settings')
+				! body.classList.contains('poocommerce_page_wc-settings')
 			) {
 				return;
 			}
@@ -410,7 +410,7 @@
 			const body = document.body;
 			if (
 				! body.classList.contains('mobile') ||
-				! body.classList.contains('woocommerce_page_wc-settings')
+				! body.classList.contains('poocommerce_page_wc-settings')
 			) {
 				return;
 			}
@@ -429,4 +429,4 @@
 		settings_fix_nav_width();
 
 	} );
-} )( jQuery, woocommerce_settings_params, wp );
+} )( jQuery, poocommerce_settings_params, wp );

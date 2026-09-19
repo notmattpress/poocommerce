@@ -2,12 +2,12 @@
 /**
  * Forbids reading the Store API cart token from anywhere but CartTokenUtils.
  *
- * @package WooCommerce\Sniffs
+ * @package PooCommerce\Sniffs
  */
 
 declare( strict_types=1 );
 
-namespace WooCommerceStoreApi\Sniffs\StoreApi;
+namespace PooCommerceStoreApi\Sniffs\StoreApi;
 
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;

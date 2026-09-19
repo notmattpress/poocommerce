@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Admin\Features\Navigation;
+namespace Automattic\PooCommerce\Admin\Features\Navigation;
 
 use WC_Tracks;
 
@@ -19,7 +19,7 @@ class RemovedDeprecated {
 
 		if ( $logger ) {
 			$logger->warning(
-				"The WooCommerce Admin Navigation feature and its classes (Screen, Menu, CoreMenu) are deprecated since 9.3 with no alternative. Please remove the call to $name."
+				"The PooCommerce Admin Navigation feature and its classes (Screen, Menu, CoreMenu) are deprecated since 9.3 with no alternative. Please remove the call to $name."
 			);
 		}
 

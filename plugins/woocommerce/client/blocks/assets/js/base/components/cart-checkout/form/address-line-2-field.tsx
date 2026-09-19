@@ -1,12 +1,12 @@
 /**
  * External dependencies
  */
-import { ValidatedTextInput } from '@woocommerce/blocks-components';
+import { ValidatedTextInput } from '@poocommerce/blocks-components';
 import { useState, Fragment, useCallback, useEffect } from '@wordpress/element';
-import { usePrevious } from '@woocommerce/base-hooks';
+import { usePrevious } from '@poocommerce/base-hooks';
 import { __, sprintf } from '@wordpress/i18n';
 import { Button } from '@ariakit/react';
-import { getFieldLabel } from '@woocommerce/blocks-checkout';
+import { getFieldLabel } from '@poocommerce/blocks-checkout';
 /**
  * Internal dependencies
  */
@@ -74,7 +74,7 @@ const AddressLine2Field = ( {
 					>
 						{ sprintf(
 							// translators: %s: address 2 field label.
-							__( '+ Add %s', 'woocommerce' ),
+							__( '+ Add %s', 'poocommerce' ),
 							fieldLabel
 						) }
 					</Button>

@@ -8,7 +8,7 @@ import {
 	ONBOARDING_STORE_NAME,
 	getVisibleTasks,
 	TaskListType,
-} from '@woocommerce/data';
+} from '@poocommerce/data';
 /**
  * Internal dependencies
  */

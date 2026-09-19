@@ -64,23 +64,23 @@ export const CreateNewCampaignModal = ( props: CreateCampaignModalProps ) => {
 			{ ...restProps }
 			className={ clsx(
 				className,
-				'woocommerce-marketing-create-campaign-modal'
+				'poocommerce-marketing-create-campaign-modal'
 			) }
-			title={ __( 'Create a new campaign', 'woocommerce' ) }
+			title={ __( 'Create a new campaign', 'poocommerce' ) }
 		>
-			<div className="woocommerce-marketing-new-campaigns">
-				<div className="woocommerce-marketing-new-campaigns__question-label">
+			<div className="poocommerce-marketing-new-campaigns">
+				<div className="poocommerce-marketing-new-campaigns__question-label">
 					{ hasCampaignTypes
 						? __(
 								'Where would you like to promote your products?',
-								'woocommerce'
+								'poocommerce'
 						  )
-						: __( 'No campaign types found.', 'woocommerce' ) }
+						: __( 'No campaign types found.', 'poocommerce' ) }
 				</div>
 				{ campaignTypes?.map( ( el ) => (
 					<Flex
 						key={ el.id }
-						className="woocommerce-marketing-new-campaign-type"
+						className="poocommerce-marketing-new-campaign-type"
 						gap={ 4 }
 					>
 						<FlexItem>
@@ -93,10 +93,10 @@ export const CreateNewCampaignModal = ( props: CreateCampaignModalProps ) => {
 						</FlexItem>
 						<FlexBlock>
 							<Flex direction="column" gap={ 1 }>
-								<FlexItem className="woocommerce-marketing-new-campaign-type__name">
+								<FlexItem className="poocommerce-marketing-new-campaign-type__name">
 									{ el.name }
 								</FlexItem>
-								<FlexItem className="woocommerce-marketing-new-campaign-type__description">
+								<FlexItem className="poocommerce-marketing-new-campaign-type__description">
 									{ el.description }
 								</FlexItem>
 							</Flex>
@@ -113,7 +113,7 @@ export const CreateNewCampaignModal = ( props: CreateCampaignModalProps ) => {
 							>
 								<Flex gap={ 1 }>
 									<FlexItem>
-										{ __( 'Create', 'woocommerce' ) }
+										{ __( 'Create', 'poocommerce' ) }
 									</FlexItem>
 									{ isExternalURL( el.createUrl ) && (
 										<FlexItem>
@@ -130,7 +130,7 @@ export const CreateNewCampaignModal = ( props: CreateCampaignModalProps ) => {
 				) ) }
 			</div>
 			{ hasRecommendedChannels && (
-				<div className="woocommerce-marketing-add-channels">
+				<div className="poocommerce-marketing-add-channels">
 					<Flex direction="column">
 						<FlexItem>
 							<Button
@@ -139,7 +139,7 @@ export const CreateNewCampaignModal = ( props: CreateCampaignModalProps ) => {
 							>
 								{ __(
 									'Add channels for other campaign types',
-									'woocommerce'
+									'poocommerce'
 								) }
 								<Icon
 									icon={ collapsed ? chevronDown : chevronUp }

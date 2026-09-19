@@ -8,11 +8,11 @@ import {
 	wpCLI,
 	BLOCK_THEME_SLUG,
 	flushMacrotask,
-} from '@woocommerce/e2e-utils';
+} from '@poocommerce/e2e-utils';
 
 export const blockData = {
 	name: 'Filter by Stock',
-	slug: 'woocommerce/stock-filter',
+	slug: 'poocommerce/stock-filter',
 	urlSearchParamWhenFilterIsApplied: 'filter_stock_status=outofstock',
 };
 
@@ -40,7 +40,7 @@ test.describe( `${ blockData.name } Block - with PHP classic template`, () => {
 		} );
 
 		await editor.insertBlock( {
-			name: 'woocommerce/filter-wrapper',
+			name: 'poocommerce/filter-wrapper',
 			attributes: {
 				filterType: 'stock-filter',
 				heading: 'Filter By Stock',
@@ -57,7 +57,7 @@ test.describe( `${ blockData.name } Block - with PHP classic template`, () => {
 		page,
 	} ) => {
 		const stockFilter = await frontendUtils.getBlockByName(
-			'woocommerce/filter-wrapper'
+			'poocommerce/filter-wrapper'
 		);
 		await stockFilter.getByText( 'Out of Stock' ).click();
 
@@ -66,7 +66,7 @@ test.describe( `${ blockData.name } Block - with PHP classic template`, () => {
 		);
 
 		const legacyTemplate = await frontendUtils.getBlockByName(
-			'woocommerce/legacy-template'
+			'poocommerce/legacy-template'
 		);
 		const products = legacyTemplate
 			.getByRole( 'list' )
@@ -89,7 +89,7 @@ test.describe( `${ blockData.name } Block - with Product Collection`, () => {
 		await page.clock.install();
 		const template = await templateCompiler.compile();
 		const productTitles = page.locator(
-			'.wp-block-woocommerce-product-template .wp-block-post-title'
+			'.wp-block-poocommerce-product-template .wp-block-post-title'
 		);
 
 		await page.goto( '/shop' );

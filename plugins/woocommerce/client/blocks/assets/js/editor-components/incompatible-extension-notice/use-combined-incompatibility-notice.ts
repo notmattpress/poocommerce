@@ -3,8 +3,8 @@
  */
 import { useState, useEffect, useMemo } from '@wordpress/element';
 import { useSelect } from '@wordpress/data';
-import { paymentStore } from '@woocommerce/block-data';
-import { useLocalStorageState } from '@woocommerce/base-hooks';
+import { paymentStore } from '@poocommerce/block-data';
+import { useLocalStorageState } from '@poocommerce/base-hooks';
 
 /**
  * Internal dependencies

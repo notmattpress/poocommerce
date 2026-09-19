@@ -4,7 +4,7 @@
 import { __ } from '@wordpress/i18n';
 import { Disabled, Placeholder } from '@wordpress/components';
 import ServerSideRender from '@wordpress/server-side-render';
-import { gridBlockPreview } from '@woocommerce/resource-previews';
+import { gridBlockPreview } from '@poocommerce/resource-previews';
 import { Icon, percent } from '@wordpress/icons';
 import { useBlockProps } from '@wordpress/block-editor';
 
@@ -23,12 +23,12 @@ interface Props {
 const EmptyPlaceholder = () => (
 	<Placeholder
 		icon={ <Icon icon={ percent } /> }
-		label={ __( 'On Sale Products', 'woocommerce' ) }
+		label={ __( 'On Sale Products', 'poocommerce' ) }
 		className="wc-block-product-on-sale"
 	>
 		{ __(
 			'This block shows on-sale products. There are currently no discounted products in your store.',
-			'woocommerce'
+			'poocommerce'
 		) }
 	</Placeholder>
 );

@@ -3,14 +3,14 @@
  * Runs a single spec.
  */
 
-namespace Automattic\WooCommerce\Admin\RemoteInboxNotifications;
+namespace Automattic\PooCommerce\Admin\RemoteInboxNotifications;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\Notes\Note;
-use Automattic\WooCommerce\Admin\Notes\Notes;
-use Automattic\WooCommerce\Admin\RemoteSpecs\RuleProcessors\EvaluateAndGetStatus;
-use Automattic\WooCommerce\Admin\RemoteSpecs\RuleProcessors\RuleEvaluator;
+use Automattic\PooCommerce\Admin\Notes\Note;
+use Automattic\PooCommerce\Admin\Notes\Notes;
+use Automattic\PooCommerce\Admin\RemoteSpecs\RuleProcessors\EvaluateAndGetStatus;
+use Automattic\PooCommerce\Admin\RemoteSpecs\RuleProcessors\RuleEvaluator;
 
 /**
  * Runs a single spec.

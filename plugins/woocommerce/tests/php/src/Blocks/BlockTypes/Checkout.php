@@ -1,13 +1,13 @@
 <?php
 declare( strict_types = 1 );
-namespace Automattic\WooCommerce\Tests\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Tests\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\Assets\Api;
-use Automattic\WooCommerce\Blocks\Integrations\IntegrationRegistry;
-use Automattic\WooCommerce\Blocks\Package;
-use Automattic\WooCommerce\StoreApi\Utilities\LocalPickupUtils;
-use Automattic\WooCommerce\Tests\Blocks\Mocks\AssetDataRegistryMock;
-use Automattic\WooCommerce\Tests\Blocks\Mocks\CheckoutMock;
+use Automattic\PooCommerce\Blocks\Assets\Api;
+use Automattic\PooCommerce\Blocks\Integrations\IntegrationRegistry;
+use Automattic\PooCommerce\Blocks\Package;
+use Automattic\PooCommerce\StoreApi\Utilities\LocalPickupUtils;
+use Automattic\PooCommerce\Tests\Blocks\Mocks\AssetDataRegistryMock;
+use Automattic\PooCommerce\Tests\Blocks\Mocks\CheckoutMock;
 
 /**
  * Tests for the Checkout block type
@@ -58,7 +58,7 @@ class Checkout extends \WP_UnitTestCase {
 		$this->integration_registry = new IntegrationRegistry();
 		$this->mock_logger          = $this->getMockBuilder( \WC_Logger_Interface::class )->getMock();
 		add_filter(
-			'woocommerce_logging_class',
+			'poocommerce_logging_class',
 			array( $this, 'override_wc_logger' )
 		);
 	}
@@ -70,7 +70,7 @@ class Checkout extends \WP_UnitTestCase {
 	 */
 	protected function tearDown(): void {
 		parent::tearDown();
-		remove_filter( 'woocommerce_logging_class', array( $this, 'override_wc_logger' ) );
+		remove_filter( 'poocommerce_logging_class', array( $this, 'override_wc_logger' ) );
 	}
 
 	/**
@@ -85,8 +85,8 @@ class Checkout extends \WP_UnitTestCase {
 		);
 
 		// Sets the page as the checkout page so the code to update the setting correctly processes it.
-		$page_id         = wc_create_page( $page['name'], 'woocommerce_checkout_page_id', $page['title'], $page['content'] );
-		$updated_content = '<!-- wp:woocommerce/checkout {"showOrderNotes":false} --> <div class="wp-block-woocommerce-checkout is-loading"> <!-- wp:woocommerce/checkout-shipping-method-block {"localPickupText":"Changed pickup"} --> <div class="wp-block-woocommerce-checkout-shipping-method-block"></div> <!-- /wp:woocommerce/checkout-shipping-method-block --></div> <!-- /wp:woocommerce/checkout -->';
+		$page_id         = wc_create_page( $page['name'], 'poocommerce_checkout_page_id', $page['title'], $page['content'] );
+		$updated_content = '<!-- wp:poocommerce/checkout {"showOrderNotes":false} --> <div class="wp-block-poocommerce-checkout is-loading"> <!-- wp:poocommerce/checkout-shipping-method-block {"localPickupText":"Changed pickup"} --> <div class="wp-block-poocommerce-checkout-shipping-method-block"></div> <!-- /wp:poocommerce/checkout-shipping-method-block --></div> <!-- /wp:poocommerce/checkout -->';
 		wp_update_post(
 			[
 				'ID'           => $page_id,
@@ -99,7 +99,7 @@ class Checkout extends \WP_UnitTestCase {
 		$this->assertEquals( 'Changed pickup', $pickup_location_settings['title'] );
 
 		// Updates the pickup title with the default value.
-		$updated_content = '<!-- wp:woocommerce/checkout {"showOrderNotes":false} --> <div class="wp-block-woocommerce-checkout is-loading"> <!-- wp:woocommerce/checkout-shipping-method-block {"localPickupText":"Pickup"} --> <div class="wp-block-woocommerce-checkout-shipping-method-block"></div> <!-- /wp:woocommerce/checkout-shipping-method-block --></div> <!-- /wp:woocommerce/checkout -->';
+		$updated_content = '<!-- wp:poocommerce/checkout {"showOrderNotes":false} --> <div class="wp-block-poocommerce-checkout is-loading"> <!-- wp:poocommerce/checkout-shipping-method-block {"localPickupText":"Pickup"} --> <div class="wp-block-poocommerce-checkout-shipping-method-block"></div> <!-- /wp:poocommerce/checkout-shipping-method-block --></div> <!-- /wp:poocommerce/checkout -->';
 		wp_update_post(
 			[
 				'ID'           => $page_id,
@@ -112,7 +112,7 @@ class Checkout extends \WP_UnitTestCase {
 		$this->assertEquals( 'Pickup', $pickup_location_settings['title'] );
 
 		// Updates the pickup title with an empty value.
-		$updated_content = '<!-- wp:woocommerce/checkout {"showOrderNotes":false} --> <div class="wp-block-woocommerce-checkout is-loading"> <!-- wp:woocommerce/checkout-shipping-method-block {"localPickupText":""} --> <div class="wp-block-woocommerce-checkout-shipping-method-block"></div> <!-- /wp:woocommerce/checkout-shipping-method-block --></div> <!-- /wp:woocommerce/checkout -->';
+		$updated_content = '<!-- wp:poocommerce/checkout {"showOrderNotes":false} --> <div class="wp-block-poocommerce-checkout is-loading"> <!-- wp:poocommerce/checkout-shipping-method-block {"localPickupText":""} --> <div class="wp-block-poocommerce-checkout-shipping-method-block"></div> <!-- /wp:poocommerce/checkout-shipping-method-block --></div> <!-- /wp:poocommerce/checkout -->';
 		wp_update_post(
 			[
 				'ID'           => $page_id,
@@ -125,7 +125,7 @@ class Checkout extends \WP_UnitTestCase {
 		$this->assertEquals( 'Pickup', $pickup_location_settings['title'] );
 
 		// Updates the pickup title back to "Changed pickup" to test AssetDataRegistry.
-		$updated_content = '<!-- wp:woocommerce/checkout {"showOrderNotes":false} --> <div class="wp-block-woocommerce-checkout is-loading"> <!-- wp:woocommerce/checkout-shipping-method-block {"localPickupText":"Changed pickup"} --> <div class="wp-block-woocommerce-checkout-shipping-method-block"></div> <!-- /wp:woocommerce/checkout-shipping-method-block --></div> <!-- /wp:woocommerce/checkout -->';
+		$updated_content = '<!-- wp:poocommerce/checkout {"showOrderNotes":false} --> <div class="wp-block-poocommerce-checkout is-loading"> <!-- wp:poocommerce/checkout-shipping-method-block {"localPickupText":"Changed pickup"} --> <div class="wp-block-poocommerce-checkout-shipping-method-block"></div> <!-- /wp:poocommerce/checkout-shipping-method-block --></div> <!-- /wp:poocommerce/checkout -->';
 		wp_update_post(
 			[
 				'ID'           => $page_id,
@@ -151,7 +151,7 @@ class Checkout extends \WP_UnitTestCase {
 		// Read rather than snapshot: the ambient methods have to be switched off for the
 		// topology assertions below, and the rollback switches them back on.
 		$ambient_method_states = $wpdb->get_results(
-			"SELECT instance_id FROM {$wpdb->prefix}woocommerce_shipping_zone_methods",
+			"SELECT instance_id FROM {$wpdb->prefix}poocommerce_shipping_zone_methods",
 			ARRAY_A
 		);
 		$shipping_zone         = new \WC_Shipping_Zone();
@@ -159,15 +159,15 @@ class Checkout extends \WP_UnitTestCase {
 		try {
 			foreach ( $ambient_method_states as $method_state ) {
 				$wpdb->update(
-					"{$wpdb->prefix}woocommerce_shipping_zone_methods",
+					"{$wpdb->prefix}poocommerce_shipping_zone_methods",
 					array( 'is_enabled' => '0' ),
 					array( 'instance_id' => $method_state['instance_id'] )
 				);
 			}
 
-			update_option( 'woocommerce_ship_to_countries', 'all' );
+			update_option( 'poocommerce_ship_to_countries', 'all' );
 			update_option(
-				'woocommerce_pickup_location_settings',
+				'poocommerce_pickup_location_settings',
 				array(
 					'enabled'    => 'yes',
 					'title'      => 'Pickup',
@@ -183,7 +183,7 @@ class Checkout extends \WP_UnitTestCase {
 
 			$data = $this->get_checkout_asset_data();
 			$this->assertFalse(
-				\WP_Block_Type_Registry::get_instance()->is_registered( 'woocommerce/checkout-shipping-topology-1' ),
+				\WP_Block_Type_Registry::get_instance()->is_registered( 'poocommerce/checkout-shipping-topology-1' ),
 				'The generated Checkout mock block should be unregistered after collecting asset data.'
 			);
 			$this->assertTrue( $data['shippingMethodsExist'], 'An enabled ordinary shipping method should be exposed.' );
@@ -194,18 +194,18 @@ class Checkout extends \WP_UnitTestCase {
 
 			$data = $this->get_checkout_asset_data();
 			$this->assertFalse(
-				\WP_Block_Type_Registry::get_instance()->is_registered( 'woocommerce/checkout-shipping-topology-2' ),
+				\WP_Block_Type_Registry::get_instance()->is_registered( 'poocommerce/checkout-shipping-topology-2' ),
 				'The generated Checkout mock block should be unregistered after collecting asset data.'
 			);
 			$this->assertFalse( $data['shippingMethodsExist'], 'Local pickup without an ordinary shipping method should not count as ordinary shipping.' );
 			$this->assertTrue( $data['shippingEnabled'], 'Store shipping remains enabled for the pickup-only topology.' );
 
-			update_option( 'woocommerce_ship_to_countries', 'disabled' );
+			update_option( 'poocommerce_ship_to_countries', 'disabled' );
 			$this->flush_shipping_method_cache();
 
 			$data = $this->get_checkout_asset_data();
 			$this->assertFalse(
-				\WP_Block_Type_Registry::get_instance()->is_registered( 'woocommerce/checkout-shipping-topology-3' ),
+				\WP_Block_Type_Registry::get_instance()->is_registered( 'poocommerce/checkout-shipping-topology-3' ),
 				'The generated Checkout mock block should be unregistered after collecting asset data.'
 			);
 			$this->assertFalse( $data['shippingMethodsExist'], 'No ordinary shipping method should be exposed when none is configured.' );
@@ -236,7 +236,7 @@ class Checkout extends \WP_UnitTestCase {
 		$block_type_registry = \WP_Block_Type_Registry::get_instance();
 		++$this->checkout_mock_sequence;
 		$block_name      = 'checkout-shipping-topology-' . $this->checkout_mock_sequence;
-		$full_block_name = 'woocommerce/' . $block_name;
+		$full_block_name = 'poocommerce/' . $block_name;
 
 		try {
 			$checkout = new CheckoutMock(

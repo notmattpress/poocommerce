@@ -12,7 +12,7 @@ const SHIPPING_FORM_SERIALIZED =
 	"&calc_shipping_state=O'State" +
 	'&calc_shipping_postcode=63366' +
 	"&calc_shipping_city=O'Fallon" +
-	'&woocommerce-shipping-calculator-nonce=abc123' +
+	'&poocommerce-shipping-calculator-nonce=abc123' +
 	'&_wp_http_referer=%2Fcart%2F' +
 	'&calc_shipping=x';
 
@@ -21,7 +21,7 @@ const SHIPPING_FORM_ENCODED =
 	'&calc_shipping_state=O%27State' +
 	'&calc_shipping_postcode=63366' +
 	'&calc_shipping_city=O%27Fallon' +
-	'&woocommerce-shipping-calculator-nonce=abc123' +
+	'&poocommerce-shipping-calculator-nonce=abc123' +
 	'&_wp_http_referer=%2Fcart%2F' +
 	'&calc_shipping=x';
 
@@ -30,7 +30,7 @@ const CART_FORM_SERIALIZED =
 	"&coupon_code=SAVE'10" +
 	"&order'note=Leave%20at%20O'Brien's%20door" +
 	'&reference=already%2527encoded' +
-	'&woocommerce-cart-nonce=abc123' +
+	'&poocommerce-cart-nonce=abc123' +
 	'&_wp_http_referer=%2Fcart%2F';
 
 const CART_FORM_ENCODED =
@@ -38,7 +38,7 @@ const CART_FORM_ENCODED =
 	'&coupon_code=SAVE%2710' +
 	'&order%27note=Leave%20at%20O%27Brien%27s%20door' +
 	'&reference=already%2527encoded' +
-	'&woocommerce-cart-nonce=abc123' +
+	'&poocommerce-cart-nonce=abc123' +
 	'&_wp_http_referer=%2Fcart%2F';
 
 // quantity_update() appends a hidden update_cart input before serialize().
@@ -132,7 +132,7 @@ describe( 'cart.js request encoding', () => {
 		// cart_submit() bails unless the target is a form with cart contents.
 		$cartForm.is = jest.fn( ( selector ) => selector === 'form' );
 		$cartForm.find = jest.fn( ( selector ) =>
-			selector === '.woocommerce-cart-form__contents'
+			selector === '.poocommerce-cart-form__contents'
 				? { length: 1 }
 				: createDefaultMock()
 		);
@@ -174,7 +174,7 @@ describe( 'cart.js request encoding', () => {
 				return $document;
 			}
 			if (
-				arg === '.woocommerce-cart-form' ||
+				arg === '.poocommerce-cart-form' ||
 				arg === cartFormElement ||
 				arg === $cartForm
 			) {
@@ -251,7 +251,7 @@ describe( 'cart.js request encoding', () => {
 	test( 'should encode apostrophes in shipping calculator data', () => {
 		const submit = findDocumentHandler(
 			'submit',
-			'form.woocommerce-shipping-calculator'
+			'form.poocommerce-shipping-calculator'
 		);
 		const evt = { preventDefault: jest.fn(), currentTarget: shippingFormElement };
 
@@ -297,7 +297,7 @@ describe( 'cart.js request encoding', () => {
 		// submit button is the Update cart button.
 		clickedSubmitName = 'update_cart';
 		$cartForm.serialize.mockReturnValue( QUANTITY_FORM_SERIALIZED );
-		const submit = findDocumentHandler( 'submit', '.woocommerce-cart-form' );
+		const submit = findDocumentHandler( 'submit', '.poocommerce-cart-form' );
 		const evt = { preventDefault: jest.fn(), currentTarget: cartFormElement };
 
 		submit( evt );
@@ -317,7 +317,7 @@ describe( 'cart.js request encoding', () => {
 
 	test( 'should encode apostrophes in apply coupon data', () => {
 		clickedSubmitName = 'apply_coupon';
-		const submit = findDocumentHandler( 'submit', '.woocommerce-cart-form' );
+		const submit = findDocumentHandler( 'submit', '.poocommerce-cart-form' );
 		const evt = { preventDefault: jest.fn(), currentTarget: cartFormElement };
 
 		submit( evt );
@@ -336,7 +336,7 @@ describe( 'cart.js request encoding', () => {
 	} );
 
 	test( 'should encode apostrophes in remove coupon data', () => {
-		const click = findDocumentHandler( 'click', 'a.woocommerce-remove-coupon' );
+		const click = findDocumentHandler( 'click', 'a.poocommerce-remove-coupon' );
 		const evt = {
 			preventDefault: jest.fn(),
 			currentTarget: removeCouponElement,

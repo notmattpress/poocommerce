@@ -4,31 +4,31 @@
 import clsx from 'clsx';
 import { __ } from '@wordpress/i18n';
 import { useState, createInterpolateElement } from '@wordpress/element';
-import Button from '@woocommerce/base-components/button';
+import Button from '@poocommerce/base-components/button';
 import {
 	PasswordStrengthMeter,
 	getPasswordStrength,
-} from '@woocommerce/base-components/cart-checkout/password-strength-meter';
-import { PRIVACY_URL, TERMS_URL } from '@woocommerce/block-settings';
-import { ValidatedTextInput, Spinner } from '@woocommerce/blocks-components';
+} from '@poocommerce/base-components/cart-checkout/password-strength-meter';
+import { PRIVACY_URL, TERMS_URL } from '@poocommerce/block-settings';
+import { ValidatedTextInput, Spinner } from '@poocommerce/blocks-components';
 import { useSelect } from '@wordpress/data';
-import { validationStore } from '@woocommerce/block-data';
-import { getSetting } from '@woocommerce/settings';
+import { validationStore } from '@poocommerce/block-data';
+import { getSetting } from '@poocommerce/settings';
 
 const termsPageLink = TERMS_URL ? (
 	<a href={ TERMS_URL } target="_blank" rel="noreferrer">
-		{ __( 'Terms', 'woocommerce' ) }
+		{ __( 'Terms', 'poocommerce' ) }
 	</a>
 ) : (
-	<span>{ __( 'Terms', 'woocommerce' ) }</span>
+	<span>{ __( 'Terms', 'poocommerce' ) }</span>
 );
 
 const privacyPageLink = PRIVACY_URL ? (
 	<a href={ PRIVACY_URL } target="_blank" rel="noreferrer">
-		{ __( 'Privacy Policy', 'woocommerce' ) }
+		{ __( 'Privacy Policy', 'poocommerce' ) }
 	</a>
 ) : (
-	<span>{ __( 'Privacy Policy', 'woocommerce' ) }</span>
+	<span>{ __( 'Privacy Policy', 'poocommerce' ) }</span>
 );
 
 const PasswordField = ( {
@@ -45,7 +45,7 @@ const PasswordField = ( {
 			<ValidatedTextInput
 				disabled={ isLoading }
 				type="password"
-				label={ __( 'Password', 'woocommerce' ) }
+				label={ __( 'Password', 'poocommerce' ) }
 				className={ `wc-block-components-address-form__password` }
 				value={ password }
 				required={ true }
@@ -60,7 +60,7 @@ const PasswordField = ( {
 					) {
 						return __(
 							'Please enter a valid password',
-							'woocommerce'
+							'poocommerce'
 						);
 					}
 				} }
@@ -69,7 +69,7 @@ const PasswordField = ( {
 						inputObject.setCustomValidity(
 							__(
 								'Please create a stronger password',
-								'woocommerce'
+								'poocommerce'
 							)
 						);
 						return false;
@@ -131,7 +131,7 @@ const Form = ( {
 				<>
 					<p>
 						{ createInterpolateElement(
-							__( 'Set a password for <email/>', 'woocommerce' ),
+							__( 'Set a password for <email/>', 'poocommerce' ),
 							{
 								email: <strong>{ customerEmail }</strong>,
 							}
@@ -156,7 +156,7 @@ const Form = ( {
 				disabled={ !! hasValidationError || needsPassword || isLoading }
 			>
 				{ !! isLoading && <Spinner /> }
-				{ __( 'Create account', 'woocommerce' ) }
+				{ __( 'Create account', 'poocommerce' ) }
 			</Button>
 			<input type="hidden" name="email" value={ customerEmail } />
 			<input type="hidden" name="password" value={ password } />
@@ -169,7 +169,7 @@ const Form = ( {
 							{ createInterpolateElement(
 								__(
 									'Check your email at <email/> for the link to set up an account password.',
-									'woocommerce'
+									'poocommerce'
 								),
 								{
 									email: <>{ customerEmail }</>,
@@ -180,7 +180,7 @@ const Form = ( {
 					{ createInterpolateElement(
 						__(
 							'By creating an account you agree to our <terms/> and <privacy/>.',
-							'woocommerce'
+							'poocommerce'
 						),
 						{
 							terms: termsPageLink,

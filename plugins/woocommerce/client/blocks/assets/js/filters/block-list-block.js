@@ -19,14 +19,14 @@ const withDefaultAttributes = createHigherOrderComponent(
 			componentDidMount() {
 				const { block, setAttributes } = this.props;
 
-				if ( block.name.startsWith( 'woocommerce/' ) ) {
+				if ( block.name.startsWith( 'poocommerce/' ) ) {
 					setAttributes( this.getAttributesWithDefaults() );
 				}
 			}
 
 			componentDidUpdate() {
 				if (
-					this.props.block.name.startsWith( 'woocommerce/' ) &&
+					this.props.block.name.startsWith( 'poocommerce/' ) &&
 					! this.mounted
 				) {
 					this.mounted = true;
@@ -39,7 +39,7 @@ const withDefaultAttributes = createHigherOrderComponent(
 
 				if (
 					! this.mounted &&
-					this.props.block.name.startsWith( 'woocommerce/' ) &&
+					this.props.block.name.startsWith( 'poocommerce/' ) &&
 					typeof blockType.attributes !== 'undefined' &&
 					typeof blockType.defaults !== 'undefined'
 				) {
@@ -83,12 +83,12 @@ const withDefaultAttributes = createHigherOrderComponent(
  *
  * See https://github.com/WordPress/gutenberg/issues/7342
  *
- * To use this, the block name needs a `woocommerce/` prefix, and as well
+ * To use this, the block name needs a `poocommerce/` prefix, and as well
  * as defining `attributes` during block registration, you must also declare an
  * array called `defaults`. Defaults should be omitted from `attributes`.
  */
 addFilter(
 	'editor.BlockListBlock',
-	'woocommerce-blocks/block-list-block',
+	'poocommerce-blocks/block-list-block',
 	withDefaultAttributes
 );

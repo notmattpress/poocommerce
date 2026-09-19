@@ -5,19 +5,19 @@
  * Handles requests to the /reports/orders/stats endpoint.
  */
 
-namespace Automattic\WooCommerce\Admin\API\Reports\Orders\Stats;
+namespace Automattic\PooCommerce\Admin\API\Reports\Orders\Stats;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\API\Reports\GenericStatsController;
-use Automattic\WooCommerce\Admin\API\Reports\OrderAwareControllerTrait;
-use Automattic\WooCommerce\Admin\API\Reports\Orders\Stats\Query;
+use Automattic\PooCommerce\Admin\API\Reports\GenericStatsController;
+use Automattic\PooCommerce\Admin\API\Reports\OrderAwareControllerTrait;
+use Automattic\PooCommerce\Admin\API\Reports\Orders\Stats\Query;
 
 /**
  * REST API Reports orders stats controller class.
  *
  * @internal
- * @extends \Automattic\WooCommerce\Admin\API\Reports\GenericStatsController
+ * @extends \Automattic\PooCommerce\Admin\API\Reports\GenericStatsController
  */
 class Controller extends GenericStatsController {
 
@@ -106,7 +106,7 @@ class Controller extends GenericStatsController {
 		 * @param object           $report   The original report object.
 		 * @param WP_REST_Request  $request  Request used to generate the response.
 		 */
-		return apply_filters( 'woocommerce_rest_prepare_report_orders_stats', $response, $report, $request );
+		return apply_filters( 'poocommerce_rest_prepare_report_orders_stats', $response, $report, $request );
 	}
 
 
@@ -119,22 +119,22 @@ class Controller extends GenericStatsController {
 	protected function get_item_properties_schema() {
 		return array(
 			'net_revenue'         => array(
-				'description' => __( 'Net sales.', 'woocommerce' ),
+				'description' => __( 'Net sales.', 'poocommerce' ),
 				'type'        => 'number',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
 				'format'      => 'currency',
 			),
 			'orders_count'        => array(
-				'title'       => __( 'Orders', 'woocommerce' ),
-				'description' => __( 'Number of orders', 'woocommerce' ),
+				'title'       => __( 'Orders', 'poocommerce' ),
+				'description' => __( 'Number of orders', 'poocommerce' ),
 				'type'        => 'integer',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
 				'indicator'   => true,
 			),
 			'avg_order_value'     => array(
-				'description' => __( 'Average order value.', 'woocommerce' ),
+				'description' => __( 'Average order value.', 'poocommerce' ),
 				'type'        => 'number',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
@@ -142,37 +142,37 @@ class Controller extends GenericStatsController {
 				'format'      => 'currency',
 			),
 			'avg_items_per_order' => array(
-				'description' => __( 'Average items per order', 'woocommerce' ),
+				'description' => __( 'Average items per order', 'poocommerce' ),
 				'type'        => 'number',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
 			),
 			'num_items_sold'      => array(
-				'description' => __( 'Number of items sold', 'woocommerce' ),
+				'description' => __( 'Number of items sold', 'poocommerce' ),
 				'type'        => 'integer',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
 			),
 			'coupons'             => array(
-				'description' => __( 'Amount discounted by coupons.', 'woocommerce' ),
+				'description' => __( 'Amount discounted by coupons.', 'poocommerce' ),
 				'type'        => 'number',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
 			),
 			'coupons_count'       => array(
-				'description' => __( 'Unique coupons count.', 'woocommerce' ),
+				'description' => __( 'Unique coupons count.', 'poocommerce' ),
 				'type'        => 'number',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
 			),
 			'total_customers'     => array(
-				'description' => __( 'Total distinct customers.', 'woocommerce' ),
+				'description' => __( 'Total distinct customers.', 'poocommerce' ),
 				'type'        => 'integer',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
 			),
 			'products'            => array(
-				'description' => __( 'Number of distinct products sold.', 'woocommerce' ),
+				'description' => __( 'Number of distinct products sold.', 'poocommerce' ),
 				'type'        => 'number',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
@@ -211,7 +211,7 @@ class Controller extends GenericStatsController {
 			)
 		);
 		$params['match']            = array(
-			'description'       => __( 'Indicates whether all the conditions should be true for the resulting set, or if any one of them is sufficient. Match affects the following parameters: status_is, status_is_not, product_includes, product_excludes, coupon_includes, coupon_excludes, customer, categories', 'woocommerce' ),
+			'description'       => __( 'Indicates whether all the conditions should be true for the resulting set, or if any one of them is sufficient. Match affects the following parameters: status_is, status_is_not, product_includes, product_excludes, coupon_includes, coupon_excludes, customer, categories', 'poocommerce' ),
 			'type'              => 'string',
 			'default'           => 'all',
 			'enum'              => array(
@@ -221,7 +221,7 @@ class Controller extends GenericStatsController {
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 		$params['status_is']        = array(
-			'description'       => __( 'Limit result set to items that have the specified order status.', 'woocommerce' ),
+			'description'       => __( 'Limit result set to items that have the specified order status.', 'poocommerce' ),
 			'type'              => 'array',
 			'sanitize_callback' => 'wp_parse_slug_list',
 			'validate_callback' => 'rest_validate_request_arg',
@@ -232,7 +232,7 @@ class Controller extends GenericStatsController {
 			),
 		);
 		$params['status_is_not']    = array(
-			'description'       => __( 'Limit result set to items that don\'t have the specified order status.', 'woocommerce' ),
+			'description'       => __( 'Limit result set to items that don\'t have the specified order status.', 'poocommerce' ),
 			'type'              => 'array',
 			'sanitize_callback' => 'wp_parse_slug_list',
 			'validate_callback' => 'rest_validate_request_arg',
@@ -242,7 +242,7 @@ class Controller extends GenericStatsController {
 			),
 		);
 		$params['product_includes'] = array(
-			'description'       => __( 'Limit result set to items that have the specified product(s) assigned.', 'woocommerce' ),
+			'description'       => __( 'Limit result set to items that have the specified product(s) assigned.', 'poocommerce' ),
 			'type'              => 'array',
 			'items'             => array(
 				'type' => 'integer',
@@ -252,7 +252,7 @@ class Controller extends GenericStatsController {
 
 		);
 		$params['product_excludes'] = array(
-			'description'       => __( 'Limit result set to items that don\'t have the specified product(s) assigned.', 'woocommerce' ),
+			'description'       => __( 'Limit result set to items that don\'t have the specified product(s) assigned.', 'poocommerce' ),
 			'type'              => 'array',
 			'items'             => array(
 				'type' => 'integer',
@@ -262,7 +262,7 @@ class Controller extends GenericStatsController {
 		);
 		// Split assignments for PHPCS complaining on aligned.
 		$params['variation_includes'] = array(
-			'description'       => __( 'Limit result set to items that have the specified variation(s) assigned.', 'woocommerce' ),
+			'description'       => __( 'Limit result set to items that have the specified variation(s) assigned.', 'poocommerce' ),
 			'type'              => 'array',
 			'items'             => array(
 				'type' => 'integer',
@@ -272,7 +272,7 @@ class Controller extends GenericStatsController {
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 		$params['variation_excludes'] = array(
-			'description'       => __( 'Limit result set to items that don\'t have the specified variation(s) assigned.', 'woocommerce' ),
+			'description'       => __( 'Limit result set to items that don\'t have the specified variation(s) assigned.', 'poocommerce' ),
 			'type'              => 'array',
 			'items'             => array(
 				'type' => 'integer',
@@ -282,7 +282,7 @@ class Controller extends GenericStatsController {
 			'sanitize_callback' => 'wp_parse_id_list',
 		);
 		$params['coupon_includes']    = array(
-			'description'       => __( 'Limit result set to items that have the specified coupon(s) assigned.', 'woocommerce' ),
+			'description'       => __( 'Limit result set to items that have the specified coupon(s) assigned.', 'poocommerce' ),
 			'type'              => 'array',
 			'items'             => array(
 				'type' => 'integer',
@@ -291,7 +291,7 @@ class Controller extends GenericStatsController {
 			'sanitize_callback' => 'wp_parse_id_list',
 		);
 		$params['coupon_excludes']    = array(
-			'description'       => __( 'Limit result set to items that don\'t have the specified coupon(s) assigned.', 'woocommerce' ),
+			'description'       => __( 'Limit result set to items that don\'t have the specified coupon(s) assigned.', 'poocommerce' ),
 			'type'              => 'array',
 			'items'             => array(
 				'type' => 'integer',
@@ -300,7 +300,7 @@ class Controller extends GenericStatsController {
 			'sanitize_callback' => 'wp_parse_id_list',
 		);
 		$params['tax_rate_includes']  = array(
-			'description'       => __( 'Limit result set to items that have the specified tax rate(s) assigned.', 'woocommerce' ),
+			'description'       => __( 'Limit result set to items that have the specified tax rate(s) assigned.', 'poocommerce' ),
 			'type'              => 'array',
 			'items'             => array(
 				'type' => 'integer',
@@ -310,7 +310,7 @@ class Controller extends GenericStatsController {
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 		$params['tax_rate_excludes']  = array(
-			'description'       => __( 'Limit result set to items that don\'t have the specified tax rate(s) assigned.', 'woocommerce' ),
+			'description'       => __( 'Limit result set to items that don\'t have the specified tax rate(s) assigned.', 'poocommerce' ),
 			'type'              => 'array',
 			'items'             => array(
 				'type' => 'integer',
@@ -320,7 +320,7 @@ class Controller extends GenericStatsController {
 			'sanitize_callback' => 'wp_parse_id_list',
 		);
 		$params['customer']           = array(
-			'description'       => __( 'Alias for customer_type (deprecated).', 'woocommerce' ),
+			'description'       => __( 'Alias for customer_type (deprecated).', 'poocommerce' ),
 			'type'              => 'string',
 			'enum'              => array(
 				'new',
@@ -329,7 +329,7 @@ class Controller extends GenericStatsController {
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 		$params['customer_type']      = array(
-			'description'       => __( 'Limit result set to orders that have the specified customer_type', 'woocommerce' ),
+			'description'       => __( 'Limit result set to orders that have the specified customer_type', 'poocommerce' ),
 			'type'              => 'string',
 			'enum'              => array(
 				'new',
@@ -338,7 +338,7 @@ class Controller extends GenericStatsController {
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 		$params['refunds']            = array(
-			'description'       => __( 'Limit result set to specific types of refunds.', 'woocommerce' ),
+			'description'       => __( 'Limit result set to specific types of refunds.', 'poocommerce' ),
 			'type'              => 'string',
 			'default'           => '',
 			'enum'              => array(
@@ -351,7 +351,7 @@ class Controller extends GenericStatsController {
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 		$params['attribute_is']       = array(
-			'description'       => __( 'Limit result set to orders that include products with the specified attributes.', 'woocommerce' ),
+			'description'       => __( 'Limit result set to orders that include products with the specified attributes.', 'poocommerce' ),
 			'type'              => 'array',
 			'items'             => array(
 				'type' => 'array',
@@ -360,7 +360,7 @@ class Controller extends GenericStatsController {
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 		$params['attribute_is_not']   = array(
-			'description'       => __( 'Limit result set to orders that don\'t include products with the specified attributes.', 'woocommerce' ),
+			'description'       => __( 'Limit result set to orders that don\'t include products with the specified attributes.', 'poocommerce' ),
 			'type'              => 'array',
 			'items'             => array(
 				'type' => 'array',
@@ -369,7 +369,7 @@ class Controller extends GenericStatsController {
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 		$params['segmentby']          = array(
-			'description'       => __( 'Segment the response by additional constraint.', 'woocommerce' ),
+			'description'       => __( 'Segment the response by additional constraint.', 'poocommerce' ),
 			'type'              => 'string',
 			'enum'              => array(
 				'product',

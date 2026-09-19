@@ -2,7 +2,7 @@
 /**
  * Unit tests for the user functions.
  *
- * @package WooCommerce\Tests\Util
+ * @package PooCommerce\Tests\Util
  * @since 3.4.6
  */
 
@@ -149,7 +149,7 @@ class WC_Tests_User_Functions extends WC_Unit_Test_Case {
 	 * $caps is returned unchanged when the target user ID is invalid (e.g. 0 or a stale id).
 	 *
 	 * @dataProvider invalid_user_id_provider
-	 * @see https://github.com/woocommerce/woocommerce/issues/65171
+	 * @see https://github.com/poocommerce/poocommerce/issues/65171
 	 *
 	 * @param int $invalid_id A user ID that does not correspond to an existing user.
 	 */
@@ -205,7 +205,7 @@ class WC_Tests_User_Functions extends WC_Unit_Test_Case {
 		$this->assertTrue( $manager->has_cap( 'edit_users' ) );
 		$this->assertFalse( $editor->has_cap( 'edit_users' ) );
 
-		// Unhook the capability translation function to simulate WooCommerce getting deactivated.
+		// Unhook the capability translation function to simulate PooCommerce getting deactivated.
 		remove_filter( 'user_has_cap', 'wc_shop_manager_has_capability' );
 
 		$this->assertFalse( $manager->has_cap( 'edit_users' ) );

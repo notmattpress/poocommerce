@@ -1,15 +1,15 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\StoreApi\Schemas\V1;
+namespace Automattic\PooCommerce\Tests\Blocks\StoreApi\Schemas\V1;
 
-use Automattic\WooCommerce\StoreApi\Schemas\V1\BillingAddressSchema;
-use Automattic\WooCommerce\StoreApi\Schemas\ExtendSchema;
-use Automattic\WooCommerce\StoreApi\SchemaController;
-use Automattic\WooCommerce\StoreApi\Formatters;
-use Automattic\WooCommerce\StoreApi\Formatters\MoneyFormatter;
-use Automattic\WooCommerce\StoreApi\Formatters\HtmlFormatter;
-use Automattic\WooCommerce\StoreApi\Formatters\CurrencyFormatter;
+use Automattic\PooCommerce\StoreApi\Schemas\V1\BillingAddressSchema;
+use Automattic\PooCommerce\StoreApi\Schemas\ExtendSchema;
+use Automattic\PooCommerce\StoreApi\SchemaController;
+use Automattic\PooCommerce\StoreApi\Formatters;
+use Automattic\PooCommerce\StoreApi\Formatters\MoneyFormatter;
+use Automattic\PooCommerce\StoreApi\Formatters\HtmlFormatter;
+use Automattic\PooCommerce\StoreApi\Formatters\CurrencyFormatter;
 use WC_Unit_Test_Case;
 
 /**
@@ -21,7 +21,7 @@ use WC_Unit_Test_Case;
  * to silently drop real backslashes the user typed (e.g. "apt 4\"). These
  * tests guard against a regression of that behaviour.
  *
- * @see https://github.com/woocommerce/woocommerce/issues/58214
+ * @see https://github.com/poocommerce/poocommerce/issues/58214
  */
 class AbstractAddressSchemaTest extends WC_Unit_Test_Case {
 
@@ -120,7 +120,7 @@ class AbstractAddressSchemaTest extends WC_Unit_Test_Case {
 	 * stored. Validation used to strip a copy and discard it, so the number saved against the
 	 * order kept characters the customer could not see.
 	 *
-	 * @see https://github.com/woocommerce/woocommerce/issues/58000
+	 * @see https://github.com/poocommerce/poocommerce/issues/58000
 	 */
 	public function test_strips_invisible_characters_from_phone(): void {
 		$address = $this->make_address( array( 'phone' => "+1\u{FE0D}-555-123-4567" ) );

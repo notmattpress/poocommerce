@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { SortSelect } from '@woocommerce/blocks-components';
+import { SortSelect } from '@poocommerce/blocks-components';
 
 /**
  * Internal dependencies
@@ -21,30 +21,30 @@ const ProductSortSelect = ( {
 			options={ [
 				{
 					key: 'menu_order',
-					label: __( 'Default sorting', 'woocommerce' ),
+					label: __( 'Default sorting', 'poocommerce' ),
 				},
 				{
 					key: 'popularity',
-					label: __( 'Popularity', 'woocommerce' ),
+					label: __( 'Popularity', 'poocommerce' ),
 				},
 				{
 					key: 'rating',
-					label: __( 'Average rating', 'woocommerce' ),
+					label: __( 'Average rating', 'poocommerce' ),
 				},
 				{
 					key: 'date',
-					label: __( 'Latest', 'woocommerce' ),
+					label: __( 'Latest', 'poocommerce' ),
 				},
 				{
 					key: 'price',
-					label: __( 'Price: low to high', 'woocommerce' ),
+					label: __( 'Price: low to high', 'poocommerce' ),
 				},
 				{
 					key: 'price-desc',
-					label: __( 'Price: high to low', 'woocommerce' ),
+					label: __( 'Price: high to low', 'poocommerce' ),
 				},
 			] }
-			screenReaderLabel={ __( 'Order products by', 'woocommerce' ) }
+			screenReaderLabel={ __( 'Order products by', 'poocommerce' ) }
 			value={ value }
 		/>
 	);

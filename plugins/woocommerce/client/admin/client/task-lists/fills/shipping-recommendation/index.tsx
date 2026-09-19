@@ -1,10 +1,10 @@
 /**
  * External dependencies
  */
-import { optionsStore, pluginsStore, settingsStore } from '@woocommerce/data';
+import { optionsStore, pluginsStore, settingsStore } from '@poocommerce/data';
 import { withSelect } from '@wordpress/data';
 import { registerPlugin } from '@wordpress/plugins';
-import { WooOnboardingTask } from '@woocommerce/onboarding';
+import { WooOnboardingTask } from '@poocommerce/onboarding';
 import { compose } from '@wordpress/compose';
 import type { SelectFunction } from '@wordpress/data/build-types/types';
 /**
@@ -25,7 +25,7 @@ const ShippingRecommendationWrapper = compose(
 			isJetpackConnected: select( pluginsStore ).isJetpackConnected(),
 			isResolving:
 				! hasFinishedResolution( 'getOption', [
-					'woocommerce_setup_jetpack_opted_in',
+					'poocommerce_setup_jetpack_opted_in',
 				] ) ||
 				! hasFinishedResolution( 'getOption', [
 					'wcshipping_options',
@@ -39,7 +39,7 @@ const ShippingRecommendationWrapper = compose(
 )( ShippingRecommendation ) as React.ComponentType< TaskProps >;
 
 registerPlugin( 'wc-admin-onboarding-task-shipping-recommendation', {
-	scope: 'woocommerce-tasks',
+	scope: 'poocommerce-tasks',
 	render: () => (
 		<WooOnboardingTask id="shipping-recommendation">
 			{ ( { onComplete, query, task } ) => (

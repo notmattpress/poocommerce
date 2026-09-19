@@ -1,7 +1,7 @@
 <?php
 
-use Automattic\WooCommerce\Enums\ProductStatus;
-use Automattic\WooCommerce\Enums\ProductStockStatus;
+use Automattic\PooCommerce\Enums\ProductStatus;
+use Automattic\PooCommerce\Enums\ProductStockStatus;
 
 /**
  * Tests for WC_Product_Variable.
@@ -312,9 +312,9 @@ class WC_Product_Variable_Test extends \WC_Unit_Test_Case {
 		// A filter returning exactly the parent's featured image is indistinguishable from
 		// plain inheritance, so the variation-owned gallery takes priority by design.
 		$filter              = static fn() => $parent_featured_id;
-		add_filter( 'woocommerce_product_variation_get_image_id', $filter );
+		add_filter( 'poocommerce_product_variation_get_image_id', $filter );
 		$available_variation = $product->get_available_variation( $variation );
-		remove_filter( 'woocommerce_product_variation_get_image_id', $filter );
+		remove_filter( 'poocommerce_product_variation_get_image_id', $filter );
 
 		$this->assertSame( $variation_gallery_id, $available_variation['image_id'] );
 	}
@@ -327,9 +327,9 @@ class WC_Product_Variable_Test extends \WC_Unit_Test_Case {
 		$filtered_image_id           = $this->create_image_attachment( 'Filtered Variation Image', 'filtered-variation.jpg' );
 
 		$filter              = static fn() => $filtered_image_id;
-		add_filter( 'woocommerce_product_variation_get_image_id', $filter );
+		add_filter( 'poocommerce_product_variation_get_image_id', $filter );
 		$available_variation = $product->get_available_variation( $variation );
-		remove_filter( 'woocommerce_product_variation_get_image_id', $filter );
+		remove_filter( 'poocommerce_product_variation_get_image_id', $filter );
 
 		$this->assertSame( $filtered_image_id, $available_variation['image_id'] );
 	}
@@ -350,7 +350,7 @@ class WC_Product_Variable_Test extends \WC_Unit_Test_Case {
 
 		// Ensure the store-level cache is not interfering the test.
 		$invalidate_cache = static fn ( array $hash ) => array( ...$hash, wp_rand() );
-		add_filter( 'woocommerce_get_variation_prices_hash', $invalidate_cache );
+		add_filter( 'poocommerce_get_variation_prices_hash', $invalidate_cache );
 
 		try {
 			// First call: price data will be initially populated, including sorting. 3 is a number of sort calls on initial cache population.
@@ -389,27 +389,27 @@ class WC_Product_Variable_Test extends \WC_Unit_Test_Case {
 			$sut->get_variation_prices();
 			$this->assertSame( 6, $sut->sort_count );
 		} finally {
-			remove_filter( 'woocommerce_get_variation_prices_hash', $invalidate_cache );
+			remove_filter( 'poocommerce_get_variation_prices_hash', $invalidate_cache );
 		}
 
 		$product->delete( true );
 	}
 
 	/**
-	 * @testdox get_variation_prices returns a valid array structure when the woocommerce_variation_prices filter returns malformed data (null or false), restoring the pre-refactor foreach behaviour that tolerated non-array filter output.
+	 * @testdox get_variation_prices returns a valid array structure when the poocommerce_variation_prices filter returns malformed data (null or false), restoring the pre-refactor foreach behaviour that tolerated non-array filter output.
 	 * @dataProvider provider_malformed_variation_prices_filter_values
 	 *
-	 * @param mixed $malformed_value The malformed value for returning via woocommerce_get_variation_prices_hash filter.
+	 * @param mixed $malformed_value The malformed value for returning via poocommerce_get_variation_prices_hash filter.
 	 */
 	public function test_get_variation_prices_tolerates_malformed_filter_output( $malformed_value ): void {
 		$product = WC_Helper_Product::create_variation_product();
 
-		// Bust the transient so read_price_data() always reaches the woocommerce_variation_prices filter.
+		// Bust the transient so read_price_data() always reaches the poocommerce_variation_prices filter.
 		$invalidate_cache = static fn( array $hash ) => array( ...$hash, wp_rand() );
-		add_filter( 'woocommerce_get_variation_prices_hash', $invalidate_cache );
+		add_filter( 'poocommerce_get_variation_prices_hash', $invalidate_cache );
 
 		$bad_filter = static fn() => $malformed_value;
-		add_filter( 'woocommerce_variation_prices', $bad_filter );
+		add_filter( 'poocommerce_variation_prices', $bad_filter );
 
 		$this->setExpectedIncorrectUsage( 'WC_Product_Variable_Data_Store_CPT::read_price_data' );
 
@@ -417,8 +417,8 @@ class WC_Product_Variable_Test extends \WC_Unit_Test_Case {
 			$prices = $product->get_variation_prices();
 			$this->assertSame( $malformed_value, $prices );
 		} finally {
-			remove_filter( 'woocommerce_variation_prices', $bad_filter );
-			remove_filter( 'woocommerce_get_variation_prices_hash', $invalidate_cache );
+			remove_filter( 'poocommerce_variation_prices', $bad_filter );
+			remove_filter( 'poocommerce_get_variation_prices_hash', $invalidate_cache );
 		}
 
 		$product->delete( true );
@@ -448,7 +448,7 @@ class WC_Product_Variable_Test extends \WC_Unit_Test_Case {
 		$product->set_image_id( $parent_featured_id );
 		$product->save();
 
-		wc_get_container()->get( Automattic\WooCommerce\Internal\Caches\ProductCache::class )->flush();
+		wc_get_container()->get( Automattic\PooCommerce\Internal\Caches\ProductCache::class )->flush();
 		$variation = wc_get_product( $product->get_children()[0] );
 		$variation->set_gallery_image_ids( array( $variation_gallery_id ) );
 		$variation->save();
@@ -510,7 +510,7 @@ class WC_Product_Variable_Test extends \WC_Unit_Test_Case {
 	 * Counts how many distinct variations get their purchasability evaluated during a callback.
 	 *
 	 * @param callable $callback Code to run.
-	 * @return int Number of distinct variation IDs passed to woocommerce_variation_is_purchasable.
+	 * @return int Number of distinct variation IDs passed to poocommerce_variation_is_purchasable.
 	 */
 	private function count_variations_checked( callable $callback ): int {
 		$seen    = array();
@@ -518,9 +518,9 @@ class WC_Product_Variable_Test extends \WC_Unit_Test_Case {
 			$seen[ $variation->get_id() ] = true;
 			return $purchasable;
 		};
-		add_filter( 'woocommerce_variation_is_purchasable', $counter, 1, 2 );
+		add_filter( 'poocommerce_variation_is_purchasable', $counter, 1, 2 );
 		$callback();
-		remove_filter( 'woocommerce_variation_is_purchasable', $counter, 1 );
+		remove_filter( 'poocommerce_variation_is_purchasable', $counter, 1 );
 		return count( $seen );
 	}
 
@@ -562,14 +562,14 @@ class WC_Product_Variable_Test extends \WC_Unit_Test_Case {
 
 		// Reject the stored-state candidate, and let a filter make the out-of-stock one purchasable.
 		add_filter(
-			'woocommerce_is_purchasable',
+			'poocommerce_is_purchasable',
 			function ( $purchasable, $candidate ) use ( $children ) {
 				return $purchasable && (int) $candidate->get_id() !== (int) $children[0];
 			},
 			10,
 			2
 		);
-		add_filter( 'woocommerce_product_is_in_stock', '__return_true' );
+		add_filter( 'poocommerce_product_is_in_stock', '__return_true' );
 
 		$result  = null;
 		$checked = $this->count_variations_checked(
@@ -617,14 +617,14 @@ class WC_Product_Variable_Test extends \WC_Unit_Test_Case {
 
 		$calls = array();
 		add_filter(
-			'woocommerce_variation_is_purchasable',
+			'poocommerce_variation_is_purchasable',
 			function ( $value ) use ( &$calls ) {
 				$calls[] = 'purchasable';
 				return $value;
 			}
 		);
 		add_filter(
-			'woocommerce_product_is_in_stock',
+			'poocommerce_product_is_in_stock',
 			function ( $value ) use ( &$calls ) {
 				$calls[] = 'in_stock';
 				return $value;
@@ -694,7 +694,7 @@ class WC_Product_Variable_Test extends \WC_Unit_Test_Case {
 
 		// Every child is a stored-state candidate; only the 56th survives the filter, so the hit sits in the second batch.
 		add_filter(
-			'woocommerce_variation_is_purchasable',
+			'poocommerce_variation_is_purchasable',
 			function ( $purchasable, $variation ) use ( $target ) {
 				return $purchasable && $variation->get_id() === $target;
 			},
@@ -750,7 +750,7 @@ class WC_Product_Variable_Test extends \WC_Unit_Test_Case {
 		};
 
 		add_filter(
-			'woocommerce_data_stores',
+			'poocommerce_data_stores',
 			static function ( $stores ) use ( $data_store ) {
 				$stores['product-variable'] = $data_store;
 				return $stores;
@@ -795,7 +795,7 @@ class WC_Product_Variable_Test extends \WC_Unit_Test_Case {
 		// Registered before the fixture exists: the product factory caches instances, so a product
 		// loaded earlier would keep the stock data store.
 		add_filter(
-			'woocommerce_data_stores',
+			'poocommerce_data_stores',
 			static function ( $stores ) use ( $data_store ) {
 				$stores['product-variable'] = $data_store;
 				return $stores;
@@ -810,7 +810,7 @@ class WC_Product_Variable_Test extends \WC_Unit_Test_Case {
 		$checked_ids    = array();
 		$variation_hits = array();
 		add_filter(
-			'woocommerce_is_purchasable',
+			'poocommerce_is_purchasable',
 			function ( $purchasable, $checked ) use ( &$checked_ids ) {
 				$checked_ids[] = $checked->get_id();
 				return $purchasable;
@@ -819,7 +819,7 @@ class WC_Product_Variable_Test extends \WC_Unit_Test_Case {
 			2
 		);
 		add_filter(
-			'woocommerce_variation_is_purchasable',
+			'poocommerce_variation_is_purchasable',
 			function ( $purchasable, $variation ) use ( &$variation_hits ) {
 				$variation_hits[] = $variation->get_id();
 				return $purchasable;
@@ -834,7 +834,7 @@ class WC_Product_Variable_Test extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox has_purchasable_variations respects the woocommerce_get_children filter.
+	 * @testdox has_purchasable_variations respects the poocommerce_get_children filter.
 	 */
 	public function test_has_purchasable_variations_respects_children_filter(): void {
 		$product  = $this->create_variable_product_with_variations(
@@ -846,7 +846,7 @@ class WC_Product_Variable_Test extends \WC_Unit_Test_Case {
 		$children = $product->get_children();
 
 		add_filter(
-			'woocommerce_get_children',
+			'poocommerce_get_children',
 			function ( $ids ) use ( $children ) {
 				return array_values( array_intersect( $ids, array( $children[1] ) ) );
 			}
@@ -883,7 +883,7 @@ class WC_Product_Variable_Test extends \WC_Unit_Test_Case {
 		// Registered before the fixtures exist: the product factory caches instances, so a product
 		// loaded earlier would keep the stock data store.
 		add_filter(
-			'woocommerce_data_stores',
+			'poocommerce_data_stores',
 			static function ( $stores ) use ( $data_store ) {
 				$stores['product-variable'] = $data_store;
 				return $stores;

@@ -1,9 +1,9 @@
 <?php declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\BlockTypes\OrderConfirmation;
+namespace Automattic\PooCommerce\Tests\Blocks\BlockTypes\OrderConfirmation;
 
-use Automattic\WooCommerce\Blocks\BlockTypes\OrderConfirmation\DownloadsWrapper as DownloadsWrapperClass;
-use Automattic\WooCommerce\Internal\ProductDownloads\ApprovedDirectories\Register as Download_Directories;
+use Automattic\PooCommerce\Blocks\BlockTypes\OrderConfirmation\DownloadsWrapper as DownloadsWrapperClass;
+use Automattic\PooCommerce\Internal\ProductDownloads\ApprovedDirectories\Register as Download_Directories;
 
 /**
  * Test DownloadsWrapper class.
@@ -25,7 +25,7 @@ final class DownloadsWrapper extends \WP_UnitTestCase {
 		global $wpdb;
 
 		parent::set_up();
-		add_filter( 'pre_option_woocommerce_attribute_lookup_direct_updates', array( self::class, 'enable_direct_attribute_lookup_updates' ) );
+		add_filter( 'pre_option_poocommerce_attribute_lookup_direct_updates', array( self::class, 'enable_direct_attribute_lookup_updates' ) );
 
 		/** @var \WC_Product[] $products */
 		$products = ( new \WC_Product_Query() )->get_products();
@@ -39,9 +39,9 @@ final class DownloadsWrapper extends \WP_UnitTestCase {
 	 * Perform products/options/cache cleanup.
 	 */
 	public function tear_down() {
-		delete_option( 'woocommerce_product_lookup_table_is_generating' );
-		wp_cache_delete( 'woocommerce_has_downloadable_products', 'woocommerce' );
-		remove_filter( 'pre_option_woocommerce_attribute_lookup_direct_updates', array( self::class, 'enable_direct_attribute_lookup_updates' ) );
+		delete_option( 'poocommerce_product_lookup_table_is_generating' );
+		wp_cache_delete( 'poocommerce_has_downloadable_products', 'poocommerce' );
+		remove_filter( 'pre_option_poocommerce_attribute_lookup_direct_updates', array( self::class, 'enable_direct_attribute_lookup_updates' ) );
 
 		parent::tear_down();
 	}
@@ -92,11 +92,11 @@ final class DownloadsWrapper extends \WP_UnitTestCase {
 				return $this->store_has_downloadable_products();
 			}
 		};
-		add_option( 'woocommerce_product_lookup_table_is_generating', 'yes' );
+		add_option( 'poocommerce_product_lookup_table_is_generating', 'yes' );
 
 		\WC_Helper_Product::create_simple_product( true, array( 'downloadable' => true ) );
 		$this->assertTrue( $proxy->store_has_downloadable_products_proxy() );
-		$this->assertSame( 'yes', wp_cache_get( 'woocommerce_has_downloadable_products', 'woocommerce' ) );
+		$this->assertSame( 'yes', wp_cache_get( 'poocommerce_has_downloadable_products', 'poocommerce' ) );
 	}
 
 	/**
@@ -112,8 +112,8 @@ final class DownloadsWrapper extends \WP_UnitTestCase {
 				return $this->store_has_downloadable_products();
 			}
 		};
-		add_option( 'woocommerce_product_lookup_table_is_generating', 'yes' );
-		wp_cache_set( 'woocommerce_has_downloadable_products', 'no', 'woocommerce' );
+		add_option( 'poocommerce_product_lookup_table_is_generating', 'yes' );
+		wp_cache_set( 'poocommerce_has_downloadable_products', 'no', 'poocommerce' );
 
 		\WC_Helper_Product::create_simple_product( true, array( 'downloadable' => true ) );
 		$this->assertFalse( $proxy->store_has_downloadable_products_proxy() );
@@ -127,7 +127,7 @@ final class DownloadsWrapper extends \WP_UnitTestCase {
 
 		$download_directories->set_mode( Download_Directories::MODE_DISABLED );
 		add_filter(
-			'woocommerce_downloadable_file_exists',
+			'poocommerce_downloadable_file_exists',
 			static function (): bool {
 				return true;
 			}
@@ -152,10 +152,10 @@ final class DownloadsWrapper extends \WP_UnitTestCase {
 		$downloadable_order->set_status( 'processing' );
 		$downloadable_order->save();
 
-		update_option( 'woocommerce_downloads_grant_access_after_payment', 'no' );
+		update_option( 'poocommerce_downloads_grant_access_after_payment', 'no' );
 		$this->assertSame( '', $this->render( $downloadable_order, 'full' ), 'A processing order should not expose downloads while access is granted only on completion.' );
 
-		update_option( 'woocommerce_downloads_grant_access_after_payment', 'yes' );
+		update_option( 'poocommerce_downloads_grant_access_after_payment', 'yes' );
 		$this->assertSame( '<p>Download marker</p>', $this->render( $downloadable_order, 'full' ), 'A processing order should expose downloads once the store grants access after payment.' );
 
 		$plain_order->set_status( 'completed' );

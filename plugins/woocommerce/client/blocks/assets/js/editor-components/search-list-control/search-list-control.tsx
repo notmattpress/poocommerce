@@ -109,7 +109,7 @@ const ListItems = ( props: ListItemsProps ): JSX.Element | null => {
 									<li>
 										<button
 											type="button"
-											className="woocommerce-search-list__item woocommerce-search-list__item-load-more"
+											className="poocommerce-search-list__item poocommerce-search-list__item-load-more"
 											onClick={ () =>
 												onLoadMoreChildren()
 											}
@@ -117,7 +117,7 @@ const ListItems = ( props: ListItemsProps ): JSX.Element | null => {
 											{ loadMoreChildrenText ||
 												__(
 													'Load more',
-													'woocommerce'
+													'poocommerce'
 												) }
 										</button>
 									</li>
@@ -147,8 +147,8 @@ const SelectedListItems = < T extends object = object >( {
 	}
 	const selectedCount = selected.length;
 	return (
-		<div className="woocommerce-search-list__selected">
-			<div className="woocommerce-search-list__selected-header">
+		<div className="poocommerce-search-list__selected">
+			<div className="poocommerce-search-list__selected-header">
 				<strong>{ messages.selected( selectedCount ) }</strong>
 				{ selectedCount > 0 ? (
 					<Button
@@ -157,7 +157,7 @@ const SelectedListItems = < T extends object = object >( {
 						onClick={ () => onChange( [] ) }
 						aria-label={ messages.clear }
 					>
-						{ __( 'Clear all', 'woocommerce' ) }
+						{ __( 'Clear all', 'poocommerce' ) }
 					</Button>
 				) : null }
 			</div>
@@ -199,11 +199,11 @@ const ListItemsContainer = < T extends object = object >( {
 
 	if ( filteredList.length === 0 ) {
 		return (
-			<div className="woocommerce-search-list__list is-not-found">
-				<span className="woocommerce-search-list__not-found-icon">
+			<div className="poocommerce-search-list__list is-not-found">
+				<span className="poocommerce-search-list__not-found-icon">
 					<Icon icon={ info } role="img" />
 				</span>
-				<span className="woocommerce-search-list__not-found-text">
+				<span className="poocommerce-search-list__not-found-text">
 					{ search
 						? // eslint-disable-next-line @wordpress/valid-sprintf
 						  sprintf( messages.noResults, search )
@@ -214,7 +214,7 @@ const ListItemsContainer = < T extends object = object >( {
 	}
 
 	return (
-		<ul className="woocommerce-search-list__list">
+		<ul className="poocommerce-search-list__list">
 			<ListItems
 				useExpandedPanelId={ useExpandedPanelId }
 				list={ filteredList }
@@ -328,7 +328,7 @@ export const SearchListControl = < T extends object = object >(
 
 	return (
 		<div
-			className={ clsx( 'woocommerce-search-list', className, {
+			className={ clsx( 'poocommerce-search-list', className, {
 				'is-compact': isCompact,
 				'is-loading': isLoading,
 				'is-token': type === 'token',
@@ -341,7 +341,7 @@ export const SearchListControl = < T extends object = object >(
 					messages={ messages }
 				/>
 			) }
-			<div className="woocommerce-search-list__search">
+			<div className="poocommerce-search-list__search">
 				{ type === 'text' ? (
 					<TextControl
 						__next40pxDefaultSize
@@ -365,7 +365,7 @@ export const SearchListControl = < T extends object = object >(
 						__experimentalValidateInput={ () => false }
 						value={
 							isLoading
-								? [ __( 'Loading…', 'woocommerce' ) ]
+								? [ __( 'Loading…', 'poocommerce' ) ]
 								: selected.map( ( token ) => ( {
 										...token,
 										value: token.name,
@@ -376,7 +376,7 @@ export const SearchListControl = < T extends object = object >(
 				) }
 			</div>
 			{ isLoading ? (
-				<div className="woocommerce-search-list__list">
+				<div className="poocommerce-search-list__list">
 					<Spinner />
 				</div>
 			) : (

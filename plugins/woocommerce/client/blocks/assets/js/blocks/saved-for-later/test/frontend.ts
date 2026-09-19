@@ -1,16 +1,16 @@
 /**
  * External dependencies
  */
-import type { AddCartItemOutcome } from '@woocommerce/stores/woocommerce/cart';
-import type { RawShopperListItem } from '@woocommerce/stores/woocommerce/shopper-lists';
+import type { AddCartItemOutcome } from '@poocommerce/stores/poocommerce/cart';
+import type { RawShopperListItem } from '@poocommerce/stores/poocommerce/shopper-lists';
 
 type BlockActions = {
 	onClickMoveToCart: () => Generator< unknown, void >;
 };
 
-// `frontend.ts` registers its block store under `woocommerce/saved-for-later`
-// and opens the shared `woocommerce` cart store plus the
-// `woocommerce/shopper-lists` store, all routed through the mocked `store()`.
+// `frontend.ts` registers its block store under `poocommerce/saved-for-later`
+// and opens the shared `poocommerce` cart store plus the
+// `poocommerce/shopper-lists` store, all routed through the mocked `store()`.
 
 // Single shared context the mocked `getContext` returns for the row under test.
 let mockContext: {
@@ -33,17 +33,17 @@ jest.mock(
 		getContext: jest.fn( () => mockContext ),
 		getElement: jest.fn( () => ( { ref: null } ) ),
 		store: jest.fn( ( name: string, definition ) => {
-			if ( name === 'woocommerce/saved-for-later' ) {
+			if ( name === 'poocommerce/saved-for-later' ) {
 				mockBlockActions = definition?.actions ?? null;
 				return {
 					state: definition?.state,
 					actions: definition?.actions,
 				};
 			}
-			if ( name === 'woocommerce' ) {
+			if ( name === 'poocommerce' ) {
 				return { actions: { addCartItem: mockAddCartItem } };
 			}
-			// woocommerce/shopper-lists
+			// poocommerce/shopper-lists
 			return {
 				state: { lists: {} },
 				actions: { removeItem: mockRemoveItem },
@@ -54,13 +54,13 @@ jest.mock(
 );
 
 // Side-effect store registrations `frontend.ts` imports for ordering only.
-jest.mock( '@woocommerce/stores/woocommerce/shopper-lists', () => ( {} ), {
+jest.mock( '@poocommerce/stores/poocommerce/shopper-lists', () => ( {} ), {
 	virtual: true,
 } );
-jest.mock( '@woocommerce/stores/woocommerce/cart', () => ( {} ), {
+jest.mock( '@poocommerce/stores/poocommerce/cart', () => ( {} ), {
 	virtual: true,
 } );
-jest.mock( '@woocommerce/sanitize', () => ( { sanitizeHTML: jest.fn() } ), {
+jest.mock( '@poocommerce/sanitize', () => ( { sanitizeHTML: jest.fn() } ), {
 	virtual: true,
 } );
 

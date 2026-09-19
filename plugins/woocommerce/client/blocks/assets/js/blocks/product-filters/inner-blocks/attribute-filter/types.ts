@@ -2,7 +2,7 @@
  * External dependencies
  */
 import type { BlockEditProps } from '@wordpress/blocks';
-import type { AttributeCount } from '@woocommerce/types';
+import type { AttributeCount } from '@poocommerce/types';
 
 /**
  * Internal dependencies

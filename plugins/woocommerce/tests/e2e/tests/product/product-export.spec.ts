@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { WC_API_PATH } from '@woocommerce/e2e-utils-playwright';
+import { WC_API_PATH } from '@poocommerce/e2e-utils-playwright';
 
 /**
  * Internal dependencies
@@ -98,7 +98,7 @@ test.describe( 'Product > Export Selected Products', () => {
 
 		await test.step( 'Navigate to export page and verify UI elements for multiple products', async () => {
 			await exportButton.click();
-			await expect( page.locator( '.wrap.woocommerce h1' ) ).toHaveText(
+			await expect( page.locator( '.wrap.poocommerce h1' ) ).toHaveText(
 				'Export Products'
 			);
 			await expect(
@@ -119,13 +119,13 @@ test.describe( 'Product > Export Selected Products', () => {
 				.join( ',' );
 			expect( actualIds ).toBe( expectedIds );
 			await expect(
-				page.locator( 'label[for="woocommerce-exporter-types"]' )
+				page.locator( 'label[for="poocommerce-exporter-types"]' )
 			).toBeHidden();
 			await expect(
-				page.locator( 'label[for="woocommerce-exporter-category"]' )
+				page.locator( 'label[for="poocommerce-exporter-category"]' )
 			).toBeHidden();
 			await expect(
-				page.locator( '.woocommerce-exporter header p' )
+				page.locator( '.poocommerce-exporter header p' )
 			).toHaveText(
 				'This tool allows you to generate and download a CSV file containing the selected products.'
 			);
@@ -146,13 +146,13 @@ test.describe( 'Product > Export Selected Products', () => {
 				page.locator( 'input[name="product_ids"]' )
 			).toHaveCount( 0 );
 			await expect(
-				page.locator( 'label[for="woocommerce-exporter-types"]' )
+				page.locator( 'label[for="poocommerce-exporter-types"]' )
 			).toBeVisible();
 			await expect(
-				page.locator( 'label[for="woocommerce-exporter-category"]' )
+				page.locator( 'label[for="poocommerce-exporter-category"]' )
 			).toBeVisible();
 			await expect(
-				page.locator( '.woocommerce-exporter header p' )
+				page.locator( '.poocommerce-exporter header p' )
 			).toHaveText(
 				'This tool allows you to generate and download a CSV file containing a list of all products.'
 			);

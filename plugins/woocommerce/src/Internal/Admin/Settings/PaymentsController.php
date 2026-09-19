@@ -1,10 +1,10 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Admin\Settings;
+namespace Automattic\PooCommerce\Internal\Admin\Settings;
 
-use Automattic\WooCommerce\Internal\Admin\Settings\PaymentsProviders\WooPayments\WooPaymentsService;
-use Automattic\WooCommerce\Internal\Logging\SafeGlobalFunctionProxy;
+use Automattic\PooCommerce\Internal\Admin\Settings\PaymentsProviders\WooPayments\WooPaymentsService;
+use Automattic\PooCommerce\Internal\Logging\SafeGlobalFunctionProxy;
 use Throwable;
 use WC_Gateway_BACS;
 use WC_Gateway_Cheque;
@@ -20,7 +20,7 @@ defined( 'ABSPATH' ) || exit;
  */
 class PaymentsController {
 
-	const TRANSIENT_HAS_PROVIDERS_WITH_INCENTIVE_KEY = 'woocommerce_admin_settings_payments_has_providers_with_incentive';
+	const TRANSIENT_HAS_PROVIDERS_WITH_INCENTIVE_KEY = 'poocommerce_admin_settings_payments_has_providers_with_incentive';
 
 	/**
 	 * The payment service.
@@ -35,10 +35,10 @@ class PaymentsController {
 	public function register() {
 		add_action( 'admin_menu', array( $this, 'add_menu' ) );
 		add_filter( 'admin_body_class', array( $this, 'add_body_classes' ), 20 );
-		add_filter( 'woocommerce_admin_shared_settings', array( $this, 'preload_settings' ) );
-		add_filter( 'woocommerce_admin_allowed_promo_notes', array( $this, 'add_allowed_promo_notes' ) );
-		add_filter( 'woocommerce_get_sections_checkout', array( $this, 'handle_sections' ), 20 );
-		add_action( 'woocommerce_admin_payments_extension_suggestion_incentive_dismissed', array( $this, 'handle_incentive_dismissed' ) );
+		add_filter( 'poocommerce_admin_shared_settings', array( $this, 'preload_settings' ) );
+		add_filter( 'poocommerce_admin_allowed_promo_notes', array( $this, 'add_allowed_promo_notes' ) );
+		add_filter( 'poocommerce_get_sections_checkout', array( $this, 'handle_sections' ), 20 );
+		add_action( 'poocommerce_admin_payments_extension_suggestion_incentive_dismissed', array( $this, 'handle_incentive_dismissed' ) );
 	}
 
 	/**
@@ -66,7 +66,7 @@ class PaymentsController {
 			remove_menu_page( 'wc-admin&path=/payments/connect' );
 		}
 
-		$menu_title = esc_html__( 'Payments', 'woocommerce' );
+		$menu_title = esc_html__( 'Payments', 'poocommerce' );
 		$menu_icon  = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4NTIiIGhlaWdodD0iNjg0Ij48cGF0aCBmaWxsPSIjYTJhYWIyIiBkPSJNODIgODZ2NTEyaDY4NFY4NlptMCA1OThjLTQ4IDAtODQtMzgtODQtODZWODZDLTIgMzggMzQgMCA4MiAwaDY4NGM0OCAwIDg0IDM4IDg0IDg2djUxMmMwIDQ4LTM2IDg2LTg0IDg2em0zODQtNTU2djQ0aDg2djg0SDM4MnY0NGgxMjhjMjQgMCA0MiAxOCA0MiA0MnYxMjhjMCAyNC0xOCA0Mi00MiA0MmgtNDR2NDRoLTg0di00NGgtODZ2LTg0aDE3MHYtNDRIMzM4Yy0yNCAwLTQyLTE4LTQyLTQyVjIxNGMwLTI0IDE4LTQyIDQyLTQyaDQ0di00NHoiLz48L3N2Zz4=';
 		// Link to the Payments settings page.
 		$menu_path = 'admin.php?page=wc-settings&tab=checkout&from=' . Payments::FROM_PAYMENTS_MENU_ITEM;
@@ -74,11 +74,11 @@ class PaymentsController {
 		add_menu_page(
 			$menu_title,
 			$menu_title,
-			'manage_woocommerce', // Capability required to see the menu item.
+			'manage_poocommerce', // Capability required to see the menu item.
 			$menu_path,
 			null,
 			$menu_icon,
-			56, // Position after WooCommerce Product menu item.
+			56, // Position after PooCommerce Product menu item.
 		);
 
 		// If there are providers with an active incentive, add a notice badge to the Payments menu item.
@@ -114,8 +114,8 @@ class PaymentsController {
 			return $classes;
 		}
 
-		if ( 'checkout' === $current_tab && ! str_contains( 'woocommerce-settings-payments-tab', $classes ) ) {
-			$classes = "$classes woocommerce-settings-payments-tab";
+		if ( 'checkout' === $current_tab && ! str_contains( 'poocommerce-settings-payments-tab', $classes ) ) {
+			$classes = "$classes poocommerce-settings-payments-tab";
 		}
 
 		return $classes;

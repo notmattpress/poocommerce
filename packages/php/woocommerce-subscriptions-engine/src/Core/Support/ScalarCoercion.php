@@ -5,12 +5,12 @@
  * cast on an array/object would warn or fatal) and returns a default when the value
  * is not coercible. WordPress-free Core zone.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine\Core\Support
+ * @package Automattic\PooCommerce\SubscriptionsEngine\Core\Support
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Core\Support;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Core\Support;
 
 defined( 'ABSPATH' ) || exit;
 

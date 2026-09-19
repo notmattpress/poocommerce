@@ -1,14 +1,14 @@
 <?php
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\ProductReviews;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\ProductReviews;
 
-use Automattic\WooCommerce\Internal\Admin\ProductReviews\ReviewsUtil;
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper;
+use Automattic\PooCommerce\Internal\Admin\ProductReviews\ReviewsUtil;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper;
 use Generator;
 use WC_Unit_Test_Case;
 
 /**
- * @covers \Automattic\WooCommerce\Internal\Admin\ProductReviews\ReviewsUtil()
+ * @covers \Automattic\PooCommerce\Internal\Admin\ProductReviews\ReviewsUtil()
  */
 class ReviewsUtilTest extends WC_Unit_Test_Case {
 
@@ -40,7 +40,7 @@ class ReviewsUtilTest extends WC_Unit_Test_Case {
 	 * @testdox      `comments_clauses_without_product_reviews` modifies the comment query clauses to exclude product reviews for most queries
 	 *                where it can be assumed reviews are not being explicitly requested.
 	 *
-	 * @covers       \Automattic\WooCommerce\Internal\Admin\ProductReviews\ReviewsUtil::comments_clauses_without_product_reviews()
+	 * @covers       \Automattic\PooCommerce\Internal\Admin\ProductReviews\ReviewsUtil::comments_clauses_without_product_reviews()
 	 * @dataProvider provider_comments_clauses_without_product_reviews_filter
 	 *
 	 * @param array $args The query args passed to WP_Comment_Query.
@@ -106,7 +106,7 @@ class ReviewsUtilTest extends WC_Unit_Test_Case {
 	/**
 	 * @testdox      `modify_product_review_moderation_urls` modifies the moderation URLs in email notifications for product reviews.
 	 *
-	 * @covers       \Automattic\WooCommerce\Internal\Admin\ProductReviews\ReviewsUtil::modify_product_review_moderation_urls()
+	 * @covers       \Automattic\PooCommerce\Internal\Admin\ProductReviews\ReviewsUtil::modify_product_review_moderation_urls()
 	 * @dataProvider provider_modify_product_review_moderation_urls
 	 *
 	 * @param string $post_type  The post type of the comment's post.
@@ -185,7 +185,7 @@ class ReviewsUtilTest extends WC_Unit_Test_Case {
 	/**
 	 * @testdox      `modify_product_review_moderation_urls` does not modify URLs when comment does not exist
 	 *
-	 * @covers       \Automattic\WooCommerce\Internal\Admin\ProductReviews\ReviewsUtil::modify_product_review_moderation_urls()
+	 * @covers       \Automattic\PooCommerce\Internal\Admin\ProductReviews\ReviewsUtil::modify_product_review_moderation_urls()
 	 */
 	public function test_modify_product_review_moderation_urls_nonexistent_comment() {
 		$original_message = 'Please moderate: https://example.com/wp-admin/edit-comments.php?comment_status=moderated#wpbody-content';

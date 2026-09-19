@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { renderFrontend } from '@woocommerce/base-utils';
+import { renderFrontend } from '@poocommerce/base-utils';
 
 /**
  * Internal dependencies
@@ -9,9 +9,9 @@ import { renderFrontend } from '@woocommerce/base-utils';
 import FrontendContainerBlock from './frontend-container-block';
 
 const selector = `
-	.wp-block-woocommerce-all-reviews,
-	.wp-block-woocommerce-reviews-by-product,
-	.wp-block-woocommerce-reviews-by-category
+	.wp-block-poocommerce-all-reviews,
+	.wp-block-poocommerce-reviews-by-product,
+	.wp-block-poocommerce-reviews-by-category
 `;
 
 const getProps = ( el: HTMLElement ) => {
@@ -24,8 +24,8 @@ const getProps = ( el: HTMLElement ) => {
 			: 0;
 
 	const isFilteredReviewsBlock =
-		el.classList.contains( 'wp-block-woocommerce-reviews-by-product' ) ||
-		el.classList.contains( 'wp-block-woocommerce-reviews-by-category' );
+		el.classList.contains( 'wp-block-poocommerce-reviews-by-product' ) ||
+		el.classList.contains( 'wp-block-poocommerce-reviews-by-category' );
 
 	return {
 		attributes: {

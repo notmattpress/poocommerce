@@ -30,7 +30,7 @@ const renderMount = ( hasThemeJson: boolean, autoSync: string ) => {
 			data-default-colors='${ JSON.stringify( phpDefaultColors ) }'
 			${ hasThemeJson ? 'data-has-theme-json' : '' }
 		></div>
-		<input type="hidden" id="woocommerce_email_auto_sync_with_theme" value="${ autoSync }" />
+		<input type="hidden" id="poocommerce_email_auto_sync_with_theme" value="${ autoSync }" />
 	`;
 };
 

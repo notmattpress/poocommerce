@@ -2,11 +2,11 @@
 /**
  * Class WC_Settings_Integrations_Test file.
  *
- * @package WooCommerce\Tests\Settings
+ * @package PooCommerce\Tests\Settings
  */
 
-use Automattic\WooCommerce\Testing\Tools\CodeHacking\Hacks\FunctionsMockerHack;
-use Automattic\WooCommerce\Testing\Tools\CodeHacking\Hacks\StaticMockerHack;
+use Automattic\PooCommerce\Testing\Tools\CodeHacking\Hacks\FunctionsMockerHack;
+use Automattic\PooCommerce\Testing\Tools\CodeHacking\Hacks\StaticMockerHack;
 
 require_once __DIR__ . '/class-wc-settings-unit-test-case.php';
 

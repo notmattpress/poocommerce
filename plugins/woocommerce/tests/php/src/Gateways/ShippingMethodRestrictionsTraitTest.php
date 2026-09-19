@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Gateways;
+namespace Automattic\PooCommerce\Tests\Gateways;
 
-use Automattic\WooCommerce\Blocks\Shipping\PickupLocation;
+use Automattic\PooCommerce\Blocks\Shipping\PickupLocation;
 use WC_Cache_Helper;
 use WC_Gateway_BACS;
 use WC_Gateway_Cheque;
@@ -199,7 +199,7 @@ class ShippingMethodRestrictionsTraitTest extends WC_Unit_Test_Case {
 
 		$needs_shipping_calls = 0;
 		add_filter(
-			'woocommerce_cart_needs_shipping',
+			'poocommerce_cart_needs_shipping',
 			function ( $needs_shipping ) use ( &$needs_shipping_calls ) {
 				++$needs_shipping_calls;
 				return $needs_shipping;
@@ -219,7 +219,7 @@ class ShippingMethodRestrictionsTraitTest extends WC_Unit_Test_Case {
 	public function test_shipping_method_options_load_only_on_settings_page( string $gateway_class ): void {
 		$this->assertEmpty( ( new $gateway_class() )->get_form_fields()['enable_for_methods']['options'], 'Options should not be loaded outside the settings page' );
 
-		set_current_screen( 'woocommerce_page_wc-settings' );
+		set_current_screen( 'poocommerce_page_wc-settings' );
 		$_REQUEST['page']    = 'wc-settings';
 		$_REQUEST['tab']     = 'checkout';
 		$_REQUEST['section'] = $gateway_class::ID;
@@ -243,7 +243,7 @@ class ShippingMethodRestrictionsTraitTest extends WC_Unit_Test_Case {
 
 		$zone_query_count = 0;
 		$count_queries    = function ( $query ) use ( &$zone_query_count ) {
-			if ( false !== strpos( $query, 'woocommerce_shipping_zone_methods' ) ) {
+			if ( false !== strpos( $query, 'poocommerce_shipping_zone_methods' ) ) {
 				++$zone_query_count;
 			}
 			return $query;
@@ -275,13 +275,13 @@ class ShippingMethodRestrictionsTraitTest extends WC_Unit_Test_Case {
 			$methods['pickup_location'] = new PickupLocation();
 			return $methods;
 		};
-		add_filter( 'woocommerce_shipping_methods', $register_pickup_location );
+		add_filter( 'poocommerce_shipping_methods', $register_pickup_location );
 
 		try {
 			WC()->shipping()->load_shipping_methods();
 			$options = ( new WC_Gateway_COD() )->get_shipping_method_options();
 		} finally {
-			remove_filter( 'woocommerce_shipping_methods', $register_pickup_location );
+			remove_filter( 'poocommerce_shipping_methods', $register_pickup_location );
 			WC()->shipping()->load_shipping_methods();
 		}
 
@@ -298,7 +298,7 @@ class ShippingMethodRestrictionsTraitTest extends WC_Unit_Test_Case {
 	 * @return WC_Payment_Gateway
 	 */
 	private function create_gateway( string $gateway_class, array $settings ): WC_Payment_Gateway {
-		update_option( 'woocommerce_' . $gateway_class::ID . '_settings', $settings );
+		update_option( 'poocommerce_' . $gateway_class::ID . '_settings', $settings );
 
 		return new $gateway_class();
 	}

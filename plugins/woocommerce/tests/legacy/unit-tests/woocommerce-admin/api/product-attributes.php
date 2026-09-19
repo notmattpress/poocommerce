@@ -2,7 +2,7 @@
 /**
  * Product Attributes REST API Test
  *
- * @package WooCommerce\Admin\Tests\API
+ * @package PooCommerce\Admin\Tests\API
  */
 
 /**
@@ -37,18 +37,18 @@ class WC_Admin_Tests_API_Product_Attributes extends WC_REST_Unit_Test_Case {
 	}
 
 	public static function tearDownAfterClass(): void {
-		$direct_update_mode = get_option( 'woocommerce_attribute_lookup_direct_updates' );
+		$direct_update_mode = get_option( 'poocommerce_attribute_lookup_direct_updates' );
 		self::enable_direct_product_attribute_lookup_updates();
 		try {
 			parent::tearDownAfterClass();
 			global $wpdb;
-			$wpdb->query( "DELETE FROM {$wpdb->prefix}woocommerce_attribute_taxonomies" );
+			$wpdb->query( "DELETE FROM {$wpdb->prefix}poocommerce_attribute_taxonomies" );
 			$wpdb->query( 'commit' );
 		} finally {
 			self::disable_direct_product_attribute_lookup_updates();
 		}
 
-		self::assertSame( $direct_update_mode, get_option( 'woocommerce_attribute_lookup_direct_updates' ) );
+		self::assertSame( $direct_update_mode, get_option( 'poocommerce_attribute_lookup_direct_updates' ) );
 	}
 
 	/**
@@ -56,7 +56,7 @@ class WC_Admin_Tests_API_Product_Attributes extends WC_REST_Unit_Test_Case {
 	 */
 	public static function setUpBeforeClass(): void {
 		parent::setUpBeforeClass();
-		$direct_update_mode = get_option( 'woocommerce_attribute_lookup_direct_updates' );
+		$direct_update_mode = get_option( 'poocommerce_attribute_lookup_direct_updates' );
 		self::enable_direct_product_attribute_lookup_updates();
 		try {
 			// Use the test helper to populate some global attributes.
@@ -107,7 +107,7 @@ class WC_Admin_Tests_API_Product_Attributes extends WC_REST_Unit_Test_Case {
 			self::disable_direct_product_attribute_lookup_updates();
 		}
 
-		self::assertSame( $direct_update_mode, get_option( 'woocommerce_attribute_lookup_direct_updates' ) );
+		self::assertSame( $direct_update_mode, get_option( 'poocommerce_attribute_lookup_direct_updates' ) );
 	}
 
 	/**
@@ -122,8 +122,8 @@ class WC_Admin_Tests_API_Product_Attributes extends WC_REST_Unit_Test_Case {
 			$this->assertEmpty(
 				$queue->search(
 					array(
-						'hook'   => 'woocommerce_run_product_attribute_lookup_update_callback',
-						'args'   => array( $product_id, \Automattic\WooCommerce\Internal\ProductAttributesLookup\LookupDataStore::ACTION_INSERT ),
+						'hook'   => 'poocommerce_run_product_attribute_lookup_update_callback',
+						'args'   => array( $product_id, \Automattic\PooCommerce\Internal\ProductAttributesLookup\LookupDataStore::ACTION_INSERT ),
 						'status' => ActionScheduler_Store::STATUS_PENDING,
 					),
 					'ids'

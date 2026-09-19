@@ -14,17 +14,17 @@
  * Trial is a native field: the first cycle's billing date is delayed by the
  * trial at contract creation rather than modelled as a discount.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine\Core\ValueObject
+ * @package Automattic\PooCommerce\SubscriptionsEngine\Core\ValueObject
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Core\ValueObject;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Core\ValueObject;
 
 use DateTimeImmutable;
 use DateTimeZone;
 use DomainException;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Support\ScalarCoercion;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Support\ScalarCoercion;
 
 defined( 'ABSPATH' ) || exit;
 

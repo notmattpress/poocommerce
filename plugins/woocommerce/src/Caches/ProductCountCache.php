@@ -2,7 +2,7 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Caches;
+namespace Automattic\PooCommerce\Caches;
 
 /**
  * A class to cache counts for various product statuses.
@@ -27,7 +27,7 @@ class ProductCountCache {
 	/**
 	 * Retrieves the list of known statuses by product type. A cached array of statuses is saved per product type for
 	 * improved backward compatibility with some of the extensions that don't register all statuses they use with
-	 * WooCommerce.
+	 * PooCommerce.
 	 *
 	 * @param string $product_type The post type (e.g. 'product', 'product_variation').
 	 *

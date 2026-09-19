@@ -1,14 +1,14 @@
 <?php
 /**
- * Nosara Tracks for WooCommerce
+ * Nosara Tracks for PooCommerce
  *
- * @package WooCommerce\Tracks
+ * @package PooCommerce\Tracks
  */
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * This class adds actions to track usage of WooCommerce.
+ * This class adds actions to track usage of PooCommerce.
  */
 class WC_Site_Tracking {
 	/**
@@ -19,12 +19,12 @@ class WC_Site_Tracking {
 	public static function is_tracking_enabled() {
 		/**
 		 * Don't track users if a filter has been applied to turn it off.
-		 * `woocommerce_apply_tracking` will be deprecated. Please use
-		 * `woocommerce_apply_user_tracking` instead.
+		 * `poocommerce_apply_tracking` will be deprecated. Please use
+		 * `poocommerce_apply_user_tracking` instead.
 		 *
 		 * @since 3.6.0
 		 */
-		if ( ! apply_filters( 'woocommerce_apply_user_tracking', true ) || ! apply_filters( 'woocommerce_apply_tracking', true ) ) {
+		if ( ! apply_filters( 'poocommerce_apply_user_tracking', true ) || ! apply_filters( 'poocommerce_apply_tracking', true ) ) {
 			return false;
 		}
 
@@ -35,7 +35,7 @@ class WC_Site_Tracking {
 		 * Don't track users who haven't opted-in to tracking or aren't in
 		 * the process of opting-in.
 		 */
-		if ( 'yes' !== get_option( 'woocommerce_allow_tracking' ) && ! $is_obw_opting_in ) {
+		if ( 'yes' !== get_option( 'poocommerce_allow_tracking' ) && ! $is_obw_opting_in ) {
 			return false;
 		}
 
@@ -76,10 +76,10 @@ class WC_Site_Tracking {
 		 *
 		 * @since 6.5.0
 		 */
-		$filtered_properties = apply_filters( 'woocommerce_tracks_event_properties', $client_tracking_properties, false );
+		$filtered_properties = apply_filters( 'poocommerce_tracks_event_properties', $client_tracking_properties, false );
 		$environment_type    = function_exists( 'wp_get_environment_type' ) ? wp_get_environment_type() : 'production';
 		?>
-		<!-- WooCommerce Tracks -->
+		<!-- PooCommerce Tracks -->
 		<script type="text/javascript">
 			window.wcTracks = window.wcTracks || {};
 			window.wcTracks.isEnabled = <?php echo self::is_tracking_enabled() ? 'true' : 'false'; ?>;
@@ -123,7 +123,7 @@ class WC_Site_Tracking {
 				let eventProperties = properties || {};
 				eventProperties = { ...eventProperties, ...<?php echo json_encode( $filtered_properties, JSON_HEX_TAG | JSON_UNESCAPED_SLASHES ); // phpcs:ignore WordPress.WP.AlternativeFunctions.json_encode_json_encode ?> };
 				if ( window.wp && window.wp.hooks && window.wp.hooks.applyFilters ) {
-					eventProperties = window.wp.hooks.applyFilters( 'woocommerce_tracks_client_event_properties', eventProperties, eventName );
+					eventProperties = window.wp.hooks.applyFilters( 'poocommerce_tracks_client_event_properties', eventProperties, eventName );
 					delete( eventProperties._ui );
 					delete( eventProperties._ut );
 				}
@@ -139,7 +139,7 @@ class WC_Site_Tracking {
 
 	/**
 	 * Adds a function to load tracking scripts and enable them client-side on the fly.
-	 * Note that this function does not update `woocommerce_allow_tracking` in the database
+	 * Note that this function does not update `poocommerce_allow_tracking` in the database
 	 * and will not persist enabled tracking across page loads.
 	 */
 	public static function add_enable_tracking_function() {
@@ -235,7 +235,7 @@ class WC_Site_Tracking {
 			}
 		}
 
-		add_filter( 'pre_update_option_woocommerce_allow_tracking', array( __CLASS__, 'maybe_unschedule_deferred_tracks' ) );
+		add_filter( 'pre_update_option_poocommerce_allow_tracking', array( __CLASS__, 'maybe_unschedule_deferred_tracks' ) );
 	}
 
 	/**
@@ -249,7 +249,7 @@ class WC_Site_Tracking {
 	 */
 	public static function maybe_unschedule_deferred_tracks( $new_option_value ) {
 		if ( 'yes' !== $new_option_value ) {
-			as_unschedule_all_actions( '', array(), 'woocommerce-tracks' );
+			as_unschedule_all_actions( '', array(), 'poocommerce-tracks' );
 		}
 		return $new_option_value;
 	}

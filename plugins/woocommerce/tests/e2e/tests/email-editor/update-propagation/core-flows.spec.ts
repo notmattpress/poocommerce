@@ -115,7 +115,7 @@ test.describe( 'Update propagation — core flows', () => {
 		// Enter through the real list/editor helper and open the review drawer
 		// from the editor banner.
 		await accessTheEmailEditor( page, 'New order' );
-		await expect( page.locator( '#woocommerce-email-editor' ) ).toBeVisible(
+		await expect( page.locator( '#poocommerce-email-editor' ) ).toBeVisible(
 			{
 				timeout: 20000,
 			}

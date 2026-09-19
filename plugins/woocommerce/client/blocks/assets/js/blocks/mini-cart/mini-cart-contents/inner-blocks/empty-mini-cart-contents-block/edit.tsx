@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { useBlockProps, InnerBlocks } from '@wordpress/block-editor';
-import { useEditorContext } from '@woocommerce/base-context';
+import { useEditorContext } from '@poocommerce/base-context';
 
 /**
  * Internal dependencies
@@ -17,7 +17,7 @@ export const Edit = (): JSX.Element => {
 		<div
 			{ ...blockProps }
 			hidden={
-				currentView !== 'woocommerce/empty-mini-cart-contents-block'
+				currentView !== 'poocommerce/empty-mini-cart-contents-block'
 			}
 		>
 			<InnerBlocks

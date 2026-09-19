@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { createClient } from '@woocommerce/e2e-utils-playwright';
+import { createClient } from '@poocommerce/e2e-utils-playwright';
 
 /**
  * Internal dependencies
@@ -201,7 +201,7 @@ export type ResetResult = {
 /**
  * Call the /reset endpoint for a woo_email post using basic-auth credentials,
  * bypassing the cookie+nonce requirement of the WP REST API for authenticated
- * cookie sessions. Resets the post content to the canonical WooCommerce template.
+ * cookie sessions. Resets the post content to the canonical PooCommerce template.
  *
  * The reset endpoint returns the post-reset sync status (for example,
  * "in_sync") in the `status` field.
@@ -211,7 +211,7 @@ export async function resetWooEmailTemplate(
 ): Promise< ResetResult > {
 	const client = apiClient();
 	const res = await client.post(
-		`woocommerce-email-editor/v1/emails/${ postId }/reset`,
+		`poocommerce-email-editor/v1/emails/${ postId }/reset`,
 		{}
 	);
 	if ( res?.data?.content === undefined ) {

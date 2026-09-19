@@ -4,20 +4,20 @@
  *
  * Handles route registration, permissions, CRUD operations, and schema definition.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\RestApi\Routes\V4\Refunds;
+namespace Automattic\PooCommerce\Internal\RestApi\Routes\V4\Refunds;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\AbstractController;
-use Automattic\WooCommerce\StoreApi\Utilities\Pagination;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Refunds\Schema\RefundPreviewSchema;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Refunds\Schema\RefundSchema;
-use Automattic\WooCommerce\Utilities\MetaDataUtil;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\AbstractController;
+use Automattic\PooCommerce\StoreApi\Utilities\Pagination;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Refunds\Schema\RefundPreviewSchema;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Refunds\Schema\RefundSchema;
+use Automattic\PooCommerce\Utilities\MetaDataUtil;
 use WP_Http;
 use WP_Error;
 use WC_Order;
@@ -115,7 +115,7 @@ class Controller extends AbstractController {
 		return array(
 			'num_decimals' => array(
 				'default'           => wc_get_price_decimals(),
-				'description'       => __( 'Number of decimal points to use in each resource.', 'woocommerce' ),
+				'description'       => __( 'Number of decimal points to use in each resource.', 'poocommerce' ),
 				'type'              => 'integer',
 				'sanitize_callback' => 'absint',
 				'validate_callback' => 'rest_validate_request_arg',
@@ -146,14 +146,14 @@ class Controller extends AbstractController {
 						$this->get_endpoint_args_for_item_schema( WP_REST_Server::CREATABLE ),
 						array(
 							'api_refund'  => array(
-								'description'       => __( 'When true, the payment gateway API is used to perform the refund. If the payment gateway does not support refunds, the refund will fail.', 'woocommerce' ),
+								'description'       => __( 'When true, the payment gateway API is used to perform the refund. If the payment gateway does not support refunds, the refund will fail.', 'poocommerce' ),
 								'type'              => 'boolean',
 								'context'           => array( 'edit' ),
 								'default'           => false,
 								'sanitize_callback' => 'rest_sanitize_boolean',
 							),
 							'api_restock' => array(
-								'description'       => __( 'When true, refunded items are restocked.', 'woocommerce' ),
+								'description'       => __( 'When true, refunded items are restocked.', 'poocommerce' ),
 								'type'              => 'boolean',
 								'context'           => array( 'edit' ),
 								'default'           => false,
@@ -180,7 +180,7 @@ class Controller extends AbstractController {
 					'permission_callback' => array( $this, 'create_item_permissions_check' ),
 					'args'                => array(
 						'order_id'   => array(
-							'description'       => __( 'The ID of the order to preview a refund for.', 'woocommerce' ),
+							'description'       => __( 'The ID of the order to preview a refund for.', 'poocommerce' ),
 							'type'              => 'integer',
 							'required'          => true,
 							'minimum'           => 1,
@@ -204,7 +204,7 @@ class Controller extends AbstractController {
 					$this->get_endpoint_args(),
 					array(
 						'id' => array(
-							'description' => __( 'Unique identifier for the resource.', 'woocommerce' ),
+							'description' => __( 'Unique identifier for the resource.', 'poocommerce' ),
 							'type'        => 'integer',
 						),
 					),
@@ -336,7 +336,7 @@ class Controller extends AbstractController {
 		if ( $request->has_param( 'amount' ) ) {
 			return $this->get_route_error_response(
 				'unsupported_amount_field',
-				__( 'The amount field is not supported. Use total instead.', 'woocommerce' )
+				__( 'The amount field is not supported. Use total instead.', 'poocommerce' )
 			);
 		}
 
@@ -391,7 +391,7 @@ class Controller extends AbstractController {
 			);
 
 			if ( ! $refund ) {
-				return $this->get_route_error_response( 'cannot_create_refund', __( 'Cannot create order refund.', 'woocommerce' ) );
+				return $this->get_route_error_response( 'cannot_create_refund', __( 'Cannot create order refund.', 'poocommerce' ) );
 			}
 
 			if ( is_wp_error( $refund ) ) {

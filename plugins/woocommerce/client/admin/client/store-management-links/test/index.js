@@ -1,17 +1,17 @@
-jest.mock( '@woocommerce/tracks', () => ( {
-	...jest.requireActual( '@woocommerce/tracks' ),
+jest.mock( '@poocommerce/tracks', () => ( {
+	...jest.requireActual( '@poocommerce/tracks' ),
 	recordEvent: jest.fn(),
 } ) );
 
-jest.mock( '@woocommerce/settings', () => ( {
-	...jest.requireActual( '@woocommerce/settings' ),
+jest.mock( '@poocommerce/settings', () => ( {
+	...jest.requireActual( '@poocommerce/settings' ),
 	getSetting: jest.fn( () => 'https://fake-site-url.com' ),
 } ) );
 
 /**
  * External dependencies
  */
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { createElement } from '@wordpress/element';

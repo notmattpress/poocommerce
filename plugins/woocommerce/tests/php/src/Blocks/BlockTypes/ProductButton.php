@@ -2,9 +2,9 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Tests\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\BlockTypes\ProductButton as ProductButtonBlock;
+use Automattic\PooCommerce\Blocks\BlockTypes\ProductButton as ProductButtonBlock;
 use WC_Helper_Product;
 
 /**
@@ -20,8 +20,8 @@ class ProductButton extends \WP_UnitTestCase {
 	protected function setUp(): void {
 		parent::setUp();
 
-		update_option( 'woocommerce_cart_redirect_after_add', 'no' );
-		update_option( 'woocommerce_enable_ajax_add_to_cart', 'no' );
+		update_option( 'poocommerce_cart_redirect_after_add', 'no' );
+		update_option( 'poocommerce_enable_ajax_add_to_cart', 'no' );
 	}
 
 	/**
@@ -32,7 +32,7 @@ class ProductButton extends \WP_UnitTestCase {
 	 */
 	private function render_product_button( \WC_Product $product ): string {
 		return do_blocks(
-			'<!-- wp:woocommerce/single-product {"productId":' . $product->get_id() . '} --><!-- wp:woocommerce/product-button /--><!-- /wp:woocommerce/single-product -->'
+			'<!-- wp:poocommerce/single-product {"productId":' . $product->get_id() . '} --><!-- wp:poocommerce/product-button /--><!-- /wp:poocommerce/single-product -->'
 		);
 	}
 
@@ -53,7 +53,7 @@ class ProductButton extends \WP_UnitTestCase {
 			return 'Buy Now';
 		};
 
-		add_filter( 'woocommerce_product_add_to_cart_text', $filter );
+		add_filter( 'poocommerce_product_add_to_cart_text', $filter );
 
 		try {
 			$markup    = $this->render_product_button( $product );
@@ -124,14 +124,14 @@ class ProductButton extends \WP_UnitTestCase {
 			switch_theme( 'twentytwentyfour' );
 			$this->assertTrue( wp_is_block_theme(), 'The script policy should run under a real block theme.' );
 
-			// Let WooCommerce enqueue the handle rather than standing in for it. A test
+			// Let PooCommerce enqueue the handle rather than standing in for it. A test
 			// that registers 'wc-add-to-cart' itself pins the same literal on both
 			// sides, so core folding the legacy script into another handle would leave
 			// dequeue_add_to_cart_scripts() a silent no-op with this test still green --
 			// which is the regression the deleted E2E title used to catch.
-			update_option( 'woocommerce_enable_ajax_add_to_cart', 'yes' );
+			update_option( 'poocommerce_enable_ajax_add_to_cart', 'yes' );
 			\WC_Frontend_Scripts::load_scripts();
-			$this->assertTrue( wp_script_is( 'wc-add-to-cart', 'enqueued' ), 'WooCommerce should enqueue the legacy handle when AJAX add to cart is on.' );
+			$this->assertTrue( wp_script_is( 'wc-add-to-cart', 'enqueued' ), 'PooCommerce should enqueue the legacy handle when AJAX add to cart is on.' );
 
 			$markup   = $this->render_product_button( $product );
 			$callback = $this->get_dequeue_callback( $wp_filter['wp_enqueue_scripts'] ?? null );
@@ -142,16 +142,16 @@ class ProductButton extends \WP_UnitTestCase {
 			// whole stack: a later callback re-enqueueing the handle would fail here and
 			// would not if the method were invoked on its own. `_restore_hooks()` rewinds
 			// the `$wp_actions` count and `$wp_current_filter` that firing it leaves.
-			// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment -- Firing core's own frontend action, not declaring one.
+			// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment -- Firing core's own frontend action, not declaring one.
 			do_action( 'wp_enqueue_scripts' );
 			$this->assertFalse( wp_script_is( 'wc-add-to-cart', 'enqueued' ), 'The registered block-theme callback should dequeue the legacy handle.' );
 		} finally {
 			// _restore_hooks() rewinds wp_enqueue_scripts and the rollback takes the
 			// product back. WP_Scripts, WC()->cart and the product global survive both:
-			// this class extends WP_UnitTestCase, so there is no WooCommerce teardown.
+			// this class extends WP_UnitTestCase, so there is no PooCommerce teardown.
 			$scripts->queue      = $previous_queue;
 			$scripts->registered = $previous_registered;
-			// Firing wp_enqueue_scripts writes to WP_Styles too -- WooCommerce's own
+			// Firing wp_enqueue_scripts writes to WP_Styles too -- PooCommerce's own
 			// frontend styles, plus core attaching the theme's global stylesheet to the
 			// shared 'global-styles' handle, which outlives the switch_theme() below.
 			$styles->queue      = $previous_styles;
@@ -216,7 +216,7 @@ class ProductButton extends \WP_UnitTestCase {
 			return $args;
 		};
 
-		add_filter( 'woocommerce_loop_add_to_cart_args', $filter );
+		add_filter( 'poocommerce_loop_add_to_cart_args', $filter );
 		$this->render_product_button( $product );
 
 		$this->assertIsArray( $filtered_args );

@@ -2,10 +2,10 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails;
+namespace Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails;
 
-use Automattic\WooCommerce\EmailEditor\Engine\Logger\Email_Editor_Logger_Interface;
-use Automattic\WooCommerce\Internal\EmailEditor\Logger;
+use Automattic\PooCommerce\EmailEditor\Engine\Logger\Email_Editor_Logger_Interface;
+use Automattic\PooCommerce\Internal\EmailEditor\Logger;
 
 /**
  * Registry of block email templates that participate in template update propagation (sync).
@@ -18,7 +18,7 @@ use Automattic\WooCommerce\Internal\EmailEditor\Logger;
  *
  * The resolved registry is cached in a static property for the lifetime of the request.
  *
- * @package Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails
+ * @package Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails
  */
 class WCEmailTemplateSyncRegistry {
 	/**
@@ -28,7 +28,7 @@ class WCEmailTemplateSyncRegistry {
 	 * {@see WCTransactionalEmails::get_transactional_emails()} — this list is only
 	 * used to classify the `source` field on registry entries, not to gate sync
 	 * participation. The gate is {@see WCTransactionalEmails::get_transactional_emails()}
-	 * (which already runs through `woocommerce_transactional_emails_for_block_editor`)
+	 * (which already runs through `poocommerce_transactional_emails_for_block_editor`)
 	 * combined with the presence of a parseable `@version` header.
 	 *
 	 * @var string[]|null
@@ -225,7 +225,7 @@ class WCEmailTemplateSyncRegistry {
 	 *
 	 * Mirrors {@see \WC_Admin_Status::get_file_version()}: WordPress' native
 	 * {@see get_file_data()} only understands `Name: Value` headers, but the
-	 * email-editor templates (and the wider WooCommerce template contract)
+	 * email-editor templates (and the wider PooCommerce template contract)
 	 * document their version as a PHPDoc `@version X.Y.Z` tag, which is
 	 * whitespace-separated. We reuse the exact regex used by the existing
 	 * helper so core and third-party templates are parsed consistently.

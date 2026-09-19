@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\ShopperLists;
+namespace Automattic\PooCommerce\Tests\Internal\ShopperLists;
 
-use Automattic\WooCommerce\Internal\ShopperLists\ShopperListItem;
+use Automattic\PooCommerce\Internal\ShopperLists\ShopperListItem;
 use WC_Unit_Test_Case;
 
 /**

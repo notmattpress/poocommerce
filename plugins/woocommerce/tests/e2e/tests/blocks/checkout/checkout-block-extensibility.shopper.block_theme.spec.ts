@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { expect, test as base, guestFile } from '@woocommerce/e2e-utils';
+import { expect, test as base, guestFile } from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -24,16 +24,16 @@ test.describe( 'Shopper → Extensibility', () => {
 	test.beforeEach( async ( { requestUtils, frontendUtils } ) => {
 		await requestUtils.rest( {
 			method: 'PUT',
-			path: 'wc/v3/settings/account/woocommerce_enable_guest_checkout',
+			path: 'wc/v3/settings/account/poocommerce_enable_guest_checkout',
 			data: { value: 'yes' },
 		} );
 		await requestUtils.rest( {
 			method: 'PUT',
-			path: 'wc/v3/settings/account/woocommerce_enable_checkout_login_reminder',
+			path: 'wc/v3/settings/account/poocommerce_enable_checkout_login_reminder',
 			data: { value: 'yes' },
 		} );
 		await requestUtils.activatePlugin(
-			'woocommerce-blocks-test-extensioncartupdate'
+			'poocommerce-blocks-test-extensioncartupdate'
 		);
 
 		await frontendUtils.goToShop();
@@ -88,7 +88,7 @@ test.describe( 'Shopper → Extensibility', () => {
 			// Without the arg, the unpushed postcode is kept.
 			await page.evaluate( () =>
 				window.wc.blocksCheckout.extensionCartUpdate( {
-					namespace: 'woocommerce-blocks-test-extension-cart-update',
+					namespace: 'poocommerce-blocks-test-extension-cart-update',
 				} )
 			);
 			await expect( postcode ).toHaveValue( 'ABCDEF' );
@@ -96,7 +96,7 @@ test.describe( 'Shopper → Extensibility', () => {
 			// With overwriteDirtyCustomerData, the address from the server replaces it.
 			const overwriteResponse = await page.evaluate( () =>
 				window.wc.blocksCheckout.extensionCartUpdate( {
-					namespace: 'woocommerce-blocks-test-extension-cart-update',
+					namespace: 'poocommerce-blocks-test-extension-cart-update',
 					overwriteDirtyCustomerData: true,
 				} )
 			);
@@ -107,7 +107,7 @@ test.describe( 'Shopper → Extensibility', () => {
 
 			await page.evaluate( () =>
 				window.wc.blocksCheckout.extensionCartUpdate( {
-					namespace: 'woocommerce-blocks-test-extension-cart-update',
+					namespace: 'poocommerce-blocks-test-extension-cart-update',
 					data: { 'test-name-change': true },
 					overwriteDirtyCustomerData: true,
 				} )

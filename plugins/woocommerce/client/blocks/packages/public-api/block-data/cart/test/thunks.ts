@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { ExtensionCartUpdateArgs } from '@woocommerce/types';
+import { ExtensionCartUpdateArgs } from '@poocommerce/types';
 
 /**
  * Internal dependencies
@@ -19,8 +19,8 @@ jest.mock( '../../shared-controls', () => ( {
 	apiFetchWithHeaders: jest.fn(),
 } ) );
 
-jest.mock( '@woocommerce/base-utils', () => ( {
-	...jest.requireActual( '@woocommerce/base-utils' ),
+jest.mock( '@poocommerce/base-utils', () => ( {
+	...jest.requireActual( '@poocommerce/base-utils' ),
 	hasCollectableRate: jest.fn( ( chosenRates ) => {
 		if ( Array.isArray( chosenRates ) ) {
 			return chosenRates.includes( 'pickup_location' );

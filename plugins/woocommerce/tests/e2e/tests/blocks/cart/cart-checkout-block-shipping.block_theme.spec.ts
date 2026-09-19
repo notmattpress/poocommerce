@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { expect, test as base, wpCLI } from '@woocommerce/e2e-utils';
+import { expect, test as base, wpCLI } from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -46,16 +46,16 @@ const configureShippingTopology = async ( topology: ShippingTopology ) => {
 			$default_zone->delete_shipping_method( $method->instance_id );
 		}
 
-		update_option( "woocommerce_flat_rate_settings", array( "enabled" => "no" ) );
-		update_option( "woocommerce_free_shipping_settings", array( "enabled" => "no" ) );
-		update_option( "woocommerce_local_pickup_settings", array( "enabled" => "no" ) );
-		update_option( "woocommerce_default_customer_address", "" );
-		update_option( "woocommerce_shipping_cost_requires_address", $config["requiresAddress"] ? "yes" : "no" );
+		update_option( "poocommerce_flat_rate_settings", array( "enabled" => "no" ) );
+		update_option( "poocommerce_free_shipping_settings", array( "enabled" => "no" ) );
+		update_option( "poocommerce_local_pickup_settings", array( "enabled" => "no" ) );
+		update_option( "poocommerce_default_customer_address", "" );
+		update_option( "poocommerce_shipping_cost_requires_address", $config["requiresAddress"] ? "yes" : "no" );
 
 		if ( $config["defaultRate"] ) {
 			$instance_id = $default_zone->add_shipping_method( "flat_rate" );
 			update_option(
-				"woocommerce_flat_rate_{$instance_id}_settings",
+				"poocommerce_flat_rate_{$instance_id}_settings",
 				array( "enabled" => "yes", "title" => "Home delivery", "tax_status" => "none", "cost" => "10" )
 			);
 		}
@@ -67,13 +67,13 @@ const configureShippingTopology = async ( topology: ShippingTopology ) => {
 			$gb_zone->save();
 			$instance_id = $gb_zone->add_shipping_method( "flat_rate" );
 			update_option(
-				"woocommerce_flat_rate_{$instance_id}_settings",
+				"poocommerce_flat_rate_{$instance_id}_settings",
 				array( "enabled" => "yes", "title" => "UK delivery", "tax_status" => "none", "cost" => "15" )
 			);
 		}
 
 		update_option(
-			"woocommerce_pickup_location_settings",
+			"poocommerce_pickup_location_settings",
 			array( "enabled" => $config["pickup"] ? "yes" : "no", "title" => "Pickup", "tax_status" => "none", "cost" => "" )
 		);
 		update_option(

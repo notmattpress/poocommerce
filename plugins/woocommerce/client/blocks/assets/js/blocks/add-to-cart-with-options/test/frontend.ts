@@ -27,11 +27,11 @@ const mockProductsState = {
 };
 
 const mockStore = jest.fn( ( namespace, definition ) => {
-	if ( namespace === 'woocommerce/products' ) {
+	if ( namespace === 'poocommerce/products' ) {
 		return { state: mockProductsState };
 	}
 
-	if ( namespace === 'woocommerce/add-to-cart-with-options' ) {
+	if ( namespace === 'poocommerce/add-to-cart-with-options' ) {
 		if ( definition?.state ) {
 			Object.defineProperties(
 				mockAddToCartStore.state,
@@ -45,7 +45,7 @@ const mockStore = jest.fn( ( namespace, definition ) => {
 		return mockAddToCartStore;
 	}
 
-	if ( namespace === 'woocommerce/store-notices' ) {
+	if ( namespace === 'poocommerce/store-notices' ) {
 		return {
 			actions: {
 				addNotice: mockAddNotice,
@@ -54,7 +54,7 @@ const mockStore = jest.fn( ( namespace, definition ) => {
 		};
 	}
 
-	if ( namespace === 'woocommerce' ) {
+	if ( namespace === 'poocommerce' ) {
 		return {
 			actions: {
 				addCartItem: mockAddCartItem,
@@ -72,7 +72,7 @@ jest.mock(
 		store: mockStore,
 		getContext: jest.fn( ( namespace?: string ) =>
 			namespace ===
-			'woocommerce/add-to-cart-with-options-quantity-selector'
+			'poocommerce/add-to-cart-with-options-quantity-selector'
 				? mockQuantitySelectorContext
 				: mockContext
 		),
@@ -82,9 +82,9 @@ jest.mock(
 	{ virtual: true }
 );
 
-jest.mock( '@woocommerce/stores/woocommerce/cart', () => ( {} ) );
-jest.mock( '@woocommerce/stores/woocommerce/products', () => ( {} ) );
-jest.mock( '@woocommerce/stores/store-notices', () => ( {} ) );
+jest.mock( '@poocommerce/stores/poocommerce/cart', () => ( {} ) );
+jest.mock( '@poocommerce/stores/poocommerce/products', () => ( {} ) );
+jest.mock( '@poocommerce/stores/store-notices', () => ( {} ) );
 
 const getRegisteredStore = (): RegisteredStore => {
 	if ( ! mockRegisteredStore ) {

@@ -1,14 +1,14 @@
 <?php
 /**
- * WooCommerce Import Tracking
+ * PooCommerce Import Tracking
  *
- * @package WooCommerce\Tracks
+ * @package PooCommerce\Tracks
  */
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * This class adds actions to track usage of WooCommerce Imports.
+ * This class adds actions to track usage of PooCommerce Imports.
  */
 class WC_Importer_Tracking {
 	/**

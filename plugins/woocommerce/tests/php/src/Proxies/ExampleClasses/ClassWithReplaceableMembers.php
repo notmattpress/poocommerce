@@ -3,7 +3,7 @@
  * ClassWithReplaceableMembers class file
  */
 
-namespace Automattic\WooCommerce\Tests\Proxies\ExampleClasses;
+namespace Automattic\PooCommerce\Tests\Proxies\ExampleClasses;
 
 /**
  * An example class with members that can be replaceable using the DynamicDecorator class.

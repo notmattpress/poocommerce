@@ -1,10 +1,10 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\CustomerEmailVerification;
+namespace Automattic\PooCommerce\Tests\Internal\CustomerEmailVerification;
 
-use Automattic\WooCommerce\Internal\CustomerEmailVerification\EmailVerificationService;
-use Automattic\WooCommerce\Internal\Utilities\Users;
+use Automattic\PooCommerce\Internal\CustomerEmailVerification\EmailVerificationService;
+use Automattic\PooCommerce\Internal\Utilities\Users;
 use WC_Unit_Test_Case;
 
 /**
@@ -50,7 +50,7 @@ class EmailVerificationServiceTest extends WC_Unit_Test_Case {
 			++$hook_calls;
 			$hook_arg = $id;
 		};
-		add_action( 'woocommerce_customer_email_verified', $listener );
+		add_action( 'poocommerce_customer_email_verified', $listener );
 
 		$this->sut->mark_verified( $user_id );
 
@@ -58,7 +58,7 @@ class EmailVerificationServiceTest extends WC_Unit_Test_Case {
 		$this->assertSame( 1, $hook_calls, 'Hook should fire exactly once' );
 		$this->assertSame( $user_id, $hook_arg, 'Hook should receive the correct user ID' );
 
-		remove_action( 'woocommerce_customer_email_verified', $listener );
+		remove_action( 'poocommerce_customer_email_verified', $listener );
 	}
 
 	/**

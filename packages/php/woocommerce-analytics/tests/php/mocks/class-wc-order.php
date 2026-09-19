@@ -2,7 +2,7 @@
 /**
  * Mock WC_Order class for testing.
  *
- * @package automattic/woocommerce-analytics
+ * @package automattic/poocommerce-analytics
  */
 
 if ( ! class_exists( 'WC_Order' ) ) {

@@ -13,15 +13,15 @@ import {
 	comment,
 	store,
 } from '@wordpress/icons';
-import { STORE_KEY as CES_STORE_KEY } from '@woocommerce/customer-effort-score';
-import { H, Section } from '@woocommerce/components';
-import { onboardingStore, optionsStore, useUser } from '@woocommerce/data';
-import { addHistoryListener } from '@woocommerce/navigation';
-import { recordEvent } from '@woocommerce/tracks';
+import { STORE_KEY as CES_STORE_KEY } from '@poocommerce/customer-effort-score';
+import { H, Section } from '@poocommerce/components';
+import { onboardingStore, optionsStore, useUser } from '@poocommerce/data';
+import { addHistoryListener } from '@poocommerce/navigation';
+import { recordEvent } from '@poocommerce/tracks';
 import {
 	LayoutContextProvider,
 	useExtendLayout,
-} from '@woocommerce/admin-layout';
+} from '@poocommerce/admin-layout';
 
 /**
  * Internal dependencies
@@ -92,7 +92,7 @@ export const ActivityPanel = ( { isEmbedded, query } ) => {
 				);
 				const task = tasks.find( ( t ) => t.id === 'appearance' );
 
-				const demoNotice = getOption( 'woocommerce_demo_store_notice' );
+				const demoNotice = getOption( 'poocommerce_demo_store_notice' );
 				trackData = {
 					set_notice: demoNotice ? 'Y' : 'N',
 					create_homepage:
@@ -201,7 +201,7 @@ export const ActivityPanel = ( { isEmbedded, query } ) => {
 	const getTabs = () => {
 		const feedback = {
 			name: 'feedback',
-			title: __( 'Feedback', 'woocommerce' ),
+			title: __( 'Feedback', 'poocommerce' ),
 			icon: <Icon icon={ comment } size={ 18 } />,
 			onClick: () => {
 				setCurrentTab( 'feedback' );
@@ -211,15 +211,15 @@ export const ActivityPanel = ( { isEmbedded, query } ) => {
 						action: 'product_feedback',
 						title: __(
 							"How's your experience with the product editor?",
-							'woocommerce'
+							'poocommerce'
 						),
 						firstQuestion: __(
 							'The product editing screen is easy to use',
-							'woocommerce'
+							'poocommerce'
 						),
 						secondQuestion: __(
 							"The product editing screen's functionality meets my needs",
-							'woocommerce'
+							'poocommerce'
 						),
 					},
 					{
@@ -243,10 +243,10 @@ export const ActivityPanel = ( { isEmbedded, query } ) => {
 
 		const setup = {
 			name: 'setup',
-			title: __( 'Finish setup', 'woocommerce' ),
+			title: __( 'Finish setup', 'poocommerce' ),
 			icon: <Icon icon={ listView } size={ 18 } />,
 			visible:
-				currentUserCan( 'manage_woocommerce' ) &&
+				currentUserCan( 'manage_poocommerce' ) &&
 				! requestingTaskListOptions &&
 				! setupTaskListHidden &&
 				! setupTaskListComplete &&
@@ -258,14 +258,14 @@ export const ActivityPanel = ( { isEmbedded, query } ) => {
 			name: 'help',
 			icon: <Icon icon={ helpIcon } />,
 			visible:
-				currentUserCan( 'manage_woocommerce' ) &&
+				currentUserCan( 'manage_poocommerce' ) &&
 				( ( isHomescreen && ! isEmbedded ) || isPerformingSetupTask() ),
 		};
 
 		const displayOptions = {
 			component: DisplayOptions,
 			visible:
-				currentUserCan( 'manage_woocommerce' ) &&
+				currentUserCan( 'manage_poocommerce' ) &&
 				! isEmbedded &&
 				isHomescreen &&
 				! isPerformingSetupTask(),
@@ -282,7 +282,7 @@ export const ActivityPanel = ( { isEmbedded, query } ) => {
 
 		const previewSite = {
 			name: 'previewSite',
-			title: __( 'Preview site', 'woocommerce' ),
+			title: __( 'Preview site', 'poocommerce' ),
 			icon: <Icon icon={ external } />,
 			visible: isHomescreen && query.task === 'appearance',
 			onClick: () => {
@@ -300,8 +300,8 @@ export const ActivityPanel = ( { isEmbedded, query } ) => {
 			name: 'previewStore',
 			title:
 				( comingSoon === 'yes' &&
-					__( 'Preview store', 'woocommerce' ) ) ||
-				__( 'View store', 'woocommerce' ),
+					__( 'Preview store', 'poocommerce' ) ) ||
+				__( 'View store', 'poocommerce' ),
 			// Tiny shopfront icon for the literal "View store" / "Preview
 			// store" semantic, distinct from the other icons in the bar.
 			// Required because activity-panel tabs are now icon-only —
@@ -348,12 +348,12 @@ export const ActivityPanel = ( { isEmbedded, query } ) => {
 		<LayoutContextProvider value={ updatedLayoutContext }>
 			<div>
 				<H id={ headerId } className="screen-reader-text">
-					{ __( 'Store Activity', 'woocommerce' ) }
+					{ __( 'Store Activity', 'poocommerce' ) }
 				</H>
 				<Section
 					component="aside"
-					id="woocommerce-activity-panel"
-					className="woocommerce-layout__activity-panel"
+					id="poocommerce-activity-panel"
+					className="poocommerce-layout__activity-panel"
 					aria-labelledby={ headerId }
 				>
 					<Tabs

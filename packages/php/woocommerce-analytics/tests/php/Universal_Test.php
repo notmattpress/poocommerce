@@ -2,7 +2,7 @@
 /**
  * Tests for the Universal class.
  *
- * @package automattic/woocommerce-analytics
+ * @package automattic/poocommerce-analytics
  */
 
 namespace Automattic\Woocommerce_Analytics;
@@ -96,7 +96,7 @@ class Universal_Test extends BaseTestCase {
 	 * warning or queueing a pixel — when the cart key is not present in
 	 * removed_cart_contents. Reproduces the warnings reported on
 	 * line 141/142 of class-universal.php where third-party code fires the
-	 * woocommerce_cart_item_removed action with a key that was never copied
+	 * poocommerce_cart_item_removed action with a key that was never copied
 	 * into removed_cart_contents.
 	 */
 	public function test_capture_remove_from_cart_skips_when_item_missing(): void {
@@ -150,7 +150,7 @@ class Universal_Test extends BaseTestCase {
 	/**
 	 * Universal consumes Woo_Analytics_Trait, whose get_common_properties()
 	 * and get_page_common_properties() both fire
-	 * jetpack_woocommerce_analytics_event_props with three arguments. A
+	 * jetpack_poocommerce_analytics_event_props with three arguments. A
 	 * callback registered with accepted_args = 3 used to fatal with an
 	 * ArgumentCountError because both call sites passed only one argument;
 	 * this pins the fix and the exact values passed ('' for the event name,
@@ -163,14 +163,14 @@ class Universal_Test extends BaseTestCase {
 			$seen[] = array( $event_name, $is_client_supplied );
 			return $props;
 		};
-		add_filter( 'jetpack_woocommerce_analytics_event_props', $callback, 10, 3 );
+		add_filter( 'jetpack_poocommerce_analytics_event_props', $callback, 10, 3 );
 
 		try {
 			$universal = new Universal();
 			$universal->get_common_properties();
 			$universal->get_page_common_properties();
 		} finally {
-			remove_filter( 'jetpack_woocommerce_analytics_event_props', $callback, 10 );
+			remove_filter( 'jetpack_poocommerce_analytics_event_props', $callback, 10 );
 		}
 
 		$this->assertSame(

@@ -1,18 +1,18 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Admin\API\Reports\Taxes;
+namespace Automattic\PooCommerce\Tests\Admin\API\Reports\Taxes;
 
-use Automattic\WooCommerce\Admin\API\Reports\Cache as ReportsCache;
-use Automattic\WooCommerce\Admin\API\Reports\Orders\DataStore as OrdersDataStore;
-use Automattic\WooCommerce\Admin\API\Reports\Orders\Stats\DataStore as OrdersStatsDataStore;
-use Automattic\WooCommerce\Admin\ReportsSync;
-use Automattic\WooCommerce\Admin\API\Reports\Taxes\DataStore;
-use Automattic\WooCommerce\Admin\API\Reports\Taxes\Stats\DataStore as StatsDataStore;
-use Automattic\WooCommerce\Enums\OrderItemType;
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Admin\API\Reports\Cache as ReportsCache;
+use Automattic\PooCommerce\Admin\API\Reports\Orders\DataStore as OrdersDataStore;
+use Automattic\PooCommerce\Admin\API\Reports\Orders\Stats\DataStore as OrdersStatsDataStore;
+use Automattic\PooCommerce\Admin\ReportsSync;
+use Automattic\PooCommerce\Admin\API\Reports\Taxes\DataStore;
+use Automattic\PooCommerce\Admin\API\Reports\Taxes\Stats\DataStore as StatsDataStore;
+use Automattic\PooCommerce\Enums\OrderItemType;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 use WC_Helper_Order;
 use WC_Helper_Queue;
 use WC_Helper_Reports;
@@ -25,36 +25,36 @@ use WC_Tax;
 use WC_Unit_Test_Case;
 
 /**
- * Tests that the Taxes reports honour the configured woocommerce_date_type,
+ * Tests that the Taxes reports honour the configured poocommerce_date_type,
  * reconciling with the Orders and Revenue reports.
  *
- * @see https://github.com/woocommerce/woocommerce/issues/63699
+ * @see https://github.com/poocommerce/poocommerce/issues/63699
  */
 class DataStoreTest extends WC_Unit_Test_Case {
 
 	/**
-	 * Original woocommerce_calc_taxes option value.
+	 * Original poocommerce_calc_taxes option value.
 	 *
 	 * @var string|false
 	 */
 	private $original_calc_taxes;
 
 	/**
-	 * Original woocommerce_date_type option value.
+	 * Original poocommerce_date_type option value.
 	 *
 	 * @var string|false
 	 */
 	private $original_date_type;
 
 	/**
-	 * Original woocommerce_tax_based_on option value.
+	 * Original poocommerce_tax_based_on option value.
 	 *
 	 * @var string|false
 	 */
 	private $original_tax_based_on;
 
 	/**
-	 * Original woocommerce_shipping_tax_class option value.
+	 * Original poocommerce_shipping_tax_class option value.
 	 *
 	 * @var string|false
 	 */
@@ -65,37 +65,37 @@ class DataStoreTest extends WC_Unit_Test_Case {
 	 */
 	public function setUp(): void {
 		parent::setUp();
-		$this->original_calc_taxes         = get_option( 'woocommerce_calc_taxes' );
-		$this->original_date_type          = get_option( 'woocommerce_date_type' );
-		$this->original_tax_based_on       = get_option( 'woocommerce_tax_based_on' );
-		$this->original_shipping_tax_class = get_option( 'woocommerce_shipping_tax_class' );
-		update_option( 'woocommerce_calc_taxes', 'yes' );
+		$this->original_calc_taxes         = get_option( 'poocommerce_calc_taxes' );
+		$this->original_date_type          = get_option( 'poocommerce_date_type' );
+		$this->original_tax_based_on       = get_option( 'poocommerce_tax_based_on' );
+		$this->original_shipping_tax_class = get_option( 'poocommerce_shipping_tax_class' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
 		// Pin the tax location basis and the shipping tax class so the DE order fixtures
 		// do not depend on the environment's store base address or on the class-inheritance
 		// resolution, which varies with state left behind by the wider suite.
-		update_option( 'woocommerce_tax_based_on', 'billing' );
-		update_option( 'woocommerce_shipping_tax_class', '' );
+		update_option( 'poocommerce_tax_based_on', 'billing' );
+		update_option( 'poocommerce_shipping_tax_class', '' );
 	}
 
 	/**
 	 * Tear down test fixtures.
 	 */
 	public function tearDown(): void {
-		update_option( 'woocommerce_calc_taxes', $this->original_calc_taxes );
+		update_option( 'poocommerce_calc_taxes', $this->original_calc_taxes );
 		if ( false === $this->original_tax_based_on ) {
-			delete_option( 'woocommerce_tax_based_on' );
+			delete_option( 'poocommerce_tax_based_on' );
 		} else {
-			update_option( 'woocommerce_tax_based_on', $this->original_tax_based_on );
+			update_option( 'poocommerce_tax_based_on', $this->original_tax_based_on );
 		}
 		if ( false === $this->original_shipping_tax_class ) {
-			delete_option( 'woocommerce_shipping_tax_class' );
+			delete_option( 'poocommerce_shipping_tax_class' );
 		} else {
-			update_option( 'woocommerce_shipping_tax_class', $this->original_shipping_tax_class );
+			update_option( 'poocommerce_shipping_tax_class', $this->original_shipping_tax_class );
 		}
 		if ( false === $this->original_date_type ) {
-			delete_option( 'woocommerce_date_type' );
+			delete_option( 'poocommerce_date_type' );
 		} else {
-			update_option( 'woocommerce_date_type', $this->original_date_type );
+			update_option( 'poocommerce_date_type', $this->original_date_type );
 		}
 		parent::tearDown();
 	}
@@ -203,7 +203,7 @@ class DataStoreTest extends WC_Unit_Test_Case {
 	 * @testdox Taxes table report counts an order in its paid month, not its created month, when reporting by date_paid.
 	 */
 	public function test_taxes_report_buckets_by_date_paid_when_configured(): void {
-		update_option( 'woocommerce_date_type', 'date_paid' );
+		update_option( 'poocommerce_date_type', 'date_paid' );
 		WC_Helper_Reports::reset_stats_dbs();
 
 		$rate_id = $this->insert_tax_rate();
@@ -224,7 +224,7 @@ class DataStoreTest extends WC_Unit_Test_Case {
 	 * @testdox Taxes stats report counts an order in its paid month, not its created month, when reporting by date_paid.
 	 */
 	public function test_taxes_stats_report_buckets_by_date_paid_when_configured(): void {
-		update_option( 'woocommerce_date_type', 'date_paid' );
+		update_option( 'poocommerce_date_type', 'date_paid' );
 		WC_Helper_Reports::reset_stats_dbs();
 
 		$rate_id = $this->insert_tax_rate();
@@ -261,7 +261,7 @@ class DataStoreTest extends WC_Unit_Test_Case {
 	 * @testdox Taxes table report counts an order in its completed month when reporting by date_completed.
 	 */
 	public function test_taxes_report_buckets_by_date_completed_when_configured(): void {
-		update_option( 'woocommerce_date_type', 'date_completed' );
+		update_option( 'poocommerce_date_type', 'date_completed' );
 		WC_Helper_Reports::reset_stats_dbs();
 
 		$rate_id = $this->insert_tax_rate();
@@ -283,7 +283,7 @@ class DataStoreTest extends WC_Unit_Test_Case {
 	 * @testdox Taxes table report excludes an order with no paid date when reporting by date_paid.
 	 */
 	public function test_taxes_report_excludes_orders_with_no_paid_date(): void {
-		update_option( 'woocommerce_date_type', 'date_paid' );
+		update_option( 'poocommerce_date_type', 'date_paid' );
 		WC_Helper_Reports::reset_stats_dbs();
 
 		$rate_id = $this->insert_tax_rate();
@@ -301,7 +301,7 @@ class DataStoreTest extends WC_Unit_Test_Case {
 	 * @testdox Taxes stats report excludes an order with no paid date when reporting by date_paid.
 	 */
 	public function test_taxes_stats_report_excludes_orders_with_no_paid_date(): void {
-		update_option( 'woocommerce_date_type', 'date_paid' );
+		update_option( 'poocommerce_date_type', 'date_paid' );
 		WC_Helper_Reports::reset_stats_dbs();
 
 		$rate_id = $this->insert_tax_rate();
@@ -322,11 +322,11 @@ class DataStoreTest extends WC_Unit_Test_Case {
 		ReportsSync::init();
 
 		$this->assertNotFalse(
-			has_action( 'update_option_woocommerce_date_type', array( ReportsCache::class, 'invalidate' ) ),
+			has_action( 'update_option_poocommerce_date_type', array( ReportsCache::class, 'invalidate' ) ),
 			'Changing the analytics date type should invalidate the report cache so all report families reflect the new basis immediately.'
 		);
 		$this->assertNotFalse(
-			has_action( 'add_option_woocommerce_date_type', array( ReportsCache::class, 'invalidate' ) ),
+			has_action( 'add_option_poocommerce_date_type', array( ReportsCache::class, 'invalidate' ) ),
 			'The very first save of the date type takes the add_option path and should invalidate the report cache too.'
 		);
 	}
@@ -335,7 +335,7 @@ class DataStoreTest extends WC_Unit_Test_Case {
 	 * @testdox Taxes report and Orders report agree on the order count for the same tax rate and period.
 	 */
 	public function test_taxes_report_reconciles_with_orders_report(): void {
-		update_option( 'woocommerce_date_type', 'date_paid' );
+		update_option( 'poocommerce_date_type', 'date_paid' );
 		WC_Helper_Reports::reset_stats_dbs();
 
 		$rate_id = $this->insert_tax_rate();
@@ -402,7 +402,7 @@ class DataStoreTest extends WC_Unit_Test_Case {
 
 	/**
 	 * Create a completed, paid order whose tax lines carry an arbitrary `rate_id`, including one
-	 * that has no `woocommerce_tax_rates` row and one shared by several lines.
+	 * that has no `poocommerce_tax_rates` row and one shared by several lines.
 	 *
 	 * WC_Order_Item_Tax::set_rate() cannot be used for that shape because it reads the rate row.
 	 *
@@ -732,7 +732,7 @@ class DataStoreTest extends WC_Unit_Test_Case {
 
 		// A real refund happens in a later request, where the rate objects cache is cold;
 		// clear it so the refund's tax items re-derive their flags from the database.
-		$rate_store = wc_get_container()->get( \Automattic\WooCommerce\Internal\Tax\TaxRateDataStore::class );
+		$rate_store = wc_get_container()->get( \Automattic\PooCommerce\Internal\Tax\TaxRateDataStore::class );
 		$cache_prop = ( new \ReflectionClass( $rate_store ) )->getProperty( 'rate_objects_cache' );
 		$cache_prop->setAccessible( true );
 		$cache_prop->setValue( $rate_store, array() );
@@ -803,7 +803,7 @@ class DataStoreTest extends WC_Unit_Test_Case {
 
 	/**
 	 * Four jurisdiction tax lines that all carry `rate_id = 0`, the shape produced by an
-	 * integration that calculates tax without registering its rates with WooCommerce.
+	 * integration that calculates tax without registering its rates with PooCommerce.
 	 *
 	 * @return array
 	 */
@@ -879,7 +879,7 @@ class DataStoreTest extends WC_Unit_Test_Case {
 	 * @testdox Sync writes one lookup row per tax line, so lines sharing a rate id no longer overwrite each other.
 	 */
 	public function test_sync_writes_one_lookup_row_per_tax_line(): void {
-		update_option( 'woocommerce_date_type', 'date_paid' );
+		update_option( 'poocommerce_date_type', 'date_paid' );
 		WC_Helper_Reports::reset_stats_dbs();
 
 		$order = $this->seed_order_with_tax_lines( $this->tax_lines_sharing_a_rate_id(), '2023-02-10 10:00:00', '2023-02-10 10:00:00' );
@@ -895,7 +895,7 @@ class DataStoreTest extends WC_Unit_Test_Case {
 	 * @testdox Taxes stats totals count every tax line of an order whose lines share a rate id.
 	 */
 	public function test_taxes_stats_totals_include_every_tax_line(): void {
-		update_option( 'woocommerce_date_type', 'date_paid' );
+		update_option( 'poocommerce_date_type', 'date_paid' );
 		WC_Helper_Reports::reset_stats_dbs();
 
 		$this->seed_order_with_tax_lines( $this->tax_lines_sharing_a_rate_id(), '2023-02-10 10:00:00', '2023-02-10 10:00:00' );
@@ -911,7 +911,7 @@ class DataStoreTest extends WC_Unit_Test_Case {
 	 * @testdox Taxes table report gives each tax line its own row and amount instead of repeating one collapsed amount.
 	 */
 	public function test_taxes_report_rows_do_not_fan_out_across_lines_sharing_a_rate_id(): void {
-		update_option( 'woocommerce_date_type', 'date_paid' );
+		update_option( 'poocommerce_date_type', 'date_paid' );
 		WC_Helper_Reports::reset_stats_dbs();
 
 		$this->seed_order_with_tax_lines( $this->tax_lines_sharing_a_rate_id(), '2023-02-10 10:00:00', '2023-02-10 10:00:00' );
@@ -931,7 +931,7 @@ class DataStoreTest extends WC_Unit_Test_Case {
 	 * @testdox Taxes stats segmented by tax rate id sum every tax line sharing that rate id.
 	 */
 	public function test_taxes_stats_segments_by_tax_rate_id_sum_every_line(): void {
-		update_option( 'woocommerce_date_type', 'date_paid' );
+		update_option( 'poocommerce_date_type', 'date_paid' );
 		WC_Helper_Reports::reset_stats_dbs();
 
 		$rate_id = $this->insert_tax_rate();
@@ -971,10 +971,10 @@ class DataStoreTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Sync writes a lookup row for a tax line whose rate id has no woocommerce_tax_rates row.
+	 * @testdox Sync writes a lookup row for a tax line whose rate id has no poocommerce_tax_rates row.
 	 */
 	public function test_sync_handles_a_rate_id_with_no_tax_rates_row(): void {
-		update_option( 'woocommerce_date_type', 'date_paid' );
+		update_option( 'poocommerce_date_type', 'date_paid' );
 		WC_Helper_Reports::reset_stats_dbs();
 
 		$lines = array(
@@ -997,7 +997,7 @@ class DataStoreTest extends WC_Unit_Test_Case {
 		$sut  = new DataStore();
 		$data = $sut->get_data( $this->all_taxes_query( '2023-02-01 00:00:00', '2023-02-28 23:59:59' ) );
 
-		$this->assertCount( 1, $data->data, 'The line should still be reported even though its rate is not registered with WooCommerce.' );
+		$this->assertCount( 1, $data->data, 'The line should still be reported even though its rate is not registered with PooCommerce.' );
 		$this->assertSame( 6.0, $data->data[0]['total_tax'] );
 	}
 
@@ -1005,7 +1005,7 @@ class DataStoreTest extends WC_Unit_Test_Case {
 	 * @testdox Sync writes a lookup row for a tax line that carries no rate_percent meta.
 	 */
 	public function test_sync_handles_a_tax_line_with_no_rate_percent_meta(): void {
-		update_option( 'woocommerce_date_type', 'date_paid' );
+		update_option( 'poocommerce_date_type', 'date_paid' );
 		WC_Helper_Reports::reset_stats_dbs();
 
 		$lines = array(
@@ -1031,7 +1031,7 @@ class DataStoreTest extends WC_Unit_Test_Case {
 	 * @testdox Sync removes the lookup row of a tax line that has been removed from an order.
 	 */
 	public function test_sync_removes_lookup_rows_for_removed_tax_lines(): void {
-		update_option( 'woocommerce_date_type', 'date_paid' );
+		update_option( 'poocommerce_date_type', 'date_paid' );
 		WC_Helper_Reports::reset_stats_dbs();
 
 		$order = $this->seed_order_with_tax_lines( $this->tax_lines_sharing_a_rate_id(), '2023-02-10 10:00:00', '2023-02-10 10:00:00' );
@@ -1055,7 +1055,7 @@ class DataStoreTest extends WC_Unit_Test_Case {
 	 * @testdox Sync removes the lookup row a tax line left behind when its rate id changed.
 	 */
 	public function test_sync_removes_the_lookup_row_of_a_tax_line_whose_rate_id_changed(): void {
-		update_option( 'woocommerce_date_type', 'date_paid' );
+		update_option( 'poocommerce_date_type', 'date_paid' );
 		WC_Helper_Reports::reset_stats_dbs();
 
 		$order = $this->seed_order_with_tax_lines( $this->tax_lines_on_distinct_rate_ids( 'US-CA', 101 ), '2023-02-10 10:00:00', '2023-02-10 10:00:00' );
@@ -1084,7 +1084,7 @@ class DataStoreTest extends WC_Unit_Test_Case {
 	 * @testdox Sync passes over an order with no creation date instead of failing on it.
 	 */
 	public function test_sync_passes_over_an_order_with_no_creation_date(): void {
-		update_option( 'woocommerce_date_type', 'date_paid' );
+		update_option( 'poocommerce_date_type', 'date_paid' );
 		WC_Helper_Reports::reset_stats_dbs();
 
 		$order       = $this->seed_order_with_tax_lines( $this->tax_lines_on_distinct_rate_ids( 'US-CA', 101 ), '2023-02-10 10:00:00', '2023-02-10 10:00:00' );
@@ -1134,7 +1134,7 @@ class DataStoreTest extends WC_Unit_Test_Case {
 	 * @testdox Orders report lists an order once when several of its tax lines share the filtered rate.
 	 */
 	public function test_orders_report_lists_an_order_once_when_its_tax_lines_share_the_filtered_rate(): void {
-		update_option( 'woocommerce_date_type', 'date_paid' );
+		update_option( 'poocommerce_date_type', 'date_paid' );
 		WC_Helper_Reports::reset_stats_dbs();
 
 		$rate_id = $this->insert_tax_rate();
@@ -1183,7 +1183,7 @@ class DataStoreTest extends WC_Unit_Test_Case {
 	public function test_sync_keeps_existing_rows_when_a_write_fails(): void {
 		global $wpdb;
 
-		update_option( 'woocommerce_date_type', 'date_paid' );
+		update_option( 'poocommerce_date_type', 'date_paid' );
 		WC_Helper_Reports::reset_stats_dbs();
 
 		$order = $this->seed_order_with_tax_lines( $this->tax_lines_on_distinct_rate_ids( 'US-CA', 101 ), '2023-02-10 10:00:00', '2023-02-10 10:00:00' );
@@ -1215,7 +1215,7 @@ class DataStoreTest extends WC_Unit_Test_Case {
 	 * @testdox Sync writes every tax line of an order in one statement.
 	 */
 	public function test_sync_writes_every_tax_line_of_an_order_in_one_statement(): void {
-		update_option( 'woocommerce_date_type', 'date_paid' );
+		update_option( 'poocommerce_date_type', 'date_paid' );
 		WC_Helper_Reports::reset_stats_dbs();
 
 		$order = $this->seed_order_with_tax_lines( $this->tax_lines_sharing_a_rate_id(), '2023-02-10 10:00:00', '2023-02-10 10:00:00' );
@@ -1235,7 +1235,7 @@ class DataStoreTest extends WC_Unit_Test_Case {
 	 * @testdox Sync leaves alone a row a sync running beside it wrote.
 	 */
 	public function test_sync_keeps_the_rows_a_sync_running_beside_it_wrote(): void {
-		update_option( 'woocommerce_date_type', 'date_paid' );
+		update_option( 'poocommerce_date_type', 'date_paid' );
 		WC_Helper_Reports::reset_stats_dbs();
 
 		$order = $this->seed_order_with_tax_lines( $this->tax_lines_on_distinct_rate_ids( 'US-CA', 101 ), '2023-02-10 10:00:00', '2023-02-10 10:00:00' );
@@ -1418,7 +1418,7 @@ class DataStoreTest extends WC_Unit_Test_Case {
 	 * @testdox Taxes report still reports rows written before the lookup was keyed by tax order item.
 	 */
 	public function test_taxes_report_reads_rows_written_before_the_grain_change(): void {
-		update_option( 'woocommerce_date_type', 'date_paid' );
+		update_option( 'poocommerce_date_type', 'date_paid' );
 		WC_Helper_Reports::reset_stats_dbs();
 
 		$order = $this->seed_order_with_tax_lines( $this->tax_lines_on_distinct_rate_ids( 'US-CA', 101 ), '2023-02-10 10:00:00', '2023-02-10 10:00:00' );
@@ -1441,7 +1441,7 @@ class DataStoreTest extends WC_Unit_Test_Case {
 	 * @testdox Taxes report counts each tax line once while the lookup table is half migrated.
 	 */
 	public function test_taxes_report_counts_each_line_once_while_half_migrated(): void {
-		update_option( 'woocommerce_date_type', 'date_paid' );
+		update_option( 'poocommerce_date_type', 'date_paid' );
 		WC_Helper_Reports::reset_stats_dbs();
 
 		$old_order = $this->seed_order_with_tax_lines( $this->tax_lines_on_distinct_rate_ids( 'US-CA', 101 ), '2023-02-10 10:00:00', '2023-02-10 10:00:00' );
@@ -1463,9 +1463,9 @@ class DataStoreTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Write a lookup row the way code outside WooCommerce did while the table was keyed on
+	 * Write a lookup row the way code outside PooCommerce did while the table was keyed on
 	 * (order_id, tax_rate_id). Such a write now lands on the tax order item column's zero default
-	 * instead of replacing the rows WooCommerce holds for the order.
+	 * instead of replacing the rows PooCommerce holds for the order.
 	 *
 	 * @param int   $order_id  Order id.
 	 * @param int   $rate_id   Tax rate id.
@@ -1494,7 +1494,7 @@ class DataStoreTest extends WC_Unit_Test_Case {
 	 * @testdox Taxes report leaves out a lookup row written on the released (order_id, tax_rate_id) key beside the rows the order already holds.
 	 */
 	public function test_taxes_report_leaves_out_a_lookup_row_written_on_the_released_key(): void {
-		update_option( 'woocommerce_date_type', 'date_paid' );
+		update_option( 'poocommerce_date_type', 'date_paid' );
 		WC_Helper_Reports::reset_stats_dbs();
 
 		$order = $this->seed_order_with_tax_lines( $this->tax_lines_on_distinct_rate_ids( 'US-CA', 101 ), '2023-02-10 10:00:00', '2023-02-10 10:00:00' );
@@ -1513,7 +1513,7 @@ class DataStoreTest extends WC_Unit_Test_Case {
 	 * @testdox Taxes stats leave out a lookup row written on the released (order_id, tax_rate_id) key beside the rows the order already holds.
 	 */
 	public function test_taxes_stats_leave_out_a_lookup_row_written_on_the_released_key(): void {
-		update_option( 'woocommerce_date_type', 'date_paid' );
+		update_option( 'poocommerce_date_type', 'date_paid' );
 		WC_Helper_Reports::reset_stats_dbs();
 
 		$order = $this->seed_order_with_tax_lines( $this->tax_lines_on_distinct_rate_ids( 'US-CA', 101 ), '2023-02-10 10:00:00', '2023-02-10 10:00:00' );
@@ -1530,7 +1530,7 @@ class DataStoreTest extends WC_Unit_Test_Case {
 	 * @testdox Taxes stats still count rows written before the lookup was keyed by tax order item.
 	 */
 	public function test_taxes_stats_read_rows_written_before_the_grain_change(): void {
-		update_option( 'woocommerce_date_type', 'date_paid' );
+		update_option( 'poocommerce_date_type', 'date_paid' );
 		WC_Helper_Reports::reset_stats_dbs();
 
 		$order = $this->seed_order_with_tax_lines( $this->tax_lines_on_distinct_rate_ids( 'US-CA', 101 ), '2023-02-10 10:00:00', '2023-02-10 10:00:00' );

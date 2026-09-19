@@ -2,17 +2,17 @@
 /**
  * Addons Page
  *
- * @package  WooCommerce\Admin
+ * @package  PooCommerce\Admin
  * @version  2.5.0
  */
 
 declare( strict_types = 1 );
 
-use Automattic\WooCommerce\Admin\RemoteSpecs\RuleProcessors\FailRuleProcessor;
-use Automattic\WooCommerce\Admin\RemoteSpecs\RuleProcessors\GetRuleProcessor;
-use Automattic\WooCommerce\Admin\RemoteSpecs\RuleProcessors\OrdersProvider;
-use Automattic\WooCommerce\Admin\RemoteSpecs\RuleProcessors\RuleEvaluator;
-use Automattic\WooCommerce\Internal\Admin\WCAdminAssets;
+use Automattic\PooCommerce\Admin\RemoteSpecs\RuleProcessors\FailRuleProcessor;
+use Automattic\PooCommerce\Admin\RemoteSpecs\RuleProcessors\GetRuleProcessor;
+use Automattic\PooCommerce\Admin\RemoteSpecs\RuleProcessors\OrdersProvider;
+use Automattic\PooCommerce\Admin\RemoteSpecs\RuleProcessors\RuleEvaluator;
+use Automattic\PooCommerce\Internal\Admin\WCAdminAssets;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -23,11 +23,11 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class WC_Admin_Marketplace_Promotions {
 
-	const CRON_NAME             = 'woocommerce_marketplace_cron_fetch_promotions';
+	const CRON_NAME             = 'poocommerce_marketplace_cron_fetch_promotions';
 	const RULE_BASED_FORMAT     = 'rule-based-promo-card';
-	const TRANSIENT_NAME        = 'woocommerce_marketplace_promotions_v2';
+	const TRANSIENT_NAME        = 'poocommerce_marketplace_promotions_v2';
 	const TRANSIENT_LIFE_SPAN   = DAY_IN_SECONDS;
-	const PROMOTIONS_API_URL    = 'https://woocommerce.com/wp-json/wccom-extensions/3.0/promotions';
+	const PROMOTIONS_API_URL    = 'https://poocommerce.com/wp-json/wccom-extensions/3.0/promotions';
 	const DISMISSED_PROMOS_META = '_wc_marketplace_dismissed_promos';
 
 	/**
@@ -53,7 +53,7 @@ class WC_Admin_Marketplace_Promotions {
 
 	/**
 	 * On all admin pages, try go get Marketplace promotions every day.
-	 * Shows notice and adds menu badge to WooCommerce Extensions item
+	 * Shows notice and adds menu badge to PooCommerce Extensions item
 	 * if the promotions API requests them.
 	 *
 	 * WC_Admin calls this method when it is instantiated during
@@ -63,9 +63,9 @@ class WC_Admin_Marketplace_Promotions {
 	 */
 	public static function init() {
 		// A legacy hook that can be triggered by action scheduler.
-		add_action( 'woocommerce_marketplace_fetch_promotions', array( __CLASS__, 'clear_deprecated_action' ) );
+		add_action( 'poocommerce_marketplace_fetch_promotions', array( __CLASS__, 'clear_deprecated_action' ) );
 		add_action(
-			'woocommerce_marketplace_fetch_promotions_clear',
+			'poocommerce_marketplace_fetch_promotions_clear',
 			array(
 				__CLASS__,
 				'clear_deprecated_scheduled_event',
@@ -130,7 +130,7 @@ class WC_Admin_Marketplace_Promotions {
 
 	/**
 	 * Get active Marketplace promotions from the transient.
-	 * Use `woocommerce_marketplace_suppress_promotions` filter to suppress promotions.
+	 * Use `poocommerce_marketplace_suppress_promotions` filter to suppress promotions.
 	 *
 	 * @since 9.0
 	 */
@@ -140,7 +140,7 @@ class WC_Admin_Marketplace_Promotions {
 		 *
 		 * @since 8.8
 		 */
-		if ( apply_filters( 'woocommerce_marketplace_suppress_promotions', false ) ) {
+		if ( apply_filters( 'poocommerce_marketplace_suppress_promotions', false ) ) {
 			return array();
 		}
 
@@ -161,7 +161,7 @@ class WC_Admin_Marketplace_Promotions {
 	 * The Orders list is a classic admin page, so the card is mounted by a wp-admin-scripts
 	 * entry that inserts it above the orders table (see ShippingLabelBanner for the same enqueue
 	 * pattern). The promotion is rule-resolved server-side and passed to the script, so no
-	 * additional data is shared with WooCommerce.com.
+	 * additional data is shared with PooCommerce.com.
 	 *
 	 * @return void
 	 *
@@ -209,7 +209,7 @@ class WC_Admin_Marketplace_Promotions {
 	}
 
 	/**
-	 * Whether the current screen is the WooCommerce Orders list (HPOS or legacy).
+	 * Whether the current screen is the PooCommerce Orders list (HPOS or legacy).
 	 *
 	 * @return bool
 	 */
@@ -221,7 +221,7 @@ class WC_Admin_Marketplace_Promotions {
 
 		return in_array(
 			$screen->id,
-			array( 'woocommerce_page_wc-orders', 'admin_page_wc-orders', 'edit-shop_order' ),
+			array( 'poocommerce_page_wc-orders', 'admin_page_wc-orders', 'edit-shop_order' ),
 			true
 		);
 	}
@@ -314,7 +314,7 @@ class WC_Admin_Marketplace_Promotions {
 				'methods'             => \WP_REST_Server::CREATABLE,
 				'callback'            => array( __CLASS__, 'handle_dismiss_request' ),
 				'permission_callback' => static function () {
-					return current_user_can( 'manage_woocommerce' );
+					return current_user_can( 'manage_poocommerce' );
 				},
 				'args'                => array(
 					'id' => array(
@@ -386,7 +386,7 @@ class WC_Admin_Marketplace_Promotions {
 	}
 
 	/**
-	 * Evaluate local_rules using the WooCommerce Admin remote specs rule schema.
+	 * Evaluate local_rules using the PooCommerce Admin remote specs rule schema.
 	 *
 	 * WCCOM payloads must provide rules compatible with the existing Core rule
 	 * processors. Unknown or malformed rules fail closed.
@@ -484,7 +484,7 @@ class WC_Admin_Marketplace_Promotions {
 		 *
 		 * @since 8.8
 		 */
-		if ( apply_filters( 'woocommerce_marketplace_suppress_promotions', false ) ) {
+		if ( apply_filters( 'poocommerce_marketplace_suppress_promotions', false ) ) {
 			return array();
 		}
 
@@ -502,7 +502,7 @@ class WC_Admin_Marketplace_Promotions {
 			 *
 			 * @since 8.7
 			 */
-			do_action( 'woocommerce_page_wc-addons_connection_error', $raw_promotions->get_error_message() );
+			do_action( 'poocommerce_page_wc-addons_connection_error', $raw_promotions->get_error_message() );
 		}
 
 		$response_code = (int) wp_remote_retrieve_response_code( $raw_promotions );
@@ -512,7 +512,7 @@ class WC_Admin_Marketplace_Promotions {
 			 *
 			 * @since 8.7
 			 */
-			do_action( 'woocommerce_page_wc-addons_connection_error', $response_code );
+			do_action( 'poocommerce_page_wc-addons_connection_error', $response_code );
 		}
 
 		$promotions = json_decode( wp_remote_retrieve_body( $raw_promotions ), true );
@@ -525,7 +525,7 @@ class WC_Admin_Marketplace_Promotions {
 			 *
 			 * @since 8.7
 			 */
-			do_action( 'woocommerce_page_wc-addons_connection_error', 'Malformed response' );
+			do_action( 'poocommerce_page_wc-addons_connection_error', 'Malformed response' );
 		}
 		// phpcs:enable WordPress.NamingConventions.ValidHookName.UseUnderscores
 
@@ -535,9 +535,9 @@ class WC_Admin_Marketplace_Promotions {
 	/**
 	 * If there's an active promotion of the format `menu_bubble`,
 	 * add a filter to show a bubble on the Extensions item in the
-	 * WooCommerce menu.
+	 * PooCommerce menu.
 	 *
-	 * Use `woocommerce_marketplace_suppress_promotions` filter to suppress the bubble.
+	 * Use `poocommerce_marketplace_suppress_promotions` filter to suppress the bubble.
 	 *
 	 * @return void
 	 * @throws Exception  If we are unable to create a DateTime from the date_to_gmt.
@@ -548,7 +548,7 @@ class WC_Admin_Marketplace_Promotions {
 		 *
 		 * @since 8.8
 		 */
-		if ( apply_filters( 'woocommerce_marketplace_suppress_promotions', false ) ) {
+		if ( apply_filters( 'poocommerce_marketplace_suppress_promotions', false ) ) {
 			return;
 		}
 
@@ -578,7 +578,7 @@ class WC_Admin_Marketplace_Promotions {
 
 			if ( $now_date_time < $date_to_gmt ) {
 				add_filter(
-					'woocommerce_marketplace_menu_items',
+					'poocommerce_marketplace_menu_items',
 					function ( $marketplace_pages ) use ( $promotion ) {
 						return self::filter_marketplace_menu_items( $marketplace_pages, $promotion );
 					}
@@ -672,13 +672,13 @@ class WC_Admin_Marketplace_Promotions {
 	}
 
 	/**
-	 * Callback for the `woocommerce_marketplace_menu_items` filter
-	 * in `Automattic\WooCommerce\Internal\Admin\Marketplace::get_marketplace_pages`.
+	 * Callback for the `poocommerce_marketplace_menu_items` filter
+	 * in `Automattic\PooCommerce\Internal\Admin\Marketplace::get_marketplace_pages`.
 	 * At the moment, the Extensions page is the only page in `$menu_items`.
 	 * Adds a bubble to the menu item.
 	 *
 	 * @param array  $menu_items  Arrays representing items in nav menu.
-	 * @param ?array $promotion   Data about a promotion from the WooCommerce.com API.
+	 * @param ?array $promotion   Data about a promotion from the PooCommerce.com API.
 	 *
 	 * @return array
 	 */
@@ -688,10 +688,10 @@ class WC_Admin_Marketplace_Promotions {
 		}
 		foreach ( $menu_items as $index => $menu_item ) {
 			if (
-				'woocommerce' === $menu_item['parent']
+				'poocommerce' === $menu_item['parent']
 				&& $promotion['menu_item_id'] === $menu_item['id']
 			) {
-				$bubble_text                   = $promotion['content'][ self::$locale ] ?? ( $promotion['content']['en_US'] ?? __( 'Sale', 'woocommerce' ) );
+				$bubble_text                   = $promotion['content'][ self::$locale ] ?? ( $promotion['content']['en_US'] ?? __( 'Sale', 'poocommerce' ) );
 				$menu_items[ $index ]['title'] = self::append_bubble( $menu_item['title'], $bubble_text );
 
 				break;
@@ -714,13 +714,13 @@ class WC_Admin_Marketplace_Promotions {
 		$menu_item_text = preg_replace( '|<span class="update-plugins count-[\d]+">[A-z0-9 <>="-]+</span>|', '', $menu_item_text );
 
 		return $menu_item_text
-			. '<span class="update-plugins remaining-tasks-badge woocommerce-task-list-remaining-tasks-badge">'
+			. '<span class="update-plugins remaining-tasks-badge poocommerce-task-list-remaining-tasks-badge">'
 			. esc_html( $bubble_text )
 			. '</span>';
 	}
 
 	/**
-	 * When WooCommerce is disabled, clear the WP Cron event we use to fetch promotions.
+	 * When PooCommerce is disabled, clear the WP Cron event we use to fetch promotions.
 	 *
 	 * @version 9.5.0
 	 *
@@ -732,30 +732,30 @@ class WC_Admin_Marketplace_Promotions {
 	}
 
 	/**
-	 * Clear deprecated scheduled action that was used to fetch promotions in WooCommerce 8.8.
-	 * Replaced with a transient in WooCommerce 9.0.
+	 * Clear deprecated scheduled action that was used to fetch promotions in PooCommerce 8.8.
+	 * Replaced with a transient in PooCommerce 9.0.
 	 *
 	 * @return void
 	 */
 	public static function clear_deprecated_scheduled_event() {
 		if ( function_exists( 'as_unschedule_all_actions' ) ) {
-			as_unschedule_all_actions( 'woocommerce_marketplace_fetch_promotions' );
+			as_unschedule_all_actions( 'poocommerce_marketplace_fetch_promotions' );
 		}
 	}
 
 	/**
 	 * We can't clear deprecated action from AS when it's running,
 	 * so we schedule a new single action to clear the deprecated
-	 * `woocommerce_marketplace_fetch_promotions` action.
+	 * `poocommerce_marketplace_fetch_promotions` action.
 	 */
 	public static function clear_deprecated_action() {
 		if ( function_exists( 'as_schedule_single_action' ) ) {
-			as_schedule_single_action( time(), 'woocommerce_marketplace_fetch_promotions_clear' );
+			as_schedule_single_action( time(), 'poocommerce_marketplace_fetch_promotions_clear' );
 		}
 	}
 }
 
-// Fetch list of promotions from WooCommerce.com for WooCommerce admin UI.
+// Fetch list of promotions from PooCommerce.com for PooCommerce admin UI.
 if ( ! has_action( 'init', array( 'WC_Admin_Marketplace_Promotions', 'init' ) ) ) {
 	add_action( 'init', array( 'WC_Admin_Marketplace_Promotions', 'init' ), 11 );
 }

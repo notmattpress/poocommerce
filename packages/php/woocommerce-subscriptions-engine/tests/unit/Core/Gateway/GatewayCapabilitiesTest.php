@@ -2,19 +2,19 @@
 /**
  * Unit tests for the pure GatewayCapabilities declaration store.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine
+ * @package Automattic\PooCommerce\SubscriptionsEngine
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Tests\Unit\Core\Gateway;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Tests\Unit\Core\Gateway;
 
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Gateway\GatewayCapabilities;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Gateway\GatewayCapabilities;
 
 /**
- * @covers \Automattic\WooCommerce\SubscriptionsEngine\Core\Gateway\GatewayCapabilities
+ * @covers \Automattic\PooCommerce\SubscriptionsEngine\Core\Gateway\GatewayCapabilities
  */
 class GatewayCapabilitiesTest extends TestCase {
 

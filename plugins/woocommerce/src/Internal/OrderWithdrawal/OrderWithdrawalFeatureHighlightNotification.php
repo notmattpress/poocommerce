@@ -1,12 +1,12 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\OrderWithdrawal;
+namespace Automattic\PooCommerce\Internal\OrderWithdrawal;
 
-use Automattic\WooCommerce\Admin\Notes\Note;
-use Automattic\WooCommerce\Admin\Notes\DataStore as NotesDataStore;
-use Automattic\WooCommerce\Admin\Notes\Notes;
-use Automattic\WooCommerce\Internal\RegisterHooksInterface;
+use Automattic\PooCommerce\Admin\Notes\Note;
+use Automattic\PooCommerce\Admin\Notes\DataStore as NotesDataStore;
+use Automattic\PooCommerce\Admin\Notes\Notes;
+use Automattic\PooCommerce\Internal\RegisterHooksInterface;
 use Exception;
 
 /**
@@ -17,11 +17,11 @@ use Exception;
 final class OrderWithdrawalFeatureHighlightNotification implements RegisterHooksInterface {
 
 	public const NOTE_NAME      = 'wc-admin-order-withdrawal-feature';
-	public const CREATED_OPTION = 'woocommerce_order_withdrawal_inbox_notification_created';
+	public const CREATED_OPTION = 'poocommerce_order_withdrawal_inbox_notification_created';
 
-	private const COMING_SOON_OPTION    = 'woocommerce_coming_soon';
+	private const COMING_SOON_OPTION    = 'poocommerce_coming_soon';
 	private const FEATURES_SETTINGS_URL = 'admin.php?page=wc-settings&tab=advanced&section=features';
-	private const DOCUMENTATION_URL     = 'https://woocommerce.com/document/customer-order-withdrawal/';
+	private const DOCUMENTATION_URL     = 'https://poocommerce.com/document/customer-order-withdrawal/';
 
 	/**
 	 * Register hooks.
@@ -41,7 +41,7 @@ final class OrderWithdrawalFeatureHighlightNotification implements RegisterHooks
 	/**
 	 * Add the note when the store is changed from coming soon to live.
 	 *
-	 * This is called when the `woocommerce_coming_soon` option is updated. It checks if the store has gone live and if so, it calls the `possibly_add_note` method to add the note.
+	 * This is called when the `poocommerce_coming_soon` option is updated. It checks if the store has gone live and if so, it calls the `possibly_add_note` method to add the note.
 	 *
 	 * @internal
 	 * @since 11.1.0
@@ -102,28 +102,28 @@ final class OrderWithdrawalFeatureHighlightNotification implements RegisterHooks
 		$note = new Note();
 
 		$note->set_title(
-			__( 'Enable order withdrawal for EU regulatory requirements', 'woocommerce' )
+			__( 'Enable order withdrawal for EU regulatory requirements', 'poocommerce' )
 		);
 		$note->set_content(
 			__(
 				'Stores selling to EU countries may need to offer customers a way to withdraw from qualifying orders. Review how to enable the order withdrawal feature in the Advanced settings.',
-				'woocommerce'
+				'poocommerce'
 			)
 		);
 		$note->set_content_data( (object) array() );
 		$note->set_type( Note::E_WC_ADMIN_NOTE_INFORMATIONAL );
 		$note->set_name( self::NOTE_NAME );
-		$note->set_source( 'woocommerce-admin' );
+		$note->set_source( 'poocommerce-admin' );
 		$note->add_action(
 			'review-feature-settings',
-			__( 'Get started', 'woocommerce' ),
+			__( 'Get started', 'poocommerce' ),
 			admin_url( self::FEATURES_SETTINGS_URL ),
 			Note::E_WC_ADMIN_NOTE_ACTIONED,
 			true
 		);
 		$note->add_action(
 			'learn-more',
-			__( 'Learn more', 'woocommerce' ),
+			__( 'Learn more', 'poocommerce' ),
 			self::DOCUMENTATION_URL,
 			Note::E_WC_ADMIN_NOTE_UNACTIONED
 		);
@@ -160,16 +160,16 @@ final class OrderWithdrawalFeatureHighlightNotification implements RegisterHooks
 	 * Whether the store sells to at least one EU country.
 	 */
 	private function store_sells_to_eu_or_all_countries(): bool {
-		$woocommerce = function_exists( 'WC' ) ? WC() : null;
+		$poocommerce = function_exists( 'WC' ) ? WC() : null;
 
-		if ( ! $woocommerce || ! $woocommerce->countries instanceof \WC_Countries ) {
+		if ( ! $poocommerce || ! $poocommerce->countries instanceof \WC_Countries ) {
 			return false;
 		}
 
 		return ! empty(
 			array_intersect(
-				$woocommerce->countries->get_european_union_countries(),
-				array_keys( $woocommerce->countries->get_allowed_countries() )
+				$poocommerce->countries->get_european_union_countries(),
+				array_keys( $poocommerce->countries->get_allowed_countries() )
 			)
 		);
 	}

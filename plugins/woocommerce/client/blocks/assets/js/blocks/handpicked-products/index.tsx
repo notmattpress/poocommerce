@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { registerBlockType } from '@wordpress/blocks';
-import { getSetting } from '@woocommerce/settings';
+import { getSetting } from '@poocommerce/settings';
 import { Icon, stack } from '@wordpress/icons';
 
 /**

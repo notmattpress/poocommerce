@@ -1,18 +1,18 @@
-.woocommerce-profiler-navigation {
+.poocommerce-profiler-navigation {
 	display: flex;
 	flex-flow: row;
 	font-size: 0.875rem;
 	margin-top: 21px;
 
-	.woocommerce-profiler-navigation-col-left,
-	.woocommerce-profiler-navigation-col-center,
-	.woocommerce-profiler-navigation-col-right {
+	.poocommerce-profiler-navigation-col-left,
+	.poocommerce-profiler-navigation-col-center,
+	.poocommerce-profiler-navigation-col-right {
 		align-items: center;
 		display: flex;
 		width: 100%;
 	}
 
-	.woocommerce-profiler-navigation-col-left {
+	.poocommerce-profiler-navigation-col-left {
 		justify-content: left;
 		.woologo svg {
 			margin-left: 38px;
@@ -27,11 +27,11 @@
 		}
 	}
 
-	.woocommerce-profiler-navigation-col-center {
+	.poocommerce-profiler-navigation-col-center {
 		justify-content: center;
 	}
 
-	.woocommerce-profiler-navigation-col-right {
+	.poocommerce-profiler-navigation-col-right {
 		justify-content: end;
 		button.is-primary {
 			border-radius: 4px;
@@ -48,8 +48,8 @@
 }
 
 @include breakpoint( "<782px" ) {
-	.woocommerce-profiler-navigation {
-		.woocommerce-profiler-navigation-col-left {
+	.poocommerce-profiler-navigation {
+		.poocommerce-profiler-navigation-col-left {
 			.woologo svg {
 				margin-left: 24px;
 			}

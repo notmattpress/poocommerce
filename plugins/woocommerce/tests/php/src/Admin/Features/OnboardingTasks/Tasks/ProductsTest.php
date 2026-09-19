@@ -2,11 +2,11 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Admin\Features\OnboardingTasks\Tasks;
+namespace Automattic\PooCommerce\Tests\Admin\Features\OnboardingTasks\Tasks;
 
-use Automattic\WooCommerce\Admin\Features\OnboardingTasks\Task;
-use Automattic\WooCommerce\Admin\Features\OnboardingTasks\TaskList;
-use Automattic\WooCommerce\Admin\Features\OnboardingTasks\Tasks\Products;
+use Automattic\PooCommerce\Admin\Features\OnboardingTasks\Task;
+use Automattic\PooCommerce\Admin\Features\OnboardingTasks\TaskList;
+use Automattic\PooCommerce\Admin\Features\OnboardingTasks\Tasks\Products;
 use WC_Product_Simple;
 use WC_Unit_Test_Case;
 

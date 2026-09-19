@@ -2,16 +2,16 @@
 /**
  * Reports Products REST API Test
  *
- * @package WooCommerce\Admin\Tests\API
+ * @package PooCommerce\Admin\Tests\API
  * @since 3.5.0
  */
 
-use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Enums\OrderStatus;
 
 /**
  * Reports Products REST API Test Class
  *
- * @package WooCommerce\Admin\Tests\API
+ * @package PooCommerce\Admin\Tests\API
  * @since 3.5.0
  */
 class WC_Admin_Tests_API_Reports_Products extends WC_REST_Unit_Test_Case {
@@ -183,7 +183,7 @@ class WC_Admin_Tests_API_Reports_Products extends WC_REST_Unit_Test_Case {
 	 * The client used to resolve the search itself and pass back at most 100 product IDs, so any
 	 * match past that was missing from the report.
 	 *
-	 * @see https://github.com/woocommerce/woocommerce/issues/50786
+	 * @see https://github.com/poocommerce/poocommerce/issues/50786
 	 */
 	public function test_get_reports_search_param_is_not_capped_at_100_products() {
 		wp_set_current_user( $this->user );

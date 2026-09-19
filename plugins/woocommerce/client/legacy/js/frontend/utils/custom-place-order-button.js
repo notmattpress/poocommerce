@@ -15,7 +15,7 @@
 	window.wc = window.wc || {};
 	window.wc.customPlaceOrderButton = window.wc.customPlaceOrderButton || {};
 
-	// Inject critical CSS inline to ensure it works even when themes dequeue woocommerce.css
+	// Inject critical CSS inline to ensure it works even when themes dequeue poocommerce.css
 	( function injectStyles() {
 		var styleId = 'wc-custom-place-order-button-styles';
 		if ( document.getElementById( styleId ) ) {
@@ -254,7 +254,7 @@
 	// Public API (for gateway developers)
 	window.wc.customPlaceOrderButton.register = registerCustomPlaceOrderButton;
 
-	// Internal API (used by WooCommerce core, not for external use)
+	// Internal API (used by PooCommerce core, not for external use)
 	window.wc.customPlaceOrderButton.__maybeShow = maybeShowCustomPlaceOrderButton;
 	window.wc.customPlaceOrderButton.__maybeHideDefaultButtonOnInit = maybeHideDefaultButtonOnInit;
 	window.wc.customPlaceOrderButton.__cleanup = cleanupCurrentCustomButton;

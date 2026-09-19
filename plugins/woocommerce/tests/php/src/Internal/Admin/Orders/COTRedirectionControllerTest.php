@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\Orders;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\Orders;
 
-use Automattic\WooCommerce\Internal\Admin\Orders\COTRedirectionController;
+use Automattic\PooCommerce\Internal\Admin\Orders\COTRedirectionController;
 
 /**
  * Describes our redirection logic covering HPOS admin screens when Custom Order Tables are not authoritative.

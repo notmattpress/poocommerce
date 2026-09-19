@@ -2,10 +2,10 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\StockNotifications;
+namespace Automattic\PooCommerce\Internal\StockNotifications;
 
-use Automattic\WooCommerce\Internal\StockNotifications\Utilities\EligibilityService;
-use Automattic\WooCommerce\Internal\StockNotifications\AsyncTasks\JobManager;
+use Automattic\PooCommerce\Internal\StockNotifications\Utilities\EligibilityService;
+use Automattic\PooCommerce\Internal\StockNotifications\AsyncTasks\JobManager;
 use WC_Product;
 
 /**
@@ -63,8 +63,8 @@ class StockSyncController {
 	 */
 	public function __construct() {
 		// Event handlers.
-		add_action( 'woocommerce_product_set_stock_status', array( $this, 'handle_product_stock_status_change' ), 100, 3 );
-		add_action( 'woocommerce_variation_set_stock_status', array( $this, 'handle_product_stock_status_change' ), 100, 3 );
+		add_action( 'poocommerce_product_set_stock_status', array( $this, 'handle_product_stock_status_change' ), 100, 3 );
+		add_action( 'poocommerce_variation_set_stock_status', array( $this, 'handle_product_stock_status_change' ), 100, 3 );
 
 		// Process the queue on shutdown.
 		add_action( 'shutdown', array( $this, 'process_queue' ) );
@@ -151,7 +151,7 @@ class StockSyncController {
 		 *
 		 * @param array $product_ids The product IDs to process.
 		 */
-		do_action( 'woocommerce_customer_stock_notifications_product_sync', $product_ids );
+		do_action( 'poocommerce_customer_stock_notifications_product_sync', $product_ids );
 		$this->queue = array();
 	}
 
@@ -167,7 +167,7 @@ class StockSyncController {
 		}
 
 		/* translators: 1 = URL of the Back in Stock Notifications page */
-		$notice_message = sprintf( __( 'Back-in-stock notifications for this product are now being processed. Subscribed customers will receive these emails over the next few minutes. You can monitor or manage individual subscriptions on the <a href="%s">Stock Notifications page</a>.', 'woocommerce' ), sprintf( admin_url( 'admin.php?page=wc-customer-stock-notifications&customer_stock_notifications_product_filter=%d&status=active_customer_stock_notifications&filter_action=Filter' ), $product_id ) );
+		$notice_message = sprintf( __( 'Back-in-stock notifications for this product are now being processed. Subscribed customers will receive these emails over the next few minutes. You can monitor or manage individual subscriptions on the <a href="%s">Stock Notifications page</a>.', 'poocommerce' ), sprintf( admin_url( 'admin.php?page=wc-customer-stock-notifications&customer_stock_notifications_product_filter=%d&status=active_customer_stock_notifications&filter_action=Filter' ), $product_id ) );
 
 		update_option( 'wc_customer_stock_notifications_product_sync_notice', $notice_message );
 	}
@@ -191,7 +191,7 @@ class StockSyncController {
 			$notice_message,
 			array(
 				'type'        => 'info',
-				'id'          => 'woocommerce_customer_stock_notifications_product_sync_notice',
+				'id'          => 'poocommerce_customer_stock_notifications_product_sync_notice',
 				'dismissible' => false,
 			)
 		);

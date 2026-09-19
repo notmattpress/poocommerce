@@ -5,12 +5,12 @@ import { __ } from '@wordpress/i18n';
 import { Disabled, PanelBody } from '@wordpress/components';
 import { InspectorControls } from '@wordpress/block-editor';
 import ServerSideRender from '@wordpress/server-side-render';
-import GridContentControl from '@woocommerce/editor-components/grid-content-control';
-import GridLayoutControl from '@woocommerce/editor-components/grid-layout-control';
-import ProductCategoryControl from '@woocommerce/editor-components/product-category-control';
-import ProductStockControl from '@woocommerce/editor-components/product-stock-control';
-import { gridBlockPreview } from '@woocommerce/resource-previews';
-import { getSetting } from '@woocommerce/settings';
+import GridContentControl from '@poocommerce/editor-components/grid-content-control';
+import GridLayoutControl from '@poocommerce/editor-components/grid-layout-control';
+import ProductCategoryControl from '@poocommerce/editor-components/product-category-control';
+import ProductStockControl from '@poocommerce/editor-components/product-stock-control';
+import { gridBlockPreview } from '@poocommerce/resource-previews';
+import { getSetting } from '@poocommerce/settings';
 
 /**
  * Internal dependencies
@@ -38,7 +38,7 @@ export const ProductTopRatedBlock = ( {
 	const getInspectorControls = () => {
 		return (
 			<InspectorControls key="inspector">
-				<PanelBody title={ __( 'Layout', 'woocommerce' ) } initialOpen>
+				<PanelBody title={ __( 'Layout', 'poocommerce' ) } initialOpen>
 					<GridLayoutControl
 						columns={ columns }
 						rows={ rows }
@@ -50,7 +50,7 @@ export const ProductTopRatedBlock = ( {
 						maxRows={ getSetting( 'maxRows', 6 ) }
 					/>
 				</PanelBody>
-				<PanelBody title={ __( 'Content', 'woocommerce' ) } initialOpen>
+				<PanelBody title={ __( 'Content', 'poocommerce' ) } initialOpen>
 					<GridContentControl
 						settings={ contentVisibility }
 						onChange={ ( value ) =>
@@ -59,7 +59,7 @@ export const ProductTopRatedBlock = ( {
 					/>
 				</PanelBody>
 				<PanelBody
-					title={ __( 'Filter by Product Category', 'woocommerce' ) }
+					title={ __( 'Filter by Product Category', 'poocommerce' ) }
 					initialOpen={ false }
 				>
 					<ProductCategoryControl
@@ -75,7 +75,7 @@ export const ProductTopRatedBlock = ( {
 					/>
 				</PanelBody>
 				<PanelBody
-					title={ __( 'Filter by stock status', 'woocommerce' ) }
+					title={ __( 'Filter by stock status', 'poocommerce' ) }
 					initialOpen={ false }
 				>
 					<ProductStockControl

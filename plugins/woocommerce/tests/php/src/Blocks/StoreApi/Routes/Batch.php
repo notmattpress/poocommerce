@@ -3,10 +3,10 @@
  * Controller Tests.
  */
 
-namespace Automattic\WooCommerce\Tests\Blocks\StoreApi\Routes;
+namespace Automattic\PooCommerce\Tests\Blocks\StoreApi\Routes;
 
-use Automattic\WooCommerce\Tests\Blocks\StoreApi\Routes\ControllerTestCase;
-use Automattic\WooCommerce\Tests\Blocks\Helpers\FixtureData;
+use Automattic\PooCommerce\Tests\Blocks\StoreApi\Routes\ControllerTestCase;
+use Automattic\PooCommerce\Tests\Blocks\Helpers\FixtureData;
 
 /**
  * Batch Controller Tests.
@@ -18,7 +18,7 @@ class Batch extends ControllerTestCase {
 	 */
 	protected function setUp(): void {
 		add_filter(
-			'__experimental_woocommerce_store_api_batch_request_methods',
+			'__experimental_poocommerce_store_api_batch_request_methods',
 			function ( $methods ) {
 				$methods[] = 'GET';
 				return $methods;
@@ -142,7 +142,7 @@ class Batch extends ControllerTestCase {
 		$stored_cart              = WC()->cart->get_cart_for_session();
 		$cart_contents_backup     = WC()->cart->get_cart_contents();
 		$cart_backup              = WC()->cart;
-		$load_action_count        = $GLOBALS['wp_actions']['woocommerce_load_cart_from_session'] ?? null;
+		$load_action_count        = $GLOBALS['wp_actions']['poocommerce_load_cart_from_session'] ?? null;
 		$current_user_id          = get_current_user_id();
 		$is_singular_backup       = $wp_query->is_singular;
 		$is_archive_backup        = $wp_query->is_archive;
@@ -157,8 +157,8 @@ class Batch extends ControllerTestCase {
 		};
 		WC()->session->set( 'cart', $stored_cart );
 		WC()->cart->set_cart_contents( array() );
-		unset( $GLOBALS['wp_actions']['woocommerce_load_cart_from_session'] );
-		add_filter( 'woocommerce_get_cart_item_from_session', $session_failure_callback );
+		unset( $GLOBALS['wp_actions']['poocommerce_load_cart_from_session'] );
+		add_filter( 'poocommerce_get_cart_item_from_session', $session_failure_callback );
 
 		$request = new \WP_REST_Request( 'POST', '/wc/store/v1/batch' );
 		$request->set_body_params(
@@ -203,15 +203,15 @@ class Batch extends ControllerTestCase {
 			WC()->cart->empty_cart();
 			$this->assertSame( $stored_cart, WC()->session->get( 'cart' ), 'Emptying the failed cart should not destroy the session.' );
 
-			do_action( 'woocommerce_removed_coupon', 'synthetic-coupon' );
+			do_action( 'poocommerce_removed_coupon', 'synthetic-coupon' );
 			$this->assertSame( $stored_cart, WC()->session->get( 'cart' ), 'The failed cart should not update the session.' );
 
 			$user_id                = self::factory()->user->create();
-			$persistent_cart_key    = '_woocommerce_persistent_cart_' . get_current_blog_id();
+			$persistent_cart_key    = '_poocommerce_persistent_cart_' . get_current_blog_id();
 			$stored_persistent_cart = array( 'cart' => $stored_cart );
 			wp_set_current_user( $user_id );
 			update_user_meta( $user_id, $persistent_cart_key, $stored_persistent_cart );
-			do_action( 'woocommerce_cart_item_set_quantity', 'synthetic-item', 2, $cart_backup );
+			do_action( 'poocommerce_cart_item_set_quantity', 'synthetic-item', 2, $cart_backup );
 			$this->assertSame( $stored_persistent_cart, get_user_meta( $user_id, $persistent_cart_key, true ), 'The failed cart should not update the persistent cart.' );
 			$failed_cart_session->persistent_cart_destroy();
 			$this->assertSame( $stored_persistent_cart, get_user_meta( $user_id, $persistent_cart_key, true ), 'The failed cart should not destroy the persistent cart.' );
@@ -224,7 +224,7 @@ class Batch extends ControllerTestCase {
 			$failed_cart_session->clean_up_removed_cart_contents();
 			$this->assertSame( $stored_removed_cart_contents, WC()->session->get( 'removed_cart_contents' ), 'The failed cart should not clean up removed cart contents.' );
 		} finally {
-			remove_filter( 'woocommerce_get_cart_item_from_session', $session_failure_callback );
+			remove_filter( 'poocommerce_get_cart_item_from_session', $session_failure_callback );
 			\WC_Cart_Session::set_updates_enabled_for_cart( $cart_backup, true );
 			WC()->cart = $cart_backup;
 			WC()->cart->set_cart_contents( $cart_contents_backup );
@@ -233,10 +233,10 @@ class Batch extends ControllerTestCase {
 			$wp_query->is_archive  = $is_archive_backup;
 			$wp_query->is_search   = $is_search_backup;
 			if ( null === $load_action_count ) {
-				unset( $GLOBALS['wp_actions']['woocommerce_load_cart_from_session'] );
+				unset( $GLOBALS['wp_actions']['poocommerce_load_cart_from_session'] );
 			} else {
 				// phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- Restore the action count changed by the test.
-				$GLOBALS['wp_actions']['woocommerce_load_cart_from_session'] = $load_action_count;
+				$GLOBALS['wp_actions']['poocommerce_load_cart_from_session'] = $load_action_count;
 			}
 		}
 	}
@@ -322,7 +322,7 @@ class Batch extends ControllerTestCase {
 		$response = rest_get_server()->dispatch( $request );
 
 		$this->assertEquals( 400, $response->get_status(), "Path '$path' should be rejected" );
-		$this->assertEquals( 'woocommerce_rest_invalid_path', $response->get_data()['code'], "Path '$path' should return woocommerce_rest_invalid_path error code" );
+		$this->assertEquals( 'poocommerce_rest_invalid_path', $response->get_data()['code'], "Path '$path' should return poocommerce_rest_invalid_path error code" );
 	}
 
 	/**
@@ -361,7 +361,7 @@ class Batch extends ControllerTestCase {
 
 		$response = rest_get_server()->dispatch( $request );
 
-		$this->assertNotEquals( 'woocommerce_rest_invalid_path', $response->get_data()['code'] ?? '', "Path '$path' should not be rejected by path validation" );
+		$this->assertNotEquals( 'poocommerce_rest_invalid_path', $response->get_data()['code'] ?? '', "Path '$path' should not be rejected by path validation" );
 	}
 
 	/**
@@ -406,6 +406,6 @@ class Batch extends ControllerTestCase {
 		$response = rest_get_server()->dispatch( $request );
 
 		$this->assertEquals( 400, $response->get_status(), 'Batch should be rejected when any sub-request path is invalid' );
-		$this->assertEquals( 'woocommerce_rest_invalid_path', $response->get_data()['code'] );
+		$this->assertEquals( 'poocommerce_rest_invalid_path', $response->get_data()['code'] );
 	}
 }

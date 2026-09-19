@@ -7,10 +7,10 @@ const CopyWebpackPlugin = require( 'copy-webpack-plugin' );
 /**
  * External dependencies
  */
-const wcAdminWebpackConfig = require( '../../plugins/woocommerce/client/admin/webpack.config.js' );
+const wcAdminWebpackConfig = require( '../../plugins/poocommerce/client/admin/webpack.config.js' );
 const {
 	WebpackRTLPlugin,
-} = require( '@woocommerce/internal-build/style-build' );
+} = require( '@poocommerce/internal-build/style-build' );
 
 module.exports = ( storybookConfig ) => {
 	storybookConfig.module.rules = [
@@ -21,19 +21,19 @@ module.exports = ( storybookConfig ) => {
 	// Copy (don't share) the admin alias object since we mutate it below.
 	storybookConfig.resolve.alias = { ...wcAdminWebpackConfig.resolve.alias };
 
-	// Bundle every `@woocommerce/*` package from source, mirroring the admin
+	// Bundle every `@poocommerce/*` package from source, mirroring the admin
 	// webpack config. Each package declares a `"wc-source"` conditional export
 	// resolving to its `./src/index.ts`, so activating the condition picks up
 	// all current and future packages without a hardcoded alias list.
 	storybookConfig.resolve.conditionNames = [ 'wc-source', '...' ];
 
-	storybookConfig.resolve.alias[ '@woocommerce/settings' ] = path.resolve(
+	storybookConfig.resolve.alias[ '@poocommerce/settings' ] = path.resolve(
 		__dirname,
 		'./setting.mock.js'
 	);
 
 	storybookConfig.resolve.modules = [
-		path.join( __dirname, '../../plugins/woocommerce/client/admin/client' ),
+		path.join( __dirname, '../../plugins/poocommerce/client/admin/client' ),
 		'node_modules',
 	];
 

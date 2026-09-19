@@ -2,11 +2,11 @@
 /**
  * Class WC_Tests_Admin_Report file.
  *
- * @package WooCommerce\Tests\Admin\Reports
+ * @package PooCommerce\Tests\Admin\Reports
  */
 
-use Automattic\WooCommerce\Enums\OrderInternalStatus;
-use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Enums\OrderInternalStatus;
+use Automattic\PooCommerce\Enums\OrderStatus;
 
 /**
  * Tests for the WC_Admin_Report class.
@@ -14,7 +14,7 @@ use Automattic\WooCommerce\Enums\OrderStatus;
 class WC_Tests_Admin_Report extends WC_Unit_Test_Case {
 
 	/**
-	 * Load the necessary files, as they're not automatically loaded by WooCommerce.
+	 * Load the necessary files, as they're not automatically loaded by PooCommerce.
 	 *
 	 */
 	public static function setUpBeforeClass(): void {
@@ -64,7 +64,7 @@ class WC_Tests_Admin_Report extends WC_Unit_Test_Case {
 	public function test_get_order_report_data_returns_empty_string_if_data_is_empty() {
 		$report = new WC_Admin_Report();
 
-		add_filter( 'woocommerce_reports_get_order_report_data_args', '__return_empty_string' );
+		add_filter( 'poocommerce_reports_get_order_report_data_args', '__return_empty_string' );
 
 		$this->assertEmpty( $report->get_order_report_data() );
 	}
@@ -174,7 +174,7 @@ class WC_Tests_Admin_Report extends WC_Unit_Test_Case {
 	 */
 	public function test_get_currency_tooltip_encodes_filtered_symbol(): void {
 		$currency_symbol = "'\"\\</script>€雪";
-		$currency_pos    = get_option( 'woocommerce_currency_pos', null );
+		$currency_pos    = get_option( 'poocommerce_currency_pos', null );
 		$positions       = array(
 			'right'       => array( 'append_tooltip', $currency_symbol ),
 			'right_space' => array( 'append_tooltip', '&nbsp;' . $currency_symbol ),
@@ -186,10 +186,10 @@ class WC_Tests_Admin_Report extends WC_Unit_Test_Case {
 			return $currency_symbol;
 		};
 
-		add_filter( 'woocommerce_currency_symbol', $filter );
+		add_filter( 'poocommerce_currency_symbol', $filter );
 		try {
 			foreach ( $positions as $position => $expected ) {
-				update_option( 'woocommerce_currency_pos', $position );
+				update_option( 'poocommerce_currency_pos', $position );
 				$fragment = $report->get_currency_tooltip();
 
 				$this->assertSame( 1, preg_match( '/^(append_tooltip|prepend_tooltip): (.+)$/s', $fragment, $matches ) );
@@ -197,11 +197,11 @@ class WC_Tests_Admin_Report extends WC_Unit_Test_Case {
 				$this->assertSame( $expected[1], json_decode( $matches[2], true, 512, JSON_THROW_ON_ERROR ) );
 			}
 		} finally {
-			remove_filter( 'woocommerce_currency_symbol', $filter );
+			remove_filter( 'poocommerce_currency_symbol', $filter );
 			if ( null === $currency_pos ) {
-				delete_option( 'woocommerce_currency_pos' );
+				delete_option( 'poocommerce_currency_pos' );
 			} else {
-				update_option( 'woocommerce_currency_pos', $currency_pos );
+				update_option( 'poocommerce_currency_pos', $currency_pos );
 			}
 		}
 	}

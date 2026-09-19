@@ -1,8 +1,8 @@
 <?php
 /**
- * WooCommerce Brands Unit tests suit
+ * PooCommerce Brands Unit tests suit
  *
- * @package woocommerce-brands
+ * @package poocommerce-brands
  */
 
 declare( strict_types = 1);
@@ -53,12 +53,12 @@ class WC_Admin_Brands_Test extends WC_Unit_Test_Case {
 		// Brand column starts after "name" so the reorder actually moves it.
 		$columns = array(
 			'cb'                     => '<input type="checkbox" />',
-			'name'                   => __( 'Name', 'woocommerce' ),
-			'taxonomy-product_brand' => __( 'Brands', 'woocommerce' ),
-			'sku'                    => __( 'SKU', 'woocommerce' ),
-			'product_cat'            => __( 'Categories', 'woocommerce' ),
-			'featured'               => __( 'Featured', 'woocommerce' ),
-			'date'                   => __( 'Date', 'woocommerce' ),
+			'name'                   => __( 'Name', 'poocommerce' ),
+			'taxonomy-product_brand' => __( 'Brands', 'poocommerce' ),
+			'sku'                    => __( 'SKU', 'poocommerce' ),
+			'product_cat'            => __( 'Categories', 'poocommerce' ),
+			'featured'               => __( 'Featured', 'poocommerce' ),
+			'date'                   => __( 'Date', 'poocommerce' ),
 		);
 
 		$brands_admin = new WC_Brands_Admin();
@@ -91,8 +91,8 @@ class WC_Admin_Brands_Test extends WC_Unit_Test_Case {
 
 		$columns = array(
 			'cb'   => '<input type="checkbox" />',
-			'name' => __( 'Name', 'woocommerce' ),
-			'date' => __( 'Date', 'woocommerce' ),
+			'name' => __( 'Name', 'poocommerce' ),
+			'date' => __( 'Date', 'poocommerce' ),
 		);
 
 		$brands_admin = new WC_Brands_Admin();
@@ -133,7 +133,7 @@ class WC_Admin_Brands_Test extends WC_Unit_Test_Case {
 		wp_set_post_terms( $simple_product->get_id(), array( $term_a_id, $term_b_id, $term_c_id ), 'product_brand' );
 
 		add_filter(
-			'woocommerce_product_brand_filter_threshold',
+			'poocommerce_product_brand_filter_threshold',
 			function () {
 				return 3;
 			}
@@ -182,7 +182,7 @@ class WC_Admin_Brands_Test extends WC_Unit_Test_Case {
 		wp_set_post_terms( $simple_product->get_id(), array( $term_a_id, $term_b_id, $term_c_id ), 'product_brand' );
 
 		add_filter(
-			'woocommerce_product_brand_filter_threshold',
+			'poocommerce_product_brand_filter_threshold',
 			function () {
 				return 2;
 			}

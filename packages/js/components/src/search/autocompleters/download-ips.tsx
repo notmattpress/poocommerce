@@ -13,7 +13,7 @@ import { AutoCompleter } from './types';
 
 const completer: AutoCompleter = {
 	name: 'download-ips',
-	className: 'woocommerce-search__download-ip-result',
+	className: 'poocommerce-search__download-ip-result',
 	options( match ) {
 		const query = match
 			? {
@@ -36,7 +36,7 @@ const completer: AutoCompleter = {
 		return (
 			<span
 				key="name"
-				className="woocommerce-search__result-name"
+				className="poocommerce-search__result-name"
 				aria-label={ download.user_ip_address }
 			>
 				{ match?.suggestionBeforeMatch }

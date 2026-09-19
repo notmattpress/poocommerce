@@ -2,9 +2,9 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\PushNotifications\Notifications;
+namespace Automattic\PooCommerce\Tests\Internal\PushNotifications\Notifications;
 
-use Automattic\WooCommerce\Internal\PushNotifications\Notifications\NewReviewNotification;
+use Automattic\PooCommerce\Internal\PushNotifications\Notifications\NewReviewNotification;
 use WC_Helper_Product;
 use WC_Unit_Test_Case;
 

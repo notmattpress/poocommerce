@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Utilities;
+namespace Automattic\PooCommerce\Tests\Internal\Utilities;
 
-use Automattic\WooCommerce\Internal\Utilities\HtmlSanitizer;
+use Automattic\PooCommerce\Internal\Utilities\HtmlSanitizer;
 
 /**
  * Tests relating to HtmlSanitizer.

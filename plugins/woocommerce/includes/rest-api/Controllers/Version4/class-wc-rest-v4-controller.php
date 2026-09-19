@@ -2,11 +2,11 @@
 /**
  * REST Controller for API Version 4
  *
- * This is a completely independent base controller for WooCommerce API v4.
+ * This is a completely independent base controller for PooCommerce API v4.
  * Unlike previous versions, this does not inherit from v3, v2, or v1 controllers.
  *
  * @class   WC_REST_V4_Controller
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  */
 
 declare(strict_types=1);
@@ -16,9 +16,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * WooCommerce REST API Version 4 Base Controller
+ * PooCommerce REST API Version 4 Base Controller
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @extends WP_REST_Controller
  * @version 4.0.0
  */
@@ -48,8 +48,8 @@ abstract class WC_REST_V4_Controller extends WP_REST_Controller {
 	protected function check_permissions( $request, $permission = 'read' ) {
 		if ( ! wc_rest_check_manager_permissions( 'settings', $permission ) ) {
 			return new WP_Error(
-				'woocommerce_rest_cannot_' . $permission,
-				__( 'Sorry, you are not allowed to perform this action.', 'woocommerce' ),
+				'poocommerce_rest_cannot_' . $permission,
+				__( 'Sorry, you are not allowed to perform this action.', 'poocommerce' ),
 				array( 'status' => rest_authorization_required_code() )
 			);
 		}

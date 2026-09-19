@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { WC_API_PATH } from '@woocommerce/e2e-utils-playwright';
+import { WC_API_PATH } from '@poocommerce/e2e-utils-playwright';
 
 /**
  * Internal dependencies
@@ -123,7 +123,7 @@ for ( const productType of Object.keys( productData ) ) {
 				// Product attributes
 				const attributeName = getFakeAttribute().name;
 				await page
-					.locator( '#woocommerce-product-data' )
+					.locator( '#poocommerce-product-data' )
 					.getByRole( 'link', { name: 'Attributes' } )
 					.click();
 				await page
@@ -189,7 +189,7 @@ for ( const productType of Object.keys( productData ) ) {
 
 			await test.step( 'add shipping details', async () => {
 				await page
-					.locator( '#woocommerce-product-data' )
+					.locator( '#poocommerce-product-data' )
 					.getByRole( 'link', { name: 'Shipping' } )
 					.click();
 				await expect(

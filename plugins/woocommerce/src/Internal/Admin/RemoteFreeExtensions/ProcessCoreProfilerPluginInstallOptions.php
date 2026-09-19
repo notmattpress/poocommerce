@@ -2,7 +2,7 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\Admin\RemoteFreeExtensions;
+namespace Automattic\PooCommerce\Internal\Admin\RemoteFreeExtensions;
 
 use WC_Logger_Interface;
 

@@ -6,7 +6,7 @@ import {
 	test as base,
 	expect,
 	getProductAttributeIds,
-} from '@woocommerce/e2e-utils';
+} from '@poocommerce/e2e-utils';
 
 const GRAY_PRODUCT_TITLES = [ 'T-Shirt', 'T-Shirt with Logo' ];
 const COLOR_ATTRIBUTES_WITH_COUNTS = [
@@ -26,7 +26,7 @@ const test = base.extend< { templateCompiler: TemplateCompiler } >( {
 	},
 } );
 
-test.describe( 'woocommerce/product-filter-attribute - Frontend', () => {
+test.describe( 'poocommerce/product-filter-attribute - Frontend', () => {
 	test.describe( 'With default display style', () => {
 		test.beforeEach( async ( { templateCompiler, page } ) => {
 			const { colorAttributeId } = await getProductAttributeIds();
@@ -64,7 +64,7 @@ test.describe( 'woocommerce/product-filter-attribute - Frontend', () => {
 				includeHidden: true,
 			} );
 			const productTitles = page.locator(
-				'.wp-block-woocommerce-product-template .wp-block-post-title'
+				'.wp-block-poocommerce-product-template .wp-block-post-title'
 			);
 			const expectFilterParams = async (
 				expectedValue: string | null

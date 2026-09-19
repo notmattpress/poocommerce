@@ -5,11 +5,11 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Internal\RestApi\Routes\V4\Orders;
+namespace Automattic\PooCommerce\Internal\RestApi\Routes\V4\Orders;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Utilities\MetaDataUtil;
+use Automattic\PooCommerce\Utilities\MetaDataUtil;
 use WC_REST_Exception;
 use WP_Error;
 use WP_REST_Request;
@@ -20,7 +20,7 @@ use WP_REST_Request;
  *
  * Class OrderLineMetaValidator
  *
- * @package Automattic\WooCommerce\Internal\RestApi\Routes\V4\Orders
+ * @package Automattic\PooCommerce\Internal\RestApi\Routes\V4\Orders
  */
 class OrderLineMetaValidator {
 
@@ -57,7 +57,7 @@ class OrderLineMetaValidator {
 		foreach ( $value as $line ) {
 			if ( is_array( $line ) && self::has_serialized_meta_value( $line['meta_data'] ?? null ) ) {
 				return new WP_Error(
-					'woocommerce_rest_invalid_order_item_meta_key',
+					'poocommerce_rest_invalid_order_item_meta_key',
 					self::get_serialized_meta_value_error_message(),
 					array( 'status' => 400 )
 				);
@@ -79,7 +79,7 @@ class OrderLineMetaValidator {
 	 */
 	public static function assert_no_serialized_meta_value( array $meta_data ): void {
 		if ( self::has_serialized_meta_value( $meta_data ) ) {
-			throw new WC_REST_Exception( 'woocommerce_rest_invalid_order_item_meta_key', esc_html( self::get_serialized_meta_value_error_message() ), 400 );
+			throw new WC_REST_Exception( 'poocommerce_rest_invalid_order_item_meta_key', esc_html( self::get_serialized_meta_value_error_message() ), 400 );
 		}
 	}
 
@@ -117,7 +117,7 @@ class OrderLineMetaValidator {
 	private static function get_serialized_meta_value_error_message(): string {
 		return sprintf(
 			/* translators: %s: order item meta key. */
-			__( 'The "%s" order line meta key cannot hold a serialized value.', 'woocommerce' ),
+			__( 'The "%s" order line meta key cannot hold a serialized value.', 'poocommerce' ),
 			self::GUARDED_META_KEY
 		);
 	}

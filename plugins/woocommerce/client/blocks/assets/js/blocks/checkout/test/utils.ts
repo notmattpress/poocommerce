@@ -1,8 +1,8 @@
 /**
  * External dependencies
  */
-import { CartBillingAddress } from '@woocommerce/type-defs/cart';
-import { extractName, formatAddress } from '@woocommerce/blocks/checkout/utils';
+import { CartBillingAddress } from '@poocommerce/type-defs/cart';
+import { extractName, formatAddress } from '@poocommerce/blocks/checkout/utils';
 
 describe( 'extractName', () => {
 	it.each( [
@@ -72,7 +72,7 @@ describe( 'formatAddress', () => {
 		postcode: 'M5B1M4',
 		country: 'CA',
 		email: 'jon.doe@mail.com',
-		company: 'WooCommerce',
+		company: 'PooCommerce',
 		phone: '1234567890',
 	};
 
@@ -83,7 +83,7 @@ describe( 'formatAddress', () => {
 			{
 				name: 'John Doe',
 				address: [
-					'WooCommerce',
+					'PooCommerce',
 					'123 Yonge St',
 					'Apt 1',
 					'Toronto',
@@ -100,7 +100,7 @@ describe( 'formatAddress', () => {
 			{
 				name: 'John Doe',
 				address: [
-					'WooCommerce',
+					'PooCommerce',
 					'123 Yonge St',
 					'Apt 1',
 					'Toronto',
@@ -117,7 +117,7 @@ describe( 'formatAddress', () => {
 			{
 				name: 'JOHN DOE',
 				address: [
-					'WooCommerce',
+					'PooCommerce',
 					'123 Yonge St',
 					'Apt 1',
 					'Toronto',
@@ -134,7 +134,7 @@ describe( 'formatAddress', () => {
 			{
 				name: 'Doe JOHN',
 				address: [
-					'WooCommerce',
+					'PooCommerce',
 					'123 Yonge St',
 					'Apt 1',
 					'Toronto',
@@ -151,7 +151,7 @@ describe( 'formatAddress', () => {
 			{
 				name: 'Doe JOHN',
 				address: [
-					'WooCommerce',
+					'PooCommerce',
 					'123 Yonge St',
 					'Apt 1',
 					'Toronto',
@@ -228,13 +228,13 @@ describe( 'formatAddress', () => {
 				postcode: '',
 				country: '',
 				email: 'jon.doe@mail.com',
-				company: 'WooCommerce',
+				company: 'PooCommerce',
 				phone: '1234567890',
 			},
 			'{name}\n{company}\n{address_1}\n{address_2}\n{city}\n{state}\n{postcode}\n{country}',
 			{
 				name: '',
-				address: [ 'WooCommerce' ],
+				address: [ 'PooCommerce' ],
 			},
 		],
 		// Test partial address values.
@@ -249,13 +249,13 @@ describe( 'formatAddress', () => {
 				postcode: '',
 				country: '',
 				email: 'jon.doe@mail.com',
-				company: 'WooCommerce',
+				company: 'PooCommerce',
 				phone: '1234567890',
 			},
 			'{name}\n{company}\n{address_1}\n{address_2}\n{city}\n{state}\n{postcode}\n{country}',
 			{
 				name: 'Jon',
-				address: [ 'WooCommerce', 'Toronto' ],
+				address: [ 'PooCommerce', 'Toronto' ],
 			},
 		],
 	] )(

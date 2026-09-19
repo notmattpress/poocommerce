@@ -2,12 +2,12 @@
 /**
  * Tests for Products API.
  *
- * @package WooCommerce\Tests\API
+ * @package PooCommerce\Tests\API
  * @since 3.5.0
  */
 
-use Automattic\WooCommerce\Enums\ProductStatus;
-use Automattic\WooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Enums\ProductStatus;
+use Automattic\PooCommerce\Enums\ProductType;
 use DMS\PHPUnitExtensions\ArraySubset\ArraySubsetAsserts;
 
 // phpcs:ignore Squiz.Commenting.FileComment.Missing
@@ -53,11 +53,11 @@ class WC_Tests_API_Product extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_get_products() {
 		wp_set_current_user( $this->user );
-		$external_product = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_external_product();
+		$external_product = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_external_product();
 		$external_product->set_date_created( '2020-01-01 00:00:00' );
 		$external_product->save();
 
-		$simple_product = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
+		$simple_product = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
 		$simple_product->set_date_created( '2020-01-02 00:00:00' );
 		$simple_product->save();
 
@@ -78,7 +78,7 @@ class WC_Tests_API_Product extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_get_trashed_products() {
 		wp_set_current_user( $this->user );
-		$product    = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
+		$product    = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
 		$data_store = WC_Data_Store::load( 'product' );
 		$data_store->delete( $product );
 		$request = new WP_REST_Request( 'GET', '/wc/v3/products' );
@@ -97,7 +97,7 @@ class WC_Tests_API_Product extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_get_trashed_products_not_returned_by_default() {
 		wp_set_current_user( $this->user );
-		$product    = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
+		$product    = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
 		$data_store = WC_Data_Store::load( 'product' );
 		$data_store->delete( $product );
 
@@ -115,7 +115,7 @@ class WC_Tests_API_Product extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_get_trashed_products_returned_by_id() {
 		wp_set_current_user( $this->user );
-		$product    = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
+		$product    = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
 		$data_store = WC_Data_Store::load( 'product' );
 		$data_store->delete( $product );
 
@@ -133,7 +133,7 @@ class WC_Tests_API_Product extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_get_products_without_permission() {
 		wp_set_current_user( 0 );
-		\Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
+		\Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
 		$response = $this->server->dispatch( new WP_REST_Request( 'GET', '/wc/v3/products' ) );
 		$this->assertEquals( 401, $response->get_status() );
 	}
@@ -145,7 +145,7 @@ class WC_Tests_API_Product extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_get_product() {
 		wp_set_current_user( $this->user );
-		$simple   = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_external_product();
+		$simple   = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_external_product();
 		$response = $this->server->dispatch( new WP_REST_Request( 'GET', '/wc/v3/products/' . $simple->get_id() ) );
 		$product  = $response->get_data();
 
@@ -170,7 +170,7 @@ class WC_Tests_API_Product extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_get_product_without_permission() {
 		wp_set_current_user( 0 );
-		$product  = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
+		$product  = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
 		$response = $this->server->dispatch( new WP_REST_Request( 'GET', '/wc/v3/products/' . $product->get_id() ) );
 		$this->assertEquals( 401, $response->get_status() );
 	}
@@ -182,7 +182,7 @@ class WC_Tests_API_Product extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_delete_product() {
 		wp_set_current_user( $this->user );
-		$product = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
+		$product = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
 
 		$request = new WP_REST_Request( 'DELETE', '/wc/v3/products/' . $product->get_id() );
 		$request->set_param( 'force', true );
@@ -201,7 +201,7 @@ class WC_Tests_API_Product extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_delete_product_without_permission() {
 		wp_set_current_user( 0 );
-		$product = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
+		$product = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
 		$request = new WP_REST_Request( 'DELETE', '/wc/v3/products/' . $product->get_id() );
 		$request->set_param( 'force', true );
 		$response = $this->server->dispatch( $request );
@@ -230,7 +230,7 @@ class WC_Tests_API_Product extends WC_REST_Unit_Test_Case {
 		wp_set_current_user( $this->user );
 
 		// test simple products.
-		$product      = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
+		$product      = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
 		$response     = $this->server->dispatch( new WP_REST_Request( 'GET', '/wc/v3/products/' . $product->get_id() ) );
 		$data         = $response->get_data();
 		$date_created = gmdate( 'Y-m-d\TH:i:s', current_time( 'timestamp' ) );
@@ -271,7 +271,7 @@ class WC_Tests_API_Product extends WC_REST_Unit_Test_Case {
 		wp_delete_attachment( $data['images'][0]['id'], true );
 
 		// test variable product (variations are tested in product-variations.php).
-		$product  = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_variation_product();
+		$product  = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_variation_product();
 		$response = $this->server->dispatch( new WP_REST_Request( 'GET', '/wc/v3/products/' . $product->get_id() ) );
 		$data     = $response->get_data();
 
@@ -317,12 +317,12 @@ class WC_Tests_API_Product extends WC_REST_Unit_Test_Case {
 		$product->delete( true );
 
 		// test external product.
-		$product  = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_external_product();
+		$product  = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_external_product();
 		$response = $this->server->dispatch( new WP_REST_Request( 'GET', '/wc/v3/products/' . $product->get_id() ) );
 		$data     = $response->get_data();
 
 		$this->assertEquals( 'Buy external product', $data['button_text'] );
-		$this->assertEquals( 'https://woocommerce.com', $data['external_url'] );
+		$this->assertEquals( 'https://poocommerce.com', $data['external_url'] );
 
 		$request = new WP_REST_Request( 'PUT', '/wc/v3/products/' . $product->get_id() );
 		$request->set_body_params(
@@ -345,7 +345,7 @@ class WC_Tests_API_Product extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_update_product_without_permission() {
 		wp_set_current_user( 0 );
-		$product = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
+		$product = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
 		$request = new WP_REST_Request( 'PUT', '/wc/v3/products/' . $product->get_id() );
 		$request->set_body_params(
 			array(
@@ -476,7 +476,7 @@ class WC_Tests_API_Product extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_update_complex_meta_27282() {
 		wp_set_current_user( $this->user );
-		$product = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
+		$product = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
 		$product->save();
 		$url = '/wc/v3/products/' . $product->get_id();
 		$this->assert_update_complex_meta( $url );
@@ -487,7 +487,7 @@ class WC_Tests_API_Product extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_update_date_time() {
 		wp_set_current_user( $this->user );
-		$product = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
+		$product = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
 		$product->save();
 		$date_from_sale = '2020-01-01T01:01:01';
 
@@ -546,8 +546,8 @@ class WC_Tests_API_Product extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_products_batch() {
 		wp_set_current_user( $this->user );
-		$product   = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
-		$product_2 = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
+		$product   = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
+		$product_2 = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
 		$request   = new WP_REST_Request( 'POST', '/wc/v3/products/batch' );
 		$request->set_body_params(
 			array(
@@ -604,7 +604,7 @@ class WC_Tests_API_Product extends WC_REST_Unit_Test_Case {
 	public function test_products_filter_post_status() {
 		wp_set_current_user( $this->user );
 		for ( $i = 0; $i < 8; $i++ ) {
-			$product = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
+			$product = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
 			if ( 0 === $i % 2 ) {
 				wp_update_post(
 					array(
@@ -652,7 +652,7 @@ class WC_Tests_API_Product extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_product_schema() {
 		wp_set_current_user( $this->user );
-		$product    = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
+		$product    = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
 		$request    = new WP_REST_Request( 'OPTIONS', '/wc/v3/products/' . $product->get_id() );
 		$response   = $this->server->dispatch( $request );
 		$data       = $response->get_data();
@@ -712,10 +712,10 @@ class WC_Tests_API_Product extends WC_REST_Unit_Test_Case {
 	public function test_get_products_by_type() {
 		wp_set_current_user( $this->user );
 
-		$simple   = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
-		$external = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_external_product();
-		$grouped  = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_grouped_product();
-		$variable = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_variation_product();
+		$simple   = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
+		$external = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_external_product();
+		$grouped  = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_grouped_product();
+		$variable = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_variation_product();
 
 		$product_ids_for_type = array(
 			ProductType::SIMPLE   => array( $simple->get_id() ),
@@ -754,12 +754,12 @@ class WC_Tests_API_Product extends WC_REST_Unit_Test_Case {
 		wp_set_current_user( $this->user );
 
 		// Create a featured product.
-		$feat_product = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
+		$feat_product = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
 		$feat_product->set_featured( true );
 		$feat_product->save();
 
 		// Create a non-featured product.
-		$nonfeat_product = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
+		$nonfeat_product = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
 		$nonfeat_product->save();
 
 		$query_params = array(
@@ -828,12 +828,12 @@ class WC_Tests_API_Product extends WC_REST_Unit_Test_Case {
 		$test_tag_1 = wp_insert_term( 'Tag 1', 'product_tag' );
 
 		// Product with a tag.
-		$product = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
+		$product = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
 		$product->set_tag_ids( array( $test_tag_1['term_id'] ) );
 		$product->save();
 
 		// Product without a tag.
-		$product_2 = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
+		$product_2 = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
 
 		$query_params = array(
 			'tag' => (string) $test_tag_1['term_id'],
@@ -859,17 +859,17 @@ class WC_Tests_API_Product extends WC_REST_Unit_Test_Case {
 		wp_set_current_user( $this->user );
 
 		// Variable product with 2 different variations.
-		$variable_product = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_variation_product();
+		$variable_product = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_variation_product();
 
 		// Terms created by variable product.
 		$term_large = get_term_by( 'slug', 'large', 'pa_size' );
 		$term_small = get_term_by( 'slug', 'small', 'pa_size' );
 
 		// Simple product without attribute.
-		$product_1 = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
+		$product_1 = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
 
 		// Simple product with attribute size = large.
-		$product_2 = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
+		$product_2 = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
 		$product_2->set_attributes( array( 'pa_size' => 'large' ) );
 		$product_2->save();
 
@@ -929,7 +929,7 @@ class WC_Tests_API_Product extends WC_REST_Unit_Test_Case {
 	 * @return object The created object.
 	 */
 	private function get_item_for_date_filtering_tests() {
-		return \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
+		return \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
 	}
 
 	/**

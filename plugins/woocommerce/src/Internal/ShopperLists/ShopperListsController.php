@@ -1,12 +1,12 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\ShopperLists;
+namespace Automattic\PooCommerce\Internal\ShopperLists;
 
-use Automattic\WooCommerce\Internal\Features\FeaturesController;
-use Automattic\WooCommerce\Internal\RegisterHooksInterface;
-use Automattic\WooCommerce\Internal\ShopperLists\Privacy\Privacy;
-use Automattic\WooCommerce\Utilities\FeaturesUtil;
+use Automattic\PooCommerce\Internal\Features\FeaturesController;
+use Automattic\PooCommerce\Internal\RegisterHooksInterface;
+use Automattic\PooCommerce\Internal\ShopperLists\Privacy\Privacy;
+use Automattic\PooCommerce\Utilities\FeaturesUtil;
 
 /**
  * Tracks which shopper-list types are turned on and registers the
@@ -96,10 +96,10 @@ final class ShopperListsController implements RegisterHooksInterface {
 		}
 
 		$endpoint = $this->get_wishlist_endpoint();
-		add_filter( 'woocommerce_get_query_vars', array( $this, 'add_wishlist_query_var' ) );
-		add_filter( 'woocommerce_account_menu_items', array( $this, 'add_wishlist_menu_item' ) );
-		add_filter( 'woocommerce_endpoint_' . $endpoint . '_title', array( $this, 'wishlist_endpoint_title' ) );
-		add_action( 'woocommerce_account_' . $endpoint . '_endpoint', array( $this, 'render_wishlist_endpoint' ) );
+		add_filter( 'poocommerce_get_query_vars', array( $this, 'add_wishlist_query_var' ) );
+		add_filter( 'poocommerce_account_menu_items', array( $this, 'add_wishlist_menu_item' ) );
+		add_filter( 'poocommerce_endpoint_' . $endpoint . '_title', array( $this, 'wishlist_endpoint_title' ) );
+		add_action( 'poocommerce_account_' . $endpoint . '_endpoint', array( $this, 'render_wishlist_endpoint' ) );
 	}
 
 	/**
@@ -109,7 +109,7 @@ final class ShopperListsController implements RegisterHooksInterface {
 	 */
 	public function maybe_flush_rewrite_rules( string $feature_id ): void {
 		if ( 'product_wishlist' === $feature_id ) {
-			update_option( 'woocommerce_queue_flush_rewrite_rules', 'yes' );
+			update_option( 'poocommerce_queue_flush_rewrite_rules', 'yes' );
 		}
 	}
 
@@ -139,7 +139,7 @@ final class ShopperListsController implements RegisterHooksInterface {
 		}
 
 		$wishlist_endpoint = $this->get_wishlist_endpoint();
-		$wishlist_label    = __( 'Wishlist', 'woocommerce' );
+		$wishlist_label    = __( 'Wishlist', 'poocommerce' );
 
 		// Insert the wishlist item before the logout item, or at the end if not present.
 		$logout_pos = array_search( 'customer-logout', array_keys( $items ), true );
@@ -159,16 +159,16 @@ final class ShopperListsController implements RegisterHooksInterface {
 	 * @param string $title Default title.
 	 */
 	public function wishlist_endpoint_title( $title ): string {
-		return __( 'Wishlist', 'woocommerce' );
+		return __( 'Wishlist', 'poocommerce' );
 	}
 
 	/**
 	 * Render the wishlist endpoint by dispatching to the
-	 * `woocommerce/wishlist` block. The block handles the empty state,
+	 * `poocommerce/wishlist` block. The block handles the empty state,
 	 * logged-out guard, asset enqueues, and item rendering.
 	 */
 	public function render_wishlist_endpoint(): void {
 		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- the block string is a static literal; `do_blocks()` invokes the registered block's render callback, which is responsible for its own escaping.
-		echo do_blocks( '<!-- wp:woocommerce/wishlist /-->' );
+		echo do_blocks( '<!-- wp:poocommerce/wishlist /-->' );
 	}
 }

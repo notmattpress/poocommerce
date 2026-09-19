@@ -2,10 +2,10 @@
  * External dependencies
  */
 import debugFactory from 'debug';
-import { getSetting } from '@woocommerce/settings';
+import { getSetting } from '@poocommerce/settings';
 import TraceKit from 'tracekit';
 import { applyFilters } from '@wordpress/hooks';
-import { bumpStat } from '@woocommerce/tracks';
+import { bumpStat } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -24,17 +24,17 @@ const errorLog = ( message: string, ...args: unknown[] ) => {
 };
 
 export const REMOTE_LOGGING_SHOULD_SEND_ERROR_FILTER =
-	'woocommerce_remote_logging_should_send_error';
+	'poocommerce_remote_logging_should_send_error';
 export const REMOTE_LOGGING_ERROR_DATA_FILTER =
-	'woocommerce_remote_logging_error_data';
+	'poocommerce_remote_logging_error_data';
 
 export const REMOTE_LOGGING_LOG_ENDPOINT_FILTER =
-	'woocommerce_remote_logging_log_endpoint';
+	'poocommerce_remote_logging_log_endpoint';
 export const REMOTE_LOGGING_JS_ERROR_ENDPOINT_FILTER =
-	'woocommerce_remote_logging_js_error_endpoint';
+	'poocommerce_remote_logging_js_error_endpoint';
 
 export const REMOTE_LOGGING_REQUEST_URI_PARAMS_WHITELIST_FILTER =
-	'woocommerce_remote_logging_request_uri_whitelist';
+	'poocommerce_remote_logging_request_uri_whitelist';
 
 export const REMPOTE_LOGGING_REQUEST_URI_PARAMS_DEFAULT_WHITELIST = [
 	'path',
@@ -56,7 +56,7 @@ export const sanitiseRequestUriParams = ( search: string ) => {
 	 * This filter modifies the list of whitelisted query parameters that won't be masked
 	 * in the logged request URI
 	 *
-	 * @filter woocommerce_remote_logging_request_uri_whitelist
+	 * @filter poocommerce_remote_logging_request_uri_whitelist
 	 * @param {string[]} whitelist The default whitelist
 	 */
 	const whitelist = applyFilters(
@@ -76,9 +76,9 @@ const REMOTE_LOGGING_LAST_ERROR_SENT_KEY =
 
 const DEFAULT_LOG_DATA: LogData = {
 	message: '',
-	feature: 'woocommerce_core',
+	feature: 'poocommerce_core',
 	host: window.location.hostname,
-	tags: [ 'woocommerce', 'js' ],
+	tags: [ 'poocommerce', 'js' ],
 	properties: {
 		wp_version: getSetting( 'wpVersion' ),
 		wc_version: getSetting( 'wcVersion' ),
@@ -261,7 +261,7 @@ export class RemoteLogger {
 		/**
 		 * This filter allows to modify the error data before sending it to the remote API.
 		 *
-		 * @filter woocommerce_remote_logging_error_data
+		 * @filter poocommerce_remote_logging_error_data
 		 * @param {ErrorData} errorData The error data to be sent.
 		 */
 		const filteredErrorData = applyFilters(
@@ -381,7 +381,7 @@ export class RemoteLogger {
 		error: Error,
 		stackFrames: TraceKit.StackFrame[]
 	) {
-		const containsWooCommerceFrame = stackFrames.some(
+		const containsPooCommerceFrame = stackFrames.some(
 			( frame ) =>
 				frame.url && frame.url.startsWith( getSetting( 'wcAssetUrl' ) )
 		);
@@ -389,7 +389,7 @@ export class RemoteLogger {
 		/**
 		 * This filter allows to control whether an error should be sent to the remote API.
 		 *
-		 * @filter woocommerce_remote_logging_should_send_error
+		 * @filter poocommerce_remote_logging_should_send_error
 		 * @param {boolean}               shouldSendError Whether the error should be sent.
 		 * @param {Error}                 error           The error object.
 		 * @param {TraceKit.StackFrame[]} stackFrames     The stack frames of the error.
@@ -397,7 +397,7 @@ export class RemoteLogger {
 		 */
 		return applyFilters(
 			REMOTE_LOGGING_SHOULD_SEND_ERROR_FILTER,
-			containsWooCommerceFrame,
+			containsPooCommerceFrame,
 			error,
 			stackFrames
 		) as boolean;

@@ -7,9 +7,9 @@ import { render } from '@testing-library/react';
  * Internal dependencies
  */
 import Block from '../block';
-jest.mock( '@woocommerce/settings', () => {
+jest.mock( '@poocommerce/settings', () => {
 	return {
-		...jest.requireActual( '@woocommerce/settings' ),
+		...jest.requireActual( '@poocommerce/settings' ),
 		getSetting: jest.fn().mockImplementation( ( key, defaultValue ) => {
 			if ( key === 'localPickupText' ) {
 				return 'Pickup text from settings';

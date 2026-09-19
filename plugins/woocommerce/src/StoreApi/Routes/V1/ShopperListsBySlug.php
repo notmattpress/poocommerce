@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\StoreApi\Routes\V1;
+namespace Automattic\PooCommerce\StoreApi\Routes\V1;
 
-use Automattic\WooCommerce\Internal\ShopperLists\ShopperList;
-use Automattic\WooCommerce\StoreApi\Exceptions\RouteException;
+use Automattic\PooCommerce\Internal\ShopperLists\ShopperList;
+use Automattic\PooCommerce\StoreApi\Exceptions\RouteException;
 
 /**
  * GET /shopper-lists/{slug} — metadata for a single list.
@@ -51,7 +51,7 @@ class ShopperListsBySlug extends AbstractRoute {
 		return array(
 			'args'   => array(
 				'slug' => array(
-					'description' => __( 'Stable slug for the list.', 'woocommerce' ),
+					'description' => __( 'Stable slug for the list.', 'poocommerce' ),
 					'type'        => 'string',
 				),
 			),
@@ -84,7 +84,7 @@ class ShopperListsBySlug extends AbstractRoute {
 		$list = ShopperList::get_by_slug( (string) $request['slug'] );
 
 		if ( ! $list ) {
-			throw new RouteException( 'woocommerce_rest_shopper_list_not_found', esc_html__( 'Your saved list isn\'t available right now.', 'woocommerce' ), 404 );
+			throw new RouteException( 'poocommerce_rest_shopper_list_not_found', esc_html__( 'Your saved list isn\'t available right now.', 'poocommerce' ), 404 );
 		}
 
 		return rest_ensure_response( $this->prepare_item_for_response( $list, $request ) );

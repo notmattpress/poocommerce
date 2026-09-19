@@ -9,7 +9,7 @@ import constants from '../dist/const.js';
 const { default: Merge } = mergeModule;
 const { MONOREPO_ROOT } = constants;
 
-const SOURCE = 'woocommerce/example';
+const SOURCE = 'poocommerce/example';
 const DESTINATION_ERROR =
 	'The "destination" argument must point to a path inside the monorepo';
 
@@ -72,7 +72,7 @@ describe( 'destination validation', () => {
 
 	it( 'rejects a sibling path with the monorepo name as its prefix', async () => {
 		await assert.rejects(
-			createCommand().validateArgs( SOURCE, '../woocommerce-copy' ),
+			createCommand().validateArgs( SOURCE, '../poocommerce-copy' ),
 			{ message: DESTINATION_ERROR }
 		);
 	} );
@@ -82,23 +82,23 @@ describe( 'commit message rewriting', () => {
 	it( 'rewrites parenthesized references as pull request links', () => {
 		assert.equal(
 			rewriteMessage( 'Fix the regression (#123).' ),
-			'Fix the regression (https://github.com/woocommerce/example/pull/123).'
+			'Fix the regression (https://github.com/poocommerce/example/pull/123).'
 		);
 	} );
 
 	it( 'qualifies bare issue references with the source repository', () => {
 		assert.equal(
 			rewriteMessage( 'Follow up in #456.' ),
-			'Follow up in woocommerce/example#456.'
+			'Follow up in poocommerce/example#456.'
 		);
 	} );
 
 	it( 'rewrites adjacent valid references', () => {
 		assert.equal(
 			rewriteMessage( '(#12)(#34) #56#78' ),
-			'(https://github.com/woocommerce/example/pull/12)' +
-				'(https://github.com/woocommerce/example/pull/34) ' +
-				'woocommerce/example#56woocommerce/example#78'
+			'(https://github.com/poocommerce/example/pull/12)' +
+				'(https://github.com/poocommerce/example/pull/34) ' +
+				'poocommerce/example#56poocommerce/example#78'
 		);
 	} );
 

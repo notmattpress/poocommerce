@@ -7,7 +7,7 @@ import TYPES from '../action-types';
 const GROUP = 'wc_admin';
 const DIRTY_KEYS = [ 'wcAdminSettings' ];
 const DIRTY_DATA = {
-	wcAdminSettings: { woocommerce_default_date_range: 'period=month' },
+	wcAdminSettings: { poocommerce_default_date_range: 'period=month' },
 };
 
 // The step at which the generator yields the batch request. Everything before

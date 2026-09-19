@@ -1,9 +1,9 @@
 <?php
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\ProductReviews;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\ProductReviews;
 
-use Automattic\WooCommerce\Internal\Admin\ProductReviews\Reviews;
-use Automattic\WooCommerce\Internal\Admin\ProductReviews\ReviewsListTable;
+use Automattic\PooCommerce\Internal\Admin\ProductReviews\Reviews;
+use Automattic\PooCommerce\Internal\Admin\ProductReviews\ReviewsListTable;
 use Generator;
 use ReflectionClass;
 use ReflectionException;
@@ -14,7 +14,7 @@ use WP_Comment;
 /**
  * Tests for the admin reviews handler.
  *
- * @covers \Automattic\WooCommerce\Internal\Admin\ProductReviews\Reviews
+ * @covers \Automattic\PooCommerce\Internal\Admin\ProductReviews\Reviews
  */
 class ReviewsTest extends WC_Unit_Test_Case {
 
@@ -43,7 +43,7 @@ class ReviewsTest extends WC_Unit_Test_Case {
 	/**
 	 * @testdox `get_capability` gets the filterable user capability for viewing the product reviews page.
 	 *
-	 * @covers \Automattic\WooCommerce\Internal\Admin\ProductReviews\Reviews::get_capability()
+	 * @covers \Automattic\PooCommerce\Internal\Admin\ProductReviews\Reviews::get_capability()
 	 *
 	 * @return void
 	 */
@@ -54,20 +54,20 @@ class ReviewsTest extends WC_Unit_Test_Case {
 		$this->assertEquals( 'edit_products', Reviews::get_capability( 'moderate' ) );
 
 		$callback = function() {
-			return 'manage_woocommerce';
+			return 'manage_poocommerce';
 		};
 
-		add_filter( 'woocommerce_product_reviews_page_capability', $callback );
+		add_filter( 'poocommerce_product_reviews_page_capability', $callback );
 
-		$this->assertEquals( 'manage_woocommerce', Reviews::get_capability() );
+		$this->assertEquals( 'manage_poocommerce', Reviews::get_capability() );
 
-		remove_filter( 'woocommerce_product_reviews_page_capability', $callback );
+		remove_filter( 'poocommerce_product_reviews_page_capability', $callback );
 	}
 
 	/**
-	 * @testdox `load_reviews_screen` creates an instance of {@see \Automattic\WooCommerce\Internal\Admin\ProductReviews\ReviewsListTable}.
+	 * @testdox `load_reviews_screen` creates an instance of {@see \Automattic\PooCommerce\Internal\Admin\ProductReviews\ReviewsListTable}.
 	 *
-	 * @covers \Automattic\WooCommerce\Internal\Admin\ProductReviews\Reviews::load_reviews_screen()
+	 * @covers \Automattic\PooCommerce\Internal\Admin\ProductReviews\Reviews::load_reviews_screen()
 	 *
 	 * @return void
 	 * @throws ReflectionException If the method or the property is not found.
@@ -95,8 +95,8 @@ class ReviewsTest extends WC_Unit_Test_Case {
 	/**
 	 * @testdox `load_reviews_screen` registers the "per page" screen option bound to the dedicated reviews user option.
 	 *
-	 * @covers \Automattic\WooCommerce\Internal\Admin\ProductReviews\Reviews::load_reviews_screen()
-	 * @covers \Automattic\WooCommerce\Internal\Admin\ProductReviews\Reviews::add_screen_options()
+	 * @covers \Automattic\PooCommerce\Internal\Admin\ProductReviews\Reviews::load_reviews_screen()
+	 * @covers \Automattic\PooCommerce\Internal\Admin\ProductReviews\Reviews::add_screen_options()
 	 *
 	 * @return void
 	 * @throws ReflectionException If the property is not found.
@@ -133,7 +133,7 @@ class ReviewsTest extends WC_Unit_Test_Case {
 	/**
 	 * @testdox `set_reviews_per_page_option` saves values within the 1–999 bounds and rejects everything else.
 	 *
-	 * @covers \Automattic\WooCommerce\Internal\Admin\ProductReviews\Reviews::set_reviews_per_page_option()
+	 * @covers \Automattic\PooCommerce\Internal\Admin\ProductReviews\Reviews::set_reviews_per_page_option()
 	 *
 	 * @return void
 	 */
@@ -157,8 +157,8 @@ class ReviewsTest extends WC_Unit_Test_Case {
 	/**
 	 * @testdox The dynamic screen-option filter saves valid values and rejects invalid values.
 	 *
-	 * @covers \Automattic\WooCommerce\Internal\Admin\ProductReviews\Reviews::__construct()
-	 * @covers \Automattic\WooCommerce\Internal\Admin\ProductReviews\Reviews::set_reviews_per_page_option()
+	 * @covers \Automattic\PooCommerce\Internal\Admin\ProductReviews\Reviews::__construct()
+	 * @covers \Automattic\PooCommerce\Internal\Admin\ProductReviews\Reviews::set_reviews_per_page_option()
 	 *
 	 * @return void
 	 */
@@ -166,18 +166,18 @@ class ReviewsTest extends WC_Unit_Test_Case {
 		wc_get_container()->get( Reviews::class );
 		$hook = 'set_screen_option_' . Reviews::PER_PAGE_USER_OPTION_KEY;
 
-		// phpcs:ignore WooCommerce.Commenting.CommentHooks -- Exercises WordPress's dynamic Screen Options filter.
+		// phpcs:ignore PooCommerce.Commenting.CommentHooks -- Exercises WordPress's dynamic Screen Options filter.
 		$this->assertSame( 55, apply_filters( $hook, false, Reviews::PER_PAGE_USER_OPTION_KEY, 55 ) );
 
-		// phpcs:ignore WooCommerce.Commenting.CommentHooks -- Exercises WordPress's dynamic Screen Options filter.
+		// phpcs:ignore PooCommerce.Commenting.CommentHooks -- Exercises WordPress's dynamic Screen Options filter.
 		$this->assertFalse( apply_filters( $hook, 1000, Reviews::PER_PAGE_USER_OPTION_KEY, 1000 ) );
 	}
 
 	/**
 	 * @testdox The legacy filter is bridged and the dedicated reviews filter wins when it registers first.
 	 *
-	 * @covers \Automattic\WooCommerce\Internal\Admin\ProductReviews\Reviews::__construct()
-	 * @covers \Automattic\WooCommerce\Internal\Admin\ProductReviews\Reviews::apply_legacy_reviews_per_page_filter()
+	 * @covers \Automattic\PooCommerce\Internal\Admin\ProductReviews\Reviews::__construct()
+	 * @covers \Automattic\PooCommerce\Internal\Admin\ProductReviews\Reviews::apply_legacy_reviews_per_page_filter()
 	 *
 	 * @return void
 	 */
@@ -194,22 +194,22 @@ class ReviewsTest extends WC_Unit_Test_Case {
 		$sut = wc_get_container()->get( Reviews::class );
 		$sut->__construct();
 
-		// phpcs:ignore WooCommerce.Commenting.CommentHooks -- Exercises the public Product Reviews per-page filter.
+		// phpcs:ignore PooCommerce.Commenting.CommentHooks -- Exercises the public Product Reviews per-page filter.
 		$this->assertSame( 10, (int) apply_filters( Reviews::PER_PAGE_USER_OPTION_KEY, 20 ) );
 
-		// Reset the dedicated hook to reproduce an extension loading before WooCommerce.
+		// Reset the dedicated hook to reproduce an extension loading before PooCommerce.
 		remove_all_filters( Reviews::PER_PAGE_USER_OPTION_KEY );
 		add_filter( Reviews::PER_PAGE_USER_OPTION_KEY, $dedicated );
 		$sut->__construct();
 
-		// phpcs:ignore WooCommerce.Commenting.CommentHooks -- Exercises Product Reviews per-page filter precedence.
+		// phpcs:ignore PooCommerce.Commenting.CommentHooks -- Exercises Product Reviews per-page filter precedence.
 		$this->assertSame( 5, (int) apply_filters( Reviews::PER_PAGE_USER_OPTION_KEY, 20 ) );
 	}
 
 	/**
 	 * @testdox `get_pending_count_bubble` will return the HTML for the pending reviews (awaiting moderation).
 	 *
-	 * @covers \Automattic\WooCommerce\Internal\Admin\ProductReviews\Reviews::get_pending_count_bubble()
+	 * @covers \Automattic\PooCommerce\Internal\Admin\ProductReviews\Reviews::get_pending_count_bubble()
 	 * @dataProvider data_provider_get_pending_count_bubble
 	 *
 	 * @param int    $number_pending Number of pending product reviews.
@@ -284,7 +284,7 @@ class ReviewsTest extends WC_Unit_Test_Case {
 	/**
 	 * @testdox `edit_review_parent_file` will highlight the product reviews menu item when editing a review.
 	 *
-	 * @covers \Automattic\WooCommerce\Internal\Admin\ProductReviews\Reviews::edit_review_parent_file()
+	 * @covers \Automattic\PooCommerce\Internal\Admin\ProductReviews\Reviews::edit_review_parent_file()
 	 *
 	 * @return void
 	 * @throws ReflectionException If the method doesn't exist.
@@ -308,7 +308,7 @@ class ReviewsTest extends WC_Unit_Test_Case {
 	/**
 	 * @testdox `render_reviews_list_table` will output the filterable reviews list table.
 	 *
-	 * @covers \Automattic\WooCommerce\Internal\Admin\ProductReviews\Reviews::render_reviews_list_table()
+	 * @covers \Automattic\PooCommerce\Internal\Admin\ProductReviews\Reviews::render_reviews_list_table()
 	 *
 	 * @return void
 	 * @throws ReflectionException If the property doesn't exist.
@@ -324,7 +324,7 @@ class ReviewsTest extends WC_Unit_Test_Case {
 		$property->setValue( $reviews, $list_table );
 
 		add_filter(
-			'woocommerce_product_reviews_list_table',
+			'poocommerce_product_reviews_list_table',
 			static function ( $content ) {
 				return $content . 'custom additional content';
 			}
@@ -343,13 +343,13 @@ class ReviewsTest extends WC_Unit_Test_Case {
 		$this->assertStringContainsString( 'id="trash-undo-holder"', $output, 'Core comment list script copies the trash Undo notice from this holder.' );
 		$this->assertStringEndsWith( 'custom additional content', $output );
 
-		remove_all_filters( 'woocommerce_product_reviews_list_table' );
+		remove_all_filters( 'poocommerce_product_reviews_list_table' );
 	}
 
 	/**
 	 * @testdox `is_reviews_page` will determine if the current screen is the product reviews page.
 	 *
-	 * @covers \Automattic\WooCommerce\Internal\Admin\ProductReviews\Reviews::is_reviews_page()
+	 * @covers \Automattic\PooCommerce\Internal\Admin\ProductReviews\Reviews::is_reviews_page()
 	 * @dataProvider provider_is_reviews_page
 	 *
 	 * @param mixed $new_current_screen The value of the global $pageview var.
@@ -398,7 +398,7 @@ class ReviewsTest extends WC_Unit_Test_Case {
 	/**
 	 * @testdox `get_bulk_action_notice_messages` the appropriate admin notice is displayed after a product review bulk action is processed.
 	 *
-	 * @covers       \Automattic\WooCommerce\Internal\Admin\ProductReviews\Reviews::get_bulk_action_notice_messages()
+	 * @covers       \Automattic\PooCommerce\Internal\Admin\ProductReviews\Reviews::get_bulk_action_notice_messages()
 	 * @dataProvider provider_get_bulk_action_notice_messages
 	 *
 	 * @param string[] $statuses        The wp comment statuses after a bulk operation.
@@ -526,7 +526,7 @@ class ReviewsTest extends WC_Unit_Test_Case {
 	/**
 	 * @testdox `maybe_display_reviews_bulk_action_notice` will output the appropriate message HTML for a product reviews bulk action notice.
 	 *
-	 * @covers \Automattic\WooCommerce\Internal\Admin\ProductReviews\Reviews::maybe_display_reviews_bulk_action_notice()
+	 * @covers \Automattic\PooCommerce\Internal\Admin\ProductReviews\Reviews::maybe_display_reviews_bulk_action_notice()
 	 * @dataProvider provider_maybe_display_reviews_bulk_action_notice
 	 *
 	 * @param array  $messages        The action notice messages.
@@ -578,7 +578,7 @@ test2</p></div>',
 	/**
 	 * @testdox `display_notices` will display any admin notices if the current page is the product reviews page.
 	 *
-	 * @covers       \Automattic\WooCommerce\Internal\Admin\ProductReviews\Reviews::display_notices()
+	 * @covers       \Automattic\PooCommerce\Internal\Admin\ProductReviews\Reviews::display_notices()
 	 * @dataProvider provider_display_notices
 	 *
 	 * @param bool $is_reviews_page                Whether the current page is the reviews page or not.
@@ -623,7 +623,7 @@ test2</p></div>',
 	/**
 	 * @testdox `is_review_or_reply` determines if a given comment object is actually a review or a reply to a review.
 	 *
-	 * @covers \Automattic\WooCommerce\Internal\Admin\ProductReviews\Reviews::is_review_or_reply()
+	 * @covers \Automattic\PooCommerce\Internal\Admin\ProductReviews\Reviews::is_review_or_reply()
 	 * @dataProvider provider_is_review_or_reply
 	 *
 	 * @param WP_Comment|array|null $object   Object to pass in to the method.
@@ -649,7 +649,7 @@ test2</p></div>',
 	/**
 	 * @testdox `is_review_or_reply` correctly determines if an object is a review or a reply to a review.
 	 *
-	 * @covers \Automattic\WooCommerce\Internal\Admin\ProductReviews\Reviews::is_review_or_reply()
+	 * @covers \Automattic\PooCommerce\Internal\Admin\ProductReviews\Reviews::is_review_or_reply()
 	 *
 	 * @return void
 	 * @throws ReflectionException If the method doesn't exist.
@@ -694,11 +694,11 @@ test2</p></div>',
 			return true;
 		};
 
-		add_filter( 'woocommerce_product_reviews_is_product_review_or_reply', $callback );
+		add_filter( 'poocommerce_product_reviews_is_product_review_or_reply', $callback );
 
 		$this->assertTrue( $method->invoke( $reviews, new stdClass() ) );
 
-		remove_filter( 'woocommerce_product_reviews_is_product_review_or_reply', $callback );
+		remove_filter( 'poocommerce_product_reviews_is_product_review_or_reply', $callback );
 	}
 
 	/**

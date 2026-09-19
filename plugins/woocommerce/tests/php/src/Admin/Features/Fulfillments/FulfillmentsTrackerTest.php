@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Admin\Features\Fulfillments;
+namespace Automattic\PooCommerce\Tests\Admin\Features\Fulfillments;
 
-use Automattic\WooCommerce\Admin\Features\Fulfillments\FulfillmentsTracker;
+use Automattic\PooCommerce\Admin\Features\Fulfillments\FulfillmentsTracker;
 use WC_Unit_Test_Case;
 
 /**

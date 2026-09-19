@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import type { CountryData } from '@woocommerce/types';
+import type { CountryData } from '@poocommerce/types';
 
 type Constants = typeof import('../constants');
 

@@ -1,4 +1,4 @@
-.woocommerce-address-suggestions {
+.poocommerce-address-suggestions {
 	position: absolute;
 	z-index: 1000;
 	width: 100%;
@@ -45,7 +45,7 @@
 		}
 	}
 
-	.woocommerce-address-autocomplete-branding {
+	.poocommerce-address-autocomplete-branding {
 		background: #d3d3d3;
 		padding: 8px 12px;
 		color: rgba(34, 34, 34, 0.66);
@@ -56,7 +56,7 @@
 }
 
 // Ensure the input container has relative positioning
-.woocommerce-input-wrapper:has(#billing_address_1, #shipping_address_1) {
+.poocommerce-input-wrapper:has(#billing_address_1, #shipping_address_1) {
 	position: relative;
 	display: block;
 

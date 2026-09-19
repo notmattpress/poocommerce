@@ -4,11 +4,11 @@
 import { __, _n, sprintf } from '@wordpress/i18n';
 import { Component, Fragment } from '@wordpress/element';
 import { map } from 'lodash';
-import { Date, Link, OrderStatus, ViewMoreList } from '@woocommerce/components';
-import { formatValue } from '@woocommerce/number';
-import { getNewPath, getPersistedQuery } from '@woocommerce/navigation';
-import { defaultTableDateFormat } from '@woocommerce/date';
-import { CurrencyContext } from '@woocommerce/currency';
+import { Date, Link, OrderStatus, ViewMoreList } from '@poocommerce/components';
+import { formatValue } from '@poocommerce/number';
+import { getNewPath, getPersistedQuery } from '@poocommerce/navigation';
+import { defaultTableDateFormat } from '@poocommerce/date';
+import { CurrencyContext } from '@poocommerce/currency';
 
 /**
  * Internal dependencies
@@ -31,7 +31,7 @@ class OrdersReportTable extends Component {
 	getHeadersContent() {
 		return [
 			{
-				label: __( 'Date', 'woocommerce' ),
+				label: __( 'Date', 'poocommerce' ),
 				key: 'date',
 				required: true,
 				defaultSort: true,
@@ -39,61 +39,61 @@ class OrdersReportTable extends Component {
 				isSortable: true,
 			},
 			{
-				label: __( 'Order #', 'woocommerce' ),
-				screenReaderLabel: __( 'Order Number', 'woocommerce' ),
+				label: __( 'Order #', 'poocommerce' ),
+				screenReaderLabel: __( 'Order Number', 'poocommerce' ),
 				key: 'order_number',
 				required: true,
 			},
 			{
-				label: __( 'Status', 'woocommerce' ),
+				label: __( 'Status', 'poocommerce' ),
 				key: 'status',
 				required: false,
 				isSortable: false,
 			},
 			{
-				label: __( 'Customer', 'woocommerce' ),
+				label: __( 'Customer', 'poocommerce' ),
 				key: 'customer_id',
 				required: false,
 				isSortable: false,
 			},
 			{
-				label: __( 'Customer type', 'woocommerce' ),
+				label: __( 'Customer type', 'poocommerce' ),
 				key: 'customer_type',
 				required: false,
 				isSortable: false,
 			},
 			{
-				label: __( 'Product(s)', 'woocommerce' ),
-				screenReaderLabel: __( 'Products', 'woocommerce' ),
+				label: __( 'Product(s)', 'poocommerce' ),
+				screenReaderLabel: __( 'Products', 'poocommerce' ),
 				key: 'products',
 				required: false,
 				isSortable: false,
 			},
 			{
-				label: __( 'Items sold', 'woocommerce' ),
+				label: __( 'Items sold', 'poocommerce' ),
 				key: 'num_items_sold',
 				required: false,
 				isSortable: true,
 				isNumeric: true,
 			},
 			{
-				label: __( 'Coupon(s)', 'woocommerce' ),
-				screenReaderLabel: __( 'Coupons', 'woocommerce' ),
+				label: __( 'Coupon(s)', 'poocommerce' ),
+				screenReaderLabel: __( 'Coupons', 'poocommerce' ),
 				key: 'coupons',
 				required: false,
 				isSortable: false,
 			},
 			{
-				label: __( 'Net sales', 'woocommerce' ),
-				screenReaderLabel: __( 'Net sales', 'woocommerce' ),
+				label: __( 'Net sales', 'poocommerce' ),
+				screenReaderLabel: __( 'Net sales', 'poocommerce' ),
 				key: 'net_total',
 				required: true,
 				isSortable: true,
 				isNumeric: true,
 			},
 			{
-				label: __( 'Attribution', 'woocommerce' ),
-				screenReaderLabel: __( 'Attribution', 'woocommerce' ),
+				label: __( 'Attribution', 'poocommerce' ),
+				screenReaderLabel: __( 'Attribution', 'poocommerce' ),
 				key: 'attribution',
 				required: false,
 				isSortable: false,
@@ -180,7 +180,7 @@ class OrdersReportTable extends Component {
 				{
 					display: (
 						<OrderStatus
-							className="woocommerce-orders-table__status"
+							className="poocommerce-orders-table__status"
 							order={ { status } }
 							labelPositionToLeft={ true }
 							orderStatusMap={ getAdminSetting(
@@ -207,7 +207,7 @@ class OrdersReportTable extends Component {
 						formattedProducts.map( ( product ) => ( {
 							label: sprintf(
 								/* translators: 1: quantity, 2: product name */
-								__( '%1$s× %2$s', 'woocommerce' ),
+								__( '%1$s× %2$s', 'poocommerce' ),
 								product.quantity,
 								product.label
 							),
@@ -218,7 +218,7 @@ class OrdersReportTable extends Component {
 						.map( ( { quantity, label } ) =>
 							sprintf(
 								/* translators: %1$s: quantity, %2$s: product name */
-								__( '%1$s× %2$s', 'woocommerce' ),
+								__( '%1$s× %2$s', 'poocommerce' ),
 								quantity,
 								label
 							)
@@ -269,7 +269,7 @@ class OrdersReportTable extends Component {
 		const currency = getCurrencyConfig();
 		return [
 			{
-				label: _n( 'Order', 'Orders', ordersCount, 'woocommerce' ),
+				label: _n( 'Order', 'Orders', ordersCount, 'poocommerce' ),
 				value: formatValue( currency, 'number', ordersCount ),
 			},
 			{
@@ -277,12 +277,12 @@ class OrdersReportTable extends Component {
 					' Customer',
 					' Customers',
 					totalCustomers,
-					'woocommerce'
+					'poocommerce'
 				),
 				value: formatValue( currency, 'number', totalCustomers ),
 			},
 			{
-				label: _n( 'Product', 'Products', products, 'woocommerce' ),
+				label: _n( 'Product', 'Products', products, 'poocommerce' ),
 				value: formatValue( currency, 'number', products ),
 			},
 			{
@@ -290,16 +290,16 @@ class OrdersReportTable extends Component {
 					'Item sold',
 					'Items sold',
 					numItemsSold,
-					'woocommerce'
+					'poocommerce'
 				),
 				value: formatValue( currency, 'number', numItemsSold ),
 			},
 			{
-				label: _n( 'Coupon', 'Coupons', couponsCount, 'woocommerce' ),
+				label: _n( 'Coupon', 'Coupons', couponsCount, 'poocommerce' ),
 				value: formatValue( currency, 'number', couponsCount ),
 			},
 			{
-				label: __( 'net sales', 'woocommerce' ),
+				label: __( 'net sales', 'poocommerce' ),
 				value: formatAmount( netRevenue ),
 			},
 		];
@@ -345,7 +345,7 @@ class OrdersReportTable extends Component {
 				tableQuery={ {
 					extended_info: true,
 				} }
-				title={ __( 'Orders', 'woocommerce' ) }
+				title={ __( 'Orders', 'poocommerce' ) }
 				columnPrefsKey="orders_report_columns"
 				filters={ filters }
 				advancedFilters={ advancedFilters }

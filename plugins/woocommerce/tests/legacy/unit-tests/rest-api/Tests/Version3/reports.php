@@ -2,7 +2,7 @@
 /**
  * Tests for the reports REST API.
  *
- * @package WooCommerce\Tests\API
+ * @package PooCommerce\Tests\API
  */
 
 declare( strict_types=1 );
@@ -67,6 +67,6 @@ class WC_Tests_API_Reports extends WC_REST_Unit_Test_Case {
 		$anonymous_response = $this->server->dispatch( new WP_REST_Request( 'GET', '/wc/v3/reports' ) );
 
 		$this->assertSame( 401, $anonymous_response->get_status() );
-		$this->assertSame( 'woocommerce_rest_cannot_view', $anonymous_response->get_data()['code'] );
+		$this->assertSame( 'poocommerce_rest_cannot_view', $anonymous_response->get_data()['code'] );
 	}
 }

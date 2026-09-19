@@ -56,7 +56,7 @@ const loadRegisteredBlock = () => {
 		.mock.calls[ 0 ];
 
 	expect( registeredMetadata ).toEqual( metadata );
-	expect( registeredMetadata.name ).toBe( 'woocommerce/catalog-sorting' );
+	expect( registeredMetadata.name ).toBe( 'poocommerce/catalog-sorting' );
 	expect( settings.attributes ).toEqual( metadata.attributes );
 
 	return {
@@ -76,7 +76,7 @@ describe( 'Catalog Sorting block registration', () => {
 			loadRegisteredBlock();
 
 		expect( registeredMetadata ).toEqual( metadata );
-		expect( registeredMetadata.name ).toBe( 'woocommerce/catalog-sorting' );
+		expect( registeredMetadata.name ).toBe( 'poocommerce/catalog-sorting' );
 		expect( settings.attributes ).toEqual( metadata.attributes );
 		expect( settings.edit ).toBe( isolatedEdit );
 	} );

@@ -2,12 +2,12 @@
 /**
  * Tests for the classic product data meta box.
  *
- * @package WooCommerce\Tests\Admin\MetaBoxes
+ * @package PooCommerce\Tests\Admin\MetaBoxes
  */
 
 declare( strict_types = 1 );
 
-use Automattic\WooCommerce\Internal\ProductDownloads\ApprovedDirectories\Register as Download_Directories;
+use Automattic\PooCommerce\Internal\ProductDownloads\ApprovedDirectories\Register as Download_Directories;
 
 /**
  * Class WC_Meta_Box_Product_Data_Test.

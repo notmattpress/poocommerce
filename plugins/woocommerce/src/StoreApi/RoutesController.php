@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\StoreApi;
+namespace Automattic\PooCommerce\StoreApi;
 
-use Automattic\WooCommerce\Internal\ShopperLists\ShopperListsController;
-use Automattic\WooCommerce\StoreApi\Routes\V1\AbstractRoute;
+use Automattic\PooCommerce\Internal\ShopperLists\ShopperListsController;
+use Automattic\PooCommerce\StoreApi\Routes\V1\AbstractRoute;
 
 /**
  * RoutesController class.

@@ -15,14 +15,14 @@ class WC_Email_Order_Details_Shipping_Test extends \WC_Unit_Test_Case {
 	 */
 	public function setUp(): void {
 		parent::setUp();
-		update_option( 'woocommerce_feature_email_improvements_enabled', 'yes' );
+		update_option( 'poocommerce_feature_email_improvements_enabled', 'yes' );
 	}
 
 	/**
 	 * Tear down after each test.
 	 */
 	public function tearDown(): void {
-		update_option( 'woocommerce_feature_email_improvements_enabled', 'no' );
+		update_option( 'poocommerce_feature_email_improvements_enabled', 'no' );
 		parent::tearDown();
 	}
 
@@ -93,7 +93,7 @@ class WC_Email_Order_Details_Shipping_Test extends \WC_Unit_Test_Case {
 	 * @testdox A filter can force the free label on for a method that is not free shipping.
 	 */
 	public function test_filter_can_force_free_label_on(): void {
-		add_filter( 'woocommerce_email_order_shipping_show_free_label', '__return_true' );
+		add_filter( 'poocommerce_email_order_shipping_show_free_label', '__return_true' );
 		$order = $this->create_order_with_shipping( 'flat_rate', '0' );
 
 		$value = $this->get_html_shipping_value( $this->render( 'emails/email-order-details.php', $order, false ) );
@@ -105,7 +105,7 @@ class WC_Email_Order_Details_Shipping_Test extends \WC_Unit_Test_Case {
 	 * @testdox A filter can force the free label off for free shipping.
 	 */
 	public function test_filter_can_force_free_label_off(): void {
-		add_filter( 'woocommerce_email_order_shipping_show_free_label', '__return_false' );
+		add_filter( 'poocommerce_email_order_shipping_show_free_label', '__return_false' );
 		$order = $this->create_order_with_shipping( 'free_shipping', '0' );
 
 		$value = $this->get_html_shipping_value( $this->render( 'emails/email-order-details.php', $order, false ) );
@@ -119,7 +119,7 @@ class WC_Email_Order_Details_Shipping_Test extends \WC_Unit_Test_Case {
 	public function test_filter_receives_order_and_default(): void {
 		$received = array();
 		add_filter(
-			'woocommerce_email_order_shipping_show_free_label',
+			'poocommerce_email_order_shipping_show_free_label',
 			function ( $show_free_label, $order ) use ( &$received ) {
 				$received[] = array( $show_free_label, $order->get_id() );
 				return $show_free_label;
@@ -138,7 +138,7 @@ class WC_Email_Order_Details_Shipping_Test extends \WC_Unit_Test_Case {
 	 * @testdox The filter also applies to plain text emails.
 	 */
 	public function test_filter_applies_to_plain_text(): void {
-		add_filter( 'woocommerce_email_order_shipping_show_free_label', '__return_true' );
+		add_filter( 'poocommerce_email_order_shipping_show_free_label', '__return_true' );
 		$order = $this->create_order_with_shipping( 'flat_rate', '0' );
 
 		$value = $this->get_plain_shipping_value( $this->render( 'emails/plain/email-order-details.php', $order, true ) );
@@ -150,7 +150,7 @@ class WC_Email_Order_Details_Shipping_Test extends \WC_Unit_Test_Case {
 	 * @testdox The filter does not run for a paid shipping method.
 	 */
 	public function test_filter_does_not_run_for_paid_shipping(): void {
-		add_filter( 'woocommerce_email_order_shipping_show_free_label', '__return_true' );
+		add_filter( 'poocommerce_email_order_shipping_show_free_label', '__return_true' );
 		$order = $this->create_order_with_shipping( 'flat_rate', '5.00' );
 
 		$value = $this->get_html_shipping_value( $this->render( 'emails/email-order-details.php', $order, false ) );
@@ -162,7 +162,7 @@ class WC_Email_Order_Details_Shipping_Test extends \WC_Unit_Test_Case {
 	 * @testdox The 'Free!' label is off when the email improvements feature is disabled.
 	 */
 	public function test_no_free_label_without_email_improvements(): void {
-		update_option( 'woocommerce_feature_email_improvements_enabled', 'no' );
+		update_option( 'poocommerce_feature_email_improvements_enabled', 'no' );
 		$order = $this->create_order_with_shipping( 'free_shipping', '0' );
 
 		$content = $this->render( 'emails/email-order-details.php', $order, false );

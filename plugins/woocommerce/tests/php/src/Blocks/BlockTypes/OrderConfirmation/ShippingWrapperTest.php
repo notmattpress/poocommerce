@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\BlockTypes\OrderConfirmation;
+namespace Automattic\PooCommerce\Tests\Blocks\BlockTypes\OrderConfirmation;
 
-use Automattic\WooCommerce\Blocks\BlockTypes\OrderConfirmation\ShippingWrapper as ShippingWrapperBlock;
-use Automattic\WooCommerce\Blocks\Shipping\PickupLocation;
+use Automattic\PooCommerce\Blocks\BlockTypes\OrderConfirmation\ShippingWrapper as ShippingWrapperBlock;
+use Automattic\PooCommerce\Blocks\Shipping\PickupLocation;
 use WC_Order;
 use WC_Order_Item_Product;
 use WC_Order_Item_Shipping;
@@ -31,7 +31,7 @@ final class ShippingWrapperTest extends WC_Unit_Test_Case {
 			// Inside the try: create_order() registers PickupLocation partway through,
 			// so a throw after that point must still reach the finally below.
 			$order = $this->create_order( $topology, $has_address );
-			update_option( 'woocommerce_calc_shipping', 'yes' );
+			update_option( 'poocommerce_calc_shipping', 'yes' );
 			$rendered = $this->render( $order, $permission, $content );
 
 			if ( 'physical' === $topology ) {

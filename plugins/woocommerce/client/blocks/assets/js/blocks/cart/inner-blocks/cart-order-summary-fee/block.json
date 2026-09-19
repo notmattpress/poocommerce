@@ -1,9 +1,9 @@
 {
-	"name": "woocommerce/cart-order-summary-fee-block",
+	"name": "poocommerce/cart-order-summary-fee-block",
 	"version": "1.0.0",
 	"title": "Fees",
 	"description": "Shows the cart fee row.",
-	"category": "woocommerce",
+	"category": "poocommerce",
 	"supports": {
 		"align": false,
 		"html": false,
@@ -25,9 +25,9 @@
 		}
 	},
 	"parent": [
-		"woocommerce/cart-order-summary-totals-block"
+		"poocommerce/cart-order-summary-totals-block"
 	],
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3
 }

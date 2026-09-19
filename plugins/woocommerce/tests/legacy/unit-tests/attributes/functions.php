@@ -2,7 +2,7 @@
 /**
  * Attribute function tests.
  *
- * @package WooCommerce\Tests\Attributes
+ * @package PooCommerce\Tests\Attributes
  * @since 3.2.0
  */
 

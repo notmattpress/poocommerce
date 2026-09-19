@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { test, expect, CLASSIC_THEME_SLUG } from '@woocommerce/e2e-utils';
+import { test, expect, CLASSIC_THEME_SLUG } from '@poocommerce/e2e-utils';
 
 test.describe( 'Mini-Cart: classic theme', () => {
 	test.use( {
@@ -28,7 +28,7 @@ test.describe( 'Mini-Cart: classic theme', () => {
 				status: 'publish',
 				title: 'Classic add-to-cart test page',
 				content:
-					'<!-- wp:woocommerce/mini-cart {"addToCartBehaviour":"open_drawer"} /-->\n\n<!-- wp:shortcode -->\n[products limit="3"]\n<!-- /wp:shortcode -->',
+					'<!-- wp:poocommerce/mini-cart {"addToCartBehaviour":"open_drawer"} /-->\n\n<!-- wp:shortcode -->\n[products limit="3"]\n<!-- /wp:shortcode -->',
 			},
 		} );
 

@@ -2,14 +2,14 @@
 /**
  * Admin View: Header
  *
- * @package WooCommerce\Admin\Importers
+ * @package PooCommerce\Admin\Importers
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 ?>
-<div class="wrap woocommerce">
-	<h1><?php esc_html_e( 'Import Products', 'woocommerce' ); ?></h1>
+<div class="wrap poocommerce">
+	<h1><?php esc_html_e( 'Import Products', 'poocommerce' ); ?></h1>
 
-	<div class="woocommerce-progress-form-wrapper">
+	<div class="poocommerce-progress-form-wrapper">

@@ -17,18 +17,18 @@
  * decimal-safe strings on the storage scale; the payment instrument is exposed as an
  * {@see InstrumentRef}.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine\Core\Entity
+ * @package Automattic\PooCommerce\SubscriptionsEngine\Core\Entity
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Core\Entity;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Core\Entity;
 
 use DomainException;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Support\MoneyScale;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Support\ScalarCoercion;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\ValueObject\InstrumentRef;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\ValueObject\PlanSnapshot;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Support\MoneyScale;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Support\ScalarCoercion;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\ValueObject\InstrumentRef;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\ValueObject\PlanSnapshot;
 
 defined( 'ABSPATH' ) || exit;
 

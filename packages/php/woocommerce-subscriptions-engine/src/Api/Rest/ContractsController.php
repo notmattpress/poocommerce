@@ -28,12 +28,12 @@
  * a caller never confirms the existence of a contract the requester does not own
  * (anti-IDOR).
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine\Api\Rest
+ * @package Automattic\PooCommerce\SubscriptionsEngine\Api\Rest
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Api\Rest;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Api\Rest;
 
 use DomainException;
 use Throwable;
@@ -42,10 +42,10 @@ use WP_REST_Controller;
 use WP_REST_Request;
 use WP_REST_Response;
 use WP_REST_Server;
-use Automattic\WooCommerce\SubscriptionsEngine\Api\Subscriptions;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\Contract;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Support\ScalarCoercion;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Support\RESTPermissions;
+use Automattic\PooCommerce\SubscriptionsEngine\Api\Subscriptions;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\Contract;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Support\ScalarCoercion;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Support\RESTPermissions;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -131,7 +131,7 @@ final class ContractsController extends WP_REST_Controller {
 					'permission_callback' => array( $this, 'permissions_check' ),
 					'args'                => array(
 						'at_period_end' => array(
-							'description'       => __( 'Whether to cancel at the end of the current billing period (true) or immediately (false).', 'woocommerce-subscriptions-engine' ),
+							'description'       => __( 'Whether to cancel at the end of the current billing period (true) or immediately (false).', 'poocommerce-subscriptions-engine' ),
 							'type'              => 'boolean',
 							'required'          => false,
 							'default'           => true,
@@ -253,13 +253,13 @@ final class ContractsController extends WP_REST_Controller {
 			'type'       => 'object',
 			'properties' => array(
 				'id'     => array(
-					'description' => __( 'Unique identifier for the subscription contract.', 'woocommerce-subscriptions-engine' ),
+					'description' => __( 'Unique identifier for the subscription contract.', 'poocommerce-subscriptions-engine' ),
 					'type'        => 'integer',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
 				'status' => array(
-					'description' => __( 'Contract status after the action.', 'woocommerce-subscriptions-engine' ),
+					'description' => __( 'Contract status after the action.', 'poocommerce-subscriptions-engine' ),
 					'type'        => 'string',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
@@ -297,14 +297,14 @@ final class ContractsController extends WP_REST_Controller {
 			$action( $contract_id );
 		} catch ( DomainException $e ) {
 			return new WP_Error(
-				'woocommerce_subscriptions_engine_illegal_action',
-				__( 'That action is not available for this subscription right now.', 'woocommerce-subscriptions-engine' ),
+				'poocommerce_subscriptions_engine_illegal_action',
+				__( 'That action is not available for this subscription right now.', 'poocommerce-subscriptions-engine' ),
 				array( 'status' => 409 )
 			);
 		} catch ( Throwable $e ) {
 			return new WP_Error(
-				'woocommerce_subscriptions_engine_action_failed',
-				__( 'The subscription could not be updated. Please try again.', 'woocommerce-subscriptions-engine' ),
+				'poocommerce_subscriptions_engine_action_failed',
+				__( 'The subscription could not be updated. Please try again.', 'poocommerce-subscriptions-engine' ),
 				array( 'status' => 500 )
 			);
 		}
@@ -314,8 +314,8 @@ final class ContractsController extends WP_REST_Controller {
 		$refreshed = Subscriptions::get_for_customer( $contract_id, $customer_id );
 		if ( null === $refreshed ) {
 			return new WP_Error(
-				'woocommerce_subscriptions_engine_refresh_failed',
-				__( 'The subscription was updated, but its refreshed state could not be loaded.', 'woocommerce-subscriptions-engine' ),
+				'poocommerce_subscriptions_engine_refresh_failed',
+				__( 'The subscription was updated, but its refreshed state could not be loaded.', 'poocommerce-subscriptions-engine' ),
 				array( 'status' => 500 )
 			);
 		}
@@ -328,8 +328,8 @@ final class ContractsController extends WP_REST_Controller {
 	 */
 	private function not_found_error(): WP_Error {
 		return new WP_Error(
-			'woocommerce_subscriptions_engine_contract_not_found',
-			__( 'Subscription not found.', 'woocommerce-subscriptions-engine' ),
+			'poocommerce_subscriptions_engine_contract_not_found',
+			__( 'Subscription not found.', 'poocommerce-subscriptions-engine' ),
 			array( 'status' => 404 )
 		);
 	}
@@ -342,7 +342,7 @@ final class ContractsController extends WP_REST_Controller {
 	private function id_arg(): array {
 		return array(
 			'id' => array(
-				'description'       => __( 'Unique identifier for the subscription contract.', 'woocommerce-subscriptions-engine' ),
+				'description'       => __( 'Unique identifier for the subscription contract.', 'poocommerce-subscriptions-engine' ),
 				'type'              => 'integer',
 				'sanitize_callback' => 'absint',
 				'validate_callback' => 'rest_validate_request_arg',

@@ -33,7 +33,7 @@ describe( 'DateTimePickerControl', () => {
 
 		// Make sure the default classname is set on the component.
 		const control = container.querySelector(
-			'.woocommerce-date-time-picker-control'
+			'.poocommerce-date-time-picker-control'
 		);
 		expect( control ).toBeInTheDocument();
 
@@ -465,7 +465,7 @@ describe( 'DateTimePickerControl', () => {
 		);
 
 		const input = container.querySelector(
-			'.woocommerce-date-time-picker-control input'
+			'.poocommerce-date-time-picker-control input'
 		);
 		userEvent.type( input!, '{selectall}{backspace}' + invalidDateTime );
 
@@ -589,7 +589,7 @@ describe( 'DateTimePickerControl', () => {
 		);
 
 		const input = container.querySelector(
-			'.woocommerce-date-time-picker-control input'
+			'.poocommerce-date-time-picker-control input'
 		);
 
 		// This is a workaround to get the test working;
@@ -622,7 +622,7 @@ describe( 'DateTimePickerControl', () => {
 		);
 
 		const input = container.querySelector(
-			'.woocommerce-date-time-picker-control input'
+			'.poocommerce-date-time-picker-control input'
 		);
 
 		// This is a workaround to get the test working;

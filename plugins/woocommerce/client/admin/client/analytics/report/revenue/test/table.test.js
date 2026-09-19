@@ -10,7 +10,7 @@ import { memoize } from 'lodash';
 import RevenueReportTable from '../table';
 
 // Report filter registered the way an extension would, through
-// woocommerce_admin_revenue_report_filters.
+// poocommerce_admin_revenue_report_filters.
 const mockFilters = [
 	{
 		label: 'Order size',
@@ -130,7 +130,7 @@ describe( 'RevenueReportTable', () => {
 
 		global.mockSelect = () => ( {
 			getSetting: () => ( {
-				woocommerce_default_date_range:
+				poocommerce_default_date_range:
 					'period=custom&compare=previous_period&after=2023-01-01&before=2023-01-02',
 			} ),
 			getOption: () => 'date_paid',

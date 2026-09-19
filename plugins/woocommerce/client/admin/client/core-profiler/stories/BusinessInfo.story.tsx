@@ -37,7 +37,7 @@ export const Basic = () => (
 );
 
 export default {
-	title: 'WooCommerce Admin/Core Profiler/Business Info',
+	title: 'PooCommerce Admin/Core Profiler/Business Info',
 	component: BusinessInfo,
 	decorators: [ WithSetupWizardLayout ],
 };

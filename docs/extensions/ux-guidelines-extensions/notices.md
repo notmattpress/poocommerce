@@ -9,7 +9,7 @@ Use notices primarily to provide user feedback in response to an action. Avoid u
 
 If a post-activation notice is required, keep it within the WordPress plugin area-do not display it on the dashboard, or any other parts of the platform.
 
-Use the standard WordPress notice format and WooCommerce admin notices API.
+Use the standard WordPress notice format and PooCommerce admin notices API.
 
 ## Language
 
@@ -21,7 +21,7 @@ Use short but meaningful messages that communicate what is happening. Ensure tha
 
 The placement of feedback is vital so the user notices it. For example, when validation messages are needed to prompt the user to enter data, get the user's attention by displaying a message close to the inputs where data needs to be revised.
 
-![visualization of four different notice designs next to one another](https://developer.woocommerce.com/wp-content/uploads/2023/12/notices1.png)
+![visualization of four different notice designs next to one another](https://developer.poocommerce.com/wp-content/uploads/2023/12/notices1.png)
 
 **Success** message: When the user performs an action that is executed successfully.
 
@@ -33,4 +33,4 @@ The placement of feedback is vital so the user notices it. For example, when val
 
 ### Examples
 
-![an example of an informational message as a notice](https://developer.woocommerce.com/wp-content/uploads/2023/12/informational-notice.png)
+![an example of an informational message as a notice](https://developer.poocommerce.com/wp-content/uploads/2023/12/informational-notice.png)

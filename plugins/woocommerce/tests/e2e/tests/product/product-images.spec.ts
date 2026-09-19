@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { WC_API_PATH } from '@woocommerce/e2e-utils-playwright';
+import { WC_API_PATH } from '@poocommerce/e2e-utils-playwright';
 import type { Page } from '@playwright/test';
 
 /**
@@ -51,7 +51,7 @@ async function expectProductImageHelpTipNextTo(
 	// that DOM adjacency directly instead of comparing rendered coordinates,
 	// which vary with the platform font stack.
 	const helpTip = productImageBox.locator(
-		`#${ actionId } + .woocommerce-product-image-help-tip`
+		`#${ actionId } + .poocommerce-product-image-help-tip`
 	);
 
 	await expect( action ).toBeVisible();
@@ -130,7 +130,7 @@ test.describe( 'Products > Product Images', () => {
 		await addImageFromLibrary( page, 'image-02', 'Set product image' );
 		await expectProductImageHelpTipNextTo( page, 'Remove product image' );
 		await expect(
-			page.locator( '.woocommerce-product-image-help-tip' )
+			page.locator( '.poocommerce-product-image-help-tip' )
 		).toHaveCount( 1 );
 	} );
 
@@ -183,7 +183,7 @@ test.describe( 'Products > Product Images', () => {
 			).toBeVisible();
 			await expect(
 				page.locator(
-					'.woocommerce-product-gallery__wrapper img[src*="image-01"]'
+					'.poocommerce-product-gallery__wrapper img[src*="image-01"]'
 				)
 			).toHaveCount( 0 );
 		} );
@@ -223,7 +223,7 @@ test.describe( 'Products > Product Images', () => {
 			await page.goto( product.permalink );
 			await expect(
 				page.locator(
-					'.woocommerce-product-gallery__wrapper img[src*="image-"]'
+					'.poocommerce-product-gallery__wrapper img[src*="image-"]'
 				)
 			).toHaveCount( 0 );
 		} );
@@ -282,7 +282,7 @@ test.describe( 'Products > Product Images', () => {
 
 			await page.goto( productWithImage.permalink );
 			const frontendImages = page.locator(
-				'.woocommerce-product-gallery__wrapper a[href*="/uploads/"] > img'
+				'.poocommerce-product-gallery__wrapper a[href*="/uploads/"] > img'
 			);
 			await expect( frontendImages ).toHaveCount( 3 );
 			await expect( frontendImages.nth( 0 ) ).toHaveAttribute(
@@ -322,7 +322,7 @@ test.describe( 'Products > Product Images', () => {
 
 			await page.goto( productWithImage.permalink );
 			const frontendImages = page.locator(
-				'.woocommerce-product-gallery__wrapper a[href*="/uploads/"] > img'
+				'.poocommerce-product-gallery__wrapper a[href*="/uploads/"] > img'
 			);
 			await expect( frontendImages ).toHaveCount( 2 );
 			await expect( frontendImages.nth( 0 ) ).toHaveAttribute(
@@ -353,7 +353,7 @@ test.describe( 'Products > Product Images', () => {
 
 			await page.goto( productWithImage.permalink );
 			const frontendImages = page.locator(
-				'.woocommerce-product-gallery__wrapper a[href*="/uploads/"] > img'
+				'.poocommerce-product-gallery__wrapper a[href*="/uploads/"] > img'
 			);
 			await expect( frontendImages ).toHaveCount( 1 );
 			await expect( frontendImages ).toHaveAttribute( 'src', /image-01/ );

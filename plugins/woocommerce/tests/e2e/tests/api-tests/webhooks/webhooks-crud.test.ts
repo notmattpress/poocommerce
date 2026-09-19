@@ -27,8 +27,8 @@ test.describe( 'Webhooks API tests', () => {
 			);
 			expect( responseJSON.hooks ).toEqual(
 				expect.arrayContaining( [
-					'woocommerce_update_order',
-					'woocommerce_order_refunded',
+					'poocommerce_update_order',
+					'poocommerce_order_refunded',
 				] )
 			);
 
@@ -54,8 +54,8 @@ test.describe( 'Webhooks API tests', () => {
 			);
 			expect( responseJSON.hooks ).toEqual(
 				expect.arrayContaining( [
-					'woocommerce_update_order',
-					'woocommerce_order_refunded',
+					'poocommerce_update_order',
+					'poocommerce_order_refunded',
 				] )
 			);
 		} );

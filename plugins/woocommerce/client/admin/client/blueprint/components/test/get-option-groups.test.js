@@ -14,7 +14,7 @@ describe( 'getOptionGroups', () => {
 		expect( result ).toEqual( [] );
 	} );
 	it( 'should return option groups for matched options', () => {
-		const options = [ 'woocommerce_store_address' ];
+		const options = [ 'poocommerce_store_address' ];
 		const result = getOptionGroups( options );
 		expect( result ).toEqual( [ 'General' ] );
 	} );
@@ -26,7 +26,7 @@ describe( 'getOptionGroupsFromSteps', () => {
 			{
 				step: 'setSiteOptions',
 				options: {
-					woocommerce_store_address: '',
+					poocommerce_store_address: '',
 				},
 			},
 		];

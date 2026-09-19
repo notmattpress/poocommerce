@@ -1,9 +1,9 @@
 {
-	"name": "woocommerce/product-results-count",
+	"name": "poocommerce/product-results-count",
 	"title": "Product Results Count",
 	"description": "Display the number of products on the archive page or search result page.",
-	"category": "woocommerce",
-	"keywords": [ "WooCommerce" ],
+	"category": "poocommerce",
+	"keywords": [ "PooCommerce" ],
 	"supports": {
 		"interactivity": {
 			"clientNavigation": true
@@ -17,7 +17,7 @@
 		}
 	},
 	"usesContext": [ "queryId" ],
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"apiVersion": 3,
 	"$schema": "https://schemas.wp.org/trunk/block.json"
 }

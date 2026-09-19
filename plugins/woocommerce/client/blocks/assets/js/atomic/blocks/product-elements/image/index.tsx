@@ -16,7 +16,7 @@ registerBlockType( metadata, {
 	deprecated,
 	icon,
 	edit,
-	// The `woocommerce/product-sale-badge` inner block needs to persist —
+	// The `poocommerce/product-sale-badge` inner block needs to persist —
 	// returning `null` would drop it from the saved content.
 	save: () => <InnerBlocks.Content />,
 } );

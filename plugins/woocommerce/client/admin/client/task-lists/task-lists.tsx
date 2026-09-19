@@ -6,8 +6,8 @@ import { MenuGroup, MenuItem } from '@wordpress/components';
 import { check } from '@wordpress/icons';
 import { Fragment } from '@wordpress/element';
 import { useDispatch, useSelect } from '@wordpress/data';
-import { onboardingStore, TaskListType, TaskType } from '@woocommerce/data';
-import { recordEvent } from '@woocommerce/tracks';
+import { onboardingStore, TaskListType, TaskType } from '@poocommerce/data';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -85,7 +85,7 @@ export const TaskLists = ( { query }: TaskListsProps ) => {
 
 	if ( currentTask ) {
 		return (
-			<div className="woocommerce-task-dashboard__container">
+			<div className="poocommerce-task-dashboard__container">
 				<Task query={ query } task={ currentTask } />
 			</div>
 		);
@@ -120,11 +120,11 @@ export const TaskLists = ( { query }: TaskListsProps ) => {
 							{ isToggleable && (
 								<DisplayOption>
 									<MenuGroup
-										className="woocommerce-layout__homescreen-display-options"
-										label={ __( 'Display', 'woocommerce' ) }
+										className="poocommerce-layout__homescreen-display-options"
+										label={ __( 'Display', 'poocommerce' ) }
 									>
 										<MenuItem
-											className="woocommerce-layout__homescreen-extension-tasklist-toggle"
+											className="poocommerce-layout__homescreen-extension-tasklist-toggle"
 											icon={
 												isHidden ? undefined : check
 											}
@@ -136,7 +136,7 @@ export const TaskLists = ( { query }: TaskListsProps ) => {
 										>
 											{ __(
 												'Show things to do next',
-												'woocommerce'
+												'poocommerce'
 											) }
 										</MenuItem>
 									</MenuGroup>

@@ -1,6 +1,6 @@
 <?php
 
-namespace Automattic\WooCommerce\RemoteSpecsValidation\Tests;
+namespace Automattic\PooCommerce\RemoteSpecsValidation\Tests;
 
 use PHPUnit\Framework\TestCase as PHPUnitTestCase;
 

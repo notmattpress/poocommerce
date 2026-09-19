@@ -3,15 +3,15 @@
  * Cart extensions route tests.
  */
 
-namespace Automattic\WooCommerce\Tests\Blocks\StoreApi\Routes;
+namespace Automattic\PooCommerce\Tests\Blocks\StoreApi\Routes;
 
-use Automattic\WooCommerce\Enums\OrderItemType;
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Tests\Blocks\StoreApi\Routes\ControllerTestCase;
-use Automattic\WooCommerce\Tests\Blocks\Helpers\FixtureData;
-use Automattic\WooCommerce\StoreApi\Exceptions\RouteException;
-use Automattic\WooCommerce\StoreApi\Schemas\ExtendSchema;
-use Automattic\WooCommerce\StoreApi\StoreApi;
+use Automattic\PooCommerce\Enums\OrderItemType;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Tests\Blocks\StoreApi\Routes\ControllerTestCase;
+use Automattic\PooCommerce\Tests\Blocks\Helpers\FixtureData;
+use Automattic\PooCommerce\StoreApi\Exceptions\RouteException;
+use Automattic\PooCommerce\StoreApi\Schemas\ExtendSchema;
+use Automattic\PooCommerce\StoreApi\StoreApi;
 
 /**
  * Cart Controller Tests.
@@ -37,12 +37,12 @@ class CartExtensions extends ControllerTestCase {
 
 		wc()->cart->add_to_cart( $this->product->get_id(), 1 );
 
-		woocommerce_store_api_register_update_callback(
+		poocommerce_store_api_register_update_callback(
 			array(
 				'namespace' => 'valid-test-plugin',
 				'callback'  => function () {
 					add_action(
-						'woocommerce_cart_calculate_fees',
+						'poocommerce_cart_calculate_fees',
 						function() {
 							wc()->cart->add_fee( 'Surcharge', 10, true, 'standard' );
 						}
@@ -67,7 +67,7 @@ class CartExtensions extends ControllerTestCase {
 		$data     = $response->get_data();
 
 		$this->assertSame( 400, $response->get_status(), 'An invalid extension namespace should return HTTP 400.' );
-		$this->assertSame( 'woocommerce_rest_cart_extensions_error', $data['code'], 'The response should use the mapped cart-extension error code.' );
+		$this->assertSame( 'poocommerce_rest_cart_extensions_error', $data['code'], 'The response should use the mapped cart-extension error code.' );
 		$this->assertSame( 'There is no such namespace registered: test-plugin.', $data['message'], 'The response should identify the missing namespace exactly.' );
 		$this->assertSame( 400, $data['data']['status'], 'The response data should preserve the HTTP status.' );
 		$this->assertArrayNotHasKey( 'context', $data['data'], 'The invalid-namespace response should leave notice context selection to the client.' );
@@ -80,7 +80,7 @@ class CartExtensions extends ControllerTestCase {
 		$extend            = StoreApi::container()->get( ExtendSchema::class );
 		$original_callback = $extend->get_update_callback( 'valid-test-plugin' );
 
-		woocommerce_store_api_register_update_callback(
+		poocommerce_store_api_register_update_callback(
 			array(
 				'namespace' => 'valid-test-plugin',
 				'callback'  => function () {
@@ -111,7 +111,7 @@ class CartExtensions extends ControllerTestCase {
 			$this->assertSame( 400, $data['data']['status'], 'The callback RouteException response data should preserve its status.' );
 			$this->assertSame( 'wc/cart', $data['data']['context'], 'The callback RouteException should preserve its notice context.' );
 		} finally {
-			woocommerce_store_api_register_update_callback(
+			poocommerce_store_api_register_update_callback(
 				array(
 					'namespace' => 'valid-test-plugin',
 					'callback'  => $original_callback,
@@ -145,7 +145,7 @@ class CartExtensions extends ControllerTestCase {
 	/**
 	 * A rejected cart update must not sync the cart to a pending order.
 	 *
-	 * @see https://github.com/woocommerce/woocommerce/issues/68007
+	 * @see https://github.com/poocommerce/poocommerce/issues/68007
 	 */
 	public function test_rejected_cart_update_does_not_remove_shipping_from_pending_order() {
 		$order = $this->create_pending_order_with_shipping();
@@ -168,7 +168,7 @@ class CartExtensions extends ControllerTestCase {
 	 * A successful no-op cart update must not sync uncalculated shipping to a pending order.
 	 *
 	 * @dataProvider needs_shipping_filter_provider
-	 * @see https://github.com/woocommerce/woocommerce/issues/68007
+	 * @see https://github.com/poocommerce/poocommerce/issues/68007
 	 *
 	 * @param bool $filter_needs_shipping Whether to filter the cart to not need shipping.
 	 */
@@ -184,7 +184,7 @@ class CartExtensions extends ControllerTestCase {
 		};
 
 		if ( $filter_needs_shipping ) {
-			add_filter( 'woocommerce_cart_needs_shipping', $needs_shipping_filter, 999 );
+			add_filter( 'poocommerce_cart_needs_shipping', $needs_shipping_filter, 999 );
 		}
 
 		try {
@@ -206,7 +206,7 @@ class CartExtensions extends ControllerTestCase {
 			$this->assertFalse( wc()->cart->has_calculated_shipping() );
 			$this->assertSame( array(), wc()->shipping()->get_packages() );
 		} finally {
-			remove_filter( 'woocommerce_cart_needs_shipping', $needs_shipping_filter, 999 );
+			remove_filter( 'poocommerce_cart_needs_shipping', $needs_shipping_filter, 999 );
 		}
 
 		$reloaded_order = wc_get_order( $order->get_id() );

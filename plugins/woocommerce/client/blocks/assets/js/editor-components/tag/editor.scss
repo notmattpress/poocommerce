@@ -1,18 +1,18 @@
-.woocommerce-tag {
+.poocommerce-tag {
 	display: inline-flex;
 	margin: 1px 4px 1px 0;
 	overflow: hidden;
 	vertical-align: middle;
 
-	.woocommerce-tag__text,
-	.woocommerce-tag__remove {
+	.poocommerce-tag__text,
+	.poocommerce-tag__remove {
 		display: inline-block;
 		line-height: 24px;
 		background: $gray-100;
 		transition: all 0.2s cubic-bezier(0.4, 1, 0.4, 1);
 	}
 
-	.woocommerce-tag__text {
+	.poocommerce-tag__text {
 		align-self: center;
 		padding: 0 $gap-smaller;
 		border-radius: 12px;
@@ -22,12 +22,12 @@
 		text-overflow: ellipsis;
 	}
 
-	&.has-remove .woocommerce-tag__text {
+	&.has-remove .poocommerce-tag__text {
 		padding: 0 $gap-smallest 0 $gap-smaller;
 		border-radius: 12px 0 0 12px;
 	}
 
-	.woocommerce-tag__remove {
+	.poocommerce-tag__remove {
 		cursor: pointer;
 		padding: 0 2px;
 		border-radius: 0 12px 12px 0;

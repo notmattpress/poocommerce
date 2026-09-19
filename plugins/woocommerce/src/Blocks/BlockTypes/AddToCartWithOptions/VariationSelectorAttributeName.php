@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes\AddToCartWithOptions;
+namespace Automattic\PooCommerce\Blocks\BlockTypes\AddToCartWithOptions;
 
-use Automattic\WooCommerce\Blocks\BlockTypes\AbstractBlock;
-use Automattic\WooCommerce\Blocks\BlockTypes\EnableBlockJsonAssetsTrait;
-use Automattic\WooCommerce\Blocks\Utils\StyleAttributesUtils;
+use Automattic\PooCommerce\Blocks\BlockTypes\AbstractBlock;
+use Automattic\PooCommerce\Blocks\BlockTypes\EnableBlockJsonAssetsTrait;
+use Automattic\PooCommerce\Blocks\Utils\StyleAttributesUtils;
 
 /**
  * Block type for variation selector attribute name in add to cart with options.
@@ -33,15 +33,15 @@ class VariationSelectorAttributeName extends AbstractBlock {
 	protected function render( $attributes, $content, $block ): string {
 		if (
 			! isset(
-				$block->context['woocommerce/attributeId'],
-				$block->context['woocommerce/attributeName']
+				$block->context['poocommerce/attributeId'],
+				$block->context['poocommerce/attributeName']
 			)
 		) {
 			return '';
 		}
 
-		$attribute_id   = $block->context['woocommerce/attributeId'];
-		$attribute_name = $block->context['woocommerce/attributeName'];
+		$attribute_id   = $block->context['poocommerce/attributeId'];
+		$attribute_name = $block->context['poocommerce/attributeName'];
 
 		$classes_and_styles = StyleAttributesUtils::get_classes_and_styles_by_attributes( $attributes, array(), array( 'extra_classes' ) );
 

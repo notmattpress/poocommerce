@@ -49,7 +49,7 @@ export function Pagination( {
 		} );
 	}
 
-	const classes = clsx( 'woocommerce-pagination', className );
+	const classes = clsx( 'poocommerce-pagination', className );
 
 	if ( pageCount <= 1 ) {
 		return (

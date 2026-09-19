@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import type { Cart } from '@woocommerce/types';
+import type { Cart } from '@poocommerce/types';
 
 const getCookie = ( name: string ): string | Record< string, string > => {
 	const cookies = document.cookie
@@ -19,13 +19,13 @@ const getCookie = ( name: string ): string | Record< string, string > => {
 };
 
 const hasValidHash = () => {
-	const sessionHash = getCookie( 'woocommerce_cart_hash' );
+	const sessionHash = getCookie( 'poocommerce_cart_hash' );
 	const cachedHash = window.localStorage?.getItem( 'storeApiCartHash' ) || '';
 	return cachedHash === sessionHash;
 };
 
 export const hasCartSession = () => {
-	return !! getCookie( 'woocommerce_items_in_cart' );
+	return !! getCookie( 'poocommerce_items_in_cart' );
 };
 
 export const isAddingToCart = () => {

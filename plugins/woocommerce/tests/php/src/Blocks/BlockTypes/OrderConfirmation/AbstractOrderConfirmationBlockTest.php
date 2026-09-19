@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\BlockTypes\OrderConfirmation;
+namespace Automattic\PooCommerce\Tests\Blocks\BlockTypes\OrderConfirmation;
 
-use Automattic\WooCommerce\Blocks\BlockTypes\OrderConfirmation\AbstractOrderConfirmationBlock;
+use Automattic\PooCommerce\Blocks\BlockTypes\OrderConfirmation\AbstractOrderConfirmationBlock;
 use WC_Order;
 use WC_Unit_Test_Case;
 
@@ -111,7 +111,7 @@ final class AbstractOrderConfirmationBlockTest extends WC_Unit_Test_Case {
 						wp_set_current_user( self::factory()->user->create( array( 'role' => 'customer' ) ) );
 						break;
 					case 'known shopper filter disabled':
-						add_filter( 'woocommerce_order_received_verify_known_shoppers', '__return_false' );
+						add_filter( 'poocommerce_order_received_verify_known_shoppers', '__return_false' );
 						break;
 					case 'guest draft session':
 						WC()->session->set( 'store_api_draft_order', $order->get_id() );
@@ -163,7 +163,7 @@ final class AbstractOrderConfirmationBlockTest extends WC_Unit_Test_Case {
 		$customer_id = $customer_order ? self::factory()->user->create( array( 'role' => 'customer' ) ) : 0;
 		$order       = $this->create_order( $customer_id );
 
-		update_option( 'woocommerce_enable_guest_checkout', $guest_checkout_enabled ? 'yes' : 'no' );
+		update_option( 'poocommerce_enable_guest_checkout', $guest_checkout_enabled ? 'yes' : 'no' );
 		$_GET = array( 'key' => $valid_key ? $order->get_order_key() : 'wc_order_wrong' );
 
 		$this->assertSame( $expected, $this->sut->email_verification_permitted_proxy( $order ) );

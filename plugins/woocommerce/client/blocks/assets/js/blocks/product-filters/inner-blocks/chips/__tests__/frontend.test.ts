@@ -72,7 +72,7 @@ describe( 'product filter chips interactivity store', () => {
 		}
 
 		mockGetContext.mockReturnValue( {
-			storeNamespace: 'woocommerce/product-filters',
+			storeNamespace: 'poocommerce/product-filters',
 		} );
 
 		expect( mockRegisteredStore.state.items ).toEqual( [
@@ -101,7 +101,7 @@ describe( 'product filter chips interactivity store', () => {
 		}
 
 		mockGetContext.mockReturnValue( {
-			storeNamespace: 'woocommerce/product-filters',
+			storeNamespace: 'poocommerce/product-filters',
 			displayLimit: -1,
 			isExpanded: false,
 		} );
@@ -123,7 +123,7 @@ describe( 'product filter chips interactivity store', () => {
 		};
 
 		mockGetContext.mockReturnValue( {
-			storeNamespace: 'woocommerce/product-filters',
+			storeNamespace: 'poocommerce/product-filters',
 			item,
 		} );
 
@@ -148,7 +148,7 @@ describe( 'product filter chips interactivity store', () => {
 		}
 
 		mockGetContext.mockReturnValue( {
-			storeNamespace: 'woocommerce/product-filters',
+			storeNamespace: 'poocommerce/product-filters',
 		} );
 
 		mockRegisteredStore.actions.toggle();

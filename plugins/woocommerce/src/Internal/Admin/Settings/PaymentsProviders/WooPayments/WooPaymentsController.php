@@ -1,9 +1,9 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Admin\Settings\PaymentsProviders\WooPayments;
+namespace Automattic\PooCommerce\Internal\Admin\Settings\PaymentsProviders\WooPayments;
 
-use Automattic\WooCommerce\Internal\Admin\Settings\Payments;
+use Automattic\PooCommerce\Internal\Admin\Settings\Payments;
 
 defined( 'ABSPATH' ) || exit;
 

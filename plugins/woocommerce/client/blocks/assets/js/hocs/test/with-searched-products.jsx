@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { render, act } from '@testing-library/react';
-import * as mockUtils from '@woocommerce/editor-components/utils';
+import * as mockUtils from '@poocommerce/editor-components/utils';
 import { useDebouncedCallback } from 'use-debounce';
 
 /**
@@ -21,7 +21,7 @@ jest.mock( 'use-debounce', () => {
 	};
 } );
 
-jest.mock( '@woocommerce/block-settings', () => ( {
+jest.mock( '@poocommerce/block-settings', () => ( {
 	__esModule: true,
 	blocksConfig: {
 		productCount: 101,

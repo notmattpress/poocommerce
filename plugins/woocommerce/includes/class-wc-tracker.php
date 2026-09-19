@@ -1,32 +1,32 @@
 <?php
 /**
- * WooCommerce Tracker
+ * PooCommerce Tracker
  *
- * The WooCommerce tracker class adds functionality to track WooCommerce usage based on if the customer opted in.
- * No personal information is tracked, only general WooCommerce settings, general product, order and user counts and admin email for discount code.
+ * The PooCommerce tracker class adds functionality to track PooCommerce usage based on if the customer opted in.
+ * No personal information is tracked, only general PooCommerce settings, general product, order and user counts and admin email for discount code.
  *
  * @class WC_Tracker
  * @since 2.3.0
- * @package WooCommerce\Classes
+ * @package PooCommerce\Classes
  */
 
 use Automattic\Jetpack\Constants;
-use Automattic\WooCommerce\Blocks\Domain\Services\CheckoutFields;
-use Automattic\WooCommerce\Blocks\Package;
-use Automattic\WooCommerce\Enums\ProductStatus;
-use Automattic\WooCommerce\Internal\Admin\EmailImprovements\EmailImprovements;
-use Automattic\WooCommerce\Internal\CLI\Migrator\Core\MigratorTracker;
-use Automattic\WooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
-use Automattic\WooCommerce\Internal\Utilities\BlocksUtil;
-use Automattic\WooCommerce\Proxies\LegacyProxy;
-use Automattic\WooCommerce\Internal\Utilities\ProductUtil;
-use Automattic\WooCommerce\Utilities\{ FeaturesUtil, OrderUtil, PluginUtil };
+use Automattic\PooCommerce\Blocks\Domain\Services\CheckoutFields;
+use Automattic\PooCommerce\Blocks\Package;
+use Automattic\PooCommerce\Enums\ProductStatus;
+use Automattic\PooCommerce\Internal\Admin\EmailImprovements\EmailImprovements;
+use Automattic\PooCommerce\Internal\CLI\Migrator\Core\MigratorTracker;
+use Automattic\PooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
+use Automattic\PooCommerce\Internal\Utilities\BlocksUtil;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\Internal\Utilities\ProductUtil;
+use Automattic\PooCommerce\Utilities\{ FeaturesUtil, OrderUtil, PluginUtil };
 
 defined( 'ABSPATH' ) || exit;
 
 // phpcs:disable Squiz.Classes.ClassFileName.NoMatch, Squiz.Classes.ValidClassName.NotCamelCaps -- Backwards compatibility.
 /**
- * WooCommerce Tracker Class
+ * PooCommerce Tracker Class
  */
 class WC_Tracker {
 
@@ -36,7 +36,7 @@ class WC_Tracker {
 	 *
 	 * @var string
 	 */
-	private static $api_url = 'https://tracking.woocommerce.com/v1/';
+	private static $api_url = 'https://tracking.poocommerce.com/v1/';
 
 	/**
 	 * Consecutive failed attempts after which the current snapshot is abandoned.
@@ -51,8 +51,8 @@ class WC_Tracker {
 	/**
 	 * Hook into cron event.
 	 */
-	public static function init() { // phpcs:ignore WooCommerce.Functions.InternalInjectionMethod.MissingFinal, WooCommerce.Functions.InternalInjectionMethod.MissingInternalTag -- Not an injection.
-		add_action( 'woocommerce_tracker_send_event', array( __CLASS__, 'send_tracking_data' ) );
+	public static function init() { // phpcs:ignore PooCommerce.Functions.InternalInjectionMethod.MissingFinal, PooCommerce.Functions.InternalInjectionMethod.MissingInternalTag -- Not an injection.
+		add_action( 'poocommerce_tracker_send_event', array( __CLASS__, 'send_tracking_data' ) );
 	}
 
 	/**
@@ -71,42 +71,42 @@ class WC_Tracker {
 		 *
 		 * @since 2.3.0
 		 */
-		if ( ! apply_filters( 'woocommerce_tracker_send_override', $override ) ) {
+		if ( ! apply_filters( 'poocommerce_tracker_send_override', $override ) ) {
 			// Send a maximum of once per week by default.
 			$last_send = self::get_last_send_time();
-			if ( $last_send && $last_send > apply_filters( 'woocommerce_tracker_last_send_interval', strtotime( '-1 week' ) ) ) { // phpcs:ignore
+			if ( $last_send && $last_send > apply_filters( 'poocommerce_tracker_last_send_interval', strtotime( '-1 week' ) ) ) { // phpcs:ignore
 				return;
 			}
 		} else {
 			// Make sure there is at least a 1 hour delay between override sends, we don't want duplicate calls due to double clicking links.
-			$last_attempt = max( (int) self::get_last_send_time(), (int) get_option( 'woocommerce_tracker_last_attempt', 0 ) );
+			$last_attempt = max( (int) self::get_last_send_time(), (int) get_option( 'poocommerce_tracker_last_attempt', 0 ) );
 			if ( $last_attempt > strtotime( '-1 hours' ) ) {
 				return;
 			}
 		}
 
 		// Recorded before building the snapshot so overlapping override sends are still suppressed.
-		update_option( 'woocommerce_tracker_last_attempt', time(), false );
+		update_option( 'poocommerce_tracker_last_attempt', time(), false );
 
 		// Count the attempt before the snapshot is built. A fatal or timeout inside
 		// get_tracking_data() never reaches record_send_result(), so a counter that only
 		// moved on delivery outcomes would let an unbuildable snapshot rebuild on every
 		// scheduled run instead of giving up the way a failed delivery does.
-		$attempts = (int) get_option( 'woocommerce_tracker_send_failures', 0 ) + 1;
+		$attempts = (int) get_option( 'poocommerce_tracker_send_failures', 0 ) + 1;
 
 		if ( self::MAX_CONSECUTIVE_SEND_FAILURES < $attempts ) {
 			self::finish_snapshot();
 			wc_get_logger()->warning(
-				'WooCommerce tracker snapshot attempts ended before recording a result; giving up until the next interval.',
+				'PooCommerce tracker snapshot attempts ended before recording a result; giving up until the next interval.',
 				array(
-					'source'   => 'woocommerce-tracker',
+					'source'   => 'poocommerce-tracker',
 					'failures' => $attempts - 1,
 				)
 			);
 			return;
 		}
 
-		update_option( 'woocommerce_tracker_send_failures', $attempts, false );
+		update_option( 'poocommerce_tracker_send_failures', $attempts, false );
 
 		$body = wp_json_encode( self::get_tracking_data() );
 		if ( false === $body ) {
@@ -122,7 +122,7 @@ class WC_Tracker {
 				'redirection' => 5,
 				'httpversion' => '1.0',
 				'blocking'    => true,
-				'headers'     => array( 'user-agent' => 'WooCommerceTracker/' . md5( esc_url_raw( home_url( '/' ) ) ) . ';' ),
+				'headers'     => array( 'user-agent' => 'PooCommerceTracker/' . md5( esc_url_raw( home_url( '/' ) ) ) . ';' ),
 				'body'        => $body,
 				'cookies'     => array(),
 			)
@@ -166,29 +166,29 @@ class WC_Tracker {
 	 */
 	private static function record_send_failure( $retryable, $status, $error_code, $body_bytes ): void {
 		// The attempt was already counted before the snapshot was built.
-		$failures = (int) get_option( 'woocommerce_tracker_send_failures', 0 );
+		$failures = (int) get_option( 'poocommerce_tracker_send_failures', 0 );
 		$give_up  = ! $retryable || self::MAX_CONSECUTIVE_SEND_FAILURES <= $failures;
 
 		if ( $give_up ) {
 			self::finish_snapshot();
-		} elseif ( true !== wc_string_to_bool( get_option( 'woocommerce_allow_tracking', 'no' ) ) ) {
-			delete_option( 'woocommerce_tracker_send_failures' );
+		} elseif ( true !== wc_string_to_bool( get_option( 'poocommerce_allow_tracking', 'no' ) ) ) {
+			delete_option( 'poocommerce_tracker_send_failures' );
 		}
 
 		if ( 413 === $status ) {
-			$message = 'WooCommerce tracker snapshot delivery failed; the snapshot is too large for the service and will not be retried.';
+			$message = 'PooCommerce tracker snapshot delivery failed; the snapshot is too large for the service and will not be retried.';
 		} elseif ( 'json_encode_failure' === $error_code ) {
-			$message = 'WooCommerce tracker snapshot could not be encoded and will not be retried.';
+			$message = 'PooCommerce tracker snapshot could not be encoded and will not be retried.';
 		} elseif ( $give_up ) {
-			$message = 'WooCommerce tracker snapshot delivery failed; giving up until the next interval.';
+			$message = 'PooCommerce tracker snapshot delivery failed; giving up until the next interval.';
 		} else {
-			$message = 'WooCommerce tracker snapshot delivery failed; it will be retried on the next run.';
+			$message = 'PooCommerce tracker snapshot delivery failed; it will be retried on the next run.';
 		}
 
 		wc_get_logger()->warning(
 			$message,
 			array(
-				'source'      => 'woocommerce-tracker',
+				'source'      => 'poocommerce-tracker',
 				'http_status' => $status,
 				'error_code'  => $error_code,
 				'failures'    => $failures,
@@ -205,8 +205,8 @@ class WC_Tracker {
 	 * store back on the weekly interval and stops the daily retries.
 	 */
 	private static function finish_snapshot(): void {
-		update_option( 'woocommerce_tracker_last_send', time() );
-		delete_option( 'woocommerce_tracker_send_failures' );
+		update_option( 'poocommerce_tracker_last_send', time() );
+		delete_option( 'poocommerce_tracker_send_failures' );
 	}
 
 	/**
@@ -239,7 +239,7 @@ class WC_Tracker {
 		 *
 		 * @since 2.3.0
 		 */
-		return apply_filters( 'woocommerce_tracker_last_send_time', get_option( 'woocommerce_tracker_last_send', false ) );
+		return apply_filters( 'poocommerce_tracker_last_send_time', get_option( 'poocommerce_tracker_last_send', false ) );
 	}
 
 	/**
@@ -290,7 +290,7 @@ class WC_Tracker {
 		 *
 		 * @since 2.3.0
 		 */
-		$data['email'] = apply_filters( 'woocommerce_tracker_admin_email', get_option( 'admin_email' ) );
+		$data['email'] = apply_filters( 'poocommerce_tracker_admin_email', get_option( 'admin_email' ) );
 		$data['theme'] = self::get_theme_info();
 
 		// WordPress Info.
@@ -304,7 +304,7 @@ class WC_Tracker {
 		$data['active_plugins']   = $all_plugins['active_plugins'];
 		$data['inactive_plugins'] = $all_plugins['inactive_plugins'];
 
-		// Jetpack & WooCommerce Connect.
+		// Jetpack & PooCommerce Connect.
 		$data['jetpack_version']    = Constants::is_defined( 'JETPACK__VERSION' ) ? Constants::get_constant( 'JETPACK__VERSION' ) : 'none';
 		$data['jetpack_connected']  = ( class_exists( 'Jetpack' ) && is_callable( 'Jetpack::is_active' ) && Jetpack::is_active() ) ? 'yes' : 'no';
 		$data['jetpack_is_staging'] = self::is_jetpack_staging_site() ? 'yes' : 'no';
@@ -338,8 +338,8 @@ class WC_Tracker {
 		// Features.
 		$data['enabled_features'] = self::get_enabled_features();
 
-		// Get all WooCommerce options info.
-		$data['settings'] = self::get_all_woocommerce_options_values();
+		// Get all PooCommerce options info.
+		$data['settings'] = self::get_all_poocommerce_options_values();
 
 		// Template overrides.
 		$template_overrides         = self::get_all_template_overrides();
@@ -358,15 +358,15 @@ class WC_Tracker {
 		 *
 		 * @since 5.2.0
 		 */
-		$data['wc_admin_disabled'] = apply_filters( 'woocommerce_admin_disabled', false ) ? 'yes' : 'no';
+		$data['wc_admin_disabled'] = apply_filters( 'poocommerce_admin_disabled', false ) ? 'yes' : 'no';
 
 		// Mobile info.
-		$data['wc_mobile_usage'] = self::get_woocommerce_mobile_usage();
+		$data['wc_mobile_usage'] = self::get_poocommerce_mobile_usage();
 
 		// WC Tracker data.
-		$data['woocommerce_allow_tracking']               = get_option( 'woocommerce_allow_tracking', 'no' );
-		$data['woocommerce_allow_tracking_last_modified'] = get_option( 'woocommerce_allow_tracking_last_modified', 'unknown' );
-		$data['woocommerce_allow_tracking_first_optin']   = get_option( 'woocommerce_allow_tracking_first_optin', 'unknown' );
+		$data['poocommerce_allow_tracking']               = get_option( 'poocommerce_allow_tracking', 'no' );
+		$data['poocommerce_allow_tracking_last_modified'] = get_option( 'poocommerce_allow_tracking_last_modified', 'unknown' );
+		$data['poocommerce_allow_tracking_first_optin']   = get_option( 'poocommerce_allow_tracking_first_optin', 'unknown' );
 
 		// Email improvements tracking data.
 		$data['email_improvements'] = self::get_email_improvements_info( $template_overrides );
@@ -382,7 +382,7 @@ class WC_Tracker {
 		 *
 		 * @since 2.3.0
 		 */
-		$data = apply_filters( 'woocommerce_tracker_data', $data );
+		$data = apply_filters( 'poocommerce_tracker_data', $data );
 
 		// Total seconds taken to generate snapshot (including filtered data).
 		$data['snapshot_generation_time'] = microtime( true ) - $start_time;
@@ -397,18 +397,18 @@ class WC_Tracker {
 	 */
 	public static function get_address_autocomplete_info() {
 		$data = array(
-			'enabled'            => ( 'yes' === wc_bool_to_string( get_option( 'woocommerce_address_autocomplete_enabled', 'no' ) ) ) ? 'yes' : 'no',
+			'enabled'            => ( 'yes' === wc_bool_to_string( get_option( 'poocommerce_address_autocomplete_enabled', 'no' ) ) ) ? 'yes' : 'no',
 			'providers'          => array(),
 			'preferred_provider' => '',
 		);
 
-		if ( ! class_exists( \Automattic\WooCommerce\Internal\AddressProvider\AddressProviderController::class ) ) {
+		if ( ! class_exists( \Automattic\PooCommerce\Internal\AddressProvider\AddressProviderController::class ) ) {
 			// The option could still be set even if the class doesn't exist (e.g. if set manually in the DB).
 			$data['enabled'] = 'no';
 			return $data;
 		}
 
-		$autocomplete_controller = wc_get_container()->get( \Automattic\WooCommerce\Internal\AddressProvider\AddressProviderController::class );
+		$autocomplete_controller = wc_get_container()->get( \Automattic\PooCommerce\Internal\AddressProvider\AddressProviderController::class );
 		$autocomplete_controller->init();
 
 		// Get all registered providers.
@@ -445,7 +445,7 @@ class WC_Tracker {
 	public static function get_theme_info() {
 		$theme_data           = wp_get_theme();
 		$theme_child_theme    = wc_bool_to_string( is_child_theme() );
-		$theme_wc_support     = wc_bool_to_string( current_theme_supports( 'woocommerce' ) );
+		$theme_wc_support     = wc_bool_to_string( current_theme_supports( 'poocommerce' ) );
 		$theme_is_block_theme = wc_bool_to_string( wp_is_block_theme() );
 
 		return array(
@@ -558,7 +558,7 @@ class WC_Tracker {
 				$formatted['plugin_uri'] = wp_strip_all_tags( $v['PluginURI'] );
 			}
 			$formatted['feature_compatibility'] = array();
-			if ( wc_get_container()->get( PluginUtil::class )->is_woocommerce_aware_plugin( $k ) ) {
+			if ( wc_get_container()->get( PluginUtil::class )->is_poocommerce_aware_plugin( $k ) ) {
 				$formatted['feature_compatibility'] = array_filter( FeaturesUtil::get_compatible_features_for_plugin( $k ) );
 			}
 			if ( in_array( $k, $active_plugins_keys, true ) ) {
@@ -577,16 +577,16 @@ class WC_Tracker {
 	}
 
 	/**
-	 * Get the settings of WooCommerce Payments plugin
+	 * Get the settings of PooCommerce Payments plugin
 	 *
 	 * @return array
 	 */
 	private static function get_wcpay_settings() {
-		return get_option( 'woocommerce_woocommerce_payments_settings' );
+		return get_option( 'poocommerce_poocommerce_payments_settings' );
 	}
 
 	/**
-	 * Check to see if the helper is connected to WooCommerce.com
+	 * Check to see if the helper is connected to PooCommerce.com
 	 *
 	 * @return string
 	 */
@@ -666,7 +666,7 @@ class WC_Tracker {
 	/**
 	 * Get order totals.
 	 *
-	 * Keeping the internal statuses names as strings to avoid regression issues (not referencing Automattic\WooCommerce\Enums\OrderInternalStatus class).
+	 * Keeping the internal statuses names as strings to avoid regression issues (not referencing Automattic\PooCommerce\Enums\OrderInternalStatus class).
 	 *
 	 * @since 5.4.0
 	 * @return array
@@ -1185,39 +1185,39 @@ class WC_Tracker {
 	}
 
 	/**
-	 * Get all options starting with woocommerce_ prefix.
+	 * Get all options starting with poocommerce_ prefix.
 	 *
 	 * @return array
 	 */
-	private static function get_all_woocommerce_options_values() {
+	private static function get_all_poocommerce_options_values() {
 		return array(
 			'version'                               => WC()->stable_version(),
-			'currency'                              => get_woocommerce_currency(),
+			'currency'                              => get_poocommerce_currency(),
 			'base_location'                         => WC()->countries->get_base_country(),
 			'base_state'                            => WC()->countries->get_base_state(),
 			'base_postcode'                         => WC()->countries->get_base_postcode(),
 			'selling_locations'                     => WC()->countries->get_allowed_countries(),
 			'api_enabled'                           => WC()->legacy_rest_api_is_available() ? 'yes' : 'no',
-			'weight_unit'                           => get_option( 'woocommerce_weight_unit' ),
-			'dimension_unit'                        => get_option( 'woocommerce_dimension_unit' ),
-			'download_method'                       => get_option( 'woocommerce_file_download_method' ),
-			'download_require_login'                => get_option( 'woocommerce_downloads_require_login' ),
-			'calc_taxes'                            => get_option( 'woocommerce_calc_taxes' ),
-			'coupons_enabled'                       => get_option( 'woocommerce_enable_coupons' ),
-			'guest_checkout'                        => get_option( 'woocommerce_enable_guest_checkout' ),
-			'delayed_account_creation'              => get_option( 'woocommerce_enable_delayed_account_creation' ),
-			'checkout_login_reminder'               => get_option( 'woocommerce_enable_checkout_login_reminder' ),
-			'secure_checkout'                       => get_option( 'woocommerce_force_ssl_checkout' ),
-			'enable_signup_and_login_from_checkout' => get_option( 'woocommerce_enable_signup_and_login_from_checkout' ),
-			'enable_myaccount_registration'         => get_option( 'woocommerce_enable_myaccount_registration' ),
-			'registration_generate_username'        => get_option( 'woocommerce_registration_generate_username' ),
-			'registration_generate_password'        => get_option( 'woocommerce_registration_generate_password' ),
-			'hpos_sync_enabled'                     => get_option( 'woocommerce_custom_orders_table_data_sync_enabled' ),
-			'hpos_cot_authoritative'                => get_option( 'woocommerce_custom_orders_table_enabled' ),
-			'hpos_transactions_enabled'             => get_option( 'woocommerce_use_db_transactions_for_custom_orders_table_data_sync' ),
-			'hpos_transactions_level'               => get_option( 'woocommerce_db_transactions_isolation_level_for_custom_orders_table_data_sync' ),
-			'show_marketplace_suggestions'          => get_option( 'woocommerce_show_marketplace_suggestions' ),
-			'admin_install_timestamp'               => get_option( 'woocommerce_admin_install_timestamp' ),
+			'weight_unit'                           => get_option( 'poocommerce_weight_unit' ),
+			'dimension_unit'                        => get_option( 'poocommerce_dimension_unit' ),
+			'download_method'                       => get_option( 'poocommerce_file_download_method' ),
+			'download_require_login'                => get_option( 'poocommerce_downloads_require_login' ),
+			'calc_taxes'                            => get_option( 'poocommerce_calc_taxes' ),
+			'coupons_enabled'                       => get_option( 'poocommerce_enable_coupons' ),
+			'guest_checkout'                        => get_option( 'poocommerce_enable_guest_checkout' ),
+			'delayed_account_creation'              => get_option( 'poocommerce_enable_delayed_account_creation' ),
+			'checkout_login_reminder'               => get_option( 'poocommerce_enable_checkout_login_reminder' ),
+			'secure_checkout'                       => get_option( 'poocommerce_force_ssl_checkout' ),
+			'enable_signup_and_login_from_checkout' => get_option( 'poocommerce_enable_signup_and_login_from_checkout' ),
+			'enable_myaccount_registration'         => get_option( 'poocommerce_enable_myaccount_registration' ),
+			'registration_generate_username'        => get_option( 'poocommerce_registration_generate_username' ),
+			'registration_generate_password'        => get_option( 'poocommerce_registration_generate_password' ),
+			'hpos_sync_enabled'                     => get_option( 'poocommerce_custom_orders_table_data_sync_enabled' ),
+			'hpos_cot_authoritative'                => get_option( 'poocommerce_custom_orders_table_enabled' ),
+			'hpos_transactions_enabled'             => get_option( 'poocommerce_use_db_transactions_for_custom_orders_table_data_sync' ),
+			'hpos_transactions_level'               => get_option( 'poocommerce_db_transactions_isolation_level_for_custom_orders_table_data_sync' ),
+			'show_marketplace_suggestions'          => get_option( 'poocommerce_show_marketplace_suggestions' ),
+			'admin_install_timestamp'               => get_option( 'poocommerce_admin_install_timestamp' ),
 		);
 	}
 
@@ -1233,7 +1233,7 @@ class WC_Tracker {
 		 *
 		 * @since 2.3.0
 		 */
-		$template_paths = (array) apply_filters( 'woocommerce_template_overrides_scan_paths', array( 'WooCommerce' => WC()->plugin_path() . '/templates/' ) );
+		$template_paths = (array) apply_filters( 'poocommerce_template_overrides_scan_paths', array( 'PooCommerce' => WC()->plugin_path() . '/templates/' ) );
 		$scanned_files  = array();
 
 		require_once WC()->plugin_path() . '/includes/admin/class-wc-admin-status.php';
@@ -1293,9 +1293,9 @@ class WC_Tracker {
 
 
 	/**
-	 * Get tracker data for a specific block type on a woocommerce page.
+	 * Get tracker data for a specific block type on a poocommerce page.
 	 *
-	 * @param string $block_name The name (id) of a block, e.g. `woocommerce/cart`.
+	 * @param string $block_name The name (id) of a block, e.g. `poocommerce/cart`.
 	 * @param string $woo_page_name The woo page to search, e.g. `cart`.
 	 * @return array Associative array of tracker data with keys:
 	 * - page_contains_block
@@ -1366,8 +1366,8 @@ class WC_Tracker {
 		$cart_page_id     = wc_get_page_id( 'cart' );
 		$checkout_page_id = wc_get_page_id( 'checkout' );
 
-		$cart_block_data     = self::get_block_tracker_data( 'woocommerce/cart', 'cart' );
-		$checkout_block_data = self::get_block_tracker_data( 'woocommerce/checkout', 'checkout' );
+		$cart_block_data     = self::get_block_tracker_data( 'poocommerce/cart', 'cart' );
+		$checkout_block_data = self::get_block_tracker_data( 'poocommerce/checkout', 'checkout' );
 
 		$pickup_location_data = self::get_pickup_location_data();
 
@@ -1376,11 +1376,11 @@ class WC_Tracker {
 		return array(
 			'cart_page_contains_cart_shortcode'         => self::post_contains_text(
 				$cart_page_id,
-				'[woocommerce_cart]'
+				'[poocommerce_cart]'
 			),
 			'checkout_page_contains_checkout_shortcode' => self::post_contains_text(
 				$checkout_page_id,
-				'[woocommerce_checkout]'
+				'[poocommerce_checkout]'
 			),
 
 			'cart_page_contains_cart_block'             => $cart_block_data['page_contains_block'],
@@ -1398,7 +1398,7 @@ class WC_Tracker {
 	 * @return array
 	 */
 	private static function get_mini_cart_info() {
-		$mini_cart_block_name = 'woocommerce/mini-cart';
+		$mini_cart_block_name = 'poocommerce/mini-cart';
 		$mini_cart_block_data = wp_is_block_theme() ? BlocksUtil::get_block_from_template_part( $mini_cart_block_name, 'header' ) : BlocksUtil::get_blocks_from_widget_area( $mini_cart_block_name );
 		return array(
 			'mini_cart_used'             => empty( $mini_cart_block_data[0] ) ? 'No' : 'Yes',
@@ -1407,12 +1407,12 @@ class WC_Tracker {
 	}
 
 	/**
-	 * Get info about WooCommerce Mobile App usage
+	 * Get info about PooCommerce Mobile App usage
 	 *
 	 * @return array
 	 */
-	public static function get_woocommerce_mobile_usage() {
-		return get_option( 'woocommerce_mobile_app_usage' );
+	public static function get_poocommerce_mobile_usage() {
+		return get_option( 'poocommerce_mobile_app_usage' );
 	}
 
 	/**
@@ -1434,7 +1434,7 @@ class WC_Tracker {
 			case '_recorded_sales':
 				return 'recorded_sales';
 			case '_order_version':
-				return 'woocommerce_version';
+				return 'poocommerce_version';
 			default:
 				return $meta_key;
 		}
@@ -1515,7 +1515,7 @@ class WC_Tracker {
 
 			// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 			$data = $wpdb->get_results(
-				"SELECT order_id, woocommerce_version, recorded_sales
+				"SELECT order_id, poocommerce_version, recorded_sales
 				FROM $op_table_name
 				WHERE order_id IN ($joined_ids)",
 				ARRAY_A
@@ -1524,7 +1524,7 @@ class WC_Tracker {
 
 			foreach ( $data as $row ) {
 				$additional_data[ $row['order_id'] ] = array(
-					'woocommerce_version' => $row['woocommerce_version'],
+					'poocommerce_version' => $row['poocommerce_version'],
 					'recorded_sales'      => $row['recorded_sales'] ? 'yes' : 'no',
 				);
 			}
@@ -1661,16 +1661,16 @@ class WC_Tracker {
 		$core_email_overrides = self::get_core_email_overrides( $template_overrides );
 
 		return array(
-			'enabled'                        => get_option( 'woocommerce_feature_email_improvements_enabled', 'no' ),
-			'default_enabled'                => get_option( 'woocommerce_email_improvements_default_enabled', 'no' ),
-			'existing_store_enabled'         => get_option( 'woocommerce_email_improvements_existing_store_enabled', 'no' ),
-			'auto_sync_enabled'              => get_option( 'woocommerce_email_auto_sync_with_theme', 'no' ),
-			'first_enabled_at'               => get_option( 'woocommerce_email_improvements_first_enabled_at', null ),
-			'last_enabled_at'                => get_option( 'woocommerce_email_improvements_last_enabled_at', null ),
-			'enabled_count'                  => get_option( 'woocommerce_email_improvements_enabled_count', 0 ),
-			'first_disabled_at'              => get_option( 'woocommerce_email_improvements_first_disabled_at', null ),
-			'last_disabled_at'               => get_option( 'woocommerce_email_improvements_last_disabled_at', null ),
-			'disabled_count'                 => get_option( 'woocommerce_email_improvements_disabled_count', 0 ),
+			'enabled'                        => get_option( 'poocommerce_feature_email_improvements_enabled', 'no' ),
+			'default_enabled'                => get_option( 'poocommerce_email_improvements_default_enabled', 'no' ),
+			'existing_store_enabled'         => get_option( 'poocommerce_email_improvements_existing_store_enabled', 'no' ),
+			'auto_sync_enabled'              => get_option( 'poocommerce_email_auto_sync_with_theme', 'no' ),
+			'first_enabled_at'               => get_option( 'poocommerce_email_improvements_first_enabled_at', null ),
+			'last_enabled_at'                => get_option( 'poocommerce_email_improvements_last_enabled_at', null ),
+			'enabled_count'                  => get_option( 'poocommerce_email_improvements_enabled_count', 0 ),
+			'first_disabled_at'              => get_option( 'poocommerce_email_improvements_first_disabled_at', null ),
+			'last_disabled_at'               => get_option( 'poocommerce_email_improvements_last_disabled_at', null ),
+			'disabled_count'                 => get_option( 'poocommerce_email_improvements_disabled_count', 0 ),
 			'core_email_enabled_count'       => $core_email_counts['enabled'],
 			'core_email_disabled_count'      => $core_email_counts['disabled'],
 			'core_email_overrides_count'     => $core_email_overrides['count'],

@@ -2,7 +2,7 @@
 /**
  * Helper code for wc-admin unit tests.
  *
- * @package WooCommerce\Admin\Tests\Framework\Helpers
+ * @package PooCommerce\Admin\Tests\Framework\Helpers
  */
 
 /**

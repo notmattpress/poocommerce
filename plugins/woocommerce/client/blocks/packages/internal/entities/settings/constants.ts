@@ -13,7 +13,7 @@ export const SETTINGS_ENTITY: Entity = {
 	name: 'settings',
 	kind: 'root',
 	baseURL: '/wc/v4/settings',
-	label: __( 'Settings', 'woocommerce' ),
+	label: __( 'Settings', 'poocommerce' ),
 	getTitle: ( record ) => {
 		const recordData = record as SettingsEntityRecord;
 		return (
@@ -24,5 +24,5 @@ export const SETTINGS_ENTITY: Entity = {
 	},
 	key: 'id',
 	supportsPagination: false,
-	plural: __( 'Settings', 'woocommerce' ),
+	plural: __( 'Settings', 'poocommerce' ),
 };

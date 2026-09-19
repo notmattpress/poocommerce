@@ -8,16 +8,16 @@ import {
 	store,
 	type AsyncAction,
 } from '@wordpress/interactivity';
-import '@woocommerce/stores/woocommerce/shopper-lists';
-import '@woocommerce/stores/woocommerce/cart';
+import '@poocommerce/stores/poocommerce/shopper-lists';
+import '@poocommerce/stores/poocommerce/cart';
 import type {
 	RawShopperListItem,
 	Store as ShopperListsStore,
-} from '@woocommerce/stores/woocommerce/shopper-lists';
+} from '@poocommerce/stores/poocommerce/shopper-lists';
 import type {
 	AddCartItemOutcome,
-	Store as WooCommerce,
-} from '@woocommerce/stores/woocommerce/cart';
+	Store as PooCommerce,
+} from '@poocommerce/stores/poocommerce/cart';
 /**
  * Internal dependencies
  */
@@ -72,13 +72,13 @@ type BlockStore = {
 
 const { state: shopperListsState, actions: shopperListsActions } =
 	store< ShopperListsStore >(
-		'woocommerce/shopper-lists',
+		'poocommerce/shopper-lists',
 		{},
 		{ lock: universalLock }
 	);
 
-const { actions: cartActions } = store< WooCommerce >(
-	'woocommerce',
+const { actions: cartActions } = store< PooCommerce >(
+	'poocommerce',
 	{},
 	{ lock: universalLock }
 );
@@ -106,7 +106,7 @@ const formatVariationLabel = ( item: RawShopperListItem ): string => {
 const getList = ( slug: string ) => shopperListsState.lists[ slug ] ?? null;
 
 store< BlockStore >(
-	'woocommerce/saved-for-later',
+	'poocommerce/saved-for-later',
 	{
 		state: {
 			get currentItems(): RawShopperListItem[] {
@@ -161,7 +161,7 @@ store< BlockStore >(
 					return '';
 				}
 				const { quantityLabelTemplate } = getConfig(
-					'woocommerce/saved-for-later'
+					'poocommerce/saved-for-later'
 				) as SavedForLaterConfig;
 				return quantityLabelTemplate.replace(
 					'%d',
@@ -175,7 +175,7 @@ store< BlockStore >(
 					return '';
 				}
 				const { removeLabelTemplate } = getConfig(
-					'woocommerce/saved-for-later'
+					'poocommerce/saved-for-later'
 				) as SavedForLaterConfig;
 				return removeLabelTemplate.replace(
 					'%s',

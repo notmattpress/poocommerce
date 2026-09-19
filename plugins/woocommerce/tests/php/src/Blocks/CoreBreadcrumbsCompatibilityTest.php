@@ -1,13 +1,13 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks;
+namespace Automattic\PooCommerce\Tests\Blocks;
 
-use Automattic\WooCommerce\Blocks\BlockTypesController;
-use Automattic\WooCommerce\Blocks\CoreBreadcrumbsCompatibility;
-use Automattic\WooCommerce\Blocks\Domain\Bootstrap;
-use Automattic\WooCommerce\Blocks\Domain\Package as BlocksPackage;
-use Automattic\WooCommerce\Blocks\Registry\Container;
+use Automattic\PooCommerce\Blocks\BlockTypesController;
+use Automattic\PooCommerce\Blocks\CoreBreadcrumbsCompatibility;
+use Automattic\PooCommerce\Blocks\Domain\Bootstrap;
+use Automattic\PooCommerce\Blocks\Domain\Package as BlocksPackage;
+use Automattic\PooCommerce\Blocks\Registry\Container;
 use WC_Unit_Test_Case;
 
 /**
@@ -37,11 +37,11 @@ class CoreBreadcrumbsCompatibilityTest extends WC_Unit_Test_Case {
 	private $original_myaccount_page_id;
 
 	/**
-	 * Original WooCommerce permalinks.
+	 * Original PooCommerce permalinks.
 	 *
 	 * @var mixed
 	 */
-	private $original_woocommerce_permalinks;
+	private $original_poocommerce_permalinks;
 
 	/**
 	 * Original product post type archive setting.
@@ -51,11 +51,11 @@ class CoreBreadcrumbsCompatibilityTest extends WC_Unit_Test_Case {
 	private $original_product_has_archive;
 
 	/**
-	 * Original WooCommerce query object.
+	 * Original PooCommerce query object.
 	 *
 	 * @var \WC_Query
 	 */
-	private \WC_Query $original_woocommerce_query;
+	private \WC_Query $original_poocommerce_query;
 
 	/**
 	 * Original request query vars.
@@ -92,11 +92,11 @@ class CoreBreadcrumbsCompatibilityTest extends WC_Unit_Test_Case {
 
 		$product_post_type = get_post_type_object( 'product' );
 
-		$this->original_shop_page_id            = get_option( 'woocommerce_shop_page_id' );
-		$this->original_myaccount_page_id       = get_option( 'woocommerce_myaccount_page_id' );
-		$this->original_woocommerce_permalinks  = get_option( 'woocommerce_permalinks' );
+		$this->original_shop_page_id            = get_option( 'poocommerce_shop_page_id' );
+		$this->original_myaccount_page_id       = get_option( 'poocommerce_myaccount_page_id' );
+		$this->original_poocommerce_permalinks  = get_option( 'poocommerce_permalinks' );
 		$this->original_product_has_archive     = $product_post_type ? $product_post_type->has_archive : null;
-		$this->original_woocommerce_query       = WC()->query;
+		$this->original_poocommerce_query       = WC()->query;
 		$this->original_wp_query_vars           = $wp instanceof \WP && is_array( $wp->query_vars ) ? $wp->query_vars : array();
 		$this->shop_page_id                     = self::factory()->post->create(
 			array(
@@ -114,12 +114,12 @@ class CoreBreadcrumbsCompatibilityTest extends WC_Unit_Test_Case {
 				'post_name'   => 'my-account',
 			)
 		);
-		$woocommerce_permalinks                 = is_array( $this->original_woocommerce_permalinks ) ? $this->original_woocommerce_permalinks : array();
-		$woocommerce_permalinks['product_base'] = '/shop';
+		$poocommerce_permalinks                 = is_array( $this->original_poocommerce_permalinks ) ? $this->original_poocommerce_permalinks : array();
+		$poocommerce_permalinks['product_base'] = '/shop';
 
-		update_option( 'woocommerce_shop_page_id', $this->shop_page_id );
-		update_option( 'woocommerce_myaccount_page_id', $this->my_account_page_id );
-		update_option( 'woocommerce_permalinks', $woocommerce_permalinks );
+		update_option( 'poocommerce_shop_page_id', $this->shop_page_id );
+		update_option( 'poocommerce_myaccount_page_id', $this->my_account_page_id );
+		update_option( 'poocommerce_permalinks', $poocommerce_permalinks );
 
 		if ( $product_post_type ) {
 			$product_post_type->has_archive = get_page_uri( $this->shop_page_id );
@@ -134,11 +134,11 @@ class CoreBreadcrumbsCompatibilityTest extends WC_Unit_Test_Case {
 	public function tearDown(): void {
 		global $wp;
 
-		remove_filter( 'woocommerce_is_account_page', '__return_true' );
+		remove_filter( 'poocommerce_is_account_page', '__return_true' );
 
-		update_option( 'woocommerce_shop_page_id', $this->original_shop_page_id );
-		update_option( 'woocommerce_myaccount_page_id', $this->original_myaccount_page_id );
-		update_option( 'woocommerce_permalinks', $this->original_woocommerce_permalinks );
+		update_option( 'poocommerce_shop_page_id', $this->original_shop_page_id );
+		update_option( 'poocommerce_myaccount_page_id', $this->original_myaccount_page_id );
+		update_option( 'poocommerce_permalinks', $this->original_poocommerce_permalinks );
 
 		$product_post_type = get_post_type_object( 'product' );
 		if ( $product_post_type ) {
@@ -149,7 +149,7 @@ class CoreBreadcrumbsCompatibilityTest extends WC_Unit_Test_Case {
 			$wp->query_vars = $this->original_wp_query_vars;
 		}
 
-		WC()->query = $this->original_woocommerce_query;
+		WC()->query = $this->original_poocommerce_query;
 
 		if ( taxonomy_exists( 'pa_test_color' ) ) {
 			unregister_taxonomy( 'pa_test_color' );
@@ -175,13 +175,13 @@ class CoreBreadcrumbsCompatibilityTest extends WC_Unit_Test_Case {
 
 		try {
 			$this->assertSame( 10, has_filter( 'block_core_breadcrumbs_post_type_settings', array( $controller, 'set_product_breadcrumbs_preferred_taxonomy' ) ), 'Bootstrap should register the product breadcrumb settings filter.' );
-			$this->assertSame( 10, has_filter( 'block_core_breadcrumbs_items', array( $controller, 'apply_woocommerce_breadcrumb_filters' ) ), 'Bootstrap should register the breadcrumb items filter.' );
+			$this->assertSame( 10, has_filter( 'block_core_breadcrumbs_items', array( $controller, 'apply_poocommerce_breadcrumb_filters' ) ), 'Bootstrap should register the breadcrumb items filter.' );
 			$this->assertSame( array( 'taxonomy' => 'product_cat' ), $controller->set_product_breadcrumbs_preferred_taxonomy( array(), 'product' ), 'BlockTypesController should set the product breadcrumb settings.' );
-			$this->assertSame( array(), $controller->apply_woocommerce_breadcrumb_filters( array() ), 'BlockTypesController should filter the breadcrumb items.' );
-			$this->assertTrue( remove_filter( 'block_core_breadcrumbs_items', array( $controller, 'apply_woocommerce_breadcrumb_filters' ), 10 ), 'The breadcrumb items filter should be removable.' );
+			$this->assertSame( array(), $controller->apply_poocommerce_breadcrumb_filters( array() ), 'BlockTypesController should filter the breadcrumb items.' );
+			$this->assertTrue( remove_filter( 'block_core_breadcrumbs_items', array( $controller, 'apply_poocommerce_breadcrumb_filters' ), 10 ), 'The breadcrumb items filter should be removable.' );
 		} finally {
 			remove_filter( 'block_core_breadcrumbs_post_type_settings', array( $controller, 'set_product_breadcrumbs_preferred_taxonomy' ), 10 );
-			remove_filter( 'block_core_breadcrumbs_items', array( $controller, 'apply_woocommerce_breadcrumb_filters' ), 10 );
+			remove_filter( 'block_core_breadcrumbs_items', array( $controller, 'apply_poocommerce_breadcrumb_filters' ), 10 );
 		}
 	}
 
@@ -200,17 +200,17 @@ class CoreBreadcrumbsCompatibilityTest extends WC_Unit_Test_Case {
 		$result = $this->sut->set_product_breadcrumbs_preferred_taxonomy( array(), 'product', $product_id );
 
 		$this->assertSame( 'product_cat', $result['taxonomy'], 'Products should prefer product categories.' );
-		$this->assertSame( 'shirts', $result['term'], 'Products should prefer WooCommerce-selected product category terms.' );
+		$this->assertSame( 'shirts', $result['term'], 'Products should prefer PooCommerce-selected product category terms.' );
 	}
 
 	/**
-	 * @testdox Should apply the WooCommerce Home breadcrumb URL filter.
+	 * @testdox Should apply the PooCommerce Home breadcrumb URL filter.
 	 */
 	public function test_core_breadcrumbs_apply_home_breadcrumb_url_filter(): void {
 		$callback = function () {
 			return home_url( '/storefront/' );
 		};
-		add_filter( 'woocommerce_breadcrumb_home_url', $callback );
+		add_filter( 'poocommerce_breadcrumb_home_url', $callback );
 		$this->go_to( $this->get_product_archive_url() );
 		$this->set_product_archive_request();
 
@@ -219,7 +219,7 @@ class CoreBreadcrumbsCompatibilityTest extends WC_Unit_Test_Case {
 				$this->get_breadcrumb_item( 'Current page' )
 			);
 		} finally {
-			remove_filter( 'woocommerce_breadcrumb_home_url', $callback );
+			remove_filter( 'poocommerce_breadcrumb_home_url', $callback );
 		}
 
 		$this->assertSame(
@@ -228,18 +228,18 @@ class CoreBreadcrumbsCompatibilityTest extends WC_Unit_Test_Case {
 				$this->get_breadcrumb_item( 'Current page' ),
 			),
 			$result,
-			'Core Breadcrumbs should use the filtered WooCommerce Home breadcrumb URL.'
+			'Core Breadcrumbs should use the filtered PooCommerce Home breadcrumb URL.'
 		);
 	}
 
 	/**
-	 * @testdox Should apply the WooCommerce Home breadcrumb URL filter outside WooCommerce contexts.
+	 * @testdox Should apply the PooCommerce Home breadcrumb URL filter outside PooCommerce contexts.
 	 */
-	public function test_core_breadcrumbs_apply_home_breadcrumb_url_filter_outside_woocommerce_contexts(): void {
+	public function test_core_breadcrumbs_apply_home_breadcrumb_url_filter_outside_poocommerce_contexts(): void {
 		$callback = function () {
 			return home_url( '/storefront/' );
 		};
-		add_filter( 'woocommerce_breadcrumb_home_url', $callback );
+		add_filter( 'poocommerce_breadcrumb_home_url', $callback );
 		$this->go_to( '/?s=breadcrumb' );
 
 		try {
@@ -247,24 +247,24 @@ class CoreBreadcrumbsCompatibilityTest extends WC_Unit_Test_Case {
 				$this->get_breadcrumb_item( 'Search results for: "breadcrumb"' )
 			);
 		} finally {
-			remove_filter( 'woocommerce_breadcrumb_home_url', $callback );
+			remove_filter( 'poocommerce_breadcrumb_home_url', $callback );
 		}
 
 		$this->assertSame(
 			home_url( '/storefront/' ),
 			$result[0]['url'],
-			'Core Breadcrumbs should use the filtered WooCommerce Home breadcrumb URL outside WooCommerce contexts.'
+			'Core Breadcrumbs should use the filtered PooCommerce Home breadcrumb URL outside PooCommerce contexts.'
 		);
 	}
 
 	/**
-	 * @testdox Should use the default Home breadcrumb URL when the WooCommerce Home URL filter returns a non-string.
+	 * @testdox Should use the default Home breadcrumb URL when the PooCommerce Home URL filter returns a non-string.
 	 */
 	public function test_core_breadcrumbs_use_default_home_breadcrumb_url_for_non_string_filter_value(): void {
 		$callback = function () {
 			return array();
 		};
-		add_filter( 'woocommerce_breadcrumb_home_url', $callback );
+		add_filter( 'poocommerce_breadcrumb_home_url', $callback );
 		$this->go_to( $this->get_product_archive_url() );
 		$this->set_product_archive_request();
 
@@ -273,13 +273,13 @@ class CoreBreadcrumbsCompatibilityTest extends WC_Unit_Test_Case {
 				$this->get_breadcrumb_item( 'Current page' )
 			);
 		} finally {
-			remove_filter( 'woocommerce_breadcrumb_home_url', $callback );
+			remove_filter( 'poocommerce_breadcrumb_home_url', $callback );
 		}
 
 		$this->assertSame(
 			home_url(),
 			$result[0]['url'],
-			'Core Breadcrumbs should fall back to the default WooCommerce Home breadcrumb URL.'
+			'Core Breadcrumbs should fall back to the default PooCommerce Home breadcrumb URL.'
 		);
 	}
 
@@ -353,15 +353,15 @@ class CoreBreadcrumbsCompatibilityTest extends WC_Unit_Test_Case {
 	 * @testdox Should not prepend the shop page when product permalinks do not include the shop slug.
 	 */
 	public function test_core_breadcrumbs_do_not_prepend_shop_page_for_product_base_without_shop_slug(): void {
-		$woocommerce_permalinks                 = is_array( $this->original_woocommerce_permalinks ) ? $this->original_woocommerce_permalinks : array();
-		$woocommerce_permalinks['product_base'] = '/product';
-		update_option( 'woocommerce_permalinks', $woocommerce_permalinks );
+		$poocommerce_permalinks                 = is_array( $this->original_poocommerce_permalinks ) ? $this->original_poocommerce_permalinks : array();
+		$poocommerce_permalinks['product_base'] = '/product';
+		update_option( 'poocommerce_permalinks', $poocommerce_permalinks );
 
 		$category_id = $this->create_term( 'Shirts', 'product_cat', array( 'slug' => 'shirts' ) );
 		$this->go_to( get_term_link( $category_id, 'product_cat' ) );
 
 		$this->assert_core_breadcrumbs_unchanged(
-			'Product category breadcrumbs should remain unchanged when WooCommerce would not prepend Shop.',
+			'Product category breadcrumbs should remain unchanged when PooCommerce would not prepend Shop.',
 			$this->get_breadcrumb_item( 'Shirts' )
 		);
 	}
@@ -447,7 +447,7 @@ class CoreBreadcrumbsCompatibilityTest extends WC_Unit_Test_Case {
 		$this->assertSame(
 			array( 'Catalog', 'Search results for &ldquo;hoodie&rdquo;' ),
 			$this->get_breadcrumb_labels( $result ),
-			'The Home crumb should remain hidden when WooCommerce compatibility adds the Shop crumb.'
+			'The Home crumb should remain hidden when PooCommerce compatibility adds the Shop crumb.'
 		);
 	}
 
@@ -469,19 +469,19 @@ class CoreBreadcrumbsCompatibilityTest extends WC_Unit_Test_Case {
 		$this->assertSame(
 			array( 'Catalog' ),
 			$this->get_breadcrumb_labels( $result ),
-			'Home and current crumbs should remain hidden while WooCommerce compatibility keeps the Shop parent.'
+			'Home and current crumbs should remain hidden while PooCommerce compatibility keeps the Shop parent.'
 		);
 	}
 
 	/**
-	 * @testdox Should use WooCommerce labels for regular search breadcrumbs.
+	 * @testdox Should use PooCommerce labels for regular search breadcrumbs.
 	 */
 	public function test_core_breadcrumbs_label_regular_search_items(): void {
 		$this->go_to( '/?s=breadcrumb' );
 
 		$this->assert_core_breadcrumb_labels(
 			array( 'Home', 'Search results for &ldquo;breadcrumb&rdquo;' ),
-			'Regular search breadcrumbs should use the WooCommerce search label.',
+			'Regular search breadcrumbs should use the PooCommerce search label.',
 			$this->get_breadcrumb_item( 'Search results for: "breadcrumb"' )
 		);
 	}
@@ -555,14 +555,14 @@ class CoreBreadcrumbsCompatibilityTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Should run the legacy WooCommerce breadcrumb filter after adjustments.
+	 * @testdox Should run the legacy PooCommerce breadcrumb filter after adjustments.
 	 */
-	public function test_core_breadcrumbs_apply_legacy_woocommerce_get_breadcrumb_filter_after_adjustments(): void {
+	public function test_core_breadcrumbs_apply_legacy_poocommerce_get_breadcrumb_filter_after_adjustments(): void {
 		$callback = function ( $crumbs ) {
 			$crumbs[1][0] = 'Filtered Catalog';
 			return $crumbs;
 		};
-		add_filter( 'woocommerce_get_breadcrumb', $callback );
+		add_filter( 'poocommerce_get_breadcrumb', $callback );
 		$this->go_to( $this->get_product_archive_url() );
 		$this->set_product_archive_request();
 
@@ -572,25 +572,25 @@ class CoreBreadcrumbsCompatibilityTest extends WC_Unit_Test_Case {
 				$this->get_breadcrumb_item( 'Logo Tee' )
 			);
 		} finally {
-			remove_filter( 'woocommerce_get_breadcrumb', $callback );
+			remove_filter( 'poocommerce_get_breadcrumb', $callback );
 		}
 
 		$this->assertSame(
 			array( 'Home', 'Filtered Catalog', 'Logo Tee' ),
 			$this->get_breadcrumb_labels( $result ),
-			'Legacy breadcrumb filters should receive WooCommerce-adjusted Core breadcrumb items.'
+			'Legacy breadcrumb filters should receive PooCommerce-adjusted Core breadcrumb items.'
 		);
 	}
 
 	/**
-	 * @testdox Should apply legacy WooCommerce breadcrumb filters outside WooCommerce contexts.
+	 * @testdox Should apply legacy PooCommerce breadcrumb filters outside PooCommerce contexts.
 	 */
-	public function test_core_breadcrumbs_apply_legacy_woocommerce_get_breadcrumb_filter_outside_woocommerce_contexts(): void {
+	public function test_core_breadcrumbs_apply_legacy_poocommerce_get_breadcrumb_filter_outside_poocommerce_contexts(): void {
 		$callback = function ( $crumbs ) {
 			$crumbs[1][0] = 'Filtered page';
 			return $crumbs;
 		};
-		add_filter( 'woocommerce_get_breadcrumb', $callback );
+		add_filter( 'poocommerce_get_breadcrumb', $callback );
 		$this->go_to( '/?s=breadcrumb' );
 
 		try {
@@ -598,13 +598,13 @@ class CoreBreadcrumbsCompatibilityTest extends WC_Unit_Test_Case {
 				$this->get_breadcrumb_item( 'Search results for: "breadcrumb"' )
 			);
 		} finally {
-			remove_filter( 'woocommerce_get_breadcrumb', $callback );
+			remove_filter( 'poocommerce_get_breadcrumb', $callback );
 		}
 
 		$this->assertSame(
 			array( 'Home', 'Filtered page' ),
 			$this->get_breadcrumb_labels( $result ),
-			'Legacy WooCommerce breadcrumb filters should run for regular Core breadcrumbs.'
+			'Legacy PooCommerce breadcrumb filters should run for regular Core breadcrumbs.'
 		);
 	}
 
@@ -615,7 +615,7 @@ class CoreBreadcrumbsCompatibilityTest extends WC_Unit_Test_Case {
 		$callback = function ( $crumbs ) {
 			return $crumbs;
 		};
-		add_filter( 'woocommerce_get_breadcrumb', $callback );
+		add_filter( 'poocommerce_get_breadcrumb', $callback );
 		$this->go_to( $this->get_product_archive_url() );
 		$this->set_product_archive_request();
 
@@ -630,13 +630,13 @@ class CoreBreadcrumbsCompatibilityTest extends WC_Unit_Test_Case {
 		try {
 			$result = $this->apply_core_breadcrumb_filters( $product_item );
 		} finally {
-			remove_filter( 'woocommerce_get_breadcrumb', $callback );
+			remove_filter( 'poocommerce_get_breadcrumb', $callback );
 		}
 
 		$this->assertSame(
 			$this->get_core_breadcrumb_items( $product_item ),
 			$result,
-			'Core breadcrumb item metadata should survive WooCommerce breadcrumb filter conversion.'
+			'Core breadcrumb item metadata should survive PooCommerce breadcrumb filter conversion.'
 		);
 	}
 
@@ -686,7 +686,7 @@ class CoreBreadcrumbsCompatibilityTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Apply WooCommerce breadcrumb compatibility filters to Core breadcrumb items.
+	 * Apply PooCommerce breadcrumb compatibility filters to Core breadcrumb items.
 	 *
 	 * @param array ...$items Breadcrumb items after Home.
 	 * @return array Filtered breadcrumb items.
@@ -696,13 +696,13 @@ class CoreBreadcrumbsCompatibilityTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Apply WooCommerce breadcrumb compatibility filters.
+	 * Apply PooCommerce breadcrumb compatibility filters.
 	 *
 	 * @param array $items Breadcrumb items.
 	 * @return array Filtered breadcrumb items.
 	 */
 	private function apply_breadcrumb_filters( array $items ): array {
-		return $this->sut->apply_woocommerce_breadcrumb_filters( $items );
+		return $this->sut->apply_poocommerce_breadcrumb_filters( $items );
 	}
 
 	/**
@@ -800,7 +800,7 @@ class CoreBreadcrumbsCompatibilityTest extends WC_Unit_Test_Case {
 
 		$wp->query_vars[ $endpoint ] = '';
 
-		add_filter( 'woocommerce_is_account_page', '__return_true' );
+		add_filter( 'poocommerce_is_account_page', '__return_true' );
 	}
 
 	/**

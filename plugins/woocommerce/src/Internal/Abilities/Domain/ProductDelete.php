@@ -5,16 +5,16 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Abilities\AbilityDefinition;
-use Automattic\WooCommerce\Enums\ProductType;
-use Automattic\WooCommerce\Internal\Abilities\Domain\Traits\ProductAbilityTrait;
+use Automattic\PooCommerce\Abilities\AbilityDefinition;
+use Automattic\PooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Internal\Abilities\Domain\Traits\ProductAbilityTrait;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Registers the WooCommerce product delete ability.
+ * Registers the PooCommerce product delete ability.
  */
 class ProductDelete extends AbstractDomainAbility implements AbilityDefinition {
 
@@ -28,7 +28,7 @@ class ProductDelete extends AbstractDomainAbility implements AbilityDefinition {
 	 * @since 10.9.0
 	 */
 	public static function get_name(): string {
-		return 'woocommerce/product-delete';
+		return 'poocommerce/product-delete';
 	}
 
 	/**
@@ -40,12 +40,12 @@ class ProductDelete extends AbstractDomainAbility implements AbilityDefinition {
 	 */
 	public static function get_registration_args(): array {
 		return array(
-			'label'               => __( 'Delete product', 'woocommerce' ),
+			'label'               => __( 'Delete product', 'poocommerce' ),
 			'description'         => __(
 				'Delete, trash, or restore a product.',
-				'woocommerce'
+				'poocommerce'
 			),
-			'category'            => 'woocommerce',
+			'category'            => 'poocommerce',
 			'input_schema'        => self::get_input_schema(),
 			'output_schema'       => self::get_delete_output_schema(),
 			'execute_callback'    => array( __CLASS__, 'execute' ),
@@ -82,8 +82,8 @@ class ProductDelete extends AbstractDomainAbility implements AbilityDefinition {
 
 		if ( $product->is_type( ProductType::VARIATION ) ) {
 			return new \WP_Error(
-				'woocommerce_product_type_unsupported',
-				__( 'Product type is not supported by this ability.', 'woocommerce' ),
+				'poocommerce_product_type_unsupported',
+				__( 'Product type is not supported by this ability.', 'poocommerce' ),
 				array( 'status' => 400 )
 			);
 		}
@@ -92,19 +92,19 @@ class ProductDelete extends AbstractDomainAbility implements AbilityDefinition {
 		$force      = (bool) ( $input['force'] ?? false );
 
 		/**
-		 * Filter whether a product supports trashing in WooCommerce domain abilities.
+		 * Filter whether a product supports trashing in PooCommerce domain abilities.
 		 *
 		 * @param bool        $supports_trash Whether the product supports trashing.
 		 * @param \WC_Product $product        The product being considered for trashing.
 		 *
 		 * @since 10.9.0
 		 */
-		$supports_trash = apply_filters( 'woocommerce_product_object_trashable', EMPTY_TRASH_DAYS > 0, $product );
+		$supports_trash = apply_filters( 'poocommerce_product_object_trashable', EMPTY_TRASH_DAYS > 0, $product );
 
 		if ( ! $force && ! $supports_trash ) {
 			return new \WP_Error(
-				'woocommerce_trash_not_supported',
-				__( 'Trash is disabled on this site. Pass force: true to permanently delete.', 'woocommerce' ),
+				'poocommerce_trash_not_supported',
+				__( 'Trash is disabled on this site. Pass force: true to permanently delete.', 'poocommerce' ),
 				array( 'status' => 501 )
 			);
 		}
@@ -117,8 +117,8 @@ class ProductDelete extends AbstractDomainAbility implements AbilityDefinition {
 			|| ( ! $force && 'trash' !== get_post_status( $product_id ) )
 		) {
 			return new \WP_Error(
-				'woocommerce_product_delete_failed',
-				__( 'Failed to delete product.', 'woocommerce' ),
+				'poocommerce_product_delete_failed',
+				__( 'Failed to delete product.', 'poocommerce' ),
 				array( 'status' => 500 )
 			);
 		}
@@ -160,7 +160,7 @@ class ProductDelete extends AbstractDomainAbility implements AbilityDefinition {
 					'type'        => 'boolean',
 					'description' => __(
 						'Permanently delete the product. Defaults to false, which moves the product to trash.',
-						'woocommerce'
+						'poocommerce'
 					),
 					'default'     => false,
 				),

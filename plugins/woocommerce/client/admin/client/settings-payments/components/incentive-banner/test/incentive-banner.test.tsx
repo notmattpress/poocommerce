@@ -1,21 +1,21 @@
 /**
  * External dependencies
  */
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 import { render, fireEvent } from '@testing-library/react';
 import {
 	PaymentsProviderIncentive,
 	PaymentsProvider,
 	PaymentsProviderType,
 	PluginData,
-} from '@woocommerce/data';
+} from '@poocommerce/data';
 
 /**
  * Internal dependencies
  */
 import { IncentiveBanner } from '..';
 
-jest.mock( '@woocommerce/tracks', () => ( {
+jest.mock( '@poocommerce/tracks', () => ( {
 	recordEvent: jest.fn(),
 } ) );
 

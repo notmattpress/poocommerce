@@ -5,10 +5,10 @@
  * Handles request to /products/low-in-stock
  */
 
-namespace Automattic\WooCommerce\Admin\API;
+namespace Automattic\PooCommerce\Admin\API;
 
-use Automattic\WooCommerce\Enums\ProductStatus;
-use Automattic\WooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Enums\ProductStatus;
+use Automattic\PooCommerce\Enums\ProductType;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -70,7 +70,7 @@ final class ProductsLowInStock extends \WC_REST_Products_Controller {
 	 */
 	public function get_low_in_stock_count( $request ) {
 		$status              = $request->get_param( 'status' );
-		$low_stock_threshold = absint( max( get_option( 'woocommerce_notify_low_stock_amount' ), 1 ) );
+		$low_stock_threshold = absint( max( get_option( 'poocommerce_notify_low_stock_amount' ), 1 ) );
 
 		$sidewide_stock_threshold_only = $this->is_using_sitewide_stock_threshold_only( $low_stock_threshold );
 		$total_results                 = $this->get_count( $sidewide_stock_threshold_only, $status, $low_stock_threshold );
@@ -189,7 +189,7 @@ final class ProductsLowInStock extends \WC_REST_Products_Controller {
 		global $wpdb;
 
 		$offset              = ( $page - 1 ) * $per_page;
-		$low_stock_threshold = absint( max( get_option( 'woocommerce_notify_low_stock_amount' ), 1 ) );
+		$low_stock_threshold = absint( max( get_option( 'poocommerce_notify_low_stock_amount' ), 1 ) );
 
 		$sidewide_stock_threshold_only = $this->is_using_sitewide_stock_threshold_only( $low_stock_threshold );
 
@@ -506,7 +506,7 @@ final class ProductsLowInStock extends \WC_REST_Products_Controller {
 		$params['context']['default'] = 'view';
 
 		$params['page']     = array(
-			'description'       => __( 'Current page of the collection.', 'woocommerce' ),
+			'description'       => __( 'Current page of the collection.', 'poocommerce' ),
 			'type'              => 'integer',
 			'default'           => 1,
 			'sanitize_callback' => 'absint',
@@ -514,7 +514,7 @@ final class ProductsLowInStock extends \WC_REST_Products_Controller {
 			'minimum'           => 1,
 		);
 		$params['per_page'] = array(
-			'description'       => __( 'Maximum number of items to be returned in result set.', 'woocommerce' ),
+			'description'       => __( 'Maximum number of items to be returned in result set.', 'poocommerce' ),
 			'type'              => 'integer',
 			'default'           => 10,
 			'minimum'           => 1,
@@ -525,7 +525,7 @@ final class ProductsLowInStock extends \WC_REST_Products_Controller {
 
 		$params['status'] = array(
 			'default'           => 'publish',
-			'description'       => __( 'Limit result set to products assigned a specific status.', 'woocommerce' ),
+			'description'       => __( 'Limit result set to products assigned a specific status.', 'poocommerce' ),
 			'type'              => 'string',
 			'enum'              => array_merge( array_keys( get_post_statuses() ), array( ProductStatus::FUTURE ) ),
 			'sanitize_callback' => 'sanitize_key',
@@ -546,7 +546,7 @@ final class ProductsLowInStock extends \WC_REST_Products_Controller {
 		$params['context']['default'] = 'view';
 		$params['status']             = array(
 			'default'           => 'publish',
-			'description'       => __( 'Limit result set to products assigned a specific status.', 'woocommerce' ),
+			'description'       => __( 'Limit result set to products assigned a specific status.', 'poocommerce' ),
 			'type'              => 'string',
 			'enum'              => array_merge( array_keys( get_post_statuses() ), array( ProductStatus::FUTURE ) ),
 			'sanitize_callback' => 'sanitize_key',

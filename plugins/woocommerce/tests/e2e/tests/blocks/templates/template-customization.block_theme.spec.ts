@@ -6,7 +6,7 @@ import {
 	expect,
 	BLOCK_THEME_SLUG,
 	BLOCK_THEME_WITH_TEMPLATES_SLUG,
-} from '@woocommerce/e2e-utils';
+} from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -24,7 +24,7 @@ test.describe( 'Template customization', () => {
 		const templateOrigin =
 			testData.templateType === 'wp_template'
 				? BLOCK_THEME_SLUG
-				: 'woocommerce/woocommerce';
+				: 'poocommerce/poocommerce';
 		const templateId = `${ templateOrigin }//${ testData.templatePath }`;
 
 		test( `"${ testData.templateName }" template can be modified and reverted`, async ( {
@@ -64,7 +64,7 @@ test.describe( 'Template customization', () => {
 			} );
 
 			// Verify template name didn't change.
-			// See: https://github.com/woocommerce/woocommerce/issues/42221
+			// See: https://github.com/poocommerce/poocommerce/issues/42221
 			await expect(
 				page.getByRole( 'heading', {
 					name: templateTypeName,
@@ -152,9 +152,9 @@ test.describe( 'Template customization', () => {
 
 	for ( const testData of testToRun ) {
 		const userText = `Hello World in the ${ testData.templateName } template`;
-		const woocommerceTemplateUserText = `Hello World in the WooCommerce ${ testData.templateName } template`;
+		const poocommerceTemplateUserText = `Hello World in the PooCommerce ${ testData.templateName } template`;
 
-		test( `user-modified "${ testData.templateName }" template based on the theme template has priority over the user-modified template based on the default WooCommerce template`, async ( {
+		test( `user-modified "${ testData.templateName }" template based on the theme template has priority over the user-modified template based on the default PooCommerce template`, async ( {
 			page,
 			admin,
 			editor,
@@ -162,7 +162,7 @@ test.describe( 'Template customization', () => {
 			frontendUtils,
 		} ) => {
 			await admin.visitSiteEditor( {
-				postId: `woocommerce/woocommerce//${ testData.templatePath }`,
+				postId: `poocommerce/poocommerce//${ testData.templatePath }`,
 				postType: testData.templateType,
 				canvas: 'edit',
 			} );
@@ -171,7 +171,7 @@ test.describe( 'Template customization', () => {
 
 			await editor.insertBlock( {
 				name: 'core/paragraph',
-				attributes: { content: woocommerceTemplateUserText },
+				attributes: { content: poocommerceTemplateUserText },
 			} );
 			await editor.saveSiteEditorEntities( {
 				isOnlyCurrentEntityDirty: true,
@@ -198,7 +198,7 @@ test.describe( 'Template customization', () => {
 			} );
 
 			// Verify only the customized theme template is returned for this slug.
-			// See: https://github.com/woocommerce/woocommerce/issues/42220
+			// See: https://github.com/poocommerce/poocommerce/issues/42220
 			const templates = await requestUtils.getTemplates(
 				testData.templateType
 			);
@@ -218,13 +218,13 @@ test.describe( 'Template customization', () => {
 			} );
 			await expect( page.getByText( userText ).first() ).toBeVisible();
 			await expect(
-				page.getByText( woocommerceTemplateUserText )
+				page.getByText( poocommerceTemplateUserText )
 			).toBeHidden();
 
 			// Revert edition and verify the user-modified WC template is used.
 			// Revert the exact template rather than selecting it by its display
 			// name, which can be shared by templates from different origins.
-			// See: https://github.com/woocommerce/woocommerce/issues/42220
+			// See: https://github.com/poocommerce/poocommerce/issues/42220
 			await requestUtils.revertTemplate(
 				testData.templateType,
 				`${ BLOCK_THEME_WITH_TEMPLATES_SLUG }//${ testData.templatePath }`
@@ -239,7 +239,7 @@ test.describe( 'Template customization', () => {
 			} );
 
 			await expect(
-				page.getByText( woocommerceTemplateUserText ).first()
+				page.getByText( poocommerceTemplateUserText ).first()
 			).toBeVisible();
 			await expect( page.getByText( userText ) ).toBeHidden();
 		} );

@@ -1,6 +1,6 @@
 export const TwoColumnsIcon = () => (
 	<svg
-		className="woocommerce-layout__activity-panel-tab-icon"
+		className="poocommerce-layout__activity-panel-tab-icon"
 		width="18"
 		height="14"
 		viewBox="0 0 18 14"

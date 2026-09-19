@@ -27,16 +27,16 @@ jest.mock( '@wordpress/data', () => ( {
 	useSelect: jest.fn( () => 2 ),
 } ) );
 
-jest.mock( '@woocommerce/editor-components/page-selector', () => () => null );
+jest.mock( '@poocommerce/editor-components/page-selector', () => () => null );
 
-jest.mock( '@woocommerce/base-components/cart-checkout', () => ( {
+jest.mock( '@poocommerce/base-components/cart-checkout', () => ( {
 	PlaceOrderButton: jest.fn( ( { label } ) => <button>{ label }</button> ),
 	ReturnToCartButton: jest.fn( ( { children } ) => (
 		<span>{ children }</span>
 	) ),
 } ) );
 
-jest.mock( '@woocommerce/block-settings', () => ( {
+jest.mock( '@poocommerce/block-settings', () => ( {
 	CHECKOUT_PAGE_ID: 1,
 } ) );
 

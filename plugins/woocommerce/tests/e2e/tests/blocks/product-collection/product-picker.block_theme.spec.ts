@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { test as base, expect, BLOCK_THEME_SLUG } from '@woocommerce/e2e-utils';
+import { test as base, expect, BLOCK_THEME_SLUG } from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -22,7 +22,7 @@ const test = base.extend< { pageObject: ProductCollectionPage } >( {
 test.describe( 'Product Collection: Product Picker', () => {
 	test.beforeEach( async ( { requestUtils } ) => {
 		await requestUtils.activatePlugin(
-			'woocommerce-blocks-test-register-product-collection'
+			'poocommerce-blocks-test-register-product-collection'
 		);
 	} );
 
@@ -67,7 +67,7 @@ test.describe( 'Product Collection: Product Picker', () => {
 
 		await pageObject.publishAndGoToFrontend();
 		const collection = page.locator(
-			'[data-collection="woocommerce/product-collection/my-custom-collection-product-context"]'
+			'[data-collection="poocommerce/product-collection/my-custom-collection-product-context"]'
 		);
 		const query = JSON.parse(
 			( await collection.getAttribute( 'data-query' ) ) || '{}'

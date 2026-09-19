@@ -7,7 +7,7 @@
 	.dataviews-wrapper {
 		background-color: $white;
 	}
-	.woocommerce-email-listing-placeholder {
+	.poocommerce-email-listing-placeholder {
 		align-items: center;
 		display: flex;
 		height: 40px;
@@ -22,7 +22,7 @@
 			margin: 0;
 		}
 	}
-	.woocommerce-email-listing-description {
+	.poocommerce-email-listing-description {
 		display: inline-block;
 		margin-top: 4px;
 		color: $gray-700;
@@ -30,21 +30,21 @@
 		font-weight: 400;
 		white-space: wrap;
 	}
-	.woocommerce-email-listing-status {
+	.poocommerce-email-listing-status {
 		svg {
 			fill: currentColor;
 			margin-right: $grid-unit-05;
 		}
 	}
-	.woocommerce-email-listing-recipients {
+	.poocommerce-email-listing-recipients {
 		white-space: wrap;
 	}
-	.woocommerce-email-listing-description {
+	.poocommerce-email-listing-description {
 		display: flex;
 		justify-content: space-between;
 		width: 100%;
 
-		.woocommerce-email-listing-edit-template-button {
+		.poocommerce-email-listing-edit-template-button {
 			margin-top: -$grid-unit-10;
 			margin-left: $grid-unit-10;
 		}
@@ -53,7 +53,7 @@
 			flex-direction: column;
 			justify-content: flex-start;
 
-			.woocommerce-email-listing-edit-template-button {
+			.poocommerce-email-listing-edit-template-button {
 				margin-top: 0;
 				margin-bottom: $grid-unit-10;
 				width: fit-content;
@@ -62,7 +62,7 @@
 	}
 }
 
-.woocommerce-email-listing-recipients-tooltip {
+.poocommerce-email-listing-recipients-tooltip {
 	text-align: left;
 }
 

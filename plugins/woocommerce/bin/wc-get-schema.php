@@ -2,7 +2,7 @@
 /**
  * Helper methods for extracting database schema.
  *
- * @package WooCommerce
+ * @package PooCommerce
  */
 
 // phpcs:disable PHPCompatibility.Classes.NewLateStaticBinding.OutsideClassScope

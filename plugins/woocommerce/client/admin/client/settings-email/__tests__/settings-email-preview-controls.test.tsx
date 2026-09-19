@@ -88,17 +88,17 @@ describe( 'Email preview header', () => {
 		document.body.appendChild( settingsFixture );
 
 		fromNameInput = appendSettingInput(
-			'woocommerce_email_from_name',
+			'poocommerce_email_from_name',
 			'From name',
 			'Acme Store'
 		);
 		fromAddressInput = appendSettingInput(
-			'woocommerce_email_from_address',
+			'poocommerce_email_from_address',
 			'From address',
 			'orders@example.com'
 		);
 		subjectInput = appendSettingInput(
-			'woocommerce_customer_processing_order_subject',
+			'poocommerce_customer_processing_order_subject',
 			'Email subject',
 			'Order received'
 		);

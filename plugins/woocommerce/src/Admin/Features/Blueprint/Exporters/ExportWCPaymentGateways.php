@@ -2,11 +2,11 @@
 
 declare( strict_types = 1);
 
-namespace Automattic\WooCommerce\Admin\Features\Blueprint\Exporters;
+namespace Automattic\PooCommerce\Admin\Features\Blueprint\Exporters;
 
-use Automattic\WooCommerce\Blueprint\Exporters\StepExporter;
-use Automattic\WooCommerce\Blueprint\Steps\SetSiteOptions;
-use Automattic\WooCommerce\Blueprint\Steps\Step;
+use Automattic\PooCommerce\Blueprint\Exporters\StepExporter;
+use Automattic\PooCommerce\Blueprint\Steps\SetSiteOptions;
+use Automattic\PooCommerce\Blueprint\Steps\Step;
 
 /**
  * Legacy payment gateways exporter.
@@ -19,7 +19,7 @@ class ExportWCPaymentGateways implements StepExporter {
 	 *
 	 * @var array|string[] Payment gateway IDs to exclude from export
 	 */
-	protected array $exclude_ids = array( 'pre_install_woocommerce_payments_promotion' );
+	protected array $exclude_ids = array( 'pre_install_poocommerce_payments_promotion' );
 
 	/**
 	 * Export the step
@@ -31,7 +31,7 @@ class ExportWCPaymentGateways implements StepExporter {
 	}
 
 	/**
-	 * Return the payment gateways resgietered in WooCommerce
+	 * Return the payment gateways resgietered in PooCommerce
 	 *
 	 * @return string
 	 */
@@ -49,7 +49,7 @@ class ExportWCPaymentGateways implements StepExporter {
 	}
 
 	/**
-	 * Maybe hide WooCommerce Payments gateways
+	 * Maybe hide PooCommerce Payments gateways
 	 *
 	 * @return void
 	 */
@@ -65,7 +65,7 @@ class ExportWCPaymentGateways implements StepExporter {
 	 * @return string
 	 */
 	public function get_label() {
-		return __( 'Payments', 'woocommerce' );
+		return __( 'Payments', 'poocommerce' );
 	}
 
 	/**
@@ -74,7 +74,7 @@ class ExportWCPaymentGateways implements StepExporter {
 	 * @return string
 	 */
 	public function get_description() {
-		return __( 'Payment settings are not included in Blueprint exports.', 'woocommerce' );
+		return __( 'Payment settings are not included in Blueprint exports.', 'poocommerce' );
 	}
 
 
@@ -84,6 +84,6 @@ class ExportWCPaymentGateways implements StepExporter {
 	 * @return bool True if the user has the required capabilities. False otherwise.
 	 */
 	public function check_step_capabilities(): bool {
-		return current_user_can( 'manage_woocommerce' );
+		return current_user_can( 'manage_poocommerce' );
 	}
 }

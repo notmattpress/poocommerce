@@ -2,12 +2,12 @@
 /**
  * Class WC_Email_Order_Withdrawal_Requested file.
  *
- * @package WooCommerce\Emails
+ * @package PooCommerce\Emails
  */
 
-use Automattic\WooCommerce\Internal\OrderWithdrawal\Emails\OrderWithdrawalEmailDataFormatter;
-use Automattic\WooCommerce\Internal\OrderWithdrawal\OrderWithdrawalFormProcessor;
-use Automattic\WooCommerce\Utilities\FeaturesUtil;
+use Automattic\PooCommerce\Internal\OrderWithdrawal\Emails\OrderWithdrawalEmailDataFormatter;
+use Automattic\PooCommerce\Internal\OrderWithdrawal\OrderWithdrawalFormProcessor;
+use Automattic\PooCommerce\Utilities\FeaturesUtil;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -17,7 +17,7 @@ if ( ! class_exists( 'WC_Email_Order_Withdrawal_Requested', false ) ) :
 	 * Merchant order withdrawal request email.
 	 *
 	 * @class   WC_Email_Order_Withdrawal_Requested
-	 * @package WooCommerce\Classes\Emails
+	 * @package PooCommerce\Classes\Emails
 	 */
 	class WC_Email_Order_Withdrawal_Requested extends WC_Email {
 
@@ -68,8 +68,8 @@ if ( ! class_exists( 'WC_Email_Order_Withdrawal_Requested', false ) ) :
 		 */
 		public function __construct() {
 			$this->id             = 'order_withdrawal_requested';
-			$this->title          = __( 'Order withdrawal request', 'woocommerce' );
-			$this->description    = __( 'Sent to chosen recipients when a customer submits an order withdrawal request.', 'woocommerce' );
+			$this->title          = __( 'Order withdrawal request', 'poocommerce' );
+			$this->description    = __( 'Sent to chosen recipients when a customer submits an order withdrawal request.', 'poocommerce' );
 			$this->email_group    = 'orders';
 			$this->template_html  = 'emails/admin-order-withdrawal-requested.php';
 			$this->template_plain = 'emails/plain/admin-order-withdrawal-requested.php';
@@ -90,7 +90,7 @@ if ( ! class_exists( 'WC_Email_Order_Withdrawal_Requested', false ) ) :
 		 * @return string
 		 */
 		public function get_default_subject() {
-			return __( '[{site_title}]: Order withdrawal request for order {order_number}', 'woocommerce' );
+			return __( '[{site_title}]: Order withdrawal request for order {order_number}', 'poocommerce' );
 		}
 
 		/**
@@ -99,7 +99,7 @@ if ( ! class_exists( 'WC_Email_Order_Withdrawal_Requested', false ) ) :
 		 * @return string
 		 */
 		public function get_default_heading() {
-			return __( 'Order withdrawal request received', 'woocommerce' );
+			return __( 'Order withdrawal request received', 'poocommerce' );
 		}
 
 		/**
@@ -108,7 +108,7 @@ if ( ! class_exists( 'WC_Email_Order_Withdrawal_Requested', false ) ) :
 		 * @return string
 		 */
 		public function get_default_additional_content() {
-			return __( 'Review the request details and contact the customer about next steps.', 'woocommerce' );
+			return __( 'Review the request details and contact the customer about next steps.', 'poocommerce' );
 		}
 
 		/**
@@ -183,7 +183,7 @@ if ( ! class_exists( 'WC_Email_Order_Withdrawal_Requested', false ) ) :
 			 * @param object|bool $object Email object.
 			 * @param WC_Email $email    Email instance.
 			 */
-			return apply_filters( 'woocommerce_email_headers', $headers, $this->id, $this->object, $this );
+			return apply_filters( 'poocommerce_email_headers', $headers, $this->id, $this->object, $this );
 		}
 
 		/**
@@ -237,25 +237,25 @@ if ( ! class_exists( 'WC_Email_Order_Withdrawal_Requested', false ) ) :
 		 */
 		public function init_form_fields(): void {
 			/* translators: %s: list of placeholders */
-			$placeholder_text  = sprintf( __( 'Available placeholders: %s', 'woocommerce' ), '<code>' . esc_html( implode( '</code>, <code>', array_keys( $this->placeholders ) ) ) . '</code>' );
+			$placeholder_text  = sprintf( __( 'Available placeholders: %s', 'poocommerce' ), '<code>' . esc_html( implode( '</code>, <code>', array_keys( $this->placeholders ) ) ) . '</code>' );
 			$this->form_fields = array(
 				'enabled'            => array(
-					'title'   => __( 'Enable/Disable', 'woocommerce' ),
+					'title'   => __( 'Enable/Disable', 'poocommerce' ),
 					'type'    => 'checkbox',
-					'label'   => __( 'Enable this email notification', 'woocommerce' ),
+					'label'   => __( 'Enable this email notification', 'poocommerce' ),
 					'default' => 'yes',
 				),
 				'recipient'          => array(
-					'title'       => __( 'Recipient(s)', 'woocommerce' ),
+					'title'       => __( 'Recipient(s)', 'poocommerce' ),
 					'type'        => 'text',
 					/* translators: %s: WP admin email. */
-					'description' => sprintf( __( 'Enter recipients (comma separated) for this email. Defaults to %s.', 'woocommerce' ), '<code>' . esc_attr( get_option( 'admin_email' ) ) . '</code>' ),
+					'description' => sprintf( __( 'Enter recipients (comma separated) for this email. Defaults to %s.', 'poocommerce' ), '<code>' . esc_attr( get_option( 'admin_email' ) ) . '</code>' ),
 					'placeholder' => '',
 					'default'     => '',
 					'desc_tip'    => true,
 				),
 				'subject'            => array(
-					'title'       => __( 'Subject', 'woocommerce' ),
+					'title'       => __( 'Subject', 'poocommerce' ),
 					'type'        => 'text',
 					'desc_tip'    => true,
 					'description' => $placeholder_text,
@@ -263,7 +263,7 @@ if ( ! class_exists( 'WC_Email_Order_Withdrawal_Requested', false ) ) :
 					'default'     => '',
 				),
 				'heading'            => array(
-					'title'       => __( 'Email heading', 'woocommerce' ),
+					'title'       => __( 'Email heading', 'poocommerce' ),
 					'type'        => 'text',
 					'desc_tip'    => true,
 					'description' => $placeholder_text,
@@ -271,18 +271,18 @@ if ( ! class_exists( 'WC_Email_Order_Withdrawal_Requested', false ) ) :
 					'default'     => '',
 				),
 				'additional_content' => array(
-					'title'       => __( 'Additional content', 'woocommerce' ),
-					'description' => __( 'Text to appear below the main email content.', 'woocommerce' ) . ' ' . $placeholder_text,
+					'title'       => __( 'Additional content', 'poocommerce' ),
+					'description' => __( 'Text to appear below the main email content.', 'poocommerce' ) . ' ' . $placeholder_text,
 					'css'         => 'width:400px; height: 75px;',
-					'placeholder' => __( 'N/A', 'woocommerce' ),
+					'placeholder' => __( 'N/A', 'poocommerce' ),
 					'type'        => 'textarea',
 					'default'     => $this->get_default_additional_content(),
 					'desc_tip'    => true,
 				),
 				'email_type'         => array(
-					'title'       => __( 'Email type', 'woocommerce' ),
+					'title'       => __( 'Email type', 'poocommerce' ),
 					'type'        => 'select',
-					'description' => __( 'Choose which format of email to send.', 'woocommerce' ),
+					'description' => __( 'Choose which format of email to send.', 'poocommerce' ),
 					'default'     => 'html',
 					'class'       => 'email_type wc-enhanced-select',
 					'options'     => $this->get_email_type_options(),

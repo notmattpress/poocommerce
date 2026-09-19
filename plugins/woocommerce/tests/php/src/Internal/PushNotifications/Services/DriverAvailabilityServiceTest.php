@@ -2,12 +2,12 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\PushNotifications\Services;
+namespace Automattic\PooCommerce\Tests\Internal\PushNotifications\Services;
 
 use Automattic\Jetpack\Connection\Manager as JetpackConnectionManager;
-use Automattic\WooCommerce\Internal\PushNotifications\PushNotifications;
-use Automattic\WooCommerce\Internal\PushNotifications\Services\DriverAvailabilityService;
-use Automattic\WooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\Internal\PushNotifications\PushNotifications;
+use Automattic\PooCommerce\Internal\PushNotifications\Services\DriverAvailabilityService;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
 use Error;
 use Exception;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -18,7 +18,7 @@ use WC_Unit_Test_Case;
 /**
  * Tests for the DriverAvailabilityService class.
  *
- * @package WooCommerce\Tests\PushNotifications
+ * @package PooCommerce\Tests\PushNotifications
  */
 class DriverAvailabilityServiceTest extends WC_Unit_Test_Case {
 

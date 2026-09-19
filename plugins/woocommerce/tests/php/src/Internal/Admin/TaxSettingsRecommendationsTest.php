@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin;
+namespace Automattic\PooCommerce\Tests\Internal\Admin;
 
-use Automattic\WooCommerce\Internal\Admin\TaxSettingsRecommendations;
+use Automattic\PooCommerce\Internal\Admin\TaxSettingsRecommendations;
 use WC_Unit_Test_Case;
 use WP_REST_Request;
 
@@ -73,7 +73,7 @@ class TaxSettingsRecommendationsTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Users without manage_woocommerce cannot dismiss.
+	 * @testdox Users without manage_poocommerce cannot dismiss.
 	 */
 	public function test_dismiss_denied_without_capability(): void {
 		wp_set_current_user( $this->factory->user->create( array( 'role' => 'subscriber' ) ) );
@@ -83,7 +83,7 @@ class TaxSettingsRecommendationsTest extends WC_Unit_Test_Case {
 		$this->assertSame(
 			rest_authorization_required_code(),
 			$response->get_status(),
-			'A user lacking manage_woocommerce should be denied.'
+			'A user lacking manage_poocommerce should be denied.'
 		);
 		$this->assertNotSame(
 			'yes',

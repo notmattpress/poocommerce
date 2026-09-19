@@ -3,18 +3,18 @@
  * Plan - a subscription selling plan: cadence, pricing, and delivery policy for
  * one or more products.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine\Core\Entity
+ * @package Automattic\PooCommerce\SubscriptionsEngine\Core\Entity
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Core\Entity;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Core\Entity;
 
 use InvalidArgumentException;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\ValueObject\BillingPolicy;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\ValueObject\DeliveryPolicy;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\ValueObject\PricingPolicy;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Support\ScalarCoercion;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\ValueObject\BillingPolicy;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\ValueObject\DeliveryPolicy;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\ValueObject\PricingPolicy;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Support\ScalarCoercion;
 
 defined( 'ABSPATH' ) || exit;
 

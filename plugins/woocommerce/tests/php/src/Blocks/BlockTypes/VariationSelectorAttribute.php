@@ -2,12 +2,12 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Tests\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Enums\ProductStockStatus;
-use Automattic\WooCommerce\Tests\Blocks\Helpers\FixtureData;
-use Automattic\WooCommerce\Tests\Blocks\Mocks\AddToCartWithOptionsVariationSelectorAttributeMock;
-use Automattic\WooCommerce\Tests\Blocks\Mocks\AddToCartWithOptionsVariationSelectorAttributeNameMock;
+use Automattic\PooCommerce\Enums\ProductStockStatus;
+use Automattic\PooCommerce\Tests\Blocks\Helpers\FixtureData;
+use Automattic\PooCommerce\Tests\Blocks\Mocks\AddToCartWithOptionsVariationSelectorAttributeMock;
+use Automattic\PooCommerce\Tests\Blocks\Mocks\AddToCartWithOptionsVariationSelectorAttributeNameMock;
 use WC_Unit_Test_Case;
 
 /**
@@ -28,7 +28,7 @@ class VariationSelectorAttribute extends WC_Unit_Test_Case {
 	public function setUp(): void {
 		parent::setUp();
 
-		if ( ! self::$are_blocks_registered && ! \WP_Block_Type_Registry::get_instance()->is_registered( 'woocommerce/add-to-cart-with-options-variation-selector-attribute' ) ) {
+		if ( ! self::$are_blocks_registered && ! \WP_Block_Type_Registry::get_instance()->is_registered( 'poocommerce/add-to-cart-with-options-variation-selector-attribute' ) ) {
 			new AddToCartWithOptionsVariationSelectorAttributeMock();
 			new AddToCartWithOptionsVariationSelectorAttributeNameMock();
 		}
@@ -65,13 +65,13 @@ class VariationSelectorAttribute extends WC_Unit_Test_Case {
 	 * Tests that the block returns empty string for non-variable products.
 	 *
 	 * @testdox VariationSelectorAttribute returns an empty string for non-variable products.
-	 * @covers \Automattic\WooCommerce\Blocks\BlockTypes\AddToCartWithOptions\VariationSelectorAttribute::render
+	 * @covers \Automattic\PooCommerce\Blocks\BlockTypes\AddToCartWithOptions\VariationSelectorAttribute::render
 	 */
 	public function test_returns_empty_for_non_variable_products(): void {
 		global $product;
 		$original_product = $product;
 
-		$block_markup = '<!-- wp:woocommerce/add-to-cart-with-options-variation-selector-attribute /-->';
+		$block_markup = '<!-- wp:poocommerce/add-to-cart-with-options-variation-selector-attribute /-->';
 
 		try {
 			$product = null;
@@ -108,7 +108,7 @@ class VariationSelectorAttribute extends WC_Unit_Test_Case {
 	 *
 	 * @testdox Legacy Attribute Options block renders with %2$s and not %3$s.
 	 * @dataProvider legacy_attribute_options_block_styles_provider
-	 * @covers \Automattic\WooCommerce\Blocks\BlockTypes\AddToCartWithOptions\VariationSelectorAttribute::replace_legacy_attribute_options_block
+	 * @covers \Automattic\PooCommerce\Blocks\BlockTypes\AddToCartWithOptions\VariationSelectorAttribute::replace_legacy_attribute_options_block
 	 *
 	 * @param array  $options_attrs          Legacy options block attributes.
 	 * @param string $expected_output_class  CSS class expected in rendered output.
@@ -129,7 +129,7 @@ class VariationSelectorAttribute extends WC_Unit_Test_Case {
 	 * Tests that autoselect and disabledAttributesAction are migrated from legacy Attribute Options blocks.
 	 *
 	 * @testdox autoselect and disabledAttributesAction are migrated from legacy Attribute Options block.
-	 * @covers \Automattic\WooCommerce\Blocks\BlockTypes\AddToCartWithOptions\VariationSelectorAttribute::replace_legacy_attribute_options_block
+	 * @covers \Automattic\PooCommerce\Blocks\BlockTypes\AddToCartWithOptions\VariationSelectorAttribute::replace_legacy_attribute_options_block
 	 */
 	public function test_migrates_legacy_attribute_options_settings_when_rendered(): void {
 		$variable_product = $this->create_variable_product_with_variations();
@@ -150,7 +150,7 @@ class VariationSelectorAttribute extends WC_Unit_Test_Case {
 	 * Tests that non-visual attribute terms do not render swatch markup.
 	 *
 	 * @testdox VariationSelectorAttribute does not render swatches for non-visual attributes.
-	 * @covers \Automattic\WooCommerce\Blocks\BlockTypes\AddToCartWithOptions\VariationSelectorAttribute::build_variation_selectable_items
+	 * @covers \Automattic\PooCommerce\Blocks\BlockTypes\AddToCartWithOptions\VariationSelectorAttribute::build_variation_selectable_items
 	 */
 	public function test_does_not_render_swatches_for_non_visual_attribute(): void {
 		$variable_product = $this->create_variable_product_with_variations();
@@ -166,7 +166,7 @@ class VariationSelectorAttribute extends WC_Unit_Test_Case {
 	 * Tests that wc-visual attribute terms render chips with swatch markup and classes.
 	 *
 	 * @testdox VariationSelectorAttribute renders wc-visual attribute options with swatch classes and colors.
-	 * @covers \Automattic\WooCommerce\Blocks\BlockTypes\AddToCartWithOptions\VariationSelectorAttribute::build_variation_selectable_items
+	 * @covers \Automattic\PooCommerce\Blocks\BlockTypes\AddToCartWithOptions\VariationSelectorAttribute::build_variation_selectable_items
 	 */
 	public function test_renders_wc_visual_attribute_with_swatch_classes(): void {
 		global $wpdb;
@@ -185,14 +185,14 @@ class VariationSelectorAttribute extends WC_Unit_Test_Case {
 		$this->assertInstanceOf( \WP_Term::class, $term_b );
 
 		$wpdb->update(
-			$wpdb->prefix . 'woocommerce_attribute_taxonomies',
+			$wpdb->prefix . 'poocommerce_attribute_taxonomies',
 			array( 'attribute_type' => 'wc-visual' ),
 			array( 'attribute_id' => $attribute_id ),
 			array( '%s' ),
 			array( '%d' )
 		);
 		delete_transient( 'wc_attribute_taxonomies' );
-		\WC_Cache_Helper::invalidate_cache_group( 'woocommerce-attributes' );
+		\WC_Cache_Helper::invalidate_cache_group( 'poocommerce-attributes' );
 
 		$image_id = wp_insert_attachment(
 			array(
@@ -250,14 +250,14 @@ class VariationSelectorAttribute extends WC_Unit_Test_Case {
 				wp_delete_attachment( $image_id, true );
 			}
 			$wpdb->update(
-				$wpdb->prefix . 'woocommerce_attribute_taxonomies',
+				$wpdb->prefix . 'poocommerce_attribute_taxonomies',
 				array( 'attribute_type' => 'select' ),
 				array( 'attribute_id' => $attribute_id ),
 				array( '%s' ),
 				array( '%d' )
 			);
 			delete_transient( 'wc_attribute_taxonomies' );
-			\WC_Cache_Helper::invalidate_cache_group( 'woocommerce-attributes' );
+			\WC_Cache_Helper::invalidate_cache_group( 'poocommerce-attributes' );
 		}
 	}
 
@@ -265,7 +265,7 @@ class VariationSelectorAttribute extends WC_Unit_Test_Case {
 	 * Tests that legacy Attribute Options blocks nested in a group are replaced when rendered.
 	 *
 	 * @testdox Legacy Attribute Options block nested in a group is replaced with a dropdown when rendered.
-	 * @covers \Automattic\WooCommerce\Blocks\BlockTypes\AddToCartWithOptions\VariationSelectorAttribute::replace_legacy_attribute_options_block
+	 * @covers \Automattic\PooCommerce\Blocks\BlockTypes\AddToCartWithOptions\VariationSelectorAttribute::replace_legacy_attribute_options_block
 	 */
 	public function test_replaces_nested_legacy_attribute_options_block_when_rendered(): void {
 		$variable_product = $this->create_variable_product_with_variations();
@@ -344,7 +344,7 @@ class VariationSelectorAttribute extends WC_Unit_Test_Case {
 		$product          = $variable_product;
 
 		$block_markup = sprintf(
-			'<!-- wp:woocommerce/add-to-cart-with-options-variation-selector-attribute -->%s<!-- /wp:woocommerce/add-to-cart-with-options-variation-selector-attribute -->',
+			'<!-- wp:poocommerce/add-to-cart-with-options-variation-selector-attribute -->%s<!-- /wp:poocommerce/add-to-cart-with-options-variation-selector-attribute -->',
 			$inner_blocks_markup
 		);
 
@@ -361,7 +361,7 @@ class VariationSelectorAttribute extends WC_Unit_Test_Case {
 	 * @return string
 	 */
 	private function get_attribute_name_block_markup(): string {
-		return '<!-- wp:woocommerce/add-to-cart-with-options-variation-selector-attribute-name /-->';
+		return '<!-- wp:poocommerce/add-to-cart-with-options-variation-selector-attribute-name /-->';
 	}
 
 	/**
@@ -370,7 +370,7 @@ class VariationSelectorAttribute extends WC_Unit_Test_Case {
 	 * @return string
 	 */
 	private function get_chips_block_markup(): string {
-		return '<!-- wp:woocommerce/product-filter-chips /-->';
+		return '<!-- wp:poocommerce/product-filter-chips /-->';
 	}
 
 	/**
@@ -381,11 +381,11 @@ class VariationSelectorAttribute extends WC_Unit_Test_Case {
 	 */
 	private function get_legacy_options_block_markup( array $attrs ): string {
 		if ( empty( $attrs ) ) {
-			return '<!-- wp:woocommerce/add-to-cart-with-options-variation-selector-attribute-options /-->';
+			return '<!-- wp:poocommerce/add-to-cart-with-options-variation-selector-attribute-options /-->';
 		}
 
 		return sprintf(
-			'<!-- wp:woocommerce/add-to-cart-with-options-variation-selector-attribute-options %s /-->',
+			'<!-- wp:poocommerce/add-to-cart-with-options-variation-selector-attribute-options %s /-->',
 			wp_json_encode( $attrs )
 		);
 	}

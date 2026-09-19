@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Admin\API\Reports;
+namespace Automattic\PooCommerce\Tests\Admin\API\Reports;
 
-use Automattic\WooCommerce\Admin\API\Reports\TimeInterval;
+use Automattic\PooCommerce\Admin\API\Reports\TimeInterval;
 use DateTime;
 use DateTimeZone;
 use WC_Unit_Test_Case;
@@ -12,7 +12,7 @@ use WC_Unit_Test_Case;
  * Tests for the timeframe date calculations in TimeInterval.
  *
  * The pre-existing coverage for this class lives in the frozen legacy suite
- * (tests/legacy/unit-tests/woocommerce-admin/api/reports-interval.php); new
+ * (tests/legacy/unit-tests/poocommerce-admin/api/reports-interval.php); new
  * TimeInterval tests belong here.
  */
 class TimeIntervalTest extends WC_Unit_Test_Case {

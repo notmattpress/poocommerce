@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { test as base, expect } from '@woocommerce/e2e-utils';
+import { test as base, expect } from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -22,7 +22,7 @@ const test = base.extend< { pageObject: ProductCollectionPage } >( {
 test.describe( 'Product Collection: Compatibility Layer', () => {
 	test.beforeEach( async ( { pageObject, requestUtils } ) => {
 		await requestUtils.activatePlugin(
-			'woocommerce-blocks-test-product-collection-compatibility-layer'
+			'poocommerce-blocks-test-product-collection-compatibility-layer'
 		);
 		await pageObject.goToProductCatalogFrontend();
 	} );
@@ -32,10 +32,10 @@ test.describe( 'Product Collection: Compatibility Layer', () => {
 		pageObject,
 	} ) => {
 		const globalHooks = [
-			'woocommerce_before_main_content',
-			'woocommerce_before_shop_loop',
-			'woocommerce_after_shop_loop',
-			'woocommerce_after_main_content',
+			'poocommerce_before_main_content',
+			'poocommerce_before_shop_loop',
+			'poocommerce_after_shop_loop',
+			'poocommerce_after_main_content',
 		];
 
 		for ( const hookName of globalHooks ) {
@@ -45,18 +45,18 @@ test.describe( 'Product Collection: Compatibility Layer', () => {
 		}
 
 		await expect(
-			page.locator( '.wp-block-woocommerce-product-collection' )
+			page.locator( '.wp-block-poocommerce-product-collection' )
 		).toHaveCount( 1 );
 		await expect( pageObject.productTemplate ).toHaveCount( 1 );
 		await expect( pageObject.products.first() ).toBeVisible();
 
 		const structureSelector = [
-			'[data-testid="woocommerce_before_main_content"]',
-			'.wp-block-woocommerce-product-collection',
-			'[data-testid="woocommerce_before_shop_loop"]',
+			'[data-testid="poocommerce_before_main_content"]',
+			'.wp-block-poocommerce-product-collection',
+			'[data-testid="poocommerce_before_shop_loop"]',
 			'.wc-block-product-template',
-			'[data-testid="woocommerce_after_shop_loop"]',
-			'[data-testid="woocommerce_after_main_content"]',
+			'[data-testid="poocommerce_after_shop_loop"]',
+			'[data-testid="poocommerce_after_main_content"]',
 		].join( ', ' );
 		const structure = await page
 			.locator( structureSelector )
@@ -68,7 +68,7 @@ test.describe( 'Product Collection: Compatibility Layer', () => {
 					}
 
 					return node.classList.contains(
-						'wp-block-woocommerce-product-collection'
+						'wp-block-poocommerce-product-collection'
 					)
 						? 'product-collection'
 						: 'product-template';
@@ -76,12 +76,12 @@ test.describe( 'Product Collection: Compatibility Layer', () => {
 			);
 
 		expect( structure ).toEqual( [
-			'woocommerce_before_main_content',
+			'poocommerce_before_main_content',
 			'product-collection',
-			'woocommerce_before_shop_loop',
+			'poocommerce_before_shop_loop',
 			'product-template',
-			'woocommerce_after_shop_loop',
-			'woocommerce_after_main_content',
+			'poocommerce_after_shop_loop',
+			'poocommerce_after_main_content',
 		] );
 	} );
 
@@ -93,11 +93,11 @@ test.describe( 'Product Collection: Compatibility Layer', () => {
 		expect( productCount ).toBeGreaterThan( 0 );
 
 		const itemHooks = [
-			'woocommerce_before_shop_loop_item',
-			'woocommerce_before_shop_loop_item_title',
-			'woocommerce_shop_loop_item_title',
-			'woocommerce_after_shop_loop_item_title',
-			'woocommerce_after_shop_loop_item',
+			'poocommerce_before_shop_loop_item',
+			'poocommerce_before_shop_loop_item_title',
+			'poocommerce_shop_loop_item_title',
+			'poocommerce_after_shop_loop_item_title',
+			'poocommerce_after_shop_loop_item',
 		];
 
 		for ( const hookName of itemHooks ) {
@@ -113,7 +113,7 @@ test.describe( 'Product Collection: Compatibility Layer', () => {
 				products.map( ( product ) =>
 					Array.from(
 						product.querySelectorAll(
-							'[data-testid="woocommerce_before_shop_loop_item"], [data-testid="woocommerce_before_shop_loop_item_title"], .wp-block-post-title, [data-testid="woocommerce_shop_loop_item_title"], [data-testid="woocommerce_after_shop_loop_item_title"], [data-testid="woocommerce_after_shop_loop_item"]'
+							'[data-testid="poocommerce_before_shop_loop_item"], [data-testid="poocommerce_before_shop_loop_item_title"], .wp-block-post-title, [data-testid="poocommerce_shop_loop_item_title"], [data-testid="poocommerce_after_shop_loop_item_title"], [data-testid="poocommerce_after_shop_loop_item"]'
 						)
 					).map(
 						( node ) =>
@@ -123,12 +123,12 @@ test.describe( 'Product Collection: Compatibility Layer', () => {
 				)
 		);
 		const expectedSequence = [
-			'woocommerce_before_shop_loop_item',
-			'woocommerce_before_shop_loop_item_title',
+			'poocommerce_before_shop_loop_item',
+			'poocommerce_before_shop_loop_item_title',
 			'product-title',
-			'woocommerce_shop_loop_item_title',
-			'woocommerce_after_shop_loop_item_title',
-			'woocommerce_after_shop_loop_item',
+			'poocommerce_shop_loop_item_title',
+			'poocommerce_after_shop_loop_item_title',
+			'poocommerce_after_shop_loop_item',
 		];
 
 		expect( productSequences ).toEqual(

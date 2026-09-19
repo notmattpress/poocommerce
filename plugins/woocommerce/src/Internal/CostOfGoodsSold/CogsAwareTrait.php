@@ -1,9 +1,9 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\CostOfGoodsSold;
+namespace Automattic\PooCommerce\Internal\CostOfGoodsSold;
 
-use Automattic\WooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
 
 /**
  * Trait with general Cost of Goods Sold related functionality shared by the entire codebase.

@@ -4,7 +4,7 @@
 import { Fragment } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { Button } from '@wordpress/components';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -40,7 +40,7 @@ export const InstalledExtensions = () => {
 						activateInstalledPlugin( plugin.slug );
 					} }
 				>
-					{ __( 'Activate', 'woocommerce' ) }
+					{ __( 'Activate', 'poocommerce' ) }
 				</Button>
 			);
 		}
@@ -56,7 +56,7 @@ export const InstalledExtensions = () => {
 						} );
 					} }
 				>
-					{ __( 'Finish setup', 'woocommerce' ) }
+					{ __( 'Finish setup', 'poocommerce' ) }
 				</Button>
 			);
 		}
@@ -73,14 +73,14 @@ export const InstalledExtensions = () => {
 						} );
 					} }
 				>
-					{ __( 'Manage', 'woocommerce' ) }
+					{ __( 'Manage', 'poocommerce' ) }
 				</Button>
 			);
 		}
 	};
 
 	return (
-		<CollapsibleCard header={ __( 'Installed extensions', 'woocommerce' ) }>
+		<CollapsibleCard header={ __( 'Installed extensions', 'poocommerce' ) }>
 			{ data.map( ( el, idx ) => {
 				return (
 					<Fragment key={ el.slug }>

@@ -20,12 +20,12 @@ export function ReviewsPaginationArrowControls( {
 		<ToggleGroupControl
 			__next40pxDefaultSize
 			__nextHasNoMarginBottom
-			label={ __( 'Arrow', 'woocommerce' ) }
+			label={ __( 'Arrow', 'poocommerce' ) }
 			value={ value }
 			onChange={ onChange }
 			help={ __(
 				'A decorative arrow appended to the next and previous product reviews link.',
-				'woocommerce'
+				'poocommerce'
 			) }
 			isBlock
 		>
@@ -34,7 +34,7 @@ export function ReviewsPaginationArrowControls( {
 				label={ _x(
 					'None',
 					'Arrow option for Product Reviews Pagination Next/Previous blocks',
-					'woocommerce'
+					'poocommerce'
 				) }
 			/>
 			<ToggleGroupControlOption
@@ -42,7 +42,7 @@ export function ReviewsPaginationArrowControls( {
 				label={ _x(
 					'Arrow',
 					'Arrow option for Product Reviews Pagination Next/Previous blocks',
-					'woocommerce'
+					'poocommerce'
 				) }
 			/>
 			<ToggleGroupControlOption
@@ -50,7 +50,7 @@ export function ReviewsPaginationArrowControls( {
 				label={ _x(
 					'Chevron',
 					'Arrow option for Product Reviews Pagination Next/Previous blocks',
-					'woocommerce'
+					'poocommerce'
 				) }
 			/>
 		</ToggleGroupControl>

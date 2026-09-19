@@ -2,4 +2,4 @@
 
 set -euo pipefail
 
-wp option update blogname 'WooCommerce Blocks E2E Test Suite'
+wp option update blogname 'PooCommerce Blocks E2E Test Suite'

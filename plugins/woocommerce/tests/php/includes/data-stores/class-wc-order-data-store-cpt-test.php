@@ -1,9 +1,9 @@
 <?php
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
-use Automattic\WooCommerce\Utilities\OrderUtil;
-use Automattic\WooCommerce\Internal\CostOfGoodsSold\CogsAwareUnitTestSuiteTrait;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
+use Automattic\PooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Internal\CostOfGoodsSold\CogsAwareUnitTestSuiteTrait;
 
 //phpcs:disable Squiz.Classes.ClassFileName.NoMatch, Squiz.Classes.ValidClassName.NotCamelCaps -- Legacy class name.
 /**
@@ -386,15 +386,15 @@ class WC_Order_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 			}
 		};
 
-		add_action( 'woocommerce_order_status_completed', $status_action );
-		add_action( 'woocommerce_order_status_completed_notification', $notification_action );
+		add_action( 'poocommerce_order_status_completed', $status_action );
+		add_action( 'poocommerce_order_status_completed_notification', $notification_action );
 
 		try {
 			$order = wc_get_order( $order_id );
 			$this->assertTrue( $order->untrash(), 'The order was restored from the trash.' );
 		} finally {
-			remove_action( 'woocommerce_order_status_completed', $status_action );
-			remove_action( 'woocommerce_order_status_completed_notification', $notification_action );
+			remove_action( 'poocommerce_order_status_completed', $status_action );
+			remove_action( 'poocommerce_order_status_completed_notification', $notification_action );
 		}
 
 		$this->assertEquals( OrderStatus::COMPLETED, $order->get_status() );
@@ -442,15 +442,15 @@ class WC_Order_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 			}
 		};
 
-		add_action( 'woocommerce_order_status_completed', $status_action );
-		add_action( 'woocommerce_order_status_completed_notification', $notification_action );
+		add_action( 'poocommerce_order_status_completed', $status_action );
+		add_action( 'poocommerce_order_status_completed_notification', $notification_action );
 
 		try {
 			$restored_order = wc_get_order( $restored_order_id );
 			$this->assertTrue( $restored_order->untrash(), 'The order was restored from the trash.' );
 		} finally {
-			remove_action( 'woocommerce_order_status_completed', $status_action );
-			remove_action( 'woocommerce_order_status_completed_notification', $notification_action );
+			remove_action( 'poocommerce_order_status_completed', $status_action );
+			remove_action( 'poocommerce_order_status_completed_notification', $notification_action );
 		}
 
 		$this->assertSame( 1, $other_order_status_change_count );
@@ -482,7 +482,7 @@ class WC_Order_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 		// uniquely-named static method is used so its hook ID is a stable string that nothing
 		// else collides with.
 		$probe = array( self::class, 'untrash_email_hook_order_probe' );
-		add_action( 'woocommerce_order_status_completed', $probe, 10 );
+		add_action( 'poocommerce_order_status_completed', $probe, 10 );
 
 		// Capture the priority 10 listener order at the moment the restore transition fires.
 		// A remove/re-add suspension would leave WC_Emails dispatch absent here (it would be
@@ -490,16 +490,16 @@ class WC_Order_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 		// it registered in its original slot, ahead of the 3rd-party listener.
 		$keys_during = array();
 		$recorder    = function () use ( &$wp_filter, &$keys_during ) {
-			$keys_during = array_keys( $wp_filter['woocommerce_order_status_completed']->callbacks[10] );
+			$keys_during = array_keys( $wp_filter['poocommerce_order_status_completed']->callbacks[10] );
 		};
-		add_action( 'woocommerce_order_status_completed', $recorder, 99 );
+		add_action( 'poocommerce_order_status_completed', $recorder, 99 );
 
 		try {
 			$order = wc_get_order( $order_id );
 			$this->assertTrue( $order->untrash(), 'The order was restored from the trash.' );
 		} finally {
-			remove_action( 'woocommerce_order_status_completed', $probe, 10 );
-			remove_action( 'woocommerce_order_status_completed', $recorder, 99 );
+			remove_action( 'poocommerce_order_status_completed', $probe, 10 );
+			remove_action( 'poocommerce_order_status_completed', $recorder, 99 );
 		}
 
 		$pos_dispatch = false;
@@ -517,7 +517,7 @@ class WC_Order_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testDox A 'suppress_filters' argument can be passed to 'delete', if true no 'woocommerce_(before_)trash/delete_order' actions will be fired.
+	 * @testDox A 'suppress_filters' argument can be passed to 'delete', if true no 'poocommerce_(before_)trash/delete_order' actions will be fired.
 	 *
 	 * @testWith [null, true]
 	 *           [true, true]
@@ -538,7 +538,7 @@ class WC_Order_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 		$trash_or_delete = $force_delete ? 'delete' : 'trash';
 
 		add_action(
-			"woocommerce_before_{$trash_or_delete}_order",
+			"poocommerce_before_{$trash_or_delete}_order",
 			function ( $order_id, $order ) use ( &$order_id_from_before_delete, &$order_from_before_delete ) {
 				$order_id_from_before_delete = $order_id;
 				$order_from_before_delete    = $order;
@@ -548,7 +548,7 @@ class WC_Order_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 		);
 
 		add_action(
-			"woocommerce_{$trash_or_delete}_order",
+			"poocommerce_{$trash_or_delete}_order",
 			function ( $order_id ) use ( &$order_id_from_after_delete ) {
 				$order_id_from_after_delete = $order_id;
 			}
@@ -680,7 +680,7 @@ class WC_Order_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testDox Creating an order with a draft status should not trigger the "woocommerce_new_order" action.
+	 * @testDox Creating an order with a draft status should not trigger the "poocommerce_new_order" action.
 	 */
 	public function test_create_draft_order_doesnt_trigger_hook() {
 
@@ -690,7 +690,7 @@ class WC_Order_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 			++$new_count;
 		};
 
-		add_action( 'woocommerce_new_order', $callback );
+		add_action( 'poocommerce_new_order', $callback );
 
 		$draft_statuses = array( OrderStatus::AUTO_DRAFT, 'checkout-draft' );
 
@@ -704,11 +704,11 @@ class WC_Order_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 
 		$this->assertEquals( 0, $new_count );
 
-		remove_action( 'woocommerce_new_order', $callback );
+		remove_action( 'poocommerce_new_order', $callback );
 	}
 
 	/**
-	 * @testDox Updating an order status correctly triggers the "woocommerce_new_order" action.
+	 * @testDox Updating an order status correctly triggers the "poocommerce_new_order" action.
 	 */
 	public function test_update_order_status_correctly_triggers_new_order_hook() {
 
@@ -718,7 +718,7 @@ class WC_Order_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 			++$new_count;
 		};
 
-		add_action( 'woocommerce_new_order', $callback );
+		add_action( 'poocommerce_new_order', $callback );
 
 		$order_data_store_cpt = new WC_Order_Data_Store_CPT();
 
@@ -747,11 +747,11 @@ class WC_Order_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 			);
 		}
 
-		remove_action( 'woocommerce_new_order', $callback );
+		remove_action( 'poocommerce_new_order', $callback );
 	}
 
 	/**
-	 * @testDox Create a new order with processing status without saving and updating it should trigger the "woocommerce_new_order" action.
+	 * @testDox Create a new order with processing status without saving and updating it should trigger the "poocommerce_new_order" action.
 	 */
 	public function test_update_new_processing_order_correctly_triggers_new_order_hook() {
 
@@ -761,7 +761,7 @@ class WC_Order_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 			++$new_count;
 		};
 
-		add_action( 'woocommerce_new_order', $callback );
+		add_action( 'poocommerce_new_order', $callback );
 
 		$order_data_store_cpt = new WC_Order_Data_Store_CPT();
 
@@ -774,7 +774,7 @@ class WC_Order_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 
 		$this->assertEquals( 1, $new_count );
 
-		remove_action( 'woocommerce_new_order', $callback );
+		remove_action( 'poocommerce_new_order', $callback );
 	}
 
 	/**
@@ -878,11 +878,11 @@ class WC_Order_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 	 * @testdox An order with missing tax-mode metadata uses the store setting without writing during the read.
 	 */
 	public function test_reading_order_without_prices_include_tax_metadata_uses_store_setting(): void {
-		$previous_tax_mode = get_option( 'woocommerce_prices_include_tax' );
+		$previous_tax_mode = get_option( 'poocommerce_prices_include_tax' );
 		$order             = null;
 
 		try {
-			update_option( 'woocommerce_prices_include_tax', 'yes' );
+			update_option( 'poocommerce_prices_include_tax', 'yes' );
 
 			$order = WC_Helper_Order::create_order();
 			delete_post_meta( $order->get_id(), '_prices_include_tax' );
@@ -899,7 +899,7 @@ class WC_Order_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 			if ( $order ) {
 				$order->delete( true );
 			}
-			update_option( 'woocommerce_prices_include_tax', $previous_tax_mode );
+			update_option( 'poocommerce_prices_include_tax', $previous_tax_mode );
 		}
 	}
 
@@ -909,16 +909,16 @@ class WC_Order_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 	 *
 	 * @param string $tax_mode    Store tax-mode setting.
 	 * @param bool   $expected    Expected order tax mode.
-	 * @param string $post_status Post status when WooCommerce first loads the order.
+	 * @param string $post_status Post status when PooCommerce first loads the order.
 	 */
 	public function test_native_draft_loads_and_persists_store_defaults( string $tax_mode, bool $expected, string $post_status ): void {
-		$previous_tax_mode = get_option( 'woocommerce_prices_include_tax' );
-		$previous_currency = get_option( 'woocommerce_currency' );
+		$previous_tax_mode = get_option( 'poocommerce_prices_include_tax' );
+		$previous_currency = get_option( 'poocommerce_currency' );
 		$order_id          = 0;
 
 		try {
-			update_option( 'woocommerce_prices_include_tax', $tax_mode );
-			update_option( 'woocommerce_currency', 'EUR' );
+			update_option( 'poocommerce_prices_include_tax', $tax_mode );
+			update_option( 'poocommerce_currency', 'EUR' );
 			$post     = get_default_post_to_edit( 'shop_order', true );
 			$order_id = $post->ID;
 
@@ -939,8 +939,8 @@ class WC_Order_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 			$this->assertFalse( metadata_exists( 'post', $order_id, '_prices_include_tax' ), 'Loading must not persist tax metadata.' );
 			$this->assertFalse( metadata_exists( 'post', $order_id, '_order_currency' ), 'Loading must not persist currency metadata.' );
 
-			update_option( 'woocommerce_prices_include_tax', 'yes' === $tax_mode ? 'no' : 'yes' );
-			update_option( 'woocommerce_currency', 'USD' );
+			update_option( 'poocommerce_prices_include_tax', 'yes' === $tax_mode ? 'no' : 'yes' );
+			update_option( 'poocommerce_currency', 'USD' );
 			$this->assertSame( $expected, $sut->get_prices_include_tax(), 'The getter should return the loaded property, not reread store settings.' );
 			$this->assertSame( 'EUR', $sut->get_currency(), 'The loaded currency should remain unchanged until the order is reloaded.' );
 
@@ -956,8 +956,8 @@ class WC_Order_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 			if ( $order_id ) {
 				wp_delete_post( $order_id, true );
 			}
-			update_option( 'woocommerce_prices_include_tax', $previous_tax_mode );
-			update_option( 'woocommerce_currency', $previous_currency );
+			update_option( 'poocommerce_prices_include_tax', $previous_tax_mode );
+			update_option( 'poocommerce_currency', $previous_currency );
 		}
 	}
 
@@ -984,11 +984,11 @@ class WC_Order_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 	 * @param string $status      Order status.
 	 */
 	public function test_reading_order_preserves_persisted_tax_mode( string $tax_mode, bool $saved_value, string $status ): void {
-		$previous_tax_mode = get_option( 'woocommerce_prices_include_tax' );
+		$previous_tax_mode = get_option( 'poocommerce_prices_include_tax' );
 		$order             = new WC_Order();
 
 		try {
-			update_option( 'woocommerce_prices_include_tax', $tax_mode );
+			update_option( 'poocommerce_prices_include_tax', $tax_mode );
 			$order->set_status( $status );
 			$order->set_prices_include_tax( $saved_value );
 			$order->save();
@@ -1001,7 +1001,7 @@ class WC_Order_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 			if ( $order->get_id() ) {
 				$order->delete( true );
 			}
-			update_option( 'woocommerce_prices_include_tax', $previous_tax_mode );
+			update_option( 'poocommerce_prices_include_tax', $previous_tax_mode );
 		}
 	}
 
@@ -1338,7 +1338,7 @@ class WC_Order_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testDox It's possible to modify the Cost of Goods Sold value that gets loaded from the database for an order using the 'woocommerce_load_order_cogs_value' filter.
+	 * @testDox It's possible to modify the Cost of Goods Sold value that gets loaded from the database for an order using the 'poocommerce_load_order_cogs_value' filter.
 	 */
 	public function test_loaded_cogs_value_can_be_modified_via_filter() {
 		$received_filter_cogs_value = null;
@@ -1351,7 +1351,7 @@ class WC_Order_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 		$order->save();
 
 		add_filter(
-			'woocommerce_load_order_cogs_value',
+			'poocommerce_load_order_cogs_value',
 			function ( $cogs_value, $item ) use ( &$received_filter_cogs_value, &$received_filter_item ) {
 				$received_filter_cogs_value = $cogs_value;
 				$received_filter_item       = $item;
@@ -1369,7 +1369,7 @@ class WC_Order_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testDox It's possible to modify the Cost of Goods Sold value that gets persisted for an order using the 'woocommerce_save_order_cogs_value' filter, returning null suppresses the saving.
+	 * @testDox It's possible to modify the Cost of Goods Sold value that gets persisted for an order using the 'poocommerce_save_order_cogs_value' filter, returning null suppresses the saving.
 	 *
 	 * @testWith [56.78, "56.78"]
 	 *           [null, "12.34"]
@@ -1388,7 +1388,7 @@ class WC_Order_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 		$order->save();
 
 		add_filter(
-			'woocommerce_save_order_cogs_value',
+			'poocommerce_save_order_cogs_value',
 			function ( $cogs_value, $item ) use ( &$received_filter_cogs_value, &$received_filter_item, $filter_return_value ) {
 				$received_filter_cogs_value = $cogs_value;
 				$received_filter_item       = $item;
@@ -1640,8 +1640,8 @@ class WC_Order_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 	 * @testdox CPT cache priming populates refund total and tax caches with correct values.
 	 */
 	public function test_prime_caches_for_orders_primes_refund_totals(): void {
-		update_option( 'woocommerce_prices_include_tax', 'yes' );
-		update_option( 'woocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_prices_include_tax', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
 
 		WC_Tax::_insert_tax_rate(
 			array(

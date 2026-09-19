@@ -1,5 +1,5 @@
 export const SEARCH_BLOCK_NAME = 'core/search';
-export const SEARCH_VARIATION_NAME = 'woocommerce/product-search';
+export const SEARCH_VARIATION_NAME = 'poocommerce/product-search';
 
 export enum PositionOptions {
 	OUTSIDE = 'button-outside',

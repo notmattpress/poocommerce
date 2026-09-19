@@ -24,7 +24,7 @@ jQuery( function( $ ) {
 		// When a radio button is changed, make sure to show/hide our new CC info area.
 		this.$target.on(
 			'click change',
-			':input.woocommerce-SavedPaymentMethods-tokenInput',
+			':input.poocommerce-SavedPaymentMethods-tokenInput',
 			{ tokenizationForm: this },
 			this.onTokenChange
 		);
@@ -38,13 +38,13 @@ jQuery( function( $ ) {
 
 	TokenizationForm.prototype.onDisplay = function() {
 		// Make sure a radio button is selected if there is no is_default for this payment method..
-		if ( 0 === $( ':input.woocommerce-SavedPaymentMethods-tokenInput:checked', this.$target ).length ) {
-			$( ':input.woocommerce-SavedPaymentMethods-tokenInput:last', this.$target ).prop( 'checked', true );
+		if ( 0 === $( ':input.poocommerce-SavedPaymentMethods-tokenInput:checked', this.$target ).length ) {
+			$( ':input.poocommerce-SavedPaymentMethods-tokenInput:last', this.$target ).prop( 'checked', true );
 		}
 
 		// Don't show the "use new" radio button if we only have one method..
 		if ( 0 === this.$target.data( 'count' ) ) {
-			$( '.woocommerce-SavedPaymentMethods-new', this.$target ).remove();
+			$( '.poocommerce-SavedPaymentMethods-new', this.$target ).remove();
 		}
 
 		// Hide "save card" if "Create Account" is not checked and registration is not forced.
@@ -58,7 +58,7 @@ jQuery( function( $ ) {
 		}
 
 		// Trigger change event
-		$( ':input.woocommerce-SavedPaymentMethods-tokenInput:checked', this.$target ).trigger( 'change' );
+		$( ':input.poocommerce-SavedPaymentMethods-tokenInput:checked', this.$target ).trigger( 'change' );
 	};
 
 	TokenizationForm.prototype.onTokenChange = function( event ) {
@@ -88,11 +88,11 @@ jQuery( function( $ ) {
 	};
 
 	TokenizationForm.prototype.showSaveNewCheckbox = function() {
-		$( '.woocommerce-SavedPaymentMethods-saveNew', this.$formWrap ).show();
+		$( '.poocommerce-SavedPaymentMethods-saveNew', this.$formWrap ).show();
 	};
 
 	TokenizationForm.prototype.hideSaveNewCheckbox = function() {
-		$( '.woocommerce-SavedPaymentMethods-saveNew', this.$formWrap ).hide();
+		$( '.poocommerce-SavedPaymentMethods-saveNew', this.$formWrap ).hide();
 	};
 
 	/**
@@ -108,7 +108,7 @@ jQuery( function( $ ) {
 	 */
 	$( document.body ).on( 'updated_checkout wc-credit-card-form-init', function() {
 		// Loop over gateways with saved payment methods
-		var $saved_payment_methods = $( 'ul.woocommerce-SavedPaymentMethods' );
+		var $saved_payment_methods = $( 'ul.poocommerce-SavedPaymentMethods' );
 
 		$saved_payment_methods.each( function() {
 			$( this ).wc_tokenization_form();

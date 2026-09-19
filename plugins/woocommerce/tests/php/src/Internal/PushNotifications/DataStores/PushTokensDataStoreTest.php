@@ -2,18 +2,18 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\PushNotifications\DataStores;
+namespace Automattic\PooCommerce\Tests\Internal\PushNotifications\DataStores;
 
-use Automattic\WooCommerce\Internal\PushNotifications\DataStores\PushTokensDataStore;
-use Automattic\WooCommerce\Internal\PushNotifications\Entities\PushToken;
-use Automattic\WooCommerce\Internal\PushNotifications\Exceptions\PushTokenInvalidDataException;
-use Automattic\WooCommerce\Internal\PushNotifications\Exceptions\PushTokenNotFoundException;
+use Automattic\PooCommerce\Internal\PushNotifications\DataStores\PushTokensDataStore;
+use Automattic\PooCommerce\Internal\PushNotifications\Entities\PushToken;
+use Automattic\PooCommerce\Internal\PushNotifications\Exceptions\PushTokenInvalidDataException;
+use Automattic\PooCommerce\Internal\PushNotifications\Exceptions\PushTokenNotFoundException;
 use WC_Unit_Test_Case;
 
 /**
  * Tests for the PushTokensDataStore class.
  *
- * @covers \Automattic\WooCommerce\Internal\PushNotifications\DataStores\PushTokensDataStore
+ * @covers \Automattic\PooCommerce\Internal\PushNotifications\DataStores\PushTokensDataStore
  */
 class PushTokensDataStoreTest extends WC_Unit_Test_Case {
 	/**

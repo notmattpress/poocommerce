@@ -20,7 +20,7 @@ if ( ! empty( $ids ) ) {
 
 The comment `// Prime caches to reduce future queries.` must always sit **inside** the `if` block, directly above the call. Do not place it before the `if`. Place the prime immediately before the loop or `array_map` that consumes the IDs. Exception: if a `do_action` call between the guard and the loop passes the IDs as arguments (e.g. `do_action( 'wc_before_products_starting_sales', $product_ids )`), move the prime before that action so hooked callbacks loading the same objects also benefit from the warmed cache. If the action does not receive the IDs, keep the prime directly above the loop.
 
-`_prime_post_caches()` is a WordPress internal (underscore-prefixed) that has existed since WP 4.1. The minimum supported WordPress version for WooCommerce guarantees its presence — `is_callable( '_prime_post_caches' )` guards are unnecessary and must be removed when encountered. Always wrap in `! empty()` as a readability convention; WordPress short-circuits internally before firing SQL on an empty array, so this is not a correctness requirement. The function issues a single `SELECT wp_posts.* WHERE ID IN (...)` for all non-cached IDs and a single `SELECT` for postmeta — two queries regardless of collection size, not one per ID.
+`_prime_post_caches()` is a WordPress internal (underscore-prefixed) that has existed since WP 4.1. The minimum supported WordPress version for PooCommerce guarantees its presence — `is_callable( '_prime_post_caches' )` guards are unnecessary and must be removed when encountered. Always wrap in `! empty()` as a readability convention; WordPress short-circuits internally before firing SQL on an empty array, so this is not a correctness requirement. The function issues a single `SELECT wp_posts.* WHERE ID IN (...)` for all non-cached IDs and a single `SELECT` for postmeta — two queries regardless of collection size, not one per ID.
 
 ---
 
@@ -44,7 +44,7 @@ if ( ! empty( $product_ids ) ) {
 }
 ```
 
-Applies to: `woocommerce_related_products()`, `woocommerce_upsell_display()`, block type `RelatedProducts`, and any similar rendering functions.
+Applies to: `poocommerce_related_products()`, `poocommerce_upsell_display()`, block type `RelatedProducts`, and any similar rendering functions.
 
 **Correct pattern — variation collections:**
 
@@ -108,7 +108,7 @@ if ( ! empty( $variations ) ) {
 **Prefer `ProductUtil::prime_image_caches()` over Form B inline code** when `WC_Product` objects are already in memory. It encapsulates the full collect-and-prime cycle (featured + gallery, dedup, intval, empty guard) in one call:
 
 ```php
-wc_get_container()->get( \Automattic\WooCommerce\Internal\Utilities\ProductUtil::class )->prime_image_caches( $variations );
+wc_get_container()->get( \Automattic\PooCommerce\Internal\Utilities\ProductUtil::class )->prime_image_caches( $variations );
 ```
 
 `WC_Product_Variation` extends `WC_Product` so variation collections are accepted directly. Use Form B inline code only when `ProductUtil` is not available in the call context (e.g. a legacy `includes/` file that cannot reach the DI container).
@@ -140,8 +140,8 @@ Blocks and classic templates are separate entry points — each must be audited 
 
 **Check pairs:**
 
-- `woocommerce_related_products()` ↔ `RelatedProducts` block type
-- `woocommerce_upsell_display()` ↔ any upsells block
+- `poocommerce_related_products()` ↔ `RelatedProducts` block type
+- `poocommerce_upsell_display()` ↔ any upsells block
 - Legacy template functions ↔ StoreApi schema handlers
 
 ---

@@ -1,11 +1,11 @@
 <?php
 /**
- * Plugin Name: WooCommerce Blocks Test Register Product Collection
+ * Plugin Name: PooCommerce Blocks Test Register Product Collection
  * Description: Used to tests the registerProductCollection function.
- * Plugin URI: https://github.com/woocommerce/woocommerce
- * Author: WooCommerce
+ * Plugin URI: https://github.com/poocommerce/poocommerce
+ * Author: PooCommerce
  *
- * @package woocommerce-blocks-test-register-product-collection
+ * @package poocommerce-blocks-test-register-product-collection
  */
 
 // Exit if accessed directly.

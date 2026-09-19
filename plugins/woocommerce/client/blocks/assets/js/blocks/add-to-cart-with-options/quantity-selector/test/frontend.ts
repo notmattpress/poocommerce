@@ -26,14 +26,14 @@ const mockAddToCartStore = {
 };
 
 const mockStore = jest.fn( ( namespace, definition ) => {
-	if ( namespace === 'woocommerce/products' ) {
+	if ( namespace === 'poocommerce/products' ) {
 		return { state: mockProductsState };
 	}
-	if ( namespace === 'woocommerce/add-to-cart-with-options' ) {
+	if ( namespace === 'poocommerce/add-to-cart-with-options' ) {
 		return mockAddToCartStore;
 	}
 	if (
-		namespace === 'woocommerce/add-to-cart-with-options-quantity-selector'
+		namespace === 'poocommerce/add-to-cart-with-options-quantity-selector'
 	) {
 		mockRegisteredStore = definition;
 		return definition;

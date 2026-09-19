@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { test as base, expect } from '@woocommerce/e2e-utils';
+import { test as base, expect } from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -50,7 +50,7 @@ test.describe( 'Product Collection: Collection Pickers', () => {
 			await expect( beanieCheckbox ).toBeChecked();
 
 			const selectedQuery = await pageObject.getProductCollectionQuery();
-			const selectedIds = selectedQuery.woocommerceHandPickedProducts;
+			const selectedIds = selectedQuery.poocommerceHandPickedProducts;
 			expect( selectedIds ).toHaveLength( 2 );
 			expect(
 				selectedIds.every( ( id: string | number ) =>
@@ -70,7 +70,7 @@ test.describe( 'Product Collection: Collection Pickers', () => {
 			await page.reload();
 			await editor.canvas.locator( 'body' ).waitFor();
 			await editor.canvas
-				.locator( '[data-type="woocommerce/product-collection"]' )
+				.locator( '[data-type="poocommerce/product-collection"]' )
 				.first()
 				.click();
 			await expect(
@@ -78,7 +78,7 @@ test.describe( 'Product Collection: Collection Pickers', () => {
 			).toBeHidden();
 			expect(
 				( await pageObject.getProductCollectionQuery() )
-					.woocommerceHandPickedProducts
+					.poocommerceHandPickedProducts
 			).toEqual( selectedIds );
 
 			await pageObject.refreshLocators( 'editor' );

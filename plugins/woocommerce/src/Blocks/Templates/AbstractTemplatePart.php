@@ -1,5 +1,5 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\Templates;
+namespace Automattic\PooCommerce\Blocks\Templates;
 
 /**
  * AbstractTemplatePart class.

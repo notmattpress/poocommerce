@@ -1,5 +1,5 @@
 /**
- * Number validation utilities for WooCommerce shipping forms
+ * Number validation utilities for PooCommerce shipping forms
  */
 
 /**

@@ -3,16 +3,16 @@
  */
 import { useCallback } from '@wordpress/element';
 import { useDispatch, select } from '@wordpress/data';
-import { validationStore } from '@woocommerce/block-data';
+import { validationStore } from '@poocommerce/block-data';
 import {
 	checkoutEventsEmitter,
 	CHECKOUT_EVENTS,
-} from '@woocommerce/blocks-checkout-events';
+} from '@poocommerce/blocks-checkout-events';
 import {
 	isErrorResponse,
 	isFailResponse,
 	isSuccessResponse,
-} from '@woocommerce/types';
+} from '@poocommerce/types';
 
 /**
  * Scrolls to and focuses the first validation error element.

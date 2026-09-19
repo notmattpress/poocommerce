@@ -1,7 +1,7 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\RestApi\Routes\V4\Settings\PaymentGateways;
+namespace Automattic\PooCommerce\Tests\Internal\RestApi\Routes\V4\Settings\PaymentGateways;
 
 use WC_Payment_Gateway;
 

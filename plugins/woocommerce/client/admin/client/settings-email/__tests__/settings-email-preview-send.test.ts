@@ -57,10 +57,10 @@ describe( 'friendlyEmailSendError', () => {
 		);
 	} );
 
-	it( 'maps woocommerce_rest_email_preview_not_rendered to the render-failed message', () => {
+	it( 'maps poocommerce_rest_email_preview_not_rendered to the render-failed message', () => {
 		const result = friendlyEmailSendError(
 			makeError( {
-				code: 'woocommerce_rest_email_preview_not_rendered',
+				code: 'poocommerce_rest_email_preview_not_rendered',
 			} )
 		);
 
@@ -100,7 +100,7 @@ describe( 'friendlyEmailSendError', () => {
 		// match on the stable code, not the English message.
 		const result = friendlyEmailSendError(
 			makeError( {
-				code: 'woocommerce_rest_email_preview_not_rendered',
+				code: 'poocommerce_rest_email_preview_not_rendered',
 				message:
 					"Une erreur s'est produite lors du rendu de l'aperçu de l'e-mail.",
 			} )

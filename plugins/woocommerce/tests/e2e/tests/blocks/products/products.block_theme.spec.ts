@@ -6,7 +6,7 @@ import {
 	expect,
 	BlockData,
 	BLOCK_THEME_SLUG,
-} from '@woocommerce/e2e-utils';
+} from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -33,7 +33,7 @@ const templates = {
 		templateTitle: 'Product Catalog',
 		slug: 'archive-product',
 		frontendPage: '/shop/',
-		legacyBlockName: 'woocommerce/legacy-template',
+		legacyBlockName: 'poocommerce/legacy-template',
 	},
 };
 

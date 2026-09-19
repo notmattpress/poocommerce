@@ -24,12 +24,12 @@
  * explicitly `0`. The benefit is an in-kind bonus unit of the same line item
  * ({@see self::calculate_bonus_quantity()}), never a price change.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine\Core\ValueObject
+ * @package Automattic\PooCommerce\SubscriptionsEngine\Core\ValueObject
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Core\ValueObject;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Core\ValueObject;
 
 use InvalidArgumentException;
 

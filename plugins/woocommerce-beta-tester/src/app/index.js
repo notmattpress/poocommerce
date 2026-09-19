@@ -10,7 +10,7 @@ import { App } from './app';
 import '../index.scss';
 
 const appRoot = document.getElementById(
-	'woocommerce-admin-test-helper-app-root'
+	'poocommerce-admin-test-helper-app-root'
 );
 
 if ( appRoot ) {

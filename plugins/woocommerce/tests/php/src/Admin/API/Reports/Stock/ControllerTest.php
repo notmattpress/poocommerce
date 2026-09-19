@@ -2,9 +2,9 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Admin\API\Reports\Stock;
+namespace Automattic\PooCommerce\Tests\Admin\API\Reports\Stock;
 
-use Automattic\WooCommerce\Enums\ProductStatus;
+use Automattic\PooCommerce\Enums\ProductStatus;
 use WC_Product_Simple;
 use WC_REST_Unit_Test_Case;
 use WP_REST_Request;

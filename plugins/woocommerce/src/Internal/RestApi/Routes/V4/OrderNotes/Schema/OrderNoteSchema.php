@@ -2,17 +2,17 @@
 /**
  * OrderNoteSchema class.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\RestApi\Routes\V4\OrderNotes\Schema;
+namespace Automattic\PooCommerce\Internal\RestApi\Routes\V4\OrderNotes\Schema;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\AbstractSchema;
-use Automattic\WooCommerce\Internal\Orders\OrderNoteGroup;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\AbstractSchema;
+use Automattic\PooCommerce\Internal\Orders\OrderNoteGroup;
 use WP_REST_Request;
 
 /**
@@ -38,57 +38,57 @@ class OrderNoteSchema extends AbstractSchema {
 	public function get_item_schema_properties(): array {
 		$schema = array(
 			'id'               => array(
-				'description' => __( 'Unique identifier for the resource.', 'woocommerce' ),
+				'description' => __( 'Unique identifier for the resource.', 'poocommerce' ),
 				'type'        => 'integer',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'readonly'    => true,
 			),
 			'order_id'         => array(
-				'description' => __( 'Order ID the note belongs to.', 'woocommerce' ),
+				'description' => __( 'Order ID the note belongs to.', 'poocommerce' ),
 				'type'        => 'integer',
 				'context'     => self::VIEW_EDIT_CONTEXT,
 				'readonly'    => true,
 			),
 			'author'           => array(
-				'description' => __( 'Order note author.', 'woocommerce' ),
+				'description' => __( 'Order note author.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'readonly'    => true,
 			),
 			'date_created'     => array(
-				'description' => __( "The date the order note was created, in the site's timezone.", 'woocommerce' ),
+				'description' => __( "The date the order note was created, in the site's timezone.", 'poocommerce' ),
 				'type'        => 'string',
 				'format'      => 'date-time',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'readonly'    => true,
 			),
 			'date_created_gmt' => array(
-				'description' => __( 'The date the order note was created, as GMT.', 'woocommerce' ),
+				'description' => __( 'The date the order note was created, as GMT.', 'poocommerce' ),
 				'type'        => 'string',
 				'format'      => 'date-time',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'readonly'    => true,
 			),
 			'note'             => array(
-				'description' => __( 'Order note content.', 'woocommerce' ),
+				'description' => __( 'Order note content.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'required'    => true,
 			),
 			'title'            => array(
-				'description' => __( 'The title of the order note group.', 'woocommerce' ),
+				'description' => __( 'The title of the order note group.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'readonly'    => true,
 			),
 			'group'            => array(
-				'description' => __( 'The group of order note.', 'woocommerce' ),
+				'description' => __( 'The group of order note.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'readonly'    => true,
 			),
 			'is_customer_note' => array(
-				'description' => __( 'If true, the note will be shown to customers. If false, the note will be for admin reference only.', 'woocommerce' ),
+				'description' => __( 'If true, the note will be shown to customers. If false, the note will be for admin reference only.', 'poocommerce' ),
 				'type'        => 'boolean',
 				'default'     => false,
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,

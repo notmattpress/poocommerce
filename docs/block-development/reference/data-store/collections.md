@@ -6,11 +6,11 @@ sidebar_label: Collections Store
 
 ## Overview
 
-The Collections Store allows to retrieve product-related collections within WooCommerce Blocks.
+The Collections Store allows to retrieve product-related collections within PooCommerce Blocks.
 
 ## Usage
 
-To utilize this store you will import the COLLECTIONS_STORE_KEY in any module referencing it. Assuming `@woocommerce/block-data` is registered as an external pointing to `wc.wcBlocksData` you can import the key via:
+To utilize this store you will import the COLLECTIONS_STORE_KEY in any module referencing it. Assuming `@poocommerce/block-data` is registered as an external pointing to `wc.wcBlocksData` you can import the key via:
 
 ```js
 const { COLLECTIONS_STORE_KEY } = window.wc.wcBlocksData;

@@ -15,7 +15,7 @@ jest.mock( '@wordpress/data', () => ( {
 	useDispatch: jest.fn(),
 } ) );
 
-const OPTION_NAME = 'woocommerce_test_recommendations_hidden';
+const OPTION_NAME = 'poocommerce_test_recommendations_hidden';
 
 const mockSelect = ( {
 	option,

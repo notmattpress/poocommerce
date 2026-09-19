@@ -12,13 +12,13 @@ const getPnpmPackage = ( sourceDir ) => {
 };
 
 const config = {
-	gitRepositoryURL: 'https://github.com/woocommerce/woocommerce.git',
-	pluginPath: '/plugins/woocommerce',
-	testsPath: '/plugins/woocommerce/tests/metrics/specs',
+	gitRepositoryURL: 'https://github.com/poocommerce/poocommerce.git',
+	pluginPath: '/plugins/poocommerce',
+	testsPath: '/plugins/poocommerce/tests/metrics/specs',
 	getSetupTestRunner: ( sourceDir ) => {
 		const pnpmPackage = getPnpmPackage( sourceDir );
 
-		return `npm install -g ${ pnpmPackage } && pnpm install --frozen-lockfile --filter="@woocommerce/plugin-woocommerce" &> /dev/null && cd plugins/woocommerce && pnpm exec playwright install chromium`;
+		return `npm install -g ${ pnpmPackage } && pnpm install --frozen-lockfile --filter="@poocommerce/plugin-poocommerce" &> /dev/null && cd plugins/poocommerce && pnpm exec playwright install chromium`;
 	},
 	getSetupCommand: ( sourceDir ) => {
 		const pnpmPackage = getPnpmPackage( sourceDir );
@@ -27,7 +27,7 @@ const config = {
 	},
 	getTestCommand: ( sourceDir ) => {
 		const pnpmPackage = getPnpmPackage( sourceDir );
-		return `npm install -g ${ pnpmPackage } && cd plugins/woocommerce && pnpm test:metrics`;
+		return `npm install -g ${ pnpmPackage } && cd plugins/poocommerce && pnpm test:metrics`;
 	},
 };
 

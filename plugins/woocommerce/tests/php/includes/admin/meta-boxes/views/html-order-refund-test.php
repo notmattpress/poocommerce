@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 /**
  * Tests for the refund row rendered inside the order items meta box.
  *
- * @package WooCommerce\Tests\Admin
+ * @package PooCommerce\Tests\Admin
  */
 class Html_Order_Refund_Test extends WC_Unit_Test_Case {
 
@@ -62,7 +62,7 @@ class Html_Order_Refund_Test extends WC_Unit_Test_Case {
 	/**
 	 * @testdox Should attribute a refund with no recorded user to the system.
 	 *
-	 * @see https://github.com/woocommerce/woocommerce/issues/36329
+	 * @see https://github.com/poocommerce/poocommerce/issues/36329
 	 */
 	public function test_labels_an_unattributed_refund_as_system(): void {
 		$markup = $this->render_refund_row( $this->create_refund_attributed_to( 0 ) );

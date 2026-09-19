@@ -36,10 +36,10 @@ registerBlockType( metadata, {
 			{
 				type: 'block',
 				blocks: sharedAttributeBlockTypes.filter(
-					( value ) => value !== 'woocommerce/product-category'
+					( value ) => value !== 'poocommerce/product-category'
 				),
 				transform: ( attributes ) =>
-					createBlock( 'woocommerce/product-category', {
+					createBlock( 'poocommerce/product-category', {
 						...attributes,
 						editMode: false,
 					} ),

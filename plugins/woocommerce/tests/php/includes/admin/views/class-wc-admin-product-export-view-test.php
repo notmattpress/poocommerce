@@ -2,7 +2,7 @@
 /**
  * Tests for the Product Export admin view.
  *
- * @package WooCommerce\Tests\Admin\Views
+ * @package PooCommerce\Tests\Admin\Views
  */
 
 declare( strict_types = 1 );
@@ -64,8 +64,8 @@ class WC_Admin_Product_Export_View_Test extends WC_Unit_Test_Case {
 		$this->assertStringNotContainsString( 'id="selected-product-export-notice"', $output );
 		$this->assertNull( $this->get_hidden_product_ids( $output ) );
 		$this->assertStringContainsString( 'containing a list of all products', $output );
-		$this->assertStringContainsString( 'for="woocommerce-exporter-types"', $output );
-		$this->assertStringContainsString( 'for="woocommerce-exporter-category"', $output );
+		$this->assertStringContainsString( 'for="poocommerce-exporter-types"', $output );
+		$this->assertStringContainsString( 'for="poocommerce-exporter-category"', $output );
 	}
 
 	/**
@@ -77,8 +77,8 @@ class WC_Admin_Product_Export_View_Test extends WC_Unit_Test_Case {
 		$this->assertStringContainsString( 'id="selected-product-export-notice"', $output );
 		$this->assertStringContainsString( 'clear your selection', $output );
 		$this->assertStringContainsString( 'containing the selected products', $output );
-		$this->assertStringNotContainsString( 'for="woocommerce-exporter-types"', $output );
-		$this->assertStringNotContainsString( 'for="woocommerce-exporter-category"', $output );
+		$this->assertStringNotContainsString( 'for="poocommerce-exporter-types"', $output );
+		$this->assertStringNotContainsString( 'for="poocommerce-exporter-category"', $output );
 
 		$this->assertMatchesRegularExpression(
 			'/<a href="(?![^"]*product_ids=)[^"]*page=product_exporter[^"]*">clear your selection<\/a>/',

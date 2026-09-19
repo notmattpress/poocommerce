@@ -1,8 +1,8 @@
 <?php
 
-namespace Automattic\WooCommerce\Admin;
+namespace Automattic\PooCommerce\Admin;
 
-use Automattic\WooCommerce\Admin\RemoteSpecs\DataSourcePoller as RemoteSpecsDataSourcePoller;
+use Automattic\PooCommerce\Admin\RemoteSpecs\DataSourcePoller as RemoteSpecsDataSourcePoller;
 
 /**
  * Specs data source poller class.
@@ -18,8 +18,8 @@ abstract class DataSourcePoller extends RemoteSpecsDataSourcePoller {
 	private static function log_deprecation() {
 		/**
 		 * Note: Deprecation messages have been temporarily disabled due to upgrade issues.
-		 * For more details, see the discussion in the WooCommerce GitHub repository:
-		 * https://github.com/woocommerce/woocommerce/pull/45892.
+		 * For more details, see the discussion in the PooCommerce GitHub repository:
+		 * https://github.com/poocommerce/poocommerce/pull/45892.
 		 */
 	}
 

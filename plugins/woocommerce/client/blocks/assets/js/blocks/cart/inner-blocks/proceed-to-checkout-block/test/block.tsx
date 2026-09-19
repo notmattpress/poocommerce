@@ -3,11 +3,11 @@
  */
 
 import { render, screen, waitFor } from '@testing-library/react';
-import { registerCheckoutFilters } from '@woocommerce/blocks-checkout';
-import { useCartEventsContext } from '@woocommerce/base-context';
+import { registerCheckoutFilters } from '@poocommerce/blocks-checkout';
+import { useCartEventsContext } from '@poocommerce/base-context';
 import { useEffect } from '@wordpress/element';
 
-jest.mock( '@woocommerce/base-context/hooks', () => ( {
+jest.mock( '@poocommerce/base-context/hooks', () => ( {
 	useStoreCart: jest.fn( () => ( {
 		cartIsLoading: false,
 		isLoadingRates: false,
@@ -35,7 +35,7 @@ describe( 'Proceed to checkout block', () => {
 	it( 'allows the link to be filtered', () => {
 		registerCheckoutFilters( 'test-extension', {
 			proceedToCheckoutButtonLink: () => {
-				return 'https://woocommerce.com';
+				return 'https://poocommerce.com';
 			},
 		} );
 		render(
@@ -43,7 +43,7 @@ describe( 'Proceed to checkout block', () => {
 		);
 		const button = screen.getByText( 'Proceed to Checkout' );
 		const link = button.closest( 'a' );
-		expect( link?.href ).toBe( 'https://woocommerce.com/' );
+		expect( link?.href ).toBe( 'https://poocommerce.com/' );
 	} );
 	it( 'does not allow incorrect types to be applied to either button label or button link', () => {
 		registerCheckoutFilters( 'test-extension', {

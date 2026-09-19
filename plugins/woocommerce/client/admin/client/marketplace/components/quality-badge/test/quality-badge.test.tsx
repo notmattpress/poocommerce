@@ -4,13 +4,13 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import React from 'react';
 
-jest.mock( '@woocommerce/navigation', () => ( {
+jest.mock( '@poocommerce/navigation', () => ( {
 	getNewPath: jest.fn( () => '/new-path' ),
 	navigateTo: jest.fn(),
 	useQuery: jest.fn( () => ( {} ) ),
 } ) );
 
-jest.mock( '@woocommerce/tracks', () => ( {
+jest.mock( '@poocommerce/tracks', () => ( {
 	recordEvent: jest.fn(),
 } ) );
 
@@ -22,7 +22,7 @@ jest.mock( '@wordpress/a11y', () => ( {
  * Internal dependencies
  */
 import { speak } from '@wordpress/a11y';
-import { navigateTo, useQuery } from '@woocommerce/navigation';
+import { navigateTo, useQuery } from '@poocommerce/navigation';
 import QualityBadge from '../quality-badge';
 import QualityBadgeFilter, {
 	isQualityBadgeFilterActive,
@@ -36,7 +36,7 @@ const contextWithBadge = {
 		quality_badge: {
 			enabled: true,
 			label: 'Excellence Verified',
-			tooltip: 'Verified against WooCommerce standards.',
+			tooltip: 'Verified against PooCommerce standards.',
 		},
 	},
 } as MarketplaceContextType;
@@ -134,7 +134,7 @@ describe( 'QualityBadge', () => {
 		fireEvent.click( screen.getByText( 'Excellence Verified' ) );
 
 		expect(
-			screen.getByText( 'Verified against WooCommerce standards.' )
+			screen.getByText( 'Verified against PooCommerce standards.' )
 		).toBeInTheDocument();
 		expect( screen.queryByText( 'Learn more' ) ).not.toBeInTheDocument();
 	} );
@@ -144,7 +144,7 @@ describe( 'QualityBadge', () => {
 			iamSettings: {
 				quality_badge: {
 					...contextWithBadge.iamSettings.quality_badge,
-					docs_url: 'https://woocommerce.com/document/excellence/',
+					docs_url: 'https://poocommerce.com/document/excellence/',
 				},
 			},
 		} as MarketplaceContextType;
@@ -157,7 +157,7 @@ describe( 'QualityBadge', () => {
 			screen.getByText( 'Learn more' ).closest( 'a' )
 		).toHaveAttribute(
 			'href',
-			'https://woocommerce.com/document/excellence/'
+			'https://poocommerce.com/document/excellence/'
 		);
 	} );
 
@@ -176,7 +176,7 @@ describe( 'QualityBadge', () => {
 		fireEvent.click( screen.getByText( 'Excellence Verified' ) );
 
 		expect(
-			screen.getByText( 'Verified against WooCommerce standards.' )
+			screen.getByText( 'Verified against PooCommerce standards.' )
 		).toBeInTheDocument();
 		expect( screen.queryByText( 'Learn more' ) ).not.toBeInTheDocument();
 	} );
@@ -190,7 +190,7 @@ describe( 'QualityBadge', () => {
 		fireEvent.click( screen.getByText( 'Excellence Verified' ) );
 
 		expect( speak ).toHaveBeenCalledWith(
-			'Verified against WooCommerce standards.'
+			'Verified against PooCommerce standards.'
 		);
 	} );
 
@@ -203,13 +203,13 @@ describe( 'QualityBadge', () => {
 		const chip = screen.getByText( 'Excellence Verified' );
 		fireEvent.click( chip );
 		expect(
-			screen.getByText( 'Verified against WooCommerce standards.' )
+			screen.getByText( 'Verified against PooCommerce standards.' )
 		).toBeInTheDocument();
 
 		fireEvent.keyDown( chip, { key: 'Escape' } );
 
 		expect(
-			screen.queryByText( 'Verified against WooCommerce standards.' )
+			screen.queryByText( 'Verified against PooCommerce standards.' )
 		).not.toBeInTheDocument();
 	} );
 
@@ -218,7 +218,7 @@ describe( 'QualityBadge', () => {
 			iamSettings: {
 				quality_badge: {
 					...contextWithBadge.iamSettings.quality_badge,
-					docs_url: 'https://woocommerce.com/document/excellence/',
+					docs_url: 'https://poocommerce.com/document/excellence/',
 				},
 			},
 		} as MarketplaceContextType;
@@ -231,7 +231,7 @@ describe( 'QualityBadge', () => {
 		fireEvent.keyDown( screen.getByText( 'Learn more' ), { key: 'Tab' } );
 
 		expect(
-			screen.queryByText( 'Verified against WooCommerce standards.' )
+			screen.queryByText( 'Verified against PooCommerce standards.' )
 		).not.toBeInTheDocument();
 		expect( chip.closest( 'button' ) ).toHaveFocus();
 	} );
@@ -244,13 +244,13 @@ describe( 'QualityBadge', () => {
 
 		fireEvent.click( screen.getByText( 'Excellence Verified' ) );
 		expect(
-			screen.getByText( 'Verified against WooCommerce standards.' )
+			screen.getByText( 'Verified against PooCommerce standards.' )
 		).toBeInTheDocument();
 
 		fireEvent.focusIn( document.body );
 
 		expect(
-			screen.queryByText( 'Verified against WooCommerce standards.' )
+			screen.queryByText( 'Verified against PooCommerce standards.' )
 		).not.toBeInTheDocument();
 	} );
 
@@ -358,7 +358,7 @@ describe( 'QualityBadgeFilter', () => {
 		fireEvent.click( screen.getByLabelText( 'About Excellence Verified' ) );
 
 		expect(
-			screen.getByText( 'Verified against WooCommerce standards.' )
+			screen.getByText( 'Verified against PooCommerce standards.' )
 		).toBeInTheDocument();
 		expect( screen.queryByText( 'Learn more' ) ).not.toBeInTheDocument();
 	} );
@@ -368,7 +368,7 @@ describe( 'QualityBadgeFilter', () => {
 			iamSettings: {
 				quality_badge: {
 					...contextWithBadge.iamSettings.quality_badge,
-					docs_url: 'https://woocommerce.com/document/excellence/',
+					docs_url: 'https://poocommerce.com/document/excellence/',
 				},
 			},
 		} as MarketplaceContextType;
@@ -381,7 +381,7 @@ describe( 'QualityBadgeFilter', () => {
 			screen.getByText( 'Learn more' ).closest( 'a' )
 		).toHaveAttribute(
 			'href',
-			'https://woocommerce.com/document/excellence/'
+			'https://poocommerce.com/document/excellence/'
 		);
 	} );
 } );

@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { test as base, expect, BLOCK_THEME_SLUG } from '@woocommerce/e2e-utils';
+import { test as base, expect, BLOCK_THEME_SLUG } from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -157,14 +157,14 @@ test.describe( 'Product Collection: Inspector Controls', () => {
 		await pageObject.checkTaxonomyTerm( 'categories', 'Music' );
 
 		const productCollectionBlock = await editor.getBlockByName(
-			'woocommerce/product-collection'
+			'poocommerce/product-collection'
 		);
 		const productCollectionClientId =
 			( await productCollectionBlock
 				.last()
 				.getAttribute( 'data-block' ) ) ?? '';
 		await editor.insertBlock(
-			{ name: 'woocommerce/product-filters' },
+			{ name: 'poocommerce/product-filters' },
 			{ clientId: productCollectionClientId }
 		);
 
@@ -213,21 +213,21 @@ test.describe( 'Product Collection: Inspector Controls', () => {
 		await expect( pageObject.products ).toHaveCount( 18 );
 
 		const productCollectionBlock = await editor.getBlockByName(
-			'woocommerce/product-collection'
+			'poocommerce/product-collection'
 		);
 		const secondCollectionClientId =
 			( await productCollectionBlock
 				.last()
 				.getAttribute( 'data-block' ) ) ?? '';
 		await editor.insertBlock(
-			{ name: 'woocommerce/product-filters' },
+			{ name: 'poocommerce/product-filters' },
 			{ clientId: secondCollectionClientId }
 		);
 
 		const postId = await editor.publishPost();
 		await page.goto( `/?p=${ postId }` );
 		const collections = page.locator(
-			'.wp-block-woocommerce-product-collection'
+			'.wp-block-poocommerce-product-collection'
 		);
 		await expect(
 			collections.first().locator( SELECTORS.product )

@@ -2,7 +2,7 @@
 /**
  * Order Line Item (coupon)
  *
- * @package WooCommerce\Classes
+ * @package PooCommerce\Classes
  * @version 3.0.0
  * @since   3.0.0
  */

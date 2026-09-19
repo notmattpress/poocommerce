@@ -1,8 +1,8 @@
 <?php
 declare( strict_types=1 );
-namespace Automattic\WooCommerce\Blocks\Templates;
+namespace Automattic\PooCommerce\Blocks\Templates;
 
-use Automattic\WooCommerce\Blocks\Utils\BlockTemplateUtils;
+use Automattic\PooCommerce\Blocks\Utils\BlockTemplateUtils;
 
 /**
  * AbstractTemplateWithFallback class.

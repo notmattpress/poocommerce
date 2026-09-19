@@ -24,7 +24,7 @@ export const CartLineItemsCartSkeleton = ( {
 					key={ index }
 					aria-label={ __(
 						'Loading products in cart…',
-						'woocommerce'
+						'poocommerce'
 					) }
 				>
 					<td className="wc-block-cart-item__image">
@@ -62,7 +62,7 @@ export const CartLineItemsCheckoutSkeleton = ( {
 		<div
 			className="wc-block-components-order-summary"
 			aria-live="polite"
-			aria-label={ __( 'Loading products in cart…', 'woocommerce' ) }
+			aria-label={ __( 'Loading products in cart…', 'poocommerce' ) }
 		>
 			<div className="wc-block-components-skeleton wc-block-components-skeleton--cart-line-items-checkout wc-block-components-order-summary__content">
 				{ Array.from( { length: rows } ).map( ( _, index ) => (

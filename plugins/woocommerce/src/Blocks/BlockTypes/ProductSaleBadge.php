@@ -1,7 +1,7 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\Utils\StyleAttributesUtils;
+use Automattic\PooCommerce\Blocks\Utils\StyleAttributesUtils;
 
 /**
  * ProductSaleBadge class.
@@ -70,20 +70,20 @@ class ProductSaleBadge extends AbstractBlock {
 		/**
 		 * Filters the product sale badge text.
 		 *
-		 * @hook woocommerce_sale_badge_text
+		 * @hook poocommerce_sale_badge_text
 		 * @since 10.0.0
 		 *
 		 * @param string $sale_text The sale badge text.
 		 * @param WC_Product $product The product object.
 		 * @return string The filtered sale badge text.
 		 */
-		$sale_text = apply_filters( 'woocommerce_sale_badge_text', __( 'Sale', 'woocommerce' ), $product );
+		$sale_text = apply_filters( 'poocommerce_sale_badge_text', __( 'Sale', 'poocommerce' ), $product );
 
-		$output  = '<div class="wp-block-woocommerce-product-sale-badge ' . esc_attr( $classname ) . '">';
+		$output  = '<div class="wp-block-poocommerce-product-sale-badge ' . esc_attr( $classname ) . '">';
 		$output .= sprintf( '<div class="wc-block-components-product-sale-badge %1$s wc-block-components-product-sale-badge--align-%2$s" style="%3$s">', esc_attr( $classes_and_styles['classes'] ), esc_attr( $align ), esc_attr( $classes_and_styles['styles'] ) );
 		$output .= '<span class="wc-block-components-product-sale-badge__text" aria-hidden="true">' . esc_html( $sale_text ) . '</span>';
 		$output .= '<span class="screen-reader-text">'
-						. __( 'Product on sale', 'woocommerce' )
+						. __( 'Product on sale', 'poocommerce' )
 					. '</span>';
 		$output .= '</div></div>';
 

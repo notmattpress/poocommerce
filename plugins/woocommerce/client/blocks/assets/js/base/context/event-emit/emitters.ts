@@ -8,7 +8,7 @@ import {
 	isObserverResponse,
 	type ObserverResponse,
 	responseTypes,
-} from '@woocommerce/types';
+} from '@poocommerce/types';
 
 /**
  * Internal dependencies

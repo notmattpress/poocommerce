@@ -1,1 +1,1 @@
-declare module '@woocommerce/experimental';
+declare module '@poocommerce/experimental';

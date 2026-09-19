@@ -10,11 +10,11 @@ import type {
 	ApiErrorResponse,
 	CartResponseTotals,
 	Currency,
-} from '@woocommerce/types';
+} from '@poocommerce/types';
 import type {
 	Store as StoreNotices,
 	Notice,
-} from '@woocommerce/stores/store-notices';
+} from '@poocommerce/stores/store-notices';
 
 /**
  * Internal dependencies
@@ -29,7 +29,7 @@ import {
 } from './mutation-batcher';
 import { doesCartItemMatchAttributes } from '../../utils/variations/does-cart-item-match-attributes';
 
-export type WooCommerceConfig = {
+export type PooCommerceConfig = {
 	messages?: {
 		addedToCartText?: string;
 	};
@@ -67,7 +67,7 @@ type CartUpdateOptions = { showCartUpdatesNotices?: boolean };
 export type AddCartItemError = {
 	/**
 	 * Server error code for a per-item rejection (e.g.
-	 * `woocommerce_rest_product_out_of_stock`), or the batcher's
+	 * `poocommerce_rest_product_out_of_stock`), or the batcher's
 	 * `unknown_error` fallback. Absent on whole-batch/transport failures.
 	 */
 	code?: string;
@@ -558,8 +558,8 @@ async function sendCartRequest(
 
 				if ( anyAdd ) {
 					const { messages } = getConfig(
-						'woocommerce'
-					) as WooCommerceConfig;
+						'poocommerce'
+					) as PooCommerceConfig;
 					const text = messages?.addedToCartText;
 					if ( text ) {
 						if ( speakFn ) {
@@ -587,9 +587,9 @@ const universalLock =
 	'I acknowledge that using a private store means my plugin will inevitably break on the next store release.';
 
 // Todo: export this store once the store is public.
-const { state } = store< Store >( 'woocommerce', {}, { lock: universalLock } );
+const { state } = store< Store >( 'poocommerce', {}, { lock: universalLock } );
 const { actions } = store< Store >(
-	'woocommerce',
+	'poocommerce',
 	{
 		state: {
 			findItemInCart( {
@@ -1233,9 +1233,9 @@ const { actions } = store< Store >(
 			): AsyncAction< void > {
 				// Todo: Use the module exports instead of `store()` once the store-notices
 				// store is public.
-				yield import( '@woocommerce/stores/store-notices' );
+				yield import( '@poocommerce/stores/store-notices' );
 				const { actions: noticeActions } = store< StoreNotices >(
-					'woocommerce/store-notices',
+					'poocommerce/store-notices',
 					{},
 					{
 						lock: 'I acknowledge that using a private store means my plugin will inevitably break on the next store release.',
@@ -1265,10 +1265,10 @@ const { actions } = store< Store >(
 			): AsyncAction< void > {
 				// Todo: Use the module exports instead of `store()` once the store-notices
 				// store is public.
-				yield import( '@woocommerce/stores/store-notices' );
+				yield import( '@poocommerce/stores/store-notices' );
 				const { state: noticeState, actions: noticeActions } =
 					store< StoreNotices >(
-						'woocommerce/store-notices',
+						'poocommerce/store-notices',
 						{},
 						{
 							lock: 'I acknowledge that using a private store means my plugin will inevitably break on the next store release.',

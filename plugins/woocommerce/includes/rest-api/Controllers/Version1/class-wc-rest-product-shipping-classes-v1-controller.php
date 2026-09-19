@@ -6,7 +6,7 @@
  *
  * @author   WooThemes
  * @category API
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @since    3.0.0
  */
 
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * REST API Product Shipping Classes controller class.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @extends WC_REST_Terms_Controller
  */
 class WC_REST_Product_Shipping_Classes_V1_Controller extends WC_REST_Terms_Controller {
@@ -76,7 +76,7 @@ class WC_REST_Product_Shipping_Classes_V1_Controller extends WC_REST_Terms_Contr
 		 * @param object            $item      The original term object.
 		 * @param WP_REST_Request   $request   Request used to generate the response.
 		 */
-		return apply_filters( "woocommerce_rest_prepare_{$this->taxonomy}", $response, $item, $request );
+		return apply_filters( "poocommerce_rest_prepare_{$this->taxonomy}", $response, $item, $request );
 	}
 
 	/**
@@ -91,13 +91,13 @@ class WC_REST_Product_Shipping_Classes_V1_Controller extends WC_REST_Terms_Contr
 			'type'                 => 'object',
 			'properties'           => array(
 				'id' => array(
-					'description' => __( 'Unique identifier for the resource.', 'woocommerce' ),
+					'description' => __( 'Unique identifier for the resource.', 'poocommerce' ),
 					'type'        => 'integer',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'name' => array(
-					'description' => __( 'Shipping class name.', 'woocommerce' ),
+					'description' => __( 'Shipping class name.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 					'arg_options' => array(
@@ -105,7 +105,7 @@ class WC_REST_Product_Shipping_Classes_V1_Controller extends WC_REST_Terms_Contr
 					),
 				),
 				'slug' => array(
-					'description' => __( 'An alphanumeric identifier for the resource unique to its type.', 'woocommerce' ),
+					'description' => __( 'An alphanumeric identifier for the resource unique to its type.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 					'arg_options' => array(
@@ -113,7 +113,7 @@ class WC_REST_Product_Shipping_Classes_V1_Controller extends WC_REST_Terms_Contr
 					),
 				),
 				'description' => array(
-					'description' => __( 'HTML description of the resource.', 'woocommerce' ),
+					'description' => __( 'HTML description of the resource.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 					'arg_options' => array(
@@ -121,7 +121,7 @@ class WC_REST_Product_Shipping_Classes_V1_Controller extends WC_REST_Terms_Contr
 					),
 				),
 				'count' => array(
-					'description' => __( 'Number of published products for the resource.', 'woocommerce' ),
+					'description' => __( 'Number of published products for the resource.', 'poocommerce' ),
 					'type'        => 'integer',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,

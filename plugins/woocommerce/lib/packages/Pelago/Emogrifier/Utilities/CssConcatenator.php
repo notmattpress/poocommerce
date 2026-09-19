@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\Pelago\Emogrifier\Utilities;
+namespace Automattic\PooCommerce\Vendor\Pelago\Emogrifier\Utilities;
 
 /**
  * Facilitates building a CSS string by appending rule blocks one at a time, checking whether the media query,

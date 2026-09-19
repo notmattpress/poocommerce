@@ -1,12 +1,12 @@
-body.woocommerce_page_wc-settings.woocommerce-settings-ui-page {
+body.poocommerce_page_wc-settings.poocommerce-settings-ui-page {
 	background-color: var(--wpds-color-background-surface-neutral);
 
-	&.woocommerce-settings-ui-drill-down:has(.wc-settings-ui-shell__header) {
+	&.poocommerce-settings-ui-drill-down:has(.wc-settings-ui-shell__header) {
 		#wpbody {
 			margin-top: 0;
 		}
 
-		.woocommerce-layout__header {
+		.poocommerce-layout__header {
 			display: none;
 		}
 	}
@@ -14,11 +14,11 @@ body.woocommerce_page_wc-settings.woocommerce-settings-ui-page {
 	#mainform,
 	#wpcontent,
 	#wpbody-content,
-	.wrap.woocommerce {
+	.wrap.poocommerce {
 		background-color: var(--wpds-color-background-surface-neutral);
 	}
 
-	.woocommerce-layout__header {
+	.poocommerce-layout__header {
 		background-color: var(--wpds-color-background-surface-neutral-strong);
 	}
 

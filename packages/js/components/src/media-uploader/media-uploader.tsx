@@ -44,10 +44,10 @@ type MediaUploaderProps = {
 
 export const MediaUploader = ( {
 	allowedMediaTypes = DEFAULT_ALLOWED_MEDIA_TYPES,
-	buttonText = __( 'Choose images', 'woocommerce' ),
+	buttonText = __( 'Choose images', 'poocommerce' ),
 	buttonProps,
 	hasDropZone = true,
-	label = __( 'Drag images here or click to upload', 'woocommerce' ),
+	label = __( 'Drag images here or click to upload', 'poocommerce' ),
 	maxUploadFileSize = 10000000,
 	MediaUploadComponent = MediaUpload,
 	multipleSelect = false,
@@ -85,7 +85,7 @@ export const MediaUploader = ( {
 			} }
 			render={ ( { openFileDialog } ) => (
 				<div
-					className="woocommerce-form-file-upload"
+					className="poocommerce-form-file-upload"
 					onKeyPress={ () => {} }
 					tabIndex={ 0 }
 					role="button"
@@ -100,8 +100,8 @@ export const MediaUploader = ( {
 					} }
 					onBlur={ () => {} }
 				>
-					<div className="woocommerce-media-uploader">
-						<div className="woocommerce-media-uploader__label">
+					<div className="poocommerce-media-uploader">
+						<div className="poocommerce-media-uploader__label">
 							{ label }
 						</div>
 

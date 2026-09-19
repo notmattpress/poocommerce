@@ -2,12 +2,12 @@
 /**
  * Test the Tasks/Shipping class.
  *
- * @package WooCommerce\Admin\Tests\OnboardingTasks/Tasks/Shipping
+ * @package PooCommerce\Admin\Tests\OnboardingTasks/Tasks/Shipping
  */
 
-use Automattic\WooCommerce\Internal\Admin\Onboarding\OnboardingProfile;
-use Automattic\WooCommerce\Admin\Features\OnboardingTasks\TaskList;
-use Automattic\WooCommerce\Admin\Features\OnboardingTasks\Tasks\Shipping;
+use Automattic\PooCommerce\Internal\Admin\Onboarding\OnboardingProfile;
+use Automattic\PooCommerce\Admin\Features\OnboardingTasks\TaskList;
+use Automattic\PooCommerce\Admin\Features\OnboardingTasks\Tasks\Shipping;
 
 /**
  * class WC_Admin_Tests_OnboardingTasks_Task_Shipping
@@ -28,7 +28,7 @@ class WC_Admin_Tests_OnboardingTasks_Task_Shipping extends WC_Unit_Test_Case {
 		parent::setUp();
 
 		$this->task = new Shipping( new TaskList() );
-		add_filter( 'woocommerce_admin_features', array( $this, 'turn_on_smart_shipping_defaults_feature' ), 20, 1 );
+		add_filter( 'poocommerce_admin_features', array( $this, 'turn_on_smart_shipping_defaults_feature' ), 20, 1 );
 
 		update_option(
 			OnboardingProfile::DATA_OPTION,
@@ -46,7 +46,7 @@ class WC_Admin_Tests_OnboardingTasks_Task_Shipping extends WC_Unit_Test_Case {
 	 */
 	public function tearDown(): void {
 		parent::tearDown();
-		remove_filter( 'woocommerce_admin_features', array( $this, 'turn_on_smart_shipping_defaults_feature' ), 1 );
+		remove_filter( 'poocommerce_admin_features', array( $this, 'turn_on_smart_shipping_defaults_feature' ), 1 );
 
 		delete_option( OnboardingProfile::DATA_OPTION );
 	}
@@ -115,7 +115,7 @@ class WC_Admin_Tests_OnboardingTasks_Task_Shipping extends WC_Unit_Test_Case {
 	 */
 	public function test_can_view_return_true_for_eligible_countries( $country ) {
 		update_option(
-			'woocommerce_default_country',
+			'poocommerce_default_country',
 			$country
 		);
 		$this->assertEquals( $this->task->can_view(), true );
@@ -126,17 +126,17 @@ class WC_Admin_Tests_OnboardingTasks_Task_Shipping extends WC_Unit_Test_Case {
 	 *
 	 */
 	public function test_can_view_return_true_when_store_location_is_unknown() {
-		delete_option( 'woocommerce_default_country' );
+		delete_option( 'poocommerce_default_country' );
 
 		$this->assertEquals( $this->task->can_view(), true );
 
 		update_option(
-			'woocommerce_default_country',
+			'poocommerce_default_country',
 			'US:CA'
 		);
 
 		delete_option(
-			'woocommerce_store_address',
+			'poocommerce_store_address',
 			''
 		);
 

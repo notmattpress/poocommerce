@@ -3,7 +3,7 @@
  */
 import { useState, useEffect, useCallback } from '@wordpress/element';
 import { useSelect, useDispatch } from '@wordpress/data';
-import { pluginsStore, useUser } from '@woocommerce/data';
+import { pluginsStore, useUser } from '@poocommerce/data';
 
 export const JetpackPluginStates = {
 	/** Jetpack plugin is not installed, can use installHandler() to install */

@@ -4,7 +4,7 @@
  */
 
 declare( strict_types = 1 );
-namespace Automattic\WooCommerce\Utilities;
+namespace Automattic\PooCommerce\Utilities;
 
 /**
  * A class of utilities for dealing with arrays.

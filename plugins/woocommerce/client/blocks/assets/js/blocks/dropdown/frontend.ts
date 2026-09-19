@@ -6,7 +6,7 @@ import { store, getContext } from '@wordpress/interactivity';
 /**
  * Internal dependencies
  */
-import type { SelectableItem } from '@woocommerce/types';
+import type { SelectableItem } from '@poocommerce/types';
 
 type DropdownContext = {
 	storeNamespace: string;
@@ -35,7 +35,7 @@ function isToggleableItem(
 }
 
 store(
-	'woocommerce/dropdown',
+	'poocommerce/dropdown',
 	{
 		state: {
 			get selectValue(): string {

@@ -2,9 +2,9 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\CustomerEmailVerification\Admin;
+namespace Automattic\PooCommerce\Internal\CustomerEmailVerification\Admin;
 
-use Automattic\WooCommerce\Internal\CustomerEmailVerification\EmailVerificationService;
+use Automattic\PooCommerce\Internal\CustomerEmailVerification\EmailVerificationService;
 use WP_User;
 
 defined( 'ABSPATH' ) || exit;
@@ -58,22 +58,22 @@ class UserProfileField {
 	 * @param WP_User|mixed $user The user being edited.
 	 */
 	public function render( $user ): void {
-		if ( ! $user instanceof WP_User || ! current_user_can( 'manage_woocommerce' ) ) {
+		if ( ! $user instanceof WP_User || ! current_user_can( 'manage_poocommerce' ) ) {
 			return;
 		}
 
 		wp_nonce_field( self::NONCE_ACTION . '_' . $user->ID, self::NONCE_ACTION . '_nonce' );
 		?>
-		<h2><?php esc_html_e( 'Email confirmation', 'woocommerce' ); ?></h2>
+		<h2><?php esc_html_e( 'Email confirmation', 'poocommerce' ); ?></h2>
 		<table class="form-table" role="presentation">
 			<tr>
-				<th scope="row"><?php esc_html_e( 'Email address confirmed', 'woocommerce' ); ?></th>
+				<th scope="row"><?php esc_html_e( 'Email address confirmed', 'poocommerce' ); ?></th>
 				<td>
 					<label for="<?php echo esc_attr( self::FIELD ); ?>">
 						<input type="checkbox" name="<?php echo esc_attr( self::FIELD ); ?>" id="<?php echo esc_attr( self::FIELD ); ?>" value="1" <?php checked( $this->service->is_verified( $user->ID ) ); ?> />
-						<?php esc_html_e( 'The customer has confirmed they own this email address.', 'woocommerce' ); ?>
+						<?php esc_html_e( 'The customer has confirmed they own this email address.', 'poocommerce' ); ?>
 					</label>
-					<p class="description"><?php esc_html_e( 'Confirming the email address also links any past guest orders placed with it to this account.', 'woocommerce' ); ?></p>
+					<p class="description"><?php esc_html_e( 'Confirming the email address also links any past guest orders placed with it to this account.', 'poocommerce' ); ?></p>
 				</td>
 			</tr>
 		</table>
@@ -88,7 +88,7 @@ class UserProfileField {
 	public function save( $user_id ): void {
 		$user_id = (int) $user_id;
 
-		if ( ! current_user_can( 'manage_woocommerce' ) ) {
+		if ( ! current_user_can( 'manage_poocommerce' ) ) {
 			return;
 		}
 

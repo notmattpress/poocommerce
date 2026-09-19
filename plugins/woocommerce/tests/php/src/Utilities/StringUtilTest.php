@@ -1,8 +1,8 @@
 <?php
 
-namespace Automattic\WooCommerce\Tests\Utilities;
+namespace Automattic\PooCommerce\Tests\Utilities;
 
-use Automattic\WooCommerce\Utilities\StringUtil;
+use Automattic\PooCommerce\Utilities\StringUtil;
 
 /**
  * A collection of tests for the string utility class.

@@ -3,7 +3,7 @@ title: wc product_review
 sidebar_label: wc product_review
 ---
 
-Manage WooCommerce product review resources.
+Manage PooCommerce product review resources.
 
 ## wc product_review list `<product_id>`
 

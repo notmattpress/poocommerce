@@ -18,16 +18,16 @@ describe( 'getUpdatedQuery', () => {
 			getUpdatedQuery(
 				getQuery( {
 					search: 'shirt',
-					woocommerceOnSale: true,
+					poocommerceOnSale: true,
 				} ),
 				{
-					woocommerceOnSale: false,
+					poocommerceOnSale: false,
 				}
 			)
 		).toEqual(
 			getQuery( {
 				search: 'shirt',
-				woocommerceOnSale: false,
+				poocommerceOnSale: false,
 			} )
 		);
 	} );
@@ -79,7 +79,7 @@ describe( 'getUpdatedQuery', () => {
 					},
 				} ),
 				{
-					woocommerceOnSale: true,
+					poocommerceOnSale: true,
 				}
 			).taxQuery
 		).toEqual( {

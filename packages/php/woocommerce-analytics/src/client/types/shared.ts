@@ -1,5 +1,5 @@
 /**
- * Shared type definitions for WooCommerce Analytics
+ * Shared type definitions for PooCommerce Analytics
  */
 
 export interface SessionCookieData {

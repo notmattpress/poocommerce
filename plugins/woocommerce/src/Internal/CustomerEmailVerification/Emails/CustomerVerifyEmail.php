@@ -2,7 +2,7 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\CustomerEmailVerification\Emails;
+namespace Automattic\PooCommerce\Internal\CustomerEmailVerification\Emails;
 
 use WC_Customer;
 use WC_Email;
@@ -53,14 +53,14 @@ class CustomerVerifyEmail extends WC_Email {
 	public function __construct() {
 		$this->id             = 'customer_verify_email';
 		$this->customer_email = true;
-		$this->title          = __( 'Confirm email address', 'woocommerce' );
-		$this->description    = __( 'Sent to customers with a link to confirm they own their account email address.', 'woocommerce' );
+		$this->title          = __( 'Confirm email address', 'poocommerce' );
+		$this->description    = __( 'Sent to customers with a link to confirm they own their account email address.', 'poocommerce' );
 		$this->template_html  = 'emails/customer-verify-email.php';
 		$this->template_plain = 'emails/plain/customer-verify-email.php';
 		$this->email_group    = 'accounts';
 
 		// Trigger.
-		add_action( 'woocommerce_customer_verify_email_notification', array( $this, 'trigger' ), 10, 2 );
+		add_action( 'poocommerce_customer_verify_email_notification', array( $this, 'trigger' ), 10, 2 );
 
 		// Call parent constructor.
 		parent::__construct();
@@ -72,7 +72,7 @@ class CustomerVerifyEmail extends WC_Email {
 	 * @return string
 	 */
 	public function get_default_subject() {
-		return __( 'Confirm your email address for {site_title}', 'woocommerce' );
+		return __( 'Confirm your email address for {site_title}', 'poocommerce' );
 	}
 
 	/**
@@ -81,7 +81,7 @@ class CustomerVerifyEmail extends WC_Email {
 	 * @return string
 	 */
 	public function get_default_heading() {
-		return __( 'Confirm your email address', 'woocommerce' );
+		return __( 'Confirm your email address', 'poocommerce' );
 	}
 
 	/**
@@ -90,7 +90,7 @@ class CustomerVerifyEmail extends WC_Email {
 	 * @return string
 	 */
 	public function get_default_additional_content() {
-		return __( 'Thanks for reading.', 'woocommerce' );
+		return __( 'Thanks for reading.', 'poocommerce' );
 	}
 
 	/**
@@ -162,7 +162,7 @@ class CustomerVerifyEmail extends WC_Email {
 	}
 
 	/**
-	 * Get the content rendered into the block email editor's WooCommerce content placeholder.
+	 * Get the content rendered into the block email editor's PooCommerce content placeholder.
 	 *
 	 * @return string
 	 */

@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { queueRecordEvent, recordEvent } from '@woocommerce/tracks';
+import { queueRecordEvent, recordEvent } from '@poocommerce/tracks';
 import { store as commandsStore } from '@wordpress/commands';
 import { store as coreStore } from '@wordpress/core-data';
 import { dispatch, useSelect } from '@wordpress/data';
@@ -26,7 +26,7 @@ function useProductCommandLoader( { search } ) {
 		if ( search !== '' ) {
 			clearTimeout( trackingSearchTimeout.current );
 			trackingSearchTimeout.current = setTimeout( () => {
-				recordEvent( 'woocommerce_command_palette_search', {
+				recordEvent( 'poocommerce_command_palette_search', {
 					value: search,
 				} );
 			}, 300 );
@@ -64,14 +64,14 @@ function useProductCommandLoader( { search } ) {
 				searchLabel: record.title?.rendered + ' ' + record.id,
 				label: record.title?.rendered
 					? decodeEntities( record.title?.rendered )
-					: __( '(no title)', 'woocommerce' ),
+					: __( '(no title)', 'poocommerce' ),
 				icon: box,
 			};
 			return {
 				...command,
 				callback: ( { close } ) => {
-					queueRecordEvent( 'woocommerce_command_palette_submit', {
-						name: 'woocommerce/product',
+					queueRecordEvent( 'poocommerce_command_palette_submit', {
+						name: 'poocommerce/product',
 					} );
 
 					const args = {
@@ -94,8 +94,8 @@ function useProductCommandLoader( { search } ) {
 
 domReady( () => {
 	registerCommandWithTracking( {
-		name: 'woocommerce/add-new-product',
-		label: __( 'Add new product', 'woocommerce' ),
+		name: 'poocommerce/add-new-product',
+		label: __( 'Add new product', 'poocommerce' ),
 		icon: plus,
 		callback: () => {
 			document.location = addQueryArgs( 'post-new.php', {
@@ -104,8 +104,8 @@ domReady( () => {
 		},
 	} );
 	registerCommandWithTracking( {
-		name: 'woocommerce/add-new-order',
-		label: __( 'Add new order', 'woocommerce' ),
+		name: 'poocommerce/add-new-order',
+		label: __( 'Add new order', 'poocommerce' ),
 		icon: plus,
 		callback: () => {
 			document.location = addQueryArgs( 'admin.php', {
@@ -115,8 +115,8 @@ domReady( () => {
 		},
 	} );
 	registerCommandWithTracking( {
-		name: 'woocommerce/view-products',
-		label: __( 'Products', 'woocommerce' ),
+		name: 'poocommerce/view-products',
+		label: __( 'Products', 'poocommerce' ),
 		icon: box,
 		callback: () => {
 			document.location = addQueryArgs( 'edit.php', {
@@ -125,8 +125,8 @@ domReady( () => {
 		},
 	} );
 	registerCommandWithTracking( {
-		name: 'woocommerce/view-orders',
-		label: __( 'Orders', 'woocommerce' ),
+		name: 'poocommerce/view-orders',
+		label: __( 'Orders', 'poocommerce' ),
 		icon: box,
 		callback: () => {
 			document.location = addQueryArgs( 'admin.php', {
@@ -135,7 +135,7 @@ domReady( () => {
 		},
 	} );
 	dispatch( commandsStore ).registerCommandLoader( {
-		name: 'woocommerce/product',
+		name: 'poocommerce/product',
 		hook: useProductCommandLoader,
 	} );
 } );

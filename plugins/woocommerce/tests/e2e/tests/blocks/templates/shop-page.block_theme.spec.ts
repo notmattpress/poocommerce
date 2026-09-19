@@ -2,7 +2,7 @@
  * External dependencies
  */
 import type { Page } from '@playwright/test';
-import { test, expect, RequestUtils } from '@woocommerce/e2e-utils';
+import { test, expect, RequestUtils } from '@poocommerce/e2e-utils';
 
 const getShopPageId = async ( requestUtils: RequestUtils ) => {
 	const pages = await requestUtils.rest( {
@@ -59,7 +59,7 @@ test.describe( 'Shop page', () => {
 		expect( updatedShopPage.slug ).toBe( 'market' );
 
 		await page.goto( 'market/' );
-		// The first request processes WooCommerce's queued rewrite flush. Reload
+		// The first request processes PooCommerce's queued rewrite flush. Reload
 		// once so WordPress resolves the updated product archive rules.
 		await page.reload();
 		await expectShopTemplateToBeLoaded( page );

@@ -192,7 +192,7 @@ curl "https://example-store.com/wp-json/wc/store/v1/cart/items"
 
 ## Item data
 
-Each cart item carries display metadata in `item_data`, a list of entries built by callbacks on the `woocommerce_get_item_data` filter:
+Each cart item carries display metadata in `item_data`, a list of entries built by callbacks on the `poocommerce_get_item_data` filter:
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -201,7 +201,7 @@ Each cart item carries display metadata in `item_data`, a list of entries built 
 | `value` | string | Value of the metadata. |
 | `display` | string | Optionally, how the value should be displayed. |
 
-`raw_key` was added in WooCommerce 11.2.0. Entries that omit it are unchanged.
+`raw_key` was added in PooCommerce 11.2.0. Entries that omit it are unchanged.
 
 Most stores return an empty list. Entries appear when an extension adds them, as Product Add-Ons, Bookings, Deposits and Gift Cards do.
 

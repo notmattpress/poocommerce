@@ -8,13 +8,13 @@ import {
 	appendTimestamp,
 	getCurrentDates,
 	getIntervalForQuery,
-} from '@woocommerce/date';
+} from '@poocommerce/date';
 import {
 	flattenFilters,
 	getActiveFiltersFromQuery,
 	getQueryFromActiveFilters,
 	getSearchWords,
-} from '@woocommerce/navigation';
+} from '@poocommerce/navigation';
 import deprecated from '@wordpress/deprecated';
 import { select as WPSelect } from '@wordpress/data';
 import { applyFilters } from '@wordpress/hooks';
@@ -164,7 +164,7 @@ export function getQueryFromConfig(
 }
 
 const SERVER_SIDE_SEARCH_ITEM_TYPES_FILTER =
-	'woocommerce_admin_report_server_side_search_item_types';
+	'poocommerce_admin_report_server_side_search_item_types';
 
 // Item types whose report endpoints resolve a `search` argument themselves. For every other
 // type the client has to turn the search into a list of matching item IDs first and pass
@@ -196,7 +196,7 @@ export function usesServerSideSearch( limitProperties: string[] ) {
 	 * The filter is applied per call rather than once, so a callback registered after this
 	 * module loads is still taken into account.
 	 *
-	 * @filter woocommerce_admin_report_server_side_search_item_types
+	 * @filter poocommerce_admin_report_server_side_search_item_types
 	 * @param {Array.<string>} itemTypes Item types the report endpoints search themselves.
 	 */
 	const itemTypes = applyFilters(

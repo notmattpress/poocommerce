@@ -8,9 +8,9 @@ import type {
 } from 'react-number-format';
 import clsx from 'clsx';
 import type { ReactElement, ReactNode } from 'react';
-import type { Currency } from '@woocommerce/types';
-import { SITE_CURRENCY } from '@woocommerce/settings';
-import { decodeHtmlEntities } from '@woocommerce/utils';
+import type { Currency } from '@poocommerce/types';
+import { SITE_CURRENCY } from '@poocommerce/settings';
+import { decodeHtmlEntities } from '@poocommerce/utils';
 
 /**
  * Internal dependencies
@@ -55,7 +55,7 @@ const splitCurrencySymbolAndSpacing = ( currencySymbol: string ) => {
 
 /**
  * Renders the currency symbol in its own element, mirroring the
- * `woocommerce-Price-currencySymbol` span `wc_price()` emits.
+ * `poocommerce-Price-currencySymbol` span `wc_price()` emits.
  *
  * `dir="auto"` keeps the symbol a self-contained run, so it cannot pull the
  * neighbouring digits into a right-to-left run and land on the wrong side of

@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\Domain\Services;
+namespace Automattic\PooCommerce\Tests\Blocks\Domain\Services;
 
-use Automattic\WooCommerce\Blocks\Domain\Package;
-use Automattic\WooCommerce\Blocks\Domain\Services\Notices;
+use Automattic\PooCommerce\Blocks\Domain\Package;
+use Automattic\PooCommerce\Blocks\Domain\Services\Notices;
 use WC_Unit_Test_Case;
 use WP_Hook;
 
@@ -29,8 +29,8 @@ class NoticesTest extends WC_Unit_Test_Case {
 		'after_setup_theme',
 		'wc_get_template',
 		'wp_head',
-		'woocommerce_kses_notice_allowed_tags',
-		'woocommerce_use_block_notices_in_classic_theme',
+		'poocommerce_kses_notice_allowed_tags',
+		'poocommerce_use_block_notices_in_classic_theme',
 		'doing_it_wrong_trigger_error',
 	);
 
@@ -186,7 +186,7 @@ class NoticesTest extends WC_Unit_Test_Case {
 		 *
 		 * @since 11.1.0
 		 */
-		$result = apply_filters( 'woocommerce_kses_notice_allowed_tags', $allowed_tags );
+		$result = apply_filters( 'poocommerce_kses_notice_allowed_tags', $allowed_tags );
 
 		$this->assertArrayHasKey( 'a', $result, 'Existing allow-listed tags should be preserved.' );
 		$this->assertSame( $allowed_tags['a'], $result['a'], 'Existing allow-listed tag attributes should remain unchanged.' );
@@ -316,7 +316,7 @@ class NoticesTest extends WC_Unit_Test_Case {
 
 		switch_theme( $active_theme_slug );
 		add_filter(
-			'woocommerce_use_block_notices_in_classic_theme',
+			'poocommerce_use_block_notices_in_classic_theme',
 			$opt_in_filter ? '__return_true' : '__return_false'
 		);
 
@@ -324,7 +324,7 @@ class NoticesTest extends WC_Unit_Test_Case {
 
 		$this->assertSame(
 			10,
-			has_filter( 'woocommerce_kses_notice_allowed_tags', array( $sut, 'add_kses_notice_allowed_tags' ) ),
+			has_filter( 'poocommerce_kses_notice_allowed_tags', array( $sut, 'add_kses_notice_allowed_tags' ) ),
 			'The SVG/path allow-list callback should always be registered at priority 10.'
 		);
 
@@ -391,7 +391,7 @@ class NoticesTest extends WC_Unit_Test_Case {
 		};
 
 		wc_clear_template_cache();
-		add_action( 'woocommerce_before_template_part', $capture_callback, 10, 3 );
+		add_action( 'poocommerce_before_template_part', $capture_callback, 10, 3 );
 
 		try {
 			wc_get_template_html(
@@ -406,7 +406,7 @@ class NoticesTest extends WC_Unit_Test_Case {
 				)
 			);
 		} finally {
-			remove_action( 'woocommerce_before_template_part', $capture_callback, 10 );
+			remove_action( 'poocommerce_before_template_part', $capture_callback, 10 );
 		}
 
 		$this->assertNotSame( '', $captured_template, 'Resolving the notice template should capture the located path from the real Woo template loader.' );
@@ -452,7 +452,7 @@ class NoticesTest extends WC_Unit_Test_Case {
 		if ( 'none' !== $fixture_kind ) {
 			$active_theme_slug = $this->get_active_theme_slug( $theme_slug, $fixture_kind );
 
-			return trailingslashit( get_theme_root( $active_theme_slug ) ) . $active_theme_slug . '/woocommerce/' . $template_name;
+			return trailingslashit( get_theme_root( $active_theme_slug ) ) . $active_theme_slug . '/poocommerce/' . $template_name;
 		}
 
 		if ( $service_is_active ) {
@@ -476,7 +476,7 @@ class NoticesTest extends WC_Unit_Test_Case {
 
 		if (
 			'WP_Block_Templates_Registry::register' === $function_name
-			&& str_contains( $message, 'Template "woocommerce//archive-product" is already registered.' )
+			&& str_contains( $message, 'Template "poocommerce//archive-product" is already registered.' )
 		) {
 			return false;
 		}

@@ -1,9 +1,9 @@
 <?php
 
-namespace Automattic\WooCommerce\Blueprint\Tests\Unit\Importers;
+namespace Automattic\PooCommerce\Blueprint\Tests\Unit\Importers;
 
-use Automattic\WooCommerce\Blueprint\Importers\ImportRunSql;
-use Automattic\WooCommerce\Blueprint\Steps\RunSql;
+use Automattic\PooCommerce\Blueprint\Importers\ImportRunSql;
+use Automattic\PooCommerce\Blueprint\Steps\RunSql;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 

@@ -2,7 +2,7 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Tests\Blocks\BlockTypes;
 
 use WP_HTML_Tag_Processor;
 use WP_UnitTestCase;
@@ -13,18 +13,18 @@ use WP_UnitTestCase;
 class ProductResultsCountTest extends WP_UnitTestCase {
 
 	/**
-	 * Whether the WooCommerce loop existed before the test.
+	 * Whether the PooCommerce loop existed before the test.
 	 *
 	 * @var bool
 	 */
-	private bool $had_woocommerce_loop;
+	private bool $had_poocommerce_loop;
 
 	/**
-	 * WooCommerce loop value before the test.
+	 * PooCommerce loop value before the test.
 	 *
 	 * @var mixed
 	 */
-	private $original_woocommerce_loop;
+	private $original_poocommerce_loop;
 
 	/**
 	 * Set up the paginated product loop.
@@ -32,8 +32,8 @@ class ProductResultsCountTest extends WP_UnitTestCase {
 	public function setUp(): void {
 		parent::setUp();
 
-		$this->had_woocommerce_loop      = array_key_exists( 'woocommerce_loop', $GLOBALS );
-		$this->original_woocommerce_loop = $this->had_woocommerce_loop ? $GLOBALS['woocommerce_loop'] : null;
+		$this->had_poocommerce_loop      = array_key_exists( 'poocommerce_loop', $GLOBALS );
+		$this->original_poocommerce_loop = $this->had_poocommerce_loop ? $GLOBALS['poocommerce_loop'] : null;
 
 		wc_setup_loop(
 			array(
@@ -46,15 +46,15 @@ class ProductResultsCountTest extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Restore the WooCommerce loop.
+	 * Restore the PooCommerce loop.
 	 */
 	public function tearDown(): void {
 		wc_reset_loop();
 
-		if ( $this->had_woocommerce_loop ) {
-			$GLOBALS['woocommerce_loop'] = $this->original_woocommerce_loop;
+		if ( $this->had_poocommerce_loop ) {
+			$GLOBALS['poocommerce_loop'] = $this->original_poocommerce_loop;
 		} else {
-			unset( $GLOBALS['woocommerce_loop'] );
+			unset( $GLOBALS['poocommerce_loop'] );
 		}
 
 		parent::tearDown();
@@ -65,17 +65,17 @@ class ProductResultsCountTest extends WP_UnitTestCase {
 	 */
 	public function test_renders_paginated_result_count_with_query_context(): void {
 		$markup = do_blocks(
-			'<!-- wp:query {"queryId":17} --><div class="wp-block-query"><!-- wp:woocommerce/product-results-count /--></div><!-- /wp:query -->'
+			'<!-- wp:query {"queryId":17} --><div class="wp-block-query"><!-- wp:poocommerce/product-results-count /--></div><!-- /wp:query -->'
 		);
 		$p      = new WP_HTML_Tag_Processor( $markup );
 
 		$this->assertTrue( $p->next_tag( array( 'class_name' => 'wc-block-product-results-count' ) ), 'The rendered result count wrapper should exist.' );
-		$this->assertSame( 'woocommerce/product-results-count', $p->get_attribute( 'data-wp-interactive' ), 'The wrapper should declare the Product Results Count Interactivity store.' );
+		$this->assertSame( 'poocommerce/product-results-count', $p->get_attribute( 'data-wp-interactive' ), 'The wrapper should declare the Product Results Count Interactivity store.' );
 		$this->assertSame( 'wc-product-results-count-17', $p->get_attribute( 'data-wp-router-region' ), 'The router region should include the inherited query ID.' );
 		$class_tokens = preg_split( '/\s+/', trim( (string) $p->get_attribute( 'class' ) ) );
 		$class_tokens = is_array( $class_tokens ) ? array_values( array_filter( $class_tokens ) ) : array();
-		$this->assertContains( 'woocommerce', $class_tokens, 'The wrapper should include the WooCommerce class.' );
-		$this->assertContains( 'wp-block-woocommerce-product-results-count', $class_tokens, 'The wrapper should include the WordPress block class.' );
+		$this->assertContains( 'poocommerce', $class_tokens, 'The wrapper should include the PooCommerce class.' );
+		$this->assertContains( 'wp-block-poocommerce-product-results-count', $class_tokens, 'The wrapper should include the WordPress block class.' );
 
 		$text = html_entity_decode( wp_strip_all_tags( $markup ), ENT_QUOTES | ENT_HTML5, 'UTF-8' );
 		$text = preg_replace( '/\s+/', ' ', trim( $text ) );
@@ -87,7 +87,7 @@ class ProductResultsCountTest extends WP_UnitTestCase {
 	 * @testdox Uses the default router region when no query context is present.
 	 */
 	public function test_uses_default_router_region_without_query_context(): void {
-		$markup = do_blocks( '<!-- wp:woocommerce/product-results-count /-->' );
+		$markup = do_blocks( '<!-- wp:poocommerce/product-results-count /-->' );
 		$p      = new WP_HTML_Tag_Processor( $markup );
 
 		$this->assertTrue( $p->next_tag( array( 'class_name' => 'wc-block-product-results-count' ) ), 'The standalone result count wrapper should exist.' );

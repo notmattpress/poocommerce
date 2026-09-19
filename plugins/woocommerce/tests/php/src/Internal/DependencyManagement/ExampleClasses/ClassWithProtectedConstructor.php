@@ -2,7 +2,7 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\DependencyManagement\ExampleClasses;
+namespace Automattic\PooCommerce\Internal\DependencyManagement\ExampleClasses;
 
 /**
  * An example of a class with a protected constructor.

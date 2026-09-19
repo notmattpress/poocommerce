@@ -1,15 +1,15 @@
 <?php
 
-namespace Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\CSSList;
+namespace Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\CSSList;
 
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\CSSElement;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Property\Selector;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Rule\Rule;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\RuleSet\DeclarationBlock;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\RuleSet\RuleSet;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Value\CSSFunction;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Value\Value;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Value\ValueList;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\CSSElement;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Property\Selector;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Rule\Rule;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\RuleSet\DeclarationBlock;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\RuleSet\RuleSet;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Value\CSSFunction;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Value\Value;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Value\ValueList;
 
 /**
  * A `CSSBlockList` is a `CSSList` whose `DeclarationBlock`s are guaranteed to contain valid declaration blocks or

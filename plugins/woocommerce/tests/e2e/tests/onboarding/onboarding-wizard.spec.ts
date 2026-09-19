@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { request } from '@playwright/test';
-import { WC_ADMIN_API_PATH } from '@woocommerce/e2e-utils-playwright';
+import { WC_ADMIN_API_PATH } from '@poocommerce/e2e-utils-playwright';
 
 /**
  * Internal dependencies
@@ -29,13 +29,13 @@ test.describe(
 				await setOption(
 					request,
 					baseURL,
-					'woocommerce_remote_variant_assignment',
+					'poocommerce_remote_variant_assignment',
 					'60'
 				);
 				await setOption(
 					request,
 					baseURL,
-					'woocommerce_default_country',
+					'poocommerce_default_country',
 					'US:CA'
 				);
 			} catch ( error ) {
@@ -48,7 +48,7 @@ test.describe(
 		} ) => {
 			test.skip(
 				!! process.env.IS_MULTISITE,
-				'Test not working on a multisite setup, see https://github.com/woocommerce/woocommerce/issues/55066'
+				'Test not working on a multisite setup, see https://github.com/poocommerce/poocommerce/issues/55066'
 			);
 			await page.goto(
 				'wp-admin/admin.php?page=wc-admin&path=%2Fsetup-wizard'
@@ -89,10 +89,10 @@ test.describe(
 				).toBeVisible();
 				await expect(
 					page.getByPlaceholder( 'Ex. My awesome store' )
-				).toHaveValue( 'WooCommerce Core E2E Test Suite' );
+				).toHaveValue( 'PooCommerce Core E2E Test Suite' );
 				await page
 					.locator(
-						'form.woocommerce-profiler-business-information-form > div > div > div > div > input'
+						'form.poocommerce-profiler-business-information-form > div > div > div > div > input'
 					)
 					.first()
 					.click();
@@ -137,7 +137,7 @@ test.describe(
 				).toBeVisible();
 				await expect(
 					page.locator(
-						'.woocommerce-onboarding-progress-bar__filler'
+						'.poocommerce-onboarding-progress-bar__filler'
 					)
 				).toBeVisible();
 				// dashboard shown
@@ -158,17 +158,17 @@ test.describe(
 				).toBeVisible();
 				// confirm that some of the optional extensions aren't present
 				await expect(
-					page.getByText( 'MailPoet for WooCommerce', {
+					page.getByText( 'MailPoet for PooCommerce', {
 						exact: true,
 					} )
 				).toBeHidden();
 				await expect(
-					page.getByText( 'Pinterest for WooCommerce', {
+					page.getByText( 'Pinterest for PooCommerce', {
 						exact: true,
 					} )
 				).toBeHidden();
 				await expect(
-					page.getByText( 'Google for WooCommerce', { exact: true } )
+					page.getByText( 'Google for PooCommerce', { exact: true } )
 				).toBeHidden();
 			} );
 
@@ -205,7 +205,7 @@ test.describe(
 		} ) => {
 			test.skip(
 				!! process.env.IS_MULTISITE,
-				'Test not working on a multisite setup, see https://github.com/woocommerce/woocommerce/issues/55066'
+				'Test not working on a multisite setup, see https://github.com/poocommerce/poocommerce/issues/55066'
 			);
 
 			// Installing from WordPress.org would make this title depend on an outside
@@ -293,7 +293,7 @@ test.describe(
 				).toBeVisible();
 				await page
 					.locator(
-						'form.woocommerce-profiler-business-information-form > div > div > div > div > input'
+						'form.poocommerce-profiler-business-information-form > div > div > div > div > input'
 					)
 					.first()
 					.click();
@@ -325,7 +325,7 @@ test.describe(
 				// then pick one that needs no Jetpack connection, so the profiler ends on
 				// the home screen rather than the Jetpack authorization page.
 				const cards = page.locator(
-					'.woocommerce-profiler-plugins-plugin-card'
+					'.poocommerce-profiler-plugins-plugin-card'
 				);
 				await expect( cards.first() ).toBeVisible();
 				for ( const checkbox of await cards

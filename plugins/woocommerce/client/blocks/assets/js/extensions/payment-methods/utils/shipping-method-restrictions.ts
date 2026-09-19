@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import type { CanMakePaymentArgument } from '@woocommerce/types';
+import type { CanMakePaymentArgument } from '@poocommerce/types';
 
 /**
  * Settings exposed by offline payment methods that can be restricted to

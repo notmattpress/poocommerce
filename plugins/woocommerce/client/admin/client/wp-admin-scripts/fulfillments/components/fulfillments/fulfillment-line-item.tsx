@@ -7,7 +7,7 @@ import { __ } from '@wordpress/i18n';
 import CurrencyFactory, {
 	CurrencyContext,
 	SymbolPosition,
-} from '@woocommerce/currency';
+} from '@poocommerce/currency';
 import { decodeEntities } from '@wordpress/html-entities';
 import { range } from 'lodash';
 
@@ -77,12 +77,12 @@ export default function FulfillmentLineItem( {
 		<>
 			<div
 				className={ [
-					'woocommerce-fulfillment-item-container',
-					itemExpanded ? 'woocommerce-fulfillment-item-expanded' : '',
+					'poocommerce-fulfillment-item-container',
+					itemExpanded ? 'poocommerce-fulfillment-item-expanded' : '',
 				].join( ' ' ) }
 			>
 				{ editMode && (
-					<div className="woocommerce-fulfillment-item-checkbox">
+					<div className="poocommerce-fulfillment-item-checkbox">
 						<CheckboxControl
 							value={ item.id }
 							checked={ isChecked( item.id, -1 ) }
@@ -102,11 +102,11 @@ export default function FulfillmentLineItem( {
 						} }
 						aria-label={
 							itemExpanded
-								? __( 'Collapse item details', 'woocommerce' )
-								: __( 'Expand item details', 'woocommerce' )
+								? __( 'Collapse item details', 'poocommerce' )
+								: __( 'Expand item details', 'poocommerce' )
 						}
 						aria-expanded={ itemExpanded }
-						className="woocommerce-fulfillment-item-expand-button"
+						className="poocommerce-fulfillment-item-expand-button"
 					>
 						<Icon
 							icon={
@@ -119,35 +119,35 @@ export default function FulfillmentLineItem( {
 						/>
 					</Button>
 				) }
-				<div className="woocommerce-fulfillment-item-title">
-					<div className="woocommerce-fulfillment-item-image-container">
+				<div className="poocommerce-fulfillment-item-title">
+					<div className="poocommerce-fulfillment-item-image-container">
 						{ item.image?.src && (
 							<img
 								src={ item.image?.src }
 								alt={ item.name }
 								width={ 32 }
 								height={ 32 }
-								className="woocommerce-fulfillment-item-image"
+								className="poocommerce-fulfillment-item-image"
 							/>
 						) }
 					</div>
-					<div className="woocommerce-fulfillment-item-name-sku">
-						<div className="woocommerce-fulfillment-item-name">
+					<div className="poocommerce-fulfillment-item-name-sku">
+						<div className="poocommerce-fulfillment-item-name">
 							{ item.name }
 						</div>
 						{ item.sku && (
-							<span className="woocommerce-fulfillment-item-sku">
+							<span className="poocommerce-fulfillment-item-sku">
 								{ item.sku }
 							</span>
 						) }
 					</div>
 				</div>
 				{ quantity > 1 && (
-					<div className="woocommerce-fulfillment-item-quantity">
+					<div className="poocommerce-fulfillment-item-quantity">
 						{ 'x' + quantity }
 					</div>
 				) }
-				<div className="woocommerce-fulfillment-item-price">
+				<div className="poocommerce-fulfillment-item-price">
 					{ getFormattedItemTotal(
 						parseFloat( item.total ) * ( quantity / item.quantity ),
 						currency
@@ -155,14 +155,14 @@ export default function FulfillmentLineItem( {
 				</div>
 			</div>
 			{ editMode && itemExpanded && (
-				<div className="woocommerce-fulfillment-item-expansion">
+				<div className="poocommerce-fulfillment-item-expansion">
 					{ range( quantity ).map( ( index ) => (
 						<div
 							key={ 'fulfillment-item-expansion-' + index }
-							className="woocommerce-fulfillment-item-expansion-row"
+							className="poocommerce-fulfillment-item-expansion-row"
 						>
 							{ editMode && (
-								<div className="woocommerce-fulfillment-item-checkbox">
+								<div className="poocommerce-fulfillment-item-checkbox">
 									<CheckboxControl
 										name={ `fulfillment-item-${ item.id }-${ index }` }
 										value={ item.id + '-' + index }
@@ -177,28 +177,28 @@ export default function FulfillmentLineItem( {
 									/>
 								</div>
 							) }
-							<div className="woocommerce-fulfillment-item-title">
-								<div className="woocommerce-fulfillment-item-image-container">
+							<div className="poocommerce-fulfillment-item-title">
+								<div className="poocommerce-fulfillment-item-image-container">
 									<img
 										src={ item.image.src }
 										alt={ '' } // WCAG: gives redundant alt text alert, as item.name is already used in the title.
 										width={ 32 }
 										height={ 32 }
-										className="woocommerce-fulfillment-item-image"
+										className="poocommerce-fulfillment-item-image"
 									/>
 								</div>
-								<div className="woocommerce-fulfillment-item-name-sku">
-									<div className="woocommerce-fulfillment-item-name">
+								<div className="poocommerce-fulfillment-item-name-sku">
+									<div className="poocommerce-fulfillment-item-name">
 										{ item.name }
 									</div>
 									{ item.sku && (
-										<span className="woocommerce-fulfillment-item-sku">
+										<span className="poocommerce-fulfillment-item-sku">
 											{ item.sku }
 										</span>
 									) }
 								</div>
 							</div>
-							<div className="woocommerce-fulfillment-item-price">
+							<div className="poocommerce-fulfillment-item-price">
 								{ getFormattedItemTotal(
 									parseInt( item.total, 10 ) / item.quantity,
 									currency

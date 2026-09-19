@@ -16,7 +16,7 @@ export const speakFoundShippingOptions = (
 					'%d shipping option was found.',
 					'%d shipping options were found.',
 					rateCount,
-					'woocommerce'
+					'poocommerce'
 				),
 				rateCount
 			)
@@ -29,7 +29,7 @@ export const speakFoundShippingOptions = (
 					'Shipping option searched for %d package.',
 					'Shipping options searched for %d packages.',
 					packageCount,
-					'woocommerce'
+					'poocommerce'
 				),
 				packageCount
 			) +
@@ -40,7 +40,7 @@ export const speakFoundShippingOptions = (
 						'%d shipping option was found',
 						'%d shipping options were found',
 						rateCount,
-						'woocommerce'
+						'poocommerce'
 					),
 					rateCount
 				)

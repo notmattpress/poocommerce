@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin;
+namespace Automattic\PooCommerce\Tests\Internal\Admin;
 
-use Automattic\WooCommerce\Internal\Admin\SystemStatusReport;
+use Automattic\PooCommerce\Internal\Admin\SystemStatusReport;
 use WC_Unit_Test_Case;
 
 /**
@@ -50,7 +50,7 @@ class SystemStatusReportTest extends WC_Unit_Test_Case {
 			$timestamp     = time() + DAY_IN_SECONDS;
 			$expected_date = esc_html( date_i18n( 'Y-m-d H:i:s P', $timestamp ) );
 
-			as_schedule_recurring_action( $timestamp, DAY_IN_SECONDS, 'wc_admin_daily_wrapper', array(), 'woocommerce', true );
+			as_schedule_recurring_action( $timestamp, DAY_IN_SECONDS, 'wc_admin_daily_wrapper', array(), 'poocommerce', true );
 		}
 
 		ob_start();

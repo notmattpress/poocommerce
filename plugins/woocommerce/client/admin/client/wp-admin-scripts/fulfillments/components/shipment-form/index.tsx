@@ -31,12 +31,12 @@ export default function ShipmentForm() {
 			header={
 				<>
 					<TruckIcon />
-					<h3>{ __( 'Shipment Information', 'woocommerce' ) }</h3>
+					<h3>{ __( 'Shipment Information', 'poocommerce' ) }</h3>
 				</>
 			}
 		>
-			<div className="woocommerce-fulfillment-shipment-information-options">
-				<div className="woocommerce-fulfillment-shipment-information-option-tracking-number">
+			<div className="poocommerce-fulfillment-shipment-information-options">
+				<div className="poocommerce-fulfillment-shipment-information-option-tracking-number">
 					<CheckboxControl
 						type="radio"
 						name={ randomRadioGroupName }
@@ -48,14 +48,14 @@ export default function ShipmentForm() {
 							value &&
 							setSelectedOption( SHIPMENT_OPTION_TRACKING_NUMBER )
 						}
-						label={ __( 'Tracking Number', 'woocommerce' ) }
+						label={ __( 'Tracking Number', 'poocommerce' ) }
 						__nextHasNoMarginBottom
 					/>
 					{ selectedOption === SHIPMENT_OPTION_TRACKING_NUMBER && (
 						<ShipmentTrackingNumberForm />
 					) }
 				</div>
-				<div className="woocommerce-fulfillment-shipment-information-option-manual-entry">
+				<div className="poocommerce-fulfillment-shipment-information-option-manual-entry">
 					<CheckboxControl
 						type="radio"
 						name={ randomRadioGroupName }
@@ -67,14 +67,14 @@ export default function ShipmentForm() {
 							value &&
 							setSelectedOption( SHIPMENT_OPTION_MANUAL_ENTRY )
 						}
-						label={ __( 'Enter manually', 'woocommerce' ) }
+						label={ __( 'Enter manually', 'poocommerce' ) }
 						__nextHasNoMarginBottom
 					/>
 					{ selectedOption === SHIPMENT_OPTION_MANUAL_ENTRY && (
 						<ShipmentManualEntryForm />
 					) }
 				</div>
-				<div className="woocommerce-fulfillment-shipment-information-option-no-info">
+				<div className="poocommerce-fulfillment-shipment-information-option-no-info">
 					<CheckboxControl
 						type="radio"
 						name={ randomRadioGroupName }
@@ -84,7 +84,7 @@ export default function ShipmentForm() {
 							value &&
 							setSelectedOption( SHIPMENT_OPTION_NO_INFO )
 						}
-						label={ __( 'No shipment information', 'woocommerce' ) }
+						label={ __( 'No shipment information', 'poocommerce' ) }
 						__nextHasNoMarginBottom
 					/>
 				</div>

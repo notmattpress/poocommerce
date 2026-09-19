@@ -2,11 +2,11 @@
 /**
  * Test WC_Shortcode_Products
  *
- * @package WooCommerce\Tests\Shortcodes
+ * @package PooCommerce\Tests\Shortcodes
  */
 
-use Automattic\WooCommerce\Enums\ProductStatus;
-use Automattic\WooCommerce\Enums\CatalogVisibility;
+use Automattic\PooCommerce\Enums\ProductStatus;
+use Automattic\PooCommerce\Enums\CatalogVisibility;
 
 /**
  * Class WC_Test_Shortcode_Products.

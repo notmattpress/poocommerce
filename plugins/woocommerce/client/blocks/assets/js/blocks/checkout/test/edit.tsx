@@ -2,8 +2,8 @@
  * External dependencies
  */
 import { render, screen } from '@testing-library/react';
-import { Form } from '@woocommerce/base-components/cart-checkout';
-import type { FormFields, ShippingAddress } from '@woocommerce/settings';
+import { Form } from '@poocommerce/base-components/cart-checkout';
+import type { FormFields, ShippingAddress } from '@poocommerce/settings';
 
 /**
  * Internal dependencies
@@ -55,8 +55,8 @@ jest.mock( '@wordpress/block-editor', () => {
 	};
 } );
 
-jest.mock( '@woocommerce/base-context', () => ( {
-	...jest.requireActual( '@woocommerce/base-context' ),
+jest.mock( '@poocommerce/base-context', () => ( {
+	...jest.requireActual( '@poocommerce/base-context' ),
 	CheckoutProvider: jest.fn( ( { children } ) => <>{ children }</> ),
 	EditorProvider: jest.fn( ( { children, previewData } ) => {
 		mockCapturedDefaultFields = previewData.defaultFields;
@@ -67,14 +67,14 @@ jest.mock( '@woocommerce/base-context', () => ( {
 	} ) ),
 } ) );
 
-jest.mock( '@woocommerce/base-components/sidebar-layout', () => ( {
+jest.mock( '@poocommerce/base-components/sidebar-layout', () => ( {
 	SidebarLayout: jest.fn( ( { children, className } ) => (
 		<div className={ className }>{ children }</div>
 	) ),
 } ) );
 
-jest.mock( '@woocommerce/blocks-checkout', () => ( {
-	...jest.requireActual( '@woocommerce/blocks-checkout' ),
+jest.mock( '@poocommerce/blocks-checkout', () => ( {
+	...jest.requireActual( '@poocommerce/blocks-checkout' ),
 	SlotFillProvider: jest.fn( ( { children } ) => <>{ children }</> ),
 } ) );
 
@@ -230,7 +230,7 @@ describe( 'Checkout editor consumers', () => {
 	)(
 		'maps $field=$state from the root-site record into the real form',
 		( { field, label, addLabel, state, hidden, required } ) => {
-			const optionName = `woocommerce_checkout_${ field }_field`;
+			const optionName = `poocommerce_checkout_${ field }_field`;
 			const { unmount } = renderCheckoutEdit( {
 				[ optionName ]: state,
 			} );

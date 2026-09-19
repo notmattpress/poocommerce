@@ -1,12 +1,12 @@
 <?php
 /**
- * This file is part of the WooCommerce Email Editor package
+ * This file is part of the PooCommerce Email Editor package
  *
- * @package Automattic\WooCommerce\EmailEditor
+ * @package Automattic\PooCommerce\EmailEditor
  */
 
 declare(strict_types = 1);
-namespace Automattic\WooCommerce\EmailEditor\Engine\Patterns;
+namespace Automattic\PooCommerce\EmailEditor\Engine\Patterns;
 
 /**
  * Abstract class for block patterns.
