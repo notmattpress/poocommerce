@@ -3,11 +3,11 @@
  * OrdersTableDataStoreMeta class file.
  */
 
-namespace Automattic\WooCommerce\Internal\DataStores\Orders;
+namespace Automattic\PooCommerce\Internal\DataStores\Orders;
 
-use Automattic\WooCommerce\Caching\WPCacheEngine;
-use Automattic\WooCommerce\Internal\DataStores\CustomMetaDataStore;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Caching\WPCacheEngine;
+use Automattic\PooCommerce\Internal\DataStores\CustomMetaDataStore;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 
 /**
  * Mimics a WP metadata (i.e. add_metadata(), get_metadata() and friends) implementation using a custom table.

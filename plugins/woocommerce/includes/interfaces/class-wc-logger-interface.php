@@ -3,7 +3,7 @@
  * Logger Interface
  *
  * @version 3.0.0
- * @package WooCommerce\Interface
+ * @package PooCommerce\Interface
  */
 
 /**

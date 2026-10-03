@@ -1,12 +1,12 @@
-/* global woocommerce_admin */
-( function ( $, woocommerce_admin ) {
+/* global poocommerce_admin */
+( function ( $, poocommerce_admin ) {
 	$( function () {
-		if ( 'undefined' === typeof woocommerce_admin ) {
+		if ( 'undefined' === typeof poocommerce_admin ) {
 			return;
 		}
 
 		// Toggle #wc-lost-connection-notice via WP core's heartbeat events (see WC_Admin_Assets::render_lost_connection_notice()).
-		if ( woocommerce_admin.show_lost_connection_notice ) {
+		if ( poocommerce_admin.show_lost_connection_notice ) {
 			$( document )
 				.on( 'heartbeat-connection-lost.wc-lost-connection-notice', function ( event, error, status ) {
 					if ( 'timeout' === error || 603 === status ) {
@@ -21,27 +21,27 @@
 		// Add buttons to product screen.
 		var $product_screen = $( '.edit-php.post-type-product' ),
 			$title_action = $product_screen.find( '.page-title-action:first' ),
-			$blankslate = $product_screen.find( '.woocommerce-BlankState' );
+			$blankslate = $product_screen.find( '.poocommerce-BlankState' );
 
 		if ( 0 === $blankslate.length ) {
-			if ( woocommerce_admin.urls.add_product ) {
+			if ( poocommerce_admin.urls.add_product ) {
 				$title_action
 					.first()
-					.attr( 'href', woocommerce_admin.urls.add_product );
+					.attr( 'href', poocommerce_admin.urls.add_product );
 			}
-			if ( woocommerce_admin.urls.export_products ) {
+			if ( poocommerce_admin.urls.export_products ) {
 				const exportLink = document.createElement('a');
-				exportLink.href = woocommerce_admin.urls.export_products;
+				exportLink.href = poocommerce_admin.urls.export_products;
 				exportLink.className = 'page-title-action';
-				exportLink.textContent = woocommerce_admin.strings.export_products;
+				exportLink.textContent = poocommerce_admin.strings.export_products;
 
 				$title_action.after(exportLink);
 			}
-			if ( woocommerce_admin.urls.import_products ) {
+			if ( poocommerce_admin.urls.import_products ) {
 				const importLink = document.createElement('a');
-				importLink.href = woocommerce_admin.urls.import_products;
+				importLink.href = poocommerce_admin.urls.import_products;
 				importLink.className = 'page-title-action';
-				importLink.textContent = woocommerce_admin.strings.import_products;
+				importLink.textContent = poocommerce_admin.strings.import_products;
 
 				$title_action.after(importLink);
 			}
@@ -50,7 +50,7 @@
 		}
 
 		// Progress indicators when showing steps.
-		$( '.woocommerce-progress-form-wrapper .button-next' ).on(
+		$( '.poocommerce-progress-form-wrapper .button-next' ).on(
 			'click',
 			function () {
 				$( '.wc-progress-form-content' ).block( {
@@ -74,7 +74,7 @@
 						'<div class="wc_error_tip ' +
 							error_type +
 							'">' +
-							woocommerce_admin[ error_type ] +
+							poocommerce_admin[ error_type ] +
 							'</div>'
 					);
 					element
@@ -124,14 +124,14 @@
 				function () {
 					var regex,
 						decimalRegex,
-						decimailPoint = woocommerce_admin.decimal_point;
+						decimailPoint = poocommerce_admin.decimal_point;
 
 					if (
 						$( this ).is( '.wc_input_price' ) ||
 						$( this ).is( '.wc_input_variations_price' ) ||
 						$( this ).is( '#refund_amount' )
 					) {
-						decimailPoint = woocommerce_admin.mon_decimal_point;
+						decimailPoint = poocommerce_admin.mon_decimal_point;
 					}
 
 					regex = new RegExp(
@@ -169,12 +169,12 @@
 						checkDecimalNumbers = true;
 						regex = new RegExp(
 							'[^-0-9%\\' +
-								woocommerce_admin.mon_decimal_point +
+								poocommerce_admin.mon_decimal_point +
 								']+',
 							'gi'
 						);
 						decimalRegex = new RegExp(
-							'[^\\' + woocommerce_admin.mon_decimal_point + ']',
+							'[^\\' + poocommerce_admin.mon_decimal_point + ']',
 							'gi'
 						);
 						error = 'i18n_mon_decimal_error';
@@ -185,12 +185,12 @@
 						checkDecimalNumbers = true;
 						regex = new RegExp(
 							'[^-0-9%\\' +
-								woocommerce_admin.decimal_point +
+								poocommerce_admin.decimal_point +
 								']+',
 							'gi'
 						);
 						decimalRegex = new RegExp(
-							'[^\\' + woocommerce_admin.decimal_point + ']',
+							'[^\\' + poocommerce_admin.decimal_point + ']',
 							'gi'
 						);
 						error = 'i18n_decimal_error';
@@ -247,13 +247,13 @@
 					var sale_price = parseFloat(
 						window.accounting.unformat(
 							sale_price_field.val(),
-							woocommerce_admin.mon_decimal_point
+							poocommerce_admin.mon_decimal_point
 						)
 					);
 					var regular_price = parseFloat(
 						window.accounting.unformat(
 							regular_price_field.val(),
-							woocommerce_admin.mon_decimal_point
+							poocommerce_admin.mon_decimal_point
 						)
 					);
 
@@ -287,13 +287,13 @@
 					var sale_price = parseFloat(
 						window.accounting.unformat(
 							sale_price_field.val(),
-							woocommerce_admin.mon_decimal_point
+							poocommerce_admin.mon_decimal_point
 						)
 					);
 					var regular_price = parseFloat(
 						window.accounting.unformat(
 							regular_price_field.val(),
-							woocommerce_admin.mon_decimal_point
+							poocommerce_admin.mon_decimal_point
 						)
 					);
 
@@ -355,7 +355,7 @@
 			)
 
 			.on( 'init_tooltips', function () {
-				$( '.tips, .help_tip, .woocommerce-help-tip' ).tipTip( {
+				$( '.tips, .help_tip, .poocommerce-help-tip' ).tipTip( {
 					attribute: 'data-tip',
 					fadeIn: 50,
 					fadeOut: 50,
@@ -387,7 +387,7 @@
 
 			.on( 'click', '.wc-confirm-delete', function ( event ) {
 				if (
-					! window.confirm( woocommerce_admin.i18n_confirm_delete )
+					! window.confirm( poocommerce_admin.i18n_confirm_delete )
 				) {
 					event.stopPropagation();
 				}
@@ -514,7 +514,7 @@
 
 		// Additional cost and Attribute term tables
 		$(
-			'.woocommerce_page_wc-settings .shippingrows tbody tr:even, table.attributes-table tbody tr:nth-child(odd)'
+			'.poocommerce_page_wc-settings .shippingrows tbody tr:even, table.attributes-table tbody tr:nth-child(odd)'
 		).addClass( 'alternate' );
 
 		// Show order items on orders page
@@ -586,14 +586,14 @@
 		} );
 
 		// Reviews.
-		$( 'input#woocommerce_enable_reviews' )
+		$( 'input#poocommerce_enable_reviews' )
 			.on( 'change', function () {
 				if ( $( this ).is( ':checked' ) ) {
-					$( '#woocommerce_enable_review_rating' )
+					$( '#poocommerce_enable_review_rating' )
 						.closest( 'tr' )
 						.show();
 				} else {
-					$( '#woocommerce_enable_review_rating' )
+					$( '#poocommerce_enable_review_rating' )
 						.closest( 'tr' )
 						.hide();
 				}
@@ -612,41 +612,41 @@
 			function () {
 				var $link = $( this ),
 					$row = $link.closest( 'tr' ),
-					$toggle = $link.find( '.woocommerce-input-toggle' );
+					$toggle = $link.find( '.poocommerce-input-toggle' );
 
 				var data = {
-					action: 'woocommerce_toggle_gateway_enabled',
-					security: woocommerce_admin.nonces.gateway_toggle,
+					action: 'poocommerce_toggle_gateway_enabled',
+					security: poocommerce_admin.nonces.gateway_toggle,
 					gateway_id: $row.data( 'gateway_id' ),
 				};
 
-				$toggle.addClass( 'woocommerce-input-toggle--loading' );
+				$toggle.addClass( 'poocommerce-input-toggle--loading' );
 
 				$.ajax( {
-					url: woocommerce_admin.ajax_url,
+					url: poocommerce_admin.ajax_url,
 					data: data,
 					dataType: 'json',
 					type: 'POST',
 					success: function ( response ) {
 						if ( true === response.data ) {
 							$toggle.removeClass(
-								'woocommerce-input-toggle--enabled, woocommerce-input-toggle--disabled'
+								'poocommerce-input-toggle--enabled, poocommerce-input-toggle--disabled'
 							);
 							$toggle.addClass(
-								'woocommerce-input-toggle--enabled'
+								'poocommerce-input-toggle--enabled'
 							);
 							$toggle.removeClass(
-								'woocommerce-input-toggle--loading'
+								'poocommerce-input-toggle--loading'
 							);
 						} else if ( false === response.data ) {
 							$toggle.removeClass(
-								'woocommerce-input-toggle--enabled, woocommerce-input-toggle--disabled'
+								'poocommerce-input-toggle--enabled, poocommerce-input-toggle--disabled'
 							);
 							$toggle.addClass(
-								'woocommerce-input-toggle--disabled'
+								'poocommerce-input-toggle--disabled'
 							);
 							$toggle.removeClass(
-								'woocommerce-input-toggle--loading'
+								'poocommerce-input-toggle--loading'
 							);
 						} else if ( 'needs_setup' === response.data ) {
 							window.location.href = $link.attr( 'href' );
@@ -665,7 +665,7 @@
 
 			if ( 'remove_personal_data' === action ) {
 				return window.confirm(
-					woocommerce_admin.i18n_remove_personal_data_notice
+					poocommerce_admin.i18n_remove_personal_data_notice
 				);
 			}
 		} );
@@ -726,7 +726,7 @@
 			init: function() {
 				// Order screen.
 				this.$lock_dialog = $( '#post-lock-dialog.order-lock-dialog' );
-				if ( 0 !== this.$lock_dialog.length && 'undefined' !== typeof woocommerce_admin_meta_boxes ) {
+				if ( 0 !== this.$lock_dialog.length && 'undefined' !== typeof poocommerce_admin_meta_boxes ) {
 					// We do not want WP's lock to interfere.
 					$( document ).off( 'heartbeat-send.refresh-lock' );
 					$( document ).off( 'heartbeat-tick.refresh-lock' );
@@ -745,7 +745,7 @@
 
 			refresh_order_lock: function( e, data ) {
 				delete data['wp-refresh-post-lock'];
-				data['wc-refresh-order-lock'] = woocommerce_admin_meta_boxes.post_id;
+				data['wc-refresh-order-lock'] = poocommerce_admin_meta_boxes.post_id;
 			},
 
 			check_order_lock: function( e, data ) {
@@ -840,11 +840,11 @@
 						// Construct the new href with product_ids and nonce.
 						const url = new URL( originalExportHref );
 						url.searchParams.set( 'product_ids', selectedProductIds.join(','));
-						url.searchParams.set( '_wpnonce', woocommerce_admin.nonces.export_selected_products_nonce);
+						url.searchParams.set( '_wpnonce', poocommerce_admin.nonces.export_selected_products_nonce);
 						const newHref = url.toString();
 						// Construct the text with the count of selected products.
 						const count      = selectedProductIds.length;
-						const buttonText = woocommerce_admin.strings.export_selected_products.replace( '%d', count );
+						const buttonText = poocommerce_admin.strings.export_selected_products.replace( '%d', count );
 						$exportButton.text( buttonText ).attr( 'href', newHref );
 					} else {
 						$exportButton.text( originalExportText ).attr( 'href', originalExportHref );
@@ -854,4 +854,4 @@
 		);
 	} );
 
-} )( jQuery, woocommerce_admin );
+} )( jQuery, poocommerce_admin );

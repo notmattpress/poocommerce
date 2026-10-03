@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 /**
  * Tests for WC_Shortcode_Checkout.
  *
- * @package WooCommerce\Tests\Shortcodes
+ * @package PooCommerce\Tests\Shortcodes
  */
 
 /**
@@ -66,7 +66,7 @@ class WC_Shortcode_Checkout_Test extends WC_Unit_Test_Case {
 		$this->original_gateway_enabled = array();
 
 		if ( $this->gateway_order_filter ) {
-			remove_filter( 'woocommerce_available_payment_gateways', $this->gateway_order_filter );
+			remove_filter( 'poocommerce_available_payment_gateways', $this->gateway_order_filter );
 			$this->gateway_order_filter = null;
 		}
 
@@ -105,7 +105,7 @@ class WC_Shortcode_Checkout_Test extends WC_Unit_Test_Case {
 			return isset( $gateways[ $gateway_id ] ) ? array( $gateway_id => $gateways[ $gateway_id ] ) + $gateways : $gateways;
 		};
 
-		add_filter( 'woocommerce_available_payment_gateways', $this->gateway_order_filter );
+		add_filter( 'poocommerce_available_payment_gateways', $this->gateway_order_filter );
 	}
 
 	/**
@@ -176,7 +176,7 @@ class WC_Shortcode_Checkout_Test extends WC_Unit_Test_Case {
 		WC_Shortcode_Checkout::output( array() );
 		$output = (string) ob_get_clean();
 
-		$this->assertStringNotContainsString( 'woocommerce-thankyou-order-details', $output );
+		$this->assertStringNotContainsString( 'poocommerce-thankyou-order-details', $output );
 		$this->assertStringNotContainsString( (string) $order->get_order_number(), $output );
 	}
 
@@ -216,7 +216,7 @@ class WC_Shortcode_Checkout_Test extends WC_Unit_Test_Case {
 		$output = (string) ob_get_clean();
 
 		$this->assertMatchesRegularExpression(
-			'#<div class="woocommerce-notices-wrapper">\s*<(ul|div) class="[^"]*(woocommerce-error|is-error)[^"]*"[^>]*>.*Sorry, this order is invalid and cannot be paid for\..*</div>#s',
+			'#<div class="poocommerce-notices-wrapper">\s*<(ul|div) class="[^"]*(poocommerce-error|is-error)[^"]*"[^>]*>.*Sorry, this order is invalid and cannot be paid for\..*</div>#s',
 			$output,
 			'The pay page error should be wrapped in the notices wrapper.'
 		);
@@ -240,7 +240,7 @@ class WC_Shortcode_Checkout_Test extends WC_Unit_Test_Case {
 		$output = (string) ob_get_clean();
 
 		$this->assertMatchesRegularExpression(
-			'#<div class="woocommerce-notices-wrapper">\s*<div class="[^"]*(woocommerce-info|is-info)[^"]*"[^>]*>.*Please log in to your account to view this order\..*</div>#s',
+			'#<div class="poocommerce-notices-wrapper">\s*<div class="[^"]*(poocommerce-info|is-info)[^"]*"[^>]*>.*Please log in to your account to view this order\..*</div>#s',
 			$output,
 			'The order received login prompt should be wrapped in the notices wrapper.'
 		);

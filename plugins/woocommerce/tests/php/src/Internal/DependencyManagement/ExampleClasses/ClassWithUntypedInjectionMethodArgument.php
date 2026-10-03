@@ -2,7 +2,7 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\DependencyManagement\ExampleClasses;
+namespace Automattic\PooCommerce\Tests\Internal\DependencyManagement\ExampleClasses;
 
 /**
  * An example class that has an injector method argument without any type hint.

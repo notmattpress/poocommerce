@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { FieldLocaleOverrides, FormFields } from '@woocommerce/settings';
+import { FieldLocaleOverrides, FormFields } from '@poocommerce/settings';
 
 export type CountryData = {
 	allowBilling: boolean;

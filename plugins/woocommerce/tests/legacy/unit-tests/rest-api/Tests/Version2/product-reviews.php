@@ -1,11 +1,11 @@
 <?php
 
-use Automattic\WooCommerce\Utilities\ArrayUtil;
+use Automattic\PooCommerce\Utilities\ArrayUtil;
 
 /**
  * Tests for the product reviews REST API.
  *
- * @package WooCommerce\Tests\API
+ * @package PooCommerce\Tests\API
  * @since 3.5.0
  */
 
@@ -42,10 +42,10 @@ class WC_Tests_API_Product_Reviews_V2 extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_get_product_reviews() {
 		wp_set_current_user( $this->user );
-		$product = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
+		$product = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
 		// Create 10 products reviews for the product
 		for ( $i = 0; $i < 10; $i++ ) {
-			$review_id = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_product_review( $product->get_id() );
+			$review_id = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_product_review( $product->get_id() );
 		}
 
 		$response        = $this->server->dispatch( new WP_REST_Request( 'GET', '/wc/v3/products/reviews' ) );
@@ -99,7 +99,7 @@ class WC_Tests_API_Product_Reviews_V2 extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_get_product_reviews_without_permission() {
 		wp_set_current_user( 0 );
-		$product  = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
+		$product  = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
 		$response = $this->server->dispatch( new WP_REST_Request( 'GET', '/wc/v3/products/reviews' ) );
 		$this->assertEquals( 401, $response->get_status() );
 	}
@@ -122,8 +122,8 @@ class WC_Tests_API_Product_Reviews_V2 extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_get_product_review() {
 		wp_set_current_user( $this->user );
-		$product           = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
-		$product_review_id = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_product_review( $product->get_id() );
+		$product           = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
+		$product_review_id = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_product_review( $product->get_id() );
 
 		$response = $this->server->dispatch( new WP_REST_Request( 'GET', '/wc/v3/products/reviews/' . $product_review_id ) );
 		$data     = $response->get_data();
@@ -156,8 +156,8 @@ class WC_Tests_API_Product_Reviews_V2 extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_get_product_review_without_permission() {
 		wp_set_current_user( 0 );
-		$product           = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
-		$product_review_id = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_product_review( $product->get_id() );
+		$product           = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
+		$product_review_id = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_product_review( $product->get_id() );
 		$response          = $this->server->dispatch( new WP_REST_Request( 'GET', '/wc/v3/products/reviews/' . $product_review_id ) );
 		$this->assertEquals( 401, $response->get_status() );
 	}
@@ -169,7 +169,7 @@ class WC_Tests_API_Product_Reviews_V2 extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_get_product_review_invalid_id() {
 		wp_set_current_user( $this->user );
-		$product  = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
+		$product  = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
 		$response = $this->server->dispatch( new WP_REST_Request( 'GET', '/wc/v3/products/reviews/0' ) );
 		$this->assertEquals( 404, $response->get_status() );
 	}
@@ -181,7 +181,7 @@ class WC_Tests_API_Product_Reviews_V2 extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_create_product_review() {
 		wp_set_current_user( $this->user );
-		$product = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
+		$product = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
 		$request = new WP_REST_Request( 'POST', '/wc/v3/products/reviews' );
 		$request->set_body_params(
 			array(
@@ -223,7 +223,7 @@ class WC_Tests_API_Product_Reviews_V2 extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_create_product_review_invalid_fields() {
 		wp_set_current_user( $this->user );
-		$product = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
+		$product = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
 
 		// missing review
 		$request = new WP_REST_Request( 'POST', '/wc/v3/products/reviews' );
@@ -272,8 +272,8 @@ class WC_Tests_API_Product_Reviews_V2 extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_update_product_review() {
 		wp_set_current_user( $this->user );
-		$product           = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
-		$product_review_id = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_product_review( $product->get_id() );
+		$product           = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
+		$product_review_id = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_product_review( $product->get_id() );
 
 		$response = $this->server->dispatch( new WP_REST_Request( 'GET', '/wc/v3/products/reviews/' . $product_review_id ) );
 		$data     = $response->get_data();
@@ -306,8 +306,8 @@ class WC_Tests_API_Product_Reviews_V2 extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_update_product_review_without_permission() {
 		wp_set_current_user( 0 );
-		$product           = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
-		$product_review_id = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_product_review( $product->get_id() );
+		$product           = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
+		$product_review_id = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_product_review( $product->get_id() );
 
 		$request = new WP_REST_Request( 'PUT', '/wc/v3/products/reviews/' . $product_review_id );
 		$request->set_body_params(
@@ -330,7 +330,7 @@ class WC_Tests_API_Product_Reviews_V2 extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_update_product_review_invalid_id() {
 		wp_set_current_user( $this->user );
-		$product = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
+		$product = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
 
 		$request = new WP_REST_Request( 'PUT', '/wc/v3/products/reviews/0' );
 		$request->set_body_params(
@@ -353,8 +353,8 @@ class WC_Tests_API_Product_Reviews_V2 extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_delete_product_review() {
 		wp_set_current_user( $this->user );
-		$product           = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
-		$product_review_id = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_product_review( $product->get_id() );
+		$product           = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
+		$product_review_id = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_product_review( $product->get_id() );
 
 		$request = new WP_REST_Request( 'DELETE', '/wc/v3/products/reviews/' . $product_review_id );
 		$request->set_param( 'force', true );
@@ -369,8 +369,8 @@ class WC_Tests_API_Product_Reviews_V2 extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_delete_product_without_permission() {
 		wp_set_current_user( 0 );
-		$product           = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
-		$product_review_id = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_product_review( $product->get_id() );
+		$product           = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
+		$product_review_id = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_product_review( $product->get_id() );
 
 		$request  = new WP_REST_Request( 'DELETE', '/wc/v3/products/reviews/' . $product_review_id );
 		$response = $this->server->dispatch( $request );
@@ -385,8 +385,8 @@ class WC_Tests_API_Product_Reviews_V2 extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_delete_product_review_invalid_id() {
 		wp_set_current_user( $this->user );
-		$product           = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
-		$product_review_id = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_product_review( $product->get_id() );
+		$product           = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
+		$product_review_id = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_product_review( $product->get_id() );
 
 		$request = new WP_REST_Request( 'DELETE', '/wc/v3/products/reviews/0' );
 		$request->set_param( 'force', true );
@@ -400,12 +400,12 @@ class WC_Tests_API_Product_Reviews_V2 extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_product_reviews_batch() {
 		wp_set_current_user( $this->user );
-		$product = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
+		$product = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
 
-		$review_1_id = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_product_review( $product->get_id() );
-		$review_2_id = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_product_review( $product->get_id() );
-		$review_3_id = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_product_review( $product->get_id() );
-		$review_4_id = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_product_review( $product->get_id() );
+		$review_1_id = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_product_review( $product->get_id() );
+		$review_2_id = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_product_review( $product->get_id() );
+		$review_3_id = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_product_review( $product->get_id() );
+		$review_4_id = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_product_review( $product->get_id() );
 
 		$request = new WP_REST_Request( 'POST', '/wc/v3/products/reviews/batch' );
 		$request->set_body_params(
@@ -454,7 +454,7 @@ class WC_Tests_API_Product_Reviews_V2 extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_product_review_schema() {
 		wp_set_current_user( $this->user );
-		$product    = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
+		$product    = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
 		$request    = new WP_REST_Request( 'OPTIONS', '/wc/v3/products/reviews' );
 		$response   = $this->server->dispatch( $request );
 		$data       = $response->get_data();

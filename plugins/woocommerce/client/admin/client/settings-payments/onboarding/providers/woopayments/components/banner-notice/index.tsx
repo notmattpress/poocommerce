@@ -1,6 +1,6 @@
 /**
  * Based on the @wordpress/components `Notice` component.
- * Adjusted to meet WooCommerce Admin Design Library.
+ * Adjusted to meet PooCommerce Admin Design Library.
  */
 
 /**
@@ -170,7 +170,7 @@ const BannerNotice: React.FC< Props > = ( {
 				<Button
 					className="woopayments-banner-notice__dismiss"
 					icon={ <CloseIcon /> }
-					label={ __( 'Dismiss this notice', 'woocommerce' ) }
+					label={ __( 'Dismiss this notice', 'poocommerce' ) }
 					onClick={ handleRemove }
 					showTooltip={ false }
 				/>

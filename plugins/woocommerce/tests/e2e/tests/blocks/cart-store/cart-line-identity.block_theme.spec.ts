@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { test as base, expect, guestFile, wpCLI } from '@woocommerce/e2e-utils';
+import { test as base, expect, guestFile, wpCLI } from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -21,7 +21,7 @@ import {
  *
  * Background: on a keyless add (every add-to-cart consumer), the iAPI cart
  * store now always issues `add-item` with the requested quantity delta and lets
- * WooCommerce core's `generate_cart_id` decide match-or-create, instead of
+ * PooCommerce core's `generate_cart_id` decide match-or-create, instead of
  * matching a line by product id on the client and converting the add into an
  * `update-item`. The flows below exercise that behaviour against a real cart
  * through the ProductButton, the Add to Cart with Options block, and the
@@ -29,7 +29,7 @@ import {
  *
  * A "meta line" — a stand-in for a bundle child / booking / add-on / recipient
  * line — is simulated by the cart-line-identity helper plugin
- * (`woocommerce-blocks-test-cart-line-identity`), which attaches a unique
+ * (`poocommerce-blocks-test-cart-line-identity`), which attaches a unique
  * `cart_item_data` marker to a flagged add so core mints a distinct cart line
  * for the same product id. See `./utils.ts`.
  *

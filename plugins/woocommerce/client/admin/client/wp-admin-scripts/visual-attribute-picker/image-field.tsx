@@ -132,9 +132,9 @@ const ImageField = ( { input }: { input: HTMLInputElement } ) => {
 
 		if ( ! frame ) {
 			frame = window.wp.media( {
-				title: __( 'Choose an image', 'woocommerce' ),
+				title: __( 'Choose an image', 'poocommerce' ),
 				button: {
-					text: __( 'Use image', 'woocommerce' ),
+					text: __( 'Use image', 'poocommerce' ),
 				},
 				library: {
 					type: 'image',
@@ -175,8 +175,8 @@ const ImageField = ( { input }: { input: HTMLInputElement } ) => {
 	const hasImage = Number.parseInt( imageId, 10 ) > 0;
 
 	const displayedImageValue = hasImage
-		? __( 'Change image', 'woocommerce' )
-		: __( 'Select an image', 'woocommerce' );
+		? __( 'Change image', 'poocommerce' )
+		: __( 'Select an image', 'poocommerce' );
 
 	return (
 		<>
@@ -204,7 +204,7 @@ const ImageField = ( { input }: { input: HTMLInputElement } ) => {
 					className="button-link wc-admin-visual-attribute-image-picker-clear"
 					onClick={ clearImage }
 				>
-					{ __( 'Clear', 'woocommerce' ) }
+					{ __( 'Clear', 'poocommerce' ) }
 				</button>
 			) }
 		</>

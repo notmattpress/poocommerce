@@ -50,7 +50,7 @@ export const generateStyles = ( color = '#bea0f2' ) => {
     .wp-block-social-links {
         gap: 0.5em 18px;
     }
-    .woocommerce-coming-soon-social-login {
+    .poocommerce-coming-soon-social-login {
         gap: 48px;
     }
     .wp-block-loginout {
@@ -74,7 +74,7 @@ export const generateStyles = ( color = '#bea0f2' ) => {
     .wp-block-spacer {
         margin: 0;
     }
-    .woocommerce-coming-soon-banner-container {
+    .poocommerce-coming-soon-banner-container {
         padding-inline: min(5.5rem, 8vw);
         margin: 0;
         height: 100%;
@@ -83,22 +83,22 @@ export const generateStyles = ( color = '#bea0f2' ) => {
         justify-content: space-between;
     }
 	@media (max-width: 660px) {
-		.woocommerce-coming-soon-banner-container {
+		.poocommerce-coming-soon-banner-container {
 			padding-inline: 0;
 		}
 	}
-    .woocommerce-coming-soon-banner-container > .wp-block-group__inner-container {
+    .poocommerce-coming-soon-banner-container > .wp-block-group__inner-container {
         height: 100%;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
     }
-    .woocommerce-coming-soon-powered-by-woo {
+    .poocommerce-coming-soon-powered-by-woo {
         width: 100%;
         --wp--preset--spacing--30: 0;
         --wp--preset--spacing--10: 19px;
     }
-    .woocommerce-coming-soon-powered-by-woo p {
+    .poocommerce-coming-soon-powered-by-woo p {
         font-style: normal;
         font-weight: 400;
         line-height: 160%; /* 19.2px */
@@ -107,10 +107,10 @@ export const generateStyles = ( color = '#bea0f2' ) => {
         font-size: 12px;
         font-family: Inter;
     }
-    .woocommerce-coming-soon-powered-by-woo a {
+    .poocommerce-coming-soon-powered-by-woo a {
         font-family: Inter;
     }
-    body .is-layout-constrained > .woocommerce-coming-soon-banner.alignwide {
+    body .is-layout-constrained > .poocommerce-coming-soon-banner.alignwide {
         max-width: 820px;
     }
     .coming-soon-is-vertically-aligned-center {
@@ -120,10 +120,10 @@ export const generateStyles = ( color = '#bea0f2' ) => {
     .coming-soon-cover .wp-block-cover__background {
         background-color: ${ color } !important;
     }
-    .woocommerce-coming-soon-header {
+    .poocommerce-coming-soon-header {
         height: 40px;
     }
-    .woocommerce-coming-soon-banner {
+    .poocommerce-coming-soon-banner {
         font-size: clamp(27px, 1.74rem + ((1vw - 3px) * 2), 48px);
         font-weight: 400;
         line-height: 58px;

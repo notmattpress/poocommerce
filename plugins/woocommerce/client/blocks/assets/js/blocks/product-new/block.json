@@ -1,8 +1,8 @@
 {
-	"name": "woocommerce/product-new",
+	"name": "poocommerce/product-new",
 	"title": "Newest Products",
-	"category": "woocommerce",
-	"keywords": [ "WooCommerce" ],
+	"category": "poocommerce",
+	"keywords": [ "PooCommerce" ],
 	"description": "Display a grid of your newest products.",
 	"supports": {
 		"interactivity": {
@@ -90,7 +90,7 @@
 			"default": "date"
 		}
 	},
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"apiVersion": 3,
 	"$schema": "https://schemas.wp.org/trunk/block.json"
 }

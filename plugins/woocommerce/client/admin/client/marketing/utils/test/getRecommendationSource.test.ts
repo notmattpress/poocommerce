@@ -9,7 +9,7 @@ jest.mock( '~/utils/admin-settings', () => ( {
 } ) );
 
 describe( 'getRecommendationSource', () => {
-	it( 'should return "woocommerce.com" when marketplace suggestions feature is turned on', () => {
+	it( 'should return "poocommerce.com" when marketplace suggestions feature is turned on', () => {
 		( getAdminSetting as jest.Mock ).mockReturnValue( true );
 
 		const source = getRecommendationSource();
@@ -18,10 +18,10 @@ describe( 'getRecommendationSource', () => {
 			'allowMarketplaceSuggestions',
 			false
 		);
-		expect( source ).toBe( 'woocommerce.com' );
+		expect( source ).toBe( 'poocommerce.com' );
 	} );
 
-	it( 'should return "plugin-woocommerce" when marketplace suggestions feature is turned off', () => {
+	it( 'should return "plugin-poocommerce" when marketplace suggestions feature is turned off', () => {
 		( getAdminSetting as jest.Mock ).mockReturnValue( false );
 
 		const source = getRecommendationSource();
@@ -30,6 +30,6 @@ describe( 'getRecommendationSource', () => {
 			'allowMarketplaceSuggestions',
 			false
 		);
-		expect( source ).toBe( 'plugin-woocommerce' );
+		expect( source ).toBe( 'plugin-poocommerce' );
 	} );
 } );

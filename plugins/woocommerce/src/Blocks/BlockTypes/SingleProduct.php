@@ -1,9 +1,9 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\Utils\ProductDataUtils;
-use Automattic\WooCommerce\Blocks\Utils\Utils as BlocksUtils;
-use Automattic\WooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Blocks\Utils\ProductDataUtils;
+use Automattic\PooCommerce\Blocks\Utils\Utils as BlocksUtils;
+use Automattic\PooCommerce\Enums\ProductType;
 
 /**
  * SingleProduct class.
@@ -69,7 +69,7 @@ class SingleProduct extends AbstractBlock {
 	 * @return array Updated block context.
 	 */
 	public function update_context( $context, $block, $parent_block ) {
-		if ( 'woocommerce/single-product' === $block['blockName']
+		if ( 'poocommerce/single-product' === $block['blockName']
 			&& isset( $block['attrs']['productId'] ) ) {
 			$context['postId']        = $block['attrs']['productId'];
 			$context['postType']      = 'product';
@@ -147,7 +147,7 @@ class SingleProduct extends AbstractBlock {
 
 		// Load product into the shared products store.
 		wc_interactivity_api_load_product(
-			'I acknowledge that using experimental APIs means my theme or plugin will inevitably break in the next version of WooCommerce',
+			'I acknowledge that using experimental APIs means my theme or plugin will inevitably break in the next version of PooCommerce',
 			$product_id
 		);
 
@@ -160,7 +160,7 @@ class SingleProduct extends AbstractBlock {
 
 		if ( $html->next_tag( array( 'tag_name' => 'div' ) ) ) {
 			$html->set_attribute( 'data-wp-interactive', $this->get_full_block_name() );
-			$html->set_attribute( 'data-wp-context', 'woocommerce/products::' . wp_json_encode( $interactivity_context, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP ) );
+			$html->set_attribute( 'data-wp-context', 'poocommerce/products::' . wp_json_encode( $interactivity_context, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP ) );
 		}
 
 		$updated_html = $html->get_updated_html();

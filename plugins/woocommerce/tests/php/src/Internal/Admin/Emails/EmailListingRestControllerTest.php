@@ -1,15 +1,15 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\Emails;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\Emails;
 
 use Automattic\Jetpack\Constants;
-use Automattic\WooCommerce\Internal\Admin\Emails\EmailListingRestController;
-use Automattic\WooCommerce\Internal\EmailEditor\EmailTemplates\WooEmailTemplate;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateDivergenceDetector;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateSyncRegistry;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsGenerator;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsManager;
+use Automattic\PooCommerce\Internal\Admin\Emails\EmailListingRestController;
+use Automattic\PooCommerce\Internal\EmailEditor\EmailTemplates\WooEmailTemplate;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateDivergenceDetector;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateSyncRegistry;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsGenerator;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsManager;
 use WC_Unit_Test_Case;
 use WP_REST_Request;
 
@@ -52,7 +52,7 @@ class EmailListingRestControllerTest extends WC_Unit_Test_Case {
 	public function setUp(): void {
 		parent::setUp();
 
-		update_option( 'woocommerce_feature_block_email_editor_enabled', 'yes' );
+		update_option( 'poocommerce_feature_block_email_editor_enabled', 'yes' );
 
 		// Eagerly boot \WC_Emails so registered transactional emails resolve.
 		\WC_Emails::instance();
@@ -84,11 +84,11 @@ class EmailListingRestControllerTest extends WC_Unit_Test_Case {
 			$this->injected_email_keys = array();
 		}
 
-		remove_all_filters( 'woocommerce_email_block_template_html' );
-		remove_all_filters( 'woocommerce_transactional_emails_for_block_editor' );
+		remove_all_filters( 'poocommerce_email_block_template_html' );
+		remove_all_filters( 'poocommerce_transactional_emails_for_block_editor' );
 		$this->posts_manager->clear_caches();
 		WCEmailTemplateSyncRegistry::reset_cache();
-		update_option( 'woocommerce_feature_block_email_editor_enabled', 'no' );
+		update_option( 'poocommerce_feature_block_email_editor_enabled', 'no' );
 
 		parent::tearDown();
 	}
@@ -135,7 +135,7 @@ class EmailListingRestControllerTest extends WC_Unit_Test_Case {
 		);
 
 		$this->assertFalse(
-			get_option( 'woocommerce_email_templates_' . self::EMAIL_ID . '_post_id' ),
+			get_option( 'poocommerce_email_templates_' . self::EMAIL_ID . '_post_id' ),
 			'The option mapping must not be written for a draft — only publishing writes it'
 		);
 	}
@@ -182,7 +182,7 @@ class EmailListingRestControllerTest extends WC_Unit_Test_Case {
 
 		// The file template moves between the two calls; a never-edited scratchpad must pick that up.
 		add_filter(
-			'woocommerce_email_block_template_html',
+			'poocommerce_email_block_template_html',
 			static function ( $template_html ) {
 				return $template_html . "\n<!-- wp:paragraph --><p>FRESH_TEMPLATE_MARKER</p><!-- /wp:paragraph -->";
 			}
@@ -190,7 +190,7 @@ class EmailListingRestControllerTest extends WC_Unit_Test_Case {
 		// The title is system-owned and must move with the content; the same
 		// post-data filter that customizes creation also drives the refresh.
 		add_filter(
-			'woocommerce_email_content_post_data',
+			'poocommerce_email_content_post_data',
 			static function ( $post_data ) {
 				$post_data['post_title'] = 'Fresh Template Title';
 				return $post_data;
@@ -248,7 +248,7 @@ class EmailListingRestControllerTest extends WC_Unit_Test_Case {
 		// Only the title moves — e.g. a plugin update renaming the email; the
 		// content-equality early return must not skip the refresh.
 		add_filter(
-			'woocommerce_email_content_post_data',
+			'poocommerce_email_content_post_data',
 			static function ( $post_data ) {
 				$post_data['post_title'] = 'Renamed Email Title';
 				return $post_data;
@@ -265,7 +265,7 @@ class EmailListingRestControllerTest extends WC_Unit_Test_Case {
 	/**
 	 * An email is outside the sync registry when its block template file has no
 	 * parseable `@version` header — typically a third-party email that opted in
-	 * via `woocommerce_transactional_emails_for_block_editor` without adopting
+	 * via `poocommerce_transactional_emails_for_block_editor` without adopting
 	 * the version-header convention. Such emails get no template-version meta
 	 * and no update propagation, but scratchpad handling must work the same.
 	 *
@@ -313,9 +313,9 @@ class EmailListingRestControllerTest extends WC_Unit_Test_Case {
 		// untouched afterwards depends on the source hash being stamped for
 		// non-registry emails too. Two refresh rounds pin that.
 		foreach ( array( 'FIRST_REFRESH_MARKER', 'SECOND_REFRESH_MARKER' ) as $marker ) {
-			remove_all_filters( 'woocommerce_email_block_template_html' );
+			remove_all_filters( 'poocommerce_email_block_template_html' );
 			add_filter(
-				'woocommerce_email_block_template_html',
+				'poocommerce_email_block_template_html',
 				static function ( $template_html ) use ( $marker ) {
 					return $template_html . "\n<!-- wp:paragraph --><p>" . $marker . '</p><!-- /wp:paragraph -->';
 				}
@@ -410,7 +410,7 @@ class EmailListingRestControllerTest extends WC_Unit_Test_Case {
 		$response = $this->call_recreate_email_post( 'this_email_type_does_not_exist' );
 
 		$this->assertWPError( $response );
-		$this->assertSame( 'woocommerce_rest_email_post_generation_failed', $response->get_error_code() );
+		$this->assertSame( 'poocommerce_rest_email_post_generation_failed', $response->get_error_code() );
 	}
 
 	/**
@@ -453,7 +453,7 @@ class EmailListingRestControllerTest extends WC_Unit_Test_Case {
 		$this->injected_email_keys[] = $class_key;
 
 		add_filter(
-			'woocommerce_transactional_emails_for_block_editor',
+			'poocommerce_transactional_emails_for_block_editor',
 			static function ( array $emails ) use ( $email_id ): array {
 				if ( ! in_array( $email_id, $emails, true ) ) {
 					$emails[] = $email_id;

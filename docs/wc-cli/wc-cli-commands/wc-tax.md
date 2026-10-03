@@ -3,7 +3,7 @@ title: wc tax
 sidebar_label: wc tax
 ---
 
-Manage WooCommerce tax resources.
+Manage PooCommerce tax resources.
 
 ## wc tax list
 

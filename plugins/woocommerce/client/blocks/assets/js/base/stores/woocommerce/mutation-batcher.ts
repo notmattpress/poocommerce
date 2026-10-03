@@ -1,5 +1,5 @@
 /**
- * Mutation Queue - Microtick-based request batcher for WooCommerce Store API
+ * Mutation Queue - Microtick-based request batcher for PooCommerce Store API
  *
  * Collects mutation requests within a single microtask tick and sends them
  * as one batch request. Only one batch is in-flight at a time; requests that

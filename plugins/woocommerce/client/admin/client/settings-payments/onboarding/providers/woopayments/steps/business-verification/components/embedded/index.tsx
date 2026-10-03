@@ -46,7 +46,7 @@ interface EmbeddedAccountOnboardingProps extends EmbeddedComponentProps {
 const defaultLocale = 'en-US';
 const genericInitializationError = __(
 	'Unable to start the business verification session. If this problem persists, please contact support.',
-	'woocommerce'
+	'poocommerce'
 );
 
 const isObjectRecord = ( value: unknown ): value is Record< string, unknown > =>

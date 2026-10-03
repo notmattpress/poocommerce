@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { Dropdown } from '@wordpress/components';
-import { DropdownButton } from '@woocommerce/components';
+import { DropdownButton } from '@poocommerce/components';
 
 export const Basic = () => (
 	<Dropdown

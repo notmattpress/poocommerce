@@ -1,10 +1,10 @@
 {
-	"name": "woocommerce/checkout",
+	"name": "poocommerce/checkout",
 	"title": "Checkout",
 	"description": "Display a checkout form so your customers can submit orders.",
-	"category": "woocommerce",
+	"category": "poocommerce",
 	"keywords": [
-		"WooCommerce"
+		"PooCommerce"
 	],
 	"supports": {
 		"align": [
@@ -26,7 +26,7 @@
 			"default": false
 		}
 	},
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"apiVersion": 3,
 	"$schema": "https://schemas.wp.org/trunk/block.json"
 }

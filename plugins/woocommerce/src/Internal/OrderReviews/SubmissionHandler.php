@@ -5,9 +5,9 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\OrderReviews;
+namespace Automattic\PooCommerce\Internal\OrderReviews;
 
-use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Enums\OrderStatus;
 use WC_Comments;
 use WC_Order;
 
@@ -27,7 +27,7 @@ class SubmissionHandler {
 	/**
 	 * Action name registered with admin-ajax.
 	 */
-	public const ACTION = 'woocommerce_submit_order_reviews';
+	public const ACTION = 'poocommerce_submit_order_reviews';
 
 	/**
 	 * Order meta stamped with the time the Review Order page first had no
@@ -97,34 +97,34 @@ class SubmissionHandler {
 		// phpcs:enable WordPress.Security.NonceVerification.Missing
 
 		if ( ! is_string( $nonce ) || ! wp_verify_nonce( $nonce, self::ACTION ) ) {
-			wp_send_json_error( array( 'message' => __( 'Security check failed.', 'woocommerce' ) ), 403 );
+			wp_send_json_error( array( 'message' => __( 'Security check failed.', 'poocommerce' ) ), 403 );
 		}
 
 		$order = $order_id ? wc_get_order( $order_id ) : false;
 		if ( ! $order instanceof WC_Order ) {
-			wp_send_json_error( array( 'message' => __( 'Order not found.', 'woocommerce' ) ), 404 );
+			wp_send_json_error( array( 'message' => __( 'Order not found.', 'poocommerce' ) ), 404 );
 		}
 
 		if ( '' === $key || ! hash_equals( $order->get_order_key(), $key ) ) {
-			wp_send_json_error( array( 'message' => __( 'Order not found.', 'woocommerce' ) ), 404 );
+			wp_send_json_error( array( 'message' => __( 'Order not found.', 'poocommerce' ) ), 404 );
 		}
 
 		// Logged-in user must own the order. Guests with the right key still pass.
 		if ( $order->get_customer_id() && is_user_logged_in() && get_current_user_id() !== $order->get_customer_id() ) {
-			wp_send_json_error( array( 'message' => __( 'Order not found.', 'woocommerce' ) ), 404 );
+			wp_send_json_error( array( 'message' => __( 'Order not found.', 'poocommerce' ) ), 404 );
 		}
 
 		// Reuse the same eligibility filter the page-load endpoint uses so the
 		// submit path can never run on an order whose status no longer permits it.
-		// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment -- documented on Endpoint::is_authorised().
+		// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment -- documented on Endpoint::is_authorised().
 		$eligible_statuses = (array) apply_filters(
-			'woocommerce_review_order_eligible_statuses',
+			'poocommerce_review_order_eligible_statuses',
 			array( OrderStatus::COMPLETED ),
 			$order
 		);
 
 		if ( ! in_array( $order->get_status(), $eligible_statuses, true ) ) {
-			wp_send_json_error( array( 'message' => __( 'Order not found.', 'woocommerce' ) ), 404 );
+			wp_send_json_error( array( 'message' => __( 'Order not found.', 'poocommerce' ) ), 404 );
 		}
 
 		$results = $this->process_rows( $order, $rows_in );
@@ -139,7 +139,7 @@ class SubmissionHandler {
 		 * @param WC_Order $order   The order.
 		 * @param array    $results Per-row outcomes — see `SubmissionHandler::process_rows()`.
 		 */
-		do_action( 'woocommerce_review_order_submitted', $order, $results );
+		do_action( 'poocommerce_review_order_submitted', $order, $results );
 
 		wp_send_json_success( array( 'results' => $results ) );
 	}
@@ -206,7 +206,7 @@ class SubmissionHandler {
 			}
 
 			// invalid_row also covers fully-refunded line items: index_eligible_order_items()
-			// runs them through woocommerce_review_order_eligible_items, which strips them.
+			// runs them through poocommerce_review_order_eligible_items, which strips them.
 			if ( ! $product_id || ! $order_item_id || ! isset( $item_index[ $order_item_id ] ) ) {
 				$result['error']       = 'invalid_row';
 				$results[ $row_index ] = $result;
@@ -321,7 +321,7 @@ class SubmissionHandler {
 				array(
 					'comment_post_ID'      => $review_post_id,
 					// Core strips markup from the name; fall back when nothing would be left.
-					'comment_author'       => '' !== sanitize_text_field( $author_name ) ? $author_name : __( 'Anonymous', 'woocommerce' ),
+					'comment_author'       => '' !== sanitize_text_field( $author_name ) ? $author_name : __( 'Anonymous', 'poocommerce' ),
 					'comment_author_email' => $author_email,
 					'comment_author_url'   => '',
 					'comment_author_IP'    => $author_ip,
@@ -643,8 +643,8 @@ class SubmissionHandler {
 		// the same variation can't satisfy a sibling variation's quota, and
 		// the same simple product appearing on multiple rows still only
 		// needs one review (the page collapses those rows anyway).
-		// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment -- documented at the page-template invocation site.
-		$eligible_items = (array) apply_filters( 'woocommerce_review_order_eligible_items', $order->get_items(), $order );
+		// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment -- documented at the page-template invocation site.
+		$eligible_items = (array) apply_filters( 'poocommerce_review_order_eligible_items', $order->get_items(), $order );
 
 		$required_slots = array();
 		$product_ids    = array();
@@ -714,7 +714,7 @@ class SubmissionHandler {
 
 	/**
 	 * Map order_item_id => `WC_Order_Item_Product` for fast row lookup,
-	 * filtered through `woocommerce_review_order_eligible_items` so the
+	 * filtered through `poocommerce_review_order_eligible_items` so the
 	 * handler agrees with the page on which items are reviewable. The
 	 * default callback excludes fully-refunded items.
 	 *
@@ -734,7 +734,7 @@ class SubmissionHandler {
 		 * @param \WC_Order_Item[] $items Order line items.
 		 * @param WC_Order         $order The order being reviewed.
 		 */
-		$items = (array) apply_filters( 'woocommerce_review_order_eligible_items', $order->get_items(), $order );
+		$items = (array) apply_filters( 'poocommerce_review_order_eligible_items', $order->get_items(), $order );
 
 		$index = array();
 		foreach ( $items as $item ) {

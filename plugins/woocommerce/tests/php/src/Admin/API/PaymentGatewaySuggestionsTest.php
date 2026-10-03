@@ -1,12 +1,12 @@
 <?php
 
-namespace Automattic\WooCommerce\Tests\Admin\API;
+namespace Automattic\PooCommerce\Tests\Admin\API;
 
-use Automattic\WooCommerce\Admin\Features\PaymentGatewaySuggestions\Init;
-use Automattic\WooCommerce\Admin\Marketing\MarketingCampaign;
-use Automattic\WooCommerce\Admin\Marketing\MarketingCampaignType;
-use Automattic\WooCommerce\Admin\Marketing\MarketingChannelInterface;
-use Automattic\WooCommerce\Admin\Marketing\MarketingChannels as MarketingChannelsService;
+use Automattic\PooCommerce\Admin\Features\PaymentGatewaySuggestions\Init;
+use Automattic\PooCommerce\Admin\Marketing\MarketingCampaign;
+use Automattic\PooCommerce\Admin\Marketing\MarketingCampaignType;
+use Automattic\PooCommerce\Admin\Marketing\MarketingChannelInterface;
+use Automattic\PooCommerce\Admin\Marketing\MarketingChannels as MarketingChannelsService;
 use WC_REST_Unit_Test_Case;
 use WP_REST_Request;
 
@@ -50,10 +50,10 @@ class PaymentGatewaySuggestionsTest extends WC_REST_Unit_Test_Case {
 
 		$existing_base_country = wc_get_base_location();
 		// update the base country to the U.S for testing purposes.
-		update_option( 'woocommerce_default_country', 'US:CA' );
+		update_option( 'poocommerce_default_country', 'US:CA' );
 
 		$response_mock_ref = function( $preempt, $parsed_args, $url ) {
-			if ( str_contains( $url, 'https://woocommerce.com/wp-json/wccom/payment-gateway-suggestions/2.0/suggestions.json' ) ) {
+			if ( str_contains( $url, 'https://poocommerce.com/wp-json/wccom/payment-gateway-suggestions/2.0/suggestions.json' ) ) {
 				return array(
 					'success' => true,
 					'body'    => wp_json_encode(
@@ -85,7 +85,7 @@ class PaymentGatewaySuggestionsTest extends WC_REST_Unit_Test_Case {
 		add_filter( 'pre_http_request', $response_mock_ref, 10, 3 );
 
 		// Update the base country to CA.
-		update_option( 'woocommerce_default_country', 'CA:ON' );
+		update_option( 'poocommerce_default_country', 'CA:ON' );
 
 		// Make a new request -- this should populate the cache with the updated country.
 		$response = rest_get_server()->dispatch( $request )->get_data();
@@ -95,6 +95,6 @@ class PaymentGatewaySuggestionsTest extends WC_REST_Unit_Test_Case {
 		remove_filter( 'pre_http_request', $response_mock_ref );
 
 		// restore the base country.
-		update_option( 'woocommerce_default_country', $existing_base_country['country'] . ':' . $existing_base_country['state'] );
+		update_option( 'poocommerce_default_country', $existing_base_country['country'] . ':' . $existing_base_country['state'] );
 	}
 }

@@ -17,7 +17,7 @@ export const Basic = () => (
 );
 
 export default {
-	title: 'WooCommerce Admin/Core Profiler/User Profile',
+	title: 'PooCommerce Admin/Core Profiler/User Profile',
 	component: UserProfile,
 	decorators: [ WithSetupWizardLayout ],
 };

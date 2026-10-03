@@ -5,23 +5,23 @@
  * action round-trips with their domain-summary responses, and the
  * illegal-transition 409.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine
+ * @package Automattic\PooCommerce\SubscriptionsEngine
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Tests\Integration\Api\Rest;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Tests\Integration\Api\Rest;
 
 use EngineIntegrationTestCase;
 use WP_REST_Request;
 use WP_REST_Response;
-use Automattic\WooCommerce\SubscriptionsEngine\Api\Rest\ContractsController;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\Contract;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\ContractStatus;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage\ContractRepository;
+use Automattic\PooCommerce\SubscriptionsEngine\Api\Rest\ContractsController;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\Contract;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\ContractStatus;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage\ContractRepository;
 
 /**
- * @covers \Automattic\WooCommerce\SubscriptionsEngine\Api\Rest\ContractsController
+ * @covers \Automattic\PooCommerce\SubscriptionsEngine\Api\Rest\ContractsController
  */
 class ContractsControllerTest extends EngineIntegrationTestCase {
 

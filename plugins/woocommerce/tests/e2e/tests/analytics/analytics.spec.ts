@@ -5,7 +5,7 @@ import { request as apiRequest, type Page } from '@playwright/test';
 import {
 	WC_ADMIN_API_PATH,
 	WC_API_PATH,
-} from '@woocommerce/e2e-utils-playwright';
+} from '@poocommerce/e2e-utils-playwright';
 
 /**
  * Internal dependencies
@@ -43,12 +43,12 @@ const test = baseTest.extend( {
 	page: async ( { page, restApi }, use ) => {
 		// Disable the orders report date tour
 		await restApi.post( `${ WC_ADMIN_API_PATH }/options`, {
-			woocommerce_orders_report_date_tour_shown: 'yes',
+			poocommerce_orders_report_date_tour_shown: 'yes',
 		} );
 
 		// Disable the revenue report date tour
 		await restApi.post( `${ WC_ADMIN_API_PATH }/options`, {
-			woocommerce_revenue_report_date_tour_shown: 'yes',
+			poocommerce_revenue_report_date_tour_shown: 'yes',
 		} );
 
 		await use( page );
@@ -61,7 +61,7 @@ test.beforeAll( async ( { request, restApi } ) => {
 	// Force immediate analytics import mode before creating any orders.
 	//
 	// New installs default to scheduled import mode
-	// (`woocommerce_analytics_scheduled_import = 'yes'`), where orders are
+	// (`poocommerce_analytics_scheduled_import = 'yes'`), where orders are
 	// imported into the analytics lookup tables by a recurring 12-hour batch
 	// rather than per order. In that mode the `?process-waiting-actions` helper
 	// below has no due action to run for the orders created here, so the reports
@@ -69,7 +69,7 @@ test.beforeAll( async ( { request, restApi } ) => {
 	// per-order import that the helper processes deterministically.
 	await restApi
 		.post(
-			'wc-analytics/settings/wc_admin/woocommerce_analytics_scheduled_import',
+			'wc-analytics/settings/wc_admin/poocommerce_analytics_scheduled_import',
 			{
 				value: 'no',
 			}
@@ -224,7 +224,7 @@ test.beforeAll( async ( { request, restApi } ) => {
 	// Reset 'Excluded statuses' to default values.
 	await restApi
 		.post(
-			'wc-analytics/settings/wc_admin/woocommerce_excluded_report_order_statuses',
+			'wc-analytics/settings/wc_admin/poocommerce_excluded_report_order_statuses',
 			{
 				value: [ 'pending', 'cancelled', 'failed' ],
 			}
@@ -249,7 +249,7 @@ test.beforeAll( async ( { request, restApi } ) => {
 	// Reset 'Actionable statuses' to default values.
 	await restApi
 		.post(
-			'wc-analytics/settings/wc_admin/woocommerce_actionable_order_statuses',
+			'wc-analytics/settings/wc_admin/poocommerce_actionable_order_statuses',
 			{
 				value: [ 'processing', 'on-hold' ],
 			}
@@ -273,7 +273,7 @@ test.beforeAll( async ( { request, restApi } ) => {
 	// Reset 'Default date range' to default values.
 	await restApi
 		.post(
-			'wc-analytics/settings/wc_admin/woocommerce_default_date_range',
+			'wc-analytics/settings/wc_admin/poocommerce_default_date_range',
 			{
 				value: 'period=month&compare=previous_year',
 			}
@@ -361,7 +361,7 @@ test.afterAll( async ( { restApi } ) => {
 	// Restore the store-wide analytics import mode to the new-install default
 	// (scheduled), since beforeAll forced it to immediate for this spec.
 	await restApi.post(
-		'wc-analytics/settings/wc_admin/woocommerce_analytics_scheduled_import',
+		'wc-analytics/settings/wc_admin/poocommerce_analytics_scheduled_import',
 		{ value: 'yes' }
 	);
 } );
@@ -655,7 +655,7 @@ test.describe(
 			await setOption(
 				apiRequest,
 				baseURL,
-				'woocommerce_analytics_scheduled_import',
+				'poocommerce_analytics_scheduled_import',
 				'yes'
 			);
 
@@ -706,7 +706,7 @@ test.describe(
 			await setOption(
 				apiRequest,
 				baseURL,
-				'woocommerce_analytics_scheduled_import',
+				'poocommerce_analytics_scheduled_import',
 				'no'
 			);
 			await page.reload();

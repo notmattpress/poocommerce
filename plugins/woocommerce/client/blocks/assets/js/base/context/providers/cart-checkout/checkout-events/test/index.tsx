@@ -3,8 +3,8 @@
  */
 import { act, render } from '@testing-library/react';
 import { dispatch } from '@wordpress/data';
-import { checkoutStore, paymentStore } from '@woocommerce/block-data';
-import { checkoutEvents } from '@woocommerce/blocks-checkout-events';
+import { checkoutStore, paymentStore } from '@poocommerce/block-data';
+import { checkoutEvents } from '@poocommerce/blocks-checkout-events';
 
 /**
  * Internal dependencies
@@ -12,7 +12,7 @@ import { checkoutEvents } from '@woocommerce/blocks-checkout-events';
 import { CheckoutEventsProvider } from '../index';
 
 // Mock the registry functions
-jest.mock( '@woocommerce/blocks-registry', () => ( {
+jest.mock( '@poocommerce/blocks-registry', () => ( {
 	getPaymentMethods: jest.fn( () => ( {} ) ),
 	getExpressPaymentMethods: jest.fn( () => ( {
 		stripe: {

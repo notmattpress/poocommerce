@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Internal\ProductFilters;
+namespace Automattic\PooCommerce\Tests\Internal\ProductFilters;
 
-use Automattic\WooCommerce\Internal\ProductFilters\FilterDataProvider;
-use Automattic\WooCommerce\Internal\ProductFilters\QueryClauses;
-use Automattic\WooCommerce\Internal\ProductFilters\TaxonomyHierarchyData;
+use Automattic\PooCommerce\Internal\ProductFilters\FilterDataProvider;
+use Automattic\PooCommerce\Internal\ProductFilters\QueryClauses;
+use Automattic\PooCommerce\Internal\ProductFilters\TaxonomyHierarchyData;
 
 require_once WC_ABSPATH . '/includes/class-wc-brands.php';
 
@@ -86,12 +86,12 @@ class FilterDataTest extends AbstractProductFiltersTest {
 			$params['product_brand'] = 'wc_brands';
 			return $params;
 		};
-		add_filter( 'woocommerce_product_filter_taxonomy_params', $rename );
+		add_filter( 'poocommerce_product_filter_taxonomy_params', $rename );
 
 		$renamed_key = $key_method->invoke( $this->sut, $query_vars, 'price' );
 		$unfiltered  = (array) $this->sut->get_filtered_price( $query_vars );
 
-		remove_filter( 'woocommerce_product_filter_taxonomy_params', $rename );
+		remove_filter( 'poocommerce_product_filter_taxonomy_params', $rename );
 		$this->clear_params_cache();
 
 		$this->assertNotSame( $renamed_key, $key_method->invoke( $this->sut, $query_vars, 'price' ) );
@@ -144,9 +144,9 @@ class FilterDataTest extends AbstractProductFiltersTest {
 		// Empty the lookup table to confirm that the underlying query is targeting the correct postmeta table.
 		$wpdb->query( "DELETE FROM {$wpdb->wc_product_meta_lookup}" ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 
-		update_option( 'woocommerce_product_lookup_table_is_generating', '1' );
+		update_option( 'poocommerce_product_lookup_table_is_generating', '1' );
 		$this->test_get_stock_status_counts_with( new \WP_Query( array( 'post_type' => 'product' ) ) );
-		delete_option( 'woocommerce_product_lookup_table_is_generating' );
+		delete_option( 'poocommerce_product_lookup_table_is_generating' );
 	}
 
 	/**

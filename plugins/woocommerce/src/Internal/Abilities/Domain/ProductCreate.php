@@ -5,15 +5,15 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Abilities\AbilityDefinition;
-use Automattic\WooCommerce\Internal\Abilities\Domain\Traits\ProductAbilityTrait;
+use Automattic\PooCommerce\Abilities\AbilityDefinition;
+use Automattic\PooCommerce\Internal\Abilities\Domain\Traits\ProductAbilityTrait;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Registers the WooCommerce product create ability.
+ * Registers the PooCommerce product create ability.
  */
 class ProductCreate extends AbstractDomainAbility implements AbilityDefinition {
 
@@ -27,7 +27,7 @@ class ProductCreate extends AbstractDomainAbility implements AbilityDefinition {
 	 * @since 10.9.0
 	 */
 	public static function get_name(): string {
-		return 'woocommerce/product-create';
+		return 'poocommerce/product-create';
 	}
 
 	/**
@@ -39,12 +39,12 @@ class ProductCreate extends AbstractDomainAbility implements AbilityDefinition {
 	 */
 	public static function get_registration_args(): array {
 		return array(
-			'label'               => __( 'Create product', 'woocommerce' ),
+			'label'               => __( 'Create product', 'poocommerce' ),
 			'description'         => __(
 				'Create a product using supported catalog fields.',
-				'woocommerce'
+				'poocommerce'
 			),
-			'category'            => 'woocommerce',
+			'category'            => 'poocommerce',
 			'input_schema'        => self::get_input_schema(),
 			'output_schema'       => self::get_entity_output_schema( 'product', self::get_product_output_schema() ),
 			'execute_callback'    => array( __CLASS__, 'execute' ),
@@ -83,8 +83,8 @@ class ProductCreate extends AbstractDomainAbility implements AbilityDefinition {
 
 		if ( ! $product ) {
 			return new \WP_Error(
-				'woocommerce_invalid_product_type',
-				__( 'Invalid product type.', 'woocommerce' ),
+				'poocommerce_invalid_product_type',
+				__( 'Invalid product type.', 'poocommerce' ),
 				array( 'status' => 400 )
 			);
 		}
@@ -100,7 +100,7 @@ class ProductCreate extends AbstractDomainAbility implements AbilityDefinition {
 			return self::get_product_data_exception_error( $exception );
 		}
 
-		$save_error = self::save_product( $product, 'woocommerce_product_create_failed' );
+		$save_error = self::save_product( $product, 'poocommerce_product_create_failed' );
 		if ( is_wp_error( $save_error ) ) {
 			return $save_error;
 		}

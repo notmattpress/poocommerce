@@ -1,16 +1,16 @@
 <?php
 /**
- * Class Automattic\WooCommerce\Gateways\PayPal\Buttons file.
+ * Class Automattic\PooCommerce\Gateways\PayPal\Buttons file.
  *
- * @package WooCommerce\Gateways
+ * @package PooCommerce\Gateways
  */
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Gateways\PayPal;
+namespace Automattic\PooCommerce\Gateways\PayPal;
 
-use Automattic\WooCommerce\Proxies\LegacyProxy;
-use Automattic\WooCommerce\Gateways\PayPal\Request as PayPalRequest;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\Gateways\PayPal\Request as PayPalRequest;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -28,7 +28,7 @@ class Buttons {
 	 *
 	 * @var string
 	 */
-	private const CLIENT_ID_OPTION = 'woocommerce_paypal_client_id';
+	private const CLIENT_ID_OPTION = 'poocommerce_paypal_client_id';
 
 
 	/**
@@ -96,7 +96,7 @@ class Buttons {
 			'components'      => 'buttons,funding-eligibility,messages',
 			'disable-funding' => 'card,applepay',
 			'enable-funding'  => 'venmo,paylater',
-			'currency'        => get_woocommerce_currency(),
+			'currency'        => get_poocommerce_currency(),
 			'intent'          => $intent,
 			'merchant-id'     => $this->gateway->email,
 		);
@@ -137,7 +137,7 @@ class Buttons {
 	 */
 	public function get_page_type(): string {
 		$page_type = 'checkout';
-		if ( is_cart() || has_block( 'woocommerce/cart' ) ) {
+		if ( is_cart() || has_block( 'poocommerce/cart' ) ) {
 			$page_type = 'cart';
 		} elseif ( is_product() ) {
 			$page_type = 'product-details';

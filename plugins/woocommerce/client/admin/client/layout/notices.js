@@ -7,8 +7,8 @@ class Notices extends Component {
 	render() {
 		return (
 			<div
-				id="woocommerce-layout__notice-list"
-				className="woocommerce-layout__notice-list"
+				id="poocommerce-layout__notice-list"
+				className="poocommerce-layout__notice-list"
 			/>
 		);
 	}

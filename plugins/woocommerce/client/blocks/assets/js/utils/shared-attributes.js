@@ -1,14 +1,14 @@
 /**
  * External dependencies
  */
-import { getSetting } from '@woocommerce/settings';
+import { getSetting } from '@poocommerce/settings';
 
 export const sharedAttributeBlockTypes = [
-	'woocommerce/product-best-sellers',
-	'woocommerce/product-category',
-	'woocommerce/product-new',
-	'woocommerce/product-on-sale',
-	'woocommerce/product-top-rated',
+	'poocommerce/product-best-sellers',
+	'poocommerce/product-category',
+	'poocommerce/product-new',
+	'poocommerce/product-on-sale',
+	'poocommerce/product-top-rated',
 ];
 
 export default {

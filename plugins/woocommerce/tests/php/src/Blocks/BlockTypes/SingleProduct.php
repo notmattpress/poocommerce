@@ -2,7 +2,7 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Tests\Blocks\BlockTypes;
 
 use WC_Helper_Product;
 
@@ -12,7 +12,7 @@ use WC_Helper_Product;
 class SingleProduct extends \WP_UnitTestCase {
 	/**
 	 * @testdox Query results and the following Single Product title retain their own products.
-	 * @testWith ["woocommerce/product-collection", "woocommerce/product-template"]
+	 * @testWith ["poocommerce/product-collection", "poocommerce/product-template"]
 	 *           ["core/query", "core/post-template"]
 	 * @param string $query_block Query block name.
 	 * @param string $template_block Template block name.
@@ -26,7 +26,7 @@ class SingleProduct extends \WP_UnitTestCase {
 		$previous_post = $GLOBALS['post'];
 		$location      = null;
 		add_filter(
-			'render_block_woocommerce/product-template',
+			'render_block_poocommerce/product-template',
 			static function ( $content, $parsed_block, $instance ) use ( &$location ) {
 				$location = $instance->context['productCollectionLocation'] ?? null;
 				return $content;
@@ -37,8 +37,8 @@ class SingleProduct extends \WP_UnitTestCase {
 		$query = wp_json_encode(
 			array(
 				'query' => array(
-					'isProductCollectionBlock'      => 'woocommerce/product-collection' === $query_block,
-					'woocommerceHandPickedProducts' => array( $first->get_id(), $second->get_id() ),
+					'isProductCollectionBlock'      => 'poocommerce/product-collection' === $query_block,
+					'poocommerceHandPickedProducts' => array( $first->get_id(), $second->get_id() ),
 					'postType'                      => 'product',
 					'perPage'                       => 2,
 					'pages'                         => 0,
@@ -53,9 +53,9 @@ class SingleProduct extends \WP_UnitTestCase {
 		);
 		$html  = do_blocks(
 			sprintf(
-				'<!-- wp:group --><div><!-- wp:woocommerce/single-product {"productId":%1$d} --><div>
+				'<!-- wp:group --><div><!-- wp:poocommerce/single-product {"productId":%1$d} --><div>
 				<!-- wp:%2$s %3$s --><div><!-- wp:%4$s --><!-- wp:post-title {"isLink":true} /--><!-- /wp:%4$s --></div><!-- /wp:%2$s -->
-				<!-- wp:post-title /--></div><!-- /wp:woocommerce/single-product --></div><!-- /wp:group --><!-- wp:post-title /-->',
+				<!-- wp:post-title /--></div><!-- /wp:poocommerce/single-product --></div><!-- /wp:group --><!-- wp:post-title /-->',
 				$selected->get_id(),
 				$query_block,
 				$query,
@@ -64,7 +64,7 @@ class SingleProduct extends \WP_UnitTestCase {
 		);
 		$this->assertSame( array( 'Query first', 'Query second', 'Selected product', 'Containing page' ), $this->get_element_texts( $html, array( 'tag_name' => 'H2' ) ), 'Each title should use the nearest product/query context.' );
 		$this->assertSame( $previous_post, $GLOBALS['post'], 'Rendering must restore the containing post.' );
-		if ( 'woocommerce/product-collection' === $query_block ) {
+		if ( 'poocommerce/product-collection' === $query_block ) {
 			$this->assertSame( 'product', $location['type'] ?? null, 'The collection must recognize its enclosing Single Product.' );
 			$this->assertSame( $selected->get_id(), $location['sourceData']['productId'] ?? null, 'Collection filters must use the selected product as their source.' );
 		}
@@ -81,10 +81,10 @@ class SingleProduct extends \WP_UnitTestCase {
 		$previous_post = $GLOBALS['post'];
 		$html          = do_blocks(
 			sprintf(
-				'<!-- wp:group --><div><!-- wp:woocommerce/single-product {"productId":%1$d} --><div>
-				<!-- wp:post-title /--><!-- wp:woocommerce/single-product {"productId":%2$d} --><div><!-- wp:post-title /--></div><!-- /wp:woocommerce/single-product -->
-				<!-- wp:post-title /--></div><!-- /wp:woocommerce/single-product -->
-				<!-- wp:woocommerce/single-product {"productId":%2$d} --><div><!-- wp:post-title /--></div><!-- /wp:woocommerce/single-product -->
+				'<!-- wp:group --><div><!-- wp:poocommerce/single-product {"productId":%1$d} --><div>
+				<!-- wp:post-title /--><!-- wp:poocommerce/single-product {"productId":%2$d} --><div><!-- wp:post-title /--></div><!-- /wp:poocommerce/single-product -->
+				<!-- wp:post-title /--></div><!-- /wp:poocommerce/single-product -->
+				<!-- wp:poocommerce/single-product {"productId":%2$d} --><div><!-- wp:post-title /--></div><!-- /wp:poocommerce/single-product -->
 				<!-- wp:post-title /--></div><!-- /wp:group -->',
 				$outer->get_id(),
 				$inner->get_id()
@@ -111,7 +111,7 @@ class SingleProduct extends \WP_UnitTestCase {
 			10,
 			2
 		);
-		$html = do_blocks( sprintf( '<!-- wp:woocommerce/single-product {"productId":%d} --><div><!-- wp:post-title /--></div><!-- /wp:woocommerce/single-product -->', $selected->get_id() ) );
+		$html = do_blocks( sprintf( '<!-- wp:poocommerce/single-product {"productId":%d} --><div><!-- wp:post-title /--></div><!-- /wp:poocommerce/single-product -->', $selected->get_id() ) );
 		$this->assertStringContainsString( '<h2>Cached title</h2>', $html );
 		$this->assertSame( $previous_post, $GLOBALS['post'] );
 		$this->assertSame( $previous_product, $GLOBALS['product'] ?? null );
@@ -130,7 +130,7 @@ class SingleProduct extends \WP_UnitTestCase {
 
 		$html = do_blocks(
 			sprintf(
-				'<!-- wp:woocommerce/single-product {"productId":%d} --><div><!-- wp:post-excerpt /--></div><!-- /wp:woocommerce/single-product --><!-- wp:post-excerpt /-->',
+				'<!-- wp:poocommerce/single-product {"productId":%d} --><div><!-- wp:post-excerpt /--></div><!-- /wp:poocommerce/single-product --><!-- wp:post-excerpt /-->',
 				$selected->get_id()
 			)
 		);
@@ -243,45 +243,45 @@ class SingleProduct extends \WP_UnitTestCase {
 	private function render_single_product_with_gallery_columns_and_title( $product_id ) {
 		return do_blocks(
 			sprintf(
-				'<!-- wp:woocommerce/single-product {"productId":%d} -->
-<div class="wp-block-woocommerce-single-product woocommerce">
+				'<!-- wp:poocommerce/single-product {"productId":%d} -->
+<div class="wp-block-poocommerce-single-product poocommerce">
 <!-- wp:columns -->
 <div class="wp-block-columns">
 <!-- wp:column -->
 <div class="wp-block-column">
-<!-- wp:woocommerce/product-gallery -->
-<div class="wp-block-woocommerce-product-gallery wc-block-product-gallery">
-<!-- wp:woocommerce/product-gallery-thumbnails /-->
+<!-- wp:poocommerce/product-gallery -->
+<div class="wp-block-poocommerce-product-gallery wc-block-product-gallery">
+<!-- wp:poocommerce/product-gallery-thumbnails /-->
 
-<!-- wp:woocommerce/product-gallery-large-image -->
-<div class="wp-block-woocommerce-product-gallery-large-image wc-block-product-gallery-large-image__inner-blocks">
-<!-- wp:woocommerce/product-image {"showProductLink":false,"showSaleBadge":false} /-->
+<!-- wp:poocommerce/product-gallery-large-image -->
+<div class="wp-block-poocommerce-product-gallery-large-image wc-block-product-gallery-large-image__inner-blocks">
+<!-- wp:poocommerce/product-image {"showProductLink":false,"showSaleBadge":false} /-->
 
-<!-- wp:woocommerce/product-sale-badge {"align":"right"} /-->
+<!-- wp:poocommerce/product-sale-badge {"align":"right"} /-->
 
-<!-- wp:woocommerce/product-gallery-large-image-next-previous -->
-<div class="wp-block-woocommerce-product-gallery-large-image-next-previous"></div>
-<!-- /wp:woocommerce/product-gallery-large-image-next-previous --></div>
-<!-- /wp:woocommerce/product-gallery-large-image --></div>
-<!-- /wp:woocommerce/product-gallery --></div>
+<!-- wp:poocommerce/product-gallery-large-image-next-previous -->
+<div class="wp-block-poocommerce-product-gallery-large-image-next-previous"></div>
+<!-- /wp:poocommerce/product-gallery-large-image-next-previous --></div>
+<!-- /wp:poocommerce/product-gallery-large-image --></div>
+<!-- /wp:poocommerce/product-gallery --></div>
 <!-- /wp:column -->
 
 <!-- wp:column -->
 <div class="wp-block-column">
-<!-- wp:post-title {"isLink":true,"__woocommerceNamespace":"woocommerce/product-query/product-title"} /-->
+<!-- wp:post-title {"isLink":true,"__poocommerceNamespace":"poocommerce/product-query/product-title"} /-->
 
-<!-- wp:woocommerce/product-rating /-->
+<!-- wp:poocommerce/product-rating /-->
 
-<!-- wp:woocommerce/product-price /-->
+<!-- wp:poocommerce/product-price /-->
 
-<!-- wp:woocommerce/product-summary /-->
+<!-- wp:poocommerce/product-summary /-->
 
-<!-- wp:woocommerce/product-meta -->
-<div class="wp-block-woocommerce-product-meta"></div>
-<!-- /wp:woocommerce/product-meta --></div>
+<!-- wp:poocommerce/product-meta -->
+<div class="wp-block-poocommerce-product-meta"></div>
+<!-- /wp:poocommerce/product-meta --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns --></div>
-<!-- /wp:woocommerce/single-product -->',
+<!-- /wp:poocommerce/single-product -->',
 				$product_id
 			)
 		);
@@ -322,9 +322,9 @@ class SingleProduct extends \WP_UnitTestCase {
 		try {
 			$markup = do_blocks(
 				sprintf(
-					'<!-- wp:woocommerce/single-product {"productId":%d} -->
-<div class="wp-block-woocommerce-single-product"><p>VISIBLE_PRODUCT_CONTENT</p></div>
-<!-- /wp:woocommerce/single-product -->',
+					'<!-- wp:poocommerce/single-product {"productId":%d} -->
+<div class="wp-block-poocommerce-single-product"><p>VISIBLE_PRODUCT_CONTENT</p></div>
+<!-- /wp:poocommerce/single-product -->',
 					$product->get_id()
 				)
 			);
@@ -360,9 +360,9 @@ class SingleProduct extends \WP_UnitTestCase {
 		try {
 			$markup = do_blocks(
 				sprintf(
-					'<!-- wp:woocommerce/single-product {"productId":%d} -->
-<div class="wp-block-woocommerce-single-product"><p>VISIBLE_PRODUCT_CONTENT</p></div>
-<!-- /wp:woocommerce/single-product -->',
+					'<!-- wp:poocommerce/single-product {"productId":%d} -->
+<div class="wp-block-poocommerce-single-product"><p>VISIBLE_PRODUCT_CONTENT</p></div>
+<!-- /wp:poocommerce/single-product -->',
 					$product->get_id()
 				)
 			);

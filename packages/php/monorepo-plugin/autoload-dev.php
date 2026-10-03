@@ -2,9 +2,9 @@
 
 ( function() {
 	// Ensure we are hooking up after primary autoloading being available.
-	if ( class_exists( \Automattic\WooCommerce\Autoloader::class, false ) ) {
-		// Locate the reference point first - WooCommerce autoloader in our case.
-		$reference_point = ( new \ReflectionClass( \Automattic\WooCommerce\Autoloader::class ) )->getFileName();
+	if ( class_exists( \Automattic\PooCommerce\Autoloader::class, false ) ) {
+		// Locate the reference point first - PooCommerce autoloader in our case.
+		$reference_point = ( new \ReflectionClass( \Automattic\PooCommerce\Autoloader::class ) )->getFileName();
 		$plugin_path     = dirname( $reference_point, 2 );
 
 		// Load composer manifest for class mapping (we'll pick PRS4 only, as it's where new classes are introduced).

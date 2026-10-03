@@ -3,7 +3,7 @@
  */
 import { render } from '@testing-library/react';
 import { useSelect } from '@wordpress/data';
-import { useUser } from '@woocommerce/data';
+import { useUser } from '@poocommerce/data';
 
 /**
  * Internal dependencies
@@ -15,8 +15,8 @@ jest.mock( '@wordpress/data', () => ( {
 	useSelect: jest.fn(),
 } ) );
 
-jest.mock( '@woocommerce/data', () => ( {
-	...jest.requireActual( '@woocommerce/data' ),
+jest.mock( '@poocommerce/data', () => ( {
+	...jest.requireActual( '@poocommerce/data' ),
 	useUser: jest.fn(),
 } ) );
 

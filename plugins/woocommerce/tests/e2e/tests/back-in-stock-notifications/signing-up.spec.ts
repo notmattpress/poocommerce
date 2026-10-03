@@ -149,7 +149,7 @@ test.describe(
 				// Submitting the form a second time (the "already joined"
 				// notice only renders as a form-submit response; the cached
 				// state shown on page reload is behind the off-by-default
-				// `woocommerce_customer_stock_notifications_personalization_enabled`
+				// `poocommerce_customer_stock_notifications_personalization_enabled`
 				// filter).
 				await page.goto( product.permalink );
 				await signUpOnProductPage( page );
@@ -168,7 +168,7 @@ test.describe(
 				// through the test helper's filter cookie to reach that branch.
 				await setFilterValue(
 					page,
-					'woocommerce_customer_stock_notifications_personalization_enabled',
+					'poocommerce_customer_stock_notifications_personalization_enabled',
 					true
 				);
 

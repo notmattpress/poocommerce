@@ -1,19 +1,19 @@
 /**
  * External dependencies
  */
-import { DateRangeFilterPicker } from '@woocommerce/components';
-import { useSettings } from '@woocommerce/data';
+import { DateRangeFilterPicker } from '@poocommerce/components';
+import { useSettings } from '@poocommerce/data';
 import {
 	getCurrentDates,
 	getDateParamsFromQuery,
 	isoDateFormat,
-} from '@woocommerce/date';
+} from '@poocommerce/date';
 
 const DefaultDate = ( { value, onChange } ) => {
 	const { wcAdminSettings } = useSettings( 'wc_admin', [
 		'wcAdminSettings',
 	] );
-	const { woocommerce_default_date_range: defaultDateRange } =
+	const { poocommerce_default_date_range: defaultDateRange } =
 		wcAdminSettings;
 	const change = ( query ) => {
 		const sanitizedQuery = Object.fromEntries(
@@ -23,7 +23,7 @@ const DefaultDate = ( { value, onChange } ) => {
 		);
 		onChange( {
 			target: {
-				name: 'woocommerce_default_date_range',
+				name: 'poocommerce_default_date_range',
 				value: new URLSearchParams( sanitizedQuery ).toString(),
 			},
 		} );

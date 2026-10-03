@@ -5,15 +5,15 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Admin;
+namespace Automattic\PooCommerce\Internal\Admin;
 
-use Automattic\WooCommerce\Admin\API\Reports\Cache as ReportsCache;
-use Automattic\WooCommerce\Admin\API\Reports\Orders\Stats\DataStore as OrderStatsDataStore;
-use Automattic\WooCommerce\Admin\API\Reports\Taxes\DataStore as TaxesDataStore;
-use Automattic\WooCommerce\Internal\Admin\Schedulers\OrdersScheduler;
-use Automattic\WooCommerce\Internal\BatchProcessing\BatchProcessingController;
-use Automattic\WooCommerce\Internal\BatchProcessing\BatchProcessorInterface;
-use Automattic\WooCommerce\Internal\RegisterHooksInterface;
+use Automattic\PooCommerce\Admin\API\Reports\Cache as ReportsCache;
+use Automattic\PooCommerce\Admin\API\Reports\Orders\Stats\DataStore as OrderStatsDataStore;
+use Automattic\PooCommerce\Admin\API\Reports\Taxes\DataStore as TaxesDataStore;
+use Automattic\PooCommerce\Internal\Admin\Schedulers\OrdersScheduler;
+use Automattic\PooCommerce\Internal\BatchProcessing\BatchProcessingController;
+use Automattic\PooCommerce\Internal\BatchProcessing\BatchProcessorInterface;
+use Automattic\PooCommerce\Internal\RegisterHooksInterface;
 use Exception;
 
 defined( 'ABSPATH' ) || exit;
@@ -29,7 +29,7 @@ defined( 'ABSPATH' ) || exit;
  *
  * Additionally, this class manages the "Rebuild analytics tax data" tool.
  *
- * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+ * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
  * @since 11.2.0
  */
 class OrderTaxLookupMigrator implements BatchProcessorInterface, RegisterHooksInterface {
@@ -46,7 +46,7 @@ class OrderTaxLookupMigrator implements BatchProcessorInterface, RegisterHooksIn
 	 *
 	 * @var string
 	 */
-	const CURSOR_OPTION = 'woocommerce_order_tax_lookup_migration_last_order_id';
+	const CURSOR_OPTION = 'poocommerce_order_tax_lookup_migration_last_order_id';
 
 	/**
 	 * How far `get_total_pending_count()` counts before it reports "this many or more".
@@ -66,7 +66,7 @@ class OrderTaxLookupMigrator implements BatchProcessorInterface, RegisterHooksIn
 	 * @return void
 	 */
 	public function register() {
-		add_filter( 'woocommerce_debug_tools', array( $this, 'handle_woocommerce_debug_tools' ), 999, 1 );
+		add_filter( 'poocommerce_debug_tools', array( $this, 'handle_poocommerce_debug_tools' ), 999, 1 );
 	}
 
 	/**
@@ -230,17 +230,17 @@ class OrderTaxLookupMigrator implements BatchProcessorInterface, RegisterHooksIn
 	 * @param array $tools Old tools array.
 	 * @return array Updated tools array.
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 */
-	public function handle_woocommerce_debug_tools( array $tools ): array {
+	public function handle_poocommerce_debug_tools( array $tools ): array {
 		// A failed re-key would otherwise go unseen here: with no order counting as pending, the
 		// tool would say there is nothing to rebuild. Say what is actually missing instead.
 		if ( ! TaxesDataStore::lookup_is_keyed_by_order_item() ) {
 			$tools['rebuild_analytics_tax_data'] = array(
-				'name'     => __( 'Rebuild analytics tax data', 'woocommerce' ),
-				'button'   => __( 'Rebuild', 'woocommerce' ),
+				'name'     => __( 'Rebuild analytics tax data', 'poocommerce' ),
+				'button'   => __( 'Rebuild', 'poocommerce' ),
 				'disabled' => true,
-				'desc'     => __( 'This will rebuild the Analytics tax data of orders recorded before WooCommerce kept a record of every tax line. The database change the rebuild needs is missing on this store. Run "Verify base database tables" to apply it, then come back here.', 'woocommerce' ),
+				'desc'     => __( 'This will rebuild the Analytics tax data of orders recorded before PooCommerce kept a record of every tax line. The database change the rebuild needs is missing on this store. Run "Verify base database tables" to apply it, then come back here.', 'poocommerce' ),
 			);
 
 			return $tools;
@@ -254,27 +254,27 @@ class OrderTaxLookupMigrator implements BatchProcessorInterface, RegisterHooksIn
 		$pending_label = $pending_count < self::PENDING_COUNT_LIMIT
 			? number_format_i18n( $pending_count )
 			/* translators: %s: number of orders, where there are at least that many. */
-			: sprintf( __( '%s+', 'woocommerce' ), number_format_i18n( self::PENDING_COUNT_LIMIT ) );
+			: sprintf( __( '%s+', 'poocommerce' ), number_format_i18n( self::PENDING_COUNT_LIMIT ) );
 
 		if ( 0 === $pending_count ) {
 			$tools['rebuild_analytics_tax_data'] = array(
-				'name'     => __( 'Rebuild analytics tax data', 'woocommerce' ),
-				'button'   => __( 'Rebuild', 'woocommerce' ),
+				'name'     => __( 'Rebuild analytics tax data', 'poocommerce' ),
+				'button'   => __( 'Rebuild', 'poocommerce' ),
 				'disabled' => true,
-				'desc'     => __( 'This will rebuild the Analytics tax data of orders recorded before WooCommerce kept a record of every tax line. There are currently no orders to rebuild.', 'woocommerce' ),
+				'desc'     => __( 'This will rebuild the Analytics tax data of orders recorded before PooCommerce kept a record of every tax line. There are currently no orders to rebuild.', 'poocommerce' ),
 			);
 		} elseif ( $batch_processor->is_enqueued( self::class ) ) {
 			$tools['stop_rebuild_analytics_tax_data'] = array(
-				'name'             => __( 'Stop rebuilding analytics tax data', 'woocommerce' ),
-				'button'           => __( 'Stop rebuilding', 'woocommerce' ),
+				'name'             => __( 'Stop rebuilding analytics tax data', 'poocommerce' ),
+				'button'           => __( 'Stop rebuilding', 'poocommerce' ),
 				'requires_refresh' => true,
 				'desc'             => sprintf(
 					/* translators: %s: number of orders still to rebuild. */
 					_n(
-						'This will stop the background process that rebuilds the Analytics tax data of orders recorded before WooCommerce kept a record of every tax line. There is currently %s order left to rebuild.',
-						'This will stop the background process that rebuilds the Analytics tax data of orders recorded before WooCommerce kept a record of every tax line. There are currently %s orders left to rebuild.',
+						'This will stop the background process that rebuilds the Analytics tax data of orders recorded before PooCommerce kept a record of every tax line. There is currently %s order left to rebuild.',
+						'This will stop the background process that rebuilds the Analytics tax data of orders recorded before PooCommerce kept a record of every tax line. There are currently %s orders left to rebuild.',
 						$pending_count,
-						'woocommerce'
+						'poocommerce'
 					),
 					$pending_label
 				),
@@ -282,16 +282,16 @@ class OrderTaxLookupMigrator implements BatchProcessorInterface, RegisterHooksIn
 			);
 		} else {
 			$tools['rebuild_analytics_tax_data'] = array(
-				'name'             => __( 'Rebuild analytics tax data', 'woocommerce' ),
-				'button'           => __( 'Rebuild', 'woocommerce' ),
+				'name'             => __( 'Rebuild analytics tax data', 'poocommerce' ),
+				'button'           => __( 'Rebuild', 'poocommerce' ),
 				'requires_refresh' => true,
 				'desc'             => sprintf(
 					/* translators: %s: number of orders to rebuild. */
 					_n(
-						'This will rebuild the Analytics tax data of orders recorded before WooCommerce kept a record of every tax line. The rebuild happens over time in the background (via Action Scheduler). There is currently %s order to rebuild.',
-						'This will rebuild the Analytics tax data of orders recorded before WooCommerce kept a record of every tax line. The rebuild happens over time in the background (via Action Scheduler). There are currently %s orders to rebuild.',
+						'This will rebuild the Analytics tax data of orders recorded before PooCommerce kept a record of every tax line. The rebuild happens over time in the background (via Action Scheduler). There is currently %s order to rebuild.',
+						'This will rebuild the Analytics tax data of orders recorded before PooCommerce kept a record of every tax line. The rebuild happens over time in the background (via Action Scheduler). There are currently %s orders to rebuild.',
 						$pending_count,
-						'woocommerce'
+						'poocommerce'
 					),
 					$pending_label
 				),
@@ -307,18 +307,18 @@ class OrderTaxLookupMigrator implements BatchProcessorInterface, RegisterHooksIn
 	 *
 	 * @return string Informative string to show after the tool is triggered in UI.
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 */
 	public function enqueue(): string {
 		$batch_processor = wc_get_container()->get( BatchProcessingController::class );
 
 		if ( $batch_processor->is_enqueued( self::class ) ) {
-			return __( 'Background process for rebuilding analytics tax data already started, nothing done.', 'woocommerce' );
+			return __( 'Background process for rebuilding analytics tax data already started, nothing done.', 'poocommerce' );
 		}
 
 		$batch_processor->enqueue_processor( self::class );
 
-		return __( 'Background process for rebuilding analytics tax data started.', 'woocommerce' );
+		return __( 'Background process for rebuilding analytics tax data started.', 'poocommerce' );
 	}
 
 	/**
@@ -326,18 +326,18 @@ class OrderTaxLookupMigrator implements BatchProcessorInterface, RegisterHooksIn
 	 *
 	 * @return string Informative string to show after the tool is triggered in UI.
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 */
 	public function dequeue(): string {
 		$batch_processor = wc_get_container()->get( BatchProcessingController::class );
 
 		if ( ! $batch_processor->is_enqueued( self::class ) ) {
-			return __( 'Background process for rebuilding analytics tax data not started, nothing done.', 'woocommerce' );
+			return __( 'Background process for rebuilding analytics tax data not started, nothing done.', 'poocommerce' );
 		}
 
 		$batch_processor->remove_processor( self::class );
 
-		return __( 'Background process for rebuilding analytics tax data stopped.', 'woocommerce' );
+		return __( 'Background process for rebuilding analytics tax data stopped.', 'poocommerce' );
 	}
 
 	/**

@@ -2,7 +2,7 @@
  * External dependencies
  */
 import * as wpData from '@wordpress/data';
-import { cartStore, checkoutStore } from '@woocommerce/block-data';
+import { cartStore, checkoutStore } from '@poocommerce/block-data';
 import { renderHook } from '@testing-library/react';
 
 // Mock all problematic dependencies first - MUST be before any imports
@@ -19,8 +19,8 @@ jest.mock( '@wordpress/data', () => ( {
 import { useUpdatePreferredAutocompleteProvider } from '../use-update-preferred-autocomplete-provider';
 
 // Mock settings
-jest.mock( '@woocommerce/settings', () => ( {
-	...jest.requireActual( '@woocommerce/settings' ),
+jest.mock( '@poocommerce/settings', () => ( {
+	...jest.requireActual( '@poocommerce/settings' ),
 	getSettingWithCoercion: jest
 		.fn()
 		.mockImplementation( ( value, fallback, typeguard ) => {
@@ -39,7 +39,7 @@ jest.mock( '@woocommerce/settings', () => ( {
 				];
 			}
 			return jest
-				.requireActual( '@woocommerce/settings' )
+				.requireActual( '@poocommerce/settings' )
 				.getSettingWithCoercion( value, fallback, typeguard );
 		} ),
 } ) );

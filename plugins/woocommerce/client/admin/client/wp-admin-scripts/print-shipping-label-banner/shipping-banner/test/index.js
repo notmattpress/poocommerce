@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { Fragment } from '@wordpress/element';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 import { render, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
@@ -20,10 +20,10 @@ jest.mock( '../../wcs-api.js' );
 
 acceptWcsTos.mockReturnValue( Promise.resolve() );
 
-jest.mock( '@woocommerce/tracks' );
+jest.mock( '@poocommerce/tracks' );
 
-const wcsPluginSlug = 'woocommerce-shipping';
-const wcstPluginSlug = 'woocommerce-services';
+const wcsPluginSlug = 'poocommerce-shipping';
+const wcstPluginSlug = 'poocommerce-services';
 
 describe( 'Tracking impression in shippingBanner', () => {
 	const expectedTrackingData = {
@@ -107,7 +107,7 @@ describe( 'Tracking clicks in shippingBanner', () => {
 		} );
 	} );
 
-	it( 'should record an event when user clicks "WooCommerce Shipping"', async () => {
+	it( 'should record an event when user clicks "PooCommerce Shipping"', async () => {
 		// Render the banner without WCS being active.
 		const { getByRole } = render(
 			<ShippingBanner
@@ -123,14 +123,14 @@ describe( 'Tracking clicks in shippingBanner', () => {
 		);
 
 		userEvent.click(
-			getByRole( 'link', { name: /WooCommerce Shipping/ } )
+			getByRole( 'link', { name: /PooCommerce Shipping/ } )
 		);
 
 		await waitFor( () =>
 			expect( recordEvent ).toHaveBeenCalledWith(
 				'banner_element_clicked',
 				getExpectedTrackingData(
-					'shipping_banner_woocommerce_service_link',
+					'shipping_banner_poocommerce_service_link',
 					false
 				)
 			)
@@ -182,7 +182,7 @@ describe( 'Create shipping label button', () => {
 		window.location.reload.mockClear();
 	} );
 
-	it( 'should install WooCommerce Shipping when button is clicked', async () => {
+	it( 'should install PooCommerce Shipping when button is clicked', async () => {
 		const actionButtonLabel = 'Create shipping label';
 
 		const { getByRole } = render(
@@ -207,7 +207,7 @@ describe( 'Create shipping label button', () => {
 
 		await waitFor( () =>
 			expect( installPlugins ).toHaveBeenCalledWith( [
-				'woocommerce-shipping',
+				'poocommerce-shipping',
 			] )
 		);
 	} );
@@ -236,14 +236,14 @@ describe( 'Create shipping label button', () => {
 
 		await waitFor( () =>
 			expect( activatePlugins ).toHaveBeenCalledWith( [
-				'woocommerce-shipping',
+				'poocommerce-shipping',
 			] )
 		);
 
 		await waitFor( () =>
 			expect(
 				getByText(
-					'WooCommerce Shipping is installed and activated. Please reload the page to get started.'
+					'PooCommerce Shipping is installed and activated. Please reload the page to get started.'
 				)
 			).toBeInTheDocument()
 		);
@@ -310,8 +310,8 @@ describe( 'Create shipping label button', () => {
 
 		const { getByRole } = render(
 			<Fragment>
-				<div id="woocommerce-order-data" />
-				<div id="woocommerce-order-actions" />
+				<div id="poocommerce-order-data" />
+				<div id="poocommerce-order-actions" />
 				<ShippingBanner
 					isJetpackConnected={ true }
 					activatePlugins={ activatePlugins }
@@ -407,9 +407,9 @@ describe( 'Create shipping label button', () => {
 
 		const { getByRole } = render(
 			<Fragment>
-				<div id="woocommerce-order-data" />
-				<div id="woocommerce-order-actions" />
-				<div id="woocommerce-admin-print-label" />
+				<div id="poocommerce-order-data" />
+				<div id="poocommerce-order-actions" />
+				<div id="poocommerce-admin-print-label" />
 				<ShippingBanner
 					isJetpackConnected={ true }
 					activatePlugins={ activatePlugins }
@@ -438,7 +438,7 @@ describe( 'Create shipping label button', () => {
 
 		await waitFor( () => {
 			expect(
-				document.getElementById( 'woocommerce-admin-print-label' )
+				document.getElementById( 'poocommerce-admin-print-label' )
 			).not.toBeVisible();
 		} );
 
@@ -456,7 +456,7 @@ describe( 'Create shipping label button', () => {
 	} );
 } );
 
-describe( 'In the process of installing, activating, loading assets for WooCommerce Service', () => {
+describe( 'In the process of installing, activating, loading assets for PooCommerce Service', () => {
 	it( 'should show a busy loading state on "Create shipping label" and should disable "Close Print Label Banner"', async () => {
 		const actionButtonLabel = 'Create shipping label';
 		const { getByRole } = render(
@@ -801,8 +801,8 @@ describe( 'Setup error message', () => {
 
 		const { getByRole, getByText } = render(
 			<Fragment>
-				<div id="woocommerce-order-data" />
-				<div id="woocommerce-order-actions" />
+				<div id="poocommerce-order-data" />
+				<div id="poocommerce-order-actions" />
 				<ShippingBanner
 					isJetpackConnected={ true }
 					activatePlugins={ jest.fn() }
@@ -851,7 +851,7 @@ describe( 'The message in the banner', () => {
 		);
 
 	const notActivatedMessage =
-		'By clicking "Create shipping label", WooCommerce Shipping↗ will be installed and you agree to its Terms of Service↗.';
+		'By clicking "Create shipping label", PooCommerce Shipping↗ will be installed and you agree to its Terms of Service↗.';
 
 	it( 'should show install text "By clicking "Create shipping label"..." when first loaded.', () => {
 		const { container } = createShippingBannerWrapper( {
@@ -864,7 +864,7 @@ describe( 'The message in the banner', () => {
 		).toBe( notActivatedMessage );
 	} );
 
-	it( 'should continue to show the initial message "By clicking "Create shipping label"..." after WooCommerce Service is installed successfully.', () => {
+	it( 'should continue to show the initial message "By clicking "Create shipping label"..." after PooCommerce Service is installed successfully.', () => {
 		const { container, rerender } = createShippingBannerWrapper( {
 			activePlugins: [],
 		} );
@@ -903,13 +903,13 @@ describe( 'If incompatible WCS&T is active', () => {
 	} );
 
 	it( 'should install and activate but show an error notice when an incompatible version of WCS&T is installed', async () => {
-		const actionButtonLabel = 'Install WooCommerce Shipping';
+		const actionButtonLabel = 'Install PooCommerce Shipping';
 
 		const { getByRole } = render(
 			<Fragment>
-				<div id="woocommerce-order-data" />
-				<div id="woocommerce-order-actions" />
-				<div id="woocommerce-admin-print-label" />
+				<div id="poocommerce-order-data" />
+				<div id="poocommerce-order-actions" />
+				<div id="poocommerce-admin-print-label" />
 				<ShippingBanner
 					isJetpackConnected={ true }
 					activatePlugins={ activatePlugins }

@@ -38,7 +38,7 @@ const AllReviewsEditor = ( {
 		return (
 			<InspectorControls key="inspector">
 				<ToolsPanel
-					label={ __( 'Content', 'woocommerce' ) }
+					label={ __( 'Content', 'poocommerce' ) }
 					resetAll={ () =>
 						setAttributes( {
 							showProductName: true,
@@ -53,7 +53,7 @@ const AllReviewsEditor = ( {
 				>
 					<ToolsPanelItem
 						hasValue={ () => ! attributes.showProductName }
-						label={ __( 'Product name', 'woocommerce' ) }
+						label={ __( 'Product name', 'poocommerce' ) }
 						onDeselect={ () =>
 							setAttributes( { showProductName: true } )
 						}
@@ -61,7 +61,7 @@ const AllReviewsEditor = ( {
 					>
 						<ToggleControl
 							__nextHasNoMarginBottom
-							label={ __( 'Product name', 'woocommerce' ) }
+							label={ __( 'Product name', 'poocommerce' ) }
 							checked={ attributes.showProductName }
 							onChange={ () =>
 								setAttributes( {
@@ -77,7 +77,7 @@ const AllReviewsEditor = ( {
 					) }
 				</ToolsPanel>
 				<ToolsPanel
-					label={ __( 'List Settings', 'woocommerce' ) }
+					label={ __( 'List Settings', 'poocommerce' ) }
 					resetAll={ () =>
 						setAttributes( {
 							showOrderby: true,
@@ -105,7 +105,7 @@ const AllReviewsEditor = ( {
 						className="block-editor-block-icon"
 					/>
 				}
-				name={ __( 'All Reviews', 'woocommerce' ) }
+				name={ __( 'All Reviews', 'poocommerce' ) }
 				noReviewsPlaceholder={ NoReviewsPlaceholder }
 			/>
 		</>

@@ -6,16 +6,16 @@ import {
 	useCheckoutSubmit,
 	usePaymentMethodInterface,
 	useStoreCart,
-} from '@woocommerce/base-context/hooks';
-import Button from '@woocommerce/base-components/button';
-import { getCurrencyFromPriceResponse } from '@woocommerce/price-format';
+} from '@poocommerce/base-context/hooks';
+import Button from '@poocommerce/base-components/button';
+import { getCurrencyFromPriceResponse } from '@poocommerce/price-format';
 import {
 	FormattedMonetaryAmount,
 	Spinner,
-} from '@woocommerce/blocks-components';
-import { useValidateCheckout } from '@woocommerce/blocks-checkout';
-import type { CustomPlaceOrderButtonComponent } from '@woocommerce/types';
-import { useEditorContext } from '@woocommerce/base-context';
+} from '@poocommerce/blocks-components';
+import { useValidateCheckout } from '@poocommerce/blocks-checkout';
+import type { CustomPlaceOrderButtonComponent } from '@poocommerce/types';
+import { useEditorContext } from '@poocommerce/base-context';
 
 /**
  * Internal dependencies
@@ -118,7 +118,7 @@ const PlaceOrderButton = ( {
 				{ showPrice && (
 					<>
 						<style>
-							{ `.wp-block-woocommerce-checkout-actions-block {
+							{ `.wp-block-poocommerce-checkout-actions-block {
 							.wc-block-components-checkout-place-order-button__separator {
 								&::after {
 									content: "${ priceSeparator }";

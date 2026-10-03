@@ -2,9 +2,9 @@
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Internal\Logging\RemoteLogger;
+use Automattic\PooCommerce\Internal\Logging\RemoteLogger;
 
-register_woocommerce_admin_test_helper_rest_route(
+register_poocommerce_admin_test_helper_rest_route(
 	'/remote-logging/status',
 	'get_remote_logging_status',
 	array(
@@ -12,7 +12,7 @@ register_woocommerce_admin_test_helper_rest_route(
 	)
 );
 
-register_woocommerce_admin_test_helper_rest_route(
+register_poocommerce_admin_test_helper_rest_route(
 	'/remote-logging/toggle',
 	'toggle_remote_logging',
 	array(
@@ -27,7 +27,7 @@ register_woocommerce_admin_test_helper_rest_route(
 	)
 );
 
-register_woocommerce_admin_test_helper_rest_route(
+register_poocommerce_admin_test_helper_rest_route(
 	'/remote-logging/log-event',
 	'log_remote_event',
 	array(
@@ -35,7 +35,7 @@ register_woocommerce_admin_test_helper_rest_route(
 	)
 );
 
-register_woocommerce_admin_test_helper_rest_route(
+register_poocommerce_admin_test_helper_rest_route(
 	'/remote-logging/reset-rate-limit',
 	'reset_php_rate_limit',
 	array(
@@ -71,12 +71,12 @@ function toggle_remote_logging( $request ) {
 	$enable = $request->get_param( 'enable' );
 
 	if ( $enable ) {
-		update_option( 'woocommerce_feature_remote_logging_enabled', 'yes' );
-		update_option( 'woocommerce_allow_tracking', 'yes' );
-		update_option( 'woocommerce_remote_variant_assignment', 1 );
+		update_option( 'poocommerce_feature_remote_logging_enabled', 'yes' );
+		update_option( 'poocommerce_allow_tracking', 'yes' );
+		update_option( 'poocommerce_remote_variant_assignment', 1 );
 		set_site_transient( RemoteLogger::WC_NEW_VERSION_TRANSIENT, WC()->version );
 	} else {
-		update_option( 'woocommerce_feature_remote_logging_enabled', 'no' );
+		update_option( 'poocommerce_feature_remote_logging_enabled', 'no' );
 	}
 
 	$remote_logger = wc_get_container()->get( RemoteLogger::class );

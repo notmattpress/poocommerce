@@ -10,13 +10,13 @@
  *          'avg_order_value_min' => 100,
  *          'country'             => 'GB',
  *         );
- * $report = new \Automattic\WooCommerce\Admin\API\Reports\Customers\Query( $args );
+ * $report = new \Automattic\PooCommerce\Admin\API\Reports\Customers\Query( $args );
  * $mydata = $report->get_data();
  */
 
-namespace Automattic\WooCommerce\Admin\API\Reports\Customers;
+namespace Automattic\PooCommerce\Admin\API\Reports\Customers;
 
-use Automattic\WooCommerce\Admin\API\Reports\GenericQuery;
+use Automattic\PooCommerce\Admin\API\Reports\GenericQuery;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -28,7 +28,7 @@ class Query extends GenericQuery {
 	/**
 	 * Specific query name.
 	 * Will be used to load the `report-{name}` data store,
-	 * and to call `woocommerce_analytics_{snake_case(name)}_*` filters.
+	 * and to call `poocommerce_analytics_{snake_case(name)}_*` filters.
 	 *
 	 * @var string
 	 */

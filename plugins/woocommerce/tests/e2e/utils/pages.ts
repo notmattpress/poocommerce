@@ -8,7 +8,7 @@ import {
 	insertBlockByShortcut,
 	publishPage,
 	WP_API_PATH,
-} from '@woocommerce/e2e-utils-playwright';
+} from '@poocommerce/e2e-utils-playwright';
 
 /**
  * Internal dependencies
@@ -89,7 +89,7 @@ export async function createClassicCheckoutPage() {
 	await createShortcodePage(
 		CLASSIC_CHECKOUT_PAGE.slug,
 		CLASSIC_CHECKOUT_PAGE.name,
-		'<!-- wp:shortcode -->[woocommerce_checkout]<!-- /wp:shortcode -->'
+		'<!-- wp:shortcode -->[poocommerce_checkout]<!-- /wp:shortcode -->'
 	);
 }
 
@@ -97,7 +97,7 @@ export async function createClassicCartPage() {
 	await createShortcodePage(
 		CLASSIC_CART_PAGE.slug,
 		CLASSIC_CART_PAGE.name,
-		'<!-- wp:shortcode -->[woocommerce_cart]<!-- /wp:shortcode -->'
+		'<!-- wp:shortcode -->[poocommerce_cart]<!-- /wp:shortcode -->'
 	);
 }
 

@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import Button, { ButtonProps } from '@woocommerce/base-components/button';
+import Button, { ButtonProps } from '@poocommerce/base-components/button';
 import { RichText } from '@wordpress/block-editor';
 
 export interface EditableButtonProps

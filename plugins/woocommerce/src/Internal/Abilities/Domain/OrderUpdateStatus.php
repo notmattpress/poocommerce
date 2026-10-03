@@ -5,16 +5,16 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Abilities\AbilityDefinition;
-use Automattic\WooCommerce\Internal\Abilities\Domain\Traits\OrderAbilityTrait;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Abilities\AbilityDefinition;
+use Automattic\PooCommerce\Internal\Abilities\Domain\Traits\OrderAbilityTrait;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Registers the WooCommerce order update status ability.
+ * Registers the PooCommerce order update status ability.
  */
 class OrderUpdateStatus extends AbstractDomainAbility implements AbilityDefinition {
 
@@ -28,7 +28,7 @@ class OrderUpdateStatus extends AbstractDomainAbility implements AbilityDefiniti
 	 * @since 10.9.0
 	 */
 	public static function get_name(): string {
-		return 'woocommerce/order-update-status';
+		return 'poocommerce/order-update-status';
 	}
 
 	/**
@@ -40,12 +40,12 @@ class OrderUpdateStatus extends AbstractDomainAbility implements AbilityDefiniti
 	 */
 	public static function get_registration_args(): array {
 		return array(
-			'label'               => __( 'Update order status', 'woocommerce' ),
+			'label'               => __( 'Update order status', 'poocommerce' ),
 			'description'         => __(
 				'Update an order status.',
-				'woocommerce'
+				'poocommerce'
 			),
-			'category'            => 'woocommerce',
+			'category'            => 'poocommerce',
 			'input_schema'        => self::get_input_schema(),
 			'output_schema'       => self::get_entity_output_schema( 'order', self::get_order_output_schema() ),
 			'execute_callback'    => array( __CLASS__, 'execute' ),
@@ -82,8 +82,8 @@ class OrderUpdateStatus extends AbstractDomainAbility implements AbilityDefiniti
 
 		if ( empty( $input['status'] ) ) {
 			return new \WP_Error(
-				'woocommerce_order_status_required',
-				__( 'Order status is required.', 'woocommerce' ),
+				'poocommerce_order_status_required',
+				__( 'Order status is required.', 'poocommerce' ),
 				array( 'status' => 400 )
 			);
 		}
@@ -92,18 +92,18 @@ class OrderUpdateStatus extends AbstractDomainAbility implements AbilityDefiniti
 
 		if ( ! in_array( $status, self::get_allowed_order_status_slugs(), true ) ) {
 			return new \WP_Error(
-				'woocommerce_order_status_invalid',
-				__( 'Order status is invalid.', 'woocommerce' ),
+				'poocommerce_order_status_invalid',
+				__( 'Order status is invalid.', 'poocommerce' ),
 				array( 'status' => 400 )
 			);
 		}
 
 		if ( $status === $order->get_status() ) {
 			return new \WP_Error(
-				'woocommerce_order_status_unchanged',
+				'poocommerce_order_status_unchanged',
 				__(
-					'Order already has this status. Use the woocommerce/order-add-note ability to add a note without changing status.',
-					'woocommerce'
+					'Order already has this status. Use the poocommerce/order-add-note ability to add a note without changing status.',
+					'poocommerce'
 				),
 				array( 'status' => 400 )
 			);
@@ -117,8 +117,8 @@ class OrderUpdateStatus extends AbstractDomainAbility implements AbilityDefiniti
 
 		if ( ! $updated ) {
 			return new \WP_Error(
-				'woocommerce_order_status_update_failed',
-				__( 'Failed to update order status.', 'woocommerce' ),
+				'poocommerce_order_status_update_failed',
+				__( 'Failed to update order status.', 'poocommerce' ),
 				array( 'status' => 500 )
 			);
 		}
@@ -143,12 +143,12 @@ class OrderUpdateStatus extends AbstractDomainAbility implements AbilityDefiniti
 				),
 				'status' => array(
 					'type'        => 'string',
-					'description' => __( 'Order status slug without the wc- prefix.', 'woocommerce' ),
+					'description' => __( 'Order status slug without the wc- prefix.', 'poocommerce' ),
 					'enum'        => self::get_allowed_order_status_slugs(),
 				),
 				'note'   => array(
 					'type'        => 'string',
-					'description' => __( 'Optional status change note. Safe HTML is allowed. Use the woocommerce/order-add-note ability for notes without a status change.', 'woocommerce' ),
+					'description' => __( 'Optional status change note. Safe HTML is allowed. Use the poocommerce/order-add-note ability for notes without a status change.', 'poocommerce' ),
 				),
 			),
 			'required'             => array( 'id', 'status' ),

@@ -2,33 +2,33 @@
 /**
  * Integration tests for the batch RenewalDispatcher.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine
+ * @package Automattic\PooCommerce\SubscriptionsEngine
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Tests\Integration\Integration\Renewal;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Tests\Integration\Integration\Renewal;
 
 use DateTimeImmutable;
 use DateTimeZone;
 use EngineIntegrationTestCase;
 use WC_Order;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\Contract;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\ContractStatus;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\Cycle;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\CycleStatus;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\Plan;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Gateway\GatewayCapabilities;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\ValueObject\BillingPolicy;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Checkout\ContractFactory;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Checkout\OrderLinkage;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Ownership\ConsumerRegistry;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Renewal\RenewalDispatcher;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage\ContractRepository;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage\PlanRepository;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\Contract;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\ContractStatus;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\Cycle;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\CycleStatus;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\Plan;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Gateway\GatewayCapabilities;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\ValueObject\BillingPolicy;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Checkout\ContractFactory;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Checkout\OrderLinkage;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Ownership\ConsumerRegistry;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Renewal\RenewalDispatcher;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage\ContractRepository;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage\PlanRepository;
 
 /**
- * @covers \Automattic\WooCommerce\SubscriptionsEngine\Integration\Renewal\RenewalDispatcher
+ * @covers \Automattic\PooCommerce\SubscriptionsEngine\Integration\Renewal\RenewalDispatcher
  */
 class RenewalDispatcherTest extends EngineIntegrationTestCase {
 
@@ -227,7 +227,7 @@ class RenewalDispatcherTest extends EngineIntegrationTestCase {
 		// bootstrap, committed before the per-test transaction. Reset both so this test starts
 		// from a clean, unscheduled slate; the rollback restores the bootstrap state afterwards.
 		as_unschedule_all_actions( RenewalDispatcher::HOOK, array(), RenewalDispatcher::GROUP );
-		delete_option( 'woocommerce_subscriptions_engine_dispatch_scheduled_check' );
+		delete_option( 'poocommerce_subscriptions_engine_dispatch_scheduled_check' );
 		$this->assertFalse( as_next_scheduled_action( RenewalDispatcher::HOOK, array(), RenewalDispatcher::GROUP ), 'No recurring action after the reset.' );
 
 		RenewalDispatcher::ensure_scheduled();
@@ -255,7 +255,7 @@ class RenewalDispatcherTest extends EngineIntegrationTestCase {
 	 */
 	public function test_ensure_scheduled_skips_without_a_consumer(): void {
 		as_unschedule_all_actions( RenewalDispatcher::HOOK, array(), RenewalDispatcher::GROUP );
-		delete_option( 'woocommerce_subscriptions_engine_dispatch_scheduled_check' );
+		delete_option( 'poocommerce_subscriptions_engine_dispatch_scheduled_check' );
 
 		RenewalDispatcher::ensure_scheduled();
 
@@ -270,7 +270,7 @@ class RenewalDispatcherTest extends EngineIntegrationTestCase {
 	 */
 	public function test_ensure_scheduled_removes_the_job_when_consumers_are_gone(): void {
 		as_unschedule_all_actions( RenewalDispatcher::HOOK, array(), RenewalDispatcher::GROUP );
-		delete_option( 'woocommerce_subscriptions_engine_dispatch_scheduled_check' );
+		delete_option( 'poocommerce_subscriptions_engine_dispatch_scheduled_check' );
 
 		ConsumerRegistry::register( self::CONSUMER );
 		RenewalDispatcher::ensure_scheduled();

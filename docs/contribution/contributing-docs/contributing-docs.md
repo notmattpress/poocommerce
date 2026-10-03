@@ -5,7 +5,7 @@ sidebar_label: Contributing docs
 
 # Contributing technical documentation
 
-Thanks for helping improve WooCommerce's developer documentation. Our docs are powered by Docusaurus, and live inside the [`woocommerce/docs/`](https://github.com/woocommerce/woocommerce/tree/trunk/docs) folder of the monorepo.
+Thanks for helping improve PooCommerce's developer documentation. Our docs are powered by Docusaurus, and live inside the [`poocommerce/docs/`](https://github.com/poocommerce/poocommerce/tree/trunk/docs) folder of the monorepo.
 
 This guide walks you through the structure, tooling, and process for contributing effectively.
 
@@ -15,7 +15,7 @@ This guide walks you through the structure, tooling, and process for contributin
 
 ### Initial setup
 
-1. Fork the [WooCommerce monorepo](https://github.com/woocommerce/woocommerce) on GitHub. If asked, you can safely check the `copy the trunk branch only` option.
+1. Fork the [PooCommerce monorepo](https://github.com/poocommerce/poocommerce) on GitHub. If asked, you can safely check the `copy the trunk branch only` option.
 2. [Clone the fork that you just created](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository). This will allow you to edit it locally.
 
 ### Making changes
@@ -33,25 +33,25 @@ This guide walks you through the structure, tooling, and process for contributin
 ### Opening a pull request
 
 1. Commit and push your changes to your fork.
-2. [Open a pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request) to woocommerce/woocommerce, targeting the trunk branch.
+2. [Open a pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request) to poocommerce/poocommerce, targeting the trunk branch.
 3. Use a descriptive title, and fill out the PR template. Include:
     * Rationale for new files or categories
     * A note about any sidebar or structure changes
-4. The WooCommerce Developer Advocacy team will review and merge your changes.
+4. The PooCommerce Developer Advocacy team will review and merge your changes.
 
 ## Docs folder anatomy
 
 ### Tooling and configuration
 
 * **Supporting tooling and config** lives in:
-    * [`woocommerce/docs/_docu-tools/`](https://github.com/woocommerce/woocommerce/blob/trunk/docs/_docu-tools/)
+    * [`poocommerce/docs/_docu-tools/`](https://github.com/poocommerce/poocommerce/blob/trunk/docs/_docu-tools/)
 * **Top-level sidebar and navbar** are configured in:
-    * [`sidebars.ts`](https://github.com/woocommerce/woocommerce/blob/trunk/docs/_docu-tools/sidebars.ts)
-    * [`docusaurus.config.ts`](https://github.com/woocommerce/woocommerce/blob/trunk/docs/_docu-tools/docusaurus.config.ts)
+    * [`sidebars.ts`](https://github.com/poocommerce/poocommerce/blob/trunk/docs/_docu-tools/sidebars.ts)
+    * [`docusaurus.config.ts`](https://github.com/poocommerce/poocommerce/blob/trunk/docs/_docu-tools/docusaurus.config.ts)
 
 ### Documentation files
 
-* **Docs location**: All documentation lives inside of [`woocommerce/docs/`](https://github.com/woocommerce/woocommerce/blob/trunk/docs/)
+* **Docs location**: All documentation lives inside of [`poocommerce/docs/`](https://github.com/poocommerce/poocommerce/blob/trunk/docs/)
 * **Each folder is sidebar or top nav category**, for example: `getting-started`, `code-snippets`, etc.
 * **Sidebar configuration** for each category is managed using a `_category_.json` file inside each category folder:
 

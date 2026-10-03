@@ -11,7 +11,7 @@ import {
 	PaymentsEntity,
 	SuggestedPaymentsExtension,
 	SuggestedPaymentsExtensionCategory,
-} from '@woocommerce/data';
+} from '@poocommerce/data';
 
 /**
  * Internal dependencies
@@ -53,7 +53,7 @@ interface OtherPaymentGatewaysProps {
 	 */
 	isFetching: boolean;
 	/**
-	 * A link to view more payment options in the WooCommerce marketplace.
+	 * A link to view more payment options in the PooCommerce marketplace.
 	 */
 	morePaymentOptionsLink: JSX.Element;
 }
@@ -293,11 +293,11 @@ export const OtherPaymentGateways = ( {
 									let ctaLabel = isCurrentlyBusy
 										? __< string >(
 												'Installing',
-												'woocommerce'
+												'poocommerce'
 										  )
 										: __< string >(
 												'Install',
-												'woocommerce'
+												'poocommerce'
 										  );
 
 									// If the plugin is already installed, the CTA is to activate it.
@@ -305,11 +305,11 @@ export const OtherPaymentGateways = ( {
 										ctaLabel = isCurrentlyBusy
 											? __< string >(
 													'Activating',
-													'woocommerce'
+													'poocommerce'
 											  )
 											: __< string >(
 													'Activate',
-													'woocommerce'
+													'poocommerce'
 											  );
 									}
 
@@ -411,7 +411,7 @@ export const OtherPaymentGateways = ( {
 				type="button"
 			>
 				<span className="other-payment-gateways__header__title">
-					<span>{ __( 'More payment options', 'woocommerce' ) }</span>
+					<span>{ __( 'More payment options', 'poocommerce' ) }</span>
 					{ ! isExpanded && <>{ collapsedImages }</> }
 				</span>
 				<Gridicon
@@ -420,8 +420,8 @@ export const OtherPaymentGateways = ( {
 				/>
 				<span className="screen-reader-text">
 					{ isExpanded
-						? __( 'Collapse section', 'woocommerce' )
-						: __( 'Expand section', 'woocommerce' ) }
+						? __( 'Collapse section', 'poocommerce' )
+						: __( 'Expand section', 'poocommerce' ) }
 				</span>
 			</button>
 			{ isExpanded && (

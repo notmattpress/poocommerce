@@ -5,13 +5,13 @@
  * Handles requests to the /reports/products/stats endpoint.
  */
 
-namespace Automattic\WooCommerce\Admin\API\Reports\Products\Stats;
+namespace Automattic\PooCommerce\Admin\API\Reports\Products\Stats;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\API\Reports\GenericQuery;
-use Automattic\WooCommerce\Admin\API\Reports\GenericStatsController;
-use Automattic\WooCommerce\Internal\Admin\Reports\ProductSearchQuery;
+use Automattic\PooCommerce\Admin\API\Reports\GenericQuery;
+use Automattic\PooCommerce\Admin\API\Reports\GenericStatsController;
+use Automattic\PooCommerce\Internal\Admin\Reports\ProductSearchQuery;
 use WP_REST_Request;
 use WP_REST_Response;
 
@@ -45,7 +45,7 @@ class Controller extends GenericStatsController {
 	 * Constructor.
 	 */
 	public function __construct() {
-		add_filter( 'woocommerce_analytics_products_stats_select_query', array( $this, 'set_default_report_data' ) );
+		add_filter( 'poocommerce_analytics_products_stats_select_query', array( $this, 'set_default_report_data' ) );
 	}
 
 	/**
@@ -111,7 +111,7 @@ class Controller extends GenericStatsController {
 		 * @param object           $report   The original report object.
 		 * @param WP_REST_Request  $request  Request used to generate the response.
 		 */
-		return apply_filters( 'woocommerce_rest_prepare_report_products_stats', $response, $report, $request );
+		return apply_filters( 'poocommerce_rest_prepare_report_products_stats', $response, $report, $request );
 	}
 
 	/**
@@ -123,22 +123,22 @@ class Controller extends GenericStatsController {
 	protected function get_item_properties_schema() {
 		return array(
 			'items_sold'   => array(
-				'title'       => __( 'Products sold', 'woocommerce' ),
-				'description' => __( 'Number of product items sold.', 'woocommerce' ),
+				'title'       => __( 'Products sold', 'poocommerce' ),
+				'description' => __( 'Number of product items sold.', 'poocommerce' ),
 				'type'        => 'integer',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
 				'indicator'   => true,
 			),
 			'net_revenue'  => array(
-				'description' => __( 'Net sales.', 'woocommerce' ),
+				'description' => __( 'Net sales.', 'poocommerce' ),
 				'type'        => 'number',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
 				'format'      => 'currency',
 			),
 			'orders_count' => array(
-				'description' => __( 'Number of orders.', 'woocommerce' ),
+				'description' => __( 'Number of orders.', 'poocommerce' ),
 				'type'        => 'integer',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
@@ -156,7 +156,7 @@ class Controller extends GenericStatsController {
 		$schema['title'] = 'report_products_stats';
 
 		$segment_label = array(
-			'description' => __( 'Human readable segment label, either product or variation name.', 'woocommerce' ),
+			'description' => __( 'Human readable segment label, either product or variation name.', 'poocommerce' ),
 			'type'        => 'string',
 			'context'     => array( 'view', 'edit' ),
 			'readonly'    => true,
@@ -212,7 +212,7 @@ class Controller extends GenericStatsController {
 			)
 		);
 		$params['categories']      = array(
-			'description'       => __( 'Limit result to items from the specified categories.', 'woocommerce' ),
+			'description'       => __( 'Limit result to items from the specified categories.', 'poocommerce' ),
 			'type'              => 'array',
 			'sanitize_callback' => 'wp_parse_id_list',
 			'validate_callback' => 'rest_validate_request_arg',
@@ -221,7 +221,7 @@ class Controller extends GenericStatsController {
 			),
 		);
 		$params['products']        = array(
-			'description'       => __( 'Limit result to items with specified product ids.', 'woocommerce' ),
+			'description'       => __( 'Limit result to items with specified product ids.', 'poocommerce' ),
 			'type'              => 'array',
 			'sanitize_callback' => 'wp_parse_id_list',
 			'validate_callback' => 'rest_validate_request_arg',
@@ -230,7 +230,7 @@ class Controller extends GenericStatsController {
 			),
 		);
 		$params['variations']      = array(
-			'description'       => __( 'Limit result to items with specified variation ids.', 'woocommerce' ),
+			'description'       => __( 'Limit result to items with specified variation ids.', 'poocommerce' ),
 			'type'              => 'array',
 			'sanitize_callback' => 'wp_parse_id_list',
 			'validate_callback' => 'rest_validate_request_arg',
@@ -240,7 +240,7 @@ class Controller extends GenericStatsController {
 		);
 		$params['search']          = ProductSearchQuery::get_collection_param();
 		$params['segmentby']       = array(
-			'description'       => __( 'Segment the response by additional constraint.', 'woocommerce' ),
+			'description'       => __( 'Segment the response by additional constraint.', 'poocommerce' ),
 			'type'              => 'string',
 			'enum'              => array(
 				'product',

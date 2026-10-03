@@ -1,4 +1,4 @@
-.woocommerce-tax-partner-card {
+.poocommerce-tax-partner-card {
 	border: 1px solid $gray-300;
 	border-radius: 3px;
 	margin: 0 $gap-smaller $gap $gap-smaller;
@@ -11,18 +11,18 @@
 	}
 }
 
-.woocommerce-tax-partner-card__logo {
+.poocommerce-tax-partner-card__logo {
 	margin-bottom: $gap-smaller;
 	img {
 		max-height: 35px;
 	}
 }
 
-.woocommerce-tax-partner-card__description {
+.poocommerce-tax-partner-card__description {
 	color: $gray-700;
 }
 
-.woocommerce-tax-partner-card__benefits {
+.poocommerce-tax-partner-card__benefits {
 	color: $gray-900;
 	list-style: none;
 	li {
@@ -35,11 +35,11 @@
 	}
 }
 
-.woocommerce-tax-partner-card__action {
+.poocommerce-tax-partner-card__action {
 	margin-top: auto;
 }
 
-.woocommerce-tax-partner-card__terms {
+.poocommerce-tax-partner-card__terms {
 	color: $gray-600;
 	font-size: 12px;
 	margin-bottom: $gap-smaller;

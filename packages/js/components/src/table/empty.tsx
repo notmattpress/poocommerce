@@ -18,7 +18,7 @@ type EmptyTableProps = {
 const EmptyTable = ( { children, numberOfRows = 5 }: EmptyTableProps ) => {
 	return (
 		<div
-			className="woocommerce-table is-empty"
+			className="poocommerce-table is-empty"
 			style={
 				{ '--number-of-rows': numberOfRows } as React.CSSProperties
 			}

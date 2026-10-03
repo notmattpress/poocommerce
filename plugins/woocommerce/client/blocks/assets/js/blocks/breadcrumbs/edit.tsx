@@ -18,7 +18,7 @@ export type Attributes = {
 
 const Edit = ( { attributes }: BlockEditProps< Attributes > ) => {
 	const blockProps = useBlockProps( {
-		className: 'woocommerce wc-block-breadcrumbs',
+		className: 'poocommerce wc-block-breadcrumbs',
 	} );
 
 	const themeFontSize = useBreadcrumbsThemeFontSize();
@@ -49,8 +49,8 @@ const Edit = ( { attributes }: BlockEditProps< Attributes > ) => {
 	return (
 		<div { ...blockProps }>
 			<Disabled>
-				<a href="/">{ __( 'Breadcrumbs', 'woocommerce' ) }</a>
-				{ __( ' / Navigation / Path', 'woocommerce' ) }
+				<a href="/">{ __( 'Breadcrumbs', 'poocommerce' ) }</a>
+				{ __( ' / Navigation / Path', 'poocommerce' ) }
 			</Disabled>
 		</div>
 	);

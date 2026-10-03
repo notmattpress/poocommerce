@@ -7,11 +7,11 @@ import { Button, ExternalLink } from '@wordpress/components';
 import { compose } from '@wordpress/compose';
 import interpolateComponents from '@automattic/interpolate-components';
 import PropTypes from 'prop-types';
-import { pluginsStore } from '@woocommerce/data';
+import { pluginsStore } from '@poocommerce/data';
 import { withDispatch, withSelect } from '@wordpress/data';
-import { recordEvent } from '@woocommerce/tracks';
-import { getSetting, getAdminLink } from '@woocommerce/settings';
-import { Link } from '@woocommerce/components';
+import { recordEvent } from '@poocommerce/tracks';
+import { getSetting, getAdminLink } from '@poocommerce/settings';
+import { Link } from '@poocommerce/components';
 
 /**
  * Internal dependencies
@@ -26,8 +26,8 @@ import {
 } from '../wcs-api';
 
 const wcAssetUrl = getSetting( 'wcAssetUrl', '' );
-const wcShippingPluginSlug = 'woocommerce-shipping';
-const wcstPluginSlug = 'woocommerce-services';
+const wcShippingPluginSlug = 'poocommerce-shipping';
+const wcstPluginSlug = 'poocommerce-services';
 
 export class ShippingBanner extends Component {
 	constructor( props ) {
@@ -87,8 +87,8 @@ export class ShippingBanner extends Component {
 		this.setState( {
 			isShippingLabelButtonBusy: true,
 			infoMessage: __(
-				'Installing and activating WooCommerce Shipping in the background…',
-				'woocommerce'
+				'Installing and activating PooCommerce Shipping in the background…',
+				'poocommerce'
 			),
 			wcsSetupError: false,
 		} );
@@ -154,14 +154,14 @@ export class ShippingBanner extends Component {
 			isPluginInstalledAndActivated: true,
 			isShippingLabelButtonBusy: false,
 			infoMessage: __(
-				'WooCommerce Shipping is installed and activated. Please reload the page to get started.',
-				'woocommerce'
+				'PooCommerce Shipping is installed and activated. Please reload the page to get started.',
+				'poocommerce'
 			),
 		} );
 	}
 
-	woocommerceServiceLinkClicked = () => {
-		this.trackElementClicked( 'shipping_banner_woocommerce_service_link' );
+	poocommerceServiceLinkClicked = () => {
+		this.trackElementClicked( 'shipping_banner_poocommerce_service_link' );
 	};
 
 	trackBannerEvent = ( eventName, customProps = {} ) => {
@@ -205,7 +205,7 @@ export class ShippingBanner extends Component {
 	};
 
 	generateMetaBoxHtml( nodeId, title, args ) {
-		const togglePanelText = __( 'Toggle panel:', 'woocommerce' );
+		const togglePanelText = __( 'Toggle panel:', 'poocommerce' );
 
 		return `
 <div id="${ nodeId }" class="postbox">
@@ -219,7 +219,7 @@ export class ShippingBanner extends Component {
 		</div>
 	</div>
 	<div class="inside">
-		<div class="wcc-root woocommerce woocommerce-shipping-shipping-label" id="woocommerce-shipping-shipping-label-${ args.context }"></div>
+		<div class="wcc-root poocommerce poocommerce-shipping-shipping-label" id="poocommerce-shipping-shipping-label-${ args.context }"></div>
 	</div>
 </div>
 `;
@@ -233,8 +233,8 @@ export class ShippingBanner extends Component {
 
 		this.setState( { wcsAssetsLoading: true } );
 
-		const labelPurchaseMetaboxId = 'woocommerce-order-label';
-		const shipmentTrackingMetaboxId = 'woocommerce-order-shipment-tracking';
+		const labelPurchaseMetaboxId = 'poocommerce-order-label';
+		const shipmentTrackingMetaboxId = 'poocommerce-order-shipment-tracking';
 		const jsPath = assets.wcshipping_create_label_script;
 		const stylePath = assets.wcshipping_create_label_style;
 
@@ -248,27 +248,27 @@ export class ShippingBanner extends Component {
 		document.getElementById( labelPurchaseMetaboxId )?.remove();
 		const shippingLabelContainerHtml = this.generateMetaBoxHtml(
 			labelPurchaseMetaboxId,
-			__( 'Shipping Label', 'woocommerce' ),
+			__( 'Shipping Label', 'poocommerce' ),
 			{
 				context: 'shipping_label',
 			}
 		);
 		// Insert shipping label metabox just above main order details box.
 		document
-			.getElementById( 'woocommerce-order-data' )
+			.getElementById( 'poocommerce-order-data' )
 			.insertAdjacentHTML( 'beforebegin', shippingLabelContainerHtml );
 
 		document.getElementById( shipmentTrackingMetaboxId )?.remove();
 		const shipmentTrackingHtml = this.generateMetaBoxHtml(
 			shipmentTrackingMetaboxId,
-			__( 'Shipment Tracking', 'woocommerce' ),
+			__( 'Shipment Tracking', 'poocommerce' ),
 			{
 				context: 'shipment_tracking',
 			}
 		);
 		// Insert tracking metabox in the side after the order actions.
 		document
-			.getElementById( 'woocommerce-order-actions' )
+			.getElementById( 'poocommerce-order-actions' )
 			.insertAdjacentHTML( 'afterend', shipmentTrackingHtml );
 
 		if ( window.jQuery ) {
@@ -276,14 +276,14 @@ export class ShippingBanner extends Component {
 			window.jQuery( '#normal-sortables' ).sortable( 'refresh' );
 			window.jQuery( '#side-sortables' ).sortable( 'refresh' );
 
-			window.jQuery( '#woocommerce-order-label' ).hide();
+			window.jQuery( '#poocommerce-order-label' ).hide();
 		}
 
 		document
-			.querySelectorAll( 'script[src*="/woocommerce-services/"]' )
+			.querySelectorAll( 'script[src*="/poocommerce-services/"]' )
 			.forEach( ( node ) => node.remove?.() );
 		document
-			.querySelectorAll( 'link[href*="/woocommerce-services/"]' )
+			.querySelectorAll( 'link[href*="/poocommerce-services/"]' )
 			.forEach( ( node ) => node.remove?.() );
 
 		return Promise.all( [
@@ -342,15 +342,15 @@ export class ShippingBanner extends Component {
 
 			// Reshow the shipping label metabox.
 			if ( window.jQuery ) {
-				window.jQuery( '#woocommerce-order-label' ).show();
+				window.jQuery( '#poocommerce-order-label' ).show();
 			}
 
 			document.getElementById(
-				'woocommerce-admin-print-label'
+				'poocommerce-admin-print-label'
 			).style.display = 'none';
 
 			/**
-			 * We'll only get to this point if either WCS&T is not active or is active but compatible with WooCommerce Shipping
+			 * We'll only get to this point if either WCS&T is not active or is active but compatible with PooCommerce Shipping
 			 * so once we check if the WCS&T is not active, we can open the label purchase modal immediately.
 			 */
 			if ( ! activePlugins.includes( wcstPluginSlug ) ) {
@@ -363,7 +363,7 @@ export class ShippingBanner extends Component {
 		// Since the button is dynamically added, we need to wait for it to become selectable and then click it.
 
 		const buttonSelector =
-			'#woocommerce-shipping-shipping-label-shipping_label button';
+			'#poocommerce-shipping-shipping-label-shipping_label button';
 		if ( window.MutationObserver ) {
 			const observer = new window.MutationObserver(
 				( mutationsList, observing ) => {
@@ -377,7 +377,7 @@ export class ShippingBanner extends Component {
 
 			observer.observe(
 				document.getElementById(
-					'woocommerce-shipping-shipping-label-shipping_label'
+					'poocommerce-shipping-shipping-label-shipping_label'
 				) ??
 					document.getElementById( 'wpbody-content' ) ??
 					document.body,
@@ -406,7 +406,7 @@ export class ShippingBanner extends Component {
 		const { isWcstCompatible } = this.props;
 		if ( ! showShippingBanner && ! isWcstCompatible ) {
 			document
-				.getElementById( 'woocommerce-admin-print-label' )
+				.getElementById( 'poocommerce-admin-print-label' )
 				.classList.add( 'error' );
 
 			return (
@@ -414,8 +414,8 @@ export class ShippingBanner extends Component {
 					<strong>
 						{ interpolateComponents( {
 							mixedString: __(
-								'Please {{pluginPageLink}}update{{/pluginPageLink}} the WooCommerce Shipping & Tax plugin to the latest version to ensure compatibility with WooCommerce Shipping.',
-								'woocommerce'
+								'Please {{pluginPageLink}}update{{/pluginPageLink}} the PooCommerce Shipping & Tax plugin to the latest version to ensure compatibility with PooCommerce Shipping.',
+								'poocommerce'
 							),
 							components: {
 								pluginPageLink: (
@@ -439,7 +439,7 @@ export class ShippingBanner extends Component {
 		const { actionButtonLabel, headline } = this.props;
 		const { isPluginInstalledAndActivated, infoMessage } = this.state;
 		const buttonLabel = isPluginInstalledAndActivated
-			? __( 'Reload page', 'woocommerce' )
+			? __( 'Reload page', 'poocommerce' )
 			: actionButtonLabel;
 
 		return (
@@ -448,7 +448,7 @@ export class ShippingBanner extends Component {
 					<img
 						className="wc-admin-shipping-banner-illustration"
 						src={ wcAssetUrl + 'images/shippingillustration.svg' }
-						alt={ __( 'Shipping ', 'woocommerce' ) }
+						alt={ __( 'Shipping ', 'poocommerce' ) }
 					/>
 					<div className="wc-admin-shipping-banner-blob">
 						<h3>{ headline }</h3>
@@ -458,8 +458,8 @@ export class ShippingBanner extends Component {
 									mixedString: sprintf(
 										// translators: %s is the action button label.
 										__(
-											'By clicking "%s", {{wcsLink}}WooCommerce Shipping{{/wcsLink}} will be installed and you agree to its {{tosLink}}Terms of Service{{/tosLink}}.',
-											'woocommerce'
+											'By clicking "%s", {{wcsLink}}PooCommerce Shipping{{/wcsLink}} will be installed and you agree to its {{tosLink}}Terms of Service{{/tosLink}}.',
+											'poocommerce'
 										),
 										actionButtonLabel
 									),
@@ -473,12 +473,12 @@ export class ShippingBanner extends Component {
 										),
 										wcsLink: (
 											<ExternalLink
-												href="https://woocommerce.com/products/shipping/?utm_medium=product"
+												href="https://poocommerce.com/products/shipping/?utm_medium=product"
 												target="_blank"
 												type="external"
 												onClick={
 													this
-														.woocommerceServiceLinkClicked
+														.poocommerceServiceLinkClicked
 												}
 											/>
 										),
@@ -508,7 +508,7 @@ export class ShippingBanner extends Component {
 						disabled={ this.state.isShippingLabelButtonBusy }
 					>
 						<span className="screen-reader-text">
-							{ __( 'Close Print Label Banner.', 'woocommerce' ) }
+							{ __( 'Close Print Label Banner.', 'poocommerce' ) }
 						</span>
 					</button>
 				</div>
@@ -543,16 +543,16 @@ export default compose(
 			isPluginsRequesting( 'installPlugins' );
 		const activePlugins = getActivePlugins();
 		const actionButtonLabel = activePlugins.includes( wcstPluginSlug )
-			? __( 'Install WooCommerce Shipping', 'woocommerce' )
-			: __( 'Create shipping label', 'woocommerce' );
+			? __( 'Install PooCommerce Shipping', 'poocommerce' )
+			: __( 'Create shipping label', 'poocommerce' );
 		const headline = activePlugins.includes( wcstPluginSlug )
 			? __(
 					'Print discounted shipping labels with a click, now with the dedicated plugin!',
-					'woocommerce'
+					'poocommerce'
 			  )
 			: __(
 					'Print discounted shipping labels with a click.',
-					'woocommerce'
+					'poocommerce'
 			  );
 		return {
 			isRequesting,

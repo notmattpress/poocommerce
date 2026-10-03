@@ -20,19 +20,19 @@ const ShippingProviderListItem = ( {
 	return (
 		<div
 			className={ [
-				'woocommerce-fulfillment-shipping-provider-list-item',
-				'woocommerce-fulfillment-shipping-provider-list-item-' +
+				'poocommerce-fulfillment-shipping-provider-list-item',
+				'poocommerce-fulfillment-shipping-provider-list-item-' +
 					item.value,
 			].join( ' ' ) }
 		>
-			<div className="woocommerce-fulfillment-shipping-provider-list-item-icon">
+			<div className="poocommerce-fulfillment-shipping-provider-list-item-icon">
 				{ item.icon ? (
 					<img src={ item.icon } alt={ item.label } />
 				) : (
 					<TruckIcon />
 				) }
 			</div>
-			<div className="woocommerce-fulfillment-shipping-provider-list-item-label">
+			<div className="poocommerce-fulfillment-shipping-provider-list-item-label">
 				{ item.label }
 			</div>
 		</div>
@@ -52,20 +52,20 @@ export default function ShipmentManualEntryForm() {
 	} = useShipmentFormContext();
 	return (
 		<>
-			<p className="woocommerce-fulfillment-description">
+			<p className="poocommerce-fulfillment-description">
 				{ __(
 					'Provide the shipment information for this fulfillment.',
-					'woocommerce'
+					'poocommerce'
 				) }
 			</p>
-			<div className="woocommerce-fulfillment-input-container">
-				<div className="woocommerce-fulfillment-input-group">
+			<div className="poocommerce-fulfillment-input-container">
+				<div className="poocommerce-fulfillment-input-group">
 					<TextControl
-						label={ __( 'Tracking Number', 'woocommerce' ) }
+						label={ __( 'Tracking Number', 'poocommerce' ) }
 						type="text"
 						placeholder={ __(
 							'Enter tracking number',
-							'woocommerce'
+							'poocommerce'
 						) }
 						value={ trackingNumber }
 						onChange={ ( value: string ) => {
@@ -91,10 +91,10 @@ export default function ShipmentManualEntryForm() {
 					/>
 				</div>
 			</div>
-			<div className="woocommerce-fulfillment-input-container">
-				<div className="woocommerce-fulfillment-input-group">
+			<div className="poocommerce-fulfillment-input-container">
+				<div className="poocommerce-fulfillment-input-group">
 					<ComboboxControl
-						label={ __( 'Provider', 'woocommerce' ) }
+						label={ __( 'Provider', 'poocommerce' ) }
 						__experimentalRenderItem={ ( { item } ) => (
 							<ShippingProviderListItem item={ item } />
 						) }
@@ -124,20 +124,20 @@ export default function ShipmentManualEntryForm() {
 						} }
 						__nextHasNoMarginBottom
 					/>
-					<div className="woocommerce-fulfillment-shipment-provider-search-icon">
+					<div className="poocommerce-fulfillment-shipment-provider-search-icon">
 						<SearchIcon />
 					</div>
 				</div>
 			</div>
 			{ shipmentProvider === 'other' && (
-				<div className="woocommerce-fulfillment-input-container">
-					<div className="woocommerce-fulfillment-input-group">
+				<div className="poocommerce-fulfillment-input-container">
+					<div className="poocommerce-fulfillment-input-group">
 						<TextControl
-							label={ __( 'Provider Name', 'woocommerce' ) }
+							label={ __( 'Provider Name', 'poocommerce' ) }
 							type="text"
 							placeholder={ __(
 								'Enter provider name',
-								'woocommerce'
+								'poocommerce'
 							) }
 							value={ providerName }
 							onChange={ ( value: string ) => {
@@ -149,14 +149,14 @@ export default function ShipmentManualEntryForm() {
 					</div>
 				</div>
 			) }
-			<div className="woocommerce-fulfillment-input-container">
-				<div className="woocommerce-fulfillment-input-group">
+			<div className="poocommerce-fulfillment-input-container">
+				<div className="poocommerce-fulfillment-input-group">
 					<TextControl
-						label={ __( 'Tracking URL', 'woocommerce' ) }
+						label={ __( 'Tracking URL', 'poocommerce' ) }
 						type="text"
 						placeholder={ __(
 							'Enter tracking URL',
-							'woocommerce'
+							'poocommerce'
 						) }
 						value={ trackingUrl }
 						onChange={ ( value: string ) => {

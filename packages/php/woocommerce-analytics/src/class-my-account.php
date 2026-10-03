@@ -2,7 +2,7 @@
 /**
  * Events tracked on the My Account page.
  *
- * @package automattic/woocommerce-analytics
+ * @package automattic/poocommerce-analytics
  */
 
 namespace Automattic\Woocommerce_Analytics;
@@ -18,15 +18,15 @@ class My_Account {
 	 * Constructor.
 	 */
 	public function init_hooks() {
-		add_action( 'woocommerce_account_content', array( $this, 'track_tabs' ) );
-		add_action( 'woocommerce_customer_save_address', array( $this, 'track_save_address' ), 10, 2 );
+		add_action( 'poocommerce_account_content', array( $this, 'track_tabs' ) );
+		add_action( 'poocommerce_customer_save_address', array( $this, 'track_save_address' ), 10, 2 );
 		add_action( 'wp', array( $this, 'track_add_payment_method' ) );
 		add_action( 'wp', array( $this, 'track_delete_payment_method' ) );
-		add_action( 'woocommerce_save_account_details', array( $this, 'track_save_account_details' ) );
-		add_filter( 'woocommerce_my_account_my_orders_actions', array( $this, 'add_initiator_prop_to_my_account_action_links' ) );
-		add_action( 'woocommerce_cancelled_order', array( $this, 'track_order_cancel_event' ), 10, 0 );
-		add_action( 'before_woocommerce_pay', array( $this, 'track_order_pay_event' ) );
-		add_action( 'woocommerce_before_account_orders', array( $this, 'add_initiator_prop_to_order_urls' ), 9 );
+		add_action( 'poocommerce_save_account_details', array( $this, 'track_save_account_details' ) );
+		add_filter( 'poocommerce_my_account_my_orders_actions', array( $this, 'add_initiator_prop_to_my_account_action_links' ) );
+		add_action( 'poocommerce_cancelled_order', array( $this, 'track_order_cancel_event' ), 10, 0 );
+		add_action( 'before_poocommerce_pay', array( $this, 'track_order_pay_event' ) );
+		add_action( 'poocommerce_before_account_orders', array( $this, 'add_initiator_prop_to_order_urls' ), 9 );
 		add_filter( 'query_vars', array( $this, 'add_initiator_param_to_query_vars' ) );
 	}
 
@@ -39,7 +39,7 @@ class My_Account {
 	public function track_tabs() {
 		global $wp;
 
-		// WooCommerce keeps a map of my-account endpoints keys and their custom permalinks.
+		// PooCommerce keeps a map of my-account endpoints keys and their custom permalinks.
 		$core_endpoints = WC()->query->get_query_vars();
 
 		if ( ! empty( $wp->query_vars ) ) {
@@ -137,11 +137,11 @@ class My_Account {
 	 * Track payment method add events, this can only come from the my account page.
 	 */
 	public function track_add_payment_method() {
-		if ( isset( $_POST['woocommerce_add_payment_method'] ) && isset( $_POST['payment_method'] ) ) {
+		if ( isset( $_POST['poocommerce_add_payment_method'] ) && isset( $_POST['payment_method'] ) ) {
 
-			$nonce_value = wc_get_var( $_REQUEST['woocommerce-add-payment-method-nonce'], wc_get_var( $_REQUEST['_wpnonce'], '' ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated,WordPress.Security.NonceVerification.Recommended,WordPress.Security.ValidatedSanitizedInput.InputNotSanitized,WordPress.Security.ValidatedSanitizedInput.MissingUnslash
+			$nonce_value = wc_get_var( $_REQUEST['poocommerce-add-payment-method-nonce'], wc_get_var( $_REQUEST['_wpnonce'], '' ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated,WordPress.Security.NonceVerification.Recommended,WordPress.Security.ValidatedSanitizedInput.InputNotSanitized,WordPress.Security.ValidatedSanitizedInput.MissingUnslash
 
-			if ( ! wp_verify_nonce( $nonce_value, 'woocommerce-add-payment-method' ) ) {
+			if ( ! wp_verify_nonce( $nonce_value, 'poocommerce-add-payment-method' ) ) {
 				return;
 			}
 
@@ -165,7 +165,7 @@ class My_Account {
 	 * Track order cancel events.
 	 */
 	public function track_order_cancel_event() {
-		if ( isset( $_GET['_wca_initiator'] ) && ( isset( $_GET['_wpnonce'] ) && wp_verify_nonce( wp_unslash( $_GET['_wpnonce'] ), 'woocommerce-cancel_order' ) ) ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		if ( isset( $_GET['_wca_initiator'] ) && ( isset( $_GET['_wpnonce'] ) && wp_verify_nonce( wp_unslash( $_GET['_wpnonce'] ), 'poocommerce-cancel_order' ) ) ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 			WC_Analytics_Tracking::record_event( 'my_account_order_action_click', array( 'action' => 'cancel' ) );
 		}
 	}
@@ -218,7 +218,7 @@ class My_Account {
 	 */
 	public function add_initiator_prop_to_order_urls() {
 		add_filter(
-			'woocommerce_get_view_order_url',
+			'poocommerce_get_view_order_url',
 			function ( $url ) {
 				return add_query_arg( array( '_wca_initiator' => 'number' ), $url );
 			},
@@ -227,7 +227,7 @@ class My_Account {
 		);
 
 		add_filter(
-			'woocommerce_get_endpoint_url',
+			'poocommerce_get_endpoint_url',
 			function ( $url, $endpoint ) {
 				if ( 'edit-address' === $endpoint ) {
 					return add_query_arg( array( '_wca_initiator' => 'action' ), $url );

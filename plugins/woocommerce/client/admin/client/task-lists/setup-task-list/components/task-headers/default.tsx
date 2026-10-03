@@ -3,7 +3,7 @@
  */
 import { Button } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
-import { TaskType } from '@woocommerce/data';
+import { TaskType } from '@poocommerce/data';
 
 interface DefaultTaskHeaderProps {
 	task: TaskType;
@@ -23,20 +23,20 @@ const DefaultTaskHeader = ( { task, goToTask }: DefaultTaskHeaderProps ) => {
 	}
 
 	return (
-		<div className="woocommerce-task-header__contents-container">
+		<div className="poocommerce-task-header__contents-container">
 			<img
 				alt={ task.imageAlt || '' }
 				src={ task.imageUrl }
 				className="svg-background"
 			/>
-			<div className="woocommerce-task-header__contents">
+			<div className="poocommerce-task-header__contents">
 				<h1>{ task.title }</h1>
 				<p>{ task.content }</p>
 				<Button
 					variant={ task.isComplete ? 'secondary' : 'primary' }
 					onClick={ goToTask }
 				>
-					{ task.actionLabel || __( "Let's go", 'woocommerce' ) }
+					{ task.actionLabel || __( "Let's go", 'poocommerce' ) }
 				</Button>
 			</div>
 		</div>

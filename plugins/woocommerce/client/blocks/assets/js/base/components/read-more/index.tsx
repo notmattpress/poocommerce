@@ -67,9 +67,9 @@ interface ReadMoreState {
 export const defaultProps = {
 	className: 'read-more-content',
 	ellipsis: '&hellip;',
-	lessText: __( 'Read less', 'woocommerce' ),
+	lessText: __( 'Read less', 'poocommerce' ),
 	maxLines: 3,
-	moreText: __( 'Read more', 'woocommerce' ),
+	moreText: __( 'Read more', 'poocommerce' ),
 };
 
 /**

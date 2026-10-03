@@ -1,6 +1,6 @@
 <?php
 
-use Automattic\WooCommerce\Internal\CostOfGoodsSold\CogsAwareUnitTestSuiteTrait;
+use Automattic\PooCommerce\Internal\CostOfGoodsSold\CogsAwareUnitTestSuiteTrait;
 
 /**
  * Class WC_Product_Data_Store_CPT_Test
@@ -29,8 +29,8 @@ class WC_Product_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 	public function tearDown(): void {
 		parent::tearDown();
 		$this->disable_cogs_feature();
-		remove_all_filters( 'woocommerce_load_cogs_value' );
-		remove_all_filters( 'woocommerce_save_cogs_value' );
+		remove_all_filters( 'poocommerce_load_cogs_value' );
+		remove_all_filters( 'poocommerce_save_cogs_value' );
 	}
 
 	/**
@@ -539,7 +539,7 @@ class WC_Product_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Loaded Cost of Goods Sold information can be modified using the woocommerce_load_cogs_value filter.
+	 * @testdox Loaded Cost of Goods Sold information can be modified using the poocommerce_load_cogs_value filter.
 	 */
 	public function test_cogs_loaded_value_can_be_altered_via_filter() {
 		$this->enable_cogs_feature();
@@ -548,7 +548,7 @@ class WC_Product_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 		$product->set_cogs_value( 12.34 );
 		$product->save();
 
-		add_filter( 'woocommerce_load_product_cogs_value', fn( $value, $product ) => $value + $product->get_id(), 10, 2 );
+		add_filter( 'poocommerce_load_product_cogs_value', fn( $value, $product ) => $value + $product->get_id(), 10, 2 );
 
 		// The save above populates the product object cache; flush so the re-read goes through the
 		// data store and applies the load filter registered after the save.
@@ -559,12 +559,12 @@ class WC_Product_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Saved Cost of Goods Sold information can be modified using the woocommerce_save_cogs_value filter.
+	 * @testdox Saved Cost of Goods Sold information can be modified using the poocommerce_save_cogs_value filter.
 	 */
 	public function test_cogs_saved_value_can_be_altered_via_filter() {
 		$this->enable_cogs_feature();
 
-		add_filter( 'woocommerce_save_product_cogs_value', fn( $value, $product ) => $value + $product->get_id(), 10, 2 );
+		add_filter( 'poocommerce_save_product_cogs_value', fn( $value, $product ) => $value + $product->get_id(), 10, 2 );
 
 		$product = new WC_Product();
 		$product->set_cogs_value( 12.34 );
@@ -574,7 +574,7 @@ class WC_Product_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Saving of the Cost of Goods Sold information can be suppressed using the woocommerce_save_cogs_value filter with a return value of false.
+	 * @testdox Saving of the Cost of Goods Sold information can be suppressed using the poocommerce_save_cogs_value filter with a return value of false.
 	 */
 	public function test_cogs_saved_value_saving_can_be_suppressed_via_filter() {
 		$this->enable_cogs_feature();
@@ -584,7 +584,7 @@ class WC_Product_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 		$product->save();
 
 		// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
-		add_filter( 'woocommerce_save_product_cogs_value', fn( $value, $product ) => false, 10, 2 );
+		add_filter( 'poocommerce_save_product_cogs_value', fn( $value, $product ) => false, 10, 2 );
 
 		$product->set_cogs_value( 56.78 );
 		$product->save();
@@ -660,19 +660,19 @@ class WC_Product_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 
 		$external = new WC_Product_External( $product_id );
 		$filter   = static fn ( $override, $id ) => $id === $product_id ? 'external' : false;
-		add_filter( 'woocommerce_product_type_query', $filter, 10, 2 );
+		add_filter( 'poocommerce_product_type_query', $filter, 10, 2 );
 
 		$fired_args = null;
 		$tracker    = function ( $p, $from, $to ) use ( &$fired_args ) {
 			$fired_args = array( $from, $to );
 		};
-		add_action( 'woocommerce_product_type_changed', $tracker, 10, 3 );
+		add_action( 'poocommerce_product_type_changed', $tracker, 10, 3 );
 
 		try {
 			$store->update_version_and_type( $external );
 		} finally {
-			remove_filter( 'woocommerce_product_type_query', $filter, 10 );
-			remove_action( 'woocommerce_product_type_changed', $tracker, 10 );
+			remove_filter( 'poocommerce_product_type_query', $filter, 10 );
+			remove_action( 'poocommerce_product_type_changed', $tracker, 10 );
 		}
 
 		// Filter overrides old type to 'external', matching new type — no transition expected.
@@ -700,12 +700,12 @@ class WC_Product_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 		// Filter makes old_type match new_type ('external'), but stored term is still 'variable' — must be corrected.
 		$external = new WC_Product_External( $product_id );
 		$filter   = static fn ( $override, $id ) => $id === $product_id ? 'external' : false;
-		add_filter( 'woocommerce_product_type_query', $filter, 10, 2 );
+		add_filter( 'poocommerce_product_type_query', $filter, 10, 2 );
 
 		try {
 			$store->update_version_and_type( $external );
 		} finally {
-			remove_filter( 'woocommerce_product_type_query', $filter, 10 );
+			remove_filter( 'poocommerce_product_type_query', $filter, 10 );
 		}
 
 		// The stored term must now be 'external', not the stale 'variable'.

@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { DoneActorEvent } from 'xstate5';
-import { TaskListType } from '@woocommerce/data';
+import { TaskListType } from '@poocommerce/data';
 import apiFetch from '@wordpress/api-fetch';
 
 /**

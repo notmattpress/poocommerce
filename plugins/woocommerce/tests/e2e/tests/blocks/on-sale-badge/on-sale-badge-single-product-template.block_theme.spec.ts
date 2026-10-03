@@ -2,16 +2,16 @@
  * External dependencies
  */
 import type { FrameLocator, Page } from '@playwright/test';
-import { test, expect, BLOCK_THEME_SLUG } from '@woocommerce/e2e-utils';
+import { test, expect, BLOCK_THEME_SLUG } from '@poocommerce/e2e-utils';
 
 const blockData = {
-	name: 'woocommerce/product-sale-badge',
+	name: 'poocommerce/product-sale-badge',
 	slug: 'single-product',
 	productPage: '/product/hoodie/',
 };
 
 const badgeSelector = '.wc-block-components-product-sale-badge';
-const badgeContainerSelector = '.wp-block-woocommerce-product-sale-badge';
+const badgeContainerSelector = '.wp-block-poocommerce-product-sale-badge';
 
 type SaleBadgeAlignment = 'left' | 'center' | 'right';
 
@@ -77,7 +77,7 @@ test.describe( `${ blockData.name }`, () => {
 
 				await editor.openDocumentSettingsSidebar();
 				await editor.insertBlock( {
-					name: 'woocommerce/product-gallery',
+					name: 'poocommerce/product-gallery',
 				} );
 				await page
 					.getByRole( 'checkbox', {

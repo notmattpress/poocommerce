@@ -17,7 +17,7 @@ import {
 	ensureEmailEditorSettingsPanelIsOpened,
 } from '../../utils/email';
 
-test.describe( 'WooCommerce Email Editor Settings Sidebar Integration', () => {
+test.describe( 'PooCommerce Email Editor Settings Sidebar Integration', () => {
 	test.use( { storageState: ADMIN_STATE_PATH } );
 
 	test.beforeAll( async ( { baseURL } ) => {
@@ -80,7 +80,7 @@ test.describe( 'WooCommerce Email Editor Settings Sidebar Integration', () => {
 		// fill the subject.
 		await expect(
 			page
-				.locator( '.woocommerce-settings-panel-subject-text span' )
+				.locator( '.poocommerce-settings-panel-subject-text span' )
 				.filter( { hasText: 'Subject' } )
 				.first()
 		).toBeVisible();
@@ -90,7 +90,7 @@ test.describe( 'WooCommerce Email Editor Settings Sidebar Integration', () => {
 		await page.locator( '[data-automation-id="email_subject"]' ).click(); // put the cursor at the end of the subject.
 		await page
 			.locator(
-				'.woocommerce-settings-panel-subject-text button[title="Personalization Tags"]'
+				'.poocommerce-settings-panel-subject-text button[title="Personalization Tags"]'
 			)
 			.first()
 			.click(); // open personalization tags modal.
@@ -104,7 +104,7 @@ test.describe( 'WooCommerce Email Editor Settings Sidebar Integration', () => {
 			.locator( 'div' )
 			.filter( {
 				hasText:
-					/^Customer Email\[woocommerce\/customer-email\]Insert$/,
+					/^Customer Email\[poocommerce\/customer-email\]Insert$/,
 			} )
 			.getByRole( 'button' )
 			.click();
@@ -116,7 +116,7 @@ test.describe( 'WooCommerce Email Editor Settings Sidebar Integration', () => {
 		await page.locator( '[data-automation-id="email_preheader"]' ).click(); // put the cursor at the end of the preheader.
 		await page
 			.locator(
-				'.woocommerce-settings-panel-preheader-text button[title="Personalization Tags"]'
+				'.poocommerce-settings-panel-preheader-text button[title="Personalization Tags"]'
 			)
 			.first()
 			.click(); // open personalization tags modal.
@@ -129,17 +129,17 @@ test.describe( 'WooCommerce Email Editor Settings Sidebar Integration', () => {
 			.locator( 'div' )
 			.filter( {
 				hasText:
-					/^Customer First Name\[woocommerce\/customer-first-name\]Insert$/,
+					/^Customer First Name\[poocommerce\/customer-first-name\]Insert$/,
 			} )
 			.getByRole( 'button' )
 			.click();
 		await page.getByRole( 'button', { name: 'Save', exact: true } ).click();
 		await expect(
 			page.locator( '[data-automation-id="email_subject"]' )
-		).toContainText( `${ subject } [woocommerce/customer-email]` );
+		).toContainText( `${ subject } [poocommerce/customer-email]` );
 		await expect(
 			page.locator( '[data-automation-id="email_preheader"]' )
-		).toContainText( `${ preheader } [woocommerce/customer-first-name]` );
+		).toContainText( `${ preheader } [poocommerce/customer-first-name]` );
 	} );
 
 	test( 'Can update email recipients', async ( { page } ) => {
@@ -150,7 +150,7 @@ test.describe( 'WooCommerce Email Editor Settings Sidebar Integration', () => {
 			.click();
 		await ensureEmailEditorSettingsPanelIsOpened( page );
 		await expect(
-			page.locator( '[for="woocommerce-email-editor-recipients"]' )
+			page.locator( '[for="poocommerce-email-editor-recipients"]' )
 		).toBeVisible();
 		await expect( page.getByTestId( 'email_recipient' ) ).toBeVisible(); // form is filled with the default value.
 

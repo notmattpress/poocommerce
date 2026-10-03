@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { WC_API_PATH } from '@woocommerce/e2e-utils-playwright';
+import { WC_API_PATH } from '@poocommerce/e2e-utils-playwright';
 
 /**
  * Internal dependencies
@@ -13,7 +13,7 @@ const customerEmailAddress = `john.doe.${ Date.now() }@example.com`;
 test.describe( 'Shopper My Account Create Account', () => {
 	test.beforeAll( async ( { restApi } ) => {
 		await restApi.put(
-			`${ WC_API_PATH }/settings/account/woocommerce_enable_myaccount_registration`,
+			`${ WC_API_PATH }/settings/account/poocommerce_enable_myaccount_registration`,
 			{
 				value: 'yes',
 			}
@@ -38,7 +38,7 @@ test.describe( 'Shopper My Account Create Account', () => {
 			} );
 
 		await restApi.put(
-			`${ WC_API_PATH }/settings/account/woocommerce_enable_myaccount_registration`,
+			`${ WC_API_PATH }/settings/account/poocommerce_enable_myaccount_registration`,
 			{
 				value: 'no',
 			}
@@ -49,7 +49,7 @@ test.describe( 'Shopper My Account Create Account', () => {
 		await page.goto( 'my-account/' );
 
 		await expect(
-			page.locator( '.woocommerce-form-register' )
+			page.locator( '.poocommerce-form-register' )
 		).toBeVisible();
 
 		await page.locator( 'input#reg_email' ).fill( customerEmailAddress );

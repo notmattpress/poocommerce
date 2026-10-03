@@ -1,8 +1,8 @@
 /**
  * External dependencies
  */
-import { getSetting } from '@woocommerce/settings';
-import { recordEvent } from '@woocommerce/tracks';
+import { getSetting } from '@poocommerce/settings';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -26,8 +26,8 @@ import { getPluginSlug } from '~/utils/plugins';
 import { getCountryCode } from '~/dashboard/utils';
 
 const SHIPPING_PLUGIN_SLUGS = new Set( [
-	'woocommerce-shipping',
-	'woocommerce-shipstation-integration',
+	'poocommerce-shipping',
+	'poocommerce-shipstation-integration',
 	'packlink-pro-shipping',
 ] );
 

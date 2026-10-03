@@ -5,9 +5,9 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\OrderReviews;
+namespace Automattic\PooCommerce\Internal\OrderReviews;
 
-use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Enums\OrderStatus;
 use WC_Email_Customer_Review_Request;
 use WC_Order;
 
@@ -15,7 +15,7 @@ use WC_Order;
  * Schedules and cancels the delayed "Review request" customer email via Action Scheduler.
  *
  * Listens for order-completed transitions to enqueue a single
- * `woocommerce_send_review_request` action that fires after the delay
+ * `poocommerce_send_review_request` action that fires after the delay
  * configured in the email's settings. Cancels the pending action when the
  * order is later refunded, cancelled, trashed or deleted.
  *
@@ -33,7 +33,7 @@ class Scheduler {
 	 * Action Scheduler hook fired when the configured delay elapses. The
 	 * `WC_Email_Customer_Review_Request` class listens on the same hook.
 	 */
-	public const ACTION_HOOK = 'woocommerce_send_review_request';
+	public const ACTION_HOOK = 'poocommerce_send_review_request';
 
 	/**
 	 * Order meta key storing the unix timestamp the email was scheduled for.
@@ -55,23 +55,23 @@ class Scheduler {
 	 * @internal
 	 */
 	final public function init(): void {
-		add_action( 'woocommerce_order_status_completed', array( $this, 'handle_woocommerce_order_status_completed' ), 10, 1 );
+		add_action( 'poocommerce_order_status_completed', array( $this, 'handle_poocommerce_order_status_completed' ), 10, 1 );
 		// Catch every transition out of `completed` (cancelled, refunded,
 		// processing, on-hold, pending, failed, custom statuses…) so the
 		// pending email is unscheduled regardless of which status the order
 		// moves to.
-		add_action( 'woocommerce_order_status_changed', array( $this, 'handle_status_changed' ), 10, 3 );
-		add_action( 'woocommerce_trash_order', array( $this, 'handle_cancellation' ), 10, 1 );
-		add_action( 'woocommerce_before_delete_order', array( $this, 'handle_cancellation' ), 10, 1 );
+		add_action( 'poocommerce_order_status_changed', array( $this, 'handle_status_changed' ), 10, 3 );
+		add_action( 'poocommerce_trash_order', array( $this, 'handle_cancellation' ), 10, 1 );
+		add_action( 'poocommerce_before_delete_order', array( $this, 'handle_cancellation' ), 10, 1 );
 	}
 
 	/**
 	 * Unschedule the pending review-request email whenever the order leaves
-	 * the eligible state. `woocommerce_order_status_changed` fires for every
+	 * the eligible state. `poocommerce_order_status_changed` fires for every
 	 * transition, so a single listener covers cancelled / refunded /
 	 * processing / on-hold / pending / failed / custom statuses in one place.
 	 *
-	 * Eligibility is read from the same `woocommerce_review_order_eligible_statuses`
+	 * Eligibility is read from the same `poocommerce_review_order_eligible_statuses`
 	 * filter the trigger uses, so a site that widens the filter (e.g. to also
 	 * accept `processing`) keeps the email queued through transitions inside
 	 * its expanded eligible set.
@@ -97,7 +97,7 @@ class Scheduler {
 		 * @param WC_Order|null $order             Order being inspected, or null if it could not be loaded.
 		 */
 		$eligible_statuses = (array) apply_filters(
-			'woocommerce_review_order_eligible_statuses',
+			'poocommerce_review_order_eligible_statuses',
 			array( OrderStatus::COMPLETED ),
 			$order instanceof WC_Order ? $order : null
 		);
@@ -119,7 +119,7 @@ class Scheduler {
 	 *
 	 * @param int $order_id The completed order ID.
 	 */
-	public function handle_woocommerce_order_status_completed( int $order_id ): void {
+	public function handle_poocommerce_order_status_completed( int $order_id ): void {
 		$order = wc_get_order( $order_id );
 
 		if ( ! $order instanceof WC_Order ) {
@@ -148,7 +148,7 @@ class Scheduler {
 		 *
 		 * @since 10.8.0
 		 */
-		$should_send = (bool) apply_filters( 'woocommerce_should_send_review_request', true, $order );
+		$should_send = (bool) apply_filters( 'poocommerce_should_send_review_request', true, $order );
 		if ( ! $should_send ) {
 			$this->log_skip( $order_id, 'opt-out filter returned false' );
 			return;
@@ -156,7 +156,7 @@ class Scheduler {
 
 		// Don't queue an email whose link would land on the empty-state page:
 		// every product on the order has reviews disabled (per-product or
-		// site-wide via `woocommerce_enable_reviews`), or every reviewable
+		// site-wide via `poocommerce_enable_reviews`), or every reviewable
 		// item already has a review tied to this order.
 		if ( ! ItemEligibility::has_actionable_items( $order ) ) {
 			$this->log_skip( $order_id, 'no reviewable items' );
@@ -173,8 +173,8 @@ class Scheduler {
 	/**
 	 * Cancel any pending review-request action and clear the scheduled-at meta.
 	 *
-	 * Hooked directly into `woocommerce_trash_order` and
-	 * `woocommerce_before_delete_order` for the trash/delete lifecycle events,
+	 * Hooked directly into `poocommerce_trash_order` and
+	 * `poocommerce_before_delete_order` for the trash/delete lifecycle events,
 	 * and called from `handle_status_changed()` for every status transition
 	 * out of an eligible status (cancelled, refunded, processing, on-hold,
 	 * pending, failed, custom statuses…).
@@ -221,7 +221,7 @@ class Scheduler {
 		wc_get_logger()->info(
 			sprintf(
 				/* translators: 1: order ID, 2: skip reason */
-				__( 'Skipped scheduling review-request email for order %1$d: %2$s.', 'woocommerce' ),
+				__( 'Skipped scheduling review-request email for order %1$d: %2$s.', 'poocommerce' ),
 				$order_id,
 				$reason
 			),

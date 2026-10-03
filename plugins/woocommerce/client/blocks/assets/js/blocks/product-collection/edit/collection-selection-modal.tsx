@@ -6,7 +6,7 @@ import { useState } from '@wordpress/element';
 import { useDispatch } from '@wordpress/data';
 import { Modal, Button } from '@wordpress/components';
 import { store as blockEditorStore } from '@wordpress/block-editor';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -59,7 +59,7 @@ const PatternSelectionModal = ( props: {
 	return (
 		<Modal
 			overlayClassName="wc-blocks-product-collection__modal"
-			title={ __( 'What products do you want to show?', 'woocommerce' ) }
+			title={ __( 'What products do you want to show?', 'poocommerce' ) }
 			onRequestClose={ onCloseModal }
 			size={ 'large' }
 		>
@@ -70,10 +70,10 @@ const PatternSelectionModal = ( props: {
 				/>
 				<div className="wc-blocks-product-collection__footer">
 					<Button variant="tertiary" onClick={ onCancelClick }>
-						{ __( 'Cancel', 'woocommerce' ) }
+						{ __( 'Cancel', 'poocommerce' ) }
 					</Button>
 					<Button variant="primary" onClick={ onContinueClick }>
-						{ __( 'Continue', 'woocommerce' ) }
+						{ __( 'Continue', 'poocommerce' ) }
 					</Button>
 				</div>
 			</div>

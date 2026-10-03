@@ -3,7 +3,7 @@
  */
 import { useRef, useEffect } from '@wordpress/element';
 import { useRegistry, dispatch } from '@wordpress/data';
-import { useEditorContext } from '@woocommerce/base-context';
+import { useEditorContext } from '@poocommerce/base-context';
 import {
 	createBlock,
 	getBlockType,

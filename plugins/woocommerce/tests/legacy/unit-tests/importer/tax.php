@@ -2,7 +2,7 @@
 
 /**
  * Meta
- * @package WooCommerce\Tests\Importer
+ * @package PooCommerce\Tests\Importer
  */
 class WC_Tests_Tax_CSV_Importer extends WC_Unit_Test_Case {
 
@@ -36,7 +36,7 @@ class WC_Tests_Tax_CSV_Importer extends WC_Unit_Test_Case {
 		ob_start();
 		$importer->import( $this->csv_file );
 		ob_end_clean();
-		$rate_count = $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->prefix}woocommerce_tax_rates" );
+		$rate_count = $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->prefix}poocommerce_tax_rates" );
 		$this->assertEquals( 5, $rate_count );
 	}
 

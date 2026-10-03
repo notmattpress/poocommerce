@@ -49,28 +49,28 @@ describe( 'StatusBadge component', () => {
 	it( 'applies the correct class for success statuses', () => {
 		const { container } = render( <StatusBadge status="active" /> );
 		expect( container.firstChild ).toHaveClass(
-			'woocommerce-status-badge--success'
+			'poocommerce-status-badge--success'
 		);
 	} );
 
 	it( 'applies the correct class for warning statuses', () => {
 		const { container } = render( <StatusBadge status="needs_setup" /> );
 		expect( container.firstChild ).toHaveClass(
-			'woocommerce-status-badge--warning'
+			'poocommerce-status-badge--warning'
 		);
 	} );
 
 	it( 'applies the correct class for not_supported status', () => {
 		const { container } = render( <StatusBadge status="not_supported" /> );
 		expect( container.firstChild ).toHaveClass(
-			'woocommerce-status-badge--warning'
+			'poocommerce-status-badge--warning'
 		);
 	} );
 
 	it( 'applies the correct class for info statuses', () => {
 		const { container } = render( <StatusBadge status="recommended" /> );
 		expect( container.firstChild ).toHaveClass(
-			'woocommerce-status-badge--info'
+			'poocommerce-status-badge--info'
 		);
 	} );
 

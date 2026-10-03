@@ -1,24 +1,24 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\Domain;
+namespace Automattic\PooCommerce\Tests\Blocks\Domain;
 
-use Automattic\WooCommerce\Blocks\BlockTypesController;
-use Automattic\WooCommerce\Blocks\Package;
-use Automattic\WooCommerce\EmailEditor\Bootstrap as EmailEditorBootstrap;
-use Automattic\WooCommerce\EmailEditor\Email_Editor_Container;
-use Automattic\WooCommerce\EmailEditor\Engine\Dependency_Check;
-use Automattic\WooCommerce\Internal\EmailEditor\BlockEmailRenderer;
-use Automattic\WooCommerce\Internal\EmailEditor\Integration;
-use Automattic\WooCommerce\Internal\EmailEditor\Package as EmailEditorPackage;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsManager;
+use Automattic\PooCommerce\Blocks\BlockTypesController;
+use Automattic\PooCommerce\Blocks\Package;
+use Automattic\PooCommerce\EmailEditor\Bootstrap as EmailEditorBootstrap;
+use Automattic\PooCommerce\EmailEditor\Email_Editor_Container;
+use Automattic\PooCommerce\EmailEditor\Engine\Dependency_Check;
+use Automattic\PooCommerce\Internal\EmailEditor\BlockEmailRenderer;
+use Automattic\PooCommerce\Internal\EmailEditor\Integration;
+use Automattic\PooCommerce\Internal\EmailEditor\Package as EmailEditorPackage;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsManager;
 use WC_Unit_Test_Case;
 use WP_Block_Type_Registry;
 
 /**
- * Tests for the on-demand WooCommerce block-type registration wired up by Bootstrap.
+ * Tests for the on-demand PooCommerce block-type registration wired up by Bootstrap.
  *
- * Product and variation descriptions are run through do_blocks on the woocommerce_short_description filter in
+ * Product and variation descriptions are run through do_blocks on the poocommerce_short_description filter in
  * contexts where eager block registration is skipped (the products REST endpoints, the Store API schemas, the
  * variation AJAX endpoint and product webhooks). Bootstrap registers block types on demand there so those blocks
  * do not render empty. Emails rendered by the email editor package get the same on-demand registration.
@@ -26,15 +26,15 @@ use WP_Block_Type_Registry;
 class BootstrapTest extends WC_Unit_Test_Case {
 
 	/**
-	 * A foundational WooCommerce block that register_blocks() always registers (it is not gated behind a theme
+	 * A foundational PooCommerce block that register_blocks() always registers (it is not gated behind a theme
 	 * or feature flag), so it is a stable subject for the on-demand registration assertions.
 	 *
 	 * @var string
 	 */
-	private const SAMPLE_BLOCK = 'woocommerce/product-price';
+	private const SAMPLE_BLOCK = 'poocommerce/product-price';
 
 	/**
-	 * Snapshot of the WooCommerce block types registered before each test, restored afterwards so the shared
+	 * Snapshot of the PooCommerce block types registered before each test, restored afterwards so the shared
 	 * global registry is not left in a modified state for other tests.
 	 *
 	 * @var array<string, \WP_Block_Type>
@@ -42,7 +42,7 @@ class BootstrapTest extends WC_Unit_Test_Case {
 	private array $registered_woo_blocks = array();
 
 	/**
-	 * Snapshot and unregister the WooCommerce blocks, and clear the BlockTypesController registration flag, so
+	 * Snapshot and unregister the PooCommerce blocks, and clear the BlockTypesController registration flag, so
 	 * each test starts from a state that mirrors a fresh request whose eager block registration was skipped.
 	 */
 	public function setUp(): void {
@@ -50,7 +50,7 @@ class BootstrapTest extends WC_Unit_Test_Case {
 
 		$registry = WP_Block_Type_Registry::get_instance();
 		foreach ( $registry->get_all_registered() as $name => $block_type ) {
-			if ( 0 === strpos( $name, 'woocommerce/' ) ) {
+			if ( 0 === strpos( $name, 'poocommerce/' ) ) {
 				$this->registered_woo_blocks[ $name ] = $block_type;
 				$registry->unregister( $name );
 			}
@@ -60,13 +60,13 @@ class BootstrapTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Restore the exact set of WooCommerce blocks that was registered before the test ran, and mark them as
+	 * Restore the exact set of PooCommerce blocks that was registered before the test ran, and mark them as
 	 * registered again on the shared BlockTypesController so later tests see a consistent state.
 	 */
 	public function tearDown(): void {
 		$registry = WP_Block_Type_Registry::get_instance();
 		foreach ( array_keys( $registry->get_all_registered() ) as $name ) {
-			if ( 0 === strpos( (string) $name, 'woocommerce/' ) ) {
+			if ( 0 === strpos( (string) $name, 'poocommerce/' ) ) {
 				$registry->unregister( $name );
 			}
 		}
@@ -174,18 +174,18 @@ class BootstrapTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Bootstrap hooks on-demand block-type registration to woocommerce_short_description before do_blocks.
+	 * @testdox Bootstrap hooks on-demand block-type registration to poocommerce_short_description before do_blocks.
 	 */
 	public function test_short_description_registration_is_hooked_before_do_blocks(): void {
 		global $wp_filter;
 
-		$this->assertArrayHasKey( 'woocommerce_short_description', $wp_filter, 'The filter should have registered callbacks.' );
+		$this->assertArrayHasKey( 'poocommerce_short_description', $wp_filter, 'The filter should have registered callbacks.' );
 
-		$do_blocks_priority = has_filter( 'woocommerce_short_description', 'do_blocks' );
-		$this->assertNotFalse( $do_blocks_priority, 'do_blocks should be hooked to woocommerce_short_description.' );
+		$do_blocks_priority = has_filter( 'poocommerce_short_description', 'do_blocks' );
+		$this->assertNotFalse( $do_blocks_priority, 'do_blocks should be hooked to poocommerce_short_description.' );
 
 		$registration_priority = false;
-		foreach ( $wp_filter['woocommerce_short_description']->callbacks as $priority => $callbacks ) {
+		foreach ( $wp_filter['poocommerce_short_description']->callbacks as $priority => $callbacks ) {
 			foreach ( $callbacks as $callback ) {
 				if (
 					is_array( $callback['function'] )
@@ -198,7 +198,7 @@ class BootstrapTest extends WC_Unit_Test_Case {
 			}
 		}
 
-		$this->assertNotFalse( $registration_priority, 'Bootstrap should hook on-demand block registration to woocommerce_short_description.' );
+		$this->assertNotFalse( $registration_priority, 'Bootstrap should hook on-demand block registration to poocommerce_short_description.' );
 		$this->assertLessThan(
 			$do_blocks_priority,
 			$registration_priority,
@@ -207,15 +207,15 @@ class BootstrapTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Filtering a description that contains a WooCommerce block registers block types that were missing.
+	 * @testdox Filtering a description that contains a PooCommerce block registers block types that were missing.
 	 */
 	public function test_short_description_filter_registers_missing_block_types(): void {
 		$registry = WP_Block_Type_Registry::get_instance();
 
-		$this->assertNotEmpty( $this->registered_woo_blocks, 'The test bootstrap should have registered WooCommerce blocks to snapshot.' );
-		$this->assertFalse( $registry->is_registered( self::SAMPLE_BLOCK ), 'WooCommerce blocks should start unregistered for this test.' );
+		$this->assertNotEmpty( $this->registered_woo_blocks, 'The test bootstrap should have registered PooCommerce blocks to snapshot.' );
+		$this->assertFalse( $registry->is_registered( self::SAMPLE_BLOCK ), 'PooCommerce blocks should start unregistered for this test.' );
 
-		apply_filters( 'woocommerce_short_description', 'Intro <!-- wp:woocommerce/product-price /--> outro' );
+		apply_filters( 'poocommerce_short_description', 'Intro <!-- wp:poocommerce/product-price /--> outro' );
 
 		$this->assertTrue(
 			$registry->is_registered( self::SAMPLE_BLOCK ),
@@ -231,9 +231,9 @@ class BootstrapTest extends WC_Unit_Test_Case {
 	 */
 	public function block_markup_whitespace_variants(): array {
 		return array(
-			'extra spaces after opener' => array( '<!--  wp:woocommerce/accordion-group /-->' ),
-			'newline after opener'      => array( "<!--\nwp:woocommerce/accordion-group /-->" ),
-			'tab after opener'          => array( "<!--\twp:woocommerce/accordion-group /-->" ),
+			'extra spaces after opener' => array( '<!--  wp:poocommerce/accordion-group /-->' ),
+			'newline after opener'      => array( "<!--\nwp:poocommerce/accordion-group /-->" ),
+			'tab after opener'          => array( "<!--\twp:poocommerce/accordion-group /-->" ),
 		);
 	}
 
@@ -246,12 +246,12 @@ class BootstrapTest extends WC_Unit_Test_Case {
 	public function test_short_description_filter_detects_blocks_regardless_of_whitespace( string $markup ): void {
 		$registry = WP_Block_Type_Registry::get_instance();
 
-		$this->assertFalse( $registry->is_registered( 'woocommerce/accordion-group' ), 'WooCommerce blocks should start unregistered for this test.' );
+		$this->assertFalse( $registry->is_registered( 'poocommerce/accordion-group' ), 'PooCommerce blocks should start unregistered for this test.' );
 
-		apply_filters( 'woocommerce_short_description', $markup );
+		apply_filters( 'poocommerce_short_description', $markup );
 
 		$this->assertTrue(
-			$registry->is_registered( 'woocommerce/accordion-group' ),
+			$registry->is_registered( 'poocommerce/accordion-group' ),
 			'Detection should accept any whitespace the block parser accepts after the comment opener.'
 		);
 	}
@@ -262,37 +262,37 @@ class BootstrapTest extends WC_Unit_Test_Case {
 	public function test_short_description_filter_registers_block_types_for_synced_pattern_reference(): void {
 		$registry = WP_Block_Type_Registry::get_instance();
 
-		$this->assertFalse( $registry->is_registered( self::SAMPLE_BLOCK ), 'WooCommerce blocks should start unregistered for this test.' );
+		$this->assertFalse( $registry->is_registered( self::SAMPLE_BLOCK ), 'PooCommerce blocks should start unregistered for this test.' );
 
 		// The referenced pattern's content cannot be inspected without fetching it, so a wp:block reference
-		// must register the block types in case the pattern contains a WooCommerce block at any depth.
-		apply_filters( 'woocommerce_short_description', '<!-- wp:block {"ref":129} /-->' );
+		// must register the block types in case the pattern contains a PooCommerce block at any depth.
+		apply_filters( 'poocommerce_short_description', '<!-- wp:block {"ref":129} /-->' );
 
 		$this->assertTrue(
 			$registry->is_registered( self::SAMPLE_BLOCK ),
-			'A synced pattern reference should register block types, since the pattern may contain WooCommerce blocks.'
+			'A synced pattern reference should register block types, since the pattern may contain PooCommerce blocks.'
 		);
 	}
 
 	/**
-	 * @testdox Filtering a description without WooCommerce block markup does not register block types.
+	 * @testdox Filtering a description without PooCommerce block markup does not register block types.
 	 */
 	public function test_short_description_filter_skips_registration_for_plain_content(): void {
 		$registry = WP_Block_Type_Registry::get_instance();
 
-		$this->assertNotEmpty( $this->registered_woo_blocks, 'The test bootstrap should have registered WooCommerce blocks to snapshot.' );
-		$this->assertFalse( $registry->is_registered( self::SAMPLE_BLOCK ), 'WooCommerce blocks should start unregistered for this test.' );
+		$this->assertNotEmpty( $this->registered_woo_blocks, 'The test bootstrap should have registered PooCommerce blocks to snapshot.' );
+		$this->assertFalse( $registry->is_registered( self::SAMPLE_BLOCK ), 'PooCommerce blocks should start unregistered for this test.' );
 
-		apply_filters( 'woocommerce_short_description', 'Just plain text with no blocks, or only a core <!-- wp:paragraph -->.' );
+		apply_filters( 'poocommerce_short_description', 'Just plain text with no blocks, or only a core <!-- wp:paragraph -->.' );
 
 		$this->assertFalse(
 			$registry->is_registered( self::SAMPLE_BLOCK ),
-			'A description without WooCommerce block markup should stay on the fast path and register nothing.'
+			'A description without PooCommerce block markup should stay on the fast path and register nothing.'
 		);
 
 		// Without whitespace after the comment opener this is not a block per the parser grammar (`<!--\s+wp:`),
 		// so do_blocks would leave it untouched and registration would be wasted.
-		apply_filters( 'woocommerce_short_description', '<!--wp:woocommerce/product-price /-->' );
+		apply_filters( 'poocommerce_short_description', '<!--wp:poocommerce/product-price /-->' );
 
 		$this->assertFalse(
 			$registry->is_registered( self::SAMPLE_BLOCK ),
@@ -307,7 +307,7 @@ class BootstrapTest extends WC_Unit_Test_Case {
 		$registry = WP_Block_Type_Registry::get_instance();
 
 		$product = new \WC_Product_Simple();
-		$product->set_short_description( '<!-- wp:woocommerce/product-price /-->' );
+		$product->set_short_description( '<!-- wp:poocommerce/product-price /-->' );
 		$product->save();
 
 		$this->assertFalse( $registry->is_registered( self::SAMPLE_BLOCK ), 'Blocks should start unregistered for this test.' );
@@ -332,19 +332,19 @@ class BootstrapTest extends WC_Unit_Test_Case {
 		// REST request; blocks like mini-cart or product-price render empty there regardless of registration
 		// and cannot show the difference. Same block the manual testing instructions use.
 		$markup = <<<'HTML'
-<!-- wp:woocommerce/accordion-group -->
-<div class="wp-block-woocommerce-accordion-group"><!-- wp:woocommerce/accordion-item -->
-<div class="wp-block-woocommerce-accordion-item"><!-- wp:woocommerce/accordion-header -->
-<h3 class="wp-block-woocommerce-accordion-header accordion-item__heading"><button class="accordion-item__toggle"><span>Care instructions</span><span class="accordion-item__toggle-icon" style="width:1.2em;height:1.2em"></span></button></h3>
-<!-- /wp:woocommerce/accordion-header -->
+<!-- wp:poocommerce/accordion-group -->
+<div class="wp-block-poocommerce-accordion-group"><!-- wp:poocommerce/accordion-item -->
+<div class="wp-block-poocommerce-accordion-item"><!-- wp:poocommerce/accordion-header -->
+<h3 class="wp-block-poocommerce-accordion-header accordion-item__heading"><button class="accordion-item__toggle"><span>Care instructions</span><span class="accordion-item__toggle-icon" style="width:1.2em;height:1.2em"></span></button></h3>
+<!-- /wp:poocommerce/accordion-header -->
 
-<!-- wp:woocommerce/accordion-panel -->
-<div class="wp-block-woocommerce-accordion-panel"><div class="accordion-content__wrapper"><!-- wp:paragraph -->
+<!-- wp:poocommerce/accordion-panel -->
+<div class="wp-block-poocommerce-accordion-panel"><div class="accordion-content__wrapper"><!-- wp:paragraph -->
 <p>Machine wash cold, tumble dry low.</p>
 <!-- /wp:paragraph --></div></div>
-<!-- /wp:woocommerce/accordion-panel --></div>
-<!-- /wp:woocommerce/accordion-item --></div>
-<!-- /wp:woocommerce/accordion-group -->
+<!-- /wp:poocommerce/accordion-panel --></div>
+<!-- /wp:poocommerce/accordion-item --></div>
+<!-- /wp:poocommerce/accordion-group -->
 HTML;
 
 		$product = new \WC_Product_Simple();
@@ -358,7 +358,7 @@ HTML;
 
 		$short_description = $response->get_data()['short_description'] ?? '';
 		$this->assertStringContainsString(
-			'data-wp-interactive="woocommerce/accordion"',
+			'data-wp-interactive="poocommerce/accordion"',
 			$short_description,
 			'The short description should contain the accordion markup processed by its render callback.'
 		);
@@ -384,7 +384,7 @@ HTML;
 
 		$product = new \WC_Product_Simple();
 		$product->set_regular_price( '10' );
-		$product->set_short_description( '<!-- wp:woocommerce/product-price /-->' );
+		$product->set_short_description( '<!-- wp:poocommerce/product-price /-->' );
 		$product->save();
 
 		$cart_item_key = wc()->cart->add_to_cart( $product->get_id() );
@@ -420,7 +420,7 @@ HTML;
 
 		// Firing the filter must not call register_blocks() again — doing so would re-register already-registered
 		// block types and trigger a doing_it_wrong failure, which WC_Unit_Test_Case turns into a test failure.
-		apply_filters( 'woocommerce_short_description', 'Intro <!-- wp:woocommerce/product-price /--> outro' );
+		apply_filters( 'poocommerce_short_description', 'Intro <!-- wp:poocommerce/product-price /--> outro' );
 
 		$this->assertTrue(
 			$registry->is_registered( self::SAMPLE_BLOCK ),
@@ -437,7 +437,7 @@ HTML;
 		$this->assertFalse( $registry->is_registered( self::SAMPLE_BLOCK ), 'Blocks should start unregistered.' );
 
 		// An extension renders a description before init on a request where register_blocks() is queued on init.
-		apply_filters( 'woocommerce_short_description', 'Intro <!-- wp:woocommerce/product-price /--> outro' );
+		apply_filters( 'poocommerce_short_description', 'Intro <!-- wp:poocommerce/product-price /--> outro' );
 		$this->assertTrue( $controller->register_blocks_has_run(), 'The filter should have run register_blocks() on demand.' );
 		$this->assertTrue( $registry->is_registered( self::SAMPLE_BLOCK ), 'The filter should register block types on demand.' );
 		$hooked_block_instances = $this->count_block_editor_asset_callbacks();
@@ -462,11 +462,11 @@ HTML;
 	public function test_email_render_start_registers_missing_block_types(): void {
 		$registry = WP_Block_Type_Registry::get_instance();
 		Email_Editor_Container::container()->get( EmailEditorBootstrap::class )->init();
-		$this->assertFalse( $registry->is_registered( 'woocommerce/product-collection' ), 'Blocks should start unregistered.' );
+		$this->assertFalse( $registry->is_registered( 'poocommerce/product-collection' ), 'Blocks should start unregistered.' );
 
-		do_action( 'woocommerce_email_editor_render_start' );
+		do_action( 'poocommerce_email_editor_render_start' );
 
-		$block_type = $registry->get_registered( 'woocommerce/product-collection' );
+		$block_type = $registry->get_registered( 'poocommerce/product-collection' );
 		$this->assertNotNull( $block_type, 'Block types should be registered on demand when an email render starts.' );
 		$this->assertTrue( isset( $block_type->render_email_callback ), 'Block types registered on demand should get an email renderer.' );
 		$this->assertIsCallable( $block_type->render_email_callback, 'The email renderer should be callable.' );
@@ -477,20 +477,20 @@ HTML;
 	 */
 	public function test_email_render_start_catches_registration_errors(): void {
 		add_filter(
-			'woocommerce_get_block_types',
+			'poocommerce_get_block_types',
 			function () {
 				throw new \Error( 'Broken block integration' );
 			}
 		);
 		$caught = null;
 		add_action(
-			'woocommerce_caught_exception',
+			'poocommerce_caught_exception',
 			function ( $exception ) use ( &$caught ) {
 				$caught = $exception;
 			}
 		);
 
-		do_action( 'woocommerce_email_editor_render_start' );
+		do_action( 'poocommerce_email_editor_render_start' );
 
 		$this->assertInstanceOf( \Error::class, $caught, 'The registration error should be reported instead of stopping the email render.' );
 	}
@@ -505,7 +505,7 @@ HTML;
 		}
 		$this->set_register_blocks_has_run_flag( true );
 
-		do_action( 'woocommerce_email_editor_render_start' );
+		do_action( 'poocommerce_email_editor_render_start' );
 
 		$this->assertFalse(
 			$this->data_attributes_filter_priority(),
@@ -517,10 +517,10 @@ HTML;
 	 * @testdox The data attributes filter is put back when the email render ends.
 	 */
 	public function test_data_attributes_filter_is_restored_after_the_email_render(): void {
-		do_action( 'woocommerce_email_editor_render_start' );
+		do_action( 'poocommerce_email_editor_render_start' );
 		$this->assertFalse( $this->data_attributes_filter_priority(), 'The filter should be suspended for the render.' );
 
-		do_action( 'woocommerce_email_editor_render_end' );
+		do_action( 'poocommerce_email_editor_render_end' );
 
 		$this->assertSame(
 			10,
@@ -537,15 +537,15 @@ HTML;
 			throw new \RuntimeException( 'Another plugin failed to clean up' );
 		};
 
-		add_action( 'woocommerce_email_editor_render_end', $throwing_callback, 5 );
-		do_action( 'woocommerce_email_editor_render_start' );
+		add_action( 'poocommerce_email_editor_render_end', $throwing_callback, 5 );
+		do_action( 'poocommerce_email_editor_render_start' );
 		try {
-			do_action( 'woocommerce_email_editor_render_end' );
+			do_action( 'poocommerce_email_editor_render_end' );
 			$this->fail( 'The throwing callback should have stopped the action.' );
 		} catch ( \RuntimeException $e ) {
 			$this->assertSame( 'Another plugin failed to clean up', $e->getMessage() );
 		} finally {
-			remove_action( 'woocommerce_email_editor_render_end', $throwing_callback, 5 );
+			remove_action( 'poocommerce_email_editor_render_end', $throwing_callback, 5 );
 		}
 
 		$this->assertSame(
@@ -565,15 +565,15 @@ HTML;
 
 		// The common case: default priority, hooked before the render starts. Registration order alone used to
 		// decide whether the restore ran, since it is hooked during the render.
-		add_action( 'woocommerce_email_editor_render_end', $throwing_callback );
-		do_action( 'woocommerce_email_editor_render_start' );
+		add_action( 'poocommerce_email_editor_render_end', $throwing_callback );
+		do_action( 'poocommerce_email_editor_render_start' );
 		try {
-			do_action( 'woocommerce_email_editor_render_end' );
+			do_action( 'poocommerce_email_editor_render_end' );
 			$this->fail( 'The throwing callback should have stopped the action.' );
 		} catch ( \RuntimeException $e ) {
 			$this->assertSame( 'A plugin hooked at load time failed', $e->getMessage() );
 		} finally {
-			remove_action( 'woocommerce_email_editor_render_end', $throwing_callback );
+			remove_action( 'poocommerce_email_editor_render_end', $throwing_callback );
 		}
 
 		$this->assertSame(
@@ -589,11 +589,11 @@ HTML;
 	public function test_data_attributes_filter_is_restored_by_a_later_render(): void {
 		// An integration that fires the start action on its own, for example around its own rendering, and never
 		// fires the end action.
-		do_action( 'woocommerce_email_editor_render_start' );
+		do_action( 'poocommerce_email_editor_render_start' );
 		$this->assertFalse( $this->data_attributes_filter_priority(), 'The filter should be suspended for the render.' );
 
-		do_action( 'woocommerce_email_editor_render_start' );
-		do_action( 'woocommerce_email_editor_render_end' );
+		do_action( 'poocommerce_email_editor_render_start' );
+		do_action( 'poocommerce_email_editor_render_end' );
 
 		$this->assertSame(
 			10,
@@ -608,8 +608,8 @@ HTML;
 	public function test_email_render_does_not_restore_a_removed_data_attributes_filter(): void {
 		$this->remove_data_attributes_filter();
 
-		do_action( 'woocommerce_email_editor_render_start' );
-		do_action( 'woocommerce_email_editor_render_end' );
+		do_action( 'poocommerce_email_editor_render_start' );
+		do_action( 'poocommerce_email_editor_render_end' );
 
 		$this->assertFalse(
 			$this->data_attributes_filter_priority(),
@@ -633,7 +633,7 @@ HTML;
 		$product->set_regular_price( '10' );
 		$product->save();
 
-		update_option( 'woocommerce_feature_block_email_editor_enabled', 'yes' );
+		update_option( 'poocommerce_feature_block_email_editor_enabled', 'yes' );
 		wc_get_container()->get( EmailEditorPackage::class )->init();
 		wc_get_container()->get( Integration::class )->initialize();
 		$email_editor_bootstrap = Email_Editor_Container::container()->get( EmailEditorBootstrap::class );
@@ -645,13 +645,13 @@ HTML;
 				'post_name'    => 'test_email',
 				'post_type'    => Integration::EMAIL_POST_TYPE,
 				'post_status'  => 'publish',
-				'post_content' => '<!-- wp:woocommerce/product-collection {"queryId":1,"query":{"perPage":3,"pages":1,"offset":0,"postType":"product","order":"asc","orderBy":"title","search":"","exclude":[],"inherit":false,"taxQuery":[],"isProductCollectionBlock":true,"woocommerceOnSale":false,"woocommerceStockStatus":["instock","outofstock","onbackorder"],"woocommerceAttributes":[],"woocommerceHandPickedProducts":[]},"tagName":"div","displayLayout":{"type":"flex","columns":3},"collection":"woocommerce/product-collection/product-catalog"} -->
-<div class="wp-block-woocommerce-product-collection"><!-- wp:woocommerce/product-template -->
-<!-- wp:post-title {"isLink":true,"__woocommerceNamespace":"woocommerce/product-collection/product-title"} /-->
-<!-- wp:woocommerce/product-price {"isDescendentOfQueryLoop":true} /-->
-<!-- /wp:woocommerce/product-template --></div>
-<!-- /wp:woocommerce/product-collection -->
-<!-- wp:woocommerce/store-notices /-->',
+				'post_content' => '<!-- wp:poocommerce/product-collection {"queryId":1,"query":{"perPage":3,"pages":1,"offset":0,"postType":"product","order":"asc","orderBy":"title","search":"","exclude":[],"inherit":false,"taxQuery":[],"isProductCollectionBlock":true,"poocommerceOnSale":false,"poocommerceStockStatus":["instock","outofstock","onbackorder"],"poocommerceAttributes":[],"poocommerceHandPickedProducts":[]},"tagName":"div","displayLayout":{"type":"flex","columns":3},"collection":"poocommerce/product-collection/product-catalog"} -->
+<div class="wp-block-poocommerce-product-collection"><!-- wp:poocommerce/product-template -->
+<!-- wp:post-title {"isLink":true,"__poocommerceNamespace":"poocommerce/product-collection/product-title"} /-->
+<!-- wp:poocommerce/product-price {"isDescendentOfQueryLoop":true} /-->
+<!-- /wp:poocommerce/product-template --></div>
+<!-- /wp:poocommerce/product-collection -->
+<!-- wp:poocommerce/store-notices /-->',
 			)
 		);
 		WCTransactionalEmailPostsManager::get_instance()->save_email_template_post_id( 'test_email', $email_post->ID );
@@ -678,7 +678,7 @@ HTML;
 		);
 		$this->assertStringContainsString( 'Email collection product', $rendered_email, 'The product collection should list the product.' );
 		$this->assertStringContainsString(
-			'woocommerce-notices-wrapper',
+			'poocommerce-notices-wrapper',
 			$rendered_email,
 			'The store notices block has to render markup, or the data attribute assertion below passes for the wrong reason.'
 		);

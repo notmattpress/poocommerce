@@ -2,10 +2,10 @@
 /**
  * Admin notes helper for wc-admin unit tests.
  *
- * @package WooCommerce\Admin\Tests\Framework\Helpers
+ * @package PooCommerce\Admin\Tests\Framework\Helpers
  */
 
-use Automattic\WooCommerce\Admin\Notes\Note;
+use Automattic\PooCommerce\Admin\Notes\Note;
 
 /**
  * Class WC_Helper_Admin_Notes.

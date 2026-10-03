@@ -8,7 +8,7 @@ import {
 	TextControl,
 	ToggleControl,
 } from '@wordpress/components';
-import { getSetting } from '@woocommerce/settings';
+import { getSetting } from '@poocommerce/settings';
 
 /**
  * Internal dependencies
@@ -26,9 +26,9 @@ interface CouponType {
 }
 
 const DEFAULT_COUPON_TYPES: Record< string, string > = {
-	percent: __( 'Percentage discount', 'woocommerce' ),
-	fixed_cart: __( 'Fixed cart discount', 'woocommerce' ),
-	fixed_product: __( 'Fixed product discount', 'woocommerce' ),
+	percent: __( 'Percentage discount', 'poocommerce' ),
+	fixed_cart: __( 'Fixed cart discount', 'poocommerce' ),
+	fixed_product: __( 'Fixed product discount', 'poocommerce' ),
 };
 
 function getCouponTypeOptions(): CouponType[] {
@@ -55,11 +55,11 @@ export function GeneralSettings( {
 
 	return (
 		<PanelBody
-			title={ __( 'General', 'woocommerce' ) }
+			title={ __( 'General', 'poocommerce' ) }
 			initialOpen={ true }
 		>
 			<SelectControl
-				label={ __( 'Discount type', 'woocommerce' ) }
+				label={ __( 'Discount type', 'poocommerce' ) }
 				value={ attributes.discountType }
 				options={ couponTypeOptions }
 				onChange={ ( value ) => {
@@ -72,7 +72,7 @@ export function GeneralSettings( {
 				__nextHasNoMarginBottom
 			/>
 			<TextControl
-				label={ __( 'Amount', 'woocommerce' ) }
+				label={ __( 'Amount', 'poocommerce' ) }
 				value={ String( attributes.amount ) }
 				type="number"
 				min={ 0 }
@@ -86,8 +86,8 @@ export function GeneralSettings( {
 				__next40pxDefaultSize
 			/>
 			<TextControl
-				label={ __( 'Expires (days after send)', 'woocommerce' ) }
-				help={ __( 'Set to 0 for no expiry.', 'woocommerce' ) }
+				label={ __( 'Expires (days after send)', 'poocommerce' ) }
+				help={ __( 'Set to 0 for no expiry.', 'poocommerce' ) }
 				value={ String( attributes.expiryDay ) }
 				type="number"
 				min={ 0 }
@@ -100,7 +100,7 @@ export function GeneralSettings( {
 				__next40pxDefaultSize
 			/>
 			<ToggleControl
-				label={ __( 'Free shipping', 'woocommerce' ) }
+				label={ __( 'Free shipping', 'poocommerce' ) }
 				checked={ attributes.freeShipping }
 				onChange={ ( value ) =>
 					setAttributes( { freeShipping: value } )

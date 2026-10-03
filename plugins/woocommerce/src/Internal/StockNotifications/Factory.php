@@ -5,9 +5,9 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\StockNotifications;
+namespace Automattic\PooCommerce\Internal\StockNotifications;
 
-use Automattic\WooCommerce\Internal\StockNotifications\Notification;
+use Automattic\PooCommerce\Internal\StockNotifications\Notification;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -47,9 +47,9 @@ class Factory {
 
 		// Create a dummy product.
 		$product = new \WC_Product();
-		$product->set_name( __( 'Dummy Product', 'woocommerce' ) );
+		$product->set_name( __( 'Dummy Product', 'poocommerce' ) );
 		$product->set_price( 25 );
-		$product->set_image_id( get_option( 'woocommerce_placeholder_image', 0 ) );
+		$product->set_image_id( get_option( 'poocommerce_placeholder_image', 0 ) );
 
 		// Set required notification data.
 		$notification->set_product_id( $product->get_id() );

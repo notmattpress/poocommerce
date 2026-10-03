@@ -9,7 +9,7 @@ class Fake_WCPayments extends WC_Payment_Gateway_WCPay {
 	 * Constructor.
 	 */
 	public function __construct() {
-		$this->id                 = 'woocommerce_payments';
+		$this->id                 = 'poocommerce_payments';
 		$this->has_fields         = true;
 		$this->method_title       = 'WooPayments';
 		$this->method_description = $this->get_method_description();
@@ -41,7 +41,7 @@ class Fake_WCPayments extends WC_Payment_Gateway_WCPay {
 
 	/**
 	 * Get the connection URL.
-	 * Called directly by WooCommerce Core.
+	 * Called directly by PooCommerce Core.
 	 *
 	 * @return string Connection URL.
 	 */
@@ -63,7 +63,7 @@ class Fake_WCPayments extends WC_Payment_Gateway_WCPay {
 	/**
 	 * Checks if the account has not completed onboarding due to users abandoning the process half way.
 	 * Also used by WC Core to complete the task "Set up WooPayments".
-	 * Called directly by WooCommerce Core.
+	 * Called directly by PooCommerce Core.
 	 *
 	 * @return bool
 	 */

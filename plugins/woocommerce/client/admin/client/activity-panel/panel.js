@@ -3,7 +3,7 @@
  */
 import { Suspense, useRef, useCallback } from '@wordpress/element';
 import clsx from 'clsx';
-import { Spinner } from '@woocommerce/components';
+import { Spinner } from '@poocommerce/components';
 
 /**
  * Internal dependencies
@@ -20,7 +20,7 @@ export const Panel = ( {
 	closePanel,
 	clearPanel,
 } ) => {
-	const panelClass = 'woocommerce-layout__activity-panel-wrapper';
+	const panelClass = 'poocommerce-layout__activity-panel-wrapper';
 
 	const focusOnMountRef = useFocusOnMount();
 	const containerRef = useRef( null );
@@ -29,7 +29,7 @@ export const Panel = ( {
 		const isClickOnModalOrSnackbar =
 			event.relatedTarget &&
 			( event.relatedTarget.closest(
-				'.woocommerce-inbox-dismiss-confirmation_modal'
+				'.poocommerce-inbox-dismiss-confirmation_modal'
 			) ||
 				event.relatedTarget.closest( '.components-snackbar__action' ) );
 
@@ -84,7 +84,7 @@ export const Panel = ( {
 			ref={ mergedContainerRef }
 		>
 			<div
-				className="woocommerce-layout__activity-panel-content"
+				className="poocommerce-layout__activity-panel-content"
 				key={ 'activity-panel-' + currentTab }
 				id={ 'activity-panel-' + currentTab }
 			>

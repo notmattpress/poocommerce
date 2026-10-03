@@ -2,22 +2,22 @@
 /**
  * Unit tests for RenewalCalculator.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine
+ * @package Automattic\PooCommerce\SubscriptionsEngine
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Tests\Unit\Core\Renewal;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Tests\Unit\Core\Renewal;
 
 use DateTimeImmutable;
 use DateTimeZone;
 use PHPUnit\Framework\TestCase;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\CycleStatus;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Renewal\RenewalCalculator;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\ValueObject\BillingPolicy;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\CycleStatus;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Renewal\RenewalCalculator;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\ValueObject\BillingPolicy;
 
 /**
- * @covers \Automattic\WooCommerce\SubscriptionsEngine\Core\Renewal\RenewalCalculator
+ * @covers \Automattic\PooCommerce\SubscriptionsEngine\Core\Renewal\RenewalCalculator
  */
 class RenewalCalculatorTest extends TestCase {
 

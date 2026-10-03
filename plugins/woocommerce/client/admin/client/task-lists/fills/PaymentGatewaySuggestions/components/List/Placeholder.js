@@ -10,7 +10,7 @@ import {
 	CardMedia,
 	CardDivider,
 } from '@wordpress/components';
-import { Text } from '@woocommerce/experimental';
+import { Text } from '@poocommerce/experimental';
 
 /**
  * Internal dependencies
@@ -18,7 +18,7 @@ import { Text } from '@woocommerce/experimental';
 import './List.scss';
 
 const PlaceholderItem = () => {
-	const classes = clsx( 'woocommerce-task-payment', 'woocommerce-task-card' );
+	const classes = clsx( 'poocommerce-task-payment', 'poocommerce-task-card' );
 
 	return (
 		<Fragment>
@@ -29,15 +29,15 @@ const PlaceholderItem = () => {
 				<CardMedia isBorderless>
 					<span className="is-placeholder" />
 				</CardMedia>
-				<div className="woocommerce-task-payment__description">
-					<Text as="h3" className="woocommerce-task-payment__title">
+				<div className="poocommerce-task-payment__description">
+					<Text as="h3" className="poocommerce-task-payment__title">
 						<span className="is-placeholder" />
 					</Text>
-					<div className="woocommerce-task-payment__content">
+					<div className="poocommerce-task-payment__content">
 						<span className="is-placeholder" />
 					</div>
 				</div>
-				<div className="woocommerce-task-payment__footer">
+				<div className="poocommerce-task-payment__footer">
 					<span className="is-placeholder" />
 				</div>
 			</CardBody>
@@ -48,7 +48,7 @@ const PlaceholderItem = () => {
 
 export const Placeholder = () => {
 	const classes =
-		'is-loading woocommerce-payment-gateway-suggestions-list-placeholder';
+		'is-loading poocommerce-payment-gateway-suggestions-list-placeholder';
 
 	return (
 		<Card aria-hidden="true" className={ classes }>

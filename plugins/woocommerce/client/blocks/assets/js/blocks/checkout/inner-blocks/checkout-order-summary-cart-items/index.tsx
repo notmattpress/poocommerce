@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { cart } from '@woocommerce/icons';
+import { cart } from '@poocommerce/icons';
 import { Icon } from '@wordpress/icons';
 import { registerBlockType } from '@wordpress/blocks';
 
@@ -11,7 +11,7 @@ import { registerBlockType } from '@wordpress/blocks';
 import { Edit, Save } from './edit';
 import metadata from './block.json';
 
-registerBlockType( 'woocommerce/checkout-order-summary-cart-items-block', {
+registerBlockType( 'poocommerce/checkout-order-summary-cart-items-block', {
 	apiVersion: metadata.apiVersion,
 	title: metadata.title,
 	icon: {

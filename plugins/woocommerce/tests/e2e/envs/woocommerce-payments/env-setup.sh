@@ -7,4 +7,4 @@ SCRIPT_PATH=$(
   pwd -P
 )
 
-PLUGIN_REPOSITORY='automattic/woocommerce-payments' PLUGIN_NAME=WooPayments PLUGIN_SLUG=woocommerce-payments "$SCRIPT_PATH"/../../bin/install-plugin.sh
+PLUGIN_REPOSITORY='automattic/poocommerce-payments' PLUGIN_NAME=WooPayments PLUGIN_SLUG=poocommerce-payments "$SCRIPT_PATH"/../../bin/install-plugin.sh

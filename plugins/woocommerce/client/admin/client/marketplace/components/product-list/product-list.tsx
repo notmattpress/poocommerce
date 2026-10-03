@@ -38,7 +38,7 @@ export default function ProductList(
 
 	return (
 		<div
-			className="woocommerce-marketplace__product-list"
+			className="poocommerce-marketplace__product-list"
 			data-group-id={ groupId }
 			ref={ containerRef }
 		>

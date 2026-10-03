@@ -81,7 +81,7 @@ describe( 'createDeprecatedPropertiesProxy', () => {
 			admin: {
 				onboarding: {
 					profile:
-						'Deprecated: wcSettings.admin.onboarding.profile is deprecated. It is planned to be released in WooCommerce 10.0.0. Please use `getProfileItems` from the onboarding store. See https://github.com/woocommerce/woocommerce/tree/trunk/packages/js/data/src/onboarding for more information.',
+						'Deprecated: wcSettings.admin.onboarding.profile is deprecated. It is planned to be released in PooCommerce 10.0.0. Please use `getProfileItems` from the onboarding store. See https://github.com/poocommerce/poocommerce/tree/trunk/packages/js/data/src/onboarding for more information.',
 				},
 			},
 		} );
@@ -107,7 +107,7 @@ describe( 'createDeprecatedPropertiesProxy', () => {
 		expect( consoleWarnSpy ).not.toHaveBeenCalled();
 		expect( proxiedSettings.admin.onboarding.profile.name ).toBe( 'hello' );
 		expect( consoleWarnSpy ).toHaveBeenCalledWith(
-			'Deprecated: wcSettings.admin.onboarding.profile is deprecated. It is planned to be released in WooCommerce 10.0.0. Please use `getProfileItems` from the onboarding store. See https://github.com/woocommerce/woocommerce/tree/trunk/packages/js/data/src/onboarding for more information.'
+			'Deprecated: wcSettings.admin.onboarding.profile is deprecated. It is planned to be released in PooCommerce 10.0.0. Please use `getProfileItems` from the onboarding store. See https://github.com/poocommerce/poocommerce/tree/trunk/packages/js/data/src/onboarding for more information.'
 		);
 
 		// Reset spy for next test
@@ -121,7 +121,7 @@ describe( 'createDeprecatedPropertiesProxy', () => {
 			'three',
 		] );
 		expect( consoleWarnSpy ).toHaveBeenCalledWith(
-			'Deprecated: wcSettings.admin.onboarding.profile is deprecated. It is planned to be released in WooCommerce 10.0.0. Please use `getProfileItems` from the onboarding store. See https://github.com/woocommerce/woocommerce/tree/trunk/packages/js/data/src/onboarding for more information.'
+			'Deprecated: wcSettings.admin.onboarding.profile is deprecated. It is planned to be released in PooCommerce 10.0.0. Please use `getProfileItems` from the onboarding store. See https://github.com/poocommerce/poocommerce/tree/trunk/packages/js/data/src/onboarding for more information.'
 		);
 	} );
 

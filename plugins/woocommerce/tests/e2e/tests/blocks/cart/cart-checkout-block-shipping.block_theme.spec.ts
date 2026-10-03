@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { expect, test as base, FrontendUtils } from '@woocommerce/e2e-utils';
+import { expect, test as base, FrontendUtils } from '@poocommerce/e2e-utils';
 import { Dialog } from '@playwright/test';
 
 /**
@@ -78,7 +78,7 @@ test.describe( 'Shopper → Shipping', () => {
 		).toBeDisabled();
 	} );
 
-	// Series of tests below to cover the following scenarios: see PR https://github.com/woocommerce/woocommerce/pull/56460 for more details
+	// Series of tests below to cover the following scenarios: see PR https://github.com/poocommerce/poocommerce/pull/56460 for more details
 
 	/**
 	 * Rates enabled for default customer location
@@ -205,7 +205,7 @@ test.describe( 'Shopper → Shipping', () => {
 	} );
 
 	// 5. With no shipping methods for the default location, but shipping methods for _any_ other location, local pickup enabled, the shopper sees pickup rates until entering an address for the zone with rates
-	// Not testing because this is a "bug" we are going to fix - see https://github.com/woocommerce/woocommerce/issues/56462
+	// Not testing because this is a "bug" we are going to fix - see https://github.com/poocommerce/poocommerce/issues/56462
 
 	test( '6. With no shipping methods for the default location, but shipping methods for _any_ other location, local pickup disabled, and shipping costs require address disabled, the shopper sees shipping rates only after entering an address', async ( {
 		localPickupUtils,
@@ -323,7 +323,7 @@ test.describe( 'Shopper → Shipping', () => {
 		).toBeHidden();
 	} );
 
-	// Skipping test due to a known bug with needs_shipping - see issue https://github.com/woocommerce/woocommerce/issues/56507
+	// Skipping test due to a known bug with needs_shipping - see issue https://github.com/poocommerce/poocommerce/issues/56507
 	test.skip( '8. With no shipping methods for the default location, no shipping methods for _any_ other location, local pickup disabled the shopper sees no shipping and no pickup rates', async ( {
 		localPickupUtils,
 		admin,
@@ -450,7 +450,7 @@ test.describe( 'Shopper → Shipping', () => {
 	// 11. With no shipping methods for the default location, but shipping methods for _any_ other location, local pickup disabled, and shipping requires address enabled, the shopper sees no shipping until an address is entered no pickup rates
 	// Skipping testing 11 because it is the same as 6.
 
-	// Skipping test due to a known bug with needs_shipping - see issue https://github.com/woocommerce/woocommerce/issues/56507
+	// Skipping test due to a known bug with needs_shipping - see issue https://github.com/poocommerce/poocommerce/issues/56507
 	test.skip( '12. With no shipping methods for the default location, no shipping methods for _any_ other location, local pickup disabled, and shipping requires address enabled the shopper sees no shipping and no pickup rates', async ( {
 		localPickupUtils,
 		admin,

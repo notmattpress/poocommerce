@@ -1,5 +1,5 @@
 <?php
-namespace Automattic\WooCommerce\Admin\API\Reports;
+namespace Automattic\PooCommerce\Admin\API\Reports;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -35,7 +35,7 @@ use WP_REST_Response;
  *                 ),
  *             ),
  *         );
- *         // Add additional fields from `get_additional_fields` method and apply `woocommerce_rest_' . $schema['title'] . '_schema` filter.
+ *         // Add additional fields from `get_additional_fields` method and apply `poocommerce_rest_' . $schema['title'] . '_schema` filter.
  *         return $this->add_additional_fields_schema( $schema );
  *     }
  * }
@@ -44,7 +44,7 @@ use WP_REST_Response;
  * The above Controller will get the data from a {@see DataStore data store} registered as `$rest_base` (`reports/my-thing`).
  * (To change this behavior, override the `get_datastore_data()` method).
  *
- * To use the controller, please register it with the filter `woocommerce_admin_rest_controllers` filter.
+ * To use the controller, please register it with the filter `poocommerce_admin_rest_controllers` filter.
  *
  * @extends WC_REST_Reports_Controller
  */
@@ -117,7 +117,7 @@ abstract class GenericController extends \WC_REST_Reports_Controller {
 		$params                        = array();
 		$params['context']             = $this->get_context_param( array( 'default' => 'view' ) );
 		$params['page']                = array(
-			'description'       => __( 'Current page of the collection.', 'woocommerce' ),
+			'description'       => __( 'Current page of the collection.', 'poocommerce' ),
 			'type'              => 'integer',
 			'default'           => 1,
 			'sanitize_callback' => 'absint',
@@ -125,7 +125,7 @@ abstract class GenericController extends \WC_REST_Reports_Controller {
 			'minimum'           => 1,
 		);
 		$params['per_page']            = array(
-			'description'       => __( 'Maximum number of items to be returned in result set.', 'woocommerce' ),
+			'description'       => __( 'Maximum number of items to be returned in result set.', 'poocommerce' ),
 			'type'              => 'integer',
 			'default'           => 10,
 			'minimum'           => 1,
@@ -134,26 +134,26 @@ abstract class GenericController extends \WC_REST_Reports_Controller {
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 		$params['after']               = array(
-			'description'       => __( 'Limit response to resources published after a given ISO8601 compliant date.', 'woocommerce' ),
+			'description'       => __( 'Limit response to resources published after a given ISO8601 compliant date.', 'poocommerce' ),
 			'type'              => 'string',
 			'format'            => 'date-time',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 		$params['before']              = array(
-			'description'       => __( 'Limit response to resources published before a given ISO8601 compliant date.', 'woocommerce' ),
+			'description'       => __( 'Limit response to resources published before a given ISO8601 compliant date.', 'poocommerce' ),
 			'type'              => 'string',
 			'format'            => 'date-time',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 		$params['order']               = array(
-			'description'       => __( 'Order sort attribute ascending or descending.', 'woocommerce' ),
+			'description'       => __( 'Order sort attribute ascending or descending.', 'poocommerce' ),
 			'type'              => 'string',
 			'default'           => 'desc',
 			'enum'              => array( 'asc', 'desc' ),
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 		$params['orderby']             = array(
-			'description'       => __( 'Sort collection by object attribute.', 'woocommerce' ),
+			'description'       => __( 'Sort collection by object attribute.', 'poocommerce' ),
 			'type'              => 'string',
 			'default'           => 'date',
 			'enum'              => array(
@@ -162,7 +162,7 @@ abstract class GenericController extends \WC_REST_Reports_Controller {
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 		$params['force_cache_refresh'] = array(
-			'description'       => __( 'Force retrieval of fresh data instead of from the cache.', 'woocommerce' ),
+			'description'       => __( 'Force retrieval of fresh data instead of from the cache.', 'poocommerce' ),
 			'type'              => 'boolean',
 			'sanitize_callback' => 'wp_validate_boolean',
 			'validate_callback' => 'rest_validate_request_arg',
@@ -191,7 +191,7 @@ abstract class GenericController extends \WC_REST_Reports_Controller {
 		}
 
 		if ( ! isset( $report_data->data ) || ! isset( $report_data->page_no ) || ! isset( $report_data->pages ) ) {
-			return new \WP_Error( 'woocommerce_rest_reports_invalid_response', __( 'Invalid response from data store.', 'woocommerce' ), array( 'status' => 500 ) );
+			return new \WP_Error( 'poocommerce_rest_reports_invalid_response', __( 'Invalid response from data store.', 'poocommerce' ), array( 'status' => 500 ) );
 		}
 
 		$out_data = array();
@@ -282,6 +282,6 @@ abstract class GenericController extends \WC_REST_Reports_Controller {
 		 *
 		 * @param array $orderby_enum The orderby query parameter enum.
 		 */
-		return apply_filters( "woocommerce_analytics_orderby_enum_{$this->rest_base}", $orderby_enum );
+		return apply_filters( "poocommerce_analytics_orderby_enum_{$this->rest_base}", $orderby_enum );
 	}
 }

@@ -6,9 +6,9 @@
 		"moduleResolution": "node",
 		"baseUrl": ".",
 		"paths": {
-			"@woocommerce/e2e-utils": [ "./utils/blocks" ],
-			"@woocommerce/stores/woocommerce/cart": [
-				"../../client/blocks/assets/js/base/stores/woocommerce/cart"
+			"@poocommerce/e2e-utils": [ "./utils/blocks" ],
+			"@poocommerce/stores/poocommerce/cart": [
+				"../../client/blocks/assets/js/base/stores/poocommerce/cart"
 			]
 		},
 		"esModuleInterop": true,

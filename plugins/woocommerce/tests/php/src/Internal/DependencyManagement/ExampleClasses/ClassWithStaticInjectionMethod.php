@@ -2,14 +2,14 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\DependencyManagement\ExampleClasses;
+namespace Automattic\PooCommerce\Tests\Internal\DependencyManagement\ExampleClasses;
 
 /**
  * An example of a class with a static injection method.
  */
 class ClassWithStaticInjectionMethod {
 
-	// phpcs:disable WooCommerce.Functions.InternalInjectionMethod.MissingPublic, WooCommerce.Functions.InternalInjectionMethod.MissingFinal
+	// phpcs:disable PooCommerce.Functions.InternalInjectionMethod.MissingPublic, PooCommerce.Functions.InternalInjectionMethod.MissingFinal
 
 	/**
 	 * Tells whether the 'init' method has been executed.

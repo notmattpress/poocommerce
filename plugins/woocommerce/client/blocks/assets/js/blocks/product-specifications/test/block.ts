@@ -17,7 +17,7 @@ import '../';
 async function setup( attributes: BlockAttributes ) {
 	const testBlock = [
 		{
-			name: 'woocommerce/product-specifications',
+			name: 'poocommerce/product-specifications',
 			attributes,
 		},
 	];

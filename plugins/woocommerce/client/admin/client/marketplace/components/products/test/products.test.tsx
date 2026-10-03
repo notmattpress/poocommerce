@@ -4,7 +4,7 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 
-jest.mock( '@woocommerce/navigation', () => ( {
+jest.mock( '@poocommerce/navigation', () => ( {
 	getNewPath: jest.fn( () => '/new-path' ),
 	navigateTo: jest.fn(),
 	useQuery: jest.fn( () => ( {} ) ),

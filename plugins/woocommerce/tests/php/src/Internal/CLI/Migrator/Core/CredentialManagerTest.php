@@ -2,14 +2,14 @@
 /**
  * Credential Manager Test
  *
- * @package Automattic\WooCommerce\Tests\Internal\CLI\Migrator\Core
+ * @package Automattic\PooCommerce\Tests\Internal\CLI\Migrator\Core
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\CLI\Migrator\Core;
+namespace Automattic\PooCommerce\Tests\Internal\CLI\Migrator\Core;
 
-use Automattic\WooCommerce\Internal\CLI\Migrator\Core\CredentialManager;
+use Automattic\PooCommerce\Internal\CLI\Migrator\Core\CredentialManager;
 
 /**
  * CredentialManagerTest class.

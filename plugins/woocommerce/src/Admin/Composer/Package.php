@@ -7,13 +7,13 @@
  * This namespace isn't compatible with the PSR-4
  * which ensures that the copy in the standalone plugin will not be autoloaded.
  */
-namespace Automattic\WooCommerce\Admin\Composer;
+namespace Automattic\PooCommerce\Admin\Composer;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\Notes\Notes;
-use Automattic\WooCommerce\Admin\Notes\NotesUnavailableException;
-use Automattic\WooCommerce\Internal\Admin\FeaturePlugin;
+use Automattic\PooCommerce\Admin\Notes\Notes;
+use Automattic\PooCommerce\Admin\Notes\NotesUnavailableException;
+use Automattic\PooCommerce\Internal\Admin\FeaturePlugin;
 
 /**
  * Main package class.

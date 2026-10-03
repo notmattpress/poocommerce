@@ -71,7 +71,7 @@ Always use the official capitalization for brand names:
 **Correct:**
 
 - "PayPal"
-- "WooCommerce"
+- "PooCommerce"
 - "WordPress"
 - "Stripe"
 

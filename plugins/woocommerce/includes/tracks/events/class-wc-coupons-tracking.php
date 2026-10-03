@@ -1,14 +1,14 @@
 <?php
 /**
- * WooCommerce Coupons Tracking
+ * PooCommerce Coupons Tracking
  *
- * @package WooCommerce\Tracks
+ * @package PooCommerce\Tracks
  */
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * This class adds actions to track usage of WooCommerce Orders.
+ * This class adds actions to track usage of PooCommerce Orders.
  */
 class WC_Coupons_Tracking {
 	/**

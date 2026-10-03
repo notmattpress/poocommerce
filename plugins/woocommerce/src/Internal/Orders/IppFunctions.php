@@ -1,6 +1,6 @@
 <?php
 
-namespace Automattic\WooCommerce\Internal\Orders;
+namespace Automattic\PooCommerce\Internal\Orders;
 
 use WC_Order;
 use WC_Gateway_COD;
@@ -19,7 +19,7 @@ class IppFunctions {
 	 */
 	public static function is_order_in_person_payment_eligible( WC_Order $order ): bool {
 		$has_status            = in_array( $order->get_status(), array( 'pending', 'on-hold', 'processing' ), true );
-		$has_payment_method    = in_array( $order->get_payment_method(), array( WC_Gateway_COD::ID, 'woocommerce_payments', 'none' ), true );
+		$has_payment_method    = in_array( $order->get_payment_method(), array( WC_Gateway_COD::ID, 'poocommerce_payments', 'none' ), true );
 		$order_is_not_paid     = null === $order->get_date_paid();
 		$order_is_not_refunded = empty( $order->get_refunds() );
 
@@ -57,6 +57,6 @@ class IppFunctions {
 	 * @return bool true if specified country and currency match the store's ones. false otherwise
 	 */
 	public static function has_store_specified_country_currency( string $country, string $currency ): bool {
-		return ( WC()->countries->get_base_country() === $country && get_woocommerce_currency() === $currency );
+		return ( WC()->countries->get_base_country() === $country && get_poocommerce_currency() === $currency );
 	}
 }

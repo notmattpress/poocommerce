@@ -16,7 +16,7 @@ function RemoteSpecValidator( { validate, message, setMessage } ) {
 		[
 			{
 				type: 'plugin_version',
-				plugin: 'woocommerce',
+				plugin: 'poocommerce',
 				version: '6.5.0-dev',
 				operator: '>=',
 			},

@@ -4,10 +4,10 @@
 import { InspectorControls } from '@wordpress/block-editor';
 import { PanelBody, RangeControl, ToggleControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
-import { getSetting } from '@woocommerce/settings';
-import GridContentControl from '@woocommerce/editor-components/grid-content-control';
-import ProductOrderbyControl from '@woocommerce/editor-components/product-orderby-control';
-import ProductsControl from '@woocommerce/editor-components/products-control';
+import { getSetting } from '@poocommerce/settings';
+import GridContentControl from '@poocommerce/editor-components/grid-content-control';
+import ProductOrderbyControl from '@poocommerce/editor-components/product-orderby-control';
+import ProductsControl from '@poocommerce/editor-components/products-control';
 
 /**
  * Internal dependencies
@@ -22,9 +22,9 @@ export const HandpickedProductsInspectorControls = (
 
 	return (
 		<InspectorControls key="inspector">
-			<PanelBody title={ __( 'Layout', 'woocommerce' ) } initialOpen>
+			<PanelBody title={ __( 'Layout', 'poocommerce' ) } initialOpen>
 				<RangeControl
-					label={ __( 'Columns', 'woocommerce' ) }
+					label={ __( 'Columns', 'poocommerce' ) }
 					value={ columns }
 					onChange={ ( value ) =>
 						setAttributes( { columns: value } )
@@ -33,14 +33,14 @@ export const HandpickedProductsInspectorControls = (
 					max={ getSetting( 'maxColumns', 6 ) }
 				/>
 				<ToggleControl
-					label={ __( 'Align Buttons', 'woocommerce' ) }
+					label={ __( 'Align Buttons', 'poocommerce' ) }
 					help={
 						alignButtons
 							? __(
 									'Buttons are aligned vertically.',
-									'woocommerce'
+									'poocommerce'
 							  )
-							: __( 'Buttons follow content.', 'woocommerce' )
+							: __( 'Buttons follow content.', 'poocommerce' )
 					}
 					checked={ alignButtons }
 					onChange={ () =>
@@ -48,7 +48,7 @@ export const HandpickedProductsInspectorControls = (
 					}
 				/>
 			</PanelBody>
-			<PanelBody title={ __( 'Content', 'woocommerce' ) } initialOpen>
+			<PanelBody title={ __( 'Content', 'poocommerce' ) } initialOpen>
 				<GridContentControl
 					settings={ contentVisibility }
 					onChange={ ( value ) =>
@@ -57,7 +57,7 @@ export const HandpickedProductsInspectorControls = (
 				/>
 			</PanelBody>
 			<PanelBody
-				title={ __( 'Order By', 'woocommerce' ) }
+				title={ __( 'Order By', 'poocommerce' ) }
 				initialOpen={ false }
 			>
 				<ProductOrderbyControl
@@ -66,7 +66,7 @@ export const HandpickedProductsInspectorControls = (
 				/>
 			</PanelBody>
 			<PanelBody
-				title={ __( 'Products', 'woocommerce' ) }
+				title={ __( 'Products', 'poocommerce' ) }
 				initialOpen={ false }
 			>
 				<ProductsControl

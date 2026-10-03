@@ -17,26 +17,26 @@ import {
 	getQuery,
 	getNewPath,
 	navigateTo,
-} from '@woocommerce/navigation';
+} from '@poocommerce/navigation';
 import {
 	pluginsStore,
 	useUser,
 	withPluginsHydration,
 	withOptionsHydration,
-} from '@woocommerce/data';
-import '@woocommerce/notices';
+} from '@poocommerce/data';
+import '@poocommerce/notices';
 import { SlotFillProvider } from '@wordpress/components';
 import { useEffect } from '@wordpress/element';
 import {
 	CustomerEffortScoreModalContainer,
 	triggerExitPageCesSurvey,
-} from '@woocommerce/customer-effort-score';
-import { recordPageView } from '@woocommerce/tracks';
+} from '@poocommerce/customer-effort-score';
+import { recordPageView } from '@poocommerce/tracks';
 import { PluginArea } from '@wordpress/plugins';
 import {
 	LayoutContextProvider,
 	getLayoutContextValue,
-} from '@woocommerce/admin-layout';
+} from '@poocommerce/admin-layout';
 
 /**
  * Internal dependencies
@@ -148,7 +148,7 @@ const BaseLayout = ( { page }: { page: Page } ) => {
 			] ) }
 		>
 			<SlotFillProvider>
-				<div className="woocommerce-layout">
+				<div className="poocommerce-layout">
 					{ isMarketplacePage && <MarketplaceBanner /> }
 					{ showHeader && (
 						<Header
@@ -165,7 +165,7 @@ const BaseLayout = ( { page }: { page: Page } ) => {
 						showNotices={ page?.layout?.showNotices }
 						showStoreAlerts={ page?.layout?.showStoreAlerts }
 					>
-						<div className="woocommerce-layout__main">
+						<div className="poocommerce-layout__main">
 							<Controller
 								page={ page }
 								match={ match }
@@ -178,8 +178,8 @@ const BaseLayout = ( { page }: { page: Page } ) => {
 				</div>
 				{ showPluginArea && (
 					<>
-						<PluginArea scope="woocommerce-admin" />
-						<PluginArea scope="woocommerce-tasks" />
+						<PluginArea scope="poocommerce-admin" />
+						<PluginArea scope="poocommerce-tasks" />
 					</>
 				) }
 			</SlotFillProvider>

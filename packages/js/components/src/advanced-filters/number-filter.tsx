@@ -6,8 +6,8 @@ import { SelectControl, TextControl } from '@wordpress/components';
 import { get, find, isArray } from 'lodash';
 import clsx from 'clsx';
 import { sprintf, __, _x } from '@wordpress/i18n';
-import { CurrencyFactory } from '@woocommerce/currency';
-import type { CurrencyConfig } from '@woocommerce/currency';
+import { CurrencyFactory } from '@poocommerce/currency';
+import type { CurrencyConfig } from '@poocommerce/currency';
 import type { ComponentType, ReactNode } from 'react';
 
 /**
@@ -58,7 +58,7 @@ class NumberFilter extends Component< NumberFilterProps > {
 		return _x(
 			'<rangeStart/><span> and </span><rangeEnd/>',
 			'Numerical range inputs arranged on a single line',
-			'woocommerce'
+			'poocommerce'
 		);
 	}
 
@@ -117,7 +117,7 @@ class NumberFilter extends Component< NumberFilterProps > {
 			return symbolPosition.indexOf( 'right' ) === 0 ? (
 				<TextControlWithAffixes
 					suffix={ <span>{ currencySymbol }</span> }
-					className="woocommerce-filters-advanced__input"
+					className="poocommerce-filters-advanced__input"
 					type="number"
 					value={ value || '' }
 					aria-label={ label }
@@ -126,7 +126,7 @@ class NumberFilter extends Component< NumberFilterProps > {
 			) : (
 				<TextControlWithAffixes
 					prefix={ <span>{ currencySymbol }</span> }
-					className="woocommerce-filters-advanced__input"
+					className="poocommerce-filters-advanced__input"
 					type="number"
 					value={ value || '' }
 					aria-label={ label }
@@ -137,7 +137,7 @@ class NumberFilter extends Component< NumberFilterProps > {
 
 		return (
 			<TextControl
-				className="woocommerce-filters-advanced__input"
+				className="poocommerce-filters-advanced__input"
 				type="number"
 				value={ value || '' }
 				aria-label={ label }
@@ -173,13 +173,13 @@ class NumberFilter extends Component< NumberFilterProps > {
 				  _x(
 						'%(field)s maximum amount',
 						'maximum value input',
-						'woocommerce'
+						'poocommerce'
 				  )
 				: /* translators: Sentence fragment, "minimum amount" refers to a numeric value the field must be more than. Screenshot for context: https://cloudup.com/cmv5CLyMPNQ */
 				  _x(
 						'%(field)s minimum amount',
 						'minimum value input',
-						'woocommerce'
+						'poocommerce'
 				  );
 
 		return this.getFormControl( {
@@ -223,7 +223,7 @@ class NumberFilter extends Component< NumberFilterProps > {
 				value: rangeStart || '',
 				label: sprintf(
 					/* translators: Sentence fragment, "range start" refers to the first of two numeric values the field must be between. Screenshot for context: https://cloudup.com/cmv5CLyMPNQ */
-					__( '%(field)s range start', 'woocommerce' ),
+					__( '%(field)s range start', 'poocommerce' ),
 					{ field: get( config, [ 'labels', 'add' ] ) }
 				),
 				onChange: rangeStartOnChange,
@@ -235,7 +235,7 @@ class NumberFilter extends Component< NumberFilterProps > {
 				value: rangeEnd || '',
 				label: sprintf(
 					/* translators: Sentence fragment, "range end" refers to the second of two numeric values the field must be between. Screenshot for context: https://cloudup.com/cmv5CLyMPNQ */
-					__( '%(field)s range end', 'woocommerce' ),
+					__( '%(field)s range end', 'poocommerce' ),
 					{ field: get( config, [ 'labels', 'add' ] ) }
 				),
 				onChange: rangeEndOnChange,
@@ -259,7 +259,7 @@ class NumberFilter extends Component< NumberFilterProps > {
 					__next40pxDefaultSize
 					className={ clsx(
 						className,
-						'woocommerce-filters-advanced__rule'
+						'poocommerce-filters-advanced__rule'
 					) }
 					options={ rules }
 					value={ rule }
@@ -273,7 +273,7 @@ class NumberFilter extends Component< NumberFilterProps > {
 				<div
 					className={ clsx(
 						className,
-						'woocommerce-filters-advanced__input-range',
+						'poocommerce-filters-advanced__input-range',
 						{
 							'is-between': rule === 'between',
 						}
@@ -288,7 +288,7 @@ class NumberFilter extends Component< NumberFilterProps > {
 
 		return (
 			<fieldset
-				className="woocommerce-filters-advanced__line-item"
+				className="poocommerce-filters-advanced__line-item"
 				tabIndex={ 0 }
 			>
 				<legend className="screen-reader-text">
@@ -296,7 +296,7 @@ class NumberFilter extends Component< NumberFilterProps > {
 				</legend>
 				<div
 					className={ clsx(
-						'woocommerce-filters-advanced__fieldset',
+						'poocommerce-filters-advanced__fieldset',
 						{
 							'is-english': isEnglish,
 						}

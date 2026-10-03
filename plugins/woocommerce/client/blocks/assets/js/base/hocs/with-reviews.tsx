@@ -3,8 +3,8 @@
  */
 import { Component } from '@wordpress/element';
 import isShallowEqual from '@wordpress/is-shallow-equal';
-import type { Review } from '@woocommerce/base-components/reviews/types';
-import { ErrorObject } from '@woocommerce/editor-components/error-placeholder';
+import type { Review } from '@poocommerce/base-components/reviews/types';
+import { ErrorObject } from '@poocommerce/editor-components/error-placeholder';
 
 /**
  * Internal dependencies

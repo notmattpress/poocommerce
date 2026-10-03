@@ -2,15 +2,15 @@
 /**
  * Visual attribute term admin fields.
  *
- * @package WooCommerce\Classes
+ * @package PooCommerce\Classes
  */
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\ProductAttributes;
+namespace Automattic\PooCommerce\Internal\ProductAttributes;
 
-use Automattic\WooCommerce\Internal\Admin\WCAdminAssets;
-use Automattic\WooCommerce\Internal\RegisterHooksInterface;
+use Automattic\PooCommerce\Internal\Admin\WCAdminAssets;
+use Automattic\PooCommerce\Internal\RegisterHooksInterface;
 
 /**
  * Admin UI for wc-visual attribute term metadata.
@@ -56,7 +56,7 @@ class VisualAttributeTermAdmin implements RegisterHooksInterface {
 		}
 
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_visual_attribute_script' ) );
-		add_filter( 'woocommerce_json_search_found_product_attribute_terms', array( $this, 'add_visual_data_to_attribute_terms' ), 10, 2 );
+		add_filter( 'poocommerce_json_search_found_product_attribute_terms', array( $this, 'add_visual_data_to_attribute_terms' ), 10, 2 );
 	}
 
 	/**
@@ -148,7 +148,7 @@ class VisualAttributeTermAdmin implements RegisterHooksInterface {
 	private static function render_div_visual_attribute_fields( string $field_id_prefix ): void {
 		?>
 		<div class="form-field wc-admin-visual-attribute-type">
-			<label><?php esc_html_e( 'Swatch type', 'woocommerce' ); ?></label>
+			<label><?php esc_html_e( 'Swatch type', 'poocommerce' ); ?></label>
 			<?php self::render_visual_type_inputs( $field_id_prefix, VisualAttributeTermMeta::TYPE_COLOR ); ?>
 		</div>
 		<div class="form-field wc-admin-visual-attribute-color">
@@ -175,19 +175,19 @@ class VisualAttributeTermAdmin implements RegisterHooksInterface {
 		?>
 		<tr class="form-field wc-admin-visual-attribute-type">
 			<th scope="row" valign="top">
-				<label><?php esc_html_e( 'Swatch type', 'woocommerce' ); ?></label>
+				<label><?php esc_html_e( 'Swatch type', 'poocommerce' ); ?></label>
 			</th>
 			<td><?php self::render_visual_type_inputs( $field_prefix, $visual_type ); ?></td>
 		</tr>
 		<tr class="form-field wc-admin-visual-attribute-color">
 			<th scope="row" valign="top">
-				<label for="<?php echo esc_attr( self::get_color_input_id( $field_prefix ) ); ?>"><?php esc_html_e( 'Color value', 'woocommerce' ); ?></label>
+				<label for="<?php echo esc_attr( self::get_color_input_id( $field_prefix ) ); ?>"><?php esc_html_e( 'Color value', 'poocommerce' ); ?></label>
 			</th>
 			<td><?php self::render_color_input_control( $field_prefix, $color_value ); ?></td>
 		</tr>
 		<tr class="form-field wc-admin-visual-attribute-image">
 			<th scope="row" valign="top">
-				<label for="<?php echo esc_attr( self::get_image_input_id( $field_prefix ) ); ?>"><?php esc_html_e( 'Image value', 'woocommerce' ); ?></label>
+				<label for="<?php echo esc_attr( self::get_image_input_id( $field_prefix ) ); ?>"><?php esc_html_e( 'Image value', 'poocommerce' ); ?></label>
 			</th>
 			<td><?php self::render_image_input_control( $field_prefix, $image_value ); ?></td>
 		</tr>
@@ -214,7 +214,7 @@ class VisualAttributeTermAdmin implements RegisterHooksInterface {
 					value="<?php echo esc_attr( VisualAttributeTermMeta::TYPE_COLOR ); ?>"
 					<?php checked( VisualAttributeTermMeta::TYPE_COLOR, $selected_type ); ?>
 				/>
-				<?php esc_html_e( 'Color', 'woocommerce' ); ?>
+				<?php esc_html_e( 'Color', 'poocommerce' ); ?>
 			</label>
 			<label for="<?php echo esc_attr( $image_id ); ?>">
 				<input
@@ -224,7 +224,7 @@ class VisualAttributeTermAdmin implements RegisterHooksInterface {
 					value="<?php echo esc_attr( VisualAttributeTermMeta::TYPE_IMAGE ); ?>"
 					<?php checked( VisualAttributeTermMeta::TYPE_IMAGE, $selected_type ); ?>
 				/>
-				<?php esc_html_e( 'Image', 'woocommerce' ); ?>
+				<?php esc_html_e( 'Image', 'poocommerce' ); ?>
 			</label>
 		</fieldset>
 		<?php
@@ -239,7 +239,7 @@ class VisualAttributeTermAdmin implements RegisterHooksInterface {
 	 */
 	private static function render_color_input( string $field_id_prefix, string $color_value ): void {
 		?>
-		<label for="<?php echo esc_attr( self::get_color_input_id( $field_id_prefix ) ); ?>"><?php esc_html_e( 'Color value', 'woocommerce' ); ?></label>
+		<label for="<?php echo esc_attr( self::get_color_input_id( $field_id_prefix ) ); ?>"><?php esc_html_e( 'Color value', 'poocommerce' ); ?></label>
 		<?php self::render_color_input_control( $field_id_prefix, $color_value ); ?>
 		<?php
 	}
@@ -266,7 +266,7 @@ class VisualAttributeTermAdmin implements RegisterHooksInterface {
 	 */
 	private static function render_image_input( string $field_id_prefix, int $image_value ): void {
 		?>
-		<label for="<?php echo esc_attr( self::get_image_input_id( $field_id_prefix ) ); ?>"><?php esc_html_e( 'Image value', 'woocommerce' ); ?></label>
+		<label for="<?php echo esc_attr( self::get_image_input_id( $field_id_prefix ) ); ?>"><?php esc_html_e( 'Image value', 'poocommerce' ); ?></label>
 		<?php self::render_image_input_control( $field_id_prefix, $image_value ); ?>
 		<?php
 	}
@@ -370,13 +370,13 @@ class VisualAttributeTermAdmin implements RegisterHooksInterface {
 		$new_columns = array();
 		foreach ( $columns as $key => $label ) {
 			if ( 'slug' === $key ) {
-				$new_columns['visual'] = __( 'Visual', 'woocommerce' );
+				$new_columns['visual'] = __( 'Visual', 'poocommerce' );
 			}
 			$new_columns[ $key ] = $label;
 		}
 
 		if ( ! isset( $new_columns['visual'] ) ) {
-			$new_columns['visual'] = __( 'Visual', 'woocommerce' );
+			$new_columns['visual'] = __( 'Visual', 'poocommerce' );
 		}
 
 		return $new_columns;
@@ -428,7 +428,7 @@ class VisualAttributeTermAdmin implements RegisterHooksInterface {
 	private function is_ajax_add_attribute_request(): bool {
 		$action = isset( $_REQUEST['action'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['action'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 
-		return wp_doing_ajax() && 'woocommerce_add_new_attribute' === $action;
+		return wp_doing_ajax() && 'poocommerce_add_new_attribute' === $action;
 	}
 
 	/**
@@ -448,39 +448,39 @@ class VisualAttributeTermAdmin implements RegisterHooksInterface {
 	private static function get_default_color_terms(): array {
 		return array(
 			'black'  => array(
-				'label' => __( 'Black', 'woocommerce' ),
+				'label' => __( 'Black', 'poocommerce' ),
 				'color' => '#121212',
 			),
 			'white'  => array(
-				'label' => __( 'White', 'woocommerce' ),
+				'label' => __( 'White', 'poocommerce' ),
 				'color' => '#FFFFFF',
 			),
 			'gray'   => array(
-				'label' => __( 'Gray', 'woocommerce' ),
+				'label' => __( 'Gray', 'poocommerce' ),
 				'color' => '#6E6E6E',
 			),
 			'red'    => array(
-				'label' => __( 'Red', 'woocommerce' ),
+				'label' => __( 'Red', 'poocommerce' ),
 				'color' => '#D32F2F',
 			),
 			'blue'   => array(
-				'label' => __( 'Blue', 'woocommerce' ),
+				'label' => __( 'Blue', 'poocommerce' ),
 				'color' => '#1976D2',
 			),
 			'green'  => array(
-				'label' => __( 'Green', 'woocommerce' ),
+				'label' => __( 'Green', 'poocommerce' ),
 				'color' => '#388E3C',
 			),
 			'yellow' => array(
-				'label' => __( 'Yellow', 'woocommerce' ),
+				'label' => __( 'Yellow', 'poocommerce' ),
 				'color' => '#FBE02D',
 			),
 			'pink'   => array(
-				'label' => __( 'Pink', 'woocommerce' ),
+				'label' => __( 'Pink', 'poocommerce' ),
 				'color' => '#EC407A',
 			),
 			'brown'  => array(
-				'label' => __( 'Brown', 'woocommerce' ),
+				'label' => __( 'Brown', 'poocommerce' ),
 				'color' => '#5D4037',
 			),
 		);
@@ -516,22 +516,22 @@ class VisualAttributeTermAdmin implements RegisterHooksInterface {
 		// Use the same WC filter seams as WC_Post_Types::register_taxonomies().
 		if ( ! taxonomy_exists( $taxonomy ) ) {
 			/**
-			 * Filters the object types for a WooCommerce taxonomy.
+			 * Filters the object types for a PooCommerce taxonomy.
 			 *
 			 * @param array $objects Object types.
 			 *
 			 * @since 11.0.0
 			 */
-			$objects = apply_filters( "woocommerce_taxonomy_objects_{$taxonomy}", array( 'product' ) );
+			$objects = apply_filters( "poocommerce_taxonomy_objects_{$taxonomy}", array( 'product' ) );
 			/**
-			 * Filters the arguments for a WooCommerce taxonomy.
+			 * Filters the arguments for a PooCommerce taxonomy.
 			 *
 			 * @param array $args Taxonomy arguments.
 			 *
 			 * @since 11.0.0
 			 */
 			$args = apply_filters(
-				"woocommerce_taxonomy_args_{$taxonomy}",
+				"poocommerce_taxonomy_args_{$taxonomy}",
 				array(
 					'hierarchical' => false,
 					'public'       => false,

@@ -16,10 +16,10 @@ type Props = {
 
 export const Heading = ( { className, title, subTitle }: Props ) => {
 	return (
-		<div className={ clsx( 'woocommerce-profiler-heading', className ) }>
-			<h1 className="woocommerce-profiler-heading__title">{ title }</h1>
+		<div className={ clsx( 'poocommerce-profiler-heading', className ) }>
+			<h1 className="poocommerce-profiler-heading__title">{ title }</h1>
 			{ subTitle && (
-				<h2 className="woocommerce-profiler-heading__subtitle">
+				<h2 className="poocommerce-profiler-heading__subtitle">
 					{ subTitle }
 				</h2>
 			) }

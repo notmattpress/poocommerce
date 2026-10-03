@@ -50,7 +50,7 @@ export default class Section extends Component {
 		const { titleInput } = this.state;
 
 		return (
-			<div className="woocommerce-dashboard-section">
+			<div className="poocommerce-dashboard-section">
 				<SectionComponent
 					onTitleChange={ this.onTitleChange }
 					onTitleBlur={ this.onTitleBlur }

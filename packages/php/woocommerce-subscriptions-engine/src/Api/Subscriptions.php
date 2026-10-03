@@ -13,22 +13,22 @@
  * surface, not a third internal zone - the two-zone (Core/Integration) model still
  * describes the internals.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine\Api
+ * @package Automattic\PooCommerce\SubscriptionsEngine\Api
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Api;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Api;
 
 use WC_Order;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\Contract;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\Cycle;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Checkout\RelatedOrders;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Contracts\Cancellation;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Contracts\Hold;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Contracts\Reactivation;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Renewal\RenewalEngine;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage\ContractRepository;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\Contract;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\Cycle;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Checkout\RelatedOrders;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Contracts\Cancellation;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Contracts\Hold;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Contracts\Reactivation;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Renewal\RenewalEngine;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage\ContractRepository;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -55,7 +55,7 @@ final class Subscriptions {
 
 	/**
 	 * List subscription contracts for an admin list screen - newest first by default, or
-	 * filtered / sorted / paged / searched via a WooCommerce-style args array (cf.
+	 * filtered / sorted / paged / searched via a PooCommerce-style args array (cf.
 	 * `wc_get_orders()`). The status + search filter matches {@see self::count()}, so a page
 	 * and its total describe the same set.
 	 *
@@ -64,7 +64,7 @@ final class Subscriptions {
 	 *
 	 *     @type int    $limit   Maximum contracts to return. Default 20.
 	 *     @type int    $offset  Contracts to skip (for paging). Default 0.
-	 *     @type string $status  Filter to one status ({@see \Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\ContractStatus}); ignored when empty or invalid.
+	 *     @type string $status  Filter to one status ({@see \Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\ContractStatus}); ignored when empty or invalid.
 	 *     @type string $orderby One of id, next_payment, total, start; default id.
 	 *     @type string $order   ASC or DESC (case-insensitive); default DESC.
 	 *     @type string $search  Numeric term matches contract id or origin order id; text term matches the owning customer.
@@ -77,7 +77,7 @@ final class Subscriptions {
 
 	/**
 	 * The contract count per status - the read behind an admin list's status views bar.
-	 * Keyed by every {@see \Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\ContractStatus} value (absent statuses are 0); the `All` total
+	 * Keyed by every {@see \Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\ContractStatus} value (absent statuses are 0); the `All` total
 	 * is the caller's `array_sum()`. Independent of any search or paging.
 	 *
 	 * @return array<string, int> Status => count, every known status present.

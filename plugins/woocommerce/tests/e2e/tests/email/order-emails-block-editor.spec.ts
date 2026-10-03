@@ -7,7 +7,7 @@ import {
 	createClient,
 	WC_API_PATH,
 	WP_API_PATH,
-} from '@woocommerce/e2e-utils-playwright';
+} from '@poocommerce/e2e-utils-playwright';
 
 /**
  * Internal dependencies
@@ -32,7 +32,7 @@ const EMAIL_TYPE = 'customer_processing_order';
 const SUBJECT_REGEX = /Your .+ order has been received!/;
 const DRAFT_MARKER = 'WOOPLUG6171_DRAFT_ONLY_MARKER';
 const EMAIL_POST_MAPPING_OPTION =
-	'woocommerce_email_templates_customer_processing_order_post_id';
+	'poocommerce_email_templates_customer_processing_order_post_id';
 
 const test = baseTest.extend( {
 	storageState: ADMIN_STATE_PATH,
@@ -66,7 +66,7 @@ test.beforeAll( async ( { baseURL } ) => {
 	await setOption(
 		request,
 		baseURL,
-		'woocommerce_feature_block_email_editor_enabled',
+		'poocommerce_feature_block_email_editor_enabled',
 		'yes'
 	);
 	// Start from a clean slate in case another spec left a post behind.
@@ -91,7 +91,7 @@ test.afterAll( async ( { baseURL } ) => {
 	await setOption(
 		request,
 		baseURL,
-		'woocommerce_feature_block_email_editor_enabled',
+		'poocommerce_feature_block_email_editor_enabled',
 		'no'
 	);
 } );

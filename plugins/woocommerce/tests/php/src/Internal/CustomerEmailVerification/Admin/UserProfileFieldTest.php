@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\CustomerEmailVerification\Admin;
+namespace Automattic\PooCommerce\Tests\Internal\CustomerEmailVerification\Admin;
 
-use Automattic\WooCommerce\Internal\CustomerEmailVerification\Admin\UserProfileField;
-use Automattic\WooCommerce\Internal\CustomerEmailVerification\EmailVerificationService;
+use Automattic\PooCommerce\Internal\CustomerEmailVerification\Admin\UserProfileField;
+use Automattic\PooCommerce\Internal\CustomerEmailVerification\EmailVerificationService;
 use WC_Unit_Test_Case;
 
 /**
@@ -103,7 +103,7 @@ class UserProfileFieldTest extends WC_Unit_Test_Case {
 
 		$this->sut->save( $user_id );
 
-		$this->assertFalse( $this->service->is_verified( $user_id ), 'A customer without manage_woocommerce must not be able to verify their own email.' );
+		$this->assertFalse( $this->service->is_verified( $user_id ), 'A customer without manage_poocommerce must not be able to verify their own email.' );
 	}
 
 	/**

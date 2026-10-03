@@ -70,7 +70,7 @@ export const useWpAdminChrome = (
 		const handler = ( e: Event ) => {
 			const target = e.target as HTMLElement | null;
 			if (
-				! target?.closest( '.woocommerce-layout__activity-panel-tab' )
+				! target?.closest( '.poocommerce-layout__activity-panel-tab' )
 			) {
 				return;
 			}
@@ -133,7 +133,7 @@ export const useWpAdminChrome = (
 		// Close any open activity-panel tab so the five icons act as one group.
 		document
 			.querySelector< HTMLButtonElement >(
-				'.woocommerce-layout__activity-panel-tab.is-active'
+				'.poocommerce-layout__activity-panel-tab.is-active'
 			)
 			?.click();
 		// Close the OTHER wp-admin dropdown if open (mutual exclusion between

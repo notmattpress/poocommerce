@@ -108,7 +108,7 @@ Name | Type | Default | Description
 
 ## Overriding chart colors
 
-Char colors can be overridden by hooking into the filter `woocommerce_admin_chart_item_color`. For example:
+Char colors can be overridden by hooking into the filter `poocommerce_admin_chart_item_color`. For example:
 
 ```js
 const colorScales = [
@@ -117,5 +117,5 @@ const colorScales = [
   "#137177",
   "#188977",
 ];
-addFilter( 'woocommerce_admin_chart_item_color', 'example', ( index, key, orderedKeys ) => colorScales[index] );
+addFilter( 'poocommerce_admin_chart_item_color', 'example', ( index, key, orderedKeys ) => colorScales[index] );
 ```

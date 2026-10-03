@@ -9,12 +9,12 @@ add_action(
 	'admin_menu',
 	function() {
 		add_management_page(
-			'WooCommerce Admin Test Helper',
+			'PooCommerce Admin Test Helper',
 			'WCA Test Helper',
 			'install_plugins',
-			'woocommerce-admin-test-helper',
+			'poocommerce-admin-test-helper',
 			function() {
-				?><div id="woocommerce-admin-test-helper-app-root"></div>
+				?><div id="poocommerce-admin-test-helper-app-root"></div>
 				<?php
 			}
 		);
@@ -30,7 +30,7 @@ add_action(
 );
 
 add_filter(
-	'woocommerce_admin_get_feature_config',
+	'poocommerce_admin_get_feature_config',
 	function( $feature_config ) {
 		$feature_config['beta-tester-slotfill-examples'] = false;
 		$custom_feature_values                           = get_option( 'wc_admin_helper_feature_values', array() );
@@ -51,7 +51,7 @@ function enqueue_beta_tester_app_script() {
 		return;
 	}
 	$screen = get_current_screen();
-	if ( ! $screen || 'tools_page_woocommerce-admin-test-helper' !== $screen->id ) {
+	if ( ! $screen || 'tools_page_poocommerce-admin-test-helper' !== $screen->id ) {
 		return;
 	}
 	$script_path       = '/build/app.js';
@@ -67,13 +67,13 @@ function enqueue_beta_tester_app_script() {
 	$script_asset['dependencies'][] = WC_ADMIN_APP; // Add WCA as a dependency to ensure it loads first.
 
 	wp_register_script(
-		'woocommerce-admin-test-helper-app',
+		'poocommerce-admin-test-helper-app',
 		$script_url,
 		$script_asset['dependencies'],
 		$script_asset['version'],
 		true
 	);
-	wp_enqueue_script( 'woocommerce-admin-test-helper-app' );
+	wp_enqueue_script( 'poocommerce-admin-test-helper-app' );
 
 	$css_file_version = filemtime( dirname( __FILE__ ) . '/build/app.css' );
 
@@ -85,13 +85,13 @@ function enqueue_beta_tester_app_script() {
 	);
 
 	wp_register_style(
-		'woocommerce-admin-test-helper-app',
+		'poocommerce-admin-test-helper-app',
 		plugins_url( '/build/app.css', __FILE__ ),
 		array( 'wp-components' ),
 		$css_file_version
 	);
 
-	wp_enqueue_style( 'woocommerce-admin-test-helper-app' );
+	wp_enqueue_style( 'poocommerce-admin-test-helper-app' );
 }
 
 add_action( 'admin_enqueue_scripts', 'enqueue_beta_tester_app_script' );

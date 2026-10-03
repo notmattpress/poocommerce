@@ -11,7 +11,7 @@ import { useEffect, useRef, useMemo } from '@wordpress/element';
 import { Button } from '@wordpress/components';
 import { useSelect, useDispatch } from '@wordpress/data';
 import fastDeepEqual from 'fast-deep-equal/es6';
-import { useIsEmailEditor } from '@woocommerce/email-editor';
+import { useIsEmailEditor } from '@poocommerce/email-editor';
 
 /**
  * Internal dependencies

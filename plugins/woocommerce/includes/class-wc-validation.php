@@ -2,7 +2,7 @@
 /**
  * General user data validation methods
  *
- * @package WooCommerce\Classes
+ * @package PooCommerce\Classes
  * @version  2.4.0
  */
 
@@ -28,7 +28,7 @@ class WC_Validation {
 	 * only digits and characters commonly used in phone numbers (whitespace and the
 	 * "# _ - + / ( ) ." characters).
 	 *
-	 * Unlike `is_phone`, this method doesn't apply the `woocommerce_validate_phone` filter,
+	 * Unlike `is_phone`, this method doesn't apply the `poocommerce_validate_phone` filter,
 	 * so its result always reflects the default validation rules regardless of any
 	 * merchant-defined validation policy. It's intended for contexts that need a
 	 * country-agnostic sanity check, such as phone number formatting.
@@ -61,7 +61,7 @@ class WC_Validation {
 		 * @param string      $phone   The phone number being validated.
 		 * @param string|null $country The country code the phone is being validated for, or null if unknown.
 		 */
-		return (bool) apply_filters( 'woocommerce_validate_phone', $valid, $phone, $country );
+		return (bool) apply_filters( 'poocommerce_validate_phone', $valid, $phone, $country );
 	}
 
 	/**
@@ -76,10 +76,10 @@ class WC_Validation {
 			return false;
 		}
 
-		$valid = Automattic\WooCommerce\Internal\Utilities\PostcodeValidation::validate( (string) $postcode, (string) $country );
+		$valid = Automattic\PooCommerce\Internal\Utilities\PostcodeValidation::validate( (string) $postcode, (string) $country );
 		$valid = null === $valid ? true : $valid;
 
-		return apply_filters( 'woocommerce_validate_postcode', $valid, $postcode, $country );
+		return apply_filters( 'poocommerce_validate_postcode', $valid, $postcode, $country );
 	}
 
 	/**

@@ -1,9 +1,9 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\Utils\StyleAttributesUtils;
-use Automattic\WooCommerce\Blocks\Utils\ProductAvailabilityUtils;
-use Automattic\WooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Blocks\Utils\StyleAttributesUtils;
+use Automattic\PooCommerce\Blocks\Utils\ProductAvailabilityUtils;
+use Automattic\PooCommerce\Enums\ProductType;
 
 /**
  * ProductStockIndicator class.
@@ -116,7 +116,7 @@ class ProductStockIndicator extends AbstractBlock {
 		if ( empty( $content ) && $is_backorder_notification_visible && $total_stock > 0 ) {
 			$low_stock_text = sprintf(
 				/* translators: %d is number of items in stock for product */
-				__( '%d left in stock', 'woocommerce' ),
+				__( '%d left in stock', 'poocommerce' ),
 				$total_stock
 			);
 		}
@@ -125,8 +125,8 @@ class ProductStockIndicator extends AbstractBlock {
 		$watch_attribute    = '';
 
 		if ( $is_interactive && 'out-of-stock' !== $availability['class'] ) {
-			wp_enqueue_script_module( 'woocommerce/product-elements' );
-			$wrapper_attributes['data-wp-interactive'] = 'woocommerce/products';
+			wp_enqueue_script_module( 'poocommerce/product-elements' );
+			$wrapper_attributes['data-wp-interactive'] = 'poocommerce/products';
 			$wrapper_attributes['data-wp-text']        = 'state.productInContext.stock_availability.text';
 			$wrapper_attributes['aria-live']           = 'polite';
 			$wrapper_attributes['aria-atomic']         = 'true';
@@ -135,7 +135,7 @@ class ProductStockIndicator extends AbstractBlock {
 		$output_text = $low_stock_text ?? $availability['availability'];
 
 		$output  = '';
-		$output .= '<div class="wc-block-components-product-stock-indicator wp-block-woocommerce-product-stock-indicator ' . esc_attr( $classnames ) . '"';
+		$output .= '<div class="wc-block-components-product-stock-indicator wp-block-poocommerce-product-stock-indicator ' . esc_attr( $classnames ) . '"';
 		$output .= isset( $classes_and_styles['styles'] ) ? ' style="' . esc_attr( $classes_and_styles['styles'] ) . '"' : '';
 		if ( $is_interactive && 'out-of-stock' !== $availability['class'] ) {
 			$output .= ' ' . get_block_wrapper_attributes( $wrapper_attributes );

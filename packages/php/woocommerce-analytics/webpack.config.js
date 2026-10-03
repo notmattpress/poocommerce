@@ -6,7 +6,7 @@ const isDevelopment = process.env.NODE_ENV !== 'production';
 module.exports = [
 	{
 		entry: {
-			'woocommerce-analytics-client': './src/client/index.ts',
+			'poocommerce-analytics-client': './src/client/index.ts',
 		},
 		mode: isDevelopment ? 'development' : 'production',
 		devtool: isDevelopment ? 'source-map' : false,
@@ -64,7 +64,7 @@ module.exports = [
 		},
 		externals: {
 			jetpackConfig: JSON.stringify( {
-				consumer_slug: 'woocommerce-analytics',
+				consumer_slug: 'poocommerce-analytics',
 			} ),
 		},
 	},

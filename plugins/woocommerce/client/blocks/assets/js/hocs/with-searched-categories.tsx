@@ -2,11 +2,11 @@
  * External dependencies
  */
 import { useEffect, useState, useRef } from '@wordpress/element';
-import { getCategories } from '@woocommerce/editor-components/utils';
+import { getCategories } from '@poocommerce/editor-components/utils';
 import type {
 	ProductCategoryResponseItem,
 	WithInjectedSearchedCategories,
-} from '@woocommerce/types';
+} from '@poocommerce/types';
 
 /**
  * Internal dependencies

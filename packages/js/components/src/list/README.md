@@ -36,7 +36,7 @@ If you wanted a different format for the individual list item you can pass in a 
 ```
 <List items={ listItems } >
 {
-	(item, index) => <div className="woocommerce-list__item-inner">{item.title}</div>
+	(item, index) => <div className="poocommerce-list__item-inner">{item.title}</div>
 }
 </List>
 ```

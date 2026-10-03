@@ -17,7 +17,7 @@
 -   [Examples](#examples)
     -   [Passing a value from the client through to server side payment processing](#passing-a-value-from-the-client-through-to-server-side-payment-processing)
 
-This document gives an overview of some of the major architectural components/APIs for the checkout block. If you haven't already, you may also want to read about the [Checkout Flow and Events](https://developer.woocommerce.com/docs/cart-and-checkout-checkout-flow-and-events/).
+This document gives an overview of some of the major architectural components/APIs for the checkout block. If you haven't already, you may also want to read about the [Checkout Flow and Events](https://developer.poocommerce.com/docs/cart-and-checkout-checkout-flow-and-events/).
 
 ## Data Stores
 
@@ -158,7 +158,7 @@ const Content = () => {
 };
 ```
 
-Payment method components are passed, by default, everything from the [`usePaymentMethodInterface` hook](https://github.com/woocommerce/woocommerce-blocks/blob/trunk/docs/internal-developers/block-client-apis/checkout/checkout-api.md#usepaymentmethodinterface). So we can consume this in our component like so:
+Payment method components are passed, by default, everything from the [`usePaymentMethodInterface` hook](https://github.com/poocommerce/poocommerce-blocks/blob/trunk/docs/internal-developers/block-client-apis/checkout/checkout-api.md#usepaymentmethodinterface). So we can consume this in our component like so:
 
 ```js
 const Content = ( props ) => {

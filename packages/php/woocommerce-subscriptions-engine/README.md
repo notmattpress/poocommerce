@@ -1,3 +1,3 @@
-# WooCommerce Subscriptions Engine
+# PooCommerce Subscriptions Engine
 
-This package implements a general-purpose subscriptions engine for WooCommerce.
+This package implements a general-purpose subscriptions engine for PooCommerce.

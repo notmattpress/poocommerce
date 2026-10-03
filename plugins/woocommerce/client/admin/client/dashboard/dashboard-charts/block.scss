@@ -1,20 +1,20 @@
-.woocommerce-dashboard__chart-block-wrapper {
+.poocommerce-dashboard__chart-block-wrapper {
 	cursor: pointer;
 	&:hover {
-		.woocommerce-chart,
-		.woocommerce-card__header {
+		.poocommerce-chart,
+		.poocommerce-card__header {
 			background: #f8f9f9;
 		}
-		.woocommerce-legend__item button {
+		.poocommerce-legend__item button {
 			background: transparent;
 		}
 	}
-	.woocommerce-chart {
+	.poocommerce-chart {
 		margin-top: 0;
 		margin-bottom: 0;
 		border: 0;
 	}
-	.woocommerce-chart__footer {
+	.poocommerce-chart__footer {
 		position: relative;
 		&::after {
 			content: "";
@@ -29,25 +29,25 @@
 	}
 }
 
-.woocommerce-dashboard__chart-block {
+.poocommerce-dashboard__chart-block {
 	overflow: hidden;
 
-	.woocommerce-card__body {
+	.poocommerce-card__body {
 		padding: 0;
 		position: relative;
 
-		.woocommerce-chart {
+		.poocommerce-chart {
 			border: none;
 			margin: 0;
 
-			.woocommerce-legend__item > button {
+			.poocommerce-legend__item > button {
 				cursor: default;
 				&:hover {
 					background: $gray-100;
 				}
-				.woocommerce-legend__item-container {
+				.poocommerce-legend__item-container {
 					cursor: default;
-					.woocommerce-legend__item-checkmark.woocommerce-legend__item-checkmark-checked::after {
+					.poocommerce-legend__item-checkmark.poocommerce-legend__item-checkmark-checked::after {
 						display: none;
 					}
 				}
@@ -55,7 +55,7 @@
 
 			&:hover {
 				background: $gray-100;
-				.woocommerce-legend__item > button {
+				.poocommerce-legend__item > button {
 					background: $gray-100;
 				}
 			}

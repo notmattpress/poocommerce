@@ -3,9 +3,9 @@
  */
 import { __ } from '@wordpress/i18n';
 import { Button, Card, CardBody, CardHeader } from '@wordpress/components';
-import { Text } from '@woocommerce/experimental';
+import { Text } from '@poocommerce/experimental';
 import { useEffect } from '@wordpress/element';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -27,8 +27,8 @@ export type TaskPromoProps = {
 export const TaskPromo = ( {
 	title = '',
 	iconSrc = `${ WC_ASSET_URL }images/woo-app-icon.svg`,
-	iconAlt = __( 'Woo icon', 'woocommerce' ),
-	name = __( 'WooCommerce Marketplace', 'woocommerce' ),
+	iconAlt = __( 'Woo icon', 'poocommerce' ),
+	name = __( 'PooCommerce Marketplace', 'poocommerce' ),
 	text = '',
 	buttonHref = '',
 	buttonText = '',
@@ -41,13 +41,13 @@ export const TaskPromo = ( {
 	}, [] );
 
 	return (
-		<Card className="woocommerce-task-card woocommerce-task-promo">
+		<Card className="poocommerce-task-card poocommerce-task-promo">
 			{ title && (
 				<CardHeader>
 					<Text
 						variant="title.small"
 						as="h2"
-						className="woocommerce-task-card__title"
+						className="poocommerce-task-card__title"
 					>
 						{ title }
 					</Text>
@@ -55,17 +55,17 @@ export const TaskPromo = ( {
 			) }
 			<CardBody>
 				{ iconSrc && iconAlt && (
-					<div className="woocommerce-plugin-list__plugin-logo">
+					<div className="poocommerce-plugin-list__plugin-logo">
 						<img src={ iconSrc } alt={ iconAlt } />
 					</div>
 				) }
-				<div className="woocommerce-plugin-list__plugin-text">
+				<div className="poocommerce-plugin-list__plugin-text">
 					<Text variant="subtitle.small" as="h4">
 						{ name }
 					</Text>
 					<Text variant="subtitle.small">{ text }</Text>
 				</div>
-				<div className="woocommerce-plugin-list__plugin-action">
+				<div className="poocommerce-plugin-list__plugin-action">
 					<Button
 						isSecondary
 						href={ buttonHref }

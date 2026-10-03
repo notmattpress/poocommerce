@@ -1,44 +1,44 @@
 /**
  * External dependencies
  */
-import { registerBlockComponent } from '@woocommerce/blocks-registry';
+import { registerBlockComponent } from '@poocommerce/blocks-registry';
 import { lazy } from '@wordpress/element';
-import { WC_BLOCKS_BUILD_URL } from '@woocommerce/block-settings';
+import { WC_BLOCKS_BUILD_URL } from '@poocommerce/block-settings';
 
 // Modify webpack publicPath at runtime based on location of WordPress Plugin.
 // eslint-disable-next-line no-undef,camelcase
 __webpack_public_path__ = WC_BLOCKS_BUILD_URL;
 
 registerBlockComponent( {
-	blockName: 'woocommerce/product-price',
+	blockName: 'poocommerce/product-price',
 	component: lazy( () =>
 		import( /* webpackChunkName: "product-price" */ './price/block' )
 	),
 } );
 
 registerBlockComponent( {
-	blockName: 'woocommerce/product-image',
+	blockName: 'poocommerce/product-image',
 	component: lazy( () =>
 		import( /* webpackChunkName: "product-image" */ './image/frontend' )
 	),
 } );
 
 registerBlockComponent( {
-	blockName: 'woocommerce/product-title',
+	blockName: 'poocommerce/product-title',
 	component: lazy( () =>
 		import( /* webpackChunkName: "product-title" */ './title/frontend' )
 	),
 } );
 
 registerBlockComponent( {
-	blockName: 'woocommerce/product-rating',
+	blockName: 'poocommerce/product-rating',
 	component: lazy( () =>
 		import( /* webpackChunkName: "product-rating" */ './rating/block' )
 	),
 } );
 
 registerBlockComponent( {
-	blockName: 'woocommerce/product-rating-stars',
+	blockName: 'poocommerce/product-rating-stars',
 	component: lazy( () =>
 		import(
 			/* webpackChunkName: "product-rating-stars" */ './rating-stars/block'
@@ -47,7 +47,7 @@ registerBlockComponent( {
 } );
 
 registerBlockComponent( {
-	blockName: 'woocommerce/product-rating-counter',
+	blockName: 'poocommerce/product-rating-counter',
 	component: lazy( () =>
 		import(
 			/* webpackChunkName: "product-rating-counter" */ './rating-counter/block'
@@ -56,7 +56,7 @@ registerBlockComponent( {
 } );
 
 registerBlockComponent( {
-	blockName: 'woocommerce/product-average-rating',
+	blockName: 'poocommerce/product-average-rating',
 	component: lazy( () =>
 		import(
 			/* webpackChunkName: "product-average-rating" */ './average-rating/block'
@@ -65,21 +65,21 @@ registerBlockComponent( {
 } );
 
 registerBlockComponent( {
-	blockName: 'woocommerce/product-button',
+	blockName: 'poocommerce/product-button',
 	component: lazy( () =>
 		import( /* webpackChunkName: "product-button" */ './button/block' )
 	),
 } );
 
 registerBlockComponent( {
-	blockName: 'woocommerce/product-summary',
+	blockName: 'poocommerce/product-summary',
 	component: lazy( () =>
 		import( /* webpackChunkName: "product-summary" */ './summary/block' )
 	),
 } );
 
 registerBlockComponent( {
-	blockName: 'woocommerce/product-sale-badge',
+	blockName: 'poocommerce/product-sale-badge',
 	component: lazy( () =>
 		import(
 			/* webpackChunkName: "product-sale-badge" */ './sale-badge/block'
@@ -88,14 +88,14 @@ registerBlockComponent( {
 } );
 
 registerBlockComponent( {
-	blockName: 'woocommerce/product-sku',
+	blockName: 'poocommerce/product-sku',
 	component: lazy( () =>
 		import( /* webpackChunkName: "product-sku" */ './sku/block' )
 	),
 } );
 
 registerBlockComponent( {
-	blockName: 'woocommerce/product-stock-indicator',
+	blockName: 'poocommerce/product-stock-indicator',
 	component: lazy( () =>
 		import(
 			/* webpackChunkName: "product-stock-indicator" */ './stock-indicator/block'

@@ -2,13 +2,13 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Logging;
+namespace Automattic\PooCommerce\Internal\Logging;
 
-use Automattic\WooCommerce\Internal\Admin\Logging\FileV2\FileController;
-use Automattic\WooCommerce\Internal\Admin\Logging\LogHandlerFileV2;
-use Automattic\WooCommerce\Internal\DataStores\Orders\DataSynchronizer;
-use Automattic\WooCommerce\Utilities\LoggingUtil;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Internal\Admin\Logging\FileV2\FileController;
+use Automattic\PooCommerce\Internal\Admin\Logging\LogHandlerFileV2;
+use Automattic\PooCommerce\Internal\DataStores\Orders\DataSynchronizer;
+use Automattic\PooCommerce\Utilities\LoggingUtil;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 use WC_Logger;
 
 /**
@@ -31,7 +31,7 @@ class OrderLogsCleanupHelper {
 	/**
 	 * Hook of the action scheduled to continue a cleanup that didn't drain the backlog.
 	 */
-	public const EXTENDED_CLEANUP_HOOK = 'woocommerce_cleanup_logs_extended';
+	public const EXTENDED_CLEANUP_HOOK = 'poocommerce_cleanup_logs_extended';
 
 	/**
 	 * Delay, in seconds, before a follow-up cleanup run.
@@ -76,7 +76,7 @@ class OrderLogsCleanupHelper {
 		 *
 		 * @since 10.7.0
 		 */
-		return absint( apply_filters( 'woocommerce_cleanup_order_debug_logs_max_age', 3 * DAY_IN_SECONDS ) );
+		return absint( apply_filters( 'poocommerce_cleanup_order_debug_logs_max_age', 3 * DAY_IN_SECONDS ) );
 	}
 
 	/**
@@ -162,7 +162,7 @@ class OrderLogsCleanupHelper {
 			array(
 				'hook'     => self::EXTENDED_CLEANUP_HOOK,
 				'args'     => array(),
-				'group'    => 'woocommerce',
+				'group'    => 'poocommerce',
 				'status'   => \ActionScheduler_Store::STATUS_PENDING,
 				'per_page' => 1,
 				'orderby'  => 'none',
@@ -174,7 +174,7 @@ class OrderLogsCleanupHelper {
 			return;
 		}
 
-		as_schedule_single_action( time() + self::EXTENDED_CLEANUP_DELAY, self::EXTENDED_CLEANUP_HOOK, array(), 'woocommerce' );
+		as_schedule_single_action( time() + self::EXTENDED_CLEANUP_DELAY, self::EXTENDED_CLEANUP_HOOK, array(), 'poocommerce' );
 	}
 
 	/**

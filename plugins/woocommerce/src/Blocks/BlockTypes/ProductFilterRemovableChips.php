@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
 /**
  * Product Filter: Removable Chips Block.
@@ -27,12 +27,12 @@ final class ProductFilterRemovableChips extends AbstractBlock {
 	 */
 	protected function render( $attributes, $content, $block ) {
 		if (
-			empty( $block->context['woocommerce/removableItems'] )
+			empty( $block->context['poocommerce/removableItems'] )
 		) {
 			return '';
 		}
 
-		$filter_items = $block->context['woocommerce/removableItems']['items'] ?? array();
+		$filter_items = $block->context['poocommerce/removableItems']['items'] ?? array();
 
 		$style = '';
 
@@ -43,7 +43,7 @@ final class ProductFilterRemovableChips extends AbstractBlock {
 		}
 
 		$wrapper_attributes = array(
-			'data-wp-interactive' => 'woocommerce/product-filters',
+			'data-wp-interactive' => 'poocommerce/product-filters',
 			'data-wp-key'         => wp_unique_prefixed_id( $this->get_full_block_name() ),
 			'class'               => esc_attr( $classes ),
 			'style'               => esc_attr( $style ),
@@ -75,7 +75,7 @@ final class ProductFilterRemovableChips extends AbstractBlock {
 					<?php
 					$remove_label = sprintf(
 						/* translators: %s: item label. */
-						__( 'Remove filter: %s', 'woocommerce' ),
+						__( 'Remove filter: %s', 'poocommerce' ),
 						$item['label']
 					);
 					?>

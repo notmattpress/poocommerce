@@ -2,7 +2,7 @@
 /**
  * Display notices in admin
  *
- * @package WooCommerce\Admin
+ * @package PooCommerce\Admin
  * @version 3.4.0
  */
 
@@ -60,19 +60,19 @@ class WC_Admin_Notices {
 	 */
 	public static function init() {
 		self::$is_multisite = is_multisite();
-		self::set_notices( get_option( 'woocommerce_admin_notices', array() ) );
+		self::set_notices( get_option( 'poocommerce_admin_notices', array() ) );
 		if ( defined( 'WC_PHP_MIN_REQUIREMENTS_NOTICE' ) ) {
 			self::remove_notice( WC_PHP_MIN_REQUIREMENTS_NOTICE );
 		}
-		// Notice about the PHP 8.1 requirement in WooCommerce 11.6, remove in that version (see also reset_admin_notices).
+		// Notice about the PHP 8.1 requirement in PooCommerce 11.6, remove in that version (see also reset_admin_notices).
 		if ( ! function_exists( 'phpversion' ) || version_compare( phpversion(), '8.1', '>=' ) ) {
 			self::remove_notice( 'php81_required_in_woo_116' );
 		}
 
 		add_action( 'switch_theme', array( __CLASS__, 'reset_admin_notices' ) );
-		add_action( 'woocommerce_installed', array( __CLASS__, 'reset_admin_notices' ) );
+		add_action( 'poocommerce_installed', array( __CLASS__, 'reset_admin_notices' ) );
 		add_action( 'admin_init', array( __CLASS__, 'hide_notices' ), 20 );
-		add_action( 'wp_ajax_woocommerce_hide_notice', array( __CLASS__, 'ajax_hide_notice' ) );
+		add_action( 'wp_ajax_poocommerce_hide_notice', array( __CLASS__, 'ajax_hide_notice' ) );
 
 		// @TODO: This prevents Action Scheduler async jobs from storing empty list of notices during WC installation.
 		// That could lead to OBW not starting and 'Run setup wizard' notice not appearing in WP admin, which we want
@@ -81,7 +81,7 @@ class WC_Admin_Notices {
 			add_action( 'shutdown', array( __CLASS__, 'store_notices' ) );
 		}
 
-		if ( current_user_can( 'manage_woocommerce' ) ) {
+		if ( current_user_can( 'manage_poocommerce' ) ) {
 			add_action( 'admin_print_styles', array( __CLASS__, 'add_notices' ) );
 		}
 	}
@@ -106,10 +106,10 @@ class WC_Admin_Notices {
 	 */
 	public static function store_notices() {
 		$current_notices = self::get_notices();
-		$prev_notices    = get_option( 'woocommerce_admin_notices', array() );
+		$prev_notices    = get_option( 'poocommerce_admin_notices', array() );
 
 		// Store notices.
-		update_option( 'woocommerce_admin_notices', $current_notices );
+		update_option( 'poocommerce_admin_notices', $current_notices );
 
 		// Clean up removed notices.
 		foreach ( array_diff( $prev_notices, $current_notices ) as $notice ) {
@@ -117,7 +117,7 @@ class WC_Admin_Notices {
 				continue;
 			}
 
-			delete_option( 'woocommerce_admin_notice_' . $notice );
+			delete_option( 'poocommerce_admin_notice_' . $notice );
 		}
 	}
 
@@ -137,7 +137,7 @@ class WC_Admin_Notices {
 			return $notices;
 		}
 
-		self::$notices[ $blog_id ] = get_option( 'woocommerce_admin_notices', array() );
+		self::$notices[ $blog_id ] = get_option( 'poocommerce_admin_notices', array() );
 		return self::$notices[ $blog_id ];
 	}
 
@@ -170,20 +170,20 @@ class WC_Admin_Notices {
 	 * @return void
 	 */
 	public static function reset_admin_notices() {
-		// Notice about the PHP 8.1 requirement in WooCommerce 11.6, remove in that version (see also init).
+		// Notice about the PHP 8.1 requirement in PooCommerce 11.6, remove in that version (see also init).
 		if ( function_exists( 'phpversion' ) && version_compare( phpversion(), '8.1', '<' ) ) {
 			self::add_custom_notice(
 				'php81_required_in_woo_116',
 				sprintf(
 					'<h4>%s</h4>%s',
-					esc_html__( 'PHP version requirements will change soon', 'woocommerce' ),
+					esc_html__( 'PHP version requirements will change soon', 'poocommerce' ),
 					wpautop(
 						wp_kses_data(
 							sprintf(
 								/* translators: 1: The PHP version the server is currently running. 2: URL of the announcement post. */
-								__( 'WooCommerce 11.6, planned for release in <b>February 2027</b>, will require PHP 8.1 or newer to work. Your server is currently running PHP %1$s, so this change will impact your store. Please contact your hosting provider to upgrade to PHP 8.1 or newer (at least PHP 8.3 is recommended). <b><a href="%2$s">Learn more about this change.</a></b>', 'woocommerce' ),
+								__( 'PooCommerce 11.6, planned for release in <b>February 2027</b>, will require PHP 8.1 or newer to work. Your server is currently running PHP %1$s, so this change will impact your store. Please contact your hosting provider to upgrade to PHP 8.1 or newer (at least PHP 8.3 is recommended). <b><a href="%2$s">Learn more about this change.</a></b>', 'poocommerce' ),
 								phpversion(),
-								esc_url( 'https://developer.woocommerce.com/2026/09/29/php-8-1-requirement/' )
+								esc_url( 'https://developer.poocommerce.com/2026/09/29/php-8-1-requirement/' )
 							)
 						)
 					)
@@ -266,8 +266,8 @@ class WC_Admin_Notices {
 	 */
 	public static function hide_notices() {
 		if ( isset( $_GET['wc-hide-notice'] ) && isset( $_GET['_wc_notice_nonce'] ) ) {
-			if ( ! wp_verify_nonce( sanitize_key( wp_unslash( $_GET['_wc_notice_nonce'] ) ), 'woocommerce_hide_notices_nonce' ) ) {
-				wp_die( esc_html__( 'Action failed. Please refresh the page and retry.', 'woocommerce' ) );
+			if ( ! wp_verify_nonce( sanitize_key( wp_unslash( $_GET['_wc_notice_nonce'] ) ), 'poocommerce_hide_notices_nonce' ) ) {
+				wp_die( esc_html__( 'Action failed. Please refresh the page and retry.', 'poocommerce' ) );
 			}
 
 			$notice_name = sanitize_text_field( wp_unslash( $_GET['wc-hide-notice'] ) );
@@ -280,10 +280,10 @@ class WC_Admin_Notices {
 			 * @param string $default_capability The default required capability.
 			 * @param string $notice_name The notice name.
 			 */
-			$required_capability = apply_filters( 'woocommerce_dismiss_admin_notice_capability', 'manage_woocommerce', $notice_name );
+			$required_capability = apply_filters( 'poocommerce_dismiss_admin_notice_capability', 'manage_poocommerce', $notice_name );
 
 			if ( ! current_user_can( $required_capability ) ) {
-				wp_die( esc_html__( 'You don&#8217;t have permission to do this.', 'woocommerce' ) );
+				wp_die( esc_html__( 'You don&#8217;t have permission to do this.', 'poocommerce' ) );
 			}
 
 			self::hide_notice( $notice_name );
@@ -300,7 +300,7 @@ class WC_Admin_Notices {
 	 * @return void
 	 */
 	public static function ajax_hide_notice() {
-		check_ajax_referer( 'woocommerce_hide_notices_nonce', '_wc_notice_nonce' );
+		check_ajax_referer( 'poocommerce_hide_notices_nonce', '_wc_notice_nonce' );
 
 		$notice_name = isset( $_POST['wc-hide-notice'] ) ? sanitize_text_field( wp_unslash( $_POST['wc-hide-notice'] ) ) : '';
 
@@ -313,7 +313,7 @@ class WC_Admin_Notices {
 		 *
 		 * @since 6.7.0
 		 */
-		$required_capability = apply_filters( 'woocommerce_dismiss_admin_notice_capability', 'manage_woocommerce', $notice_name );
+		$required_capability = apply_filters( 'poocommerce_dismiss_admin_notice_capability', 'manage_poocommerce', $notice_name );
 
 		if ( ! current_user_can( $required_capability ) ) {
 			wp_send_json_error( null, 403 );
@@ -338,7 +338,7 @@ class WC_Admin_Notices {
 
 		update_user_meta( get_current_user_id(), 'dismissed_' . $name . '_notice', true );
 
-		do_action( 'woocommerce_hide_' . $name . '_notice' );
+		do_action( 'poocommerce_hide_' . $name . '_notice' );
 	}
 
 	/**
@@ -375,21 +375,21 @@ class WC_Admin_Notices {
 			'plugins',
 		);
 
-		// Notices should only show on WooCommerce screens, the main dashboard, and on the plugins screen.
+		// Notices should only show on PooCommerce screens, the main dashboard, and on the plugins screen.
 		if ( ! in_array( $screen_id, wc_get_screen_ids(), true ) && ! in_array( $screen_id, $show_on_screens, true ) ) {
 			return;
 		}
 
-		wp_enqueue_style( 'woocommerce-activation', plugins_url( '/assets/css/activation.css', WC_PLUGIN_FILE ), array(), Constants::get_constant( 'WC_VERSION' ) );
+		wp_enqueue_style( 'poocommerce-activation', plugins_url( '/assets/css/activation.css', WC_PLUGIN_FILE ), array(), Constants::get_constant( 'WC_VERSION' ) );
 
 		// Add RTL support.
-		wp_style_add_data( 'woocommerce-activation', 'rtl', 'replace' );
+		wp_style_add_data( 'poocommerce-activation', 'rtl', 'replace' );
 
 		$suffix = Constants::is_true( 'SCRIPT_DEBUG' ) ? '' : '.min';
 		wp_enqueue_script( 'wc-admin-notices', plugins_url( '/assets/js/admin/wc-admin-notices' . $suffix . '.js', WC_PLUGIN_FILE ), array(), Constants::get_constant( 'WC_VERSION' ), true );
 
 		foreach ( $notices as $notice ) {
-			if ( ! empty( self::$core_notices[ $notice ] ) && apply_filters( 'woocommerce_show_admin_notice', true, $notice ) ) {
+			if ( ! empty( self::$core_notices[ $notice ] ) && apply_filters( 'poocommerce_show_admin_notice', true, $notice ) ) {
 				add_action( 'admin_notices', array( __CLASS__, self::$core_notices[ $notice ] ) );
 			} else {
 				add_action( 'admin_notices', array( __CLASS__, 'output_custom_notices' ) );
@@ -406,7 +406,7 @@ class WC_Admin_Notices {
 	 */
 	public static function add_custom_notice( $name, $notice_html ) {
 		self::add_notice( $name );
-		update_option( 'woocommerce_admin_notice_' . $name, wp_kses_post( $notice_html ) );
+		update_option( 'poocommerce_admin_notice_' . $name, wp_kses_post( $notice_html ) );
 	}
 
 	/**
@@ -420,7 +420,7 @@ class WC_Admin_Notices {
 		if ( ! empty( $notices ) ) {
 			foreach ( $notices as $notice ) {
 				if ( empty( self::$core_notices[ $notice ] ) ) {
-					$notice_html = get_option( 'woocommerce_admin_notice_' . $notice );
+					$notice_html = get_option( 'poocommerce_admin_notice_' . $notice );
 
 					if ( $notice_html ) {
 						include __DIR__ . '/views/html-notice-custom.php';
@@ -443,10 +443,10 @@ class WC_Admin_Notices {
 		}
 
 		if ( WC_Install::needs_db_update() ) {
-			$next_scheduled_date = WC()->queue()->get_next( 'woocommerce_run_update_callback', null, 'woocommerce-db-updates' );
+			$next_scheduled_date = WC()->queue()->get_next( 'poocommerce_run_update_callback', null, 'poocommerce-db-updates' );
 
 			// phpcs:ignore WordPress.Security.NonceVerification.Recommended
-			if ( $next_scheduled_date || ! empty( $_GET['do_update_woocommerce'] ) ) {
+			if ( $next_scheduled_date || ! empty( $_GET['do_update_poocommerce'] ) ) {
 				include __DIR__ . '/views/html-notice-updating.php';
 			} else {
 				include __DIR__ . '/views/html-notice-update.php';
@@ -463,7 +463,7 @@ class WC_Admin_Notices {
 	 * @return void
 	 */
 	public static function install_notice() {
-		_deprecated_function( __CLASS__ . '::' . __FUNCTION__, '4.6.0', esc_html__( 'Onboarding is maintained in WooCommerce Admin.', 'woocommerce' ) );
+		_deprecated_function( __CLASS__ . '::' . __FUNCTION__, '4.6.0', esc_html__( 'Onboarding is maintained in PooCommerce Admin.', 'poocommerce' ) );
 	}
 
 	/**

@@ -3,7 +3,7 @@
  */
 import { __ } from '@wordpress/i18n';
 import type { MouseEventHandler } from 'react';
-import Label from '@woocommerce/blocks-components/label'; // Import the component directly because the package root also loads data stores.
+import Label from '@poocommerce/blocks-components/label'; // Import the component directly because the package root also loads data stores.
 
 /**
  * Internal dependencies
@@ -18,8 +18,8 @@ interface LoadMoreButtonProps {
 
 export const LoadMoreButton = ( {
 	onClick,
-	label = __( 'Load more', 'woocommerce' ),
-	screenReaderLabel = __( 'Load more', 'woocommerce' ),
+	label = __( 'Load more', 'poocommerce' ),
+	screenReaderLabel = __( 'Load more', 'poocommerce' ),
 }: LoadMoreButtonProps ): JSX.Element => {
 	return (
 		<div className="wp-block-button wc-block-load-more wc-block-components-load-more">

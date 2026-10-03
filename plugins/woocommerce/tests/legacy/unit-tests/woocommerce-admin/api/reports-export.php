@@ -2,11 +2,11 @@
 /**
  * Reports Export REST API Test
  *
- * @package WooCommerce\Admin\Tests\API
+ * @package PooCommerce\Admin\Tests\API
  * @since 3.5.0
  */
 
-use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Enums\OrderStatus;
 
 /**
  * Class WC_Admin_Tests_API_Reports_Export
@@ -155,7 +155,7 @@ class WC_Admin_Tests_API_Reports_Export extends WC_REST_Unit_Test_Case {
 
 		$this->assertEquals( 200, $response->get_status() );
 		$this->assertEquals( 100, $status['percent_complete'] );
-		$this->assertStringMatchesFormat( '%s/wp-admin/?action=woocommerce_admin_download_report_csv&filename=wc-taxes-report-export-%d', $status['download_url'] );
+		$this->assertStringMatchesFormat( '%s/wp-admin/?action=poocommerce_admin_download_report_csv&filename=wc-taxes-report-export-%d', $status['download_url'] );
 		$this->assertStringMatchesFormat( '%s/wc-analytics/reports/taxes/export/%d/status', $status['_links']['self'][0]['href'] );
 		remove_filter( 'wc_tax_enabled', '__return_true' );
 	}
@@ -220,14 +220,14 @@ class WC_Admin_Tests_API_Reports_Export extends WC_REST_Unit_Test_Case {
 
 		WC_Helper_Queue::run_all_pending( 'wc-admin-data' );
 
-		$valid_rows = \Automattic\WooCommerce\Admin\ReportExporter::queue_report_export(
+		$valid_rows = \Automattic\PooCommerce\Admin\ReportExporter::queue_report_export(
 			'export-valid',
 			'orders',
 			array( 'orderby' => 'net_total' )
 		);
 		$this->assertGreaterThan( 0, $valid_rows, 'A valid orderby should export the available rows.' );
 
-		$injected_rows = \Automattic\WooCommerce\Admin\ReportExporter::queue_report_export(
+		$injected_rows = \Automattic\PooCommerce\Admin\ReportExporter::queue_report_export(
 			'export-injected',
 			'orders',
 			array( 'orderby' => 'date,(SELECT SLEEP(3))' )
@@ -253,15 +253,15 @@ class WC_Admin_Tests_API_Reports_Export extends WC_REST_Unit_Test_Case {
 		WC_Helper_Queue::run_all_pending( 'wc-admin-data' );
 
 		// The report schema caps per_page at 100; the batch size is ours and may exceed it.
-		add_filter( 'woocommerce_admin_orders_report_export_batch_limit', array( $this, 'return_large_batch_limit' ) );
+		add_filter( 'poocommerce_admin_orders_report_export_batch_limit', array( $this, 'return_large_batch_limit' ) );
 
-		$rows = \Automattic\WooCommerce\Admin\ReportExporter::queue_report_export(
+		$rows = \Automattic\PooCommerce\Admin\ReportExporter::queue_report_export(
 			'export-big-batch',
 			'orders',
 			array( 'orderby' => 'net_total' )
 		);
 
-		remove_filter( 'woocommerce_admin_orders_report_export_batch_limit', array( $this, 'return_large_batch_limit' ) );
+		remove_filter( 'poocommerce_admin_orders_report_export_batch_limit', array( $this, 'return_large_batch_limit' ) );
 
 		$this->assertGreaterThan( 0, $rows, 'A batch limit above the schema per_page maximum must still export.' );
 	}

@@ -9,7 +9,7 @@ import youDontNeedLodashUnderscore from 'eslint-plugin-you-dont-need-lodash-unde
 /**
  * Internal dependencies
  */
-import woocommerce from '@woocommerce/eslint-config';
+import poocommerce from '@poocommerce/eslint-config';
 
 const restrictedImports = [
 	{
@@ -130,27 +130,27 @@ const restrictedImports = [
 ];
 
 const coreModules = [
-	'@woocommerce/base-context',
-	'@woocommerce/base-components',
-	'@woocommerce/base-components/cart-checkout',
-	'@woocommerce/block-data',
-	'@woocommerce/blocks-checkout',
-	'@woocommerce/blocks-checkout-events',
-	'@woocommerce/blocks-components',
-	'@woocommerce/blocks-registry',
-	'@woocommerce/block-settings',
-	'@woocommerce/email-editor',
-	'@woocommerce/price-format',
-	'@woocommerce/settings',
-	'@woocommerce/shared-context',
-	'@woocommerce/shared-hocs',
-	'@woocommerce/stores/store-notices',
-	'@woocommerce/stores/woocommerce/cart',
-	'@woocommerce/stores/woocommerce/products',
-	'@woocommerce/stores/woocommerce/shopper-lists',
-	'@woocommerce/tracks',
-	'@woocommerce/data',
-	'@woocommerce/customer-effort-score',
+	'@poocommerce/base-context',
+	'@poocommerce/base-components',
+	'@poocommerce/base-components/cart-checkout',
+	'@poocommerce/block-data',
+	'@poocommerce/blocks-checkout',
+	'@poocommerce/blocks-checkout-events',
+	'@poocommerce/blocks-components',
+	'@poocommerce/blocks-registry',
+	'@poocommerce/block-settings',
+	'@poocommerce/email-editor',
+	'@poocommerce/price-format',
+	'@poocommerce/settings',
+	'@poocommerce/shared-context',
+	'@poocommerce/shared-hocs',
+	'@poocommerce/stores/store-notices',
+	'@poocommerce/stores/poocommerce/cart',
+	'@poocommerce/stores/poocommerce/products',
+	'@poocommerce/stores/poocommerce/shopper-lists',
+	'@poocommerce/tracks',
+	'@poocommerce/data',
+	'@poocommerce/customer-effort-score',
 	'@wordpress/a11y',
 	'@wordpress/api-fetch',
 	'@wordpress/block-editor',
@@ -163,7 +163,7 @@ const coreModules = [
 	'@wordpress/keycodes',
 	'@wordpress/url',
 	'@wordpress/wordcount',
-	'@woocommerce/blocks-test-utils',
+	'@poocommerce/blocks-test-utils',
 	'babel-jest',
 	'dotenv',
 	'lodash/kebabCase',
@@ -203,7 +203,7 @@ export default [
 	 * v10 (eslint-plugin-import has no v10 support) and otherwise trips
 	 * "Cannot redefine plugin", so those rules are set on the inherited plugins.
 	 */
-	...woocommerce,
+	...poocommerce,
 	...storybook.configs[ 'flat/recommended' ],
 	{
 		/*
@@ -260,7 +260,7 @@ export default [
 			'@wordpress/i18n-text-domain': [
 				'error',
 				{
-					allowedTextDomain: [ 'woocommerce' ],
+					allowedTextDomain: [ 'poocommerce' ],
 				},
 			],
 			'no-restricted-imports': [

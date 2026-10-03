@@ -9,7 +9,7 @@ import {
 } from '@wordpress/block-editor';
 import { PanelBody, RangeControl } from '@wordpress/components';
 import { Icon, trash } from '@wordpress/icons';
-import { PLACEHOLDER_IMG_SRC } from '@woocommerce/settings';
+import { PLACEHOLDER_IMG_SRC } from '@poocommerce/settings';
 
 interface WishlistAttributes {
 	columnCount: number;
@@ -27,44 +27,44 @@ const MAX_COLUMNS = 6;
 // strings aren't run through translation, so keeping the template here
 // is the only way to ship a localized default.
 const TEMPLATE: [ string, Record< string, unknown > ][] = [
-	[ 'core/heading', { content: __( 'Wishlist', 'woocommerce' ), level: 2 } ],
+	[ 'core/heading', { content: __( 'Wishlist', 'poocommerce' ), level: 2 } ],
 ];
 
 const PREVIEW_ITEMS = [
 	{
 		key: 'preview-1',
-		name: __( 'Sample product one', 'woocommerce' ),
-		variation: __( 'Size: M', 'woocommerce' ),
+		name: __( 'Sample product one', 'poocommerce' ),
+		variation: __( 'Size: M', 'poocommerce' ),
 		price: '$19.99',
 	},
 	{
 		key: 'preview-2',
-		name: __( 'Sample product two', 'woocommerce' ),
-		variation: __( 'Color: Blue', 'woocommerce' ),
+		name: __( 'Sample product two', 'poocommerce' ),
+		variation: __( 'Color: Blue', 'poocommerce' ),
 		price: '$29.99',
 	},
 	{
 		key: 'preview-3',
-		name: __( 'Sample product three', 'woocommerce' ),
+		name: __( 'Sample product three', 'poocommerce' ),
 		variation: '',
 		price: '$9.99',
 	},
 	{
 		key: 'preview-4',
-		name: __( 'Sample product four', 'woocommerce' ),
-		variation: __( 'Size: L', 'woocommerce' ),
+		name: __( 'Sample product four', 'poocommerce' ),
+		variation: __( 'Size: L', 'poocommerce' ),
 		price: '$24.99',
 	},
 	{
 		key: 'preview-5',
-		name: __( 'Sample product five', 'woocommerce' ),
+		name: __( 'Sample product five', 'poocommerce' ),
 		variation: '',
 		price: '$14.99',
 	},
 	{
 		key: 'preview-6',
-		name: __( 'Sample product six', 'woocommerce' ),
-		variation: __( 'Color: Red', 'woocommerce' ),
+		name: __( 'Sample product six', 'poocommerce' ),
+		variation: __( 'Color: Red', 'poocommerce' ),
 		price: '$39.99',
 	},
 ];
@@ -89,11 +89,11 @@ const Edit = ( { attributes, setAttributes }: EditProps ): JSX.Element => {
 	return (
 		<>
 			<InspectorControls>
-				<PanelBody title={ __( 'Settings', 'woocommerce' ) }>
+				<PanelBody title={ __( 'Settings', 'poocommerce' ) }>
 					<RangeControl
 						__next40pxDefaultSize
 						__nextHasNoMarginBottom
-						label={ __( 'Columns', 'woocommerce' ) }
+						label={ __( 'Columns', 'poocommerce' ) }
 						value={ columnCount }
 						onChange={ ( value?: number ) => {
 							if ( typeof value !== 'number' ) {
@@ -130,7 +130,7 @@ const Edit = ( { attributes, setAttributes }: EditProps ): JSX.Element => {
 										/* translators: %s: product name. */
 										__(
 											'Remove %s from wishlist',
-											'woocommerce'
+											'poocommerce'
 										),
 										item.name
 									) }
@@ -163,7 +163,7 @@ const Edit = ( { attributes, setAttributes }: EditProps ): JSX.Element => {
 									className="wp-block-button__link wp-element-button add_to_cart_button wc-block-components-product-button__button"
 									disabled
 								>
-									{ __( 'Add to cart', 'woocommerce' ) }
+									{ __( 'Add to cart', 'poocommerce' ) }
 								</button>
 							</div>
 						</li>

@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { useSelect } from '@wordpress/data';
-import { pluginsStore } from '@woocommerce/data';
+import { pluginsStore } from '@poocommerce/data';
 import { differenceWith } from 'lodash';
 
 /**

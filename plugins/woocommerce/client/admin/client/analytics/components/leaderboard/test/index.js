@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { render, screen } from '@testing-library/react';
-import { CurrencyFactory, CurrencyContext } from '@woocommerce/currency';
+import { CurrencyFactory, CurrencyContext } from '@poocommerce/currency';
 
 /**
  * Internal dependencies
@@ -48,7 +48,7 @@ const rows = mockData.map( ( row ) => {
 			format: 'number',
 		},
 		{
-			display: `<span class="woocommerce-Price-currencySymbol">${ netRevenue }</span>`,
+			display: `<span class="poocommerce-Price-currencySymbol">${ netRevenue }</span>`,
 			value: netRevenue,
 			format: 'currency',
 		},

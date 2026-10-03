@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Tests\Blocks\BlockTypes;
 
 use WC_Unit_Test_Case;
 
@@ -30,14 +30,14 @@ class ProductFilterTaxonomyTest extends WC_Unit_Test_Case {
 	public function setUp(): void {
 		parent::setUp();
 
-		add_filter( 'woocommerce_pre_product_filter_data', array( $this, 'filter_product_filter_data' ), 10, 4 );
+		add_filter( 'poocommerce_pre_product_filter_data', array( $this, 'filter_product_filter_data' ), 10, 4 );
 	}
 
 	/**
 	 * Tear down test fixtures.
 	 */
 	public function tearDown(): void {
-		remove_filter( 'woocommerce_pre_product_filter_data', array( $this, 'filter_product_filter_data' ), 10 );
+		remove_filter( 'poocommerce_pre_product_filter_data', array( $this, 'filter_product_filter_data' ), 10 );
 
 		foreach ( $this->term_ids as $term_id ) {
 			wp_delete_term( $term_id, 'product_cat' );
@@ -80,14 +80,14 @@ class ProductFilterTaxonomyTest extends WC_Unit_Test_Case {
 	 */
 	private function render_taxonomy_filter_with_checkbox_list(): string {
 		$taxonomy_block = array(
-			'blockName'    => 'woocommerce/product-filter-taxonomy',
+			'blockName'    => 'poocommerce/product-filter-taxonomy',
 			'attrs'        => array(
 				'taxonomy'  => 'product_cat',
 				'sortOrder' => 'name-asc',
 			),
 			'innerBlocks'  => array(
 				array(
-					'blockName'    => 'woocommerce/product-filter-checkbox-list',
+					'blockName'    => 'poocommerce/product-filter-checkbox-list',
 					'attrs'        => array(),
 					'innerBlocks'  => array(),
 					'innerHTML'    => '',
@@ -98,7 +98,7 @@ class ProductFilterTaxonomyTest extends WC_Unit_Test_Case {
 			'innerContent' => array( null ),
 		);
 		$parsed_block   = array(
-			'blockName'    => 'woocommerce/product-filters',
+			'blockName'    => 'poocommerce/product-filters',
 			'attrs'        => array( 'showFilterDrawer' => false ),
 			'innerBlocks'  => array( $taxonomy_block ),
 			'innerHTML'    => '',

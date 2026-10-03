@@ -23,7 +23,7 @@ const getFulfillmentErrorMessage = (
 		'code' in error
 	) {
 		const apiError = error as { message: string; code: string };
-		if ( apiError.code === 'woocommerce_fulfillment_error' ) {
+		if ( apiError.code === 'poocommerce_fulfillment_error' ) {
 			return apiError.message;
 		}
 	}

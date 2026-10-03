@@ -5,21 +5,21 @@ import { Button, CardFooter, ExternalLink } from '@wordpress/components';
 import { useDispatch, useSelect } from '@wordpress/data';
 import { Children, useEffect, useRef, useState } from '@wordpress/element';
 import { __, sprintf } from '@wordpress/i18n';
-import { Text } from '@woocommerce/experimental';
-import { PluginNames, pluginsStore, settingsStore } from '@woocommerce/data';
-import { getAdminLink } from '@woocommerce/settings';
-import { recordEvent } from '@woocommerce/tracks';
+import { Text } from '@poocommerce/experimental';
+import { PluginNames, pluginsStore, settingsStore } from '@poocommerce/data';
+import { getAdminLink } from '@poocommerce/settings';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
  */
-import taxLogo from '../task-lists/fills/tax/woocommerce-tax/logo.png';
+import taxLogo from '../task-lists/fills/tax/poocommerce-tax/logo.png';
 import { createNoticesFromResponse } from '../lib/notices';
 import {
 	DismissableList,
 	DismissableListHeading,
 } from '../settings-recommendations/dismissable-list';
-import { supportsWooCommerceTax } from '../task-lists/fills/tax/utils';
+import { supportsPooCommerceTax } from '../task-lists/fills/tax/utils';
 import { TrackedLink } from '~/components/tracked-link/tracked-link';
 import { getCountryCode } from '~/dashboard/utils';
 import { getAdminSetting } from '~/utils/admin-settings';
@@ -29,7 +29,7 @@ import './tax-recommendations.scss';
 const ANROK_LOGO_URL = 'https://ps.w.org/anrok-tax/assets/icon.svg';
 
 type TaxRecommendation = {
-	id: 'anrok-tax' | 'woocommerce-tax';
+	id: 'anrok-tax' | 'poocommerce-tax';
 	title: string;
 	description: string;
 	productUrl: string;
@@ -139,12 +139,12 @@ const TaxRecommendationItem = ( {
 					isPluginInstalled
 						? sprintf(
 								/* translators: %s: extension name. */
-								__( '%s activated!', 'woocommerce' ),
+								__( '%s activated!', 'poocommerce' ),
 								title
 						  )
 						: sprintf(
 								/* translators: %s: extension name. */
-								__( '%s is installed!', 'woocommerce' ),
+								__( '%s is installed!', 'poocommerce' ),
 								title
 						  ),
 					{}
@@ -160,33 +160,33 @@ const TaxRecommendationItem = ( {
 	};
 
 	return (
-		<div className="woocommerce-list__item-inner woocommerce-tax-recommendation-item">
-			<div className="woocommerce-list__item-before">{ logo }</div>
-			<div className="woocommerce-list__item-text">
-				<span className="woocommerce-list__item-title">{ title }</span>
-				<span className="woocommerce-list__item-content">
+		<div className="poocommerce-list__item-inner poocommerce-tax-recommendation-item">
+			<div className="poocommerce-list__item-before">{ logo }</div>
+			<div className="poocommerce-list__item-text">
+				<span className="poocommerce-list__item-title">{ title }</span>
+				<span className="poocommerce-list__item-content">
 					{ description }
 					<br />
 					<ExternalLink
 						href={ productUrl }
 						onClick={ handleLearnMoreClick }
 					>
-						{ __( 'Learn more', 'woocommerce' ) }
+						{ __( 'Learn more', 'poocommerce' ) }
 					</ExternalLink>
 				</span>
 			</div>
-			<div className="woocommerce-list__item-after">
+			<div className="poocommerce-list__item-after">
 				{ isPluginActive ? (
 					<Button
 						variant="secondary"
 						aria-disabled="true"
 						aria-label={ sprintf(
 							/* translators: %s: extension name. */
-							__( '%s is already active', 'woocommerce' ),
+							__( '%s is already active', 'poocommerce' ),
 							title
 						) }
 					>
-						{ __( 'Active', 'woocommerce' ) }
+						{ __( 'Active', 'poocommerce' ) }
 					</Button>
 				) : (
 					<Button
@@ -196,8 +196,8 @@ const TaxRecommendationItem = ( {
 						disabled={ pluginsBeingSetup.length > 0 }
 					>
 						{ isPluginInstalled
-							? __( 'Activate', 'woocommerce' )
-							: __( 'Install', 'woocommerce' ) }
+							? __( 'Activate', 'poocommerce' )
+							: __( 'Install', 'poocommerce' ) }
 					</Button>
 				) }
 			</div>
@@ -217,15 +217,15 @@ const TaxRecommendationsList = ( {
 
 	return (
 		<DismissableList
-			className="woocommerce-recommended-tax-extensions"
+			className="poocommerce-recommended-tax-extensions"
 			isDismissed={ isDismissed }
 		>
 			<DismissableListHeading onDismiss={ onDismiss }>
 				<Text variant="title.small" as="p" size="20" lineHeight="28px">
-					{ __( 'Recommended tax solutions', 'woocommerce' ) }
+					{ __( 'Recommended tax solutions', 'poocommerce' ) }
 				</Text>
 				<Text
-					className="woocommerce-recommended-tax__header-heading"
+					className="poocommerce-recommended-tax__header-heading"
 					variant="caption"
 					as="p"
 					size="12"
@@ -233,21 +233,21 @@ const TaxRecommendationsList = ( {
 				>
 					{ __(
 						'Explore tax extensions that can help automate calculations and compliance for your store.',
-						'woocommerce'
+						'poocommerce'
 					) }
 				</Text>
 			</DismissableListHeading>
-			<ul className="woocommerce-list">
+			<ul className="poocommerce-list">
 				{ Children.map( children, ( item ) => (
-					<li className="woocommerce-list__item">{ item }</li>
+					<li className="poocommerce-list__item">{ item }</li>
 				) ) }
 			</ul>
 			<CardFooter>
 				<TrackedLink
 					message={ __(
 						// translators: {{Link}} is a placeholder for a html element.
-						'Visit {{Link}}the WooCommerce Marketplace{{/Link}} to find more tax solutions.',
-						'woocommerce'
+						'Visit {{Link}}the PooCommerce Marketplace{{/Link}} to find more tax solutions.',
+						'poocommerce'
 					) }
 					targetUrl={ getAdminLink(
 						'admin.php?page=wc-admin&tab=extensions&path=/extensions&category=operations'
@@ -284,7 +284,7 @@ const TaxRecommendations = () => {
 				activePlugins: getActivePlugins() ?? [],
 				installedPlugins: getInstalledPlugins() ?? [],
 				countryCode: getCountryCode(
-					settings.general?.woocommerce_default_country
+					settings.general?.poocommerce_default_country
 				),
 			};
 		},
@@ -297,17 +297,17 @@ const TaxRecommendations = () => {
 
 	const recommendations: TaxRecommendation[] = [
 		{
-			id: 'woocommerce-tax',
-			title: __( 'WooCommerce Tax', 'woocommerce' ),
+			id: 'poocommerce-tax',
+			title: __( 'PooCommerce Tax', 'poocommerce' ),
 			description: __(
-				'Free, one-click tool to automate essential sales tax on every WooCommerce order.',
-				'woocommerce'
+				'Free, one-click tool to automate essential sales tax on every PooCommerce order.',
+				'poocommerce'
 			),
-			productUrl: 'https://woocommerce.com/products/tax/',
-			pluginSlugs: [ 'woocommerce-services', 'woocommerce-tax' ],
+			productUrl: 'https://poocommerce.com/products/tax/',
+			pluginSlugs: [ 'poocommerce-services', 'poocommerce-tax' ],
 			logo: (
 				<img
-					className="woocommerce-tax-recommendation-item__logo"
+					className="poocommerce-tax-recommendation-item__logo"
 					src={ taxLogo }
 					alt=""
 				/>
@@ -315,16 +315,16 @@ const TaxRecommendations = () => {
 		},
 		{
 			id: 'anrok-tax',
-			title: __( 'Anrok', 'woocommerce' ),
+			title: __( 'Anrok', 'poocommerce' ),
 			description: __(
 				'Advanced tax compliance for growing brands selling within the US and around the globe.',
-				'woocommerce'
+				'poocommerce'
 			),
-			productUrl: 'https://woocommerce.com/products/anrok-tax/',
+			productUrl: 'https://poocommerce.com/products/anrok-tax/',
 			pluginSlugs: [ 'anrok-tax' ],
 			logo: (
 				<img
-					className="woocommerce-tax-recommendation-item__logo"
+					className="poocommerce-tax-recommendation-item__logo"
 					src={ ANROK_LOGO_URL }
 					alt=""
 				/>
@@ -334,7 +334,7 @@ const TaxRecommendations = () => {
 	const visibleRecommendations = recommendations.filter(
 		( recommendation ) =>
 			recommendation.id === 'anrok-tax' ||
-			supportsWooCommerceTax( countryCode )
+			supportsPooCommerceTax( countryCode )
 	);
 	const visiblePluginSlugs = visibleRecommendations
 		.map( ( recommendation ) => recommendation.pluginSlugs[ 0 ] )
@@ -357,7 +357,7 @@ const TaxRecommendations = () => {
 	}, [ countryCode, visiblePluginSlugs, visibleRecommendations.length ] );
 
 	return (
-		<div className="woocommerce-recommended-tax-extensions-wrapper">
+		<div className="poocommerce-recommended-tax-extensions-wrapper">
 			<TaxRecommendationsList>
 				{ visibleRecommendations.map( ( recommendation ) => {
 					const isPluginActive = recommendation.pluginSlugs.some(

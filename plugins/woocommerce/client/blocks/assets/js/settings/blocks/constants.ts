@@ -5,13 +5,13 @@ import {
 	getSetting,
 	getSettingWithCoercion,
 	STORE_PAGES,
-} from '@woocommerce/settings';
-import { CountryData, isObject, isString } from '@woocommerce/types';
+} from '@poocommerce/settings';
+import { CountryData, isObject, isString } from '@poocommerce/types';
 import type {
 	OrderForm,
 	AddressForm,
 	ContactForm,
-} from '@woocommerce/settings';
+} from '@poocommerce/settings';
 
 export type WordCountType =
 	| 'words'

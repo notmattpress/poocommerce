@@ -2,14 +2,14 @@
 /**
  * Product media gallery utilities.
  *
- * @package Automattic\WooCommerce\Internal\ProductGallery
+ * @package Automattic\PooCommerce\Internal\ProductGallery
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\ProductGallery;
+namespace Automattic\PooCommerce\Internal\ProductGallery;
 
-use Automattic\WooCommerce\Utilities\FeaturesUtil;
+use Automattic\PooCommerce\Utilities\FeaturesUtil;
 use WC_Product;
 
 defined( 'ABSPATH' ) || exit;
@@ -32,7 +32,7 @@ class ProductMediaGallery {
 	/**
 	 * Option backing the product gallery videos feature toggle.
 	 */
-	public const ENABLE_OPTION_NAME = 'woocommerce_feature_product_gallery_videos_enabled';
+	public const ENABLE_OPTION_NAME = 'poocommerce_feature_product_gallery_videos_enabled';
 
 	/**
 	 * Check if product gallery videos are enabled.
@@ -102,7 +102,7 @@ class ProductMediaGallery {
 	/**
 	 * Get media gallery items for classic product gallery templates.
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 *
 	 * @param WC_Product $product Product object.
 	 * @return array
@@ -340,7 +340,7 @@ class ProductMediaGallery {
 	/**
 	 * Get HTML for a classic product gallery video.
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 *
 	 * @param array $media_item Product media gallery item.
 	 * @param bool  $main_video Whether this is the main gallery item.
@@ -364,7 +364,7 @@ class ProductMediaGallery {
 		 * @param bool $enabled Whether flexslider is enabled.
 		 */
 		$flexslider        = (bool) apply_filters(
-			'woocommerce_single_product_flexslider_enabled',
+			'poocommerce_single_product_flexslider_enabled',
 			get_theme_support( 'wc-product-gallery-slider' )
 		);
 		$gallery_thumbnail = wc_get_image_size( 'gallery_thumbnail' );
@@ -376,7 +376,7 @@ class ProductMediaGallery {
 		 * @param string|array $size Image size.
 		 */
 		$thumbnail_size = apply_filters(
-			'woocommerce_gallery_thumbnail_size',
+			'poocommerce_gallery_thumbnail_size',
 			array( $gallery_thumbnail['width'], $gallery_thumbnail['height'] )
 		);
 		/**
@@ -387,8 +387,8 @@ class ProductMediaGallery {
 		 * @param string|array $size Image size.
 		 */
 		$image_size = apply_filters(
-			'woocommerce_gallery_image_size',
-			$flexslider || $main_video ? 'woocommerce_single' : $thumbnail_size
+			'poocommerce_gallery_image_size',
+			$flexslider || $main_video ? 'poocommerce_single' : $thumbnail_size
 		);
 		/**
 		 * Filters the product gallery full image size.
@@ -398,7 +398,7 @@ class ProductMediaGallery {
 		 * @param string|array $size Image size.
 		 */
 		$full_size = apply_filters(
-			'woocommerce_gallery_full_size',
+			'poocommerce_gallery_full_size',
 			/**
 			 * Filters the product thumbnails large image size.
 			 *
@@ -406,7 +406,7 @@ class ProductMediaGallery {
 			 *
 			 * @param string|array $size Image size.
 			 */
-			apply_filters( 'woocommerce_product_thumbnails_large_size', 'full' )
+			apply_filters( 'poocommerce_product_thumbnails_large_size', 'full' )
 		);
 
 		$poster_id        = self::get_video_poster_id( $media_item );
@@ -424,7 +424,7 @@ class ProductMediaGallery {
 			$alt_text    = $video_title
 				? sprintf(
 					/* translators: %s is the video title. */
-					__( 'Video: %s', 'woocommerce' ),
+					__( 'Video: %s', 'poocommerce' ),
 					$video_title
 				)
 				: '';
@@ -432,7 +432,7 @@ class ProductMediaGallery {
 
 		$full_width       = isset( $full_src[1] ) ? absint( $full_src[1] ) : 1000;
 		$full_height      = isset( $full_src[2] ) ? absint( $full_src[2] ) : 1000;
-		$full_src_url     = isset( $full_src[0] ) ? $full_src[0] : wc_placeholder_img_src( 'woocommerce_single' );
+		$full_src_url     = isset( $full_src[0] ) ? $full_src[0] : wc_placeholder_img_src( 'poocommerce_single' );
 		$video_attributes = array(
 			'autoplay'                => 'autoplay',
 			'class'                   => $main_video ? 'wp-post-video wp-post-image' : 'wp-post-video',
@@ -455,12 +455,12 @@ class ProductMediaGallery {
 
 		$thumbnail           = isset( $thumbnail_src[0] )
 			? $thumbnail_src[0]
-			: wc_placeholder_img_src( 'woocommerce_gallery_thumbnail' );
+			: wc_placeholder_img_src( 'poocommerce_gallery_thumbnail' );
 		$thumbnail_video_src = isset( $thumbnail_src[0] ) ? '' : $video_src;
 
 		return sprintf(
 			'<div data-thumb="%1$s" data-thumb-alt="%2$s" data-thumb-srcset="%3$s" data-thumb-sizes="%4$s" data-thumb-video-src="%5$s" ' .
-			'class="woocommerce-product-gallery__image woocommerce-product-gallery__video"><a href="%6$s"><video %7$s></video></a></div>',
+			'class="poocommerce-product-gallery__image poocommerce-product-gallery__video"><a href="%6$s"><video %7$s></video></a></div>',
 			esc_url( $thumbnail ),
 			esc_attr( $alt_text ),
 			esc_attr( $thumbnail_srcset ? $thumbnail_srcset : '' ),

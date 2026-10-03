@@ -2,10 +2,10 @@
  * External dependencies
  */
 import path from 'path';
-import { expect, test, wpCLI } from '@woocommerce/e2e-utils';
+import { expect, test, wpCLI } from '@poocommerce/e2e-utils';
 
 const blockData = {
-	slug: 'woocommerce/featured-product',
+	slug: 'poocommerce/featured-product',
 };
 
 test.describe( `${ blockData.slug } Block`, () => {

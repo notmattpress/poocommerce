@@ -27,7 +27,7 @@ Set the posts datastore as authoritative after confirming HPOS and posts tables 
 
 ## wc hpos compatibility-info
 
-Show WooCommerce-aware plugins known to be compatible, incompatible, or uncertain for HPOS.
+Show PooCommerce-aware plugins known to be compatible, incompatible, or uncertain for HPOS.
 
 - `--include-inactive` - Include inactive plugins in the compatibility lists.
 - `--display-filenames` - Display plugin file names instead of plugin names.

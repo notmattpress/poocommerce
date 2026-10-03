@@ -10,17 +10,17 @@
  * {@see Reactivation}. Lives under `Integration\Contracts` so contract lifecycle stays
  * separate from the renewal money-path.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine\Integration\Contracts
+ * @package Automattic\PooCommerce\SubscriptionsEngine\Integration\Contracts
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Integration\Contracts;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Integration\Contracts;
 
 use RuntimeException;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\Contract;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\ContractStatus;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage\ContractRepository;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\Contract;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\ContractStatus;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage\ContractRepository;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -32,7 +32,7 @@ final class Hold {
 	/**
 	 * Action fired after a contract is put on hold, with `( $contract )`.
 	 */
-	public const CONTRACT_HELD_ACTION = 'woocommerce_subscriptions_engine_contract_held';
+	public const CONTRACT_HELD_ACTION = 'poocommerce_subscriptions_engine_contract_held';
 
 	/**
 	 * Contract repository.

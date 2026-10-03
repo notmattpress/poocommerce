@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { test, expect, BLOCK_THEME_SLUG } from '@woocommerce/e2e-utils';
+import { test, expect, BLOCK_THEME_SLUG } from '@poocommerce/e2e-utils';
 
 const templatePath = `${ BLOCK_THEME_SLUG }//page-checkout`;
 const templateType = 'wp_template';

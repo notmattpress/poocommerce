@@ -16,7 +16,7 @@ import {
 import { accessTheEmailEditor } from '../../utils/email';
 import { setOption } from '../../utils/options';
 
-test.describe( 'WooCommerce Email Editor Core', () => {
+test.describe( 'PooCommerce Email Editor Core', () => {
 	test.use( { storageState: ADMIN_STATE_PATH } );
 
 	const emailPostIds = new Set< string >();
@@ -60,7 +60,7 @@ test.describe( 'WooCommerce Email Editor Core', () => {
 			const verification = await setOption(
 				request,
 				baseURL,
-				'woocommerce_feature_block_email_editor_enabled',
+				'poocommerce_feature_block_email_editor_enabled',
 				'no'
 			);
 			// The e2e test-helper plugin answers a no-op option write with this
@@ -98,7 +98,7 @@ test.describe( 'WooCommerce Email Editor Core', () => {
 				.locator( 'iframe[name="editor-canvas"]' )
 				.contentFrame()
 				.getByLabel( 'Block: Heading' )
-		).toContainText( `New order: #[woocommerce/order-number]` );
+		).toContainText( `New order: #[poocommerce/order-number]` );
 	} );
 
 	test( 'Can preview in new tab', async ( { page } ) => {
@@ -153,7 +153,7 @@ test.describe( 'WooCommerce Email Editor Core', () => {
 				( candidate ) =>
 					candidate.request().method() === 'POST' &&
 					decodeURIComponent( candidate.url() ).includes(
-						'/woocommerce-email-editor/v1/send_preview_email'
+						'/poocommerce-email-editor/v1/send_preview_email'
 					)
 			),
 			sendButton.click(),
@@ -278,7 +278,7 @@ test.describe( 'WooCommerce Email Editor Core', () => {
 		).toBeVisible();
 		await page
 			.locator(
-				'.woocommerce-personalization-tags-modal-category-group-item'
+				'.poocommerce-personalization-tags-modal-category-group-item'
 			)
 			.filter( { hasText: 'Payment URL' } )
 			.getByRole( 'button', { name: 'Set as URL' } )
@@ -296,6 +296,6 @@ test.describe( 'WooCommerce Email Editor Core', () => {
 							.getSelectedBlock()?.attributes?.url
 				)
 			)
-			.toBe( '[woocommerce/order-payment-url]' );
+			.toBe( '[poocommerce/order-payment-url]' );
 	} );
 } );

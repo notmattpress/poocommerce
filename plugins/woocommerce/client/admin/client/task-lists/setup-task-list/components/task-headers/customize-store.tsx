@@ -3,7 +3,7 @@
  */
 import { Button } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
-import { TaskType } from '@woocommerce/data';
+import { TaskType } from '@poocommerce/data';
 /**
  * Internal dependencies
  */
@@ -20,33 +20,33 @@ const CustomizeStoreHeader = ( {
 	const taskDescription = isWooExpress()
 		? __(
 				'Use our built-in AI tools to design your store and populate it with content, or select a pre-built theme and customize it to fit your brand.',
-				'woocommerce'
+				'poocommerce'
 		  )
 		: __(
 				'Quickly create a beautiful looking store using our built-in store designer, or select a pre-built theme and customize it to fit your brand.',
-				'woocommerce'
+				'poocommerce'
 		  );
 	return (
 		<div
-			className={ `woocommerce-task-header__contents-container woocommerce-task-header__${ task.id }` }
+			className={ `poocommerce-task-header__contents-container poocommerce-task-header__${ task.id }` }
 		>
 			<img
-				alt={ __( 'Customize your store illustration', 'woocommerce' ) }
+				alt={ __( 'Customize your store illustration', 'poocommerce' ) }
 				src={
 					WC_ASSET_URL +
 					'images/task_list/customize-store-illustration.svg'
 				}
 				className="svg-background"
 			/>
-			<div className="woocommerce-task-header__contents">
-				<h1>{ __( 'Start customizing your store', 'woocommerce' ) }</h1>
+			<div className="poocommerce-task-header__contents">
+				<h1>{ __( 'Start customizing your store', 'poocommerce' ) }</h1>
 				<p>{ taskDescription }</p>
 				<Button
 					isSecondary={ task.isComplete }
 					isPrimary={ ! task.isComplete }
 					onClick={ goToTask }
 				>
-					{ __( 'Start customizing', 'woocommerce' ) }
+					{ __( 'Start customizing', 'poocommerce' ) }
 				</Button>
 			</div>
 		</div>

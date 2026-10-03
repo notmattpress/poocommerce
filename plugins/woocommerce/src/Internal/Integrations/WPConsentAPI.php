@@ -1,10 +1,10 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Integrations;
+namespace Automattic\PooCommerce\Internal\Integrations;
 
 use Automattic\Jetpack\Constants;
-use Automattic\WooCommerce\Internal\Traits\ScriptDebug;
+use Automattic\PooCommerce\Internal\Traits\ScriptDebug;
 use WP_CONSENT_API;
 
 /**

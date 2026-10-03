@@ -3,7 +3,7 @@
  * Webhook Data Store
  *
  * @version  3.3.0
- * @package  WooCommerce\Classes\Data_Store
+ * @package  PooCommerce\Classes\Data_Store
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -61,7 +61,7 @@ class WC_Webhook_Data_Store implements WC_Webhook_Data_Store_Interface {
 
 		$this->delete_transients( $webhook->get_status( 'edit' ) );
 		WC_Cache_Helper::invalidate_cache_group( 'webhooks' );
-		do_action( 'woocommerce_new_webhook', $webhook_id, $webhook );
+		do_action( 'poocommerce_new_webhook', $webhook_id, $webhook );
 	}
 
 	/**
@@ -101,9 +101,9 @@ class WC_Webhook_Data_Store implements WC_Webhook_Data_Store_Interface {
 			);
 			$webhook->set_object_read( true );
 
-			do_action( 'woocommerce_webhook_loaded', $webhook );
+			do_action( 'poocommerce_webhook_loaded', $webhook );
 		} else {
-			throw new Exception( __( 'Invalid webhook.', 'woocommerce' ) );
+			throw new Exception( __( 'Invalid webhook.', 'poocommerce' ) );
 		}
 	}
 
@@ -163,7 +163,7 @@ class WC_Webhook_Data_Store implements WC_Webhook_Data_Store_Interface {
 			$webhook->deliver_ping();
 		}
 
-		do_action( 'woocommerce_webhook_updated', $webhook->get_id() );
+		do_action( 'poocommerce_webhook_updated', $webhook->get_id() );
 	}
 
 	/**
@@ -186,7 +186,7 @@ class WC_Webhook_Data_Store implements WC_Webhook_Data_Store_Interface {
 		$this->delete_transients( 'all' );
 		wp_cache_delete( $webhook->get_id(), 'webhooks' );
 		WC_Cache_Helper::invalidate_cache_group( 'webhooks' );
-		do_action( 'woocommerce_webhook_deleted', $webhook->get_id(), $webhook );
+		do_action( 'poocommerce_webhook_deleted', $webhook->get_id(), $webhook );
 	}
 
 	/**
@@ -435,7 +435,7 @@ class WC_Webhook_Data_Store implements WC_Webhook_Data_Store_Interface {
 	 * @return string
 	 */
 	private function get_transient_key( $status = '' ) {
-		return empty( $status ) ? 'woocommerce_webhook_ids' : sprintf( 'woocommerce_webhook_ids_status_%s', $status );
+		return empty( $status ) ? 'poocommerce_webhook_ids' : sprintf( 'poocommerce_webhook_ids_status_%s', $status );
 	}
 
 	/**

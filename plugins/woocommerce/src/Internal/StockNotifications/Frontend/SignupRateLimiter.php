@@ -2,7 +2,7 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\StockNotifications\Frontend;
+namespace Automattic\PooCommerce\Internal\StockNotifications\Frontend;
 
 use WC_Geolocation;
 use WC_Rate_Limiter;
@@ -57,7 +57,7 @@ class SignupRateLimiter {
 	/**
 	 * Check whether the current sign-up attempt is rate limited.
 	 *
-	 * Fires `woocommerce_customer_stock_notifications_signup_rate_limit_exceeded` when it is.
+	 * Fires `poocommerce_customer_stock_notifications_signup_rate_limit_exceeded` when it is.
 	 *
 	 * @since 11.2.0
 	 *
@@ -71,7 +71,7 @@ class SignupRateLimiter {
 			}
 
 			/**
-			 * Action: woocommerce_customer_stock_notifications_signup_rate_limit_exceeded
+			 * Action: poocommerce_customer_stock_notifications_signup_rate_limit_exceeded
 			 *
 			 * Fires when a stock notification sign-up attempt is refused because the client
 			 * or the e-mail address retried too soon. Useful for tracking abuse.
@@ -83,7 +83,7 @@ class SignupRateLimiter {
 			 *                              '..._email_', followed by the user ID or a hash.
 			 * @param string $user_email    The e-mail address used to sign up.
 			 */
-			do_action( 'woocommerce_customer_stock_notifications_signup_rate_limit_exceeded', $rate_limit_id, $user_email );
+			do_action( 'poocommerce_customer_stock_notifications_signup_rate_limit_exceeded', $rate_limit_id, $user_email );
 
 			return true;
 		}
@@ -161,7 +161,7 @@ class SignupRateLimiter {
 	 *
 	 * Only REMOTE_ADDR is trusted by default: forwarded headers are attacker-controlled
 	 * unless the store is actually behind a proxy that sets them. With proxy support on,
-	 * the address comes from the forwarding headers the rest of WooCommerce trusts.
+	 * the address comes from the forwarding headers the rest of PooCommerce trusts.
 	 *
 	 * @param bool $proxy_support Whether to read the client address from forwarding headers.
 	 * @return string The IP address, or an empty string if it could not be resolved.
@@ -190,10 +190,10 @@ class SignupRateLimiter {
 		);
 
 		/**
-		 * Filter: woocommerce_customer_stock_notifications_signup_rate_limit_options
+		 * Filter: poocommerce_customer_stock_notifications_signup_rate_limit_options
 		 *
 		 * Options for rate limiting stock notification sign-ups. Mirrors the shape of
-		 * `woocommerce_store_api_rate_limit_options`.
+		 * `poocommerce_store_api_rate_limit_options`.
 		 *
 		 * - `enabled`: switches the limiter off entirely. Default true.
 		 * - `proxy_support`: read the client address from forwarding headers (X-Real-IP,
@@ -210,7 +210,7 @@ class SignupRateLimiter {
 		 *
 		 * @param array $options Rate limiting options.
 		 */
-		$options = apply_filters( 'woocommerce_customer_stock_notifications_signup_rate_limit_options', $defaults );
+		$options = apply_filters( 'poocommerce_customer_stock_notifications_signup_rate_limit_options', $defaults );
 
 		if ( ! is_array( $options ) ) {
 			$options = $defaults;

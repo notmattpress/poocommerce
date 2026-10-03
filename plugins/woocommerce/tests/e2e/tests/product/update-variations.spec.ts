@@ -185,7 +185,7 @@ test.describe( 'Update variations', { tag: tags.GUTENBERG }, () => {
 	} );
 
 	test( 'can individually edit variations', async ( { page } ) => {
-		const variationRows = page.locator( '.woocommerce_variation' );
+		const variationRows = page.locator( '.poocommerce_variation' );
 		const firstVariation = variationRows.filter( {
 			hasText: `#${ variationIds_indivEdit[ 0 ] }`,
 		} );
@@ -415,10 +415,10 @@ test.describe( 'Update variations', { tag: tags.GUTENBERG }, () => {
 			);
 			const action = data.get( 'action' );
 
-			if ( action === 'woocommerce_save_variations' ) {
+			if ( action === 'poocommerce_save_variations' ) {
 				saveRequestStarted = true;
 				await saveRequestReleased;
-			} else if ( action === 'woocommerce_bulk_edit_variations' ) {
+			} else if ( action === 'poocommerce_bulk_edit_variations' ) {
 				bulkRequestCount++;
 			}
 
@@ -435,7 +435,7 @@ test.describe( 'Update variations', { tag: tags.GUTENBERG }, () => {
 
 		await test.step( 'Edit a variation without saving.', async () => {
 			const firstVariation = page
-				.locator( '.woocommerce_variation' )
+				.locator( '.poocommerce_variation' )
 				.first();
 
 			await page.getByRole( 'link', { name: 'Expand' } ).first().click();
@@ -494,7 +494,7 @@ test.describe( 'Update variations', { tag: tags.GUTENBERG }, () => {
 			);
 			const action = data.get( 'action' );
 
-			if ( action === 'woocommerce_save_variations' ) {
+			if ( action === 'poocommerce_save_variations' ) {
 				await route.fulfill( {
 					status: 500,
 					contentType: 'text/plain',
@@ -503,7 +503,7 @@ test.describe( 'Update variations', { tag: tags.GUTENBERG }, () => {
 				return;
 			}
 
-			if ( action === 'woocommerce_bulk_edit_variations' ) {
+			if ( action === 'poocommerce_bulk_edit_variations' ) {
 				bulkRequestCount++;
 			}
 
@@ -518,7 +518,7 @@ test.describe( 'Update variations', { tag: tags.GUTENBERG }, () => {
 
 		await gotToVariationsTab( page );
 
-		const firstVariation = page.locator( '.woocommerce_variation' ).first();
+		const firstVariation = page.locator( '.poocommerce_variation' ).first();
 
 		await test.step( 'Edit a variation without saving.', async () => {
 			await page.getByRole( 'link', { name: 'Expand' } ).first().click();
@@ -547,7 +547,7 @@ test.describe( 'Update variations', { tag: tags.GUTENBERG }, () => {
 				'bulk_actions'
 			);
 			await expect(
-				page.locator( '#woocommerce-product-data .blockUI' )
+				page.locator( '#poocommerce-product-data .blockUI' )
 			).toHaveCount( 0 );
 			await expect( firstVariation ).toHaveClass(
 				/variation-needs-update/
@@ -571,7 +571,7 @@ test.describe( 'Update variations', { tag: tags.GUTENBERG }, () => {
 
 		await test.step( 'Expect that there are no more variations.', async () => {
 			await expect(
-				page.locator( '.woocommerce_variation' )
+				page.locator( '.poocommerce_variation' )
 			).toHaveCount( 0 );
 		} );
 	} );
@@ -593,7 +593,7 @@ test.describe( 'Update variations', { tag: tags.GUTENBERG }, () => {
 			await expect( pageSelector ).toHaveValue( '1' );
 		} );
 
-		const firstVariation = page.locator( '.woocommerce_variation' ).first();
+		const firstVariation = page.locator( '.poocommerce_variation' ).first();
 		const unsavedPrice = '42.42';
 		const priceInput = firstVariation.getByRole( 'textbox', {
 			name: 'Regular price',
@@ -660,7 +660,7 @@ test.describe( 'Update variations', { tag: tags.GUTENBERG }, () => {
 		} );
 
 		const variationContainer = page.locator(
-			'.woocommerce_variations .woocommerce_variation'
+			'.poocommerce_variations .poocommerce_variation'
 		);
 
 		await test.step( 'Check the "Manage stock?" box', async () => {
@@ -799,13 +799,13 @@ test.describe( 'Update variations', { tag: tags.GUTENBERG }, () => {
 
 		await test.step( 'Click "Remove" on a variation', async () => {
 			page.on( 'dialog', ( dialog ) => dialog.accept() );
-			await page.locator( '.woocommerce_variation' ).hover();
+			await page.locator( '.poocommerce_variation' ).hover();
 			await page.locator( '.remove_variation.delete' ).click();
 		} );
 
 		await test.step( 'Expect the variation to be removed', async () => {
 			await expect(
-				page.locator( '.woocommerce_variation' )
+				page.locator( '.poocommerce_variation' )
 			).toHaveCount( 0 );
 		} );
 	} );

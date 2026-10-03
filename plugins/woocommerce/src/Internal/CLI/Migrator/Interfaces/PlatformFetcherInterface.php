@@ -2,7 +2,7 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\CLI\Migrator\Interfaces;
+namespace Automattic\PooCommerce\Internal\CLI\Migrator\Interfaces;
 
 /**
  * Defines the contract for classes responsible for retrieving

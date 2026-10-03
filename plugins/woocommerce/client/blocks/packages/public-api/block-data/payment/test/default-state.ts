@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import type { GlobalPaymentMethod } from '@woocommerce/types';
+import type { GlobalPaymentMethod } from '@poocommerce/types';
 
 /**
  * Internal dependencies
@@ -37,7 +37,7 @@ const getDefaultPaymentStateWithMocks = ( {
 			checkoutData,
 		} ) );
 
-		jest.doMock( '@woocommerce/settings', () => ( {
+		jest.doMock( '@poocommerce/settings', () => ( {
 			getSetting: ( setting: string ) => {
 				switch ( setting ) {
 					case 'globalPaymentMethods':

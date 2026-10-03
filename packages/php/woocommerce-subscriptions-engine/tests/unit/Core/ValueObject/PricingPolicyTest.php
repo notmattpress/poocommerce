@@ -2,19 +2,19 @@
 /**
  * Unit tests for PricingPolicy.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine
+ * @package Automattic\PooCommerce\SubscriptionsEngine
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Tests\Unit\Core\ValueObject;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Tests\Unit\Core\ValueObject;
 
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\ValueObject\PricingPolicy;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\ValueObject\PricingPolicy;
 
 /**
- * @covers \Automattic\WooCommerce\SubscriptionsEngine\Core\ValueObject\PricingPolicy
+ * @covers \Automattic\PooCommerce\SubscriptionsEngine\Core\ValueObject\PricingPolicy
  */
 class PricingPolicyTest extends TestCase {
 

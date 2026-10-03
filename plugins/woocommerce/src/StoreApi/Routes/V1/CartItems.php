@@ -1,7 +1,7 @@
 <?php
-namespace Automattic\WooCommerce\StoreApi\Routes\V1;
+namespace Automattic\PooCommerce\StoreApi\Routes\V1;
 
-use Automattic\WooCommerce\StoreApi\Exceptions\RouteException;
+use Automattic\PooCommerce\StoreApi\Exceptions\RouteException;
 
 /**
  * CartItems class.
@@ -101,7 +101,7 @@ class CartItems extends AbstractCartRoute {
 	protected function get_route_post_response( \WP_REST_Request $request ) {
 		// Do not allow key to be specified during creation.
 		if ( ! empty( $request['key'] ) ) {
-			throw new RouteException( 'woocommerce_rest_cart_item_exists', __( 'Cannot create an existing cart item.', 'woocommerce' ), 400 );
+			throw new RouteException( 'poocommerce_rest_cart_item_exists', __( 'Cannot create an existing cart item.', 'poocommerce' ), 400 );
 		}
 
 		$result = $this->cart_controller->add_to_cart(

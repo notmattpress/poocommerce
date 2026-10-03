@@ -52,15 +52,15 @@ const wpModulesMapper = mapWpModules.reduce( ( acc, module ) => {
 module.exports = {
 	moduleNameMapper: {
 		tinymce: path.resolve( __dirname, 'src/mocks/tinymce' ),
-		'@woocommerce/settings': path.resolve(
+		'@poocommerce/settings': path.resolve(
 			__dirname,
-			'src/mocks/woocommerce-settings'
+			'src/mocks/poocommerce-settings'
 		),
-		'@woocommerce/tracks': path.resolve(
+		'@poocommerce/tracks': path.resolve(
 			__dirname,
-			'src/mocks/woocommerce-tracks'
+			'src/mocks/poocommerce-tracks'
 		),
-		// Route all monorepo @woocommerce/* imports through source so tests
+		// Route all monorepo @poocommerce/* imports through source so tests
 		// don't depend on sibling packages having been built. internal-js-tests
 		// is a special case — its main is build/util/index.js so the source
 		// entry is src/util, not src/index. Subpaths that explicitly point
@@ -68,20 +68,20 @@ module.exports = {
 		// are stripped of that segment so they resolve under src/. Bare
 		// subpaths get prefixed with src/. Order matters: targeted overrides
 		// first, then most specific to least.
-		'^@woocommerce/internal-js-tests$': path.resolve(
+		'^@poocommerce/internal-js-tests$': path.resolve(
 			__dirname,
 			'src/util'
 		),
-		'^@woocommerce/([^/]+)/(?:src|build|build-module|build-types)/(.+)$':
+		'^@poocommerce/([^/]+)/(?:src|build|build-module|build-types)/(.+)$':
 			path.resolve( __dirname, '../$1/src/$2' ),
-		'^@woocommerce/([^/]+)/(.+)$': path.resolve(
+		'^@poocommerce/([^/]+)/(.+)$': path.resolve(
 			__dirname,
 			'../$1/src/$2'
 		),
-		'^@woocommerce/([^/]+)$': path.resolve( __dirname, '../$1/src' ),
+		'^@poocommerce/([^/]+)$': path.resolve( __dirname, '../$1/src' ),
 		'~/(.*)': path.resolve(
 			__dirname,
-			'../../../plugins/woocommerce/client/admin/client/$1'
+			'../../../plugins/poocommerce/client/admin/client/$1'
 		),
 		'\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$':
 			path.resolve( __dirname, 'src/mocks/static' ),
@@ -132,7 +132,7 @@ module.exports = {
 					// runtime and emits CJS for jest's runtime. Sidesteps
 					// per-package include/exclude/rootDir restrictions that
 					// block ts-jest from compiling cross-package source
-					// files (resolved via the @woocommerce/* moduleNameMapper).
+					// files (resolved via the @poocommerce/* moduleNameMapper).
 					tsconfig: path.resolve( __dirname, 'tsconfig-jest.json' ),
 					diagnostics: false,
 				},

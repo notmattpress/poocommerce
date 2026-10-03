@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { test, expect, BLOCK_THEME_SLUG } from '@woocommerce/e2e-utils';
+import { test, expect, BLOCK_THEME_SLUG } from '@poocommerce/e2e-utils';
 
 test.describe( 'registerProductBlockType registers', () => {
 	test( 'blocks are registered correctly when switching templates via command palette', async ( {
@@ -9,7 +9,7 @@ test.describe( 'registerProductBlockType registers', () => {
 		editor,
 		page,
 	} ) => {
-		const blockName = 'woocommerce/product-price';
+		const blockName = 'poocommerce/product-price';
 		const blockTitle = 'Product Price';
 		await test.step( 'Blocks not available in non-product template', async () => {
 			// Visit site editor with a non-product template
@@ -75,12 +75,12 @@ test.describe( 'registerProductBlockType registers', () => {
 		wpCoreVersion,
 	} ) => {
 		const productBlockTypes = [
-			'woocommerce/product-price',
-			'woocommerce/product-rating',
+			'poocommerce/product-price',
+			'poocommerce/product-rating',
 		];
 
 		await admin.visitAdminPage(
-			'site-editor.php?postType=wp_template&activeView=WooCommerce'
+			'site-editor.php?postType=wp_template&activeView=PooCommerce'
 		);
 
 		const singleProductTemplate =

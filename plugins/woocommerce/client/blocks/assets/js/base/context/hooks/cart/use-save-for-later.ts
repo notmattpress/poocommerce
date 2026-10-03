@@ -5,7 +5,7 @@ import { useCallback, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { dispatch, useDispatch } from '@wordpress/data';
 import { store as noticesStore } from '@wordpress/notices';
-import { cartStore } from '@woocommerce/block-data';
+import { cartStore } from '@poocommerce/block-data';
 
 /**
  * Save a cart line item to the saved-for-later shopper list.
@@ -46,7 +46,7 @@ export const useSaveForLater = (): {
 						? ( error as { message: string } ).message
 						: __(
 								'There was a problem saving this item for later.',
-								'woocommerce'
+								'poocommerce'
 						  );
 				dispatch( noticesStore ).createNotice( 'error', message, {
 					context: 'wc/cart',

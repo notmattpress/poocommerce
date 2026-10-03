@@ -32,7 +32,7 @@ public function get_properties() {
     return array(
         // ...
         'extra' => array(
-            'description' => __( 'Computed extra value.', 'woocommerce' ),
+            'description' => __( 'Computed extra value.', 'poocommerce' ),
             'type'        => 'string',
             'context'     => array( 'view', 'edit' ),
             'readonly'    => true,
@@ -127,8 +127,8 @@ When you need bounds-checking that the schema can't express (e.g., "must referen
 $product = wc_get_product( $product_id );
 if ( ! $product ) {
     throw new RouteException(
-        'woocommerce_rest_unknown_product',
-        esc_html__( 'No product exists for the supplied ID.', 'woocommerce' ),
+        'poocommerce_rest_unknown_product',
+        esc_html__( 'No product exists for the supplied ID.', 'poocommerce' ),
         404
     );
 }
@@ -140,7 +140,7 @@ If a field has merge semantics, sanitisation that affects the stored value, serv
 
 ```php
 'quantity' => array(
-    'description' => __( 'New quantity of the item in the cart.', 'woocommerce' ),
+    'description' => __( 'New quantity of the item in the cart.', 'poocommerce' ),
     'type'        => 'number',
     'arg_options' => array(
         'sanitize_callback' => 'wc_stock_amount',
@@ -153,7 +153,7 @@ The current description is short. A more honest one would surface the sanitisati
 ```php
 'description' => __(
     'New quantity of the item in the cart. Values are sanitized via `wc_stock_amount` and clamped against the product\'s `max_purchase_quantity` server-side; the response reflects the value actually applied.',
-    'woocommerce'
+    'poocommerce'
 ),
 ```
 
@@ -169,6 +169,6 @@ The schema description is what API clients read. It's the only place server-side
 
 ## Reference
 
-- [`AbstractSchema`](../../../plugins/woocommerce/src/StoreApi/Schemas/V1/AbstractSchema.php) — base class, helpers (`prepare_html_response`, `prepare_money_response`).
-- [`CartSchema`](../../../plugins/woocommerce/src/StoreApi/Schemas/V1/CartSchema.php) — canonical example of a non-trivial schema.
-- [`CartItemSchema`](../../../plugins/woocommerce/src/StoreApi/Schemas/V1/CartItemSchema.php) — demonstrates `ProductItemTrait` usage and the live-branch response pattern.
+- [`AbstractSchema`](../../../plugins/poocommerce/src/StoreApi/Schemas/V1/AbstractSchema.php) — base class, helpers (`prepare_html_response`, `prepare_money_response`).
+- [`CartSchema`](../../../plugins/poocommerce/src/StoreApi/Schemas/V1/CartSchema.php) — canonical example of a non-trivial schema.
+- [`CartItemSchema`](../../../plugins/poocommerce/src/StoreApi/Schemas/V1/CartItemSchema.php) — demonstrates `ProductItemTrait` usage and the live-branch response pattern.

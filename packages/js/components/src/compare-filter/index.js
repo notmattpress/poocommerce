@@ -13,7 +13,7 @@ import {
 import { isEqual, isFunction, omitBy, isUndefined } from 'lodash';
 import PropTypes from 'prop-types';
 import deprecated from '@wordpress/deprecated';
-import { getIdsFromQuery, updateQueryString } from '@woocommerce/navigation';
+import { getIdsFromQuery, updateQueryString } from '@poocommerce/navigation';
 
 /**
  * Internal dependencies
@@ -105,8 +105,8 @@ export class CompareFilter extends Component {
 					since: '14.2.0',
 					version: '15.0.0',
 					alternative: 'the `searchProps` prop',
-					link: 'https://github.com/woocommerce/woocommerce/blob/trunk/packages/js/components/src/compare-filter/README.md',
-					plugin: '@woocommerce/components',
+					link: 'https://github.com/poocommerce/poocommerce/blob/trunk/packages/js/components/src/compare-filter/README.md',
+					plugin: '@poocommerce/components',
 				}
 			);
 		}
@@ -119,7 +119,7 @@ export class CompareFilter extends Component {
 		const { labels } = this.props;
 		const { selected } = this.state;
 		return (
-			<Card className="woocommerce-filters__compare">
+			<Card className="poocommerce-filters__compare">
 				<CardHeader>
 					<Text
 						variant="subtitle.small"
@@ -149,7 +149,7 @@ export class CompareFilter extends Component {
 					</CompareButton>
 					{ selected.length > 0 && (
 						<Button isLink={ true } onClick={ this.clearQuery }>
-							{ __( 'Clear all', 'woocommerce' ) }
+							{ __( 'Clear all', 'poocommerce' ) }
 						</Button>
 					) }
 				</CardFooter>

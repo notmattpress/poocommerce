@@ -3,7 +3,7 @@ title: wc shipping_zone_method
 sidebar_label: wc shipping_zone_method
 ---
 
-Manage WooCommerce shipping zone method resources.
+Manage PooCommerce shipping zone method resources.
 
 ## wc shipping_zone_method list `<zone_id>`
 

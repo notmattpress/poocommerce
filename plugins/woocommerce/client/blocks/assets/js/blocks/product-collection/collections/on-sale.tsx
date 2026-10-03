@@ -16,11 +16,11 @@ import { CoreCollectionNames, CoreFilterNames } from '../types';
 
 const collection = {
 	name: CoreCollectionNames.ON_SALE,
-	title: __( 'On Sale Products', 'woocommerce' ),
+	title: __( 'On Sale Products', 'poocommerce' ),
 	icon: <Icon icon={ percent } />,
 	description: __(
 		'Highlight products that are currently on sale.',
-		'woocommerce'
+		'poocommerce'
 	),
 	keywords: [ 'discount', 'promotion', 'onsale' ],
 	scope: [ 'inserter', 'block' ] as BlockVariationScope[],
@@ -33,7 +33,7 @@ const attributes = {
 		shrinkColumns: true,
 	},
 	query: {
-		woocommerceOnSale: true,
+		poocommerceOnSale: true,
 		perPage: 5,
 		pages: 1,
 	},
@@ -45,7 +45,7 @@ const heading: InnerBlockTemplate = [
 	{
 		textAlign: 'center',
 		level: 2,
-		content: __( 'On sale products', 'woocommerce' ),
+		content: __( 'On sale products', 'poocommerce' ),
 		style: { spacing: { margin: { bottom: '1rem' } } },
 	},
 ];

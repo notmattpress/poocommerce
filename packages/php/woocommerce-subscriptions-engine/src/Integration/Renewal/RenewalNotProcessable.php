@@ -11,12 +11,12 @@
  * Distinct from an ordinary skip (an idempotent no-op returns null, no park) and from a
  * charge that ran and did not settle (that settles the cycle `failed`, not an exception).
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine\Integration\Renewal
+ * @package Automattic\PooCommerce\SubscriptionsEngine\Integration\Renewal
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Integration\Renewal;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Integration\Renewal;
 
 use RuntimeException;
 

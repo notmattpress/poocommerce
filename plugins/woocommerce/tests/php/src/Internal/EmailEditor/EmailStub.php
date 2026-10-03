@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace Automattic\WooCommerce\Tests\Internal\EmailEditor;
+namespace Automattic\PooCommerce\Tests\Internal\EmailEditor;
 
 // Make sure WC_Email class exists.
 if ( ! class_exists( \WC_Email::class ) ) {

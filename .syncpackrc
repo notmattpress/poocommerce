@@ -62,7 +62,7 @@
 				"eslint*"
 			],
 			"packages": [
-				"@woocommerce/block-library"
+				"@poocommerce/block-library"
 			],
 			"isIgnored": true
 		},
@@ -76,7 +76,7 @@
 				"@wordpress/postcss-plugins-preset"
 			],
 			"packages": [
-				"@woocommerce/internal-build"
+				"@poocommerce/internal-build"
 			],
 			"isIgnored": true
 		},
@@ -197,7 +197,7 @@
 			"pinVersion": "^0.0.10"
 		},
 		{
-			"label": "ESLint dev target. Peer deps are excluded so @woocommerce/eslint-plugin can peer the wider `^9 || ^10` range.",
+			"label": "ESLint dev target. Peer deps are excluded so @poocommerce/eslint-plugin can peer the wider `^9 || ^10` range.",
 			"dependencyTypes": [
 				"prod",
 				"dev"
@@ -395,7 +395,7 @@
 				"@wordpress/private-apis"
 			],
 			"packages": [
-				"@woocommerce/admin-library"
+				"@poocommerce/admin-library"
 			],
 			"isIgnored": true
 		},
@@ -404,7 +404,7 @@
 				"@wordpress/**"
 			],
 			"packages": [
-				"@woocommerce/experimental"
+				"@poocommerce/experimental"
 			],
 			"isIgnored": true
 		},
@@ -436,9 +436,9 @@
 			"pinVersion": "11.9.0"
 		},
 		{
-			"label": "Ensure @woocommerce/* dependencies are locked to the monorepo itself - except certain dependencies (migration pending).",
+			"label": "Ensure @poocommerce/* dependencies are locked to the monorepo itself - except certain dependencies (migration pending).",
 			"dependencies": [
-				"@woocommerce/settings"
+				"@poocommerce/settings"
 			],
 			"packages": [
 				"**"
@@ -446,13 +446,13 @@
 			"pinVersion": "1.0.0"
 		},
 		{
-			"label": "Ensure @woocommerce/* dependencies are locked to the monorepo itself (except peer-deps for now).",
+			"label": "Ensure @poocommerce/* dependencies are locked to the monorepo itself (except peer-deps for now).",
 			"dependencyTypes": [
 				"prod",
 				"dev"
 			],
 			"dependencies": [
-				"@woocommerce/*"
+				"@poocommerce/*"
 			],
 			"packages": [
 				"**"
@@ -490,12 +490,12 @@
 				"@wordpress/dataviews"
 			],
 			"packages": [
-				"@woocommerce/settings-ui"
+				"@poocommerce/settings-ui"
 			],
 			"isIgnored": true
 		},
 		{
-			"label": "@wordpress/* dependencies that WooCommerce bundles instead of externalizing to WordPress",
+			"label": "@wordpress/* dependencies that PooCommerce bundles instead of externalizing to WordPress",
 			"dependencyTypes": [
 				"prod",
 				"dev"
@@ -631,8 +631,8 @@
 				"babel-jest"
 			],
 			"packages": [
-				"@woocommerce/block-library",
-				"@woocommerce/storybook"
+				"@poocommerce/block-library",
+				"@poocommerce/storybook"
 			],
 			"pinVersion": "29.5.x"
 		},

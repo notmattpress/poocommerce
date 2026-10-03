@@ -249,12 +249,12 @@ export function initializeLayout() {
 	addAttribute();
 	addFilterForEmail(
 		'editor.BlockListBlock',
-		'woocommerce-email-editor/with-layout-styles',
+		'poocommerce-email-editor/with-layout-styles',
 		withLayoutStyles
 	);
 	addFilterForEmail(
 		'editor.BlockEdit',
-		'woocommerce-email-editor/with-inspector-controls',
+		'poocommerce-email-editor/with-inspector-controls',
 		withLayoutControls
 	);
 }

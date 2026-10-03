@@ -1,11 +1,11 @@
 /**
  * Internal dependencies
  */
-import woocommerce from '@woocommerce/eslint-config';
-import { coreModules } from '@woocommerce/eslint-config/core-modules.js';
+import poocommerce from '@poocommerce/eslint-config';
+import { coreModules } from '@poocommerce/eslint-config/core-modules.js';
 
 export default [
-	...woocommerce,
+	...poocommerce,
 	{
 		settings: {
 			'import/core-modules': [

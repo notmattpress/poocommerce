@@ -1,13 +1,13 @@
 <?php
 /**
- * WooCommerce Admin Payment Reminder Me later
+ * PooCommerce Admin Payment Reminder Me later
  */
 
-namespace Automattic\WooCommerce\Internal\Admin\Notes;
+namespace Automattic\PooCommerce\Internal\Admin\Notes;
 
-use Automattic\WooCommerce\Admin\Notes\Note;
-use Automattic\WooCommerce\Admin\Notes\NoteTraits;
-use Automattic\WooCommerce\Internal\Admin\WcPayWelcomePage;
+use Automattic\PooCommerce\Admin\Notes\Note;
+use Automattic\PooCommerce\Admin\Notes\NoteTraits;
+use Automattic\PooCommerce\Internal\Admin\WcPayWelcomePage;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -64,17 +64,17 @@ class PaymentsRemindMeLater {
 			return;
 		}
 		/* translators: 1: Payment provider name. */
-		$content = sprintf( __( 'Save up to $800 in fees by managing transactions with %1$s. With %1$s, you can securely accept major cards, Apple Pay, and payments in over 100 currencies.', 'woocommerce' ), 'WooPayments' );
+		$content = sprintf( __( 'Save up to $800 in fees by managing transactions with %1$s. With %1$s, you can securely accept major cards, Apple Pay, and payments in over 100 currencies.', 'poocommerce' ), 'WooPayments' );
 
 		$note = new Note();
 		/* translators: %s: Payment provider name. */
-		$note->set_title( sprintf( __( 'Save big with %s', 'woocommerce' ), 'WooPayments' ) );
+		$note->set_title( sprintf( __( 'Save big with %s', 'poocommerce' ), 'WooPayments' ) );
 		$note->set_content( $content );
 		$note->set_content_data( (object) array() );
 		$note->set_type( Note::E_WC_ADMIN_NOTE_INFORMATIONAL );
 		$note->set_name( self::NOTE_NAME );
-		$note->set_source( 'woocommerce-admin' );
-		$note->add_action( 'learn-more', __( 'Learn more', 'woocommerce' ), admin_url( 'admin.php?page=wc-admin&path=/wc-pay-welcome-page' ) );
+		$note->set_source( 'poocommerce-admin' );
+		$note->add_action( 'learn-more', __( 'Learn more', 'poocommerce' ), admin_url( 'admin.php?page=wc-admin&path=/wc-pay-welcome-page' ) );
 		return $note;
 	}
 }

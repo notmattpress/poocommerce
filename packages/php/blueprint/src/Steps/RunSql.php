@@ -1,13 +1,13 @@
 <?php
 
-namespace Automattic\WooCommerce\Blueprint\Steps;
+namespace Automattic\PooCommerce\Blueprint\Steps;
 
-use Automattic\WooCommerce\Blueprint\Util;
+use Automattic\PooCommerce\Blueprint\Util;
 
 /**
  * Class RunSql
  *
- * @package Automattic\WooCommerce\Blueprint\Steps
+ * @package Automattic\PooCommerce\Blueprint\Steps
  */
 class RunSql extends Step {
 	/**
@@ -51,7 +51,7 @@ class RunSql extends Step {
 	 * Build a RunSql step for a database row, using the portable table-prefix
 	 * placeholder in place of the live database prefix.
 	 *
-	 * Pass the unprefixed table name (e.g. 'woocommerce_shipping_zones'). The
+	 * Pass the unprefixed table name (e.g. 'poocommerce_shipping_zones'). The
 	 * placeholder is prepended for you, so exported SQL stays portable across
 	 * sites with different table prefixes. On import, ImportRunSql resolves the
 	 * placeholder back to the importing site's prefix.

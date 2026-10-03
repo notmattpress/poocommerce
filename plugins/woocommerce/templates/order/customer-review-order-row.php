@@ -2,10 +2,10 @@
 /**
  * Customer Review Order — per-item form row.
  *
- * Theme-overridable. Copy to `yourtheme/woocommerce/order/customer-review-order-row.php`.
+ * Theme-overridable. Copy to `yourtheme/poocommerce/order/customer-review-order-row.php`.
  *
- * @see https://woocommerce.com/document/template-structure/
- * @package WooCommerce\Templates
+ * @see https://poocommerce.com/document/template-structure/
+ * @package PooCommerce\Templates
  * @version 10.9.0
  *
  * @var WC_Order_Item_Product $item            Order line item being rendered.
@@ -29,76 +29,76 @@ $item_id      = $item->get_id();
 $product_id   = $product->get_id();
 $product_link = $product->is_visible() ? get_permalink( $product_id ) : '';
 $product_name = $item->get_name();
-$image_html   = $product->get_image( 'woocommerce_thumbnail' );
+$image_html   = $product->get_image( 'poocommerce_thumbnail' );
 
 // Variation attribute summary (e.g. "Size: Small, Colour: Red"). Empty for simple products.
 // Shared with SubmissionHandler so the snapshot stored on the comment matches the label rendered here.
-$variation_summary = \Automattic\WooCommerce\Internal\OrderReviews\ItemEligibility::format_variation_summary( $item );
+$variation_summary = \Automattic\PooCommerce\Internal\OrderReviews\ItemEligibility::format_variation_summary( $item );
 
-$rating_label_id = 'woocommerce-review-rating-label-' . $item_id;
-$review_label_id = 'woocommerce-review-text-label-' . $item_id;
-$review_input_id = 'woocommerce-review-text-' . $item_id;
+$rating_label_id = 'poocommerce-review-rating-label-' . $item_id;
+$review_label_id = 'poocommerce-review-text-label-' . $item_id;
+$review_input_id = 'poocommerce-review-text-' . $item_id;
 
-$rating_control = \Automattic\WooCommerce\Internal\OrderReviews\StarRating::render(
+$rating_control = \Automattic\PooCommerce\Internal\OrderReviews\StarRating::render(
 	array(
 		'name'      => 'reviews[' . $row_index . '][rating]',
-		'id_prefix' => 'woocommerce-review-rating-' . $item_id,
+		'id_prefix' => 'poocommerce-review-rating-' . $item_id,
 		'label_id'  => $rating_label_id,
 		'selected'  => $existing_rating,
 	)
 );
 ?>
 <li
-	class="woocommerce-review-order__item"
+	class="poocommerce-review-order__item"
 	data-row-index="<?php echo esc_attr( (string) $row_index ); ?>"
 	data-initial-rating="<?php echo esc_attr( (string) $existing_rating ); ?>"
 	data-initial-text="<?php echo esc_attr( $existing_text ); ?>"
 >
-	<p class="woocommerce-review-order__item-title">
+	<p class="poocommerce-review-order__item-title">
 		<?php if ( $product_link ) : ?>
 			<a href="<?php echo esc_url( $product_link ); ?>" target="_blank" rel="noopener noreferrer">
 				<?php echo esc_html( $product_name ); ?>
-				<span class="screen-reader-text"><?php esc_html_e( '(opens in a new tab)', 'woocommerce' ); ?></span>
+				<span class="screen-reader-text"><?php esc_html_e( '(opens in a new tab)', 'poocommerce' ); ?></span>
 			</a>
 		<?php else : ?>
 			<?php echo esc_html( $product_name ); ?>
 		<?php endif; ?>
 		<?php if ( '' !== $variation_summary ) : ?>
-			<span class="woocommerce-review-order__item-variation"><?php echo esc_html( $variation_summary ); ?></span>
+			<span class="poocommerce-review-order__item-variation"><?php echo esc_html( $variation_summary ); ?></span>
 		<?php endif; ?>
 	</p>
 
-	<div class="woocommerce-review-order__item-row">
-		<div class="woocommerce-review-order__item-image">
+	<div class="poocommerce-review-order__item-row">
+		<div class="poocommerce-review-order__item-image">
 			<?php echo $image_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- get_image() returns escaped HTML. ?>
 		</div>
 
-		<div class="woocommerce-review-order__item-rating">
+		<div class="poocommerce-review-order__item-rating">
 			<input type="hidden" name="reviews[<?php echo esc_attr( (string) $row_index ); ?>][product_id]" value="<?php echo esc_attr( (string) $product_id ); ?>" />
 			<input type="hidden" name="reviews[<?php echo esc_attr( (string) $row_index ); ?>][order_item_id]" value="<?php echo esc_attr( (string) $item_id ); ?>" />
 
-			<p id="<?php echo esc_attr( $rating_label_id ); ?>" class="woocommerce-review-order__item-rating-label">
+			<p id="<?php echo esc_attr( $rating_label_id ); ?>" class="poocommerce-review-order__item-rating-label">
 				<?php
 				printf(
 					'%1$s <span class="required" aria-hidden="true">*</span><span class="screen-reader-text"> %2$s</span>',
-					esc_html__( 'Your rating', 'woocommerce' ),
-					esc_html__( 'Required', 'woocommerce' )
+					esc_html__( 'Your rating', 'poocommerce' ),
+					esc_html__( 'Required', 'poocommerce' )
 				);
 				?>
 			</p>
 			<?php echo $rating_control; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- StarRating::render() returns escaped HTML. ?>
 		</div>
 
-		<div class="woocommerce-review-order__item-review">
-			<label id="<?php echo esc_attr( $review_label_id ); ?>" for="<?php echo esc_attr( $review_input_id ); ?>" class="woocommerce-review-order__item-review-label">
-				<?php esc_html_e( 'Your review', 'woocommerce' ); ?>
+		<div class="poocommerce-review-order__item-review">
+			<label id="<?php echo esc_attr( $review_label_id ); ?>" for="<?php echo esc_attr( $review_input_id ); ?>" class="poocommerce-review-order__item-review-label">
+				<?php esc_html_e( 'Your review', 'poocommerce' ); ?>
 			</label>
 			<textarea
 				id="<?php echo esc_attr( $review_input_id ); ?>"
-				class="woocommerce-review-order__item-review-textarea"
+				class="poocommerce-review-order__item-review-textarea"
 				name="reviews[<?php echo esc_attr( (string) $row_index ); ?>][text]"
 				rows="3"
-				placeholder="<?php esc_attr_e( 'Share your experience with this product...', 'woocommerce' ); ?>"
+				placeholder="<?php esc_attr_e( 'Share your experience with this product...', 'poocommerce' ); ?>"
 			><?php echo esc_textarea( $existing_text ); ?></textarea>
 		</div>
 	</div>
@@ -117,6 +117,6 @@ $rating_control = \Automattic\WooCommerce\Internal\OrderReviews\StarRating::rend
 	 * @param WC_Order              $order      The order.
 	 * @param int                   $row_index  Zero-based row index for input names.
 	 */
-	do_action( 'woocommerce_review_order_form_fields', $item, $product, $order, $row_index );
+	do_action( 'poocommerce_review_order_form_fields', $item, $product, $order, $row_index );
 	?>
 </li>

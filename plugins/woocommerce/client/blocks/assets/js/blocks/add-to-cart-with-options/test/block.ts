@@ -21,7 +21,7 @@ afterAll( () => server.close() );
 async function setup() {
 	const addToCartWithOptionsBlock = [
 		{
-			name: 'woocommerce/add-to-cart-with-options',
+			name: 'poocommerce/add-to-cart-with-options',
 		},
 	];
 	return await initializeEditor( addToCartWithOptionsBlock );
@@ -37,7 +37,7 @@ describe( 'Add to Cart + Options block', () => {
 		server.use(
 			// @todo When updating the `@wordpress/data` package to 6.7 or later,
 			// this request will need to be updated to match the path in production:
-			// `/wp/v2/template-parts/woocommerce/woocommerce//<template-part-slug>`.
+			// `/wp/v2/template-parts/poocommerce/poocommerce//<template-part-slug>`.
 			http.options( '/wp/v2/[object%20Object]', () => {
 				return HttpResponse.json(
 					{},

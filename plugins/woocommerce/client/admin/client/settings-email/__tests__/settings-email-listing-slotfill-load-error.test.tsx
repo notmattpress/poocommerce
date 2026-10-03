@@ -17,7 +17,7 @@ import {
 	type EmailType,
 } from '../settings-email-listing-slotfill';
 
-jest.mock( '@woocommerce/tracks', () => ( {
+jest.mock( '@poocommerce/tracks', () => ( {
 	recordEvent: jest.fn(),
 } ) );
 
@@ -49,7 +49,7 @@ jest.mock( '@wordpress/data', () => ( {
 	dispatch: () => ( { createErrorNotice: jest.fn() } ),
 } ) );
 
-jest.mock( '@woocommerce/settings', () => ( {
+jest.mock( '@poocommerce/settings', () => ( {
 	getAdminLink: ( path: string ) => `https://example.com/wp-admin/${ path }`,
 } ) );
 

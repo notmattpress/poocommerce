@@ -4,12 +4,12 @@
 import { InspectorControls } from '@wordpress/block-editor';
 import { PanelBody } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
-import ProductCategoryControl from '@woocommerce/editor-components/product-category-control';
-import GridLayoutControl from '@woocommerce/editor-components/grid-layout-control';
-import { getSetting } from '@woocommerce/settings';
-import GridContentControl from '@woocommerce/editor-components/grid-content-control';
-import ProductOrderbyControl from '@woocommerce/editor-components/product-orderby-control';
-import ProductStockControl from '@woocommerce/editor-components/product-stock-control';
+import ProductCategoryControl from '@poocommerce/editor-components/product-category-control';
+import GridLayoutControl from '@poocommerce/editor-components/grid-layout-control';
+import { getSetting } from '@poocommerce/settings';
+import GridContentControl from '@poocommerce/editor-components/grid-content-control';
+import ProductOrderbyControl from '@poocommerce/editor-components/product-orderby-control';
+import ProductStockControl from '@poocommerce/editor-components/product-stock-control';
 
 /**
  * Internal dependencies
@@ -39,7 +39,7 @@ export const ProductsByCategoryInspectorControls = (
 	return (
 		<InspectorControls key="inspector">
 			<PanelBody
-				title={ __( 'Product Category', 'woocommerce' ) }
+				title={ __( 'Product Category', 'poocommerce' ) }
 				initialOpen={ ! attributes.categories.length && ! isEditing }
 			>
 				<ProductCategoryControl
@@ -61,7 +61,7 @@ export const ProductsByCategoryInspectorControls = (
 					isCompact={ true }
 				/>
 			</PanelBody>
-			<PanelBody title={ __( 'Layout', 'woocommerce' ) } initialOpen>
+			<PanelBody title={ __( 'Layout', 'poocommerce' ) } initialOpen>
 				<GridLayoutControl
 					columns={ columns }
 					rows={ rows }
@@ -73,7 +73,7 @@ export const ProductsByCategoryInspectorControls = (
 					maxRows={ getSetting( 'maxRows', 6 ) }
 				/>
 			</PanelBody>
-			<PanelBody title={ __( 'Content', 'woocommerce' ) } initialOpen>
+			<PanelBody title={ __( 'Content', 'poocommerce' ) } initialOpen>
 				<GridContentControl
 					settings={ contentVisibility }
 					onChange={ ( value ) =>
@@ -82,7 +82,7 @@ export const ProductsByCategoryInspectorControls = (
 				/>
 			</PanelBody>
 			<PanelBody
-				title={ __( 'Order By', 'woocommerce' ) }
+				title={ __( 'Order By', 'poocommerce' ) }
 				initialOpen={ false }
 			>
 				<ProductOrderbyControl
@@ -91,7 +91,7 @@ export const ProductsByCategoryInspectorControls = (
 				/>
 			</PanelBody>
 			<PanelBody
-				title={ __( 'Filter by stock status', 'woocommerce' ) }
+				title={ __( 'Filter by stock status', 'poocommerce' ) }
 				initialOpen={ false }
 			>
 				<ProductStockControl

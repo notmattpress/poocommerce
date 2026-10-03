@@ -4,17 +4,17 @@
 import clsx from 'clsx';
 import { __ } from '@wordpress/i18n';
 import { useState, useRef } from '@wordpress/element';
-import Button from '@woocommerce/base-components/button';
-import LoadingMask from '@woocommerce/base-components/loading-mask';
+import Button from '@poocommerce/base-components/button';
+import LoadingMask from '@poocommerce/base-components/loading-mask';
 import {
 	ValidatedTextInput,
 	ValidationInputError,
 	ValidatedTextInputHandle,
 	Panel,
 	Spinner,
-} from '@woocommerce/blocks-components';
+} from '@poocommerce/blocks-components';
 import { useSelect } from '@wordpress/data';
-import { validationStore } from '@woocommerce/block-data';
+import { validationStore } from '@poocommerce/block-data';
 import type { MouseEvent, MouseEventHandler } from 'react';
 
 /**
@@ -87,11 +87,11 @@ export const TotalsCoupon = ( {
 			initialOpen={ isCouponFormVisible }
 			hasBorder={ false }
 			headingLevel={ 2 }
-			title={ __( 'Add coupons', 'woocommerce' ) }
+			title={ __( 'Add coupons', 'poocommerce' ) }
 			state={ [ isCouponFormVisible, setIsCouponFormVisible ] }
 		>
 			<LoadingMask
-				screenReaderLabel={ __( 'Applying coupon…', 'woocommerce' ) }
+				screenReaderLabel={ __( 'Applying coupon…', 'poocommerce' ) }
 				isLoading={ isLoading }
 				showSpinner={ false }
 			>
@@ -104,7 +104,7 @@ export const TotalsCoupon = ( {
 							id={ textInputId }
 							errorId="coupon"
 							className="wc-block-components-totals-coupon__input"
-							label={ __( 'Enter code', 'woocommerce' ) }
+							label={ __( 'Enter code', 'poocommerce' ) }
 							value={ couponValue }
 							ariaDescribedBy={ validationErrorId || '' }
 							onChange={ ( newCouponValue ) => {
@@ -128,7 +128,7 @@ export const TotalsCoupon = ( {
 							type="submit"
 						>
 							{ isLoading && <Spinner /> }
-							{ __( 'Apply', 'woocommerce' ) }
+							{ __( 'Apply', 'poocommerce' ) }
 						</Button>
 					</form>
 					<ValidationInputError

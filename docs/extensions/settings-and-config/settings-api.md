@@ -6,7 +6,7 @@ sidebar_position: 1
 
 # Settings API
 
-The WooCommerce Settings API is used by extensions to display, save, and load settings. The best way to make use of the API in your extension is to create a class that extends the `WC_Settings_API` class:
+The PooCommerce Settings API is used by extensions to display, save, and load settings. The best way to make use of the API in your extension is to create a class that extends the `WC_Settings_API` class:
 
 ```php
 class My_Extension_Settings extends WC_Settings_API {
@@ -88,19 +88,19 @@ This will output your settings in the correct format.
 
 `WC_Settings_API` does not create a settings screen or save action by itself. The integration that renders the settings must call `process_admin_options()` when its form is submitted.
 
-WooCommerce provides save actions for its registered settings integrations. A `WC_Payment_Gateway` subclass registered with WooCommerce should use the dynamic payment gateway action, which includes its gateway ID:
+PooCommerce provides save actions for its registered settings integrations. A `WC_Payment_Gateway` subclass registered with PooCommerce should use the dynamic payment gateway action, which includes its gateway ID:
 
 ```php
-add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
+add_action( 'poocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
 ```
 
-A `WC_Shipping_Method` subclass registered with WooCommerce should use the dynamic shipping method action, which includes its method ID:
+A `WC_Shipping_Method` subclass registered with PooCommerce should use the dynamic shipping method action, which includes its method ID:
 
 ```php
-add_action( 'woocommerce_update_options_shipping_' . $this->id, array( $this, 'process_admin_options' ) );
+add_action( 'poocommerce_update_options_shipping_' . $this->id, array( $this, 'process_admin_options' ) );
 ```
 
-These actions are only fired for gateways or shipping methods registered with WooCommerce. If you extend `WC_Settings_API` directly, the code that renders your form must also provide its save handler.
+These actions are only fired for gateways or shipping methods registered with PooCommerce. If you extend `WC_Settings_API` directly, the code that renders your form must also provide its save handler.
 
 ## Loading your settings
 

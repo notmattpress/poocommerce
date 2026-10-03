@@ -10,7 +10,7 @@ import save from '../save';
 
 const { attributes: blockAttributes } = metadata;
 
-// In https://github.com/woocommerce/woocommerce/pull/57980, the `isDescendentOfQueryLoop` and `isDescendentOfSingleProductTemplate` attributes were removed.
+// In https://github.com/poocommerce/poocommerce/pull/57980, the `isDescendentOfQueryLoop` and `isDescendentOfSingleProductTemplate` attributes were removed.
 const v1 = {
 	attributes: {
 		...blockAttributes,

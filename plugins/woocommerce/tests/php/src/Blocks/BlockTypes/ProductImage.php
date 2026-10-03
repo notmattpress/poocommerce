@@ -2,7 +2,7 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Tests\Blocks\BlockTypes;
 
 use WC_Helper_Product;
 
@@ -25,9 +25,9 @@ class ProductImage extends \WP_UnitTestCase {
 		parent::setUp();
 
 		$option_names = array(
-			'woocommerce_thumbnail_cropping',
-			'woocommerce_thumbnail_cropping_custom_width',
-			'woocommerce_thumbnail_cropping_custom_height',
+			'poocommerce_thumbnail_cropping',
+			'poocommerce_thumbnail_cropping_custom_width',
+			'poocommerce_thumbnail_cropping_custom_height',
 		);
 
 		foreach ( $option_names as $option_name ) {
@@ -149,9 +149,9 @@ class ProductImage extends \WP_UnitTestCase {
 		$attrs = '' !== $block_attributes ? ' ' . $block_attributes : '';
 
 		return do_blocks(
-			'<!-- wp:woocommerce/single-product {"productId":' . $product->get_id() . '} -->' .
-			'<!-- wp:woocommerce/product-image' . $attrs . ' /-->' .
-			'<!-- /wp:woocommerce/single-product -->'
+			'<!-- wp:poocommerce/single-product {"productId":' . $product->get_id() . '} -->' .
+			'<!-- wp:poocommerce/product-image' . $attrs . ' /-->' .
+			'<!-- /wp:poocommerce/single-product -->'
 		);
 	}
 
@@ -181,7 +181,7 @@ class ProductImage extends \WP_UnitTestCase {
 		$markup = $this->render_product_image_block( $data['product'] );
 
 		$this->assertStringContainsString( '<a href="' . $data['product']->get_permalink() . '"', $markup );
-		$this->assertStringContainsString( 'data-wp-on--click="woocommerce/product-collection::actions.viewProduct"', $markup );
+		$this->assertStringContainsString( 'data-wp-on--click="poocommerce/product-collection::actions.viewProduct"', $markup );
 
 		// Clean up.
 		$data['product']->delete( true );
@@ -200,7 +200,7 @@ class ProductImage extends \WP_UnitTestCase {
 		$this->assertStringNotContainsString( '<a ', $markup );
 		$this->assertStringNotContainsString( 'href="#"', $markup );
 		$this->assertStringNotContainsString( 'onclick="return false;"', $markup );
-		$this->assertStringNotContainsString( 'data-wp-on--click="woocommerce/product-collection::actions.viewProduct"', $markup );
+		$this->assertStringNotContainsString( 'data-wp-on--click="poocommerce/product-collection::actions.viewProduct"', $markup );
 
 		// Clean up.
 		$data['product']->delete( true );
@@ -251,7 +251,7 @@ class ProductImage extends \WP_UnitTestCase {
 	public function test_product_image_render_with_store_aspect_ratio() {
 		$data = $this->create_product_with_image();
 
-		update_option( 'woocommerce_thumbnail_cropping', '1:1' );
+		update_option( 'poocommerce_thumbnail_cropping', '1:1' );
 		$markup_single    = $this->render_product_image_block( $data['product'], '{"imageSizing":"single"}' );
 		$markup_thumbnail = $this->render_product_image_block( $data['product'], '{"imageSizing":"thumbnail"}' );
 		$this->assertStringNotContainsString( 'aspect-ratio:1/1', $markup_single );
@@ -259,14 +259,14 @@ class ProductImage extends \WP_UnitTestCase {
 		$this->assertStringContainsString( 'aspect-ratio:1/1', $markup_thumbnail );
 		$this->assertStringContainsString( 'wc-block-components-product-image--aspect-ratio-1-1', $markup_thumbnail );
 
-		update_option( 'woocommerce_thumbnail_cropping', 'custom' );
-		update_option( 'woocommerce_thumbnail_cropping_custom_width', '4' );
-		update_option( 'woocommerce_thumbnail_cropping_custom_height', '3' );
+		update_option( 'poocommerce_thumbnail_cropping', 'custom' );
+		update_option( 'poocommerce_thumbnail_cropping_custom_width', '4' );
+		update_option( 'poocommerce_thumbnail_cropping_custom_height', '3' );
 		$markup = $this->render_product_image_block( $data['product'], '{"imageSizing":"thumbnail"}' );
 		$this->assertStringContainsString( 'aspect-ratio:4/3', $markup );
 		$this->assertStringContainsString( 'wc-block-components-product-image--aspect-ratio-4-3', $markup );
 
-		update_option( 'woocommerce_thumbnail_cropping', 'uncropped' );
+		update_option( 'poocommerce_thumbnail_cropping', 'uncropped' );
 		$markup = $this->render_product_image_block( $data['product'], '{"imageSizing":"thumbnail"}' );
 		$this->assertStringNotContainsString( 'aspect-ratio:', $markup );
 		$this->assertStringContainsString( 'wc-block-components-product-image--aspect-ratio-auto', $markup );
@@ -284,7 +284,7 @@ class ProductImage extends \WP_UnitTestCase {
 	public function test_product_image_render_with_block_aspect_ratio_override() {
 		$data = $this->create_product_with_image();
 
-		update_option( 'woocommerce_thumbnail_cropping', '1:1' );
+		update_option( 'poocommerce_thumbnail_cropping', '1:1' );
 		$markup = $this->render_product_image_block( $data['product'], '{"aspectRatio":"3/5","imageSizing":"thumbnail"}' );
 		$this->assertStringContainsString( 'aspect-ratio:3/5', $markup );
 		$this->assertStringContainsString( 'wc-block-components-product-image--aspect-ratio-3-5', $markup );
@@ -307,7 +307,7 @@ class ProductImage extends \WP_UnitTestCase {
 		$markup = $this->render_product_image_block( $data['product'], '{"showSaleBadge":true}' );
 
 		$this->assertStringContainsString( 'wc-block-components-product-image', $markup );
-		$this->assertStringContainsString( 'wp-block-woocommerce-product-sale-badge', $markup );
+		$this->assertStringContainsString( 'wp-block-poocommerce-product-sale-badge', $markup );
 
 		// Clean up.
 		$data['product']->delete( true );
@@ -320,7 +320,7 @@ class ProductImage extends \WP_UnitTestCase {
 	public function test_product_image_render_with_inner_blocks() {
 		$data = $this->create_product_with_image();
 
-		$markup = do_blocks( '<!-- wp:woocommerce/single-product {"productId":' . $data['product']->get_id() . '} --><!-- wp:woocommerce/product-image --><div class="custom-inner-block">Custom content</div><!-- /wp:woocommerce/product-image --><!-- /wp:woocommerce/single-product -->' );
+		$markup = do_blocks( '<!-- wp:poocommerce/single-product {"productId":' . $data['product']->get_id() . '} --><!-- wp:poocommerce/product-image --><div class="custom-inner-block">Custom content</div><!-- /wp:poocommerce/product-image --><!-- /wp:poocommerce/single-product -->' );
 
 		$this->assertStringContainsString( 'wc-block-components-product-image', $markup );
 		$this->assertStringContainsString( 'wc-block-components-product-image__inner-container', $markup );
@@ -343,7 +343,7 @@ class ProductImage extends \WP_UnitTestCase {
 
 		$this->assertStringContainsString( 'wc-block-components-product-image', $markup );
 		// Should contain placeholder image.
-		$this->assertStringContainsString( 'woocommerce-placeholder', $markup );
+		$this->assertStringContainsString( 'poocommerce-placeholder', $markup );
 
 		// Clean up.
 		$product->delete( true );
@@ -387,7 +387,7 @@ class ProductImage extends \WP_UnitTestCase {
 	 * Test that the ProductImage block handles invalid product IDs correctly.
 	 */
 	public function test_product_image_render_with_invalid_product() {
-		$markup = do_blocks( '<!-- wp:woocommerce/single-product {"productId":99999} --><!-- wp:woocommerce/product-image /--><!-- /wp:woocommerce/single-product -->' );
+		$markup = do_blocks( '<!-- wp:poocommerce/single-product {"productId":99999} --><!-- wp:poocommerce/product-image /--><!-- /wp:poocommerce/single-product -->' );
 
 		$this->assertEmpty( $markup );
 	}
@@ -396,7 +396,7 @@ class ProductImage extends \WP_UnitTestCase {
 	 * Test that the ProductImage block handles missing postId context correctly.
 	 */
 	public function test_product_image_render_without_post_id() {
-		$markup = do_blocks( '<!-- wp:woocommerce/product-image --><!-- /wp:woocommerce/product-image -->' );
+		$markup = do_blocks( '<!-- wp:poocommerce/product-image --><!-- /wp:poocommerce/product-image -->' );
 
 		$this->assertEmpty( $markup );
 	}

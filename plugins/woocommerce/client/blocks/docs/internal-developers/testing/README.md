@@ -1,6 +1,6 @@
 # Testing
 
-This folder contains documentation around manual testing of WooCommerce Blocks.
+This folder contains documentation around manual testing of PooCommerce Blocks.
 
 | Document                                                           | Description                                                                              |
 | ------------------------------------------------------------------ | ---------------------------------------------------------------------------------------- |

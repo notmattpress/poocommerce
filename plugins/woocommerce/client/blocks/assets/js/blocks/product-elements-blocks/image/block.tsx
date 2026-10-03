@@ -4,18 +4,18 @@
 import { Fragment } from '@wordpress/element';
 import { __, sprintf } from '@wordpress/i18n';
 import clsx from 'clsx';
-import { PLACEHOLDER_IMG_SRC, getSetting } from '@woocommerce/settings';
+import { PLACEHOLDER_IMG_SRC, getSetting } from '@poocommerce/settings';
 import {
 	useInnerBlockLayoutContext,
 	useProductDataContext,
-} from '@woocommerce/shared-context';
-import { useStyleProps } from '@woocommerce/base-hooks';
-import { withProductDataContext } from '@woocommerce/shared-hocs';
-import { useStoreEvents } from '@woocommerce/base-context/hooks';
+} from '@poocommerce/shared-context';
+import { useStyleProps } from '@poocommerce/base-hooks';
+import { withProductDataContext } from '@poocommerce/shared-hocs';
+import { useStoreEvents } from '@poocommerce/base-context/hooks';
 import type { HTMLAttributes } from 'react';
 import { decodeEntities } from '@wordpress/html-entities';
-import { isEmpty, ProductResponseItem } from '@woocommerce/types';
-import { ProductEntityResponse } from '@woocommerce/entities';
+import { isEmpty, ProductResponseItem } from '@poocommerce/types';
+import { ProductEntityResponse } from '@poocommerce/entities';
 
 /**
  * Internal dependencies
@@ -231,7 +231,7 @@ export const Block = ( props: Props ): JSX.Element | null => {
 	const ParentComponent = showProductLink ? 'a' : Fragment;
 	const anchorLabel = product?.name
 		? // translators: %s is the product name.
-		  sprintf( __( 'Link to %s', 'woocommerce' ), product.name )
+		  sprintf( __( 'Link to %s', 'poocommerce' ), product.name )
 		: '';
 	const anchorProps = {
 		href: showProductLink ? product?.permalink : undefined,

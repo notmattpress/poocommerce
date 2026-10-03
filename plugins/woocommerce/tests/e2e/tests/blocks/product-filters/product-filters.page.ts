@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { Page } from '@playwright/test';
-import { Editor, FrontendUtils } from '@woocommerce/e2e-utils';
+import { Editor, FrontendUtils } from '@poocommerce/e2e-utils';
 
 export class ProductFiltersPage {
 	editor: Editor;
@@ -28,12 +28,12 @@ export class ProductFiltersPage {
 			await this.editor.setContent( '' );
 		}
 		await this.editor.insertBlock( {
-			name: 'woocommerce/product-filters',
+			name: 'poocommerce/product-filters',
 		} );
 	}
 
 	async getBlock( { page }: { page: 'frontend' | 'editor' } ) {
-		const blockName = 'woocommerce/product-filters';
+		const blockName = 'poocommerce/product-filters';
 		if ( page === 'frontend' ) {
 			return (
 				await this.frontendUtils.getBlockByName( blockName )
@@ -49,7 +49,7 @@ export class ProductFiltersPage {
 	}: {
 		page: 'frontend' | 'editor';
 	} ) {
-		const blockName = 'woocommerce/product-filters-overlay-navigation';
+		const blockName = 'poocommerce/product-filters-overlay-navigation';
 		if ( page === 'frontend' ) {
 			return (
 				await this.frontendUtils.getBlockByName( blockName )

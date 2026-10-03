@@ -3,7 +3,7 @@
  */
 import { __ } from '@wordpress/i18n';
 import { Disabled } from '@wordpress/components';
-import { MultiLineTextSkeleton } from '@woocommerce/base-components/skeleton/patterns/multi-line-text-skeleton';
+import { MultiLineTextSkeleton } from '@poocommerce/base-components/skeleton/patterns/multi-line-text-skeleton';
 
 export const Skeleton = ( {
 	buttonText,
@@ -20,12 +20,12 @@ export const Skeleton = ( {
 				isLoading
 					? __(
 							'Loading the Add to Cart + Options template part',
-							'woocommerce'
+							'poocommerce'
 					  )
-					: __( 'Add to Cart + Options form', 'woocommerce' )
+					: __( 'Add to Cart + Options form', 'poocommerce' )
 			}
 		>
-			<div className="wp-block-woocommerce-add-to-cart-with-options__skeleton-wrapper">
+			<div className="wp-block-poocommerce-add-to-cart-with-options__skeleton-wrapper">
 				<MultiLineTextSkeleton isStatic={ ! isLoading } />
 			</div>
 			<Disabled>
@@ -34,7 +34,7 @@ export const Skeleton = ( {
 						productType || 'simple'
 					}_add_to_cart_button` }
 				>
-					{ buttonText || __( 'Add to cart', 'woocommerce' ) }
+					{ buttonText || __( 'Add to cart', 'poocommerce' ) }
 				</button>
 			</Disabled>
 		</div>

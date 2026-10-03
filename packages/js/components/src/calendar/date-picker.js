@@ -9,7 +9,7 @@ import { Dropdown, DatePicker as WpDatePicker } from '@wordpress/components';
 import { partial, noop } from 'lodash';
 import moment from 'moment';
 import PropTypes from 'prop-types';
-import { dateValidationMessages, toMoment } from '@woocommerce/date';
+import { dateValidationMessages, toMoment } from '@poocommerce/date';
 
 /**
  * Internal dependencies
@@ -101,13 +101,13 @@ class DatePicker extends Component {
 						onChange={ this.onInputChange }
 						onBlur={ partial( this.handleBlur, isOpen, onToggle ) }
 						dateFormat={ dateFormat }
-						label={ __( 'Choose a date', 'woocommerce' ) }
+						label={ __( 'Choose a date', 'poocommerce' ) }
 						error={ error }
 						describedBy={ sprintf(
 							/* translators: %s: date format specification */
 							__(
 								'Date input describing a selected date in format %s',
-								'woocommerce'
+								'poocommerce'
 							),
 							dateFormat
 						) }
@@ -123,10 +123,10 @@ class DatePicker extends Component {
 				) }
 				renderContent={ ( { onToggle } ) => (
 					<Section component={ false }>
-						<H className="woocommerce-calendar__date-picker-title">
-							{ __( 'select a date', 'woocommerce' ) }
+						<H className="poocommerce-calendar__date-picker-title">
+							{ __( 'select a date', 'poocommerce' ) }
 						</H>
-						<div className="woocommerce-calendar__react-dates is-core-datepicker">
+						<div className="poocommerce-calendar__react-dates is-core-datepicker">
 							<WpDatePicker
 								currentDate={
 									date instanceof moment

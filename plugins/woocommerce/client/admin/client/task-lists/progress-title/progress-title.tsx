@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { useSlot } from '@woocommerce/experimental';
+import { useSlot } from '@poocommerce/experimental';
 
 /**
  * Internal dependencies

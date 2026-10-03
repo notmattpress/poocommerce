@@ -2,9 +2,9 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\EmailEditor;
+namespace Automattic\PooCommerce\Tests\Internal\EmailEditor;
 
-use Automattic\WooCommerce\Internal\EmailEditor\WooContentProcessor;
+use Automattic\PooCommerce\Internal\EmailEditor\WooContentProcessor;
 
 /**
  * Tests for the BlockEmailRenderer class.
@@ -24,7 +24,7 @@ class WooContentProcessorTest extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Should strip typography properties from WooCommerce CSS.
+	 * @testdox Should strip typography properties from PooCommerce CSS.
 	 */
 	public function test_prepare_css_strips_typography_properties(): void {
 		$css = 'h2 { color: red; font-family: Arial; font-size: 20px; font-weight: bold; line-height: 1.5; letter-spacing: -1px; margin: 0; }';
@@ -41,7 +41,7 @@ class WooContentProcessorTest extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Should return WooCommerce content styles with correct order totals CSS.
+	 * @testdox Should return PooCommerce content styles with correct order totals CSS.
 	 */
 	public function test_get_woo_content_styles_contains_order_totals_css(): void {
 		$reflection = new \ReflectionClass( $this->woo_content_processor );
@@ -66,13 +66,13 @@ class WooContentProcessorTest extends \WC_Unit_Test_Case {
 	public function testItCapturesWooContent(): void {
 		// Register header and footer content to test it gets excluded.
 		add_filter(
-			'woocommerce_email_header',
+			'poocommerce_email_header',
 			function () {
 				echo 'Test email header';
 			}
 		);
 		add_filter(
-			'woocommerce_email_footer',
+			'poocommerce_email_footer',
 			function () {
 				echo 'Test email footer';
 			}

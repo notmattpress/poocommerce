@@ -2,14 +2,14 @@
  * External dependencies
  */
 import { render, screen } from '@testing-library/react';
-import { useStoreCart } from '@woocommerce/base-context/hooks';
+import { useStoreCart } from '@poocommerce/base-context/hooks';
 
 /**
  * Internal dependencies
  */
 import Block from '../block';
 
-jest.mock( '@woocommerce/base-context/hooks', () => ( {
+jest.mock( '@poocommerce/base-context/hooks', () => ( {
 	useStoreCart: jest.fn(),
 	useStoreCartCoupons: jest.fn( () => ( {
 		removeCoupon: jest.fn(),
@@ -19,7 +19,7 @@ jest.mock( '@woocommerce/base-context/hooks', () => ( {
 } ) );
 
 const mockSlotRender = jest.fn( () => <div data-testid="discount-slot" /> );
-jest.mock( '@woocommerce/blocks-checkout', () => {
+jest.mock( '@poocommerce/blocks-checkout', () => {
 	const MockFill = ( { children }: { children: React.ReactNode } ) => (
 		<>{ children }</>
 	);
@@ -62,7 +62,7 @@ describe( 'Checkout Order Summary Discount Block', () => {
 		expect( screen.getByTestId( 'discount-slot' ) ).toBeInTheDocument();
 		expect( mockSlotRender ).toHaveBeenCalledWith(
 			expect.objectContaining( {
-				context: 'woocommerce/checkout',
+				context: 'poocommerce/checkout',
 				extensions: { some: 'data' },
 			} )
 		);

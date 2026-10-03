@@ -21,14 +21,14 @@ const showDeprecationNotice = ( functionName: string ) => {
 
 	deprecated( `wc.wcEntities.${ functionName }()`, {
 		since: '11.1.0',
-		plugin: 'WooCommerce',
+		plugin: 'PooCommerce',
 		hint: 'The wc.wcEntities global is deprecated and will be removed in a future release.',
 	} );
 	deprecationNoticesShown.add( functionName );
 };
 
 /**
- * @deprecated Since WooCommerce 11.1.0. The wc.wcEntities global will be
+ * @deprecated Since PooCommerce 11.1.0. The wc.wcEntities global will be
  * removed in a future release.
  */
 export const useProduct: typeof useProductInternal = ( postId ) => {
@@ -37,7 +37,7 @@ export const useProduct: typeof useProductInternal = ( postId ) => {
 };
 
 /**
- * @deprecated Since WooCommerce 11.1.0. The wc.wcEntities global will be
+ * @deprecated Since PooCommerce 11.1.0. The wc.wcEntities global will be
  * removed in a future release.
  */
 export const isExternalProduct: typeof isExternalProductInternal = (
@@ -48,7 +48,7 @@ export const isExternalProduct: typeof isExternalProductInternal = (
 };
 
 /**
- * @deprecated Since WooCommerce 11.1.0. The wc.wcEntities global will be
+ * @deprecated Since PooCommerce 11.1.0. The wc.wcEntities global will be
  * removed in a future release.
  */
 export const isProductResponseItem: typeof isProductResponseItemInternal = (

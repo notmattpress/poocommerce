@@ -5,19 +5,19 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Admin\Settings;
+namespace Automattic\PooCommerce\Admin\Settings;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Contract for extensions that register a section under an existing WooCommerce settings page.
+ * Contract for extensions that register a section under an existing PooCommerce settings page.
  *
  * @since 10.9.0
  */
 interface SettingsSectionInterface {
 
 	/**
-	 * Get the parent WooCommerce settings page id.
+	 * Get the parent PooCommerce settings page id.
 	 *
 	 * @return string
 	 *

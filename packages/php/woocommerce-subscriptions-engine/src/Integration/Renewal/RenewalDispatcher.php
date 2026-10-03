@@ -10,18 +10,18 @@
  * overlap correct, so the scan needs no claim of its own: a contract picked up twice
  * (a slow tick overlapping the next) bills at most once.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine\Integration\Renewal
+ * @package Automattic\PooCommerce\SubscriptionsEngine\Integration\Renewal
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Integration\Renewal;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Integration\Renewal;
 
 use DateTimeImmutable;
 use DateTimeZone;
 use Throwable;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Ownership\ConsumerRegistry;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage\ContractRepository;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Ownership\ConsumerRegistry;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage\ContractRepository;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -36,13 +36,13 @@ final class RenewalDispatcher {
 	 * Public so tooling and tests can inspect, run, or cancel the recurring action via
 	 * `as_next_scheduled_action()` and friends.
 	 */
-	public const HOOK = 'woocommerce_subscriptions_engine_dispatch_due_renewals';
+	public const HOOK = 'poocommerce_subscriptions_engine_dispatch_due_renewals';
 
 	/**
 	 * Action Scheduler group - used for admin filterability (Tools -> Scheduled Actions)
 	 * and bulk teardown. Shared with the rest of the engine's actions.
 	 */
-	public const GROUP = 'woocommerce_subscriptions_engine';
+	public const GROUP = 'poocommerce_subscriptions_engine';
 
 	/**
 	 * Default scan cadence, in seconds (every 10 minutes). Frequent enough that a due
@@ -59,14 +59,14 @@ final class RenewalDispatcher {
 	/**
 	 * Logger source tag.
 	 */
-	private const LOG_SOURCE = 'woocommerce-subscriptions-engine';
+	private const LOG_SOURCE = 'poocommerce-subscriptions-engine';
 
 	/**
 	 * Option holding the next moment the recurring action is re-verified against the Action
 	 * Scheduler store. Autoloaded (bulk-loaded, effectively free per request), so the common
 	 * path skips the AS store query {@see self::is_scheduled()} would otherwise run every load.
 	 */
-	private const SCHEDULE_CHECK_OPTION = 'woocommerce_subscriptions_engine_dispatch_scheduled_check';
+	private const SCHEDULE_CHECK_OPTION = 'poocommerce_subscriptions_engine_dispatch_scheduled_check';
 
 	/**
 	 * How long a positive schedule check is trusted before re-verifying, in seconds. Bounds the

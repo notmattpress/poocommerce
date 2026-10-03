@@ -1,10 +1,10 @@
 <?php
 
 declare( strict_types = 1 );
-namespace Automattic\WooCommerce\Tests\Internal\StockNotifications\Admin;
+namespace Automattic\PooCommerce\Tests\Internal\StockNotifications\Admin;
 
-use Automattic\WooCommerce\Internal\StockNotifications\Admin\NotificationCreatePage;
-use Automattic\WooCommerce\Internal\StockNotifications\Admin\NotificationsPage;
+use Automattic\PooCommerce\Internal\StockNotifications\Admin\NotificationCreatePage;
+use Automattic\PooCommerce\Internal\StockNotifications\Admin\NotificationsPage;
 
 /**
  * Tests for the admin notification create form handler.
@@ -51,7 +51,7 @@ class NotificationCreatePageTests extends \WC_Unit_Test_Case {
 			'user_email' => $posted_email,
 		);
 
-		$_POST['customer_stock_notification_create_security'] = wp_create_nonce( 'woocommerce-customer-stock-notification-create' );
+		$_POST['customer_stock_notification_create_security'] = wp_create_nonce( 'poocommerce-customer-stock-notification-create' );
 
 		$_REQUEST = $_POST; // phpcs:ignore WordPress.Security.NonceVerification.Missing -- Simulates the request the handler verifies.
 

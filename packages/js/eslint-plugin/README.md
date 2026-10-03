@@ -1,8 +1,8 @@
 # ESLint Plugin
 
-This is an [ESLint](https://eslint.org/) plugin including configurations for WooCommerce development.
+This is an [ESLint](https://eslint.org/) plugin including configurations for PooCommerce development.
 
-**Note:** This primarily extends the [`@wordpress/eslint-plugin/recommended`](https://github.com/WordPress/gutenberg/tree/trunk/packages/eslint-plugin) ruleset and does not change any of the rules exposed on that plugin. As a base, all WooCommerce projects are expected to follow WordPress JavaScript Code Styles.
+**Note:** This primarily extends the [`@wordpress/eslint-plugin/recommended`](https://github.com/WordPress/gutenberg/tree/trunk/packages/eslint-plugin) ruleset and does not change any of the rules exposed on that plugin. As a base, all PooCommerce projects are expected to follow WordPress JavaScript Code Styles.
 
 However, this ruleset does implement the following (which do not conflict with WordPress standards):
 
@@ -17,18 +17,18 @@ However, this ruleset does implement the following (which do not conflict with W
 This package is **Flat Config only**. It requires:
 
 - ESLint `^9.22.0 || ^10.0.0` (9.22 ships the `eslint/config` helpers this uses)
-- `prettier` `>=3` (WooCommerce uses `wp-prettier@3`)
+- `prettier` `>=3` (PooCommerce uses `wp-prettier@3`)
 - `typescript` `>=5`
 
 There is no `.eslintrc` support and no compatibility wrapper. If you are still on
-ESLint 8, stay on `@woocommerce/eslint-plugin@3`.
+ESLint 8, stay on `@poocommerce/eslint-plugin@3`.
 
 ## Installation
 
 Install the module
 
 ```bash
-pnpm install @woocommerce/eslint-plugin --save-dev
+pnpm install @poocommerce/eslint-plugin --save-dev
 ```
 
 ## Usage
@@ -37,9 +37,9 @@ Create an `eslint.config.mjs` at the root of your project and spread the
 `recommended` config, which is a Flat Config array:
 
 ```js
-import woocommerce from '@woocommerce/eslint-plugin';
+import poocommerce from '@poocommerce/eslint-plugin';
 
-export default [ ...woocommerce.configs.recommended ];
+export default [ ...poocommerce.configs.recommended ];
 ```
 
 Add your own configuration objects after it: Flat Config is last-wins, so later
@@ -52,11 +52,11 @@ it replaces the ancestor rather than merging with it, so it has to spread
 `recommended` itself.
 
 ```js
-import woocommerce from '@woocommerce/eslint-plugin';
+import poocommerce from '@poocommerce/eslint-plugin';
 
 export default [
 	{ ignores: [ 'build/**' ] },
-	...woocommerce.configs.recommended,
+	...poocommerce.configs.recommended,
 	{
 		rules: {
 			'no-console': 'off',
@@ -97,14 +97,14 @@ root.
 Config arrays and peers ESLint `^9.22 || ^10`.
 
 - Replace `.eslintrc.js` with `eslint.config.mjs`, and
-  `extends: [ 'plugin:@woocommerce/eslint-plugin/recommended' ]` with
-  `...woocommerce.configs.recommended`.
+  `extends: [ 'plugin:@poocommerce/eslint-plugin/recommended' ]` with
+  `...poocommerce.configs.recommended`.
 - `.eslintignore` is not read by Flat Config. Move its patterns into an
   `ignores` array.
 - `overrides` entries become their own `files`-scoped config objects, and
   `excludedFiles` becomes `ignores` alongside `files` in the same object.
 - `env` becomes `languageOptions.globals`, most easily via the `globals` package.
 - `root: true` has no equivalent and can be deleted.
-- The `@woocommerce/dependency-group` rule was removed in v3.1. Import grouping
+- The `@poocommerce/dependency-group` rule was removed in v3.1. Import grouping
   is enforced by `import/order`, which no longer requires the
   `/* External dependencies */` comment blocks.

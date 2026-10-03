@@ -3,13 +3,13 @@
  * API\Reports\Categories\DataStore class file.
  */
 
-namespace Automattic\WooCommerce\Admin\API\Reports\Categories;
+namespace Automattic\PooCommerce\Admin\API\Reports\Categories;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\API\Reports\DataStore as ReportsDataStore;
-use Automattic\WooCommerce\Admin\API\Reports\DataStoreInterface;
-use Automattic\WooCommerce\Admin\API\Reports\SqlQuery;
+use Automattic\PooCommerce\Admin\API\Reports\DataStore as ReportsDataStore;
+use Automattic\PooCommerce\Admin\API\Reports\DataStoreInterface;
+use Automattic\PooCommerce\Admin\API\Reports\SqlQuery;
 
 /**
  * API\Reports\Categories\DataStore.
@@ -143,7 +143,7 @@ class DataStore extends ReportsDataStore implements DataStoreInterface {
 				// Even though this is an (inner) JOIN, we're adding it as a `left_join` to
 				// affect its order in the query statement. The SqlQuery::$sql_filters variable
 				// determines the order in which joins are concatenated.
-				// See: https://github.com/woocommerce/woocommerce-admin/blob/1f261998e7287b77bc13c3d4ee2e84b717da7957/src/API/Reports/SqlQuery.php#L46-L50.
+				// See: https://github.com/poocommerce/poocommerce-admin/blob/1f261998e7287b77bc13c3d4ee2e84b717da7957/src/API/Reports/SqlQuery.php#L46-L50.
 				$this->subquery->add_sql_clause( 'left_join', $join );
 			} else {
 				$this->add_sql_clause( 'join', $join );
@@ -279,7 +279,7 @@ class DataStore extends ReportsDataStore implements DataStoreInterface {
 		);
 
 		if ( null === $categories_data ) {
-			return new \WP_Error( 'woocommerce_analytics_categories_result_failed', __( 'Sorry, fetching revenue data failed.', 'woocommerce' ), array( 'status' => 500 ) );
+			return new \WP_Error( 'poocommerce_analytics_categories_result_failed', __( 'Sorry, fetching revenue data failed.', 'poocommerce' ), array( 'status' => 500 ) );
 		}
 
 		$record_count = count( $categories_data );

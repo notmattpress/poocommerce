@@ -26,8 +26,8 @@ useDispatch.mockReturnValue( {
 	createNotice: jest.fn(),
 } );
 
-jest.mock( '@woocommerce/admin-layout', () => {
-	const originalModule = jest.requireActual( '@woocommerce/admin-layout' );
+jest.mock( '@poocommerce/admin-layout', () => {
+	const originalModule = jest.requireActual( '@poocommerce/admin-layout' );
 
 	return {
 		__esModule: true, // Use it when dealing with esModules

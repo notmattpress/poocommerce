@@ -5,7 +5,7 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\StoreApi\Routes;
+namespace Automattic\PooCommerce\Tests\Blocks\StoreApi\Routes;
 
 /**
  * Tests for the /wc/store/v1/shopper-lists/* endpoints.
@@ -45,9 +45,9 @@ class ShopperLists extends ControllerTestCase {
 	 * @param \WP_UnitTest_Factory $factory WordPress unit test factory.
 	 */
 	public static function wpSetUpBeforeClass( $factory ): void {
-		self::$feature_option     = get_option( 'woocommerce_cart_save_for_later_enabled' );
+		self::$feature_option     = get_option( 'poocommerce_cart_save_for_later_enabled' );
 		self::$had_feature_option = false !== self::$feature_option;
-		update_option( 'woocommerce_cart_save_for_later_enabled', 'yes' );
+		update_option( 'poocommerce_cart_save_for_later_enabled', 'yes' );
 
 		$product          = self::create_class_fixture_products(
 			array(
@@ -82,9 +82,9 @@ class ShopperLists extends ControllerTestCase {
 		self::delete_class_fixture_products( array( self::$product_id ) );
 
 		if ( self::$had_feature_option ) {
-			update_option( 'woocommerce_cart_save_for_later_enabled', self::$feature_option );
+			update_option( 'poocommerce_cart_save_for_later_enabled', self::$feature_option );
 		} else {
-			delete_option( 'woocommerce_cart_save_for_later_enabled' );
+			delete_option( 'poocommerce_cart_save_for_later_enabled' );
 		}
 	}
 
@@ -396,10 +396,10 @@ class ShopperLists extends ControllerTestCase {
 	/**
 	 * Test writes without (or with invalid) Nonce header are rejected.
 	 *
-	 * @testWith ["POST", "", 401, "woocommerce_rest_missing_nonce"]
-	 *           ["POST", "not-a-valid-nonce", 403, "woocommerce_rest_invalid_nonce"]
-	 *           ["DELETE", "", 401, "woocommerce_rest_missing_nonce"]
-	 *           ["DELETE", "not-a-valid-nonce", 403, "woocommerce_rest_invalid_nonce"]
+	 * @testWith ["POST", "", 401, "poocommerce_rest_missing_nonce"]
+	 *           ["POST", "not-a-valid-nonce", 403, "poocommerce_rest_invalid_nonce"]
+	 *           ["DELETE", "", 401, "poocommerce_rest_missing_nonce"]
+	 *           ["DELETE", "not-a-valid-nonce", 403, "poocommerce_rest_invalid_nonce"]
 	 *
 	 * @param string $method              HTTP method.
 	 * @param string $nonce               Nonce header value.
@@ -448,12 +448,12 @@ class ShopperLists extends ControllerTestCase {
 	}
 
 	/**
-	 * Test the `woocommerce_store_api_disable_nonce_check` filter bypass.
+	 * Test the `poocommerce_store_api_disable_nonce_check` filter bypass.
 	 */
 	public function test_disable_nonce_check_filter_bypasses_enforcement() {
 		wp_set_current_user( $this->customer_id );
 
-		add_filter( 'woocommerce_store_api_disable_nonce_check', '__return_true' );
+		add_filter( 'poocommerce_store_api_disable_nonce_check', '__return_true' );
 		try {
 			$response = $this->dispatch(
 				'POST',
@@ -462,7 +462,7 @@ class ShopperLists extends ControllerTestCase {
 				''
 			);
 		} finally {
-			remove_filter( 'woocommerce_store_api_disable_nonce_check', '__return_true' );
+			remove_filter( 'poocommerce_store_api_disable_nonce_check', '__return_true' );
 		}
 
 		$this->assertEquals( 201, $response->get_status() );

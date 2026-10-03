@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { useContext, useEffect } from '@wordpress/element';
-import { CurrencyContext } from '@woocommerce/currency';
+import { CurrencyContext } from '@poocommerce/currency';
 
 export const ShippingCurrencyContext = () => {
 	const context = useContext( CurrencyContext );

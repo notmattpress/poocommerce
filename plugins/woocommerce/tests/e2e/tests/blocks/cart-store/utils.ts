@@ -12,7 +12,7 @@ import { Page, Locator } from '@playwright/test';
  * add-on / recipient (meta-differentiated) line.
  */
 export const CART_LINE_IDENTITY_PLUGIN =
-	'woocommerce-blocks-test-cart-line-identity';
+	'poocommerce-blocks-test-cart-line-identity';
 
 /**
  * Request flag the helper plugin reads to mark an add as a meta line.
@@ -40,7 +40,7 @@ export const PRODUCT_X = {
  * Navigates to a flagged legacy add-to-cart URL. The helper plugin attaches a
  * unique `cart_item_data` marker to this add, so it lands as a cart line whose
  * cart id differs from a plain (unflagged) add of the same product. The browser
- * shares the same WooCommerce session cookie that the Store API add path uses,
+ * shares the same PooCommerce session cookie that the Store API add path uses,
  * so a later keyless add of X operates against this same cart and is resolved
  * by the server as a separate standalone line.
  *

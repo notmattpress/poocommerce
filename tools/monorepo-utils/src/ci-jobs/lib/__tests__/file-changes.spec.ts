@@ -110,9 +110,9 @@ baz/project-d/baz.js`;
 	it( 'should assign files to projects based on CI config patterns', () => {
 		jest.mocked( execSync ).mockImplementation( ( command ) => {
 			if ( command === 'git diff --name-only origin/trunk' ) {
-				return `plugins/woocommerce/changelog/fix-123
-plugins/woocommerce/tests/e2e/tests/blocks/test.spec.ts
-plugins/woocommerce/client/blocks/src/block.tsx`;
+				return `plugins/poocommerce/changelog/fix-123
+plugins/poocommerce/tests/e2e/tests/blocks/test.spec.ts
+plugins/poocommerce/client/blocks/src/block.tsx`;
 			}
 
 			throw new Error( 'Invalid command' );
@@ -120,8 +120,8 @@ plugins/woocommerce/client/blocks/src/block.tsx`;
 
 		const fileChanges = getFileChanges(
 			{
-				name: '@woocommerce/plugin-woocommerce',
-				path: 'plugins/woocommerce',
+				name: '@poocommerce/plugin-poocommerce',
+				path: 'plugins/poocommerce',
 				ciConfig: {
 					jobs: [
 						{
@@ -137,8 +137,8 @@ plugins/woocommerce/client/blocks/src/block.tsx`;
 				},
 				dependencies: [
 					{
-						name: '@woocommerce/block-library',
-						path: 'plugins/woocommerce/client/blocks',
+						name: '@poocommerce/block-library',
+						path: 'plugins/poocommerce/client/blocks',
 						dependencies: [],
 					},
 				],
@@ -153,11 +153,11 @@ plugins/woocommerce/client/blocks/src/block.tsx`;
 		expect( fileChanges ).not.toBe( true );
 		if ( fileChanges !== true ) {
 			expect( fileChanges ).toMatchObject( {
-				'@woocommerce/plugin-woocommerce': [
+				'@poocommerce/plugin-poocommerce': [
 					'changelog/fix-123',
 					'tests/e2e/tests/blocks/test.spec.ts',
 				],
-				'@woocommerce/block-library': [ 'src/block.tsx' ],
+				'@poocommerce/block-library': [ 'src/block.tsx' ],
 			} );
 		}
 	} );
@@ -165,8 +165,8 @@ plugins/woocommerce/client/blocks/src/block.tsx`;
 	it( 'should not assign files to projects if CI config pattern does not match', () => {
 		jest.mocked( execSync ).mockImplementation( ( command ) => {
 			if ( command === 'git diff --name-only origin/trunk' ) {
-				return `plugins/woocommerce/client/blocks/src/block.tsx
-plugins/woocommerce/client/blocks/assets/style.scss`;
+				return `plugins/poocommerce/client/blocks/src/block.tsx
+plugins/poocommerce/client/blocks/assets/style.scss`;
 			}
 
 			throw new Error( 'Invalid command' );
@@ -174,8 +174,8 @@ plugins/woocommerce/client/blocks/assets/style.scss`;
 
 		const fileChanges = getFileChanges(
 			{
-				name: '@woocommerce/plugin-woocommerce',
-				path: 'plugins/woocommerce',
+				name: '@poocommerce/plugin-poocommerce',
+				path: 'plugins/poocommerce',
 				ciConfig: {
 					jobs: [
 						{
@@ -191,8 +191,8 @@ plugins/woocommerce/client/blocks/assets/style.scss`;
 				},
 				dependencies: [
 					{
-						name: '@woocommerce/block-library',
-						path: 'plugins/woocommerce/client/blocks',
+						name: '@poocommerce/block-library',
+						path: 'plugins/poocommerce/client/blocks',
 						dependencies: [],
 					},
 				],
@@ -205,13 +205,13 @@ plugins/woocommerce/client/blocks/assets/style.scss`;
 		expect( fileChanges ).not.toBe( true );
 		if ( fileChanges !== true ) {
 			expect( fileChanges ).toMatchObject( {
-				'@woocommerce/block-library': [
+				'@poocommerce/block-library': [
 					'src/block.tsx',
 					'assets/style.scss',
 				],
 			} );
 			expect(
-				fileChanges[ '@woocommerce/plugin-woocommerce' ]
+				fileChanges[ '@poocommerce/plugin-poocommerce' ]
 			).toBeUndefined();
 		}
 	} );
@@ -219,9 +219,9 @@ plugins/woocommerce/client/blocks/assets/style.scss`;
 	it( 'should handle multiple CI config patterns from different jobs', () => {
 		jest.mocked( execSync ).mockImplementation( ( command ) => {
 			if ( command === 'git diff --name-only origin/trunk' ) {
-				return `plugins/woocommerce/tests/e2e/tests/blocks/test.spec.ts
-plugins/woocommerce/client/blocks/tests/unit/test.spec.ts
-plugins/woocommerce/client/blocks/src/block.tsx`;
+				return `plugins/poocommerce/tests/e2e/tests/blocks/test.spec.ts
+plugins/poocommerce/client/blocks/tests/unit/test.spec.ts
+plugins/poocommerce/client/blocks/src/block.tsx`;
 			}
 
 			throw new Error( 'Invalid command' );
@@ -229,8 +229,8 @@ plugins/woocommerce/client/blocks/src/block.tsx`;
 
 		const fileChanges = getFileChanges(
 			{
-				name: '@woocommerce/plugin-woocommerce',
-				path: 'plugins/woocommerce',
+				name: '@poocommerce/plugin-poocommerce',
+				path: 'plugins/poocommerce',
 				ciConfig: {
 					jobs: [
 						{
@@ -255,8 +255,8 @@ plugins/woocommerce/client/blocks/src/block.tsx`;
 				},
 				dependencies: [
 					{
-						name: '@woocommerce/block-library',
-						path: 'plugins/woocommerce/client/blocks',
+						name: '@poocommerce/block-library',
+						path: 'plugins/poocommerce/client/blocks',
 						dependencies: [],
 					},
 				],
@@ -269,11 +269,11 @@ plugins/woocommerce/client/blocks/src/block.tsx`;
 		expect( fileChanges ).not.toBe( true );
 		if ( fileChanges !== true ) {
 			expect( fileChanges ).toMatchObject( {
-				'@woocommerce/plugin-woocommerce': [
+				'@poocommerce/plugin-poocommerce': [
 					'tests/e2e/tests/blocks/test.spec.ts',
 					'client/blocks/tests/unit/test.spec.ts',
 				],
-				'@woocommerce/block-library': [
+				'@poocommerce/block-library': [
 					'tests/unit/test.spec.ts',
 					'src/block.tsx',
 				],

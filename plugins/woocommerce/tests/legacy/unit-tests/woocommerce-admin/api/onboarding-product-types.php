@@ -2,11 +2,11 @@
 /**
  * Onboarding Product Types REST API Test
  *
- * @package WooCommerce\Admin\Tests\API
+ * @package PooCommerce\Admin\Tests\API
  */
 
-use Automattic\WooCommerce\Admin\API\OnboardingProductTypes;
-use Automattic\WooCommerce\Internal\Admin\Onboarding\OnboardingProducts;
+use Automattic\PooCommerce\Admin\API\OnboardingProductTypes;
+use Automattic\PooCommerce\Internal\Admin\Onboarding\OnboardingProducts;
 
 /**
  * WC Tests API Onboarding Product Types
@@ -55,7 +55,7 @@ class WC_Admin_Tests_API_Onboarding_Product_Types extends WC_REST_Unit_Test_Case
 	 */
 	public function test_subscriptions_inclusion() {
 		// The store location is: US.
-		update_option( 'woocommerce_default_country', 'US' );
+		update_option( 'poocommerce_default_country', 'US' );
 
 		$request  = new WP_REST_Request( 'GET', $this->endpoint );
 		$response = $this->server->dispatch( $request );
@@ -65,7 +65,7 @@ class WC_Admin_Tests_API_Onboarding_Product_Types extends WC_REST_Unit_Test_Case
 		$this->assertFalse( array_key_exists( 'product', $data['subscriptions'] ) );
 
 		// Now the store location is: France.
-		update_option( 'woocommerce_default_country', 'FR' );
+		update_option( 'poocommerce_default_country', 'FR' );
 
 		$request  = new WP_REST_Request( 'GET', $this->endpoint );
 		$response = $this->server->dispatch( $request );
@@ -75,7 +75,7 @@ class WC_Admin_Tests_API_Onboarding_Product_Types extends WC_REST_Unit_Test_Case
 		$this->assertTrue( array_key_exists( 'product', $data['subscriptions'] ) );
 
 		// Now the store location is: Uruguay.
-		update_option( 'woocommerce_default_country', 'UY' );
+		update_option( 'poocommerce_default_country', 'UY' );
 
 		$request_another_country  = new WP_REST_Request( 'GET', $this->endpoint );
 		$response_another_country = $this->server->dispatch( $request_another_country );

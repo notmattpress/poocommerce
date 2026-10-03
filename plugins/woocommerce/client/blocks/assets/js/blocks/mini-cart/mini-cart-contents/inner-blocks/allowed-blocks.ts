@@ -4,12 +4,12 @@
 import { getBlockTypes } from '@wordpress/blocks';
 
 const EXCLUDED_BLOCKS: readonly string[] = [
-	'woocommerce/mini-cart',
-	'woocommerce/checkout',
-	'woocommerce/cart',
-	'woocommerce/single-product',
-	'woocommerce/cart-totals-block',
-	'woocommerce/checkout-fields-block',
+	'poocommerce/mini-cart',
+	'poocommerce/checkout',
+	'poocommerce/cart',
+	'poocommerce/single-product',
+	'poocommerce/cart-totals-block',
+	'poocommerce/checkout-fields-block',
 	'core/post-template',
 	'core/comment-template',
 	'core/query-pagination',

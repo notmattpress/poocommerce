@@ -9,7 +9,7 @@ import { addFilter } from '@wordpress/hooks';
  */
 import { EmbeddedBodyLayout } from '../embedded-body-layout';
 
-jest.mock( '@woocommerce/customer-effort-score', () => ( {
+jest.mock( '@poocommerce/customer-effort-score', () => ( {
 	triggerExitPageCesSurvey: jest.fn(),
 } ) );
 jest.mock( '@wordpress/data', () => ( {
@@ -18,7 +18,7 @@ jest.mock( '@wordpress/data', () => ( {
 		getOption: jest.fn(),
 	} ),
 } ) );
-jest.mock( '@woocommerce/data', () => ( {
+jest.mock( '@poocommerce/data', () => ( {
 	useUser: () => ( {
 		currentUserCan: jest.fn(),
 	} ),
@@ -60,9 +60,9 @@ describe( 'Embedded layout', () => {
 		expect( queryByText( 'section:' ) ).toBeInTheDocument();
 	} );
 
-	it( 'should render a component added through the filter - woocommerce_admin_embedded_layout_components', () => {
+	it( 'should render a component added through the filter - poocommerce_admin_embedded_layout_components', () => {
 		addFilter(
-			'woocommerce_admin_embedded_layout_components',
+			'poocommerce_admin_embedded_layout_components',
 			'namespace',
 			( components ) => {
 				return [

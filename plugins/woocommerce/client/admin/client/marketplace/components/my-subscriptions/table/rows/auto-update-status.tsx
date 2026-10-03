@@ -6,7 +6,7 @@ import { useContext, useState } from '@wordpress/element';
 import { __, sprintf } from '@wordpress/i18n';
 import { speak } from '@wordpress/a11y';
 import { Icon, info } from '@wordpress/icons';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -27,7 +27,7 @@ import { getAdminSetting } from '../../../../../utils/admin-settings';
  * Reasons a product won't auto-update even though the plugin's own auto-update setting is on.
  *
  * A product without a subscription is always blocked. The other reasons are about
- * WooCommerce.com delivering the update, so none of them applies to a copy installed from
+ * PooCommerce.com delivering the update, so none of them applies to a copy installed from
  * WordPress.org: core updates that one on its own.
  *
  * Whether WordPress runs automatic updates at all is deliberately not one of them: that is a
@@ -38,7 +38,7 @@ export function getAutoUpdateBlockers( subscription: Subscription ): string[] {
 
 	if ( subscription.product_key === '' ) {
 		blockers.push(
-			__( 'There is no subscription for it.', 'woocommerce' )
+			__( 'There is no subscription for it.', 'poocommerce' )
 		);
 
 		return blockers;
@@ -53,21 +53,21 @@ export function getAutoUpdateBlockers( subscription: Subscription ): string[] {
 	if ( ! wccomSettings?.wooUpdateManagerActive ) {
 		blockers.push(
 			__(
-				'WooCommerce.com Update Manager is not active, and it delivers these updates.',
-				'woocommerce'
+				'PooCommerce.com Update Manager is not active, and it delivers these updates.',
+				'poocommerce'
 			)
 		);
 	}
 
 	if ( subscription.expired && ! subscription.lifetime ) {
-		blockers.push( __( 'The subscription has expired.', 'woocommerce' ) );
+		blockers.push( __( 'The subscription has expired.', 'poocommerce' ) );
 	}
 
 	if ( ! subscription.active ) {
 		blockers.push(
 			__(
 				'The subscription is not connected to this store.',
-				'woocommerce'
+				'poocommerce'
 			)
 		);
 	}
@@ -114,9 +114,9 @@ export default function AutoUpdateStatus( props: {
 			.then( () => {
 				const announcement = enabled
 					? /* translators: %s is the product name. */
-					  __( 'Auto-updates enabled for %s.', 'woocommerce' )
+					  __( 'Auto-updates enabled for %s.', 'poocommerce' )
 					: /* translators: %s is the product name. */
-					  __( 'Auto-updates disabled for %s.', 'woocommerce' );
+					  __( 'Auto-updates disabled for %s.', 'poocommerce' );
 
 				speak( sprintf( announcement, subscription.product_name ) );
 
@@ -127,7 +127,7 @@ export default function AutoUpdateStatus( props: {
 						subscription.product_key,
 						__(
 							'The setting was saved, but the list could not be refreshed. Reload the page to see the change.',
-							'woocommerce'
+							'poocommerce'
 						),
 						NoticeStatus.Error
 					)
@@ -135,10 +135,10 @@ export default function AutoUpdateStatus( props: {
 			} )
 			.catch( ( error: { data?: { message?: string } } ) => {
 				const failure = enabled
-					? __( 'Auto-updates could not be enabled.', 'woocommerce' )
+					? __( 'Auto-updates could not be enabled.', 'poocommerce' )
 					: __(
 							'Auto-updates could not be disabled.',
-							'woocommerce'
+							'poocommerce'
 					  );
 
 				// The endpoint answers with wp_send_json_error(), which nests the reason under data.
@@ -161,17 +161,17 @@ export default function AutoUpdateStatus( props: {
 		return (
 			<StatusPopover
 				icon={ <Icon icon={ info } size={ 16 } /> }
-				text={ __( 'Blocked', 'woocommerce' ) }
+				text={ __( 'Blocked', 'poocommerce' ) }
 				level={ StatusLevel.Error }
 				explanation={
 					<>
 						<p>
 							{ __(
 								'Auto-updates are on, but it will not update because:',
-								'woocommerce'
+								'poocommerce'
 							) }
 						</p>
-						<ul className="woocommerce-marketplace__my-subscriptions__auto-update-blockers">
+						<ul className="poocommerce-marketplace__my-subscriptions__auto-update-blockers">
 							{ blockers.map( ( blocker ) => (
 								<li key={ blocker }>{ blocker }</li>
 							) ) }
@@ -188,13 +188,13 @@ export default function AutoUpdateStatus( props: {
 			<StatusPopover
 				text={
 					local.auto_update
-						? __( 'On', 'woocommerce' )
-						: __( 'Off', 'woocommerce' )
+						? __( 'On', 'poocommerce' )
+						: __( 'Off', 'poocommerce' )
 				}
 				level={ StatusLevel.Info }
 				explanation={ __(
 					'Auto-updates for this product are controlled outside this screen.',
-					'woocommerce'
+					'poocommerce'
 				) }
 				explanationOnHover
 			/>
@@ -206,11 +206,11 @@ export default function AutoUpdateStatus( props: {
 	if ( subscription.product_key === '' && ! local.auto_update ) {
 		return (
 			<StatusPopover
-				text={ __( 'Off', 'woocommerce' ) }
+				text={ __( 'Off', 'poocommerce' ) }
 				level={ StatusLevel.Info }
 				explanation={ __(
 					'Subscribe to enable auto-updates for this product.',
-					'woocommerce'
+					'poocommerce'
 				) }
 				explanationOnHover
 			/>
@@ -223,11 +223,11 @@ export default function AutoUpdateStatus( props: {
 				<img
 					src={ RefreshIcon }
 					alt=""
-					className="woocommerce-marketplace__my-subscriptions__auto-updates-saving-icon"
+					className="poocommerce-marketplace__my-subscriptions__auto-updates-saving-icon"
 				/>
 				{ local.auto_update
-					? __( 'Disabling…', 'woocommerce' )
-					: __( 'Enabling…', 'woocommerce' ) }
+					? __( 'Disabling…', 'poocommerce' )
+					: __( 'Enabling…', 'poocommerce' ) }
 			</Button>
 		);
 	}
@@ -238,8 +238,8 @@ export default function AutoUpdateStatus( props: {
 			onClick={ () => setAutoUpdate( ! local.auto_update ) }
 		>
 			{ local.auto_update
-				? __( 'Disable auto-updates', 'woocommerce' )
-				: __( 'Enable auto-updates', 'woocommerce' ) }
+				? __( 'Disable auto-updates', 'poocommerce' )
+				: __( 'Enable auto-updates', 'poocommerce' ) }
 		</Button>
 	);
 }

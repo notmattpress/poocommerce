@@ -1,10 +1,10 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\CustomerEmailVerification;
+namespace Automattic\PooCommerce\Tests\Internal\CustomerEmailVerification;
 
-use Automattic\WooCommerce\Internal\CustomerEmailVerification\EmailVerificationService;
-use Automattic\WooCommerce\Internal\CustomerEmailVerification\VerificationController;
+use Automattic\PooCommerce\Internal\CustomerEmailVerification\EmailVerificationService;
+use Automattic\PooCommerce\Internal\CustomerEmailVerification\VerificationController;
 use WC_Unit_Test_Case;
 
 /**
@@ -35,7 +35,7 @@ class VerificationControllerTest extends WC_Unit_Test_Case {
 		// Resolving the controller also triggers its constructor (hooks) and init() (deps).
 		$this->ctrl = wc_get_container()->get( VerificationController::class );
 		// Link guest orders on verification (the boot wires this in production; register it here for the test).
-		add_action( 'woocommerce_customer_email_verified', 'wc_update_new_customer_past_orders' );
+		add_action( 'poocommerce_customer_email_verified', 'wc_update_new_customer_past_orders' );
 	}
 
 	/**
@@ -176,9 +176,9 @@ class VerificationControllerTest extends WC_Unit_Test_Case {
 			unset( $uid );
 			$captured = $url;
 		};
-		add_action( 'woocommerce_customer_verify_email_notification', $listener, 10, 2 );
+		add_action( 'poocommerce_customer_verify_email_notification', $listener, 10, 2 );
 		$this->ctrl->send_verification_email( $user_id );
-		remove_action( 'woocommerce_customer_verify_email_notification', $listener, 10 );
+		remove_action( 'poocommerce_customer_verify_email_notification', $listener, 10 );
 
 		return (string) $captured;
 	}

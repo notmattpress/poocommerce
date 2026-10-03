@@ -2,19 +2,19 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\PushNotifications\DataStores;
+namespace Automattic\PooCommerce\Tests\Internal\PushNotifications\DataStores;
 
-use Automattic\WooCommerce\Internal\PushNotifications\DataStores\PushTokensDataStore;
-use Automattic\WooCommerce\Internal\PushNotifications\Entities\PushToken;
-use Automattic\WooCommerce\Internal\PushNotifications\Exceptions\PushTokenInvalidDataException;
-use Automattic\WooCommerce\Internal\PushNotifications\Exceptions\PushTokenNotFoundException;
-use Automattic\WooCommerce\RestApi\UnitTests\LoggerSpyTrait;
+use Automattic\PooCommerce\Internal\PushNotifications\DataStores\PushTokensDataStore;
+use Automattic\PooCommerce\Internal\PushNotifications\Entities\PushToken;
+use Automattic\PooCommerce\Internal\PushNotifications\Exceptions\PushTokenInvalidDataException;
+use Automattic\PooCommerce\Internal\PushNotifications\Exceptions\PushTokenNotFoundException;
+use Automattic\PooCommerce\RestApi\UnitTests\LoggerSpyTrait;
 use WC_Unit_Test_Case;
 
 /**
  * Tests for the PushTokensDataStore class.
  *
- * @covers \Automattic\WooCommerce\Internal\PushNotifications\DataStores\PushTokensDataStore
+ * @covers \Automattic\PooCommerce\Internal\PushNotifications\DataStores\PushTokensDataStore
  */
 class PushTokensDataStoreTest extends WC_Unit_Test_Case {
 
@@ -1615,7 +1615,7 @@ class PushTokensDataStoreTest extends WC_Unit_Test_Case {
 
 		$data_store->record_last_sent_at( array( $push_token ) );
 
-		// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment -- Firing Action Scheduler's hook, not declaring one.
+		// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment -- Firing Action Scheduler's hook, not declaring one.
 		do_action( 'action_scheduler_after_execute', 1, null, '' );
 
 		$this->assertNotNull( $data_store->read( $push_token->get_id() )->get_last_sent_at_gmt() );

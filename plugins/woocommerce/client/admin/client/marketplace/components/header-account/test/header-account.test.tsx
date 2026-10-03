@@ -10,7 +10,7 @@ jest.mock( '../../../../utils/admin-settings', () => ( {
 	getAdminSetting: jest.fn( () => mockSettings ),
 } ) );
 
-jest.mock( '@woocommerce/tracks', () => ( {
+jest.mock( '@poocommerce/tracks', () => ( {
 	recordEvent: jest.fn(),
 } ) );
 
@@ -37,18 +37,18 @@ describe( 'HeaderAccount menu', () => {
 		};
 	} );
 
-	it( 'offers connect and a link to the WooCommerce.com account when not connected in the marketplace', () => {
+	it( 'offers connect and a link to the PooCommerce.com account when not connected in the marketplace', () => {
 		openMenu( 'wc-addons' );
 
 		expect(
 			screen.getByRole( 'menuitem', { name: /Connect account/ } )
 		).toHaveAttribute( 'href', 'http://example.test/connect' );
 		const accountItem = screen.getByRole( 'menuitem', {
-			name: 'Your WooCommerce.com account (opens in a new tab)',
+			name: 'Your PooCommerce.com account (opens in a new tab)',
 		} );
 		expect( accountItem ).toHaveAttribute(
 			'href',
-			'https://woocommerce.com/my-account/'
+			'https://poocommerce.com/my-account/'
 		);
 		expect( accountItem ).toHaveAttribute( 'target', '_blank' );
 		expect( accountItem ).toHaveAttribute( 'rel', 'noopener noreferrer' );
@@ -60,7 +60,7 @@ describe( 'HeaderAccount menu', () => {
 		).toBeNull();
 	} );
 
-	it( 'links the connected email to the WooCommerce.com account and hides the extra item', () => {
+	it( 'links the connected email to the PooCommerce.com account and hides the extra item', () => {
 		mockSettings = {
 			isConnected: true,
 			userEmail: 'merchant@example.com',
@@ -73,13 +73,13 @@ describe( 'HeaderAccount menu', () => {
 		} );
 		expect( emailItem ).toHaveAttribute(
 			'href',
-			'https://woocommerce.com/my-account/'
+			'https://poocommerce.com/my-account/'
 		);
 		expect( emailItem ).toHaveAttribute( 'target', '_blank' );
 		expect( emailItem ).toHaveAttribute( 'rel', 'noopener noreferrer' );
 		expect(
 			screen.queryByRole( 'menuitem', {
-				name: /Your WooCommerce.com account/,
+				name: /Your PooCommerce.com account/,
 			} )
 		).toBeNull();
 		expect(
@@ -95,7 +95,7 @@ describe( 'HeaderAccount menu', () => {
 		).toBeInTheDocument();
 		expect(
 			screen.queryByRole( 'menuitem', {
-				name: /Your WooCommerce.com account/,
+				name: /Your PooCommerce.com account/,
 			} )
 		).toBeNull();
 	} );

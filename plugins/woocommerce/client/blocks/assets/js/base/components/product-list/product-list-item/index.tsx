@@ -2,7 +2,7 @@
  * External dependencies
  */
 import clsx from 'clsx';
-import { useInnerBlockLayoutContext } from '@woocommerce/shared-context';
+import { useInnerBlockLayoutContext } from '@poocommerce/shared-context';
 import { withInstanceId } from '@wordpress/compose';
 
 /**

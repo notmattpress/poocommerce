@@ -26,8 +26,8 @@ const resolvedTaxonomyRecords = {
 	product_tag: { id: 91, slug: 'recommended' },
 } as const;
 const requiredBlockTypes = [
-	'woocommerce/product-template',
-	'woocommerce/single-product',
+	'poocommerce/product-template',
+	'poocommerce/single-product',
 ];
 const registeredBlockTypes: string[] = [];
 
@@ -90,7 +90,7 @@ const createProps = ( {
 	},
 	insertBlocksAfter: jest.fn(),
 	isSelected: false,
-	name: 'woocommerce/product-template',
+	name: 'poocommerce/product-template',
 	onReplace: jest.fn(),
 	setAttributes: jest.fn(),
 	__unstableLayoutClassNames: '',
@@ -153,7 +153,7 @@ describe( 'ProductTemplateEdit request context', () => {
 		getEditedEntityRecord = jest
 			.spyOn( coreSelectors, 'getEditedEntityRecord' )
 			.mockReturnValue( {
-				woocommerce_default_catalog_orderby: 'price-desc',
+				poocommerce_default_catalog_orderby: 'price-desc',
 			} );
 	} );
 
@@ -167,8 +167,8 @@ describe( 'ProductTemplateEdit request context', () => {
 	} );
 
 	it( 'adds only the product ID for a product location', () => {
-		const productTemplate = createBlock( 'woocommerce/product-template' );
-		const singleProduct = createBlock( 'woocommerce/single-product', {}, [
+		const productTemplate = createBlock( 'poocommerce/product-template' );
+		const singleProduct = createBlock( 'poocommerce/single-product', {}, [
 			productTemplate,
 		] );
 		act( () => {

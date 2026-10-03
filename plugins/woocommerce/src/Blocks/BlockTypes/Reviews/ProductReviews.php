@@ -1,9 +1,9 @@
 <?php declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes\Reviews;
+namespace Automattic\PooCommerce\Blocks\BlockTypes\Reviews;
 
-use Automattic\WooCommerce\Blocks\BlockTypes\AbstractBlock;
-use Automattic\WooCommerce\Blocks\BlockTypes\EnableBlockJsonAssetsTrait;
+use Automattic\PooCommerce\Blocks\BlockTypes\AbstractBlock;
+use Automattic\PooCommerce\Blocks\BlockTypes\EnableBlockJsonAssetsTrait;
 
 /**
  * ProductReviews class.
@@ -76,7 +76,7 @@ class ProductReviews extends AbstractBlock {
 			'<div %1$s>
 				%2$s
 			</div>',
-			get_block_wrapper_attributes( array( 'class' => 'wp-block-woocommerce-product-reviews' ) ),
+			get_block_wrapper_attributes( array( 'class' => 'wp-block-poocommerce-product-reviews' ) ),
 			$reviews
 		);
 	}

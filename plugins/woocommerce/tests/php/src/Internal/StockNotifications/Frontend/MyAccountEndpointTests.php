@@ -5,16 +5,16 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\StockNotifications\Frontend;
+namespace Automattic\PooCommerce\Tests\Internal\StockNotifications\Frontend;
 
-use Automattic\WooCommerce\Internal\StockNotifications\Enums\NotificationCancellationSource;
-use Automattic\WooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
-use Automattic\WooCommerce\Internal\StockNotifications\Factory;
-use Automattic\WooCommerce\Internal\StockNotifications\Frontend\MyAccountEndpoint;
-use Automattic\WooCommerce\Internal\StockNotifications\Frontend\MyAccountView;
-use Automattic\WooCommerce\Internal\StockNotifications\Frontend\NotificationManagementService;
-use Automattic\WooCommerce\Internal\StockNotifications\Notification;
-use Automattic\WooCommerce\Tests\Internal\StockNotifications\StockNotificationsFeatureTrait;
+use Automattic\PooCommerce\Internal\StockNotifications\Enums\NotificationCancellationSource;
+use Automattic\PooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
+use Automattic\PooCommerce\Internal\StockNotifications\Factory;
+use Automattic\PooCommerce\Internal\StockNotifications\Frontend\MyAccountEndpoint;
+use Automattic\PooCommerce\Internal\StockNotifications\Frontend\MyAccountView;
+use Automattic\PooCommerce\Internal\StockNotifications\Frontend\NotificationManagementService;
+use Automattic\PooCommerce\Internal\StockNotifications\Notification;
+use Automattic\PooCommerce\Tests\Internal\StockNotifications\StockNotificationsFeatureTrait;
 use WC_Helper_Product;
 
 /**
@@ -372,19 +372,19 @@ class MyAccountEndpointTests extends \WC_Unit_Test_Case {
 		$pending_2 = $this->create_notification( $user_id, NotificationStatus::PENDING );
 
 		$limit_filter = static fn () => 1;
-		add_filter( 'woocommerce_account_customer_stock_notifications_pending_limit', $limit_filter );
+		add_filter( 'poocommerce_account_customer_stock_notifications_pending_limit', $limit_filter );
 		try {
 			ob_start();
 			wc_get_container()->get( MyAccountEndpoint::class )->render_endpoint( 1 );
 			$html = ob_get_clean();
 		} finally {
-			remove_filter( 'woocommerce_account_customer_stock_notifications_pending_limit', $limit_filter );
+			remove_filter( 'poocommerce_account_customer_stock_notifications_pending_limit', $limit_filter );
 		}
 
-		$this->assertStringContainsString( 'woocommerce-customer-stock-notifications-table--pending', $html );
-		$this->assertStringContainsString( 'woocommerce-customer-stock-notifications-table--active', $html );
+		$this->assertStringContainsString( 'poocommerce-customer-stock-notifications-table--pending', $html );
+		$this->assertStringContainsString( 'poocommerce-customer-stock-notifications-table--active', $html );
 		$this->assertStringContainsString( 'Awaiting confirmation', $html );
-		$this->assertStringContainsString( 'woocommerce-customer-stock-notifications-heading--active', $html );
+		$this->assertStringContainsString( 'poocommerce-customer-stock-notifications-heading--active', $html );
 		$this->assertStringNotContainsString( "You haven't signed up", $html );
 
 		// Only the newest pending row survives the limit of 1.
@@ -393,8 +393,8 @@ class MyAccountEndpointTests extends \WC_Unit_Test_Case {
 		$this->assertStringContainsString( 'notification_id=' . $active->get_id() . '&', $html );
 
 		// Only the pending row offers a Resend link; both actions point back at the endpoint.
-		$this->assertSame( 1, substr_count( $html, 'woocommerce-customer-stock-notifications-action-link--resend' ) );
-		$this->assertSame( 2, substr_count( $html, 'woocommerce-customer-stock-notifications-action-link--cancel' ) );
+		$this->assertSame( 1, substr_count( $html, 'poocommerce-customer-stock-notifications-action-link--resend' ) );
+		$this->assertSame( 2, substr_count( $html, 'poocommerce-customer-stock-notifications-action-link--cancel' ) );
 		$this->assertStringContainsString( esc_url( MyAccountEndpoint::get_action_url( MyAccountEndpoint::ACTION_RESEND, $pending_2->get_id() ) ), $html );
 		$this->assertStringContainsString( esc_url( MyAccountEndpoint::get_action_url( MyAccountEndpoint::ACTION_CANCEL, $active->get_id() ) ), $html );
 		$this->assertStringNotContainsString( MyAccountEndpoint::ACTION_FIELD . '=' . MyAccountEndpoint::ACTION_RESEND . '&#038;notification_id=' . $active->get_id(), $html );
@@ -414,9 +414,9 @@ class MyAccountEndpointTests extends \WC_Unit_Test_Case {
 		wc_get_container()->get( MyAccountEndpoint::class )->render_endpoint( 1 );
 		$html = ob_get_clean();
 
-		$this->assertStringContainsString( 'woocommerce-customer-stock-notifications-table--pending', $html );
-		$this->assertStringNotContainsString( 'woocommerce-customer-stock-notifications-table--active', $html );
-		$this->assertStringNotContainsString( 'woocommerce-customer-stock-notifications-heading--active', $html );
+		$this->assertStringContainsString( 'poocommerce-customer-stock-notifications-table--pending', $html );
+		$this->assertStringNotContainsString( 'poocommerce-customer-stock-notifications-table--active', $html );
+		$this->assertStringNotContainsString( 'poocommerce-customer-stock-notifications-heading--active', $html );
 		$this->assertStringNotContainsString( "You haven't signed up", $html );
 	}
 
@@ -433,10 +433,10 @@ class MyAccountEndpointTests extends \WC_Unit_Test_Case {
 		wc_get_container()->get( MyAccountEndpoint::class )->render_endpoint( 1 );
 		$html = ob_get_clean();
 
-		$this->assertStringNotContainsString( 'woocommerce-customer-stock-notifications-table--pending', $html );
-		$this->assertStringContainsString( 'woocommerce-customer-stock-notifications-table--active', $html );
+		$this->assertStringNotContainsString( 'poocommerce-customer-stock-notifications-table--pending', $html );
+		$this->assertStringContainsString( 'poocommerce-customer-stock-notifications-table--active', $html );
 		$this->assertStringNotContainsString( 'Awaiting confirmation', $html );
-		$this->assertStringNotContainsString( 'woocommerce-customer-stock-notifications-heading--active', $html );
+		$this->assertStringNotContainsString( 'poocommerce-customer-stock-notifications-heading--active', $html );
 	}
 
 	/**

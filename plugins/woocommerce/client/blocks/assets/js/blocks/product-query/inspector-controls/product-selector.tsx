@@ -1,9 +1,9 @@
 /**
  * External dependencies
  */
-import { getProducts } from '@woocommerce/editor-components/utils';
-import { ProductResponseItem } from '@woocommerce/types';
-import { objectOmit } from '@woocommerce/utils';
+import { getProducts } from '@poocommerce/editor-components/utils';
+import { ProductResponseItem } from '@poocommerce/types';
+import { objectOmit } from '@poocommerce/utils';
 import { useState, useEffect } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import {
@@ -72,7 +72,7 @@ export const ProductSelector = ( props: ProductQueryBlock ) => {
 
 	return (
 		<ToolsPanelItem
-			label={ __( 'Hand-picked Products', 'woocommerce' ) }
+			label={ __( 'Hand-picked Products', 'poocommerce' ) }
 			hasValue={ () => query.include?.length }
 		>
 			<FormTokenField
@@ -84,7 +84,7 @@ export const ProductSelector = ( props: ProductQueryBlock ) => {
 								( product ) => product.id === Number( token )
 						  )?.name || ''
 				}
-				label={ __( 'Pick some products', 'woocommerce' ) }
+				label={ __( 'Pick some products', 'poocommerce' ) }
 				onChange={ onTokenChange }
 				suggestions={ productsList.map( ( product ) => product.name ) }
 				validateInput={ ( value: string ) =>
@@ -92,7 +92,7 @@ export const ProductSelector = ( props: ProductQueryBlock ) => {
 				}
 				value={
 					! productsList.length
-						? [ __( 'Loading…', 'woocommerce' ) ]
+						? [ __( 'Loading…', 'poocommerce' ) ]
 						: query?.include || []
 				}
 				__experimentalExpandOnFocus={ true }

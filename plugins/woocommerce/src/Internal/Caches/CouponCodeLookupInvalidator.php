@@ -2,7 +2,7 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Caches;
+namespace Automattic\PooCommerce\Internal\Caches;
 
 /**
  * Invalidation handler for the coupon code to coupon id lookup cache.
@@ -26,7 +26,7 @@ namespace Automattic\WooCommerce\Internal\Caches;
  *
  * - The read layer describes what WC_Coupon_Data_Store_CPT resolves, so wc_get_coupon_id_by_code()
  *   only runs it while that exact data store is in use. A custom coupon data store registered
- *   through the `woocommerce_data_stores` filter may resolve further statuses, or coupons that are
+ *   through the `poocommerce_data_stores` filter may resolve further statuses, or coupons that are
  *   not posts at all, and keeps the write layer as its only coverage (what it had before this class
  *   existed). Rejecting its entries instead would disable the lookup cache for those sites, since
  *   every read would write an entry the next read throws away. The check is on the class name, so

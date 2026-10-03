@@ -1,9 +1,9 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\AddressProvider;
+namespace Automattic\PooCommerce\Internal\AddressProvider;
 
-use Automattic\WooCommerce\StoreApi\Utilities\JsonWebToken;
+use Automattic\PooCommerce\StoreApi\Utilities\JsonWebToken;
 use Automattic\Jetpack\Constants;
 use WC_Address_Provider;
 
@@ -11,7 +11,7 @@ use WC_Address_Provider;
  * Abstract Automattic address provider is an abstract implementation of the WC_Address_Provider that is meant to be used by Automattic services to get support for address autocomplete and maps with minimal code maintenance.
  *
  * @since 10.1.0
- * @package WooCommerce
+ * @package PooCommerce
  */
 abstract class AbstractAutomatticAddressProvider extends WC_Address_Provider {
 
@@ -26,7 +26,7 @@ abstract class AbstractAutomatticAddressProvider extends WC_Address_Provider {
 	 * Loads up the JWT for the address service and saves it to transient.
 	 */
 	public function __construct() {
-		add_filter( 'pre_update_option_woocommerce_address_autocomplete_enabled', array( $this, 'refresh_cache' ) );
+		add_filter( 'pre_update_option_poocommerce_address_autocomplete_enabled', array( $this, 'refresh_cache' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'load_scripts' ) );
 
 		// Powered by Google branding.
@@ -61,7 +61,7 @@ abstract class AbstractAutomatticAddressProvider extends WC_Address_Provider {
 	public function load_jwt() {
 
 		// If the address autocomplete is disabled, we don't load the JWT.
-		if ( wc_string_to_bool( get_option( 'woocommerce_address_autocomplete_enabled', 'no' ) ) !== true ) {
+		if ( wc_string_to_bool( get_option( 'poocommerce_address_autocomplete_enabled', 'no' ) ) !== true ) {
 			return;
 		}
 
@@ -262,7 +262,7 @@ abstract class AbstractAutomatticAddressProvider extends WC_Address_Provider {
 		 * @param string $path The asset path.
 		 * @return string The filtered asset URL.
 		 */
-		return apply_filters( 'woocommerce_get_asset_url', plugins_url( $path, Constants::get_constant( 'WC_PLUGIN_FILE' ) ), $path );
+		return apply_filters( 'poocommerce_get_asset_url', plugins_url( $path, Constants::get_constant( 'WC_PLUGIN_FILE' ) ), $path );
 	}
 
 
@@ -271,7 +271,7 @@ abstract class AbstractAutomatticAddressProvider extends WC_Address_Provider {
 	 */
 	public function load_scripts() {
 		// If the address autocomplete setting is disabled, don't load the scripts.
-		if ( wc_string_to_bool( get_option( 'woocommerce_address_autocomplete_enabled', 'no' ) ) !== true ) {
+		if ( wc_string_to_bool( get_option( 'poocommerce_address_autocomplete_enabled', 'no' ) ) !== true ) {
 			return;
 		}
 

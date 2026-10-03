@@ -1,8 +1,8 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\Utils\StyleAttributesUtils;
-use Automattic\WooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Blocks\Utils\StyleAttributesUtils;
+use Automattic\PooCommerce\Enums\ProductType;
 
 /**
  * ProductPrice class.
@@ -90,8 +90,8 @@ class ProductPrice extends AbstractBlock {
 			$context_directive      = '';
 
 			if ( $is_interactive ) {
-				wp_enqueue_script_module( 'woocommerce/product-elements' );
-				$wrapper_attributes['data-wp-interactive'] = 'woocommerce/product-elements';
+				wp_enqueue_script_module( 'poocommerce/product-elements' );
+				$wrapper_attributes['data-wp-interactive'] = 'poocommerce/product-elements';
 				$context_directive                         = wp_interactivity_data_wp_context(
 					array(
 						'productElementKey' => 'price_html',

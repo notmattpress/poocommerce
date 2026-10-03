@@ -19,7 +19,7 @@ import {
  */
 import { NAME_SPACE } from './constants';
 
-const SAVE_SHORTCUT_NAME = 'woocommerce/email-editor/save';
+const SAVE_SHORTCUT_NAME = 'poocommerce/email-editor/save';
 
 /**
  * Take over the editor's save shortcut (Cmd/Ctrl+S) while the custom Save
@@ -79,7 +79,7 @@ function useSaveShortcutTakeover( onSave: () => void, isDisabled: boolean ) {
 		void registerShortcut( {
 			name: SAVE_SHORTCUT_NAME,
 			category: 'global',
-			description: __( 'Save your changes.', 'woocommerce' ),
+			description: __( 'Save your changes.', 'poocommerce' ),
 			keyCombination: coreShortcut.keyCombination,
 		} );
 	}, [ coreShortcut, registerShortcut, unregisterShortcut ] );
@@ -195,7 +195,7 @@ export function SaveButton() {
 			disabled={ isDisabled }
 			aria-disabled={ isDisabled }
 		>
-			{ __( 'Save', 'woocommerce' ) }
+			{ __( 'Save', 'poocommerce' ) }
 		</Button>
 	);
 }
@@ -212,7 +212,7 @@ export function SaveButton() {
  */
 export function registerWooEmailSaveButton() {
 	addFilter(
-		'woocommerce_email_editor_wrap_editor_component',
+		'poocommerce_email_editor_wrap_editor_component',
 		`${ NAME_SPACE }/save-button`,
 		( EditorComponent: React.ComponentType< Record< string, unknown > > ) =>
 			function EditorWithWooSaveButton(

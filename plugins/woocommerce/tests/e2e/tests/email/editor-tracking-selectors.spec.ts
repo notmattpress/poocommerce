@@ -17,7 +17,7 @@ const setFeatureFlag = async ( baseURL: string | undefined, value: string ) => {
 	return setOption(
 		request,
 		baseURL,
-		'woocommerce_feature_block_email_editor_enabled',
+		'poocommerce_feature_block_email_editor_enabled',
 		value
 	);
 };
@@ -27,7 +27,7 @@ const setFeatureFlag = async ( baseURL: string | undefined, value: string ) => {
  *
  * The test checks that the selectors that are used to track telemetry events in the email editor are present.
  */
-test.describe( 'WooCommerce Email Editor Tracking Selectors', () => {
+test.describe( 'PooCommerce Email Editor Tracking Selectors', () => {
 	test.use( { storageState: ADMIN_STATE_PATH } );
 
 	test.afterAll( async ( { baseURL } ) => {
@@ -45,7 +45,7 @@ test.describe( 'WooCommerce Email Editor Tracking Selectors', () => {
 		await accessTheEmailEditor( page, 'New order' );
 
 		// Check that the Editor is present
-		const editorLocator = page.locator( '#woocommerce-email-editor' );
+		const editorLocator = page.locator( '#poocommerce-email-editor' );
 		await expect( editorLocator ).toBeVisible();
 
 		// Check listview sidebar toggle button selector

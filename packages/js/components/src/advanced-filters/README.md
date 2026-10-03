@@ -12,21 +12,21 @@ const config = {
 		// A sentence describing filters for Orders
 		// See screen shot for context: https://cloudup.com/cSsUY9VeCVJ
 		'Orders Match <select/> Filters',
-		'woocommerce'
+		'poocommerce'
 	),
 	filters: {
 		status: {
 			labels: {
-				add: __( 'Order Status', 'woocommerce' ),
-				remove: __( 'Remove order status filter', 'woocommerce' ),
+				add: __( 'Order Status', 'poocommerce' ),
+				remove: __( 'Remove order status filter', 'poocommerce' ),
 				rule: __(
 					'Select an order status filter match',
-					'woocommerce'
+					'poocommerce'
 				),
 				// A sentence describing an Order Status filter
 				// See screen shot for context: https://cloudup.com/cSsUY9VeCVJ
-				title: __( 'Order Status <rule/> <filter/>', 'woocommerce' ),
-				filter: __( 'Select an order status', 'woocommerce' ),
+				title: __( 'Order Status <rule/> <filter/>', 'poocommerce' ),
+				filter: __( 'Select an order status', 'poocommerce' ),
 			},
 			rules: [
 				{
@@ -34,14 +34,14 @@ const config = {
 					// Sentence fragment, logical, "Is"
 					// Refers to searching for orders matching a chosen order status
 					// Screenshot for context: https://cloudup.com/cSsUY9VeCVJ
-					label: _x( 'Is', 'order status', 'woocommerce' ),
+					label: _x( 'Is', 'order status', 'poocommerce' ),
 				},
 				{
 					value: 'is_not',
 					// Sentence fragment, logical, "Is Not"
 					// Refers to searching for orders that don't match a chosen order status
 					// Screenshot for context: https://cloudup.com/cSsUY9VeCVJ
-					label: _x( 'Is Not', 'order status', 'woocommerce' ),
+					label: _x( 'Is Not', 'order status', 'poocommerce' ),
 				},
 			],
 			input: {
@@ -70,7 +70,7 @@ Taking the above configuration as an example, applying the filter will result in
 | `query`                  | Object   | `null`    | The query string represented in object form.                                       |
 | `onAdvancedFilterAction` | Function | `null`    | Function to be called after an advanced filter action has been taken.              |
 | `siteLocale`             | string   | `'en_US'` | The siteLocale for the site.                                                       |
-| `currency`               | Object   | `null`    | (required) The currency instance for the site (@woocommerce/currency).             |
+| `currency`               | Object   | `null`    | (required) The currency instance for the site (@poocommerce/currency).             |
 
 ## Input Components
 
@@ -121,7 +121,7 @@ const config = {
 };
 ```
 
-`type`: A string Autocompleter type used by the [Search Component](https://github.com/woocommerce/woocommerce/tree/trunk/packages/js/components/src/search).
+`type`: A string Autocompleter type used by the [Search Component](https://github.com/poocommerce/poocommerce/tree/trunk/packages/js/components/src/search).
 `getLabels`: A function returning a Promise resolving to an array of objects with `id` and `label` properties.
 
 ### Date
@@ -136,15 +136,15 @@ const config = {
 			rules: [
 				{
 					value: 'before',
-					label: __( 'Before', 'woocommerce' ),
+					label: __( 'Before', 'poocommerce' ),
 				},
 				{
 					value: 'after',
-					label: __( 'After', 'woocommerce' ),
+					label: __( 'After', 'poocommerce' ),
 				},
 				{
 					value: 'between',
-					label: __( 'Between', 'woocommerce' ),
+					label: __( 'Between', 'poocommerce' ),
 				},
 			],
 			input: {
@@ -169,15 +169,15 @@ const config = {
 			rules: [
 				{
 					value: 'lessthan',
-					label: __( 'Less Than', 'woocommerce' ),
+					label: __( 'Less Than', 'poocommerce' ),
 				},
 				{
 					value: 'morethan',
-					label: __( 'More Than', 'woocommerce' ),
+					label: __( 'More Than', 'poocommerce' ),
 				},
 				{
 					value: 'between',
-					label: __( 'Between', 'woocommerce' ),
+					label: __( 'Between', 'poocommerce' ),
 				},
 			],
 			input: {

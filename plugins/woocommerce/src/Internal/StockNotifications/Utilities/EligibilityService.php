@@ -1,14 +1,14 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\StockNotifications\Utilities;
+namespace Automattic\PooCommerce\Internal\StockNotifications\Utilities;
 
-use Automattic\WooCommerce\Internal\StockNotifications\Notification;
-use Automattic\WooCommerce\Internal\StockNotifications\Config;
-use Automattic\WooCommerce\Internal\StockNotifications\NotificationQuery;
-use Automattic\WooCommerce\Internal\StockNotifications\Utilities\StockManagementHelper;
-use Automattic\WooCommerce\Enums\ProductType;
-use Automattic\WooCommerce\Enums\ProductStatus;
+use Automattic\PooCommerce\Internal\StockNotifications\Notification;
+use Automattic\PooCommerce\Internal\StockNotifications\Config;
+use Automattic\PooCommerce\Internal\StockNotifications\NotificationQuery;
+use Automattic\PooCommerce\Internal\StockNotifications\Utilities\StockManagementHelper;
+use Automattic\PooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Enums\ProductStatus;
 use WC_Product;
 
 /**
@@ -62,7 +62,7 @@ class EligibilityService {
 		}
 
 		/**
-		 * Filter: woocommerce_customer_stock_notifications_product_is_valid
+		 * Filter: poocommerce_customer_stock_notifications_product_is_valid
 		 * Allows custom validation for whether a product is generally eligible for notifications.
 		 *
 		 * @since 10.2.0
@@ -71,7 +71,7 @@ class EligibilityService {
 		 * @param WC_Product $product The product to check.
 		 * @return bool True if the product is valid for notifications, false otherwise.
 		 */
-		return (bool) apply_filters( 'woocommerce_customer_stock_notifications_product_is_valid', true, $product );
+		return (bool) apply_filters( 'poocommerce_customer_stock_notifications_product_is_valid', true, $product );
 	}
 
 	/**
@@ -162,14 +162,14 @@ class EligibilityService {
 			$user_id = $notification->get_user_id();
 			if ( $user_id ) {
 				$user = get_user_by( 'id', $user_id );
-				if ( $user && ( user_can( $user, 'manage_woocommerce' ) || user_can( $user, 'manage_options' ) ) ) {
+				if ( $user && ( user_can( $user, 'manage_poocommerce' ) || user_can( $user, 'manage_options' ) ) ) {
 					$should_skip = false;
 				}
 			}
 		}
 
 		/**
-		 * Filter: woocommerce_customer_stock_notification_should_skip_sending
+		 * Filter: poocommerce_customer_stock_notification_should_skip_sending
 		 *
 		 * @since 10.2.0
 		 *
@@ -179,7 +179,7 @@ class EligibilityService {
 		 * @param int  $notification_id The notification ID.
 		 * @return bool
 		 */
-		return (bool) apply_filters( 'woocommerce_customer_stock_notification_should_skip_sending', $should_skip, $notification->get_id() );
+		return (bool) apply_filters( 'poocommerce_customer_stock_notification_should_skip_sending', $should_skip, $notification->get_id() );
 	}
 
 	/**
@@ -191,13 +191,13 @@ class EligibilityService {
 	private function is_notification_throttled( Notification $notification ): bool {
 
 		/**
-		 * Filter: woocommerce_customer_stock_notification_throttle_threshold
+		 * Filter: poocommerce_customer_stock_notification_throttle_threshold
 		 *
 		 * @since 10.2.0
 		 *
 		 * @param int $threshold Throttle time in seconds should pass from the last notification delivery time.
 		 */
-		$threshold = (int) apply_filters( 'woocommerce_customer_stock_notification_throttle_threshold', self::SPAM_THRESHOLD );
+		$threshold = (int) apply_filters( 'poocommerce_customer_stock_notification_throttle_threshold', self::SPAM_THRESHOLD );
 		if ( $threshold <= 0 ) {
 			return false;
 		}

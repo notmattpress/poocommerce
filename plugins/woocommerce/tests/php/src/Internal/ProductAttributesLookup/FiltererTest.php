@@ -2,17 +2,17 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\ProductAttributesLookup;
+namespace Automattic\PooCommerce\Tests\Internal\ProductAttributesLookup;
 
-use Automattic\WooCommerce\Enums\ProductTaxStatus;
-use Automattic\WooCommerce\Internal\AttributesHelper;
-use Automattic\WooCommerce\Internal\ProductAttributesLookup\Filterer;
-use Automattic\WooCommerce\Internal\ProductFilters\FilterDataProvider;
-use Automattic\WooCommerce\Internal\ProductFilters\QueryClauses;
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper;
-use Automattic\WooCommerce\Utilities\ArrayUtil;
-use Automattic\WooCommerce\Enums\ProductStockStatus;
-use Automattic\WooCommerce\Enums\ProductStatus;
+use Automattic\PooCommerce\Enums\ProductTaxStatus;
+use Automattic\PooCommerce\Internal\AttributesHelper;
+use Automattic\PooCommerce\Internal\ProductAttributesLookup\Filterer;
+use Automattic\PooCommerce\Internal\ProductFilters\FilterDataProvider;
+use Automattic\PooCommerce\Internal\ProductFilters\QueryClauses;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper;
+use Automattic\PooCommerce\Utilities\ArrayUtil;
+use Automattic\PooCommerce\Enums\ProductStockStatus;
+use Automattic\PooCommerce\Enums\ProductStatus;
 
 /**
  * Tests related to filtering for WC_Query.
@@ -84,7 +84,7 @@ class FiltererTest extends \WC_Unit_Test_Case {
 	 * Runs after each test.
 	 */
 	public function tearDown(): void {
-		remove_all_filters( 'woocommerce_layered_nav_count_cache_max_entries' );
+		remove_all_filters( 'poocommerce_layered_nav_count_cache_max_entries' );
 
 		$attribute_ids_by_name = wc_get_attribute_taxonomy_ids();
 		foreach ( array_keys( $attribute_ids_by_name ) as $attribute_name ) {
@@ -93,7 +93,7 @@ class FiltererTest extends \WC_Unit_Test_Case {
 			unregister_taxonomy( $taxonomy_name );
 		}
 
-		\WC_Cache_Helper::invalidate_cache_group( 'woocommerce-attributes' );
+		\WC_Cache_Helper::invalidate_cache_group( 'poocommerce-attributes' );
 		\WC_Query::reset_chosen_attributes();
 		parent::tearDown();
 	}
@@ -102,7 +102,7 @@ class FiltererTest extends \WC_Unit_Test_Case {
 	 * @testdox Layered nav count cache entries are capped per taxonomy transient.
 	 */
 	public function test_layered_nav_count_cache_entries_are_capped() {
-		add_filter( 'woocommerce_layered_nav_count_cache_max_entries', fn() => 2 );
+		add_filter( 'poocommerce_layered_nav_count_cache_max_entries', fn() => 2 );
 
 		$cached_counts = array(
 			'first'  => array( 1 => 1 ),
@@ -125,7 +125,7 @@ class FiltererTest extends \WC_Unit_Test_Case {
 	 * @testdox The layered nav count cache cap can be disabled.
 	 */
 	public function test_layered_nav_count_cache_cap_can_be_disabled() {
-		add_filter( 'woocommerce_layered_nav_count_cache_max_entries', '__return_zero' );
+		add_filter( 'poocommerce_layered_nav_count_cache_max_entries', '__return_zero' );
 
 		$cached_counts = array(
 			'first'  => array( 1 => 1 ),
@@ -457,7 +457,7 @@ class FiltererTest extends \WC_Unit_Test_Case {
 	 * @param bool $hide The value to set the option to.
 	 */
 	private function set_hide_out_of_stock_items( $hide ) {
-		update_option( 'woocommerce_hide_out_of_stock_items', $hide ? 'yes' : 'no' );
+		update_option( 'poocommerce_hide_out_of_stock_items', $hide ? 'yes' : 'no' );
 	}
 
 	/**
@@ -466,7 +466,7 @@ class FiltererTest extends \WC_Unit_Test_Case {
 	 * @param bool $use The value to set the option to.
 	 */
 	private function set_use_lookup_table( $use ) {
-		update_option( 'woocommerce_attribute_lookup_enabled', $use ? 'yes' : 'no' );
+		update_option( 'poocommerce_attribute_lookup_enabled', $use ? 'yes' : 'no' );
 	}
 
 	/**
@@ -611,12 +611,12 @@ class FiltererTest extends \WC_Unit_Test_Case {
 
 			return $query;
 		};
-		add_filter( 'woocommerce_get_filtered_term_product_counts_query', $scope_to_owned_products );
+		add_filter( 'poocommerce_get_filtered_term_product_counts_query', $scope_to_owned_products );
 
 		try {
 			$term_counts = $widget->get_filtered_term_product_counts( $term_ids_by_name, $taxonomy, $filter_type );
 		} finally {
-			remove_filter( 'woocommerce_get_filtered_term_product_counts_query', $scope_to_owned_products );
+			remove_filter( 'poocommerce_get_filtered_term_product_counts_query', $scope_to_owned_products );
 		}
 		$this->assertEqualsCanonicalizing( $expected, $term_counts );
 	}

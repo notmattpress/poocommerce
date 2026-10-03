@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { gallery as icon } from '@wordpress/icons';
-import { registerProductBlockType } from '@woocommerce/utils/register-product-block-type';
+import { registerProductBlockType } from '@poocommerce/utils/register-product-block-type';
 import { createBlock } from '@wordpress/blocks';
 
 /**
@@ -12,7 +12,7 @@ import edit from './edit';
 import metadata from './block.json';
 import './style.scss';
 
-const galleryBlock = 'woocommerce/product-gallery';
+const galleryBlock = 'poocommerce/product-gallery';
 
 const blockConfig = {
 	...metadata,

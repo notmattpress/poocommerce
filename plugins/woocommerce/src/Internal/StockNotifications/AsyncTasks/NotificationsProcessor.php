@@ -2,17 +2,17 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\StockNotifications\AsyncTasks;
+namespace Automattic\PooCommerce\Internal\StockNotifications\AsyncTasks;
 
-use Automattic\WooCommerce\Internal\StockNotifications\AsyncTasks\JobManager;
-use Automattic\WooCommerce\Internal\StockNotifications\AsyncTasks\CycleStateService;
-use Automattic\WooCommerce\Internal\StockNotifications\Utilities\EligibilityService;
-use Automattic\WooCommerce\Internal\StockNotifications\Emails\EmailManager;
-use Automattic\WooCommerce\Internal\StockNotifications\Factory;
-use Automattic\WooCommerce\Internal\StockNotifications\Notification;
-use Automattic\WooCommerce\Internal\StockNotifications\NotificationQuery;
-use Automattic\WooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
-use Automattic\WooCommerce\Internal\StockNotifications\Enums\NotificationCancellationSource;
+use Automattic\PooCommerce\Internal\StockNotifications\AsyncTasks\JobManager;
+use Automattic\PooCommerce\Internal\StockNotifications\AsyncTasks\CycleStateService;
+use Automattic\PooCommerce\Internal\StockNotifications\Utilities\EligibilityService;
+use Automattic\PooCommerce\Internal\StockNotifications\Emails\EmailManager;
+use Automattic\PooCommerce\Internal\StockNotifications\Factory;
+use Automattic\PooCommerce\Internal\StockNotifications\Notification;
+use Automattic\PooCommerce\Internal\StockNotifications\NotificationQuery;
+use Automattic\PooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
+use Automattic\PooCommerce\Internal\StockNotifications\Enums\NotificationCancellationSource;
 use WC_Product;
 
 /**
@@ -98,7 +98,7 @@ class NotificationsProcessor {
 	 */
 	private function get_batch_size(): int {
 		/**
-		 * Filter: woocommerce_customer_stock_notifications_batch_size
+		 * Filter: poocommerce_customer_stock_notifications_batch_size
 		 *
 		 * @since 10.2.0
 		 *
@@ -107,7 +107,7 @@ class NotificationsProcessor {
 		 * @param int $batch_size Default batch size.
 		 * @return int
 		 */
-		return (int) apply_filters( 'woocommerce_customer_stock_notifications_batch_size', self::BATCH_SIZE );
+		return (int) apply_filters( 'poocommerce_customer_stock_notifications_batch_size', self::BATCH_SIZE );
 	}
 
 	/**

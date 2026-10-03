@@ -2,7 +2,7 @@
 /**
  * Move product to the correct location.
  *
- * @package WooCommerce\WCCom
+ * @package PooCommerce\WCCom
  * @since   7.7.0
  */
 

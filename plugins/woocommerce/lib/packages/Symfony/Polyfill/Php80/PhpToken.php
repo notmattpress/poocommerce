@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Automattic\WooCommerce\Vendor\Symfony\Polyfill\Php80;
+namespace Automattic\PooCommerce\Vendor\Symfony\Polyfill\Php80;
 
 /**
  * @author Fedonyuk Anton <info@ensostudio.ru>

@@ -2,7 +2,7 @@
 /**
  * Account function tests
  *
- * @package WooCommerce\Tests\Account
+ * @package PooCommerce\Tests\Account
  */
 
 /**
@@ -31,7 +31,7 @@ class WC_Tests_Account_Functions extends WC_Unit_Test_Case {
 		// Create the account page, since other tests may delete it.
 		$page = wc_create_page(
 			'myaccount',
-			'woocommerce_myaccount_page_id',
+			'poocommerce_myaccount_page_id',
 			'My Account',
 			'',
 			'',
@@ -90,7 +90,7 @@ class WC_Tests_Account_Functions extends WC_Unit_Test_Case {
 	 * @since 3.3.0
 	 */
 	public function test_wc_get_account_menu_item_classes() {
-		$this->assertEquals( 'woocommerce-MyAccount-navigation-link woocommerce-MyAccount-navigation-link--test', wc_get_account_menu_item_classes( 'test' ) );
+		$this->assertEquals( 'poocommerce-MyAccount-navigation-link poocommerce-MyAccount-navigation-link--test', wc_get_account_menu_item_classes( 'test' ) );
 	}
 
 	/**
@@ -211,7 +211,7 @@ class WC_Tests_Account_Functions extends WC_Unit_Test_Case {
 
 		// Add malformed entries via the filter.
 		add_filter(
-			'woocommerce_my_account_my_orders_actions',
+			'poocommerce_my_account_my_orders_actions',
 			static function ( $actions ) {
 				$actions['invalid_bool']    = false;
 				$actions['invalid_string']  = 'not-an-array';
@@ -255,7 +255,7 @@ class WC_Tests_Account_Functions extends WC_Unit_Test_Case {
 		$order = WC_Helper_Order::create_order();
 
 		add_filter(
-			'woocommerce_my_account_my_orders_actions',
+			'poocommerce_my_account_my_orders_actions',
 			'__return_false'
 		);
 

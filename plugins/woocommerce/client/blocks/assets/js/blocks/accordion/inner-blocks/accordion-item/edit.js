@@ -13,8 +13,8 @@ import { useEffect } from '@wordpress/element';
 import { PanelBody, ToggleControl } from '@wordpress/components';
 import clsx from 'clsx';
 
-const ACCORDION_HEADER_BLOCK_NAME = 'woocommerce/accordion-header';
-const ACCORDION_PANEL_BLOCK_NAME = 'woocommerce/accordion-panel';
+const ACCORDION_HEADER_BLOCK_NAME = 'poocommerce/accordion-header';
+const ACCORDION_PANEL_BLOCK_NAME = 'poocommerce/accordion-panel';
 
 export default function Edit( {
 	attributes: { openByDefault },
@@ -83,9 +83,9 @@ export default function Edit( {
 	return (
 		<>
 			<InspectorControls key="setting">
-				<PanelBody title={ __( 'Settings', 'woocommerce' ) }>
+				<PanelBody title={ __( 'Settings', 'poocommerce' ) }>
 					<ToggleControl
-						label={ __( 'Open by default', 'woocommerce' ) }
+						label={ __( 'Open by default', 'poocommerce' ) }
 						__nextHasNoMarginBottom
 						onChange={ ( value ) => {
 							setAttributes( {
@@ -100,7 +100,7 @@ export default function Edit( {
 						checked={ openByDefault }
 						help={ __(
 							'Accordion content will be displayed by default.',
-							'woocommerce'
+							'poocommerce'
 						) }
 					/>
 				</PanelBody>

@@ -1,6 +1,6 @@
 <?php
 
-namespace Automattic\WooCommerce\Caching;
+namespace Automattic\PooCommerce\Caching;
 
 /**
  * Implements namespacing algorithm to simulate grouping and namespacing for wp_cache, memcache and other caching engines that don't support grouping natively.
@@ -32,14 +32,14 @@ trait CacheNameSpaceTrait {
 
 		if ( $found ) {
 			/**
-			 * Fires when WooCommerce detects an invalid cache prefix before replacing it.
+			 * Fires when PooCommerce detects an invalid cache prefix before replacing it.
 			 *
 			 * @since 10.8.0
 			 *
 			 * @param string $group  Cache group.
 			 * @param mixed  $prefix Invalid cached prefix value.
 			 */
-			do_action( 'woocommerce_invalid_cache_prefix_detected', $group, $prefix );
+			do_action( 'poocommerce_invalid_cache_prefix_detected', $group, $prefix );
 		}
 
 		$prefix = self::generate_cache_prefix();

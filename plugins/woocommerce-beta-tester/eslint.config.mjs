@@ -7,7 +7,7 @@ import globals from 'globals';
 /**
  * Internal dependencies
  */
-import woocommerce from '@woocommerce/eslint-config';
+import poocommerce from '@poocommerce/eslint-config';
 
 export default [
 	// node_modules is ignored by default.
@@ -17,7 +17,7 @@ export default [
 		'build-module/**',
 		'vendor/**',
 	] ),
-	...woocommerce,
+	...poocommerce,
 	{
 		languageOptions: {
 			globals: {

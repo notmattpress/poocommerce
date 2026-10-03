@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { Locator, Page } from '@playwright/test';
-import { WC_API_PATH } from '@woocommerce/e2e-utils-playwright';
+import { WC_API_PATH } from '@poocommerce/e2e-utils-playwright';
 
 /**
  * Internal dependencies
@@ -132,7 +132,7 @@ test( 'can use the "Add new product" command', async ( { page } ) => {
 	await findCommandPaletteOption( {
 		page,
 		searchBox,
-		optionName: 'WooCommerce Analytics: Products',
+		optionName: 'PooCommerce Analytics: Products',
 	} );
 
 	const option = await findCommandPaletteOption( {

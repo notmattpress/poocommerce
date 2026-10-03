@@ -1,5 +1,5 @@
 /**
- * Smoke tests for @woocommerce/blocks-checkout public exports.
+ * Smoke tests for @poocommerce/blocks-checkout public exports.
  *
  * These tests verify that the barrel file correctly re-exports
  * paymentMethodCommonIcons and getCommonIconProps so that third-party
@@ -12,9 +12,9 @@
 import {
 	paymentMethodCommonIcons,
 	getCommonIconProps,
-} from '@woocommerce/blocks-checkout';
+} from '@poocommerce/blocks-checkout';
 
-describe( '@woocommerce/blocks-checkout payment icon exports', () => {
+describe( '@poocommerce/blocks-checkout payment icon exports', () => {
 	it( 'exports paymentMethodCommonIcons as a non-empty array', () => {
 		expect( Array.isArray( paymentMethodCommonIcons ) ).toBe( true );
 		expect( paymentMethodCommonIcons.length ).toBeGreaterThan( 0 );

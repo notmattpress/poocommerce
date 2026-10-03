@@ -2,11 +2,11 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\StockNotifications;
+namespace Automattic\PooCommerce\Tests\Internal\StockNotifications;
 
-use Automattic\WooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
-use Automattic\WooCommerce\Internal\StockNotifications\Notification;
-use Automattic\WooCommerce\Internal\StockNotifications\Telemetry;
+use Automattic\PooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
+use Automattic\PooCommerce\Internal\StockNotifications\Notification;
+use Automattic\PooCommerce\Internal\StockNotifications\Telemetry;
 
 /**
  * Telemetry tests.
@@ -27,9 +27,9 @@ class TelemetryTests extends \WC_Unit_Test_Case {
 	 * Tear down the test.
 	 */
 	public function tearDown(): void {
-		delete_option( 'woocommerce_customer_stock_notifications_allow_signups' );
-		delete_option( 'woocommerce_customer_stock_notifications_require_double_opt_in' );
-		delete_option( 'woocommerce_customer_stock_notifications_require_account' );
+		delete_option( 'poocommerce_customer_stock_notifications_allow_signups' );
+		delete_option( 'poocommerce_customer_stock_notifications_require_double_opt_in' );
+		delete_option( 'poocommerce_customer_stock_notifications_require_account' );
 		$this->restore_stock_notifications_feature_option();
 		parent::tearDown();
 	}
@@ -38,9 +38,9 @@ class TelemetryTests extends \WC_Unit_Test_Case {
 	 * The snapshot reports the feature's settings as the merchant configured them.
 	 */
 	public function test_snapshot_reports_settings() {
-		update_option( 'woocommerce_customer_stock_notifications_allow_signups', 'yes' );
-		update_option( 'woocommerce_customer_stock_notifications_require_double_opt_in', 'yes' );
-		update_option( 'woocommerce_customer_stock_notifications_require_account', 'no' );
+		update_option( 'poocommerce_customer_stock_notifications_allow_signups', 'yes' );
+		update_option( 'poocommerce_customer_stock_notifications_require_double_opt_in', 'yes' );
+		update_option( 'poocommerce_customer_stock_notifications_require_account', 'no' );
 
 		$settings = Telemetry::collect_snapshot()['settings'];
 

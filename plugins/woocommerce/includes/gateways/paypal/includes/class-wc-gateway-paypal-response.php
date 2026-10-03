@@ -2,10 +2,10 @@
 /**
  * Class WC_Gateway_Paypal_Response file.
  *
- * @package WooCommerce\Gateways
+ * @package PooCommerce\Gateways
  */
 
-use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Enums\OrderStatus;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;

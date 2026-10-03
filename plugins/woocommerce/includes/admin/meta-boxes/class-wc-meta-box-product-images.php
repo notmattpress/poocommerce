@@ -6,12 +6,12 @@
  *
  * @author      WooThemes
  * @category    Admin
- * @package     WooCommerce\Admin\Meta Boxes
+ * @package     PooCommerce\Admin\Meta Boxes
  * @version     2.1.0
  */
 
-use Automattic\WooCommerce\Enums\ProductType;
-use Automattic\WooCommerce\Internal\ProductGallery\ProductMediaGallery;
+use Automattic\PooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Internal\ProductGallery\ProductMediaGallery;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
@@ -33,7 +33,7 @@ class WC_Meta_Box_Product_Images {
 		$thepostid      = $post->ID;
 		$product_object = $thepostid ? wc_get_product( $thepostid ) : new WC_Product();
 		$product_object = $product_object instanceof WC_Product ? $product_object : new WC_Product();
-		wp_nonce_field( 'woocommerce_save_data', 'woocommerce_meta_nonce' );
+		wp_nonce_field( 'poocommerce_save_data', 'poocommerce_meta_nonce' );
 		?>
 		<div id="product_images_container">
 			<ul class="product_images">
@@ -95,11 +95,11 @@ class WC_Meta_Box_Product_Images {
 						>
 							<?php echo $attachment; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 							<ul class="actions">
-								<li><a href="#" class="delete tips" data-tip="<?php esc_attr_e( 'Delete media', 'woocommerce' ); ?>"><?php esc_html_e( 'Delete', 'woocommerce' ); ?></a></li>
+								<li><a href="#" class="delete tips" data-tip="<?php esc_attr_e( 'Delete media', 'poocommerce' ); ?>"><?php esc_html_e( 'Delete', 'poocommerce' ); ?></a></li>
 							</ul>
 							<?php
 							// Allow for extra info to be exposed or extra action to be executed for this attachment.
-							do_action( 'woocommerce_admin_after_product_gallery_item', $thepostid, $attachment_id );
+							do_action( 'poocommerce_admin_after_product_gallery_item', $thepostid, $attachment_id );
 							?>
 						</li>
 						<?php
@@ -128,21 +128,21 @@ class WC_Meta_Box_Product_Images {
 			<?php if ( $product_gallery_videos_enabled ) : ?>
 				<a
 					href="#"
-					data-choose="<?php esc_attr_e( 'Add media to product gallery', 'woocommerce' ); ?>"
-					data-update="<?php esc_attr_e( 'Add to gallery', 'woocommerce' ); ?>"
-					data-delete="<?php esc_attr_e( 'Delete media', 'woocommerce' ); ?>"
-					data-text="<?php esc_attr_e( 'Delete', 'woocommerce' ); ?>"
+					data-choose="<?php esc_attr_e( 'Add media to product gallery', 'poocommerce' ); ?>"
+					data-update="<?php esc_attr_e( 'Add to gallery', 'poocommerce' ); ?>"
+					data-delete="<?php esc_attr_e( 'Delete media', 'poocommerce' ); ?>"
+					data-text="<?php esc_attr_e( 'Delete', 'poocommerce' ); ?>"
 					data-allow_videos="yes"
-				><?php esc_html_e( 'Add media to product gallery', 'woocommerce' ); ?></a>
+				><?php esc_html_e( 'Add media to product gallery', 'poocommerce' ); ?></a>
 			<?php else : ?>
 				<a
 					href="#"
-					data-choose="<?php esc_attr_e( 'Add images to product gallery', 'woocommerce' ); ?>"
-					data-update="<?php esc_attr_e( 'Add to gallery', 'woocommerce' ); ?>"
-					data-delete="<?php esc_attr_e( 'Delete image', 'woocommerce' ); ?>"
-					data-text="<?php esc_attr_e( 'Delete', 'woocommerce' ); ?>"
+					data-choose="<?php esc_attr_e( 'Add images to product gallery', 'poocommerce' ); ?>"
+					data-update="<?php esc_attr_e( 'Add to gallery', 'poocommerce' ); ?>"
+					data-delete="<?php esc_attr_e( 'Delete image', 'poocommerce' ); ?>"
+					data-text="<?php esc_attr_e( 'Delete', 'poocommerce' ); ?>"
 					data-allow_videos="no"
-				><?php esc_html_e( 'Add product gallery images', 'woocommerce' ); ?></a>
+				><?php esc_html_e( 'Add product gallery images', 'poocommerce' ); ?></a>
 			<?php endif; ?>
 		</p>
 		<?php
@@ -207,7 +207,7 @@ class WC_Meta_Box_Product_Images {
 				'thumbnail',
 				false,
 				array(
-					'class' => 'woocommerce-product-gallery__video-preview',
+					'class' => 'poocommerce-product-gallery__video-preview',
 				)
 			);
 		}
@@ -220,7 +220,7 @@ class WC_Meta_Box_Product_Images {
 
 		if ( $video_src ) {
 			return sprintf(
-				'<video class="woocommerce-product-gallery__video-preview" src="%1$s" preload="metadata" muted="muted" aria-hidden="true"></video>',
+				'<video class="poocommerce-product-gallery__video-preview" src="%1$s" preload="metadata" muted="muted" aria-hidden="true"></video>',
 				esc_url( $video_src )
 			);
 		}
@@ -230,7 +230,7 @@ class WC_Meta_Box_Product_Images {
 			'thumbnail',
 			true,
 			array(
-				'class' => 'woocommerce-product-gallery__video-preview',
+				'class' => 'poocommerce-product-gallery__video-preview',
 			)
 		);
 	}

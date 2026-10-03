@@ -3,10 +3,10 @@
  */
 import { __ } from '@wordpress/i18n';
 import { useBlockProps, InnerBlocks } from '@wordpress/block-editor';
-import { innerBlockAreas } from '@woocommerce/blocks-checkout';
+import { innerBlockAreas } from '@poocommerce/blocks-checkout';
 import type { TemplateArray } from '@wordpress/blocks';
-import { useEditorContext } from '@woocommerce/base-context';
-import { SHOP_URL } from '@woocommerce/block-settings';
+import { useEditorContext } from '@poocommerce/base-context';
+import { SHOP_URL } from '@poocommerce/block-settings';
 
 /**
  * Internal dependencies
@@ -24,7 +24,7 @@ const returnToShopTemplate = SHOP_URL
 				[
 					'core/button',
 					{
-						text: __( 'Return to shop', 'woocommerce' ),
+						text: __( 'Return to shop', 'poocommerce' ),
 						url: SHOP_URL,
 					},
 				],
@@ -45,7 +45,7 @@ const defaultTemplate = [
 		'core/heading',
 		{
 			...centeredHeading,
-			content: __( 'Your cart is empty', 'woocommerce' ),
+			content: __( 'Your cart is empty', 'poocommerce' ),
 			level: 2,
 			className: 'wc-block-cart__empty-cart__title',
 		},
@@ -61,12 +61,12 @@ const defaultTemplate = [
 		'core/heading',
 		{
 			...centeredHeading,
-			content: __( 'New in store', 'woocommerce' ),
+			content: __( 'New in store', 'poocommerce' ),
 			level: 2,
 		},
 	],
 	[
-		'woocommerce/product-new',
+		'poocommerce/product-new',
 		{
 			columns: 4,
 			rows: 1,
@@ -88,7 +88,7 @@ export const Edit = ( { clientId }: { clientId: string } ): JSX.Element => {
 	return (
 		<div
 			{ ...blockProps }
-			hidden={ currentView !== 'woocommerce/empty-cart-block' }
+			hidden={ currentView !== 'poocommerce/empty-cart-block' }
 		>
 			<InnerBlocks
 				template={ defaultTemplate }

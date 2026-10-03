@@ -104,11 +104,11 @@ Each segment adds one identifier. Avoid flat URLs like `/items/{key}` when keys 
 
 Use these as canonical examples for new routes:
 
-- **Read collection:** [`Cart::get_route_response`](../../../plugins/woocommerce/src/StoreApi/Routes/V1/Cart.php).
-- **Read single item:** [`CartCouponsByCode::get_route_response`](../../../plugins/woocommerce/src/StoreApi/Routes/V1/CartCouponsByCode.php).
-- **Collection POST:** [`CartItems::get_route_post_response`](../../../plugins/woocommerce/src/StoreApi/Routes/V1/CartItems.php).
-- **Single-item DELETE (204 + null):** [`CartItemsByKey::get_route_delete_response`](../../../plugins/woocommerce/src/StoreApi/Routes/V1/CartItemsByKey.php).
-- **Collection DELETE (200 + empty array, clears all):** [`CartItems::get_route_delete_response`](../../../plugins/woocommerce/src/StoreApi/Routes/V1/CartItems.php) — note this is "empty everything" semantics, not "delete one member."
-- **Action route:** [`CartAddItem`](../../../plugins/woocommerce/src/StoreApi/Routes/V1/CartAddItem.php), [`CartApplyCoupon`](../../../plugins/woocommerce/src/StoreApi/Routes/V1/CartApplyCoupon.php).
+- **Read collection:** [`Cart::get_route_response`](../../../plugins/poocommerce/src/StoreApi/Routes/V1/Cart.php).
+- **Read single item:** [`CartCouponsByCode::get_route_response`](../../../plugins/poocommerce/src/StoreApi/Routes/V1/CartCouponsByCode.php).
+- **Collection POST:** [`CartItems::get_route_post_response`](../../../plugins/poocommerce/src/StoreApi/Routes/V1/CartItems.php).
+- **Single-item DELETE (204 + null):** [`CartItemsByKey::get_route_delete_response`](../../../plugins/poocommerce/src/StoreApi/Routes/V1/CartItemsByKey.php).
+- **Collection DELETE (200 + empty array, clears all):** [`CartItems::get_route_delete_response`](../../../plugins/poocommerce/src/StoreApi/Routes/V1/CartItems.php) — note this is "empty everything" semantics, not "delete one member."
+- **Action route:** [`CartAddItem`](../../../plugins/poocommerce/src/StoreApi/Routes/V1/CartAddItem.php), [`CartApplyCoupon`](../../../plugins/poocommerce/src/StoreApi/Routes/V1/CartApplyCoupon.php).
 
 When in doubt, copy the cart precedent. The Store API was built around the cart's response patterns, so aligning with cart routes minimises surprise for both reviewers and frontend consumers.

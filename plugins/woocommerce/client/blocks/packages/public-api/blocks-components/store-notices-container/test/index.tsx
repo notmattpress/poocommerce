@@ -274,11 +274,11 @@ describe( 'StoreNoticesContainer', () => {
 		// the notice id. Keep the same hook here so scripts and themes can target
 		// an individual notice.
 		dispatch( noticesStore ).createErrorNotice( 'First data-id error', {
-			id: 'woocommerce_rest_cart_coupon_error',
+			id: 'poocommerce_rest_cart_coupon_error',
 			context: 'test-context',
 		} );
 		dispatch( noticesStore ).createErrorNotice( 'Second data-id error', {
-			id: 'woocommerce_rest_invalid_postcode',
+			id: 'poocommerce_rest_invalid_postcode',
 			context: 'test-context',
 		} );
 		const { container } = render(
@@ -290,20 +290,20 @@ describe( 'StoreNoticesContainer', () => {
 				item.getAttribute( 'data-id' )
 			)
 		).toEqual( [
-			'woocommerce_rest_cart_coupon_error',
-			'woocommerce_rest_invalid_postcode',
+			'poocommerce_rest_cart_coupon_error',
+			'poocommerce_rest_invalid_postcode',
 		] );
 
 		// Clean up notices.
 		await act( () =>
 			dispatch( noticesStore ).removeNotice(
-				'woocommerce_rest_cart_coupon_error',
+				'poocommerce_rest_cart_coupon_error',
 				'test-context'
 			)
 		);
 		await act( () =>
 			dispatch( noticesStore ).removeNotice(
-				'woocommerce_rest_invalid_postcode',
+				'poocommerce_rest_invalid_postcode',
 				'test-context'
 			)
 		);

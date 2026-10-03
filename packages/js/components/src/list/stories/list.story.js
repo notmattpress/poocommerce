@@ -49,7 +49,7 @@ export default {
 					<Description
 						markdown={ `[deprecated] and will be replaced by
 						<a
-							data-sb-kind="woocommerce-admin-experimental-list"
+							data-sb-kind="poocommerce-admin-experimental-list"
 							data-sb-story="default"
 						>
 							ExperimentalList
@@ -67,8 +67,8 @@ export default {
 export const Default = () => {
 	const listItems = [
 		{
-			title: 'WooCommerce.com',
-			href: 'https://woocommerce.com',
+			title: 'PooCommerce.com',
+			href: 'https://poocommerce.com',
 			onClick: logItemClick,
 		},
 		{
@@ -100,8 +100,8 @@ export const BeforeAndAfter = () => {
 		{
 			before: <Gridicon icon="cart" />,
 			after: <Gridicon icon="chevron-right" />,
-			title: 'WooCommerce.com',
-			href: 'https://woocommerce.com',
+			title: 'PooCommerce.com',
+			href: 'https://poocommerce.com',
 			onClick: logItemClick,
 		},
 		{
@@ -138,8 +138,8 @@ export const CustomStyleAndTags = () => {
 		{
 			before: <Gridicon icon="cart" />,
 			after: <Gridicon icon="chevron-right" />,
-			title: 'WooCommerce.com',
-			href: 'https://woocommerce.com',
+			title: 'PooCommerce.com',
+			href: 'https://poocommerce.com',
 			onClick: logItemClick,
 			listItemTag: 'woo.com-link',
 		},

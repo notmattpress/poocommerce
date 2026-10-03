@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Blocks;
+namespace Automattic\PooCommerce\Blocks;
 
 /**
- * Adds WooCommerce compatibility behavior to the Core Breadcrumbs block.
+ * Adds PooCommerce compatibility behavior to the Core Breadcrumbs block.
  *
  * @internal
  */
@@ -17,7 +17,7 @@ final class CoreBreadcrumbsCompatibility {
 	 * Set the preferred taxonomy and term for the breadcrumbs block on the product post type.
 	 *
 	 * This method mimics the behavior of WC_Breadcrumb::add_crumbs_single() to ensure
-	 * consistent breadcrumb term selection between WooCommerce's legacy breadcrumbs
+	 * consistent breadcrumb term selection between PooCommerce's legacy breadcrumbs
 	 * and the Core breadcrumbs block.
 	 *
 	 * @internal
@@ -50,7 +50,7 @@ final class CoreBreadcrumbsCompatibility {
 			 * @param array $args Array of arguments for `wc_get_product_terms()`.
 			 */
 			apply_filters(
-				'woocommerce_breadcrumb_product_terms_args',
+				'poocommerce_breadcrumb_product_terms_args',
 				array(
 					'orderby' => 'parent',
 					'order'   => 'DESC',
@@ -70,7 +70,7 @@ final class CoreBreadcrumbsCompatibility {
 		 * @param \WP_Term   $main_term The main term to be used in breadcrumbs.
 		 * @param \WP_Term[] $terms     Array of all product category terms.
 		 */
-		$main_term = apply_filters( 'woocommerce_breadcrumb_main_term', $terms[0], $terms );
+		$main_term = apply_filters( 'poocommerce_breadcrumb_main_term', $terms[0], $terms );
 
 		if ( $main_term instanceof \WP_Term ) {
 			$settings['term'] = $main_term->slug;
@@ -80,29 +80,29 @@ final class CoreBreadcrumbsCompatibility {
 	}
 
 	/**
-	 * Apply WooCommerce breadcrumb filters to Core breadcrumbs block items.
+	 * Apply PooCommerce breadcrumb filters to Core breadcrumbs block items.
 	 *
-	 * This bridges the Core breadcrumbs block with WooCommerce's legacy breadcrumb filters,
+	 * This bridges the Core breadcrumbs block with PooCommerce's legacy breadcrumb filters,
 	 * ensuring backward compatibility for sites that have customized breadcrumbs using
-	 * the `woocommerce_get_breadcrumb` filter.
+	 * the `poocommerce_get_breadcrumb` filter.
 	 *
 	 * @internal
 	 *
 	 * @param array $items Array of breadcrumb items from Core.
 	 * @return array Modified breadcrumb items.
 	 */
-	public function apply_woocommerce_breadcrumb_filters( $items ) {
+	public function apply_poocommerce_breadcrumb_filters( $items ) {
 		if ( ! is_array( $items ) ) {
 			return $items;
 		}
 
-		$items = $this->apply_woocommerce_core_breadcrumb_adjustments( $items );
+		$items = $this->apply_poocommerce_core_breadcrumb_adjustments( $items );
 
-		if ( ! has_filter( 'woocommerce_get_breadcrumb' ) ) {
+		if ( ! has_filter( 'poocommerce_get_breadcrumb' ) ) {
 			return $items;
 		}
 
-		// Convert Core format to WooCommerce format.
+		// Convert Core format to PooCommerce format.
 		// Core: array( 'url' => '...', 'label' => '...' )
 		// Woo: array( 'label', 'url' ).
 		$wc_crumbs = array_map(
@@ -123,7 +123,7 @@ final class CoreBreadcrumbsCompatibility {
 		 * @param array               $crumbs The breadcrumb trail.
 		 * @param \WC_Breadcrumb|null $breadcrumb The breadcrumb object (null when called from Core block).
 		 */
-		$wc_crumbs = apply_filters( 'woocommerce_get_breadcrumb', $wc_crumbs, null );
+		$wc_crumbs = apply_filters( 'poocommerce_get_breadcrumb', $wc_crumbs, null );
 
 		$core_items = array();
 
@@ -147,12 +147,12 @@ final class CoreBreadcrumbsCompatibility {
 	}
 
 	/**
-	 * Apply WooCommerce breadcrumb behavior to Core breadcrumbs.
+	 * Apply PooCommerce breadcrumb behavior to Core breadcrumbs.
 	 *
 	 * @param array $items Array of breadcrumb items from Core.
 	 * @return array Modified breadcrumb items.
 	 */
-	private function apply_woocommerce_core_breadcrumb_adjustments( $items ) {
+	private function apply_poocommerce_core_breadcrumb_adjustments( $items ) {
 		if ( ! is_array( $items ) ) {
 			return $items;
 		}
@@ -170,13 +170,13 @@ final class CoreBreadcrumbsCompatibility {
 	}
 
 	/**
-	 * Apply WooCommerce's Home breadcrumb URL filter.
+	 * Apply PooCommerce's Home breadcrumb URL filter.
 	 *
 	 * @param array $items Array of breadcrumb items from Core.
 	 * @return array Modified breadcrumb items.
 	 */
 	private function apply_home_breadcrumb_url_filter( $items ) {
-		if ( ! has_filter( 'woocommerce_breadcrumb_home_url' ) ) {
+		if ( ! has_filter( 'poocommerce_breadcrumb_home_url' ) ) {
 			return $items;
 		}
 
@@ -195,7 +195,7 @@ final class CoreBreadcrumbsCompatibility {
 		 *
 		 * @since 2.3.0
 		 */
-		$home_url = apply_filters( 'woocommerce_breadcrumb_home_url', $default_home_url );
+		$home_url = apply_filters( 'poocommerce_breadcrumb_home_url', $default_home_url );
 
 		$items[ $home_index ]['url'] = is_string( $home_url ) ? $home_url : $default_home_url;
 
@@ -203,7 +203,7 @@ final class CoreBreadcrumbsCompatibility {
 	}
 
 	/**
-	 * Replace product archive breadcrumb labels with the WooCommerce shop page title.
+	 * Replace product archive breadcrumb labels with the PooCommerce shop page title.
 	 *
 	 * @param array $items Array of breadcrumb items from Core.
 	 * @return array Modified breadcrumb items.
@@ -242,7 +242,7 @@ final class CoreBreadcrumbsCompatibility {
 		}
 
 		$permalinks = wc_get_permalink_structure();
-		$shop_page  = $this->get_woocommerce_page_post( 'shop' );
+		$shop_page  = $this->get_poocommerce_page_post( 'shop' );
 
 		if (
 			! $shop_page ||
@@ -308,7 +308,7 @@ final class CoreBreadcrumbsCompatibility {
 	}
 
 	/**
-	 * Replace Core's search breadcrumb label with WooCommerce's search label.
+	 * Replace Core's search breadcrumb label with PooCommerce's search label.
 	 *
 	 * @param array $items Array of breadcrumb items from Core.
 	 * @return array Modified breadcrumb items.
@@ -321,11 +321,11 @@ final class CoreBreadcrumbsCompatibility {
 		$search_url = (int) get_query_var( 'paged' ) > 1 ? get_pagenum_link( 1 ) : '';
 
 		/* translators: %s: search term */
-		return $this->replace_current_archive_breadcrumb_label( $items, sprintf( __( 'Search results for &ldquo;%s&rdquo;', 'woocommerce' ), get_search_query() ), $search_url );
+		return $this->replace_current_archive_breadcrumb_label( $items, sprintf( __( 'Search results for &ldquo;%s&rdquo;', 'poocommerce' ), get_search_query() ), $search_url );
 	}
 
 	/**
-	 * Replace product tag breadcrumb labels with WooCommerce's tag archive label.
+	 * Replace product tag breadcrumb labels with PooCommerce's tag archive label.
 	 *
 	 * @param array $items Array of breadcrumb items from Core.
 	 * @return array Modified breadcrumb items.
@@ -348,7 +348,7 @@ final class CoreBreadcrumbsCompatibility {
 		}
 
 		/* translators: %s: product tag */
-		return $this->replace_current_archive_breadcrumb_label( $items, sprintf( __( 'Products tagged &ldquo;%s&rdquo;', 'woocommerce' ), $current_term->name ), $tag_link );
+		return $this->replace_current_archive_breadcrumb_label( $items, sprintf( __( 'Products tagged &ldquo;%s&rdquo;', 'poocommerce' ), $current_term->name ), $tag_link );
 	}
 
 	/**
@@ -362,19 +362,19 @@ final class CoreBreadcrumbsCompatibility {
 			return $items;
 		}
 
-		$my_account_page = $this->get_woocommerce_page_post( 'myaccount' );
+		$my_account_page = $this->get_poocommerce_page_post( 'myaccount' );
 		$my_account_url  = $my_account_page ? get_permalink( $my_account_page ) : '';
 
 		if ( ! $my_account_page || ! $my_account_url ) {
 			return $items;
 		}
 
-		$woocommerce = WC();
+		$poocommerce = WC();
 
-		if ( $woocommerce->query instanceof \WC_Query ) {
-			$endpoint       = $woocommerce->query->get_current_endpoint();
+		if ( $poocommerce->query instanceof \WC_Query ) {
+			$endpoint       = $poocommerce->query->get_current_endpoint();
 			$action         = isset( $_GET['action'] ) ? sanitize_text_field( wp_unslash( $_GET['action'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Used only to select the breadcrumb label.
-			$endpoint_title = $endpoint ? $woocommerce->query->get_endpoint_title( $endpoint, $action ) : '';
+			$endpoint_title = $endpoint ? $poocommerce->query->get_endpoint_title( $endpoint, $action ) : '';
 
 			if ( $endpoint_title ) {
 				$items = $this->replace_current_archive_breadcrumb_label( $items, $endpoint_title );
@@ -442,7 +442,7 @@ final class CoreBreadcrumbsCompatibility {
 	 * @return array|null Shop page breadcrumb item.
 	 */
 	private function get_shop_page_breadcrumb_item( $shop_url = '' ) {
-		$shop_page  = $this->get_woocommerce_page_post( 'shop' );
+		$shop_page  = $this->get_poocommerce_page_post( 'shop' );
 		$shop_url   = $shop_url ? $shop_url : (
 			$shop_page ? get_permalink( $shop_page ) : get_post_type_archive_link( 'product' )
 		);
@@ -464,12 +464,12 @@ final class CoreBreadcrumbsCompatibility {
 	}
 
 	/**
-	 * Get a WooCommerce page post.
+	 * Get a PooCommerce page post.
 	 *
-	 * @param string $page_name WooCommerce page name.
-	 * @return \WP_Post|null WooCommerce page post.
+	 * @param string $page_name PooCommerce page name.
+	 * @return \WP_Post|null PooCommerce page post.
 	 */
-	private function get_woocommerce_page_post( string $page_name ) {
+	private function get_poocommerce_page_post( string $page_name ) {
 		$page_id = wc_get_page_id( $page_name );
 
 		return $page_id > 0 ? get_post( $page_id ) : null;
@@ -595,7 +595,7 @@ final class CoreBreadcrumbsCompatibility {
 	}
 
 	/**
-	 * Get the index where WooCommerce should insert parent breadcrumb items.
+	 * Get the index where PooCommerce should insert parent breadcrumb items.
 	 *
 	 * @param array $items Array of breadcrumb items from Core.
 	 * @return int Breadcrumb insertion index.
