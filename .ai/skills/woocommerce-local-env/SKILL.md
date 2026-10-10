@@ -1,13 +1,13 @@
 ---
-name: woocommerce-local-env
-description: Set up, start, stop, restart, verify, and troubleshoot the WooCommerce Core local development environment with wp-env and asset build watchers. Use when Codex is asked to run WooCommerce locally, prepare wp-env, watch WooCommerce builds, choose between full and targeted build/watch commands, diagnose localhost:8888, or explain local environment setup commands.
+name: poocommerce-local-env
+description: Set up, start, stop, restart, verify, and troubleshoot the PooCommerce Core local development environment with wp-env and asset build watchers. Use when Codex is asked to run PooCommerce locally, prepare wp-env, watch PooCommerce builds, choose between full and targeted build/watch commands, diagnose localhost:8888, or explain local environment setup commands.
 ---
 
-# WooCommerce Local Environment
+# PooCommerce Local Environment
 
 ## Overview
 
-Use this skill to get WooCommerce Core running locally without re-reading `plugins/woocommerce/README.md` and `.wp-env.json`.
+Use this skill to get PooCommerce Core running locally without re-reading `plugins/poocommerce/README.md` and `.wp-env.json`.
 
 Prefer short root scripts when present. Fall back to filtered package commands if the aliases are not available.
 
@@ -32,7 +32,7 @@ pnpm wc:env
 pnpm wc:env:stop
 pnpm wc:env:restart
 
-# Watch all WooCommerce Core build outputs.
+# Watch all PooCommerce Core build outputs.
 pnpm wc:watch
 
 # Watch targeted build outputs.
@@ -49,20 +49,20 @@ pnpm wc:build:classic-assets
 
 `pnpm wc:env:restart` destroys and recreates the wp-env containers, so use it only when a clean restart is intended.
 
-Fallback commands from the WooCommerce package:
+Fallback commands from the PooCommerce package:
 
 ```bash
-pnpm --filter='@woocommerce/plugin-woocommerce' env:dev
-pnpm --filter='@woocommerce/plugin-woocommerce' env:stop
-pnpm --filter='@woocommerce/plugin-woocommerce' env:restart
-pnpm --filter='@woocommerce/plugin-woocommerce' build
-pnpm --filter='@woocommerce/plugin-woocommerce' watch:build
-pnpm --filter='@woocommerce/plugin-woocommerce' watch:build:admin
-pnpm --filter='@woocommerce/plugin-woocommerce' watch:build:blocks
-pnpm --filter='@woocommerce/plugin-woocommerce' watch:build:classic-assets
+pnpm --filter='@poocommerce/plugin-poocommerce' env:dev
+pnpm --filter='@poocommerce/plugin-poocommerce' env:stop
+pnpm --filter='@poocommerce/plugin-poocommerce' env:restart
+pnpm --filter='@poocommerce/plugin-poocommerce' build
+pnpm --filter='@poocommerce/plugin-poocommerce' watch:build
+pnpm --filter='@poocommerce/plugin-poocommerce' watch:build:admin
+pnpm --filter='@poocommerce/plugin-poocommerce' watch:build:blocks
+pnpm --filter='@poocommerce/plugin-poocommerce' watch:build:classic-assets
 ```
 
-From `plugins/woocommerce/`, run the package scripts directly, for example `pnpm env:dev` or `pnpm watch:build`.
+From `plugins/poocommerce/`, run the package scripts directly, for example `pnpm env:dev` or `pnpm watch:build`.
 
 ## Setup Workflow
 
@@ -105,10 +105,10 @@ Recommend targeted watchers for focused work to reduce noise and startup time:
 
 - Development URL: `http://localhost:8888/`
 - Test environment port: `8086`
-- wp-env config: `plugins/woocommerce/.wp-env.json`
+- wp-env config: `plugins/poocommerce/.wp-env.json`
 - wp-env PHP version: `8.1`
-- WooCommerce package: `@woocommerce/plugin-woocommerce`
-- Source README: `plugins/woocommerce/README.md`
+- PooCommerce package: `@poocommerce/plugin-poocommerce`
+- Source README: `plugins/poocommerce/README.md`
 
 ## Verification
 
@@ -126,4 +126,4 @@ For browser-based verification, open `http://localhost:8888/` with the Browser p
 - If `pnpm wc:env` fails after dependency changes, run `pnpm install`, then retry.
 - If `wp-env` containers look stale, run `pnpm wc:env:restart` only after confirming a destructive environment reset is acceptable.
 - If assets do not update, confirm the relevant watcher is running and use a targeted watcher for the changed area.
-- If the user only needs PHP unit tests, prefer the test commands from `woocommerce-dev-cycle`; do not start a full browser workflow unless needed.
+- If the user only needs PHP unit tests, prefer the test commands from `poocommerce-dev-cycle`; do not start a full browser workflow unless needed.

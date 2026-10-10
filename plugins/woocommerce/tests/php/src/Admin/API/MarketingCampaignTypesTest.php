@@ -2,14 +2,14 @@
 /**
  * Test the API controller class that handles the marketing campaign types REST response.
  *
- * @package WooCommerce\Admin\Tests\Admin\API
+ * @package PooCommerce\Admin\Tests\Admin\API
  */
 
-namespace Automattic\WooCommerce\Tests\Admin\API;
+namespace Automattic\PooCommerce\Tests\Admin\API;
 
-use Automattic\WooCommerce\Admin\Marketing\MarketingCampaignType;
-use Automattic\WooCommerce\Admin\Marketing\MarketingChannelInterface;
-use Automattic\WooCommerce\Admin\Marketing\MarketingChannels as MarketingChannelsService;
+use Automattic\PooCommerce\Admin\Marketing\MarketingCampaignType;
+use Automattic\PooCommerce\Admin\Marketing\MarketingChannelInterface;
+use Automattic\PooCommerce\Admin\Marketing\MarketingChannels as MarketingChannelsService;
 use WC_REST_Unit_Test_Case;
 use WP_REST_Request;
 

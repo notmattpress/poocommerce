@@ -2,12 +2,12 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\PushNotifications\Traits;
+namespace Automattic\PooCommerce\Internal\PushNotifications\Traits;
 
 defined( 'ABSPATH' ) || exit;
 
 use Automattic\Jetpack\Connection\Rest_Authentication;
-use Automattic\WooCommerce\Internal\PushNotifications\PushNotifications;
+use Automattic\PooCommerce\Internal\PushNotifications\PushNotifications;
 use WP_Error;
 use WP_Http;
 use WP_REST_Request;
@@ -16,7 +16,7 @@ use WP_REST_Request;
  * Shared "is this caller an authenticated push-notifications user?" check for
  * REST controllers in the PushNotifications module.
  *
- * Implementing classes must extend {@see \Automattic\WooCommerce\Internal\RestApiControllerBase}
+ * Implementing classes must extend {@see \Automattic\PooCommerce\Internal\RestApiControllerBase}
  * so that `check_permission()` is available.
  */
 trait AuthorizesPushNotificationRequests {
@@ -59,8 +59,8 @@ trait AuthorizesPushNotificationRequests {
 		}
 
 		return new WP_Error(
-			'woocommerce_rest_cannot_view',
-			__( 'Sorry, you are not allowed to do that.', 'woocommerce' ),
+			'poocommerce_rest_cannot_view',
+			__( 'Sorry, you are not allowed to do that.', 'poocommerce' ),
 			array( 'status' => rest_authorization_required_code() )
 		);
 	}
@@ -105,7 +105,7 @@ trait AuthorizesPushNotificationRequests {
 		if ( ! $this->is_signed_with_blog_token() && ! wc_get_container()->get( PushNotifications::class )->should_be_enabled() ) {
 			return new WP_Error(
 				'rest_no_route',
-				__( 'No route was found matching the URL and request method.', 'woocommerce' ),
+				__( 'No route was found matching the URL and request method.', 'poocommerce' ),
 				array( 'status' => WP_Http::NOT_FOUND )
 			);
 		}
@@ -124,8 +124,8 @@ trait AuthorizesPushNotificationRequests {
 	private function authorize_as_authenticated_ignoring_enablement( WP_REST_Request $request ) {
 		if ( ! get_current_user_id() ) {
 			return new WP_Error(
-				'woocommerce_rest_cannot_view',
-				__( 'Sorry, you are not allowed to do that.', 'woocommerce' ),
+				'poocommerce_rest_cannot_view',
+				__( 'Sorry, you are not allowed to do that.', 'poocommerce' ),
 				array( 'status' => rest_authorization_required_code() )
 			);
 		}

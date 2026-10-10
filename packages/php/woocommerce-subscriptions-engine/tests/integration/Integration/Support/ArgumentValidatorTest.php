@@ -2,21 +2,21 @@
 /**
  * Integration tests for the shared facade argument validators.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine
+ * @package Automattic\PooCommerce\SubscriptionsEngine
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Tests\Integration\Integration\Support;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Tests\Integration\Integration\Support;
 
 use DateTimeImmutable;
 use DateTimeZone;
 use EngineIntegrationTestCase;
 use InvalidArgumentException;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Support\ArgumentValidator;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Support\ArgumentValidator;
 
 /**
- * @covers \Automattic\WooCommerce\SubscriptionsEngine\Integration\Support\ArgumentValidator
+ * @covers \Automattic\PooCommerce\SubscriptionsEngine\Integration\Support\ArgumentValidator
  */
 class ArgumentValidatorTest extends EngineIntegrationTestCase {
 

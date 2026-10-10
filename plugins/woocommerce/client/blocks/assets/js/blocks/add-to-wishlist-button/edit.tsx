@@ -21,7 +21,7 @@ const Edit = (): JSX.Element => {
 					<Icon icon={ starEmpty } size={ 24 } />
 				</span>
 				<span className="wc-block-add-to-wishlist-button__label">
-					{ __( 'Add to wishlist', 'woocommerce' ) }
+					{ __( 'Add to wishlist', 'poocommerce' ) }
 				</span>
 			</button>
 		</div>

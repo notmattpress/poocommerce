@@ -1,7 +1,7 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use Automattic\WooCommerce\Blueprint\Steps\InstallTheme;
+use Automattic\PooCommerce\Blueprint\Steps\InstallTheme;
 
 /**
  * Unit tests for InstallTheme class.

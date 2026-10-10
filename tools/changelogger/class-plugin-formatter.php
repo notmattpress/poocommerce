@@ -2,21 +2,21 @@
 /**
  * Plugin_Formatter class
  *
- * @package  WooCommerce
+ * @package  PooCommerce
  */
 
-namespace Automattic\WooCommerce\MonorepoTools\Changelogger;
+namespace Automattic\PooCommerce\MonorepoTools\Changelogger;
 
 use Automattic\Jetpack\Changelogger\FormatterPlugin;
 
 /**
- * Jetpack Changelogger Formatter for WooCommerce plugins
+ * Jetpack Changelogger Formatter for PooCommerce plugins
  */
 
 require_once 'class-formatter.php';
 
 /**
- * Jetpack Changelogger Formatter for WooCommerce Plugins
+ * Jetpack Changelogger Formatter for PooCommerce Plugins
  *
  * Class Formatter
  */
@@ -26,7 +26,7 @@ class Plugin_Formatter extends Formatter implements FormatterPlugin {
 	 *
 	 * @var string
 	 */
-	public $epilogue = "---\n\n[See changelogs for previous versions](https://raw.githubusercontent.com/woocommerce/woocommerce/trunk/changelog.txt).";
+	public $epilogue = "---\n\n[See changelogs for previous versions](https://raw.githubusercontent.com/poocommerce/poocommerce/trunk/changelog.txt).";
 
 	/**
 	 * Entry pattern regex.

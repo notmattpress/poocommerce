@@ -4,7 +4,7 @@
 import { act, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { dispatch } from '@wordpress/data';
-import { validationStore } from '@woocommerce/block-data';
+import { validationStore } from '@poocommerce/block-data';
 
 /**
  * Internal dependencies
@@ -137,7 +137,7 @@ describe( 'TotalsCoupon', () => {
 			// Create a proper promise-returning mock that catches the rejection
 			const mockOnSubmit = jest.fn().mockImplementation( () => {
 				return Promise.reject( {
-					code: 'woocommerce_rest_cart_coupon_error',
+					code: 'poocommerce_rest_cart_coupon_error',
 					message: 'Coupon "expired_coupon" has already expired.',
 				} ).catch( () => {
 					// Handle the rejection internally to prevent unhandled promise

@@ -2,12 +2,12 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\EmailEditor\WCTransactionalEmails;
+namespace Automattic\PooCommerce\Tests\Internal\EmailEditor\WCTransactionalEmails;
 
-use Automattic\WooCommerce\EmailEditor\Engine\Logger\Email_Editor_Logger_Interface;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateSyncRegistry;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsGenerator;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmails;
+use Automattic\PooCommerce\EmailEditor\Engine\Logger\Email_Editor_Logger_Interface;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateSyncRegistry;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsGenerator;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmails;
 
 /**
  * Tests for the WCEmailTemplateSyncRegistry class.
@@ -40,7 +40,7 @@ class WCEmailTemplateSyncRegistryTest extends \WC_Unit_Test_Case {
 	public function setUp(): void {
 		parent::setUp();
 
-		update_option( 'woocommerce_feature_block_email_editor_enabled', 'yes' );
+		update_option( 'poocommerce_feature_block_email_editor_enabled', 'yes' );
 
 		$this->fixtures_base = __DIR__ . '/fixtures/';
 
@@ -57,7 +57,7 @@ class WCEmailTemplateSyncRegistryTest extends \WC_Unit_Test_Case {
 		WCEmailTemplateSyncRegistry::reset_cache();
 		WCEmailTemplateSyncRegistry::set_logger( null );
 
-		remove_all_filters( 'woocommerce_transactional_emails_for_block_editor' );
+		remove_all_filters( 'poocommerce_transactional_emails_for_block_editor' );
 
 		$emails_container = \WC_Emails::instance();
 		$reflection       = new \ReflectionClass( $emails_container );
@@ -70,7 +70,7 @@ class WCEmailTemplateSyncRegistryTest extends \WC_Unit_Test_Case {
 		$property->setValue( $emails_container, $current );
 		$this->injected_email_keys = array();
 
-		update_option( 'woocommerce_feature_block_email_editor_enabled', 'no' );
+		update_option( 'poocommerce_feature_block_email_editor_enabled', 'no' );
 
 		parent::tearDown();
 	}
@@ -186,7 +186,7 @@ class WCEmailTemplateSyncRegistryTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_email_without_wc_email_subclass_is_skipped(): void {
 		add_filter(
-			'woocommerce_transactional_emails_for_block_editor',
+			'poocommerce_transactional_emails_for_block_editor',
 			static function ( array $emails ): array {
 				$emails[] = 'phantom_email_without_class';
 				return $emails;
@@ -341,7 +341,7 @@ class WCEmailTemplateSyncRegistryTest extends \WC_Unit_Test_Case {
 		$this->injected_email_keys[] = $class_key;
 
 		add_filter(
-			'woocommerce_transactional_emails_for_block_editor',
+			'poocommerce_transactional_emails_for_block_editor',
 			static function ( array $emails ) use ( $email_id ): array {
 				if ( ! in_array( $email_id, $emails, true ) ) {
 					$emails[] = $email_id;

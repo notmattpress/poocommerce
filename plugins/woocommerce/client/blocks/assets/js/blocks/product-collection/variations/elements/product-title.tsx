@@ -6,7 +6,7 @@ import { heading } from '@wordpress/icons';
 import {
 	title,
 	description,
-} from '@woocommerce/product-elements/title/block.json';
+} from '@poocommerce/product-elements/title/block.json';
 
 /**
  * Internal dependencies

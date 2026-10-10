@@ -2,7 +2,7 @@
 /**
  * Class SampleTest
  *
- * @package WooCommerce\Admin
+ * @package PooCommerce\Admin
  */
 
 /**

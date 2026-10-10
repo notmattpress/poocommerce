@@ -1,12 +1,12 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "woocommerce/product-review-rating",
+	"name": "poocommerce/product-review-rating",
 	"title": "Review Rating",
-	"category": "woocommerce",
-	"ancestor": [ "woocommerce/product-reviews" ],
+	"category": "poocommerce",
+	"ancestor": [ "poocommerce/product-reviews" ],
 	"description": "Displays the rating of a product review.",
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"usesContext": [ "commentId" ],
 	"attributes": {
 		"textAlign": {

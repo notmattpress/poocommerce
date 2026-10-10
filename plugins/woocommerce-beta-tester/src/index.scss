@@ -1,4 +1,4 @@
-#woocommerce-admin-test-helper-app-root {
+#poocommerce-admin-test-helper-app-root {
 	.btn-danger {
 		color: #fff;
 		background-color: #dc3545;
@@ -12,20 +12,20 @@
 	}
 }
 
-.woocommerce-admin-test-helper__main-tab-panel {
+.poocommerce-admin-test-helper__main-tab-panel {
 	.active-tab {
 		box-shadow: inset 0 1.5px #007cba;
 		box-shadow: inset 0 1.5px var( --wp-admin-theme-color );
 	}
 }
 
-.woocommerce-admin-test-helper__action-status {
+.poocommerce-admin-test-helper__action-status {
 	color: #007cba;
 	color: var( --wp-admin-theme-color );
 	font-family: monospace;
 }
 
-.woocommerce-admin-test-helper__add-notes {
+.poocommerce-admin-test-helper__add-notes {
 	width: 410px;
 	display: flex;
 	justify-content: space-between;

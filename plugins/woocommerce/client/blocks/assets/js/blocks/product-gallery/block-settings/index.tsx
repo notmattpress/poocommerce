@@ -24,7 +24,7 @@ export const ProductGalleryBlockSettings = ( {
 	return (
 		<InspectorControls>
 			<ToolsPanel
-				label={ __( 'Media Settings', 'woocommerce' ) }
+				label={ __( 'Media Settings', 'poocommerce' ) }
 				resetAll={ () => {
 					setAttributes( {
 						hoverZoom: true,
@@ -34,15 +34,15 @@ export const ProductGalleryBlockSettings = ( {
 			>
 				<ToolsPanelItem
 					hasValue={ () => hoverZoom !== true }
-					label={ __( 'Zoom while hovering', 'woocommerce' ) }
+					label={ __( 'Zoom while hovering', 'poocommerce' ) }
 					onDeselect={ () => setAttributes( { hoverZoom: true } ) }
 					isShownByDefault
 				>
 					<ToggleControl
-						label={ __( 'Zoom while hovering', 'woocommerce' ) }
+						label={ __( 'Zoom while hovering', 'poocommerce' ) }
 						help={ __(
 							'While hovering the image in the viewer will zoom in by 30%.',
-							'woocommerce'
+							'poocommerce'
 						) }
 						checked={ hoverZoom }
 						onChange={ () =>
@@ -54,7 +54,7 @@ export const ProductGalleryBlockSettings = ( {
 				</ToolsPanelItem>
 				<ToolsPanelItem
 					hasValue={ () => fullScreenOnClick !== true }
-					label={ __( 'Open pop-up when clicked', 'woocommerce' ) }
+					label={ __( 'Open pop-up when clicked', 'poocommerce' ) }
 					onDeselect={ () =>
 						setAttributes( { fullScreenOnClick: true } )
 					}
@@ -63,11 +63,11 @@ export const ProductGalleryBlockSettings = ( {
 					<ToggleControl
 						label={ __(
 							'Open pop-up when clicked',
-							'woocommerce'
+							'poocommerce'
 						) }
 						help={ __(
 							'Clicking on the image in the viewer will open a full-screen gallery experience.',
-							'woocommerce'
+							'poocommerce'
 						) }
 						checked={ fullScreenOnClick }
 						onChange={ () =>

@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { ProductEntityResponse } from '@woocommerce/entities';
+import { ProductEntityResponse } from '@poocommerce/entities';
 
 interface WithClass {
 	className: string;
@@ -16,7 +16,7 @@ export interface BlockAttributes {
 	textAlign?: string | undefined;
 	width?: number | undefined;
 	// eslint-disable-next-line @typescript-eslint/naming-convention
-	'woocommerce/isDescendantOfAddToCartWithOptions'?: boolean | undefined;
+	'poocommerce/isDescendantOfAddToCartWithOptions'?: boolean | undefined;
 	blockClientId?: string;
 	product?: ProductEntityResponse | undefined;
 	isAdmin?: boolean | undefined;

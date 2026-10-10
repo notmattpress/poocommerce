@@ -8,10 +8,10 @@ type WooPaymentGatewaySetupProps = {
 	id: string;
 };
 /**
- * WooCommerce Payment Gateway setup.
+ * PooCommerce Payment Gateway setup.
  *
  * @slotFill WooPaymentGatewaySetup
- * @scope woocommerce-admin
+ * @scope poocommerce-admin
  * @param {Object} props    React props.
  * @param {string} props.id Setup id.
  */
@@ -19,7 +19,7 @@ export const WooPaymentGatewaySetup = ( {
 	id,
 	...props
 }: WooPaymentGatewaySetupProps ) => (
-	<Fill name={ 'woocommerce_payment_gateway_setup_' + id } { ...props } />
+	<Fill name={ 'poocommerce_payment_gateway_setup_' + id } { ...props } />
 );
 
 WooPaymentGatewaySetup.Slot = ( {
@@ -29,7 +29,7 @@ WooPaymentGatewaySetup.Slot = ( {
 	fillProps?: React.ComponentProps< typeof Slot >[ 'fillProps' ];
 } ) => (
 	<Slot
-		name={ 'woocommerce_payment_gateway_setup_' + id }
+		name={ 'poocommerce_payment_gateway_setup_' + id }
 		fillProps={ fillProps }
 	/>
 );

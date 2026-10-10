@@ -2,16 +2,16 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\EmailEditor\EmailTemplates;
+namespace Automattic\PooCommerce\Internal\EmailEditor\EmailTemplates;
 
-use Automattic\WooCommerce\EmailEditor\Engine\Templates\Template;
-use Automattic\WooCommerce\EmailEditor\Engine\Templates\Templates_Registry;
-use Automattic\WooCommerce\Internal\EmailEditor\Integration;
+use Automattic\PooCommerce\EmailEditor\Engine\Templates\Template;
+use Automattic\PooCommerce\EmailEditor\Engine\Templates\Templates_Registry;
+use Automattic\PooCommerce\Internal\EmailEditor\Integration;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Controller for managing WooCommerce email templates.
+ * Controller for managing PooCommerce email templates.
  *
  * @internal
  */
@@ -22,7 +22,7 @@ class TemplatesController {
 	 *
 	 * @var string
 	 */
-	private string $template_prefix = 'woocommerce';
+	private string $template_prefix = 'poocommerce';
 
 	/**
 	 * Initialize the controller by registering hooks.
@@ -31,7 +31,7 @@ class TemplatesController {
 	 * @return void
 	 */
 	final public function init(): void {
-		add_filter( 'woocommerce_email_editor_register_templates', array( $this, 'register_templates' ) );
+		add_filter( 'poocommerce_email_editor_register_templates', array( $this, 'register_templates' ) );
 		// Priority 100 ensures this runs last to remove email templates from the Site Editor.
 		add_filter( 'get_block_templates', array( $this, 'filter_email_templates' ), 100, 1 );
 	}
@@ -72,7 +72,7 @@ class TemplatesController {
 	}
 
 	/**
-	 * Register WooCommerce email templates with the template registry.
+	 * Register PooCommerce email templates with the template registry.
 	 *
 	 * @param Templates_Registry $templates_registry The template registry instance.
 	 * @return Templates_Registry

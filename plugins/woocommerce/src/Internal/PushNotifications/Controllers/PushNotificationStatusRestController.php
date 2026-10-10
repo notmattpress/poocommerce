@@ -2,13 +2,13 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\PushNotifications\Controllers;
+namespace Automattic\PooCommerce\Internal\PushNotifications\Controllers;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Internal\PushNotifications\Services\DriverAvailabilityService;
-use Automattic\WooCommerce\Internal\PushNotifications\Traits\AuthorizesPushNotificationRequests;
-use Automattic\WooCommerce\Internal\RestApiControllerBase;
+use Automattic\PooCommerce\Internal\PushNotifications\Services\DriverAvailabilityService;
+use Automattic\PooCommerce\Internal\PushNotifications\Traits\AuthorizesPushNotificationRequests;
+use Automattic\PooCommerce\Internal\RestApiControllerBase;
 use WP_Error;
 use WP_Http;
 use WP_REST_Request;
@@ -68,7 +68,7 @@ class PushNotificationStatusRestController extends RestApiControllerBase {
 	}
 
 	/**
-	 * Class identifier used by `woocommerce_rest_api_get_rest_namespaces`.
+	 * Class identifier used by `poocommerce_rest_api_get_rest_namespaces`.
 	 *
 	 * Intentionally distinct from the URL `$route_namespace` — the filter keys
 	 * one class per value here, so sharing the value with sibling controllers
@@ -123,19 +123,19 @@ class PushNotificationStatusRestController extends RestApiControllerBase {
 			'type'       => 'object',
 			'properties' => array(
 				'connected' => array(
-					'description' => __( "Whether the driver's underlying connection is present. Null when the check could not be performed.", 'woocommerce' ),
+					'description' => __( "Whether the driver's underlying connection is present. Null when the check could not be performed.", 'poocommerce' ),
 					'type'        => array( 'boolean', 'null' ),
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
 				'enabled'   => array(
-					'description' => __( 'Whether the driver itself is switched on. Null when the check could not be performed.', 'woocommerce' ),
+					'description' => __( 'Whether the driver itself is switched on. Null when the check could not be performed.', 'poocommerce' ),
 					'type'        => array( 'boolean', 'null' ),
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
 				'available' => array(
-					'description' => __( 'Whether the driver is definitively both connected and enabled. An undetermined flag makes the driver unavailable.', 'woocommerce' ),
+					'description' => __( 'Whether the driver is definitively both connected and enabled. An undetermined flag makes the driver unavailable.', 'poocommerce' ),
 					'type'        => 'boolean',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
@@ -149,14 +149,14 @@ class PushNotificationStatusRestController extends RestApiControllerBase {
 			'type'       => 'object',
 			'properties' => array(
 				'installed_drivers' => array(
-					'description'          => __( 'The installed notification drivers, keyed by driver identifier.', 'woocommerce' ),
+					'description'          => __( 'The installed notification drivers, keyed by driver identifier.', 'poocommerce' ),
 					'type'                 => 'object',
 					'context'              => array( 'view' ),
 					'readonly'             => true,
 					'additionalProperties' => $driver_flags,
 				),
 				'preferred_driver'  => array(
-					'description' => __( 'The driver the site prefers, being the first available one in precedence order, or null when none are available. Not a statement about what is delivering notifications to a given app.', 'woocommerce' ),
+					'description' => __( 'The driver the site prefers, being the first available one in precedence order, or null when none are available. Not a statement about what is delivering notifications to a given app.', 'poocommerce' ),
 					'type'        => array( 'string', 'null' ),
 					'context'     => array( 'view' ),
 					'readonly'    => true,

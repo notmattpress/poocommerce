@@ -4,7 +4,7 @@
 import { __ } from '@wordpress/i18n';
 import { Button } from '@wordpress/components';
 import { useState } from '@wordpress/element';
-import { SelectControl } from '@woocommerce/components';
+import { SelectControl } from '@poocommerce/components';
 import { Icon, chevronDown } from '@wordpress/icons';
 import clsx from 'clsx';
 
@@ -20,32 +20,32 @@ import { MultipleSelector } from '../components/multiple-selector/multiple-selec
 
 const businessOptions = [
 	{
-		title: __( 'I’m just starting my business', 'woocommerce' ),
+		title: __( 'I’m just starting my business', 'poocommerce' ),
 		value: 'im_just_starting_my_business' as const,
 	},
 	{
-		title: __( 'I’m already selling', 'woocommerce' ),
+		title: __( 'I’m already selling', 'poocommerce' ),
 		value: 'im_already_selling' as const,
 	},
 	{
-		title: __( 'I’m setting up a store for a client', 'woocommerce' ),
+		title: __( 'I’m setting up a store for a client', 'poocommerce' ),
 		value: 'im_setting_up_a_store_for_a_client' as const,
 	},
 ];
 
 const sellingOnlineOptions = [
 	{
-		label: __( 'Yes, I’m selling online', 'woocommerce' ),
+		label: __( 'Yes, I’m selling online', 'poocommerce' ),
 		value: 'yes_im_selling_online' as const,
 		key: 'yes_im_selling_online' as const,
 	},
 	{
-		label: __( 'No, I’m selling offline', 'woocommerce' ),
+		label: __( 'No, I’m selling offline', 'poocommerce' ),
 		value: 'no_im_selling_offline' as const,
 		key: 'no_im_selling_offline' as const,
 	},
 	{
-		label: __( 'I’m selling both online and offline', 'woocommerce' ),
+		label: __( 'I’m selling both online and offline', 'poocommerce' ),
 		value: 'im_selling_both_online_and_offline' as const,
 		key: 'im_selling_both_online_and_offline' as const,
 	},
@@ -53,63 +53,63 @@ const sellingOnlineOptions = [
 
 const platformOptions = [
 	{
-		label: __( 'Amazon', 'woocommerce' ),
+		label: __( 'Amazon', 'poocommerce' ),
 		value: 'amazon' as const,
 	},
 	{
-		label: __( 'Adobe Commerce', 'woocommerce' ),
+		label: __( 'Adobe Commerce', 'poocommerce' ),
 		value: 'adobe_commerce' as const,
 	},
 	{
-		label: __( 'Big Cartel', 'woocommerce' ),
+		label: __( 'Big Cartel', 'poocommerce' ),
 		value: 'big_cartel' as const,
 	},
 	{
-		label: __( 'Big Commerce', 'woocommerce' ),
+		label: __( 'Big Commerce', 'poocommerce' ),
 		value: 'big_commerce' as const,
 	},
 	{
-		label: __( 'Ebay', 'woocommerce' ),
+		label: __( 'Ebay', 'poocommerce' ),
 		value: 'ebay' as const,
 	},
 	{
-		label: __( 'Ecwid', 'woocommerce' ),
+		label: __( 'Ecwid', 'poocommerce' ),
 		value: 'ecwid' as const,
 	},
 	{
-		label: __( 'Etsy', 'woocommerce' ),
+		label: __( 'Etsy', 'poocommerce' ),
 		value: 'etsy' as const,
 	},
 	{
-		label: __( 'Facebook Marketplace', 'woocommerce' ),
+		label: __( 'Facebook Marketplace', 'poocommerce' ),
 		value: 'facebook_marketplace' as const,
 	},
 	{
-		label: __( 'Google Shopping', 'woocommerce' ),
+		label: __( 'Google Shopping', 'poocommerce' ),
 		value: 'google_shopping' as const,
 	},
 	{
-		label: __( 'Pinterest', 'woocommerce' ),
+		label: __( 'Pinterest', 'poocommerce' ),
 		value: 'pinterest' as const,
 	},
 	{
-		label: __( 'Shopify', 'woocommerce' ),
+		label: __( 'Shopify', 'poocommerce' ),
 		value: 'shopify' as const,
 	},
 	{
-		label: __( 'Square', 'woocommerce' ),
+		label: __( 'Square', 'poocommerce' ),
 		value: 'square' as const,
 	},
 	{
-		label: __( 'Squarespace', 'woocommerce' ),
+		label: __( 'Squarespace', 'poocommerce' ),
 		value: 'squarespace' as const,
 	},
 	{
-		label: __( 'Wix', 'woocommerce' ),
+		label: __( 'Wix', 'poocommerce' ),
 		value: 'wix' as const,
 	},
 	{
-		label: __( 'WordPress', 'woocommerce' ),
+		label: __( 'WordPress', 'poocommerce' ),
 		value: 'wordpress' as const,
 	},
 ];
@@ -145,14 +145,14 @@ export const UserProfile = ( {
 	const renderAlreadySellingOptions = () => {
 		return (
 			<>
-				<div className="woocommerce-profiler-selling-online-question">
-					<p className="woocommerce-profiler-question-label">
-						{ __( 'Are you selling online?', 'woocommerce' ) }
+				<div className="poocommerce-profiler-selling-online-question">
+					<p className="poocommerce-profiler-question-label">
+						{ __( 'Are you selling online?', 'poocommerce' ) }
 					</p>
 					<SelectControl
-						className="woocommerce-profiler-select-control__selling-online-question"
+						className="poocommerce-profiler-select-control__selling-online-question"
 						instanceId={ 1 }
-						label={ __( 'Select an option', 'woocommerce' ) }
+						label={ __( 'Select an option', 'poocommerce' ) }
 						autoComplete="new-password" // disable autocomplete and autofill
 						options={ sellingOnlineOptions }
 						excludeSelectedOptions={ false }
@@ -171,11 +171,11 @@ export const UserProfile = ( {
 						'yes_im_selling_online',
 						'im_selling_both_online_and_offline',
 					].includes( sellingOnlineAnswer ) && (
-						<div className="woocommerce-profiler-selling-platform">
-							<p className="woocommerce-profiler-question-label">
+						<div className="poocommerce-profiler-selling-platform">
+							<p className="poocommerce-profiler-question-label">
 								{ __(
 									'Which platform(s) are you currently using?',
-									'woocommerce'
+									'poocommerce'
 								) }
 							</p>
 							<MultipleSelector
@@ -223,12 +223,12 @@ export const UserProfile = ( {
 
 	return (
 		<div
-			className="woocommerce-profiler-user-profile"
+			className="poocommerce-profiler-user-profile"
 			data-testid="core-profiler-user-profile"
 		>
 			<Navigation
 				percentage={ navigationProgress }
-				skipText={ __( 'Skip this step', 'woocommerce' ) }
+				skipText={ __( 'Skip this step', 'poocommerce' ) }
 				onSkip={ () =>
 					sendEvent( {
 						type: 'USER_PROFILE_SKIPPED',
@@ -238,29 +238,29 @@ export const UserProfile = ( {
 			/>
 			<div
 				className={ clsx(
-					'woocommerce-profiler-page__content woocommerce-profiler-user-profile__content',
+					'poocommerce-profiler-page__content poocommerce-profiler-user-profile__content',
 					{
 						'is-platform-selector-open': isPlatformDropdownOpen,
 					}
 				) }
 			>
 				<Heading
-					className="woocommerce-profiler__stepper-heading"
+					className="poocommerce-profiler__stepper-heading"
 					title={ __(
 						'Which one of these best describes you?',
-						'woocommerce'
+						'poocommerce'
 					) }
 					subTitle={ __(
 						'Let us know where you are in your commerce journey so that we can tailor your Woo experience for you.',
-						'woocommerce'
+						'poocommerce'
 					) }
 				/>
-				<form className="woocommerce-user-profile-choices">
+				<form className="poocommerce-user-profile-choices">
 					<fieldset>
 						<legend className="screen-reader-text">
 							{ __(
 								'Which one of these best describes you?',
-								'woocommerce'
+								'poocommerce'
 							) }
 						</legend>
 						{ businessOptions.map( ( { title, value } ) => {
@@ -286,13 +286,13 @@ export const UserProfile = ( {
 						} ) }
 					</fieldset>
 				</form>
-				<div className="woocommerce-profiler-button-container">
+				<div className="poocommerce-profiler-button-container">
 					<Button
-						className="woocommerce-profiler-button"
+						className="poocommerce-profiler-button"
 						variant="primary"
 						onClick={ onContinue }
 					>
-						{ __( 'Continue', 'woocommerce' ) }
+						{ __( 'Continue', 'poocommerce' ) }
 					</Button>
 				</div>
 			</div>

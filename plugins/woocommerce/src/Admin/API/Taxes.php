@@ -5,7 +5,7 @@
  * Handles requests to /taxes/*
  */
 
-namespace Automattic\WooCommerce\Admin\API;
+namespace Automattic\PooCommerce\Admin\API;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -32,12 +32,12 @@ class Taxes extends \WC_REST_Taxes_Controller {
 	public function get_collection_params() {
 		$params            = parent::get_collection_params();
 		$params['search']  = array(
-			'description'       => __( 'Search by similar tax code.', 'woocommerce' ),
+			'description'       => __( 'Search by similar tax code.', 'poocommerce' ),
 			'type'              => 'string',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 		$params['include'] = array(
-			'description'       => __( 'Limit result set to items that have the specified rate ID(s) assigned.', 'woocommerce' ),
+			'description'       => __( 'Limit result set to items that have the specified rate ID(s) assigned.', 'poocommerce' ),
 			'type'              => 'array',
 			'items'             => array(
 				'type' => 'integer',
@@ -80,11 +80,11 @@ class Taxes extends \WC_REST_Taxes_Controller {
 		 * @param array           $prepared_args Array of arguments for $wpdb->get_results().
 		 * @param WP_REST_Request $request       The current request.
 		 */
-		$prepared_args = apply_filters( 'woocommerce_rest_tax_query', $prepared_args, $request );
+		$prepared_args = apply_filters( 'poocommerce_rest_tax_query', $prepared_args, $request );
 
 		$query = "
 			SELECT *
-			FROM {$wpdb->prefix}woocommerce_tax_rates
+			FROM {$wpdb->prefix}poocommerce_tax_rates
 			WHERE 1 = 1
 		";
 

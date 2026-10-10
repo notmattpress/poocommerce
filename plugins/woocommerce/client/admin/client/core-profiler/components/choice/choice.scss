@@ -1,4 +1,4 @@
-.woocommerce-profiler-choice-container {
+.poocommerce-profiler-choice-container {
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
@@ -19,12 +19,12 @@
 	}
 }
 
-.woocommerce-profiler-choice {
+.poocommerce-profiler-choice {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
 
-	.woocommerce-profiler-choice-input {
+	.poocommerce-profiler-choice-input {
 		opacity: 0;
 		position: absolute;
 	}
@@ -64,7 +64,7 @@
 	}
 }
 
-body.rtl .woocommerce-profiler-choice {
+body.rtl .poocommerce-profiler-choice {
 	input + label::before {
 		margin-left: $gap;
 		margin-right: 0;
@@ -76,7 +76,7 @@ body.rtl .woocommerce-profiler-choice {
 	}
 }
 
-.woocommerce-profiler-choice-sub-options {
+.poocommerce-profiler-choice-sub-options {
 	margin-top: $gap-large;
 	width: 100%;
 

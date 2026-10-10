@@ -51,12 +51,12 @@ export const EmailPreviewSend = ( { type }: EmailPreviewSendProps ) => {
 				variant="secondary"
 				onClick={ () => setIsModalOpen( true ) }
 			>
-				{ __( 'Send a test email', 'woocommerce' ) }
+				{ __( 'Send a test email', 'poocommerce' ) }
 			</Button>
 
 			{ isModalOpen && (
 				<Modal
-					title={ __( 'Send a test email', 'woocommerce' ) }
+					title={ __( 'Send a test email', 'poocommerce' ) }
 					onRequestClose={ closeModal }
 					className="wc-settings-email-preview-send-modal"
 				>

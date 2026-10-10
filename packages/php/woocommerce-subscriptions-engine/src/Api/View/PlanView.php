@@ -5,16 +5,16 @@
  * Consumers read plans through this view instead of the Core entity. Getters may be
  * added, never removed. The three policies are the owning extension's opaque
  * payloads, returned as stored. The engine itself reads only `billing_policy`, as
- * the renewal fallback for contracts without a plan snapshot (see {@see \Automattic\WooCommerce\SubscriptionsEngine\Api\Plans}).
+ * the renewal fallback for contracts without a plan snapshot (see {@see \Automattic\PooCommerce\SubscriptionsEngine\Api\Plans}).
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine\Api\View
+ * @package Automattic\PooCommerce\SubscriptionsEngine\Api\View
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Api\View;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Api\View;
 
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\Plan;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\Plan;
 
 defined( 'ABSPATH' ) || exit;
 

@@ -1,8 +1,8 @@
 <?php
 /**
- * Pixel Builder for WooCommerce Analytics
+ * Pixel Builder for PooCommerce Analytics
  *
- * @package automattic/woocommerce-analytics
+ * @package automattic/poocommerce-analytics
  */
 
 namespace Automattic\Woocommerce_Analytics;
@@ -37,7 +37,7 @@ class Pixel_Builder {
 
 	/**
 	 * Event name regex pattern.
-	 * Format: prefix_eventname (e.g., woocommerceanalytics_checkout_started)
+	 * Format: prefix_eventname (e.g., poocommerceanalytics_checkout_started)
 	 *
 	 * @var string
 	 */
@@ -301,11 +301,11 @@ class Pixel_Builder {
 			}
 		} catch ( \Exception $e ) {
 			// Log error but don't break the site - tracking pixels should fail gracefully.
-			$error_message = 'WooCommerce Analytics: Batch pixel request failed - ' . $e->getMessage();
+			$error_message = 'PooCommerce Analytics: Batch pixel request failed - ' . $e->getMessage();
 			if ( function_exists( 'wc_get_logger' ) ) {
-				wc_get_logger()->error( $error_message, array( 'source' => 'woocommerce-analytics' ) );
+				wc_get_logger()->error( $error_message, array( 'source' => 'poocommerce-analytics' ) );
 			} else {
-				// Fallback for MU-plugin stage when WooCommerce logger is not available.
+				// Fallback for MU-plugin stage when PooCommerce logger is not available.
 				// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
 				error_log( $error_message );
 			}

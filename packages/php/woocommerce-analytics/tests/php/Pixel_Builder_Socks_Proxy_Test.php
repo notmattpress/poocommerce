@@ -2,7 +2,7 @@
 /**
  * Tests for Pixel_Builder SOCKS proxy detection.
  *
- * @package automattic/woocommerce-analytics
+ * @package automattic/poocommerce-analytics
  */
 
 namespace Automattic\Woocommerce_Analytics;

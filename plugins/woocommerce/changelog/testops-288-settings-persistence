@@ -1,4 +1,4 @@
 Significance: patch
 Type: dev
-Comment: Move general and WooCommerce.com settings persistence from E2E to PHPUnit.
+Comment: Move general and PooCommerce.com settings persistence from E2E to PHPUnit.
 

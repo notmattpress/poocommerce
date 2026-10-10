@@ -1,9 +1,9 @@
 {
-	"name": "woocommerce/order-confirmation-downloads",
+	"name": "poocommerce/order-confirmation-downloads",
 	"title": "Order Downloads",
 	"description": "Display links to purchased downloads.",
-	"category": "woocommerce",
-	"keywords": [ "WooCommerce" ],
+	"category": "poocommerce",
+	"keywords": [ "PooCommerce" ],
 	"supports": {
 		"multiple": false,
 		"align": [ "wide", "full" ],
@@ -49,7 +49,7 @@
 				"width": true
 			}
 		},
-		"__experimentalSelector": ".wp-block-woocommerce-order-confirmation-totals table"
+		"__experimentalSelector": ".wp-block-poocommerce-order-confirmation-totals table"
 	},
 	"attributes": {
 		"align": {
@@ -61,7 +61,7 @@
 			"default": ""
 		}
 	},
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"apiVersion": 3,
 	"$schema": "https://schemas.wp.org/trunk/block.json"
 }

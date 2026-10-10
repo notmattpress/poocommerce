@@ -4,7 +4,7 @@
 import {
 	WC_ADMIN_API_PATH,
 	WC_API_PATH,
-} from '@woocommerce/e2e-utils-playwright';
+} from '@poocommerce/e2e-utils-playwright';
 
 /**
  * Internal dependencies
@@ -103,7 +103,7 @@ test.describe( 'Add Product Task', () => {
 			page.getByRole( 'menuitem', { name: 'Grouped product' } )
 		).toBeVisible();
 		await expect(
-			page.locator( '#toplevel_page_woocommerce' )
+			page.locator( '#toplevel_page_poocommerce' )
 		).toHaveClass( /wp-has-current-submenu/ );
 		await expect( page.locator( '#menu-posts-product' ) ).not.toHaveClass(
 			/wp-has-current-submenu/
@@ -150,7 +150,7 @@ test.describe( 'Add Product Task', () => {
 		await page.getByTestId( 'header-back-button' ).click();
 		await expect( page ).toHaveURL( /admin\.php\?page=wc-admin$/ );
 		await expect(
-			page.locator( '#toplevel_page_woocommerce' )
+			page.locator( '#toplevel_page_poocommerce' )
 		).toHaveClass( /wp-has-current-submenu/ );
 	} );
 

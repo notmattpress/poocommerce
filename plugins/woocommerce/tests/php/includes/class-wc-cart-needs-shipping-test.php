@@ -2,7 +2,7 @@
 /**
  * Tests for WC_Cart::needs_shipping().
  *
- * @package WooCommerce\Tests\Cart
+ * @package PooCommerce\Tests\Cart
  */
 
 declare( strict_types = 1 );
@@ -33,9 +33,9 @@ class WC_Cart_Needs_Shipping_Test extends WC_Unit_Test_Case {
 		// with the current test's transaction.
 		WC()->shipping()->unregister_shipping_methods();
 		foreach ( array( 'flat_rate', 'free_shipping', 'international_delivery', 'local_delivery', 'local_pickup' ) as $legacy_method ) {
-			delete_option( 'woocommerce_' . $legacy_method . '_settings' );
+			delete_option( 'poocommerce_' . $legacy_method . '_settings' );
 		}
-		$wpdb->query( "DELETE FROM {$wpdb->prefix}woocommerce_shipping_zone_methods" ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+		$wpdb->query( "DELETE FROM {$wpdb->prefix}poocommerce_shipping_zone_methods" ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 		WC_Cache_Helper::get_transient_version( 'shipping', true );
 
 		$product = WC_Helper_Product::create_simple_product();
@@ -54,7 +54,7 @@ class WC_Cart_Needs_Shipping_Test extends WC_Unit_Test_Case {
 		if ( ! $enabled ) {
 			global $wpdb;
 			$wpdb->update(
-				$wpdb->prefix . 'woocommerce_shipping_zone_methods',
+				$wpdb->prefix . 'poocommerce_shipping_zone_methods',
 				array( 'is_enabled' => 0 ),
 				array( 'instance_id' => $instance_id ),
 				array( '%d' ),
@@ -93,7 +93,7 @@ class WC_Cart_Needs_Shipping_Test extends WC_Unit_Test_Case {
 	 */
 	public function test_with_shipping_switched_off_the_cart_does_not_ask(): void {
 		$this->zone_offers_a_flat_rate();
-		update_option( 'woocommerce_ship_to_countries', 'disabled' );
+		update_option( 'poocommerce_ship_to_countries', 'disabled' );
 
 		$this->assertFalse( wc_shipping_enabled(), 'The fixture should have shipping switched off.' );
 		$this->assertFalse( WC()->cart->needs_shipping(), 'The merchant has switched shipping off, so nothing should be asked.' );
@@ -105,7 +105,7 @@ class WC_Cart_Needs_Shipping_Test extends WC_Unit_Test_Case {
 	 * `$include_legacy` and not `$enabled_only`, so a switched-off instance still counts and the
 	 * shopper is asked for a shipping method the store cannot offer.
 	 *
-	 * woocommerce#56507 reported that and was closed as not planned, on the grounds that it is an
+	 * poocommerce#56507 reported that and was closed as not planned, on the grounds that it is an
 	 * edge case and that a merchant who wants shipping off has the setting above. Two things are
 	 * worth knowing before relying on that. The reason given was that stores disable methods
 	 * conditionally by user type, but this count reads `is_enabled` straight from the zone methods
@@ -139,7 +139,7 @@ class WC_Cart_Needs_Shipping_Test extends WC_Unit_Test_Case {
 	 */
 	public function test_a_method_from_before_shipping_zones_is_counted_only_while_switched_on( string $enabled, bool $expected ): void {
 		update_option(
-			'woocommerce_flat_rate_settings',
+			'poocommerce_flat_rate_settings',
 			array(
 				'enabled'    => $enabled,
 				'title'      => 'Flat rate',
@@ -147,7 +147,7 @@ class WC_Cart_Needs_Shipping_Test extends WC_Unit_Test_Case {
 				'cost'       => 10,
 			)
 		);
-		update_option( 'woocommerce_flat_rate', array() );
+		update_option( 'poocommerce_flat_rate', array() );
 		WC_Cache_Helper::get_transient_version( 'shipping', true );
 		WC()->shipping()->load_shipping_methods();
 
@@ -194,7 +194,7 @@ class WC_Cart_Needs_Shipping_Test extends WC_Unit_Test_Case {
 		$this->zone_offers_a_flat_rate();
 		$this->assertTrue( WC()->cart->needs_shipping(), 'The cart should ask about shipping to begin with.' );
 
-		add_filter( 'woocommerce_product_needs_shipping', '__return_false' );
+		add_filter( 'poocommerce_product_needs_shipping', '__return_false' );
 
 		$this->assertFalse( WC()->cart->needs_shipping(), 'With nothing in the cart needing shipping, there is nothing to ask.' );
 	}
@@ -205,7 +205,7 @@ class WC_Cart_Needs_Shipping_Test extends WC_Unit_Test_Case {
 	public function test_an_extension_can_decide_whether_the_cart_asks(): void {
 		$this->zone_offers_a_flat_rate();
 
-		add_filter( 'woocommerce_cart_needs_shipping', '__return_false' );
+		add_filter( 'poocommerce_cart_needs_shipping', '__return_false' );
 
 		$this->assertFalse( WC()->cart->needs_shipping(), 'The filter should be able to withdraw the shipping step.' );
 	}

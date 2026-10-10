@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { test, expect, BLOCK_THEME_SLUG } from '@woocommerce/e2e-utils';
+import { test, expect, BLOCK_THEME_SLUG } from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -17,68 +17,68 @@ type Scenario = {
 const singleOccurrenceScenarios: Scenario[] = [
 	{
 		title: 'Before Main Content',
-		dataTestId: 'woocommerce_before_main_content',
-		content: 'Hook: woocommerce_before_main_content',
+		dataTestId: 'poocommerce_before_main_content',
+		content: 'Hook: poocommerce_before_main_content',
 		amount: 1,
 	},
 	{
 		title: 'Sidebar',
-		dataTestId: 'woocommerce_sidebar',
-		content: 'Hook: woocommerce_sidebar',
+		dataTestId: 'poocommerce_sidebar',
+		content: 'Hook: poocommerce_sidebar',
 		amount: 1,
 	},
 	{
 		title: 'Before Single Product',
-		dataTestId: 'woocommerce_before_single_product',
-		content: 'Hook: woocommerce_before_single_product',
+		dataTestId: 'poocommerce_before_single_product',
+		content: 'Hook: poocommerce_before_single_product',
 		amount: 1,
 	},
 	{
 		title: 'Before Single Product Summary',
-		dataTestId: 'woocommerce_before_single_product_summary',
-		content: 'Hook: woocommerce_before_single_product_summary',
+		dataTestId: 'poocommerce_before_single_product_summary',
+		content: 'Hook: poocommerce_before_single_product_summary',
 		amount: 1,
 	},
 	{
 		title: 'Before Add To Cart Button',
-		dataTestId: 'woocommerce_before_add_to_cart_button',
-		content: 'Hook: woocommerce_before_add_to_cart_button',
+		dataTestId: 'poocommerce_before_add_to_cart_button',
+		content: 'Hook: poocommerce_before_add_to_cart_button',
 		amount: 1,
 	},
 	{
 		title: 'Single Product Summary',
-		dataTestId: 'woocommerce_single_product_summary',
-		content: 'Hook: woocommerce_single_product_summary',
+		dataTestId: 'poocommerce_single_product_summary',
+		content: 'Hook: poocommerce_single_product_summary',
 		amount: 1,
 	},
 	{
 		title: 'Product Meta Start',
-		dataTestId: 'woocommerce_product_meta_start',
-		content: 'Hook: woocommerce_product_meta_start',
+		dataTestId: 'poocommerce_product_meta_start',
+		content: 'Hook: poocommerce_product_meta_start',
 		amount: 1,
 	},
 	{
 		title: 'Product Meta End',
-		dataTestId: 'woocommerce_product_meta_end',
-		content: 'Hook: woocommerce_product_meta_end',
+		dataTestId: 'poocommerce_product_meta_end',
+		content: 'Hook: poocommerce_product_meta_end',
 		amount: 1,
 	},
 	{
 		title: 'Share',
-		dataTestId: 'woocommerce_share',
-		content: 'Hook: woocommerce_share',
+		dataTestId: 'poocommerce_share',
+		content: 'Hook: poocommerce_share',
 		amount: 1,
 	},
 	{
 		title: 'After Single Product Summary',
-		dataTestId: 'woocommerce_after_single_product_summary',
-		content: 'Hook: woocommerce_after_single_product_summary',
+		dataTestId: 'poocommerce_after_single_product_summary',
+		content: 'Hook: poocommerce_after_single_product_summary',
 		amount: 1,
 	},
 	{
 		title: 'After Single Product',
-		dataTestId: 'woocommerce_after_single_product',
-		content: 'Hook: woocommerce_after_single_product',
+		dataTestId: 'poocommerce_after_single_product',
+		content: 'Hook: poocommerce_after_single_product',
 		amount: 1,
 	},
 ];
@@ -86,64 +86,64 @@ const singleOccurrenceScenarios: Scenario[] = [
 const simpleProductAddToCartWithOptionsBlockHooks: Scenario[] = [
 	{
 		title: 'Before Add To Cart Form',
-		dataTestId: 'woocommerce_before_add_to_cart_form',
-		content: 'Hook: woocommerce_before_add_to_cart_form',
+		dataTestId: 'poocommerce_before_add_to_cart_form',
+		content: 'Hook: poocommerce_before_add_to_cart_form',
 		amount: 1,
 	},
 	{
 		title: 'After Add To Cart Form',
-		dataTestId: 'woocommerce_after_add_to_cart_form',
-		content: 'Hook: woocommerce_after_add_to_cart_form',
+		dataTestId: 'poocommerce_after_add_to_cart_form',
+		content: 'Hook: poocommerce_after_add_to_cart_form',
 		amount: 1,
 	},
 	{
 		title: 'Before Add To Cart Quantity',
-		dataTestId: 'woocommerce_before_add_to_cart_quantity',
-		content: 'Hook: woocommerce_before_add_to_cart_quantity',
+		dataTestId: 'poocommerce_before_add_to_cart_quantity',
+		content: 'Hook: poocommerce_before_add_to_cart_quantity',
 		amount: 1,
 	},
 	{
 		title: 'After Add To Cart Quantity',
-		dataTestId: 'woocommerce_after_add_to_cart_quantity',
-		content: 'Hook: woocommerce_after_add_to_cart_quantity',
+		dataTestId: 'poocommerce_after_add_to_cart_quantity',
+		content: 'Hook: poocommerce_after_add_to_cart_quantity',
 		amount: 1,
 	},
 	{
 		title: 'Before Add To Cart Button',
-		dataTestId: 'woocommerce_before_add_to_cart_button',
-		content: 'Hook: woocommerce_before_add_to_cart_button',
+		dataTestId: 'poocommerce_before_add_to_cart_button',
+		content: 'Hook: poocommerce_before_add_to_cart_button',
 		amount: 1,
 	},
 	{
 		title: 'After Add To Cart Button',
-		dataTestId: 'woocommerce_after_add_to_cart_button',
-		content: 'Hook: woocommerce_after_add_to_cart_button',
+		dataTestId: 'poocommerce_after_add_to_cart_button',
+		content: 'Hook: poocommerce_after_add_to_cart_button',
 		amount: 1,
 	},
 ];
 const variableProductAddToCartWithOptionsBlockHooks: Scenario[] = [
 	{
 		title: 'Before Add To Cart Form',
-		dataTestId: 'woocommerce_before_add_to_cart_form',
-		content: 'Hook: woocommerce_before_add_to_cart_form',
+		dataTestId: 'poocommerce_before_add_to_cart_form',
+		content: 'Hook: poocommerce_before_add_to_cart_form',
 		amount: 1,
 	},
 	{
 		title: 'After Add To Cart Form',
-		dataTestId: 'woocommerce_after_add_to_cart_form',
-		content: 'Hook: woocommerce_after_add_to_cart_form',
+		dataTestId: 'poocommerce_after_add_to_cart_form',
+		content: 'Hook: poocommerce_after_add_to_cart_form',
 		amount: 1,
 	},
 	{
 		title: 'Before Variations Form',
-		dataTestId: 'woocommerce_before_variations_form',
-		content: 'Hook: woocommerce_before_variations_form',
+		dataTestId: 'poocommerce_before_variations_form',
+		content: 'Hook: poocommerce_before_variations_form',
 		amount: 1,
 	},
 	{
 		title: 'After Variations Form',
-		dataTestId: 'woocommerce_after_variations_form',
-		content: 'Hook: woocommerce_after_variations_form',
+		dataTestId: 'poocommerce_after_variations_form',
+		content: 'Hook: poocommerce_after_variations_form',
 		amount: 1,
 	},
 ];
@@ -151,7 +151,7 @@ const variableProductAddToCartWithOptionsBlockHooks: Scenario[] = [
 test.describe( 'Compatibility Layer in Single Product template', () => {
 	test.beforeEach( async ( { requestUtils } ) => {
 		await requestUtils.activatePlugin(
-			'woocommerce-blocks-test-single-product-template-compatibility-layer'
+			'poocommerce-blocks-test-single-product-template-compatibility-layer'
 		);
 	} );
 
@@ -184,7 +184,7 @@ test.describe( 'Compatibility Layer in Single Product template', () => {
 			canvas: 'edit',
 		} );
 		const addToCartFormBlock = await editor.getBlockByName(
-			'woocommerce/add-to-cart-form'
+			'poocommerce/add-to-cart-form'
 		);
 		await editor.selectBlocks( addToCartFormBlock );
 

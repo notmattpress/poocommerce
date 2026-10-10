@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Always initialize the front-end `window.wcAnalytics` object from scratch and only accept a string as the webpack public path. [#68346]
 - Bound what the unauthenticated tracking proxy endpoint accepts: events per request, properties per event, array members, value and name lengths, an encoded payload budget per event, and a ceiling on the pixel URL that is fired. [#68314]
 - Keep the tracking proxy route registered once a site has used proxy tracking and answer 403 while the feature is off, so events from pages still held in a cache fail visibly instead of disappearing into a 404. Mirrors the speed module's authorization into an option it can read before plugins load, and has an unauthorized module fall through to the REST route rather than refuse on its own. [#68315]
-- Stop the tracking proxy endpoint from accepting client-supplied values for server-derived event properties, and register it only on sites with proxy tracking enabled. Adds `WC_Analytics_Tracking::record_client_event()` and a third `$is_client_supplied` argument to the `jetpack_woocommerce_analytics_event_props` filter. [#68313]
+- Stop the tracking proxy endpoint from accepting client-supplied values for server-derived event properties, and register it only on sites with proxy tracking enabled. Adds `WC_Analytics_Tracking::record_client_event()` and a third `$is_client_supplied` argument to the `jetpack_poocommerce_analytics_event_props` filter. [#68313]
 
 ### Added
 - Send the package version on every event as `package_version`, so Tracks data can be attributed to the package release that emitted it. The published copy has `PACKAGE_VERSION` stamped from `composer.json` at build time. [#68908]
@@ -38,7 +38,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update package dependencies. [#65999]
 
 ### Fixed
-- Recognize active WooCommerce installations in custom plugin directories. [#66665]
+- Recognize active PooCommerce installations in custom plugin directories. [#66665]
 
 ## 0.16.6 - 2026-06-17
 ### Fixed
@@ -100,7 +100,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.15.3] - 2026-02-10
 ### Changed
 - Update package dependencies. [#47002]
-- Update tracking classes to work without WooCommerce dependency. [#46756]
+- Update tracking classes to work without PooCommerce dependency. [#46756]
 
 ## [0.15.2] - 2026-02-02
 ### Changed
@@ -112,7 +112,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.15.0] - 2026-01-23
 ### Added
-- Add woocommerce_analytics_auto_install_proxy_speed_module filter to control auto-installation of proxy speed module mu-plugin. [#46719]
+- Add poocommerce_analytics_auto_install_proxy_speed_module filter to control auto-installation of proxy speed module mu-plugin. [#46719]
 
 ## [0.14.0] - 2026-01-19
 ### Added
@@ -150,11 +150,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.12.2] - 2025-11-24
 ### Fixed
-- Improve compatibility with old WooCommerce versions. [#46003]
+- Improve compatibility with old PooCommerce versions. [#46003]
 
 ## [0.12.1] - 2025-11-19
 ### Fixed
-- Fix compatibility issue with WooCommerce older than 9.7.0. [#45988]
+- Fix compatibility issue with PooCommerce older than 9.7.0. [#45988]
 
 ## [0.12.0] - 2025-11-17
 ### Changed
@@ -243,7 +243,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - Ensure update cart is triggered. [#44729]
-- Set woocommerceanalytics_session. [#44729]
+- Set poocommerceanalytics_session. [#44729]
 
 ## [0.4.9] - 2025-08-04
 ### Changed
@@ -311,11 +311,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.1.10] - 2024-09-10
 ### Fixed
-- Check whether `\WC_Install::STORE_ID_OPTION` is defined before attempting to use it, for compatibility with WooCommerce <8.4.0. [#39306]
+- Check whether `\WC_Install::STORE_ID_OPTION` is defined before attempting to use it, for compatibility with PooCommerce <8.4.0. [#39306]
 
 ## [0.1.9] - 2024-09-09
 ### Added
-- Add Store ID property in common woocommerce analytics properties. [#38857]
+- Add Store ID property in common poocommerce analytics properties. [#38857]
 
 ## [0.1.8] - 2024-08-26
 ### Changed
@@ -339,7 +339,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.1.3] - 2024-04-08
 ### Fixed
-- Fixed a JavaScript error when accessing the Shortcode checkout with WooCommerce Analytics enable. [#36560]
+- Fixed a JavaScript error when accessing the Shortcode checkout with PooCommerce Analytics enable. [#36560]
 
 ## [0.1.2] - 2024-03-25
 ### Changed
@@ -356,65 +356,65 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - Avoid any issues when the package is loaded in an mu-plugin. [#36287]
-- Fix namespace issue with WooCommerce class reference. [#35857]
-- General: bail early when WooCommerce is not active. [#36278]
+- Fix namespace issue with PooCommerce class reference. [#35857]
+- General: bail early when PooCommerce is not active. [#36278]
 
-[0.16.3]: https://github.com/Automattic/woocommerce-analytics/compare/v0.16.2...v0.16.3
-[0.16.2]: https://github.com/Automattic/woocommerce-analytics/compare/v0.16.1...v0.16.2
-[0.16.1]: https://github.com/Automattic/woocommerce-analytics/compare/v0.16.0...v0.16.1
-[0.16.0]: https://github.com/Automattic/woocommerce-analytics/compare/v0.15.7...v0.16.0
-[0.15.7]: https://github.com/Automattic/woocommerce-analytics/compare/v0.15.6...v0.15.7
-[0.15.6]: https://github.com/Automattic/woocommerce-analytics/compare/v0.15.5...v0.15.6
-[0.15.5]: https://github.com/Automattic/woocommerce-analytics/compare/v0.15.4...v0.15.5
-[0.15.4]: https://github.com/Automattic/woocommerce-analytics/compare/v0.15.3...v0.15.4
-[0.15.3]: https://github.com/Automattic/woocommerce-analytics/compare/v0.15.2...v0.15.3
-[0.15.2]: https://github.com/Automattic/woocommerce-analytics/compare/v0.15.1...v0.15.2
-[0.15.1]: https://github.com/Automattic/woocommerce-analytics/compare/v0.15.0...v0.15.1
-[0.15.0]: https://github.com/Automattic/woocommerce-analytics/compare/v0.14.0...v0.15.0
-[0.14.0]: https://github.com/Automattic/woocommerce-analytics/compare/v0.13.4...v0.14.0
-[0.13.4]: https://github.com/Automattic/woocommerce-analytics/compare/v0.13.3...v0.13.4
-[0.13.3]: https://github.com/Automattic/woocommerce-analytics/compare/v0.13.2...v0.13.3
-[0.13.2]: https://github.com/Automattic/woocommerce-analytics/compare/v0.13.1...v0.13.2
-[0.13.1]: https://github.com/Automattic/woocommerce-analytics/compare/v0.13.0...v0.13.1
-[0.13.0]: https://github.com/Automattic/woocommerce-analytics/compare/v0.12.2...v0.13.0
-[0.12.2]: https://github.com/Automattic/woocommerce-analytics/compare/v0.12.1...v0.12.2
-[0.12.1]: https://github.com/Automattic/woocommerce-analytics/compare/v0.12.0...v0.12.1
-[0.12.0]: https://github.com/Automattic/woocommerce-analytics/compare/v0.11.0...v0.12.0
-[0.11.0]: https://github.com/Automattic/woocommerce-analytics/compare/v0.10.1...v0.11.0
-[0.10.1]: https://github.com/Automattic/woocommerce-analytics/compare/v0.10.0...v0.10.1
-[0.10.0]: https://github.com/Automattic/woocommerce-analytics/compare/v0.9.2...v0.10.0
-[0.9.2]: https://github.com/Automattic/woocommerce-analytics/compare/v0.9.1...v0.9.2
-[0.9.1]: https://github.com/Automattic/woocommerce-analytics/compare/v0.9.0...v0.9.1
-[0.9.0]: https://github.com/Automattic/woocommerce-analytics/compare/v0.8.0...v0.9.0
-[0.8.0]: https://github.com/Automattic/woocommerce-analytics/compare/v0.7.0...v0.8.0
-[0.7.0]: https://github.com/Automattic/woocommerce-analytics/compare/v0.6.2...v0.7.0
-[0.6.2]: https://github.com/Automattic/woocommerce-analytics/compare/v0.6.1...v0.6.2
-[0.6.1]: https://github.com/Automattic/woocommerce-analytics/compare/v0.6.0...v0.6.1
-[0.6.0]: https://github.com/Automattic/woocommerce-analytics/compare/v0.5.0...v0.6.0
-[0.5.0]: https://github.com/Automattic/woocommerce-analytics/compare/v0.4.9...v0.5.0
-[0.4.9]: https://github.com/Automattic/woocommerce-analytics/compare/v0.4.8...v0.4.9
-[0.4.8]: https://github.com/Automattic/woocommerce-analytics/compare/v0.4.7...v0.4.8
-[0.4.7]: https://github.com/Automattic/woocommerce-analytics/compare/v0.4.6...v0.4.7
-[0.4.6]: https://github.com/Automattic/woocommerce-analytics/compare/v0.4.5...v0.4.6
-[0.4.5]: https://github.com/Automattic/woocommerce-analytics/compare/v0.4.4...v0.4.5
-[0.4.4]: https://github.com/Automattic/woocommerce-analytics/compare/v0.4.3...v0.4.4
-[0.4.3]: https://github.com/Automattic/woocommerce-analytics/compare/v0.4.2...v0.4.3
-[0.4.2]: https://github.com/Automattic/woocommerce-analytics/compare/v0.4.1...v0.4.2
-[0.4.1]: https://github.com/Automattic/woocommerce-analytics/compare/v0.4.0...v0.4.1
-[0.4.0]: https://github.com/Automattic/woocommerce-analytics/compare/v0.3.1...v0.4.0
-[0.3.1]: https://github.com/Automattic/woocommerce-analytics/compare/v0.3.0...v0.3.1
-[0.3.0]: https://github.com/Automattic/woocommerce-analytics/compare/v0.2.0...v0.3.0
-[0.2.0]: https://github.com/Automattic/woocommerce-analytics/compare/v0.1.13...v0.2.0
-[0.1.13]: https://github.com/Automattic/woocommerce-analytics/compare/v0.1.12...v0.1.13
-[0.1.12]: https://github.com/Automattic/woocommerce-analytics/compare/v0.1.11...v0.1.12
-[0.1.11]: https://github.com/Automattic/woocommerce-analytics/compare/v0.1.10...v0.1.11
-[0.1.10]: https://github.com/Automattic/woocommerce-analytics/compare/v0.1.9...v0.1.10
-[0.1.9]: https://github.com/Automattic/woocommerce-analytics/compare/v0.1.8...v0.1.9
-[0.1.8]: https://github.com/Automattic/woocommerce-analytics/compare/v0.1.7...v0.1.8
-[0.1.7]: https://github.com/Automattic/woocommerce-analytics/compare/v0.1.6...v0.1.7
-[0.1.6]: https://github.com/Automattic/woocommerce-analytics/compare/v0.1.5...v0.1.6
-[0.1.5]: https://github.com/Automattic/woocommerce-analytics/compare/v0.1.4...v0.1.5
-[0.1.4]: https://github.com/Automattic/woocommerce-analytics/compare/v0.1.3...v0.1.4
-[0.1.3]: https://github.com/Automattic/woocommerce-analytics/compare/v0.1.2...v0.1.3
-[0.1.2]: https://github.com/Automattic/woocommerce-analytics/compare/v0.1.1...v0.1.2
-[0.1.1]: https://github.com/Automattic/woocommerce-analytics/compare/v0.1.0...v0.1.1
+[0.16.3]: https://github.com/Automattic/poocommerce-analytics/compare/v0.16.2...v0.16.3
+[0.16.2]: https://github.com/Automattic/poocommerce-analytics/compare/v0.16.1...v0.16.2
+[0.16.1]: https://github.com/Automattic/poocommerce-analytics/compare/v0.16.0...v0.16.1
+[0.16.0]: https://github.com/Automattic/poocommerce-analytics/compare/v0.15.7...v0.16.0
+[0.15.7]: https://github.com/Automattic/poocommerce-analytics/compare/v0.15.6...v0.15.7
+[0.15.6]: https://github.com/Automattic/poocommerce-analytics/compare/v0.15.5...v0.15.6
+[0.15.5]: https://github.com/Automattic/poocommerce-analytics/compare/v0.15.4...v0.15.5
+[0.15.4]: https://github.com/Automattic/poocommerce-analytics/compare/v0.15.3...v0.15.4
+[0.15.3]: https://github.com/Automattic/poocommerce-analytics/compare/v0.15.2...v0.15.3
+[0.15.2]: https://github.com/Automattic/poocommerce-analytics/compare/v0.15.1...v0.15.2
+[0.15.1]: https://github.com/Automattic/poocommerce-analytics/compare/v0.15.0...v0.15.1
+[0.15.0]: https://github.com/Automattic/poocommerce-analytics/compare/v0.14.0...v0.15.0
+[0.14.0]: https://github.com/Automattic/poocommerce-analytics/compare/v0.13.4...v0.14.0
+[0.13.4]: https://github.com/Automattic/poocommerce-analytics/compare/v0.13.3...v0.13.4
+[0.13.3]: https://github.com/Automattic/poocommerce-analytics/compare/v0.13.2...v0.13.3
+[0.13.2]: https://github.com/Automattic/poocommerce-analytics/compare/v0.13.1...v0.13.2
+[0.13.1]: https://github.com/Automattic/poocommerce-analytics/compare/v0.13.0...v0.13.1
+[0.13.0]: https://github.com/Automattic/poocommerce-analytics/compare/v0.12.2...v0.13.0
+[0.12.2]: https://github.com/Automattic/poocommerce-analytics/compare/v0.12.1...v0.12.2
+[0.12.1]: https://github.com/Automattic/poocommerce-analytics/compare/v0.12.0...v0.12.1
+[0.12.0]: https://github.com/Automattic/poocommerce-analytics/compare/v0.11.0...v0.12.0
+[0.11.0]: https://github.com/Automattic/poocommerce-analytics/compare/v0.10.1...v0.11.0
+[0.10.1]: https://github.com/Automattic/poocommerce-analytics/compare/v0.10.0...v0.10.1
+[0.10.0]: https://github.com/Automattic/poocommerce-analytics/compare/v0.9.2...v0.10.0
+[0.9.2]: https://github.com/Automattic/poocommerce-analytics/compare/v0.9.1...v0.9.2
+[0.9.1]: https://github.com/Automattic/poocommerce-analytics/compare/v0.9.0...v0.9.1
+[0.9.0]: https://github.com/Automattic/poocommerce-analytics/compare/v0.8.0...v0.9.0
+[0.8.0]: https://github.com/Automattic/poocommerce-analytics/compare/v0.7.0...v0.8.0
+[0.7.0]: https://github.com/Automattic/poocommerce-analytics/compare/v0.6.2...v0.7.0
+[0.6.2]: https://github.com/Automattic/poocommerce-analytics/compare/v0.6.1...v0.6.2
+[0.6.1]: https://github.com/Automattic/poocommerce-analytics/compare/v0.6.0...v0.6.1
+[0.6.0]: https://github.com/Automattic/poocommerce-analytics/compare/v0.5.0...v0.6.0
+[0.5.0]: https://github.com/Automattic/poocommerce-analytics/compare/v0.4.9...v0.5.0
+[0.4.9]: https://github.com/Automattic/poocommerce-analytics/compare/v0.4.8...v0.4.9
+[0.4.8]: https://github.com/Automattic/poocommerce-analytics/compare/v0.4.7...v0.4.8
+[0.4.7]: https://github.com/Automattic/poocommerce-analytics/compare/v0.4.6...v0.4.7
+[0.4.6]: https://github.com/Automattic/poocommerce-analytics/compare/v0.4.5...v0.4.6
+[0.4.5]: https://github.com/Automattic/poocommerce-analytics/compare/v0.4.4...v0.4.5
+[0.4.4]: https://github.com/Automattic/poocommerce-analytics/compare/v0.4.3...v0.4.4
+[0.4.3]: https://github.com/Automattic/poocommerce-analytics/compare/v0.4.2...v0.4.3
+[0.4.2]: https://github.com/Automattic/poocommerce-analytics/compare/v0.4.1...v0.4.2
+[0.4.1]: https://github.com/Automattic/poocommerce-analytics/compare/v0.4.0...v0.4.1
+[0.4.0]: https://github.com/Automattic/poocommerce-analytics/compare/v0.3.1...v0.4.0
+[0.3.1]: https://github.com/Automattic/poocommerce-analytics/compare/v0.3.0...v0.3.1
+[0.3.0]: https://github.com/Automattic/poocommerce-analytics/compare/v0.2.0...v0.3.0
+[0.2.0]: https://github.com/Automattic/poocommerce-analytics/compare/v0.1.13...v0.2.0
+[0.1.13]: https://github.com/Automattic/poocommerce-analytics/compare/v0.1.12...v0.1.13
+[0.1.12]: https://github.com/Automattic/poocommerce-analytics/compare/v0.1.11...v0.1.12
+[0.1.11]: https://github.com/Automattic/poocommerce-analytics/compare/v0.1.10...v0.1.11
+[0.1.10]: https://github.com/Automattic/poocommerce-analytics/compare/v0.1.9...v0.1.10
+[0.1.9]: https://github.com/Automattic/poocommerce-analytics/compare/v0.1.8...v0.1.9
+[0.1.8]: https://github.com/Automattic/poocommerce-analytics/compare/v0.1.7...v0.1.8
+[0.1.7]: https://github.com/Automattic/poocommerce-analytics/compare/v0.1.6...v0.1.7
+[0.1.6]: https://github.com/Automattic/poocommerce-analytics/compare/v0.1.5...v0.1.6
+[0.1.5]: https://github.com/Automattic/poocommerce-analytics/compare/v0.1.4...v0.1.5
+[0.1.4]: https://github.com/Automattic/poocommerce-analytics/compare/v0.1.3...v0.1.4
+[0.1.3]: https://github.com/Automattic/poocommerce-analytics/compare/v0.1.2...v0.1.3
+[0.1.2]: https://github.com/Automattic/poocommerce-analytics/compare/v0.1.1...v0.1.2
+[0.1.1]: https://github.com/Automattic/poocommerce-analytics/compare/v0.1.0...v0.1.1

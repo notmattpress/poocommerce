@@ -1,12 +1,12 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Admin\API\Reports\Orders\Stats;
+namespace Automattic\PooCommerce\Tests\Admin\API\Reports\Orders\Stats;
 
-use Automattic\WooCommerce\Admin\API\Reports\Orders\Stats\DataStore as OrdersStatsDataStore;
-use Automattic\WooCommerce\Admin\Features\Fulfillments\Fulfillment;
-use Automattic\WooCommerce\Admin\Features\Fulfillments\FulfillmentsController;
-use Automattic\WooCommerce\Internal\Admin\Analytics;
+use Automattic\PooCommerce\Admin\API\Reports\Orders\Stats\DataStore as OrdersStatsDataStore;
+use Automattic\PooCommerce\Admin\Features\Fulfillments\Fulfillment;
+use Automattic\PooCommerce\Admin\Features\Fulfillments\FulfillmentsController;
+use Automattic\PooCommerce\Internal\Admin\Analytics;
 use WC_Helper_Order;
 use WC_Helper_Product;
 use WC_Helper_Queue;
@@ -29,7 +29,7 @@ class DataStoreFulfillmentsTest extends OrdersStatsTestCase {
 
 		$db_version = strstr( WC()->version, '-', true );
 		$db_version = $db_version ? $db_version : WC()->version;
-		update_option( 'woocommerce_db_version', $db_version );
+		update_option( 'poocommerce_db_version', $db_version );
 
 		delete_option( OrdersStatsDataStore::OPTION_ORDER_STATS_TABLE_HAS_COLUMN_ORDER_FULFILLMENT_STATUS );
 	}
@@ -42,8 +42,8 @@ class DataStoreFulfillmentsTest extends OrdersStatsTestCase {
 
 		WC_Helper_Reports::reset_stats_dbs();
 
-		$prev_fulfillments_opt = get_option( 'woocommerce_feature_fulfillments_enabled', null );
-		update_option( 'woocommerce_feature_fulfillments_enabled', 'yes' );
+		$prev_fulfillments_opt = get_option( 'poocommerce_feature_fulfillments_enabled', null );
+		update_option( 'poocommerce_feature_fulfillments_enabled', 'yes' );
 
 		try {
 			// Enable fulfillments feature.
@@ -52,8 +52,8 @@ class DataStoreFulfillmentsTest extends OrdersStatsTestCase {
 			$controller->initialize_fulfillments();
 
 			// Reset migration state.
-			delete_option( 'woocommerce_analytics_order_fulfillment_status_regenerated' );
-			delete_transient( 'woocommerce_analytics_fulfillment_status_progress' );
+			delete_option( 'poocommerce_analytics_order_fulfillment_status_regenerated' );
+			delete_transient( 'poocommerce_analytics_fulfillment_status_progress' );
 
 			// Ensure column exists.
 			OrdersStatsDataStore::add_fulfillment_status_column();
@@ -100,22 +100,22 @@ class DataStoreFulfillmentsTest extends OrdersStatsTestCase {
 			$this->assertNull( $statuses[ $no_fulfillment_order_2->get_id() ]->fulfillment_status, 'Orders without fulfillments should have a NULL fulfillment_status' );
 
 			// Verify completion.
-			$regenerated = get_option( 'woocommerce_analytics_order_fulfillment_status_regenerated' );
+			$regenerated = get_option( 'poocommerce_analytics_order_fulfillment_status_regenerated' );
 			$this->assertTrue( (bool) $regenerated, 'Migration should be marked as completed' );
 
 			// Verify transient cleanup.
-			$progress = get_transient( 'woocommerce_analytics_fulfillment_status_progress' );
+			$progress = get_transient( 'poocommerce_analytics_fulfillment_status_progress' );
 			$this->assertFalse( $progress, 'Progress transient should be deleted after completion' );
 		} finally {
-			delete_option( 'woocommerce_analytics_order_fulfillment_status_regenerated' );
+			delete_option( 'poocommerce_analytics_order_fulfillment_status_regenerated' );
 			$wpdb->query( "DELETE FROM {$wpdb->prefix}wc_order_fulfillment_meta" );
 			$wpdb->query( "DELETE FROM {$wpdb->prefix}wc_order_fulfillments" );
-			delete_transient( 'woocommerce_analytics_fulfillment_status_progress' );
+			delete_transient( 'poocommerce_analytics_fulfillment_status_progress' );
 
 			if ( null === $prev_fulfillments_opt ) {
-				delete_option( 'woocommerce_feature_fulfillments_enabled' );
+				delete_option( 'poocommerce_feature_fulfillments_enabled' );
 			} else {
-				update_option( 'woocommerce_feature_fulfillments_enabled', $prev_fulfillments_opt );
+				update_option( 'poocommerce_feature_fulfillments_enabled', $prev_fulfillments_opt );
 			}
 		}
 	}

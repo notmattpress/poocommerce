@@ -11,7 +11,7 @@
 	}
 }
 
-.woocommerce-email-editor__view-mode-toggle {
+.poocommerce-email-editor__view-mode-toggle {
 	view-transition-name: toggle;
 	top: 0;
 	left: 0;
@@ -37,7 +37,7 @@
 		}
 	}
 
-	.woocommerce-email-editor__view-mode-toggle-icon {
+	.poocommerce-email-editor__view-mode-toggle-icon {
 		svg,
 		img {
 			background: $gray-900;
@@ -46,7 +46,7 @@
 	}
 }
 
-.woocommerce-email-editor-icon {
+.poocommerce-email-editor-icon {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -65,14 +65,14 @@
 	}
 }
 
-.woocommerce-email-editor-icon__icon {
+.poocommerce-email-editor-icon__icon {
 	fill: currentColor;
 	width: 100%;
 	height: 100%;
 	padding: 12px;
 }
 
-.woocommerce-email-editor__view-mode-toggle button:focus {
+.poocommerce-email-editor__view-mode-toggle button:focus {
 	position: relative;
 
 	&::before {

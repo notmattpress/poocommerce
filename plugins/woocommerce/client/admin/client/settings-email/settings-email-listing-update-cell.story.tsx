@@ -50,6 +50,6 @@ export const ThirdPartyNotOptedIn = () => (
 );
 
 export default {
-	title: 'WooCommerce Admin/Settings · Email · Update indicator',
+	title: 'PooCommerce Admin/Settings · Email · Update indicator',
 	component: UpdatesCell,
 };

@@ -1,12 +1,12 @@
 <?php
 /**
- * The update helper for WooCommerce.com plugins.
+ * The update helper for PooCommerce.com plugins.
  *
  * @class WC_Helper_Updater
- * @package WooCommerce\Admin\Helper
+ * @package PooCommerce\Admin\Helper
  */
 
-use Automattic\WooCommerce\Admin\PluginsHelper;
+use Automattic\PooCommerce\Admin\PluginsHelper;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * WC_Helper_Updater Class
  *
  * Contains the logic to fetch available updates and hook into Core's update
- * routines to serve WooCommerce.com-provided packages.
+ * routines to serve PooCommerce.com-provided packages.
  */
 class WC_Helper_Updater {
 
@@ -97,8 +97,8 @@ class WC_Helper_Updater {
 			$filename = $plugin['_filename'];
 
 			$item = array(
-				'id'             => 'woocommerce-com-' . $plugin['_product_id'],
-				'slug'           => 'woocommerce-com-' . $data['slug'],
+				'id'             => 'poocommerce-com-' . $plugin['_product_id'],
+				'slug'           => 'poocommerce-com-' . $data['slug'],
 				'plugin'         => $filename,
 				'new_version'    => $data['version'],
 				'url'            => $data['url'],
@@ -154,7 +154,7 @@ class WC_Helper_Updater {
 
 	/**
 	 * Runs on pre_set_site_transient_update_themes, provides custom
-	 * packages for WooCommerce.com-hosted extensions.
+	 * packages for PooCommerce.com-hosted extensions.
 	 *
 	 * @param object $transient The update_themes transient object.
 	 *
@@ -209,7 +209,7 @@ class WC_Helper_Updater {
 	}
 
 	/**
-	 * Checks whether WooCommerce.com flagged this update to be installed automatically.
+	 * Checks whether PooCommerce.com flagged this update to be installed automatically.
 	 *
 	 * Uses core's own `autoupdate` flag, the same one api.wordpress.org sets on WordPress.org
 	 * plugins, so these updates follow the same path through WP_Automatic_Updater::should_update().
@@ -237,11 +237,11 @@ class WC_Helper_Updater {
 			return false;
 		}
 
-		return 0 !== strpos( $item['package'], 'woocommerce-com-expired-' );
+		return 0 !== strpos( $item['package'], 'poocommerce-com-expired-' );
 	}
 
 	/**
-	 * Runs on load-plugins.php, adds a hook to show a custom plugin update message for WooCommerce.com hosted plugins.
+	 * Runs on load-plugins.php, adds a hook to show a custom plugin update message for PooCommerce.com hosted plugins.
 	 *
 	 * @return void.
 	 */
@@ -258,7 +258,7 @@ class WC_Helper_Updater {
 	}
 
 	/**
-	 * Runs on in_plugin_update_message-{file-name}, show a message to connect to woocommerce.com for unconnected stores
+	 * Runs on in_plugin_update_message-{file-name}, show a message to connect to poocommerce.com for unconnected stores
 	 *
 	 * @return void.
 	 */
@@ -307,7 +307,7 @@ class WC_Helper_Updater {
 	}
 
 	/**
-	 * Message asking an unconnected store to connect to WooCommerce.com.
+	 * Message asking an unconnected store to connect to PooCommerce.com.
 	 *
 	 * @since 11.2.0
 	 *
@@ -328,16 +328,16 @@ class WC_Helper_Updater {
 		);
 
 		return sprintf(
-			/* translators: 1: URL of the WooCommerce.com connect page */
-			__( 'Extension distributed via WooCommerce.com. <a href="%1$s" class="woocommerce-connect-your-store">Connect your store</a> for security updates, product improvements, and support.', 'woocommerce' ),
+			/* translators: 1: URL of the PooCommerce.com connect page */
+			__( 'Extension distributed via PooCommerce.com. <a href="%1$s" class="poocommerce-connect-your-store">Connect your store</a> for security updates, product improvements, and support.', 'poocommerce' ),
 			esc_url( $connect_page_url )
 		);
 	}
 
 	/**
-	 * Product ID of the WooCommerce.com plugin a row notice applies to.
+	 * Product ID of the PooCommerce.com plugin a row notice applies to.
 	 *
-	 * Returns 0 when the row should get no notice: the plugin isn't WooCommerce.com hosted, the
+	 * Returns 0 when the row should get no notice: the plugin isn't PooCommerce.com hosted, the
 	 * screen is one Core renders no update rows on, or Core already renders an update row for it,
 	 * which the in_plugin_update_message-{file-name} handlers append their own message to.
 	 *
@@ -408,7 +408,7 @@ class WC_Helper_Updater {
 	}
 
 	/**
-	 * Runs on after_plugin_row, show a connect message on WooCommerce.com plugin rows that Core
+	 * Runs on after_plugin_row, show a connect message on PooCommerce.com plugin rows that Core
 	 * renders no update notice for.
 	 *
 	 * Core only renders its update row -- and with it the message appended by
@@ -431,7 +431,7 @@ class WC_Helper_Updater {
 	}
 
 	/**
-	 * Runs on after_plugin_row, show a subscription message on WooCommerce.com plugin rows that
+	 * Runs on after_plugin_row, show a subscription message on PooCommerce.com plugin rows that
 	 * Core renders no update notice for.
 	 *
 	 * Rows that do have an update are covered by the in_plugin_update_message-{file-name} handlers.
@@ -462,12 +462,12 @@ class WC_Helper_Updater {
 	 * Message for a product's subscription state, or an empty string when there is nothing to say.
 	 *
 	 * Resolves the product's subscriptions once and hands them to whichever message needs them,
-	 * so a screen full of WooCommerce.com plugins doesn't filter the whole list twice per row.
+	 * so a screen full of PooCommerce.com plugins doesn't filter the whole list twice per row.
 	 *
 	 * @since 11.2.0
 	 *
-	 * @param int    $product_id       WooCommerce.com product ID.
-	 * @param string $product_page_url WooCommerce.com product page URL, or an empty string.
+	 * @param int    $product_id       PooCommerce.com product ID.
+	 * @param string $product_page_url PooCommerce.com product page URL, or an empty string.
 	 * @param string $campaign_prefix  Prefix for the link's utm_campaign value.
 	 *
 	 * @return string
@@ -496,7 +496,7 @@ class WC_Helper_Updater {
 	 *
 	 * @since 11.2.0
 	 *
-	 * @param int $product_id WooCommerce.com product ID.
+	 * @param int $product_id PooCommerce.com product ID.
 	 *
 	 * @return array
 	 */
@@ -505,7 +505,7 @@ class WC_Helper_Updater {
 	}
 
 	/**
-	 * WooCommerce.com product page URL for a plugin, from the update data Core already holds.
+	 * PooCommerce.com product page URL for a plugin, from the update data Core already holds.
 	 *
 	 * @since 11.2.0
 	 *
@@ -520,7 +520,7 @@ class WC_Helper_Updater {
 	}
 
 	/**
-	 * WooCommerce.com product page URL carried by an update response, or an empty string.
+	 * PooCommerce.com product page URL carried by an update response, or an empty string.
 	 *
 	 * @since 11.2.0
 	 *
@@ -540,8 +540,8 @@ class WC_Helper_Updater {
 	 *
 	 * @since 11.2.0
 	 *
-	 * @param int    $product_id       WooCommerce.com product ID.
-	 * @param string $product_page_url WooCommerce.com product page URL, or an empty string.
+	 * @param int    $product_id       PooCommerce.com product ID.
+	 * @param string $product_page_url PooCommerce.com product page URL, or an empty string.
 	 * @param string $campaign_prefix  Prefix for the link's utm_campaign value.
 	 *
 	 * @return string
@@ -565,8 +565,8 @@ class WC_Helper_Updater {
 			);
 
 		return sprintf(
-			/* translators: 1: URL of the WooCommerce.com product page */
-			__( 'You don\'t have an active subscription for this product. <a href="%1$s" class="woocommerce-purchase-subscription">Subscribe</a> now for security updates, product improvements, and support.', 'woocommerce' ),
+			/* translators: 1: URL of the PooCommerce.com product page */
+			__( 'You don\'t have an active subscription for this product. <a href="%1$s" class="poocommerce-purchase-subscription">Subscribe</a> now for security updates, product improvements, and support.', 'poocommerce' ),
 			esc_url( $purchase_link )
 		);
 	}
@@ -588,8 +588,8 @@ class WC_Helper_Updater {
 
 		if ( ! empty( $expired_subscription ) ) {
 			return sprintf(
-				/* translators: 1: URL of the WooCommerce.com cart set up to renew the subscription */
-				__( 'Your subscription for this extension has expired. <a href="%1$s" class="woocommerce-renew-subscription">Renew your subscription</a> for security updates, product improvements, and support.', 'woocommerce' ),
+				/* translators: 1: URL of the PooCommerce.com cart set up to renew the subscription */
+				__( 'Your subscription for this extension has expired. <a href="%1$s" class="poocommerce-renew-subscription">Renew your subscription</a> for security updates, product improvements, and support.', 'poocommerce' ),
 				esc_url( self::get_renew_link( $expired_subscription, $campaign_prefix . '_renew' ) )
 			);
 		}
@@ -608,14 +608,14 @@ class WC_Helper_Updater {
 			if ( ! is_numeric( $expiring_subscription['expires'] ?? null ) ) {
 				return sprintf(
 					/* translators: 1: URL of the My Subscriptions page */
-					__( 'Your subscription for this extension expires soon. <a href="%1$s" class="woocommerce-enable-autorenew">Enable auto-renew</a> to keep getting updates and support.', 'woocommerce' ),
+					__( 'Your subscription for this extension expires soon. <a href="%1$s" class="poocommerce-enable-autorenew">Enable auto-renew</a> to keep getting updates and support.', 'poocommerce' ),
 					esc_url( $autorenew_link )
 				);
 			}
 
 			return sprintf(
 				/* translators: 1: Expiry date, 2: URL of the My Subscriptions page */
-				__( 'Your subscription for this extension expires on %1$s. <a href="%2$s" class="woocommerce-enable-autorenew">Enable auto-renew</a> to keep getting updates and support.', 'woocommerce' ),
+				__( 'Your subscription for this extension expires on %1$s. <a href="%2$s" class="poocommerce-enable-autorenew">Enable auto-renew</a> to keep getting updates and support.', 'poocommerce' ),
 				wp_date( get_option( 'date_format' ), (int) $expiring_subscription['expires'] ),
 				esc_url( $autorenew_link )
 			);
@@ -625,9 +625,9 @@ class WC_Helper_Updater {
 	}
 
 	/**
-	 * Product ID carried by an update response WooCommerce wrote, or 0 for anything else.
+	 * Product ID carried by an update response PooCommerce wrote, or 0 for anything else.
 	 *
-	 * The updater sets the ID to "woocommerce-com-<product ID>". A filter can replace the
+	 * The updater sets the ID to "poocommerce-com-<product ID>". A filter can replace the
 	 * response, so anything that does not match exactly is treated as not ours rather than
 	 * having its digits scraped out.
 	 *
@@ -642,7 +642,7 @@ class WC_Helper_Updater {
 			return 0;
 		}
 
-		$prefix = 'woocommerce-com-';
+		$prefix = 'poocommerce-com-';
 		if ( 0 !== strpos( $response->id, $prefix ) ) {
 			return 0;
 		}
@@ -661,7 +661,7 @@ class WC_Helper_Updater {
 	 *
 	 * @since 11.2.0
 	 *
-	 * @param array  $subscription Subscription record from the WooCommerce.com API.
+	 * @param array  $subscription Subscription record from the PooCommerce.com API.
 	 * @param string $campaign     utm_campaign value for the link.
 	 *
 	 * @return string
@@ -715,7 +715,7 @@ class WC_Helper_Updater {
 			printf(
 				wp_kses(
 					/* translators: 1: Woo Update Manager plugin install URL */
-					__( ' <a href="%1$s">Install WooCommerce.com Update Manager</a> to update.', 'woocommerce' ),
+					__( ' <a href="%1$s">Install PooCommerce.com Update Manager</a> to update.', 'poocommerce' ),
 					array(
 						'a' => array(
 							'href' => array(),
@@ -728,7 +728,7 @@ class WC_Helper_Updater {
 		}
 
 		if ( ! WC_Woo_Update_Manager_Plugin::is_plugin_active() ) {
-			esc_html_e( ' Activate WooCommerce.com Update Manager to update.', 'woocommerce' );
+			esc_html_e( ' Activate PooCommerce.com Update Manager to update.', 'poocommerce' );
 		}
 	}
 
@@ -849,7 +849,7 @@ class WC_Helper_Updater {
 	}
 
 	/**
-	 * The products to ask WooCommerce.com about, with the file ID and installed version of each.
+	 * The products to ask PooCommerce.com about, with the file ID and installed version of each.
 	 *
 	 * Covers every subscription plus every installed plugin and theme carrying a Woo header,
 	 * whether or not it has a subscription. Every caller has to send the same payload: the
@@ -935,7 +935,7 @@ class WC_Helper_Updater {
 				 *
 				 * @since 3.7.0
 				 */
-				return apply_filters( 'woocommerce_translations_updates_for_' . $plugins[ $plugin ]['slug'], false );
+				return apply_filters( 'poocommerce_translations_updates_for_' . $plugins[ $plugin ]['slug'], false );
 			}
 		);
 
@@ -962,7 +962,7 @@ class WC_Helper_Updater {
 		}
 
 		$raw_response = wp_remote_post(
-			'https://translate.wordpress.com/api/translations-updates/woocommerce',
+			'https://translate.wordpress.com/api/translations-updates/poocommerce',
 			array(
 				'body'    => wp_json_encode( $request_body ),
 				'headers' => array( 'Content-Type: application/json' ),
@@ -1115,7 +1115,7 @@ class WC_Helper_Updater {
 
 		$hash = md5( wp_json_encode( $payload ) );
 
-		$cache_key = '_woocommerce_helper_updates';
+		$cache_key = '_poocommerce_helper_updates';
 		$data      = get_transient( $cache_key );
 
 		if ( self::should_use_cached_update_data( $data, $hash ) ) {
@@ -1195,18 +1195,18 @@ class WC_Helper_Updater {
 	 * @return int The number of products with updates.
 	 */
 	public static function get_updates_count() {
-		$cache_key = '_woocommerce_helper_updates_count';
+		$cache_key = '_poocommerce_helper_updates_count';
 		$count     = get_transient( $cache_key );
 		if ( false !== $count ) {
 			return $count;
 		}
 
 		// This runs often, so it only counts from cached data; a cache that's stale or expired by a refresh triggers one update check here.
-		if ( ! get_transient( '_woocommerce_helper_subscriptions' ) ) {
+		if ( ! get_transient( '_poocommerce_helper_subscriptions' ) ) {
 			return 0;
 		}
 
-		if ( ! get_transient( '_woocommerce_helper_updates' ) ) {
+		if ( ! get_transient( '_poocommerce_helper_updates' ) ) {
 			return 0;
 		}
 
@@ -1273,7 +1273,7 @@ class WC_Helper_Updater {
 
 	/**
 	 * Get the type of woo connect notice to be shown in the WC Settings and Marketplace pages.
-	 * - If a store is connected to woocommerce.com or has no installed woo plugins, return 'none'.
+	 * - If a store is connected to poocommerce.com or has no installed woo plugins, return 'none'.
 	 * - If a store has installed woo plugins but no updates, return 'short'.
 	 * - If a store has an installed woo plugin with update, return 'long'.
 	 *
@@ -1326,7 +1326,7 @@ class WC_Helper_Updater {
 	 * Flushes cached update data.
 	 */
 	public static function flush_updates_cache() {
-		delete_transient( '_woocommerce_helper_updates' );
+		delete_transient( '_poocommerce_helper_updates' );
 		self::expire_updates_cache();
 	}
 
@@ -1336,13 +1336,13 @@ class WC_Helper_Updater {
 	 * @since 11.3.0
 	 */
 	public static function expire_updates_cache(): void {
-		$data = get_transient( '_woocommerce_helper_updates' );
+		$data = get_transient( '_poocommerce_helper_updates' );
 		if ( is_array( $data ) && isset( $data['hash'] ) ) {
 			$data['expired'] = true;
-			set_transient( '_woocommerce_helper_updates', $data, WEEK_IN_SECONDS );
+			set_transient( '_poocommerce_helper_updates', $data, WEEK_IN_SECONDS );
 		}
 
-		delete_transient( '_woocommerce_helper_updates_count' );
+		delete_transient( '_poocommerce_helper_updates_count' );
 		delete_site_transient( 'update_plugins' );
 		delete_site_transient( 'update_themes' );
 	}
@@ -1351,7 +1351,7 @@ class WC_Helper_Updater {
 	 * Fires when a user successfully updated a theme or a plugin.
 	 */
 	public static function upgrader_process_complete() {
-		delete_transient( '_woocommerce_helper_updates_count' );
+		delete_transient( '_poocommerce_helper_updates_count' );
 		WC_Helper::flush_local_woo_products_cache();
 	}
 
@@ -1372,15 +1372,15 @@ class WC_Helper_Updater {
 		}
 
 		// Only for packages with expired subscriptions.
-		if ( 0 !== strpos( $package, 'woocommerce-com-expired-' ) ) {
+		if ( 0 !== strpos( $package, 'poocommerce-com-expired-' ) ) {
 			return false;
 		}
 
 		return new WP_Error(
-			'woocommerce_subscription_expired',
+			'poocommerce_subscription_expired',
 			sprintf(
-				// translators: %s: URL of WooCommerce.com subscriptions tab.
-				__( 'Please visit the <a href="%s" target="_blank">subscriptions page</a> and renew to continue receiving updates.', 'woocommerce' ),
+				// translators: %s: URL of PooCommerce.com subscriptions tab.
+				__( 'Please visit the <a href="%s" target="_blank">subscriptions page</a> and renew to continue receiving updates.', 'poocommerce' ),
 				esc_url( admin_url( 'admin.php?page=wc-admin&tab=my-subscriptions&path=%2Fextensions' ) )
 			)
 		);

@@ -3,12 +3,12 @@
  * Class for adding segmenting support to coupons/stats without cluttering the data store.
  */
 
-namespace Automattic\WooCommerce\Admin\API\Reports\Coupons\Stats;
+namespace Automattic\PooCommerce\Admin\API\Reports\Coupons\Stats;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\API\Reports\Segmenter as ReportsSegmenter;
-use Automattic\WooCommerce\Admin\API\Reports\ParameterException;
+use Automattic\PooCommerce\Admin\API\Reports\Segmenter as ReportsSegmenter;
+use Automattic\PooCommerce\Admin\API\Reports\ParameterException;
 
 /**
  * Date & time interval and numeric range handling class for Reporting API.
@@ -250,7 +250,7 @@ class Segmenter extends ReportsSegmenter {
 	 * @param string $table_name Name of main SQL table for the data store (used as basis for JOINS).
 	 *
 	 * @return array
-	 * @throws \Automattic\WooCommerce\Admin\API\Reports\ParameterException In case of segmenting by variations, when no parent product is specified.
+	 * @throws \Automattic\PooCommerce\Admin\API\Reports\ParameterException In case of segmenting by variations, when no parent product is specified.
 	 */
 	protected function get_segments( $type, $query_params, $table_name ) {
 		global $wpdb;
@@ -281,7 +281,7 @@ class Segmenter extends ReportsSegmenter {
 			$segments = $this->get_product_related_segments( $type, $segmenting_selections, $segmenting_from, $segmenting_where, $segmenting_groupby, $segmenting_dimension_name, $table_name, $query_params, $unique_orders_table );
 		} elseif ( 'variation' === $this->query_args['segmentby'] ) {
 			if ( ! isset( $this->query_args['product_includes'] ) || ! is_array( $this->query_args['product_includes'] ) || count( $this->query_args['product_includes'] ) !== 1 ) {
-				throw new ParameterException( 'wc_admin_reports_invalid_segmenting_variation', __( 'product_includes parameter need to specify exactly one product when segmenting by variation.', 'woocommerce' ) );
+				throw new ParameterException( 'wc_admin_reports_invalid_segmenting_variation', __( 'product_includes parameter need to specify exactly one product when segmenting by variation.', 'poocommerce' ) );
 			}
 
 			$product_level_columns     = $this->get_segment_selections_product_level( $product_segmenting_table );

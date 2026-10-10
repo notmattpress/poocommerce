@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
 /**
  * Dropdown block (native select).
@@ -42,19 +42,19 @@ final class Dropdown extends AbstractBlock {
 	 * @return string Rendered block type output.
 	 */
 	protected function render( $attributes, $content, $block ) {
-		if ( empty( $block->context['woocommerce/selectableItems'] ) ) {
+		if ( empty( $block->context['poocommerce/selectableItems'] ) ) {
 			return '';
 		}
 
-		$selectable_items = $block->context['woocommerce/selectableItems'];
+		$selectable_items = $block->context['poocommerce/selectableItems'];
 		$items            = is_array( $selectable_items['items'] ?? null ) ? $selectable_items['items'] : array();
-		$store_namespace  = is_string( $selectable_items['storeNamespace'] ?? null ) ? $selectable_items['storeNamespace'] : 'woocommerce/add-to-cart-with-options';
+		$store_namespace  = is_string( $selectable_items['storeNamespace'] ?? null ) ? $selectable_items['storeNamespace'] : 'poocommerce/add-to-cart-with-options';
 
 		if ( empty( $items ) ) {
 			return '';
 		}
 
-		$attribute_id       = $block->context['woocommerce/attributeId'] ?? '';
+		$attribute_id       = $block->context['poocommerce/attributeId'] ?? '';
 		$has_external_label = is_string( $attribute_id ) && '' !== $attribute_id;
 		$select_id          = $has_external_label
 			? $attribute_id
@@ -62,7 +62,7 @@ final class Dropdown extends AbstractBlock {
 
 		$wrapper_attributes = array(
 			'class'               => 'wc-block-dropdown',
-			'data-wp-interactive' => 'woocommerce/dropdown',
+			'data-wp-interactive' => 'poocommerce/dropdown',
 			'data-wp-context'     => (string) wp_json_encode(
 				array(
 					'storeNamespace' => $store_namespace,
@@ -71,14 +71,14 @@ final class Dropdown extends AbstractBlock {
 			),
 		);
 
-		$aria_label = isset( $selectable_items['groupLabel'] ) && is_string( $selectable_items['groupLabel'] ) ? $selectable_items['groupLabel'] : __( 'Choose an option', 'woocommerce' );
+		$aria_label = isset( $selectable_items['groupLabel'] ) && is_string( $selectable_items['groupLabel'] ) ? $selectable_items['groupLabel'] : __( 'Choose an option', 'poocommerce' );
 
 		ob_start();
 		?>
 		<div <?php echo get_block_wrapper_attributes( $wrapper_attributes ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
 			<fieldset class="wc-block-dropdown__fieldset">
 				<?php if ( ! $has_external_label ) : ?>
-					<legend class="screen-reader-text"><?php echo esc_html( __( 'Choose an option', 'woocommerce' ) ); ?></legend>
+					<legend class="screen-reader-text"><?php echo esc_html( __( 'Choose an option', 'poocommerce' ) ); ?></legend>
 				<?php endif; ?>
 				<select
 					class="wc-block-dropdown__select"
@@ -92,7 +92,7 @@ final class Dropdown extends AbstractBlock {
 					data-wp-on--change="actions.onDropdownChange"
 				>
 					<option value="">
-						<?php echo esc_html( __( 'Choose an option', 'woocommerce' ) ); ?>
+						<?php echo esc_html( __( 'Choose an option', 'poocommerce' ) ); ?>
 					</option>
 					<?php foreach ( $items as $item ) : ?>
 						<?php

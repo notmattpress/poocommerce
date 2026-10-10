@@ -1,7 +1,7 @@
 <?php
 
-use Automattic\WooCommerce\Utilities\ArrayUtil;
-use Automattic\WooCommerce\Tests\Helpers\MetaDataAssertionTrait;
+use Automattic\PooCommerce\Utilities\ArrayUtil;
+use Automattic\PooCommerce\Tests\Helpers\MetaDataAssertionTrait;
 
 /**
  * class WC_REST_Products_Controller_Tests.
@@ -142,7 +142,7 @@ class WC_REST_Products_V2_Controller_Test extends WC_REST_Unit_Test_Case {
 	public function test_product_api_get_all_fields_v2() {
 		$expected_response_fields = $this->get_expected_response_fields();
 
-		$product  = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
+		$product  = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
 		$response = $this->server->dispatch( new WP_REST_Request( 'GET', '/wc/v2/products/' . $product->get_id() ) );
 
 		$this->assertEquals( 200, $response->get_status() );
@@ -176,7 +176,7 @@ class WC_REST_Products_V2_Controller_Test extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_products_get_each_field_one_by_one_v2() {
 		$expected_response_fields = $this->get_expected_response_fields();
-		$product                  = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
+		$product                  = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
 
 		foreach ( $expected_response_fields as $field ) {
 			$request = new WP_REST_Request( 'GET', '/wc/v2/products/' . $product->get_id() );
@@ -464,14 +464,14 @@ class WC_REST_Products_V2_Controller_Test extends WC_REST_Unit_Test_Case {
 		$response = $this->server->dispatch( $request );
 
 		$this->assertSame( 404, $response->get_status(), 'Variations should be handled by the variations endpoint.' );
-		$this->assertSame( 'woocommerce_rest_invalid_product_id', $response->get_data()['code'] );
+		$this->assertSame( 'poocommerce_rest_invalid_product_id', $response->get_data()['code'] );
 	}
 
 	/**
 	 * @testdox Getting a product loaded before its global attribute is deleted uses the attribute slug as its name.
 	 */
 	public function test_get_item_for_product_loaded_before_its_global_attribute_is_deleted(): void {
-		update_option( 'woocommerce_feature_product_instance_caching_enabled', 'yes' );
+		update_option( 'poocommerce_feature_product_instance_caching_enabled', 'yes' );
 		$attribute = WC_Helper_Product::create_product_attribute_object( 'Stale Finish', array( 'Matte' ) );
 		$product   = new WC_Product_Variable();
 		$product->set_name( 'Stale attribute product' );

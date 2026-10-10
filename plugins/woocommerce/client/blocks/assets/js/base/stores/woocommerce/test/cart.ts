@@ -1,8 +1,8 @@
 /**
  * External dependencies
  */
-import type { Cart, CartItem } from '@woocommerce/types';
-import type { Notice } from '@woocommerce/stores/store-notices';
+import type { Cart, CartItem } from '@poocommerce/types';
+import type { Notice } from '@poocommerce/stores/store-notices';
 import { getConfig } from '@wordpress/interactivity';
 import { speak } from '@wordpress/a11y';
 
@@ -294,7 +294,7 @@ function spyOnShowNoticeError(): Error[] {
 function mockBatchFetchFailing( {
 	failForPath,
 	status = 400,
-	code = 'woocommerce_rest_cart_product_no_stock',
+	code = 'poocommerce_rest_cart_product_no_stock',
 	message = 'You cannot add that amount to the cart.',
 }: {
 	failForPath: string;
@@ -350,7 +350,7 @@ function mockBatchFetchFailing( {
 function mockBatchFetchFailingProduct( {
 	failForId,
 	status = 400,
-	code = 'woocommerce_rest_cart_product_no_stock',
+	code = 'poocommerce_rest_cart_product_no_stock',
 	message = 'You cannot add that amount to the cart.',
 }: {
 	failForId: number;
@@ -492,7 +492,7 @@ function makeKeyedLine( overrides: Partial< CartItem > = {} ): CartItem {
 	} as CartItem;
 }
 
-describe( 'WooCommerce Cart Interactivity API Store', () => {
+describe( 'PooCommerce Cart Interactivity API Store', () => {
 	afterEach( () => {
 		jest.clearAllMocks();
 		// `getConfig` may have been given a per-test `mockReturnValue` (e.g. to
@@ -862,7 +862,7 @@ describe( 'WooCommerce Cart Interactivity API Store', () => {
 			mockBatchFetchFailing( {
 				failForPath: '/wc/store/v1/cart/add-item',
 				status: 400,
-				code: 'woocommerce_rest_product_out_of_stock',
+				code: 'poocommerce_rest_product_out_of_stock',
 				message: 'You cannot add that amount to the cart.',
 			} );
 			const actions = await loadCartStore();
@@ -880,7 +880,7 @@ describe( 'WooCommerce Cart Interactivity API Store', () => {
 			expect( outcome ).toEqual( {
 				success: false,
 				error: {
-					code: 'woocommerce_rest_product_out_of_stock',
+					code: 'poocommerce_rest_product_out_of_stock',
 					message: 'You cannot add that amount to the cart.',
 				},
 			} );
@@ -913,7 +913,7 @@ describe( 'WooCommerce Cart Interactivity API Store', () => {
 		it( 'resolves each call in a shared batch with only its own product outcome, never a shared or last-write-wins value', async () => {
 			mockBatchFetchFailingProduct( {
 				failForId: 99,
-				code: 'woocommerce_rest_cart_product_no_stock',
+				code: 'poocommerce_rest_cart_product_no_stock',
 				message: 'You cannot add that amount to the cart.',
 			} );
 			const actions = await loadCartStore();
@@ -941,7 +941,7 @@ describe( 'WooCommerce Cart Interactivity API Store', () => {
 			expect( rejectedOutcome ).toEqual( {
 				success: false,
 				error: {
-					code: 'woocommerce_rest_cart_product_no_stock',
+					code: 'poocommerce_rest_cart_product_no_stock',
 					message: 'You cannot add that amount to the cart.',
 				},
 			} );
@@ -976,7 +976,7 @@ describe( 'WooCommerce Cart Interactivity API Store', () => {
 				totals: {},
 				errors: [
 					{
-						code: 'woocommerce_rest_cart_coupon_error',
+						code: 'poocommerce_rest_cart_coupon_error',
 						message: 'The coupon has expired.',
 					},
 				],
@@ -1684,7 +1684,7 @@ describe( 'WooCommerce Cart Interactivity API Store', () => {
 			mockBatchFetchFailing( {
 				failForPath: '/wc/store/v1/cart/add-item',
 				status: 400,
-				code: 'woocommerce_rest_cart_product_no_stock',
+				code: 'poocommerce_rest_cart_product_no_stock',
 				message: 'You cannot add that amount to the cart.',
 			} );
 			const actions = await loadCartStore();
@@ -1707,7 +1707,7 @@ describe( 'WooCommerce Cart Interactivity API Store', () => {
 				'You cannot add that amount to the cart.'
 			);
 			expect( ( errors[ 0 ] as Error & { code?: string } ).code ).toBe(
-				'woocommerce_rest_cart_product_no_stock'
+				'poocommerce_rest_cart_product_no_stock'
 			);
 
 			// No auto-update "quantity changed" notice was emitted for the cap.

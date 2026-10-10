@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { createRoot } from '@wordpress/element';
-import { withPluginsHydration } from '@woocommerce/data';
+import { withPluginsHydration } from '@poocommerce/data';
 
 /**
  * Internal dependencies

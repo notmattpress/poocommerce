@@ -1,12 +1,12 @@
 <?php
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\Orders {
+namespace Automattic\PooCommerce\Tests\Internal\Admin\Orders {
 
-	use Automattic\WooCommerce\Internal\Admin\Orders\PageController;
-	use Automattic\WooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
-	use Automattic\WooCommerce\RestApi\UnitTests\HPOSToggleTrait;
-	use Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
-	use Automattic\WooCommerce\Utilities\OrderUtil;
+	use Automattic\PooCommerce\Internal\Admin\Orders\PageController;
+	use Automattic\PooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
+	use Automattic\PooCommerce\RestApi\UnitTests\HPOSToggleTrait;
+	use Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
+	use Automattic\PooCommerce\Utilities\OrderUtil;
 
 	/**
 	 * Tests related to the HPOS orders admin pages controller.
@@ -217,14 +217,14 @@ namespace Automattic\WooCommerce\Tests\Internal\Admin\Orders {
 			$previous_page     = $plugin_page ?? null;
 			$previous_theorder = $theorder ?? null;
 			$previous_get      = $_GET; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-			$previous_tax_mode = get_option( 'woocommerce_prices_include_tax' );
-			$previous_currency = get_option( 'woocommerce_currency' );
+			$previous_tax_mode = get_option( 'poocommerce_prices_include_tax' );
+			$previous_currency = get_option( 'poocommerce_currency' );
 			$order_id          = 0;
 
 			try {
 				$this->toggle_cot_feature_and_usage( true );
-				update_option( 'woocommerce_prices_include_tax', $tax_mode );
-				update_option( 'woocommerce_currency', 'EUR' );
+				update_option( 'poocommerce_prices_include_tax', $tax_mode );
+				update_option( 'poocommerce_currency', 'EUR' );
 				set_current_screen();
 
 				$pagenow        = 'admin.php'; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
@@ -245,8 +245,8 @@ namespace Automattic\WooCommerce\Tests\Internal\Admin\Orders {
 				);
 				$this->assertSame( $expected ? '1' : '0', $stored_tax_mode, 'The HPOS operational table should contain the creation-time tax mode.' );
 
-				update_option( 'woocommerce_prices_include_tax', 'yes' === $tax_mode ? 'no' : 'yes' );
-				update_option( 'woocommerce_currency', 'USD' );
+				update_option( 'poocommerce_prices_include_tax', 'yes' === $tax_mode ? 'no' : 'yes' );
+				update_option( 'poocommerce_currency', 'USD' );
 				wp_cache_flush();
 
 				$read_order = wc_get_order( $order_id );
@@ -267,8 +267,8 @@ namespace Automattic\WooCommerce\Tests\Internal\Admin\Orders {
 					}
 				}
 
-				update_option( 'woocommerce_prices_include_tax', $previous_tax_mode );
-				update_option( 'woocommerce_currency', $previous_currency );
+				update_option( 'poocommerce_prices_include_tax', $previous_tax_mode );
+				update_option( 'poocommerce_currency', $previous_currency );
 
 				if ( $had_pagenow ) {
 					$pagenow = $previous_pagenow; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
@@ -306,7 +306,7 @@ namespace Automattic\WooCommerce\Tests\Internal\Admin\Orders {
 /**
  * Mocks for global functions used in PageController
  */
-namespace Automattic\WooCommerce\Internal\Admin\Orders {
+namespace Automattic\PooCommerce\Internal\Admin\Orders {
 	/**
 	 * The filter_input function will return NULL if we change the $_GET or $_POST variables at runtime, so we
 	 * need to override it in PageController's namespace when we want it to return a specific value for testing.

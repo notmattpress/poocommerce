@@ -1,9 +1,9 @@
 <?php
 /**
- * WooCommerce Product Editor subsection interface compatibility shim.
+ * PooCommerce Product Editor subsection interface compatibility shim.
  */
 
-namespace Automattic\WooCommerce\Admin\Features\ProductBlockEditor\ProductTemplates;
+namespace Automattic\PooCommerce\Admin\Features\ProductBlockEditor\ProductTemplates;
 
 /**
  * Removed product editor subsection container interface.

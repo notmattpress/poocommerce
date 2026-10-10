@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Utilities;
+namespace Automattic\PooCommerce\Tests\Internal\Utilities;
 
-use Automattic\WooCommerce\Internal\Utilities\InCartQuantity;
+use Automattic\PooCommerce\Internal\Utilities\InCartQuantity;
 use WC_Unit_Test_Case;
 
 /**
@@ -12,7 +12,7 @@ use WC_Unit_Test_Case;
 class InCartQuantityTest extends WC_Unit_Test_Case {
 
 	/**
-	 * Remove the published `woocommerce` state, which the base class does not reset.
+	 * Remove the published `poocommerce` state, which the base class does not reset.
 	 */
 	public function tearDown(): void {
 		try {
@@ -20,7 +20,7 @@ class InCartQuantityTest extends WC_Unit_Test_Case {
 			$property      = new \ReflectionProperty( $interactivity, 'state_data' );
 			$property->setAccessible( true );
 			$state_data = $property->getValue( $interactivity );
-			unset( $state_data['woocommerce'] );
+			unset( $state_data['poocommerce'] );
 			$property->setValue( $interactivity, $state_data );
 		} finally {
 			parent::tearDown();
@@ -32,7 +32,7 @@ class InCartQuantityTest extends WC_Unit_Test_Case {
 	 */
 	public function test_sums_product_lines_and_skips_declared_children(): void {
 		wp_interactivity_state(
-			'woocommerce',
+			'poocommerce',
 			array(
 				'cart' => array(
 					'items' => array(
@@ -82,7 +82,7 @@ class InCartQuantityTest extends WC_Unit_Test_Case {
 	 * @testdox Should return zero when the published cart has no items, as after a failed cart hydration.
 	 */
 	public function test_returns_zero_without_published_cart_items(): void {
-		wp_interactivity_state( 'woocommerce', array( 'cart' => array() ) );
+		wp_interactivity_state( 'poocommerce', array( 'cart' => array() ) );
 
 		$this->assertSame( 0, InCartQuantity::for_product( 10 ), 'A cart without items should count nothing' );
 	}

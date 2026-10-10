@@ -2,36 +2,36 @@
 /**
  * Integration tests for RenewalEngine.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine
+ * @package Automattic\PooCommerce\SubscriptionsEngine
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Tests\Integration\Integration\Renewal;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Tests\Integration\Integration\Renewal;
 
 use EngineIntegrationTestCase;
 use WC_Order;
-use Automattic\WooCommerce\SubscriptionsEngine\Api\Contracts;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\Contract;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\ContractStatus;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\Cycle;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\CycleStatus;
-use Automattic\WooCommerce\SubscriptionsEngine\Api\Plans;
-use Automattic\WooCommerce\SubscriptionsEngine\Api\View\PlanView;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Gateway\GatewayCapabilities;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\ValueObject\PlanSnapshot;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Checkout\OrderLinkage;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Ownership\ConsumerRegistry;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Renewal\RenewalDispatcher;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Renewal\RenewalEngine;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Renewal\RenewalIntent;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage\ContractRepository;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage\PlanRepository;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage\SchemaInstaller;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage\SnapshotStore;
+use Automattic\PooCommerce\SubscriptionsEngine\Api\Contracts;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\Contract;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\ContractStatus;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\Cycle;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\CycleStatus;
+use Automattic\PooCommerce\SubscriptionsEngine\Api\Plans;
+use Automattic\PooCommerce\SubscriptionsEngine\Api\View\PlanView;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Gateway\GatewayCapabilities;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\ValueObject\PlanSnapshot;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Checkout\OrderLinkage;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Ownership\ConsumerRegistry;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Renewal\RenewalDispatcher;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Renewal\RenewalEngine;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Renewal\RenewalIntent;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage\ContractRepository;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage\PlanRepository;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage\SchemaInstaller;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage\SnapshotStore;
 
 /**
- * @covers \Automattic\WooCommerce\SubscriptionsEngine\Integration\Renewal\RenewalEngine
+ * @covers \Automattic\PooCommerce\SubscriptionsEngine\Integration\Renewal\RenewalEngine
  */
 class RenewalEngineTest extends EngineIntegrationTestCase {
 
@@ -891,7 +891,7 @@ class RenewalEngineTest extends EngineIntegrationTestCase {
 		// Spy on the charge hook (before the approving handler): an already-paid order must not be charged.
 		$charge_attempts = 0;
 		add_action(
-			'woocommerce_subscriptions_engine_scheduled_payment_' . self::GATEWAY_APPROVING,
+			'poocommerce_subscriptions_engine_scheduled_payment_' . self::GATEWAY_APPROVING,
 			static function ( $amount, $order ) use ( &$charge_attempts ): void {
 				unset( $amount, $order );
 				++$charge_attempts;
@@ -1289,9 +1289,9 @@ class RenewalEngineTest extends EngineIntegrationTestCase {
 		$this->assertTrue( $failed->get_status()->equals( new CycleStatus( CycleStatus::FAILED ) ) );
 
 		// The customer fixes their payment method; the same gateway now approves the retry.
-		remove_all_actions( 'woocommerce_subscriptions_engine_scheduled_payment_' . self::GATEWAY_DECLINING );
+		remove_all_actions( 'poocommerce_subscriptions_engine_scheduled_payment_' . self::GATEWAY_DECLINING );
 		add_action(
-			'woocommerce_subscriptions_engine_scheduled_payment_' . self::GATEWAY_DECLINING,
+			'poocommerce_subscriptions_engine_scheduled_payment_' . self::GATEWAY_DECLINING,
 			static function ( $amount, $renewal_order ): void {
 				unset( $amount );
 				if ( $renewal_order instanceof WC_Order && $renewal_order->needs_payment() ) {
@@ -1865,8 +1865,8 @@ class RenewalEngineTest extends EngineIntegrationTestCase {
 	 */
 	public function test_renewal_order_lines_keep_the_stored_quantity( string $label, $quantity, bool $fractional ): void {
 		if ( $fractional ) {
-			remove_filter( 'woocommerce_stock_amount', 'intval' );
-			add_filter( 'woocommerce_stock_amount', 'floatval' );
+			remove_filter( 'poocommerce_stock_amount', 'intval' );
+			add_filter( 'poocommerce_stock_amount', 'floatval' );
 		}
 		$this->approve_charges_for( self::GATEWAY_APPROVING );
 
@@ -1973,10 +1973,10 @@ class RenewalEngineTest extends EngineIntegrationTestCase {
 		// A ghost models a crash where settlement never ran: silence the order-settled
 		// listeners while seeding it (a paid status transition would settle the cycle
 		// mid-setup), then restore them on a fresh engine.
-		remove_all_actions( 'woocommerce_payment_complete' );
-		remove_all_actions( 'woocommerce_order_status_failed' );
+		remove_all_actions( 'poocommerce_payment_complete' );
+		remove_all_actions( 'poocommerce_order_status_failed' );
 		foreach ( wc_get_is_paid_statuses() as $paid_status ) {
-			remove_all_actions( 'woocommerce_order_status_' . $paid_status );
+			remove_all_actions( 'poocommerce_order_status_' . $paid_status );
 		}
 
 		$order = new WC_Order();

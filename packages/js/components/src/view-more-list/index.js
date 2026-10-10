@@ -20,18 +20,18 @@ import Tag from '../tag';
 const ViewMoreList = ( { items = [] } ) => {
 	return (
 		<Tag
-			className="woocommerce-view-more-list"
+			className="poocommerce-view-more-list"
 			label={ sprintf(
 				/* translators: %d: number of items more to view */
-				__( '+%d more', 'woocommerce' ),
+				__( '+%d more', 'poocommerce' ),
 				items.length - 1
 			) }
 			popoverContents={
-				<ul className="woocommerce-view-more-list__popover">
+				<ul className="poocommerce-view-more-list__popover">
 					{ items.map( ( item, i ) => (
 						<li
 							key={ i }
-							className="woocommerce-view-more-list__popover__item"
+							className="poocommerce-view-more-list__popover__item"
 						>
 							{ item }
 						</li>

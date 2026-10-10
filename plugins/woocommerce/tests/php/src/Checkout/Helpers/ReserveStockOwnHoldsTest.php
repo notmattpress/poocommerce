@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Checkout\Helpers;
+namespace Automattic\PooCommerce\Tests\Checkout\Helpers;
 
-use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Enums\OrderStatus;
 use WC_Customer;
 use WC_Helper_Order;
 use WC_Helper_Product;
@@ -21,7 +21,7 @@ use WC_Unit_Test_Case;
  *   2. The shopper's own hold blocks inside the threshold and is excluded past it.
  *   3. Ownership never comes from anything the shopper can type.
  *   4. With no session (admin, WP-CLI, cron) nothing is excluded.
- *   5. The woocommerce_query_for_reserved_stock signature is unchanged.
+ *   5. The poocommerce_query_for_reserved_stock signature is unchanged.
  *
  * Holds are written straight into wc_reserved_stock so `timestamp` can be aged
  * exactly. Tests exercising the session list call wc_reserve_stock_for_order()
@@ -61,9 +61,9 @@ class ReserveStockOwnHoldsTest extends WC_Unit_Test_Case {
 	public function setUp(): void {
 		parent::setUp();
 
-		update_option( 'woocommerce_manage_stock', 'yes' );
-		update_option( 'woocommerce_schema_version', 430 );
-		update_option( 'woocommerce_hold_stock_minutes', self::HOLD_MINUTES );
+		update_option( 'poocommerce_manage_stock', 'yes' );
+		update_option( 'poocommerce_schema_version', 430 );
+		update_option( 'poocommerce_hold_stock_minutes', self::HOLD_MINUTES );
 
 		$this->original_session  = WC()->session;
 		$this->original_customer = WC()->customer;
@@ -75,7 +75,7 @@ class ReserveStockOwnHoldsTest extends WC_Unit_Test_Case {
 		$this->original_cookies = $_COOKIE;
 
 		/** This filter is documented in includes/class-wc-session-handler.php */
-		unset( $_COOKIE[ (string) apply_filters( 'woocommerce_cookie', 'wp_woocommerce_session_' . COOKIEHASH ) ] );
+		unset( $_COOKIE[ (string) apply_filters( 'poocommerce_cookie', 'wp_poocommerce_session_' . COOKIEHASH ) ] );
 
 		WC()->session = new WC_Session_Handler();
 		WC()->session->init();
@@ -177,11 +177,11 @@ class ReserveStockOwnHoldsTest extends WC_Unit_Test_Case {
 			return array();
 		};
 
-		add_filter( 'woocommerce_own_stock_hold_exclusion_threshold_minutes', $return_invalid_threshold );
+		add_filter( 'poocommerce_own_stock_hold_exclusion_threshold_minutes', $return_invalid_threshold );
 		try {
 			$held = wc_get_held_stock_quantity( $product, 0 );
 		} finally {
-			remove_filter( 'woocommerce_own_stock_hold_exclusion_threshold_minutes', $return_invalid_threshold );
+			remove_filter( 'poocommerce_own_stock_hold_exclusion_threshold_minutes', $return_invalid_threshold );
 		}
 
 		$this->assertSame( 1, $held );
@@ -334,11 +334,11 @@ class ReserveStockOwnHoldsTest extends WC_Unit_Test_Case {
 			return $query;
 		};
 
-		add_filter( 'woocommerce_query_for_reserved_stock', $capture, 10, 3 );
+		add_filter( 'poocommerce_query_for_reserved_stock', $capture, 10, 3 );
 		try {
 			$this->get_held_stock_quantity_with_threshold( $product, 4242, 10 );
 		} finally {
-			remove_filter( 'woocommerce_query_for_reserved_stock', $capture, 10 );
+			remove_filter( 'poocommerce_query_for_reserved_stock', $capture, 10 );
 		}
 
 		$this->assertIsInt( $seen['exclude_order_id'] );
@@ -364,11 +364,11 @@ class ReserveStockOwnHoldsTest extends WC_Unit_Test_Case {
 			return $threshold;
 		};
 
-		add_filter( 'woocommerce_own_stock_hold_exclusion_threshold_minutes', $set_threshold );
+		add_filter( 'poocommerce_own_stock_hold_exclusion_threshold_minutes', $set_threshold );
 		try {
 			return wc_get_held_stock_quantity( $product, $exclude_order_id );
 		} finally {
-			remove_filter( 'woocommerce_own_stock_hold_exclusion_threshold_minutes', $set_threshold );
+			remove_filter( 'poocommerce_own_stock_hold_exclusion_threshold_minutes', $set_threshold );
 		}
 	}
 

@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\ShopperLists;
+namespace Automattic\PooCommerce\Tests\Internal\ShopperLists;
 
-use Automattic\WooCommerce\Internal\ShopperLists\ShopperListsController;
+use Automattic\PooCommerce\Internal\ShopperLists\ShopperListsController;
 use WC_Unit_Test_Case;
 
 /**
@@ -11,14 +11,14 @@ use WC_Unit_Test_Case;
  */
 class ShopperListsControllerTests extends WC_Unit_Test_Case {
 
-	private const FLUSH_QUEUE_OPTION = 'woocommerce_queue_flush_rewrite_rules';
+	private const FLUSH_QUEUE_OPTION = 'poocommerce_queue_flush_rewrite_rules';
 
 	/**
 	 * Map of shopper-list slug => feature option key.
 	 */
 	private const LIST_OPTIONS = array(
-		'saved-for-later' => 'woocommerce_cart_save_for_later_enabled',
-		'wishlist'        => 'woocommerce_product_wishlist_enabled',
+		'saved-for-later' => 'poocommerce_cart_save_for_later_enabled',
+		'wishlist'        => 'poocommerce_product_wishlist_enabled',
 	);
 
 	/**
@@ -49,10 +49,10 @@ class ShopperListsControllerTests extends WC_Unit_Test_Case {
 	public function tearDown(): void {
 		if ( null !== $this->sut ) {
 			$endpoint = $this->sut->get_wishlist_endpoint();
-			remove_filter( 'woocommerce_get_query_vars', array( $this->sut, 'add_wishlist_query_var' ) );
-			remove_filter( 'woocommerce_account_menu_items', array( $this->sut, 'add_wishlist_menu_item' ) );
-			remove_filter( 'woocommerce_endpoint_' . $endpoint . '_title', array( $this->sut, 'wishlist_endpoint_title' ) );
-			remove_action( 'woocommerce_account_' . $endpoint . '_endpoint', array( $this->sut, 'render_wishlist_endpoint' ) );
+			remove_filter( 'poocommerce_get_query_vars', array( $this->sut, 'add_wishlist_query_var' ) );
+			remove_filter( 'poocommerce_account_menu_items', array( $this->sut, 'add_wishlist_menu_item' ) );
+			remove_filter( 'poocommerce_endpoint_' . $endpoint . '_title', array( $this->sut, 'wishlist_endpoint_title' ) );
+			remove_action( 'poocommerce_account_' . $endpoint . '_endpoint', array( $this->sut, 'render_wishlist_endpoint' ) );
 		}
 
 		foreach ( array_keys( self::LIST_OPTIONS ) as $slug ) {
@@ -264,10 +264,10 @@ class ShopperListsControllerTests extends WC_Unit_Test_Case {
 
 		$endpoint = $this->sut->get_wishlist_endpoint();
 		$hooks    = array(
-			array( 'woocommerce_get_query_vars', 'add_wishlist_query_var' ),
-			array( 'woocommerce_account_menu_items', 'add_wishlist_menu_item' ),
-			array( 'woocommerce_endpoint_' . $endpoint . '_title', 'wishlist_endpoint_title' ),
-			array( 'woocommerce_account_' . $endpoint . '_endpoint', 'render_wishlist_endpoint' ),
+			array( 'poocommerce_get_query_vars', 'add_wishlist_query_var' ),
+			array( 'poocommerce_account_menu_items', 'add_wishlist_menu_item' ),
+			array( 'poocommerce_endpoint_' . $endpoint . '_title', 'wishlist_endpoint_title' ),
+			array( 'poocommerce_account_' . $endpoint . '_endpoint', 'render_wishlist_endpoint' ),
 		);
 		foreach ( $hooks as $hook ) {
 			$this->assertSame(

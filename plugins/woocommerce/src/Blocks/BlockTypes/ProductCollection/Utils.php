@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes\ProductCollection;
+namespace Automattic\PooCommerce\Blocks\BlockTypes\ProductCollection;
 
 use WP_Query;
-use Automattic\WooCommerce\Blocks\Utils\CartCheckoutUtils;
-use Automattic\WooCommerce\Utilities\ArrayUtil;
+use Automattic\PooCommerce\Blocks\Utils\CartCheckoutUtils;
+use Automattic\PooCommerce\Utilities\ArrayUtil;
 
 /**
  * Utility methods used for the Product Collection block.
@@ -202,8 +202,8 @@ class Utils {
 		} else {
 			// Check if we're in a cart block context.
 			$current_page       = $wp_query->get_queried_object();
-			$has_cart_block     = $current_page && \WC_Blocks_Utils::has_block_in_page( $current_page, 'woocommerce/cart' );
-			$has_checkout_block = $current_page && \WC_Blocks_Utils::has_block_in_page( $current_page, 'woocommerce/checkout' );
+			$has_cart_block     = $current_page && \WC_Blocks_Utils::has_block_in_page( $current_page, 'poocommerce/cart' );
+			$has_checkout_block = $current_page && \WC_Blocks_Utils::has_block_in_page( $current_page, 'poocommerce/checkout' );
 			$is_cart_available  = self::is_cart_available();
 
 			if ( ( $has_cart_block || $has_checkout_block || is_cart() || is_checkout() ) && $is_cart_available ) {

@@ -142,7 +142,7 @@ const disableIconColor =
 function removeSocialLinksIconColor(): void {
 	addFilterForEmail(
 		'editor.BlockEdit',
-		'woocommerce-email-editor/disable-social-links-icon-color',
+		'poocommerce-email-editor/disable-social-links-icon-color',
 		disableIconColor
 	);
 }

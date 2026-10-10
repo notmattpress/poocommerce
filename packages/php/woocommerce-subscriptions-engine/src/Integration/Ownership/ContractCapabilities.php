@@ -2,21 +2,21 @@
 /**
  * ContractCapabilities - the `read_subscription_contract` and `manage_subscription_contract` meta capabilities.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine\Integration\Ownership
+ * @package Automattic\PooCommerce\SubscriptionsEngine\Integration\Ownership
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Integration\Ownership;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Integration\Ownership;
 
-use Automattic\WooCommerce\SubscriptionsEngine\Api\View\ContractView;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Support\Coercion;
+use Automattic\PooCommerce\SubscriptionsEngine\Api\View\ContractView;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Support\Coercion;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
  * Maps the contract capabilities: the contract's customer needs `read`, anyone else
- * `manage_woocommerce`. Checked as `current_user_can( $capability, $contract )` with a
+ * `manage_poocommerce`. Checked as `current_user_can( $capability, $contract )` with a
  * `ContractView`; anything else is refused. The mapping runs first (priority 0), so extensions
  * adjust each capability with `map_meta_cap` at the default priority, or with `user_has_cap`.
  */
@@ -63,6 +63,6 @@ final class ContractCapabilities {
 			return array( 'read' );
 		}
 
-		return array( 'manage_woocommerce' );
+		return array( 'manage_poocommerce' );
 	}
 }

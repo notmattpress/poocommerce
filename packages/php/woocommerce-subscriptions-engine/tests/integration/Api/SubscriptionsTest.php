@@ -2,26 +2,26 @@
 /**
  * Integration tests for the interim Subscriptions renewal facade.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine
+ * @package Automattic\PooCommerce\SubscriptionsEngine
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Tests\Integration\Api;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Tests\Integration\Api;
 
 use EngineIntegrationTestCase;
 use WC_Order;
-use Automattic\WooCommerce\SubscriptionsEngine\Api\Contracts;
-use Automattic\WooCommerce\SubscriptionsEngine\Api\Subscriptions;
-use Automattic\WooCommerce\SubscriptionsEngine\Api\View\ContractView;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\Contract;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\CycleStatus;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Gateway\GatewayCapabilities;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Checkout\OrderLinkage;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage\ContractRepository;
+use Automattic\PooCommerce\SubscriptionsEngine\Api\Contracts;
+use Automattic\PooCommerce\SubscriptionsEngine\Api\Subscriptions;
+use Automattic\PooCommerce\SubscriptionsEngine\Api\View\ContractView;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\Contract;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\CycleStatus;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Gateway\GatewayCapabilities;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Checkout\OrderLinkage;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage\ContractRepository;
 
 /**
- * @covers \Automattic\WooCommerce\SubscriptionsEngine\Api\Subscriptions
+ * @covers \Automattic\PooCommerce\SubscriptionsEngine\Api\Subscriptions
  */
 class SubscriptionsTest extends EngineIntegrationTestCase {
 
@@ -182,7 +182,7 @@ class SubscriptionsTest extends EngineIntegrationTestCase {
 			$limits[] = $args['limit'] ?? null;
 			return $args;
 		};
-		add_filter( 'woocommerce_order_query_args', $record );
+		add_filter( 'poocommerce_order_query_args', $record );
 
 		try {
 			foreach ( array( 0, 2, 4 ) as $offset ) {
@@ -195,7 +195,7 @@ class SubscriptionsTest extends EngineIntegrationTestCase {
 				$this->assertSame( array_slice( $all_ids, $offset, 2 ), $page_ids, "Page at offset {$offset} matches the unbounded read." );
 			}
 		} finally {
-			remove_filter( 'woocommerce_order_query_args', $record );
+			remove_filter( 'poocommerce_order_query_args', $record );
 		}
 
 		$this->assertSame( array( 2, 4, 6 ), $limits, 'The linked-order query is bounded to offset + limit.' );

@@ -1,9 +1,9 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "woocommerce/product-title",
+	"name": "poocommerce/product-title",
 	"title": "Product Title",
-	"category": "woocommerce-product-elements",
+	"category": "poocommerce-product-elements",
 	"description": "Display the title of a product.",
 	"supports": {
 		"html": false,
@@ -30,9 +30,9 @@
 		}
 	},
 	"selectors": {
-		"root": ".wp-block-woocommerce-product-title .wc-block-components-product-title"
+		"root": ".wp-block-poocommerce-product-title .wc-block-components-product-title"
 	},
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"attributes": {
 		"headingLevel": {
 			"type": "number",
@@ -53,5 +53,5 @@
 			"type": "string"
 		}
 	},
-	"ancestor": [ "woocommerce/all-products" ]
+	"ancestor": [ "poocommerce/all-products" ]
 }

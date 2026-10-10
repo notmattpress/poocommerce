@@ -1,6 +1,6 @@
-# WooCommerce Blocks Integration Tests
+# PooCommerce Blocks Integration Tests
 
-This folder contains integration tests and related utilities for the `@woocommerce/block-library` workspace, leveraging the headless editor setup.
+This folder contains integration tests and related utilities for the `@poocommerce/block-library` workspace, leveraging the headless editor setup.
 
 ## Purpose
 
@@ -21,7 +21,7 @@ Following the [approach used in Gutenberg](https://github.com/WordPress/gutenber
 All integration tests are executed within the JS test suite:
 
 ```sh
-pnpm --filter="@woocommerce/block-library" test:js
+pnpm --filter="@poocommerce/block-library" test:js
 ```
 
 ## Why This Structure?

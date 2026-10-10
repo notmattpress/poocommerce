@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\Logging;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\Logging;
 
-use Automattic\WooCommerce\Internal\Admin\Logging\{ LogHandlerFileV2, PageController, Settings };
+use Automattic\PooCommerce\Internal\Admin\Logging\{ LogHandlerFileV2, PageController, Settings };
 use WC_Unit_Test_Case;
 
 /**
@@ -97,7 +97,7 @@ class PageControllerTest extends WC_Unit_Test_Case {
 	 */
 	public function provide_context_values(): array {
 		return array(
-			'namespaced class name' => array( array( 'class' => 'Automattic\\WooCommerce\\Internal\\Admin\\Logging\\LogHandlerFileV2' ) ),
+			'namespaced class name' => array( array( 'class' => 'Automattic\\PooCommerce\\Internal\\Admin\\Logging\\LogHandlerFileV2' ) ),
 			'windows path'          => array( array( 'path' => 'C:\\Windows\\System32' ) ),
 			'double quotes'         => array( array( 'quote' => 'He said "hi" to "you"' ) ),
 			'multibyte characters'  => array( array( 'text' => '中文字 café 🎉' ) ),

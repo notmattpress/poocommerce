@@ -10,7 +10,7 @@ type AccordionContext = {
 	openByDefault: boolean;
 };
 
-const { state } = store( 'woocommerce/accordion', {
+const { state } = store( 'poocommerce/accordion', {
 	state: {
 		get isOpen(): boolean {
 			const { isOpen, id } = getContext< AccordionContext >();

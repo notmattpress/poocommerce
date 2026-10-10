@@ -1,13 +1,13 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\Onboarding;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\Onboarding;
 
-use Automattic\WooCommerce\Admin\Features\OnboardingTasks\Task;
-use Automattic\WooCommerce\Admin\Features\OnboardingTasks\TaskList;
-use Automattic\WooCommerce\Admin\Features\OnboardingTasks\TaskLists;
-use Automattic\WooCommerce\Internal\Admin\Onboarding\MarketplaceTaskExperiment;
-use Automattic\WooCommerce\Internal\Admin\WCAdminUser;
+use Automattic\PooCommerce\Admin\Features\OnboardingTasks\Task;
+use Automattic\PooCommerce\Admin\Features\OnboardingTasks\TaskList;
+use Automattic\PooCommerce\Admin\Features\OnboardingTasks\TaskLists;
+use Automattic\PooCommerce\Internal\Admin\Onboarding\MarketplaceTaskExperiment;
+use Automattic\PooCommerce\Internal\Admin\WCAdminUser;
 use WC_Unit_Test_Case;
 use WP_REST_Request;
 
@@ -46,7 +46,7 @@ class MarketplaceTaskExperimentTest extends WC_Unit_Test_Case {
 			),
 		);
 
-		update_option( 'woocommerce_allow_tracking', 'yes' );
+		update_option( 'poocommerce_allow_tracking', 'yes' );
 		$_COOKIE['tk_ai'] = 'test-anon-id';
 
 		// Pin the clock before the end date so these tests keep passing after the experiment ends.
@@ -71,7 +71,7 @@ class MarketplaceTaskExperimentTest extends WC_Unit_Test_Case {
 	/**
 	 * Name of the backoff transient set after a failed request (mirrors the private constant in MarketplaceTaskExperiment).
 	 */
-	private const BACKOFF_TRANSIENT = 'woocommerce_marketplace_task_experiment_backoff';
+	private const BACKOFF_TRANSIENT = 'poocommerce_marketplace_task_experiment_backoff';
 
 	/**
 	 * Get the Marketplace task from the default "extended" list.
@@ -86,7 +86,7 @@ class MarketplaceTaskExperimentTest extends WC_Unit_Test_Case {
 	 * @testdox Should return control without contacting ExPlat when tracking is disabled.
 	 */
 	public function test_returns_control_without_request_when_tracking_disabled(): void {
-		update_option( 'woocommerce_allow_tracking', 'no' );
+		update_option( 'poocommerce_allow_tracking', 'no' );
 		set_transient( 'abtest_variation_' . MarketplaceTaskExperiment::EXPERIMENT_NAME, MarketplaceTaskExperiment::COPY_FREE_AND_PAID );
 
 		$this->assertSame( MarketplaceTaskExperiment::CONTROL, $this->sut->get_variation( $this->get_task() ) );
@@ -250,7 +250,7 @@ class MarketplaceTaskExperimentTest extends WC_Unit_Test_Case {
 		} elseif ( 'no_anon_id' === $state ) {
 			unset( $_COOKIE['tk_ai'] );
 		} elseif ( 'tracking_filtered_off' === $state ) {
-			add_filter( 'woocommerce_apply_user_tracking', '__return_false' );
+			add_filter( 'poocommerce_apply_user_tracking', '__return_false' );
 		} else {
 			$this->register_legacy_proxy_function_mocks( array( 'time' => fn() => 1803859200 ) );
 		}

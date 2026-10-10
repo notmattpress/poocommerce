@@ -53,7 +53,7 @@ export function createNoticesFromResponse( response ) {
 		// String matches Gutenberg's existing offline copy — reuses their translations.
 		createNotice(
 			'error',
-			__( 'Updating failed. You are probably offline.', 'woocommerce' )
+			__( 'Updating failed. You are probably offline.', 'poocommerce' )
 		);
 		return;
 	}
@@ -68,7 +68,7 @@ export function createNoticesFromResponse( response ) {
 			createNotice( 'error', response.errors[ errorKey ].join( ' ' ) );
 		} );
 	} else if ( response instanceof Error ) {
-		// A thrown Error (e.g. the PluginError rejected by @woocommerce/data's
+		// A thrown Error (e.g. the PluginError rejected by @poocommerce/data's
 		// plugin actions) is always a failure, even though it carries no code.
 		if ( response.message ) {
 			createNotice( 'error', response.message );

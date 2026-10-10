@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { Card, CardFooter } from '@wordpress/components';
-import { TableSummaryPlaceholder } from '@woocommerce/components';
+import { TableSummaryPlaceholder } from '@poocommerce/components';
 import { createElement } from '@wordpress/element';
 
 export const Basic = () => {

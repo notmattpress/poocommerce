@@ -2,7 +2,7 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\RestApi\Routes\V4\ShippingZoneMethod;
+namespace Automattic\PooCommerce\Internal\RestApi\Routes\V4\ShippingZoneMethod;
 
 use WP_Error;
 use WC_Cache_Helper;
@@ -27,8 +27,8 @@ class ShippingZoneMethodService {
 	public function update_shipping_method_settings( $method, $settings ) {
 		if ( ! is_array( $settings ) ) {
 			return new \WP_Error(
-				'woocommerce_rest_shipping_method_invalid_settings',
-				__( 'Settings must be an array.', 'woocommerce' ),
+				'poocommerce_rest_shipping_method_invalid_settings',
+				__( 'Settings must be an array.', 'poocommerce' ),
 				array( 'status' => 400 )
 			);
 		}
@@ -37,9 +37,9 @@ class ShippingZoneMethodService {
 		$instance_settings = $method->instance_settings;
 
 		/**
-		 * Transform setting keys to WooCommerce's expected format.
+		 * Transform setting keys to PooCommerce's expected format.
 		 *
-		 * WC_Settings_API::get_field_value() expects prefixed keys (e.g., 'woocommerce_flat_rate_1_title').
+		 * WC_Settings_API::get_field_value() expects prefixed keys (e.g., 'poocommerce_flat_rate_1_title').
 		 * Transform clean keys ('title') to prefixed keys before validation.
 		 */
 		$post_data = array();
@@ -55,7 +55,7 @@ class ShippingZoneMethodService {
 					$instance_settings[ $key ] = $method->get_field_value( $key, $form_fields[ $key ], $post_data );
 				} catch ( \Exception $e ) {
 					return new \WP_Error(
-						'woocommerce_rest_shipping_method_invalid_setting',
+						'poocommerce_rest_shipping_method_invalid_setting',
 						$e->getMessage(),
 						array( 'status' => 400 )
 					);
@@ -70,7 +70,7 @@ class ShippingZoneMethodService {
 		 * @param array              $instance_settings Instance settings.
 		 * @param WC_Shipping_Method $method            Shipping method instance.
 		 */
-		$filtered_settings = apply_filters( 'woocommerce_shipping_' . $method->id . '_instance_settings_values', $instance_settings, $method );
+		$filtered_settings = apply_filters( 'poocommerce_shipping_' . $method->id . '_instance_settings_values', $instance_settings, $method );
 		$result            = update_option( $method->get_instance_option_key(), $filtered_settings );
 
 		if ( $result ) {
@@ -140,7 +140,7 @@ class ShippingZoneMethodService {
 		}
 
 		$result = $wpdb->update(
-			"{$wpdb->prefix}woocommerce_shipping_zone_methods",
+			"{$wpdb->prefix}poocommerce_shipping_zone_methods",
 			$updates,
 			array( 'instance_id' => $instance_id ),
 			$formats,
@@ -150,7 +150,7 @@ class ShippingZoneMethodService {
 		if ( false === $result ) {
 			return new WP_Error(
 				'update_failed',
-				__( 'Could not update shipping method.', 'woocommerce' )
+				__( 'Could not update shipping method.', 'poocommerce' )
 			);
 		}
 
@@ -165,7 +165,7 @@ class ShippingZoneMethodService {
 			 * @param bool   $is_enabled  Whether the method is enabled.
 			 */
 			do_action(
-				'woocommerce_shipping_zone_method_status_toggled',
+				'poocommerce_shipping_zone_method_status_toggled',
 				$instance_id,
 				$method->id,
 				$zone_id,

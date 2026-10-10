@@ -3,16 +3,16 @@
  * Migration class for migrating from WPPostMeta to OrderMeta table.
  */
 
-namespace Automattic\WooCommerce\Database\Migrations\CustomOrderTable;
+namespace Automattic\PooCommerce\Database\Migrations\CustomOrderTable;
 
-use Automattic\WooCommerce\Database\Migrations\MetaToMetaTableMigrator;
-use Automattic\WooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
+use Automattic\PooCommerce\Database\Migrations\MetaToMetaTableMigrator;
+use Automattic\PooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
 
 /**
  * Helper class to migrate records from the WordPress post meta table
  * to the custom orders meta table.
  *
- * @package Automattic\WooCommerce\Database\Migrations\CustomOrderTable
+ * @package Automattic\PooCommerce\Database\Migrations\CustomOrderTable
  */
 class PostMetaToOrderMetaMigrator extends MetaToMetaTableMigrator {
 

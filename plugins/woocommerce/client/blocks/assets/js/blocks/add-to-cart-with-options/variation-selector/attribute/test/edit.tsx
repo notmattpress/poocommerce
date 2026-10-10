@@ -3,7 +3,7 @@
  */
 import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import * as hooks from '@woocommerce/base-context/hooks';
+import * as hooks from '@poocommerce/base-context/hooks';
 import type { ComponentProps, ReactNode } from 'react';
 
 /**
@@ -12,9 +12,9 @@ import type { ComponentProps, ReactNode } from 'react';
 import AttributeItemTemplateEdit from '../edit';
 import { DEFAULT_ATTRIBUTES } from '../constants';
 
-jest.mock( '@woocommerce/base-context/hooks', () => ( {
+jest.mock( '@poocommerce/base-context/hooks', () => ( {
 	__esModule: true,
-	...jest.requireActual( '@woocommerce/base-context/hooks' ),
+	...jest.requireActual( '@poocommerce/base-context/hooks' ),
 } ) );
 
 // A selected row renders the inner blocks; an unselected one renders a
@@ -47,12 +47,12 @@ jest.mock( '@wordpress/data', () => ( {
 	),
 } ) );
 
-jest.mock( '@woocommerce/shared-context', () => ( {
-	...jest.requireActual( '@woocommerce/shared-context' ),
+jest.mock( '@poocommerce/shared-context', () => ( {
+	...jest.requireActual( '@poocommerce/shared-context' ),
 	useProductDataContext: jest.fn(),
 } ) );
 
-const sharedContext = jest.requireMock( '@woocommerce/shared-context' );
+const sharedContext = jest.requireMock( '@poocommerce/shared-context' );
 
 type EditProps = ComponentProps< typeof AttributeItemTemplateEdit >;
 
@@ -62,7 +62,7 @@ type EditProps = ComponentProps< typeof AttributeItemTemplateEdit >;
 // `className`.
 const editProps = {
 	attributes: {
-		displayStyle: 'woocommerce/product-filter-chips',
+		displayStyle: 'poocommerce/product-filter-chips',
 		autoselect: false,
 		disabledAttributesAction: 'disable',
 	},

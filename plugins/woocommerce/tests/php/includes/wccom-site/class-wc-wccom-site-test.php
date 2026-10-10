@@ -2,7 +2,7 @@
 declare( strict_types = 1 );
 
 /**
- * Tests for how WC_WCCOM_Site recognizes and authenticates WooCommerce.com REST requests.
+ * Tests for how WC_WCCOM_Site recognizes and authenticates PooCommerce.com REST requests.
  */
 class WC_WCCOM_Site_Test extends WC_Unit_Test_Case {
 
@@ -78,7 +78,7 @@ class WC_WCCOM_Site_Test extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Connect the site to WooCommerce.com and sign the current request with its credentials.
+	 * Connect the site to PooCommerce.com and sign the current request with its credentials.
 	 *
 	 * @param int    $user_id     User the connection belongs to.
 	 * @param string $request_uri Request URI to sign.
@@ -107,7 +107,7 @@ class WC_WCCOM_Site_Test extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Should recognize a WooCommerce.com REST request only by the route WordPress dispatches.
+	 * @testdox Should recognize a PooCommerce.com REST request only by the route WordPress dispatches.
 	 *
 	 * @testWith ["/wp-json/wccom-site/v3/status", false, null, true]
 	 *           ["/blog/wp-json/wccom-site/v3/status", false, null, true]

@@ -1,13 +1,13 @@
 <?php
 /**
  * Title: Coming Soon Image Gallery
- * Slug: woocommerce/page-coming-soon-image-gallery
- * Categories: WooCommerce
+ * Slug: poocommerce/page-coming-soon-image-gallery
+ * Categories: PooCommerce
  * Template Types: coming-soon
  * Inserter: false
  */
 
-use Automattic\WooCommerce\Blocks\Templates\ComingSoonTemplate;
+use Automattic\PooCommerce\Blocks\Templates\ComingSoonTemplate;
 
 $fonts               = ComingSoonTemplate::get_font_families();
 $heading_font_family = $fonts['heading'];
@@ -29,12 +29,12 @@ $featured_image_urls = array(
 );
 ?>
 
-<!-- wp:woocommerce/coming-soon {"comingSoonPatternId":"page-coming-soon-image-gallery","className":"woocommerce-coming-soon-image-gallery"} -->
-<div class="wp-block-woocommerce-coming-soon woocommerce-coming-soon-image-gallery">
+<!-- wp:poocommerce/coming-soon {"comingSoonPatternId":"page-coming-soon-image-gallery","className":"poocommerce-coming-soon-image-gallery"} -->
+<div class="wp-block-poocommerce-coming-soon poocommerce-coming-soon-image-gallery">
 <!-- wp:group {"align":"wide","style":{"spacing":{"padding":{"right":"90px","left":"90px"}}},"layout":{"type":"constrained","contentSize":"1280px"}} -->
 <div class="wp-block-group alignwide" style="padding-right:90px;padding-left:90px">
-	<!-- wp:group {"align":"wide","className":"woocommerce-coming-soon-header has-background","style":{"spacing":{"padding":{"bottom":"14px","left":"0px","right":"0px","top":"26px"}}},"layout":{"type":"constrained"}} -->
-	<div class="wp-block-group alignwide woocommerce-coming-soon-header has-background" style="padding-top:26px;padding-right:0px;padding-bottom:14px;padding-left:0px"><!-- wp:group {"align":"wide","layout":{"type":"flex","justifyContent":"space-between","flexWrap":"wrap"}} -->
+	<!-- wp:group {"align":"wide","className":"poocommerce-coming-soon-header has-background","style":{"spacing":{"padding":{"bottom":"14px","left":"0px","right":"0px","top":"26px"}}},"layout":{"type":"constrained"}} -->
+	<div class="wp-block-group alignwide poocommerce-coming-soon-header has-background" style="padding-top:26px;padding-right:0px;padding-bottom:14px;padding-left:0px"><!-- wp:group {"align":"wide","layout":{"type":"flex","justifyContent":"space-between","flexWrap":"wrap"}} -->
 			<div class="wp-block-group alignwide"><!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|20"},"layout":{"selfStretch":"fit","flexSize":null}},"layout":{"type":"flex"}} -->
 				<div class="wp-block-group"><!-- wp:site-logo {"width":60} /-->
 
@@ -43,8 +43,8 @@ $featured_image_urls = array(
 					<!-- /wp:group --></div>
 				<!-- /wp:group -->
 
-				<!-- wp:group {"className":"woocommerce-coming-soon-social-login","style":{"spacing":{"blockGap":"48px"}},"layout":{"type":"flex","flexWrap":"nowrap"}} -->
-				<div class="wp-block-group woocommerce-coming-soon-social-login"><!-- wp:template-part {"slug":"coming-soon-social-links","theme":"woocommerce/woocommerce","tagName":"div"} /-->
+				<!-- wp:group {"className":"poocommerce-coming-soon-social-login","style":{"spacing":{"blockGap":"48px"}},"layout":{"type":"flex","flexWrap":"nowrap"}} -->
+				<div class="wp-block-group poocommerce-coming-soon-social-login"><!-- wp:template-part {"slug":"coming-soon-social-links","theme":"poocommerce/poocommerce","tagName":"div"} /-->
 
 					<!-- wp:loginout {"style":{"elements":{"link":{"color":{"text":"#ffffff"}}},"color":{"background":"#000000"},"spacing":{"padding":{"top":"12px","bottom":"12px","left":"16px","right":"16px"}},"typography":{"fontSize":"14px","lineHeight":"1.2"},"border":{"radius":"6px"}}, "fontFamily":"<?php echo esc_html( $body_font_family ); ?>"} /--></div>
 				<!-- /wp:group --></div>
@@ -56,7 +56,7 @@ $featured_image_urls = array(
 			<!-- wp:group {"align":"wide","style":{"spacing":{"padding":{"top":"100px","bottom":"100px"}}},"layout":{"type":"flex","flexWrap":"nowrap"}} -->
 			<div class="wp-block-group alignwide">
 				<!-- wp:heading {"level":1,"style":{"typography":{"fontSize":"48px","lineHeight":"1.3","fontStyle":"normal","fontWeight":"400"},"spacing":{"padding":{"top":"100px","bottom":"100px"}}},"fontFamily":"<?php echo esc_html( $heading_font_family ); ?>"} -->
-					<h1 class="wp-block-heading has-<?php echo esc_html( $heading_font_family ); ?>-font-family" style="padding-top:100px;padding-bottom:100px;font-size:48px;font-style:normal;font-weight:400;line-height:1.3"><em><?php echo esc_html__( 'Great things are coming soon', 'woocommerce' ); ?></em></h1>
+					<h1 class="wp-block-heading has-<?php echo esc_html( $heading_font_family ); ?>-font-family" style="padding-top:100px;padding-bottom:100px;font-size:48px;font-style:normal;font-weight:400;line-height:1.3"><em><?php echo esc_html__( 'Great things are coming soon', 'poocommerce' ); ?></em></h1>
 				<!-- /wp:heading -->
 			</div>
 			<!-- /wp:group -->
@@ -219,4 +219,4 @@ $featured_image_urls = array(
 	</div>
 	<!-- /wp:group -->
 </div>
-<!-- /wp:woocommerce/coming-soon -->
+<!-- /wp:poocommerce/coming-soon -->

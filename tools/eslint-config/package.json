@@ -1,7 +1,7 @@
 {
-	"name": "@woocommerce/eslint-config",
+	"name": "@poocommerce/eslint-config",
 	"version": "0.0.1",
-	"description": "The WooCommerce monorepo's internal ESLint Flat Config layer.",
+	"description": "The PooCommerce monorepo's internal ESLint Flat Config layer.",
 	"author": "Automattic",
 	"license": "GPL-2.0-or-later",
 	"private": true,
@@ -20,7 +20,7 @@
 		"lint:fix:lang:js": "eslint ./index.js ./core-modules.js --fix"
 	},
 	"dependencies": {
-		"@woocommerce/eslint-plugin": "workspace:*"
+		"@poocommerce/eslint-plugin": "workspace:*"
 	},
 	"devDependencies": {
 		"eslint": "^10.0.0"

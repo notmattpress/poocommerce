@@ -4,7 +4,7 @@ declare( strict_types=1 );
 /**
  * Tests for WC_Frontend_Scripts.
  *
- * @package WooCommerce\Tests\FrontendScripts
+ * @package PooCommerce\Tests\FrontendScripts
  */
 
 /**
@@ -37,7 +37,7 @@ class WC_Frontend_Scripts_Test extends WC_Unit_Test_Case {
 
 		// Remove the gateways filter if it was added.
 		if ( null !== $this->gateways_filter_callback ) {
-			remove_filter( 'woocommerce_payment_gateways', $this->gateways_filter_callback );
+			remove_filter( 'poocommerce_payment_gateways', $this->gateways_filter_callback );
 			$this->gateways_filter_callback = null;
 		}
 
@@ -112,7 +112,7 @@ class WC_Frontend_Scripts_Test extends WC_Unit_Test_Case {
 		$this->gateways_filter_callback = function ( $gateways ) use ( $gateway_instances ) {
 			return array_merge( $gateways, $gateway_instances );
 		};
-		add_filter( 'woocommerce_payment_gateways', $this->gateways_filter_callback );
+		add_filter( 'poocommerce_payment_gateways', $this->gateways_filter_callback );
 		WC()->payment_gateways()->init();
 	}
 
@@ -221,7 +221,7 @@ class WC_Frontend_Scripts_Test extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Test that default WooCommerce gateways are not in the list.
+	 * Test that default PooCommerce gateways are not in the list.
 	 *
 	 * Default gateways like BACS, COD, Cheque don't have custom place order buttons.
 	 */

@@ -18,12 +18,12 @@ const pickImageFromLibrary = async ( page: Page, imageName: string ) => {
 };
 
 test.describe(
-	'WooCommerce Email Settings',
+	'PooCommerce Email Settings',
 	{ lock: locks.EMAIL_FEATURE_FLAGS },
 	() => {
 		test.use( { storageState: ADMIN_STATE_PATH } );
 
-		const storeName = 'WooCommerce Core E2E Test Suite';
+		const storeName = 'PooCommerce Core E2E Test Suite';
 
 		test.beforeEach( async ( { baseURL } ) => {
 			await disableEmailEditor( baseURL );
@@ -72,7 +72,7 @@ test.describe(
 					`Password Reset Request for ${ storeName }`
 				);
 
-				const baseColorId = 'woocommerce_email_base_color';
+				const baseColorId = 'poocommerce_email_base_color';
 				const baseColorValue = '#012345';
 
 				await page
@@ -156,7 +156,7 @@ test.describe(
 			await sendButton.click();
 
 			// Sending fails in the test env (no mail server); the backend returns
-			// `woocommerce_rest_email_preview_not_sent`, which hits the generic fallback in friendlyEmailSendError.
+			// `poocommerce_rest_email_preview_not_sent`, which hits the generic fallback in friendlyEmailSendError.
 			const message = modal.locator(
 				"text=Couldn't send the test email. Check your email settings and try again."
 			);

@@ -61,8 +61,8 @@ describe( 'usesServerSideSearch', () => {
 		);
 	} );
 
-	describe( 'woocommerce_admin_report_server_side_search_item_types', () => {
-		const hook = 'woocommerce_admin_report_server_side_search_item_types';
+	describe( 'poocommerce_admin_report_server_side_search_item_types', () => {
+		const hook = 'poocommerce_admin_report_server_side_search_item_types';
 
 		afterEach( () => {
 			removeFilter( hook, 'test' );

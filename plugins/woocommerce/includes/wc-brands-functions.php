@@ -2,9 +2,9 @@
 /**
  * Brands Helper Functions
  *
- * Important: For internal use only by the Automattic\WooCommerce\Internal\Brands package.
+ * Important: For internal use only by the Automattic\PooCommerce\Internal\Brands package.
  *
- * @package WooCommerce
+ * @package PooCommerce
  * @version 9.4.0
  */
 
@@ -47,7 +47,7 @@ function wc_get_brand_thumbnail_image( $brand, $size = '' ) {
 		 *
 		 * @param string $size Brand's thumbnail size.
 		 */
-		$size = apply_filters( 'woocommerce_brand_thumbnail_size', 'shop_catalog' );
+		$size = apply_filters( 'poocommerce_brand_thumbnail_size', 'shop_catalog' );
 	}
 
 	if ( $thumbnail_id ) {
@@ -93,7 +93,7 @@ function wc_get_brands( $post_id = 0, $sep = ', ', $before = '', $after = '' ) {
 }
 
 /**
- * Polyfills for backwards compatibility with the WooCommerce Brands plugin.
+ * Polyfills for backwards compatibility with the PooCommerce Brands plugin.
  */
 
 if ( ! function_exists( 'get_brand_thumbnail_url' ) ) {

@@ -1,13 +1,13 @@
 # [{release_main_version}] Release tracking
 
-This issue provides visibility on the progress of the release process of WooCommerce core **{release_main_version}**.
+This issue provides visibility on the progress of the release process of PooCommerce core **{release_main_version}**.
 
 - **Main version being released:** `{release_main_version}`
 - **Milestone:** [{release_milestone}]({repository_url}/issues?q=is:open+milestone:{release_milestone})
 - **Release branch:** [`{release_branch}`]({repository_url}/tree/{release_branch})
 - **Release lead:** {lead_user} ({lead_team})
 - **Product DRI:** James Kemp, Warren Holmes (reachable via `@woo-core-release` in Slack)
-- **Relevant dates:** ([release calendar](https://developer.woocommerce.com/release-calendar/))
+- **Relevant dates:** ([release calendar](https://developer.poocommerce.com/release-calendar/))
   - **Feature Freeze:** {date_feature_freeze}
   - **Beta 1:** {date_beta1}
   - **Beta 2:** {date_beta2}
@@ -20,7 +20,7 @@ This issue provides visibility on the progress of the release process of WooComm
 
 ##### Setup
 
-- [ ] Read this issue carefully and familiarize yourself with the [release process documentation](https://developer.woocommerce.com/docs/contribution/releases/).
+- [ ] Read this issue carefully and familiarize yourself with the [release process documentation](https://developer.poocommerce.com/docs/contribution/releases/).
 - [ ] On feature freeze ({date_feature_freeze}), update `@woo-core-release` membership in Slack: add yourself, give {previous_release_lead} a heads-up, then remove them. The previous cycle's lead stays for point releases. Leave everyone else alone.
 - [ ] Join the release channels in Slack (`#woo-core-releases`, `#woo-core-releases-notifications`), where discussions happen and notifications are sent.
 
@@ -32,8 +32,8 @@ This issue provides visibility on the progress of the release process of WooComm
 
 ##### Resources
 
-- [Release process documentation](https://developer.woocommerce.com/docs/contribution/releases/).
-- [Troubleshooting Guide](https://developer.woocommerce.com/docs/contribution/releases/troubleshooting/).
+- [Release process documentation](https://developer.poocommerce.com/docs/contribution/releases/).
+- [Troubleshooting Guide](https://developer.poocommerce.com/docs/contribution/releases/troubleshooting/).
 - [Previous releases]({repository_url}/releases).
-- [WooCommerce core changelog]({repository_url}/blob/trunk/changelog.txt).
+- [PooCommerce core changelog]({repository_url}/blob/trunk/changelog.txt).
 

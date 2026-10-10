@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { test, expect } from '@woocommerce/e2e-utils';
+import { test, expect } from '@poocommerce/e2e-utils';
 
 test.describe( 'Merchant → Local Pickup Settings', () => {
 	test.beforeEach( async ( { localPickupUtils } ) => {

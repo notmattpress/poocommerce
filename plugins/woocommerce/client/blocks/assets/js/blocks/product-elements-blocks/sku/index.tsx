@@ -3,7 +3,7 @@
  */
 import { registerBlockType } from '@wordpress/blocks';
 import { Icon } from '@wordpress/icons';
-import { barcode } from '@woocommerce/icons';
+import { barcode } from '@poocommerce/icons';
 
 /**
  * Internal dependencies

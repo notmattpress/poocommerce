@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 import { createActor, fromPromise, waitFor } from 'xstate5';
 
 /**
@@ -14,11 +14,11 @@ import {
 	PluginInstallError,
 } from '../../services/installAndActivatePlugins';
 
-jest.mock( '@woocommerce/tracks', () => ( {
+jest.mock( '@poocommerce/tracks', () => ( {
 	recordEvent: jest.fn(),
 } ) );
 
-jest.mock( '@woocommerce/settings', () => ( {
+jest.mock( '@poocommerce/settings', () => ( {
 	getSetting: jest.fn( () => '9.8.0' ),
 } ) );
 
@@ -43,10 +43,10 @@ const makeContext = (
 
 const shippingPlugins = [
 	{
-		key: 'woocommerce-shipping',
-		slug: 'woocommerce-shipping',
-		name: 'WooCommerce Shipping',
-		label: 'WooCommerce Shipping',
+		key: 'poocommerce-shipping',
+		slug: 'poocommerce-shipping',
+		name: 'PooCommerce Shipping',
+		label: 'PooCommerce Shipping',
 		is_activated: false,
 		description: '',
 		image_url: '',
@@ -55,8 +55,8 @@ const shippingPlugins = [
 		is_visible: true,
 	},
 	{
-		key: 'woocommerce-shipstation-integration',
-		slug: 'woocommerce-shipstation-integration',
+		key: 'poocommerce-shipstation-integration',
+		slug: 'poocommerce-shipstation-integration',
 		name: 'ShipStation',
 		label: 'ShipStation',
 		is_activated: false,
@@ -69,8 +69,8 @@ const shippingPlugins = [
 ];
 
 const nonShippingPlugin = {
-	key: 'woocommerce-payments',
-	slug: 'woocommerce-payments',
+	key: 'poocommerce-payments',
+	slug: 'poocommerce-payments',
 	name: 'WooPayments',
 	label: 'WooPayments',
 	is_activated: false,
@@ -101,7 +101,7 @@ describe( 'Core Profiler shipping partner tracking', () => {
 					context: 'core-profiler',
 					country: 'US',
 					plugins:
-						'woocommerce-shipping,woocommerce-shipstation-integration',
+						'poocommerce-shipping,poocommerce-shipstation-integration',
 				}
 			);
 		} );
@@ -133,7 +133,7 @@ describe( 'Core Profiler shipping partner tracking', () => {
 					context: 'core-profiler',
 					country: 'US',
 					plugins:
-						'woocommerce-shipping,woocommerce-shipstation-integration',
+						'poocommerce-shipping,poocommerce-shipstation-integration',
 				}
 			);
 			expect(
@@ -154,11 +154,11 @@ describe( 'Core Profiler shipping partner tracking', () => {
 					payload: {
 						pluginsShown: [
 							'mailpoet',
-							'woocommerce-services:tax',
+							'poocommerce-services:tax',
 						],
 						pluginsSelected: [
 							'mailpoet:alt',
-							'woocommerce-services:tax',
+							'poocommerce-services:tax',
 						],
 						pluginsUnselected: [],
 					},
@@ -168,8 +168,8 @@ describe( 'Core Profiler shipping partner tracking', () => {
 			expect( recordEvent ).toHaveBeenCalledWith(
 				'coreprofiler_store_extensions_continue',
 				{
-					shown: [ 'mailpoet', 'woocommerce-services:tax' ],
-					selected: [ 'mailpoet', 'woocommerce-services:tax' ],
+					shown: [ 'mailpoet', 'poocommerce-services:tax' ],
+					selected: [ 'mailpoet', 'poocommerce-services:tax' ],
 					unselected: [],
 				}
 			);
@@ -188,14 +188,14 @@ describe( 'Core Profiler shipping partner tracking', () => {
 					type: 'PLUGINS_INSTALLATION_REQUESTED',
 					payload: {
 						pluginsShown: [
-							'woocommerce-shipping',
-							'woocommerce-shipstation-integration',
-							'woocommerce-payments',
+							'poocommerce-shipping',
+							'poocommerce-shipstation-integration',
+							'poocommerce-payments',
 						],
 						pluginsSelected: [
-							'woocommerce-shipping',
-							'woocommerce-shipstation-integration',
-							'woocommerce-payments',
+							'poocommerce-shipping',
+							'poocommerce-shipstation-integration',
+							'poocommerce-payments',
 						],
 						pluginsUnselected: [],
 					},
@@ -208,8 +208,8 @@ describe( 'Core Profiler shipping partner tracking', () => {
 					context: 'core-profiler',
 					country: 'US',
 					plugins:
-						'woocommerce-shipping,woocommerce-shipstation-integration',
-					selected_plugin: 'woocommerce-shipping',
+						'poocommerce-shipping,poocommerce-shipstation-integration',
+					selected_plugin: 'poocommerce-shipping',
 				}
 			);
 			expect( recordEvent ).toHaveBeenCalledWith(
@@ -218,8 +218,8 @@ describe( 'Core Profiler shipping partner tracking', () => {
 					context: 'core-profiler',
 					country: 'US',
 					plugins:
-						'woocommerce-shipping,woocommerce-shipstation-integration',
-					selected_plugin: 'woocommerce-shipstation-integration',
+						'poocommerce-shipping,poocommerce-shipstation-integration',
+					selected_plugin: 'poocommerce-shipstation-integration',
 				}
 			);
 		} );
@@ -235,11 +235,11 @@ describe( 'Core Profiler shipping partner tracking', () => {
 					type: 'PLUGINS_INSTALLATION_REQUESTED',
 					payload: {
 						pluginsShown: [
-							'woocommerce-shipping',
-							'woocommerce-payments',
+							'poocommerce-shipping',
+							'poocommerce-payments',
 						],
-						pluginsSelected: [ 'woocommerce-payments' ],
-						pluginsUnselected: [ 'woocommerce-shipping' ],
+						pluginsSelected: [ 'poocommerce-payments' ],
+						pluginsUnselected: [ 'poocommerce-shipping' ],
 					},
 				},
 			} );
@@ -265,11 +265,11 @@ describe( 'Core Profiler shipping partner tracking', () => {
 						installationCompletedResult: {
 							installedPlugins: [
 								{
-									plugin: 'woocommerce-shipping',
+									plugin: 'poocommerce-shipping',
 									installTime: 1000,
 								},
 								{
-									plugin: 'woocommerce-payments',
+									plugin: 'poocommerce-payments',
 									installTime: 2000,
 								},
 							],
@@ -285,8 +285,8 @@ describe( 'Core Profiler shipping partner tracking', () => {
 					context: 'core-profiler',
 					country: 'US',
 					plugins:
-						'woocommerce-shipping,woocommerce-shipstation-integration',
-					selected_plugin: 'woocommerce-shipping',
+						'poocommerce-shipping,poocommerce-shipstation-integration',
+					selected_plugin: 'poocommerce-shipping',
 					success: true,
 				}
 			);
@@ -296,8 +296,8 @@ describe( 'Core Profiler shipping partner tracking', () => {
 					context: 'core-profiler',
 					country: 'US',
 					plugins:
-						'woocommerce-shipping,woocommerce-shipstation-integration',
-					selected_plugin: 'woocommerce-shipping',
+						'poocommerce-shipping,poocommerce-shipstation-integration',
+					selected_plugin: 'poocommerce-shipping',
 					success: true,
 				}
 			);
@@ -316,7 +316,7 @@ describe( 'Core Profiler shipping partner tracking', () => {
 						installationCompletedResult: {
 							installedPlugins: [
 								{
-									plugin: 'woocommerce-payments',
+									plugin: 'poocommerce-payments',
 									installTime: 2000,
 								},
 							],
@@ -345,7 +345,7 @@ describe( 'Core Profiler shipping partner tracking', () => {
 
 			const errors: PluginInstallError[] = [
 				{
-					plugin: 'woocommerce-shipping',
+					plugin: 'poocommerce-shipping',
 					error: 'Install failed',
 					errorDetails: {
 						data: {
@@ -370,8 +370,8 @@ describe( 'Core Profiler shipping partner tracking', () => {
 					context: 'core-profiler',
 					country: 'US',
 					plugins:
-						'woocommerce-shipping,woocommerce-shipstation-integration',
-					selected_plugin: 'woocommerce-shipping',
+						'poocommerce-shipping,poocommerce-shipstation-integration',
+					selected_plugin: 'poocommerce-shipping',
 					success: false,
 				}
 			);
@@ -388,7 +388,7 @@ describe( 'Core Profiler shipping partner tracking', () => {
 
 			const errors: PluginInstallError[] = [
 				{
-					plugin: 'woocommerce-payments',
+					plugin: 'poocommerce-payments',
 					error: 'Install failed',
 					errorDetails: {
 						data: {
@@ -452,19 +452,19 @@ describe( 'Core Profiler installation timing', () => {
 
 	it.each( [
 		[
-			'woocommerce-services:tax',
-			'woocommerce-services',
-			'woocommerce_services',
+			'poocommerce-services:tax',
+			'poocommerce-services',
+			'poocommerce_services',
 		],
 		[
-			'woocommerce-services:shipping',
-			'woocommerce-services',
-			'woocommerce_services',
+			'poocommerce-services:shipping',
+			'poocommerce-services',
+			'poocommerce_services',
 		],
 		[
-			'woocommerce-paypal-payments:wallet-only',
-			'woocommerce-paypal-payments',
-			'woocommerce_paypal_payments',
+			'poocommerce-paypal-payments:wallet-only',
+			'poocommerce-paypal-payments',
+			'poocommerce_paypal_payments',
 		],
 	] )(
 		'records the server duration for %s in both completion events',

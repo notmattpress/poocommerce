@@ -1,11 +1,11 @@
 <?php
 
-namespace Automattic\WooCommerce\Blueprint\Steps;
+namespace Automattic\PooCommerce\Blueprint\Steps;
 
 /**
  * Class ActivatePlugin
  *
- * @package Automattic\WooCommerce\Blueprint\Steps
+ * @package Automattic\PooCommerce\Blueprint\Steps
  */
 class ActivatePlugin extends Step {
 	/**

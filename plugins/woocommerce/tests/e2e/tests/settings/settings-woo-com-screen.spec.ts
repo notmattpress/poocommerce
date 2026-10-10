@@ -5,10 +5,10 @@ import { tags, test, expect } from '../../fixtures/fixtures';
 import { ADMIN_STATE_PATH } from '../../playwright.config';
 
 /**
- * Canary for the WooCommerce.com settings screen.
+ * Canary for the PooCommerce.com settings screen.
  *
  * The two persistence tests that used to live here moved to
- * WC_Settings_Advanced_Test::test_save_persists_woocommerce_com_checkbox_options, which asserts
+ * WC_Settings_Advanced_Test::test_save_persists_poocommerce_com_checkbox_options, which asserts
  * what the server does with the posted values. Nothing else in the suite opens this section.
  *
  * The label strings themselves are not unowned: tests/e2e/tests/api-tests/settings/settings-crud.test.ts
@@ -24,7 +24,7 @@ import { ADMIN_STATE_PATH } from '../../playwright.config';
  * It deliberately does not save anything: persistence is the PHPUnit test's job.
  */
 test.describe(
-	'WooCommerce.com Settings screen',
+	'PooCommerce.com Settings screen',
 	{
 		tag: [ tags.SERVICES, tags.SKIP_ON_WPCOM ],
 	},
@@ -35,17 +35,17 @@ test.describe(
 			page,
 		} ) => {
 			await page.goto(
-				'wp-admin/admin.php?page=wc-settings&tab=advanced&section=woocommerce_com'
+				'wp-admin/admin.php?page=wc-settings&tab=advanced&section=poocommerce_com'
 			);
 
 			await expect(
 				page.getByRole( 'checkbox', {
-					name: 'Allow usage of WooCommerce to be tracked',
+					name: 'Allow usage of PooCommerce to be tracked',
 				} )
 			).toBeVisible();
 			await expect(
 				page.getByRole( 'checkbox', {
-					name: 'Display suggestions within WooCommerce',
+					name: 'Display suggestions within PooCommerce',
 				} )
 			).toBeVisible();
 			await expect(

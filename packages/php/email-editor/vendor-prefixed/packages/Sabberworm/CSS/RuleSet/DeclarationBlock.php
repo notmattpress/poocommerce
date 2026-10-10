@@ -1,22 +1,22 @@
 <?php
 
-namespace Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\RuleSet;
+namespace Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\RuleSet;
 
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\CSSList\CSSList;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\CSSList\KeyFrame;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\OutputFormat;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Parsing\OutputException;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Parsing\ParserState;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Parsing\UnexpectedEOFException;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Parsing\UnexpectedTokenException;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Property\KeyframeSelector;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Property\Selector;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Rule\Rule;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Value\Color;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Value\RuleValueList;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Value\Size;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Value\URL;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Value\Value;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\CSSList\CSSList;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\CSSList\KeyFrame;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\OutputFormat;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Parsing\OutputException;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Parsing\ParserState;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Parsing\UnexpectedEOFException;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Parsing\UnexpectedTokenException;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Property\KeyframeSelector;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Property\Selector;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Rule\Rule;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Value\Color;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Value\RuleValueList;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Value\Size;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Value\URL;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Value\Value;
 
 /**
  * This class represents a `RuleSet` constrained by a `Selector`.

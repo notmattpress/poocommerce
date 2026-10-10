@@ -81,7 +81,7 @@ class WC_Shipping_Flat_Rate_Rates_Test extends WC_Unit_Test_Case {
 	 */
 	private function method_with( array $settings ): void {
 		update_option(
-			'woocommerce_flat_rate_' . $this->instance_id . '_settings',
+			'poocommerce_flat_rate_' . $this->instance_id . '_settings',
 			array_merge(
 				array(
 					'title'      => 'Flat rate',
@@ -277,7 +277,7 @@ class WC_Shipping_Flat_Rate_Rates_Test extends WC_Unit_Test_Case {
 	public function test_class_cost_saved_under_the_legacy_slug_key_is_still_charged(): void {
 		$product = $this->shippable_product( 'flat-rate-fragile' );
 
-		update_option( 'woocommerce_flat_rate_settings', array( 'class_cost_flat-rate-fragile' => '4' ) );
+		update_option( 'poocommerce_flat_rate_settings', array( 'class_cost_flat-rate-fragile' => '4' ) );
 
 		$this->method_with( array( 'cost' => '1' ) );
 		$package = $this->package_of(

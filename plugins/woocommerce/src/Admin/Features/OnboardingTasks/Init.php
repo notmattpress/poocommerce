@@ -1,11 +1,11 @@
 <?php
 /**
- * WooCommerce Onboarding Tasks
+ * PooCommerce Onboarding Tasks
  */
 
-namespace Automattic\WooCommerce\Admin\Features\OnboardingTasks;
+namespace Automattic\PooCommerce\Admin\Features\OnboardingTasks;
 
-use Automattic\WooCommerce\Admin\Features\OnboardingTasks\DeprecatedOptions;
+use Automattic\PooCommerce\Admin\Features\OnboardingTasks\DeprecatedOptions;
 
 /**
  * Contains the logic for completing onboarding tasks.

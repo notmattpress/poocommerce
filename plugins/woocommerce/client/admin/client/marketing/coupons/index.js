@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { useUser } from '@woocommerce/data';
+import { useUser } from '@poocommerce/data';
 
 /**
  * Internal dependencies
@@ -26,17 +26,17 @@ const CouponsOverview = () => {
 		showSuggestions && currentUserCan( 'install_plugins' );
 
 	return (
-		<div className="woocommerce-marketing-coupons">
+		<div className="poocommerce-marketing-coupons">
 			<Promotions format="promo-card" />
 			{ showExtensions && (
 				<RecommendedExtensions
 					title={ __(
 						'Recommended coupon extensions',
-						'woocommerce'
+						'poocommerce'
 					) }
 					description={ __(
 						'Take your coupon marketing to the next level with our recommended coupon extensions.',
-						'woocommerce'
+						'poocommerce'
 					) }
 					category="coupons"
 				/>
@@ -45,8 +45,8 @@ const CouponsOverview = () => {
 				<KnowledgeBase
 					category="coupons"
 					description={ __(
-						'Learn the ins and outs of successful coupon marketing from the experts at WooCommerce.',
-						'woocommerce'
+						'Learn the ins and outs of successful coupon marketing from the experts at PooCommerce.',
+						'poocommerce'
 					) }
 				/>
 			) }

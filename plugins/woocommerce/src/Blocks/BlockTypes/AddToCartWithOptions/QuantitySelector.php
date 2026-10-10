@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes\AddToCartWithOptions;
+namespace Automattic\PooCommerce\Blocks\BlockTypes\AddToCartWithOptions;
 
-use Automattic\WooCommerce\Blocks\BlockTypes\AbstractBlock;
-use Automattic\WooCommerce\Blocks\BlockTypes\EnableBlockJsonAssetsTrait;
-use Automattic\WooCommerce\Blocks\BlockTypes\AddToCartWithOptions\Utils as AddToCartWithOptionsUtils;
-use Automattic\WooCommerce\Blocks\Utils\StyleAttributesUtils;
-use Automattic\WooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Blocks\BlockTypes\AbstractBlock;
+use Automattic\PooCommerce\Blocks\BlockTypes\EnableBlockJsonAssetsTrait;
+use Automattic\PooCommerce\Blocks\BlockTypes\AddToCartWithOptions\Utils as AddToCartWithOptionsUtils;
+use Automattic\PooCommerce\Blocks\Utils\StyleAttributesUtils;
+use Automattic\PooCommerce\Enums\ProductType;
 
 /**
  * Block type for quantity selector in add to cart with options.
@@ -76,7 +76,7 @@ class QuantitySelector extends AbstractBlock {
 
 		ob_start();
 
-		woocommerce_quantity_input(
+		poocommerce_quantity_input(
 			array(
 				'min_value'   => $product->get_min_purchase_quantity(),
 				'max_value'   => $product->get_max_purchase_quantity(),
@@ -116,13 +116,13 @@ class QuantitySelector extends AbstractBlock {
 		$product_quantity_constraints = AddToCartWithOptionsUtils::get_product_quantity_constraints( $product );
 
 		if ( $product->is_type( ProductType::VARIABLE ) ) {
-			wp_enqueue_script_module( 'woocommerce/product-elements' );
+			wp_enqueue_script_module( 'poocommerce/product-elements' );
 
-			$wrapper_attributes['data-wp-bind--hidden'] = 'woocommerce/add-to-cart-with-options-quantity-selector::!state.allowsQuantityChange';
-			$input_attributes['data-wp-bind--min']      = 'woocommerce/products::state.productInContext.add_to_cart.minimum';
-			$input_attributes['data-wp-bind--max']      = 'woocommerce/products::state.productInContext.add_to_cart.maximum';
-			$input_attributes['data-wp-bind--step']     = 'woocommerce/products::state.productInContext.add_to_cart.multiple_of';
-			$input_attributes['data-wp-watch']          = 'woocommerce/add-to-cart-with-options::callbacks.watchQuantityConstraints';
+			$wrapper_attributes['data-wp-bind--hidden'] = 'poocommerce/add-to-cart-with-options-quantity-selector::!state.allowsQuantityChange';
+			$input_attributes['data-wp-bind--min']      = 'poocommerce/products::state.productInContext.add_to_cart.minimum';
+			$input_attributes['data-wp-bind--max']      = 'poocommerce/products::state.productInContext.add_to_cart.maximum';
+			$input_attributes['data-wp-bind--step']     = 'poocommerce/products::state.productInContext.add_to_cart.multiple_of';
+			$input_attributes['data-wp-watch']          = 'poocommerce/add-to-cart-with-options::callbacks.watchQuantityConstraints';
 		}
 
 		$form = AddToCartWithOptionsUtils::make_quantity_input_interactive( $product_html, $wrapper_attributes, $input_attributes );

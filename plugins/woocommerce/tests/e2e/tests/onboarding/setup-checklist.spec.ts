@@ -4,7 +4,7 @@
 import {
 	WC_ADMIN_API_PATH,
 	WC_API_PATH,
-} from '@woocommerce/e2e-utils-playwright';
+} from '@poocommerce/e2e-utils-playwright';
 
 /**
  * Internal dependencies
@@ -12,7 +12,7 @@ import {
 import { expect, tags, test as baseTest } from '../../fixtures/fixtures';
 import { ADMIN_STATE_PATH } from '../../playwright.config';
 
-// The wp-admin request that starts the WooCommerce.com OAuth hand-off.
+// The wp-admin request that starts the PooCommerce.com OAuth hand-off.
 const isConnectRequest = ( url: URL ) =>
 	url.searchParams.get( 'wc-helper-connect' ) === '1';
 
@@ -21,12 +21,12 @@ const test = baseTest.extend( {
 
 	page: async ( { page, restApi }, use ) => {
 		const initialTaskListState = await restApi.get(
-			`${ WC_ADMIN_API_PATH }/options?options=woocommerce_task_list_hidden`
+			`${ WC_ADMIN_API_PATH }/options?options=poocommerce_task_list_hidden`
 		);
 
 		// Ensure task list is visible.
 		await restApi.put( `${ WC_ADMIN_API_PATH }/options`, {
-			woocommerce_task_list_hidden: 'no',
+			poocommerce_task_list_hidden: 'no',
 		} );
 
 		await page.goto( 'wp-admin/admin.php?page=wc-admin' );
@@ -44,10 +44,10 @@ const test = baseTest.extend( {
 		// Ensure store's base country location is a WooPayments non-supported country (e.g. AF).
 		// Otherwise, the WooPayments task page logic or WooPayments redirects will kick in.
 		const initialDefaultCountry = await restApi.get(
-			`${ WC_API_PATH }/settings/general/woocommerce_default_country`
+			`${ WC_API_PATH }/settings/general/poocommerce_default_country`
 		);
 		await restApi.put(
-			`${ WC_API_PATH }/settings/general/woocommerce_default_country`,
+			`${ WC_API_PATH }/settings/general/poocommerce_default_country`,
 			{
 				value: 'AF',
 			}
@@ -57,7 +57,7 @@ const test = baseTest.extend( {
 
 		// Reset the default country to its initial state.
 		await restApi.put(
-			`${ WC_API_PATH }/settings/general/woocommerce_default_country`,
+			`${ WC_API_PATH }/settings/general/poocommerce_default_country`,
 			{
 				value: initialDefaultCountry.data.value,
 			}
@@ -79,7 +79,7 @@ test(
 
 		await test.step( 'Hide the task list', async () => {
 			const setupTaskProgressHeader = page.locator(
-				'.woocommerce-task-progress-header'
+				'.poocommerce-task-progress-header'
 			);
 
 			await setupTaskProgressHeader
@@ -107,31 +107,31 @@ test(
 			'wp-admin/admin.php?page=wc-admin'
 		);
 		await nonSupportedWooPaymentsCountryPage
-			.locator( '.woocommerce-task-list__item' )
+			.locator( '.poocommerce-task-list__item' )
 			.filter( { hasText: 'Set up payments' } )
 			.click();
 
 		await expect(
 			nonSupportedWooPaymentsCountryPage.locator(
-				'.woocommerce-layout__header-wrapper > h1'
+				'.poocommerce-layout__header-wrapper > h1'
 			)
 		).toHaveText( 'Settings' );
 	}
 );
 
 test(
-	'Can connect to WooCommerce.com',
+	'Can connect to PooCommerce.com',
 	{ tag: [ tags.SERVICES ] },
 	async ( { page, baseURL } ) => {
-		// Clicking Connect asks WooCommerce to start the OAuth hand-off: it checks a nonce, trades a
-		// token with WooCommerce.com server-side, then redirects the browser on to WooCommerce.com,
-		// which bounces it to WordPress.com to log in. Building that redirect is WooCommerce's job;
+		// Clicking Connect asks PooCommerce to start the OAuth hand-off: it checks a nonce, trades a
+		// token with PooCommerce.com server-side, then redirects the browser on to PooCommerce.com,
+		// which bounces it to WordPress.com to log in. Building that redirect is PooCommerce's job;
 		// what WordPress.com renders is not. Run the real request, but stop at the redirect, so the
 		// test doesn't depend on a third-party page that bot-challenges CI runners.
 		let authorizeUrl: string | undefined;
 		await page.route( isConnectRequest, async ( route ) => {
 			// Let the real request run — nonce check, server-side token exchange with
-			// WooCommerce.com and all — but read the redirect instead of following it.
+			// PooCommerce.com and all — but read the redirect instead of following it.
 			const response = await route.fetch( { maxRedirects: 0 } );
 			authorizeUrl = response.headers().location;
 			// 204 leaves the browser where it is rather than sending it onward.
@@ -185,7 +185,7 @@ test(
 			await connectButton.click();
 		} );
 
-		await test.step( 'Check we hand off to WooCommerce.com with a valid OAuth request', async () => {
+		await test.step( 'Check we hand off to PooCommerce.com with a valid OAuth request', async () => {
 			await expect
 				.poll( () => authorizeUrl ?? '', { timeout: 30000 } )
 				.toContain( '/oauth/authorize' );
@@ -194,12 +194,12 @@ test(
 			const params = authorize.searchParams;
 			const storeOrigin = new URL( baseURL ?? '' ).origin;
 
-			// The hand-off goes to WooCommerce.com itself. A store can repoint the Helper API
-			// with the `woocommerce_helper_api_base` filter; the E2E environment leaves it at
+			// The hand-off goes to PooCommerce.com itself. A store can repoint the Helper API
+			// with the `poocommerce_helper_api_base` filter; the E2E environment leaves it at
 			// the default.
-			expect( authorize.origin ).toBe( 'https://woocommerce.com' );
+			expect( authorize.origin ).toBe( 'https://poocommerce.com' );
 
-			// `secret` is minted by WooCommerce.com in reply to the server-side
+			// `secret` is minted by PooCommerce.com in reply to the server-side
 			// `oauth/request_token` call, so a non-empty value is proof that the
 			// handshake actually ran.
 			expect( params.get( 'secret' ) ).toBeTruthy();

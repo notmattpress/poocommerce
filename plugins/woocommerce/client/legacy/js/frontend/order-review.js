@@ -6,14 +6,14 @@
 ( function () {
 	'use strict';
 
-	var ERROR_CLASS = 'woocommerce-review-order__item-rating-error';
+	var ERROR_CLASS = 'poocommerce-review-order__item-rating-error';
 
 	/**
-	 * @param {HTMLElement} container `.woocommerce-star-rating` element.
+	 * @param {HTMLElement} container `.poocommerce-star-rating` element.
 	 */
 	function initGroup( container ) {
 		var inputs = Array.prototype.slice.call(
-			container.querySelectorAll( '.woocommerce-star-rating__input' )
+			container.querySelectorAll( '.poocommerce-star-rating__input' )
 		);
 		var captionId = container.getAttribute( 'aria-describedby' );
 		var caption = captionId ? document.getElementById( captionId ) : null;
@@ -72,12 +72,12 @@
 	/**
 	 * Return the currently selected rating (1-5) for a row, or 0 if none.
 	 *
-	 * @param {HTMLElement} row `.woocommerce-review-order__item`
+	 * @param {HTMLElement} row `.poocommerce-review-order__item`
 	 * @return {number}
 	 */
 	function currentRating( row ) {
 		var checked = row.querySelector(
-			'.woocommerce-star-rating__input:checked'
+			'.poocommerce-star-rating__input:checked'
 		);
 		return checked ? parseInt( checked.value, 10 ) || 0 : 0;
 	}
@@ -85,12 +85,12 @@
 	/**
 	 * Return the current textarea value for a row (trimmed).
 	 *
-	 * @param {HTMLElement} row `.woocommerce-review-order__item`
+	 * @param {HTMLElement} row `.poocommerce-review-order__item`
 	 * @return {string}
 	 */
 	function currentText( row ) {
 		var textarea = row.querySelector(
-			'.woocommerce-review-order__item-review-textarea'
+			'.poocommerce-review-order__item-review-textarea'
 		);
 		return textarea ? ( textarea.value || '' ).trim() : '';
 	}
@@ -98,7 +98,7 @@
 	/**
 	 * Whether a row has been edited since page load.
 	 *
-	 * @param {HTMLElement} row `.woocommerce-review-order__item`
+	 * @param {HTMLElement} row `.poocommerce-review-order__item`
 	 * @return {boolean}
 	 */
 	function isRowDirty( row ) {
@@ -118,15 +118,15 @@
 	 * Enable / disable the review-order submit button based on whether at
 	 * least one row has been edited since page load.
 	 *
-	 * @param {HTMLFormElement} form `.woocommerce-review-order__form`
+	 * @param {HTMLFormElement} form `.poocommerce-review-order__form`
 	 */
 	function initSubmitGate( form ) {
-		var submit = form.querySelector( '.woocommerce-review-order__submit' );
+		var submit = form.querySelector( '.poocommerce-review-order__submit' );
 		if ( ! submit ) {
 			if ( window.console && window.console.warn ) {
 				window.console.warn(
 					'Review Order form is missing its submit button ' +
-						'(.woocommerce-review-order__submit); ' +
+						'(.poocommerce-review-order__submit); ' +
 						'the dirty gate will not run.'
 				);
 			}
@@ -134,7 +134,7 @@
 		}
 
 		var rows = Array.prototype.slice.call(
-			form.querySelectorAll( '.woocommerce-review-order__item' )
+			form.querySelectorAll( '.poocommerce-review-order__item' )
 		);
 
 		function syncSubmit() {
@@ -151,7 +151,7 @@
 	}
 
 	/**
-	 * @param {HTMLElement} row     `.woocommerce-review-order__item`
+	 * @param {HTMLElement} row     `.poocommerce-review-order__item`
 	 * @param {boolean}     visible Whether the error should be shown.
 	 */
 	function setRowRatingError( row, visible ) {
@@ -180,7 +180,7 @@
 		// into the row itself so the error is never silently dropped if a
 		// theme override removes the title element.
 		var title = row.querySelector(
-			'.woocommerce-review-order__item-title'
+			'.poocommerce-review-order__item-title'
 		);
 		if ( title ) {
 			title.parentNode.insertBefore( note, title.nextSibling );
@@ -190,12 +190,12 @@
 	}
 
 	/**
-	 * @param {HTMLFormElement} form `.woocommerce-review-order__form`
+	 * @param {HTMLFormElement} form `.poocommerce-review-order__form`
 	 * @return {function(): boolean} Validator the AJAX submit handler re-runs.
 	 */
 	function initRatingValidation( form ) {
 		var rows = Array.prototype.slice.call(
-			form.querySelectorAll( '.woocommerce-review-order__item' )
+			form.querySelectorAll( '.poocommerce-review-order__item' )
 		);
 
 		function validate() {
@@ -236,13 +236,13 @@
 	/**
 	 * Render per-row outcome below the row's columns.
 	 *
-	 * @param {HTMLElement} row    `.woocommerce-review-order__item`
+	 * @param {HTMLElement} row    `.poocommerce-review-order__item`
 	 * @param {string}      status `ok | pending_moderation | error`
 	 * @param {string}      [text] Optional message override.
 	 */
 	function renderRowStatus( row, status, text ) {
 		var existing = row.querySelector(
-			'.woocommerce-review-order__item-status'
+			'.poocommerce-review-order__item-status'
 		);
 		if ( existing ) {
 			existing.parentNode.removeChild( existing );
@@ -259,7 +259,7 @@
 		};
 		var note = document.createElement( 'p' );
 		note.className =
-			'woocommerce-review-order__item-status woocommerce-review-order__item-status--' +
+			'poocommerce-review-order__item-status poocommerce-review-order__item-status--' +
 			status;
 		note.setAttribute( 'role', 'status' );
 		note.textContent = text || defaults[ status ] || defaults.error;
@@ -294,7 +294,7 @@
 			}
 
 			var submit = form.querySelector(
-				'.woocommerce-review-order__submit'
+				'.poocommerce-review-order__submit'
 			);
 			if ( submit ) {
 				submit.disabled = true;
@@ -315,12 +315,12 @@
 					if ( ! payload || ! payload.success || ! payload.data ) {
 						Array.prototype.forEach.call(
 							form.querySelectorAll(
-								'.woocommerce-review-order__item'
+								'.poocommerce-review-order__item'
 							),
 							function ( row ) {
 								if (
 									row.querySelector(
-										'.woocommerce-star-rating__input:checked'
+										'.poocommerce-star-rating__input:checked'
 									)
 								) {
 									renderRowStatus( row, 'error' );
@@ -336,7 +336,7 @@
 					Object.keys( results ).forEach( function ( key ) {
 						var entry = results[ key ];
 						var row = form.querySelector(
-							'.woocommerce-review-order__item[data-row-index="' +
+							'.poocommerce-review-order__item[data-row-index="' +
 								key +
 								'"]'
 						);
@@ -359,12 +359,12 @@
 
 					if ( anySaved && ! anyFailed ) {
 						var wrapper = form.closest(
-							'.woocommerce-review-order'
+							'.poocommerce-review-order'
 						);
 						if ( wrapper ) {
 							wrapper.classList.add( 'is-success' );
 							var success = wrapper.querySelector(
-								'.woocommerce-review-order__success'
+								'.poocommerce-review-order__success'
 							);
 							if ( success ) {
 								success.hidden = false;
@@ -383,12 +383,12 @@
 				.catch( function () {
 					Array.prototype.forEach.call(
 						form.querySelectorAll(
-							'.woocommerce-review-order__item'
+							'.poocommerce-review-order__item'
 						),
 						function ( row ) {
 							if (
 								row.querySelector(
-									'.woocommerce-star-rating__input:checked'
+									'.poocommerce-star-rating__input:checked'
 								)
 							) {
 								renderRowStatus( row, 'error' );
@@ -407,26 +407,26 @@
 	}
 
 	/**
-	 * @param {HTMLElement} notice `.woocommerce-review-order__notice`
+	 * @param {HTMLElement} notice `.poocommerce-review-order__notice`
 	 */
 	function initNoticeDismiss( notice ) {
 		var dismiss = notice.querySelector(
-			'.woocommerce-review-order__notice-dismiss'
+			'.poocommerce-review-order__notice-dismiss'
 		);
 		if ( ! dismiss ) {
 			return;
 		}
 		dismiss.addEventListener( 'click', function () {
-			notice.classList.add( 'woocommerce-review-order__notice--hidden' );
+			notice.classList.add( 'poocommerce-review-order__notice--hidden' );
 		} );
 	}
 
 	function init() {
-		var groups = document.querySelectorAll( '.woocommerce-star-rating' );
+		var groups = document.querySelectorAll( '.poocommerce-star-rating' );
 		Array.prototype.forEach.call( groups, initGroup );
 
 		var forms = document.querySelectorAll(
-			'.woocommerce-review-order__form'
+			'.poocommerce-review-order__form'
 		);
 		Array.prototype.forEach.call( forms, function ( form ) {
 			initSubmitGate( form );
@@ -435,7 +435,7 @@
 		} );
 
 		var notices = document.querySelectorAll(
-			'.woocommerce-review-order__notice'
+			'.poocommerce-review-order__notice'
 		);
 		Array.prototype.forEach.call( notices, initNoticeDismiss );
 	}

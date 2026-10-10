@@ -11,7 +11,7 @@ import {
 // pound). The dir="auto" bidi isolation and translate="no" must survive the
 // sanitizer, or the first client-side price swap silently undoes them.
 const RTL_PRICE_HTML =
-	'<span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol" translate="no" dir="auto">ل.ل</span>&nbsp;2.00</bdi></span>';
+	'<span class="poocommerce-Price-amount amount"><bdi><span class="poocommerce-Price-currencySymbol" translate="no" dir="auto">ل.ل</span>&nbsp;2.00</bdi></span>';
 
 describe( 'swapPreformattedHtml', () => {
 	let ref: HTMLElement;
@@ -28,7 +28,7 @@ describe( 'swapPreformattedHtml', () => {
 			swapPreformattedHtml( ref, RTL_PRICE_HTML, config );
 
 			const symbol = ref.querySelector(
-				'.woocommerce-Price-currencySymbol'
+				'.poocommerce-Price-currencySymbol'
 			);
 			expect( symbol ).not.toBeNull();
 			expect( symbol?.getAttribute( 'dir' ) ).toBe( 'auto' );

@@ -18,7 +18,7 @@ module.exports = [
 	 */
 	...wordpress.configs.recommended,
 	/*
-	 * WordPress scopes the TypeScript parser to `**‍/*.ts(x)`. WooCommerce applies it
+	 * WordPress scopes the TypeScript parser to `**‍/*.ts(x)`. PooCommerce applies it
 	 * everywhere, so spread typescript-eslint's recommended config, whose first entry
 	 * sets the parser and registers `@typescript-eslint` for all files.
 	 */
@@ -38,7 +38,7 @@ module.exports = [
 		settings: {
 			// List of modules that are externals in our webpack config.
 			'import/core-modules': [
-				'@woocommerce/settings',
+				'@poocommerce/settings',
 				'lodash',
 				'react',
 			],
@@ -56,7 +56,7 @@ module.exports = [
 			'@wordpress/i18n-text-domain': [
 				'error',
 				{
-					allowedTextDomain: 'woocommerce',
+					allowedTextDomain: 'poocommerce',
 				},
 			],
 			'@typescript-eslint/no-explicit-any': 'error',

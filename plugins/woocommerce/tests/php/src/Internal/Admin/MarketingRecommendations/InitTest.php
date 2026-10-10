@@ -1,18 +1,18 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\MarketingRecommendations;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\MarketingRecommendations;
 
-use Automattic\WooCommerce\Admin\Features\MarketingRecommendations\DefaultMarketingRecommendations;
-use Automattic\WooCommerce\Admin\Features\MarketingRecommendations\Init;
-use Automattic\WooCommerce\Admin\Features\MarketingRecommendations\MarketingRecommendationsDataSourcePoller;
-use Automattic\WooCommerce\Admin\RemoteSpecs\DataSourcePoller;
+use Automattic\PooCommerce\Admin\Features\MarketingRecommendations\DefaultMarketingRecommendations;
+use Automattic\PooCommerce\Admin\Features\MarketingRecommendations\Init;
+use Automattic\PooCommerce\Admin\Features\MarketingRecommendations\MarketingRecommendationsDataSourcePoller;
+use Automattic\PooCommerce\Admin\RemoteSpecs\DataSourcePoller;
 use WC_Unit_Test_Case;
 
 /**
  * class WC_Admin_Tests_MarketingRecommendations_Init
  *
- * @covers \Automattic\WooCommerce\Admin\Features\MarketingRecommendations\Init
+ * @covers \Automattic\PooCommerce\Admin\Features\MarketingRecommendations\Init
  */
 class InitTest extends WC_Unit_Test_Case {
 
@@ -27,7 +27,7 @@ class InitTest extends WC_Unit_Test_Case {
 				'role' => 'administrator',
 			)
 		);
-		delete_option( 'woocommerce_show_marketplace_suggestions' );
+		delete_option( 'poocommerce_show_marketplace_suggestions' );
 	}
 
 	/**
@@ -36,14 +36,14 @@ class InitTest extends WC_Unit_Test_Case {
 	public function tearDown(): void {
 		parent::tearDown();
 		MarketingRecommendationsDataSourcePoller::get_instance()->delete_specs_transient();
-		remove_all_filters( 'transient_woocommerce_admin_' . MarketingRecommendationsDataSourcePoller::ID . '_specs' );
+		remove_all_filters( 'transient_poocommerce_admin_' . MarketingRecommendationsDataSourcePoller::ID . '_specs' );
 	}
 
 	/**
 	 * Test that default specs are provided when remote sources don't exist.
 	 */
 	public function test_get_default_specs() {
-		remove_all_filters( 'transient_woocommerce_admin_' . MarketingRecommendationsDataSourcePoller::ID . '_specs' );
+		remove_all_filters( 'transient_poocommerce_admin_' . MarketingRecommendationsDataSourcePoller::ID . '_specs' );
 		add_filter(
 			DataSourcePoller::FILTER_NAME,
 			function() {
@@ -61,7 +61,7 @@ class InitTest extends WC_Unit_Test_Case {
 	 */
 	public function test_specs_transient() {
 		set_transient(
-			'woocommerce_admin_' . MarketingRecommendationsDataSourcePoller::ID . '_specs',
+			'poocommerce_admin_' . MarketingRecommendationsDataSourcePoller::ID . '_specs',
 			array(
 				'en_US' => array(
 					array(

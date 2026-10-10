@@ -3,15 +3,15 @@
  */
 import { useBlockProps, InnerBlocks } from '@wordpress/block-editor';
 import type { TemplateArray } from '@wordpress/blocks';
-import { innerBlockAreas } from '@woocommerce/blocks-checkout';
-import { TotalsFooterItem } from '@woocommerce/base-components/cart-checkout';
-import { getCurrencyFromPriceResponse } from '@woocommerce/price-format';
-import { useStoreCart } from '@woocommerce/base-context/hooks';
+import { innerBlockAreas } from '@poocommerce/blocks-checkout';
+import { TotalsFooterItem } from '@poocommerce/base-components/cart-checkout';
+import { getCurrencyFromPriceResponse } from '@poocommerce/price-format';
+import { useStoreCart } from '@poocommerce/base-context/hooks';
 import { __ } from '@wordpress/i18n';
 import { Icon } from '@wordpress/components';
 import { chevronDown, chevronUp } from '@wordpress/icons';
 import clsx from 'clsx';
-import { FormattedMonetaryAmount } from '@woocommerce/blocks-components';
+import { FormattedMonetaryAmount } from '@poocommerce/blocks-components';
 
 /**
  * Internal dependencies
@@ -34,9 +34,9 @@ export const Edit = ( { clientId }: { clientId: string } ): JSX.Element => {
 	const { isOpen, ariaControlsId, toggleProps } = useOrderSummaryToggle();
 
 	const defaultTemplate = [
-		[ 'woocommerce/checkout-order-summary-cart-items-block', {}, [] ],
-		[ 'woocommerce/checkout-order-summary-coupon-form-block', {}, [] ],
-		[ 'woocommerce/checkout-order-summary-totals-block', {}, [] ],
+		[ 'poocommerce/checkout-order-summary-cart-items-block', {}, [] ],
+		[ 'poocommerce/checkout-order-summary-coupon-form-block', {}, [] ],
+		[ 'poocommerce/checkout-order-summary-totals-block', {}, [] ],
 	] as TemplateArray;
 
 	useForcedLayout( {
@@ -56,7 +56,7 @@ export const Edit = ( { clientId }: { clientId: string } ): JSX.Element => {
 					role="heading"
 					aria-level={ 2 }
 				>
-					{ __( 'Order summary', 'woocommerce' ) }
+					{ __( 'Order summary', 'poocommerce' ) }
 				</p>
 				<FormattedMonetaryAmount
 					currency={ totalsCurrency }

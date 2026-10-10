@@ -1,9 +1,9 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Admin\Logging\FileV2;
+namespace Automattic\PooCommerce\Internal\Admin\Logging\FileV2;
 
-use Automattic\WooCommerce\Internal\Utilities\FilesystemUtil;
+use Automattic\PooCommerce\Internal\Utilities\FilesystemUtil;
 use Exception;
 use WP_Error;
 
@@ -60,7 +60,7 @@ class FileExporter {
 		if ( ! $is_readable ) {
 			return new WP_Error(
 				'wc_logs_invalid_file',
-				__( 'Could not access file.', 'woocommerce' )
+				__( 'Could not access file.', 'poocommerce' )
 			);
 		}
 

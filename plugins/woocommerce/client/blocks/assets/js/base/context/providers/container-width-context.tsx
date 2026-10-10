@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { createContext, useContext } from '@wordpress/element';
-import { useContainerQueries } from '@woocommerce/base-hooks';
+import { useContainerQueries } from '@poocommerce/base-hooks';
 import clsx from 'clsx';
 
 export type ContainerWidthContextProps = {

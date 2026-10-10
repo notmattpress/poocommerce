@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { COUNTRIES } from '@woocommerce/block-settings';
+import { COUNTRIES } from '@poocommerce/block-settings';
 
 /**
  * Internal dependencies

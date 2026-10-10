@@ -3,9 +3,9 @@
  * Logic for extending WC_REST_Payment_Gateways_Controller.
  */
 
-namespace Automattic\WooCommerce\Admin\Features\PaymentGatewaySuggestions;
+namespace Automattic\PooCommerce\Admin\Features\PaymentGatewaySuggestions;
 
-use Automattic\WooCommerce\Admin\Features\TransientNotices;
+use Automattic\PooCommerce\Admin\Features\TransientNotices;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -18,9 +18,9 @@ class PaymentGatewaysController {
 	 * Initialize payment gateway changes.
 	 */
 	public static function init() {
-		add_filter( 'woocommerce_rest_prepare_payment_gateway', array( __CLASS__, 'extend_response' ), 10, 3 );
+		add_filter( 'poocommerce_rest_prepare_payment_gateway', array( __CLASS__, 'extend_response' ), 10, 3 );
 		add_filter( 'admin_init', array( __CLASS__, 'possibly_do_connection_return_action' ) );
-		add_action( 'woocommerce_admin_payment_gateway_connection_return', array( __CLASS__, 'handle_successfull_connection' ) );
+		add_action( 'poocommerce_admin_payment_gateway_connection_return', array( __CLASS__, 'handle_successfull_connection' ) );
 	}
 
 	/**
@@ -99,7 +99,7 @@ class PaymentGatewaysController {
 
 		$gateway_id = sanitize_text_field( wp_unslash( $_GET['connection-return'] ) );
 
-		do_action( 'woocommerce_admin_payment_gateway_connection_return', $gateway_id );
+		do_action( 'poocommerce_admin_payment_gateway_connection_return', $gateway_id );
 	}
 
 	/**
@@ -130,7 +130,7 @@ class PaymentGatewaysController {
 				'status'  => 'success',
 				'content' => sprintf(
 					/* translators: the title of the payment gateway */
-					__( '%s connected successfully', 'woocommerce' ),
+					__( '%s connected successfully', 'poocommerce' ),
 					$payment_gateway->method_title
 				),
 			)

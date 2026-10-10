@@ -113,11 +113,11 @@ export function getInvalidItemDescription( name: string ): string {
 	return name === BLOCK_NAMES.featuredProduct
 		? __(
 				'Previously selected product is no longer available',
-				'woocommerce'
+				'poocommerce'
 			)
 		: __(
 				'Previously selected category is no longer available',
-				'woocommerce'
+				'poocommerce'
 			);
 }
 
@@ -152,7 +152,7 @@ export const getBackgroundColorVisibilityStatus = ( {
 				isBackgroundVisible: false,
 				message: __(
 					'You’ve set a background color behind an image set to repeat, the background color cannot be seen.',
-					'woocommerce'
+					'poocommerce'
 				),
 			};
 		}
@@ -161,7 +161,7 @@ export const getBackgroundColorVisibilityStatus = ( {
 			isBackgroundVisible: false,
 			message: __(
 				'You’ve set a background color behind an image set to cover, the background color cannot be seen.',
-				'woocommerce'
+				'poocommerce'
 			),
 		};
 	}
@@ -176,7 +176,7 @@ export const getBackgroundColorVisibilityStatus = ( {
 			isBackgroundVisible: false,
 			message: __(
 				"You've set background color to an opaque image, the background color cannot be seen.",
-				'woocommerce'
+				'poocommerce'
 			),
 		};
 	}

@@ -2,11 +2,11 @@
 /**
  * Unit tests for the WC_Cart_Test class.
  *
- * @package WooCommerce\Tests\Checkout.
+ * @package PooCommerce\Tests\Checkout.
  */
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Testing\Tools\CodeHacking\Hacks\FunctionsMockerHack;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Testing\Tools\CodeHacking\Hacks\FunctionsMockerHack;
 
 /**
  * Class WC_Checkout
@@ -47,19 +47,19 @@ class WC_Checkout_Test extends \WC_Unit_Test_Case {
 
 		WC()->cart->empty_cart();
 
-		add_filter( 'woocommerce_checkout_registration_enabled', '__return_true' );
+		add_filter( 'poocommerce_checkout_registration_enabled', '__return_true' );
 	}
 
 	/**
 	 * Runs after each test.
 	 */
 	public function tearDown(): void {
-		remove_filter( 'woocommerce_checkout_registration_enabled', '__return_true' );
-		delete_option( 'woocommerce_calc_taxes' );
+		remove_filter( 'poocommerce_checkout_registration_enabled', '__return_true' );
+		delete_option( 'poocommerce_calc_taxes' );
 		WC()->countries->locale = array();
 
 		foreach ( $this->extra_field_filters as $extra_field_filter ) {
-			remove_filter( 'woocommerce_checkout_fields', $extra_field_filter );
+			remove_filter( 'poocommerce_checkout_fields', $extra_field_filter );
 		}
 
 		$this->extra_field_filters = array();
@@ -85,7 +85,7 @@ class WC_Checkout_Test extends \WC_Unit_Test_Case {
 
 		$this->extra_field_filters[] = $extra_field_filter;
 
-		add_filter( 'woocommerce_checkout_fields', $extra_field_filter );
+		add_filter( 'poocommerce_checkout_fields', $extra_field_filter );
 	}
 
 	/**
@@ -105,7 +105,7 @@ class WC_Checkout_Test extends \WC_Unit_Test_Case {
 		);
 
 		add_filter(
-			'woocommerce_cart_needs_shipping_address',
+			'poocommerce_cart_needs_shipping_address',
 			function () {
 				return true;
 			}
@@ -180,7 +180,7 @@ class WC_Checkout_Test extends \WC_Unit_Test_Case {
 		$order->save();
 
 		add_filter(
-			'woocommerce_checkout_no_payment_needed_redirect',
+			'poocommerce_checkout_no_payment_needed_redirect',
 			function () {
 				throw new RuntimeException( 'Stop the test before checkout sends its redirect.' );
 			}
@@ -286,7 +286,7 @@ class WC_Checkout_Test extends \WC_Unit_Test_Case {
 			$locale['ES']['postcode']['hidden'] = $hidden;
 			return $locale;
 		};
-		add_filter( 'woocommerce_get_country_locale', $locale_filter );
+		add_filter( 'poocommerce_get_country_locale', $locale_filter );
 		WC()->countries->locale   = array();
 		$_POST['billing_country'] = 'ES';
 
@@ -543,7 +543,7 @@ class WC_Checkout_Test extends \WC_Unit_Test_Case {
 	 * @param bool   $expect_error     True to expect a validation error for the postcode field.
 	 */
 	public function test_validate_posted_data_falls_back_to_the_customer_country( $fieldset_key, $customer_country, $expect_error ) {
-		add_filter( 'woocommerce_cart_needs_shipping_address', '__return_true' );
+		add_filter( 'poocommerce_cart_needs_shipping_address', '__return_true' );
 
 		$original_billing_country  = WC()->customer->get_billing_country();
 		$original_shipping_country = WC()->customer->get_shipping_country();
@@ -564,7 +564,7 @@ class WC_Checkout_Test extends \WC_Unit_Test_Case {
 		} finally {
 			WC()->customer->set_billing_country( $original_billing_country );
 			WC()->customer->set_shipping_country( $original_shipping_country );
-			remove_filter( 'woocommerce_cart_needs_shipping_address', '__return_true' );
+			remove_filter( 'poocommerce_cart_needs_shipping_address', '__return_true' );
 		}
 
 		$this->assertEquals(
@@ -585,10 +585,10 @@ class WC_Checkout_Test extends \WC_Unit_Test_Case {
 	 * @param bool        $ship_to_different_address Whether a separate shipping address is expected to be selected.
 	 */
 	public function test_get_posted_data_respects_shipping_address_selection( $posted_value, $ship_to_different_address ) {
-		add_filter( 'woocommerce_cart_needs_shipping_address', '__return_true' );
+		add_filter( 'poocommerce_cart_needs_shipping_address', '__return_true' );
 
 		$posted_data = array(
-			'woocommerce-process-checkout-nonce' => 'test-nonce',
+			'poocommerce-process-checkout-nonce' => 'test-nonce',
 			'billing_first_name'                 => 'Billing',
 			'billing_last_name'                  => 'Customer',
 			'billing_company'                    => 'Billing Company',
@@ -619,7 +619,7 @@ class WC_Checkout_Test extends \WC_Unit_Test_Case {
 			$data = $this->sut->get_posted_data();
 		} finally {
 			$_POST = $original_post;
-			remove_filter( 'woocommerce_cart_needs_shipping_address', '__return_true' );
+			remove_filter( 'poocommerce_cart_needs_shipping_address', '__return_true' );
 		}
 
 		$this->assertSame( $ship_to_different_address, $data['ship_to_different_address'] );
@@ -646,14 +646,14 @@ class WC_Checkout_Test extends \WC_Unit_Test_Case {
 	 */
 	public function test_validate_checkout_adds_we_dont_ship_error_only_if_country_exists( $country, $expect_we_dont_ship_error ) {
 		add_filter(
-			'woocommerce_countries_allowed_countries',
+			'poocommerce_countries_allowed_countries',
 			function () {
 				return array( 'ES' );
 			}
 		);
 
 		add_filter(
-			'woocommerce_cart_needs_shipping',
+			'poocommerce_cart_needs_shipping',
 			function () {
 				return true;
 			}
@@ -688,11 +688,11 @@ class WC_Checkout_Test extends \WC_Unit_Test_Case {
 			$expect_we_dont_ship_error ? 'Unfortunately, <strong>we do not ship to Japan</strong>. Please enter an alternative shipping address.' : '',
 			$errors->get_error_message( 'shipping' )
 		);
-		remove_all_filters( 'woocommerce_countries_allowed_countries' );
+		remove_all_filters( 'poocommerce_countries_allowed_countries' );
 	}
 
 	/**
-	 * @testdox If the WooCommerce class's customer object is null (like if WC has not been fully initialized yet),
+	 * @testdox If the PooCommerce class's customer object is null (like if WC has not been fully initialized yet),
 	 *          calling WC_Checkout::get_value should not throw an error.
 	 */
 	public function test_get_value_no_error_on_null_customer() {
@@ -710,7 +710,7 @@ class WC_Checkout_Test extends \WC_Unit_Test_Case {
 	 * @testdox create_order_tax_lines sets rate_code, label, compound and rate_percent on order tax items.
 	 */
 	public function test_create_order_tax_lines_sets_correct_tax_item_props(): void {
-		update_option( 'woocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
 
 		// German standard 19% non-compound VAT rate.
 		$tax_rate = array(
@@ -763,13 +763,13 @@ class WC_Checkout_Test extends \WC_Unit_Test_Case {
 		$add_fee = static function ( $cart ) use ( $taxable ) {
 			$cart->add_fee( 'Test fee', 10, $taxable );
 		};
-		add_action( 'woocommerce_cart_calculate_fees', $add_fee );
+		add_action( 'poocommerce_cart_calculate_fees', $add_fee );
 
 		try {
 			WC()->cart->calculate_totals();
 			$order = wc_get_order( $this->sut->create_order( array( 'payment_method' => WC_Gateway_BACS::ID ) ) );
 		} finally {
-			remove_action( 'woocommerce_cart_calculate_fees', $add_fee );
+			remove_action( 'poocommerce_cart_calculate_fees', $add_fee );
 		}
 
 		$fee_items = $order->get_fees();
@@ -795,11 +795,11 @@ class WC_Checkout_Test extends \WC_Unit_Test_Case {
 
 		// Simulate visiting the checkout page.
 		ob_start();
-		echo do_shortcode( '[woocommerce_checkout]' );
+		echo do_shortcode( '[poocommerce_checkout]' );
 		$output = ob_get_clean();
 
 		// Assert that the login form is present.
-		$this->assertStringContainsString( 'woocommerce-form-login', $output );
+		$this->assertStringContainsString( 'poocommerce-form-login', $output );
 	}
 
 	/**
@@ -813,12 +813,12 @@ class WC_Checkout_Test extends \WC_Unit_Test_Case {
 
 		$simulate_silent_insert_failure = function ( $order ) use ( $wpdb ) {
 			$wpdb->delete(
-				$wpdb->prefix . 'woocommerce_order_items',
+				$wpdb->prefix . 'poocommerce_order_items',
 				array( 'order_id' => $order->get_id() )
 			);
 			wp_cache_flush();
 		};
-		add_action( 'woocommerce_after_order_object_save', $simulate_silent_insert_failure );
+		add_action( 'poocommerce_after_order_object_save', $simulate_silent_insert_failure );
 
 		$data = array(
 			'ship_to_different_address' => false,
@@ -829,7 +829,7 @@ class WC_Checkout_Test extends \WC_Unit_Test_Case {
 		try {
 			$result = $this->sut->create_order( $data );
 		} finally {
-			remove_action( 'woocommerce_after_order_object_save', $simulate_silent_insert_failure );
+			remove_action( 'poocommerce_after_order_object_save', $simulate_silent_insert_failure );
 			WC()->cart->empty_cart();
 		}
 
@@ -863,7 +863,7 @@ class WC_Checkout_Test extends \WC_Unit_Test_Case {
 
 		try {
 			$this->add_variation_to_cart( $product, $variation );
-			add_filter( 'woocommerce_get_cart_contents', $malformed_variation_filter );
+			add_filter( 'poocommerce_get_cart_contents', $malformed_variation_filter );
 
 			$this->sut->create_order_line_items( $order, WC()->cart );
 			$order->save();
@@ -942,7 +942,7 @@ class WC_Checkout_Test extends \WC_Unit_Test_Case {
 		$filter_option_name = static function ( $value ) {
 			return 'gloss' === $value ? 'Polished' : $value;
 		};
-		add_filter( 'woocommerce_variation_option_name', $filter_option_name );
+		add_filter( 'poocommerce_variation_option_name', $filter_option_name );
 
 		$order = wc_create_order();
 
@@ -953,7 +953,7 @@ class WC_Checkout_Test extends \WC_Unit_Test_Case {
 
 			$items = array_values( $order->get_items() );
 			$this->assertCount( 1, $items );
-			$this->assertSame( $expected_name, $items[0]->get_name(), 'Persisted names must use raw values, not woocommerce_variation_option_name output.' );
+			$this->assertSame( $expected_name, $items[0]->get_name(), 'Persisted names must use raw values, not poocommerce_variation_option_name output.' );
 			$this->assertCount( 0, $items[0]->get_formatted_meta_data(), 'The raw value in the name must keep order meta dedup working.' );
 		} finally {
 			WC()->cart->empty_cart();

@@ -6,7 +6,7 @@ const { __experimentalRegisterProductCollection } = wc.wcBlocksRegistry;
  */
 // Register a new collection.
 __experimentalRegisterProductCollection( {
-	name: 'woocommerce/product-collection/my-custom-collection',
+	name: 'poocommerce/product-collection/my-custom-collection',
 	title: 'My Custom Collection',
 	description: 'This is a custom collection.',
 	keywords: [ 'custom collection', 'product collection' ],
@@ -20,7 +20,7 @@ __experimentalRegisterProductCollection( {
 
 // Register a new collection with a preview.
 __experimentalRegisterProductCollection( {
-	name: 'woocommerce/product-collection/my-custom-collection-with-preview',
+	name: 'poocommerce/product-collection/my-custom-collection-with-preview',
 	title: 'My Custom Collection with Preview',
 	description: 'This is a custom collection with preview.',
 	keywords: [ 'custom collection', 'product collection' ],
@@ -35,7 +35,7 @@ __experimentalRegisterProductCollection( {
 
 // Advanced usage of preview.
 __experimentalRegisterProductCollection( {
-	name: 'woocommerce/product-collection/my-custom-collection-with-advanced-preview',
+	name: 'poocommerce/product-collection/my-custom-collection-with-advanced-preview',
 	title: 'My Custom Collection with Advanced Preview',
 	description: 'This is a custom collection with advanced preview.',
 	keywords: [ 'custom collection', 'product collection' ],
@@ -69,7 +69,7 @@ __experimentalRegisterProductCollection( {
  */
 // Product context
 __experimentalRegisterProductCollection( {
-	name: 'woocommerce/product-collection/my-custom-collection-product-context',
+	name: 'poocommerce/product-collection/my-custom-collection-product-context',
 	title: 'My Custom Collection - Product Context',
 	description: 'This is a custom collection with product context.',
 	usesReference: [ 'product' ],
@@ -77,7 +77,7 @@ __experimentalRegisterProductCollection( {
 
 // Cart context
 __experimentalRegisterProductCollection( {
-	name: 'woocommerce/product-collection/my-custom-collection-cart-context',
+	name: 'poocommerce/product-collection/my-custom-collection-cart-context',
 	title: 'My Custom Collection - Cart Context',
 	description: 'This is a custom collection with cart context.',
 	usesReference: [ 'cart' ],
@@ -85,7 +85,7 @@ __experimentalRegisterProductCollection( {
 
 // Order context
 __experimentalRegisterProductCollection( {
-	name: 'woocommerce/product-collection/my-custom-collection-order-context',
+	name: 'poocommerce/product-collection/my-custom-collection-order-context',
 	title: 'My Custom Collection - Order Context',
 	description: 'This is a custom collection with order context.',
 	usesReference: [ 'order' ],
@@ -93,7 +93,7 @@ __experimentalRegisterProductCollection( {
 
 // Archive context
 __experimentalRegisterProductCollection( {
-	name: 'woocommerce/product-collection/my-custom-collection-archive-context',
+	name: 'poocommerce/product-collection/my-custom-collection-archive-context',
 	title: 'My Custom Collection - Archive Context',
 	description: 'This is a custom collection with archive context.',
 	usesReference: [ 'archive' ],
@@ -101,7 +101,7 @@ __experimentalRegisterProductCollection( {
 
 // Multiple contexts
 __experimentalRegisterProductCollection( {
-	name: 'woocommerce/product-collection/my-custom-collection-multiple-contexts',
+	name: 'poocommerce/product-collection/my-custom-collection-multiple-contexts',
 	title: 'My Custom Collection - Multiple Contexts',
 	description: 'This is a custom collection with multiple contexts.',
 	usesReference: [ 'product', 'order' ],
@@ -112,7 +112,7 @@ __experimentalRegisterProductCollection( {
  */
 // Collection with only `inserter` scope
 __experimentalRegisterProductCollection( {
-	name: 'woocommerce/product-collection/my-custom-collection-with-inserter-scope',
+	name: 'poocommerce/product-collection/my-custom-collection-with-inserter-scope',
 	title: 'My Custom Collection - With Inserter Scope',
 	description: 'This is a custom collection with only inserter scope.',
 	scope: [ 'inserter' ],
@@ -120,7 +120,7 @@ __experimentalRegisterProductCollection( {
 
 // Collection with only `block` scope
 __experimentalRegisterProductCollection( {
-	name: 'woocommerce/product-collection/my-custom-collection-with-block-scope',
+	name: 'poocommerce/product-collection/my-custom-collection-with-block-scope',
 	title: 'My Custom Collection - With Block Scope',
 	description: 'This is a custom collection with only block scope.',
 	scope: [ 'block' ],

@@ -1,7 +1,7 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\Utils\StyleAttributesUtils;
+use Automattic\PooCommerce\Blocks\Utils\StyleAttributesUtils;
 
 /**
  * ProductSaleBadge class.
@@ -68,7 +68,7 @@ class ProductSaleBadge extends AbstractBlock {
 		$align = isset( $attributes['align'] ) ? $attributes['align'] : '';
 
 		$sale_text     = $attributes['saleText'] ?? '';
-		$sale_text     = '' === $sale_text ? __( 'Sale', 'woocommerce' ) : $sale_text;
+		$sale_text     = '' === $sale_text ? __( 'Sale', 'poocommerce' ) : $sale_text;
 		$badge_content = $attributes['badgeContent'] ?? 'text';
 
 		if ( in_array( $badge_content, array( 'amount', 'percentage' ), true ) ) {
@@ -109,12 +109,12 @@ class ProductSaleBadge extends AbstractBlock {
 				}
 				$value = 'percentage' === $badge_content
 					/* translators: %s: discount percentage. %% is the percent sign. */
-					? sprintf( __( '%s%%', 'woocommerce' ), round( $percentage * 100 ) )
+					? sprintf( __( '%s%%', 'poocommerce' ), round( $percentage * 100 ) )
 					: html_entity_decode( wp_strip_all_tags( wc_price( $amount ) ), ENT_QUOTES, get_bloginfo( 'charset' ) );
 
 				if ( $has_different_discounts ) {
 					/* translators: %s: largest discount across variations. */
-					$sale_text = sprintf( __( 'Up to %s', 'woocommerce' ), $value );
+					$sale_text = sprintf( __( 'Up to %s', 'poocommerce' ), $value );
 				} else {
 					$sale_text = ( $attributes['prefix'] ?? '' ) . $value . ( $attributes['suffix'] ?? '' );
 				}
@@ -124,20 +124,20 @@ class ProductSaleBadge extends AbstractBlock {
 		/**
 		 * Filters the product sale badge text.
 		 *
-		 * @hook woocommerce_sale_badge_text
+		 * @hook poocommerce_sale_badge_text
 		 * @since 10.0.0
 		 *
 		 * @param string $sale_text The sale badge text.
 		 * @param WC_Product $product The product object.
 		 * @return string The filtered sale badge text.
 		 */
-		$sale_text = apply_filters( 'woocommerce_sale_badge_text', $sale_text, $product );
+		$sale_text = apply_filters( 'poocommerce_sale_badge_text', $sale_text, $product );
 
-		$output  = '<div class="wp-block-woocommerce-product-sale-badge ' . esc_attr( $classname ) . '">';
+		$output  = '<div class="wp-block-poocommerce-product-sale-badge ' . esc_attr( $classname ) . '">';
 		$output .= sprintf( '<div class="wc-block-components-product-sale-badge %1$s wc-block-components-product-sale-badge--align-%2$s" style="%3$s">', esc_attr( $classes_and_styles['classes'] ), esc_attr( $align ), esc_attr( $classes_and_styles['styles'] ) );
 		$output .= '<span class="wc-block-components-product-sale-badge__text" aria-hidden="true">' . esc_html( $sale_text ) . '</span>';
 		/* translators: %s: sale badge text. */
-		$screen_reader_text = sprintf( __( 'Product on sale: %s', 'woocommerce' ), $sale_text );
+		$screen_reader_text = sprintf( __( 'Product on sale: %s', 'poocommerce' ), $sale_text );
 
 		$output .= '<span class="screen-reader-text">' . esc_html( $screen_reader_text ) . '</span>';
 		$output .= '</div></div>';

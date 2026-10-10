@@ -2,10 +2,10 @@
 /**
  * Customer Effort Score Survey Tests.
  *
- * @package Automattic\WooCommerce\Admin\Features
+ * @package Automattic\PooCommerce\Admin\Features
  */
 
-use Automattic\WooCommerce\Internal\Admin\CustomerEffortScoreTracks;
+use Automattic\PooCommerce\Internal\Admin\CustomerEffortScoreTracks;
 
 // phpcs:disable Generic.Files.OneObjectStructurePerFile.MultipleFound
 if ( ! class_exists( 'CurrentScreenMock' ) ) {
@@ -42,7 +42,7 @@ class WC_Admin_Tests_CES_Tracks extends WC_Unit_Test_Case {
 	 */
 	public function setUp(): void {
 		parent::setUp();
-		update_option( 'woocommerce_allow_tracking', 'yes' );
+		update_option( 'poocommerce_allow_tracking', 'yes' );
 		if ( isset( $GLOBALS['current_screen'] ) ) {
 			$this->current_screen_backup = $GLOBALS['current_screen'];
 		}
@@ -54,16 +54,16 @@ class WC_Admin_Tests_CES_Tracks extends WC_Unit_Test_Case {
 		if ( $this->current_screen_backup ) {
 			$GLOBALS['current_screen'] = $this->current_screen_backup;
 		}
-		update_option( 'woocommerce_allow_tracking', 'no' );
+		update_option( 'poocommerce_allow_tracking', 'no' );
 	}
 
 	/**
-	 * Verify that it adds correct action to the queue on woocommerce_update_options action.
+	 * Verify that it adds correct action to the queue on poocommerce_update_options action.
 	 */
 	public function test_updating_options_triggers_ces() {
 		$ces = new CustomerEffortScoreTracks();
 
-		do_action( 'woocommerce_update_options' );
+		do_action( 'poocommerce_update_options' );
 
 		$queue_items = get_option( $ces::CES_TRACKS_QUEUE_OPTION_NAME, array() );
 		$this->assertNotEmpty( $queue_items );
@@ -86,8 +86,8 @@ class WC_Admin_Tests_CES_Tracks extends WC_Unit_Test_Case {
 		$ces = new CustomerEffortScoreTracks();
 
 		// Fire the action twice to trigger the queueing process twice.
-		do_action( 'woocommerce_update_options' );
-		do_action( 'woocommerce_update_options' );
+		do_action( 'poocommerce_update_options' );
+		do_action( 'poocommerce_update_options' );
 
 		$queue_items = get_option( $ces::CES_TRACKS_QUEUE_OPTION_NAME, array() );
 		$this->assertNotEmpty( $queue_items );
@@ -110,7 +110,7 @@ class WC_Admin_Tests_CES_Tracks extends WC_Unit_Test_Case {
 
 		$ces = new CustomerEffortScoreTracks();
 
-		do_action( 'woocommerce_update_options' );
+		do_action( 'poocommerce_update_options' );
 
 		$queue_items = get_option( $ces::CES_TRACKS_QUEUE_OPTION_NAME, array() );
 
@@ -126,7 +126,7 @@ class WC_Admin_Tests_CES_Tracks extends WC_Unit_Test_Case {
 		$current_tab = 'test_tab';
 		$ces         = new CustomerEffortScoreTracks();
 
-		do_action( 'woocommerce_update_options' );
+		do_action( 'poocommerce_update_options' );
 
 		$queue_items = get_option( $ces::CES_TRACKS_QUEUE_OPTION_NAME, array() );
 		$this->assertNotEmpty( $queue_items );

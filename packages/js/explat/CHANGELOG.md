@@ -2,7 +2,7 @@
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [3.0.0](https://www.npmjs.com/package/@woocommerce/explat/v/3.0.0) - 2026-06-11 
+## [3.0.0](https://www.npmjs.com/package/@poocommerce/explat/v/3.0.0) - 2026-06-11 
 
 -   Major - Update @wordpress/* dependencies to WordPress 6.8 minimum. [#64114]
 -   Major - Updated declared dependencies to React 18 and WordPress 6.6. [#53531]
@@ -28,12 +28,12 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 -   Patch - Replaced wireit + tsc package build pipeline with a per-package esbuild script. [#65210]
 -   Patch - Update wireit to 0.14.10. [#54996]
 
-## [2.4.0](https://www.npmjs.com/package/@woocommerce/explat/v/2.4.0) - 2024-06-11 
+## [2.4.0](https://www.npmjs.com/package/@poocommerce/explat/v/2.4.0) - 2024-06-11 
 
 -   Patch - Added in missing TS definitions in package.json [#34154]
--   Patch - Add support for WooCommerce Analytics. [#45131]
--   Minor - Include the woocommerce_admin_install_timestamp option value in the explat assignment query string as woo_wcadmin_install_timestamp. #33574 [#33574]
--   Patch - Support running A/B testing in WooCommerce frontend [#45131]
+-   Patch - Add support for PooCommerce Analytics. [#45131]
+-   Minor - Include the poocommerce_admin_install_timestamp option value in the explat assignment query string as woo_wcadmin_install_timestamp. #33574 [#33574]
+-   Patch - Support running A/B testing in PooCommerce frontend [#45131]
 -   Minor - Bump node version. [#45148]
 -   Patch - bump php version in packages/js/*/composer.json [#42020]
 -   Patch - Add enable prop to window.wcTracks type [#37952]
@@ -54,12 +54,12 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 -   Minor - Update pnpm version constraint to 7.13.3 to avoid auto-install-peers issues [#35007]
 -   Minor - Upgrade TypeScript to 5.1.6 [#39531]
 
-## [2.3.0](https://www.npmjs.com/package/@woocommerce/explat/v/2.3.0) - 2022-07-08 
+## [2.3.0](https://www.npmjs.com/package/@poocommerce/explat/v/2.3.0) - 2022-07-08 
 
 -   Patch - Fix fetchExperimentAssignment response
 -   Minor - Remove PHP and Composer dependencies for packaged JS packages
 
-## [2.2.0](https://www.npmjs.com/package/@woocommerce/explat/v/2.2.0) - 2022-06-15 
+## [2.2.0](https://www.npmjs.com/package/@poocommerce/explat/v/2.2.0) - 2022-06-15 
 
 -   Patch - Added useExperiment example
 -   Patch - Standardize lint scripts: add lint:fix
@@ -68,4 +68,4 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 -   Minor - Added Typescript type declarations. #32615
 -   Minor - Updated README with useExperiment example
 
-[See legacy changelogs for previous versions](https://github.com/woocommerce/woocommerce/blob/68581955106947918d2b17607a01bdfdf22288a9/packages/js/explat/CHANGELOG.md).
+[See legacy changelogs for previous versions](https://github.com/poocommerce/poocommerce/blob/68581955106947918d2b17607a01bdfdf22288a9/packages/js/explat/CHANGELOG.md).

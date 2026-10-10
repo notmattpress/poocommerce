@@ -4,7 +4,7 @@
  *
  * Handle requests to /status.
  *
- * @package WooCommerce\WCCom\API
+ * @package PooCommerce\WCCom\API
  * @since   8.7.0
  */
 

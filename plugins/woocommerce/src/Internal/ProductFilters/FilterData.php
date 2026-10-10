@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Internal\ProductFilters;
+namespace Automattic\PooCommerce\Internal\ProductFilters;
 
-use Automattic\WooCommerce\Internal\ProductAttributesLookup\LookupDataStore;
-use Automattic\WooCommerce\Internal\ProductFilters\Interfaces\QueryClausesGenerator;
-use Automattic\WooCommerce\Internal\ProductFilters\TaxonomyHierarchyData;
+use Automattic\PooCommerce\Internal\ProductAttributesLookup\LookupDataStore;
+use Automattic\PooCommerce\Internal\ProductFilters\Interfaces\QueryClausesGenerator;
+use Automattic\PooCommerce\Internal\ProductFilters\TaxonomyHierarchyData;
 use WC_Cache_Helper;
 
 defined( 'ABSPATH' ) || exit;
@@ -14,7 +14,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Class for filter counts.
  *
- * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+ * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
  */
 class FilterData {
 	/**
@@ -61,7 +61,7 @@ class FilterData {
 		/**
 		 * Allows offloading the filter data to external services like Elasticsearch.
 		 *
-		 * @hook woocommerce_pre_product_filter_data
+		 * @hook poocommerce_pre_product_filter_data
 		 *
 		 * @since 9.9.0
 		 *
@@ -71,7 +71,7 @@ class FilterData {
 		 * @param array  $extra        Some filter types require extra arguments for calculation, like attribute.
 		 * @return array The filtered results or null to continue with default processing.
 		 */
-		$pre_filter_counts = apply_filters( 'woocommerce_pre_product_filter_data', null, 'price', $query_vars, array() );
+		$pre_filter_counts = apply_filters( 'poocommerce_pre_product_filter_data', null, 'price', $query_vars, array() );
 
 		if ( is_array( $pre_filter_counts ) ) {
 			return $pre_filter_counts;
@@ -109,7 +109,7 @@ class FilterData {
 		/**
 		 * Filters the product filter data before it is returned.
 		 *
-		 * @hook woocommerce_product_filter_data
+		 * @hook poocommerce_product_filter_data
 		 * @since 9.9.0
 		 *
 		 * @param array  $results      The results for current query.
@@ -118,7 +118,7 @@ class FilterData {
 		 * @param array  $extra        Some filter types require extra arguments for calculation, like attribute.
 		 * @return array The filtered results
 		 */
-		$results = apply_filters( 'woocommerce_product_filter_data', $results, 'price', $query_vars, array() );
+		$results = apply_filters( 'poocommerce_product_filter_data', $results, 'price', $query_vars, array() );
 
 		$this->set_cache( $transient_key, $results );
 
@@ -136,7 +136,7 @@ class FilterData {
 		/**
 		 * Filter the data. @see get_filtered_price() for full documentation.
 		 */
-		$pre_filter_counts = apply_filters( 'woocommerce_pre_product_filter_data', null, 'stock', $query_vars, array() ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingSinceComment
+		$pre_filter_counts = apply_filters( 'poocommerce_pre_product_filter_data', null, 'stock', $query_vars, array() ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingSinceComment
 
 		if ( is_array( $pre_filter_counts ) ) {
 			return $pre_filter_counts;
@@ -155,7 +155,7 @@ class FilterData {
 		if ( $product_ids ) {
 			global $wpdb;
 
-			if ( get_option( 'woocommerce_product_lookup_table_is_generating' ) ) {
+			if ( get_option( 'poocommerce_product_lookup_table_is_generating' ) ) {
 				// Optimization note: this serves as a fallback while wc_product_meta_lookup is being populated and is bypassed most of the time.
 				$sql = "
 					SELECT meta_value AS stock_status, COUNT( DISTINCT post_id ) AS status_count
@@ -184,7 +184,7 @@ class FilterData {
 		/**
 		 * Filter the results. @see get_filtered_price() for full documentation.
 		 */
-		$results = apply_filters( 'woocommerce_product_filter_data', $results, 'stock', $query_vars, array() ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingSinceComment
+		$results = apply_filters( 'poocommerce_product_filter_data', $results, 'stock', $query_vars, array() ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingSinceComment
 
 		$this->set_cache( $transient_key, $results );
 
@@ -201,7 +201,7 @@ class FilterData {
 		/**
 		 * Filter the data. @see get_filtered_price() for full documentation.
 		 */
-		$pre_filter_counts = apply_filters( 'woocommerce_pre_product_filter_data', null, 'rating', $query_vars, array() ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingSinceComment
+		$pre_filter_counts = apply_filters( 'poocommerce_pre_product_filter_data', null, 'rating', $query_vars, array() ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingSinceComment
 
 		if ( is_array( $pre_filter_counts ) ) {
 			return $pre_filter_counts;
@@ -243,7 +243,7 @@ class FilterData {
 		/**
 		 * Filter the results. @see get_filtered_price() for full documentation.
 		 */
-		$results = apply_filters( 'woocommerce_product_filter_data', $results, 'rating', $query_vars, array() ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingSinceComment
+		$results = apply_filters( 'poocommerce_product_filter_data', $results, 'rating', $query_vars, array() ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingSinceComment
 
 		$this->set_cache( $transient_key, $results );
 
@@ -261,14 +261,14 @@ class FilterData {
 		/**
 		 * Filter the data. @see get_filtered_price() for full documentation.
 		 */
-		$pre_filter_counts = apply_filters( 'woocommerce_pre_product_filter_data', null, 'attribute', $query_vars, array( 'taxonomy' => $attribute_to_count ) ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingSinceComment
+		$pre_filter_counts = apply_filters( 'poocommerce_pre_product_filter_data', null, 'attribute', $query_vars, array( 'taxonomy' => $attribute_to_count ) ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingSinceComment
 
 		if ( is_array( $pre_filter_counts ) ) {
 			return $pre_filter_counts;
 		}
 
-		$use_lookup_table  = 'yes' === get_option( 'woocommerce_attribute_lookup_enabled' );
-		$hide_out_of_stock = 'yes' === get_option( 'woocommerce_hide_out_of_stock_items' );
+		$use_lookup_table  = 'yes' === get_option( 'poocommerce_attribute_lookup_enabled' );
+		$hide_out_of_stock = 'yes' === get_option( 'poocommerce_hide_out_of_stock_items' );
 		$transient_key     = $this->get_transient_key(
 			$query_vars,
 			'attribute',
@@ -330,7 +330,7 @@ class FilterData {
 		 *
 		 * @since 9.9.0
 		 */
-		$results = apply_filters( 'woocommerce_product_filter_data', $results, 'attribute', $query_vars, array( 'taxonomy' => $attribute_to_count ) );
+		$results = apply_filters( 'poocommerce_product_filter_data', $results, 'attribute', $query_vars, array( 'taxonomy' => $attribute_to_count ) );
 
 		$this->set_cache( $transient_key, $results );
 
@@ -350,7 +350,7 @@ class FilterData {
 		 *
 		 * @since 9.9.0
 		 */
-		$pre_filter_counts = apply_filters( 'woocommerce_pre_product_filter_data', null, 'taxonomy', $query_vars, array( 'taxonomy' => $taxonomy_to_count ) );
+		$pre_filter_counts = apply_filters( 'poocommerce_pre_product_filter_data', null, 'taxonomy', $query_vars, array( 'taxonomy' => $taxonomy_to_count ) );
 
 		if ( is_array( $pre_filter_counts ) ) {
 			return $pre_filter_counts;
@@ -400,7 +400,7 @@ class FilterData {
 		 *
 		 * @since 9.9.0
 		 */
-		$results = apply_filters( 'woocommerce_product_filter_data', $results, 'taxonomy', $query_vars, array( 'taxonomy' => $taxonomy_to_count ) );
+		$results = apply_filters( 'poocommerce_product_filter_data', $results, 'taxonomy', $query_vars, array( 'taxonomy' => $taxonomy_to_count ) );
 
 		$this->set_cache( $transient_key, $results );
 
@@ -546,7 +546,7 @@ class FilterData {
 	 */
 	private function normalize_query_vars( array $query_vars ): array {
 		// Taxonomy filter params are treated as unordered sets. Read from Params so that names
-		// changed through the woocommerce_product_filter_taxonomy_params filter stay normalised.
+		// changed through the poocommerce_product_filter_taxonomy_params filter stay normalised.
 		$taxonomy_set_params = array_values( $this->params->get_param( 'taxonomy' ) );
 
 		ksort( $query_vars );
@@ -619,7 +619,7 @@ class FilterData {
 	 * maximum (default 1000), new combinations are silently skipped rather than
 	 * stored, preventing unbounded transient growth from bot enumeration.
 	 * The counter resets whenever the filter-data cache is invalidated.
-	 * The limit can be adjusted via the `woocommerce_product_filter_cache_max_entries`
+	 * The limit can be adjusted via the `poocommerce_product_filter_cache_max_entries`
 	 * filter. Set it to 0 to disable the cap entirely.
 	 *
 	 * @since 10.8.0 Cache-entry cap added.
@@ -644,13 +644,13 @@ class FilterData {
 		 * When the limit is reached, new entries are skipped until the
 		 * cache is next invalidated.  Set to 0 to disable the cap.
 		 *
-		 * @hook woocommerce_product_filter_cache_max_entries
+		 * @hook poocommerce_product_filter_cache_max_entries
 		 * @since 10.8.0
 		 *
 		 * @param int $max_entries Maximum number of cache entries. Default 1000.
 		 * @return int
 		 */
-		$max_entries = (int) apply_filters( 'woocommerce_product_filter_cache_max_entries', 1000 );
+		$max_entries = (int) apply_filters( 'poocommerce_product_filter_cache_max_entries', 1000 );
 
 		if ( $max_entries > 0 ) {
 			$count = (int) get_transient( CacheController::CACHE_ENTRY_COUNT_TRANSIENT );

@@ -73,7 +73,7 @@ const data = {
   minimum_amount: "100.00"
 };
 
-WooCommerce.post("coupons", data)
+PooCommerce.post("coupons", data)
   .then((response) => {
     console.log(response.data);
   })
@@ -97,7 +97,7 @@ $data = [
     'minimum_amount' => '100.00'
 ];
 
-print_r($woocommerce->post('coupons', $data));
+print_r($poocommerce->post('coupons', $data));
 ?>
 ```
 
@@ -130,7 +130,7 @@ data = {
   minimum_amount: "100.00"
 }
 
-woocommerce.post("coupons", data).parsed_response
+poocommerce.post("coupons", data).parsed_response
 ```
 
   </TabItem>
@@ -198,7 +198,7 @@ curl https://example.com/wp-json/wc/v1/coupons/113 \
   <TabItem value="js" label="JavaScript">
 
 ```javascript
-WooCommerce.get("coupons/113")
+PooCommerce.get("coupons/113")
   .then((response) => {
     console.log(response.data);
   })
@@ -211,7 +211,7 @@ WooCommerce.get("coupons/113")
   <TabItem value="php" label="PHP">
 
 ```php
-<?php print_r($woocommerce->get('coupons/113')); ?>
+<?php print_r($poocommerce->get('coupons/113')); ?>
 ```
 
   </TabItem>
@@ -225,7 +225,7 @@ print(wcapi.get("coupons/113").json())
   <TabItem value="ruby" label="Ruby">
 
 ```ruby
-woocommerce.get("coupons/113").parsed_response
+poocommerce.get("coupons/113").parsed_response
 ```
 
   </TabItem>
@@ -293,7 +293,7 @@ curl https://example.com/wp-json/wc/v1/coupons \
   <TabItem value="js" label="JavaScript">
 
 ```javascript
-WooCommerce.get("coupons")
+PooCommerce.get("coupons")
   .then((response) => {
     console.log(response.data);
   })
@@ -306,7 +306,7 @@ WooCommerce.get("coupons")
   <TabItem value="php" label="PHP">
 
 ```php
-<?php print_r($woocommerce->get('coupons')); ?>
+<?php print_r($poocommerce->get('coupons')); ?>
 ```
 
   </TabItem>
@@ -320,7 +320,7 @@ print(wcapi.get("coupons").json())
   <TabItem value="ruby" label="Ruby">
 
 ```ruby
-woocommerce.get("coupons").parsed_response
+poocommerce.get("coupons").parsed_response
 ```
 
   </TabItem>
@@ -452,7 +452,7 @@ const data = {
   amount: 5
 };
 
-WooCommerce.put("coupons/113", data)
+PooCommerce.put("coupons/113", data)
   .then((response) => {
     console.log(response.data);
   })
@@ -470,7 +470,7 @@ $data = [
     'amount' => 5
 ];
 
-print_r($woocommerce->put('coupons/113', $data)); 
+print_r($poocommerce->put('coupons/113', $data)); 
 ?>
 ```
 
@@ -493,7 +493,7 @@ data = {
   amount: 5
 }
 
-woocommerce.put("coupons/113", data).parsed_response
+poocommerce.put("coupons/113", data).parsed_response
 ```
 
   </TabItem>
@@ -561,7 +561,7 @@ curl -X DELETE https://example.com/wp-json/wc/v1/coupons/113?force=true \
   <TabItem value="js" label="JavaScript">
 
 ```javascript
-WooCommerce.delete("coupons/113", {
+PooCommerce.delete("coupons/113", {
   force: true
 })
   .then((response) => {
@@ -576,7 +576,7 @@ WooCommerce.delete("coupons/113", {
   <TabItem value="php" label="PHP">
 
 ```php
-<?php print_r($woocommerce->delete('coupons/113', ['force' => true])); ?>
+<?php print_r($poocommerce->delete('coupons/113', ['force' => true])); ?>
 ```
 
   </TabItem>
@@ -590,7 +590,7 @@ print(wcapi.delete("coupons/113", params={"force": True}).json())
   <TabItem value="ruby" label="Ruby">
 
 ```ruby
-woocommerce.delete("coupons/113", force: true).parsed_response
+poocommerce.delete("coupons/113", force: true).parsed_response
 ```
 
   </TabItem>
@@ -727,7 +727,7 @@ const data = {
   ]
 };
 
-WooCommerce.post("coupons/batch", data)
+PooCommerce.post("coupons/batch", data)
   .then((response) => {
     console.log(response.data);
   })
@@ -771,7 +771,7 @@ $data = [
     ]
 ];
 
-print_r($woocommerce->post('coupons/batch', $data));
+print_r($poocommerce->post('coupons/batch', $data));
 ?>
 ```
 
@@ -846,7 +846,7 @@ data = {
   ]
 }
 
-woocommerce.post("coupons/batch", data).parsed_response
+poocommerce.post("coupons/batch", data).parsed_response
 ```
 
   </TabItem>

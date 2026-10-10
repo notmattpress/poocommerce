@@ -13,7 +13,7 @@ import { BaseQueryParams } from '../types';
 declare module '@wordpress/core-data' {
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	interface PerPackageEntityRecords< C extends Context > {
-		woocommerce: Product;
+		poocommerce: Product;
 	}
 }
 

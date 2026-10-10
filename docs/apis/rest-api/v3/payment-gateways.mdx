@@ -57,7 +57,7 @@ curl https://example.com/wp-json/wc/v3/payment_gateways/bacs \
   <TabItem value="js" label="JavaScript">
 
 ```javascript
-WooCommerce.get( 'payment_gateways/bacs' )
+PooCommerce.get( 'payment_gateways/bacs' )
 	.then( ( response ) => {
 		console.log( response.data );
 	} )
@@ -70,7 +70,7 @@ WooCommerce.get( 'payment_gateways/bacs' )
   <TabItem value="php" label="PHP">
 
 ```php
-<?php print_r($woocommerce->get('payment_gateways/bacs')); ?>
+<?php print_r($poocommerce->get('payment_gateways/bacs')); ?>
 ```
 
   </TabItem>
@@ -84,7 +84,7 @@ print(wcapi.get("payment_gateways/bacs").json())
   <TabItem value="ruby" label="Ruby">
 
 ```ruby
-woocommerce.get("payment_gateways/bacs").parsed_response
+poocommerce.get("payment_gateways/bacs").parsed_response
 ```
 
   </TabItem>
@@ -160,7 +160,7 @@ curl https://example.com/wp-json/wc/v3/payment_gateways \
   <TabItem value="js" label="JavaScript">
 
 ```javascript
-WooCommerce.get( 'payment_gateways' )
+PooCommerce.get( 'payment_gateways' )
 	.then( ( response ) => {
 		console.log( response.data );
 	} )
@@ -173,7 +173,7 @@ WooCommerce.get( 'payment_gateways' )
   <TabItem value="php" label="PHP">
 
 ```php
-<?php print_r($woocommerce->get('payment_gateways')); ?>
+<?php print_r($poocommerce->get('payment_gateways')); ?>
 ```
 
   </TabItem>
@@ -187,7 +187,7 @@ print(wcapi.get("payment_gateways").json())
   <TabItem value="ruby" label="Ruby">
 
 ```ruby
-woocommerce.get("payment_gateways").parsed_response
+poocommerce.get("payment_gateways").parsed_response
 ```
 
   </TabItem>
@@ -395,11 +395,11 @@ woocommerce.get("payment_gateways").parsed_response
 			"debug": {
 				"id": "debug",
 				"label": "Enable logging",
-				"description": "Log PayPal events, such as IPN requests, inside <code>/var/www/woocommerce/wp-content/uploads/wc-logs/paypal-de01f7c6894774e7ac8e4207bb8bac2f.log</code>",
+				"description": "Log PayPal events, such as IPN requests, inside <code>/var/www/poocommerce/wp-content/uploads/wc-logs/paypal-de01f7c6894774e7ac8e4207bb8bac2f.log</code>",
 				"type": "checkbox",
 				"value": "yes",
 				"default": "no",
-				"tip": "Log PayPal events, such as IPN requests, inside <code>/var/www/woocommerce/wp-content/uploads/wc-logs/paypal-de01f7c6894774e7ac8e4207bb8bac2f.log</code>",
+				"tip": "Log PayPal events, such as IPN requests, inside <code>/var/www/poocommerce/wp-content/uploads/wc-logs/paypal-de01f7c6894774e7ac8e4207bb8bac2f.log</code>",
 				"placeholder": ""
 			},
 			"receiver_email": {
@@ -564,7 +564,7 @@ const data = {
 	enabled: true,
 };
 
-WooCommerce.put( 'payment_gateways/bacs', data )
+PooCommerce.put( 'payment_gateways/bacs', data )
 	.then( ( response ) => {
 		console.log( response.data );
 	} )
@@ -582,7 +582,7 @@ $data = [
     'enabled' => true
 ];
 
-print_r($woocommerce->put('payment_gateways/bacs', $data));
+print_r($poocommerce->put('payment_gateways/bacs', $data));
 ?>
 ```
 
@@ -605,7 +605,7 @@ data = {
   enabled: true
 }
 
-woocommerce.put("payment_gateways/bacs", data).parsed_response
+poocommerce.put("payment_gateways/bacs", data).parsed_response
 ```
 
   </TabItem>

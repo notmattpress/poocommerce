@@ -9,23 +9,23 @@
  * transaction and keeps no cache, so a caller may wrap several calls in its own
  * transaction. No hooks fire.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine\Api
+ * @package Automattic\PooCommerce\SubscriptionsEngine\Api
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Api;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Api;
 
 use DomainException;
 use InvalidArgumentException;
-use Automattic\WooCommerce\SubscriptionsEngine\Api\View\ContractView;
-use Automattic\WooCommerce\SubscriptionsEngine\Api\View\CycleView;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\Contract;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\Cycle;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\ValueObject\PaymentInstrumentRef;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage\ContractRepository;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage\DuplicateCycleException;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Support\ArgumentValidator;
+use Automattic\PooCommerce\SubscriptionsEngine\Api\View\ContractView;
+use Automattic\PooCommerce\SubscriptionsEngine\Api\View\CycleView;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\Contract;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\Cycle;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\ValueObject\PaymentInstrumentRef;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage\ContractRepository;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage\DuplicateCycleException;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Support\ArgumentValidator;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -302,7 +302,7 @@ final class Contracts {
 
 	/**
 	 * List contracts for an admin list screen - newest first by default, or
-	 * filtered / sorted / paged / searched via a WooCommerce-style args array (cf.
+	 * filtered / sorted / paged / searched via a PooCommerce-style args array (cf.
 	 * `wc_get_orders()`). The status + search filter matches {@see self::count()}, so a page
 	 * and its total describe the same set.
 	 *
@@ -311,7 +311,7 @@ final class Contracts {
 	 *
 	 *     @type int    $limit   Maximum contracts to return. Default 20.
 	 *     @type int    $offset  Contracts to skip (for paging). Default 0.
-	 *     @type string $status  Filter to one status ({@see \Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\ContractStatus}); ignored when empty or invalid.
+	 *     @type string $status  Filter to one status ({@see \Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\ContractStatus}); ignored when empty or invalid.
 	 *     @type string $orderby One of id, next_payment, total, start; default id.
 	 *     @type string $order   ASC or DESC (case-insensitive); default DESC.
 	 *     @type string $search  Numeric term matches contract id or origin order id; text term matches the owning customer.
@@ -324,7 +324,7 @@ final class Contracts {
 
 	/**
 	 * The contract count per status - the read behind an admin list's status views bar.
-	 * Keyed by every {@see \Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\ContractStatus} value (absent statuses are 0); the `All` total
+	 * Keyed by every {@see \Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\ContractStatus} value (absent statuses are 0); the `All` total
 	 * is the caller's `array_sum()`. Independent of any search or paging.
 	 *
 	 * @return array<string, int> Status => count, every known status present.
@@ -376,7 +376,7 @@ final class Contracts {
 	 * @param array<string, mixed> $args {
 	 *     Optional. Query args.
 	 *
-	 *     @type string|string[] $status One status or a list of them ({@see \Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\ContractStatus});
+	 *     @type string|string[] $status One status or a list of them ({@see \Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\ContractStatus});
 	 *                                   unregistered values are dropped, and the filter is ignored when none remain.
 	 * }
 	 * @return array<int, ContractView> The customer's contracts, newest first.

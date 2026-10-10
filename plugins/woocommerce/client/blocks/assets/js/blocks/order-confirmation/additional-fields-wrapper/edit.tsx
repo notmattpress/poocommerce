@@ -5,7 +5,7 @@ import { useBlockProps, InnerBlocks } from '@wordpress/block-editor';
 import {
 	ORDER_FORM_FIELDS,
 	CONTACT_FORM_FIELDS,
-} from '@woocommerce/block-settings';
+} from '@poocommerce/block-settings';
 
 /**
  * Internal dependencies
@@ -50,7 +50,7 @@ const Edit = ( {
 						},
 					],
 					[
-						'woocommerce/order-confirmation-additional-fields',
+						'poocommerce/order-confirmation-additional-fields',
 						{
 							lock: {
 								remove: true,

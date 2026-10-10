@@ -1,11 +1,11 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\OrderReviews;
+namespace Automattic\PooCommerce\Tests\Internal\OrderReviews;
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Internal\OrderReviews\ItemEligibility;
-use Automattic\WooCommerce\Internal\OrderReviews\SubmissionHandler;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Internal\OrderReviews\ItemEligibility;
+use Automattic\PooCommerce\Internal\OrderReviews\SubmissionHandler;
 use WC_Helper_Product;
 use WC_Order;
 use WC_Unit_Test_Case;
@@ -28,7 +28,7 @@ class SubmissionHandlerInjectionTest extends WC_Unit_Test_Case {
 	 */
 	public function setUp(): void {
 		parent::setUp();
-		update_option( 'woocommerce_feature_customer_review_request_enabled', 'yes' );
+		update_option( 'poocommerce_feature_customer_review_request_enabled', 'yes' );
 		update_option( 'comment_moderation', '0' );
 		update_option( 'comment_max_links', 0 );
 		update_option( 'moderation_keys', '' );
@@ -94,9 +94,9 @@ class SubmissionHandlerInjectionTest extends WC_Unit_Test_Case {
 			'anchor event handlers'            => array( '<a href="https://example.test" onclick="alert(1)" onmouseover=alert(1)>x</a>' ),
 			'anchor target and download'       => array( '<a href="https://example.test" target="_blank" download>x</a>' ),
 			'interactivity directives'         => array( '<a href="https://example.test" data-wp-bind--href="state.url" data-wp-on--click="actions.x">x</a>' ),
-			'interactivity store island'       => array( '<span data-wp-interactive="woocommerce/store-notices" data-wp-context="{&quot;notice&quot;:{&quot;notice&quot;:&quot;&lt;img src=x onerror=alert(1)&gt;&quot;}}" data-wp-watch="callbacks.renderNoticeContent"></span>' ),
+			'interactivity store island'       => array( '<span data-wp-interactive="poocommerce/store-notices" data-wp-context="{&quot;notice&quot;:{&quot;notice&quot;:&quot;&lt;img src=x onerror=alert(1)&gt;&quot;}}" data-wp-watch="callbacks.renderNoticeContent"></span>' ),
 			'style overlay'                    => array( '<a href="https://example.test" style="position:fixed;inset:0;z-index:9999">x</a>' ),
-			'class and id clobbering'          => array( '<strong id="woocommerce-review-order" class="woocommerce-error">x</strong>' ),
+			'class and id clobbering'          => array( '<strong id="poocommerce-review-order" class="poocommerce-error">x</strong>' ),
 			'blockquote cite javascript'       => array( '<blockquote cite="javascript:alert(1)">x</blockquote>' ),
 			'q cite data uri'                  => array( '<q cite="data:text/html,<script>alert(1)</script>">x</q>' ),
 			'abbr title quote breakout'        => array( '<abbr title="x&quot; onmouseover=&quot;alert(1)">x</abbr>' ),
@@ -113,7 +113,7 @@ class SubmissionHandlerInjectionTest extends WC_Unit_Test_Case {
 			'encoded entities'                 => array( '&lt;script&gt;alert(1)&lt;/script&gt; &#60;img src=x onerror=alert(1)&#62;' ),
 			'double encoded entities'          => array( '&amp;lt;script&amp;gt;alert(1)&amp;lt;/script&amp;gt;' ),
 			'block markup'                     => array( '<!-- wp:html --><script>alert(1)</script><!-- /wp:html -->' ),
-			'shortcode'                        => array( '[woocommerce_order_tracking] [embed]https://evil.test[/embed]' ),
+			'shortcode'                        => array( '[poocommerce_order_tracking] [embed]https://evil.test[/embed]' ),
 			'template expression'              => array( '{{constructor.constructor(\'alert(1)\')()}} ${alert(1)}' ),
 			'sql fragment'                     => array( "' OR 1=1; DROP TABLE wp_comments; -- \\'" ),
 			'invalid utf8'                     => array( "Nice \xC3\x28 review \xF0\x28\x8C\xBC" ),
@@ -241,7 +241,7 @@ class SubmissionHandlerInjectionTest extends WC_Unit_Test_Case {
 		);
 		$comment = $this->submit_single_review( $built, 'Nice.' );
 
-		$this->assertSame( __( 'Anonymous', 'woocommerce' ), $comment->comment_author );
+		$this->assertSame( __( 'Anonymous', 'poocommerce' ), $comment->comment_author );
 	}
 
 	/**
@@ -348,7 +348,7 @@ class SubmissionHandlerInjectionTest extends WC_Unit_Test_Case {
 	 * @testdox Top-level comment form fields do not trigger the product page rating hooks.
 	 */
 	public function test_top_level_comment_form_fields_do_not_change_the_review(): void {
-		update_option( 'woocommerce_review_rating_required', 'yes' );
+		update_option( 'poocommerce_review_rating_required', 'yes' );
 		$built         = $this->make_order();
 		$other_product = WC_Helper_Product::create_simple_product();
 

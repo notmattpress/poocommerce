@@ -1,7 +1,7 @@
 /**
  * Internal dependencies
  */
-import woocommerce from '@woocommerce/eslint-config';
+import poocommerce from '@poocommerce/eslint-config';
 
 /*
  * The eslintrc this replaces set no `extends` and no `root`, so it inherited the
@@ -9,7 +9,7 @@ import woocommerce from '@woocommerce/eslint-config';
  * shared config explicitly.
  */
 export default [
-	...woocommerce,
+	...poocommerce,
 	{
 		rules: {
 			'no-console': 'off',

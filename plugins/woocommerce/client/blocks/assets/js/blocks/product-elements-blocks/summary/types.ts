@@ -2,9 +2,9 @@
  * External dependencies
  */
 import type { BlockEditProps } from '@wordpress/blocks';
-import type { ProductQueryContext as Context } from '@woocommerce/blocks/product-query/types';
+import type { ProductQueryContext as Context } from '@poocommerce/blocks/product-query/types';
 import type { CSSProperties } from '@wordpress/element';
-import type { ProductEntityResponse } from '@woocommerce/entities';
+import type { ProductEntityResponse } from '@poocommerce/entities';
 
 export interface Attributes {
 	productId: number;

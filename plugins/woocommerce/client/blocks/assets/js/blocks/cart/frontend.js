@@ -1,12 +1,12 @@
 /**
  * External dependencies
  */
-import { getValidBlockAttributes } from '@woocommerce/base-utils';
+import { getValidBlockAttributes } from '@poocommerce/base-utils';
 import { Children, cloneElement, isValidElement } from '@wordpress/element';
-import { useStoreCart } from '@woocommerce/base-context';
-import { getRegisteredBlockComponents } from '@woocommerce/blocks-registry';
+import { useStoreCart } from '@poocommerce/base-context';
+import { getRegisteredBlockComponents } from '@poocommerce/blocks-registry';
 
-import { renderParentBlock } from '@woocommerce/utils/render-parent-block';
+import { renderParentBlock } from '@poocommerce/utils/render-parent-block';
 
 /**
  * Internal dependencies
@@ -44,7 +44,7 @@ const Wrapper = ( { children } ) => {
 renderParentBlock( {
 	Block,
 	blockName,
-	selector: '.wp-block-woocommerce-cart',
+	selector: '.wp-block-poocommerce-cart',
 	getProps,
 	blockMap: getRegisteredBlockComponents( blockName ),
 	blockWrapper: Wrapper,

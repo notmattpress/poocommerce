@@ -92,12 +92,12 @@ class WC_Helper_Customer {
 	}
 
 	/**
-	 * Get the "Tax Based On" WooCommerce option.
+	 * Get the "Tax Based On" PooCommerce option.
 	 *
 	 * @return string base or billing
 	 */
 	public static function get_tax_based_on() {
-		return get_option( 'woocommerce_tax_based_on' );
+		return get_option( 'poocommerce_tax_based_on' );
 	}
 
 	/**
@@ -119,11 +119,11 @@ class WC_Helper_Customer {
 	}
 
 	/**
-	 * Set the "Tax Based On" WooCommerce option.
+	 * Set the "Tax Based On" PooCommerce option.
 	 *
 	 * @param string $default_shipping_method Shipping Method slug
 	 */
 	public static function set_tax_based_on( $default_shipping_method ) {
-		update_option( 'woocommerce_tax_based_on', $default_shipping_method );
+		update_option( 'poocommerce_tax_based_on', $default_shipping_method );
 	}
 }

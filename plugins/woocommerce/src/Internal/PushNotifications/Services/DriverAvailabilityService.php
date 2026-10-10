@@ -2,13 +2,13 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\PushNotifications\Services;
+namespace Automattic\PooCommerce\Internal\PushNotifications\Services;
 
 defined( 'ABSPATH' ) || exit;
 
 use Automattic\Jetpack\Connection\Manager as JetpackConnectionManager;
-use Automattic\WooCommerce\Internal\PushNotifications\PushNotifications;
-use Automattic\WooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\Internal\PushNotifications\PushNotifications;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
 use Error;
 use Throwable;
 use WC_Logger_Interface;
@@ -258,7 +258,7 @@ class DriverAvailabilityService {
 			 *
 			 * @param bool $disabled Whether enhanced push notifications are disabled. Defaults to false.
 			 */
-			apply_filters( 'woocommerce_enhanced_push_notifications_disabled', false )
+			apply_filters( 'poocommerce_enhanced_push_notifications_disabled', false )
 		);
 	}
 
@@ -300,7 +300,7 @@ class DriverAvailabilityService {
 	 *
 	 * The call reaches third-party package code, so it is guarded: an `Error`
 	 * from an incompatible Jetpack would otherwise escape
-	 * {@see \Automattic\WooCommerce\Internal\RestApiControllerBase::run()},
+	 * {@see \Automattic\PooCommerce\Internal\RestApiControllerBase::run()},
 	 * which catches `Exception` only, and turn an endpoint whose purpose is to
 	 * stay reachable into a 500.
 	 *
@@ -402,7 +402,7 @@ class DriverAvailabilityService {
 	 * Logs a swallowed throwable, distinguishing an `Error` from an `Exception`.
 	 *
 	 * An `Exception` here usually means Jetpack answered unhappily; an `Error`
-	 * means the call was incompatible, which is a WooCommerce problem rather
+	 * means the call was incompatible, which is a PooCommerce problem rather
 	 * than a merchant one. Both are swallowed, so the log is the only place the
 	 * difference survives.
 	 *

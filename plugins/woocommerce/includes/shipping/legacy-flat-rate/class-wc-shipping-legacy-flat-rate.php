@@ -2,7 +2,7 @@
 /**
  * Class WC_Shipping_Legacy_Flat_Rate file.
  *
- * @package WooCommerce\Shipping
+ * @package PooCommerce\Shipping
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @deprecated  2.6.0
  * @version     2.4.0
- * @package     WooCommerce\Classes\Shipping
+ * @package     PooCommerce\Classes\Shipping
  */
 class WC_Shipping_Legacy_Flat_Rate extends WC_Shipping_Method {
 
@@ -54,13 +54,13 @@ class WC_Shipping_Legacy_Flat_Rate extends WC_Shipping_Method {
 	 */
 	public function __construct() {
 		$this->id           = 'legacy_flat_rate';
-		$this->method_title = __( 'Flat rate (legacy)', 'woocommerce' );
+		$this->method_title = __( 'Flat rate (legacy)', 'poocommerce' );
 		/* translators: %s: Admin shipping settings URL */
-		$this->method_description = '<strong>' . sprintf( __( 'This method is deprecated in 2.6.0 and will be removed in future versions - we recommend disabling it and instead setting up a new rate within your <a href="%s">Shipping zones</a>.', 'woocommerce' ), admin_url( 'admin.php?page=wc-settings&tab=shipping' ) ) . '</strong>';
+		$this->method_description = '<strong>' . sprintf( __( 'This method is deprecated in 2.6.0 and will be removed in future versions - we recommend disabling it and instead setting up a new rate within your <a href="%s">Shipping zones</a>.', 'poocommerce' ), admin_url( 'admin.php?page=wc-settings&tab=shipping' ) ) . '</strong>';
 		$this->init();
 
-		add_action( 'woocommerce_update_options_shipping_' . $this->id, array( $this, 'process_admin_options' ) );
-		add_action( 'woocommerce_flat_rate_shipping_add_rate', array( $this, 'calculate_extra_shipping' ), 10, 2 );
+		add_action( 'poocommerce_update_options_shipping_' . $this->id, array( $this, 'process_admin_options' ) );
+		add_action( 'poocommerce_flat_rate_shipping_add_rate', array( $this, 'calculate_extra_shipping' ), 10, 2 );
 	}
 
 	/**
@@ -262,7 +262,7 @@ class WC_Shipping_Legacy_Flat_Rate extends WC_Shipping_Method {
 		 *
 		 * This example shows how you can add an extra rate based on this flat rate via custom function:
 		 *
-		 *      add_action( 'woocommerce_flat_rate_shipping_add_rate', 'add_another_custom_flat_rate', 10, 2 );
+		 *      add_action( 'poocommerce_flat_rate_shipping_add_rate', 'add_another_custom_flat_rate', 10, 2 );
 		 *
 		 *      function add_another_custom_flat_rate( $method, $rate ) {
 		 *          $new_rate          = $rate;
@@ -274,7 +274,7 @@ class WC_Shipping_Legacy_Flat_Rate extends WC_Shipping_Method {
 		 *          $method->add_rate( $new_rate );
 		 *      }.
 		 */
-		do_action( 'woocommerce_flat_rate_shipping_add_rate', $this, $rate );
+		do_action( 'poocommerce_flat_rate_shipping_add_rate', $this, $rate );
 	}
 
 	/**

@@ -3,15 +3,15 @@
  * PlanRepository - persistence for {@see Plan} entities. The three policy columns are
  * stored as the opaque JSON payloads the entity carries; null stays SQL NULL.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage
+ * @package Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage;
 
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\Plan;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Support\Coercion;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\Plan;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Support\Coercion;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -30,7 +30,7 @@ final class PlanRepository {
 	/**
 	 * Always-false WHERE clause: a filter arg that is present but empty or
 	 * invalid must match NOTHING, never fall open to matching everything
-	 * (the WP core / WooCommerce fail-closed posture, e.g. WP_Tax_Query and
+	 * (the WP core / PooCommerce fail-closed posture, e.g. WP_Tax_Query and
 	 * the HPOS OrdersTableFieldQuery force_no_results clause).
 	 *
 	 * @var string

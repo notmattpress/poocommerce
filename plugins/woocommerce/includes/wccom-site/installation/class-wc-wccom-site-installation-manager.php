@@ -2,7 +2,7 @@
 /**
  * Installation Manager
  *
- * @package WooCommerce\WCCom
+ * @package PooCommerce\WCCom
  */
 
 use WC_REST_WCCOM_Site_Installer_Error_Codes as Installer_Error_Codes;

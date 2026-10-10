@@ -5,10 +5,10 @@ import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import apiFetch from '@wordpress/api-fetch';
 import { createRegistry, RegistryProvider } from '@wordpress/data';
-import { cartStore } from '@woocommerce/block-data';
-import { SlotFillProvider } from '@woocommerce/blocks-checkout';
-import type { CartShippingPackageShippingRate } from '@woocommerce/types';
-import { useShippingData } from '@woocommerce/base-context';
+import { cartStore } from '@poocommerce/block-data';
+import { SlotFillProvider } from '@poocommerce/blocks-checkout';
+import type { CartShippingPackageShippingRate } from '@poocommerce/types';
+import { useShippingData } from '@poocommerce/base-context';
 
 /**
  * Internal dependencies
@@ -39,7 +39,7 @@ const ShippingOptions = () => {
 				),
 			} ) ) }
 			isLoadingRates={ false }
-			context="woocommerce/checkout"
+			context="poocommerce/checkout"
 		/>
 	);
 };
@@ -82,7 +82,7 @@ test( 'failed initialization stays retryable without automatically repeating rej
 				status: 400,
 				headers: {},
 				body: {
-					code: 'woocommerce_rest_cart_shipping_rate_invalid',
+					code: 'poocommerce_rest_cart_shipping_rate_invalid',
 					message: 'Shipping rate rejected.',
 					data: { status: 400 },
 				},

@@ -13,7 +13,7 @@ class StoreAlertsPlaceholder extends Component {
 		return (
 			<Card
 				className={ clsx(
-					'woocommerce-store-alerts is-loading',
+					'poocommerce-store-alerts is-loading',
 					className
 				) }
 				aria-hidden
@@ -24,7 +24,7 @@ class StoreAlertsPlaceholder extends Component {
 					{ hasMultipleAlerts && <span className="is-placeholder" /> }
 				</CardHeader>
 				<CardBody>
-					<div className="woocommerce-store-alerts__message">
+					<div className="poocommerce-store-alerts__message">
 						<span className="is-placeholder" />
 						<span className="is-placeholder" />
 					</div>

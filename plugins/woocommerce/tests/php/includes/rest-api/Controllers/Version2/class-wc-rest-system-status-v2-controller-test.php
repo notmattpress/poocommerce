@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-use Automattic\WooCommerce\Enums\{ DefaultCustomerAddress, TaxBasedOn, TaxDisplayMode };
+use Automattic\PooCommerce\Enums\{ DefaultCustomerAddress, TaxBasedOn, TaxDisplayMode };
 
 /**
  * Tests for WC_REST_System_Status_V2_Controller.
@@ -40,7 +40,7 @@ class WC_REST_System_Status_V2_Controller_Test extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_get_theme_info_detects_wc_get_template_filter_override(): void {
 		$template_to_override = 'cart/cart.php';
-		$override_path        = WC()->plugin_path() . '/includes/class-woocommerce.php';
+		$override_path        = WC()->plugin_path() . '/includes/class-poocommerce.php';
 
 		add_filter(
 			'wc_get_template',
@@ -70,28 +70,28 @@ class WC_REST_System_Status_V2_Controller_Test extends WC_REST_Unit_Test_Case {
 	public function test_get_settings_returns_tax_settings(): void {
 		global $wpdb;
 
-		update_option( 'woocommerce_calc_taxes', 'no' );
-		update_option( 'woocommerce_prices_include_tax', 'yes' );
-		update_option( 'woocommerce_tax_based_on', TaxBasedOn::BILLING );
-		update_option( 'woocommerce_tax_round_at_subtotal', 'yes' );
-		update_option( 'woocommerce_tax_display_shop', TaxDisplayMode::INCLUSIVE );
-		update_option( 'woocommerce_tax_display_cart', TaxDisplayMode::EXCLUSIVE );
-		update_option( 'woocommerce_price_display_suffix', 'including tax' );
-		update_option( 'woocommerce_tax_total_display', 'single' );
-		update_option( 'woocommerce_default_country', 'IN:MH' );
-		update_option( 'woocommerce_default_customer_address', DefaultCustomerAddress::GEOLOCATION_AJAX );
+		update_option( 'poocommerce_calc_taxes', 'no' );
+		update_option( 'poocommerce_prices_include_tax', 'yes' );
+		update_option( 'poocommerce_tax_based_on', TaxBasedOn::BILLING );
+		update_option( 'poocommerce_tax_round_at_subtotal', 'yes' );
+		update_option( 'poocommerce_tax_display_shop', TaxDisplayMode::INCLUSIVE );
+		update_option( 'poocommerce_tax_display_cart', TaxDisplayMode::EXCLUSIVE );
+		update_option( 'poocommerce_price_display_suffix', 'including tax' );
+		update_option( 'poocommerce_tax_total_display', 'single' );
+		update_option( 'poocommerce_default_country', 'IN:MH' );
+		update_option( 'poocommerce_default_customer_address', DefaultCustomerAddress::GEOLOCATION_AJAX );
 		add_filter( 'wc_tax_enabled', '__return_true' );
-		add_filter( 'woocommerce_prices_include_tax', '__return_false' );
+		add_filter( 'poocommerce_prices_include_tax', '__return_false' );
 
 		$tax_class = WC_Tax::create_tax_class( 'Diagnostic rate' );
 		if ( is_wp_error( $tax_class ) ) {
 			$this->fail( 'The diagnostic tax class should be created.' );
 		}
 		$tax_class_slug = $tax_class['slug'];
-		update_option( 'woocommerce_shipping_tax_class', $tax_class_slug );
+		update_option( 'poocommerce_shipping_tax_class', $tax_class_slug );
 
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-		$tax_rate_count = (int) $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->prefix}woocommerce_tax_rates" );
+		$tax_rate_count = (int) $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->prefix}poocommerce_tax_rates" );
 		WC_Tax::_insert_tax_rate(
 			array(
 				'tax_rate_country'  => 'IN',

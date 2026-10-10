@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\BlockTypes\ProductCollection;
+namespace Automattic\PooCommerce\Tests\Blocks\BlockTypes\ProductCollection;
 
 use WC_Helper_Product;
 use WC_Product;
@@ -9,7 +9,7 @@ use WC_Unit_Test_Case;
 use WP_Query;
 
 /**
- * Tests Product Collection parity with WooCommerce's classic product loop.
+ * Tests Product Collection parity with PooCommerce's classic product loop.
  */
 class RouteContextParityTest extends WC_Unit_Test_Case {
 
@@ -18,7 +18,7 @@ class RouteContextParityTest extends WC_Unit_Test_Case {
 	 *
 	 * Do not reach for process isolation to contain the route globals this sets up.
 	 * A forked child re-runs tests/legacy/bootstrap.php, which reinstalls the store
-	 * and writes woocommerce_custom_orders_table_enabled over its own connection,
+	 * and writes poocommerce_custom_orders_table_enabled over its own connection,
 	 * outside the parent's rolled-back transaction -- once per provider row. That
 	 * flips the order store for every test that follows in the parent process. The
 	 * finally below restores the five globals, which is what actually needs undoing.
@@ -33,24 +33,24 @@ class RouteContextParityTest extends WC_Unit_Test_Case {
 		$global_presence = array(
 			'post'             => array_key_exists( 'post', $GLOBALS ),
 			'product'          => array_key_exists( 'product', $GLOBALS ),
-			'woocommerce_loop' => array_key_exists( 'woocommerce_loop', $GLOBALS ),
+			'poocommerce_loop' => array_key_exists( 'poocommerce_loop', $GLOBALS ),
 			'wp_query'         => array_key_exists( 'wp_query', $GLOBALS ),
 			'wp_the_query'     => array_key_exists( 'wp_the_query', $GLOBALS ),
 		);
 
-		global $post, $product, $woocommerce_loop, $wp_query, $wp_the_query;
+		global $post, $product, $poocommerce_loop, $wp_query, $wp_the_query;
 
 		$original_globals = array(
 			'post'             => $post ?? null,
 			'product'          => $product ?? null,
-			'woocommerce_loop' => $woocommerce_loop ?? null,
+			'poocommerce_loop' => $poocommerce_loop ?? null,
 			'wp_query'         => $wp_query ?? null,
 			'wp_the_query'     => $wp_the_query ?? null,
 		);
 
 		try {
 			update_option( 'posts_per_page', 20 );
-			update_option( 'woocommerce_default_catalog_orderby', 'menu_order' );
+			update_option( 'poocommerce_default_catalog_orderby', 'menu_order' );
 
 			$category_id = self::factory()->term->create(
 				array(
@@ -78,7 +78,7 @@ class RouteContextParityTest extends WC_Unit_Test_Case {
 
 			$route = $this->get_route_url( $route_label, $term_ids );
 			$this->go_to( $route );
-			$wp_the_query = $wp_query; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- WP_UnitTestCase::go_to() does not identify its query as main for WooCommerce's pre_get_posts hook.
+			$wp_the_query = $wp_query; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- WP_UnitTestCase::go_to() does not identify its query as main for PooCommerce's pre_get_posts hook.
 			$this->prepare_route_product_query( $route_label, $wp_query );
 			wc_reset_loop();
 			wc_setup_loop(
@@ -91,13 +91,13 @@ class RouteContextParityTest extends WC_Unit_Test_Case {
 			);
 
 			$this->assertInstanceOf( WP_Query::class, $wp_query, 'The route should establish a real main query.' );
-			$this->assertGreaterThan( 0, $wp_query->post_count, 'The prepared WooCommerce route query should contain products.' );
-			$this->assertGreaterThan( 0, wc_get_loop_prop( 'total' ), 'The prepared WooCommerce route loop should contain products.' );
+			$this->assertGreaterThan( 0, $wp_query->post_count, 'The prepared PooCommerce route query should contain products.' );
+			$this->assertGreaterThan( 0, wc_get_loop_prop( 'total' ), 'The prepared PooCommerce route loop should contain products.' );
 			$wp_query->rewind_posts();
 
 			$classic_products = $this->extract_product_names(
 				$this->render_legacy_template( $legacy_template ),
-				'woocommerce-loop-product__title'
+				'poocommerce-loop-product__title'
 			);
 			$wp_query->rewind_posts();
 			$product_query_products = $this->extract_product_names(
@@ -133,7 +133,7 @@ class RouteContextParityTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Run WooCommerce's real main-product-query preparation for a test route.
+	 * Run PooCommerce's real main-product-query preparation for a test route.
 	 *
 	 * @param string   $route_label Route label.
 	 * @param WP_Query $query       Main route query.
@@ -195,7 +195,7 @@ class RouteContextParityTest extends WC_Unit_Test_Case {
 				'regular_price' => '10',
 			)
 		);
-		$this->assertInstanceOf( WC_Product::class, $product, 'The route fixture should create a WooCommerce product.' );
+		$this->assertInstanceOf( WC_Product::class, $product, 'The route fixture should create a PooCommerce product.' );
 		$product->set_name( $name );
 		$product->set_status( 'publish' );
 		$product->set_catalog_visibility( 'visible' );
@@ -253,7 +253,7 @@ class RouteContextParityTest extends WC_Unit_Test_Case {
 
 		return do_blocks(
 			sprintf(
-				'<!-- wp:woocommerce/product-collection %1$s --><div class="wp-block-woocommerce-product-collection"><!-- wp:woocommerce/product-template --><!-- wp:post-title /--><!-- /wp:woocommerce/product-template --></div><!-- /wp:woocommerce/product-collection -->',
+				'<!-- wp:poocommerce/product-collection %1$s --><div class="wp-block-poocommerce-product-collection"><!-- wp:poocommerce/product-template --><!-- wp:post-title /--><!-- /wp:poocommerce/product-template --></div><!-- /wp:poocommerce/product-collection -->',
 				wp_json_encode( $attributes )
 			)
 		);
@@ -266,7 +266,7 @@ class RouteContextParityTest extends WC_Unit_Test_Case {
 	 */
 	private function render_product_query(): string {
 		$attributes = array(
-			'namespace' => 'woocommerce/product-query',
+			'namespace' => 'poocommerce/product-query',
 			'queryId'   => 69,
 			'query'     => array(
 				'inherit'  => true,
@@ -278,7 +278,7 @@ class RouteContextParityTest extends WC_Unit_Test_Case {
 			sprintf(
 				'<!-- wp:query %1$s --><div class="wp-block-query"><!-- wp:post-template %2$s --><!-- wp:post-title /--><!-- /wp:post-template --></div><!-- /wp:query -->',
 				wp_json_encode( $attributes ),
-				wp_json_encode( array( '__woocommerceNamespace' => 'woocommerce/product-query/product-template' ) )
+				wp_json_encode( array( '__poocommerceNamespace' => 'poocommerce/product-query/product-template' ) )
 			)
 		);
 	}
@@ -292,7 +292,7 @@ class RouteContextParityTest extends WC_Unit_Test_Case {
 	private function render_legacy_template( string $template ): string {
 		return do_blocks(
 			sprintf(
-				'<!-- wp:woocommerce/legacy-template %s /-->',
+				'<!-- wp:poocommerce/legacy-template %s /-->',
 				wp_json_encode( array( 'template' => $template ) )
 			)
 		);

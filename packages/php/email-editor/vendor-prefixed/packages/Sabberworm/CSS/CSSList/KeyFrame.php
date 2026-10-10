@@ -1,9 +1,9 @@
 <?php
 
-namespace Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\CSSList;
+namespace Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\CSSList;
 
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\OutputFormat;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Property\AtRule;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\OutputFormat;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Property\AtRule;
 
 class KeyFrame extends CSSList implements AtRule
 {

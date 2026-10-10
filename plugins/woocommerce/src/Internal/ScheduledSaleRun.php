@@ -5,12 +5,12 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal;
+namespace Automattic\PooCommerce\Internal;
 
-use Automattic\WooCommerce\Internal\Caches\ProductCache;
-use Automattic\WooCommerce\Internal\Caches\ProductCacheController;
-use Automattic\WooCommerce\Internal\Utilities\ProductUtil;
-use Automattic\WooCommerce\Utilities\FeaturesUtil;
+use Automattic\PooCommerce\Internal\Caches\ProductCache;
+use Automattic\PooCommerce\Internal\Caches\ProductCacheController;
+use Automattic\PooCommerce\Internal\Utilities\ProductUtil;
+use Automattic\PooCommerce\Utilities\FeaturesUtil;
 
 /**
  * Starts or ends scheduled sales, processing and releasing one batch at a time.

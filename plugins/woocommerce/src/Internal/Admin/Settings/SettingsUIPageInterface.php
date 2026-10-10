@@ -5,9 +5,9 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Admin\Settings;
+namespace Automattic\PooCommerce\Internal\Admin\Settings;
 
-use Automattic\WooCommerce\Admin\Settings\SettingsUIPageInterface as PublicSettingsUIPageInterface;
+use Automattic\PooCommerce\Admin\Settings\SettingsUIPageInterface as PublicSettingsUIPageInterface;
 
 defined( 'ABSPATH' ) || exit;
 

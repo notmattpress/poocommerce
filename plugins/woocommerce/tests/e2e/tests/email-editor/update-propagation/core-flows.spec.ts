@@ -120,7 +120,7 @@ test.describe(
 			// from the editor banner.
 			await accessTheEmailEditor( page, 'New order' );
 			await expect(
-				page.locator( '#woocommerce-email-editor' )
+				page.locator( '#poocommerce-email-editor' )
 			).toBeVisible( {
 				timeout: 20000,
 			} );

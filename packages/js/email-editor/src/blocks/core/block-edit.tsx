@@ -39,7 +39,7 @@ const setUrlAttribute =
 function filterSetUrlAttribute(): void {
 	addFilterForEmail(
 		'editor.BlockEdit',
-		'woocommerce-email-editor/filter-set-url-attribute',
+		'poocommerce-email-editor/filter-set-url-attribute',
 		setUrlAttribute
 	);
 }

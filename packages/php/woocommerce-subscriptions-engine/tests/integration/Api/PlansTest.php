@@ -2,36 +2,36 @@
 /**
  * Integration tests for the Plans facade.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine
+ * @package Automattic\PooCommerce\SubscriptionsEngine
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Tests\Integration\Api;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Tests\Integration\Api;
 
 use DomainException;
 use EngineIntegrationTestCase;
 use InvalidArgumentException;
 use RuntimeException;
 use WP_Error;
-use Automattic\WooCommerce\SubscriptionsEngine\Api\Plans;
-use Automattic\WooCommerce\SubscriptionsEngine\Api\PlanValidationException;
-use Automattic\WooCommerce\SubscriptionsEngine\Api\View\PlanView;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\Plan;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\PlanStatus;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\StatusRegistry;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage\PlanRepository;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage\SchemaInstaller;
+use Automattic\PooCommerce\SubscriptionsEngine\Api\Plans;
+use Automattic\PooCommerce\SubscriptionsEngine\Api\PlanValidationException;
+use Automattic\PooCommerce\SubscriptionsEngine\Api\View\PlanView;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\Plan;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\PlanStatus;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\StatusRegistry;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage\PlanRepository;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage\SchemaInstaller;
 
 /**
- * @covers \Automattic\WooCommerce\SubscriptionsEngine\Api\Plans
- * @covers \Automattic\WooCommerce\SubscriptionsEngine\Api\PlanValidationException
+ * @covers \Automattic\PooCommerce\SubscriptionsEngine\Api\Plans
+ * @covers \Automattic\PooCommerce\SubscriptionsEngine\Api\PlanValidationException
  */
 class PlansTest extends EngineIntegrationTestCase {
 
 	private const OWNER = 'acme-subs';
 
-	private const HOOK = 'woocommerce_subscriptions_engine_validate_plan';
+	private const HOOK = 'poocommerce_subscriptions_engine_validate_plan';
 
 	public function tear_down(): void {
 		remove_all_actions( self::HOOK );

@@ -1,17 +1,17 @@
 <?php
 /**
- * Plugin Name: WooCommerce Settings UI Component Registration Test
+ * Plugin Name: PooCommerce Settings UI Component Registration Test
  * Description: Provides Settings UI component registration scenarios for end-to-end tests.
- * Plugin URI: https://github.com/woocommerce/woocommerce
- * Author: WooCommerce
+ * Plugin URI: https://github.com/poocommerce/poocommerce
+ * Author: PooCommerce
  *
- * @package woocommerce-settings-ui-component-registration-test
+ * @package poocommerce-settings-ui-component-registration-test
  */
 
 declare( strict_types=1 );
 
-use Automattic\WooCommerce\Admin\Settings\SettingsSection;
-use Automattic\WooCommerce\Admin\Settings\SettingsSectionRegistry;
+use Automattic\PooCommerce\Admin\Settings\SettingsSection;
+use Automattic\PooCommerce\Admin\Settings\SettingsSectionRegistry;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -28,7 +28,7 @@ final class WC_Settings_UI_Component_Registration_Test_Plugin {
 	 */
 	public static function init(): void {
 		add_action( 'admin_init', array( self::class, 'register_scripts' ) );
-		add_action( 'woocommerce_settings_sections_registration', array( self::class, 'register_sections' ) );
+		add_action( 'poocommerce_settings_sections_registration', array( self::class, 'register_sections' ) );
 	}
 
 	/**
@@ -44,7 +44,7 @@ final class WC_Settings_UI_Component_Registration_Test_Plugin {
 window.wc.settingsUi.registerSettingsExtension( {
 	scope: { page: 'products', section: 'settings_ui_component_registered' },
 	components: {
-		'woocommerce/settings-ui-component-test': function SettingsUIComponentTest( props ) {
+		'poocommerce/settings-ui-component-test': function SettingsUIComponentTest( props ) {
 			return window.wp.element.createElement(
 				'label',
 				{ 'data-testid': 'settings-ui-registered-component' },
@@ -85,7 +85,7 @@ JS
 	}
 
 	/**
-	 * Create a Settings UI test section after WooCommerce has loaded its settings classes.
+	 * Create a Settings UI test section after PooCommerce has loaded its settings classes.
 	 *
 	 * @param string $section_id   Section id.
 	 * @param string $script_handle Declared script handle.
@@ -159,7 +159,7 @@ JS
 						'type'  => 'title',
 					),
 					array(
-						'component' => 'woocommerce/settings-ui-component-test',
+						'component' => 'poocommerce/settings-ui-component-test',
 						'default'   => 'Initial value',
 						'id'        => $this->section_id . '_value',
 						'title'     => 'Component value',

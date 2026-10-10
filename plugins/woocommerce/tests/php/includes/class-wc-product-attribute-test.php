@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 /**
  * Tests for the WC_Product_Attribute class.
  *
- * @package WooCommerce\Tests\Includes
+ * @package PooCommerce\Tests\Includes
  */
 class WC_Product_Attribute_Test extends \WC_Unit_Test_Case {
 

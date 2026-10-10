@@ -1,9 +1,9 @@
 <?php declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Admin\Features\Fulfillments;
+namespace Automattic\PooCommerce\Tests\Admin\Features\Fulfillments;
 
-use Automattic\WooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
-use Automattic\WooCommerce\Admin\Features\Fulfillments\FulfillmentsRenderer;
+use Automattic\PooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
+use Automattic\PooCommerce\Admin\Features\Fulfillments\FulfillmentsRenderer;
 
 /**
  * Tests for FulfillmentsRenderer hooks.
@@ -29,9 +29,9 @@ class FulfillmentsRendererHooksTest extends \WC_Unit_Test_Case {
 	 */
 	public static function setUpBeforeClass(): void {
 		parent::setUpBeforeClass();
-		self::$original_fulfillments_flag = get_option( 'woocommerce_feature_fulfillments_enabled' );
-		update_option( 'woocommerce_feature_fulfillments_enabled', 'yes' );
-		$controller = wc_get_container()->get( \Automattic\WooCommerce\Admin\Features\Fulfillments\FulfillmentsController::class );
+		self::$original_fulfillments_flag = get_option( 'poocommerce_feature_fulfillments_enabled' );
+		update_option( 'poocommerce_feature_fulfillments_enabled', 'yes' );
+		$controller = wc_get_container()->get( \Automattic\PooCommerce\Admin\Features\Fulfillments\FulfillmentsController::class );
 		$controller->register();
 		$controller->initialize_fulfillments();
 	}
@@ -41,9 +41,9 @@ class FulfillmentsRendererHooksTest extends \WC_Unit_Test_Case {
 	 */
 	public static function tearDownAfterClass(): void {
 		if ( false === self::$original_fulfillments_flag ) {
-			delete_option( 'woocommerce_feature_fulfillments_enabled' );
+			delete_option( 'poocommerce_feature_fulfillments_enabled' );
 		} else {
-			update_option( 'woocommerce_feature_fulfillments_enabled', self::$original_fulfillments_flag );
+			update_option( 'poocommerce_feature_fulfillments_enabled', self::$original_fulfillments_flag );
 		}
 		parent::tearDownAfterClass();
 	}
@@ -70,8 +70,8 @@ class FulfillmentsRendererHooksTest extends \WC_Unit_Test_Case {
 
 		$this->renderer->register();
 
-		$this->assertNotFalse( has_filter( 'manage_woocommerce_page_wc-orders_columns', array( $this->renderer, 'add_fulfillment_columns' ) ) );
-		$this->assertNotFalse( has_action( 'manage_woocommerce_page_wc-orders_custom_column', array( $this->renderer, 'render_fulfillment_column_row_data' ) ) );
+		$this->assertNotFalse( has_filter( 'manage_poocommerce_page_wc-orders_columns', array( $this->renderer, 'add_fulfillment_columns' ) ) );
+		$this->assertNotFalse( has_action( 'manage_poocommerce_page_wc-orders_custom_column', array( $this->renderer, 'render_fulfillment_column_row_data' ) ) );
 		$this->assertNotFalse( has_action( 'admin_footer', array( $this->renderer, 'render_fulfillment_drawer_slot' ) ) );
 		$this->assertNotFalse( has_action( 'admin_enqueue_scripts', array( $this->renderer, 'load_components' ) ) );
 		$this->assertNotFalse( has_action( 'admin_init', array( $this->renderer, 'init_admin_hooks' ) ) );
@@ -115,8 +115,8 @@ class FulfillmentsRendererHooksTest extends \WC_Unit_Test_Case {
 		$this->renderer->register();
 
 		$this->renderer->init_admin_hooks();
-		$this->assertNotFalse( has_filter( 'bulk_actions-woocommerce_page_wc-orders', array( $this->renderer, 'define_fulfillment_bulk_actions' ) ) );
-		$this->assertNotFalse( has_filter( 'handle_bulk_actions-woocommerce_page_wc-orders', array( $this->renderer, 'handle_fulfillment_bulk_actions' ) ) );
+		$this->assertNotFalse( has_filter( 'bulk_actions-poocommerce_page_wc-orders', array( $this->renderer, 'define_fulfillment_bulk_actions' ) ) );
+		$this->assertNotFalse( has_filter( 'handle_bulk_actions-poocommerce_page_wc-orders', array( $this->renderer, 'handle_fulfillment_bulk_actions' ) ) );
 		$container->reset_replacement( CustomOrdersTableController::class );
 	}
 

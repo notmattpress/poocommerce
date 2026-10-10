@@ -6,7 +6,7 @@ import { PanelBody, SelectControl, TextControl } from '@wordpress/components';
 import { __, sprintf } from '@wordpress/i18n';
 import type { BlockEditProps } from '@wordpress/blocks';
 import type { ReactElement } from 'react';
-import { ProductQueryContext as Context } from '@woocommerce/blocks/product-query/types';
+import { ProductQueryContext as Context } from '@poocommerce/blocks/product-query/types';
 
 /**
  * Internal dependencies
@@ -35,11 +35,11 @@ const Edit = ( {
 	return (
 		<>
 			<InspectorControls>
-				<PanelBody title={ __( 'Badge content', 'woocommerce' ) }>
+				<PanelBody title={ __( 'Badge content', 'poocommerce' ) }>
 					<SelectControl
 						__next40pxDefaultSize
 						__nextHasNoMarginBottom
-						label={ __( 'Show', 'woocommerce' ) }
+						label={ __( 'Show', 'poocommerce' ) }
 						value={ attributes.badgeContent || 'text' }
 						onChange={ ( badgeContent ) => {
 							if (
@@ -52,15 +52,15 @@ const Edit = ( {
 						} }
 						options={ [
 							{
-								label: __( 'Text', 'woocommerce' ),
+								label: __( 'Text', 'poocommerce' ),
 								value: 'text',
 							},
 							{
-								label: __( 'Amount', 'woocommerce' ),
+								label: __( 'Amount', 'poocommerce' ),
 								value: 'amount',
 							},
 							{
-								label: __( 'Percentage', 'woocommerce' ),
+								label: __( 'Percentage', 'poocommerce' ),
 								value: 'percentage',
 							},
 						] }
@@ -70,18 +70,18 @@ const Edit = ( {
 						<TextControl
 							__next40pxDefaultSize
 							__nextHasNoMarginBottom
-							label={ __( 'Text', 'woocommerce' ) }
+							label={ __( 'Text', 'poocommerce' ) }
 							help={ sprintf(
 								/* translators: %s: default sale badge text. */
 								__(
 									'If left empty, the badge will display ‘%s’.',
-									'woocommerce'
+									'poocommerce'
 								),
-								__( 'Sale', 'woocommerce' )
+								__( 'Sale', 'poocommerce' )
 							) }
 							value={
 								attributes.saleText ??
-								__( 'Sale', 'woocommerce' )
+								__( 'Sale', 'poocommerce' )
 							}
 							onChange={ ( saleText ) =>
 								setAttributes( { saleText } )
@@ -92,7 +92,7 @@ const Edit = ( {
 							<TextControl
 								__next40pxDefaultSize
 								__nextHasNoMarginBottom
-								label={ __( 'Prefix', 'woocommerce' ) }
+								label={ __( 'Prefix', 'poocommerce' ) }
 								value={ attributes.prefix ?? '' }
 								onChange={ ( prefix ) =>
 									setAttributes( { prefix } )
@@ -101,7 +101,7 @@ const Edit = ( {
 							<TextControl
 								__next40pxDefaultSize
 								__nextHasNoMarginBottom
-								label={ __( 'Suffix', 'woocommerce' ) }
+								label={ __( 'Suffix', 'poocommerce' ) }
 								value={ attributes.suffix ?? '' }
 								onChange={ ( suffix ) =>
 									setAttributes( { suffix } )

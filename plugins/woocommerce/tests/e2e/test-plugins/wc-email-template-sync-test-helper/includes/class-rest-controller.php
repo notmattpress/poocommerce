@@ -144,7 +144,7 @@ class REST_Controller {
 	public function reset_post( WP_REST_Request $request ): WP_REST_Response {
 		$email_id = (string) $request->get_param( 'email_id' );
 
-		$manager = \Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsManager::get_instance();
+		$manager = \Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsManager::get_instance();
 
 		$existing_post_id = (int) $manager->get_email_template_post_id( $email_id );
 		if ( $existing_post_id > 0 ) {
@@ -161,7 +161,7 @@ class REST_Controller {
 			);
 		}
 
-		$generator = new \Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsGenerator();
+		$generator = new \Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsGenerator();
 
 		try {
 			$new_post_id = $generator->create_draft( $email );
@@ -343,7 +343,7 @@ class REST_Controller {
 		$email_id = (string) $request->get_param( 'email_id' );
 		$mode     = (string) $request->get_param( 'mode' );
 
-		$manager = \Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsManager::get_instance();
+		$manager = \Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsManager::get_instance();
 		$email   = $manager->get_email_by_id( $email_id );
 		if ( ! $email instanceof \WC_Email ) {
 			return new WP_REST_Response( array( 'error' => "Unknown email_id {$email_id}" ), 404 );
@@ -354,7 +354,7 @@ class REST_Controller {
 			delete_option( Template_HTML_Overrides::OPTION_NAME );
 		}
 
-		$canonical = \Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsGenerator::compute_canonical_post_content( $email );
+		$canonical = \Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsGenerator::compute_canonical_post_content( $email );
 
 		if ( 'old' === $mode && is_array( $existing_override ) && ! empty( $existing_override ) ) {
 			update_option( Template_HTML_Overrides::OPTION_NAME, $existing_override, false );
@@ -432,15 +432,15 @@ class REST_Controller {
 	public function trigger_sweep( WP_REST_Request $request ): WP_REST_Response {
 		unset( $request );
 
-		\Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateDivergenceDetector::run_sweep();
+		\Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateDivergenceDetector::run_sweep();
 
 		// Run the auto-applier inline so unmodified posts are stamped IN_SYNC before
 		// this response returns. In production the applier is deferred via Action
 		// Scheduler; calling run() directly here keeps the E2E request synchronous.
-		\Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateAutoApplier::run();
+		\Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateAutoApplier::run();
 
-		$registry = \Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateSyncRegistry::get_sync_enabled_emails();
-		$manager  = \Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsManager::get_instance();
+		$registry = \Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateSyncRegistry::get_sync_enabled_emails();
+		$manager  = \Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsManager::get_instance();
 
 		$classifications = array();
 		foreach ( array_keys( $registry ) as $email_id ) {
@@ -448,7 +448,7 @@ class REST_Controller {
 			if ( ! $post instanceof \WP_Post ) {
 				continue;
 			}
-			$status = (string) get_post_meta( (int) $post->ID, \Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateDivergenceDetector::STATUS_META_KEY, true );
+			$status = (string) get_post_meta( (int) $post->ID, \Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateDivergenceDetector::STATUS_META_KEY, true );
 			if ( '' !== $status ) {
 				$classifications[ (int) $post->ID ] = $status;
 			}
@@ -506,7 +506,7 @@ class REST_Controller {
 	/**
 	 * Permission callback used by every endpoint. Requires the manage_options
 	 * capability. The plugin is only mounted in test environments via .wp-env.e2e.json — it
-	 * does not ship in any production WooCommerce build — which provides the second
+	 * does not ship in any production PooCommerce build — which provides the second
 	 * layer of defense.
 	 *
 	 * @param WP_REST_Request $request The REST request (unused).

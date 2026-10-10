@@ -2,7 +2,7 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Tax;
+namespace Automattic\PooCommerce\Internal\Tax;
 
 /**
  * Data store for tax rates.
@@ -31,7 +31,7 @@ class TaxRateDataStore {
 		if ( ! empty( $uncached_ids ) ) {
 			$list = implode( ', ', $uncached_ids );
 			// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-			$rows = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}woocommerce_tax_rates WHERE tax_rate_id IN ( $list )" );
+			$rows = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}poocommerce_tax_rates WHERE tax_rate_id IN ( $list )" );
 			foreach ( $rows as $row ) {
 				$this->rate_objects_cache[ (int) $row->tax_rate_id ] = $row;
 			}

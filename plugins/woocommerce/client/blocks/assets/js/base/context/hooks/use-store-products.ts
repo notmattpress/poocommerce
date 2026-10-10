@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { Query, ProductResponseItem } from '@woocommerce/types';
+import { Query, ProductResponseItem } from '@poocommerce/types';
 /**
  * Internal dependencies
  */

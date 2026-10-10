@@ -1,5 +1,5 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
 /**
  * ProductCategories class.
@@ -235,8 +235,8 @@ class ProductCategories extends AbstractDynamicBlock {
 	 */
 	protected function renderDropdown( $categories, $attributes, $uid ) {
 		$aria_label = empty( $attributes['hasCount'] ) ?
-			__( 'List of categories', 'woocommerce' ) :
-			__( 'List of categories with their product counts', 'woocommerce' );
+			__( 'List of categories', 'poocommerce' ) :
+			__( 'List of categories with their product counts', 'poocommerce' );
 
 		$output = '
 			<div class="wc-block-product-categories__dropdown">
@@ -244,11 +244,11 @@ class ProductCategories extends AbstractDynamicBlock {
 				class="screen-reader-text"
 					for="' . esc_attr( $uid ) . '-select"
 				>
-					' . esc_html__( 'Select a category', 'woocommerce' ) . '
+					' . esc_html__( 'Select a category', 'poocommerce' ) . '
 				</label>
 				<select aria-label="' . esc_attr( $aria_label ) . '" id="' . esc_attr( $uid ) . '-select">
 					<option value="false" hidden>
-						' . esc_html__( 'Select a category', 'woocommerce' ) . '
+						' . esc_html__( 'Select a category', 'poocommerce' ) . '
 					</option>
 					' . $this->renderDropdownOptions( $categories, $attributes, $uid ) . '
 				</select>
@@ -256,7 +256,7 @@ class ProductCategories extends AbstractDynamicBlock {
 			<button
 				type="button"
 				class="wc-block-product-categories__button"
-				aria-label="' . esc_html__( 'Go to category', 'woocommerce' ) . '"
+				aria-label="' . esc_html__( 'Go to category', 'poocommerce' ) . '"
 				onclick="const url = document.getElementById( \'' . esc_attr( $uid ) . '-select\' ).value; if ( \'false\' !== url ) document.location.href = url;"
 			>
 				<svg
@@ -357,10 +357,10 @@ class ProductCategories extends AbstractDynamicBlock {
 	 *
 	 * @param \WP_Term $category Term object.
 	 * @param array    $attributes Block attributes. Default empty array.
-	 * @param string   $size Image size, defaults to 'woocommerce_thumbnail'.
+	 * @param string   $size Image size, defaults to 'poocommerce_thumbnail'.
 	 * @return string
 	 */
-	public function get_image_html( $category, $attributes, $size = 'woocommerce_thumbnail' ) {
+	public function get_image_html( $category, $attributes, $size = 'poocommerce_thumbnail' ) {
 		if ( empty( $attributes['hasImage'] ) ) {
 			return '';
 		}
@@ -368,10 +368,10 @@ class ProductCategories extends AbstractDynamicBlock {
 		$image_id = get_term_meta( $category->term_id, 'thumbnail_id', true );
 
 		if ( ! $image_id ) {
-			return '<span class="wc-block-product-categories-list-item__image wc-block-product-categories-list-item__image--placeholder">' . wc_placeholder_img( 'woocommerce_thumbnail' ) . '</span>';
+			return '<span class="wc-block-product-categories-list-item__image wc-block-product-categories-list-item__image--placeholder">' . wc_placeholder_img( 'poocommerce_thumbnail' ) . '</span>';
 		}
 
-		return '<span class="wc-block-product-categories-list-item__image">' . wp_get_attachment_image( $image_id, 'woocommerce_thumbnail' ) . '</span>';
+		return '<span class="wc-block-product-categories-list-item__image">' . wp_get_attachment_image( $image_id, 'poocommerce_thumbnail' ) . '</span>';
 	}
 
 	/**
@@ -392,7 +392,7 @@ class ProductCategories extends AbstractDynamicBlock {
 
 		$screen_reader_text = sprintf(
 			/* translators: %s number of products in cart. */
-			_n( '%d product', '%d products', absint( $category->count ), 'woocommerce' ),
+			_n( '%d product', '%d products', absint( $category->count ), 'poocommerce' ),
 			absint( $category->count )
 		);
 

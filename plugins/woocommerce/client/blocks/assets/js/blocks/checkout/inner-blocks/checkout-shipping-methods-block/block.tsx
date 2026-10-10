@@ -5,29 +5,29 @@ import { __ } from '@wordpress/i18n';
 import {
 	useCustomerData,
 	useShippingData,
-} from '@woocommerce/base-context/hooks';
-import { ShippingRatesControl } from '@woocommerce/base-components/cart-checkout';
+} from '@poocommerce/base-context/hooks';
+import { ShippingRatesControl } from '@poocommerce/base-components/cart-checkout';
 import {
 	getShippingRatesPackageCount,
 	hasCollectableRate,
 	hasAllFieldsForShippingRates,
-} from '@woocommerce/base-utils';
-import { getCurrencyFromPriceResponse } from '@woocommerce/price-format';
+} from '@poocommerce/base-utils';
+import { getCurrencyFromPriceResponse } from '@poocommerce/price-format';
 import {
 	FormattedMonetaryAmount,
 	StoreNoticesContainer,
-} from '@woocommerce/blocks-components';
-import { useEditorContext, noticeContexts } from '@woocommerce/base-context';
+} from '@poocommerce/blocks-components';
+import { useEditorContext, noticeContexts } from '@poocommerce/base-context';
 import { decodeEntities } from '@wordpress/html-entities';
-import { getSetting } from '@woocommerce/settings';
+import { getSetting } from '@poocommerce/settings';
 import type {
 	PackageRateOption,
 	CartShippingPackageShippingRate,
-} from '@woocommerce/types';
-import NoticeBanner from '@woocommerce/base-components/notice-banner';
+} from '@poocommerce/types';
+import NoticeBanner from '@poocommerce/base-components/notice-banner';
 import type { ReactElement } from 'react';
 import { useMemo } from '@wordpress/element';
-import ReadMore from '@woocommerce/base-components/read-more';
+import ReadMore from '@poocommerce/base-components/read-more';
 
 /**
  * Renders a shipping rate control option.
@@ -45,7 +45,7 @@ const renderShippingRatesControlOption = (
 	const secondaryLabel =
 		priceWithTaxes === 0 ? (
 			<span className="wc-block-checkout__shipping-option--free">
-				{ __( 'Free', 'woocommerce' ) }
+				{ __( 'Free', 'poocommerce' ) }
 			</span>
 		) : (
 			<FormattedMonetaryAmount
@@ -77,7 +77,7 @@ const NoShippingAddressMessage = () => {
 		>
 			{ __(
 				'Enter a shipping address to view shipping options.',
-				'woocommerce'
+				'poocommerce'
 			) }
 		</p>
 	);
@@ -148,7 +148,7 @@ const Block = ( {
 								>
 									{ __(
 										'No shipping options are available for this address. Please verify the address is correct or try a different address.',
-										'woocommerce'
+										'poocommerce'
 									) }
 								</NoticeBanner>
 							) : (
@@ -160,7 +160,7 @@ const Block = ( {
 					collapsible={ false }
 					shippingRates={ filteredShippingRates }
 					isLoadingRates={ isLoadingRates }
-					context="woocommerce/checkout"
+					context="poocommerce/checkout"
 				/>
 			) }
 		</>

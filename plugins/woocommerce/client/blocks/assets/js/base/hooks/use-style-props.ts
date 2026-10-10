@@ -2,7 +2,7 @@
  * External dependencies
  */
 import clsx from 'clsx';
-import { isString, isObject } from '@woocommerce/types';
+import { isString, isObject } from '@poocommerce/types';
 import type { Style as StyleEngineProperties } from '@wordpress/style-engine/src/types';
 import type { CSSProperties } from 'react';
 

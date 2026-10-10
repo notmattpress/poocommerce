@@ -4,11 +4,11 @@ declare( strict_types = 1 );
 // phpcs:disable Universal.Namespaces.DisallowCurlyBraceSyntax.Forbidden -- need to override filter_input
 // phpcs:disable Universal.Files.SeparateFunctionsFromOO.Mixed -- same
 // phpcs:disable Universal.Namespaces.OneDeclarationPerFile.MultipleFound -- same
-namespace Automattic\WooCommerce\Tests\Internal\Logging {
+namespace Automattic\PooCommerce\Tests\Internal\Logging {
 
 	use Automattic\Jetpack\Constants;
-	use Automattic\WooCommerce\Internal\Logging\RemoteLogger;
-	use Automattic\WooCommerce\Utilities\StringUtil;
+	use Automattic\PooCommerce\Internal\Logging\RemoteLogger;
+	use Automattic\PooCommerce\Utilities\StringUtil;
 	use WC_Cache_Helper;
 	use WC_Rate_Limiter;
 	/**
@@ -64,7 +64,7 @@ namespace Automattic\WooCommerce\Tests\Internal\Logging {
 				try {
 					parent::tearDown();
 				} finally {
-					wp_cache_delete( 'woocommerce_feature_remote_logging_enabled', 'options' );
+					wp_cache_delete( 'poocommerce_feature_remote_logging_enabled', 'options' );
 					wp_cache_delete( 'alloptions', 'options' );
 					wp_cache_delete( 'notoptions', 'options' );
 
@@ -114,11 +114,11 @@ namespace Automattic\WooCommerce\Tests\Internal\Logging {
 			return array(
 				'feature flag disabled' => array(
 					'condition' => 'feature flag disabled',
-					'setup'     => fn() => update_option( 'woocommerce_feature_remote_logging_enabled', 'no' ),
+					'setup'     => fn() => update_option( 'poocommerce_feature_remote_logging_enabled', 'no' ),
 				),
 				'tracking opted out'    => array(
 					'condition' => 'tracking opted out',
-					'setup'     => fn() => add_filter( 'option_woocommerce_allow_tracking', fn() => 'no' ),
+					'setup'     => fn() => add_filter( 'option_poocommerce_allow_tracking', fn() => 'no' ),
 				),
 				'outdated version'      => array(
 					'condition' => 'outdated version',
@@ -137,8 +137,8 @@ namespace Automattic\WooCommerce\Tests\Internal\Logging {
 		 * @testdox should_current_version_be_logged method behaves correctly
 		 * @dataProvider should_current_version_be_logged_provider
 		 *
-		 * @param string $current_version The current WooCommerce version.
-		 * @param string $new_version The new WooCommerce version.
+		 * @param string $current_version The current PooCommerce version.
+		 * @param string $new_version The new PooCommerce version.
 		 * @param string $transient_value The value of the transient.
 		 * @param bool   $expected The expected result.
 		 */
@@ -178,22 +178,22 @@ namespace Automattic\WooCommerce\Tests\Internal\Logging {
 		}
 
 		/**
-		 * @testdox fetch_new_woocommerce_version method returns correct version
+		 * @testdox fetch_new_poocommerce_version method returns correct version
 		 */
-		public function test_fetch_new_woocommerce_version() {
+		public function test_fetch_new_poocommerce_version() {
 			$this->setup_mock_plugin_updates( '9.3.0' );
 
-			$result = $this->invoke_private_method( $this->sut, 'fetch_new_woocommerce_version', array() );
+			$result = $this->invoke_private_method( $this->sut, 'fetch_new_poocommerce_version', array() );
 			$this->assertEquals( '9.3.0', $result, 'The result should be the latest version when an update is available.' );
 		}
 
 		/**
-		 * @testdox fetch_new_woocommerce_version method returns null when no update is available
+		 * @testdox fetch_new_poocommerce_version method returns null when no update is available
 		 */
-		public function test_fetch_new_woocommerce_version_no_update() {
+		public function test_fetch_new_poocommerce_version_no_update() {
 			add_filter( 'pre_site_transient_update_plugins', fn() => array() );
 
-			$result = $this->invoke_private_method( $this->sut, 'fetch_new_woocommerce_version', array() );
+			$result = $this->invoke_private_method( $this->sut, 'fetch_new_poocommerce_version', array() );
 			$this->assertNull( $result, 'The result should be null when no update is available.' );
 		}
 
@@ -227,17 +227,17 @@ namespace Automattic\WooCommerce\Tests\Internal\Logging {
 					'Fatal error occurred at line 123 in ' . ABSPATH . 'wp-content/file.php',
 					array( 'tags' => array( 'tag1', 'tag2' ) ),
 					array(
-						'feature'  => 'woocommerce_core',
+						'feature'  => 'poocommerce_core',
 						'severity' => 'error',
 						'message'  => 'Fatal error occurred at line 123 in ./wp-content/file.php',
-						'tags'     => array( 'woocommerce', 'php', 'tag1', 'tag2' ),
+						'tags'     => array( 'poocommerce', 'php', 'tag1', 'tag2' ),
 					),
 				),
 				'log with backtrace'        => array(
 					'error',
 					'Test error message',
-					array( 'backtrace' => ABSPATH . 'wp-content/plugins/woocommerce/file.php' ),
-					array( 'trace' => './woocommerce/file.php' ),
+					array( 'backtrace' => ABSPATH . 'wp-content/plugins/poocommerce/file.php' ),
+					array( 'trace' => './poocommerce/file.php' ),
 				),
 				'log with extra attributes' => array(
 					'error',
@@ -260,7 +260,7 @@ namespace Automattic\WooCommerce\Tests\Internal\Logging {
 					'Test error message',
 					array( 'error' => array( 'file' => WC_ABSPATH . 'includes/class-wc-test.php' ) ),
 					array(
-						'file' => './woocommerce/includes/class-wc-test.php',
+						'file' => './poocommerce/includes/class-wc-test.php',
 					),
 				),
 			);
@@ -292,7 +292,7 @@ namespace Automattic\WooCommerce\Tests\Internal\Logging {
 		 */
 		public function test_sanitize_request_uri_respects_whitelist_filter() {
 			add_filter(
-				'woocommerce_remote_logger_request_uri_whitelist',
+				'poocommerce_remote_logger_request_uri_whitelist',
 				function ( $whitelist ) {
 					$whitelist[] = 'custom_param';
 					return $whitelist;
@@ -404,7 +404,7 @@ namespace Automattic\WooCommerce\Tests\Internal\Logging {
 
 			$this->sut->method( 'is_remote_logging_allowed' )->willReturn( true );
 
-			add_filter( 'woocommerce_remote_logger_formatted_log_data', fn() => null, 10, 4 );
+			add_filter( 'poocommerce_remote_logger_formatted_log_data', fn() => null, 10, 4 );
 			add_filter( 'pre_http_request', fn() => $this->fail( 'wp_safe_remote_post should not be called' ), 10, 3 );
 
 			$this->assertFalse( $this->sut->handle( time(), 'error', 'Test message', array( 'remote-logging' => true ) ) );
@@ -436,7 +436,7 @@ namespace Automattic\WooCommerce\Tests\Internal\Logging {
 			$this->sut->method( 'is_remote_logging_allowed' )->willReturn( true );
 			$request_count = 0;
 			$request_url   = null;
-			add_filter( 'option_woocommerce_allow_tracking', fn() => 'yes' );
+			add_filter( 'option_poocommerce_allow_tracking', fn() => 'yes' );
 
 			add_filter(
 				'pre_http_request',
@@ -513,7 +513,7 @@ namespace Automattic\WooCommerce\Tests\Internal\Logging {
 			$wp_admin_dir    = StringUtil::normalize_local_path_slashes( ABSPATH . 'wp-admin' );
 
 			return array(
-				'WooCommerce error message' => array(
+				'PooCommerce error message' => array(
 					'Error in ' . $wc_plugin_dir . 'includes/class-wc-cart.php',
 					array(
 						'source'    => 'fatal-errors',
@@ -529,7 +529,7 @@ namespace Automattic\WooCommerce\Tests\Internal\Logging {
 					),
 					true,
 				),
-				'WooCommerce backtrace'     => array(
+				'PooCommerce backtrace'     => array(
 					'Some error message',
 					array(
 						'source'    => 'fatal-errors',
@@ -574,7 +574,7 @@ namespace Automattic\WooCommerce\Tests\Internal\Logging {
 		 */
 		public function test_sanitize() {
 			$message  = WC_ABSPATH . 'includes/class-wc-test.php on line 123';
-			$expected = './woocommerce/includes/class-wc-test.php on line 123';
+			$expected = './poocommerce/includes/class-wc-test.php on line 123';
 			$result   = $this->invoke_private_method( $this->sut, 'sanitize', array( $message ) );
 			$this->assertEquals( $expected, $result );
 		}
@@ -587,7 +587,7 @@ namespace Automattic\WooCommerce\Tests\Internal\Logging {
 				WC_ABSPATH . 'includes/class-wc-test.php:123',
 				ABSPATH . 'wp-includes/plugin.php:456',
 			);
-			$expected = "./woocommerce/includes/class-wc-test.php:123\n./wp-includes/plugin.php:456";
+			$expected = "./poocommerce/includes/class-wc-test.php:123\n./wp-includes/plugin.php:456";
 			$result   = $this->invoke_private_method( $this->sut, 'sanitize_trace', array( $trace ) );
 			$this->assertEquals( $expected, $result );
 		}
@@ -683,7 +683,7 @@ namespace Automattic\WooCommerce\Tests\Internal\Logging {
 		 */
 		public function test_sanitize_with_custom_filter() {
 			add_filter(
-				'woocommerce_remote_logger_sanitized_content',
+				'poocommerce_remote_logger_sanitized_content',
 				function ( $sanitized ) {
 					return str_replace( 'test', 'filtered', $sanitized );
 				},
@@ -692,7 +692,7 @@ namespace Automattic\WooCommerce\Tests\Internal\Logging {
 			);
 
 			$message  = WC_ABSPATH . 'includes/class-wc-test.php on line 123';
-			$expected = './woocommerce/includes/class-wc-filtered.php on line 123';
+			$expected = './poocommerce/includes/class-wc-filtered.php on line 123';
 			$result   = $this->invoke_private_method( $this->sut, 'sanitize', array( $message ) );
 			$this->assertEquals( $expected, $result );
 		}
@@ -703,23 +703,23 @@ namespace Automattic\WooCommerce\Tests\Internal\Logging {
 		 * @param bool $enabled Whether remote logging is enabled.
 		 */
 		private function setup_remote_logging_conditions( $enabled = true ) {
-			update_option( 'woocommerce_feature_remote_logging_enabled', $enabled ? 'yes' : 'no' );
-			add_filter( 'option_woocommerce_allow_tracking', fn() => 'yes' );
+			update_option( 'poocommerce_feature_remote_logging_enabled', $enabled ? 'yes' : 'no' );
+			add_filter( 'option_poocommerce_allow_tracking', fn() => 'yes' );
 			$this->setup_mock_plugin_updates( $enabled ? WC()->version : '9.0.0' );
 		}
 
 			/**
 			 * Set up mock plugin updates.
 			 *
-			 * @param string $new_version The new version of WooCommerce to simulate.
+			 * @param string $new_version The new version of PooCommerce to simulate.
 			 */
 		private function setup_mock_plugin_updates( $new_version ) {
 			$update_plugins = (object) array(
 				'response' => array(
 					WC_PLUGIN_BASENAME => (object) array(
 						'new_version' => $new_version,
-						'package'     => 'https://downloads.wordpress.org/plugin/woocommerce.zip',
-						'slug'        => 'woocommerce',
+						'package'     => 'https://downloads.wordpress.org/plugin/poocommerce.zip',
+						'slug'        => 'poocommerce',
 					),
 				),
 			);
@@ -777,7 +777,7 @@ namespace Automattic\WooCommerce\Tests\Internal\Logging {
 /**
  * Mocks for global functions used in RemoteLogger.php
  */
-namespace Automattic\WooCommerce\Internal\Logging {
+namespace Automattic\PooCommerce\Internal\Logging {
 	/**
 	 * The filter_input function will return NULL if we change the $_SERVER variables at runtime, so we
 	 * need to override it in RemoteLogger's namespace when we want it to return a specific value for testing.

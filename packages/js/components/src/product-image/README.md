@@ -7,7 +7,7 @@ placeholder will be displayed.
 ## Usage
 
 ```jsx
-// Use a real WooCommerce Product here.
+// Use a real PooCommerce Product here.
 const product = {
 	images: [
 		{
@@ -26,5 +26,5 @@ Name | Type | Default | Description
 `width` | Number | `60` | The width of image to display
 `height` | Number | `60` | The height of image to display
 `className` | String | `''` | Additional CSS classes
-`product` | Object | `null` | Product or variation object. The image to display will be pulled from `product.images` or `variation.image`. See [Product properties](https://developer.woocommerce.com/docs/apis/rest-api/v3/products/#product-properties) and [Product variation properties](https://developer.woocommerce.com/docs/apis/rest-api/v3/product-variations/#product-variation-properties).
+`product` | Object | `null` | Product or variation object. The image to display will be pulled from `product.images` or `variation.image`. See [Product properties](https://developer.poocommerce.com/docs/apis/rest-api/v3/products/#product-properties) and [Product variation properties](https://developer.poocommerce.com/docs/apis/rest-api/v3/product-variations/#product-variation-properties).
 `alt` | String | `null` | Text to use as the image alt attribute

@@ -4,7 +4,7 @@
 import { __ } from '@wordpress/i18n';
 import { applyFilters } from '@wordpress/hooks';
 import { lazy, Suspense } from '@wordpress/element';
-import { Spinner } from '@woocommerce/components';
+import { Spinner } from '@poocommerce/components';
 import { arrowRight, chartBar } from '@wordpress/icons';
 import ListOrdered from 'gridicons/dist/list-ordered';
 
@@ -45,7 +45,7 @@ const StorePerformance = ( props ) => (
 	</Suspense>
 );
 
-export const DEFAULT_SECTIONS_FILTER = 'woocommerce_dashboard_default_sections';
+export const DEFAULT_SECTIONS_FILTER = 'poocommerce_dashboard_default_sections';
 
 /**
  * An object defining a dashboard section.
@@ -62,14 +62,14 @@ export const DEFAULT_SECTIONS_FILTER = 'woocommerce_dashboard_default_sections';
 /**
  * Default Dashboard sections. Defaults are Store Performance, Charts, and Leaderboards
  *
- * @filter woocommerce_dashboard_default_sections
+ * @filter poocommerce_dashboard_default_sections
  * @param {Array.<section>} sections Report filters.
  */
 export default applyFilters( DEFAULT_SECTIONS_FILTER, [
 	{
 		key: 'store-performance',
 		component: StorePerformance,
-		title: __( 'Performance', 'woocommerce' ),
+		title: __( 'Performance', 'poocommerce' ),
 		isVisible: true,
 		icon: arrowRight,
 		hiddenBlocks: [
@@ -88,7 +88,7 @@ export default applyFilters( DEFAULT_SECTIONS_FILTER, [
 	{
 		key: 'charts',
 		component: DashboardCharts,
-		title: __( 'Charts', 'woocommerce' ),
+		title: __( 'Charts', 'poocommerce' ),
 		isVisible: true,
 		icon: chartBar,
 		hiddenBlocks: [
@@ -109,7 +109,7 @@ export default applyFilters( DEFAULT_SECTIONS_FILTER, [
 	{
 		key: 'leaderboards',
 		component: Leaderboards,
-		title: __( 'Leaderboards', 'woocommerce' ),
+		title: __( 'Leaderboards', 'poocommerce' ),
 		isVisible: true,
 		icon: <ListOrdered />,
 		hiddenBlocks: [ 'coupons', 'customers' ],

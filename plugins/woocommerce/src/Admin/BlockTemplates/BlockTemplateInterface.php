@@ -1,9 +1,9 @@
 <?php
 /**
- * WooCommerce Block Templates template interface compatibility shim.
+ * PooCommerce Block Templates template interface compatibility shim.
  */
 
-namespace Automattic\WooCommerce\Admin\BlockTemplates;
+namespace Automattic\PooCommerce\Admin\BlockTemplates;
 
 /**
  * Removed block templates template interface.

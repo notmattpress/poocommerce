@@ -2,12 +2,12 @@
 /**
  * CodeHacker class file.
  *
- * @package WooCommerce\Testing
+ * @package PooCommerce\Testing
  */
 
 //phpcs:disable WordPress.WP.AlternativeFunctions, WordPress.PHP.NoSilencedErrors.Discouraged
 
-namespace Automattic\WooCommerce\Testing\Tools\CodeHacking;
+namespace Automattic\PooCommerce\Testing\Tools\CodeHacking;
 
 use ReflectionObject;
 use ReflectionException;

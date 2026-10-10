@@ -1,12 +1,12 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Blocks\Shipping;
+namespace Automattic\PooCommerce\Blocks\Shipping;
 
 /**
  * REST controller for Local Pickup location settings.
  *
- * Exposes /wc/v3/pickup-locations so users with the manage_woocommerce
+ * Exposes /wc/v3/pickup-locations so users with the manage_poocommerce
  * capability (e.g. Shop Managers) can save Local Pickup settings without
  * requiring the manage_options capability needed by /wp/v2/settings.
  *
@@ -44,11 +44,11 @@ class PickupLocationsRestController extends \WP_REST_Controller {
 					'permission_callback' => array( $this, 'update_settings_permissions_check' ),
 					'args'                => array(
 						'pickup_location_settings' => array(
-							'description' => __( 'Local pickup method settings.', 'woocommerce' ),
+							'description' => __( 'Local pickup method settings.', 'poocommerce' ),
 							'type'        => 'object',
 						),
 						'pickup_locations'         => array(
-							'description' => __( 'List of local pickup locations.', 'woocommerce' ),
+							'description' => __( 'List of local pickup locations.', 'poocommerce' ),
 							'type'        => 'array',
 						),
 					),
@@ -66,8 +66,8 @@ class PickupLocationsRestController extends \WP_REST_Controller {
 	public function update_settings_permissions_check( $request ) {
 		if ( ! wc_rest_check_manager_permissions( 'settings', 'edit' ) ) {
 			return new \WP_Error(
-				'woocommerce_rest_cannot_edit',
-				__( 'Sorry, you cannot edit this resource.', 'woocommerce' ),
+				'poocommerce_rest_cannot_edit',
+				__( 'Sorry, you cannot edit this resource.', 'poocommerce' ),
 				array( 'status' => rest_authorization_required_code() )
 			);
 		}
@@ -87,7 +87,7 @@ class PickupLocationsRestController extends \WP_REST_Controller {
 
 		if ( is_array( $settings ) ) {
 			$settings = $this->sanitize_pickup_location_settings( $settings );
-			update_option( 'woocommerce_pickup_location_settings', $settings );
+			update_option( 'poocommerce_pickup_location_settings', $settings );
 		}
 
 		if ( is_array( $locations ) ) {
@@ -123,7 +123,7 @@ class PickupLocationsRestController extends \WP_REST_Controller {
 			'local_pickup_save_changes',
 			array(
 				'local_pickup_enabled'     => 'yes' === ( $settings['enabled'] ?? '' ),
-				'title'                    => __( 'Pickup', 'woocommerce' ) === ( $settings['title'] ?? '' ),
+				'title'                    => __( 'Pickup', 'poocommerce' ) === ( $settings['title'] ?? '' ),
 				'price'                    => '' === $cost,
 				'cost'                     => '' === $cost ? 0 : $cost,
 				'taxes'                    => $settings['tax_status'] ?? '',

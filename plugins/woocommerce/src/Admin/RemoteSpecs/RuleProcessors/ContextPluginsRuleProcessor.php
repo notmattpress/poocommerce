@@ -2,7 +2,7 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Admin\RemoteSpecs\RuleProcessors;
+namespace Automattic\PooCommerce\Admin\RemoteSpecs\RuleProcessors;
 
 /**
  * Rule processor for context_plugins rules.
@@ -20,15 +20,15 @@ class ContextPluginsRuleProcessor implements RuleProcessorInterface {
 	/**
 	 * The list of plugin objects.
 	 *
-	 * Plugin object is unmodified object from https://woocommerce.com/wp-json/wccom/obw-free-extensions/4.0/extensions.json
+	 * Plugin object is unmodified object from https://poocommerce.com/wp-json/wccom/obw-free-extensions/4.0/extensions.json
 	 *
 	 * Example:
 	 * {
-	 *   "id": "WooCommerce Shipping",
+	 *   "id": "PooCommerce Shipping",
 	 *   "description": "description",
 	 *   "is_visible": true,
 	 *   "is_built_by_wc": true,
-	 *   "key": "woocommerce-shipping",
+	 *   "key": "poocommerce-shipping",
 	 * }
 	 *
 	 * @var array a list of plugins.

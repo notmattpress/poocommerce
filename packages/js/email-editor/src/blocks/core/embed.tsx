@@ -134,7 +134,7 @@ function removeUnsupportedVariations() {
 function addEmailEmbedAdjustments() {
 	addFilterForEmail(
 		'editor.BlockEdit',
-		'woocommerce-email-editor/embed-adjustments',
+		'poocommerce-email-editor/embed-adjustments',
 		withEmailEmbedAdjustments
 	);
 }

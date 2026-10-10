@@ -2,16 +2,16 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\PushNotifications\Services;
+namespace Automattic\PooCommerce\Tests\Internal\PushNotifications\Services;
 
-use Automattic\WooCommerce\Internal\PushNotifications\Dispatchers\InternalNotificationDispatcher;
-use Automattic\WooCommerce\Internal\PushNotifications\Notifications\NewOrderNotification;
-use Automattic\WooCommerce\Internal\PushNotifications\Notifications\NewReviewNotification;
-use Automattic\WooCommerce\Internal\PushNotifications\Notifications\StockNotification;
-use Automattic\WooCommerce\Internal\PushNotifications\Services\NotificationProcessor;
-use Automattic\WooCommerce\Internal\PushNotifications\Services\PendingNotificationStore;
-use Automattic\WooCommerce\Internal\PushNotifications\Services\NotificationStepLogger;
-use Automattic\WooCommerce\Tests\Internal\PushNotifications\Helpers\PushNotificationsTestTrait;
+use Automattic\PooCommerce\Internal\PushNotifications\Dispatchers\InternalNotificationDispatcher;
+use Automattic\PooCommerce\Internal\PushNotifications\Notifications\NewOrderNotification;
+use Automattic\PooCommerce\Internal\PushNotifications\Notifications\NewReviewNotification;
+use Automattic\PooCommerce\Internal\PushNotifications\Notifications\StockNotification;
+use Automattic\PooCommerce\Internal\PushNotifications\Services\NotificationProcessor;
+use Automattic\PooCommerce\Internal\PushNotifications\Services\PendingNotificationStore;
+use Automattic\PooCommerce\Internal\PushNotifications\Services\NotificationStepLogger;
+use Automattic\PooCommerce\Tests\Internal\PushNotifications\Helpers\PushNotificationsTestTrait;
 use WC_Helper_Order;
 use WC_Unit_Test_Case;
 
@@ -127,7 +127,7 @@ class PendingNotificationStoreTest extends WC_Unit_Test_Case {
 
 	/**
 	 * A repeat trigger for an already-sent notification (e.g.
-	 * `woocommerce_low_stock` firing on every reduction below the threshold)
+	 * `poocommerce_low_stock` firing on every reduction below the threshold)
 	 * must not pay for a meta write that nothing will read.
 	 *
 	 * @testdox Should not record a trigger time for a notification already sent.

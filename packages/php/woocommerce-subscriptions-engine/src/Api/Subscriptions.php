@@ -5,16 +5,16 @@
  * Renew now and read a contract's related orders. It hides the internal `Core\` /
  * `Integration\` collaborators behind a stable boundary.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine\Api
+ * @package Automattic\PooCommerce\SubscriptionsEngine\Api
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Api;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Api;
 
 use WC_Order;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Checkout\RelatedOrders;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Renewal\RenewalEngine;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Checkout\RelatedOrders;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Renewal\RenewalEngine;
 
 defined( 'ABSPATH' ) || exit;
 

@@ -1,9 +1,9 @@
 <?php
 
-namespace Automattic\WooCommerce\Admin\Features\OnboardingTasks\Tasks;
+namespace Automattic\PooCommerce\Admin\Features\OnboardingTasks\Tasks;
 
-use Automattic\WooCommerce\Admin\Features\OnboardingTasks\Task;
-use Automattic\WooCommerce\Internal\Admin\Onboarding\MarketplaceTaskExperiment;
+use Automattic\PooCommerce\Admin\Features\OnboardingTasks\Task;
+use Automattic\PooCommerce\Internal\Admin\Onboarding\MarketplaceTaskExperiment;
 
 /**
  * ExtendStore Task
@@ -27,14 +27,14 @@ class ExtendStore extends Task {
 		$variation = wc_get_container()->get( MarketplaceTaskExperiment::class )->get_variation( $this );
 
 		if ( MarketplaceTaskExperiment::COPY_PAYMENTS_SHIPPING_MARKETING === $variation ) {
-			return __( 'Add payments, shipping and marketing extensions', 'woocommerce' );
+			return __( 'Add payments, shipping and marketing extensions', 'poocommerce' );
 		}
 
 		if ( MarketplaceTaskExperiment::COPY_FREE_AND_PAID === $variation ) {
-			return __( 'Browse free and paid extensions', 'woocommerce' );
+			return __( 'Browse free and paid extensions', 'poocommerce' );
 		}
 
-		return __( 'Enhance your store with extensions', 'woocommerce' );
+		return __( 'Enhance your store with extensions', 'poocommerce' );
 	}
 
 	/**

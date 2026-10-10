@@ -1,8 +1,8 @@
 <?php
 
-namespace Automattic\WooCommerce\Admin\Features\OnboardingTasks\Tasks;
+namespace Automattic\PooCommerce\Admin\Features\OnboardingTasks\Tasks;
 
-use Automattic\WooCommerce\Admin\Features\OnboardingTasks\Task;
+use Automattic\PooCommerce\Admin\Features\OnboardingTasks\Task;
 
 /**
  * Review Shipping Options Task
@@ -23,7 +23,7 @@ class ReviewShippingOptions extends Task {
 	 * @return string
 	 */
 	public function get_title() {
-		return __( 'Review shipping options', 'woocommerce' );
+		return __( 'Review shipping options', 'poocommerce' );
 	}
 
 	/**
@@ -50,7 +50,7 @@ class ReviewShippingOptions extends Task {
 	 * @return bool
 	 */
 	public function is_complete() {
-		return get_option( 'woocommerce_admin_reviewed_default_shipping_zones' ) === 'yes';
+		return get_option( 'poocommerce_admin_reviewed_default_shipping_zones' ) === 'yes';
 	}
 
 	/**
@@ -59,7 +59,7 @@ class ReviewShippingOptions extends Task {
 	 * @return bool
 	 */
 	public function can_view() {
-		return get_option( 'woocommerce_admin_created_default_shipping_zones' ) === 'yes';
+		return get_option( 'poocommerce_admin_created_default_shipping_zones' ) === 'yes';
 	}
 
 	/**

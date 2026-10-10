@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 /**
  * Tests for cart functions.
  *
- * @package WooCommerce\Tests\Cart
+ * @package PooCommerce\Tests\Cart
  */
 
 /**
@@ -25,7 +25,7 @@ class WC_Cart_Functions_Test extends WC_Unit_Test_Case {
 			)
 		);
 
-		$this->assertFalse( apply_filters( 'woocommerce_add_to_cart_validation', true, $variation_id, 1 ), 'A variation must inherit its parent password protection.' );
+		$this->assertFalse( apply_filters( 'poocommerce_add_to_cart_validation', true, $variation_id, 1 ), 'A variation must inherit its parent password protection.' );
 		$this->assertSame( 1, wc_notice_count( 'error' ), 'The rejected variation should display the protected-product notice.' );
 	}
 
@@ -61,7 +61,7 @@ class WC_Cart_Functions_Test extends WC_Unit_Test_Case {
 		$product      = WC_Helper_Product::create_variation_product();
 		$variation_id = $product->get_children()[0];
 
-		$this->assertTrue( apply_filters( 'woocommerce_add_to_cart_validation', true, $variation_id, 1 ), 'An unprotected variation should remain purchasable.' );
+		$this->assertTrue( apply_filters( 'poocommerce_add_to_cart_validation', true, $variation_id, 1 ), 'An unprotected variation should remain purchasable.' );
 	}
 
 	/**
@@ -84,7 +84,7 @@ class WC_Cart_Functions_Test extends WC_Unit_Test_Case {
 	public function test_wc_cart_totals_coupon_html_renders_sign_inside_price_markup(): void {
 		$coupon_html = $this->get_coupon_html_for_cart();
 
-		$this->assertStringStartsWith( '<span class="woocommerce-Price-amount amount">-', $coupon_html, 'The minus sign should be part of the price markup, not prepended outside it.' );
+		$this->assertStringStartsWith( '<span class="poocommerce-Price-amount amount">-', $coupon_html, 'The minus sign should be part of the price markup, not prepended outside it.' );
 	}
 
 	/**

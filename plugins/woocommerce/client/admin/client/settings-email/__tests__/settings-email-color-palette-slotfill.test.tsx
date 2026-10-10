@@ -30,7 +30,7 @@ const renderMount = ( hasThemeJson: boolean, autoSync: string ) => {
 			data-default-colors='${ JSON.stringify( phpDefaultColors ) }'
 			${ hasThemeJson ? 'data-has-theme-json' : '' }
 		></div>
-		<input type="hidden" id="woocommerce_email_auto_sync_with_theme" value="${ autoSync }" />
+		<input type="hidden" id="poocommerce_email_auto_sync_with_theme" value="${ autoSync }" />
 	`;
 };
 
@@ -77,12 +77,12 @@ describe( 'registerSettingsEmailColorPaletteFill', () => {
 
 		expect( registerPluginMock ).toHaveBeenCalledTimes( 1 );
 		const [ name, settings ] = registerPluginMock.mock.calls[ 0 ];
-		expect( name ).toBe( 'woocommerce-admin-settings-email-color-palette' );
+		expect( name ).toBe( 'poocommerce-admin-settings-email-color-palette' );
 		// settings-slots.js renders a PluginArea with this exact scope for the
 		// wc_settings_email_color_palette_slotfill mount, and its own test pins
 		// the same literal, so a rename on either side fails.
 		expect( settings.scope ).toBe(
-			'woocommerce-email-color-palette-settings'
+			'poocommerce-email-color-palette-settings'
 		);
 	} );
 

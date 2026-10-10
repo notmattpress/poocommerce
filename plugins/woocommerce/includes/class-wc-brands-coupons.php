@@ -2,12 +2,12 @@
 
 declare( strict_types = 1);
 
-use Automattic\WooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Enums\ProductType;
 
 /**
  * WC_Brands_Coupons class.
  *
- * Important: For internal use only by the Automattic\WooCommerce\Internal\Brands package.
+ * Important: For internal use only by the Automattic\PooCommerce\Internal\Brands package.
  *
  * @version 9.4.0
  */
@@ -20,9 +20,9 @@ class WC_Brands_Coupons {
 	 */
 	public function __construct() {
 		// Coupon validation and error handling.
-		add_filter( 'woocommerce_coupon_is_valid', array( $this, 'is_coupon_valid' ), 10, 3 );
-		add_filter( 'woocommerce_coupon_is_valid_for_product', array( $this, 'is_valid_for_product' ), 10, 3 );
-		add_filter( 'woocommerce_coupon_error', array( $this, 'brand_exclusion_error' ), 10, 2 );
+		add_filter( 'poocommerce_coupon_is_valid', array( $this, 'is_coupon_valid' ), 10, 3 );
+		add_filter( 'poocommerce_coupon_is_valid_for_product', array( $this, 'is_valid_for_product' ), 10, 3 );
+		add_filter( 'poocommerce_coupon_error', array( $this, 'brand_exclusion_error' ), 10, 2 );
 	}
 
 	/**
@@ -76,12 +76,12 @@ class WC_Brands_Coupons {
 
 		// 2) All products in the cart match brand exclusion rule.
 		if ( count( $items ) === $excluded_brands_matches ) {
-			throw new Exception( __( 'Sorry, this coupon is not applicable to the brands of selected products.', 'woocommerce' ), self::E_WC_COUPON_EXCLUDED_BRANDS ); // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
+			throw new Exception( __( 'Sorry, this coupon is not applicable to the brands of selected products.', 'poocommerce' ), self::E_WC_COUPON_EXCLUDED_BRANDS ); // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
 		}
 
 		// 3) For a cart discount, there is at least one product in cart that matches exclusion rule.
 		if ( $coupon->is_type( 'fixed_cart' ) && $excluded_brands_matches > 0 ) {
-			throw new Exception( __( 'Sorry, this coupon is not applicable to the brands of selected products.', 'woocommerce' ), self::E_WC_COUPON_EXCLUDED_BRANDS ); // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
+			throw new Exception( __( 'Sorry, this coupon is not applicable to the brands of selected products.', 'poocommerce' ), self::E_WC_COUPON_EXCLUDED_BRANDS ); // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
 		}
 
 		return $valid;
@@ -135,7 +135,7 @@ class WC_Brands_Coupons {
 			return $err;
 		}
 
-		return __( 'Sorry, this coupon is not applicable to the brands of selected products.', 'woocommerce' );
+		return __( 'Sorry, this coupon is not applicable to the brands of selected products.', 'poocommerce' );
 	}
 
 	/**

@@ -5,9 +5,9 @@
  * Handles requests to /products/variations.
  */
 
-namespace Automattic\WooCommerce\Admin\API;
+namespace Automattic\PooCommerce\Admin\API;
 
-use Automattic\WooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Enums\ProductType;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -55,7 +55,7 @@ class ProductVariations extends \WC_REST_Product_Variations_Controller {
 	public function get_collection_params() {
 		$params           = parent::get_collection_params();
 		$params['search'] = array(
-			'description'       => __( 'Search by similar product name, sku, or attribute value.', 'woocommerce' ),
+			'description'       => __( 'Search by similar product name, sku, or attribute value.', 'poocommerce' ),
 			'type'              => 'string',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
@@ -148,11 +148,11 @@ class ProductVariations extends \WC_REST_Product_Variations_Controller {
 	public function get_items( $request ) {
 		add_filter( 'posts_where', array( __CLASS__, 'add_wp_query_filter' ), 10, 2 );
 		add_filter( 'posts_join', array( __CLASS__, 'add_wp_query_join' ), 10, 2 );
-		add_filter( 'posts_groupby', array( 'Automattic\WooCommerce\Admin\API\Products', 'add_wp_query_group_by' ), 10, 2 );
+		add_filter( 'posts_groupby', array( 'Automattic\PooCommerce\Admin\API\Products', 'add_wp_query_group_by' ), 10, 2 );
 		$response = parent::get_items( $request );
 		remove_filter( 'posts_where', array( __CLASS__, 'add_wp_query_filter' ), 10 );
 		remove_filter( 'posts_join', array( __CLASS__, 'add_wp_query_join' ), 10 );
-		remove_filter( 'posts_groupby', array( 'Automattic\WooCommerce\Admin\API\Products', 'add_wp_query_group_by' ), 10 );
+		remove_filter( 'posts_groupby', array( 'Automattic\PooCommerce\Admin\API\Products', 'add_wp_query_group_by' ), 10 );
 		return $response;
 	}
 
@@ -165,19 +165,19 @@ class ProductVariations extends \WC_REST_Product_Variations_Controller {
 		$schema = parent::get_item_schema();
 
 		$schema['properties']['name']      = array(
-			'description' => __( 'Product parent name.', 'woocommerce' ),
+			'description' => __( 'Product parent name.', 'poocommerce' ),
 			'type'        => 'string',
 			'context'     => array( 'view', 'edit' ),
 		);
 		$schema['properties']['type']      = array(
-			'description' => __( 'Product type.', 'woocommerce' ),
+			'description' => __( 'Product type.', 'poocommerce' ),
 			'type'        => 'string',
 			'default'     => ProductType::VARIATION,
 			'enum'        => array( ProductType::VARIATION ),
 			'context'     => array( 'view', 'edit' ),
 		);
 		$schema['properties']['parent_id'] = array(
-			'description' => __( 'Product parent ID.', 'woocommerce' ),
+			'description' => __( 'Product parent ID.', 'poocommerce' ),
 			'type'        => 'integer',
 			'context'     => array( 'view', 'edit' ),
 		);

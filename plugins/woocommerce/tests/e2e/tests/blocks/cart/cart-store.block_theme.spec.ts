@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { test, expect, guestFile } from '@woocommerce/e2e-utils';
+import { test, expect, guestFile } from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -13,7 +13,7 @@ test.describe( 'Cart Store', () => {
 
 	test.beforeEach( async ( { requestUtils } ) => {
 		await requestUtils.activatePlugin(
-			'woocommerce-blocks-test-short-nonce-life'
+			'poocommerce-blocks-test-short-nonce-life'
 		);
 	} );
 

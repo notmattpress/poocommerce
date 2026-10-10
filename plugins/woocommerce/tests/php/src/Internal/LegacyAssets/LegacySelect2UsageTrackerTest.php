@@ -1,10 +1,10 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\LegacyAssets;
+namespace Automattic\PooCommerce\Tests\Internal\LegacyAssets;
 
 use Automattic\Jetpack\Constants;
-use Automattic\WooCommerce\Internal\LegacyAssets\LegacySelect2UsageTracker;
+use Automattic\PooCommerce\Internal\LegacyAssets\LegacySelect2UsageTracker;
 use WC_Unit_Test_Case;
 
 /**
@@ -72,7 +72,7 @@ class LegacySelect2UsageTrackerTest extends WC_Unit_Test_Case {
 	 * @testdox Should track a plugin-owned header dependency on select2.
 	 */
 	public function test_tracks_plugin_owned_header_dependency_on_select2(): void {
-		set_current_screen( 'woocommerce_page_wc-settings' );
+		set_current_screen( 'poocommerce_page_wc-settings' );
 		$_SERVER['REQUEST_URI'] = '/wp-admin/admin.php?page=wc-settings';
 		wp_register_script(
 			'my-extension-admin',
@@ -88,7 +88,7 @@ class LegacySelect2UsageTrackerTest extends WC_Unit_Test_Case {
 		$this->assertSame(
 			array(
 				'context'            => 'admin',
-				'page_type'          => 'woocommerce_page_wc-settings',
+				'page_type'          => 'poocommerce_page_wc-settings',
 				'handles'            => 'select2',
 				'dependents'         => 'my-extension-admin',
 				'dependents_sources' => 'my-extension/assets/admin.js',
@@ -181,7 +181,7 @@ class LegacySelect2UsageTrackerTest extends WC_Unit_Test_Case {
 	public function test_does_not_track_selectwoo_alone(): void {
 		wp_register_script(
 			'selectWoo',
-			plugins_url( 'woocommerce/assets/js/selectWoo/selectWoo.full.js' ),
+			plugins_url( 'poocommerce/assets/js/selectWoo/selectWoo.full.js' ),
 			array( 'jquery' ),
 			'1.0.0',
 			true
@@ -197,7 +197,7 @@ class LegacySelect2UsageTrackerTest extends WC_Unit_Test_Case {
 	 * @testdox Should not track queued dependencies before they are printed.
 	 */
 	public function test_does_not_track_queued_dependencies_before_they_are_printed(): void {
-		set_current_screen( 'woocommerce_page_wc-settings' );
+		set_current_screen( 'poocommerce_page_wc-settings' );
 		wp_register_script(
 			'my-extension-admin',
 			$this->get_my_extension_asset_url( 'admin.js' ),
@@ -262,7 +262,7 @@ class LegacySelect2UsageTrackerTest extends WC_Unit_Test_Case {
 	 * @testdox Should register frontend analytics independently of the core Tracks opt-in.
 	 */
 	public function test_registers_frontend_analytics_independently_of_core_tracks(): void {
-		add_filter( 'woocommerce_apply_user_tracking', '__return_false' );
+		add_filter( 'poocommerce_apply_user_tracking', '__return_false' );
 
 		$this->sut->register();
 
@@ -277,7 +277,7 @@ class LegacySelect2UsageTrackerTest extends WC_Unit_Test_Case {
 		);
 
 		remove_action( 'wp_print_footer_scripts', array( $this->sut, 'handle_wp_print_footer_scripts' ), PHP_INT_MAX );
-		remove_filter( 'woocommerce_apply_user_tracking', '__return_false' );
+		remove_filter( 'poocommerce_apply_user_tracking', '__return_false' );
 	}
 
 	/**
@@ -327,7 +327,7 @@ class LegacySelect2UsageTrackerTest extends WC_Unit_Test_Case {
 			}
 
 			/**
-			 * Add a storefront event to the WooCommerce Analytics client queue.
+			 * Add a storefront event to the PooCommerce Analytics client queue.
 			 *
 			 * @param string                $event_name Event name.
 			 * @param array<string, string> $properties Event properties.
@@ -388,7 +388,7 @@ class LegacySelect2UsageTrackerTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Register WooCommerce's legacy Select2 handles.
+	 * Register PooCommerce's legacy Select2 handles.
 	 */
 	private function register_legacy_select2_scripts(): void {
 		if ( ! class_exists( 'WC_Admin_Assets' ) && defined( 'WC_ABSPATH' ) ) {
@@ -459,14 +459,14 @@ class LegacySelect2UsageTrackerTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Get the expected WooCommerce Select2 source path.
+	 * Get the expected PooCommerce Select2 source path.
 	 *
 	 * @return string
 	 */
 	private function get_expected_wc_select2_source(): string {
 		$suffix = Constants::is_true( 'SCRIPT_DEBUG' ) ? '' : '.min';
 
-		return 'woocommerce/assets/js/select2/select2.full' . $suffix . '.js';
+		return 'poocommerce/assets/js/select2/select2.full' . $suffix . '.js';
 	}
 
 	/**

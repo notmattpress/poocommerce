@@ -3,15 +3,15 @@
  */
 import { fireEvent, render } from '@testing-library/react';
 import React from 'react';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
-jest.mock( '@woocommerce/navigation', () => ( {
+jest.mock( '@poocommerce/navigation', () => ( {
 	getNewPath: jest.fn( () => '/new-path' ),
 	navigateTo: jest.fn(),
 	useQuery: jest.fn( () => ( {} ) ),
 } ) );
 
-jest.mock( '@woocommerce/tracks', () => ( {
+jest.mock( '@poocommerce/tracks', () => ( {
 	recordEvent: jest.fn(),
 } ) );
 
@@ -21,7 +21,7 @@ jest.mock(
 	() => () => null
 );
 
-jest.mock( '@woocommerce/data', () => ( {
+jest.mock( '@poocommerce/data', () => ( {
 	useUser: jest.fn( () => ( {
 		user: null,
 		currentUserCan: jest.fn( () => false ),
@@ -47,7 +47,7 @@ const context = {
 		quality_badge: {
 			enabled: true,
 			label: 'Excellence Verified',
-			tooltip: 'Verified against WooCommerce standards.',
+			tooltip: 'Verified against PooCommerce standards.',
 		},
 	},
 	productPreviewVariation: null,
@@ -95,7 +95,7 @@ function renderCard(
 }
 
 function getBadge( container: HTMLElement ) {
-	return container.querySelector( '.woocommerce-marketplace__quality-badge' );
+	return container.querySelector( '.poocommerce-marketplace__quality-badge' );
 }
 
 describe( 'ProductCard quality badge placement', () => {
@@ -103,10 +103,10 @@ describe( 'ProductCard quality badge placement', () => {
 		const { container } = renderCard( ProductCardType.compact );
 		const badge = getBadge( container );
 		const meta = container.querySelector(
-			'.woocommerce-marketplace__product-card__meta'
+			'.poocommerce-marketplace__product-card__meta'
 		);
 		const footer = container.querySelector(
-			'.woocommerce-marketplace__product-card__footer'
+			'.poocommerce-marketplace__product-card__footer'
 		);
 
 		expect( badge ).not.toBeNull();
@@ -114,7 +114,7 @@ describe( 'ProductCard quality badge placement', () => {
 		expect( footer?.contains( badge ) ).toBe( false );
 
 		const title = container.querySelector(
-			'.woocommerce-marketplace__product-card__title'
+			'.poocommerce-marketplace__product-card__title'
 		);
 		expect( title?.nextElementSibling ).toBe( badge );
 		expect( badge?.nextElementSibling ).toBe( footer );
@@ -124,10 +124,10 @@ describe( 'ProductCard quality badge placement', () => {
 		const { container } = renderCard( ProductCardType.regular );
 		const badge = getBadge( container );
 		const footer = container.querySelector(
-			'.woocommerce-marketplace__product-card__footer'
+			'.poocommerce-marketplace__product-card__footer'
 		);
 		const price = container.querySelector(
-			'.woocommerce-marketplace__product-card__price'
+			'.poocommerce-marketplace__product-card__price'
 		);
 
 		expect( badge ).not.toBeNull();
@@ -186,7 +186,7 @@ describe( 'ProductCard sponsored label', () => {
 		expect( view.queryByText( matchesVendorPhrase ) ).toBeNull();
 		expect(
 			view.container.querySelector(
-				'.woocommerce-marketplace__product-card__vendor-details__separator'
+				'.poocommerce-marketplace__product-card__vendor-details__separator'
 			)
 		).toBeNull();
 	} );
@@ -198,7 +198,7 @@ describe( 'ProductCard sponsored label', () => {
 		expect( view.getByText( matchesVendorPhrase ) ).toBeVisible();
 		expect(
 			view.container.querySelector(
-				'.woocommerce-marketplace__product-card__vendor-details__separator'
+				'.poocommerce-marketplace__product-card__vendor-details__separator'
 			)
 		).not.toBeNull();
 		expect( view.getByText( 'Sponsored' ) ).toBeVisible();
@@ -212,7 +212,7 @@ describe( 'ProductCard sponsored label', () => {
 		expect( getSponsoredLabel( view ) ).toBeNull();
 		expect(
 			view.container.querySelector(
-				'.woocommerce-marketplace__product-card__vendor-details'
+				'.poocommerce-marketplace__product-card__vendor-details'
 			)
 		).toBeNull();
 	} );
@@ -299,7 +299,7 @@ describe( 'ProductCard click tracking', () => {
 } );
 
 describe( 'ProductCard product preview experiment', () => {
-	const productUrl = 'https://woocommerce.com/products/test-extension/';
+	const productUrl = 'https://poocommerce.com/products/test-extension/';
 
 	beforeEach( () => {
 		jest.mocked( recordEvent ).mockClear();
@@ -325,14 +325,14 @@ describe( 'ProductCard product preview experiment', () => {
 			tag: undefined,
 		},
 		{
-			name: 'follows the WooCommerce.com setting when the store has no assignment',
+			name: 'follows the PooCommerce.com setting when the store has no assignment',
 			variation: null,
 			productPreviews: 'modal' as const,
 			opensProductPage: false,
 			tag: undefined,
 		},
 		{
-			name: 'ignores the WooCommerce.com setting in the control arm',
+			name: 'ignores the PooCommerce.com setting in the control arm',
 			variation: 'control',
 			productPreviews: 'modal' as const,
 			opensProductPage: true,

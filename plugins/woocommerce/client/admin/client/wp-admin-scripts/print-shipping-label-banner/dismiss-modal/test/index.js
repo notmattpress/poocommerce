@@ -16,7 +16,7 @@ describe( 'Option Save events in DismissModal', () => {
 	test( 'Should save permanent dismissal', async () => {
 		const { getByRole } = render(
 			<Fragment>
-				<div id="woocommerce-admin-print-label" />
+				<div id="poocommerce-admin-print-label" />
 				<DismissModal
 					visible={ true }
 					onClose={ jest.fn() }
@@ -33,7 +33,7 @@ describe( 'Option Save events in DismissModal', () => {
 
 		await waitFor( () =>
 			expect( spyUpdateOptions ).toHaveBeenCalledWith( {
-				woocommerce_shipping_dismissed_timestamp: -1,
+				poocommerce_shipping_dismissed_timestamp: -1,
 			} )
 		);
 	} );
@@ -46,7 +46,7 @@ describe( 'Option Save events in DismissModal', () => {
 
 		const { getByRole } = render(
 			<Fragment>
-				<div id="woocommerce-admin-print-label" />
+				<div id="poocommerce-admin-print-label" />
 				<DismissModal
 					visible={ true }
 					onClose={ jest.fn() }
@@ -63,7 +63,7 @@ describe( 'Option Save events in DismissModal', () => {
 
 		await waitFor( () =>
 			expect( spyUpdateOptions ).toHaveBeenCalledWith( {
-				woocommerce_shipping_dismissed_timestamp: mockDate,
+				poocommerce_shipping_dismissed_timestamp: mockDate,
 			} )
 		);
 
@@ -78,7 +78,7 @@ describe( 'Tracking events in DismissModal', () => {
 	it( 'should record an event when user clicks "I don\'t need this"', async () => {
 		const { getByRole } = render(
 			<Fragment>
-				<div id="woocommerce-admin-print-label" />
+				<div id="poocommerce-admin-print-label" />
 				<DismissModal
 					visible={ true }
 					onClose={ jest.fn() }
@@ -103,7 +103,7 @@ describe( 'Tracking events in DismissModal', () => {
 	it( 'should record an event when user clicks "Remind me later"', async () => {
 		const { getByRole } = render(
 			<Fragment>
-				<div id="woocommerce-admin-print-label" />
+				<div id="poocommerce-admin-print-label" />
 				<DismissModal
 					visible={ true }
 					onClose={ jest.fn() }
@@ -131,7 +131,7 @@ describe( 'Dismissing modal', () => {
 		const { getByRole, getByTestId } = render(
 			<Fragment>
 				<div
-					id="woocommerce-admin-print-label"
+					id="poocommerce-admin-print-label"
 					data-testid="print-label"
 				/>
 				<DismissModal
@@ -157,7 +157,7 @@ describe( 'Dismissing modal', () => {
 		const { getByRole, getByTestId } = render(
 			<Fragment>
 				<div
-					id="woocommerce-admin-print-label"
+					id="poocommerce-admin-print-label"
 					data-testid="print-label"
 				/>
 				<DismissModal

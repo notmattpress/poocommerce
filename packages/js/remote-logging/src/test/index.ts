@@ -24,7 +24,7 @@ jest.mock( 'tracekit', () => ( {
 		message: 'Test error',
 		stack: [
 			{
-				url: 'http://example.com/woocommerce/assets/js/admin/app.min.js',
+				url: 'http://example.com/poocommerce/assets/js/admin/app.min.js',
 				func: 'testFunction',
 				args: [],
 				line: 1,
@@ -34,11 +34,11 @@ jest.mock( 'tracekit', () => ( {
 	} ),
 } ) );
 
-jest.mock( '@woocommerce/settings', () => {
+jest.mock( '@poocommerce/settings', () => {
 	return {
 		getSetting: jest.fn().mockImplementation( ( key ) => {
 			if ( key === 'wcAssetUrl' ) {
-				return 'http://example.com/woocommerce/assets';
+				return 'http://example.com/poocommerce/assets';
 			}
 			return null;
 		} ),
@@ -124,7 +124,7 @@ describe( 'RemoteLogger', () => {
 			expect( payload[ 'message' ] ).toBe( 'Test error' );
 			expect( payload[ 'severity' ] ).toBe( 'error' );
 			expect( payload[ 'trace' ] ).toContain(
-				'#1 at testFunction (http://example.com/woocommerce/assets/js/admin/app.min.js:1:1)'
+				'#1 at testFunction (http://example.com/poocommerce/assets/js/admin/app.min.js:1:1)'
 			);
 		} );
 
@@ -149,12 +149,12 @@ describe( 'RemoteLogger', () => {
 			expect( payload[ 'message' ] ).toBe( 'Test error' );
 			expect( payload[ 'severity' ] ).toBe( 'warning' );
 			expect( payload[ 'tags' ] ).toEqual( [
-				'woocommerce',
+				'poocommerce',
 				'js',
 				'custom-tag',
 			] );
 			expect( payload[ 'trace' ] ).toContain(
-				'#1 at testFunction (http://example.com/woocommerce/assets/js/admin/app.min.js:1:1)'
+				'#1 at testFunction (http://example.com/poocommerce/assets/js/admin/app.min.js:1:1)'
 			);
 		} );
 	} );
@@ -231,11 +231,11 @@ describe( 'RemoteLogger', () => {
 	} );
 
 	describe( 'shouldHandleError', () => {
-		it( 'should return true for WooCommerce errors', () => {
+		it( 'should return true for PooCommerce errors', () => {
 			const error = new Error( 'Test error' );
 			const stackFrames = [
 				{
-					url: 'http://example.com/woocommerce/assets/js/admin/app.min.js',
+					url: 'http://example.com/poocommerce/assets/js/admin/app.min.js',
 					func: 'testFunction',
 					args: [],
 					line: 1,
@@ -249,7 +249,7 @@ describe( 'RemoteLogger', () => {
 			expect( result ).toBe( true );
 		} );
 
-		it( 'should return false for non-WooCommerce errors', () => {
+		it( 'should return false for non-PooCommerce errors', () => {
 			const error = new Error( 'Test error' );
 			const stackFrames = [
 				{
@@ -260,7 +260,7 @@ describe( 'RemoteLogger', () => {
 					column: 1,
 				},
 				{
-					url: 'http://example.com/other/plugin/woocommerce/assets/js/app.min.js',
+					url: 'http://example.com/other/plugin/poocommerce/assets/js/app.min.js',
 					func: 'testFunction',
 					args: [],
 					line: 1,
@@ -274,7 +274,7 @@ describe( 'RemoteLogger', () => {
 			expect( result ).toBe( false );
 		} );
 
-		it( 'should return false for WooCommerce errors with no stack frames', () => {
+		it( 'should return false for PooCommerce errors with no stack frames', () => {
 			const error = new Error( 'Test error' );
 			const result = ( logger as any ).shouldHandleError( error, [] );
 			expect( result ).toBe( false );
@@ -299,7 +299,7 @@ describe( 'RemoteLogger', () => {
 				message: 'Test error',
 				stack: [
 					{
-						url: 'http://example.com/woocommerce/assets/js/admin/wc-admin.min.js',
+						url: 'http://example.com/poocommerce/assets/js/admin/wc-admin.min.js',
 						func: 'testFunction',
 						args: [],
 						line: 1,
@@ -316,7 +316,7 @@ describe( 'RemoteLogger', () => {
 				stackTrace
 			);
 			expect( result ).toContain(
-				'#1 at testFunction (http://example.com/woocommerce/assets/js/admin/wc-admin.min.js:1:1)'
+				'#1 at testFunction (http://example.com/poocommerce/assets/js/admin/wc-admin.min.js:1:1)'
 			);
 			expect( result ).toContain( 'const x = 1;' );
 			expect( result ).toContain( 'throw new Error("Test error");' );

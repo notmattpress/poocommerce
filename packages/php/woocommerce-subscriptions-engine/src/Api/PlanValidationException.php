@@ -2,12 +2,12 @@
 /**
  * PlanValidationException - a plan write refused by the owning extension's plan validation.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine\Api
+ * @package Automattic\PooCommerce\SubscriptionsEngine\Api
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Api;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Api;
 
 use InvalidArgumentException;
 use WP_Error;
@@ -15,7 +15,7 @@ use WP_Error;
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Thrown by {@see Plans} when a `woocommerce_subscriptions_engine_validate_plan`
+ * Thrown by {@see Plans} when a `poocommerce_subscriptions_engine_validate_plan`
  * callback adds errors. Carries the collected errors with their codes and data;
  * the message joins the error messages.
  */

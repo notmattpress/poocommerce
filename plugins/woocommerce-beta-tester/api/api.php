@@ -14,7 +14,7 @@ defined( 'ABSPATH' ) || exit;
  * @param string $callback Callback function name.
  * @param array  $additional_options Additional options passed to route registration.
  */
-function register_woocommerce_admin_test_helper_rest_route( $route, $callback, $additional_options = array() ) {
+function register_poocommerce_admin_test_helper_rest_route( $route, $callback, $additional_options = array() ) {
 	add_action(
 		'rest_api_init',
 		function () use ( $route, $callback, $additional_options ) {
@@ -25,8 +25,8 @@ function register_woocommerce_admin_test_helper_rest_route( $route, $callback, $
 					// Match the capability required by the Test Helper admin page.
 					if ( ! current_user_can( 'install_plugins' ) ) {
 						return new \WP_Error(
-							'woocommerce_rest_cannot_edit',
-							__( 'Sorry, you cannot perform this action', 'woocommerce-beta-tester' ),
+							'poocommerce_rest_cannot_edit',
+							__( 'Sorry, you cannot perform this action', 'poocommerce-beta-tester' ),
 							array( 'status' => rest_authorization_required_code() )
 						);
 					}

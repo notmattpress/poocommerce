@@ -2,20 +2,20 @@
 /**
  * Integration tests for the `manage_subscription_contract` meta capability.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine\Tests
+ * @package Automattic\PooCommerce\SubscriptionsEngine\Tests
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Tests\Integration\Integration\Ownership;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Tests\Integration\Integration\Ownership;
 
 use EngineIntegrationTestCase;
-use Automattic\WooCommerce\SubscriptionsEngine\Api\Contracts;
-use Automattic\WooCommerce\SubscriptionsEngine\Api\View\ContractView;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Ownership\ContractCapabilities;
+use Automattic\PooCommerce\SubscriptionsEngine\Api\Contracts;
+use Automattic\PooCommerce\SubscriptionsEngine\Api\View\ContractView;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Ownership\ContractCapabilities;
 
 /**
- * @covers \Automattic\WooCommerce\SubscriptionsEngine\Integration\Ownership\ContractCapabilities
+ * @covers \Automattic\PooCommerce\SubscriptionsEngine\Integration\Ownership\ContractCapabilities
  */
 class ContractCapabilitiesTest extends EngineIntegrationTestCase {
 

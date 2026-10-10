@@ -8,7 +8,7 @@ import {
 	paymentSettingsStore,
 	PaymentsProvider,
 	PaymentsEntity,
-} from '@woocommerce/data';
+} from '@poocommerce/data';
 import {
 	dispatch,
 	resolveSelect,
@@ -17,7 +17,7 @@ import {
 } from '@wordpress/data';
 import React, { useState, useEffect } from '@wordpress/element';
 import apiFetch from '@wordpress/api-fetch';
-import { getHistory, getNewPath } from '@woocommerce/navigation';
+import { getHistory, getNewPath } from '@poocommerce/navigation';
 import { Link } from '@wordpress/ui';
 
 /**
@@ -51,7 +51,7 @@ import WooPaymentsModal from '~/settings-payments/onboarding/providers/woopaymen
 import { wooPaymentsOnboardingSessionEntrySettings } from '~/settings-payments/constants';
 
 /**
- * A component that renders the main settings page for managing payment gateways in WooCommerce.
+ * A component that renders the main settings page for managing payment gateways in PooCommerce.
  * It handles fetching and displaying payment providers, managing plugin installations, and
  * displaying incentive banners or modals when applicable.
  */
@@ -73,7 +73,7 @@ export const SettingsPaymentsMain = () => {
 	] = useState( false );
 
 	const [ businessCountry, setBusinessCountry ] = useState< string | null >(
-		window.wcSettings?.admin?.woocommerce_payments_nox_profile
+		window.wcSettings?.admin?.poocommerce_payments_nox_profile
 			?.business_country_code || null
 	);
 
@@ -94,7 +94,7 @@ export const SettingsPaymentsMain = () => {
 					/* translators: %s: plugin name */
 					__(
 						'%s: An error occurred while setting up your sandbox account — please try again.',
-						'woocommerce'
+						'poocommerce'
 					),
 					'WooPayments'
 				)
@@ -110,7 +110,7 @@ export const SettingsPaymentsMain = () => {
 					/* translators: %s: plugin name */
 					__(
 						'%s: There was a problem connecting your WordPress.com account — please try again.',
-						'woocommerce'
+						'poocommerce'
 					),
 					'WooPayments'
 				)
@@ -234,7 +234,7 @@ export const SettingsPaymentsMain = () => {
 				referenceTimestamp.setDate( referenceTimestamp.getDate() - 30 );
 				// If the merchant dismissed the Switch incentive modal more than 30 days ago,
 				// show the banner instead of just highlighting the incentive.
-				// @see its server brother in plugins/woocommerce/src/Internal/Admin/Settings/PaymentsController::store_has_providers_with_incentive()
+				// @see its server brother in plugins/poocommerce/src/Internal/Admin/Settings/PaymentsController::store_has_providers_with_incentive()
 				// for the admin menu red dot notice logic.
 				if (
 					isIncentiveDismissedEarlierThanTimestamp(
@@ -280,7 +280,7 @@ export const SettingsPaymentsMain = () => {
 
 		// This prop is for historical data uniformity. WooPayments will also be recorded as a suggestion.
 		const eventProps: { [ key: string ]: boolean } = {
-			woocommerce_payments_displayed: providers.some( ( provider ) =>
+			poocommerce_payments_displayed: providers.some( ( provider ) =>
 				isWooPayments( provider.id )
 			),
 		};
@@ -502,7 +502,7 @@ export const SettingsPaymentsMain = () => {
 			rel="noopener noreferrer"
 			openInNewTab
 		>
-			{ __( 'More payment options', 'woocommerce' ) }
+			{ __( 'More payment options', 'poocommerce' ) }
 		</Link>
 	);
 
@@ -561,7 +561,7 @@ export const SettingsPaymentsMain = () => {
 					setIsOnboardingModalOpen={ setIsOnboardingModalOpen }
 				/>
 				{
-					// If no suggestions are available, only show a link to the WooCommerce.com payment marketplace page.
+					// If no suggestions are available, only show a link to the PooCommerce.com payment marketplace page.
 					! isFetching && suggestions.length === 0 && (
 						<div className="more-payment-options">
 							{ morePaymentOptionsLink }

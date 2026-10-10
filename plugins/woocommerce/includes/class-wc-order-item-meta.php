@@ -4,7 +4,7 @@
  *
  * A Simple class for managing order item meta so plugins add it in the correct format.
  *
- * @package     WooCommerce\Classes
+ * @package     PooCommerce\Classes
  * @deprecated  3.0.0 wc_display_item_meta function is used instead.
  * @version     2.4
  */
@@ -100,7 +100,7 @@ class WC_Order_Item_Meta {
 			}
 		}
 
-		$output = apply_filters( 'woocommerce_order_items_meta_display', $output, $this, $flat );
+		$output = apply_filters( 'poocommerce_order_items_meta_display', $output, $this, $flat );
 
 		if ( $return ) {
 			return $output;
@@ -151,12 +151,12 @@ class WC_Order_Item_Meta {
 				$formatted_meta[ $meta_id ] = array(
 					'key'   => $meta->key,
 					'label' => wc_attribute_label( $attribute_key, $this->product ),
-					'value' => apply_filters( 'woocommerce_order_item_display_meta_value', $meta_value, $meta, $this->item ),
+					'value' => apply_filters( 'poocommerce_order_item_display_meta_value', $meta_value, $meta, $this->item ),
 				);
 			}
 		}
 
-		return apply_filters( 'woocommerce_order_items_meta_get_formatted', $formatted_meta, $this );
+		return apply_filters( 'poocommerce_order_items_meta_get_formatted', $formatted_meta, $this );
 	}
 
 	/**
@@ -205,7 +205,7 @@ class WC_Order_Item_Meta {
 				$formatted_meta[ $formatted_meta_key ] = array(
 					'key'   => $meta_key,
 					'label' => wc_attribute_label( $attribute_key, $this->product ),
-					'value' => apply_filters( 'woocommerce_order_item_display_meta_value', $meta_value, $this->meta, $this->item ),
+					'value' => apply_filters( 'poocommerce_order_item_display_meta_value', $meta_value, $this->meta, $this->item ),
 				);
 			}
 		}

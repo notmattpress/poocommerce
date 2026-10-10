@@ -5,8 +5,8 @@ import { Component } from '@wordpress/element';
 import { compose } from '@wordpress/compose';
 import { withDispatch, withSelect } from '@wordpress/data';
 import PropTypes from 'prop-types';
-import { Section } from '@woocommerce/components';
-import { activityPanelStore, itemsStore } from '@woocommerce/data';
+import { Section } from '@poocommerce/components';
+import { activityPanelStore, itemsStore } from '@poocommerce/data';
 
 /**
  * Internal dependencies
@@ -93,7 +93,7 @@ export class StockPanel extends Component {
 				( v, idx ) => (
 					<ActivityCardPlaceholder
 						key={ idx }
-						className="woocommerce-stock-activity-card"
+						className="poocommerce-stock-activity-card"
 						hasAction
 						lines={ 1 }
 					/>

@@ -1,10 +1,10 @@
 <?php
 /**
- * Plugin Name: WooCommerce E2E Test Helper
- * Description: Always-on utilities for the WooCommerce E2E suite: cookie-driven filter overrides, synchronous Action Scheduler processing, a REST API for feature flags, options, environment info and theme switching, and fixed overrides that remove production timing delays.
+ * Plugin Name: PooCommerce E2E Test Helper
+ * Description: Always-on utilities for the PooCommerce E2E suite: cookie-driven filter overrides, synchronous Action Scheduler processing, a REST API for feature flags, options, environment info and theme switching, and fixed overrides that remove production timing delays.
  * Version: 1.0.0
  * Requires PHP: 7.4
- * Author: WooCommerce
+ * Author: PooCommerce
  *
  * This bundles three previously separate helpers (filter-setter, process-waiting-actions and
  * test-helper-apis), plus the fixed overrides that remove production timing delays. They share the
@@ -14,7 +14,7 @@
  *
  * It hopefully goes without saying, none of this should ever run in a production environment.
  *
- * @package Automattic\WooCommerce\E2EPlaywright
+ * @package Automattic\PooCommerce\E2EPlaywright
  */
 
 declare(strict_types=1);
@@ -27,16 +27,16 @@ declare(strict_types=1);
  * Registers WordPress filters from an 'e2e-filters' cookie, so a spec can override filtered values on
  * the fly. The cookie is a JSON map of hook => spec. For example (pretty printed here for clarity):
  *
- *     { "woocommerce_system_timeout": 10 }
+ *     { "poocommerce_system_timeout": 10 }
  *
- * adds a filter returning 10 for 'woocommerce_system_timeout'. A spec may instead be an object naming
+ * adds a filter returning 10 for 'poocommerce_system_timeout'. A spec may instead be an object naming
  * a callback and/or a priority:
  *
- *     { "woocommerce_enable_deathray": { "callback": "__return_false", "priority": 20 } }
+ *     { "poocommerce_enable_deathray": { "callback": "__return_false", "priority": 20 } }
  *
  * or a literal value with a priority:
  *
- *     { "woocommerce_default_username": { "value": "Geoffrey", "priority": 20 } }
+ *     { "poocommerce_default_username": { "value": "Geoffrey", "priority": 20 } }
  *
  * Runs at plugin load so the filters are in place before anything reads them.
  */
@@ -44,7 +44,7 @@ declare(strict_types=1);
 /**
  * Read the `e2e-filters` cookie and register the filters it describes.
  */
-function woocommerce_e2e_apply_cookie_filters(): void {
+function poocommerce_e2e_apply_cookie_filters(): void {
 	if ( ! isset( $_COOKIE['e2e-filters'] ) ) {
 		return;
 	}
@@ -88,7 +88,7 @@ function woocommerce_e2e_apply_cookie_filters(): void {
 	}
 }
 
-woocommerce_e2e_apply_cookie_filters();
+poocommerce_e2e_apply_cookie_filters();
 
 /*
  * -----------------------------------------------------------------------------
@@ -229,7 +229,7 @@ function enable_experimental_features( $features ) {
 	return array_merge( $features, $stored_features );
 }
 
-add_filter( 'woocommerce_admin_get_feature_config', 'enable_experimental_features' );
+add_filter( 'poocommerce_admin_get_feature_config', 'enable_experimental_features' );
 
 /**
  * Update a WordPress option.
@@ -355,7 +355,7 @@ add_filter( 'comment_flood_filter', '__return_false', 99 );
  * the back-in-stock email never arrives.
  */
 add_filter(
-	'woocommerce_customer_stock_notifications_first_batch_delay',
+	'poocommerce_customer_stock_notifications_first_batch_delay',
 	'__return_zero',
 	PHP_INT_MAX
 );

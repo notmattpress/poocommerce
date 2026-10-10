@@ -30,7 +30,7 @@ export const getIsAccelRelease = ( version: string ): boolean => {
 export const getCurrentVersion = async (
 	tmpRepoPath: string
 ): Promise< string | void > => {
-	const filePath = join( tmpRepoPath, `plugins/woocommerce/woocommerce.php` );
+	const filePath = join( tmpRepoPath, `plugins/poocommerce/poocommerce.php` );
 	try {
 		const data = await readFile( filePath, 'utf8' );
 		const matches = data.match( /Version:\s*(.*)/ );

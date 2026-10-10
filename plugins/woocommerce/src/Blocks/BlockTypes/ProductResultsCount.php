@@ -1,8 +1,8 @@
 <?php
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\Utils\StyleAttributesUtils;
+use Automattic\PooCommerce\Blocks\Utils\StyleAttributesUtils;
 
 /**
  * ProductResultsCount class.
@@ -38,7 +38,7 @@ class ProductResultsCount extends AbstractBlock {
 		// Buffer the result count and use it as the block's frontend content.
 		ob_start();
 		echo '<div>';
-		woocommerce_result_count();
+		poocommerce_result_count();
 		echo '</div>';
 		$product_results_count = ob_get_clean();
 
@@ -50,9 +50,9 @@ class ProductResultsCount extends AbstractBlock {
 		$classes                 = array_merge(
 			explode( ' ', $parsed_style_attributes['classes'] ),
 			array(
-				'woocommerce',
+				'poocommerce',
 				'wc-block-product-results-count',
-				'wp-block-woocommerce-product-results-count',
+				'wp-block-poocommerce-product-results-count',
 			),
 		);
 		$p->set_attribute( 'class', implode( ' ', $classes ) );

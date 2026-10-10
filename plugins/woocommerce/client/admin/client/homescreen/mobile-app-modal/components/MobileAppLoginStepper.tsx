@@ -4,9 +4,9 @@
 import React, { useState, useEffect } from '@wordpress/element';
 import { Button } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
-import { Stepper, StepperProps, Link } from '@woocommerce/components';
+import { Stepper, StepperProps, Link } from '@poocommerce/components';
 import interpolateComponents from '@automattic/interpolate-components';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -56,10 +56,10 @@ export const MobileAppLoginStepper = ( {
 			setStepsToDisplay( [
 				{
 					key: 'first',
-					label: __( 'Install the mobile app', 'woocommerce' ),
+					label: __( 'Install the mobile app', 'poocommerce' ),
 					description: __(
 						'Scan the code below to download or upgrade the app, or visit woo.com/mobile from your mobile device.',
-						'woocommerce'
+						'poocommerce'
 					),
 					content: (
 						<>
@@ -71,20 +71,20 @@ export const MobileAppLoginStepper = ( {
 									completeInstallationStepHandler();
 								} }
 							>
-								{ __( 'App is installed', 'woocommerce' ) }
+								{ __( 'App is installed', 'poocommerce' ) }
 							</Button>
 						</>
 					),
 				},
 				{
 					key: 'second',
-					label: __( 'Sign into the app', 'woocommerce' ),
+					label: __( 'Sign into the app', 'poocommerce' ),
 					description: '',
 					content: <></>,
 				},
 				{
 					key: 'third',
-					label: __( 'Signed in', 'woocommerce' ),
+					label: __( 'Signed in', 'poocommerce' ),
 					description: '',
 					content: <></>,
 				},
@@ -96,16 +96,16 @@ export const MobileAppLoginStepper = ( {
 			setStepsToDisplay( [
 				{
 					key: 'first',
-					label: __( 'App installed', 'woocommerce' ),
+					label: __( 'App installed', 'poocommerce' ),
 					description: '',
 					content: <></>,
 				},
 				{
 					key: 'second',
-					label: __( 'Sign into the app', 'woocommerce' ),
+					label: __( 'Sign into the app', 'poocommerce' ),
 					description: __(
 						'Scan the QR code below with your phone to sign in instantly — no password needed.',
-						'woocommerce'
+						'poocommerce'
 					),
 					content: (
 						<>
@@ -118,7 +118,7 @@ export const MobileAppLoginStepper = ( {
 									<p className="mobile-app-login-magic-link-secondary__label">
 										{ __(
 											'Or get a WordPress.com sign-in link by email:',
-											'woocommerce'
+											'poocommerce'
 										) }
 									</p>
 									<SendMagicLinkButton
@@ -134,12 +134,12 @@ export const MobileAppLoginStepper = ( {
 								{ interpolateComponents( {
 									mixedString: __(
 										'Any troubles signing in? Check out the {{link}}FAQ{{/link}}.',
-										'woocommerce'
+										'poocommerce'
 									),
 									components: {
 										link: (
 											<Link
-												href="https://woocommerce.com/document/android-ios-apps-login-help-faq/"
+												href="https://poocommerce.com/document/android-ios-apps-login-help-faq/"
 												target="_blank"
 												type="external"
 												onClick={ () => {
@@ -157,7 +157,7 @@ export const MobileAppLoginStepper = ( {
 				},
 				{
 					key: 'third',
-					label: __( 'Signed in', 'woocommerce' ),
+					label: __( 'Signed in', 'poocommerce' ),
 					description: '',
 					content: <></>,
 				},
@@ -166,19 +166,19 @@ export const MobileAppLoginStepper = ( {
 			setStepsToDisplay( [
 				{
 					key: 'first',
-					label: __( 'App installed', 'woocommerce' ),
+					label: __( 'App installed', 'poocommerce' ),
 					description: '',
 					content: <></>,
 				},
 				{
 					key: 'second',
-					label: __( 'Sign-in complete', 'woocommerce' ),
+					label: __( 'Sign-in complete', 'poocommerce' ),
 					description: '',
 					content: <></>,
 				},
 				{
 					key: 'third',
-					label: __( 'Signed in successfully', 'woocommerce' ),
+					label: __( 'Signed in successfully', 'poocommerce' ),
 					description: '',
 					content: (
 						<QRLoginSuccessStep

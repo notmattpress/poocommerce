@@ -2,13 +2,13 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\BlockTypes\ProductCollection;
+namespace Automattic\PooCommerce\Tests\Blocks\BlockTypes\ProductCollection;
 
-use Automattic\WooCommerce\Blocks\Assets\Api;
-use Automattic\WooCommerce\Blocks\BlockTypes\ProductCollection\Controller;
-use Automattic\WooCommerce\Blocks\Integrations\IntegrationRegistry;
-use Automattic\WooCommerce\Blocks\Package;
-use Automattic\WooCommerce\Tests\Blocks\Mocks\AssetDataRegistryMock;
+use Automattic\PooCommerce\Blocks\Assets\Api;
+use Automattic\PooCommerce\Blocks\BlockTypes\ProductCollection\Controller;
+use Automattic\PooCommerce\Blocks\Integrations\IntegrationRegistry;
+use Automattic\PooCommerce\Blocks\Package;
+use Automattic\PooCommerce\Tests\Blocks\Mocks\AssetDataRegistryMock;
 use WC_Unit_Test_Case;
 
 /**
@@ -49,14 +49,14 @@ class ControllerTest extends WC_Unit_Test_Case {
 			}
 		};
 
-		wp_interactivity_config( 'woocommerce/product-filters', array( 'forcePageReload' => false ) );
+		wp_interactivity_config( 'poocommerce/product-filters', array( 'forcePageReload' => false ) );
 	}
 
 	/**
 	 * Tear down test fixtures.
 	 */
 	public function tearDown(): void {
-		wp_interactivity_config( 'woocommerce/product-filters', array( 'forcePageReload' => false ) );
+		wp_interactivity_config( 'poocommerce/product-filters', array( 'forcePageReload' => false ) );
 
 		parent::tearDown();
 	}
@@ -71,7 +71,7 @@ class ControllerTest extends WC_Unit_Test_Case {
 
 		$this->sut->add_support_for_filter_blocks( null, $parsed_block );
 
-		$config = wp_interactivity_config( 'woocommerce/product-filters' );
+		$config = wp_interactivity_config( 'poocommerce/product-filters' );
 
 		$this->assertTrue(
 			$config['forcePageReload'] ?? false,
@@ -86,7 +86,7 @@ class ControllerTest extends WC_Unit_Test_Case {
 		$block_content = '<h2 class="wp-block-post-title"><a href="https://example.com/product">Product</a></h2>';
 		$instance      = $this->create_post_title_block(
 			array(
-				'__woocommerceNamespace' => 'woocommerce/product-collection/product-title',
+				'__poocommerceNamespace' => 'poocommerce/product-collection/product-title',
 				'isLink'                 => true,
 			)
 		);
@@ -95,7 +95,7 @@ class ControllerTest extends WC_Unit_Test_Case {
 
 		$this->assertSame(
 			1,
-			substr_count( $rendered, 'data-wp-on--click="woocommerce/product-collection::actions.viewProduct"' ),
+			substr_count( $rendered, 'data-wp-on--click="poocommerce/product-collection::actions.viewProduct"' ),
 			'The linked Product Collection title should receive exactly one viewed-product action.'
 		);
 	}
@@ -127,21 +127,21 @@ class ControllerTest extends WC_Unit_Test_Case {
 		return array(
 			'wrong namespace' => array(
 				array(
-					'__woocommerceNamespace' => 'woocommerce/single-product/product-title',
+					'__poocommerceNamespace' => 'poocommerce/single-product/product-title',
 					'isLink'                 => true,
 				),
 				$linked_title,
 			),
 			'link disabled'   => array(
 				array(
-					'__woocommerceNamespace' => 'woocommerce/product-collection/product-title',
+					'__poocommerceNamespace' => 'poocommerce/product-collection/product-title',
 					'isLink'                 => false,
 				),
 				$linked_title,
 			),
 			'missing anchor'  => array(
 				array(
-					'__woocommerceNamespace' => 'woocommerce/product-collection/product-title',
+					'__poocommerceNamespace' => 'poocommerce/product-collection/product-title',
 					'isLink'                 => true,
 				),
 				'<h2 class="wp-block-post-title">Product</h2>',

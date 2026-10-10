@@ -1,16 +1,16 @@
 <?php
 /**
- * Stub file for WooCommerce constants.
+ * Stub file for PooCommerce constants.
  *
- * These constants are defined at runtime via WooCommerce::define() which PHPStan
+ * These constants are defined at runtime via PooCommerce::define() which PHPStan
  * cannot statically analyze. This stub provides the definitions so PHPStan can
  * properly validate code that uses these constants.
  *
- * @see \WooCommerce::define_constants()
- * @see \Automattic\WooCommerce\Internal\Admin\FeaturePlugin::define_constants()
+ * @see \PooCommerce::define_constants()
+ * @see \Automattic\PooCommerce\Internal\Admin\FeaturePlugin::define_constants()
  */
 
-// Core WooCommerce constants (defined in class-woocommerce.php).
+// Core PooCommerce constants (defined in class-poocommerce.php).
 define( 'WC_ABSPATH', '' );
 define( 'WC_PLUGIN_BASENAME', '' );
 define( 'WC_VERSION', '' );

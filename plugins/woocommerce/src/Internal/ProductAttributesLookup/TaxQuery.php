@@ -1,6 +1,6 @@
 <?php declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\ProductAttributesLookup;
+namespace Automattic\PooCommerce\Internal\ProductAttributesLookup;
 
 /**
  * Tax query class introduced to optimize SQL performance in bigger product/category catalogs.

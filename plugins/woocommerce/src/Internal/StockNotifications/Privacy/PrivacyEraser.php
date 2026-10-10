@@ -2,17 +2,17 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\StockNotifications\Privacy;
+namespace Automattic\PooCommerce\Internal\StockNotifications\Privacy;
 
-use Automattic\WooCommerce\Internal\StockNotifications\Enums\NotificationCancellationSource;
-use Automattic\WooCommerce\Internal\StockNotifications\Factory;
-use Automattic\WooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
-use Automattic\WooCommerce\Internal\StockNotifications\Notification;
-use Automattic\WooCommerce\Internal\StockNotifications\NotificationQuery;
-use Automattic\WooCommerce\Internal\StockNotifications\Utilities\EmailNormalizer;
+use Automattic\PooCommerce\Internal\StockNotifications\Enums\NotificationCancellationSource;
+use Automattic\PooCommerce\Internal\StockNotifications\Factory;
+use Automattic\PooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
+use Automattic\PooCommerce\Internal\StockNotifications\Notification;
+use Automattic\PooCommerce\Internal\StockNotifications\NotificationQuery;
+use Automattic\PooCommerce\Internal\StockNotifications\Utilities\EmailNormalizer;
 
 /**
- * Privacy eraser for WooCommerce Customer Stock Notifications.
+ * Privacy eraser for PooCommerce Customer Stock Notifications.
  *
  * This class handles the erasure of customer stock notification data for users
  * who request their personal data to be erased.
@@ -33,8 +33,8 @@ class PrivacyEraser extends \WC_Abstract_Privacy {
 	 */
 	public function register_erasers_exporters() {
 		$this->add_eraser(
-			'woocommerce-customer-stock-notifications',
-			__( 'WooCommerce Customer Stock Notifications', 'woocommerce' ),
+			'poocommerce-customer-stock-notifications',
+			__( 'PooCommerce Customer Stock Notifications', 'poocommerce' ),
 			array( $this, 'erase_notification_data' )
 		);
 	}
@@ -82,7 +82,7 @@ class PrivacyEraser extends \WC_Abstract_Privacy {
 			$notification->save();
 			$response['messages'][] = sprintf(
 			/* translators: %d the numeric product ID */
-				__( 'Removed back-in-stock notification for product id: %d', 'woocommerce' ),
+				__( 'Removed back-in-stock notification for product id: %d', 'poocommerce' ),
 				$notification->get_product_id()
 			);
 			$response['items_removed'] = true;

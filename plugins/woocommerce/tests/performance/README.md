@@ -1,6 +1,6 @@
-# WooCommerce Performance Tests
+# PooCommerce Performance Tests
 
-Automated k6 performance tests for WooCommerce. To be used for benchmarking performance (both single user and under load) by simulating and measuring the response time of HTTP requests.
+Automated k6 performance tests for PooCommerce. To be used for benchmarking performance (both single user and under load) by simulating and measuring the response time of HTTP requests.
 
 ## Table of contents
 
@@ -50,10 +50,10 @@ Alternatively the k6 docker image can be used to execute tests.
 
 Before using the tests a test environment is needed to run against.
 
-We first spin up an environment using `wp-env` and configure that environment with the necessary plugins and data using the Initialization Script [`init-environment.sh`](https://github.com/woocommerce/woocommerce/tree/trunk/plugins/woocommerce/tests/performance/bin/init-environment.sh) that will set up a shop with sample products imported and the shop settings (payment method, permalinks, address etc) needed for the tests already set. It is recommended using this to just see the tests in action.
+We first spin up an environment using `wp-env` and configure that environment with the necessary plugins and data using the Initialization Script [`init-environment.sh`](https://github.com/poocommerce/poocommerce/tree/trunk/plugins/poocommerce/tests/performance/bin/init-environment.sh) that will set up a shop with sample products imported and the shop settings (payment method, permalinks, address etc) needed for the tests already set. It is recommended using this to just see the tests in action.
 
 ```sh
-pnpm --filter='@woocommerce/plugin-woocommerce' env:perf
+pnpm --filter='@poocommerce/plugin-poocommerce' env:perf
 ```
 
 If using a different environment the details can be changed in `config.js`.
@@ -238,7 +238,7 @@ In `headers.js` the common headers are grouped by type and then can be imported 
 
 To make a test work so it can be ran reliably multiple times usually there is a need to correlate any dynamic data in the test. This means extracting one or more values from the response of one request and then reusing them in subsequent requests.
 
-An example of this is the `woocommerce-process-checkout-nonce` . This is returned in the response of the `/checkout` `GET` request and is passed into the `/?wc-ajax=checkout` `POST` request.
+An example of this is the `poocommerce-process-checkout-nonce` . This is returned in the response of the `/checkout` `GET` request and is passed into the `/?wc-ajax=checkout` `POST` request.
 
 A value can be correlated by using k6 selector `.find` to extract the data from a response by matching an element. Alternatively for extracting data from a response unsuitable for using selectors k6 has a `findBetween` utility that makes its easier by just having to provide the left and right boundaries of the data.
 

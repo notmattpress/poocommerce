@@ -2,12 +2,12 @@
 /**
  * ArrayColumn tests.
  *
- * @package WooCommerce\Admin\Tests\RemoteSpecs
+ * @package PooCommerce\Admin\Tests\RemoteSpecs
  */
 
 declare( strict_types = 1 );
 
-use Automattic\WooCommerce\Admin\RemoteSpecs\RuleProcessors\Transformers\ArrayColumn;
+use Automattic\PooCommerce\Admin\RemoteSpecs\RuleProcessors\Transformers\ArrayColumn;
 
 
 /**

@@ -13,13 +13,13 @@ import { TableSummaryProps } from './types';
  */
 const TableSummary = ( { data }: TableSummaryProps ) => {
 	return (
-		<ul className="woocommerce-table__summary" role="complementary">
+		<ul className="poocommerce-table__summary" role="complementary">
 			{ data.map( ( { label, value }, i ) => (
-				<li className="woocommerce-table__summary-item" key={ i }>
-					<span className="woocommerce-table__summary-value">
+				<li className="poocommerce-table__summary-item" key={ i }>
+					<span className="poocommerce-table__summary-value">
 						{ value }
 					</span>
-					<span className="woocommerce-table__summary-label">
+					<span className="poocommerce-table__summary-label">
 						{ label }
 					</span>
 				</li>
@@ -38,10 +38,10 @@ export default TableSummary;
 export const TableSummaryPlaceholder = () => {
 	return (
 		<ul
-			className="woocommerce-table__summary is-loading"
+			className="poocommerce-table__summary is-loading"
 			role="complementary"
 		>
-			<li className="woocommerce-table__summary-item">
+			<li className="poocommerce-table__summary-item">
 				<span className="is-placeholder" />
 			</li>
 		</ul>

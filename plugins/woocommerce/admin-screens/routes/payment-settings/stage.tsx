@@ -11,7 +11,7 @@ function SettingsStage() {
 
 	return (
 		<Page
-			title={ __( 'Payment settings', 'woocommerce' ) }
+			title={ __( 'Payment settings', 'poocommerce' ) }
 			showSidebarToggle={ false }
 			hasPadding
 		>

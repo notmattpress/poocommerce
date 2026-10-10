@@ -1,8 +1,8 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\Utils\StyleAttributesUtils;
-use Automattic\WooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Blocks\Utils\StyleAttributesUtils;
+use Automattic\PooCommerce\Enums\ProductType;
 use WP_Block;
 
 /**
@@ -73,12 +73,12 @@ class ProductSKU extends AbstractBlock {
 		$is_interactive                      = ! $is_descendant_of_product_collection && $product->is_type( ProductType::VARIABLE );
 
 		if ( $is_interactive ) {
-			wp_enqueue_script_module( 'woocommerce/product-elements' );
+			wp_enqueue_script_module( 'poocommerce/product-elements' );
 		}
 
 		$styles_and_classes = StyleAttributesUtils::get_classes_and_styles_by_attributes( $attributes );
 
-		$prefix = isset( $attributes['prefix'] ) ? wp_kses_post( ( $attributes['prefix'] ) ) : __( 'SKU: ', 'woocommerce' );
+		$prefix = isset( $attributes['prefix'] ) ? wp_kses_post( ( $attributes['prefix'] ) ) : __( 'SKU: ', 'poocommerce' );
 		if ( ! empty( $prefix ) ) {
 			$prefix = sprintf( '<span class="wp-block-post-terms__prefix">%s</span>', $prefix );
 		}
@@ -88,10 +88,10 @@ class ProductSKU extends AbstractBlock {
 			$suffix = sprintf( '<span class="wp-block-post-terms__suffix">%s</span>', $suffix );
 		}
 
-		$interactive_attributes = $is_interactive ? 'data-wp-interactive="woocommerce/products" data-wp-text="state.productInContext.sku"' : '';
+		$interactive_attributes = $is_interactive ? 'data-wp-interactive="poocommerce/products" data-wp-text="state.productInContext.sku"' : '';
 
 		return sprintf(
-			'<div class="wc-block-components-product-sku wc-block-grid__product-sku wp-block-woocommerce-product-sku product_meta wp-block-post-terms %1$s" style="%2$s">
+			'<div class="wc-block-components-product-sku wc-block-grid__product-sku wp-block-poocommerce-product-sku product_meta wp-block-post-terms %1$s" style="%2$s">
 				%3$s
 				<span class="sku" %4$s>%5$s</span>
 				%6$s

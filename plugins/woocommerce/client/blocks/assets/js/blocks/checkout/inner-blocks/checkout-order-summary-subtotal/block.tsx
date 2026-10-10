@@ -1,12 +1,12 @@
 /**
  * External dependencies
  */
-import { Subtotal, TotalsWrapper } from '@woocommerce/blocks-components';
-import { getCurrencyFromPriceResponse } from '@woocommerce/price-format';
+import { Subtotal, TotalsWrapper } from '@poocommerce/blocks-components';
+import { getCurrencyFromPriceResponse } from '@poocommerce/price-format';
 import {
 	useStoreCart,
 	useOrderSummaryLoadingState,
-} from '@woocommerce/base-context/hooks';
+} from '@poocommerce/base-context/hooks';
 
 const Block = ( { className = '' }: { className?: string } ): JSX.Element => {
 	const { cartTotals } = useStoreCart();

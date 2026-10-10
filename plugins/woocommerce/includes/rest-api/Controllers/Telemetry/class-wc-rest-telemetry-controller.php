@@ -4,7 +4,7 @@
  *
  * Handles requests to the /wc-telemetry endpoint.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @since   3.0.0
  */
 
@@ -13,7 +13,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Telemetry controller class.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @extends WC_REST_Controller
  */
 class WC_REST_Telemetry_Controller extends WC_REST_Controller {
@@ -59,7 +59,7 @@ class WC_REST_Telemetry_Controller extends WC_REST_Controller {
 	 */
 	public function telemetry_permissions_check( $request ) {
 		if ( ! is_user_logged_in() ) {
-			return new WP_Error( 'woocommerce_rest_cannot_view', __( 'Sorry, you post telemetry data.', 'woocommerce' ), array( 'status' => rest_authorization_required_code() ) );
+			return new WP_Error( 'poocommerce_rest_cannot_view', __( 'Sorry, you post telemetry data.', 'poocommerce' ), array( 'status' => rest_authorization_required_code() ) );
 		}
 		return true;
 	}
@@ -75,7 +75,7 @@ class WC_REST_Telemetry_Controller extends WC_REST_Controller {
 			return;
 		}
 
-		$data = get_option( 'woocommerce_mobile_app_usage' );
+		$data = get_option( 'poocommerce_mobile_app_usage' );
 		if ( ! $data ) {
 			$data = array();
 		}
@@ -100,7 +100,7 @@ class WC_REST_Telemetry_Controller extends WC_REST_Controller {
 			$data[ $platform ] = $new;
 		}
 
-		update_option( 'woocommerce_mobile_app_usage', $data );
+		update_option( 'poocommerce_mobile_app_usage', $data );
 	}
 
 	/**
@@ -148,21 +148,21 @@ class WC_REST_Telemetry_Controller extends WC_REST_Controller {
 	public function get_collection_params() {
 		return array(
 			'platform'          => array(
-				'description'       => __( 'Platform to track.', 'woocommerce' ),
+				'description'       => __( 'Platform to track.', 'poocommerce' ),
 				'required'          => true,
 				'type'              => 'string',
 				'sanitize_callback' => 'sanitize_text_field',
 				'validate_callback' => 'rest_validate_request_arg',
 			),
 			'version'           => array(
-				'description'       => __( 'Platform version to track.', 'woocommerce' ),
+				'description'       => __( 'Platform version to track.', 'poocommerce' ),
 				'required'          => true,
 				'type'              => 'string',
 				'sanitize_callback' => 'sanitize_text_field',
 				'validate_callback' => 'rest_validate_request_arg',
 			),
 			'installation_date' => array(
-				'description'       => __( 'Installation date of the WooCommerce mobile app.', 'woocommerce' ),
+				'description'       => __( 'Installation date of the PooCommerce mobile app.', 'poocommerce' ),
 				'required'          => false, // For backward compatibility.
 				'type'              => 'string',
 				'format'            => 'date-time',

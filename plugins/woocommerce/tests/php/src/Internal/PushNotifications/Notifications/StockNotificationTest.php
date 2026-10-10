@@ -2,12 +2,12 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\PushNotifications\Notifications;
+namespace Automattic\PooCommerce\Tests\Internal\PushNotifications\Notifications;
 
-use Automattic\WooCommerce\Internal\PushNotifications\Enums\SuppressionReason;
-use Automattic\WooCommerce\Internal\PushNotifications\Notifications\Notification;
-use Automattic\WooCommerce\Internal\PushNotifications\Notifications\StockNotification;
-use Automattic\WooCommerce\Internal\PushNotifications\Services\NotificationProcessor;
+use Automattic\PooCommerce\Internal\PushNotifications\Enums\SuppressionReason;
+use Automattic\PooCommerce\Internal\PushNotifications\Notifications\Notification;
+use Automattic\PooCommerce\Internal\PushNotifications\Notifications\StockNotification;
+use Automattic\PooCommerce\Internal\PushNotifications\Services\NotificationProcessor;
 use InvalidArgumentException;
 use WC_Helper_Product;
 use WC_Unit_Test_Case;

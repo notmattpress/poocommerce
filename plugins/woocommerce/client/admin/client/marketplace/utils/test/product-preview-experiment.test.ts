@@ -12,30 +12,30 @@ describe( 'addVariationToPreviewLinks', () => {
 		);
 	}
 
-	it( 'adds the variation to WooCommerce.com links and keeps their parameters', () => {
+	it( 'adds the variation to PooCommerce.com links and keeps their parameters', () => {
 		const html = addVariationToPreviewLinks(
 			'<p>Intro</p>' +
-				'<a href="https://woocommerce.com/cart/?add-to-cart=1&utm_source=previewscreen" data-iam-tracks="buy_now">Buy now</a>' +
-				'<a href="https://woocommerce.com/products/test/?utm_source=previewscreen">See more</a>',
+				'<a href="https://poocommerce.com/cart/?add-to-cart=1&utm_source=previewscreen" data-iam-tracks="buy_now">Buy now</a>' +
+				'<a href="https://poocommerce.com/products/test/?utm_source=previewscreen">See more</a>',
 			'treatment'
 		);
 
 		expect( hrefs( html ) ).toEqual( [
-			'https://woocommerce.com/cart/?add-to-cart=1&utm_source=previewscreen&utm_term=treatment',
-			'https://woocommerce.com/products/test/?utm_source=previewscreen&utm_term=treatment',
+			'https://poocommerce.com/cart/?add-to-cart=1&utm_source=previewscreen&utm_term=treatment',
+			'https://poocommerce.com/products/test/?utm_source=previewscreen&utm_term=treatment',
 		] );
 		expect( html ).toContain( '<p>Intro</p>' );
 		expect( html ).toContain( 'data-iam-tracks="buy_now"' );
 	} );
 
-	it( 'adds the variation to protocol-relative WooCommerce.com links', () => {
+	it( 'adds the variation to protocol-relative PooCommerce.com links', () => {
 		const html = addVariationToPreviewLinks(
-			'<a href="//woocommerce.com/cart/">Buy now</a>',
+			'<a href="//poocommerce.com/cart/">Buy now</a>',
 			'treatment'
 		);
 
 		expect( hrefs( html ) ).toEqual( [
-			`${ window.location.protocol }//woocommerce.com/cart/?utm_term=treatment`,
+			`${ window.location.protocol }//poocommerce.com/cart/?utm_term=treatment`,
 		] );
 	} );
 

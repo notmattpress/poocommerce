@@ -7,7 +7,7 @@ The Store API has its own authentication model distinct from the rest of the WP 
 `Authentication::check_authentication()` is hooked on `rest_authentication_errors` for every `/wc/store/v1/*` request. It deliberately returns `true` to override WP's default cookie-nonce check, so **WP's built-in CSRF protection does not apply** to Store API routes.
 
 ```php
-// plugins/woocommerce/src/StoreApi/Authentication.php
+// plugins/poocommerce/src/StoreApi/Authentication.php
 public function check_authentication( $result ) {
     // Enable Rate Limiting for logged-in users without 'edit posts' capability.
     if ( ! current_user_can( 'edit_posts' ) ) {
@@ -23,10 +23,10 @@ The class docblock literally says *"The Store API does not require authenticatio
 
 State-changing routes get their CSRF protection from `AbstractCartRoute::check_nonce()`, which:
 
-- Is invoked on every request via [`get_response()`](../../../plugins/woocommerce/src/StoreApi/Routes/V1/AbstractCartRoute.php), gated by `requires_nonce()` — which returns true on non-GET requests that don't carry a valid `Cart-Token` header. Cart-token-bearing requests are authenticated via the token instead and skip the nonce check.
-- Verifies a `Nonce` header against the `wc_store_api` action inside [`check_nonce()`](../../../plugins/woocommerce/src/StoreApi/Routes/V1/AbstractCartRoute.php).
-- Rejects with `401 woocommerce_rest_missing_nonce` or `403 woocommerce_rest_invalid_nonce`.
-- Hands back a fresh `Nonce` response header on every response (set in [`add_response_headers()`](../../../plugins/woocommerce/src/StoreApi/Routes/V1/AbstractCartRoute.php)) that the client echoes back on the next state-changing request.
+- Is invoked on every request via [`get_response()`](../../../plugins/poocommerce/src/StoreApi/Routes/V1/AbstractCartRoute.php), gated by `requires_nonce()` — which returns true on non-GET requests that don't carry a valid `Cart-Token` header. Cart-token-bearing requests are authenticated via the token instead and skip the nonce check.
+- Verifies a `Nonce` header against the `wc_store_api` action inside [`check_nonce()`](../../../plugins/poocommerce/src/StoreApi/Routes/V1/AbstractCartRoute.php).
+- Rejects with `401 poocommerce_rest_missing_nonce` or `403 poocommerce_rest_invalid_nonce`.
+- Hands back a fresh `Nonce` response header on every response (set in [`add_response_headers()`](../../../plugins/poocommerce/src/StoreApi/Routes/V1/AbstractCartRoute.php)) that the client echoes back on the next state-changing request.
 
 Routes that extend `AbstractRoute` directly do **not** get this. They will accept any logged-in cookie session without a nonce check, which is a real CSRF surface.
 
@@ -45,9 +45,9 @@ If you find yourself extending `AbstractRoute` for a route that POSTs/DELETEs ba
 
 | Use case | Pattern | Reference |
 | --- | --- | --- |
-| Guest-accessible | `'__return_true'` | [Cart.php](../../../plugins/woocommerce/src/StoreApi/Routes/V1/Cart.php), most cart routes |
-| Login-required | `function () { return is_user_logged_in(); }` | [Patterns.php](../../../plugins/woocommerce/src/StoreApi/Routes/V1/Patterns.php) |
-| Owner-only access | `[ $this, 'is_authorized' ]` | [Order.php](../../../plugins/woocommerce/src/StoreApi/Routes/V1/Order.php) |
+| Guest-accessible | `'__return_true'` | [Cart.php](../../../plugins/poocommerce/src/StoreApi/Routes/V1/Cart.php), most cart routes |
+| Login-required | `function () { return is_user_logged_in(); }` | [Patterns.php](../../../plugins/poocommerce/src/StoreApi/Routes/V1/Patterns.php) |
+| Owner-only access | `[ $this, 'is_authorized' ]` | [Order.php](../../../plugins/poocommerce/src/StoreApi/Routes/V1/Order.php) |
 
 **Don't use bare callable strings** like `'is_user_logged_in'`. They work but diverge from the codebase convention. Reviewers will look for the closure form. The closure also gives you a place to add capability checks later without changing the callback type.
 
@@ -82,6 +82,6 @@ If a route needs to read `WC()->cart->cart_contents`, document that Application 
 For any route requiring auth, add tests covering:
 
 1. **Unauthenticated request** → 401.
-2. **Authenticated request without nonce** (for state-changing routes via cookie auth) → 401 `woocommerce_rest_missing_nonce`.
-3. **Authenticated request with invalid nonce** → 403 `woocommerce_rest_invalid_nonce`.
+2. **Authenticated request without nonce** (for state-changing routes via cookie auth) → 401 `poocommerce_rest_missing_nonce`.
+3. **Authenticated request with invalid nonce** → 403 `poocommerce_rest_invalid_nonce`.
 4. **Cross-user access** (where applicable) → 403 or 404.

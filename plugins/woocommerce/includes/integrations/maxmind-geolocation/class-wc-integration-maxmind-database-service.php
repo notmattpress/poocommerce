@@ -3,7 +3,7 @@
  * The database service class file.
  *
  * @version 3.9.0
- * @package WooCommerce\Integrations
+ * @package PooCommerce\Integrations
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -49,7 +49,7 @@ class WC_Integration_MaxMind_Database_Service {
 	public function get_database_path() {
 		$uploads_dir = wp_upload_dir();
 
-		$database_path = trailingslashit( $uploads_dir['basedir'] ) . 'woocommerce_uploads/';
+		$database_path = trailingslashit( $uploads_dir['basedir'] ) . 'poocommerce_uploads/';
 		if ( ! empty( $this->database_prefix ) ) {
 			$database_path .= $this->database_prefix . '-';
 		}
@@ -63,10 +63,10 @@ class WC_Integration_MaxMind_Database_Service {
 		 * @deprecated 3.9.0
 		 */
 		$database_path = apply_filters_deprecated(
-			'woocommerce_geolocation_local_database_path',
+			'poocommerce_geolocation_local_database_path',
 			array( $database_path, 2 ),
 			'3.9.0',
-			'woocommerce_maxmind_geolocation_database_path'
+			'poocommerce_maxmind_geolocation_database_path'
 		);
 
 		/**
@@ -75,7 +75,7 @@ class WC_Integration_MaxMind_Database_Service {
 		 * @since 3.9.0
 		 * @param string $database_path The path to the database.
 		 */
-		return apply_filters( 'woocommerce_maxmind_geolocation_database_path', $database_path );
+		return apply_filters( 'poocommerce_maxmind_geolocation_database_path', $database_path );
 	}
 
 	/**
@@ -105,13 +105,13 @@ class WC_Integration_MaxMind_Database_Service {
 				switch ( $error_data['code'] ) {
 					case 401:
 						return new WP_Error(
-							'woocommerce_maxmind_geolocation_database_license_key',
-							__( 'The MaxMind license key is invalid. If you have recently created this key, you may need to wait for it to become active.', 'woocommerce' )
+							'poocommerce_maxmind_geolocation_database_license_key',
+							__( 'The MaxMind license key is invalid. If you have recently created this key, you may need to wait for it to become active.', 'poocommerce' )
 						);
 				}
 			}
 
-			return new WP_Error( 'woocommerce_maxmind_geolocation_database_download', __( 'Failed to download the MaxMind database.', 'woocommerce' ) );
+			return new WP_Error( 'poocommerce_maxmind_geolocation_database_download', __( 'Failed to download the MaxMind database.', 'poocommerce' ) );
 		}
 
 		// Extract the database from the archive.
@@ -126,7 +126,7 @@ class WC_Integration_MaxMind_Database_Service {
 				true
 			);
 		} catch ( Exception $exception ) {
-			return new WP_Error( 'woocommerce_maxmind_geolocation_database_archive', $exception->getMessage() );
+			return new WP_Error( 'poocommerce_maxmind_geolocation_database_archive', $exception->getMessage() );
 		} finally {
 			// Remove the archive since we only care about a single file in it.
 			unlink( $tmp_archive_path );
@@ -145,7 +145,7 @@ class WC_Integration_MaxMind_Database_Service {
 		$country_code = '';
 
 		if ( ! class_exists( 'MaxMind\Db\Reader' ) ) {
-			wc_get_logger()->notice( __( 'Missing MaxMind Reader library!', 'woocommerce' ), array( 'source' => 'maxmind-geolocation' ) );
+			wc_get_logger()->notice( __( 'Missing MaxMind Reader library!', 'poocommerce' ), array( 'source' => 'maxmind-geolocation' ) );
 			return $country_code;
 		}
 

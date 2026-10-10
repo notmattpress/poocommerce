@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { WC_API_PATH } from '@woocommerce/e2e-utils-playwright';
+import { WC_API_PATH } from '@poocommerce/e2e-utils-playwright';
 
 /**
  * Internal dependencies
@@ -14,7 +14,7 @@ import { ADMIN_STATE_PATH } from '../../playwright.config';
 const SMALL_SCREEN = { width: 480, height: 900 };
 
 test.describe(
-	'WooCommerce Orders > Hidden columns on small screens',
+	'PooCommerce Orders > Hidden columns on small screens',
 	{ tag: [ tags.HPOS ] },
 	() => {
 		test.use( { storageState: ADMIN_STATE_PATH } );

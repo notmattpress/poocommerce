@@ -6,7 +6,7 @@ import type { BlockEditProps } from '@wordpress/blocks';
 /**
  * Internal dependencies
  */
-import type { SelectableItem } from '@woocommerce/types';
+import type { SelectableItem } from '@poocommerce/types';
 import type { VisualAttributeTerm } from '../../base/utils/visual-attribute-terms';
 
 // ----------------------------------------

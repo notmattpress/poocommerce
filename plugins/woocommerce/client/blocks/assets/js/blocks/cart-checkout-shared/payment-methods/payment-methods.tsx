@@ -2,11 +2,11 @@
  * External dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { Label } from '@woocommerce/blocks-components';
+import { Label } from '@poocommerce/blocks-components';
 import { useSelect } from '@wordpress/data';
-import { paymentStore } from '@woocommerce/block-data';
-import { CheckoutPaymentSkeleton } from '@woocommerce/base-components/skeleton/patterns/checkout-payment';
-import { DelayedContentWithSkeleton } from '@woocommerce/base-components/delayed-content-with-skeleton';
+import { paymentStore } from '@poocommerce/block-data';
+import { CheckoutPaymentSkeleton } from '@poocommerce/base-components/skeleton/patterns/checkout-payment';
+import { DelayedContentWithSkeleton } from '@poocommerce/base-components/delayed-content-with-skeleton';
 
 /**
  * Internal dependencies
@@ -82,10 +82,10 @@ const PaymentMethods = ( {
 			<SavedPaymentMethodOptions />
 			{ Object.keys( savedPaymentMethods ).length > 0 && (
 				<Label
-					label={ __( 'Use another payment method.', 'woocommerce' ) }
+					label={ __( 'Use another payment method.', 'poocommerce' ) }
 					screenReaderLabel={ __(
 						'Other available payment methods',
-						'woocommerce'
+						'poocommerce'
 					) }
 					wrapperElement="p"
 					wrapperProps={ {

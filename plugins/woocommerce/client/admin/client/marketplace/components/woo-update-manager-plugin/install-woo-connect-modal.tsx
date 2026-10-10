@@ -25,39 +25,39 @@ export default function InstallWooConnectModal( props: ConnectProps ) {
 	if ( ! wccomSettings?.wooUpdateManagerInstalled ) {
 		return (
 			<Modal
-				title={ __( 'Access your updates', 'woocommerce' ) }
+				title={ __( 'Access your updates', 'poocommerce' ) }
 				onRequestClose={ props.onClose }
 				focusOnMount={ true }
-				className="woocommerce-marketplace__header-account-modal"
+				className="poocommerce-marketplace__header-account-modal"
 				style={ { borderRadius: 4 } }
-				overlayClassName="woocommerce-marketplace__header-account-modal-overlay"
+				overlayClassName="poocommerce-marketplace__header-account-modal-overlay"
 			>
-				<p className="woocommerce-marketplace__header-account-modal-text">
+				<p className="poocommerce-marketplace__header-account-modal-text">
 					<span
 						dangerouslySetInnerHTML={ sanitizeHTML(
 							sprintf(
 								// translators: %s is the product version number (e.g. 1.0.2).
 								__(
-									'Version %s is available. To access this update, please first <b>install the WooCommerce.com Update Manager</b> extension. Alternatively, you can download and install it manually.',
-									'woocommerce'
+									'Version %s is available. To access this update, please first <b>install the PooCommerce.com Update Manager</b> extension. Alternatively, you can download and install it manually.',
+									'poocommerce'
 								),
 								props.subscription.version
 							)
 						) }
 					/>
 				</p>
-				<ButtonGroup className="woocommerce-marketplace__header-account-modal-button-group">
+				<ButtonGroup className="poocommerce-marketplace__header-account-modal-button-group">
 					<Button
 						href={ WOO_CONNECT_PLUGIN_DOWNLOAD_URL }
 						variant="secondary"
 					>
-						{ __( 'Download', 'woocommerce' ) }
+						{ __( 'Download', 'poocommerce' ) }
 					</Button>
 					<Button
 						href={ wccomSettings?.wooUpdateManagerInstallUrl }
 						variant="primary"
 					>
-						{ __( 'Install', 'woocommerce' ) }
+						{ __( 'Install', 'poocommerce' ) }
 					</Button>
 				</ButtonGroup>
 			</Modal>
@@ -67,33 +67,33 @@ export default function InstallWooConnectModal( props: ConnectProps ) {
 	if ( ! wccomSettings?.wooUpdateManagerActive ) {
 		return (
 			<Modal
-				title={ __( 'Access your updates', 'woocommerce' ) }
+				title={ __( 'Access your updates', 'poocommerce' ) }
 				onRequestClose={ props.onClose }
 				focusOnMount={ true }
-				className="woocommerce-marketplace__header-account-modal"
+				className="poocommerce-marketplace__header-account-modal"
 				style={ { borderRadius: 4 } }
-				overlayClassName="woocommerce-marketplace__header-account-modal-overlay"
+				overlayClassName="poocommerce-marketplace__header-account-modal-overlay"
 			>
-				<p className="woocommerce-marketplace__header-account-modal-text">
+				<p className="poocommerce-marketplace__header-account-modal-text">
 					<span
 						dangerouslySetInnerHTML={ sanitizeHTML(
 							sprintf(
 								// translators: %s is the product version number (e.g. 1.0.2).
 								__(
-									'Version %s is available. To access this update, please <b>activate the WooCommerce.com Update Manager</b> extension.',
-									'woocommerce'
+									'Version %s is available. To access this update, please <b>activate the PooCommerce.com Update Manager</b> extension.',
+									'poocommerce'
 								),
 								props.subscription.version
 							)
 						) }
 					/>
 				</p>
-				<ButtonGroup className="woocommerce-marketplace__header-account-modal-button-group">
+				<ButtonGroup className="poocommerce-marketplace__header-account-modal-button-group">
 					<Button onClick={ props.onClose } variant="link">
-						{ __( 'Cancel', 'woocommerce' ) }
+						{ __( 'Cancel', 'poocommerce' ) }
 					</Button>
 					<Button href={ WP_ADMIN_PLUGIN_LIST_URL } variant="primary">
-						{ __( 'Activate', 'woocommerce' ) }
+						{ __( 'Activate', 'poocommerce' ) }
 					</Button>
 				</ButtonGroup>
 			</Modal>

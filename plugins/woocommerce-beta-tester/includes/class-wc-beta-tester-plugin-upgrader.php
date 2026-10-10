@@ -1,6 +1,6 @@
 <?php
 /**
- * WooCommerce Beta Tester Plugin Upgrader
+ * PooCommerce Beta Tester Plugin Upgrader
  *
  * Class that extends the WP Core Plugin_Upgrader found in core to do version switch.
  *

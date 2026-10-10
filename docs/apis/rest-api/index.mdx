@@ -5,9 +5,9 @@ sidebar_label: 'Introduction'
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# WooCommerce REST API
+# PooCommerce REST API
 
-WooCommerce (WC) 2.6+ is fully integrated with the WordPress [REST](http://en.wikipedia.org/wiki/Representational_State_Transfer) API. This allows WC data to be created, read, updated, and deleted using requests in JSON format and using WordPress REST API Authentication methods and standard HTTP verbs which are understood by most HTTP clients.
+PooCommerce (WC) 2.6+ is fully integrated with the WordPress [REST](http://en.wikipedia.org/wiki/Representational_State_Transfer) API. This allows WC data to be created, read, updated, and deleted using requests in JSON format and using WordPress REST API Authentication methods and standard HTTP verbs which are understood by most HTTP clients.
 
 The current WP REST API integration version is `v3` which takes a first-order position in endpoints.
 
@@ -15,7 +15,7 @@ The current WP REST API integration version is `v3` which takes a first-order po
 
 To use the REST API you must be using:
 
-- WooCommerce 3.5+
+- PooCommerce 3.5+
 - WordPress 4.4+
 - Pretty permalinks in **Settings > Permalinks** (default permalinks will not work)
 
@@ -25,33 +25,33 @@ You may access the API over either HTTP or HTTPS, but *HTTPS is recommended wher
 You are **not** required to install the [WP REST API (WP API)](https://wordpress.org/plugins/rest-api/) plugin.
 :::
 
-If you use ModSecurity and see `501 Method Not Implemented` errors, see [this issue](https://github.com/woocommerce/woocommerce/issues/9838) for details.
+If you use ModSecurity and see `501 Method Not Implemented` errors, see [this issue](https://github.com/poocommerce/poocommerce/issues/9838) for details.
 
 ## Libraries and tools
 
 ### Official libraries
 
-- [JavaScript](https://www.npmjs.com/package/@woocommerce/woocommerce-rest-api) Library
-- [PHP](https://packagist.org/packages/automattic/woocommerce) Library
-- [Python](https://pypi.python.org/pypi/WooCommerce) Library
-- [Ruby](https://rubygems.org/gems/woocommerce_api) Library
+- [JavaScript](https://www.npmjs.com/package/@poocommerce/poocommerce-rest-api) Library
+- [PHP](https://packagist.org/packages/automattic/poocommerce) Library
+- [Python](https://pypi.python.org/pypi/PooCommerce) Library
+- [Ruby](https://rubygems.org/gems/poocommerce_api) Library
 
 <Tabs>
   <TabItem value="js" label="JavaScript">
 
 ```javascript
 // Install:
-// npm install --save @woocommerce/woocommerce-rest-api
+// npm install --save @poocommerce/poocommerce-rest-api
 
 // Setup:
-const WooCommerceRestApi = require("@woocommerce/woocommerce-rest-api").default;
-// import WooCommerceRestApi from "@woocommerce/woocommerce-rest-api"; // Supports ESM
+const PooCommerceRestApi = require("@poocommerce/poocommerce-rest-api").default;
+// import PooCommerceRestApi from "@poocommerce/poocommerce-rest-api"; // Supports ESM
 
-const WooCommerce = new WooCommerceRestApi({
+const PooCommerce = new PooCommerceRestApi({
   url: 'http://example.com', // Your store URL
   consumerKey: 'consumer_key', // Your consumer key
   consumerSecret: 'consumer_secret', // Your consumer secret
-  version: 'wc/v3' // WooCommerce WP REST API version
+  version: 'wc/v3' // PooCommerce WP REST API version
 });
 ```
 
@@ -61,20 +61,20 @@ const WooCommerce = new WooCommerceRestApi({
 ```php
 <?php
 // Install:
-// composer require automattic/woocommerce
+// composer require automattic/poocommerce
 
 // Setup:
 require __DIR__ . '/vendor/autoload.php';
 
-use Automattic\WooCommerce\Client;
+use Automattic\PooCommerce\Client;
 
-$woocommerce = new Client(
+$poocommerce = new Client(
     'http://example.com', // Your store URL
     'consumer_key', // Your consumer key
     'consumer_secret', // Your consumer secret
     [
         'wp_api' => true, // Enable the WP REST API integration
-        'version' => 'wc/v3' // WooCommerce WP REST API version
+        'version' => 'wc/v3' // PooCommerce WP REST API version
     ]
 );
 ?>
@@ -85,17 +85,17 @@ $woocommerce = new Client(
 
 ```python
 # Install:
-# pip install woocommerce
+# pip install poocommerce
 
 # Setup:
-from woocommerce import API
+from poocommerce import API
 
 wcapi = API(
     url="http://example.com", # Your store URL
     consumer_key="consumer_key", # Your consumer key
     consumer_secret="consumer_secret", # Your consumer secret
     wp_api=True, # Enable the WP REST API integration
-    version="wc/v3" # WooCommerce WP REST API version
+    version="wc/v3" # PooCommerce WP REST API version
 )
 ```
 
@@ -104,18 +104,18 @@ wcapi = API(
 
 ```ruby
 # Install:
-# gem install woocommerce_api
+# gem install poocommerce_api
 
 # Setup:
-require "woocommerce_api"
+require "poocommerce_api"
 
-woocommerce = WooCommerce::API.new(
+poocommerce = PooCommerce::API.new(
   "https://example.com", # Your store URL
   "consumer_key", # Your consumer key
   "consumer_secret", # Your consumer secret
   {
     wp_api: true, # Enable the WP REST API integration
-    version: "wc/v3" # WooCommerce WP REST API version
+    version: "wc/v3" # PooCommerce WP REST API version
   }
 )
 ```
@@ -126,7 +126,7 @@ woocommerce = WooCommerce::API.new(
 ### Third party libraries
 
 - [Java](https://github.com/icoderman/wc-api-java) Library
-- [.NET](https://github.com/XiaoFaye/WooCommerce.NET) Library
+- [.NET](https://github.com/XiaoFaye/PooCommerce.NET) Library
 - [Android](https://github.com/gilokimu/WooDroid) Library
 
 :::note
@@ -144,27 +144,27 @@ We don't offer support for third party libraries. If you have questions about ho
 
 To start using REST API, you first need to generate API keys.
 
-1. Go to **WooCommerce > Settings > Advanced**
+1. Go to **PooCommerce > Settings > Advanced**
 2. Go to the **REST API** tab and click **Add key**
 3. Give the key a description for your own reference, choose a user with access to orders etc, and give the key **read/write** permissions
 4. Click **Generate API key**
 5. Your keys will be shown - do not close this tab yet, the secret will be hidden if you try to view the key again
 
-![Generated API Keys](https://developer.woocommerce.com/wp-content/uploads/2023/12/keys.png)
+![Generated API Keys](https://developer.poocommerce.com/wp-content/uploads/2023/12/keys.png)
 
 ## Make a basic request
 
 The request URL we'll test is `wp-json/wc/v3/orders`. On localhost the full URL may look something like this: `https://localhost:8888/wp-json/wc/v3/orders`. Modify this to use your own site URL.
 
-In Postman, you need to set the fields for request type, request URL, and the settings on the authorization tab. For Authorization, choose **basic auth** and enter your **consumer key** and **consumer secret** keys from WooCommerce into the username and password fields.
+In Postman, you need to set the fields for request type, request URL, and the settings on the authorization tab. For Authorization, choose **basic auth** and enter your **consumer key** and **consumer secret** keys from PooCommerce into the username and password fields.
 
 Once done, hit send and you'll see the JSON response from the API if all worked well:
 
-![Postman example](https://developer.woocommerce.com/wp-content/uploads/2023/12/postman.png)
+![Postman example](https://developer.poocommerce.com/wp-content/uploads/2023/12/postman.png)
 
 Insomnia is almost identical to Postman; fill in the same fields and again use basic auth:
 
-![Insomnia example](https://developer.woocommerce.com/wp-content/uploads/2023/12/insomnia.png)
+![Insomnia example](https://developer.poocommerce.com/wp-content/uploads/2023/12/insomnia.png)
 
 ## Request/Response format
 
@@ -245,7 +245,7 @@ Errors return both an appropriate HTTP status code and response object which con
 
 ```json
 {
-  "code": "woocommerce_rest_term_invalid",
+  "code": "poocommerce_rest_term_invalid",
   "message": "Resource doesn't exist.",
   "data": {
     "status": 404
@@ -261,11 +261,11 @@ If you're having problems connecting to the REST API on your localhost and seein
 
 In Postman you can find this in the settings:
 
-![Postman settings](https://developer.woocommerce.com/wp-content/uploads/2023/12/postman-ssl.png)
+![Postman settings](https://developer.poocommerce.com/wp-content/uploads/2023/12/postman-ssl.png)
 
 Insomnia also has this setting in the preferences area:
 
-![Insomnia settings](https://developer.woocommerce.com/wp-content/uploads/2023/12/insomnia-ssl.png)
+![Insomnia settings](https://developer.poocommerce.com/wp-content/uploads/2023/12/insomnia-ssl.png)
 
 ### 401 Unauthorized
 

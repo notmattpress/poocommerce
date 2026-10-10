@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\OrderReviews;
+namespace Automattic\PooCommerce\Internal\OrderReviews;
 
 use WC_Order;
 
@@ -27,14 +27,14 @@ class Meta {
 		if ( '' !== $order_date_text ) {
 			$order_summary = sprintf(
 				/* translators: 1: order number, 2: order date */
-				__( 'Order #%1$s (%2$s)', 'woocommerce' ),
+				__( 'Order #%1$s (%2$s)', 'poocommerce' ),
 				$order_number,
 				$order_date_text
 			);
 		} else {
 			$order_summary = sprintf(
 				/* translators: %s: order number */
-				__( 'Order #%s', 'woocommerce' ),
+				__( 'Order #%s', 'poocommerce' ),
 				$order_number
 			);
 		}

@@ -17,10 +17,10 @@ The taxes API allows you to create, view, update, and delete individual tax rate
 | `id`        | integer  | Unique identifier for the resource. `READ-ONLY`                                                                                                   |
 | `country`   | string   | Country ISO 3166 code. See [ISO 3166 Codes (Countries)](http://www.chemie.fu-berlin.de/diverse/doc/ISO_3166.html) for more details                                              |
 | `state`     | string   | State code.                                                                                                                                                                     |
-| `postcode`  | string   | Postcode/ZIP, it doesn't support multiple values. Deprecated as of WooCommerce 5.3, `postcodes` should be used instead.                                                         |
-| `city`      | string   | City name, it doesn't support multiple values. Deprecated as of WooCommerce 5.3, `postcodes` should be used instead.                                                            |
-| `postcodes` | string[] | Postcodes/ZIPs. Introduced in WooCommerce 5.3.                                                                                                                                  |
-| `cities`    | string[] | City names. Introduced in WooCommerce 5.3.                                                                                                                                      |
+| `postcode`  | string   | Postcode/ZIP, it doesn't support multiple values. Deprecated as of PooCommerce 5.3, `postcodes` should be used instead.                                                         |
+| `city`      | string   | City name, it doesn't support multiple values. Deprecated as of PooCommerce 5.3, `postcodes` should be used instead.                                                            |
+| `postcodes` | string[] | Postcodes/ZIPs. Introduced in PooCommerce 5.3.                                                                                                                                  |
+| `cities`    | string[] | City names. Introduced in PooCommerce 5.3.                                                                                                                                      |
 | `rate`      | string   | Tax rate.                                                                                                                                                                       |
 | `name`      | string   | Tax rate name.                                                                                                                                                                  |
 | `priority`  | integer  | Tax priority. Only 1 matching rate per priority will be used. To define multiple tax rates for a single area you need to specify a different priority per rate. Default is `1`. |
@@ -69,7 +69,7 @@ const data = {
 	shipping: false,
 };
 
-WooCommerce.post( 'taxes', data )
+PooCommerce.post( 'taxes', data )
 	.then( ( response ) => {
 		console.log( response.data );
 	} )
@@ -93,7 +93,7 @@ $data = [
     'shipping' => false
 ];
 
-print_r($woocommerce->post('taxes', $data));
+print_r($poocommerce->post('taxes', $data));
 ?>
 ```
 
@@ -128,7 +128,7 @@ data = {
   shipping: false
 }
 
-woocommerce.post("taxes", data).parsed_response
+poocommerce.post("taxes", data).parsed_response
 ```
 
   </TabItem>
@@ -188,7 +188,7 @@ curl https://example.com/wp-json/wc/v3/taxes/72 \
   <TabItem value="js" label="JavaScript">
 
 ```javascript
-WooCommerce.get( 'taxes/72' )
+PooCommerce.get( 'taxes/72' )
 	.then( ( response ) => {
 		console.log( response.data );
 	} )
@@ -201,7 +201,7 @@ WooCommerce.get( 'taxes/72' )
   <TabItem value="php" label="PHP">
 
 ```php
-<?php print_r($woocommerce->get('taxes/72')); ?>
+<?php print_r($poocommerce->get('taxes/72')); ?>
 ```
 
   </TabItem>
@@ -215,7 +215,7 @@ print(wcapi.get("taxes/72").json())
   <TabItem value="ruby" label="Ruby">
 
 ```ruby
-woocommerce.get("taxes/72").parsed_response
+poocommerce.get("taxes/72").parsed_response
 ```
 
   </TabItem>
@@ -275,7 +275,7 @@ curl https://example.com/wp-json/wc/v3/taxes \
   <TabItem value="js" label="JavaScript">
 
 ```javascript
-WooCommerce.get( 'taxes' )
+PooCommerce.get( 'taxes' )
 	.then( ( response ) => {
 		console.log( response.data );
 	} )
@@ -288,7 +288,7 @@ WooCommerce.get( 'taxes' )
   <TabItem value="php" label="PHP">
 
 ```php
-<?php print_r($woocommerce->get('taxes')); ?>
+<?php print_r($poocommerce->get('taxes')); ?>
 ```
 
   </TabItem>
@@ -302,7 +302,7 @@ print(wcapi.get("taxes").json())
   <TabItem value="ruby" label="Ruby">
 
 ```ruby
-woocommerce.get("taxes").parsed_response
+poocommerce.get("taxes").parsed_response
 ```
 
   </TabItem>
@@ -636,7 +636,7 @@ const data = {
 	name: 'US Tax',
 };
 
-WooCommerce.put( 'taxes/72', data )
+PooCommerce.put( 'taxes/72', data )
 	.then( ( response ) => {
 		console.log( response.data );
 	} )
@@ -654,7 +654,7 @@ $data = [
     'name' => 'US Tax'
 ];
 
-print_r($woocommerce->put('taxes/72', $data));
+print_r($poocommerce->put('taxes/72', $data));
 ?>
 ```
 
@@ -677,7 +677,7 @@ data = {
   name: "US Tax"
 }
 
-woocommerce.put("taxes/72", data).parsed_response
+poocommerce.put("taxes/72", data).parsed_response
 ```
 
   </TabItem>
@@ -737,7 +737,7 @@ curl -X DELETE https://example.com/wp-json/wc/v3/taxes/72?force=true \
   <TabItem value="js" label="JavaScript">
 
 ```javascript
-WooCommerce.delete( 'taxes/72', {
+PooCommerce.delete( 'taxes/72', {
 	force: true,
 } )
 	.then( ( response ) => {
@@ -752,7 +752,7 @@ WooCommerce.delete( 'taxes/72', {
   <TabItem value="php" label="PHP">
 
 ```php
-<?php print_r($woocommerce->delete('taxes/72', ['force' => true])); ?>
+<?php print_r($poocommerce->delete('taxes/72', ['force' => true])); ?>
 ```
 
   </TabItem>
@@ -766,7 +766,7 @@ print(wcapi.delete("taxes/72", params={"force": True}).json())
   <TabItem value="ruby" label="Ruby">
 
 ```ruby
-woocommerce.delete("taxes/72", force: true).parsed_response
+poocommerce.delete("taxes/72", force: true).parsed_response
 ```
 
   </TabItem>
@@ -1617,7 +1617,7 @@ const data = {
 	],
 };
 
-WooCommerce.post( 'taxes/batch', data )
+PooCommerce.post( 'taxes/batch', data )
 	.then( ( response ) => {
 		console.log( response.data );
 	} )
@@ -2020,7 +2020,7 @@ $data = [
     ]
 ];
 
-print_r($woocommerce->post('taxes/batch', $data));
+print_r($poocommerce->post('taxes/batch', $data));
 ?>
 ```
 
@@ -2813,7 +2813,7 @@ data = {
   ]
 }
 
-woocommerce.post("taxes/batch", data).parsed_response
+poocommerce.post("taxes/batch", data).parsed_response
 ```
 
   </TabItem>

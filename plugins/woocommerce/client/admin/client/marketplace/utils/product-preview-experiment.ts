@@ -4,18 +4,18 @@
 import { MARKETPLACE_HOST } from '../components/constants';
 
 export const PRODUCT_PREVIEW_EXPERIMENT_NAME =
-	'woocommerce_marketplace_product_preview_202610';
+	'poocommerce_marketplace_product_preview_202610';
 
 export const PRODUCT_PREVIEW_TREATMENT = 'treatment';
 
 /**
- * WooCommerce.com order attribution stores this parameter on orders, so
+ * PooCommerce.com order attribution stores this parameter on orders, so
  * purchases can be split by variation.
  */
 export const PRODUCT_PREVIEW_VARIATION_PARAM = 'utm_term';
 
 /**
- * Adds the variation to the WooCommerce.com links in the preview HTML, such as
+ * Adds the variation to the PooCommerce.com links in the preview HTML, such as
  * "Buy now" and "See more". Other links are left as they are.
  */
 export function addVariationToPreviewLinks(

@@ -1,12 +1,12 @@
 <?php
 /**
- * WooCommerce Onboarding Helper
+ * PooCommerce Onboarding Helper
  */
 
-namespace Automattic\WooCommerce\Internal\Admin\Onboarding;
+namespace Automattic\PooCommerce\Internal\Admin\Onboarding;
 
-use Automattic\WooCommerce\Admin\PageController;
-use Automattic\WooCommerce\Admin\Features\OnboardingTasks\TaskLists;
+use Automattic\PooCommerce\Admin\PageController;
+use Automattic\PooCommerce\Admin\Features\OnboardingTasks\TaskLists;
 
 /**
  * Contains backend logic for the onboarding profile and checklist feature.
@@ -60,45 +60,45 @@ class OnboardingHelper {
 		// Remove the old help tab if it exists.
 		$help_tabs = $screen->get_help_tabs();
 		foreach ( $help_tabs as $help_tab ) {
-			if ( 'woocommerce_onboard_tab' !== $help_tab['id'] ) {
+			if ( 'poocommerce_onboard_tab' !== $help_tab['id'] ) {
 				continue;
 			}
 
-			$screen->remove_help_tab( 'woocommerce_onboard_tab' );
+			$screen->remove_help_tab( 'poocommerce_onboard_tab' );
 		}
 
 		// Add the new help tab.
 		$help_tab = array(
-			'title' => __( 'Setup wizard', 'woocommerce' ),
-			'id'    => 'woocommerce_onboard_tab',
+			'title' => __( 'Setup wizard', 'poocommerce' ),
+			'id'    => 'poocommerce_onboard_tab',
 		);
 
 		$setup_list    = TaskLists::get_list( 'setup' );
 		$extended_list = TaskLists::get_list( 'extended' );
 
 		if ( $setup_list ) {
-			$help_tab['content'] = '<h2>' . __( 'WooCommerce Onboarding', 'woocommerce' ) . '</h2>';
+			$help_tab['content'] = '<h2>' . __( 'PooCommerce Onboarding', 'poocommerce' ) . '</h2>';
 
-			$help_tab['content'] .= '<h3>' . __( 'Profile Setup Wizard', 'woocommerce' ) . '</h3>';
-			$help_tab['content'] .= '<p>' . __( 'If you need to access the setup wizard again, please click on the button below.', 'woocommerce' ) . '</p>' .
-				'<p><a href="' . wc_admin_url( '&path=/setup-wizard' ) . '" class="button button-primary">' . __( 'Setup wizard', 'woocommerce' ) . '</a></p>';
+			$help_tab['content'] .= '<h3>' . __( 'Profile Setup Wizard', 'poocommerce' ) . '</h3>';
+			$help_tab['content'] .= '<p>' . __( 'If you need to access the setup wizard again, please click on the button below.', 'poocommerce' ) . '</p>' .
+				'<p><a href="' . wc_admin_url( '&path=/setup-wizard' ) . '" class="button button-primary">' . __( 'Setup wizard', 'poocommerce' ) . '</a></p>';
 
 			if ( ! $setup_list->is_complete() ) {
-				$help_tab['content'] .= '<h3>' . __( 'Task List', 'woocommerce' ) . '</h3>';
-				$help_tab['content'] .= '<p>' . __( 'If you need to enable or disable the task lists, please click on the button below.', 'woocommerce' ) . '</p>' .
+				$help_tab['content'] .= '<h3>' . __( 'Task List', 'poocommerce' ) . '</h3>';
+				$help_tab['content'] .= '<p>' . __( 'If you need to enable or disable the task lists, please click on the button below.', 'poocommerce' ) . '</p>' .
 				( $setup_list->is_hidden()
-				? '<p><a href="' . wc_admin_url( '&reset_task_list=1' ) . '" class="button button-primary">' . __( 'Enable', 'woocommerce' ) . '</a></p>'
-				: '<p><a href="' . wc_admin_url( '&reset_task_list=0' ) . '" class="button button-primary">' . __( 'Disable', 'woocommerce' ) . '</a></p>'
+				? '<p><a href="' . wc_admin_url( '&reset_task_list=1' ) . '" class="button button-primary">' . __( 'Enable', 'poocommerce' ) . '</a></p>'
+				: '<p><a href="' . wc_admin_url( '&reset_task_list=0' ) . '" class="button button-primary">' . __( 'Disable', 'poocommerce' ) . '</a></p>'
 				);
 			}
 		}
 
 		if ( $extended_list ) {
-			$help_tab['content'] .= '<h3>' . __( 'Extended task List', 'woocommerce' ) . '</h3>';
-			$help_tab['content'] .= '<p>' . __( 'If you need to enable or disable the extended task lists, please click on the button below.', 'woocommerce' ) . '</p>' .
+			$help_tab['content'] .= '<h3>' . __( 'Extended task List', 'poocommerce' ) . '</h3>';
+			$help_tab['content'] .= '<p>' . __( 'If you need to enable or disable the extended task lists, please click on the button below.', 'poocommerce' ) . '</p>' .
 			( $extended_list->is_hidden()
-				? '<p><a href="' . wc_admin_url( '&reset_extended_task_list=1' ) . '" class="button button-primary">' . __( 'Enable', 'woocommerce' ) . '</a></p>'
-				: '<p><a href="' . wc_admin_url( '&reset_extended_task_list=0' ) . '" class="button button-primary">' . __( 'Disable', 'woocommerce' ) . '</a></p>'
+				? '<p><a href="' . wc_admin_url( '&reset_extended_task_list=1' ) . '" class="button button-primary">' . __( 'Enable', 'poocommerce' ) . '</a></p>'
+				: '<p><a href="' . wc_admin_url( '&reset_extended_task_list=0' ) . '" class="button button-primary">' . __( 'Disable', 'poocommerce' ) . '</a></p>'
 			);
 		}
 

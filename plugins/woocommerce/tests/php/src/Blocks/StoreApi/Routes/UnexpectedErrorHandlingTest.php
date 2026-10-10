@@ -1,14 +1,14 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\StoreApi\Routes;
+namespace Automattic\PooCommerce\Tests\Blocks\StoreApi\Routes;
 
 use Automattic\Jetpack\Constants;
-use Automattic\WooCommerce\StoreApi\Exceptions\RouteException;
-use Automattic\WooCommerce\StoreApi\Routes\V1\AbstractCartRoute;
-use Automattic\WooCommerce\StoreApi\Routes\V1\AbstractRoute;
-use Automattic\WooCommerce\StoreApi\Routes\V1\Batch;
-use Automattic\WooCommerce\StoreApi\Routes\V1\Checkout;
+use Automattic\PooCommerce\StoreApi\Exceptions\RouteException;
+use Automattic\PooCommerce\StoreApi\Routes\V1\AbstractCartRoute;
+use Automattic\PooCommerce\StoreApi\Routes\V1\AbstractRoute;
+use Automattic\PooCommerce\StoreApi\Routes\V1\Batch;
+use Automattic\PooCommerce\StoreApi\Routes\V1\Checkout;
 use WC_Unit_Test_Case;
 use WP_REST_Request;
 use WP_REST_Response;
@@ -69,7 +69,7 @@ class UnexpectedErrorHandlingTest extends WC_Unit_Test_Case {
 		$this->assertSame( 500, $response->get_status(), 'Cart-session engine failures should keep status 500.' );
 		$this->assertSame(
 			array(
-				'code'    => 'woocommerce_rest_unknown_server_error',
+				'code'    => 'poocommerce_rest_unknown_server_error',
 				'message' => 'Fixture cart session failure.',
 				'data'    => array(
 					'status'          => 500,
@@ -92,8 +92,8 @@ class UnexpectedErrorHandlingTest extends WC_Unit_Test_Case {
 		$this->assertSame( 500, $response->get_status(), 'Cart-session engine failures should keep status 500.' );
 		$this->assertSame(
 			array(
-				'code'    => 'woocommerce_rest_unknown_server_error',
-				'message' => __( 'The cart could not be loaded. Please try again.', 'woocommerce' ),
+				'code'    => 'poocommerce_rest_unknown_server_error',
+				'message' => __( 'The cart could not be loaded. Please try again.', 'poocommerce' ),
 				'data'    => array( 'status' => 500 ),
 			),
 			$response->get_data(),
@@ -169,7 +169,7 @@ class UnexpectedErrorHandlingTest extends WC_Unit_Test_Case {
 		$this->assertSame( 500, $response->get_status(), 'Ordinary exception responses should keep status 500.' );
 		$this->assertSame(
 			array(
-				'code'    => 'woocommerce_rest_unknown_server_error',
+				'code'    => 'poocommerce_rest_unknown_server_error',
 				'message' => 'Fixture ordinary exception.',
 				'data'    => array( 'status' => 500 ),
 			),
@@ -344,8 +344,8 @@ class UnexpectedErrorHandlingTest extends WC_Unit_Test_Case {
 		$this->assertSame( 500, $response->get_status(), 'Engine failures should become status-500 Store API responses.' );
 		$this->assertSame(
 			array(
-				'code'    => 'woocommerce_rest_unknown_server_error',
-				'message' => __( 'Internal server error', 'woocommerce' ),
+				'code'    => 'poocommerce_rest_unknown_server_error',
+				'message' => __( 'Internal server error', 'poocommerce' ),
 				'data'    => array( 'status' => 500 ),
 			),
 			$response->get_data(),

@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { TextControlWithAffixes } from '@woocommerce/components';
+import { TextControlWithAffixes } from '@poocommerce/components';
 import { useState } from '@wordpress/element';
 
 const Examples = () => {

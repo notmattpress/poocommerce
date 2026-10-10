@@ -5,7 +5,7 @@ import {
 	test,
 	expect,
 	BLOCK_THEME_WITH_TEMPLATES_SLUG,
-} from '@woocommerce/e2e-utils';
+} from '@poocommerce/e2e-utils';
 
 const testData = {
 	permalink: '/product/belt',

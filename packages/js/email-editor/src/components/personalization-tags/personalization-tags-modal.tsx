@@ -81,7 +81,7 @@ const PersonalizationTagsModal = ( {
 					openedBy,
 				} );
 			} }
-			className="woocommerce-personalization-tags-modal"
+			className="poocommerce-personalization-tags-modal"
 		>
 			<p>
 				{ __(

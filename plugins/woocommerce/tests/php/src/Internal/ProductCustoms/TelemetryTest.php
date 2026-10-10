@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\ProductCustoms;
+namespace Automattic\PooCommerce\Tests\Internal\ProductCustoms;
 
-use Automattic\WooCommerce\Enums\ProductStatus;
-use Automattic\WooCommerce\Internal\ProductCustoms\Telemetry;
+use Automattic\PooCommerce\Enums\ProductStatus;
+use Automattic\PooCommerce\Internal\ProductCustoms\Telemetry;
 
 /**
  * Customs adoption snapshot tests.
@@ -64,7 +64,7 @@ class TelemetryTest extends \WC_Unit_Test_Case {
 		add_post_meta( $private_variation->get_id(), '_customs_commodity_code', '090121' );
 		add_post_meta( $private_variation->get_id(), '_customs_country_of_origin', 'BR' );
 
-		$data     = $this->sut->handle_woocommerce_tracker_data( array( 'existing' => 'value' ) );
+		$data     = $this->sut->handle_poocommerce_tracker_data( array( 'existing' => 'value' ) );
 		$snapshot = $data['product_customs'];
 
 		$this->assertSame( 'value', $data['existing'], 'Existing tracker data must be preserved.' );
@@ -92,7 +92,7 @@ class TelemetryTest extends \WC_Unit_Test_Case {
 		global $wpdb;
 		$queries = $wpdb->num_queries;
 
-		$this->assertSame( $data, $this->sut->handle_woocommerce_tracker_data( $data ), 'Non-array tracker data must be returned unchanged.' );
+		$this->assertSame( $data, $this->sut->handle_poocommerce_tracker_data( $data ), 'Non-array tracker data must be returned unchanged.' );
 		$this->assertSame( $queries, $wpdb->num_queries, 'No query should run for non-array tracker data.' );
 	}
 
@@ -102,6 +102,6 @@ class TelemetryTest extends \WC_Unit_Test_Case {
 	 * @return array<string, int>
 	 */
 	private function get_snapshot(): array {
-		return $this->sut->handle_woocommerce_tracker_data( array() )['product_customs'];
+		return $this->sut->handle_poocommerce_tracker_data( array() )['product_customs'];
 	}
 }

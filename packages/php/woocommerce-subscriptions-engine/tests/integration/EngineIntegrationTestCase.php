@@ -5,18 +5,18 @@
  * Schema is installed once in the bootstrap; WP_UnitTestCase wraps each test in
  * a transaction and rolls it back, so test rows do not leak between tests.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine
+ * @package Automattic\PooCommerce\SubscriptionsEngine
  */
 
 declare( strict_types=1 );
 
-use Automattic\WooCommerce\SubscriptionsEngine\Api\Contracts;
-use Automattic\WooCommerce\SubscriptionsEngine\Api\Plans;
-use Automattic\WooCommerce\SubscriptionsEngine\Api\View\PlanView;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\ContractStatus;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\CycleStatus;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\ValueObject\BillingPolicy;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Gateway\GatewayCapabilities;
+use Automattic\PooCommerce\SubscriptionsEngine\Api\Contracts;
+use Automattic\PooCommerce\SubscriptionsEngine\Api\Plans;
+use Automattic\PooCommerce\SubscriptionsEngine\Api\View\PlanView;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\ContractStatus;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\CycleStatus;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\ValueObject\BillingPolicy;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Gateway\GatewayCapabilities;
 
 /**
  * Engine integration test case.
@@ -37,7 +37,7 @@ abstract class EngineIntegrationTestCase extends WP_UnitTestCase {
 
 	public function tear_down(): void {
 		foreach ( $this->approved_gateways as $gateway ) {
-			remove_all_actions( 'woocommerce_subscriptions_engine_scheduled_payment_' . $gateway );
+			remove_all_actions( 'poocommerce_subscriptions_engine_scheduled_payment_' . $gateway );
 		}
 		$this->approved_gateways = array();
 
@@ -55,7 +55,7 @@ abstract class EngineIntegrationTestCase extends WP_UnitTestCase {
 		GatewayCapabilities::declare( $gateway, array( GatewayCapabilities::RECURRING ) );
 
 		add_action(
-			'woocommerce_subscriptions_engine_scheduled_payment_' . $gateway,
+			'poocommerce_subscriptions_engine_scheduled_payment_' . $gateway,
 			static function ( $amount, $renewal_order ): void {
 				unset( $amount );
 				if ( $renewal_order instanceof WC_Order && $renewal_order->needs_payment() ) {
@@ -82,7 +82,7 @@ abstract class EngineIntegrationTestCase extends WP_UnitTestCase {
 		GatewayCapabilities::declare( $gateway, array( GatewayCapabilities::RECURRING ) );
 
 		add_action(
-			'woocommerce_subscriptions_engine_scheduled_payment_' . $gateway,
+			'poocommerce_subscriptions_engine_scheduled_payment_' . $gateway,
 			static function ( $amount, $renewal_order ): void {
 				unset( $amount );
 				if ( $renewal_order instanceof WC_Order ) {
@@ -134,7 +134,7 @@ abstract class EngineIntegrationTestCase extends WP_UnitTestCase {
 	protected function capture_engine_log( string $level, array $context_match, callable $run ): array {
 		$entries = array();
 		$capture = static function ( $message, $entry_level, $context ) use ( &$entries, $level, $context_match ) {
-			if ( $level !== $entry_level || ! is_array( $context ) || 'woocommerce-subscriptions-engine' !== ( $context['source'] ?? null ) ) {
+			if ( $level !== $entry_level || ! is_array( $context ) || 'poocommerce-subscriptions-engine' !== ( $context['source'] ?? null ) ) {
 				return $message;
 			}
 			foreach ( $context_match as $key => $value ) {
@@ -146,12 +146,12 @@ abstract class EngineIntegrationTestCase extends WP_UnitTestCase {
 
 			return $message;
 		};
-		add_filter( 'woocommerce_logger_log_message', $capture, 10, 3 );
+		add_filter( 'poocommerce_logger_log_message', $capture, 10, 3 );
 
 		try {
 			$run();
 		} finally {
-			remove_filter( 'woocommerce_logger_log_message', $capture, 10 );
+			remove_filter( 'poocommerce_logger_log_message', $capture, 10 );
 		}
 
 		return $entries;

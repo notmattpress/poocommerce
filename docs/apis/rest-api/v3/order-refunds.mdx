@@ -28,7 +28,7 @@ The order refunds API allows you to create, view, and delete individual refunds,
 | `fee_lines`        | array     | Fee lines data. See [Order refund - Fee lines properties](#order-refund---fee-lines-properties)                                                                                 |
 | `api_refund`       | boolean   | When true, the payment gateway API is used to generate the refund. Default is `true`. `WRITE-ONLY`                                              |
 | `api_restock`      | boolean   | When true, the selected line items are restocked Default is `true`. `WRITE-ONLY`                                                                |
-| `compute_totals`   | boolean   | When true, the server computes per-line refund amounts from quantities and validates the request against the order's refund history. Available since WooCommerce 11.1. See [Server-computed refunds](#server-computed-refunds-compute_totals). Default is `false`. `WRITE-ONLY` |
+| `compute_totals`   | boolean   | When true, the server computes per-line refund amounts from quantities and validates the request against the order's refund history. Available since PooCommerce 11.1. See [Server-computed refunds](#server-computed-refunds-compute_totals). Default is `false`. `WRITE-ONLY` |
 
 ### Order refund - Meta data properties
 
@@ -154,7 +154,7 @@ const data = {
 	],
 };
 
-WooCommerce.post( 'orders/723/refunds', data )
+PooCommerce.post( 'orders/723/refunds', data )
 	.then( ( response ) => {
 		console.log( response.data );
 	} )
@@ -184,7 +184,7 @@ $data = [
      ]
 ];
 
-print_r($woocommerce->post('orders/723/refunds', $data));
+print_r($poocommerce->post('orders/723/refunds', $data));
 ?>
 ```
 
@@ -231,7 +231,7 @@ data = {
  ]
 }
 
-woocommerce.post("orders/723/refunds", data).parsed_response
+poocommerce.post("orders/723/refunds", data).parsed_response
 ```
 
   </TabItem>
@@ -288,7 +288,7 @@ woocommerce.post("orders/723/refunds", data).parsed_response
 
 ### Server-computed refunds (compute_totals)
 
-Available since WooCommerce 11.1.
+Available since PooCommerce 11.1.
 
 Set `compute_totals` to `true` to have the server compute per-line refund amounts instead of supplying them. Line items may then send only `id` and `quantity`: the server derives each line's refund amount from the order's stored unit prices and taxes, caps it to the line's remaining refundable amount, and validates the whole request against the order's refund history. The refund `amount` is derived from the line items unless supplied explicitly.
 
@@ -339,11 +339,11 @@ curl -X POST https://example.com/wp-json/wc/v3/orders/723/refunds \
 | `refund_total` | number  | Optional explicit amount for this line. Tax-inclusive when `refund_tax` is omitted (the server splits the tax portion out); tax-exclusive when `refund_tax` is supplied. |
 | `refund_tax`   | array   | Optional explicit tax refunds. See [Refund tax parameters](#refund-tax-parameters)                                                                                       |
 
-When `amount` is supplied together with `compute_totals`, it must be at least the computed line items total and no more than the order's remaining refundable amount. Requests that exceed what is still refundable are rejected with HTTP 400 or 422 and error codes such as `woocommerce_rest_invalid_refund_amount`, `woocommerce_rest_refund_exceeds_remaining`, `woocommerce_rest_quantity_exceeds_refundable`, and `woocommerce_rest_duplicate_line_item`.
+When `amount` is supplied together with `compute_totals`, it must be at least the computed line items total and no more than the order's remaining refundable amount. Requests that exceed what is still refundable are rejected with HTTP 400 or 422 and error codes such as `poocommerce_rest_invalid_refund_amount`, `poocommerce_rest_refund_exceeds_remaining`, `poocommerce_rest_quantity_exceeds_refundable`, and `poocommerce_rest_duplicate_line_item`.
 
 ::::warning Older stores silently ignore compute_totals
 
-Stores running WooCommerce below 11.1 drop the unknown `compute_totals` parameter and process the request with the classic behavior. A quantity-only request then creates a refund of `0.00` instead of the intended amount. Before sending computed-form requests, verify that the store supports the flag:
+Stores running PooCommerce below 11.1 drop the unknown `compute_totals` parameter and process the request with the classic behavior. A quantity-only request then creates a refund of `0.00` instead of the intended amount. Before sending computed-form requests, verify that the store supports the flag:
 
 - Send `OPTIONS /wp-json/wc/v3/orders/<id>/refunds` and check that `compute_totals` is listed in the endpoint arguments, or
 - Probe `POST /wp-json/wc/v3/orders/<id>/refunds/preview`, which returns `rest_no_route` with HTTP 404 on stores without support.
@@ -352,7 +352,7 @@ Stores running WooCommerce below 11.1 drop the unknown `compute_totals` paramete
 
 ## Preview a refund
 
-Available since WooCommerce 11.1.
+Available since PooCommerce 11.1.
 
 This API computes the totals a refund would have, without creating it. The preview uses the same calculation engine as refund creation with `compute_totals`, so clients do not have to replicate tax, rounding, and currency-precision logic. It requires the same capability as creating a refund.
 
@@ -440,7 +440,7 @@ curl -X POST https://example.com/wp-json/wc/v3/orders/723/refunds/preview \
 | `total`          | string | Grand total of the refund preview, tax-inclusive. `READ-ONLY`                                           |
 | `max_refundable` | string | Maximum refundable amount remaining on the order. `READ-ONLY`                                           |
 
-Invalid requests return the same errors as creation with `compute_totals`, for example `woocommerce_rest_invalid_refund_amount` for a non-positive total and `woocommerce_rest_preview_exceeds_max_refundable` with HTTP 422 when the preview exceeds the remaining refundable amount.
+Invalid requests return the same errors as creation with `compute_totals`, for example `poocommerce_rest_invalid_refund_amount` for a non-positive total and `poocommerce_rest_preview_exceeds_max_refundable` with HTTP 422 when the preview exceeds the remaining refundable amount.
 
 ## Retrieve a refund
 
@@ -462,7 +462,7 @@ curl https://example.com/wp-json/wc/v3/orders/723/refunds/726 \
   <TabItem value="js" label="JavaScript">
 
 ```javascript
-WooCommerce.get( 'orders/723/refunds/726' )
+PooCommerce.get( 'orders/723/refunds/726' )
 	.then( ( response ) => {
 		console.log( response.data );
 	} )
@@ -475,7 +475,7 @@ WooCommerce.get( 'orders/723/refunds/726' )
   <TabItem value="php" label="PHP">
 
 ```php
-<?php print_r($woocommerce->get('orders/723/refunds/726')); ?>
+<?php print_r($poocommerce->get('orders/723/refunds/726')); ?>
 ```
 
   </TabItem>
@@ -489,7 +489,7 @@ print(wcapi.get("orders/723/refunds/726").json())
   <TabItem value="ruby" label="Ruby">
 
 ```ruby
-woocommerce.get("orders/723/refunds/726").parsed_response
+poocommerce.get("orders/723/refunds/726").parsed_response
 ```
 
   </TabItem>
@@ -557,7 +557,7 @@ curl https://example.com/wp-json/wc/v3/orders/723/refunds \
   <TabItem value="js" label="JavaScript">
 
 ```javascript
-WooCommerce.get( 'orders/723/refunds' )
+PooCommerce.get( 'orders/723/refunds' )
 	.then( ( response ) => {
 		console.log( response.data );
 	} )
@@ -570,7 +570,7 @@ WooCommerce.get( 'orders/723/refunds' )
   <TabItem value="php" label="PHP">
 
 ```php
-<?php print_r($woocommerce->get('orders/723/refunds')); ?>
+<?php print_r($poocommerce->get('orders/723/refunds')); ?>
 ```
 
   </TabItem>
@@ -584,7 +584,7 @@ print(wcapi.get("orders/723/refunds").json())
   <TabItem value="ruby" label="Ruby">
 
 ```ruby
-woocommerce.get("orders/723/refunds").parsed_response
+poocommerce.get("orders/723/refunds").parsed_response
 ```
 
   </TabItem>
@@ -717,7 +717,7 @@ curl -X DELETE https://example.com/wp-json/wc/v3/orders/723/refunds/726?force=tr
   <TabItem value="js" label="JavaScript">
 
 ```javascript
-WooCommerce.delete( 'orders/723/refunds/726', {
+PooCommerce.delete( 'orders/723/refunds/726', {
 	force: true,
 } )
 	.then( ( response ) => {
@@ -732,7 +732,7 @@ WooCommerce.delete( 'orders/723/refunds/726', {
   <TabItem value="php" label="PHP">
 
 ```php
-<?php print_r($woocommerce->delete('orders/723/refunds/726', ['force' => true])); ?>
+<?php print_r($poocommerce->delete('orders/723/refunds/726', ['force' => true])); ?>
 ```
 
   </TabItem>
@@ -746,7 +746,7 @@ print(wcapi.delete("orders/723/refunds/726", params={"force": True}).json())
   <TabItem value="ruby" label="Ruby">
 
 ```ruby
-woocommerce.delete("orders/723/refunds/726", force: true).parsed_response
+poocommerce.delete("orders/723/refunds/726", force: true).parsed_response
 ```
 
   </TabItem>

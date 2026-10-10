@@ -2,8 +2,8 @@
  * External dependencies
  */
 import clsx from 'clsx';
-import { useStyleProps } from '@woocommerce/base-hooks';
-import { isString } from '@woocommerce/types';
+import { useStyleProps } from '@poocommerce/base-hooks';
+import { isString } from '@poocommerce/types';
 
 /**
  * Internal dependencies

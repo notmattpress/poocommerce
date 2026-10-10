@@ -2,9 +2,9 @@
  * External dependencies
  */
 import clsx from 'clsx';
-import SnackbarList from '@woocommerce/base-components/snackbar-list';
+import SnackbarList from '@poocommerce/base-components/snackbar-list';
 import { useDispatch } from '@wordpress/data';
-import type { NoticeType } from '@woocommerce/types';
+import type { NoticeType } from '@poocommerce/types';
 
 const SnackbarNotices = ( {
 	className,

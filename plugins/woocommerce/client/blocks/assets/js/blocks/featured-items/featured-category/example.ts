@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { previewCategories } from '@woocommerce/resource-previews';
+import { previewCategories } from '@poocommerce/resource-previews';
 import type { Block } from '@wordpress/blocks';
 
 type ExampleBlock = Block[ 'example' ] & {

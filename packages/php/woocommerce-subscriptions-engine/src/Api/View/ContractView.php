@@ -7,14 +7,14 @@
  * contracts write facade accepts; they are null when the read did not load them (list
  * reads) and an array when it did.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine\Api\View
+ * @package Automattic\PooCommerce\SubscriptionsEngine\Api\View
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Api\View;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Api\View;
 
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\Contract;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\Contract;
 
 defined( 'ABSPATH' ) || exit;
 

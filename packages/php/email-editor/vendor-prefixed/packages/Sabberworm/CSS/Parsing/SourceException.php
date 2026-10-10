@@ -1,9 +1,9 @@
 <?php
 
-namespace Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Parsing;
+namespace Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Parsing;
 
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Position\Position;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Position\Positionable;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Position\Position;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Position\Positionable;
 
 class SourceException extends \Exception implements Positionable
 {

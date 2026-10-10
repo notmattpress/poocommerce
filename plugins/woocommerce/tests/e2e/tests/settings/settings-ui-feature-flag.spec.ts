@@ -99,13 +99,13 @@ test.describe( 'Settings UI feature flag', { tag: [ tags.NOT_E2E ] }, () => {
 		const url = getBaseURL( baseURL );
 
 		await resetFeatureFlags( request, url );
-		await setOption( request, url, 'woocommerce_enable_reviews', 'yes' );
-		await setOption( request, url, 'woocommerce_manage_stock', 'yes' );
-		await setOption( request, url, 'woocommerce_hold_stock_minutes', '60' );
+		await setOption( request, url, 'poocommerce_enable_reviews', 'yes' );
+		await setOption( request, url, 'poocommerce_manage_stock', 'yes' );
+		await setOption( request, url, 'poocommerce_hold_stock_minutes', '60' );
 		await setOption(
 			request,
 			url,
-			'woocommerce_notify_low_stock_amount',
+			'poocommerce_notify_low_stock_amount',
 			'2'
 		);
 		await wpCLI(
@@ -204,7 +204,7 @@ test.describe( 'Settings UI feature flag', { tag: [ tags.NOT_E2E ] }, () => {
 				'wp',
 				'option',
 				'update',
-				'woocommerce_stock_format',
+				'poocommerce_stock_format',
 				originalFormat,
 				'--skip-plugins',
 				'--skip-themes',
@@ -250,12 +250,12 @@ test.describe( 'Settings UI feature flag', { tag: [ tags.NOT_E2E ] }, () => {
 	} ) => {
 		const url = getBaseURL( baseURL );
 		await setFeatureFlag( request, url, 'settings-ui', true );
-		await setOption( request, url, 'woocommerce_manage_stock', 'yes' );
-		await setOption( request, url, 'woocommerce_hold_stock_minutes', '60' );
+		await setOption( request, url, 'poocommerce_manage_stock', 'yes' );
+		await setOption( request, url, 'poocommerce_hold_stock_minutes', '60' );
 		await setOption(
 			request,
 			url,
-			'woocommerce_notify_low_stock_amount',
+			'poocommerce_notify_low_stock_amount',
 			'02'
 		);
 
@@ -270,7 +270,7 @@ test.describe( 'Settings UI feature flag', { tag: [ tags.NOT_E2E ] }, () => {
 			name: 'Low stock threshold',
 		} );
 		const lowStockFormValue = page.locator(
-			'input[type="hidden"][name="woocommerce_notify_low_stock_amount"]'
+			'input[type="hidden"][name="poocommerce_notify_low_stock_amount"]'
 		);
 
 		const saveButton = page.getByRole( 'button', {
@@ -299,7 +299,7 @@ test.describe( 'Settings UI feature flag', { tag: [ tags.NOT_E2E ] }, () => {
 		expect(
 			getPostedFormValue(
 				saveRequest.postData(),
-				'woocommerce_notify_low_stock_amount'
+				'poocommerce_notify_low_stock_amount'
 			)
 		).toBe( '02' );
 
@@ -312,10 +312,10 @@ test.describe( 'Settings UI feature flag', { tag: [ tags.NOT_E2E ] }, () => {
 
 		// One at a time: overlapping wp-env processes can corrupt its cache (see `wpCLI`).
 		const holdStockOption = await wpCLI(
-			'wp option get woocommerce_hold_stock_minutes --skip-plugins'
+			'wp option get poocommerce_hold_stock_minutes --skip-plugins'
 		);
 		const lowStockOption = await wpCLI(
-			'wp option get woocommerce_notify_low_stock_amount --skip-plugins'
+			'wp option get poocommerce_notify_low_stock_amount --skip-plugins'
 		);
 		expect( holdStockOption.stdout.trim() ).toBe( '61' );
 		expect( lowStockOption.stdout.trim() ).toBe( '2' );
@@ -354,7 +354,7 @@ test.describe( 'Settings UI feature flag', { tag: [ tags.NOT_E2E ] }, () => {
 		await page.goto( settingsUrl );
 
 		await expect( page.getByRole( 'textbox' ) ).toHaveCount( 0 );
-		await expect( page.locator( '.woocommerce-save-button' ) ).toHaveCount(
+		await expect( page.locator( '.poocommerce-save-button' ) ).toHaveCount(
 			0
 		);
 		const classicAction = page.getByRole( 'link', {

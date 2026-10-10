@@ -38,7 +38,7 @@ curl https://example.com/wp-json/wc/v3/shipping_methods/flat_rate \
   <TabItem value="js" label="JavaScript">
 
 ```javascript
-WooCommerce.get( 'shipping_methods/flat_rate' )
+PooCommerce.get( 'shipping_methods/flat_rate' )
 	.then( ( response ) => {
 		console.log( response.data );
 	} )
@@ -51,7 +51,7 @@ WooCommerce.get( 'shipping_methods/flat_rate' )
   <TabItem value="php" label="PHP">
 
 ```php
-<?php print_r($woocommerce->get('shipping_methods/flat_rate')); ?>
+<?php print_r($poocommerce->get('shipping_methods/flat_rate')); ?>
 ```
 
   </TabItem>
@@ -65,7 +65,7 @@ print(wcapi.get("shipping_methods/flat_rate").json())
   <TabItem value="ruby" label="Ruby">
 
 ```ruby
-woocommerce.get("shipping_methods/flat_rate").parsed_response
+poocommerce.get("shipping_methods/flat_rate").parsed_response
 ```
 
   </TabItem>
@@ -114,7 +114,7 @@ curl https://example.com/wp-json/wc/v3/shipping_methods \
   <TabItem value="js" label="JavaScript">
 
 ```javascript
-WooCommerce.get( 'shipping_methods' )
+PooCommerce.get( 'shipping_methods' )
 	.then( ( response ) => {
 		console.log( response.data );
 	} )
@@ -127,7 +127,7 @@ WooCommerce.get( 'shipping_methods' )
   <TabItem value="php" label="PHP">
 
 ```php
-<?php print_r($woocommerce->get('shipping_methods')); ?>
+<?php print_r($poocommerce->get('shipping_methods')); ?>
 ```
 
   </TabItem>
@@ -141,7 +141,7 @@ print(wcapi.get("shipping_methods").json())
   <TabItem value="ruby" label="Ruby">
 
 ```ruby
-woocommerce.get("shipping_methods").parsed_response
+poocommerce.get("shipping_methods").parsed_response
 ```
 
   </TabItem>

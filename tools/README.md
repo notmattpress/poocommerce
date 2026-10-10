@@ -29,16 +29,16 @@ Each project within the monorepo follows a small, consistent script naming schem
 
 When one project needs to build another, prefer an explicit `--filter` to the dependency over `--filter="$npm_package_name..."` topological cascade. The cascade implicitly rebuilds every transitive dependency; explicit filters keep the call site honest about what runs.
 
-For example, `@woocommerce/plugin-woocommerce` fans out to its three asset producers:
+For example, `@poocommerce/plugin-poocommerce` fans out to its three asset producers:
 
 ```json
 {
 	"scripts": {
-		"build:project:admin": "pnpm --filter='@woocommerce/admin-library' build",
-		"build:project:blocks": "pnpm --filter='@woocommerce/block-library' build",
-		"build:project:classic-assets": "pnpm --filter='@woocommerce/classic-assets' build"
+		"build:project:admin": "pnpm --filter='@poocommerce/admin-library' build",
+		"build:project:blocks": "pnpm --filter='@poocommerce/block-library' build",
+		"build:project:classic-assets": "pnpm --filter='@poocommerce/classic-assets' build"
 	}
 }
 ```
 
-Each producer writes its bundles directly into the plugin's final asset locations (`plugins/woocommerce/assets/{client/admin,client/blocks,css,js}`), so there is no intermediate copy step.
+Each producer writes its bundles directly into the plugin's final asset locations (`plugins/poocommerce/assets/{client/admin,client/blocks,css,js}`), so there is no intermediate copy step.

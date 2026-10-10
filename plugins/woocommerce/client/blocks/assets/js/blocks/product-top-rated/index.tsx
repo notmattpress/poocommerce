@@ -3,7 +3,7 @@
  */
 import { __ } from '@wordpress/i18n';
 import { createBlock, registerBlockType } from '@wordpress/blocks';
-import { thumbUp } from '@woocommerce/icons';
+import { thumbUp } from '@poocommerce/icons';
 import { Icon } from '@wordpress/icons';
 
 /**
@@ -24,11 +24,11 @@ registerBlockType( metadata, {
 			/>
 		),
 	},
-	category: 'woocommerce',
-	keywords: [ __( 'WooCommerce', 'woocommerce' ) ],
+	category: 'poocommerce',
+	keywords: [ __( 'PooCommerce', 'poocommerce' ) ],
 	description: __(
 		'Display a grid of your top rated products.',
-		'woocommerce'
+		'poocommerce'
 	),
 	attributes: {
 		...sharedAttributes,
@@ -39,10 +39,10 @@ registerBlockType( metadata, {
 			{
 				type: 'block',
 				blocks: sharedAttributeBlockTypes.filter(
-					( value ) => value !== 'woocommerce/product-top-rated'
+					( value ) => value !== 'poocommerce/product-top-rated'
 				),
 				transform: ( attributes ) =>
-					createBlock( 'woocommerce/product-top-rated', attributes ),
+					createBlock( 'poocommerce/product-top-rated', attributes ),
 			},
 		],
 	},

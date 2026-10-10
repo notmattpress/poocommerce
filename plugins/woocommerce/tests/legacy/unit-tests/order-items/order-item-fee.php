@@ -2,7 +2,7 @@
 
 /**
  * Order Item Fee Tests.
- * @package WooCommerce\Tests\Order_Items
+ * @package PooCommerce\Tests\Order_Items
  * @since 3.2.0
  */
 class WC_Tests_Order_Item_Fee extends WC_Unit_Test_Case {
@@ -41,7 +41,7 @@ class WC_Tests_Order_Item_Fee extends WC_Unit_Test_Case {
 	 * @since 3.2.0
 	 */
 	public function test_calculate_taxes() {
-		update_option( 'woocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
 		$tax_rate = array(
 			'tax_rate_country'  => '',
 			'tax_rate_state'    => '',

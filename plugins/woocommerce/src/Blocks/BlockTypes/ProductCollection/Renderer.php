@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes\ProductCollection;
+namespace Automattic\PooCommerce\Blocks\BlockTypes\ProductCollection;
 
-use Automattic\WooCommerce\Blocks\BlockTypes\ProductCollection\Utils as ProductCollectionUtils;
+use Automattic\PooCommerce\Blocks\BlockTypes\ProductCollection\Utils as ProductCollectionUtils;
 use WP_HTML_Tag_Processor;
 
 /**
@@ -27,7 +27,7 @@ class Renderer {
 	 * Mini-Cart overlay provides `cart` so cross-sells/upsells collections
 	 * resolve against the cart contents wherever the drawer is rendered).
 	 */
-	const PRODUCT_REFERENCE_CONTEXT = 'woocommerce/productCollection/referenceType';
+	const PRODUCT_REFERENCE_CONTEXT = 'poocommerce/productCollection/referenceType';
 
 	/**
 	 * The render state of the product collection block.
@@ -63,11 +63,11 @@ class Renderer {
 		}
 
 		// Interactivity API: Add navigation directives to the product collection block.
-		add_filter( 'render_block_woocommerce/product-collection', array( $this, 'handle_rendering' ), 10, 2 );
+		add_filter( 'render_block_poocommerce/product-collection', array( $this, 'handle_rendering' ), 10, 2 );
 
 		// Disable block render if the ProductTemplate block is empty.
 		add_filter(
-			'render_block_woocommerce/product-template',
+			'render_block_poocommerce/product-template',
 			function ( $html ) {
 				$this->render_state['has_results'] = ! empty( $html );
 				return $html;
@@ -78,7 +78,7 @@ class Renderer {
 
 		// Enable block render if the NoResults block is rendered.
 		add_filter(
-			'render_block_woocommerce/product-collection-no-results',
+			'render_block_poocommerce/product-collection-no-results',
 			function ( $html ) {
 				$this->render_state['has_no_results_block'] = ! empty( $html );
 				return $html;
@@ -157,14 +157,14 @@ class Renderer {
 			return '';
 		}
 
-		wp_enqueue_script_module( 'woocommerce/product-collection' );
-		wp_enqueue_script_module( 'woocommerce/product-collection-cart-reference' );
+		wp_enqueue_script_module( 'poocommerce/product-collection' );
+		wp_enqueue_script_module( 'poocommerce/product-collection-cart-reference' );
 
 		ob_start();
 		?>
 		<div
-			class="wp-block-woocommerce-product-collection"
-			data-wp-interactive="woocommerce/product-collection"
+			class="wp-block-poocommerce-product-collection"
+			data-wp-interactive="poocommerce/product-collection"
 			data-wp-router-region="<?php echo esc_attr( 'wc-product-collection-' . $query_id ); ?>"
 			data-wp-watch---cart-reference="callbacks.refreshCartReference"
 			data-product-reference-type="<?php echo esc_attr( self::REFERENCE_TYPE_CART ); ?>"
@@ -208,7 +208,7 @@ class Renderer {
 		$is_product_collection_block = $block['attrs']['query']['isProductCollectionBlock'] ?? false;
 
 		if ( $is_product_collection_block ) {
-			wp_enqueue_script_module( 'woocommerce/product-collection' );
+			wp_enqueue_script_module( 'poocommerce/product-collection' );
 
 			$collection                     = $block['attrs']['collection'] ?? '';
 			$is_enhanced_pagination_enabled = ! ( $block['attrs']['forcePageReload'] ?? false );
@@ -218,8 +218,8 @@ class Renderer {
 				'hideNextPreviousButtons' => false,
 				'isDisabledPrevious'      => true,
 				'isDisabledNext'          => false,
-				'ariaLabelPrevious'       => __( 'Previous products', 'woocommerce' ),
-				'ariaLabelNext'           => __( 'Next products', 'woocommerce' ),
+				'ariaLabelPrevious'       => __( 'Previous products', 'poocommerce' ),
+				'ariaLabelNext'           => __( 'Next products', 'poocommerce' ),
 			);
 
 			if ( $collection ) {
@@ -227,8 +227,8 @@ class Renderer {
 			}
 
 			$p = new \WP_HTML_Tag_Processor( $block_content );
-			if ( $p->next_tag( array( 'class_name' => 'wp-block-woocommerce-product-collection' ) ) ) {
-				$p->set_attribute( 'data-wp-interactive', 'woocommerce/product-collection' );
+			if ( $p->next_tag( array( 'class_name' => 'wp-block-poocommerce-product-collection' ) ) ) {
+				$p->set_attribute( 'data-wp-interactive', 'poocommerce/product-collection' );
 				$p->set_attribute( 'data-wp-init', 'callbacks.onRender' );
 				$p->set_attribute( 'data-wp-context', wp_json_encode( $context, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP ) );
 
@@ -244,7 +244,7 @@ class Renderer {
 				$product_reference_type = $query['productReferenceType'] ?? null;
 				$is_cart_reference      = empty( $query['productReference'] ) && ( self::REFERENCE_TYPE_CART === $product_reference_type || $this->has_cart_reference_context );
 				if ( $is_cart_reference ) {
-					wp_enqueue_script_module( 'woocommerce/product-collection-cart-reference' );
+					wp_enqueue_script_module( 'poocommerce/product-collection-cart-reference' );
 					$p->set_attribute( 'data-product-reference-type', self::REFERENCE_TYPE_CART );
 					$p->set_attribute( 'data-wp-watch---cart-reference', 'callbacks.refreshCartReference' );
 				}
@@ -272,13 +272,13 @@ class Renderer {
 
 	/**
 	 * Render interactivity API powered notices that can be added client-side. This reuses classes
-	 * from the woocommerce/store-notices block to ensure style consistency.
+	 * from the poocommerce/store-notices block to ensure style consistency.
 	 *
 	 * @return string The rendered store notices HTML.
 	 */
 	protected function render_interactivity_notices_region() {
 		wp_interactivity_state(
-			'woocommerce/store-notices',
+			'poocommerce/store-notices',
 			array(
 				'notices' => array(),
 			)
@@ -286,7 +286,7 @@ class Renderer {
 
 		ob_start();
 		?>
-		<div data-wp-interactive="woocommerce/store-notices" class="wc-block-components-notices alignwide">
+		<div data-wp-interactive="poocommerce/store-notices" class="wc-block-components-notices alignwide">
 			<template data-wp-each--notice="state.notices" data-wp-each-key="context.notice.id">
 				<div
 					class="wc-block-components-notice-banner"
@@ -304,7 +304,7 @@ class Renderer {
 					<button
 						data-wp-bind--hidden="!context.notice.dismissible"
 						class="wc-block-components-button wp-element-button wc-block-components-notice-banner__dismiss contained"
-						aria-label="<?php esc_attr_e( 'Dismiss this notice', 'woocommerce' ); ?>"
+						aria-label="<?php esc_attr_e( 'Dismiss this notice', 'poocommerce' ); ?>"
 						data-wp-on--click="actions.removeNotice"
 					>
 						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -381,17 +381,17 @@ class Renderer {
 
 			while ( $p->next_tag( 'A' ) ) {
 				if ( $p->has_class( 'wp-block-query-pagination-next' ) || $p->has_class( 'wp-block-query-pagination-previous' ) ) {
-					$p->set_attribute( 'data-wp-on--click', 'woocommerce/product-collection::actions.navigate' );
+					$p->set_attribute( 'data-wp-on--click', 'poocommerce/product-collection::actions.navigate' );
 					$p->set_attribute(
 						'data-wp-key',
 						$p->has_class( 'wp-block-query-pagination-next' )
 							? 'product-collection-pagination--next'
 							: 'product-collection-pagination--previous'
 					);
-					$p->set_attribute( 'data-wp-watch', 'woocommerce/product-collection::callbacks.prefetch' );
-					$p->set_attribute( 'data-wp-on--mouseenter', 'woocommerce/product-collection::actions.prefetchOnHover' );
+					$p->set_attribute( 'data-wp-watch', 'poocommerce/product-collection::callbacks.prefetch' );
+					$p->set_attribute( 'data-wp-on--mouseenter', 'poocommerce/product-collection::actions.prefetchOnHover' );
 				} elseif ( $p->has_class( 'page-numbers' ) ) {
-					$p->set_attribute( 'data-wp-on--click', 'woocommerce/product-collection::actions.navigate' );
+					$p->set_attribute( 'data-wp-on--click', 'poocommerce/product-collection::actions.navigate' );
 					$p->set_attribute( 'data-wp-key', 'product-collection-pagination-numbers--' . $p->get_attribute( 'aria-label' ) );
 				}
 			}
@@ -431,11 +431,11 @@ class Renderer {
 	 */
 	public function extend_context_for_inner_blocks( $context, $parsed_block = array() ) {
 		// Add iapi/provider to inner blocks so they can run this store's Interactivity API actions.
-		$context['iapi/provider'] = 'woocommerce/product-collection';
+		$context['iapi/provider'] = 'poocommerce/product-collection';
 
 		$block_name = $parsed_block['blockName'] ?? '';
 
-		if ( 'woocommerce/product-collection' === $block_name ) {
+		if ( 'poocommerce/product-collection' === $block_name ) {
 			$this->has_cart_reference_context = $this->context_provides_cart_reference( $context );
 
 			// Set productCollectionLocation for the Product Collection block itself.

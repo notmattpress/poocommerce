@@ -1,12 +1,12 @@
-changed_block_metadata=$(git diff --cached --name-only --diff-filter=ACMR -- 'plugins/woocommerce/client/blocks/assets/js/**/block.json')
+changed_block_metadata=$(git diff --cached --name-only --diff-filter=ACMR -- 'plugins/poocommerce/client/blocks/assets/js/**/block.json')
 
 if [ -z "$changed_block_metadata" ]; then
 	exit 0
 fi
 
-printf '%s\n' 'Staged WooCommerce block metadata changes detected. Updating block reference documentation...'
+printf '%s\n' 'Staged PooCommerce block metadata changes detected. Updating block reference documentation...'
 
-if ! corepack pnpm --filter=@woocommerce/block-library build:docs:block-references; then
+if ! corepack pnpm --filter=@poocommerce/block-library build:docs:block-references; then
 	printf '%s\n' 'Failed to regenerate block reference documentation. Aborting commit.' >&2
 	exit 1
 fi

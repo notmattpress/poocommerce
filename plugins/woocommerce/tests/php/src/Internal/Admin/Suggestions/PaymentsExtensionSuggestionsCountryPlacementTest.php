@@ -1,16 +1,16 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\Suggestions;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\Suggestions;
 
-use Automattic\WooCommerce\Admin\PluginsHelper;
-use Automattic\WooCommerce\Internal\Admin\Onboarding\OnboardingProfile;
-use Automattic\WooCommerce\Internal\Admin\Settings\Payments;
-use Automattic\WooCommerce\Internal\Admin\Settings\PaymentsProviders;
-use Automattic\WooCommerce\Internal\Admin\Settings\Utils;
-use Automattic\WooCommerce\Internal\Admin\Suggestions\PaymentsExtensionSuggestions;
-use Automattic\WooCommerce\Internal\Utilities\ArrayUtil;
-use Automattic\WooCommerce\RestApi\UnitTests\CorePayPalGatewayTrait;
+use Automattic\PooCommerce\Admin\PluginsHelper;
+use Automattic\PooCommerce\Internal\Admin\Onboarding\OnboardingProfile;
+use Automattic\PooCommerce\Internal\Admin\Settings\Payments;
+use Automattic\PooCommerce\Internal\Admin\Settings\PaymentsProviders;
+use Automattic\PooCommerce\Internal\Admin\Settings\Utils;
+use Automattic\PooCommerce\Internal\Admin\Suggestions\PaymentsExtensionSuggestions;
+use Automattic\PooCommerce\Internal\Utilities\ArrayUtil;
+use Automattic\PooCommerce\RestApi\UnitTests\CorePayPalGatewayTrait;
 use ReflectionClass;
 use WC_Unit_Test_Case;
 
@@ -625,7 +625,7 @@ class PaymentsExtensionSuggestionsCountryPlacementTest extends WC_Unit_Test_Case
 		$lines[] = '';
 		$lines[] = $this->render_fixture_entry( $country, $projected, $expected['primary_offline'] ?? null );
 		$lines[] = '';
-		$lines[] = 'Then run: pnpm --filter=@woocommerce/plugin-woocommerce lint:php:fix -- tests/php/src/Internal/Admin/Suggestions/fixtures/expected-country-placements.php';
+		$lines[] = 'Then run: pnpm --filter=@poocommerce/plugin-poocommerce lint:php:fix -- tests/php/src/Internal/Admin/Suggestions/fixtures/expected-country-placements.php';
 
 		return implode( "\n", $lines );
 	}

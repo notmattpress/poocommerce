@@ -1,23 +1,23 @@
 <?php
 /**
- * WooCommerce Admin (Dashboard) WooCommerce.com Extension Subscriptions Note Provider.
+ * PooCommerce Admin (Dashboard) PooCommerce.com Extension Subscriptions Note Provider.
  *
- * Adds notes to the merchant's inbox concerning WooCommerce.com extension subscriptions.
+ * Adds notes to the merchant's inbox concerning PooCommerce.com extension subscriptions.
  */
 
-namespace Automattic\WooCommerce\Internal\Admin\Notes;
+namespace Automattic\PooCommerce\Internal\Admin\Notes;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\Notes\Note;
-use Automattic\WooCommerce\Admin\Notes\Notes;
-use Automattic\WooCommerce\Admin\PageController;
+use Automattic\PooCommerce\Admin\Notes\Note;
+use Automattic\PooCommerce\Admin\Notes\Notes;
+use Automattic\PooCommerce\Admin\PageController;
 
 /**
  * Woo_Subscriptions_Notes
  */
 class WooSubscriptionsNotes {
-	const LAST_REFRESH_OPTION_KEY = 'woocommerce_admin-wc-helper-last-refresh';
+	const LAST_REFRESH_OPTION_KEY = 'poocommerce_admin-wc-helper-last-refresh';
 	const NOTE_NAME               = 'wc-admin-wc-helper-connection';
 	const CONNECTION_NOTE_NAME    = 'wc-admin-wc-helper-connection'; // deprecated.
 	const SUBSCRIPTION_NOTE_NAME  = 'wc-admin-wc-helper-subscription';
@@ -30,7 +30,7 @@ class WooSubscriptionsNotes {
 	 */
 	public function __construct() {
 		add_action( 'admin_head', array( $this, 'admin_head' ) );
-		add_action( 'update_option_woocommerce_helper_data', array( $this, 'update_option_woocommerce_helper_data' ), 10, 2 );
+		add_action( 'update_option_poocommerce_helper_data', array( $this, 'update_option_poocommerce_helper_data' ), 10, 2 );
 	}
 
 	/**
@@ -39,7 +39,7 @@ class WooSubscriptionsNotes {
 	 * @param array $old_value The previous value of the option.
 	 * @param array $value The new value of the option.
 	 */
-	public function update_option_woocommerce_helper_data( $old_value, $value ) {
+	public function update_option_poocommerce_helper_data( $old_value, $value ) {
 		if ( ! is_array( $old_value ) ) {
 			$old_value = array();
 		}
@@ -119,7 +119,7 @@ class WooSubscriptionsNotes {
 	}
 
 	/**
-	 * Whether or not we think the site is currently connected to WooCommerce.com.
+	 * Whether or not we think the site is currently connected to PooCommerce.com.
 	 *
 	 * @return bool
 	 */
@@ -129,7 +129,7 @@ class WooSubscriptionsNotes {
 	}
 
 	/**
-	 * Returns the WooCommerce.com provided site ID for this site.
+	 * Returns the PooCommerce.com provided site ID for this site.
 	 *
 	 * @return int|false
 	 */
@@ -291,13 +291,13 @@ class WooSubscriptionsNotes {
 
 		$note_title = sprintf(
 			/* translators: name of the extension subscription expiring soon */
-			__( '%s subscription expiring soon', 'woocommerce' ),
+			__( '%s subscription expiring soon', 'poocommerce' ),
 			$product_name
 		);
 
 		$note_content = sprintf(
 			/* translators: number of days until the subscription expires */
-			__( 'Your subscription expires in %d days. Enable autorenew to avoid losing updates and access to support.', 'woocommerce' ),
+			__( 'Your subscription expires in %d days. Enable autorenew to avoid losing updates and access to support.', 'poocommerce' ),
 			$days_until_expiration
 		);
 
@@ -316,17 +316,17 @@ class WooSubscriptionsNotes {
 		$note->set_title( $note_title );
 		$note->set_type( Note::E_WC_ADMIN_NOTE_WARNING );
 		$note->set_name( self::SUBSCRIPTION_NOTE_NAME );
-		$note->set_source( 'woocommerce-admin' );
+		$note->set_source( 'poocommerce-admin' );
 		$note->clear_actions();
 		$note->add_action(
 			'enable-autorenew',
-			__( 'Enable Autorenew', 'woocommerce' ),
+			__( 'Enable Autorenew', 'poocommerce' ),
 			add_query_arg(
 				array(
 					'utm_source'   => self::UTM_SOURCE,
 					'utm_campaign' => 'pu_inbox_enable_autorenew',
 				),
-				'https://woocommerce.com/my-account/my-subscriptions/'
+				'https://poocommerce.com/my-account/my-subscriptions/'
 			)
 		);
 		$note->set_content( $note_content );
@@ -365,13 +365,13 @@ class WooSubscriptionsNotes {
 
 		$note_title = sprintf(
 			/* translators: name of the extension subscription that expired */
-			__( '%s subscription expired', 'woocommerce' ),
+			__( '%s subscription expired', 'poocommerce' ),
 			$product_name
 		);
 
 		$note_content = sprintf(
 			/* translators: date the subscription expired, e.g. Jun 7th 2018 */
-			__( 'Your subscription expired on %s. Get a new subscription to continue receiving updates and access to support.', 'woocommerce' ),
+			__( 'Your subscription expired on %s. Get a new subscription to continue receiving updates and access to support.', 'poocommerce' ),
 			$expires_date
 		);
 
@@ -392,11 +392,11 @@ class WooSubscriptionsNotes {
 		$note->set_content_data( $note_content_data );
 		$note->set_type( Note::E_WC_ADMIN_NOTE_WARNING );
 		$note->set_name( self::SUBSCRIPTION_NOTE_NAME );
-		$note->set_source( 'woocommerce-admin' );
+		$note->set_source( 'poocommerce-admin' );
 		$note->clear_actions();
 		$note->add_action(
 			'renew-subscription',
-			__( 'Renew Subscription', 'woocommerce' ),
+			__( 'Renew Subscription', 'poocommerce' ),
 			$renew_url
 		);
 		$note->save();

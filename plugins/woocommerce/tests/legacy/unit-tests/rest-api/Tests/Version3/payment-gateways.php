@@ -2,7 +2,7 @@
 /**
  * Tests for the Payment Gateways REST API.
  *
- * @package WooCommerce\Tests\API
+ * @package PooCommerce\Tests\API
  * @since 3.5.0
  */
 

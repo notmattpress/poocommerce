@@ -1,23 +1,23 @@
 /**
  * _fonts.scss
- * Custom WooCommerce fonts.
+ * Custom PooCommerce fonts.
  */
 @font-face {
 	font-family: star;
 	src:
-		url("../fonts/WooCommerce.woff2") format("woff2"),
-		url("../fonts/WooCommerce.woff") format("woff"),
-		url("../fonts/WooCommerce.ttf") format("truetype");
+		url("../fonts/PooCommerce.woff2") format("woff2"),
+		url("../fonts/PooCommerce.woff") format("woff"),
+		url("../fonts/PooCommerce.ttf") format("truetype");
 	font-weight: 400;
 	font-style: normal;
 }
 
 @font-face {
-	font-family: WooCommerce;
+	font-family: PooCommerce;
 	src:
-		url("../fonts/WooCommerce.woff2") format("woff2"),
-		url("../fonts/WooCommerce.woff") format("woff"),
-		url("../fonts/WooCommerce.ttf") format("truetype");
+		url("../fonts/PooCommerce.woff2") format("woff2"),
+		url("../fonts/PooCommerce.woff") format("woff"),
+		url("../fonts/PooCommerce.ttf") format("truetype");
 	font-weight: 400;
 	font-style: normal;
 }

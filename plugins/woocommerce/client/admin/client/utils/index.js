@@ -105,16 +105,16 @@ export const useFullScreen = ( classes ) => {
 	useEffect( () => {
 		const hasToolbarClass =
 			document.documentElement.classList.contains( 'wp-toolbar' );
-		document.body.classList.remove( 'woocommerce-admin-is-loading' );
+		document.body.classList.remove( 'poocommerce-admin-is-loading' );
 		document.body.classList.add( classes );
-		document.body.classList.add( 'woocommerce-admin-full-screen' );
+		document.body.classList.add( 'poocommerce-admin-full-screen' );
 		document.body.classList.add( 'is-wp-toolbar-disabled' );
 		if ( hasToolbarClass ) {
 			document.documentElement.classList.remove( 'wp-toolbar' );
 		}
 		return () => {
 			document.body.classList.remove( classes );
-			document.body.classList.remove( 'woocommerce-admin-full-screen' );
+			document.body.classList.remove( 'poocommerce-admin-full-screen' );
 			document.body.classList.remove( 'is-wp-toolbar-disabled' );
 			if ( hasToolbarClass ) {
 				document.documentElement.classList.add( 'wp-toolbar' );

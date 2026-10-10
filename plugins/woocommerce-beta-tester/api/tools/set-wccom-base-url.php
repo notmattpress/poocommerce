@@ -1,6 +1,6 @@
 <?php
 /**
- * WooCommerce Beta Tester WooCommerce.com Base URL
+ * PooCommerce Beta Tester PooCommerce.com Base URL
  *
  * @package WC_Beta_Tester
  */
@@ -8,16 +8,16 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Register REST API routes for setting and getting WooCommerce.com base URL.
+ * Register REST API routes for setting and getting PooCommerce.com base URL.
  */
-register_woocommerce_admin_test_helper_rest_route(
+register_poocommerce_admin_test_helper_rest_route(
 	'/tools/set-wccom-base-url/v1',
 	'tools_set_wccom_base_url',
 	array(
 		'methods' => 'POST',
 		'args'    => array(
 			'url' => array(
-				'description'       => 'WooCommerce.com base URL',
+				'description'       => 'PooCommerce.com base URL',
 				'type'              => 'string',
 				'required'          => true,
 				'sanitize_callback' => 'esc_url_raw',
@@ -26,7 +26,7 @@ register_woocommerce_admin_test_helper_rest_route(
 	)
 );
 
-register_woocommerce_admin_test_helper_rest_route(
+register_poocommerce_admin_test_helper_rest_route(
 	'/tools/get-wccom-base-url/v1',
 	'tools_get_wccom_base_url',
 	array(
@@ -35,7 +35,7 @@ register_woocommerce_admin_test_helper_rest_route(
 );
 
 /**
- * Set WooCommerce.com base URL.
+ * Set PooCommerce.com base URL.
  *
  * @param WP_REST_Request $request Full details about the request.
  * @return WP_REST_Response
@@ -45,7 +45,7 @@ function tools_set_wccom_base_url( $request ) {
 
 	if ( empty( $url ) ) {
 		delete_option( 'wc_beta_tester_wccom_base_url' );
-		return new WP_REST_Response( array( 'message' => 'WooCommerce.com base URL is reset' ), 200 );
+		return new WP_REST_Response( array( 'message' => 'PooCommerce.com base URL is reset' ), 200 );
 	}
 
 	if ( ! filter_var( $url, FILTER_VALIDATE_URL ) ) {
@@ -57,13 +57,13 @@ function tools_set_wccom_base_url( $request ) {
 }
 
 /**
- * Get WooCommerce.com base URL.
+ * Get PooCommerce.com base URL.
  *
  * @return WP_REST_Response
  */
 function tools_get_wccom_base_url() {
-	if ( class_exists( 'WC_Helper' ) && method_exists( 'WC_Helper', 'get_woocommerce_com_base_url' ) ) {
-		$url = WC_Helper::get_woocommerce_com_base_url();
+	if ( class_exists( 'WC_Helper' ) && method_exists( 'WC_Helper', 'get_poocommerce_com_base_url' ) ) {
+		$url = WC_Helper::get_poocommerce_com_base_url();
 	} else {
 		$url = get_option( 'wc_beta_tester_wccom_base_url', '' );
 	}
@@ -71,9 +71,9 @@ function tools_get_wccom_base_url() {
 }
 
 /**
- * Filter WooCommerce.com base URL.
+ * Filter PooCommerce.com base URL.
  *
- * @param string $default_url Default WooCommerce.com base URL.
+ * @param string $default_url Default PooCommerce.com base URL.
  * @return string
  */
 function filter_wccom_base_url( $default_url ) {
@@ -84,7 +84,7 @@ function filter_wccom_base_url( $default_url ) {
 add_filter( 'woo_com_base_url', 'filter_wccom_base_url' );
 
 /**
- * Filter HTTP request arguments to disable SSL verification for custom WooCommerce.com base URL.
+ * Filter HTTP request arguments to disable SSL verification for custom PooCommerce.com base URL.
  *
  * @param array  $args HTTP request arguments.
  * @param string $url HTTP request URL.

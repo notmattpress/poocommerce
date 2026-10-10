@@ -1,4 +1,4 @@
-.woocommerce-pagination {
+.poocommerce-pagination {
 	display: flex;
 	flex-direction: row;
 	flex-wrap: nowrap;
@@ -14,14 +14,14 @@
 	}
 }
 
-.woocommerce-pagination__page-arrows {
+.poocommerce-pagination__page-arrows {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
 	gap: $gap-smaller;
 }
 
-.woocommerce-pagination__page-arrows-buttons {
+.poocommerce-pagination__page-arrows-buttons {
 	display: inline-flex;
 	align-items: baseline;
 	border: 1px solid $button-border;
@@ -50,24 +50,24 @@
 		border-bottom-left-radius: 0;
 	}
 
-	.woocommerce-pagination__link {
+	.poocommerce-pagination__link {
 		padding: 4px;
 	}
 }
 
-.woocommerce-pagination__page-arrows-label {
+.poocommerce-pagination__page-arrows-label {
 	margin-top: math.div($spacing, 2);
 	margin-right: math.div($spacing, 2);
 }
 
-.woocommerce-pagination__page-picker {
+.poocommerce-pagination__page-picker {
 	margin-left: $spacing;
 
 	@include breakpoint("<782px") {
 		margin-top: $gap;
 		margin-left: 0;
 	}
-	.woocommerce-pagination__page-picker-input {
+	.poocommerce-pagination__page-picker-input {
 		margin-left: math.div($spacing, 2);
 		width: 60px;
 		height: 34px;
@@ -75,7 +75,7 @@
 	}
 }
 
-.woocommerce-pagination__per-page-picker {
+.poocommerce-pagination__per-page-picker {
 	margin-left: $spacing;
 
 	@include breakpoint("<782px") {
@@ -111,15 +111,15 @@
 	}
 }
 
-.woocommerce-pagination__page-picker-input.has-error,
-.woocommerce-pagination__page-picker-input.has-error:focus,
-.woocommerce-pagination__page-arrow-picker-input.has-error,
-.woocommerce-pagination__page-arrow-picker-input.has-error:focus {
+.poocommerce-pagination__page-picker-input.has-error,
+.poocommerce-pagination__page-picker-input.has-error:focus,
+.poocommerce-pagination__page-arrow-picker-input.has-error,
+.poocommerce-pagination__page-arrow-picker-input.has-error:focus {
 	border-color: $error-red;
 	box-shadow: 0 0 2px $error-red;
 }
 
-.woocommerce-pagination__page-arrow-picker-input {
+.poocommerce-pagination__page-arrow-picker-input {
 	/* Chrome, Safari, Edge, Opera */
 	&::-webkit-outer-spin-button,
 	&::-webkit-inner-spin-button {

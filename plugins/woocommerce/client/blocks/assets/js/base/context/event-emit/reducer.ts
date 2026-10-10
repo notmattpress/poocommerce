@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { generateUniqueId } from '@woocommerce/utils';
+import { generateUniqueId } from '@poocommerce/utils';
 
 /**
  * Internal dependencies

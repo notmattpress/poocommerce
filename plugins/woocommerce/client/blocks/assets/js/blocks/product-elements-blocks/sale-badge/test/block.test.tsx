@@ -20,14 +20,14 @@ const product = {
 	},
 };
 
-jest.mock( '@woocommerce/shared-context', () => ( {
+jest.mock( '@poocommerce/shared-context', () => ( {
 	useInnerBlockLayoutContext: () => ( { parentClassName: '' } ),
 	useProductDataContext: () => ( { product } ),
 } ) );
-jest.mock( '@woocommerce/shared-hocs', () => ( {
+jest.mock( '@poocommerce/shared-hocs', () => ( {
 	withProductDataContext: ( Component: unknown ) => Component,
 } ) );
-jest.mock( '@woocommerce/base-hooks', () => ( {
+jest.mock( '@poocommerce/base-hooks', () => ( {
 	useStyleProps: () => ( { className: '', style: {} } ),
 } ) );
 
@@ -159,8 +159,8 @@ it.each( [
 );
 
 it( 'uses localized spacing before the percent sign', () => {
-	const localeData = getLocaleData( 'woocommerce' );
-	setLocaleData( { '%s%%': [ '%s\u00a0%%' ] }, 'woocommerce' );
+	const localeData = getLocaleData( 'poocommerce' );
+	setLocaleData( { '%s%%': [ '%s\u00a0%%' ] }, 'poocommerce' );
 	try {
 		render(
 			<Block
@@ -176,6 +176,6 @@ it( 'uses localized spacing before the percent sign', () => {
 			} )
 		).toBeInTheDocument();
 	} finally {
-		resetLocaleData( localeData, 'woocommerce' );
+		resetLocaleData( localeData, 'poocommerce' );
 	}
 } );

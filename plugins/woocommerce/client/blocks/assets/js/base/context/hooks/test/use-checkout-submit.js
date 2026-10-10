@@ -10,11 +10,11 @@ import { createRegistry, RegistryProvider } from '@wordpress/data';
 import {
 	CHECKOUT_STORE_KEY,
 	config as checkoutStoreConfig,
-} from '@woocommerce/block-data/checkout';
+} from '@poocommerce/block-data/checkout';
 import {
 	PAYMENT_STORE_KEY,
 	config as paymentDataStoreConfig,
-} from '@woocommerce/block-data/payment';
+} from '@poocommerce/block-data/payment';
 import { useCheckoutSubmit } from '../use-checkout-submit';
 
 jest.mock( '../../providers/cart-checkout/checkout-events', () => {

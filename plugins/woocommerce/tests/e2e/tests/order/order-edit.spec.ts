@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { ApiClient, WC_API_PATH } from '@woocommerce/e2e-utils-playwright';
+import { ApiClient, WC_API_PATH } from '@poocommerce/e2e-utils-playwright';
 
 /**
  * Internal dependencies
@@ -131,7 +131,7 @@ test.describe( 'Edit order', { tag: [ tags.SERVICES, tags.HPOS ] }, () => {
 			'wc-completed'
 		);
 		await expect(
-			page.locator( '#woocommerce-order-notes .note_content >> nth=0' )
+			page.locator( '#poocommerce-order-notes .note_content >> nth=0' )
 		).toContainText( 'Order status changed from Processing to Completed.' );
 
 		// load the orders listing and confirm order is completed
@@ -490,11 +490,11 @@ test.describe(
 		};
 
 		// The downloads box is hidden by default on the order edit screen. These tests run
-		// in both the HPOS (woocommerce_page_wc-orders) and HPOS-disabled (shop_order) jobs,
+		// in both the HPOS (poocommerce_page_wc-orders) and HPOS-disabled (shop_order) jobs,
 		// so the admin user's hidden-meta-boxes preference is cleared for both screen ids to
 		// keep the box visible. Keys are blog-prefixed user meta (single-site wp-env prefix).
 		const orderScreenHiddenMetaKeys = [
-			'wp_metaboxhidden_woocommerce_page_wc-orders',
+			'wp_metaboxhidden_poocommerce_page_wc-orders',
 			'wp_metaboxhidden_shop_order',
 		];
 
@@ -506,12 +506,12 @@ test.describe(
 			downloadFile: string;
 
 		/**
-		 * Enable the "Grant access to downloadable products after payment" setting in WooCommerce > Settings > Products > Downloadable products.
+		 * Enable the "Grant access to downloadable products after payment" setting in PooCommerce > Settings > Products > Downloadable products.
 		 */
 		const enableGrantAccessAfterPaymentSetting = async (
 			restApi: ApiClient
 		) => {
-			const endpoint = `${ WC_API_PATH }/settings/products/woocommerce_downloads_grant_access_after_payment`;
+			const endpoint = `${ WC_API_PATH }/settings/products/poocommerce_downloads_grant_access_after_payment`;
 
 			// Get current value
 			const response = await restApi.get( endpoint );
@@ -528,7 +528,7 @@ test.describe(
 		const revertGrantAccessAfterPaymentSetting = async (
 			restApi: ApiClient
 		) => {
-			const endpoint = `${ WC_API_PATH }/settings/products/woocommerce_downloads_grant_access_after_payment`;
+			const endpoint = `${ WC_API_PATH }/settings/products/poocommerce_downloads_grant_access_after_payment`;
 
 			await restApi.put( endpoint, {
 				value: initialGrantAccessAfterPaymentSetting,
@@ -663,17 +663,17 @@ test.describe(
 			// verify new downloadable product permission details
 			await expect(
 				page.locator(
-					'#woocommerce-order-downloads > div.inside > div > div.wc-metaboxes > div > h3 > strong'
+					'#poocommerce-order-downloads > div.inside > div > div.wc-metaboxes > div > h3 > strong'
 				)
 			).toContainText( productName );
 			await expect(
 				page.locator(
-					'#woocommerce-order-downloads > div.inside > div > div.wc-metaboxes > div > table > tbody > tr > td:nth-child(1) > input.short'
+					'#poocommerce-order-downloads > div.inside > div > div.wc-metaboxes > div > table > tbody > tr > td:nth-child(1) > input.short'
 				)
 			).toHaveAttribute( 'placeholder', 'Unlimited' );
 			await expect(
 				page.locator(
-					'#woocommerce-order-downloads > div.inside > div > div.wc-metaboxes > div > table > tbody > tr > td:nth-child(2) > input.short'
+					'#poocommerce-order-downloads > div.inside > div > div.wc-metaboxes > div > table > tbody > tr > td:nth-child(2) > input.short'
 				)
 			).toHaveAttribute( 'placeholder', 'Never' );
 			await expect(
@@ -709,19 +709,19 @@ test.describe(
 			// verify new downloadable product permission details
 			await expect(
 				page.locator(
-					'#woocommerce-order-downloads > div.inside > div > div.wc-metaboxes > div > h3 > strong',
+					'#poocommerce-order-downloads > div.inside > div > div.wc-metaboxes > div > h3 > strong',
 					{ hasText: product2Name }
 				)
 			).toBeVisible();
 
 			await expect(
 				page.locator(
-					'#woocommerce-order-downloads input[name^="downloads_remaining"] >> nth=-1'
+					'#poocommerce-order-downloads input[name^="downloads_remaining"] >> nth=-1'
 				)
 			).toHaveAttribute( 'placeholder', 'Unlimited' );
 			await expect(
 				page.locator(
-					'#woocommerce-order-downloads input[name^="access_expires"] >> nth=-1'
+					'#poocommerce-order-downloads input[name^="access_expires"] >> nth=-1'
 				)
 			).toHaveAttribute( 'placeholder', 'Never' );
 		} );
@@ -740,19 +740,19 @@ test.describe(
 			// expand product download permissions
 			await page
 				.locator(
-					'#woocommerce-order-downloads > div.inside > div > div.wc-metaboxes > div > h3 > strong'
+					'#poocommerce-order-downloads > div.inside > div > div.wc-metaboxes > div > h3 > strong'
 				)
 				.click();
 
 			// edit download permissions
 			await page
 				.locator(
-					'#woocommerce-order-downloads > div.inside > div > div.wc-metaboxes > div > table > tbody > tr > td:nth-child(1) > input.short'
+					'#poocommerce-order-downloads > div.inside > div > div.wc-metaboxes > div > table > tbody > tr > td:nth-child(1) > input.short'
 				)
 				.fill( expectedDownloadsRemaining );
 			await page
 				.locator(
-					'#woocommerce-order-downloads > div.inside > div > div.wc-metaboxes > div > table > tbody > tr > td:nth-child(2) > input.short'
+					'#poocommerce-order-downloads > div.inside > div > div.wc-metaboxes > div > table > tbody > tr > td:nth-child(2) > input.short'
 				)
 				.fill( expectedDownloadsExpirationDate );
 			await page.locator( 'button.save_order' ).click();
@@ -760,17 +760,17 @@ test.describe(
 			// verify new downloadable product permissions
 			await page
 				.locator(
-					'#woocommerce-order-downloads > div.inside > div > div.wc-metaboxes > div > h3 > strong'
+					'#poocommerce-order-downloads > div.inside > div > div.wc-metaboxes > div > h3 > strong'
 				)
 				.click();
 			await expect(
 				page.locator(
-					'#woocommerce-order-downloads > div.inside > div > div.wc-metaboxes > div > table > tbody > tr > td:nth-child(1) > input.short'
+					'#poocommerce-order-downloads > div.inside > div > div.wc-metaboxes > div > table > tbody > tr > td:nth-child(1) > input.short'
 				)
 			).toHaveValue( expectedDownloadsRemaining );
 			await expect(
 				page.locator(
-					'#woocommerce-order-downloads > div.inside > div > div.wc-metaboxes > div > table > tbody > tr > td:nth-child(2) > input.short'
+					'#poocommerce-order-downloads > div.inside > div > div.wc-metaboxes > div > table > tbody > tr > td:nth-child(2) > input.short'
 				)
 			).toHaveValue( expectedDownloadsExpirationDate );
 		} );
@@ -786,14 +786,14 @@ test.describe(
 			// expand product download permissions
 			await page
 				.locator(
-					'#woocommerce-order-downloads > div.inside > div > div.wc-metaboxes > div > h3 > strong'
+					'#poocommerce-order-downloads > div.inside > div > div.wc-metaboxes > div > h3 > strong'
 				)
 				.click();
 
 			// verify prior state before revoking
 			await expect(
 				page.locator(
-					'#woocommerce-order-downloads > div.inside > div > div.wc-metaboxes > div > h3 > strong'
+					'#poocommerce-order-downloads > div.inside > div > div.wc-metaboxes > div > h3 > strong'
 				)
 			).toHaveCount( 1 );
 
@@ -804,7 +804,7 @@ test.describe(
 			// verify permissions gone
 			await expect(
 				page.locator(
-					'#woocommerce-order-downloads > div.inside > div > div.wc-metaboxes > div > h3 > strong'
+					'#poocommerce-order-downloads > div.inside > div > div.wc-metaboxes > div > h3 > strong'
 				)
 			).toHaveCount( 0 );
 		} );
@@ -825,14 +825,14 @@ test.describe(
 				// expand product download permissions
 				await page
 					.locator(
-						'#woocommerce-order-downloads > div.inside > div > div.wc-metaboxes > div > h3 > strong'
+						'#poocommerce-order-downloads > div.inside > div > div.wc-metaboxes > div > h3 > strong'
 					)
 					.click();
 
 				// edit download permissions
 				await page
 					.locator(
-						'#woocommerce-order-downloads > div.inside > div > div.wc-metaboxes > div > table > tbody > tr > td:nth-child(1) > input.short'
+						'#poocommerce-order-downloads > div.inside > div > div.wc-metaboxes > div > table > tbody > tr > td:nth-child(1) > input.short'
 					)
 					.fill( '0' );
 				await page.locator( 'button.save_order' ).click();
@@ -840,7 +840,7 @@ test.describe(
 				// get the download link
 				await page
 					.locator(
-						'#woocommerce-order-downloads > div.inside > div > div.wc-metaboxes > div > h3 > strong'
+						'#poocommerce-order-downloads > div.inside > div > div.wc-metaboxes > div > h3 > strong'
 					)
 					.click();
 				const downloadPage = await page
@@ -870,14 +870,14 @@ test.describe(
 				// expand product download permissions
 				await page
 					.locator(
-						'#woocommerce-order-downloads > div.inside > div > div.wc-metaboxes > div > h3 > strong'
+						'#poocommerce-order-downloads > div.inside > div > div.wc-metaboxes > div > h3 > strong'
 					)
 					.click();
 
 				// edit download permissions
 				await page
 					.locator(
-						'#woocommerce-order-downloads > div.inside > div > div.wc-metaboxes > div > table > tbody > tr > td:nth-child(2) > input.short'
+						'#poocommerce-order-downloads > div.inside > div > div.wc-metaboxes > div > table > tbody > tr > td:nth-child(2) > input.short'
 					)
 					.fill( '2018-12-14' );
 				await page.locator( 'button.save_order' ).click();
@@ -885,7 +885,7 @@ test.describe(
 				// get the download link
 				await page
 					.locator(
-						'#woocommerce-order-downloads > div.inside > div > div.wc-metaboxes > div > h3 > strong'
+						'#poocommerce-order-downloads > div.inside > div > div.wc-metaboxes > div > h3 > strong'
 					)
 					.click();
 				const downloadPage = await page

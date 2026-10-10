@@ -2,8 +2,8 @@
  * External dependencies
  */
 import clsx from 'clsx';
-import { SidebarLayout } from '@woocommerce/base-components/sidebar-layout';
-import { useStoreCart } from '@woocommerce/base-context/hooks';
+import { SidebarLayout } from '@poocommerce/base-components/sidebar-layout';
+import { useStoreCart } from '@poocommerce/base-context/hooks';
 
 /**
  * Internal dependencies

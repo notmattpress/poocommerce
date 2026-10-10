@@ -2,12 +2,12 @@
 
 # Copies every block.json under the Blocks source tree into the built assets directory so the PHP
 # test suites can read block metadata without a full build. Mirrors the CopyWebpackPlugin rules in
-# https://github.com/woocommerce/woocommerce/blob/84d1da7be3cbd3d8f40b17ad58729f668fd82b6a/plugins/woocommerce/client/blocks/bin/webpack-configs.js#L229-L256
+# https://github.com/poocommerce/poocommerce/blob/84d1da7be3cbd3d8f40b17ad58729f668fd82b6a/plugins/poocommerce/client/blocks/bin/webpack-configs.js#L229-L256
 # and must stay in sync with them. Unlike a plain copy, it first removes the previously generated
 # manifests so an edited or deleted source manifest cannot leave a stale copy behind.
 
 # Move to the project root
-while [ ! -d "plugins/woocommerce" ] || [ ! -f "pnpm-workspace.yaml" ]; do
+while [ ! -d "plugins/poocommerce" ] || [ ! -f "pnpm-workspace.yaml" ]; do
     if [ "$PWD" = "/" ]; then
         echo "Error: Could not find project root"
         exit 1
@@ -19,8 +19,8 @@ node <<'NODE'
 const fs = require( 'node:fs' );
 const path = require( 'node:path' );
 
-const sourceDirectory = path.resolve( 'plugins/woocommerce/client/blocks/assets/js' );
-const targetDirectory = path.resolve( 'plugins/woocommerce/assets/client/blocks' );
+const sourceDirectory = path.resolve( 'plugins/poocommerce/client/blocks/assets/js' );
+const targetDirectory = path.resolve( 'plugins/poocommerce/assets/client/blocks' );
 // Keep in sync with genericBlocks in webpack-entries.js.
 const genericBlocks = new Set( [
 	'accordion-group',
@@ -60,7 +60,7 @@ fs.rmSync( path.join( targetDirectory, 'blocks-json.php' ), { force: true } );
 for ( const sourceManifest of sourceManifests ) {
 	const metadata = JSON.parse( fs.readFileSync( sourceManifest, 'utf8' ) );
 	// Block names are `namespace/block-name`, the shape WordPress and bin/block.json-validation-schema.json
-	// both enforce. Reject anything else: a name like `woocommerce/..` would otherwise resolve to a path
+	// both enforce. Reject anything else: a name like `poocommerce/..` would otherwise resolve to a path
 	// outside the target directory.
 	const blockName =
 		typeof metadata.name === 'string'

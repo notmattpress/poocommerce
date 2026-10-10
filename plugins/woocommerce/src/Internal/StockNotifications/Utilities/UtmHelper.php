@@ -2,7 +2,7 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\StockNotifications\Utilities;
+namespace Automattic\PooCommerce\Internal\StockNotifications\Utilities;
 
 /**
  * Helper for appending UTM campaign parameters to outgoing stock-notification email links.

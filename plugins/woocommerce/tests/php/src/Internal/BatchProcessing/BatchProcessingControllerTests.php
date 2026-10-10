@@ -1,11 +1,11 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\BatchProcessing;
+namespace Automattic\PooCommerce\Tests\Internal\BatchProcessing;
 
-use Automattic\WooCommerce\Internal\BatchProcessing\BatchProcessingController;
-use Automattic\WooCommerce\Internal\BatchProcessing\BatchProcessorInterface;
-use Automattic\WooCommerce\Internal\DataStores\Orders\DataSynchronizer;
+use Automattic\PooCommerce\Internal\BatchProcessing\BatchProcessingController;
+use Automattic\PooCommerce\Internal\BatchProcessing\BatchProcessorInterface;
+use Automattic\PooCommerce\Internal\DataStores\Orders\DataSynchronizer;
 
 /**
  * Class BatchProcessingControllerTests.
@@ -573,7 +573,7 @@ class BatchProcessingControllerTests extends \WC_Unit_Test_Case {
 		$test_process_mock->expects( $this->exactly( 2 ) )->method( 'get_next_batch_to_process' )->willReturn( array( 'dummy_id' ) );
 
 		add_filter(
-			'woocommerce_get_batch_processor',
+			'poocommerce_get_batch_processor',
 			function() use ( $test_process_mock ) {
 				return $test_process_mock;
 			}
@@ -600,7 +600,7 @@ class BatchProcessingControllerTests extends \WC_Unit_Test_Case {
 				}
 			);
 		add_filter(
-			'woocommerce_get_batch_processor',
+			'poocommerce_get_batch_processor',
 			function() use ( $test_process_mock ) {
 				return $test_process_mock;
 			}

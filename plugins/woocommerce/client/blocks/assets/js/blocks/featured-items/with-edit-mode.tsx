@@ -3,16 +3,16 @@
  */
 import type { useBlockProps } from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
-import { usePreviewMode } from '@woocommerce/base-hooks';
+import { usePreviewMode } from '@poocommerce/base-hooks';
 import type { ComponentType } from 'react';
 import { useEffect, useState } from '@wordpress/element';
 import { info } from '@wordpress/icons';
-import ProductCategoryControl from '@woocommerce/editor-components/product-category-control';
-import ProductControl from '@woocommerce/editor-components/product-control';
+import ProductCategoryControl from '@poocommerce/editor-components/product-category-control';
+import ProductControl from '@poocommerce/editor-components/product-control';
 import {
 	ProductResponseItem,
 	ProductCategoryResponseItem,
-} from '@woocommerce/types';
+} from '@poocommerce/types';
 import {
 	Placeholder,
 	Icon,
@@ -20,7 +20,7 @@ import {
 	__experimentalHStack as HStack,
 	__experimentalText as Text,
 } from '@wordpress/components';
-import { ErrorObject } from '@woocommerce/base-utils';
+import { ErrorObject } from '@poocommerce/base-utils';
 
 /**
  * Internal dependencies
@@ -208,7 +208,7 @@ export const withEditMode =
 								/>
 							) }
 							<Button variant="primary" onClick={ onDone }>
-								{ __( 'Done', 'woocommerce' ) }
+								{ __( 'Done', 'poocommerce' ) }
 							</Button>
 						</div>
 					</Placeholder>

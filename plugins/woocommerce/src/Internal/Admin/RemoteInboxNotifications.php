@@ -3,9 +3,9 @@
  * Remote Inbox Notifications feature.
  */
 
-namespace Automattic\WooCommerce\Internal\Admin;
+namespace Automattic\PooCommerce\Internal\Admin;
 
-use Automattic\WooCommerce\Admin\RemoteInboxNotifications\RemoteInboxNotificationsEngine;
+use Automattic\PooCommerce\Admin\RemoteInboxNotifications\RemoteInboxNotificationsEngine;
 
 /**
  * Remote Inbox Notifications feature logic.
@@ -14,7 +14,7 @@ class RemoteInboxNotifications {
 	/**
 	 * Option name used to toggle this feature.
 	 */
-	const TOGGLE_OPTION_NAME = 'woocommerce_show_marketplace_suggestions';
+	const TOGGLE_OPTION_NAME = 'poocommerce_show_marketplace_suggestions';
 
 	/**
 	 * Class instance.
@@ -34,7 +34,7 @@ class RemoteInboxNotifications {
 	}
 
 	/**
-	 * Hook into WooCommerce.
+	 * Hook into PooCommerce.
 	 */
 	public function __construct() {
 		if ( 'yes' === get_option( self::TOGGLE_OPTION_NAME, 'yes' ) ) {

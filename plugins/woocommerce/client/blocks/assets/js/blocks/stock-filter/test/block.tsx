@@ -15,9 +15,9 @@ import {
 } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { dispatch } from '@wordpress/data';
-import { QUERY_STATE_STORE_KEY } from '@woocommerce/block-data';
-import { server } from '@woocommerce/test-utils/msw';
-import { allSettings } from '@woocommerce/settings';
+import { QUERY_STATE_STORE_KEY } from '@poocommerce/block-data';
+import { server } from '@poocommerce/test-utils/msw';
+import { allSettings } from '@poocommerce/settings';
 
 /**
  * Internal dependencies
@@ -49,16 +49,16 @@ const mockResults = {
 	],
 };
 
-jest.mock( '@woocommerce/base-context/hooks', () => {
+jest.mock( '@poocommerce/base-context/hooks', () => {
 	return {
-		...jest.requireActual( '@woocommerce/base-context/hooks' ),
+		...jest.requireActual( '@poocommerce/base-context/hooks' ),
 		useCollectionData: () => ( { isLoading: false, data: mockResults } ),
 	};
 } );
 
-jest.mock( '@woocommerce/settings', () => {
+jest.mock( '@poocommerce/settings', () => {
 	return {
-		...jest.requireActual( '@woocommerce/settings' ),
+		...jest.requireActual( '@poocommerce/settings' ),
 		getSettingWithCoercion: jest
 			.fn()
 			.mockImplementation( ( key, defaultValue ) => {

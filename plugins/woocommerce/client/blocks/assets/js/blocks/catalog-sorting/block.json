@@ -1,9 +1,9 @@
 {
-	"name": "woocommerce/catalog-sorting",
+	"name": "poocommerce/catalog-sorting",
 	"title": "Catalog Sorting",
 	"description": "Enable customers to change the sorting order of the products.",
-	"category": "woocommerce",
-	"keywords": [ "WooCommerce" ],
+	"category": "poocommerce",
+	"keywords": [ "PooCommerce" ],
 	"supports": {
 		"interactivity": true,
 		"color": {
@@ -14,8 +14,8 @@
 			"fontSize": true
 		}
 	},
-	"viewScriptModule": "woocommerce/catalog-sorting",
-	"style": "file:../woocommerce/catalog-sorting-style.css",
+	"viewScriptModule": "poocommerce/catalog-sorting",
+	"style": "file:../poocommerce/catalog-sorting-style.css",
 	"attributes": {
 		"fontSize": {
 			"type": "string",
@@ -26,7 +26,7 @@
 			"default": false
 		}
 	},
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"apiVersion": 3,
 	"$schema": "https://schemas.wp.org/trunk/block.json"
 }

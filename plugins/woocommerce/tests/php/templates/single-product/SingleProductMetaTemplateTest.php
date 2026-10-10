@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Templates\SingleProduct;
+namespace Automattic\PooCommerce\Tests\Templates\SingleProduct;
 
 use WC_Helper_Product;
 use WC_Unit_Test_Case;
@@ -120,7 +120,7 @@ class SingleProductMetaTemplateTest extends WC_Unit_Test_Case {
 		$orderby_filter = static function () {
 			return 'name';
 		};
-		add_filter( 'woocommerce_product_meta_category_orderby', $orderby_filter );
+		add_filter( 'poocommerce_product_meta_category_orderby', $orderby_filter );
 
 		try {
 			$expected = implode(
@@ -134,7 +134,7 @@ class SingleProductMetaTemplateTest extends WC_Unit_Test_Case {
 				'Single product meta should honor the filtered product category ordering mode.'
 			);
 		} finally {
-			remove_filter( 'woocommerce_product_meta_category_orderby', $orderby_filter );
+			remove_filter( 'poocommerce_product_meta_category_orderby', $orderby_filter );
 		}
 	}
 

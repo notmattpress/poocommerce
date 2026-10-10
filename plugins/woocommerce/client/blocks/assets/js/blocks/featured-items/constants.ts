@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { WP_REST_API_Category } from 'wp-types';
-import { ProductResponseItem } from '@woocommerce/types';
+import { ProductResponseItem } from '@poocommerce/types';
 import { InnerBlockTemplate } from '@wordpress/blocks';
 import { __ } from '@wordpress/i18n';
 
@@ -17,16 +17,16 @@ export const DEFAULT_EDITOR_SIZE = {
 } as const;
 
 export const BLOCK_NAMES = {
-	featuredCategory: 'woocommerce/featured-category',
-	featuredProduct: 'woocommerce/featured-product',
+	featuredCategory: 'poocommerce/featured-category',
+	featuredProduct: 'poocommerce/featured-product',
 } as const;
 
 export const FEATURED_CATEGORY_DEFAULT_TEMPLATE = (
 	category: WP_REST_API_Category,
 	inheritCategory = false
 ): InnerBlockTemplate[] => [
-	[ 'woocommerce/category-title', { level: 2, textAlign: 'center' } ],
-	[ 'woocommerce/category-description', { textAlign: 'center' } ],
+	[ 'poocommerce/category-title', { level: 2, textAlign: 'center' } ],
+	[ 'poocommerce/category-description', { textAlign: 'center' } ],
 	[
 		'core/buttons',
 		{
@@ -39,7 +39,7 @@ export const FEATURED_CATEGORY_DEFAULT_TEMPLATE = (
 			[
 				'core/button',
 				{
-					text: __( 'Shop now', 'woocommerce' ),
+					text: __( 'Shop now', 'poocommerce' ),
 					url: category.permalink,
 					...( inheritCategory && {
 						metadata: {
@@ -66,11 +66,11 @@ export const FEATURED_PRODUCT_DEFAULT_TEMPLATE = (
 			isLink: true,
 			level: 2,
 			textAlign: 'center',
-			__woocommerceNamespace: PRODUCT_TITLE_VARIATION_NAME,
+			__poocommerceNamespace: PRODUCT_TITLE_VARIATION_NAME,
 		},
 	],
 	[
-		'woocommerce/product-summary',
+		'poocommerce/product-summary',
 		{
 			showDescriptionIfEmpty: true,
 			style: {
@@ -82,7 +82,7 @@ export const FEATURED_PRODUCT_DEFAULT_TEMPLATE = (
 		},
 	],
 	[
-		'woocommerce/product-price',
+		'poocommerce/product-price',
 		{
 			style: {
 				spacing: {
@@ -106,7 +106,7 @@ export const FEATURED_PRODUCT_DEFAULT_TEMPLATE = (
 			[
 				'core/button',
 				{
-					text: __( 'Shop now', 'woocommerce' ),
+					text: __( 'Shop now', 'poocommerce' ),
 					url: product.permalink,
 				},
 			],

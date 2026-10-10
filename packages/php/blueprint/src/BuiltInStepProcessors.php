@@ -1,20 +1,20 @@
 <?php
 
-namespace Automattic\WooCommerce\Blueprint;
+namespace Automattic\PooCommerce\Blueprint;
 
-use Automattic\WooCommerce\Blueprint\Importers\ImportActivatePlugin;
-use Automattic\WooCommerce\Blueprint\Importers\ImportActivateTheme;
-use Automattic\WooCommerce\Blueprint\Importers\ImportInstallPlugin;
-use Automattic\WooCommerce\Blueprint\Importers\ImportInstallTheme;
-use Automattic\WooCommerce\Blueprint\Importers\ImportRunSql;
-use Automattic\WooCommerce\Blueprint\Importers\ImportSetSiteOptions;
-use Automattic\WooCommerce\Blueprint\ResourceStorages\OrgPluginResourceStorage;
-use Automattic\WooCommerce\Blueprint\ResourceStorages\OrgThemeResourceStorage;
+use Automattic\PooCommerce\Blueprint\Importers\ImportActivatePlugin;
+use Automattic\PooCommerce\Blueprint\Importers\ImportActivateTheme;
+use Automattic\PooCommerce\Blueprint\Importers\ImportInstallPlugin;
+use Automattic\PooCommerce\Blueprint\Importers\ImportInstallTheme;
+use Automattic\PooCommerce\Blueprint\Importers\ImportRunSql;
+use Automattic\PooCommerce\Blueprint\Importers\ImportSetSiteOptions;
+use Automattic\PooCommerce\Blueprint\ResourceStorages\OrgPluginResourceStorage;
+use Automattic\PooCommerce\Blueprint\ResourceStorages\OrgThemeResourceStorage;
 
 /**
  * Class BuiltInStepProcessors
  *
- * @package Automattic\WooCommerce\Blueprint
+ * @package Automattic\PooCommerce\Blueprint
  */
 class BuiltInStepProcessors {
 	/**

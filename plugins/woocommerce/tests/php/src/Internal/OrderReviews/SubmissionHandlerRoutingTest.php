@@ -1,11 +1,11 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\OrderReviews;
+namespace Automattic\PooCommerce\Tests\Internal\OrderReviews;
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Internal\OrderReviews\ItemEligibility;
-use Automattic\WooCommerce\Internal\OrderReviews\SubmissionHandler;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Internal\OrderReviews\ItemEligibility;
+use Automattic\PooCommerce\Internal\OrderReviews\SubmissionHandler;
 use WC_Helper_Product;
 use WC_Unit_Test_Case;
 use WPAjaxDieContinueException;
@@ -23,7 +23,7 @@ class SubmissionHandlerRoutingTest extends WC_Unit_Test_Case {
 	 */
 	public function setUp(): void {
 		parent::setUp();
-		update_option( 'woocommerce_feature_customer_review_request_enabled', 'yes' );
+		update_option( 'poocommerce_feature_customer_review_request_enabled', 'yes' );
 		// Drive the production registration path: the flag was off at bootstrap,
 		// so re-run the init-hooked resolver now that it's on. tearDown() drops the
 		// container's resolved-instance cache, so each test re-resolves a fresh
@@ -42,7 +42,7 @@ class SubmissionHandlerRoutingTest extends WC_Unit_Test_Case {
 		// would skip its auto-init() on the next resolve and the wp_ajax_* hooks
 		// would never register, regressing test_action_hooks_are_registered.
 		wc_get_container()->reset_all_resolved();
-		delete_option( 'woocommerce_feature_customer_review_request_enabled' );
+		delete_option( 'poocommerce_feature_customer_review_request_enabled' );
 		delete_option( 'comment_moderation' );
 		$_POST = array();
 		ItemEligibility::reset_cache();

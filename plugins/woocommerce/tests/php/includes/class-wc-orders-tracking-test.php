@@ -1,9 +1,9 @@
 <?php
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Internal\Admin\Orders\PageController;
-use Automattic\WooCommerce\RestApi\UnitTests\HPOSToggleTrait;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Internal\Admin\Orders\PageController;
+use Automattic\PooCommerce\RestApi\UnitTests\HPOSToggleTrait;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 
 /**
  * Class WC_Orders_Tracking_Test.
@@ -41,7 +41,7 @@ class WC_Orders_Tracking_Test extends \WC_Unit_Test_Case {
 		$this->clear_tracks_events();
 
 		include_once WC_ABSPATH . 'includes/tracks/events/class-wc-orders-tracking.php';
-		update_option( 'woocommerce_allow_tracking', 'yes' );
+		update_option( 'poocommerce_allow_tracking', 'yes' );
 
 		// Mock screen.
 		$this->current_screen_backup = $GLOBALS['current_screen'] ?? null;
@@ -54,7 +54,7 @@ class WC_Orders_Tracking_Test extends \WC_Unit_Test_Case {
 		$orders_tracking->init();
 
 		add_filter( 'wc_allow_changing_orders_storage_while_sync_is_pending', '__return_true' );
-		$this->prev_hpos_enabled = \Automattic\WooCommerce\Utilities\OrderUtil::custom_orders_table_usage_is_enabled();
+		$this->prev_hpos_enabled = \Automattic\PooCommerce\Utilities\OrderUtil::custom_orders_table_usage_is_enabled();
 
 		// Keep the permanent HPOS tables outside the per-test transaction.
 		remove_filter( 'query', array( $this, '_create_temporary_tables' ) );
@@ -68,7 +68,7 @@ class WC_Orders_Tracking_Test extends \WC_Unit_Test_Case {
 	 * @return void
 	 */
 	public function tearDown(): void {
-		update_option( 'woocommerce_allow_tracking', 'no' );
+		update_option( 'poocommerce_allow_tracking', 'no' );
 		if ( $this->current_screen_backup ) {
 			$GLOBALS['current_screen'] = $this->current_screen_backup; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 		}
@@ -93,7 +93,7 @@ class WC_Orders_Tracking_Test extends \WC_Unit_Test_Case {
 		$order = wc_create_order();
 		$order->save();
 
-		do_action( 'woocommerce_order_status_changed', $order->get_id(), OrderStatus::PENDING, 'finished', $order );
+		do_action( 'poocommerce_order_status_changed', $order->get_id(), OrderStatus::PENDING, 'finished', $order );
 		$this->assertRecordedTracksEvent( 'wcadmin_orders_edit_status_change' );
 		$this->assertTracksEventHasRequestTimestampAndNoCache( 'wcadmin_orders_edit_status_change' );
 	}
@@ -110,7 +110,7 @@ class WC_Orders_Tracking_Test extends \WC_Unit_Test_Case {
 		$this->toggle_cot_authoritative( $hpos_enabled );
 		$this->setup_screen( 'list' );
 
-		do_action( $hpos_enabled ? 'load-woocommerce_page_wc-orders' : 'load-edit.php' );
+		do_action( $hpos_enabled ? 'load-poocommerce_page_wc-orders' : 'load-edit.php' );
 
 		$this->assertRecordedTracksEvent( 'wcadmin_orders_view' );
 		$this->assertTracksEventHasRequestTimestampAndNoCache( 'wcadmin_orders_view' );

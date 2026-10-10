@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { folderStarred } from '@woocommerce/icons';
+import { folderStarred } from '@poocommerce/icons';
 import { Icon } from '@wordpress/icons';
 
 /**

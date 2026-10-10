@@ -5,7 +5,7 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\Admin\Reports;
+namespace Automattic\PooCommerce\Internal\Admin\Reports;
 
 use WP_Query;
 
@@ -66,7 +66,7 @@ class ProductSearchQuery {
 	 */
 	public static function get_collection_param() {
 		return array(
-			'description'       => __( 'Limit result to products whose name or SKU matches any of the given terms.', 'woocommerce' ),
+			'description'       => __( 'Limit result to products whose name or SKU matches any of the given terms.', 'poocommerce' ),
 			'type'              => 'array',
 			'sanitize_callback' => array( self::class, 'parse_terms' ),
 			'validate_callback' => 'rest_validate_request_arg',

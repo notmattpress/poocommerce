@@ -1,5 +1,5 @@
 // Allow these default styles to be overridden by global styles.
-:where(.wp-block-woocommerce-product-review-form) {
+:where(.wp-block-poocommerce-product-review-form) {
 	textarea,
 	input:not([type="submit"]) {
 		border: 1px solid $gray-600;
@@ -20,7 +20,7 @@
 	}
 }
 
-.wp-block-woocommerce-product-review-form {
+.wp-block-poocommerce-product-review-form {
 	// This block has customizable padding, border-box makes that more predictable.
 	box-sizing: border-box;
 

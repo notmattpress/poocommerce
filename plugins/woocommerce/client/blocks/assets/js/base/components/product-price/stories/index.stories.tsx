@@ -2,7 +2,7 @@
  * External dependencies
  */
 import type { StoryFn, Meta } from '@storybook/react-webpack5';
-import { currencyControl } from '@woocommerce/storybook-controls';
+import { currencyControl } from '@poocommerce/storybook-controls';
 
 /**
  * Internal dependencies

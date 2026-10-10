@@ -21,10 +21,10 @@ jobs:
                   issue-comment: |
                       Thank you for your interest!
 
-                      Issues should be filed at https://github.com/woocommerce/woocommerce/issues. Be sure to mention the `woocommerce-analytics` package.
+                      Issues should be filed at https://github.com/poocommerce/poocommerce/issues. Be sure to mention the `poocommerce-analytics` package.
                   skip-closed-issue-comment: true
                   pr-comment: |
                       Thank you for your interest!
 
-                      Pull requests should be made against the monorepo at https://github.com/woocommerce/woocommerce.
+                      Pull requests should be made against the monorepo at https://github.com/poocommerce/poocommerce.
                   skip-closed-pr-comment: true

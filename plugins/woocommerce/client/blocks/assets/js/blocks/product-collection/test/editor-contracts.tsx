@@ -18,7 +18,7 @@ import { store as blockEditorStore } from '@wordpress/block-editor';
 import { dispatch, select } from '@wordpress/data';
 import { applyFilters, removeFilter } from '@wordpress/hooks';
 import { useCallback, useState } from '@wordpress/element';
-import { CORE_EDITOR_STORE } from '@woocommerce/utils';
+import { CORE_EDITOR_STORE } from '@poocommerce/utils';
 
 /**
  * Internal dependencies
@@ -80,12 +80,12 @@ beforeAll( () => {
 	originalBlockCategories = getCategories();
 	if (
 		! originalBlockCategories.some(
-			( category ) => category.slug === 'woocommerce'
+			( category ) => category.slug === 'poocommerce'
 		)
 	) {
 		setCategories( [
 			...originalBlockCategories,
-			{ slug: 'woocommerce', title: 'WooCommerce' },
+			{ slug: 'poocommerce', title: 'PooCommerce' },
 		] );
 	}
 
@@ -201,7 +201,7 @@ describe( 'Product Collection editor contracts', () => {
 		} finally {
 			removeFilter(
 				'blocks.registerBlockType',
-				'woocommerce/add-product-collection-block-to-parent-array-of-pagination-block'
+				'poocommerce/add-product-collection-block-to-parent-array-of-pagination-block'
 			);
 		}
 	} );
@@ -404,7 +404,7 @@ describe( 'default catalog order control', () => {
 		const getEditedEntityRecord = jest
 			.spyOn( coreSelectors, 'getEditedEntityRecord' )
 			.mockReturnValue( {
-				woocommerce_default_catalog_orderby: 'menu_order',
+				poocommerce_default_catalog_orderby: 'menu_order',
 			} );
 		const editEntityRecord = jest
 			.spyOn( coreActions, 'editEntityRecord' )
@@ -431,7 +431,7 @@ describe( 'default catalog order control', () => {
 				'site',
 				undefined,
 				{
-					woocommerce_default_catalog_orderby: 'price-desc',
+					poocommerce_default_catalog_orderby: 'price-desc',
 				}
 			);
 			expect( trackInteraction ).toHaveBeenCalledWith( 'default-order' );

@@ -93,7 +93,7 @@ describe( 'getFailedPluginAction', () => {
 
 describe( 'getMorePaymentOptionsUrl', () => {
 	const baseUrl =
-		'https://woocommerce.com/product-category/woocommerce-extensions/payment-gateways/?utm_source=payments_recommendations';
+		'https://poocommerce.com/product-category/poocommerce-extensions/payment-gateways/?utm_source=payments_recommendations';
 
 	it( 'filters the marketplace by the business location country code', () => {
 		expect( getMorePaymentOptionsUrl( 'BR' ) ).toBe(

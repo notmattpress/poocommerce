@@ -3,13 +3,13 @@
  * API\Reports\Customers\Stats\DataStore class file.
  */
 
-namespace Automattic\WooCommerce\Admin\API\Reports\Customers\Stats;
+namespace Automattic\PooCommerce\Admin\API\Reports\Customers\Stats;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\API\Reports\Customers\DataStore as CustomersDataStore;
-use Automattic\WooCommerce\Admin\API\Reports\DataStore as ReportsDataStore;
-use Automattic\WooCommerce\Admin\API\Reports\DataStoreInterface;
+use Automattic\PooCommerce\Admin\API\Reports\Customers\DataStore as CustomersDataStore;
+use Automattic\PooCommerce\Admin\API\Reports\DataStore as ReportsDataStore;
+use Automattic\PooCommerce\Admin\API\Reports\DataStoreInterface;
 
 /**
  * API\Reports\Customers\Stats\DataStore.

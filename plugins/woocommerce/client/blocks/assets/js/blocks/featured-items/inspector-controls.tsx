@@ -23,7 +23,7 @@ import {
 	ExternalLink,
 	Notice,
 } from '@wordpress/components';
-import { LooselyMustHave, ProductResponseItem } from '@woocommerce/types';
+import { LooselyMustHave, ProductResponseItem } from '@poocommerce/types';
 import type { ComponentType } from 'react';
 
 /**
@@ -119,12 +119,12 @@ export const InspectorControls = ( {
 					<>
 						{ focalPointPickerExists && (
 							<PanelBody
-								title={ __( 'Media settings', 'woocommerce' ) }
+								title={ __( 'Media settings', 'poocommerce' ) }
 							>
 								<ToggleControl
 									label={ __(
 										'Fixed background',
-										'woocommerce'
+										'poocommerce'
 									) }
 									checked={ hasParallax }
 									onChange={ () => {
@@ -136,7 +136,7 @@ export const InspectorControls = ( {
 								<ToggleControl
 									label={ __(
 										'Repeated background',
-										'woocommerce'
+										'poocommerce'
 									) }
 									checked={ isRepeated }
 									onChange={ () => {
@@ -157,20 +157,20 @@ export const InspectorControls = ( {
 												>
 													{ __(
 														'Select “Cover” to have the image automatically fit its container.',
-														'woocommerce'
+														'poocommerce'
 													) }
 												</span>
 												<span>
 													{ __(
 														'This may affect your ability to freely move the focal point of the image.',
-														'woocommerce'
+														'poocommerce'
 													) }
 												</span>
 											</>
 										}
 										label={ __(
 											'Image fit',
-											'woocommerce'
+											'poocommerce'
 										) }
 										isBlock
 										value={ imageFit }
@@ -183,7 +183,7 @@ export const InspectorControls = ( {
 										<ToggleGroupControlOption
 											label={ __(
 												'None',
-												'woocommerce'
+												'poocommerce'
 											) }
 											value="none"
 										/>
@@ -191,7 +191,7 @@ export const InspectorControls = ( {
 											/* translators: "Cover" is a verb that indicates an image covering the entire container. */
 											label={ __(
 												'Cover',
-												'woocommerce'
+												'poocommerce'
 											) }
 											value="cover"
 										/>
@@ -200,7 +200,7 @@ export const InspectorControls = ( {
 								<FocalPointPicker
 									label={ __(
 										'Focal Point Picker',
-										'woocommerce'
+										'poocommerce'
 									) }
 									url={ backgroundImageSrc }
 									value={ focalPoint }
@@ -214,7 +214,7 @@ export const InspectorControls = ( {
 									<TextareaControl
 										label={ __(
 											'Alt text (alternative text)',
-											'woocommerce'
+											'poocommerce'
 										) }
 										value={ alt }
 										onChange={ ( value: string ) => {
@@ -225,7 +225,7 @@ export const InspectorControls = ( {
 												<ExternalLink href="https://www.w3.org/WAI/tutorials/images/decision-tree">
 													{ __(
 														'Describe the purpose of the image',
-														'woocommerce'
+														'poocommerce'
 													) }
 												</ExternalLink>
 											</>
@@ -250,7 +250,7 @@ export const InspectorControls = ( {
 										clearable: true,
 										colorValue: overlayColor,
 										gradientValue: overlayGradient,
-										label: __( 'Overlay', 'woocommerce' ),
+										label: __( 'Overlay', 'poocommerce' ),
 										onColorChange: ( value: string ) =>
 											setAttributes( {
 												overlayColor: value,
@@ -274,7 +274,7 @@ export const InspectorControls = ( {
 							<ToolsPanelItem
 								isShownByDefault
 								hasValue={ () => dimRatio !== 50 }
-								label={ __( 'Overlay opacity', 'woocommerce' ) }
+								label={ __( 'Overlay opacity', 'poocommerce' ) }
 								onDeselect={ () =>
 									setAttributes( { dimRatio: 50 } )
 								}
@@ -287,7 +287,7 @@ export const InspectorControls = ( {
 									required
 									label={ __(
 										'Overlay opacity',
-										'woocommerce'
+										'poocommerce'
 									) }
 									max={ 100 }
 									min={ 0 }

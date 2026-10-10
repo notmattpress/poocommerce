@@ -2,11 +2,11 @@
 /**
  * Test the data source poller for payment gateway suggestions.
  *
- * @package WooCommerce\Admin\Tests\PaymentGatewaySuggestions
+ * @package PooCommerce\Admin\Tests\PaymentGatewaySuggestions
  */
 
-use Automattic\WooCommerce\Admin\RemoteSpecs\DataSourcePoller;
-use Automattic\WooCommerce\Admin\Features\PaymentGatewaySuggestions\PaymentGatewaySuggestionsDataSourcePoller;
+use Automattic\PooCommerce\Admin\RemoteSpecs\DataSourcePoller;
+use Automattic\PooCommerce\Admin\Features\PaymentGatewaySuggestions\PaymentGatewaySuggestionsDataSourcePoller;
 
 /**
  * class WC_Admin_Tests_PaymentGatewaySuggestions_DataSourcePoller
@@ -160,7 +160,7 @@ class WC_Admin_Tests_PaymentGatewaySuggestions_DataSourcePoller extends WC_Unit_
 		$data               = $data_source_poller->get_specs_from_data_sources();
 		$this->assertCount( 2, $data );
 
-		$data   = get_transient( 'woocommerce_admin_' . PaymentGatewaySuggestionsDataSourcePoller::ID . '_specs' );
+		$data   = get_transient( 'poocommerce_admin_' . PaymentGatewaySuggestionsDataSourcePoller::ID . '_specs' );
 		$locale = get_locale();
 		$this->assertArrayHasKey( $locale, $data );
 

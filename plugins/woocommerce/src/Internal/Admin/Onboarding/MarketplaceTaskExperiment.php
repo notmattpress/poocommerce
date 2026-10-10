@@ -1,13 +1,13 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\Admin\Onboarding;
+namespace Automattic\PooCommerce\Internal\Admin\Onboarding;
 
-use Automattic\WooCommerce\Admin\Features\OnboardingTasks\Task;
-use Automattic\WooCommerce\Admin\Features\OnboardingTasks\TaskList;
-use Automattic\WooCommerce\Admin\Features\OnboardingTasks\TaskLists;
-use Automattic\WooCommerce\Proxies\LegacyProxy;
-use WooCommerce\Admin\Experimental_Abtest;
+use Automattic\PooCommerce\Admin\Features\OnboardingTasks\Task;
+use Automattic\PooCommerce\Admin\Features\OnboardingTasks\TaskList;
+use Automattic\PooCommerce\Admin\Features\OnboardingTasks\TaskLists;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
+use PooCommerce\Admin\Experimental_Abtest;
 
 /**
  * ExPlat A/B test for the title and position of the Marketplace ("extend-store") task in the "extended" task list.
@@ -18,7 +18,7 @@ final class MarketplaceTaskExperiment {
 	/**
 	 * ExPlat experiment name.
 	 */
-	public const EXPERIMENT_NAME = 'woocommerce_marketplace_task_202611';
+	public const EXPERIMENT_NAME = 'poocommerce_marketplace_task_202611';
 
 	/**
 	 * Current title and position.
@@ -48,7 +48,7 @@ final class MarketplaceTaskExperiment {
 	/**
 	 * Transient set after a failed ExPlat request, so the next requests skip the call for a while.
 	 */
-	private const BACKOFF_TRANSIENT = 'woocommerce_marketplace_task_experiment_backoff';
+	private const BACKOFF_TRANSIENT = 'poocommerce_marketplace_task_experiment_backoff';
 
 	/**
 	 * 2027-03-01 00:00 UTC. After this, ExPlat is never asked, so stores that don't update stop calling it.
@@ -151,7 +151,7 @@ final class MarketplaceTaskExperiment {
 	 * @return string
 	 */
 	private function request_variation(): string {
-		$abtest = new Experimental_Abtest( $this->get_anon_id(), 'woocommerce', true );
+		$abtest = new Experimental_Abtest( $this->get_anon_id(), 'poocommerce', true );
 
 		try {
 			$variation = $abtest->get_variation( self::EXPERIMENT_NAME );

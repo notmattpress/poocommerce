@@ -159,7 +159,7 @@ POST /wc/store/v1/checkout
 | `customer_password` | string |    No    | Optionally define a password for new accounts.                      |
 | `expected_total`    | string |    No    | Total the shopper confirmed, in minor units. See note below.        |
 
-`expected_total` is a string in the smallest unit of the store currency (e.g. cents), matching the cart `totals.total_price` format. When provided, the order is rejected with a `409` (`woocommerce_rest_checkout_total_mismatch`) if the total the server calculates for the request no longer matches it, and the refreshed cart is returned so the client can display the updated total. Omit it to skip the check — e.g. for flows that cannot know the final total up front, such as some express payment methods.
+`expected_total` is a string in the smallest unit of the store currency (e.g. cents), matching the cart `totals.total_price` format. When provided, the order is rejected with a `409` (`poocommerce_rest_checkout_total_mismatch`) if the total the server calculates for the request no longer matches it, and the refreshed cart is returned so the client can display the updated total. Omit it to skip the check — e.g. for flows that cannot know the final total up front, such as some express payment methods.
 
 ```sh
 curl --header "Nonce: 12345" --request POST https://example-store.com/wp-json/wc/store/v1/checkout?payment_method=paypal&payment_data[0][key]=test-key&payment_data[0][value]=test-value
@@ -251,7 +251,7 @@ curl --header "Nonce: 12345" --request POST https://example-store.com/wp-json/wc
 
 There are many payment gateways available for merchants to use, and each one will be expecting different `payment_data`. We cannot comprehensively list all expected requests for all payment gateways, and we would recommend reaching out to the authors of the payment gateway plugins you're working with for further information.
 
-An example of the payment data sent to the Checkout endpoint when using the [WooCommerce Stripe Payment Gateway](https://wordpress.org/plugins/woocommerce-gateway-stripe/) is shown below.
+An example of the payment data sent to the Checkout endpoint when using the [PooCommerce Stripe Payment Gateway](https://wordpress.org/plugins/poocommerce-gateway-stripe/) is shown below.
 
 For further information on generating a `stripe_source` please check [the Stripe documentation](https://stripe.com/docs).
 

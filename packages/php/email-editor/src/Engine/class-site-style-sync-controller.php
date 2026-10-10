@@ -1,16 +1,16 @@
 <?php
 /**
- * This file is part of the WooCommerce Email Editor package.
+ * This file is part of the PooCommerce Email Editor package.
  *
- * @package Automattic\WooCommerce\EmailEditor
+ * @package Automattic\PooCommerce\EmailEditor
  */
 
 declare(strict_types = 1);
-namespace Automattic\WooCommerce\EmailEditor\Engine;
+namespace Automattic\PooCommerce\EmailEditor\Engine;
 
 use WP_Theme_JSON;
 use WP_Theme_JSON_Resolver;
-use Automattic\WooCommerce\EmailEditor\Integrations\Utils\Styles_Helper;
+use Automattic\PooCommerce\EmailEditor\Integrations\Utils\Styles_Helper;
 
 /**
  * Site Style Sync Controller
@@ -85,7 +85,7 @@ class Site_Style_Sync_Controller {
 		 * @param array $synced_data The converted email-compatible theme data.
 		 * @param array $site_data The original site theme data.
 		 */
-		$synced_data = apply_filters( 'woocommerce_email_editor_synced_site_styles', $synced_data, $site_data );
+		$synced_data = apply_filters( 'poocommerce_email_editor_synced_site_styles', $synced_data, $site_data );
 
 		return $synced_data;
 	}
@@ -121,7 +121,7 @@ class Site_Style_Sync_Controller {
 		 *
 		 * @param bool $enabled Whether site style sync is enabled.
 		 */
-		return apply_filters( 'woocommerce_email_editor_site_style_sync_enabled', true );
+		return apply_filters( 'poocommerce_email_editor_site_style_sync_enabled', true );
 	}
 
 	/**
@@ -159,7 +159,7 @@ class Site_Style_Sync_Controller {
 			 *
 			 * @param WP_Theme_JSON $site_theme The site theme data.
 			 */
-			$this->site_theme = apply_filters( 'woocommerce_email_editor_site_theme', $this->site_theme );
+			$this->site_theme = apply_filters( 'poocommerce_email_editor_site_theme', $this->site_theme );
 
 			if ( isset( $this->site_theme->get_raw_data()['styles'] ) ) {
 				$this->site_theme = WP_Theme_JSON::resolve_variables( $this->site_theme );

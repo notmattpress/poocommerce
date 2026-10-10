@@ -2,7 +2,7 @@
 
 ## Description
 
-A set of CLI tools and scripts for managing the WooCommerce monorepo.
+A set of CLI tools and scripts for managing the PooCommerce monorepo.
 
 ## Usage
 

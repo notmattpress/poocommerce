@@ -2,20 +2,20 @@
 /**
  * Argument validators shared by the public facades.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine\Integration\Support
+ * @package Automattic\PooCommerce\SubscriptionsEngine\Integration\Support
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Integration\Support;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Integration\Support;
 
 use DateTimeImmutable;
 use DateTimeInterface;
 use DateTimeZone;
 use InvalidArgumentException;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\Contract;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Support\Coercion;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Support\MoneyScale;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\Contract;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Support\Coercion;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Support\MoneyScale;
 
 defined( 'ABSPATH' ) || exit;
 

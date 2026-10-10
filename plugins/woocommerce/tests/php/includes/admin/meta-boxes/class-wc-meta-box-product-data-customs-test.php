@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Admin\MetaBoxes;
+namespace Automattic\PooCommerce\Tests\Admin\MetaBoxes;
 
-use Automattic\WooCommerce\Enums\ProductType;
-use Automattic\WooCommerce\Internal\ProductCustoms\ClassicEditorFields;
+use Automattic\PooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Internal\ProductCustoms\ClassicEditorFields;
 use WC_Admin_Meta_Boxes;
 use WC_Meta_Box_Product_Data;
 use WC_Product;

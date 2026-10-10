@@ -3,7 +3,7 @@
  */
 import { __ } from '@wordpress/i18n';
 import domReady from '@wordpress/dom-ready';
-import { getAdminLink } from '@woocommerce/settings';
+import { getAdminLink } from '@poocommerce/settings';
 
 domReady( () => {
 	const actionButtons = document.querySelector( '.wc-actions' );
@@ -23,7 +23,7 @@ domReady( () => {
 			'href',
 			getAdminLink( 'admin.php?page=wc-admin' )
 		);
-		continueButton.innerText = __( 'Continue setup', 'woocommerce' );
+		continueButton.innerText = __( 'Continue setup', 'poocommerce' );
 
 		actionButtons.appendChild( continueButton );
 	}

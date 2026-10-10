@@ -13,4 +13,4 @@ Different ways to do quick user testing:
 
 - Recruit potential customers to test your product.
 - Use online services that allow you to expose your extension to new users such as UserTesting.com.
-- Ask enthusiasts in the [WooCommerce Community Slack](https://woocommerce.com/community-slack/) for feedback.
+- Ask enthusiasts in the [PooCommerce Community Slack](https://poocommerce.com/community-slack/) for feedback.

@@ -2,10 +2,10 @@
 /**
  * Class WC_Tests_Report_Sales_By_Date file.
  *
- * @package WooCommerce\Tests\Admin\Reports
+ * @package PooCommerce\Tests\Admin\Reports
  */
 
-use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Enums\OrderStatus;
 
 /**
  * Tests for the WC_Report_Sales_By_Date class.
@@ -20,14 +20,14 @@ class WC_Tests_Report_Sales_By_Date extends WC_Unit_Test_Case {
 	private $original_thousands_sep = null;
 
 	/**
-	 * Counts to give the report through the woocommerce_admin_report_data filter.
+	 * Counts to give the report through the poocommerce_admin_report_data filter.
 	 *
 	 * @var array
 	 */
 	private $report_counts = array();
 
 	/**
-	 * Load the necessary files, as they're not automatically loaded by WooCommerce.
+	 * Load the necessary files, as they're not automatically loaded by PooCommerce.
 	 */
 	public static function setUpBeforeClass(): void {
 		parent::setUpBeforeClass();
@@ -63,13 +63,13 @@ class WC_Tests_Report_Sales_By_Date extends WC_Unit_Test_Case {
 	 * Test: get_report_data
 	 */
 	public function test_get_report_data() {
-		if ( \Automattic\WooCommerce\Utilities\OrderUtil::custom_orders_table_usage_is_enabled() ) {
+		if ( \Automattic\PooCommerce\Utilities\OrderUtil::custom_orders_table_usage_is_enabled() ) {
 			$this->markTestSkipped( 'This test is not compatible with the custom orders table.' );
 		}
 
-		update_option( 'woocommerce_default_customer_address', 'base' );
-		update_option( 'woocommerce_tax_based_on', 'base' );
-		update_option( 'woocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_default_customer_address', 'base' );
+		update_option( 'poocommerce_tax_based_on', 'base' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
 
 		$product = WC_Helper_Product::create_simple_product();
 		$coupon  = WC_Helper_Coupon::create_coupon();
@@ -197,7 +197,7 @@ class WC_Tests_Report_Sales_By_Date extends WC_Unit_Test_Case {
 		$wp_locale->number_format['thousands_sep'] = '.';
 
 		$this->report_counts = $counts;
-		add_filter( 'woocommerce_admin_report_data', array( $this, 'set_report_counts' ) );
+		add_filter( 'poocommerce_admin_report_data', array( $this, 'set_report_counts' ) );
 
 		$report                 = new WC_Report_Sales_By_Date();
 		$report->chart_colours  = array_fill_keys(
@@ -273,7 +273,7 @@ class WC_Tests_Report_Sales_By_Date extends WC_Unit_Test_Case {
 	 */
 	public function test_main_chart_encodes_filtered_currency_symbols(): void {
 		$currency_symbol = "'\"\\</script>€雪";
-		$currency_pos    = get_option( 'woocommerce_currency_pos', null );
+		$currency_pos    = get_option( 'poocommerce_currency_pos', null );
 		$filter          = static function () use ( $currency_symbol ): string {
 			return $currency_symbol;
 		};
@@ -292,19 +292,19 @@ class WC_Tests_Report_Sales_By_Date extends WC_Unit_Test_Case {
 			'refund_amount'    => '#e74c3c',
 		);
 
-		update_option( 'woocommerce_currency_pos', 'left' );
-		add_filter( 'woocommerce_currency_symbol', $filter );
+		update_option( 'poocommerce_currency_pos', 'left' );
+		add_filter( 'poocommerce_currency_symbol', $filter );
 		ob_start();
 		try {
 			$report->get_main_chart();
 			$output = (string) ob_get_contents();
 		} finally {
 			ob_end_clean();
-			remove_filter( 'woocommerce_currency_symbol', $filter );
+			remove_filter( 'poocommerce_currency_symbol', $filter );
 			if ( null === $currency_pos ) {
-				delete_option( 'woocommerce_currency_pos' );
+				delete_option( 'poocommerce_currency_pos' );
 			} else {
-				update_option( 'woocommerce_currency_pos', $currency_pos );
+				update_option( 'poocommerce_currency_pos', $currency_pos );
 			}
 		}
 

@@ -8,7 +8,7 @@ import TabItem from '@theme/TabItem';
 
 # Authentication
 
-WooCommerce includes two ways to authenticate with the WP REST API. It is also possible to authenticate using any [WP REST API authentication](http://v3.wp-api.org/guide/authentication/) plugin or method.
+PooCommerce includes two ways to authenticate with the WP REST API. It is also possible to authenticate using any [WP REST API authentication](http://v3.wp-api.org/guide/authentication/) plugin or method.
 
 ## REST API keys
 
@@ -16,34 +16,34 @@ Pre-generated keys can be used to authenticate use of the REST API endpoints. Ne
 
 ### Generating API keys in the WordPress admin interface
 
-To create or manage keys for a specific WordPress user, go to WooCommerce > Settings > Advanced > REST API.
+To create or manage keys for a specific WordPress user, go to PooCommerce > Settings > Advanced > REST API.
 
-*Note: Keys/Apps was found at WooCommerce > Settings > API > Key/Apps prior to WooCommerce 3.4.*
+*Note: Keys/Apps was found at PooCommerce > Settings > API > Key/Apps prior to PooCommerce 3.4.*
 
-![WooCommerce REST API keys settings](v3/images/woocommerce-api-keys-settings.png)
+![PooCommerce REST API keys settings](v3/images/poocommerce-api-keys-settings.png)
 
 Click the "Add Key" button. In the next screen, add a description and select the WordPress user you would like to generate the key for. Use of the REST API with the generated keys will conform to that user's WordPress roles and capabilities.
 
-Choose the level of access for this REST API key, which can be _Read_ access, _Write_ access or _Read/Write_ access. Then click the "Generate API Key" button and WooCommerce will generate REST API keys for the selected user.
+Choose the level of access for this REST API key, which can be _Read_ access, _Write_ access or _Read/Write_ access. Then click the "Generate API Key" button and PooCommerce will generate REST API keys for the selected user.
 
-![Creating a new REST API key](v3/images/woocommerce-creating-api-keys.png)
+![Creating a new REST API key](v3/images/poocommerce-creating-api-keys.png)
 
 Now that keys have been generated, you should see two new keys, a QRCode, and a Revoke API Key button. These two keys are your Consumer Key and Consumer Secret.
 
-![Generated REST API key](v3/images/woocommerce-api-key-generated.png)
+![Generated REST API key](v3/images/poocommerce-api-key-generated.png)
 
 If the WordPress user associated with an API key is deleted, the API key will cease to function. API keys are not transferred to other users.
 
 ### Auto generating API keys using our Application Authentication Endpoint
 
-This endpoint can be used by any APP to *allow users to generate API keys* for your APP. This makes integration with WooCommerce API easier because the user only needs to grant access to your APP via a URL. After being redirected back to your APP, the API keys will be sent back in a separate POST request.
+This endpoint can be used by any APP to *allow users to generate API keys* for your APP. This makes integration with PooCommerce API easier because the user only needs to grant access to your APP via a URL. After being redirected back to your APP, the API keys will be sent back in a separate POST request.
 
 The following image illustrates how this works:
 
-![Authentication Endpoint flow](v3/images/woocommerce-auth-endpoint-flow.png)
+![Authentication Endpoint flow](v3/images/poocommerce-auth-endpoint-flow.png)
 
 :::warning
-This endpoint works exclusively for users to generate API keys and facilitate integration between the WooCommerce REST API and an application. In no way is this endpoint intended to be used as login method for customers.
+This endpoint works exclusively for users to generate API keys and facilitate integration between the PooCommerce REST API and an application. In no way is this endpoint intended to be used as login method for customers.
 :::
 
 #### URL parameters
@@ -173,7 +173,7 @@ puts "#{store_url}#{endpoint}?#{query_string}"
 
 Example of the screen that the user will see:
 
-![Authentication Endpoint example](v3/images/woocommerce-auth-endpoint-example.png)
+![Authentication Endpoint example](v3/images/poocommerce-auth-endpoint-example.png)
 
 #### Notes
 
@@ -201,10 +201,10 @@ curl https://www.example.com/wp-json/wc/v3/orders \
   <TabItem value="js" label="JavaScript">
 
 ```javascript
-const WooCommerceRestApi = require("@woocommerce/woocommerce-rest-api").default;
-// import WooCommerceRestApi from "@woocommerce/woocommerce-rest-api"; // Supports ESM
+const PooCommerceRestApi = require("@poocommerce/poocommerce-rest-api").default;
+// import PooCommerceRestApi from "@poocommerce/poocommerce-rest-api"; // Supports ESM
 
-const WooCommerce = new WooCommerceRestApi({
+const PooCommerce = new PooCommerceRestApi({
   url: 'https://example.com',
   consumerKey: 'consumer_key',
   consumerSecret: 'consumer_secret',
@@ -219,9 +219,9 @@ const WooCommerce = new WooCommerceRestApi({
 <?php
 require __DIR__ . '/vendor/autoload.php';
 
-use Automattic\WooCommerce\Client;
+use Automattic\PooCommerce\Client;
 
-$woocommerce = new Client(
+$poocommerce = new Client(
     'https://example.com',
     'consumer_key',
     'consumer_secret',
@@ -237,7 +237,7 @@ $woocommerce = new Client(
   <TabItem value="python" label="Python">
 
 ```python
-from woocommerce import API
+from poocommerce import API
 
 wcapi = API(
     url="https://example.com",
@@ -252,9 +252,9 @@ wcapi = API(
   <TabItem value="ruby" label="Ruby">
 
 ```ruby
-require "woocommerce_api"
+require "poocommerce_api"
 
-woocommerce = WooCommerce::API.new(
+poocommerce = PooCommerce::API.new(
   "https://example.com",
   "consumer_key",
   "consumer_secret",
@@ -283,10 +283,10 @@ curl https://www.example.com/wp-json/wc/v3/orders?consumer_key=123&consumer_secr
   <TabItem value="js" label="JavaScript">
 
 ```javascript
-const WooCommerceRestApi = require("@woocommerce/woocommerce-rest-api").default;
-// import WooCommerceRestApi from "@woocommerce/woocommerce-rest-api"; // Supports ESM
+const PooCommerceRestApi = require("@poocommerce/poocommerce-rest-api").default;
+// import PooCommerceRestApi from "@poocommerce/poocommerce-rest-api"; // Supports ESM
 
-const WooCommerce = new WooCommerceRestApi({
+const PooCommerce = new PooCommerceRestApi({
   url: 'https://example.com',
   consumerKey: 'consumer_key',
   consumerSecret: 'consumer_secret',
@@ -302,9 +302,9 @@ const WooCommerce = new WooCommerceRestApi({
 <?php
 require __DIR__ . '/vendor/autoload.php';
 
-use Automattic\WooCommerce\Client;
+use Automattic\PooCommerce\Client;
 
-$woocommerce = new Client(
+$poocommerce = new Client(
     'https://example.com',
     'consumer_key',
     'consumer_secret',
@@ -321,7 +321,7 @@ $woocommerce = new Client(
   <TabItem value="python" label="Python">
 
 ```python
-from woocommerce import API
+from poocommerce import API
 
 wcapi = API(
     url="https://example.com",
@@ -337,9 +337,9 @@ wcapi = API(
   <TabItem value="ruby" label="Ruby">
 
 ```ruby
-require "woocommerce_api"
+require "poocommerce_api"
 
-woocommerce = WooCommerce::API.new(
+poocommerce = PooCommerce::API.new(
   "https://example.com",
   "consumer_key",
   "consumer_secret",
@@ -418,7 +418,7 @@ In PHP you can use the [hash_hmac](http://php.net/manual/en/function.hash-hmac.p
 
 HMAC-SHA1 or HMAC-SHA256 are the only accepted hash algorithms.
 
-If you are having trouble generating a correct signature, you'll want to review the string you are signing for encoding errors. The [authentication source](https://github.com/woocommerce/woocommerce/blob/master/includes/class-wc-rest-authentication.php#L185) can also be helpful in understanding how to properly generate the signature.
+If you are having trouble generating a correct signature, you'll want to review the string you are signing for encoding errors. The [authentication source](https://github.com/poocommerce/poocommerce/blob/master/includes/class-wc-rest-authentication.php#L185) can also be helpful in understanding how to properly generate the signature.
 
 ### OAuth tips
 
@@ -430,4 +430,4 @@ If you are having trouble generating a correct signature, you'll want to review 
 * You must use the store URL provided by the index when forming the base string used for the signature, as this is what the server will use. (e.g. if the store URL includes a `www` sub-domain, you should use it for requests)
 * Note that the request body is *not* signed as per the OAuth spec.
 * If including parameters in your request, it saves a lot of trouble if you can order your items alphabetically.
-* Authorization header is supported starting WooCommerce 3.0.
+* Authorization header is supported starting PooCommerce 3.0.

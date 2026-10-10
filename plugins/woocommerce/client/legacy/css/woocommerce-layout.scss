@@ -1,6 +1,6 @@
 /**
- * woocommerce-layout.scss
- * Applies layout to the default WooCommerce frontend design
+ * poocommerce-layout.scss
+ * Applies layout to the default PooCommerce frontend design
  */
 
 /**
@@ -12,12 +12,12 @@
 /**
  * Styling begins
  */
-.woocommerce,
-.woocommerce-page {
+.poocommerce,
+.poocommerce-page {
 
-	.woocommerce-message,
-	.woocommerce-error,
-	.woocommerce-info {
+	.poocommerce-message,
+	.poocommerce-error,
+	.poocommerce-info {
 
 		.button {
 			float: right;
@@ -58,7 +58,7 @@
 			float: left;
 			width: 48%;
 
-			&.woocommerce-product-gallery .flex-viewport {
+			&.poocommerce-product-gallery .flex-viewport {
 				touch-action: pan-y pinch-zoom;
 			}
 		}
@@ -119,7 +119,7 @@
 			clear: none;
 		}
 
-		.woocommerce-tabs {
+		.poocommerce-tabs {
 			clear: both;
 
 			ul.tabs {
@@ -253,15 +253,15 @@
 		}
 	}
 
-	.woocommerce-result-count {
+	.poocommerce-result-count {
 		float: left;
 	}
 
-	.woocommerce-ordering {
+	.poocommerce-ordering {
 		float: right;
 	}
 
-	.woocommerce-pagination {
+	.poocommerce-pagination {
 
 		ul.page-numbers {
 
@@ -470,13 +470,13 @@
 		}
 	}
 
-	.woocommerce-billing-fields,
-	.woocommerce-shipping-fields {
+	.poocommerce-billing-fields,
+	.poocommerce-shipping-fields {
 
 		@include clearfix();
 	}
 
-	.woocommerce-terms-and-conditions {
+	.poocommerce-terms-and-conditions {
 		margin-bottom: 1.618em;
 		padding: 1.618em;
 	}
@@ -484,19 +484,19 @@
 	/**
 	 * oEmbeds
 	 */
-	.woocommerce-oembed {
+	.poocommerce-oembed {
 		position: relative;
 	}
 }
 
-.woocommerce-account {
+.poocommerce-account {
 
-	.woocommerce-MyAccount-navigation {
+	.poocommerce-MyAccount-navigation {
 		float: left;
 		width: 30%;
 	}
 
-	.woocommerce-MyAccount-content {
+	.poocommerce-MyAccount-content {
 		float: right;
 		width: 68%;
 
@@ -511,7 +511,7 @@
 /**
  * Twenty Eleven specific styles
  */
-.woocommerce-page {
+.poocommerce-page {
 
 	&.left-sidebar {
 
@@ -731,8 +731,8 @@
  */
 .rtl {
 
-	.woocommerce,
-	.woocommerce-page {
+	.poocommerce,
+	.poocommerce-page {
 
 		.col2-set {
 

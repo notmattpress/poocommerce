@@ -4,7 +4,7 @@
 import { __ } from '@wordpress/i18n';
 import { DropdownMenu } from '@wordpress/components';
 import { moreVertical } from '@wordpress/icons';
-import { onboardingStore } from '@woocommerce/data';
+import { onboardingStore } from '@poocommerce/data';
 import { useDispatch } from '@wordpress/data';
 
 export type TaskListMenuProps = {
@@ -14,16 +14,16 @@ export type TaskListMenuProps = {
 
 export const TaskListMenu = ( { id, hideTaskListText }: TaskListMenuProps ) => {
 	const { hideTaskList } = useDispatch( onboardingStore );
-	const label = __( 'Task list options', 'woocommerce' );
+	const label = __( 'Task list options', 'poocommerce' );
 
 	return (
-		<div className="woocommerce-card__menu woocommerce-card__header-item">
+		<div className="poocommerce-card__menu poocommerce-card__header-item">
 			<DropdownMenu
 				controls={ [
 					{
 						title:
 							hideTaskListText ||
-							__( 'Hide this', 'woocommerce' ),
+							__( 'Hide this', 'poocommerce' ),
 						onClick: () => hideTaskList( id ),
 					},
 				] }
@@ -31,7 +31,7 @@ export const TaskListMenu = ( { id, hideTaskListText }: TaskListMenuProps ) => {
 				label={ label }
 				popoverProps={ { placement: 'bottom-end' } }
 				toggleProps={ {
-					className: 'woocommerce-ellipsis-menu__toggle',
+					className: 'poocommerce-ellipsis-menu__toggle',
 				} }
 			/>
 		</div>

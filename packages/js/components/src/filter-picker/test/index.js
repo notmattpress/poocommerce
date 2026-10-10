@@ -20,7 +20,7 @@ jest.mock( '../../search' );
 describe( 'FilterPicker', () => {
 	it( 'should render the example from the storybook', async () => {
 		// Jest and its JSDOM does not allow making extensive use of searchParams used by Basic example.
-		const path = '/story/woocommerce-admin-components-filterpicker--basic';
+		const path = '/story/poocommerce-admin-components-filterpicker--basic';
 
 		expect( function () {
 			render( <Basic path={ path } /> );
@@ -73,7 +73,7 @@ describe( 'FilterPicker', () => {
 			);
 
 			const label = container.querySelector(
-				'.woocommerce-filters-label'
+				'.poocommerce-filters-label'
 			);
 			expect( label.textContent ).toBe( 'Show' );
 		} );
@@ -145,7 +145,7 @@ describe( 'FilterPicker', () => {
 			);
 
 			expect( getLastSearchProps() ).toMatchObject( {
-				className: 'woocommerce-filters-filter__search my-search',
+				className: 'poocommerce-filters-filter__search my-search',
 				inlineTags: true,
 				staticResults: true,
 			} );

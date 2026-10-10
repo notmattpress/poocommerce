@@ -2,7 +2,7 @@
 /**
  * Third-party block email template fixture (with @version).
  *
- * @package Automattic\WooCommerce\Tests\Internal\EmailEditor\WCTransactionalEmails\fixtures
+ * @package Automattic\PooCommerce\Tests\Internal\EmailEditor\WCTransactionalEmails\fixtures
  * @version 1.2.3
  */
 

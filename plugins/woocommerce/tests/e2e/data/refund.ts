@@ -3,7 +3,7 @@
  *
  * For more details on the order refund properties, see:
  *
- * https://developer.woocommerce.com/docs/apis/rest-api/v3/order-refunds/#order-refund-properties
+ * https://developer.poocommerce.com/docs/apis/rest-api/v3/order-refunds/#order-refund-properties
  *
  */
 export const refund = {

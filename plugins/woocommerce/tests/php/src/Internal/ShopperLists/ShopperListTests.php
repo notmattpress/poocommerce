@@ -1,11 +1,11 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\ShopperLists;
+namespace Automattic\PooCommerce\Tests\Internal\ShopperLists;
 
-use Automattic\WooCommerce\Internal\ShopperLists\ShopperList;
-use Automattic\WooCommerce\Internal\ShopperLists\ShopperListItem;
-use Automattic\WooCommerce\Internal\Utilities\Users;
+use Automattic\PooCommerce\Internal\ShopperLists\ShopperList;
+use Automattic\PooCommerce\Internal\ShopperLists\ShopperListItem;
+use Automattic\PooCommerce\Internal\Utilities\Users;
 use WC_Unit_Test_Case;
 
 /**
@@ -18,8 +18,8 @@ class ShopperListTests extends WC_Unit_Test_Case {
 	 * Map of shopper-list slug => feature option key.
 	 */
 	private const LIST_OPTIONS = array(
-		'saved-for-later' => 'woocommerce_cart_save_for_later_enabled',
-		'wishlist'        => 'woocommerce_product_wishlist_enabled',
+		'saved-for-later' => 'poocommerce_cart_save_for_later_enabled',
+		'wishlist'        => 'poocommerce_product_wishlist_enabled',
 	);
 
 	/**
@@ -65,7 +65,7 @@ class ShopperListTests extends WC_Unit_Test_Case {
 		foreach ( array_keys( self::LIST_OPTIONS ) as $slug ) {
 			$this->disable_list( $slug );
 		}
-		delete_option( 'woocommerce_queue_flush_rewrite_rules' );
+		delete_option( 'poocommerce_queue_flush_rewrite_rules' );
 		parent::tearDown();
 	}
 

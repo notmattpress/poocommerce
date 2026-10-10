@@ -2,11 +2,11 @@
 /**
  * Unit tests for the WC_Order_Item_Product class.
  *
- * @package WooCommerce\Tests\Order_Items
+ * @package PooCommerce\Tests\Order_Items
  * @since 3.2.0
  */
 
-use Automattic\WooCommerce\Internal\CostOfGoodsSold\CogsAwareUnitTestSuiteTrait;
+use Automattic\PooCommerce\Internal\CostOfGoodsSold\CogsAwareUnitTestSuiteTrait;
 
 /**
  * Order Item Product unit tests.
@@ -157,14 +157,14 @@ class WC_Tests_Order_Item_Product extends WC_Unit_Test_Case {
 		$product->save();
 
 		$order = new WC_Order();
-		$order->set_billing_email( 'test@woocommerce.com' );
+		$order->set_billing_email( 'test@poocommerce.com' );
 		$order->save();
 
 		$product_item = new WC_Order_Item_Product();
 		$product_item->set_product( $product );
 		$product_item->set_order_id( $order->get_id() );
 
-		$expected_regex = '/download_file=.*&order=wc_order_.*&email=test%40woocommerce.com&key=100/';
+		$expected_regex = '/download_file=.*&order=wc_order_.*&email=test%40poocommerce.com&key=100/';
 		$this->assertMatchesRegularExpression( $expected_regex, $product_item->get_item_download_url( 100 ) );
 	}
 

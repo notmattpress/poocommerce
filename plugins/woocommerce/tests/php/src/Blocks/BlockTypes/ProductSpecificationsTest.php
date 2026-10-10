@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Tests\Blocks\BlockTypes;
 
 use WC_Helper_Product;
 use WC_Product_Simple;
@@ -33,11 +33,11 @@ class ProductSpecificationsTest extends WC_Unit_Test_Case {
 			$term = get_term( $attribute->get_options()[0], $taxonomy );
 			wp_delete_term( $term->term_id, $taxonomy );
 
-			add_filter( 'woocommerce_get_product_terms', static fn() => array( $term ) );
+			add_filter( 'poocommerce_get_product_terms', static fn() => array( $term ) );
 
 			$sut = new WP_Block(
 				array(
-					'blockName'    => 'woocommerce/product-specifications',
+					'blockName'    => 'poocommerce/product-specifications',
 					'attrs'        => array(),
 					'innerBlocks'  => array(),
 					'innerHTML'    => '',

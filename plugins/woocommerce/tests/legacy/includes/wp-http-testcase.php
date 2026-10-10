@@ -17,14 +17,14 @@ use Automattic\Jetpack\Constants;
 abstract class WP_HTTP_TestCase extends WP_UnitTestCase {
 
 	/**
-	 * Shared sample image URL used by WooCommerce tests.
+	 * Shared sample image URL used by PooCommerce tests.
 	 *
 	 * @var string
 	 */
 	private const SAMPLE_IMAGE_URL = 'http://cldup.com/Dr1Bczxq4q.png';
 
 	/**
-	 * Shared sample image fixture used by WooCommerce tests.
+	 * Shared sample image fixture used by PooCommerce tests.
 	 *
 	 * @var string
 	 */

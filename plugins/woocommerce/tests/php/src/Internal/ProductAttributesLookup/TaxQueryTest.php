@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\ProductAttributesLookup;
+namespace Automattic\PooCommerce\Tests\Internal\ProductAttributesLookup;
 
-use Automattic\WooCommerce\Internal\ProductAttributesLookup\TaxQuery;
+use Automattic\PooCommerce\Internal\ProductAttributesLookup\TaxQuery;
 use WC_Unit_Test_Case;
 
 /**

@@ -1,17 +1,17 @@
 <?php
 
-namespace Automattic\WooCommerce\Blueprint;
+namespace Automattic\PooCommerce\Blueprint;
 
-use Automattic\WooCommerce\Blueprint\Schemas\JsonSchema;
+use Automattic\PooCommerce\Blueprint\Schemas\JsonSchema;
 use Opis\JsonSchema\Errors\ErrorFormatter;
 use Opis\JsonSchema\Validator;
 
 /**
  * Class ImportSchema
  *
- * Handles the import schema functionality for WooCommerce.
+ * Handles the import schema functionality for PooCommerce.
  *
- * @package Automattic\WooCommerce\Blueprint
+ * @package Automattic\PooCommerce\Blueprint
  */
 class ImportSchema {
 	use UseWPFunctions;

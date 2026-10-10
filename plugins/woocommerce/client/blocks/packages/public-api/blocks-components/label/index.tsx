@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { Fragment, RawHTML } from '@wordpress/element';
-import { sanitizeHTML } from '@woocommerce/sanitize';
+import { sanitizeHTML } from '@poocommerce/sanitize';
 import clsx from 'clsx';
 import type { ReactElement, HTMLProps } from 'react';
 

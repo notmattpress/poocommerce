@@ -1,7 +1,7 @@
 <?php
-namespace Automattic\WooCommerce\StoreApi\Routes\V1;
+namespace Automattic\PooCommerce\StoreApi\Routes\V1;
 
-use Automattic\WooCommerce\StoreApi\Exceptions\RouteException;
+use Automattic\PooCommerce\StoreApi\Exceptions\RouteException;
 
 /**
  * CartExtensions class.
@@ -52,11 +52,11 @@ class CartExtensions extends AbstractCartRoute {
 				'permission_callback' => '__return_true',
 				'args'                => [
 					'namespace' => [
-						'description' => __( 'Extension\'s name - this will be used to ensure the data in the request is routed appropriately.', 'woocommerce' ),
+						'description' => __( 'Extension\'s name - this will be used to ensure the data in the request is routed appropriately.', 'poocommerce' ),
 						'type'        => 'string',
 					],
 					'data'      => [
-						'description' => __( 'Additional data to pass to the extension', 'woocommerce' ),
+						'description' => __( 'Additional data to pass to the extension', 'poocommerce' ),
 						'type'        => 'object',
 					],
 				],

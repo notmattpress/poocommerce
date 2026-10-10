@@ -1,11 +1,11 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Admin\RemoteInboxNotifications;
+namespace Automattic\PooCommerce\Tests\Admin\RemoteInboxNotifications;
 
 use ActionScheduler;
 use ActionScheduler_Store;
-use Automattic\WooCommerce\Admin\RemoteInboxNotifications\RemoteInboxNotificationsEngine;
+use Automattic\PooCommerce\Admin\RemoteInboxNotifications\RemoteInboxNotificationsEngine;
 use WC_Action_Queue;
 use WC_Queue;
 use WC_Queue_Interface;
@@ -14,19 +14,19 @@ use WC_Unit_Test_Case;
 /**
  * Tests for upgrade-triggered remote inbox scheduling.
  *
- * @covers \Automattic\WooCommerce\Admin\RemoteInboxNotifications\RemoteInboxNotificationsEngine
+ * @covers \Automattic\PooCommerce\Admin\RemoteInboxNotifications\RemoteInboxNotificationsEngine
  */
 class RemoteInboxNotificationsEngineTest extends WC_Unit_Test_Case {
 
 	/**
 	 * The upgrade action hook.
 	 */
-	private const HOOK = 'woocommerce_run_on_woocommerce_admin_updated';
+	private const HOOK = 'poocommerce_run_on_poocommerce_admin_updated';
 
 	/**
 	 * The engine's action group.
 	 */
-	private const GROUP = 'woocommerce-remote-inbox-engine';
+	private const GROUP = 'poocommerce-remote-inbox-engine';
 
 	/**
 	 * Initialize only the engine's update listener. The parent restores hooks and database fixtures.
@@ -45,7 +45,7 @@ class RemoteInboxNotificationsEngineTest extends WC_Unit_Test_Case {
 		foreach ( $action_ids as $action_id ) {
 			$store->delete_action( $action_id );
 		}
-		remove_all_actions( 'woocommerce_updated' );
+		remove_all_actions( 'poocommerce_updated' );
 		RemoteInboxNotificationsEngine::init();
 	}
 
@@ -247,7 +247,7 @@ class RemoteInboxNotificationsEngineTest extends WC_Unit_Test_Case {
 	 */
 	private function fire_updates(): void {
 		for ( $i = 0; $i < 10; $i++ ) {
-			do_action( 'woocommerce_updated' );
+			do_action( 'poocommerce_updated' );
 		}
 	}
 

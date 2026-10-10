@@ -4,6 +4,6 @@ export default function FulfillmentDrawerBody( {
 	children: React.ReactNode;
 } ) {
 	return (
-		<div className="woocommerce-fulfillment-drawer__body">{ children }</div>
+		<div className="poocommerce-fulfillment-drawer__body">{ children }</div>
 	);
 }

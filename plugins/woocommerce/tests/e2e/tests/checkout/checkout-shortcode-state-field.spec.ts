@@ -4,7 +4,7 @@
 import {
 	addAProductToCart,
 	WC_API_PATH,
-} from '@woocommerce/e2e-utils-playwright';
+} from '@poocommerce/e2e-utils-playwright';
 
 /**
  * Internal dependencies
@@ -44,7 +44,7 @@ test( 'Shortcode checkout shows or hides the State field for the selected countr
 	await addAProductToCart( page, product.id, 1 );
 	// Give Andorra an empty state list, as an extension can. The filter replaces
 	// every list, which leaves Cyprus and Lithuania as they are: neither has one.
-	await setFilterValue( page, 'woocommerce_states', { AD: [] } );
+	await setFilterValue( page, 'poocommerce_states', { AD: [] } );
 	await page.goto( CLASSIC_CHECKOUT_PAGE.slug );
 
 	const country = page.locator( '#billing_country' );

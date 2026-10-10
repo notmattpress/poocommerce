@@ -2,11 +2,11 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\PushNotifications\Services;
+namespace Automattic\PooCommerce\Tests\Internal\PushNotifications\Services;
 
-use Automattic\WooCommerce\Internal\PushNotifications\Notifications\NewOrderNotification;
-use Automattic\WooCommerce\Internal\PushNotifications\Notifications\StockNotification;
-use Automattic\WooCommerce\Internal\PushNotifications\Services\NotificationStepLogger;
+use Automattic\PooCommerce\Internal\PushNotifications\Notifications\NewOrderNotification;
+use Automattic\PooCommerce\Internal\PushNotifications\Notifications\StockNotification;
+use Automattic\PooCommerce\Internal\PushNotifications\Services\NotificationStepLogger;
 use WC_Log_Levels;
 use WC_Logger_Interface;
 use WC_Unit_Test_Case;
@@ -41,7 +41,7 @@ class NotificationStepLoggerTest extends WC_Unit_Test_Case {
 		$this->logger = $this->create_fake_logger();
 		$logger       = $this->logger;
 		add_filter(
-			'woocommerce_logging_class',
+			'poocommerce_logging_class',
 			static function () use ( $logger ) {
 				return $logger;
 			}
@@ -225,7 +225,7 @@ class NotificationStepLoggerTest extends WC_Unit_Test_Case {
 	 * @testdox Should write nothing when the filter returns false.
 	 */
 	public function test_writes_nothing_when_the_filter_disables_logging(): void {
-		add_filter( 'woocommerce_push_notification_step_logging_enabled', '__return_false' );
+		add_filter( 'poocommerce_push_notification_step_logging_enabled', '__return_false' );
 
 		$this->sut->log_notification_step( $this->create_order_mock( 42 ), 'triggered', 'ok' );
 
@@ -254,7 +254,7 @@ class NotificationStepLoggerTest extends WC_Unit_Test_Case {
 	 */
 	public function test_a_throwing_filter_turns_logging_off(): void {
 		add_filter(
-			'woocommerce_push_notification_step_logging_enabled',
+			'poocommerce_push_notification_step_logging_enabled',
 			static function () {
 				throw new \RuntimeException( 'callback exploded' );
 			}
@@ -272,7 +272,7 @@ class NotificationStepLoggerTest extends WC_Unit_Test_Case {
 	public function test_activation_is_decided_once(): void {
 		$applications = 0;
 		add_filter(
-			'woocommerce_push_notification_step_logging_enabled',
+			'poocommerce_push_notification_step_logging_enabled',
 			static function ( $enabled ) use ( &$applications ) {
 				++$applications;
 				return $enabled;
@@ -291,7 +291,7 @@ class NotificationStepLoggerTest extends WC_Unit_Test_Case {
 	 */
 	public function test_swallows_logger_failures(): void {
 		add_filter(
-			'woocommerce_logging_class',
+			'poocommerce_logging_class',
 			static function () {
 				return new class() implements WC_Logger_Interface {
 					// phpcs:disable Squiz.Commenting, Generic.CodeAnalysis.UnusedFunctionParameter
@@ -407,7 +407,7 @@ class NotificationStepLoggerTest extends WC_Unit_Test_Case {
 	 * @testdox Should keep writing the error line when the filter turns step logging off.
 	 */
 	public function test_the_filter_does_not_suppress_failure_lines(): void {
-		add_filter( 'woocommerce_push_notification_step_logging_enabled', '__return_false' );
+		add_filter( 'poocommerce_push_notification_step_logging_enabled', '__return_false' );
 
 		$this->sut->log_failure( $this->create_order_mock( 42 ), 'dispatched', 'request_failed', 'error', 'Push notification request failed.' );
 		$this->sut->log_unattributed_failure( 'loopback_started', 'auth_failed', 'warning', 'Loopback request refused.' );
@@ -421,7 +421,7 @@ class NotificationStepLoggerTest extends WC_Unit_Test_Case {
 	 */
 	public function test_swallows_logger_failures_when_writing_an_error(): void {
 		add_filter(
-			'woocommerce_logging_class',
+			'poocommerce_logging_class',
 			static function () {
 				return new class() implements WC_Logger_Interface {
 					// phpcs:disable Squiz.Commenting, Generic.CodeAnalysis.UnusedFunctionParameter

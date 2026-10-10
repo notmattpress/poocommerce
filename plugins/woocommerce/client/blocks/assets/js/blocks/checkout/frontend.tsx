@@ -2,14 +2,14 @@
  * External dependencies
  */
 import { Children, cloneElement, isValidElement } from '@wordpress/element';
-import { getValidBlockAttributes } from '@woocommerce/base-utils';
-import { useStoreCart } from '@woocommerce/base-context';
+import { getValidBlockAttributes } from '@poocommerce/base-utils';
+import { useStoreCart } from '@poocommerce/base-context';
 import {
 	useCheckoutExtensionData,
 	useValidation,
-} from '@woocommerce/base-context/hooks';
-import { getRegisteredBlockComponents } from '@woocommerce/blocks-registry';
-import { renderParentBlock } from '@woocommerce/utils/render-parent-block';
+} from '@poocommerce/base-context/hooks';
+import { getRegisteredBlockComponents } from '@poocommerce/blocks-registry';
+import { renderParentBlock } from '@poocommerce/utils/render-parent-block';
 
 /**
  * Internal dependencies
@@ -57,7 +57,7 @@ renderParentBlock( {
 	Block,
 	blockName,
 	selector:
-		'.wp-block-woocommerce-checkout[data-block-name="woocommerce/checkout"]',
+		'.wp-block-poocommerce-checkout[data-block-name="poocommerce/checkout"]',
 	getProps,
 	blockMap: getRegisteredBlockComponents( blockName ),
 	blockWrapper: Wrapper,

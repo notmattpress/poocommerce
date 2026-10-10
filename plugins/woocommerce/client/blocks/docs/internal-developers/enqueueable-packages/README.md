@@ -1,14 +1,14 @@
-# WooCommerce Blocks editor assets
+# PooCommerce Blocks editor assets
 
-WooCommerce includes an experimental configuration that replaces its per-block editor scripts and styles with shared editor assets. The experiment is disabled by default, so existing per-block assets and handles continue to work unchanged.
+PooCommerce includes an experimental configuration that replaces its per-block editor scripts and styles with shared editor assets. The experiment is disabled by default, so existing per-block assets and handles continue to work unchanged.
 
-Enable **Unified block editor assets** under **WooCommerce > Settings > Advanced > Features** to test the shared configuration. The feature flag is `block_editor_unified_assets`, its setting is stored in `woocommerce_feature_block_editor_unified_assets_enabled`, and changes take effect on the next request.
+Enable **Unified block editor assets** under **PooCommerce > Settings > Advanced > Features** to test the shared configuration. The feature flag is `block_editor_unified_assets`, its setting is stored in `poocommerce_feature_block_editor_unified_assets_enabled`, and changes take effect on the next request.
 
 ## Asset configurations
 
 ### Default
 
-When the experiment is disabled, WooCommerce uses:
+When the experiment is disabled, PooCommerce uses:
 
 - Per-block scripts such as `wc-cart-block` and `wc-checkout-block`.
 - Per-block styles declared by block metadata.
@@ -17,14 +17,14 @@ When the experiment is disabled, WooCommerce uses:
 
 ### Unified
 
-When the experiment is enabled, WooCommerce block types use:
+When the experiment is enabled, PooCommerce block types use:
 
 | Handle | Type | What it contains |
 | --- | --- | --- |
-| `wc-block-library` | Script | WooCommerce block editor entry points and internal package imports. |
-| `wc-block-library-style` | Stylesheet | Editor styles for blocks shipped by WooCommerce. Styles registered by third-party blocks remain separate. |
+| `wc-block-library` | Script | PooCommerce block editor entry points and internal package imports. |
+| `wc-block-library-style` | Stylesheet | Editor styles for blocks shipped by PooCommerce. Styles registered by third-party blocks remain separate. |
 
-These assets replace WooCommerce's per-block editor assets. They do not combine every script loaded by the editor: shared WordPress dependencies and the enqueueable WooCommerce packages below remain external.
+These assets replace PooCommerce's per-block editor assets. They do not combine every script loaded by the editor: shared WordPress dependencies and the enqueueable PooCommerce packages below remain external.
 
 The legacy per-block handles, such as `wc-cart-block` and `wc-checkout-block`, remain registered as compatibility placeholders. They preserve their dependency on `wc-blocks` but do not load the former per-block files, and log a deprecation warning when enqueued.
 
@@ -34,25 +34,25 @@ The generated asset file for `wc-block-library` declares packages that remain se
 
 | Package import | Script handle | Global | Why it stays external |
 | --- | --- | --- | --- |
-| `@woocommerce/block-data` | `wc-blocks-data-store` | `wc.wcBlocksData` | Registers WooCommerce Blocks data stores once and shares them with editor extensions and checkout APIs. |
-| `@woocommerce/blocks-checkout` | `wc-blocks-checkout` | `wc.blocksCheckout` | Shares checkout filters, slot/fill APIs, and checkout registry helpers with extensions. |
-| `@woocommerce/blocks-checkout-events` | `wc-blocks-checkout-events` | `wc.blocksCheckoutEvents` | Shares the checkout lifecycle event emitter between subscribers and emitters. |
-| `@woocommerce/blocks-components` | `wc-blocks-components` | `wc.blocksComponents` | Shares components used by WooCommerce blocks and extensions. |
-| `@woocommerce/blocks-registry` | `wc-blocks-registry` | `wc.wcBlocksRegistry` | Keeps block, payment method, and product collection registrations in shared registries. |
-| `@woocommerce/data` | `wc-store-data` | `wc.data` | Shares WooCommerce Admin data stores without re-registering them from the editor bundle. |
-| `@woocommerce/entities` | `wc-entities` | `wc.wcEntities` (deprecated) | Registers WooCommerce entities once. The global helper exports remain temporarily for backward compatibility and must not be used as a public extension API. |
-| `@woocommerce/price-format` | `wc-price-format` | `wc.priceFormat` | Shares price and currency formatting across editor, frontend, and extension code. |
-| `@woocommerce/sanitize` | `wc-sanitize` | `wc.sanitize` | Shares HTML sanitization with the Components and Checkout package bundles. |
-| `@woocommerce/settings` | `wc-settings` | `wc.wcSettings` | Shares one runtime settings object across the editor and package bundles. |
-| `@woocommerce/shared-context` | `wc-blocks-shared-context` | `wc.wcBlocksSharedContext` | Shares React contexts across separately built scripts. |
-| `@woocommerce/shared-hocs` | `wc-blocks-shared-hocs` | `wc.wcBlocksSharedHocs` | Shares higher-order components across separately built scripts. |
-| `@woocommerce/types` | `wc-types` | `wc.wcTypes` | Shares runtime type guards used by the external package bundles. |
+| `@poocommerce/block-data` | `wc-blocks-data-store` | `wc.wcBlocksData` | Registers PooCommerce Blocks data stores once and shares them with editor extensions and checkout APIs. |
+| `@poocommerce/blocks-checkout` | `wc-blocks-checkout` | `wc.blocksCheckout` | Shares checkout filters, slot/fill APIs, and checkout registry helpers with extensions. |
+| `@poocommerce/blocks-checkout-events` | `wc-blocks-checkout-events` | `wc.blocksCheckoutEvents` | Shares the checkout lifecycle event emitter between subscribers and emitters. |
+| `@poocommerce/blocks-components` | `wc-blocks-components` | `wc.blocksComponents` | Shares components used by PooCommerce blocks and extensions. |
+| `@poocommerce/blocks-registry` | `wc-blocks-registry` | `wc.wcBlocksRegistry` | Keeps block, payment method, and product collection registrations in shared registries. |
+| `@poocommerce/data` | `wc-store-data` | `wc.data` | Shares PooCommerce Admin data stores without re-registering them from the editor bundle. |
+| `@poocommerce/entities` | `wc-entities` | `wc.wcEntities` (deprecated) | Registers PooCommerce entities once. The global helper exports remain temporarily for backward compatibility and must not be used as a public extension API. |
+| `@poocommerce/price-format` | `wc-price-format` | `wc.priceFormat` | Shares price and currency formatting across editor, frontend, and extension code. |
+| `@poocommerce/sanitize` | `wc-sanitize` | `wc.sanitize` | Shares HTML sanitization with the Components and Checkout package bundles. |
+| `@poocommerce/settings` | `wc-settings` | `wc.wcSettings` | Shares one runtime settings object across the editor and package bundles. |
+| `@poocommerce/shared-context` | `wc-blocks-shared-context` | `wc.wcBlocksSharedContext` | Shares React contexts across separately built scripts. |
+| `@poocommerce/shared-hocs` | `wc-blocks-shared-hocs` | `wc.wcBlocksSharedHocs` | Shares higher-order components across separately built scripts. |
+| `@poocommerce/types` | `wc-types` | `wc.wcTypes` | Shares runtime type guards used by the external package bundles. |
 
 Local public packages live in `packages/public-api/`. Only exports from a
 package root are stable unless a deep import is documented separately. Exports
 prefixed with `__experimental` or `__unstable` remain unstable.
 
-The `@woocommerce/data` and `@woocommerce/sanitize` packages live in the
+The `@poocommerce/data` and `@poocommerce/sanitize` packages live in the
 monorepo-level `packages/js` directory because they are independently published
 packages.
 
@@ -62,7 +62,7 @@ These packages remain external only to preserve a shared runtime instance:
 
 | Package import | Script handle | Global | Why it stays external |
 | --- | --- | --- | --- |
-| `@woocommerce/entities` | `wc-entities` | `wc.wcEntities` | Registers WooCommerce entities once for all editor bundles. It is not a supported extension API. |
+| `@poocommerce/entities` | `wc-entities` | `wc.wcEntities` | Registers PooCommerce entities once for all editor bundles. It is not a supported extension API. |
 
 Local runtime-only packages live in `packages/internal/`. Their handles and
 globals are implementation details and do not carry a backward-compatibility
@@ -70,12 +70,12 @@ guarantee.
 
 The unified build defines these groups as `publicApiPackages` and
 `internalRuntimePackages` in
-`bin/webpack-config-block-editor-unified-assets.js`. Other `@woocommerce/*`
+`bin/webpack-config-block-editor-unified-assets.js`. Other `@poocommerce/*`
 imports are bundled into `wc-block-library` for the unified editor build. Their
 standalone handles may still be registered for frontend assets or third-party
 scripts.
 
-`wc-blocks-middleware` is registered separately and loaded by both `wc-block-library` and `wc-blocks-data-store`. It does not map to an enqueueable `@woocommerce/*` package.
+`wc-blocks-middleware` is registered separately and loaded by both `wc-block-library` and `wc-blocks-data-store`. It does not map to an enqueueable `@poocommerce/*` package.
 
 ### Cart and Checkout frontend chunks
 

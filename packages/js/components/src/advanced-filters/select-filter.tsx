@@ -5,7 +5,7 @@ import { createElement, Component, Fragment } from '@wordpress/element';
 import { SelectControl, Spinner } from '@wordpress/components';
 import { find } from 'lodash';
 import clsx from 'clsx';
-import { getDefaultOptionValue } from '@woocommerce/navigation';
+import { getDefaultOptionValue } from '@poocommerce/navigation';
 
 /**
  * Internal dependencies
@@ -94,7 +94,7 @@ class SelectFilter extends Component< SelectFilterProps, SelectFilterState > {
 					__next40pxDefaultSize
 					className={ clsx(
 						className,
-						'woocommerce-filters-advanced__rule'
+						'poocommerce-filters-advanced__rule'
 					) }
 					options={ rules }
 					value={ rule }
@@ -112,7 +112,7 @@ class SelectFilter extends Component< SelectFilterProps, SelectFilterState > {
 					__next40pxDefaultSize
 					className={ clsx(
 						className,
-						'woocommerce-filters-advanced__input'
+						'poocommerce-filters-advanced__input'
 					) }
 					options={ options }
 					value={ String( value ?? '' ) }
@@ -133,7 +133,7 @@ class SelectFilter extends Component< SelectFilterProps, SelectFilterState > {
 
 		return (
 			<fieldset
-				className="woocommerce-filters-advanced__line-item"
+				className="poocommerce-filters-advanced__line-item"
 				tabIndex={ 0 }
 			>
 				<legend className="screen-reader-text">
@@ -141,7 +141,7 @@ class SelectFilter extends Component< SelectFilterProps, SelectFilterState > {
 				</legend>
 				<div
 					className={ clsx(
-						'woocommerce-filters-advanced__fieldset',
+						'poocommerce-filters-advanced__fieldset',
 						{
 							'is-english': isEnglish,
 						}

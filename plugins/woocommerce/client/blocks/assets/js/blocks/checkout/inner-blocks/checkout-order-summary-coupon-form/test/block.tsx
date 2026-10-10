@@ -9,7 +9,7 @@ import { render, screen } from '@testing-library/react';
 import Block from '../block';
 
 // Mock the settings
-jest.mock( '@woocommerce/settings', () => ( {
+jest.mock( '@poocommerce/settings', () => ( {
 	getSetting: jest.fn( ( setting, defaultValue ) => {
 		if ( setting === 'couponsEnabled' ) {
 			return true;
@@ -20,7 +20,7 @@ jest.mock( '@woocommerce/settings', () => ( {
 
 // Mock the hook
 const mockApplyCoupon = jest.fn();
-jest.mock( '@woocommerce/base-context/hooks', () => ( {
+jest.mock( '@poocommerce/base-context/hooks', () => ( {
 	useStoreCartCoupons: jest.fn( () => ( {
 		applyCoupon: mockApplyCoupon,
 		isApplyingCoupon: false,
@@ -28,7 +28,7 @@ jest.mock( '@woocommerce/base-context/hooks', () => ( {
 } ) );
 
 // Mock TotalsCoupon component
-jest.mock( '@woocommerce/base-components/cart-checkout', () => ( {
+jest.mock( '@poocommerce/base-components/cart-checkout', () => ( {
 	TotalsCoupon: jest.fn( ( { isLoading, instanceId } ) => (
 		<div data-testid="totals-coupon">
 			<span>Coupon Form</span>
@@ -39,7 +39,7 @@ jest.mock( '@woocommerce/base-components/cart-checkout', () => ( {
 } ) );
 
 // Mock TotalsWrapper component
-jest.mock( '@woocommerce/blocks-components', () => ( {
+jest.mock( '@poocommerce/blocks-components', () => ( {
 	TotalsWrapper: jest.fn( ( { children, className } ) => (
 		<div data-testid="totals-wrapper" className={ className }>
 			{ children }
@@ -61,7 +61,7 @@ describe( 'Checkout Order Summary Coupon Form Block', () => {
 	} );
 
 	it( 'does not render when coupons are disabled', () => {
-		const getSetting = require( '@woocommerce/settings' ).getSetting;
+		const getSetting = require( '@poocommerce/settings' ).getSetting;
 		getSetting.mockImplementation( ( setting, defaultValue ) => {
 			if ( setting === 'couponsEnabled' ) {
 				return false;
@@ -97,7 +97,7 @@ describe( 'Checkout Order Summary Coupon Form Block', () => {
 
 	it( 'passes correct context to useStoreCartCoupons hook', () => {
 		const useStoreCartCoupons =
-			require( '@woocommerce/base-context/hooks' ).useStoreCartCoupons;
+			require( '@poocommerce/base-context/hooks' ).useStoreCartCoupons;
 
 		render( <Block /> );
 
@@ -115,7 +115,7 @@ describe( 'Checkout Order Summary Coupon Form Block', () => {
 
 	it( 'integrates applyCoupon function from hook with TotalsCoupon', () => {
 		const TotalsCoupon =
-			require( '@woocommerce/base-components/cart-checkout' ).TotalsCoupon;
+			require( '@poocommerce/base-components/cart-checkout' ).TotalsCoupon;
 
 		render( <Block /> );
 
@@ -132,7 +132,7 @@ describe( 'Checkout Order Summary Coupon Form Block', () => {
 
 	it( 'passes loading state from hook to TotalsCoupon', () => {
 		const useStoreCartCoupons =
-			require( '@woocommerce/base-context/hooks' ).useStoreCartCoupons;
+			require( '@poocommerce/base-context/hooks' ).useStoreCartCoupons;
 
 		// Mock loading state
 		useStoreCartCoupons.mockReturnValue( {

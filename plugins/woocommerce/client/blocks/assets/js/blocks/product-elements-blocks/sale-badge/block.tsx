@@ -5,15 +5,15 @@ import { __, sprintf } from '@wordpress/i18n';
 import {
 	formatPrice,
 	getCurrencyFromPriceResponse,
-} from '@woocommerce/price-format';
+} from '@poocommerce/price-format';
 import clsx from 'clsx';
-import { Label } from '@woocommerce/blocks-components';
+import { Label } from '@poocommerce/blocks-components';
 import {
 	useInnerBlockLayoutContext,
 	useProductDataContext,
-} from '@woocommerce/shared-context';
-import { useStyleProps } from '@woocommerce/base-hooks';
-import { withProductDataContext } from '@woocommerce/shared-hocs';
+} from '@poocommerce/shared-context';
+import { useStyleProps } from '@poocommerce/base-hooks';
+import { withProductDataContext } from '@poocommerce/shared-hocs';
 import type { HTMLAttributes, ReactElement } from 'react';
 
 /**
@@ -48,7 +48,7 @@ export const Block = ( props: Props ): ReactElement | null => {
 	const isNumeric =
 		props.badgeContent === 'amount' || props.badgeContent === 'percentage';
 
-	let label = props.saleText || __( 'Sale', 'woocommerce' );
+	let label = props.saleText || __( 'Sale', 'poocommerce' );
 	if ( isNumeric && product.type !== 'grouped' ) {
 		const prices = 'prices' in product ? product.prices : undefined;
 		const regular = Number( prices?.regular_price );
@@ -63,7 +63,7 @@ export const Block = ( props: Props ): ReactElement | null => {
 				props.badgeContent === 'percentage'
 					? sprintf(
 							/* translators: %s: discount percentage. %% is the percent sign. */
-							__( '%s%%', 'woocommerce' ),
+							__( '%s%%', 'poocommerce' ),
 							percentage
 						)
 					: formatPrice(
@@ -75,7 +75,7 @@ export const Block = ( props: Props ): ReactElement | null => {
 				product.type === 'variable'
 					? sprintf(
 							/* translators: %s: approximate discount for a variable product in the editor. */
-							__( 'Up to %s', 'woocommerce' ),
+							__( 'Up to %s', 'poocommerce' ),
 							value
 						)
 					: `${ props.prefix ?? '' }${ value }${
@@ -106,7 +106,7 @@ export const Block = ( props: Props ): ReactElement | null => {
 				label={ label }
 				screenReaderLabel={ sprintf(
 					/* translators: %s: sale badge text. */
-					__( 'Product on sale: %s', 'woocommerce' ),
+					__( 'Product on sale: %s', 'poocommerce' ),
 					label
 				) }
 			/>

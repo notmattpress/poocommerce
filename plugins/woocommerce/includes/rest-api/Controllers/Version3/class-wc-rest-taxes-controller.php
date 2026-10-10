@@ -4,7 +4,7 @@
  *
  * Handles requests to the /taxes endpoint.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @since   2.6.0
  */
 
@@ -13,7 +13,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * REST API Taxes controller class.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @extends WC_REST_Taxes_V2_Controller
  */
 class WC_REST_Taxes_Controller extends WC_REST_Taxes_V2_Controller {
@@ -45,7 +45,7 @@ class WC_REST_Taxes_Controller extends WC_REST_Taxes_V2_Controller {
 			$wpdb->prepare(
 				"
 				SELECT location_code, location_type
-				FROM {$wpdb->prefix}woocommerce_tax_rate_locations
+				FROM {$wpdb->prefix}poocommerce_tax_rate_locations
 				WHERE tax_rate_id = %d
 				",
 				$tax->tax_rate_id
@@ -74,7 +74,7 @@ class WC_REST_Taxes_Controller extends WC_REST_Taxes_V2_Controller {
 		$schema = parent::get_item_schema();
 
 		$schema['properties']['postcodes'] = array(
-			'description' => __( 'List of postcodes / ZIPs. Introduced in WooCommerce 5.3.', 'woocommerce' ),
+			'description' => __( 'List of postcodes / ZIPs. Introduced in PooCommerce 5.3.', 'poocommerce' ),
 			'type'        => 'array',
 			'items'       => array(
 				'type' => 'string',
@@ -83,7 +83,7 @@ class WC_REST_Taxes_Controller extends WC_REST_Taxes_V2_Controller {
 		);
 
 		$schema['properties']['cities'] = array(
-			'description' => __( 'List of city names. Introduced in WooCommerce 5.3.', 'woocommerce' ),
+			'description' => __( 'List of city names. Introduced in PooCommerce 5.3.', 'poocommerce' ),
 			'type'        => 'array',
 			'items'       => array(
 				'type' => 'string',
@@ -92,10 +92,10 @@ class WC_REST_Taxes_Controller extends WC_REST_Taxes_V2_Controller {
 		);
 
 		$schema['properties']['postcode']['description'] =
-			__( "Postcode/ZIP, it doesn't support multiple values. Deprecated as of WooCommerce 5.3, 'postcodes' should be used instead.", 'woocommerce' );
+			__( "Postcode/ZIP, it doesn't support multiple values. Deprecated as of PooCommerce 5.3, 'postcodes' should be used instead.", 'poocommerce' );
 
 		$schema['properties']['city']['description'] =
-			__( "City name, it doesn't support multiple values. Deprecated as of WooCommerce 5.3, 'cities' should be used instead.", 'woocommerce' );
+			__( "City name, it doesn't support multiple values. Deprecated as of PooCommerce 5.3, 'cities' should be used instead.", 'poocommerce' );
 
 		return $schema;
 	}
