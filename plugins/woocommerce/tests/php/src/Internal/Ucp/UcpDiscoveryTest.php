@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Ucp;
+namespace Automattic\PooCommerce\Tests\Internal\Ucp;
 
-use Automattic\WooCommerce\Internal\Ucp\UcpDiscovery;
-use Automattic\WooCommerce\StoreApi\Utilities\UcpUtils;
+use Automattic\PooCommerce\Internal\Ucp\UcpDiscovery;
+use Automattic\PooCommerce\StoreApi\Utilities\UcpUtils;
 
 /**
  * Tests for the `/.well-known/ucp` discovery profile.
@@ -67,7 +67,7 @@ class UcpDiscoveryTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_rewrite_rule_registration( string $enabled, string $structure, bool $expected ): void {
 		global $wp_rewrite;
-		update_option( 'woocommerce_feature_ucp_enabled', $enabled );
+		update_option( 'poocommerce_feature_ucp_enabled', $enabled );
 		$this->set_permalink_structure( $structure );
 
 		$this->sut->register_feature_hooks();
@@ -81,13 +81,13 @@ class UcpDiscoveryTest extends \WC_Unit_Test_Case {
 	 * @testdox Toggling the UCP feature queues a rewrite rules flush.
 	 */
 	public function test_feature_toggle_queues_flush(): void {
-		update_option( 'woocommerce_queue_flush_rewrite_rules', 'no' );
+		update_option( 'poocommerce_queue_flush_rewrite_rules', 'no' );
 
 		$this->sut->maybe_flush_rewrite_rules( 'some_other_feature' );
-		$this->assertSame( 'no', get_option( 'woocommerce_queue_flush_rewrite_rules' ) );
+		$this->assertSame( 'no', get_option( 'poocommerce_queue_flush_rewrite_rules' ) );
 
 		$this->sut->maybe_flush_rewrite_rules( UcpUtils::FEATURE_ID );
-		$this->assertSame( 'yes', get_option( 'woocommerce_queue_flush_rewrite_rules' ) );
+		$this->assertSame( 'yes', get_option( 'poocommerce_queue_flush_rewrite_rules' ) );
 	}
 
 	/**

@@ -170,12 +170,12 @@ export const CountrySelector = < ItemType extends Item >( {
 		}
 
 		if ( ! itemString ) {
-			return __( 'No selection', 'woocommerce' );
+			return __( 'No selection', 'poocommerce' );
 		}
 
 		return sprintf(
 			// translators: %s: The selected option.
-			__( 'Currently selected: %s', 'woocommerce' ),
+			__( 'Currently selected: %s', 'poocommerce' ),
 			itemString
 		);
 	}
@@ -202,7 +202,7 @@ export const CountrySelector = < ItemType extends Item >( {
 			return (
 				<img
 					src={ WC_ASSET_URL + 'images/icons/clear.svg' }
-					alt={ __( 'Clear search', 'woocommerce' ) }
+					alt={ __( 'Clear search', 'poocommerce' ) }
 				/>
 			);
 		}
@@ -210,7 +210,7 @@ export const CountrySelector = < ItemType extends Item >( {
 		return (
 			<img
 				src={ WC_ASSET_URL + 'images/icons/search.svg' }
-				alt={ __( 'Search', 'woocommerce' ) }
+				alt={ __( 'Search', 'poocommerce' ) }
 			/>
 		);
 	};
@@ -395,10 +395,10 @@ export const CountrySelector = < ItemType extends Item >( {
 									setSearchText( target.value )
 								}
 								onKeyDown={ onSearchKeyDown }
-								placeholder={ __( 'Search', 'woocommerce' ) }
+								placeholder={ __( 'Search', 'poocommerce' ) }
 								aria-label={ __(
 									'Search countries',
-									'woocommerce'
+									'poocommerce'
 								) }
 							/>
 							<button
@@ -407,8 +407,8 @@ export const CountrySelector = < ItemType extends Item >( {
 								tabIndex={ -1 }
 								aria-label={
 									isSearchClearable
-										? __( 'Clear search', 'woocommerce' )
-										: __( 'Search', 'woocommerce' )
+										? __( 'Clear search', 'poocommerce' )
+										: __( 'Search', 'poocommerce' )
 								}
 							>
 								{ getSearchSuffix( isSearchClearable ) }
@@ -455,7 +455,7 @@ export const CountrySelector = < ItemType extends Item >( {
 								className="components-button is-primary"
 								onClick={ onApplyHandler }
 							>
-								{ __( 'Apply', 'woocommerce' ) }
+								{ __( 'Apply', 'poocommerce' ) }
 							</button>
 						</div>
 					</>

@@ -2,7 +2,7 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Tests\Blocks\BlockTypes;
 
 use WC_Helper_Product;
 
@@ -12,7 +12,7 @@ use WC_Helper_Product;
 class ProductButton extends \WP_UnitTestCase {
 
 	/**
-	 * Previous WooCommerce options to restore after each test.
+	 * Previous PooCommerce options to restore after each test.
 	 *
 	 * @var array<string, mixed>
 	 */
@@ -24,7 +24,7 @@ class ProductButton extends \WP_UnitTestCase {
 	protected function setUp(): void {
 		parent::setUp();
 
-		foreach ( array( 'woocommerce_cart_redirect_after_add', 'woocommerce_enable_ajax_add_to_cart' ) as $option_name ) {
+		foreach ( array( 'poocommerce_cart_redirect_after_add', 'poocommerce_enable_ajax_add_to_cart' ) as $option_name ) {
 			$this->previous_options[ $option_name ] = get_option( $option_name, null );
 			update_option( $option_name, 'no' );
 		}
@@ -53,7 +53,7 @@ class ProductButton extends \WP_UnitTestCase {
 	 */
 	private function render_product_button( \WC_Product $product ): string {
 		return do_blocks(
-			'<!-- wp:woocommerce/single-product {"productId":' . $product->get_id() . '} --><!-- wp:woocommerce/product-button /--><!-- /wp:woocommerce/single-product -->'
+			'<!-- wp:poocommerce/single-product {"productId":' . $product->get_id() . '} --><!-- wp:poocommerce/product-button /--><!-- /wp:poocommerce/single-product -->'
 		);
 	}
 
@@ -79,11 +79,11 @@ class ProductButton extends \WP_UnitTestCase {
 			return $args;
 		};
 
-		add_filter( 'woocommerce_loop_add_to_cart_args', $filter );
+		add_filter( 'poocommerce_loop_add_to_cart_args', $filter );
 		try {
 			$this->render_product_button( $product );
 		} finally {
-			remove_filter( 'woocommerce_loop_add_to_cart_args', $filter );
+			remove_filter( 'poocommerce_loop_add_to_cart_args', $filter );
 		}
 
 		$this->assertIsArray( $filtered_args );

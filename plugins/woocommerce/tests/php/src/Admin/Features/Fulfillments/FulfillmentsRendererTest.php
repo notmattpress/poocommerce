@@ -1,15 +1,15 @@
 <?php declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Admin\Features\Fulfillments;
+namespace Automattic\PooCommerce\Tests\Admin\Features\Fulfillments;
 
-use Automattic\WooCommerce\Admin\Features\Fulfillments\DataStore\FulfillmentsDataStore;
-use Automattic\WooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
-use Automattic\WooCommerce\Admin\Features\Fulfillments\Fulfillment;
-use Automattic\WooCommerce\Admin\Features\Fulfillments\FulfillmentsRenderer;
-use Automattic\WooCommerce\Admin\Features\Fulfillments\Providers\AmazonLogisticsShippingProvider;
-use Automattic\WooCommerce\Admin\Features\Fulfillments\Providers\DHLShippingProvider;
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
-use Automattic\WooCommerce\Tests\Admin\Features\Fulfillments\Helpers\FulfillmentsHelper;
+use Automattic\PooCommerce\Admin\Features\Fulfillments\DataStore\FulfillmentsDataStore;
+use Automattic\PooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
+use Automattic\PooCommerce\Admin\Features\Fulfillments\Fulfillment;
+use Automattic\PooCommerce\Admin\Features\Fulfillments\FulfillmentsRenderer;
+use Automattic\PooCommerce\Admin\Features\Fulfillments\Providers\AmazonLogisticsShippingProvider;
+use Automattic\PooCommerce\Admin\Features\Fulfillments\Providers\DHLShippingProvider;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
+use Automattic\PooCommerce\Tests\Admin\Features\Fulfillments\Helpers\FulfillmentsHelper;
 use WC_Helper_Order;
 use WC_Helper_Product;
 use WC_Order;
@@ -39,9 +39,9 @@ class FulfillmentsRendererTest extends \WC_Unit_Test_Case {
 	 */
 	public static function setUpBeforeClass(): void {
 		parent::setUpBeforeClass();
-		self::$original_fulfillments_flag = get_option( 'woocommerce_feature_fulfillments_enabled' );
-		update_option( 'woocommerce_feature_fulfillments_enabled', 'yes' );
-		$controller = wc_get_container()->get( \Automattic\WooCommerce\Admin\Features\Fulfillments\FulfillmentsController::class );
+		self::$original_fulfillments_flag = get_option( 'poocommerce_feature_fulfillments_enabled' );
+		update_option( 'poocommerce_feature_fulfillments_enabled', 'yes' );
+		$controller = wc_get_container()->get( \Automattic\PooCommerce\Admin\Features\Fulfillments\FulfillmentsController::class );
 		$controller->register();
 		$controller->initialize_fulfillments();
 	}
@@ -51,9 +51,9 @@ class FulfillmentsRendererTest extends \WC_Unit_Test_Case {
 	 */
 	public static function tearDownAfterClass(): void {
 		if ( false === self::$original_fulfillments_flag ) {
-			delete_option( 'woocommerce_feature_fulfillments_enabled' );
+			delete_option( 'poocommerce_feature_fulfillments_enabled' );
 		} else {
-			update_option( 'woocommerce_feature_fulfillments_enabled', self::$original_fulfillments_flag );
+			update_option( 'poocommerce_feature_fulfillments_enabled', self::$original_fulfillments_flag );
 		}
 		parent::tearDownAfterClass();
 	}
@@ -123,7 +123,7 @@ class FulfillmentsRendererTest extends \WC_Unit_Test_Case {
 		$this->assertStringContainsString( 'UPS', $output );
 		$this->assertStringContainsString( '<mark class="fulfillment-status fulfillments-trigger"', $output );
 		$this->assertStringContainsString( 'data-order-id="' . $order->get_id() . '"', $output );
-		$this->assertStringContainsString( "<a href='#' class='fulfillments-trigger' data-order-id='" . $order->get_id() . "' title='" . esc_attr__( 'View Fulfillments', 'woocommerce' ) . "'>", $output );
+		$this->assertStringContainsString( "<a href='#' class='fulfillments-trigger' data-order-id='" . $order->get_id() . "' title='" . esc_attr__( 'View Fulfillments', 'poocommerce' ) . "'>", $output );
 		$this->assertStringContainsString( '<svg ', $output );
 		$this->assertStringContainsString( '<path ', $output );
 		$this->assertStringContainsString( '</svg>', $output );
@@ -180,7 +180,7 @@ class FulfillmentsRendererTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_render_fulfillment_drawer_slot_renders_on_orders_page() {
 		$this->renderer = wc_get_container()->get( FulfillmentsRenderer::class );
-		set_current_screen( 'woocommerce_page_wc-orders' );
+		set_current_screen( 'poocommerce_page_wc-orders' );
 		ob_start();
 		$this->renderer->render_fulfillment_drawer_slot();
 		$output = ob_get_clean();
@@ -406,7 +406,7 @@ class FulfillmentsRendererTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_other_shipping_provider_filter_excludes_fulfillments_without_a_provider( bool $is_known_providers ): void {
 		add_filter(
-			'woocommerce_fulfillment_shipping_providers',
+			'poocommerce_fulfillment_shipping_providers',
 			static function () use ( $is_known_providers ): array {
 				return $is_known_providers ? array( DHLShippingProvider::class ) : array();
 			},
@@ -546,7 +546,7 @@ class FulfillmentsRendererTest extends \WC_Unit_Test_Case {
 			$providers[] = AmazonLogisticsShippingProvider::class;
 			return $providers;
 		};
-		add_filter( 'woocommerce_fulfillment_shipping_providers', $register_known );
+		add_filter( 'poocommerce_fulfillment_shipping_providers', $register_known );
 
 		try {
 			$this->seed_fulfillment( 201, 'amazon-logistics' );
@@ -554,7 +554,7 @@ class FulfillmentsRendererTest extends \WC_Unit_Test_Case {
 
 			$this->assertSame( array( 202 ), $this->get_order_ids( '__other__' ) );
 		} finally {
-			remove_filter( 'woocommerce_fulfillment_shipping_providers', $register_known );
+			remove_filter( 'poocommerce_fulfillment_shipping_providers', $register_known );
 		}
 	}
 

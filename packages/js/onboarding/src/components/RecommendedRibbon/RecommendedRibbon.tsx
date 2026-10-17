@@ -12,11 +12,11 @@ export const RecommendedRibbon: React.VFC< RecommendedRibbonProps > = ( {
 	isLocalPartner = false,
 } ) => {
 	const text = isLocalPartner
-		? __( 'Local Partner', 'woocommerce' )
-		: __( 'Recommended', 'woocommerce' );
+		? __( 'Local Partner', 'poocommerce' )
+		: __( 'Recommended', 'poocommerce' );
 
 	return (
-		<div className={ 'woocommerce-task-payment__recommended-ribbon' }>
+		<div className={ 'poocommerce-task-payment__recommended-ribbon' }>
 			<span>{ text }</span>
 		</div>
 	);

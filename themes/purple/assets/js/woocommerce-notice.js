@@ -1,9 +1,9 @@
-/* global ajaxurl, purpleWooCommerceNotice */
+/* global ajaxurl, purplePooCommerceNotice */
 ( function ( $ ) {
-	$( document ).on( 'click', '#purple-woocommerce-notice .notice-dismiss', function () {
+	$( document ).on( 'click', '#purple-poocommerce-notice .notice-dismiss', function () {
 		$.post( ajaxurl, {
-			action: 'purple_dismiss_woocommerce_notice',
-			nonce: purpleWooCommerceNotice.nonce
+			action: 'purple_dismiss_poocommerce_notice',
+			nonce: purplePooCommerceNotice.nonce
 		} );
 	} );
 } )( jQuery );

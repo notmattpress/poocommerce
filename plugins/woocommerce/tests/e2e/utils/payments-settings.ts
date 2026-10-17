@@ -10,7 +10,7 @@ import { deleteOption } from './options';
 
 const resetGatewayOrder = async ( baseURL: string ) => {
 	try {
-		await deleteOption( request, baseURL, 'woocommerce_gateway_order' );
+		await deleteOption( request, baseURL, 'poocommerce_gateway_order' );
 	} catch ( error ) {
 		console.error( error );
 	}

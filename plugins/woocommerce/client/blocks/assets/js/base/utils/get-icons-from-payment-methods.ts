@@ -4,7 +4,7 @@
 import type {
 	PaymentMethods,
 	PaymentMethodIcons as PaymentMethodIconsType,
-} from '@woocommerce/types';
+} from '@poocommerce/types';
 
 /**
  * Get the provider icons from payment methods data.

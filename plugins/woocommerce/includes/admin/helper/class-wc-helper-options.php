@@ -1,8 +1,8 @@
 <?php
 /**
- * WooCommerce Admin Helper Options
+ * PooCommerce Admin Helper Options
  *
- * @package WooCommerce\Admin\Helper
+ * @package PooCommerce\Admin\Helper
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * WC_Helper_Options Class
  *
- * An interface to the woocommerce_helper_data entry in the wp_options table.
+ * An interface to the poocommerce_helper_data entry in the wp_options table.
  */
 class WC_Helper_Options {
 	/**
@@ -20,7 +20,7 @@ class WC_Helper_Options {
 	 *
 	 * @var string
 	 */
-	private static $option_name = 'woocommerce_helper_data';
+	private static $option_name = 'poocommerce_helper_data';
 
 	/**
 	 * Update an option by key

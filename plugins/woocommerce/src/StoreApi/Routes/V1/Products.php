@@ -1,13 +1,13 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\StoreApi\Routes\V1;
+namespace Automattic\PooCommerce\StoreApi\Routes\V1;
 
-use Automattic\WooCommerce\Enums\ProductType;
-use Automattic\WooCommerce\Enums\CatalogVisibility;
-use Automattic\WooCommerce\StoreApi\Utilities\Pagination;
-use Automattic\WooCommerce\StoreApi\Utilities\ProductQuery;
-use Automattic\WooCommerce\StoreApi\Utilities\ProductLinksTrait;
+use Automattic\PooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Enums\CatalogVisibility;
+use Automattic\PooCommerce\StoreApi\Utilities\Pagination;
+use Automattic\PooCommerce\StoreApi\Utilities\ProductQuery;
+use Automattic\PooCommerce\StoreApi\Utilities\ProductLinksTrait;
 
 /**
  * Products class.
@@ -110,7 +110,7 @@ class Products extends AbstractRoute {
 		$params['context']['default'] = 'view';
 
 		$params['page'] = array(
-			'description'       => __( 'Current page of the collection.', 'woocommerce' ),
+			'description'       => __( 'Current page of the collection.', 'poocommerce' ),
 			'type'              => 'integer',
 			'default'           => 1,
 			'sanitize_callback' => 'absint',
@@ -119,7 +119,7 @@ class Products extends AbstractRoute {
 		);
 
 		$params['per_page'] = array(
-			'description'       => __( 'Maximum number of items to be returned in result set.', 'woocommerce' ),
+			'description'       => __( 'Maximum number of items to be returned in result set.', 'poocommerce' ),
 			'type'              => 'integer',
 			'default'           => 10,
 			'minimum'           => 1,
@@ -129,35 +129,35 @@ class Products extends AbstractRoute {
 		);
 
 		$params['search'] = array(
-			'description'       => __( 'Limit results to those matching a string.', 'woocommerce' ),
+			'description'       => __( 'Limit results to those matching a string.', 'poocommerce' ),
 			'type'              => 'string',
 			'sanitize_callback' => 'sanitize_text_field',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 
 		$params['slug'] = array(
-			'description'       => __( 'Limit result set to products with specific slug(s). Use commas to separate.', 'woocommerce' ),
+			'description'       => __( 'Limit result set to products with specific slug(s). Use commas to separate.', 'poocommerce' ),
 			'type'              => 'string',
 			'sanitize_callback' => 'sanitize_text_field',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 
 		$params['after'] = array(
-			'description'       => __( 'Limit response to resources created after a given ISO8601 compliant date.', 'woocommerce' ),
+			'description'       => __( 'Limit response to resources created after a given ISO8601 compliant date.', 'poocommerce' ),
 			'type'              => 'string',
 			'format'            => 'date-time',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 
 		$params['before'] = array(
-			'description'       => __( 'Limit response to resources created before a given ISO8601 compliant date.', 'woocommerce' ),
+			'description'       => __( 'Limit response to resources created before a given ISO8601 compliant date.', 'poocommerce' ),
 			'type'              => 'string',
 			'format'            => 'date-time',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 
 		$params['date_column'] = array(
-			'description'       => __( 'When limiting response using after/before, which date column to compare against.', 'woocommerce' ),
+			'description'       => __( 'When limiting response using after/before, which date column to compare against.', 'poocommerce' ),
 			'type'              => 'string',
 			'default'           => 'date',
 			'enum'              => array(
@@ -170,7 +170,7 @@ class Products extends AbstractRoute {
 		);
 
 		$params['exclude'] = array(
-			'description'       => __( 'Ensure result set excludes specific IDs.', 'woocommerce' ),
+			'description'       => __( 'Ensure result set excludes specific IDs.', 'poocommerce' ),
 			'type'              => 'array',
 			'items'             => array(
 				'type' => 'integer',
@@ -180,7 +180,7 @@ class Products extends AbstractRoute {
 		);
 
 		$params['include'] = array(
-			'description'       => __( 'Limit result set to specific ids.', 'woocommerce' ),
+			'description'       => __( 'Limit result set to specific ids.', 'poocommerce' ),
 			'type'              => 'array',
 			'items'             => array(
 				'type' => 'integer',
@@ -190,14 +190,14 @@ class Products extends AbstractRoute {
 		);
 
 		$params['offset'] = array(
-			'description'       => __( 'Offset the result set by a specific number of items.', 'woocommerce' ),
+			'description'       => __( 'Offset the result set by a specific number of items.', 'poocommerce' ),
 			'type'              => 'integer',
 			'sanitize_callback' => 'absint',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 
 		$params['order'] = array(
-			'description'       => __( 'Order sort attribute ascending or descending.', 'woocommerce' ),
+			'description'       => __( 'Order sort attribute ascending or descending.', 'poocommerce' ),
 			'type'              => 'string',
 			'default'           => 'desc',
 			'enum'              => array( 'asc', 'desc' ),
@@ -205,7 +205,7 @@ class Products extends AbstractRoute {
 		);
 
 		$params['orderby'] = array(
-			'description'       => __( 'Sort collection by object attribute.', 'woocommerce' ),
+			'description'       => __( 'Sort collection by object attribute.', 'poocommerce' ),
 			'type'              => 'string',
 			'default'           => 'date',
 			'enum'              => array(
@@ -225,7 +225,7 @@ class Products extends AbstractRoute {
 		);
 
 		$params['parent'] = array(
-			'description'       => __( 'Limit result set to those of particular parent IDs.', 'woocommerce' ),
+			'description'       => __( 'Limit result set to those of particular parent IDs.', 'poocommerce' ),
 			'type'              => 'array',
 			'items'             => array(
 				'type' => 'integer',
@@ -235,7 +235,7 @@ class Products extends AbstractRoute {
 		);
 
 		$params['parent_exclude'] = array(
-			'description'       => __( 'Limit result set to all items except those of a particular parent ID.', 'woocommerce' ),
+			'description'       => __( 'Limit result set to all items except those of a particular parent ID.', 'poocommerce' ),
 			'type'              => 'array',
 			'items'             => array(
 				'type' => 'integer',
@@ -245,7 +245,7 @@ class Products extends AbstractRoute {
 		);
 
 		$params['type'] = array(
-			'description'       => __( 'Limit result set to products assigned a specific type.', 'woocommerce' ),
+			'description'       => __( 'Limit result set to products assigned a specific type.', 'poocommerce' ),
 			'type'              => 'string',
 			'enum'              => array_merge( array_keys( wc_get_product_types() ), [ ProductType::VARIATION ] ),
 			'sanitize_callback' => 'sanitize_key',
@@ -253,28 +253,28 @@ class Products extends AbstractRoute {
 		);
 
 		$params['sku'] = array(
-			'description'       => __( 'Limit result set to products with specific SKU(s). Use commas to separate.', 'woocommerce' ),
+			'description'       => __( 'Limit result set to products with specific SKU(s). Use commas to separate.', 'poocommerce' ),
 			'type'              => 'string',
 			'sanitize_callback' => 'sanitize_text_field',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 
 		$params['featured'] = array(
-			'description'       => __( 'Limit result set to featured products.', 'woocommerce' ),
+			'description'       => __( 'Limit result set to featured products.', 'poocommerce' ),
 			'type'              => 'boolean',
 			'sanitize_callback' => 'wc_string_to_bool',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 
 		$params['category'] = array(
-			'description'       => __( 'Limit result set to products assigned a set of category IDs or slugs, separated by commas.', 'woocommerce' ),
+			'description'       => __( 'Limit result set to products assigned a set of category IDs or slugs, separated by commas.', 'poocommerce' ),
 			'type'              => 'string',
 			'sanitize_callback' => 'wp_parse_list',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 
 		$params['category_operator'] = array(
-			'description'       => __( 'Operator to compare product category terms.', 'woocommerce' ),
+			'description'       => __( 'Operator to compare product category terms.', 'poocommerce' ),
 			'type'              => 'string',
 			'enum'              => [ 'in', 'not_in', 'and' ],
 			'default'           => 'in',
@@ -283,14 +283,14 @@ class Products extends AbstractRoute {
 		);
 
 		$params['brand'] = array(
-			'description'       => __( 'Limit result set to products assigned a set of brand IDs or slugs, separated by commas.', 'woocommerce' ),
+			'description'       => __( 'Limit result set to products assigned a set of brand IDs or slugs, separated by commas.', 'poocommerce' ),
 			'type'              => 'string',
 			'sanitize_callback' => 'wp_parse_list',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 
 		$params['brand_operator'] = array(
-			'description'       => __( 'Operator to compare product brand terms.', 'woocommerce' ),
+			'description'       => __( 'Operator to compare product brand terms.', 'poocommerce' ),
 			'type'              => 'string',
 			'enum'              => [ 'in', 'not_in', 'and' ],
 			'default'           => 'in',
@@ -306,7 +306,7 @@ class Products extends AbstractRoute {
 
 			if ( str_starts_with( $param, '_unstable_tax_' ) && ! str_ends_with( $param, '_operator' ) ) {
 				$params[ $param ] = array(
-					'description'       => __( 'Limit result set to products assigned a set of taxonomies IDs or slugs, separated by commas.', 'woocommerce' ),
+					'description'       => __( 'Limit result set to products assigned a set of taxonomies IDs or slugs, separated by commas.', 'poocommerce' ),
 					'type'              => 'string',
 					'sanitize_callback' => 'wp_parse_list',
 					'validate_callback' => 'rest_validate_request_arg',
@@ -314,7 +314,7 @@ class Products extends AbstractRoute {
 			}
 			if ( str_starts_with( $param, '_unstable_tax_' ) && str_ends_with( $param, '_operator' ) ) {
 				$params[ $param ] = array(
-					'description'       => __( 'Operator to compare product taxonomies terms.', 'woocommerce' ),
+					'description'       => __( 'Operator to compare product taxonomies terms.', 'poocommerce' ),
 					'type'              => 'string',
 					'enum'              => [ 'in', 'not_in', 'and' ],
 					'default'           => 'in',
@@ -325,14 +325,14 @@ class Products extends AbstractRoute {
 		}
 
 		$params['tag'] = array(
-			'description'       => __( 'Limit result set to products assigned a set of tag IDs or slugs, separated by commas.', 'woocommerce' ),
+			'description'       => __( 'Limit result set to products assigned a set of tag IDs or slugs, separated by commas.', 'poocommerce' ),
 			'type'              => 'string',
 			'sanitize_callback' => 'wp_parse_list',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 
 		$params['tag_operator'] = array(
-			'description'       => __( 'Operator to compare product tags.', 'woocommerce' ),
+			'description'       => __( 'Operator to compare product tags.', 'poocommerce' ),
 			'type'              => 'string',
 			'enum'              => [ 'in', 'not_in', 'and' ],
 			'default'           => 'in',
@@ -341,28 +341,28 @@ class Products extends AbstractRoute {
 		);
 
 		$params['on_sale'] = array(
-			'description'       => __( 'Limit result set to products on sale.', 'woocommerce' ),
+			'description'       => __( 'Limit result set to products on sale.', 'poocommerce' ),
 			'type'              => 'boolean',
 			'sanitize_callback' => 'wc_string_to_bool',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 
 		$params['min_price'] = array(
-			'description'       => __( 'Limit result set to products based on a minimum price, provided using the smallest unit of the currency.', 'woocommerce' ),
+			'description'       => __( 'Limit result set to products based on a minimum price, provided using the smallest unit of the currency.', 'poocommerce' ),
 			'type'              => 'string',
 			'sanitize_callback' => 'sanitize_text_field',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 
 		$params['max_price'] = array(
-			'description'       => __( 'Limit result set to products based on a maximum price, provided using the smallest unit of the currency.', 'woocommerce' ),
+			'description'       => __( 'Limit result set to products based on a maximum price, provided using the smallest unit of the currency.', 'poocommerce' ),
 			'type'              => 'string',
 			'sanitize_callback' => 'sanitize_text_field',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 
 		$params['stock_status'] = array(
-			'description' => __( 'Limit result set to products with specified stock status.', 'woocommerce' ),
+			'description' => __( 'Limit result set to products with specified stock status.', 'poocommerce' ),
 			'type'        => 'array',
 			'items'       => array(
 				'type'              => 'string',
@@ -374,18 +374,18 @@ class Products extends AbstractRoute {
 		);
 
 		$params['attributes'] = array(
-			'description' => __( 'Limit result set to products with selected global attributes.', 'woocommerce' ),
+			'description' => __( 'Limit result set to products with selected global attributes.', 'poocommerce' ),
 			'type'        => 'array',
 			'items'       => array(
 				'type'       => 'object',
 				'properties' => array(
 					'attribute' => array(
-						'description'       => __( 'Attribute taxonomy name.', 'woocommerce' ),
+						'description'       => __( 'Attribute taxonomy name.', 'poocommerce' ),
 						'type'              => 'string',
 						'sanitize_callback' => 'wc_sanitize_taxonomy_name',
 					),
 					'term_id'   => array(
-						'description'       => __( 'List of attribute term IDs.', 'woocommerce' ),
+						'description'       => __( 'List of attribute term IDs.', 'poocommerce' ),
 						'type'              => 'array',
 						'items'             => [
 							'type' => 'integer',
@@ -393,7 +393,7 @@ class Products extends AbstractRoute {
 						'sanitize_callback' => 'wp_parse_id_list',
 					),
 					'slug'      => array(
-						'description'       => __( 'List of attribute slug(s). If a term ID is provided, this will be ignored.', 'woocommerce' ),
+						'description'       => __( 'List of attribute slug(s). If a term ID is provided, this will be ignored.', 'poocommerce' ),
 						'type'              => 'array',
 						'items'             => [
 							'type' => 'string',
@@ -401,7 +401,7 @@ class Products extends AbstractRoute {
 						'sanitize_callback' => 'wp_parse_slug_list',
 					),
 					'operator'  => array(
-						'description' => __( 'Operator to compare product attribute terms.', 'woocommerce' ),
+						'description' => __( 'Operator to compare product attribute terms.', 'poocommerce' ),
 						'type'        => 'string',
 						'enum'        => [ 'in', 'not_in', 'and' ],
 					),
@@ -411,7 +411,7 @@ class Products extends AbstractRoute {
 		);
 
 		$params['attribute_relation'] = array(
-			'description'       => __( 'The logical relationship between attributes when filtering across multiple at once.', 'woocommerce' ),
+			'description'       => __( 'The logical relationship between attributes when filtering across multiple at once.', 'poocommerce' ),
 			'type'              => 'string',
 			'enum'              => [ 'in', 'and' ],
 			'default'           => 'and',
@@ -420,7 +420,7 @@ class Products extends AbstractRoute {
 		);
 
 		$params['catalog_visibility'] = array(
-			'description'       => __( 'Determines if hidden or visible catalog products are shown.', 'woocommerce' ),
+			'description'       => __( 'Determines if hidden or visible catalog products are shown.', 'poocommerce' ),
 			'type'              => 'string',
 			'enum'              => array( 'any', CatalogVisibility::VISIBLE, CatalogVisibility::CATALOG, CatalogVisibility::SEARCH, CatalogVisibility::HIDDEN ),
 			'sanitize_callback' => 'sanitize_key',
@@ -428,7 +428,7 @@ class Products extends AbstractRoute {
 		);
 
 		$params['rating'] = array(
-			'description'       => __( 'Limit result set to products with a certain average rating.', 'woocommerce' ),
+			'description'       => __( 'Limit result set to products with a certain average rating.', 'poocommerce' ),
 			'type'              => 'array',
 			'items'             => array(
 				'type' => 'integer',
@@ -439,7 +439,7 @@ class Products extends AbstractRoute {
 		);
 
 		$params['related'] = array(
-			'description'       => __( 'Limit result set to products related to a specific product ID.', 'woocommerce' ),
+			'description'       => __( 'Limit result set to products related to a specific product ID.', 'poocommerce' ),
 			'type'              => 'integer',
 			'sanitize_callback' => 'absint',
 			'validate_callback' => 'rest_validate_request_arg',

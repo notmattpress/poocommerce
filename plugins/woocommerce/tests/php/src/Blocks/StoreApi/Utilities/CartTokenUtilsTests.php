@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\StoreApi\Utilities;
+namespace Automattic\PooCommerce\Tests\Blocks\StoreApi\Utilities;
 
-use Automattic\WooCommerce\StoreApi\Utilities\CartTokenUtils;
+use Automattic\PooCommerce\StoreApi\Utilities\CartTokenUtils;
 use Yoast\PHPUnitPolyfills\TestCases\TestCase;
 
 /**
@@ -77,7 +77,7 @@ class CartTokenUtilsTests extends TestCase {
 			'iss'     => 'store-api',
 		];
 		$secret  = '@' . wp_salt();
-		$token   = \Automattic\WooCommerce\StoreApi\Utilities\JsonWebToken::create( $payload, $secret );
+		$token   = \Automattic\PooCommerce\StoreApi\Utilities\JsonWebToken::create( $payload, $secret );
 		$this->assertFalse( CartTokenUtils::validate_cart_token( $token ) );
 	}
 }

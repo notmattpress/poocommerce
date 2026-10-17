@@ -2,12 +2,12 @@
  * External dependencies
  */
 import { __, sprintf } from '@wordpress/i18n';
-import { formatPrice } from '@woocommerce/price-format';
-import { Label, RemovableChip } from '@woocommerce/blocks-components';
+import { formatPrice } from '@poocommerce/price-format';
+import { Label, RemovableChip } from '@poocommerce/blocks-components';
 import { getQueryArgs, addQueryArgs, removeQueryArgs } from '@wordpress/url';
-import { changeUrl } from '@woocommerce/utils';
+import { changeUrl } from '@poocommerce/utils';
 import { Icon, closeSmall } from '@wordpress/icons';
-import { isString } from '@woocommerce/types';
+import { isString } from '@poocommerce/types';
 
 /**
  * Internal dependencies
@@ -24,7 +24,7 @@ export const formatPriceRange = ( minPrice: number, maxPrice: number ) => {
 	if ( Number.isFinite( minPrice ) && Number.isFinite( maxPrice ) ) {
 		return sprintf(
 			/* translators: %1$s min price, %2$s max price */
-			__( 'Between %1$s and %2$s', 'woocommerce' ),
+			__( 'Between %1$s and %2$s', 'poocommerce' ),
 			formatPrice( minPrice ),
 			formatPrice( maxPrice )
 		);
@@ -33,14 +33,14 @@ export const formatPriceRange = ( minPrice: number, maxPrice: number ) => {
 	if ( Number.isFinite( minPrice ) ) {
 		return sprintf(
 			/* translators: %s min price */
-			__( 'From %s', 'woocommerce' ),
+			__( 'From %s', 'poocommerce' ),
 			formatPrice( minPrice )
 		);
 	}
 
 	return sprintf(
 		/* translators: %s max price */
-		__( 'Up to %s', 'woocommerce' ),
+		__( 'Up to %s', 'poocommerce' ),
 		formatPrice( maxPrice )
 	);
 };
@@ -86,7 +86,7 @@ export const renderRemovableListItem = ( {
 	);
 	const removeText = sprintf(
 		/* translators: 1: filter type, 2: attribute value used in the filter. For example: Remove Size Large filter. */
-		__( 'Remove %1$s %2$s filter', 'woocommerce' ),
+		__( 'Remove %1$s %2$s filter', 'poocommerce' ),
 		type,
 		name
 	);

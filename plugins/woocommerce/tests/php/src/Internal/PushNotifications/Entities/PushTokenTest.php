@@ -2,13 +2,13 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\PushNotifications\Entities;
+namespace Automattic\PooCommerce\Tests\Internal\PushNotifications\Entities;
 
-use Automattic\WooCommerce\Internal\PushNotifications\Entities\PushToken;
-use Automattic\WooCommerce\Internal\PushNotifications\Exceptions\PushTokenInvalidDataException;
-use Automattic\WooCommerce\Internal\PushNotifications\PushNotifications;
-use Automattic\WooCommerce\Internal\PushNotifications\Validators\PushTokenValidator;
-use Automattic\WooCommerce\RestApi\UnitTests\LoggerSpyTrait;
+use Automattic\PooCommerce\Internal\PushNotifications\Entities\PushToken;
+use Automattic\PooCommerce\Internal\PushNotifications\Exceptions\PushTokenInvalidDataException;
+use Automattic\PooCommerce\Internal\PushNotifications\PushNotifications;
+use Automattic\PooCommerce\Internal\PushNotifications\Validators\PushTokenValidator;
+use Automattic\PooCommerce\RestApi\UnitTests\LoggerSpyTrait;
 use stdClass;
 use WC_Unit_Test_Case;
 
@@ -527,7 +527,7 @@ class PushTokenTest extends WC_Unit_Test_Case {
 		$this->expectException( PushTokenInvalidDataException::class );
 
 		$this->expectExceptionMessage(
-			'Origin must be one of: browser, com.woocommerce.android, com.woocommerce.android:dev, com.automattic.woocommerce, com.automattic.woocommerce:dev'
+			'Origin must be one of: browser, com.poocommerce.android, com.poocommerce.android:dev, com.automattic.poocommerce, com.automattic.poocommerce:dev'
 		);
 
 		$push_token->set_origin( 'com.invalid.app' );

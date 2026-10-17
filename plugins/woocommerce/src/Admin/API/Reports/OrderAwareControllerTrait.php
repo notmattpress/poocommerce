@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1);
 
-namespace Automattic\WooCommerce\Admin\API\Reports;
+namespace Automattic\PooCommerce\Admin\API\Reports;
 
-use Automattic\WooCommerce\Internal\Admin\Settings;
+use Automattic\PooCommerce\Internal\Admin\Settings;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 trait OrderAwareControllerTrait {
 
 	/**
-	 * Get the order number for an order. If no filter is present for `woocommerce_order_number`, we can just return the ID.
+	 * Get the order number for an order. If no filter is present for `poocommerce_order_number`, we can just return the ID.
 	 * Returns the parent order number if the order is actually a refund.
 	 *
 	 * @param  int $order_id Order ID.
@@ -44,7 +44,7 @@ trait OrderAwareControllerTrait {
 			}
 		}
 
-		if ( ! has_filter( 'woocommerce_order_number' ) ) {
+		if ( ! has_filter( 'poocommerce_order_number' ) ) {
 			return $order->get_id();
 		}
 
@@ -94,9 +94,9 @@ trait OrderAwareControllerTrait {
 	 */
 	public static function get_order_statuses() {
 		// Allow all statuses selected as "actionable" - this may include unregistered statuses.
-		// See: https://github.com/woocommerce/woocommerce-admin/issues/5592.
+		// See: https://github.com/poocommerce/poocommerce-admin/issues/5592.
 		$default_actionable_statuses = Settings::get_default_actionable_order_statuses();
-		$actionable_statuses         = get_option( 'woocommerce_actionable_order_statuses', $default_actionable_statuses );
+		$actionable_statuses         = get_option( 'poocommerce_actionable_order_statuses', $default_actionable_statuses );
 
 		// Prevent errors if the database entry is not the expected type (array).
 		$actionable_statuses = Settings::get_valid_order_statuses_or_default( $actionable_statuses, $default_actionable_statuses );

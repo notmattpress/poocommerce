@@ -7,17 +7,17 @@ import { createInterpolateElement, useEffect } from '@wordpress/element';
 import {
 	useStoreCart,
 	useShowShippingTotalWarning,
-} from '@woocommerce/base-context/hooks';
-import { CheckoutProvider, noticeContexts } from '@woocommerce/base-context';
-import BlockErrorBoundary from '@woocommerce/base-components/block-error-boundary';
-import { SidebarLayout } from '@woocommerce/base-components/sidebar-layout';
-import { CURRENT_USER_IS_ADMIN, getSetting } from '@woocommerce/settings';
-import { StoreNoticesContainer } from '@woocommerce/blocks-components';
-import { SlotFillProvider } from '@woocommerce/blocks-checkout';
-import withScrollToTop from '@woocommerce/base-hocs/with-scroll-to-top';
+} from '@poocommerce/base-context/hooks';
+import { CheckoutProvider, noticeContexts } from '@poocommerce/base-context';
+import BlockErrorBoundary from '@poocommerce/base-components/block-error-boundary';
+import { SidebarLayout } from '@poocommerce/base-components/sidebar-layout';
+import { CURRENT_USER_IS_ADMIN, getSetting } from '@poocommerce/settings';
+import { StoreNoticesContainer } from '@poocommerce/blocks-components';
+import { SlotFillProvider } from '@poocommerce/blocks-checkout';
+import withScrollToTop from '@poocommerce/base-hocs/with-scroll-to-top';
 import { useDispatch, useSelect } from '@wordpress/data';
-import { checkoutStore, validationStore } from '@woocommerce/block-data';
-import type { CheckoutResponse } from '@woocommerce/types';
+import { checkoutStore, validationStore } from '@poocommerce/block-data';
+import type { CheckoutResponse } from '@poocommerce/types';
 
 /**
  * Internal dependencies
@@ -40,9 +40,9 @@ const hasCheckoutError = !! preloadedCheckoutData.code;
 const MustLoginPrompt = () => {
 	return (
 		<div className="wc-block-must-login-prompt">
-			{ __( 'You must be logged in to checkout.', 'woocommerce' ) }{ ' ' }
+			{ __( 'You must be logged in to checkout.', 'poocommerce' ) }{ ' ' }
 			<a href={ LOGIN_TO_CHECKOUT_URL }>
-				{ __( 'Click here to log in.', 'woocommerce' ) }
+				{ __( 'Click here to log in.', 'poocommerce' ) }
 			</a>
 		</div>
 	);
@@ -152,12 +152,12 @@ const Block = ( {
 		<BlockErrorBoundary
 			header={ __(
 				'Something went wrong. Please contact us for assistance.',
-				'woocommerce'
+				'poocommerce'
 			) }
 			text={ createInterpolateElement(
 				__(
 					'The checkout has encountered an unexpected error. <button>Try reloading the page</button>. If the error persists, please get in touch with us so we can assist.',
-					'woocommerce'
+					'poocommerce'
 				),
 				{
 					button: (
@@ -173,7 +173,7 @@ const Block = ( {
 			<StoreNoticesContainer
 				context={ [ noticeContexts.CHECKOUT, noticeContexts.CART ] }
 			/>
-			<IncompatibleExtensionsFrontendNotice block="woocommerce/checkout" />
+			<IncompatibleExtensionsFrontendNotice block="poocommerce/checkout" />
 			{ /* SlotFillProvider need to be defined before CheckoutProvider so fills have the SlotFill context ready when they mount. */ }
 			<SlotFillProvider>
 				<CheckoutProvider>

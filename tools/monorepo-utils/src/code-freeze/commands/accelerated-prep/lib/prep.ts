@@ -15,13 +15,13 @@ import { Logger } from '../../../../core/logger';
  * @param tmpRepoPath cloned repo path
  */
 export const addHeader = async ( tmpRepoPath: string ): Promise< void > => {
-	const filePath = join( tmpRepoPath, 'plugins/woocommerce/woocommerce.php' );
+	const filePath = join( tmpRepoPath, 'plugins/poocommerce/poocommerce.php' );
 	try {
 		const pluginFileContents = await readFile( filePath, 'utf8' );
 
 		const updatedPluginFileContents = pluginFileContents.replace(
-			' * @package WooCommerce\n */',
-			' *\n * Woo: 18734002369816:624a1b9ba2fe66bb06d84bcdd401c6a6\n *\n * @package WooCommerce\n */'
+			' * @package PooCommerce\n */',
+			' *\n * Woo: 18734002369816:624a1b9ba2fe66bb06d84bcdd401c6a6\n *\n * @package PooCommerce\n */'
 		);
 
 		await writeFile( filePath, updatedPluginFileContents );
@@ -42,12 +42,12 @@ export const createChangelog = async (
 	version: string,
 	date: string
 ): Promise< void > => {
-	const filePath = join( tmpRepoPath, 'plugins/woocommerce/changelog.txt' );
+	const filePath = join( tmpRepoPath, 'plugins/poocommerce/changelog.txt' );
 	try {
-		const changelogContents = `*** WooCommerce ***
+		const changelogContents = `*** PooCommerce ***
 
 ${ date } - Version ${ version }
-* Update - Deploy of WooCommerce ${ version }
+* Update - Deploy of PooCommerce ${ version }
 `;
 
 		await writeFile( filePath, changelogContents );

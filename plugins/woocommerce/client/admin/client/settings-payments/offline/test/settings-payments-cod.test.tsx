@@ -89,7 +89,7 @@ describe( 'SettingsPaymentsCod', () => {
 		const { container } = render( <SettingsPaymentsCod /> );
 
 		expect(
-			container.querySelectorAll( '.woocommerce-field-placeholder' )
+			container.querySelectorAll( '.poocommerce-field-placeholder' )
 				.length
 		).toBeGreaterThan( 0 );
 		expect( screen.queryByLabelText( 'Title' ) ).not.toBeInTheDocument();

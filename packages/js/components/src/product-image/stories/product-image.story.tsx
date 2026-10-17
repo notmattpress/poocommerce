@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { ProductImage } from '@woocommerce/components';
+import { ProductImage } from '@poocommerce/components';
 import { createElement } from '@wordpress/element';
 
 export const Basic = () => (

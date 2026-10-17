@@ -7,7 +7,7 @@
  * whose subject is schema code declare it with @ddlInTransaction instead.
  * See WC_DDL_In_Transaction_Guard for what the guard catches and why.
  *
- * @package WooCommerce\Tests
+ * @package PooCommerce\Tests
  */
 
 declare( strict_types = 1 );
@@ -17,15 +17,15 @@ return array(
 	'WC_Tests_API_Reports_Sales::test_get_sales_report_with_hpos_enabled_and_sync_off',
 
 	// Creates the HPOS tables in setUp() through setup_cot(). Move to wpSetUpBeforeClass() + setup_cot_tables(), as #68930 did.
-	'Automattic\WooCommerce\Tests\Internal\Admin\Orders\EditLockTest::*',
-	'Automattic\WooCommerce\Tests\Internal\Customers\SearchServiceTest::*',
-	'Automattic\WooCommerce\Tests\Internal\DataStores\Orders\LegacyDataCleanupTests::*',
-	'Automattic\WooCommerce\Tests\Internal\DataStores\Orders\OrdersTableDataStoreCacheCrossBleedTest::*',
-	'Automattic\WooCommerce\Tests\Internal\DataStores\Orders\OrdersTableDataStoreCachePrimingTest::*',
+	'Automattic\PooCommerce\Tests\Internal\Admin\Orders\EditLockTest::*',
+	'Automattic\PooCommerce\Tests\Internal\Customers\SearchServiceTest::*',
+	'Automattic\PooCommerce\Tests\Internal\DataStores\Orders\LegacyDataCleanupTests::*',
+	'Automattic\PooCommerce\Tests\Internal\DataStores\Orders\OrdersTableDataStoreCacheCrossBleedTest::*',
+	'Automattic\PooCommerce\Tests\Internal\DataStores\Orders\OrdersTableDataStoreCachePrimingTest::*',
 
 	// setUp() recreates the HPOS tables whenever an earlier test dropped them, so which test trips depends on run order. Create them once before the class instead.
-	'Automattic\WooCommerce\Tests\Internal\DataStores\Orders\DataSynchronizerTests::*',
+	'Automattic\PooCommerce\Tests\Internal\DataStores\Orders\DataSynchronizerTests::*',
 
 	// Enabling the fulfillments feature runs its schema changes (an ALTER) lazily on init. Enable it once before the class instead.
-	'Automattic\WooCommerce\Tests\Admin\API\Reports\Orders\Stats\DataStoreFulfillmentsTest::test_regenerate_order_fulfillment_status_updates_orders_with_fulfillments',
+	'Automattic\PooCommerce\Tests\Admin\API\Reports\Orders\Stats\DataStoreFulfillmentsTest::test_regenerate_order_fulfillment_status_updates_orders_with_fulfillments',
 );

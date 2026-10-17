@@ -1,8 +1,8 @@
 <?php
 
-namespace Automattic\WooCommerce\Admin\Features\MarketingRecommendations;
+namespace Automattic\PooCommerce\Admin\Features\MarketingRecommendations;
 
-use Automattic\WooCommerce\Admin\RemoteSpecs\RemoteSpecsEngine;
+use Automattic\PooCommerce\Admin\RemoteSpecs\RemoteSpecsEngine;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -12,14 +12,14 @@ defined( 'ABSPATH' ) || exit;
  */
 class Init extends RemoteSpecsEngine {
 	/**
-	 * Slug of the category specifying marketing extensions on the WooCommerce.com store.
+	 * Slug of the category specifying marketing extensions on the PooCommerce.com store.
 	 *
 	 * @var string
 	 */
 	const MARKETING_EXTENSION_CATEGORY_SLUG = 'marketing';
 
 	/**
-	 * Slug of the subcategory specifying marketing channels on the WooCommerce.com store.
+	 * Slug of the subcategory specifying marketing channels on the PooCommerce.com store.
 	 *
 	 * @var string
 	 */
@@ -29,7 +29,7 @@ class Init extends RemoteSpecsEngine {
 	 * Constructor.
 	 */
 	public function __construct() {
-		add_action( 'woocommerce_updated', array( __CLASS__, 'delete_specs_transient' ) );
+		add_action( 'poocommerce_updated', array( __CLASS__, 'delete_specs_transient' ) );
 	}
 
 	/**
@@ -44,7 +44,7 @@ class Init extends RemoteSpecsEngine {
 	 * Get specs or fetch remotely if they don't exist.
 	 */
 	public static function get_specs() {
-		if ( 'no' === get_option( 'woocommerce_show_marketplace_suggestions', 'yes' ) ) {
+		if ( 'no' === get_option( 'poocommerce_show_marketplace_suggestions', 'yes' ) ) {
 			return DefaultMarketingRecommendations::get_all();
 		}
 		$specs = MarketingRecommendationsDataSourcePoller::get_instance()->get_specs_from_data_sources();
@@ -63,7 +63,7 @@ class Init extends RemoteSpecsEngine {
 	 * @since 9.5.0
 	 */
 	public static function get_misc_recommendations_specs() {
-		if ( 'no' === get_option( 'woocommerce_show_marketplace_suggestions', 'yes' ) ) {
+		if ( 'no' === get_option( 'poocommerce_show_marketplace_suggestions', 'yes' ) ) {
 			return array();
 		}
 		$specs = MiscRecommendationsDataSourcePoller::get_instance()->get_specs_from_data_sources();
@@ -101,7 +101,7 @@ class Init extends RemoteSpecsEngine {
 	}
 
 	/**
-	 * Load recommended plugins from WooCommerce.com
+	 * Load recommended plugins from PooCommerce.com
 	 *
 	 * @return array
 	 */
@@ -133,7 +133,7 @@ class Init extends RemoteSpecsEngine {
 	}
 
 	/**
-	 * Return only the recommended marketing channels from WooCommerce.com.
+	 * Return only the recommended marketing channels from PooCommerce.com.
 	 *
 	 * @return array
 	 */
@@ -147,7 +147,7 @@ class Init extends RemoteSpecsEngine {
 	}
 
 	/**
-	 * Return all recommended marketing extensions EXCEPT the marketing channels from WooCommerce.com.
+	 * Return all recommended marketing extensions EXCEPT the marketing channels from PooCommerce.com.
 	 *
 	 * @return array
 	 */
@@ -161,7 +161,7 @@ class Init extends RemoteSpecsEngine {
 	}
 
 	/**
-	 * Load misc recommendations from WooCommerce.com
+	 * Load misc recommendations from PooCommerce.com
 	 *
 	 * @since 9.5.0
 	 * @return array

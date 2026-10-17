@@ -2,18 +2,18 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\PushNotifications\Services;
+namespace Automattic\PooCommerce\Internal\PushNotifications\Services;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Internal\Admin\Logging\LogHandlerFileV2;
-use Automattic\WooCommerce\Internal\Admin\Logging\Settings;
-use Automattic\WooCommerce\Internal\PushNotifications\DataStores\PushTokensDataStore;
-use Automattic\WooCommerce\Internal\PushNotifications\DataStores\StepLogFileReader;
-use Automattic\WooCommerce\Internal\PushNotifications\DataStores\StepLogTableReader;
-use Automattic\WooCommerce\Internal\PushNotifications\Notifications\Notification;
-use Automattic\WooCommerce\Internal\PushNotifications\PushNotifications;
-use Automattic\WooCommerce\Utilities\LoggingUtil;
+use Automattic\PooCommerce\Internal\Admin\Logging\LogHandlerFileV2;
+use Automattic\PooCommerce\Internal\Admin\Logging\Settings;
+use Automattic\PooCommerce\Internal\PushNotifications\DataStores\PushTokensDataStore;
+use Automattic\PooCommerce\Internal\PushNotifications\DataStores\StepLogFileReader;
+use Automattic\PooCommerce\Internal\PushNotifications\DataStores\StepLogTableReader;
+use Automattic\PooCommerce\Internal\PushNotifications\Notifications\Notification;
+use Automattic\PooCommerce\Internal\PushNotifications\PushNotifications;
+use Automattic\PooCommerce\Utilities\LoggingUtil;
 use WC_Log_Handler_DB;
 
 /**

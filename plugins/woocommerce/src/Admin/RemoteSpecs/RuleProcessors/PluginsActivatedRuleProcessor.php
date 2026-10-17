@@ -3,11 +3,11 @@
  * Rule processor for sending when the provided plugins are activated.
  */
 
-namespace Automattic\WooCommerce\Admin\RemoteSpecs\RuleProcessors;
+namespace Automattic\PooCommerce\Admin\RemoteSpecs\RuleProcessors;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\PluginsProvider\PluginsProvider;
+use Automattic\PooCommerce\Admin\PluginsProvider\PluginsProvider;
 
 /**
  * Rule processor for sending when the provided plugins are activated.
@@ -51,7 +51,7 @@ class PluginsActivatedRuleProcessor implements RuleProcessorInterface {
 			if ( ! is_string( $plugin_slug ) ) {
 				$logger = wc_get_logger();
 				$logger->warning(
-					__( 'Invalid plugin slug provided in the plugins activated rule.', 'woocommerce' )
+					__( 'Invalid plugin slug provided in the plugins activated rule.', 'poocommerce' )
 				);
 				return false;
 			}

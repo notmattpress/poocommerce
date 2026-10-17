@@ -1,11 +1,11 @@
 <?php
 
-use Automattic\WooCommerce\Utilities\ArrayUtil;
+use Automattic\PooCommerce\Utilities\ArrayUtil;
 
 /**
  * Tests for the Shipping Methods REST API.
  *
- * @package WooCommerce\Tests\API
+ * @package PooCommerce\Tests\API
  * @since 3.5.0
  */
 

@@ -3,9 +3,9 @@
  */
 import { render } from '@testing-library/react';
 import { useSelect } from '@wordpress/data';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 import { useEffect } from 'react';
-import { InboxNoteCard } from '@woocommerce/experimental';
+import { InboxNoteCard } from '@poocommerce/experimental';
 import userEvent from '@testing-library/user-event';
 
 /**
@@ -25,9 +25,9 @@ jest.mock( '@wordpress/data', () => {
 	};
 } );
 
-jest.mock( '@woocommerce/experimental', () => {
+jest.mock( '@poocommerce/experimental', () => {
 	// Require the original module to not be mocked...
-	const originalModule = jest.requireActual( '@woocommerce/experimental' );
+	const originalModule = jest.requireActual( '@poocommerce/experimental' );
 
 	return {
 		__esModule: true, // Use it when dealing with esModules

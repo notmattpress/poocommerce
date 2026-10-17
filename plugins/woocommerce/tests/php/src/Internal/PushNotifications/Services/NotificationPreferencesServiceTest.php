@@ -2,10 +2,10 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\PushNotifications\Services;
+namespace Automattic\PooCommerce\Tests\Internal\PushNotifications\Services;
 
-use Automattic\WooCommerce\Internal\PushNotifications\DataStores\NotificationPreferencesDataStore;
-use Automattic\WooCommerce\Internal\PushNotifications\Services\NotificationPreferencesService;
+use Automattic\PooCommerce\Internal\PushNotifications\DataStores\NotificationPreferencesDataStore;
+use Automattic\PooCommerce\Internal\PushNotifications\Services\NotificationPreferencesService;
 use PHPUnit\Framework\MockObject\MockObject;
 use WC_Data_Exception;
 use WC_Unit_Test_Case;
@@ -14,7 +14,7 @@ use WP_Http;
 /**
  * Tests for the NotificationPreferencesService class.
  *
- * @covers \Automattic\WooCommerce\Internal\PushNotifications\Services\NotificationPreferencesService
+ * @covers \Automattic\PooCommerce\Internal\PushNotifications\Services\NotificationPreferencesService
  */
 class NotificationPreferencesServiceTest extends WC_Unit_Test_Case {
 
@@ -227,7 +227,7 @@ class NotificationPreferencesServiceTest extends WC_Unit_Test_Case {
 		$this->data_store->method( 'read' )->willReturn( null );
 		$this->data_store->method( 'write' )->willThrowException(
 			new WC_Data_Exception(
-				'woocommerce_push_notification_preferences_save_failed',
+				'poocommerce_push_notification_preferences_save_failed',
 				'Failed to save push notification preferences.',
 				WP_Http::INTERNAL_SERVER_ERROR
 			)

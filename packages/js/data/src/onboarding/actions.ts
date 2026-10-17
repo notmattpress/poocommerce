@@ -320,7 +320,7 @@ export function setProfileProgress(
 
 export function* keepCompletedTaskList( taskListId: string ) {
 	const updateOptionsParams = {
-		woocommerce_task_list_keep_completed: 'yes',
+		poocommerce_task_list_keep_completed: 'yes',
 	};
 	const response: {
 		success: 'yes' | 'no';
@@ -361,7 +361,7 @@ export function* updateProfileItems( items: ProfileItems ) {
 		throw error;
 	} finally {
 		yield dispatch( optionsStore ).invalidateResolution( 'getOption', [
-			'woocommerce_onboarding_profile',
+			'poocommerce_onboarding_profile',
 		] );
 		yield dispatch( store ).invalidateResolution( 'getProfileItems', [] );
 	}

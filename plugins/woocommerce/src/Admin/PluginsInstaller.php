@@ -5,12 +5,12 @@
  * Installer to allow plugin installation via URL query.
  */
 
-namespace Automattic\WooCommerce\Admin;
+namespace Automattic\PooCommerce\Admin;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\API\Plugins;
-use Automattic\WooCommerce\Admin\Features\TransientNotices;
+use Automattic\PooCommerce\Admin\API\Plugins;
+use Automattic\PooCommerce\Admin\Features\TransientNotices;
 
 /**
  * Class PluginsInstaller

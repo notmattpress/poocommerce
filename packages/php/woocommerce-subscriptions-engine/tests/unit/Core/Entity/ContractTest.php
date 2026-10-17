@@ -8,23 +8,23 @@
  * cycle_count (counters are per-chain and derived from the cycle rows), and
  * origin_order_id may be null.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine
+ * @package Automattic\PooCommerce\SubscriptionsEngine
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Tests\Unit\Core\Entity;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Tests\Unit\Core\Entity;
 
 use DomainException;
 use PHPUnit\Framework\TestCase;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\Contract;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\ContractStatus;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\StatusRegistry;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\ValueObject\PaymentInstrumentRef;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\ValueObject\PlanSnapshot;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\Contract;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\ContractStatus;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\StatusRegistry;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\ValueObject\PaymentInstrumentRef;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\ValueObject\PlanSnapshot;
 
 /**
- * @covers \Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\Contract
+ * @covers \Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\Contract
  */
 class ContractTest extends TestCase {
 
@@ -247,7 +247,7 @@ class ContractTest extends TestCase {
 
 		$this->assertSame( Contract::SCHEDULE_SOURCE_ENGINE, $contract->get_schedule_source() );
 
-		foreach ( array( 'a', 'my-gateway_2', 'woocommerce-subscriptions-lite', str_repeat( 'a', 64 ), Contract::SCHEDULE_SOURCE_ENGINE ) as $schedule_source ) {
+		foreach ( array( 'a', 'my-gateway_2', 'poocommerce-subscriptions-lite', str_repeat( 'a', 64 ), Contract::SCHEDULE_SOURCE_ENGINE ) as $schedule_source ) {
 			$contract->set_schedule_source( $schedule_source );
 
 			$this->assertSame( $schedule_source, $contract->get_schedule_source() );

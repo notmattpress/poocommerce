@@ -2,18 +2,18 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\PushNotifications\Services;
+namespace Automattic\PooCommerce\Tests\Internal\PushNotifications\Services;
 
-use Automattic\WooCommerce\Internal\PushNotifications\DataStores\NotificationPreferencesDataStore;
-use Automattic\WooCommerce\Internal\PushNotifications\DataStores\PushTokensDataStore;
-use Automattic\WooCommerce\Internal\PushNotifications\Entities\PushToken;
-use Automattic\WooCommerce\Internal\PushNotifications\Services\UserDataCleanupService;
+use Automattic\PooCommerce\Internal\PushNotifications\DataStores\NotificationPreferencesDataStore;
+use Automattic\PooCommerce\Internal\PushNotifications\DataStores\PushTokensDataStore;
+use Automattic\PooCommerce\Internal\PushNotifications\Entities\PushToken;
+use Automattic\PooCommerce\Internal\PushNotifications\Services\UserDataCleanupService;
 use WC_Unit_Test_Case;
 
 /**
  * Tests for the UserDataCleanupService class.
  *
- * @covers \Automattic\WooCommerce\Internal\PushNotifications\Services\UserDataCleanupService
+ * @covers \Automattic\PooCommerce\Internal\PushNotifications\Services\UserDataCleanupService
  */
 class UserDataCleanupServiceTest extends WC_Unit_Test_Case {
 	/**

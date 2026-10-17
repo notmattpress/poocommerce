@@ -1,12 +1,12 @@
 <?php
 declare( strict_types = 1 );
 
-use Automattic\WooCommerce\Internal\Caches\ProductCache;
+use Automattic\PooCommerce\Internal\Caches\ProductCache;
 
 /**
  * Tests for the REST API v1 products controller.
  *
- * @package WooCommerce\Tests\RestApi
+ * @package PooCommerce\Tests\RestApi
  */
 class WC_REST_Products_V1_Controller_Test extends WC_REST_Unit_Test_Case {
 
@@ -22,7 +22,7 @@ class WC_REST_Products_V1_Controller_Test extends WC_REST_Unit_Test_Case {
 	 * @testdox Getting a product loaded before its global attribute is deleted uses the attribute slug as its name.
 	 */
 	public function test_get_item_for_product_loaded_before_its_global_attribute_is_deleted(): void {
-		update_option( 'woocommerce_feature_product_instance_caching_enabled', 'yes' );
+		update_option( 'poocommerce_feature_product_instance_caching_enabled', 'yes' );
 		$attribute = WC_Helper_Product::create_product_attribute_object( 'Stale Finish', array( 'Matte' ) );
 		$product   = new WC_Product_Variable();
 		$product->set_name( 'Stale attribute product' );
@@ -61,7 +61,7 @@ class WC_REST_Products_V1_Controller_Test extends WC_REST_Unit_Test_Case {
 	 * @testdox Getting a product whose global attribute was deleted in an earlier request uses the attribute slug as its default attribute name.
 	 */
 	public function test_get_item_for_product_whose_global_attribute_was_deleted_in_an_earlier_request(): void {
-		update_option( 'woocommerce_feature_product_instance_caching_enabled', 'yes' );
+		update_option( 'poocommerce_feature_product_instance_caching_enabled', 'yes' );
 		$attribute = WC_Helper_Product::create_product_attribute_object( 'Stale Finish', array( 'Matte' ) );
 		$product   = new WC_Product_Variable();
 		$product->set_name( 'Stale attribute product' );

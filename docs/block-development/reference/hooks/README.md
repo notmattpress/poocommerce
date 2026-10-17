@@ -1,10 +1,10 @@
 # Hooks
 
-We have several hooks that can be used by extensions, some are new and some are hooks that already exist in WooCommerce core.
+We have several hooks that can be used by extensions, some are new and some are hooks that already exist in PooCommerce core.
 
-- [Filters](https://github.com/woocommerce/woocommerce/blob/trunk/plugins/woocommerce/client/blocks/docs/third-party-developers/extensibility/hooks/filters.md)
-- [Actions](https://github.com/woocommerce/woocommerce/blob/trunk/plugins/woocommerce/client/blocks/docs/third-party-developers/extensibility/hooks/actions.md)
+- [Filters](https://github.com/poocommerce/poocommerce/blob/trunk/plugins/poocommerce/client/blocks/docs/third-party-developers/extensibility/hooks/filters.md)
+- [Actions](https://github.com/poocommerce/poocommerce/blob/trunk/plugins/poocommerce/client/blocks/docs/third-party-developers/extensibility/hooks/actions.md)
 
-We also have a list of hooks that have been migrated from WooCommerce Core, but that have been renamed.
+We also have a list of hooks that have been migrated from PooCommerce Core, but that have been renamed.
 
 - [List of migrated hooks](./migrated-hooks.md)

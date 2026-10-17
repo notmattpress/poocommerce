@@ -3,7 +3,7 @@
  */
 import { __, _n } from '@wordpress/i18n';
 import { useEffect, useState, useMemo } from '@wordpress/element';
-import { EmptyContent, Section, Badge } from '@woocommerce/components';
+import { EmptyContent, Section, Badge } from '@poocommerce/components';
 import {
 	Card,
 	CardHeader,
@@ -12,15 +12,15 @@ import {
 	CardFooter,
 } from '@wordpress/components';
 import { chevronDown, moreVertical } from '@wordpress/icons';
-import { notesStore, QUERY_DEFAULTS } from '@woocommerce/data';
+import { notesStore, QUERY_DEFAULTS } from '@poocommerce/data';
 import { useSelect, useDispatch } from '@wordpress/data';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import {
 	InboxNoteCard,
 	InboxNotePlaceholder,
 	Text,
-} from '@woocommerce/experimental';
+} from '@poocommerce/experimental';
 import moment from 'moment';
 
 /**
@@ -67,14 +67,14 @@ const WC_VERSION_61_RELEASE_DATE = moment(
 
 const renderEmptyCard = () => (
 	<ActivityCard
-		className="woocommerce-empty-activity-card"
-		title={ __( 'Your inbox is empty', 'woocommerce' ) }
+		className="poocommerce-empty-activity-card"
+		title={ __( 'Your inbox is empty', 'poocommerce' ) }
 		icon={ false }
 	>
 		{ __(
 			'As things begin to happen in your store your inbox will start to fill up. ' +
 				'You’ll see things like achievements, new feature announcements, extension recommendations and more!',
-			'woocommerce'
+			'poocommerce'
 		) }
 	</ActivityCard>
 );
@@ -122,31 +122,31 @@ const renderNotes = ( {
 
 	return (
 		<Card
-			className="woocommerce-homescreen-card woocommerce-inbox-card"
+			className="poocommerce-homescreen-card poocommerce-inbox-card"
 			size="large"
 		>
 			{ showHeader && (
 				<CardHeader size="medium">
-					<div className="woocommerce-inbox-card__header">
+					<div className="poocommerce-inbox-card__header">
 						<Text size="20" lineHeight="28px" variant="title.small">
-							{ __( 'Inbox', 'woocommerce' ) }
+							{ __( 'Inbox', 'poocommerce' ) }
 						</Text>
 						<Badge count={ unreadNotesCount } />
 					</div>
 					<DropdownMenu
 						controls={ [
 							{
-								title: __( 'Dismiss all', 'woocommerce' ),
+								title: __( 'Dismiss all', 'poocommerce' ),
 								onClick: () => {
 									onDismissAll( true );
 								},
 							},
 						] }
 						icon={ moreVertical }
-						label={ __( 'Inbox notes options', 'woocommerce' ) }
+						label={ __( 'Inbox notes options', 'poocommerce' ) }
 						popoverProps={ { placement: 'bottom-end' } }
 						toggleProps={ {
-							className: 'woocommerce-ellipsis-menu__toggle',
+							className: 'poocommerce-ellipsis-menu__toggle',
 						} }
 					/>
 				</CardHeader>
@@ -161,7 +161,7 @@ const renderNotes = ( {
 						<CSSTransition
 							key={ noteId }
 							timeout={ 500 }
-							classNames="woocommerce-inbox-message"
+							classNames="poocommerce-inbox-message"
 						>
 							<InboxNoteCard
 								key={ noteId }
@@ -186,7 +186,7 @@ const renderNotes = ( {
 
 						return (
 							<CardFooter
-								className="woocommerce-inbox-card__footer"
+								className="poocommerce-inbox-card__footer"
 								size="medium"
 							>
 								<Button
@@ -199,8 +199,8 @@ const renderNotes = ( {
 								>
 									{ notesArray.length >
 									DEFAULT_INBOX_QUERY.per_page
-										? __( 'Show more', 'woocommerce' )
-										: __( 'Show older', 'woocommerce' ) }
+										? __( 'Show more', 'poocommerce' )
+										: __( 'Show older', 'poocommerce' ) }
 								</Button>
 							</CardFooter>
 						);
@@ -325,10 +325,10 @@ const InboxPanel = ( { showHeader = true } ) => {
 		try {
 			await removeNote( noteId );
 			invalidateResolutionForStoreSelector( 'getNotes' );
-			createNotice( 'success', __( 'Message dismissed', 'woocommerce' ), {
+			createNotice( 'success', __( 'Message dismissed', 'poocommerce' ), {
 				actions: [
 					{
-						label: __( 'Undo', 'woocommerce' ),
+						label: __( 'Undo', 'poocommerce' ),
 						onClick: async () => {
 							await updateNote( noteId, {
 								is_deleted: 0,
@@ -345,7 +345,7 @@ const InboxPanel = ( { showHeader = true } ) => {
 					'Message could not be dismissed',
 					'Messages could not be dismissed',
 					1,
-					'woocommerce'
+					'poocommerce'
 				)
 			);
 		}
@@ -354,9 +354,9 @@ const InboxPanel = ( { showHeader = true } ) => {
 	if ( isError ) {
 		const title = __(
 			'There was an error getting your inbox. Please try again.',
-			'woocommerce'
+			'poocommerce'
 		);
-		const actionLabel = __( 'Reload', 'woocommerce' );
+		const actionLabel = __( 'Reload', 'poocommerce' );
 		const actionCallback = () => {
 			// @todo Add tracking for how often an error is displayed, and the reload action is clicked.
 			window.location.reload();
@@ -385,7 +385,7 @@ const InboxPanel = ( { showHeader = true } ) => {
 					} }
 				/>
 			) }
-			<div className="woocommerce-homepage-notes-wrapper">
+			<div className="poocommerce-homepage-notes-wrapper">
 				{ ! notesHaveResolved && ! allNotes.length && (
 					<Section>
 						<InboxNotePlaceholder className="banner message-is-unread" />

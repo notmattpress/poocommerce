@@ -1,10 +1,10 @@
 ---
-post_title: WooCommerce grammar, punctuation and capitalization guide
+post_title: PooCommerce grammar, punctuation and capitalization guide
 sidebar_label: Grammar, punctuation and capitalization
 
 ---
 
-# WooCommerce grammar, punctuation and capitalization guide
+# PooCommerce grammar, punctuation and capitalization guide
 
 Following grammar, punctuation and style guidelines helps keep our presentation consistent. Users have a better experience if they know what to expect and where to find the information they need.
 
@@ -51,8 +51,8 @@ Cases when we capitalize:
 Cases when we use lower case:
 
 - "ecommerce" (not "eCommerce")
-- email address - `info@woocommerce.com`
-- website URL - `developer.woocommerce.com`
+- email address - `info@poocommerce.com`
+- website URL - `developer.poocommerce.com`
 
 ### Contractions
 
@@ -251,7 +251,7 @@ Use brand identity names and products as written on official websites.
 
 Refer to a company or product as 'it' (not 'they').
 
-- WooCommerce is, and not WooCommerce are.
+- PooCommerce is, and not PooCommerce are.
 
 #### File extensions
 
@@ -287,7 +287,7 @@ Don't use "one" as a pronoun. Instead, use "you" when talking directly to the re
 
 Use present tense when quoting someone.
 
-- "I love that WooCommerce is free and flexible," says Brent Jamison.
+- "I love that PooCommerce is free and flexible," says Brent Jamison.
 
 #### Schools
 

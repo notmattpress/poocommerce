@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { useBlockProps } from '@wordpress/block-editor';
-import EditableButton from '@woocommerce/editor-components/editable-button';
+import EditableButton from '@poocommerce/editor-components/editable-button';
 
 /**
  * Internal dependencies

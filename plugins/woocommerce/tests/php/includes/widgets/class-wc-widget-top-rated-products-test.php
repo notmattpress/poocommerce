@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 /**
  * Tests for WC_Widget_Top_Rated_Products.
  *
- * @package WooCommerce\Tests\Widgets
+ * @package PooCommerce\Tests\Widgets
  */
 
 /**
@@ -86,7 +86,7 @@ class WC_Widget_Top_Rated_Products_Test extends \WC_Unit_Test_Case {
 			return $args;
 		};
 
-		add_filter( 'woocommerce_top_rated_products_widget_args', $suppress_filters );
+		add_filter( 'poocommerce_top_rated_products_widget_args', $suppress_filters );
 
 		try {
 			$this->assertSame(
@@ -95,7 +95,7 @@ class WC_Widget_Top_Rated_Products_Test extends \WC_Unit_Test_Case {
 				'Suppressed filters should fall back to the post meta ordering.'
 			);
 		} finally {
-			remove_filter( 'woocommerce_top_rated_products_widget_args', $suppress_filters );
+			remove_filter( 'poocommerce_top_rated_products_widget_args', $suppress_filters );
 		}
 
 		// Equally rated products fall back to the rating count, and then to the product id.
@@ -128,7 +128,7 @@ class WC_Widget_Top_Rated_Products_Test extends \WC_Unit_Test_Case {
 			return $args;
 		};
 
-		add_filter( 'woocommerce_top_rated_products_widget_args', $order_by_id );
+		add_filter( 'poocommerce_top_rated_products_widget_args', $order_by_id );
 
 		try {
 			$this->assertSame(
@@ -137,7 +137,7 @@ class WC_Widget_Top_Rated_Products_Test extends \WC_Unit_Test_Case {
 				'A filter that changes orderby should decide the ordering.'
 			);
 		} finally {
-			remove_filter( 'woocommerce_top_rated_products_widget_args', $order_by_id );
+			remove_filter( 'poocommerce_top_rated_products_widget_args', $order_by_id );
 		}
 	}
 }

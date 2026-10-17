@@ -4,7 +4,7 @@
 import { Button, Card, CardHeader } from '@wordpress/components';
 import { useEffect, useRef } from '@wordpress/element';
 import { speak } from '@wordpress/a11y';
-import { EllipsisMenu } from '@woocommerce/components';
+import { EllipsisMenu } from '@poocommerce/components';
 import { __ } from '@wordpress/i18n';
 import clsx from 'clsx';
 
@@ -30,16 +30,16 @@ export const DismissableListHeading = ( {
 } ) => {
 	return (
 		<CardHeader>
-			<div className="woocommerce-dismissable-list__header">
+			<div className="poocommerce-dismissable-list__header">
 				{ children }
 			</div>
 			<div>
 				<EllipsisMenu
-					label={ __( 'Task List Options', 'woocommerce' ) }
+					label={ __( 'Task List Options', 'poocommerce' ) }
 					renderContent={ () => (
-						<div className="woocommerce-dismissable-list__controls">
+						<div className="poocommerce-dismissable-list__controls">
 							<Button onClick={ onDismiss }>
-								{ __( 'Hide this', 'woocommerce' ) }
+								{ __( 'Hide this', 'poocommerce' ) }
 							</Button>
 						</div>
 					) }
@@ -82,7 +82,7 @@ export const DismissableList = ( {
 
 	useEffect( () => {
 		if ( isDismissed && ! wasDismissed.current ) {
-			speak( __( 'Recommendation hidden.', 'woocommerce' ), 'assertive' );
+			speak( __( 'Recommendation hidden.', 'poocommerce' ), 'assertive' );
 			wrapperRef.current?.focus();
 		}
 
@@ -95,13 +95,13 @@ export const DismissableList = ( {
 			// Programmatically focusable (not in the tab order) so focus can
 			// land here once the card unmounts on dismissal.
 			tabIndex={ -1 }
-			className="woocommerce-dismissable-list__wrapper"
+			className="poocommerce-dismissable-list__wrapper"
 		>
 			{ ! isDismissed && (
 				<Card
 					size="medium"
 					className={ clsx(
-						'woocommerce-dismissable-list',
+						'poocommerce-dismissable-list',
 						className
 					) }
 				>

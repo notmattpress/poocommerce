@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\BlockTypes\ProductCollection;
+namespace Automattic\PooCommerce\Tests\Blocks\BlockTypes\ProductCollection;
 
-use Automattic\WooCommerce\Blocks\BlockTypes\ProductCollection\Renderer;
-use Automattic\WooCommerce\Tests\Blocks\Mocks\ProductCollectionMock;
+use Automattic\PooCommerce\Blocks\BlockTypes\ProductCollection\Renderer;
+use Automattic\PooCommerce\Tests\Blocks\Mocks\ProductCollectionMock;
 use WC_Helper_Product;
 use WC_Unit_Test_Case;
 
@@ -58,7 +58,7 @@ class CartReferenceTest extends WC_Unit_Test_Case {
 		WC()->cart->add_to_cart( $cart_product->get_id() );
 
 		$parsed_block                        = Utils::get_base_parsed_block();
-		$parsed_block['attrs']['collection'] = 'woocommerce/product-collection/' . $collection;
+		$parsed_block['attrs']['collection'] = 'poocommerce/product-collection/' . $collection;
 		$renderer                            = new Renderer();
 		$context                             = $renderer->extend_context_for_inner_blocks(
 			array( Renderer::PRODUCT_REFERENCE_CONTEXT => Renderer::REFERENCE_TYPE_CART ),
@@ -76,11 +76,11 @@ class CartReferenceTest extends WC_Unit_Test_Case {
 		$query = Utils::initialize_merged_query( $sut, $parsed_block );
 		$this->assertSame( array( 101, 102 ), array_values( $query['post__in'] ) );
 
-		$parsed_block['attrs']['query']['woocommerceHandPickedProducts'] = array( 102, 103 );
+		$parsed_block['attrs']['query']['poocommerceHandPickedProducts'] = array( 102, 103 );
 		$query = Utils::initialize_merged_query( $sut, $parsed_block );
 		$this->assertSame( array( 102 ), array_values( $query['post__in'] ), 'Hand-picked products must still intersect with recommendations.' );
 
-		unset( $parsed_block['attrs']['query']['woocommerceHandPickedProducts'] );
+		unset( $parsed_block['attrs']['query']['poocommerceHandPickedProducts'] );
 		$parsed_block['attrs']['query']['productReferenceType'] = 'cart';
 		$parsed_block['attrs']['query']['productReference']     = $explicit_product->get_id();
 		$query = Utils::initialize_merged_query( $sut, $parsed_block );
@@ -123,7 +123,7 @@ class CartReferenceTest extends WC_Unit_Test_Case {
 		$block['attrs']['query']['productReferenceType'] = 'cart';
 		$sut->set_parsed_block( $block );
 		$sut->extend_context_for_inner_blocks( array( Renderer::PRODUCT_REFERENCE_CONTEXT => 'cart' ), $block );
-		$html = $sut->enhance_product_collection_with_interactivity( '<div class="wp-block-woocommerce-product-collection">Products</div>', $block );
+		$html = $sut->enhance_product_collection_with_interactivity( '<div class="wp-block-poocommerce-product-collection">Products</div>', $block );
 		$this->assertStringNotContainsString( 'callbacks.refreshCartReference', $html );
 		$this->assertSame( '', $sut->handle_rendering( '<div></div>', $block ), 'An empty explicit collection does not need a cart placeholder.' );
 	}

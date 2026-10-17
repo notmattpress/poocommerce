@@ -2,14 +2,14 @@
 /**
  * WC Admin Order Refund
  *
- * WC Admin Order Refund class that adds some functionality on top of general WooCommerce WC_Order_Refund.
+ * WC Admin Order Refund class that adds some functionality on top of general PooCommerce WC_Order_Refund.
  */
 
-namespace Automattic\WooCommerce\Admin\Overrides;
+namespace Automattic\PooCommerce\Admin\Overrides;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\API\Reports\Customers\DataStore as CustomersDataStore;
+use Automattic\PooCommerce\Admin\API\Reports\Customers\DataStore as CustomersDataStore;
 
 /**
  * WC_Order_Refund subclass.
@@ -31,7 +31,7 @@ class OrderRefund extends \WC_Order_Refund {
 	 * Add filter(s) required to hook this class to substitute WC_Order_Refund.
 	 */
 	public static function add_filters() {
-		add_filter( 'woocommerce_order_class', array( __CLASS__, 'order_class_name' ), 10, 3 );
+		add_filter( 'poocommerce_order_class', array( __CLASS__, 'order_class_name' ), 10, 3 );
 	}
 
 	/**
@@ -46,7 +46,7 @@ class OrderRefund extends \WC_Order_Refund {
 	public static function order_class_name( $classname, $order_type, $order_id ) {
 		// @todo - Only substitute class when necessary (during sync).
 		if ( 'WC_Order_Refund' === $classname ) {
-			return '\Automattic\WooCommerce\Admin\Overrides\OrderRefund';
+			return '\Automattic\PooCommerce\Admin\Overrides\OrderRefund';
 		} else {
 			return $classname;
 		}

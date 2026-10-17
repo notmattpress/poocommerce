@@ -5,13 +5,13 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce;
+namespace Automattic\PooCommerce;
 
-use Automattic\WooCommerce\Internal\DependencyManagement\ContainerException;
-use Automattic\WooCommerce\Internal\DependencyManagement\RuntimeContainer;
+use Automattic\PooCommerce\Internal\DependencyManagement\ContainerException;
+use Automattic\PooCommerce\Internal\DependencyManagement\RuntimeContainer;
 
 /**
- * PSR11 compliant dependency injection container for WooCommerce.
+ * PSR11 compliant dependency injection container for PooCommerce.
  *
  * Classes in the `src` directory should specify dependencies from that directory via an 'init' method having arguments
  * with type hints. If an instance of the container itself is needed, the type hint to use is \Psr\Container\ContainerInterface.

@@ -1,11 +1,11 @@
 <?php
 /**
- * Plugin Name: WooCommerce Beta Tester
- * Plugin URI: https://github.com/woocommerce/woocommerce-beta-tester
- * Description: Run bleeding edge versions of WooCommerce. This will replace your installed version of WooCommerce with the latest tagged release - use with caution, and not on production sites.
+ * Plugin Name: PooCommerce Beta Tester
+ * Plugin URI: https://github.com/poocommerce/poocommerce-beta-tester
+ * Description: Run bleeding edge versions of PooCommerce. This will replace your installed version of PooCommerce with the latest tagged release - use with caution, and not on production sites.
  * Version: 4.0.0
- * Author: WooCommerce
- * Author URI: https://woocommerce.com/
+ * Author: PooCommerce
+ * Author URI: https://poocommerce.com/
  * License: GPL-2.0-or-later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Requires at least: 6.8
@@ -13,7 +13,7 @@
  * Tested up to: 7.1
  * WC requires at least: 9.4
  * WC tested up to: 11.2
- * Text Domain: woocommerce-beta-tester
+ * Text Domain: poocommerce-beta-tester
  *
  * @package WC_Beta_Tester
  */
@@ -41,7 +41,7 @@ if ( ! defined( 'WC_BETA_TESTER_VERSION' ) ) {
  * @since 2.0.0
  */
 function _wc_beta_tester_load_textdomain() {
-	load_plugin_textdomain( 'woocommerce-beta-tester', false, basename( dirname( __FILE__ ) ) . '/languages' );
+	load_plugin_textdomain( 'poocommerce-beta-tester', false, basename( dirname( __FILE__ ) ) . '/languages' );
 }
 
 add_action( 'plugins_loaded', '_wc_beta_tester_load_textdomain' );
@@ -51,8 +51,8 @@ add_action( 'plugins_loaded', '_wc_beta_tester_load_textdomain' );
  */
 function _wc_beta_tester_bootstrap() {
 
-	// Check if WooCommerce is enabled.
-	if ( ! class_exists( 'WooCommerce' ) ) {
+	// Check if PooCommerce is enabled.
+	if ( ! class_exists( 'PooCommerce' ) ) {
 		include dirname( __FILE__ ) . '/includes/class-wc-beta-tester-admin-notices.php';
 		$notices = new WC_Beta_Tester_Admin_Notices();
 
@@ -97,58 +97,58 @@ function add_extension_register_script() {
 		);
 	$script_url        = plugins_url( $script_path, __FILE__ );
 
-	if ( class_exists( '\Automattic\WooCommerce\Admin\PageController' ) && \Automattic\WooCommerce\Admin\PageController::is_admin_page() ) {
+	if ( class_exists( '\Automattic\PooCommerce\Admin\PageController' ) && \Automattic\PooCommerce\Admin\PageController::is_admin_page() ) {
 		$script_asset['dependencies'][] = WC_ADMIN_APP; // Add WCA as a dependency to ensure it loads first.
 	}
 
 	wp_register_script(
-		'woocommerce-admin-test-helper',
+		'poocommerce-admin-test-helper',
 		$script_url,
 		$script_asset['dependencies'],
 		$script_asset['version'],
 		true
 	);
-	wp_enqueue_script( 'woocommerce-admin-test-helper' );
+	wp_enqueue_script( 'poocommerce-admin-test-helper' );
 
 	$css_file = dirname( __FILE__ ) . '/build/index.css';
 	if ( file_exists( $css_file ) ) {
 		$css_file_version = filemtime( $css_file );
 
 		wp_register_style(
-			'woocommerce-admin-test-helper',
+			'poocommerce-admin-test-helper',
 			plugins_url( '/build/index.css', __FILE__ ),
 			// Add any dependencies styles may have, such as wp-components.
 			array(),
 			$css_file_version
 		);
 
-		wp_enqueue_style( 'woocommerce-admin-test-helper' );
+		wp_enqueue_style( 'poocommerce-admin-test-helper' );
 	}
 }
 
 add_action( 'admin_enqueue_scripts', 'add_extension_register_script' );
 
 add_action(
-	'before_woocommerce_init',
+	'before_poocommerce_init',
 	function() {
-		if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
-			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
+		if ( class_exists( '\Automattic\PooCommerce\Utilities\FeaturesUtil' ) ) {
+			\Automattic\PooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
 		}
 	}
 );
 
 
 /**
- * Simulate a WooCommerce error for remote logging testing.
+ * Simulate a PooCommerce error for remote logging testing.
  *
- * This function adds a filter to the 'woocommerce_template_path' hook
+ * This function adds a filter to the 'poocommerce_template_path' hook
  * that throws an exception, then triggers the filter by calling WC()->template_path().
  *
- * @throws Exception A simulated WooCommerce error for testing purposes.
+ * @throws Exception A simulated PooCommerce error for testing purposes.
  */
-function simulate_woocommerce_error() {
-	// Return if WooCommerce is not loaded.
-	if ( ! function_exists( 'WC' ) || ! class_exists( 'WooCommerce' ) ) {
+function simulate_poocommerce_error() {
+	// Return if PooCommerce is not loaded.
+	if ( ! function_exists( 'WC' ) || ! class_exists( 'PooCommerce' ) ) {
 		return;
 	}
 
@@ -158,25 +158,25 @@ function simulate_woocommerce_error() {
 	}
 
 	add_filter(
-		'woocommerce_template_path',
+		'poocommerce_template_path',
 		function() {
-			throw new Exception( 'Simulated WooCommerce error for remote logging test' );
+			throw new Exception( 'Simulated PooCommerce error for remote logging test' );
 		}
 	);
 
 	WC()->template_path();
 }
 
-$simulate_error = get_option( 'wc_beta_tester_simulate_woocommerce_php_error', false );
+$simulate_error = get_option( 'wc_beta_tester_simulate_poocommerce_php_error', false );
 
 if ( $simulate_error ) {
-	delete_option( 'wc_beta_tester_simulate_woocommerce_php_error' );
+	delete_option( 'wc_beta_tester_simulate_poocommerce_php_error' );
 
 	if ( 'core' === $simulate_error ) {
 		// Hook into the plugin_loaded action to simulate the error early before WP fully initializes.
-		add_action( 'plugin_loaded', 'simulate_woocommerce_error' );
+		add_action( 'plugin_loaded', 'simulate_poocommerce_error' );
 	} elseif ( 'beta-tester' === $simulate_error ) {
-		throw new Exception( 'Test PHP exception from WooCommerce Beta Tester' );
+		throw new Exception( 'Test PHP exception from PooCommerce Beta Tester' );
 	}
 }
 

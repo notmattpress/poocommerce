@@ -3,7 +3,7 @@
  * Object Data Store Interface
  *
  * @version 3.0.0
- * @package WooCommerce\Interface
+ * @package PooCommerce\Interface
  */
 
 /**
@@ -54,7 +54,7 @@ interface WC_Object_Data_Store_Interface {
 	 * Deletes meta based on meta ID.
 	 *
 	 * Implementations might return different types.
-	 * See: https://github.com/woocommerce/woocommerce/issues/30926
+	 * See: https://github.com/poocommerce/poocommerce/issues/30926
 	 *
 	 * @param  WC_Data $data Data object.
 	 * @param  object  $meta Meta object (containing at least ->id).

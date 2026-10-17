@@ -1,17 +1,17 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\Shipping;
+namespace Automattic\PooCommerce\Tests\Blocks\Shipping;
 
-use Automattic\WooCommerce\Blocks\Assets\Api;
-use Automattic\WooCommerce\Blocks\Assets\AssetDataRegistry;
-use Automattic\WooCommerce\Blocks\Package;
-use Automattic\WooCommerce\Blocks\Shipping\ShippingController;
+use Automattic\PooCommerce\Blocks\Assets\Api;
+use Automattic\PooCommerce\Blocks\Assets\AssetDataRegistry;
+use Automattic\PooCommerce\Blocks\Package;
+use Automattic\PooCommerce\Blocks\Shipping\ShippingController;
 
 /**
  * Tests for what a collected order shows the shopper on the order received page and emails.
  *
- * `ShippingController::show_local_pickup_details()` filters `woocommerce_order_shipping_to_display`
+ * `ShippingController::show_local_pickup_details()` filters `poocommerce_order_shipping_to_display`
  * so a pickup order says where to collect from and what to do on arrival, in place of a delivery
  * line. Only an end-to-end test exercised this before; these pin it at the unit level.
  */
@@ -90,7 +90,7 @@ class ShowLocalPickupDetailsTest extends \WC_Unit_Test_Case {
 	 * @testdox A priced pickup order shows the pickup cost.
 	 */
 	public function test_a_priced_pickup_order_shows_the_cost(): void {
-		update_option( 'woocommerce_tax_display_cart', 'excl' );
+		update_option( 'poocommerce_tax_display_cart', 'excl' );
 
 		$order = new \WC_Order();
 		$item  = new \WC_Order_Item_Shipping();

@@ -3,7 +3,7 @@
  */
 import { __ } from '@wordpress/i18n';
 import { addAction } from '@wordpress/hooks';
-import type { ProductResponseItem, CartResponseItem } from '@woocommerce/types';
+import type { ProductResponseItem, CartResponseItem } from '@poocommerce/types';
 
 /**
  * Internal dependencies
@@ -61,7 +61,7 @@ addAction(
 	( { shippingRateId }: { shippingRateId: string } ): void => {
 		trackCheckoutOption( {
 			step: 4,
-			option: __( 'Shipping Method', 'woocommerce' ),
+			option: __( 'Shipping Method', 'poocommerce' ),
 			value: shippingRateId,
 		} )();
 	}
@@ -79,7 +79,7 @@ addAction(
 	( { paymentMethodSlug }: { paymentMethodSlug: string } ): void => {
 		trackCheckoutOption( {
 			step: 5,
-			option: __( 'Payment Method', 'woocommerce' ),
+			option: __( 'Payment Method', 'poocommerce' ),
 			value: paymentMethodSlug,
 		} )();
 	}
@@ -118,7 +118,7 @@ addAction(
 	} ): void => {
 		trackEvent( 'add_to_cart', {
 			event_category: 'ecommerce',
-			event_label: __( 'Add to Cart', 'woocommerce' ),
+			event_label: __( 'Add to Cart', 'poocommerce' ),
 			items: [ getProductFieldObject( product, quantity ) ],
 		} );
 	}
@@ -142,7 +142,7 @@ addAction(
 	} ): void => {
 		trackEvent( 'remove_from_cart', {
 			event_category: 'ecommerce',
-			event_label: __( 'Remove Cart Item', 'woocommerce' ),
+			event_label: __( 'Remove Cart Item', 'poocommerce' ),
 			items: [ getProductFieldObject( product, quantity ) ],
 		} );
 	}
@@ -165,7 +165,7 @@ addAction(
 	} ): void => {
 		trackEvent( 'change_cart_quantity', {
 			event_category: 'ecommerce',
-			event_label: __( 'Change Cart Item Quantity', 'woocommerce' ),
+			event_label: __( 'Change Cart Item Quantity', 'poocommerce' ),
 			items: [ getProductFieldObject( product, quantity ) ],
 		} );
 	}
@@ -182,7 +182,7 @@ addAction(
 	namespace,
 	( {
 		products,
-		listName = __( 'Product List', 'woocommerce' ),
+		listName = __( 'Product List', 'poocommerce' ),
 	}: {
 		products: Array< ProductResponseItem >;
 		listName: string;
@@ -192,7 +192,7 @@ addAction(
 		}
 		trackEvent( 'view_item_list', {
 			event_category: 'engagement',
-			event_label: __( 'Viewing products', 'woocommerce' ),
+			event_label: __( 'Viewing products', 'poocommerce' ),
 			items: products.map( ( product, index ) => ( {
 				...getProductImpressionObject( product, listName ),
 				list_position: index + 1,

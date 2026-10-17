@@ -3,13 +3,13 @@
  */
 import clsx from 'clsx';
 import { Card, CardBody } from '@wordpress/components';
-import { Stepper } from '@woocommerce/components';
+import { Stepper } from '@poocommerce/components';
 
 export const Placeholder = () => {
 	const classes = clsx(
 		'is-loading',
-		'woocommerce-task-payment-method',
-		'woocommerce-task-card'
+		'poocommerce-task-payment-method',
+		'poocommerce-task-card'
 	);
 
 	return (

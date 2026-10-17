@@ -2,7 +2,7 @@
  * External dependencies
  */
 import * as iAPI from '@wordpress/interactivity';
-import type { SelectableItemsParentStore } from '@woocommerce/types';
+import type { SelectableItemsParentStore } from '@poocommerce/types';
 
 /**
  * Internal dependencies
@@ -92,7 +92,7 @@ const productFiltersStore = {
 			const taxonomyParamsMap = config?.taxonomyParamsMap || {};
 
 			state.activeFilters.forEach( ( filter ) => {
-				// todo: refactor this to use params data from Automattic\WooCommerce\Internal\ProductFilters\Params.
+				// todo: refactor this to use params data from Automattic\PooCommerce\Internal\ProductFilters\Params.
 				const { type, value } = filter;
 
 				if ( ! value ) {
@@ -249,7 +249,7 @@ const productFiltersStore = {
 					if ( error instanceof URIError ) {
 						// eslint-disable-next-line no-console
 						console.warn(
-							'woocommerce/product-filters: Failed to decode filter parameter',
+							'poocommerce/product-filters: Failed to decode filter parameter',
 							key,
 							error
 						);

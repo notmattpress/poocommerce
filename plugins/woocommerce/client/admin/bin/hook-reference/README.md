@@ -1,6 +1,6 @@
 # Hook Reference Generator
 
-Compile a publishable JSON object of WooCommerce's JavaScript filters and slotFill entry points.
+Compile a publishable JSON object of PooCommerce's JavaScript filters and slotFill entry points.
 
 ## Usage
 

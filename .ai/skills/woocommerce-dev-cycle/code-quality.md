@@ -18,7 +18,7 @@
 
 ## Overview
 
-When making changes to the WooCommerce codebase, run these commands to ensure code quality and adherence to coding standards.
+When making changes to the PooCommerce codebase, run these commands to ensure code quality and adherence to coding standards.
 
 For detailed PHP linting patterns and common issues, see [php-linting-patterns.md](php-linting-patterns.md).
 
@@ -72,7 +72,7 @@ vendor/bin/phpcs -s path/to/file.php
 
 ```bash
 # Run JS linting on changes in your branch
-pnpm --filter=@woocommerce/plugin-woocommerce lint:changes:branch:js
+pnpm --filter=@poocommerce/plugin-poocommerce lint:changes:branch:js
 ```
 
 This command:
@@ -81,26 +81,26 @@ This command:
 - Identifies code style and potential issues
 - Does not modify files
 
-**Important:** CI's "Lint - @woocommerce/plugin-woocommerce" job runs `lint:changes:branch`, which lints every changed `.js`, `.jsx`, `.ts` and `.tsx` file under `plugins/woocommerce` with the ESLint config nearest to it, and every changed PHP file. A sub-package's own lint command can pass while this job fails, because it covers fewer files (for example, classic-assets' `lint:lang:js` skips `client/legacy/js/frontend/test/`). Before pushing, run the job's command from anywhere in the repository:
+**Important:** CI's "Lint - @poocommerce/plugin-poocommerce" job runs `lint:changes:branch`, which lints every changed `.js`, `.jsx`, `.ts` and `.tsx` file under `plugins/poocommerce` with the ESLint config nearest to it, and every changed PHP file. A sub-package's own lint command can pass while this job fails, because it covers fewer files (for example, classic-assets' `lint:lang:js` skips `client/legacy/js/frontend/test/`). Before pushing, run the job's command from anywhere in the repository:
 
 ```bash
 git fetch origin trunk
-pnpm --filter=@woocommerce/plugin-woocommerce lint:changes:branch
+pnpm --filter=@poocommerce/plugin-poocommerce lint:changes:branch
 ```
 
-It compares your working tree with the merge base of `origin/trunk` (fetch first, or a stale ref also lints files trunk changed since) and skips untracked files, so `git add` new files first. For a PR that targets another branch, fetch that branch and append it, for example `pnpm --filter=@woocommerce/plugin-woocommerce lint:changes:branch origin/release/X.Y`. For SCSS changes in `client/legacy`, also run `pnpm --filter=@woocommerce/classic-assets lint`.
+It compares your working tree with the merge base of `origin/trunk` (fetch first, or a stale ref also lints files trunk changed since) and skips untracked files, so `git add` new files first. For a PR that targets another branch, fetch that branch and append it, for example `pnpm --filter=@poocommerce/plugin-poocommerce lint:changes:branch origin/release/X.Y`. For SCSS changes in `client/legacy`, also run `pnpm --filter=@poocommerce/classic-assets lint`.
 
-**Important:** CI also runs a separate "Lint - @woocommerce/block-library" job over the whole blocks package, including stylelint for SCSS. For blocks changes, also run:
+**Important:** CI also runs a separate "Lint - @poocommerce/block-library" job over the whole blocks package, including stylelint for SCSS. For blocks changes, also run:
 
 ```bash
 # Check blocks JS/TS (ESLint with Prettier)
-pnpm --filter=@woocommerce/block-library lint:js
+pnpm --filter=@poocommerce/block-library lint:js
 
 # Check blocks SCSS, if you changed any
-pnpm --filter=@woocommerce/block-library lint:css
+pnpm --filter=@poocommerce/block-library lint:css
 
 # Auto-fix blocks JS/TS issues
-pnpm --filter=@woocommerce/block-library lint:js-fix
+pnpm --filter=@poocommerce/block-library lint:js-fix
 ```
 
 For detailed JavaScript/TypeScript linting configuration and patterns, see `client/admin/CLAUDE.md`.
@@ -164,10 +164,10 @@ git diff
 
 # 3. Stage new files, then lint PHP and JS changes (what CI's Lint job runs)
 git add -N path/to/new-file.js
-pnpm --filter=@woocommerce/plugin-woocommerce lint:changes:branch
+pnpm --filter=@poocommerce/plugin-poocommerce lint:changes:branch
 
 # 4. Fix PHP issues automatically (fix JS issues by hand)
-pnpm --filter=@woocommerce/plugin-woocommerce lint:php:fix
+pnpm --filter=@poocommerce/plugin-poocommerce lint:php:fix
 
 # 5. Review the fixes
 git diff
@@ -234,11 +234,11 @@ FOUND 2 ERRORS AFFECTING 2 LINES
 
 Before committing your changes:
 
-- [ ] `git add` any new files, then run `pnpm --filter=@woocommerce/plugin-woocommerce lint:changes:branch` (PHP and JS; this is what CI's Lint job runs, and it skips untracked files). For a PR that does not target trunk, fetch its base branch and append it, for example `origin/release/X.Y`
-- [ ] Run `pnpm --filter=@woocommerce/plugin-woocommerce lint:php:fix` if PHP issues are found; there is no branch fixer for JS, so fix JS issues by hand
+- [ ] `git add` any new files, then run `pnpm --filter=@poocommerce/plugin-poocommerce lint:changes:branch` (PHP and JS; this is what CI's Lint job runs, and it skips untracked files). For a PR that does not target trunk, fetch its base branch and append it, for example `origin/release/X.Y`
+- [ ] Run `pnpm --filter=@poocommerce/plugin-poocommerce lint:php:fix` if PHP issues are found; there is no branch fixer for JS, so fix JS issues by hand
 - [ ] If you changed a dependency, check the `pnpm-lock.yaml` diff against the merge base holds only the entries your change needs, or the PR description says why you committed pnpm's lockfile as written (see [Dependency Changes](#dependency-changes))
 - [ ] If you changed a dependency or `pnpm-lock.yaml`, run `pnpm exec syncpack lint` from the repository root; CI's "Validate dependencies version" job runs it
-- [ ] Run `pnpm --filter=@woocommerce/block-library lint:js-fix` if you modified blocks JS/TS files
+- [ ] Run `pnpm --filter=@poocommerce/block-library lint:js-fix` if you modified blocks JS/TS files
 - [ ] Review all automatic fixes with `git diff`
 - [ ] Address any remaining issues that can't be auto-fixed
 - [ ] Run tests to ensure fixes didn't break functionality
@@ -257,7 +257,7 @@ Code quality checks fit into the overall development workflow:
 
 ### Running Other pnpm Scripts
 
-WooCommerce may have additional linting scripts. Check available scripts:
+PooCommerce may have additional linting scripts. Check available scripts:
 
 ```bash
 # See all available scripts

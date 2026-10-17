@@ -49,7 +49,7 @@ const getBlockTypesToUnregister = (): string[] => {
 	if ( blockEditorContext === 'widgets' ) {
 		return registeredBlockTypes.filter(
 			( blockType ) =>
-				blockType.startsWith( 'woocommerce/' ) &&
+				blockType.startsWith( 'poocommerce/' ) &&
 				! WIDGET_EDITOR_ALLOWED_BLOCK_TYPES.includes( blockType )
 		);
 	}

@@ -15,12 +15,12 @@ const mockPlaceOrderButton = jest.fn( ( { label, CustomButtonComponent } ) => {
 	return <button>{ label }</button>;
 } );
 
-jest.mock( '@woocommerce/base-components/cart-checkout', () => ( {
+jest.mock( '@poocommerce/base-components/cart-checkout', () => ( {
 	PlaceOrderButton: ( props ) => mockPlaceOrderButton( props ),
 } ) );
 
 const mockUseCheckoutSubmit = jest.fn();
-jest.mock( '@woocommerce/base-context/hooks', () => ( {
+jest.mock( '@poocommerce/base-context/hooks', () => ( {
 	useCheckoutSubmit: () => mockUseCheckoutSubmit(),
 } ) );
 
@@ -29,29 +29,29 @@ jest.mock( '@wordpress/data', () => ( {
 	useSelect: () => mockUseSelect(),
 } ) );
 
-jest.mock( '@woocommerce/block-data', () => ( {
+jest.mock( '@poocommerce/block-data', () => ( {
 	paymentStore: 'wc/store/payment',
 } ) );
 
-jest.mock( '@woocommerce/settings', () => ( {
+jest.mock( '@poocommerce/settings', () => ( {
 	getSetting: jest.fn( () => '' ),
 } ) );
 
-jest.mock( '@woocommerce/base-context', () => ( {
+jest.mock( '@poocommerce/base-context', () => ( {
 	noticeContexts: {
 		CHECKOUT_ACTIONS: 'wc/checkout/checkout-actions',
 	},
 } ) );
 
-jest.mock( '@woocommerce/blocks-components', () => ( {
+jest.mock( '@poocommerce/blocks-components', () => ( {
 	StoreNoticesContainer: () => null,
 } ) );
 
-jest.mock( '@woocommerce/blocks-checkout', () => ( {
+jest.mock( '@poocommerce/blocks-checkout', () => ( {
 	applyCheckoutFilter: ( { defaultValue } ) => defaultValue,
 } ) );
 
-jest.mock( '@woocommerce/block-settings', () => ( {
+jest.mock( '@poocommerce/block-settings', () => ( {
 	CART_URL: '/cart',
 } ) );
 

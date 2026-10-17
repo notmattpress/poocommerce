@@ -3,7 +3,7 @@
  */
 import { createElement, useState } from '@wordpress/element';
 import { Button, Modal } from '@wordpress/components';
-import { Text } from '@woocommerce/experimental';
+import { Text } from '@poocommerce/experimental';
 import clsx from 'clsx';
 
 export type FeedbackModalProps = {
@@ -63,7 +63,7 @@ export function FeedbackModal( {
 
 	return (
 		<Modal
-			className={ clsx( 'woocommerce-feedback-modal', className ) }
+			className={ clsx( 'poocommerce-feedback-modal', className ) }
 			title={ title }
 			onRequestClose={ closeModal }
 			shouldCloseOnClickOutside={ false }
@@ -72,7 +72,7 @@ export function FeedbackModal( {
 				<Text
 					variant="body"
 					as="p"
-					className="woocommerce-feedback-modal__description"
+					className="poocommerce-feedback-modal__description"
 					size={ 14 }
 					lineHeight="20px"
 					marginBottom="1.5em"
@@ -81,7 +81,7 @@ export function FeedbackModal( {
 				</Text>
 			) }
 			{ children }
-			<div className="woocommerce-feedback-modal__buttons">
+			<div className="poocommerce-feedback-modal__buttons">
 				<Button isTertiary onClick={ onCancel } name="cancel">
 					{ cancelButtonLabel }
 				</Button>

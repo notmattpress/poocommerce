@@ -4,7 +4,7 @@
 import {
 	getFilename,
 	getPatches,
-} from '@woocommerce/monorepo-utils/src/core/git';
+} from '@poocommerce/monorepo-utils/src/core/git';
 import fs, { existsSync } from 'node:fs';
 
 /**
@@ -117,7 +117,7 @@ export const scanForHookChanges = async (
 								if ( line.match( reg ) ) {
 									const lineNum = index + 1;
 
-									ghLink = `https://github.com/woocommerce/woocommerce/blob/${ version }/${ filePath.replace(
+									ghLink = `https://github.com/poocommerce/poocommerce/blob/${ version }/${ filePath.replace(
 										/(^\/)/,
 										''
 									) }#L${ lineNum }`;

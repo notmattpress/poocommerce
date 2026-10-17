@@ -1,11 +1,11 @@
 /**
  * External dependencies
  */
-import type { ProductResponseVariationsItem } from '@woocommerce/types';
+import type { ProductResponseVariationsItem } from '@poocommerce/types';
 
 /**
  * Normalize attribute name by stripping the 'attribute_' or 'attribute_pa_' prefix
- * that WooCommerce adds for variation attributes, and replacing hyphens with spaces
+ * that PooCommerce adds for variation attributes, and replacing hyphens with spaces
  * so that slugs (e.g., "some-name") match labels (e.g., "some name").
  *
  * @param name The attribute name (e.g., 'attribute_color' or 'attribute_pa_color').

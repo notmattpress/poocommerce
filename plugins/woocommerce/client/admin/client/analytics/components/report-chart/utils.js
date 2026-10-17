@@ -3,9 +3,9 @@
  */
 import { find, get } from 'lodash';
 import moment from 'moment';
-import { flattenFilters } from '@woocommerce/navigation';
+import { flattenFilters } from '@poocommerce/navigation';
 import { format as formatDate } from '@wordpress/date';
-import { getPreviousDate } from '@woocommerce/date';
+import { getPreviousDate } from '@poocommerce/date';
 
 export const DEFAULT_FILTER = 'all';
 

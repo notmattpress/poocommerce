@@ -3,12 +3,12 @@
  */
 import { PanelBody } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
-import GridLayoutControl from '@woocommerce/editor-components/grid-layout-control';
-import { getSetting } from '@woocommerce/settings';
-import GridContentControl from '@woocommerce/editor-components/grid-content-control';
-import ProductAttributeTermControl from '@woocommerce/editor-components/product-attribute-term-control';
-import ProductOrderbyControl from '@woocommerce/editor-components/product-orderby-control';
-import ProductStockControl from '@woocommerce/editor-components/product-stock-control';
+import GridLayoutControl from '@poocommerce/editor-components/grid-layout-control';
+import { getSetting } from '@poocommerce/settings';
+import GridContentControl from '@poocommerce/editor-components/grid-content-control';
+import ProductAttributeTermControl from '@poocommerce/editor-components/product-attribute-term-control';
+import ProductOrderbyControl from '@poocommerce/editor-components/product-orderby-control';
+import ProductStockControl from '@poocommerce/editor-components/product-stock-control';
 import { InspectorControls } from '@wordpress/block-editor';
 
 /**
@@ -33,7 +33,7 @@ export const ProductsByAttributeInspectorControls = (
 
 	return (
 		<InspectorControls key="inspector">
-			<PanelBody title={ __( 'Layout', 'woocommerce' ) } initialOpen>
+			<PanelBody title={ __( 'Layout', 'poocommerce' ) } initialOpen>
 				<GridLayoutControl
 					columns={ columns }
 					rows={ rows }
@@ -45,7 +45,7 @@ export const ProductsByAttributeInspectorControls = (
 					maxRows={ getSetting( 'maxRows', 6 ) }
 				/>
 			</PanelBody>
-			<PanelBody title={ __( 'Content', 'woocommerce' ) } initialOpen>
+			<PanelBody title={ __( 'Content', 'poocommerce' ) } initialOpen>
 				<GridContentControl
 					settings={ contentVisibility }
 					onChange={ ( value ) =>
@@ -54,7 +54,7 @@ export const ProductsByAttributeInspectorControls = (
 				/>
 			</PanelBody>
 			<PanelBody
-				title={ __( 'Filter by Product Attribute', 'woocommerce' ) }
+				title={ __( 'Filter by Product Attribute', 'poocommerce' ) }
 				initialOpen={ false }
 			>
 				<ProductAttributeTermControl
@@ -76,7 +76,7 @@ export const ProductsByAttributeInspectorControls = (
 				/>
 			</PanelBody>
 			<PanelBody
-				title={ __( 'Order By', 'woocommerce' ) }
+				title={ __( 'Order By', 'poocommerce' ) }
 				initialOpen={ false }
 			>
 				<ProductOrderbyControl
@@ -85,7 +85,7 @@ export const ProductsByAttributeInspectorControls = (
 				/>
 			</PanelBody>
 			<PanelBody
-				title={ __( 'Filter by stock status', 'woocommerce' ) }
+				title={ __( 'Filter by stock status', 'poocommerce' ) }
 				initialOpen={ false }
 			>
 				<ProductStockControl

@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Internal\ProductFilters;
+namespace Automattic\PooCommerce\Tests\Internal\ProductFilters;
 
-use Automattic\WooCommerce\Internal\ProductFilters\Params;
+use Automattic\PooCommerce\Internal\ProductFilters\Params;
 
 require_once WC_ABSPATH . '/includes/class-wc-brands.php';
 
@@ -26,7 +26,7 @@ class ParamsTest extends AbstractProductFiltersTest {
 	private $sut;
 
 	/**
-	 * Callback added to the woocommerce_product_filter_params filter during a test.
+	 * Callback added to the poocommerce_product_filter_params filter during a test.
 	 *
 	 * @var callable|null
 	 */
@@ -52,7 +52,7 @@ class ParamsTest extends AbstractProductFiltersTest {
 	public function tearDown(): void {
 		try {
 			if ( null !== $this->taxonomy_params_filter ) {
-				remove_filter( 'woocommerce_product_filter_params', $this->taxonomy_params_filter );
+				remove_filter( 'poocommerce_product_filter_params', $this->taxonomy_params_filter );
 				$this->taxonomy_params_filter = null;
 			}
 		} finally {
@@ -292,7 +292,7 @@ class ParamsTest extends AbstractProductFiltersTest {
 			unset( $params['taxonomy']['product_tag'] );
 			return $params;
 		};
-		add_filter( 'woocommerce_product_filter_params', $this->taxonomy_params_filter );
+		add_filter( 'poocommerce_product_filter_params', $this->taxonomy_params_filter );
 
 		$taxonomy_params = $this->sut->get_param( 'taxonomy' );
 		$param_keys      = $this->sut->get_param_keys();
@@ -313,11 +313,11 @@ class ParamsTest extends AbstractProductFiltersTest {
 				$params['taxonomy']['product_brand'] = $claimed_param;
 				return $params;
 			};
-			add_filter( 'woocommerce_product_filter_params', $this->taxonomy_params_filter );
+			add_filter( 'poocommerce_product_filter_params', $this->taxonomy_params_filter );
 
 			$this->assertSame( 'brands', $this->sut->get_param( 'taxonomy' )['product_brand'], "The brand filter must not claim {$claimed_param}." );
 
-			remove_filter( 'woocommerce_product_filter_params', $this->taxonomy_params_filter );
+			remove_filter( 'poocommerce_product_filter_params', $this->taxonomy_params_filter );
 			$this->taxonomy_params_filter = null;
 			$this->clear_params_cache();
 		}
@@ -334,7 +334,7 @@ class ParamsTest extends AbstractProductFiltersTest {
 			$params['taxonomy']['product_brand'] = 'filter_product_brand';
 			return $params;
 		};
-		add_filter( 'woocommerce_product_filter_params', $this->taxonomy_params_filter );
+		add_filter( 'poocommerce_product_filter_params', $this->taxonomy_params_filter );
 
 		$this->assertSame( 'brands', $this->sut->get_param( 'taxonomy' )['product_brand'], 'A taxonomy cannot claim the attribute parameter with the same map key.' );
 		$this->assertSame( 'filter_product_brand', $this->sut->get_param( 'attribute' )['product_brand'], 'The original attribute parameter remains unchanged.' );
@@ -350,7 +350,7 @@ class ParamsTest extends AbstractProductFiltersTest {
 			$params['taxonomy']['product_brand'] = 'wc_shared';
 			return $params;
 		};
-		add_filter( 'woocommerce_product_filter_params', $this->taxonomy_params_filter );
+		add_filter( 'poocommerce_product_filter_params', $this->taxonomy_params_filter );
 
 		$taxonomy_params = $this->sut->get_param( 'taxonomy' );
 		$this->assertSame( 1, array_count_values( $taxonomy_params )['wc_shared'] ?? 0 );
@@ -367,10 +367,10 @@ class ParamsTest extends AbstractProductFiltersTest {
 			$params['taxonomy']['product_brand'] = 'wc_brands';
 			return $params;
 		};
-		add_filter( 'woocommerce_product_filter_params', $this->taxonomy_params_filter );
+		add_filter( 'poocommerce_product_filter_params', $this->taxonomy_params_filter );
 
 		$this->assertSame( 'wc_brands', $this->sut->get_param( 'taxonomy' )['product_brand'] );
-		remove_filter( 'woocommerce_product_filter_params', $this->taxonomy_params_filter );
+		remove_filter( 'poocommerce_product_filter_params', $this->taxonomy_params_filter );
 		$this->taxonomy_params_filter = null;
 
 		$this->assertSame( 'wc_brands', $this->sut->get_param( 'taxonomy' )['product_brand'], 'The cached map remains stable after the callback is removed.' );
@@ -400,7 +400,7 @@ class ParamsTest extends AbstractProductFiltersTest {
 		$this->taxonomy_params_filter = static function () use ( $return_values, $return_type ) {
 			return $return_values[ $return_type ];
 		};
-		add_filter( 'woocommerce_product_filter_params', $this->taxonomy_params_filter );
+		add_filter( 'poocommerce_product_filter_params', $this->taxonomy_params_filter );
 
 		$taxonomy_params = $this->sut->get_param( 'taxonomy' );
 
@@ -426,7 +426,7 @@ class ParamsTest extends AbstractProductFiltersTest {
 
 			return $params;
 		};
-		add_filter( 'woocommerce_product_filter_params', $this->taxonomy_params_filter );
+		add_filter( 'poocommerce_product_filter_params', $this->taxonomy_params_filter );
 
 		$taxonomy_params = $this->sut->get_param( 'taxonomy' );
 		$param_keys      = $this->sut->get_param_keys();

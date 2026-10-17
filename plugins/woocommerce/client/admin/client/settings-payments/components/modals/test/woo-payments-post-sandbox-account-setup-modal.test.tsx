@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 import { render, fireEvent } from '@testing-library/react';
 
 /**
@@ -9,7 +9,7 @@ import { render, fireEvent } from '@testing-library/react';
  */
 import { WooPaymentsPostSandboxAccountSetupModal } from '..';
 
-jest.mock( '@woocommerce/tracks', () => ( {
+jest.mock( '@poocommerce/tracks', () => ( {
 	recordEvent: jest.fn(),
 } ) );
 
@@ -32,7 +32,7 @@ describe( 'WooPaymentsPostSandboxAccountSetupModal', () => {
 			'settings_payments_switch_to_live_account_click',
 			expect.objectContaining( {
 				business_country: expect.any( String ),
-				provider_id: 'woocommerce_payments',
+				provider_id: 'poocommerce_payments',
 			} )
 		);
 	} );
@@ -55,7 +55,7 @@ describe( 'WooPaymentsPostSandboxAccountSetupModal', () => {
 			'settings_payments_continue_store_setup_click',
 			expect.objectContaining( {
 				business_country: expect.any( String ),
-				provider_id: 'woocommerce_payments',
+				provider_id: 'poocommerce_payments',
 			} )
 		);
 	} );

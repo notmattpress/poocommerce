@@ -4,8 +4,8 @@
 import { __, sprintf } from '@wordpress/i18n';
 import { decodeEntities } from '@wordpress/html-entities';
 import { resolveSelect } from '@wordpress/data';
-import { COUNTRIES_STORE_NAME } from '@woocommerce/data';
-import { Flag } from '@woocommerce/components';
+import { COUNTRIES_STORE_NAME } from '@poocommerce/data';
+import { Flag } from '@poocommerce/components';
 
 // Cache the locations to avoid rebuilding a few thousand of them on every keystroke.
 let allLocations = null;
@@ -46,7 +46,7 @@ async function getLocations() {
 				// long label wraps a character at a time in the results list.
 				label: sprintf(
 					/* translators: 1: state name, 2: country code. Example: California (US) */
-					__( '%1$s (%2$s)', 'woocommerce' ),
+					__( '%1$s (%2$s)', 'poocommerce' ),
 					stateName,
 					country.code
 				),
@@ -94,7 +94,7 @@ function highlightMatch( label, query ) {
 export const locationsAutocompleter = {
 	name: 'locations',
 	// Every result carries a flag beside a name, so it takes the country result styles.
-	className: 'woocommerce-search__country-result',
+	className: 'poocommerce-search__country-result',
 	isDebounced: true,
 	options: getLocations,
 	getOptionIdentifier( location ) {
@@ -116,14 +116,14 @@ export const locationsAutocompleter = {
 			<>
 				<Flag
 					key="thumbnail"
-					className="woocommerce-search__result-thumbnail"
+					className="poocommerce-search__result-thumbnail"
 					code={ location.country }
 					size={ 18 }
 					hideFromScreenReader
 				/>
 				<span
 					key="name"
-					className="woocommerce-search__result-name"
+					className="poocommerce-search__result-name"
 					aria-label={ location.label }
 				>
 					{ before }

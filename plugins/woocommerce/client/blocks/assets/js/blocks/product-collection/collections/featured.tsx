@@ -16,9 +16,9 @@ import { CoreCollectionNames, CoreFilterNames } from '../types';
 
 const collection = {
 	name: CoreCollectionNames.FEATURED,
-	title: __( 'Featured Products', 'woocommerce' ),
+	title: __( 'Featured Products', 'poocommerce' ),
 	icon: <Icon icon={ starFilled } />,
-	description: __( 'Showcase your featured products.', 'woocommerce' ),
+	description: __( 'Showcase your featured products.', 'poocommerce' ),
 	keywords: [],
 	scope: [ 'inserter', 'block' ] as BlockVariationScope[],
 };
@@ -42,7 +42,7 @@ const heading: InnerBlockTemplate = [
 	{
 		textAlign: 'center',
 		level: 2,
-		content: __( 'Featured products', 'woocommerce' ),
+		content: __( 'Featured products', 'poocommerce' ),
 		style: { spacing: { margin: { bottom: '1rem' } } },
 	},
 ];

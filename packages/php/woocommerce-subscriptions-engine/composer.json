@@ -1,6 +1,6 @@
 {
-	"name": "automattic/woocommerce-subscriptions-engine",
-	"description": "Subscriptions engine for WooCommerce.",
+	"name": "automattic/poocommerce-subscriptions-engine",
+	"description": "Subscriptions engine for PooCommerce.",
 	"type": "wordpress-plugin",
 	"license": "GPL-2.0-or-later",
 	"prefer-stable": true,
@@ -8,7 +8,7 @@
 	"version": "0.0.1",
 	"autoload": {
 		"psr-4": {
-			"Automattic\\WooCommerce\\SubscriptionsEngine\\": "src/"
+			"Automattic\\PooCommerce\\SubscriptionsEngine\\": "src/"
 		}
 	},
 	"autoload-dev": {
@@ -23,7 +23,7 @@
 	"require-dev": {
 		"automattic/jetpack-changelogger": "3.3.0",
 		"phpunit/phpunit": "^9.6",
-		"woocommerce/woocommerce-sniffs": "1.0.0",
+		"poocommerce/poocommerce-sniffs": "1.0.0",
 		"yoast/phpunit-polyfills": "^4.0"
 	},
 	"config": {
@@ -45,7 +45,7 @@
 		"env:stop": "npx wp-env stop",
 		"env:destroy": "npx wp-env destroy",
 		"test:unit": "phpunit",
-		"test:integration": "npx wp-env run tests-cli --env-cwd=wp-content/plugins/woocommerce-subscriptions-engine ./vendor/bin/phpunit --configuration phpunit-integration.xml.dist",
+		"test:integration": "npx wp-env run tests-cli --env-cwd=wp-content/plugins/poocommerce-subscriptions-engine ./vendor/bin/phpunit --configuration phpunit-integration.xml.dist",
 		"phpcs": "phpcs -s -p",
 		"phpcbf": "phpcbf -p"
 	},

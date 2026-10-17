@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Admin\RemoteSpecs\RuleProcessors;
+namespace Automattic\PooCommerce\Tests\Admin\RemoteSpecs\RuleProcessors;
 
-use Automattic\WooCommerce\Admin\DateTimeProvider\DateTimeProviderInterface;
-use Automattic\WooCommerce\Admin\RemoteSpecs\RuleProcessors\TotalPaymentsVolumeProcessor;
+use Automattic\PooCommerce\Admin\DateTimeProvider\DateTimeProviderInterface;
+use Automattic\PooCommerce\Admin\RemoteSpecs\RuleProcessors\TotalPaymentsVolumeProcessor;
 use DateTime;
 use DateTimeZone;
 use WC_Unit_Test_Case;

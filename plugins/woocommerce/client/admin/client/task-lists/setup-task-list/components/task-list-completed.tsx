@@ -19,24 +19,24 @@ export const TaskListCompleted = ( {
 		<>
 			<div
 				className={ clsx(
-					'woocommerce-task-dashboard__container setup-task-list'
+					'poocommerce-task-dashboard__container setup-task-list'
 				) }
 			>
 				<Card
 					size="large"
-					className="woocommerce-task-card woocommerce-homescreen-card completed"
+					className="poocommerce-task-card poocommerce-homescreen-card completed"
 				>
 					<CardHeader size="medium">
-						<div className="woocommerce-task-card__header">
+						<div className="poocommerce-task-card__header">
 							<img src={ HeaderImage } alt="Completed" />
 							<h2>
 								{ __(
 									'You’ve completed store setup',
-									'woocommerce'
+									'poocommerce'
 								) }
 							</h2>
 							<Button variant="primary" onClick={ hideTasks }>
-								{ __( 'Hide this list', 'woocommerce' ) }
+								{ __( 'Hide this list', 'poocommerce' ) }
 							</Button>
 						</div>
 					</CardHeader>

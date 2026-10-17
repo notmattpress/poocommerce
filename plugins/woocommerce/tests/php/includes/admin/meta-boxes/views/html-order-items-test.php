@@ -2,7 +2,7 @@
 /**
  * Tests for the order items meta box view.
  *
- * @package WooCommerce\Tests\Admin
+ * @package PooCommerce\Tests\Admin
  */
 
 declare( strict_types = 1 );

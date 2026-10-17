@@ -72,7 +72,7 @@ An example of data held within the Payment Data Store is shown below. This examp
 
 ## Usage
 
-To utilize this store you will import the `paymentStore` `StoreDescriptor` in any module referencing it. Assuming `@woocommerce/block-data` is registered as an external pointing to `wc.wcBlocksData` you can import the key via:
+To utilize this store you will import the `paymentStore` `StoreDescriptor` in any module referencing it. Assuming `@poocommerce/block-data` is registered as an external pointing to `wc.wcBlocksData` you can import the key via:
 
 ```js
 const { paymentStore } = window.wc.wcBlocksData;
@@ -313,7 +313,7 @@ Returns all saved payment methods for the current customer.
 
 #### _Returns_ 
 
--   `object`: The saved payment methods for the current customer. This is an object, it will be specific to each payment method. Since WooCommerce 11.3.0, each saved method includes `display_name`, the label the token's `WC_Payment_Token::get_display_name()` method returns. Checkout builds card and eCheck labels from `method` and `expires` instead, so `display_name` can differ from the label Checkout shows. As an example, Stripe's saved tokens are returned like so:
+-   `object`: The saved payment methods for the current customer. This is an object, it will be specific to each payment method. Since PooCommerce 11.3.0, each saved method includes `display_name`, the label the token's `WC_Payment_Token::get_display_name()` method returns. Checkout builds card and eCheck labels from `method` and `expires` instead, so `display_name` can differ from the label Checkout shows. As an example, Stripe's saved tokens are returned like so:
 
 ```js
 savedPaymentMethods: {

@@ -16,7 +16,7 @@ import {
 import { decodeEntities } from '@wordpress/html-entities';
 import apiFetch from '@wordpress/api-fetch';
 
-import type { PostWithPermissions } from '@woocommerce/email-editor';
+import type { PostWithPermissions } from '@poocommerce/email-editor';
 
 function getItemTitle( item: {
 	title: string | { rendered: string } | { raw: string };
@@ -40,7 +40,7 @@ const getResetNotificationEmailContentAction = () => {
 	 */
 	const resetNotificationEmailContent = {
 		id: 'reset-notification-email-content',
-		label: __( 'Reset', 'woocommerce' ),
+		label: __( 'Reset', 'poocommerce' ),
 		supportsBulk: false,
 		icon: backup,
 		isEligible( item: PostWithPermissions ) {
@@ -75,7 +75,7 @@ const getResetNotificationEmailContentAction = () => {
 				// translators: %s: The email's title
 				__(
 					'Are you sure you want to reset "%s" content to the default?',
-					'woocommerce'
+					'poocommerce'
 				),
 				getItemTitle( item )
 			);
@@ -92,7 +92,7 @@ const getResetNotificationEmailContentAction = () => {
 							disabled={ isBusy }
 							__next40pxDefaultSize
 						>
-							{ __( 'Cancel', 'woocommerce' ) }
+							{ __( 'Cancel', 'poocommerce' ) }
 						</Button>
 						<Button
 							variant="primary"
@@ -101,7 +101,7 @@ const getResetNotificationEmailContentAction = () => {
 
 								try {
 									const response = ( await apiFetch( {
-										path: `/woocommerce-email-editor/v1/emails/${ item.id }/reset`,
+										path: `/poocommerce-email-editor/v1/emails/${ item.id }/reset`,
 										method: 'POST',
 									} ) ) as { content: string };
 
@@ -144,7 +144,7 @@ const getResetNotificationEmailContentAction = () => {
 										/* translators: The email's title. */
 										__(
 											'"%s" content reset to default.',
-											'woocommerce'
+											'poocommerce'
 										),
 										getItemTitle( item )
 									);
@@ -158,7 +158,7 @@ const getResetNotificationEmailContentAction = () => {
 								} catch ( error ) {
 									let errorMessage = __< string >(
 										'An error occurred while resetting the email content.',
-										'woocommerce'
+										'poocommerce'
 									);
 
 									if (
@@ -182,7 +182,7 @@ const getResetNotificationEmailContentAction = () => {
 							disabled={ isBusy }
 							__next40pxDefaultSize
 						>
-							{ __( 'Reset', 'woocommerce' ) }
+							{ __( 'Reset', 'poocommerce' ) }
 						</Button>
 					</HStack>
 				</VStack>

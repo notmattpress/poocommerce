@@ -3,7 +3,7 @@
  * Abstract class for product form components.
  */
 
-namespace Automattic\WooCommerce\Internal\Admin\ProductForm;
+namespace Automattic\PooCommerce\Internal\Admin\ProductForm;
 
 /**
  * Component class.

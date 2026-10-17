@@ -2,9 +2,9 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Utilities;
+namespace Automattic\PooCommerce\Tests\Utilities;
 
-use Automattic\WooCommerce\Utilities\NumberUtil;
+use Automattic\PooCommerce\Utilities\NumberUtil;
 
 /**
  * A collection of tests for the string utility class.
@@ -326,9 +326,9 @@ class NumberUtilTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_sanitize_cost_in_current_locale( $input, string $expected, string $thousand_separator, string $decimal_separator, string $currency_symbol ) {
 		// Set up locale settings via WordPress options.
-		update_option( 'woocommerce_currency', '$' === $currency_symbol ? 'USD' : 'EUR' );
-		update_option( 'woocommerce_price_thousand_sep', $thousand_separator );
-		update_option( 'woocommerce_price_decimal_sep', $decimal_separator );
+		update_option( 'poocommerce_currency', '$' === $currency_symbol ? 'USD' : 'EUR' );
+		update_option( 'poocommerce_price_thousand_sep', $thousand_separator );
+		update_option( 'poocommerce_price_decimal_sep', $decimal_separator );
 
 		$actual = NumberUtil::sanitize_cost_in_current_locale( $input );
 		$this->assertEquals( $expected, $actual );
@@ -338,10 +338,10 @@ class NumberUtilTest extends \WC_Unit_Test_Case {
 	 * @testdox sanitize_cost_in_current_locale should properly handle slashes in input
 	 */
 	public function test_sanitize_cost_in_current_locale_slashes() {
-		update_option( 'woocommerce_currency', 'USD' );
-		update_option( 'woocommerce_currency_pos', 'left' );
-		update_option( 'woocommerce_price_thousand_sep', ',' );
-		update_option( 'woocommerce_price_decimal_sep', '.' );
+		update_option( 'poocommerce_currency', 'USD' );
+		update_option( 'poocommerce_currency_pos', 'left' );
+		update_option( 'poocommerce_price_thousand_sep', ',' );
+		update_option( 'poocommerce_price_decimal_sep', '.' );
 
 		$actual = NumberUtil::sanitize_cost_in_current_locale( '1\\,234\\.56' );
 		$this->assertEquals( '1234.56', $actual );
@@ -351,10 +351,10 @@ class NumberUtilTest extends \WC_Unit_Test_Case {
 	 * @testdox sanitize_cost_in_current_locale should error with unrelated HTML entities in input
 	 */
 	public function test_sanitize_cost_in_current_locale_html_entities() {
-		update_option( 'woocommerce_currency', 'USD' );
-		update_option( 'woocommerce_currency_pos', 'left' );
-		update_option( 'woocommerce_price_thousand_sep', ',' );
-		update_option( 'woocommerce_price_decimal_sep', '.' );
+		update_option( 'poocommerce_currency', 'USD' );
+		update_option( 'poocommerce_currency_pos', 'left' );
+		update_option( 'poocommerce_price_thousand_sep', ',' );
+		update_option( 'poocommerce_price_decimal_sep', '.' );
 
 		$this->expectExceptionMessage( '1,234.56&nbsp; is not a valid numeric value. Allowed characters are numbers, the thousand (,), and decimal (.) separators.' );
 		NumberUtil::sanitize_cost_in_current_locale( '&#36;1,234.56&nbsp;' );
@@ -364,10 +364,10 @@ class NumberUtilTest extends \WC_Unit_Test_Case {
 	 * @testdox sanitize_cost_in_current_locale should error with unsafe HTML in input
 	 */
 	public function test_sanitize_cost_in_current_locale_unsafe_html() {
-		update_option( 'woocommerce_currency', 'USD' );
-		update_option( 'woocommerce_currency_pos', 'left' );
-		update_option( 'woocommerce_price_thousand_sep', ',' );
-		update_option( 'woocommerce_price_decimal_sep', '.' );
+		update_option( 'poocommerce_currency', 'USD' );
+		update_option( 'poocommerce_currency_pos', 'left' );
+		update_option( 'poocommerce_price_thousand_sep', ',' );
+		update_option( 'poocommerce_price_decimal_sep', '.' );
 
 		$this->expectExceptionMessage( '&lt;b&gt;1,234.56&lt;/b&gt;alert(&quot;bad&quot;) is not a valid numeric value. Allowed characters are numbers, the thousand (,), and decimal (.) separators.' );
 		NumberUtil::sanitize_cost_in_current_locale( '<b>1,234.56</b><script>alert("bad")</script>' );
@@ -649,9 +649,9 @@ class NumberUtilTest extends \WC_Unit_Test_Case {
 		bool $should_throw
 	) {
 		// Set up locale settings via WordPress options.
-		update_option( 'woocommerce_currency', '$' === $currency_symbol ? 'USD' : ( '€' === $currency_symbol ? 'EUR' : 'CHF' ) );
-		update_option( 'woocommerce_price_thousand_sep', $thousand_separator );
-		update_option( 'woocommerce_price_decimal_sep', $decimal_separator );
+		update_option( 'poocommerce_currency', '$' === $currency_symbol ? 'USD' : ( '€' === $currency_symbol ? 'EUR' : 'CHF' ) );
+		update_option( 'poocommerce_price_thousand_sep', $thousand_separator );
+		update_option( 'poocommerce_price_decimal_sep', $decimal_separator );
 
 		if ( $should_throw ) {
 			try {
@@ -736,9 +736,9 @@ class NumberUtilTest extends \WC_Unit_Test_Case {
 		string $expected_error
 	) {
 		// Set up locale settings.
-		update_option( 'woocommerce_currency', '$' === $currency_symbol ? 'USD' : ( '€' === $currency_symbol ? 'EUR' : 'CHF' ) );
-		update_option( 'woocommerce_price_thousand_sep', $thousand_separator );
-		update_option( 'woocommerce_price_decimal_sep', $decimal_separator );
+		update_option( 'poocommerce_currency', '$' === $currency_symbol ? 'USD' : ( '€' === $currency_symbol ? 'EUR' : 'CHF' ) );
+		update_option( 'poocommerce_price_thousand_sep', $thousand_separator );
+		update_option( 'poocommerce_price_decimal_sep', $decimal_separator );
 
 		$this->expectException( \InvalidArgumentException::class );
 		$this->expectExceptionMessage( $expected_error );

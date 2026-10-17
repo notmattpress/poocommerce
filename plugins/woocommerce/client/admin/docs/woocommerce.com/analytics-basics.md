@@ -1,6 +1,6 @@
-# Using WooCommerce Analytics Reports
+# Using PooCommerce Analytics Reports
 
-Most of the new reports in the WooCommerce Analytics section have a set of common tools. This document will introduce you to those features, and how they can be utilized to customize and dive-deeper into the various new analytics reports.
+Most of the new reports in the PooCommerce Analytics section have a set of common tools. This document will introduce you to those features, and how they can be utilized to customize and dive-deeper into the various new analytics reports.
 
 ## Date Range Picker
 
@@ -91,7 +91,7 @@ If you would like to download a copy of the data contained in the report table, 
 
 ![Analytics Table csv Download Email](analytics-basics-download-email.png)
 
-If your selected date range results in a data set that spans more then one page in the table, your csv download will be processed as a background job by WooCommerce. Once the data is ready to be downloaded, an email will be sent to the address that is attached to your WordPress account with a link to download the file.
+If your selected date range results in a data set that spans more then one page in the table, your csv download will be processed as a background job by PooCommerce. Once the data is ready to be downloaded, an email will be sent to the address that is attached to your WordPress account with a link to download the file.
 
 ### Table Pagination
 

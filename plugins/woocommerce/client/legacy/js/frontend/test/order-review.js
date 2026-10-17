@@ -57,23 +57,23 @@ describe( 'Review Order frontend behavior', () => {
 
 	test( 'dismisses disabled-products notice with the production hidden class', () => {
 		document.body.innerHTML = `
-			<div class="woocommerce-review-order__notice">
-				<button class="woocommerce-review-order__notice-dismiss" type="button">Dismiss</button>
+			<div class="poocommerce-review-order__notice">
+				<button class="poocommerce-review-order__notice-dismiss" type="button">Dismiss</button>
 			</div>
 		`;
 
 		initializeReviewOrder();
 
 		const notice = document.querySelector(
-			'.woocommerce-review-order__notice'
+			'.poocommerce-review-order__notice'
 		);
 		notice
-			.querySelector( '.woocommerce-review-order__notice-dismiss' )
+			.querySelector( '.poocommerce-review-order__notice-dismiss' )
 			.click();
 
 		expect(
 			notice.classList.contains(
-				'woocommerce-review-order__notice--hidden'
+				'poocommerce-review-order__notice--hidden'
 			)
 		).toBe( true );
 	} );
@@ -93,31 +93,31 @@ describe( 'Review Order frontend behavior', () => {
 		global.fetch = window.fetch;
 		window.FormData = TestFormData;
 		document.body.innerHTML = `
-			<form class="woocommerce-review-order__form" data-ajax-url="${ ajaxUrl }">
-				<div class="woocommerce-review-order__item" data-initial-rating="0" data-initial-text="">
-					<h3 class="woocommerce-review-order__item-title">Product</h3>
-					<div class="woocommerce-star-rating">
-						<input class="woocommerce-star-rating__input" name="rating" type="radio" value="5" data-label="5 stars" />
+			<form class="poocommerce-review-order__form" data-ajax-url="${ ajaxUrl }">
+				<div class="poocommerce-review-order__item" data-initial-rating="0" data-initial-text="">
+					<h3 class="poocommerce-review-order__item-title">Product</h3>
+					<div class="poocommerce-star-rating">
+						<input class="poocommerce-star-rating__input" name="rating" type="radio" value="5" data-label="5 stars" />
 					</div>
-					<textarea class="woocommerce-review-order__item-review-textarea" name="review"></textarea>
+					<textarea class="poocommerce-review-order__item-review-textarea" name="review"></textarea>
 				</div>
-				<button class="woocommerce-review-order__submit" type="submit">Submit</button>
+				<button class="poocommerce-review-order__submit" type="submit">Submit</button>
 			</form>
 		`;
 
 		initializeReviewOrder();
 
 		const form = document.querySelector(
-			'.woocommerce-review-order__form'
+			'.poocommerce-review-order__form'
 		);
 		const rating = document.querySelector(
-			'.woocommerce-star-rating__input'
+			'.poocommerce-star-rating__input'
 		);
 		const textarea = form.querySelector(
-			'.woocommerce-review-order__item-review-textarea'
+			'.poocommerce-review-order__item-review-textarea'
 		);
 		const submit = form.querySelector(
-			'.woocommerce-review-order__submit'
+			'.poocommerce-review-order__submit'
 		);
 
 		expect( submit.disabled ).toBe( true );

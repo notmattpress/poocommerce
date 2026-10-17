@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { getPaymentMethods } from '@woocommerce/blocks-registry';
+import { getPaymentMethods } from '@poocommerce/blocks-registry';
 
 /**
  * Internal dependencies

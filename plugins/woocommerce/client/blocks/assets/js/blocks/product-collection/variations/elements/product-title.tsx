@@ -18,10 +18,10 @@ const registerProductTitle = () => {
 	registerElementVariation( CORE_NAME, {
 		blockDescription: __(
 			'Display the title of a product.',
-			'woocommerce'
+			'poocommerce'
 		),
 		blockIcon: <Icon icon={ heading } />,
-		blockTitle: __( 'Product Title', 'woocommerce' ),
+		blockTitle: __( 'Product Title', 'poocommerce' ),
 		variationName: VARIATION_NAME,
 		scope: [ 'block', 'inserter' ],
 	} );

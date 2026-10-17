@@ -9,9 +9,9 @@ import {
 	getHistory,
 	getNewPath,
 	getPersistedQuery,
-} from '@woocommerce/navigation';
-import { getAdminLink } from '@woocommerce/settings';
-import { Text } from '@woocommerce/experimental';
+} from '@poocommerce/navigation';
+import { getAdminLink } from '@poocommerce/settings';
+import { Text } from '@poocommerce/experimental';
 
 /**
  * Internal dependencies
@@ -45,10 +45,10 @@ class ChartBlock extends Component {
 		return (
 			<div
 				role="presentation"
-				className="woocommerce-dashboard__chart-block-wrapper"
+				className="poocommerce-dashboard__chart-block-wrapper"
 				onClick={ this.handleChartClick }
 			>
-				<Card className="woocommerce-dashboard__chart-block">
+				<Card className="poocommerce-dashboard__chart-block">
 					<CardHeader>
 						<Text
 							as="h3"
@@ -68,7 +68,7 @@ class ChartBlock extends Component {
 						>
 							{ sprintf(
 								/* translators: %s is the chart type */
-								__( '%s Report', 'woocommerce' ),
+								__( '%s Report', 'poocommerce' ),
 								selectedChart.label
 							) }
 						</a>

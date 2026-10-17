@@ -1,8 +1,8 @@
 <?php
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\Utils\StyleAttributesUtils;
+use Automattic\PooCommerce\Blocks\Utils\StyleAttributesUtils;
 
 /**
  * StoreNotices class.
@@ -31,14 +31,14 @@ class StoreNotices extends AbstractBlock {
 		 * functions on the front end requests only. So it's safe and handy to
 		 * check for the print notice function existence to short circuit the
 		 * render process on the admin side.
-		 * See WooCommerce::is_request() for the frontend request definition.
+		 * See PooCommerce::is_request() for the frontend request definition.
 		 */
 		if ( ! function_exists( 'wc_print_notices' ) ) {
 			return $content;
 		}
 
 		ob_start();
-		woocommerce_output_all_notices();
+		poocommerce_output_all_notices();
 		$notices = ob_get_clean();
 
 		if ( ! $notices ) {
@@ -51,7 +51,7 @@ class StoreNotices extends AbstractBlock {
 			'<div %1$s>%2$s</div>',
 			get_block_wrapper_attributes(
 				array(
-					'class' => 'wc-block-store-notices woocommerce ' . esc_attr( $classes_and_styles['classes'] ),
+					'class' => 'wc-block-store-notices poocommerce ' . esc_attr( $classes_and_styles['classes'] ),
 				)
 			),
 			wc_kses_notice( $notices )

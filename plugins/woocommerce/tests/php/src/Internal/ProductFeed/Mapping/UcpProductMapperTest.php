@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\ProductFeed\Mapping;
+namespace Automattic\PooCommerce\Tests\Internal\ProductFeed\Mapping;
 
-use Automattic\WooCommerce\Internal\ProductFeed\Mapping\ProductShapeMapperInterface;
-use Automattic\WooCommerce\Internal\ProductFeed\Mapping\UcpProductMapper;
+use Automattic\PooCommerce\Internal\ProductFeed\Mapping\ProductShapeMapperInterface;
+use Automattic\PooCommerce\Internal\ProductFeed\Mapping\UcpProductMapper;
 use WC_Helper_Product;
 
 /**

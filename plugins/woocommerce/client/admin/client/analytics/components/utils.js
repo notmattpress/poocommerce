@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { usesServerSideSearch } from '@woocommerce/data';
+import { usesServerSideSearch } from '@poocommerce/data';
 
 /**
  * Whether a report should render its empty search state.
@@ -39,7 +39,7 @@ export function hasEmptySearchResults( query, limitBy ) {
 export function getEmptyMessage( query, limitBy ) {
 	if ( hasEmptySearchResults( query, limitBy ) ) {
 		// The client resolved the search itself, so it knows the term is what matched nothing.
-		return __( 'No data for the current search', 'woocommerce' );
+		return __( 'No data for the current search', 'poocommerce' );
 	}
 
 	if ( query.search && usesServerSideSearch( limitBy ) ) {
@@ -47,9 +47,9 @@ export function getEmptyMessage( query, limitBy ) {
 		// without data in the period, so name both rather than blame the wrong one.
 		return __(
 			'No data for the current search in the selected date range',
-			'woocommerce'
+			'poocommerce'
 		);
 	}
 
-	return __( 'No data for the selected date range', 'woocommerce' );
+	return __( 'No data for the selected date range', 'poocommerce' );
 }

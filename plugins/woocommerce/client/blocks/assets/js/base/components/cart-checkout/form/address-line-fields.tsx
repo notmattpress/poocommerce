@@ -1,9 +1,9 @@
 /**
  * External dependencies
  */
-import { getSettingWithCoercion } from '@woocommerce/settings';
-import { ServerAddressAutocompleteProvider } from '@woocommerce/type-defs/address-autocomplete';
-import { ValidatedTextInput } from '@woocommerce/blocks-components';
+import { getSettingWithCoercion } from '@poocommerce/settings';
+import { ServerAddressAutocompleteProvider } from '@poocommerce/type-defs/address-autocomplete';
+import { ValidatedTextInput } from '@poocommerce/blocks-components';
 
 /**
  * Internal dependencies

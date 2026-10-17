@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\Shipping;
+namespace Automattic\PooCommerce\Tests\Blocks\Shipping;
 
-use Automattic\WooCommerce\StoreApi\Utilities\LocalPickupUtils;
+use Automattic\PooCommerce\StoreApi\Utilities\LocalPickupUtils;
 use WC_Unit_Test_Case;
 
 /**
@@ -25,20 +25,20 @@ class PickupIdentityTest extends WC_Unit_Test_Case {
 
 	/**
 	 * Local pickup is only registered while the checkout is the block one, and it is registered on
-	 * woocommerce_load_shipping_methods, which fires once. Anything that loaded the methods earlier
+	 * poocommerce_load_shipping_methods, which fires once. Anything that loaded the methods earlier
 	 * in the process did so against the old page, so the methods have to be loaded again here.
 	 */
 	public function setUp(): void {
 		parent::setUp();
 
-		$this->original_checkout_page_id = get_option( 'woocommerce_checkout_page_id' );
+		$this->original_checkout_page_id = get_option( 'poocommerce_checkout_page_id' );
 		update_option(
-			'woocommerce_checkout_page_id',
+			'poocommerce_checkout_page_id',
 			$this->factory->post->create(
 				array(
 					'post_type'    => 'page',
 					'post_title'   => 'Checkout',
-					'post_content' => '<!-- wp:woocommerce/checkout /-->',
+					'post_content' => '<!-- wp:poocommerce/checkout /-->',
 					'post_status'  => 'publish',
 				)
 			)
@@ -52,7 +52,7 @@ class PickupIdentityTest extends WC_Unit_Test_Case {
 	 */
 	public function tearDown(): void {
 		try {
-			update_option( 'woocommerce_checkout_page_id', $this->original_checkout_page_id );
+			update_option( 'poocommerce_checkout_page_id', $this->original_checkout_page_id );
 			$this->reload_shipping_methods();
 		} finally {
 			parent::tearDown();
@@ -121,7 +121,7 @@ class PickupIdentityTest extends WC_Unit_Test_Case {
 		$this->assertTrue( $order->needs_shipping_address(), 'Before the extension speaks up, it is an ordinary delivery.' );
 
 		add_filter(
-			'woocommerce_order_hide_shipping_address',
+			'poocommerce_order_hide_shipping_address',
 			static function ( $methods ) {
 				$methods[] = 'depot_collection';
 				return $methods;
@@ -146,24 +146,24 @@ class PickupIdentityTest extends WC_Unit_Test_Case {
 			return array();
 		};
 
-		add_filter( 'woocommerce_order_hide_shipping_address', $empty_it, 5 );
+		add_filter( 'poocommerce_order_hide_shipping_address', $empty_it, 5 );
 		$this->assertFalse(
 			$order->needs_shipping_address(),
 			'A filter running before the controller should not be able to turn collection back into delivery.'
 		);
-		remove_filter( 'woocommerce_order_hide_shipping_address', $empty_it, 5 );
+		remove_filter( 'poocommerce_order_hide_shipping_address', $empty_it, 5 );
 
-		add_filter( 'woocommerce_order_hide_shipping_address', $empty_it, 20 );
+		add_filter( 'poocommerce_order_hide_shipping_address', $empty_it, 20 );
 		$this->assertTrue(
 			$order->needs_shipping_address(),
 			'Running after the controller, the same filter does have the last word.'
 		);
-		remove_filter( 'woocommerce_order_hide_shipping_address', $empty_it, 20 );
+		remove_filter( 'poocommerce_order_hide_shipping_address', $empty_it, 20 );
 	}
 
 	/**
 	 * Two lists answer "is this collection" and they do not agree. The canonical
-	 * `woocommerce_local_pickup_methods` list names `legacy_local_pickup` so that an order placed
+	 * `poocommerce_local_pickup_methods` list names `legacy_local_pickup` so that an order placed
 	 * with the pre-zones method is still taxed at the shop. The registered list is built from the
 	 * methods that declare `local-pickup` support, and the legacy class never declares it, so it is
 	 * missing there even on a store where it is loaded and enabled.
@@ -174,8 +174,8 @@ class PickupIdentityTest extends WC_Unit_Test_Case {
 	 * @testdox The canonical list names a method the registered list leaves out.
 	 */
 	public function test_the_canonical_list_keeps_a_method_the_registered_list_does_not(): void {
-		// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment -- Documented in WC_Abstract_Order::get_tax_location().
-		$canonical  = apply_filters( 'woocommerce_local_pickup_methods', array( 'legacy_local_pickup', 'local_pickup' ) );
+		// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment -- Documented in WC_Abstract_Order::get_tax_location().
+		$canonical  = apply_filters( 'poocommerce_local_pickup_methods', array( 'legacy_local_pickup', 'local_pickup' ) );
 		$registered = LocalPickupUtils::get_local_pickup_method_ids();
 
 		$this->assertContains( 'legacy_local_pickup', $canonical, 'An order placed with the legacy method still has to be recognised.' );

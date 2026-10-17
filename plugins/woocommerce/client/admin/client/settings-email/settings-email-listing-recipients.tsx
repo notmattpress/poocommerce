@@ -24,29 +24,29 @@ export const RecipientsList = ( {
 	const copyCount = [ ...cc, ...bcc ].length;
 
 	return (
-		<div className="woocommerce-email-listing-recipients">
-			<div className="woocommerce-email-listing-recipients-to">
+		<div className="poocommerce-email-listing-recipients">
+			<div className="poocommerce-email-listing-recipients-to">
 				{ to.join( ', ' ) }
 			</div>
 			{ copyCount > 0 && (
 				<Tooltip
-					className="woocommerce-email-listing-recipients-tooltip"
+					className="poocommerce-email-listing-recipients-tooltip"
 					// @ts-expect-error - Text prop accepts also ReactNode
 					text={
 						<>
 							<div>
-								{ __( 'To:', 'woocommerce' ) }{ ' ' }
+								{ __( 'To:', 'poocommerce' ) }{ ' ' }
 								{ to.join( ', ' ) }
 							</div>
 							{ cc.length > 0 && (
 								<div>
-									{ __( 'CC:', 'woocommerce' ) }{ ' ' }
+									{ __( 'CC:', 'poocommerce' ) }{ ' ' }
 									{ cc.join( ', ' ) }
 								</div>
 							) }
 							{ bcc.length > 0 && (
 								<div>
-									{ __( 'BCC:', 'woocommerce' ) }{ ' ' }
+									{ __( 'BCC:', 'poocommerce' ) }{ ' ' }
 									{ bcc.join( ', ' ) }
 								</div>
 							) }
@@ -56,7 +56,7 @@ export const RecipientsList = ( {
 					<Button variant="link">
 						{
 							/* Translators: Link to info about count of additional recipients. */
-							__( '+%d more', 'woocommerce' ).replace(
+							__( '+%d more', 'poocommerce' ).replace(
 								'%d',
 								copyCount.toString()
 							)

@@ -1,14 +1,14 @@
 <?php
 /**
- * Features class for WooCommerce Analytics.
+ * Features class for PooCommerce Analytics.
  *
- * @package automattic/woocommerce-analytics
+ * @package automattic/poocommerce-analytics
  */
 
 namespace Automattic\Woocommerce_Analytics;
 
 /**
- * Features class for WooCommerce Analytics.
+ * Features class for PooCommerce Analytics.
  */
 class Features {
 
@@ -19,13 +19,13 @@ class Features {
 	 */
 	public static function is_proxy_tracking_enabled() {
 		/**
-		 * Filter to enable/disable experimental proxy tracking for WooCommerce Analytics
+		 * Filter to enable/disable experimental proxy tracking for PooCommerce Analytics
 		 *
 		 * @since 0.9.0
 		 *
 		 * @param bool $enabled Whether proxy tracking is enabled. Default false.
 		 */
-		return apply_filters( 'woocommerce_analytics_experimental_proxy_tracking_enabled', false );
+		return apply_filters( 'poocommerce_analytics_experimental_proxy_tracking_enabled', false );
 	}
 
 	/**
@@ -37,13 +37,13 @@ class Features {
 		/**
 		 * Filter to enable/disable ClickHouse event tracking.
 		 *
-		 * @module woocommerce-analytics
+		 * @module poocommerce-analytics
 		 *
 		 * @since 0.5.0
 		 *
 		 * @param bool $enabled Whether ClickHouse event tracking is enabled.
 		 */
-		return apply_filters( 'woocommerce_analytics_clickhouse_enabled', false );
+		return apply_filters( 'poocommerce_analytics_clickhouse_enabled', false );
 	}
 
 	/**
@@ -61,6 +61,6 @@ class Features {
 		 *
 		 * @param bool $auto_install Whether to auto-install the mu-plugin. Default false.
 		 */
-		return apply_filters( 'woocommerce_analytics_auto_install_proxy_speed_module', false );
+		return apply_filters( 'poocommerce_analytics_auto_install_proxy_speed_module', false );
 	}
 }

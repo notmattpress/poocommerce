@@ -7,8 +7,8 @@ import clsx from 'clsx';
 import { withDispatch, withSelect } from '@wordpress/data';
 import { useState } from '@wordpress/element';
 import PropTypes from 'prop-types';
-import { Pagination, EmptyContent } from '@woocommerce/components';
-import { recordEvent } from '@woocommerce/tracks';
+import { Pagination, EmptyContent } from '@poocommerce/components';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -24,10 +24,10 @@ const KnowledgeBase = ( {
 	posts,
 	isLoading,
 	error,
-	title = __( 'WooCommerce knowledge base', 'woocommerce' ),
+	title = __( 'PooCommerce knowledge base', 'poocommerce' ),
 	description = __(
-		'Learn the ins and outs of successful marketing from the experts at WooCommerce.',
-		'woocommerce'
+		'Learn the ins and outs of successful marketing from the experts at PooCommerce.',
+		'poocommerce'
 	),
 	category,
 } ) => {
@@ -66,7 +66,7 @@ const KnowledgeBase = ( {
 			( page - 1 ) * 2 + 2
 		);
 		const pageClass = clsx(
-			'woocommerce-marketing-knowledgebase-card__page',
+			'poocommerce-marketing-knowledgebase-card__page',
 			{
 				'page-with-single-post': currentPosts.length === 1,
 			}
@@ -75,7 +75,7 @@ const KnowledgeBase = ( {
 		const displayPosts = currentPosts.map( ( post, index ) => {
 			return (
 				<a
-					className="woocommerce-marketing-knowledgebase-card__post"
+					className="poocommerce-marketing-knowledgebase-card__post"
 					href={ post.link }
 					key={ index }
 					onClick={ () => {
@@ -85,14 +85,14 @@ const KnowledgeBase = ( {
 					rel="noopener noreferrer"
 				>
 					{ !! post.image && (
-						<div className="woocommerce-marketing-knowledgebase-card__post-img">
+						<div className="poocommerce-marketing-knowledgebase-card__post-img">
 							<img src={ post.image } alt="" />
 						</div>
 					) }
-					<div className="woocommerce-marketing-knowledgebase-card__post-text">
+					<div className="poocommerce-marketing-knowledgebase-card__post-text">
 						<h3>{ post.title }</h3>
-						<p className="woocommerce-marketing-knowledgebase-card__post-meta">
-							{ __( 'By', 'woocommerce' ) + ' ' }
+						<p className="poocommerce-marketing-knowledgebase-card__post-meta">
+							{ __( 'By', 'poocommerce' ) + ' ' }
 							{ post.author_name }
 							{ !! post.author_avatar && (
 								<img
@@ -100,7 +100,7 @@ const KnowledgeBase = ( {
 										's=96',
 										's=32'
 									) }
-									className="woocommerce-gravatar"
+									className="poocommerce-gravatar"
 									alt=""
 									width="16"
 									height="16"
@@ -116,7 +116,7 @@ const KnowledgeBase = ( {
 	};
 
 	const renderEmpty = () => {
-		const emptyTitle = __( 'No posts yet', 'woocommerce' );
+		const emptyTitle = __( 'No posts yet', 'poocommerce' );
 
 		return (
 			<EmptyContent
@@ -131,7 +131,7 @@ const KnowledgeBase = ( {
 	const renderError = () => {
 		const errorTitle = __(
 			"Oops, our posts aren't loading right now",
-			'woocommerce'
+			'poocommerce'
 		);
 
 		return (
@@ -146,7 +146,7 @@ const KnowledgeBase = ( {
 
 	const renderPosts = () => {
 		return (
-			<div className="woocommerce-marketing-knowledgebase-card__posts">
+			<div className="poocommerce-marketing-knowledgebase-card__posts">
 				<Slider animationKey={ page } animate={ animate }>
 					{ getCurrentSlide() }
 				</Slider>
@@ -168,8 +168,8 @@ const KnowledgeBase = ( {
 	 */
 	const renderPlaceholder = () => {
 		return (
-			<div className="woocommerce-marketing-knowledgebase-card__posts">
-				<div className="woocommerce-marketing-knowledgebase-card__page">
+			<div className="poocommerce-marketing-knowledgebase-card__posts">
+				<div className="poocommerce-marketing-knowledgebase-card__page">
 					<KnowledgebaseCardPostPlaceholder />
 					<KnowledgebaseCardPostPlaceholder />
 				</div>
@@ -190,7 +190,7 @@ const KnowledgeBase = ( {
 	};
 
 	const categoryClass = category
-		? `woocommerce-marketing-knowledgebase-card__category-${ category }`
+		? `poocommerce-marketing-knowledgebase-card__category-${ category }`
 		: '';
 
 	return (
@@ -198,7 +198,7 @@ const KnowledgeBase = ( {
 			title={ title }
 			description={ description }
 			className={ clsx(
-				'woocommerce-marketing-knowledgebase-card',
+				'poocommerce-marketing-knowledgebase-card',
 				categoryClass
 			) }
 		>

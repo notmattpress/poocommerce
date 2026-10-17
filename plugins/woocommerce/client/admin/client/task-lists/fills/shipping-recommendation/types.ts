@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { TaskType } from '@woocommerce/data';
+import { TaskType } from '@poocommerce/data';
 
 export type TaskProps = {
 	onComplete: () => void;

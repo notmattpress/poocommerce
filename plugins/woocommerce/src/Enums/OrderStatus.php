@@ -2,13 +2,13 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Enums;
+namespace Automattic\PooCommerce\Enums;
 
 /**
  * Enum class for all the order statuses.
  *
  * For a full documentation on the public order statuses, please refer to the following link:
- * https://woocommerce.com/document/managing-orders/order-statuses/
+ * https://poocommerce.com/document/managing-orders/order-statuses/
  */
 final class OrderStatus {
 	/**
@@ -110,13 +110,13 @@ final class OrderStatus {
 	/**
 	 * Returns every order status value defined by this enum, as a flat list of unprefixed slugs.
 	 *
-	 * It differs from the statuses WooCommerce registers in both directions. It carries
+	 * It differs from the statuses PooCommerce registers in both directions. It carries
 	 * self::TRASH, self::NEW, self::AUTO_DRAFT and self::DRAFT, which wc_get_order_statuses() does
 	 * not return by default, and it cannot carry statuses an extension registers.
 	 * WC_Abstract_Order::set_status() accepts self::TRASH and self::AUTO_DRAFT even so, exempting
 	 * them from its own validation.
 	 *
-	 * self::CHECKOUT_DRAFT sits on the helper's side of that line: WooCommerce adds it through the
+	 * self::CHECKOUT_DRAFT sits on the helper's side of that line: PooCommerce adds it through the
 	 * `wc_order_statuses` filter, and the Store API assigns it to live orders during checkout.
 	 *
 	 * For the registered statuses, use wc_get_order_statuses(). It returns a value => label map

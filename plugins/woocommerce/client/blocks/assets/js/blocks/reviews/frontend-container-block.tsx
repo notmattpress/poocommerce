@@ -4,7 +4,7 @@
 import { __, _n, sprintf } from '@wordpress/i18n';
 import { speak } from '@wordpress/a11y';
 import { Component } from '@wordpress/element';
-import { Review } from '@woocommerce/base-components/reviews/types';
+import { Review } from '@poocommerce/base-components/reviews/types';
 
 /**
  * Internal dependencies
@@ -83,7 +83,7 @@ class FrontendContainerBlock extends Component<
 					'%d review loaded.',
 					'%d reviews loaded.',
 					newReviews.length,
-					'woocommerce'
+					'poocommerce'
 				),
 				newReviews.length
 			)
@@ -91,11 +91,11 @@ class FrontendContainerBlock extends Component<
 	}
 
 	onReviewsReplaced() {
-		speak( __( 'Reviews list updated.', 'woocommerce' ) );
+		speak( __( 'Reviews list updated.', 'poocommerce' ) );
 	}
 
 	onReviewsLoadError() {
-		speak( __( 'There was an error loading the reviews.', 'woocommerce' ) );
+		speak( __( 'There was an error loading the reviews.', 'poocommerce' ) );
 	}
 
 	render() {

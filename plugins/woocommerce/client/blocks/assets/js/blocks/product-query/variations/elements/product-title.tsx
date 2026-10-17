@@ -11,12 +11,12 @@ import { heading } from '@wordpress/icons';
 import { registerElementVariation } from './utils';
 
 export const CORE_NAME = 'core/post-title';
-export const VARIATION_NAME = 'woocommerce/product-query/product-title';
+export const VARIATION_NAME = 'poocommerce/product-query/product-title';
 
 registerElementVariation( CORE_NAME, {
-	blockDescription: __( 'Display the title of a product.', 'woocommerce' ),
+	blockDescription: __( 'Display the title of a product.', 'poocommerce' ),
 	blockIcon: <Icon icon={ heading } />,
-	blockTitle: __( 'Product Title', 'woocommerce' ),
+	blockTitle: __( 'Product Title', 'poocommerce' ),
 	variationName: VARIATION_NAME,
 	scope: [ 'block' ],
 } );

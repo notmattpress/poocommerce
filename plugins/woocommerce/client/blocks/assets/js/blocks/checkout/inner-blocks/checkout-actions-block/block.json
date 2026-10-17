@@ -1,8 +1,8 @@
 {
-	"name": "woocommerce/checkout-actions-block",
+	"name": "poocommerce/checkout-actions-block",
 	"title": "Actions",
 	"description": "Allow customers to place their order.",
-	"category": "woocommerce",
+	"category": "poocommerce",
 	"supports": {
 		"align": false,
 		"html": false,
@@ -36,8 +36,8 @@
 			"default": "·"
 		}
 	},
-	"parent": [ "woocommerce/checkout-fields-block" ],
-	"textdomain": "woocommerce",
+	"parent": [ "poocommerce/checkout-fields-block" ],
+	"textdomain": "poocommerce",
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3
 }

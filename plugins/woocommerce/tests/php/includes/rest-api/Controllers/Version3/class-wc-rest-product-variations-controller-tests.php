@@ -1,8 +1,8 @@
 <?php
 declare( strict_types=1 );
 
-use Automattic\WooCommerce\Internal\CostOfGoodsSold\CogsAwareUnitTestSuiteTrait;
-use Automattic\WooCommerce\Tests\Helpers\MetaDataAssertionTrait;
+use Automattic\PooCommerce\Internal\CostOfGoodsSold\CogsAwareUnitTestSuiteTrait;
+use Automattic\PooCommerce\Tests\Helpers\MetaDataAssertionTrait;
 
 /**
  * Variations Controller tests for V3 REST API.
@@ -284,7 +284,7 @@ class WC_REST_Product_Variations_Controller_Tests extends WC_Unit_Test_Case {
 		// not written: the legacy fallback would no-op anyway, and skipping the
 		// row keeps postmeta clean on stores that never used the extension.
 		$this->assertFalse(
-			\Automattic\WooCommerce\Internal\VariationGallery\LegacyVariationGalleryCompatibility::is_variation_id_core_managed(
+			\Automattic\PooCommerce\Internal\VariationGallery\LegacyVariationGalleryCompatibility::is_variation_id_core_managed(
 				$variation->get_id()
 			)
 		);
@@ -314,7 +314,7 @@ class WC_REST_Product_Variations_Controller_Tests extends WC_Unit_Test_Case {
 
 		$this->assertSame( array(), $variation->get_gallery_image_ids() );
 		$this->assertTrue(
-			\Automattic\WooCommerce\Internal\VariationGallery\LegacyVariationGalleryCompatibility::is_variation_id_core_managed(
+			\Automattic\PooCommerce\Internal\VariationGallery\LegacyVariationGalleryCompatibility::is_variation_id_core_managed(
 				$variation->get_id()
 			)
 		);
@@ -326,7 +326,7 @@ class WC_REST_Product_Variations_Controller_Tests extends WC_Unit_Test_Case {
 	 *
 	 * This test verifies the fix for issue #61791 where attributes with non-ASCII characters
 	 * (like Persian) were not saved when creating variations via the REST API.
-	 * @see https://github.com/woocommerce/woocommerce/issues/61791
+	 * @see https://github.com/poocommerce/poocommerce/issues/61791
 	 */
 	public function test_create_variation_with_persian_attribute_by_id() {
 		// Create a variable product with Persian attribute names.
@@ -1081,7 +1081,7 @@ class WC_REST_Product_Variations_Controller_Tests extends WC_Unit_Test_Case {
 			++$parent_product_children_deletes;
 		};
 
-		add_action( 'woocommerce_delete_product_transients', $track_deletes );
+		add_action( 'poocommerce_delete_product_transients', $track_deletes );
 		add_action( 'delete_transient_wc_product_children_' . $parent->get_id(), $track_parent_product_children_deletes );
 		try {
 			$request = new WP_REST_Request( 'POST', '/wc/v3/products/' . $parent->get_id() . '/variations/batch' );
@@ -1102,7 +1102,7 @@ class WC_REST_Product_Variations_Controller_Tests extends WC_Unit_Test_Case {
 
 			$response = $this->server->dispatch( $request );
 		} finally {
-			remove_action( 'woocommerce_delete_product_transients', $track_deletes );
+			remove_action( 'poocommerce_delete_product_transients', $track_deletes );
 			remove_action( 'delete_transient_wc_product_children_' . $parent->get_id(), $track_parent_product_children_deletes );
 		}
 
@@ -1205,7 +1205,7 @@ class WC_REST_Product_Variations_Controller_Tests extends WC_Unit_Test_Case {
 		$response = $this->server->dispatch( $request );
 
 		$this->assertSame( 400, $response->get_status(), 'Invalid customs input should return a 400 response.' );
-		$this->assertSame( 'woocommerce_product_invalid_' . $field, $response->get_data()['code'], 'The error code should name the invalid field.' );
+		$this->assertSame( 'poocommerce_product_invalid_' . $field, $response->get_data()['code'], 'The error code should name the invalid field.' );
 		$this->assertSame( 2, wc_get_product( $id )->get_menu_order(), 'Other variation changes should not be saved.' );
 		$this->assertFalse( metadata_exists( 'post', $id, '_customs_country_of_origin' ), 'Valid customs values in the same request should not be saved.' );
 	}
@@ -1291,7 +1291,7 @@ class WC_REST_Product_Variations_Controller_Tests extends WC_Unit_Test_Case {
 		$response = $this->server->dispatch( $request );
 
 		$this->assertSame( 400, $response->get_status(), 'Invalid customs default values should return a 400 response.' );
-		$this->assertSame( 'woocommerce_product_invalid_customs_country_of_origin', $response->get_data()['code'], 'The error code should name the invalid field.' );
+		$this->assertSame( 'poocommerce_product_invalid_customs_country_of_origin', $response->get_data()['code'], 'The error code should name the invalid field.' );
 		$this->assertSame( array(), wc_get_product( $product->get_id() )->get_children(), 'No variations should be generated.' );
 	}
 

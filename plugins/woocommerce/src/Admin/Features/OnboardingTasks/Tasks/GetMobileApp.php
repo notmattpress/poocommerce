@@ -1,8 +1,8 @@
 <?php
 
-namespace Automattic\WooCommerce\Admin\Features\OnboardingTasks\Tasks;
+namespace Automattic\PooCommerce\Admin\Features\OnboardingTasks\Tasks;
 
-use Automattic\WooCommerce\Admin\Features\OnboardingTasks\Task;
+use Automattic\PooCommerce\Admin\Features\OnboardingTasks\Task;
 use Automattic\Jetpack\Connection\Manager; // https://github.com/Automattic/jetpack/blob/trunk/projects/packages/connection/src/class-manager.php .
 
 /**
@@ -24,7 +24,7 @@ class GetMobileApp extends Task {
 	 * @return string
 	 */
 	public function get_title() {
-		return __( 'Get the free WooCommerce mobile app', 'woocommerce' );
+		return __( 'Get the free PooCommerce mobile app', 'poocommerce' );
 	}
 
 	/**
@@ -51,7 +51,7 @@ class GetMobileApp extends Task {
 	 * @return bool
 	 */
 	public function is_complete() {
-		return get_option( 'woocommerce_admin_dismissed_mobile_app_modal' ) === 'yes';
+		return get_option( 'poocommerce_admin_dismissed_mobile_app_modal' ) === 'yes';
 	}
 
 	/**
@@ -63,7 +63,7 @@ class GetMobileApp extends Task {
 	 * @return bool
 	 */
 	public function can_view() {
-		$jetpack_can_be_installed                        = current_user_can( 'manage_woocommerce' ) && current_user_can( 'install_plugins' ) && ! self::is_jetpack_connected();
+		$jetpack_can_be_installed                        = current_user_can( 'manage_poocommerce' ) && current_user_can( 'install_plugins' ) && ! self::is_jetpack_connected();
 		$jetpack_is_installed_and_current_user_connected = self::is_current_user_connected();
 
 		return $jetpack_can_be_installed || $jetpack_is_installed_and_current_user_connected;

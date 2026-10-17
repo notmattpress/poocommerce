@@ -18,7 +18,7 @@ The orders API allows you to create, view, update, and delete individual, or a b
 | `order_key`            | string    | Order key. `READ-ONLY`                                                                                                                 |
 | `number`               | string    | Order number. `READ-ONLY`                                                                                                              |
 | `currency`             | string    | Currency the order was created with, in ISO format, e.g `USD`. Default is the current store currency.                                                                |
-| `version`              | string    | Version of WooCommerce when the order was made. `READ-ONLY`                                                                            |
+| `version`              | string    | Version of PooCommerce when the order was made. `READ-ONLY`                                                                            |
 | `prices_include_tax`   | boolean   | Shows if the prices included tax during checkout. `READ-ONLY`                                                                          |
 | `date_created`         | date-time | The date the order was created, in the site's timezone. `READ-ONLY`                                                                    |
 | `date_modified`        | date-time | The date the order was last modified, in the site's timezone. `READ-ONLY`                                                              |
@@ -256,7 +256,7 @@ const data = {
   ]
 };
 
-WooCommerce.post("orders", data)
+PooCommerce.post("orders", data)
   .then((response) => {
     console.log(response.data);
   })
@@ -316,7 +316,7 @@ $data = [
     ]
 ];
 
-print_r($woocommerce->post('orders', $data));
+print_r($poocommerce->post('orders', $data));
 ?>
 ```
 
@@ -423,7 +423,7 @@ data = {
   ]
 }
 
-woocommerce.post("orders", data).parsed_response
+poocommerce.post("orders", data).parsed_response
 ```
 
   </TabItem>
@@ -596,7 +596,7 @@ curl https://example.com/wp-json/wc/v1/orders/154 \
   <TabItem value="js" label="JavaScript">
 
 ```javascript
-WooCommerce.get("orders/154")
+PooCommerce.get("orders/154")
   .then((response) => {
     console.log(response.data);
   })
@@ -609,7 +609,7 @@ WooCommerce.get("orders/154")
   <TabItem value="php" label="PHP">
 
 ```php
-<?php print_r($woocommerce->get('orders/154')); ?>
+<?php print_r($poocommerce->get('orders/154')); ?>
 ```
 
   </TabItem>
@@ -623,7 +623,7 @@ print(wcapi.get("orders/154").json())
   <TabItem value="ruby" label="Ruby">
 
 ```ruby
-woocommerce.get("orders/154").parsed_response
+poocommerce.get("orders/154").parsed_response
 ```
 
   </TabItem>
@@ -801,7 +801,7 @@ curl https://example.com/wp-json/wc/v1/orders \
   <TabItem value="js" label="JavaScript">
 
 ```javascript
-WooCommerce.get("orders")
+PooCommerce.get("orders")
   .then((response) => {
     console.log(response.data);
   })
@@ -814,7 +814,7 @@ WooCommerce.get("orders")
   <TabItem value="php" label="PHP">
 
 ```php
-<?php print_r($woocommerce->get('orders')); ?>
+<?php print_r($poocommerce->get('orders')); ?>
 ```
 
   </TabItem>
@@ -828,7 +828,7 @@ print(wcapi.get("orders").json())
   <TabItem value="ruby" label="Ruby">
 
 ```ruby
-woocommerce.get("orders").parsed_response
+poocommerce.get("orders").parsed_response
 ```
 
   </TabItem>
@@ -1135,7 +1135,7 @@ const data = {
   status: "completed"
 };
 
-WooCommerce.put("orders/154", data)
+PooCommerce.put("orders/154", data)
   .then((response) => {
     console.log(response.data);
   })
@@ -1153,7 +1153,7 @@ $data = [
     'status' => 'completed'
 ];
 
-print_r($woocommerce->put('orders/154', $data));
+print_r($poocommerce->put('orders/154', $data));
 ?>
 ```
 
@@ -1176,7 +1176,7 @@ data = {
   status: "completed"
 }
 
-woocommerce.put("orders/154", data).parsed_response
+poocommerce.put("orders/154", data).parsed_response
 ```
 
   </TabItem>
@@ -1349,7 +1349,7 @@ curl -X DELETE https://example.com/wp-json/wc/v1/orders/154?force=true \
   <TabItem value="js" label="JavaScript">
 
 ```javascript
-WooCommerce.delete("orders/154", {
+PooCommerce.delete("orders/154", {
   force: true
 })
   .then((response) => {
@@ -1364,7 +1364,7 @@ WooCommerce.delete("orders/154", {
   <TabItem value="php" label="PHP">
 
 ```php
-<?php print_r($woocommerce->delete('orders/154', ['force' => true])); ?>
+<?php print_r($poocommerce->delete('orders/154', ['force' => true])); ?>
 ```
 
   </TabItem>
@@ -1378,7 +1378,7 @@ print(wcapi.delete("orders/154", params={"force": True}).json())
   <TabItem value="ruby" label="Ruby">
 
 ```ruby
-woocommerce.delete("orders/154", force: true).parsed_response
+poocommerce.delete("orders/154", force: true).parsed_response
 ```
 
   </TabItem>
@@ -1776,7 +1776,7 @@ const data = {
   ]
 };
 
-WooCommerce.post("orders/batch", data)
+PooCommerce.post("orders/batch", data)
   .then((response) => {
     console.log(response.data);
   })
@@ -1898,7 +1898,7 @@ $data = [
     ]
 ];
 
-print_r($woocommerce->post('orders/batch', $data));
+print_r($poocommerce->post('orders/batch', $data));
 ?>
 ```
 
@@ -2129,7 +2129,7 @@ data = {
   ]
 }
 
-woocommerce.post("orders/batch", data).parsed_response
+poocommerce.post("orders/batch", data).parsed_response
 ```
 
   </TabItem>

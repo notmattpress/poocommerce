@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { removeCart } from '@woocommerce/icons';
+import { removeCart } from '@poocommerce/icons';
 import { Icon } from '@wordpress/icons';
 import { registerBlockType } from '@wordpress/blocks';
 

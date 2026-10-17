@@ -1,7 +1,7 @@
 {
 	"name": "release-posts",
 	"version": "0.0.1",
-	"description": "Utilities for WooCommerce release posts",
+	"description": "Utilities for PooCommerce release posts",
 	"scripts": {
 		"lint": "tsc --noEmit",
 		"release-post": "node -r ts-node/register ./index.ts"
@@ -22,7 +22,7 @@
 	"dependencies": {
 		"@commander-js/extra-typings": "^0.1.0",
 		"@octokit/rest": "^19.0.13",
-		"@woocommerce/monorepo-utils": "workspace:*",
+		"@poocommerce/monorepo-utils": "workspace:*",
 		"commander": "9.4.0",
 		"dotenv": "^15.0.1",
 		"ejs": "^3.1.9",

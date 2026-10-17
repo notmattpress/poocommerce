@@ -5,28 +5,28 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\MCP;
+namespace Automattic\PooCommerce\Internal\MCP;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Formerly provided the WooCommerce MCP endpoint (woocommerce/mcp).
+ * Formerly provided the PooCommerce MCP endpoint (poocommerce/mcp).
  *
  * Kept so existing callers don't fatal. The methods do nothing except report incorrect usage.
  *
- * @deprecated 11.3.0 The WooCommerce MCP endpoint was removed. Use the MCP Adapter plugin to access WooCommerce abilities over MCP.
+ * @deprecated 11.3.0 The PooCommerce MCP endpoint was removed. Use the MCP Adapter plugin to access PooCommerce abilities over MCP.
  */
 class MCPAdapterProvider {
 
 	/**
-	 * Namespace of the removed WooCommerce MCP endpoint.
+	 * Namespace of the removed PooCommerce MCP endpoint.
 	 *
 	 * @var string
 	 */
-	const MCP_NAMESPACE = 'woocommerce';
+	const MCP_NAMESPACE = 'poocommerce';
 
 	/**
-	 * Route of the removed WooCommerce MCP endpoint.
+	 * Route of the removed PooCommerce MCP endpoint.
 	 *
 	 * @var string
 	 */
@@ -42,7 +42,7 @@ class MCPAdapterProvider {
 	}
 
 	/**
-	 * Formerly initialized the MCP adapter when the WooCommerce MCP feature was enabled.
+	 * Formerly initialized the MCP adapter when the PooCommerce MCP feature was enabled.
 	 *
 	 * @deprecated 11.3.0
 	 */
@@ -51,7 +51,7 @@ class MCPAdapterProvider {
 	}
 
 	/**
-	 * Formerly created the WooCommerce MCP server.
+	 * Formerly created the PooCommerce MCP server.
 	 *
 	 * @deprecated 11.3.0
 	 *
@@ -75,7 +75,7 @@ class MCPAdapterProvider {
 	}
 
 	/**
-	 * Formerly reported whether the current request was for the WooCommerce MCP endpoint.
+	 * Formerly reported whether the current request was for the PooCommerce MCP endpoint.
 	 *
 	 * @deprecated 11.3.0
 	 *

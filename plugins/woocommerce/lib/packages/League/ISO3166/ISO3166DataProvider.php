@@ -9,7 +9,7 @@ declare(strict_types=1);
  * the LICENSE file that was distributed with this source code.
  */
 
-namespace Automattic\WooCommerce\Vendor\League\ISO3166;
+namespace Automattic\PooCommerce\Vendor\League\ISO3166;
 
 interface ISO3166DataProvider
 {
@@ -18,7 +18,7 @@ interface ISO3166DataProvider
      *
      * @api
      *
-     * @throws \Automattic\WooCommerce\Vendor\League\ISO3166\Exception\OutOfBoundsException if input does not exist in dataset
+     * @throws \Automattic\PooCommerce\Vendor\League\ISO3166\Exception\OutOfBoundsException if input does not exist in dataset
      *
      * @return array<string, mixed>
      */
@@ -29,8 +29,8 @@ interface ISO3166DataProvider
      *
      * @api
      *
-     * @throws \Automattic\WooCommerce\Vendor\League\ISO3166\Exception\DomainException if input does not look like an alpha2 key
-     * @throws \Automattic\WooCommerce\Vendor\League\ISO3166\Exception\OutOfBoundsException if input does not exist in dataset
+     * @throws \Automattic\PooCommerce\Vendor\League\ISO3166\Exception\DomainException if input does not look like an alpha2 key
+     * @throws \Automattic\PooCommerce\Vendor\League\ISO3166\Exception\OutOfBoundsException if input does not exist in dataset
      *
      * @return array<string, mixed>
      */
@@ -41,8 +41,8 @@ interface ISO3166DataProvider
      *
      * @api
      *
-     * @throws \Automattic\WooCommerce\Vendor\League\ISO3166\Exception\DomainException if input does not look like an alpha3 key
-     * @throws \Automattic\WooCommerce\Vendor\League\ISO3166\Exception\OutOfBoundsException if input does not exist in dataset
+     * @throws \Automattic\PooCommerce\Vendor\League\ISO3166\Exception\DomainException if input does not look like an alpha3 key
+     * @throws \Automattic\PooCommerce\Vendor\League\ISO3166\Exception\OutOfBoundsException if input does not exist in dataset
      *
      * @return array<string, mixed>
      */
@@ -53,8 +53,8 @@ interface ISO3166DataProvider
      *
      * @api
      *
-     * @throws \Automattic\WooCommerce\Vendor\League\ISO3166\Exception\DomainException if input does not look like a numeric key
-     * @throws \Automattic\WooCommerce\Vendor\League\ISO3166\Exception\OutOfBoundsException if input does not exist in dataset
+     * @throws \Automattic\PooCommerce\Vendor\League\ISO3166\Exception\DomainException if input does not look like a numeric key
+     * @throws \Automattic\PooCommerce\Vendor\League\ISO3166\Exception\OutOfBoundsException if input does not exist in dataset
      *
      * @return array<string, mixed>
      */

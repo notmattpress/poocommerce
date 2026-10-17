@@ -11,19 +11,19 @@
  * A handler is expected to move or clear the due moment; one that does not is notified
  * again after the claim expires, behind contracts not yet notified.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine\Integration\Dispatch
+ * @package Automattic\PooCommerce\SubscriptionsEngine\Integration\Dispatch
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Integration\Dispatch;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Integration\Dispatch;
 
 use DateTimeImmutable;
 use DateTimeZone;
 use Throwable;
-use Automattic\WooCommerce\SubscriptionsEngine\Api\View\ContractView;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Ownership\ConsumerRegistry;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage\ContractRepository;
+use Automattic\PooCommerce\SubscriptionsEngine\Api\View\ContractView;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Ownership\ConsumerRegistry;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage\ContractRepository;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -35,12 +35,12 @@ final class DueDispatcher {
 	/**
 	 * Action Scheduler hook fired on each recurring scan tick.
 	 */
-	public const HOOK = 'woocommerce_subscriptions_engine_dispatch_due_contracts';
+	public const HOOK = 'poocommerce_subscriptions_engine_dispatch_due_contracts';
 
 	/**
 	 * Action Scheduler group shared with the rest of the engine's actions.
 	 */
-	public const GROUP = 'woocommerce_subscriptions_engine';
+	public const GROUP = 'poocommerce_subscriptions_engine';
 
 	/**
 	 * How long a dispatch claim hides a notified contract from later scans, in seconds,
@@ -64,13 +64,13 @@ final class DueDispatcher {
 	/**
 	 * Logger source tag.
 	 */
-	private const LOG_SOURCE = 'woocommerce-subscriptions-engine';
+	private const LOG_SOURCE = 'poocommerce-subscriptions-engine';
 
 	/**
 	 * Option holding the next moment the recurring action is re-verified against the Action
 	 * Scheduler store, so the common request path skips the store query.
 	 */
-	private const SCHEDULE_CHECK_OPTION = 'woocommerce_subscriptions_engine_due_dispatch_scheduled_check';
+	private const SCHEDULE_CHECK_OPTION = 'poocommerce_subscriptions_engine_due_dispatch_scheduled_check';
 
 	/**
 	 * How long a positive schedule check is trusted before re-verifying, in seconds.
@@ -107,7 +107,7 @@ final class DueDispatcher {
 	 * window, so most requests skip the Action Scheduler store query. Runs on `wp_loaded`,
 	 * once consumers have registered, and again when a due handler registers after that
 	 * ({@see ConsumerRegistry::register()}). Without Action Scheduler (for
-	 * example from a deactivation hook while WooCommerce is inactive) it does nothing.
+	 * example from a deactivation hook while PooCommerce is inactive) it does nothing.
 	 */
 	public static function ensure_scheduled(): void {
 		if ( ! self::action_scheduler_available() ) {

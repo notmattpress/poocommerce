@@ -5,9 +5,9 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\MCP;
+namespace Automattic\PooCommerce\Internal\MCP;
 
-use Automattic\WooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
 use WP_REST_Request;
 use WP_REST_Response;
 use WP_REST_Server;
@@ -15,9 +15,9 @@ use WP_REST_Server;
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Handles the removal of the WooCommerce MCP endpoint (woocommerce/mcp) and its REST-derived abilities.
+ * Handles the removal of the PooCommerce MCP endpoint (poocommerce/mcp) and its REST-derived abilities.
  *
- * WooCommerce abilities remain registered through the WordPress Abilities API, and the MCP Adapter
+ * PooCommerce abilities remain registered through the WordPress Abilities API, and the MCP Adapter
  * plugin exposes them to MCP clients.
  *
  * @since 11.3.0
@@ -25,39 +25,39 @@ defined( 'ABSPATH' ) || exit;
 class McpEndpointRemoval {
 
 	/**
-	 * WooCommerce version that removed the WooCommerce MCP endpoint.
+	 * PooCommerce version that removed the PooCommerce MCP endpoint.
 	 *
 	 * @var string
 	 */
 	public const REMOVED_IN = '11.3.0';
 
 	/**
-	 * Documentation for using WooCommerce abilities with MCP.
+	 * Documentation for using PooCommerce abilities with MCP.
 	 *
 	 * @var string
 	 */
-	public const DOCS_URL = 'https://developer.woocommerce.com/docs/features/mcp/';
+	public const DOCS_URL = 'https://developer.poocommerce.com/docs/features/mcp/';
 
 	/**
-	 * Namespace of the removed WooCommerce MCP endpoint.
+	 * Namespace of the removed PooCommerce MCP endpoint.
 	 *
 	 * @var string
 	 */
-	private const ENDPOINT_NAMESPACE = 'woocommerce';
+	private const ENDPOINT_NAMESPACE = 'poocommerce';
 
 	/**
-	 * Route of the removed WooCommerce MCP endpoint.
+	 * Route of the removed PooCommerce MCP endpoint.
 	 *
 	 * @var string
 	 */
 	private const ENDPOINT_ROUTE = '/mcp';
 
 	/**
-	 * Option that stored whether the removed WooCommerce MCP feature was enabled.
+	 * Option that stored whether the removed PooCommerce MCP feature was enabled.
 	 *
 	 * @var string
 	 */
-	private const FEATURE_OPTION = 'woocommerce_feature_mcp_integration_enabled';
+	private const FEATURE_OPTION = 'poocommerce_feature_mcp_integration_enabled';
 
 	/**
 	 * Name of the admin notice about the removal, used for dismissal.
@@ -88,7 +88,7 @@ class McpEndpointRemoval {
 		add_action( 'admin_notices', array( $this, 'handle_admin_notices' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'handle_admin_enqueue_scripts' ) );
 		add_action( 'activated_plugin', array( $this, 'handle_activated_plugin' ) );
-		add_action( 'woocommerce_hide_' . self::REMOVED_NOTICE . '_notice', array( $this, 'handle_woocommerce_hide_mcp_endpoint_removed_notice' ) );
+		add_action( 'poocommerce_hide_' . self::REMOVED_NOTICE . '_notice', array( $this, 'handle_poocommerce_hide_mcp_endpoint_removed_notice' ) );
 	}
 
 	/**
@@ -110,13 +110,13 @@ class McpEndpointRemoval {
 	}
 
 	/**
-	 * Handle the woocommerce_hide_mcp_endpoint_removed_notice hook.
+	 * Handle the poocommerce_hide_mcp_endpoint_removed_notice hook.
 	 *
 	 * Dismissing the removal notice acts on it for the whole store, so delete the old feature option that triggers it.
 	 *
 	 * @internal
 	 */
-	public function handle_woocommerce_hide_mcp_endpoint_removed_notice(): void {
+	public function handle_poocommerce_hide_mcp_endpoint_removed_notice(): void {
 		delete_option( self::FEATURE_OPTION );
 	}
 
@@ -139,7 +139,7 @@ class McpEndpointRemoval {
 	/**
 	 * Handle the admin_notices hook.
 	 *
-	 * Tells stores that had the WooCommerce MCP feature enabled what was removed and how to keep using WooCommerce with MCP.
+	 * Tells stores that had the PooCommerce MCP feature enabled what was removed and how to keep using PooCommerce with MCP.
 	 *
 	 * @internal
 	 */
@@ -150,16 +150,16 @@ class McpEndpointRemoval {
 
 		$message = sprintf(
 			'<strong>%1$s</strong> %2$s <a href="%3$s" target="_blank" rel="noopener noreferrer">%4$s</a>',
-			esc_html__( 'WooCommerce MCP has been removed.', 'woocommerce' ),
+			esc_html__( 'PooCommerce MCP has been removed.', 'poocommerce' ),
 			esc_html(
 				sprintf(
-					/* translators: %s: WooCommerce version. */
-					__( 'As of WooCommerce %s, the WooCommerce MCP endpoint (/wp-json/woocommerce/mcp), its REST API key authentication, and its REST-based product and order tools are no longer available. WooCommerce abilities are still available through the WordPress Abilities API. Use the MCP Adapter plugin to connect MCP clients to them.', 'woocommerce' ),
+					/* translators: %s: PooCommerce version. */
+					__( 'As of PooCommerce %s, the PooCommerce MCP endpoint (/wp-json/poocommerce/mcp), its REST API key authentication, and its REST-based product and order tools are no longer available. PooCommerce abilities are still available through the WordPress Abilities API. Use the MCP Adapter plugin to connect MCP clients to them.', 'poocommerce' ),
 					self::REMOVED_IN
 				)
 			),
 			esc_url( self::DOCS_URL ),
-			esc_html__( 'Learn more', 'woocommerce' )
+			esc_html__( 'Learn more', 'poocommerce' )
 		);
 
 		$link_type = $this->get_adapter_link_type();
@@ -167,26 +167,26 @@ class McpEndpointRemoval {
 			$message .= sprintf(
 				' | <a href="%1$s" class="thickbox open-plugin-details-modal" data-title="%2$s">%3$s</a>',
 				esc_url( network_admin_url( 'plugin-install.php?tab=plugin-information&plugin=mcp-adapter&TB_iframe=true&width=600&height=550' ) ),
-				esc_attr__( 'MCP Adapter', 'woocommerce' ),
-				esc_html__( 'Install MCP Adapter', 'woocommerce' )
+				esc_attr__( 'MCP Adapter', 'poocommerce' ),
+				esc_html__( 'Install MCP Adapter', 'poocommerce' )
 			);
 		} elseif ( 'activate' === $link_type ) {
 			$message .= sprintf(
 				' | <a href="%1$s">%2$s</a>',
 				esc_url( wp_nonce_url( admin_url( 'plugins.php?action=activate&plugin=' . rawurlencode( self::ADAPTER_PLUGIN_FILE ) . '&' . self::NOTICE_ACTIVATION_ARG . '=1' ), 'activate-plugin_' . self::ADAPTER_PLUGIN_FILE ) ),
-				esc_html__( 'Activate MCP Adapter', 'woocommerce' )
+				esc_html__( 'Activate MCP Adapter', 'poocommerce' )
 			);
 		}
 
 		$dismiss_url = wp_nonce_url(
 			add_query_arg( 'wc-hide-notice', self::REMOVED_NOTICE ),
-			'woocommerce_hide_notices_nonce',
+			'poocommerce_hide_notices_nonce',
 			'_wc_notice_nonce'
 		);
 
 		echo wp_kses_post(
 			'<div class="notice notice-warning is-dismissible">'
-			. '<a class="woocommerce-message-close notice-dismiss" style="text-decoration: none;" href="' . esc_url( $dismiss_url ) . '" aria-label="' . esc_attr__( 'Dismiss this notice', 'woocommerce' ) . '"></a>'
+			. '<a class="poocommerce-message-close notice-dismiss" style="text-decoration: none;" href="' . esc_url( $dismiss_url ) . '" aria-label="' . esc_attr__( 'Dismiss this notice', 'poocommerce' ) . '"></a>'
 			. '<p>' . $message . '</p>'
 			. '</div>'
 		);
@@ -199,7 +199,7 @@ class McpEndpointRemoval {
 	 */
 	private function should_show_removed_notice(): bool {
 		return 'yes' === get_option( self::FEATURE_OPTION )
-			&& current_user_can( 'manage_woocommerce' )
+			&& current_user_can( 'manage_poocommerce' )
 			&& ! \WC_Admin_Notices::user_has_dismissed_notice( self::REMOVED_NOTICE );
 	}
 
@@ -235,7 +235,7 @@ class McpEndpointRemoval {
 	/**
 	 * Handle the rest_api_init hook.
 	 *
-	 * Registers the removed WooCommerce MCP endpoint so MCP clients that still use it get an explanation instead of a 404.
+	 * Registers the removed PooCommerce MCP endpoint so MCP clients that still use it get an explanation instead of a 404.
 	 *
 	 * @internal
 	 */
@@ -252,7 +252,7 @@ class McpEndpointRemoval {
 	}
 
 	/**
-	 * Respond to a request to the removed WooCommerce MCP endpoint.
+	 * Respond to a request to the removed PooCommerce MCP endpoint.
 	 *
 	 * The response is a JSON-RPC error, which MCP clients surface to the user or agent, sent with HTTP status 410 Gone.
 	 *
@@ -274,8 +274,8 @@ class McpEndpointRemoval {
 				'error'   => array(
 					'code'    => -32000,
 					'message' => sprintf(
-						/* translators: 1: WooCommerce version, 2: MCP Adapter endpoint URL, 3: Documentation URL. */
-						__( 'The WooCommerce MCP endpoint (woocommerce/mcp) was removed in WooCommerce %1$s. To keep using WooCommerce with MCP, install and activate the MCP Adapter plugin (https://wordpress.org/plugins/mcp-adapter/) on this site, then connect your MCP client to %2$s using a WordPress application password. Documentation: %3$s', 'woocommerce' ),
+						/* translators: 1: PooCommerce version, 2: MCP Adapter endpoint URL, 3: Documentation URL. */
+						__( 'The PooCommerce MCP endpoint (poocommerce/mcp) was removed in PooCommerce %1$s. To keep using PooCommerce with MCP, install and activate the MCP Adapter plugin (https://wordpress.org/plugins/mcp-adapter/) on this site, then connect your MCP client to %2$s using a WordPress application password. Documentation: %3$s', 'poocommerce' ),
 						self::REMOVED_IN,
 						$adapter,
 						self::DOCS_URL
@@ -291,7 +291,7 @@ class McpEndpointRemoval {
 	}
 
 	/**
-	 * Report a call to code that was removed along with the WooCommerce MCP endpoint.
+	 * Report a call to code that was removed along with the PooCommerce MCP endpoint.
 	 *
 	 * @param string $function_name The removed function or method that was called.
 	 */
@@ -299,8 +299,8 @@ class McpEndpointRemoval {
 		wc_doing_it_wrong(
 			$function_name,
 			sprintf(
-				/* translators: 1: Function or method name, 2: WooCommerce version, 3: Documentation URL. */
-				__( '%1$s was removed in WooCommerce %2$s along with the WooCommerce MCP endpoint and its REST-based abilities. WooCommerce abilities remain available through the WordPress Abilities API, and the MCP Adapter plugin exposes them to MCP clients. See %3$s.', 'woocommerce' ),
+				/* translators: 1: Function or method name, 2: PooCommerce version, 3: Documentation URL. */
+				__( '%1$s was removed in PooCommerce %2$s along with the PooCommerce MCP endpoint and its REST-based abilities. PooCommerce abilities remain available through the WordPress Abilities API, and the MCP Adapter plugin exposes them to MCP clients. See %3$s.', 'poocommerce' ),
 				$function_name,
 				self::REMOVED_IN,
 				self::DOCS_URL

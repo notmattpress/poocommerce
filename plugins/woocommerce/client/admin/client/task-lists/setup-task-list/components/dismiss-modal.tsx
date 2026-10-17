@@ -14,26 +14,26 @@ const DismissModal = ( {
 	hideTasks: ( task: string ) => void;
 } ) => {
 	const closeModal = () => setShowDismissModal( false );
-	const title = __( 'Hide store setup tasks', 'woocommerce' );
+	const title = __( 'Hide store setup tasks', 'poocommerce' );
 	const message = __(
 		'Are you sure? These tasks are required for all stores.',
-		'woocommerce'
+		'poocommerce'
 	);
-	const dismissActionText = __( 'Cancel', 'woocommerce' );
-	const acceptActionText = __( 'Yes, hide store setup tasks', 'woocommerce' );
+	const dismissActionText = __( 'Cancel', 'poocommerce' );
+	const acceptActionText = __( 'Yes, hide store setup tasks', 'poocommerce' );
 	return (
 		<>
 			{ showDismissModal && (
 				<Modal
 					title={ title }
-					className="woocommerce-task-dismiss-modal"
+					className="poocommerce-task-dismiss-modal"
 					onRequestClose={ closeModal }
 				>
-					<div className="woocommerce-task-dismiss-modal__wrapper">
-						<div className="woocommerce-usage-modal__message">
+					<div className="poocommerce-task-dismiss-modal__wrapper">
+						<div className="poocommerce-usage-modal__message">
 							{ message }
 						</div>
-						<div className="woocommerce-usage-modal__actions">
+						<div className="poocommerce-usage-modal__actions">
 							<Button
 								onClick={ () => setShowDismissModal( false ) }
 							>

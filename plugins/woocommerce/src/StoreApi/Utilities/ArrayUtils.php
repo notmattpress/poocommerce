@@ -1,5 +1,5 @@
 <?php
-namespace Automattic\WooCommerce\StoreApi\Utilities;
+namespace Automattic\PooCommerce\StoreApi\Utilities;
 
 /**
  * ArrayUtils class used for custom functions to operate on arrays
@@ -26,7 +26,7 @@ class ArrayUtils {
 		if ( $array ) {
 			return sprintf(
 				/* translators: 1: The first n-1 items of a list 2: the last item in the list. */
-				__( '%1$s and %2$s', 'woocommerce' ),
+				__( '%1$s and %2$s', 'poocommerce' ),
 				implode( ', ', $array ),
 				$last
 			);

@@ -3,14 +3,14 @@
  * DataSynchronizer class file.
  */
 
-namespace Automattic\WooCommerce\Internal\DataStores\Orders;
+namespace Automattic\PooCommerce\Internal\DataStores\Orders;
 
-use Automattic\WooCommerce\Caches\OrderCacheController;
-use Automattic\WooCommerce\Database\Migrations\CustomOrderTable\PostsToOrdersMigrationController;
-use Automattic\WooCommerce\Internal\Admin\Orders\EditLock;
-use Automattic\WooCommerce\Internal\BatchProcessing\{ BatchProcessingController, BatchProcessorInterface };
-use Automattic\WooCommerce\Internal\Utilities\DatabaseUtil;
-use Automattic\WooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\Caches\OrderCacheController;
+use Automattic\PooCommerce\Database\Migrations\CustomOrderTable\PostsToOrdersMigrationController;
+use Automattic\PooCommerce\Internal\Admin\Orders\EditLock;
+use Automattic\PooCommerce\Internal\BatchProcessing\{ BatchProcessingController, BatchProcessorInterface };
+use Automattic\PooCommerce\Internal\Utilities\DatabaseUtil;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -22,14 +22,14 @@ defined( 'ABSPATH' ) || exit;
  */
 class DataSynchronizer implements BatchProcessorInterface {
 
-	public const ORDERS_DATA_SYNC_ENABLED_OPTION = 'woocommerce_custom_orders_table_data_sync_enabled';
+	public const ORDERS_DATA_SYNC_ENABLED_OPTION = 'poocommerce_custom_orders_table_data_sync_enabled';
 	public const PLACEHOLDER_ORDER_POST_TYPE     = 'shop_order_placehold';
 
 	public const DELETED_RECORD_META_KEY        = '_deleted_from';
 	public const DELETED_FROM_POSTS_META_VALUE  = 'posts_table';
 	public const DELETED_FROM_ORDERS_META_VALUE = 'orders_table';
 
-	public const ORDERS_TABLE_CREATED = 'woocommerce_custom_orders_table_created';
+	public const ORDERS_TABLE_CREATED = 'poocommerce_custom_orders_table_created';
 
 	private const ORDERS_SYNC_BATCH_SIZE = 250;
 
@@ -40,12 +40,12 @@ class DataSynchronizer implements BatchProcessorInterface {
 	public const ID_TYPE_DELETED_FROM_ORDERS_TABLE = 3;
 	public const ID_TYPE_DELETED_FROM_POSTS_TABLE  = 4;
 
-	public const BACKGROUND_SYNC_MODE_OPTION     = 'woocommerce_custom_orders_table_background_sync_mode';
-	public const BACKGROUND_SYNC_INTERVAL_OPTION = 'woocommerce_custom_orders_table_background_sync_interval';
+	public const BACKGROUND_SYNC_MODE_OPTION     = 'poocommerce_custom_orders_table_background_sync_mode';
+	public const BACKGROUND_SYNC_INTERVAL_OPTION = 'poocommerce_custom_orders_table_background_sync_interval';
 	public const BACKGROUND_SYNC_MODE_INTERVAL   = 'interval';
 	public const BACKGROUND_SYNC_MODE_CONTINUOUS = 'continuous';
 	public const BACKGROUND_SYNC_MODE_OFF        = 'off';
-	public const BACKGROUND_SYNC_EVENT_HOOK      = 'woocommerce_custom_orders_table_background_sync';
+	public const BACKGROUND_SYNC_EVENT_HOOK      = 'poocommerce_custom_orders_table_background_sync';
 
 	/**
 	 * The data store object to use.
@@ -102,10 +102,10 @@ class DataSynchronizer implements BatchProcessorInterface {
 	public function __construct() {
 		add_filter( 'pre_delete_post', array( $this, 'maybe_prevent_deletion_of_post' ), 10, 2 );
 		add_action( 'deleted_post', array( $this, 'handle_deleted_post' ), 10, 2 );
-		add_action( 'woocommerce_new_order', array( $this, 'handle_updated_order' ), 100 );
-		add_action( 'woocommerce_refund_created', array( $this, 'handle_updated_order' ), 100 );
-		add_action( 'woocommerce_update_order', array( $this, 'handle_updated_order' ), 100 );
-		add_action( 'woocommerce_update_order_refund', array( $this, 'handle_updated_order' ), 100 );
+		add_action( 'poocommerce_new_order', array( $this, 'handle_updated_order' ), 100 );
+		add_action( 'poocommerce_refund_created', array( $this, 'handle_updated_order' ), 100 );
+		add_action( 'poocommerce_update_order', array( $this, 'handle_updated_order' ), 100 );
+		add_action( 'poocommerce_update_order_refund', array( $this, 'handle_updated_order' ), 100 );
 		add_action( 'wp_scheduled_auto_draft_delete', array( $this, 'delete_auto_draft_orders' ), 9 );
 		add_action( 'wp_scheduled_delete', array( $this, 'delete_trashed_orders' ), 9 );
 		add_filter( 'updated_option', array( $this, 'process_updated_option' ), 999, 3 );
@@ -259,7 +259,7 @@ class DataSynchronizer implements BatchProcessorInterface {
 	 *
 	 * @return void
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 */
 	public function process_updated_option( $option_key, $old_value, $new_value ) {
 		$sync_option_keys = array( self::ORDERS_DATA_SYNC_ENABLED_OPTION, self::BACKGROUND_SYNC_MODE_OPTION );
@@ -306,7 +306,7 @@ class DataSynchronizer implements BatchProcessorInterface {
 	 *
 	 * @return void
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 */
 	public function process_added_option( $option_key, $value ) {
 		$this->process_updated_option( $option_key, false, $value );
@@ -319,7 +319,7 @@ class DataSynchronizer implements BatchProcessorInterface {
 	 *
 	 * @return void
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 */
 	public function process_deleted_option( $option_key ) {
 		if ( self::BACKGROUND_SYNC_MODE_OPTION !== $option_key ) {
@@ -363,7 +363,7 @@ class DataSynchronizer implements BatchProcessorInterface {
 		 * @param string[] List of order properties or meta keys.
 		 * @since 8.6.0
 		 */
-		$ignored_props = apply_filters( 'woocommerce_hpos_sync_ignored_order_props', array() );
+		$ignored_props = apply_filters( 'poocommerce_hpos_sync_ignored_order_props', array() );
 		$ignored_props = array_filter( array_map( 'trim', array_filter( $ignored_props, 'is_string' ) ) );
 
 		return array_merge(
@@ -409,7 +409,7 @@ class DataSynchronizer implements BatchProcessorInterface {
 	 *
 	 * @return void
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 */
 	public function handle_interval_background_sync() {
 		if ( self::BACKGROUND_SYNC_MODE_INTERVAL !== $this->get_background_sync_mode() ) {
@@ -428,7 +428,7 @@ class DataSynchronizer implements BatchProcessorInterface {
 	 *
 	 * @return void
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 */
 	public function handle_continuous_background_sync() {
 		if ( self::BACKGROUND_SYNC_MODE_CONTINUOUS !== $this->get_background_sync_mode() ) {
@@ -481,7 +481,7 @@ class DataSynchronizer implements BatchProcessorInterface {
 	 */
 	public function get_current_orders_pending_sync_count( $use_cache = false ): int {
 		if ( $use_cache ) {
-			$pending_count = wp_cache_get( 'woocommerce_hpos_pending_sync_count', 'counts' );
+			$pending_count = wp_cache_get( 'poocommerce_hpos_pending_sync_count', 'counts' );
 			if ( false !== $pending_count ) {
 				return (int) $pending_count;
 			}
@@ -489,7 +489,7 @@ class DataSynchronizer implements BatchProcessorInterface {
 
 		$pending_count = $this->query_orders_pending_sync_count();
 
-		wp_cache_set( 'woocommerce_hpos_pending_sync_count', $pending_count, 'counts' );
+		wp_cache_set( 'poocommerce_hpos_pending_sync_count', $pending_count, 'counts' );
 		return $pending_count;
 	}
 
@@ -501,11 +501,11 @@ class DataSynchronizer implements BatchProcessorInterface {
 	 */
 	public function has_orders_pending_sync( $use_cache = false ) {
 		if ( $use_cache ) {
-			$has_pending_sync = wp_cache_get( 'woocommerce_hpos_has_orders_pending_sync', 'counts' );
+			$has_pending_sync = wp_cache_get( 'poocommerce_hpos_has_orders_pending_sync', 'counts' );
 			if ( false !== $has_pending_sync ) {
 				return (bool) $has_pending_sync;
 			}
-			$pending_count = wp_cache_get( 'woocommerce_hpos_pending_sync_count', 'counts' );
+			$pending_count = wp_cache_get( 'poocommerce_hpos_pending_sync_count', 'counts' );
 			if ( false !== $pending_count ) {
 				return (int) $pending_count > 0;
 			}
@@ -513,7 +513,7 @@ class DataSynchronizer implements BatchProcessorInterface {
 
 		$has_pending_sync = $this->query_orders_pending_sync_count( false ) > 0;
 
-		wp_cache_set( 'woocommerce_hpos_has_orders_pending_sync', $has_pending_sync, 'counts' );
+		wp_cache_set( 'poocommerce_hpos_has_orders_pending_sync', $has_pending_sync, 'counts' );
 
 		return $has_pending_sync;
 	}
@@ -541,7 +541,7 @@ class DataSynchronizer implements BatchProcessorInterface {
 			$this->error_logger->debug(
 				sprintf(
 					/* translators: 1: method name. */
-					esc_html__( '%1$s was called but no order types were registered: it may have been called too early.', 'woocommerce' ),
+					esc_html__( '%1$s was called but no order types were registered: it may have been called too early.', 'poocommerce' ),
 					__METHOD__
 				)
 			);
@@ -755,7 +755,7 @@ ORDER BY orders.id ASC
 	 * or because there's nothing left to synchronize.
 	 */
 	public function cleanup_synchronization_state() {
-		delete_option( 'woocommerce_initial_orders_pending_sync_count' );
+		delete_option( 'poocommerce_initial_orders_pending_sync_count' );
 	}
 
 	/**
@@ -943,7 +943,7 @@ ORDER BY orders.id ASC
 		 *
 		 * @param int Default value for the count.
 		 */
-		return apply_filters( 'woocommerce_orders_cot_and_posts_sync_step_size', $batch_size );
+		return apply_filters( 'poocommerce_orders_cot_and_posts_sync_step_size', $batch_size );
 	}
 
 	/**
@@ -976,7 +976,7 @@ ORDER BY orders.id ASC
 	 * @param WP_Post            $post   Post object.
 	 * @return WP_Post|false|null
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 */
 	public function maybe_prevent_deletion_of_post( $delete, $post ) {
 		if ( self::PLACEHOLDER_ORDER_POST_TYPE !== $post->post_type && $this->custom_orders_table_is_authoritative() && $this->data_store->order_exists( $post->ID ) ) {
@@ -994,7 +994,7 @@ ORDER BY orders.id ASC
 	 * @param int     $postid The post id.
 	 * @param WP_Post $post The deleted post.
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 */
 	public function handle_deleted_post( $postid, $post ): void {
 		global $wpdb;
@@ -1039,13 +1039,13 @@ ORDER BY orders.id ASC
 	}
 
 	/**
-	 * Handle the 'woocommerce_update_order' action.
+	 * Handle the 'poocommerce_update_order' action.
 	 *
 	 * When posts is authoritative and sync is enabled, updating a post triggers a corresponding change in the COT table.
 	 *
 	 * @param int $order_id The order id.
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 */
 	public function handle_updated_order( $order_id ): void {
 		if ( ! $this->custom_orders_table_is_authoritative() && $this->data_sync_is_enabled() ) {
@@ -1060,7 +1060,7 @@ ORDER BY orders.id ASC
 	 *
 	 * @return void
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 */
 	public function delete_auto_draft_orders() {
 		if ( ! $this->custom_orders_table_is_authoritative() ) {
@@ -1091,7 +1091,7 @@ ORDER BY orders.id ASC
 		 *
 		 * @since 7.7.0
 		 */
-		do_action( 'woocommerce_scheduled_auto_draft_delete' );
+		do_action( 'poocommerce_scheduled_auto_draft_delete' );
 	}
 
 	/**
@@ -1101,7 +1101,7 @@ ORDER BY orders.id ASC
 	 *
 	 * @return void
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 */
 	public function delete_trashed_orders() {
 		if ( ! $this->custom_orders_table_is_authoritative() ) {

@@ -201,7 +201,7 @@ curl -X POST https://example.com/wp-json/wc/v3/products \
       "id": 42
     },
     {
-      "src": "http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/T_2_back.jpg"
+      "src": "http://demo.woothemes.com/poocommerce/wp-content/uploads/sites/56/2013/06/T_2_back.jpg"
     }
   ]
 }'
@@ -232,12 +232,12 @@ const data = {
 			id: 42,
 		},
 		{
-			src: 'http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/T_2_back.jpg',
+			src: 'http://demo.woothemes.com/poocommerce/wp-content/uploads/sites/56/2013/06/T_2_back.jpg',
 		},
 	],
 };
 
-WooCommerce.post( 'products', data )
+PooCommerce.post( 'products', data )
 	.then( ( response ) => {
 		console.log( response.data );
 	} )
@@ -270,12 +270,12 @@ $data = [
             'id': 42
         ],
         [
-            'src' => 'http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/T_2_back.jpg'
+            'src' => 'http://demo.woothemes.com/poocommerce/wp-content/uploads/sites/56/2013/06/T_2_back.jpg'
         ]
     ]
 ];
 
-print_r($woocommerce->post('products', $data));
+print_r($poocommerce->post('products', $data));
 ?>
 ```
 
@@ -302,7 +302,7 @@ data = {
             "id": 42
         },
         {
-            "src": "http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/T_2_back.jpg"
+            "src": "http://demo.woothemes.com/poocommerce/wp-content/uploads/sites/56/2013/06/T_2_back.jpg"
         }
     ]
 }
@@ -333,12 +333,12 @@ data = {
       id: 42
     },
     {
-      src: "http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/T_2_back.jpg",
+      src: "http://demo.woothemes.com/poocommerce/wp-content/uploads/sites/56/2013/06/T_2_back.jpg",
     }
   ]
 }
 
-woocommerce.post("products", data).parsed_response
+poocommerce.post("products", data).parsed_response
 ```
 
   </TabItem>
@@ -368,7 +368,7 @@ woocommerce.post("products", data).parsed_response
 	"date_on_sale_from_gmt": null,
 	"date_on_sale_to": null,
 	"date_on_sale_to_gmt": null,
-	"price_html": "<span class=\"woocommerce-Price-amount amount\"><span class=\"woocommerce-Price-currencySymbol\">&#36;</span>21.99</span>",
+	"price_html": "<span class=\"poocommerce-Price-amount amount\"><span class=\"poocommerce-Price-currencySymbol\">&#36;</span>21.99</span>",
 	"on_sale": false,
 	"purchasable": true,
 	"total_sales": 0,
@@ -489,16 +489,16 @@ curl -X POST https://example.com/wp-json/wc/v3/products \
   ],
   "images": [
     {
-      "src": "http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/T_4_front.jpg"
+      "src": "http://demo.woothemes.com/poocommerce/wp-content/uploads/sites/56/2013/06/T_4_front.jpg"
     },
     {
-      "src": "http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/T_4_back.jpg"
+      "src": "http://demo.woothemes.com/poocommerce/wp-content/uploads/sites/56/2013/06/T_4_back.jpg"
     },
     {
-      "src": "http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/T_3_front.jpg"
+      "src": "http://demo.woothemes.com/poocommerce/wp-content/uploads/sites/56/2013/06/T_3_front.jpg"
     },
     {
-      "src": "http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/T_3_back.jpg"
+      "src": "http://demo.woothemes.com/poocommerce/wp-content/uploads/sites/56/2013/06/T_3_back.jpg"
     }
   ],
   "attributes": [
@@ -557,16 +557,16 @@ const data = {
 	],
 	images: [
 		{
-			src: 'http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/T_4_front.jpg',
+			src: 'http://demo.woothemes.com/poocommerce/wp-content/uploads/sites/56/2013/06/T_4_front.jpg',
 		},
 		{
-			src: 'http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/T_4_back.jpg',
+			src: 'http://demo.woothemes.com/poocommerce/wp-content/uploads/sites/56/2013/06/T_4_back.jpg',
 		},
 		{
-			src: 'http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/T_3_front.jpg',
+			src: 'http://demo.woothemes.com/poocommerce/wp-content/uploads/sites/56/2013/06/T_3_front.jpg',
 		},
 		{
-			src: 'http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/T_3_back.jpg',
+			src: 'http://demo.woothemes.com/poocommerce/wp-content/uploads/sites/56/2013/06/T_3_back.jpg',
 		},
 	],
 	attributes: [
@@ -597,7 +597,7 @@ const data = {
 	],
 };
 
-WooCommerce.post( 'products', data )
+PooCommerce.post( 'products', data )
 	.then( ( response ) => {
 		console.log( response.data );
 	} )
@@ -626,16 +626,16 @@ $data = [
     ],
     'images' => [
         [
-            'src' => 'http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/T_4_front.jpg'
+            'src' => 'http://demo.woothemes.com/poocommerce/wp-content/uploads/sites/56/2013/06/T_4_front.jpg'
         ],
         [
-            'src' => 'http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/T_4_back.jpg'
+            'src' => 'http://demo.woothemes.com/poocommerce/wp-content/uploads/sites/56/2013/06/T_4_back.jpg'
         ],
         [
-            'src' => 'http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/T_3_front.jpg'
+            'src' => 'http://demo.woothemes.com/poocommerce/wp-content/uploads/sites/56/2013/06/T_3_front.jpg'
         ],
         [
-            'src' => 'http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/T_3_back.jpg'
+            'src' => 'http://demo.woothemes.com/poocommerce/wp-content/uploads/sites/56/2013/06/T_3_back.jpg'
         ]
     ],
     'attributes' => [
@@ -672,7 +672,7 @@ $data = [
     ]
 ];
 
-print_r($woocommerce->post('products', $data));
+print_r($poocommerce->post('products', $data));
 ?>
 ```
 
@@ -695,16 +695,16 @@ data = {
     ],
     "images": [
         {
-            "src": "http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/T_4_front.jpg"
+            "src": "http://demo.woothemes.com/poocommerce/wp-content/uploads/sites/56/2013/06/T_4_front.jpg"
         },
         {
-            "src": "http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/T_4_back.jpg"
+            "src": "http://demo.woothemes.com/poocommerce/wp-content/uploads/sites/56/2013/06/T_4_back.jpg"
         },
         {
-            "src": "http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/T_3_front.jpg"
+            "src": "http://demo.woothemes.com/poocommerce/wp-content/uploads/sites/56/2013/06/T_3_front.jpg"
         },
         {
-            "src": "http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/T_3_back.jpg"
+            "src": "http://demo.woothemes.com/poocommerce/wp-content/uploads/sites/56/2013/06/T_3_back.jpg"
         }
     ],
     "attributes": [
@@ -763,16 +763,16 @@ data = {
   ],
   images: [
     {
-      src: "http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/T_4_front.jpg"
+      src: "http://demo.woothemes.com/poocommerce/wp-content/uploads/sites/56/2013/06/T_4_front.jpg"
     },
     {
-      src: "http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/T_4_back.jpg"
+      src: "http://demo.woothemes.com/poocommerce/wp-content/uploads/sites/56/2013/06/T_4_back.jpg"
     },
     {
-      src: "http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/T_3_front.jpg"
+      src: "http://demo.woothemes.com/poocommerce/wp-content/uploads/sites/56/2013/06/T_3_front.jpg"
     },
     {
-      src: "http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/T_3_back.jpg"
+      src: "http://demo.woothemes.com/poocommerce/wp-content/uploads/sites/56/2013/06/T_3_back.jpg"
     }
   ],
   attributes: [
@@ -809,7 +809,7 @@ data = {
   ]
 }
 
-woocommerce.post("products", data).parsed_response
+poocommerce.post("products", data).parsed_response
 ```
 
   </TabItem>
@@ -1006,7 +1006,7 @@ curl https://example.com/wp-json/wc/v3/products/794 \
   <TabItem value="js" label="JavaScript">
 
 ```javascript
-WooCommerce.get( 'products/794' )
+PooCommerce.get( 'products/794' )
 	.then( ( response ) => {
 		console.log( response.data );
 	} )
@@ -1019,7 +1019,7 @@ WooCommerce.get( 'products/794' )
   <TabItem value="php" label="PHP">
 
 ```php
-<?php print_r($woocommerce->get('products/794')); ?>
+<?php print_r($poocommerce->get('products/794')); ?>
 ```
 
   </TabItem>
@@ -1033,7 +1033,7 @@ print(wcapi.get("products/794").json())
   <TabItem value="ruby" label="Ruby">
 
 ```ruby
-woocommerce.get("products/794").parsed_response
+poocommerce.get("products/794").parsed_response
 ```
 
   </TabItem>
@@ -1063,7 +1063,7 @@ woocommerce.get("products/794").parsed_response
 	"date_on_sale_from_gmt": null,
 	"date_on_sale_to": null,
 	"date_on_sale_to_gmt": null,
-	"price_html": "<span class=\"woocommerce-Price-amount amount\"><span class=\"woocommerce-Price-currencySymbol\">&#36;</span>21.99</span>",
+	"price_html": "<span class=\"poocommerce-Price-amount amount\"><span class=\"poocommerce-Price-currencySymbol\">&#36;</span>21.99</span>",
 	"on_sale": false,
 	"purchasable": true,
 	"total_sales": 0,
@@ -1180,7 +1180,7 @@ curl https://example.com/wp-json/wc/v3/products \
   <TabItem value="js" label="JavaScript">
 
 ```javascript
-WooCommerce.get( 'products' )
+PooCommerce.get( 'products' )
 	.then( ( response ) => {
 		console.log( response.data );
 	} )
@@ -1193,7 +1193,7 @@ WooCommerce.get( 'products' )
   <TabItem value="php" label="PHP">
 
 ```php
-<?php print_r($woocommerce->get('products')); ?>
+<?php print_r($poocommerce->get('products')); ?>
 ```
 
   </TabItem>
@@ -1207,7 +1207,7 @@ print(wcapi.get("products").json())
   <TabItem value="ruby" label="Ruby">
 
 ```ruby
-woocommerce.get("products").parsed_response
+poocommerce.get("products").parsed_response
 ```
 
   </TabItem>
@@ -1390,7 +1390,7 @@ woocommerce.get("products").parsed_response
 		"date_on_sale_from_gmt": null,
 		"date_on_sale_to": null,
 		"date_on_sale_to_gmt": null,
-		"price_html": "<span class=\"woocommerce-Price-amount amount\"><span class=\"woocommerce-Price-currencySymbol\">&#36;</span>21.99</span>",
+		"price_html": "<span class=\"poocommerce-Price-amount amount\"><span class=\"poocommerce-Price-currencySymbol\">&#36;</span>21.99</span>",
 		"on_sale": false,
 		"purchasable": true,
 		"total_sales": 0,
@@ -1563,7 +1563,7 @@ curl https://example.com/wp-json/wc/v3/products/<product_id>/duplicate \
   <TabItem value="js" label="JavaScript">
 
 ```javascript
-WooCommerce.post( 'products/2/duplicate' )
+PooCommerce.post( 'products/2/duplicate' )
 	.then( ( response ) => {
 		console.log( response.data );
 	} )
@@ -1576,7 +1576,7 @@ WooCommerce.post( 'products/2/duplicate' )
   <TabItem value="php" label="PHP">
 
 ```php
-<?php print_r($woocommerce->post('products/2/duplicate')); ?>
+<?php print_r($poocommerce->post('products/2/duplicate')); ?>
 ```
 
   </TabItem>
@@ -1590,7 +1590,7 @@ print(wcapi.post("products/2/duplicate").json())
   <TabItem value="ruby" label="Ruby">
 
 ```ruby
-woocommerce.post("products/2/duplicate").parsed_response
+poocommerce.post("products/2/duplicate").parsed_response
 ```
 
   </TabItem>
@@ -1692,7 +1692,7 @@ const data = {
 	regular_price: '24.54',
 };
 
-WooCommerce.put( 'products/794', data )
+PooCommerce.put( 'products/794', data )
 	.then( ( response ) => {
 		console.log( response.data );
 	} )
@@ -1710,7 +1710,7 @@ $data = [
     'regular_price' => '24.54'
 ];
 
-print_r($woocommerce->put('products/794', $data));
+print_r($poocommerce->put('products/794', $data));
 ?>
 ```
 
@@ -1733,7 +1733,7 @@ data = {
   regular_price: "24.54"
 }
 
-woocommerce.put("products/794", data).parsed_response
+poocommerce.put("products/794", data).parsed_response
 ```
 
   </TabItem>
@@ -1763,7 +1763,7 @@ woocommerce.put("products/794", data).parsed_response
 	"date_on_sale_from_gmt": null,
 	"date_on_sale_to": null,
 	"date_on_sale_to_gmt": null,
-	"price_html": "<span class=\"woocommerce-Price-amount amount\"><span class=\"woocommerce-Price-currencySymbol\">&#36;</span>24.54</span>",
+	"price_html": "<span class=\"poocommerce-Price-amount amount\"><span class=\"poocommerce-Price-currencySymbol\">&#36;</span>24.54</span>",
 	"on_sale": false,
 	"purchasable": true,
 	"total_sales": 0,
@@ -1880,7 +1880,7 @@ curl -X DELETE https://example.com/wp-json/wc/v3/products/794?force=true \
   <TabItem value="js" label="JavaScript">
 
 ```javascript
-WooCommerce.delete( 'products/794', {
+PooCommerce.delete( 'products/794', {
 	force: true,
 } )
 	.then( ( response ) => {
@@ -1895,7 +1895,7 @@ WooCommerce.delete( 'products/794', {
   <TabItem value="php" label="PHP">
 
 ```php
-<?php print_r($woocommerce->delete('products/794', ['force' => true])); ?>
+<?php print_r($poocommerce->delete('products/794', ['force' => true])); ?>
 ```
 
   </TabItem>
@@ -1909,7 +1909,7 @@ print(wcapi.delete("products/794", params={"force": True}).json())
   <TabItem value="ruby" label="Ruby">
 
 ```ruby
-woocommerce.delete("products/794", force: true).parsed_response
+poocommerce.delete("products/794", force: true).parsed_response
 ```
 
   </TabItem>
@@ -1939,7 +1939,7 @@ woocommerce.delete("products/794", force: true).parsed_response
 	"date_on_sale_from_gmt": null,
 	"date_on_sale_to": null,
 	"date_on_sale_to_gmt": null,
-	"price_html": "<span class=\"woocommerce-Price-amount amount\"><span class=\"woocommerce-Price-currencySymbol\">&#36;</span>24.54</span>",
+	"price_html": "<span class=\"poocommerce-Price-amount amount\"><span class=\"poocommerce-Price-currencySymbol\">&#36;</span>24.54</span>",
 	"on_sale": false,
 	"purchasable": true,
 	"total_sales": 0,
@@ -2073,7 +2073,7 @@ curl -X POST https://example.com/wp-json/wc/v3/products/batch \
       "downloads": [
         {
           "name": "Woo Single",
-          "file": "http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/cd_4_angle.jpg"
+          "file": "http://demo.woothemes.com/poocommerce/wp-content/uploads/sites/56/2013/06/cd_4_angle.jpg"
         }
       ],
       "categories": [
@@ -2086,7 +2086,7 @@ curl -X POST https://example.com/wp-json/wc/v3/products/batch \
       ],
       "images": [
         {
-          "src": "http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/cd_4_angle.jpg"
+          "src": "http://demo.woothemes.com/poocommerce/wp-content/uploads/sites/56/2013/06/cd_4_angle.jpg"
         }
       ]
     },
@@ -2106,10 +2106,10 @@ curl -X POST https://example.com/wp-json/wc/v3/products/batch \
       ],
       "images": [
         {
-          "src": "http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/T_2_front.jpg"
+          "src": "http://demo.woothemes.com/poocommerce/wp-content/uploads/sites/56/2013/06/T_2_front.jpg"
         },
         {
-          "src": "http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/T_2_back.jpg"
+          "src": "http://demo.woothemes.com/poocommerce/wp-content/uploads/sites/56/2013/06/T_2_back.jpg"
         }
       ]
     }
@@ -2152,7 +2152,7 @@ const data = {
 			downloads: [
 				{
 					name: 'Woo Single',
-					file: 'http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/cd_4_angle.jpg',
+					file: 'http://demo.woothemes.com/poocommerce/wp-content/uploads/sites/56/2013/06/cd_4_angle.jpg',
 				},
 			],
 			categories: [
@@ -2165,7 +2165,7 @@ const data = {
 			],
 			images: [
 				{
-					src: 'http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/cd_4_angle.jpg',
+					src: 'http://demo.woothemes.com/poocommerce/wp-content/uploads/sites/56/2013/06/cd_4_angle.jpg',
 				},
 			],
 		},
@@ -2187,10 +2187,10 @@ const data = {
 			],
 			images: [
 				{
-					src: 'http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/T_2_front.jpg',
+					src: 'http://demo.woothemes.com/poocommerce/wp-content/uploads/sites/56/2013/06/T_2_front.jpg',
 				},
 				{
-					src: 'http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/T_2_back.jpg',
+					src: 'http://demo.woothemes.com/poocommerce/wp-content/uploads/sites/56/2013/06/T_2_back.jpg',
 				},
 			],
 		},
@@ -2215,7 +2215,7 @@ const data = {
 	delete: [ 794 ],
 };
 
-WooCommerce.post( 'products/batch', data )
+PooCommerce.post( 'products/batch', data )
 	.then( ( response ) => {
 		console.log( response.data );
 	} )
@@ -2240,7 +2240,7 @@ $data = [
             'downloads' => [
                 [
                     'name' => 'Woo Single',
-                    'file' => 'http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/cd_4_angle.jpg'
+                    'file' => 'http://demo.woothemes.com/poocommerce/wp-content/uploads/sites/56/2013/06/cd_4_angle.jpg'
                 ]
             ],
             'categories' => [
@@ -2253,7 +2253,7 @@ $data = [
             ],
             'images' => [
                 [
-                    'src' => 'http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/cd_4_angle.jpg'
+                    'src' => 'http://demo.woothemes.com/poocommerce/wp-content/uploads/sites/56/2013/06/cd_4_angle.jpg'
                 ]
             ]
         ],
@@ -2273,10 +2273,10 @@ $data = [
             ],
             'images' => [
                 [
-                    'src' => 'http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/T_2_front.jpg'
+                    'src' => 'http://demo.woothemes.com/poocommerce/wp-content/uploads/sites/56/2013/06/T_2_front.jpg'
                 ],
                 [
-                    'src' => 'http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/T_2_back.jpg'
+                    'src' => 'http://demo.woothemes.com/poocommerce/wp-content/uploads/sites/56/2013/06/T_2_back.jpg'
                 ]
             ]
         ]
@@ -2303,7 +2303,7 @@ $data = [
     ]
 ];
 
-print_r($woocommerce->post('products/batch', $data));
+print_r($poocommerce->post('products/batch', $data));
 ?>
 ```
 
@@ -2322,7 +2322,7 @@ data = {
             "downloads": [
                 {
                     "name": "Woo Single",
-                    "file": "http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/cd_4_angle.jpg"
+                    "file": "http://demo.woothemes.com/poocommerce/wp-content/uploads/sites/56/2013/06/cd_4_angle.jpg"
                 }
             ],
             "categories": [
@@ -2335,7 +2335,7 @@ data = {
             ],
             "images": [
                 {
-                    "src": "http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/cd_4_angle.jpg"
+                    "src": "http://demo.woothemes.com/poocommerce/wp-content/uploads/sites/56/2013/06/cd_4_angle.jpg"
                 }
             ]
         },
@@ -2355,10 +2355,10 @@ data = {
             ],
             "images": [
                 {
-                    "src": "http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/T_2_front.jpg"
+                    "src": "http://demo.woothemes.com/poocommerce/wp-content/uploads/sites/56/2013/06/T_2_front.jpg"
                 },
                 {
-                    "src": "http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/T_2_back.jpg"
+                    "src": "http://demo.woothemes.com/poocommerce/wp-content/uploads/sites/56/2013/06/T_2_back.jpg"
                 }
             ]
         }
@@ -2403,7 +2403,7 @@ data = {
       downloads: [
         {
           name: "Woo Single",
-          file: "http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/cd_4_angle.jpg"
+          file: "http://demo.woothemes.com/poocommerce/wp-content/uploads/sites/56/2013/06/cd_4_angle.jpg"
         }
       ],
       categories: [
@@ -2416,7 +2416,7 @@ data = {
       ],
       images: [
         {
-          src: "http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/cd_4_angle.jpg"
+          src: "http://demo.woothemes.com/poocommerce/wp-content/uploads/sites/56/2013/06/cd_4_angle.jpg"
         }
       ]
     },
@@ -2436,10 +2436,10 @@ data = {
       ],
       images: [
         {
-          src: "http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/T_2_front.jpg"
+          src: "http://demo.woothemes.com/poocommerce/wp-content/uploads/sites/56/2013/06/T_2_front.jpg"
         },
         {
-          src: "http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/T_2_back.jpg"
+          src: "http://demo.woothemes.com/poocommerce/wp-content/uploads/sites/56/2013/06/T_2_back.jpg"
         }
       ]
     }
@@ -2466,7 +2466,7 @@ data = {
   ]
 }
 
-woocommerce.post("products/batch", data).parsed_response
+poocommerce.post("products/batch", data).parsed_response
 ```
 
   </TabItem>
@@ -2498,7 +2498,7 @@ woocommerce.post("products/batch", data).parsed_response
 			"date_on_sale_from_gmt": null,
 			"date_on_sale_to": null,
 			"date_on_sale_to_gmt": null,
-			"price_html": "<span class=\"woocommerce-Price-amount amount\"><span class=\"woocommerce-Price-currencySymbol\">&#36;</span>21.99</span>",
+			"price_html": "<span class=\"poocommerce-Price-amount amount\"><span class=\"poocommerce-Price-currencySymbol\">&#36;</span>21.99</span>",
 			"on_sale": false,
 			"purchasable": true,
 			"total_sales": 0,
@@ -2508,7 +2508,7 @@ woocommerce.post("products/batch", data).parsed_response
 				{
 					"id": 0,
 					"name": "Woo Single",
-					"file": "http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/cd_4_angle.jpg"
+					"file": "http://demo.woothemes.com/poocommerce/wp-content/uploads/sites/56/2013/06/cd_4_angle.jpg"
 				}
 			],
 			"download_limit": -1,
@@ -2609,7 +2609,7 @@ woocommerce.post("products/batch", data).parsed_response
 			"date_on_sale_from_gmt": null,
 			"date_on_sale_to": null,
 			"date_on_sale_to_gmt": null,
-			"price_html": "<span class=\"woocommerce-Price-amount amount\"><span class=\"woocommerce-Price-currencySymbol\">&#36;</span>21.99</span>",
+			"price_html": "<span class=\"poocommerce-Price-amount amount\"><span class=\"poocommerce-Price-currencySymbol\">&#36;</span>21.99</span>",
 			"on_sale": false,
 			"purchasable": true,
 			"total_sales": 0,
@@ -2891,7 +2891,7 @@ woocommerce.post("products/batch", data).parsed_response
 			"date_on_sale_from_gmt": null,
 			"date_on_sale_to": null,
 			"date_on_sale_to_gmt": null,
-			"price_html": "<span class=\"woocommerce-Price-amount amount\"><span class=\"woocommerce-Price-currencySymbol\">&#36;</span>24.54</span>",
+			"price_html": "<span class=\"poocommerce-Price-amount amount\"><span class=\"poocommerce-Price-currencySymbol\">&#36;</span>24.54</span>",
 			"on_sale": false,
 			"purchasable": true,
 			"total_sales": 0,

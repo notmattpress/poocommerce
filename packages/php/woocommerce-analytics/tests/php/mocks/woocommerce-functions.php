@@ -1,8 +1,8 @@
 <?php
 /**
- * WooCommerce function mocks for testing.
+ * PooCommerce function mocks for testing.
  *
- * @package automattic/woocommerce-analytics
+ * @package automattic/poocommerce-analytics
  */
 
 // phpcs:disable WordPress.NamingConventions.ValidFunctionName.FunctionNameInvalid
@@ -41,7 +41,7 @@ if ( ! function_exists( 'WC' ) ) {
 	/**
 	 * Mock WC function.
 	 *
-	 * @return object Mock WooCommerce object.
+	 * @return object Mock PooCommerce object.
 	 */
 	function WC() {
 		return new class() {

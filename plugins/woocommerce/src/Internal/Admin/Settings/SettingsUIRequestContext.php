@@ -5,13 +5,13 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Admin\Settings;
+namespace Automattic\PooCommerce\Internal\Admin\Settings;
 
-use Automattic\WooCommerce\Admin\Features\Features;
-use Automattic\WooCommerce\Admin\PageController;
-use Automattic\WooCommerce\Admin\Settings\SettingsSectionRegistry;
-use Automattic\WooCommerce\Admin\Settings\SettingsSectionUIPageProviderInterface;
-use Automattic\WooCommerce\Admin\Settings\SettingsUIPageInterface;
+use Automattic\PooCommerce\Admin\Features\Features;
+use Automattic\PooCommerce\Admin\PageController;
+use Automattic\PooCommerce\Admin\Settings\SettingsSectionRegistry;
+use Automattic\PooCommerce\Admin\Settings\SettingsSectionUIPageProviderInterface;
+use Automattic\PooCommerce\Admin\Settings\SettingsUIPageInterface;
 
 /**
  * Resolves and caches Settings UI state for the active settings request.
@@ -171,7 +171,7 @@ class SettingsUIRequestContext {
 	 * @return SettingsUIRequestContext|null
 	 */
 	public static function get_current(): ?SettingsUIRequestContext {
-		if ( self::is_classic_request() || ! PageController::is_settings_page() || ! Features::is_enabled( 'settings-ui' ) || ! current_user_can( 'manage_woocommerce' ) ) {
+		if ( self::is_classic_request() || ! PageController::is_settings_page() || ! Features::is_enabled( 'settings-ui' ) || ! current_user_can( 'manage_poocommerce' ) ) {
 			return null;
 		}
 
@@ -217,7 +217,7 @@ class SettingsUIRequestContext {
 	}
 
 	/**
-	 * Get the current WooCommerce settings tab.
+	 * Get the current PooCommerce settings tab.
 	 *
 	 * @return string
 	 */
@@ -239,7 +239,7 @@ class SettingsUIRequestContext {
 	}
 
 	/**
-	 * Get the current WooCommerce settings section.
+	 * Get the current PooCommerce settings section.
 	 *
 	 * Reads $_REQUEST to match how the legacy $current_section global is derived,
 	 * so context resolution and legacy settings rendering agree on the section.
@@ -369,7 +369,7 @@ class SettingsUIRequestContext {
 	 * Validate and enqueue extension script handles for this context.
 	 *
 	 * Handle names are collected separately so extensions can register their
-	 * scripts after WooCommerce builds the settings embed dependency list.
+	 * scripts after PooCommerce builds the settings embed dependency list.
 	 *
 	 * @since 11.2.0
 	 *
@@ -391,7 +391,7 @@ class SettingsUIRequestContext {
 						new \RuntimeException(
 							sprintf(
 								/* translators: %s: script handle. */
-								__( 'Settings UI script handle "%s" could not be enqueued.', 'woocommerce' ),
+								__( 'Settings UI script handle "%s" could not be enqueued.', 'poocommerce' ),
 								sanitize_text_field( $script_handle )
 							)
 						),
@@ -446,7 +446,7 @@ class SettingsUIRequestContext {
 
 		return '' !== $this->script_handles_failure_reason
 			? $this->script_handles_failure_reason
-			: __( 'Settings UI script handles could not be resolved.', 'woocommerce' );
+			: __( 'Settings UI script handles could not be resolved.', 'poocommerce' );
 	}
 
 	/**
@@ -495,7 +495,7 @@ class SettingsUIRequestContext {
 
 		return '' !== $this->schema_failure_reason
 			? $this->schema_failure_reason
-			: __( 'Settings UI schema could not be resolved.', 'woocommerce' );
+			: __( 'Settings UI schema could not be resolved.', 'poocommerce' );
 	}
 
 	/**
@@ -567,7 +567,7 @@ class SettingsUIRequestContext {
 						__METHOD__,
 						sprintf(
 							/* translators: 1: settings page id, 2: settings section id, 3: failure reason. */
-							esc_html__( 'The native Settings UI page for page "%1$s" section "%2$s" could not be resolved. Falling back to the default settings adapter. Reason: %3$s', 'woocommerce' ),
+							esc_html__( 'The native Settings UI page for page "%1$s" section "%2$s" could not be resolved. Falling back to the default settings adapter. Reason: %3$s', 'poocommerce' ),
 							esc_html( $settings_page->get_id() ),
 							esc_html( self::get_section_key( $section ) ),
 							esc_html( get_class( $e ) . ': ' . $e->getMessage() )
@@ -615,7 +615,7 @@ class SettingsUIRequestContext {
 		// phpcs:disable WordPress.Security.EscapeOutput.ExceptionNotEscaped
 		foreach ( $script_handles as $script_handle ) {
 			if ( ! is_string( $script_handle ) || '' === trim( $script_handle ) ) {
-				throw new \InvalidArgumentException( __( 'Settings UI script handles must be non-empty strings.', 'woocommerce' ) );
+				throw new \InvalidArgumentException( __( 'Settings UI script handles must be non-empty strings.', 'poocommerce' ) );
 			}
 		}
 		// phpcs:enable WordPress.Security.EscapeOutput.ExceptionNotEscaped
@@ -647,7 +647,7 @@ class SettingsUIRequestContext {
 					new \RuntimeException(
 						sprintf(
 							/* translators: %s: script handle. */
-							__( 'Settings UI script handle "%s" is not registered.', 'woocommerce' ),
+							__( 'Settings UI script handle "%s" is not registered.', 'poocommerce' ),
 							sanitize_text_field( $script_handle )
 						)
 					),
@@ -673,7 +673,7 @@ class SettingsUIRequestContext {
 
 		$this->script_handles_failure_reason = sprintf(
 			/* translators: %s: failure reason. */
-			__( 'Settings UI script handles could not be resolved: %s', 'woocommerce' ),
+			__( 'Settings UI script handles could not be resolved: %s', 'poocommerce' ),
 			self::sanitize_failure_reason( $e )
 		);
 	}

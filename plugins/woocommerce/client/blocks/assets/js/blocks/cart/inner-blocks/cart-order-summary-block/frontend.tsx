@@ -1,9 +1,9 @@
 /**
  * External dependencies
  */
-import { TotalsFooterItem } from '@woocommerce/base-components/cart-checkout';
-import { getCurrencyFromPriceResponse } from '@woocommerce/price-format';
-import { useStoreCart } from '@woocommerce/base-context/hooks';
+import { TotalsFooterItem } from '@poocommerce/base-components/cart-checkout';
+import { getCurrencyFromPriceResponse } from '@poocommerce/price-format';
+import { useStoreCart } from '@poocommerce/base-context/hooks';
 
 /**
  * Internal dependencies

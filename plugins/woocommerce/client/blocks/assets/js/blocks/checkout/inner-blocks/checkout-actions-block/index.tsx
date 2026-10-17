@@ -18,7 +18,7 @@ const blockConfig: Partial< BlockConfiguration > = {
 	example: {
 		attributes: {
 			showPrice: true,
-			placeOrderButtonLabel: __( 'Place Order', 'woocommerce' ),
+			placeOrderButtonLabel: __( 'Place Order', 'poocommerce' ),
 			showReturnToCart: false,
 		},
 	},

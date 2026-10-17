@@ -41,7 +41,7 @@ test.describe(
 				await setOption(
 					request,
 					baseURL,
-					'woocommerce_analytics_scheduled_import',
+					'poocommerce_analytics_scheduled_import',
 					'yes'
 				);
 			} catch ( error ) {
@@ -82,7 +82,7 @@ test.describe(
 				await deleteOption(
 					request,
 					baseURL,
-					'woocommerce_analytics_scheduled_import'
+					'poocommerce_analytics_scheduled_import'
 				);
 				await page.reload();
 				await expect( immediately ).toBeChecked();
@@ -92,7 +92,7 @@ test.describe(
 				await setOption(
 					request,
 					baseURL,
-					'woocommerce_analytics_scheduled_import',
+					'poocommerce_analytics_scheduled_import',
 					'yes'
 				);
 				await page.reload();

@@ -2,13 +2,13 @@
 /**
  * Convenience functions for PageController.
  *
- * @package WooCommerce\Admin
+ * @package PooCommerce\Admin
  */
 
-use Automattic\WooCommerce\Admin\PageController;
+use Automattic\PooCommerce\Admin\PageController;
 
 /**
- * Connect an existing page to WooCommerce Admin.
+ * Connect an existing page to PooCommerce Admin.
  * Passthrough to PageController::connect_page().
  *
  * @param array $options Options for PageController::connect_page().
@@ -19,7 +19,7 @@ function wc_admin_connect_page( $options ) {
 }
 
 /**
- * Register JS-powered WooCommerce Admin Page.
+ * Register JS-powered PooCommerce Admin Page.
  * Passthrough to PageController::register_page().
  *
  * @param array $options Options for PageController::register_page().
@@ -30,10 +30,10 @@ function wc_admin_register_page( $options ) {
 }
 
 /**
- * Is this page connected to WooCommerce Admin?
+ * Is this page connected to PooCommerce Admin?
  * Passthrough to PageController::is_connected_page().
  *
- * @return boolean True if the page is connected to WooCommerce Admin.
+ * @return boolean True if the page is connected to PooCommerce Admin.
  */
 function wc_admin_is_connected_page() {
 	$controller = PageController::get_instance();
@@ -41,10 +41,10 @@ function wc_admin_is_connected_page() {
 }
 
 /**
- * Is this a WooCommerce Admin Page?
+ * Is this a PooCommerce Admin Page?
  * Passthrough to PageController::is_registered_page().
  *
- * @return boolean True if the page is a WooCommerce Admin page.
+ * @return boolean True if the page is a PooCommerce Admin page.
  */
 function wc_admin_is_registered_page() {
 	$controller = PageController::get_instance();
@@ -52,7 +52,7 @@ function wc_admin_is_registered_page() {
 }
 
 /**
- * Get breadcrumbs for WooCommerce Admin Page navigation.
+ * Get breadcrumbs for PooCommerce Admin Page navigation.
  * Passthrough to PageController::get_breadcrumbs().
  *
  * @return array Navigation pieces (breadcrumbs).

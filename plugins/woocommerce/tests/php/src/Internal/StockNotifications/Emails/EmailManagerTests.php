@@ -1,12 +1,12 @@
 <?php
 
 declare( strict_types = 1 );
-namespace Automattic\WooCommerce\Tests\Internal\StockNotifications\Emails;
+namespace Automattic\PooCommerce\Tests\Internal\StockNotifications\Emails;
 
-use Automattic\WooCommerce\Internal\StockNotifications\Emails\EmailManager;
-use Automattic\WooCommerce\Internal\StockNotifications\Notification;
-use Automattic\WooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
-use Automattic\WooCommerce\Tests\Internal\StockNotifications\StockNotificationsFeatureTrait;
+use Automattic\PooCommerce\Internal\StockNotifications\Emails\EmailManager;
+use Automattic\PooCommerce\Internal\StockNotifications\Notification;
+use Automattic\PooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
+use Automattic\PooCommerce\Tests\Internal\StockNotifications\StockNotificationsFeatureTrait;
 use WC_Helper_Product;
 
 /**
@@ -53,7 +53,7 @@ class EmailManagerTests extends \WC_Unit_Test_Case {
 
 		// `WC_Emails` is a singleton that keeps whichever email list it built on its first
 		// construction for the rest of the process. Reset it so this test's registration
-		// via `woocommerce_email_classes` is actually picked up rather than an earlier
+		// via `poocommerce_email_classes` is actually picked up rather than an earlier
 		// test's (feature-disabled) build of the list.
 		$this->reset_email_singleton();
 		WC()->mailer();
@@ -100,7 +100,7 @@ class EmailManagerTests extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Should register the three BIS email classes via woocommerce_email_classes filter.
+	 * @testdox Should register the three BIS email classes via poocommerce_email_classes filter.
 	 */
 	public function test_registers_all_three_bis_email_classes() {
 		$emails = WC()->mailer()->get_emails();
@@ -123,19 +123,19 @@ class EmailManagerTests extends \WC_Unit_Test_Case {
 		$use_logger = function () use ( $logger ) {
 			return $logger;
 		};
-		add_filter( 'woocommerce_logging_class', $use_logger );
+		add_filter( 'poocommerce_logging_class', $use_logger );
 
 		$drop_bis_emails = function ( $emails ) {
 			unset( $emails['WC_Email_Customer_Stock_Notification_Verify'] );
 			return $emails;
 		};
-		add_filter( 'woocommerce_email_classes', $drop_bis_emails, 20 );
+		add_filter( 'poocommerce_email_classes', $drop_bis_emails, 20 );
 		$this->reset_email_singleton();
 
 		$this->sut->send_verify_email( $notification );
 
-		remove_filter( 'woocommerce_email_classes', $drop_bis_emails, 20 );
-		remove_filter( 'woocommerce_logging_class', $use_logger );
+		remove_filter( 'poocommerce_email_classes', $drop_bis_emails, 20 );
+		remove_filter( 'poocommerce_logging_class', $use_logger );
 
 		$this->assertEmpty( $this->sent_to );
 	}

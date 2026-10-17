@@ -2,19 +2,19 @@
 /**
  * Unit tests for ItemsSnapshot.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine
+ * @package Automattic\PooCommerce\SubscriptionsEngine
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Tests\Unit\Core\ValueObject;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Tests\Unit\Core\ValueObject;
 
 use DomainException;
 use PHPUnit\Framework\TestCase;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\ValueObject\ItemsSnapshot;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\ValueObject\ItemsSnapshot;
 
 /**
- * @covers \Automattic\WooCommerce\SubscriptionsEngine\Core\ValueObject\ItemsSnapshot
+ * @covers \Automattic\PooCommerce\SubscriptionsEngine\Core\ValueObject\ItemsSnapshot
  */
 class ItemsSnapshotTest extends TestCase {
 

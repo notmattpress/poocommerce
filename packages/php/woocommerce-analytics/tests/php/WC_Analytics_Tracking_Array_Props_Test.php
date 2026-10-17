@@ -2,7 +2,7 @@
 /**
  * Tests for how array-valued event properties reach the pixel URL.
  *
- * @package automattic/woocommerce-analytics
+ * @package automattic/poocommerce-analytics
  */
 
 namespace Automattic\Woocommerce_Analytics;
@@ -25,7 +25,7 @@ class WC_Analytics_Tracking_Array_Props_Test extends BaseTestCase {
 	 * @return string The query string exactly as it leaves `http_build_query()`.
 	 */
 	private function raw_pixel_query( array $event_properties ): string {
-		$props = WC_Analytics_Tracking::get_properties( 'woocommerceanalytics_add_to_cart', $event_properties );
+		$props = WC_Analytics_Tracking::get_properties( 'poocommerceanalytics_add_to_cart', $event_properties );
 		$url   = Pixel_Builder::build_tracks_url( $props );
 
 		$this->assertIsString( $url, 'The pixel URL must build for array props.' );
@@ -51,12 +51,12 @@ class WC_Analytics_Tracking_Array_Props_Test extends BaseTestCase {
 	public function test_indexed_array_prop_decodes_once_to_the_joined_value(): void {
 		$query = $this->decoded_pixel_query(
 			array(
-				'additional_blocks_on_cart_page' => array( 'woocommerce/cart-cross-sells-block', 'core/paragraph' ),
+				'additional_blocks_on_cart_page' => array( 'poocommerce/cart-cross-sells-block', 'core/paragraph' ),
 			)
 		);
 
 		$this->assertSame(
-			'woocommerce/cart-cross-sells-block,core/paragraph',
+			'poocommerce/cart-cross-sells-block,core/paragraph',
 			$query['additional_blocks_on_cart_page'],
 			'A single decode must yield the block names, not a second layer of %2F and %2C.'
 		);

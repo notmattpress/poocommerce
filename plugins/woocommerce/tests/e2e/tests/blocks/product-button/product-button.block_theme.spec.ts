@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { expect, test } from '@woocommerce/e2e-utils';
+import { expect, test } from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -103,12 +103,12 @@ test.describe( `${ blockData.name } Block`, () => {
 		} );
 	} );
 
-	test( 'the filter `woocommerce_product_add_to_cart_text` should be applied', async ( {
+	test( 'the filter `poocommerce_product_add_to_cart_text` should be applied', async ( {
 		requestUtils,
 		frontendUtils,
 	} ) => {
 		await requestUtils.activatePlugin(
-			'woocommerce-blocks-test-custom-add-to-cart-button-text'
+			'poocommerce-blocks-test-custom-add-to-cart-button-text'
 		);
 		await frontendUtils.goToShop();
 		const blocks = await frontendUtils.getBlockByName( blockData.slug );

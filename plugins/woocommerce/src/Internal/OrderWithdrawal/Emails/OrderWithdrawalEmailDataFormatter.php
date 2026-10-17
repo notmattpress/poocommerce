@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\OrderWithdrawal\Emails;
+namespace Automattic\PooCommerce\Internal\OrderWithdrawal\Emails;
 
-use Automattic\WooCommerce\Internal\OrderWithdrawal\OrderWithdrawalFormProcessor;
+use Automattic\PooCommerce\Internal\OrderWithdrawal\OrderWithdrawalFormProcessor;
 
 /**
  * Formats order withdrawal email data for templates.
@@ -74,8 +74,8 @@ final class OrderWithdrawalEmailDataFormatter {
 	 */
 	public function get_withdrawal_type_label( string $withdrawal_type ): string {
 		$options = array(
-			OrderWithdrawalFormProcessor::WITHDRAWAL_TYPE_FULL     => __( 'The full order', 'woocommerce' ),
-			OrderWithdrawalFormProcessor::WITHDRAWAL_TYPE_SPECIFIC => __( 'Specific items only', 'woocommerce' ),
+			OrderWithdrawalFormProcessor::WITHDRAWAL_TYPE_FULL     => __( 'The full order', 'poocommerce' ),
+			OrderWithdrawalFormProcessor::WITHDRAWAL_TYPE_SPECIFIC => __( 'Specific items only', 'poocommerce' ),
 		);
 
 		return $options[ $withdrawal_type ] ?? '';
@@ -92,7 +92,7 @@ final class OrderWithdrawalEmailDataFormatter {
 		$date_format        = (string) get_option( 'date_format' );
 		$time_format        = (string) get_option( 'time_format' );
 		$additional_details = $data[ OrderWithdrawalFormProcessor::FIELD_ADDITIONAL_DETAILS ] ?? '';
-		$additional_details = '' === $additional_details ? __( 'None provided', 'woocommerce' ) : $additional_details;
+		$additional_details = '' === $additional_details ? __( 'None provided', 'poocommerce' ) : $additional_details;
 		$submitted_at_text  = wp_date( trim( $date_format . ' ' . $time_format ), $submitted_at );
 
 		if ( false === $submitted_at_text ) {
@@ -100,12 +100,12 @@ final class OrderWithdrawalEmailDataFormatter {
 		}
 
 		return array(
-			__( 'Submitted', 'woocommerce' )          => $submitted_at_text,
-			__( 'Name', 'woocommerce' )               => $this->get_customer_name( $data ),
-			__( 'Email address', 'woocommerce' )      => $data[ OrderWithdrawalFormProcessor::FIELD_EMAIL ] ?? '',
-			__( 'Order number', 'woocommerce' )       => $data[ OrderWithdrawalFormProcessor::FIELD_ORDER_NUMBER ] ?? '',
-			__( 'Withdrawing', 'woocommerce' )        => $this->get_withdrawal_type_label( $data[ OrderWithdrawalFormProcessor::FIELD_WITHDRAWAL_TYPE ] ?? '' ),
-			__( 'Additional details', 'woocommerce' ) => $additional_details,
+			__( 'Submitted', 'poocommerce' )          => $submitted_at_text,
+			__( 'Name', 'poocommerce' )               => $this->get_customer_name( $data ),
+			__( 'Email address', 'poocommerce' )      => $data[ OrderWithdrawalFormProcessor::FIELD_EMAIL ] ?? '',
+			__( 'Order number', 'poocommerce' )       => $data[ OrderWithdrawalFormProcessor::FIELD_ORDER_NUMBER ] ?? '',
+			__( 'Withdrawing', 'poocommerce' )        => $this->get_withdrawal_type_label( $data[ OrderWithdrawalFormProcessor::FIELD_WITHDRAWAL_TYPE ] ?? '' ),
+			__( 'Additional details', 'poocommerce' ) => $additional_details,
 		);
 	}
 }

@@ -1,7 +1,7 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\Utils\StyleAttributesUtils;
+use Automattic\PooCommerce\Blocks\Utils\StyleAttributesUtils;
 
 /**
  * ProductSaleBadge class.
@@ -66,7 +66,7 @@ class ProductSaleBadge extends AbstractBlock {
 		$classname = StyleAttributesUtils::get_classes_by_attributes( $attributes, array( 'extra_classes' ) );
 
 		$sale_text     = $attributes['saleText'] ?? '';
-		$sale_text     = '' === $sale_text ? __( 'Sale', 'woocommerce' ) : $sale_text;
+		$sale_text     = '' === $sale_text ? __( 'Sale', 'poocommerce' ) : $sale_text;
 		$badge_content = $attributes['badgeContent'] ?? 'text';
 
 		if ( in_array( $badge_content, array( 'amount', 'percentage' ), true ) ) {
@@ -107,12 +107,12 @@ class ProductSaleBadge extends AbstractBlock {
 				}
 				$value = 'percentage' === $badge_content
 					/* translators: %s: discount percentage. %% is the percent sign. */
-					? sprintf( __( '%s%%', 'woocommerce' ), round( $percentage * 100 ) )
+					? sprintf( __( '%s%%', 'poocommerce' ), round( $percentage * 100 ) )
 					: html_entity_decode( wp_strip_all_tags( wc_price( $amount ) ), ENT_QUOTES, get_bloginfo( 'charset' ) );
 
 				if ( $has_different_discounts ) {
 					/* translators: %s: largest discount across variations. */
-					$sale_text = sprintf( __( 'Up to %s', 'woocommerce' ), $value );
+					$sale_text = sprintf( __( 'Up to %s', 'poocommerce' ), $value );
 				} else {
 					$sale_text = ( $attributes['prefix'] ?? '' ) . $value . ( $attributes['suffix'] ?? '' );
 				}
@@ -122,17 +122,17 @@ class ProductSaleBadge extends AbstractBlock {
 		/**
 		 * Filters the product sale badge text.
 		 *
-		 * @hook woocommerce_sale_badge_text
+		 * @hook poocommerce_sale_badge_text
 		 * @since 10.0.0
 		 *
 		 * @param string $sale_text The sale badge text.
 		 * @param \WC_Product $product The product object.
 		 * @return string The filtered sale badge text.
 		 */
-		$sale_text = apply_filters( 'woocommerce_sale_badge_text', $sale_text, $product );
+		$sale_text = apply_filters( 'poocommerce_sale_badge_text', $sale_text, $product );
 
 		/* translators: %s: sale badge text. */
-		$screen_reader_text = sprintf( __( 'Product on sale: %s', 'woocommerce' ), $sale_text );
+		$screen_reader_text = sprintf( __( 'Product on sale: %s', 'poocommerce' ), $sale_text );
 		$is_interactive     = $product instanceof \WC_Product_Variable
 			&& ! isset( $block->context['query']['isProductCollectionBlock'] )
 			&& ! isset( $block->context['isDescendantOfGroupedProductSelector'] );
@@ -151,18 +151,18 @@ class ProductSaleBadge extends AbstractBlock {
 		);
 
 		if ( $is_interactive ) {
-			wp_enqueue_script_module( 'woocommerce/product-sale-badge' );
+			wp_enqueue_script_module( 'poocommerce/product-sale-badge' );
 			wp_interactivity_config(
-				'woocommerce/product-sale-badge',
+				'poocommerce/product-sale-badge',
 				array(
 					/* translators: %s: discount percentage. %% is the percent sign. */
-					'saleBadgePercentageTemplate'   => sprintf( __( '%s%%', 'woocommerce' ), '%s' ),
+					'saleBadgePercentageTemplate'   => sprintf( __( '%s%%', 'poocommerce' ), '%s' ),
 					/* translators: %s: sale badge text. */
-					'saleBadgeScreenReaderTemplate' => sprintf( __( 'Product on sale: %s', 'woocommerce' ), '%s' ),
+					'saleBadgeScreenReaderTemplate' => sprintf( __( 'Product on sale: %s', 'poocommerce' ), '%s' ),
 				)
 			);
 			wp_interactivity_state(
-				'woocommerce/product-sale-badge',
+				'poocommerce/product-sale-badge',
 				array(
 					'saleBadgeText'             => static function () {
 						return wp_interactivity_get_context()['saleBadgeText'];
@@ -173,7 +173,7 @@ class ProductSaleBadge extends AbstractBlock {
 					'isSaleBadgeHidden'         => false,
 				)
 			);
-			$wrapper_attributes['data-wp-interactive']  = 'woocommerce/product-sale-badge';
+			$wrapper_attributes['data-wp-interactive']  = 'poocommerce/product-sale-badge';
 			$wrapper_attributes['data-wp-bind--hidden'] = 'state.isSaleBadgeHidden';
 			$wrapper_attributes['aria-live']            = 'polite';
 			$wrapper_attributes['aria-atomic']          = 'true';

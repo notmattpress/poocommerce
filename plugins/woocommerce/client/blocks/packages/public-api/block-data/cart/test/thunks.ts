@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { ExtensionCartUpdateArgs } from '@woocommerce/types';
+import { ExtensionCartUpdateArgs } from '@poocommerce/types';
 import { addAction, removeAction } from '@wordpress/hooks';
 
 /**
@@ -21,8 +21,8 @@ jest.mock( '../../shared-controls', () => ( {
 	apiFetchWithHeaders: jest.fn(),
 } ) );
 
-jest.mock( '@woocommerce/base-utils', () => ( {
-	...jest.requireActual( '@woocommerce/base-utils' ),
+jest.mock( '@poocommerce/base-utils', () => ( {
+	...jest.requireActual( '@poocommerce/base-utils' ),
 	hasCollectableRate: jest.fn( ( chosenRates ) => {
 		if ( Array.isArray( chosenRates ) ) {
 			return chosenRates.includes( 'pickup_location' );
@@ -400,7 +400,7 @@ describe( 'receiveCart', () => {
 				);
 		} );
 		addAction(
-			'experimental__woocommerce_blocks-cart-updated',
+			'experimental__poocommerce_blocks-cart-updated',
 			'test/cart-updated',
 			callback
 		);
@@ -412,7 +412,7 @@ describe( 'receiveCart', () => {
 			} as never )( { dispatch, select } as never );
 		} finally {
 			removeAction(
-				'experimental__woocommerce_blocks-cart-updated',
+				'experimental__poocommerce_blocks-cart-updated',
 				'test/cart-updated'
 			);
 		}
@@ -431,7 +431,7 @@ describe( 'receiveCart', () => {
 			pendingDelete: [],
 		} );
 		addAction(
-			'experimental__woocommerce_blocks-cart-updated',
+			'experimental__poocommerce_blocks-cart-updated',
 			'test/cart-updated-throws',
 			() => {
 				throw new Error( 'Extension error' );
@@ -445,7 +445,7 @@ describe( 'receiveCart', () => {
 			} as never )( { dispatch, select } as never );
 		} finally {
 			removeAction(
-				'experimental__woocommerce_blocks-cart-updated',
+				'experimental__poocommerce_blocks-cart-updated',
 				'test/cart-updated-throws'
 			);
 		}
@@ -517,7 +517,7 @@ describe( 'syncCartWithIAPIStore', () => {
 				);
 		} );
 		addAction(
-			'experimental__woocommerce_blocks-cart-updated',
+			'experimental__poocommerce_blocks-cart-updated',
 			'test/cart-updated-sync',
 			callback
 		);
@@ -528,7 +528,7 @@ describe( 'syncCartWithIAPIStore', () => {
 			} )( { dispatch, select } as never );
 		} finally {
 			removeAction(
-				'experimental__woocommerce_blocks-cart-updated',
+				'experimental__poocommerce_blocks-cart-updated',
 				'test/cart-updated-sync'
 			);
 		}
@@ -548,7 +548,7 @@ describe( 'syncCartWithIAPIStore', () => {
 		const { dispatch, select } = createSyncMocks();
 		const callback = jest.fn();
 		addAction(
-			'experimental__woocommerce_blocks-cart-updated',
+			'experimental__poocommerce_blocks-cart-updated',
 			'test/cart-updated-sync-fails',
 			callback
 		);
@@ -561,7 +561,7 @@ describe( 'syncCartWithIAPIStore', () => {
 			).rejects.toThrow( 'Request failed' );
 		} finally {
 			removeAction(
-				'experimental__woocommerce_blocks-cart-updated',
+				'experimental__poocommerce_blocks-cart-updated',
 				'test/cart-updated-sync-fails'
 			);
 		}

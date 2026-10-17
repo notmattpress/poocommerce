@@ -5,7 +5,7 @@
  * This controller extends the V3 Options settings controller to make all V3 Options settings endpoints
  * available under the V4 namespace.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @since   8.6.0
  */
 
@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * REST API Settings V4 controller class.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @extends WC_REST_Setting_Options_Controller
  */
 class WC_REST_Settings_V4_Controller extends WC_REST_Setting_Options_Controller {

@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Admin\Features\OnboardingTasks;
+namespace Automattic\PooCommerce\Tests\Admin\Features\OnboardingTasks;
 
-use Automattic\WooCommerce\Admin\Features\OnboardingTasks\DeprecatedExtendedTask;
-use Automattic\WooCommerce\Admin\Features\OnboardingTasks\TaskList;
+use Automattic\PooCommerce\Admin\Features\OnboardingTasks\DeprecatedExtendedTask;
+use Automattic\PooCommerce\Admin\Features\OnboardingTasks\TaskList;
 use WC_Unit_Test_Case;
 
 /**

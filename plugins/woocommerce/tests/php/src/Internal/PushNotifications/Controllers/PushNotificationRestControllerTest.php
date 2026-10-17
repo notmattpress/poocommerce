@@ -2,14 +2,14 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\PushNotifications\Controllers;
+namespace Automattic\PooCommerce\Tests\Internal\PushNotifications\Controllers;
 
-use Automattic\WooCommerce\Internal\PushNotifications\Controllers\PushNotificationRestController;
-use Automattic\WooCommerce\Internal\PushNotifications\Dispatchers\InternalNotificationDispatcher;
-use Automattic\WooCommerce\Internal\PushNotifications\Enums\AuthorizationFailureReason;
-use Automattic\WooCommerce\Internal\PushNotifications\PushNotifications;
-use Automattic\WooCommerce\RestApi\UnitTests\LoggerSpyTrait;
-use Automattic\WooCommerce\StoreApi\Utilities\JsonWebToken;
+use Automattic\PooCommerce\Internal\PushNotifications\Controllers\PushNotificationRestController;
+use Automattic\PooCommerce\Internal\PushNotifications\Dispatchers\InternalNotificationDispatcher;
+use Automattic\PooCommerce\Internal\PushNotifications\Enums\AuthorizationFailureReason;
+use Automattic\PooCommerce\Internal\PushNotifications\PushNotifications;
+use Automattic\PooCommerce\RestApi\UnitTests\LoggerSpyTrait;
+use Automattic\PooCommerce\StoreApi\Utilities\JsonWebToken;
 use WC_Rate_Limiter;
 use WC_Unit_Test_Case;
 use WP_REST_Request;
@@ -82,7 +82,7 @@ class PushNotificationRestControllerTest extends WC_Unit_Test_Case {
 		$result = $this->sut->authorize( $request );
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_rest_unauthorized', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_rest_unauthorized', $result->get_error_code() );
 	}
 
 	/**

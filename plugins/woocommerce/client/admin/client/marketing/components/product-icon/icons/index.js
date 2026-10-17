@@ -2,7 +2,7 @@ export { default as blank } from './library/blank';
 
 // Amazon & Ebay Integration
 export { default as amazonEbayIntegration } from './library/amazon-ebay';
-export { default as woocommerceAmazonEbayIntegration } from './library/amazon-ebay';
+export { default as poocommerceAmazonEbayIntegration } from './library/amazon-ebay';
 
 // AutomateWoo
 export { default as automatewoo } from './library/automatewoo';
@@ -47,7 +47,7 @@ export { default as integrationWithSalesforce } from './library/salesforce';
 export { default as tiktokForBusiness } from './library/tiktok';
 
 // Zapier
-export { default as woocommerceZapier } from './library/zapier';
+export { default as poocommerceZapier } from './library/zapier';
 
 // Vimeo
 export { default as vimeo } from './library/vimeo';
@@ -56,8 +56,8 @@ export { default as vimeo } from './library/vimeo';
 export { default as trustpilotReviews } from './library/trustpilot';
 
 // Coupons
-export { default as woocommerceStoreCredit } from './library/currency-dollar';
-export { default as woocommerceFreeGiftCoupons } from './library/gift';
-export { default as woocommerceUrlCoupons } from './library/link';
-export { default as woocommerceGroupCoupons } from './library/people';
-export { default as woocommerceSmartCoupons } from './library/tip';
+export { default as poocommerceStoreCredit } from './library/currency-dollar';
+export { default as poocommerceFreeGiftCoupons } from './library/gift';
+export { default as poocommerceUrlCoupons } from './library/link';
+export { default as poocommerceGroupCoupons } from './library/people';
+export { default as poocommerceSmartCoupons } from './library/tip';

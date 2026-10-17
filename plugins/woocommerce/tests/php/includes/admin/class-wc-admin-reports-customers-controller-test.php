@@ -1,15 +1,15 @@
 <?php
 declare( strict_types=1 );
 
-use Automattic\WooCommerce\Admin\API\Reports\Customers\Controller as CustomersController;
-use Automattic\WooCommerce\Admin\API\Reports\Customers\DataStore as CustomersDataStore;
-use Automattic\WooCommerce\Admin\API\Reports\Customers\Stats\DataStore as CustomersStatsDataStore;
-use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Admin\API\Reports\Customers\Controller as CustomersController;
+use Automattic\PooCommerce\Admin\API\Reports\Customers\DataStore as CustomersDataStore;
+use Automattic\PooCommerce\Admin\API\Reports\Customers\Stats\DataStore as CustomersStatsDataStore;
+use Automattic\PooCommerce\Enums\OrderStatus;
 
 /**
  * Reports Customers REST API Test Class
  *
- * @package WooCommerce\Admin\Tests\API
+ * @package PooCommerce\Admin\Tests\API
  */
 class WC_Admin_Reports_Customers_Controller_Test extends WC_Unit_Test_Case {
 	/**

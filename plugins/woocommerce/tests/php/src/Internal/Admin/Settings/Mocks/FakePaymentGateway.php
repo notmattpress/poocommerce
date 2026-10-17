@@ -1,7 +1,7 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\Settings\Mocks;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\Settings\Mocks;
 
 /**
  * Fake payment gateway for testing.

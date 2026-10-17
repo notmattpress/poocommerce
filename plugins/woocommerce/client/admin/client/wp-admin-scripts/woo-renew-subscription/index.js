@@ -10,7 +10,7 @@ import { trackPluginNoticeLinks } from '~/utils/plugin-notice-tracking';
 
 domReady( () => {
 	trackPluginNoticeLinks(
-		'.woocommerce-renew-subscription',
+		'.poocommerce-renew-subscription',
 		'woo_renew_subscription_in_plugins'
 	);
 } );

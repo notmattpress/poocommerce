@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\Mocks;
+namespace Automattic\PooCommerce\Tests\Blocks\Mocks;
 
 /**
  * Registers the Add to Cart with Options mock blocks, which `init` skips under a classic theme.
@@ -9,7 +9,7 @@ namespace Automattic\WooCommerce\Tests\Blocks\Mocks;
 class AddToCartWithOptionsMocks {
 
 	/**
-	 * Mock class for each block name, without the `woocommerce/` namespace.
+	 * Mock class for each block name, without the `poocommerce/` namespace.
 	 */
 	private const MOCKS = array(
 		'add-to-cart-with-options'                      => AddToCartWithOptionsMock::class,
@@ -25,12 +25,12 @@ class AddToCartWithOptionsMocks {
 	/**
 	 * Register the given mock blocks, skipping any already registered, since the registry outlives a test.
 	 *
-	 * @param string ...$block_names Block names without the `woocommerce/` namespace.
+	 * @param string ...$block_names Block names without the `poocommerce/` namespace.
 	 */
 	public static function register( string ...$block_names ): void {
 		$registry = \WP_Block_Type_Registry::get_instance();
 		foreach ( $block_names as $block_name ) {
-			if ( ! $registry->is_registered( 'woocommerce/' . $block_name ) ) {
+			if ( ! $registry->is_registered( 'poocommerce/' . $block_name ) ) {
 				$mock_class = self::MOCKS[ $block_name ];
 				new $mock_class();
 			}

@@ -1,14 +1,14 @@
 {
-	"name": "@automattic/woocommerce-analytics",
-	"description": "WooCommerce Analytics package to track frontend events",
-	"homepage": "https://github.com/woocommerce/woocommerce/tree/trunk/packages/php/woocommerce-analytics",
+	"name": "@automattic/poocommerce-analytics",
+	"description": "PooCommerce Analytics package to track frontend events",
+	"homepage": "https://github.com/poocommerce/poocommerce/tree/trunk/packages/php/poocommerce-analytics",
 	"bugs": {
-		"url": "https://github.com/woocommerce/woocommerce/issues"
+		"url": "https://github.com/poocommerce/poocommerce/issues"
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/woocommerce/woocommerce.git",
-		"directory": "packages/php/woocommerce-analytics"
+		"url": "https://github.com/poocommerce/poocommerce.git",
+		"directory": "packages/php/poocommerce-analytics"
 	},
 	"license": "GPL-2.0-or-later",
 	"author": "Automattic",

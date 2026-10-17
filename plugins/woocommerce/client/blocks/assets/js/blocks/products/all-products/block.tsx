@@ -2,10 +2,10 @@
  * External dependencies
  */
 import { Component } from '@wordpress/element';
-import { ProductListContainer } from '@woocommerce/base-components/product-list';
-import { InnerBlockLayoutContextProvider } from '@woocommerce/shared-context';
-import { gridBlockPreview } from '@woocommerce/resource-previews';
-import { StoreNoticesContainer } from '@woocommerce/blocks-components';
+import { ProductListContainer } from '@poocommerce/base-components/product-list';
+import { InnerBlockLayoutContextProvider } from '@poocommerce/shared-context';
+import { gridBlockPreview } from '@poocommerce/resource-previews';
+import { StoreNoticesContainer } from '@poocommerce/blocks-components';
 import { Attributes as ProductListAttributes } from 'assets/js/base/components/product-list/types';
 
 interface BlockProps {
@@ -34,7 +34,7 @@ class Block extends Component< BlockProps > {
 		 */
 		return (
 			<InnerBlockLayoutContextProvider
-				parentName="woocommerce/all-products"
+				parentName="poocommerce/all-products"
 				parentClassName="wc-block-grid"
 			>
 				<StoreNoticesContainer context={ 'wc/all-products' } />

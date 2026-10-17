@@ -5,20 +5,20 @@
  * Handles requests to the /reports/downloads endpoint.
  */
 
-namespace Automattic\WooCommerce\Admin\API\Reports\Downloads;
+namespace Automattic\PooCommerce\Admin\API\Reports\Downloads;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\API\Reports\ExportableInterface;
-use Automattic\WooCommerce\Admin\API\Reports\GenericController;
-use Automattic\WooCommerce\Admin\API\Reports\GenericQuery;
-use Automattic\WooCommerce\Admin\API\Reports\OrderAwareControllerTrait;
+use Automattic\PooCommerce\Admin\API\Reports\ExportableInterface;
+use Automattic\PooCommerce\Admin\API\Reports\GenericController;
+use Automattic\PooCommerce\Admin\API\Reports\GenericQuery;
+use Automattic\PooCommerce\Admin\API\Reports\OrderAwareControllerTrait;
 
 /**
  * REST API Reports downloads controller class.
  *
  * @internal
- * @extends Automattic\WooCommerce\Admin\API\Reports\GenericController
+ * @extends Automattic\PooCommerce\Admin\API\Reports\GenericController
  */
 class Controller extends GenericController implements ExportableInterface {
 
@@ -59,7 +59,7 @@ class Controller extends GenericController implements ExportableInterface {
 		$response->data['date'] = get_date_from_gmt( $report['date_gmt'], 'Y-m-d H:i:s' );
 
 		// Figure out file name.
-		// Matches https://github.com/woocommerce/woocommerce/blob/4be0018c092e617c5d2b8c46b800eb71ece9ddef/includes/class-wc-download-handler.php#L197.
+		// Matches https://github.com/poocommerce/poocommerce/blob/4be0018c092e617c5d2b8c46b800eb71ece9ddef/includes/class-wc-download-handler.php#L197.
 		$product_id = intval( $report['product_id'] );
 		$_product   = wc_get_product( $product_id );
 
@@ -67,7 +67,7 @@ class Controller extends GenericController implements ExportableInterface {
 		if ( $_product ) {
 			$file_path                   = $_product->get_file_download_path( $report['download_id'] );
 			$filename                    = basename( $file_path );
-			$response->data['file_name'] = apply_filters( 'woocommerce_file_download_filename', $filename, $product_id );
+			$response->data['file_name'] = apply_filters( 'poocommerce_file_download_filename', $filename, $product_id );
 			$response->data['file_path'] = $file_path;
 		} else {
 			$response->data['file_name'] = '';
@@ -87,7 +87,7 @@ class Controller extends GenericController implements ExportableInterface {
 		 * @param object           $report   The original report object.
 		 * @param WP_REST_Request  $request  Request used to generate the response.
 		 */
-		return apply_filters( 'woocommerce_rest_prepare_report_downloads', $response, $report, $request );
+		return apply_filters( 'poocommerce_rest_prepare_report_downloads', $response, $report, $request );
 	}
 
 	/**
@@ -138,22 +138,22 @@ class Controller extends GenericController implements ExportableInterface {
 					'type'        => 'integer',
 					'readonly'    => true,
 					'context'     => array( 'view', 'edit' ),
-					'description' => __( 'ID.', 'woocommerce' ),
+					'description' => __( 'ID.', 'poocommerce' ),
 				),
 				'product_id'   => array(
 					'type'        => 'integer',
 					'readonly'    => true,
 					'context'     => array( 'view', 'edit' ),
-					'description' => __( 'Product ID.', 'woocommerce' ),
+					'description' => __( 'Product ID.', 'poocommerce' ),
 				),
 				'date'         => array(
-					'description' => __( "The date of the download, in the site's timezone.", 'woocommerce' ),
+					'description' => __( "The date of the download, in the site's timezone.", 'poocommerce' ),
 					'type'        => 'date-time',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'date_gmt'     => array(
-					'description' => __( 'The date of the download, as GMT.', 'woocommerce' ),
+					'description' => __( 'The date of the download, as GMT.', 'poocommerce' ),
 					'type'        => 'date-time',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
@@ -162,49 +162,49 @@ class Controller extends GenericController implements ExportableInterface {
 					'type'        => 'string',
 					'readonly'    => true,
 					'context'     => array( 'view', 'edit' ),
-					'description' => __( 'Download ID.', 'woocommerce' ),
+					'description' => __( 'Download ID.', 'poocommerce' ),
 				),
 				'file_name'    => array(
 					'type'        => 'string',
 					'readonly'    => true,
 					'context'     => array( 'view', 'edit' ),
-					'description' => __( 'File name.', 'woocommerce' ),
+					'description' => __( 'File name.', 'poocommerce' ),
 				),
 				'file_path'    => array(
 					'type'        => 'string',
 					'readonly'    => true,
 					'context'     => array( 'view', 'edit' ),
-					'description' => __( 'File URL.', 'woocommerce' ),
+					'description' => __( 'File URL.', 'poocommerce' ),
 				),
 				'order_id'     => array(
 					'type'        => 'integer',
 					'readonly'    => true,
 					'context'     => array( 'view', 'edit' ),
-					'description' => __( 'Order ID.', 'woocommerce' ),
+					'description' => __( 'Order ID.', 'poocommerce' ),
 				),
 				'order_number' => array(
 					'type'        => 'string',
 					'readonly'    => true,
 					'context'     => array( 'view', 'edit' ),
-					'description' => __( 'Order Number.', 'woocommerce' ),
+					'description' => __( 'Order Number.', 'poocommerce' ),
 				),
 				'user_id'      => array(
 					'type'        => 'integer',
 					'readonly'    => true,
 					'context'     => array( 'view', 'edit' ),
-					'description' => __( 'User ID for the downloader.', 'woocommerce' ),
+					'description' => __( 'User ID for the downloader.', 'poocommerce' ),
 				),
 				'username'     => array(
 					'type'        => 'string',
 					'readonly'    => true,
 					'context'     => array( 'view', 'edit' ),
-					'description' => __( 'User name of the downloader.', 'woocommerce' ),
+					'description' => __( 'User name of the downloader.', 'poocommerce' ),
 				),
 				'ip_address'   => array(
 					'type'        => 'string',
 					'readonly'    => true,
 					'context'     => array( 'view', 'edit' ),
-					'description' => __( 'IP address for the downloader.', 'woocommerce' ),
+					'description' => __( 'IP address for the downloader.', 'poocommerce' ),
 				),
 			),
 		);
@@ -226,7 +226,7 @@ class Controller extends GenericController implements ExportableInterface {
 			)
 		);
 		$params['match']               = array(
-			'description'       => __( 'Indicates whether all the conditions should be true for the resulting set, or if any one of them is sufficient. Match affects the following parameters: products, orders, username, ip_address.', 'woocommerce' ),
+			'description'       => __( 'Indicates whether all the conditions should be true for the resulting set, or if any one of them is sufficient. Match affects the following parameters: products, orders, username, ip_address.', 'poocommerce' ),
 			'type'              => 'string',
 			'default'           => 'all',
 			'enum'              => array(
@@ -236,7 +236,7 @@ class Controller extends GenericController implements ExportableInterface {
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 		$params['product_includes']    = array(
-			'description'       => __( 'Limit result set to items that have the specified product(s) assigned.', 'woocommerce' ),
+			'description'       => __( 'Limit result set to items that have the specified product(s) assigned.', 'poocommerce' ),
 			'type'              => 'array',
 			'items'             => array(
 				'type' => 'integer',
@@ -246,7 +246,7 @@ class Controller extends GenericController implements ExportableInterface {
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 		$params['product_excludes']    = array(
-			'description'       => __( 'Limit result set to items that don\'t have the specified product(s) assigned.', 'woocommerce' ),
+			'description'       => __( 'Limit result set to items that don\'t have the specified product(s) assigned.', 'poocommerce' ),
 			'type'              => 'array',
 			'items'             => array(
 				'type' => 'integer',
@@ -256,7 +256,7 @@ class Controller extends GenericController implements ExportableInterface {
 			'sanitize_callback' => 'wp_parse_id_list',
 		);
 		$params['order_includes']      = array(
-			'description'       => __( 'Limit result set to items that have the specified order ids.', 'woocommerce' ),
+			'description'       => __( 'Limit result set to items that have the specified order ids.', 'poocommerce' ),
 			'type'              => 'array',
 			'sanitize_callback' => 'wp_parse_id_list',
 			'validate_callback' => 'rest_validate_request_arg',
@@ -265,7 +265,7 @@ class Controller extends GenericController implements ExportableInterface {
 			),
 		);
 		$params['order_excludes']      = array(
-			'description'       => __( 'Limit result set to items that don\'t have the specified order ids.', 'woocommerce' ),
+			'description'       => __( 'Limit result set to items that don\'t have the specified order ids.', 'poocommerce' ),
 			'type'              => 'array',
 			'sanitize_callback' => 'wp_parse_id_list',
 			'validate_callback' => 'rest_validate_request_arg',
@@ -274,7 +274,7 @@ class Controller extends GenericController implements ExportableInterface {
 			),
 		);
 		$params['customer_includes']   = array(
-			'description'       => __( 'Limit response to objects that have the specified user ids.', 'woocommerce' ),
+			'description'       => __( 'Limit response to objects that have the specified user ids.', 'poocommerce' ),
 			'type'              => 'array',
 			'sanitize_callback' => 'wp_parse_id_list',
 			'validate_callback' => 'rest_validate_request_arg',
@@ -283,7 +283,7 @@ class Controller extends GenericController implements ExportableInterface {
 			),
 		);
 		$params['customer_excludes']   = array(
-			'description'       => __( 'Limit response to objects that don\'t have the specified user ids.', 'woocommerce' ),
+			'description'       => __( 'Limit response to objects that don\'t have the specified user ids.', 'poocommerce' ),
 			'type'              => 'array',
 			'sanitize_callback' => 'wp_parse_id_list',
 			'validate_callback' => 'rest_validate_request_arg',
@@ -292,7 +292,7 @@ class Controller extends GenericController implements ExportableInterface {
 			),
 		);
 		$params['ip_address_includes'] = array(
-			'description'       => __( 'Limit response to objects that have a specified ip address.', 'woocommerce' ),
+			'description'       => __( 'Limit response to objects that have a specified ip address.', 'poocommerce' ),
 			'type'              => 'array',
 			'validate_callback' => 'rest_validate_request_arg',
 			'items'             => array(
@@ -300,7 +300,7 @@ class Controller extends GenericController implements ExportableInterface {
 			),
 		);
 		$params['ip_address_excludes'] = array(
-			'description'       => __( 'Limit response to objects that don\'t have a specified ip address.', 'woocommerce' ),
+			'description'       => __( 'Limit response to objects that don\'t have a specified ip address.', 'poocommerce' ),
 			'type'              => 'array',
 			'validate_callback' => 'rest_validate_request_arg',
 			'items'             => array(
@@ -318,12 +318,12 @@ class Controller extends GenericController implements ExportableInterface {
 	 */
 	public function get_export_columns() {
 		$export_columns = array(
-			'date'         => __( 'Date', 'woocommerce' ),
-			'product'      => __( 'Product title', 'woocommerce' ),
-			'file_name'    => __( 'File name', 'woocommerce' ),
-			'order_number' => __( 'Order #', 'woocommerce' ),
-			'user_id'      => __( 'User Name', 'woocommerce' ),
-			'ip_address'   => __( 'IP', 'woocommerce' ),
+			'date'         => __( 'Date', 'poocommerce' ),
+			'product'      => __( 'Product title', 'poocommerce' ),
+			'file_name'    => __( 'File name', 'poocommerce' ),
+			'order_number' => __( 'Order #', 'poocommerce' ),
+			'user_id'      => __( 'User Name', 'poocommerce' ),
+			'ip_address'   => __( 'IP', 'poocommerce' ),
 		);
 
 		/**
@@ -333,7 +333,7 @@ class Controller extends GenericController implements ExportableInterface {
 		 * @since 1.6.0
 		 */
 		return apply_filters(
-			'woocommerce_filter_downloads_export_columns',
+			'poocommerce_filter_downloads_export_columns',
 			$export_columns
 		);
 	}
@@ -361,7 +361,7 @@ class Controller extends GenericController implements ExportableInterface {
 		 * @since 1.6.0
 		 */
 		return apply_filters(
-			'woocommerce_report_downloads_prepare_export_item',
+			'poocommerce_report_downloads_prepare_export_item',
 			$export_item,
 			$item
 		);

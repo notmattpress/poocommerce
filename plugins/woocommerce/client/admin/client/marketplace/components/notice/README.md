@@ -1,6 +1,6 @@
 # Notice Component
 
-The `Notice` component is a versatile notification UI element designed for use within the WooCommerce in-app marketplace.
+The `Notice` component is a versatile notification UI element designed for use within the PooCommerce in-app marketplace.
 It leverages the `@wordpress/icons` for displaying various icons and provides customizable options for content, appearance, and behavior.
 
 ## Usage
@@ -42,10 +42,10 @@ The Notice component accepts the following props for customization:
 
 The notice component can be styled using the following CSS classes, based on the variant prop:
 
-- `.woocommerce-marketplace__notice-info`: Styles the notice with an info appearance.
-- `.woocommerce-marketplace__notice-warning`: Styles the notice with a warning appearance.
-- `.woocommerce-marketplace__notice-error`: Styles the notice with an error appearance.
-- `.woocommerce-marketplace__notice-success`: Styles the notice with a success appearance.
+- `.poocommerce-marketplace__notice-info`: Styles the notice with an info appearance.
+- `.poocommerce-marketplace__notice-warning`: Styles the notice with a warning appearance.
+- `.poocommerce-marketplace__notice-error`: Styles the notice with an error appearance.
+- `.poocommerce-marketplace__notice-success`: Styles the notice with a success appearance.
 
 Icons within the notice adopt the variant prop to determine their color, aligning with the overall style of the notice.
 
@@ -63,7 +63,7 @@ Here are more detailed examples, some require that you import the Button compone
 	variant="info"
 	description={ __(
 		'<strong>Limited time sale</strong> Tup to 40% off on extensions and themes. Sale ends March 29 at 2pm UTC.',
-		'woocommerce'
+		'poocommerce'
 	) }
 	icon="percent"
 	isDismissible
@@ -91,7 +91,7 @@ Here are more detailed examples, some require that you import the Button compone
 	variant="success"
 	description={ __(
 		'<strong>Congratulations</strong> You successfully installed the plugin.',
-		'woocommerce'
+		'poocommerce'
 	) }
 	icon="check"
 	isDismissible
@@ -119,7 +119,7 @@ Here are more detailed examples, some require that you import the Button compone
 	variant="warning"
 	description={ __(
 		'This is a warning and I cannot be dismissed. Nope.',
-		'woocommerce'
+		'poocommerce'
 	) }
 	icon="info"
 	isDismissible={ false }
@@ -130,7 +130,7 @@ Here are more detailed examples, some require that you import the Button compone
 	variant="error"
 	description={ __(
 		'I am red and I cannot be dismissed. Nope. But I support <i>HTML</i> <strong>tags</strong>. So <a href="#">I can have links</a>.',
-		'woocommerce'
+		'poocommerce'
 	) }
 	icon="info"
 	isDismissible={ false }
@@ -143,7 +143,7 @@ Here are more detailed examples, some require that you import the Button compone
 	variant="success"
 	description={ __(
 		'I am a success! But I am sad because I do not have an icon.',
-		'woocommerce'
+		'poocommerce'
 	) }
 	isDismissible={ false }
 />

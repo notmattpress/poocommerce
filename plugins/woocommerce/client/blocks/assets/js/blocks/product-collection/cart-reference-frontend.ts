@@ -16,8 +16,8 @@
  * External dependencies
  */
 import { store, getConfig } from '@wordpress/interactivity';
-import '@woocommerce/stores/woocommerce/cart';
-import type { Store as WooCommerce } from '@woocommerce/stores/woocommerce/cart';
+import '@poocommerce/stores/poocommerce/cart';
+import type { Store as PooCommerce } from '@poocommerce/stores/poocommerce/cart';
 
 /**
  * Internal dependencies
@@ -27,11 +27,11 @@ import type { MiniCart } from '../mini-cart/frontend';
 const universalLock =
 	'I acknowledge that using a private store means my plugin will inevitably break on the next store release.';
 
-const { state: woocommerceState, actions: woocommerceActions } =
-	store< WooCommerce >( 'woocommerce', {}, { lock: universalLock } );
+const { state: poocommerceState, actions: poocommerceActions } =
+	store< PooCommerce >( 'poocommerce', {}, { lock: universalLock } );
 
 const { state: miniCartState } = store< MiniCart >(
-	'woocommerce/mini-cart',
+	'poocommerce/mini-cart',
 	{},
 	{ lock: universalLock }
 );
@@ -58,7 +58,7 @@ let pendingPageUrl: string | undefined;
 let lastNavigatedUrl: string | undefined;
 
 const getCartSignature = (
-	items: WooCommerce[ 'state' ][ 'cart' ][ 'items' ] | undefined
+	items: PooCommerce[ 'state' ][ 'cart' ][ 'items' ] | undefined
 ): string =>
 	[ ...new Set( ( items ?? [] ).map( ( item ) => item.id ) ) ]
 		.sort()
@@ -88,7 +88,7 @@ const cartReferenceStorePart = {
 				return;
 			}
 
-			const signature = getCartSignature( woocommerceState.cart?.items );
+			const signature = getCartSignature( poocommerceState.cart?.items );
 
 			if ( lastCartSignature === undefined ) {
 				// First run only records the SSR baseline.
@@ -97,13 +97,13 @@ const cartReferenceStorePart = {
 				// Wait until in-flight cart mutations settle: prefetching
 				// while a Store API request is being processed would cache
 				// HTML rendered from a not-yet-updated cart.
-				yield woocommerceActions.waitForIdle();
+				yield poocommerceActions.waitForIdle();
 
 				// Re-check against the settled state and record it before
 				// the prefetch, so the extra watch runs a single mutation
 				// causes dedupe to one prefetch per settled cart state.
 				const settledSignature = getCartSignature(
-					woocommerceState.cart?.items
+					poocommerceState.cart?.items
 				);
 				if ( settledSignature !== lastCartSignature ) {
 					const previousSignature = lastCartSignature;
@@ -202,6 +202,6 @@ const cartReferenceStorePart = {
 /**
  * Extend the product-collection store with cart-referencing callbacks.
  */
-store( 'woocommerce/product-collection', cartReferenceStorePart, {
+store( 'poocommerce/product-collection', cartReferenceStorePart, {
 	lock: universalLock,
 } );

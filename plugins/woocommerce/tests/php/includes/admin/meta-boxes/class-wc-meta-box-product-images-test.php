@@ -2,12 +2,12 @@
 /**
  * Tests for the product images meta box.
  *
- * @package WooCommerce\Tests\Admin
+ * @package PooCommerce\Tests\Admin
  */
 
 declare( strict_types = 1 );
 
-use Automattic\WooCommerce\Internal\ProductGallery\ProductMediaGallery;
+use Automattic\PooCommerce\Internal\ProductGallery\ProductMediaGallery;
 
 require_once WC_ABSPATH . 'includes/admin/meta-boxes/class-wc-meta-box-product-images.php';
 
@@ -164,12 +164,12 @@ class WC_Meta_Box_Product_Images_Test extends WC_Unit_Test_Case {
 
 			return $html;
 		};
-		add_filter( 'woocommerce_single_product_image_thumbnail_html', $record_attachment_id, 10, 2 );
+		add_filter( 'poocommerce_single_product_image_thumbnail_html', $record_attachment_id, 10, 2 );
 
 		try {
 			$gallery_html = wc_get_product_gallery_html( $this->get_fresh_product( $product_id ) );
 		} finally {
-			remove_filter( 'woocommerce_single_product_image_thumbnail_html', $record_attachment_id );
+			remove_filter( 'poocommerce_single_product_image_thumbnail_html', $record_attachment_id );
 		}
 
 		$this->assertSame(
@@ -177,7 +177,7 @@ class WC_Meta_Box_Product_Images_Test extends WC_Unit_Test_Case {
 			$rendered_attachment_ids,
 			'The classic gallery template should render the featured image before saved gallery images.'
 		);
-		$this->assertStringContainsString( 'woocommerce-product-gallery__image', $gallery_html, 'The classic gallery template should render product image markup.' );
+		$this->assertStringContainsString( 'poocommerce-product-gallery__image', $gallery_html, 'The classic gallery template should render product image markup.' );
 		$this->assertStringContainsString( 'wp-post-image', $gallery_html, 'The classic gallery template should render the featured attachment image.' );
 
 		$product = $this->get_fresh_product( $product_id );
@@ -186,11 +186,11 @@ class WC_Meta_Box_Product_Images_Test extends WC_Unit_Test_Case {
 		$this->save_gallery( $product_id, array( $third_image_id ) );
 
 		$rendered_attachment_ids = array();
-		add_filter( 'woocommerce_single_product_image_thumbnail_html', $record_attachment_id, 10, 2 );
+		add_filter( 'poocommerce_single_product_image_thumbnail_html', $record_attachment_id, 10, 2 );
 		try {
 			$gallery_html = wc_get_product_gallery_html( $this->get_fresh_product( $product_id ) );
 		} finally {
-			remove_filter( 'woocommerce_single_product_image_thumbnail_html', $record_attachment_id );
+			remove_filter( 'poocommerce_single_product_image_thumbnail_html', $record_attachment_id );
 		}
 
 		$this->assertSame(
@@ -206,11 +206,11 @@ class WC_Meta_Box_Product_Images_Test extends WC_Unit_Test_Case {
 		$product->save();
 
 		$rendered_attachment_ids = array();
-		add_filter( 'woocommerce_single_product_image_thumbnail_html', $record_attachment_id, 10, 2 );
+		add_filter( 'poocommerce_single_product_image_thumbnail_html', $record_attachment_id, 10, 2 );
 		try {
 			$gallery_html = wc_get_product_gallery_html( $this->get_fresh_product( $product_id ) );
 		} finally {
-			remove_filter( 'woocommerce_single_product_image_thumbnail_html', $record_attachment_id );
+			remove_filter( 'poocommerce_single_product_image_thumbnail_html', $record_attachment_id );
 		}
 
 		$this->assertStringContainsString( 'Awaiting product image', $gallery_html, 'The classic gallery template should render the product image placeholder after both image sources are cleared.' );

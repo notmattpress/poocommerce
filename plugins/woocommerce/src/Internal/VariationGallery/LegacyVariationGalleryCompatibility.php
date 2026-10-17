@@ -1,9 +1,9 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\VariationGallery;
+namespace Automattic\PooCommerce\Internal\VariationGallery;
 
-use Automattic\WooCommerce\Internal\RegisterHooksInterface;
+use Automattic\PooCommerce\Internal\RegisterHooksInterface;
 use WC_Product_Variation;
 
 defined( 'ABSPATH' ) || exit;
@@ -77,7 +77,7 @@ class LegacyVariationGalleryCompatibility implements RegisterHooksInterface {
 	 * @return void
 	 */
 	public function register() {
-		add_filter( 'woocommerce_product_variation_get_gallery_image_ids', array( $this, 'maybe_read_legacy_gallery_image_ids' ), 10, 2 );
+		add_filter( 'poocommerce_product_variation_get_gallery_image_ids', array( $this, 'maybe_read_legacy_gallery_image_ids' ), 10, 2 );
 	}
 
 	/**

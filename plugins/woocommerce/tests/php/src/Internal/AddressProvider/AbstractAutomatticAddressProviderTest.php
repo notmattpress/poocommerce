@@ -1,10 +1,10 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\AddressProvider;
+namespace Automattic\PooCommerce\Tests\Internal\AddressProvider;
 
-use Automattic\WooCommerce\Internal\AddressProvider\AbstractAutomatticAddressProvider;
-use Automattic\WooCommerce\StoreApi\Utilities\JsonWebToken;
+use Automattic\PooCommerce\Internal\AddressProvider\AbstractAutomatticAddressProvider;
+use Automattic\PooCommerce\StoreApi\Utilities\JsonWebToken;
 use Automattic\Jetpack\Constants;
 use WC_Address_Provider;
 
@@ -35,10 +35,10 @@ class AbstractAutomatticAddressProviderTest extends \WC_Unit_Test_Case {
 
 		// Setup mock logger.
 		$this->mock_logger = $this->getMockBuilder( 'WC_Logger_Interface' )->getMock();
-		add_filter( 'woocommerce_logging_class', array( $this, 'override_wc_logger' ) );
+		add_filter( 'poocommerce_logging_class', array( $this, 'override_wc_logger' ) );
 
 		// Enable address autocomplete for tests.
-		update_option( 'woocommerce_address_autocomplete_enabled', 'yes' );
+		update_option( 'poocommerce_address_autocomplete_enabled', 'yes' );
 
 		// Create test provider instance.
 		$this->test_provider = new class() extends AbstractAutomatticAddressProvider {
@@ -91,7 +91,7 @@ class AbstractAutomatticAddressProviderTest extends \WC_Unit_Test_Case {
 	 * Test constructor sets up hooks correctly.
 	 */
 	public function test_constructor_sets_up_hooks() {
-		$this->assertNotFalse( has_filter( 'pre_update_option_woocommerce_address_autocomplete_enabled', array( $this->test_provider, 'refresh_cache' ) ) );
+		$this->assertNotFalse( has_filter( 'pre_update_option_poocommerce_address_autocomplete_enabled', array( $this->test_provider, 'refresh_cache' ) ) );
 		$this->assertNotFalse( has_action( 'wp_enqueue_scripts', array( $this->test_provider, 'load_scripts' ) ) );
 	}
 
@@ -468,7 +468,7 @@ class AbstractAutomatticAddressProviderTest extends \WC_Unit_Test_Case {
 		$url  = AbstractAutomatticAddressProvider::get_asset_url( $path );
 
 		$this->assertStringContainsString( 'assets/js/test.js', $url );
-		$this->assertStringContainsString( 'plugins/woocommerce', $url );
+		$this->assertStringContainsString( 'plugins/poocommerce', $url );
 	}
 
 	/**
@@ -506,7 +506,7 @@ class AbstractAutomatticAddressProviderTest extends \WC_Unit_Test_Case {
 
 		// Mock is_checkout() to return true.
 		add_filter(
-			'woocommerce_is_checkout',
+			'poocommerce_is_checkout',
 			function () {
 				return true;
 			}
@@ -520,7 +520,7 @@ class AbstractAutomatticAddressProviderTest extends \WC_Unit_Test_Case {
 		$this->assertTrue( wp_script_is( 'a8c-address-autocomplete-service', 'enqueued' ) );
 
 		// Clean up filter.
-		remove_all_filters( 'woocommerce_is_checkout' );
+		remove_all_filters( 'poocommerce_is_checkout' );
 	}
 
 	/**
@@ -558,7 +558,7 @@ class AbstractAutomatticAddressProviderTest extends \WC_Unit_Test_Case {
 
 		// Mock is_checkout() to return true.
 		add_filter(
-			'woocommerce_is_checkout',
+			'poocommerce_is_checkout',
 			function () {
 				return true;
 			}
@@ -581,7 +581,7 @@ class AbstractAutomatticAddressProviderTest extends \WC_Unit_Test_Case {
 		}
 
 		// Clean up filter.
-		remove_all_filters( 'woocommerce_is_checkout' );
+		remove_all_filters( 'poocommerce_is_checkout' );
 	}
 
 	/**
@@ -610,7 +610,7 @@ class AbstractAutomatticAddressProviderTest extends \WC_Unit_Test_Case {
 
 		// Mock is_checkout() to return true.
 		add_filter(
-			'woocommerce_is_checkout',
+			'poocommerce_is_checkout',
 			function () {
 				return true;
 			}
@@ -633,7 +633,7 @@ class AbstractAutomatticAddressProviderTest extends \WC_Unit_Test_Case {
 		}
 
 		// Clean up filter.
-		remove_all_filters( 'woocommerce_is_checkout' );
+		remove_all_filters( 'poocommerce_is_checkout' );
 	}
 
 	/**
@@ -671,7 +671,7 @@ class AbstractAutomatticAddressProviderTest extends \WC_Unit_Test_Case {
 
 		// Mock is_checkout() to return true.
 		add_filter(
-			'woocommerce_is_checkout',
+			'poocommerce_is_checkout',
 			function () {
 				return true;
 			}
@@ -686,7 +686,7 @@ class AbstractAutomatticAddressProviderTest extends \WC_Unit_Test_Case {
 		$this->assertTrue( wp_script_is( 'a8c-address-autocomplete-service', 'enqueued' ) );
 
 		// Clean up filter.
-		remove_all_filters( 'woocommerce_is_checkout' );
+		remove_all_filters( 'poocommerce_is_checkout' );
 	}
 
 	/**
@@ -769,7 +769,7 @@ class AbstractAutomatticAddressProviderTest extends \WC_Unit_Test_Case {
 
 			// Temporarily override the logger for this test case.
 			add_filter(
-				'woocommerce_logging_class',
+				'poocommerce_logging_class',
 				function () use ( $mock_logger ) {
 					return $mock_logger;
 				}
@@ -779,7 +779,7 @@ class AbstractAutomatticAddressProviderTest extends \WC_Unit_Test_Case {
 			$provider->get_jwt();
 
 			// Remove the temporary logger override.
-			remove_all_filters( 'woocommerce_logging_class' );
+			remove_all_filters( 'poocommerce_logging_class' );
 
 			// Check that retry data was set correctly.
 			$retry_data = get_option( 'test-provider_jwt_retry_data' );
@@ -906,10 +906,10 @@ class AbstractAutomatticAddressProviderTest extends \WC_Unit_Test_Case {
 	/**
 	 * Test load_jwt does not load JWT when autocomplete is disabled.
 	 *
-	 * @testdox load_jwt() should not load JWT when woocommerce_address_autocomplete_enabled is disabled
+	 * @testdox load_jwt() should not load JWT when poocommerce_address_autocomplete_enabled is disabled
 	 */
 	public function test_load_jwt_does_not_load_when_disabled() {
-		update_option( 'woocommerce_address_autocomplete_enabled', 'no' );
+		update_option( 'poocommerce_address_autocomplete_enabled', 'no' );
 
 		$provider = new class() extends AbstractAutomatticAddressProvider {
 			/**
@@ -948,10 +948,10 @@ class AbstractAutomatticAddressProviderTest extends \WC_Unit_Test_Case {
 	/**
 	 * Test load_scripts does not enqueue scripts when autocomplete is disabled.
 	 *
-	 * @testdox load_scripts() should not enqueue scripts when woocommerce_address_autocomplete_enabled is disabled
+	 * @testdox load_scripts() should not enqueue scripts when poocommerce_address_autocomplete_enabled is disabled
 	 */
 	public function test_load_scripts_does_not_enqueue_when_disabled() {
-		update_option( 'woocommerce_address_autocomplete_enabled', 'no' );
+		update_option( 'poocommerce_address_autocomplete_enabled', 'no' );
 
 		$provider = new class() extends AbstractAutomatticAddressProvider {
 			/**
@@ -984,7 +984,7 @@ class AbstractAutomatticAddressProviderTest extends \WC_Unit_Test_Case {
 
 		// Mock is_checkout() to return true.
 		add_filter(
-			'woocommerce_is_checkout',
+			'poocommerce_is_checkout',
 			function () {
 				return true;
 			}
@@ -997,6 +997,6 @@ class AbstractAutomatticAddressProviderTest extends \WC_Unit_Test_Case {
 		$this->assertFalse( wp_script_is( 'a8c-address-autocomplete-service', 'enqueued' ) );
 
 		// Clean up filter.
-		remove_all_filters( 'woocommerce_is_checkout' );
+		remove_all_filters( 'poocommerce_is_checkout' );
 	}
 }

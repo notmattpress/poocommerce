@@ -1,11 +1,11 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\StoreApi\Routes\V1;
+namespace Automattic\PooCommerce\StoreApi\Routes\V1;
 
-use Automattic\WooCommerce\Internal\ShopperLists\ShopperList;
-use Automattic\WooCommerce\Internal\ShopperLists\ShopperListItem;
-use Automattic\WooCommerce\StoreApi\Exceptions\RouteException;
+use Automattic\PooCommerce\Internal\ShopperLists\ShopperList;
+use Automattic\PooCommerce\Internal\ShopperLists\ShopperListItem;
+use Automattic\PooCommerce\StoreApi\Exceptions\RouteException;
 
 /**
  * GET / POST on /shopper-lists/{slug}/items.
@@ -58,7 +58,7 @@ class ShopperListItems extends AbstractRoute {
 		return array(
 			'args'   => array(
 				'slug' => array(
-					'description' => __( 'Stable slug for the list.', 'woocommerce' ),
+					'description' => __( 'Stable slug for the list.', 'poocommerce' ),
 					'type'        => 'string',
 				),
 			),
@@ -80,27 +80,27 @@ class ShopperListItems extends AbstractRoute {
 				},
 				'args'                => array(
 					'cart_item_key' => array(
-						'description' => __( 'Existing cart item key to copy into the list.', 'woocommerce' ),
+						'description' => __( 'Existing cart item key to copy into the list.', 'poocommerce' ),
 						'type'        => 'string',
 					),
 					'product_id'    => array(
-						'description' => __( 'Product or variation ID to save. Required when cart_item_key is not supplied.', 'woocommerce' ),
+						'description' => __( 'Product or variation ID to save. Required when cart_item_key is not supplied.', 'poocommerce' ),
 						'type'        => 'integer',
 					),
 					'variation'     => array(
-						'description' => __( 'Chosen attributes (for variations).', 'woocommerce' ),
+						'description' => __( 'Chosen attributes (for variations).', 'poocommerce' ),
 						'type'        => 'array',
 						'context'     => array( 'view', 'edit' ),
 						'items'       => array(
 							'type'       => 'object',
 							'properties' => array(
 								'attribute' => array(
-									'description' => __( 'Variation attribute name.', 'woocommerce' ),
+									'description' => __( 'Variation attribute name.', 'poocommerce' ),
 									'type'        => 'string',
 									'context'     => array( 'view', 'edit' ),
 								),
 								'value'     => array(
-									'description' => __( 'Variation attribute value.', 'woocommerce' ),
+									'description' => __( 'Variation attribute value.', 'poocommerce' ),
 									'type'        => 'string',
 									'context'     => array( 'view', 'edit' ),
 								),
@@ -108,7 +108,7 @@ class ShopperListItems extends AbstractRoute {
 						),
 					),
 					'quantity'      => array(
-						'description' => __( 'Quantity for the saved item.', 'woocommerce' ),
+						'description' => __( 'Quantity for the saved item.', 'poocommerce' ),
 						'type'        => 'integer',
 						'default'     => 1,
 					),
@@ -132,7 +132,7 @@ class ShopperListItems extends AbstractRoute {
 	protected function get_route_response( \WP_REST_Request $request ) {
 		$list = ShopperList::get_by_slug( (string) $request['slug'] );
 		if ( ! $list ) {
-			throw new RouteException( 'woocommerce_rest_shopper_list_not_found', esc_html__( 'Your saved list isn\'t available right now.', 'woocommerce' ), 404 );
+			throw new RouteException( 'poocommerce_rest_shopper_list_not_found', esc_html__( 'Your saved list isn\'t available right now.', 'poocommerce' ), 404 );
 		}
 
 		$items = array_values( $list->get_items() );
@@ -161,7 +161,7 @@ class ShopperListItems extends AbstractRoute {
 		$list = ShopperList::get_by_slug( (string) $request['slug'] );
 
 		if ( ! $list ) {
-			throw new RouteException( 'woocommerce_rest_shopper_list_not_found', esc_html__( 'Your saved list isn\'t available right now.', 'woocommerce' ), 404 );
+			throw new RouteException( 'poocommerce_rest_shopper_list_not_found', esc_html__( 'Your saved list isn\'t available right now.', 'poocommerce' ), 404 );
 		}
 
 		[ $lookup_id, $variation, $quantity ] = $this->resolve_item_payload( $request );
@@ -169,10 +169,10 @@ class ShopperListItems extends AbstractRoute {
 		try {
 			$item = ShopperListItem::from_product( $lookup_id, $variation, $quantity );
 		} catch ( \InvalidArgumentException $e ) {
-			throw new RouteException( 'woocommerce_rest_shopper_list_invalid_variation', esc_html( $e->getMessage() ), 400 );
+			throw new RouteException( 'poocommerce_rest_shopper_list_invalid_variation', esc_html( $e->getMessage() ), 400 );
 		}
 		if ( ! $item ) {
-			throw new RouteException( 'woocommerce_rest_shopper_list_unknown_product', esc_html__( 'No product exists for the supplied item.', 'woocommerce' ), 404 );
+			throw new RouteException( 'poocommerce_rest_shopper_list_unknown_product', esc_html__( 'No product exists for the supplied item.', 'poocommerce' ), 404 );
 		}
 
 		$list->add_item( $item );
@@ -199,13 +199,13 @@ class ShopperListItems extends AbstractRoute {
 		$cart_item_key = (string) $request->get_param( 'cart_item_key' );
 
 		if ( $cart_item_key ) {
-			if ( ! did_action( 'woocommerce_load_cart_from_session' ) || ! wc()->cart ) {
+			if ( ! did_action( 'poocommerce_load_cart_from_session' ) || ! wc()->cart ) {
 				wc_load_cart();
 			}
 
 			$cart_contents = wc()->cart->get_cart();
 			if ( empty( $cart_contents[ $cart_item_key ] ) ) {
-				throw new RouteException( 'woocommerce_rest_shopper_list_invalid_cart_item_key', esc_html__( 'No cart item exists for the supplied key.', 'woocommerce' ), 404 );
+				throw new RouteException( 'poocommerce_rest_shopper_list_invalid_cart_item_key', esc_html__( 'No cart item exists for the supplied key.', 'poocommerce' ), 404 );
 			}
 
 			$line            = $cart_contents[ $cart_item_key ];
@@ -222,7 +222,7 @@ class ShopperListItems extends AbstractRoute {
 
 		$product_id = absint( $request->get_param( 'product_id' ) );
 		if ( ! $product_id ) {
-			throw new RouteException( 'woocommerce_rest_shopper_list_missing_item_input', esc_html__( 'Provide cart_item_key or product_id.', 'woocommerce' ), 400 );
+			throw new RouteException( 'poocommerce_rest_shopper_list_missing_item_input', esc_html__( 'Provide cart_item_key or product_id.', 'poocommerce' ), 400 );
 		}
 
 		$variation = wp_list_pluck( (array) $request->get_param( 'variation' ), 'value', 'attribute' );

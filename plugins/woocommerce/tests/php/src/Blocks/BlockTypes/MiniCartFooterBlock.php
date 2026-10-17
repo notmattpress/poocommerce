@@ -1,12 +1,12 @@
 <?php
 declare( strict_types = 1 );
-namespace Automattic\WooCommerce\Tests\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Tests\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\BlockTypes\MiniCartFooterBlock as MiniCartFooterBlockType;
-use Automattic\WooCommerce\Blocks\Package;
-use Automattic\WooCommerce\Blocks\Assets\Api;
-use Automattic\WooCommerce\Blocks\Assets\AssetDataRegistry;
-use Automattic\WooCommerce\Blocks\Integrations\IntegrationRegistry;
+use Automattic\PooCommerce\Blocks\BlockTypes\MiniCartFooterBlock as MiniCartFooterBlockType;
+use Automattic\PooCommerce\Blocks\Package;
+use Automattic\PooCommerce\Blocks\Assets\Api;
+use Automattic\PooCommerce\Blocks\Assets\AssetDataRegistry;
+use Automattic\PooCommerce\Blocks\Integrations\IntegrationRegistry;
 
 /**
  * Tests for the MiniCartFooterBlock block type.
@@ -37,9 +37,9 @@ class MiniCartFooterBlock extends \WP_UnitTestCase {
 
 		$registry = \WP_Block_Type_Registry::get_instance();
 
-		$this->original_block_type = $registry->get_registered( 'woocommerce/mini-cart-footer-block' );
+		$this->original_block_type = $registry->get_registered( 'poocommerce/mini-cart-footer-block' );
 		if ( $this->original_block_type ) {
-			$registry->unregister( 'woocommerce/mini-cart-footer-block' );
+			$registry->unregister( 'poocommerce/mini-cart-footer-block' );
 		}
 
 		$this->block = new MiniCartFooterBlockType(
@@ -54,8 +54,8 @@ class MiniCartFooterBlock extends \WP_UnitTestCase {
 	 */
 	public function tearDown(): void {
 		$registry = \WP_Block_Type_Registry::get_instance();
-		if ( $registry->is_registered( 'woocommerce/mini-cart-footer-block' ) ) {
-			$registry->unregister( 'woocommerce/mini-cart-footer-block' );
+		if ( $registry->is_registered( 'poocommerce/mini-cart-footer-block' ) ) {
+			$registry->unregister( 'poocommerce/mini-cart-footer-block' );
 		}
 		if ( $this->original_block_type ) {
 			$registry->register( $this->original_block_type );
@@ -93,7 +93,7 @@ class MiniCartFooterBlock extends \WP_UnitTestCase {
 	 * @param string $expected         Expected description text.
 	 */
 	public function test_get_total_items_description( bool $shipping_enabled, bool $taxes_enabled, bool $coupons_enabled, string $expected ): void {
-		// Arrange - Mock WooCommerce settings.
+		// Arrange - Mock PooCommerce settings.
 		add_filter(
 			'wc_shipping_enabled',
 			function () use ( $shipping_enabled ) {
@@ -107,7 +107,7 @@ class MiniCartFooterBlock extends \WP_UnitTestCase {
 			}
 		);
 		add_filter(
-			'pre_option_woocommerce_enable_coupons',
+			'pre_option_poocommerce_enable_coupons',
 			function () use ( $coupons_enabled ) {
 				return $coupons_enabled ? 'yes' : 'no';
 			}

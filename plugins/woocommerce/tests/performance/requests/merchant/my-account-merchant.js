@@ -28,7 +28,7 @@ import {
 
 export function myAccountMerchantLogin() {
 	let response;
-	let woocommerce_login_nonce;
+	let poocommerce_login_nonce;
 
 	group( 'My Account', function () {
 		const requestHeaders = Object.assign(
@@ -50,9 +50,9 @@ export function myAccountMerchantLogin() {
 		} );
 
 		// Correlate nonce value for use in subsequent requests.
-		woocommerce_login_nonce = response
+		poocommerce_login_nonce = response
 			.html()
-			.find( 'input[name=woocommerce-login-nonce]' )
+			.find( 'input[name=poocommerce-login-nonce]' )
 			.first()
 			.attr( 'value' );
 	} );
@@ -73,7 +73,7 @@ export function myAccountMerchantLogin() {
 			{
 				username: `${ admin_username }`,
 				password: `${ admin_password }`,
-				'woocommerce-login-nonce': `${ woocommerce_login_nonce }`,
+				'poocommerce-login-nonce': `${ poocommerce_login_nonce }`,
 				_wp_http_referer: '/my-account',
 				login: 'Log%20in',
 			},

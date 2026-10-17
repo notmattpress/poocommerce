@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 /**
  * Tests for WC_Admin_Addons.
  *
- * @package WooCommerce\Tests\Admin
+ * @package PooCommerce\Tests\Admin
  */
 class WC_Admin_Addons_Test extends WC_Unit_Test_Case {
 
@@ -107,7 +107,7 @@ class WC_Admin_Addons_Test extends WC_Unit_Test_Case {
 	 */
 	public function test_redirect_ignores_malformed_sections(): void {
 		add_filter(
-			'woocommerce_addons_sections',
+			'poocommerce_addons_sections',
 			fn() => array(
 				'not-an-object',
 				null,
@@ -128,7 +128,7 @@ class WC_Admin_Addons_Test extends WC_Unit_Test_Case {
 	 * @testdox Legacy redirect keeps known sections and drops unknown ones.
 	 */
 	public function test_redirect_keeps_known_sections_only(): void {
-		add_filter( 'woocommerce_addons_sections', fn() => array( (object) array( 'slug' => 'payment-gateways' ) ) );
+		add_filter( 'poocommerce_addons_sections', fn() => array( (object) array( 'slug' => 'payment-gateways' ) ) );
 
 		$this->assertSame(
 			admin_url( 'admin.php?page=wc-admin&tab=extensions&path=%2Fextensions&category=payment-gateways' ),

@@ -1,12 +1,12 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\Notes;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\Notes;
 
-use Automattic\WooCommerce\Admin\Notes\Note;
-use Automattic\WooCommerce\Admin\Notes\Notes;
-use Automattic\WooCommerce\Admin\PageController;
-use Automattic\WooCommerce\Internal\Admin\Notes\ExtensionsWithoutSubscription;
+use Automattic\PooCommerce\Admin\Notes\Note;
+use Automattic\PooCommerce\Admin\Notes\Notes;
+use Automattic\PooCommerce\Admin\PageController;
+use Automattic\PooCommerce\Internal\Admin\Notes\ExtensionsWithoutSubscription;
 use WC_Helper;
 use WC_Helper_Options;
 use WC_Unit_Test_Case;
@@ -24,7 +24,7 @@ class ExtensionsWithoutSubscriptionTest extends WC_Unit_Test_Case {
 	private $sut;
 
 	/**
-	 * Filter standing in for WooCommerce.com, removed on tear down.
+	 * Filter standing in for PooCommerce.com, removed on tear down.
 	 *
 	 * @var callable|null
 	 */
@@ -173,9 +173,9 @@ class ExtensionsWithoutSubscriptionTest extends WC_Unit_Test_Case {
 		$this->sut->refresh_note();
 
 		WC_Helper_Options::update( 'auth', array( 'access_token' => 'token' ) );
-		set_transient( '_woocommerce_helper_subscriptions', array(), HOUR_IN_SECONDS );
+		set_transient( '_poocommerce_helper_subscriptions', array(), HOUR_IN_SECONDS );
 		set_transient(
-			'_woocommerce_helper_subscriptions_api_error',
+			'_poocommerce_helper_subscriptions_api_error',
 			array(
 				'code'    => 429,
 				'message' => 'Rate limited',
@@ -196,9 +196,9 @@ class ExtensionsWithoutSubscriptionTest extends WC_Unit_Test_Case {
 
 		$this->mock_active_woo_plugins( array() );
 		WC_Helper_Options::update( 'auth', array( 'access_token' => 'token' ) );
-		set_transient( '_woocommerce_helper_subscriptions', array(), HOUR_IN_SECONDS );
+		set_transient( '_poocommerce_helper_subscriptions', array(), HOUR_IN_SECONDS );
 		set_transient(
-			'_woocommerce_helper_subscriptions_api_error',
+			'_poocommerce_helper_subscriptions_api_error',
 			array(
 				'code'    => 429,
 				'message' => 'Rate limited',
@@ -238,7 +238,7 @@ class ExtensionsWithoutSubscriptionTest extends WC_Unit_Test_Case {
 		$this->mock_active_woo_plugins( array( 'Product Add-Ons' ) );
 		$this->connect_store();
 		update_option( ExtensionsWithoutSubscription::LAST_FETCH_OPTION_KEY, time() );
-		set_transient( '_woocommerce_helper_subscriptions', array(), HOUR_IN_SECONDS );
+		set_transient( '_poocommerce_helper_subscriptions', array(), HOUR_IN_SECONDS );
 		$requests = $this->mock_subscription_requests();
 
 		$this->sut->refresh_note();
@@ -296,7 +296,7 @@ class ExtensionsWithoutSubscriptionTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Should run no database queries on a connected store without WooCommerce.com extensions.
+	 * @testdox Should run no database queries on a connected store without PooCommerce.com extensions.
 	 */
 	public function test_connected_store_without_extensions_runs_no_queries(): void {
 		global $wpdb;
@@ -313,9 +313,9 @@ class ExtensionsWithoutSubscriptionTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Should do nothing outside WooCommerce admin pages.
+	 * @testdox Should do nothing outside PooCommerce admin pages.
 	 */
-	public function test_note_is_not_added_outside_woocommerce_pages(): void {
+	public function test_note_is_not_added_outside_poocommerce_pages(): void {
 		$this->mock_active_woo_plugins( array( 'Product Add-Ons' ) );
 		unset( $_GET['page'] );
 		set_current_screen( 'dashboard' );
@@ -323,11 +323,11 @@ class ExtensionsWithoutSubscriptionTest extends WC_Unit_Test_Case {
 
 		$this->sut->refresh_note();
 
-		$this->assertFalse( ExtensionsWithoutSubscription::note_exists(), 'The note should only be refreshed on WooCommerce admin pages.' );
+		$this->assertFalse( ExtensionsWithoutSubscription::note_exists(), 'The note should only be refreshed on PooCommerce admin pages.' );
 	}
 
 	/**
-	 * Makes the given Woo extensions installed and active on a store that isn't connected to WooCommerce.com.
+	 * Makes the given Woo extensions installed and active on a store that isn't connected to PooCommerce.com.
 	 *
 	 * @param string[] $names Extension names.
 	 * @return void
@@ -349,7 +349,7 @@ class ExtensionsWithoutSubscriptionTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Connects the store to WooCommerce.com with credentials WC_Helper_API can sign requests with.
+	 * Connects the store to PooCommerce.com with credentials WC_Helper_API can sign requests with.
 	 *
 	 * @return void
 	 */
@@ -365,7 +365,7 @@ class ExtensionsWithoutSubscriptionTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Answers WooCommerce.com subscription requests with an empty list and counts them.
+	 * Answers PooCommerce.com subscription requests with an empty list and counts them.
 	 *
 	 * @return object Holds the request count.
 	 */

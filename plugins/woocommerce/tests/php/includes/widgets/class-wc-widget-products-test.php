@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 /**
  * Tests for WC_Widget_Products.
  *
- * @package WooCommerce\Tests\Widgets
+ * @package PooCommerce\Tests\Widgets
  */
 
 /**
@@ -71,7 +71,7 @@ class WC_Widget_Products_Test extends \WC_Unit_Test_Case {
 			return $args;
 		};
 
-		add_filter( 'woocommerce_products_widget_query_args', $suppress_filters );
+		add_filter( 'poocommerce_products_widget_query_args', $suppress_filters );
 
 		try {
 			$this->assertSame(
@@ -80,7 +80,7 @@ class WC_Widget_Products_Test extends \WC_Unit_Test_Case {
 				'Suppressed filters should fall back to the post meta ordering.'
 			);
 		} finally {
-			remove_filter( 'woocommerce_products_widget_query_args', $suppress_filters );
+			remove_filter( 'poocommerce_products_widget_query_args', $suppress_filters );
 		}
 
 		// Equal sales are broken by product id, in whichever direction the widget is ordered.
@@ -105,7 +105,7 @@ class WC_Widget_Products_Test extends \WC_Unit_Test_Case {
 			return $args;
 		};
 
-		add_filter( 'woocommerce_products_widget_query_args', $order_by_id );
+		add_filter( 'poocommerce_products_widget_query_args', $order_by_id );
 
 		try {
 			$this->assertSame(
@@ -114,7 +114,7 @@ class WC_Widget_Products_Test extends \WC_Unit_Test_Case {
 				'A filter that changes orderby should decide the ordering.'
 			);
 		} finally {
-			remove_filter( 'woocommerce_products_widget_query_args', $order_by_id );
+			remove_filter( 'poocommerce_products_widget_query_args', $order_by_id );
 		}
 
 		// A product with no lookup row at all, as happens while the lookup table is being regenerated,

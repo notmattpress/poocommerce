@@ -2,7 +2,7 @@
 /**
  * Download product step.
  *
- * @package WooCommerce\WCCom
+ * @package PooCommerce\WCCom
  * @since   7.7.0
  */
 

@@ -4,12 +4,12 @@
  * argument maps into declared scalar and array shapes. Each guards before casting
  * and falls back when the value is not coercible. WordPress-free Core zone.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine\Core\Support
+ * @package Automattic\PooCommerce\SubscriptionsEngine\Core\Support
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Core\Support;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Core\Support;
 
 defined( 'ABSPATH' ) || exit;
 

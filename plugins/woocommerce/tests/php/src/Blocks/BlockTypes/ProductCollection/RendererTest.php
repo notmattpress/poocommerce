@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\BlockTypes\ProductCollection;
+namespace Automattic\PooCommerce\Tests\Blocks\BlockTypes\ProductCollection;
 
-use Automattic\WooCommerce\Blocks\BlockTypes\ProductCollection\Renderer;
+use Automattic\PooCommerce\Blocks\BlockTypes\ProductCollection\Renderer;
 use WC_Unit_Test_Case;
 
 /**
@@ -17,9 +17,9 @@ class RendererTest extends WC_Unit_Test_Case {
 	 * @var string[]
 	 */
 	private const RENDER_HOOKS = array(
-		'render_block_woocommerce/product-collection',
-		'render_block_woocommerce/product-template',
-		'render_block_woocommerce/product-collection-no-results',
+		'render_block_poocommerce/product-collection',
+		'render_block_poocommerce/product-template',
+		'render_block_poocommerce/product-collection-no-results',
 		'render_block_core/query-pagination',
 		'render_block_context',
 	);
@@ -39,53 +39,53 @@ class RendererTest extends WC_Unit_Test_Case {
 			new Renderer();
 
 			$collection_block  = array(
-				'blockName' => 'woocommerce/product-collection',
+				'blockName' => 'poocommerce/product-collection',
 				'attrs'     => array(
 					'query' => array(
 						'isProductCollectionBlock' => false,
 					),
 				),
 			);
-			$populated_wrapper = '<div class="wp-block-woocommerce-product-collection">Populated collection</div>';
-			$empty_wrapper     = '<div class="wp-block-woocommerce-product-collection">Empty collection wrapper</div>';
+			$populated_wrapper = '<div class="wp-block-poocommerce-product-collection">Populated collection</div>';
+			$empty_wrapper     = '<div class="wp-block-poocommerce-product-collection">Empty collection wrapper</div>';
 			$no_results        = '<p>No results found</p>';
 
-			apply_filters( 'render_block_woocommerce/product-template', '<ul><li>Product</li></ul>' );
+			apply_filters( 'render_block_poocommerce/product-template', '<ul><li>Product</li></ul>' );
 			$this->assertSame(
 				$populated_wrapper,
-				apply_filters( 'render_block_woocommerce/product-collection', $populated_wrapper, $collection_block ),
+				apply_filters( 'render_block_poocommerce/product-collection', $populated_wrapper, $collection_block ),
 				'A populated Product Collection should render its wrapper.'
 			);
 
 			$this->assertSame(
 				'',
-				apply_filters( 'render_block_woocommerce/product-collection', $empty_wrapper, $collection_block ),
+				apply_filters( 'render_block_poocommerce/product-collection', $empty_wrapper, $collection_block ),
 				'An empty collection must not inherit the previous collection result state.'
 			);
 
-			apply_filters( 'render_block_woocommerce/product-template', '' );
+			apply_filters( 'render_block_poocommerce/product-template', '' );
 			$this->assertSame(
 				$no_results,
-				apply_filters( 'render_block_woocommerce/product-collection-no-results', $no_results ),
+				apply_filters( 'render_block_poocommerce/product-collection-no-results', $no_results ),
 				'The explicit No Results block should pass through unchanged.'
 			);
 			$this->assertSame(
 				$empty_wrapper,
-				apply_filters( 'render_block_woocommerce/product-collection', $empty_wrapper, $collection_block ),
+				apply_filters( 'render_block_poocommerce/product-collection', $empty_wrapper, $collection_block ),
 				'A collection with an explicit No Results block should render its wrapper.'
 			);
 
-			apply_filters( 'render_block_woocommerce/product-template', '' );
+			apply_filters( 'render_block_poocommerce/product-template', '' );
 			$this->assertSame(
 				'',
-				apply_filters( 'render_block_woocommerce/product-collection', $empty_wrapper, $collection_block ),
+				apply_filters( 'render_block_poocommerce/product-collection', $empty_wrapper, $collection_block ),
 				'An empty collection must not inherit the previous collection No Results state.'
 			);
 
-			apply_filters( 'render_block_woocommerce/product-template', '<ul><li>Another product</li></ul>' );
+			apply_filters( 'render_block_poocommerce/product-template', '<ul><li>Another product</li></ul>' );
 			$this->assertSame(
 				$populated_wrapper,
-				apply_filters( 'render_block_woocommerce/product-collection', $populated_wrapper, $collection_block ),
+				apply_filters( 'render_block_poocommerce/product-collection', $populated_wrapper, $collection_block ),
 				'A later populated collection should render after the empty and No Results cases.'
 			);
 		} finally {
@@ -101,16 +101,16 @@ class RendererTest extends WC_Unit_Test_Case {
 	 * @testdox Should add one render event initializer to each Product Collection.
 	 */
 	public function test_adds_one_render_event_init_per_collection(): void {
-		$script_module_id    = 'woocommerce/product-collection';
+		$script_module_id    = 'poocommerce/product-collection';
 		$module_was_enqueued = in_array( $script_module_id, wp_script_modules()->get_queue(), true );
 
 		try {
 			$renderer = new Renderer();
 
 			foreach ( array( 'featured', 'on-sale', 'best-sellers' ) as $collection ) {
-				$block_content = '<div class="wp-block-woocommerce-product-collection">Products</div>';
+				$block_content = '<div class="wp-block-poocommerce-product-collection">Products</div>';
 				$block         = array(
-					'blockName' => 'woocommerce/product-collection',
+					'blockName' => 'poocommerce/product-collection',
 					'attrs'     => array(
 						'collection'      => $collection,
 						'forcePageReload' => true,
@@ -124,17 +124,17 @@ class RendererTest extends WC_Unit_Test_Case {
 				$processor = new \WP_HTML_Tag_Processor( $rendered );
 
 				$this->assertTrue(
-					$processor->next_tag( array( 'class_name' => 'wp-block-woocommerce-product-collection' ) ),
+					$processor->next_tag( array( 'class_name' => 'wp-block-poocommerce-product-collection' ) ),
 					"The {$collection} Product Collection root should remain present."
 				);
 				$this->assertSame(
-					'woocommerce/product-collection',
+					'poocommerce/product-collection',
 					$processor->get_attribute( 'data-wp-interactive' ),
 					"The {$collection} Product Collection should use the real interactive namespace."
 				);
 				$this->assertSame(
 					1,
-					substr_count( $rendered, 'data-wp-interactive="woocommerce/product-collection"' ),
+					substr_count( $rendered, 'data-wp-interactive="poocommerce/product-collection"' ),
 					"The {$collection} Product Collection should declare its interactive namespace exactly once."
 				);
 				$this->assertSame(
@@ -177,7 +177,7 @@ class RendererTest extends WC_Unit_Test_Case {
 			// process state needs undoing here. The script-module queue is one such
 			// piece. The other is the Interactivity store: enhancing the markup runs
 			// render_interactivity_notices_region(), which writes
-			// wp_interactivity_state( 'woocommerce/store-notices', ... ). That one is
+			// wp_interactivity_state( 'poocommerce/store-notices', ... ). That one is
 			// left alone deliberately -- it writes the same namespaced values every
 			// time and no test reads them -- but it is not reset for us either, so a
 			// test that starts asserting on that namespace has to restore it.

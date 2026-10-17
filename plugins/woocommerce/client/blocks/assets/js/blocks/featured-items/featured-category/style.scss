@@ -1,6 +1,6 @@
 @import "../style";
 
-:where(.wp-block-woocommerce-featured-category) {
+:where(.wp-block-poocommerce-featured-category) {
 	@extend %wp-block-featured-item;
 }
 

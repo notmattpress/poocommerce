@@ -1,14 +1,14 @@
 /**
  * External dependencies
  */
-import { expect, test } from '@woocommerce/e2e-utils';
+import { expect, test } from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
  */
 import { hoodieReviews } from '../../../test-data/blocks/data/data';
 
-const BLOCK_NAME = 'woocommerce/reviews-by-product';
+const BLOCK_NAME = 'poocommerce/reviews-by-product';
 
 test.describe( `${ BLOCK_NAME } Block`, () => {
 	test( 'block can be inserted and it successfully renders a review in the editor and the frontend', async ( {
@@ -34,7 +34,7 @@ test.describe( `${ BLOCK_NAME } Block`, () => {
 
 		await expect(
 			page
-				.locator( '.wp-block-woocommerce-reviews-by-product' )
+				.locator( '.wp-block-poocommerce-reviews-by-product' )
 				.getByText( hoodieReviews[ 0 ].review )
 		).toBeVisible();
 	} );

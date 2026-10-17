@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
 /**
  * ProductResultsCount class.
@@ -36,10 +36,10 @@ class ProductResultsCount extends AbstractBlock {
 	protected function render( $attributes, $content, $block ) {
 		// Buffer the result count and use it as the block's frontend content.
 		ob_start();
-		woocommerce_result_count();
+		poocommerce_result_count();
 		$product_results_count = ob_get_clean();
 
-		$classes = 'woocommerce wc-block-product-results-count';
+		$classes = 'poocommerce wc-block-product-results-count';
 		if ( ! empty( $attributes['fontSize'] ) ) {
 			// Preserve the legacy class for backward compatibility.
 			$classes .= ' has-font-size';

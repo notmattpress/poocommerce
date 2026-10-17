@@ -1,11 +1,11 @@
-.woocommerce-wcpay-bnpl-suggestion {
+.poocommerce-wcpay-bnpl-suggestion {
 
-	.woocommerce-wcpay-bnpl-suggestion__body {
+	.poocommerce-wcpay-bnpl-suggestion__body {
 		padding: 0;
 		justify-content: space-between;
 	}
 
-	.woocommerce-wcpay-bnpl-suggestion__contents-container {
+	.poocommerce-wcpay-bnpl-suggestion__contents-container {
 		padding: calc($gap-larger - $gap-smallest) $gap-large;
 		position: relative;
 		flex: 1;
@@ -26,7 +26,7 @@
 		height: 100%;
 	}
 
-	.woocommerce-wcpay-bnpl-suggestion__contents {
+	.poocommerce-wcpay-bnpl-suggestion__contents {
 		@include breakpoint( "<600px") {
 			max-width: 100%;
 		}

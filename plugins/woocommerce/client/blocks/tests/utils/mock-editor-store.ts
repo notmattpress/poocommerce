@@ -10,7 +10,7 @@
  * Usage (must use require, not import, due to Jest hoisting):
  * ```
  * jest.mock( '@wordpress/data', () =>
- *     require( '@woocommerce/blocks-test-utils/mock-editor-store' ).mockWordPressDataWithEditorStore()
+ *     require( '@poocommerce/blocks-test-utils/mock-editor-store' ).mockWordPressDataWithEditorStore()
  * );
  * ```
  */

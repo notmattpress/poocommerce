@@ -1,10 +1,10 @@
 /**
- * WooCommerce Photoswipe styles.
+ * PooCommerce Photoswipe styles.
  * 1. These styles are required to overwrite default theme button styles (Twenty Twelve adds gradients via background-image).
  * 2. For zooming on mobile.
  */
-.woocommerce img.pswp__img,
-.woocommerce-page img.pswp__img {
+.poocommerce img.pswp__img,
+.poocommerce-page img.pswp__img {
 	max-width: none; /* 2 */
 }
 button.pswp__button {

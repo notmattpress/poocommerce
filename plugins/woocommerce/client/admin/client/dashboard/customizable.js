@@ -9,14 +9,14 @@ import { Dropdown, Button } from '@wordpress/components';
 import { applyFilters } from '@wordpress/hooks';
 import { Icon, plusCircleFilled } from '@wordpress/icons';
 import { withSelect } from '@wordpress/data';
-import { H } from '@woocommerce/components';
-import { settingsStore, useUserPreferences } from '@woocommerce/data';
-import { getQuery } from '@woocommerce/navigation';
-import { recordEvent } from '@woocommerce/tracks';
+import { H } from '@poocommerce/components';
+import { settingsStore, useUserPreferences } from '@poocommerce/data';
+import { getQuery } from '@poocommerce/navigation';
+import { recordEvent } from '@poocommerce/tracks';
 import {
 	CurrencyContext,
 	getFilteredCurrencyInstance,
-} from '@woocommerce/currency';
+} from '@poocommerce/currency';
 
 /**
  * Internal dependencies
@@ -26,7 +26,7 @@ import defaultSections, { DEFAULT_SECTIONS_FILTER } from './default-sections';
 import Section from './section';
 import { ReportHeader } from '../analytics/components/report-header';
 
-const DASHBOARD_FILTERS_FILTER = 'woocommerce_admin_dashboard_filters';
+const DASHBOARD_FILTERS_FILTER = 'poocommerce_admin_dashboard_filters';
 
 /**
  * @typedef {import('../analytics/report/index.js').filter} filter
@@ -36,7 +36,7 @@ const DASHBOARD_FILTERS_FILTER = 'woocommerce_admin_dashboard_filters';
 /**
  * Add Report filters to the dashboard. None are added by default.
  *
- * @filter woocommerce_admin_dashboard_filters
+ * @filter poocommerce_admin_dashboard_filters
  * @param {Array.<filter>} filters Report filters.
  */
 const filters = applyFilters( DASHBOARD_FILTERS_FILTER, [] );
@@ -208,7 +208,7 @@ const toUsableDefaultSection = ( section ) => {
 
 /**
  * Copy of the default sections, throwing a descriptive error when the
- * `woocommerce_dashboard_default_sections` filter returned something unusable.
+ * `poocommerce_dashboard_default_sections` filter returned something unusable.
  * The filter is a third party surface, so an entry no section can be built from
  * is dropped. Everything else is kept: the filter is a released extension point
  * that never enforced the documented types, and the dashboard is the last thing
@@ -438,11 +438,11 @@ const CustomizableDashboard = ( { defaultDateRange, path, query } ) => {
 
 		return (
 			<Dropdown
-				className="woocommerce-dashboard-section__add-more"
+				className="poocommerce-dashboard-section__add-more"
 				renderToggle={ ( { onToggle, isOpen } ) => (
 					<Button
 						onClick={ onToggle }
-						title={ __( 'Add more sections', 'woocommerce' ) }
+						title={ __( 'Add more sections', 'poocommerce' ) }
 						aria-expanded={ isOpen }
 					>
 						<Icon icon={ plusCircleFilled } />
@@ -450,8 +450,8 @@ const CustomizableDashboard = ( { defaultDateRange, path, query } ) => {
 				) }
 				renderContent={ ( { onToggle } ) => (
 					<>
-						<H>{ __( 'Dashboard Sections', 'woocommerce' ) }</H>
-						<div className="woocommerce-dashboard-section__add-more-choices">
+						<H>{ __( 'Dashboard Sections', 'poocommerce' ) }</H>
+						<div className="poocommerce-dashboard-section__add-more-choices">
 							{ hiddenSections.map( ( section ) => {
 								return (
 									<Button
@@ -460,12 +460,12 @@ const CustomizableDashboard = ( { defaultDateRange, path, query } ) => {
 											section.key,
 											onToggle
 										) }
-										className="woocommerce-dashboard-section__add-more-btn"
+										className="poocommerce-dashboard-section__add-more-btn"
 										title={ sprintf(
 											/* translators: %s: dashboard section titles which are hidden, this button allows unhiding them */
 											__(
 												'Add %s section',
-												'woocommerce'
+												'poocommerce'
 											),
 											section.title
 										) }
@@ -479,7 +479,7 @@ const CustomizableDashboard = ( { defaultDateRange, path, query } ) => {
 												size={ 30 }
 											/>
 										) }
-										<span className="woocommerce-dashboard-section__add-more-btn-title">
+										<span className="poocommerce-dashboard-section__add-more-btn-title">
 											{ section.title }
 										</span>
 									</Button>
@@ -555,7 +555,7 @@ const CustomizableDashboard = ( { defaultDateRange, path, query } ) => {
 
 export default compose(
 	withSelect( ( select ) => {
-		const { woocommerce_default_date_range: defaultDateRange } = select(
+		const { poocommerce_default_date_range: defaultDateRange } = select(
 			settingsStore
 		).getSetting( 'wc_admin', 'wcAdminSettings' );
 

@@ -3,7 +3,7 @@ title: wc shop_order_refund
 sidebar_label: wc shop_order_refund
 ---
 
-Manage WooCommerce shop order refund resources.
+Manage PooCommerce shop order refund resources.
 
 ## wc shop_order_refund list `<order_id>`
 

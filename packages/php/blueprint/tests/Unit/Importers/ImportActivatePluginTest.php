@@ -1,17 +1,17 @@
 <?php
 
-namespace Automattic\WooCommerce\Blueprint\Tests\Unit\Importers;
+namespace Automattic\PooCommerce\Blueprint\Tests\Unit\Importers;
 
-use Automattic\WooCommerce\Blueprint\Importers\ImportActivatePlugin;
-use Automattic\WooCommerce\Blueprint\StepProcessorResult;
-use Automattic\WooCommerce\Blueprint\Steps\ActivatePlugin;
+use Automattic\PooCommerce\Blueprint\Importers\ImportActivatePlugin;
+use Automattic\PooCommerce\Blueprint\StepProcessorResult;
+use Automattic\PooCommerce\Blueprint\Steps\ActivatePlugin;
 use Mockery;
 use PHPUnit\Framework\TestCase;
 
 /**
  * Test the ImportActivatePlugin class.
  *
- * @package Automattic\WooCommerce\Blueprint\Tests\Unit\Importers
+ * @package Automattic\PooCommerce\Blueprint\Tests\Unit\Importers
  */
 class ImportActivatePluginTest extends TestCase {
 

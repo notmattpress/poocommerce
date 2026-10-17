@@ -1,12 +1,12 @@
 /**
  * External dependencies
  */
-import { SITE_CURRENCY } from '@woocommerce/settings';
+import { SITE_CURRENCY } from '@poocommerce/settings';
 import type {
 	Currency,
 	CurrencyResponse,
 	CartShippingPackageShippingRate,
-} from '@woocommerce/types';
+} from '@poocommerce/types';
 
 /**
  * Internal dependencies

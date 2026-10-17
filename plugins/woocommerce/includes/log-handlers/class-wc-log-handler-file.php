@@ -2,11 +2,11 @@
 /**
  * Class WC_Log_Handler_File file.
  *
- * @package WooCommerce\Log Handlers
+ * @package PooCommerce\Log Handlers
  */
 
 use Automattic\Jetpack\Constants;
-use Automattic\WooCommerce\Utilities\LoggingUtil;
+use Automattic\PooCommerce\Utilities\LoggingUtil;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @class          WC_Log_Handler_File
  * @version        1.0.0
- * @package        WooCommerce\Classes\Log_Handlers
+ * @package        PooCommerce\Classes\Log_Handlers
  */
 class WC_Log_Handler_File extends WC_Log_Handler {
 
@@ -55,7 +55,7 @@ class WC_Log_Handler_File extends WC_Log_Handler {
 			$log_size_limit = 5 * 1024 * 1024;
 		}
 
-		$this->log_size_limit = apply_filters( 'woocommerce_log_file_size_limit', $log_size_limit );
+		$this->log_size_limit = apply_filters( 'poocommerce_log_file_size_limit', $log_size_limit );
 
 		add_action( 'plugins_loaded', array( $this, 'write_cached_logs' ) );
 	}
@@ -120,7 +120,7 @@ class WC_Log_Handler_File extends WC_Log_Handler {
 			} else {
 				$handle = 'log';
 			}
-			$message = apply_filters( 'woocommerce_logger_add_message', $message, $handle );
+			$message = apply_filters( 'poocommerce_logger_add_message', $message, $handle );
 			$time    = date_i18n( 'm-d-Y @ H:i:s' );
 			$entry   = "{$time} - {$message}";
 		} else {
@@ -239,7 +239,7 @@ class WC_Log_Handler_File extends WC_Log_Handler {
 			$result = true;
 		}
 
-		do_action( 'woocommerce_log_clear', $handle );
+		do_action( 'poocommerce_log_clear', $handle );
 
 		return $result;
 	}
@@ -263,7 +263,7 @@ class WC_Log_Handler_File extends WC_Log_Handler {
 				$this->close( $file ); // Close first to be certain no processes keep it alive after it is unlinked.
 				$removed = unlink( $file ); // phpcs:ignore WordPress.VIP.FileSystemWritesDisallow.file_ops_unlink
 			}
-			do_action( 'woocommerce_log_remove', $handle, $removed );
+			do_action( 'poocommerce_log_remove', $handle, $removed );
 		}
 		return $removed;
 	}
@@ -356,7 +356,7 @@ class WC_Log_Handler_File extends WC_Log_Handler {
 		if ( function_exists( 'wp_hash' ) ) {
 			return trailingslashit( $log_directory ) . self::get_log_file_name( $handle );
 		} else {
-			wc_doing_it_wrong( __METHOD__, __( 'This method should not be called before plugins_loaded.', 'woocommerce' ), '3.0' );
+			wc_doing_it_wrong( __METHOD__, __( 'This method should not be called before plugins_loaded.', 'poocommerce' ), '3.0' );
 			return false;
 		}
 	}
@@ -376,7 +376,7 @@ class WC_Log_Handler_File extends WC_Log_Handler {
 			$hash_suffix = wp_hash( $handle );
 			return sanitize_file_name( implode( '-', array( $handle, $date_suffix, $hash_suffix ) ) . '.log' );
 		} else {
-			wc_doing_it_wrong( __METHOD__, __( 'This method should not be called before plugins_loaded.', 'woocommerce' ), '3.3' );
+			wc_doing_it_wrong( __METHOD__, __( 'This method should not be called before plugins_loaded.', 'poocommerce' ), '3.3' );
 			return false;
 		}
 	}

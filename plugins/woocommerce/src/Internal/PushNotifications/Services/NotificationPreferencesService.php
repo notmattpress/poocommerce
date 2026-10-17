@@ -2,12 +2,12 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\PushNotifications\Services;
+namespace Automattic\PooCommerce\Internal\PushNotifications\Services;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Internal\PushNotifications\DataStores\NotificationPreferencesDataStore;
-use Automattic\WooCommerce\Internal\PushNotifications\Notifications\Notification;
+use Automattic\PooCommerce\Internal\PushNotifications\DataStores\NotificationPreferencesDataStore;
+use Automattic\PooCommerce\Internal\PushNotifications\Notifications\Notification;
 
 /**
  * Manages per-user push notification preferences.

@@ -1,11 +1,11 @@
 <?php
 
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 
 /**
- * Test meta for https://github.com/woocommerce/woocommerce/issues/13533.
+ * Test meta for https://github.com/poocommerce/poocommerce/issues/13533.
  *
- * @package WooCommerce\Tests\CRUD
+ * @package PooCommerce\Tests\CRUD
  */
 class WC_Tests_CRUD_Meta_Data extends WC_Unit_Test_Case {
 
@@ -123,7 +123,7 @@ class WC_Tests_CRUD_Meta_Data extends WC_Unit_Test_Case {
 
 	/**
 	 * Tests that the meta data cache gets flushed when update_post_meta updates the object's meta.
-	 * @see https://github.com/woocommerce/woocommerce/issues/15274
+	 * @see https://github.com/poocommerce/poocommerce/issues/15274
 	 */
 	function test_get_meta_data_after_update_post_meta() {
 		// Create an object.

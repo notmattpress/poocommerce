@@ -1,11 +1,11 @@
 <?php
 /**
- * WooCommerce Admin Input Parameter Exception Class
+ * PooCommerce Admin Input Parameter Exception Class
  *
  * Exception class thrown when user provides incorrect parameters.
  */
 
-namespace Automattic\WooCommerce\Admin\API\Reports;
+namespace Automattic\PooCommerce\Admin\API\Reports;
 
 defined( 'ABSPATH' ) || exit;
 

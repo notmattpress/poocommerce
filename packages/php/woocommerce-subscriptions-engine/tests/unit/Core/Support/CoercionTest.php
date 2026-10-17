@@ -2,18 +2,18 @@
 /**
  * Unit tests for Coercion's array coercions.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine
+ * @package Automattic\PooCommerce\SubscriptionsEngine
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Tests\Unit\Core\Support;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Tests\Unit\Core\Support;
 
 use PHPUnit\Framework\TestCase;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Support\Coercion;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Support\Coercion;
 
 /**
- * @covers \Automattic\WooCommerce\SubscriptionsEngine\Core\Support\Coercion
+ * @covers \Automattic\PooCommerce\SubscriptionsEngine\Core\Support\Coercion
  */
 class CoercionTest extends TestCase {
 

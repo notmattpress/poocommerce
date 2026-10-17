@@ -1,12 +1,12 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks;
+namespace Automattic\PooCommerce\Tests\Blocks;
 
-use Automattic\WooCommerce\Blocks\Assets\Api;
-use Automattic\WooCommerce\Blocks\BlockTypesController as TestedBlockTypesController;
-use Automattic\WooCommerce\Blocks\Package;
-use Automattic\WooCommerce\Tests\Blocks\Mocks\AssetDataRegistryMock;
+use Automattic\PooCommerce\Blocks\Assets\Api;
+use Automattic\PooCommerce\Blocks\BlockTypesController as TestedBlockTypesController;
+use Automattic\PooCommerce\Blocks\Package;
+use Automattic\PooCommerce\Tests\Blocks\Mocks\AssetDataRegistryMock;
 use WC_Unit_Test_Case;
 
 /**
@@ -76,11 +76,11 @@ class BlockTypesController extends WC_Unit_Test_Case {
 			]
 		);
 
-		// A block that will be allowed because it has a parent with a woocommerce namespace.
+		// A block that will be allowed because it has a parent with a poocommerce namespace.
 		register_block_type(
 			'child-of-woo/block-name',
 			[
-				'parent' => [ 'woocommerce/checkout-contact-information-block' ],
+				'parent' => [ 'poocommerce/checkout-contact-information-block' ],
 			]
 		);
 
@@ -88,7 +88,7 @@ class BlockTypesController extends WC_Unit_Test_Case {
 		$this->assertFalse( $answer );
 
 		add_filter(
-			'__experimental_woocommerce_blocks_add_data_attributes_to_block',
+			'__experimental_poocommerce_blocks_add_data_attributes_to_block',
 			function ( $blocks ) {
 				$blocks[] = 'namespace/allowed-block-name';
 				return $blocks;
@@ -98,7 +98,7 @@ class BlockTypesController extends WC_Unit_Test_Case {
 		$this->assertTrue( $answer );
 
 		add_filter(
-			'__experimental_woocommerce_blocks_add_data_attributes_to_namespace',
+			'__experimental_poocommerce_blocks_add_data_attributes_to_namespace',
 			function ( $namespaces ) {
 				$namespaces[] = 'allowed-namespace';
 				return $namespaces;
@@ -121,7 +121,7 @@ class BlockTypesController extends WC_Unit_Test_Case {
 		// (see WC_Install::get_cart_block_content()). Registering them here rather than
 		// in the Cart block type means the page can still resolve the references when
 		// the Cart block itself is not registered.
-		$slugs = array( 'woocommerce/cart-empty-message', 'woocommerce/cart-new-in-store-message', 'woocommerce/cart-cross-sells-message' );
+		$slugs = array( 'poocommerce/cart-empty-message', 'poocommerce/cart-new-in-store-message', 'poocommerce/cart-cross-sells-message' );
 
 		foreach ( $slugs as $slug ) {
 			if ( $registry->is_registered( $slug ) ) {
@@ -140,11 +140,11 @@ class BlockTypesController extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Should use the WooCommerce version when a bundled block.json omits one.
+	 * @testdox Should use the PooCommerce version when a bundled block.json omits one.
 	 */
-	public function test_block_json_style_without_version_uses_woocommerce_version(): void {
+	public function test_block_json_style_without_version_uses_poocommerce_version(): void {
 		$metadata = array(
-			'name' => 'woocommerce/product-filter-chips',
+			'name' => 'poocommerce/product-filter-chips',
 			'file' => WC_ABSPATH . 'assets/client/blocks/product-filter-chips/block.json',
 		);
 
@@ -158,7 +158,7 @@ class BlockTypesController extends WC_Unit_Test_Case {
 	 */
 	public function test_block_json_keeps_explicit_version(): void {
 		$metadata = array(
-			'name'    => 'woocommerce/mini-cart',
+			'name'    => 'poocommerce/mini-cart',
 			'file'    => WC_ABSPATH . 'assets/client/blocks/mini-cart/block.json',
 			'version' => '1.0.0',
 		);
@@ -169,9 +169,9 @@ class BlockTypesController extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Should leave block metadata from outside WooCommerce unchanged.
+	 * @testdox Should leave block metadata from outside PooCommerce unchanged.
 	 */
-	public function test_block_json_outside_woocommerce_keeps_omitted_version(): void {
+	public function test_block_json_outside_poocommerce_keeps_omitted_version(): void {
 		$metadata = array(
 			'name' => 'example/block',
 			'file' => '/tmp/example/block.json',
@@ -194,7 +194,7 @@ class BlockTypesController extends WC_Unit_Test_Case {
 
 		try {
 			ob_start();
-			// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment -- Firing the form hook under test.
+			// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment -- Firing the form hook under test.
 			do_action( $hook );
 			$output = ob_get_clean();
 		} finally {
@@ -215,7 +215,7 @@ class BlockTypesController extends WC_Unit_Test_Case {
 		unset( $_GET['redirect_to'] );
 
 		ob_start();
-		// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment -- Firing the form hook under test.
+		// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment -- Firing the form hook under test.
 		do_action( $hook );
 		$output = ob_get_clean();
 
@@ -229,8 +229,8 @@ class BlockTypesController extends WC_Unit_Test_Case {
 	 */
 	public function redirect_to_form_hooks_provider(): array {
 		return array(
-			'login form'        => array( 'woocommerce_login_form_end' ),
-			'registration form' => array( 'woocommerce_register_form_end' ),
+			'login form'        => array( 'poocommerce_login_form_end' ),
+			'registration form' => array( 'poocommerce_register_form_end' ),
 		);
 	}
 }

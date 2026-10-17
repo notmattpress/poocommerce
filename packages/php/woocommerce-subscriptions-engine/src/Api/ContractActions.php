@@ -2,15 +2,15 @@
 /**
  * ContractActions - register the contract actions the engine's action endpoint dispatches.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine\Api
+ * @package Automattic\PooCommerce\SubscriptionsEngine\Api
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Api;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Api;
 
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Rest\ContractActionRegistry;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Support\ArgumentValidator;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Rest\ContractActionRegistry;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Support\ArgumentValidator;
 
 defined( 'ABSPATH' ) || exit;
 

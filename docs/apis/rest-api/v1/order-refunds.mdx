@@ -63,7 +63,7 @@ const data = {
   amount: "10"
 };
 
-WooCommerce.post("orders/116/refunds", data)
+PooCommerce.post("orders/116/refunds", data)
   .then((response) => {
     console.log(response.data);
   })
@@ -81,7 +81,7 @@ $data = [
     'amount' => '10'
 ];
 
-print_r($woocommerce->post('orders/116/refunds', $data));
+print_r($poocommerce->post('orders/116/refunds', $data));
 ?>
 ```
 
@@ -104,7 +104,7 @@ data = {
   amount: "10"
 }
 
-woocommerce.post("orders/116/refunds", data).parsed_response
+poocommerce.post("orders/116/refunds", data).parsed_response
 ```
 
   </TabItem>
@@ -159,7 +159,7 @@ curl https://example.com/wp-json/wc/v1/orders/116/refunds/150 \
   <TabItem value="js" label="JavaScript">
 
 ```javascript
-WooCommerce.get("orders/116/refunds/150")
+PooCommerce.get("orders/116/refunds/150")
   .then((response) => {
     console.log(response.data);
   })
@@ -172,7 +172,7 @@ WooCommerce.get("orders/116/refunds/150")
   <TabItem value="php" label="PHP">
 
 ```php
-<?php print_r($woocommerce->get('orders/116/refunds/150')); ?>
+<?php print_r($poocommerce->get('orders/116/refunds/150')); ?>
 ```
 
   </TabItem>
@@ -186,7 +186,7 @@ print(wcapi.get("orders/116/refunds/150").json())
   <TabItem value="ruby" label="Ruby">
 
 ```ruby
-woocommerce.get("orders/116/refunds/150").parsed_response
+poocommerce.get("orders/116/refunds/150").parsed_response
 ```
 
   </TabItem>
@@ -246,7 +246,7 @@ curl https://example.com/wp-json/wc/v1/orders/116/refunds \
   <TabItem value="js" label="JavaScript">
 
 ```javascript
-WooCommerce.get("orders/116/refunds")
+PooCommerce.get("orders/116/refunds")
   .then((response) => {
     console.log(response.data);
   })
@@ -259,7 +259,7 @@ WooCommerce.get("orders/116/refunds")
   <TabItem value="php" label="PHP">
 
 ```php
-<?php print_r($woocommerce->get('orders/116/refunds')); ?>
+<?php print_r($poocommerce->get('orders/116/refunds')); ?>
 ```
 
   </TabItem>
@@ -273,7 +273,7 @@ print(wcapi.get("orders/116/refunds").json())
   <TabItem value="ruby" label="Ruby">
 
 ```ruby
-woocommerce.get("orders/116/refunds").parsed_response
+poocommerce.get("orders/116/refunds").parsed_response
 ```
 
   </TabItem>
@@ -388,7 +388,7 @@ curl -X DELETE https://example.com/wp-json/wc/v1/orders/116/refunds/150?force=tr
   <TabItem value="js" label="JavaScript">
 
 ```javascript
-WooCommerce.delete("orders/116/refunds/150", {
+PooCommerce.delete("orders/116/refunds/150", {
   force: true
 })
   .then((response) => {
@@ -403,7 +403,7 @@ WooCommerce.delete("orders/116/refunds/150", {
   <TabItem value="php" label="PHP">
 
 ```php
-<?php print_r($woocommerce->delete('orders/116/refunds/150', ['force' => true])); ?>
+<?php print_r($poocommerce->delete('orders/116/refunds/150', ['force' => true])); ?>
 ```
 
   </TabItem>
@@ -417,7 +417,7 @@ print(wcapi.delete("orders/116/refunds/150", params={"force": True}).json())
   <TabItem value="ruby" label="Ruby">
 
 ```ruby
-woocommerce.delete("orders/116/refunds/150", force: true).parsed_response
+poocommerce.delete("orders/116/refunds/150", force: true).parsed_response
 ```
 
   </TabItem>

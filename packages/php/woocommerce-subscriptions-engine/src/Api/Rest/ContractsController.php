@@ -2,12 +2,12 @@
 /**
  * REST controller for subscription engine contracts.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine\Api\Rest
+ * @package Automattic\PooCommerce\SubscriptionsEngine\Api\Rest
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Api\Rest;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Api\Rest;
 
 use SplObjectStorage;
 use Throwable;
@@ -17,19 +17,19 @@ use WP_REST_Controller;
 use WP_REST_Request;
 use WP_REST_Response;
 use WP_REST_Server;
-use Automattic\WooCommerce\SubscriptionsEngine\Api\Contracts;
-use Automattic\WooCommerce\SubscriptionsEngine\Api\View\ContractView;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Support\Coercion;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Ownership\ContractCapabilities;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Rest\ContractActionRegistry;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Support\RESTPermissions;
+use Automattic\PooCommerce\SubscriptionsEngine\Api\Contracts;
+use Automattic\PooCommerce\SubscriptionsEngine\Api\View\ContractView;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Support\Coercion;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Ownership\ContractCapabilities;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Rest\ContractActionRegistry;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Support\RESTPermissions;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
  * Contracts REST controller under `wc/v3/subscriptions-engine/contracts`: `GET /{id}` returns
  * the stored contract to store managers; `GET|POST /{id}/action` lists and runs the actions
- * the contract's owning extension registered through {@see \Automattic\WooCommerce\SubscriptionsEngine\Api\ContractActions}.
+ * the contract's owning extension registered through {@see \Automattic\PooCommerce\SubscriptionsEngine\Api\ContractActions}.
  *
  * @phpstan-import-type ContractActionDefinition from ContractActionRegistry
  */
@@ -39,7 +39,7 @@ final class ContractsController extends WP_REST_Controller {
 
 	private const REST_BASE = 'subscriptions-engine/contracts';
 
-	private const LOG_SOURCE = 'woocommerce-subscriptions-engine';
+	private const LOG_SOURCE = 'poocommerce-subscriptions-engine';
 
 	/**
 	 * REST permissions.
@@ -95,7 +95,7 @@ final class ContractsController extends WP_REST_Controller {
 			array(
 				'args'   => array(
 					'id' => array(
-						'description' => __( 'Unique identifier for the contract.', 'woocommerce-subscriptions-engine' ),
+						'description' => __( 'Unique identifier for the contract.', 'poocommerce-subscriptions-engine' ),
 						'type'        => 'integer',
 					),
 				),
@@ -117,7 +117,7 @@ final class ContractsController extends WP_REST_Controller {
 			array(
 				'args' => array(
 					'id' => array(
-						'description' => __( 'Unique identifier for the contract.', 'woocommerce-subscriptions-engine' ),
+						'description' => __( 'Unique identifier for the contract.', 'poocommerce-subscriptions-engine' ),
 						'type'        => 'integer',
 					),
 				),
@@ -132,17 +132,17 @@ final class ContractsController extends WP_REST_Controller {
 					'permission_callback' => array( $this, 'run_action_permissions_check' ),
 					'args'                => array(
 						'action'         => array(
-							'description' => __( 'Action to run.', 'woocommerce-subscriptions-engine' ),
+							'description' => __( 'Action to run.', 'poocommerce-subscriptions-engine' ),
 							'type'        => 'string',
 							'required'    => true,
 						),
 						'extension_slug' => array(
-							'description' => __( 'Slug of the extension that owns the contract and registered the action.', 'woocommerce-subscriptions-engine' ),
+							'description' => __( 'Slug of the extension that owns the contract and registered the action.', 'poocommerce-subscriptions-engine' ),
 							'type'        => 'string',
 							'required'    => true,
 						),
 						'action_args'    => array(
-							'description' => __( 'Arguments for the action, as its schema describes them.', 'woocommerce-subscriptions-engine' ),
+							'description' => __( 'Arguments for the action, as its schema describes them.', 'poocommerce-subscriptions-engine' ),
 							'type'        => 'object',
 							'default'     => array(),
 						),
@@ -240,8 +240,8 @@ final class ContractsController extends WP_REST_Controller {
 		try {
 			if ( ! ContractActionRegistry::is_available( $definition, $contract ) ) {
 				return new WP_Error(
-					'woocommerce_subscriptions_engine_action_not_available',
-					__( 'This action is not available for the contract.', 'woocommerce-subscriptions-engine' ),
+					'poocommerce_subscriptions_engine_action_not_available',
+					__( 'This action is not available for the contract.', 'poocommerce-subscriptions-engine' ),
 					array( 'status' => 409 )
 				);
 			}
@@ -346,29 +346,29 @@ final class ContractsController extends WP_REST_Controller {
 		}
 
 		$properties = array(
-			'id'                   => array( 'integer', __( 'Unique identifier for the contract.', 'woocommerce-subscriptions-engine' ) ),
-			'extension_slug'       => array( array( 'string', 'null' ), __( 'Slug of the extension that owns the contract.', 'woocommerce-subscriptions-engine' ) ),
-			'status'               => array( 'string', __( 'Contract status slug.', 'woocommerce-subscriptions-engine' ) ),
-			'customer_id'          => array( array( 'integer', 'null' ), __( 'Customer user ID.', 'woocommerce-subscriptions-engine' ) ),
-			'currency'             => array( array( 'string', 'null' ), __( 'Currency code.', 'woocommerce-subscriptions-engine' ) ),
-			'selling_plan_id'      => array( array( 'integer', 'null' ), __( 'Plan ID.', 'woocommerce-subscriptions-engine' ) ),
-			'origin_order_id'      => array( array( 'integer', 'null' ), __( 'ID of the order the contract started from.', 'woocommerce-subscriptions-engine' ) ),
-			'payment_method'       => array( array( 'string', 'null' ), __( 'Payment gateway ID.', 'woocommerce-subscriptions-engine' ) ),
-			'payment_method_title' => array( array( 'string', 'null' ), __( 'Payment method title.', 'woocommerce-subscriptions-engine' ) ),
-			'payment_token_id'     => array( array( 'integer', 'null' ), __( 'Payment token ID.', 'woocommerce-subscriptions-engine' ) ),
-			'start_gmt'            => array( array( 'string', 'null' ), __( 'Start date, as GMT.', 'woocommerce-subscriptions-engine' ) ),
-			'next_payment_gmt'     => array( array( 'string', 'null' ), __( 'Next-due moment, as GMT.', 'woocommerce-subscriptions-engine' ) ),
-			'last_payment_gmt'     => array( array( 'string', 'null' ), __( 'Last payment date, as GMT.', 'woocommerce-subscriptions-engine' ) ),
-			'last_attempt_gmt'     => array( array( 'string', 'null' ), __( 'Last payment attempt date, as GMT.', 'woocommerce-subscriptions-engine' ) ),
-			'trial_end_gmt'        => array( array( 'string', 'null' ), __( 'Trial end date, as GMT.', 'woocommerce-subscriptions-engine' ) ),
-			'end_gmt'              => array( array( 'string', 'null' ), __( 'End date, as GMT.', 'woocommerce-subscriptions-engine' ) ),
-			'schedule_source'      => array( 'string', __( 'Who keeps the payment schedule.', 'woocommerce-subscriptions-engine' ) ),
-			'billing_total'        => array( 'string', __( 'Recurring total.', 'woocommerce-subscriptions-engine' ) ),
-			'discount_total'       => array( 'string', __( 'Recurring discount total.', 'woocommerce-subscriptions-engine' ) ),
-			'shipping_total'       => array( 'string', __( 'Recurring shipping total.', 'woocommerce-subscriptions-engine' ) ),
-			'tax_total'            => array( 'string', __( 'Recurring tax total.', 'woocommerce-subscriptions-engine' ) ),
-			'items'                => array( 'array', __( 'Line items.', 'woocommerce-subscriptions-engine' ) ),
-			'addresses'            => array( 'object', __( 'Billing and shipping addresses.', 'woocommerce-subscriptions-engine' ) ),
+			'id'                   => array( 'integer', __( 'Unique identifier for the contract.', 'poocommerce-subscriptions-engine' ) ),
+			'extension_slug'       => array( array( 'string', 'null' ), __( 'Slug of the extension that owns the contract.', 'poocommerce-subscriptions-engine' ) ),
+			'status'               => array( 'string', __( 'Contract status slug.', 'poocommerce-subscriptions-engine' ) ),
+			'customer_id'          => array( array( 'integer', 'null' ), __( 'Customer user ID.', 'poocommerce-subscriptions-engine' ) ),
+			'currency'             => array( array( 'string', 'null' ), __( 'Currency code.', 'poocommerce-subscriptions-engine' ) ),
+			'selling_plan_id'      => array( array( 'integer', 'null' ), __( 'Plan ID.', 'poocommerce-subscriptions-engine' ) ),
+			'origin_order_id'      => array( array( 'integer', 'null' ), __( 'ID of the order the contract started from.', 'poocommerce-subscriptions-engine' ) ),
+			'payment_method'       => array( array( 'string', 'null' ), __( 'Payment gateway ID.', 'poocommerce-subscriptions-engine' ) ),
+			'payment_method_title' => array( array( 'string', 'null' ), __( 'Payment method title.', 'poocommerce-subscriptions-engine' ) ),
+			'payment_token_id'     => array( array( 'integer', 'null' ), __( 'Payment token ID.', 'poocommerce-subscriptions-engine' ) ),
+			'start_gmt'            => array( array( 'string', 'null' ), __( 'Start date, as GMT.', 'poocommerce-subscriptions-engine' ) ),
+			'next_payment_gmt'     => array( array( 'string', 'null' ), __( 'Next-due moment, as GMT.', 'poocommerce-subscriptions-engine' ) ),
+			'last_payment_gmt'     => array( array( 'string', 'null' ), __( 'Last payment date, as GMT.', 'poocommerce-subscriptions-engine' ) ),
+			'last_attempt_gmt'     => array( array( 'string', 'null' ), __( 'Last payment attempt date, as GMT.', 'poocommerce-subscriptions-engine' ) ),
+			'trial_end_gmt'        => array( array( 'string', 'null' ), __( 'Trial end date, as GMT.', 'poocommerce-subscriptions-engine' ) ),
+			'end_gmt'              => array( array( 'string', 'null' ), __( 'End date, as GMT.', 'poocommerce-subscriptions-engine' ) ),
+			'schedule_source'      => array( 'string', __( 'Who keeps the payment schedule.', 'poocommerce-subscriptions-engine' ) ),
+			'billing_total'        => array( 'string', __( 'Recurring total.', 'poocommerce-subscriptions-engine' ) ),
+			'discount_total'       => array( 'string', __( 'Recurring discount total.', 'poocommerce-subscriptions-engine' ) ),
+			'shipping_total'       => array( 'string', __( 'Recurring shipping total.', 'poocommerce-subscriptions-engine' ) ),
+			'tax_total'            => array( 'string', __( 'Recurring tax total.', 'poocommerce-subscriptions-engine' ) ),
+			'items'                => array( 'array', __( 'Line items.', 'poocommerce-subscriptions-engine' ) ),
+			'addresses'            => array( 'object', __( 'Billing and shipping addresses.', 'poocommerce-subscriptions-engine' ) ),
 		);
 
 		$schema_properties = array();
@@ -460,8 +460,8 @@ final class ContractsController extends WP_REST_Controller {
 	 */
 	private function get_not_found_error(): WP_Error {
 		return new WP_Error(
-			'woocommerce_subscriptions_engine_contract_not_found',
-			__( 'Contract not found.', 'woocommerce-subscriptions-engine' ),
+			'poocommerce_subscriptions_engine_contract_not_found',
+			__( 'Contract not found.', 'poocommerce-subscriptions-engine' ),
 			array( 'status' => 404 )
 		);
 	}
@@ -509,7 +509,7 @@ final class ContractsController extends WP_REST_Controller {
 	 */
 	private function get_invalid_action_args_error( WP_Error $error ): WP_Error {
 		return new WP_Error(
-			'woocommerce_subscriptions_engine_invalid_action_args',
+			'poocommerce_subscriptions_engine_invalid_action_args',
 			$error->get_error_message(),
 			array(
 				'status' => 400,
@@ -552,8 +552,8 @@ final class ContractsController extends WP_REST_Controller {
 		);
 
 		return new WP_Error(
-			'woocommerce_subscriptions_engine_action_failed',
-			__( 'The action could not be completed.', 'woocommerce-subscriptions-engine' ),
+			'poocommerce_subscriptions_engine_action_failed',
+			__( 'The action could not be completed.', 'poocommerce-subscriptions-engine' ),
 			array( 'status' => 500 )
 		);
 	}

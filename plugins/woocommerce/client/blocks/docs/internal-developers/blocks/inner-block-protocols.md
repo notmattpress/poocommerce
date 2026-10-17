@@ -2,13 +2,13 @@
 
 > **Experimental:** These protocols are internal and may change without notice.
 
-WooCommerce reusable inner blocks use small context protocols so they can render UI for different parent blocks without coupling to a specific parent store.
+PooCommerce reusable inner blocks use small context protocols so they can render UI for different parent blocks without coupling to a specific parent store.
 
 | Context key | Purpose | Inner blocks |
 | --- | --- | --- |
-| `woocommerce/selectableItems` | Select/deselect items (filters, variation attributes) | checkbox-list, chips, dropdown |
-| `woocommerce/removableItems` | Remove individual items (active filters) | removable-chips |
-| `woocommerce/rangeInput` | Numeric range input (price, slider) | price-slider |
+| `poocommerce/selectableItems` | Select/deselect items (filters, variation attributes) | checkbox-list, chips, dropdown |
+| `poocommerce/removableItems` | Remove individual items (active filters) | removable-chips |
+| `poocommerce/rangeInput` | Numeric range input (price, slider) | price-slider |
 
 ## Shared pattern
 
@@ -27,7 +27,7 @@ A display style block is an inner block that renders a protocol context for a sp
 ```json
 {
     "supports": {
-        "woocommerce": {
+        "poocommerce": {
             "innerBlockDisplayStyle": true
         }
     }
@@ -36,7 +36,7 @@ A display style block is an inner block that renders a protocol context for a sp
 
 Display style blocks must:
 
-- Declare `supports.woocommerce.innerBlockDisplayStyle` as `true`.
+- Declare `supports.poocommerce.innerBlockDisplayStyle` as `true`.
 - Declare the protocol context in `usesContext`.
 - Declare the supported parent block in `ancestor`.
 - Render from protocol fields, not from parent-specific stores.
@@ -46,7 +46,7 @@ The editor uses the support flag for discovery. `usesContext` and `ancestor` are
 
 ## Selectable Items
 
-Context key: `woocommerce/selectableItems`
+Context key: `poocommerce/selectableItems`
 
 Used by selectable list UIs such as checkbox-list and chips.
 
@@ -54,7 +54,7 @@ Parents pass the context directly when rendering inner blocks because items are 
 
 ```php
 ( new \WP_Block( $parsed_block, array(
-    'woocommerce/selectableItems' => $context,
+    'poocommerce/selectableItems' => $context,
 ) ) )->render();
 ```
 
@@ -144,7 +144,7 @@ Checkbox-list and chips mirror parent items into child `state.items`, adding loc
 
 ## Removable Items
 
-Context key: `woocommerce/removableItems`
+Context key: `poocommerce/removableItems`
 
 Used by active-filter chips and similar removable item lists.
 
@@ -187,7 +187,7 @@ Reference implementations: `ProductFilterRemovableChips.php`, `ProductFilterClea
 
 ## Range Input
 
-Context key: `woocommerce/rangeInput`
+Context key: `poocommerce/rangeInput`
 
 Used by two-ended numeric controls such as price sliders.
 

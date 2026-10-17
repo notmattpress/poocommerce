@@ -2,16 +2,16 @@
  * External dependencies
  */
 import { act, render, screen, waitFor } from '@testing-library/react';
-import { previewCart } from '@woocommerce/resource-previews';
+import { previewCart } from '@poocommerce/resource-previews';
 import * as wpDataFunctions from '@wordpress/data';
-import { CART_STORE_KEY, paymentStore } from '@woocommerce/block-data';
-import { server, http, HttpResponse } from '@woocommerce/test-utils/msw';
+import { CART_STORE_KEY, paymentStore } from '@poocommerce/block-data';
+import { server, http, HttpResponse } from '@poocommerce/test-utils/msw';
 import {
 	registerPaymentMethod,
 	registerExpressPaymentMethod,
 	__experimentalDeRegisterPaymentMethod,
 	__experimentalDeRegisterExpressPaymentMethod,
-} from '@woocommerce/blocks-registry';
+} from '@poocommerce/blocks-registry';
 import userEvent from '@testing-library/user-event';
 import { dispatch } from '@wordpress/data';
 
@@ -29,9 +29,9 @@ jest.mock( '../saved-payment-method-options', () => ( { onChange } ) => {
 	);
 } );
 
-jest.mock( '@woocommerce/blocks-components', () => {
+jest.mock( '@poocommerce/blocks-components', () => {
 	const originalModule = jest.requireActual(
-		'@woocommerce/blocks-components'
+		'@poocommerce/blocks-components'
 	);
 
 	return {
@@ -54,7 +54,7 @@ jest.mock( '@woocommerce/blocks-components', () => {
 jest.mock( '@wordpress/data', () => {
 	const originalModule = jest.requireActual( '@wordpress/data' );
 	const originalBlockDataModule = jest.requireActual(
-		'@woocommerce/block-data'
+		'@poocommerce/block-data'
 	);
 	return {
 		...originalModule,

@@ -30,13 +30,13 @@ export const Choice = ( {
 	const changeHandler = () => {
 		onChange( value );
 	};
-	const inputId = 'woocommerce-' + value.replace( /_/g, '-' );
+	const inputId = 'poocommerce-' + value.replace( /_/g, '-' );
 
 	return (
 		<div
 			role="radio"
 			className={ clsx(
-				'woocommerce-profiler-choice-container',
+				'poocommerce-profiler-choice-container',
 				className
 			) }
 			onClick={ changeHandler }
@@ -48,9 +48,9 @@ export const Choice = ( {
 			data-selected={ selected ? selected : null }
 			tabIndex={ 0 }
 		>
-			<div className="woocommerce-profiler-choice">
+			<div className="poocommerce-profiler-choice">
 				<input
-					className="woocommerce-profiler-choice-input"
+					className="poocommerce-profiler-choice-input"
 					id={ inputId }
 					name={ name }
 					type="radio"
@@ -66,7 +66,7 @@ export const Choice = ( {
 				</label>
 			</div>
 			{ selected && subOptionsComponent && (
-				<div className="woocommerce-profiler-choice-sub-options">
+				<div className="poocommerce-profiler-choice-sub-options">
 					{ subOptionsComponent }
 				</div>
 			) }

@@ -2,21 +2,21 @@
 /**
  * Single Product Image
  *
- * This template can be overridden by copying it to yourtheme/woocommerce/single-product/product-image.php.
+ * This template can be overridden by copying it to yourtheme/poocommerce/single-product/product-image.php.
  *
- * HOWEVER, on occasion WooCommerce will need to update template files and you
+ * HOWEVER, on occasion PooCommerce will need to update template files and you
  * (the theme developer) will need to copy the new files to your theme to
  * maintain compatibility. We try to do this as little as possible, but it does
  * happen. When this occurs the version of the template file will be bumped and
  * the readme will list any important changes.
  *
- * @see     https://woocommerce.com/document/template-structure/
- * @package WooCommerce\Templates
+ * @see     https://poocommerce.com/document/template-structure/
+ * @package PooCommerce\Templates
  * @version 11.1.0
  */
 
-use Automattic\WooCommerce\Enums\ProductType;
-use Automattic\WooCommerce\Internal\ProductGallery\ProductMediaGallery;
+use Automattic\PooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Internal\ProductGallery\ProductMediaGallery;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -27,7 +27,7 @@ if ( ! function_exists( 'wc_get_gallery_image_html' ) ) {
 
 global $product;
 
-$columns           = apply_filters( 'woocommerce_product_thumbnails_columns', 4 );
+$columns           = apply_filters( 'poocommerce_product_thumbnails_columns', 4 );
 $post_thumbnail_id = $product->get_image_id();
 $media_items       = ProductMediaGallery::get_product_media_gallery_items_for_display( $product );
 // The helper returns the full gallery order; product-thumbnails.php renders the remaining items.
@@ -36,17 +36,17 @@ $first_media_id   = isset( $first_media_item['id'] ) ? absint( $first_media_item
 $has_media        = ! empty( $first_media_item ) && 'placeholder' !== ( $first_media_item['source_type'] ?? '' );
 $is_video         = $has_media && 'video' === ( $first_media_item['media_type'] ?? '' );
 $wrapper_classes   = apply_filters(
-	'woocommerce_single_product_image_gallery_classes',
+	'poocommerce_single_product_image_gallery_classes',
 	array(
-		'woocommerce-product-gallery',
-		'woocommerce-product-gallery--' . ( $has_media ? 'with-images' : 'without-images' ),
-		'woocommerce-product-gallery--columns-' . absint( $columns ),
+		'poocommerce-product-gallery',
+		'poocommerce-product-gallery--' . ( $has_media ? 'with-images' : 'without-images' ),
+		'poocommerce-product-gallery--columns-' . absint( $columns ),
 		'images',
 	)
 );
 ?>
 <div class="<?php echo esc_attr( implode( ' ', array_map( 'sanitize_html_class', $wrapper_classes ) ) ); ?>" data-columns="<?php echo esc_attr( $columns ); ?>" style="opacity: 0; transition: opacity .25s ease-in-out;">
-	<div class="woocommerce-product-gallery__wrapper">
+	<div class="poocommerce-product-gallery__wrapper">
 		<?php
 		if ( $is_video ) {
 			$html = ProductMediaGallery::get_gallery_video_html( $first_media_item, true );
@@ -57,10 +57,10 @@ $wrapper_classes   = apply_filters(
 			// Using get_visible_children() + get_price() is more efficient than get_available_variations()
 			// as it uses cached IDs and synced price data rather than loading all variation objects.
 			$wrapper_classname = $product->is_type( ProductType::VARIABLE ) && ! empty( $product->get_visible_children() ) && '' !== $product->get_price() ?
-				'woocommerce-product-gallery__image woocommerce-product-gallery__image--placeholder' :
-				'woocommerce-product-gallery__image--placeholder';
+				'poocommerce-product-gallery__image poocommerce-product-gallery__image--placeholder' :
+				'poocommerce-product-gallery__image--placeholder';
 			$html              = sprintf( '<div class="%s">', esc_attr( $wrapper_classname ) );
-			$html             .= sprintf( '<img src="%s" alt="%s" class="wp-post-image" />', esc_url( wc_placeholder_img_src( 'woocommerce_single' ) ), esc_html__( 'Awaiting product image', 'woocommerce' ) );
+			$html             .= sprintf( '<img src="%s" alt="%s" class="wp-post-image" />', esc_url( wc_placeholder_img_src( 'poocommerce_single' ) ), esc_html__( 'Awaiting product image', 'poocommerce' ) );
 			$html             .= '</div>';
 		}
 
@@ -69,13 +69,13 @@ $wrapper_classes   = apply_filters(
 			 * Filter product video thumbnail HTML string.
 			 *
 			 * @since 11.0.0
-			 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+			 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 			 *
 			 * @param string $html          Product video thumbnail HTML string.
 			 * @param int    $attachment_id Video attachment ID.
 			 * @param array  $media_item    Product media gallery item.
 			 */
-			echo apply_filters( 'woocommerce_single_product_video_thumbnail_html', $html, $first_media_id, $first_media_item ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo apply_filters( 'poocommerce_single_product_video_thumbnail_html', $html, $first_media_id, $first_media_item ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		} else {
 			/**
 			 * Filter product image thumbnail HTML string.
@@ -85,10 +85,10 @@ $wrapper_classes   = apply_filters(
 			 * @param string $html          Product image thumbnail HTML string.
 			 * @param int    $attachment_id Attachment ID.
 			 */
-			echo apply_filters( 'woocommerce_single_product_image_thumbnail_html', $html, $first_media_id ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo apply_filters( 'poocommerce_single_product_image_thumbnail_html', $html, $first_media_id ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		}
 
-		do_action( 'woocommerce_product_thumbnails' );
+		do_action( 'poocommerce_product_thumbnails' );
 		?>
 	</div>
 </div>

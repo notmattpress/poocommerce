@@ -1,4 +1,4 @@
 Significance: patch
 Type: fix
 
-Pass order statuses to the woocommerce_order_query_args filter without the wc- prefix again when the orders-query ability runs.
+Pass order statuses to the poocommerce_order_query_args filter without the wc- prefix again when the orders-query ability runs.

@@ -3,7 +3,7 @@
  */
 import { button } from '@wordpress/icons';
 import { getPlugin, registerPlugin } from '@wordpress/plugins';
-import { registerProductBlockType } from '@woocommerce/utils/register-product-block-type';
+import { registerProductBlockType } from '@poocommerce/utils/register-product-block-type';
 import type { BlockConfiguration } from '@wordpress/blocks';
 
 /**
@@ -30,7 +30,7 @@ registerProductBlockType< Attributes >(
 		icon: {
 			src: ( { size }: { size?: number } ) => (
 				<span
-					className="wp-block-woocommerce-add-to-cart-with-options__block-icon"
+					className="wp-block-poocommerce-add-to-cart-with-options__block-icon"
 					style={ { height: size, width: size } }
 				>
 					{ button }
@@ -39,7 +39,7 @@ registerProductBlockType< Attributes >(
 		},
 		edit: AddToCartOptionsEdit,
 		save: () => null,
-		ancestor: [ 'woocommerce/single-product' ],
+		ancestor: [ 'poocommerce/single-product' ],
 	},
 	{
 		isAvailableOnPostEditor: true,

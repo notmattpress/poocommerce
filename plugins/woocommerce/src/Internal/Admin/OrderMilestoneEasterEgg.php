@@ -2,10 +2,10 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\Admin;
+namespace Automattic\PooCommerce\Internal\Admin;
 
-use Automattic\WooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 
 /**
  * Displays a full-screen animated piñata overlay when a merchant opens a
@@ -53,10 +53,10 @@ class OrderMilestoneEasterEgg {
 		add_action( 'admin_enqueue_scripts', array( $this, 'handle_admin_enqueue_scripts' ) );
 		add_action( 'wp_ajax_wc_egg_dismiss', array( $this, 'handle_ajax_dismiss' ) );
 		add_action( 'wp_ajax_wc_egg_opt_out', array( $this, 'handle_ajax_opt_out' ) );
-		add_action( 'woocommerce_new_order', array( $this, 'clear_milestone_cache' ), 10, 0 );
-		add_action( 'woocommerce_update_order', array( $this, 'clear_milestone_cache' ), 10, 0 );
-		add_action( 'woocommerce_delete_order', array( $this, 'clear_milestone_cache' ), 10, 0 );
-		add_action( 'woocommerce_trash_order', array( $this, 'clear_milestone_cache' ), 10, 0 );
+		add_action( 'poocommerce_new_order', array( $this, 'clear_milestone_cache' ), 10, 0 );
+		add_action( 'poocommerce_update_order', array( $this, 'clear_milestone_cache' ), 10, 0 );
+		add_action( 'poocommerce_delete_order', array( $this, 'clear_milestone_cache' ), 10, 0 );
+		add_action( 'poocommerce_trash_order', array( $this, 'clear_milestone_cache' ), 10, 0 );
 	}
 
 	/**
@@ -361,22 +361,22 @@ class OrderMilestoneEasterEgg {
 	private function get_milestone_messages(): array {
 		return array(
 			'first'    => array(
-				'title'    => __( 'Cha-ching! Order number one', 'woocommerce' ),
-				'subtitle' => __( "That's a big deal. Smash the llama. You've earned it.", 'woocommerce' ),
+				'title'    => __( 'Cha-ching! Order number one', 'poocommerce' ),
+				'subtitle' => __( "That's a big deal. Smash the llama. You've earned it.", 'poocommerce' ),
 				'variant'  => 'llama',
-				'boomText' => __( 'One down', 'woocommerce' ),
+				'boomText' => __( 'One down', 'poocommerce' ),
 			),
 			'hundred'  => array(
-				'title'    => __( 'Triple digits looks good on you', 'woocommerce' ),
-				'subtitle' => __( "A hundred orders means you're juggling a lot. Take a moment to celebrate", 'woocommerce' ),
+				'title'    => __( 'Triple digits looks good on you', 'poocommerce' ),
+				'subtitle' => __( "A hundred orders means you're juggling a lot. Take a moment to celebrate", 'poocommerce' ),
 				'variant'  => 'octo',
-				'boomText' => __( 'Hands full', 'woocommerce' ),
+				'boomText' => __( 'Hands full', 'poocommerce' ),
 			),
 			'thousand' => array(
-				'title'    => __( 'ONE. THOUSAND. ORDERS', 'woocommerce' ),
-				'subtitle' => __( 'Seriously. A thousand orders. This called for a bigger piñata', 'woocommerce' ),
+				'title'    => __( 'ONE. THOUSAND. ORDERS', 'poocommerce' ),
+				'subtitle' => __( 'Seriously. A thousand orders. This called for a bigger piñata', 'poocommerce' ),
 				'variant'  => 'whale',
-				'boomText' => __( 'Off the charts', 'woocommerce' ),
+				'boomText' => __( 'Off the charts', 'poocommerce' ),
 			),
 		);
 	}
@@ -388,10 +388,10 @@ class OrderMilestoneEasterEgg {
 	 */
 	private function get_ui_labels(): array {
 		return array(
-			'cta'        => __( "Let's go!", 'woocommerce' ),
-			'closeLabel' => __( 'Close', 'woocommerce' ),
-			'closeTitle' => __( 'Close (Esc)', 'woocommerce' ),
-			'optOut'     => __( "Don't show again", 'woocommerce' ),
+			'cta'        => __( "Let's go!", 'poocommerce' ),
+			'closeLabel' => __( 'Close', 'poocommerce' ),
+			'closeTitle' => __( 'Close (Esc)', 'poocommerce' ),
+			'optOut'     => __( "Don't show again", 'poocommerce' ),
 		);
 	}
 
