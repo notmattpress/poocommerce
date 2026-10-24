@@ -2,16 +2,16 @@
 /**
  * Product Walker class.
  *
- * @package Automattic\WooCommerce\Internal\ProductFeed
+ * @package Automattic\PooCommerce\Internal\ProductFeed
  */
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Internal\ProductFeed\Feed;
+namespace Automattic\PooCommerce\Internal\ProductFeed\Feed;
 
-use Automattic\WooCommerce\Internal\ProductFeed\Integrations\IntegrationInterface;
-use Automattic\WooCommerce\Internal\ProductFeed\Mapping\ProductShapeMapperInterface;
-use Automattic\WooCommerce\Internal\ProductFeed\Utils\MemoryManager;
+use Automattic\PooCommerce\Internal\ProductFeed\Integrations\IntegrationInterface;
+use Automattic\PooCommerce\Internal\ProductFeed\Mapping\ProductShapeMapperInterface;
+use Automattic\PooCommerce\Internal\ProductFeed\Utils\MemoryManager;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -149,7 +149,7 @@ class ProductWalker {
 		 * @return array
 		 */
 		$query_args = apply_filters(
-			'woocommerce_product_feed_args',
+			'poocommerce_product_feed_args',
 			$query_args,
 			$integration
 		);
@@ -298,7 +298,7 @@ class ProductWalker {
 	/**
 	 * Walks the first chunk of products and reports it as the whole feed.
 	 *
-	 * This class is internal and nothing outside WooCommerce should call this method. It's kept only
+	 * This class is internal and nothing outside PooCommerce should call this method. It's kept only
 	 * so that any unexpected caller gets a deprecation notice instead of a fatal error that takes the
 	 * site down. Resuming from a page is no longer supported, so `$start_page` is ignored.
 	 *

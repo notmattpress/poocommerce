@@ -2,17 +2,17 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\PushNotifications\Services;
+namespace Automattic\PooCommerce\Internal\PushNotifications\Services;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Internal\PushNotifications\Notifications\Notification;
-use Automattic\WooCommerce\Internal\PushNotifications\PushNotifications;
+use Automattic\PooCommerce\Internal\PushNotifications\Notifications\Notification;
+use Automattic\PooCommerce\Internal\PushNotifications\PushNotifications;
 use Throwable;
 
 /**
  * Records each step a push notification takes, from trigger to send, as
- * WooCommerce log lines that Mission Control can read back per notification
+ * PooCommerce log lines that Mission Control can read back per notification
  * and per device.
  *
  * Every line goes to one rolling source per notification type, except the
@@ -245,7 +245,7 @@ class NotificationStepLogger {
 			 *
 			 * @param bool $enabled Whether step logging is enabled. Default true.
 			 */
-			$enabled = (bool) apply_filters( 'woocommerce_push_notification_step_logging_enabled', true );
+			$enabled = (bool) apply_filters( 'poocommerce_push_notification_step_logging_enabled', true );
 		} catch ( Throwable $e ) {
 			$enabled = false;
 		}

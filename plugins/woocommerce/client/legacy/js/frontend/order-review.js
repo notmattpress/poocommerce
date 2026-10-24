@@ -6,9 +6,9 @@
 ( function () {
 	'use strict';
 
-	var ERROR_CLASS = 'woocommerce-review-order__item-rating-error';
-	var STATUS_CLASS = 'woocommerce-review-order__item-status';
-	var HINT_CLASS = 'woocommerce-review-order__submit-hint';
+	var ERROR_CLASS = 'poocommerce-review-order__item-rating-error';
+	var STATUS_CLASS = 'poocommerce-review-order__item-status';
+	var HINT_CLASS = 'poocommerce-review-order__submit-hint';
 	var uid = 0;
 
 	/**
@@ -39,7 +39,7 @@
 	 * The row's message element, created only for a theme override that
 	 * dropped the paragraph the templates render up front.
 	 *
-	 * @param {HTMLElement} row       `.woocommerce-review-order__item`
+	 * @param {HTMLElement} row       `.poocommerce-review-order__item`
 	 * @param {string}      className Element class.
 	 * @param {?string}     role      ARIA role, or null for a plain paragraph.
 	 * @return {HTMLElement}
@@ -74,7 +74,7 @@
 		// Under the title, not below the stars, so the message is at the top
 		// of the row on tall layouts.
 		var title = row.querySelector(
-			'.woocommerce-review-order__item-title'
+			'.poocommerce-review-order__item-title'
 		);
 		if ( title ) {
 			title.parentNode.insertBefore( region, title.nextSibling );
@@ -91,20 +91,20 @@
 	function idOf( el ) {
 		if ( ! el.id ) {
 			uid += 1;
-			el.id = 'woocommerce-review-order-region-' + uid;
+			el.id = 'poocommerce-review-order-region-' + uid;
 		}
 		return el.id;
 	}
 
 	/**
-	 * @param {HTMLElement} container `.woocommerce-star-rating` element.
+	 * @param {HTMLElement} container `.poocommerce-star-rating` element.
 	 */
 	function initGroup( container ) {
 		var inputs = Array.prototype.slice.call(
-			container.querySelectorAll( '.woocommerce-star-rating__input' )
+			container.querySelectorAll( '.poocommerce-star-rating__input' )
 		);
 		var caption = container.querySelector(
-			'.woocommerce-star-rating__caption'
+			'.poocommerce-star-rating__caption'
 		);
 
 		function syncCaption() {
@@ -170,12 +170,12 @@
 	/**
 	 * Return the currently selected rating (1-5) for a row, or 0 if none.
 	 *
-	 * @param {HTMLElement} row `.woocommerce-review-order__item`
+	 * @param {HTMLElement} row `.poocommerce-review-order__item`
 	 * @return {number}
 	 */
 	function currentRating( row ) {
 		var checked = row.querySelector(
-			'.woocommerce-star-rating__input:checked'
+			'.poocommerce-star-rating__input:checked'
 		);
 		return checked ? parseInt( checked.value, 10 ) || 0 : 0;
 	}
@@ -183,12 +183,12 @@
 	/**
 	 * Return the current textarea value for a row (trimmed).
 	 *
-	 * @param {HTMLElement} row `.woocommerce-review-order__item`
+	 * @param {HTMLElement} row `.poocommerce-review-order__item`
 	 * @return {string}
 	 */
 	function currentText( row ) {
 		var textarea = row.querySelector(
-			'.woocommerce-review-order__item-review-textarea'
+			'.poocommerce-review-order__item-review-textarea'
 		);
 		return textarea ? ( textarea.value || '' ).trim() : '';
 	}
@@ -196,7 +196,7 @@
 	/**
 	 * Whether a row has been edited since page load.
 	 *
-	 * @param {HTMLElement} row `.woocommerce-review-order__item`
+	 * @param {HTMLElement} row `.poocommerce-review-order__item`
 	 * @return {boolean}
 	 */
 	function isRowDirty( row ) {
@@ -251,15 +251,15 @@
 	 * `aria-disabled` rather than `disabled`, so the button stays in the tab
 	 * order and a screen reader can reach it.
 	 *
-	 * @param {HTMLFormElement} form `.woocommerce-review-order__form`
+	 * @param {HTMLFormElement} form `.poocommerce-review-order__form`
 	 */
 	function initSubmitGate( form ) {
-		var submit = form.querySelector( '.woocommerce-review-order__submit' );
+		var submit = form.querySelector( '.poocommerce-review-order__submit' );
 		if ( ! submit ) {
 			if ( window.console && window.console.warn ) {
 				window.console.warn(
 					'Review Order form is missing its submit button ' +
-						'(.woocommerce-review-order__submit); ' +
+						'(.poocommerce-review-order__submit); ' +
 						'the dirty gate will not run.'
 				);
 			}
@@ -267,7 +267,7 @@
 		}
 
 		var rows = Array.prototype.slice.call(
-			form.querySelectorAll( '.woocommerce-review-order__item' )
+			form.querySelectorAll( '.poocommerce-review-order__item' )
 		);
 		var hint = submitHint( submit );
 
@@ -313,7 +313,7 @@
 	 * caller focuses the first invalid rating, and `aria-describedby` carries
 	 * the rest when the customer reaches them.
 	 *
-	 * @param {HTMLElement} row     `.woocommerce-review-order__item`
+	 * @param {HTMLElement} row     `.poocommerce-review-order__item`
 	 * @param {boolean}     visible Whether the error should be shown.
 	 */
 	function setRowRatingError( row, visible ) {
@@ -321,7 +321,7 @@
 		// On the radios, not the group: a screen reader reports these for the
 		// focused element, and focus lands on a radio.
 		var inputs = Array.prototype.slice.call(
-			row.querySelectorAll( '.woocommerce-star-rating__input' )
+			row.querySelectorAll( '.poocommerce-star-rating__input' )
 		);
 
 		if ( ! visible ) {
@@ -358,7 +358,7 @@
 		if ( ! scope ) {
 			return null;
 		}
-		var inputs = scope.querySelectorAll( '.woocommerce-star-rating__input' );
+		var inputs = scope.querySelectorAll( '.poocommerce-star-rating__input' );
 		var first = inputs[ inputs.length - 1 ];
 		if ( ! first || typeof first.focus !== 'function' ) {
 			return null;
@@ -376,7 +376,7 @@
 	 * @param {?HTMLElement} focused Radio `focusFirstStar` focused, if any.
 	 */
 	function revealRatingError( input, focused ) {
-		var row = input.closest( '.woocommerce-review-order__item' );
+		var row = input.closest( '.poocommerce-review-order__item' );
 		var message = row && row.querySelector( '.' + ERROR_CLASS );
 		if ( message && typeof message.scrollIntoView === 'function' ) {
 			// `start`, not `center`: in the stacked layout the stars sit below
@@ -393,12 +393,12 @@
 	}
 
 	/**
-	 * @param {HTMLFormElement} form `.woocommerce-review-order__form`
+	 * @param {HTMLFormElement} form `.poocommerce-review-order__form`
 	 * @return {function(): boolean} Validator the AJAX submit handler re-runs.
 	 */
 	function initRatingValidation( form ) {
 		var rows = Array.prototype.slice.call(
-			form.querySelectorAll( '.woocommerce-review-order__item' )
+			form.querySelectorAll( '.poocommerce-review-order__item' )
 		);
 
 		// Up front, because a live region created in the same step that fills
@@ -446,7 +446,7 @@
 	/**
 	 * Render per-row outcome below the row's columns.
 	 *
-	 * @param {HTMLElement} row    `.woocommerce-review-order__item`
+	 * @param {HTMLElement} row    `.poocommerce-review-order__item`
 	 * @param {string}      status `ok | pending_moderation | error`
 	 * @param {string}      [text] Optional message override.
 	 */
@@ -487,7 +487,7 @@
 			event.preventDefault();
 
 			var submit = form.querySelector(
-				'.woocommerce-review-order__submit'
+				'.poocommerce-review-order__submit'
 			);
 			if ( form.wcReviewOrderSubmitting || ( submit && isGated( submit ) ) ) {
 				return;
@@ -495,11 +495,11 @@
 
 			if ( ! validate() ) {
 				var firstInvalid = form.querySelector(
-					'.woocommerce-star-rating__input[aria-invalid="true"]'
+					'.poocommerce-star-rating__input[aria-invalid="true"]'
 				);
 				if ( firstInvalid ) {
 					var focused = focusFirstStar(
-						firstInvalid.closest( '.woocommerce-star-rating' )
+						firstInvalid.closest( '.poocommerce-star-rating' )
 					);
 					revealRatingError( firstInvalid, focused );
 				}
@@ -526,12 +526,12 @@
 					if ( ! payload || ! payload.success || ! payload.data ) {
 						Array.prototype.forEach.call(
 							form.querySelectorAll(
-								'.woocommerce-review-order__item'
+								'.poocommerce-review-order__item'
 							),
 							function ( row ) {
 								if (
 									row.querySelector(
-										'.woocommerce-star-rating__input:checked'
+										'.poocommerce-star-rating__input:checked'
 									)
 								) {
 									renderRowStatus( row, 'error' );
@@ -547,7 +547,7 @@
 					Object.keys( results ).forEach( function ( key ) {
 						var entry = results[ key ];
 						var row = form.querySelector(
-							'.woocommerce-review-order__item[data-row-index="' +
+							'.poocommerce-review-order__item[data-row-index="' +
 								key +
 								'"]'
 						);
@@ -570,12 +570,12 @@
 
 					if ( anySaved && ! anyFailed ) {
 						var wrapper = form.closest(
-							'.woocommerce-review-order'
+							'.poocommerce-review-order'
 						);
 						if ( wrapper ) {
 							wrapper.classList.add( 'is-success' );
 							var success = wrapper.querySelector(
-								'.woocommerce-review-order__success'
+								'.poocommerce-review-order__success'
 							);
 							if ( success ) {
 								success.hidden = false;
@@ -607,12 +607,12 @@
 				.catch( function () {
 					Array.prototype.forEach.call(
 						form.querySelectorAll(
-							'.woocommerce-review-order__item'
+							'.poocommerce-review-order__item'
 						),
 						function ( row ) {
 							if (
 								row.querySelector(
-									'.woocommerce-star-rating__input:checked'
+									'.poocommerce-star-rating__input:checked'
 								)
 							) {
 								renderRowStatus( row, 'error' );
@@ -632,23 +632,23 @@
 	}
 
 	/**
-	 * @param {HTMLElement} notice `.woocommerce-review-order__notice`
+	 * @param {HTMLElement} notice `.poocommerce-review-order__notice`
 	 */
 	function initNoticeDismiss( notice ) {
 		var dismiss = notice.querySelector(
-			'.woocommerce-review-order__notice-dismiss'
+			'.poocommerce-review-order__notice-dismiss'
 		);
 		if ( ! dismiss ) {
 			return;
 		}
 		dismiss.addEventListener( 'click', function () {
-			notice.classList.add( 'woocommerce-review-order__notice--hidden' );
+			notice.classList.add( 'poocommerce-review-order__notice--hidden' );
 
 			// The dismiss button goes with the notice, so focus would fall to
 			// the document. Tabindex set here for theme overrides without it.
-			var wrapper = notice.closest( '.woocommerce-review-order' );
+			var wrapper = notice.closest( '.poocommerce-review-order' );
 			var heading = ( wrapper || document ).querySelector(
-				'.woocommerce-review-order__title'
+				'.poocommerce-review-order__title'
 			);
 			if ( heading && typeof heading.focus === 'function' ) {
 				if ( ! heading.hasAttribute( 'tabindex' ) ) {
@@ -660,11 +660,11 @@
 	}
 
 	function init() {
-		var groups = document.querySelectorAll( '.woocommerce-star-rating' );
+		var groups = document.querySelectorAll( '.poocommerce-star-rating' );
 		Array.prototype.forEach.call( groups, initGroup );
 
 		var forms = document.querySelectorAll(
-			'.woocommerce-review-order__form'
+			'.poocommerce-review-order__form'
 		);
 		Array.prototype.forEach.call( forms, function ( form ) {
 			initSubmitGate( form );
@@ -673,7 +673,7 @@
 		} );
 
 		var notices = document.querySelectorAll(
-			'.woocommerce-review-order__notice'
+			'.poocommerce-review-order__notice'
 		);
 		Array.prototype.forEach.call( notices, initNoticeDismiss );
 	}

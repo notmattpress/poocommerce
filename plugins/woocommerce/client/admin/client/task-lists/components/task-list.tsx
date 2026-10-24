@@ -5,21 +5,21 @@ import { __, _n, sprintf } from '@wordpress/i18n';
 import { useEffect, useRef, useState } from '@wordpress/element';
 import { Button, Card, CardHeader } from '@wordpress/components';
 import { useDispatch, useSelect } from '@wordpress/data';
-import { Badge, H } from '@woocommerce/components';
+import { Badge, H } from '@poocommerce/components';
 import {
 	getVisibleTasks,
 	onboardingStore,
 	TaskType,
 	TaskListType,
-} from '@woocommerce/data';
-import { recordEvent } from '@woocommerce/tracks';
+} from '@poocommerce/data';
+import { recordEvent } from '@poocommerce/tracks';
 import {
 	Text,
 	List,
 	ListItem,
 	CollapsibleList,
-} from '@woocommerce/experimental';
-import { useLayoutContext } from '@woocommerce/admin-layout';
+} from '@poocommerce/experimental';
+import { useLayoutContext } from '@poocommerce/admin-layout';
 import clsx from 'clsx';
 
 /**
@@ -137,7 +137,7 @@ export const TaskList = ( {
 	}, [ query ] );
 
 	if ( ! displayTasks.length && ! shouldShowEmptyState ) {
-		return <div className="woocommerce-task-dashboard__container"></div>;
+		return <div className="poocommerce-task-dashboard__container"></div>;
 	}
 
 	const expandLabel = sprintf(
@@ -146,11 +146,11 @@ export const TaskList = ( {
 			'Show %d more task.',
 			'Show %d more tasks.',
 			visibleTasks.length - 2,
-			'woocommerce'
+			'poocommerce'
 		),
 		visibleTasks.length - 2
 	);
-	const collapseLabel = __( 'Show less', 'woocommerce' );
+	const collapseLabel = __( 'Show less', 'poocommerce' );
 
 	const addDismissedTask = ( task: DismissedTask ) => {
 		setDismissedTasks( ( currentDismissedTasks ) => ( {
@@ -206,7 +206,7 @@ export const TaskList = ( {
 				'error',
 				__(
 					'There was a problem skipping this task. Please try again.',
-					'woocommerce'
+					'poocommerce'
 				)
 			);
 		} finally {
@@ -228,7 +228,7 @@ export const TaskList = ( {
 				'error',
 				__(
 					'There was a problem restoring this task. Please try again.',
-					'woocommerce'
+					'poocommerce'
 				)
 			);
 		} finally {
@@ -242,28 +242,28 @@ export const TaskList = ( {
 				<ListItem
 					key={ task.id }
 					disableGutters
-					className="woocommerce-task-list__item woocommerce-task-list__item--dismissed"
+					className="poocommerce-task-list__item poocommerce-task-list__item--dismissed"
 				>
-					<div className="woocommerce-task-list__item-before">
-						<div className="woocommerce-task__icon"></div>
+					<div className="poocommerce-task-list__item-before">
+						<div className="poocommerce-task__icon"></div>
 					</div>
-					<div className="woocommerce-task-list__item-text">
+					<div className="poocommerce-task-list__item-text">
 						<Text
 							as="div"
 							size="14"
 							lineHeight="20px"
 							variant="body.small"
-							className="woocommerce-task-list__item-removed-message"
+							className="poocommerce-task-list__item-removed-message"
 						>
 							{ __(
 								"This suggestion has been removed and won't be shown again.",
-								'woocommerce'
+								'poocommerce'
 							) }
 						</Text>
 					</div>
-					<div className="woocommerce-task-list__item-after">
+					<div className="poocommerce-task-list__item-after">
 						<Button
-							className="woocommerce-task-list__item-undo"
+							className="poocommerce-task-list__item-undo"
 							disabled={ pendingTaskRequests[ task.id ] }
 							variant="link"
 							onClick={ (
@@ -277,7 +277,7 @@ export const TaskList = ( {
 								event.stopPropagation()
 							}
 						>
-							{ __( 'Undo', 'woocommerce' ) }
+							{ __( 'Undo', 'poocommerce' ) }
 						</Button>
 					</div>
 				</ListItem>
@@ -303,17 +303,17 @@ export const TaskList = ( {
 
 	if ( shouldShowEmptyState ) {
 		taskListContent = (
-			<div className="woocommerce-task-list__empty-state">
+			<div className="poocommerce-task-list__empty-state">
 				<img
-					className="woocommerce-task-list__empty-state-image"
+					className="poocommerce-task-list__empty-state-image"
 					src={ ChecklistImage }
 					alt=""
 				/>
-				<H>{ __( "You're all caught up", 'woocommerce' ) }</H>
+				<H>{ __( "You're all caught up", 'poocommerce' ) }</H>
 				<p>
 					{ __(
 						"You've completed all the things to do next. Watch this space for more recommendations.",
-						'woocommerce'
+						'poocommerce'
 					) }
 				</p>
 			</div>
@@ -337,10 +337,10 @@ export const TaskList = ( {
 		<>
 			<div
 				className={ clsx(
-					'woocommerce-task-dashboard__container',
-					`woocommerce-task-list__${ id }`,
+					'poocommerce-task-dashboard__container',
+					`poocommerce-task-list__${ id }`,
 					{
-						'woocommerce-task-list--extended': isExtendedTaskList,
+						'poocommerce-task-list--extended': isExtendedTaskList,
 					}
 				) }
 			>
@@ -349,10 +349,10 @@ export const TaskList = ( {
 				) : null }
 				<Card
 					size="large"
-					className="woocommerce-task-card woocommerce-homescreen-card"
+					className="poocommerce-task-card poocommerce-homescreen-card"
 				>
 					<CardHeader size="medium">
-						<div className="woocommerce-task-card__header">
+						<div className="poocommerce-task-card__header">
 							<Text
 								size="20"
 								lineHeight="28px"

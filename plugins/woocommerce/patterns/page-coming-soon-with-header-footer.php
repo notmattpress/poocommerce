@@ -1,13 +1,13 @@
 <?php
 /**
  * Title: Coming Soon with Header and Footer
- * Slug: woocommerce/page-coming-soon-with-header-footer
- * Categories: WooCommerce
+ * Slug: poocommerce/page-coming-soon-with-header-footer
+ * Categories: PooCommerce
  * Template Types: coming-soon
  * Inserter: false
  */
 
-use Automattic\WooCommerce\Blocks\Templates\ComingSoonTemplate;
+use Automattic\PooCommerce\Blocks\Templates\ComingSoonTemplate;
 
 $fonts               = ComingSoonTemplate::get_font_families();
 $heading_font_family = $fonts['heading'];
@@ -16,8 +16,8 @@ $body_font_family    = $fonts['body'];
 
 ?>
 
-<!-- wp:woocommerce/coming-soon {"comingSoonPatternId":"page-coming-soon-with-header-footer","className":"woocommerce-coming-soon-store-only"} -->
-<div class="wp-block-woocommerce-coming-soon woocommerce-coming-soon-store-only">
+<!-- wp:poocommerce/coming-soon {"comingSoonPatternId":"page-coming-soon-with-header-footer","className":"poocommerce-coming-soon-store-only"} -->
+<div class="wp-block-poocommerce-coming-soon poocommerce-coming-soon-store-only">
 
 <?php
 if ( wp_is_block_theme() ) {
@@ -31,7 +31,7 @@ if ( wp_is_block_theme() ) {
 <!-- /wp:spacer -->
 
 <!-- wp:heading {"textAlign":"center","level":1,"fontFamily":"<?php echo esc_html( $heading_font_family ); ?>"} -->
-<h1 class="wp-block-heading has-text-align-center has-<?php echo esc_html( $heading_font_family ); ?>-font-family"><?php echo esc_html__( 'Great things are on the horizon', 'woocommerce' ); ?></h1>
+<h1 class="wp-block-heading has-text-align-center has-<?php echo esc_html( $heading_font_family ); ?>-font-family"><?php echo esc_html__( 'Great things are on the horizon', 'poocommerce' ); ?></h1>
 <!-- /wp:heading -->
 
 <!-- wp:spacer {"height":"10px"} -->
@@ -39,7 +39,7 @@ if ( wp_is_block_theme() ) {
 <!-- /wp:spacer -->
 
 <!-- wp:paragraph {"align":"center","fontFamily":"<?php echo esc_html( $body_font_family ); ?>"} -->
-<p class="has-text-align-center has-<?php echo esc_html( $body_font_family ); ?>-font-family"><?php echo esc_html__( 'Something big is brewing! Our store is in the works and will be launching soon!', 'woocommerce' ); ?></p>
+<p class="has-text-align-center has-<?php echo esc_html( $body_font_family ); ?>-font-family"><?php echo esc_html__( 'Something big is brewing! Our store is in the works and will be launching soon!', 'poocommerce' ); ?></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:spacer -->
@@ -53,4 +53,4 @@ if ( wp_is_block_theme() ) {
 }
 ?>
 </div>
-<!-- /wp:woocommerce/coming-soon -->
+<!-- /wp:poocommerce/coming-soon -->

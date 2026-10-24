@@ -1,10 +1,10 @@
 <?php
 
-namespace Automattic\WooCommerce\Tests\Internal\Utilities;
+namespace Automattic\PooCommerce\Tests\Internal\Utilities;
 
 use ActionScheduler_Logger;
 use ActionScheduler_Store;
-use Automattic\WooCommerce\Internal\Utilities\Users;
+use Automattic\PooCommerce\Internal\Utilities\Users;
 use WC_Helper_Customer;
 use WC_Install;
 use WC_Unit_Test_Case;
@@ -120,11 +120,11 @@ class UsersTest extends WC_Unit_Test_Case {
 		);
 
 		$manage_network_users = false;
-		update_site_option( 'woocommerce_network_wide_customers', 'yes' );
+		update_site_option( 'poocommerce_network_wide_customers', 'yes' );
 		$this->assertEquals(
 			$customer->get_id(),
 			Users::get_user_in_current_site( $customer->get_id() )->ID,
-			'An active user can see customers who do not belong to the current site if the legacy woocommerce_network_wide_customers mode is enabled.'
+			'An active user can see customers who do not belong to the current site if the legacy poocommerce_network_wide_customers mode is enabled.'
 		);
 
 		wp_delete_site( $subsite );

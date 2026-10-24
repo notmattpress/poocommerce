@@ -2,12 +2,12 @@
 /**
  * Class WC_Email_Customer_Review_Request file.
  *
- * @package WooCommerce\Emails
+ * @package PooCommerce\Emails
  */
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Internal\OrderReviews\ItemEligibility;
-use Automattic\WooCommerce\Utilities\FeaturesUtil;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Internal\OrderReviews\ItemEligibility;
+use Automattic\PooCommerce\Utilities\FeaturesUtil;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -18,13 +18,13 @@ if ( ! class_exists( 'WC_Email_Customer_Review_Request', false ) ) :
 	 *
 	 * A delayed transactional email that invites the customer to review the products
 	 * they purchased. The send is scheduled via Action Scheduler (see
-	 * `woocommerce_send_review_request`) a configurable number of days after the
+	 * `poocommerce_send_review_request`) a configurable number of days after the
 	 * order is marked complete. The email links to a per-order Review Order page
 	 * protected by the order key.
 	 *
 	 * @class    WC_Email_Customer_Review_Request
 	 * @version  10.8.0
-	 * @package  WooCommerce\Classes\Emails
+	 * @package  PooCommerce\Classes\Emails
 	 */
 	class WC_Email_Customer_Review_Request extends WC_Email {
 
@@ -49,7 +49,7 @@ if ( ! class_exists( 'WC_Email_Customer_Review_Request', false ) ) :
 		public function __construct() {
 			$this->id             = 'customer_review_request';
 			$this->customer_email = true;
-			$this->title          = __( 'Review request', 'woocommerce' );
+			$this->title          = __( 'Review request', 'poocommerce' );
 			$this->email_group    = 'order-updates';
 			$this->template_html  = 'emails/customer-review-request.php';
 			$this->template_plain = 'emails/plain/customer-review-request.php';
@@ -58,24 +58,24 @@ if ( ! class_exists( 'WC_Email_Customer_Review_Request', false ) ) :
 				'{order_number}' => '',
 			);
 
-			// Trigger fires via WC_Emails' transactional pipeline after Action Scheduler fires `woocommerce_send_review_request`.
-			add_action( 'woocommerce_send_review_request_notification', array( $this, 'trigger' ), 10, 1 );
+			// Trigger fires via WC_Emails' transactional pipeline after Action Scheduler fires `poocommerce_send_review_request`.
+			add_action( 'poocommerce_send_review_request_notification', array( $this, 'trigger' ), 10, 1 );
 
 			// Call parent constructor.
 			parent::__construct();
 
 			// Must be after parent's constructor which sets `email_improvements_enabled` property.
-			$this->description = __( 'Review request emails are sent to customers a few days after their order is complete, inviting them to leave reviews for the products they purchased.', 'woocommerce' );
+			$this->description = __( 'Review request emails are sent to customers a few days after their order is complete, inviting them to leave reviews for the products they purchased.', 'poocommerce' );
 
 			if ( $this->block_email_editor_enabled ) {
-				$this->description = __( 'Invites customers to review the products from their completed order.', 'woocommerce' );
+				$this->description = __( 'Invites customers to review the products from their completed order.', 'poocommerce' );
 			}
 		}
 
 		/**
 		 * Trigger the sending of this email.
 		 *
-		 * Wired to `woocommerce_send_review_request`, which Action Scheduler fires
+		 * Wired to `poocommerce_send_review_request`, which Action Scheduler fires
 		 * with the order id as its single argument.
 		 *
 		 * @param int $order_id The order ID.
@@ -113,7 +113,7 @@ if ( ! class_exists( 'WC_Email_Customer_Review_Request', false ) ) :
 		 * The scheduler unschedules the pending action when the order leaves
 		 * `completed`, but a race window or a direct invocation of the action
 		 * hook can still reach `trigger()` for an order that is no longer in
-		 * an eligible state. Checking the same `woocommerce_review_order_eligible_statuses`
+		 * an eligible state. Checking the same `poocommerce_review_order_eligible_statuses`
 		 * filter the page-load endpoint and submission handler use keeps the
 		 * three entry points consistent.
 		 *
@@ -137,7 +137,7 @@ if ( ! class_exists( 'WC_Email_Customer_Review_Request', false ) ) :
 			 * @param WC_Order $order             Order being inspected.
 			 */
 			$eligible_statuses = (array) apply_filters(
-				'woocommerce_review_order_eligible_statuses',
+				'poocommerce_review_order_eligible_statuses',
 				array( OrderStatus::COMPLETED ),
 				$this->object
 			);
@@ -161,7 +161,7 @@ if ( ! class_exists( 'WC_Email_Customer_Review_Request', false ) ) :
 		 * @return string
 		 */
 		public function get_default_subject() {
-			return __( 'How was your order from {site_title}?', 'woocommerce' );
+			return __( 'How was your order from {site_title}?', 'poocommerce' );
 		}
 
 		/**
@@ -171,7 +171,7 @@ if ( ! class_exists( 'WC_Email_Customer_Review_Request', false ) ) :
 		 * @return string
 		 */
 		public function get_default_heading() {
-			return __( 'Rate your recent purchases', 'woocommerce' );
+			return __( 'Rate your recent purchases', 'poocommerce' );
 		}
 
 		/**
@@ -181,7 +181,7 @@ if ( ! class_exists( 'WC_Email_Customer_Review_Request', false ) ) :
 		 * @return string
 		 */
 		public function get_default_additional_content() {
-			return __( 'Thanks again for shopping with us. If you have any questions, reply to this email and we\'ll help out.', 'woocommerce' );
+			return __( 'Thanks again for shopping with us. If you have any questions, reply to this email and we\'ll help out.', 'poocommerce' );
 		}
 
 		/**
@@ -199,7 +199,7 @@ if ( ! class_exists( 'WC_Email_Customer_Review_Request', false ) ) :
 		 *
 		 * The stored `delay_days` option is clamped to the supported range before
 		 * being converted to seconds. The final value passes through the
-		 * `woocommerce_review_request_delay_seconds` filter so integrations can
+		 * `poocommerce_review_request_delay_seconds` filter so integrations can
 		 * override it without needing to touch the admin setting.
 		 *
 		 * @since  10.8.0
@@ -218,7 +218,7 @@ if ( ! class_exists( 'WC_Email_Customer_Review_Request', false ) ) :
 			 *
 			 * @since 10.8.0
 			 */
-			return (int) apply_filters( 'woocommerce_review_request_delay_seconds', $delay_days * DAY_IN_SECONDS );
+			return (int) apply_filters( 'poocommerce_review_request_delay_seconds', $delay_days * DAY_IN_SECONDS );
 		}
 
 		/**
@@ -270,20 +270,20 @@ if ( ! class_exists( 'WC_Email_Customer_Review_Request', false ) ) :
 		public function init_form_fields(): void {
 			$placeholder_text = sprintf(
 				/* translators: %s: list of placeholders */
-				__( 'Available placeholders: %s', 'woocommerce' ),
+				__( 'Available placeholders: %s', 'poocommerce' ),
 				'<code>' . implode( '</code>, <code>', array_map( 'esc_html', array_keys( $this->placeholders ) ) ) . '</code>'
 			);
 			$this->form_fields = array(
 				'enabled'            => array(
-					'title'   => __( 'Enable/Disable', 'woocommerce' ),
+					'title'   => __( 'Enable/Disable', 'poocommerce' ),
 					'type'    => 'checkbox',
-					'label'   => __( 'Enable this email notification', 'woocommerce' ),
+					'label'   => __( 'Enable this email notification', 'poocommerce' ),
 					'default' => 'no',
 				),
 				'delay_days'         => array(
-					'title'             => __( 'Delay (days)', 'woocommerce' ),
+					'title'             => __( 'Delay (days)', 'poocommerce' ),
 					'type'              => 'number',
-					'description'       => __( 'How many days after the order is marked complete before the review request email is sent.', 'woocommerce' ),
+					'description'       => __( 'How many days after the order is marked complete before the review request email is sent.', 'poocommerce' ),
 					'default'           => (string) self::DEFAULT_DELAY_DAYS,
 					'desc_tip'          => true,
 					'custom_attributes' => array(
@@ -293,7 +293,7 @@ if ( ! class_exists( 'WC_Email_Customer_Review_Request', false ) ) :
 					),
 				),
 				'subject'            => array(
-					'title'       => __( 'Subject', 'woocommerce' ),
+					'title'       => __( 'Subject', 'poocommerce' ),
 					'type'        => 'text',
 					'desc_tip'    => true,
 					'description' => $placeholder_text,
@@ -301,7 +301,7 @@ if ( ! class_exists( 'WC_Email_Customer_Review_Request', false ) ) :
 					'default'     => '',
 				),
 				'heading'            => array(
-					'title'       => __( 'Email heading', 'woocommerce' ),
+					'title'       => __( 'Email heading', 'poocommerce' ),
 					'type'        => 'text',
 					'desc_tip'    => true,
 					'description' => $placeholder_text,
@@ -309,18 +309,18 @@ if ( ! class_exists( 'WC_Email_Customer_Review_Request', false ) ) :
 					'default'     => '',
 				),
 				'additional_content' => array(
-					'title'       => __( 'Additional content', 'woocommerce' ),
-					'description' => __( 'Text to appear below the main email content.', 'woocommerce' ) . ' ' . $placeholder_text,
+					'title'       => __( 'Additional content', 'poocommerce' ),
+					'description' => __( 'Text to appear below the main email content.', 'poocommerce' ) . ' ' . $placeholder_text,
 					'css'         => 'width:400px; height: 75px;',
-					'placeholder' => __( 'N/A', 'woocommerce' ),
+					'placeholder' => __( 'N/A', 'poocommerce' ),
 					'type'        => 'textarea',
 					'default'     => $this->get_default_additional_content(),
 					'desc_tip'    => true,
 				),
 				'email_type'         => array(
-					'title'       => __( 'Email type', 'woocommerce' ),
+					'title'       => __( 'Email type', 'poocommerce' ),
 					'type'        => 'select',
-					'description' => __( 'Choose which format of email to send.', 'woocommerce' ),
+					'description' => __( 'Choose which format of email to send.', 'poocommerce' ),
 					'default'     => 'html',
 					'class'       => 'email_type wc-enhanced-select',
 					'options'     => $this->get_email_type_options(),

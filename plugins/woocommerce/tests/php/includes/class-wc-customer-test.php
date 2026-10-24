@@ -2,7 +2,7 @@
 /**
  * Unit tests for WC_Customer class.
  *
- * @package WooCommerce\Tests.
+ * @package PooCommerce\Tests.
  */
 
 declare( strict_types = 1 );
@@ -115,7 +115,7 @@ class WC_Customer_Test extends \WC_Unit_Test_Case {
 		$sut    = $this->get_customer_without_shipping_postcode();
 		$nested = null;
 		add_filter(
-			'woocommerce_get_country_locale',
+			'poocommerce_get_country_locale',
 			function ( $locale ) use ( $sut, &$nested ) {
 				$nested = $sut->has_full_shipping_address();
 				return $locale;
@@ -136,7 +136,7 @@ class WC_Customer_Test extends \WC_Unit_Test_Case {
 		$calls  = 0;
 		$nested = null;
 		add_filter(
-			'woocommerce_default_address_fields',
+			'poocommerce_default_address_fields',
 			function ( $fields ) use ( $sut, &$calls, &$nested ) {
 				++$calls;
 				// Stop a runaway recursion so a regression fails the assertion below instead of exhausting the process.

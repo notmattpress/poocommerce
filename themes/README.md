@@ -1,4 +1,4 @@
-# WooCommerce themes
+# PooCommerce themes
 
 Each theme lives in `themes/<slug>/` as an independent workspace package, with its own version, changelog, and release process.
 
@@ -8,4 +8,4 @@ Each theme lives in `themes/<slug>/` as an independent workspace package, with i
 
 ## Development
 
-Shared validation, ZIP packaging, and local environment commands are provided by `@woocommerce/theme-cli`. See the [theme CLI guide](../tools/theme-cli/README.md) for setup and usage.
+Shared validation, ZIP packaging, and local environment commands are provided by `@poocommerce/theme-cli`. See the [theme CLI guide](../tools/theme-cli/README.md) for setup and usage.

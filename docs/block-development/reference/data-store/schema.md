@@ -5,11 +5,11 @@ sidebar_label: Schema Store
 
 ## Overview
 
-The Schema Store manages the routes associated with WooCommerce Blocks, enabling efficient retrieval and updating of route data for a given namespace. This store streamlines the interaction with resource routes, ensuring that modules can easily access endpoint paths as needed.
+The Schema Store manages the routes associated with PooCommerce Blocks, enabling efficient retrieval and updating of route data for a given namespace. This store streamlines the interaction with resource routes, ensuring that modules can easily access endpoint paths as needed.
 
 ## Usage
 
-To utilize this store you will import the `SCHEMA_STORE_KEY` in any module referencing it. Assuming `@woocommerce/block-data` is registered as an external pointing to `wc.wcBlocksData` you can import the key via:
+To utilize this store you will import the `SCHEMA_STORE_KEY` in any module referencing it. Assuming `@poocommerce/block-data` is registered as an external pointing to `wc.wcBlocksData` you can import the key via:
 
 ```js
 const { SCHEMA_STORE_KEY } = window.wc.wcBlocksData;

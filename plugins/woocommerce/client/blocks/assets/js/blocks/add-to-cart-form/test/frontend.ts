@@ -9,7 +9,7 @@ jest.mock(
 	'@wordpress/interactivity',
 	() => ( {
 		store: jest.fn( ( name: string, definition ) => {
-			if ( name === 'woocommerce/add-to-cart-form' ) {
+			if ( name === 'poocommerce/add-to-cart-form' ) {
 				mockRegisteredActions = definition.actions;
 			}
 

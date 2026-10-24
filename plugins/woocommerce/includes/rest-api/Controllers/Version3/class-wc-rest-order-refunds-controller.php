@@ -4,23 +4,23 @@
  *
  * Handles requests to the /orders/<order_id>/refunds endpoint.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @since   2.6.0
  */
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Internal\RestApiParameterUtil;
-use Automattic\WooCommerce\Internal\CostOfGoodsSold\CogsAwareTrait;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Refunds\DataUtils;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Refunds\Schema\RefundPreviewSchema;
-use Automattic\WooCommerce\Utilities\MetaDataUtil;
-use Automattic\WooCommerce\Utilities\NumberUtil;
+use Automattic\PooCommerce\Internal\RestApiParameterUtil;
+use Automattic\PooCommerce\Internal\CostOfGoodsSold\CogsAwareTrait;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Refunds\DataUtils;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Refunds\Schema\RefundPreviewSchema;
+use Automattic\PooCommerce\Utilities\MetaDataUtil;
+use Automattic\PooCommerce\Utilities\NumberUtil;
 
 /**
  * REST API Order Refunds controller class.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @extends WC_REST_Order_Refunds_V2_Controller
  */
 class WC_REST_Order_Refunds_Controller extends WC_REST_Order_Refunds_V2_Controller {
@@ -52,7 +52,7 @@ class WC_REST_Order_Refunds_Controller extends WC_REST_Order_Refunds_V2_Controll
 			array(
 				'args'   => array(
 					'order_id' => array(
-						'description' => __( 'The order ID.', 'woocommerce' ),
+						'description' => __( 'The order ID.', 'poocommerce' ),
 						'type'        => 'integer',
 					),
 				),
@@ -94,14 +94,14 @@ class WC_REST_Order_Refunds_Controller extends WC_REST_Order_Refunds_V2_Controll
 		// wc_get_order returns WC_Order|WC_Order_Refund|false; only a WC_Order
 		// (shop_order) is previewable here — refunds and missing IDs are rejected.
 		if ( ! $order instanceof WC_Order ) {
-			return new WP_Error( 'woocommerce_rest_invalid_order_id', __( 'Invalid order ID.', 'woocommerce' ), array( 'status' => 404 ) );
+			return new WP_Error( 'poocommerce_rest_invalid_order_id', __( 'Invalid order ID.', 'poocommerce' ), array( 'status' => 404 ) );
 		}
 
 		// The shared engine runs the whole pipeline: normalize, validate, build,
 		// and the aggregate guards. Its WP_Errors carry their HTTP status in the
 		// error data and use unprefixed codes (the engine is convention neutral);
 		// they are prefixed here at the v3 boundary so this endpoint follows the
-		// `woocommerce_rest_*` convention of the rest of the v3 surface.
+		// `poocommerce_rest_*` convention of the rest of the v3 surface.
 		$preview = $this->get_data_utils()->compute_refund_preview_or_error( $order, $request['line_items'], 'wc-rest-refunds' );
 
 		if ( is_wp_error( $preview ) ) {
@@ -114,7 +114,7 @@ class WC_REST_Order_Refunds_Controller extends WC_REST_Order_Refunds_V2_Controll
 
 		/**
 		 * Filters the refund preview response before it is returned, following the
-		 * `woocommerce_rest_prepare_*` family contract. The preview is advisory:
+		 * `poocommerce_rest_prepare_*` family contract. The preview is advisory:
 		 * the create path re-validates independently, so filtered values cannot
 		 * bypass the creation guards.
 		 *
@@ -125,7 +125,7 @@ class WC_REST_Order_Refunds_Controller extends WC_REST_Order_Refunds_V2_Controll
 		 *
 		 * @since 11.1.0
 		 */
-		return apply_filters( 'woocommerce_rest_prepare_order_refund_preview', $response, $order, $request );
+		return apply_filters( 'poocommerce_rest_prepare_order_refund_preview', $response, $order, $request );
 	}
 
 	/**
@@ -280,7 +280,7 @@ class WC_REST_Order_Refunds_Controller extends WC_REST_Order_Refunds_V2_Controll
 		// A payload carrying both is rejected: silently preferring one could
 		// refund and restock a different line than the client intended.
 		if ( isset( $line_item['id'], $line_item['line_item_id'] ) ) {
-			return new WP_Error( 'woocommerce_rest_invalid_line_item', __( 'Specify the line item with either id or line_item_id, not both.', 'woocommerce' ), array( 'status' => 400 ) );
+			return new WP_Error( 'poocommerce_rest_invalid_line_item', __( 'Specify the line item with either id or line_item_id, not both.', 'poocommerce' ), array( 'status' => 400 ) );
 		}
 
 		if ( isset( $line_item['id'] ) ) {
@@ -293,32 +293,32 @@ class WC_REST_Order_Refunds_Controller extends WC_REST_Order_Refunds_V2_Controll
 		// tax bucket than requested.
 		if ( isset( $line_item['line_item_id'] ) ) {
 			if ( ! rest_is_integer( $line_item['line_item_id'] ) ) {
-				return new WP_Error( 'woocommerce_rest_invalid_line_item', __( 'Line item id must be an integer.', 'woocommerce' ), array( 'status' => 400 ) );
+				return new WP_Error( 'poocommerce_rest_invalid_line_item', __( 'Line item id must be an integer.', 'poocommerce' ), array( 'status' => 400 ) );
 			}
 			$line_item['line_item_id'] = (int) $line_item['line_item_id'];
 		}
 
 		if ( isset( $line_item['quantity'] ) ) {
 			if ( ! rest_is_integer( $line_item['quantity'] ) ) {
-				return new WP_Error( 'woocommerce_rest_invalid_quantity', __( 'Quantity must be a whole number.', 'woocommerce' ), array( 'status' => 400 ) );
+				return new WP_Error( 'poocommerce_rest_invalid_quantity', __( 'Quantity must be a whole number.', 'poocommerce' ), array( 'status' => 400 ) );
 			}
 			$line_item['quantity'] = (int) $line_item['quantity'];
 		}
 
 		if ( isset( $line_item['refund_total'] ) ) {
 			if ( ! is_numeric( $line_item['refund_total'] ) ) {
-				return new WP_Error( 'woocommerce_rest_invalid_refund_total', __( 'refund_total must be a number.', 'woocommerce' ), array( 'status' => 400 ) );
+				return new WP_Error( 'poocommerce_rest_invalid_refund_total', __( 'refund_total must be a number.', 'poocommerce' ), array( 'status' => 400 ) );
 			}
 			$line_item['refund_total'] = (float) $line_item['refund_total'];
 		}
 
 		if ( isset( $line_item['refund_tax'] ) ) {
 			if ( ! is_array( $line_item['refund_tax'] ) ) {
-				return new WP_Error( 'woocommerce_rest_invalid_line_item', __( 'refund_tax must be an array of objects with id and refund_total.', 'woocommerce' ), array( 'status' => 400 ) );
+				return new WP_Error( 'poocommerce_rest_invalid_line_item', __( 'refund_tax must be an array of objects with id and refund_total.', 'poocommerce' ), array( 'status' => 400 ) );
 			}
 			foreach ( $line_item['refund_tax'] as $index => $tax ) {
 				if ( ! is_array( $tax ) || ! isset( $tax['id'], $tax['refund_total'] ) || ! rest_is_integer( $tax['id'] ) || ! is_numeric( $tax['refund_total'] ) ) {
-					return new WP_Error( 'woocommerce_rest_invalid_line_item', __( 'refund_tax entries must be objects with an integer id and a numeric refund_total.', 'woocommerce' ), array( 'status' => 400 ) );
+					return new WP_Error( 'poocommerce_rest_invalid_line_item', __( 'refund_tax entries must be objects with an integer id and a numeric refund_total.', 'poocommerce' ), array( 'status' => 400 ) );
 				}
 				$line_item['refund_tax'][ $index ] = array(
 					'id'           => (int) $tax['id'],
@@ -344,10 +344,10 @@ class WC_REST_Order_Refunds_Controller extends WC_REST_Order_Refunds_V2_Controll
 	}
 
 	/**
-	 * Prefix a shared-engine error code with `woocommerce_rest_`.
+	 * Prefix a shared-engine error code with `poocommerce_rest_`.
 	 *
 	 * DataUtils emits unprefixed codes (the wc/v4 convention). The wc/v3 surface
-	 * uses `woocommerce_rest_*`, so errors crossing into a v3 response are
+	 * uses `poocommerce_rest_*`, so errors crossing into a v3 response are
 	 * renamed at this boundary. Codes that already carry the prefix pass through
 	 * unchanged, and the message and data (including the HTTP status) are kept.
 	 * An unprefixed engine error whose data carries no HTTP status is backfilled
@@ -363,7 +363,7 @@ class WC_REST_Order_Refunds_Controller extends WC_REST_Order_Refunds_V2_Controll
 	private function prefix_error_code( WP_Error $error ): WP_Error {
 		$code = (string) $error->get_error_code();
 
-		if ( str_starts_with( $code, 'woocommerce_rest_' ) ) {
+		if ( str_starts_with( $code, 'poocommerce_rest_' ) ) {
 			return $error;
 		}
 
@@ -380,7 +380,7 @@ class WC_REST_Order_Refunds_Controller extends WC_REST_Order_Refunds_V2_Controll
 			$data['status'] = 400;
 		}
 
-		return new WP_Error( 'woocommerce_rest_' . $code, $error->get_error_message(), $data );
+		return new WP_Error( 'poocommerce_rest_' . $code, $error->get_error_message(), $data );
 	}
 
 	/**
@@ -407,11 +407,11 @@ class WC_REST_Order_Refunds_Controller extends WC_REST_Order_Refunds_V2_Controll
 		$order = wc_get_order( (int) $request['order_id'] );
 
 		if ( ! $order instanceof WC_Order ) {
-			return new WP_Error( 'woocommerce_rest_invalid_order_id', __( 'Invalid order ID.', 'woocommerce' ), 404 );
+			return new WP_Error( 'poocommerce_rest_invalid_order_id', __( 'Invalid order ID.', 'poocommerce' ), 404 );
 		}
 
 		if ( 0 > $request['amount'] ) {
-			return new WP_Error( 'woocommerce_rest_invalid_order_refund', __( 'Refund amount must be greater than zero.', 'woocommerce' ), 400 );
+			return new WP_Error( 'poocommerce_rest_invalid_order_refund', __( 'Refund amount must be greater than zero.', 'poocommerce' ), 400 );
 		}
 
 		$validation_error = $this->validate_explicit_refund_amounts( $order, $request['line_items'], $request['amount'] );
@@ -441,11 +441,11 @@ class WC_REST_Order_Refunds_Controller extends WC_REST_Order_Refunds_V2_Controll
 		);
 
 		if ( is_wp_error( $refund ) ) {
-			return new WP_Error( 'woocommerce_rest_cannot_create_order_refund', $refund->get_error_message(), 500 );
+			return new WP_Error( 'poocommerce_rest_cannot_create_order_refund', $refund->get_error_message(), 500 );
 		}
 
 		if ( ! $refund ) {
-			return new WP_Error( 'woocommerce_rest_cannot_create_order_refund', __( 'Cannot create order refund, please try again.', 'woocommerce' ), 500 );
+			return new WP_Error( 'poocommerce_rest_cannot_create_order_refund', __( 'Cannot create order refund, please try again.', 'poocommerce' ), 500 );
 		}
 
 		if ( ! empty( $request['meta_data'] ) ) {
@@ -463,7 +463,7 @@ class WC_REST_Order_Refunds_Controller extends WC_REST_Order_Refunds_V2_Controll
 		 * @param WP_REST_Request $request  Request object.
 		 * @param bool            $creating If is creating a new object.
 		 */
-		return apply_filters( "woocommerce_rest_pre_insert_{$this->post_type}_object", $refund, $request, $creating );
+		return apply_filters( "poocommerce_rest_pre_insert_{$this->post_type}_object", $refund, $request, $creating );
 	}
 
 	/**
@@ -493,7 +493,7 @@ class WC_REST_Order_Refunds_Controller extends WC_REST_Order_Refunds_V2_Controll
 			$line['refund_total'] = $line['refund_total'] ?? 0;
 
 			if ( ! is_numeric( $line['refund_total'] ) ) {
-				return new WP_Error( 'woocommerce_rest_invalid_refund_total', __( 'refund_total must be a number.', 'woocommerce' ), array( 'status' => 400 ) );
+				return new WP_Error( 'poocommerce_rest_invalid_refund_total', __( 'refund_total must be a number.', 'poocommerce' ), array( 'status' => 400 ) );
 			}
 
 			$gross_refund_total = (float) $line['refund_total'];
@@ -513,17 +513,17 @@ class WC_REST_Order_Refunds_Controller extends WC_REST_Order_Refunds_V2_Controll
 
 			$item = $order->get_item( $item_id );
 			if ( ( ! $item instanceof WC_Order_Item_Product && ! $item instanceof WC_Order_Item_Fee && ! $item instanceof WC_Order_Item_Shipping ) || $item->get_order_id() !== $order->get_id() ) {
-				return new WP_Error( 'woocommerce_rest_line_item_not_found', __( 'Line item not found.', 'woocommerce' ), array( 'status' => 400 ) );
+				return new WP_Error( 'poocommerce_rest_line_item_not_found', __( 'Line item not found.', 'poocommerce' ), array( 'status' => 400 ) );
 			}
 
 			$signed_line_total = (float) $item->get_total() + (float) $item->get_total_tax();
 			if ( (float) $line['refund_total'] * $signed_line_total < 0 ) {
-				return new WP_Error( 'woocommerce_rest_invalid_refund_total', __( 'Refund total has the wrong sign for this line item.', 'woocommerce' ), array( 'status' => 400 ) );
+				return new WP_Error( 'poocommerce_rest_invalid_refund_total', __( 'Refund total has the wrong sign for this line item.', 'poocommerce' ), array( 'status' => 400 ) );
 			}
 			if ( is_array( $line['refund_tax'] ?? null ) ) {
 				foreach ( $line['refund_tax'] as $tax_total ) {
 					if ( is_numeric( $tax_total ) && (float) $tax_total * $signed_line_total < 0 ) {
-						return new WP_Error( 'woocommerce_rest_invalid_refund_amount', __( 'Refund tax total has the wrong sign for this line item.', 'woocommerce' ), array( 'status' => 400 ) );
+						return new WP_Error( 'poocommerce_rest_invalid_refund_amount', __( 'Refund tax total has the wrong sign for this line item.', 'poocommerce' ), array( 'status' => 400 ) );
 					}
 				}
 			}
@@ -542,9 +542,9 @@ class WC_REST_Order_Refunds_Controller extends WC_REST_Order_Refunds_V2_Controll
 
 		if ( NumberUtil::round( $line_total, $price_decimals ) > NumberUtil::round( (float) $amount, $price_decimals ) ) {
 			$message = null === $amount
-				? __( 'Refund amount is required when it cannot be calculated from line items.', 'woocommerce' )
-				: __( 'Refund amount cannot be less than the total of line items.', 'woocommerce' );
-			return new WP_Error( 'woocommerce_rest_invalid_refund_amount', $message, array( 'status' => 400 ) );
+				? __( 'Refund amount is required when it cannot be calculated from line items.', 'poocommerce' )
+				: __( 'Refund amount cannot be less than the total of line items.', 'poocommerce' );
+			return new WP_Error( 'poocommerce_rest_invalid_refund_amount', $message, array( 'status' => 400 ) );
 		}
 
 		return true;
@@ -559,7 +559,7 @@ class WC_REST_Order_Refunds_Controller extends WC_REST_Order_Refunds_V2_Controll
 	 * order's refund history, and the refund amount is derived from the line items
 	 * unless an explicit amount override is supplied. Validation follows the same
 	 * rules as the wc/v4 creation endpoint; error codes are prefixed with
-	 * `woocommerce_rest_` at this v3 boundary like the rest of the v3 surface.
+	 * `poocommerce_rest_` at this v3 boundary like the rest of the v3 surface.
 	 *
 	 * @param WP_REST_Request $request Request object.
 	 * @return WP_Error|WC_Data The created refund, or WP_Error object on failure.
@@ -574,7 +574,7 @@ class WC_REST_Order_Refunds_Controller extends WC_REST_Order_Refunds_V2_Controll
 		// wc_get_order can return a WC_Order_Refund for refund IDs — reject those
 		// here since refunds are not refundable themselves.
 		if ( ! $order instanceof WC_Order ) {
-			return new WP_Error( 'woocommerce_rest_invalid_order_id', __( 'Invalid order ID.', 'woocommerce' ), array( 'status' => 404 ) );
+			return new WP_Error( 'poocommerce_rest_invalid_order_id', __( 'Invalid order ID.', 'poocommerce' ), array( 'status' => 404 ) );
 		}
 
 		// Normalize each line to the engine's schema shape and validate value
@@ -584,7 +584,7 @@ class WC_REST_Order_Refunds_Controller extends WC_REST_Order_Refunds_V2_Controll
 		$line_items = array();
 		foreach ( (array) ( $request['line_items'] ?? array() ) as $line_item ) {
 			if ( ! is_array( $line_item ) ) {
-				return new WP_Error( 'woocommerce_rest_invalid_line_item', __( 'Each line item must be an object.', 'woocommerce' ), array( 'status' => 400 ) );
+				return new WP_Error( 'poocommerce_rest_invalid_line_item', __( 'Each line item must be an object.', 'poocommerce' ), array( 'status' => 400 ) );
 			}
 
 			$line_item = $this->normalize_line_item( $line_item );
@@ -637,11 +637,11 @@ class WC_REST_Order_Refunds_Controller extends WC_REST_Order_Refunds_V2_Controll
 		// Same code and status as the legacy path above so a wc_create_refund
 		// failure looks identical to clients regardless of the compute_totals flag.
 		if ( is_wp_error( $refund ) ) {
-			return new WP_Error( 'woocommerce_rest_cannot_create_order_refund', $refund->get_error_message(), array( 'status' => 500 ) );
+			return new WP_Error( 'poocommerce_rest_cannot_create_order_refund', $refund->get_error_message(), array( 'status' => 500 ) );
 		}
 
 		if ( ! $refund ) {
-			return new WP_Error( 'woocommerce_rest_cannot_create_order_refund', __( 'Cannot create order refund, please try again.', 'woocommerce' ), array( 'status' => 500 ) );
+			return new WP_Error( 'poocommerce_rest_cannot_create_order_refund', __( 'Cannot create order refund, please try again.', 'poocommerce' ), array( 'status' => 500 ) );
 		}
 
 		if ( ! empty( $request['meta_data'] ) ) {
@@ -661,7 +661,7 @@ class WC_REST_Order_Refunds_Controller extends WC_REST_Order_Refunds_V2_Controll
 		 *
 		 * @since 3.0.0
 		 */
-		return apply_filters( "woocommerce_rest_pre_insert_{$this->post_type}_object", $refund, $request, true );
+		return apply_filters( "poocommerce_rest_pre_insert_{$this->post_type}_object", $refund, $request, true );
 	}
 
 	/**
@@ -705,28 +705,28 @@ class WC_REST_Order_Refunds_Controller extends WC_REST_Order_Refunds_V2_Controll
 		$schema = parent::get_item_schema();
 
 		$schema['properties']['line_items']['items']['properties']['refund_total'] = array(
-			'description' => __( 'Amount that will be refunded for this line item (excluding taxes).', 'woocommerce' ),
+			'description' => __( 'Amount that will be refunded for this line item (excluding taxes).', 'poocommerce' ),
 			'type'        => 'number',
 			'context'     => array( 'edit' ),
 			'readonly'    => true,
 		);
 
 		$schema['properties']['line_items']['items']['properties']['taxes']['items']['properties']['refund_total'] = array(
-			'description' => __( 'Amount that will be refunded for this tax.', 'woocommerce' ),
+			'description' => __( 'Amount that will be refunded for this tax.', 'poocommerce' ),
 			'type'        => 'number',
 			'context'     => array( 'edit' ),
 			'readonly'    => true,
 		);
 
 		$schema['properties']['api_restock'] = array(
-			'description' => __( 'When true, refunded items are restocked.', 'woocommerce' ),
+			'description' => __( 'When true, refunded items are restocked.', 'poocommerce' ),
 			'type'        => 'boolean',
 			'context'     => array( 'edit' ),
 			'default'     => true,
 		);
 
 		$schema['properties']['compute_totals'] = array(
-			'description' => __( 'When true, the server computes per-line refund amounts from quantities using the order\'s stored prices and taxes, validating the request against the order\'s refund history. Defaults to false, which preserves the pre-existing behavior of this endpoint.', 'woocommerce' ),
+			'description' => __( 'When true, the server computes per-line refund amounts from quantities using the order\'s stored prices and taxes, validating the request against the order\'s refund history. Defaults to false, which preserves the pre-existing behavior of this endpoint.', 'poocommerce' ),
 			'type'        => 'boolean',
 			'context'     => array( 'edit' ),
 			'default'     => false,
@@ -747,12 +747,12 @@ class WC_REST_Order_Refunds_Controller extends WC_REST_Order_Refunds_V2_Controll
 	 */
 	private function add_cogs_related_schema( array $schema ): array {
 		$schema['properties']['cost_of_goods_sold'] = array(
-			'description' => __( 'Cost of Goods Sold data.', 'woocommerce' ),
+			'description' => __( 'Cost of Goods Sold data.', 'poocommerce' ),
 			'type'        => 'object',
 			'context'     => array( 'view', 'edit' ),
 			'properties'  => array(
 				'total_value' => array(
-					'description' => __( 'Total value of the Cost of Goods Sold for the refund.', 'woocommerce' ),
+					'description' => __( 'Total value of the Cost of Goods Sold for the refund.', 'poocommerce' ),
 					'type'        => 'number',
 					'readonly'    => true,
 					'context'     => array( 'view', 'edit' ),
@@ -761,12 +761,12 @@ class WC_REST_Order_Refunds_Controller extends WC_REST_Order_Refunds_V2_Controll
 		);
 
 		$schema['properties']['line_items']['items']['properties']['cost_of_goods_sold'] = array(
-			'description' => __( 'Cost of Goods Sold data. Only present for product refund line items.', 'woocommerce' ),
+			'description' => __( 'Cost of Goods Sold data. Only present for product refund line items.', 'poocommerce' ),
 			'type'        => 'object',
 			'context'     => array( 'view', 'edit' ),
 			'properties'  => array(
 				'total_value' => array(
-					'description' => __( 'Value of the Cost of Goods Sold for the refund item.', 'woocommerce' ),
+					'description' => __( 'Value of the Cost of Goods Sold for the refund item.', 'poocommerce' ),
 					'type'        => 'number',
 					'readonly'    => true,
 					'context'     => array( 'view', 'edit' ),

@@ -1,17 +1,17 @@
 <?php
 /**
- * Plugin Name: WooCommerce Blocks Test Item Data Display Malformed
+ * Plugin Name: PooCommerce Blocks Test Item Data Display Malformed
  * Description: Adds a trailing malformed item_data entry (or two consecutive ones) to cart items for Mini-Cart e2e tests.
- * Plugin URI: https://github.com/woocommerce/woocommerce
- * Author: WooCommerce
+ * Plugin URI: https://github.com/poocommerce/poocommerce
+ * Author: PooCommerce
  *
- * @package woocommerce-blocks-test-item-data-display-malformed
+ * @package poocommerce-blocks-test-item-data-display-malformed
  */
 
 declare(strict_types=1);
 
 // Only requests from specs that enable this plugin send the cookie.
-if ( ! isset( $_COOKIE['woocommerce-blocks-test-item-data-display-malformed'] ) ) {
+if ( ! isset( $_COOKIE['poocommerce-blocks-test-item-data-display-malformed'] ) ) {
 	return;
 }
 
@@ -22,7 +22,7 @@ final class Item_Data_Display_Malformed_Test_Fixture {
 	 * @internal
 	 */
 	public function __construct() {
-		add_action( 'woocommerce_init', array( $this, 'handle_woocommerce_init' ) );
+		add_action( 'poocommerce_init', array( $this, 'handle_poocommerce_init' ) );
 	}
 
 	/**
@@ -30,10 +30,10 @@ final class Item_Data_Display_Malformed_Test_Fixture {
 	 *
 	 * @internal
 	 */
-	public function handle_woocommerce_init(): void {
+	public function handle_poocommerce_init(): void {
 		add_filter(
-			'woocommerce_get_item_data',
-			array( $this, 'handle_woocommerce_get_item_data' ),
+			'poocommerce_get_item_data',
+			array( $this, 'handle_poocommerce_get_item_data' ),
 			10,
 			2
 		);
@@ -48,7 +48,7 @@ final class Item_Data_Display_Malformed_Test_Fixture {
 	 * @param array $cart_item Cart item data.
 	 * @return array Filtered item data.
 	 */
-	public function handle_woocommerce_get_item_data( array $item_data, array $cart_item ): array {
+	public function handle_poocommerce_get_item_data( array $item_data, array $cart_item ): array {
 		// A well-formed leading entry, so there is always a defined
 		// "last visible entry" to check the separator against.
 		$item_data[] = array(

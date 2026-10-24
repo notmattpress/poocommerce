@@ -13,9 +13,9 @@ defined( 'ABSPATH' ) || exit;
 class WC_Beta_Tester_Admin_Notices {
 
 	/**
-	 * WooCommerce not installed notice.
+	 * PooCommerce not installed notice.
 	 */
 	public function woocoommerce_not_installed() {
-		include_once dirname( __FILE__ ) . '/views/html-admin-missing-woocommerce.php';
+		include_once dirname( __FILE__ ) . '/views/html-admin-missing-poocommerce.php';
 	}
 }

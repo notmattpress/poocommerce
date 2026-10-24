@@ -1,7 +1,7 @@
 <?php
 
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper;
 
 /**
  * Tests relating to the Product Reviews controller in APIv3.
@@ -51,7 +51,7 @@ class WC_REST_Product_Reviews_Controller_Tests extends WC_REST_Unit_Test_Case {
 
 		wp_set_current_user( $this->editor_id );
 		$this->assertEquals(
-			'woocommerce_rest_cannot_create',
+			'poocommerce_rest_cannot_create',
 			$this->sut->create_item_permissions_check( $api_request )->get_error_code(),
 			'A user lacking edit_products permissions (such as an editor) cannot create product reviews.'
 		);
@@ -72,7 +72,7 @@ class WC_REST_Product_Reviews_Controller_Tests extends WC_REST_Unit_Test_Case {
 
 		wp_set_current_user( $this->customer_id );
 		$this->assertEquals(
-			'woocommerce_rest_cannot_view',
+			'poocommerce_rest_cannot_view',
 			$this->sut->get_item_permissions_check( $api_request )->get_error_code(),
 			'A user lacking moderate_comments permissions (such as a customer) cannot retrieve a product review.'
 		);
@@ -92,7 +92,7 @@ class WC_REST_Product_Reviews_Controller_Tests extends WC_REST_Unit_Test_Case {
 
 		wp_set_current_user( $this->customer_id );
 		$this->assertEquals(
-			'woocommerce_rest_cannot_view',
+			'poocommerce_rest_cannot_view',
 			$this->sut->get_items_permissions_check( $api_request )->get_error_code(),
 			'A user lacking moderate_comments permissions (such as a customer) cannot retrieve product reviews.'
 		);
@@ -113,7 +113,7 @@ class WC_REST_Product_Reviews_Controller_Tests extends WC_REST_Unit_Test_Case {
 
 		wp_set_current_user( $this->editor_id );
 		$this->assertEquals(
-			'woocommerce_rest_cannot_edit',
+			'poocommerce_rest_cannot_edit',
 			$this->sut->update_item_permissions_check( $api_request )->get_error_code(),
 			'A user lacking edit_products permissions (such as an editor) cannot update product reviews.'
 		);
@@ -134,7 +134,7 @@ class WC_REST_Product_Reviews_Controller_Tests extends WC_REST_Unit_Test_Case {
 
 		wp_set_current_user( $this->editor_id );
 		$this->assertEquals(
-			'woocommerce_rest_cannot_delete',
+			'poocommerce_rest_cannot_delete',
 			$this->sut->delete_item_permissions_check( $api_request )->get_error_code(),
 			'A user lacking edit_comment permissions (such as an editor) cannot delete a product review.'
 		);
@@ -154,7 +154,7 @@ class WC_REST_Product_Reviews_Controller_Tests extends WC_REST_Unit_Test_Case {
 
 		wp_set_current_user( $this->editor_id );
 		$this->assertEquals(
-			'woocommerce_rest_cannot_batch',
+			'poocommerce_rest_cannot_batch',
 			$this->sut->batch_items_permissions_check( $request )->get_error_code(),
 			'A user lacking edit_products permissions (such as an editor) cannot perform batch requests for product reviews.'
 		);
@@ -178,7 +178,7 @@ class WC_REST_Product_Reviews_Controller_Tests extends WC_REST_Unit_Test_Case {
 		$request->set_param( 'id', $order_note_id );
 
 		$this->assertEquals(
-			'woocommerce_rest_review_invalid_id',
+			'poocommerce_rest_review_invalid_id',
 			$this->sut->delete_item( $request )->get_error_code(),
 			'Comments that are not product reviews cannot be deleted via this endpoint.'
 		);
@@ -195,7 +195,7 @@ class WC_REST_Product_Reviews_Controller_Tests extends WC_REST_Unit_Test_Case {
 		$request->set_param( 'id', $comment_id );
 
 		$this->assertEquals(
-			'woocommerce_rest_review_invalid_id',
+			'poocommerce_rest_review_invalid_id',
 			$this->sut->delete_item( $request )->get_error_code(),
 			'Comments that are not product reviews (including other types of comments belonging to products) cannot be deleted via this endpoint.'
 		);
@@ -257,11 +257,11 @@ class WC_REST_Product_Reviews_Controller_Tests extends WC_REST_Unit_Test_Case {
 			)
 		);
 
-		add_action( 'woocommerce_update_product', $count_save );
+		add_action( 'poocommerce_update_product', $count_save );
 		try {
 			$response = $this->server->dispatch( $request );
 		} finally {
-			remove_action( 'woocommerce_update_product', $count_save );
+			remove_action( 'poocommerce_update_product', $count_save );
 		}
 
 		$this->assertSame( 201, $response->get_status() );
@@ -285,11 +285,11 @@ class WC_REST_Product_Reviews_Controller_Tests extends WC_REST_Unit_Test_Case {
 			}
 		};
 
-		add_action( 'woocommerce_update_product', $count_save );
+		add_action( 'poocommerce_update_product', $count_save );
 		try {
 			$this->create_review( $product_id, 'Arrived on time.', null );
 		} finally {
-			remove_action( 'woocommerce_update_product', $count_save );
+			remove_action( 'poocommerce_update_product', $count_save );
 		}
 
 		$this->assertSame( 1, $saves, 'An unrated review does not trigger a second aggregate refresh.' );
@@ -320,11 +320,11 @@ class WC_REST_Product_Reviews_Controller_Tests extends WC_REST_Unit_Test_Case {
 			}
 		};
 
-		add_action( 'woocommerce_update_product', $count_save );
+		add_action( 'poocommerce_update_product', $count_save );
 		try {
 			$response = $this->server->dispatch( $request );
 		} finally {
-			remove_action( 'woocommerce_update_product', $count_save );
+			remove_action( 'poocommerce_update_product', $count_save );
 		}
 
 		$this->assertEquals( 200, $response->get_status(), 'The review is updated successfully.' );
@@ -397,15 +397,15 @@ class WC_REST_Product_Reviews_Controller_Tests extends WC_REST_Unit_Test_Case {
 		$request->set_param( 'id', $review_id );
 		$request->set_param( 'rating', 3 );
 
-		add_filter( 'woocommerce_rest_preprocess_product_review', $filter_callback );
+		add_filter( 'poocommerce_rest_preprocess_product_review', $filter_callback );
 		try {
 			$response = $this->sut->update_item( $request );
 		} finally {
-			remove_filter( 'woocommerce_rest_preprocess_product_review', $filter_callback );
+			remove_filter( 'poocommerce_rest_preprocess_product_review', $filter_callback );
 		}
 
 		$this->assertWPError( $response );
-		$this->assertSame( 'woocommerce_rest_comment_failed_edit', $response->get_error_code() );
+		$this->assertSame( 'poocommerce_rest_comment_failed_edit', $response->get_error_code() );
 		$this->assertSame( 5, (int) get_comment_meta( $review_id, 'rating', true ) );
 		$this->assertSame( $average_rating_before, wc_get_product( $product_id )->get_average_rating() );
 	}
@@ -524,7 +524,7 @@ class WC_REST_Product_Reviews_Controller_Tests extends WC_REST_Unit_Test_Case {
 		}
 
 		$this->assertSame( 404, $response->get_status() );
-		$this->assertSame( 'woocommerce_rest_product_invalid_id', $response->get_data()['code'] );
+		$this->assertSame( 'poocommerce_rest_product_invalid_id', $response->get_data()['code'] );
 		$this->assertSame( $source_id, (int) get_comment( $review_id )->comment_post_ID );
 		$this->assertSame( $average_rating_before, wc_get_product( $source_id )->get_average_rating() );
 		$this->assertEquals( 1, wc_get_product( $source_id )->get_review_count() );

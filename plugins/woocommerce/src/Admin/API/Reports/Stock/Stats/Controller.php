@@ -5,7 +5,7 @@
  * Handles requests to the /reports/stock/stats endpoint.
  */
 
-namespace Automattic\WooCommerce\Admin\API\Reports\Stock\Stats;
+namespace Automattic\PooCommerce\Admin\API\Reports\Stock\Stats;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -74,7 +74,7 @@ class Controller extends \WC_REST_Reports_Controller {
 		 * @param WC_Product       $report   The original object.
 		 * @param WP_REST_Request  $request  Request used to generate the response.
 		 */
-		return apply_filters( 'woocommerce_rest_prepare_report_stock_stats', $response, $report, $request );
+		return apply_filters( 'poocommerce_rest_prepare_report_stock_stats', $response, $report, $request );
 	}
 
 	/**
@@ -85,13 +85,13 @@ class Controller extends \WC_REST_Reports_Controller {
 	public function get_item_schema() {
 		$totals = array(
 			'products' => array(
-				'description' => __( 'Number of products.', 'woocommerce' ),
+				'description' => __( 'Number of products.', 'poocommerce' ),
 				'type'        => 'integer',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
 			),
 			'lowstock' => array(
-				'description' => __( 'Number of low stock products.', 'woocommerce' ),
+				'description' => __( 'Number of low stock products.', 'poocommerce' ),
 				'type'        => 'integer',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
@@ -102,7 +102,7 @@ class Controller extends \WC_REST_Reports_Controller {
 		foreach ( $status_options as $status => $label ) {
 			$totals[ $status ] = array(
 				/* translators: Stock status. Example: "Number of low stock products */
-				'description' => sprintf( __( 'Number of %s products.', 'woocommerce' ), $label ),
+				'description' => sprintf( __( 'Number of %s products.', 'poocommerce' ), $label ),
 				'type'        => 'integer',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
@@ -115,7 +115,7 @@ class Controller extends \WC_REST_Reports_Controller {
 			'type'       => 'object',
 			'properties' => array(
 				'totals' => array(
-					'description' => __( 'Totals data.', 'woocommerce' ),
+					'description' => __( 'Totals data.', 'poocommerce' ),
 					'type'        => 'object',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,

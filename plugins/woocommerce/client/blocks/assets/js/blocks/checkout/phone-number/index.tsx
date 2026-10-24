@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { ValidatedTextInput } from '@woocommerce/blocks-components';
+import { ValidatedTextInput } from '@poocommerce/blocks-components';
 
 /**
  * Renders a phone number input.
@@ -29,8 +29,8 @@ const PhoneNumber = ( {
 			required={ isRequired }
 			label={
 				isRequired
-					? __( 'Phone', 'woocommerce' )
-					: __( 'Phone (optional)', 'woocommerce' )
+					? __( 'Phone', 'poocommerce' )
+					: __( 'Phone (optional)', 'poocommerce' )
 			}
 			value={ value }
 			onChange={ onChange }

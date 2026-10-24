@@ -9,7 +9,7 @@ class WC_Helper_Subscriptions_API_Test extends \WC_Unit_Test_Case {
 	/**
 	 * Slug of a plugin that is always present but inactive in the test
 	 * environment, used to simulate an "installed but not active" Woo
-	 * subscription without depending on WooCommerce's own plugin state.
+	 * subscription without depending on PooCommerce's own plugin state.
 	 */
 	private const INACTIVE_PLUGIN_SLUG = 'akismet';
 
@@ -32,7 +32,7 @@ class WC_Helper_Subscriptions_API_Test extends \WC_Unit_Test_Case {
 	 */
 	public function setUp(): void {
 		parent::setUp();
-		delete_transient( '_woocommerce_helper_subscriptions' );
+		delete_transient( '_poocommerce_helper_subscriptions' );
 		deactivate_plugins( self::INACTIVE_PLUGIN_SLUG . '/' . self::INACTIVE_PLUGIN_SLUG . '.php' );
 		$this->original_stylesheet = get_stylesheet();
 	}
@@ -41,7 +41,7 @@ class WC_Helper_Subscriptions_API_Test extends \WC_Unit_Test_Case {
 	 * Tear down after each test.
 	 */
 	public function tearDown(): void {
-		delete_transient( '_woocommerce_helper_subscriptions' );
+		delete_transient( '_poocommerce_helper_subscriptions' );
 		deactivate_plugins( self::INACTIVE_PLUGIN_SLUG . '/' . self::INACTIVE_PLUGIN_SLUG . '.php' );
 		switch_theme( $this->original_stylesheet );
 		wp_set_current_user( 0 );
@@ -62,7 +62,7 @@ class WC_Helper_Subscriptions_API_Test extends \WC_Unit_Test_Case {
 
 		$product_key = 'test-activate-key';
 		set_transient(
-			'_woocommerce_helper_subscriptions',
+			'_poocommerce_helper_subscriptions',
 			array(
 				array(
 					'product_id'   => 999003,
@@ -85,7 +85,7 @@ class WC_Helper_Subscriptions_API_Test extends \WC_Unit_Test_Case {
 	private function stage_inactive_plugin_subscription(): string {
 		$product_key = 'test-activate-key';
 		set_transient(
-			'_woocommerce_helper_subscriptions',
+			'_poocommerce_helper_subscriptions',
 			array(
 				array(
 					'product_id'   => 999001,
@@ -147,7 +147,7 @@ class WC_Helper_Subscriptions_API_Test extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox A Shop Manager (manage_woocommerce but not activate_plugins) cannot activate a subscribed plugin.
+	 * @testdox A Shop Manager (manage_poocommerce but not activate_plugins) cannot activate a subscribed plugin.
 	 */
 	public function test_shop_manager_cannot_activate_plugin(): void {
 		$product_key = $this->stage_inactive_plugin_subscription();
@@ -180,7 +180,7 @@ class WC_Helper_Subscriptions_API_Test extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox A Shop Manager (manage_woocommerce but not switch_themes) cannot activate a subscribed theme.
+	 * @testdox A Shop Manager (manage_poocommerce but not switch_themes) cannot activate a subscribed theme.
 	 */
 	public function test_shop_manager_cannot_activate_theme(): void {
 		$product_key = $this->stage_inactive_theme_subscription();
@@ -218,7 +218,7 @@ class WC_Helper_Subscriptions_API_Test extends \WC_Unit_Test_Case {
 	public function test_unsupported_product_type_is_rejected(): void {
 		$product_key = 'test-activate-key';
 		set_transient(
-			'_woocommerce_helper_subscriptions',
+			'_poocommerce_helper_subscriptions',
 			array(
 				array(
 					'product_id'   => 999002,

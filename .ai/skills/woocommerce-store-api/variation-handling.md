@@ -23,7 +23,7 @@ The fix is to derive canonical attributes from the variation product itself. Tre
 
 ## The two input shapes
 
-WooCommerce front-end UX produces two shapes of variation input, both of which the cart accepts:
+PooCommerce front-end UX produces two shapes of variation input, both of which the cart accepts:
 
 **Variation ID (resolved upstream).**
 
@@ -66,7 +66,7 @@ Each variable attribute on a variation is either a specific value (the variation
 
 ## Slug canonicalisation
 
-WooCommerce stores attribute values as **lowercase taxonomy term slugs**. Both sides of any comparison come from canonicalised storage, so use strict `===`/`!==`. Don't add case-insensitive matching — the cart doesn't, and consistency matters for predictable client behaviour.
+PooCommerce stores attribute values as **lowercase taxonomy term slugs**. Both sides of any comparison come from canonicalised storage, so use strict `===`/`!==`. Don't add case-insensitive matching — the cart doesn't, and consistency matters for predictable client behaviour.
 
 Direct API clients (using `id` + `variation`) need to send slugs in their canonical form. The cart already canonicalises on its way into `cart_contents`, so server-side round-trips are clean.
 
@@ -76,10 +76,10 @@ Validation failures should throw `RouteException` directly with a 400 status. Th
 
 ```php
 throw new RouteException(
-    'woocommerce_rest_invalid_variation_data',
+    'poocommerce_rest_invalid_variation_data',
     sprintf(
         /* translators: %1$s: Attribute name, %2$s: Allowed values. */
-        esc_html__( 'Invalid value posted for %1$s. Allowed values: %2$s', 'woocommerce' ),
+        esc_html__( 'Invalid value posted for %1$s. Allowed values: %2$s', 'poocommerce' ),
         esc_html( $attribute_label ),
         esc_html( implode( ', ', $attribute->get_slugs() ) )
     ),
@@ -89,10 +89,10 @@ throw new RouteException(
 
 The cart uses two error codes for variation issues:
 
-- `woocommerce_rest_invalid_variation_data` — a posted attribute has a value the variation doesn't accept. Surface the allowed values in the message.
-- `woocommerce_rest_missing_variation_data` — an "Any" attribute wasn't posted. Surface the missing attribute label.
+- `poocommerce_rest_invalid_variation_data` — a posted attribute has a value the variation doesn't accept. Surface the allowed values in the message.
+- `poocommerce_rest_missing_variation_data` — an "Any" attribute wasn't posted. Surface the missing attribute label.
 
-Both return 400. Don't throw a generic `\InvalidArgumentException` — exceptions that aren't `RouteException` fall through to the abstract route's generic handler, which returns a 500 with `woocommerce_rest_unknown_server_error` and obscures the real problem from the client.
+Both return 400. Don't throw a generic `\InvalidArgumentException` — exceptions that aren't `RouteException` fall through to the abstract route's generic handler, which returns a 500 with `poocommerce_rest_unknown_server_error` and obscures the real problem from the client.
 
 ## Test coverage
 
@@ -112,8 +112,8 @@ The variation path is where future regressions are most likely to land. Tests ar
 
 ## Reference
 
-- [`CartController::parse_variation_data()`](../../../plugins/woocommerce/src/StoreApi/Utilities/CartController.php) — the canonical reconciliation pattern; mirror this in any new route that accepts variation references.
-- [`CartController::get_variation_id_from_variation_data()`](../../../plugins/woocommerce/src/StoreApi/Utilities/CartController.php) — resolves a variable parent + posted attributes to a specific variation ID.
-- `wc_get_product_variation_attributes()` (WooCommerce core) — returns canonical slugs for a variation, with `''` for "Any" slots.
-- `WC_Product_Attribute::get_slugs()` (WooCommerce core) — returns the allowed slug list for an attribute on the parent product.
-- `WC_Data_Store::find_matching_product_variation()` (WooCommerce core) — underlying lookup used by `get_variation_id_from_variation_data()`.
+- [`CartController::parse_variation_data()`](../../../plugins/poocommerce/src/StoreApi/Utilities/CartController.php) — the canonical reconciliation pattern; mirror this in any new route that accepts variation references.
+- [`CartController::get_variation_id_from_variation_data()`](../../../plugins/poocommerce/src/StoreApi/Utilities/CartController.php) — resolves a variable parent + posted attributes to a specific variation ID.
+- `wc_get_product_variation_attributes()` (PooCommerce core) — returns canonical slugs for a variation, with `''` for "Any" slots.
+- `WC_Product_Attribute::get_slugs()` (PooCommerce core) — returns the allowed slug list for an attribute on the parent product.
+- `WC_Data_Store::find_matching_product_variation()` (PooCommerce core) — underlying lookup used by `get_variation_id_from_variation_data()`.

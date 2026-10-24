@@ -5,9 +5,9 @@
  * Handles requests to /launch-your-store/*
  */
 
-namespace Automattic\WooCommerce\Admin\API;
+namespace Automattic\PooCommerce\Admin\API;
 
-use Automattic\WooCommerce\Admin\WCAdminHelper;
+use Automattic\PooCommerce\Admin\WCAdminHelper;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -110,7 +110,7 @@ class LaunchYourStore {
 	 */
 	public function must_be_shop_manager_or_admin() {
 		// phpcs:ignore
-		if ( ! current_user_can( 'manage_woocommerce' ) && ! current_user_can( 'administrator' ) ) {
+		if ( ! current_user_can( 'manage_poocommerce' ) && ! current_user_can( 'administrator' ) ) {
 			return false;
 		}
 		return true;
@@ -133,10 +133,10 @@ class LaunchYourStore {
 		$private_link     = 'no';
 		$share_key        = wp_generate_password( 32, false );
 
-		update_option( 'woocommerce_coming_soon', $coming_soon );
-		update_option( 'woocommerce_store_pages_only', $store_pages_only );
-		add_option( 'woocommerce_private_link', $private_link );
-		add_option( 'woocommerce_share_key', $share_key );
+		update_option( 'poocommerce_coming_soon', $coming_soon );
+		update_option( 'poocommerce_store_pages_only', $store_pages_only );
+		add_option( 'poocommerce_private_link', $private_link );
+		add_option( 'poocommerce_share_key', $share_key );
 
 		wc_admin_record_tracks_event(
 			'launch_your_store_initialize_coming_soon',
@@ -200,23 +200,23 @@ class LaunchYourStore {
 	}
 
 	/**
-	 * Update woocommerce_admin_launch_your_store_survey_completed to yes or no
+	 * Update poocommerce_admin_launch_your_store_survey_completed to yes or no
 	 *
 	 * @param \WP_REST_Request $request WP_REST_Request object.
 	 *
 	 * @return \WP_REST_Response
 	 */
 	public function update_survey_status( \WP_REST_Request $request ) {
-		update_option( 'woocommerce_admin_launch_your_store_survey_completed', $request->get_param( 'status' ) );
+		update_option( 'poocommerce_admin_launch_your_store_survey_completed', $request->get_param( 'status' ) );
 		return new \WP_REST_Response();
 	}
 
 	/**
-	 * Return woocommerce_admin_launch_your_store_survey_completed option.
+	 * Return poocommerce_admin_launch_your_store_survey_completed option.
 	 *
 	 * @return \WP_REST_Response
 	 */
 	public function has_survey_completed() {
-		return new \WP_REST_Response( get_option( 'woocommerce_admin_launch_your_store_survey_completed', 'no' ) );
+		return new \WP_REST_Response( get_option( 'poocommerce_admin_launch_your_store_survey_completed', 'no' ) );
 	}
 }

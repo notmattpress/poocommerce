@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Helpers;
+namespace Automattic\PooCommerce\Tests\Helpers;
 
 use WC_Data;
 

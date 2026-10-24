@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\Patterns;
+namespace Automattic\PooCommerce\Tests\Blocks\Patterns;
 
-use Automattic\WooCommerce\Tools\Generate_Pattern_Translations;
+use Automattic\PooCommerce\Tools\Generate_Pattern_Translations;
 use Gettext\Translations;
 use WP_CLI\I18n\PhpCodeExtractor;
 
@@ -40,7 +40,7 @@ class GeneratePatternTranslationsTest extends \WC_Unit_Test_Case {
 		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
 		$this->assertSame( $source, file_get_contents( WC_ABSPATH . 'i18n/patterns.php' ), 'Run composer generate-pattern-translations after changing pattern headers.' );
 		$translations = new Translations();
-		$translations->setDomain( 'woocommerce' );
+		$translations->setDomain( 'poocommerce' );
 		PhpCodeExtractor::fromString(
 			$source,
 			$translations,

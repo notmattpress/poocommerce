@@ -3,7 +3,7 @@
  */
 import { decodeEntities } from '@wordpress/html-entities';
 import { useCallback, useMemo, useEffect, useRef } from '@wordpress/element';
-import { ValidatedTextInput } from '@woocommerce/blocks-components';
+import { ValidatedTextInput } from '@poocommerce/blocks-components';
 import { clsx } from 'clsx';
 
 /**

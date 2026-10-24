@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\StoreApi\Utilities;
+namespace Automattic\PooCommerce\StoreApi\Utilities;
 
-use Automattic\WooCommerce\Utilities\FeaturesUtil;
+use Automattic\PooCommerce\Utilities\FeaturesUtil;
 
 /**
  * Shared helpers for the UCP (Universal Commerce Protocol) routes.
@@ -15,7 +15,7 @@ class UcpUtils {
 	const VERSION = '2026-04-08';
 
 	/**
-	 * Feature id gating the UCP routes, stored as `woocommerce_feature_ucp_enabled`.
+	 * Feature id gating the UCP routes, stored as `poocommerce_feature_ucp_enabled`.
 	 */
 	const FEATURE_ID = 'ucp';
 

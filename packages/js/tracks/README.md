@@ -1,18 +1,18 @@
 # Tracks
 
-WooCommerce user event tracking utilities for Automattic based projects.
+PooCommerce user event tracking utilities for Automattic based projects.
 
 ## Installation
 
 Install the module
 
 ```bash
-pnpm install @woocommerce/tracks --save
+pnpm install @poocommerce/tracks --save
 ```
 
 ## Usage
 
-The store must opt-in to allow tracking via the `woocommerce_allow_tracking` setting. 
+The store must opt-in to allow tracking via the `poocommerce_allow_tracking` setting. 
 If the store is not opted-in no events be recorded when using the following functions.
 
 ### recordEvent( eventName, eventProperties )
@@ -20,7 +20,7 @@ If the store is not opted-in no events be recorded when using the following func
 Record a user event to Tracks.
 
 ```jsx
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 recordEvent( 'page_view', { path } )
 ```
@@ -57,7 +57,7 @@ Record a page view to Tracks.
 Bump a stat or group of stats.
 
 ```typescript
-import { bumpStat } from '@woocommerce/tracks';
+import { bumpStat } from '@poocommerce/tracks';
 
 // Bump a single stat
 bumpStat( 'stat_name', 'stat_value' );
@@ -74,7 +74,7 @@ bumpStat( {
 | statName | `String` or `Object` | The name of the stat to bump, or an object of stat names and values |
 | statValue | `String` | The value for the stat (only used when statName is a string) |
 
-Note: Stat names are automatically prefixed with `x_woocommerce-`. Stat tracking is disabled in development mode.
+Note: Stat names are automatically prefixed with `x_poocommerce-`. Stat tracking is disabled in development mode.
 
 ## Debugging
 

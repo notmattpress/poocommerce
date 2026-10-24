@@ -1,13 +1,13 @@
 <?php
 declare( strict_types = 1 );
-namespace Automattic\WooCommerce\Tests\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Tests\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\Assets\Api;
-use Automattic\WooCommerce\Blocks\Integrations\IntegrationRegistry;
-use Automattic\WooCommerce\Blocks\Package;
-use Automattic\WooCommerce\StoreApi\Utilities\LocalPickupUtils;
-use Automattic\WooCommerce\Tests\Blocks\Mocks\AssetDataRegistryMock;
-use Automattic\WooCommerce\Tests\Blocks\Mocks\CheckoutMock;
+use Automattic\PooCommerce\Blocks\Assets\Api;
+use Automattic\PooCommerce\Blocks\Integrations\IntegrationRegistry;
+use Automattic\PooCommerce\Blocks\Package;
+use Automattic\PooCommerce\StoreApi\Utilities\LocalPickupUtils;
+use Automattic\PooCommerce\Tests\Blocks\Mocks\AssetDataRegistryMock;
+use Automattic\PooCommerce\Tests\Blocks\Mocks\CheckoutMock;
 
 /**
  * Tests for the Checkout block type
@@ -51,7 +51,7 @@ class Checkout extends \WC_Unit_Test_Case {
 		$this->integration_registry = new IntegrationRegistry();
 		$this->mock_logger          = $this->getMockBuilder( \WC_Logger_Interface::class )->getMock();
 		add_filter(
-			'woocommerce_logging_class',
+			'poocommerce_logging_class',
 			array( $this, 'override_wc_logger' )
 		);
 	}
@@ -65,8 +65,8 @@ class Checkout extends \WC_Unit_Test_Case {
 		parent::tearDown();
 
 		// A test registers a CheckoutMock block type, and the block type registry outlives a test.
-		if ( \WP_Block_Type_Registry::get_instance()->is_registered( 'woocommerce/checkout-mock' ) ) {
-			\WP_Block_Type_Registry::get_instance()->unregister( 'woocommerce/checkout-mock' );
+		if ( \WP_Block_Type_Registry::get_instance()->is_registered( 'poocommerce/checkout-mock' ) ) {
+			\WP_Block_Type_Registry::get_instance()->unregister( 'poocommerce/checkout-mock' );
 		}
 	}
 
@@ -82,8 +82,8 @@ class Checkout extends \WC_Unit_Test_Case {
 		);
 
 		// Sets the page as the checkout page so the code to update the setting correctly processes it.
-		$page_id         = wc_create_page( $page['name'], 'woocommerce_checkout_page_id', $page['title'], $page['content'] );
-		$updated_content = '<!-- wp:woocommerce/checkout {"showOrderNotes":false} --> <div class="wp-block-woocommerce-checkout is-loading"> <!-- wp:woocommerce/checkout-shipping-method-block {"localPickupText":"Changed pickup"} --> <div class="wp-block-woocommerce-checkout-shipping-method-block"></div> <!-- /wp:woocommerce/checkout-shipping-method-block --></div> <!-- /wp:woocommerce/checkout -->';
+		$page_id         = wc_create_page( $page['name'], 'poocommerce_checkout_page_id', $page['title'], $page['content'] );
+		$updated_content = '<!-- wp:poocommerce/checkout {"showOrderNotes":false} --> <div class="wp-block-poocommerce-checkout is-loading"> <!-- wp:poocommerce/checkout-shipping-method-block {"localPickupText":"Changed pickup"} --> <div class="wp-block-poocommerce-checkout-shipping-method-block"></div> <!-- /wp:poocommerce/checkout-shipping-method-block --></div> <!-- /wp:poocommerce/checkout -->';
 		wp_update_post(
 			[
 				'ID'           => $page_id,
@@ -96,7 +96,7 @@ class Checkout extends \WC_Unit_Test_Case {
 		$this->assertEquals( 'Changed pickup', $pickup_location_settings['title'] );
 
 		// Updates the pickup title with the default value.
-		$updated_content = '<!-- wp:woocommerce/checkout {"showOrderNotes":false} --> <div class="wp-block-woocommerce-checkout is-loading"> <!-- wp:woocommerce/checkout-shipping-method-block {"localPickupText":"Pickup"} --> <div class="wp-block-woocommerce-checkout-shipping-method-block"></div> <!-- /wp:woocommerce/checkout-shipping-method-block --></div> <!-- /wp:woocommerce/checkout -->';
+		$updated_content = '<!-- wp:poocommerce/checkout {"showOrderNotes":false} --> <div class="wp-block-poocommerce-checkout is-loading"> <!-- wp:poocommerce/checkout-shipping-method-block {"localPickupText":"Pickup"} --> <div class="wp-block-poocommerce-checkout-shipping-method-block"></div> <!-- /wp:poocommerce/checkout-shipping-method-block --></div> <!-- /wp:poocommerce/checkout -->';
 		wp_update_post(
 			[
 				'ID'           => $page_id,
@@ -109,7 +109,7 @@ class Checkout extends \WC_Unit_Test_Case {
 		$this->assertEquals( 'Pickup', $pickup_location_settings['title'] );
 
 		// Updates the pickup title with an empty value.
-		$updated_content = '<!-- wp:woocommerce/checkout {"showOrderNotes":false} --> <div class="wp-block-woocommerce-checkout is-loading"> <!-- wp:woocommerce/checkout-shipping-method-block {"localPickupText":""} --> <div class="wp-block-woocommerce-checkout-shipping-method-block"></div> <!-- /wp:woocommerce/checkout-shipping-method-block --></div> <!-- /wp:woocommerce/checkout -->';
+		$updated_content = '<!-- wp:poocommerce/checkout {"showOrderNotes":false} --> <div class="wp-block-poocommerce-checkout is-loading"> <!-- wp:poocommerce/checkout-shipping-method-block {"localPickupText":""} --> <div class="wp-block-poocommerce-checkout-shipping-method-block"></div> <!-- /wp:poocommerce/checkout-shipping-method-block --></div> <!-- /wp:poocommerce/checkout -->';
 		wp_update_post(
 			[
 				'ID'           => $page_id,
@@ -122,7 +122,7 @@ class Checkout extends \WC_Unit_Test_Case {
 		$this->assertEquals( 'Pickup', $pickup_location_settings['title'] );
 
 		// Updates the pickup title back to "Changed pickup" to test AssetDataRegistry.
-		$updated_content = '<!-- wp:woocommerce/checkout {"showOrderNotes":false} --> <div class="wp-block-woocommerce-checkout is-loading"> <!-- wp:woocommerce/checkout-shipping-method-block {"localPickupText":"Changed pickup"} --> <div class="wp-block-woocommerce-checkout-shipping-method-block"></div> <!-- /wp:woocommerce/checkout-shipping-method-block --></div> <!-- /wp:woocommerce/checkout -->';
+		$updated_content = '<!-- wp:poocommerce/checkout {"showOrderNotes":false} --> <div class="wp-block-poocommerce-checkout is-loading"> <!-- wp:poocommerce/checkout-shipping-method-block {"localPickupText":"Changed pickup"} --> <div class="wp-block-poocommerce-checkout-shipping-method-block"></div> <!-- /wp:poocommerce/checkout-shipping-method-block --></div> <!-- /wp:poocommerce/checkout -->';
 		wp_update_post(
 			[
 				'ID'           => $page_id,

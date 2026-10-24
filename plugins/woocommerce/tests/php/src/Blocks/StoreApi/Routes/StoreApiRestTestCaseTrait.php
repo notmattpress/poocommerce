@@ -5,7 +5,7 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\StoreApi\Routes;
+namespace Automattic\PooCommerce\Tests\Blocks\StoreApi\Routes;
 
 /**
  * Provides namespace-scoped Store API route registration.
@@ -30,7 +30,7 @@ trait StoreApiRestTestCaseTrait {
 	protected static function create_class_fixture_products( array $product_properties ): array {
 		return self::with_direct_product_attribute_lookup_updates(
 			static function () use ( $product_properties ) {
-				$fixtures = new \Automattic\WooCommerce\Tests\Blocks\Helpers\FixtureData();
+				$fixtures = new \Automattic\PooCommerce\Tests\Blocks\Helpers\FixtureData();
 
 				return array_map(
 					static function ( array $properties ) use ( $fixtures ) {
@@ -43,7 +43,7 @@ trait StoreApiRestTestCaseTrait {
 	}
 
 	/**
-	 * Delete class-owned products through WooCommerce data stores.
+	 * Delete class-owned products through PooCommerce data stores.
 	 *
 	 * @param int[] $product_ids Product IDs to delete.
 	 */
@@ -61,7 +61,7 @@ trait StoreApiRestTestCaseTrait {
 	}
 
 	/**
-	 * Create a REST server with only the relevant WooCommerce namespace loaded.
+	 * Create a REST server with only the relevant PooCommerce namespace loaded.
 	 */
 	protected function initialize_store_api_server(): void {
 		/** @var \WP_REST_Server $wp_rest_server */

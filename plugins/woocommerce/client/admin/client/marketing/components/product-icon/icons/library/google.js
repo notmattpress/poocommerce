@@ -11,7 +11,7 @@ import { WC_ASSET_URL } from '~/utils/admin-settings';
 const google = (
 	<img
 		src={ `${ WC_ASSET_URL }images/marketing/google.svg` }
-		alt={ __( 'Google', 'woocommerce' ) }
+		alt={ __( 'Google', 'poocommerce' ) }
 		style={ { padding: '4px' } }
 	/>
 );

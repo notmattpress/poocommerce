@@ -2,9 +2,9 @@
  * External dependencies
  */
 import { fireEvent, render, screen } from '@testing-library/react';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
-jest.mock( '@woocommerce/tracks', () => ( { recordEvent: jest.fn() } ) );
+jest.mock( '@poocommerce/tracks', () => ( { recordEvent: jest.fn() } ) );
 
 jest.mock( '~/utils/admin-settings', () => ( {
 	getAdminSetting: () => ( {
@@ -30,14 +30,14 @@ const subscription = {
 	product_key: 'product-key',
 	product_name: 'Product Add-Ons',
 	product_id: 18618,
-	zip_slug: 'woocommerce-product-addons',
+	zip_slug: 'poocommerce-product-addons',
 	version: '8.0.0',
 	active: true,
 	update_requires_php_met: false,
 	local: {
 		installed: true,
-		slug: 'woocommerce-product-addons',
-		path: 'woocommerce-product-addons/woocommerce-product-addons.php',
+		slug: 'poocommerce-product-addons',
+		path: 'poocommerce-product-addons/poocommerce-product-addons.php',
 	},
 } as unknown as Subscription;
 

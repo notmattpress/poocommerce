@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { Command } from '@commander-js/extra-typings';
-import { Logger } from '@woocommerce/monorepo-utils/src/core/logger';
+import { Logger } from '@poocommerce/monorepo-utils/src/core/logger';
 import dotenv from 'dotenv';
 import { writeFile } from 'fs/promises';
 import { tmpdir } from 'os';
@@ -18,12 +18,12 @@ dotenv.config();
 
 const program = new Command()
 	.name( 'release-post' )
-	.description( 'Utilities for WooCommerce release posts.' );
+	.description( 'Utilities for PooCommerce release posts.' );
 
 program
 	.command( 'contributors' )
 	.description(
-		'Generate an HTML contributors list for a WooCommerce release.'
+		'Generate an HTML contributors list for a PooCommerce release.'
 	)
 	.argument( '<currentRef>', 'The Git ref for the current release.' )
 	.argument( '<previousRef>', 'The Git ref for the previous release.' )

@@ -3,9 +3,9 @@
 **Source:**
 
 - #69160: the Helper updates cache moved to a one-week lifetime but counts as fresh for 12 hours, so
-  `get_updates_count()` made a blocking WooCommerce.com request while an admin page rendered. Fixed in
+  `get_updates_count()` made a blocking PooCommerce.com request while an admin page rendered. Fixed in
   #69454.
-- Earlier review finding: a tracker POST made blocking now ran inside the WooCommerce.com connect
+- Earlier review finding: a tracker POST made blocking now ran inside the PooCommerce.com connect
   request.
 
 **What broke:** A remote request that used to be cached, deferred, or non-blocking started running

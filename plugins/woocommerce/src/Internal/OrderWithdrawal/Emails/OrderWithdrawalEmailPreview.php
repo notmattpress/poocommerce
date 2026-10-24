@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\OrderWithdrawal\Emails;
+namespace Automattic\PooCommerce\Internal\OrderWithdrawal\Emails;
 
-use Automattic\WooCommerce\Internal\OrderWithdrawal\OrderWithdrawalFormProcessor;
-use Automattic\WooCommerce\Internal\RegisterHooksInterface;
+use Automattic\PooCommerce\Internal\OrderWithdrawal\OrderWithdrawalFormProcessor;
+use Automattic\PooCommerce\Internal\RegisterHooksInterface;
 use WC_Email_Customer_Order_Withdrawal_Requested;
 use WC_Email_Order_Withdrawal_Requested;
 use WC_Order;
@@ -22,7 +22,7 @@ final class OrderWithdrawalEmailPreview implements RegisterHooksInterface {
 	 * @since 11.2.0
 	 */
 	public function register(): void {
-		add_filter( 'woocommerce_prepare_email_for_preview', array( $this, 'prepare_email_for_preview' ), 10, 1 );
+		add_filter( 'poocommerce_prepare_email_for_preview', array( $this, 'prepare_email_for_preview' ), 10, 1 );
 	}
 
 	/**
@@ -52,7 +52,7 @@ final class OrderWithdrawalEmailPreview implements RegisterHooksInterface {
 			OrderWithdrawalFormProcessor::FIELD_EMAIL      => $order->get_billing_email(),
 			OrderWithdrawalFormProcessor::FIELD_ORDER_NUMBER => $order->get_order_number(),
 			OrderWithdrawalFormProcessor::FIELD_WITHDRAWAL_TYPE => OrderWithdrawalFormProcessor::WITHDRAWAL_TYPE_SPECIFIC,
-			OrderWithdrawalFormProcessor::FIELD_ADDITIONAL_DETAILS => __( 'I would like to withdraw the first item from this order.', 'woocommerce' ),
+			OrderWithdrawalFormProcessor::FIELD_ADDITIONAL_DETAILS => __( 'I would like to withdraw the first item from this order.', 'poocommerce' ),
 		);
 		$email->submitted_at                         = $order_date ? $order_date->getTimestamp() : time();
 		$email->placeholders['{order_number}']       = $order->get_order_number();

@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { usePrevious } from '@woocommerce/base-hooks';
+import { usePrevious } from '@poocommerce/base-hooks';
 import { useMemo } from '@wordpress/element';
 import {
 	// @ts-expect-error Using experimental features
@@ -27,17 +27,17 @@ import {
 import { DEFAULT_QUERY } from '../../constants';
 import { getDefaultValueOfInherit } from '../../utils';
 
-const label = __( 'Query type', 'woocommerce' );
-const defaultOptionLabel = __( 'Default', 'woocommerce' );
-const customOptionLabel = __( 'Custom', 'woocommerce' );
+const label = __( 'Query type', 'poocommerce' );
+const defaultOptionLabel = __( 'Default', 'poocommerce' );
+const customOptionLabel = __( 'Custom', 'poocommerce' );
 
 const defaultInheritHelpText = __(
 	'Display products based on the current template.',
-	'woocommerce'
+	'poocommerce'
 );
 const customHelpText = __(
 	'Show products based on specific criteria.',
-	'woocommerce'
+	'poocommerce'
 );
 
 const InheritQueryControl = ( {

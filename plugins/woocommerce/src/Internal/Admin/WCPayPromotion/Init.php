@@ -3,19 +3,19 @@
  * Handles WooPayments promotion.
  */
 
-namespace Automattic\WooCommerce\Internal\Admin\WCPayPromotion;
+namespace Automattic\PooCommerce\Internal\Admin\WCPayPromotion;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\Features\PaymentGatewaySuggestions\EvaluateSuggestion;
-use Automattic\WooCommerce\Internal\Admin\WCAdminAssets;
-use Automattic\WooCommerce\Admin\RemoteSpecs\RemoteSpecsEngine;
-use Automattic\WooCommerce\Utilities\FeaturesUtil;
+use Automattic\PooCommerce\Admin\Features\PaymentGatewaySuggestions\EvaluateSuggestion;
+use Automattic\PooCommerce\Internal\Admin\WCAdminAssets;
+use Automattic\PooCommerce\Admin\RemoteSpecs\RemoteSpecsEngine;
+use Automattic\PooCommerce\Utilities\FeaturesUtil;
 
 /**
  * WooPayments Promotion engine.
  *
- * @deprecated 9.9.0 The WooPayments promotion engine is deprecated and will be removed in a future version of WooCommerce.
+ * @deprecated 9.9.0 The WooPayments promotion engine is deprecated and will be removed in a future version of PooCommerce.
  */
 class Init extends RemoteSpecsEngine {
 
@@ -28,7 +28,7 @@ class Init extends RemoteSpecsEngine {
 	 */
 	public static function possibly_register_pre_install_wc_pay_promotion_gateway( $gateways ) {
 		if ( self::can_show_promotion() && ! WCPaymentGatewayPreInstallWCPayPromotion::is_dismissed() ) {
-			$gateways[] = 'Automattic\WooCommerce\Internal\Admin\WCPayPromotion\WCPaymentGatewayPreInstallWCPayPromotion';
+			$gateways[] = 'Automattic\PooCommerce\Internal\Admin\WCPayPromotion\WCPaymentGatewayPreInstallWCPayPromotion';
 		}
 		return $gateways;
 	}
@@ -86,7 +86,7 @@ class Init extends RemoteSpecsEngine {
 			array_filter(
 				$promotions,
 				function ( $promotion ) {
-					return isset( $promotion->plugins ) && in_array( 'woocommerce-payments', $promotion->plugins, true );
+					return isset( $promotion->plugins ) && in_array( 'poocommerce-payments', $promotion->plugins, true );
 				}
 			)
 		);
@@ -133,7 +133,7 @@ class Init extends RemoteSpecsEngine {
 	 * @return array
 	 */
 	public static function get_cached_or_default_promotions() {
-		$specs = 'no' === get_option( 'woocommerce_show_marketplace_suggestions', 'yes' )
+		$specs = 'no' === get_option( 'poocommerce_show_marketplace_suggestions', 'yes' )
 			? DefaultPromotions::get_all()
 			: WCPayPromotionDataSourcePoller::get_instance()->get_cached_specs();
 
@@ -152,7 +152,7 @@ class Init extends RemoteSpecsEngine {
 	public static function is_woopay_eligible() {
 		$wcpay_promotion = self::get_wc_pay_promotion_spec( false );
 
-		return $wcpay_promotion && 'woocommerce_payments:woopay' === $wcpay_promotion->id;
+		return $wcpay_promotion && 'poocommerce_payments:woopay' === $wcpay_promotion->id;
 	}
 
 	/**
@@ -168,7 +168,7 @@ class Init extends RemoteSpecsEngine {
 	 * @return array List of specs.
 	 */
 	public static function get_specs() {
-		if ( get_option( 'woocommerce_show_marketplace_suggestions', 'yes' ) === 'no' ) {
+		if ( get_option( 'poocommerce_show_marketplace_suggestions', 'yes' ) === 'no' ) {
 			return DefaultPromotions::get_all();
 		}
 

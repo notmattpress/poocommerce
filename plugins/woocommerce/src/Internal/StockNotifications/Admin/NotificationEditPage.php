@@ -2,16 +2,16 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\StockNotifications\Admin;
+namespace Automattic\PooCommerce\Internal\StockNotifications\Admin;
 
-use Automattic\WooCommerce\Internal\StockNotifications\Notification;
-use Automattic\WooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
-use Automattic\WooCommerce\Internal\StockNotifications\Admin\NotificationsPage;
-use Automattic\WooCommerce\Internal\StockNotifications\Factory;
-use Automattic\WooCommerce\Internal\StockNotifications\Emails\EmailManager;
-use Automattic\WooCommerce\Internal\StockNotifications\Admin\ListTable;
-use Automattic\WooCommerce\Internal\StockNotifications\Enums\NotificationCancellationSource;
-use Automattic\WooCommerce\Internal\StockNotifications\Frontend\NotificationManagementService;
+use Automattic\PooCommerce\Internal\StockNotifications\Notification;
+use Automattic\PooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
+use Automattic\PooCommerce\Internal\StockNotifications\Admin\NotificationsPage;
+use Automattic\PooCommerce\Internal\StockNotifications\Factory;
+use Automattic\PooCommerce\Internal\StockNotifications\Emails\EmailManager;
+use Automattic\PooCommerce\Internal\StockNotifications\Admin\ListTable;
+use Automattic\PooCommerce\Internal\StockNotifications\Enums\NotificationCancellationSource;
+use Automattic\PooCommerce\Internal\StockNotifications\Frontend\NotificationManagementService;
 
 /**
  * Notification create page for Customer Stock Notifications.
@@ -47,7 +47,7 @@ class NotificationEditPage {
 		}
 
 		if ( ! $notification instanceof Notification ) {
-			$notice_message = __( 'Notification not found.', 'woocommerce' );
+			$notice_message = __( 'Notification not found.', 'poocommerce' );
 			NotificationsPage::add_notice( $notice_message, 'error' );
 			wp_safe_redirect( admin_url( NotificationsPage::PAGE_URL ) );
 			exit;
@@ -78,7 +78,7 @@ class NotificationEditPage {
 			return;
 		}
 
-		check_admin_referer( 'woocommerce-customer-stock-notification-edit', 'customer_stock_notification_edit_security' );
+		check_admin_referer( 'poocommerce-customer-stock-notification-edit', 'customer_stock_notification_edit_security' );
 
 		$action = wc_clean( wp_unslash( $_POST['wc_customer_stock_notification_action'] ) );
 		switch ( $action ) {
@@ -89,7 +89,7 @@ class NotificationEditPage {
 					$notice_message = $result->get_error_message();
 					NotificationsPage::add_notice( $notice_message, 'error' );
 				} else {
-					$notice_message = __( 'Notification updated.', 'woocommerce' );
+					$notice_message = __( 'Notification updated.', 'poocommerce' );
 					NotificationsPage::add_notice( $notice_message, 'success' );
 				}
 				break;
@@ -102,7 +102,7 @@ class NotificationEditPage {
 					$notice_message = $result->get_error_message();
 					NotificationsPage::add_notice( $notice_message, 'error' );
 				} else {
-					$notice_message = __( 'Notification updated.', 'woocommerce' );
+					$notice_message = __( 'Notification updated.', 'poocommerce' );
 					NotificationsPage::add_notice( $notice_message, 'success' );
 				}
 				break;
@@ -110,7 +110,7 @@ class NotificationEditPage {
 				$product = $notification->get_product();
 
 				if ( ! $product || ! $product->is_in_stock() ) {
-					$notice_message = __( 'Failed to send notification. Please make sure that the listed product is available.', 'woocommerce' );
+					$notice_message = __( 'Failed to send notification. Please make sure that the listed product is available.', 'poocommerce' );
 					NotificationsPage::add_notice( $notice_message, 'error' );
 				} else {
 					$this->email_manager->send_stock_notification_email( $notification );
@@ -118,13 +118,13 @@ class NotificationEditPage {
 					$notification->set_date_notified( time() );
 					$notification->save();
 					// translators: %s user email.
-					$notice_message = sprintf( __( 'Notification sent to "%s".', 'woocommerce' ), $notification->get_user_email() );
+					$notice_message = sprintf( __( 'Notification sent to "%s".', 'poocommerce' ), $notification->get_user_email() );
 					NotificationsPage::add_notice( $notice_message, 'success' );
 				}
 				break;
 			case 'send_verification_email':
 				if ( NotificationStatus::PENDING !== $notification->get_status() ) {
-					$notice_message = __( 'Cannot resend verification: this notification is already verified or cancelled.', 'woocommerce' );
+					$notice_message = __( 'Cannot resend verification: this notification is already verified or cancelled.', 'poocommerce' );
 					NotificationsPage::add_notice( $notice_message, 'error' );
 					break;
 				}
@@ -134,7 +134,7 @@ class NotificationEditPage {
 				$notification->save();
 				$this->email_manager->send_verify_email( $notification );
 				// translators: %s user email.
-				$notice_message = sprintf( __( 'Verification email sent to "%s".', 'woocommerce' ), $notification->get_user_email() );
+				$notice_message = sprintf( __( 'Verification email sent to "%s".', 'poocommerce' ), $notification->get_user_email() );
 				NotificationsPage::add_notice( $notice_message, 'success' );
 				break;
 		}

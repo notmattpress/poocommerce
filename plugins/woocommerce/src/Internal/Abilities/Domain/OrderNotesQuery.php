@@ -5,15 +5,15 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Abilities\AbilityDefinition;
-use Automattic\WooCommerce\Internal\Abilities\Domain\Traits\OrderAbilityTrait;
+use Automattic\PooCommerce\Abilities\AbilityDefinition;
+use Automattic\PooCommerce\Internal\Abilities\Domain\Traits\OrderAbilityTrait;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Registers the WooCommerce order notes query ability.
+ * Registers the PooCommerce order notes query ability.
  */
 class OrderNotesQuery extends AbstractDomainAbility implements AbilityDefinition {
 
@@ -27,7 +27,7 @@ class OrderNotesQuery extends AbstractDomainAbility implements AbilityDefinition
 	 * @since 11.3.0
 	 */
 	public static function get_name(): string {
-		return 'woocommerce/order-notes-query';
+		return 'poocommerce/order-notes-query';
 	}
 
 	/**
@@ -39,12 +39,12 @@ class OrderNotesQuery extends AbstractDomainAbility implements AbilityDefinition
 	 */
 	public static function get_registration_args(): array {
 		return array(
-			'label'               => __( 'Query order notes', 'woocommerce' ),
+			'label'               => __( 'Query order notes', 'poocommerce' ),
 			'description'         => __(
 				'List every note of an order, newest first.',
-				'woocommerce'
+				'poocommerce'
 			),
-			'category'            => 'woocommerce',
+			'category'            => 'poocommerce',
 			'input_schema'        => self::get_input_schema(),
 			'output_schema'       => self::get_output_schema(),
 			'execute_callback'    => array( __CLASS__, 'execute' ),
@@ -114,7 +114,7 @@ class OrderNotesQuery extends AbstractDomainAbility implements AbilityDefinition
 			'properties'           => array(
 				'id' => array(
 					'type'        => 'integer',
-					'description' => __( 'Order ID.', 'woocommerce' ),
+					'description' => __( 'Order ID.', 'poocommerce' ),
 					'minimum'     => 1,
 				),
 			),

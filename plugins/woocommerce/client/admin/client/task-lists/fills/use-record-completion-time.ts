@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { useRef } from '@wordpress/element';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies

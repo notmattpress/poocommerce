@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\Templates;
+namespace Automattic\PooCommerce\Tests\Blocks\Templates;
 
-use Automattic\WooCommerce\Blocks\Templates\SingleProductTemplate;
+use Automattic\PooCommerce\Blocks\Templates\SingleProductTemplate;
 use WP_UnitTestCase;
 
 /**
@@ -28,7 +28,7 @@ class SingleProductTemplateTests extends WP_UnitTestCase {
 		$single_product_template                  = new SingleProductTemplate();
 		$default_product_catalog_template_content = '
 			<!-- wp:template-part {"slug":"header","theme":"twentytwentythree","tagName":"header"} /-->
-			<!-- wp:woocommerce/product-image-gallery /-->
+			<!-- wp:poocommerce/product-image-gallery /-->
 			<!-- wp:template-part {"slug":"footer","theme":"twentytwentythree","tagName":"footer"} /-->';
 
 		$template          = new \WP_Block_Template();
@@ -56,7 +56,7 @@ class SingleProductTemplateTests extends WP_UnitTestCase {
 		$single_product_template                 = new SingleProductTemplate();
 		$default_single_product_template_content = '
 			<!-- wp:template-part {"slug":"header","theme":"twentytwentythree","tagName":"header"} /-->
-			<!-- wp:woocommerce/legacy-template {"template":"single-product"} /-->
+			<!-- wp:poocommerce/legacy-template {"template":"single-product"} /-->
 			<!-- wp:template-part {"slug":"footer","theme":"twentytwentythree","tagName":"footer"} /-->';
 
 		$template          = new \WP_Block_Template();
@@ -84,13 +84,13 @@ class SingleProductTemplateTests extends WP_UnitTestCase {
 		$single_product_template                  = new SingleProductTemplate();
 		$default_single_product_template_content  = '
 			<!-- wp:template-part {"slug":"header","theme":"twentytwentythree","tagName":"header"} /-->
-			<!-- wp:woocommerce/product-image-gallery /-->
+			<!-- wp:poocommerce/product-image-gallery /-->
 			<!-- wp:template-part {"slug":"footer","theme":"twentytwentythree","tagName":"footer"} /-->';
 		$expected_single_product_template_content = '
 			<!-- wp:template-part {"slug":"header","theme":"twentytwentythree","tagName":"header"} /-->
-			<!-- wp:group {"className":"woocommerce product","__wooCommerceIsFirstBlock":true,"__wooCommerceIsLastBlock":true} -->
-			<div class="wp-block-group woocommerce product">
-			<!-- wp:woocommerce/product-image-gallery /-->
+			<!-- wp:group {"className":"poocommerce product","__wooCommerceIsFirstBlock":true,"__wooCommerceIsLastBlock":true} -->
+			<div class="wp-block-group poocommerce product">
+			<!-- wp:poocommerce/product-image-gallery /-->
 			</div>
 			<!-- /wp:group -->
 			<!-- wp:template-part {"slug":"footer","theme":"twentytwentythree","tagName":"footer"} /-->';
@@ -122,7 +122,7 @@ class SingleProductTemplateTests extends WP_UnitTestCase {
 			array(
 				'title'       => 'Test Pattern',
 				'description' => 'Test Pattern Description',
-				'content'     => '<!-- wp:woocommerce/legacy-template {"template":"single-product"} /-->',
+				'content'     => '<!-- wp:poocommerce/legacy-template {"template":"single-product"} /-->',
 			)
 		);
 		$single_product_template                 = new SingleProductTemplate();
@@ -158,7 +158,7 @@ class SingleProductTemplateTests extends WP_UnitTestCase {
 			array(
 				'title'       => 'Test Pattern',
 				'description' => 'Test Pattern Description',
-				'content'     => '<!-- wp:woocommerce/product-image-gallery /-->',
+				'content'     => '<!-- wp:poocommerce/product-image-gallery /-->',
 			)
 		);
 		$single_product_template                  = new SingleProductTemplate();
@@ -168,8 +168,8 @@ class SingleProductTemplateTests extends WP_UnitTestCase {
 			<!-- wp:template-part {"slug":"footer","theme":"twentytwentythree","tagName":"footer"} /-->';
 		$expected_single_product_template_content = '
 			<!-- wp:template-part {"slug":"header","theme":"twentytwentythree","tagName":"header"} /-->
-			<!-- wp:group {"className":"woocommerce product","__wooCommerceIsFirstBlock":true,"__wooCommerceIsLastBlock":true} -->
-			<div class="wp-block-group woocommerce product">
+			<!-- wp:group {"className":"poocommerce product","__wooCommerceIsFirstBlock":true,"__wooCommerceIsLastBlock":true} -->
+			<div class="wp-block-group poocommerce product">
 			<!-- wp:pattern {"slug":"test-pattern"} /-->
 			</div>
 			<!-- /wp:group -->
@@ -204,8 +204,8 @@ class SingleProductTemplateTests extends WP_UnitTestCase {
 	public function test_update_single_product_content_adds_product_body_classes( $product_type, $type_class ) {
 		$product_global_existed = array_key_exists( 'product', $GLOBALS );
 		$product_global         = $product_global_existed ? $GLOBALS['product'] : null;
-		$loop_global_existed    = array_key_exists( 'woocommerce_loop', $GLOBALS );
-		$loop_global            = $loop_global_existed ? $GLOBALS['woocommerce_loop'] : null;
+		$loop_global_existed    = array_key_exists( 'poocommerce_loop', $GLOBALS );
+		$loop_global            = $loop_global_existed ? $GLOBALS['poocommerce_loop'] : null;
 
 		try {
 			// The template under test installs its own body_class callback, so clear the
@@ -222,7 +222,7 @@ class SingleProductTemplateTests extends WP_UnitTestCase {
 			$template          = new \WP_Block_Template();
 			$template->slug    = 'single-product';
 			$template->title   = 'Single Product';
-			$template->content = '<!-- wp:woocommerce/product-price /-->';
+			$template->content = '<!-- wp:poocommerce/product-price /-->';
 			$template->type    = 'wp_template';
 
 			$seed_classes = array( 'existing-body-class' );
@@ -244,7 +244,7 @@ class SingleProductTemplateTests extends WP_UnitTestCase {
 
 			$single_product_template->update_single_product_content( array( $template ) );
 
-			// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment -- Exercise the public filter installed by the template under test.
+			// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment -- Exercise the public filter installed by the template under test.
 			$filtered_classes = apply_filters( 'body_class', $seed_classes );
 
 			$this->assertSame( array_merge( $seed_classes, $product_classes ), $filtered_classes );
@@ -260,9 +260,9 @@ class SingleProductTemplateTests extends WP_UnitTestCase {
 			}
 
 			if ( $loop_global_existed ) {
-				$GLOBALS['woocommerce_loop'] = $loop_global;
+				$GLOBALS['poocommerce_loop'] = $loop_global;
 			} else {
-				unset( $GLOBALS['woocommerce_loop'] );
+				unset( $GLOBALS['poocommerce_loop'] );
 			}
 		}
 	}
@@ -273,8 +273,8 @@ class SingleProductTemplateTests extends WP_UnitTestCase {
 	public function test_update_single_product_content_adds_has_post_thumbnail_only_for_imaged_product() {
 		$product_global_existed = array_key_exists( 'product', $GLOBALS );
 		$product_global         = $product_global_existed ? $GLOBALS['product'] : null;
-		$loop_global_existed    = array_key_exists( 'woocommerce_loop', $GLOBALS );
-		$loop_global            = $loop_global_existed ? $GLOBALS['woocommerce_loop'] : null;
+		$loop_global_existed    = array_key_exists( 'poocommerce_loop', $GLOBALS );
+		$loop_global            = $loop_global_existed ? $GLOBALS['poocommerce_loop'] : null;
 
 		try {
 			// The template under test installs its own body_class callback, so clear the
@@ -293,14 +293,14 @@ class SingleProductTemplateTests extends WP_UnitTestCase {
 			$template          = new \WP_Block_Template();
 			$template->slug    = 'single-product';
 			$template->title   = 'Single Product';
-			$template->content = '<!-- wp:woocommerce/product-price /-->';
+			$template->content = '<!-- wp:poocommerce/product-price /-->';
 			$template->type    = 'wp_template';
 
 			$single_product_template = new SingleProductTemplate();
 			$single_product_template->update_single_product_content( array( $template ) );
 
 			wc_reset_loop();
-			// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment -- Exercise the public filter installed by the template under test.
+			// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment -- Exercise the public filter installed by the template under test.
 			$imaged_classes = apply_filters( 'body_class', array() );
 
 			$this->assertContains( 'status-publish', $imaged_classes, 'The imaged product body classes must contain status-publish.' );
@@ -310,7 +310,7 @@ class SingleProductTemplateTests extends WP_UnitTestCase {
 			$GLOBALS['post']    = get_post( $imageless_product->get_id() ); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- The template reads the current post; tear_down() nulls it again.
 
 			wc_reset_loop();
-			// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment -- Exercise the public filter installed by the template under test.
+			// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment -- Exercise the public filter installed by the template under test.
 			$imageless_classes = apply_filters( 'body_class', array() );
 
 			$this->assertContains( 'status-publish', $imageless_classes, 'The imageless product body classes must contain status-publish.' );
@@ -325,9 +325,9 @@ class SingleProductTemplateTests extends WP_UnitTestCase {
 			}
 
 			if ( $loop_global_existed ) {
-				$GLOBALS['woocommerce_loop'] = $loop_global;
+				$GLOBALS['poocommerce_loop'] = $loop_global;
 			} else {
-				unset( $GLOBALS['woocommerce_loop'] );
+				unset( $GLOBALS['poocommerce_loop'] );
 			}
 		}
 	}
@@ -352,7 +352,7 @@ class SingleProductTemplateTests extends WP_UnitTestCase {
 	<!-- wp:template-part {"slug":"header","theme":"twentytwentythree","tagName":"header"} /-->
 	<!-- wp:group {"layout":{"inherit":true,"type":"constrained"}} -->
 	<div class="wp-block-group">
-	<!-- wp:woocommerce/legacy-template {"template":"single-product"} /-->
+	<!-- wp:poocommerce/legacy-template {"template":"single-product"} /-->
 	</div>
 	<!-- /wp:group -->
 	<!-- wp:template-part {"slug":"footer","theme":"twentytwentythree","tagName":"footer"} /-->';
@@ -361,7 +361,7 @@ class SingleProductTemplateTests extends WP_UnitTestCase {
 	<!-- wp:template-part {"slug":"header","theme":"twentytwentythree","tagName":"header"} /-->
 	<!-- wp:group {"layout":{"inherit":true,"type":"constrained"}} -->
 	<div class="wp-block-group">
-	<!-- wp:woocommerce/legacy-template {"template":"single-product"} /-->
+	<!-- wp:poocommerce/legacy-template {"template":"single-product"} /-->
 	</div>
 	<!-- /wp:group -->
 	<!-- wp:template-part {"slug":"footer","theme":"twentytwentythree","tagName":"footer"} /-->';
@@ -384,7 +384,7 @@ class SingleProductTemplateTests extends WP_UnitTestCase {
 	<!-- wp:template-part {"slug":"header","theme":"twentytwentythree","tagName":"header"} /-->
 	<!-- wp:group {"layout":{"inherit":true,"type":"constrained"}} -->
 	<div class="wp-block-group">
-	<!-- wp:woocommerce/product-image-gallery {"layout":{"inherit":true,"type":"constrained"}} /-->
+	<!-- wp:poocommerce/product-image-gallery {"layout":{"inherit":true,"type":"constrained"}} /-->
 	</div>
 	<!-- /wp:group -->
 	<!-- wp:template-part {"slug":"footer","theme":"twentytwentythree","tagName":"footer"} /-->';
@@ -420,34 +420,34 @@ class SingleProductTemplateTests extends WP_UnitTestCase {
 
 		<!-- wp:group {"layout":{"inherit":true,"type":"constrained"}} -->
 		<div class="wp-block-group">
-			<!-- wp:woocommerce/breadcrumbs /-->
-			<!-- wp:woocommerce/store-notices /-->
+			<!-- wp:poocommerce/breadcrumbs /-->
+			<!-- wp:poocommerce/store-notices /-->
 
 			<!-- wp:columns {"align":"wide"} -->
 			<div class="wp-block-columns alignwide">
 				<!-- wp:column {"width":"512px"} -->
 				<div class="wp-block-column" style="flex-basis:512px">
-					<!-- wp:woocommerce/product-image-gallery /-->
+					<!-- wp:poocommerce/product-image-gallery /-->
 				</div>
 				<!-- /wp:column -->
 
 				<!-- wp:column -->
 				<div class="wp-block-column">
-					<!-- wp:post-title {"level": 1, "__woocommerceNamespace":"woocommerce/product-title"} /-->
+					<!-- wp:post-title {"level": 1, "__poocommerceNamespace":"poocommerce/product-title"} /-->
 
-					<!-- wp:woocommerce/product-rating /-->
+					<!-- wp:poocommerce/product-rating /-->
 
-					<!-- wp:woocommerce/product-price {"fontSize":"large"} /-->
+					<!-- wp:poocommerce/product-price {"fontSize":"large"} /-->
 
-					<!-- wp:post-excerpt {"__woocommerceNamespace":"woocommerce/product-summary", "excerptLength":100} /-->
+					<!-- wp:post-excerpt {"__poocommerceNamespace":"poocommerce/product-summary", "excerptLength":100} /-->
 
-					<!-- wp:woocommerce/add-to-cart-form /-->
+					<!-- wp:poocommerce/add-to-cart-form /-->
 
-					<!-- wp:woocommerce/product-meta -->
-					<div class="wp-block-woocommerce-product-meta">
+					<!-- wp:poocommerce/product-meta -->
+					<div class="wp-block-poocommerce-product-meta">
 						<!-- wp:group {"layout":{"type":"flex","flexWrap":"nowrap"}} -->
 						<div class="wp-block-group">
-							<!-- wp:woocommerce/product-sku /-->
+							<!-- wp:poocommerce/product-sku /-->
 
 							<!-- wp:post-terms {"term":"product_cat","prefix":"Category: "} /-->
 
@@ -455,35 +455,35 @@ class SingleProductTemplateTests extends WP_UnitTestCase {
 						</div>
 						<!-- /wp:group -->
 					</div>
-					<!-- /wp:woocommerce/product-meta -->
+					<!-- /wp:poocommerce/product-meta -->
 				</div>
 				<!-- /wp:column -->
 			</div>
 			<!-- /wp:columns -->
 
-			<!-- wp:woocommerce/product-details {"align":"wide"} /-->
+			<!-- wp:poocommerce/product-details {"align":"wide"} /-->
 
-			<!-- wp:woocommerce/related-products {"align":"wide"} -->
-			<div class="wp-block-woocommerce-related-products alignwide">
-				<!-- wp:query {"queryId":0,"query":{"perPage":5,"pages":0,"offset":0,"postType":"product","order":"asc","orderBy":"title","author":"","search":"","exclude":[],"sticky":"","inherit":false},"displayLayout":{"type":"flex","columns":5},"namespace":"woocommerce/related-products","lock":{"remove":true,"move":true}} -->
+			<!-- wp:poocommerce/related-products {"align":"wide"} -->
+			<div class="wp-block-poocommerce-related-products alignwide">
+				<!-- wp:query {"queryId":0,"query":{"perPage":5,"pages":0,"offset":0,"postType":"product","order":"asc","orderBy":"title","author":"","search":"","exclude":[],"sticky":"","inherit":false},"displayLayout":{"type":"flex","columns":5},"namespace":"poocommerce/related-products","lock":{"remove":true,"move":true}} -->
 				<div class="wp-block-query">
 					<!-- wp:heading -->
 					<h2 class="wp-block-heading">Related products</h2>
 					<!-- /wp:heading -->
 
-					<!-- wp:post-template {"className":"products-block-post-template","__woocommerceNamespace":"woocommerce/product-query/product-template"} -->
-					<!-- wp:woocommerce/product-image /-->
+					<!-- wp:post-template {"className":"products-block-post-template","__poocommerceNamespace":"poocommerce/product-query/product-template"} -->
+					<!-- wp:poocommerce/product-image /-->
 
-					<!-- wp:post-title {"textAlign":"center","level":3,"fontSize":"medium","__woocommerceNamespace":"woocommerce/product-query/product-title"} /-->
+					<!-- wp:post-title {"textAlign":"center","level":3,"fontSize":"medium","__poocommerceNamespace":"poocommerce/product-query/product-title"} /-->
 
-					<!-- wp:woocommerce/product-price {"textAlign":"center","fontSize":"small","style":{"spacing":{"margin":{"bottom":"1rem"}}}} /-->
+					<!-- wp:poocommerce/product-price {"textAlign":"center","fontSize":"small","style":{"spacing":{"margin":{"bottom":"1rem"}}}} /-->
 
-					<!-- wp:woocommerce/product-button {"textAlign":"center","fontSize":"small","style":{"spacing":{"margin":{"bottom":"1rem"}}}} /-->
+					<!-- wp:poocommerce/product-button {"textAlign":"center","fontSize":"small","style":{"spacing":{"margin":{"bottom":"1rem"}}}} /-->
 					<!-- /wp:post-template -->
 				</div>
 				<!-- /wp:query -->
 			</div>
-			<!-- /wp:woocommerce/related-products -->
+			<!-- /wp:poocommerce/related-products -->
 		</div>
 		<!-- /wp:group -->
 
@@ -496,8 +496,8 @@ class SingleProductTemplateTests extends WP_UnitTestCase {
 			<!-- wp:template-part {"slug":"header"} /-->
 			<!-- wp:group {"layout":{"inherit":true,"type":"constrained"}} -->
 			<div class="wp-block-group">
-			<!-- wp:woocommerce/breadcrumbs /-->
-			   <!-- wp:woocommerce/store-notices /-->
+			<!-- wp:poocommerce/breadcrumbs /-->
+			   <!-- wp:poocommerce/store-notices /-->
 			   <!-- wp:columns {"align":"wide"} -->
 			   <div class="wp-block-columns alignwide">
 				  <!-- wp:column {"width":"512px"} -->
@@ -529,8 +529,8 @@ class SingleProductTemplateTests extends WP_UnitTestCase {
 	public function test_replace_top_level_single_product_blocks_with_input_form() {
 		$default_single_product_template = '
 	<!-- wp:template-part {"slug":"header","theme":"twentytwentythree","tagName":"header"} /-->
-	<!-- wp:woocommerce/product-image-gallery /-->
-	<!-- wp:woocommerce/product-price  /-->
+	<!-- wp:poocommerce/product-image-gallery /-->
+	<!-- wp:poocommerce/product-price  /-->
 	<!-- wp:template-part {"slug":"footer","theme":"twentytwentythree","tagName":"footer"} /-->';
 
 		$expected_single_product_template = sprintf(
@@ -560,7 +560,7 @@ class SingleProductTemplateTests extends WP_UnitTestCase {
 			array(
 				'title'       => 'Test Single Product Pattern',
 				'description' => 'Test Pattern Description',
-				'content'     => '<!-- wp:woocommerce/product-price /-->',
+				'content'     => '<!-- wp:poocommerce/product-price /-->',
 			)
 		);
 
@@ -597,16 +597,16 @@ class SingleProductTemplateTests extends WP_UnitTestCase {
 	<div class="wp-block-columns alignwide">
 		<!-- wp:column {"width":"512px"} -->
 		<div class="wp-block-column" style="flex-basis:512px">
-			<!-- wp:woocommerce/product-image-gallery /-->
+			<!-- wp:poocommerce/product-image-gallery /-->
 		</div>
 		<!-- /wp:column -->
 		<!-- wp:column -->
 		<div class="wp-block-column">
-			<!-- wp:woocommerce/product-price /-->
+			<!-- wp:poocommerce/product-price /-->
 			<!-- wp:paragraph -->
 			<p>Additional information.</p>
 			<!-- /wp:paragraph -->
-			<!-- wp:woocommerce/add-to-cart-form /-->
+			<!-- wp:poocommerce/add-to-cart-form /-->
 		</div>
 		<!-- /wp:column -->
 	</div>

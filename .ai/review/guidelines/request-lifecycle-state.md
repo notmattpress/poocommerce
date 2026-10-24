@@ -2,7 +2,7 @@
 
 **Source:**
 
-- #69538: building the mailer on `woocommerce_init` froze `woocommerce_email_classes` before features added their emails.
+- #69538: building the mailer on `poocommerce_init` froze `poocommerce_email_classes` before features added their emails.
 - #64881: early textdomain load.
 - #63066: REST controllers built before WC loaded.
 - #57255 (9.8.2): cart loaded too early.

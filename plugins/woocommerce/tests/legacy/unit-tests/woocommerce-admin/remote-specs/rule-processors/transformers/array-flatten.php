@@ -2,12 +2,12 @@
 /**
  * ArrayKeys tests.
  *
- * @package WooCommerce\Admin\Tests\RemoteSpecs
+ * @package PooCommerce\Admin\Tests\RemoteSpecs
  */
 
 declare( strict_types = 1 );
 
-use Automattic\WooCommerce\Admin\RemoteSpecs\RuleProcessors\Transformers\ArrayFlatten;
+use Automattic\PooCommerce\Admin\RemoteSpecs\RuleProcessors\Transformers\ArrayFlatten;
 
 /**
  * class WC_Admin_Tests_RemoteInboxNotifications_Transformers_ArrayKeys

@@ -4,7 +4,7 @@
  *
  * Handles requests to the products/attributes endpoint.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @since   2.6.0
  */
 
@@ -13,7 +13,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * REST API Product Attributes controller class.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @extends WC_REST_Product_Attributes_V2_Controller
  */
 class WC_REST_Product_Attributes_Controller extends WC_REST_Product_Attributes_V2_Controller {
@@ -38,7 +38,7 @@ class WC_REST_Product_Attributes_Controller extends WC_REST_Product_Attributes_V
 		$root_slug = wc_sanitize_taxonomy_name( $attribute_name );
 
 		$results = $wpdb->get_results(
-			$wpdb->prepare( "SELECT attribute_name FROM {$wpdb->prefix}woocommerce_attribute_taxonomies WHERE attribute_name LIKE %s ORDER BY attribute_id DESC LIMIT 1", $root_slug . '%' )
+			$wpdb->prepare( "SELECT attribute_name FROM {$wpdb->prefix}poocommerce_attribute_taxonomies WHERE attribute_name LIKE %s ORDER BY attribute_id DESC LIMIT 1", $root_slug . '%' )
 		);
 
 		// The slug is already unique!
@@ -80,7 +80,7 @@ class WC_REST_Product_Attributes_Controller extends WC_REST_Product_Attributes_V
 
 		// Checks for errors.
 		if ( is_wp_error( $id ) ) {
-			return new WP_Error( 'woocommerce_rest_cannot_create', $id->get_error_message(), array( 'status' => 400 ) );
+			return new WP_Error( 'poocommerce_rest_cannot_create', $id->get_error_message(), array( 'status' => 400 ) );
 		}
 
 		$attribute = $this->get_attribute( $id );
@@ -98,7 +98,7 @@ class WC_REST_Product_Attributes_Controller extends WC_REST_Product_Attributes_V
 		 * @param WP_REST_Request $request   Request object.
 		 * @param boolean         $creating  True when creating attribute, false when updating.
 		 */
-		do_action( 'woocommerce_rest_insert_product_attribute', $attribute, $request, true );
+		do_action( 'poocommerce_rest_insert_product_attribute', $attribute, $request, true );
 
 		$request->set_param( 'context', 'edit' );
 		$response = $this->prepare_item_for_response( $attribute, $request );

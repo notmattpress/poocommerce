@@ -3,7 +3,7 @@ title: wc customer
 sidebar_label: wc customer
 ---
 
-Manage WooCommerce customer resources.
+Manage PooCommerce customer resources.
 
 ## wc customer list
 

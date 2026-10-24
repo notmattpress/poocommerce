@@ -69,8 +69,8 @@ export default function Notice( props: NoticeProps ): React.JSX.Element | null {
 	}
 
 	const classes = clsx(
-		'woocommerce-marketplace__notice',
-		`woocommerce-marketplace__notice--${ variant }`,
+		'poocommerce-marketplace__notice',
+		`poocommerce-marketplace__notice--${ variant }`,
 		{
 			'is-dismissible': isDismissible,
 		},
@@ -80,8 +80,8 @@ export default function Notice( props: NoticeProps ): React.JSX.Element | null {
 	const iconElement = iconMap[ ( icon || 'info' ) as IconKey ];
 
 	const iconClass = clsx(
-		'woocommerce-marketplace__notice-icon',
-		`woocommerce-marketplace__notice-icon--${ variant }`
+		'poocommerce-marketplace__notice-icon',
+		`poocommerce-marketplace__notice-icon--${ variant }`
 	);
 
 	return (
@@ -91,20 +91,20 @@ export default function Notice( props: NoticeProps ): React.JSX.Element | null {
 					<Icon icon={ iconElement } />
 				</span>
 			) }
-			<div className="woocommerce-marketplace__notice-content">
+			<div className="poocommerce-marketplace__notice-content">
 				<p
-					className="woocommerce-marketplace__notice-description"
+					className="poocommerce-marketplace__notice-description"
 					dangerouslySetInnerHTML={ sanitizeHTML( description ) }
 				/>
 				{ children && (
-					<div className="woocommerce-marketplace__notice-children">
+					<div className="poocommerce-marketplace__notice-children">
 						{ children }
 					</div>
 				) }
 			</div>
 			{ isDismissible && (
 				<button
-					className="woocommerce-marketplace__notice-close"
+					className="poocommerce-marketplace__notice-close"
 					aria-label="Close"
 					onClick={ handleClose }
 				>

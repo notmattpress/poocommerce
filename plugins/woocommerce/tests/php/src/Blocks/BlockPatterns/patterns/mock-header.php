@@ -1,8 +1,8 @@
 <?php
 /**
  * Title: Mock Header
- * Slug: woocommerce-blocks/mock-header
- * Categories: WooCommerce
+ * Slug: poocommerce-blocks/mock-header
+ * Categories: PooCommerce
  * Block Types: core/template-part/header
  */
 

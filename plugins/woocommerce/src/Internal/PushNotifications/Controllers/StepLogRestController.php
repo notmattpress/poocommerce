@@ -2,14 +2,14 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\PushNotifications\Controllers;
+namespace Automattic\PooCommerce\Internal\PushNotifications\Controllers;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Internal\PushNotifications\Notifications\Notification;
-use Automattic\WooCommerce\Internal\PushNotifications\Services\StepLogQuery;
-use Automattic\WooCommerce\Internal\PushNotifications\Traits\AuthorizesPushNotificationRequests;
-use Automattic\WooCommerce\Internal\RestApiControllerBase;
+use Automattic\PooCommerce\Internal\PushNotifications\Notifications\Notification;
+use Automattic\PooCommerce\Internal\PushNotifications\Services\StepLogQuery;
+use Automattic\PooCommerce\Internal\PushNotifications\Traits\AuthorizesPushNotificationRequests;
+use Automattic\PooCommerce\Internal\RestApiControllerBase;
 use WP_REST_Request;
 use WP_REST_Response;
 use WP_REST_Server;
@@ -87,7 +87,7 @@ class StepLogRestController extends RestApiControllerBase {
 	}
 
 	/**
-	 * Class identifier used by `woocommerce_rest_api_get_rest_namespaces`.
+	 * Class identifier used by `poocommerce_rest_api_get_rest_namespaces`.
 	 *
 	 * Distinct from the URL namespace, because the filter keys one class per
 	 * value and sibling controllers share the URL namespace.
@@ -277,7 +277,7 @@ class StepLogRestController extends RestApiControllerBase {
 	private function get_range_args(): array {
 		return array(
 			'limit' => array(
-				'description'       => __( 'Rows to return, newest first. A page carries every row of its last second, so it can exceed this.', 'woocommerce' ),
+				'description'       => __( 'Rows to return, newest first. A page carries every row of its last second, so it can exceed this.', 'poocommerce' ),
 				'type'              => 'integer',
 				'default'           => self::DEFAULT_LIMIT,
 				'minimum'           => 1,
@@ -286,14 +286,14 @@ class StepLogRestController extends RestApiControllerBase {
 				'validate_callback' => 'rest_validate_request_arg',
 			),
 			'from'  => array(
-				'description'       => __( 'Earliest Unix timestamp to include. Defaults to 48 hours before `to`, and is clamped to 90 days before it.', 'woocommerce' ),
+				'description'       => __( 'Earliest Unix timestamp to include. Defaults to 48 hours before `to`, and is clamped to 90 days before it.', 'poocommerce' ),
 				'type'              => 'integer',
 				'minimum'           => 0,
 				'sanitize_callback' => 'absint',
 				'validate_callback' => 'rest_validate_request_arg',
 			),
 			'to'    => array(
-				'description'       => __( 'Latest Unix timestamp to include. Defaults to now.', 'woocommerce' ),
+				'description'       => __( 'Latest Unix timestamp to include. Defaults to now.', 'poocommerce' ),
 				'type'              => 'integer',
 				'minimum'           => 0,
 				'sanitize_callback' => 'absint',

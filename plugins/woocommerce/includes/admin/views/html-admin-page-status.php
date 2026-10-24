@@ -9,13 +9,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 $current_tab = ! empty( $_REQUEST['tab'] ) ? sanitize_title( $_REQUEST['tab'] ) : 'status';
 $tabs        = array(
-	'status' => __( 'System status', 'woocommerce' ),
-	'tools'  => __( 'Tools', 'woocommerce' ),
-	'logs'   => __( 'Logs', 'woocommerce' ),
+	'status' => __( 'System status', 'poocommerce' ),
+	'tools'  => __( 'Tools', 'poocommerce' ),
+	'logs'   => __( 'Logs', 'poocommerce' ),
 );
-$tabs        = apply_filters( 'woocommerce_admin_status_tabs', $tabs );
+$tabs        = apply_filters( 'poocommerce_admin_status_tabs', $tabs );
 ?>
-<div class="wrap woocommerce">
+<div class="wrap poocommerce">
 	<nav class="nav-tab-wrapper woo-nav-tab-wrapper">
 		<?php
 		foreach ( $tabs as $name => $label ) {
@@ -37,8 +37,8 @@ $tabs        = apply_filters( 'woocommerce_admin_status_tabs', $tabs );
 			WC_Admin_Status::status_logs();
 			break;
 		default:
-			if ( array_key_exists( $current_tab, $tabs ) && has_action( 'woocommerce_admin_status_content_' . $current_tab ) ) {
-				do_action( 'woocommerce_admin_status_content_' . $current_tab );
+			if ( array_key_exists( $current_tab, $tabs ) && has_action( 'poocommerce_admin_status_content_' . $current_tab ) ) {
+				do_action( 'poocommerce_admin_status_content_' . $current_tab );
 			} else {
 				WC_Admin_Status::status_report();
 			}

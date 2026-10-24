@@ -8,7 +8,7 @@ export const getSharedContentControls = ( attributes, setAttributes ) => {
 	const { contentVisibility } = attributes;
 	return (
 		<ToggleControl
-			label={ __( 'Show Sorting Dropdown', 'woocommerce' ) }
+			label={ __( 'Show Sorting Dropdown', 'poocommerce' ) }
 			checked={ contentVisibility.orderBy }
 			onChange={ () =>
 				setAttributes( {
@@ -25,31 +25,31 @@ export const getSharedContentControls = ( attributes, setAttributes ) => {
 export const getSharedListControls = ( attributes, setAttributes ) => {
 	return (
 		<SelectControl
-			label={ __( 'Order Products By', 'woocommerce' ) }
+			label={ __( 'Order Products By', 'poocommerce' ) }
 			value={ attributes.orderby }
 			options={ [
 				{
-					label: __( 'Default sorting (menu order)', 'woocommerce' ),
+					label: __( 'Default sorting (menu order)', 'poocommerce' ),
 					value: 'menu_order',
 				},
 				{
-					label: __( 'Popularity', 'woocommerce' ),
+					label: __( 'Popularity', 'poocommerce' ),
 					value: 'popularity',
 				},
 				{
-					label: __( 'Average rating', 'woocommerce' ),
+					label: __( 'Average rating', 'poocommerce' ),
 					value: 'rating',
 				},
 				{
-					label: __( 'Latest', 'woocommerce' ),
+					label: __( 'Latest', 'poocommerce' ),
 					value: 'date',
 				},
 				{
-					label: __( 'Price: low to high', 'woocommerce' ),
+					label: __( 'Price: low to high', 'poocommerce' ),
 					value: 'price',
 				},
 				{
-					label: __( 'Price: high to low', 'woocommerce' ),
+					label: __( 'Price: high to low', 'poocommerce' ),
 					value: 'price-desc',
 				},
 			] }

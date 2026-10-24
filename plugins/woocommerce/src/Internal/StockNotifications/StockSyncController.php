@@ -2,10 +2,10 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\StockNotifications;
+namespace Automattic\PooCommerce\Internal\StockNotifications;
 
-use Automattic\WooCommerce\Internal\StockNotifications\Utilities\EligibilityService;
-use Automattic\WooCommerce\Internal\StockNotifications\AsyncTasks\JobManager;
+use Automattic\PooCommerce\Internal\StockNotifications\Utilities\EligibilityService;
+use Automattic\PooCommerce\Internal\StockNotifications\AsyncTasks\JobManager;
 use WC_Product;
 
 /**
@@ -70,8 +70,8 @@ class StockSyncController {
 	 */
 	public function __construct() {
 		// Event handlers.
-		add_action( 'woocommerce_product_set_stock_status', array( $this, 'handle_product_stock_status_change' ), 100, 3 );
-		add_action( 'woocommerce_variation_set_stock_status', array( $this, 'handle_product_stock_status_change' ), 100, 3 );
+		add_action( 'poocommerce_product_set_stock_status', array( $this, 'handle_product_stock_status_change' ), 100, 3 );
+		add_action( 'poocommerce_variation_set_stock_status', array( $this, 'handle_product_stock_status_change' ), 100, 3 );
 
 		// Process the queue on shutdown.
 		add_action( 'shutdown', array( $this, 'process_queue' ) );
@@ -152,7 +152,7 @@ class StockSyncController {
 			 *
 			 * @param array $product_ids The product IDs to process.
 			 */
-			do_action( 'woocommerce_customer_stock_notifications_product_sync', $product_ids );
+			do_action( 'poocommerce_customer_stock_notifications_product_sync', $product_ids );
 		}
 
 		// Store the notice last, so it can neither block the jobs above nor claim they are queued before they are.
@@ -175,7 +175,7 @@ class StockSyncController {
 		$product_ids              = array_keys( $this->notice_product_ids );
 		$this->notice_product_ids = array();
 
-		if ( empty( $product_ids ) || ! is_admin() || ! get_current_user_id() || ! current_user_can( 'manage_woocommerce' ) ) {
+		if ( empty( $product_ids ) || ! is_admin() || ! get_current_user_id() || ! current_user_can( 'manage_poocommerce' ) ) {
 			return;
 		}
 
@@ -221,7 +221,7 @@ class StockSyncController {
 		$remaining = count( $product_ids ) - count( $product_names );
 		if ( $remaining > 0 ) {
 			/* translators: %d: number of additional restocked products */
-			$product_names[] = sprintf( _n( '%d more product', '%d more products', $remaining, 'woocommerce' ), $remaining );
+			$product_names[] = sprintf( _n( '%d more product', '%d more products', $remaining, 'poocommerce' ), $remaining );
 		}
 
 		$list_url = 1 === count( $product_ids )
@@ -229,13 +229,13 @@ class StockSyncController {
 			: admin_url( 'admin.php?page=wc-customer-stock-notifications&status=active_customer_stock_notifications' );
 
 		/* translators: 1: restocked product names, 2: URL of the Back in Stock Notifications page */
-		$notice_message = sprintf( __( 'Back-in-stock notifications for %1$s have been queued. Subscribed customers will receive these emails shortly. You can monitor or manage individual subscriptions on the <a href="%2$s">Stock Notifications page</a>.', 'woocommerce' ), wp_sprintf( '%l', $product_names ), esc_url( $list_url ) );
+		$notice_message = sprintf( __( 'Back-in-stock notifications for %1$s have been queued. Subscribed customers will receive these emails shortly. You can monitor or manage individual subscriptions on the <a href="%2$s">Stock Notifications page</a>.', 'poocommerce' ), wp_sprintf( '%l', $product_names ), esc_url( $list_url ) );
 
 		\wp_admin_notice(
 			$notice_message,
 			array(
 				'type'        => 'info',
-				'id'          => 'woocommerce_customer_stock_notifications_product_sync_notice',
+				'id'          => 'poocommerce_customer_stock_notifications_product_sync_notice',
 				'dismissible' => false,
 			)
 		);

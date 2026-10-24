@@ -2,14 +2,14 @@
 /**
  * Product Open Graph metadata.
  *
- * @package WooCommerce
+ * @package PooCommerce
  */
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\StructuredData;
+namespace Automattic\PooCommerce\Internal\StructuredData;
 
-use Automattic\WooCommerce\Enums\ProductStatus;
+use Automattic\PooCommerce\Enums\ProductStatus;
 use WC_Product;
 use WP_HTML_Tag_Processor;
 use WP_HTML_Text_Replacement;
@@ -51,17 +51,17 @@ class OpenGraph {
 	 */
 	public function handle_template_redirect(): void {
 		/**
-		 * Filters whether WooCommerce may output Open Graph metadata.
+		 * Filters whether PooCommerce may output Open Graph metadata.
 		 *
 		 * @since 11.4.0
 		 *
 		 * @param bool $enabled Whether metadata is enabled.
 		 */
-		if ( ! apply_filters( 'woocommerce_enable_open_graph', true ) ) {
+		if ( ! apply_filters( 'poocommerce_enable_open_graph', true ) ) {
 			return;
 		}
 
-		if ( ! is_singular( 'product' ) || is_preview() || 'yes' === get_option( 'woocommerce_coming_soon' ) ) {
+		if ( ! is_singular( 'product' ) || is_preview() || 'yes' === get_option( 'poocommerce_coming_soon' ) ) {
 			return;
 		}
 
@@ -96,7 +96,7 @@ class OpenGraph {
 		 * @param array<string, string> $tags Metadata keyed by og:, twitter:, or product: property name. Remove a key to omit a tag.
 		 * @param WC_Product|\WP_Post|\WP_Term|\WP_Post_Type|null $context Product or queried object; null when no object is available.
 		 */
-		$tags = apply_filters( 'woocommerce_open_graph_tags', $tags, $context );
+		$tags = apply_filters( 'poocommerce_open_graph_tags', $tags, $context );
 		if ( ! is_array( $tags ) ) {
 			return array();
 		}
@@ -123,7 +123,7 @@ class OpenGraph {
 	 * @internal
 	 *
 	 * @param mixed $html Filtered template output.
-	 * @return mixed Template output, with WooCommerce metadata added when appropriate.
+	 * @return mixed Template output, with PooCommerce metadata added when appropriate.
 	 */
 	public function handle_wp_template_enhancement_output_buffer( $html ) {
 		if ( ! is_string( $html ) || ! $this->tags ) {
@@ -170,7 +170,7 @@ class OpenGraph {
 		}
 
 		if ( $has_image ) {
-			// WooCommerce's image details may not describe the existing provider's image.
+			// PooCommerce's image details may not describe the existing provider's image.
 			foreach ( array_keys( $tags ) as $property ) {
 				if ( 'og:image' === $property || 0 === strpos( $property, 'og:image:' ) ) {
 					unset( $tags[ $property ] );

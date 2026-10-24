@@ -14,8 +14,8 @@ import {
 	createInterpolateElement,
 	type ComponentType,
 } from '@wordpress/element';
-import { type EditorBlock } from '@woocommerce/types';
-import { UpgradeDowngradeNotice } from '@woocommerce/editor-components/upgrade-downgrade-notice';
+import { type EditorBlock } from '@poocommerce/types';
+import { UpgradeDowngradeNotice } from '@poocommerce/editor-components/upgrade-downgrade-notice';
 
 /**
  * Internal dependencies
@@ -28,7 +28,7 @@ const isProductSummaryBlockVariation = ( props: BlockInstance ) => {
 	return (
 		props.name === CORE_NAME &&
 		PRODUCT_SUMMARY_NAMESPACES.includes(
-			props.attributes.__woocommerceNamespace
+			props.attributes.__poocommerceNamespace
 		)
 	);
 };
@@ -40,18 +40,18 @@ const UpgradeNotice = ( { clientId }: { clientId: string } ) => {
 	const notice = createInterpolateElement(
 		__(
 			"There's <strongText /> with important fixes and brand new features.",
-			'woocommerce'
+			'poocommerce'
 		),
 		{
 			strongText: (
 				<strong>
-					{ __( `new version of Product Summary`, 'woocommerce' ) }
+					{ __( `new version of Product Summary`, 'poocommerce' ) }
 				</strong>
 			),
 		}
 	);
 
-	const buttonLabel = __( 'Upgrade now (just this block)', 'woocommerce' );
+	const buttonLabel = __( 'Upgrade now (just this block)', 'poocommerce' );
 
 	const handleClick = () => {
 		const { getBlocksByClientId } = registry.select( 'core/block-editor' );
@@ -67,7 +67,7 @@ const UpgradeNotice = ( { clientId }: { clientId: string } ) => {
 				...restAttributes
 			} = currentBlock.attributes;
 			const productSummaryBlock = createBlock(
-				'woocommerce/product-summary',
+				'poocommerce/product-summary',
 				restAttributes
 			);
 			void replaceBlock( clientId, productSummaryBlock );
@@ -102,6 +102,6 @@ const withProductSummaryUpgradeNotice =
 
 addFilter(
 	'editor.BlockEdit',
-	'woocommerce-blocks/product-summary-upgrade-notice',
+	'poocommerce-blocks/product-summary-upgrade-notice',
 	withProductSummaryUpgradeNotice
 );

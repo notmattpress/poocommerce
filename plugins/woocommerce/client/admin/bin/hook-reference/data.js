@@ -15,7 +15,7 @@ const getSourceFile = ( file, commit, { source } ) => {
 	const first = source[ 0 ].number + 1;
 	const last = source[ source.length - 1 ].number + 1;
 
-	return `https://github.com/woocommerce/woocommerce-admin/blob/${ commit }/${ file }#L${ first }-L${ last }`;
+	return `https://github.com/poocommerce/poocommerce-admin/blob/${ commit }/${ file }#L${ first }-L${ last }`;
 };
 
 const logProgress = ( fileName, { tags } ) => {

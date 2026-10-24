@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes\Accordion;
+namespace Automattic\PooCommerce\Blocks\BlockTypes\Accordion;
 
-use Automattic\WooCommerce\Blocks\BlockTypes\AbstractBlock;
-use Automattic\WooCommerce\Blocks\BlockTypes\EnableBlockJsonAssetsTrait;
+use Automattic\PooCommerce\Blocks\BlockTypes\AbstractBlock;
+use Automattic\PooCommerce\Blocks\BlockTypes\EnableBlockJsonAssetsTrait;
 /**
  * AccordionItem class.
  */
@@ -33,12 +33,12 @@ class AccordionItem extends AbstractBlock {
 		}
 
 		$p         = new \WP_HTML_Tag_Processor( $content );
-		$unique_id = wp_unique_id( 'woocommerce-accordion-item-' );
+		$unique_id = wp_unique_id( 'poocommerce-accordion-item-' );
 
 		// Initialize the state of the item on the server using a closure,
 		// since we need to get derived state based on the current context.
 		wp_interactivity_state(
-			'woocommerce/accordion',
+			'poocommerce/accordion',
 			array(
 				'isOpen' => function () {
 					$context = wp_interactivity_get_context();
@@ -47,7 +47,7 @@ class AccordionItem extends AbstractBlock {
 			)
 		);
 
-		if ( $p->next_tag( array( 'class_name' => 'wp-block-woocommerce-accordion-item' ) ) ) {
+		if ( $p->next_tag( array( 'class_name' => 'wp-block-poocommerce-accordion-item' ) ) ) {
 			$interactivity_context = array(
 				'id'            => $unique_id,
 				'openByDefault' => $attributes['openByDefault'],
@@ -62,7 +62,7 @@ class AccordionItem extends AbstractBlock {
 				$p->set_attribute( 'aria-controls', $unique_id . '-panel' );
 				$p->set_attribute( 'data-wp-bind--aria-expanded', 'state.isOpen' );
 
-				if ( $p->next_tag( array( 'class_name' => 'wp-block-woocommerce-accordion-panel' ) ) ) {
+				if ( $p->next_tag( array( 'class_name' => 'wp-block-poocommerce-accordion-panel' ) ) ) {
 					$p->set_attribute( 'id', $unique_id . '-panel' );
 					$p->set_attribute( 'aria-labelledby', $unique_id );
 					$p->set_attribute( 'role', 'region' );

@@ -6,8 +6,8 @@ import { globalIgnores } from 'eslint/config';
 /**
  * Internal dependencies
  */
-import woocommerce from '@woocommerce/eslint-config';
-import { coreModules } from '@woocommerce/eslint-config/core-modules.js';
+import poocommerce from '@poocommerce/eslint-config';
+import { coreModules } from '@poocommerce/eslint-config/core-modules.js';
 
 export default [
 	// node_modules is ignored by default. `api` has its own config and command.
@@ -31,7 +31,7 @@ export default [
 	 * Registering a second copy is both fatal at rule-run time and a
 	 * "Cannot redefine plugin" hazard.
 	 */
-	...woocommerce,
+	...poocommerce,
 	{
 		settings: {
 			'import/core-modules': [
@@ -49,7 +49,7 @@ export default [
 				webpack: {},
 				typescript: {
 					project: [
-						'plugins/woocommerce/client/admin/tsconfig.json',
+						'plugins/poocommerce/client/admin/tsconfig.json',
 					],
 				},
 			},

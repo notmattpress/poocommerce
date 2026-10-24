@@ -1,15 +1,15 @@
-export const PRODUCT_TITLE_VARIATION_NAME = 'woocommerce/product-title';
-export const PRODUCT_SUMMARY_VARIATION_NAME = 'woocommerce/product-summary';
+export const PRODUCT_TITLE_VARIATION_NAME = 'poocommerce/product-title';
+export const PRODUCT_SUMMARY_VARIATION_NAME = 'poocommerce/product-summary';
 
 const DEPRECATED_PRODUCT_QUERY_PRODUCT_TITLE_VARIATION_NAME =
-	'woocommerce/product-query/product-title';
+	'poocommerce/product-query/product-title';
 const DEPRECATED_PRODUCT_QUERY_PRODUCT_SUMMARY_VARIATION_NAME =
-	'woocommerce/product-query/product-summary';
+	'poocommerce/product-query/product-summary';
 
 const DEPRECATED_PRODUCT_COLLECTION_PRODUCT_TITLE_VARIATION_NAME =
-	'woocommerce/product-collection/product-title';
+	'poocommerce/product-collection/product-title';
 const DEPRECATED_PRODUCT_COLLECTION_PRODUCT_SUMMARY_VARIATION_NAME =
-	'woocommerce/product-collection/product-summary';
+	'poocommerce/product-collection/product-summary';
 
 export const PRODUCT_TITLE_NAMESPACES = [
 	PRODUCT_TITLE_VARIATION_NAME,

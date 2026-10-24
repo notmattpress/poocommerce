@@ -5,9 +5,9 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Shipping\FlatRate;
+namespace Automattic\PooCommerce\Tests\Internal\Shipping\FlatRate;
 
-use Automattic\WooCommerce\Internal\Shipping\FlatRate\WeightPlaceholder;
+use Automattic\PooCommerce\Internal\Shipping\FlatRate\WeightPlaceholder;
 use WC_Helper_Product;
 use WC_Unit_Test_Case;
 

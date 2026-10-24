@@ -2,19 +2,19 @@
 /**
  * Integration tests for the plans REST controller.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine
+ * @package Automattic\PooCommerce\SubscriptionsEngine
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Tests\Integration\Api\Rest;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Tests\Integration\Api\Rest;
 
-use Automattic\WooCommerce\SubscriptionsEngine\Api\Plans;
-use Automattic\WooCommerce\SubscriptionsEngine\Api\Rest\PlansController;
-use Automattic\WooCommerce\SubscriptionsEngine\Api\View\PlanView;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\Plan;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\PlanStatus;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\StatusRegistry;
+use Automattic\PooCommerce\SubscriptionsEngine\Api\Plans;
+use Automattic\PooCommerce\SubscriptionsEngine\Api\Rest\PlansController;
+use Automattic\PooCommerce\SubscriptionsEngine\Api\View\PlanView;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\Plan;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\PlanStatus;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\StatusRegistry;
 use EngineIntegrationTestCase;
 use RuntimeException;
 use WP_Error;
@@ -22,13 +22,13 @@ use WP_REST_Request;
 use WP_REST_Response;
 
 /**
- * @covers \Automattic\WooCommerce\SubscriptionsEngine\Api\Rest\PlansController
+ * @covers \Automattic\PooCommerce\SubscriptionsEngine\Api\Rest\PlansController
  */
 class PlansControllerTest extends EngineIntegrationTestCase {
 
 	private const BASE = '/wc/v3/subscriptions-engine/plans';
 
-	private const EXTENSION_SLUG = 'woocommerce-subscriptions-lite';
+	private const EXTENSION_SLUG = 'poocommerce-subscriptions-lite';
 
 	/**
 	 * Admin user id.
@@ -48,13 +48,13 @@ class PlansControllerTest extends EngineIntegrationTestCase {
 	}
 
 	public function tearDown(): void {
-		remove_all_actions( 'woocommerce_subscriptions_engine_validate_plan' );
+		remove_all_actions( 'poocommerce_subscriptions_engine_validate_plan' );
 		StatusRegistry::reset();
 		wp_set_current_user( 0 );
 		parent::tearDown();
 	}
 
-	public function test_collection_requires_manage_woocommerce(): void {
+	public function test_collection_requires_manage_poocommerce(): void {
 		wp_set_current_user( 0 );
 
 		$response = $this->request( 'GET', self::BASE, array(), array( 'extension_slug' => self::EXTENSION_SLUG ) );
@@ -530,7 +530,7 @@ class PlansControllerTest extends EngineIntegrationTestCase {
 		add_filter(
 			'gettext',
 			static function ( $translation, $text, $domain ) {
-				return 'woocommerce' === $domain && 'This field is required.' === $text ? 'Ce champ est obligatoire.' : $translation;
+				return 'poocommerce' === $domain && 'This field is required.' === $text ? 'Ce champ est obligatoire.' : $translation;
 			},
 			10,
 			3
@@ -552,7 +552,7 @@ class PlansControllerTest extends EngineIntegrationTestCase {
 	public function test_a_callback_error_with_a_field_is_reported_under_its_top_level_arg(): void {
 		wp_set_current_user( $this->admin_id );
 		add_action(
-			'woocommerce_subscriptions_engine_validate_plan',
+			'poocommerce_subscriptions_engine_validate_plan',
 			static function ( WP_Error $errors ): void {
 				$errors->add(
 					'out_of_bounds',
@@ -585,7 +585,7 @@ class PlansControllerTest extends EngineIntegrationTestCase {
 	public function test_two_same_code_callback_errors_on_different_fields_are_both_reported(): void {
 		wp_set_current_user( $this->admin_id );
 		add_action(
-			'woocommerce_subscriptions_engine_validate_plan',
+			'poocommerce_subscriptions_engine_validate_plan',
 			static function ( WP_Error $errors ): void {
 				$errors->add( 'invalid_value', 'Bad interval.', array( 'field' => 'billing_policy.interval' ) );
 				$errors->add( 'invalid_value', 'Bad amount.', array( 'field' => 'pricing_policy.one_time_fees.0.amount' ) );
@@ -607,7 +607,7 @@ class PlansControllerTest extends EngineIntegrationTestCase {
 	public function test_fielded_and_fieldless_callback_errors_return_one_400_with_both(): void {
 		wp_set_current_user( $this->admin_id );
 		add_action(
-			'woocommerce_subscriptions_engine_validate_plan',
+			'poocommerce_subscriptions_engine_validate_plan',
 			static function ( WP_Error $errors ): void {
 				$errors->add( 'acme_general', 'Something is off.' );
 				$errors->add( 'invalid_value', 'Bad interval.', array( 'field' => 'billing_policy.interval' ) );
@@ -632,7 +632,7 @@ class PlansControllerTest extends EngineIntegrationTestCase {
 	public function test_errors_map_and_first_error_details_per_arg(): void {
 		wp_set_current_user( $this->admin_id );
 		add_action(
-			'woocommerce_subscriptions_engine_validate_plan',
+			'poocommerce_subscriptions_engine_validate_plan',
 			static function ( WP_Error $errors ): void {
 				$errors->add(
 					'out_of_bounds',
@@ -718,7 +718,7 @@ class PlansControllerTest extends EngineIntegrationTestCase {
 	public function test_details_carry_the_first_error_of_an_arg_with_its_own_data(): void {
 		wp_set_current_user( $this->admin_id );
 		add_action(
-			'woocommerce_subscriptions_engine_validate_plan',
+			'poocommerce_subscriptions_engine_validate_plan',
 			static function ( WP_Error $errors ): void {
 				$errors->add( 'invalid_value', 'First.', array( 'field' => 'pricing_policy.policies.0.type' ) );
 				$errors->add( 'invalid_value', 'Second.', array( 'field' => 'pricing_policy.policies.1.type' ) );
@@ -735,7 +735,7 @@ class PlansControllerTest extends EngineIntegrationTestCase {
 	public function test_a_fieldless_rest_invalid_param_error_never_replaces_the_response_data(): void {
 		wp_set_current_user( $this->admin_id );
 		add_action(
-			'woocommerce_subscriptions_engine_validate_plan',
+			'poocommerce_subscriptions_engine_validate_plan',
 			static function ( WP_Error $errors ): void {
 				$errors->add( 'rest_invalid_param', 'Something general.', array( 'params' => array( 'acme' => 'Hijack.' ) ) );
 				$errors->add( 'invalid_value', 'Bad interval.', array( 'field' => 'billing_policy.interval' ) );
@@ -757,7 +757,7 @@ class PlansControllerTest extends EngineIntegrationTestCase {
 	public function test_a_parent_and_a_child_field_are_separate_errors_under_one_arg(): void {
 		wp_set_current_user( $this->admin_id );
 		add_action(
-			'woocommerce_subscriptions_engine_validate_plan',
+			'poocommerce_subscriptions_engine_validate_plan',
 			static function ( WP_Error $errors ): void {
 				$errors->add( 'out_of_bounds', 'Too high.', array( 'field' => 'pricing_policy.policies.0.value' ) );
 			}
@@ -784,7 +784,7 @@ class PlansControllerTest extends EngineIntegrationTestCase {
 	public function test_engine_and_extension_errors_arrive_in_one_400(): void {
 		wp_set_current_user( $this->admin_id );
 		add_action(
-			'woocommerce_subscriptions_engine_validate_plan',
+			'poocommerce_subscriptions_engine_validate_plan',
 			static function ( WP_Error $errors ): void {
 				$errors->add(
 					'out_of_bounds',
@@ -822,7 +822,7 @@ class PlansControllerTest extends EngineIntegrationTestCase {
 	public function test_an_extension_error_without_data_under_an_engine_code_keeps_the_engine_field(): void {
 		wp_set_current_user( $this->admin_id );
 		add_action(
-			'woocommerce_subscriptions_engine_validate_plan',
+			'poocommerce_subscriptions_engine_validate_plan',
 			static function ( WP_Error $errors ): void {
 				$errors->add( 'required', 'Something is missing.' );
 			}
@@ -855,7 +855,7 @@ class PlansControllerTest extends EngineIntegrationTestCase {
 	public function test_a_data_less_extension_error_before_a_fielded_one_makes_its_code_fieldless(): void {
 		wp_set_current_user( $this->admin_id );
 		add_action(
-			'woocommerce_subscriptions_engine_validate_plan',
+			'poocommerce_subscriptions_engine_validate_plan',
 			static function ( WP_Error $errors ): void {
 				$errors->add( 'acme_invalid', 'A general problem.' );
 				$errors->add( 'acme_invalid', 'Bad interval.', array( 'field' => 'billing_policy.interval' ) );
@@ -891,7 +891,7 @@ class PlansControllerTest extends EngineIntegrationTestCase {
 	public function test_a_data_less_extension_error_before_a_fielded_one_under_an_engine_code_keeps_the_engine_field(): void {
 		wp_set_current_user( $this->admin_id );
 		add_action(
-			'woocommerce_subscriptions_engine_validate_plan',
+			'poocommerce_subscriptions_engine_validate_plan',
 			static function ( WP_Error $errors ): void {
 				$errors->add( 'required', 'Something is missing.' );
 				$errors->add( 'required', 'The interval is missing.', array( 'field' => 'billing_policy.interval' ) );
@@ -932,7 +932,7 @@ class PlansControllerTest extends EngineIntegrationTestCase {
 
 		$calls = array();
 		add_action(
-			'woocommerce_subscriptions_engine_validate_plan',
+			'poocommerce_subscriptions_engine_validate_plan',
 			static function ( $errors, $plan, $extension_slug ) use ( &$calls ): void {
 				self::assertInstanceOf( WP_Error::class, $errors );
 				self::assertFalse( $errors->has_errors() );
@@ -1015,7 +1015,7 @@ class PlansControllerTest extends EngineIntegrationTestCase {
 		$id = $this->create_plan( 'Untouched' );
 
 		add_action(
-			'woocommerce_subscriptions_engine_validate_plan',
+			'poocommerce_subscriptions_engine_validate_plan',
 			static function ( WP_Error $errors ) use ( $data ): void {
 				$errors->add( 'extension_rejected', 'No.', $data );
 			}
@@ -1049,7 +1049,7 @@ class PlansControllerTest extends EngineIntegrationTestCase {
 		$this->assertSame( $expected_status, $patched->get_status() );
 		$this->assertSame( 'extension_rejected', $this->response_data( $patched )['code'] );
 
-		remove_all_actions( 'woocommerce_subscriptions_engine_validate_plan' );
+		remove_all_actions( 'poocommerce_subscriptions_engine_validate_plan' );
 
 		$fetched = $this->response_data( $this->request( 'GET', self::BASE . '/' . $id, array(), array( 'extension_slug' => self::EXTENSION_SLUG ) ) );
 		$this->assertSame( 'Untouched', $fetched['name'] );
@@ -1073,13 +1073,13 @@ class PlansControllerTest extends EngineIntegrationTestCase {
 		wp_set_current_user( $this->admin_id );
 
 		add_action(
-			'woocommerce_subscriptions_engine_validate_plan',
+			'poocommerce_subscriptions_engine_validate_plan',
 			static function ( WP_Error $errors ): void {
 				$errors->add( 'first_rejection', 'First.' );
 			}
 		);
 		add_action(
-			'woocommerce_subscriptions_engine_validate_plan',
+			'poocommerce_subscriptions_engine_validate_plan',
 			static function ( WP_Error $errors ): void {
 				$errors->add( 'second_rejection', 'Second.', array( 'status' => 422 ) );
 			},
@@ -1119,7 +1119,7 @@ class PlansControllerTest extends EngineIntegrationTestCase {
 
 		$views = array();
 		add_action(
-			'woocommerce_subscriptions_engine_validate_plan',
+			'poocommerce_subscriptions_engine_validate_plan',
 			static function ( WP_Error $errors, $plan ) use ( &$views ): void {
 				unset( $errors );
 				$views[] = $plan;
@@ -1151,7 +1151,7 @@ class PlansControllerTest extends EngineIntegrationTestCase {
 		$id = $this->create_plan( 'Untouched' );
 
 		add_action(
-			'woocommerce_subscriptions_engine_validate_plan',
+			'poocommerce_subscriptions_engine_validate_plan',
 			static function (): void {
 				throw new RuntimeException( 'Internal detail.' );
 			}
@@ -1171,7 +1171,7 @@ class PlansControllerTest extends EngineIntegrationTestCase {
 		);
 		$this->assertSame( 500, $created->get_status() );
 		$created_data = $this->response_data( $created );
-		$this->assertSame( 'woocommerce_subscriptions_engine_plan_validation_failed', $created_data['code'] );
+		$this->assertSame( 'poocommerce_subscriptions_engine_plan_validation_failed', $created_data['code'] );
 		$this->assertIsString( $created_data['message'] );
 		$this->assertStringNotContainsString( 'Internal detail.', $created_data['message'] );
 
@@ -1184,9 +1184,9 @@ class PlansControllerTest extends EngineIntegrationTestCase {
 			)
 		);
 		$this->assertSame( 500, $patched->get_status() );
-		$this->assertSame( 'woocommerce_subscriptions_engine_plan_validation_failed', $this->response_data( $patched )['code'] );
+		$this->assertSame( 'poocommerce_subscriptions_engine_plan_validation_failed', $this->response_data( $patched )['code'] );
 
-		remove_all_actions( 'woocommerce_subscriptions_engine_validate_plan' );
+		remove_all_actions( 'poocommerce_subscriptions_engine_validate_plan' );
 
 		$fetched = $this->response_data( $this->request( 'GET', self::BASE . '/' . $id, array(), array( 'extension_slug' => self::EXTENSION_SLUG ) ) );
 		$this->assertSame( 'Untouched', $fetched['name'] );
@@ -1250,9 +1250,9 @@ class PlansControllerTest extends EngineIntegrationTestCase {
 		wp_set_current_user( $this->admin_id );
 
 		$first_id  = $this->create_plan( 'First', self::EXTENSION_SLUG );
-		$second_id = $this->create_plan( 'Second', 'woocommerce-subscriptions-test' );
+		$second_id = $this->create_plan( 'Second', 'poocommerce-subscriptions-test' );
 
-		$list = $this->request( 'GET', self::BASE, array(), array( 'extension_slug' => implode( ',', array( self::EXTENSION_SLUG, 'woocommerce-subscriptions-test' ) ) ) );
+		$list = $this->request( 'GET', self::BASE, array(), array( 'extension_slug' => implode( ',', array( self::EXTENSION_SLUG, 'poocommerce-subscriptions-test' ) ) ) );
 		$this->assertSame( 200, $list->get_status() );
 		$this->assertSame( '2', $list->get_headers()['X-WP-Total'] );
 		$response_data = $this->response_data( $list );
@@ -1263,16 +1263,16 @@ class PlansControllerTest extends EngineIntegrationTestCase {
 		$this->assertSame( $first_id, $this->int_value( $first_data, 'id' ) );
 		$this->assertSame( self::EXTENSION_SLUG, $first_data['extension_slug'] );
 		$this->assertSame( $second_id, $this->int_value( $second_data, 'id' ) );
-		$this->assertSame( 'woocommerce-subscriptions-test', $second_data['extension_slug'] );
+		$this->assertSame( 'poocommerce-subscriptions-test', $second_data['extension_slug'] );
 	}
 
 	public function test_list_trims_and_deduplicates_extension_slugs(): void {
 		wp_set_current_user( $this->admin_id );
 
 		$first_id  = $this->create_plan( 'First', self::EXTENSION_SLUG );
-		$second_id = $this->create_plan( 'Second', 'woocommerce-subscriptions-test' );
+		$second_id = $this->create_plan( 'Second', 'poocommerce-subscriptions-test' );
 
-		$list = $this->request( 'GET', self::BASE, array(), array( 'extension_slug' => self::EXTENSION_SLUG . ', ' . self::EXTENSION_SLUG . ',woocommerce-subscriptions-test' ) );
+		$list = $this->request( 'GET', self::BASE, array(), array( 'extension_slug' => self::EXTENSION_SLUG . ', ' . self::EXTENSION_SLUG . ',poocommerce-subscriptions-test' ) );
 
 		$this->assertSame( 200, $list->get_status() );
 		$this->assertSame( '2', $list->get_headers()['X-WP-Total'] );
@@ -1307,7 +1307,7 @@ class PlansControllerTest extends EngineIntegrationTestCase {
 		wp_set_current_user( $this->admin_id );
 
 		$first_id  = $this->create_plan( 'First', self::EXTENSION_SLUG );
-		$second_id = $this->create_plan( 'Second', 'woocommerce-subscriptions-test' );
+		$second_id = $this->create_plan( 'Second', 'poocommerce-subscriptions-test' );
 
 		$list = $this->request( 'GET', self::BASE, array(), array( 'extension_slug' => 'any' ) );
 		$this->assertSame( 200, $list->get_status() );
@@ -1320,7 +1320,7 @@ class PlansControllerTest extends EngineIntegrationTestCase {
 		$this->assertSame( $first_id, $this->int_value( $first_data, 'id' ) );
 		$this->assertSame( self::EXTENSION_SLUG, $first_data['extension_slug'] );
 		$this->assertSame( $second_id, $this->int_value( $second_data, 'id' ) );
-		$this->assertSame( 'woocommerce-subscriptions-test', $second_data['extension_slug'] );
+		$this->assertSame( 'poocommerce-subscriptions-test', $second_data['extension_slug'] );
 	}
 
 	public function test_list_defaults_to_id_order_and_rejects_retired_orderby_values(): void {
@@ -1439,7 +1439,7 @@ class PlansControllerTest extends EngineIntegrationTestCase {
 
 		$id = $this->create_plan( 'Scoped' );
 
-		foreach ( array( 'any', self::EXTENSION_SLUG . ',woocommerce-subscriptions-test' ) as $extension_slug ) {
+		foreach ( array( 'any', self::EXTENSION_SLUG . ',poocommerce-subscriptions-test' ) as $extension_slug ) {
 			$this->assertSame( 400, $this->request( 'GET', self::BASE . '/' . $id, array(), array( 'extension_slug' => $extension_slug ) )->get_status() );
 			$this->assertSame(
 				400,
@@ -1458,13 +1458,13 @@ class PlansControllerTest extends EngineIntegrationTestCase {
 	public function test_single_plan_routes_404_a_plan_of_another_extension_slug_or_an_unknown_id(): void {
 		wp_set_current_user( $this->admin_id );
 
-		$foreign_id = $this->create_plan( 'Foreign', 'woocommerce-subscriptions-test' );
+		$foreign_id = $this->create_plan( 'Foreign', 'poocommerce-subscriptions-test' );
 		$unknown_id = $foreign_id + 1000;
 
 		foreach ( array( $foreign_id, $unknown_id ) as $id ) {
 			$get = $this->request( 'GET', self::BASE . '/' . $id, array(), array( 'extension_slug' => self::EXTENSION_SLUG ) );
 			$this->assertSame( 404, $get->get_status() );
-			$this->assertSame( 'woocommerce_subscriptions_engine_plan_not_found', $this->response_data( $get )['code'] );
+			$this->assertSame( 'poocommerce_subscriptions_engine_plan_not_found', $this->response_data( $get )['code'] );
 
 			$patch = $this->request(
 				'PATCH',
@@ -1475,21 +1475,21 @@ class PlansControllerTest extends EngineIntegrationTestCase {
 				)
 			);
 			$this->assertSame( 404, $patch->get_status() );
-			$this->assertSame( 'woocommerce_subscriptions_engine_plan_not_found', $this->response_data( $patch )['code'] );
+			$this->assertSame( 'poocommerce_subscriptions_engine_plan_not_found', $this->response_data( $patch )['code'] );
 		}
 
 		$foreign = Plans::get( $foreign_id );
 		$this->assertNotNull( $foreign );
 		$this->assertSame( 'Foreign', $foreign->get_name(), 'A PATCH under another slug writes nothing.' );
 
-		$own = $this->request( 'GET', self::BASE . '/' . $foreign_id, array(), array( 'extension_slug' => 'woocommerce-subscriptions-test' ) );
+		$own = $this->request( 'GET', self::BASE . '/' . $foreign_id, array(), array( 'extension_slug' => 'poocommerce-subscriptions-test' ) );
 		$this->assertSame( 200, $own->get_status(), 'The plan resolves under its own slug.' );
 	}
 
 	public function test_create_rejects_wildcard_and_list_extension_slugs(): void {
 		wp_set_current_user( $this->admin_id );
 
-		foreach ( array( 'any', self::EXTENSION_SLUG . ',woocommerce-subscriptions-test' ) as $extension_slug ) {
+		foreach ( array( 'any', self::EXTENSION_SLUG . ',poocommerce-subscriptions-test' ) as $extension_slug ) {
 			$response = $this->request(
 				'POST',
 				self::BASE,
@@ -1546,13 +1546,13 @@ class PlansControllerTest extends EngineIntegrationTestCase {
 		};
 		$errors             = array();
 		$capture            = static function ( $message, $level, $context ) use ( &$errors ) {
-			if ( 'error' === $level && is_string( $message ) && is_array( $context ) && 'woocommerce-subscriptions-engine' === ( $context['source'] ?? null ) ) {
+			if ( 'error' === $level && is_string( $message ) && is_array( $context ) && 'poocommerce-subscriptions-engine' === ( $context['source'] ?? null ) ) {
 				$errors[] = $message;
 			}
 			return $message;
 		};
 		add_filter( 'query', $break_plan_inserts );
-		add_filter( 'woocommerce_logger_log_message', $capture, 10, 3 );
+		add_filter( 'poocommerce_logger_log_message', $capture, 10, 3 );
 		$suppressed = $wpdb->suppress_errors( true );
 
 		try {
@@ -1567,11 +1567,11 @@ class PlansControllerTest extends EngineIntegrationTestCase {
 		} finally {
 			$wpdb->suppress_errors( $suppressed );
 			remove_filter( 'query', $break_plan_inserts );
-			remove_filter( 'woocommerce_logger_log_message', $capture, 10 );
+			remove_filter( 'poocommerce_logger_log_message', $capture, 10 );
 		}
 
 		$this->assertSame( 500, $response->get_status() );
-		$this->assertSame( 'woocommerce_subscriptions_engine_plan_create_failed', $this->response_data( $response )['code'] );
+		$this->assertSame( 'poocommerce_subscriptions_engine_plan_create_failed', $this->response_data( $response )['code'] );
 		$this->assertStringNotContainsString( 'nonexistent_table_for_this_test', (string) wp_json_encode( $response->get_data() ), 'The database error never reaches the client.' );
 		$this->assertNotEmpty( $errors, 'A failed write is logged.' );
 		$this->assertStringContainsString( 'nonexistent_table_for_this_test', $errors[0], 'The log carries the database error.' );
@@ -1610,7 +1610,7 @@ class PlansControllerTest extends EngineIntegrationTestCase {
 		}
 
 		$this->assertSame( 500, $response->get_status() );
-		$this->assertSame( 'woocommerce_subscriptions_engine_plan_update_failed', $this->response_data( $response )['code'] );
+		$this->assertSame( 'poocommerce_subscriptions_engine_plan_update_failed', $this->response_data( $response )['code'] );
 		$this->assertStringNotContainsString( 'nonexistent_table_for_this_test', (string) wp_json_encode( $response->get_data() ), 'The database error never reaches the client.' );
 	}
 

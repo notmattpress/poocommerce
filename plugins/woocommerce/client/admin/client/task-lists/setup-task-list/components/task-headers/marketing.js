@@ -11,18 +11,18 @@ import { WC_ASSET_URL } from '../../../../utils/admin-settings';
 
 const MarketingHeader = ( { task, goToTask } ) => {
 	return (
-		<div className="woocommerce-task-header__contents-container">
+		<div className="poocommerce-task-header__contents-container">
 			<img
-				alt={ __( 'Marketing illustration', 'woocommerce' ) }
+				alt={ __( 'Marketing illustration', 'poocommerce' ) }
 				src={ WC_ASSET_URL + 'images/task_list/sales-illustration.svg' }
 				className="svg-background"
 			/>
-			<div className="woocommerce-task-header__contents">
-				<h1>{ __( 'Reach more customers', 'woocommerce' ) }</h1>
+			<div className="poocommerce-task-header__contents">
+				<h1>{ __( 'Reach more customers', 'poocommerce' ) }</h1>
 				<p>
 					{ __(
 						'Start growing your business by showcasing your products on social media and Google, boost engagement with email marketing, and more!',
-						'woocommerce'
+						'poocommerce'
 					) }
 				</p>
 				<Button
@@ -30,7 +30,7 @@ const MarketingHeader = ( { task, goToTask } ) => {
 					isPrimary={ ! task.isComplete }
 					onClick={ goToTask }
 				>
-					{ __( 'Grow your business', 'woocommerce' ) }
+					{ __( 'Grow your business', 'poocommerce' ) }
 				</Button>
 			</div>
 		</div>

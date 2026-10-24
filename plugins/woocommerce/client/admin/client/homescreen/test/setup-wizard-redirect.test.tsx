@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { render } from '@testing-library/react';
-import { getHistory, getNewPath, useQuery } from '@woocommerce/navigation';
+import { getHistory, getNewPath, useQuery } from '@poocommerce/navigation';
 import type { ComponentType } from 'react';
 
 /**
@@ -13,20 +13,20 @@ import { getAdminSetting } from '~/utils/admin-settings';
 
 const mockPush = jest.fn();
 const mockReplace = jest.fn();
-jest.mock( '@woocommerce/navigation', () => ( {
+jest.mock( '@poocommerce/navigation', () => ( {
 	getHistory: jest.fn( () => ( { push: mockPush, replace: mockReplace } ) ),
 	getNewPath: jest.fn( ( _query, path ) => path ),
 	useQuery: jest.fn( () => ( {} ) ),
 } ) );
 
-jest.mock( '@woocommerce/settings', () => ( {
+jest.mock( '@poocommerce/settings', () => ( {
 	getAdminLink: ( path: string ) => `http://example.test/wp-admin/${ path }`,
 } ) );
 
 jest.mock( '../layout', () => () => null );
 
 // Without the REST API, the store finishes resolving the profile with its empty defaults.
-jest.mock( '@woocommerce/data', () => ( {
+jest.mock( '@poocommerce/data', () => ( {
 	onboardingStore: 'wc/admin/onboarding',
 	withOnboardingHydration: () => ( Component: ComponentType ) => Component,
 } ) );

@@ -33,7 +33,7 @@ export const BusinessLocation = ( {
 		label: '',
 	} );
 
-	const inputLabel = __( 'Select country/region', 'woocommerce' );
+	const inputLabel = __( 'Select country/region', 'poocommerce' );
 	// Only preloaded for users who can open Site Health.
 	const { siteHealthUrl } = getAdminSetting( 'onboarding', {} ) as {
 		siteHealthUrl?: string;
@@ -41,20 +41,20 @@ export const BusinessLocation = ( {
 
 	return (
 		<div
-			className="woocommerce-profiler-business-location"
+			className="poocommerce-profiler-business-location"
 			data-testid="core-profiler-business-location"
 		>
 			<Navigation percentage={ navigationProgress } />
-			<div className="woocommerce-profiler-page__content woocommerce-profiler-business-location__content">
+			<div className="poocommerce-profiler-page__content poocommerce-profiler-business-location__content">
 				<Heading
-					className="woocommerce-profiler__stepper-heading"
+					className="poocommerce-profiler__stepper-heading"
 					title={ __(
 						'Where is your business located?',
-						'woocommerce'
+						'poocommerce'
 					) }
 					subTitle={ __(
 						'We’ll use this information to help you set up payments, shipping, and taxes.',
-						'woocommerce'
+						'poocommerce'
 					) }
 				/>
 				<GeolocationCountrySelect
@@ -69,14 +69,14 @@ export const BusinessLocation = ( {
 				/>
 				{ context.countries.length === 0 && (
 					<Notice
-						className="woocommerce-profiler-select-control__country-error"
+						className="poocommerce-profiler-select-control__country-error"
 						isDismissible={ false }
 						status="error"
 					>
 						{ createInterpolateElement(
 							__(
 								'Oops! We encountered a problem while fetching the list of countries to choose from. <retryButton/> or <skipButton/>',
-								'woocommerce'
+								'poocommerce'
 							),
 							{
 								retryButton: (
@@ -90,7 +90,7 @@ export const BusinessLocation = ( {
 									>
 										{ __(
 											'Please try again',
-											'woocommerce'
+											'poocommerce'
 										) }
 									</Button>
 								),
@@ -108,7 +108,7 @@ export const BusinessLocation = ( {
 									>
 										{ __(
 											'Skip this step',
-											'woocommerce'
+											'poocommerce'
 										) }
 									</Button>
 								),
@@ -119,7 +119,7 @@ export const BusinessLocation = ( {
 								? createInterpolateElement(
 										__(
 											'If this keeps happening, your site’s REST API may be blocked. <siteHealthLink>Check Site Health</siteHealthLink> for details.',
-											'woocommerce'
+											'poocommerce'
 										),
 										{
 											siteHealthLink: (
@@ -132,14 +132,14 @@ export const BusinessLocation = ( {
 									)
 								: __(
 										'If this keeps happening, ask your hosting provider to check that your site’s REST API is working.',
-										'woocommerce'
+										'poocommerce'
 									) }
 						</p>
 					</Notice>
 				) }
-				<div className="woocommerce-profiler-button-container woocommerce-profiler-go-to-mystore__button-container">
+				<div className="poocommerce-profiler-button-container poocommerce-profiler-go-to-mystore__button-container">
 					<Button
-						className="woocommerce-profiler-button"
+						className="poocommerce-profiler-button"
 						variant="primary"
 						disabled={ ! storeCountry.key }
 						onClick={ () => {
@@ -151,7 +151,7 @@ export const BusinessLocation = ( {
 							} );
 						} }
 					>
-						{ __( 'Go to my store', 'woocommerce' ) }
+						{ __( 'Go to my store', 'poocommerce' ) }
 					</Button>
 				</div>
 			</div>

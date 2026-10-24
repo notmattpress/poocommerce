@@ -2,16 +2,16 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\PushNotifications\DataStores;
+namespace Automattic\PooCommerce\Tests\Internal\PushNotifications\DataStores;
 
-use Automattic\WooCommerce\Internal\PushNotifications\DataStores\NotificationPreferencesDataStore;
-use Automattic\WooCommerce\Internal\Utilities\Users;
+use Automattic\PooCommerce\Internal\PushNotifications\DataStores\NotificationPreferencesDataStore;
+use Automattic\PooCommerce\Internal\Utilities\Users;
 use WC_Unit_Test_Case;
 
 /**
  * Tests for the NotificationPreferencesDataStore class.
  *
- * @covers \Automattic\WooCommerce\Internal\PushNotifications\DataStores\NotificationPreferencesDataStore
+ * @covers \Automattic\PooCommerce\Internal\PushNotifications\DataStores\NotificationPreferencesDataStore
  */
 class NotificationPreferencesDataStoreTest extends WC_Unit_Test_Case {
 

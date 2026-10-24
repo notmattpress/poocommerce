@@ -1,15 +1,15 @@
 <?php
 
 declare( strict_types = 1 );
-namespace Automattic\WooCommerce\Tests\Internal\StockNotifications\Admin;
+namespace Automattic\PooCommerce\Tests\Internal\StockNotifications\Admin;
 
-use Automattic\WooCommerce\Internal\StockNotifications\Admin\NotificationEditPage;
-use Automattic\WooCommerce\Internal\StockNotifications\Admin\NotificationsPage;
-use Automattic\WooCommerce\Internal\StockNotifications\Emails\EmailManager;
-use Automattic\WooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
-use Automattic\WooCommerce\Internal\StockNotifications\Frontend\NotificationManagementService;
-use Automattic\WooCommerce\Internal\StockNotifications\Notification;
-use Automattic\WooCommerce\Tests\Internal\StockNotifications\StockNotificationsFeatureTrait;
+use Automattic\PooCommerce\Internal\StockNotifications\Admin\NotificationEditPage;
+use Automattic\PooCommerce\Internal\StockNotifications\Admin\NotificationsPage;
+use Automattic\PooCommerce\Internal\StockNotifications\Emails\EmailManager;
+use Automattic\PooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
+use Automattic\PooCommerce\Internal\StockNotifications\Frontend\NotificationManagementService;
+use Automattic\PooCommerce\Internal\StockNotifications\Notification;
+use Automattic\PooCommerce\Tests\Internal\StockNotifications\StockNotificationsFeatureTrait;
 
 /**
  * Tests for the admin notification edit form handler.
@@ -69,7 +69,7 @@ class NotificationEditPageTests extends \WC_Unit_Test_Case {
 
 		$_POST = array(
 			'wc_customer_stock_notification_action'     => 'send_verification_email',
-			'customer_stock_notification_edit_security' => wp_create_nonce( 'woocommerce-customer-stock-notification-edit' ),
+			'customer_stock_notification_edit_security' => wp_create_nonce( 'poocommerce-customer-stock-notification-edit' ),
 		);
 
 		$_REQUEST = $_POST; // phpcs:ignore WordPress.Security.NonceVerification.Missing -- Simulates the request the handler verifies.

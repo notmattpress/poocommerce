@@ -6,7 +6,7 @@ import {
 	expect,
 	FrontendUtils,
 	BLOCK_THEME_SLUG,
-} from '@woocommerce/e2e-utils';
+} from '@poocommerce/e2e-utils';
 
 // Instead of testing the block individually, we test the Cart and Checkout
 // templates, which make use of the block.

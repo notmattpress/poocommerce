@@ -5,13 +5,13 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Admin\Settings;
+namespace Automattic\PooCommerce\Internal\Admin\Settings;
 
-use Automattic\WooCommerce\Admin\Features\Features;
-use Automattic\WooCommerce\Admin\PageController;
-use Automattic\WooCommerce\Admin\Settings\SettingsSectionRegistry;
-use Automattic\WooCommerce\Admin\Settings\SettingsSectionUIPageProviderInterface;
-use Automattic\WooCommerce\Admin\Settings\SettingsUIPageInterface;
+use Automattic\PooCommerce\Admin\Features\Features;
+use Automattic\PooCommerce\Admin\PageController;
+use Automattic\PooCommerce\Admin\Settings\SettingsSectionRegistry;
+use Automattic\PooCommerce\Admin\Settings\SettingsSectionUIPageProviderInterface;
+use Automattic\PooCommerce\Admin\Settings\SettingsUIPageInterface;
 
 /**
  * Resolves and caches Settings UI state for the active settings request.
@@ -171,7 +171,7 @@ class SettingsUIRequestContext {
 	 * @return SettingsUIRequestContext|null
 	 */
 	public static function get_current(): ?SettingsUIRequestContext {
-		if ( self::is_classic_request() || ! PageController::is_settings_page() || ! Features::is_enabled( 'settings-ui' ) || ! current_user_can( 'manage_woocommerce' ) ) {
+		if ( self::is_classic_request() || ! PageController::is_settings_page() || ! Features::is_enabled( 'settings-ui' ) || ! current_user_can( 'manage_poocommerce' ) ) {
 			return null;
 		}
 
@@ -217,7 +217,7 @@ class SettingsUIRequestContext {
 	}
 
 	/**
-	 * Get the current WooCommerce settings tab.
+	 * Get the current PooCommerce settings tab.
 	 *
 	 * @return string
 	 */
@@ -239,7 +239,7 @@ class SettingsUIRequestContext {
 	}
 
 	/**
-	 * Get the current WooCommerce settings section.
+	 * Get the current PooCommerce settings section.
 	 *
 	 * Reads $_REQUEST to match how the legacy $current_section global is derived,
 	 * so context resolution and legacy settings rendering agree on the section.
@@ -369,7 +369,7 @@ class SettingsUIRequestContext {
 	 * Validate and enqueue extension script handles for this context.
 	 *
 	 * Handle names are collected separately so extensions can register their
-	 * scripts after WooCommerce builds the settings embed dependency list.
+	 * scripts after PooCommerce builds the settings embed dependency list.
 	 *
 	 * @since 11.2.0
 	 *

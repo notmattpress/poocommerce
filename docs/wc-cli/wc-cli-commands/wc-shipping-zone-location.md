@@ -3,7 +3,7 @@ title: wc shipping_zone_location
 sidebar_label: wc shipping_zone_location
 ---
 
-Manage WooCommerce shipping zone location resources.
+Manage PooCommerce shipping zone location resources.
 
 ## wc shipping_zone_location list `<id>`
 

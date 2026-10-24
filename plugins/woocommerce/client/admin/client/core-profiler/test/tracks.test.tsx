@@ -6,8 +6,8 @@ import userEvent from '@testing-library/user-event';
 import type { ComponentProps } from 'react';
 import { fromCallback, fromPromise } from 'xstate5';
 import type { AnyActorLogic } from 'xstate5';
-import { recordEvent } from '@woocommerce/tracks';
-import { getQuery } from '@woocommerce/navigation';
+import { recordEvent } from '@poocommerce/tracks';
+import { getQuery } from '@poocommerce/navigation';
 
 /**
  * Internal dependencies
@@ -16,7 +16,7 @@ import { CoreProfilerController } from '../index';
 import { pluginInstallerMachine } from '../services/installAndActivatePlugins';
 import { exampleExtension } from './fixtures';
 
-jest.mock( '@woocommerce/tracks', () => ( {
+jest.mock( '@poocommerce/tracks', () => ( {
 	recordEvent: jest.fn(),
 } ) );
 
@@ -31,7 +31,7 @@ jest.mock( '@wordpress/core-data', () => ( {
 	store: { name: 'core' },
 } ) );
 
-jest.mock( '@woocommerce/data', () => ( {
+jest.mock( '@poocommerce/data', () => ( {
 	COUNTRIES_STORE_NAME: { name: 'countries' },
 	onboardingStore: { name: 'onboarding' },
 	pluginsStore: { name: 'plugins' },
@@ -39,18 +39,18 @@ jest.mock( '@woocommerce/data', () => ( {
 	experimentalSettingOptionsStore: { name: 'settings' },
 } ) );
 
-jest.mock( '@woocommerce/navigation', () => ( {
+jest.mock( '@poocommerce/navigation', () => ( {
 	getQuery: jest.fn( () => ( {} ) ),
 	updateQueryString: jest.fn(),
 	getNewPath: jest.fn( () => '/' ),
 } ) );
 
-jest.mock( '@woocommerce/settings', () => ( {
+jest.mock( '@poocommerce/settings', () => ( {
 	getAdminLink: jest.fn( ( path: string ) => path ),
 	getSetting: jest.fn( () => 'current' ),
 } ) );
 
-jest.mock( '@woocommerce/explat', () => ( {
+jest.mock( '@poocommerce/explat', () => ( {
 	initializeExPlat: jest.fn(),
 } ) );
 

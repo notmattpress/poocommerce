@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\Utils;
+namespace Automattic\PooCommerce\Tests\Blocks\Utils;
 
-use Automattic\WooCommerce\Blocks\Utils\ProductGalleryUtils;
-use Automattic\WooCommerce\Internal\ProductGallery\ProductMediaGallery;
+use Automattic\PooCommerce\Blocks\Utils\ProductGalleryUtils;
+use Automattic\PooCommerce\Internal\ProductGallery\ProductMediaGallery;
 use WP_UnitTestCase;
 
 /**
@@ -103,7 +103,7 @@ class ProductGalleryUtilsTest extends \WP_UnitTestCase {
 			$variation->save();
 		}
 
-		$image_data = ProductGalleryUtils::get_product_gallery_image_data( $variable_product, 'woocommerce_thumbnail' );
+		$image_data = ProductGalleryUtils::get_product_gallery_image_data( $variable_product, 'poocommerce_thumbnail' );
 
 		// Assert that $image_data is a non-empty array.
 		$this->assertIsArray( $image_data );
@@ -353,7 +353,7 @@ class ProductGalleryUtilsTest extends \WP_UnitTestCase {
 		$product->set_gallery_image_ids( array( $image_id ) );
 		$product->save();
 
-		$media_data = ProductGalleryUtils::get_product_gallery_media_data( $product, 'woocommerce_thumbnail' );
+		$media_data = ProductGalleryUtils::get_product_gallery_media_data( $product, 'poocommerce_thumbnail' );
 
 		$this->assertCount( 1, $media_data );
 		$this->assertSame( $image_id, $media_data[0]['id'] );
@@ -412,7 +412,7 @@ class ProductGalleryUtilsTest extends \WP_UnitTestCase {
 			)
 		);
 
-		$media_data = ProductGalleryUtils::get_product_gallery_media_data( $product, 'woocommerce_thumbnail' );
+		$media_data = ProductGalleryUtils::get_product_gallery_media_data( $product, 'poocommerce_thumbnail' );
 
 		$this->assertCount( 2, $media_data );
 		$this->assertSame( $video_id, $media_data[0]['id'] );
@@ -468,7 +468,7 @@ class ProductGalleryUtilsTest extends \WP_UnitTestCase {
 			)
 		);
 
-		$media_data = ProductGalleryUtils::get_product_gallery_media_data( $product, 'woocommerce_thumbnail' );
+		$media_data = ProductGalleryUtils::get_product_gallery_media_data( $product, 'poocommerce_thumbnail' );
 
 		$this->assertCount( 2, $media_data );
 		$this->assertSame( $featured_image_id, $media_data[0]['id'] );
@@ -517,7 +517,7 @@ class ProductGalleryUtilsTest extends \WP_UnitTestCase {
 			)
 		);
 
-		$media_data = ProductGalleryUtils::get_product_gallery_media_data( $product, 'woocommerce_thumbnail' );
+		$media_data = ProductGalleryUtils::get_product_gallery_media_data( $product, 'poocommerce_thumbnail' );
 
 		$this->assertSame( 1, ProductGalleryUtils::get_product_gallery_media_count( $product ) );
 		$this->assertCount( 1, $media_data );

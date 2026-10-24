@@ -26,7 +26,7 @@ const viewer = {
 		startZoom: ( event: MouseEvent ) => {
 			const target = event.target as HTMLElement;
 			const isMouseEventFromViewer = target.classList.contains(
-				'wc-block-woocommerce-product-gallery-large-image__image'
+				'wc-block-poocommerce-product-gallery-large-image__image'
 			);
 
 			if ( ! isMouseEventFromViewer ) {
@@ -61,6 +61,6 @@ const viewer = {
 	},
 };
 
-const { actions } = store< Store >( 'woocommerce/product-gallery', viewer, {
+const { actions } = store< Store >( 'poocommerce/product-gallery', viewer, {
 	lock: 'I acknowledge that using a private store means my plugin will inevitably break on the next store release.',
 } );

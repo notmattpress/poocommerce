@@ -2,7 +2,7 @@
 
 exports[`PluginsTermsOfService should render TOS message when Jetpack is selected 1`] = `
 <p
-  class="woocommerce-profiler-plugins-jetpack-agreement"
+  class="poocommerce-profiler-plugins-jetpack-agreement"
 >
   By installing 
   <span>
@@ -22,7 +22,7 @@ exports[`PluginsTermsOfService should render TOS message when Jetpack is selecte
 
 exports[`PluginsTermsOfService should render TOS message with multiple plugins when more than one plugin with TOS is selected 1`] = `
 <p
-  class="woocommerce-profiler-plugins-jetpack-agreement"
+  class="poocommerce-profiler-plugins-jetpack-agreement"
 >
   By installing 
   <span>
@@ -30,11 +30,11 @@ exports[`PluginsTermsOfService should render TOS message with multiple plugins w
   </span>
   , 
   <span>
-    WooCommerce Shipping
+    PooCommerce Shipping
   </span>
   , and 
   <span>
-    WooCommerce Tax
+    PooCommerce Tax
   </span>
    plugins for free you agree to our 
   <a
@@ -50,7 +50,7 @@ exports[`PluginsTermsOfService should render TOS message with multiple plugins w
 
 exports[`PluginsTermsOfService should render TOS message with multiple plugins when more than one plugin with TOS is selected 2`] = `
 <p
-  class="woocommerce-profiler-plugins-jetpack-agreement"
+  class="poocommerce-profiler-plugins-jetpack-agreement"
 >
   By installing 
   <span>
@@ -58,11 +58,11 @@ exports[`PluginsTermsOfService should render TOS message with multiple plugins w
   </span>
   , 
   <span>
-    WooCommerce Shipping
+    PooCommerce Shipping
   </span>
   , and 
   <span>
-    WooCommerce Tax
+    PooCommerce Tax
   </span>
    plugins for free you agree to our 
   <a

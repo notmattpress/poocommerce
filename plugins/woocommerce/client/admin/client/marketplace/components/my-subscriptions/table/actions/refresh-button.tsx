@@ -36,7 +36,7 @@ export function RefreshButton() {
 			.then( () => {
 				addNotice(
 					NOTICE_ID,
-					__( 'Subscriptions refreshed.', 'woocommerce' ),
+					__( 'Subscriptions refreshed.', 'poocommerce' ),
 					NoticeStatus.Success
 				);
 			} )
@@ -47,7 +47,7 @@ export function RefreshButton() {
 						// translators: %s is the error message.
 						__(
 							'Error refreshing subscriptions: %s',
-							'woocommerce'
+							'poocommerce'
 						),
 						getRefreshErrorMessage( error )
 					),
@@ -61,16 +61,16 @@ export function RefreshButton() {
 
 	return (
 		<Button
-			className="woocommerce-marketplace__refresh-subscriptions"
+			className="poocommerce-marketplace__refresh-subscriptions"
 			onClick={ refresh }
 			isBusy={ isLoading }
 		>
 			<img
 				src={ RefreshIcon }
-				alt={ __( 'Refresh subscriptions', 'woocommerce' ) }
-				className="woocommerce-marketplace__refresh-subscriptions-icon"
+				alt={ __( 'Refresh subscriptions', 'poocommerce' ) }
+				className="poocommerce-marketplace__refresh-subscriptions-icon"
 			/>
-			{ __( 'Refresh', 'woocommerce' ) }
+			{ __( 'Refresh', 'poocommerce' ) }
 		</Button>
 	);
 }

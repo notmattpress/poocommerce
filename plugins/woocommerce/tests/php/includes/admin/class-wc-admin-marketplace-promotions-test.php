@@ -10,7 +10,7 @@ declare( strict_types = 1 );
  * *shape* resolves correctly using clean-environment thresholds, plus the gating
  * behaviour in both directions, so they do not depend on seeded order/product volume.
  *
- * @package WooCommerce\Tests\Admin
+ * @package PooCommerce\Tests\Admin
  */
 class WC_Admin_Marketplace_Promotions_Test extends WC_Unit_Test_Case {
 
@@ -22,14 +22,14 @@ class WC_Admin_Marketplace_Promotions_Test extends WC_Unit_Test_Case {
 	 * @var string[]
 	 */
 	private const ADD_ON_SLUGS = array(
-		'woocommerce-product-addons',
-		'advanced-product-fields-for-woocommerce',
+		'poocommerce-product-addons',
+		'advanced-product-fields-for-poocommerce',
 		'woo-custom-product-addons',
 		'woo-custom-product-addons-pro',
 		'woo-extra-product-options',
-		'woocommerce-tm-extra-product-options',
-		'yith-woocommerce-product-add-ons',
-		'woocommerce-product-addon',
+		'poocommerce-tm-extra-product-options',
+		'yith-poocommerce-product-add-ons',
+		'poocommerce-product-addon',
 	);
 
 	/**
@@ -44,7 +44,7 @@ class WC_Admin_Marketplace_Promotions_Test extends WC_Unit_Test_Case {
 	 */
 	public function tearDown(): void {
 		delete_transient( WC_Admin_Marketplace_Promotions::TRANSIENT_NAME );
-		delete_option( 'woocommerce_allow_tracking' );
+		delete_option( 'poocommerce_allow_tracking' );
 		if ( null !== $this->active_plugins_filter ) {
 			remove_filter( 'option_active_plugins', $this->active_plugins_filter );
 			$this->active_plugins_filter = null;
@@ -118,7 +118,7 @@ class WC_Admin_Marketplace_Promotions_Test extends WC_Unit_Test_Case {
 					'title'         => array( 'en_US' => 'Add options and personalization to your products' ),
 					'content'       => array( 'en_US' => 'Let customers add gift wrapping, custom text, file uploads, or paid options right on the product page.' ),
 					'cta_label'     => array( 'en_US' => 'See Product Add-Ons' ),
-					'cta_link'      => 'https://woocommerce.com/products/product-add-ons/',
+					'cta_link'      => 'https://poocommerce.com/products/product-add-ons/',
 					'local_rules'   => $local_rules,
 				),
 			)
@@ -137,7 +137,7 @@ class WC_Admin_Marketplace_Promotions_Test extends WC_Unit_Test_Case {
 		return array(
 			array(
 				'type'        => 'option',
-				'option_name' => 'woocommerce_allow_tracking',
+				'option_name' => 'poocommerce_allow_tracking',
 				'operation'   => '=',
 				'value'       => 'yes',
 			),
@@ -159,7 +159,7 @@ class WC_Admin_Marketplace_Promotions_Test extends WC_Unit_Test_Case {
 	 * @testdox Eligible Product Add-Ons promo is converted into a promo card and local_rules stripped.
 	 */
 	public function test_eligible_rule_based_promo_is_converted_to_promo_card(): void {
-		update_option( 'woocommerce_allow_tracking', 'yes' );
+		update_option( 'poocommerce_allow_tracking', 'yes' );
 
 		$this->set_rule_based_promo( $this->pilot_rules() );
 
@@ -175,19 +175,19 @@ class WC_Admin_Marketplace_Promotions_Test extends WC_Unit_Test_Case {
 	 * @testdox Promo is suppressed when the store already has an add-on plugin active.
 	 */
 	public function test_active_add_on_plugin_suppresses_promo(): void {
-		update_option( 'woocommerce_allow_tracking', 'yes' );
+		update_option( 'poocommerce_allow_tracking', 'yes' );
 
-		// Force WooCommerce itself to read as an active plugin, then include its slug in the
+		// Force PooCommerce itself to read as an active plugin, then include its slug in the
 		// exclusion list. This proves not[ or[ plugins_activated... ] ] suppresses when ANY
 		// listed plugin is active (the encoding that a single plugins_activated list would get wrong).
 		// The callback is stored so tearDown removes only it, not unrelated filters on the hook.
 		$this->active_plugins_filter = static function (): array {
-			return array( 'woocommerce/woocommerce.php' );
+			return array( 'poocommerce/poocommerce.php' );
 		};
 		add_filter( 'option_active_plugins', $this->active_plugins_filter );
 
 		$rules    = $this->pilot_rules();
-		$rules[3] = $this->add_on_exclusion_rule( array( 'woocommerce' ) );
+		$rules[3] = $this->add_on_exclusion_rule( array( 'poocommerce' ) );
 		$this->set_rule_based_promo( $rules );
 
 		$this->assertSame( array(), WC_Admin_Marketplace_Promotions::get_active_promotions() );
@@ -197,7 +197,7 @@ class WC_Admin_Marketplace_Promotions_Test extends WC_Unit_Test_Case {
 	 * @testdox Promo is suppressed when product_count is below the threshold.
 	 */
 	public function test_product_count_below_threshold_suppresses_promo(): void {
-		update_option( 'woocommerce_allow_tracking', 'yes' );
+		update_option( 'poocommerce_allow_tracking', 'yes' );
 
 		// Clean test store has fewer than 9999 published products.
 		$this->set_rule_based_promo( $this->pilot_rules( 0, 9999 ) );
@@ -209,7 +209,7 @@ class WC_Admin_Marketplace_Promotions_Test extends WC_Unit_Test_Case {
 	 * @testdox Promo is suppressed when tracking is not opted in.
 	 */
 	public function test_tracking_opt_out_suppresses_promo(): void {
-		delete_option( 'woocommerce_allow_tracking' );
+		delete_option( 'poocommerce_allow_tracking' );
 
 		$this->set_rule_based_promo( $this->pilot_rules() );
 
@@ -319,7 +319,7 @@ class WC_Admin_Marketplace_Promotions_Test extends WC_Unit_Test_Case {
 	 * @testdox An eligible promo targeting the Orders screen is returned with the order count.
 	 */
 	public function test_orders_promo_card_returned_when_targeting_orders(): void {
-		update_option( 'woocommerce_allow_tracking', 'yes' );
+		update_option( 'poocommerce_allow_tracking', 'yes' );
 
 		$this->set_rule_based_promo( $this->pilot_rules(), array( array( 'page' => 'wc-orders' ) ) );
 
@@ -337,7 +337,7 @@ class WC_Admin_Marketplace_Promotions_Test extends WC_Unit_Test_Case {
 	 * @testdox A promo that targets only the Marketplace is not shown on the Orders screen.
 	 */
 	public function test_orders_promo_card_null_when_not_targeting_orders(): void {
-		update_option( 'woocommerce_allow_tracking', 'yes' );
+		update_option( 'poocommerce_allow_tracking', 'yes' );
 
 		// Default pages target the Marketplace app (page=wc-admin), not the Orders list.
 		$this->set_rule_based_promo( $this->pilot_rules() );
@@ -376,7 +376,7 @@ class WC_Admin_Marketplace_Promotions_Test extends WC_Unit_Test_Case {
 	 * @testdox A promo the current user has dismissed is not shown.
 	 */
 	public function test_orders_promo_card_skipped_when_dismissed(): void {
-		update_option( 'woocommerce_allow_tracking', 'yes' );
+		update_option( 'poocommerce_allow_tracking', 'yes' );
 
 		$user_id = self::factory()->user->create( array( 'role' => 'administrator' ) );
 		wp_set_current_user( $user_id );

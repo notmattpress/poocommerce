@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\StoreApi\Schemas\V1\Ucp;
+namespace Automattic\PooCommerce\StoreApi\Schemas\V1\Ucp;
 
-use Automattic\WooCommerce\StoreApi\Schemas\V1\AbstractSchema;
+use Automattic\PooCommerce\StoreApi\Schemas\V1\AbstractSchema;
 
 /**
  * Placeholder schema for the UCP catalog routes.

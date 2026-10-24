@@ -6,7 +6,7 @@
  * SQL updates if nothing changed.
  *
  * @version 3.2.0
- * @package WooCommerce
+ * @package PooCommerce
  */
 
 defined( 'ABSPATH' ) || exit;

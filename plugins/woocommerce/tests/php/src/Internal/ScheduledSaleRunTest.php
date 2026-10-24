@@ -5,13 +5,13 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal;
+namespace Automattic\PooCommerce\Tests\Internal;
 
-use Automattic\WooCommerce\Internal\Caches\ProductCache;
-use Automattic\WooCommerce\Internal\Caches\ProductCacheController;
-use Automattic\WooCommerce\Internal\Features\FeaturesController;
-use Automattic\WooCommerce\Internal\ScheduledSaleRun;
-use Automattic\WooCommerce\Utilities\FeaturesUtil;
+use Automattic\PooCommerce\Internal\Caches\ProductCache;
+use Automattic\PooCommerce\Internal\Caches\ProductCacheController;
+use Automattic\PooCommerce\Internal\Features\FeaturesController;
+use Automattic\PooCommerce\Internal\ScheduledSaleRun;
+use Automattic\PooCommerce\Utilities\FeaturesUtil;
 use WC_Helper_Product;
 use WC_Product_Variable;
 use WC_Product_Variation;
@@ -310,7 +310,7 @@ class ScheduledSaleRunTest extends WC_Unit_Test_Case {
 
 		$saves = 0;
 		add_action(
-			'woocommerce_update_product',
+			'poocommerce_update_product',
 			static function ( $updated_id ) use ( $product, &$saves ) {
 				if ( (int) $updated_id === $product->get_id() ) {
 					++$saves;
@@ -337,7 +337,7 @@ class ScheduledSaleRunTest extends WC_Unit_Test_Case {
 
 		$saves = 0;
 		add_action(
-			'woocommerce_update_product',
+			'poocommerce_update_product',
 			static function ( $updated_id ) use ( $product, &$saves ) {
 				if ( (int) $updated_id === $product->get_id() ) {
 					++$saves;

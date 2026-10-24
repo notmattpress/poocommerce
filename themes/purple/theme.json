@@ -316,7 +316,7 @@
 				}
 			},
 			"core/group": {
-				"css": "&.woocommerce.product { margin-block-start: 0; }"
+				"css": "&.poocommerce.product { margin-block-start: 0; }"
 			},
 			"core/navigation": {
 				"color": {
@@ -441,7 +441,7 @@
 					"text": "var(--wp--preset--color--theme-4)"
 				}
 			},
-			"woocommerce/accordion-item": {
+			"poocommerce/accordion-item": {
 				"border": {
 					"bottom": {
 						"color": "var(--wp--preset--color--theme-6)",
@@ -453,7 +453,7 @@
 					"blockGap": "0"
 				}
 			},
-			"woocommerce/add-to-cart-with-options-quantity-selector": {
+			"poocommerce/add-to-cart-with-options-quantity-selector": {
 				"color": {
 					"background": "#FFFFFF",
 					"text": "#111111"
@@ -462,7 +462,7 @@
 					"radius": "0"
 				}
 			},
-			"woocommerce/add-to-cart-with-options-variation-selector-attribute-name": {
+			"poocommerce/add-to-cart-with-options-variation-selector-attribute-name": {
 				"color": {
 					"text": "var(--wp--preset--color--theme-4)"
 				},
@@ -471,55 +471,55 @@
 					"lineHeight": "1.71"
 				}
 			},
-			"woocommerce/breadcrumbs": {
+			"poocommerce/breadcrumbs": {
 				"typography": {
 					"fontSize": "var(--wp--preset--font-size--small)",
 					"lineHeight": "1.71"
 				}
 			},
-			"woocommerce/customer-account": {
+			"poocommerce/customer-account": {
 				"color": {
 					"text": "var(--wp--preset--color--theme-2)"
 				}
 			},
-			"woocommerce/mini-cart": {
+			"poocommerce/mini-cart": {
 				"color": {
 					"text": "var(--wp--preset--color--theme-2)"
 				}
 			},
-			"woocommerce/order-confirmation-status": {
+			"poocommerce/order-confirmation-status": {
 				"typography": {
 					"fontSize": "var(--wp--preset--font-size--medium)"
 				}
 			},
-			"woocommerce/product-filter-active": {
+			"poocommerce/product-filter-active": {
 				"spacing": {
 					"margin": {
 						"top": "var(--wp--preset--spacing--10)"
 					}
 				}
 			},
-			"woocommerce/product-filter-attribute": {
+			"poocommerce/product-filter-attribute": {
 				"color": {
 					"text": "var(--wp--preset--color--theme-2)"
 				}
 			},
-			"woocommerce/product-filter-price": {
+			"poocommerce/product-filter-price": {
 				"color": {
 					"text": "var(--wp--preset--color--theme-2)"
 				}
 			},
-			"woocommerce/product-filter-rating": {
+			"poocommerce/product-filter-rating": {
 				"color": {
 					"text": "var(--wp--preset--color--theme-2)"
 				}
 			},
-			"woocommerce/product-filter-status": {
+			"poocommerce/product-filter-status": {
 				"color": {
 					"text": "var(--wp--preset--color--theme-2)"
 				}
 			},
-			"woocommerce/product-filter-chips": {
+			"poocommerce/product-filter-chips": {
 				"typography": {
 					"fontSize": "var(--wp--preset--font-size--small)",
 					"letterSpacing": "0.06em",
@@ -538,25 +538,25 @@
 					"blockGap": "var(--wp--preset--spacing--10)"
 				}
 			},
-			"woocommerce/product-filters": {
+			"poocommerce/product-filters": {
 				"css": "--wc-product-filter-block-spacing: 0;"
 			},
-			"woocommerce/product-gallery": {
+			"poocommerce/product-gallery": {
 				"spacing": {
 					"blockGap": "var(--wp--preset--spacing--10)"
 				}
 			},
-			"woocommerce/product-gallery-large-image-next-previous": {
+			"poocommerce/product-gallery-large-image-next-previous": {
 				"color": {
 					"text": "var(--wp--preset--color--theme-2)"
 				}
 			},
-			"woocommerce/product-results-count": {
+			"poocommerce/product-results-count": {
 				"color": {
 					"text": "var(--wp--preset--color--theme-4)"
 				}
 			},
-			"woocommerce/catalog-sorting": {
+			"poocommerce/catalog-sorting": {
 				"typography": {
 					"fontSize": "var(--wp--preset--font-size--medium)"
 				},
@@ -584,35 +584,35 @@
 					}
 				}
 			},
-			"woocommerce/product-rating": {
+			"poocommerce/product-rating": {
 				"color": {
 					"text": "var(--wp--preset--color--theme-2)"
 				}
 			},
-			"woocommerce/product-reviews": {
+			"poocommerce/product-reviews": {
 				"color": {
 					"text": "var(--wp--preset--color--theme-2)"
 				}
 			},
-			"woocommerce/product-review-author-name": {
+			"poocommerce/product-review-author-name": {
 				"typography": {
 					"fontSize": "var(--wp--preset--font-size--small)",
 					"fontWeight": "700",
 					"lineHeight": "1.71"
 				}
 			},
-			"woocommerce/product-review-date": {
+			"poocommerce/product-review-date": {
 				"typography": {
 					"fontSize": "var(--wp--preset--font-size--small)",
 					"lineHeight": "1.71"
 				}
 			},
-			"woocommerce/product-review-content": {
+			"poocommerce/product-review-content": {
 				"color": {
 					"text": "var(--wp--preset--color--theme-4)"
 				}
 			},
-			"woocommerce/product-sale-badge": {
+			"poocommerce/product-sale-badge": {
 				"typography": {
 					"fontSize": "var(--wp--preset--font-size--small)",
 					"fontWeight": "400",
@@ -630,7 +630,7 @@
 					"color": "var(--wp--preset--color--theme-7)"
 				}
 			},
-			"woocommerce/product-title": {
+			"poocommerce/product-title": {
 				"typography": {
 					"fontSize": "var(--wp--preset--font-size--large)",
 					"lineHeight": "1.18"

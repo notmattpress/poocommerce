@@ -2,7 +2,7 @@
 
 ## Description
 
-`code-analyzer` is a CLI tool designed to analyze change information about plugins in the WooCommerce monorepo.
+`code-analyzer` is a CLI tool designed to analyze change information about plugins in the PooCommerce monorepo.
 
 ## Commands
 
@@ -22,9 +22,9 @@ To find out more about the other arguments to the command you can run `pnpm anal
 
 Here is an example `major-minor` command, run from this directory:
 
-`pnpm analyzer major-minor "release/6.8" "plugins/woocommerce/woocommerce.php"`
+`pnpm analyzer major-minor "release/6.8" "plugins/poocommerce/poocommerce.php"`
 
-In this command we checkout the branch `release/6.8` and check the version of the woocommerce.php mainfile located at the path passed. Note that at the time of
+In this command we checkout the branch `release/6.8` and check the version of the poocommerce.php mainfile located at the path passed. Note that at the time of
 writing the main file in this particular branch reports `6.8.1` so the output of this command is `6.8.0`.
 
 This command is particularly useful combined with the analyzer, allowing you to determine the last major/minor.0 version of a branch or ref before passing that as the

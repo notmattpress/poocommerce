@@ -1,7 +1,7 @@
 const WPDependencyExtractionWebpackPlugin = require( '@wordpress/dependency-extraction-webpack-plugin' );
 const packages = require( '../assets/packages' );
 
-const WOOCOMMERCE_NAMESPACE = '@woocommerce/';
+const WOOCOMMERCE_NAMESPACE = '@poocommerce/';
 
 /**
  * Given a string, returns a new string with dash separators converted to
@@ -60,12 +60,12 @@ class DependencyExtractionWebpackPlugin extends WPDependencyExtractionWebpackPlu
 		const bundledPackages = options?.bundledPackages || [];
 		const userRequestToExternal = options?.requestToExternal;
 		const userRequestToHandle = options?.requestToHandle;
-		// Mirror the upstream default so WooCommerce defaults respect useDefaults: false.
+		// Mirror the upstream default so PooCommerce defaults respect useDefaults: false.
 		const useDefaults = options?.useDefaults !== false;
 
 		super( {
 			...options,
-			// Inject WooCommerce defaults ahead of WP defaults, without overriding externalizeWpDeps/mapRequestToDependency.
+			// Inject PooCommerce defaults ahead of WP defaults, without overriding externalizeWpDeps/mapRequestToDependency.
 			requestToExternal: ( request ) => {
 				if ( userRequestToExternal ) {
 					const result = userRequestToExternal( request );

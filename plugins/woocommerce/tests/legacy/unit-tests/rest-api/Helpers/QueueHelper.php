@@ -2,10 +2,10 @@
 /**
  * Helper code for wc-admin unit tests.
  *
- * @package WooCommerce\Tests\Framework\Helpers
+ * @package PooCommerce\Tests\Framework\Helpers
  */
 
-namespace Automattic\WooCommerce\RestApi\UnitTests\Helpers;
+namespace Automattic\PooCommerce\RestApi\UnitTests\Helpers;
 
 defined( 'ABSPATH' ) || exit;
 

@@ -3,7 +3,7 @@ title: wc webhook_delivery
 sidebar_label: wc webhook_delivery
 ---
 
-Manage WooCommerce webhook delivery resources.
+Manage PooCommerce webhook delivery resources.
 
 ## wc webhook_delivery list `<webhook_id>`
 

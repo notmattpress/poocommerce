@@ -2,12 +2,12 @@
 
 declare( strict_types = 1 );
 
-use Automattic\WooCommerce\Internal\Utilities\LegacyRestApiStub;
+use Automattic\PooCommerce\Internal\Utilities\LegacyRestApiStub;
 
 /**
- * Unit tests for the WooCommerce class.
+ * Unit tests for the PooCommerce class.
  */
-class WooCommerce_Test extends \WC_Unit_Test_Case {
+class PooCommerce_Test extends \WC_Unit_Test_Case {
 
 	/**
 	 * The default URI.
@@ -51,7 +51,7 @@ class WooCommerce_Test extends \WC_Unit_Test_Case {
 
 	/**
 	 * Test that the $api property is defined and holds an instance of LegacyRestApiStub
-	 * (the Legacy REST API was removed in WooCommerce 9.0).
+	 * (the Legacy REST API was removed in PooCommerce 9.0).
 	 */
 	public function test_api_property(): void {
 		$this->assertInstanceOf( LegacyRestApiStub::class, WC()->api );
@@ -107,7 +107,7 @@ class WooCommerce_Test extends \WC_Unit_Test_Case {
 	public function test_is_store_api_request_returns_false_for_non_store_request(): void {
 		$_SERVER['REQUEST_URI'] = '/wp-json/wc-admin/options';
 
-		$this->assertFalse( WC()->is_store_api_request(), 'A non-Store API WooCommerce REST request should not be detected as Store API.' );
+		$this->assertFalse( WC()->is_store_api_request(), 'A non-Store API PooCommerce REST request should not be detected as Store API.' );
 	}
 
 	/**
@@ -172,7 +172,7 @@ class WooCommerce_Test extends \WC_Unit_Test_Case {
 	 */
 	public function test_register_wp_admin_settings_hooked_to_admin_init_and_rest_api_init(): void {
 		// admin_init runs last so extensions registering settings pages or email classes on
-		// admin_init are still captured; see https://github.com/woocommerce/woocommerce/pull/67494.
+		// admin_init are still captured; see https://github.com/poocommerce/poocommerce/pull/67494.
 		$this->assertSame( 999, has_action( 'admin_init', array( WC(), 'register_wp_admin_settings' ) ) );
 		$this->assertSame( 10, has_action( 'rest_api_init', array( WC(), 'register_wp_admin_settings' ) ) );
 	}
@@ -181,16 +181,16 @@ class WooCommerce_Test extends \WC_Unit_Test_Case {
 	 * @testdox Settings registration is idempotent, so no hook ordering duplicates the settings groups.
 	 */
 	public function test_register_wp_admin_settings_is_idempotent(): void {
-		remove_all_filters( 'woocommerce_settings_groups' );
+		remove_all_filters( 'poocommerce_settings_groups' );
 
 		WC()->register_wp_admin_settings();
-		// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment -- Reading the registered groups under test.
-		$after_first = apply_filters( 'woocommerce_settings_groups', array() );
+		// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment -- Reading the registered groups under test.
+		$after_first = apply_filters( 'poocommerce_settings_groups', array() );
 
 		WC()->register_wp_admin_settings();
 		WC()->register_wp_admin_settings();
-		// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment -- Reading the registered groups under test.
-		$after_repeats = apply_filters( 'woocommerce_settings_groups', array() );
+		// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment -- Reading the registered groups under test.
+		$after_repeats = apply_filters( 'poocommerce_settings_groups', array() );
 
 		$this->assertNotEmpty( $after_first, 'The first call should register the settings groups.' );
 		$this->assertSame(
@@ -224,12 +224,12 @@ class WooCommerce_Test extends \WC_Unit_Test_Case {
 			$this->assertTrue( doing_action( 'rest_api_init' ), 'The removed guard condition should be reproduced.' );
 			$this->assertNotEmpty( did_action( 'admin_init' ), 'The removed guard condition should be reproduced.' );
 
-			remove_all_filters( 'woocommerce_settings_groups' );
+			remove_all_filters( 'poocommerce_settings_groups' );
 
 			WC()->register_wp_admin_settings();
 
-			// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment -- Reading the registered groups under test.
-			$groups = apply_filters( 'woocommerce_settings_groups', array() );
+			// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment -- Reading the registered groups under test.
+			$groups = apply_filters( 'poocommerce_settings_groups', array() );
 			$ids    = array_column( $groups, 'id' );
 		} finally {
 			$wp_current_filter = $current_filter_backup; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
@@ -249,23 +249,23 @@ class WooCommerce_Test extends \WC_Unit_Test_Case {
 	 */
 	public function test_register_wp_admin_settings_recovers_from_hook_reset(): void {
 		WC()->register_wp_admin_settings();
-		// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment, WordPress.NamingConventions.ValidHookName.UseUnderscores -- Reading the registered settings under test; the hook name is a core legacy one.
-		$general_before = apply_filters( 'woocommerce_settings-general', array() );
+		// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment, WordPress.NamingConventions.ValidHookName.UseUnderscores -- Reading the registered settings under test; the hook name is a core legacy one.
+		$general_before = apply_filters( 'poocommerce_settings-general', array() );
 
 		// Wipe the groups filter only, leaving the per-group filters attached. This mirrors
 		// what the WP test framework does between tests (hook state restored, singletons kept).
-		remove_all_filters( 'woocommerce_settings_groups' );
+		remove_all_filters( 'poocommerce_settings_groups' );
 		WC()->register_wp_admin_settings();
 
-		// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment -- Reading the registered groups under test.
-		$groups = apply_filters( 'woocommerce_settings_groups', array() );
+		// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment -- Reading the registered groups under test.
+		$groups = apply_filters( 'poocommerce_settings_groups', array() );
 		$this->assertContains( 'general', array_column( $groups, 'id' ), 'Registration should re-attach after hook state is reset.' );
 
 		$ids = array_column( $groups, 'id' );
 		$this->assertSame( array_values( array_unique( $ids ) ), array_values( $ids ), 'Settings group ids should be unique after re-registration.' );
 
-		// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment, WordPress.NamingConventions.ValidHookName.UseUnderscores -- Reading the registered settings under test; the hook name is a core legacy one.
-		$general_after = apply_filters( 'woocommerce_settings-general', array() );
+		// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment, WordPress.NamingConventions.ValidHookName.UseUnderscores -- Reading the registered settings under test; the hook name is a core legacy one.
+		$general_after = apply_filters( 'poocommerce_settings-general', array() );
 		$this->assertNotEmpty( $general_before, 'The general settings group should have settings registered.' );
 		$this->assertSame(
 			count( $general_before ),
@@ -275,18 +275,18 @@ class WooCommerce_Test extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Should load WooCommerce includes in post editor load actions.
+	 * @testdox Should load PooCommerce includes in post editor load actions.
 	 */
-	public function test_loads_woocommerce_includes_for_post_editor_load_actions(): void {
+	public function test_loads_poocommerce_includes_for_post_editor_load_actions(): void {
 		$this->assertSame(
 			10,
 			has_action( 'load-post.php', array( WC(), 'includes' ) ),
-			'Existing post editor requests should invoke WooCommerce includes before block rendering.'
+			'Existing post editor requests should invoke PooCommerce includes before block rendering.'
 		);
 		$this->assertSame(
 			10,
 			has_action( 'load-post-new.php', array( WC(), 'includes' ) ),
-			'New post editor requests should invoke WooCommerce includes before block rendering.'
+			'New post editor requests should invoke PooCommerce includes before block rendering.'
 		);
 
 		$original_query     = WC()->query;
@@ -307,7 +307,7 @@ class WooCommerce_Test extends \WC_Unit_Test_Case {
 		$this->assertInstanceOf(
 			WC_Query::class,
 			$query_after_action,
-			'New post editor load action should invoke WooCommerce includes.'
+			'New post editor load action should invoke PooCommerce includes.'
 		);
 		$this->assertTrue(
 			function_exists( 'wc_set_notices' ),

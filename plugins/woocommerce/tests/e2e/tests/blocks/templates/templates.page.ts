@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { Editor, Admin } from '@woocommerce/e2e-utils';
+import { Editor, Admin } from '@poocommerce/e2e-utils';
 
 class TemplatesPage {
 	private admin: Admin;

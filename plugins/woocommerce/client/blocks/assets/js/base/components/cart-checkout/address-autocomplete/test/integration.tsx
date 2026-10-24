@@ -5,7 +5,7 @@ import { act, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { useState } from '@wordpress/element';
 import { useSelect, useDispatch } from '@wordpress/data';
-import { cartStore } from '@woocommerce/block-data';
+import { cartStore } from '@poocommerce/block-data';
 
 /**
  * Internal dependencies
@@ -13,8 +13,8 @@ import { cartStore } from '@woocommerce/block-data';
 import { AddressAutocomplete } from '../address-autocomplete';
 
 const mockUseCheckoutAddress = jest.fn();
-jest.mock( '@woocommerce/base-context', () => ( {
-	...jest.requireActual( '@woocommerce/base-context' ),
+jest.mock( '@poocommerce/base-context', () => ( {
+	...jest.requireActual( '@poocommerce/base-context' ),
 	useCheckoutAddress: () => mockUseCheckoutAddress(),
 } ) );
 
@@ -28,8 +28,8 @@ jest.mock( '@wordpress/data', () => ( {
 const mockUseSelect = useSelect as jest.Mock;
 const mockUseDispatch = useDispatch as jest.Mock;
 
-jest.mock( '@woocommerce/settings', () => ( {
-	...jest.requireActual( '@woocommerce/settings' ),
+jest.mock( '@poocommerce/settings', () => ( {
+	...jest.requireActual( '@poocommerce/settings' ),
 	getSettingWithCoercion: jest
 		.fn()
 		.mockImplementation( ( value, fallback, typeguard ) => {
@@ -43,7 +43,7 @@ jest.mock( '@woocommerce/settings', () => ( {
 				];
 			}
 			return jest
-				.requireActual( '@woocommerce/settings' )
+				.requireActual( '@poocommerce/settings' )
 				.getSettingWithCoercion( value, fallback, typeguard );
 		} ),
 } ) );

@@ -1,16 +1,16 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\DataStores\Orders;
+namespace Automattic\PooCommerce\Tests\Internal\DataStores\Orders;
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Enums\OrderInternalStatus;
-use Automattic\WooCommerce\Internal\BatchProcessing\BatchProcessingController;
-use Automattic\WooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
-use Automattic\WooCommerce\Internal\DataStores\Orders\DataSynchronizer;
-use Automattic\WooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
-use Automattic\WooCommerce\RestApi\UnitTests\HPOSToggleTrait;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Enums\OrderInternalStatus;
+use Automattic\PooCommerce\Internal\BatchProcessing\BatchProcessingController;
+use Automattic\PooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
+use Automattic\PooCommerce\Internal\DataStores\Orders\DataSynchronizer;
+use Automattic\PooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
+use Automattic\PooCommerce\RestApi\UnitTests\HPOSToggleTrait;
 use DMS\PHPUnitExtensions\ArraySubset\ArraySubsetAsserts;
 use ReflectionClass;
 use WC_Data_Store;
@@ -341,7 +341,7 @@ class DataSynchronizerTests extends \HposTestCase {
 		clean_post_cache( $order_id );
 		$this->assertSame( $post_type, get_post_type( $order_id ) );
 
-		$count_items_query = $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->prefix}woocommerce_order_items WHERE order_id = %d", $order_id );
+		$count_items_query = $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->prefix}poocommerce_order_items WHERE order_id = %d", $order_id );
 		$items_before      = (int) $wpdb->get_var( $count_items_query ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 		$this->assertGreaterThan( 0, $items_before );
 
@@ -594,7 +594,7 @@ class DataSynchronizerTests extends \HposTestCase {
 		// Sync enabled and CPT authoritative.
 		update_option( $this->sut::ORDERS_DATA_SYNC_ENABLED_OPTION, 'yes' );
 		update_option( CustomOrdersTableController::CUSTOM_ORDERS_TABLE_USAGE_ENABLED_OPTION, 'no' );
-		add_filter( 'woocommerce_hpos_enable_sync_on_read', '__return_true' );
+		add_filter( 'poocommerce_hpos_enable_sync_on_read', '__return_true' );
 
 		$order = OrderHelper::create_order();
 		$order->add_meta_data( 'foo', 'bar' );
@@ -618,7 +618,7 @@ class DataSynchronizerTests extends \HposTestCase {
 			'',
 			'Meta data deleted from the CPT datastore should also be deleted from the HPOS datastore.'
 		);
-		remove_all_filters( 'woocommerce_hpos_enable_sync_on_read' );
+		remove_all_filters( 'poocommerce_hpos_enable_sync_on_read' );
 	}
 
 	/**
@@ -628,10 +628,10 @@ class DataSynchronizerTests extends \HposTestCase {
 	 * @return void
 	 */
 	public function test_sync_propagates_meta_data_to_hpos(): void {
-		$legacy_handler = wc_get_container()->get( \Automattic\WooCommerce\Internal\DataStores\Orders\LegacyDataHandler::class );
+		$legacy_handler = wc_get_container()->get( \Automattic\PooCommerce\Internal\DataStores\Orders\LegacyDataHandler::class );
 
 		// Sync disabled, no sync-on-read and legacy authoritative.
-		add_filter( 'woocommerce_hpos_enable_sync_on_read', '__return_false' );
+		add_filter( 'poocommerce_hpos_enable_sync_on_read', '__return_false' );
 		update_option( $this->sut::ORDERS_DATA_SYNC_ENABLED_OPTION, 'no' );
 		update_option( CustomOrdersTableController::CUSTOM_ORDERS_TABLE_USAGE_ENABLED_OPTION, 'no' );
 
@@ -665,7 +665,7 @@ class DataSynchronizerTests extends \HposTestCase {
 		$hpos_order = $legacy_handler->get_order_from_datastore( $legacy_order->get_id(), 'hpos' );
 		$this->assertEquals( $hpos_order->get_meta( 'quux' ), '' );
 
-		remove_all_filters( 'woocommerce_hpos_enable_sync_on_read' );
+		remove_all_filters( 'poocommerce_hpos_enable_sync_on_read' );
 	}
 
 	/**
@@ -682,7 +682,7 @@ class DataSynchronizerTests extends \HposTestCase {
 		$order->save();
 
 		add_filter( 'pre_option_' . $this->sut::ORDERS_DATA_SYNC_ENABLED_OPTION, fn() => 'yes', 999 );
-		add_filter( 'woocommerce_hpos_enable_sync_on_read', '__return_true' );
+		add_filter( 'poocommerce_hpos_enable_sync_on_read', '__return_true' );
 
 		// Ensure placeholder exists.
 		$this->assertEquals( $this->sut::PLACEHOLDER_ORDER_POST_TYPE, get_post_type( $order->get_id() ) );
@@ -702,7 +702,7 @@ class DataSynchronizerTests extends \HposTestCase {
 		$this->assertNotEquals( $this->sut::PLACEHOLDER_ORDER_POST_TYPE, get_post_type( $order->get_id() ) );
 
 		remove_all_filters( 'pre_option_' . $this->sut::ORDERS_DATA_SYNC_ENABLED_OPTION );
-		remove_all_filters( 'woocommerce_hpos_enable_sync_on_read' );
+		remove_all_filters( 'poocommerce_hpos_enable_sync_on_read' );
 	}
 
 	/**
@@ -862,7 +862,7 @@ class DataSynchronizerTests extends \HposTestCase {
 		$this->disable_cot_sync();
 		OrderHelper::create_order();
 
-		$features = apply_filters( 'woocommerce_get_settings_advanced', array(), 'features' );
+		$features = apply_filters( 'poocommerce_get_settings_advanced', array(), 'features' );
 
 		$cot_setting = array_filter(
 			$features,

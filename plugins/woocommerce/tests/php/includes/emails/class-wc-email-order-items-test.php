@@ -24,7 +24,7 @@ class WC_Email_Order_Items_Test extends \WC_Unit_Test_Case {
 		}
 		$this->order_ids = array();
 
-		update_option( 'woocommerce_feature_email_improvements_enabled', 'no' );
+		update_option( 'poocommerce_feature_email_improvements_enabled', 'no' );
 
 		parent::tearDown();
 	}
@@ -33,7 +33,7 @@ class WC_Email_Order_Items_Test extends \WC_Unit_Test_Case {
 	 * @testdox Order item image and text columns use fixed alignment with email improvements enabled.
 	 */
 	public function test_order_item_image_and_text_columns_use_fixed_alignment_with_email_improvements(): void {
-		update_option( 'woocommerce_feature_email_improvements_enabled', 'yes' );
+		update_option( 'poocommerce_feature_email_improvements_enabled', 'yes' );
 
 		$order             = WC_Helper_Order::create_order();
 		$this->order_ids[] = $order->get_id();

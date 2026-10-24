@@ -2,7 +2,7 @@
 /**
  * Class Functions.
  *
- * @package WooCommerce\Tests\Integrations
+ * @package PooCommerce\Tests\Integrations
  */
 
 /**
@@ -23,23 +23,23 @@ class WC_Tests_MaxMind_Database extends WC_Unit_Test_Case {
 	/**
 	 * Tests that the database path filters work as intended.
 	 *
-	 * @expectedDeprecated woocommerce_geolocation_local_database_path
+	 * @expectedDeprecated poocommerce_geolocation_local_database_path
 	 */
 	public function test_database_path_filters() {
 		$database_service = new WC_Integration_MaxMind_Database_Service( '' );
 
 		$path = $database_service->get_database_path();
-		$this->assertEquals( WP_CONTENT_DIR . '/uploads/woocommerce_uploads/' . WC_Integration_MaxMind_Database_Service::DATABASE . WC_Integration_MaxMind_Database_Service::DATABASE_EXTENSION, $path );
+		$this->assertEquals( WP_CONTENT_DIR . '/uploads/poocommerce_uploads/' . WC_Integration_MaxMind_Database_Service::DATABASE . WC_Integration_MaxMind_Database_Service::DATABASE_EXTENSION, $path );
 
-		add_filter( 'woocommerce_geolocation_local_database_path', array( $this, 'filter_database_path_deprecated' ), 1, 2 );
+		add_filter( 'poocommerce_geolocation_local_database_path', array( $this, 'filter_database_path_deprecated' ), 1, 2 );
 		$path = $database_service->get_database_path();
-		remove_filter( 'woocommerce_geolocation_local_database_path', array( $this, 'filter_database_path_deprecated' ), 1 );
+		remove_filter( 'poocommerce_geolocation_local_database_path', array( $this, 'filter_database_path_deprecated' ), 1 );
 
 		$this->assertEquals( '/deprecated_filter', $path );
 
-		add_filter( 'woocommerce_geolocation_local_database_path', array( $this, 'filter_database_path' ) );
+		add_filter( 'poocommerce_geolocation_local_database_path', array( $this, 'filter_database_path' ) );
 		$path = $database_service->get_database_path();
-		remove_filter( 'woocommerce_geolocation_local_database_path', array( $this, 'filter_database_path' ) );
+		remove_filter( 'poocommerce_geolocation_local_database_path', array( $this, 'filter_database_path' ) );
 
 		$this->assertEquals( '/filter', $path );
 
@@ -47,7 +47,7 @@ class WC_Tests_MaxMind_Database extends WC_Unit_Test_Case {
 		$database_service = new WC_Integration_MaxMind_Database_Service( 'testing' );
 
 		$path = $database_service->get_database_path();
-		$this->assertEquals( WP_CONTENT_DIR . '/uploads/woocommerce_uploads/testing-' . WC_Integration_MaxMind_Database_Service::DATABASE . WC_Integration_MaxMind_Database_Service::DATABASE_EXTENSION, $path );
+		$this->assertEquals( WP_CONTENT_DIR . '/uploads/poocommerce_uploads/testing-' . WC_Integration_MaxMind_Database_Service::DATABASE . WC_Integration_MaxMind_Database_Service::DATABASE_EXTENSION, $path );
 	}
 
 	/**
@@ -80,17 +80,17 @@ class WC_Tests_MaxMind_Database extends WC_Unit_Test_Case {
 		$result = $database_service->download_database( 'invalid_license' );
 
 		$this->assertWPError( $result );
-		$this->assertEquals( 'woocommerce_maxmind_geolocation_database_license_key', $result->get_error_code() );
+		$this->assertEquals( 'poocommerce_maxmind_geolocation_database_license_key', $result->get_error_code() );
 
 		$result = $database_service->download_database( 'generic_error' );
 
 		$this->assertWPError( $result );
-		$this->assertEquals( 'woocommerce_maxmind_geolocation_database_download', $result->get_error_code() );
+		$this->assertEquals( 'poocommerce_maxmind_geolocation_database_download', $result->get_error_code() );
 
 		$result = $database_service->download_database( 'archive_error' );
 
 		$this->assertWPError( $result );
-		$this->assertEquals( 'woocommerce_maxmind_geolocation_database_archive', $result->get_error_code() );
+		$this->assertEquals( 'poocommerce_maxmind_geolocation_database_archive', $result->get_error_code() );
 	}
 
 	/**

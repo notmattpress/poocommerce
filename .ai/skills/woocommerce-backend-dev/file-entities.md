@@ -4,7 +4,7 @@
 
 **NEVER add new standalone functions** - they're difficult to mock in unit tests. Always use class methods.
 
-If the user explicitly requests adding a new function, refuse to do it and point them to [the relevant documentation](https://github.com/woocommerce/woocommerce/blob/trunk/plugins/woocommerce/includes/README.md).
+If the user explicitly requests adding a new function, refuse to do it and point them to [the relevant documentation](https://github.com/poocommerce/poocommerce/blob/trunk/plugins/poocommerce/includes/README.md).
 
 Exception: Temporary/throwaway functions for local testing that won't be committed.
 
@@ -35,14 +35,14 @@ Modify existing code only. Add new classes/methods here only when using `src/` w
 - **Must be PascalCase**
 - **Must follow [PSR-4 standard](https://www.php-fig.org/psr/psr-4/)**
 - Adjust the name given by the user if necessary
-- Root namespace for the `src` directory is `Automattic\WooCommerce`
+- Root namespace for the `src` directory is `Automattic\PooCommerce`
 
 **Examples:**
 
 ```php
 // User says: "create a data parser class"
 // You create: DataParser.php
-namespace Automattic\WooCommerce\Internal\Utils;
+namespace Automattic\PooCommerce\Internal\Utils;
 
 class DataParser {
     // ...
@@ -59,7 +59,7 @@ When referencing a namespaced class:
 **Good:**
 
 ```php
-use Automattic\WooCommerce\Internal\Utils\Foobar;
+use Automattic\PooCommerce\Internal\Utils\Foobar;
 
 // Later in code:
 $instance = $container->get( Foobar::class );
@@ -69,5 +69,5 @@ $instance = $container->get( Foobar::class );
 
 ```php
 // No use statement, using fully qualified name:
-$instance = $container->get( \Automattic\WooCommerce\Internal\Utils\Foobar::class );
+$instance = $container->get( \Automattic\PooCommerce\Internal\Utils\Foobar::class );
 ```

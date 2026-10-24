@@ -1,9 +1,9 @@
 <?php declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks;
+namespace Automattic\PooCommerce\Tests\Blocks;
 
-use Automattic\WooCommerce\Blocks\BlockTemplatesRegistry;
-use Automattic\WooCommerce\Blocks\Utils\BlockTemplateUtils;
+use Automattic\PooCommerce\Blocks\BlockTemplatesRegistry;
+use Automattic\PooCommerce\Blocks\Utils\BlockTemplateUtils;
 use WC_Unit_Test_Case;
 
 /**
@@ -22,15 +22,15 @@ final class BlockTemplatesRegistryTest extends WC_Unit_Test_Case {
 		$directory  = BlockTemplateUtils::get_templates_directory( 'wp_template' );
 		$reflection = new \ReflectionProperty( BlockTemplatesRegistry::class, 'template_paths' );
 		$reflection->setAccessible( true );
-		$reflection->setValue( $sut, array_merge( $reflection->getValue( $sut ), array( 'woocommerce//page-checkout' => $directory . '/page-checkout.html' ) ) );
+		$reflection->setValue( $sut, array_merge( $reflection->getValue( $sut ), array( 'poocommerce//page-checkout' => $directory . '/page-checkout.html' ) ) );
 
-		register_block_template( 'woocommerce//page-checkout', array( 'title' => 'Checkout' ) );
-		$template = \WP_Block_Templates_Registry::get_instance()->get_registered( 'woocommerce//page-checkout' );
+		register_block_template( 'poocommerce//page-checkout', array( 'title' => 'Checkout' ) );
+		$template = \WP_Block_Templates_Registry::get_instance()->get_registered( 'poocommerce//page-checkout' );
 
 		$this->assertSame( '', $template->content, 'Template content should start empty before lazy-load.' );
 
 		get_block_templates( array( 'slug__in' => array( 'page-checkout' ) ), 'wp_template' );
 
-		$this->assertStringContainsString( '<main class="wp-block-group">', $template->content, 'Content should contain WooCommerce markup.' );
+		$this->assertStringContainsString( '<main class="wp-block-group">', $template->content, 'Content should contain PooCommerce markup.' );
 	}
 }

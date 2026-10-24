@@ -5,17 +5,17 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Abilities\ActionableAbility;
-use Automattic\WooCommerce\Enums\ProductStatus;
-use Automattic\WooCommerce\Internal\Abilities\Domain\Traits\DomainAbilityHelpers;
-use Automattic\WooCommerce\Internal\Abilities\Domain\Traits\ProductAbilityTrait;
+use Automattic\PooCommerce\Abilities\ActionableAbility;
+use Automattic\PooCommerce\Enums\ProductStatus;
+use Automattic\PooCommerce\Internal\Abilities\Domain\Traits\DomainAbilityHelpers;
+use Automattic\PooCommerce\Internal\Abilities\Domain\Traits\ProductAbilityTrait;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * The WooCommerce product update ability. It runs the steps of ActionableAbility.
+ * The PooCommerce product update ability. It runs the steps of ActionableAbility.
  */
 class ProductUpdate extends ActionableAbility {
 
@@ -25,7 +25,7 @@ class ProductUpdate extends ActionableAbility {
 	/**
 	 * Ability name.
 	 */
-	public const ABILITY_NAME = 'woocommerce/product-update';
+	public const ABILITY_NAME = 'poocommerce/product-update';
 
 	/**
 	 * Get the ability registration arguments.
@@ -36,12 +36,12 @@ class ProductUpdate extends ActionableAbility {
 	 */
 	public static function get_registration_args(): array {
 		return array(
-			'label'               => __( 'Update product', 'woocommerce' ),
+			'label'               => __( 'Update product', 'poocommerce' ),
 			'description'         => __(
 				'Update an existing product using supported catalog fields.',
-				'woocommerce'
+				'poocommerce'
 			),
-			'category'            => 'woocommerce',
+			'category'            => 'poocommerce',
 			'input_schema'        => self::build_input_schema(),
 			'output_schema'       => self::get_entity_output_schema( 'product', self::get_product_output_schema() ),
 			'permission_callback' => array( __CLASS__, 'can_update_product' ),
@@ -84,8 +84,8 @@ class ProductUpdate extends ActionableAbility {
 
 		if ( empty( array_diff( array_keys( $input ), array( 'id' ) ) ) ) {
 			return new \WP_Error(
-				'woocommerce_product_update_no_fields',
-				__( 'At least one product field is required to update a product.', 'woocommerce' ),
+				'poocommerce_product_update_no_fields',
+				__( 'At least one product field is required to update a product.', 'poocommerce' ),
 				array( 'status' => 400 )
 			);
 		}
@@ -107,8 +107,8 @@ class ProductUpdate extends ActionableAbility {
 			&& ! self::current_user_can_publish_products()
 		) {
 			return new \WP_Error(
-				'woocommerce_product_publish_forbidden',
-				__( 'You are not allowed to publish products.', 'woocommerce' ),
+				'poocommerce_product_publish_forbidden',
+				__( 'You are not allowed to publish products.', 'poocommerce' ),
 				array( 'status' => rest_authorization_required_code() )
 			);
 		}
@@ -124,8 +124,8 @@ class ProductUpdate extends ActionableAbility {
 
 			if ( ! $product ) {
 				return new \WP_Error(
-					'woocommerce_invalid_product_type',
-					__( 'Invalid product type.', 'woocommerce' ),
+					'poocommerce_invalid_product_type',
+					__( 'Invalid product type.', 'poocommerce' ),
 					array( 'status' => 400 )
 				);
 			}
@@ -168,7 +168,7 @@ class ProductUpdate extends ActionableAbility {
 	 * @return null|\WP_Error
 	 */
 	public function save( $subject ) {
-		return self::save_product( $subject, 'woocommerce_product_update_failed' );
+		return self::save_product( $subject, 'poocommerce_product_update_failed' );
 	}
 
 	/**
@@ -203,7 +203,7 @@ class ProductUpdate extends ActionableAbility {
 	 * @return bool
 	 */
 	private static function current_user_can_publish_products(): bool {
-		// phpcs:ignore WordPress.WP.Capabilities.Unknown -- WooCommerce registers the publish_products capability.
+		// phpcs:ignore WordPress.WP.Capabilities.Unknown -- PooCommerce registers the publish_products capability.
 		return current_user_can( 'publish_products' );
 	}
 

@@ -3,8 +3,8 @@
  */
 import { render, screen } from '@testing-library/react';
 
-jest.mock( '@woocommerce/settings', () => ( {
-	...jest.requireActual( '@woocommerce/settings' ),
+jest.mock( '@poocommerce/settings', () => ( {
+	...jest.requireActual( '@poocommerce/settings' ),
 	getSettingWithCoercion: jest
 		.fn()
 		.mockImplementation( ( value, fallback, typeguard ) => {
@@ -23,12 +23,12 @@ jest.mock( '@woocommerce/settings', () => ( {
 				];
 			}
 			return jest
-				.requireActual( '@woocommerce/settings' )
+				.requireActual( '@poocommerce/settings' )
 				.getSettingWithCoercion( value, fallback, typeguard );
 		} ),
 } ) );
 
-jest.mock( '@woocommerce/blocks-components', () => ( {
+jest.mock( '@poocommerce/blocks-components', () => ( {
 	ValidatedTextInput: () => <div>ValidatedTextInput component</div>,
 } ) );
 
@@ -86,8 +86,8 @@ describe( 'AddressLineFields', () => {
 		jest.isolateModules( () => {
 			const AddressLineFields =
 				require( '../address-line-fields' ).default;
-			jest.mock( '@woocommerce/settings', () => ( {
-				...jest.requireActual( '@woocommerce/settings' ),
+			jest.mock( '@poocommerce/settings', () => ( {
+				...jest.requireActual( '@poocommerce/settings' ),
 				getSettingWithCoercion: jest
 					.fn()
 					.mockImplementation( ( value, fallback, typeguard ) => {
@@ -95,7 +95,7 @@ describe( 'AddressLineFields', () => {
 							return [];
 						}
 						return jest
-							.requireActual( '@woocommerce/settings' )
+							.requireActual( '@poocommerce/settings' )
 							.getSettingWithCoercion(
 								value,
 								fallback,

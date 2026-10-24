@@ -81,7 +81,7 @@ class WC_Product_CSV_Importer_Controller_Test extends WC_Unit_Test_Case {
 			}
 		);
 		add_filter(
-			'gettext_woocommerce',
+			'gettext_poocommerce',
 			static function ( $translation, $text ) use ( $locale ) {
 				return 'es_ES' === $locale && 'GTIN, UPC, EAN, or ISBN' === $text ? 'GTIN, UPC, EAN o ISBN' : $translation;
 			},
@@ -91,7 +91,7 @@ class WC_Product_CSV_Importer_Controller_Test extends WC_Unit_Test_Case {
 
 		$sut = new WC_Product_CSV_Importer_Controller();
 		// Mappings are included once, but the test framework restores hooks between datasets.
-		add_filter( 'woocommerce_csv_product_import_mapping_default_columns', 'wc_importer_default_english_mappings', 100 );
+		add_filter( 'poocommerce_csv_product_import_mapping_default_columns', 'wc_importer_default_english_mappings', 100 );
 		$method = new ReflectionMethod( WC_Product_CSV_Importer_Controller::class, 'auto_map_columns' );
 		$method->setAccessible( true );
 
@@ -418,7 +418,7 @@ class WC_Product_CSV_Importer_Controller_Test extends WC_Unit_Test_Case {
 			return 0;
 		};
 
-		add_filter( 'woocommerce_product_importer_default_time_limit', $spend_budget );
+		add_filter( 'poocommerce_product_importer_default_time_limit', $spend_budget );
 
 		try {
 			// A spent budget stops after the first placeholder and reports where to resume.
@@ -436,7 +436,7 @@ class WC_Product_CSV_Importer_Controller_Test extends WC_Unit_Test_Case {
 			$this->assertSame( $post_ids[2], $this->invoke_cleanup_after_import( $cursor ) );
 			$this->assertNull( $this->invoke_cleanup_after_import( $post_ids[2] ) );
 		} finally {
-			remove_filter( 'woocommerce_product_importer_default_time_limit', $spend_budget );
+			remove_filter( 'poocommerce_product_importer_default_time_limit', $spend_budget );
 		}
 
 		foreach ( $post_ids as $post_id ) {
@@ -529,7 +529,7 @@ class WC_Product_CSV_Importer_Controller_Test extends WC_Unit_Test_Case {
 	 * @testdox A resumed request should leave the markers of the run in progress alone.
 	 */
 	public function test_resumed_request_keeps_the_markers_of_the_run_in_progress(): void {
-		add_filter( 'woocommerce_product_import_batch_size', array( $this, 'return_one' ) );
+		add_filter( 'poocommerce_product_import_batch_size', array( $this, 'return_one' ) );
 
 		try {
 			$response = $this->dispatch_import_request( '0' );
@@ -547,7 +547,7 @@ class WC_Product_CSV_Importer_Controller_Test extends WC_Unit_Test_Case {
 			$this->assertSame( 1, $response['data']['imported_variations'] );
 			$this->assertSame( $parent_id, wp_get_post_parent_id( $variation_id ) );
 		} finally {
-			remove_filter( 'woocommerce_product_import_batch_size', array( $this, 'return_one' ) );
+			remove_filter( 'poocommerce_product_import_batch_size', array( $this, 'return_one' ) );
 		}
 	}
 
@@ -557,12 +557,12 @@ class WC_Product_CSV_Importer_Controller_Test extends WC_Unit_Test_Case {
 	public function test_retrying_an_abandoned_run_does_not_duplicate_rows_without_a_sku(): void {
 		$csv = "ID,Type,SKU,Name,Parent\n5001,simple,,Retry first,\n5002,simple,,Retry second,\n";
 
-		add_filter( 'woocommerce_product_import_batch_size', array( $this, 'return_one' ) );
+		add_filter( 'poocommerce_product_import_batch_size', array( $this, 'return_one' ) );
 
 		try {
 			$response = $this->dispatch_import_request( '0', $csv );
 		} finally {
-			remove_filter( 'woocommerce_product_import_batch_size', array( $this, 'return_one' ) );
+			remove_filter( 'poocommerce_product_import_batch_size', array( $this, 'return_one' ) );
 		}
 
 		// The run is abandoned here, before the second row and the cleanup requests.

@@ -5,8 +5,8 @@ import { render, screen } from '@testing-library/react';
 import {
 	useStoreAddToCart,
 	useStoreEvents,
-} from '@woocommerce/base-context/hooks';
-import { useStyleProps } from '@woocommerce/base-hooks';
+} from '@poocommerce/base-context/hooks';
+import { useStyleProps } from '@poocommerce/base-hooks';
 
 /**
  * Internal dependencies
@@ -14,16 +14,16 @@ import { useStyleProps } from '@woocommerce/base-hooks';
 import { AddToCartButton, Block } from '../block';
 import type { AddToCartButtonAttributes } from '../types';
 
-jest.mock( '@woocommerce/base-context/hooks', () => ( {
+jest.mock( '@poocommerce/base-context/hooks', () => ( {
 	useStoreAddToCart: jest.fn(),
 	useStoreEvents: jest.fn(),
 } ) );
 
-jest.mock( '@woocommerce/base-hooks', () => ( {
+jest.mock( '@poocommerce/base-hooks', () => ( {
 	useStyleProps: jest.fn(),
 } ) );
 
-jest.mock( '@woocommerce/shared-context', () => ( {
+jest.mock( '@poocommerce/shared-context', () => ( {
 	useInnerBlockLayoutContext: () => ( {} ),
 	useProductDataContext: () => ( {} ),
 } ) );
@@ -32,11 +32,11 @@ jest.mock( '../../../../shared/stores/product-type-template-state', () => ( {
 	useProductTypeSelector: () => ( {} ),
 } ) );
 
-jest.mock( '@woocommerce/block-settings', () => ( {
+jest.mock( '@poocommerce/block-settings', () => ( {
 	CART_URL: '/cart/',
 } ) );
 
-jest.mock( '@woocommerce/shared-hocs', () => ( {
+jest.mock( '@poocommerce/shared-hocs', () => ( {
 	withProductDataContext: ( component ) => component,
 } ) );
 
@@ -89,7 +89,7 @@ describe( 'AddToCartButton', () => {
 
 	it( 'keeps nofollow on cart action links', () => {
 		renderButton( {
-			collection: 'woocommerce/product-collection/cart-contents',
+			collection: 'poocommerce/product-collection/cart-contents',
 		} );
 
 		const link = screen.getByRole( 'link' );

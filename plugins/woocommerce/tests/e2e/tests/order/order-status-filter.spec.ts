@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { WC_API_PATH } from '@woocommerce/e2e-utils-playwright';
+import { WC_API_PATH } from '@poocommerce/e2e-utils-playwright';
 
 /**
  * Internal dependencies
@@ -25,7 +25,7 @@ const orderStatus = [
 ];
 
 test.describe(
-	'WooCommerce Orders > Filter Order by Status',
+	'PooCommerce Orders > Filter Order by Status',
 	{ tag: [ tags.HPOS ] },
 	() => {
 		test.use( { storageState: ADMIN_STATE_PATH } );

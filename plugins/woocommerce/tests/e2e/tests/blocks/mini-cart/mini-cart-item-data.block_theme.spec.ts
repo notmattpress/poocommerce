@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { test, expect, enableTestPlugin } from '@woocommerce/e2e-utils';
+import { test, expect, enableTestPlugin } from '@poocommerce/e2e-utils';
 import type { Page } from '@playwright/test';
 
 /**

@@ -2,10 +2,10 @@
 /**
  * Marketing Specs Handler
  *
- * Fetches the specifications for the marketing feature from WooCommerce.com API.
+ * Fetches the specifications for the marketing feature from PooCommerce.com API.
  */
 
-namespace Automattic\WooCommerce\Internal\Admin\Marketing;
+namespace Automattic\PooCommerce\Internal\Admin\Marketing;
 
 /**
  * Marketing Specifications Class.
@@ -22,7 +22,7 @@ class MarketingSpecs {
 	const KNOWLEDGE_BASE_TRANSIENT = 'wc_marketing_knowledge_base';
 
 	/**
-	 * Load knowledge base posts from WooCommerce.com
+	 * Load knowledge base posts from PooCommerce.com
 	 *
 	 * @param string|null $topic The topic of marketing knowledgebase to retrieve.
 	 * @return array
@@ -44,13 +44,13 @@ class MarketingSpecs {
 					'per_page' => 8,
 					'_embed'   => 1,
 				),
-				'https://woocommerce.com/wp-json/wccom/marketing-knowledgebase/v1/posts/' . $topic
+				'https://poocommerce.com/wp-json/wccom/marketing-knowledgebase/v1/posts/' . $topic
 			);
 
 			$request = wp_remote_get(
 				$request_url,
 				array(
-					'user-agent' => 'WooCommerce/' . WC()->version . '; ' . get_bloginfo( 'url' ),
+					'user-agent' => 'PooCommerce/' . WC()->version . '; ' . get_bloginfo( 'url' ),
 				)
 			);
 			$posts   = array();

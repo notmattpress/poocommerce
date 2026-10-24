@@ -2,11 +2,11 @@
 /**
  * Tests for WC_Test_Admin_Post_Types class.
  *
- * @package WooCommerce\Tests\Util
+ * @package PooCommerce\Tests\Util
  */
 
 /**
- * WooCommerce Post Type class.
+ * PooCommerce Post Type class.
  */
 class WC_Test_Admin_Post_Types extends WC_Unit_Test_Case {
 

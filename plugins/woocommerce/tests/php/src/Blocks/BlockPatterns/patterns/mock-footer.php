@@ -1,8 +1,8 @@
 <?php
 /**
  * Title: Mock Footer
- * Slug: woocommerce-blocks/mock-footer
- * Categories: WooCommerce
+ * Slug: poocommerce-blocks/mock-footer
+ * Categories: PooCommerce
  * Block Types: core/template-part/footer
  */
 

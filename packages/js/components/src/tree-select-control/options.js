@@ -70,7 +70,7 @@ const Options = ( {
 				role={ hasChildren ? 'treegroup' : 'treeitem' }
 				aria-expanded={ hasChildren ? expanded : undefined }
 				className={ clsx(
-					'woocommerce-tree-select-control__node',
+					'poocommerce-tree-select-control__node',
 					hasChildren && 'has-children'
 				) }
 			>
@@ -78,7 +78,7 @@ const Options = ( {
 					{ ! isRoot && (
 						<button
 							className={ clsx(
-								'woocommerce-tree-select-control__expander',
+								'poocommerce-tree-select-control__expander',
 								! hasChildren && 'is-hidden'
 							) }
 							tabIndex="-1"
@@ -95,7 +95,7 @@ const Options = ( {
 					<Checkbox
 						className={ clsx(
 							'components-base-control',
-							'woocommerce-tree-select-control__option',
+							'poocommerce-tree-select-control__option',
 							partialChecked && 'is-partially-checked'
 						) }
 						option={ option }
@@ -112,8 +112,8 @@ const Options = ( {
 				{ hasChildren && expanded && (
 					<div
 						className={ clsx(
-							'woocommerce-tree-select-control__children',
-							isRoot && 'woocommerce-tree-select-control__main'
+							'poocommerce-tree-select-control__children',
+							isRoot && 'poocommerce-tree-select-control__main'
 						) }
 					>
 						<Options

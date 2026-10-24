@@ -21,7 +21,7 @@ class WC_Shortcode_My_Account_Test extends WC_Unit_Test_Case {
 
 		add_action( 'set_auth_cookie', array( $this, 'record_auth_cookie_user_id' ), 10, 4 );
 		add_filter( 'send_auth_cookies', '__return_false' );
-		add_filter( 'woocommerce_disable_password_change_notification', '__return_true' );
+		add_filter( 'poocommerce_disable_password_change_notification', '__return_true' );
 	}
 
 	/**

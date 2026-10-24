@@ -5,18 +5,18 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Abilities;
+namespace Automattic\PooCommerce\Abilities;
 
-use Automattic\WooCommerce\Utilities\FeaturesUtil;
+use Automattic\PooCommerce\Utilities\FeaturesUtil;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * The entry point for extensions in WooCommerce's abilities.
+ * The entry point for extensions in PooCommerce's abilities.
  *
- * An extension registers a resource inside the `woocommerce_extensible_abilities_resources_init`
+ * An extension registers a resource inside the `poocommerce_extensible_abilities_resources_init`
  * action. It registers a field on a resource, such as `product`, inside the
- * `woocommerce_extensible_abilities_init` action, which fires after. An ability that formats an
+ * `poocommerce_extensible_abilities_init` action, which fires after. An ability that formats an
  * object of that resource returns the field values under
  * `extensions.<namespace>.<field>`, and lists the fields in its output schema.
  * An ActionableAbility writes the same `extensions` input to the fields that
@@ -87,7 +87,7 @@ class ExtensibleAbilities {
 	/**
 	 * Register a resource that abilities format, so extensions can register fields on it.
 	 *
-	 * Call it inside the `woocommerce_extensible_abilities_resources_init` action. A call after that action is refused.
+	 * Call it inside the `poocommerce_extensible_abilities_resources_init` action. A call after that action is refused.
 	 * Core registers `product`, `order` and `order_item` there. An
 	 * extension registers a resource that its own abilities format, and then calls `add_fields_to_object()`
 	 * and `add_fields_schema()` from those abilities, exactly as Core's abilities do.
@@ -98,8 +98,8 @@ class ExtensibleAbilities {
 	 * @param string $resource_name Slug of the resource, such as `ticket`.
 	 */
 	public static function register_resource( string $resource_name ): void {
-		if ( did_action( 'woocommerce_extensible_abilities_resources_init' ) && ! doing_action( 'woocommerce_extensible_abilities_resources_init' ) ) {
-			wc_doing_it_wrong( __METHOD__, 'Register a resource inside the woocommerce_extensible_abilities_resources_init action, before the fields are registered.', '11.3.0' );
+		if ( did_action( 'poocommerce_extensible_abilities_resources_init' ) && ! doing_action( 'poocommerce_extensible_abilities_resources_init' ) ) {
+			wc_doing_it_wrong( __METHOD__, 'Register a resource inside the poocommerce_extensible_abilities_resources_init action, before the fields are registered.', '11.3.0' );
 			return;
 		}
 		if ( '' === $resource_name || sanitize_key( $resource_name ) !== $resource_name || ctype_digit( $resource_name ) ) {
@@ -113,8 +113,8 @@ class ExtensibleAbilities {
 	/**
 	 * Register a field that the abilities of a resource return under `extensions.<namespace>.<field>`.
 	 *
-	 * Call it inside the `woocommerce_extensible_abilities_init` action. A call after that action is refused.
-	 * The resource must be registered with `register_resource()` in the earlier `woocommerce_extensible_abilities_resources_init` action.
+	 * Call it inside the `poocommerce_extensible_abilities_init` action. A call after that action is refused.
+	 * The resource must be registered with `register_resource()` in the earlier `poocommerce_extensible_abilities_resources_init` action.
 	 *
 	 * @since 11.3.0
 	 *
@@ -142,8 +142,8 @@ class ExtensibleAbilities {
 	 * }
 	 */
 	public static function register_field( array $args ): void {
-		if ( did_action( 'woocommerce_extensible_abilities_init' ) && ! doing_action( 'woocommerce_extensible_abilities_init' ) ) {
-			wc_doing_it_wrong( __METHOD__, 'Register a field inside the woocommerce_extensible_abilities_init action, before the abilities build their schemas.', '11.3.0' );
+		if ( did_action( 'poocommerce_extensible_abilities_init' ) && ! doing_action( 'poocommerce_extensible_abilities_init' ) ) {
+			wc_doing_it_wrong( __METHOD__, 'Register a field inside the poocommerce_extensible_abilities_init action, before the abilities build their schemas.', '11.3.0' );
 			return;
 		}
 		foreach ( array( 'resource', 'namespace', 'field' ) as $key ) {
@@ -159,8 +159,8 @@ class ExtensibleAbilities {
 				return;
 			}
 		}
-		if ( ! isset( self::$resources[ $args['resource'] ] ) && ! did_action( 'woocommerce_extensible_abilities_resources_init' ) ) {
-			wc_doing_it_wrong( __METHOD__, 'Register a field inside the woocommerce_extensible_abilities_init action. The resources are not registered yet.', '11.3.0' );
+		if ( ! isset( self::$resources[ $args['resource'] ] ) && ! did_action( 'poocommerce_extensible_abilities_resources_init' ) ) {
+			wc_doing_it_wrong( __METHOD__, 'Register a field inside the poocommerce_extensible_abilities_init action. The resources are not registered yet.', '11.3.0' );
 			return;
 		}
 		if ( ! isset( self::$resources[ $args['resource'] ] ) ) {
@@ -210,7 +210,7 @@ class ExtensibleAbilities {
 	/**
 	 * Register a filter that the list ability of a resource accepts under `filters.extensions.<namespace>.<filter>`.
 	 *
-	 * Call it inside the `woocommerce_extensible_abilities_init` action. A call after that action is refused.
+	 * Call it inside the `poocommerce_extensible_abilities_init` action. A call after that action is refused.
 	 * The resource must be registered with `register_resource()`.
 	 *
 	 * @since 11.3.0
@@ -237,8 +237,8 @@ class ExtensibleAbilities {
 	 * }
 	 */
 	public static function register_query_filter( array $args ): void {
-		if ( did_action( 'woocommerce_extensible_abilities_init' ) && ! doing_action( 'woocommerce_extensible_abilities_init' ) ) {
-			wc_doing_it_wrong( __METHOD__, 'Register a filter inside the woocommerce_extensible_abilities_init action, before the abilities build their schemas.', '11.3.0' );
+		if ( did_action( 'poocommerce_extensible_abilities_init' ) && ! doing_action( 'poocommerce_extensible_abilities_init' ) ) {
+			wc_doing_it_wrong( __METHOD__, 'Register a filter inside the poocommerce_extensible_abilities_init action, before the abilities build their schemas.', '11.3.0' );
 			return;
 		}
 		foreach ( array( 'resource', 'namespace', 'filter' ) as $key ) {
@@ -309,7 +309,7 @@ class ExtensibleAbilities {
 
 		$extensions = array(
 			'type'                 => 'object',
-			'description'          => __( 'Filters that extensions add, keyed by extension namespace, then filter.', 'woocommerce' ),
+			'description'          => __( 'Filters that extensions add, keyed by extension namespace, then filter.', 'poocommerce' ),
 			'properties'           => array(),
 			'additionalProperties' => false,
 		);
@@ -386,9 +386,9 @@ class ExtensibleAbilities {
 					|| in_array( false, array_map( 'is_array', $clauses ), true )
 				) {
 					return new \WP_Error(
-						'woocommerce_ability_extension_filter_failed',
+						'poocommerce_ability_extension_filter_failed',
 						/* translators: %s: filter name, such as subscriptions.subscribable. */
-						sprintf( __( 'The "%s" filter failed.', 'woocommerce' ), $namespace . '.' . $filter ),
+						sprintf( __( 'The "%s" filter failed.', 'poocommerce' ), $namespace . '.' . $filter ),
 						array( 'status' => 500 )
 					);
 				}
@@ -441,9 +441,9 @@ class ExtensibleAbilities {
 		);
 		if ( count( $valid ) !== count( $ids ) ) {
 			return new \WP_Error(
-				'woocommerce_ability_extension_filter_failed',
+				'poocommerce_ability_extension_filter_failed',
 				/* translators: %s: filter name, such as subscriptions.subscribable. */
-				sprintf( __( 'The "%s" filter failed.', 'woocommerce' ), $filter ),
+				sprintf( __( 'The "%s" filter failed.', 'poocommerce' ), $filter ),
 				array( 'status' => 500 )
 			);
 		}
@@ -453,7 +453,7 @@ class ExtensibleAbilities {
 	/**
 	 * Register a validator that can refuse a change to an object of a resource.
 	 *
-	 * Call it inside the `woocommerce_extensible_abilities_init` action. Validators
+	 * Call it inside the `poocommerce_extensible_abilities_init` action. Validators
 	 * run only when the `extensible_abilities` feature is on.
 	 *
 	 * Use a field `update_callback` to refuse a bad value of one field. It runs
@@ -485,8 +485,8 @@ class ExtensibleAbilities {
 	 * }
 	 */
 	public static function register_validator( array $args ): void {
-		if ( did_action( 'woocommerce_extensible_abilities_init' ) && ! doing_action( 'woocommerce_extensible_abilities_init' ) ) {
-			wc_doing_it_wrong( __METHOD__, 'Register a validator inside the woocommerce_extensible_abilities_init action.', '11.3.0' );
+		if ( did_action( 'poocommerce_extensible_abilities_init' ) && ! doing_action( 'poocommerce_extensible_abilities_init' ) ) {
+			wc_doing_it_wrong( __METHOD__, 'Register a validator inside the poocommerce_extensible_abilities_init action.', '11.3.0' );
 			return;
 		}
 		foreach ( array( 'resource', 'namespace' ) as $key ) {
@@ -571,7 +571,7 @@ class ExtensibleAbilities {
 	/**
 	 * Add the `extensions` property to an object schema when the feature is on.
 	 * It lists each namespace with its fields. Call it after the
-	 * `woocommerce_extensible_abilities_init` action, when the ability builds its
+	 * `poocommerce_extensible_abilities_init` action, when the ability builds its
 	 * schema. The schema stays unchanged when no field is registered for the resource.
 	 *
 	 * @since 11.3.0
@@ -587,7 +587,7 @@ class ExtensibleAbilities {
 
 		$extensions = array(
 			'type'                 => 'object',
-			'description'          => __( 'Values that extensions add, keyed by extension namespace, then field.', 'woocommerce' ),
+			'description'          => __( 'Values that extensions add, keyed by extension namespace, then field.', 'poocommerce' ),
 			'additionalProperties' => false,
 		);
 		foreach ( self::$fields[ $resource_name ] ?? array() as $namespace => $fields ) {

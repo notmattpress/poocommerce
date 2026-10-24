@@ -1,30 +1,30 @@
 <?php
 declare( strict_types=1 );
-namespace Automattic\WooCommerce\Blocks;
+namespace Automattic\PooCommerce\Blocks;
 
-use Automattic\WooCommerce\Blocks\Utils\BlockTemplateUtils;
-use Automattic\WooCommerce\Blocks\Templates\AbstractTemplate;
-use Automattic\WooCommerce\Blocks\Templates\AbstractTemplatePart;
-use Automattic\WooCommerce\Blocks\Templates\ArchiveProductTemplatesCompatibility;
-use Automattic\WooCommerce\Blocks\Templates\MiniCartTemplate;
-use Automattic\WooCommerce\Blocks\Templates\CartTemplate;
-use Automattic\WooCommerce\Blocks\Templates\CheckoutTemplate;
-use Automattic\WooCommerce\Blocks\Templates\CheckoutHeaderTemplate;
-use Automattic\WooCommerce\Blocks\Templates\ComingSoonTemplate;
-use Automattic\WooCommerce\Blocks\Templates\OrderConfirmationTemplate;
-use Automattic\WooCommerce\Blocks\Templates\ProductAttributeTemplate;
-use Automattic\WooCommerce\Blocks\Templates\ProductBrandTemplate;
-use Automattic\WooCommerce\Blocks\Templates\ProductCatalogTemplate;
-use Automattic\WooCommerce\Blocks\Templates\ProductCategoryTemplate;
-use Automattic\WooCommerce\Blocks\Templates\ProductTagTemplate;
-use Automattic\WooCommerce\Blocks\Templates\ProductSearchResultsTemplate;
-use Automattic\WooCommerce\Blocks\Templates\SingleProductTemplate;
-use Automattic\WooCommerce\Blocks\Templates\SingleProductTemplateCompatibility;
-use Automattic\WooCommerce\Blocks\Templates\SimpleProductAddToCartWithOptionsTemplate;
-use Automattic\WooCommerce\Blocks\Templates\ExternalProductAddToCartWithOptionsTemplate;
-use Automattic\WooCommerce\Blocks\Templates\VariableProductAddToCartWithOptionsTemplate;
-use Automattic\WooCommerce\Blocks\Templates\GroupedProductAddToCartWithOptionsTemplate;
-use Automattic\WooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Blocks\Utils\BlockTemplateUtils;
+use Automattic\PooCommerce\Blocks\Templates\AbstractTemplate;
+use Automattic\PooCommerce\Blocks\Templates\AbstractTemplatePart;
+use Automattic\PooCommerce\Blocks\Templates\ArchiveProductTemplatesCompatibility;
+use Automattic\PooCommerce\Blocks\Templates\MiniCartTemplate;
+use Automattic\PooCommerce\Blocks\Templates\CartTemplate;
+use Automattic\PooCommerce\Blocks\Templates\CheckoutTemplate;
+use Automattic\PooCommerce\Blocks\Templates\CheckoutHeaderTemplate;
+use Automattic\PooCommerce\Blocks\Templates\ComingSoonTemplate;
+use Automattic\PooCommerce\Blocks\Templates\OrderConfirmationTemplate;
+use Automattic\PooCommerce\Blocks\Templates\ProductAttributeTemplate;
+use Automattic\PooCommerce\Blocks\Templates\ProductBrandTemplate;
+use Automattic\PooCommerce\Blocks\Templates\ProductCatalogTemplate;
+use Automattic\PooCommerce\Blocks\Templates\ProductCategoryTemplate;
+use Automattic\PooCommerce\Blocks\Templates\ProductTagTemplate;
+use Automattic\PooCommerce\Blocks\Templates\ProductSearchResultsTemplate;
+use Automattic\PooCommerce\Blocks\Templates\SingleProductTemplate;
+use Automattic\PooCommerce\Blocks\Templates\SingleProductTemplateCompatibility;
+use Automattic\PooCommerce\Blocks\Templates\SimpleProductAddToCartWithOptionsTemplate;
+use Automattic\PooCommerce\Blocks\Templates\ExternalProductAddToCartWithOptionsTemplate;
+use Automattic\PooCommerce\Blocks\Templates\VariableProductAddToCartWithOptionsTemplate;
+use Automattic\PooCommerce\Blocks\Templates\GroupedProductAddToCartWithOptionsTemplate;
+use Automattic\PooCommerce\Enums\ProductType;
 
 /**
  * BlockTemplatesRegistry class.
@@ -41,7 +41,7 @@ class BlockTemplatesRegistry {
 	private $templates = array();
 
 	/**
-	 * Authoritative map for registered template name ('woocommerce//slug') to its HTML file path.
+	 * Authoritative map for registered template name ('poocommerce//slug') to its HTML file path.
 	 *
 	 * @var array<string,string>
 	 */
@@ -138,7 +138,7 @@ class BlockTemplatesRegistry {
 
 			// Taxonomy templates are registered automatically by WordPress and are added through the Add Template menu.
 			if ( ! $template->is_taxonomy_template ) {
-				$template_name                          = 'woocommerce//' . $template::SLUG;
+				$template_name                          = 'poocommerce//' . $template::SLUG;
 				$this->template_paths[ $template_name ] = $directory . '/' . $template::SLUG . '.html';
 				register_block_template(
 					$template_name,
@@ -168,8 +168,8 @@ class BlockTemplatesRegistry {
 	public function register_add_to_cart_with_options_template_part_area( $default_area_definitions ) {
 		$add_to_cart_with_options_template_part_area = array(
 			'area'        => 'add-to-cart-with-options',
-			'label'       => __( 'Add to Cart + Options', 'woocommerce' ),
-			'description' => __( 'The Add to Cart + Options templates allow defining a different layout for each product type.', 'woocommerce' ),
+			'label'       => __( 'Add to Cart + Options', 'poocommerce' ),
+			'description' => __( 'The Add to Cart + Options templates allow defining a different layout for each product type.', 'poocommerce' ),
 			'icon'        => 'add-to-cart-with-options',
 			'area_tag'    => 'add-to-cart-with-options',
 		);
@@ -177,7 +177,7 @@ class BlockTemplatesRegistry {
 	}
 
 	/**
-	 * Lazily load registered WooCommerce template file contents into the registry.
+	 * Lazily load registered PooCommerce template file contents into the registry.
 	 *
 	 * @since 11.4.0
 	 * @internal
@@ -190,7 +190,7 @@ class BlockTemplatesRegistry {
 	public function lazy_load_requested_templates_content( $result, $query, $template_type ) {
 		if ( 'wp_template' === $template_type && ! empty( $this->template_paths ) && ! isset( $query['wp_id'] ) ) {
 			// On front-end pages slug__in defines the target slugs; in other contexts we need to load all templates.
-			$target_templates = array_map( static fn( $slug ) => 'woocommerce//' . $slug, $query['slug__in'] ?? array() );
+			$target_templates = array_map( static fn( $slug ) => 'poocommerce//' . $slug, $query['slug__in'] ?? array() );
 			$target_templates = empty( $target_templates ) ? $this->template_paths : array_intersect_key( $this->template_paths, array_flip( $target_templates ) );
 			if ( ! empty( $target_templates ) ) {
 				$registry = \WP_Block_Templates_Registry::get_instance();

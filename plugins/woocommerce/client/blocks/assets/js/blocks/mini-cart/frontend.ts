@@ -10,23 +10,23 @@ import {
 	useRef,
 	withSyncEvent,
 } from '@wordpress/interactivity';
-import '@woocommerce/stores/woocommerce/cart';
-import '@woocommerce/stores/store-notices';
+import '@poocommerce/stores/poocommerce/cart';
+import '@poocommerce/stores/store-notices';
 import type {
-	Store as WooCommerce,
-	WooCommerceConfig,
-} from '@woocommerce/stores/woocommerce/cart';
+	Store as PooCommerce,
+	PooCommerceConfig,
+} from '@poocommerce/stores/poocommerce/cart';
 import {
 	formatPriceWithCurrency,
 	normalizeCurrencyResponse,
-} from '@woocommerce/price-format/utils/currency';
+} from '@poocommerce/price-format/utils/currency';
 
 /**
  * Internal dependencies
  */
-import type { CartItem, Currency } from '@woocommerce/types';
+import type { CartItem, Currency } from '@poocommerce/types';
 import { getFocusableElements } from '../../utils/get-focusable-elements';
-import { translateJQueryEventToNative } from '../../base/stores/woocommerce/legacy-events';
+import { translateJQueryEventToNative } from '../../base/stores/poocommerce/legacy-events';
 import {
 	getEntryFieldRaw,
 	isItemDataEntryVisible,
@@ -42,21 +42,21 @@ const {
 	currency,
 	placeholderImgSrc,
 	nonOptimisticProperties = [],
-} = getConfig( 'woocommerce' ) as WooCommerceConfig;
+} = getConfig( 'poocommerce' ) as PooCommerceConfig;
 const {
 	onCartClickBehaviour,
 	checkoutUrl,
 	displayCartPriceIncludingTax,
 	buttonAriaLabelTemplate,
-} = getConfig( 'woocommerce/mini-cart' );
+} = getConfig( 'poocommerce/mini-cart' );
 const {
 	reduceQuantityLabel,
 	increaseQuantityLabel,
 	quantityDescriptionLabel,
 	removeFromCartLabel,
-} = getConfig( 'woocommerce/mini-cart-products-table-block' );
+} = getConfig( 'poocommerce/mini-cart-products-table-block' );
 const { itemsInCartTextTemplate } = getConfig(
-	'woocommerce/mini-cart-title-items-counter-block'
+	'poocommerce/mini-cart-title-items-counter-block'
 );
 
 type ScalePriceArgs = {
@@ -153,8 +153,8 @@ const trimWords = ( html: string, maxWords = 15 ): string => {
 	return words.slice( 0, maxWords ).join( ' ' ) + '…';
 };
 
-const { state: woocommerceState, actions } = store< WooCommerce >(
-	'woocommerce',
+const { state: poocommerceState, actions } = store< PooCommerce >(
+	'poocommerce',
 	{},
 	{ lock: universalLock }
 );
@@ -162,8 +162,8 @@ const { state: woocommerceState, actions } = store< WooCommerce >(
 const dispatchCheckoutEvent = ( eventName: string ) => {
 	try {
 		window.wp.hooks.doAction(
-			`experimental__woocommerce_blocks-checkout-${ eventName }`,
-			{ storeCart: woocommerceState.cart }
+			`experimental__poocommerce_blocks-checkout-${ eventName }`,
+			{ storeCart: poocommerceState.cart }
 		);
 	} catch ( e ) {
 		// eslint-disable-next-line no-console
@@ -174,7 +174,7 @@ const dispatchCheckoutEvent = ( eventName: string ) => {
 let previousIsOpen: boolean | undefined;
 
 const { state: miniCartState, actions: miniCartActions } = store< MiniCart >(
-	'woocommerce/mini-cart',
+	'poocommerce/mini-cart',
 	{},
 	{ lock: true }
 );
@@ -182,21 +182,21 @@ const { state: miniCartState, actions: miniCartActions } = store< MiniCart >(
 // Getters cannot access `state` during hydration if it is not declared
 // beforehand. This will be removed once the iAPI allows this case.
 const { state } = store< MiniCart >(
-	'woocommerce/mini-cart',
+	'poocommerce/mini-cart',
 	{},
 	{ lock: universalLock }
 );
 
 store< MiniCart >(
-	'woocommerce/mini-cart',
+	'poocommerce/mini-cart',
 	{
 		state: {
 			isHydrated: false,
 			get totalItemsInCart() {
 				if ( nonOptimisticProperties.includes( 'cart.items_count' ) ) {
-					return woocommerceState.cart.items_count as number;
+					return poocommerceState.cart.items_count as number;
 				}
-				return woocommerceState.cart.items.reduce< number >(
+				return poocommerceState.cart.items.reduce< number >(
 					( total, { quantity } ) => total + quantity,
 					0
 				);
@@ -208,15 +208,15 @@ store< MiniCart >(
 				}
 
 				const subtotal = displayCartPriceIncludingTax
-					? parseInt( woocommerceState.cart.totals.total_items, 10 ) +
+					? parseInt( poocommerceState.cart.totals.total_items, 10 ) +
 						parseInt(
-							woocommerceState.cart.totals.total_items_tax,
+							poocommerceState.cart.totals.total_items_tax,
 							10
 						)
-					: parseInt( woocommerceState.cart.totals.total_items, 10 );
+					: parseInt( poocommerceState.cart.totals.total_items, 10 );
 
 				const normalizedCurrency = normalizeCurrencyResponse(
-					woocommerceState.cart.totals,
+					poocommerceState.cart.totals,
 					currency
 				);
 
@@ -225,7 +225,7 @@ store< MiniCart >(
 
 			// The subtotal comes from the server, so it's out of date until a cart update finishes.
 			get isCartUpdating(): boolean {
-				return !! woocommerceState.isCartUpdating;
+				return !! poocommerceState.isCartUpdating;
 			},
 
 			get drawerRole() {
@@ -262,7 +262,7 @@ store< MiniCart >(
 			get shouldShowTaxLabel(): boolean {
 				return (
 					parseInt(
-						woocommerceState.cart.totals.total_items_tax,
+						poocommerceState.cart.totals.total_items_tax,
 						10
 					) > 0
 				);
@@ -448,7 +448,7 @@ function getItemDataRaw( field: 'name' | 'value' ): string {
 }
 
 const { state: cartItemState } = store(
-	'woocommerce/mini-cart-products-table-block',
+	'poocommerce/mini-cart-products-table-block',
 	{
 		state: {
 			// As a workaround for a bug in context of wp-each we use state to
@@ -457,9 +457,9 @@ const { state: cartItemState } = store(
 			get cartItem() {
 				const {
 					cartItem: { id, key, variation },
-				} = getContext< CartItemContext >( 'woocommerce' );
+				} = getContext< CartItemContext >( 'poocommerce' );
 
-				const cartItem = ( woocommerceState.findItemInCart( {
+				const cartItem = ( poocommerceState.findItemInCart( {
 					id,
 					key,
 					variation,
@@ -473,7 +473,7 @@ const { state: cartItemState } = store(
 
 			get currency(): Currency {
 				return normalizeCurrencyResponse(
-					woocommerceState.cart.totals,
+					poocommerceState.cart.totals,
 					currency as Currency
 				);
 			},
@@ -507,7 +507,7 @@ const { state: cartItemState } = store(
 								arg: {
 									context: 'cart',
 									cartItem: cartItemState.cartItem,
-									cart: woocommerceState.cart,
+									cart: poocommerceState.cart,
 								},
 							}
 						);
@@ -588,7 +588,7 @@ const { state: cartItemState } = store(
 								arg: {
 									context: 'cart',
 									cartItem: cartItemState.cartItem,
-									cart: woocommerceState.cart,
+									cart: poocommerceState.cart,
 								},
 							}
 						);
@@ -668,7 +668,7 @@ const { state: cartItemState } = store(
 								arg: {
 									context: 'cart',
 									cartItem: cartItemState.cartItem,
-									cart: woocommerceState.cart,
+									cart: poocommerceState.cart,
 								},
 							}
 						);
@@ -694,7 +694,7 @@ const { state: cartItemState } = store(
 								arg: {
 									context: 'cart',
 									cartItem: cartItemState.cartItem,
-									cart: woocommerceState.cart,
+									cart: poocommerceState.cart,
 								},
 							}
 						);
@@ -747,7 +747,7 @@ const { state: cartItemState } = store(
 								arg: {
 									context: 'cart',
 									cartItem: cartItemState.cartItem,
-									cart: woocommerceState.cart,
+									cart: poocommerceState.cart,
 								},
 							}
 						);
@@ -781,7 +781,7 @@ const { state: cartItemState } = store(
 								arg: {
 									context: 'cart',
 									cartItem: cartItemState.cartItem,
-									cart: woocommerceState.cart,
+									cart: poocommerceState.cart,
 								},
 							}
 						)
@@ -1003,7 +1003,7 @@ const { state: cartItemState } = store(
 							arg: {
 								context: 'cart',
 								cartItem: cartItemState.cartItem,
-								cart: woocommerceState.cart,
+								cart: poocommerceState.cart,
 							},
 						} );
 
@@ -1025,7 +1025,7 @@ const { state: cartItemState } = store(
 );
 
 store(
-	'woocommerce/mini-cart-title-items-counter-block',
+	'poocommerce/mini-cart-title-items-counter-block',
 	{
 		state: {
 			get itemsInCartText() {

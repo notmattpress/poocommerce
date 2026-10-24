@@ -13,7 +13,7 @@ const TRACKING_SCRIPT_URL = 'https://stats.wp.com/s-202642.js';
 function printHeldTag( attributes: Record< string, string > = { src: TRACKING_SCRIPT_URL } ) {
 	const held = document.createElement( 'script' );
 	held.setAttribute( 'type', 'text/plain' );
-	held.setAttribute( 'id', 'woocommerce-analytics-js' );
+	held.setAttribute( 'id', 'poocommerce-analytics-js' );
 	held.setAttribute( 'data-wc-analytics-consent', 'statistics' );
 	for ( const [ name, value ] of Object.entries( attributes ) ) {
 		held.setAttribute( name, value );
@@ -51,7 +51,7 @@ describe( 'activateTrackingScript', () => {
 		expect( scripts[ 0 ].getAttribute( 'type' ) ).toBeNull();
 		expect( scripts[ 0 ].hasAttribute( 'data-wc-analytics-consent' ) ).toBe( false );
 		expect( scripts[ 0 ].src ).toBe( TRACKING_SCRIPT_URL );
-		expect( scripts[ 0 ].id ).toBe( 'woocommerce-analytics-js' );
+		expect( scripts[ 0 ].id ).toBe( 'poocommerce-analytics-js' );
 		expect( scripts[ 0 ].getAttribute( 'crossorigin' ) ).toBe( 'anonymous' );
 	} );
 

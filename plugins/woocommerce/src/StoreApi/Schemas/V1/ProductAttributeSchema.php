@@ -1,5 +1,5 @@
 <?php
-namespace Automattic\WooCommerce\StoreApi\Schemas\V1;
+namespace Automattic\PooCommerce\StoreApi\Schemas\V1;
 
 /**
  * ProductAttributeSchema class.
@@ -27,43 +27,43 @@ class ProductAttributeSchema extends AbstractSchema {
 	public function get_properties() {
 		return [
 			'id'           => array(
-				'description' => __( 'Unique identifier for the resource.', 'woocommerce' ),
+				'description' => __( 'Unique identifier for the resource.', 'poocommerce' ),
 				'type'        => 'integer',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
 			),
 			'name'         => array(
-				'description' => __( 'Attribute name.', 'woocommerce' ),
+				'description' => __( 'Attribute name.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
 			),
 			'taxonomy'     => array(
-				'description' => __( 'The attribute taxonomy name.', 'woocommerce' ),
+				'description' => __( 'The attribute taxonomy name.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
 			),
 			'type'         => array(
-				'description' => __( 'Attribute type.', 'woocommerce' ),
+				'description' => __( 'Attribute type.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
 			),
 			'order'        => array(
-				'description' => __( 'How terms in this attribute are sorted by default.', 'woocommerce' ),
+				'description' => __( 'How terms in this attribute are sorted by default.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
 			),
 			'has_archives' => array(
-				'description' => __( 'If this attribute has term archive pages.', 'woocommerce' ),
+				'description' => __( 'If this attribute has term archive pages.', 'poocommerce' ),
 				'type'        => 'boolean',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
 			),
 			'count'        => array(
-				'description' => __( 'Number of terms in the attribute taxonomy.', 'woocommerce' ),
+				'description' => __( 'Number of terms in the attribute taxonomy.', 'poocommerce' ),
 				'type'        => 'integer',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,

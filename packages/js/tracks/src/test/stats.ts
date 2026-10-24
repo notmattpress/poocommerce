@@ -66,7 +66,7 @@ describe( 'bumpStat', () => {
 		expect( result ).toBe( true );
 		expect( window.Image ).toHaveBeenCalledTimes( 1 );
 		expect( mockImage.src ).toMatch(
-			/^https?:\/\/pixel\.wp\.com\/g\.gif\?v=wpcom-no-pv&x_woocommerce-group=name&t=/
+			/^https?:\/\/pixel\.wp\.com\/g\.gif\?v=wpcom-no-pv&x_poocommerce-group=name&t=/
 		);
 	} );
 
@@ -76,7 +76,7 @@ describe( 'bumpStat', () => {
 		expect( result ).toBe( true );
 		expect( window.Image ).toHaveBeenCalledTimes( 1 );
 		expect( mockImage.src ).toMatch(
-			/^https?:\/\/pixel\.wp\.com\/g\.gif\?v=wpcom-no-pv&x_woocommerce-stat1=value1&x_woocommerce-stat2=value2&t=/
+			/^https?:\/\/pixel\.wp\.com\/g\.gif\?v=wpcom-no-pv&x_poocommerce-stat1=value1&x_poocommerce-stat2=value2&t=/
 		);
 	} );
 } );

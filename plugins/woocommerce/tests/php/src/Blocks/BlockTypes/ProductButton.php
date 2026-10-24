@@ -2,7 +2,7 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Tests\Blocks\BlockTypes;
 
 use WC_Helper_Product;
 
@@ -12,7 +12,7 @@ use WC_Helper_Product;
 class ProductButton extends \WP_UnitTestCase {
 
 	/**
-	 * Previous WooCommerce options to restore after each test.
+	 * Previous PooCommerce options to restore after each test.
 	 *
 	 * @var array<string, mixed>
 	 */
@@ -24,14 +24,14 @@ class ProductButton extends \WP_UnitTestCase {
 	protected function setUp(): void {
 		parent::setUp();
 
-		foreach ( array( 'woocommerce_cart_redirect_after_add', 'woocommerce_enable_ajax_add_to_cart' ) as $option_name ) {
+		foreach ( array( 'poocommerce_cart_redirect_after_add', 'poocommerce_enable_ajax_add_to_cart' ) as $option_name ) {
 			$this->previous_options[ $option_name ] = get_option( $option_name, null );
 			update_option( $option_name, 'no' );
 		}
 	}
 
 	/**
-	 * Restore test options and remove the published `woocommerce` state, which the base class does not reset.
+	 * Restore test options and remove the published `poocommerce` state, which the base class does not reset.
 	 */
 	protected function tearDown(): void {
 		try {
@@ -47,7 +47,7 @@ class ProductButton extends \WP_UnitTestCase {
 			$property      = new \ReflectionProperty( $interactivity, 'state_data' );
 			$property->setAccessible( true );
 			$state_data = $property->getValue( $interactivity );
-			unset( $state_data['woocommerce'] );
+			unset( $state_data['poocommerce'] );
 			$property->setValue( $interactivity, $state_data );
 		} finally {
 			parent::tearDown();
@@ -62,7 +62,7 @@ class ProductButton extends \WP_UnitTestCase {
 	 */
 	private function render_product_button( \WC_Product $product ): string {
 		return do_blocks(
-			'<!-- wp:woocommerce/single-product {"productId":' . $product->get_id() . '} --><div class="wp-block-woocommerce-single-product"><!-- wp:woocommerce/product-button /--></div><!-- /wp:woocommerce/single-product -->'
+			'<!-- wp:poocommerce/single-product {"productId":' . $product->get_id() . '} --><div class="wp-block-poocommerce-single-product"><!-- wp:poocommerce/product-button /--></div><!-- /wp:poocommerce/single-product -->'
 		);
 	}
 
@@ -88,11 +88,11 @@ class ProductButton extends \WP_UnitTestCase {
 			return $args;
 		};
 
-		add_filter( 'woocommerce_loop_add_to_cart_args', $filter );
+		add_filter( 'poocommerce_loop_add_to_cart_args', $filter );
 		try {
 			$this->render_product_button( $product );
 		} finally {
-			remove_filter( 'woocommerce_loop_add_to_cart_args', $filter );
+			remove_filter( 'poocommerce_loop_add_to_cart_args', $filter );
 		}
 
 		$this->assertIsArray( $filtered_args );
@@ -129,10 +129,10 @@ class ProductButton extends \WP_UnitTestCase {
 	 * @param string $expected Expected aria-label.
 	 */
 	public function test_ajax_button_aria_label_starts_with_button_text( int $quantity, string $expected ): void {
-		update_option( 'woocommerce_enable_ajax_add_to_cart', 'yes' );
+		update_option( 'poocommerce_enable_ajax_add_to_cart', 'yes' );
 		$product = WC_Helper_Product::create_simple_product( true, array( 'name' => 'Beanie' ) );
 		wp_interactivity_state(
-			'woocommerce',
+			'poocommerce',
 			array(
 				'cart' => array(
 					'items' => array(
@@ -154,10 +154,10 @@ class ProductButton extends \WP_UnitTestCase {
 	 * @testdox AJAX button aria-label replaces only the first placeholder when product name contains placeholder characters.
 	 */
 	public function test_ajax_button_aria_label_replaces_only_first_placeholder(): void {
-		update_option( 'woocommerce_enable_ajax_add_to_cart', 'yes' );
+		update_option( 'poocommerce_enable_ajax_add_to_cart', 'yes' );
 		$product = WC_Helper_Product::create_simple_product( true, array( 'name' => 'Box ### Special' ) );
 		wp_interactivity_state(
-			'woocommerce',
+			'poocommerce',
 			array(
 				'cart' => array(
 					'items' => array(
@@ -179,18 +179,18 @@ class ProductButton extends \WP_UnitTestCase {
 	 * @testdox Labels that become empty after sanitization are omitted.
 	 */
 	public function test_product_button_omits_aria_label_when_sanitization_results_in_empty(): void {
-		update_option( 'woocommerce_enable_ajax_add_to_cart', 'yes' );
+		update_option( 'poocommerce_enable_ajax_add_to_cart', 'yes' );
 		$product = WC_Helper_Product::create_simple_product();
 		$filter  = static function ( array $args ): array {
 			$args['attributes']['aria-label'] = '<em></em>';
 			return $args;
 		};
 
-		add_filter( 'woocommerce_loop_add_to_cart_args', $filter );
+		add_filter( 'poocommerce_loop_add_to_cart_args', $filter );
 		try {
 			$markup = $this->render_product_button( $product );
 		} finally {
-			remove_filter( 'woocommerce_loop_add_to_cart_args', $filter );
+			remove_filter( 'poocommerce_loop_add_to_cart_args', $filter );
 		}
 
 		$processor = new \WP_HTML_Tag_Processor( $markup );

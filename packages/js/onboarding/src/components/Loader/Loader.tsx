@@ -24,7 +24,7 @@ export const Loader = ( {
 	className?: string;
 } ) => {
 	return (
-		<div className={ clsx( 'woocommerce-onboarding-loader', className ) }>
+		<div className={ clsx( 'poocommerce-onboarding-loader', className ) }>
 			{ children }
 		</div>
 	);
@@ -45,13 +45,13 @@ Loader.Layout = ( {
 	return (
 		<div
 			className={ clsx(
-				'woocommerce-onboarding-loader-wrapper',
+				'poocommerce-onboarding-loader-wrapper',
 				className
 			) }
 		>
 			<div
 				className={ clsx(
-					'woocommerce-onboarding-loader-container',
+					'poocommerce-onboarding-loader-container',
 					className
 				) }
 			>
@@ -72,7 +72,7 @@ Loader.Title = ( {
 	return (
 		<h1
 			className={ clsx(
-				'woocommerce-onboarding-loader__title',
+				'poocommerce-onboarding-loader__title',
 				className
 			) }
 		>
@@ -102,7 +102,7 @@ Loader.Subtext = ( {
 	return (
 		<p
 			className={ clsx(
-				'woocommerce-onboarding-loader__paragraph',
+				'poocommerce-onboarding-loader__paragraph',
 				className
 			) }
 		>

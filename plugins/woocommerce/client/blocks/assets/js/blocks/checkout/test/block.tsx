@@ -3,21 +3,21 @@
  */
 import { render, screen, waitFor, act, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { previewCart } from '@woocommerce/resource-previews';
+import { previewCart } from '@poocommerce/resource-previews';
 import { dispatch, select } from '@wordpress/data';
 import {
 	cartStore,
 	checkoutStore,
 	validationStore,
-} from '@woocommerce/block-data';
-import { allSettings } from '@woocommerce/settings';
-import { registerPaymentMethod } from '@woocommerce/blocks-registry';
-import { server, http, HttpResponse } from '@woocommerce/test-utils/msw';
+} from '@poocommerce/block-data';
+import { allSettings } from '@poocommerce/settings';
+import { registerPaymentMethod } from '@poocommerce/blocks-registry';
+import { server, http, HttpResponse } from '@poocommerce/test-utils/msw';
 
 /**
  * Internal dependencies
  */
-import { defaultCartState } from '@woocommerce/block-data/cart/default-state';
+import { defaultCartState } from '@poocommerce/block-data/cart/default-state';
 import Fields from '../inner-blocks/checkout-fields-block/frontend';
 import ExpressPayment from '../inner-blocks/checkout-express-payment-block/block';
 import ContactInformation from '../inner-blocks/checkout-contact-information-block/frontend';
@@ -44,7 +44,7 @@ import Taxes from '../inner-blocks/checkout-order-summary-taxes/frontend';
 import Checkout from '../block';
 
 jest.mock( '@wordpress/data', () =>
-	require( '@woocommerce/blocks-test-utils/mock-editor-store' ).mockWordPressDataWithEditorStore()
+	require( '@poocommerce/blocks-test-utils/mock-editor-store' ).mockWordPressDataWithEditorStore()
 );
 
 jest.mock( '@wordpress/compose', () => ( {

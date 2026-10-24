@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\StoreApi\Utilities;
+namespace Automattic\PooCommerce\StoreApi\Utilities;
 
 /**
  * PaymentUtils
@@ -11,7 +11,7 @@ namespace Automattic\WooCommerce\StoreApi\Utilities;
 class PaymentUtils {
 
 	/**
-	 * Callback for woocommerce_payment_methods_list_item filter to add token id
+	 * Callback for poocommerce_payment_methods_list_item filter to add token id
 	 * to the generated list.
 	 *
 	 * @param array             $list_item The current list item for the saved payment method.
@@ -24,7 +24,7 @@ class PaymentUtils {
 		$brand                = ! empty( $list_item['method']['brand'] ) ?
 			strtolower( $list_item['method']['brand'] ) :
 			'';
-		if ( ! empty( $brand ) && esc_html__( 'Credit card', 'woocommerce' ) !== $brand ) {
+		if ( ! empty( $brand ) && esc_html__( 'Credit card', 'poocommerce' ) !== $brand ) {
 			$list_item['method']['brand'] = wc_get_credit_card_type_label( $brand );
 		}
 		return $list_item;
@@ -55,7 +55,7 @@ class PaymentUtils {
 			return null;
 		}
 
-		add_filter( 'woocommerce_payment_methods_list_item', [ self::class, 'include_token_id_with_payment_methods' ], 10, 2 );
+		add_filter( 'poocommerce_payment_methods_list_item', [ self::class, 'include_token_id_with_payment_methods' ], 10, 2 );
 
 		$enabled_payment_gateways = self::get_enabled_payment_gateways();
 		$saved_payment_methods    = wc_get_customer_saved_methods_list( get_current_user_id() );
@@ -79,7 +79,7 @@ class PaymentUtils {
 			);
 		}
 
-		remove_filter( 'woocommerce_payment_methods_list_item', [ self::class, 'include_token_id_with_payment_methods' ], 10 );
+		remove_filter( 'poocommerce_payment_methods_list_item', [ self::class, 'include_token_id_with_payment_methods' ], 10 );
 
 		return $payment_methods;
 	}
@@ -103,7 +103,7 @@ class PaymentUtils {
 
 	/**
 	 * Returns the default payment method for a customer: the default saved card, then the method
-	 * remembered in the session, then the first enabled gateway. The `woocommerce_default_payment_method`
+	 * remembered in the session, then the first enabled gateway. The `poocommerce_default_payment_method`
 	 * filter runs last and can replace that answer.
 	 *
 	 * @return string
@@ -120,12 +120,12 @@ class PaymentUtils {
 		 *
 		 * @since 11.4.0
 		 *
-		 * @param string $payment_method     Gateway id WooCommerce would preselect: the customer's default saved
+		 * @param string $payment_method     Gateway id PooCommerce would preselect: the customer's default saved
 		 *                                   card's gateway, the method remembered in the session, or the first
 		 *                                   enabled gateway; '' when there is none.
 		 * @param array  $available_gateways Gateways available for this cart, keyed by id.
 		 */
-		$filtered = apply_filters( 'woocommerce_default_payment_method', $payment_method, $available_gateways );
+		$filtered = apply_filters( 'poocommerce_default_payment_method', $payment_method, $available_gateways );
 
 		// An unchanged answer passes through as before, even when that gateway isn't available for the cart;
 		// the block then falls back to the first method it can use. A callback's answer must be available.

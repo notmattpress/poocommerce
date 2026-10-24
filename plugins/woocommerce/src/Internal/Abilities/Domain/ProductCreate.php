@@ -5,16 +5,16 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Abilities\ActionableAbility;
-use Automattic\WooCommerce\Internal\Abilities\Domain\Traits\DomainAbilityHelpers;
-use Automattic\WooCommerce\Internal\Abilities\Domain\Traits\ProductAbilityTrait;
+use Automattic\PooCommerce\Abilities\ActionableAbility;
+use Automattic\PooCommerce\Internal\Abilities\Domain\Traits\DomainAbilityHelpers;
+use Automattic\PooCommerce\Internal\Abilities\Domain\Traits\ProductAbilityTrait;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * The WooCommerce product create ability. It runs the steps of ActionableAbility.
+ * The PooCommerce product create ability. It runs the steps of ActionableAbility.
  */
 class ProductCreate extends ActionableAbility {
 
@@ -24,7 +24,7 @@ class ProductCreate extends ActionableAbility {
 	/**
 	 * Ability name.
 	 */
-	public const ABILITY_NAME = 'woocommerce/product-create';
+	public const ABILITY_NAME = 'poocommerce/product-create';
 
 	/**
 	 * Get the ability registration arguments.
@@ -35,12 +35,12 @@ class ProductCreate extends ActionableAbility {
 	 */
 	public static function get_registration_args(): array {
 		return array(
-			'label'               => __( 'Create product', 'woocommerce' ),
+			'label'               => __( 'Create product', 'poocommerce' ),
 			'description'         => __(
 				'Create a product using supported catalog fields.',
-				'woocommerce'
+				'poocommerce'
 			),
-			'category'            => 'woocommerce',
+			'category'            => 'poocommerce',
 			'input_schema'        => self::build_input_schema(),
 			'output_schema'       => self::get_entity_output_schema( 'product', self::get_product_output_schema() ),
 			'permission_callback' => array( __CLASS__, 'can_create_product' ),
@@ -85,8 +85,8 @@ class ProductCreate extends ActionableAbility {
 
 		if ( ! $product ) {
 			return new \WP_Error(
-				'woocommerce_invalid_product_type',
-				__( 'Invalid product type.', 'woocommerce' ),
+				'poocommerce_invalid_product_type',
+				__( 'Invalid product type.', 'poocommerce' ),
 				array( 'status' => 400 )
 			);
 		}
@@ -124,7 +124,7 @@ class ProductCreate extends ActionableAbility {
 	 * @return null|\WP_Error
 	 */
 	public function save( $subject ) {
-		return self::save_product( $subject, 'woocommerce_product_create_failed' );
+		return self::save_product( $subject, 'poocommerce_product_create_failed' );
 	}
 
 	/**

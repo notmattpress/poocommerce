@@ -1,4 +1,4 @@
 Significance: minor
 Type: add
 
-Add the woocommerce/order-notes-query ability, which lists every note of an order.
+Add the poocommerce/order-notes-query ability, which lists every note of an order.

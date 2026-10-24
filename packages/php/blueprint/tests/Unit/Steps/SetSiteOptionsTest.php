@@ -1,7 +1,7 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use Automattic\WooCommerce\Blueprint\Steps\SetSiteOptions;
+use Automattic\PooCommerce\Blueprint\Steps\SetSiteOptions;
 
 /**
  * Unit tests for SetSiteOptions class.
@@ -12,7 +12,7 @@ class SetSiteOptionsTest extends TestCase {
 	 */
 	public function testConstructorAndPrepareJsonArray() {
 		$options = array(
-			'site_name' => 'My WooCommerce Site',
+			'site_name' => 'My PooCommerce Site',
 			'timezone'  => 'UTC',
 		);
 

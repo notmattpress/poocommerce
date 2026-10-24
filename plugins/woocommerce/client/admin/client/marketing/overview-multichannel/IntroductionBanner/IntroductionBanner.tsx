@@ -56,16 +56,16 @@ export const IntroductionBanner = ( {
 	);
 
 	return (
-		<Card className="woocommerce-marketing-introduction-banner">
-			<div className="woocommerce-marketing-introduction-banner-content">
-				<div className="woocommerce-marketing-introduction-banner-title">
+		<Card className="poocommerce-marketing-introduction-banner">
+			<div className="poocommerce-marketing-introduction-banner-content">
+				<div className="poocommerce-marketing-introduction-banner-title">
 					{ __(
-						'Reach new customers and increase sales without leaving WooCommerce',
-						'woocommerce'
+						'Reach new customers and increase sales without leaving PooCommerce',
+						'poocommerce'
 					) }
 				</div>
 				<Flex
-					className="woocommerce-marketing-introduction-banner-features"
+					className="poocommerce-marketing-introduction-banner-features"
 					direction="column"
 					gap={ 1 }
 					expanded={ false }
@@ -76,7 +76,7 @@ export const IntroductionBanner = ( {
 							<FlexBlock>
 								{ __(
 									'Reach customers on other sales channels',
-									'woocommerce'
+									'poocommerce'
 								) }
 							</FlexBlock>
 						</Flex>
@@ -87,7 +87,7 @@ export const IntroductionBanner = ( {
 							<FlexBlock>
 								{ __(
 									'Advertise with marketing campaigns',
-									'woocommerce'
+									'poocommerce'
 								) }
 							</FlexBlock>
 						</Flex>
@@ -96,19 +96,19 @@ export const IntroductionBanner = ( {
 						<Flex>
 							<img
 								src={ wooIconUrl }
-								alt={ __( 'WooCommerce logo', 'woocommerce' ) }
+								alt={ __( 'PooCommerce logo', 'poocommerce' ) }
 								width="24"
 								height="24"
 							/>
 							<FlexBlock>
-								{ __( 'Built by WooCommerce', 'woocommerce' ) }
+								{ __( 'Built by PooCommerce', 'poocommerce' ) }
 							</FlexBlock>
 						</Flex>
 					</FlexItem>
 				</Flex>
 				{ showButtons && (
 					<Flex
-						className="woocommerce-marketing-introduction-banner-buttons"
+						className="poocommerce-marketing-introduction-banner-buttons"
 						justify="flex-start"
 					>
 						<Button
@@ -117,14 +117,14 @@ export const IntroductionBanner = ( {
 								setModalOpen( true );
 							} }
 						>
-							{ __( 'Create a campaign', 'woocommerce' ) }
+							{ __( 'Create a campaign', 'poocommerce' ) }
 						</Button>
 						{ showAddChannelsButton && (
 							<Button
 								variant="secondary"
 								onClick={ onAddChannelsClick }
 							>
-								{ __( 'Add channels', 'woocommerce' ) }
+								{ __( 'Add channels', 'poocommerce' ) }
 							</Button>
 						) }
 					</Flex>
@@ -135,16 +135,16 @@ export const IntroductionBanner = ( {
 					/>
 				) }
 			</div>
-			<div className="woocommerce-marketing-introduction-banner-illustration">
+			<div className="poocommerce-marketing-introduction-banner-illustration">
 				<Button
 					isSmall
-					className="woocommerce-marketing-introduction-banner-close-button"
+					className="poocommerce-marketing-introduction-banner-close-button"
 					onClick={ onDismissClick }
 				>
 					<Icon icon={ closeSmall } />
 				</Button>
 				<div
-					className="woocommerce-marketing-introduction-banner-image-placeholder"
+					className="poocommerce-marketing-introduction-banner-image-placeholder"
 					style={ {
 						backgroundImage: `url("${ illustrationUrl }")`,
 					} }

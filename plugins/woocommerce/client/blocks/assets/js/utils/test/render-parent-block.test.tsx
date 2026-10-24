@@ -21,7 +21,7 @@ describe( 'renderParentBlock', () => {
 			renderParentBlock( {
 				Block: ( { children } ) => <div>{ children }</div>,
 				selector: '.test-parent',
-				blockName: 'woocommerce/test-parent',
+				blockName: 'poocommerce/test-parent',
 				blockMap: {},
 				getProps: () => ( {} ),
 				options: { multiple: true },

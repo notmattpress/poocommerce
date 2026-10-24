@@ -1,6 +1,6 @@
 {
-	"name": "woocommerce/theme-cli",
-	"description": "Shared development tools for WooCommerce themes.",
+	"name": "poocommerce/theme-cli",
+	"description": "Shared development tools for PooCommerce themes.",
 	"type": "project",
 	"license": "GPL-2.0-or-later",
 	"require-dev": {

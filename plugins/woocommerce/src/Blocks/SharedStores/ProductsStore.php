@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Blocks\SharedStores;
+namespace Automattic\PooCommerce\Blocks\SharedStores;
 
-use Automattic\WooCommerce\Blocks\Domain\Services\Hydration;
-use Automattic\WooCommerce\Blocks\Package;
+use Automattic\PooCommerce\Blocks\Domain\Services\Hydration;
+use Automattic\PooCommerce\Blocks\Package;
 use InvalidArgumentException;
 
 /**
- * Shared store that hydrates the `woocommerce/products` Interactivity API
+ * Shared store that hydrates the `poocommerce/products` Interactivity API
  * store with product and variation data in Store API format.
  *
  * The store exposes two planes:
@@ -21,11 +21,11 @@ use InvalidArgumentException;
  *   `register_getters()`.
  *
  * The derived getters are mirrored in the JS store
- * (client/blocks/assets/js/base/stores/woocommerce/products.ts) so that
+ * (client/blocks/assets/js/base/stores/poocommerce/products.ts) so that
  * directive bindings like `state.productInContext.sku` resolve during
  * server-side rendering as well as on the client.
  *
- * See client/blocks/assets/js/base/stores/woocommerce/README.md for the
+ * See client/blocks/assets/js/base/stores/poocommerce/README.md for the
  * full model and consumer examples.
  *
  * This is an experimental API and may change in future versions.
@@ -37,14 +37,14 @@ class ProductsStore {
 	 *
 	 * @var string
 	 */
-	private static string $consent_statement = 'I acknowledge that using experimental APIs means my theme or plugin will inevitably break in the next version of WooCommerce';
+	private static string $consent_statement = 'I acknowledge that using experimental APIs means my theme or plugin will inevitably break in the next version of PooCommerce';
 
 	/**
 	 * The namespace for the store.
 	 *
 	 * @var string
 	 */
-	private static string $store_namespace = 'woocommerce/products';
+	private static string $store_namespace = 'poocommerce/products';
 
 	/**
 	 * Products that have been loaded into state.
@@ -93,7 +93,7 @@ class ProductsStore {
 	 * Register the derived-state getters once.
 	 *
 	 * These closures mirror the JS getters in
-	 * client/blocks/assets/js/base/stores/woocommerce/products.ts so that
+	 * client/blocks/assets/js/base/stores/poocommerce/products.ts so that
 	 * directives referencing state.mainProductInContext /
 	 * state.productVariationInContext / state.productInContext resolve
 	 * during SSR. Because they read from

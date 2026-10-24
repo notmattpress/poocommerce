@@ -254,7 +254,7 @@ describe( 'settings HTML rendering', () => {
 		);
 		expect( container.querySelector( 'input' ) ).toBeNull();
 		expect(
-			container.querySelector( '.woocommerce-save-button' )
+			container.querySelector( '.poocommerce-save-button' )
 		).toBeNull();
 		const classicAction = Array.from(
 			container.querySelectorAll( 'a' )
@@ -356,7 +356,7 @@ describe( 'settings HTML rendering', () => {
 		expect( errorRegion?.ownerDocument.activeElement ).toBe( errorRegion );
 		expect( container.querySelector( 'input' ) ).toBeNull();
 		expect(
-			container.querySelector( '.woocommerce-save-button' )
+			container.querySelector( '.poocommerce-save-button' )
 		).toBeNull();
 
 		act( () => root.unmount() );
@@ -767,7 +767,7 @@ describe( 'settings HTML rendering', () => {
 				'https://example.com/next'
 			);
 			expect( requestSubmit ).toHaveBeenCalledWith(
-				container.querySelector( '.woocommerce-save-button' )
+				container.querySelector( '.poocommerce-save-button' )
 			);
 			expect( window.onbeforeunload ).toBe( otherBeforeUnload );
 			const beforeUnloadEvent = new Event( 'beforeunload', {
@@ -1093,7 +1093,7 @@ describe( 'settings HTML rendering', () => {
 		try {
 			act( () => container.querySelector( 'button' )!.click() );
 			const saveButton = container.querySelector(
-				'.woocommerce-save-button'
+				'.poocommerce-save-button'
 			);
 			if ( ! ( saveButton instanceof window.HTMLButtonElement ) ) {
 				throw new Error( 'Expected a save button.' );
@@ -1299,7 +1299,7 @@ describe( 'settings HTML rendering', () => {
 		);
 		expect( container.querySelector( 'input' ) ).toBeNull();
 		expect(
-			container.querySelector( '.woocommerce-save-button' )
+			container.querySelector( '.poocommerce-save-button' )
 		).toBeNull();
 
 		act( () => root.unmount() );
@@ -1343,7 +1343,7 @@ describe( 'settings HTML rendering', () => {
 		);
 		expect( container.querySelector( 'select' ) ).toBeNull();
 		expect(
-			container.querySelector( '.woocommerce-save-button' )
+			container.querySelector( '.poocommerce-save-button' )
 		).toBeNull();
 
 		act( () => root.unmount() );

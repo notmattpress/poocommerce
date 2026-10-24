@@ -5,7 +5,7 @@ import clsx from 'clsx';
 import { __ } from '@wordpress/i18n';
 import { Button, Icon } from '@wordpress/components';
 import { cog, help } from '@wordpress/icons';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -42,10 +42,10 @@ export const EmbedHeader = ( {
 			through triggerMetaIcon. */ }
 			{ hasScreenOptions && (
 				<Button
-					className={ clsx( 'woocommerce-layout__header-meta-icon', {
+					className={ clsx( 'poocommerce-layout__header-meta-icon', {
 						'is-active': activeMetaIcon === 'screen-options',
 					} ) }
-					label={ __( 'Screen options', 'woocommerce' ) }
+					label={ __( 'Screen options', 'poocommerce' ) }
 					aria-expanded={ activeMetaIcon === 'screen-options' }
 					showTooltip
 					onClick={ () => {
@@ -71,10 +71,10 @@ export const EmbedHeader = ( {
 			) }
 			{ hasContextualHelp && (
 				<Button
-					className={ clsx( 'woocommerce-layout__header-meta-icon', {
+					className={ clsx( 'poocommerce-layout__header-meta-icon', {
 						'is-active': activeMetaIcon === 'help',
 					} ) }
-					label={ __( 'Help', 'woocommerce' ) }
+					label={ __( 'Help', 'poocommerce' ) }
 					aria-expanded={ activeMetaIcon === 'help' }
 					showTooltip
 					onClick={ () => {

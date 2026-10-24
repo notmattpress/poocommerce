@@ -1,9 +1,9 @@
 /**
  * External dependencies
  */
-import { STORE_PAGES } from '@woocommerce/settings';
+import { STORE_PAGES } from '@poocommerce/settings';
 // Use the store name to avoid adding wp-editor as a dependency on widget screens.
-import { CORE_EDITOR_STORE } from '@woocommerce/utils/wordpress-stores';
+import { CORE_EDITOR_STORE } from '@poocommerce/utils/wordpress-stores';
 import { store as coreStore } from '@wordpress/core-data';
 import { select as selectStore, useDispatch, useSelect } from '@wordpress/data';
 import domReady from '@wordpress/dom-ready';
@@ -42,7 +42,7 @@ const ShopPageRenderingMode = () => {
 
 domReady( () => {
 	if ( selectStore( CORE_EDITOR_STORE ) ) {
-		registerPlugin( 'woocommerce-shop-page-rendering-mode', {
+		registerPlugin( 'poocommerce-shop-page-rendering-mode', {
 			render: ShopPageRenderingMode,
 		} );
 	}

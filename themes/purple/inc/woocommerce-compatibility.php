@@ -1,6 +1,6 @@
 <?php
 /**
- * WooCommerce compatibility notices.
+ * PooCommerce compatibility notices.
  *
  * @internal
  * @package purple
@@ -9,23 +9,23 @@
 declare( strict_types = 1 );
 
 /**
- * Build a notice when WooCommerce does not meet the theme's requirements.
+ * Build a notice when PooCommerce does not meet the theme's requirements.
  *
  * @internal
  *
  * @return string Notice HTML, or an empty string when no notice is needed.
  */
-function purple_get_woocommerce_notice(): string {
+function purple_get_poocommerce_notice(): string {
 	$screen = get_current_screen();
 	if ( ! $screen || 'themes' !== $screen->id ) {
 		return '';
 	}
 
-	if ( get_user_meta( get_current_user_id(), 'purple_woocommerce_notice_dismissed', true ) ) {
+	if ( get_user_meta( get_current_user_id(), 'purple_poocommerce_notice_dismissed', true ) ) {
 		return '';
 	}
 
-	// Read the parent theme directly: WooCommerce may not be loaded to register its custom header.
+	// Read the parent theme directly: PooCommerce may not be loaded to register its custom header.
 	$headers = get_file_data( get_template_directory() . '/style.css', array( 'minimum_wc' => 'WC requires at least' ) );
 	$minimum = $headers['minimum_wc'];
 	if ( '' === $minimum ) {
@@ -33,36 +33,36 @@ function purple_get_woocommerce_notice(): string {
 	}
 
 	if ( defined( 'WC_VERSION' ) ) {
-		return purple_get_woocommerce_outdated_notice( $minimum, WC_VERSION );
+		return purple_get_poocommerce_outdated_notice( $minimum, WC_VERSION );
 	}
 
 	require_once ABSPATH . 'wp-admin/includes/plugin.php';
 	$plugins = get_plugins();
-	if ( isset( $plugins['woocommerce/woocommerce.php'] ) ) {
-		return purple_get_woocommerce_inactive_notice( $minimum );
+	if ( isset( $plugins['poocommerce/poocommerce.php'] ) ) {
+		return purple_get_poocommerce_inactive_notice( $minimum );
 	}
 
-	return purple_get_woocommerce_missing_notice( $minimum );
+	return purple_get_poocommerce_missing_notice( $minimum );
 }
 
 /**
- * Build the update notice when the active WooCommerce version is too old.
+ * Build the update notice when the active PooCommerce version is too old.
  *
  * @internal
  *
- * @param string $minimum Minimum required WooCommerce version.
- * @param string $current Active WooCommerce version.
+ * @param string $minimum Minimum required PooCommerce version.
+ * @param string $current Active PooCommerce version.
  * @return string Notice HTML, or an empty string for a compatible version.
  */
-function purple_get_woocommerce_outdated_notice( string $minimum, string $current ): string {
+function purple_get_poocommerce_outdated_notice( string $minimum, string $current ): string {
 	if ( version_compare( $current, $minimum, '>=' ) ) {
 		return '';
 	}
 
 	$notice = esc_html(
 		sprintf(
-			/* translators: 1: Minimum WooCommerce version, 2: Active WooCommerce version. */
-			__( 'For the best experience with Purple, we recommend WooCommerce %1$s or newer. You are currently running WooCommerce %2$s.', 'purple' ),
+			/* translators: 1: Minimum PooCommerce version, 2: Active PooCommerce version. */
+			__( 'For the best experience with Purple, we recommend PooCommerce %1$s or newer. You are currently running PooCommerce %2$s.', 'purple' ),
 			$minimum,
 			$current
 		)
@@ -75,18 +75,18 @@ function purple_get_woocommerce_outdated_notice( string $minimum, string $curren
 }
 
 /**
- * Build the activation notice for an installed but inactive WooCommerce plugin.
+ * Build the activation notice for an installed but inactive PooCommerce plugin.
  *
  * @internal
  *
- * @param string $minimum Minimum required WooCommerce version.
+ * @param string $minimum Minimum required PooCommerce version.
  * @return string Notice HTML.
  */
-function purple_get_woocommerce_inactive_notice( string $minimum ): string {
+function purple_get_poocommerce_inactive_notice( string $minimum ): string {
 	$notice = esc_html(
 		sprintf(
-			/* translators: %s: Minimum WooCommerce version. */
-			__( 'For the best experience with Purple, we recommend activating WooCommerce %s or newer.', 'purple' ),
+			/* translators: %s: Minimum PooCommerce version. */
+			__( 'For the best experience with Purple, we recommend activating PooCommerce %s or newer.', 'purple' ),
 			$minimum
 		)
 	);
@@ -98,23 +98,23 @@ function purple_get_woocommerce_inactive_notice( string $minimum ): string {
 }
 
 /**
- * Build the installation notice when WooCommerce is missing.
+ * Build the installation notice when PooCommerce is missing.
  *
  * @internal
  *
- * @param string $minimum Minimum required WooCommerce version.
+ * @param string $minimum Minimum required PooCommerce version.
  * @return string Notice HTML.
  */
-function purple_get_woocommerce_missing_notice( string $minimum ): string {
+function purple_get_poocommerce_missing_notice( string $minimum ): string {
 	$notice = esc_html(
 		sprintf(
-			/* translators: %s: Minimum WooCommerce version. */
-			__( 'For the best experience with Purple, we recommend installing and activating WooCommerce %s or newer.', 'purple' ),
+			/* translators: %s: Minimum PooCommerce version. */
+			__( 'For the best experience with Purple, we recommend installing and activating PooCommerce %s or newer.', 'purple' ),
 			$minimum
 		)
 	);
 	if ( current_user_can( 'install_plugins' ) ) {
-		$notice .= ' <a href="' . esc_url( self_admin_url( 'plugin-install.php?s=WooCommerce&tab=search&type=term' ) ) . '">' . esc_html__( 'Install WooCommerce', 'purple' ) . '</a>';
+		$notice .= ' <a href="' . esc_url( self_admin_url( 'plugin-install.php?s=PooCommerce&tab=search&type=term' ) ) . '">' . esc_html__( 'Install PooCommerce', 'purple' ) . '</a>';
 	}
 
 	return $notice;
@@ -127,20 +127,20 @@ function purple_get_woocommerce_missing_notice( string $minimum ): string {
  *
  * @return void
  */
-function purple_woocommerce_admin_notice(): void {
-	$notice = purple_get_woocommerce_notice();
+function purple_poocommerce_admin_notice(): void {
+	$notice = purple_get_poocommerce_notice();
 	if ( '' !== $notice ) {
 		wp_admin_notice(
 			$notice,
 			array(
-				'id'          => 'purple-woocommerce-notice',
+				'id'          => 'purple-poocommerce-notice',
 				'type'        => 'warning',
 				'dismissible' => true,
 			)
 		);
 	}
 }
-add_action( 'admin_notices', 'purple_woocommerce_admin_notice' );
+add_action( 'admin_notices', 'purple_poocommerce_admin_notice' );
 
 /**
  * Load the persistence handler only when the notice is visible.
@@ -149,39 +149,39 @@ add_action( 'admin_notices', 'purple_woocommerce_admin_notice' );
  *
  * @return void
  */
-function purple_enqueue_woocommerce_notice_script(): void {
-	if ( '' === purple_get_woocommerce_notice() ) {
+function purple_enqueue_poocommerce_notice_script(): void {
+	if ( '' === purple_get_poocommerce_notice() ) {
 		return;
 	}
 
 	wp_enqueue_script(
-		'purple-woocommerce-notice',
-		get_template_directory_uri() . '/assets/js/woocommerce-notice.js',
+		'purple-poocommerce-notice',
+		get_template_directory_uri() . '/assets/js/poocommerce-notice.js',
 		array( 'jquery', 'common' ),
 		wp_get_theme( get_template() )->get( 'Version' ),
 		true
 	);
 	wp_localize_script(
-		'purple-woocommerce-notice',
-		'purpleWooCommerceNotice',
+		'purple-poocommerce-notice',
+		'purplePooCommerceNotice',
 		array(
-			'nonce' => wp_create_nonce( 'purple_dismiss_woocommerce_notice' ),
+			'nonce' => wp_create_nonce( 'purple_dismiss_poocommerce_notice' ),
 		)
 	);
 }
-add_action( 'admin_enqueue_scripts', 'purple_enqueue_woocommerce_notice_script' );
+add_action( 'admin_enqueue_scripts', 'purple_enqueue_poocommerce_notice_script' );
 
 /**
- * Remember the current user's dismissal of the WooCommerce recommendation.
+ * Remember the current user's dismissal of the PooCommerce recommendation.
  *
  * @internal
  *
  * @return void
  */
-function purple_dismiss_woocommerce_notice(): void {
-	check_ajax_referer( 'purple_dismiss_woocommerce_notice', 'nonce' );
+function purple_dismiss_poocommerce_notice(): void {
+	check_ajax_referer( 'purple_dismiss_poocommerce_notice', 'nonce' );
 
-	update_user_meta( get_current_user_id(), 'purple_woocommerce_notice_dismissed', true );
+	update_user_meta( get_current_user_id(), 'purple_poocommerce_notice_dismissed', true );
 	wp_send_json_success();
 }
-add_action( 'wp_ajax_purple_dismiss_woocommerce_notice', 'purple_dismiss_woocommerce_notice' );
+add_action( 'wp_ajax_purple_dismiss_poocommerce_notice', 'purple_dismiss_poocommerce_notice' );

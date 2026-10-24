@@ -4,7 +4,7 @@
 import { __ } from '@wordpress/i18n';
 import { dispatch } from '@wordpress/data';
 import domReady from '@wordpress/dom-ready';
-import { getAdminLink } from '@woocommerce/settings';
+import { getAdminLink } from '@poocommerce/settings';
 
 /**
  * Returns a promise and resolves when the loader overlay no longer exists.
@@ -27,27 +27,27 @@ const saveCompleted = ( saveButton ) => {
  * Displays a notice on tax settings save.
  */
 const showTaxCompletionNotice = () => {
-	const saveButton = document.querySelector( '.woocommerce-save-button' );
+	const saveButton = document.querySelector( '.poocommerce-save-button' );
 
 	if ( saveButton.classList.contains( 'has-tax' ) ) {
 		return;
 	}
 
 	saveCompleted( saveButton ).then( () => {
-		// Check if a row was added successfully after WooCommerce removes invalid rows.
+		// Check if a row was added successfully after PooCommerce removes invalid rows.
 		if ( ! document.querySelector( '.wc_tax_rates .tips' ) ) {
 			return;
 		}
 
 		saveButton.classList.add( 'has-tax' );
 		dispatch( 'core/notices' ).createSuccessNotice(
-			__( 'You’ve added your first tax rate!', 'woocommerce' ),
+			__( 'You’ve added your first tax rate!', 'poocommerce' ),
 			{
 				id: 'WOOCOMMERCE_ONBOARDING_TAX_NOTICE',
 				actions: [
 					{
 						url: getAdminLink( 'admin.php?page=wc-admin' ),
-						label: __( 'Continue setup.', 'woocommerce' ),
+						label: __( 'Continue setup.', 'poocommerce' ),
 					},
 				],
 			}
@@ -56,7 +56,7 @@ const showTaxCompletionNotice = () => {
 };
 
 domReady( () => {
-	const saveButton = document.querySelector( '.woocommerce-save-button' );
+	const saveButton = document.querySelector( '.poocommerce-save-button' );
 
 	if (
 		window.htmlSettingsTaxLocalizeScript &&

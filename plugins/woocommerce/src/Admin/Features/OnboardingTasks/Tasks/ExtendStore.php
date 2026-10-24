@@ -1,8 +1,8 @@
 <?php
 
-namespace Automattic\WooCommerce\Admin\Features\OnboardingTasks\Tasks;
+namespace Automattic\PooCommerce\Admin\Features\OnboardingTasks\Tasks;
 
-use Automattic\WooCommerce\Admin\Features\OnboardingTasks\Task;
+use Automattic\PooCommerce\Admin\Features\OnboardingTasks\Task;
 
 /**
  * ExtendStore Task
@@ -23,7 +23,7 @@ class ExtendStore extends Task {
 	 * @return string
 	 */
 	public function get_title() {
-		return __( 'Enhance your store with extensions', 'woocommerce' );
+		return __( 'Enhance your store with extensions', 'poocommerce' );
 	}
 
 	/**

@@ -73,7 +73,7 @@ jest.mock(
 					<button
 						onClick={ () =>
 							onInsert(
-								'[woocommerce/customer-first-name]',
+								'[poocommerce/customer-first-name]',
 								null
 							)
 						}
@@ -83,7 +83,7 @@ jest.mock(
 					<button
 						onClick={ () =>
 							onInsert(
-								'[woocommerce/customer-first-name]',
+								'[poocommerce/customer-first-name]',
 								'Jane'
 							)
 						}
@@ -128,7 +128,7 @@ describe( 'extendRichTextFormats', () => {
 		// drop interactive formats entirely, which would hide the
 		// Personalization Tags toolbar button there.
 		expect( registerFormatTypeMock ).toHaveBeenCalledWith(
-			'woocommerce-email-editor/shortcode',
+			'poocommerce-email-editor/shortcode',
 			expect.objectContaining( {
 				interactive: false,
 				edit: expect.any( Function ),
@@ -141,7 +141,7 @@ describe( 'extendRichTextFormats', () => {
 		// programmatically via `applyFormat`, so unlike the shortcode format it
 		// has no toolbar `edit` component that the interactive flag could hide.
 		expect( registerFormatTypeMock ).toHaveBeenCalledWith(
-			'woocommerce-email-editor/link-shortcode',
+			'poocommerce-email-editor/link-shortcode',
 			expect.objectContaining( { interactive: true, edit: null } )
 		);
 	} );
@@ -154,7 +154,7 @@ type EditProps = {
 };
 
 describe( 'PersonalizationTagsButton insertion', () => {
-	const TAG = '[woocommerce/customer-first-name]';
+	const TAG = '[poocommerce/customer-first-name]';
 	const updateBlockAttributes = jest.fn();
 	let Edit: React.ComponentType< EditProps >;
 
@@ -203,7 +203,7 @@ describe( 'PersonalizationTagsButton insertion', () => {
 		registerFormatTypeMock.mockClear();
 		extendRichTextFormats();
 		Edit = registerFormatTypeMock.mock.calls.find(
-			( c ) => c[ 0 ] === 'woocommerce-email-editor/shortcode'
+			( c ) => c[ 0 ] === 'poocommerce-email-editor/shortcode'
 		)[ 1 ].edit;
 	} );
 
@@ -249,7 +249,7 @@ describe( 'PersonalizationTagsButton insertion', () => {
 			( formats: Array< { type: string; attributes: object } > ) =>
 				( formats || [] ).find(
 					( f ) =>
-						f.type === 'woocommerce-email-editor/link-shortcode'
+						f.type === 'poocommerce-email-editor/link-shortcode'
 				)?.attributes[ 'data-link-href' ]
 		);
 		expect( linked ).toEqual(
@@ -279,8 +279,8 @@ describe( 'PersonalizationTagsButton insertion', () => {
 describe( 'PersonalizationTagsButton editing', () => {
 	const TAG_SPAN = ( tag: string ) =>
 		`<span contenteditable="false" data-rich-text-comment="${ tag }"><span>${ tag }</span></span>`;
-	const FIRST = '[woocommerce/customer-first-name]';
-	const LAST = '[woocommerce/customer-last-name]';
+	const FIRST = '[poocommerce/customer-first-name]';
+	const LAST = '[poocommerce/customer-last-name]';
 	const updateBlockAttributes = jest.fn();
 	let Edit: React.ComponentType< EditProps >;
 	let p: HTMLElement;
@@ -329,7 +329,7 @@ describe( 'PersonalizationTagsButton editing', () => {
 		registerFormatTypeMock.mockClear();
 		extendRichTextFormats();
 		Edit = registerFormatTypeMock.mock.calls.find(
-			( c ) => c[ 0 ] === 'woocommerce-email-editor/shortcode'
+			( c ) => c[ 0 ] === 'poocommerce-email-editor/shortcode'
 		)[ 1 ].edit;
 	} );
 
@@ -347,8 +347,8 @@ describe( 'PersonalizationTagsButton editing', () => {
 			'[data-rich-text-comment]'
 		)[ 1 ];
 		capturedTagPopover.onUpdate(
-			'woocommerce/customer-first-name',
-			'woocommerce/customer-last-name',
+			'poocommerce/customer-first-name',
+			'poocommerce/customer-last-name',
 			second
 		);
 		expect( onChange ).toHaveBeenCalledTimes( 1 );
@@ -373,7 +373,7 @@ describe( 'PersonalizationTagsButton editing', () => {
 		const onChange = setup( { url: 'x', caption: 'Cap' }, value );
 		capturedTagPopover.onUpdate(
 			'a',
-			'woocommerce/customer-last-name',
+			'poocommerce/customer-last-name',
 			p.querySelector< HTMLElement >( '[data-rich-text-comment]' )
 		);
 		expect( onChange ).toHaveBeenCalledTimes( 1 );
@@ -382,7 +382,7 @@ describe( 'PersonalizationTagsButton editing', () => {
 
 	it( 'edits a tag in whitespace-collapsed content', () => {
 		const source = document.createElement( 'p' );
-		source.innerHTML = ' Hi <!--[woocommerce/customer-first-name]--> ';
+		source.innerHTML = ' Hi <!--[poocommerce/customer-first-name]--> ';
 		const data = RichTextData.fromHTMLElement( source );
 		const value = {
 			text: data.text,
@@ -395,7 +395,7 @@ describe( 'PersonalizationTagsButton editing', () => {
 		const onChange = setup( { content: ' Hi ' }, value );
 		capturedTagPopover.onUpdate(
 			'a',
-			'woocommerce/customer-last-name',
+			'poocommerce/customer-last-name',
 			p.querySelector< HTMLElement >( '[data-rich-text-comment]' )
 		);
 		expect( onChange ).toHaveBeenCalledTimes( 1 );
@@ -432,8 +432,8 @@ describe( 'PersonalizationTagsButton editing', () => {
 	} );
 
 	describe( 'link editing', () => {
-		const LINK = '[woocommerce/shop-url]';
-		const NEW = '[woocommerce/my-account-url]';
+		const LINK = '[poocommerce/shop-url]';
+		const NEW = '[poocommerce/my-account-url]';
 		const linkFormats = ( result: RichTextValue ) =>
 			result.formats.map( ( f ) =>
 				(
@@ -449,7 +449,7 @@ describe( 'PersonalizationTagsButton editing', () => {
 			expect( result.text ).toBe( 'Go to my account now' );
 			const types = linkFormats( result );
 			expect( types.flat() ).toEqual(
-				Array( 13 ).fill( 'woocommerce-email-editor/link-shortcode' )
+				Array( 13 ).fill( 'poocommerce-email-editor/link-shortcode' )
 			);
 			for ( let i = 0; i < result.formats.length; i++ ) {
 				const f = ( result.formats[ i ] || [] ) as unknown as Array< {
@@ -592,7 +592,7 @@ describe( 'PersonalizationTagsButton editing', () => {
 					expect( types ).toContain( 'strong' );
 					expect(
 						types.includes(
-							'woocommerce-email-editor/link-shortcode'
+							'poocommerce-email-editor/link-shortcode'
 						)
 					).toBe( i >= 6 );
 				}

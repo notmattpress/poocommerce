@@ -20,7 +20,7 @@ const NOW_SECONDS = 1_700_000_000;
 const TTL_SECONDS = 300;
 
 const buildResponse = ( ttl: number = TTL_SECONDS, token = 'abc' ) => ( {
-	qr_url: `woocommerce://qr-login?token=${ token }&siteUrl=https%3A%2F%2Fexample.test&ttl=${ ttl }`,
+	qr_url: `poocommerce://qr-login?token=${ token }&siteUrl=https%3A%2F%2Fexample.test&ttl=${ ttl }`,
 	expires_at: NOW_SECONDS + ttl,
 	ttl,
 } );
@@ -39,7 +39,7 @@ const expectedErrorMessages: Array< {
 	message: RegExp;
 } > = [
 	{
-		code: 'woocommerce_rest_cannot_view',
+		code: 'poocommerce_rest_cannot_view',
 		message: /do not have permission to generate a QR login code/i,
 	},
 	{
@@ -281,7 +281,7 @@ describe( 'useQRLoginToken', () => {
 		// countdown math is unambiguous.
 		const freshNowSeconds = Math.floor( Date.now() / 1000 );
 		const secondResponse = {
-			qr_url: 'woocommerce://qr-login?token=second&siteUrl=x',
+			qr_url: 'poocommerce://qr-login?token=second&siteUrl=x',
 			expires_at: freshNowSeconds + TTL_SECONDS,
 			ttl: TTL_SECONDS,
 		};

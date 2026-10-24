@@ -1,8 +1,8 @@
 <?php
 
-namespace Automattic\WooCommerce\Blueprint;
+namespace Automattic\PooCommerce\Blueprint;
 
-use Automattic\WooCommerce\Blueprint\ResourceStorages\ResourceStorage;
+use Automattic\PooCommerce\Blueprint\ResourceStorages\ResourceStorage;
 
 /**
  * Class ResourceStorages

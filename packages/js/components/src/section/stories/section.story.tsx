@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { H, Section } from '@woocommerce/components';
+import { H, Section } from '@poocommerce/components';
 import { createElement } from '@wordpress/element';
 
 export const Basic = () => (

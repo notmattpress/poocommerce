@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks;
+namespace Automattic\PooCommerce\Tests\Blocks;
 
-use Automattic\WooCommerce\Blocks\BlockTemplatesController;
-use Automattic\WooCommerce\Blocks\Utils\BlockTemplateUtils;
+use Automattic\PooCommerce\Blocks\BlockTemplatesController;
+use Automattic\PooCommerce\Blocks\Utils\BlockTemplateUtils;
 use WC_Unit_Test_Case;
 
 /**
@@ -58,7 +58,7 @@ class BlockTemplatesControllerTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Should not prepend customised WooCommerce template parts when querying by wp_id.
+	 * @testdox Should not prepend customised PooCommerce template parts when querying by wp_id.
 	 */
 	public function test_wp_id_query_does_not_prepend_unrelated_woo_templates(): void {
 		$woo_template_part   = $this->create_template_part( 'woo-custom-template-part' . uniqid(), BlockTemplateUtils::PLUGIN_SLUG );
@@ -83,19 +83,19 @@ class BlockTemplatesControllerTest extends WC_Unit_Test_Case {
 			$this->assertSame(
 				$theme_template_part->ID,
 				(int) ( $template->wp_id ?? 0 ),
-				'A wp_id query must not include unrelated WooCommerce templates.'
+				'A wp_id query must not include unrelated PooCommerce templates.'
 			);
 		}
 
 		$this->assertNotContains(
 			$woo_template_part->post_name,
 			array_column( $result, 'slug' ),
-			'Customised WooCommerce template parts must not leak into wp_id queries for other parts.'
+			'Customised PooCommerce template parts must not leak into wp_id queries for other parts.'
 		);
 	}
 
 	/**
-	 * @testdox Should still return a customised WooCommerce template part when queried by its own wp_id.
+	 * @testdox Should still return a customised PooCommerce template part when queried by its own wp_id.
 	 */
 	public function test_wp_id_query_returns_matching_customised_woo_template(): void {
 		$woo_template_part = $this->create_template_part( 'woo-custom-template-part' . uniqid(), BlockTemplateUtils::PLUGIN_SLUG );
@@ -108,24 +108,24 @@ class BlockTemplatesControllerTest extends WC_Unit_Test_Case {
 			'wp_template_part'
 		);
 
-		$this->assertNotEmpty( $result, 'Customised WooCommerce template parts must remain findable by wp_id.' );
+		$this->assertNotEmpty( $result, 'Customised PooCommerce template parts must remain findable by wp_id.' );
 		$this->assertSame(
 			$woo_template_part->ID,
 			(int) $result[0]->wp_id,
-			'The matching customised WooCommerce template part should be returned first.'
+			'The matching customised PooCommerce template part should be returned first.'
 		);
 
 		foreach ( $result as $template ) {
 			$this->assertSame(
 				$woo_template_part->ID,
 				(int) ( $template->wp_id ?? 0 ),
-				'A wp_id query must not include other customised WooCommerce templates.'
+				'A wp_id query must not include other customised PooCommerce templates.'
 			);
 		}
 	}
 
 	/**
-	 * @testdox Should still include customised WooCommerce template parts when the query has no wp_id.
+	 * @testdox Should still include customised PooCommerce template parts when the query has no wp_id.
 	 */
 	public function test_query_without_wp_id_includes_customised_woo_templates(): void {
 		$woo_template_part = $this->create_template_part( 'woo-custom-template-part' . uniqid(), BlockTemplateUtils::PLUGIN_SLUG );
@@ -136,7 +136,7 @@ class BlockTemplatesControllerTest extends WC_Unit_Test_Case {
 		$this->assertContains(
 			$woo_template_part->post_name,
 			array_column( $result, 'slug' ),
-			'Unfiltered queries should still surface customised WooCommerce template parts.'
+			'Unfiltered queries should still surface customised PooCommerce template parts.'
 		);
 	}
 
@@ -170,9 +170,9 @@ class BlockTemplatesControllerTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox WooCommerce template part is resolvable through get_block_template.
+	 * @testdox PooCommerce template part is resolvable through get_block_template.
 	 */
-	public function test_woocommerce_template_part_renders_content(): void {
+	public function test_poocommerce_template_part_renders_content(): void {
 		$this->create_template_part( 'test-woo-part', BlockTemplateUtils::PLUGIN_SLUG );
 		$this->flush_block_template_caches();
 
@@ -181,17 +181,17 @@ class BlockTemplatesControllerTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Missing WooCommerce template part resolves to null.
+	 * @testdox Missing PooCommerce template part resolves to null.
 	 */
-	public function test_missing_woocommerce_template_part_resolves_to_null(): void {
+	public function test_missing_poocommerce_template_part_resolves_to_null(): void {
 		$template_part = get_block_template( BlockTemplateUtils::PLUGIN_SLUG . '//non-existent-part-' . uniqid(), 'wp_template_part' );
 		$this->assertNull( $template_part, 'Missing template part should resolve to null.' );
 	}
 
 	/**
-	 * @testdox BC filters (render_block_data, render_block, render_block_core/template-part) fire for WooCommerce template parts.
+	 * @testdox BC filters (render_block_data, render_block, render_block_core/template-part) fire for PooCommerce template parts.
 	 */
-	public function test_bc_filters_fire_for_woocommerce_template_part(): void {
+	public function test_bc_filters_fire_for_poocommerce_template_part(): void {
 		$this->sut->init();
 
 		$this->create_template_part( 'test-filtered-part', BlockTemplateUtils::PLUGIN_SLUG );
@@ -206,12 +206,12 @@ class BlockTemplatesControllerTest extends WC_Unit_Test_Case {
 		$parsed_block = array(
 			'blockName' => 'core/template-part',
 			'attrs'     => array(
-				'theme'   => 'woocommerce/woocommerce',
+				'theme'   => 'poocommerce/poocommerce',
 				'slug'    => 'test-filtered-part',
 				'tagName' => 'span',
 			),
 		);
-		$result       = $this->sut->pre_render_woocommerce_template_part( null, $parsed_block );
+		$result       = $this->sut->pre_render_poocommerce_template_part( null, $parsed_block );
 
 		remove_filter( 'render_block_data', $block_filter, 10 );
 		remove_filter( 'render_block', $output_filter, 10 );
@@ -222,15 +222,15 @@ class BlockTemplatesControllerTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox WooCommerce template part with className renders it in the wrapper.
+	 * @testdox PooCommerce template part with className renders it in the wrapper.
 	 */
-	public function test_woocommerce_template_part_renders_classname_in_wrapper(): void {
+	public function test_poocommerce_template_part_renders_classname_in_wrapper(): void {
 		$this->sut->init();
 
 		$this->create_template_part( 'test-classed-part', BlockTemplateUtils::PLUGIN_SLUG );
 		$this->flush_block_template_caches();
 
-		$markup = '<!-- wp:template-part {"slug":"test-classed-part","theme":"woocommerce/woocommerce","className":"my-custom-class"} /-->';
+		$markup = '<!-- wp:template-part {"slug":"test-classed-part","theme":"poocommerce/poocommerce","className":"my-custom-class"} /-->';
 		$output = do_blocks( $markup );
 
 		$expected = '<div class="my-custom-class wp-block-template-part"><p class="wp-block-paragraph">Test</p></div>';
@@ -241,7 +241,7 @@ class BlockTemplatesControllerTest extends WC_Unit_Test_Case {
 	 * Clears template ID caches so newly created posts are visible.
 	 */
 	private function flush_block_template_caches(): void {
-		wp_cache_delete( 'wp_template-ids', 'woocommerce_blocks' );
-		wp_cache_delete( 'wp_template_part-ids', 'woocommerce_blocks' );
+		wp_cache_delete( 'wp_template-ids', 'poocommerce_blocks' );
+		wp_cache_delete( 'wp_template_part-ids', 'poocommerce_blocks' );
 	}
 }

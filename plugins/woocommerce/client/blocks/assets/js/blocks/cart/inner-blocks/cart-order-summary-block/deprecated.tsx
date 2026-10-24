@@ -26,43 +26,43 @@ const deprecated = [
 				attributes,
 				[
 					createBlock(
-						'woocommerce/cart-order-summary-heading-block',
+						'poocommerce/cart-order-summary-heading-block',
 						{
-							content: __( 'Cart totals', 'woocommerce' ),
+							content: __( 'Cart totals', 'poocommerce' ),
 						},
 						[]
 					),
 					createBlock(
-						'woocommerce/cart-order-summary-coupon-form-block',
+						'poocommerce/cart-order-summary-coupon-form-block',
 						{},
 						[]
 					),
 					createBlock(
-						'woocommerce/cart-order-summary-totals-block',
+						'poocommerce/cart-order-summary-totals-block',
 						{},
 						[
 							createBlock(
-								'woocommerce/cart-order-summary-subtotal-block',
+								'poocommerce/cart-order-summary-subtotal-block',
 								{},
 								[]
 							),
 							createBlock(
-								'woocommerce/cart-order-summary-fee-block',
+								'poocommerce/cart-order-summary-fee-block',
 								{},
 								[]
 							),
 							createBlock(
-								'woocommerce/cart-order-summary-discount-block',
+								'poocommerce/cart-order-summary-discount-block',
 								{},
 								[]
 							),
 							createBlock(
-								'woocommerce/cart-order-summary-shipping-block',
+								'poocommerce/cart-order-summary-shipping-block',
 								{},
 								[]
 							),
 							createBlock(
-								'woocommerce/cart-order-summary-taxes-block',
+								'poocommerce/cart-order-summary-taxes-block',
 								{},
 								[]
 							),
@@ -74,7 +74,7 @@ const deprecated = [
 		isEligible: ( attributes, innerBlocks ) => {
 			return ! innerBlocks.some(
 				( block ) =>
-					block.name === 'woocommerce/cart-order-summary-totals-block'
+					block.name === 'poocommerce/cart-order-summary-totals-block'
 			);
 		},
 	},

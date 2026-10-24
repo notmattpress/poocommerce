@@ -5,13 +5,13 @@
  * Handles requests to the admin note action endpoint.
  */
 
-namespace Automattic\WooCommerce\Admin\API;
+namespace Automattic\PooCommerce\Admin\API;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\Notes\Note;
-use Automattic\WooCommerce\Admin\Notes\Notes as NotesFactory;
-use Automattic\WooCommerce\Internal\Admin\Notes\NoteActionForbiddenException;
+use Automattic\PooCommerce\Admin\Notes\Note;
+use Automattic\PooCommerce\Admin\Notes\Notes as NotesFactory;
+use Automattic\PooCommerce\Internal\Admin\Notes\NoteActionForbiddenException;
 
 /**
  * REST API Admin Note Action controller class.
@@ -31,11 +31,11 @@ class NoteActions extends Notes {
 			array(
 				'args'   => array(
 					'note_id'   => array(
-						'description' => __( 'Unique ID for the Note.', 'woocommerce' ),
+						'description' => __( 'Unique ID for the Note.', 'poocommerce' ),
 						'type'        => 'integer',
 					),
 					'action_id' => array(
-						'description' => __( 'Unique ID for the Note Action.', 'woocommerce' ),
+						'description' => __( 'Unique ID for the Note Action.', 'poocommerce' ),
 						'type'        => 'integer',
 					),
 				),
@@ -61,8 +61,8 @@ class NoteActions extends Notes {
 
 		if ( ! $note ) {
 			return new \WP_Error(
-				'woocommerce_note_invalid_id',
-				__( 'Sorry, there is no resource with that ID.', 'woocommerce' ),
+				'poocommerce_note_invalid_id',
+				__( 'Sorry, there is no resource with that ID.', 'poocommerce' ),
 				array( 'status' => 404 )
 			);
 		}
@@ -74,8 +74,8 @@ class NoteActions extends Notes {
 
 		if ( ! $triggered_action ) {
 			return new \WP_Error(
-				'woocommerce_note_action_invalid_id',
-				__( 'Sorry, there is no resource with that ID.', 'woocommerce' ),
+				'poocommerce_note_action_invalid_id',
+				__( 'Sorry, there is no resource with that ID.', 'poocommerce' ),
 				array( 'status' => 404 )
 			);
 		}
@@ -83,7 +83,7 @@ class NoteActions extends Notes {
 		try {
 			$triggered_note = NotesFactory::trigger_note_action( $note, $triggered_action );
 		} catch ( NoteActionForbiddenException $e ) {
-			// Handlers hooked into `woocommerce_note_action[_*]` throw this typed
+			// Handlers hooked into `poocommerce_note_action[_*]` throw this typed
 			// exception when the current user lacks the per-action capability the
 			// handler enforces (the route-level permission check is intentionally
 			// coarser). Convert it to a 403 so REST clients get correct HTTP
@@ -96,7 +96,7 @@ class NoteActions extends Notes {
 			// in the current namespace). Localized here so the baseline doesn't grow.
 			// @phpstan-ignore-next-line return.type -- see rationale above.
 			return new \WP_Error(
-				'woocommerce_note_action_forbidden',
+				'poocommerce_note_action_forbidden',
 				$e->getMessage(),
 				array( 'status' => rest_authorization_required_code() )
 			);

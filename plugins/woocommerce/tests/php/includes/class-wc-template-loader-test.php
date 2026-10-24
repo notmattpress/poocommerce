@@ -2,10 +2,10 @@
 /**
  * Unit tests for the WC_Template_Loader class.
  *
- * @package WooCommerce\Tests\WC_Template_Loader.
+ * @package PooCommerce\Tests\WC_Template_Loader.
  */
 
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper;
 
 
 /**
@@ -21,7 +21,7 @@ class WC_Template_Loader_Test extends \WC_Unit_Test_Case {
 		$this->initialize_template_loader();
 
 		// forcing has_block_template to be false
-		add_filter( 'woocommerce_has_block_template', '__return_false', 10, 2 );
+		add_filter( 'poocommerce_has_block_template', '__return_false', 10, 2 );
 
 		// Check Single Product
 		$this->load_product_in_query();
@@ -55,7 +55,7 @@ class WC_Template_Loader_Test extends \WC_Unit_Test_Case {
 		$this->initialize_template_loader();
 
 		// forcing has_block_template to be false
-		add_filter( 'woocommerce_has_block_template', '__return_true', 10, 2 );
+		add_filter( 'poocommerce_has_block_template', '__return_true', 10, 2 );
 
 		// Check Single Product
 		$this->load_product_in_query();
@@ -86,7 +86,7 @@ class WC_Template_Loader_Test extends \WC_Unit_Test_Case {
 	private function initialize_template_loader() {
 		// be sure shop is always returning same id doesn't matter the test setup environment
 		add_filter(
-			'woocommerce_get_shop_page_id',
+			'poocommerce_get_shop_page_id',
 			function () {
 				return 5;
 			},
@@ -100,7 +100,7 @@ class WC_Template_Loader_Test extends \WC_Unit_Test_Case {
 			}
 		}
 
-		add_theme_support( 'woocommerce' );
+		add_theme_support( 'poocommerce' );
 
 		WC_Template_Loader::init();
 	}

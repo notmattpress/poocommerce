@@ -4,7 +4,7 @@
 import {
 	FormFields,
 	defaultFields as defaultFieldsSetting,
-} from '@woocommerce/settings';
+} from '@poocommerce/settings';
 import { createContext, useContext } from '@wordpress/element';
 
 /**

@@ -30,11 +30,11 @@ exports[`Tag <Tag label="foo" /> should render a tag with the label foo 1`] = `
     />
     <div>
       <span
-        class="woocommerce-tag"
+        class="poocommerce-tag"
       >
         <span
-          class="woocommerce-tag__text"
-          id="woocommerce-tag__label-0"
+          class="poocommerce-tag__text"
+          id="poocommerce-tag__label-0"
         >
           <span
             class="screen-reader-text"
@@ -52,11 +52,11 @@ exports[`Tag <Tag label="foo" /> should render a tag with the label foo 1`] = `
   </body>,
   "container": <div>
     <span
-      class="woocommerce-tag"
+      class="poocommerce-tag"
     >
       <span
-        class="woocommerce-tag__text"
-        id="woocommerce-tag__label-0"
+        class="poocommerce-tag__text"
+        id="poocommerce-tag__label-0"
       >
         <span
           class="screen-reader-text"
@@ -155,11 +155,11 @@ exports[`Tag <Tag label="foo" popoverContents={ <p>This is a popover</p> } /> sh
     />
     <div>
       <span
-        class="woocommerce-tag"
+        class="poocommerce-tag"
       >
         <button
-          class="components-button woocommerce-tag__text"
-          id="woocommerce-tag__label-2"
+          class="components-button poocommerce-tag__text"
+          id="poocommerce-tag__label-2"
           type="button"
         >
           <span
@@ -178,11 +178,11 @@ exports[`Tag <Tag label="foo" popoverContents={ <p>This is a popover</p> } /> sh
   </body>,
   "container": <div>
     <span
-      class="woocommerce-tag"
+      class="poocommerce-tag"
     >
       <button
-        class="components-button woocommerce-tag__text"
-        id="woocommerce-tag__label-2"
+        class="components-button poocommerce-tag__text"
+        id="poocommerce-tag__label-2"
         type="button"
       >
         <span
@@ -282,11 +282,11 @@ exports[`Tag <Tag label="foo" remove={ noop } /> should render a tag with a clos
     />
     <div>
       <span
-        class="woocommerce-tag has-remove"
+        class="poocommerce-tag has-remove"
       >
         <span
-          class="woocommerce-tag__text"
-          id="woocommerce-tag__label-1"
+          class="poocommerce-tag__text"
+          id="poocommerce-tag__label-1"
         >
           <span
             class="screen-reader-text"
@@ -300,9 +300,9 @@ exports[`Tag <Tag label="foo" remove={ noop } /> should render a tag with a clos
           </span>
         </span>
         <button
-          aria-describedby="woocommerce-tag__label-1"
+          aria-describedby="poocommerce-tag__label-1"
           aria-label="Remove foo"
-          class="components-button woocommerce-tag__remove"
+          class="components-button poocommerce-tag__remove"
           type="button"
         >
           <svg
@@ -325,11 +325,11 @@ exports[`Tag <Tag label="foo" remove={ noop } /> should render a tag with a clos
   </body>,
   "container": <div>
     <span
-      class="woocommerce-tag has-remove"
+      class="poocommerce-tag has-remove"
     >
       <span
-        class="woocommerce-tag__text"
-        id="woocommerce-tag__label-1"
+        class="poocommerce-tag__text"
+        id="poocommerce-tag__label-1"
       >
         <span
           class="screen-reader-text"
@@ -343,9 +343,9 @@ exports[`Tag <Tag label="foo" remove={ noop } /> should render a tag with a clos
         </span>
       </span>
       <button
-        aria-describedby="woocommerce-tag__label-1"
+        aria-describedby="poocommerce-tag__label-1"
         aria-label="Remove foo"
-        class="components-button woocommerce-tag__remove"
+        class="components-button poocommerce-tag__remove"
         type="button"
       >
         <svg
@@ -449,11 +449,11 @@ exports[`Tag <Tag label="foo" screenReaderLabel="FooBar" /> should render a tag 
     />
     <div>
       <span
-        class="woocommerce-tag"
+        class="poocommerce-tag"
       >
         <span
-          class="woocommerce-tag__text"
-          id="woocommerce-tag__label-3"
+          class="poocommerce-tag__text"
+          id="poocommerce-tag__label-3"
         >
           <span
             class="screen-reader-text"
@@ -471,11 +471,11 @@ exports[`Tag <Tag label="foo" screenReaderLabel="FooBar" /> should render a tag 
   </body>,
   "container": <div>
     <span
-      class="woocommerce-tag"
+      class="poocommerce-tag"
     >
       <span
-        class="woocommerce-tag__text"
-        id="woocommerce-tag__label-3"
+        class="poocommerce-tag__text"
+        id="poocommerce-tag__label-3"
       >
         <span
           class="screen-reader-text"

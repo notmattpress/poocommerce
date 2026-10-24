@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { stacks } from '@woocommerce/icons';
+import { stacks } from '@poocommerce/icons';
 import { registerBlockVariation } from '@wordpress/blocks';
 import { Icon } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
@@ -20,11 +20,11 @@ import {
 registerBlockVariation( QUERY_LOOP_ID, {
 	description: __(
 		'A block that displays a selection of products in your store.',
-		'woocommerce'
+		'poocommerce'
 	),
 	name: PRODUCT_QUERY_VARIATION_NAME,
 	/* translators: "Products" is the name of the block. */
-	title: __( 'Products (Deprecated)', 'woocommerce' ),
+	title: __( 'Products (Deprecated)', 'poocommerce' ),
 	isActive: ( blockAttributes ) =>
 		blockAttributes.namespace === PRODUCT_QUERY_VARIATION_NAME,
 	icon: (

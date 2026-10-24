@@ -196,7 +196,7 @@ class WC_Coupon_Tests extends WC_Unit_Test_Case {
 	 * the product's eligibility can no longer be assessed (therefore, it is up to the merchant to manually adjust if
 	 * this is problematic).
 	 *
-	 * @see https://github.com/woocommerce/woocommerce/issues/27077
+	 * @see https://github.com/poocommerce/poocommerce/issues/27077
 	 *
 	 * @return void
 	 */
@@ -367,8 +367,8 @@ class WC_Coupon_Tests extends WC_Unit_Test_Case {
 	 * @testdox set_minimum_amount throws exception when a comma-decimal minimum exceeds existing maximum.
 	 */
 	public function test_set_minimum_amount_throws_when_comma_decimal_exceeds_maximum(): void {
-		$original_decimal_separator = get_option( 'woocommerce_price_decimal_sep' );
-		update_option( 'woocommerce_price_decimal_sep', ',' );
+		$original_decimal_separator = get_option( 'poocommerce_price_decimal_sep' );
+		update_option( 'poocommerce_price_decimal_sep', ',' );
 
 		try {
 			$coupon = new WC_Coupon();
@@ -381,7 +381,7 @@ class WC_Coupon_Tests extends WC_Unit_Test_Case {
 				$this->assertSame( 'coupon_invalid_minimum_amount', $e->getErrorCode() );
 			}
 		} finally {
-			update_option( 'woocommerce_price_decimal_sep', $original_decimal_separator );
+			update_option( 'poocommerce_price_decimal_sep', $original_decimal_separator );
 		}
 	}
 
@@ -389,8 +389,8 @@ class WC_Coupon_Tests extends WC_Unit_Test_Case {
 	 * @testdox set_maximum_amount succeeds and stores the normalized value when a comma-decimal maximum satisfies the existing minimum.
 	 */
 	public function test_set_maximum_amount_succeeds_when_comma_decimal_satisfies_minimum(): void {
-		$original_decimal_separator = get_option( 'woocommerce_price_decimal_sep' );
-		update_option( 'woocommerce_price_decimal_sep', ',' );
+		$original_decimal_separator = get_option( 'poocommerce_price_decimal_sep' );
+		update_option( 'poocommerce_price_decimal_sep', ',' );
 
 		try {
 			$coupon = new WC_Coupon();
@@ -400,7 +400,7 @@ class WC_Coupon_Tests extends WC_Unit_Test_Case {
 
 			$this->assertSame( '100.75', $coupon->get_maximum_amount() );
 		} finally {
-			update_option( 'woocommerce_price_decimal_sep', $original_decimal_separator );
+			update_option( 'poocommerce_price_decimal_sep', $original_decimal_separator );
 		}
 	}
 

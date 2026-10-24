@@ -1,7 +1,7 @@
 <?php
 declare( strict_types=1 );
 
-use Automattic\WooCommerce\Internal\CostOfGoodsSold\CogsAwareUnitTestSuiteTrait;
+use Automattic\PooCommerce\Internal\CostOfGoodsSold\CogsAwareUnitTestSuiteTrait;
 
 /**
  * Tests for the WC_Product_Variation class.
@@ -176,7 +176,7 @@ class WC_Product_Variation_Test extends WC_Unit_Test_Case {
 
 	/**
 	 * @testdox Should let the resolved $field filter change the inherited parent value.
-	 * @testWith ["woocommerce_product_variation_get_customs_country_of_origin", "customs_country_of_origin", "RO", "US"]
+	 * @testWith ["poocommerce_product_variation_get_customs_country_of_origin", "customs_country_of_origin", "RO", "US"]
 	 * @param string $hook Filter name.
 	 * @param string $field Customs prop name.
 	 * @param string $inherited Parent value.

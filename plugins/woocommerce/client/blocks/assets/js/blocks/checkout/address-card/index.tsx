@@ -8,9 +8,9 @@ import {
 	type CountryData,
 	objectHasProp,
 	isString,
-} from '@woocommerce/types';
-import { getSetting } from '@woocommerce/settings';
-import { formatAddress } from '@woocommerce/blocks/checkout/utils';
+} from '@poocommerce/types';
+import { getSetting } from '@poocommerce/settings';
+import { formatAddress } from '@poocommerce/blocks/checkout/utils';
 import { Button } from '@ariakit/react';
 import { decodeEntities } from '@wordpress/html-entities';
 import clsx from 'clsx';
@@ -57,8 +57,8 @@ const AddressCard = ( { address, onEdit, target, isExpanded }: Props ) => {
 
 	const label =
 		target === 'shipping'
-			? __( 'Edit shipping address', 'woocommerce' )
-			: __( 'Edit billing address', 'woocommerce' );
+			? __( 'Edit shipping address', 'poocommerce' )
+			: __( 'Edit billing address', 'poocommerce' );
 
 	const fullAddress = useMemo( () => {
 		return [ ...formattedAddress, address.phone ]
@@ -100,7 +100,7 @@ const AddressCard = ( { address, onEdit, target, isExpanded }: Props ) => {
 					} }
 					type="button"
 				>
-					{ __( 'Edit', 'woocommerce' ) }
+					{ __( 'Edit', 'poocommerce' ) }
 				</Button>
 			) }
 		</div>

@@ -1,12 +1,12 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\BlockTypes\ProductCollection\Utils as ProductCollectionUtils;
-use Automattic\WooCommerce\Internal\ProductAttributes\VisualAttributeTermMeta;
-use Automattic\WooCommerce\Internal\ProductFilters\FilterDataProvider;
-use Automattic\WooCommerce\Internal\ProductFilters\QueryClauses;
+use Automattic\PooCommerce\Blocks\BlockTypes\ProductCollection\Utils as ProductCollectionUtils;
+use Automattic\PooCommerce\Internal\ProductAttributes\VisualAttributeTermMeta;
+use Automattic\PooCommerce\Internal\ProductFilters\FilterDataProvider;
+use Automattic\PooCommerce\Internal\ProductFilters\QueryClauses;
 use WP_Block;
 
 /**
@@ -30,7 +30,7 @@ final class ProductFilterAttribute extends AbstractBlock {
 	protected function initialize() {
 		parent::initialize();
 
-		add_filter( 'woocommerce_blocks_product_filters_selected_items', array( $this, 'prepare_selected_filters' ), 10, 2 );
+		add_filter( 'poocommerce_blocks_product_filters_selected_items', array( $this, 'prepare_selected_filters' ), 10, 2 );
 		add_action( 'deleted_transient', array( $this, 'delete_default_attribute_id_transient' ) );
 		add_action( 'wp_loaded', array( $this, 'register_block_patterns' ) );
 	}
@@ -192,7 +192,7 @@ final class ProductFilterAttribute extends AbstractBlock {
 		$filter_context = array(
 			'items'          => array(),
 			'selectionMode'  => $block_attributes['selectType'] ?? 'multiple',
-			'storeNamespace' => 'woocommerce/product-filters',
+			'storeNamespace' => 'poocommerce/product-filters',
 			'groupLabel'     => $product_attribute->name,
 		);
 
@@ -239,7 +239,7 @@ final class ProductFilterAttribute extends AbstractBlock {
 		}//end if
 
 		$wrapper_attributes = array(
-			'data-wp-interactive' => 'woocommerce/product-filters',
+			'data-wp-interactive' => 'poocommerce/product-filters',
 			'data-wp-key'         => wp_unique_prefixed_id( $this->get_full_block_name() ),
 			'data-wp-context'     => wp_json_encode(
 				array(
@@ -254,9 +254,9 @@ final class ProductFilterAttribute extends AbstractBlock {
 		$is_empty            = empty( $filter_context['items'] );
 		$product_filters_key = $block->context['productFiltersKey'] ?? '';
 		if ( is_string( $product_filters_key ) && '' !== $product_filters_key ) {
-			$state = wp_interactivity_state( 'woocommerce/product-filters' );
+			$state = wp_interactivity_state( 'poocommerce/product-filters' );
 			$state['filterEmptyStates'][ $product_filters_key ][] = $is_empty;
-			wp_interactivity_state( 'woocommerce/product-filters', $state );
+			wp_interactivity_state( 'poocommerce/product-filters', $state );
 		}
 
 		if ( $is_empty ) {
@@ -270,7 +270,7 @@ final class ProductFilterAttribute extends AbstractBlock {
 			array_reduce(
 				$block->parsed_block['innerBlocks'],
 				function ( $carry, $parsed_block ) use ( $filter_context ) {
-					$carry .= ( new \WP_Block( $parsed_block, array( 'woocommerce/selectableItems' => $filter_context ) ) )->render();
+					$carry .= ( new \WP_Block( $parsed_block, array( 'poocommerce/selectableItems' => $filter_context ) ) )->render();
 					return $carry;
 				},
 				''
@@ -397,7 +397,7 @@ final class ProductFilterAttribute extends AbstractBlock {
 		$default_attribute = (object) array(
 			'attribute_id'      => '0',
 			'attribute_name'    => 'attribute',
-			'attribute_label'   => __( 'Attribute', 'woocommerce' ),
+			'attribute_label'   => __( 'Attribute', 'poocommerce' ),
 			'attribute_type'    => 'select',
 			'attribute_orderby' => 'menu_order',
 			'attribute_public'  => 0,
@@ -417,14 +417,14 @@ final class ProductFilterAttribute extends AbstractBlock {
 	public function register_block_patterns() {
 		$default_attribute = $this->get_default_product_attribute();
 		register_block_pattern(
-			'woocommerce/default-attribute-filter',
+			'poocommerce/default-attribute-filter',
 			array(
 				'title'    => '',
 				'inserter' => false,
 				'content'  => strtr(
 					'
-<!-- wp:woocommerce/product-filter-attribute {"attributeId":{{attribute_id}}} -->
-<div class="wp-block-woocommerce-product-filter-attribute">
+<!-- wp:poocommerce/product-filter-attribute {"attributeId":{{attribute_id}}} -->
+<div class="wp-block-poocommerce-product-filter-attribute">
 	<!-- wp:group {"metadata":{"name":"Header"},"style":{"spacing":{"blockGap":"0"}},"layout":{"type":"flex","flexWrap":"nowrap"}} -->
 	<div class="wp-block-group">
 		<!-- wp:heading {"level":3} -->
@@ -432,12 +432,12 @@ final class ProductFilterAttribute extends AbstractBlock {
 		<!-- /wp:heading -->
 	<!-- /wp:group -->
 
-	<!-- wp:woocommerce/product-filter-checkbox-list {"lock":{"remove":true}} -->
-	<div class="wp-block-woocommerce-product-filter-checkbox-list wc-block-product-filter-checkbox-list"></div>
-	<!-- /wp:woocommerce/product-filter-checkbox-list -->
+	<!-- wp:poocommerce/product-filter-checkbox-list {"lock":{"remove":true}} -->
+	<div class="wp-block-poocommerce-product-filter-checkbox-list wc-block-product-filter-checkbox-list"></div>
+	<!-- /wp:poocommerce/product-filter-checkbox-list -->
 
 </div>
-<!-- /wp:woocommerce/product-filter-attribute -->
+<!-- /wp:poocommerce/product-filter-attribute -->
 					',
 					array(
 						'{{attribute_id}}'    => intval( $default_attribute->attribute_id ),

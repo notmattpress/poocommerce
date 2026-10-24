@@ -57,7 +57,7 @@ const getSuggestion = ( customer: Customer, query: string ) => {
 
 	return sprintf(
 		/* translators: 1: Customer name. 2: The customer username or email address that matched the search term. */
-		__( '%1$s (%2$s)', 'woocommerce' ),
+		__( '%1$s (%2$s)', 'poocommerce' ),
 		name,
 		matched
 	);
@@ -70,7 +70,7 @@ const getSuggestion = ( customer: Customer, query: string ) => {
  */
 const completer: AutoCompleter = {
 	name: 'registered-customers',
-	className: 'woocommerce-search__registered-customers-result',
+	className: 'poocommerce-search__registered-customers-result',
 	options( search ) {
 		const query = search
 			? {
@@ -113,7 +113,7 @@ const completer: AutoCompleter = {
 			return (
 				<span
 					key="name"
-					className="woocommerce-search__result-name"
+					className="poocommerce-search__result-name"
 					aria-label={ suggestion }
 				>
 					{ decodeEntities( suggestion ) }
@@ -125,7 +125,7 @@ const completer: AutoCompleter = {
 		return (
 			<span
 				key="name"
-				className="woocommerce-search__result-name"
+				className="poocommerce-search__result-name"
 				aria-label={ suggestion }
 			>
 				{ match?.suggestionBeforeMatch }

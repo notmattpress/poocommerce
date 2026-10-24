@@ -4,7 +4,7 @@
 import { ADMIN_URL } from '../../utils/admin-settings';
 
 export const DEFAULT_TAB_KEY = 'discover';
-export const MARKETPLACE_HOST = 'https://woocommerce.com';
+export const MARKETPLACE_HOST = 'https://poocommerce.com';
 export const MARKETPLACE_PATH = '/extensions';
 export const MARKETPLACE_SEARCH_API_PATH =
 	'/wp-json/wccom-extensions/1.0/search';
@@ -22,13 +22,13 @@ export const MARKETPLACE_SUPPORT_PATH =
 export const MARKETPLACE_MY_ACCOUNT_PATH = MARKETPLACE_HOST + '/my-account/';
 export const MARKETPLACE_COLLABORATION_PATH =
 	MARKETPLACE_HOST +
-	'/document/managing-woocommerce-com-subscriptions/#transfer-a-woocommerce-com-subscription';
+	'/document/managing-poocommerce-com-subscriptions/#transfer-a-poocommerce-com-subscription';
 export const MARKETPLACE_SHARING_PATH =
 	MARKETPLACE_HOST +
-	'/document/managing-woocommerce-com-subscriptions/#share-a-subscription';
+	'/document/managing-poocommerce-com-subscriptions/#share-a-subscription';
 export const MARKETPLACE_CONNECT_DOCS_PATH =
 	MARKETPLACE_HOST +
-	'/document/managing-woocommerce-com-subscriptions/connect-your-site-to-woocommerce-com/';
+	'/document/managing-poocommerce-com-subscriptions/connect-your-site-to-poocommerce-com/';
 export const WP_ADMIN_PLUGIN_LIST_URL = ADMIN_URL + 'plugins.php';
 export const WOO_CONNECT_PLUGIN_DOWNLOAD_URL =
 	MARKETPLACE_HOST + '/product-download/woo-update-manager';

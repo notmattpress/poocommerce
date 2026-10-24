@@ -2,10 +2,10 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\PushNotifications\Triggers;
+namespace Automattic\PooCommerce\Internal\PushNotifications\Triggers;
 
-use Automattic\WooCommerce\Internal\PushNotifications\Notifications\StockNotification;
-use Automattic\WooCommerce\Internal\PushNotifications\Services\NotificationProcessor;
+use Automattic\PooCommerce\Internal\PushNotifications\Notifications\StockNotification;
+use Automattic\PooCommerce\Internal\PushNotifications\Services\NotificationProcessor;
 use WC_Product;
 
 defined( 'ABSPATH' ) || exit;
@@ -28,8 +28,8 @@ class StockNotificationRecoveryHandler {
 	/**
 	 * Registers the recovery hook.
 	 *
-	 * Hooks both `woocommerce_product_set_stock` and
-	 * `woocommerce_variation_set_stock` because variations dispatch a
+	 * Hooks both `poocommerce_product_set_stock` and
+	 * `poocommerce_variation_set_stock` because variations dispatch a
 	 * separate action (see `wc-stock-functions.php`). The trigger side
 	 * fires for variations too, so without the variation hook a variable
 	 * product's sent-meta would never clear.
@@ -39,8 +39,8 @@ class StockNotificationRecoveryHandler {
 	 * @since 10.9.0
 	 */
 	public function register(): void {
-		add_action( 'woocommerce_product_set_stock', array( $this, 'on_stock_change' ) );
-		add_action( 'woocommerce_variation_set_stock', array( $this, 'on_stock_change' ) );
+		add_action( 'poocommerce_product_set_stock', array( $this, 'on_stock_change' ) );
+		add_action( 'poocommerce_variation_set_stock', array( $this, 'on_stock_change' ) );
 	}
 
 	/**
@@ -71,7 +71,7 @@ class StockNotificationRecoveryHandler {
 			$this->clear_meta( $product_id, StockNotification::EVENT_LOW_STOCK );
 		}
 
-		if ( $stock > (int) get_option( 'woocommerce_notify_no_stock_amount', 0 ) ) {
+		if ( $stock > (int) get_option( 'poocommerce_notify_no_stock_amount', 0 ) ) {
 			$this->clear_meta( $product_id, StockNotification::EVENT_OUT_OF_STOCK );
 		}
 

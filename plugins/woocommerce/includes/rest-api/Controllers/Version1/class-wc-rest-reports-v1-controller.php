@@ -6,7 +6,7 @@
  *
  * @author   WooThemes
  * @category API
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @since    3.0.0
  */
 
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * REST API Reports controller class.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @extends WC_REST_Controller
  */
 class WC_REST_Reports_V1_Controller extends WC_REST_Controller {
@@ -59,7 +59,7 @@ class WC_REST_Reports_V1_Controller extends WC_REST_Controller {
 	 */
 	public function get_items_permissions_check( $request ) {
 		if ( ! wc_rest_check_manager_permissions( 'reports', 'read' ) ) {
-			return new WP_Error( 'woocommerce_rest_cannot_view', __( 'Sorry, you cannot list resources.', 'woocommerce' ), array( 'status' => rest_authorization_required_code() ) );
+			return new WP_Error( 'poocommerce_rest_cannot_view', __( 'Sorry, you cannot list resources.', 'poocommerce' ), array( 'status' => rest_authorization_required_code() ) );
 		}
 
 		return true;
@@ -75,11 +75,11 @@ class WC_REST_Reports_V1_Controller extends WC_REST_Controller {
 		return array(
 			array(
 				'slug'        => 'sales',
-				'description' => __( 'List of sales reports.', 'woocommerce' ),
+				'description' => __( 'List of sales reports.', 'poocommerce' ),
 			),
 			array(
 				'slug'        => 'top_sellers',
-				'description' => __( 'List of top sellers products.', 'woocommerce' ),
+				'description' => __( 'List of top sellers products.', 'poocommerce' ),
 			),
 		);
 	}
@@ -139,7 +139,7 @@ class WC_REST_Reports_V1_Controller extends WC_REST_Controller {
 		 * @param object           $report   The original report object.
 		 * @param WP_REST_Request  $request  Request used to generate the response.
 		 */
-		return apply_filters( 'woocommerce_rest_prepare_report', $response, $report, $request );
+		return apply_filters( 'poocommerce_rest_prepare_report', $response, $report, $request );
 	}
 
 	/**
@@ -154,13 +154,13 @@ class WC_REST_Reports_V1_Controller extends WC_REST_Controller {
 			'type'       => 'object',
 			'properties' => array(
 				'slug' => array(
-					'description' => __( 'An alphanumeric identifier for the resource.', 'woocommerce' ),
+					'description' => __( 'An alphanumeric identifier for the resource.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
 				'description' => array(
-					'description' => __( 'A human-readable description of the resource.', 'woocommerce' ),
+					'description' => __( 'A human-readable description of the resource.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view' ),
 					'readonly'    => true,

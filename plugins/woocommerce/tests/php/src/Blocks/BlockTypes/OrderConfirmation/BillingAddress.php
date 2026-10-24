@@ -1,10 +1,10 @@
 <?php declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\BlockTypes\OrderConfirmation;
+namespace Automattic\PooCommerce\Tests\Blocks\BlockTypes\OrderConfirmation;
 
-use Automattic\WooCommerce\Blocks\BlockTypes\OrderConfirmation\BillingAddress as BillingAddressBlock;
-use Automattic\WooCommerce\Blocks\Domain\Services\CheckoutFields;
-use Automattic\WooCommerce\Blocks\Package;
+use Automattic\PooCommerce\Blocks\BlockTypes\OrderConfirmation\BillingAddress as BillingAddressBlock;
+use Automattic\PooCommerce\Blocks\Domain\Services\CheckoutFields;
+use Automattic\PooCommerce\Blocks\Package;
 
 /**
  * Test BillingAddress block class.
@@ -21,7 +21,7 @@ final class BillingAddress extends \WP_UnitTestCase {
 	 * Tear down test fixtures.
 	 */
 	public function tear_down() {
-		__internal_woocommerce_blocks_deregister_checkout_field( $this->field_id );
+		__internal_poocommerce_blocks_deregister_checkout_field( $this->field_id );
 		parent::tear_down();
 	}
 
@@ -29,7 +29,7 @@ final class BillingAddress extends \WP_UnitTestCase {
 	 * @testdox Additional address field values with show_in_order_confirmation set to false are hidden from the block.
 	 */
 	public function test_hides_field_when_show_in_order_confirmation_is_false(): void {
-		woocommerce_register_additional_checkout_field(
+		poocommerce_register_additional_checkout_field(
 			array(
 				'id'                         => $this->field_id,
 				'label'                      => 'Hidden on confirmation',
@@ -47,7 +47,7 @@ final class BillingAddress extends \WP_UnitTestCase {
 	 * @testdox Additional address field values with show_in_order_confirmation set to true (the default) are shown in the block.
 	 */
 	public function test_shows_field_when_show_in_order_confirmation_is_true(): void {
-		woocommerce_register_additional_checkout_field(
+		poocommerce_register_additional_checkout_field(
 			array(
 				'id'       => $this->field_id,
 				'label'    => 'Shown on confirmation',

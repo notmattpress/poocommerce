@@ -1,21 +1,21 @@
 <?php
 /**
- * WooCommerce Admin Double-Counted Refunds Tool Notice Provider.
+ * PooCommerce Admin Double-Counted Refunds Tool Notice Provider.
  *
  * Adds a note to the merchant's inbox pointing to the double-counted refunds fix
- * tool on the WooCommerce > Status > Tools page.
+ * tool on the PooCommerce > Status > Tools page.
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Admin\Notes;
+namespace Automattic\PooCommerce\Internal\Admin\Notes;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\Notes\Note;
-use Automattic\WooCommerce\Admin\Notes\NoteTraits;
-use Automattic\WooCommerce\Internal\Admin\Analytics;
-use Automattic\WooCommerce\Utilities\FeaturesUtil;
+use Automattic\PooCommerce\Admin\Notes\Note;
+use Automattic\PooCommerce\Admin\Notes\NoteTraits;
+use Automattic\PooCommerce\Internal\Admin\Analytics;
+use Automattic\PooCommerce\Utilities\FeaturesUtil;
 
 /**
  * RefundDoubleCountToolNotice
@@ -62,18 +62,18 @@ class RefundDoubleCountToolNotice {
 
 		$note = new Note();
 
-		$note->set_title( __( 'Check your refunds in Analytics', 'woocommerce' ) );
+		$note->set_title( __( 'Check your refunds in Analytics', 'poocommerce' ) );
 		$note->set_content(
-			__( 'Orders that received a partial refund followed by a full refund before WooCommerce 11.1 may show higher returns in your Analytics reports than they should. Use the double-counted refunds tool on the Status page to check for affected orders and fix them.', 'woocommerce' )
+			__( 'Orders that received a partial refund followed by a full refund before PooCommerce 11.1 may show higher returns in your Analytics reports than they should. Use the double-counted refunds tool on the Status page to check for affected orders and fix them.', 'poocommerce' )
 		);
 		$note->set_content_data( (object) array() );
 		$note->set_type( Note::E_WC_ADMIN_NOTE_WARNING );
 		$note->set_name( self::NOTE_NAME );
-		$note->set_source( 'woocommerce-admin' );
+		$note->set_source( 'poocommerce-admin' );
 
 		$note->add_action(
 			'refund-double-count-tool_view',
-			__( 'Check refunds', 'woocommerce' ),
+			__( 'Check refunds', 'poocommerce' ),
 			admin_url( 'admin.php?page=wc-status&tab=tools#tool_' . Analytics::REFUND_DOUBLE_COUNT_TOOL_ID ),
 			Note::E_WC_ADMIN_NOTE_UNACTIONED,
 			true

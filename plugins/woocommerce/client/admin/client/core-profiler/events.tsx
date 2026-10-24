@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { CountryStateOption } from '@woocommerce/onboarding';
+import { CountryStateOption } from '@poocommerce/onboarding';
 
 /**
  * Internal dependencies

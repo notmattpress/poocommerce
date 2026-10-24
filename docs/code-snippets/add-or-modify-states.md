@@ -5,7 +5,7 @@ post_title: Add or modify states
 
 # Add or modify states
 
-Add your own or modify shipping states in WooCommerce.
+Add your own or modify shipping states in PooCommerce.
 
 > Note: you **must** replace both instances of XX with your country code. This means each state id in the array must have your two letter country code before the number you assign to the state.
 
@@ -25,6 +25,6 @@ if ( ! function_exists( 'YOUR_PREFIX_add_or_modify_states' ) ) {
 
     return $states;
   }
-  add_filter( 'woocommerce_states', 'YOUR_PREFIX_add_or_modify_states' );
+  add_filter( 'poocommerce_states', 'YOUR_PREFIX_add_or_modify_states' );
 }
 ```

@@ -2,7 +2,7 @@
 /**
  * Class WC_Payment_Token_Data_Store file.
  *
- * @package WooCommerce\DataStores
+ * @package PooCommerce\DataStores
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -58,7 +58,7 @@ class WC_Payment_Token_Data_Store extends WC_Data_Store_WP implements WC_Object_
 			'type'       => $token->get_type( 'edit' ),
 		);
 
-		$wpdb->insert( $wpdb->prefix . 'woocommerce_payment_tokens', $payment_token_data );
+		$wpdb->insert( $wpdb->prefix . 'poocommerce_payment_tokens', $payment_token_data );
 		$token_id = $wpdb->insert_id;
 		$token->set_id( $token_id );
 		$this->save_extra_data( $token, true );
@@ -70,7 +70,7 @@ class WC_Payment_Token_Data_Store extends WC_Data_Store_WP implements WC_Object_
 			WC_Payment_Tokens::set_users_default( $token->get_user_id(), $token_id );
 		}
 
-		do_action( 'woocommerce_new_payment_token', $token_id, $token );
+		do_action( 'poocommerce_new_payment_token', $token_id, $token );
 	}
 
 	/**
@@ -102,7 +102,7 @@ class WC_Payment_Token_Data_Store extends WC_Data_Store_WP implements WC_Object_
 
 		if ( ! empty( $payment_token_data ) ) {
 			$wpdb->update(
-				$wpdb->prefix . 'woocommerce_payment_tokens',
+				$wpdb->prefix . 'poocommerce_payment_tokens',
 				$payment_token_data,
 				array( 'token_id' => $token->get_id() )
 			);
@@ -118,8 +118,8 @@ class WC_Payment_Token_Data_Store extends WC_Data_Store_WP implements WC_Object_
 			WC_Payment_Tokens::set_users_default( $token->get_user_id(), $token->get_id() );
 		}
 
-		do_action( 'woocommerce_payment_token_object_updated_props', $token, $updated_props );
-		do_action( 'woocommerce_payment_token_updated', $token->get_id() );
+		do_action( 'poocommerce_payment_token_object_updated_props', $token, $updated_props );
+		do_action( 'poocommerce_payment_token_updated', $token->get_id() );
 	}
 
 	/**
@@ -131,9 +131,9 @@ class WC_Payment_Token_Data_Store extends WC_Data_Store_WP implements WC_Object_
 	 */
 	public function delete( &$token, $force_delete = false ) {
 		global $wpdb;
-		$wpdb->delete( $wpdb->prefix . 'woocommerce_payment_tokens', array( 'token_id' => $token->get_id() ), array( '%d' ) );
-		$wpdb->delete( $wpdb->prefix . 'woocommerce_payment_tokenmeta', array( 'payment_token_id' => $token->get_id() ), array( '%d' ) );
-		do_action( 'woocommerce_payment_token_deleted', $token->get_id(), $token );
+		$wpdb->delete( $wpdb->prefix . 'poocommerce_payment_tokens', array( 'token_id' => $token->get_id() ), array( '%d' ) );
+		$wpdb->delete( $wpdb->prefix . 'poocommerce_payment_tokenmeta', array( 'payment_token_id' => $token->get_id() ), array( '%d' ) );
+		do_action( 'poocommerce_payment_token_deleted', $token->get_id(), $token );
 	}
 
 	/**
@@ -150,7 +150,7 @@ class WC_Payment_Token_Data_Store extends WC_Data_Store_WP implements WC_Object_
 
 		$data = $wpdb->get_row(
 			$wpdb->prepare(
-				"SELECT token, user_id, gateway_id, is_default FROM {$wpdb->prefix}woocommerce_payment_tokens WHERE token_id = %d LIMIT 1",
+				"SELECT token, user_id, gateway_id, is_default FROM {$wpdb->prefix}poocommerce_payment_tokens WHERE token_id = %d LIMIT 1",
 				$token->get_id()
 			)
 		);
@@ -167,9 +167,9 @@ class WC_Payment_Token_Data_Store extends WC_Data_Store_WP implements WC_Object_
 			$this->read_extra_data( $token );
 			$token->read_meta_data();
 			$token->set_object_read( true );
-			do_action( 'woocommerce_payment_token_loaded', $token );
+			do_action( 'poocommerce_payment_token_loaded', $token );
 		} else {
-			throw new Exception( __( 'Invalid payment token.', 'woocommerce' ) );
+			throw new Exception( __( 'Invalid payment token.', 'poocommerce' ) );
 		}
 	}
 
@@ -188,15 +188,15 @@ class WC_Payment_Token_Data_Store extends WC_Data_Store_WP implements WC_Object_
 				$invalid_fields = $token->get_invalid_token_fields();
 				if ( array() !== $invalid_fields ) {
 					throw new WC_Data_Exception(
-						'woocommerce_invalid_payment_token_fields',
-						__( 'Invalid or missing payment token fields.', 'woocommerce' ),  // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
+						'poocommerce_invalid_payment_token_fields',
+						__( 'Invalid or missing payment token fields.', 'poocommerce' ),  // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
 						0, // Use 0 for backwards compatibility with the Exception below.
 						array( 'invalid_fields' => $invalid_fields ) // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
 					);
 				}
 			}
 
-			throw new Exception( __( 'Invalid or missing payment token fields.', 'woocommerce' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
+			throw new Exception( __( 'Invalid or missing payment token fields.', 'poocommerce' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
 		}
 	}
 
@@ -269,7 +269,7 @@ class WC_Payment_Token_Data_Store extends WC_Data_Store_WP implements WC_Object_
 			)
 		);
 
-		$sql   = "SELECT * FROM {$wpdb->prefix}woocommerce_payment_tokens";
+		$sql   = "SELECT * FROM {$wpdb->prefix}poocommerce_payment_tokens";
 		$where = array( '1=1' );
 
 		if ( $args['token_id'] ) {
@@ -319,7 +319,7 @@ class WC_Payment_Token_Data_Store extends WC_Data_Store_WP implements WC_Object_
 		global $wpdb;
 		return $wpdb->get_row(
 			$wpdb->prepare(
-				"SELECT * FROM {$wpdb->prefix}woocommerce_payment_tokens WHERE user_id = %d AND is_default = 1",
+				"SELECT * FROM {$wpdb->prefix}poocommerce_payment_tokens WHERE user_id = %d AND is_default = 1",
 				$user_id
 			)
 		);
@@ -337,7 +337,7 @@ class WC_Payment_Token_Data_Store extends WC_Data_Store_WP implements WC_Object_
 		global $wpdb;
 		return $wpdb->get_row(
 			$wpdb->prepare(
-				"SELECT * FROM {$wpdb->prefix}woocommerce_payment_tokens WHERE token_id = %d",
+				"SELECT * FROM {$wpdb->prefix}poocommerce_payment_tokens WHERE token_id = %d",
 				$token_id
 			)
 		);
@@ -365,7 +365,7 @@ class WC_Payment_Token_Data_Store extends WC_Data_Store_WP implements WC_Object_
 		global $wpdb;
 		return $wpdb->get_var(
 			$wpdb->prepare(
-				"SELECT type FROM {$wpdb->prefix}woocommerce_payment_tokens WHERE token_id = %d",
+				"SELECT type FROM {$wpdb->prefix}poocommerce_payment_tokens WHERE token_id = %d",
 				$token_id
 			)
 		);
@@ -386,7 +386,7 @@ class WC_Payment_Token_Data_Store extends WC_Data_Store_WP implements WC_Object_
 	public function set_default_status( $token_id, $status = true ) {
 		global $wpdb;
 		$wpdb->update(
-			$wpdb->prefix . 'woocommerce_payment_tokens',
+			$wpdb->prefix . 'poocommerce_payment_tokens',
 			array( 'is_default' => (int) $status ),
 			array(
 				'token_id' => $token_id,

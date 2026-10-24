@@ -1,5 +1,5 @@
 <?php
-namespace Automattic\WooCommerce\StoreApi\Schemas\V1;
+namespace Automattic\PooCommerce\StoreApi\Schemas\V1;
 
 /**
  * CartFeeSchema class.
@@ -27,19 +27,19 @@ class CartFeeSchema extends AbstractSchema {
 	public function get_properties() {
 		return [
 			'id'     => [
-				'description' => __( 'Unique identifier for the fee within the cart.', 'woocommerce' ),
+				'description' => __( 'Unique identifier for the fee within the cart.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => [ 'view', 'edit' ],
 				'readonly'    => true,
 			],
 			'name'   => [
-				'description' => __( 'Fee name.', 'woocommerce' ),
+				'description' => __( 'Fee name.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => [ 'view', 'edit' ],
 				'readonly'    => true,
 			],
 			'totals' => [
-				'description' => __( 'Fee total amounts provided using the smallest unit of the currency.', 'woocommerce' ),
+				'description' => __( 'Fee total amounts provided using the smallest unit of the currency.', 'poocommerce' ),
 				'type'        => 'object',
 				'context'     => [ 'view', 'edit' ],
 				'readonly'    => true,
@@ -47,13 +47,13 @@ class CartFeeSchema extends AbstractSchema {
 					$this->get_store_currency_properties(),
 					[
 						'total'     => [
-							'description' => __( 'Total amount for this fee.', 'woocommerce' ),
+							'description' => __( 'Total amount for this fee.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => [ 'view', 'edit' ],
 							'readonly'    => true,
 						],
 						'total_tax' => [
-							'description' => __( 'Total tax amount for this fee.', 'woocommerce' ),
+							'description' => __( 'Total tax amount for this fee.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => [ 'view', 'edit' ],
 							'readonly'    => true,
@@ -65,7 +65,7 @@ class CartFeeSchema extends AbstractSchema {
 	}
 
 	/**
-	 * Convert a WooCommerce cart fee to an object suitable for the response.
+	 * Convert a PooCommerce cart fee to an object suitable for the response.
 	 *
 	 * @param array $fee Cart fee data.
 	 * @return array

@@ -5,7 +5,7 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Abilities;
+namespace Automattic\PooCommerce\Tests\Internal\Abilities;
 
 /**
  * Stands in for WP\MCP\Transport\Infrastructure\SessionManager from the MCP Adapter plugin, which isn't installed in tests.

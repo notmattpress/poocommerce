@@ -1,6 +1,6 @@
 # PHP Testing - AI Agents Documentation
 
-**Scope**: PHPUnit test patterns for WooCommerce plugin tests
+**Scope**: PHPUnit test patterns for PooCommerce plugin tests
 **Parent**: `AGENTS.md` (repository root)
 
 ## Quick Reference: Resilient Test Patterns
@@ -166,7 +166,7 @@ public function test_endpoint_returns_data(): void {
 ```php
 public function test_hook_fires(): void {
     $fired = false;
-    add_filter( 'woocommerce_payment_gateways',
+    add_filter( 'poocommerce_payment_gateways',
         function ( $gateways ) use ( &$fired ) {
             $fired = true;
             return $gateways;
@@ -268,7 +268,7 @@ tests/php/src/
 
 ## Related Docs
 
-- [`plugins/woocommerce/tests/README.md`](../../README.md) - Test environment, fixture lifecycle, and performance
-- [`woocommerce-backend-dev/unit-tests.md`](../../../../../.ai/skills/woocommerce-backend-dev/unit-tests.md) - Unit-test conventions
+- [`plugins/poocommerce/tests/README.md`](../../README.md) - Test environment, fixture lifecycle, and performance
+- [`poocommerce-backend-dev/unit-tests.md`](../../../../../.ai/skills/poocommerce-backend-dev/unit-tests.md) - Unit-test conventions
 - `src/Internal/Admin/Settings/CLAUDE.md` - Settings backend patterns
 - PHPUnit: <https://phpunit.de/manual/9.6/en/index.html>

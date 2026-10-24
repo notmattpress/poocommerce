@@ -1,10 +1,10 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\StoreApi\Utilities;
+namespace Automattic\PooCommerce\Tests\Blocks\StoreApi\Utilities;
 
-use Automattic\WooCommerce\StoreApi\Utilities\ProductQuery;
-use Automattic\WooCommerce\Tests\Blocks\Helpers\FixtureData;
+use Automattic\PooCommerce\StoreApi\Utilities\ProductQuery;
+use Automattic\PooCommerce\Tests\Blocks\Helpers\FixtureData;
 
 /**
  * Unit tests for the ProductQuery class.
@@ -365,7 +365,7 @@ class ProductQueryTest extends \WC_Unit_Test_Case {
 		$callback = static function () {
 			return array( 55, 66 );
 		};
-		add_filter( 'woocommerce_related_products', $callback );
+		add_filter( 'poocommerce_related_products', $callback );
 
 		$request = new \WP_REST_Request( 'GET', '/wc/store/v1/products' );
 		$request->set_param( 'related', $anchor->get_id() );
@@ -373,7 +373,7 @@ class ProductQueryTest extends \WC_Unit_Test_Case {
 
 		$args = $this->product_query->prepare_objects_query( $request );
 
-		remove_filter( 'woocommerce_related_products', $callback );
+		remove_filter( 'poocommerce_related_products', $callback );
 
 		$this->assertSame( array( 0 ), $args['post__in'] );
 	}

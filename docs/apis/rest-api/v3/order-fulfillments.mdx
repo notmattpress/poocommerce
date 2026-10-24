@@ -12,7 +12,7 @@ The order fulfillments API allows you to create, view, update, and delete fulfil
 
 :::info
 
-These endpoints are only available when the **Order Fulfillments** feature is enabled (`woocommerce_feature_fulfillments_enabled` option). If the feature is disabled, these routes are not registered and requests to them will return a `404 rest_no_route` error.
+These endpoints are only available when the **Order Fulfillments** feature is enabled (`poocommerce_feature_fulfillments_enabled` option). If the feature is disabled, these routes are not registered and requests to them will return a `404 rest_no_route` error.
 
 :::
 
@@ -86,7 +86,7 @@ curl https://example.com/wp-json/wc/v3/orders/723/fulfillments \
   <TabItem value="js" label="JavaScript">
 
 ```javascript
-WooCommerce.get( 'orders/723/fulfillments' )
+PooCommerce.get( 'orders/723/fulfillments' )
 	.then( ( response ) => {
 		console.log( response.data );
 	} )
@@ -99,7 +99,7 @@ WooCommerce.get( 'orders/723/fulfillments' )
   <TabItem value="php" label="PHP">
 
 ```php
-<?php print_r($woocommerce->get('orders/723/fulfillments')); ?>
+<?php print_r($poocommerce->get('orders/723/fulfillments')); ?>
 ```
 
   </TabItem>
@@ -113,7 +113,7 @@ print(wcapi.get("orders/723/fulfillments").json())
   <TabItem value="ruby" label="Ruby">
 
 ```ruby
-woocommerce.get("orders/723/fulfillments").parsed_response
+poocommerce.get("orders/723/fulfillments").parsed_response
 ```
 
   </TabItem>
@@ -215,7 +215,7 @@ const data = {
 	],
 };
 
-WooCommerce.post( 'orders/723/fulfillments?notify_customer=true', data )
+PooCommerce.post( 'orders/723/fulfillments?notify_customer=true', data )
 	.then( ( response ) => {
 		console.log( response.data );
 	} )
@@ -239,7 +239,7 @@ $data = [
     ],
 ];
 
-print_r($woocommerce->post('orders/723/fulfillments?notify_customer=true', $data));
+print_r($poocommerce->post('orders/723/fulfillments?notify_customer=true', $data));
 ?>
 ```
 
@@ -274,7 +274,7 @@ data = {
   ]
 }
 
-woocommerce.post("orders/723/fulfillments?notify_customer=true", data).parsed_response
+poocommerce.post("orders/723/fulfillments?notify_customer=true", data).parsed_response
 ```
 
   </TabItem>
@@ -314,7 +314,7 @@ woocommerce.post("orders/723/fulfillments?notify_customer=true", data).parsed_re
   </TabItem>
 </Tabs>
 
-Setting `notify_customer=true` when the fulfillment is created as fulfilled triggers the `woocommerce_fulfillment_created_notification` action, which sends the default fulfillment email.
+Setting `notify_customer=true` when the fulfillment is created as fulfilled triggers the `poocommerce_fulfillment_created_notification` action, which sends the default fulfillment email.
 
 ## Retrieve a fulfillment
 
@@ -334,7 +334,7 @@ curl https://example.com/wp-json/wc/v3/orders/723/fulfillments/2 \
   <TabItem value="js" label="JavaScript">
 
 ```javascript
-WooCommerce.get( 'orders/723/fulfillments/2' )
+PooCommerce.get( 'orders/723/fulfillments/2' )
 	.then( ( response ) => {
 		console.log( response.data );
 	} )
@@ -347,7 +347,7 @@ WooCommerce.get( 'orders/723/fulfillments/2' )
   <TabItem value="php" label="PHP">
 
 ```php
-<?php print_r($woocommerce->get('orders/723/fulfillments/2')); ?>
+<?php print_r($poocommerce->get('orders/723/fulfillments/2')); ?>
 ```
 
   </TabItem>
@@ -361,7 +361,7 @@ print(wcapi.get("orders/723/fulfillments/2").json())
   <TabItem value="ruby" label="Ruby">
 
 ```ruby
-woocommerce.get("orders/723/fulfillments/2").parsed_response
+poocommerce.get("orders/723/fulfillments/2").parsed_response
 ```
 
   </TabItem>
@@ -471,7 +471,7 @@ const data = {
 	],
 };
 
-WooCommerce.put( 'orders/723/fulfillments/2?notify_customer=true', data )
+PooCommerce.put( 'orders/723/fulfillments/2?notify_customer=true', data )
 	.then( ( response ) => {
 		console.log( response.data );
 	} )
@@ -497,7 +497,7 @@ $data = [
     ],
 ];
 
-print_r($woocommerce->put('orders/723/fulfillments/2?notify_customer=true', $data));
+print_r($poocommerce->put('orders/723/fulfillments/2?notify_customer=true', $data));
 ?>
 ```
 
@@ -536,7 +536,7 @@ data = {
   ]
 }
 
-woocommerce.put("orders/723/fulfillments/2?notify_customer=true", data).parsed_response
+poocommerce.put("orders/723/fulfillments/2?notify_customer=true", data).parsed_response
 ```
 
   </TabItem>
@@ -581,7 +581,7 @@ woocommerce.put("orders/723/fulfillments/2?notify_customer=true", data).parsed_r
   </TabItem>
 </Tabs>
 
-`notify_customer=true` triggers `woocommerce_fulfillment_created_notification` if the fulfillment is being marked as fulfilled for the first time, or `woocommerce_fulfillment_updated_notification` for subsequent updates to an already-fulfilled fulfillment. `customer_note` is only used for the update notification email.
+`notify_customer=true` triggers `poocommerce_fulfillment_created_notification` if the fulfillment is being marked as fulfilled for the first time, or `poocommerce_fulfillment_updated_notification` for subsequent updates to an already-fulfilled fulfillment. `customer_note` is only used for the update notification email.
 
 ## Delete a fulfillment
 
@@ -601,7 +601,7 @@ curl -X DELETE "https://example.com/wp-json/wc/v3/orders/723/fulfillments/2?noti
   <TabItem value="js" label="JavaScript">
 
 ```javascript
-WooCommerce.delete( 'orders/723/fulfillments/2', {
+PooCommerce.delete( 'orders/723/fulfillments/2', {
 	notify_customer: true,
 } )
 	.then( ( response ) => {
@@ -616,7 +616,7 @@ WooCommerce.delete( 'orders/723/fulfillments/2', {
   <TabItem value="php" label="PHP">
 
 ```php
-<?php print_r($woocommerce->delete('orders/723/fulfillments/2', ['notify_customer' => true])); ?>
+<?php print_r($poocommerce->delete('orders/723/fulfillments/2', ['notify_customer' => true])); ?>
 ```
 
   </TabItem>
@@ -630,7 +630,7 @@ print(wcapi.delete("orders/723/fulfillments/2", params={"notify_customer": True}
   <TabItem value="ruby" label="Ruby">
 
 ```ruby
-woocommerce.delete("orders/723/fulfillments/2", notify_customer: true).parsed_response
+poocommerce.delete("orders/723/fulfillments/2", notify_customer: true).parsed_response
 ```
 
   </TabItem>
@@ -645,7 +645,7 @@ woocommerce.delete("orders/723/fulfillments/2", notify_customer: true).parsed_re
   </TabItem>
 </Tabs>
 
-Deleting a fulfilled fulfillment with `notify_customer=true` triggers the `woocommerce_fulfillment_deleted_notification` action.
+Deleting a fulfilled fulfillment with `notify_customer=true` triggers the `poocommerce_fulfillment_deleted_notification` action.
 
 ## Get fulfillment metadata
 
@@ -665,7 +665,7 @@ curl https://example.com/wp-json/wc/v3/orders/723/fulfillments/2/metadata \
   <TabItem value="js" label="JavaScript">
 
 ```javascript
-WooCommerce.get( 'orders/723/fulfillments/2/metadata' )
+PooCommerce.get( 'orders/723/fulfillments/2/metadata' )
 	.then( ( response ) => {
 		console.log( response.data );
 	} )
@@ -678,7 +678,7 @@ WooCommerce.get( 'orders/723/fulfillments/2/metadata' )
   <TabItem value="php" label="PHP">
 
 ```php
-<?php print_r($woocommerce->get('orders/723/fulfillments/2/metadata')); ?>
+<?php print_r($poocommerce->get('orders/723/fulfillments/2/metadata')); ?>
 ```
 
   </TabItem>
@@ -692,7 +692,7 @@ print(wcapi.get("orders/723/fulfillments/2/metadata").json())
   <TabItem value="ruby" label="Ruby">
 
 ```ruby
-woocommerce.get("orders/723/fulfillments/2/metadata").parsed_response
+poocommerce.get("orders/723/fulfillments/2/metadata").parsed_response
 ```
 
   </TabItem>
@@ -775,7 +775,7 @@ const data = {
 	],
 };
 
-WooCommerce.put( 'orders/723/fulfillments/2/metadata', data )
+PooCommerce.put( 'orders/723/fulfillments/2/metadata', data )
 	.then( ( response ) => {
 		console.log( response.data );
 	} )
@@ -797,7 +797,7 @@ $data = [
     ],
 ];
 
-print_r($woocommerce->put('orders/723/fulfillments/2/metadata', $data));
+print_r($poocommerce->put('orders/723/fulfillments/2/metadata', $data));
 ?>
 ```
 
@@ -828,7 +828,7 @@ data = {
   ]
 }
 
-woocommerce.put("orders/723/fulfillments/2/metadata", data).parsed_response
+poocommerce.put("orders/723/fulfillments/2/metadata", data).parsed_response
 ```
 
   </TabItem>
@@ -883,7 +883,7 @@ curl -X DELETE https://example.com/wp-json/wc/v3/orders/723/fulfillments/2/metad
   <TabItem value="js" label="JavaScript">
 
 ```javascript
-WooCommerce.delete( 'orders/723/fulfillments/2/metadata', {
+PooCommerce.delete( 'orders/723/fulfillments/2/metadata', {
 	meta_key: '_shipment_provider',
 } )
 	.then( ( response ) => {
@@ -898,7 +898,7 @@ WooCommerce.delete( 'orders/723/fulfillments/2/metadata', {
   <TabItem value="php" label="PHP">
 
 ```php
-<?php print_r($woocommerce->delete('orders/723/fulfillments/2/metadata', ['meta_key' => '_shipment_provider'])); ?>
+<?php print_r($poocommerce->delete('orders/723/fulfillments/2/metadata', ['meta_key' => '_shipment_provider'])); ?>
 ```
 
   </TabItem>
@@ -912,7 +912,7 @@ print(wcapi.delete("orders/723/fulfillments/2/metadata", params={"meta_key": "_s
   <TabItem value="ruby" label="Ruby">
 
 ```ruby
-woocommerce.delete("orders/723/fulfillments/2/metadata", meta_key: "_shipment_provider").parsed_response
+poocommerce.delete("orders/723/fulfillments/2/metadata", meta_key: "_shipment_provider").parsed_response
 ```
 
   </TabItem>
@@ -958,7 +958,7 @@ curl "https://example.com/wp-json/wc/v3/orders/723/fulfillments/lookup?tracking_
   <TabItem value="js" label="JavaScript">
 
 ```javascript
-WooCommerce.get( 'orders/723/fulfillments/lookup', {
+PooCommerce.get( 'orders/723/fulfillments/lookup', {
 	tracking_number: '1234567890123456',
 } )
 	.then( ( response ) => {
@@ -973,7 +973,7 @@ WooCommerce.get( 'orders/723/fulfillments/lookup', {
   <TabItem value="php" label="PHP">
 
 ```php
-<?php print_r($woocommerce->get('orders/723/fulfillments/lookup', ['tracking_number' => '1234567890123456'])); ?>
+<?php print_r($poocommerce->get('orders/723/fulfillments/lookup', ['tracking_number' => '1234567890123456'])); ?>
 ```
 
   </TabItem>
@@ -987,7 +987,7 @@ print(wcapi.get("orders/723/fulfillments/lookup", params={"tracking_number": "12
   <TabItem value="ruby" label="Ruby">
 
 ```ruby
-woocommerce.get("orders/723/fulfillments/lookup", tracking_number: "1234567890123456").parsed_response
+poocommerce.get("orders/723/fulfillments/lookup", tracking_number: "1234567890123456").parsed_response
 ```
 
   </TabItem>
@@ -1051,11 +1051,11 @@ When the tracking number is longer than 50 characters, the response returns the 
 The two error cases are different and return different codes:
 
 -   Missing `tracking_number`: WordPress rejects the request before the endpoint runs, because the parameter is registered as required. The response is a `400` with the code `rest_missing_callback_param`.
--   Empty `tracking_number` (for example `?tracking_number=`): the request reaches the endpoint and returns a `400` with the code `woocommerce_rest_tracking_number_missing`.
+-   Empty `tracking_number` (for example `?tracking_number=`): the request reaches the endpoint and returns a `400` with the code `poocommerce_rest_tracking_number_missing`.
 
 ## Error responses
 
-Errors follow the standard WooCommerce REST API error shape:
+Errors follow the standard PooCommerce REST API error shape:
 
 ```json
 {
@@ -1069,8 +1069,8 @@ Errors follow the standard WooCommerce REST API error shape:
 
 Common error codes for the fulfillments endpoints:
 
--   `woocommerce_rest_order_invalid_id` - The order ID does not exist.
--   `woocommerce_rest_order_id_missing` - The order ID is required but was not supplied.
+-   `poocommerce_rest_order_invalid_id` - The order ID does not exist.
+-   `poocommerce_rest_order_id_missing` - The order ID is required but was not supplied.
 -   `rest_missing_callback_param` - A required parameter was omitted, for example a missing `tracking_number`.
--   `woocommerce_rest_tracking_number_missing` - The `tracking_number` parameter was supplied but is empty.
--   Standard authentication/authorization errors. Creating, updating, and deleting fulfillments requires the `manage_woocommerce` capability. A customer who owns the order (but lacks `manage_woocommerce`) has read-only access: they can list and retrieve the order's fulfillments and metadata, but write requests return an authorization error.
+-   `poocommerce_rest_tracking_number_missing` - The `tracking_number` parameter was supplied but is empty.
+-   Standard authentication/authorization errors. Creating, updating, and deleting fulfillments requires the `manage_poocommerce` capability. A customer who owns the order (but lacks `manage_poocommerce`) has read-only access: they can list and retrieve the order's fulfillments and metadata, but write requests return an authorization error.

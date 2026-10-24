@@ -4,7 +4,7 @@
  *
  * Handles requests to the /reports/products/count endpoint.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @since   3.5.0
  */
 
@@ -13,7 +13,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * REST API Reports Products Totals controller class.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @extends WC_REST_Reports_Controller
  */
 class WC_REST_Report_Products_Totals_Controller extends WC_REST_Reports_Controller {
@@ -93,7 +93,7 @@ class WC_REST_Report_Products_Totals_Controller extends WC_REST_Reports_Controll
 		 * @param object           $report   The original report object.
 		 * @param WP_REST_Request  $request  Request used to generate the response.
 		 */
-		return apply_filters( 'woocommerce_rest_prepare_report_products_count', $response, $report, $request );
+		return apply_filters( 'poocommerce_rest_prepare_report_products_count', $response, $report, $request );
 	}
 
 	/**
@@ -108,19 +108,19 @@ class WC_REST_Report_Products_Totals_Controller extends WC_REST_Reports_Controll
 			'type'       => 'object',
 			'properties' => array(
 				'slug'  => array(
-					'description' => __( 'An alphanumeric identifier for the resource.', 'woocommerce' ),
+					'description' => __( 'An alphanumeric identifier for the resource.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
 				'name'  => array(
-					'description' => __( 'Product type name.', 'woocommerce' ),
+					'description' => __( 'Product type name.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
 				'total' => array(
-					'description' => __( 'Amount of products.', 'woocommerce' ),
+					'description' => __( 'Amount of products.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view' ),
 					'readonly'    => true,

@@ -5,18 +5,18 @@ post_title: Useful core functions
 
 # Useful core functions
 
-WooCommerce core functions are available on both front-end and admin. They can be found in `includes/wc-core-functions.php` and can be used by themes in plugins.
+PooCommerce core functions are available on both front-end and admin. They can be found in `includes/wc-core-functions.php` and can be used by themes in plugins.
 
 ## Conditional Functions
 
-WooCommerce conditional functions help determine the current query/page.
+PooCommerce conditional functions help determine the current query/page.
 
-### is_woocommerce
+### is_poocommerce
 
-Returns true if on a page which uses WooCommerce templates (cart and checkout are standard pages with shortcodes and thus are not included).
+Returns true if on a page which uses PooCommerce templates (cart and checkout are standard pages with shortcodes and thus are not included).
 
 ```php
-is_woocommerce()
+is_poocommerce()
 ```
 
 ### is_shop
@@ -91,7 +91,7 @@ wc_get_customer_order_count( $user_id )
 
 ### wc_get_dimension
 
-Takes a measurement `$dimension` measured in WooCommerce's dimension unit and converts it to the target unit `$to_unit`.
+Takes a measurement `$dimension` measured in PooCommerce's dimension unit and converts it to the target unit `$to_unit`.
 
 ```php
 wc_get_dimension( $dimension, $to_unit, $from_unit = '' )
@@ -106,7 +106,7 @@ wc_get_dimension( 55, 'in', 'm' );
 
 ### wc_get_weight
 
-Takes a weight `$weight` weighed in WooCommerce's weight unit and converts it to the target weight unit `$to_unit`.
+Takes a weight `$weight` weighed in PooCommerce's weight unit and converts it to the target weight unit `$to_unit`.
 
 ```php
 wc_get_weight( $weight, $to_unit, $from_unit = '' )
@@ -179,7 +179,7 @@ wc_order_search( $term )
 
 ### wc_get_page_id
 
-Gets a WooCommerce page ID by name, e.g. thankyou
+Gets a PooCommerce page ID by name, e.g. thankyou
 
 ```php
 wc_get_page_id( $page )

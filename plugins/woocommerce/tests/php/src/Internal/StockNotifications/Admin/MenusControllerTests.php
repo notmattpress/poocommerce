@@ -2,9 +2,9 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\StockNotifications\Admin;
+namespace Automattic\PooCommerce\Tests\Internal\StockNotifications\Admin;
 
-use Automattic\WooCommerce\Internal\StockNotifications\Admin\MenusController;
+use Automattic\PooCommerce\Internal\StockNotifications\Admin\MenusController;
 
 /**
  * Tests for the Customer Stock Notifications admin menu controller.

@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-use Automattic\WooCommerce\Enums\ProductStockStatus;
+use Automattic\PooCommerce\Enums\ProductStockStatus;
 
 /**
  * Class WC_Term_Functions_Tests.
@@ -167,7 +167,7 @@ class WC_Term_Functions_Tests extends \WC_Unit_Test_Case {
 	 * @testdox Term product counts when a product is out of stock and OOS products are hidden from the catalog.
 	 */
 	public function test_hide_out_of_stock_products(): void {
-		update_option( 'woocommerce_hide_out_of_stock_items', 'yes' );
+		update_option( 'poocommerce_hide_out_of_stock_items', 'yes' );
 
 		wc_recount_all_terms( false );
 		delete_transient( 'wc_term_counts' );
@@ -188,14 +188,14 @@ class WC_Term_Functions_Tests extends \WC_Unit_Test_Case {
 		$this->assertEquals( 2, $term_counts[ $this->terms['brand_parent']['term_id'] ] );
 		$this->assertEquals( 1, $term_counts[ $this->terms['brand_child']['term_id'] ] );
 
-		delete_option( 'woocommerce_hide_out_of_stock_items' );
+		delete_option( 'poocommerce_hide_out_of_stock_items' );
 	}
 
 	/**
 	 * @testdox Recounting terms for one product updates its brand and brand ancestors.
 	 */
 	public function test_recount_terms_by_product_includes_brands(): void {
-		update_option( 'woocommerce_hide_out_of_stock_items', 'yes' );
+		update_option( 'poocommerce_hide_out_of_stock_items', 'yes' );
 		wp_set_object_terms(
 			$this->products['product1']->get_id(),
 			ProductStockStatus::OUT_OF_STOCK,
@@ -208,7 +208,7 @@ class WC_Term_Functions_Tests extends \WC_Unit_Test_Case {
 		$this->assertSame( '1', get_term_meta( $this->terms['brand_parent']['term_id'], 'product_count_product_brand', true ) );
 		$this->assertSame( '0', get_term_meta( $this->terms['brand_child']['term_id'], 'product_count_product_brand', true ) );
 
-		delete_option( 'woocommerce_hide_out_of_stock_items' );
+		delete_option( 'poocommerce_hide_out_of_stock_items' );
 	}
 
 	/**
@@ -413,7 +413,7 @@ class WC_Term_Functions_Tests extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox The legacy menu_order argument keeps a caller's term meta filter, even with an explicit orderby on a taxonomy WooCommerce doesn't sort.
+	 * @testdox The legacy menu_order argument keeps a caller's term meta filter, even with an explicit orderby on a taxonomy PooCommerce doesn't sort.
 	 */
 	public function test_legacy_menu_order_arg_honors_caller_term_meta_filter(): void {
 		$second    = wp_insert_term( 'Tag A', 'product_tag' );

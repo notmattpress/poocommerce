@@ -1,5 +1,5 @@
 export { getTrustedTypesPolicy } from './trusted-types-policy';
-export type { WooCommerceSanitizePolicyType } from './trusted-types-policy';
+export type { PooCommerceSanitizePolicyType } from './trusted-types-policy';
 export {
 	DEFAULT_ALLOWED_TAGS,
 	DEFAULT_ALLOWED_ATTR,

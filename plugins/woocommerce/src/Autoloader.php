@@ -3,7 +3,7 @@
  * Includes the composer Autoloader used for packages and classes in the src/ directory.
  */
 
-namespace Automattic\WooCommerce;
+namespace Automattic\PooCommerce;
 
 use Composer\Autoload\ClassLoader;
 
@@ -45,7 +45,7 @@ class Autoloader {
 	}
 
 	/**
-	 * Build a WooCommerce-scoped Composer PSR-4 ClassLoader to use as a fallback
+	 * Build a PooCommerce-scoped Composer PSR-4 ClassLoader to use as a fallback
 	 * to the Jetpack autoloader.
 	 *
 	 * The Jetpack autoloader reads its classmap into an in-memory snapshot once
@@ -55,19 +55,19 @@ class Autoloader {
 	 * registered as an appended (lowest-priority) fallback, resolves such classes
 	 * from disk via PSR-4.
 	 *
-	 * Scoped to the first-party `Automattic\WooCommerce\` (src/) namespace only —
+	 * Scoped to the first-party `Automattic\PooCommerce\` (src/) namespace only —
 	 * the family that actually fatals during an in-place upgrade (e.g.
 	 * `Enums\DefaultCustomerAddress`). Every other prefix in the Composer map is
 	 * deliberately excluded: bundled third-party packages
-	 * (`Automattic\WooCommerce\Vendor\` → lib/packages) so the fallback can never
-	 * load WooCommerce's bundled copy over the version the Jetpack autoloader
+	 * (`Automattic\PooCommerce\Vendor\` → lib/packages) so the fallback can never
+	 * load PooCommerce's bundled copy over the version the Jetpack autoloader
 	 * coordinates across plugins, and the non-runtime prefixes (Blueprint, tests,
 	 * build tooling) which never fatal during a front-end upgrade request.
 	 *
 	 * Returns the configured (but NOT registered) loader so the caller controls
 	 * registration and tests can exercise it without touching the global SPL stack.
 	 *
-	 * @internal Public only so {@see self::register_woocommerce_psr4_fallback()} and
+	 * @internal Public only so {@see self::register_poocommerce_psr4_fallback()} and
 	 *           the unit tests can build the loader in isolation.
 	 *
 	 * @since 11.0.0
@@ -75,7 +75,7 @@ class Autoloader {
 	 * @return ClassLoader|null The loader, or null if the Composer files are
 	 *                          unavailable or a foreign ClassLoader shape is present.
 	 */
-	public static function build_woocommerce_psr4_fallback(): ?ClassLoader {
+	public static function build_poocommerce_psr4_fallback(): ?ClassLoader {
 		$base     = dirname( __DIR__ );
 		$psr4_map = $base . '/vendor/composer/autoload_psr4.php';
 
@@ -105,7 +105,7 @@ class Autoloader {
 			$loader = new ClassLoader();
 			foreach ( $psr4_entries as $namespace => $paths ) {
 				// First-party src/ only — exclude bundled Vendor\ and non-runtime prefixes.
-				if ( 'Automattic\\WooCommerce\\' === $namespace ) {
+				if ( 'Automattic\\PooCommerce\\' === $namespace ) {
 					$loader->setPsr4( $namespace, $paths );
 				}
 			}
@@ -118,7 +118,7 @@ class Autoloader {
 	}
 
 	/**
-	 * Register the WooCommerce-scoped PSR-4 fallback as an appended (lowest-priority)
+	 * Register the PooCommerce-scoped PSR-4 fallback as an appended (lowest-priority)
 	 * SPL autoloader, so it is consulted only after every other autoloader — including
 	 * the primary Jetpack autoloader — has missed.
 	 *
@@ -147,7 +147,7 @@ class Autoloader {
 	 *
 	 * @return \Closure|null The registered autoloader, or null if no fallback was registered.
 	 */
-	public static function register_woocommerce_psr4_fallback(): ?\Closure {
+	public static function register_poocommerce_psr4_fallback(): ?\Closure {
 		static $registered_handler = null;
 
 		// Idempotent: a re-entrant bootstrap, WP-CLI, or a test without teardown must not
@@ -169,7 +169,7 @@ class Autoloader {
 		// return-type declaration, so an older/foreign loader can) — which would otherwise raise an
 		// uncatchable TypeError on the first autoload miss.
 		try {
-			$availability_probe = self::build_woocommerce_psr4_fallback();
+			$availability_probe = self::build_poocommerce_psr4_fallback();
 			if ( null === $availability_probe ) {
 				self::log_fallback_declined( 'the Composer files are unavailable or a foreign ClassLoader shape was rejected by build()' );
 				return null;
@@ -256,7 +256,7 @@ class Autoloader {
 				if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
 					error_log( // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
 						sprintf(
-							'WooCommerce PSR-4 fallback could not load %1$s for %2$s: %3$s',
+							'PooCommerce PSR-4 fallback could not load %1$s for %2$s: %3$s',
 							$file,
 							$class_name,
 							$e->getMessage()
@@ -289,7 +289,7 @@ class Autoloader {
 	private static function log_fallback_declined( string $reason ): void {
 		if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
 			error_log( // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
-				'WooCommerce PSR-4 fallback not registered: ' . $reason
+				'PooCommerce PSR-4 fallback not registered: ' . $reason
 			);
 		}
 	}
@@ -300,7 +300,7 @@ class Autoloader {
 	 *
 	 * {@see ClassLoader::getPrefixesPsr4()} carries no return-type declaration, so an older or
 	 * foreign `Composer\Autoload\ClassLoader` — one another plugin or wp-cli loaded from a
-	 * different path, then reused by {@see self::build_woocommerce_psr4_fallback()} — may return a
+	 * different path, then reused by {@see self::build_poocommerce_psr4_fallback()} — may return a
 	 * non-array. The registered handler passes this map straight into {@see self::find_scoped_file()},
 	 * whose `array $psr4_entries` parameter would raise an uncatchable TypeError on the first
 	 * autoload miss, outside the handler's own try/catch. Validating here keeps the fallback's
@@ -308,11 +308,11 @@ class Autoloader {
 	 * the file-sourced map.
 	 *
 	 * @internal Public only so the unit tests can reach it; its sole production caller is
-	 *           {@see self::register_woocommerce_psr4_fallback()}.
+	 *           {@see self::register_poocommerce_psr4_fallback()}.
 	 *
 	 * @since 11.0.0
 	 *
-	 * @param ClassLoader $loader A loader returned by build_woocommerce_psr4_fallback().
+	 * @param ClassLoader $loader A loader returned by build_poocommerce_psr4_fallback().
 	 *
 	 * @return array<string, list<string>>|null The scoped PSR-4 map, or null on a non-array shape.
 	 */
@@ -328,7 +328,7 @@ class Autoloader {
 	 *
 	 * The sibling of {@see self::read_scoped_psr4_map()}: {@see ClassLoader::findFile()} carries no
 	 * return-type declaration either, so the same older or foreign `Composer\Autoload\ClassLoader`
-	 * reused by {@see self::build_woocommerce_psr4_fallback()} may return a non-string. The caller,
+	 * reused by {@see self::build_poocommerce_psr4_fallback()} may return a non-string. The caller,
 	 * {@see self::find_scoped_file()}, declares a `: ?string` return, so a non-string result would
 	 * raise an uncatchable TypeError at that return statement — which, on an autoload miss, runs
 	 * outside the registered handler's own try/catch, exactly the shape this fallback guards against
@@ -352,7 +352,7 @@ class Autoloader {
 	}
 
 	/**
-	 * Resolve a WooCommerce `src/` class to a file via a throwaway PSR-4 `ClassLoader`.
+	 * Resolve a PooCommerce `src/` class to a file via a throwaway PSR-4 `ClassLoader`.
 	 *
 	 * A new loader per call is deliberate (and is the property the fallback exists for): Composer's
 	 * `ClassLoader` keeps a per-instance negative cache, so a single shared instance that missed a
@@ -367,10 +367,10 @@ class Autoloader {
 	 * @param array<string, list<string>> $psr4_entries Pre-scoped PSR-4 prefix => dirs map.
 	 *
 	 * @return string|null Absolute file path to require, or null on a miss or a
-	 *                     non-`Automattic\WooCommerce\` class.
+	 *                     non-`Automattic\PooCommerce\` class.
 	 */
 	public static function find_scoped_file( string $class_name, array $psr4_entries ): ?string {
-		if ( 0 !== strpos( $class_name, 'Automattic\\WooCommerce\\' ) ) {
+		if ( 0 !== strpos( $class_name, 'Automattic\\PooCommerce\\' ) ) {
 			return null;
 		}
 
@@ -396,7 +396,7 @@ class Autoloader {
 		if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
 			// This message is not translated as at this point it's too early to load translations.
 			error_log(  // phpcs:ignore
-				esc_html( 'Your installation of WooCommerce is incomplete. If you installed WooCommerce from GitHub, please refer to this document to set up your development environment: https://developer.woocommerce.com/docs/contribution/contributing/#setting-up-your-development-environment' )
+				esc_html( 'Your installation of PooCommerce is incomplete. If you installed PooCommerce from GitHub, please refer to this document to set up your development environment: https://developer.poocommerce.com/docs/contribution/contributing/#setting-up-your-development-environment' )
 			);
 		}
 		add_action(
@@ -408,8 +408,8 @@ class Autoloader {
 						<?php
 						printf(
 							/* translators: 1: is a link to a support document. 2: closing link */
-							esc_html__( 'Your installation of WooCommerce is incomplete. If you installed WooCommerce from GitHub, %1$splease refer to this document%2$s to set up your development environment.', 'woocommerce' ),
-							'<a href="' . esc_url( 'https://developer.woocommerce.com/docs/contribution/contributing/#setting-up-your-development-environment' ) . '" target="_blank" rel="noopener noreferrer">',
+							esc_html__( 'Your installation of PooCommerce is incomplete. If you installed PooCommerce from GitHub, %1$splease refer to this document%2$s to set up your development environment.', 'poocommerce' ),
+							'<a href="' . esc_url( 'https://developer.poocommerce.com/docs/contribution/contributing/#setting-up-your-development-environment' ) . '" target="_blank" rel="noopener noreferrer">',
 							'</a>'
 						);
 						?>

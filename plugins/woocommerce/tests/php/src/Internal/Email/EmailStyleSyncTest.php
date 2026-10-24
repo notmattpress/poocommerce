@@ -1,15 +1,15 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Email;
+namespace Automattic\PooCommerce\Tests\Internal\Email;
 
-use Automattic\WooCommerce\Internal\Email\EmailStyleSync;
+use Automattic\PooCommerce\Internal\Email\EmailStyleSync;
 use WC_Unit_Test_Case;
 
 /**
  * EmailStyleSync test.
  *
- * @covers \Automattic\WooCommerce\Internal\Email\EmailStyleSync
+ * @covers \Automattic\PooCommerce\Internal\Email\EmailStyleSync
  */
 class EmailStyleSyncTest extends WC_Unit_Test_Case {
 	/**
@@ -36,11 +36,11 @@ class EmailStyleSyncTest extends WC_Unit_Test_Case {
 		// Store original option values.
 		$this->original_options = array(
 			EmailStyleSync::AUTO_SYNC_OPTION          => get_option( EmailStyleSync::AUTO_SYNC_OPTION, false ),
-			'woocommerce_email_base_color'            => get_option( 'woocommerce_email_base_color', '' ),
-			'woocommerce_email_background_color'      => get_option( 'woocommerce_email_background_color', '' ),
-			'woocommerce_email_body_background_color' => get_option( 'woocommerce_email_body_background_color', '' ),
-			'woocommerce_email_text_color'            => get_option( 'woocommerce_email_text_color', '' ),
-			'woocommerce_email_footer_text_color'     => get_option( 'woocommerce_email_footer_text_color', '' ),
+			'poocommerce_email_base_color'            => get_option( 'poocommerce_email_base_color', '' ),
+			'poocommerce_email_background_color'      => get_option( 'poocommerce_email_background_color', '' ),
+			'poocommerce_email_body_background_color' => get_option( 'poocommerce_email_body_background_color', '' ),
+			'poocommerce_email_text_color'            => get_option( 'poocommerce_email_text_color', '' ),
+			'poocommerce_email_footer_text_color'     => get_option( 'poocommerce_email_footer_text_color', '' ),
 		);
 
 		// Ensure we have a clean state for each test.

@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { WC_API_PATH } from '@woocommerce/e2e-utils-playwright';
+import { WC_API_PATH } from '@poocommerce/e2e-utils-playwright';
 
 /**
  * Internal dependencies
@@ -12,7 +12,7 @@ import { ADMIN_STATE_PATH } from '../../playwright.config';
 test.use( { storageState: ADMIN_STATE_PATH } );
 
 test.describe.serial(
-	'WooCommerce Orders > Refund an order',
+	'PooCommerce Orders > Refund an order',
 	{ tag: [ tags.PAYMENTS, tags.HPOS ] },
 	() => {
 		let productId: number, orderId: number, currencySymbol: string | null;
@@ -60,7 +60,7 @@ test.describe.serial(
 
 			// get currency symbol
 			currencySymbol = await page
-				.locator( '.woocommerce-Price-currencySymbol' )
+				.locator( '.poocommerce-Price-currencySymbol' )
 				.first()
 				.textContent();
 
@@ -142,7 +142,7 @@ test.describe.serial(
 );
 
 test.describe(
-	'WooCommerce Orders > Refund and restock an order item',
+	'PooCommerce Orders > Refund and restock an order item',
 	{ tag: [ tags.PAYMENTS, tags.SERVICES, tags.HPOS ] },
 	() => {
 		let productWithStockId: number,

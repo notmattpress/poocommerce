@@ -2,7 +2,7 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\StockNotifications\AsyncTasks;
+namespace Automattic\PooCommerce\Internal\StockNotifications\AsyncTasks;
 
 use RuntimeException;
 

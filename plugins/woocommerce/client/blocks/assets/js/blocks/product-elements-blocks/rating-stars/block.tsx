@@ -4,14 +4,14 @@
 import {
 	useInnerBlockLayoutContext,
 	useProductDataContext,
-} from '@woocommerce/shared-context';
-import { useStyleProps } from '@woocommerce/base-hooks';
-import { withProductDataContext } from '@woocommerce/shared-hocs';
+} from '@poocommerce/shared-context';
+import { useStyleProps } from '@poocommerce/base-hooks';
+import { withProductDataContext } from '@poocommerce/shared-hocs';
 import {
 	ProductRating,
 	getAverageRating,
 	getRatingCount,
-} from '@woocommerce/editor-components/product-rating';
+} from '@poocommerce/editor-components/product-rating';
 
 /**
  * Internal dependencies
